@@ -1,0 +1,513 @@
+{
+  "$schema": "./manifest.schema.json",
+  "schemaVersion": 1,
+  "system": {
+    "id": "klipse-design",
+    "name": "Klipse Design",
+    "maturity": "experimental",
+    "maintainer": "repository-owner",
+    "sourcePolicy": "normative-docs-and-package-contracts-change-together"
+  },
+  "vocabulary": {
+    "maturity": ["stable", "beta", "experimental", "legacy", "deprecated"],
+    "authority": ["normative", "generated", "reference"],
+    "implementationStatus": [
+      "done",
+      "partial",
+      "not-ready",
+      "not-planned",
+      "deprecated"
+    ]
+  },
+  "documents": [
+    {
+      "id": "manifest-catalog",
+      "path": "design/manifest.json",
+      "title": "Design Catalog",
+      "section": "governance",
+      "authority": "normative",
+      "maturity": "beta",
+      "generated": false
+    },
+    {
+      "id": "manifest-schema",
+      "path": "design/manifest.schema.json",
+      "title": "Design Catalog Schema",
+      "section": "governance",
+      "authority": "normative",
+      "maturity": "beta",
+      "generated": false
+    },
+    {
+      "id": "get-started",
+      "path": "design/README.md",
+      "title": "Klipse Design — Get Started",
+      "section": "get-started",
+      "authority": "normative",
+      "maturity": "beta",
+      "generated": false
+    },
+    {
+      "id": "foundations-overview",
+      "path": "design/foundations/README.md",
+      "title": "Foundations",
+      "section": "foundations",
+      "authority": "normative",
+      "maturity": "beta",
+      "generated": false
+    },
+    {
+      "id": "inclusive-design",
+      "path": "design/foundations/inclusive-design.md",
+      "title": "Inclusive Design",
+      "section": "foundations",
+      "authority": "normative",
+      "maturity": "beta",
+      "generated": false
+    },
+    {
+      "id": "responsive-layout",
+      "path": "design/foundations/responsive-layout.md",
+      "title": "Responsive Layout",
+      "section": "foundations",
+      "authority": "normative",
+      "maturity": "beta",
+      "generated": false
+    },
+    {
+      "id": "components-overview",
+      "path": "design/components/README.md",
+      "title": "Components & Progress Board",
+      "section": "components",
+      "authority": "normative",
+      "maturity": "beta",
+      "generated": false
+    },
+    {
+      "id": "component-button",
+      "path": "design/components/button.md",
+      "title": "Button",
+      "section": "components",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
+    },
+    {
+      "id": "component-menu-popover",
+      "path": "design/components/menu-popover.md",
+      "title": "Menu / Popover",
+      "section": "components",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
+    },
+    {
+      "id": "component-dialog",
+      "path": "design/components/dialog.md",
+      "title": "Dialog",
+      "section": "components",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
+    },
+    {
+      "id": "component-template",
+      "path": "design/components/_template.md",
+      "title": "Component Documentation Template",
+      "section": "components",
+      "authority": "normative",
+      "maturity": "beta",
+      "generated": false
+    },
+    {
+      "id": "patterns-overview",
+      "path": "design/patterns/README.md",
+      "title": "Patterns",
+      "section": "patterns",
+      "authority": "normative",
+      "maturity": "beta",
+      "generated": false
+    },
+    {
+      "id": "pattern-loading",
+      "path": "design/patterns/loading.md",
+      "title": "Loading",
+      "section": "patterns",
+      "authority": "normative",
+      "maturity": "beta",
+      "generated": false
+    },
+    {
+      "id": "pattern-app-shell",
+      "path": "design/patterns/app-shell.md",
+      "title": "App Shell",
+      "section": "patterns",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
+    },
+    {
+      "id": "pattern-project-grid",
+      "path": "design/patterns/project-grid.md",
+      "title": "Project Grid",
+      "section": "patterns",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
+    },
+    {
+      "id": "pattern-editor-workspace",
+      "path": "design/patterns/editor-workspace.md",
+      "title": "Editor Workspace",
+      "section": "patterns",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
+    },
+    {
+      "id": "content-overview",
+      "path": "design/content/README.md",
+      "title": "Content & Localization",
+      "section": "content",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
+    },
+    {
+      "id": "develop-overview",
+      "path": "design/develop/README.md",
+      "title": "Develop",
+      "section": "develop",
+      "authority": "normative",
+      "maturity": "beta",
+      "generated": false
+    },
+    {
+      "id": "governance-contributing",
+      "path": "design/governance/contributing.md",
+      "title": "Contributing",
+      "section": "governance",
+      "authority": "normative",
+      "maturity": "beta",
+      "generated": false
+    },
+    {
+      "id": "governance-operating-model",
+      "path": "design/governance/operating-model.md",
+      "title": "Operating Model",
+      "section": "governance",
+      "authority": "normative",
+      "maturity": "beta",
+      "generated": false
+    },
+    {
+      "id": "governance-figma-sync",
+      "path": "design/governance/figma-sync.md",
+      "title": "Figma Sync Governance",
+      "section": "governance",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
+    },
+    {
+      "id": "governance-product-adoption",
+      "path": "design/governance/migration.md",
+      "title": "Product Adoption",
+      "section": "governance",
+      "authority": "normative",
+      "maturity": "beta",
+      "generated": false
+    },
+    {
+      "id": "governance-roadmap",
+      "path": "design/governance/roadmap.md",
+      "title": "Roadmap",
+      "section": "governance",
+      "authority": "normative",
+      "maturity": "beta",
+      "generated": false
+    },
+    {
+      "id": "governance-releases",
+      "path": "design/governance/releases.md",
+      "title": "Releases",
+      "section": "governance",
+      "authority": "normative",
+      "maturity": "beta",
+      "generated": false
+    },
+    {
+      "id": "governance-deprecations",
+      "path": "design/governance/deprecations.md",
+      "title": "Deprecations",
+      "section": "governance",
+      "authority": "normative",
+      "maturity": "beta",
+      "generated": false
+    },
+    {
+      "id": "governance-decisions",
+      "path": "design/governance/decisions/README.md",
+      "title": "Design Decisions",
+      "section": "governance",
+      "authority": "normative",
+      "maturity": "beta",
+      "generated": false
+    },
+    {
+      "id": "updates-overview",
+      "path": "design/updates/README.md",
+      "title": "Updates",
+      "section": "updates",
+      "authority": "normative",
+      "maturity": "beta",
+      "generated": false
+    },
+    {
+      "id": "migration-product-baseline",
+      "path": "migration/product-baseline.md",
+      "title": "Klipse Product Extraction Baseline",
+      "section": "reference",
+      "authority": "reference",
+      "maturity": "beta",
+      "generated": false
+    },
+    {
+      "id": "llms-index",
+      "path": "design/llms/llms.txt",
+      "title": "AI Documentation Index",
+      "section": "generated",
+      "authority": "generated",
+      "maturity": "beta",
+      "generated": true,
+      "generator": "build-llms-docs",
+      "checker": "check-llms-docs",
+      "sourceCoverage": "exhaustive",
+      "sources": ["design/manifest.json"]
+    },
+    {
+      "id": "llms-foundations",
+      "path": "design/llms/foundations.txt",
+      "title": "AI Foundations",
+      "section": "generated",
+      "authority": "generated",
+      "maturity": "beta",
+      "generated": true,
+      "generator": "build-llms-docs",
+      "checker": "check-llms-docs",
+      "sourceCoverage": "exhaustive",
+      "sources": [
+        "design/manifest.json",
+        "design/foundations/README.md",
+        "design/foundations/inclusive-design.md",
+        "design/foundations/responsive-layout.md"
+      ]
+    },
+    {
+      "id": "llms-components",
+      "path": "design/llms/components.txt",
+      "title": "AI Component Catalog",
+      "section": "generated",
+      "authority": "generated",
+      "maturity": "experimental",
+      "generated": true,
+      "generator": "build-llms-docs",
+      "checker": "check-llms-docs",
+      "sourceCoverage": "exhaustive",
+      "sources": [
+        "design/manifest.json",
+        "design/components/README.md",
+        "design/components/button.md",
+        "design/components/menu-popover.md",
+        "design/components/dialog.md"
+      ]
+    },
+    {
+      "id": "llms-patterns",
+      "path": "design/llms/patterns.txt",
+      "title": "AI Patterns",
+      "section": "generated",
+      "authority": "generated",
+      "maturity": "beta",
+      "generated": true,
+      "generator": "build-llms-docs",
+      "checker": "check-llms-docs",
+      "sourceCoverage": "exhaustive",
+      "sources": [
+        "design/manifest.json",
+        "design/patterns/README.md",
+        "design/patterns/loading.md",
+        "design/patterns/app-shell.md",
+        "design/patterns/project-grid.md",
+        "design/patterns/editor-workspace.md"
+      ]
+    },
+    {
+      "id": "llms-guidelines",
+      "path": "design/llms/guidelines.txt",
+      "title": "AI Implementation Guidelines",
+      "section": "generated",
+      "authority": "generated",
+      "maturity": "beta",
+      "generated": true,
+      "generator": "build-llms-docs",
+      "checker": "check-llms-docs",
+      "sourceCoverage": "exhaustive",
+      "sources": [
+        "design/manifest.json",
+        "design/README.md",
+        "design/develop/README.md",
+        "design/content/README.md",
+        "design/governance/contributing.md",
+        "design/governance/operating-model.md",
+        "design/governance/figma-sync.md",
+        "design/governance/migration.md",
+        "design/governance/roadmap.md",
+        "design/governance/releases.md",
+        "design/governance/deprecations.md",
+        "design/governance/decisions/README.md",
+        "design/updates/README.md"
+      ]
+    }
+  ],
+  "components": [
+    {
+      "id": "button",
+      "name": "Button",
+      "maturity": "experimental",
+      "figma": "not-ready",
+      "web": "not-ready",
+      "docs": "done",
+      "doc": "design/components/button.md",
+      "note": "규범은 준비됐지만 배포 가능한 React 구현과 Figma component는 아직 없음"
+    },
+    {
+      "id": "dialog",
+      "name": "Dialog / Confirm Modal",
+      "maturity": "experimental",
+      "figma": "not-ready",
+      "web": "not-ready",
+      "docs": "done",
+      "doc": "design/components/dialog.md"
+    },
+    {
+      "id": "menu-popover",
+      "name": "Menu / Popover",
+      "maturity": "experimental",
+      "figma": "not-ready",
+      "web": "not-ready",
+      "docs": "done",
+      "doc": "design/components/menu-popover.md"
+    },
+    {
+      "id": "input",
+      "name": "Input / Field",
+      "maturity": "experimental",
+      "figma": "not-ready",
+      "web": "not-ready",
+      "docs": "not-ready",
+      "note": "P3 component backlog"
+    },
+    {
+      "id": "select",
+      "name": "Select / Dropdown",
+      "maturity": "experimental",
+      "figma": "not-ready",
+      "web": "not-ready",
+      "docs": "not-ready",
+      "note": "P3 component backlog"
+    },
+    {
+      "id": "tooltip",
+      "name": "Tooltip",
+      "maturity": "experimental",
+      "figma": "not-ready",
+      "web": "not-ready",
+      "docs": "not-ready",
+      "note": "P3 component backlog"
+    },
+    {
+      "id": "toast",
+      "name": "Toast / Snackbar",
+      "maturity": "experimental",
+      "figma": "not-ready",
+      "web": "not-ready",
+      "docs": "not-ready",
+      "note": "P3 component backlog"
+    },
+    {
+      "id": "empty-state",
+      "name": "Empty State",
+      "maturity": "experimental",
+      "figma": "not-ready",
+      "web": "not-ready",
+      "docs": "not-ready",
+      "note": "P3 component backlog"
+    }
+  ],
+  "patterns": [
+    {
+      "id": "loading",
+      "name": "Loading",
+      "maturity": "beta",
+      "figma": "not-ready",
+      "web": "not-ready",
+      "docs": "done",
+      "doc": "design/patterns/loading.md"
+    },
+    {
+      "id": "app-shell",
+      "name": "App Shell",
+      "maturity": "experimental",
+      "figma": "not-ready",
+      "web": "not-ready",
+      "docs": "done",
+      "doc": "design/patterns/app-shell.md"
+    },
+    {
+      "id": "project-grid",
+      "name": "Project Grid",
+      "maturity": "experimental",
+      "figma": "not-ready",
+      "web": "not-ready",
+      "docs": "done",
+      "doc": "design/patterns/project-grid.md"
+    },
+    {
+      "id": "editor-workspace",
+      "name": "Editor Workspace",
+      "maturity": "experimental",
+      "figma": "not-ready",
+      "web": "not-ready",
+      "docs": "done",
+      "doc": "design/patterns/editor-workspace.md"
+    }
+  ],
+  "referenceSurfaces": [
+    {
+      "path": "packages/tokens/README.md",
+      "purpose": "구조화 토큰 패키지의 현재 준비 상태와 완료 조건",
+      "authority": "reference"
+    },
+    {
+      "path": "packages/css/README.md",
+      "purpose": "CSS 배포 패키지의 범위와 승격 조건",
+      "authority": "reference"
+    },
+    {
+      "path": "packages/react/README.md",
+      "purpose": "React 배포 패키지의 범위와 구현 순서",
+      "authority": "reference"
+    },
+    {
+      "path": "apps/docs/README.md",
+      "purpose": "공개 문서 사이트 준비 영역",
+      "authority": "reference"
+    },
+    {
+      "path": "migration/product-baseline.md",
+      "purpose": "제품 레포에서 추출한 비규범 구현 근거",
+      "authority": "reference"
+    }
+  ]
+}

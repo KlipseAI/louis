@@ -1,0 +1,21 @@
+# Klipse Design AI documentation
+
+> GENERATED FILE — stable entry point for AI clients.
+
+- System: Klipse Design
+- Maturity: experimental
+- Catalog: ../manifest.json
+- Source of truth: normative Markdown and package contracts
+
+## Documents
+
+| Document | Purpose | Maturity |
+| --- | --- | --- |
+| [Klipse Design Foundations](foundations.txt) | 토큰, 접근성, 반응형 기반 계약 | beta |
+| [Klipse Design Components](components.txt) | 컴포넌트 사용·상태·접근성 계약 | experimental |
+| [Klipse Design Patterns](patterns.txt) | 반복되는 제품 composition 계약 | beta |
+| [Klipse Design Guidelines](guidelines.txt) | 개발, 콘텐츠, 거버넌스와 adoption 계약 | beta |
+
+Machine-readable status: [design/manifest.json](../manifest.json)
+
+Generated outputs never override the manifest or normative source documents.

@@ -1,0 +1,30 @@
+{
+  "name": "klipse-design-system",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Klipse의 독립 디자인 시스템 모노레포",
+  "scripts": {
+    "build": "pnpm run build:docs",
+    "build-design-docs": "node ./scripts/build-design-docs.mjs",
+    "check-design-docs": "node ./scripts/build-design-docs.mjs --check",
+    "build-llms-docs": "node ./scripts/build-llms-docs.mjs",
+    "check-llms-docs": "node ./scripts/build-llms-docs.mjs --check",
+    "verify-gates": "node ./scripts/verify-gates.mjs",
+    "build:catalog": "pnpm run build-design-docs",
+    "build:llms": "pnpm run build-llms-docs",
+    "build:docs": "pnpm run build:catalog && pnpm run build:llms",
+    "check:catalog": "pnpm run check-design-docs",
+    "check:llms": "pnpm run check-llms-docs",
+    "check": "pnpm run check:catalog && pnpm run check:llms",
+    "verify": "pnpm run verify-gates"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "packageManager": "pnpm@10.30.2",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ]
+}

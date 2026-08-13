@@ -1,0 +1,541 @@
+# Klipse Design Guidelines
+
+> GENERATED FILE — edit the normative Markdown sources, then run pnpm build:llms.
+
+- System maturity: experimental
+- Coverage: exhaustive
+- Documents: 12
+- Purpose: 개발, 콘텐츠, 거버넌스와 adoption 계약
+
+## Sources
+
+- design/manifest.json
+- design/README.md
+- design/develop/README.md
+- design/content/README.md
+- design/governance/contributing.md
+- design/governance/operating-model.md
+- design/governance/figma-sync.md
+- design/governance/migration.md
+- design/governance/roadmap.md
+- design/governance/releases.md
+- design/governance/deprecations.md
+- design/governance/decisions/README.md
+- design/updates/README.md
+
+---
+## Klipse Design — Get Started
+
+- Source: design/README.md
+- Maturity: beta
+
+### Klipse Design
+
+Klipse 제품군이 공통으로 소비하는 디자인 언어다. 접근성·상태·반응형·콘텐츠 품질을 규범으로
+정의하고, 토큰과 컴포넌트를 버전이 지정된 패키지로 배포한다.
+
+#### 시작하기
+
+| 작업                     | 먼저 읽을 문서                                   |
+| ------------------------ | ------------------------------------------------ |
+| 색·타입·간격·접근성 결정 | [Foundations](../foundations/README.md)             |
+| 공용 UI를 찾거나 추가    | [Components](../components/README.md)               |
+| 반복되는 제품 흐름 구현  | [Patterns](../patterns/README.md)                   |
+| 문구·로컬라이제이션      | [Content](../content/README.md)                     |
+| 패키지 소비와 검증       | [Develop](../develop/README.md)                     |
+| 변경 제안과 리뷰         | [Contributing](../governance/contributing.md)       |
+| 역할·승인·운영 주기      | [Operating Model](../governance/operating-model.md) |
+| 제품 레포 적용           | [Product Adoption](../governance/migration.md)      |
+| 단계별 완료 조건         | [Roadmap](../governance/roadmap.md)                 |
+| 사용자 영향 변경         | [Updates](../updates/README.md)                     |
+
+#### 권위 모델
+
+문서나 구현이 충돌하면 다음 순서로 판단한다.
+
+1. **Catalog** — [`manifest.json`](../manifest.json)이 ID, maturity, Web/Figma/Docs 상태와 생성물
+   provenance를 소유한다.
+2. **Normative** — `foundations/`, `components/`, `patterns/`, `content/`,
+   `governance/`가 새 작업의 행동·상태·수용 조건을 정의한다.
+3. **Package source** — P2 이후 `packages/tokens`, `packages/css`, `packages/react`의
+   테스트된 source가 배포 값과 API를 소유한다.
+4. **Generated** — `design/llms/*`는 위 정본의 projection이며 직접 편집하지 않는다.
+
+소비 제품의 route audit, legacy CSS, 화면별 예외는 이 저장소의 정본이 아니다. 필요하면
+stable manifest ID를 참조하는 제품 통합 이슈로 관리한다.
+
+#### 현재 상태
+
+이 저장소는 P1 규범과 게이트를 별도 레포로 이관한 단계다. 패키지와 Figma 구현은 아직
+`not-ready`이며 시스템 전체 maturity는 `experimental`이다.
+
+#### Maturity lifecycle
+
+| 상태           | 의미                                              | 승격·사용 규칙                                            |
+| -------------- | ------------------------------------------------- | --------------------------------------------------------- |
+| `experimental` | 계약이나 API가 검증 중                            | breaking change 가능, production 기본값으로 권장하지 않음 |
+| `beta`         | 규범과 핵심 검증이 준비됨                         | 제한된 adoption 가능, breaking change에는 migration 필요  |
+| `stable`       | Web/Figma/Docs와 실제 제품 adoption 근거가 준비됨 | compatibility와 deprecation 정책 보장                     |
+| `legacy`       | 과거 소비처만 유지                                | 신규 사용 금지, 대체 경로 준비                            |
+| `deprecated`   | 제거가 예정됨                                     | 대체 항목, 제거 version, owner 필수                       |
+
+<!-- prettier-ignore-start -->
+<!-- GENERATED:catalog START -->
+| 항목 | 현재 값 |
+| --- | --- |
+| System maturity | `experimental` |
+| Normative documents | 27 |
+| Generated documents | 5 |
+| Components | 8 |
+| Patterns | 4 |
+| Web done | 0 |
+<!-- GENERATED:catalog END -->
+<!-- prettier-ignore-end -->
+
+#### 로컬 명령
+
+```sh
+pnpm build
+pnpm check
+pnpm verify
+```
+
+`verify`는 정상 입력 검사뿐 아니라 고의로 오류를 주입해 게이트가 실제로 실패하는지도 확인한다.
+
+## Develop
+
+- Source: design/develop/README.md
+- Maturity: beta
+
+### Develop
+
+디자인 규범을 제품 코드로 전달하는 패키지 경계와 검증 계약이다.
+
+#### Delivery surfaces
+
+| Surface                 | 책임                        | 현재 상태               |
+| ----------------------- | --------------------------- | ----------------------- |
+| `@klipse-design/tokens` | 구조화 토큰과 플랫폼 변환물 | P2, private, no exports |
+| `@klipse-design/css`    | reset, primitives, recipes  | P3, private, no exports |
+| `@klipse-design/react`  | 접근 가능한 React 컴포넌트  | P3, private, no exports |
+| `design/llms/*`         | AI가 읽는 규범 projection   | P1, generated           |
+
+export가 생기기 전에는 제품에서 package deep import나 source path import를 만들지 않는다.
+
+#### 소비 규칙
+
+1. 제품은 명시된 package version을 설치한다.
+2. semantic token과 공개 component API만 사용한다.
+3. 제품 전용 scene layout은 제품 레포가 소유한다.
+4. 공용 규범을 바꿔야 하면 제품 workaround보다 이 저장소의 decision과 package 변경을 먼저 제안한다.
+5. DS release PR과 제품 integration PR을 서로 링크한다.
+
+#### 생성 파일
+
+`design/llms/*`와 README의 `GENERATED:*` 구간은 직접 수정하지 않는다.
+
+```sh
+pnpm build
+pnpm verify
+```
+
+P2/P3에서 package source가 생기면 각 package의 typecheck, unit, accessibility, visual regression과
+bundle/API compatibility 검사를 루트 `verify`에 추가한다.
+
+## Content & Localization
+
+- Source: design/content/README.md
+- Maturity: experimental
+
+### Content & Localization
+
+Klipse가 사용자에게 일관되게 말하는 방법을 정의한다. 현재는 최소 계약만 제공하며 `experimental`이다.
+
+#### 기본 원칙
+
+- 사용자가 지금 할 수 있는 행동과 그 결과를 명확하고 간결하게 쓴다.
+- 오류는 원인보다 영향과 해결 방법을 우선한다.
+- 성공·실패·로딩·빈 상태·파괴적 액션은 동일한 개념에 동일한 용어를 사용한다.
+- 사용자 노출 문구는 messages 시스템을 사용하고 KO/EN을 필수로 제공한다. 해당 기능이 일본어를
+  지원하면 JA도 같은 변경에 포함한다.
+- 버튼은 짧은 동사형, 제목은 결과 중심, 설명은 필요한 맥락만 제공한다.
+- 날짜·시간·숫자·통화·단위는 locale formatter를 사용한다.
+- `aria-label`도 사용자 노출 문구이며 현재 locale과 일치해야 한다.
+
+#### 상태 문구
+
+| 상태        | 원칙                                                  |
+| ----------- | ----------------------------------------------------- |
+| Loading     | 대상 + 진행 상태, 말줄임표 없음                       |
+| Empty       | 왜 비어 있는지 + 가능한 다음 행동                     |
+| Error       | 무엇이 실패했는지 + 영향 + 재시도/대안                |
+| Success     | 결과가 화면에서 명확하면 중복 Toast 생략              |
+| Destructive | 삭제 대상을 구체적으로 명시하고 되돌릴 수 있는지 설명 |
+
+#### 남은 작업
+
+- Voice & Tone과 writing Do/Don't 확정
+- KO/EN/JA 길이·줄바꿈 테스트 fixture
+- 하드코딩 사용자 문구 게이트
+- 숫자·날짜·duration·credit 표기 규칙
+- 이메일 콘텐츠 규칙과 앱 디자인 시스템의 관계 정리
+
+## Contributing
+
+- Source: design/governance/contributing.md
+- Maturity: beta
+
+### Contributing
+
+디자인 시스템 변경은 catalog 상태, 규범, 배포 자산, 검증과 사용자 안내를 같은 디자인 시스템
+PR에서 일치시킨다. 제품 적용은 별도 integration PR로 진행하고 두 PR을 상호 링크한다.
+
+#### 변경 흐름
+
+1. [manifest](../manifest.json)에서 대상 ID와 현재 maturity를 확인한다.
+2. 행동, 상태, 접근성, 반응형, 콘텐츠 계약을 규범 문서에 먼저 명시한다.
+3. 제품 의미가 갈리면 [Design Decision](../governance/decisions/README.md)을 작성한다.
+4. package와 Figma 구현을 추가하고 status를 근거에 맞게 갱신한다.
+5. 테스트와 예제를 추가한다.
+6. [Updates](../updates/README.md)에 사용자 영향과 migration을 기록한다.
+7. 생성물을 갱신하고 모든 게이트를 통과시킨다.
+
+#### 완료 정의
+
+- manifest와 문서 frontmatter가 일치한다.
+- component의 `docs: done` 문서에는 Availability, public contract, states, content,
+  accessibility와 acceptance tests가 있다.
+- pattern의 `docs: done` 문서에는 선택 기준, ownership/state lifecycle, responsive,
+  accessibility와 acceptance tests가 있다.
+- `web: done`은 public export, tests, accessibility와 release evidence가 있을 때만 사용한다.
+- `figma: done`은 published library component와 code parity 검증이 있을 때만 사용한다.
+- breaking change는 migration과 deprecation window를 제공한다.
+- 생성 파일과 source가 일치한다.
+
+#### 필수 검증
+
+```sh
+pnpm build
+pnpm check
+pnpm verify
+```
+
+CI는 생성물 drift와 추적되지 않은 catalog input을 추가로 차단한다.
+
+#### 제품 통합
+
+소비 제품의 route audit과 visual/E2E evidence는 제품 레포가 소유한다. 제품 이슈는 이 저장소의
+안정적인 manifest ID와 release version을 참조하며, 제품 결함을 normative status로 섞지 않는다.
+
+## Operating Model
+
+- Source: design/governance/operating-model.md
+- Maturity: beta
+
+### Operating Model
+
+Klipse Design은 문서 모음이 아니라 제품이 소비하는 계약과 배포 자산을 승인·추적하는 운영 체계다.
+전담 팀이 지정되기 전까지 `repository-owner`가 최종 승인 책임을 가진다.
+
+#### 소유권
+
+| 자산                | 정본                                  | 책임                       |
+| ------------------- | ------------------------------------- | -------------------------- |
+| Catalog와 상태      | `design/manifest.json`                | repository owner           |
+| 행동·사용 규범      | `design/` normative docs              | component/pattern proposer |
+| Token values        | `packages/tokens/src/` (P2)           | token maintainer           |
+| Web API             | `packages/css`, `packages/react` (P3) | package maintainer         |
+| Figma library       | published Klipse Design library (P3)  | design maintainer          |
+| 제품 route evidence | 각 소비 제품 저장소                   | product owner              |
+| Generated docs      | build scripts                         | generator owner            |
+
+#### 승인
+
+- typo나 링크 수정: 1 reviewer.
+- additive token/component/pattern: owner 또는 지정 maintainer 1명.
+- breaking API, token rename, accessibility contract 변경: owner + 영향 제품 owner.
+- maturity를 `stable`로 승격: Web/Figma/Docs 근거와 실제 소비 제품 adoption evidence가 모두 필요하다.
+
+#### 저장소 간 변경
+
+1. 디자인 시스템 PR에서 규범, 구현, 테스트, version과 migration을 승인한다.
+2. release 또는 immutable commit을 만든다.
+3. 제품 integration PR이 해당 version과 manifest ID를 참조한다.
+4. 제품 route test 결과를 integration PR에 남긴다.
+5. 문제가 공용 계약이면 DS 이슈로, 제품 composition 문제면 제품 이슈로 분류한다.
+
+하나의 PR에서 두 저장소를 동시에 바꿀 수 있다는 전제에 의존하지 않는다.
+
+#### 운영 주기
+
+- PR마다 catalog/generator gate 실행.
+- 월 1회 `not-ready`, `partial`, deprecated 항목과 adoption blocker review.
+- 분기 1회 accessibility, package API, Figma parity와 docs discoverability review.
+
+## Figma Sync Governance
+
+- Source: design/governance/figma-sync.md
+- Maturity: experimental
+
+### Figma Sync Governance
+
+Figma와 코드는 서로를 자동으로 덮어쓰는 두 정본이 아니다. 승인된 design decision을 중심으로
+token과 component parity를 검토하며, 자동 sync가 구현되기 전까지 상태를 과장하지 않는다.
+
+#### 현재 상태
+
+- published Klipse Design library: `not-ready`
+- variable/token pipeline: `not-ready`
+- component parity checker: `not-ready`
+- snapshot import/export: `not-ready`
+
+따라서 manifest의 Figma 상태는 실제 library evidence가 생길 때까지 `not-ready`다.
+
+#### 목표 흐름
+
+1. 구조화 token source에서 Figma-compatible proposal을 생성한다.
+2. proposal은 자동 적용하지 않고 diff로 review한다.
+3. 이름, mode, alias, component property와 variant를 검사한다.
+4. 승인한 Figma change와 code change를 같은 DS release에 연결한다.
+5. 제품 screen은 library component instance를 소비하고 detach 이유를 제품 이슈에 기록한다.
+
+#### 승격 조건
+
+`figma: partial`에는 review 가능한 library draft와 stable component key가 필요하다.
+`figma: done`에는 published library, token/variant parity check, usage guidance와 owner가 필요하다.
+
+credential이나 plugin session이 없는 CI에서도 catalog가 정직해야 하므로, Figma 연결 실패를
+`done`으로 캐시하지 않는다.
+
+## Product Adoption
+
+- Source: design/governance/migration.md
+- Maturity: beta
+
+### Product Adoption
+
+소비 제품이 Klipse Design을 도입하는 절차다. 이관 단위는 파일 복사가 아니라 version, manifest ID,
+행동 계약과 검증 evidence다.
+
+#### 경계
+
+디자인 시스템 저장소가 소유하는 것:
+
+- normative foundations, components, patterns와 governance
+- token, CSS, React package와 Figma library
+- public docs, AI docs, release와 deprecation
+
+제품 저장소가 소유하는 것:
+
+- route/scene composition과 business workflow
+- legacy CSS와 화면별 예외
+- route audit, E2E/visual regression, 제품 접근성 evidence
+- 디자인 시스템 package version과 integration adapter
+
+#### 도입 순서
+
+1. 제품 baseline을 캡처하고 영향 route를 목록화한다.
+2. 사용할 DS release와 manifest ID를 고정한다.
+3. legacy 값을 semantic token으로 매핑하되 모호한 값은 decision으로 올린다.
+4. leaf component부터 교체하고 App Shell 같은 composition pattern은 별도 단계로 적용한다.
+5. 제품의 pointer, keyboard, focus, responsive, visual regression을 실행한다.
+6. integration PR에 DS release/PR과 test evidence를 링크한다.
+7. rollback version과 legacy 제거 조건을 기록한다.
+
+#### 상태 매핑
+
+- `not-ready`: 제품에서 사용할 수 없다.
+- `partial`: 명시된 제한과 adapter를 integration PR에 기록해야 한다.
+- `done`: public API와 package evidence가 준비됐다는 뜻이며 제품 route 검증을 면제하지 않는다.
+- `deprecated`: 신규 사용 금지, 대체 경로와 제거 기한이 필요하다.
+
+#### Cutover gate
+
+- 새 checkout에서 `pnpm verify` 통과
+- DS package version 고정
+- 영향 route의 keyboard/focus/responsive/visual evidence 통과
+- deprecated legacy 신규 참조 0건
+- rollback과 owner 확인
+
+현재 monolith 추출 당시의 비규범 근거는
+[`migration/product-baseline.md`](../../migration/product-baseline.md)에 별도로 보존한다.
+
+## Roadmap
+
+- Source: design/governance/roadmap.md
+- Maturity: beta
+
+### Roadmap
+
+목표는 문서 수가 아니라 제품이 versioned design contract를 안전하게 소비하게 만드는 것이다.
+
+#### P1 — Portable contracts
+
+**상태:** `release-candidate`
+
+완료:
+
+- 독립 catalog/schema와 권위 모델
+- responsive layout, app shell, project grid, editor workspace 계약
+- Button, Menu/Popover, Dialog, Loading 규범
+- manifest 기반 progress board와 AI 문서
+- 오류 주입 canary가 있는 독립 gate
+
+`complete` 조건:
+
+- 별도 저장소 첫 추적 commit
+- clean checkout CI 통과
+- repository owner 승인
+
+#### P2 — Token source inversion
+
+**상태:** `planned`
+
+- Color, typography, spacing, radius, elevation, motion schema
+- light/dark semantic alias graph
+- CSS/TypeScript/Figma deterministic output
+- token diff와 breaking migration
+
+#### P3 — Components and Figma library
+
+**상태:** `planned`
+
+- Button → Menu/Popover → Dialog 순으로 public implementation
+- keyboard/focus/accessibility tests
+- CSS/React package API와 compatibility policy
+- published Figma variables/components와 parity check
+
+#### P4 — Documentation and distribution
+
+**상태:** `planned`
+
+- 검색 가능한 공개 docs site
+- isolated examples와 version badge
+- stable `llms.txt` URLs
+- changelog, deprecation, migration discoverability
+
+#### P5 — Product adoption
+
+**상태:** `planned`
+
+- Klipse product가 versioned packages 소비
+- Home/Highlight/Editor 핵심 route integration evidence
+- legacy UI 신규 참조 차단
+- adoption과 rollback dashboard
+
+## Releases
+
+- Source: design/governance/releases.md
+- Maturity: beta
+
+### Releases
+
+디자인 시스템의 사용자 영향 변경을 version과 migration으로 전달한다. 최초 public package 배포
+전까지 package는 `private: true`이며, 저장소 [Updates](../updates/README.md)를 release record로
+사용한다.
+
+#### 변경 분류
+
+| 분류  | 예                                               | 요구 사항                               |
+| ----- | ------------------------------------------------ | --------------------------------------- |
+| Patch | 문서 명확화, 동작을 바꾸지 않는 버그 수정        | Updates 항목, 검증                      |
+| Minor | additive token, variant, component API           | 사용법, tests, adoption note            |
+| Major | token rename/removal, API/behavior contract 변경 | decision, migration, deprecation window |
+
+package 배포가 시작되면 workspace package version을 독립적으로 올릴지 fixed version을 사용할지
+Design Decision으로 확정한다. 확정 전에는 가짜 version이나 changelog를 만들지 않는다.
+
+#### Release gate
+
+- manifest와 실제 package exports 일치
+- normative docs와 generated docs 최신
+- tests, accessibility, compatibility 통과
+- consumer impact와 rollback 기록
+- breaking change migration과 owner 승인
+
+## Deprecations
+
+- Source: design/governance/deprecations.md
+- Maturity: beta
+
+### Deprecations
+
+폐기는 파일을 조용히 방치하는 상태가 아니다. 대체 경로, 신규 사용 금지, 영향 범위, 제거 version과
+owner를 공개한다.
+
+#### 정책
+
+- deprecated 항목은 manifest, 원문, public API annotation과 Updates에 표시한다.
+- 대체 항목 또는 범위 밖인 이유를 명시한다.
+- 신규 예제와 AI 문서의 권장 경로에서 제외한다.
+- 최소 한 migration window를 제공한다. 긴급 보안·접근성 결함은 예외 사유를 기록한다.
+- 제거 전 제품 저장소의 참조가 0건임을 확인한다.
+
+#### 활성 항목
+
+현재 이 독립 디자인 시스템 저장소에는 활성 deprecation이 없다. monolith 제품의 legacy 폐기
+항목은 제품 저장소가 계속 소유한다.
+
+## Design Decisions
+
+- Source: design/governance/decisions/README.md
+- Maturity: beta
+
+### Design Decisions
+
+코드의 다수결로 정할 수 없거나 제품 의미가 갈리는 결정을 기록한다.
+
+#### 형식
+
+파일명은 `DS-D-0001-short-title.md` 형식을 사용한다.
+
+```md
+# DS-D-0001 결정 제목
+
+- Status: proposed | accepted | superseded | rejected
+- Date: YYYY-MM-DD
+- Owners: 역할 또는 팀
+- Affects: manifest ID 목록
+
+## Context
+
+## Decision
+
+## Alternatives
+
+## Consequences
+
+## Rollout and verification
+```
+
+단순 구현 버그, 현재 화면 실측, 조사 로그는 decision이 아니라 audit/debt다. 결정이 accepted되면 같은
+변경에서 관련 Foundation·Component·Pattern과 구현을 갱신한다.
+
+## Updates
+
+- Source: design/updates/README.md
+- Maturity: beta
+
+### Updates
+
+디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
+
+#### 2026-08-11 — 독립 디자인 시스템 저장소 시작
+
+##### Added
+
+- 제품 저장소와 분리된 Klipse Design 모노레포 구조
+- strict manifest/schema, generated progress board와 AI 문서
+- token, CSS, React package의 정직한 private scaffold
+- catalog/LLM drift와 오류 주입 canary를 검증하는 CI gate
+
+##### Changed
+
+- Web/Figma 구현 상태를 이 저장소의 실제 상태인 `not-ready`로 초기화
+- 제품 route audit과 324건의 과거 debt를 normative catalog에서 분리
+- DS release PR과 제품 integration PR을 상호 링크하는 운영 모델로 전환
+
+##### Migration
+
+제품 구현은 즉시 바뀌지 않는다. P2 token source와 P3 package가 release된 뒤
+[Product Adoption](../governance/migration.md) 절차로 단계적으로 전환한다.

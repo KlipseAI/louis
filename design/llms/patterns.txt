@@ -1,0 +1,725 @@
+# Klipse Design Patterns
+
+> GENERATED FILE — edit the normative Markdown sources, then run pnpm build:llms.
+
+- System maturity: experimental
+- Coverage: exhaustive
+- Documents: 5
+- Purpose: 반복되는 제품 composition 계약
+
+## Sources
+
+- design/manifest.json
+- design/patterns/README.md
+- design/patterns/loading.md
+- design/patterns/app-shell.md
+- design/patterns/project-grid.md
+- design/patterns/editor-workspace.md
+
+---
+## Patterns
+
+- Source: design/patterns/README.md
+- Maturity: beta
+
+### Patterns
+
+컴포넌트를 조합해 반복되는 제품 문제를 푸는 규범이다. 특정 페이지의 현재 DOM을 복사하는 대신 상황에
+따른 선택 기준과 전체 상태 흐름을 정의한다.
+
+#### Progress Board
+
+<!-- prettier-ignore-start -->
+<!-- GENERATED:pattern-progress START -->
+| Pattern | Maturity | Figma | Web | Docs | Note |
+| --- | --- | --- | --- | --- | --- |
+| [Loading](../patterns/loading.md) | `beta` | `not-ready` | `not-ready` | `done` | — |
+| [App Shell](../patterns/app-shell.md) | `experimental` | `not-ready` | `not-ready` | `done` | — |
+| [Project Grid](../patterns/project-grid.md) | `experimental` | `not-ready` | `not-ready` | `done` | — |
+| [Editor Workspace](../patterns/editor-workspace.md) | `experimental` | `not-ready` | `not-ready` | `done` | — |
+<!-- GENERATED:pattern-progress END -->
+<!-- prettier-ignore-end -->
+
+상태 vocabulary는 [Components Progress Board](../components/README.md)와 같다. `web: partial`은
+공용 구현 일부가 있다는 뜻이며 ownership·반응형·접근성 acceptance가 모두 통과했다는 뜻이 아니다.
+
+Patterns는 소비 제품의 화면별 관측값보다 우선하는 신규 작업 규범이다. 제품 통합이 Pattern과 다르면
+제품 이슈로 기록하고, 새 공용 구현은 Pattern을 따른다.
+
+## Loading
+
+- Source: design/patterns/loading.md
+- Maturity: beta
+
+### Loading
+
+로딩 UI는 사용자가 **무엇을 기다리는지, 얼마나 진행됐는지, 실패하면 무엇을 할 수 있는지** 이해하게
+해야 한다. 모든 진행 상태를 spinner 하나로 처리하지 않는다.
+
+#### 선택 기준
+
+| 상황                                 | 기본 표현                            | 이유                                           |
+| ------------------------------------ | ------------------------------------ | ---------------------------------------------- |
+| 버튼·짧은 인라인 액션                | `InlineLoadingLabel`                 | 액션이 시작됐고 중복 입력이 막혔음을 바로 전달 |
+| 작은 독립 영역, 완료 시간을 모름     | `LoadingSpinner` + 짧은 문구         | 레이아웃을 예측할 필요가 없음                  |
+| 구조가 정해진 카드·목록의 첫 로드    | Skeleton                             | 나타날 콘텐츠 구조를 미리 전달                 |
+| 업로드·다운로드·렌더처럼 진행률을 앎 | Determinate progress                 | 남은 정도를 설명할 수 있음                     |
+| 장시간 백그라운드 작업               | 지속 상태 + 진행/취소/다른 작업 허용 | 사용자를 화면에 묶어 두지 않음                 |
+
+시머 텍스트는 기존 목록 화면의 관측 패턴이다. 신규 패턴으로 확장하기 전에 Skeleton 또는 Spinner로
+같은 목적을 더 명확히 해결할 수 있는지 먼저 검토한다.
+
+#### 시간과 피드백
+
+- 매우 짧은 응답은 불필요한 깜빡임을 만들지 않도록 표시를 지연할 수 있다. 공통 threshold는 P2 motion
+  결정 전까지 package에 하드코딩하지 않는다.
+- 4초를 넘길 가능성이 있으면 `처리 중` 같은 구체적 상태 문구를 함께 제공한다.
+- 10초 이상이면 현재 단계, 실패 가능성, 재시도 또는 취소 방법을 제공한다.
+- 1분 이상이면 백그라운드 처리와 화면 이탈 후 재확인 경로를 우선 검토한다.
+
+#### 생명주기
+
+1. **Start** — 입력을 수락하고 중복 실행을 차단한다. 해당 컨트롤에 `aria-busy`를 제공한다.
+2. **Progress** — 작업 대상과 상태를 유지한다. 진행률을 알면 determinate UI를 쓴다.
+3. **Success** — 결과가 화면 자체로 분명하면 별도 성공 Toast를 중복해서 띄우지 않는다.
+4. **Failure** — 원인, 영향, 다음 행동을 해당 영역 가까이에 제공한다. 재시도 가능 여부를 명시한다.
+5. **Cancel** — 취소가 가능한 긴 작업은 진행 상태 안에서 직접 취소할 수 있게 한다.
+
+#### 문구
+
+- `생성 중`, `업로드 중`, `Analyzing`처럼 상태를 구체적으로 쓴다.
+- 진행 문구 끝의 `...`/`…`는 사용하지 않는다.
+- `Loading` 같은 범용 접근성 라벨 대신 화면의 i18n 문구를 제공한다.
+- 실패 문구는 `오류가 발생했습니다`로 끝내지 않고 사용자가 할 수 있는 다음 행동을 포함한다.
+
+#### Accessibility
+
+- 독립 Spinner는 `role="status"`, `aria-live="polite"`, `aria-busy="true"`와 문맥별 이름을 가진다.
+- 인접 텍스트가 상태를 설명하면 Spinner는 `decorative`로 두고 부모가 접근 가능한 이름을 소유한다.
+- Skeleton은 장식으로 숨기고, 실제 로딩 영역이 `aria-busy`를 소유한다.
+- `prefers-reduced-motion: reduce`에서는 회전·shimmer를 정적 상태로 바꾸되 로딩 의미는 텍스트로
+  유지한다.
+- 로딩 중 기존 콘텐츠를 제거해 포커스가 예기치 않게 사라지지 않게 한다.
+
+#### Implementation status
+
+Web과 Figma 구현은 아직 `not-ready`다. 기존 제품의 spinner, inline loading, skeleton/shimmer 근거는
+[`KP-LOADING-001`](../../migration/product-baseline.md)에 비규범 기준선으로 보존한다.
+
+#### Pre-implementation blockers
+
+- 공용 Spinner, Skeleton과 Button loading API가 없다.
+- live region과 `aria-busy` 조합 test가 없다.
+- reduced-motion recipe와 progress semantics가 package로 배포되지 않는다.
+- published Figma loading state가 없다.
+
+#### Acceptance tests
+
+- 승인된 delay threshold 안의 짧은 작업에서 불필요한 flash가 없고, 지연 후에는 무엇을 기다리는지
+  이름이 보인다.
+- loading 중 중복 activation이 차단되며 기존 focus가 제거되지 않는다.
+- indeterminate와 determinate 상태가 screen reader에 중복 없이 전달된다.
+- 실패 시 loading UI가 사라지고 오류, retry 또는 cancel 경로가 제공된다.
+- Skeleton은 접근성 트리에서 숨고 실제 영역이 `aria-busy`를 소유한다.
+- reduced-motion에서 회전·shimmer를 제거해도 텍스트로 상태를 이해할 수 있다.
+- 200% zoom과 KO/EN/JA 긴 문구에서 상태와 핵심 action이 잘리지 않는다.
+
+## App Shell
+
+- Source: design/patterns/app-shell.md
+- Maturity: experimental
+
+### App Shell
+
+App Shell은 로그인 후 제품 화면의 navigation, viewport, main surface, top chrome, global overlay를
+소유한다. 기능 Scene은 Shell **안의 콘텐츠**를 소유하며 sidebar 여백이나 viewport 적층을 다시 만들지
+않는다.
+
+이 패턴은 로그인 후 archive, creation hub, editor, highlight, analytics, account surface에 적용한다.
+마케팅·인증처럼 독립 navigation을 가진 surface는 범위 밖이다.
+
+#### Anatomy
+
+```text
+AppShell
+├─ Skip link
+├─ Navigation rail
+│  ├─ Brand / home
+│  ├─ Primary navigation
+│  └─ Account / plan actions
+├─ Mobile navigation scrim
+├─ Main surface
+│  ├─ Top chrome
+│  │  ├─ Navigation toggle
+│  │  ├─ Breadcrumb / page title
+│  │  ├─ Context actions
+│  │  └─ Profile trigger
+│  └─ Primary scroll root or workspace host
+└─ Global overlay root
+```
+
+DOM portal은 이 anatomy를 구현하는 방법 중 하나일 뿐 계약이 아니다. 공용 API는 slot 또는 layout
+composition을 우선하되, top chrome이 main surface의 폭·배경·scroll 문맥을 정확히 공유해야 한다.
+
+#### Ownership boundaries
+
+| 소유자                 | 반드시 소유한다                                                                               | 소유하면 안 된다                                       |
+| ---------------------- | --------------------------------------------------------------------------------------------- | ------------------------------------------------------ |
+| App Shell              | viewport height, safe area, sidebar/drawer 상태, main offset, top chrome, global overlay root | 기능별 grid 열 수, editor pane 크기, 프로젝트 데이터   |
+| Page pattern           | main surface 안의 section, page scroll content, empty/loading/error 상태                      | sidebar width 계산, body portal의 임의 z-index         |
+| Editor Workspace       | workspace host 안의 pane, timeline, local menu와 local overlay                                | navigation rail, profile popover, viewport 전체 offset |
+| Dialog/Overlay service | modal inert/focus/scroll lock, semantic overlay layer                                         | 페이지별 임의 숫자 z-index 계약                        |
+
+Shell의 geometry를 바꾸는 기능 요구는 feature 내부 CSS 예외가 아니라 App Shell 변경으로 처리한다.
+
+#### Layout contract
+
+##### Persistent navigation
+
+- navigation rail은 문서 흐름 밖에 있을 수 있지만 main surface가 **같은 sidebar state 원천**으로 자리를
+  예약해야 한다.
+- expanded, collapsed, editor-auto-collapsed의 어떤 상태에서도 navigation과 main surface가 겹치지
+  않는다.
+- sidebar 폭 변경 중 main offset과 main width를 따로 지연시키지 않는다.
+- main surface의 바깥 여백과 안쪽 content inset은 별도 semantic token으로 관리한다. feature가 음수
+  margin으로 sidebar gap을 보정하지 않는다.
+- 넓은 화면에서 main surface는 남은 공간을 사용하며 임의 max-width로 프로젝트 목록을 3열에
+  고정하지 않는다.
+
+##### Compact navigation
+
+- compact mode에서 sidebar reserve는 0이고 main surface는 전폭이다.
+- navigation은 scrim 위 drawer로 열리며 main content를 밀지 않는다.
+- drawer가 열리면 뒤 콘텐츠는 pointer와 focus 양쪽에서 비활성화되고 문서 scroll이 잠긴다.
+- Escape, scrim activation, navigation 완료로 닫히며 trigger로 focus를 복원한다.
+- desktop의 collapsed preference를 compact drawer의 내부 배치에 적용하지 않는다. drawer는 label을
+  포함한 expanded navigation이다.
+
+##### Main surface and scroll
+
+- main surface는 page와 navigation 사이의 유일한 제품 작업 면이다.
+- regular mode의 surface chrome과 compact mode의 edge-to-edge 표현은 같은 content 구조를 공유한다.
+- 일반 page는 한 개의 primary scroll root를 가진다. `body`와 카드 내부가 동시에 세로 scroll하지
+  않는다.
+- workspace page는 main surface를 고정 host로 제공하고 editor가 내부 scroll을 소유한다.
+- sticky top chrome은 primary scroll root와 같은 surface 안에 있어야 한다.
+- main content와 top chrome은 동일한 좌우 inset 원천을 읽는다.
+
+공용 App Shell composition은 하나만 제공하고 page scroll과 workspace host를 명시적인 variant로 둔다.
+`<main>`과 시각 panel의 소유권을 variant마다 바꾸지 않는다.
+
+#### Sidebar spacing
+
+간격은 다음 정렬선으로 검증한다. 픽셀을 복사하기보다 semantic token 관계를 보존한다.
+
+1. brand와 navigation item의 leading content line
+2. navigation item과 main content의 leading line
+3. top chrome과 page section의 horizontal inset
+4. main surface의 top/right/bottom outer gap
+5. collapsed icon hit area의 optical center
+
+P2에서 각 관계에 semantic token을 부여한다. 이름과 값이 바뀌어도 **sidebar 내부 padding 변경으로
+main inset이 우연히 어긋나지 않게** 관계 테스트를 유지한다. 추출 근거는
+[`KP-LAYOUT-001`](../../migration/product-baseline.md)에 있다.
+
+#### Editor route behavior
+
+- immersive editor route에 진입하면 regular mode sidebar를 임시 collapsed로
+  만들 수 있다.
+- 진입 전 사용자의 상태를 기억하고 route 이탈 시 복원한다. 임시 상태를 영구 preference로 저장하지
+  않는다.
+- 편집 중 사용자가 sidebar를 직접 전환하면 자동 복원보다 명시적 사용자 선택을 우선한다.
+- sidebar를 펼쳐도 workspace host가 재배치되어야 하며 editor 위에 rail을 겹쳐 놓지 않는다.
+- compact mode에서는 drawer를 닫은 상태로 workspace에 진입하고, navigation이 필요할 때만 overlay로
+  연다.
+
+#### Overlay contract
+
+숫자 `z-index`는 공용 계약이 아니다. 다음 semantic layer의 상대 순서가 계약이다.
+
+| Layer            | 예                                      | 규칙                                                                   |
+| ---------------- | --------------------------------------- | ---------------------------------------------------------------------- |
+| Surface          | page content, docked editor             | 자기 host 안의 기본 stacking context                                   |
+| Local floating   | card menu, editor tooltip, crop handles | 소유 surface 안에서만 경쟁한다                                         |
+| Shell chrome     | top chrome, persistent navigation       | docked workspace보다 위지만 modal을 넘지 않는다                        |
+| Global non-modal | profile popover, command palette        | shell overlay root에 렌더하고 열려 있는 동안 실제로 선택 가능해야 한다 |
+| Modal            | confirm, plan gate, destructive dialog  | 뒤 surface와 non-modal interaction을 막고 focus를 가둔다               |
+| Critical system  | session/payment interruption            | 제품 modal보다 위에 둘 필요가 있는 경우에만 별도 정책으로 승인한다     |
+
+- Docked editor root가 viewport-level stacking context를 만들어 profile popover를 가리면 안 된다.
+- global popover를 열 때 충돌하는 local menu는 닫는다. modal이 열리면 non-modal popover는 닫거나 inert
+  상태가 되어야 한다.
+- 보이는 popover 위에 투명한 editor layer가 pointer event를 가로채면 실패다.
+- feature overlay가 `document.body`를 직접 선택해야 한다면 global인지 local인지 문서화하고 overlay
+  service를 거친다.
+
+#### Responsive matrix
+
+| Mode        | Navigation                          | Main surface                                 | Top chrome                       | Scroll                                           |
+| ----------- | ----------------------------------- | -------------------------------------------- | -------------------------------- | ------------------------------------------------ |
+| Regular     | persistent expanded/collapsed rail  | rail 다음 남은 영역, surface chrome 유지     | surface 안 sticky                | page 또는 workspace가 하나의 주 scroll 정책 선택 |
+| Constrained | persistent rail 또는 임시 collapsed | 기능 패널을 줄이거나 접되 rail과 겹치지 않음 | 주요 액션 유지, 보조 액션 menu화 | body 가로 scroll에 의존하지 않음                 |
+| Compact     | reserve 0, overlay drawer           | edge-to-edge                                 | safe area 안에서 유지            | main scroll 한 개, drawer 열림 시 잠금           |
+
+regular/compact 호환 경계와 grid profile은
+[Responsive Layout](../foundations/responsive-layout.md)의 Compatibility matrix를 따른다.
+
+#### Accessibility
+
+- navigation은 고유한 `aria-label`을 가진 `<nav>` landmark다.
+- 현재 route는 시각 상태와 `aria-current="page"`를 함께 제공한다.
+- collapse/drawer trigger는 접근 가능한 이름, `aria-expanded`, `aria-controls`를 가진다.
+- main 시작점으로 이동하는 skip link를 첫 keyboard 경로에 둔다.
+- top chrome의 시각 순서와 focus 순서를 일치시킨다.
+- profile popover는 실제 상호작용 모델에 맞는 menu 또는 dialog semantics를 사용하고, 열기·선택·닫기·
+  focus 복원을 keyboard로 완료할 수 있어야 한다.
+- sidebar와 main surface 전환은 reduced-motion에서 공간 이동을 최소화한다.
+
+#### Extraction baseline
+
+기존 제품의 App Shell은 sidebar geometry 일부를 공유했지만 Scene별 composition, viewport height와
+overlay 숫자가 분산됐다. 비규범 provenance는
+[`KP-LAYOUT-001`](../../migration/product-baseline.md)에 보존한다.
+
+보존할 결과는 sidebar 단일 geometry, compact drawer의 zero reserve, immersive route의
+collapse/restore다. 복제된 Scene shell, 전역 최소폭, raw z-index는 새 package 계약으로 가져오지 않는다.
+
+#### Pre-implementation blockers
+
+- 공용 App Shell composition과 geometry token 구현이 없다.
+- drawer focus trap/inert/scroll lock test가 없다.
+- safe-area와 viewport-height 전략이 package로 정의되지 않았다.
+- semantic overlay layer와 profile menu interaction test가 없다.
+
+#### Acceptance tests
+
+- regular expanded/collapsed, editor-auto-collapsed에서 sidebar와 main surface의 사각형이 겹치지 않는다.
+- sidebar 첫 navigation item, brand, main content leading line이 승인된 token 관계로 정렬된다.
+- compact drawer를 keyboard로 열고 탐색·선택·Escape 닫기 후 trigger focus 복원을 완료한다.
+- drawer가 열린 동안 뒤 page의 link/button을 pointer나 Tab으로 조작할 수 없다.
+- page route는 body가 아니라 main surface 안에서만 세로 scroll하고 top chrome은 유지된다.
+- workspace route는 body scroll 없이 host를 채우고 sidebar 전환에 즉시 reflow한다.
+- profile popover를 연 뒤 모든 menu item을 pointer와 keyboard로 선택할 수 있다.
+- profile popover, command palette, confirm modal을 editor route에서 열어 semantic layer 순서와 focus를
+  확인한다.
+- hub와 project/detail 소비처가 같은 shell outer gap·content inset·top chrome 정렬선을
+  사용하고, route 전환 시 sidebar 또는 main surface와 겹치지 않는다.
+- compact 경계와 200% 확대에서 navigation·breadcrumb·profile·주요 완료 액션이 잘리거나 겹치지 않는다.
+
+## Project Grid
+
+- Source: design/patterns/project-grid.md
+- Maturity: experimental
+
+### Project Grid
+
+Project Grid는 archive home, NodeCanvas hub, Video Editor history, Highlight history처럼 프로젝트를
+탐색하는 공용 패턴이다. 핵심 계약은 **main content에 실제로 생긴 공간만큼 열 수가 늘고 줄어든다**는
+것이다. 데스크톱 홈을 임의의 3열로 고정하지 않는다.
+
+#### Use when
+
+- 동일한 중요도의 프로젝트를 썸네일 중심으로 탐색할 때
+- 프로젝트 종류가 달라도 open, rename, delete 같은 공통 동작을 제공할 때
+- 최근 항목 한 행 또는 전체 archive 여러 행을 보여줄 때
+
+순서 비교가 핵심인 표, 작은 텍스트 레코드, 타임라인 결과에는 Data Table 또는 List 패턴을 사용한다.
+
+#### Anatomy
+
+```text
+Project section
+├─ Section header
+│  ├─ Label
+│  ├─ Optional count
+│  └─ Primary or overflow action
+├─ State region
+│  ├─ Loading / error / empty
+│  └─ Grid
+│     └─ Project card
+│        ├─ Primary open action
+│        │  ├─ Preview
+│        │  ├─ Type / status
+│        │  ├─ Title
+│        │  └─ Updated time
+│        └─ Overflow menu trigger
+└─ Pagination or load-more sentinel when needed
+```
+
+카드 전체를 클릭 가능하게 보이게 하면서 focus 불가능한 `<article onClick>`로 구현하지 않는다. open은
+명시적인 link 또는 button이 소유하고, overflow menu는 그 안에 중첩하지 않은 형제 컨트롤이어야 한다.
+
+#### Layout contract
+
+##### Column behavior
+
+- Grid는 shell content box 안의 가용 폭을 모두 사용한다.
+- 열 수는 component container에서 계산하며 sidebar의 expanded/collapsed 변화에도 다시 계산한다.
+- 같은 상태에서 카드는 동일한 column track을 사용하고, 마지막 행이 덜 차더라도 앞선 카드 폭을 임의로
+  늘리지 않는다.
+- 카드가 승인된 최소 사용 폭보다 작아지기 전에 열 수를 줄인다. 최소 폭은 card primitive와 함께
+  token으로 승인하며 이 문서에서 새 literal을 만들지 않는다.
+- extra-wide에서 열 수를 늘려 정보 밀도를 유지한다. max-width로 전체 grid를 3열 폭에 가두지 않는다.
+- gap은 공용 grid gap token을 사용하고 열 수가 달라져도 동일한 rhythm을 유지한다.
+
+##### Migration compatibility
+
+아래 결과는 승인된 migration compatibility profile이다. 구현은 container 기반으로 바꾸되,
+기준 viewport와 기본 App Shell 상태에서 아래 결과를 유지한다.
+
+| Current viewport | Compatibility result |
+| ---------------- | -------------------- |
+| `≤719px`         | 2열                  |
+| `720–1199px`     | 3열                  |
+| `1200–1799px`    | 4열                  |
+| `≥1800px`        | 5열                  |
+
+profile의 추출 provenance는 [`KP-GRID-001`](../../migration/product-baseline.md)에 있다.
+wide/extra-wide에서 3열만 보이면 실패다.
+
+Container 기반 구현에서는 viewport가 경계 안에 있어도 expanded sidebar, inspector, split pane 등으로
+실제 container가 좁으면 열 수를 줄일 수 있다. 반대로 sidebar가 접혀 유효 폭이 늘면 같은 viewport에서
+열 수가 늘 수 있다. 어떤 경우에도 카드가 겹치거나 horizontal scroll을 만들면 안 된다.
+
+##### Home one-row variant
+
+- archive home의 “최근 작업한 프로젝트”는 한 행만 보여준다.
+- 로드할 항목 수는 **현재 실제 열 수**와 같아야 한다.
+- resize로 열 수가 늘면 기존 카드 순서와 화면을 유지한 채 부족한 항목만 채운다. 전체 grid를 빈 상태로
+  되돌리거나 순서를 흔들지 않는다.
+- 열 수가 줄면 숨겨진 항목을 삭제한 것으로 취급하지 않는다. “전체 보기” 또는 archive route에서 계속
+  접근 가능해야 한다.
+- SSR 결과와 hydration 후 열 수가 달라도 layout shift를 최소화하고 중복 요청이 프로젝트 순서를 바꾸지
+  않아야 한다.
+
+한 행 소비처는 실제 열 수를 request limit과 동기화한다. resize에서는 기존 카드와 순서를 유지하며
+부족분만 채우고 blank/flicker를 만들지 않는다.
+
+##### Archive variant
+
+- 전체 archive는 여러 행을 허용하고 pagination 또는 incremental loading을 사용한다.
+- 새 데이터를 붙일 때 기존 DOM 순서와 focus를 유지한다.
+- 정렬 기준은 API와 UI가 같은 필드를 사용해야 한다. rename/update 후 화면 순서와 상대 시간이 서버
+  정렬과 달라지지 않게 한다.
+- loading sentinel은 마지막 카드와 같은 grid cell인 척하지 않고 상태 region으로 노출한다.
+
+#### Card behavior
+
+##### Primary action
+
+- preview, title, metadata를 포함하는 하나의 명확한 open target을 제공한다.
+- Enter로 열 수 있어야 하며 새 탭 열기 같은 브라우저 link 동작이 필요한 경우 실제 link를 사용한다.
+- hover, focus-visible, pressed 상태는 같은 geometry를 사용하고 색만으로 상태를 구분하지 않는다.
+- preview 비율은 현재 square card를 migration compatibility로 유지한다. 다른 비율은 card variant 결정과
+  썸네일 생성 계약을 함께 바꿀 때만 추가한다.
+
+##### Overflow menu
+
+- menu trigger는 pointer, touch, keyboard에서 항상 도달 가능해야 한다. hover에서만 나타나더라도
+  `focus-within`, coarse pointer에서는 보인다.
+- trigger는 카드 open action을 실행하지 않도록 event와 DOM ownership을 분리한다.
+- menu는 grid/card overflow에 잘리지 않아야 하며 floating layer 또는 승인된 overlay root를 사용한다.
+- `aria-haspopup`, `aria-expanded`, menu name을 제공하고 Arrow keys, Home/End, Escape, focus return을
+  지원한다.
+- rename/delete 뒤 focus를 다음 논리 카드 또는 section heading으로 이동한다.
+
+##### Preview and metadata
+
+- 콘텐츠 이미지에는 프로젝트를 구분할 수 있는 대체 텍스트를 제공하거나, 같은 link 안의 제목이 이름을
+  제공하면 preview 이미지는 장식으로 숨긴다.
+- title과 status를 영상 위에 올릴 때 썸네일 톤에만 의존하지 않고 모든 테마/이미지에서 읽을 수 있는
+  overlay recipe를 사용한다.
+- type, failure, processing 상태는 색뿐 아니라 label로 전달한다.
+- 상대 시각은 locale에 맞추고 보조 기술이 이해할 수 있는 완전한 날짜를 함께 제공한다.
+
+#### States
+
+| State               | Contract                                                                              |
+| ------------------- | ------------------------------------------------------------------------------------- |
+| Initial loading     | 예상 grid 구조를 보존하는 skeleton 또는 구체적인 loading status를 제공한다            |
+| Incremental loading | 기존 카드를 제거하지 않고 section에 `aria-busy`를 설정한다                            |
+| Empty               | 무엇이 비었는지와 가능한 다음 행동을 제공한다                                         |
+| Error               | empty와 구분하고 재시도 또는 복구 행동을 제공한다                                     |
+| Rename              | title 위치에서 편집하되 입력 label, Enter/Escape, validation, focus return을 제공한다 |
+| Delete pending      | 대상 이름과 영향을 확인하고 성공 전 카드를 제거하지 않는다                            |
+| Processing project  | progress/status label을 유지하고 open 가능 여부를 명시한다                            |
+
+로딩 표현은 [Loading](../patterns/loading.md), 버튼과 focus 기준은
+[Inclusive Design](../foundations/inclusive-design.md)을 따른다.
+
+#### Responsive behavior
+
+| Mode        | Section header                                          | Grid                                      | Card actions                               |
+| ----------- | ------------------------------------------------------- | ----------------------------------------- | ------------------------------------------ |
+| Regular     | label/count와 primary action을 한 행에 둔다             | container 폭에 따라 3–5열 호환 결과       | hover와 focus에서 overflow 표시            |
+| Constrained | 긴 label과 action이 충돌하면 action을 menu화하거나 wrap | usable card width를 먼저 보장하고 열 감소 | 필수 액션은 focus/touch에서 항상 표시      |
+| Compact     | label과 action이 필요하면 wrap 가능                     | 현재 호환 결과 2열                        | touch target을 카드 모서리와 안전하게 분리 |
+
+열 수와 데이터 요청 수는 같은 column calculation 결과를 공유한다. CSS는 4열인데 JS가 3개만 요청하는
+식으로 서로 다른 breakpoint 표를 복제하지 않는다.
+
+#### Accessibility
+
+- section heading과 grid를 `aria-labelledby`로 연결한다.
+- 단순 CSS grid는 별도 `role="grid"`를 붙이지 않는다. 복합 grid keyboard model을 구현하지 않는 한
+  native link/button 목록으로 둔다.
+- DOM과 시각적 프로젝트 순서를 일치시킨다.
+- 모든 card open action과 menu trigger에 명확한 focus-visible indicator를 제공한다.
+- drag/reorder를 도입하면 keyboard 대체 동작과 현재 위치 안내를 함께 제공한다.
+- reduced-motion에서 staggered card entrance와 scale transition을 제거해도 콘텐츠가 즉시 보여야 한다.
+
+#### Extraction baseline
+
+Home, Video Editor history, Highlight history/clip에서 2/3/4/5열과 한 행 요청 개수를 사용한 결과는
+migration compatibility로 보존한다. 비규범 provenance는
+[`KP-GRID-001`](../../migration/product-baseline.md)에 있다.
+
+Scene별 markup, viewport-only query, keyboard로 열리지 않는 card, local overflow menu와 불안정한
+refetch 순서는 공용 recipe로 가져오지 않는다.
+
+#### Pre-implementation blockers
+
+- container 기반 공용 grid recipe와 card minimum token이 없다.
+- link/button primary action과 overflow overlay test가 없다.
+- loading/error/empty state와 resize/refetch 안정성 contract가 구현되지 않았다.
+- Highlight history/clip variant의 visual regression이 없다.
+
+#### Acceptance tests
+
+- Home recent, Video Editor history, Highlight history/clip 소비처가 네 기준 viewport 구간에서 2/3/4/5열
+  호환 결과를 내며 wide 화면이 3열에 고정되지 않는다.
+- 각 기준에서 sidebar expanded/collapsed를 전환해 grid가 실제 content box에 맞게 재계산되고 겹침·가로
+  scroll이 없다.
+- archive home은 정확히 한 행을 채우고 resize 중 기존 카드가 사라지거나 순서가 바뀌지 않는다.
+- keyboard만으로 모든 카드를 열고 overflow menu의 모든 항목을 실행한 뒤 focus가 복원된다.
+- touch/coarse pointer에서 overflow trigger를 hover 없이 찾고 누를 수 있다.
+- empty, initial loading, incremental loading, request failure를 시각·접근성 트리에서 구분한다.
+- 200% 확대와 KO/EN/JA 긴 제목에서 open target과 menu가 겹치지 않는다.
+- light/dark, 밝고 어두운 썸네일, reduced-motion에서 title/status/focus가 읽힌다.
+
+## Editor Workspace
+
+- Source: design/patterns/editor-workspace.md
+- Maturity: experimental
+
+### Editor Workspace
+
+Editor Workspace는 preview, assets, properties, timeline처럼 여러 작업 pane이 동시에 필요한 편집 화면의
+구조 계약이다. **route workspace와 modal editor를 같은 것으로 취급하지 않는 것**이 첫 규칙이다.
+
+mode는 API와 DOM semantics에서 명시적으로 분리하며 portal target이나 ref timing으로 추론하지 않는다.
+
+#### Modes
+
+| Mode                     | 예                                          | 소유 영역                                          | Modal semantics                                                                 |
+| ------------------------ | ------------------------------------------- | -------------------------------------------------- | ------------------------------------------------------------------------------- |
+| Route / docked workspace | 독립 editor project, highlight short editor | App Shell이 준 workspace host                      | 아니다. route main content이며 backdrop, `aria-modal`, focus trap을 쓰지 않는다 |
+| Modal editor             | canvas에서 임시 editor 열기                 | viewport의 승인된 modal layer                      | 맞다. 뒤 UI를 inert 처리하고 focus를 가둔다                                     |
+| Compact route workspace  | 작은 viewport의 project editor              | App Shell main 영역 전체, navigation은 닫힌 drawer | route다. 화면을 채워도 dialog로 노출하지 않는다                                 |
+
+Mode를 `portalContainer`의 null 여부나 우연한 ref timing으로 추론하지 않는다. public API는
+`mode="route" | "modal"`처럼 의도를 직접 표현해야 하며 잘못된 mode는 개발 단계에서 실패해야 한다.
+
+#### Anatomy
+
+```text
+App Shell                         ← route mode에서만
+├─ Navigation rail / drawer       ← App Shell 소유
+├─ Top chrome                     ← back, title, save/export, profile
+└─ Workspace host
+   └─ Editor workspace
+      ├─ Assets pane
+      ├─ Preview pane
+      ├─ Properties / inspector pane
+      ├─ Timeline pane
+      ├─ Pane dividers / collapse controls
+      └─ Local overlay root
+
+Global overlay root               ← profile, command palette, modal confirm
+```
+
+Route mode에서 workspace host는 top chrome 아래 남은 surface를 채운다. Editor는 host 밖의 sidebar 공간을
+계산하지 않는다.
+
+#### Ownership boundaries
+
+##### App Shell owns
+
+- sidebar expanded/collapsed/drawer state와 main offset
+- viewport height, safe area, route top chrome
+- breadcrumb/back, profile, command palette 같은 global chrome
+- global non-modal과 modal overlay root
+- immersive route 진입 시 임시 sidebar collapse와 이탈 시 복원
+
+##### Editor owns
+
+- assets, preview, inspector, timeline의 배치와 크기 상태
+- pane resize/collapse, selection, playback, timeline keyboard interaction
+- workspace host 안의 tooltip, menu, crop/guide overlay
+- dirty/save/export 상태를 top chrome action slot에 제공하는 것
+
+##### Editor must not own
+
+- `100vw - sidebar width` 같은 shell geometry
+- body에 직접 올린 임의 z-index 경쟁
+- route mode의 backdrop, page-level focus trap, click-outside close
+- profile popover나 sidebar pointer handling
+
+#### Route workspace contract
+
+- workspace root는 host를 기준으로 `inset: 0` 또는 flex fill하며 `min-width: 0`, `min-height: 0`을 가진다.
+- regular/constrained mode에서 root는 host-relative다. viewport `position: fixed`로 sidebar reserve를 무시하지
+  않는다.
+- App Shell sidebar가 펼쳐지거나 접히면 host rectangle이 바뀌고 workspace는 그 안에서 reflow한다.
+- immersive editor 진입 시 sidebar를 임시 collapse할 수 있다. 이 상태는 사용자
+  preference를 덮어쓰지 않고 이탈 시 복원한다.
+- 사용자가 편집 중 sidebar를 직접 펼치면 workspace가 밀려나거나 재배치되어야 한다. sidebar가 editor
+  assets pane 위에 겹치면 실패다.
+- 내부 editor header의 title/action을 top chrome으로 옮겼다면 원래 header는 중복 렌더하지 않는다. action
+  portal 대상이 첫 render에 없더라도 두 벌의 저장/완료 버튼이 잠시 보이면 안 된다.
+- editor scroll은 workspace 내부 pane이 소유하고 body/main page scroll과 경쟁하지 않는다.
+
+#### Modal editor contract
+
+- 승인된 global modal root에 렌더하고 route content, navigation, global non-modal을 inert 처리한다.
+- dialog name/description, initial focus, Tab containment, Escape, close 후 trigger focus 복원을 제공한다.
+- backdrop activation은 drag 종료나 pointer capture와 충돌하지 않아야 한다.
+- modal mode의 full-viewport stacking은 route mode에 전달되지 않는다.
+- nested confirm/crop/help overlay는 가장 최근에 열린 layer부터 Escape로 닫힌다.
+- 저장하지 않은 변경이 있으면 close request와 discard confirm을 분리한다.
+
+#### Pane layout
+
+##### Regular
+
+- 상단 작업 행은 assets, preview, inspector를 두고 timeline은 하단 작업 행을 소유한다.
+- preview가 핵심 pane이며 보조 pane 최소값 때문에 0 이하로 압축되지 않는다.
+- pane width/height는 resize 가능한 state와 승인된 범위에서 관리한다. CSS literal과 component state가
+  서로 다른 기본값을 갖지 않는다.
+- divider는 pointer drag 외에 keyboard 조절과 reset을 제공한다.
+- collapsed pane은 focus 순서와 접근성 트리에서 제거되고 명시적인 restore control을 남긴다.
+
+기본 recipe는 assets, divider, preview, divider, properties와 하단 timeline 관계를 사용한다. pane
+폭과 timeline 높이는 승인된 semantic token/state에서 오며 임의 fallback 숫자를 token으로 승격하지
+않는다.
+
+##### Constrained
+
+- host 폭이 모든 pane을 안전하게 담지 못하면 낮은 우선순위 pane부터 collapse 또는 drawer/tab로 옮긴다.
+- App Shell을 포함한 문서 전체 horizontal scroll로 작업 공간을 숨기지 않는다.
+- preview, playback, timeline, save/export는 계속 도달 가능해야 한다.
+- breakpoint는 viewport가 아니라 workspace host의 pane 최소 요구량에서 결정한다.
+
+constrained recipe는 compact 전환 전에도 전역 최소폭과 가로 scroll에 의존하지 않아야 한다.
+
+##### Compact
+
+- App Shell sidebar reserve는 0이고 navigation drawer는 기본 닫힘이다.
+- pane은 한 열의 단계형 구조, tabs, sheets 중 하나로 표현한다.
+- preview, timeline, inspector뿐 아니라 **assets에도 명시적인 진입점**이 있어야 한다.
+- 숨은 implicit CSS grid track에 assets가 우연히 배치되는 구현을 허용하지 않는다.
+- 완료/저장/뒤로가기 같은 route action은 safe area 안에 유지하고 가상 키보드에도 가려지지 않는다.
+- 높이가 짧으면 pane의 고정 최소 높이를 모두 유지하려 하지 말고 active pane에 scroll을 부여한다.
+
+compact recipe가 assets 진입점을 생략하면 문서 순서나 숨은 implicit grid track에 우연히 배치하지 않고
+검증 단계에서 실패한다.
+
+#### Responsive matrix
+
+| Mode              | Shell navigation                                 | Pane presentation                                    | Overlay scope                                                |
+| ----------------- | ------------------------------------------------ | ---------------------------------------------------- | ------------------------------------------------------------ |
+| Regular route     | 임시 collapsed persistent rail, 사용자 전환 가능 | assets + preview + inspector / timeline              | local overlay는 host, global overlay는 shell root            |
+| Constrained route | rail이 차지한 뒤 host 기준                       | 보조 pane collapse·tab·drawer, preview/timeline 유지 | local overlay가 host 밖 sidebar를 덮지 않음                  |
+| Compact route     | reserve 0, 닫힌 overlay drawer                   | 명시적인 single-column/step structure                | editor는 main 영역을 채우고 shell drawer는 별도 global layer |
+| Modal             | 배경 navigation inert                            | viewport 안에서 regular/compact editor layout 선택   | modal root가 소유, nested modal은 overlay service 사용       |
+
+compact 호환 경계는 [Responsive Layout](../foundations/responsive-layout.md)에 기록한다. container 기반
+전환은 위 기능 결과를 우선한다.
+
+#### Overlay and portal contract
+
+##### Local overlays
+
+다음은 workspace host 또는 editor shell을 기준으로 위치한다.
+
+- pane menu, tooltip, selection handles
+- crop overlay와 composition guide
+- timeline hover preview와 drag tooltip
+- inspector option list가 host를 벗어날 필요가 없는 경우
+
+local overlay는 sidebar/top chrome/profile popover보다 높은 viewport stacking context를 만들지 않는다.
+host가 `overflow: hidden`이어도 떠 있는 menu가 필요하면 host 내부 local overlay root를 둔다.
+
+##### Global overlays
+
+다음만 App Shell overlay service로 승격한다.
+
+- profile popover와 command palette
+- plan gate, destructive confirm, unsaved-change confirm
+- viewport 기준 positioning이 실제 요구인 floating UI
+
+승격 시 layer semantics, focus ownership, close order를 선언한다. 단순히 clipping을 피하려고
+`document.body`로 보내지 않는다.
+
+##### Interaction guarantees
+
+- global profile popover가 보이면 editor 위에서 pointer와 keyboard로 menu item을 선택할 수 있다.
+- modal dialog가 열리면 profile popover와 local menu는 닫히거나 inert다.
+- nested overlay에서 Escape는 topmost layer 하나만 닫는다.
+- overlay close 후 focus는 editor selection을 파괴하지 않는 논리 trigger로 돌아간다.
+- route editor와 modal editor의 z-index가 같은 selector나 상수로 섞이지 않는다.
+
+#### Keyboard and accessibility
+
+- route mode root에는 `role="dialog"`/`aria-modal`을 붙이지 않는다. `<main>` 또는 이름 있는 application
+  region 안에 pane landmark를 제공한다.
+- assets, preview, inspector, timeline은 heading 또는 `aria-label`로 구분한다.
+- pane resize/collapse, timeline zoom, clip 이동·자르기에는 keyboard 대체 동작을 제공한다.
+- Space 재생/정지는 text input, menu, dialog에서 동작하지 않게 scope를 관리한다.
+- focus가 숨긴 pane이나 뒤 modal layer에 남지 않아야 한다.
+- 처리 상태는 구체적인 `role="status"`/progress semantics를 제공하고 편집 가능한 영역 전체를 불필요하게
+  막지 않는다.
+- reduced-motion에서 shell open/close와 pane 이동은 즉시 전환하되 drag/selection 결과는 유지한다.
+- 200% 확대와 KO/EN/JA 긴 action label에서도 save/export/back을 사용할 수 있어야 한다.
+
+#### Extraction baseline
+
+제품 구현의 host-scoped route workspace와 immersive route collapse/restore 결과는 보존하되,
+Modal과 Workspace를 portal 유무로 분기한 API는 가져오지 않는다. compact assets 접근 누락,
+body-portal floating UI, raw layer 숫자와 sidebar overlap 위험은 해결 대상이다.
+
+비규범 provenance는 [`KP-EDITOR-001`](../../migration/product-baseline.md)에 있다.
+
+#### Pre-implementation blockers
+
+- route와 dialog를 명시적으로 분리한 workspace API가 없다.
+- regular/constrained/compact pane recipe와 assets 대체 진입점이 없다.
+- local/global overlay service와 Escape/focus ownership test가 없다.
+- pane resize keyboard alternative와 responsive geometry regression이 없다.
+
+#### Acceptance tests
+
+##### Geometry
+
+- regular route에서 sidebar expanded/collapsed/auto-collapsed 각각 navigation과 editor rectangle이 겹치지
+  않는다.
+- editor 진입 전 sidebar 상태가 이탈 후 복원되고, 편집 중 사용자 전환은 즉시 workspace를 reflow한다.
+- compact route에서 sidebar reserve가 0이고 drawer가 닫힌 상태로 시작하며 assets, preview, timeline,
+  inspector, save/export에 모두 도달한다.
+- 짧은 viewport와 200% 확대에서 pane이 workspace 밖으로 밀려 완료 액션이 사라지지 않는다.
+- body와 workspace가 동시에 가로/세로 scroll하지 않는다.
+
+##### Overlay
+
+- editor route에서 profile popover를 열고 pointer·keyboard로 설정/구독/언어/테마 항목을 선택한다.
+- profile popover 위를 투명한 editor root가 가로채지 않는다.
+- crop/help/local menu → global confirm 순서로 중첩하고 Escape가 topmost layer 하나씩 닫히는지 확인한다.
+- modal editor를 열면 navigation과 route content가 inert이고 닫으면 원래 trigger로 focus가 돌아온다.
+- route editor에는 backdrop click close나 modal focus trap이 적용되지 않는다.
+
+##### Interaction and accessibility
+
+- keyboard만으로 pane 이동, collapse/restore, resize 대체, playback, save/export를 완료한다.
+- focus가 숨겨진 pane, 닫힌 menu, modal 뒤에 남지 않는다.
+- processing, upload, render success/failure가 screen reader에 중복 없이 전달된다.
+- light/dark, reduced-motion, KO/EN/JA에서 top chrome과 editor action이 중복되거나 잘리지 않는다.

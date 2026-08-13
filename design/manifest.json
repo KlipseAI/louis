@@ -19,6 +19,48 @@
       "deprecated"
     ]
   },
+  "tokenPackage": {
+    "name": "@klipse-design/tokens",
+    "maturity": "experimental",
+    "source": "packages/tokens/src/klipse.tokens.json",
+    "sourceFormat": "DTCG 2025.10",
+    "artifacts": [
+      {
+        "id": "css",
+        "status": "done",
+        "path": "packages/tokens/generated/tokens.css"
+      },
+      {
+        "id": "javascript",
+        "status": "done",
+        "path": "packages/tokens/generated/index.js"
+      },
+      {
+        "id": "types",
+        "status": "done",
+        "path": "packages/tokens/generated/index.d.ts"
+      },
+      {
+        "id": "json",
+        "status": "done",
+        "path": "packages/tokens/generated/tokens.json"
+      },
+      {
+        "id": "figma-proposal",
+        "status": "done",
+        "path": "packages/tokens/generated/figma.tokens.json"
+      },
+      {
+        "id": "manifest",
+        "status": "done",
+        "path": "packages/tokens/generated/manifest.json"
+      }
+    ],
+    "figmaLibrary": "not-ready",
+    "packageRelease": "not-ready",
+    "docs": "done",
+    "note": "P2 local release-candidate; public package release, product adoption and published Figma library are not ready"
+  },
   "documents": [
     {
       "id": "manifest-catalog",
@@ -54,6 +96,51 @@
       "section": "foundations",
       "authority": "normative",
       "maturity": "beta",
+      "generated": false
+    },
+    {
+      "id": "foundation-color-theme",
+      "path": "design/foundations/color-theme.md",
+      "title": "Color & Theme",
+      "section": "foundations",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
+    },
+    {
+      "id": "foundation-typography",
+      "path": "design/foundations/typography.md",
+      "title": "Typography",
+      "section": "foundations",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
+    },
+    {
+      "id": "foundation-spacing-radius",
+      "path": "design/foundations/spacing-radius.md",
+      "title": "Spacing & Radius",
+      "section": "foundations",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
+    },
+    {
+      "id": "foundation-elevation-layer",
+      "path": "design/foundations/elevation-layer.md",
+      "title": "Elevation & Layer",
+      "section": "foundations",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
+    },
+    {
+      "id": "foundation-motion",
+      "path": "design/foundations/motion.md",
+      "title": "Motion",
+      "section": "foundations",
+      "authority": "normative",
+      "maturity": "experimental",
       "generated": false
     },
     {
@@ -255,6 +342,15 @@
       "generated": false
     },
     {
+      "id": "decision-token-source",
+      "path": "design/governance/decisions/DS-D-0001-token-source.md",
+      "title": "DS-D-0001 Token Source Architecture",
+      "section": "governance",
+      "authority": "normative",
+      "maturity": "beta",
+      "generated": false
+    },
+    {
       "id": "updates-overview",
       "path": "design/updates/README.md",
       "title": "Updates",
@@ -299,6 +395,11 @@
       "sources": [
         "design/manifest.json",
         "design/foundations/README.md",
+        "design/foundations/color-theme.md",
+        "design/foundations/typography.md",
+        "design/foundations/spacing-radius.md",
+        "design/foundations/elevation-layer.md",
+        "design/foundations/motion.md",
         "design/foundations/inclusive-design.md",
         "design/foundations/responsive-layout.md"
       ]
@@ -366,6 +467,7 @@
         "design/governance/releases.md",
         "design/governance/deprecations.md",
         "design/governance/decisions/README.md",
+        "design/governance/decisions/DS-D-0001-token-source.md",
         "design/updates/README.md"
       ]
     }
@@ -507,6 +609,11 @@
     {
       "path": "migration/product-baseline.md",
       "purpose": "제품 레포에서 추출한 비규범 구현 근거",
+      "authority": "reference"
+    },
+    {
+      "path": "migration/token-mapping.md",
+      "purpose": "제품 legacy token에서 독립 semantic token으로 이관하기 위한 비규범 mapping 근거",
       "authority": "reference"
     }
   ]

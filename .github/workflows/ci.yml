@@ -27,7 +27,7 @@ jobs:
       - name: Enable pnpm
         run: corepack enable
 
-      - name: Check generated documentation drift
+      - name: Check generated artifact drift
         run: pnpm check
 
       - name: Prove validation gates

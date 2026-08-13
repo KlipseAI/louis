@@ -161,7 +161,8 @@ collapse/restore다. 복제된 Scene shell, 전역 최소폭, raw z-index는 새
 
 ## Pre-implementation blockers
 
-- 공용 App Shell composition과 geometry token 구현이 없다.
+- P2 local RC에 App Shell geometry token은 있다. 이를 소비하는 공용 App Shell composition과 실제 제품
+  integration은 아직 없다.
 - drawer focus trap/inert/scroll lock test가 없다.
 - safe-area와 viewport-height 전략이 package로 정의되지 않았다.
 - semantic overlay layer와 profile menu interaction test가 없다.

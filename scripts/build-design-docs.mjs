@@ -5,11 +5,11 @@ import {
   readFileSync,
   realpathSync,
   readdirSync,
-  writeFileSync,
 } from "node:fs";
 import { dirname, isAbsolute, relative, resolve, sep } from "node:path";
 import { fileURLToPath } from "node:url";
 import { validateJsonSchema } from "./lib/json-schema.mjs";
+import { atomicWriteBatch } from "./lib/atomic-output.mjs";
 
 const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const realRepoRoot = realpathSync(repoRoot);
@@ -383,6 +383,7 @@ if (manifest && schema) {
 if (!manifest || !schema || errors.length > 0) reportAndExit();
 
 const documents = Array.isArray(manifest.documents) ? manifest.documents : [];
+const tokenPackage = manifest.tokenPackage;
 const components = Array.isArray(manifest.components)
   ? manifest.components
   : [];
@@ -395,6 +396,98 @@ uniqueField(documents, "id", "documents");
 uniqueField(documents, "path", "documents");
 uniqueField(components, "id", "components");
 uniqueField(patterns, "id", "patterns");
+uniqueField(referenceSurfaces, "path", "referenceSurfaces");
+
+const expectedTokenArtifacts = new Map([
+  ["css", "packages/tokens/generated/tokens.css"],
+  ["javascript", "packages/tokens/generated/index.js"],
+  ["types", "packages/tokens/generated/index.d.ts"],
+  ["json", "packages/tokens/generated/tokens.json"],
+  ["figma-proposal", "packages/tokens/generated/figma.tokens.json"],
+  ["manifest", "packages/tokens/generated/manifest.json"],
+]);
+
+if (tokenPackage) {
+  if (tokenPackage.name !== "@klipse-design/tokens") {
+    errors.push("tokenPackage.name이 @klipse-design/tokens가 아닙니다.");
+  }
+  if (tokenPackage.maturity !== "experimental") {
+    errors.push("P2 tokenPackage.maturity는 experimental이어야 합니다.");
+  }
+  if (tokenPackage.source !== "packages/tokens/src/klipse.tokens.json") {
+    errors.push(
+      "tokenPackage.source는 packages/tokens/src/klipse.tokens.json이어야 합니다.",
+    );
+  }
+  if (tokenPackage.sourceFormat !== "DTCG 2025.10") {
+    errors.push("tokenPackage.sourceFormat은 DTCG 2025.10이어야 합니다.");
+  }
+  requireFile(tokenPackage.source, "tokenPackage source");
+  requireFile("scripts/lib/token-model.mjs", "tokenPackage validator");
+  requireFile("scripts/lib/atomic-output.mjs", "tokenPackage atomic writer");
+  requireFile("scripts/build-tokens.mjs", "tokenPackage generator");
+  requireFile("scripts/diff-tokens.mjs", "tokenPackage diff checker");
+  requireFile("scripts/verify-token-gates.mjs", "tokenPackage failure gates");
+  requireFile(
+    "packages/tokens/test/consumer.mjs",
+    "tokenPackage consumer fixture",
+  );
+  requireFile(
+    "packages/tokens/baseline/manifest.json",
+    "tokenPackage baseline",
+  );
+
+  const artifacts = Array.isArray(tokenPackage.artifacts)
+    ? tokenPackage.artifacts
+    : [];
+  uniqueField(artifacts, "id", "tokenPackage.artifacts");
+  uniqueField(artifacts, "path", "tokenPackage.artifacts");
+  const artifactById = new Map(
+    artifacts.map((artifact) => [artifact.id, artifact]),
+  );
+  for (const [id, path] of expectedTokenArtifacts) {
+    const artifact = artifactById.get(id);
+    if (!artifact) {
+      errors.push("tokenPackage artifact가 없습니다: " + id);
+      continue;
+    }
+    if (artifact.path !== path) {
+      errors.push(
+        "tokenPackage artifact 경로 불일치: " +
+          id +
+          " (" +
+          artifact.path +
+          " -> " +
+          path +
+          ")",
+      );
+    }
+    if (artifact.status !== "done") {
+      errors.push(
+        "tokenPackage artifact status는 done이어야 합니다: " +
+          id +
+          " (" +
+          artifact.status +
+          ")",
+      );
+    }
+    requireFile(artifact.path, "tokenPackage artifact " + id);
+  }
+  for (const artifact of artifacts) {
+    if (!expectedTokenArtifacts.has(artifact.id)) {
+      errors.push("지원되지 않는 tokenPackage artifact id: " + artifact.id);
+    }
+  }
+  if (tokenPackage.figmaLibrary !== "not-ready") {
+    errors.push("P2 tokenPackage.figmaLibrary는 not-ready여야 합니다.");
+  }
+  if (tokenPackage.packageRelease !== "not-ready") {
+    errors.push("P2 tokenPackage.packageRelease는 not-ready여야 합니다.");
+  }
+  if (tokenPackage.docs !== "done") {
+    errors.push("tokenPackage.docs는 done이어야 합니다.");
+  }
+}
 
 const documentByPath = new Map(
   documents.map((document) => [document.path, document]),
@@ -585,6 +678,14 @@ const catalogBody = [
   "| Components | " + components.length + " |",
   "| Patterns | " + patterns.length + " |",
   "| Web done | " + webDoneCount + " |",
+  "| Token artifacts done | " +
+    tokenPackage.artifacts.filter((artifact) => artifact.status === "done")
+      .length +
+    "/" +
+    expectedTokenArtifacts.size +
+    " |",
+  "| Figma library | " + tick + tokenPackage.figmaLibrary + tick + " |",
+  "| Package release | " + tick + tokenPackage.packageRelease + tick + " |",
 ].join("\n");
 
 const generatedUpdates = new Map([
@@ -613,6 +714,7 @@ const generatedUpdates = new Map([
 if (requireTracked) validateTrackedInputs();
 
 if (errors.length === 0) {
+  const writePlan = [];
   for (const [path, expected] of generatedUpdates) {
     if (expected === null) continue;
     const absolute = resolve(repoRoot, path);
@@ -621,9 +723,10 @@ if (errors.length === 0) {
     if (checkOnly) {
       errors.push("generated region이 최신이 아닙니다: " + path);
     } else {
-      writeFileSync(absolute, expected);
+      writePlan.push({ absolute, expected });
     }
   }
+  if (errors.length === 0) atomicWriteBatch(writePlan);
 }
 
 reportAndExit();

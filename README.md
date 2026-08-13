@@ -4,10 +4,11 @@ Klipse 제품들이 공통으로 소비하는 디자인 언어와 배포 자산�
 [SEED Design](https://seed-design.io/)의 운영 모델처럼 제품 화면 코드와 분리하고, 토큰·컴포넌트·문서·
 릴리스 게이트를 한 저장소에서 함께 관리한다.
 
-현재 단계는 **P1 portable contracts release-candidate, 구현 패키지 준비 중**이다. 첫 추적 commit과
-clean-checkout CI, repository owner 승인이 끝나면 P1을 완료로 승격한다. 문서가 존재한다는 이유로
-React·CSS·Figma 구현이 완료된 것으로 간주하지 않으며, 실제 상태는
-[`design/manifest.json`](design/manifest.json)에만 기록한다.
+현재 단계는 **P1 portable contracts + P2 token package 로컬 release-candidate**다. P2에는 DTCG 토큰
+정본과 CSS·JavaScript·TypeScript·JSON·Figma 검토안 생성물이 준비됐다. 원격 저장소의 clean-checkout
+hosted CI와 repository owner 승인은 이후 승격 조건으로 남겨 두며, public package·제품 적용·published
+Figma library는 아직 `not-ready`다. 실제 상태는 [`design/manifest.json`](design/manifest.json)에만
+기록한다.
 
 ## 저장소 구조
 

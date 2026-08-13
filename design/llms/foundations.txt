@@ -4,13 +4,18 @@
 
 - System maturity: experimental
 - Coverage: exhaustive
-- Documents: 3
+- Documents: 8
 - Purpose: 토큰, 접근성, 반응형 기반 계약
 
 ## Sources
 
 - design/manifest.json
 - design/foundations/README.md
+- design/foundations/color-theme.md
+- design/foundations/typography.md
+- design/foundations/spacing-radius.md
+- design/foundations/elevation-layer.md
+- design/foundations/motion.md
 - design/foundations/inclusive-design.md
 - design/foundations/responsive-layout.md
 
@@ -27,23 +32,48 @@
 
 #### 카탈로그
 
-| Foundation        | 규범 상태      | 구현 상태   | 다음 완료 조건                                                      |
-| ----------------- | -------------- | ----------- | ------------------------------------------------------------------- |
-| Color & Theme     | `experimental` | `not-ready` | semantic role과 light/dark alias graph를 구조화 token source로 정의 |
-| Typography        | `experimental` | `not-ready` | 역할 기반 scale, locale fallback, zoom 수용 조건 정의               |
-| Spacing & Radius  | `experimental` | `not-ready` | primitive와 layout semantic token 분리                              |
-| Responsive Layout | `beta`         | 규범 준비   | container 기반 수용 조건을 제품 통합 테스트에 연결                  |
-| Inclusive Design  | `beta`         | 규범 준비   | WCAG 2.2 AA, keyboard, focus, contrast gate 연결                    |
-| Motion            | `experimental` | `not-ready` | duration/easing/reduced-motion token 정의                           |
-| Iconography       | `experimental` | `not-ready` | source, naming, optical size, accessible-name 규칙 정의             |
+| Foundation                                | 규범 상태      | 토큰 pipeline | 남은 소비 구현 검증                                                 |
+| ----------------------------------------- | -------------- | ------------- | ------------------------------------------------------------------- |
+| [Color & Theme](../foundations/color-theme.md)           | `experimental` | local RC      | forced-colors, component 상태 신호와 화면 대비                      |
+| [Typography](../foundations/typography.md)               | `experimental` | local RC      | KO/EN/JA glyph·font asset, zoom과 loading layout                    |
+| [Spacing & Radius](../foundations/spacing-radius.md)     | `experimental` | local RC      | Shell/Grid 실측, 200% zoom과 hit target                             |
+| [Elevation & Layer](../foundations/elevation-layer.md)   | `experimental` | local RC      | high-contrast 경계, overlay hit-test와 closing lifecycle            |
+| [Motion](../foundations/motion.md)                       | `experimental` | local RC      | component unmount와 실제 `prefers-reduced-motion`                   |
+| [Responsive Layout](../foundations/responsive-layout.md) | `beta`         | 규범 준비     | container 기반 수용 조건을 제품 통합 테스트에 연결                  |
+| [Inclusive Design](../foundations/inclusive-design.md)   | `beta`         | 규범 준비     | WCAG 2.2 AA, keyboard, focus, contrast gate 연결                    |
+| Iconography                               | `experimental` | `not-ready`   | P2 범위 밖. source, naming, optical size, accessible-name 규칙 정의 |
 
 #### 토큰 정본
 
-P2가 시작되면 `packages/tokens/src/`의 구조화 원본이 값을 소유한다. CSS와 TypeScript,
-Figma collection은 같은 원본에서 생성하며 생성물을 손으로 수정하지 않는다.
+P2 token source/projection pipeline은 local `release-candidate`다.
+`packages/tokens/src/klipse.tokens.json`의 DTCG 2025.10-compatible 구조화 원본이 값과 alias를 소유하고
+`scripts/lib/token-model.mjs`가 이 저장소가 지원하는 DTCG subset과 Klipse extension을 검증한다. 범용 DTCG
+validator 전체를 구현했다는 뜻은 아니다. 위 표의 소비 구현 검증은 이 상태에 포함되지 않는다.
+
+| 역할                        | 경로                                          |
+| --------------------------- | --------------------------------------------- |
+| DTCG source                 | `packages/tokens/src/klipse.tokens.json`      |
+| Repository subset validator | `scripts/lib/token-model.mjs`                 |
+| CSS                         | `packages/tokens/generated/tokens.css`        |
+| JavaScript                  | `packages/tokens/generated/index.js`          |
+| TypeScript                  | `packages/tokens/generated/index.d.ts`        |
+| Resolved JSON               | `packages/tokens/generated/tokens.json`       |
+| Reviewable Figma proposal   | `packages/tokens/generated/figma.tokens.json` |
+| Generated manifest          | `packages/tokens/generated/manifest.json`     |
+| Approved diff baseline      | `packages/tokens/baseline/manifest.json`      |
+
+Source와 여섯 artifact는 local RC로 구현됐으며 생성 artifact는 손으로 수정하지 않는다. CSS는 제품
+소비용 semantic custom property만 생성한다. JS·resolved JSON·Figma proposal·manifest는 검증과 추적을
+위해 primitive/semantic graph를 함께 보존하고, TypeScript는 안정 ID, token별 type·mode·alias와 값 구조를
+선언한다. 제품의 primitive 직접 소비는 여전히 지원하지 않는다. Package는 private이고 public release와
+제품 adoption은 `not-ready`다. Figma proposal도 published collection이 아니므로 P2 RC만으로 Figma library
+상태를 올리지 않는다.
 
 기존 Klipse 제품 CSS에서 추출한 값은 migration evidence일 뿐 새 토큰 정본이 아니다. 의미를
 검토하지 않은 값을 그대로 복사하지 않는다.
+
+P2의 구체적인 package 경계와 완료 조건은
+[`@klipse-design/tokens`](../../packages/tokens/README.md)에서 관리한다.
 
 #### 공통 품질 기준
 
@@ -55,6 +85,404 @@ Figma collection은 같은 원본에서 생성하며 생성물을 손으로 수�
 - `prefers-reduced-motion`에서 비필수 motion을 줄인다.
 
 AI용 projection은 [Foundations text](foundations.txt)로 생성된다.
+
+## Color & Theme
+
+- Source: design/foundations/color-theme.md
+- Maturity: experimental
+
+### Color & Theme
+
+Color & Theme은 색 값을 나열하는 문서가 아니라, 같은 의미가 light/dark 환경에서 예측 가능한 역할로
+해석되게 하는 계약이다. P2 source와 platform projection은 로컬 release-candidate다. Package public
+release, 제품 adoption과 published Figma library는 아직 `not-ready`다.
+
+#### Source and artifacts
+
+| 구분           | 계약 경로                                     | 현재 상태               |
+| -------------- | --------------------------------------------- | ----------------------- |
+| DTCG source    | `packages/tokens/src/klipse.tokens.json`      | local release-candidate |
+| Validator      | `scripts/lib/token-model.mjs`                 | local release-candidate |
+| CSS            | `packages/tokens/generated/tokens.css`        | done projection         |
+| JavaScript     | `packages/tokens/generated/index.js`          | done projection         |
+| TypeScript     | `packages/tokens/generated/index.d.ts`        | done projection         |
+| Resolved JSON  | `packages/tokens/generated/tokens.json`       | done projection         |
+| Figma proposal | `packages/tokens/generated/figma.tokens.json` | done, not published     |
+| Manifest       | `packages/tokens/generated/manifest.json`     | done projection         |
+| Diff baseline  | `packages/tokens/baseline/manifest.json`      | local release-candidate |
+
+Raw color와 semantic color는 단일 DTCG source 안의 논리적 계층이다. 모든 artifact는 projection이며 직접
+수정하지 않는다.
+
+#### Token model
+
+1. **Primitive**는 팔레트 값과 투명도처럼 의미 없는 재료를 소유한다.
+2. **Semantic**은 background, foreground, border, accent, feedback, focus 같은 사용 목적을 소유한다.
+3. P3의 component token은 semantic token만 참조하며 primitive를 직접 참조하지 않는다.
+
+제품 코드는 semantic color만 소비한다. primitive 이름을 화면 의미로 사용하거나 기존 CSS 변수 이름을
+새 정본으로 승격하지 않는다.
+
+#### Theme modes
+
+- `light`와 `dark`를 필수 mode로 둔다.
+- theme-dependent semantic token은 두 mode 모두에서 명시적으로 resolve되어야 한다.
+- 누락된 dark 값을 light 값으로 암묵 fallback하지 않는다.
+- CSS는 기본 theme와 `[data-theme="dark"]` override의 semantic custom property를 결정론적으로 생성한다.
+- 생성 CSS는 light/dark selector에 대응하는 `color-scheme`을 선언한다. 소비 제품이 해당 selector를
+  document에 적용하고 browser chrome·SSR 초기 mode와 동기화하는 동작은 P3/P5에서 검증한다.
+- SSR과 첫 paint에서 사용할 theme 결정은 소비 제품이 소유하지만, 생성 CSS는 theme 전환 중 이름이나
+  cascade 순서를 바꾸지 않는다.
+- forced-colors/high-contrast 환경은 별도 색 mode로 가장하지 않고 system color와 focus visibility
+  대체 규칙을 문서화한다.
+
+#### Alias and naming rules
+
+- alias는 같은 type만 가리키며 cycle과 dangling reference를 허용하지 않는다.
+- semantic token이 primitive로 resolve되는 방향만 허용하고 primitive가 semantic token을 참조하지 않는다.
+- source ID는 CSS, JavaScript, TypeScript와 Figma 이름이 바뀌어도 추적 가능한 안정 식별자다.
+- 플랫폼 이름 변환 충돌은 build error다.
+- alpha가 있는 색은 실제 배경과 함께 contrast pair를 선언한다.
+
+#### Accessibility
+
+- 일반 텍스트 foreground/background pair는 4.5:1 이상을 목표로 한다.
+- 큰 텍스트와 의미 있는 비텍스트 그래픽·control boundary는 3:1 이상을 목표로 한다.
+- success, warning, danger, selected 상태는 색 외의 텍스트·아이콘·형태 신호를 함께 제공한다.
+- contrast 검사는 임의의 모든 색 조합이 아니라 source에 선언한 허용 pair를 대상으로 한다.
+
+#### Acceptance tests
+
+이 절은 P2 local RC에서 자동화한 source·생성물 검사다. 실제 component의 forced-colors, 상태별 비색상
+신호와 화면 대비는 P3/P5 소비 구현 게이트이며 아직 `not-ready`다.
+
+- schema가 알 수 없는 field, 잘못된 color type과 중복 ID를 거부한다.
+- alias graph가 cycle, dangling reference와 type mismatch를 거부한다.
+- 모든 semantic color가 light/dark에서 하나의 값으로 resolve된다.
+- 선언된 contrast pair가 각 mode에서 기준을 통과한다.
+- CSS의 semantic mode/output과 JS·JSON·Figma proposal·manifest의 primitive/semantic color graph가 같은
+  normalized model과 일치한다. 생성 CSS의 light/dark `color-scheme` selector도 검사한다.
+- alias target, description/deprecation과 source provenance는 JS·JSON·Figma proposal·manifest에서 source와
+  일치한다.
+- 같은 process에서 동일 source를 두 번 render한 결과가 byte-for-byte 동일하다.
+- Figma proposal 생성만으로 manifest의 Figma 상태를 `partial` 또는 `done`으로 올리지 않는다.
+
+## Typography
+
+- Source: design/foundations/typography.md
+- Maturity: experimental
+
+### Typography
+
+Typography는 글꼴 크기 목록이 아니라 정보 위계, 읽기 흐름, locale fallback과 확대 수용 조건을 함께
+정의한다. P2 source와 projection은 로컬 release-candidate다. Public package API와 제품 adoption은 아직
+`not-ready`다.
+
+#### Source and artifacts
+
+| 구분           | 계약 경로                                     | 현재 상태               |
+| -------------- | --------------------------------------------- | ----------------------- |
+| DTCG source    | `packages/tokens/src/klipse.tokens.json`      | local release-candidate |
+| Validator      | `scripts/lib/token-model.mjs`                 | local release-candidate |
+| CSS            | `packages/tokens/generated/tokens.css`        | done projection         |
+| JavaScript     | `packages/tokens/generated/index.js`          | done projection         |
+| TypeScript     | `packages/tokens/generated/index.d.ts`        | done projection         |
+| Resolved JSON  | `packages/tokens/generated/tokens.json`       | done projection         |
+| Figma proposal | `packages/tokens/generated/figma.tokens.json` | done, not published     |
+| Manifest       | `packages/tokens/generated/manifest.json`     | done projection         |
+| Diff baseline  | `packages/tokens/baseline/manifest.json`      | local release-candidate |
+
+Primitive와 semantic typography는 단일 DTCG source 안의 논리적 계층이며 별도 정본 파일이 아니다.
+
+#### Token model
+
+- primitive는 font family, weight, size, line-height와 letter-spacing 재료를 소유한다.
+- semantic role은 display, title, heading, body, label, caption, code처럼 사용 목적을 소유한다.
+- semantic typography는 필요한 primitive field를 묶는 composite contract다.
+- 컴포넌트가 임의 size/weight 조합을 새 role처럼 만들지 않는다.
+- source의 dimension은 값과 unit을 명시하며 generator가 px/rem을 추측하지 않는다.
+
+#### Locale and font loading
+
+- P2 source는 공용 multi-script fallback 후보를 ordered font-family 배열로 보존한다. Validator는 trim된
+  non-empty string 배열과 typography composite 구조를 검사하며 실제 script별 glyph 지원을 증명하지 않는다.
+- locale별 font 선택, asset 제공과 실제 glyph coverage 검증은 소비 환경이 소유하며 P3/P5 전에는 완료로
+  간주하지 않는다.
+- fallback은 weight와 glyph coverage가 없는 font를 무조건 첫 순서에 두지 않는다.
+- webfont 로딩 전후에도 button, navigation, card title과 dialog action이 잘리거나 순서가 바뀌지 않아야
+  한다.
+- 숫자, timestamp, code처럼 정렬 안정성이 필요한 role은 별도 요구를 선언한다.
+- 제품별 branding font는 공용 role의 접근성과 fallback 계약을 만족할 때만 alias target으로 제안한다.
+
+#### Responsive and inclusive behavior
+
+- 200% text zoom에서도 핵심 정보와 action이 사라지지 않는다.
+- line-height를 고정 box 높이로 상쇄하지 않는다.
+- 긴 KO/EN/JA 문구에서 truncation은 정보 우선순위와 대체 접근 경로가 있을 때만 허용한다.
+- font size만으로 heading semantics를 대신하지 않는다.
+- 사용자가 브라우저 기본 크기를 바꿨을 때 semantic hierarchy가 유지되어야 한다.
+
+#### Platform mapping
+
+- CSS는 font family, size, weight, line-height, letter-spacing을 안정된 semantic custom property로 생성한다.
+- JavaScript와 resolved JSON은 composite field와 unit을 보존한다. TypeScript declaration은 안정 token ID,
+  type·mode·alias target, `TypographyValue`와 nested dimension value 구조, primitive/semantic container를
+  선언한다. Token별 실제 resolved 숫자와 문자열은 runtime data이며 literal value union으로 고정하지 않는다.
+- Figma proposal에서 native variable로 표현할 수 없는 composite는 field별 mapping과 loss metadata를
+  포함한다.
+- platform 변환이 의미를 잃으면 조용히 근사하지 않고 build warning 또는 error로 분류한다.
+
+#### Acceptance tests
+
+P2 local RC는 아래의 구조·생성 검사를 자동화한다.
+
+- schema가 허용되지 않은 weight, unit과 불완전한 composite를 거부한다.
+- 모든 semantic role이 필요한 field를 빠짐없이 resolve한다.
+- CSS의 semantic field projection과 JS·JSON·Figma proposal·manifest의 primitive/semantic composite가
+  normalized model과 일치하고 TypeScript가 해당 ID/type/value shape를 선언한다.
+- Figma가 composite를 직접 표현하지 못하면 field mapping과 loss metadata를 제공한다.
+- 같은 process에서 동일 source를 반복 render한 결과가 byte-for-byte 동일하다.
+
+다음은 P3/P5 소비 구현 게이트이며 아직 `not-ready`다.
+
+- KO/EN/JA별 실제 fallback 순서, font asset과 glyph coverage 근거가 준비되어 있다.
+- 320px container, 200% zoom과 긴 KO/EN/JA fixture에서 핵심 label/action이 잘리지 않는다.
+- font loading 전후의 주요 layout shift가 승인된 기준을 넘지 않는다.
+
+## Spacing & Radius
+
+- Source: design/foundations/spacing-radius.md
+- Maturity: experimental
+
+### Spacing & Radius
+
+Spacing & Radius는 모든 픽셀 값을 토큰으로 만드는 체계가 아니다. 반복되는 관계와 surface 계층을 이름
+있는 계약으로 만들고, 제품별 scene geometry는 제품에 남긴다. P2 source와 projection은 로컬
+release-candidate이며 public package와 제품 adoption은 아직 `not-ready`다.
+
+#### Source and artifacts
+
+| 구분           | 계약 경로                                     | 현재 상태               |
+| -------------- | --------------------------------------------- | ----------------------- |
+| DTCG source    | `packages/tokens/src/klipse.tokens.json`      | local release-candidate |
+| Validator      | `scripts/lib/token-model.mjs`                 | local release-candidate |
+| CSS            | `packages/tokens/generated/tokens.css`        | done projection         |
+| JavaScript     | `packages/tokens/generated/index.js`          | done projection         |
+| TypeScript     | `packages/tokens/generated/index.d.ts`        | done projection         |
+| Resolved JSON  | `packages/tokens/generated/tokens.json`       | done projection         |
+| Figma proposal | `packages/tokens/generated/figma.tokens.json` | done, not published     |
+| Manifest       | `packages/tokens/generated/manifest.json`     | done projection         |
+| Diff baseline  | `packages/tokens/baseline/manifest.json`      | local release-candidate |
+
+Dimension primitive, semantic spacing/radius와 responsive profile은 단일 DTCG source 안의 논리적 계층이다.
+
+#### Spacing model
+
+- primitive scale은 반복 가능한 dimension 재료를 제공한다.
+- semantic spacing은 control inset, stack gap, section gap, surface inset, shell outer gap처럼 관계를
+  설명한다.
+- App Shell outer gap, content inset, navigation leading line과 Project Grid gap/card minimum은 source에서
+  서로 다른 의미로 유지한다.
+- hit target 최소 크기와 시각 padding을 같은 token으로 간주하지 않는다.
+- 음수 값으로 Shell ownership 오류를 보정하지 않는다.
+- 제품별 scene 좌표나 일회성 media crop 값은 공용 token으로 승격하지 않는다.
+
+#### Radius model
+
+- radius는 control, surface, overlay, overlay-item처럼 계층과 사용 목적을 표현한다.
+- `radius-overlay`와 `radius-overlay-item`은 별도 semantic role이며 하나의 숫자를 우연히 공유해도 같은
+  token으로 합치지 않는다.
+- pill/circle은 고정 숫자보다 shape semantics로 표현한다.
+- component가 임의 radius literal을 추가하려면 두 개 이상의 사용처와 시각·접근성 근거가 필요하다.
+
+#### Responsive profile
+
+`packages/tokens/src/klipse.tokens.json`의 Klipse responsive profile metadata는 일반 component breakpoint
+묶음이 아니라 [Responsive Layout](../foundations/responsive-layout.md)의 Shell migration compatibility profile을
+기계적으로 표현한다.
+
+- component와 grid는 실제 container 크기로 적응한다.
+- viewport profile을 component 내부 media query의 기본값으로 사용하지 않는다.
+- Project Grid의 `minimumCard`와 `gap`은 각각 안정 semantic ID `layout-project-card-minimum`과
+  `layout-project-grid-gap`을 참조한다.
+- container 최소 폭 0/720/1200/1800px에서 preferred column은 2/3/4/5다. Preferred 값이 card minimum과
+  gap을 만족하지 못하면 capacity 계산으로 1열까지 안전하게 줄인다.
+- profile step이나 capacity 결과를 바꾸려면 Responsive Layout, App Shell, Project Grid와 migration evidence를
+  함께 갱신한다.
+- safe-area inset은 환경 입력이며 고정 spacing primitive가 아니다.
+
+#### Units and platform mapping
+
+- source dimension은 number와 unit을 명시한다.
+- CSS는 source unit을 그대로 직렬화하고 JavaScript/resolved JSON은 DTCG `{value, unit}` 구조를 보존한다.
+- TypeScript declaration은 안정 token ID, token별 type·mode·alias target과 `{ value, unit }` dimension shape를
+  선언한다. Token별 실제 숫자는 runtime data이며 literal value union으로 고정하지 않는다.
+- Figma proposal은 원래 dimension value와 unit-loss metadata를 함께 제공한다. P2는 rem/px 변환이나
+  platform별 rounding을 수행하지 않는다.
+
+#### Acceptance tests
+
+P2 local RC는 아래의 구조·생성 검사를 자동화한다.
+
+- validator가 malformed `{value, unit}`, 알 수 없는 unit, alias type mismatch와 중복 ID를 거부한다.
+  spacing/radius primitive, duration, shadow blur와 responsive minimum width처럼 명시된 field는 음수를 거부한다.
+- semantic spacing/radius가 primitive 또는 승인된 semantic alias로 완전히 resolve된다.
+- CSS의 semantic resolved value와 JS·JSON·Figma proposal·manifest의 primitive/semantic dimension
+  value·unit이 normalized model과 일치하고 TypeScript가 해당 ID/type/value shape를 선언한다.
+- Project Grid profile의 container measurement, ordered 0/720/1200/1800px step, 2/3/4/5 preferred column과
+  stable minimum-card/gap reference shape를 검증한다.
+- 같은 process에서 동일 source를 반복 render한 결과가 byte-for-byte 동일하다.
+
+다음은 P3/P5 소비 구현 게이트이며 아직 `not-ready`다.
+
+- Shell outer gap/content inset/navigation 정렬 관계가 sidebar 상태 전환 중 유지된다.
+- Project Grid 구현이 profile과 실제 container capacity를 정확히 따르고 공간이 부족하면 1열까지 안전하게
+  fallback한다.
+- 320px, 200% zoom과 44px 권장 hit target에서 spacing이 핵심 action을 자르지 않는다.
+
+## Elevation & Layer
+
+- Source: design/foundations/elevation-layer.md
+- Maturity: experimental
+
+### Elevation & Layer
+
+Elevation은 surface의 시각적 깊이이고 Layer는 interaction과 stacking 순서다. 그림자가 크다는 이유로 더
+높은 z-index를 갖지 않으며 두 체계를 별도 token family로 유지한다. P2 source와 projection은 로컬
+release-candidate이며 public package와 제품 adoption은 아직 `not-ready`다.
+
+#### Source and artifacts
+
+| 구분           | 계약 경로                                     | 현재 상태               |
+| -------------- | --------------------------------------------- | ----------------------- |
+| DTCG source    | `packages/tokens/src/klipse.tokens.json`      | local release-candidate |
+| Validator      | `scripts/lib/token-model.mjs`                 | local release-candidate |
+| CSS            | `packages/tokens/generated/tokens.css`        | done projection         |
+| JavaScript     | `packages/tokens/generated/index.js`          | done projection         |
+| TypeScript     | `packages/tokens/generated/index.d.ts`        | done projection         |
+| Resolved JSON  | `packages/tokens/generated/tokens.json`       | done projection         |
+| Figma proposal | `packages/tokens/generated/figma.tokens.json` | done, not published     |
+| Manifest       | `packages/tokens/generated/manifest.json`     | done projection         |
+| Diff baseline  | `packages/tokens/baseline/manifest.json`      | local release-candidate |
+
+Elevation primitive, semantic elevation과 semantic layer는 단일 DTCG source 안의 논리적 계층이다.
+
+#### Elevation model
+
+- primitive는 shadow layer, offset, blur, spread와 color 재료를 소유한다.
+- semantic role은 surface-raised, popover, modal처럼 사용 목적을 소유한다.
+- `elevation-popover`와 `elevation-modal`은 light/dark surface에서 경계가 읽혀야 한다.
+- 고대비 환경에서는 shadow만으로 surface 경계를 전달하지 않고 border/system color 대체를 제공한다.
+- Figma가 완전한 shadow alias를 표현하지 못하면 proposal에 expanded field와 loss metadata를 남긴다.
+
+#### Layer model
+
+공용 상대 순서는 다음과 같다.
+
+`layer-content < layer-sticky < layer-popover < layer-modal < layer-critical`
+
+- source는 semantic 순서와 플랫폼별 numeric projection을 함께 검증한다.
+- feature가 공용 순서 사이에 임의 숫자를 끼워 넣지 않는다.
+- local floating UI는 자기 surface의 stacking context 안에 머문다.
+- global popover와 modal은 App Shell의 승인된 overlay root를 사용한다.
+- 투명하거나 closing 중인 layer가 보이는 control의 pointer/focus를 가로채면 실패다.
+- `layer-critical`은 session/payment interruption처럼 승인된 system case에만 사용한다.
+
+#### Platform mapping
+
+- CSS는 elevation custom property와 layer custom property를 분리해 생성한다.
+- CSS와 JavaScript는 resolved layer number를 노출하고 JS metadata와 JSON/manifest는 명시적인 relative
+  order도 제공한다. TypeScript declaration은 token별 number/shadow value shape와 metadata의 semantic
+  layer ID 순서를 선언한다.
+- Figma proposal은 elevation을 전달하되 runtime stacking layer를 시각 style로 가장하지 않는다.
+- layer 순서 변경은 이름이 유지돼도 behavior breaking change로 분류한다.
+
+#### Acceptance tests
+
+P2 local RC는 아래의 구조·생성 검사를 자동화한다.
+
+- schema가 elevation/layer type 혼용과 승인되지 않은 layer 순서를 거부한다.
+- CSS의 semantic layer number와 JS·JSON·Figma proposal·manifest의 primitive/semantic graph가 normalized
+  model과 일치하고 명시적 relative order가 검증된다. TypeScript가 해당 ID/type/value shape를 선언하며
+  Figma proposal은 비지원 항목을 loss metadata로 기록한다.
+- 같은 process에서 동일 source를 반복 render한 결과가 byte-for-byte 동일하다.
+
+다음은 P3/P5 소비 구현 게이트이며 아직 `not-ready`다.
+
+- light/dark/high-contrast fixture에서 raised, popover와 modal 경계가 식별된다.
+- profile popover, editor local floating UI와 modal을 함께 열어 상대 순서와 hit-test를 검증한다.
+- closing layer가 action을 재실행하거나 뒤 control로 pointer event를 통과시키지 않는다.
+
+## Motion
+
+- Source: design/foundations/motion.md
+- Maturity: experimental
+
+### Motion
+
+Motion은 장식 효과가 아니라 상태 전환, 공간 변화와 lifecycle 완료 시점을 설명한다. P2의 duration/easing
+원본, semantic motion recipe, reduced-motion 대체와 platform projection은 로컬 release-candidate다. 실제
+component animation과 public adoption은 P3 이후가 소유한다.
+
+#### Source and artifacts
+
+| 구분           | 계약 경로                                     | 현재 상태               |
+| -------------- | --------------------------------------------- | ----------------------- |
+| DTCG source    | `packages/tokens/src/klipse.tokens.json`      | local release-candidate |
+| Validator      | `scripts/lib/token-model.mjs`                 | local release-candidate |
+| CSS            | `packages/tokens/generated/tokens.css`        | done projection         |
+| JavaScript     | `packages/tokens/generated/index.js`          | done projection         |
+| TypeScript     | `packages/tokens/generated/index.d.ts`        | done projection         |
+| Resolved JSON  | `packages/tokens/generated/tokens.json`       | done projection         |
+| Figma proposal | `packages/tokens/generated/figma.tokens.json` | done, not published     |
+| Manifest       | `packages/tokens/generated/manifest.json`     | done projection         |
+| Diff baseline  | `packages/tokens/baseline/manifest.json`      | local release-candidate |
+
+Motion primitive와 semantic recipe는 단일 DTCG source 안의 논리적 계층이며 별도 정본 파일이 아니다.
+
+#### Token model
+
+- primitive는 duration과 easing 재료를 소유한다.
+- semantic recipe는 overlay-enter, overlay-exit, modal-enter, modal-exit, layout-change처럼 목적을 소유한다.
+- Klipse `motionProperties` extension은 enter/exit lifecycle마다 duration, easing과 함께 허용 CSS property를
+  선언한다. 선언되지 않은 property를 component가 임의로 animation하지 않는다.
+- unmount timer와 interaction lock은 시각 transition과 같은 resolved recipe를 읽는다.
+- loading처럼 지속 시간이 작업 완료에 달린 상태를 고정 animation duration으로 가장하지 않는다.
+
+#### Reduced motion
+
+- semantic recipe마다 `reduce` mode 또는 명시적인 대체가 있어야 한다.
+- 위치·크기·scale 기반 비필수 motion은 제거하거나 짧은 opacity/state change로 대체한다.
+- motion을 제거해도 open/closed, loading, success, error 의미가 텍스트와 상태로 남아야 한다.
+- reduced-motion에서도 focus 이동, scroll lock, inert와 unmount 순서는 동일하다.
+
+#### Platform mapping
+
+- CSS는 duration/easing custom property와 semantic recipe metadata를 생성한다.
+- JavaScript는 resolved transition 값과 motion metadata를 제공하고 TypeScript declaration은 token별
+  transition value shape, ID·mode·alias target과 runtime container를 선언한다. 실제 animation completion과
+  unmount lifecycle 연결은 P3/P5 소비 구현이 소유한다.
+- Figma proposal은 지원 가능한 easing/duration을 매핑하고 spring·복합 keyframe처럼 손실되는 정보는
+  metadata로 표시한다.
+- duration 또는 easing 변경은 사용자 동작·lifecycle에 영향을 주면 behavior change로 분류한다.
+
+#### Acceptance tests
+
+P2 local RC는 아래의 구조·생성 검사를 자동화한다.
+
+- schema가 음수 duration, 알 수 없는 easing, 누락된 reduced-motion 대체를 거부한다.
+- 모든 semantic recipe가 duration, easing, property와 reduce 결과로 resolve된다.
+- `motionProperties`가 알려진 lifecycle만 참조하고 `opacity`, `transform` 등 validator가 허용한 CSS
+  property만 포함한다.
+- CSS의 semantic transition output과 JS·JSON·Figma proposal·manifest의 primitive/semantic transition
+  graph가 normalized model과 일치하고 TypeScript가 해당 ID/type/value shape를 선언한다. Lossy mapping은
+  Figma proposal에 명시된다.
+- 같은 process에서 동일 source를 반복 render한 결과가 byte-for-byte 동일하다.
+
+다음은 P3/P5 소비 구현 게이트이며 아직 `not-ready`다.
+
+- Dialog/Popover exit 완료와 unmount 시점이 같은 source를 사용한다.
+- `prefers-reduced-motion: reduce`에서 비필수 transform과 무한 shimmer가 제거된다.
 
 ## Inclusive Design
 

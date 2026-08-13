@@ -172,7 +172,8 @@ refetch 순서는 공용 recipe로 가져오지 않는다.
 
 ## Pre-implementation blockers
 
-- container 기반 공용 grid recipe와 card minimum token이 없다.
+- P2 local RC에 `layout-project-card-minimum`과 `layout-project-grid-gap` 토큰은 있다. 이를 소비하는 container
+  기반 공용 grid recipe와 실제 카드 content 실측은 아직 없다.
 - link/button primary action과 overflow overlay test가 없다.
 - loading/error/empty state와 resize/refetch 안정성 contract가 구현되지 않았다.
 - Highlight history/clip variant의 visual regression이 없다.

@@ -407,7 +407,8 @@ Klipse product에서 관측된 “프로필 팝오버는 열리지만 메뉴가 
 #### Pre-implementation blockers
 
 - 공유 positioning, dismiss layer, overlay branch primitive가 없다.
-- semantic layer token과 nested portal 소유권 구현이 없다.
+- semantic layer token의 컴포넌트 소비와 nested portal 소유권 구현이 없다. Layer token 자체는 P2 local
+  RC에 있다.
 - action menu 방향키, Home/End, typeahead, roving focus test가 없다.
 - composite popover의 initial/return focus와 Tab 정책이 구현되지 않았다.
 - published Figma component와 Web parity evidence가 없다.
@@ -680,8 +681,9 @@ Klipse product의 여러 modal은 focus, Escape, scroll lock과 layer 정책이 
 #### Pre-implementation blockers
 
 - 공용 focus scope, inert, scroll lock, modal stack과 overlay branch가 없다.
-- semantic layer token과 unique title/description ID 정책이 구현되지 않았다.
-- close motion과 unmount lifecycle의 단일 source가 없다.
+- semantic layer token의 Dialog 소비와 unique title/description ID 정책이 구현되지 않았다. Layer token
+  자체는 P2 local RC에 있다.
+- P2 motion token은 있지만 close motion과 unmount lifecycle을 Dialog 구현에 연결하지 않았다.
 - Dialog와 route Workspace를 type/API 수준에서 분리한 구현이 없다.
 - keyboard, focus, nested overlay, responsive geometry와 Figma parity test가 없다.
 

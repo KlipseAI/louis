@@ -4,11 +4,11 @@ import {
   mkdirSync,
   readFileSync,
   realpathSync,
-  writeFileSync,
 } from "node:fs";
 import { dirname, isAbsolute, relative, resolve, sep } from "node:path";
 import { fileURLToPath } from "node:url";
 import { validateJsonSchema } from "./lib/json-schema.mjs";
+import { atomicWriteBatch } from "./lib/atomic-output.mjs";
 
 const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const realRepoRoot = realpathSync(repoRoot);
@@ -238,6 +238,7 @@ if (errors.length === 0) {
 }
 
 if (errors.length === 0) {
+  const writePlan = [];
   for (const [path, expected] of outputs) {
     const location = outputLocations.get(path);
     if (!location) {
@@ -249,9 +250,10 @@ if (errors.length === 0) {
     if (checkOnly) {
       errors.push("generated AI 문서가 최신이 아닙니다: " + path);
     } else {
-      writeFileSync(absolute, expected);
+      writePlan.push({ absolute, expected });
     }
   }
+  if (errors.length === 0) atomicWriteBatch(writePlan);
 }
 
 reportAndExit();

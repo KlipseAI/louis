@@ -9,6 +9,7 @@
     "schemaVersion",
     "system",
     "vocabulary",
+    "tokenPackage",
     "documents",
     "components",
     "patterns",
@@ -65,6 +66,9 @@
           "items": { "$ref": "#/$defs/implementationStatus" }
         }
       }
+    },
+    "tokenPackage": {
+      "$ref": "#/$defs/tokenPackage"
     },
     "documents": {
       "type": "array",
@@ -211,6 +215,81 @@
           "uniqueItems": true,
           "items": { "$ref": "#/$defs/repoPath" }
         }
+      }
+    },
+    "tokenPackage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "maturity",
+        "source",
+        "sourceFormat",
+        "artifacts",
+        "figmaLibrary",
+        "packageRelease",
+        "docs",
+        "note"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "const": "@klipse-design/tokens"
+        },
+        "maturity": {
+          "type": "string",
+          "const": "experimental"
+        },
+        "source": {
+          "type": "string",
+          "const": "packages/tokens/src/klipse.tokens.json"
+        },
+        "sourceFormat": {
+          "type": "string",
+          "const": "DTCG 2025.10"
+        },
+        "artifacts": {
+          "type": "array",
+          "minItems": 6,
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/tokenArtifact" }
+        },
+        "figmaLibrary": {
+          "type": "string",
+          "const": "not-ready"
+        },
+        "packageRelease": {
+          "type": "string",
+          "const": "not-ready"
+        },
+        "docs": {
+          "type": "string",
+          "const": "done"
+        },
+        "note": { "$ref": "#/$defs/nonEmptyString" }
+      }
+    },
+    "tokenArtifact": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "status", "path"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "enum": [
+            "css",
+            "javascript",
+            "types",
+            "json",
+            "figma-proposal",
+            "manifest"
+          ]
+        },
+        "status": {
+          "type": "string",
+          "const": "done"
+        },
+        "path": { "$ref": "#/$defs/repoPath" }
       }
     },
     "catalogItem": {

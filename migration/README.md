@@ -4,6 +4,7 @@
 여기의 내용은 package API나 새 UI의 정본이 아니다.
 
 - [Product baseline](product-baseline.md): 2026-08-11 추출 경계와 evidence ID
+- [Product token mapping](token-mapping.md): P2 DTCG source 선정 근거, legacy 매핑, 단계적 이관과 rollback
 - [Product Adoption](../design/governance/migration.md): 소비 제품이 따라야 할 규범 절차
 
 제품 route audit과 debt registry 원본은 Klipse product repository에 남는다.

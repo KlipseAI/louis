@@ -5,19 +5,26 @@
   "type": "module",
   "description": "Klipse의 독립 디자인 시스템 모노레포",
   "scripts": {
-    "build": "pnpm run build:docs",
+    "build": "pnpm run build:tokens && pnpm run build:docs",
+    "build-tokens": "node ./scripts/build-tokens.mjs",
+    "check-tokens": "node ./scripts/build-tokens.mjs --check",
+    "diff-tokens": "node ./scripts/diff-tokens.mjs",
+    "check-token-diff": "node ./scripts/diff-tokens.mjs --fail-on-breaking",
+    "verify-token-gates": "node ./scripts/verify-token-gates.mjs",
     "build-design-docs": "node ./scripts/build-design-docs.mjs",
     "check-design-docs": "node ./scripts/build-design-docs.mjs --check",
     "build-llms-docs": "node ./scripts/build-llms-docs.mjs",
     "check-llms-docs": "node ./scripts/build-llms-docs.mjs --check",
     "verify-gates": "node ./scripts/verify-gates.mjs",
+    "build:tokens": "pnpm run build-tokens",
     "build:catalog": "pnpm run build-design-docs",
     "build:llms": "pnpm run build-llms-docs",
     "build:docs": "pnpm run build:catalog && pnpm run build:llms",
+    "check:tokens": "pnpm run check-tokens",
     "check:catalog": "pnpm run check-design-docs",
     "check:llms": "pnpm run check-llms-docs",
-    "check": "pnpm run check:catalog && pnpm run check:llms",
-    "verify": "pnpm run verify-gates"
+    "check": "pnpm run check:tokens && pnpm run check:catalog && pnpm run check:llms",
+    "verify": "pnpm run verify-gates && pnpm run verify-token-gates && pnpm run check-token-diff"
   },
   "engines": {
     "node": ">=22"

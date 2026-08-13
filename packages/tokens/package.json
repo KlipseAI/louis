@@ -3,5 +3,24 @@
   "version": "0.0.0",
   "private": true,
   "type": "module",
-  "description": "Klipse Design 구조화 토큰 패키지"
+  "description": "Klipse Design 구조화 토큰 패키지",
+  "files": [
+    "generated"
+  ],
+  "exports": {
+    ".": {
+      "types": "./generated/index.d.ts",
+      "import": "./generated/index.js",
+      "default": "./generated/index.js"
+    },
+    "./css": "./generated/tokens.css",
+    "./json": "./generated/tokens.json",
+    "./figma": "./generated/figma.tokens.json",
+    "./manifest": "./generated/manifest.json"
+  },
+  "scripts": {
+    "build": "node ../../scripts/build-tokens.mjs",
+    "check": "node ../../scripts/build-tokens.mjs --check",
+    "diff": "node ../../scripts/diff-tokens.mjs"
+  }
 }

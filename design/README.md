@@ -41,8 +41,9 @@ stable manifest ID를 참조하는 제품 통합 이슈로 관리한다.
 
 ## 현재 상태
 
-이 저장소는 P1 규범과 게이트를 별도 레포로 이관한 단계다. 패키지와 Figma 구현은 아직
-`not-ready`이며 시스템 전체 maturity는 `experimental`이다.
+P1 규범·게이트와 P2 토큰 패키지가 각각 로컬 release-candidate다. 토큰 정본과 여섯 생성물은
+`experimental`로 준비됐지만 public package release, 제품 적용, React/CSS component 구현과 published
+Figma library는 아직 `not-ready`다. 시스템 전체 maturity도 `experimental`이다.
 
 ## Maturity lifecycle
 
@@ -59,11 +60,14 @@ stable manifest ID를 참조하는 제품 통합 이슈로 관리한다.
 | 항목 | 현재 값 |
 | --- | --- |
 | System maturity | `experimental` |
-| Normative documents | 27 |
+| Normative documents | 33 |
 | Generated documents | 5 |
 | Components | 8 |
 | Patterns | 4 |
 | Web done | 0 |
+| Token artifacts done | 6/6 |
+| Figma library | `not-ready` |
+| Package release | `not-ready` |
 <!-- GENERATED:catalog END -->
 <!-- prettier-ignore-end -->
 

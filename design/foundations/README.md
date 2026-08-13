@@ -11,23 +11,48 @@ authority: normative
 
 ## 카탈로그
 
-| Foundation        | 규범 상태      | 구현 상태   | 다음 완료 조건                                                      |
-| ----------------- | -------------- | ----------- | ------------------------------------------------------------------- |
-| Color & Theme     | `experimental` | `not-ready` | semantic role과 light/dark alias graph를 구조화 token source로 정의 |
-| Typography        | `experimental` | `not-ready` | 역할 기반 scale, locale fallback, zoom 수용 조건 정의               |
-| Spacing & Radius  | `experimental` | `not-ready` | primitive와 layout semantic token 분리                              |
-| Responsive Layout | `beta`         | 규범 준비   | container 기반 수용 조건을 제품 통합 테스트에 연결                  |
-| Inclusive Design  | `beta`         | 규범 준비   | WCAG 2.2 AA, keyboard, focus, contrast gate 연결                    |
-| Motion            | `experimental` | `not-ready` | duration/easing/reduced-motion token 정의                           |
-| Iconography       | `experimental` | `not-ready` | source, naming, optical size, accessible-name 규칙 정의             |
+| Foundation                                | 규범 상태      | 토큰 pipeline | 남은 소비 구현 검증                                                 |
+| ----------------------------------------- | -------------- | ------------- | ------------------------------------------------------------------- |
+| [Color & Theme](color-theme.md)           | `experimental` | local RC      | forced-colors, component 상태 신호와 화면 대비                      |
+| [Typography](typography.md)               | `experimental` | local RC      | KO/EN/JA glyph·font asset, zoom과 loading layout                    |
+| [Spacing & Radius](spacing-radius.md)     | `experimental` | local RC      | Shell/Grid 실측, 200% zoom과 hit target                             |
+| [Elevation & Layer](elevation-layer.md)   | `experimental` | local RC      | high-contrast 경계, overlay hit-test와 closing lifecycle            |
+| [Motion](motion.md)                       | `experimental` | local RC      | component unmount와 실제 `prefers-reduced-motion`                   |
+| [Responsive Layout](responsive-layout.md) | `beta`         | 규범 준비     | container 기반 수용 조건을 제품 통합 테스트에 연결                  |
+| [Inclusive Design](inclusive-design.md)   | `beta`         | 규범 준비     | WCAG 2.2 AA, keyboard, focus, contrast gate 연결                    |
+| Iconography                               | `experimental` | `not-ready`   | P2 범위 밖. source, naming, optical size, accessible-name 규칙 정의 |
 
 ## 토큰 정본
 
-P2가 시작되면 `packages/tokens/src/`의 구조화 원본이 값을 소유한다. CSS와 TypeScript,
-Figma collection은 같은 원본에서 생성하며 생성물을 손으로 수정하지 않는다.
+P2 token source/projection pipeline은 local `release-candidate`다.
+`packages/tokens/src/klipse.tokens.json`의 DTCG 2025.10-compatible 구조화 원본이 값과 alias를 소유하고
+`scripts/lib/token-model.mjs`가 이 저장소가 지원하는 DTCG subset과 Klipse extension을 검증한다. 범용 DTCG
+validator 전체를 구현했다는 뜻은 아니다. 위 표의 소비 구현 검증은 이 상태에 포함되지 않는다.
+
+| 역할                        | 경로                                          |
+| --------------------------- | --------------------------------------------- |
+| DTCG source                 | `packages/tokens/src/klipse.tokens.json`      |
+| Repository subset validator | `scripts/lib/token-model.mjs`                 |
+| CSS                         | `packages/tokens/generated/tokens.css`        |
+| JavaScript                  | `packages/tokens/generated/index.js`          |
+| TypeScript                  | `packages/tokens/generated/index.d.ts`        |
+| Resolved JSON               | `packages/tokens/generated/tokens.json`       |
+| Reviewable Figma proposal   | `packages/tokens/generated/figma.tokens.json` |
+| Generated manifest          | `packages/tokens/generated/manifest.json`     |
+| Approved diff baseline      | `packages/tokens/baseline/manifest.json`      |
+
+Source와 여섯 artifact는 local RC로 구현됐으며 생성 artifact는 손으로 수정하지 않는다. CSS는 제품
+소비용 semantic custom property만 생성한다. JS·resolved JSON·Figma proposal·manifest는 검증과 추적을
+위해 primitive/semantic graph를 함께 보존하고, TypeScript는 안정 ID, token별 type·mode·alias와 값 구조를
+선언한다. 제품의 primitive 직접 소비는 여전히 지원하지 않는다. Package는 private이고 public release와
+제품 adoption은 `not-ready`다. Figma proposal도 published collection이 아니므로 P2 RC만으로 Figma library
+상태를 올리지 않는다.
 
 기존 Klipse 제품 CSS에서 추출한 값은 migration evidence일 뿐 새 토큰 정본이 아니다. 의미를
 검토하지 않은 값을 그대로 복사하지 않는다.
+
+P2의 구체적인 package 경계와 완료 조건은
+[`@klipse-design/tokens`](../../packages/tokens/README.md)에서 관리한다.
 
 ## 공통 품질 기준
 

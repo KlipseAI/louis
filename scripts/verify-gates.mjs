@@ -221,8 +221,8 @@ withHardlinkCanary(
   "design/gate-hardlink-target.txt",
   (source) =>
     source.replace(
-      "| Normative documents | 27 |",
-      "| Normative documents | 26 |",
+      "| Normative documents | 33 |",
+      "| Normative documents | 32 |",
     ),
   "generated catalog hardlink boundary",
   "scripts/build-design-docs.mjs",
@@ -492,13 +492,25 @@ function withHardlinkCanary(
 
 function validatePackageScaffolds() {
   const expected = new Map([
-    ["packages/tokens/package.json", "@klipse-design/tokens"],
-    ["packages/css/package.json", "@klipse-design/css"],
-    ["packages/react/package.json", "@klipse-design/react"],
-    ["apps/docs/package.json", "@klipse-design/docs"],
+    [
+      "packages/tokens/package.json",
+      { name: "@klipse-design/tokens", implemented: true },
+    ],
+    [
+      "packages/css/package.json",
+      { name: "@klipse-design/css", implemented: false },
+    ],
+    [
+      "packages/react/package.json",
+      { name: "@klipse-design/react", implemented: false },
+    ],
+    [
+      "apps/docs/package.json",
+      { name: "@klipse-design/docs", implemented: false },
+    ],
   ]);
 
-  for (const [path, name] of expected) {
+  for (const [path, contract] of expected) {
     let value;
     try {
       value = JSON.parse(readFileSync(resolve(repoRoot, path), "utf8"));
@@ -506,15 +518,43 @@ function validatePackageScaffolds() {
       errors.push(path + "를 읽을 수 없습니다: " + error.message);
       continue;
     }
-    if (value.name !== name) {
+    if (value.name !== contract.name) {
       errors.push(path + " package name 불일치: " + String(value.name));
     }
     if (value.private !== true) {
-      errors.push(path + "는 구현 전 private=true여야 합니다.");
+      errors.push(path + "는 public release 전 private=true여야 합니다.");
     }
-    if (Object.hasOwn(value, "exports")) {
+    if (!contract.implemented && Object.hasOwn(value, "exports")) {
       errors.push(path + "는 구현 전 가짜 exports를 제공하면 안 됩니다.");
     }
+  }
+
+  const tokenPackage = JSON.parse(
+    readFileSync(resolve(repoRoot, "packages/tokens/package.json"), "utf8"),
+  );
+  const expectedTokenExports = {
+    ".": {
+      types: "./generated/index.d.ts",
+      import: "./generated/index.js",
+      default: "./generated/index.js",
+    },
+    "./css": "./generated/tokens.css",
+    "./json": "./generated/tokens.json",
+    "./figma": "./generated/figma.tokens.json",
+    "./manifest": "./generated/manifest.json",
+  };
+  if (
+    JSON.stringify(tokenPackage.exports) !==
+    JSON.stringify(expectedTokenExports)
+  ) {
+    errors.push(
+      "packages/tokens/package.json exports가 P2 public surface와 다릅니다.",
+    );
+  }
+  if (JSON.stringify(tokenPackage.files) !== JSON.stringify(["generated"])) {
+    errors.push(
+      "packages/tokens/package.json files는 generated만 포함해야 합니다.",
+    );
   }
 }
 

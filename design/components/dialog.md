@@ -227,8 +227,9 @@ Klipse product의 여러 modal은 focus, Escape, scroll lock과 layer 정책이 
 ## Pre-implementation blockers
 
 - 공용 focus scope, inert, scroll lock, modal stack과 overlay branch가 없다.
-- semantic layer token과 unique title/description ID 정책이 구현되지 않았다.
-- close motion과 unmount lifecycle의 단일 source가 없다.
+- semantic layer token의 Dialog 소비와 unique title/description ID 정책이 구현되지 않았다. Layer token
+  자체는 P2 local RC에 있다.
+- P2 motion token은 있지만 close motion과 unmount lifecycle을 Dialog 구현에 연결하지 않았다.
 - Dialog와 route Workspace를 type/API 수준에서 분리한 구현이 없다.
 - keyboard, focus, nested overlay, responsive geometry와 Figma parity test가 없다.
 

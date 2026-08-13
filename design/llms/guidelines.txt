@@ -4,7 +4,7 @@
 
 - System maturity: experimental
 - Coverage: exhaustive
-- Documents: 12
+- Documents: 13
 - Purpose: 개발, 콘텐츠, 거버넌스와 adoption 계약
 
 ## Sources
@@ -21,6 +21,7 @@
 - design/governance/releases.md
 - design/governance/deprecations.md
 - design/governance/decisions/README.md
+- design/governance/decisions/DS-D-0001-token-source.md
 - design/updates/README.md
 
 ---
@@ -66,8 +67,9 @@ stable manifest ID를 참조하는 제품 통합 이슈로 관리한다.
 
 #### 현재 상태
 
-이 저장소는 P1 규범과 게이트를 별도 레포로 이관한 단계다. 패키지와 Figma 구현은 아직
-`not-ready`이며 시스템 전체 maturity는 `experimental`이다.
+P1 규범·게이트와 P2 토큰 패키지가 각각 로컬 release-candidate다. 토큰 정본과 여섯 생성물은
+`experimental`로 준비됐지만 public package release, 제품 적용, React/CSS component 구현과 published
+Figma library는 아직 `not-ready`다. 시스템 전체 maturity도 `experimental`이다.
 
 #### Maturity lifecycle
 
@@ -84,11 +86,14 @@ stable manifest ID를 참조하는 제품 통합 이슈로 관리한다.
 | 항목 | 현재 값 |
 | --- | --- |
 | System maturity | `experimental` |
-| Normative documents | 27 |
+| Normative documents | 33 |
 | Generated documents | 5 |
 | Components | 8 |
 | Patterns | 4 |
 | Web done | 0 |
+| Token artifacts done | 6/6 |
+| Figma library | `not-ready` |
+| Package release | `not-ready` |
 <!-- GENERATED:catalog END -->
 <!-- prettier-ignore-end -->
 
@@ -113,19 +118,46 @@ pnpm verify
 
 #### Delivery surfaces
 
-| Surface                 | 책임                        | 현재 상태               |
-| ----------------------- | --------------------------- | ----------------------- |
-| `@klipse-design/tokens` | 구조화 토큰과 플랫폼 변환물 | P2, private, no exports |
-| `@klipse-design/css`    | reset, primitives, recipes  | P3, private, no exports |
-| `@klipse-design/react`  | 접근 가능한 React 컴포넌트  | P3, private, no exports |
-| `design/llms/*`         | AI가 읽는 규범 projection   | P1, generated           |
+| Surface                 | 책임                                                | 현재 상태                                               |
+| ----------------------- | --------------------------------------------------- | ------------------------------------------------------- |
+| `@klipse-design/tokens` | 구조화 토큰과 CSS·JS·TS·JSON·Figma proposal         | P2 local RC, `experimental`, private, no public release |
+| `@klipse-design/css`    | token CSS 소비·재export, reset, primitives, recipes | P3 `planned`, private, no exports                       |
+| `@klipse-design/react`  | 접근 가능한 React 컴포넌트                          | P3 `planned`, private, no exports                       |
+| `design/llms/*`         | AI가 읽는 규범 projection                           | P1, generated                                           |
 
-export가 생기기 전에는 제품에서 package deep import나 source path import를 만들지 않는다.
+Public release 전에는 제품에서 package import, generated deep import나 source path import를 만들지 않는다.
+
+#### P2 token delivery contract
+
+`@klipse-design/tokens`의 로컬 RC는 다음 private export를 검증한다.
+
+| Import                           | Source artifact                                                               | 상태                         |
+| -------------------------------- | ----------------------------------------------------------------------------- | ---------------------------- |
+| `@klipse-design/tokens`          | `packages/tokens/generated/index.js`와 `packages/tokens/generated/index.d.ts` | local RC                     |
+| `@klipse-design/tokens/css`      | `packages/tokens/generated/tokens.css`                                        | local RC                     |
+| `@klipse-design/tokens/json`     | `packages/tokens/generated/tokens.json`                                       | local RC                     |
+| `@klipse-design/tokens/figma`    | `packages/tokens/generated/figma.tokens.json`                                 | done proposal, not published |
+| `@klipse-design/tokens/manifest` | `packages/tokens/generated/manifest.json`                                     | local RC                     |
+
+모든 artifact는 DTCG 2025.10-compatible 단일 source `packages/tokens/src/klipse.tokens.json`에서 생성하며
+`generated/`를 직접 수정하지 않는다. `scripts/lib/token-model.mjs`가 이 저장소가 지원하는 DTCG subset과
+Klipse extension validation, projection model을 소유하고 `packages/tokens/baseline/manifest.json`은 diff
+비교점만 소유한다. Figma proposal은 review 입력이지 published library나 제품 runtime API가 아니다.
+
+CSS는 제품 소비용 semantic custom property만 projection한다. Package root JS와 token graph JSON, Figma
+proposal, manifest는 검증·도구화를 위해 primitive/semantic graph와 provenance를 함께 보존한다. 제품 코드는
+primitive를 직접 소비하지 않는다. `index.d.ts`는 JavaScript export surface뿐 아니라 안정 token ID,
+token별 type·mode·alias target과 DTCG value shape를 선언한다. Token별 실제 raw/resolved 값은 runtime data이며
+literal value union으로 고정하지 않는다.
+
+P3 `@klipse-design/css`는 `@klipse-design/tokens/css`를 소비·재export할 수 있지만 token generator나 별도
+token value를 소유하지 않는다. Reset, primitive와 recipe가 CSS package의 고유 책임이다.
 
 #### 소비 규칙
 
-1. 제품은 명시된 package version을 설치한다.
-2. semantic token과 공개 component API만 사용한다.
+1. 제품은 public release 뒤 명시된 package version을 설치한다. P2 private release-candidate를 production
+   dependency로 사용하지 않는다.
+2. semantic token과 공개 component API만 사용하고 raw primitive나 source path를 import하지 않는다.
 3. 제품 전용 scene layout은 제품 레포가 소유한다.
 4. 공용 규범을 바꿔야 하면 제품 workaround보다 이 저장소의 decision과 package 변경을 먼저 제안한다.
 5. DS release PR과 제품 integration PR을 서로 링크한다.
@@ -139,8 +171,11 @@ pnpm build
 pnpm verify
 ```
 
-P2/P3에서 package source가 생기면 각 package의 typecheck, unit, accessibility, visual regression과
-bundle/API compatibility 검사를 루트 `verify`에 추가한다.
+루트 `check`/`verify`는 repository-supported DTCG subset/Klipse extension validation, alias graph, mode
+completeness, contrast, motion property, responsive profile shape, primitive/semantic metadata projection,
+CSS selector/theme output, 같은 process의 deterministic render, JS/d.ts token-graph compatibility와 generated
+drift를 검사한다. P3에서는 각 CSS/React package의 unit, accessibility, visual regression과 bundle
+compatibility를 추가한다.
 
 ## Content & Localization
 
@@ -200,6 +235,27 @@ PR에서 일치시킨다. 제품 적용은 별도 integration PR로 진행하고
 6. [Updates](../updates/README.md)에 사용자 영향과 migration을 기록한다.
 7. 생성물을 갱신하고 모든 게이트를 통과시킨다.
 
+#### Token change flow
+
+P2 token 변경은 다음을 같은 PR에서 다룬다.
+
+1. 단일 정본 `packages/tokens/src/klipse.tokens.json`의 primitive/semantic tier 또는 Klipse extension을 바꾼다.
+2. 관련 [Foundation](../foundations/README.md)의 의미, mode, 접근성과 acceptance criteria를 갱신한다.
+3. CSS·JS·TS·JSON·Figma proposal을 같은 generator로 재생성한다.
+4. token diff에서 additive, stable ID/mode 제거, source-path-only move, type/unit, mode, raw value,
+   semantic alias target와 layer order 변화를 검토한다. 공개 ID rename은 deprecated replacement를 추가한 뒤
+   기존 ID 제거로 표현한다.
+5. breaking이면 Design Decision, 대체 token, migration, deprecation 기간과 rollback을 추가한다.
+6. `scripts/lib/token-model.mjs`로 repository-supported DTCG structure, alias graph, contrast, non-empty
+   font-family 배열과 typography composite shape, layer order, reduced-motion, lifecycle별 motion property와
+   responsive profile shape를 검사한다. Source의 multi-script 후보가 실제 locale별 font asset, glyph와 layout을
+   지원하는지는 P3/P5 소비 검증이다.
+7. `packages/tokens/baseline/manifest.json`과 generated manifest의 diff를 검토한 뒤 parity와 deterministic
+   rebuild 검사를 실행한다.
+
+`packages/tokens/generated/`를 직접 수정하거나 제품 CSS 값을 semantic review 없이 source로 복사하지
+않는다. P2 Figma proposal은 review 대상이지만 published Figma library의 증거가 아니다.
+
 #### 완료 정의
 
 - manifest와 문서 frontmatter가 일치한다.
@@ -211,6 +267,16 @@ PR에서 일치시킨다. 제품 적용은 별도 integration PR로 진행하고
 - `figma: done`은 published library component와 code parity 검증이 있을 때만 사용한다.
 - breaking change는 migration과 deprecation window를 제공한다.
 - 생성 파일과 source가 일치한다.
+- CSS의 semantic output과 JS·JSON·Figma proposal·manifest의 primitive/semantic token graph가 같은
+  normalized model에서 생성되고 alias·description/deprecation·source provenance가 source와 일치한다.
+  TypeScript declaration은 JavaScript export surface와 token ID/type/mode/alias/value-shape contract를
+  일치시킨다.
+- token rename뿐 아니라 semantic alias target, mode, type/unit 또는 layer order 변경도 behavior impact를
+  분류한다.
+- Project Grid profile 변경은 container measurement, stable minimum-card/gap ID와 ordered preferred-column
+  shape를 검사한다. 실제 capacity 계산과 1열 fallback은 P3/P5 소비 구현에서 검증한다.
+- Motion 변경은 enter/exit lifecycle별 허용 CSS property와 reduced-motion pair를 함께 검증한다.
+- private P2 artifact는 public release, 제품 adoption 또는 Figma `done`으로 표시하지 않는다.
 
 #### 필수 검증
 
@@ -285,23 +351,43 @@ token과 component parity를 검토하며, 자동 sync가 구현되기 전까지
 #### 현재 상태
 
 - published Klipse Design library: `not-ready`
-- variable/token pipeline: `not-ready`
+- P2 token/Figma proposal pipeline: local `release-candidate`
+- generated proposal: `packages/tokens/generated/figma.tokens.json` — `done`, not published
 - component parity checker: `not-ready`
 - snapshot import/export: `not-ready`
 
-따라서 manifest의 Figma 상태는 실제 library evidence가 생길 때까지 `not-ready`다.
+P2는 review 가능한 proposal까지만 소유한다. 실제 library evidence가 생길 때까지 manifest의 Figma 상태는
+`not-ready`다.
+
+#### P2 proposal contract
+
+- `packages/tokens/src/klipse.tokens.json`의 안정 token ID, type, mode, alias와 description을 보존한다.
+- `scripts/lib/token-model.mjs`가 proposal의 primitive/semantic token, raw/resolved value, alias,
+  description/deprecation과 root metadata를 JS·JSON·manifest와 같은 normalized graph에서 검증한다. CSS는
+  같은 graph의 semantic consumption surface다.
+- TypeScript declaration은 별도로 JavaScript export와 token ID/type/mode/alias/value-shape contract를
+  맞춘다.
+- Figma collection, mode와 variable name 변환을 명시하고 이름 충돌을 build error로 처리한다.
+- Figma가 composite typography, shadow, easing이나 runtime layer를 완전히 표현하지 못하면 field expansion과
+  loss metadata를 포함한다.
+- 이전 proposal과의 diff는 create, stable ID/mode remove, source-path-only move, value/alias change, mode change,
+  description/deprecation과 collection change를 구분한다. 공개 ID rename은 create + deprecated replacement +
+  remove 순서로 다룬다.
+- proposal은 credential 없이 CI에서 생성·검증할 수 있어야 하며 자동 publish하지 않는다.
 
 #### 목표 흐름
 
-1. 구조화 token source에서 Figma-compatible proposal을 생성한다.
-2. proposal은 자동 적용하지 않고 diff로 review한다.
-3. 이름, mode, alias, component property와 variant를 검사한다.
-4. 승인한 Figma change와 code change를 같은 DS release에 연결한다.
-5. 제품 screen은 library component instance를 소비하고 detach 이유를 제품 이슈에 기록한다.
+1. P2 구조화 token source에서 Figma-compatible proposal을 생성한다.
+2. proposal은 자동 적용하지 않고 token maintainer와 design maintainer가 diff를 review한다.
+3. P3에서 승인된 proposal을 library draft에 적용하고 stable variable key를 기록한다.
+4. 이름, mode, alias, component property와 variant parity를 검사한다.
+5. 승인한 Figma change와 code change를 같은 DS release에 연결한다.
+6. 제품 screen은 published library component instance를 소비하고 detach 이유를 제품 이슈에 기록한다.
 
 #### 승격 조건
 
-`figma: partial`에는 review 가능한 library draft와 stable component key가 필요하다.
+P2 private release-candidate와 proposal만으로는 `figma: not-ready`를 유지한다.
+`figma: partial`에는 review 가능한 P3 library draft와 stable variable/component key가 필요하다.
 `figma: done`에는 published library, token/variant parity check, usage guidance와 owner가 필요하다.
 
 credential이나 plugin session이 없는 CI에서도 catalog가 정직해야 하므로, Figma 연결 실패를
@@ -389,12 +475,47 @@ credential이나 plugin session이 없는 CI에서도 catalog가 정직해야 �
 
 #### P2 — Token source inversion
 
-**상태:** `planned`
+**상태:** local `release-candidate` (`experimental`)
 
-- Color, typography, spacing, radius, elevation, motion schema
-- light/dark semantic alias graph
-- CSS/TypeScript/Figma deterministic output
-- token diff와 breaking migration
+이 상태는 token source, projection, diff와 package surface에만 적용된다. Browser UI, glyph, 접근성,
+layout, interaction acceptance는 P3/P5 소비 구현 게이트이며 아직 `not-ready`다.
+
+범위:
+
+- DTCG 2025.10-compatible 단일 정본 `packages/tokens/src/klipse.tokens.json`
+- `scripts/lib/token-model.mjs`의 외부 패키지 무의존 Node 표준 라이브러리 기반 repository-supported DTCG
+  subset/Klipse extension validation
+- Color/theme, typography, spacing, radius, elevation, layer, motion contract
+- raw primitive와 semantic role 분리, light/dark alias graph
+- 단일 source에서 CSS·JavaScript·TypeScript·JSON·manifest projection 생성. CSS는 semantic consumption
+  surface이고 JS·TS·JSON·manifest는 검증 가능한 primitive/semantic graph를 포함
+- reviewable Figma proposal 생성. Published Figma variables/components는 P3
+- token diff, breaking migration과 deprecation policy
+- App Shell spacing, container 기반 Project Grid profile, overlay layer, lifecycle별 motion property와
+  reduced-motion 계약의 기계적 연결
+
+`release-candidate` 조건:
+
+- 단일 source와 validator가 alias cycle, dangling reference, type/unit/mode/extension 오류를 차단
+- light/dark mode completeness, contrast pair, typography composite, layer order와 reduced-motion 검증 통과
+- Project Grid의 container measurement, stable minimum-card/gap ID와 ordered 0/720/1200/1800px preferred
+  2/3/4/5열 profile shape 검증 통과. 실제 capacity와 1열 fallback은 P3/P5 소비 구현 게이트
+- enter/exit lifecycle별 허용 CSS property 검증 통과
+- CSS semantic selector/theme output, JS·JSON·Figma proposal·manifest의 primitive/semantic metadata·값·alias
+  projection과 JavaScript/TypeScript token-graph parity 통과
+- 같은 process에서 동일 source를 두 번 render한 artifact가 byte-for-byte 동일
+- private package export map, type declaration과 최소 소비 fixture 준비
+- additive/breaking token diff와 failure canary 준비
+- Foundations, Develop, Figma, release, deprecation과 Updates 문서가 실제 artifact 상태와 일치
+
+`complete` 조건:
+
+- clean-checkout hosted CI에서 token build, generated drift, parity와 deterministic rebuild 통과
+- migration/rollback이 포함된 private package release-candidate
+- repository owner 승인
+
+P2 로컬 RC와 향후 완료 모두 public registry 배포, 제품 adoption 또는 published Figma library를 뜻하지
+않는다. 이 세 상태는 별도 release/adoption gate 전까지 `not-ready`다.
 
 #### P3 — Components and Figma library
 
@@ -434,6 +555,14 @@ credential이나 plugin session이 없는 CI에서도 catalog가 정직해야 �
 전까지 package는 `private: true`이며, 저장소 [Updates](../updates/README.md)를 release record로
 사용한다.
 
+P2 `@klipse-design/tokens`는 private release-candidate로만 검증한다. CSS·JS·TS·JSON artifact와 Figma
+proposal이 준비돼도 public registry release, 제품 adoption 또는 published Figma library를 의미하지
+않는다. 현재 `0.0.0`은 배포 version이 아니다.
+
+P2 diff는 `packages/tokens/generated/manifest.json`을 `packages/tokens/baseline/manifest.json`과 비교한다.
+Baseline은 승인 비교점이지 token source가 아니며, 단일 정본은
+`packages/tokens/src/klipse.tokens.json`이다.
+
 #### 변경 분류
 
 | 분류  | 예                                               | 요구 사항                               |
@@ -441,6 +570,13 @@ credential이나 plugin session이 없는 CI에서도 catalog가 정직해야 �
 | Patch | 문서 명확화, 동작을 바꾸지 않는 버그 수정        | Updates 항목, 검증                      |
 | Minor | additive token, variant, component API           | 사용법, tests, adoption note            |
 | Major | token rename/removal, API/behavior contract 변경 | decision, migration, deprecation window |
+
+Token diff는 additive, stable ID/mode 제거, source-path-only move, type/unit, mode, raw/resolved value,
+semantic alias target, description/deprecation, layer order와 Figma collection 변경을 구분한다. 공개 ID
+rename은 새 ID 추가와 기존 ID 제거이며 가능한 경우 deprecated replacement window를 먼저 제공한다. Contrast
+pair, motion/reduced-motion, responsive profile 같은 공용 root metadata 변경도 behavior breaking으로 검토한다.
+이름이 유지돼도 semantic 결과나 interaction order가 달라지면 consumer impact에 따라 Minor 또는 Major로
+판정한다.
 
 package 배포가 시작되면 workspace package version을 독립적으로 올릴지 fixed version을 사용할지
 Design Decision으로 확정한다. 확정 전에는 가짜 version이나 changelog를 만들지 않는다.
@@ -450,6 +586,11 @@ Design Decision으로 확정한다. 확정 전에는 가짜 version이나 change
 - manifest와 실제 package exports 일치
 - normative docs와 generated docs 최신
 - tests, accessibility, compatibility 통과
+- repository-supported DTCG subset/Klipse extension, alias graph, mode completeness, contrast, layer,
+  motion/responsive profile, primitive/semantic metadata projection, CSS selector/theme와 JS/TypeScript token-graph
+  parity 통과
+- clean-checkout hosted CI에서 반복 생성 결과가 byte-for-byte 동일
+- Figma proposal과 published library 상태를 구분해 기록
 - consumer impact와 rollback 기록
 - breaking change migration과 owner 승인
 
@@ -470,6 +611,18 @@ owner를 공개한다.
 - 신규 예제와 AI 문서의 권장 경로에서 제외한다.
 - 최소 한 migration window를 제공한다. 긴급 보안·접근성 결함은 예외 사유를 기록한다.
 - 제거 전 제품 저장소의 참조가 0건임을 확인한다.
+
+#### Token deprecation
+
+- token rename은 가능한 경우 같은 type과 mode를 유지하는 deprecated alias를 제공한다.
+- alias target, type/unit, mode 또는 layer order가 바뀌면 이름이 같아도 migration impact를 기록한다.
+- deprecated alias는 기본 문서와 신규 Figma proposal의 권장 경로에서 제외하되 validation과 migration
+  metadata에는 남긴다.
+- public release 뒤 최소 한 migration window가 지나고 소비 제품 참조가 0건일 때만 제거한다.
+- `packages/tokens/generated/manifest.json`과 `packages/tokens/baseline/manifest.json`의 diff에서 제거와
+  deprecated alias를 확인한다. Baseline을 편집해 제거 기록을 숨기지 않는다.
+- P2 이전 제품 CSS 이름은 자동으로 DS deprecation 항목이 되지 않는다. 먼저 legacy→semantic mapping을
+  검토하고 public DS contract로 실제 제공한 항목만 이 정책을 적용한다.
 
 #### 활성 항목
 
@@ -511,6 +664,124 @@ owner를 공개한다.
 단순 구현 버그, 현재 화면 실측, 조사 로그는 decision이 아니라 audit/debt다. 결정이 accepted되면 같은
 변경에서 관련 Foundation·Component·Pattern과 구현을 갱신한다.
 
+## DS-D-0001 Token Source Architecture
+
+- Source: design/governance/decisions/DS-D-0001-token-source.md
+- Maturity: beta
+
+### DS-D-0001 Token source architecture
+
+- Status: accepted
+- Date: 2026-08-13
+- Owners: repository owner, token maintainer
+- Affects: `foundation-color-theme`, `foundation-typography`, `foundation-spacing-radius`,
+  `foundation-elevation-layer`, `foundation-motion`, `@klipse-design/tokens`
+
+#### Context
+
+Klipse 제품에는 CSS 변수와 화면별 literal이 존재하지만 해당 파일은 의미, 안정 ID, mode, alias와
+platform projection을 함께 설명하지 않는다. CSS를 역파싱하거나 color·spacing 같은 domain별 JSON을 각각
+정본으로 두면 동일한 token이 여러 파일에서 다른 상태가 되고 platform output의 provenance를 증명하기
+어렵다.
+
+P2는 제품 구현을 그대로 복제하는 일이 아니라, 접근성·theme·호환성을 검증할 수 있는 독립 token
+contract를 세우는 작업이다. Source는 사람과 도구가 함께 검토할 수 있어야 하고 CSS, JavaScript,
+TypeScript, JSON과 Figma proposal이 동일한 의미를 가져야 한다.
+
+#### Decision
+
+1. `packages/tokens/src/klipse.tokens.json` 하나를 token value와 alias의 유일한 정본으로 사용한다.
+2. Source format은 Design Tokens Community Group의 `DTCG 2025.10`-compatible subset을 따른다.
+3. 제품 CSS 역파싱 결과와 domain별 분할 JSON은 migration evidence 또는 projection일 수 있지만 정본이
+   아니다.
+4. `scripts/lib/token-model.mjs`를 Node 표준 라이브러리만 사용하는 repository validator로 사용한다. 현재
+   P2 subset은 `color`, `dimension`, `fontFamily`, `fontWeight`, `duration`, `cubicBezier`, `number`, `shadow`,
+   `typography`, `transition` 10개 type과 whole-token curly alias인 `{group.token}`을 지원한다. 범용 DTCG
+   validator 전체를 구현한 것이 아니며, 지원하지 않는 type과 `$ref`/`$extends` 형식은 별도 결정 없이
+   허용하지 않는다. Validator는 이 subset의 기본 구조와 다음 Klipse extension을 검증한다.
+   - light/dark mode completeness
+   - platform 이름과 분리된 stable token ID
+   - 허용 foreground/background contrast pair
+   - semantic layer relative order
+   - motion과 reduced-motion pair
+   - enter/exit lifecycle별 허용 CSS property인 `motionProperties`
+   - container 기반 Project Grid 계약인 `responsiveProfiles.projectGrid`
+5. 다음 파일은 모두 source의 결정론적 projection이며 직접 편집하지 않는다.
+   - `packages/tokens/generated/tokens.css`
+   - `packages/tokens/generated/index.js`
+   - `packages/tokens/generated/index.d.ts`
+   - `packages/tokens/generated/tokens.json`
+   - `packages/tokens/generated/figma.tokens.json`
+   - `packages/tokens/generated/manifest.json`
+     CSS는 제품 소비용 semantic custom property만 노출한다. JS·resolved JSON·Figma proposal·manifest는
+     검증과 provenance를 위해 primitive/semantic graph를 함께 보존한다. TypeScript declaration은 JavaScript
+     export surface와 안정 token ID, token별 type·mode·alias target, DTCG value shape를 선언한다. 제품의
+     primitive 직접 소비는 지원하지 않는다.
+6. `packages/tokens/baseline/manifest.json`은 token diff의 비교 기준이다. Source authority를 갖지 않으며
+   승인된 baseline 갱신 없이 현재 출력을 덮어쓰지 않는다.
+7. Figma JSON은 review proposal이다. 생성 또는 승인만으로 published Figma variables/library가 되거나
+   manifest의 Figma 상태를 올리지 않는다.
+8. P2는 local private release-candidate까지 소유한다. Public package release, 제품 adoption과 published
+   Figma library는 별도 gate를 통과해야 한다.
+
+#### Alternatives
+
+##### Product CSS를 역파싱해 source로 사용
+
+기존 화면과 빠르게 일치하지만 의미 없는 alias와 제품 debt를 새 시스템의 정본으로 고정한다. Theme,
+contrast와 platform metadata도 CSS만으로 복원할 수 없어 선택하지 않았다.
+
+##### Domain별 source 파일을 독립 정본으로 사용
+
+파일은 작아지지만 schema version, stable ID와 cross-domain alias가 여러 root에서 갈릴 수 있다. 단일
+graph validation과 deterministic ordering을 우선해 선택하지 않았다.
+
+##### 외부 transform dependency를 source of truth로 사용
+
+도구 업데이트가 validation 의미와 출력에 영향을 주고 clean environment 재현성이 외부 package에
+의존한다. P2 core validator와 generator는 외부 패키지 없이 Node 표준 라이브러리만 사용한다.
+
+##### Figma를 token source로 사용
+
+디자인 작업에는 편리하지만 runtime-only layer, accessibility pair와 loss metadata를 완전히 소유하지
+못하며 credential 없는 CI 검증이 어렵다. Figma는 projection 소비자로 유지한다.
+
+#### Consequences
+
+- 모든 변경은 단일 graph에서 review되므로 alias, mode와 platform parity를 한 번에 검증할 수 있다.
+- Domain별 담당자도 같은 source 파일을 수정하므로 merge conflict 가능성이 늘어난다. 안정 ID와 작은
+  focused diff, deterministic formatting으로 완화한다.
+- Source가 DTCG보다 엄격한 Klipse extension을 포함하므로 범용 도구는 extension을 무시할 수 있다. 공식
+  build는 반드시 Klipse validator를 통과해야 한다.
+- Generated artifact와 Figma proposal은 편집 편의보다 provenance와 반복 생성 가능성을 우선한다.
+- Product CSS와 수치가 달라질 수 있으며, adoption 전에 legacy→semantic mapping과 시각 회귀를 별도로
+  수행해야 한다.
+
+#### Rollback
+
+P2 release-candidate에 문제가 생기면 소비자는 아직 public package를 사용하지 않으므로 제품 코드를
+변경하지 않는다. 저장소에서는 마지막 승인 source와 `packages/tokens/baseline/manifest.json`으로 돌아가
+artifact를 재생성한다. Baseline 자체에 결함이 있으면 임의 수정하지 않고 이 결정을 supersede하는 ADR과
+수정 migration을 먼저 승인한다. Published Figma 적용 전이므로 proposal은 폐기하고 library에는 반영하지
+않는다.
+
+#### Rollout and verification
+
+1. Source를 repository-supported DTCG subset validator로 읽어 token ID, type, alias, mode와 extension을
+   검증한다.
+2. CSS·JS·TS·JSON·Figma proposal·manifest를 한 실행에서 생성한다.
+3. CSS의 semantic selector/theme output과 JS·JSON·Figma proposal·manifest의 primitive/semantic token
+   metadata·raw/resolved value·alias projection을 비교하고 JavaScript/TypeScript token graph를 대조한다.
+4. 선언한 contrast pair, layer order와 reduced-motion pair를 검증한다.
+5. `motionProperties`의 lifecycle/property와 Project Grid의 container measurement, stable minimum-card/gap ID,
+   ordered 0/720/1200/1800px preferred 2/3/4/5열 profile shape를 검증한다. 실제 capacity와 1열 fallback은
+   P3/P5 소비 구현에서 검증한다.
+6. 같은 process에서 동일 source를 두 번 render해 byte-for-byte 동일함을 확인한다.
+7. 현재 generated manifest와 baseline을 비교해 additive와 breaking change를 분류한다.
+8. Catalog는 source, validator, baseline과 여섯 artifact가 실제 파일이며 추적되는지 확인한다.
+9. clean-checkout hosted CI, public release와 Figma publish는 별도 completion/release gate 전까지
+   `not-ready`로 유지한다.
+
 ## Updates
 
 - Source: design/updates/README.md
@@ -519,6 +790,36 @@ owner를 공개한다.
 ### Updates
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
+
+#### 2026-08-13 — P2 token source inversion 로컬 RC 구현
+
+##### Added
+
+- Color/Theme, Typography, Spacing/Radius, Elevation/Layer, Motion 규범과 acceptance criteria
+- DTCG 2025.10-compatible 단일 정본 `packages/tokens/src/klipse.tokens.json`
+- 외부 패키지 없이 Node 표준 라이브러리만 사용하는 repository-supported DTCG subset validator
+  `scripts/lib/token-model.mjs`
+- semantic CSS projection, primitive/semantic JS·JSON·Figma proposal·manifest와 token ID/type/mode/alias/value
+  shape를 선언하는 TypeScript projection
+- token diff 비교점 `packages/tokens/baseline/manifest.json`
+- alias graph, mode completeness, contrast, primitive/semantic metadata projection, CSS theme/selector,
+  JS/TypeScript token graph, same-process deterministic render와 token diff 완료 게이트
+- 여섯 token artifact atomic batch 교체/rollback과 package self-reference consumer fixture
+- lifecycle별 motion property와 container 기반 Project Grid ordered compatibility profile shape 검증
+
+##### Changed
+
+- P2 상태를 local `release-candidate`, maturity를 `experimental`로 유지
+- token CSS의 source/generator는 `@klipse-design/tokens`가 소유하고 P3 `@klipse-design/css`는 이를
+  소비·재export하도록 package 경계를 명확히 함
+- P2 Figma 범위를 reviewable proposal까지로 제한하고 published variables/components는 P3로 유지
+
+##### Current impact
+
+구조화 source, generated artifact와 private export map은 로컬 RC로 구현됐다. Package public release와
+제품 adoption은 `not-ready`이며, Figma proposal 생성은 published library나 Figma 상태 승격의 근거가
+아니다. Browser UI, glyph, 접근성, layout과 interaction acceptance도 P3/P5 소비 구현 전까지
+`not-ready`다.
 
 #### 2026-08-11 — 독립 디자인 시스템 저장소 시작
 

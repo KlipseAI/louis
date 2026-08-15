@@ -1048,3 +1048,44 @@
 .kds-overlay-panel::after {
   pointer-events: none;
 }
+
+/* Tooltip — design/components/tooltip.md
+ *
+ * 표면은 포인터 이벤트를 받지 않는다. 받으면 표면 위로 포인터가 옮겨갔을 때 trigger가 이탈로
+ * 판정돼 열고 닫기를 반복한다 — 깜빡임의 원인이 표면 자신이 되는 구조다.
+ */
+
+.kds-tooltip-positioner {
+  z-index: var(--kds-layer-popover);
+  /* 위치 계산 래퍼도 포인터를 받지 않는다. 표면만 막으면 래퍼의 여백이 남는다. */
+  pointer-events: none;
+}
+
+.kds-tooltip {
+  max-inline-size: 288px;
+  padding-block: var(--kds-space-control-xs);
+  padding-inline: var(--kds-space-control-sm);
+  border-radius: var(--kds-radius-control-sm);
+  background: var(--kds-color-background-inset);
+  color: var(--kds-color-foreground-primary);
+  box-shadow: var(--kds-elevation-popover);
+  pointer-events: none;
+  /* 한 줄이 기본이고 길면 줄바꿈한다. 잘라내지 않는다 — 잘린 설명은 설명이 아니다. */
+  overflow-wrap: break-word;
+  font-family: var(--kds-typography-caption-regular-font-family);
+  font-size: var(--kds-typography-caption-regular-font-size);
+  font-weight: var(--kds-typography-caption-regular-font-weight);
+  line-height: var(--kds-typography-caption-regular-line-height);
+  letter-spacing: var(--kds-typography-caption-regular-letter-spacing);
+}
+
+.kds-tooltip[data-kds-state="opening"] {
+  animation-duration: var(--kds-motion-overlay-enter-duration);
+  animation-timing-function: var(--kds-motion-overlay-enter-timing-function);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .kds-tooltip[data-kds-state="opening"] {
+    animation-duration: var(--kds-motion-reduced-duration);
+  }
+}

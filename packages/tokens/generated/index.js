@@ -4302,6 +4302,27 @@ export const tokens = {
         "unit": "px"
       }
     },
+    "radius-control-sm": {
+      "aliasTarget": {
+        "id": "radius-8",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-radius-control-sm": "8px"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "radius-control-sm",
+      "mode": "global",
+      "rawValue": "{primitive.radius.8}",
+      "sourcePath": "semantic.global.radius.control-sm",
+      "tier": "semantic",
+      "type": "dimension",
+      "value": {
+        "value": 8,
+        "unit": "px"
+      }
+    },
     "radius-overlay": {
       "aliasTarget": {
         "id": "radius-16",

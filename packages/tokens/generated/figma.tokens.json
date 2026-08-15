@@ -5688,6 +5688,34 @@
             }
           }
         },
+        "radius-control-sm": {
+          "$type": "dimension",
+          "fields": [],
+          "figmaName": "radius/control-sm",
+          "hiddenFromPublishing": false,
+          "losses": [
+            "Figma FLOAT는 DTCG 단위 의미를 직접 보존하지 않으므로 source metadata를 함께 검토해야 합니다."
+          ],
+          "nativeVariableType": "FLOAT",
+          "representation": "variable",
+          "scopes": [
+            "CORNER_RADIUS"
+          ],
+          "valuesByMode": {
+            "Global": {
+              "$value": "{primitive.radius.8}",
+              "aliasTarget": {
+                "id": "radius-8",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "unit": "px",
+                "value": 8
+              },
+              "sourcePath": "semantic.global.radius.control-sm"
+            }
+          }
+        },
         "radius-overlay": {
           "$type": "dimension",
           "fields": [],

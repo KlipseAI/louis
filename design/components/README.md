@@ -21,7 +21,7 @@ Klipse 화면을 이루는 재사용 가능한 UI 단위다. 컴포넌트가 코
 | [Menu / Popover](menu-popover.md) | `experimental` | `not-ready` | `partial` | `done` | ActionMenu·CompositePopover·submenu가 public export다. Figma component와 시각 회귀는 아직 없다 |
 | Input / Field | `experimental` | `not-ready` | `not-ready` | `not-ready` | P3 component backlog |
 | Select / Dropdown | `experimental` | `not-ready` | `not-ready` | `not-ready` | P3 component backlog |
-| Tooltip | `experimental` | `not-ready` | `not-ready` | `not-ready` | P3 component backlog |
+| [Tooltip](tooltip.md) | `experimental` | `not-ready` | `partial` | `done` | public export와 실브라우저 acceptance test 11건. overlay primitive의 positioner와 portal만 소비하고 focus scope·inert·scroll lock은 쓰지 않는다. 그룹 지연 건너뛰기와 arrow, Figma component set이 남음 |
 | Toast / Snackbar | `experimental` | `not-ready` | `not-ready` | `not-ready` | P3 component backlog |
 | Empty State | `experimental` | `not-ready` | `not-ready` | `not-ready` | P3 component backlog |
 <!-- GENERATED:component-progress END -->

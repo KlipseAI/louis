@@ -1615,6 +1615,18 @@
           ]
         ],
         [
+          "radius/control-sm",
+          "FLOAT",
+          "CORNER_RADIUS",
+          [
+            [
+              "Global",
+              "Klipse Primitive::radius/8",
+              null
+            ]
+          ]
+        ],
+        [
           "radius/overlay",
           "FLOAT",
           "CORNER_RADIUS",

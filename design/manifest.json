@@ -239,6 +239,15 @@
       "generated": false
     },
     {
+      "id": "component-tooltip",
+      "path": "design/components/tooltip.md",
+      "title": "Tooltip",
+      "section": "components",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
+    },
+    {
       "id": "component-dialog",
       "path": "design/components/dialog.md",
       "title": "Dialog",
@@ -591,6 +600,7 @@
         "design/components/button.md",
         "design/components/icon-button.md",
         "design/components/menu-popover.md",
+        "design/components/tooltip.md",
         "design/components/dialog.md"
       ]
     },
@@ -720,9 +730,10 @@
       "name": "Tooltip",
       "maturity": "experimental",
       "figma": "not-ready",
-      "web": "not-ready",
-      "docs": "not-ready",
-      "note": "P3 component backlog"
+      "web": "partial",
+      "docs": "done",
+      "note": "public export와 실브라우저 acceptance test 11건. overlay primitive의 positioner와 portal만 소비하고 focus scope·inert·scroll lock은 쓰지 않는다. 그룹 지연 건너뛰기와 arrow, Figma component set이 남음",
+      "doc": "design/components/tooltip.md"
     },
     {
       "id": "toast",

@@ -2,23 +2,23 @@
   "artifacts": [
     {
       "path": "packages/tokens/generated/figma.tokens.json",
-      "sha256": "af584772d8591547f77bad916439d825b8e48606a542e175ede294e07c174660"
+      "sha256": "a58ec6fb7fc46bc1cfff99f77366545294b44c73cef9ea3b19d4da3eb8fbc037"
     },
     {
       "path": "packages/tokens/generated/index.d.ts",
-      "sha256": "4ede3da7b6fa48347e12977487e090e1d4e72c36be2d8b6fd6acf1f2eaf0c25c"
+      "sha256": "5372c6ee20aa5bd9c7c7dd89a2f1b830ee60b95f72dfd387e242d1d7e6d58bc0"
     },
     {
       "path": "packages/tokens/generated/index.js",
-      "sha256": "5cfffe5178622b932a649827645f454d2d5220d1242c0e5f817740beb33ff569"
+      "sha256": "b078c8c984bc53d6f357b625af127ffe71f73bfefaefa3c00a73bf755fcac2e4"
     },
     {
       "path": "packages/tokens/generated/tokens.css",
-      "sha256": "b49591ee845650cc2aee7fc6108df819e8c24d4249fb75ad94dbeb4c2ef2ceec"
+      "sha256": "4bc449a913968bc673305c0b85aac4065874874fe38fffa26c5c6fa542ab2839"
     },
     {
       "path": "packages/tokens/generated/tokens.json",
-      "sha256": "307768d55ef0fa6714fd9f622707e18505fe21c9dfb1048d78fae6b0b6c86cf1"
+      "sha256": "bf1f4ef9af8a8ab6ae6081bd9a6d35bd97032fce3420f520db0c8c873ffe5643"
     }
   ],
   "contrastPairs": [
@@ -164,13 +164,13 @@
   },
   "source": {
     "path": "packages/tokens/src/klipse.tokens.json",
-    "sha256": "b22f301e996d507c05ef902f117a4f9d38db1988e57c93d3d444d699e6e034b0"
+    "sha256": "0d5fd17cdb338f888f3da6a1c4058b764259b63c80de8a0cfc7e6e66307a8c10"
   },
   "themes": [
     "light",
     "dark"
   ],
-  "tokenCount": 223,
+  "tokenCount": 224,
   "tokens": [
     {
       "aliasTarget": {
@@ -4023,6 +4023,27 @@
         "value": 12
       },
       "sourcePath": "semantic.global.radius.control",
+      "tier": "semantic",
+      "type": "dimension"
+    },
+    {
+      "aliasTarget": {
+        "id": "radius-8",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-radius-control-sm": "8px"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "radius-control-sm",
+      "mode": "global",
+      "rawValue": "{primitive.radius.8}",
+      "resolvedValue": {
+        "unit": "px",
+        "value": 8
+      },
+      "sourcePath": "semantic.global.radius.control-sm",
       "tier": "semantic",
       "type": "dimension"
     },

@@ -2,6 +2,8 @@ export { Button } from "./button/button.js";
 export type { ButtonProps, ButtonSize, ButtonVariant } from "./button/button.js";
 export { IconButton } from "./icon-button/icon-button.js";
 export type { IconButtonProps, IconButtonSize } from "./icon-button/icon-button.js";
+export { Tooltip } from "./tooltip/tooltip.js";
+export type { TooltipProps } from "./tooltip/tooltip.js";
 
 // DS-D-0011 결정 5 — 공개 진입점은 recipe 계층이 소유한다.
 // primitive 모듈(`overlay/**`)은 여기서 재export하지 않는다.

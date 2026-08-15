@@ -100,7 +100,7 @@ Figma library는 아직 `not-ready`다. 시스템 전체 maturity도 `experiment
 | 항목 | 현재 값 |
 | --- | --- |
 | System maturity | `experimental` |
-| Normative documents | 48 |
+| Normative documents | 49 |
 | Generated documents | 5 |
 | Components | 9 |
 | Patterns | 4 |
@@ -4224,6 +4224,48 @@ canary가 없었으면 "통과하지만 아무것도 보지 않는" 테스트가
 ### Updates
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
+
+#### 2026-08-15 — Tooltip
+
+gap registry 2순위다. 세 화면 실측에서 **22개 파일이 tooltip을 쓰는데 공용 컴포넌트가 없었다** —
+제품 자신의 Button(17개 파일)보다 넓게 쓰인다.
+
+##### Added
+
+- [Tooltip](../components/tooltip.md) 규범과 `Tooltip` public export
+- `packages/css/src/component/tooltip.css`
+- `--kds-radius-control-sm`(8px). gap registry가 지적한 **"가장 많이 쓰이는 radius에 semantic 이름이
+  없다"**의 해소이며 Tooltip이 첫 소비자다. Figma 변수로도 함께 만들었다.
+- Storybook `Components/Tooltip` story 5종
+
+##### 계약
+
+- **이름이 아니라 설명이다.** 표면은 `role="tooltip"`이고 trigger는 `aria-describedby`로 가리킨다.
+  `aria-labelledby`가 아니다. trigger는 자기 이름을 스스로 가져야 하며, tooltip이 이름의 유일한
+  출처가 되면 포인터 없는 사용자에게 이름이 없다.
+- **열 때만 지연하고 닫을 때는 즉시**다. 포인터가 떠났는데 설명이 남으면 어느 컨트롤의 설명인지
+  알 수 없다. 키보드 focus는 지연 없이 연다 — 지연은 지나가는 포인터를 거르기 위한 것이고 focus는
+  의도된 이동이다.
+- **표면이 포인터 이벤트를 받지 않는다.** 받으면 표면 위로 포인터가 옮겨갔을 때 trigger가 이탈로
+  판정돼 깜빡인다. 깜빡임의 원인이 표면 자신이 되는 구조다.
+- **터치에는 열리지 않는다.** hover가 없고 길게 누르기는 컨텍스트 메뉴와 충돌한다.
+- **trigger를 감싸지 않는다.** `cloneElement`로 속성만 붙인다. 래퍼를 두면 호출부의 flex/grid
+  계산이 조용히 달라진다. 이것도 테스트로 고정했다.
+- **anchor 간격을 자체 숫자로 갖지 않는다.** overlay 표면 CSS가 소유하고 Provider가 1회 측정한
+  값을 쓴다. 처음 구현에서 이 값을 넘기지 않아 **간격이 0으로 붙어 있었고**, 브라우저 실측으로
+  잡아 고친 뒤 테스트로 고정했다.
+
+##### primitive 소비자가 셋이 됐다
+
+overlay primitive에서 **위치 계산과 portal만** 쓴다. focus scope·inert·scroll lock·dismissable
+layer는 쓰지 않는다 — tooltip은 focus를 가져가지 않고 바깥 클릭을 삼키지도 않으므로, 붙이면 없는
+문제를 위해 배경을 잠그게 된다. DS-D-0011의 소비자가 Menu·Dialog에 이어 셋이 된다.
+
+##### Known deviations
+
+그룹 지연 건너뛰기(인접 trigger로 옮길 때 지연 생략), arrow, Figma component set이 없다. 열림
+모션은 제품의 140ms 대신 DS `overlay-enter` 200ms를 썼다 — 제품 값을 들이려면 motion 토큰 추가가
+선행이다.
 
 #### 2026-08-15 — Icon Button
 

@@ -2284,6 +2284,16 @@
       },
       "radius": {
         "$type": "dimension",
+        "control-sm": {
+          "$value": "{primitive.radius.8}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "radius-control-sm",
+              "tier": "semantic",
+              "mode": "global"
+            }
+          }
+        },
         "control": {
           "$value": "{primitive.radius.12}",
           "$extensions": {

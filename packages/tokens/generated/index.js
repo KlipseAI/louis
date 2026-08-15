@@ -3980,6 +3980,48 @@ export const tokens = {
         "unit": "px"
       }
     },
+    "layout-control-height-md": {
+      "aliasTarget": {
+        "id": "space-40",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-layout-control-height-md": "40px"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "layout-control-height-md",
+      "mode": "global",
+      "rawValue": "{primitive.spacing.40}",
+      "sourcePath": "semantic.global.layout.control-height-md",
+      "tier": "semantic",
+      "type": "dimension",
+      "value": {
+        "value": 40,
+        "unit": "px"
+      }
+    },
+    "layout-control-height-sm": {
+      "aliasTarget": {
+        "id": "space-32",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-layout-control-height-sm": "32px"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "layout-control-height-sm",
+      "mode": "global",
+      "rawValue": "{primitive.spacing.32}",
+      "sourcePath": "semantic.global.layout.control-height-sm",
+      "tier": "semantic",
+      "type": "dimension",
+      "value": {
+        "value": 32,
+        "unit": "px"
+      }
+    },
     "layout-control-hit-target-minimum": {
       "aliasTarget": {
         "id": "space-44",

@@ -2,23 +2,23 @@
   "artifacts": [
     {
       "path": "packages/tokens/generated/figma.tokens.json",
-      "sha256": "a5e19c1077fa992082613dca7d15033118eac967302ca84a89939ff3b52d99ab"
+      "sha256": "af584772d8591547f77bad916439d825b8e48606a542e175ede294e07c174660"
     },
     {
       "path": "packages/tokens/generated/index.d.ts",
-      "sha256": "61588920d41176e6c9c3c843f6bd763ae8026f7b9eaf83fe4a25f545e3af90ba"
+      "sha256": "4ede3da7b6fa48347e12977487e090e1d4e72c36be2d8b6fd6acf1f2eaf0c25c"
     },
     {
       "path": "packages/tokens/generated/index.js",
-      "sha256": "7b83a4bebcf7d539d410ad165e37dc1946956f8d68d7c4efc454d2f6293c2a1a"
+      "sha256": "5cfffe5178622b932a649827645f454d2d5220d1242c0e5f817740beb33ff569"
     },
     {
       "path": "packages/tokens/generated/tokens.css",
-      "sha256": "eca8405b435b177089508f2e3f8af34149709047209e06f045c884b08a2542aa"
+      "sha256": "b49591ee845650cc2aee7fc6108df819e8c24d4249fb75ad94dbeb4c2ef2ceec"
     },
     {
       "path": "packages/tokens/generated/tokens.json",
-      "sha256": "6650fed81ba054b65214b263c6311fe7990f0646d2b3ecb24a2126b9fa3c8bc5"
+      "sha256": "307768d55ef0fa6714fd9f622707e18505fe21c9dfb1048d78fae6b0b6c86cf1"
     }
   ],
   "contrastPairs": [
@@ -164,13 +164,13 @@
   },
   "source": {
     "path": "packages/tokens/src/klipse.tokens.json",
-    "sha256": "6ff9b5a20117d9778bd015025498f219b1a6d203050b044a2071f99c03da2177"
+    "sha256": "b22f301e996d507c05ef902f117a4f9d38db1988e57c93d3d444d699e6e034b0"
   },
   "themes": [
     "light",
     "dark"
   ],
-  "tokenCount": 221,
+  "tokenCount": 223,
   "tokens": [
     {
       "aliasTarget": {
@@ -3472,6 +3472,48 @@
         "value": 12
       },
       "sourcePath": "semantic.global.layout.app-shell-sidebar-padding",
+      "tier": "semantic",
+      "type": "dimension"
+    },
+    {
+      "aliasTarget": {
+        "id": "space-40",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-layout-control-height-md": "40px"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "layout-control-height-md",
+      "mode": "global",
+      "rawValue": "{primitive.spacing.40}",
+      "resolvedValue": {
+        "unit": "px",
+        "value": 40
+      },
+      "sourcePath": "semantic.global.layout.control-height-md",
+      "tier": "semantic",
+      "type": "dimension"
+    },
+    {
+      "aliasTarget": {
+        "id": "space-32",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-layout-control-height-sm": "32px"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "layout-control-height-sm",
+      "mode": "global",
+      "rawValue": "{primitive.spacing.32}",
+      "resolvedValue": {
+        "unit": "px",
+        "value": 32
+      },
+      "sourcePath": "semantic.global.layout.control-height-sm",
       "tier": "semantic",
       "type": "dimension"
     },

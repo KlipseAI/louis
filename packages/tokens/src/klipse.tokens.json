@@ -2679,6 +2679,26 @@
             }
           }
         },
+        "control-height-sm": {
+          "$value": "{primitive.spacing.32}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "layout-control-height-sm",
+              "tier": "semantic",
+              "mode": "global"
+            }
+          }
+        },
+        "control-height-md": {
+          "$value": "{primitive.spacing.40}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "layout-control-height-md",
+              "tier": "semantic",
+              "mode": "global"
+            }
+          }
+        },
         "control-hit-target-minimum": {
           "$value": "{primitive.spacing.44}",
           "$extensions": {

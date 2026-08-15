@@ -1471,6 +1471,30 @@
           ]
         ],
         [
+          "layout/control-height-md",
+          "FLOAT",
+          "WIDTH_HEIGHT",
+          [
+            [
+              "Global",
+              "Klipse Primitive::spacing/40",
+              null
+            ]
+          ]
+        ],
+        [
+          "layout/control-height-sm",
+          "FLOAT",
+          "WIDTH_HEIGHT",
+          [
+            [
+              "Global",
+              "Klipse Primitive::spacing/32",
+              null
+            ]
+          ]
+        ],
+        [
           "layout/control-hit-target-minimum",
           "FLOAT",
           "WIDTH_HEIGHT",

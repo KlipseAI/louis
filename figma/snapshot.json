@@ -6,12 +6,12 @@
     "capturedAt": "2026-08-14",
     "capturedBy": "figma-mcp-plugin-api",
     "published": false,
-    "tokenSourceSha256": "6ff9b5a20117d9778bd015025498f219b1a6d203050b044a2071f99c03da2177",
-    "proposalSha256": "a5e19c1077fa992082613dca7d15033118eac967302ca84a89939ff3b52d99ab",
+    "tokenSourceSha256": "b22f301e996d507c05ef902f117a4f9d38db1988e57c93d3d444d699e6e034b0",
+    "proposalSha256": "af584772d8591547f77bad916439d825b8e48606a542e175ede294e07c174660",
     "readback": {
-      "tokens": 149,
-      "canonicalLength": 11567,
-      "fnv1a32": "42848717",
+      "tokens": 151,
+      "canonicalLength": 11737,
+      "fnv1a32": "520adf5f",
       "note": "변수는 readback.json의 되읽기 행을 tokenId 공간으로 옮긴 것이고, style과 component는 같은 되읽기의 style/component 절이다. canonical 해시는 컬렉션·이름·타입·mode 값을 정렬해 이은 문자열의 FNV-1a다.",
       "styles": {
         "text": 15,
@@ -38,7 +38,7 @@
         "Global"
       ],
       "defaultMode": "Global",
-      "variableCount": 31
+      "variableCount": 33
     },
     "Klipse Semantic Color": {
       "modes": [
@@ -1188,6 +1188,24 @@
       "valuesByMode": {
         "Global": {
           "alias": "space-12"
+        }
+      }
+    },
+    "layout-control-height-md": {
+      "figmaName": "layout/control-height-md",
+      "resolvedType": "FLOAT",
+      "valuesByMode": {
+        "Global": {
+          "alias": "space-40"
+        }
+      }
+    },
+    "layout-control-height-sm": {
+      "figmaName": "layout/control-height-sm",
+      "resolvedType": "FLOAT",
+      "valuesByMode": {
+        "Global": {
+          "alias": "space-32"
         }
       }
     },

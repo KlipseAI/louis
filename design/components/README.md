@@ -16,6 +16,7 @@ Klipse 화면을 이루는 재사용 가능한 UI 단위다. 컴포넌트가 코
 | Component | Maturity | Figma | Web | Docs | Note |
 | --- | --- | --- | --- | --- | --- |
 | [Button](button.md) | `experimental` | `partial` | `partial` | `done` | public export와 실브라우저 acceptance test 11건, Figma component set 40 variant와 parity 대조. publish, visual regression, SSR, 제품 사용처가 남음 |
+| [Icon Button](icon-button.md) | `experimental` | `not-ready` | `partial` | `done` | public export와 실브라우저 acceptance test 10건. Button을 아이콘 전용으로 렌더하면 정사각이 아니라는 실측이 별도 컴포넌트의 근거이며 그 실측도 테스트로 고정했다. Figma component set, visual regression, 제품 사용처가 남음 |
 | [Dialog / Confirm Modal](dialog.md) | `experimental` | `not-ready` | `partial` | `done` | Dialog compound가 public export다. variant 5종·backdrop 정책·차단 안내를 recipe가 소유한다. Figma component와 시각 회귀는 아직 없다 |
 | [Menu / Popover](menu-popover.md) | `experimental` | `not-ready` | `partial` | `done` | ActionMenu·CompositePopover·submenu가 public export다. Figma component와 시각 회귀는 아직 없다 |
 | Input / Field | `experimental` | `not-ready` | `not-ready` | `not-ready` | P3 component backlog |

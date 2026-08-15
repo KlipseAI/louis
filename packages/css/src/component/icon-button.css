@@ -1,0 +1,114 @@
+/* Icon Button — design/components/icon-button.md
+ *
+ * Button과 달리 **한 변의 길이가 계약**이다. 그래서 크기를 padding으로 만들지 않고
+ * inline-size/block-size로 직접 정한다. Button의 규칙을 상속하지 않는 이유도 같다 —
+ * Button의 padding 계약과 정사각 계약은 한 요소에서 양립하지 않는다.
+ *
+ * 상태는 data-* 속성으로만 표현한다 (DS-D-0004).
+ */
+
+.kds-icon-button {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  inline-size: var(--kds-layout-control-height-md);
+  block-size: var(--kds-layout-control-height-md);
+  border: 1px solid transparent;
+  border-radius: var(--kds-radius-control);
+  cursor: pointer;
+  /* motion.md: 허용 property는 opacity와 transform뿐이다. 색 전환은 두지 않는다. */
+  transition-property: opacity, transform;
+  transition-duration: var(--kds-motion-overlay-exit-duration);
+  transition-timing-function: var(--kds-motion-overlay-exit-timing-function);
+}
+
+.kds-icon-button[data-size="sm"] {
+  inline-size: var(--kds-layout-control-height-sm);
+  block-size: var(--kds-layout-control-height-sm);
+}
+
+/* variant — Button과 같은 네 축. 새 시각 언어를 만들지 않는다. */
+.kds-icon-button[data-variant="primary"] {
+  background: var(--kds-color-action-primary);
+  color: var(--kds-color-foreground-inverse);
+}
+
+.kds-icon-button[data-variant="secondary"] {
+  background: var(--kds-color-background-surface);
+  border-color: var(--kds-color-border-default);
+  color: var(--kds-color-foreground-primary);
+}
+
+.kds-icon-button[data-variant="ghost"] {
+  background: transparent;
+  color: var(--kds-color-foreground-secondary);
+}
+
+/* Known deviation: solid danger를 표현할 action 토큰이 아직 없어 tonal로 둔다.
+ * Button과 같은 사유이며 color-action-danger*가 생기면 함께 갱신한다. */
+.kds-icon-button[data-variant="danger"] {
+  background: var(--kds-color-status-danger-background);
+  color: var(--kds-color-status-danger-foreground);
+}
+
+.kds-icon-button:where(:not([aria-disabled="true"]):not(:disabled)):hover[data-variant="primary"] {
+  background: var(--kds-color-action-primary-hover);
+}
+
+.kds-icon-button:where(:not([aria-disabled="true"]):not(:disabled)):hover:where(
+    [data-variant="secondary"],
+    [data-variant="ghost"]
+  ) {
+  background: var(--kds-color-background-inset);
+}
+
+/* pressed — 토글의 켜짐 상태. :active(누르는 중)와 다른 축이다. */
+.kds-icon-button[aria-pressed="true"] {
+  background: var(--kds-color-background-inset);
+  color: var(--kds-color-foreground-primary);
+}
+
+.kds-icon-button:where(:not([aria-disabled="true"]):not(:disabled)):active[data-variant="primary"] {
+  background: var(--kds-color-action-primary-pressed);
+}
+
+.kds-icon-button:where(:not([aria-disabled="true"]):not(:disabled)):active {
+  scale: 0.98;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .kds-icon-button {
+    transition-duration: var(--kds-motion-reduced-duration);
+  }
+
+  .kds-icon-button:where(:not([aria-disabled="true"]):not(:disabled)):active {
+    scale: 1;
+  }
+}
+
+.kds-icon-button:disabled,
+.kds-icon-button[aria-disabled="true"] {
+  cursor: not-allowed;
+  color: var(--kds-color-foreground-disabled);
+}
+
+.kds-icon-button:disabled:where([data-variant="primary"], [data-variant="danger"]),
+.kds-icon-button[aria-disabled="true"]:where([data-variant="primary"], [data-variant="danger"]) {
+  background: var(--kds-color-background-inset);
+}
+
+.kds-icon-button:disabled:where([data-variant="secondary"]),
+.kds-icon-button[aria-disabled="true"]:where([data-variant="secondary"]) {
+  border-color: var(--kds-color-border-subtle);
+}
+
+/* 글리프는 컨테이너와 독립이다. 두 size에서 같은 20px을 쓴다 (iconography.md Size model). */
+.kds-icon-button__glyph {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  inline-size: var(--kds-icon-size-md);
+  block-size: var(--kds-icon-size-md);
+}

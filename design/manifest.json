@@ -221,6 +221,15 @@
       "generated": false
     },
     {
+      "id": "component-icon-button",
+      "path": "design/components/icon-button.md",
+      "title": "Icon Button",
+      "section": "components",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
+    },
+    {
       "id": "component-menu-popover",
       "path": "design/components/menu-popover.md",
       "title": "Menu / Popover",
@@ -580,6 +589,7 @@
         "design/manifest.json",
         "design/components/README.md",
         "design/components/button.md",
+        "design/components/icon-button.md",
         "design/components/menu-popover.md",
         "design/components/dialog.md"
       ]
@@ -656,6 +666,16 @@
       "docs": "done",
       "doc": "design/components/button.md",
       "note": "public export와 실브라우저 acceptance test 11건, Figma component set 40 variant와 parity 대조. publish, visual regression, SSR, 제품 사용처가 남음"
+    },
+    {
+      "id": "icon-button",
+      "name": "Icon Button",
+      "maturity": "experimental",
+      "figma": "not-ready",
+      "web": "partial",
+      "docs": "done",
+      "doc": "design/components/icon-button.md",
+      "note": "public export와 실브라우저 acceptance test 10건. Button을 아이콘 전용으로 렌더하면 정사각이 아니라는 실측이 별도 컴포넌트의 근거이며 그 실측도 테스트로 고정했다. Figma component set, visual regression, 제품 사용처가 남음"
     },
     {
       "id": "dialog",

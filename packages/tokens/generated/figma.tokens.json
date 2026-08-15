@@ -5282,6 +5282,62 @@
             }
           }
         },
+        "layout-control-height-md": {
+          "$type": "dimension",
+          "fields": [],
+          "figmaName": "layout/control-height-md",
+          "hiddenFromPublishing": false,
+          "losses": [
+            "Figma FLOAT는 DTCG 단위 의미를 직접 보존하지 않으므로 source metadata를 함께 검토해야 합니다."
+          ],
+          "nativeVariableType": "FLOAT",
+          "representation": "variable",
+          "scopes": [
+            "WIDTH_HEIGHT"
+          ],
+          "valuesByMode": {
+            "Global": {
+              "$value": "{primitive.spacing.40}",
+              "aliasTarget": {
+                "id": "space-40",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "unit": "px",
+                "value": 40
+              },
+              "sourcePath": "semantic.global.layout.control-height-md"
+            }
+          }
+        },
+        "layout-control-height-sm": {
+          "$type": "dimension",
+          "fields": [],
+          "figmaName": "layout/control-height-sm",
+          "hiddenFromPublishing": false,
+          "losses": [
+            "Figma FLOAT는 DTCG 단위 의미를 직접 보존하지 않으므로 source metadata를 함께 검토해야 합니다."
+          ],
+          "nativeVariableType": "FLOAT",
+          "representation": "variable",
+          "scopes": [
+            "WIDTH_HEIGHT"
+          ],
+          "valuesByMode": {
+            "Global": {
+              "$value": "{primitive.spacing.32}",
+              "aliasTarget": {
+                "id": "space-32",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "unit": "px",
+                "value": 32
+              },
+              "sourcePath": "semantic.global.layout.control-height-sm"
+            }
+          }
+        },
         "layout-control-hit-target-minimum": {
           "$type": "dimension",
           "fields": [],

@@ -72,6 +72,14 @@ const ICON_CONTRACT = {
 };
 const iconManifest = readJson(ICON_MANIFEST_PATH);
 
+// 재조립 template 계약. 값은 제품 저장소에서 실측해 figma/templates.measured.json에 근거와 함께
+// 적어 두고, Figma에서 되읽은 값과 대조한다.
+//
+// 이 검사가 없던 동안 template의 카드 구조가 제품과 다르게 그려진 채 통과했다. 게이트가 없는 곳은
+// 사람이 확인해야 하는데, 사람이 확인했다고 스스로 말하는 것은 증거가 아니다.
+const TEMPLATE_MEASURED_PATH = "figma/templates.measured.json";
+const templateMeasured = readJson(TEMPLATE_MEASURED_PATH);
+
 const expectation = buildExpectation(proposal);
 
 const failures = compare(snapshot, expectation);
@@ -97,6 +105,9 @@ const TAMPERS = [
   tamperIconFrame,
   tamperIconRawPaint,
   tamperIconElementCount,
+  tamperTemplateField,
+  tamperTemplateSquare,
+  tamperTemplateMissing,
 ];
 
 if (runCanary) {
@@ -352,6 +363,54 @@ function compare(document, expected) {
 
   issues.push(...compareComponents(document.components ?? {}));
   issues.push(...compareIcons(document.icons ?? {}));
+  issues.push(...compareTemplates(document.templates ?? {}));
+  return issues;
+}
+
+/** 제품 실측값(figma/templates.measured.json) ↔ Figma 재조립 template. */
+function compareTemplates(actualTemplates) {
+  const issues = [];
+  const expected = templateMeasured.templates ?? {};
+  for (const [name, fields] of Object.entries(expected)) {
+    const got = actualTemplates[name];
+    if (got === undefined) {
+      issues.push(`재조립 template이 snapshot에 없습니다: ${name}`);
+      continue;
+    }
+    for (const [field, spec] of Object.entries(fields)) {
+      if (field.startsWith("$")) continue;
+      const want = spec.value;
+      const actual = got[field];
+      // 행간처럼 여러 요소가 같은 값을 가져야 하는 항목은 배열로 되읽고 유일값을 본다.
+      const normalized = Array.isArray(actual)
+        ? actual.length === 1
+          ? actual[0]
+          : actual
+        : actual;
+      if (normalized === undefined) {
+        issues.push(`${name}.${field}: snapshot에 없습니다 (기대 ${JSON.stringify(want)})`);
+        continue;
+      }
+      if (JSON.stringify(normalized) !== JSON.stringify(want)) {
+        issues.push(
+          `${name}.${field}: 제품 실측과 다릅니다 — 기대 ${JSON.stringify(want)}, 실제 ` +
+            `${JSON.stringify(normalized)}. 근거: ${spec.evidence}`,
+        );
+      }
+    }
+    // 정사각 계약은 두 값의 관계이므로 따로 본다.
+    if (fields.cardSquare?.value === true && got.cardWidth !== got.cardHeight) {
+      issues.push(
+        `${name}: 카드가 정사각이 아닙니다 — ${got.cardWidth}x${got.cardHeight}. ` +
+          `근거: ${fields.cardSquare.evidence}`,
+      );
+    }
+  }
+  for (const name of Object.keys(actualTemplates)) {
+    if (expected[name] === undefined) {
+      issues.push(`실측 계약이 없는 template이 있습니다: ${name}`);
+    }
+  }
   return issues;
 }
 
@@ -702,4 +761,29 @@ function tamperIconElementCount(document) {
   if (name === undefined) return null;
   document.icons[name].vectors += 1;
   return `아이콘 요소 수 변조 ${name}`;
+}
+
+function firstTemplateName(document) {
+  return Object.keys(document.templates ?? {}).sort()[0];
+}
+
+function tamperTemplateField(document) {
+  const name = firstTemplateName(document);
+  if (name === undefined) return null;
+  document.templates[name].overlayHeightRatio = 0.5;
+  return `template 오버레이 비율 변조 ${name}`;
+}
+
+function tamperTemplateSquare(document) {
+  const name = firstTemplateName(document);
+  if (name === undefined) return null;
+  document.templates[name].cardHeight = document.templates[name].cardWidth + 40;
+  return `template 카드 정사각 위반 ${name}`;
+}
+
+function tamperTemplateMissing(document) {
+  const name = firstTemplateName(document);
+  if (name === undefined) return null;
+  delete document.templates[name];
+  return `template 제거 ${name}`;
 }

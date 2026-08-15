@@ -21,7 +21,8 @@
         "sets": 1,
         "variants": 40
       },
-      "icons": 26
+      "icons": 26,
+      "templates": 1
     }
   },
   "collections": {
@@ -2430,6 +2431,30 @@
         "rawFills": 0
       },
       "hasDescription": true
+    }
+  },
+  "templates": {
+    "home": {
+      "sceneWidth": 1440,
+      "sidebarWidth": 280,
+      "sidebarPaddingLeft": 12,
+      "mainCardRadius": 16,
+      "mainCardPaddingInline": 16,
+      "gridColumns": 4,
+      "gridGap": 12,
+      "sectionPaddingTop": 40,
+      "cardWidth": 270,
+      "cardHeight": 270,
+      "cardSquare": true,
+      "cardRadius": 16,
+      "overlayHeightRatio": 0.3,
+      "overlayPadding": 16,
+      "overlayStackGap": 4,
+      "overlayLineHeightPercent": [
+        120
+      ],
+      "gapMarkers": 8,
+      "dsInstances": 7
     }
   }
 }

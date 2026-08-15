@@ -828,6 +828,11 @@
       "authority": "reference"
     },
     {
+      "path": "figma/templates.measured.json",
+      "purpose": "재조립 template이 만족해야 하는 제품 실측값과 그 근거. 이 파일만 손으로 쓰고 parity 게이트가 Figma 되읽기와 대조한다",
+      "authority": "reference"
+    },
+    {
       "path": "figma/readback.json",
       "purpose": "Figma Plugin API 되읽기 원본. snapshot의 유일한 입력이며 손으로 쓰지 않는다",
       "authority": "reference"

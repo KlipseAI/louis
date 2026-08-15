@@ -223,6 +223,18 @@ for (const [figmaName, icon] of Object.entries(readback.icons ?? {})) {
   };
 }
 
+// 재조립 template. 제품 실측값과 대조하기 위한 최소 집합만 담는다 — 좌표를 전부 담으면
+// 사람이 프레임을 옮기기만 해도 게이트가 깨져 아무도 안 믿게 된다.
+const templatesOut = {};
+for (const [name, template] of Object.entries(readback.templates ?? {})) {
+  const lineHeights = [...new Set((template.overlayLineHeightPercent ?? []).map(round2))];
+  templatesOut[name] = {
+    ...template,
+    overlayHeightRatio: round2(template.overlayHeightRatio),
+    overlayLineHeightPercent: lineHeights.sort((a, b) => a - b),
+  };
+}
+
 if (failures.length > 0) {
   for (const failure of failures) console.error(`[figma-snapshot] ${failure}`);
   process.exit(1);
@@ -258,6 +270,7 @@ const snapshot = {
         variants: variantTotal,
       },
       icons: Object.keys(iconsOut).length,
+      templates: Object.keys(templatesOut).length,
     },
   },
   collections: collectionsOut,
@@ -269,6 +282,7 @@ const snapshot = {
   },
   components: sortByKey(componentsOut),
   icons: sortByKey(iconsOut),
+  templates: sortByKey(templatesOut),
 };
 
 const serialized = `${JSON.stringify(snapshot, null, 2)}\n`;
@@ -299,8 +313,12 @@ if (checkOnly) {
   console.log(
     `[figma-snapshot] built: 변수 ${Object.keys(variables).length}개, ` +
       `style ${Object.keys(stylesOut.text).length + Object.keys(stylesOut.effect).length}개, ` +
-      `component ${Object.keys(componentsOut).length}개, icon ${Object.keys(iconsOut).length}개`,
+      `component ${Object.keys(componentsOut).length}개, icon ${Object.keys(iconsOut).length}개, template ${Object.keys(templatesOut).length}개`,
   );
+}
+
+function round2(value) {
+  return Math.round(value * 100) / 100;
 }
 
 function round6(value) {

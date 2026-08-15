@@ -17,6 +17,14 @@ DS-F-007의 산출물이다. 배포 화면을 Klipse Design의 component·변수
 | 색·타이포·간격 | 68 | 20 |
 | **합계** | **321** | **72** |
 
+> **이 문서의 수치는 게이트가 지킨다.** 재조립 template이 제품 실측과 어긋나면
+> `verify-figma-parity`가 실패한다 — 계약은 [templates.measured.json](../figma/templates.measured.json)에
+> 근거(파일:줄번호)와 함께 있고, 변조 canary 3종이 그 검출력을 매 실행에서 증명한다.
+> 이 검사는 나중에 붙였다. 없던 동안 template의 카드 구조가 제품과 다르게 그려진 채 통과했다 —
+> 제품 카드는 정사각 썸네일에 제목이 **하단 30% 오버레이로 겹치는** 형태인데, 썸네일 아래에 제목을
+> 따로 놓는 형태로 그려져 있었다. 게이트가 없는 곳은 사람이 확인해야 하고, 확인했다고 스스로
+> 말하는 것은 증거가 아니다.
+
 **현재 카탈로그로는 이 화면을 충실히 재조립할 수 없다.** Figma에 있는 것은 Button component set
 하나와 아이콘 26개뿐이고, 화면이 요구하는 ProjectCard·BannerCarousel·Menu·Dialog·Toast·
 SidebarNavItem·AppTopBar·Avatar·Badge·EmptyState는 전부 없다. 그러므로 이 단계의 재조립은

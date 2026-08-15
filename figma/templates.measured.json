@@ -1,0 +1,67 @@
+{
+  "$comment": "재조립 template이 만족해야 하는 **제품 실측값**. 이 파일만 손으로 쓴다 — figma/readback.json과 snapshot.json은 되읽기와 생성으로만 바뀐다. 각 값에는 제품 저장소의 근거 위치를 붙인다. 근거 없는 수치를 넣지 않는다.",
+  "productRepo": "/Users/sejunki/klipse",
+  "productBranch": "louis",
+  "measuredAt": "2026-08-15",
+  "templates": {
+    "home": {
+      "$screen": "앱 홈, route /archive, scene AppHomeScene",
+      "sceneWidth": {
+        "value": 1440,
+        "evidence": "재조립 뷰포트 선택값. 제품 데스크톱 최소 폭은 apps/web/app/globals.css:140 --app-shell-min-width: 960px이며 1440은 그 위 임의 지점이다"
+      },
+      "sidebarWidth": {
+        "value": 280,
+        "evidence": "apps/web/app/globals.css:135 --app-gnb-sidebar-width: min(280px, calc(100vw - 120px)). globals.css:140 min-width 960px이므로 데스크톱에서 실질 280"
+      },
+      "sidebarPaddingLeft": {
+        "value": 12,
+        "evidence": "apps/web/app/globals.css:118 --app-gnb-sidebar-padding-x: 12px"
+      },
+      "mainCardRadius": {
+        "value": 16,
+        "evidence": "appMainCardChrome radius 16px. DS radius-card(20)가 아니라 radius-overlay(16)에 대응한다"
+      },
+      "mainCardPaddingInline": {
+        "value": 16,
+        "evidence": "--app-gnb-main-inline-padding. 헤더가 이 값만큼 음수 마진으로 bleed한다 (Gnb.tsx:422-424)"
+      },
+      "gridColumns": {
+        "value": 4,
+        "evidence": "apps/web/components/scenes/appHomeSceneStyles.ts:131 min-[1200px]:[grid-template-columns:repeat(4,_1fr)]. 1440 뷰포트는 1200 이상 1800 미만"
+      },
+      "gridGap": {
+        "value": 12,
+        "evidence": "appHomeSceneStyles.ts:129 [gap:12px]. DS layout-project-grid-gap과 일치"
+      },
+      "sectionPaddingTop": {
+        "value": 40,
+        "evidence": "그리드 섹션 margin-top 40px. DS spacing에 40이 없다 — gap registry 참조"
+      },
+      "cardSquare": {
+        "value": true,
+        "evidence": "apps/web/components/scenes/AppHomeScene.tsx:1094 aspectRatio: \"1 / 1\""
+      },
+      "cardRadius": {
+        "value": 16,
+        "evidence": "appHomeSceneStyles.ts archiveCard [border-radius:16px], archivePreview 동일"
+      },
+      "overlayHeightRatio": {
+        "value": 0.3,
+        "evidence": "appHomeSceneStyles.ts archivePreviewTitleOverlay [height:30%]"
+      },
+      "overlayPadding": {
+        "value": 16,
+        "evidence": "archivePreviewTitleOverlay [padding:16px]"
+      },
+      "overlayStackGap": {
+        "value": 4,
+        "evidence": "apps/web/app/globals.css:95 --project-card-overlay-stack-gap: 4px"
+      },
+      "overlayLineHeightPercent": {
+        "value": 120,
+        "evidence": "apps/web/app/globals.css:96 --project-card-overlay-line-height: 1.2. eyebrow·제목·최종수정 3줄이 !important로 덮는다"
+      }
+    }
+  }
+}

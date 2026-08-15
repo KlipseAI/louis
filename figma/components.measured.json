@@ -1,0 +1,63 @@
+{
+  "$comment": "Figma component set이 만족해야 하는 **코드 실측값**. 이 파일만 손으로 쓴다 — figma/readback.json과 snapshot.json은 되읽기와 생성으로만 바뀐다. 값은 실제 브라우저(vitest browser project, Chromium)에서 렌더한 컴포넌트를 잰 것이며, packages/react/test/component-geometry.browser.test.tsx가 코드가 여전히 이 값을 만드는지 매 실행 검증한다. parity 게이트는 반대편(Figma 되읽기)을 이 값과 대조한다. 두 방향이 다 걸려야 코드-Figma 격차가 조용히 벌어지지 않는다.",
+  "$whyNotTextWidth": "총 폭은 넣지 않는다. 라벨 폭은 폰트 렌더링에 달려 있어 브라우저와 Figma가 원래 다르며, 그 차이를 게이트가 실패로 읽으면 게이트를 끄게 된다. 대신 DS가 소유하는 구조값(높이, padding, gap, border, radius, 슬롯 크기)만 고정한다 — 라벨 폭을 뺀 나머지가 전부 여기 있으므로 폭이 틀리면 이 중 하나가 틀린 것이다.",
+  "measuredAt": "2026-08-15",
+  "measuredBy": "vitest browser (chromium) — packages/react/test/component-geometry.browser.test.tsx",
+  "components": {
+    "button": {
+      "$doc": "design/components/button.md",
+      "$source": "packages/react/src/button/button.tsx, packages/css/src/component/button.css",
+      "sizes": {
+        "md": {
+          "height": 39,
+          "$height": "padding 8+8, border 1+1, line-height 21 = 39. Figma 프레임을 padding+line-height만으로 잡으면 37이 되고 실제로 그렇게 틀려 있었다",
+          "paddingBlock": 8,
+          "paddingInline": 12,
+          "gap": 8,
+          "borderWidth": 1,
+          "radius": 12,
+          "fontSize": 14,
+          "lineHeight": 21,
+          "spinner": 18,
+          "iconSlot": 20,
+          "$iconSlot": "icon-size-md 20. line-height 21보다 작아 높이를 밀지 않는다"
+        },
+        "sm": {
+          "height": 28,
+          "$height": "padding 4+4, border 1+1, line-height 18 = 28",
+          "paddingBlock": 4,
+          "paddingInline": 8,
+          "gap": 8,
+          "borderWidth": 1,
+          "radius": 12,
+          "fontSize": 12,
+          "lineHeight": 18,
+          "spinner": 16,
+          "iconSlot": 16,
+          "$iconSlot": "icon-size-sm 16. 20을 쓰면 line-height 18을 넘어 높이가 28에서 30으로 밀린다 — 실제로 그렇게 돼 있었다"
+        }
+      }
+    },
+    "icon-button": {
+      "$doc": "design/components/icon-button.md",
+      "$source": "packages/react/src/icon-button/icon-button.tsx, packages/css/src/component/icon-button.css",
+      "$square": "Button과 달리 한 변의 길이가 계약이다. 높이와 폭이 같아야 하며 라벨이 없으므로 폭도 구조값이다",
+      "sizes": {
+        "md": {
+          "height": 40,
+          "width": 40,
+          "borderWidth": 1,
+          "radius": 12,
+          "glyph": 20
+        },
+        "sm": {
+          "height": 32,
+          "width": 32,
+          "borderWidth": 1,
+          "radius": 12,
+          "glyph": 20
+        }
+      }
+    }
+  }
+}

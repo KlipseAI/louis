@@ -185,6 +185,15 @@
       "generated": false
     },
     {
+      "id": "foundation-interaction-states",
+      "path": "design/foundations/interaction-states.md",
+      "title": "Interaction states",
+      "section": "foundations",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
+    },
+    {
       "id": "inclusive-design",
       "path": "design/foundations/inclusive-design.md",
       "title": "Inclusive Design",
@@ -588,6 +597,7 @@
         "design/foundations/elevation-layer.md",
         "design/foundations/motion.md",
         "design/foundations/iconography.md",
+        "design/foundations/interaction-states.md",
         "design/foundations/inclusive-design.md",
         "design/foundations/responsive-layout.md"
       ]
@@ -685,7 +695,7 @@
       "web": "partial",
       "docs": "done",
       "doc": "design/components/button.md",
-      "note": "public export와 실브라우저 acceptance test 11건, Figma component set 40 variant와 parity 대조. publish, visual regression, SSR, 제품 사용처가 남음"
+      "note": "public export와 실브라우저 acceptance test. Figma component set 40 variant에 아이콘 슬롯과 기하 계약이 붙었다 — figma/components.measured.json이 정본이고 코드·Figma 양방향을 게이트가 잰다. color-action-danger* 부재로 danger가 tonal이고 hover 면 변화가 없다"
     },
     {
       "id": "icon-button",

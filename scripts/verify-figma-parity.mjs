@@ -50,13 +50,32 @@ const COMPONENT_CONTRACTS = [
     variantProperties: { Variant: "ButtonVariant", Size: "ButtonSize" },
     figmaOnlyProperties: {
       State: {
-        options: ["Default", "Hover", "Pressed", "Disabled", "Loading"],
+        options: ["Default", "Hover", "Active", "Disabled", "Loading"],
         reason:
-          "Hover/Pressed는 코드에서 CSS 상태이고 Loading/Disabled는 boolean prop이다. Figma에는 CSS 상태가 없어 variant로 둔다.",
+          "Hover/Active는 코드에서 CSS 상태이고 Loading/Disabled는 boolean prop이다. Figma에는 CSS 상태가 없어 variant로 둔다. 이름의 뜻은 design/foundations/interaction-states.md가 소유한다 — Active는 :active(누르는 중)이며 Pressed(aria-pressed)는 Button에 없다.",
       },
+    },
+    // variant 축이 아니라 **존재 여부**로 코드 prop과 대응하는 property.
+    // ReactNode prop은 문자열 union이 아니므로 옵션을 대조할 수 없다. 대신 선언에 그 prop이
+    // 실제로 있는지를 본다. 이 칸이 없으면 Figma에만 있는 슬롯이 조용히 생긴다.
+    propProperties: {
+      LeftIcon: "leftIcon",
+      RightIcon: "rightIcon",
+      LeftIconGlyph: "leftIcon",
+      RightIconGlyph: "rightIcon",
+    },
+    // 기하 계약. Figma padding = CSS padding + border이고 stroke는 INSIDE다.
+    // 이렇게 접지 않으면 프레임 높이가 CSS보다 border 두께의 두 배만큼 작아진다 —
+    // 실제로 md 39 대신 37, sm 28 대신 26으로 만들어져 있었고 아무 게이트도 잡지 못했다.
+    geometry: {
+      measuredId: "button",
+      slots: { LeftIcon: "iconSlot", RightIcon: "iconSlot", Spinner: "spinner" },
     },
   },
 ];
+
+const COMPONENTS_MEASURED_PATH = "figma/components.measured.json";
+const componentsMeasured = readJson(COMPONENTS_MEASURED_PATH);
 
 // 아이콘 계약 (DS-D-0008). component set이 아니라 개별 component이므로 COMPONENT_CONTRACTS와
 // 별도 경로다 — 아이콘 이름은 prop이 아니라 심볼 식별자라서 variant 대조 규칙이 의미가 없다.
@@ -101,6 +120,12 @@ const TAMPERS = [
   tamperStyle,
   tamperComponentVariant,
   tamperComponentBinding,
+  tamperComponentHeight,
+  tamperComponentPadding,
+  tamperComponentSlot,
+  tamperComponentGeometryDrift,
+  tamperComponentPropProperty,
+  tamperComponentDescription,
   tamperIconMissing,
   tamperIconFrame,
   tamperIconRawPaint,
@@ -490,6 +515,92 @@ function unionMembers(declarationSource, typeName) {
   return [...match[1].matchAll(/"([^"]+)"/g)].map((entry) => entry[1]);
 }
 
+/**
+ * Figma component set의 기하를 **코드 실측값**과 대조한다.
+ *
+ * 코드 쪽 값이 여전히 참인지는 packages/react/test/component-geometry.browser.test.tsx가 잡는다.
+ * 두 방향이 다 걸려야 "Figma와 measured는 서로 맞고 둘 다 코드와 틀린" 상태가 생기지 않는다.
+ *
+ * 총 폭은 보지 않는다. 라벨 폭은 폰트 렌더링에 달려 있어 브라우저와 Figma가 원래 다르고, 그
+ * 차이를 실패로 읽으면 게이트를 끄게 된다. 라벨 폭을 뺀 나머지가 전부 여기 있으므로 폭이
+ * 틀리면 이 중 하나가 틀린 것이다.
+ */
+function compareComponentGeometry(contract, got) {
+  const issues = [];
+  const plan = contract.geometry;
+  if (plan === undefined) return issues;
+  const measured = componentsMeasured.components?.[plan.measuredId]?.sizes;
+  if (measured === undefined) {
+    issues.push(
+      `${COMPONENTS_MEASURED_PATH}에 실측값이 없습니다: ${plan.measuredId}`,
+    );
+    return issues;
+  }
+  const geometry = got.geometry ?? {};
+  for (const [size, spec] of Object.entries(measured)) {
+    const actual = geometry[size];
+    if (actual === undefined) {
+      issues.push(`${contract.figmaName}: size ${size}의 기하가 snapshot에 없습니다.`);
+      continue;
+    }
+    // Figma padding은 CSS padding에 border를 접어 넣은 값이다.
+    const border = spec.borderWidth;
+    const expected = {
+      height: spec.height,
+      paddingBlock: spec.paddingBlock + border,
+      paddingBlockEnd: spec.paddingBlock + border,
+      paddingInline: spec.paddingInline + border,
+      paddingInlineEnd: spec.paddingInline + border,
+      itemSpacing: spec.gap,
+      cornerRadius: spec.radius,
+      layoutMode: "HORIZONTAL",
+    };
+    for (const [field, want] of Object.entries(expected)) {
+      const values = actual[field];
+      if (!Array.isArray(values) || values.length === 0) {
+        issues.push(`${contract.figmaName} ${size}: ${field}가 없습니다.`);
+        continue;
+      }
+      if (values.length > 1) {
+        issues.push(
+          `${contract.figmaName} ${size}: variant마다 ${field}가 다릅니다 — [${values.join(", ")}]`,
+        );
+        continue;
+      }
+      if (values[0] !== want) {
+        issues.push(
+          `${contract.figmaName} ${size}: ${field}가 다릅니다 — 코드 실측 ${want}, Figma ${values[0]}`,
+        );
+      }
+    }
+    // 보이는 테두리는 CSS border 두께여야 한다. spinner의 링 두께 2는 테두리가 아니므로 제외한다.
+    for (const weight of actual.strokeWeight ?? []) {
+      if (weight !== border && weight !== 2) {
+        issues.push(
+          `${contract.figmaName} ${size}: stroke 두께 ${weight}는 CSS border(${border})도 spinner 링(2)도 아닙니다.`,
+        );
+      }
+    }
+    for (const [slotName, measuredKey] of Object.entries(plan.slots ?? {})) {
+      const side = spec[measuredKey];
+      if (side === undefined) continue;
+      const values = actual.slots?.[slotName];
+      if (!Array.isArray(values) || values.length === 0) {
+        issues.push(`${contract.figmaName} ${size}: 슬롯 ${slotName}이 없습니다.`);
+        continue;
+      }
+      const want = `${side}x${side}`;
+      const wrong = values.filter((value) => value !== want);
+      if (wrong.length > 0) {
+        issues.push(
+          `${contract.figmaName} ${size}: 슬롯 ${slotName} 크기가 다릅니다 — 코드 실측 ${want}, Figma [${values.join(", ")}]`,
+        );
+      }
+    }
+  }
+  return issues;
+}
+
 function compareComponents(actualComponents) {
   const issues = [];
   const seen = new Set();
@@ -563,9 +674,30 @@ function compareComponents(actualComponents) {
       }
     }
 
+    for (const [figmaProperty, codeProp] of Object.entries(
+      contract.propProperties ?? {},
+    )) {
+      if (properties[figmaProperty] === undefined) {
+        issues.push(
+          `코드 prop에 대응하는 Figma property가 없습니다: ${contract.figmaName}.${figmaProperty} (코드 ${codeProp})`,
+        );
+        continue;
+      }
+      // 선언에서 `readonly leftIcon?:` 형태를 찾는다. tsc가 결정론적으로 내는 파일이다.
+      const declared = new RegExp(`\\b${codeProp}\\??\\s*:`).test(declarationSource);
+      if (!declared) {
+        issues.push(
+          `Figma property가 가리키는 코드 prop이 선언에 없습니다: ${contract.figmaName}.${figmaProperty} → ${codeProp}`,
+        );
+      }
+    }
+
+    issues.push(...compareComponentGeometry(contract, got));
+
     const declaredProperties = new Set([
       ...Object.keys(contract.variantProperties),
       ...Object.keys(contract.figmaOnlyProperties ?? {}),
+      ...Object.keys(contract.propProperties ?? {}),
     ]);
     for (const name of Object.keys(properties)) {
       if (!declaredProperties.has(name)) {
@@ -573,6 +705,13 @@ function compareComponents(actualComponents) {
           `선언되지 않은 Figma property가 있습니다: ${contract.figmaName}.${name}`,
         );
       }
+    }
+
+    // component set은 설명 없이 배포되면 쓸 수 없다. 코드 계약과 규범 경로를 적어 두어야 한다.
+    if (got.hasDescription !== true) {
+      issues.push(
+        `${contract.figmaName}: description이 없습니다. 코드 계약과 규범 경로를 적어 두어야 합니다.`,
+      );
     }
 
     // raw 값 사용 0 — 모든 시각 속성이 변수·style에 바인딩돼야 한다 (DS-F-006).
@@ -682,6 +821,85 @@ function tamperComponentVariant(document) {
     if (!Array.isArray(options)) continue;
     options.push("__tampered__");
     return `component variant 옵션 변조 ${contract.figmaName}.${property}`;
+  }
+  return null;
+}
+
+/**
+ * 기하 변조 넷. "프레임 높이 2px 부족"이 실제로 일어났던 사고이므로 그것부터 넣는다.
+ *
+ * 각각이 독립적으로 실패를 만들어야 한다. 하나가 다른 것에 가려지면 그 검사는 없는 것과 같다.
+ */
+function tamperComponentHeight(document) {
+  for (const contract of COMPONENT_CONTRACTS) {
+    const geometry = document.components?.[contract.figmaName]?.geometry;
+    const size = Object.keys(geometry ?? {})[0];
+    if (size === undefined) continue;
+    // border 두께의 두 배를 뺀다 — 실제로 났던 사고를 그대로 재현한다.
+    geometry[size].height = [geometry[size].height[0] - 2];
+    return `component 프레임 높이 변조 ${contract.figmaName}.${size}`;
+  }
+  return null;
+}
+
+function tamperComponentPadding(document) {
+  for (const contract of COMPONENT_CONTRACTS) {
+    const geometry = document.components?.[contract.figmaName]?.geometry;
+    const size = Object.keys(geometry ?? {})[0];
+    if (size === undefined) continue;
+    geometry[size].paddingInline = [geometry[size].paddingInline[0] + 4];
+    return `component padding 변조 ${contract.figmaName}.${size}`;
+  }
+  return null;
+}
+
+function tamperComponentSlot(document) {
+  for (const contract of COMPONENT_CONTRACTS) {
+    const geometry = document.components?.[contract.figmaName]?.geometry;
+    const size = Object.keys(geometry ?? {})[0];
+    const slots = geometry?.[size]?.slots;
+    const slotName = Object.keys(contract.geometry?.slots ?? {}).find(
+      (name) => Array.isArray(slots?.[name]),
+    );
+    if (slotName === undefined) continue;
+    slots[slotName] = ["24x24"];
+    return `component 아이콘 슬롯 크기 변조 ${contract.figmaName}.${size}.${slotName}`;
+  }
+  return null;
+}
+
+/** variant마다 값이 갈리는 경우. 대표값 하나만 봤다면 이것이 통과한다. */
+function tamperComponentGeometryDrift(document) {
+  for (const contract of COMPONENT_CONTRACTS) {
+    const geometry = document.components?.[contract.figmaName]?.geometry;
+    const size = Object.keys(geometry ?? {})[0];
+    if (size === undefined) continue;
+    geometry[size].cornerRadius = [geometry[size].cornerRadius[0], 999];
+    return `component variant 간 기하 분기 변조 ${contract.figmaName}.${size}`;
+  }
+  return null;
+}
+
+/** 코드 prop에 대응하는 슬롯 property가 사라지는 경우. */
+function tamperComponentPropProperty(document) {
+  for (const contract of COMPONENT_CONTRACTS) {
+    const properties = document.components?.[contract.figmaName]?.properties;
+    const name = Object.keys(contract.propProperties ?? {}).find(
+      (key) => properties?.[key] !== undefined,
+    );
+    if (name === undefined) continue;
+    delete properties[name];
+    return `코드 prop 대응 property 삭제 변조 ${contract.figmaName}.${name}`;
+  }
+  return null;
+}
+
+function tamperComponentDescription(document) {
+  for (const contract of COMPONENT_CONTRACTS) {
+    const target = document.components?.[contract.figmaName];
+    if (target?.hasDescription !== true) continue;
+    target.hasDescription = false;
+    return `component description 삭제 변조 ${contract.figmaName}`;
   }
   return null;
 }

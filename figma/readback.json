@@ -2444,7 +2444,20 @@
   "components": {
     "Button": {
       "variantCount": 40,
+      "hasDescription": true,
       "properties": {
+        "LeftIcon": {
+          "type": "BOOLEAN"
+        },
+        "RightIcon": {
+          "type": "BOOLEAN"
+        },
+        "LeftIconGlyph": {
+          "type": "INSTANCE_SWAP"
+        },
+        "RightIconGlyph": {
+          "type": "INSTANCE_SWAP"
+        },
         "Variant": {
           "type": "VARIANT",
           "options": [
@@ -2466,19 +2479,103 @@
           "options": [
             "Default",
             "Hover",
-            "Pressed",
+            "Active",
             "Disabled",
             "Loading"
           ]
         }
       },
       "binding": {
-        "boundFills": 72,
+        "boundFills": 74,
         "rawFills": 0,
         "boundStrokes": 18,
         "rawStrokes": 0,
         "textStyled": 40,
         "textUnstyled": 0
+      },
+      "geometry": {
+        "md": {
+          "slots": {
+            "LeftIcon": [
+              "20x20"
+            ],
+            "RightIcon": [
+              "20x20"
+            ],
+            "Spinner": [
+              "18x18"
+            ]
+          },
+          "height": [
+            39
+          ],
+          "paddingBlock": [
+            9
+          ],
+          "paddingBlockEnd": [
+            9
+          ],
+          "paddingInline": [
+            13
+          ],
+          "paddingInlineEnd": [
+            13
+          ],
+          "itemSpacing": [
+            8
+          ],
+          "cornerRadius": [
+            12
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ],
+          "strokeWeight": [
+            2,
+            1
+          ]
+        },
+        "sm": {
+          "slots": {
+            "LeftIcon": [
+              "16x16"
+            ],
+            "RightIcon": [
+              "16x16"
+            ],
+            "Spinner": [
+              "16x16"
+            ]
+          },
+          "height": [
+            28
+          ],
+          "paddingBlock": [
+            5
+          ],
+          "paddingBlockEnd": [
+            5
+          ],
+          "paddingInline": [
+            9
+          ],
+          "paddingInlineEnd": [
+            9
+          ],
+          "itemSpacing": [
+            8
+          ],
+          "cornerRadius": [
+            12
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ],
+          "strokeWeight": [
+            2,
+            1
+          ]
+        }
       }
     }
   },

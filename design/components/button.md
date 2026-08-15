@@ -67,11 +67,14 @@ import { Button } from "@klipse-design/react";
 
 ## States
 
+상태 이름의 뜻은 [Interaction states](../foundations/interaction-states.md)가 소유한다.
+Button은 토글이 아니므로 `pressed`(`aria-pressed`)를 갖지 않는다 — 누르는 중은 `active`다.
+
 | 상태          | 계약                                                   |
 | ------------- | ------------------------------------------------------ |
 | Enabled       | 라벨만으로 결과를 예측할 수 있음                       |
 | Hover         | hover에서만 기능을 드러내지 않음                       |
-| Pressed       | feedback은 제공하되 reduced-motion에서 scale 이동 제거 |
+| Active        | 누르고 있는 동안의 feedback. reduced-motion에서 scale 이동 제거 |
 | Disabled      | 실행되지 않으며 이유가 필요하면 인접 설명 제공         |
 | Focus-visible | 배경과 테마에 관계없이 2px 이상 명확한 indicator       |
 | Loading       | label 의미 유지, 중복 실행 차단, `aria-busy=true`      |
@@ -98,7 +101,10 @@ import { Button } from "@klipse-design/react";
 - loading 시작·완료 시 accessible name과 focus가 예측 가능하다.
 - light/dark/high contrast에서 focus-visible이 보인다.
 - KO/EN/JA 긴 라벨, 200% zoom, 320px container에서 핵심 텍스트가 사라지지 않는다.
-- reduced-motion에서 pressed/loading 의미가 유지된다.
+- reduced-motion에서 active/loading 의미가 유지된다.
+- **아이콘 유무로 높이가 달라지지 않는다.** md·sm 모두에서 `leftIcon`/`rightIcon`을 준 버튼과
+  주지 않은 버튼의 높이가 같다.
+- 구조값이 [`figma/components.measured.json`](../../figma/components.measured.json)과 일치한다.
 
 ## Implementation
 
@@ -116,7 +122,7 @@ import { Button } from "@klipse-design/react";
 | `size` | `Size` (md/sm) | `ButtonSize`와 대조한다 |
 | `loading` | `State=Loading` | boolean prop이 Figma에서는 state variant다 |
 | `disabled` | `State=Disabled` | 같은 이유 |
-| — | `State=Hover`, `State=Pressed` | 코드에서는 CSS 상태다. Figma에 CSS 상태가 없어 variant로 둔다 |
+| — | `State=Hover`, `State=Active` | 코드에서는 CSS 상태다. Figma에 CSS 상태가 없어 variant로 둔다 |
 | `children` | Label 텍스트 | |
 
 Figma component의 모든 fill·stroke는 변수에, 모든 텍스트는 text style에 바인딩된다(raw 값 0).
@@ -130,6 +136,27 @@ focus-visible 링은 브라우저가 그리므로 Figma variant로 두지 않는
 층으로 한다 — 실제 포인터는 actionability에서 차단되고, 프로그램적 click과 keyboard는 컴포넌트가
 막는다.
 
+## Specification
+
+구조값은 [`figma/components.measured.json`](../../figma/components.measured.json)이 정본이고 실제
+브라우저 측정으로 고정된다. 코드가 이 값을 만드는지는
+`packages/react/test/component-geometry.browser.test.tsx`가, Figma가 이 값과 같은지는 parity
+게이트가 매 실행 검증한다.
+
+| 항목        | md                      | sm                      |
+| ----------- | ----------------------- | ----------------------- |
+| 높이        | 39px                    | 28px                    |
+| padding     | 8px / 12px              | 4px / 8px               |
+| gap         | `space-control-sm` 8px  | `space-control-sm` 8px  |
+| border      | 1px                     | 1px                     |
+| radius      | `radius-control` 12px   | `radius-control` 12px   |
+| 타이포      | 14px / 21px             | 12px / 18px             |
+| spinner     | 18px (`1em` + border 2) | 16px (`1em` + border 2) |
+| 아이콘 슬롯 | `icon-size-md` 20px     | `icon-size-sm` 16px     |
+
+높이는 고정값이 아니라 padding·border·line-height의 합이다. 표의 숫자는 그 합의 **결과**이며,
+Figma 프레임을 이 숫자로 잡을 때 border 2px를 빠뜨리기 쉽다 — 실제로 그렇게 틀려 있었다.
+
 ## Known deviations
 
 - **`danger` variant가 tonal이다.** solid danger를 표현할 `color-action-danger*` 토큰이 아직 없어
@@ -138,6 +165,12 @@ focus-visible 링은 브라우저가 그리므로 Figma variant로 두지 않는
   쓰면 중립 표면에서 무너지는데, 그 실측은 [Menu / Popover](menu-popover.md)의 Known deviations에 있다.
 - **고정 높이가 없다.** 높이를 padding과 line-height로 결정하고 44px 타깃은 `kds-hit-target`이
   보장한다. 제품과 픽셀 단위로 맞추려면 control height 토큰이 필요하다(DS-P3-014).
+- **아이콘 슬롯 크기를 Button이 소유한다.** [Iconography](../foundations/iconography.md)는 글리프
+  크기를 아이콘이 소유한다고 하지만, 슬롯에 크기를 두지 않으면 호출부가 넘긴 아이콘 크기가 그대로
+  버튼 높이가 된다. sm에 기본(20px) 아이콘을 넣으면 높이가 28이 아니라 **30**이 됐고, 같은 줄의
+  버튼들이 아이콘 유무로 어긋났다. 높이가 호출부에 따라 달라지는 것은 컨트롤이 아니므로 슬롯을
+  md 20 / sm 16으로 고정하고 글리프를 슬롯에 맞춘다. 컨테이너 크기는 컨트롤이 소유한다는 같은
+  문서의 규칙과는 어긋나지 않는다.
 
 ## 승격 조건
 

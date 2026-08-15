@@ -100,7 +100,7 @@ Figma library는 아직 `not-ready`다. 시스템 전체 maturity도 `experiment
 | 항목 | 현재 값 |
 | --- | --- |
 | System maturity | `experimental` |
-| Normative documents | 50 |
+| Normative documents | 51 |
 | Generated documents | 5 |
 | Components | 9 |
 | Patterns | 4 |
@@ -4299,6 +4299,77 @@ canary가 없었으면 "통과하지만 아무것도 보지 않는" 테스트가
 ### Updates
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
+
+#### 2026-08-15 — Figma의 Button이 코드와 2px 어긋나 있었다
+
+사용자가 "피그마에 만들어둔 버튼은 뭐냐"고 물어 열어 봤고, **틀려 있었다.**
+
+| | Figma | 코드 실측 | 차이 |
+| --- | --- | --- | --- |
+| md Default | 59×**37** | 59.875×**39** | 높이 −2 |
+| sm Default | 46×**26** | 47.031×**28** | 높이 −2 |
+| md Loading | **79**×37 | **85.875**×39 | 폭 −6.9 |
+| sm Loading | **66**×26 | **71.031**×28 | 폭 −5.0 |
+
+##### 왜 2px인가
+
+`button.css`의 `border: 1px solid transparent`를 빼고 padding과 line-height만으로 프레임을 잡았다.
+위아래 1px씩이 통째로 빠졌다. 올바른 매핑은 **Figma padding = CSS padding + border, stroke는
+INSIDE**다. 그러면 프레임 높이가 CSS와 같아지고 1px 테두리는 padding 안에 앉는다.
+
+##### 왜 아무도 못 잡았나
+
+parity 게이트가 **variant 이름과 "paint가 변수에 바인딩됐는가"만** 봤다. 치수도 구조도 코드와
+대조하지 않았다. 프로젝트 카드 때와 같은 구멍이다 — 게이트가 없는 곳에서 그럴듯한 것을 만들었다.
+
+그래서 양방향 계약을 세웠다.
+
+- [`figma/components.measured.json`](../../figma/components.measured.json) — 실브라우저로 잰
+  구조값. 총 폭은 넣지 않는다. 라벨 폭은 폰트 렌더링에 달려 있어 브라우저와 Figma가 원래 다르고,
+  그 차이를 실패로 읽으면 게이트를 끄게 된다.
+- `packages/react/test/component-geometry.browser.test.tsx` — **코드가 여전히 그 값을 만드는지.**
+- parity 게이트 — **Figma가 그 값과 같은지.** 변조 canary 6종을 붙였다(높이, padding, 슬롯 크기,
+  variant 간 분기, 코드 prop 대응 property 삭제, description 삭제).
+
+한 방향만 걸면 "Figma와 measured는 서로 맞고 둘 다 코드와 틀린" 상태로 통과한다.
+
+##### 여기서 찾은 코드 결함
+
+`.kds-button__icon`에 크기가 없어 **호출부가 넘긴 아이콘 크기가 그대로 버튼 높이가 됐다.** sm
+버튼에 기본(20px) 아이콘을 넣으면 높이가 28이 아니라 **30**이 되고, 같은 줄의 버튼들이 아이콘
+유무로 어긋난다. 높이가 호출부에 따라 달라지는 것은 컨트롤이 아니므로 슬롯을 md 20 / sm 16으로
+Button이 소유하게 하고 글리프를 슬롯에 맞췄다. Iconography의 "글리프 크기는 아이콘이 소유한다"에
+대한 의도적 예외이며 사유는 Button 규범의 Known deviations에 있다.
+
+이것도 새 기하 테스트가 잡았다. 규범에 없던 `## Specification` 절도 함께 세웠다 — 없어서 아이콘
+크기가 규정되지 않았고 기본값이 새어 들어왔다.
+
+##### 상태 어휘가 충돌하고 있었다
+
+Figma의 `State=Pressed`는 `:active`(누르는 중)인데 Icon Button 규범의 `pressed`는
+`aria-pressed`(토글 켜짐)였다. 같은 단어가 두 컴포넌트에서 다른 것을 가리켰고, 그대로 두면 남은
+다섯 component set에 전부 번진다.
+
+[Interaction states](../foundations/interaction-states.md)를 세워 정본으로 삼았다. 규칙은 하나다 —
+**이름을 웹 플랫폼에서 가져온다.** `:active`가 있는 쪽이 `active`, `aria-pressed`가 있는 쪽이
+`pressed`다. 그러면 "이 이름이 무슨 뜻인가"를 이 저장소가 아니라 플랫폼 명세가 답한다. Button의
+Figma option을 `Active`로 고쳤다.
+
+##### Figma Button을 다시 만들었다
+
+40 variant를 지우고 다시 지었다(Templates의 Button instance는 0개라 안전했다). 달라진 것.
+
+- 프레임 높이가 md 39 / sm 28로 코드와 같다.
+- `State`가 `Default, Hover, Active, Disabled, Loading`이다.
+- **아이콘 슬롯이 생겼다.** 코드에 `leftIcon`/`rightIcon`이 있는데 Figma에는 없었다.
+  `LeftIcon`/`RightIcon` boolean과 `LeftIconGlyph`/`RightIconGlyph` instance swap을 붙였고, 슬롯
+  크기는 md 20 / sm 16이며 켜도 높이가 변하지 않는 것을 확인했다.
+- description에 기하 매핑과 **표현하지 못하는 것**을 적었다: `:active`의 scale 0.98(프레임 크기를
+  바꾸면 기하 계약이 깨진다), danger의 hover 면 변화(CSS에 없다 — `color-action-danger*` 대기).
+
+`INSTANCE_SWAP` property의 기본값은 component key가 아니라 **node id**를 받는다. key를 주면
+`Property value is incompatible with component property type`으로 거부한다. 세 형태를 실제로
+시도해 확인했다.
 
 #### 2026-08-15 — 인계서를 실제 상태에 맞춘다
 

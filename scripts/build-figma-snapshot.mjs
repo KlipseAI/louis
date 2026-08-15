@@ -197,8 +197,15 @@ for (const [figmaName, component] of Object.entries(readback.components ?? {})) 
   componentsOut[figmaName] = {
     tokenId,
     variantCount: component.variantCount,
+    hasDescription: component.hasDescription === true,
     properties,
+    // binding은 **set 자신의 노드만** 센다. instance 내부는 이 API 표면에서 노출되지 않아
+    // (INSTANCE.children이 비어 있다) 여기서 셀 수 없다. 아이콘 instance의 raw 값은 icon 게이트가
+    // 각 아이콘 component에서 따로 잡는다.
     binding: { ...component.binding },
+    // 크기별 기하. 값마다 배열인 이유는 **같은 size의 variant가 서로 다르면 배열이 길어지기**
+    // 때문이다. 대표값 하나만 담으면 40개 중 하나만 어긋난 경우가 보이지 않는다.
+    geometry: sortByKey(component.geometry ?? {}),
   };
 }
 

@@ -214,11 +214,34 @@
   opacity: 0.6;
 }
 
+/* 슬롯 크기를 **버튼이 소유한다.**
+ *
+ * 슬롯에 크기가 없으면 호출부가 넘긴 아이콘 크기가 그대로 버튼 높이가 된다. 실제로 sm 버튼에
+ * 기본(20px) 아이콘을 넣으면 높이가 28이 아니라 30이 됐다 — 같은 줄의 버튼들이 아이콘 유무로
+ * 어긋난다. 높이가 호출부에 따라 달라지는 것은 컨트롤이 아니다.
+ *
+ * Iconography의 "글리프 크기는 아이콘이 소유한다"에 대한 의도적 예외이며 사유는
+ * design/components/button.md의 Known deviations에 있다. 컨테이너 크기를 컨트롤이 소유한다는
+ * 같은 문서의 규칙과는 어긋나지 않는다. */
 .kds-button__icon {
   display: inline-flex;
   flex: none;
   align-items: center;
   justify-content: center;
+  inline-size: var(--kds-icon-size-md);
+  block-size: var(--kds-icon-size-md);
+}
+
+.kds-button[data-size="sm"] .kds-button__icon {
+  inline-size: var(--kds-icon-size-sm);
+  block-size: var(--kds-icon-size-sm);
+}
+
+/* 글리프를 슬롯에 맞춘다. 맞추지 않으면 20px 아이콘이 16px 슬롯 밖으로 삐져나온다.
+ * .kds-icon[data-size=...]와 같은 우선순위로는 로드 순서에 결과가 달려 있으므로 한 단계 높인다. */
+.kds-button .kds-button__icon > .kds-icon {
+  inline-size: 100%;
+  block-size: 100%;
 }
 
 .kds-button__spinner {

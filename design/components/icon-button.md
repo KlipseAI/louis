@@ -69,6 +69,9 @@ import { IconTrashSimple } from "@klipse-design/react/icons";
 
 ## States
 
+상태 이름의 뜻은 [Interaction states](../foundations/interaction-states.md)가 소유한다.
+Icon Button은 `active`(누르는 중)와 `pressed`(토글 켜짐)를 **둘 다** 갖는 첫 컴포넌트다.
+
 | 상태       | 표현                                      | 비고                                        |
 | ---------- | ----------------------------------------- | ------------------------------------------- |
 | default    | variant의 기본 면                         |                                             |

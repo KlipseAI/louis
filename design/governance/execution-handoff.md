@@ -1,0 +1,1034 @@
+---
+id: governance-execution-handoff
+status: experimental
+authority: normative
+---
+
+# Claude Code 실행 인계서
+
+이 문서는 Claude Code Opus 5를 포함한 후속 작업자가 Klipse Design의 P3–P5를 중단 없이 이어가기 위한
+실행 계약이다. 특정 모델의 기억이나 대화 기록에 의존하지 않는다. 실제 상태는 항상
+[`design/manifest.json`](../manifest.json), 행동 계약은 관련 규범 문서, 배포 가능 여부는 package와 검증
+근거로 판정한다.
+
+작업별 상세 절차, 완성의 최종 판정표, 환경 게이트와 Figma 실행 경계는
+[실행 플레이북](execution-playbook.md)이 소유한다. 큐 ID, 의존성과 완료 조건이 충돌하면 이 문서가
+우선한다.
+
+## 1. 임무와 최종 결과
+
+Klipse Design을 제품 화면 코드와 분리된 독립 디자인 시스템으로 운영한다. SEED Design의 시각 스타일이나
+코드를 복제하는 것이 아니라 다음 운영 흐름을 Klipse 규모에 맞게 구현한다.
+
+```text
+token source
+  -> deterministic projections
+  -> CSS foundations and recipes
+  -> accessible headless behavior
+  -> styled React components
+  -> human docs, AI docs and Figma library
+  -> versioned product adoption with rollback
+```
+
+최종 성공은 문서 수나 component 수가 아니다. 제품이 source path나 legacy UI 값 대신 version이 고정된
+공개 package를 소비하고, 변경 영향·접근성·Figma parity·migration·rollback을 release마다 검증할 수 있어야
+한다.
+
+## 2. 권위와 저장소 경계
+
+충돌이 생기면 다음 순서로 판단한다.
+
+1. `design/manifest.json` — ID, maturity와 surface별 준비 상태
+2. `design/` normative docs — 의미, 행동, 접근성, 수용 조건
+3. `packages/tokens/src/klipse.tokens.json` — token value와 alias graph
+4. `packages/css`, `packages/react`의 테스트된 source — 공개 Web API와 동작
+5. generated artifact — 위 정본의 projection
+6. 소비 제품의 integration evidence — 특정 route에서의 실제 채택 결과
+
+이 저장소는 공용 token, CSS, React API, Figma 계약, 문서와 release tooling을 소유한다. 소비 제품은 scene,
+route composition, 제품 전용 layout, legacy adapter와 E2E evidence를 소유한다. 제품 결함이나 과거 debt를
+공용 규범에 복사하지 않고 stable manifest ID와 release version으로 연결한다.
+
+Figma proposal과 published library도 token 정본이 아니다. 현재 방향은 code-first DTCG source에서 Figma로
+전달하는 것이다. 반대 방향 동기화가 필요해지면 별도 Decision과 conflict policy가 먼저다.
+
+## 3. 현재 기준선
+
+작업 시작 때마다 manifest와 [Roadmap](roadmap.md)을 다시 확인한다. 이 문서 작성 시의 정직한 기준선은
+다음과 같다.
+
+- P1 portable contract는 로컬 release-candidate다.
+- P2 token source/projection pipeline은 `experimental` local release-candidate다.
+- P2 token artifact 여섯 개는 생성되지만 public package release, 제품 adoption과 published Figma library는
+  모두 `not-ready`다.
+- Browser UI, glyph, 접근성, layout과 interaction acceptance는 P3/P5 소비 구현 전까지 `not-ready`다.
+- 모든 catalog component와 pattern의 Web/Figma 구현 상태는 아직 실제 근거가 생기기 전까지 올리지 않는다.
+- 원격 저장소, hosted CI와 owner approval은 P1/P2의 `complete` 승격 조건이지만 안전한 로컬 P3 구현의
+  선행 조건은 아니다.
+
+로컬 산출물이 존재한다는 이유로 `public`, `published`, `adopted`, `stable`이라고 표현하지 않는다.
+
+## 4. SEED에서 가져올 것과 가져오지 않을 것
+
+SEED의 [공식 monorepo](https://github.com/daangn/seed-design)는 definition, generated style, headless behavior,
+styled component, docs와 migration tooling을 한 저장소 안에서 책임별로 나눈다. 공식
+[기술 문서](https://github.com/daangn/seed-design/blob/dev/TECH.md)는 생성 파일을 직접 수정하지 않고
+정의에서 CSS와 component까지 전달하는 흐름을 설명한다. Klipse는 다음 원칙을 채택한다.
+
+- 하나의 독립 monorepo에서 token, CSS, React, docs와 release evidence를 함께 변경한다.
+- source와 generated artifact를 분리하고 생성물 직접 수정을 게이트로 차단한다.
+- style과 interaction behavior를 분리하되 처음부터 불필요한 package를 늘리지 않는다.
+- component spec과 개발 API 문서를 연결하고 surface별 상태와 근거를 공개한다.
+- 사용자 영향 변경에는 changelog, migration과 deprecation window를 제공한다.
+- 사람용 규범에서 `llms.txt`를 생성하고 AI 문서를 별도 정본으로 만들지 않는다.
+
+다음은 현 단계에서 복제하지 않는다.
+
+- SEED의 Figma-first Rootage/Qvism pipeline과 독자 engine
+- iOS, Android, Lynx와 여러 bundler plugin
+- 수요가 검증되지 않은 CLI, codemod, Skill, MCP server
+- SEED의 token 이름·값·font·brand look·component API
+- SEED가 선택한 package manager, docs framework와 test stack 자체
+
+새 도구는 “SEED에 있다”가 아니라 Klipse consumer, 유지 책임과 rollback이 확인될 때만 도입한다. 공식
+[Progress Board](https://seed-design.io/components/progress-board),
+[React 설치 문서](https://seed-design.io/react/getting-started/installation/manual),
+[Changelog](https://seed-design.io/react/updates/changelog)는 운영 방식의 참고 자료이며 Klipse 규범을
+대체하지 않는다.
+
+## 5. 목표 package 경계
+
+| Surface                     | 단독 책임                                                        | 의존 방향                         |
+| --------------------------- | ---------------------------------------------------------------- | --------------------------------- |
+| `@klipse-design/tokens`     | DTCG source, semantic token projection, diff와 Figma proposal    | runtime dependency 없음           |
+| `@klipse-design/css`        | token CSS 재export, opt-in base/reset, primitives와 recipes      | tokens만 소비                     |
+| `@klipse-design/react`      | 접근 가능한 behavior와 styled React public API                   | tokens/CSS public surface만 소비  |
+| `apps/docs`                 | 실제 package를 소비하는 spec, API, example, search와 update 문서 | 공개 package만 소비               |
+| published Figma library     | token variable와 검증된 component representation                 | token/component 계약의 downstream |
+| product integration adapter | release adoption, legacy bridge와 rollback                       | versioned public package 소비     |
+
+역방향 의존은 금지한다. Token package가 CSS/React를 알거나 React source가 docs/product code를 import하면 안
+된다. `packages/react` 안에서는 headless behavior와 styled layer를 내부 모듈로 분리한다. 두 개 이상의 실제
+consumer가 독립 headless API를 요구하기 전에는 별도 public headless package를 만들지 않는다.
+
+## 6. 자율 작업 프로토콜
+
+### 세션 시작
+
+1. `git status --short`로 기존 변경을 확인하고 다른 작업자의 변경을 보존한다.
+2. 루트 `AGENTS.md`, `CLAUDE.md`, manifest, 이 문서와 대상 규범을 읽는다.
+3. [작업 큐](#8-작업-큐)에서 의존성이 충족된 가장 앞의 작은 작업을 선택한다.
+4. 관련 package source, tests와 product extraction reference를 읽어 가정을 확인한다.
+5. 행동이 바뀌는 작업은 회귀 검사를 먼저 만들고 짧은 실행 계획을 적는다.
+
+### 구현 중
+
+- 한 번에 한 계약 또는 한 기반 layer만 바꾼다.
+- generated 파일과 `GENERATED:*` 구간은 수정하지 않고 source 변경 후 재생성한다.
+- raw primitive보다 semantic token, 숫자 z-index보다 layer token, 임의 media query보다 승인된 responsive
+  profile을 사용한다.
+- 공개 API, package 경계, dependency, styling cascade 또는 sync 방향이 갈리면 Decision에 대안·선택·영향·
+  rollback을 먼저 기록한다.
+- 익숙하지 않은 framework/library 동작과 접근성 규칙은 해당 시점의 공식 문서로 확인한다.
+- 외부 publish, 자격 증명, hosted 설정처럼 권한이 필요한 일은 상태를 올리지 않은 채 blocker로 분리하고
+  다음 로컬 작업을 계속한다.
+- Figma 쓰기는 사용자가 지정한 draft 파일에만 MCP(Plugin API)로 수행한다. library publish는 어떤
+  방법으로도 자동화하지 않으며, 표준 검증을 실행할 수 없는 환경이면 실행하지 못했다는 사실을 그대로
+  보고한다. 세부 경계는 [플레이북 4절](execution-playbook.md)을 따른다.
+- 독립적인 공식 문서 조사, 접근성 검토와 QA는 보조 agent에 병렬 위임할 수 있다. 같은 파일의 동시 편집,
+  manifest/status 최종 판단과 generated output 갱신은 주 작업자가 소유한다.
+
+### 변경 단위
+
+사용자에게 보이는 변경은 가능하면 다음을 같은 commit에 포함한다.
+
+1. manifest/status
+2. normative contract 또는 Decision
+3. package source
+4. unit, interaction, accessibility, browser/visual 또는 consumer test
+5. example/API docs
+6. Updates와 migration/deprecation note
+7. 재생성된 artifact
+
+### 세션 종료
+
+```sh
+pnpm build
+pnpm check
+pnpm verify
+node scripts/build-design-docs.mjs --check --require-tracked
+git diff --check
+```
+
+네 번째 명령은 manifest에 등록됐지만 git에 추적되지 않은 파일을 잡는다 — hosted CI는 `CI=true`로
+같은 검사를 강제하므로 로컬에서 미리 확인한다. 신규 파일은 커밋 전에 `git add`로 추적 상태에 둔다.
+P3 test commands가 추가되면 root `check` 또는 `verify`에 연결해 위 명령만으로 누락을 찾을 수 있게
+한다. 실패한 표준 검증을 생략하고 완료라고 말하지 않는다. 최종 보고에는 변경 파일, 달라진 public contract,
+검증 결과, 남은 위험과 다음 작업 ID를 쓴다.
+
+## 7. 상태 승격 규칙
+
+| 상태            | 최소 근거                                                                    |
+| --------------- | ---------------------------------------------------------------------------- |
+| `not-ready`     | public 소비 surface 또는 필수 검증이 없음                                    |
+| Web `partial`   | public API 후보와 핵심 test가 있으나 release, 호환성 또는 consumer 근거 부족 |
+| Web `done`      | package public export, 접근성/interaction/browser test와 release evidence    |
+| Figma `partial` | Figma 파일 안의 reviewable library draft(variable/component)와 stable key, draft↔proposal parity report — proposal JSON만으로는 불충분 |
+| Figma `done`    | published library key/version, variant/state parity와 검증 evidence          |
+| Docs `done`     | 규범, API, 상태, 접근성, responsive/content, 실행 example과 migration        |
+| `beta`          | 제한된 adoption이 가능하고 breaking change에 migration을 제공                |
+| `stable`        | Web/Figma/Docs 완료와 실제 제품 adoption/rollback evidence                   |
+
+`partial`은 일정 진척 표현이 아니라 소비 가능한 범위와 남은 결함이 명시된 상태다. Code가 merge됐거나 local
+example이 보인다는 사실만으로 Web `done`이 되지 않는다.
+
+P3는 다음 세 경계로 나눈다.
+
+- **P3 core local RC:** CSS/React package와 Button, Menu/Popover, Dialog의 local consumer fixture 통과
+- **P3 catalog coverage:** manifest의 Input, Select, Tooltip, Toast, Empty State와 Loading까지 각 규범과
+  필요한 구현 상태를 정직하게 제공
+- **P3 complete:** public release, hosted CI, published Figma variable/component, 호환성·접근성 증거와 owner
+  승인
+
+Core RC는 P3 전체 완료가 아니다.
+
+## 8. 작업 큐
+
+큐 ID는 순서와 인계 단위다. 하나의 ID가 너무 크면 하위 ID로 나누되 완료 조건을 약화하지 않는다.
+
+상태는 `pending`, `ready`, `in-progress`, `blocked`, `done`만 사용하고 동시에 하나만 `in-progress`로 둔다.
+각 작업을 마칠 때 이 문서의 다음 포인터와 Updates를 함께 갱신한다.
+
+큐는 네 트랙으로 나뉜다. 코드 트랙(P3)과 Figma 트랙(DS-F)은 병렬이며, Figma variables 구축은 React
+구현을 기다리지 않는다. DS-F-006 component parity만 해당 컴포넌트의 코드 구현과 짝을 이룬다.
+
+**현재 다음 포인터 (2026-08-14 갱신):** `DS-GOV-001`, `DS-P3-009a`, `DS-F-000`~`DS-F-005`,
+`DS-P3-002a`, `DS-P3-002`(1단계)가 `done`이다. `DS-P3-001`은 Decision 7종 작성 완료로
+`in-progress`이며 owner 확인만 남았다.
+
+`DS-P3-003` foundation, `DS-P3-004`(Button, Web `partial`), `DS-P3-005`(overlay behavior layer)도
+완료했다.
+
+`DS-P3-006`(Menu/Popover)도 완료했다 — Web `partial`.
+
+`DS-P3-007`(Dialog)도 완료했다 — Web `partial`.
+
+**다음은 `DS-P3-008`(Core local RC)이다.** 의존성인 DS-P3-004·006·007이 모두 `done`이므로 열렸다.
+다만 `DS-P3-013`(아이콘)이 여전히 0개이고 `DS-P3-014`가 `in-progress`라, RC의 내용이 무엇을 담을지는
+그 둘의 진행에 달려 있다. 아이콘 없이는 목표 B(Figma 재조립)가 성립하지 않으므로 `DS-P3-013`을
+먼저 처리하는 편이 낫다.
+
+**컴포넌트 워크샵이 섰다** — `pnpm --filter @klipse-design/storybook dev`.
+[DS-D-0012](decisions/DS-D-0012-component-workshop.md)가 경계를 소유하고, 게이트 수 변화는 0이다.
+도입 직후 실측에서 헤드리스 테스트가 못 보던 결함 셋이 나왔고 그 기록은 그 Decision에 있다.
+남은 component와 pattern은 **눈으로 확인하며** 만든다.
+
+`DS-P3-014`(token coverage 확장)와 `DS-P3-013`(아이콘)도 병렬로 진행할 수 있다.
+
+그 외 항목은 `pending`이며, 예외는 DS-GOV-000(`blocked`)과 DS-P3-011(해체됨)이다.
+
+**순서 주의:** `DS-P3-014`가 token source를 확장하면 proposal이 바뀌므로 Figma 변수·style을 다시
+적용하고 snapshot을 재덤프해야 한다. 적용 스크립트는 idempotent하며 parity 게이트가 stale snapshot을
+경고한다.
+
+환경 blocker는 해소됐다 — Node 22 LTS와 pnpm 10.30.2가 설치돼 표준 명령이 실행된다. 세션 종료
+검증에 `pnpm verify`가 Figma parity 게이트를 포함한다.
+
+#### DS-GOV-000 — 외부 운영 gate
+
+**상태:** `blocked`이지만 로컬 P3 작업과 병렬이며 이를 막지 않는다.
+
+- 원격 Git 저장소 연결
+- clean-checkout hosted CI
+- repository owner 승인
+- registry, docs hosting과 Figma publish 권한
+
+**완료 근거:** 실제 remote/hosted run/owner evidence. 사용자가 연결을 요청하기 전에는 임의로 생성하거나
+가짜 URL·승인 기록을 만들지 않는다.
+
+#### DS-GOV-001 — Baseline 갱신 규범
+
+**상태:** `done` (2026-08-14). [Releases](releases.md)의 "의도적 breaking과 baseline 갱신" 절이
+절차를 소유하며, DS-F-002의 `figmaCollection` breaking에 최초 적용됐다.
+
+- 의도적 breaking token 변경 시 baseline 재고정 절차(선언 → diff 확인 → baseline 갱신 → 재검증)를
+  [Releases](releases.md)에 규범으로 기록한다.
+- published 소비자가 없는 동안의 Figma 전용 metadata 변경 분류를 함께 명시한다.
+
+**완료 근거:** releases.md 개정과 Updates 항목. baseline을 조용히 덮어쓰는 경로가 규범상 존재하지
+않게 된다. 상세 절차는 [플레이북](execution-playbook.md)을 따른다.
+
+### P3 — CSS, React와 Figma
+
+#### DS-P3-001 — Web architecture Decision과 status model
+
+**상태:** `in-progress` (2026-08-14). Decision 6종을 `proposed`로 작성했다. manifest schema 확장은
+DS-P3-002a가 소유하고, spike 3건은 아래 조건이다.
+
+| Decision | 결정 요약 |
+| --- | --- |
+| [DS-D-0002](decisions/DS-D-0002-web-support-scope.md) | React 19 단일 major · ESM 전용 · leaf `"use client"` · `baseline widely available` · `tsc` + `isolatedDeclarations` |
+| [DS-D-0003](decisions/DS-D-0003-behavior-dependency.md) | 하부 유틸(dismissable layer·focus scope·positioning·portal)만 채택, **순서와 정책은 Klipse 소유**. 완제품 Menu·Dialog 미채택 |
+| [DS-D-0004](decisions/DS-D-0004-css-authoring.md) | authored plain CSS + cascade layer 두 벌 배포 · 상태는 `data-*` · 런타임 스타일 라이브러리 0 · reset은 opt-in |
+| [DS-D-0005](decisions/DS-D-0005-test-stack.md) | 실브라우저 러너를 1단계에 둔다. **jsdom·happy-dom 배제** — Dialog 규범을 거짓 통과시킨다 |
+| [DS-D-0006](decisions/DS-D-0006-versioning-peer-contract.md) | changesets `fixed`로 css·react 동반 버저닝 · css를 required peer로 강제 · `sideEffects` 즉시 명시 |
+| [DS-D-0009](decisions/DS-D-0009-font-distribution.md) | 폰트 바이너리 미동봉 · `--kds-font-family-sans` 방출로 교체 지점 단일화 · 폴백 스택 교정 |
+
+**남은 선행 조건 (spike, 저장소 밖에서 수행):**
+
+- **S1** 하부 유틸 조합이 activation exactly-once와 nested Escape 순서를 실제로 만족하는지 실측.
+  실패 시 fallback 경로로 내려가되 public API는 바꾸지 않는다.
+- **S2** fallback 후보의 저수준 훅이 Server Component 경계를 넘는지 확인.
+- **S3** `baseline widely available`의 실제 브라우저 집합과 `inert` 포함 여부, `tsc` declaration emit
+  실측.
+
+S1이 통과한 뒤에만 DS-D-0003의 `accepted` 전환을 요청한다. Decision 6종의 `accepted` 전환은
+repository owner의 확인 사항이다.
+
+**목표:** 구현 전에 public 경계와 상태 증거를 고정한다.
+
+- React/TypeScript 지원 범위, ESM와 type export, SSR/hydration/RSC/client boundary를 결정한다.
+- authored CSS와 recipe generation 중 현 규모에 맞는 방식을 선택한다.
+- CSS layer/import order, reset opt-in, theme scope와 font asset 책임을 확정한다.
+- custom implementation과 검증된 accessibility primitive dependency의 선택 기준을 기록한다.
+- CSS/React package release 상태와 evidence를 manifest가 표현하도록 schema/gate 확장안을 정한다.
+- versioning/Changesets 도입 시점, bundle target와 browser support를 정한다.
+
+**완료 근거:** accepted Decision, package dependency graph, public export 초안, test matrix, migration/rollback,
+manifest/status가 서로 모순되지 않는다.
+
+#### DS-P3-002a — 게이트 전환
+
+**상태:** `done` (2026-08-14).
+
+- scaffold 계약을 "선언된 서브패스만 허용"으로 바꾸고, 선언 밖 exports와 CSS 노출 패키지의
+  `sideEffects` 누락을 각각 잡는 canary 2종을 신설했다(canary 17 → 19).
+- manifest schema에 `webPackages`를 추가해 CSS/React 패키지의 상태와 evidence를 표현하게 했다.
+  `tokenPackage.figmaLibrary`·`packageRelease`의 고정값도 status enum + evidence 요구로 완화했다.
+- `packages/tokens`에 `sideEffects: ["*.css"]`와 `./package.json` export를 명시했다. 이 값이 없으면
+  나중에 `sideEffects: false`를 넣는 순간 토큰 CSS가 프로덕션 빌드에서만 조용히 사라진다.
+- CI에 `pnpm install --frozen-lockfile`, `pnpm build`, tracked 검사를 추가했다.
+
+**남은 항목:** 루트 `engines.node` 좁히기는 changesets를 실제로 도입하는 시점에 함께 한다.
+
+**의존성:** DS-P3-001
+
+`scripts/verify-gates.mjs`의 scaffold 계약은 현재 css/react/docs의 exports 추가를 의도적으로 차단한다.
+구현 착수 전에 이 게이트 전환을 독립 변경으로 수행하며, 게이트가 실패한다는 이유로 게이트를 임의로
+약화하지 않는다.
+
+- scaffold 계약(canary 없는 positive check)을 "선언되지 않은 exports 금지" 형태로 대체하고 이를
+  검증하는 canary를 신설한다.
+- manifest/schema가 CSS/React package 상태와 evidence를 표현하게 확장하고,
+  `tokenPackage.packageRelease`의 `const` 고정을 함께 완화한다.
+- `.github/workflows/ci.yml`에 install/build 단계를 추가해 devDependencies 도입과 CI 계약을 함께
+  갱신한다.
+
+**완료 근거:** 갱신된 gate/schema/CI가 서로 모순되지 않고, 이후 package 구현 커밋이 `pnpm verify`를
+깨뜨리지 않는 경로가 존재한다.
+
+#### DS-P3-002 — Package build와 품질 harness
+
+**상태:** 1단계 `done` (2026-08-14). 2단계(시각 회귀·다중 브라우저)는 hosted CI 확보 후다.
+
+1단계에서 구축한 것:
+
+- `tsconfig.base.json`(공통 strictness) / `tsconfig.build.json`(declaration + `isolatedDeclarations`) /
+  `tsconfig.json`(typecheck). `pnpm typecheck`를 `pnpm check`에 연결했다.
+- Vitest 실브라우저 harness. project 3개 — `node`, `browser`, `browser-reduced-motion`.
+  reduced-motion은 provider 수준 옵션이라 instance가 아니라 project로 나눈다.
+- `scripts/verify-test-harness.mjs` — 각 project에 의도적 실패 테스트를 심어 러너가 실패를
+  전파하는지 증명하고, 제거 후 실제 suite가 통과하는지 확인한다. `pnpm verify`에 연결됐다.
+- 첫 실테스트 20건. 토큰 CSS가 **브라우저에서** theme 계약대로 계산되는지(기존 게이트는 CSS 문자열만
+  검사한다), 그리고 소비자 관점의 token 공개 계약을 검증한다.
+- `packages/tokens/test/environment.browser.test.ts` — 레이아웃 계산, hit test,
+  `HTMLDialogElement`의 modal/non-modal 구분, `inert` 구현을 확인한다. **jsdom·happy-dom으로 몰래
+  후퇴하면 이 테스트가 실패**하므로 DS-D-0005의 rollback 규칙이 기계적으로 강제된다.
+
+**의존성:** DS-P3-001, DS-P3-002a
+
+unit/DOM 단계와 real browser/visual 단계를 분리해 2단계로 도입한다. 1단계는 이 작업, 2단계는
+DS-P3-008 전까지의 후속 변경이다.
+
+- TypeScript build, typecheck, lint/format과 package self-reference consumer fixture를 구성한다.
+- DOM interaction, accessibility automation, real browser, visual regression과 bundle test의 역할을 나눈다.
+- SSR render/hydration과 client-only API 경계를 검증한다.
+- generated output boundary와 clean rebuild 검사를 유지한다.
+- package-level command를 root `build`, `check`, `verify`에 연결한다.
+
+**완료 근거:** 빈 scaffold 성공이 아니라 의도적 failure canary가 실제로 각 gate를 실패시키고, clean local
+checkout에서 root 명령이 통과한다.
+
+#### DS-P3-003 — CSS foundation package
+
+**상태:** foundation `done` (2026-08-14). 컴포넌트 recipe는 DS-P3-004 이후 각 컴포넌트와 함께 붙는다.
+
+- `packages/css/src`의 저작 원본에서 `scripts/build-css.mjs`가 배포 CSS 5종을 생성한다 —
+  `layers.css`(layer 순서 선언), `tokens.css`(재export), `reset.css`(opt-in), `styles.css`(언레이어드),
+  `styles.layer.css`(레이어드). 두 벌 배포는 Tailwind 소비자가 유틸리티로 라이브러리를 이길 수 있게
+  한다.
+- base 유틸리티: `kds-visually-hidden`, `kds-focus-ring`, `kds-hit-target`, `kds-layer-*`,
+  그리고 `[data-kds-state]`의 closing/closed 계약.
+- 저작 규칙 게이트 5종 + drift 1종을 `scripts/verify-css-gates.mjs`가 canary로 증명한다 —
+  `!important`, 숫자 z-index, raw color, primitive 직접 소비, reset 밖 전역 선택자.
+- 브라우저 테스트 6건이 계산값과 실제 상호작용을 검증한다. focus-visible이 **키보드에서만** 나타나고
+  포인터 클릭에서는 나타나지 않는 것까지 확인한다.
+- theme scope는 [Color & Theme](../foundations/color-theme.md)의 `[data-theme]` 계약을 그대로
+  소비하며 CSS package가 별도 selector 정책을 만들지 않는다.
+
+**의존성:** DS-P3-001, DS-P3-002a, DS-P3-002
+
+- `@klipse-design/tokens/css`를 유일한 token CSS 입력으로 소비·재export한다.
+- opt-in reset/base, focus-visible, visually-hidden, theme scope와 recipe layer를 구현한다.
+- Tailwind 사용 여부와 무관한 CSS API를 제공하고 preflight/cascade 계약을 문서화한다.
+- raw palette 직접 사용, primitive scope override와 임의 z-index를 검사한다.
+- light/dark, forced-colors, reduced-motion과 200% zoom fixture를 추가한다.
+
+**완료 근거:** documented export map, cascade test, theme fixture, consumer import test, CSS package가 별도 token
+값이나 generator를 소유하지 않음.
+
+#### DS-P3-004 — Button
+
+**상태:** Web `partial` (2026-08-14). `import { Button } from "@klipse-design/react"`가 동작한다.
+
+- `packages/react/src/button/button.tsx` + `packages/css/src/component/button.css`
+- 실브라우저 acceptance test 11건이 규범의 Acceptance tests를 그대로 검증한다 — activation
+  exactly-once(click/Enter/Space), disabled·loading 차단, loading 중 focus 유지, accessible name 안정성,
+  focus-visible이 키보드에서만, 44px 타깃, 320px에서 KO/EN/JA 긴 라벨, variant 4종 axe 검사.
+- 활성화는 네이티브 `<button>`에 맡긴다. keydown으로 클릭을 흉내 내면 중복 실행이 되기 때문이다.
+- `loading`은 네이티브 `disabled`를 쓰지 않는다(focus가 제거된다). `aria-disabled` + 명시적 차단으로
+  하고, actionability와 컴포넌트 두 층에서 검증한다.
+
+**Known deviations:** `danger`가 tonal이고(solid를 표현할 action 토큰 부재) 고정 높이 토큰이 없다.
+둘 다 DS-P3-014가 해소한다.
+
+**`done` 승격에 남은 것:** visual regression(hosted CI 후), 수동 screen-reader review, SSR/hydration,
+published Figma component(DS-F-006), 제품 사용처 2곳.
+
+**의존성:** DS-P3-003
+
+- [Button 규범](../components/button.md)의 anatomy, variant, size, loading/disabled와 content contract를
+  구현한다.
+- native semantics, accessible name, focus-visible, keyboard activation과 double activation 방지를 검증한다.
+- KO/EN/JA 긴 label, icon-only, 200% zoom, high contrast와 touch target을 검증한다.
+- public import, types, isolated example와 Figma proposal을 연결한다.
+
+**완료 근거:** [컴포넌트 완료 정의](#9-component-완료-정의) 전 항목과 manifest Availability가 실제 artifact와
+일치.
+
+#### DS-P3-005 — 공용 overlay behavior layer — `done`
+
+**의존성:** DS-P3-002, DS-P3-003
+
+- Portal/host ownership, Presence, dismissible layer, focus scope/return, scroll lock/inert와 position anchor의
+  책임을 분리한다.
+- App Shell과 overlay layer token의 단일 ownership을 유지한다.
+- nested portal, `composedPath`, outside interaction, Escape order와 activation exactly-once를 검증한다.
+- 내부 primitive를 우선하고 독립 consumer가 검증되기 전 public package로 분리하지 않는다.
+
+**완료 근거:** 두 개 이상 overlay fixture에서 pointer/keyboard/focus/stacking 회귀가 재현·차단됨.
+
+**산출물과 증거 (2026-08-14):**
+
+- 경계 Decision [DS-D-0011](decisions/DS-D-0011-overlay-primitive-boundary.md) — public export 금지,
+  테스트의 dist 상대 import 예외, reduced-motion duration, Tab 이탈 reason.
+- `packages/react/src/overlay/` 13개 모듈. `packages/react`의 **public 표면과 게이트는 변하지 않았다**
+  (`declaredPackageSurfaces` diff 0, `exports` diff 0).
+- fixture 2종 — `test/fixtures/anchored-overlay.tsx`(non-modal, portal된 submenu·React 트리 밖
+  Listbox·내부 스크롤·pointer capture), `test/fixtures/modal-overlay.tsx`(modal, backdrop, 중첩 modal,
+  modal 안 popover, 긴 배경 문서).
+- 실브라우저 회귀 45건이 `browser`와 `browser-reduced-motion` 두 컨텍스트에서 각각 돈다. node 단위
+  14건이 비교자와 registry를 DOM 없이 검증한다.
+- 변조 canary 5종을 실행해 실패를 확인하고 byte 단위로 복원했다 — lineage 규칙 제거, "마지막 등록이
+  topmost"로 교체, 보류 member 미등록, modal host 내부 형제 격리 제거, 자손 layer 승계 제거.
+
+**구현 중 실측으로 드러난 것:**
+
+- React는 언마운트 시 effect cleanup을 **부모 → 자식** 순으로 돌린다. branch를 즉시 제거하면 그
+  구간에 자식의 lineage가 끊기므로, 마지막 자식이 닫힐 때까지 제거를 미루고 연쇄로 정리한다.
+- `composedPath()`에는 `document`와 `window`가 들어 있어 `contains()`가 던진다. 그 예외는 하부 유틸의
+  이벤트 dispatch 안에서 삼켜져 **판정이 조용히 실패**한다.
+- reduced-motion 대입은 media query가 specificity를 더하지 않으므로 state 규칙과 같은 형태로 적어야
+  이긴다. 클래스 하나로 적으면 exit가 그대로 남는다.
+- Dialog 안에서 연 Popover는 layer 값을 그대로 두면 Dialog 뒤에 깔린다. 자손 branch가 부모 layer를
+  물려받아야 "보이지만 누를 수 없는" 상태를 피한다.
+- modal 격리는 host 단위만으로 부족하다. 중첩 Dialog는 같은 host에 나란히 들어가므로 host **안**의
+  형제도 격리해야 한다.
+
+**남긴 것:** iOS Safari의 `overflow: hidden` scroll lock은 headless Chromium으로 검증할 수 없어
+미확인이다. `deferPointerDownOutside`와 `useDismissableLayerSurface()`는 우리 정책이 이미 지연을
+소유하므로 **쓰지 않았다.**
+
+#### DS-P3-006 — Menu / Popover — `done`
+
+**의존성:** DS-P3-005
+
+- [Menu / Popover 규범](../components/menu-popover.md)을 구현한다.
+- trigger/anchor/content/item/group/separator 구조와 controlled/uncontrolled API를 정의한다.
+- roving focus 또는 적합한 focus model, 방향키, Home/End, typeahead, Escape와 focus return을 검증한다.
+- item click이 outside-dismiss보다 먼저 정확히 한 번 실행되고 nested portal에서도 선택 가능해야 한다.
+- viewport collision, compact layout, long localized content와 zoom을 검증한다.
+
+**산출물과 증거 (2026-08-14):**
+
+- 규범 개정 — Properties 표 교체(`kind`가 prop이 아님, `programmatic` reason 추가, `disabledItems`
+  신설, `offset`·`collisionPadding`·`branchId`를 prop에서 제외), 새 `## Focus` 절, States Closing 행,
+  외부 이벤트 정책 5번, Accessibility 2줄, acceptance test 14항목 추가.
+- [DS-D-0011](decisions/DS-D-0011-overlay-primitive-boundary.md) 결정 5 — 공개 진입점은 recipe
+  계층이 소유한다. `declaredPackageSurfaces`와 `exports`는 변하지 않는다.
+- `packages/react/src/{internal,anchored,menu,popover}/**` 16개 모듈, 공개 심볼 16개.
+- `packages/css/src/component/menu-popover.css`와 `overlay.css` 보정(enter motion 값, seam fallback).
+- 실브라우저 회귀 35건이 두 motion context에서 각각 돈다.
+
+**구현 중 실측으로 드러난 것:**
+
+- overlay `Surface`가 소비자 `ref`를 덮어써 recipe가 패널 노드를 잡을 수 없었다. primitive에서 ref를
+  합성하도록 고쳤다 — id로 다시 질의하는 우회는 상태 전이마다 반복해야 하고 실패해도 조용하다.
+- `Enter`/`Space`에 keydown을 더하면 브라우저 합성 click과 겹쳐 두 번 실행된다. `<a>`는 반대로
+  Space가 click을 합성하지 않아 **링크 item만** keydown이 필요하다.
+- React 이벤트는 React 트리로 전파되므로 submenu의 방향키가 부모 핸들러까지 실행한다. panel들이
+  DOM에서 형제라는 사실이 native 리스너를 정답으로 만든다.
+- `.kds-hit-target`의 44px `::after`는 간격 없이 쌓이는 메뉴 행에서 인접 항목의 hit 영역을 침범한다.
+- Playwright는 IME 없이 한글 keydown을 만들지 못한다. 한국어 typeahead는 실기 측정 전까지 미검증이다.
+
+**남긴 것:** `Shift+Tab` 역방향 이탈과 scroll·resize·zoom anchor 추종에 아직 테스트가 없다. 규범
+acceptance에 명시해 두었고 `done` 승격 조건에 포함했다.
+
+**완료 근거:** profile menu와 nested overlay에 해당하는 generic fixture, screen-reader semantics, browser
+hit-test와 public consumer example 통과.
+
+#### DS-P3-007 — Dialog — `done`
+
+**의존성:** DS-P3-005
+
+- [Dialog 규범](../components/dialog.md)의 modal과 non-modal/docked workspace 경계를 유지한다.
+- accessible title/description, initial focus, trap, Escape, close button, focus return과 nested dialog order를
+  검증한다.
+- scroll lock, inert/scrim, danger action의 Enter 정책과 reduced-motion unmount를 검증한다.
+- App Shell sidebar와 route workspace는 겹치지 않는 별도 composition으로 남긴다.
+
+**완료 근거:** modal browser fixture, keyboard-only flow, screen-reader contract, layer/scroll/reduced-motion test와
+public consumer example 통과.
+
+**산출물과 증거 (2026-08-14):**
+
+- 규범 개정 — Variants(자동 전환 금지, media-workbench 초기 포커스), Properties(제목·설명을 하위
+  컴포넌트로, `onDismissBlocked` 추가, `closeOnBackdrop` 종속), States(busy의 aria와 취소 활성),
+  Pointer(backdrop을 형제로, mousedown 취소), Accessibility(alertdialog 미지원 확정), Migration 2번.
+- `packages/react/src/dialog/**` 8개 모듈과 `packages/css/src/component/dialog.css`.
+- 실브라우저 회귀 15건이 두 motion context에서 각각 돈다. Storybook 스토리 5종이 public consumer
+  example을 겸한다.
+- 변조 canary 2종 — 격리 해제를 복원 뒤로 미루기, inert를 복원 뒤로 미루기.
+
+**구현이 드러낸 primitive 결함 셋 (전부 수정):**
+
+- modal의 focus 복원이 배경이 inert인 상태에서 일어나 body로 떨어졌다. non-modal에는 격리가 없어
+  Menu에서는 보이지 않던 경로다.
+- focus trap의 해제가 하부 유틸의 **passive effect**인데 복원은 layout effect라, 복원한 포커스를 trap이
+  즉시 되끌어왔다. 닫히는 subtree를 복원 **전에** inert로 만들어 되끌기 대상을 없앴다.
+- scroll lock의 위치 저장·복원이 기본 경로에서 no-op이었다(`body.scrollTop`은 항상 0).
+
+**남긴 것:** `env(safe-area-inset-*)`와 `100dvh`는 harness iframe에서 측정되지 않아 선언 존재만
+고정했다. virtual keyboard 추종은 CSS만으로 불가능해 별도 결정이 필요하다. Workspace 쪽 acceptance
+8항목은 DS-P3-010(pattern) 범위로 남는다.
+
+#### DS-P3-008 — Core local RC
+
+**의존성:** DS-P3-004, DS-P3-006, DS-P3-007
+
+- CSS/React export, peer dependency, type declaration, tree-shaking과 production build를 검증한다.
+- Button/Menu/Dialog를 실제 public import name으로 쓰는 최소 consumer app을 빌드한다.
+- core component API diff와 migration note를 생성한다.
+- local package RC와 public release 상태를 분리한다.
+
+**완료 근거:** clean local consumer build와 browser suite, release dry-run, Updates. 이 단계만으로 P3
+`complete`나 component `stable`을 선언하지 않는다.
+
+#### DS-P3-009a — 배포 화면 인벤토리
+
+**상태:** `done` (2026-08-14). 산출물은 [`migration/screen-inventory.md`](../../migration/screen-inventory.md)다.
+Home/Highlight/Editor가 각각 단일 route가 아니라는 사실과 카탈로그 gap이 기록됐다.
+
+**의존성:** 없음. 시작 전에 제품 저장소 절대 경로/기준 commit의 사용자 확인이 필요하다.
+
+- 제품 저장소 위치와 기준 commit을 사용자에게 확인받아 `migration/product-baseline.md`에 먼저
+  기록한다. 비슷한 이름의 디렉터리를 추측으로 고르지 않는다.
+- Klipse 배포 화면(최소 Home, Highlight, Editor)을 component/pattern/icon/token으로 분해한 표를
+  만든다. 제품 코드는 읽기만 하고 이 저장소로 복사하지 않는다.
+- 결과를 `migration/screen-inventory.md` 비규범 reference로 저장하고 manifest에 등록한다.
+- "카탈로그에 없음" 목록이 DS-P3-009 순서, DS-P3-013 아이콘 범위와 DS-F-007 gap 예측의 입력이 된다.
+
+**완료 근거:** 화면별 구성 요소 표와 카탈로그 gap 목록이 실제 배포 화면 근거와 연결된다.
+
+#### DS-P3-009 — Catalog coverage
+
+**의존성:** DS-P3-008. 우선순위 근거는 DS-P3-009a.
+
+- product adoption 우선순위와 접근성 위험을 기준으로 Input, Select, Tooltip, Toast, Empty State를 순서화한다.
+- docs가 `not-ready`인 항목은 component template에 맞는 규범부터 작성한다.
+- 각 항목을 독립 변경으로 구현하고 동일 완료 정의를 적용한다.
+
+**완료 근거:** manifest의 여덟 component가 실제 surface별 근거를 가지며 빈 `done`이 없음.
+
+#### DS-P3-010 — 공용 Pattern fixture
+
+**의존성:** DS-P3-003, DS-P3-005
+
+- Loading은 Skeleton/Spinner/Progress의 선택, content와 reduced-motion contract를 구현한다.
+- App Shell은 sidebar/main/overlay ownership과 responsive state를 generic layout fixture로 검증한다.
+- Project Grid는 content box 측정, minimum card/gap, capacity 계산과 1열 fallback resolver를 검증한다.
+- Editor Workspace fixture는 제품 재구현 위험이 커서 이 작업에서 제외하고 DS-P5-005의 실제 adoption
+  검증으로 이동한다. 그때까지 editor-workspace pattern의 Web 상태는 `not-ready`를 유지한다.
+- 제품 route, 제품 데이터와 제품 전용 visual theme는 P5 integration에 남긴다.
+
+**완료 근거:** Loading, App Shell, Project Grid 세 pattern의 public recipe/utility 여부와 Web 상태가 실제
+generic fixture·test에 맞고, 제품 화면 screenshot을 공용 구현 근거로 대신하지 않음.
+
+#### DS-P3-011 — Published Figma library와 parity (해체됨)
+
+이 작업은 성질이 다른 다섯 가지 이상을 포함해 [Figma 트랙](#figma-트랙--ds-f-000--ds-f-008)의
+DS-F-000~008로 해체됐다. 기존 완료 근거는 DS-F-004(parity), DS-F-008(published library)이 나눠
+소유한다. 이 ID는 재사용하지 않는다.
+
+#### DS-P3-012 — P3 public release
+
+**의존성:** DS-P3-008, DS-F-004의 parity report 존재, hosted CI와 owner approval. published Figma
+library(DS-F-008)는 선행 조건이 아니며, npm 공개와 Figma publish는 같은 release note에서 서로를
+참조하는 별도 트랙이다.
+
+- approved version policy로 package를 publish하고 immutable release를 기록한다.
+- changelog, migration, deprecation, browser support와 compatibility matrix를 공개한다.
+- public registry에서 새 consumer가 source/deep import 없이 설치되는지 검증한다.
+
+**완료 근거:** registry artifact, hosted CI, parity report, release note, owner approval. Catalog
+coverage가 끝나지 않았다면 P3 core release라고 명시한다. published Figma library는 DS-F-008의 완료
+근거다.
+
+#### DS-P3-013 — 아이콘 트랙
+
+**의존성:** DS-P3-009a
+
+현재 시스템에는 아이콘 자산, 파이프라인, 규범이 없다. 배포 화면 재조립(목표 B)은 아이콘 없이
+달성될 수 없다.
+
+- DS-P3-009a 인벤토리에서 실사용 아이콘 목록을 추출한다.
+- 아이콘 정본 위치(저장소 SVG 정본 vs Figma 정본)를 Decision으로 확정한다.
+- 결정에 따라 최소 파이프라인(SVG → React/Figma component)과 아이콘 manifest를 구축한다.
+
+**완료 근거:** 아이콘 인벤토리, accepted Decision, 실사용 아이콘의 React·Figma 산출물과 manifest
+등록.
+
+#### DS-P3-014 — Token coverage 확장
+
+**상태:** `in-progress` (2026-08-14). 판정 원칙은
+[DS-D-0010](decisions/DS-D-0010-token-coverage.md)이 소유한다. 실측 결과 확장 규모는 약 169개이며 10개
+변경 단위로 나눈다.
+
+| 단위 | 내용 | 상태 |
+| --- | --- | --- |
+| 1 | 판정 원칙 Decision | `done` |
+| 2 | 알파 축 26개 (색 사용의 70%) | `pending` |
+| 3 | 채널 팔레트 primitive 40개 (mint/yellow/pink/violet/red 보강) | `pending` |
+| 4 | 채널 semantic 24개 (노드 타입 식별자) | `pending` |
+| 5 | 타이포 15종 재편 — **breaking** | `done` |
+| 6 | contrastPairs 7 → 19 | `pending` |
+| 7 | elevation / border-width / radius 16개 | `pending` |
+| 8 | layer / motion 10개 — layerOrder 배열 변경 | `pending` |
+| 9 | sky / editor / danger action 14개 | `pending` — 아래 3번 |
+| 10 | space / surface 보강 13개 | `blocked` — 아래 1·2번 |
+
+**단위 9가 반드시 포함해야 하는 것 (2026-08-14 워크샵 실측):**
+
+중립 표면 위에서 성립하는 **danger foreground**가 없다. 현재 `status-danger-foreground`는
+`status-danger-background`와 **쌍으로** 쓰도록 만들어졌고 두 테마에서 값이 서로 뒤바뀐다. 그래서
+텍스트 색으로만 쓰면 일반 텍스트와의 대비가 light 1.21, dark 1.14로 사실상 구분되지 않는다.
+Button은 쌍으로 써서 성립하지만 Menu의 danger item은 이 공백을 그대로 밟는다 —
+[Menu / Popover](../components/menu-popover.md)의 Known deviations에 실측이 있다.
+
+**제품 저장소 확인이 필요한 blocker:**
+
+1. 제품의 미커밋 `--surface-*`/`--border-*` 9개 — 소비처 0건이고 제품 문서가 스스로 괴리로 기록했다.
+   이 저장소가 역할을 먼저 정하고 제품이 역이관하는 방향을 권장한다.
+2. 앱 셸 라이트 램프 — `body:has(...)` 런타임 DOM 조건이라 light/dark 축으로 표현되지 않고,
+   `--palette-gray-200`의 hex와 rgb mirror가 한 채널 어긋나 값 자체가 미확정이다. 해소 전까지 앱 셸
+   라이트 화면은 재조립 검증 대상에서 제외한다.
+
+**의존성:** DS-P3-009a
+
+2026-08-14 실측(KP-FIGMA-001)에서 제품이 실제로 쓰는 색 계열과 타이포 스케일이 현재
+`packages/tokens/src/klipse.tokens.json`의 범위보다 넓다는 사실이 확인됐다. 배포 화면을 라이브러리로
+재조립하려면(목표 B) token source가 그 범위를 덮어야 한다.
+
+- 화면 인벤토리와 제품 CSS에서 실제 사용되는 색·타이포·간격을 추출해 현재 token source와 대조한다.
+- 추가할 것, 제품 전용으로 남길 것, 의도적으로 채택하지 않을 것을 분류하고 근거를 기록한다.
+- 추가는 semantic 역할 기준으로 하며 제품 CSS 이름을 그대로 복사하지 않는다. primitive 확장이
+  필요하면 alias graph와 contrast pair 게이트를 함께 갱신한다.
+- additive 변경과 breaking 변경을 분리하고, breaking이면 DS-GOV-001 절차를 적용한다.
+
+**완료 근거:** 확장된 token source가 게이트를 통과하고, 인벤토리의 화면 구성 요소가 raw 값 없이
+semantic token으로 표현 가능함을 대조로 보인다. 채택하지 않은 항목은 사유와 함께 남긴다.
+
+### Figma 트랙 — DS-F-000 ~ DS-F-008
+
+목표 B(published library로 배포 화면 재조립) 전용 트랙이다. **DS-F-000~005가 코드 트랙과 병렬
+구간**이며, DS-F-006부터는 해당 컴포넌트의 코드 구현이, DS-F-007은 화면 인벤토리(제품 저장소
+접근)가 추가로 필요하다. 실행 경계(MCP Plugin API가 유일한 자동화 경로, Variables REST API는
+Enterprise 전용으로 사용 불가, publish는 전 요금제에서 사람 수동, **publish 전에는 파일 간 변수·
+component 소비가 불가능하므로 단일 파일 3-페이지 구조가 강제**)와 작업별 상세 절차는
+[플레이북](execution-playbook.md)이 소유한다.
+
+#### DS-F-000 — Figma 운영 전제
+
+**상태:** `done` (2026-08-14).
+
+- 사용자 지시로 디자인 시스템 전용 파일 `bxGEp0km5zluMJGulaTvFW`를 `SEJUNKI` 팀(pro tier)에
+  생성하고 Foundations / Components / Templates 3개 페이지를 만들었다.
+- 실측: mode 2개 생성 가능, collection당 mode 상한 10개, `Pretendard` 사용 가능.
+- 기존 파일 `CNORJOONt4z0a4Bl22Kjuu`("Klipse 3.0")는 제품 코드를 정본으로 미러링한 별도 자산이며
+  이 저장소는 **읽기 전용 reference**로만 쓴다. 관측 내용은
+  [KP-FIGMA-001](../../migration/product-baseline.md)에 있다.
+- 쓰기 정책과 운영 파일 표를 [Figma Sync Governance](figma-sync.md)에 규범으로 기록했다.
+
+**완료 근거:** figma-sync.md의 운영 파일·capability·쓰기 정책 절, product-baseline의 KP-FIGMA-001,
+생성된 파일의 3-페이지 구조. 파일 생성만으로는 어떤 Figma 상태도 올리지 않는다.
+
+#### DS-F-001 — Figma 구조 Decision
+
+**상태:** `done` (2026-08-14). [DS-D-0007](decisions/DS-D-0007-figma-library-structure.md)이
+`proposed`로 작성됐다. owner 승인은 별도로 요청한다.
+
+**의존성:** DS-F-000
+
+현재 proposal의 단일 collection 4-mode 구조는 Figma 모델과 충돌한다(mode는 collection의 모든 변수에
+적용된다). Decision으로 collection 분리(primitive 1-mode / semantic-global 1-mode / semantic-color
+light·dark 2-mode), publish 전 단일 파일 3-페이지 구조(파일 분리는 publish 후 DS-F-009), 이름 변환
+규칙, composite→style 정책(semantic tier 이름 사용)과 motion 격하 정책을 확정한다.
+
+KP-FIGMA-001의 제품 미러 구조(Primitives / Dimensions / Semantic Light·Dark)를 참고 입력으로
+검토하되, 그 파일의 이름·값을 이 저장소의 정본으로 채택하지 않는다. 채택하려면 token source 변경과
+DS-D-0001 재검토가 먼저다.
+
+**완료 근거:** Decision 문서(proposed + owner 확인 요청 기록)와 갱신된 figma-sync.md.
+
+#### DS-F-002 — Proposal 재구조화
+
+**상태:** `done` (2026-08-14). proposal이 3-collection 구조를 출력하고, 토큰 200 레코드(고유 ID 174)가
+변수 146 · style 10 · 미표현 18로 전수 분류된다. `figmaCollection`을 `Klipse`로 바꾼 breaking을
+DS-GOV-001 절차로 처리했다.
+
+**의존성:** DS-F-001, DS-GOV-001
+
+- generator, validator/diff(`token-model.mjs`), 공개 d.ts 타입, token 게이트를 multi-collection
+  구조로 한 변경 단위에서 갱신한다.
+- `figmaCollection`과 d.ts breaking diff를 DS-GOV-001 절차로 선언하고 baseline을 갱신한다.
+- manifest schema의 `tokenPackage.figmaLibrary` `const: "not-ready"` 고정을 status enum + evidence
+  요구로 완화한다 (승격은 이후 작업).
+
+**완료 근거:** 재생성된 artifact 6종, 갱신된 baseline/게이트/schema, `pnpm verify` 통과, Updates의
+breaking 기록.
+
+#### DS-F-003 — Variables 구축
+
+**상태:** `done` (2026-08-14). 라이브러리 파일에 collection 3개와 변수 146개(Primitive 92 ·
+Semantic 28 · Semantic Color 26×2 mode)를 생성했다. 되읽은 정규화 직렬화의 FNV-1a 해시가 proposal
+기대값과 일치(146 토큰, 10132자, `cc72b724`)함을 실측했다. publish하지 않았고 Figma 상태도 올리지
+않았다.
+
+**의존성:** DS-F-002, DS-F-000의 파일 key
+
+- MCP `use_figma`로 proposal의 collection/mode/variable/alias를 Foundations draft 파일에 idempotent하게
+  적용한다.
+- 실행 후 전체를 다시 읽어 proposal과 대조하고 불일치 0을 확인한다. publish하지 않는다.
+
+**완료 근거:** draft 파일의 변수 세트가 proposal과 자동 대조로 일치. manifest Figma 상태는 DS-F-004
+통과 전까지 올리지 않는다.
+
+#### DS-F-004 — Snapshot과 parity checker
+
+**상태:** `done` (2026-08-14). `scripts/verify-figma-parity.mjs`가 credential 없이
+`figma/snapshot.json`과 proposal을 대조하고, 값·alias·collection 변조 canary 3종이 매 실행마다 게이트가
+실제로 실패할 수 있음을 보증한다. `pnpm verify`에 연결됐다. staleness는 실패가 아닌 경고다.
+
+**의존성:** 1단계(checker + fixture snapshot + canary + verify 연결)는 DS-F-002만. 2단계(실제 draft
+덤프로 fixture 대체)는 DS-F-003과 DS-F-000의 파일 key. 빈 draft 대조는 전량 mismatch로 verify를
+상시 실패시키므로 단계를 지킨다.
+
+- `scripts/verify-figma-parity.mjs`가 credential 없이 커밋된 snapshot과 proposal을 비교해 분류
+  완전성과 mismatch를 실패로, staleness를 경고로 보고한다.
+- mismatch canary 1건을 추가하고 root `verify`에 연결한다 (fixture 단계에서 가능).
+- DS-F-003 이후 MCP 읽기로 실제 상태를 최상위 `figma/snapshot.json`으로 덤프해 커밋한다 (source
+  hash와 날짜 포함). figma-sync.md의 현재 상태 목록을 함께 갱신한다.
+- 이 작업 통과만으로는 어떤 Figma 상태도 올리지 않는다.
+
+**완료 근거:** 변조된 snapshot이 게이트를 실제로 실패시키고, clean 상태에서 verify가 통과한다.
+
+#### DS-F-005 — Composite → Styles
+
+**상태:** `done` (2026-08-14). semantic tier 이름으로 text style 6종(`typography/*`)과 effect style
+4종(`elevation/*`)을 생성했고, text style의 fontSize·fontWeight를 primitive 변수에 12건 바인딩했다.
+loss(fontFamily fallback 배열, unitless lineHeight, shadow color 변수 부재, tier alias 소실)를 style
+description에 기록했다. parity 게이트가 style 10종까지 검증하므로 고유 토큰 174개가 전수 대조된다.
+
+**Known deviation:** primitive 변수가 `hiddenFromPublishing: true`인 상태에서 style이 이를
+바인딩한다. publish 후 소비자 측에서 바인딩이 해석되는지 DS-F-008 체크리스트에서 확인한다.
+
+**의존성:** DS-F-003
+
+- typography 6종을 text style, shadow 4종을 effect style로 생성하고 내부 속성을 변수에 바인딩한다.
+- 표현 불가 필드는 loss metadata를 style description에 기록한다.
+
+**완료 근거:** snapshot에 style이 포함되고 composite parity 대조를 통과한다.
+
+#### DS-F-006-{component} — Component library
+
+**상태:** `DS-F-006-button` `done` (2026-08-14). Figma `partial`로 올렸고 publish는 DS-F-008이다.
+
+- `Button` component set 40 variant (Variant 4 × Size 2 × State 5). fill 72·stroke 18이 전부 변수
+  바인딩이고 텍스트 40개가 전부 text style이다 — **raw 값 0**.
+- parity 게이트가 Figma variant 옵션을 코드의 `ButtonVariant`·`ButtonSize` 선언과 대조한다. Figma에만
+  있는 `State`는 사유와 함께 계약에 선언돼야 통과하고, 선언되지 않은 property가 생기면 실패한다.
+- 변조 canary 2종(variant 옵션, raw 값)이 게이트의 검출력을 매 실행에서 증명한다.
+
+**여기서 발견해 고친 결함:** Figma의 `Klipse Semantic Color` collection이 **Dark를 기본 모드로**
+쓰고 있었다. mode를 알파벳 정렬한 탓인데, token source는 `themes: ["light", "dark"]`로 light를 먼저
+선언하고 CSS도 `:root`가 light다. 생성기가 source 순서를 따르도록 고치고 `defaultMode`를 명시했으며,
+parity 게이트가 이제 mode 순서와 기본 모드를 검증한다. token graph는 바뀌지 않아 baseline 갱신은
+필요 없었다.
+
+**의존성:** 해당 컴포넌트의 코드 구현(DS-P3-004/006/007/009)과 DS-F-005. Button부터 시작한다.
+
+- 코드 prop/variant와 1:1인 componentPropertyDefinitions로 component set을 생성하고 모든 시각 속성을
+  변수·style에 바인딩한다 (raw 값 0).
+- parity checker를 componentPropertyDefinitions ↔ 코드 prop 스키마 비교로 확장한다.
+- 통과 시 해당 컴포넌트의 `figma`를 `partial`로 올린다. `done`은 DS-F-008 이후다.
+
+**완료 근거:** component set, 상태별 시각 대조 기록, 확장된 parity report.
+
+#### DS-F-007-{screen} — 배포 화면 재조립 검증
+
+**의존성:** DS-F-005, 해당 화면에 필요한 DS-F-006 component, DS-P3-009a. 화면(Home, Highlight,
+Editor)별로 하위 작업 단위다.
+
+- Templates 페이지에서 component instance·변수·style만으로 배포 화면(첫 화면은 Home 권장)을
+  재조립한다 (publish 전에는 같은 파일 안에서).
+- detach, raw override, 카탈로그 부재 요소를 gap registry로 기록하고 카탈로그/아이콘 우선순위에
+  반영한다.
+- Home, Highlight, Editor 3개 화면이 카탈로그 gap과 parity 결함 없이 재조립되면 목표 B의 검증
+  기준을 충족한다.
+
+**완료 근거:** 재조립된 template, 배포 화면과의 대조 기록, gap registry.
+
+#### DS-F-008 — Publish 운영 절차
+
+**의존성:** DS-F-003~006, repository owner의 수동 publish
+
+- publish 전 체크리스트와 rollback runbook을 만든다.
+- owner가 Figma UI에서 수동 publish한 뒤 snapshot을 재덤프하고 library key/version을 기록한다.
+- 이 시점에만 관련 항목의 `figma: done` 승격이 가능하다.
+- SEED식 3-파일 분리는 publish 후 수요가 확인될 때 별도 작업 `DS-F-009`로 다룬다.
+
+**완료 근거:** published library key/version evidence, publish 후 재검증 통과, runbook.
+
+### P4 — Documentation과 distribution
+
+#### DS-P4-001 — Docs product contract와 architecture Decision
+
+**의존성:** DS-P3-001; 구현은 core public API가 안정된 뒤
+
+- 검색, information architecture, 접근성, theme, version badge, isolated example와 stable URL을 먼저 정한다.
+- source Markdown/frontmatter/manifest 중 metadata ownership을 확정한다.
+- framework는 위 요구와 build/deploy/maintenance 비교 후 선택한다.
+
+#### DS-P4-002 — Docs site foundation
+
+**의존성:** DS-P4-001, DS-P3-003
+
+- Get Started, Foundations, Components, Patterns, Develop, Updates/Migration navigation을 구현한다.
+- keyboard/search/heading/landmark, 200% zoom와 mobile navigation을 검증한다.
+- live example은 실제 released 또는 workspace public export만 소비한다.
+
+#### DS-P4-003 — Component/API/example pages
+
+**의존성:** DS-P4-002, DS-P3-008
+
+- 각 component에 design guidance와 developer API를 구분해 제공한다.
+- anatomy, variants, states, accessibility, content, tokens, install/import, examples와 availability evidence를
+  한 페이지에서 연결한다.
+- example은 독립 theme/viewport/locale/forced-colors/reduced-motion으로 실행한다.
+
+#### DS-P4-004 — AI와 release discoverability
+
+**의존성:** DS-P4-002
+
+- 현재 generated `design/llms/*`를 stable public URL로 제공하고 source link와 version을 표시한다.
+- sitemap, changelog, deprecation과 migration을 검색 가능하게 만든다.
+- docs가 안정되고 실제 수요가 생기기 전에는 MCP/Skill/CLI를 만들지 않는다.
+
+**P4 complete:** hosted docs URL, search/accessibility/browser 검증, versioned component examples, stable AI document
+URLs, release/migration discoverability와 owner approval.
+
+### P5 — Product adoption
+
+P5 작업은 디자인 시스템 release와 소비 제품 integration을 별도 변경으로 관리한다. 제품 저장소의 기존
+변경을 덮어쓰거나 디자인 시스템 commit과 섞지 않는다.
+
+#### DS-P5-001 — Adoption plan과 adapter
+
+**의존성:** DS-P3-012
+
+- [Product Adoption](migration.md)과 [token mapping](../../migration/token-mapping.md)을 최신 release에 맞춘다.
+- old semantic alias와 new package를 한 방향으로 연결하는 임시 adapter와 제거 조건을 정의한다.
+- feature flag 또는 독립 rollback 단위를 준비하고 baseline screenshot/interaction evidence를 고정한다.
+
+#### DS-P5-002 — Leaf component shadow adoption
+
+**의존성:** DS-P5-001
+
+- Button, Menu/Popover, Dialog 같은 leaf component를 작은 surface부터 교체한다.
+- old/new를 동일 fixture에서 비교하고 keyboard, focus, hit-test, theme와 layout shift를 검증한다.
+
+#### DS-P5-003 — Home와 Project Grid
+
+**의존성:** DS-P5-002
+
+- App Shell ownership, sidebar rhythm과 container 기반 실제 card capacity를 검증한다.
+- 넓은 화면을 3열로 고정하지 않고 minimum card/gap과 available content box로 열 수를 계산한다.
+- loading/empty/error와 keyboard navigation을 같은 contract로 검증한다.
+
+#### DS-P5-004 — Highlight
+
+**의존성:** DS-P5-002
+
+- Home/history/detail의 shell, grid, overlay와 localized content를 각각 검증한다.
+- 제품 전용 visual theme는 extension으로 남기고 core primitive를 scope override하지 않는다.
+
+#### DS-P5-005 — Editor workspace
+
+**의존성:** DS-P5-002
+
+- route workspace와 modal editor를 명시적 mode로 분리한다.
+- App Shell sidebar, asset panel, canvas, inspector와 timeline의 bounding box가 겹치지 않게 한다.
+- portal/layer/focus ownership, compact layout, canvas token parity와 return behavior를 검증한다.
+
+#### DS-P5-006 — Legacy 차단과 rollback dashboard
+
+**의존성:** DS-P5-003, DS-P5-004, DS-P5-005
+
+- 신규 raw token, deep/source import와 deprecated UI reference를 정적 gate로 차단한다.
+- adapter 사용량, route adoption, rollback owner와 제거 version을 추적한다.
+- 모든 route가 새 release를 소비하고 rollback window가 끝난 뒤 legacy를 제거한다.
+
+**P5 complete:** versioned package adoption, Home/Highlight/Editor route evidence, 신규 legacy reference 0, rollback
+검증과 제품 owner 승인. 일부 route adoption은 시스템 `stable` 근거가 아니다.
+
+## 9. Component 완료 정의
+
+아래 전체 목록은 Web `done`과 `stable` 승격의 기준이다. Web `partial` 승격에는
+[플레이북 3절](execution-playbook.md)의 최소 증거 세트(unit/state test, DOM keyboard/focus test,
+automated accessibility check, consumer build와 public import example, manifest 일치)만 요구한다. core
+RC를 먼저 완성하기 위한 구분이며, `partial`인 항목은 남은 전체 세트 항목을 Known deviations로
+기록한다.
+
+각 component의 `done`/`stable` 승격은 다음 항목을 모두 다룬다.
+
+### Contract
+
+- 사용/비사용 기준과 대체 component
+- anatomy와 part별 ownership
+- public props, defaults, controlled/uncontrolled state와 ref/event contract
+- variants, sizes, loading/disabled/error/empty 상태
+- semantic token/recipe mapping; raw color, 임의 spacing/z-index 금지
+- breaking/additive 분류, migration과 deprecation
+
+### Interaction과 접근성
+
+- native element 우선, accessible name/role/state
+- pointer, keyboard, focus-visible, focus entry/order/return
+- duplicate activation, outside interaction, nested overlay와 Escape order
+- touch target, 200% zoom, 320px급 좁은 viewport와 text reflow
+- KO/EN/JA 긴 콘텐츠, 빈 문자열/동적 상태와 RTL 영향을 검토
+- light/dark, forced-colors/high contrast, reduced motion
+- SSR render, hydration과 client boundary
+
+### Evidence
+
+- unit/state test
+- DOM keyboard/focus interaction test
+- automated accessibility check와 수동 keyboard/screen-reader review record
+- real-browser hit-test/layout test
+- stable visual regression fixture
+- package self-reference/type/production consumer build
+- actual public import를 쓰는 isolated example
+- normative/API docs, Updates와 migration
+- Figma proposal 또는 published component의 상태별 근거
+
+하나라도 미충족이면 `Known deviations`와 다음 task를 적고 해당 surface를 `partial` 또는 `not-ready`로
+유지한다.
+
+## 10. Decision이 필요한 항목
+
+다음은 암묵적으로 선택하지 않는다.
+
+| 결정                           | 반드시 비교할 내용                                                     |
+| ------------------------------ | ---------------------------------------------------------------------- |
+| React behavior dependency      | 접근성 완성도, bundle, SSR, maintenance, escape hatch, license         |
+| CSS recipe 방식                | source readability, variants, type safety, generated drift, size       |
+| package version 정책           | fixed/independent, coordinated CSS/React change, rollback              |
+| browser/a11y/visual test stack | CI cost, determinism, local debug, coverage와 false positive           |
+| font distribution              | asset license, preload/layout shift, locale glyph와 consumer injection |
+| docs framework                 | search, accessibility, isolated example, versioning, maintenance       |
+| Figma sync 방향                | code-first conflict handling, stable IDs, publish credentials          |
+| Figma collection/파일 구조     | mode 적용 범위, 요금제 한도, breaking 영향과 재작성 비용               |
+| 아이콘 정본 위치               | 코드 SVG 정본 vs Figma 정본, 유지 책임, 추출 파이프라인과 rollback     |
+| public headless package        | 실제 독립 consumer 수, API stability와 duplication                     |
+
+선택은 공식 문서와 작은 spike로 검증하고 Decision에 대안, 이유, 결과, rollback과 재검토 조건을 남긴다.
+
+## 11. 금지되는 지름길
+
+- SEED source, token/API 또는 화면 모양을 그대로 복사한다.
+- component code부터 만든 뒤 접근성·상태 계약을 사후에 맞춘다.
+- token source가 있는데 CSS/TS/Figma에 같은 값을 다시 수기 작성한다.
+- raw primitive를 public component API나 제품 기본 스타일로 노출한다.
+- CSS reset 또는 Tailwind preflight가 있다고 가정한다.
+- `body` portal과 숫자 z-index로 App Shell ownership을 우회한다.
+- screenshot 하나로 responsive, hit-test 또는 접근성 완료를 주장한다.
+- local build를 public release, Figma proposal을 published library라고 부른다.
+- docs/AI/MCP 도구 수를 design-system 성숙도로 착각한다.
+- remote, publish 권한 하나가 없다는 이유로 모든 독립 로컬 작업을 멈춘다.
+- 사용자가 지정하지 않은 Figma 파일에 쓰거나, Figma library publish를 자동화했다고 주장한다.
+- breaking diff를 통과시키려고 baseline을 선언 없이 덮어쓴다.
+- 검증 명령을 실행할 수 없는 환경에서 실행한 것처럼 보고한다.
+
+## 12. 다음 작업자가 즉시 시작할 일
+
+세션을 시작하면 [플레이북 2절](execution-playbook.md)의 환경 게이트를 먼저 확인한다. 이후 `ready`
+상태인 다음 중 **하나**를 선택해 끝까지 수행한다.
+
+- **DS-P3-001 — Web architecture Decision** (코드 트랙 시작점). 결정을 DS-D-0002~0006과
+  DS-D-0009(font distribution) 여섯 개 Decision으로 분리해 작성하고, spike는 저장소 밖에서
+  수행한다. 이어서 DS-P3-002a가 게이트 전환을 소유한다.
+- **DS-F-000 — Figma 운영 전제** (Figma 트랙 시작점). 요금제 capability를 실측하고 사용자에게 draft
+  파일 key 지정을 요청한다.
+- **DS-GOV-001 — Baseline 갱신 규범** 또는 **DS-P3-009a — 배포 화면 인벤토리** (독립 소작업).
+
+각 작업의 단계별 절차는 [플레이북 6절](execution-playbook.md)을 따른다.
+
+외부 권한이 필요한 DS-GOV-000(remote/hosted CI/owner approval)은 별도 blocker로 유지한다. 사용자가
+명시적으로 연결을 요청하기 전에는 원격을 임의 생성하거나 publish하지 않는다. DS-GOV-000은 로컬 P3
+작업과 Figma draft 작업을 막지 않는다.
+
+## 13. 인계 보고 형식
+
+```text
+완료한 작업 ID:
+변경한 계약과 사용자 영향:
+변경 파일:
+상태 변경과 근거:
+실행한 검증:
+남은 deviation/외부 blocker:
+다음 권장 작업 ID:
+```
+
+상태를 올리지 않았다면 그것도 성공적인 결과일 수 있다. 중요한 것은 다음 작업자가 추측하지 않아도 되는
+검증 가능한 근거를 남기는 것이다.

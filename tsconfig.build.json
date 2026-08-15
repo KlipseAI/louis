@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
+    // DS-D-0002: 지금 켜두면 나중에 다른 빌드 도구로 옮길 때 마이그레이션 비용이 0이 된다.
+    // 반대로 나중에 켜려면 public API 표면 전체를 재작성해야 한다.
+    "isolatedDeclarations": true
+  }
+}

@@ -1,0 +1,2415 @@
+{
+  "$comment": "GENERATED EVIDENCE — Figma Plugin API 되읽기 원본. 손으로 수정하지 않는다. 재생성 절차는 scripts/build-figma-snapshot.mjs 헤더에 있다.",
+  "capturedAt": "2026-08-14",
+  "capturedBy": "figma-mcp-plugin-api",
+  "figmaFileKey": "bxGEp0km5zluMJGulaTvFW",
+  "figmaFileName": "Klipse Design System — Library",
+  "rootNameFromApi": "Document",
+  "published": false,
+  "pages": [
+    "Foundations",
+    "Components",
+    "Templates"
+  ],
+  "rowFormat": [
+    "figmaName",
+    "resolvedType",
+    "scopesCsv",
+    "[[modeName, aliasRef|null, rawValue|null], ...]"
+  ],
+  "collections": {
+    "Klipse Primitive": {
+      "modes": [
+        "Base"
+      ],
+      "defaultMode": "Base",
+      "rows": [
+        [
+          "color/amber/100",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
+          [
+            [
+              "Base",
+              null,
+              [
+                1,
+                0.960784,
+                0.839216,
+                1
+              ]
+            ]
+          ]
+        ],
+        [
+          "color/amber/500",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
+          [
+            [
+              "Base",
+              null,
+              [
+                1,
+                0.741176,
+                0.180392,
+                1
+              ]
+            ]
+          ]
+        ],
+        [
+          "color/amber/700",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
+          [
+            [
+              "Base",
+              null,
+              [
+                0.721569,
+                0.478431,
+                0,
+                1
+              ]
+            ]
+          ]
+        ],
+        [
+          "color/amber/900",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
+          [
+            [
+              "Base",
+              null,
+              [
+                0.360784,
+                0.239216,
+                0,
+                1
+              ]
+            ]
+          ]
+        ],
+        [
+          "color/black-alpha/56",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
+          [
+            [
+              "Base",
+              null,
+              [
+                0,
+                0,
+                0,
+                0.56
+              ]
+            ]
+          ]
+        ],
+        [
+          "color/black-alpha/72",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
+          [
+            [
+              "Base",
+              null,
+              [
+                0,
+                0,
+                0,
+                0.72
+              ]
+            ]
+          ]
+        ],
+        [
+          "color/blue/100",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
+          [
+            [
+              "Base",
+              null,
+              [
+                0.839216,
+                0.921569,
+                1,
+                1
+              ]
+            ]
+          ]
+        ],
+        [
+          "color/blue/200",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
+          [
+            [
+              "Base",
+              null,
+              [
+                0.639216,
+                0.835294,
+                1,
+                1
+              ]
+            ]
+          ]
+        ],
+        [
+          "color/blue/300",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
+          [
+            [
+              "Base",
+              null,
+              [
+                0.439216,
+                0.74902,
+                1,
+                1
+              ]
+            ]
+          ]
+        ],
+        [
+          "color/blue/400",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
+          [
+            [
+              "Base",
+              null,
+              [
+                0.219608,
+                0.643137,
+                1,
+                1
+              ]
+            ]
+          ]
+        ],
+        [
+          "color/blue/50",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
+          [
+            [
+              "Base",
+              null,
+              [
+                0.941176,
+                0.968627,
+                1,
+                1
+              ]
+            ]
+          ]
+        ],
+        [
+          "color/blue/500",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
+          [
+            [
+              "Base",
+              null,
+              [
+                0,
+                0.533333,
+                1,
+                1
+              ]
+            ]
+          ]
+        ],
+        [
+          "color/blue/600",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
+          [
+            [
+              "Base",
+              null,
+              [
+                0,
+                0.458824,
+                0.858824,
+                1
+              ]
+            ]
+          ]
+        ],
+        [
+          "color/blue/700",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
+          [
+            [
+              "Base",
+              null,
+              [
+                0,
+                0.372549,
+                0.701961,
+                1
+              ]
+            ]
+          ]
+        ],
+        [
+          "color/blue/800",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
+          [
+            [
+              "Base",
+              null,
+              [
+                0,
+                0.286275,
+                0.541176,
+                1
+              ]
+            ]
+          ]
+        ],
+        [
+          "color/blue/900",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
+          [
+            [
+              "Base",
+              null,
+              [
+                0,
+                0.203922,
+                0.380392,
+                1
+              ]
+            ]
+          ]
+        ],
+        [
+          "color/green/100",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
+          [
+            [
+              "Base",
+              null,
+              [
+                0.894118,
+                0.972549,
+                0.917647,
+                1
+              ]
+            ]
+          ]
+        ],
+        [
+          "color/green/500",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
+          [
+            [
+              "Base",
+              null,
+              [
+                0.156863,
+                0.784314,
+                0.25098,
+                1
+              ]
+            ]
+          ]
+        ],
+        [
+          "color/green/700",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
+          [
+            [
+              "Base",
+              null,
+              [
+                0.090196,
+                0.478431,
+                0.172549,
+                1
+              ]
+            ]
+          ]
+        ],
+        [
+          "color/green/900",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
+          [
+            [
+              "Base",
+              null,
+              [
+                0.043137,
+                0.239216,
+                0.094118,
+                1
+              ]
+            ]
+          ]
+        ],
+        [
+          "color/neutral/0",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
+          [
+            [
+              "Base",
+              null,
+              [
+                0.980392,
+                0.980392,
+                0.980392,
+                1
+              ]
+            ]
+          ]
+        ],
+        [
+          "color/neutral/100",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
+          [
+            [
+              "Base",
+              null,
+              [
+                0.945098,
+                0.945098,
+                0.952941,
+                1
+              ]
+            ]
+          ]
+        ],
+        [
+          "color/neutral/1000",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
+          [
+            [
+              "Base",
+              null,
+              [
+                0,
+                0,
+                0,
+                1
+              ]
+            ]
+          ]
+        ],
+        [
+          "color/neutral/150",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
+          [
+            [
+              "Base",
+              null,
+              [
+                0.917647,
+                0.921569,
+                0.933333,
+                1
+              ]
+            ]
+          ]
+        ],
+        [
+          "color/neutral/200",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
+          [
+            [
+              "Base",
+              null,
+              [
+                0.890196,
+                0.894118,
+                0.909804,
+                1
+              ]
+            ]
+          ]
+        ],
+        [
+          "color/neutral/300",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
+          [
+            [
+              "Base",
+              null,
+              [
+                0.835294,
+                0.843137,
+                0.866667,
+                1
+              ]
+            ]
+          ]
+        ],
+        [
+          "color/neutral/400",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
+          [
+            [
+              "Base",
+              null,
+              [
+                0.737255,
+                0.752941,
+                0.788235,
+                1
+              ]
+            ]
+          ]
+        ],
+        [
+          "color/neutral/50",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
+          [
+            [
+              "Base",
+              null,
+              [
+                0.972549,
+                0.972549,
+                0.976471,
+                1
+              ]
+            ]
+          ]
+        ],
+        [
+          "color/neutral/500",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
+          [
+            [
+              "Base",
+              null,
+              [
+                0.603922,
+                0.627451,
+                0.670588,
+                1
+              ]
+            ]
+          ]
+        ],
+        [
+          "color/neutral/600",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
+          [
+            [
+              "Base",
+              null,
+              [
+                0.466667,
+                0.490196,
+                0.537255,
+                1
+              ]
+            ]
+          ]
+        ],
+        [
+          "color/neutral/700",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
+          [
+            [
+              "Base",
+              null,
+              [
+                0.341176,
+                0.364706,
+                0.407843,
+                1
+              ]
+            ]
+          ]
+        ],
+        [
+          "color/neutral/800",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
+          [
+            [
+              "Base",
+              null,
+              [
+                0.192157,
+                0.211765,
+                0.25098,
+                1
+              ]
+            ]
+          ]
+        ],
+        [
+          "color/neutral/900",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
+          [
+            [
+              "Base",
+              null,
+              [
+                0.090196,
+                0.105882,
+                0.133333,
+                1
+              ]
+            ]
+          ]
+        ],
+        [
+          "color/red/100",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
+          [
+            [
+              "Base",
+              null,
+              [
+                1,
+                0.898039,
+                0.909804,
+                1
+              ]
+            ]
+          ]
+        ],
+        [
+          "color/red/500",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
+          [
+            [
+              "Base",
+              null,
+              [
+                1,
+                0.294118,
+                0.34902,
+                1
+              ]
+            ]
+          ]
+        ],
+        [
+          "color/red/600",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
+          [
+            [
+              "Base",
+              null,
+              [
+                0.886275,
+                0.211765,
+                0.270588,
+                1
+              ]
+            ]
+          ]
+        ],
+        [
+          "color/red/700",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
+          [
+            [
+              "Base",
+              null,
+              [
+                0.717647,
+                0.141176,
+                0.192157,
+                1
+              ]
+            ]
+          ]
+        ],
+        [
+          "color/red/900",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
+          [
+            [
+              "Base",
+              null,
+              [
+                0.329412,
+                0.066667,
+                0.098039,
+                1
+              ]
+            ]
+          ]
+        ],
+        [
+          "duration/fast",
+          "FLOAT",
+          "",
+          [
+            [
+              "Base",
+              null,
+              120
+            ]
+          ]
+        ],
+        [
+          "duration/instant",
+          "FLOAT",
+          "",
+          [
+            [
+              "Base",
+              null,
+              0
+            ]
+          ]
+        ],
+        [
+          "duration/normal",
+          "FLOAT",
+          "",
+          [
+            [
+              "Base",
+              null,
+              200
+            ]
+          ]
+        ],
+        [
+          "duration/slow",
+          "FLOAT",
+          "",
+          [
+            [
+              "Base",
+              null,
+              320
+            ]
+          ]
+        ],
+        [
+          "font-family/mono",
+          "STRING",
+          "FONT_FAMILY",
+          [
+            [
+              "Base",
+              null,
+              "SFMono-Regular, Consolas, Liberation Mono, monospace"
+            ]
+          ]
+        ],
+        [
+          "font-family/sans",
+          "STRING",
+          "FONT_FAMILY",
+          [
+            [
+              "Base",
+              null,
+              "Pretendard Variable, Pretendard, Inter, Noto Sans KR, Noto Sans JP, system-ui, sans-serif"
+            ]
+          ]
+        ],
+        [
+          "font-size/body-lg",
+          "FLOAT",
+          "WIDTH_HEIGHT",
+          [
+            [
+              "Base",
+              null,
+              20
+            ]
+          ]
+        ],
+        [
+          "font-size/body-md",
+          "FLOAT",
+          "WIDTH_HEIGHT",
+          [
+            [
+              "Base",
+              null,
+              16
+            ]
+          ]
+        ],
+        [
+          "font-size/body-sm",
+          "FLOAT",
+          "WIDTH_HEIGHT",
+          [
+            [
+              "Base",
+              null,
+              14
+            ]
+          ]
+        ],
+        [
+          "font-size/caption",
+          "FLOAT",
+          "WIDTH_HEIGHT",
+          [
+            [
+              "Base",
+              null,
+              12
+            ]
+          ]
+        ],
+        [
+          "font-size/heading-lg",
+          "FLOAT",
+          "WIDTH_HEIGHT",
+          [
+            [
+              "Base",
+              null,
+              48
+            ]
+          ]
+        ],
+        [
+          "font-size/heading-md",
+          "FLOAT",
+          "WIDTH_HEIGHT",
+          [
+            [
+              "Base",
+              null,
+              36
+            ]
+          ]
+        ],
+        [
+          "font-size/heading-sm",
+          "FLOAT",
+          "WIDTH_HEIGHT",
+          [
+            [
+              "Base",
+              null,
+              28
+            ]
+          ]
+        ],
+        [
+          "font-weight/medium",
+          "FLOAT",
+          "FONT_WEIGHT",
+          [
+            [
+              "Base",
+              null,
+              500
+            ]
+          ]
+        ],
+        [
+          "font-weight/regular",
+          "FLOAT",
+          "FONT_WEIGHT",
+          [
+            [
+              "Base",
+              null,
+              400
+            ]
+          ]
+        ],
+        [
+          "font-weight/semibold",
+          "FLOAT",
+          "FONT_WEIGHT",
+          [
+            [
+              "Base",
+              null,
+              600
+            ]
+          ]
+        ],
+        [
+          "layer/content",
+          "FLOAT",
+          "",
+          [
+            [
+              "Base",
+              null,
+              0
+            ]
+          ]
+        ],
+        [
+          "layer/critical",
+          "FLOAT",
+          "",
+          [
+            [
+              "Base",
+              null,
+              400
+            ]
+          ]
+        ],
+        [
+          "layer/modal",
+          "FLOAT",
+          "",
+          [
+            [
+              "Base",
+              null,
+              300
+            ]
+          ]
+        ],
+        [
+          "layer/popover",
+          "FLOAT",
+          "",
+          [
+            [
+              "Base",
+              null,
+              200
+            ]
+          ]
+        ],
+        [
+          "layer/sticky",
+          "FLOAT",
+          "",
+          [
+            [
+              "Base",
+              null,
+              100
+            ]
+          ]
+        ],
+        [
+          "line-height/body",
+          "FLOAT",
+          "",
+          [
+            [
+              "Base",
+              null,
+              1.5
+            ]
+          ]
+        ],
+        [
+          "line-height/heading",
+          "FLOAT",
+          "",
+          [
+            [
+              "Base",
+              null,
+              1.350000023841858
+            ]
+          ]
+        ],
+        [
+          "line-height/tight",
+          "FLOAT",
+          "",
+          [
+            [
+              "Base",
+              null,
+              1.2000000476837158
+            ]
+          ]
+        ],
+        [
+          "radius/0",
+          "FLOAT",
+          "CORNER_RADIUS",
+          [
+            [
+              "Base",
+              null,
+              0
+            ]
+          ]
+        ],
+        [
+          "radius/10",
+          "FLOAT",
+          "CORNER_RADIUS",
+          [
+            [
+              "Base",
+              null,
+              10
+            ]
+          ]
+        ],
+        [
+          "radius/12",
+          "FLOAT",
+          "CORNER_RADIUS",
+          [
+            [
+              "Base",
+              null,
+              12
+            ]
+          ]
+        ],
+        [
+          "radius/16",
+          "FLOAT",
+          "CORNER_RADIUS",
+          [
+            [
+              "Base",
+              null,
+              16
+            ]
+          ]
+        ],
+        [
+          "radius/2",
+          "FLOAT",
+          "CORNER_RADIUS",
+          [
+            [
+              "Base",
+              null,
+              2
+            ]
+          ]
+        ],
+        [
+          "radius/20",
+          "FLOAT",
+          "CORNER_RADIUS",
+          [
+            [
+              "Base",
+              null,
+              20
+            ]
+          ]
+        ],
+        [
+          "radius/24",
+          "FLOAT",
+          "CORNER_RADIUS",
+          [
+            [
+              "Base",
+              null,
+              24
+            ]
+          ]
+        ],
+        [
+          "radius/4",
+          "FLOAT",
+          "CORNER_RADIUS",
+          [
+            [
+              "Base",
+              null,
+              4
+            ]
+          ]
+        ],
+        [
+          "radius/6",
+          "FLOAT",
+          "CORNER_RADIUS",
+          [
+            [
+              "Base",
+              null,
+              6
+            ]
+          ]
+        ],
+        [
+          "radius/8",
+          "FLOAT",
+          "CORNER_RADIUS",
+          [
+            [
+              "Base",
+              null,
+              8
+            ]
+          ]
+        ],
+        [
+          "radius/full",
+          "FLOAT",
+          "CORNER_RADIUS",
+          [
+            [
+              "Base",
+              null,
+              999
+            ]
+          ]
+        ],
+        [
+          "spacing/0",
+          "FLOAT",
+          "WIDTH_HEIGHT,GAP",
+          [
+            [
+              "Base",
+              null,
+              0
+            ]
+          ]
+        ],
+        [
+          "spacing/10",
+          "FLOAT",
+          "WIDTH_HEIGHT,GAP",
+          [
+            [
+              "Base",
+              null,
+              10
+            ]
+          ]
+        ],
+        [
+          "spacing/12",
+          "FLOAT",
+          "WIDTH_HEIGHT,GAP",
+          [
+            [
+              "Base",
+              null,
+              12
+            ]
+          ]
+        ],
+        [
+          "spacing/120",
+          "FLOAT",
+          "WIDTH_HEIGHT,GAP",
+          [
+            [
+              "Base",
+              null,
+              120
+            ]
+          ]
+        ],
+        [
+          "spacing/14",
+          "FLOAT",
+          "WIDTH_HEIGHT,GAP",
+          [
+            [
+              "Base",
+              null,
+              14
+            ]
+          ]
+        ],
+        [
+          "spacing/16",
+          "FLOAT",
+          "WIDTH_HEIGHT,GAP",
+          [
+            [
+              "Base",
+              null,
+              16
+            ]
+          ]
+        ],
+        [
+          "spacing/18",
+          "FLOAT",
+          "WIDTH_HEIGHT,GAP",
+          [
+            [
+              "Base",
+              null,
+              18
+            ]
+          ]
+        ],
+        [
+          "spacing/2",
+          "FLOAT",
+          "WIDTH_HEIGHT,GAP",
+          [
+            [
+              "Base",
+              null,
+              2
+            ]
+          ]
+        ],
+        [
+          "spacing/20",
+          "FLOAT",
+          "WIDTH_HEIGHT,GAP",
+          [
+            [
+              "Base",
+              null,
+              20
+            ]
+          ]
+        ],
+        [
+          "spacing/24",
+          "FLOAT",
+          "WIDTH_HEIGHT,GAP",
+          [
+            [
+              "Base",
+              null,
+              24
+            ]
+          ]
+        ],
+        [
+          "spacing/240",
+          "FLOAT",
+          "WIDTH_HEIGHT,GAP",
+          [
+            [
+              "Base",
+              null,
+              240
+            ]
+          ]
+        ],
+        [
+          "spacing/32",
+          "FLOAT",
+          "WIDTH_HEIGHT,GAP",
+          [
+            [
+              "Base",
+              null,
+              32
+            ]
+          ]
+        ],
+        [
+          "spacing/4",
+          "FLOAT",
+          "WIDTH_HEIGHT,GAP",
+          [
+            [
+              "Base",
+              null,
+              4
+            ]
+          ]
+        ],
+        [
+          "spacing/40",
+          "FLOAT",
+          "WIDTH_HEIGHT,GAP",
+          [
+            [
+              "Base",
+              null,
+              40
+            ]
+          ]
+        ],
+        [
+          "spacing/44",
+          "FLOAT",
+          "WIDTH_HEIGHT,GAP",
+          [
+            [
+              "Base",
+              null,
+              44
+            ]
+          ]
+        ],
+        [
+          "spacing/48",
+          "FLOAT",
+          "WIDTH_HEIGHT,GAP",
+          [
+            [
+              "Base",
+              null,
+              48
+            ]
+          ]
+        ],
+        [
+          "spacing/6",
+          "FLOAT",
+          "WIDTH_HEIGHT,GAP",
+          [
+            [
+              "Base",
+              null,
+              6
+            ]
+          ]
+        ],
+        [
+          "spacing/64",
+          "FLOAT",
+          "WIDTH_HEIGHT,GAP",
+          [
+            [
+              "Base",
+              null,
+              64
+            ]
+          ]
+        ],
+        [
+          "spacing/8",
+          "FLOAT",
+          "WIDTH_HEIGHT,GAP",
+          [
+            [
+              "Base",
+              null,
+              8
+            ]
+          ]
+        ]
+      ]
+    },
+    "Klipse Semantic": {
+      "modes": [
+        "Global"
+      ],
+      "defaultMode": "Global",
+      "rows": [
+        [
+          "icon/size-lg",
+          "FLOAT",
+          "WIDTH_HEIGHT",
+          [
+            [
+              "Global",
+              "Klipse Primitive::spacing/24",
+              null
+            ]
+          ]
+        ],
+        [
+          "icon/size-md",
+          "FLOAT",
+          "WIDTH_HEIGHT",
+          [
+            [
+              "Global",
+              "Klipse Primitive::spacing/20",
+              null
+            ]
+          ]
+        ],
+        [
+          "icon/size-sm",
+          "FLOAT",
+          "WIDTH_HEIGHT",
+          [
+            [
+              "Global",
+              "Klipse Primitive::spacing/16",
+              null
+            ]
+          ]
+        ],
+        [
+          "layer/content",
+          "FLOAT",
+          "",
+          [
+            [
+              "Global",
+              "Klipse Primitive::layer/content",
+              null
+            ]
+          ]
+        ],
+        [
+          "layer/critical",
+          "FLOAT",
+          "",
+          [
+            [
+              "Global",
+              "Klipse Primitive::layer/critical",
+              null
+            ]
+          ]
+        ],
+        [
+          "layer/modal",
+          "FLOAT",
+          "",
+          [
+            [
+              "Global",
+              "Klipse Primitive::layer/modal",
+              null
+            ]
+          ]
+        ],
+        [
+          "layer/popover",
+          "FLOAT",
+          "",
+          [
+            [
+              "Global",
+              "Klipse Primitive::layer/popover",
+              null
+            ]
+          ]
+        ],
+        [
+          "layer/sticky",
+          "FLOAT",
+          "",
+          [
+            [
+              "Global",
+              "Klipse Primitive::layer/sticky",
+              null
+            ]
+          ]
+        ],
+        [
+          "layout/app-shell-content-inset",
+          "FLOAT",
+          "WIDTH_HEIGHT",
+          [
+            [
+              "Global",
+              "Klipse Primitive::spacing/16",
+              null
+            ]
+          ]
+        ],
+        [
+          "layout/app-shell-outer-gap",
+          "FLOAT",
+          "WIDTH_HEIGHT",
+          [
+            [
+              "Global",
+              "Klipse Primitive::spacing/12",
+              null
+            ]
+          ]
+        ],
+        [
+          "layout/app-shell-sidebar-minimum",
+          "FLOAT",
+          "WIDTH_HEIGHT",
+          [
+            [
+              "Global",
+              "Klipse Primitive::spacing/120",
+              null
+            ]
+          ]
+        ],
+        [
+          "layout/app-shell-sidebar-padding",
+          "FLOAT",
+          "WIDTH_HEIGHT",
+          [
+            [
+              "Global",
+              "Klipse Primitive::spacing/12",
+              null
+            ]
+          ]
+        ],
+        [
+          "layout/control-hit-target-minimum",
+          "FLOAT",
+          "WIDTH_HEIGHT",
+          [
+            [
+              "Global",
+              "Klipse Primitive::spacing/44",
+              null
+            ]
+          ]
+        ],
+        [
+          "layout/project-card-minimum",
+          "FLOAT",
+          "WIDTH_HEIGHT",
+          [
+            [
+              "Global",
+              "Klipse Primitive::spacing/240",
+              null
+            ]
+          ]
+        ],
+        [
+          "layout/project-grid-gap",
+          "FLOAT",
+          "WIDTH_HEIGHT",
+          [
+            [
+              "Global",
+              "Klipse Primitive::spacing/12",
+              null
+            ]
+          ]
+        ],
+        [
+          "motion/modal-enter",
+          "STRING",
+          "",
+          [
+            [
+              "Global",
+              null,
+              "320ms cubic-bezier(0.32, 0.72, 0, 1) delay 0ms"
+            ]
+          ]
+        ],
+        [
+          "motion/modal-exit",
+          "STRING",
+          "",
+          [
+            [
+              "Global",
+              null,
+              "200ms cubic-bezier(0.4, 0, 1, 1) delay 0ms"
+            ]
+          ]
+        ],
+        [
+          "motion/overlay-enter",
+          "STRING",
+          "",
+          [
+            [
+              "Global",
+              null,
+              "200ms cubic-bezier(0.32, 0.72, 0, 1) delay 0ms"
+            ]
+          ]
+        ],
+        [
+          "motion/overlay-exit",
+          "STRING",
+          "",
+          [
+            [
+              "Global",
+              null,
+              "120ms cubic-bezier(0.4, 0, 1, 1) delay 0ms"
+            ]
+          ]
+        ],
+        [
+          "motion/reduced",
+          "STRING",
+          "",
+          [
+            [
+              "Global",
+              null,
+              "0ms cubic-bezier(0.2, 0, 0, 1) delay 0ms"
+            ]
+          ]
+        ],
+        [
+          "radius/card",
+          "FLOAT",
+          "CORNER_RADIUS",
+          [
+            [
+              "Global",
+              "Klipse Primitive::radius/20",
+              null
+            ]
+          ]
+        ],
+        [
+          "radius/control",
+          "FLOAT",
+          "CORNER_RADIUS",
+          [
+            [
+              "Global",
+              "Klipse Primitive::radius/12",
+              null
+            ]
+          ]
+        ],
+        [
+          "radius/overlay",
+          "FLOAT",
+          "CORNER_RADIUS",
+          [
+            [
+              "Global",
+              "Klipse Primitive::radius/16",
+              null
+            ]
+          ]
+        ],
+        [
+          "radius/overlay-item",
+          "FLOAT",
+          "CORNER_RADIUS",
+          [
+            [
+              "Global",
+              "Klipse Primitive::radius/10",
+              null
+            ]
+          ]
+        ],
+        [
+          "radius/pill",
+          "FLOAT",
+          "CORNER_RADIUS",
+          [
+            [
+              "Global",
+              "Klipse Primitive::radius/full",
+              null
+            ]
+          ]
+        ],
+        [
+          "spacing/control-lg",
+          "FLOAT",
+          "WIDTH_HEIGHT,GAP",
+          [
+            [
+              "Global",
+              "Klipse Primitive::spacing/16",
+              null
+            ]
+          ]
+        ],
+        [
+          "spacing/control-md",
+          "FLOAT",
+          "WIDTH_HEIGHT,GAP",
+          [
+            [
+              "Global",
+              "Klipse Primitive::spacing/12",
+              null
+            ]
+          ]
+        ],
+        [
+          "spacing/control-sm",
+          "FLOAT",
+          "WIDTH_HEIGHT,GAP",
+          [
+            [
+              "Global",
+              "Klipse Primitive::spacing/8",
+              null
+            ]
+          ]
+        ],
+        [
+          "spacing/control-xs",
+          "FLOAT",
+          "WIDTH_HEIGHT,GAP",
+          [
+            [
+              "Global",
+              "Klipse Primitive::spacing/4",
+              null
+            ]
+          ]
+        ],
+        [
+          "spacing/layout-gutter",
+          "FLOAT",
+          "WIDTH_HEIGHT,GAP",
+          [
+            [
+              "Global",
+              "Klipse Primitive::spacing/16",
+              null
+            ]
+          ]
+        ],
+        [
+          "spacing/layout-section",
+          "FLOAT",
+          "WIDTH_HEIGHT,GAP",
+          [
+            [
+              "Global",
+              "Klipse Primitive::spacing/24",
+              null
+            ]
+          ]
+        ]
+      ]
+    },
+    "Klipse Semantic Color": {
+      "modes": [
+        "Light",
+        "Dark"
+      ],
+      "defaultMode": "Light",
+      "rows": [
+        [
+          "color/action-primary",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
+          [
+            [
+              "Light",
+              "Klipse Primitive::color/blue/700",
+              null
+            ],
+            [
+              "Dark",
+              "Klipse Primitive::color/blue/700",
+              null
+            ]
+          ]
+        ],
+        [
+          "color/action-primary-hover",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
+          [
+            [
+              "Light",
+              "Klipse Primitive::color/blue/800",
+              null
+            ],
+            [
+              "Dark",
+              "Klipse Primitive::color/blue/600",
+              null
+            ]
+          ]
+        ],
+        [
+          "color/action-primary-pressed",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
+          [
+            [
+              "Light",
+              "Klipse Primitive::color/blue/900",
+              null
+            ],
+            [
+              "Dark",
+              "Klipse Primitive::color/blue/800",
+              null
+            ]
+          ]
+        ],
+        [
+          "color/background-canvas",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL",
+          [
+            [
+              "Light",
+              "Klipse Primitive::color/neutral/100",
+              null
+            ],
+            [
+              "Dark",
+              "Klipse Primitive::color/neutral/900",
+              null
+            ]
+          ]
+        ],
+        [
+          "color/background-inset",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL",
+          [
+            [
+              "Light",
+              "Klipse Primitive::color/neutral/150",
+              null
+            ],
+            [
+              "Dark",
+              "Klipse Primitive::color/neutral/800",
+              null
+            ]
+          ]
+        ],
+        [
+          "color/background-overlay",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL",
+          [
+            [
+              "Light",
+              "Klipse Primitive::color/neutral/0",
+              null
+            ],
+            [
+              "Dark",
+              "Klipse Primitive::color/neutral/800",
+              null
+            ]
+          ]
+        ],
+        [
+          "color/background-raised",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL",
+          [
+            [
+              "Light",
+              "Klipse Primitive::color/neutral/0",
+              null
+            ],
+            [
+              "Dark",
+              "Klipse Primitive::color/neutral/700",
+              null
+            ]
+          ]
+        ],
+        [
+          "color/background-surface",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL",
+          [
+            [
+              "Light",
+              "Klipse Primitive::color/neutral/0",
+              null
+            ],
+            [
+              "Dark",
+              "Klipse Primitive::color/neutral/800",
+              null
+            ]
+          ]
+        ],
+        [
+          "color/border-default",
+          "COLOR",
+          "STROKE_COLOR",
+          [
+            [
+              "Light",
+              "Klipse Primitive::color/neutral/300",
+              null
+            ],
+            [
+              "Dark",
+              "Klipse Primitive::color/neutral/600",
+              null
+            ]
+          ]
+        ],
+        [
+          "color/border-focus",
+          "COLOR",
+          "STROKE_COLOR",
+          [
+            [
+              "Light",
+              "Klipse Primitive::color/blue/500",
+              null
+            ],
+            [
+              "Dark",
+              "Klipse Primitive::color/blue/400",
+              null
+            ]
+          ]
+        ],
+        [
+          "color/border-strong",
+          "COLOR",
+          "STROKE_COLOR",
+          [
+            [
+              "Light",
+              "Klipse Primitive::color/neutral/500",
+              null
+            ],
+            [
+              "Dark",
+              "Klipse Primitive::color/neutral/500",
+              null
+            ]
+          ]
+        ],
+        [
+          "color/border-subtle",
+          "COLOR",
+          "STROKE_COLOR",
+          [
+            [
+              "Light",
+              "Klipse Primitive::color/neutral/200",
+              null
+            ],
+            [
+              "Dark",
+              "Klipse Primitive::color/neutral/700",
+              null
+            ]
+          ]
+        ],
+        [
+          "color/foreground-disabled",
+          "COLOR",
+          "TEXT_FILL",
+          [
+            [
+              "Light",
+              "Klipse Primitive::color/neutral/500",
+              null
+            ],
+            [
+              "Dark",
+              "Klipse Primitive::color/neutral/600",
+              null
+            ]
+          ]
+        ],
+        [
+          "color/foreground-inverse",
+          "COLOR",
+          "TEXT_FILL",
+          [
+            [
+              "Light",
+              "Klipse Primitive::color/neutral/0",
+              null
+            ],
+            [
+              "Dark",
+              "Klipse Primitive::color/neutral/0",
+              null
+            ]
+          ]
+        ],
+        [
+          "color/foreground-primary",
+          "COLOR",
+          "TEXT_FILL",
+          [
+            [
+              "Light",
+              "Klipse Primitive::color/neutral/900",
+              null
+            ],
+            [
+              "Dark",
+              "Klipse Primitive::color/neutral/0",
+              null
+            ]
+          ]
+        ],
+        [
+          "color/foreground-secondary",
+          "COLOR",
+          "TEXT_FILL",
+          [
+            [
+              "Light",
+              "Klipse Primitive::color/neutral/700",
+              null
+            ],
+            [
+              "Dark",
+              "Klipse Primitive::color/neutral/300",
+              null
+            ]
+          ]
+        ],
+        [
+          "color/foreground-tertiary",
+          "COLOR",
+          "TEXT_FILL",
+          [
+            [
+              "Light",
+              "Klipse Primitive::color/neutral/600",
+              null
+            ],
+            [
+              "Dark",
+              "Klipse Primitive::color/neutral/400",
+              null
+            ]
+          ]
+        ],
+        [
+          "color/scrim-modal",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
+          [
+            [
+              "Light",
+              "Klipse Primitive::color/black-alpha/56",
+              null
+            ],
+            [
+              "Dark",
+              "Klipse Primitive::color/black-alpha/72",
+              null
+            ]
+          ]
+        ],
+        [
+          "color/status-danger-background",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
+          [
+            [
+              "Light",
+              "Klipse Primitive::color/red/100",
+              null
+            ],
+            [
+              "Dark",
+              "Klipse Primitive::color/red/900",
+              null
+            ]
+          ]
+        ],
+        [
+          "color/status-danger-foreground",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
+          [
+            [
+              "Light",
+              "Klipse Primitive::color/red/900",
+              null
+            ],
+            [
+              "Dark",
+              "Klipse Primitive::color/red/100",
+              null
+            ]
+          ]
+        ],
+        [
+          "color/status-info-background",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
+          [
+            [
+              "Light",
+              "Klipse Primitive::color/blue/50",
+              null
+            ],
+            [
+              "Dark",
+              "Klipse Primitive::color/blue/900",
+              null
+            ]
+          ]
+        ],
+        [
+          "color/status-info-foreground",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
+          [
+            [
+              "Light",
+              "Klipse Primitive::color/blue/900",
+              null
+            ],
+            [
+              "Dark",
+              "Klipse Primitive::color/blue/50",
+              null
+            ]
+          ]
+        ],
+        [
+          "color/status-success-background",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
+          [
+            [
+              "Light",
+              "Klipse Primitive::color/green/100",
+              null
+            ],
+            [
+              "Dark",
+              "Klipse Primitive::color/green/900",
+              null
+            ]
+          ]
+        ],
+        [
+          "color/status-success-foreground",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
+          [
+            [
+              "Light",
+              "Klipse Primitive::color/green/900",
+              null
+            ],
+            [
+              "Dark",
+              "Klipse Primitive::color/green/100",
+              null
+            ]
+          ]
+        ],
+        [
+          "color/status-warning-background",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
+          [
+            [
+              "Light",
+              "Klipse Primitive::color/amber/100",
+              null
+            ],
+            [
+              "Dark",
+              "Klipse Primitive::color/amber/900",
+              null
+            ]
+          ]
+        ],
+        [
+          "color/status-warning-foreground",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
+          [
+            [
+              "Light",
+              "Klipse Primitive::color/amber/900",
+              null
+            ],
+            [
+              "Dark",
+              "Klipse Primitive::color/amber/100",
+              null
+            ]
+          ]
+        ]
+      ]
+    }
+  },
+  "styles": {
+    "text": {
+      "typography/body-lg-medium": {
+        "fontFamily": "Pretendard",
+        "fontStyle": "Medium",
+        "fontSize": 20,
+        "lineHeightPercent": 150,
+        "letterSpacingPx": -0.2,
+        "boundVariables": [
+          "fontSize",
+          "fontWeight"
+        ]
+      },
+      "typography/body-lg-regular": {
+        "fontFamily": "Pretendard",
+        "fontStyle": "Regular",
+        "fontSize": 20,
+        "lineHeightPercent": 150,
+        "letterSpacingPx": -0.2,
+        "boundVariables": [
+          "fontSize",
+          "fontWeight"
+        ]
+      },
+      "typography/body-lg-semibold": {
+        "fontFamily": "Pretendard",
+        "fontStyle": "SemiBold",
+        "fontSize": 20,
+        "lineHeightPercent": 150,
+        "letterSpacingPx": -0.2,
+        "boundVariables": [
+          "fontSize",
+          "fontWeight"
+        ]
+      },
+      "typography/body-md-medium": {
+        "fontFamily": "Pretendard",
+        "fontStyle": "Medium",
+        "fontSize": 16,
+        "lineHeightPercent": 150,
+        "letterSpacingPx": -0.16,
+        "boundVariables": [
+          "fontSize",
+          "fontWeight"
+        ]
+      },
+      "typography/body-md-regular": {
+        "fontFamily": "Pretendard",
+        "fontStyle": "Regular",
+        "fontSize": 16,
+        "lineHeightPercent": 150,
+        "letterSpacingPx": -0.16,
+        "boundVariables": [
+          "fontSize",
+          "fontWeight"
+        ]
+      },
+      "typography/body-md-semibold": {
+        "fontFamily": "Pretendard",
+        "fontStyle": "SemiBold",
+        "fontSize": 16,
+        "lineHeightPercent": 150,
+        "letterSpacingPx": -0.16,
+        "boundVariables": [
+          "fontSize",
+          "fontWeight"
+        ]
+      },
+      "typography/body-sm-medium": {
+        "fontFamily": "Pretendard",
+        "fontStyle": "Medium",
+        "fontSize": 14,
+        "lineHeightPercent": 150,
+        "letterSpacingPx": -0.14,
+        "boundVariables": [
+          "fontSize",
+          "fontWeight"
+        ]
+      },
+      "typography/body-sm-regular": {
+        "fontFamily": "Pretendard",
+        "fontStyle": "Regular",
+        "fontSize": 14,
+        "lineHeightPercent": 150,
+        "letterSpacingPx": -0.14,
+        "boundVariables": [
+          "fontSize",
+          "fontWeight"
+        ]
+      },
+      "typography/body-sm-semibold": {
+        "fontFamily": "Pretendard",
+        "fontStyle": "SemiBold",
+        "fontSize": 14,
+        "lineHeightPercent": 150,
+        "letterSpacingPx": -0.14,
+        "boundVariables": [
+          "fontSize",
+          "fontWeight"
+        ]
+      },
+      "typography/caption-medium": {
+        "fontFamily": "Pretendard",
+        "fontStyle": "Medium",
+        "fontSize": 12,
+        "lineHeightPercent": 150,
+        "letterSpacingPx": -0.12,
+        "boundVariables": [
+          "fontSize",
+          "fontWeight"
+        ]
+      },
+      "typography/caption-regular": {
+        "fontFamily": "Pretendard",
+        "fontStyle": "Regular",
+        "fontSize": 12,
+        "lineHeightPercent": 150,
+        "letterSpacingPx": -0.12,
+        "boundVariables": [
+          "fontSize",
+          "fontWeight"
+        ]
+      },
+      "typography/caption-semibold": {
+        "fontFamily": "Pretendard",
+        "fontStyle": "SemiBold",
+        "fontSize": 12,
+        "lineHeightPercent": 150,
+        "letterSpacingPx": -0.12,
+        "boundVariables": [
+          "fontSize",
+          "fontWeight"
+        ]
+      },
+      "typography/heading-lg-medium": {
+        "fontFamily": "Pretendard",
+        "fontStyle": "Medium",
+        "fontSize": 48,
+        "lineHeightPercent": 135.000002,
+        "letterSpacingPx": -0.96,
+        "boundVariables": [
+          "fontSize",
+          "fontWeight"
+        ]
+      },
+      "typography/heading-md-medium": {
+        "fontFamily": "Pretendard",
+        "fontStyle": "Medium",
+        "fontSize": 36,
+        "lineHeightPercent": 135.000002,
+        "letterSpacingPx": -0.72,
+        "boundVariables": [
+          "fontSize",
+          "fontWeight"
+        ]
+      },
+      "typography/heading-sm-medium": {
+        "fontFamily": "Pretendard",
+        "fontStyle": "Medium",
+        "fontSize": 28,
+        "lineHeightPercent": 135.000002,
+        "letterSpacingPx": -0.56,
+        "boundVariables": [
+          "fontSize",
+          "fontWeight"
+        ]
+      }
+    },
+    "effect": {
+      "elevation/focus-ring": {
+        "type": "DROP_SHADOW",
+        "offsetY": 0,
+        "blur": 0,
+        "spread": 3,
+        "color": [
+          0,
+          0.533333,
+          1,
+          0.42
+        ]
+      },
+      "elevation/modal": {
+        "type": "DROP_SHADOW",
+        "offsetY": 16,
+        "blur": 48,
+        "spread": -8,
+        "color": [
+          0,
+          0,
+          0,
+          0.22
+        ]
+      },
+      "elevation/popover": {
+        "type": "DROP_SHADOW",
+        "offsetY": 8,
+        "blur": 24,
+        "spread": -4,
+        "color": [
+          0,
+          0,
+          0,
+          0.14
+        ]
+      },
+      "elevation/surface": {
+        "type": "DROP_SHADOW",
+        "offsetY": 2,
+        "blur": 8,
+        "spread": 0,
+        "color": [
+          0,
+          0,
+          0,
+          0.06
+        ]
+      }
+    }
+  },
+  "components": {
+    "Button": {
+      "variantCount": 40,
+      "properties": {
+        "Variant": {
+          "type": "VARIANT",
+          "options": [
+            "primary",
+            "secondary",
+            "ghost",
+            "danger"
+          ]
+        },
+        "Size": {
+          "type": "VARIANT",
+          "options": [
+            "md",
+            "sm"
+          ]
+        },
+        "State": {
+          "type": "VARIANT",
+          "options": [
+            "Default",
+            "Hover",
+            "Pressed",
+            "Disabled",
+            "Loading"
+          ]
+        }
+      },
+      "binding": {
+        "boundFills": 72,
+        "rawFills": 0,
+        "boundStrokes": 18,
+        "rawStrokes": 0,
+        "textStyled": 40,
+        "textUnstyled": 0
+      }
+    }
+  }
+}

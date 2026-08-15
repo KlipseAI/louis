@@ -16,7 +16,7 @@ const invariant = (condition, message) => {
 
 invariant(formatVersion === 1, "formatVersion export mismatch");
 invariant(JSON.stringify(themes) === '["light","dark"]', "theme mismatch");
-invariant(metadata.figmaCollection === "Klipse Design", "metadata mismatch");
+invariant(metadata.figmaCollection === "Klipse", "metadata mismatch");
 invariant(Object.keys(primitives).length > 0, "primitive export is empty");
 invariant(Object.keys(tokens.light).length > 0, "light token export is empty");
 invariant(
@@ -42,6 +42,26 @@ invariant(
   figma.$extensions["com.klipse-design"].figmaCollection ===
     metadata.figmaCollection,
   "Figma collection mismatch",
+);
+invariant(
+  JSON.stringify(Object.keys(figma.collections).sort()) ===
+    JSON.stringify([
+      "Klipse Primitive",
+      "Klipse Semantic",
+      "Klipse Semantic Color",
+    ]),
+  "Figma collection split mismatch",
+);
+// mode 순서는 source의 themes 순서를 따른다. Figma는 첫 mode를 default로 쓰므로
+// 이 순서가 CSS의 `:root`(light) 계약과 어긋나면 라이브러리 기본 표시가 틀린다.
+invariant(
+  JSON.stringify(figma.collections["Klipse Semantic Color"].modes) ===
+    JSON.stringify(themes.map((t) => t[0].toUpperCase() + t.slice(1))),
+  "Figma theme mode order mismatch",
+);
+invariant(
+  figma.collections["Klipse Semantic Color"].defaultMode === "Light",
+  "Figma default theme mode mismatch",
 );
 invariant(cssUrl.endsWith("/generated/tokens.css"), "CSS export mismatch");
 const css = readFileSync(new URL(cssUrl), "utf8");

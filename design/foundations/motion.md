@@ -49,7 +49,9 @@ Motion primitive와 semantic recipe는 단일 DTCG source 안의 논리적 계�
   transition value shape, ID·mode·alias target과 runtime container를 선언한다. 실제 animation completion과
   unmount lifecycle 연결은 P3/P5 소비 구현이 소유한다.
 - Figma proposal은 지원 가능한 easing/duration을 매핑하고 spring·복합 keyframe처럼 손실되는 정보는
-  metadata로 표시한다.
+  metadata로 표시한다. semantic `motion-*`는 Figma가 해석하지 않는 문서용 STRING 변수로 격하하고
+  primitive `transition-*`와 easing은 미표현으로 둔다
+  ([DS-D-0007](../governance/decisions/DS-D-0007-figma-library-structure.md)).
 - duration 또는 easing 변경은 사용자 동작·lifecycle에 영향을 주면 behavior change로 분류한다.
 
 ## Acceptance tests

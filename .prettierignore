@@ -1,3 +1,6 @@
 # Canonical generated artifacts are formatted by the token generator.
 packages/tokens/generated/
 packages/tokens/baseline/
+
+# Figma readback evidence is written by the snapshot dump, not by hand.
+figma/

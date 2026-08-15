@@ -13,10 +13,10 @@ authority: normative
 
 | Surface       | 상태           | 근거                                                        |
 | ------------- | -------------- | ----------------------------------------------------------- |
-| Web           | `not-ready`    | `@klipse-design/react`에 public export가 없음               |
+| Web           | `partial`      | `ActionMenu`·`CompositePopover` public export, 실브라우저 회귀 35건 |
 | Figma         | `not-ready`    | published Menu/Popover component가 없음                     |
 | Documentation | `done`         | 이 문서                                                     |
-| Maturity      | `experimental` | primitive, overlay branch, 키보드·포인터 테스트가 아직 없음 |
+| Maturity      | `experimental` | 시각 회귀와 수동 screen-reader 검토가 아직 없음            |
 
 ## When to use
 
@@ -59,25 +59,36 @@ authority: normative
 
 아래는 프레임워크에 종속되지 않는 public contract다. 구현체 이름은 달라도 의미를 바꾸지 않는다.
 
-| Property           | 값/형태                            | 기본값         | 설명                                                     |
-| ------------------ | ---------------------------------- | -------------- | -------------------------------------------------------- |
-| `kind`             | `action-menu`, `composite-popover` | 필수           | 역할과 키보드 패턴을 결정                                |
-| `open`             | `boolean`                          | 필수           | controlled open state                                    |
-| `onOpenChange`     | `(open, reason) => void`           | 필수           | `trigger`, `select`, `escape`, `outside`, `route`를 구분 |
-| `trigger`          | interactive element                | 필수           | 단 하나의 소유 trigger                                   |
-| `panelLabel`       | id 참조 또는 문자열                | 필수           | panel의 accessible name                                  |
-| `placement`        | `top`, `bottom`, `left`, `right`   | `bottom`       | 선호 방향이며 충돌 시 flip 가능                          |
-| `align`            | `start`, `center`, `end`           | `start`        | anchor와 panel 정렬                                      |
-| `offset`           | spacing token                      | `space-4`(8px) | trigger와 panel 사이 간격                                |
-| `collisionPadding` | spacing token                      | `space-4`(8px) | viewport·safe area 최소 여백                             |
-| `portalHost`       | app overlay root                   | 앱 기본값      | arbitrary ancestor가 아니라 명시적 host                  |
-| `branchId`         | opaque overlay branch id           | 자동 생성      | 중첩 portal을 같은 내부 영역으로 판정                    |
-| `initialFocus`     | `first`, `last`, ref, `none`       | 입력 방식 의존 | 키보드로 열면 항목, pointer로 열면 trigger 유지 가능     |
-| `closeOnSelect`    | `boolean`                          | `true`         | 토글·세그먼트처럼 패널 안에서 계속 조정할 때 false       |
-| `disabled`         | `boolean`                          | `false`        | trigger와 모든 열기 경로를 비활성화                      |
+| Property           | 값/형태                                  | 기본값                         | 설명                                                     |
+| ------------------ | ---------------------------------------- | ------------------------------ | -------------------------------------------------------- |
+| `kind`             | `action-menu`, `composite-popover`       | 컴포넌트 정체성                | 역할과 키보드 패턴을 결정한다. prop이 아니라 별도 컴포넌트로 표현한다 |
+| `open`             | `boolean`                                | controlled일 때 필수           | `defaultOpen`과 동시에 지정하지 않는다                    |
+| `defaultOpen`      | `boolean`                                | `false`                        | uncontrolled 초기 상태. `onOpenChange`는 두 방식 모두에서 호출된다 |
+| `onOpenChange`     | `(open, reason) => void`                 | 선택                           | `trigger`, `select`, `escape`, `outside`, `route`, `programmatic`을 구분 |
+| `close(reason)`    | imperative handle                        | —                              | 소비자만 아는 reason(`route`)을 발행하는 유일한 통로      |
+| `trigger`          | interactive element                      | 필수                           | 단 하나의 소유 trigger                                    |
+| `panelLabel`       | 문자열 또는 id 참조                      | 필수                           | panel의 accessible name                                   |
+| `placement`        | `top`, `bottom`, `left`, `right`         | `bottom`                       | 선호 방향이며 충돌 시 flip 가능                           |
+| `align`            | `start`, `center`, `end`                 | `start`                        | anchor와 panel 정렬                                       |
+| `offset`           | `--kds-overlay-offset`                   | 8px                            | **prop이 아니다.** overlay 표면 CSS가 소유한다            |
+| `collisionPadding` | `--kds-overlay-collision-padding`        | 8px                            | **prop이 아니다.** 위와 같다                              |
+| `portalHost`       | app overlay root                         | Provider가 소유                | 컴포넌트가 host를 고르지 않는다. 앱에서 한 번 정한다      |
+| `branchId`         | opaque overlay branch id                 | 자동 생성                      | **입력받지 않는다.** 중첩 등록은 별도 수단이 제공한다     |
+| `initialFocus`     | `first-enabled`, `last-enabled`, `surface`, ref, `none` | variant 고정 (§Focus) | 기본값을 임의로 바꾸지 않는다                |
+| `closeOnSelect`    | `boolean`                                | action-menu `true` / composite-popover `false` | item 단위로 덮을 수 있다          |
+| `disabled`         | `boolean`                                | `false`                        | trigger와 모든 열기 경로를 비활성화한다. **panel과 item으로 전파하지 않는다** |
+| `disabledItems`    | `skip`, `announce`                       | `announce`                     | menu 단위 단일 전략. item이 개별로 고르지 않는다          |
 
 `onOpenChange`의 reason은 분석용 장식이 아니다. 닫힌 뒤 포커스를 어디에 둘지, route 이동 전에 닫을지,
 선택 콜백을 중복 실행하지 않을지를 결정하는 계약이다.
+
+`programmatic`은 소비자가 `open`을 직접 내려 닫힌 경우다. 이것이 어휘에 있어야 하는 이유는 그 경로가
+실제로 소비자에게 도달하기 때문이다 — 없으면 구현이 다른 reason 하나를 빌려 쓰게 되고, 그러면 포커스
+정책이 갈린다.
+
+`offset`·`collisionPadding`·`branchId`가 prop이 아닌 것은 축소가 아니라 소유권 정리다. 앞의 둘을
+인스턴스마다 바꿀 수 있게 하면 같은 종류의 overlay가 화면마다 다른 간격을 갖게 되고, `branchId`를
+받으면 중첩 판정의 정합성을 호출부가 책임지게 된다.
 
 ## States
 
@@ -86,7 +97,7 @@ authority: normative
 | Closed    | unmount 또는 `hidden` + `inert`; hit testing 불가    | trigger `aria-expanded="false"`                       |
 | Opening   | 위치 계산이 끝나기 전 `visibility:hidden`; 클릭 불가 | panel을 잘못된 좌표에 먼저 노출하지 않음              |
 | Open      | `pointer-events:auto`; 최상위 활성 branch            | trigger `aria-expanded="true"`; variant별 초기 포커스 |
-| Closing   | 시각적 exit만 허용; 즉시 `inert`와 pointer 차단      | 선택 액션 재실행 불가                                 |
+| Closing   | 시각적 exit만 허용; 즉시 `inert`와 pointer 차단      | trigger `aria-expanded="false"`, `aria-controls` 제거; 선택 액션 재실행 불가; 자식 branch도 함께 닫는다 |
 | Disabled  | panel을 열 수 없음                                   | 네이티브 `disabled` 우선                              |
 | Item busy | 해당 액션 중복 실행 차단, spinner와 `aria-busy` 제공 | 전체 메뉴를 불필요하게 닫지 않음                      |
 
@@ -119,8 +130,23 @@ authority: normative
 | `ArrowRight`       | submenu가 있으면 열고 첫 item으로 이동    |
 | `ArrowLeft/Escape` | submenu를 닫고 부모 item으로 복귀         |
 
-Disabled item은 탐색에서 건너뛰거나 `aria-disabled="true"`로 이유를 읽을 수 있게 한다. 두 전략을 한 menu
-안에서 섞지 않는다.
+Disabled item 전략은 menu 단위로 하나만 고른다(`disabledItems`). `skip`은 네이티브 `disabled`로 표기해
+탐색에서 빠지고, `announce`는 `aria-disabled="true"`로 표기해 방향키가 지나가되 활성화되지 않는다. 두
+표기를 한 menu 안에서 섞지 않는다 — 섞이면 시각적으로 같아 보이는 두 항목이 서로 다른 탐색 규칙을 갖는다.
+링크 item에는 네이티브 `disabled`가 없으므로 `skip` 전략에서도 별도 표기가 필요하다.
+
+`Enter`/`Space`는 브라우저가 합성하는 `click`으로 처리한다. keydown을 따로 달면 같은 입력이 두 번
+실행된다. 그래서 이 표의 `Enter/Space` 행과 `ArrowRight` 행은 서로 다른 계층에서 구현된다 — 전자는
+activation, 후자는 keydown이다.
+
+item은 네이티브 `<button>` 또는 `<a href>`여야 한다. 링크 item은 새 탭 열기와 주소 복사를 유지해야
+하므로 `<button>`으로 흉내 내지 않는다.
+
+action menu의 item 목록은 가상화하지 않는다. Home/End·typeahead·`aria-setsize`가 렌더되지 않은 항목을
+볼 수 없기 때문이다. 목록이 그만큼 길면 Listbox 또는 페이지로 전환한다.
+
+문자 키 typeahead는 IME 조합 중에는 동작하지 않는다. 조합을 시작하는 keydown의 `isComposing`이 아직
+`false`이므로 조합 플래그와 `keyCode 229`를 함께 본다.
 
 ### Pointer and outside interaction
 
@@ -143,6 +169,9 @@ Disabled item은 탐색에서 건너뛰거나 `aria-disabled="true"`로 이유�
 2. composed path에 branch member가 있으면 아무것도 닫지 않는다.
 3. 외부라면 현재 branch만 닫고, 클릭이 배경에 전달돼도 안전한지 명시한다.
 4. modal 위의 popover라면 modal branch의 자식으로 등록해 modal 자체를 닫지 않는다.
+5. branch가 `closing`에 들어가면 자식 branch도 같은 tick에 닫는다. 자식 panel은 부모 panel의 자손이
+   아니라 overlay host의 형제이므로 부모의 `inert`에 덮이지 않고, activation 봉인도 인스턴스 단위라
+   자식에는 걸리지 않는다. 전파하지 않으면 exit 동안 자식 항목이 보이고 눌리고 실행된다.
 
 ### "열리지만 선택되지 않음" 금지 계약
 
@@ -155,6 +184,82 @@ Panel이 보이는 것과 선택 가능한 것은 같은 완료 조건이다. �
 - Trigger 비활성화가 Panel이나 portal subtree로 전파되지 않는다.
 - exit node가 새 Panel 위에서 포인터를 가로채지 않는다.
 - item activation 전에 unmount되지 않고 callback이 한 번 실행된다.
+
+## Focus
+
+primitive는 초기 focus 정책과 return focus 규칙을 제공하지만 **기본값을 정하지 않는다.** 어느
+variant가 무엇을 받는지는 이 절이 소유한다. 순서는 primitive의 것이다 — 초기 focus는 위치가 확정된
+뒤 `open`에서 한 번, return focus는 exit 이전 `closing` 진입 시점이다.
+
+### 초기 focus
+
+| Variant             | 초기 focus                                              |
+| ------------------- | ------------------------------------------------------- |
+| `action-menu`       | 첫 enabled item. `ArrowUp`으로 열면 마지막 enabled item |
+| `submenu`           | 첫 enabled item                                         |
+| `composite-popover` | panel root                                              |
+
+**입력 수단으로 갈리지 않는다.** Properties 표의 "입력 방식 의존"은 `ArrowUp`으로 열 때만 마지막
+item이 되는 것을 뜻하며, 그 정보는 trigger의 keydown이 직접 가지고 있다. pointer 여부를
+`event.detail === 0` 같은 heuristic으로 역추론하지 않는다 — 그 판정은 엔진과 보조기술에 따라 달라져
+이 저장소가 검증할 수 없고, 잘못 갈리면 키보드 사용자가 항목에 도달할 경로를 잃는다.
+
+action-menu에 panel root를 쓰지 않는 이유는 roving `tabIndex`와 결합했을 때 막다른 길이 되기
+때문이다. roving에서는 활성 item 하나만 tab stop이고 panel 자신은 `tabIndex="-1"`이므로, panel에
+focus가 있는 상태의 `Tab`은 자손이 아니라 문서의 다음 대상으로 나간다. 그리고 이 문서는 action
+menu의 `Tab`이 menu를 닫도록 정하고 있다. 즉 panel root는 "열렸는데 방향키로만 도달 가능한" 상태를
+만든다.
+
+**첫 enabled item이지 첫 focusable이 아니다.** `disabledItems: "announce"`인 menu의 첫 항목이
+disabled이면 둘이 갈린다. 어느 전략이든 초기 focus는 건너뛴 뒤의 첫 enabled item이다.
+
+**후보가 0개면 panel root로 강등한다.** 비동기 로딩, 검색 결과 0건, 권한상 전 항목 비활성인
+menu에서 초기 focus가 조용히 사라지면 키보드로 패널에 도달할 방법이 없어진다. 안내 문구는
+`menuitem`이 아니라 panel의 `aria-describedby` 대상 또는 `role="status"`로 둔다.
+
+`composite-popover`가 panel root인 근거는 자손이 자연 Tab 순서로 tabbable이라는 점이다. panel이
+focus를 가지면 다음 `Tab`이 실제로 그 자손으로 들어가고, 이때 panel 이름이 먼저 읽힌다. 성립 조건
+셋은 모두 구현 계약이다.
+
+1. panel root에 `tabIndex="-1"`이 있다. 없으면 `focus()`가 아무 일도 하지 않고 **조용히 `none`으로
+   강등된다.**
+2. panel에 accessible name이 있다. `panelLabel`이 필수인 것이 이 조건을 만족한다.
+3. 프로그램적 focus가 `:focus-visible`을 유발하지 않는다. 브라우저 heuristic이므로 시각 회귀로
+   고정한다.
+
+초기 focus는 open당 한 번이다. **이미 이 overlay 또는 그 자손 overlay 안에 focus가 있으면 보내지
+않는다** — 부모와 자식이 같은 프레임에 열릴 때 부모가 자식에게서 focus를 빼앗으면, 그 이동이 자식의
+바깥 판정을 발화시켜 사용자가 아무것도 하지 않았는데 자식이 닫힌다.
+
+### `none`의 허용 조건
+
+`none`은 기본값이 아니다. panel은 문서 끝 overlay host에 있으므로 trigger에서의 가상 커서 훑기가
+panel 내용에 닿지 않고, `aria-controls`를 따라가는 조작은 보조기술마다 달라 계약으로 삼을 수 없다.
+다음을 **모두** 만족할 때만 쓴다.
+
+- panel에 focusable 자손이 하나도 없다(순수 정보 표시).
+- trigger가 `aria-describedby`로 panel 내용을 직접 참조한다.
+- 그 예외를 사용처 문서에 근거와 함께 남긴다.
+
+### Return focus
+
+| reason         | 발생 경로                                         | focus 대상                              |
+| -------------- | ------------------------------------------------- | --------------------------------------- |
+| `escape`       | Escape 한 단계                                    | 이 단계의 trigger — submenu면 부모 item |
+| `select`       | item 활성화 + `closeOnSelect`                     | trigger                                 |
+| `trigger`      | 열린 trigger 재활성화, submenu의 `ArrowLeft`      | trigger — submenu면 부모 item           |
+| `outside`      | 바깥 pointer, Tab 이탈                            | **옮기지 않는다**                       |
+| `route`        | route 변경, trigger unmount, viewport 소유권 변경 | **옮기지 않는다** — route owner가 소유  |
+| `programmatic` | 소비자가 `open`을 직접 내림                       | trigger가 살아 있으면 trigger           |
+
+**submenu는 부모 item을 trigger로 넘긴다.** 넘기지 않아도 primitive가 부모 panel 안으로 되돌리므로
+포커스가 문서 밖으로 튀지는 않지만, 복귀 대상이 "부모 panel의 첫 항목"이 되어 사용자가 있던 자리와
+달라진다. 규범이 요구하는 것은 **연 자리로 돌아가는 것**이다.
+
+return focus의 **시점**은 exit 완료가 아니라 `closing` 진입이다. panel이 아직 DOM에 있는 동안 동기로
+옮기고 그 직후 subtree를 inert로 만든다. 순서를 뒤집으면 복원 대상이 사라진 뒤에 focus를 옮기게 되어
+body로 떨어진다. 따라서 exit 모션 동안 화면에는 패널이 보이지만 focus와 accessibility tree에서는 이미
+없다 — 의도한 상태이며 exit duration이 그 구간의 상한이다.
 
 ## Portal and layer rules
 
@@ -191,9 +296,13 @@ Panel이 보이는 것과 선택 가능한 것은 같은 완료 조건이다. �
 
 ### Action menu
 
-- Trigger: `aria-haspopup="menu"`, `aria-expanded`, 고유한 `aria-controls`.
+- Trigger: `aria-haspopup="menu"`, `aria-expanded`, 고유한 `aria-controls`. `aria-controls`는 panel이
+  마운트돼 있고 `closing`이 아닌 동안에만 부여한다 — 존재하지 않거나 inert인 노드를 가리키면 접근성
+  검사가 오류를 내고 "제어 대상으로 이동"이 아무 데도 가지 않는다.
 - Panel: `role="menu"`, 이름이 필요한 경우 `aria-labelledby`.
-- Item: 동작에 따라 `menuitem`, `menuitemcheckbox`, `menuitemradio`.
+- Item: 동작에 따라 `menuitem`, `menuitemcheckbox`, `menuitemradio`. `aria-checked`는 후자 둘에서만
+  유효하며, `menuitem`에 붙이면 접근성 검사가 허용되지 않은 속성으로 판정한다 — 시각 체크 표시와
+  접근성 상태가 갈린다.
 - roving `tabIndex`로 panel 안의 Tab stop은 하나만 둔다.
 
 ### Composite popover
@@ -222,6 +331,81 @@ Panel이 보이는 것과 선택 가능한 것은 같은 완료 조건이다. �
 | Reduced motion | transform 제거, 짧은 opacity 또는 즉시 전환            | motion preference          |
 | Layer          | `layer-popover`, 숫자 리터럴 금지                      | nested overlay stack       |
 
+## Implementation
+
+- Web source: `packages/react/src/menu/**`, `packages/react/src/popover/**`,
+  `packages/react/src/anchored/**`
+- CSS recipe: `packages/css/src/component/menu-popover.css`
+- Public import: `import { ActionMenu, CompositePopover, OverlayProvider } from "@klipse-design/react"`
+- Tests: `packages/react/test/menu-{keyboard,pointer,submenu}.browser.test.tsx` (실브라우저 35건,
+  두 motion context에서 각각)
+
+소비자는 앱 root에 `OverlayProvider`를 한 번 둔다. host와 scroll owner를 앱이 한 번만 해석하게 하는
+것이 계약이며, 컴포넌트가 host를 고르면 인스턴스마다 stacking과 inert 경계가 달라진다.
+
+`kind`는 prop이 아니라 컴포넌트다. `ActionMenuItem`을 `CompositePopover` 안에 두면 문맥이 없어
+던진다 — 프로필 패널에 `role="menu"`를 붙이는 것을 타입과 런타임에서 모두 막는다.
+
+### 계층 분담
+
+| 계약 | 소유 |
+| --- | --- |
+| Escape 단계별 닫힘, 바깥 판정, activation exactly-once, presence, focus 복원 시점, branch lineage | overlay primitive (DS-P3-005) |
+| roving `tabIndex`, 방향키·Home/End·PageUp/Down, typeahead, aria 배선, 열림 통지, submenu 진입·복귀 | 이 recipe |
+| 표면·item·group·separator의 시각 표현 | `menu-popover.css` |
+
+키보드 리스너는 panel DOM 노드에 **native로** 붙인다. React 이벤트는 DOM이 아니라 React 트리로
+전파되는데 `ActionMenuSubContent`는 부모 Content의 React 서브트리 안에 있으므로, React 핸들러를 쓰면
+submenu의 방향키가 부모 핸들러까지 실행해 focus가 부모로 튀고 그 focusout이 submenu를 닫는다.
+두 panel은 DOM에서 **형제**이므로 native 리스너에는 그 문제가 없다.
+
+`Enter`/`Space`에 keydown 핸들러를 붙이지 않는다. 브라우저가 이미 click을 합성하므로 더하면 두 번
+실행된다. `<a href>`만 예외인데, `<a>`의 Space는 click을 합성하지 않고 페이지를 스크롤하기 때문이다.
+
+## Known deviations
+
+- **`surface-overlay` 대신 `color-background-overlay`를 쓴다.** Specification 표가 대는 이름의 토큰이
+  소스에 없다. DS-P3-014가 이름을 정리하면 갱신한다.
+- **panel padding이 6px이 아니라 4px이다.** `space-overlay-inset`이 없어 `space-control-xs`로
+  대체했다. DS-P3-014가 토큰을 추가하면 변수 한 줄만 바꾼다.
+- **panel에 hairline border가 있다.** Specification 표에는 없지만 dark에서 `elevation-popover`
+  그림자만으로는 표면 경계가 서지 않는다.
+- **item에 `.kds-hit-target`을 쓰지 않는다.** 그 유틸의 44px `::after`는 항목 중앙에 겹쳐 놓이므로
+  간격 없이 쌓이는 행에서 인접 항목의 hit 영역을 2px씩 가로챈다. 행 자체를 44px로 만든다.
+- **`offset`과 `collisionPadding`을 인스턴스별로 바꿀 수 없다.** 값은 overlay 표면 CSS 한 블록이
+  소유하고 Provider가 1회 측정한다.
+- **Anchor를 Trigger와 분리할 수 없다.** Anatomy 2번이 허용한 분리는 아직 public 수단이 없다.
+- **한국어 typeahead가 동작하지 않는다.** 비편집 요소에서 IME가 켜져 있으면 keydown의 `key`가 완성
+  음절로 오지 않는다. 구현은 조합 중 오작동만 막고 매칭은 `compositionend`가 도착하는 환경에서만
+  시도한다. macOS·Windows 실기 측정이 `stable` 승격 전 조건이다.
+- **`ArrowRight`/`ArrowLeft`가 RTL에서 반전되지 않는다.**
+- **composite popover의 inset이 action menu보다 크다(8px vs 4px).** `.kds-hit-target`을 쓰는 컨트롤은
+  44px 타겟을 시각 박스 밖으로 확장하는데, 패널이 스크롤 컨테이너라 그 초과분이 유령 스크롤바가 된다.
+  action menu는 행 자체를 44px로 만들어 그 유틸을 쓰지 않으므로 4px을 유지한다 — 거기서 8px을 쓰면
+  안쪽 곡률이 item radius보다 작아져 모서리가 뚫린다. 두 값이 다른 것은 실수가 아니다.
+- **danger item의 톤이 일반 item과 거의 구분되지 않는다.** 워크샵에서 실측한 대비는 light
+  **1.21**, dark **1.14**다(danger 텍스트 : 일반 텍스트). `status-danger-*`는 foreground와
+  background가 **함께 쓰이도록 만들어진 쌍**이고 두 테마에서 서로 값이 뒤바뀐다 — light의
+  `danger-foreground`(짙은 적갈)가 dark에서는 `danger-background`다. 그래서 텍스트 색으로만 쓰면
+  light에서는 hue로 겨우 읽히고 dark에서는 사실상 사라진다. 해소에는 중립 표면 위에서 성립하는
+  danger foreground 토큰이 필요하며 `DS-P3-014`가 소유한다. 그때까지 파괴적 액션의 신호는 규범이
+  이미 요구하는 **명확한 동사 라벨**이 진다.
+- **바깥 클릭도 최상위 branch 하나만 닫는다.** submenu가 열려 있으면 두 번 눌러야 전체가 닫힌다.
+  외부 이벤트 정책 3을 그대로 따른 결과이며, 실사용에서 어색하다는 근거가 모이면 규범을 먼저 고친다.
+- **`route`로 닫으면 포커스가 body로 떨어질 수 있다.** 포커스를 옮기지 않는 것이 그 reason의 계약이고,
+  새 화면이 포커스를 잡는 것이 정상 경로다.
+
+## 승격 조건
+
+Web `done`과 `stable`에는 다음이 남아 있다.
+
+- visual regression fixture (hosted CI 확보 후, DS-D-0005 2단계)
+- 수동 keyboard·screen-reader review 기록
+- SSR render와 hydration 검증
+- `Shift+Tab` 역방향 이탈과 scroll·resize·zoom anchor 추종 검증
+- published Figma component와 parity report (DS-F-006-menu-popover)
+- 위 Known deviations 중 한국어 typeahead와 RTL의 해소
+
 ## Extraction baseline
 
 Klipse product에서 관측된 “프로필 팝오버는 열리지만 메뉴가 선택되지 않음”은 허용 variant가 아니라
@@ -229,14 +413,37 @@ Klipse product에서 관측된 “프로필 팝오버는 열리지만 메뉴가 
 새 구현은 특정 원인을 추측해 복사하지 않고 branch, hit-test, activation exactly-once 계약과 아래
 회귀 테스트로 문제를 차단한다.
 
+## Overlay behavior layer
+
+이 문서의 pointer·keyboard·branch·stacking 계약은 `packages/react/src/overlay/`의 내부 primitive가
+구현한다. Menu와 Popover는 그 위에 얹히는 recipe이며 **순서를 다시 쓰지 않는다.**
+
+primitive는 public 표면이 아니다 — 경계와 그 이유는
+[DS-D-0011](../governance/decisions/DS-D-0011-overlay-primitive-boundary.md)이 소유한다.
+
+| 계약 | 구현 | 회귀 테스트 |
+| --- | --- | --- |
+| 선택이 닫힘보다 먼저, 정확히 한 번 | `overlay/activation-guard.ts`, `overlay/dismiss-region.tsx` | `overlay-pointer.browser.test.tsx` |
+| 바깥 판정은 `composedPath()` + branch registry | `overlay/branch-registry.ts` | `overlay-pointer`, `overlay-store.node` |
+| Escape는 최상위 한 단계만 | `overlay/overlay-store.ts` | `overlay-keyboard.browser.test.tsx` |
+| 위치 확정 전 비가시·비 hit-test | `overlay/presence.ts` + `base.css` | `overlay-presence.browser.test.tsx` |
+| exit 완료와 unmount가 같은 source | `overlay/presence.ts`의 `readExitDuration` | `overlay-presence.browser.test.tsx` |
+| anchor 기준 배치와 `--kds-overlay-*` seam | `overlay/positioner.tsx`, `component/overlay.css` | `overlay-presence.browser.test.tsx` |
+
+non-modal에서 Tab으로 focus가 빠져나가 닫히는 경로의 reason은 **`outside`** 다. 새 reason을 만들지
+않은 이유는 focus 정책이 `outside`와 같기 때문이다 — 둘 다 포커스를 옮기지 않는다(DS-D-0011 결정 4).
+
 ## Pre-implementation blockers
 
-- 공유 positioning, dismiss layer, overlay branch primitive가 없다.
-- semantic layer token의 컴포넌트 소비와 nested portal 소유권 구현이 없다. Layer token 자체는 P2 local
-  RC에 있다.
-- action menu 방향키, Home/End, typeahead, roving focus test가 없다.
-- composite popover의 initial/return focus와 Tab 정책이 구현되지 않았다.
-- published Figma component와 Web parity evidence가 없다.
+- ~~공유 positioning, dismiss layer, overlay branch primitive가 없다.~~ **해소(DS-P3-005).** 위
+  Overlay behavior layer 참조.
+- ~~semantic layer token의 컴포넌트 소비와 nested portal 소유권 구현이 없다.~~ **해소(DS-P3-005).**
+  `.kds-layer-*` 유틸을 primitive가 붙이고, 자손 branch는 부모 layer를 물려받는다.
+- ~~action menu 방향키, Home/End, typeahead, roving focus test가 없다.~~ **해소(DS-P3-006).**
+- ~~composite popover의 initial/return focus와 Tab 정책이 구현되지 않았다.~~ **해소(DS-P3-006).**
+  위 §Focus가 variant별 매핑과 reason별 return focus를 소유한다.
+- ~~Menu·Popover의 public export가 없다.~~ **해소(DS-P3-006).**
+- published Figma component와 Web parity evidence가 없다(DS-F-006-menu-popover).
 
 ## Migration
 
@@ -269,11 +476,25 @@ Klipse product에서 관측된 “프로필 팝오버는 열리지만 메뉴가 
   대상에 focus를 유지한다.
 - 닫힌 panel의 자손이 Tab 순서와 accessibility tree에 없다.
 - 동일 화면에 두 인스턴스를 렌더해 id가 중복되지 않는다.
+- pointer로 연 action menu도 첫 enabled item에서 시작하고, 첫 항목이 `aria-disabled`여도 같다.
+- `ArrowUp`으로 열면 마지막 enabled item으로 간다.
+- enabled item이 0개인 menu는 panel root가 focus를 받는다.
+- submenu의 Escape와 `ArrowLeft`가 모두 부모 item으로 복귀한다.
+- `outside`와 `route`로 닫을 때 포커스가 이동하지 않고, 같은 fixture의 `escape`는 이동한다.
+- 소비자가 `open`을 직접 내리면 reason이 `programmatic`이고 trigger로 돌아간다.
+- `closing` 진입과 같은 tick에 trigger의 `aria-expanded`가 `false`가 되고 `aria-controls`가 사라진다.
+- submenu가 열린 채 부모를 닫으면 같은 tick에 submenu 항목이 accessibility tree에서 사라지고 클릭해도
+  콜백이 실행되지 않는다.
+- root `disabled`가 강제로 열린 panel의 item을 비활성화하지 않는다.
+- `Shift+Tab` 역방향 이탈도 정방향과 같은 원칙을 따른다.
 
 ### Layout and accessibility
 
 - scroll, resize, zoom, visual viewport 변화에도 Panel이 anchor를 따라가고 viewport를 벗어나지 않는다.
+  정적 1회 측정으로는 이 계약을 검증할 수 없다 — 변화를 만든 뒤 다시 측정해야 한다.
 - 320px, 200% 확대, KO/EN/JA 긴 라벨, light/dark, reduced-motion을 검증한다.
 - 접근성 검사에서 role 구조, accessible name, `aria-expanded/controls`, focus-visible 오류가 없다.
+  자동 검사가 `role="menu"`의 accessible name 누락은 잡지 못하므로 그 항목은 별도 단언으로 고정한다.
+- forced-colors에서 하이라이트된 danger item의 배경과 전경이 서로 다른 시스템 색이다.
 
 이 테스트와 Figma variant가 연결되고 알려진 편차가 닫히기 전에는 `stable`로 승격하지 않는다.

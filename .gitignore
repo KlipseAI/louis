@@ -6,3 +6,14 @@ coverage/
 .env
 .env.*
 !.env.example
+
+# vitest browser mode가 테스트 실패 시 자동 저장하는 스크린샷.
+# baseline이 아니라 실패 흔적이며, DS-D-0005는 "시각 회귀 baseline은 CI에서만 생성하고
+# 로컬 커밋을 금지한다"고 규정한다.
+__screenshots__/
+
+# vitest 4가 실패 테스트의 스크린샷을 붙이는 곳. 위와 같은 이유로 커밋하지 않는다.
+.vitest-attachments/
+
+# 에이전트 오케스트레이션 런타임 상태. 저장소 산출물이 아니다.
+.omc/

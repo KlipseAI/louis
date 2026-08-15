@@ -4,8 +4,11 @@
     "com.klipse-design": {
       "formatVersion": 1,
       "specification": "DTCG 2025.10",
-      "themes": ["light", "dark"],
-      "figmaCollection": "Klipse Design",
+      "themes": [
+        "light",
+        "dark"
+      ],
+      "figmaCollection": "Klipse",
       "contrastPairs": [
         {
           "foreground": "color-foreground-primary",
@@ -71,23 +74,37 @@
       "motionProperties": [
         {
           "motion": "motion-overlay-enter",
-          "properties": ["opacity", "transform"]
+          "properties": [
+            "opacity",
+            "transform"
+          ]
         },
         {
           "motion": "motion-overlay-exit",
-          "properties": ["opacity", "transform"]
+          "properties": [
+            "opacity",
+            "transform"
+          ]
         },
         {
           "motion": "motion-modal-enter",
-          "properties": ["opacity", "transform"]
+          "properties": [
+            "opacity",
+            "transform"
+          ]
         },
         {
           "motion": "motion-modal-exit",
-          "properties": ["opacity", "transform"]
+          "properties": [
+            "opacity",
+            "transform"
+          ]
         },
         {
           "motion": "motion-reduced",
-          "properties": ["opacity"]
+          "properties": [
+            "opacity"
+          ]
         }
       ],
       "responsiveProfiles": {
@@ -99,19 +116,31 @@
           "gap": "layout-project-grid-gap",
           "compatibilitySteps": [
             {
-              "minimumWidth": { "value": 0, "unit": "px" },
+              "minimumWidth": {
+                "value": 0,
+                "unit": "px"
+              },
               "preferredColumns": 2
             },
             {
-              "minimumWidth": { "value": 720, "unit": "px" },
+              "minimumWidth": {
+                "value": 720,
+                "unit": "px"
+              },
               "preferredColumns": 3
             },
             {
-              "minimumWidth": { "value": 1200, "unit": "px" },
+              "minimumWidth": {
+                "value": 1200,
+                "unit": "px"
+              },
               "preferredColumns": 4
             },
             {
-              "minimumWidth": { "value": 1800, "unit": "px" },
+              "minimumWidth": {
+                "value": 1800,
+                "unit": "px"
+              },
               "preferredColumns": 5
             }
           ]
@@ -126,7 +155,11 @@
         "0": {
           "$value": {
             "colorSpace": "srgb",
-            "components": [0.980392, 0.980392, 0.980392],
+            "components": [
+              0.980392,
+              0.980392,
+              0.980392
+            ],
             "hex": "#fafafa"
           },
           "$extensions": {
@@ -139,7 +172,11 @@
         "50": {
           "$value": {
             "colorSpace": "srgb",
-            "components": [0.972549, 0.972549, 0.976471],
+            "components": [
+              0.972549,
+              0.972549,
+              0.976471
+            ],
             "hex": "#f8f8f9"
           },
           "$extensions": {
@@ -152,7 +189,11 @@
         "100": {
           "$value": {
             "colorSpace": "srgb",
-            "components": [0.945098, 0.945098, 0.952941],
+            "components": [
+              0.945098,
+              0.945098,
+              0.952941
+            ],
             "hex": "#f1f1f3"
           },
           "$extensions": {
@@ -165,7 +206,11 @@
         "150": {
           "$value": {
             "colorSpace": "srgb",
-            "components": [0.917647, 0.921569, 0.933333],
+            "components": [
+              0.917647,
+              0.921569,
+              0.933333
+            ],
             "hex": "#eaebee"
           },
           "$extensions": {
@@ -178,7 +223,11 @@
         "200": {
           "$value": {
             "colorSpace": "srgb",
-            "components": [0.890196, 0.894118, 0.909804],
+            "components": [
+              0.890196,
+              0.894118,
+              0.909804
+            ],
             "hex": "#e3e4e8"
           },
           "$extensions": {
@@ -191,7 +240,11 @@
         "300": {
           "$value": {
             "colorSpace": "srgb",
-            "components": [0.835294, 0.843137, 0.866667],
+            "components": [
+              0.835294,
+              0.843137,
+              0.866667
+            ],
             "hex": "#d5d7dd"
           },
           "$extensions": {
@@ -204,7 +257,11 @@
         "400": {
           "$value": {
             "colorSpace": "srgb",
-            "components": [0.737255, 0.752941, 0.788235],
+            "components": [
+              0.737255,
+              0.752941,
+              0.788235
+            ],
             "hex": "#bcc0c9"
           },
           "$extensions": {
@@ -217,7 +274,11 @@
         "500": {
           "$value": {
             "colorSpace": "srgb",
-            "components": [0.603922, 0.627451, 0.670588],
+            "components": [
+              0.603922,
+              0.627451,
+              0.670588
+            ],
             "hex": "#9aa0ab"
           },
           "$extensions": {
@@ -230,7 +291,11 @@
         "600": {
           "$value": {
             "colorSpace": "srgb",
-            "components": [0.466667, 0.490196, 0.537255],
+            "components": [
+              0.466667,
+              0.490196,
+              0.537255
+            ],
             "hex": "#777d89"
           },
           "$extensions": {
@@ -243,7 +308,11 @@
         "700": {
           "$value": {
             "colorSpace": "srgb",
-            "components": [0.341176, 0.364706, 0.407843],
+            "components": [
+              0.341176,
+              0.364706,
+              0.407843
+            ],
             "hex": "#575d68"
           },
           "$extensions": {
@@ -256,7 +325,11 @@
         "800": {
           "$value": {
             "colorSpace": "srgb",
-            "components": [0.192157, 0.211765, 0.25098],
+            "components": [
+              0.192157,
+              0.211765,
+              0.25098
+            ],
             "hex": "#313640"
           },
           "$extensions": {
@@ -269,7 +342,11 @@
         "900": {
           "$value": {
             "colorSpace": "srgb",
-            "components": [0.090196, 0.105882, 0.133333],
+            "components": [
+              0.090196,
+              0.105882,
+              0.133333
+            ],
             "hex": "#171b22"
           },
           "$extensions": {
@@ -282,7 +359,11 @@
         "1000": {
           "$value": {
             "colorSpace": "srgb",
-            "components": [0, 0, 0],
+            "components": [
+              0,
+              0,
+              0
+            ],
             "hex": "#000000"
           },
           "$extensions": {
@@ -298,101 +379,171 @@
         "50": {
           "$value": {
             "colorSpace": "srgb",
-            "components": [0.941176, 0.968627, 1],
+            "components": [
+              0.941176,
+              0.968627,
+              1
+            ],
             "hex": "#f0f7ff"
           },
           "$extensions": {
-            "com.klipse-design": { "id": "color-blue-50", "tier": "primitive" }
+            "com.klipse-design": {
+              "id": "color-blue-50",
+              "tier": "primitive"
+            }
           }
         },
         "100": {
           "$value": {
             "colorSpace": "srgb",
-            "components": [0.839216, 0.921569, 1],
+            "components": [
+              0.839216,
+              0.921569,
+              1
+            ],
             "hex": "#d6ebff"
           },
           "$extensions": {
-            "com.klipse-design": { "id": "color-blue-100", "tier": "primitive" }
+            "com.klipse-design": {
+              "id": "color-blue-100",
+              "tier": "primitive"
+            }
           }
         },
         "200": {
           "$value": {
             "colorSpace": "srgb",
-            "components": [0.639216, 0.835294, 1],
+            "components": [
+              0.639216,
+              0.835294,
+              1
+            ],
             "hex": "#a3d5ff"
           },
           "$extensions": {
-            "com.klipse-design": { "id": "color-blue-200", "tier": "primitive" }
+            "com.klipse-design": {
+              "id": "color-blue-200",
+              "tier": "primitive"
+            }
           }
         },
         "300": {
           "$value": {
             "colorSpace": "srgb",
-            "components": [0.439216, 0.74902, 1],
+            "components": [
+              0.439216,
+              0.74902,
+              1
+            ],
             "hex": "#70bfff"
           },
           "$extensions": {
-            "com.klipse-design": { "id": "color-blue-300", "tier": "primitive" }
+            "com.klipse-design": {
+              "id": "color-blue-300",
+              "tier": "primitive"
+            }
           }
         },
         "400": {
           "$value": {
             "colorSpace": "srgb",
-            "components": [0.219608, 0.643137, 1],
+            "components": [
+              0.219608,
+              0.643137,
+              1
+            ],
             "hex": "#38a4ff"
           },
           "$extensions": {
-            "com.klipse-design": { "id": "color-blue-400", "tier": "primitive" }
+            "com.klipse-design": {
+              "id": "color-blue-400",
+              "tier": "primitive"
+            }
           }
         },
         "500": {
           "$value": {
             "colorSpace": "srgb",
-            "components": [0, 0.533333, 1],
+            "components": [
+              0,
+              0.533333,
+              1
+            ],
             "hex": "#0088ff"
           },
           "$extensions": {
-            "com.klipse-design": { "id": "color-blue-500", "tier": "primitive" }
+            "com.klipse-design": {
+              "id": "color-blue-500",
+              "tier": "primitive"
+            }
           }
         },
         "600": {
           "$value": {
             "colorSpace": "srgb",
-            "components": [0, 0.458824, 0.858824],
+            "components": [
+              0,
+              0.458824,
+              0.858824
+            ],
             "hex": "#0075db"
           },
           "$extensions": {
-            "com.klipse-design": { "id": "color-blue-600", "tier": "primitive" }
+            "com.klipse-design": {
+              "id": "color-blue-600",
+              "tier": "primitive"
+            }
           }
         },
         "700": {
           "$value": {
             "colorSpace": "srgb",
-            "components": [0, 0.372549, 0.701961],
+            "components": [
+              0,
+              0.372549,
+              0.701961
+            ],
             "hex": "#005fb3"
           },
           "$extensions": {
-            "com.klipse-design": { "id": "color-blue-700", "tier": "primitive" }
+            "com.klipse-design": {
+              "id": "color-blue-700",
+              "tier": "primitive"
+            }
           }
         },
         "800": {
           "$value": {
             "colorSpace": "srgb",
-            "components": [0, 0.286275, 0.541176],
+            "components": [
+              0,
+              0.286275,
+              0.541176
+            ],
             "hex": "#00498a"
           },
           "$extensions": {
-            "com.klipse-design": { "id": "color-blue-800", "tier": "primitive" }
+            "com.klipse-design": {
+              "id": "color-blue-800",
+              "tier": "primitive"
+            }
           }
         },
         "900": {
           "$value": {
             "colorSpace": "srgb",
-            "components": [0, 0.203922, 0.380392],
+            "components": [
+              0,
+              0.203922,
+              0.380392
+            ],
             "hex": "#003461"
           },
           "$extensions": {
-            "com.klipse-design": { "id": "color-blue-900", "tier": "primitive" }
+            "com.klipse-design": {
+              "id": "color-blue-900",
+              "tier": "primitive"
+            }
           }
         }
       },
@@ -401,51 +552,86 @@
         "100": {
           "$value": {
             "colorSpace": "srgb",
-            "components": [1, 0.898039, 0.909804],
+            "components": [
+              1,
+              0.898039,
+              0.909804
+            ],
             "hex": "#ffe5e8"
           },
           "$extensions": {
-            "com.klipse-design": { "id": "color-red-100", "tier": "primitive" }
+            "com.klipse-design": {
+              "id": "color-red-100",
+              "tier": "primitive"
+            }
           }
         },
         "500": {
           "$value": {
             "colorSpace": "srgb",
-            "components": [1, 0.294118, 0.34902],
+            "components": [
+              1,
+              0.294118,
+              0.34902
+            ],
             "hex": "#ff4b59"
           },
           "$extensions": {
-            "com.klipse-design": { "id": "color-red-500", "tier": "primitive" }
+            "com.klipse-design": {
+              "id": "color-red-500",
+              "tier": "primitive"
+            }
           }
         },
         "600": {
           "$value": {
             "colorSpace": "srgb",
-            "components": [0.886275, 0.211765, 0.270588],
+            "components": [
+              0.886275,
+              0.211765,
+              0.270588
+            ],
             "hex": "#e23645"
           },
           "$extensions": {
-            "com.klipse-design": { "id": "color-red-600", "tier": "primitive" }
+            "com.klipse-design": {
+              "id": "color-red-600",
+              "tier": "primitive"
+            }
           }
         },
         "700": {
           "$value": {
             "colorSpace": "srgb",
-            "components": [0.717647, 0.141176, 0.192157],
+            "components": [
+              0.717647,
+              0.141176,
+              0.192157
+            ],
             "hex": "#b72431"
           },
           "$extensions": {
-            "com.klipse-design": { "id": "color-red-700", "tier": "primitive" }
+            "com.klipse-design": {
+              "id": "color-red-700",
+              "tier": "primitive"
+            }
           }
         },
         "900": {
           "$value": {
             "colorSpace": "srgb",
-            "components": [0.329412, 0.066667, 0.098039],
+            "components": [
+              0.329412,
+              0.066667,
+              0.098039
+            ],
             "hex": "#541119"
           },
           "$extensions": {
-            "com.klipse-design": { "id": "color-red-900", "tier": "primitive" }
+            "com.klipse-design": {
+              "id": "color-red-900",
+              "tier": "primitive"
+            }
           }
         }
       },
@@ -454,7 +640,11 @@
         "100": {
           "$value": {
             "colorSpace": "srgb",
-            "components": [0.894118, 0.972549, 0.917647],
+            "components": [
+              0.894118,
+              0.972549,
+              0.917647
+            ],
             "hex": "#e4f8ea"
           },
           "$extensions": {
@@ -467,7 +657,11 @@
         "500": {
           "$value": {
             "colorSpace": "srgb",
-            "components": [0.156863, 0.784314, 0.25098],
+            "components": [
+              0.156863,
+              0.784314,
+              0.25098
+            ],
             "hex": "#28c840"
           },
           "$extensions": {
@@ -480,7 +674,11 @@
         "700": {
           "$value": {
             "colorSpace": "srgb",
-            "components": [0.090196, 0.478431, 0.172549],
+            "components": [
+              0.090196,
+              0.478431,
+              0.172549
+            ],
             "hex": "#177a2c"
           },
           "$extensions": {
@@ -493,7 +691,11 @@
         "900": {
           "$value": {
             "colorSpace": "srgb",
-            "components": [0.043137, 0.239216, 0.094118],
+            "components": [
+              0.043137,
+              0.239216,
+              0.094118
+            ],
             "hex": "#0b3d18"
           },
           "$extensions": {
@@ -509,7 +711,11 @@
         "100": {
           "$value": {
             "colorSpace": "srgb",
-            "components": [1, 0.960784, 0.839216],
+            "components": [
+              1,
+              0.960784,
+              0.839216
+            ],
             "hex": "#fff5d6"
           },
           "$extensions": {
@@ -522,7 +728,11 @@
         "500": {
           "$value": {
             "colorSpace": "srgb",
-            "components": [1, 0.741176, 0.180392],
+            "components": [
+              1,
+              0.741176,
+              0.180392
+            ],
             "hex": "#ffbd2e"
           },
           "$extensions": {
@@ -535,7 +745,11 @@
         "700": {
           "$value": {
             "colorSpace": "srgb",
-            "components": [0.721569, 0.478431, 0],
+            "components": [
+              0.721569,
+              0.478431,
+              0
+            ],
             "hex": "#b87a00"
           },
           "$extensions": {
@@ -548,7 +762,11 @@
         "900": {
           "$value": {
             "colorSpace": "srgb",
-            "components": [0.360784, 0.239216, 0],
+            "components": [
+              0.360784,
+              0.239216,
+              0
+            ],
             "hex": "#5c3d00"
           },
           "$extensions": {
@@ -564,7 +782,11 @@
         "56": {
           "$value": {
             "colorSpace": "srgb",
-            "components": [0, 0, 0],
+            "components": [
+              0,
+              0,
+              0
+            ],
             "alpha": 0.56,
             "hex": "#000000"
           },
@@ -578,7 +800,11 @@
         "72": {
           "$value": {
             "colorSpace": "srgb",
-            "components": [0, 0, 0],
+            "components": [
+              0,
+              0,
+              0
+            ],
             "alpha": 0.72,
             "hex": "#000000"
           },
@@ -594,186 +820,366 @@
     "spacing": {
       "$type": "dimension",
       "0": {
-        "$value": { "value": 0, "unit": "px" },
+        "$value": {
+          "value": 0,
+          "unit": "px"
+        },
         "$extensions": {
-          "com.klipse-design": { "id": "space-0", "tier": "primitive" }
+          "com.klipse-design": {
+            "id": "space-0",
+            "tier": "primitive"
+          }
         }
       },
       "2": {
-        "$value": { "value": 2, "unit": "px" },
+        "$value": {
+          "value": 2,
+          "unit": "px"
+        },
         "$extensions": {
-          "com.klipse-design": { "id": "space-2", "tier": "primitive" }
+          "com.klipse-design": {
+            "id": "space-2",
+            "tier": "primitive"
+          }
         }
       },
       "4": {
-        "$value": { "value": 4, "unit": "px" },
+        "$value": {
+          "value": 4,
+          "unit": "px"
+        },
         "$extensions": {
-          "com.klipse-design": { "id": "space-4", "tier": "primitive" }
+          "com.klipse-design": {
+            "id": "space-4",
+            "tier": "primitive"
+          }
         }
       },
       "6": {
-        "$value": { "value": 6, "unit": "px" },
+        "$value": {
+          "value": 6,
+          "unit": "px"
+        },
         "$extensions": {
-          "com.klipse-design": { "id": "space-6", "tier": "primitive" }
+          "com.klipse-design": {
+            "id": "space-6",
+            "tier": "primitive"
+          }
         }
       },
       "8": {
-        "$value": { "value": 8, "unit": "px" },
+        "$value": {
+          "value": 8,
+          "unit": "px"
+        },
         "$extensions": {
-          "com.klipse-design": { "id": "space-8", "tier": "primitive" }
+          "com.klipse-design": {
+            "id": "space-8",
+            "tier": "primitive"
+          }
         }
       },
       "10": {
-        "$value": { "value": 10, "unit": "px" },
+        "$value": {
+          "value": 10,
+          "unit": "px"
+        },
         "$extensions": {
-          "com.klipse-design": { "id": "space-10", "tier": "primitive" }
+          "com.klipse-design": {
+            "id": "space-10",
+            "tier": "primitive"
+          }
         }
       },
       "12": {
-        "$value": { "value": 12, "unit": "px" },
+        "$value": {
+          "value": 12,
+          "unit": "px"
+        },
         "$extensions": {
-          "com.klipse-design": { "id": "space-12", "tier": "primitive" }
+          "com.klipse-design": {
+            "id": "space-12",
+            "tier": "primitive"
+          }
         }
       },
       "14": {
-        "$value": { "value": 14, "unit": "px" },
+        "$value": {
+          "value": 14,
+          "unit": "px"
+        },
         "$extensions": {
-          "com.klipse-design": { "id": "space-14", "tier": "primitive" }
+          "com.klipse-design": {
+            "id": "space-14",
+            "tier": "primitive"
+          }
         }
       },
       "16": {
-        "$value": { "value": 16, "unit": "px" },
+        "$value": {
+          "value": 16,
+          "unit": "px"
+        },
         "$extensions": {
-          "com.klipse-design": { "id": "space-16", "tier": "primitive" }
+          "com.klipse-design": {
+            "id": "space-16",
+            "tier": "primitive"
+          }
         }
       },
       "18": {
-        "$value": { "value": 18, "unit": "px" },
+        "$value": {
+          "value": 18,
+          "unit": "px"
+        },
         "$extensions": {
-          "com.klipse-design": { "id": "space-18", "tier": "primitive" }
+          "com.klipse-design": {
+            "id": "space-18",
+            "tier": "primitive"
+          }
         }
       },
       "20": {
-        "$value": { "value": 20, "unit": "px" },
+        "$value": {
+          "value": 20,
+          "unit": "px"
+        },
         "$extensions": {
-          "com.klipse-design": { "id": "space-20", "tier": "primitive" }
+          "com.klipse-design": {
+            "id": "space-20",
+            "tier": "primitive"
+          }
         }
       },
       "24": {
-        "$value": { "value": 24, "unit": "px" },
+        "$value": {
+          "value": 24,
+          "unit": "px"
+        },
         "$extensions": {
-          "com.klipse-design": { "id": "space-24", "tier": "primitive" }
+          "com.klipse-design": {
+            "id": "space-24",
+            "tier": "primitive"
+          }
         }
       },
       "32": {
-        "$value": { "value": 32, "unit": "px" },
+        "$value": {
+          "value": 32,
+          "unit": "px"
+        },
         "$extensions": {
-          "com.klipse-design": { "id": "space-32", "tier": "primitive" }
+          "com.klipse-design": {
+            "id": "space-32",
+            "tier": "primitive"
+          }
         }
       },
       "40": {
-        "$value": { "value": 40, "unit": "px" },
+        "$value": {
+          "value": 40,
+          "unit": "px"
+        },
         "$extensions": {
-          "com.klipse-design": { "id": "space-40", "tier": "primitive" }
+          "com.klipse-design": {
+            "id": "space-40",
+            "tier": "primitive"
+          }
         }
       },
       "44": {
-        "$value": { "value": 44, "unit": "px" },
+        "$value": {
+          "value": 44,
+          "unit": "px"
+        },
         "$extensions": {
-          "com.klipse-design": { "id": "space-44", "tier": "primitive" }
+          "com.klipse-design": {
+            "id": "space-44",
+            "tier": "primitive"
+          }
         }
       },
       "48": {
-        "$value": { "value": 48, "unit": "px" },
+        "$value": {
+          "value": 48,
+          "unit": "px"
+        },
         "$extensions": {
-          "com.klipse-design": { "id": "space-48", "tier": "primitive" }
+          "com.klipse-design": {
+            "id": "space-48",
+            "tier": "primitive"
+          }
         }
       },
       "64": {
-        "$value": { "value": 64, "unit": "px" },
+        "$value": {
+          "value": 64,
+          "unit": "px"
+        },
         "$extensions": {
-          "com.klipse-design": { "id": "space-64", "tier": "primitive" }
+          "com.klipse-design": {
+            "id": "space-64",
+            "tier": "primitive"
+          }
         }
       },
       "120": {
-        "$value": { "value": 120, "unit": "px" },
+        "$value": {
+          "value": 120,
+          "unit": "px"
+        },
         "$extensions": {
-          "com.klipse-design": { "id": "space-120", "tier": "primitive" }
+          "com.klipse-design": {
+            "id": "space-120",
+            "tier": "primitive"
+          }
         }
       },
       "240": {
-        "$value": { "value": 240, "unit": "px" },
+        "$value": {
+          "value": 240,
+          "unit": "px"
+        },
         "$extensions": {
-          "com.klipse-design": { "id": "space-240", "tier": "primitive" }
+          "com.klipse-design": {
+            "id": "space-240",
+            "tier": "primitive"
+          }
         }
       }
     },
     "radius": {
       "$type": "dimension",
       "0": {
-        "$value": { "value": 0, "unit": "px" },
+        "$value": {
+          "value": 0,
+          "unit": "px"
+        },
         "$extensions": {
-          "com.klipse-design": { "id": "radius-0", "tier": "primitive" }
+          "com.klipse-design": {
+            "id": "radius-0",
+            "tier": "primitive"
+          }
         }
       },
       "2": {
-        "$value": { "value": 2, "unit": "px" },
+        "$value": {
+          "value": 2,
+          "unit": "px"
+        },
         "$extensions": {
-          "com.klipse-design": { "id": "radius-2", "tier": "primitive" }
+          "com.klipse-design": {
+            "id": "radius-2",
+            "tier": "primitive"
+          }
         }
       },
       "4": {
-        "$value": { "value": 4, "unit": "px" },
+        "$value": {
+          "value": 4,
+          "unit": "px"
+        },
         "$extensions": {
-          "com.klipse-design": { "id": "radius-4", "tier": "primitive" }
+          "com.klipse-design": {
+            "id": "radius-4",
+            "tier": "primitive"
+          }
         }
       },
       "6": {
-        "$value": { "value": 6, "unit": "px" },
+        "$value": {
+          "value": 6,
+          "unit": "px"
+        },
         "$extensions": {
-          "com.klipse-design": { "id": "radius-6", "tier": "primitive" }
+          "com.klipse-design": {
+            "id": "radius-6",
+            "tier": "primitive"
+          }
         }
       },
       "8": {
-        "$value": { "value": 8, "unit": "px" },
+        "$value": {
+          "value": 8,
+          "unit": "px"
+        },
         "$extensions": {
-          "com.klipse-design": { "id": "radius-8", "tier": "primitive" }
+          "com.klipse-design": {
+            "id": "radius-8",
+            "tier": "primitive"
+          }
         }
       },
       "10": {
-        "$value": { "value": 10, "unit": "px" },
+        "$value": {
+          "value": 10,
+          "unit": "px"
+        },
         "$extensions": {
-          "com.klipse-design": { "id": "radius-10", "tier": "primitive" }
+          "com.klipse-design": {
+            "id": "radius-10",
+            "tier": "primitive"
+          }
         }
       },
       "12": {
-        "$value": { "value": 12, "unit": "px" },
+        "$value": {
+          "value": 12,
+          "unit": "px"
+        },
         "$extensions": {
-          "com.klipse-design": { "id": "radius-12", "tier": "primitive" }
+          "com.klipse-design": {
+            "id": "radius-12",
+            "tier": "primitive"
+          }
         }
       },
       "16": {
-        "$value": { "value": 16, "unit": "px" },
+        "$value": {
+          "value": 16,
+          "unit": "px"
+        },
         "$extensions": {
-          "com.klipse-design": { "id": "radius-16", "tier": "primitive" }
+          "com.klipse-design": {
+            "id": "radius-16",
+            "tier": "primitive"
+          }
         }
       },
       "20": {
-        "$value": { "value": 20, "unit": "px" },
+        "$value": {
+          "value": 20,
+          "unit": "px"
+        },
         "$extensions": {
-          "com.klipse-design": { "id": "radius-20", "tier": "primitive" }
+          "com.klipse-design": {
+            "id": "radius-20",
+            "tier": "primitive"
+          }
         }
       },
       "24": {
-        "$value": { "value": 24, "unit": "px" },
+        "$value": {
+          "value": 24,
+          "unit": "px"
+        },
         "$extensions": {
-          "com.klipse-design": { "id": "radius-24", "tier": "primitive" }
+          "com.klipse-design": {
+            "id": "radius-24",
+            "tier": "primitive"
+          }
         }
       },
       "full": {
-        "$value": { "value": 999, "unit": "px" },
+        "$value": {
+          "value": 999,
+          "unit": "px"
+        },
         "$extensions": {
-          "com.klipse-design": { "id": "radius-full", "tier": "primitive" }
+          "com.klipse-design": {
+            "id": "radius-full",
+            "tier": "primitive"
+          }
         }
       }
     },
@@ -790,7 +1196,10 @@
           "sans-serif"
         ],
         "$extensions": {
-          "com.klipse-design": { "id": "font-family-sans", "tier": "primitive" }
+          "com.klipse-design": {
+            "id": "font-family-sans",
+            "tier": "primitive"
+          }
         }
       },
       "mono": {
@@ -801,7 +1210,10 @@
           "monospace"
         ],
         "$extensions": {
-          "com.klipse-design": { "id": "font-family-mono", "tier": "primitive" }
+          "com.klipse-design": {
+            "id": "font-family-mono",
+            "tier": "primitive"
+          }
         }
       }
     },
@@ -838,7 +1250,10 @@
     "font-size": {
       "$type": "dimension",
       "caption": {
-        "$value": { "value": 12, "unit": "px" },
+        "$value": {
+          "value": 12,
+          "unit": "px"
+        },
         "$extensions": {
           "com.klipse-design": {
             "id": "font-size-caption",
@@ -847,7 +1262,10 @@
         }
       },
       "body-sm": {
-        "$value": { "value": 14, "unit": "px" },
+        "$value": {
+          "value": 14,
+          "unit": "px"
+        },
         "$extensions": {
           "com.klipse-design": {
             "id": "font-size-body-sm",
@@ -856,7 +1274,10 @@
         }
       },
       "body-md": {
-        "$value": { "value": 16, "unit": "px" },
+        "$value": {
+          "value": 16,
+          "unit": "px"
+        },
         "$extensions": {
           "com.klipse-design": {
             "id": "font-size-body-md",
@@ -865,7 +1286,10 @@
         }
       },
       "body-lg": {
-        "$value": { "value": 20, "unit": "px" },
+        "$value": {
+          "value": 20,
+          "unit": "px"
+        },
         "$extensions": {
           "com.klipse-design": {
             "id": "font-size-body-lg",
@@ -874,7 +1298,10 @@
         }
       },
       "heading-sm": {
-        "$value": { "value": 28, "unit": "px" },
+        "$value": {
+          "value": 28,
+          "unit": "px"
+        },
         "$extensions": {
           "com.klipse-design": {
             "id": "font-size-heading-sm",
@@ -883,7 +1310,10 @@
         }
       },
       "heading-md": {
-        "$value": { "value": 36, "unit": "px" },
+        "$value": {
+          "value": 36,
+          "unit": "px"
+        },
         "$extensions": {
           "com.klipse-design": {
             "id": "font-size-heading-md",
@@ -892,7 +1322,10 @@
         }
       },
       "heading-lg": {
-        "$value": { "value": 48, "unit": "px" },
+        "$value": {
+          "value": 48,
+          "unit": "px"
+        },
         "$extensions": {
           "com.klipse-design": {
             "id": "font-size-heading-lg",
@@ -924,13 +1357,16 @@
       "body": {
         "$value": 1.5,
         "$extensions": {
-          "com.klipse-design": { "id": "line-height-body", "tier": "primitive" }
+          "com.klipse-design": {
+            "id": "line-height-body",
+            "tier": "primitive"
+          }
         }
       }
     },
     "typography": {
       "$type": "typography",
-      "caption": {
+      "caption-regular": {
         "$value": {
           "fontFamily": [
             "Pretendard Variable",
@@ -941,19 +1377,25 @@
             "system-ui",
             "sans-serif"
           ],
-          "fontSize": { "value": 12, "unit": "px" },
+          "fontSize": {
+            "value": 12,
+            "unit": "px"
+          },
           "fontWeight": 400,
-          "letterSpacing": { "value": -0.12, "unit": "px" },
+          "letterSpacing": {
+            "value": -0.12,
+            "unit": "px"
+          },
           "lineHeight": 1.5
         },
         "$extensions": {
           "com.klipse-design": {
-            "id": "type-style-caption",
+            "id": "type-style-caption-regular",
             "tier": "primitive"
           }
         }
       },
-      "body-sm": {
+      "caption-medium": {
         "$value": {
           "fontFamily": [
             "Pretendard Variable",
@@ -964,65 +1406,25 @@
             "system-ui",
             "sans-serif"
           ],
-          "fontSize": { "value": 14, "unit": "px" },
-          "fontWeight": 400,
-          "letterSpacing": { "value": -0.14, "unit": "px" },
-          "lineHeight": 1.5
-        },
-        "$extensions": {
-          "com.klipse-design": {
-            "id": "type-style-body-sm",
-            "tier": "primitive"
-          }
-        }
-      },
-      "body-md": {
-        "$value": {
-          "fontFamily": [
-            "Pretendard Variable",
-            "Pretendard",
-            "Inter",
-            "Noto Sans KR",
-            "Noto Sans JP",
-            "system-ui",
-            "sans-serif"
-          ],
-          "fontSize": { "value": 16, "unit": "px" },
-          "fontWeight": 400,
-          "letterSpacing": { "value": -0.16, "unit": "px" },
-          "lineHeight": 1.5
-        },
-        "$extensions": {
-          "com.klipse-design": {
-            "id": "type-style-body-md",
-            "tier": "primitive"
-          }
-        }
-      },
-      "label-md": {
-        "$value": {
-          "fontFamily": [
-            "Pretendard Variable",
-            "Pretendard",
-            "Inter",
-            "Noto Sans KR",
-            "Noto Sans JP",
-            "system-ui",
-            "sans-serif"
-          ],
-          "fontSize": { "value": 14, "unit": "px" },
+          "fontSize": {
+            "value": 12,
+            "unit": "px"
+          },
           "fontWeight": 500,
-          "letterSpacing": { "value": -0.14, "unit": "px" },
+          "letterSpacing": {
+            "value": -0.12,
+            "unit": "px"
+          },
           "lineHeight": 1.5
         },
         "$extensions": {
           "com.klipse-design": {
-            "id": "type-style-label-md",
+            "id": "type-style-caption-medium",
             "tier": "primitive"
           }
         }
       },
-      "title-sm": {
+      "caption-semibold": {
         "$value": {
           "fontFamily": [
             "Pretendard Variable",
@@ -1033,19 +1435,25 @@
             "system-ui",
             "sans-serif"
           ],
-          "fontSize": { "value": 28, "unit": "px" },
+          "fontSize": {
+            "value": 12,
+            "unit": "px"
+          },
           "fontWeight": 600,
-          "letterSpacing": { "value": -0.56, "unit": "px" },
-          "lineHeight": 1.35
+          "letterSpacing": {
+            "value": -0.12,
+            "unit": "px"
+          },
+          "lineHeight": 1.5
         },
         "$extensions": {
           "com.klipse-design": {
-            "id": "type-style-title-sm",
+            "id": "type-style-caption-semibold",
             "tier": "primitive"
           }
         }
       },
-      "title-md": {
+      "body-sm-regular": {
         "$value": {
           "fontFamily": [
             "Pretendard Variable",
@@ -1056,14 +1464,339 @@
             "system-ui",
             "sans-serif"
           ],
-          "fontSize": { "value": 36, "unit": "px" },
+          "fontSize": {
+            "value": 14,
+            "unit": "px"
+          },
+          "fontWeight": 400,
+          "letterSpacing": {
+            "value": -0.14,
+            "unit": "px"
+          },
+          "lineHeight": 1.5
+        },
+        "$extensions": {
+          "com.klipse-design": {
+            "id": "type-style-body-sm-regular",
+            "tier": "primitive"
+          }
+        }
+      },
+      "body-sm-medium": {
+        "$value": {
+          "fontFamily": [
+            "Pretendard Variable",
+            "Pretendard",
+            "Inter",
+            "Noto Sans KR",
+            "Noto Sans JP",
+            "system-ui",
+            "sans-serif"
+          ],
+          "fontSize": {
+            "value": 14,
+            "unit": "px"
+          },
+          "fontWeight": 500,
+          "letterSpacing": {
+            "value": -0.14,
+            "unit": "px"
+          },
+          "lineHeight": 1.5
+        },
+        "$extensions": {
+          "com.klipse-design": {
+            "id": "type-style-body-sm-medium",
+            "tier": "primitive"
+          }
+        }
+      },
+      "body-sm-semibold": {
+        "$value": {
+          "fontFamily": [
+            "Pretendard Variable",
+            "Pretendard",
+            "Inter",
+            "Noto Sans KR",
+            "Noto Sans JP",
+            "system-ui",
+            "sans-serif"
+          ],
+          "fontSize": {
+            "value": 14,
+            "unit": "px"
+          },
           "fontWeight": 600,
-          "letterSpacing": { "value": -0.72, "unit": "px" },
+          "letterSpacing": {
+            "value": -0.14,
+            "unit": "px"
+          },
+          "lineHeight": 1.5
+        },
+        "$extensions": {
+          "com.klipse-design": {
+            "id": "type-style-body-sm-semibold",
+            "tier": "primitive"
+          }
+        }
+      },
+      "body-md-regular": {
+        "$value": {
+          "fontFamily": [
+            "Pretendard Variable",
+            "Pretendard",
+            "Inter",
+            "Noto Sans KR",
+            "Noto Sans JP",
+            "system-ui",
+            "sans-serif"
+          ],
+          "fontSize": {
+            "value": 16,
+            "unit": "px"
+          },
+          "fontWeight": 400,
+          "letterSpacing": {
+            "value": -0.16,
+            "unit": "px"
+          },
+          "lineHeight": 1.5
+        },
+        "$extensions": {
+          "com.klipse-design": {
+            "id": "type-style-body-md-regular",
+            "tier": "primitive"
+          }
+        }
+      },
+      "body-md-medium": {
+        "$value": {
+          "fontFamily": [
+            "Pretendard Variable",
+            "Pretendard",
+            "Inter",
+            "Noto Sans KR",
+            "Noto Sans JP",
+            "system-ui",
+            "sans-serif"
+          ],
+          "fontSize": {
+            "value": 16,
+            "unit": "px"
+          },
+          "fontWeight": 500,
+          "letterSpacing": {
+            "value": -0.16,
+            "unit": "px"
+          },
+          "lineHeight": 1.5
+        },
+        "$extensions": {
+          "com.klipse-design": {
+            "id": "type-style-body-md-medium",
+            "tier": "primitive"
+          }
+        }
+      },
+      "body-md-semibold": {
+        "$value": {
+          "fontFamily": [
+            "Pretendard Variable",
+            "Pretendard",
+            "Inter",
+            "Noto Sans KR",
+            "Noto Sans JP",
+            "system-ui",
+            "sans-serif"
+          ],
+          "fontSize": {
+            "value": 16,
+            "unit": "px"
+          },
+          "fontWeight": 600,
+          "letterSpacing": {
+            "value": -0.16,
+            "unit": "px"
+          },
+          "lineHeight": 1.5
+        },
+        "$extensions": {
+          "com.klipse-design": {
+            "id": "type-style-body-md-semibold",
+            "tier": "primitive"
+          }
+        }
+      },
+      "body-lg-regular": {
+        "$value": {
+          "fontFamily": [
+            "Pretendard Variable",
+            "Pretendard",
+            "Inter",
+            "Noto Sans KR",
+            "Noto Sans JP",
+            "system-ui",
+            "sans-serif"
+          ],
+          "fontSize": {
+            "value": 20,
+            "unit": "px"
+          },
+          "fontWeight": 400,
+          "letterSpacing": {
+            "value": -0.2,
+            "unit": "px"
+          },
+          "lineHeight": 1.5
+        },
+        "$extensions": {
+          "com.klipse-design": {
+            "id": "type-style-body-lg-regular",
+            "tier": "primitive"
+          }
+        }
+      },
+      "body-lg-medium": {
+        "$value": {
+          "fontFamily": [
+            "Pretendard Variable",
+            "Pretendard",
+            "Inter",
+            "Noto Sans KR",
+            "Noto Sans JP",
+            "system-ui",
+            "sans-serif"
+          ],
+          "fontSize": {
+            "value": 20,
+            "unit": "px"
+          },
+          "fontWeight": 500,
+          "letterSpacing": {
+            "value": -0.2,
+            "unit": "px"
+          },
+          "lineHeight": 1.5
+        },
+        "$extensions": {
+          "com.klipse-design": {
+            "id": "type-style-body-lg-medium",
+            "tier": "primitive"
+          }
+        }
+      },
+      "body-lg-semibold": {
+        "$value": {
+          "fontFamily": [
+            "Pretendard Variable",
+            "Pretendard",
+            "Inter",
+            "Noto Sans KR",
+            "Noto Sans JP",
+            "system-ui",
+            "sans-serif"
+          ],
+          "fontSize": {
+            "value": 20,
+            "unit": "px"
+          },
+          "fontWeight": 600,
+          "letterSpacing": {
+            "value": -0.2,
+            "unit": "px"
+          },
+          "lineHeight": 1.5
+        },
+        "$extensions": {
+          "com.klipse-design": {
+            "id": "type-style-body-lg-semibold",
+            "tier": "primitive"
+          }
+        }
+      },
+      "heading-sm-medium": {
+        "$value": {
+          "fontFamily": [
+            "Pretendard Variable",
+            "Pretendard",
+            "Inter",
+            "Noto Sans KR",
+            "Noto Sans JP",
+            "system-ui",
+            "sans-serif"
+          ],
+          "fontSize": {
+            "value": 28,
+            "unit": "px"
+          },
+          "fontWeight": 500,
+          "letterSpacing": {
+            "value": -0.56,
+            "unit": "px"
+          },
           "lineHeight": 1.35
         },
         "$extensions": {
           "com.klipse-design": {
-            "id": "type-style-title-md",
+            "id": "type-style-heading-sm-medium",
+            "tier": "primitive"
+          }
+        }
+      },
+      "heading-md-medium": {
+        "$value": {
+          "fontFamily": [
+            "Pretendard Variable",
+            "Pretendard",
+            "Inter",
+            "Noto Sans KR",
+            "Noto Sans JP",
+            "system-ui",
+            "sans-serif"
+          ],
+          "fontSize": {
+            "value": 36,
+            "unit": "px"
+          },
+          "fontWeight": 500,
+          "letterSpacing": {
+            "value": -0.72,
+            "unit": "px"
+          },
+          "lineHeight": 1.35
+        },
+        "$extensions": {
+          "com.klipse-design": {
+            "id": "type-style-heading-md-medium",
+            "tier": "primitive"
+          }
+        }
+      },
+      "heading-lg-medium": {
+        "$value": {
+          "fontFamily": [
+            "Pretendard Variable",
+            "Pretendard",
+            "Inter",
+            "Noto Sans KR",
+            "Noto Sans JP",
+            "system-ui",
+            "sans-serif"
+          ],
+          "fontSize": {
+            "value": 48,
+            "unit": "px"
+          },
+          "fontWeight": 500,
+          "letterSpacing": {
+            "value": -0.96,
+            "unit": "px"
+          },
+          "lineHeight": 1.35
+        },
+        "$extensions": {
+          "com.klipse-design": {
+            "id": "type-style-heading-lg-medium",
             "tier": "primitive"
           }
         }
@@ -1075,65 +1808,138 @@
         "$value": {
           "color": {
             "colorSpace": "srgb",
-            "components": [0, 0, 0],
+            "components": [
+              0,
+              0,
+              0
+            ],
             "alpha": 0.06,
             "hex": "#000000"
           },
-          "offsetX": { "value": 0, "unit": "px" },
-          "offsetY": { "value": 2, "unit": "px" },
-          "blur": { "value": 8, "unit": "px" },
-          "spread": { "value": 0, "unit": "px" }
+          "offsetX": {
+            "value": 0,
+            "unit": "px"
+          },
+          "offsetY": {
+            "value": 2,
+            "unit": "px"
+          },
+          "blur": {
+            "value": 8,
+            "unit": "px"
+          },
+          "spread": {
+            "value": 0,
+            "unit": "px"
+          }
         },
         "$extensions": {
-          "com.klipse-design": { "id": "shadow-surface", "tier": "primitive" }
+          "com.klipse-design": {
+            "id": "shadow-surface",
+            "tier": "primitive"
+          }
         }
       },
       "popover": {
         "$value": {
           "color": {
             "colorSpace": "srgb",
-            "components": [0, 0, 0],
+            "components": [
+              0,
+              0,
+              0
+            ],
             "alpha": 0.14,
             "hex": "#000000"
           },
-          "offsetX": { "value": 0, "unit": "px" },
-          "offsetY": { "value": 8, "unit": "px" },
-          "blur": { "value": 24, "unit": "px" },
-          "spread": { "value": -4, "unit": "px" }
+          "offsetX": {
+            "value": 0,
+            "unit": "px"
+          },
+          "offsetY": {
+            "value": 8,
+            "unit": "px"
+          },
+          "blur": {
+            "value": 24,
+            "unit": "px"
+          },
+          "spread": {
+            "value": -4,
+            "unit": "px"
+          }
         },
         "$extensions": {
-          "com.klipse-design": { "id": "shadow-popover", "tier": "primitive" }
+          "com.klipse-design": {
+            "id": "shadow-popover",
+            "tier": "primitive"
+          }
         }
       },
       "modal": {
         "$value": {
           "color": {
             "colorSpace": "srgb",
-            "components": [0, 0, 0],
+            "components": [
+              0,
+              0,
+              0
+            ],
             "alpha": 0.22,
             "hex": "#000000"
           },
-          "offsetX": { "value": 0, "unit": "px" },
-          "offsetY": { "value": 16, "unit": "px" },
-          "blur": { "value": 48, "unit": "px" },
-          "spread": { "value": -8, "unit": "px" }
+          "offsetX": {
+            "value": 0,
+            "unit": "px"
+          },
+          "offsetY": {
+            "value": 16,
+            "unit": "px"
+          },
+          "blur": {
+            "value": 48,
+            "unit": "px"
+          },
+          "spread": {
+            "value": -8,
+            "unit": "px"
+          }
         },
         "$extensions": {
-          "com.klipse-design": { "id": "shadow-modal", "tier": "primitive" }
+          "com.klipse-design": {
+            "id": "shadow-modal",
+            "tier": "primitive"
+          }
         }
       },
       "focus-ring": {
         "$value": {
           "color": {
             "colorSpace": "srgb",
-            "components": [0, 0.533333, 1],
+            "components": [
+              0,
+              0.533333,
+              1
+            ],
             "alpha": 0.42,
             "hex": "#0088ff"
           },
-          "offsetX": { "value": 0, "unit": "px" },
-          "offsetY": { "value": 0, "unit": "px" },
-          "blur": { "value": 0, "unit": "px" },
-          "spread": { "value": 3, "unit": "px" }
+          "offsetX": {
+            "value": 0,
+            "unit": "px"
+          },
+          "offsetY": {
+            "value": 0,
+            "unit": "px"
+          },
+          "blur": {
+            "value": 0,
+            "unit": "px"
+          },
+          "spread": {
+            "value": 3,
+            "unit": "px"
+          }
         },
         "$extensions": {
           "com.klipse-design": {
@@ -1175,7 +1981,10 @@
       "modal": {
         "$value": 300,
         "$extensions": {
-          "com.klipse-design": { "id": "layer-base-modal", "tier": "primitive" }
+          "com.klipse-design": {
+            "id": "layer-base-modal",
+            "tier": "primitive"
+          }
         }
       },
       "critical": {
@@ -1191,48 +2000,96 @@
     "duration": {
       "$type": "duration",
       "instant": {
-        "$value": { "value": 0, "unit": "ms" },
+        "$value": {
+          "value": 0,
+          "unit": "ms"
+        },
         "$extensions": {
-          "com.klipse-design": { "id": "duration-instant", "tier": "primitive" }
+          "com.klipse-design": {
+            "id": "duration-instant",
+            "tier": "primitive"
+          }
         }
       },
       "fast": {
-        "$value": { "value": 120, "unit": "ms" },
+        "$value": {
+          "value": 120,
+          "unit": "ms"
+        },
         "$extensions": {
-          "com.klipse-design": { "id": "duration-fast", "tier": "primitive" }
+          "com.klipse-design": {
+            "id": "duration-fast",
+            "tier": "primitive"
+          }
         }
       },
       "normal": {
-        "$value": { "value": 200, "unit": "ms" },
+        "$value": {
+          "value": 200,
+          "unit": "ms"
+        },
         "$extensions": {
-          "com.klipse-design": { "id": "duration-normal", "tier": "primitive" }
+          "com.klipse-design": {
+            "id": "duration-normal",
+            "tier": "primitive"
+          }
         }
       },
       "slow": {
-        "$value": { "value": 320, "unit": "ms" },
+        "$value": {
+          "value": 320,
+          "unit": "ms"
+        },
         "$extensions": {
-          "com.klipse-design": { "id": "duration-slow", "tier": "primitive" }
+          "com.klipse-design": {
+            "id": "duration-slow",
+            "tier": "primitive"
+          }
         }
       }
     },
     "easing": {
       "$type": "cubicBezier",
       "standard": {
-        "$value": [0.2, 0, 0, 1],
+        "$value": [
+          0.2,
+          0,
+          0,
+          1
+        ],
         "$extensions": {
-          "com.klipse-design": { "id": "easing-standard", "tier": "primitive" }
+          "com.klipse-design": {
+            "id": "easing-standard",
+            "tier": "primitive"
+          }
         }
       },
       "enter": {
-        "$value": [0.32, 0.72, 0, 1],
+        "$value": [
+          0.32,
+          0.72,
+          0,
+          1
+        ],
         "$extensions": {
-          "com.klipse-design": { "id": "easing-enter", "tier": "primitive" }
+          "com.klipse-design": {
+            "id": "easing-enter",
+            "tier": "primitive"
+          }
         }
       },
       "exit": {
-        "$value": [0.4, 0, 1, 1],
+        "$value": [
+          0.4,
+          0,
+          1,
+          1
+        ],
         "$extensions": {
-          "com.klipse-design": { "id": "easing-exit", "tier": "primitive" }
+          "com.klipse-design": {
+            "id": "easing-exit",
+            "tier": "primitive"
+          }
         }
       }
     },
@@ -1240,9 +2097,20 @@
       "$type": "transition",
       "overlay-enter": {
         "$value": {
-          "duration": { "value": 200, "unit": "ms" },
-          "delay": { "value": 0, "unit": "ms" },
-          "timingFunction": [0.32, 0.72, 0, 1]
+          "duration": {
+            "value": 200,
+            "unit": "ms"
+          },
+          "delay": {
+            "value": 0,
+            "unit": "ms"
+          },
+          "timingFunction": [
+            0.32,
+            0.72,
+            0,
+            1
+          ]
         },
         "$extensions": {
           "com.klipse-design": {
@@ -1253,9 +2121,20 @@
       },
       "overlay-exit": {
         "$value": {
-          "duration": { "value": 120, "unit": "ms" },
-          "delay": { "value": 0, "unit": "ms" },
-          "timingFunction": [0.4, 0, 1, 1]
+          "duration": {
+            "value": 120,
+            "unit": "ms"
+          },
+          "delay": {
+            "value": 0,
+            "unit": "ms"
+          },
+          "timingFunction": [
+            0.4,
+            0,
+            1,
+            1
+          ]
         },
         "$extensions": {
           "com.klipse-design": {
@@ -1266,9 +2145,20 @@
       },
       "modal-enter": {
         "$value": {
-          "duration": { "value": 320, "unit": "ms" },
-          "delay": { "value": 0, "unit": "ms" },
-          "timingFunction": [0.32, 0.72, 0, 1]
+          "duration": {
+            "value": 320,
+            "unit": "ms"
+          },
+          "delay": {
+            "value": 0,
+            "unit": "ms"
+          },
+          "timingFunction": [
+            0.32,
+            0.72,
+            0,
+            1
+          ]
         },
         "$extensions": {
           "com.klipse-design": {
@@ -1279,9 +2169,20 @@
       },
       "modal-exit": {
         "$value": {
-          "duration": { "value": 200, "unit": "ms" },
-          "delay": { "value": 0, "unit": "ms" },
-          "timingFunction": [0.4, 0, 1, 1]
+          "duration": {
+            "value": 200,
+            "unit": "ms"
+          },
+          "delay": {
+            "value": 0,
+            "unit": "ms"
+          },
+          "timingFunction": [
+            0.4,
+            0,
+            1,
+            1
+          ]
         },
         "$extensions": {
           "com.klipse-design": {
@@ -1292,9 +2193,20 @@
       },
       "reduced": {
         "$value": {
-          "duration": { "value": 0, "unit": "ms" },
-          "delay": { "value": 0, "unit": "ms" },
-          "timingFunction": [0.2, 0, 0, 1]
+          "duration": {
+            "value": 0,
+            "unit": "ms"
+          },
+          "delay": {
+            "value": 0,
+            "unit": "ms"
+          },
+          "timingFunction": [
+            0.2,
+            0,
+            0,
+            1
+          ]
         },
         "$extensions": {
           "com.klipse-design": {
@@ -1425,61 +2337,151 @@
       },
       "typography": {
         "$type": "typography",
-        "caption": {
-          "$value": "{primitive.typography.caption}",
+        "caption-regular": {
+          "$value": "{primitive.typography.caption-regular}",
           "$extensions": {
             "com.klipse-design": {
-              "id": "typography-caption",
+              "id": "typography-caption-regular",
               "tier": "semantic",
               "mode": "global"
             }
           }
         },
-        "body-sm": {
-          "$value": "{primitive.typography.body-sm}",
+        "caption-medium": {
+          "$value": "{primitive.typography.caption-medium}",
           "$extensions": {
             "com.klipse-design": {
-              "id": "typography-body-sm",
+              "id": "typography-caption-medium",
               "tier": "semantic",
               "mode": "global"
             }
           }
         },
-        "body-md": {
-          "$value": "{primitive.typography.body-md}",
+        "caption-semibold": {
+          "$value": "{primitive.typography.caption-semibold}",
           "$extensions": {
             "com.klipse-design": {
-              "id": "typography-body-md",
+              "id": "typography-caption-semibold",
               "tier": "semantic",
               "mode": "global"
             }
           }
         },
-        "label-md": {
-          "$value": "{primitive.typography.label-md}",
+        "body-sm-regular": {
+          "$value": "{primitive.typography.body-sm-regular}",
           "$extensions": {
             "com.klipse-design": {
-              "id": "typography-label-md",
+              "id": "typography-body-sm-regular",
               "tier": "semantic",
               "mode": "global"
             }
           }
         },
-        "title-sm": {
-          "$value": "{primitive.typography.title-sm}",
+        "body-sm-medium": {
+          "$value": "{primitive.typography.body-sm-medium}",
           "$extensions": {
             "com.klipse-design": {
-              "id": "typography-title-sm",
+              "id": "typography-body-sm-medium",
               "tier": "semantic",
               "mode": "global"
             }
           }
         },
-        "title-md": {
-          "$value": "{primitive.typography.title-md}",
+        "body-sm-semibold": {
+          "$value": "{primitive.typography.body-sm-semibold}",
           "$extensions": {
             "com.klipse-design": {
-              "id": "typography-title-md",
+              "id": "typography-body-sm-semibold",
+              "tier": "semantic",
+              "mode": "global"
+            }
+          }
+        },
+        "body-md-regular": {
+          "$value": "{primitive.typography.body-md-regular}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "typography-body-md-regular",
+              "tier": "semantic",
+              "mode": "global"
+            }
+          }
+        },
+        "body-md-medium": {
+          "$value": "{primitive.typography.body-md-medium}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "typography-body-md-medium",
+              "tier": "semantic",
+              "mode": "global"
+            }
+          }
+        },
+        "body-md-semibold": {
+          "$value": "{primitive.typography.body-md-semibold}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "typography-body-md-semibold",
+              "tier": "semantic",
+              "mode": "global"
+            }
+          }
+        },
+        "body-lg-regular": {
+          "$value": "{primitive.typography.body-lg-regular}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "typography-body-lg-regular",
+              "tier": "semantic",
+              "mode": "global"
+            }
+          }
+        },
+        "body-lg-medium": {
+          "$value": "{primitive.typography.body-lg-medium}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "typography-body-lg-medium",
+              "tier": "semantic",
+              "mode": "global"
+            }
+          }
+        },
+        "body-lg-semibold": {
+          "$value": "{primitive.typography.body-lg-semibold}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "typography-body-lg-semibold",
+              "tier": "semantic",
+              "mode": "global"
+            }
+          }
+        },
+        "heading-sm-medium": {
+          "$value": "{primitive.typography.heading-sm-medium}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "typography-heading-sm-medium",
+              "tier": "semantic",
+              "mode": "global"
+            }
+          }
+        },
+        "heading-md-medium": {
+          "$value": "{primitive.typography.heading-md-medium}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "typography-heading-md-medium",
+              "tier": "semantic",
+              "mode": "global"
+            }
+          }
+        },
+        "heading-lg-medium": {
+          "$value": "{primitive.typography.heading-lg-medium}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "typography-heading-lg-medium",
               "tier": "semantic",
               "mode": "global"
             }
@@ -1702,6 +2704,39 @@
           "$extensions": {
             "com.klipse-design": {
               "id": "layout-project-card-minimum",
+              "tier": "semantic",
+              "mode": "global"
+            }
+          }
+        }
+      },
+      "icon": {
+        "$type": "dimension",
+        "size-sm": {
+          "$value": "{primitive.spacing.16}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "icon-size-sm",
+              "tier": "semantic",
+              "mode": "global"
+            }
+          }
+        },
+        "size-md": {
+          "$value": "{primitive.spacing.20}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "icon-size-md",
+              "tier": "semantic",
+              "mode": "global"
+            }
+          }
+        },
+        "size-lg": {
+          "$value": "{primitive.spacing.24}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "icon-size-lg",
               "tier": "semantic",
               "mode": "global"
             }

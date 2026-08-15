@@ -11,16 +11,14 @@ Button 계약으로 해결할 수 있는지 먼저 확인한다.
 
 ## Availability
 
-| Surface       | 상태           | 근거                                          |
-| ------------- | -------------- | --------------------------------------------- |
-| Web           | `not-ready`    | `@klipse-design/react`에 public export가 없음 |
-| Figma         | `not-ready`    | published component가 없음                    |
-| Documentation | `done`         | 이 문서                                       |
-| Maturity      | `experimental` | 구현·테스트·소비 증거가 아직 없음             |
+| Surface       | 상태           | 근거                                                      |
+| ------------- | -------------- | --------------------------------------------------------- |
+| Web           | `partial`      | public export와 acceptance test 11건; 아래 남은 증거 참조 |
+| Figma         | `partial`      | library draft의 component set 40 variant와 parity 대조 통과; publish 전 |
+| Documentation | `done`         | 이 문서                                                   |
+| Maturity      | `experimental` | 제품 소비 증거와 visual regression이 아직 없음            |
 
-## 목표 API
-
-아래 코드는 P3에서 제공할 제안 API이며 현재 import할 수 없다.
+## API
 
 ```tsx
 import { Button } from "@klipse-design/react";
@@ -29,6 +27,9 @@ import { Button } from "@klipse-design/react";
 <Button variant="secondary">취소</Button>
 <Button variant="danger">삭제</Button>
 ```
+
+소비자는 `@klipse-design/css`의 `layers.css`를 root layout 최상단에서 먼저 import하고
+`styles.css`(또는 Tailwind 사용 시 `styles.layer.css`)를 함께 불러온다.
 
 링크 이동이 목적이면 클릭으로 navigation을 흉내 내지 말고 Link primitive를 사용한다.
 
@@ -99,7 +100,51 @@ import { Button } from "@klipse-design/react";
 - KO/EN/JA 긴 라벨, 200% zoom, 320px container에서 핵심 텍스트가 사라지지 않는다.
 - reduced-motion에서 pressed/loading 의미가 유지된다.
 
+## Implementation
+
+- Web source: `packages/react/src/button/button.tsx`
+- CSS recipe: `packages/css/src/component/button.css`
+- Public import: `import { Button } from "@klipse-design/react"`
+- Tests: `packages/react/test/button.browser.test.tsx` (실브라우저 11건)
+- Figma component: library draft의 `Button` set (40 variant, publish 전)
+
+### 코드 prop ↔ Figma property
+
+| 코드 | Figma | 비고 |
+| --- | --- | --- |
+| `variant` | `Variant` (primary/secondary/ghost/danger) | 옵션 집합을 parity 게이트가 `ButtonVariant`와 대조한다 |
+| `size` | `Size` (md/sm) | `ButtonSize`와 대조한다 |
+| `loading` | `State=Loading` | boolean prop이 Figma에서는 state variant다 |
+| `disabled` | `State=Disabled` | 같은 이유 |
+| — | `State=Hover`, `State=Pressed` | 코드에서는 CSS 상태다. Figma에 CSS 상태가 없어 variant로 둔다 |
+| `children` | Label 텍스트 | |
+
+Figma component의 모든 fill·stroke는 변수에, 모든 텍스트는 text style에 바인딩된다(raw 값 0).
+focus-visible 링은 브라우저가 그리므로 Figma variant로 두지 않는다.
+
+활성화는 네이티브 `<button>`에 맡긴다. pointer click, Enter, Space가 각각 정확히 한 번 실행되는 것은
+브라우저가 보장하며, keydown으로 클릭을 흉내 내면 중복 실행이 된다.
+
+`loading`은 네이티브 `disabled`를 쓰지 않는다. 네이티브 disabled는 현재 focus를 제거하는데 규범이
+이를 금지하기 때문이다. 대신 `aria-disabled`로 표시하고 activation을 명시적으로 막는다. 검증은 두
+층으로 한다 — 실제 포인터는 actionability에서 차단되고, 프로그램적 click과 keyboard는 컴포넌트가
+막는다.
+
+## Known deviations
+
+- **`danger` variant가 tonal이다.** solid danger를 표현할 `color-action-danger*` 토큰이 아직 없어
+  `color-status-danger-*`로 대체했다. `DS-P3-014` 단위 9가 토큰을 추가하면 갱신한다.
+  Button은 foreground와 background를 **쌍으로** 쓰므로 대비가 성립한다. 같은 토큰을 텍스트 색으로만
+  쓰면 중립 표면에서 무너지는데, 그 실측은 [Menu / Popover](menu-popover.md)의 Known deviations에 있다.
+- **고정 높이가 없다.** 높이를 padding과 line-height로 결정하고 44px 타깃은 `kds-hit-target`이
+  보장한다. 제품과 픽셀 단위로 맞추려면 control height 토큰이 필요하다(DS-P3-014).
+
 ## 승격 조건
 
-`packages/react` public export, component tests, accessibility/visual regression, published Figma component,
-두 개 이상의 제품 사용처가 준비된 뒤 `partial` 또는 `done`을 검토한다.
+Web `done`과 `stable`에는 다음이 남아 있다.
+
+- visual regression fixture (hosted CI 확보 후, DS-D-0005 2단계)
+- 수동 keyboard·screen-reader review 기록
+- SSR render와 hydration 검증
+- published Figma component와 parity report (DS-F-006)
+- 두 개 이상의 제품 사용처

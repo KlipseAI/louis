@@ -11,18 +11,19 @@ Klipse 제품군이 공통으로 소비하는 디자인 언어다. 접근성·�
 
 ## 시작하기
 
-| 작업                     | 먼저 읽을 문서                                   |
-| ------------------------ | ------------------------------------------------ |
-| 색·타입·간격·접근성 결정 | [Foundations](foundations/README.md)             |
-| 공용 UI를 찾거나 추가    | [Components](components/README.md)               |
-| 반복되는 제품 흐름 구현  | [Patterns](patterns/README.md)                   |
-| 문구·로컬라이제이션      | [Content](content/README.md)                     |
-| 패키지 소비와 검증       | [Develop](develop/README.md)                     |
-| 변경 제안과 리뷰         | [Contributing](governance/contributing.md)       |
-| 역할·승인·운영 주기      | [Operating Model](governance/operating-model.md) |
-| 제품 레포 적용           | [Product Adoption](governance/migration.md)      |
-| 단계별 완료 조건         | [Roadmap](governance/roadmap.md)                 |
-| 사용자 영향 변경         | [Updates](updates/README.md)                     |
+| 작업                     | 먼저 읽을 문서                                       |
+| ------------------------ | ---------------------------------------------------- |
+| 색·타입·간격·접근성 결정 | [Foundations](foundations/README.md)                 |
+| 공용 UI를 찾거나 추가    | [Components](components/README.md)                   |
+| 반복되는 제품 흐름 구현  | [Patterns](patterns/README.md)                       |
+| 문구·로컬라이제이션      | [Content](content/README.md)                         |
+| 패키지 소비와 검증       | [Develop](develop/README.md)                         |
+| 변경 제안과 리뷰         | [Contributing](governance/contributing.md)           |
+| 역할·승인·운영 주기      | [Operating Model](governance/operating-model.md)     |
+| 제품 레포 적용           | [Product Adoption](governance/migration.md)          |
+| 단계별 완료 조건         | [Roadmap](governance/roadmap.md)                     |
+| Claude Code 후속 실행    | [Execution Handoff](governance/execution-handoff.md) |
+| 사용자 영향 변경         | [Updates](updates/README.md)                         |
 
 ## 권위 모델
 
@@ -60,7 +61,7 @@ Figma library는 아직 `not-ready`다. 시스템 전체 maturity도 `experiment
 | 항목 | 현재 값 |
 | --- | --- |
 | System maturity | `experimental` |
-| Normative documents | 33 |
+| Normative documents | 47 |
 | Generated documents | 5 |
 | Components | 8 |
 | Patterns | 4 |

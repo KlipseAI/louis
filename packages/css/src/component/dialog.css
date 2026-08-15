@@ -1,0 +1,268 @@
+/* Dialog / Modal — design/components/dialog.md
+ *
+ * root의 모션 lifecycle(duration/timing/opacity)과 --kds-overlay-* seam은 overlay.css가
+ * 소유한다. 여기서 다시 선언하지 않는다.
+ *
+ * 이 파일은 파일명 정렬상 overlay.css보다 **먼저** 방출된다(build-css.mjs의 readdirSync().sort()).
+ * 그래서 overlay.css의 anchored 전용 선언을 덮어야 하는 곳에서는 `.kds-overlay-panel.kds-dialog`로
+ * 명시도를 한 칸 올린다 — 같은 요소에 두 클래스가 모두 붙으므로(use-overlay가 kds-overlay-panel을
+ * 항상 조합한다) 순서에 의존하지 않고 이긴다. overlay.css는 수정하지 않는다.
+ */
+
+.kds-dialog {
+  /* DS-P3-014 대기 — semantic 토큰이 생기면 이 네 줄만 갈아끼운다. */
+  --kds-dialog-viewport-gutter: 20px;
+  --kds-dialog-inline-size: 480px;
+  --kds-dialog-surface-inset: var(--kds-space-layout-section);
+  --kds-dialog-surface-radius: var(--kds-radius-overlay);
+
+  position: fixed;
+  inset: 0;
+  display: grid;
+  /* safe 정렬 — surface가 넘칠 때 상단이 잘려 도달 불가가 되는 것을 막는다. */
+  align-items: safe center;
+  justify-items: center;
+  padding-block: max(var(--kds-dialog-viewport-gutter), env(safe-area-inset-top))
+    max(var(--kds-dialog-viewport-gutter), env(safe-area-inset-bottom));
+  padding-inline: max(var(--kds-dialog-viewport-gutter), env(safe-area-inset-left))
+    max(var(--kds-dialog-viewport-gutter), env(safe-area-inset-right));
+}
+
+/* overlay.css의 anchored 전용 geometry를 modal에서 되돌린다.
+ * overflow: auto가 남으면 root가 scroll owner가 되어 "body만 스크롤"이 깨지고,
+ * 중앙 정렬 컨테이너 + overflow의 고전 버그로 surface 상단이 스크롤 불가 영역에 갇힌다.
+ * 상한은 physical 속성명 그대로 쓴다 — logical로 쓰면 논리·물리 매핑의 cascade 규칙에
+ * 기대게 되고 리뷰어가 읽고 판정할 수 없는 코드가 된다. */
+.kds-overlay-panel.kds-dialog {
+  max-width: none;
+  max-height: none;
+  overflow: hidden;
+}
+
+/* scale은 anchor 확장의 표현이다. modal에서는 (a) scrim이 함께 줄어 뷰포트 가장자리가 비치고
+ * (b) root에 transform이 생기는 순간 자손의 position: fixed 기준이 root로 바뀐다. */
+.kds-overlay-panel.kds-dialog[data-kds-state="opening"] {
+  scale: 1;
+}
+
+/* scrim. absolute인 이유는 root에 transform이 생겨도 기준이 흔들리지 않게 하기 위해서다.
+ * grid 배치를 명시하지 않은 absolute 자식의 containing block은 grid 컨테이너의 padding box이며,
+ * out-of-flow라 grid item이 되지 않는다 — surface의 중앙 정렬을 방해하지 않는다. */
+.kds-dialog__backdrop {
+  position: absolute;
+  inset: 0;
+  background: var(--kds-color-scrim-modal);
+}
+
+.kds-dialog__surface {
+  /* backdrop 위로 올리는 유일한 수단. positioned 자손은 in-flow 콘텐츠보다 위에 칠해지므로
+   * static인 채로 두면 surface가 scrim 밑으로 들어간다. 숫자 z-index를 쓰지 않는다. */
+  position: relative;
+  /* action 세로 전환의 기준. contain: layout style inline-size를 함의하므로 이 안에
+   * position: fixed를 두면 뷰포트가 아니라 이 박스를 기준으로 붙는다. translate/scale도
+   * 같은 효과를 낸다. Dialog 안 Popover는 non-modal host로 portal되어 자손이 아니라 무관하다. */
+  container-type: inline-size;
+  box-sizing: border-box;
+  display: grid;
+  /* minmax(0, 1fr)이 핵심이다. 1fr만 쓰면 grid item의 자동 최소 크기가 콘텐츠라
+   * body가 줄지 않고 surface가 넘쳐 footer가 화면 밖으로 나간다. */
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  inline-size: min(var(--kds-dialog-inline-size), 100%);
+  /* 여백 산수를 반복하지 않는다. 좌우는 root padding이 소유하고 surface는 상한만 말한다.
+   * 곱셈 대신 두 번 빼는 이유는 저작 게이트의 전역 선택자 패턴이 공백으로 둘러싼 `*`를
+   * 선택자로 오인하기 때문이다 — menu-popover.css와 같은 회피다. */
+  max-block-size: min(
+    100%,
+    calc(
+      100dvh - var(--kds-dialog-viewport-gutter) - var(--kds-dialog-viewport-gutter)
+    )
+  );
+  overflow: hidden;
+  background: var(--kds-color-background-overlay);
+  border: 1px solid var(--kds-color-border-subtle);
+  border-radius: var(--kds-dialog-surface-radius);
+  box-shadow: var(--kds-elevation-modal);
+  color: var(--kds-color-foreground-primary);
+
+  /* enter/exit transform의 절반. duration/timing을 **inherit**로 받는 것이 이 블록의 핵심이다.
+   * presence의 readExitDuration은 root의 computed transition-duration을 읽는데, inherit는
+   * 계산값 시점에 부모(root)의 값을 그대로 가져오므로 시각 transition과 unmount timer가
+   * 같은 선언 하나에서 나온다 — 두 값이 어긋날 방법이 없다(DS-D-0011 결정 3).
+   * reduced-motion에서 root가 0ms가 되면 여기도 함께 0ms가 된다. */
+  transition-property: translate, scale;
+  transition-duration: inherit;
+  transition-timing-function: inherit;
+}
+
+.kds-dialog[data-kds-state="opening"] .kds-dialog__surface {
+  translate: 0 8px;
+  scale: 0.98;
+}
+
+.kds-dialog[data-kds-state="open"] .kds-dialog__surface {
+  translate: 0 0;
+  scale: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  /* Specification의 Reduced motion = 비필수 transform 제거. opacity 순서는 root가 계속 진다.
+   * 위 opening 규칙과 같은 (0,2,0) 형태이므로 뒤에 와서 이긴다. */
+  .kds-dialog[data-kds-state="opening"] .kds-dialog__surface {
+    translate: 0 0;
+    scale: 1;
+  }
+}
+
+.kds-dialog__header {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--kds-space-control-sm);
+  padding: var(--kds-dialog-surface-inset);
+  padding-block-end: var(--kds-space-control-sm);
+}
+
+.kds-dialog__heading {
+  flex: 1 1 auto;
+  min-inline-size: 0;
+}
+
+.kds-dialog__title {
+  margin: 0;
+  color: var(--kds-color-foreground-primary);
+  overflow-wrap: break-word;
+  word-break: keep-all;
+  font-family: var(--kds-typography-heading-md-medium-font-family);
+  font-size: var(--kds-typography-heading-md-medium-font-size);
+  font-weight: var(--kds-typography-heading-md-medium-font-weight);
+  line-height: var(--kds-typography-heading-md-medium-line-height);
+  letter-spacing: var(--kds-typography-heading-md-medium-letter-spacing);
+}
+
+.kds-dialog__description {
+  margin: 0;
+  margin-block-start: var(--kds-space-control-xs);
+  color: var(--kds-color-foreground-secondary);
+  overflow-wrap: break-word;
+  word-break: keep-all;
+  font-family: var(--kds-typography-body-sm-regular-font-family);
+  font-size: var(--kds-typography-body-sm-regular-font-size);
+  font-weight: var(--kds-typography-body-sm-regular-font-weight);
+  line-height: var(--kds-typography-body-sm-regular-line-height);
+  letter-spacing: var(--kds-typography-body-sm-regular-letter-spacing);
+}
+
+.kds-dialog__close {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: var(--kds-space-control-lg);
+  block-size: var(--kds-space-control-lg);
+  padding: 0;
+  border: 0;
+  border-radius: var(--kds-radius-control);
+  background: transparent;
+  color: var(--kds-color-foreground-secondary);
+  cursor: pointer;
+}
+
+.kds-dialog__close[aria-disabled="true"] {
+  cursor: not-allowed;
+  color: var(--kds-color-foreground-disabled);
+}
+
+/* 스크롤은 이 요소 하나만 한다. */
+.kds-dialog__body {
+  min-block-size: 0;
+  overflow: auto;
+  overscroll-behavior: contain;
+  padding-inline: var(--kds-dialog-surface-inset);
+  padding-block: var(--kds-space-control-sm);
+  /* focus ring(offset 2 + width 2 = 4px)이 scrollport 경계에서 잘리지 않게 한다. */
+  scroll-padding-block: var(--kds-space-control-sm);
+}
+
+.kds-dialog__footer {
+  padding: var(--kds-dialog-surface-inset);
+  padding-block-start: var(--kds-space-control-sm);
+}
+
+.kds-dialog__actions {
+  display: flex;
+  /* 긴 KO/EN/JA 라벨이 한 행에 안 들어가면 각자 행으로 내려간다(콘텐츠 구동 경로). */
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  /* 8px. Button의 .kds-hit-target ::after가 44px 타깃을 시각 박스 밖으로 3px씩 확장하므로
+   * 3 + 3 = 6 < 8로 간신히 겹치지 않는다. space-control-xs(4px)로 줄이면 즉시 인접 액션의
+   * hit 영역을 침범한다 — Menu가 "삭제가 설정 바로 아래"에서 겪은 것과 같은 형태다. */
+  gap: var(--kds-space-control-sm);
+}
+
+/* 좁은 폭 / 200% 확대 경로. viewport media query가 아니라 container query를 쓰는 이유는
+ * compact(280px)와 large(720px)가 같은 뷰포트에서 서로 다른 판정을 받아야 하기 때문이다.
+ * 200% 확대는 CSS px 뷰포트를 절반으로 만들므로 같은 query가 발화한다. */
+@container (max-width: 320px) {
+  .kds-dialog__actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+
+.kds-dialog[data-size="compact"] {
+  --kds-dialog-inline-size: 360px;
+  --kds-dialog-surface-inset: var(--kds-space-layout-gutter);
+  /* 24px 토큰이 소스에 없다. radius-overlay(16)보다 크면서 large와 구분되는 유일한 값. */
+  --kds-dialog-surface-radius: var(--kds-radius-card);
+}
+
+.kds-dialog[data-size="large"] {
+  --kds-dialog-inline-size: 720px;
+}
+
+.kds-dialog[data-size="fullscreen"] {
+  --kds-dialog-surface-radius: 0;
+  padding: 0;
+}
+
+.kds-dialog[data-size="fullscreen"] .kds-dialog__surface {
+  inline-size: 100%;
+  block-size: 100%;
+  max-block-size: 100dvh;
+  border: 0;
+}
+
+/* fullscreen에서는 root padding이 0이므로 safe area를 내부가 진다. */
+.kds-dialog[data-size="fullscreen"] .kds-dialog__header {
+  padding-block-start: max(var(--kds-dialog-surface-inset), env(safe-area-inset-top));
+}
+
+.kds-dialog[data-size="fullscreen"] .kds-dialog__footer {
+  padding-block-end: max(var(--kds-dialog-surface-inset), env(safe-area-inset-bottom));
+}
+
+/* sheet은 하단 정착이다. data-size의 폭 상한을 의도적으로 무시한다. */
+.kds-dialog[data-variant="sheet"] {
+  align-items: safe end;
+  padding-inline: 0;
+  padding-block-end: 0;
+}
+
+.kds-dialog[data-variant="sheet"] .kds-dialog__surface {
+  inline-size: 100%;
+  border-end-start-radius: 0;
+  border-end-end-radius: 0;
+}
+
+@media (forced-colors: active) {
+  .kds-dialog__surface {
+    border-color: currentColor;
+  }
+}
+
+/* 장식 pseudo-element는 절대 pointer를 막지 않는다. */
+.kds-dialog::before,
+.kds-dialog::after,
+.kds-dialog__surface::before,
+.kds-dialog__surface::after {
+  pointer-events: none;
+}

@@ -65,12 +65,13 @@ schema 또는 자동 import 입력으로 사용하지 않는다.
 | `--background`, `--app-page-bg`의 page/canvas 사용          | `color-background-canvas`                     | 현재 light `neutral.100`, dark `neutral.900` 관계와 일치한다.                            |
 | `--surface-page`                                            | `color-background-canvas`                     | mode 관계는 일치하지만 현재 소비 0건이므로 새 사용을 만들지 말고 legacy 선언만 제거한다. |
 | `--foreground`의 body/default content 사용                  | `color-foreground-primary`                    | page 기본 글자 역할에 한정한다.                                                          |
-| `.type-caption-12-regular`                                  | `typography-caption`                          | 12px, regular, 1.5와 letter spacing이 일치한다.                                          |
-| `.type-body-14-regular`                                     | `typography-body-sm`                          | fixed 14px body에 한정한다.                                                              |
-| `.type-body-14-medium`                                      | `typography-label-md`                         | 14px, medium label 용도에 한정한다.                                                      |
-| `.type-body-16-regular`                                     | `typography-body-md`                          | fixed 16px body에 한정하며 450px 전역 축소 규칙은 포함하지 않는다.                       |
-| `.type-heading-28-semibold`                                 | `typography-title-sm`                         | fixed 28px semibold title에 한정한다.                                                    |
-| `.type-heading-36-semibold`                                 | `typography-title-md`                         | fixed 36px semibold title에 한정한다.                                                    |
+| `.type-caption-12-{regular,medium,semibold}`                | `typography-caption-{regular,medium,semibold}` | 12px, 1.5, letter spacing −0.12px가 일치한다.                                            |
+| `.type-body-14-{regular,medium,semibold}`                   | `typography-body-sm-{regular,medium,semibold}` | fixed 14px body에 한정한다.                                                              |
+| `.type-body-16-{regular,medium,semibold}`                   | `typography-body-md-{regular,medium,semibold}` | fixed 16px body에 한정하며 450px 전역 축소 규칙은 포함하지 않는다.                       |
+| `.type-body-20-{regular,medium,semibold}`                   | `typography-body-lg-{regular,medium,semibold}` | fixed 20px body에 한정한다.                                                              |
+| `.type-heading-28-medium`                                   | `typography-heading-sm-medium`                | 배포 화면의 28px heading은 medium 단독이다. semibold 변형은 정의만 되고 사용 0건이다.    |
+| `.type-heading-36-medium`                                   | `typography-heading-md-medium`                | 배포 화면의 36px heading은 medium 단독이다.                                              |
+| `.type-heading-48-medium`                                   | `typography-heading-lg-medium`                | 배포 화면의 48px heading은 medium 단독이다.                                              |
 | `--button-radius: 12px`                                     | `radius-control`                              | Button과 32×32 action control의 공통 형상이다.                                           |
 | `--dropdown-radius: 16px`                                   | `radius-overlay`                              | menu/popover panel 형상이다.                                                             |
 | `--dropdown-item-radius: 10px`                              | `radius-overlay-item`                         | overlay 내부 interactive item에 한정한다.                                                |

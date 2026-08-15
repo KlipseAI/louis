@@ -1,0 +1,51 @@
+/* opt-in reset — 기본 배포에 포함되지 않는다.
+ *
+ * DS-D-0004: 라이브러리는 전역 reset을 강제하지 않는다. 컴포넌트는 자기 스코프 안에서 자족적이며,
+ * 이 파일은 소비자가 명시적으로 import할 때만 적용된다.
+ * 모든 규칙은 :where()로 특이도 0이고 최하위 layer에 놓이므로 소비자 스타일이 항상 이긴다.
+ */
+
+:where(*, *::before, *::after) {
+  box-sizing: border-box;
+}
+
+:where(body) {
+  margin: 0;
+}
+
+:where(h1, h2, h3, h4, h5, h6, p, figure, blockquote, dl, dd) {
+  margin: 0;
+}
+
+:where(ul[role="list"], ol[role="list"]) {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+:where(img, picture, video, canvas, svg) {
+  display: block;
+  max-width: 100%;
+}
+
+:where(input, button, textarea, select) {
+  font: inherit;
+  color: inherit;
+}
+
+:where(button) {
+  background: none;
+  border: none;
+  padding: 0;
+}
+
+/* 접근성: 모션 민감 사용자에게 애니메이션을 강제하지 않는다.
+ * lifecycle(focus 이동, scroll lock, unmount 순서)은 건드리지 않는다 — motion.md 계약. */
+@media (prefers-reduced-motion: reduce) {
+  :where(*, *::before, *::after) {
+    animation-duration: 0.01ms;
+    animation-iteration-count: 1;
+    transition-duration: 0.01ms;
+    scroll-behavior: auto;
+  }
+}

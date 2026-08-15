@@ -128,11 +128,38 @@ function assertTokenProjection(model, outputs) {
   const manifestByKey = new Map(
     manifest.tokens.map((token) => [`${token.id}@${token.mode}`, token]),
   );
+  const figmaModeNames = {
+    base: "Base",
+    global: "Global",
+    light: "Light",
+    dark: "Dark",
+  };
+  const figmaVariableById = new Map();
+  for (const collection of Object.values(figma.collections ?? {})) {
+    for (const [id, variable] of Object.entries(collection.variables ?? {})) {
+      figmaVariableById.set(id, variable);
+    }
+  }
   for (const token of model.allTokens) {
     const key = `${token.id}@${token.mode}`;
     const runtime = publicTokenFor(publicModel, token);
     const manifestToken = manifestByKey.get(key);
-    const figmaToken = figma.modes[token.mode]?.[token.id];
+    const figmaVariable = figmaVariableById.get(token.id);
+    const figmaValue =
+      figmaVariable?.valuesByMode?.[figmaModeNames[token.mode]];
+    const figmaToken = figmaValue
+      ? {
+          $value: figmaValue.$value,
+          $description: figmaValue.$description,
+          $deprecated: figmaValue.$deprecated,
+          $extensions: {
+            [KLIPSE_EXTENSION]: {
+              aliasTarget: figmaValue.aliasTarget,
+              resolvedValue: figmaValue.resolvedValue,
+            },
+          },
+        }
+      : undefined;
     const expectedCommon = {
       aliasTarget: token.aliasTarget,
       deprecated: token.deprecated,
@@ -180,11 +207,29 @@ function assertTokenProjection(model, outputs) {
       failures.push(`cross-artifact token projection 불일치: ${key}`);
     }
   }
+  for (const token of model.allTokens) {
+    const variable = figmaVariableById.get(token.id);
+    const value = variable?.valuesByMode?.[figmaModeNames[token.mode]];
+    if (!value || value.sourcePath !== token.sourcePath) {
+      failures.push(
+        `Figma proposal sourcePath 불일치: ${token.id}@${token.mode}`,
+      );
+    }
+  }
+  const collectionNames =
+    figma.$extensions?.[KLIPSE_EXTENSION]?.collectionNames ?? {};
+  const expectedCollectionNames = {
+    primitive: `${model.figmaCollection} Primitive`,
+    semantic: `${model.figmaCollection} Semantic`,
+    semanticColor: `${model.figmaCollection} Semantic Color`,
+  };
   if (
     publicModel.metadata.figmaCollection !== model.figmaCollection ||
     manifest.figmaCollection !== model.figmaCollection ||
     figma.$extensions?.[KLIPSE_EXTENSION]?.figmaCollection !==
       model.figmaCollection ||
+    JSON.stringify(collectionNames) !==
+      JSON.stringify(expectedCollectionNames) ||
     manifest.tokenCount !== model.allTokens.length
   ) {
     failures.push("cross-artifact root metadata projection 불일치");
@@ -241,32 +286,80 @@ try {
   const figmaProposal = JSON.parse(
     firstOutputs.get("packages/tokens/generated/figma.tokens.json"),
   );
-  const figmaEntries = Object.values(figmaProposal.modes).flatMap((mode) =>
-    Object.values(mode),
+  const figmaCollectionEntries = Object.entries(
+    figmaProposal.collections ?? {},
   );
-  const compositeEntries = figmaEntries.filter((entry) =>
-    ["shadow", "typography", "transition"].includes(entry.$type),
+  const figmaVariables = figmaCollectionEntries.flatMap(([name, collection]) =>
+    Object.entries(collection.variables ?? {}).map(([id, variable]) => ({
+      collection: name,
+      kind: collection.kind,
+      modes: collection.modes ?? [],
+      id,
+      ...variable,
+    })),
   );
+  const uniqueSourceIds = new Set(firstModel.allTokens.map((t) => t.id));
+  const valueRecordCount = figmaVariables.reduce(
+    (sum, variable) => sum + Object.keys(variable.valuesByMode ?? {}).length,
+    0,
+  );
+  const byRepresentation = {};
+  for (const variable of figmaVariables) {
+    byRepresentation[variable.representation] =
+      (byRepresentation[variable.representation] ?? 0) + 1;
+  }
+  const classificationBroken = figmaVariables.some((variable) => {
+    const isVariable = variable.representation === "variable";
+    const isDoc = variable.representation === "variable-documentation";
+    const isStyle =
+      variable.representation === "text-style" ||
+      variable.representation === "effect-style";
+    const unrepresented = variable.representation === "unrepresented";
+    if (!isVariable && !isDoc && !isStyle && !unrepresented) return true;
+    if ((isVariable || isDoc) && variable.nativeVariableType === null)
+      return true;
+    if ((isStyle || unrepresented) && variable.nativeVariableType !== null)
+      return true;
+    if (isDoc && variable.nativeVariableType !== "STRING") return true;
+    if ((isStyle || unrepresented) && variable.losses.length === 0) return true;
+    if (isStyle && variable.fields.length === 0) return true;
+    if (typeof variable.figmaName !== "string" || variable.figmaName.length === 0)
+      return true;
+    const expectedKind =
+      variable.kind === "primitive"
+        ? "primitive"
+        : variable.modes.includes("Global")
+          ? "semantic"
+          : "semanticColor";
+    if (variable.kind !== expectedKind) return true;
+    if (variable.kind === "semanticColor" && variable.modes.length !== 2)
+      return true;
+    if (variable.kind !== "semanticColor" && variable.modes.length !== 1)
+      return true;
+    return false;
+  });
+  const nameCollision = figmaCollectionEntries.some(([, collection]) => {
+    const paths = Object.values(collection.variables ?? {}).map(
+      (variable) => variable.figmaName,
+    );
+    return new Set(paths).size !== paths.length;
+  });
   if (
-    figmaEntries.length !== firstModel.allTokens.length ||
-    compositeEntries.length === 0 ||
-    compositeEntries.some((entry) => {
-      const mapping = entry.$extensions?.[KLIPSE_EXTENSION]?.figmaMapping;
-      return (
-        mapping?.representation !== "expanded-fields" ||
-        mapping.nativeVariableType !== null ||
-        !Array.isArray(mapping.fields) ||
-        mapping.fields.length === 0 ||
-        !Array.isArray(mapping.losses) ||
-        mapping.losses.length === 0
-      );
-    })
+    figmaCollectionEntries.length !== 3 ||
+    figmaVariables.length !== uniqueSourceIds.size ||
+    valueRecordCount !== firstModel.allTokens.length ||
+    !byRepresentation["text-style"] ||
+    !byRepresentation["effect-style"] ||
+    !byRepresentation.unrepresented ||
+    !byRepresentation["variable-documentation"] ||
+    classificationBroken ||
+    nameCollision
   ) {
     failures.push(
-      "Figma proposal composite loss/field mapping contract가 불완전합니다.",
+      "Figma proposal collection/representation contract가 불완전합니다.",
     );
   } else {
-    positives.push("Figma proposal loss/field mapping");
+    positives.push("Figma proposal collection/representation classification");
   }
 
   const css = firstOutputs.get("packages/tokens/generated/tokens.css");
@@ -391,9 +484,18 @@ try {
       token.id === describedToken.extension.id &&
       token.mode === describedToken.extension.mode,
   );
-  const projectedFigma = JSON.parse(
+  const projectedFigmaProposal = JSON.parse(
     metadataFixtureOutputs.get("packages/tokens/generated/figma.tokens.json"),
-  ).modes[projectedToken.mode][projectedToken.id];
+  );
+  const projectedFigmaModeName = {
+    base: "Base",
+    global: "Global",
+    light: "Light",
+    dark: "Dark",
+  }[projectedToken.mode];
+  const projectedFigma = Object.values(projectedFigmaProposal.collections)
+    .map((collection) => collection.variables[projectedToken.id])
+    .find(Boolean)?.valuesByMode[projectedFigmaModeName];
   const projectedManifest = JSON.parse(
     metadataFixtureOutputs.get("packages/tokens/generated/manifest.json"),
   ).tokens.find(

@@ -1,0 +1,300 @@
+#!/usr/bin/env node
+// Figma 되읽기 원본(figma/readback.json)을 parity 게이트가 읽는 snapshot으로 projection한다.
+// 실행: node scripts/build-figma-snapshot.mjs [--check]
+//
+// 왜 두 파일인가. `readback.json`은 Figma Plugin API가 돌려준 그대로의 evidence이고,
+// `snapshot.json`은 그것을 게이트가 비교하기 좋은 tokenId 공간으로 옮긴 projection이다.
+// 손으로 쓰지 않는다는 규칙을 지키려면 "손으로 쓰지 않는 경로"가 실제로 존재해야 한다 —
+// 이 스크립트가 그 경로다. 이전까지 snapshot은 재현 절차 없이 만들어져 있었다.
+//
+// readback.json 재생성 절차 (Figma MCP `use_figma`, fileKey는 readback.json의 figmaFileKey):
+// 세 번 나눠 호출한다. 한 응답이 20KB를 넘으면 잘리기 때문이다.
+//
+//   (1) 변수 — 컬렉션마다:
+//       const cs = await figma.variables.getLocalVariableCollectionsAsync();
+//       const all = await figma.variables.getLocalVariablesAsync();
+//       const byId = new Map(all.map((v) => [v.id, v]));
+//       const collById = new Map(cs.map((c) => [c.id, c.name]));
+//       const r6 = (n) => Math.round(n * 1e6) / 1e6;
+//       const c = cs.find((x) => x.name === COLLECTION_NAME);
+//       const modeName = new Map(c.modes.map((m) => [m.modeId, m.name]));
+//       const rows = [];
+//       for (const v of all.filter((x) => x.variableCollectionId === c.id)
+//                          .sort((a, b) => (a.name < b.name ? -1 : 1))) {
+//         const modes = [];
+//         for (const [modeId, raw] of Object.entries(v.valuesByMode)) {
+//           const name = modeName.get(modeId);
+//           if (name === undefined) continue;
+//           if (raw?.type === "VARIABLE_ALIAS") {
+//             const t = byId.get(raw.id);
+//             modes.push([name, `${collById.get(t.variableCollectionId)}::${t.name}`, null]);
+//           } else if (raw && typeof raw === "object" && "r" in raw) {
+//             modes.push([name, null, [r6(raw.r), r6(raw.g), r6(raw.b), r6(raw.a)]]);
+//           } else modes.push([name, null, raw]);
+//         }
+//         rows.push([v.name, v.resolvedType, v.scopes.join(","), modes]);
+//       }
+//       return { modes: c.modes.map((m) => m.name),
+//                defaultMode: c.modes.find((m) => m.modeId === c.defaultModeId).name, rows };
+//
+//   (2) style — `getLocalTextStylesAsync` / `getLocalEffectStylesAsync`를 이름순으로 덤프한다.
+//       lineHeightPercent와 letterSpacingPx는 r6으로 반올림한다.
+//
+//   (3) component — `figma.currentPage`는 매 호출 첫 페이지로 초기화되므로 component set이 있는
+//       페이지로 `await figma.setCurrentPageAsync(page)` 한 뒤 `page.query("COMPONENT_SET")`를 센다.
+//       이 절차 없이 첫 페이지에서 세면 component가 조용히 0개로 나온다.
+import { readFileSync, writeFileSync } from "node:fs";
+import { createHash } from "node:crypto";
+import { fileURLToPath } from "node:url";
+import { dirname, resolve } from "node:path";
+
+const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), "..");
+const checkOnly = process.argv.slice(2).includes("--check");
+
+const READBACK_PATH = "figma/readback.json";
+const SNAPSHOT_PATH = "figma/snapshot.json";
+const PROPOSAL_PATH = "packages/tokens/generated/figma.tokens.json";
+const TOKEN_MANIFEST_PATH = "packages/tokens/generated/manifest.json";
+const DESIGN_MANIFEST_PATH = "design/manifest.json";
+
+// Figma에 만들지 않기로 한 tier를 snapshot이 설명하도록 남기는 주석. DS-D-0007이 근거다.
+const STYLE_NOTE =
+  "semantic tier 이름으로만 생성한다. primitive type-style-*/shadow-*는 Figma 미표현(DS-D-0007).";
+
+const read = (relative) =>
+  JSON.parse(readFileSync(resolve(repoRoot, relative), "utf8"));
+
+const readback = read(READBACK_PATH);
+const proposal = read(PROPOSAL_PATH);
+const tokenManifest = read(TOKEN_MANIFEST_PATH);
+const designManifest = read(DESIGN_MANIFEST_PATH);
+
+const proposalSha = createHash("sha256")
+  .update(readFileSync(resolve(repoRoot, PROPOSAL_PATH)))
+  .digest("hex");
+
+// figmaName은 컬렉션 안에서만 고유하다. `layer/content`는 primitive와 semantic 양쪽에 있다.
+// 그래서 조회 키에 컬렉션을 반드시 포함한다 — 빠뜨리면 alias가 엉뚱한 tier를 가리킨다.
+const tokenIdByFigmaName = new Map();
+const styleTokenIdByFigmaName = new Map();
+for (const [collectionName, collection] of Object.entries(
+  proposal.collections ?? {},
+)) {
+  for (const [tokenId, variable] of Object.entries(collection.variables ?? {})) {
+    if (variable.representation.startsWith("variable")) {
+      tokenIdByFigmaName.set(`${collectionName}::${variable.figmaName}`, tokenId);
+    } else if (
+      variable.representation === "text-style" ||
+      variable.representation === "effect-style"
+    ) {
+      styleTokenIdByFigmaName.set(variable.figmaName, tokenId);
+    }
+  }
+}
+
+const componentTokenIdByName = new Map(
+  (designManifest.components ?? []).map((c) => [c.name, c.id]),
+);
+
+const failures = [];
+const variables = {};
+const collectionsOut = {};
+const canonicalLines = [];
+
+for (const [collectionName, collection] of Object.entries(
+  readback.collections ?? {},
+)) {
+  collectionsOut[collectionName] = {
+    modes: [...collection.modes],
+    defaultMode: collection.defaultMode,
+    variableCount: collection.rows.length,
+  };
+
+  for (const [figmaName, resolvedType, , modeRows] of collection.rows) {
+    const tokenId = tokenIdByFigmaName.get(`${collectionName}::${figmaName}`);
+    if (tokenId === undefined) {
+      failures.push(
+        `proposal에 없는 Figma 변수입니다: ${collectionName}::${figmaName}`,
+      );
+      continue;
+    }
+
+    const valuesByMode = {};
+    const canonicalModes = [];
+    for (const [modeName, aliasRef, rawValue] of modeRows) {
+      if (aliasRef !== null) {
+        const aliasTokenId = tokenIdByFigmaName.get(aliasRef);
+        if (aliasTokenId === undefined) {
+          failures.push(`alias 대상이 proposal에 없습니다: ${aliasRef}`);
+          continue;
+        }
+        valuesByMode[modeName] = { alias: aliasTokenId };
+        canonicalModes.push(`${modeName}=A:${aliasRef}`);
+      } else {
+        // Figma FLOAT는 float32라 1.35가 1.350000023841858로 돌아온다. 6자리에서 접어야
+        // proposal의 십진 원본과 같은 값이 된다.
+        const value = typeof rawValue === "number" ? round6(rawValue) : rawValue;
+        valuesByMode[modeName] = { value };
+        canonicalModes.push(`${modeName}=V:${JSON.stringify(value)}`);
+      }
+    }
+
+    variables[tokenId] = { figmaName, resolvedType, valuesByMode };
+    canonicalLines.push(
+      `${collectionName}|${figmaName}|${resolvedType}|${canonicalModes.join(";")}`,
+    );
+  }
+}
+
+const stylesOut = { text: {}, effect: {}, note: STYLE_NOTE };
+for (const [figmaName, style] of Object.entries(readback.styles?.text ?? {})) {
+  const tokenId = styleTokenIdByFigmaName.get(figmaName);
+  if (tokenId === undefined) {
+    failures.push(`proposal에 없는 text style입니다: ${figmaName}`);
+    continue;
+  }
+  stylesOut.text[figmaName] = {
+    tokenId,
+    fontFamily: style.fontFamily,
+    fontStyle: style.fontStyle,
+    fontSize: style.fontSize,
+    // parity 기대값은 `Math.round(lineHeight * 1000) / 10`이라 소수 한 자리다. float32
+    // 왕복으로 붙은 135.000002를 여기서 접지 않으면 매 덤프마다 무의미한 diff가 생긴다.
+    lineHeightPercent: Math.round(style.lineHeightPercent * 10) / 10,
+    letterSpacingPx: round6(style.letterSpacingPx),
+    boundVariables: [...style.boundVariables].sort(),
+  };
+}
+for (const [figmaName, style] of Object.entries(readback.styles?.effect ?? {})) {
+  const tokenId = styleTokenIdByFigmaName.get(figmaName);
+  if (tokenId === undefined) {
+    failures.push(`proposal에 없는 effect style입니다: ${figmaName}`);
+    continue;
+  }
+  stylesOut.effect[figmaName] = {
+    tokenId,
+    type: style.type,
+    offsetY: style.offsetY,
+    blur: style.blur,
+    spread: style.spread,
+    color: style.color.map(round6),
+  };
+}
+
+const componentsOut = {};
+let variantTotal = 0;
+for (const [figmaName, component] of Object.entries(readback.components ?? {})) {
+  const tokenId = componentTokenIdByName.get(figmaName);
+  if (tokenId === undefined) {
+    failures.push(`design manifest에 없는 component set입니다: ${figmaName}`);
+    continue;
+  }
+  variantTotal += component.variantCount;
+  const properties = {};
+  for (const [name, definition] of Object.entries(component.properties)) {
+    properties[name] = { type: definition.type, options: definition.options };
+  }
+  componentsOut[figmaName] = {
+    tokenId,
+    variantCount: component.variantCount,
+    properties,
+    binding: { ...component.binding },
+  };
+}
+
+if (failures.length > 0) {
+  for (const failure of failures) console.error(`[figma-snapshot] ${failure}`);
+  process.exit(1);
+}
+
+const canonical = canonicalLines.sort().join("\n");
+const snapshot = {
+  $comment:
+    "GENERATED EVIDENCE — Figma 라이브러리 파일에서 읽어온 상태. 손으로 수정하지 않는다. " +
+    "figma/readback.json에서 scripts/build-figma-snapshot.mjs가 생성한다.",
+  provenance: {
+    figmaFileKey: readback.figmaFileKey,
+    figmaFileName: readback.figmaFileName,
+    capturedAt: readback.capturedAt,
+    capturedBy: readback.capturedBy,
+    published: readback.published,
+    tokenSourceSha256: tokenManifest.source?.sha256 ?? null,
+    proposalSha256: proposalSha,
+    readback: {
+      tokens: Object.keys(variables).length,
+      canonicalLength: canonical.length,
+      fnv1a32: fnv1a32(canonical),
+      note:
+        "변수는 readback.json의 되읽기 행을 tokenId 공간으로 옮긴 것이고, style과 component는 " +
+        "같은 되읽기의 style/component 절이다. canonical 해시는 컬렉션·이름·타입·mode 값을 " +
+        "정렬해 이은 문자열의 FNV-1a다.",
+      styles: {
+        text: Object.keys(stylesOut.text).length,
+        effect: Object.keys(stylesOut.effect).length,
+      },
+      components: {
+        sets: Object.keys(componentsOut).length,
+        variants: variantTotal,
+      },
+    },
+  },
+  collections: collectionsOut,
+  variables: sortByKey(variables),
+  styles: {
+    text: sortByKey(stylesOut.text),
+    effect: sortByKey(stylesOut.effect),
+    note: STYLE_NOTE,
+  },
+  components: sortByKey(componentsOut),
+};
+
+const serialized = `${JSON.stringify(snapshot, null, 2)}\n`;
+const snapshotFile = resolve(repoRoot, SNAPSHOT_PATH);
+
+if (checkOnly) {
+  let current = null;
+  try {
+    current = readFileSync(snapshotFile, "utf8");
+  } catch {
+    console.error(`[figma-snapshot] snapshot이 없습니다: ${SNAPSHOT_PATH}`);
+    process.exit(1);
+  }
+  if (current !== serialized) {
+    console.error(
+      `[figma-snapshot] drift: ${SNAPSHOT_PATH}가 readback에서 생성한 결과와 다릅니다. ` +
+        "`node scripts/build-figma-snapshot.mjs`로 재생성하십시오.",
+    );
+    process.exit(1);
+  }
+  console.log(
+    `[figma-snapshot] check OK (변수 ${Object.keys(variables).length}개, ` +
+      `style ${Object.keys(stylesOut.text).length + Object.keys(stylesOut.effect).length}개, ` +
+      `component ${Object.keys(componentsOut).length}개)`,
+  );
+} else {
+  writeFileSync(snapshotFile, serialized);
+  console.log(
+    `[figma-snapshot] built: 변수 ${Object.keys(variables).length}개, ` +
+      `style ${Object.keys(stylesOut.text).length + Object.keys(stylesOut.effect).length}개, ` +
+      `component ${Object.keys(componentsOut).length}개`,
+  );
+}
+
+function round6(value) {
+  return Math.round(value * 1e6) / 1e6;
+}
+
+function sortByKey(object) {
+  const out = {};
+  for (const key of Object.keys(object).sort()) out[key] = object[key];
+  return out;
+}
+
+function fnv1a32(text) {
+  let hash = 0x811c9dc5;
+  for (let i = 0; i < text.length; i += 1) {
+    hash ^= text.charCodeAt(i);
+    hash = Math.imul(hash, 0x01000193) >>> 0;
+  }
+  return hash.toString(16).padStart(8, "0");
+}

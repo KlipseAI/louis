@@ -1,0 +1,16 @@
+{
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    "noEmit": true,
+    "types": ["vitest/globals"]
+  },
+  "include": [
+    "packages/*/src",
+    "packages/*/test",
+    "apps/*/stories",
+    "apps/*/.storybook",
+    "scripts",
+    "*.ts"
+  ],
+  "exclude": ["**/node_modules", "**/dist", "packages/tokens/generated"]
+}

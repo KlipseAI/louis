@@ -13,7 +13,7 @@ authority: normative
 | Surface                 | 책임                                                | 현재 상태                                               |
 | ----------------------- | --------------------------------------------------- | ------------------------------------------------------- |
 | `@klipse-design/tokens` | 구조화 토큰과 CSS·JS·TS·JSON·Figma proposal         | P2 local RC, `experimental`, private, no public release |
-| `@klipse-design/css`    | token CSS 소비·재export, reset, primitives, recipes | P3 `planned`, private, no exports                       |
+| `@klipse-design/css`    | token CSS 재export, opt-in reset, base 유틸리티     | P3 foundation 구현, private, no public release          |
 | `@klipse-design/react`  | 접근 가능한 React 컴포넌트                          | P3 `planned`, private, no exports                       |
 | `design/llms/*`         | AI가 읽는 규범 projection                           | P1, generated                                           |
 

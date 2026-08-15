@@ -10,6 +10,7 @@
     "system",
     "vocabulary",
     "tokenPackage",
+    "webPackages",
     "documents",
     "components",
     "patterns",
@@ -27,31 +28,65 @@
     "system": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["id", "name", "maturity", "maintainer", "sourcePolicy"],
+      "required": [
+        "id",
+        "name",
+        "maturity",
+        "maintainer",
+        "sourcePolicy"
+      ],
       "properties": {
-        "id": { "$ref": "#/$defs/kebabId" },
-        "name": { "$ref": "#/$defs/nonEmptyString" },
-        "maturity": { "$ref": "#/$defs/maturity" },
-        "maintainer": { "$ref": "#/$defs/nonEmptyString" },
-        "sourcePolicy": { "$ref": "#/$defs/nonEmptyString" }
+        "id": {
+          "$ref": "#/$defs/kebabId"
+        },
+        "name": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "maturity": {
+          "$ref": "#/$defs/maturity"
+        },
+        "maintainer": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "sourcePolicy": {
+          "$ref": "#/$defs/nonEmptyString"
+        }
       }
     },
     "vocabulary": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["maturity", "authority", "implementationStatus"],
+      "required": [
+        "maturity",
+        "authority",
+        "implementationStatus"
+      ],
       "properties": {
         "maturity": {
           "type": "array",
-          "const": ["stable", "beta", "experimental", "legacy", "deprecated"],
+          "const": [
+            "stable",
+            "beta",
+            "experimental",
+            "legacy",
+            "deprecated"
+          ],
           "uniqueItems": true,
-          "items": { "$ref": "#/$defs/maturity" }
+          "items": {
+            "$ref": "#/$defs/maturity"
+          }
         },
         "authority": {
           "type": "array",
-          "const": ["normative", "generated", "reference"],
+          "const": [
+            "normative",
+            "generated",
+            "reference"
+          ],
           "uniqueItems": true,
-          "items": { "$ref": "#/$defs/authority" }
+          "items": {
+            "$ref": "#/$defs/authority"
+          }
         },
         "implementationStatus": {
           "type": "array",
@@ -63,35 +98,53 @@
             "deprecated"
           ],
           "uniqueItems": true,
-          "items": { "$ref": "#/$defs/implementationStatus" }
+          "items": {
+            "$ref": "#/$defs/implementationStatus"
+          }
         }
       }
     },
     "tokenPackage": {
       "$ref": "#/$defs/tokenPackage"
     },
+    "webPackages": {
+      "type": "array",
+      "minItems": 2,
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/webPackage"
+      }
+    },
     "documents": {
       "type": "array",
       "minItems": 1,
       "uniqueItems": true,
-      "items": { "$ref": "#/$defs/document" }
+      "items": {
+        "$ref": "#/$defs/document"
+      }
     },
     "components": {
       "type": "array",
       "minItems": 1,
       "uniqueItems": true,
-      "items": { "$ref": "#/$defs/catalogItem" }
+      "items": {
+        "$ref": "#/$defs/catalogItem"
+      }
     },
     "patterns": {
       "type": "array",
       "minItems": 1,
       "uniqueItems": true,
-      "items": { "$ref": "#/$defs/catalogItem" }
+      "items": {
+        "$ref": "#/$defs/catalogItem"
+      }
     },
     "referenceSurfaces": {
       "type": "array",
       "uniqueItems": true,
-      "items": { "$ref": "#/$defs/referenceSurface" }
+      "items": {
+        "$ref": "#/$defs/referenceSurface"
+      }
     }
   },
   "$defs": {
@@ -111,15 +164,31 @@
     },
     "maturity": {
       "type": "string",
-      "enum": ["stable", "beta", "experimental", "legacy", "deprecated"]
+      "enum": [
+        "stable",
+        "beta",
+        "experimental",
+        "legacy",
+        "deprecated"
+      ]
     },
     "authority": {
       "type": "string",
-      "enum": ["normative", "generated", "reference"]
+      "enum": [
+        "normative",
+        "generated",
+        "reference"
+      ]
     },
     "implementationStatus": {
       "type": "string",
-      "enum": ["done", "partial", "not-ready", "not-planned", "deprecated"]
+      "enum": [
+        "done",
+        "partial",
+        "not-ready",
+        "not-planned",
+        "deprecated"
+      ]
     },
     "documentSection": {
       "type": "string",
@@ -138,8 +207,12 @@
     },
     "document": {
       "oneOf": [
-        { "$ref": "#/$defs/sourceDocument" },
-        { "$ref": "#/$defs/generatedDocument" }
+        {
+          "$ref": "#/$defs/sourceDocument"
+        },
+        {
+          "$ref": "#/$defs/generatedDocument"
+        }
       ]
     },
     "sourceDocument": {
@@ -155,15 +228,28 @@
         "generated"
       ],
       "properties": {
-        "id": { "$ref": "#/$defs/kebabId" },
-        "path": { "$ref": "#/$defs/repoPath" },
-        "title": { "$ref": "#/$defs/nonEmptyString" },
-        "section": { "$ref": "#/$defs/documentSection" },
+        "id": {
+          "$ref": "#/$defs/kebabId"
+        },
+        "path": {
+          "$ref": "#/$defs/repoPath"
+        },
+        "title": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "section": {
+          "$ref": "#/$defs/documentSection"
+        },
         "authority": {
           "type": "string",
-          "enum": ["normative", "reference"]
+          "enum": [
+            "normative",
+            "reference"
+          ]
         },
-        "maturity": { "$ref": "#/$defs/maturity" },
+        "maturity": {
+          "$ref": "#/$defs/maturity"
+        },
         "generated": {
           "type": "boolean",
           "const": false
@@ -187,9 +273,15 @@
         "sources"
       ],
       "properties": {
-        "id": { "$ref": "#/$defs/kebabId" },
-        "path": { "$ref": "#/$defs/repoPath" },
-        "title": { "$ref": "#/$defs/nonEmptyString" },
+        "id": {
+          "$ref": "#/$defs/kebabId"
+        },
+        "path": {
+          "$ref": "#/$defs/repoPath"
+        },
+        "title": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
         "section": {
           "type": "string",
           "const": "generated"
@@ -198,13 +290,19 @@
           "type": "string",
           "const": "generated"
         },
-        "maturity": { "$ref": "#/$defs/maturity" },
+        "maturity": {
+          "$ref": "#/$defs/maturity"
+        },
         "generated": {
           "type": "boolean",
           "const": true
         },
-        "generator": { "$ref": "#/$defs/kebabId" },
-        "checker": { "$ref": "#/$defs/kebabId" },
+        "generator": {
+          "$ref": "#/$defs/kebabId"
+        },
+        "checker": {
+          "$ref": "#/$defs/kebabId"
+        },
         "sourceCoverage": {
           "type": "string",
           "const": "exhaustive"
@@ -213,7 +311,9 @@
           "type": "array",
           "minItems": 1,
           "uniqueItems": true,
-          "items": { "$ref": "#/$defs/repoPath" }
+          "items": {
+            "$ref": "#/$defs/repoPath"
+          }
         }
       }
     },
@@ -252,27 +352,39 @@
           "type": "array",
           "minItems": 6,
           "uniqueItems": true,
-          "items": { "$ref": "#/$defs/tokenArtifact" }
+          "items": {
+            "$ref": "#/$defs/tokenArtifact"
+          }
         },
         "figmaLibrary": {
-          "type": "string",
-          "const": "not-ready"
+          "$ref": "#/$defs/implementationStatus"
+        },
+        "figmaLibraryEvidence": {
+          "$ref": "#/$defs/nonEmptyString"
         },
         "packageRelease": {
-          "type": "string",
-          "const": "not-ready"
+          "$ref": "#/$defs/implementationStatus"
+        },
+        "packageReleaseEvidence": {
+          "$ref": "#/$defs/nonEmptyString"
         },
         "docs": {
           "type": "string",
           "const": "done"
         },
-        "note": { "$ref": "#/$defs/nonEmptyString" }
+        "note": {
+          "$ref": "#/$defs/nonEmptyString"
+        }
       }
     },
     "tokenArtifact": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["id", "status", "path"],
+      "required": [
+        "id",
+        "status",
+        "path"
+      ],
       "properties": {
         "id": {
           "type": "string",
@@ -289,34 +401,66 @@
           "type": "string",
           "const": "done"
         },
-        "path": { "$ref": "#/$defs/repoPath" }
+        "path": {
+          "$ref": "#/$defs/repoPath"
+        }
       }
     },
     "catalogItem": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["id", "name", "maturity", "figma", "web", "docs"],
+      "required": [
+        "id",
+        "name",
+        "maturity",
+        "figma",
+        "web",
+        "docs"
+      ],
       "properties": {
-        "id": { "$ref": "#/$defs/kebabId" },
-        "name": { "$ref": "#/$defs/nonEmptyString" },
-        "maturity": { "$ref": "#/$defs/maturity" },
-        "figma": { "$ref": "#/$defs/implementationStatus" },
-        "web": { "$ref": "#/$defs/implementationStatus" },
-        "docs": { "$ref": "#/$defs/implementationStatus" },
-        "doc": { "$ref": "#/$defs/repoPath" },
-        "note": { "$ref": "#/$defs/nonEmptyString" }
+        "id": {
+          "$ref": "#/$defs/kebabId"
+        },
+        "name": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "maturity": {
+          "$ref": "#/$defs/maturity"
+        },
+        "figma": {
+          "$ref": "#/$defs/implementationStatus"
+        },
+        "web": {
+          "$ref": "#/$defs/implementationStatus"
+        },
+        "docs": {
+          "$ref": "#/$defs/implementationStatus"
+        },
+        "doc": {
+          "$ref": "#/$defs/repoPath"
+        },
+        "note": {
+          "$ref": "#/$defs/nonEmptyString"
+        }
       },
       "anyOf": [
         {
           "properties": {
             "docs": {
               "type": "string",
-              "enum": ["partial", "not-ready", "not-planned", "deprecated"]
+              "enum": [
+                "partial",
+                "not-ready",
+                "not-planned",
+                "deprecated"
+              ]
             }
           }
         },
         {
-          "required": ["doc"],
+          "required": [
+            "doc"
+          ],
           "properties": {
             "docs": {
               "type": "string",
@@ -329,13 +473,70 @@
     "referenceSurface": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["path", "purpose", "authority"],
+      "required": [
+        "path",
+        "purpose",
+        "authority"
+      ],
       "properties": {
-        "path": { "$ref": "#/$defs/repoPath" },
-        "purpose": { "$ref": "#/$defs/nonEmptyString" },
+        "path": {
+          "$ref": "#/$defs/repoPath"
+        },
+        "purpose": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
         "authority": {
           "type": "string",
           "const": "reference"
+        }
+      }
+    },
+    "webPackage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "name",
+        "maturity",
+        "packageRelease",
+        "docs",
+        "note"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "enum": [
+            "css",
+            "react"
+          ]
+        },
+        "name": {
+          "type": "string",
+          "enum": [
+            "@klipse-design/css",
+            "@klipse-design/react"
+          ]
+        },
+        "maturity": {
+          "$ref": "#/$defs/maturity"
+        },
+        "packageRelease": {
+          "$ref": "#/$defs/implementationStatus"
+        },
+        "packageReleaseEvidence": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "web": {
+          "$ref": "#/$defs/implementationStatus"
+        },
+        "webEvidence": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "docs": {
+          "$ref": "#/$defs/implementationStatus"
+        },
+        "note": {
+          "$ref": "#/$defs/nonEmptyString"
         }
       }
     }

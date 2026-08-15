@@ -1,0 +1,477 @@
+{
+  "formatVersion": 1,
+  "viewBox": "0 0 24 24",
+  "strokeWidths": [
+    "1.5"
+  ],
+  "icons": [
+    {
+      "name": "arrow-up",
+      "symbol": "IconArrowUp",
+      "figmaName": "icon/arrow-up",
+      "source": "packages/react/src/icons/svg/arrow-up.svg",
+      "geometryHash": "2969776bbb07797d",
+      "elementCount": 2,
+      "provenance": {
+        "origin": "upstream",
+        "project": "Phosphor Icons",
+        "icon": "arrow-up (regular)",
+        "license": "MIT",
+        "licenseFile": "phosphor.txt",
+        "sourceUrl": "https://raw.githubusercontent.com/phosphor-icons/core/main/raw/regular/arrow-up.svg",
+        "retrievedAt": "2026-08-14",
+        "modifications": "좌표를 256 격자에서 24 격자로 한 번 스케일(×3/32, 나머지 없이 떨어짐). stroke-width 16 → 1.5. 렌더에 기여하지 않는 배경 <rect width=\"256\" height=\"256\" fill=\"none\"/> 제거. 256px 래스터 대조에서 upstream과 픽셀 동일하며, 제품 자산(32 격자/stroke 2)과도 픽셀 동일해 출처가 Phosphor임을 확인했다."
+      }
+    },
+    {
+      "name": "arrows-left-right",
+      "symbol": "IconArrowsLeftRight",
+      "figmaName": "icon/arrows-left-right",
+      "source": "packages/react/src/icons/svg/arrows-left-right.svg",
+      "geometryHash": "32512613eab010b9",
+      "elementCount": 4,
+      "provenance": {
+        "origin": "upstream",
+        "project": "Phosphor Icons",
+        "icon": "arrows-left-right (regular)",
+        "license": "MIT",
+        "licenseFile": "phosphor.txt",
+        "sourceUrl": "https://raw.githubusercontent.com/phosphor-icons/core/main/raw/regular/arrows-left-right.svg",
+        "retrievedAt": "2026-08-14",
+        "modifications": "좌표를 256 격자에서 24 격자로 한 번 스케일(×3/32, 나머지 없이 떨어짐). stroke-width 16 → 1.5. 렌더에 기여하지 않는 배경 <rect width=\"256\" height=\"256\" fill=\"none\"/> 제거. 256px 래스터 대조에서 upstream과 픽셀 동일."
+      }
+    },
+    {
+      "name": "check-circle",
+      "symbol": "IconCheckCircle",
+      "figmaName": "icon/check-circle",
+      "source": "packages/react/src/icons/svg/check-circle.svg",
+      "geometryHash": "86e9656177522226",
+      "elementCount": 2,
+      "provenance": {
+        "origin": "upstream",
+        "project": "Phosphor Icons",
+        "icon": "check-circle (regular)",
+        "license": "MIT",
+        "licenseFile": "phosphor.txt",
+        "sourceUrl": "https://raw.githubusercontent.com/phosphor-icons/core/main/raw/regular/check-circle.svg",
+        "retrievedAt": "2026-08-14",
+        "modifications": "좌표를 256 격자에서 24 격자로 한 번 스케일(×3/32, 나머지 없이 떨어짐): polyline 88 136 112 160 168 104 → 8.25 12.75 10.5 15 15.75 9.75, circle 128/128/96 → 12/12/9, stroke-width 16 → 1.5. 배경용 <rect width=\"256\" height=\"256\" fill=\"none\"/> 제거(획도 채움도 없어 렌더에 기여하지 않는다)."
+      }
+    },
+    {
+      "name": "copy",
+      "symbol": "IconCopy",
+      "figmaName": "icon/copy",
+      "source": "packages/react/src/icons/svg/copy.svg",
+      "geometryHash": "eaf3d9746792985b",
+      "elementCount": 2,
+      "provenance": {
+        "origin": "upstream",
+        "project": "Lucide",
+        "icon": "copy",
+        "license": "ISC",
+        "licenseFile": "lucide.txt",
+        "sourceUrl": "https://raw.githubusercontent.com/lucide-icons/lucide/main/icons/copy.svg",
+        "retrievedAt": "2026-08-14",
+        "modifications": "좌표 변경 없음(이미 24 격자). root의 width/height 제거, root 표현 속성을 각 요소로 내림. stroke-width 2 → 1.5 (Klipse 24 격자 계약). 좌표가 그대로이므로 획이 중심선 기준 양쪽으로 0.25씩 물러나며, 잉크량은 upstream 대비 0.75다(래스터 실측)."
+      }
+    },
+    {
+      "name": "copy-check",
+      "symbol": "IconCopyCheck",
+      "figmaName": "icon/copy-check",
+      "source": "packages/react/src/icons/svg/copy-check.svg",
+      "geometryHash": "c23bcbaa980915cd",
+      "elementCount": 3,
+      "provenance": {
+        "origin": "upstream",
+        "project": "Lucide",
+        "icon": "copy-check",
+        "license": "ISC",
+        "licenseFile": "lucide.txt",
+        "sourceUrl": "https://raw.githubusercontent.com/lucide-icons/lucide/main/icons/copy-check.svg",
+        "retrievedAt": "2026-08-14",
+        "modifications": "좌표 변경 없음(이미 24 격자). root의 width/height 제거, root 표현 속성을 각 요소로 내림. stroke-width 2 → 1.5 (Klipse 24 격자 계약). 좌표가 그대로이므로 획이 중심선 기준 양쪽으로 0.25씩 물러나며, 잉크량은 upstream 대비 0.75다(래스터 실측)."
+      }
+    },
+    {
+      "name": "dots-three-vertical",
+      "symbol": "IconDotsThreeVertical",
+      "figmaName": "icon/dots-three-vertical",
+      "source": "packages/react/src/icons/svg/dots-three-vertical.svg",
+      "geometryHash": "56b6632ebbe0b4fb",
+      "elementCount": 3,
+      "provenance": {
+        "origin": "upstream",
+        "project": "Phosphor Icons",
+        "icon": "dots-three-vertical (regular)",
+        "license": "MIT",
+        "licenseFile": "phosphor.txt",
+        "sourceUrl": "https://raw.githubusercontent.com/phosphor-icons/core/main/raw/regular/dots-three-vertical.svg",
+        "retrievedAt": "2026-08-14",
+        "modifications": "좌표를 256 격자에서 24 격자로 한 번 스케일(×3/32, 나머지 없이 떨어짐). stroke-width 16 → 1.5. 렌더에 기여하지 않는 배경 <rect width=\"256\" height=\"256\" fill=\"none\"/> 제거. 256px 래스터 대조에서 upstream과 픽셀 동일. 채움 글리프라 fill=\"currentColor\"로 두고 획을 두지 않는다. 제품의 하드코딩 #1F2A40은 채택하지 않는다."
+      }
+    },
+    {
+      "name": "download-simple",
+      "symbol": "IconDownloadSimple",
+      "figmaName": "icon/download-simple",
+      "source": "packages/react/src/icons/svg/download-simple.svg",
+      "geometryHash": "1ee1b1b597b2ab45",
+      "elementCount": 3,
+      "provenance": {
+        "origin": "upstream",
+        "project": "Phosphor Icons",
+        "icon": "download-simple (regular)",
+        "license": "MIT",
+        "licenseFile": "phosphor.txt",
+        "sourceUrl": "https://raw.githubusercontent.com/phosphor-icons/core/main/raw/regular/download-simple.svg",
+        "retrievedAt": "2026-08-14",
+        "modifications": "좌표를 256 격자에서 24 격자로 한 번 스케일(×3/32, 나머지 없이 떨어짐). stroke-width 16 → 1.5. 렌더에 기여하지 않는 배경 <rect width=\"256\" height=\"256\" fill=\"none\"/> 제거. 256px 래스터 대조에서 upstream과 픽셀 동일하며, 제품 자산(32 격자/stroke 2)과도 픽셀 동일해 출처가 Phosphor임을 확인했다."
+      }
+    },
+    {
+      "name": "eye",
+      "symbol": "IconEye",
+      "figmaName": "icon/eye",
+      "source": "packages/react/src/icons/svg/eye.svg",
+      "geometryHash": "5e380373791ad833",
+      "elementCount": 2,
+      "provenance": {
+        "origin": "upstream",
+        "project": "Iconoir",
+        "icon": "eye (regular)",
+        "license": "MIT",
+        "licenseFile": "iconoir.txt",
+        "sourceUrl": "https://raw.githubusercontent.com/iconoir-icons/iconoir/main/icons/regular/eye.svg",
+        "retrievedAt": "2026-08-14",
+        "modifications": "좌표 변경 없음(이미 24 격자, stroke-width 1.5). root의 width/height 제거, root에 있던 fill/stroke-width를 각 요소로 내림."
+      }
+    },
+    {
+      "name": "eye-slash",
+      "symbol": "IconEyeSlash",
+      "figmaName": "icon/eye-slash",
+      "source": "packages/react/src/icons/svg/eye-slash.svg",
+      "geometryHash": "800ddc1c0c95b85c",
+      "elementCount": 4,
+      "provenance": {
+        "origin": "upstream",
+        "project": "Iconoir",
+        "icon": "eye-closed",
+        "license": "MIT",
+        "licenseFile": "iconoir.txt",
+        "sourceUrl": "https://raw.githubusercontent.com/iconoir-icons/iconoir/main/icons/regular/eye-closed.svg",
+        "retrievedAt": "2026-08-14",
+        "modifications": "좌표 변경 없음(이미 24 격자, stroke-width 1.5). root의 width/height 제거, root에 있던 표현 속성을 각 요소로 내림. 256px 래스터 대조에서 upstream과 픽셀 동일. Klipse 이름은 eye-slash — eye와 짝을 이루는 표시/숨김 쌍이라 upstream의 eye-closed보다 의미가 분명하다. **제품과 은유가 다르다.** 제품의 eyeslash.svg에는 빗금이 없고 eye와 같은 눈꺼풀 호에 동공만 채운 것이며, 채운 동공은 '숨김'이 아니라 오히려 '더 보임'으로 읽힌다. 정본은 실제로 감은 눈을 쓴다. 제품 호출부 17곳의 외형이 바뀌므로 owner 확인이 필요하다."
+      }
+    },
+    {
+      "name": "file-zip",
+      "symbol": "IconFileZip",
+      "figmaName": "icon/file-zip",
+      "source": "packages/react/src/icons/svg/file-zip.svg",
+      "geometryHash": "736b406193f61254",
+      "elementCount": 5,
+      "provenance": {
+        "origin": "upstream",
+        "project": "Phosphor Icons",
+        "icon": "file-zip (regular)",
+        "license": "MIT",
+        "licenseFile": "phosphor.txt",
+        "sourceUrl": "https://raw.githubusercontent.com/phosphor-icons/core/main/raw/regular/file-zip.svg",
+        "retrievedAt": "2026-08-14",
+        "modifications": "좌표를 256 격자에서 24 격자로 한 번 스케일(×3/32, 나머지 없이 떨어짐). stroke-width 16 → 1.5. 렌더에 기여하지 않는 배경 <rect width=\"256\" height=\"256\" fill=\"none\"/> 제거. 256px 래스터 대조에서 upstream과 픽셀 동일."
+      }
+    },
+    {
+      "name": "folder",
+      "symbol": "IconFolder",
+      "figmaName": "icon/folder",
+      "source": "packages/react/src/icons/svg/folder.svg",
+      "geometryHash": "2d8d3ded0cbd0741",
+      "elementCount": 2,
+      "provenance": {
+        "origin": "upstream",
+        "project": "Phosphor Icons",
+        "icon": "folder (regular)",
+        "license": "MIT",
+        "licenseFile": "phosphor.txt",
+        "sourceUrl": "https://raw.githubusercontent.com/phosphor-icons/core/main/raw/regular/folder.svg",
+        "retrievedAt": "2026-08-14",
+        "modifications": "좌표를 256 격자에서 24 격자로 한 번 스케일(×3/32, 나머지 없이 떨어짐). stroke-width 16 → 1.5. 렌더에 기여하지 않는 배경 <rect width=\"256\" height=\"256\" fill=\"none\"/> 제거. 256px 래스터 대조에서 upstream과 픽셀 동일."
+      }
+    },
+    {
+      "name": "graph",
+      "symbol": "IconGraph",
+      "figmaName": "icon/graph",
+      "source": "packages/react/src/icons/svg/graph.svg",
+      "geometryHash": "509767344c5fa8d2",
+      "elementCount": 9,
+      "provenance": {
+        "origin": "upstream",
+        "project": "Phosphor Icons",
+        "icon": "graph (regular)",
+        "license": "MIT",
+        "licenseFile": "phosphor.txt",
+        "sourceUrl": "https://raw.githubusercontent.com/phosphor-icons/core/main/raw/regular/graph.svg",
+        "retrievedAt": "2026-08-14",
+        "modifications": "좌표를 256 격자에서 24 격자로 한 번 스케일(×3/32, 나머지 없이 떨어짐). stroke-width 16 → 1.5. 렌더에 기여하지 않는 배경 <rect width=\"256\" height=\"256\" fill=\"none\"/> 제거. 256px 래스터 대조에서 upstream과 픽셀 동일."
+      }
+    },
+    {
+      "name": "hand",
+      "symbol": "IconHand",
+      "figmaName": "icon/hand",
+      "source": "packages/react/src/icons/svg/hand.svg",
+      "geometryHash": "c1c33e8aa9e89cba",
+      "elementCount": 2,
+      "provenance": {
+        "origin": "upstream",
+        "project": "Phosphor Icons",
+        "icon": "hand (regular)",
+        "license": "MIT",
+        "licenseFile": "phosphor.txt",
+        "sourceUrl": "https://raw.githubusercontent.com/phosphor-icons/core/main/raw/regular/hand.svg",
+        "retrievedAt": "2026-08-14",
+        "modifications": "좌표를 256 격자에서 24 격자로 한 번 스케일(×3/32, 나머지 없이 떨어짐). stroke-width 16 → 1.5. 렌더에 기여하지 않는 배경 <rect width=\"256\" height=\"256\" fill=\"none\"/> 제거. 256px 래스터 대조에서 upstream과 픽셀 동일."
+      }
+    },
+    {
+      "name": "house",
+      "symbol": "IconHouse",
+      "figmaName": "icon/house",
+      "source": "packages/react/src/icons/svg/house.svg",
+      "geometryHash": "ea6d69a610b7e38a",
+      "elementCount": 1,
+      "provenance": {
+        "origin": "upstream",
+        "project": "Phosphor Icons",
+        "icon": "house (regular)",
+        "license": "MIT",
+        "licenseFile": "phosphor.txt",
+        "sourceUrl": "https://raw.githubusercontent.com/phosphor-icons/core/main/raw/regular/house.svg",
+        "retrievedAt": "2026-08-14",
+        "modifications": "좌표를 256 격자에서 24 격자로 한 번 스케일(×3/32, 나머지 없이 떨어짐). stroke-width 16 → 1.5. 렌더에 기여하지 않는 배경 <rect width=\"256\" height=\"256\" fill=\"none\"/> 제거. 256px 래스터 대조에서 upstream과 픽셀 동일."
+      }
+    },
+    {
+      "name": "image",
+      "symbol": "IconImage",
+      "figmaName": "icon/image",
+      "source": "packages/react/src/icons/svg/image.svg",
+      "geometryHash": "e29fc897cc10a40c",
+      "elementCount": 3,
+      "provenance": {
+        "origin": "upstream",
+        "project": "Iconoir",
+        "icon": "media-image",
+        "license": "MIT",
+        "licenseFile": "iconoir.txt",
+        "sourceUrl": "https://raw.githubusercontent.com/iconoir-icons/iconoir/main/icons/regular/media-image.svg",
+        "retrievedAt": "2026-08-14",
+        "modifications": "좌표 변경 없음(이미 24 격자, stroke-width 1.5). root의 width/height 제거, root에 있던 표현 속성을 각 요소로 내림. 256px 래스터 대조에서 upstream과 픽셀 동일. Klipse 이름은 image — Klipse에서 media는 영상·음성을 포함하는 더 넓은 말이다."
+      }
+    },
+    {
+      "name": "info",
+      "symbol": "IconInfo",
+      "figmaName": "icon/info",
+      "source": "packages/react/src/icons/svg/info.svg",
+      "geometryHash": "da06e939122835d2",
+      "elementCount": 3,
+      "provenance": {
+        "origin": "upstream",
+        "project": "Phosphor Icons",
+        "icon": "info (regular)",
+        "license": "MIT",
+        "licenseFile": "phosphor.txt",
+        "sourceUrl": "https://raw.githubusercontent.com/phosphor-icons/core/main/raw/regular/info.svg",
+        "retrievedAt": "2026-08-14",
+        "modifications": "좌표를 256 격자에서 24 격자로 한 번 스케일(×3/32, 나머지 없이 떨어짐). stroke-width 16 → 1.5. 렌더에 기여하지 않는 배경 <rect width=\"256\" height=\"256\" fill=\"none\"/> 제거. 256px 래스터 대조에서 upstream과 픽셀 동일."
+      }
+    },
+    {
+      "name": "magnifying-glass",
+      "symbol": "IconMagnifyingGlass",
+      "figmaName": "icon/magnifying-glass",
+      "source": "packages/react/src/icons/svg/magnifying-glass.svg",
+      "geometryHash": "d87d50c0db6f98d9",
+      "elementCount": 2,
+      "provenance": {
+        "origin": "upstream",
+        "project": "Phosphor Icons",
+        "icon": "magnifying-glass (regular)",
+        "license": "MIT",
+        "licenseFile": "phosphor.txt",
+        "sourceUrl": "https://raw.githubusercontent.com/phosphor-icons/core/main/raw/regular/magnifying-glass.svg",
+        "retrievedAt": "2026-08-14",
+        "modifications": "좌표를 256 격자에서 24 격자로 한 번 스케일(×3/32, 나머지 없이 떨어짐). stroke-width 16 → 1.5. 렌더에 기여하지 않는 배경 <rect width=\"256\" height=\"256\" fill=\"none\"/> 제거. 256px 래스터 대조에서 upstream과 픽셀 동일."
+      }
+    },
+    {
+      "name": "monitor-arrow-up",
+      "symbol": "IconMonitorArrowUp",
+      "figmaName": "icon/monitor-arrow-up",
+      "source": "packages/react/src/icons/svg/monitor-arrow-up.svg",
+      "geometryHash": "b6cd857b0c294f17",
+      "elementCount": 4,
+      "provenance": {
+        "origin": "upstream",
+        "project": "Phosphor Icons",
+        "icon": "monitor-arrow-up (regular)",
+        "license": "MIT",
+        "licenseFile": "phosphor.txt",
+        "sourceUrl": "https://raw.githubusercontent.com/phosphor-icons/core/main/raw/regular/monitor-arrow-up.svg",
+        "retrievedAt": "2026-08-14",
+        "modifications": "좌표를 256 격자에서 24 격자로 한 번 스케일(×3/32, 나머지 없이 떨어짐). stroke-width 16 → 1.5. 렌더에 기여하지 않는 배경 <rect width=\"256\" height=\"256\" fill=\"none\"/> 제거. 256px 래스터 대조에서 upstream과 픽셀 동일. rect를 자기 자신으로 보내는 항등 transform(translate(256 240) rotate(180))을 제거했다 — 좌표로 확인했다."
+      }
+    },
+    {
+      "name": "music-notes-simple",
+      "symbol": "IconMusicNotesSimple",
+      "figmaName": "icon/music-notes-simple",
+      "source": "packages/react/src/icons/svg/music-notes-simple.svg",
+      "geometryHash": "d6c2fa0ddcbbe508",
+      "elementCount": 3,
+      "provenance": {
+        "origin": "upstream",
+        "project": "Phosphor Icons",
+        "icon": "music-notes-simple (regular)",
+        "license": "MIT",
+        "licenseFile": "phosphor.txt",
+        "sourceUrl": "https://raw.githubusercontent.com/phosphor-icons/core/main/raw/regular/music-notes-simple.svg",
+        "retrievedAt": "2026-08-14",
+        "modifications": "좌표를 256 격자에서 24 격자로 한 번 스케일(×3/32, 나머지 없이 떨어짐). stroke-width 16 → 1.5. 렌더에 기여하지 않는 배경 <rect width=\"256\" height=\"256\" fill=\"none\"/> 제거. 256px 래스터 대조에서 upstream과 픽셀 동일."
+      }
+    },
+    {
+      "name": "plus",
+      "symbol": "IconPlus",
+      "figmaName": "icon/plus",
+      "source": "packages/react/src/icons/svg/plus.svg",
+      "geometryHash": "8c206963d083da32",
+      "elementCount": 2,
+      "provenance": {
+        "origin": "upstream",
+        "project": "Phosphor Icons",
+        "icon": "plus (regular)",
+        "license": "MIT",
+        "licenseFile": "phosphor.txt",
+        "sourceUrl": "https://raw.githubusercontent.com/phosphor-icons/core/main/raw/regular/plus.svg",
+        "retrievedAt": "2026-08-14",
+        "modifications": "좌표를 256 격자에서 24 격자로 한 번 스케일(×3/32, 나머지 없이 떨어짐). stroke-width 16 → 1.5. 렌더에 기여하지 않는 배경 <rect width=\"256\" height=\"256\" fill=\"none\"/> 제거. 256px 래스터 대조에서 upstream과 픽셀 동일."
+      }
+    },
+    {
+      "name": "text",
+      "symbol": "IconText",
+      "figmaName": "icon/text",
+      "source": "packages/react/src/icons/svg/text.svg",
+      "geometryHash": "db46a66f8619e1ca",
+      "elementCount": 3,
+      "provenance": {
+        "origin": "upstream",
+        "project": "Lucide",
+        "icon": "type",
+        "license": "ISC AND MIT",
+        "licenseFile": "lucide.txt",
+        "sourceUrl": "https://raw.githubusercontent.com/lucide-icons/lucide/main/icons/type.svg",
+        "retrievedAt": "2026-08-14",
+        "modifications": "좌표 변경 없음(이미 24 격자). root의 width/height 제거, root에 있던 fill/stroke/stroke-width/linecap/linejoin을 각 요소로 내림. stroke-width 2 → 1.5 (Klipse 24 격자 계약, iconography.md Geometry contract). Klipse 이름은 text — 제품 자산명이 text.svg이고 type은 예약어 인상을 준다. type은 Lucide LICENSE의 Feather 파생 목록에 있어 ISC와 MIT(Cole Bemis) 고지를 모두 받는다."
+      }
+    },
+    {
+      "name": "trash-simple",
+      "symbol": "IconTrashSimple",
+      "figmaName": "icon/trash-simple",
+      "source": "packages/react/src/icons/svg/trash-simple.svg",
+      "geometryHash": "b1c3233e93dfad33",
+      "elementCount": 3,
+      "provenance": {
+        "origin": "upstream",
+        "project": "Phosphor Icons",
+        "icon": "trash-simple (regular)",
+        "license": "MIT",
+        "licenseFile": "phosphor.txt",
+        "sourceUrl": "https://raw.githubusercontent.com/phosphor-icons/core/main/raw/regular/trash-simple.svg",
+        "retrievedAt": "2026-08-14",
+        "modifications": "좌표를 256 격자에서 24 격자로 한 번 스케일(×3/32, 나머지 없이 떨어짐). stroke-width 16 → 1.5. 렌더에 기여하지 않는 배경 <rect width=\"256\" height=\"256\" fill=\"none\"/> 제거. 256px 래스터 대조에서 upstream과 픽셀 동일하며, 제품 자산(32 격자/stroke 2)과도 픽셀 동일해 출처가 Phosphor임을 확인했다."
+      }
+    },
+    {
+      "name": "user-sound",
+      "symbol": "IconUserSound",
+      "figmaName": "icon/user-sound",
+      "source": "packages/react/src/icons/svg/user-sound.svg",
+      "geometryHash": "9b6c692fd27603ce",
+      "elementCount": 4,
+      "provenance": {
+        "origin": "upstream",
+        "project": "Phosphor Icons",
+        "icon": "user-sound (regular)",
+        "license": "MIT",
+        "licenseFile": "phosphor.txt",
+        "sourceUrl": "https://raw.githubusercontent.com/phosphor-icons/core/main/raw/regular/user-sound.svg",
+        "retrievedAt": "2026-08-14",
+        "modifications": "좌표를 256 격자에서 24 격자로 한 번 스케일(×3/32, 나머지 없이 떨어짐). stroke-width 16 → 1.5. 렌더에 기여하지 않는 배경 <rect width=\"256\" height=\"256\" fill=\"none\"/> 제거. 256px 래스터 대조에서 upstream과 픽셀 동일."
+      }
+    },
+    {
+      "name": "waveform",
+      "symbol": "IconWaveform",
+      "figmaName": "icon/waveform",
+      "source": "packages/react/src/icons/svg/waveform.svg",
+      "geometryHash": "3b7d9413045dbd90",
+      "elementCount": 5,
+      "provenance": {
+        "origin": "upstream",
+        "project": "Phosphor Icons",
+        "icon": "waveform (regular)",
+        "license": "MIT",
+        "licenseFile": "phosphor.txt",
+        "sourceUrl": "https://raw.githubusercontent.com/phosphor-icons/core/main/raw/regular/waveform.svg",
+        "retrievedAt": "2026-08-14",
+        "modifications": "좌표를 256 격자에서 24 격자로 한 번 스케일(×3/32, 나머지 없이 떨어짐). stroke-width 16 → 1.5. 렌더에 기여하지 않는 배경 <rect width=\"256\" height=\"256\" fill=\"none\"/> 제거. 256px 래스터 대조에서 upstream과 픽셀 동일."
+      }
+    },
+    {
+      "name": "x",
+      "symbol": "IconX",
+      "figmaName": "icon/x",
+      "source": "packages/react/src/icons/svg/x.svg",
+      "geometryHash": "16c6b878ab320c97",
+      "elementCount": 2,
+      "provenance": {
+        "origin": "upstream",
+        "project": "Phosphor Icons",
+        "icon": "x (regular)",
+        "license": "MIT",
+        "licenseFile": "phosphor.txt",
+        "sourceUrl": "https://raw.githubusercontent.com/phosphor-icons/core/main/raw/regular/x.svg",
+        "retrievedAt": "2026-08-14",
+        "modifications": "좌표를 256 격자에서 24 격자로 한 번 스케일(×3/32, 나머지 없이 떨어짐). stroke-width 16 → 1.5. 렌더에 기여하지 않는 배경 <rect width=\"256\" height=\"256\" fill=\"none\"/> 제거. 256px 래스터 대조에서 upstream과 픽셀 동일."
+      }
+    },
+    {
+      "name": "x-circle",
+      "symbol": "IconXCircle",
+      "figmaName": "icon/x-circle",
+      "source": "packages/react/src/icons/svg/x-circle.svg",
+      "geometryHash": "9b77c94ecff24b16",
+      "elementCount": 3,
+      "provenance": {
+        "origin": "upstream",
+        "project": "Phosphor Icons",
+        "icon": "x-circle (regular)",
+        "license": "MIT",
+        "licenseFile": "phosphor.txt",
+        "sourceUrl": "https://raw.githubusercontent.com/phosphor-icons/core/main/raw/regular/x-circle.svg",
+        "retrievedAt": "2026-08-14",
+        "modifications": "좌표를 256 격자에서 24 격자로 한 번 스케일(×3/32, 나머지 없이 떨어짐). stroke-width 16 → 1.5. 렌더에 기여하지 않는 배경 <rect width=\"256\" height=\"256\" fill=\"none\"/> 제거. 256px 래스터 대조에서 upstream과 픽셀 동일. 제품은 Fill 변종을 썼으나 정본은 regular를 채택한다 — 세트가 1.5 획으로 통일돼야 시각 언어가 갈리지 않는다."
+      }
+    }
+  ]
+}

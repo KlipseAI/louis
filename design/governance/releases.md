@@ -36,6 +36,25 @@ pair, motion/reduced-motion, responsive profile 같은 공용 root metadata 변�
 package 배포가 시작되면 workspace package version을 독립적으로 올릴지 fixed version을 사용할지
 Design Decision으로 확정한다. 확정 전에는 가짜 version이나 changelog를 만들지 않는다.
 
+## 의도적 breaking과 baseline 갱신
+
+`packages/tokens/baseline/manifest.json`은 승인된 diff 비교점이다. `check-token-diff`가 breaking으로
+실패한다는 이유만으로 baseline을 덮어쓰지 않는다. 조용한 덮어쓰기를 막기 위해 다음 순서를 지킨다.
+
+1. breaking을 일으키는 source 변경과 그 이유를 Decision 또는 Updates 항목으로 **먼저** 기록한다.
+2. `node scripts/diff-tokens.mjs`로 분류별 diff를 출력하고 의도한 항목만 breaking인지 확인한다.
+3. 의도하지 않은 breaking이 섞여 있으면 baseline이 아니라 source를 고쳐 제거한다.
+4. 현재 generated manifest를 baseline으로 복사하고, 같은 변경 단위에 diff 요약과 migration note를
+   남긴다.
+5. `node scripts/diff-tokens.mjs --fail-on-breaking`이 0으로 종료하는지 재확인한다.
+
+공개 package release와 published Figma library가 생기기 전에는 소비자가 없으므로 이 절차만으로
+breaking을 처리할 수 있다. 그 이후에는 deprecation window가 먼저이며, Figma 전용 metadata 변경도
+published library를 참조하는 소비자가 생긴 시점부터 같은 규칙을 따른다.
+
+공개 TypeScript declaration(`packages/tokens/generated/index.d.ts`)의 타입 표면 변경도 breaking으로
+분류해 같은 절차로 기록한다.
+
 ## Release gate
 
 - manifest와 실제 package exports 일치

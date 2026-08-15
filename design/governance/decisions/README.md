@@ -10,7 +10,10 @@ authority: normative
 
 ## 형식
 
-파일명은 `DS-D-0001-short-title.md` 형식을 사용한다.
+파일명은 `DS-D-0001-short-title.md` 형식을 사용한다. 번호는 순차 배정하되,
+[실행 플레이북](../execution-playbook.md)이 `DS-D-0002~0009`를 P3/Figma/아이콘 결정에 예약해 두었다
+— 새 번호를 배정하기 전에 플레이북의 예약을 확인한다. manifest `documents[]`의 `id`는 kebab-case
+(`decision-token-source` 형태)를 사용한다.
 
 ```md
 # DS-D-0001 결정 제목

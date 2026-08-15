@@ -15,9 +15,9 @@ Klipse 화면을 이루는 재사용 가능한 UI 단위다. 컴포넌트가 코
 <!-- GENERATED:component-progress START -->
 | Component | Maturity | Figma | Web | Docs | Note |
 | --- | --- | --- | --- | --- | --- |
-| [Button](button.md) | `experimental` | `not-ready` | `not-ready` | `done` | 규범은 준비됐지만 배포 가능한 React 구현과 Figma component는 아직 없음 |
-| [Dialog / Confirm Modal](dialog.md) | `experimental` | `not-ready` | `not-ready` | `done` | — |
-| [Menu / Popover](menu-popover.md) | `experimental` | `not-ready` | `not-ready` | `done` | — |
+| [Button](button.md) | `experimental` | `partial` | `partial` | `done` | public export와 실브라우저 acceptance test 11건, Figma component set 40 variant와 parity 대조. publish, visual regression, SSR, 제품 사용처가 남음 |
+| [Dialog / Confirm Modal](dialog.md) | `experimental` | `not-ready` | `partial` | `done` | Dialog compound가 public export다. variant 5종·backdrop 정책·차단 안내를 recipe가 소유한다. Figma component와 시각 회귀는 아직 없다 |
+| [Menu / Popover](menu-popover.md) | `experimental` | `not-ready` | `partial` | `done` | ActionMenu·CompositePopover·submenu가 public export다. Figma component와 시각 회귀는 아직 없다 |
 | Input / Field | `experimental` | `not-ready` | `not-ready` | `not-ready` | P3 component backlog |
 | Select / Dropdown | `experimental` | `not-ready` | `not-ready` | `not-ready` | P3 component backlog |
 | Tooltip | `experimental` | `not-ready` | `not-ready` | `not-ready` | P3 component backlog |

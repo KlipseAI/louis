@@ -61,7 +61,8 @@ Primitive와 semantic typography는 단일 DTCG source 안의 논리적 계층�
   type·mode·alias target, `TypographyValue`와 nested dimension value 구조, primitive/semantic container를
   선언한다. Token별 실제 resolved 숫자와 문자열은 runtime data이며 literal value union으로 고정하지 않는다.
 - Figma proposal에서 native variable로 표현할 수 없는 composite는 field별 mapping과 loss metadata를
-  포함한다.
+  포함한다. semantic `typography-*`는 text style로, primitive `type-style-*`는 미표현으로 분류한다
+  ([DS-D-0007](../governance/decisions/DS-D-0007-figma-library-structure.md)).
 - platform 변환이 의미를 잃으면 조용히 근사하지 않고 build warning 또는 error로 분류한다.
 
 ## Acceptance tests

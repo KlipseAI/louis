@@ -32,7 +32,9 @@ Elevation primitive, semantic elevation과 semantic layer는 단일 DTCG source 
 - semantic role은 surface-raised, popover, modal처럼 사용 목적을 소유한다.
 - `elevation-popover`와 `elevation-modal`은 light/dark surface에서 경계가 읽혀야 한다.
 - 고대비 환경에서는 shadow만으로 surface 경계를 전달하지 않고 border/system color 대체를 제공한다.
-- Figma가 완전한 shadow alias를 표현하지 못하면 proposal에 expanded field와 loss metadata를 남긴다.
+- Figma는 shadow를 native variable로 표현하지 못한다. semantic `elevation-*`는 effect style로,
+  primitive `shadow-*`는 미표현으로 분류하고 loss metadata를 남긴다
+  ([DS-D-0007](../governance/decisions/DS-D-0007-figma-library-structure.md)).
 
 ## Layer model
 

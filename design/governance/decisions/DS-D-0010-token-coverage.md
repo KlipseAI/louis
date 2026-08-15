@@ -1,0 +1,145 @@
+---
+id: decision-token-coverage
+status: experimental
+authority: normative
+---
+
+# DS-D-0010 Token coverage 확장 원칙
+
+- Status: proposed
+- Date: 2026-08-14
+- Owners: repository owner, token maintainer
+- Affects: `@klipse-design/tokens`, `foundation-typography`, `foundation-color-theme`,
+  `governance-execution-handoff` (DS-P3-014)
+
+## Context
+
+[화면 인벤토리](../../../migration/screen-inventory.md)와 제품 CSS 실측으로, 현재 token source가
+배포 화면을 재조립하기에 좁다는 사실이 확인됐다. 확장 규모는 약 169개(primitive 98 + semantic 71)이며
+그중 108개가 배포 화면 재조립에 필수다.
+
+동시에 **기존 토큰의 값 오류**가 드러났다. `typography-title-sm`(28px)과 `typography-title-md`(36px)는
+weight 600인데, 배포 화면의 heading은 전량 medium 500이다(semibold·regular 사용 0회). 제품에
+`.type-heading-28-semibold` 클래스가 *정의*돼 있어 [token mapping](../../../migration/token-mapping.md)이
+그 클래스를 매핑했지만, 실사용은 medium뿐이었다. 정의된 값과 사용되는 값을 구분하지 않은 결과다.
+
+이 결정은 무엇을 승격하고 무엇을 승격하지 않을지의 **판정 원칙**을 고정한다. 개별 토큰 추가는 이
+원칙에 따른 후속 변경 단위가 수행한다.
+
+## Decision
+
+### 1. 판정 원칙
+
+1. **정의가 아니라 실사용을 승격한다.** 제품 CSS에 정의만 되고 사용되지 않는 값은 승격하지 않는다.
+   승격 근거에는 사용 화면과 빈도를 남긴다.
+2. **반전 램프를 승격하지 않는다.** 제품의 `--gray-*` 반전 램프가 하는 일은 semantic role이 이미
+   mode로 흡수한다. 반전을 primitive로 옮기면 mode 축이 두 벌이 된다.
+3. **DOM 상태 스코프는 토큰 축이 아니다.** `[data-page-root]`나 `body:has(...)` 같은 런타임 조건으로
+   갈리는 값은 새 mode를 만들지 않고 소비 계층이 mode를 다시 적용해 해결한다.
+4. **알파는 primitive로 세운다.** DTCG에 연산이 없어 alias로 파생할 수 없다. 알파 스톱은 제품의 73개
+   변형을 10단(4/8/12/16/24/32/48/56/64/72)으로 정규화한다. 88% 이상은 알파가 아니라 불투명 잉크이므로
+   `color-foreground-*` solid role로 흡수한다.
+5. **제품 부채를 승격하지 않는다.** 근거 불명 리터럴, 중복 팔레트, 소비처 0인 변수는 승격 대상이
+   아니라 제품이 정리할 대상이다. 이런 항목은 미채택 목록에 사유와 함께 남긴다.
+6. **팔레트 램프는 완결성을 우선한다.** 램프의 일부 단계가 미참조여도 허용한다. 다만 램프에 속하지
+   않으면서 역할 없이 남은 primitive는 `$deprecated`로 표시한다.
+
+### 2. 타이포 스케일 — 실사용 15종
+
+`typography` composite를 실사용 15종으로 재편한다.
+
+- body 계열 4 size(caption 12 · body-sm 14 · body-md 16 · body-lg 20) × 3 weight(400/500/600) = 12
+- heading 계열 3 size(heading-sm 28 · heading-md 36 · heading-lg 48) × medium(500) = 3
+
+명명은 `typography-{font-size 이름}-{font-weight 이름}`이며 두 조각 모두 기존 primitive ID에서
+그대로 가져온다. `label`, `title` 같은 새 어휘를 만들지 않는다.
+
+파생 규칙: `letterSpacing = fontSize × -0.01em`(body·caption) 또는 `× -0.02em`(heading),
+`lineHeight` 1.5(body·caption) / 1.35(heading), `fontFamily`는 `font-family-sans`와 같은 스택.
+
+**21종 전량 미러(7×3)는 채택하지 않는다** — 실사용 0인 heading regular/semibold 6종을 승격하게 되어
+원칙 1에 어긋난다. **크기와 weight 분리도 채택하지 않는다** — DTCG `typography` composite가
+`fontWeight`를 필수로 요구해 분리가 성립하지 않는다.
+
+### 3. 도메인 색은 semantic으로 승격하되 오염을 기록한다
+
+노드 캔버스의 채널 색(video·image·text·social·audio·edit)은 장식이 아니라 **노드 타입 식별자**이므로
+semantic role로 승격한다. 현재 tier가 `primitive`/`semantic` 2단뿐이라 도메인 전용 토큰이 semantic에
+들어간다. 이는 계층 오염이며, component tier 도입은 컴포넌트 패키지 착수 시 재검토한다. tier 추가는
+schema breaking이므로 지금 하지 않는다.
+
+### 4. 표현 불가 항목은 재현 불가로 문서화한다
+
+- **gradient:** 지원 타입에 없고 실사용이 1건이라 타입 추가를 정당화하지 않는다. 재현 불가로 남긴다.
+- **backdrop-filter / mask:** 토큰 타입이 없다. blur 반경만 `number` primitive로 올리고 나머지는 재현
+  불가로 문서화한다.
+- **inset shadow:** 현재 shadow 스키마가 5개 속성을 exact로 강제해 `inset`을 받지 못한다. DTCG는
+  `inset`을 정의하므로 스키마 확장은 스펙 이탈이 아니지만, 검증기 변경을 동반하므로 별도 결정으로
+  분리한다.
+
+### 5. 채택 범위
+
+`(highlight-standalone)` route group은 제품이 이미 폐기 예정으로 선언했으므로 범위 밖이다. `admin`은
+범위 안이되 Tailwind 잔재 hex를 제품이 정리한 뒤 반영한다.
+
+## Alternatives
+
+### 제품 CSS를 그대로 흡수
+
+배포 화면과 즉시 일치한다. 그러나 제품이 스스로 부채로 기록한 항목(소비처 0인 변수 사다리, 근거 불명
+리터럴, 중복 팔레트)까지 정본이 된다. [DS-D-0001](DS-D-0001-token-source.md)이 제품 CSS 역파싱을
+정본으로 삼지 않기로 한 이유가 그대로 적용된다.
+
+### 확장하지 않고 현행 유지
+
+변경 비용이 없다. 그러나 배포 화면 재조립(목표 B)이 불가능하고, 이미 발견된 heading weight 오류가
+남는다. 목표 자체를 포기하는 선택이다.
+
+### 필요할 때마다 개별 추가
+
+점진적이지만 판정 기준이 매번 달라져 semantic 계층이 일관성을 잃는다. 원칙을 먼저 고정하는 편이
+후속 변경 단위의 리뷰 비용을 줄인다.
+
+## Consequences
+
+- 토큰 수가 174에서 약 340으로 늘어난다. 검증 시간과 생성물 크기가 함께 늘어난다.
+- 타이포 재편은 breaking이다. `typography-title-sm/md`의 weight가 600에서 500으로 바뀌고 ID가
+  `typography-heading-{sm,md}-medium`으로 대체된다. 공개 release와 published library가 없으므로
+  [Releases](../releases.md)의 baseline 갱신 절차로 처리한다.
+- semantic 계층에 도메인 색이 들어가 tier 계약이 부분적으로 오염된다. 이 사실을 감수하고 기록한다.
+- Figma 라이브러리의 변수·style을 재적용해야 한다. 적용 스크립트가 idempotent하고 parity 게이트가
+  stale snapshot을 경고하므로 절차상 안전하다.
+- 그라디언트·마스크가 필요한 화면 일부는 라이브러리만으로 재조립되지 않는다. 이 한계를 화면 재조립
+  검증(DS-F-007)의 gap registry에 명시한다.
+
+## Rollback
+
+각 변경 단위는 독립 커밋이므로 단위별로 되돌릴 수 있다. 타이포 재편만 breaking이므로 되돌릴 때
+baseline도 함께 되돌린다. Figma는 이전 proposal로 재적용하면 되며, 변수 ID가 유지되므로 바인딩이
+끊기지 않는다.
+
+원칙 자체를 되돌리는 경우 이 결정을 supersede하는 ADR을 먼저 승인한다.
+
+## Rollout and verification
+
+1. 이 결정을 기록한다(코드 변경 없음).
+2. 타이포 15종 재편 — breaking. baseline 갱신과 Updates를 같은 변경 단위에 담는다.
+3. 알파 축 26개 — 순증.
+4. 채널 팔레트 40개와 채널 semantic 24개 — 순증.
+5. contrastPairs 확장 — 추가 쌍이 실제 WCAG 계산을 통과하는지 게이트로 확인한다.
+6. elevation/border-width/radius, layer/motion, sky/editor 계열을 순서대로 추가한다.
+7. 각 단위마다 `pnpm build`, `pnpm check`, `pnpm verify`를 통과시키고 Figma를 재적용한 뒤 snapshot을
+   재덤프한다.
+
+## Open questions
+
+다음은 이 저장소가 단독으로 결정할 수 없다. 제품 저장소의 확인이 필요하다.
+
+| # | 질문 | 왜 막히는가 |
+| --- | --- | --- |
+| 1 | 제품의 미커밋 `--surface-*`/`--border-*` 9개를 정본으로 볼 것인가 | 소비처가 0건이고 제품 문서 스스로 괴리라고 기록했다. 소비처 없는 사다리를 정본으로 삼으면 잘못된 SSOT가 된다 |
+| 2 | 앱 셸 라이트 램프를 어떻게 처리할 것인가 | `html[data-theme=light] body:has(...)` 런타임 DOM 조건이라 light/dark 축으로 표현되지 않는다. 게다가 `--palette-gray-200`의 hex와 rgb mirror가 한 채널 어긋나 값 자체가 미확정이다 |
+| 3 | 채널 disabled의 light 값 | 제품 라이트 오버라이드에 정의가 없다. 신규 결정이 필요하며 제품 역이관 시 시각 확인이 따라야 한다 |
+
+1과 2가 해소되기 전에는 해당 토큰을 추가하지 않는다. 목표 B의 앱 셸 라이트 화면은 그때까지 재조립
+검증 대상에서 제외한다.

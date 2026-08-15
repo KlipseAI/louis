@@ -74,10 +74,21 @@ P2 로컬 RC와 향후 완료 모두 public registry 배포, 제품 adoption 또
 
 **상태:** `planned`
 
+- core local RC, catalog coverage와 P3 complete를 서로 다른 gate로 판정
 - Button → Menu/Popover → Dialog 순으로 public implementation
+- 이후 Input, Select, Tooltip, Toast, Empty State와 공용 pattern fixture를 독립적으로 확장
 - keyboard/focus/accessibility tests
 - CSS/React package API와 compatibility policy
-- published Figma variables/components와 parity check
+- 배포 화면 인벤토리와 아이콘 트랙
+
+Figma 작업은 코드 트랙과 병렬인 **Figma 트랙(DS-F-000~008)**이 소유한다: 운영 전제와 구조 Decision
+→ multi-collection proposal → variables/styles 구축 → snapshot parity gate → component library →
+배포 화면 재조립 검증 → 수동 publish 운영. Variables 구축은 React 구현을 기다리지 않으며, component
+parity만 코드 구현과 짝을 이룬다.
+
+Core local RC는 P3 전체 완료가 아니다. 세부 의존성, surface별 승격 근거와 작업 큐는
+[Claude Code 실행 인계서](execution-handoff.md)를, 작업별 상세 절차와 완성 판정표는
+[실행 플레이북](execution-playbook.md)을 따른다.
 
 ## P4 — Documentation and distribution
 
@@ -96,3 +107,8 @@ P2 로컬 RC와 향후 완료 모두 public registry 배포, 제품 adoption 또
 - Home/Highlight/Editor 핵심 route integration evidence
 - legacy UI 신규 참조 차단
 - adoption과 rollback dashboard
+- 각 route 전환과 짝을 이루는 Figma 화면 재조립 재검증 (목표 B 유지)
+
+Home/Highlight/Editor의 실제 route 검증은 P5가 소유하고, 재사용 가능한 App Shell/Grid fixture는
+P3에서 먼저 검증한다. Editor Workspace geometry 검증은 DS-P5-005의 실제 adoption에서 수행한다. 구체
+순서는 [실행 인계서](execution-handoff.md)를 따른다.

@@ -5,26 +5,44 @@
   "type": "module",
   "description": "Klipse의 독립 디자인 시스템 모노레포",
   "scripts": {
-    "build": "pnpm run build:tokens && pnpm run build:docs",
+    "build": "pnpm run build:tokens && pnpm run build:icons && pnpm run build:css && pnpm run build:react && pnpm run build:docs",
     "build-tokens": "node ./scripts/build-tokens.mjs",
     "check-tokens": "node ./scripts/build-tokens.mjs --check",
     "diff-tokens": "node ./scripts/diff-tokens.mjs",
     "check-token-diff": "node ./scripts/diff-tokens.mjs --fail-on-breaking",
     "verify-token-gates": "node ./scripts/verify-token-gates.mjs",
+    "build-icons": "node ./scripts/build-icons.mjs",
+    "check-icons": "node ./scripts/build-icons.mjs --check",
+    "verify-icon-gates": "node ./scripts/verify-icon-gates.mjs",
+    "build-css": "node ./scripts/build-css.mjs",
+    "build-react": "pnpm --filter @klipse-design/react run build",
+    "check-css": "node ./scripts/build-css.mjs --check",
     "build-design-docs": "node ./scripts/build-design-docs.mjs",
     "check-design-docs": "node ./scripts/build-design-docs.mjs --check",
     "build-llms-docs": "node ./scripts/build-llms-docs.mjs",
     "check-llms-docs": "node ./scripts/build-llms-docs.mjs --check",
     "verify-gates": "node ./scripts/verify-gates.mjs",
+    "verify-css-gates": "node ./scripts/verify-css-gates.mjs",
+    "build-figma-snapshot": "node ./scripts/build-figma-snapshot.mjs",
+    "check-figma-snapshot": "node ./scripts/build-figma-snapshot.mjs --check",
+    "verify-figma-parity": "node ./scripts/verify-figma-parity.mjs",
+    "verify-test-harness": "node ./scripts/verify-test-harness.mjs",
+    "test": "vitest run",
+    "typecheck": "tsc -p tsconfig.json",
     "build:tokens": "pnpm run build-tokens",
+    "build:icons": "pnpm run build-icons",
+    "build:css": "pnpm run build-css",
+    "build:react": "pnpm run build-react",
     "build:catalog": "pnpm run build-design-docs",
     "build:llms": "pnpm run build-llms-docs",
     "build:docs": "pnpm run build:catalog && pnpm run build:llms",
     "check:tokens": "pnpm run check-tokens",
+    "check:icons": "pnpm run check-icons",
+    "check:css": "pnpm run check-css",
     "check:catalog": "pnpm run check-design-docs",
     "check:llms": "pnpm run check-llms-docs",
-    "check": "pnpm run check:tokens && pnpm run check:catalog && pnpm run check:llms",
-    "verify": "pnpm run verify-gates && pnpm run verify-token-gates && pnpm run check-token-diff"
+    "check": "pnpm run check:tokens && pnpm run check:icons && pnpm run check:css && pnpm run check:catalog && pnpm run check:llms && pnpm run typecheck",
+    "verify": "pnpm run verify-gates && pnpm run verify-token-gates && pnpm run verify-css-gates && pnpm run verify-icon-gates && pnpm run check-token-diff && pnpm run check-figma-snapshot && pnpm run verify-figma-parity && pnpm run verify-test-harness"
   },
   "engines": {
     "node": ">=22"
@@ -33,5 +51,17 @@
   "workspaces": [
     "apps/*",
     "packages/*"
-  ]
+  ],
+  "devDependencies": {
+    "@types/react": "^19.2.18",
+    "@types/react-dom": "^19.2.4",
+    "@vitest/browser-playwright": "^4.1.10",
+    "axe-core": "^4.13.0",
+    "playwright": "^1.62.1",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8",
+    "typescript": "~5.9.3",
+    "vitest": "^4.1.10",
+    "vitest-browser-react": "^2.2.0"
+  }
 }

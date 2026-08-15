@@ -3,5 +3,23 @@
   "version": "0.0.0",
   "private": true,
   "type": "module",
-  "description": "Klipse Design CSS primitives 패키지"
+  "description": "Klipse Design CSS foundation — token 재export, opt-in reset, base 유틸리티",
+  "files": [
+    "generated"
+  ],
+  "sideEffects": [
+    "*.css"
+  ],
+  "exports": {
+    "./layers.css": "./generated/layers.css",
+    "./tokens.css": "./generated/tokens.css",
+    "./reset.css": "./generated/reset.css",
+    "./styles.css": "./generated/styles.css",
+    "./styles.layer.css": "./generated/styles.layer.css",
+    "./package.json": "./package.json"
+  },
+  "scripts": {
+    "build": "node ../../scripts/build-css.mjs",
+    "check": "node ../../scripts/build-css.mjs --check"
+  }
 }

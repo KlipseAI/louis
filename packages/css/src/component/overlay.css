@@ -1,0 +1,102 @@
+/* Overlay panel — design/components/menu-popover.md, dialog.md, foundations/motion.md
+ *
+ * 이 파일은 **단일 seam**이다. 하부 positioning 유틸이 발행하는 변수 이름이 나머지 CSS로
+ * 새어 나가지 않게 여기서 한 번만 --kds-* 로 재발행한다. DS-D-0003이 "branchId와 portal host
+ * 계약을 라이브러리 중립으로 설계해 하부 유틸을 교체해도 public API가 바뀌지 않게 한다"고
+ * 규정했고, CSS 쪽의 그 계약이 이 블록이다. 유틸을 교체하면 여기 5줄만 바뀐다.
+ *
+ * --radix-popper-* 는 positioning 래퍼에만 붙으므로 상속으로 받는다.
+ */
+
+.kds-overlay-panel {
+  --kds-overlay-available-width: var(--radix-popper-available-width);
+  --kds-overlay-available-height: var(--radix-popper-available-height);
+  --kds-overlay-anchor-width: var(--radix-popper-anchor-width);
+  --kds-overlay-anchor-height: var(--radix-popper-anchor-height);
+  --kds-overlay-transform-origin: var(--radix-popper-transform-origin);
+
+  /* menu-popover.md: 확장 원점은 anchor다. */
+  transform-origin: var(--kds-overlay-transform-origin);
+  /* viewport를 넘기면 자르지 않고 패널 안에서 스크롤한다.
+   * fallback이 필요한 이유: positioner 없이 렌더되면 하부 변수가 guaranteed-invalid가 되고,
+   * 그러면 max-*가 초기값 none으로 무너져 패널이 화면 밖으로 자란다. */
+  max-width: var(--kds-overlay-available-width, 100vw);
+  max-height: var(--kds-overlay-available-height, 100vh);
+  overflow: auto;
+  /* motion.md: 허용 property는 opacity와 transform뿐이다. */
+  transition-property: opacity, transform;
+}
+
+/* positioning이 JS에서 CSS로 읽어가는 값. 상수로 하드코딩하지 않는 이유는
+ * DS-P3-014가 semantic spacing 토큰을 추가할 때 API 변경 없이 값만 갈아끼우기 위해서다. */
+.kds-overlay-panel {
+  --kds-overlay-offset: 8px;
+  --kds-overlay-collision-padding: 8px;
+}
+
+.kds-overlay-panel[data-kds-state="opening"],
+.kds-overlay-panel[data-kds-state="open"] {
+  transition-duration: var(--kds-motion-overlay-enter-duration);
+  transition-timing-function: var(--kds-motion-overlay-enter-timing-function);
+}
+
+/* enter motion의 실제 값. transition-property만 있고 전이할 값 선언이 없으면 아무 일도
+ * 일어나지 않는다 — menu-popover.md Specification의 "opacity + scale, origin=anchor"가
+ * 성립하려면 두 상태의 값이 모두 있어야 한다. transform-origin은 위에서 anchor로 맞춰 둔다. */
+.kds-overlay-panel[data-kds-state="opening"] {
+  opacity: 0;
+  scale: 0.96;
+}
+
+.kds-overlay-panel[data-kds-state="open"] {
+  opacity: 1;
+  scale: 1;
+}
+
+/* readExitDuration()이 getComputedStyle로 읽는 값이 바로 이것이다.
+ * JS에 토큰 이름을 하드코딩하지 않으므로 시각 transition과 unmount timer의 source가 하나다. */
+.kds-overlay-panel[data-kds-state="closing"] {
+  opacity: 0;
+  transition-duration: var(--kds-motion-overlay-exit-duration);
+  transition-timing-function: var(--kds-motion-overlay-exit-timing-function);
+}
+
+/* modal은 다른 recipe를 읽는다. Dialog가 mode 속성을 붙인다. */
+.kds-overlay-panel[data-kds-overlay-mode="modal"][data-kds-state="opening"],
+.kds-overlay-panel[data-kds-overlay-mode="modal"][data-kds-state="open"] {
+  transition-duration: var(--kds-motion-modal-enter-duration);
+  transition-timing-function: var(--kds-motion-modal-enter-timing-function);
+}
+
+.kds-overlay-panel[data-kds-overlay-mode="modal"][data-kds-state="closing"] {
+  transition-duration: var(--kds-motion-modal-exit-duration);
+  transition-timing-function: var(--kds-motion-modal-exit-timing-function);
+}
+
+/* DS-D-0011 결정 3: duration을 0으로 붕괴시키되 순서는 바꾸지 않는다.
+ * timer가 같은 선언을 읽으므로 unmount도 함께 0이 된다 — 두 값이 어긋날 수 없다.
+ *
+ * media query는 specificity를 더하지 않는다. 위 state 규칙이 [data-kds-overlay-mode]까지
+ * 포함해 (0,3,0)이므로 여기서 같은 형태를 다시 적으며 이긴다 — 클래스 하나만 적으면
+ * (0,1,0)이라 조용히 무시되고, reduced-motion에서 exit가 200ms 그대로 남는다. */
+@media (prefers-reduced-motion: reduce) {
+  .kds-overlay-panel,
+  .kds-overlay-panel[data-kds-state],
+  .kds-overlay-panel[data-kds-overlay-mode][data-kds-state] {
+    transition-duration: var(--kds-motion-reduced-duration);
+    transition-timing-function: var(--kds-motion-reduced-timing-function);
+  }
+
+  /* Specification의 Reduced motion = "transform 제거". opacity는 남긴다.
+   * 위 opening 규칙과 같은 (0,2,0) 형태라 뒤에 와서 이긴다. */
+  .kds-overlay-panel[data-kds-state="opening"] {
+    scale: 1;
+  }
+}
+
+/* 장식 pseudo-element는 절대 pointer를 막지 않는다.
+ * elevation-layer.md: 보이지 않는 layer가 보이는 control의 pointer를 가로채면 실패다. */
+.kds-overlay-panel::before,
+.kds-overlay-panel::after {
+  pointer-events: none;
+}

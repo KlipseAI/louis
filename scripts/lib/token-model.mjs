@@ -2039,36 +2039,122 @@ function renderTypes(model) {
   ].join("\n");
 }
 
-function createFigmaProposal(model) {
-  const modes = {};
-  for (const token of model.allTokens) {
-    const mode = (modes[token.mode] ??= {});
-    const proposalToken = {
-      $type: token.type,
-      $value: deepClone(token.rawValue),
-      $extensions: {
-        [KLIPSE_EXTENSION]: {
-          aliasTarget: deepClone(token.aliasTarget),
-          figmaMapping: figmaMappingForToken(token.type, token.resolvedValue),
-          id: token.id,
-          mode: token.mode,
-          reviewOnly: true,
-          resolvedValue: deepClone(token.resolvedValue),
-          sourcePath: token.sourcePath,
-          tier: token.tier,
-          variableName: token.id,
-        },
-      },
-    };
-    if (token.description !== null)
-      proposalToken.$description = token.description;
-    if (token.deprecated !== null) proposalToken.$deprecated = token.deprecated;
-    mode[token.id] = proposalToken;
+const FIGMA_MODE_NAMES = {
+  base: "Base",
+  global: "Global",
+  light: "Light",
+  dark: "Dark",
+};
+// mode 순서는 알파벳이 아니라 source가 선언한 theme 순서를 따른다.
+// Figma는 첫 mode를 default로 쓰므로, CSS의 `:root`가 light인 것과 어긋나면 안 된다.
+const FIGMA_MODE_ORDER = ["Base", "Global", "Light", "Dark"];
+const FIGMA_COMPOSITE_TYPES = new Set([
+  "typography",
+  "shadow",
+  "transition",
+  "cubicBezier",
+]);
+
+function figmaCollectionKindForToken(token) {
+  if (token.tier === "primitive") return "primitive";
+  if (token.mode === "global") return "semantic";
+  return "semanticColor";
+}
+
+function figmaCollectionNames(prefix) {
+  return {
+    primitive: `${prefix} Primitive`,
+    semantic: `${prefix} Semantic`,
+    semanticColor: `${prefix} Semantic Color`,
+  };
+}
+
+function figmaRepresentationForToken(token) {
+  if (!FIGMA_COMPOSITE_TYPES.has(token.type)) return "variable";
+  if (token.tier === "primitive") return "unrepresented";
+  if (token.type === "typography") return "text-style";
+  if (token.type === "shadow") return "effect-style";
+  return "variable-documentation";
+}
+
+function figmaVariablePath(token) {
+  const segments = token.sourcePath.split(".");
+  return segments.slice(token.tier === "primitive" ? 1 : 2).join("/");
+}
+
+function figmaScopesForToken(token) {
+  if (token.type === "color") {
+    if (token.id.startsWith("color-background")) {
+      return ["FRAME_FILL", "SHAPE_FILL"];
+    }
+    if (token.id.startsWith("color-foreground")) return ["TEXT_FILL"];
+    if (token.id.startsWith("color-border")) return ["STROKE_COLOR"];
+    return ["FRAME_FILL", "SHAPE_FILL", "STROKE_COLOR", "TEXT_FILL"];
   }
+  if (token.type === "dimension") {
+    if (token.id.startsWith("radius-")) return ["CORNER_RADIUS"];
+    if (token.id.startsWith("space-")) return ["GAP", "WIDTH_HEIGHT"];
+    return ["WIDTH_HEIGHT"];
+  }
+  if (token.type === "fontFamily") return ["FONT_FAMILY"];
+  if (token.type === "fontWeight") return ["FONT_WEIGHT"];
+  return [];
+}
+
+function createFigmaProposal(model) {
+  const names = figmaCollectionNames(model.figmaCollection);
+  const collections = {};
+  for (const kind of ["primitive", "semantic", "semanticColor"]) {
+    collections[names[kind]] = { kind, modes: [], variables: {} };
+  }
+
+  for (const token of model.allTokens) {
+    const kind = figmaCollectionKindForToken(token);
+    const collection = collections[names[kind]];
+    const modeName = FIGMA_MODE_NAMES[token.mode];
+    if (!collection.modes.includes(modeName)) collection.modes.push(modeName);
+
+    const representation = figmaRepresentationForToken(token);
+    const entry = (collection.variables[token.id] ??= {
+      $type: token.type,
+      figmaName: figmaVariablePath(token),
+      nativeVariableType: figmaNativeTypeForToken(token.type, representation),
+      representation,
+      scopes: representation.startsWith("variable")
+        ? figmaScopesForToken(token)
+        : [],
+      hiddenFromPublishing: token.tier === "primitive",
+      losses: figmaLossesForToken(token.type, representation),
+      fields: FIGMA_COMPOSITE_TYPES.has(token.type)
+        ? figmaCompositeFields(token.resolvedValue)
+        : [],
+      valuesByMode: {},
+    });
+    const value = {
+      $value: deepClone(token.rawValue),
+      aliasTarget: deepClone(token.aliasTarget),
+      resolvedValue: deepClone(token.resolvedValue),
+      sourcePath: token.sourcePath,
+    };
+    if (token.description !== null) value.$description = token.description;
+    if (token.deprecated !== null) value.$deprecated = token.deprecated;
+    entry.valuesByMode[modeName] = value;
+  }
+
+  for (const collection of Object.values(collections)) {
+    collection.modes.sort(
+      (left, right) =>
+        FIGMA_MODE_ORDER.indexOf(left) - FIGMA_MODE_ORDER.indexOf(right),
+    );
+    // Figma는 첫 mode를 default로 삼는다. 명시해 두면 적용 스크립트와 parity가 이를 검증할 수 있다.
+    collection.defaultMode = collection.modes[0];
+  }
+
   return {
     $description: model.description,
     $extensions: {
       [KLIPSE_EXTENSION]: {
+        collectionNames: names,
         contrastPairs: deepClone(model.contrastPairs),
         figmaCollection: model.figmaCollection,
         formatVersion: model.formatVersion,
@@ -2078,63 +2164,52 @@ function createFigmaProposal(model) {
         responsiveProfiles: deepClone(model.responsiveProfiles),
         proposalNotice:
           "REVIEW PROPOSAL — validate in Figma before publishing variables or styles.",
+        representationPolicy: "DS-D-0007",
         reviewOnly: true,
         themes: [...model.themes],
       },
     },
-    modes,
+    collections,
   };
 }
 
-function figmaMappingForToken(type, value) {
-  if (type === "color") {
-    return {
-      nativeVariableType: "COLOR",
-      representation: "native-variable",
-      fields: [],
-      losses: [],
-    };
+function figmaNativeTypeForToken(type, representation) {
+  if (representation === "variable-documentation") return "STRING";
+  if (representation !== "variable") return null;
+  if (type === "color") return "COLOR";
+  if (type === "fontFamily") return "STRING";
+  return "FLOAT";
+}
+
+function figmaCompositeFields(value) {
+  return isPlainObject(value) ? Object.keys(value).sort(compareStrings) : [];
+}
+
+function figmaLossesForToken(type, representation) {
+  if (representation === "unrepresented") {
+    return [
+      `primitive ${type}은 Figma에 만들지 않습니다. Figma에는 style→style alias가 없어 semantic→primitive tier 관계를 보존할 수 없습니다 (DS-D-0007).`,
+    ];
   }
-  if (type === "number") {
-    return {
-      nativeVariableType: "FLOAT",
-      representation: "native-variable",
-      fields: [],
-      losses: [],
-    };
+  if (representation === "text-style" || representation === "effect-style") {
+    return [
+      `DTCG ${type} composite는 단일 native variable로 표현되지 않아 ${representation}로 만들고 내부 속성을 변수에 바인딩합니다.`,
+    ];
   }
-  if (type === "dimension" || type === "duration" || type === "fontWeight") {
-    return {
-      nativeVariableType: "FLOAT",
-      representation: "native-variable-with-metadata",
-      fields: [],
-      losses: [
-        "Figma FLOAT는 DTCG 단위 의미를 직접 보존하지 않으므로 source metadata를 함께 검토해야 합니다.",
-      ],
-    };
+  if (representation === "variable-documentation") {
+    return [
+      `DTCG ${type}은 Figma가 해석하지 않는 문서용 STRING 변수로 격하됩니다.`,
+    ];
   }
   if (type === "fontFamily") {
-    return {
-      nativeVariableType: "STRING",
-      representation: "serialized-fallback-list",
-      fields: [],
-      losses: [
-        "Figma STRING은 font fallback 배열을 구조적으로 표현하지 못합니다.",
-      ],
-    };
+    return ["Figma STRING은 font fallback 배열을 구조적으로 표현하지 못합니다."];
   }
-
-  const fields = isPlainObject(value)
-    ? Object.keys(value).sort(compareStrings)
-    : [];
-  return {
-    nativeVariableType: null,
-    representation: "expanded-fields",
-    fields,
-    losses: [
-      `Figma Variables는 DTCG ${type} composite를 단일 native variable로 표현하지 못합니다.`,
-    ],
-  };
+  if (type === "dimension" || type === "duration" || type === "fontWeight") {
+    return [
+      "Figma FLOAT는 DTCG 단위 의미를 직접 보존하지 않으므로 source metadata를 함께 검토해야 합니다.",
+    ];
+  }
+  return [];
 }
 
 function cssPropertiesForToken(id, type, value) {

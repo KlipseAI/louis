@@ -40,7 +40,7 @@ export const metadata = Object.freeze({
     }
   ],
   "description": "Klipse Design의 DTCG 2025.10 기반 토큰 정본",
-  "figmaCollection": "Klipse Design",
+  "figmaCollection": "Klipse",
   "layerOrder": [
     "layer-content",
     "layer-sticky",
@@ -2769,12 +2769,224 @@ export const primitives = {
       ]
     }
   },
-  "type-style-body-md": {
+  "type-style-body-lg-medium": {
     "aliasTarget": null,
     "cssProperties": {},
     "deprecated": null,
     "description": null,
-    "id": "type-style-body-md",
+    "id": "type-style-body-lg-medium",
+    "mode": "base",
+    "rawValue": {
+      "fontFamily": [
+        "Pretendard Variable",
+        "Pretendard",
+        "Inter",
+        "Noto Sans KR",
+        "Noto Sans JP",
+        "system-ui",
+        "sans-serif"
+      ],
+      "fontSize": {
+        "value": 20,
+        "unit": "px"
+      },
+      "fontWeight": 500,
+      "letterSpacing": {
+        "value": -0.2,
+        "unit": "px"
+      },
+      "lineHeight": 1.5
+    },
+    "sourcePath": "primitive.typography.body-lg-medium",
+    "tier": "primitive",
+    "type": "typography",
+    "value": {
+      "fontFamily": [
+        "Pretendard Variable",
+        "Pretendard",
+        "Inter",
+        "Noto Sans KR",
+        "Noto Sans JP",
+        "system-ui",
+        "sans-serif"
+      ],
+      "fontSize": {
+        "value": 20,
+        "unit": "px"
+      },
+      "fontWeight": 500,
+      "letterSpacing": {
+        "value": -0.2,
+        "unit": "px"
+      },
+      "lineHeight": 1.5
+    }
+  },
+  "type-style-body-lg-regular": {
+    "aliasTarget": null,
+    "cssProperties": {},
+    "deprecated": null,
+    "description": null,
+    "id": "type-style-body-lg-regular",
+    "mode": "base",
+    "rawValue": {
+      "fontFamily": [
+        "Pretendard Variable",
+        "Pretendard",
+        "Inter",
+        "Noto Sans KR",
+        "Noto Sans JP",
+        "system-ui",
+        "sans-serif"
+      ],
+      "fontSize": {
+        "value": 20,
+        "unit": "px"
+      },
+      "fontWeight": 400,
+      "letterSpacing": {
+        "value": -0.2,
+        "unit": "px"
+      },
+      "lineHeight": 1.5
+    },
+    "sourcePath": "primitive.typography.body-lg-regular",
+    "tier": "primitive",
+    "type": "typography",
+    "value": {
+      "fontFamily": [
+        "Pretendard Variable",
+        "Pretendard",
+        "Inter",
+        "Noto Sans KR",
+        "Noto Sans JP",
+        "system-ui",
+        "sans-serif"
+      ],
+      "fontSize": {
+        "value": 20,
+        "unit": "px"
+      },
+      "fontWeight": 400,
+      "letterSpacing": {
+        "value": -0.2,
+        "unit": "px"
+      },
+      "lineHeight": 1.5
+    }
+  },
+  "type-style-body-lg-semibold": {
+    "aliasTarget": null,
+    "cssProperties": {},
+    "deprecated": null,
+    "description": null,
+    "id": "type-style-body-lg-semibold",
+    "mode": "base",
+    "rawValue": {
+      "fontFamily": [
+        "Pretendard Variable",
+        "Pretendard",
+        "Inter",
+        "Noto Sans KR",
+        "Noto Sans JP",
+        "system-ui",
+        "sans-serif"
+      ],
+      "fontSize": {
+        "value": 20,
+        "unit": "px"
+      },
+      "fontWeight": 600,
+      "letterSpacing": {
+        "value": -0.2,
+        "unit": "px"
+      },
+      "lineHeight": 1.5
+    },
+    "sourcePath": "primitive.typography.body-lg-semibold",
+    "tier": "primitive",
+    "type": "typography",
+    "value": {
+      "fontFamily": [
+        "Pretendard Variable",
+        "Pretendard",
+        "Inter",
+        "Noto Sans KR",
+        "Noto Sans JP",
+        "system-ui",
+        "sans-serif"
+      ],
+      "fontSize": {
+        "value": 20,
+        "unit": "px"
+      },
+      "fontWeight": 600,
+      "letterSpacing": {
+        "value": -0.2,
+        "unit": "px"
+      },
+      "lineHeight": 1.5
+    }
+  },
+  "type-style-body-md-medium": {
+    "aliasTarget": null,
+    "cssProperties": {},
+    "deprecated": null,
+    "description": null,
+    "id": "type-style-body-md-medium",
+    "mode": "base",
+    "rawValue": {
+      "fontFamily": [
+        "Pretendard Variable",
+        "Pretendard",
+        "Inter",
+        "Noto Sans KR",
+        "Noto Sans JP",
+        "system-ui",
+        "sans-serif"
+      ],
+      "fontSize": {
+        "value": 16,
+        "unit": "px"
+      },
+      "fontWeight": 500,
+      "letterSpacing": {
+        "value": -0.16,
+        "unit": "px"
+      },
+      "lineHeight": 1.5
+    },
+    "sourcePath": "primitive.typography.body-md-medium",
+    "tier": "primitive",
+    "type": "typography",
+    "value": {
+      "fontFamily": [
+        "Pretendard Variable",
+        "Pretendard",
+        "Inter",
+        "Noto Sans KR",
+        "Noto Sans JP",
+        "system-ui",
+        "sans-serif"
+      ],
+      "fontSize": {
+        "value": 16,
+        "unit": "px"
+      },
+      "fontWeight": 500,
+      "letterSpacing": {
+        "value": -0.16,
+        "unit": "px"
+      },
+      "lineHeight": 1.5
+    }
+  },
+  "type-style-body-md-regular": {
+    "aliasTarget": null,
+    "cssProperties": {},
+    "deprecated": null,
+    "description": null,
+    "id": "type-style-body-md-regular",
     "mode": "base",
     "rawValue": {
       "fontFamily": [
@@ -2797,7 +3009,7 @@ export const primitives = {
       },
       "lineHeight": 1.5
     },
-    "sourcePath": "primitive.typography.body-md",
+    "sourcePath": "primitive.typography.body-md-regular",
     "tier": "primitive",
     "type": "typography",
     "value": {
@@ -2822,12 +3034,12 @@ export const primitives = {
       "lineHeight": 1.5
     }
   },
-  "type-style-body-sm": {
+  "type-style-body-md-semibold": {
     "aliasTarget": null,
     "cssProperties": {},
     "deprecated": null,
     "description": null,
-    "id": "type-style-body-sm",
+    "id": "type-style-body-md-semibold",
     "mode": "base",
     "rawValue": {
       "fontFamily": [
@@ -2840,17 +3052,17 @@ export const primitives = {
         "sans-serif"
       ],
       "fontSize": {
-        "value": 14,
+        "value": 16,
         "unit": "px"
       },
-      "fontWeight": 400,
+      "fontWeight": 600,
       "letterSpacing": {
-        "value": -0.14,
+        "value": -0.16,
         "unit": "px"
       },
       "lineHeight": 1.5
     },
-    "sourcePath": "primitive.typography.body-sm",
+    "sourcePath": "primitive.typography.body-md-semibold",
     "tier": "primitive",
     "type": "typography",
     "value": {
@@ -2864,76 +3076,23 @@ export const primitives = {
         "sans-serif"
       ],
       "fontSize": {
-        "value": 14,
+        "value": 16,
         "unit": "px"
       },
-      "fontWeight": 400,
+      "fontWeight": 600,
       "letterSpacing": {
-        "value": -0.14,
+        "value": -0.16,
         "unit": "px"
       },
       "lineHeight": 1.5
     }
   },
-  "type-style-caption": {
+  "type-style-body-sm-medium": {
     "aliasTarget": null,
     "cssProperties": {},
     "deprecated": null,
     "description": null,
-    "id": "type-style-caption",
-    "mode": "base",
-    "rawValue": {
-      "fontFamily": [
-        "Pretendard Variable",
-        "Pretendard",
-        "Inter",
-        "Noto Sans KR",
-        "Noto Sans JP",
-        "system-ui",
-        "sans-serif"
-      ],
-      "fontSize": {
-        "value": 12,
-        "unit": "px"
-      },
-      "fontWeight": 400,
-      "letterSpacing": {
-        "value": -0.12,
-        "unit": "px"
-      },
-      "lineHeight": 1.5
-    },
-    "sourcePath": "primitive.typography.caption",
-    "tier": "primitive",
-    "type": "typography",
-    "value": {
-      "fontFamily": [
-        "Pretendard Variable",
-        "Pretendard",
-        "Inter",
-        "Noto Sans KR",
-        "Noto Sans JP",
-        "system-ui",
-        "sans-serif"
-      ],
-      "fontSize": {
-        "value": 12,
-        "unit": "px"
-      },
-      "fontWeight": 400,
-      "letterSpacing": {
-        "value": -0.12,
-        "unit": "px"
-      },
-      "lineHeight": 1.5
-    }
-  },
-  "type-style-label-md": {
-    "aliasTarget": null,
-    "cssProperties": {},
-    "deprecated": null,
-    "description": null,
-    "id": "type-style-label-md",
+    "id": "type-style-body-sm-medium",
     "mode": "base",
     "rawValue": {
       "fontFamily": [
@@ -2956,7 +3115,7 @@ export const primitives = {
       },
       "lineHeight": 1.5
     },
-    "sourcePath": "primitive.typography.label-md",
+    "sourcePath": "primitive.typography.body-sm-medium",
     "tier": "primitive",
     "type": "typography",
     "value": {
@@ -2981,12 +3140,330 @@ export const primitives = {
       "lineHeight": 1.5
     }
   },
-  "type-style-title-md": {
+  "type-style-body-sm-regular": {
     "aliasTarget": null,
     "cssProperties": {},
     "deprecated": null,
     "description": null,
-    "id": "type-style-title-md",
+    "id": "type-style-body-sm-regular",
+    "mode": "base",
+    "rawValue": {
+      "fontFamily": [
+        "Pretendard Variable",
+        "Pretendard",
+        "Inter",
+        "Noto Sans KR",
+        "Noto Sans JP",
+        "system-ui",
+        "sans-serif"
+      ],
+      "fontSize": {
+        "value": 14,
+        "unit": "px"
+      },
+      "fontWeight": 400,
+      "letterSpacing": {
+        "value": -0.14,
+        "unit": "px"
+      },
+      "lineHeight": 1.5
+    },
+    "sourcePath": "primitive.typography.body-sm-regular",
+    "tier": "primitive",
+    "type": "typography",
+    "value": {
+      "fontFamily": [
+        "Pretendard Variable",
+        "Pretendard",
+        "Inter",
+        "Noto Sans KR",
+        "Noto Sans JP",
+        "system-ui",
+        "sans-serif"
+      ],
+      "fontSize": {
+        "value": 14,
+        "unit": "px"
+      },
+      "fontWeight": 400,
+      "letterSpacing": {
+        "value": -0.14,
+        "unit": "px"
+      },
+      "lineHeight": 1.5
+    }
+  },
+  "type-style-body-sm-semibold": {
+    "aliasTarget": null,
+    "cssProperties": {},
+    "deprecated": null,
+    "description": null,
+    "id": "type-style-body-sm-semibold",
+    "mode": "base",
+    "rawValue": {
+      "fontFamily": [
+        "Pretendard Variable",
+        "Pretendard",
+        "Inter",
+        "Noto Sans KR",
+        "Noto Sans JP",
+        "system-ui",
+        "sans-serif"
+      ],
+      "fontSize": {
+        "value": 14,
+        "unit": "px"
+      },
+      "fontWeight": 600,
+      "letterSpacing": {
+        "value": -0.14,
+        "unit": "px"
+      },
+      "lineHeight": 1.5
+    },
+    "sourcePath": "primitive.typography.body-sm-semibold",
+    "tier": "primitive",
+    "type": "typography",
+    "value": {
+      "fontFamily": [
+        "Pretendard Variable",
+        "Pretendard",
+        "Inter",
+        "Noto Sans KR",
+        "Noto Sans JP",
+        "system-ui",
+        "sans-serif"
+      ],
+      "fontSize": {
+        "value": 14,
+        "unit": "px"
+      },
+      "fontWeight": 600,
+      "letterSpacing": {
+        "value": -0.14,
+        "unit": "px"
+      },
+      "lineHeight": 1.5
+    }
+  },
+  "type-style-caption-medium": {
+    "aliasTarget": null,
+    "cssProperties": {},
+    "deprecated": null,
+    "description": null,
+    "id": "type-style-caption-medium",
+    "mode": "base",
+    "rawValue": {
+      "fontFamily": [
+        "Pretendard Variable",
+        "Pretendard",
+        "Inter",
+        "Noto Sans KR",
+        "Noto Sans JP",
+        "system-ui",
+        "sans-serif"
+      ],
+      "fontSize": {
+        "value": 12,
+        "unit": "px"
+      },
+      "fontWeight": 500,
+      "letterSpacing": {
+        "value": -0.12,
+        "unit": "px"
+      },
+      "lineHeight": 1.5
+    },
+    "sourcePath": "primitive.typography.caption-medium",
+    "tier": "primitive",
+    "type": "typography",
+    "value": {
+      "fontFamily": [
+        "Pretendard Variable",
+        "Pretendard",
+        "Inter",
+        "Noto Sans KR",
+        "Noto Sans JP",
+        "system-ui",
+        "sans-serif"
+      ],
+      "fontSize": {
+        "value": 12,
+        "unit": "px"
+      },
+      "fontWeight": 500,
+      "letterSpacing": {
+        "value": -0.12,
+        "unit": "px"
+      },
+      "lineHeight": 1.5
+    }
+  },
+  "type-style-caption-regular": {
+    "aliasTarget": null,
+    "cssProperties": {},
+    "deprecated": null,
+    "description": null,
+    "id": "type-style-caption-regular",
+    "mode": "base",
+    "rawValue": {
+      "fontFamily": [
+        "Pretendard Variable",
+        "Pretendard",
+        "Inter",
+        "Noto Sans KR",
+        "Noto Sans JP",
+        "system-ui",
+        "sans-serif"
+      ],
+      "fontSize": {
+        "value": 12,
+        "unit": "px"
+      },
+      "fontWeight": 400,
+      "letterSpacing": {
+        "value": -0.12,
+        "unit": "px"
+      },
+      "lineHeight": 1.5
+    },
+    "sourcePath": "primitive.typography.caption-regular",
+    "tier": "primitive",
+    "type": "typography",
+    "value": {
+      "fontFamily": [
+        "Pretendard Variable",
+        "Pretendard",
+        "Inter",
+        "Noto Sans KR",
+        "Noto Sans JP",
+        "system-ui",
+        "sans-serif"
+      ],
+      "fontSize": {
+        "value": 12,
+        "unit": "px"
+      },
+      "fontWeight": 400,
+      "letterSpacing": {
+        "value": -0.12,
+        "unit": "px"
+      },
+      "lineHeight": 1.5
+    }
+  },
+  "type-style-caption-semibold": {
+    "aliasTarget": null,
+    "cssProperties": {},
+    "deprecated": null,
+    "description": null,
+    "id": "type-style-caption-semibold",
+    "mode": "base",
+    "rawValue": {
+      "fontFamily": [
+        "Pretendard Variable",
+        "Pretendard",
+        "Inter",
+        "Noto Sans KR",
+        "Noto Sans JP",
+        "system-ui",
+        "sans-serif"
+      ],
+      "fontSize": {
+        "value": 12,
+        "unit": "px"
+      },
+      "fontWeight": 600,
+      "letterSpacing": {
+        "value": -0.12,
+        "unit": "px"
+      },
+      "lineHeight": 1.5
+    },
+    "sourcePath": "primitive.typography.caption-semibold",
+    "tier": "primitive",
+    "type": "typography",
+    "value": {
+      "fontFamily": [
+        "Pretendard Variable",
+        "Pretendard",
+        "Inter",
+        "Noto Sans KR",
+        "Noto Sans JP",
+        "system-ui",
+        "sans-serif"
+      ],
+      "fontSize": {
+        "value": 12,
+        "unit": "px"
+      },
+      "fontWeight": 600,
+      "letterSpacing": {
+        "value": -0.12,
+        "unit": "px"
+      },
+      "lineHeight": 1.5
+    }
+  },
+  "type-style-heading-lg-medium": {
+    "aliasTarget": null,
+    "cssProperties": {},
+    "deprecated": null,
+    "description": null,
+    "id": "type-style-heading-lg-medium",
+    "mode": "base",
+    "rawValue": {
+      "fontFamily": [
+        "Pretendard Variable",
+        "Pretendard",
+        "Inter",
+        "Noto Sans KR",
+        "Noto Sans JP",
+        "system-ui",
+        "sans-serif"
+      ],
+      "fontSize": {
+        "value": 48,
+        "unit": "px"
+      },
+      "fontWeight": 500,
+      "letterSpacing": {
+        "value": -0.96,
+        "unit": "px"
+      },
+      "lineHeight": 1.35
+    },
+    "sourcePath": "primitive.typography.heading-lg-medium",
+    "tier": "primitive",
+    "type": "typography",
+    "value": {
+      "fontFamily": [
+        "Pretendard Variable",
+        "Pretendard",
+        "Inter",
+        "Noto Sans KR",
+        "Noto Sans JP",
+        "system-ui",
+        "sans-serif"
+      ],
+      "fontSize": {
+        "value": 48,
+        "unit": "px"
+      },
+      "fontWeight": 500,
+      "letterSpacing": {
+        "value": -0.96,
+        "unit": "px"
+      },
+      "lineHeight": 1.35
+    }
+  },
+  "type-style-heading-md-medium": {
+    "aliasTarget": null,
+    "cssProperties": {},
+    "deprecated": null,
+    "description": null,
+    "id": "type-style-heading-md-medium",
     "mode": "base",
     "rawValue": {
       "fontFamily": [
@@ -3002,14 +3479,14 @@ export const primitives = {
         "value": 36,
         "unit": "px"
       },
-      "fontWeight": 600,
+      "fontWeight": 500,
       "letterSpacing": {
         "value": -0.72,
         "unit": "px"
       },
       "lineHeight": 1.35
     },
-    "sourcePath": "primitive.typography.title-md",
+    "sourcePath": "primitive.typography.heading-md-medium",
     "tier": "primitive",
     "type": "typography",
     "value": {
@@ -3026,7 +3503,7 @@ export const primitives = {
         "value": 36,
         "unit": "px"
       },
-      "fontWeight": 600,
+      "fontWeight": 500,
       "letterSpacing": {
         "value": -0.72,
         "unit": "px"
@@ -3034,12 +3511,12 @@ export const primitives = {
       "lineHeight": 1.35
     }
   },
-  "type-style-title-sm": {
+  "type-style-heading-sm-medium": {
     "aliasTarget": null,
     "cssProperties": {},
     "deprecated": null,
     "description": null,
-    "id": "type-style-title-sm",
+    "id": "type-style-heading-sm-medium",
     "mode": "base",
     "rawValue": {
       "fontFamily": [
@@ -3055,14 +3532,14 @@ export const primitives = {
         "value": 28,
         "unit": "px"
       },
-      "fontWeight": 600,
+      "fontWeight": 500,
       "letterSpacing": {
         "value": -0.56,
         "unit": "px"
       },
       "lineHeight": 1.35
     },
-    "sourcePath": "primitive.typography.title-sm",
+    "sourcePath": "primitive.typography.heading-sm-medium",
     "tier": "primitive",
     "type": "typography",
     "value": {
@@ -3079,7 +3556,7 @@ export const primitives = {
         "value": 28,
         "unit": "px"
       },
-      "fontWeight": 600,
+      "fontWeight": 500,
       "letterSpacing": {
         "value": -0.56,
         "unit": "px"
@@ -3264,6 +3741,69 @@ export const tokens = {
           "value": 0,
           "unit": "px"
         }
+      }
+    },
+    "icon-size-lg": {
+      "aliasTarget": {
+        "id": "space-24",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-icon-size-lg": "24px"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "icon-size-lg",
+      "mode": "global",
+      "rawValue": "{primitive.spacing.24}",
+      "sourcePath": "semantic.global.icon.size-lg",
+      "tier": "semantic",
+      "type": "dimension",
+      "value": {
+        "value": 24,
+        "unit": "px"
+      }
+    },
+    "icon-size-md": {
+      "aliasTarget": {
+        "id": "space-20",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-icon-size-md": "20px"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "icon-size-md",
+      "mode": "global",
+      "rawValue": "{primitive.spacing.20}",
+      "sourcePath": "semantic.global.icon.size-md",
+      "tier": "semantic",
+      "type": "dimension",
+      "value": {
+        "value": 20,
+        "unit": "px"
+      }
+    },
+    "icon-size-sm": {
+      "aliasTarget": {
+        "id": "space-16",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-icon-size-sm": "16px"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "icon-size-sm",
+      "mode": "global",
+      "rawValue": "{primitive.spacing.16}",
+      "sourcePath": "semantic.global.icon.size-sm",
+      "tier": "semantic",
+      "type": "dimension",
+      "value": {
+        "value": 16,
+        "unit": "px"
       }
     },
     "layer-content": {
@@ -3909,24 +4449,192 @@ export const tokens = {
         "unit": "px"
       }
     },
-    "typography-body-md": {
+    "typography-body-lg-medium": {
       "aliasTarget": {
-        "id": "type-style-body-md",
+        "id": "type-style-body-lg-medium",
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-typography-body-md-font-family": "\"Pretendard Variable\", \"Pretendard\", \"Inter\", \"Noto Sans KR\", \"Noto Sans JP\", system-ui, sans-serif",
-        "--kds-typography-body-md-font-size": "16px",
-        "--kds-typography-body-md-font-weight": "400",
-        "--kds-typography-body-md-letter-spacing": "-0.16px",
-        "--kds-typography-body-md-line-height": "1.5"
+        "--kds-typography-body-lg-medium-font-family": "\"Pretendard Variable\", \"Pretendard\", \"Inter\", \"Noto Sans KR\", \"Noto Sans JP\", system-ui, sans-serif",
+        "--kds-typography-body-lg-medium-font-size": "20px",
+        "--kds-typography-body-lg-medium-font-weight": "500",
+        "--kds-typography-body-lg-medium-letter-spacing": "-0.2px",
+        "--kds-typography-body-lg-medium-line-height": "1.5"
       },
       "deprecated": null,
       "description": null,
-      "id": "typography-body-md",
+      "id": "typography-body-lg-medium",
       "mode": "global",
-      "rawValue": "{primitive.typography.body-md}",
-      "sourcePath": "semantic.global.typography.body-md",
+      "rawValue": "{primitive.typography.body-lg-medium}",
+      "sourcePath": "semantic.global.typography.body-lg-medium",
+      "tier": "semantic",
+      "type": "typography",
+      "value": {
+        "fontFamily": [
+          "Pretendard Variable",
+          "Pretendard",
+          "Inter",
+          "Noto Sans KR",
+          "Noto Sans JP",
+          "system-ui",
+          "sans-serif"
+        ],
+        "fontSize": {
+          "value": 20,
+          "unit": "px"
+        },
+        "fontWeight": 500,
+        "letterSpacing": {
+          "value": -0.2,
+          "unit": "px"
+        },
+        "lineHeight": 1.5
+      }
+    },
+    "typography-body-lg-regular": {
+      "aliasTarget": {
+        "id": "type-style-body-lg-regular",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-typography-body-lg-regular-font-family": "\"Pretendard Variable\", \"Pretendard\", \"Inter\", \"Noto Sans KR\", \"Noto Sans JP\", system-ui, sans-serif",
+        "--kds-typography-body-lg-regular-font-size": "20px",
+        "--kds-typography-body-lg-regular-font-weight": "400",
+        "--kds-typography-body-lg-regular-letter-spacing": "-0.2px",
+        "--kds-typography-body-lg-regular-line-height": "1.5"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "typography-body-lg-regular",
+      "mode": "global",
+      "rawValue": "{primitive.typography.body-lg-regular}",
+      "sourcePath": "semantic.global.typography.body-lg-regular",
+      "tier": "semantic",
+      "type": "typography",
+      "value": {
+        "fontFamily": [
+          "Pretendard Variable",
+          "Pretendard",
+          "Inter",
+          "Noto Sans KR",
+          "Noto Sans JP",
+          "system-ui",
+          "sans-serif"
+        ],
+        "fontSize": {
+          "value": 20,
+          "unit": "px"
+        },
+        "fontWeight": 400,
+        "letterSpacing": {
+          "value": -0.2,
+          "unit": "px"
+        },
+        "lineHeight": 1.5
+      }
+    },
+    "typography-body-lg-semibold": {
+      "aliasTarget": {
+        "id": "type-style-body-lg-semibold",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-typography-body-lg-semibold-font-family": "\"Pretendard Variable\", \"Pretendard\", \"Inter\", \"Noto Sans KR\", \"Noto Sans JP\", system-ui, sans-serif",
+        "--kds-typography-body-lg-semibold-font-size": "20px",
+        "--kds-typography-body-lg-semibold-font-weight": "600",
+        "--kds-typography-body-lg-semibold-letter-spacing": "-0.2px",
+        "--kds-typography-body-lg-semibold-line-height": "1.5"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "typography-body-lg-semibold",
+      "mode": "global",
+      "rawValue": "{primitive.typography.body-lg-semibold}",
+      "sourcePath": "semantic.global.typography.body-lg-semibold",
+      "tier": "semantic",
+      "type": "typography",
+      "value": {
+        "fontFamily": [
+          "Pretendard Variable",
+          "Pretendard",
+          "Inter",
+          "Noto Sans KR",
+          "Noto Sans JP",
+          "system-ui",
+          "sans-serif"
+        ],
+        "fontSize": {
+          "value": 20,
+          "unit": "px"
+        },
+        "fontWeight": 600,
+        "letterSpacing": {
+          "value": -0.2,
+          "unit": "px"
+        },
+        "lineHeight": 1.5
+      }
+    },
+    "typography-body-md-medium": {
+      "aliasTarget": {
+        "id": "type-style-body-md-medium",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-typography-body-md-medium-font-family": "\"Pretendard Variable\", \"Pretendard\", \"Inter\", \"Noto Sans KR\", \"Noto Sans JP\", system-ui, sans-serif",
+        "--kds-typography-body-md-medium-font-size": "16px",
+        "--kds-typography-body-md-medium-font-weight": "500",
+        "--kds-typography-body-md-medium-letter-spacing": "-0.16px",
+        "--kds-typography-body-md-medium-line-height": "1.5"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "typography-body-md-medium",
+      "mode": "global",
+      "rawValue": "{primitive.typography.body-md-medium}",
+      "sourcePath": "semantic.global.typography.body-md-medium",
+      "tier": "semantic",
+      "type": "typography",
+      "value": {
+        "fontFamily": [
+          "Pretendard Variable",
+          "Pretendard",
+          "Inter",
+          "Noto Sans KR",
+          "Noto Sans JP",
+          "system-ui",
+          "sans-serif"
+        ],
+        "fontSize": {
+          "value": 16,
+          "unit": "px"
+        },
+        "fontWeight": 500,
+        "letterSpacing": {
+          "value": -0.16,
+          "unit": "px"
+        },
+        "lineHeight": 1.5
+      }
+    },
+    "typography-body-md-regular": {
+      "aliasTarget": {
+        "id": "type-style-body-md-regular",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-typography-body-md-regular-font-family": "\"Pretendard Variable\", \"Pretendard\", \"Inter\", \"Noto Sans KR\", \"Noto Sans JP\", system-ui, sans-serif",
+        "--kds-typography-body-md-regular-font-size": "16px",
+        "--kds-typography-body-md-regular-font-weight": "400",
+        "--kds-typography-body-md-regular-letter-spacing": "-0.16px",
+        "--kds-typography-body-md-regular-line-height": "1.5"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "typography-body-md-regular",
+      "mode": "global",
+      "rawValue": "{primitive.typography.body-md-regular}",
+      "sourcePath": "semantic.global.typography.body-md-regular",
       "tier": "semantic",
       "type": "typography",
       "value": {
@@ -3951,24 +4659,24 @@ export const tokens = {
         "lineHeight": 1.5
       }
     },
-    "typography-body-sm": {
+    "typography-body-md-semibold": {
       "aliasTarget": {
-        "id": "type-style-body-sm",
+        "id": "type-style-body-md-semibold",
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-typography-body-sm-font-family": "\"Pretendard Variable\", \"Pretendard\", \"Inter\", \"Noto Sans KR\", \"Noto Sans JP\", system-ui, sans-serif",
-        "--kds-typography-body-sm-font-size": "14px",
-        "--kds-typography-body-sm-font-weight": "400",
-        "--kds-typography-body-sm-letter-spacing": "-0.14px",
-        "--kds-typography-body-sm-line-height": "1.5"
+        "--kds-typography-body-md-semibold-font-family": "\"Pretendard Variable\", \"Pretendard\", \"Inter\", \"Noto Sans KR\", \"Noto Sans JP\", system-ui, sans-serif",
+        "--kds-typography-body-md-semibold-font-size": "16px",
+        "--kds-typography-body-md-semibold-font-weight": "600",
+        "--kds-typography-body-md-semibold-letter-spacing": "-0.16px",
+        "--kds-typography-body-md-semibold-line-height": "1.5"
       },
       "deprecated": null,
       "description": null,
-      "id": "typography-body-sm",
+      "id": "typography-body-md-semibold",
       "mode": "global",
-      "rawValue": "{primitive.typography.body-sm}",
-      "sourcePath": "semantic.global.typography.body-sm",
+      "rawValue": "{primitive.typography.body-md-semibold}",
+      "sourcePath": "semantic.global.typography.body-md-semibold",
       "tier": "semantic",
       "type": "typography",
       "value": {
@@ -3982,77 +4690,35 @@ export const tokens = {
           "sans-serif"
         ],
         "fontSize": {
-          "value": 14,
+          "value": 16,
           "unit": "px"
         },
-        "fontWeight": 400,
+        "fontWeight": 600,
         "letterSpacing": {
-          "value": -0.14,
+          "value": -0.16,
           "unit": "px"
         },
         "lineHeight": 1.5
       }
     },
-    "typography-caption": {
+    "typography-body-sm-medium": {
       "aliasTarget": {
-        "id": "type-style-caption",
+        "id": "type-style-body-sm-medium",
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-typography-caption-font-family": "\"Pretendard Variable\", \"Pretendard\", \"Inter\", \"Noto Sans KR\", \"Noto Sans JP\", system-ui, sans-serif",
-        "--kds-typography-caption-font-size": "12px",
-        "--kds-typography-caption-font-weight": "400",
-        "--kds-typography-caption-letter-spacing": "-0.12px",
-        "--kds-typography-caption-line-height": "1.5"
+        "--kds-typography-body-sm-medium-font-family": "\"Pretendard Variable\", \"Pretendard\", \"Inter\", \"Noto Sans KR\", \"Noto Sans JP\", system-ui, sans-serif",
+        "--kds-typography-body-sm-medium-font-size": "14px",
+        "--kds-typography-body-sm-medium-font-weight": "500",
+        "--kds-typography-body-sm-medium-letter-spacing": "-0.14px",
+        "--kds-typography-body-sm-medium-line-height": "1.5"
       },
       "deprecated": null,
       "description": null,
-      "id": "typography-caption",
+      "id": "typography-body-sm-medium",
       "mode": "global",
-      "rawValue": "{primitive.typography.caption}",
-      "sourcePath": "semantic.global.typography.caption",
-      "tier": "semantic",
-      "type": "typography",
-      "value": {
-        "fontFamily": [
-          "Pretendard Variable",
-          "Pretendard",
-          "Inter",
-          "Noto Sans KR",
-          "Noto Sans JP",
-          "system-ui",
-          "sans-serif"
-        ],
-        "fontSize": {
-          "value": 12,
-          "unit": "px"
-        },
-        "fontWeight": 400,
-        "letterSpacing": {
-          "value": -0.12,
-          "unit": "px"
-        },
-        "lineHeight": 1.5
-      }
-    },
-    "typography-label-md": {
-      "aliasTarget": {
-        "id": "type-style-label-md",
-        "mode": "base"
-      },
-      "cssProperties": {
-        "--kds-typography-label-md-font-family": "\"Pretendard Variable\", \"Pretendard\", \"Inter\", \"Noto Sans KR\", \"Noto Sans JP\", system-ui, sans-serif",
-        "--kds-typography-label-md-font-size": "14px",
-        "--kds-typography-label-md-font-weight": "500",
-        "--kds-typography-label-md-letter-spacing": "-0.14px",
-        "--kds-typography-label-md-line-height": "1.5"
-      },
-      "deprecated": null,
-      "description": null,
-      "id": "typography-label-md",
-      "mode": "global",
-      "rawValue": "{primitive.typography.label-md}",
-      "sourcePath": "semantic.global.typography.label-md",
+      "rawValue": "{primitive.typography.body-sm-medium}",
+      "sourcePath": "semantic.global.typography.body-sm-medium",
       "tier": "semantic",
       "type": "typography",
       "value": {
@@ -4077,24 +4743,276 @@ export const tokens = {
         "lineHeight": 1.5
       }
     },
-    "typography-title-md": {
+    "typography-body-sm-regular": {
       "aliasTarget": {
-        "id": "type-style-title-md",
+        "id": "type-style-body-sm-regular",
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-typography-title-md-font-family": "\"Pretendard Variable\", \"Pretendard\", \"Inter\", \"Noto Sans KR\", \"Noto Sans JP\", system-ui, sans-serif",
-        "--kds-typography-title-md-font-size": "36px",
-        "--kds-typography-title-md-font-weight": "600",
-        "--kds-typography-title-md-letter-spacing": "-0.72px",
-        "--kds-typography-title-md-line-height": "1.35"
+        "--kds-typography-body-sm-regular-font-family": "\"Pretendard Variable\", \"Pretendard\", \"Inter\", \"Noto Sans KR\", \"Noto Sans JP\", system-ui, sans-serif",
+        "--kds-typography-body-sm-regular-font-size": "14px",
+        "--kds-typography-body-sm-regular-font-weight": "400",
+        "--kds-typography-body-sm-regular-letter-spacing": "-0.14px",
+        "--kds-typography-body-sm-regular-line-height": "1.5"
       },
       "deprecated": null,
       "description": null,
-      "id": "typography-title-md",
+      "id": "typography-body-sm-regular",
       "mode": "global",
-      "rawValue": "{primitive.typography.title-md}",
-      "sourcePath": "semantic.global.typography.title-md",
+      "rawValue": "{primitive.typography.body-sm-regular}",
+      "sourcePath": "semantic.global.typography.body-sm-regular",
+      "tier": "semantic",
+      "type": "typography",
+      "value": {
+        "fontFamily": [
+          "Pretendard Variable",
+          "Pretendard",
+          "Inter",
+          "Noto Sans KR",
+          "Noto Sans JP",
+          "system-ui",
+          "sans-serif"
+        ],
+        "fontSize": {
+          "value": 14,
+          "unit": "px"
+        },
+        "fontWeight": 400,
+        "letterSpacing": {
+          "value": -0.14,
+          "unit": "px"
+        },
+        "lineHeight": 1.5
+      }
+    },
+    "typography-body-sm-semibold": {
+      "aliasTarget": {
+        "id": "type-style-body-sm-semibold",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-typography-body-sm-semibold-font-family": "\"Pretendard Variable\", \"Pretendard\", \"Inter\", \"Noto Sans KR\", \"Noto Sans JP\", system-ui, sans-serif",
+        "--kds-typography-body-sm-semibold-font-size": "14px",
+        "--kds-typography-body-sm-semibold-font-weight": "600",
+        "--kds-typography-body-sm-semibold-letter-spacing": "-0.14px",
+        "--kds-typography-body-sm-semibold-line-height": "1.5"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "typography-body-sm-semibold",
+      "mode": "global",
+      "rawValue": "{primitive.typography.body-sm-semibold}",
+      "sourcePath": "semantic.global.typography.body-sm-semibold",
+      "tier": "semantic",
+      "type": "typography",
+      "value": {
+        "fontFamily": [
+          "Pretendard Variable",
+          "Pretendard",
+          "Inter",
+          "Noto Sans KR",
+          "Noto Sans JP",
+          "system-ui",
+          "sans-serif"
+        ],
+        "fontSize": {
+          "value": 14,
+          "unit": "px"
+        },
+        "fontWeight": 600,
+        "letterSpacing": {
+          "value": -0.14,
+          "unit": "px"
+        },
+        "lineHeight": 1.5
+      }
+    },
+    "typography-caption-medium": {
+      "aliasTarget": {
+        "id": "type-style-caption-medium",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-typography-caption-medium-font-family": "\"Pretendard Variable\", \"Pretendard\", \"Inter\", \"Noto Sans KR\", \"Noto Sans JP\", system-ui, sans-serif",
+        "--kds-typography-caption-medium-font-size": "12px",
+        "--kds-typography-caption-medium-font-weight": "500",
+        "--kds-typography-caption-medium-letter-spacing": "-0.12px",
+        "--kds-typography-caption-medium-line-height": "1.5"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "typography-caption-medium",
+      "mode": "global",
+      "rawValue": "{primitive.typography.caption-medium}",
+      "sourcePath": "semantic.global.typography.caption-medium",
+      "tier": "semantic",
+      "type": "typography",
+      "value": {
+        "fontFamily": [
+          "Pretendard Variable",
+          "Pretendard",
+          "Inter",
+          "Noto Sans KR",
+          "Noto Sans JP",
+          "system-ui",
+          "sans-serif"
+        ],
+        "fontSize": {
+          "value": 12,
+          "unit": "px"
+        },
+        "fontWeight": 500,
+        "letterSpacing": {
+          "value": -0.12,
+          "unit": "px"
+        },
+        "lineHeight": 1.5
+      }
+    },
+    "typography-caption-regular": {
+      "aliasTarget": {
+        "id": "type-style-caption-regular",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-typography-caption-regular-font-family": "\"Pretendard Variable\", \"Pretendard\", \"Inter\", \"Noto Sans KR\", \"Noto Sans JP\", system-ui, sans-serif",
+        "--kds-typography-caption-regular-font-size": "12px",
+        "--kds-typography-caption-regular-font-weight": "400",
+        "--kds-typography-caption-regular-letter-spacing": "-0.12px",
+        "--kds-typography-caption-regular-line-height": "1.5"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "typography-caption-regular",
+      "mode": "global",
+      "rawValue": "{primitive.typography.caption-regular}",
+      "sourcePath": "semantic.global.typography.caption-regular",
+      "tier": "semantic",
+      "type": "typography",
+      "value": {
+        "fontFamily": [
+          "Pretendard Variable",
+          "Pretendard",
+          "Inter",
+          "Noto Sans KR",
+          "Noto Sans JP",
+          "system-ui",
+          "sans-serif"
+        ],
+        "fontSize": {
+          "value": 12,
+          "unit": "px"
+        },
+        "fontWeight": 400,
+        "letterSpacing": {
+          "value": -0.12,
+          "unit": "px"
+        },
+        "lineHeight": 1.5
+      }
+    },
+    "typography-caption-semibold": {
+      "aliasTarget": {
+        "id": "type-style-caption-semibold",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-typography-caption-semibold-font-family": "\"Pretendard Variable\", \"Pretendard\", \"Inter\", \"Noto Sans KR\", \"Noto Sans JP\", system-ui, sans-serif",
+        "--kds-typography-caption-semibold-font-size": "12px",
+        "--kds-typography-caption-semibold-font-weight": "600",
+        "--kds-typography-caption-semibold-letter-spacing": "-0.12px",
+        "--kds-typography-caption-semibold-line-height": "1.5"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "typography-caption-semibold",
+      "mode": "global",
+      "rawValue": "{primitive.typography.caption-semibold}",
+      "sourcePath": "semantic.global.typography.caption-semibold",
+      "tier": "semantic",
+      "type": "typography",
+      "value": {
+        "fontFamily": [
+          "Pretendard Variable",
+          "Pretendard",
+          "Inter",
+          "Noto Sans KR",
+          "Noto Sans JP",
+          "system-ui",
+          "sans-serif"
+        ],
+        "fontSize": {
+          "value": 12,
+          "unit": "px"
+        },
+        "fontWeight": 600,
+        "letterSpacing": {
+          "value": -0.12,
+          "unit": "px"
+        },
+        "lineHeight": 1.5
+      }
+    },
+    "typography-heading-lg-medium": {
+      "aliasTarget": {
+        "id": "type-style-heading-lg-medium",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-typography-heading-lg-medium-font-family": "\"Pretendard Variable\", \"Pretendard\", \"Inter\", \"Noto Sans KR\", \"Noto Sans JP\", system-ui, sans-serif",
+        "--kds-typography-heading-lg-medium-font-size": "48px",
+        "--kds-typography-heading-lg-medium-font-weight": "500",
+        "--kds-typography-heading-lg-medium-letter-spacing": "-0.96px",
+        "--kds-typography-heading-lg-medium-line-height": "1.35"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "typography-heading-lg-medium",
+      "mode": "global",
+      "rawValue": "{primitive.typography.heading-lg-medium}",
+      "sourcePath": "semantic.global.typography.heading-lg-medium",
+      "tier": "semantic",
+      "type": "typography",
+      "value": {
+        "fontFamily": [
+          "Pretendard Variable",
+          "Pretendard",
+          "Inter",
+          "Noto Sans KR",
+          "Noto Sans JP",
+          "system-ui",
+          "sans-serif"
+        ],
+        "fontSize": {
+          "value": 48,
+          "unit": "px"
+        },
+        "fontWeight": 500,
+        "letterSpacing": {
+          "value": -0.96,
+          "unit": "px"
+        },
+        "lineHeight": 1.35
+      }
+    },
+    "typography-heading-md-medium": {
+      "aliasTarget": {
+        "id": "type-style-heading-md-medium",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-typography-heading-md-medium-font-family": "\"Pretendard Variable\", \"Pretendard\", \"Inter\", \"Noto Sans KR\", \"Noto Sans JP\", system-ui, sans-serif",
+        "--kds-typography-heading-md-medium-font-size": "36px",
+        "--kds-typography-heading-md-medium-font-weight": "500",
+        "--kds-typography-heading-md-medium-letter-spacing": "-0.72px",
+        "--kds-typography-heading-md-medium-line-height": "1.35"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "typography-heading-md-medium",
+      "mode": "global",
+      "rawValue": "{primitive.typography.heading-md-medium}",
+      "sourcePath": "semantic.global.typography.heading-md-medium",
       "tier": "semantic",
       "type": "typography",
       "value": {
@@ -4111,7 +5029,7 @@ export const tokens = {
           "value": 36,
           "unit": "px"
         },
-        "fontWeight": 600,
+        "fontWeight": 500,
         "letterSpacing": {
           "value": -0.72,
           "unit": "px"
@@ -4119,24 +5037,24 @@ export const tokens = {
         "lineHeight": 1.35
       }
     },
-    "typography-title-sm": {
+    "typography-heading-sm-medium": {
       "aliasTarget": {
-        "id": "type-style-title-sm",
+        "id": "type-style-heading-sm-medium",
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-typography-title-sm-font-family": "\"Pretendard Variable\", \"Pretendard\", \"Inter\", \"Noto Sans KR\", \"Noto Sans JP\", system-ui, sans-serif",
-        "--kds-typography-title-sm-font-size": "28px",
-        "--kds-typography-title-sm-font-weight": "600",
-        "--kds-typography-title-sm-letter-spacing": "-0.56px",
-        "--kds-typography-title-sm-line-height": "1.35"
+        "--kds-typography-heading-sm-medium-font-family": "\"Pretendard Variable\", \"Pretendard\", \"Inter\", \"Noto Sans KR\", \"Noto Sans JP\", system-ui, sans-serif",
+        "--kds-typography-heading-sm-medium-font-size": "28px",
+        "--kds-typography-heading-sm-medium-font-weight": "500",
+        "--kds-typography-heading-sm-medium-letter-spacing": "-0.56px",
+        "--kds-typography-heading-sm-medium-line-height": "1.35"
       },
       "deprecated": null,
       "description": null,
-      "id": "typography-title-sm",
+      "id": "typography-heading-sm-medium",
       "mode": "global",
-      "rawValue": "{primitive.typography.title-sm}",
-      "sourcePath": "semantic.global.typography.title-sm",
+      "rawValue": "{primitive.typography.heading-sm-medium}",
+      "sourcePath": "semantic.global.typography.heading-sm-medium",
       "tier": "semantic",
       "type": "typography",
       "value": {
@@ -4153,7 +5071,7 @@ export const tokens = {
           "value": 28,
           "unit": "px"
         },
-        "fontWeight": 600,
+        "fontWeight": 500,
         "letterSpacing": {
           "value": -0.56,
           "unit": "px"

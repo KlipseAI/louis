@@ -14,10 +14,10 @@ authority: normative
 
 | Surface       | 상태           | 근거                                           |
 | ------------- | -------------- | ---------------------------------------------- |
-| Web           | `not-ready`    | `@klipse-design/react`에 public export가 없음  |
+| Web           | `partial`      | `Dialog` compound public export, 실브라우저 회귀 15건 |
 | Figma         | `not-ready`    | published Dialog component가 없음              |
 | Documentation | `done`         | 이 문서                                        |
-| Maturity      | `experimental` | primitive와 상호작용·layout 테스트가 아직 없음 |
+| Maturity      | `experimental` | 시각 회귀와 수동 screen-reader 검토가 아직 없음 |
 
 ## When to use
 
@@ -60,11 +60,20 @@ authority: normative
 | `confirm`         | 되돌릴 수 있는 일반 확인                  | primary 또는 가장 안전한 명시적 액션 |
 | `danger-confirm`  | 삭제·초기화 등 파괴적 결과                | 취소/가장 안전한 액션                |
 | `task`            | 짧은 폼·설정                              | 첫 유효 필드                         |
-| `media-workbench` | 현재 화면 위에서 임시로 여는 큰 편집 작업 | heading 또는 첫 핵심 컨트롤          |
+| `media-workbench` | 현재 화면 위에서 임시로 여는 큰 편집 작업 | dialog surface(이름이 먼저 읽힌다)   |
 | `sheet`           | 작은 화면에서 변환된 modal task           | 닫기 또는 첫 필드                    |
 
 `docked`, `standalone`, `route`는 Dialog variant가 아니다. 공유해야 하는 것은 editor body이며, modal wrapper와
 workspace wrapper는 분리한다.
+
+**variant 전환은 소비자가 한다.** Dialog는 뷰포트 폭을 보고 `task`를 `sheet`로, `medium`을 `fullscreen`으로
+자동 전환하지 않는다. 폭에 따라 dismiss 정책과 초기 포커스가 바뀌면 같은 컴포넌트가 화면 크기에 따라 다른
+계약을 갖게 되고, 그것은 Surface classifier가 금지한 "화면이 좁다는 이유로 의미를 바꾸는 것"의 축소판이다.
+`sheet`와 `fullscreen`은 소비자가 자신의 breakpoint 정책으로 선택한다.
+
+`media-workbench`의 초기 포커스가 dialog surface인 이유는, surface가 포커스를 가지면 스크린리더가
+`aria-labelledby`가 가리키는 제목을 먼저 읽고 다음 Tab이 내용으로 들어가기 때문이다. 비어 있는 편집
+캔버스에서 임의의 첫 컨트롤을 고르는 것보다 신뢰 가능한 경로다.
 
 ## Anatomy
 
@@ -80,25 +89,39 @@ workspace wrapper는 분리한다.
 ## Properties
 
 목표 public API는 Dialog의 의미를 바꾸지 않는다. Workspace host를 받는 `portalContainer`는 이 API에
-포함하지 않는다.
+포함하지 않는다. `mode`, `modal`, `layer`, `zIndex`, `role`도 포함하지 않는다 — 그 중 하나라도 열면
+Dialog가 Workspace로 변장하는 통로가 된다.
 
 | Property          | 값/형태                                      | 기본값       | 설명                                                      |
 | ----------------- | -------------------------------------------- | ------------ | --------------------------------------------------------- |
-| `open`            | `boolean`                                    | 필수         | controlled state                                          |
-| `onOpenChange`    | `(open, reason) => void`                     | 필수         | `confirm`, `cancel`, `escape`, `backdrop`, `programmatic` |
-| `variant`         | 위 variant                                   | `task`       | 레이아웃·초기 포커스·dismiss 정책                         |
-| `title`           | node + id                                    | 필수         | `aria-labelledby` 대상                                    |
-| `description`     | node + id                                    | 권장         | `aria-describedby` 대상                                   |
-| `initialFocus`    | ref, `surface`, `safe-action`, `first-field` | variant 기반 | 열림 포커스                                               |
-| `returnFocus`     | ref 또는 호출 요소 자동 캡처                 | 자동         | 닫힘 포커스                                               |
-| `dismissible`     | `boolean`                                    | `true`       | Escape/닫기 버튼 허용                                     |
-| `closeOnBackdrop` | `boolean`                                    | variant 기반 | danger·busy 상태에서는 보통 false                         |
-| `busy`            | `boolean`                                    | `false`      | 중복 실행·dismiss 차단, `aria-busy`                       |
-| `confirmVariant`  | `primary`, `danger`                          | `primary`    | 액션 의미                                                 |
-| `size`            | `compact`, `medium`, `large`, `fullscreen`   | `medium`     | content 요구에 따른 크기                                  |
+| `open`             | `boolean`                                    | 필수         | controlled state. uncontrolled 모드는 없다                |
+| `onOpenChange`     | `(open, reason) => void`                     | 필수         | **`open === false`일 때만 호출된다.** `confirm`, `cancel`, `escape`, `backdrop`, `programmatic` |
+| `variant`          | 위 variant                                   | `task`       | 레이아웃·초기 포커스·dismiss 정책                         |
+| 제목               | 하위 컴포넌트                                | 필수         | `aria-labelledby` 대상. id는 인스턴스별로 발급된다        |
+| 설명               | 하위 컴포넌트                                | 권장         | `aria-describedby` 대상. 렌더될 때만 연결된다             |
+| `initialFocus`     | ref, `surface`, `safe-action`, `first-field` | variant 기반 | 열림 포커스                                               |
+| `returnFocus`      | ref 또는 호출 요소 자동 캡처                 | 자동         | 닫힘 포커스                                               |
+| `dismissible`      | `boolean`                                    | `true`       | Escape/닫기 버튼 허용                                     |
+| `closeOnBackdrop`  | `boolean`                                    | variant 기반 | danger·busy 상태에서는 보통 false                         |
+| `busy`             | `boolean`                                    | `false`      | 중복 실행·dismiss 차단, `aria-busy`                       |
+| `confirmVariant`   | `primary`, `danger`                          | `primary`    | 액션 의미                                                 |
+| `size`             | `compact`, `medium`, `large`, `fullscreen`   | variant 기반 | content 요구에 따른 크기                                  |
+| `onDismissBlocked` | `(reason) => void`                           | 없음         | **추가** 훅. 기본 안내는 Dialog가 스스로 제공한다         |
+
+제목과 설명은 prop이 아니라 하위 컴포넌트가 소유한다. 제목은 호출부가 heading level을 정해야 페이지
+outline이 깨지지 않고, 설명은 선택이라 prop으로 받으면 존재 여부를 알 수 없어 렌더되지 않았을 때
+`aria-describedby`가 없는 id를 가리킨다. dangling reference는 화면상 아무 이상이 없는 접근성 회귀다.
 
 버튼 라벨, loading, disabled, 오류는 명시적인 props/slots로 제공한다. 전역 keydown listener로 confirm을
 추론하지 않는다.
+
+`closeOnBackdrop`은 `dismissible`에 종속된다. 실효값은 `closeOnBackdrop && dismissible && !busy`다.
+종속시키지 않으면 "Escape로는 못 닫는데 backdrop으로는 닫히는" 상태가 만들어지고, 그것은 States의
+Busy 계약과 어긋난다.
+
+dismiss가 차단될 때 Dialog는 **스스로** polite live region에 안내를 낸다. 안내가 선택이면 소비자가
+아무것도 넘기지 않았을 때 차단이 완전히 무음이 되고, 사용자는 Escape가 고장난 것으로 인지한다.
+`onDismissBlocked`는 소비자가 자기 문구로 덮거나 추가 처리를 하기 위한 훅이지 안내의 유일한 출처가 아니다.
 
 ## States
 
@@ -110,6 +133,13 @@ workspace wrapper는 분리한다.
 | Busy    | 중복 confirm과 accidental dismiss 차단; 상태 문구와 spinner, `aria-busy` 제공  |
 | Error   | Dialog 유지; 오류를 관련 필드/요약에 연결하고 첫 오류로 이동할 수 있음         |
 | Closing | 즉시 action과 focusable child를 inert 처리; exit 후 unmount와 focus return     |
+
+Error의 "첫 오류로 이동"은 소비자가 소유한다. Dialog는 그 이동이 **가능하도록** body만을 scroll owner로
+두어 `scrollIntoView`가 Dialog 밖 문서를 움직이지 않게 한다.
+
+Busy는 `aria-busy`를 dialog surface에 붙인다. confirm action은 네이티브 `disabled`가 아니라
+`aria-disabled`로 막는다 — 네이티브 disabled는 현재 포커스를 제거하고, busy 중 포커스가 body로 떨어지면
+trap이 무의미해진다. 취소는 busy 중에도 기본 활성으로 남는다. Error가 복구 경로를 요구하기 때문이다.
 
 닫힘 타이머는 가장 긴 exit duration과 같은 token에서 계산한다. 카드가 사라진 뒤 투명 root가 pointer를
 가로채거나, root가 먼저 사라져 focus return이 실패하면 안 된다.
@@ -140,6 +170,11 @@ Tab과 Shift+Tab은 최상위 Dialog 내부에서 순환한다. nested Popover�
 ### Pointer
 
 - Backdrop dismiss는 `event.target === event.currentTarget` 또는 overlay branch 외부인지 확인한 뒤 실행한다.
+  구현은 backdrop을 dialog surface의 **형제 요소**로 두고 그 요소 자신에 핸들러를 붙인다. surface에서
+  시작해 backdrop에서 끝난 드래그의 click target은 두 요소의 공통 조상이므로 backdrop 핸들러에 도달할 수
+  없다 — 우발적 dismiss가 선언이 아니라 구조로 사라진다.
+- backdrop의 `mousedown` 기본 동작을 취소한다. 취소하지 않으면 backdrop 클릭이 `tabindex="-1"`인 overlay
+  root로 포커스를 옮겨, 닫지 않기로 한 경우에도 포커스가 dialog surface 밖으로 조용히 빠져나간다.
 - Surface와 nested portaled overlay의 pointerdown/click은 backdrop dismiss로 처리하지 않는다.
 - danger-confirm과 데이터 입력 task는 기본적으로 backdrop click을 취소와 동일시하지 않는다. 데이터
   손실 가능성이 있으면 dirty guard를 제공한다.
@@ -191,13 +226,18 @@ Dialog는 modal behavior만 소유한다. route가 주 작업을 소유하면
 
 ## Accessibility
 
-- Surface는 `role="dialog"`와 `aria-modal="true"`를 사용한다. 즉시 주의가 필요한 짧은 경고에서만
-  `alertdialog`를 검토한다.
+- Surface는 `role="dialog"`와 `aria-modal="true"`를 사용한다. `alertdialog`는 이번 구현 범위가 **아니다.**
+  `role`을 prop으로 여는 순간 Workspace 오용 통로가 열리며, 짧은 경고를 위한 별도 recipe가 필요해지면
+  그때 독립 컴포넌트로 만든다.
 - 보이는 제목을 `aria-labelledby`, 설명을 `aria-describedby`로 연결한다. id는 인스턴스마다 고유하다.
+  설명이 렌더되지 않았으면 `aria-describedby`를 **붙이지 않는다.**
 - 열림 초기 포커스, focus trap, 닫힘 focus return은 선택 사항이 아니다.
 - modal 뒤 앱 root는 pointer뿐 아니라 보조 기술·키보드 접근도 막아야 한다.
 - 모든 버튼에 visible `:focus-visible`이 있고 icon-only close에는 locale-aware accessible name이 있다.
-- busy, error, status는 [Loading Pattern](../patterns/loading.md)과 live region 계약을 따른다.
+  Dialog가 제공하는 버튼은 공용 focus ring 유틸을 직접 부착한다 — 그 유틸이 opt-in이므로 부착하지 않으면
+  링이 조용히 사라진다.
+- busy, error, status는 [Loading Pattern](../patterns/loading.md)과 live region 계약을 따른다. Dialog는
+  인스턴스마다 polite live region을 하나 소유하고 dismiss 차단 안내를 그곳에 쓴다.
 - 320px, 200% 확대, light/dark, reduced-motion, KO/EN/JA를 검증한다.
 
 ## Specification
@@ -217,6 +257,75 @@ Dialog는 modal behavior만 소유한다. route가 주 작업을 소유하면
 | Exit motion     | `motion-modal-exit`, unmount lifecycle과 같은 source | animation completion              |
 | Reduced motion  | 비필수 transform/filter 제거, 즉시 또는 짧은 opacity | motion preference                 |
 
+## Implementation
+
+- Web source: `packages/react/src/dialog/**`
+- CSS recipe: `packages/css/src/component/dialog.css`
+- Public import: `import { Dialog, OverlayProvider } from "@klipse-design/react"`
+- Tests: `packages/react/test/dialog.browser.test.tsx` (실브라우저 15건, 두 motion context에서 각각)
+- Storybook: `apps/storybook/stories/dialog.stories.tsx`
+
+소비자는 앱 root에 `OverlayProvider`를 한 번 둔다. Menu와 같은 Provider이며 Dialog가 두 번째 소비자다.
+
+### 계층 분담
+
+| 계약 | 소유 |
+| --- | --- |
+| modal 격리 3축, 중첩 형제 격리, scroll lock refcount, Escape 단계별 닫힘, presence, focus 복원 시점, branch lineage, 인스턴스 id | overlay primitive (DS-P3-005) |
+| variant → 정책 해석, backdrop 판정, confirm/cancel 어휘, 호출 요소 캡처, aria 배선, 차단 안내 | 이 recipe |
+| scrim·surface·header/body/footer의 시각 표현과 responsive geometry | `dialog.css` |
+
+Dialog는 anchored가 아니라 Menu의 `AnchoredRoot`를 재사용하지 않는다. 그것은 `mode: "non-modal"`,
+`layer: "popover"`, `anchored: true`를 하드코딩하고 positioner로 children을 감싸며 Trigger를 전제한다.
+전부 옵션화하면 남는 것은 `useOverlay`의 얇은 래퍼이고 두 recipe 중 어느 쪽도 그 조합의 절반을 쓰지 않는다.
+
+**backdrop은 dialog surface의 형제이며 같은 portal subtree 안에 있다.** 별도 portal로 렌더하면 modal
+host의 두 번째 직속 자식이 되고, primitive의 중첩 격리가 자기 자신의 backdrop에 inert를 걸어 클릭이
+조용히 죽는다.
+
+## Known deviations
+
+- **compact surface radius가 24px이 아니라 20px이다.** 그 값의 토큰이 소스에 없다. `radius-overlay`(16px)
+  보다 크면서 large와 구분되는 것은 `radius-card`(20px) 하나뿐이다. "compact가 large보다 둥글다"는
+  서열은 유지된다. DS-P3-014가 값을 추가하면 변수 한 줄만 바꾼다.
+- **최대폭과 viewport 여백이 토큰이 아니라 리터럴이다.** content tier 토큰과 20px spacing 토큰이 없다.
+  Specification의 `viewport - 40px`을 맞추려면 20px이 필요해 값을 지키고 리터럴을 한 줄에 격리했다.
+- **surface padding이 `space-layout-*`에서 온다.** `space-surface-*` tier가 없다. `space-control-*`는
+  컨트롤 **내부** 스케일이라 표면 여백에 쓰지 않는다.
+- **`surface-scrim-modal` 대신 `color-scrim-modal`을 쓰고 값이 50%가 아니라 56%(light)/72%(dark)다.**
+  Specification 표가 대는 이름의 토큰이 없고 실제 값은 두 테마에서 다르다.
+- **surface에 hairline border가 있다.** Specification 표에는 없지만 dark에서 `elevation-modal` 그림자만으로
+  표면 경계가 서지 않는다. Menu 패널과 같은 판단이다.
+- **Anatomy 3번 Positioner가 별도 DOM 노드가 아니다.** Dialog는 anchored가 아니라 positioner를 쓰지
+  않는다. 그 역할은 overlay root가 grid 정렬과 padding으로 직접 소유한다.
+- **dialog surface가 자손 `position: fixed`의 containing block이다.** enter transform과
+  `container-type: inline-size`가 둘 다 그 효과를 낸다. Dialog 안에서 여는 Popover는 non-modal host로
+  portal되어 surface의 자손이 아니므로 영향받지 않는다.
+- **virtual keyboard가 열렸을 때 surface가 중앙에 남는다.** `100dvh`는 브라우저 chrome은 따라가지만
+  소프트 키보드는 따라가지 않는다. visual viewport 추종은 CSS만으로 불가능하며 별도 결정이 필요하다.
+- **`env(safe-area-inset-*)`와 `100dvh`의 실효를 자동 검증하지 못한다.** 브라우저 harness의 iframe에서
+  `env()`는 0이고 `dvh === lvh === svh`다. 선언의 존재만 고정한다.
+- **action의 세로 전환 임계값이 콘텐츠가 아니라 컨테이너 폭이다.** 긴 라벨은 `flex-wrap`이 받고
+  좁은 폭·200% 확대는 surface의 container query가 받는다. 두 경로가 하나로 통합되지 않는다.
+- **`alertdialog`를 지원하지 않는다.** Accessibility가 "검토한다"고만 쓴 것을 이번 구현은 "하지 않는다"로
+  확정했다. `role`을 prop으로 여는 것이 Workspace 오용의 최단 경로다.
+- **exit 동안 배경 격리가 먼저 풀린다.** focus 복원 대상이 inert면 `focus()`가 무효가 되므로 격리 해제가
+  복원보다 앞선다. 그 결과 exit 모션(200ms) 동안 배경이 다시 조작 가능해진다. scroll lock은 그대로 유지해
+  화면이 튀지 않는다.
+
+## 승격 조건
+
+Web `done`과 `stable`에는 다음이 남아 있다.
+
+- visual regression fixture (hosted CI 확보 후, DS-D-0005 2단계)
+- 수동 keyboard·screen-reader review 기록
+- SSR render와 hydration 검증
+- `env(safe-area-inset-*)`와 `100dvh`의 실기 확인
+- virtual keyboard 추종 정책 확정
+- `sheet`·`fullscreen`·`media-workbench`의 responsive 실측
+- published Figma component와 parity report (DS-F-006-dialog)
+- 위 Known deviations 중 토큰 부재 4건의 해소 (DS-P3-014)
+
 ## Extraction baseline
 
 Klipse product의 여러 modal은 focus, Escape, scroll lock과 layer 정책이 달랐고 route editor를 Modal API로
@@ -224,19 +333,45 @@ Klipse product의 여러 modal은 focus, Escape, scroll lock과 layer 정책이 
 [`KP-DIALOG-001`](../../migration/product-baseline.md)과
 [`KP-EDITOR-001`](../../migration/product-baseline.md)에 보존한다.
 
+## Overlay behavior layer
+
+modal 격리·scroll lock·focus 복원·중첩 stack은 `packages/react/src/overlay/`의 내부 primitive가
+구현한다. Dialog recipe는 그 위에 얹히며 순서를 다시 쓰지 않는다. 경계는
+[DS-D-0011](../governance/decisions/DS-D-0011-overlay-primitive-boundary.md)이 소유한다.
+
+| 계약 | 구현 | 회귀 테스트 |
+| --- | --- | --- |
+| 배경을 pointer·keyboard·a11y tree 세 축에서 차단 | `overlay/inert-controller.ts` | `overlay-stacking.browser.test.tsx` |
+| Dialog 안 Popover는 inert 면제 | 같은 파일의 포함 관계 판정 | `overlay-stacking.browser.test.tsx` |
+| 중첩 Dialog는 topmost만 조작 가능 | modal host 내부 형제 격리 | `overlay-stacking.browser.test.tsx` |
+| scroll lock refcount와 인라인 style 복원 | `overlay/scroll-lock.ts` | `overlay-stacking.browser.test.tsx` |
+| Escape는 최상위 한 단계만, 잠기면 아래로 넘기지 않음 | `overlay/overlay-store.ts` | `overlay-keyboard`, `overlay-store.node` |
+| unmount 전에 focus를 돌려준다 | `overlay/presence.ts` + `overlay/focus-region.tsx` | `overlay-keyboard.browser.test.tsx` |
+| 고유 title/description/panel id | `overlay/ids.ts` | `overlay-keyboard.browser.test.tsx` |
+
+reduced-motion에서는 exit duration이 0으로 붕괴하되 **전이 순서는 동일하다**. timer가 시각
+transition과 같은 CSS 선언을 읽으므로 두 값이 어긋날 수 없다(DS-D-0011 결정 3).
+
 ## Pre-implementation blockers
 
-- 공용 focus scope, inert, scroll lock, modal stack과 overlay branch가 없다.
-- semantic layer token의 Dialog 소비와 unique title/description ID 정책이 구현되지 않았다. Layer token
-  자체는 P2 local RC에 있다.
-- P2 motion token은 있지만 close motion과 unmount lifecycle을 Dialog 구현에 연결하지 않았다.
-- Dialog와 route Workspace를 type/API 수준에서 분리한 구현이 없다.
-- keyboard, focus, nested overlay, responsive geometry와 Figma parity test가 없다.
+- ~~공용 focus scope, inert, scroll lock, modal stack과 overlay branch가 없다.~~ **해소(DS-P3-005).**
+- ~~semantic layer token의 Dialog 소비~~ **해소(DS-P3-005).** unique title/description ID는
+  `overlay/ids.ts`가 발급하지만 Dialog recipe가 아직 그것을 aria 속성에 묶지 않았다.
+- ~~close motion과 unmount lifecycle 연결~~ **해소(DS-P3-005).**
+- ~~unique title/description ID를 aria 속성에 묶지 않았다.~~ **해소(DS-P3-007).**
+- ~~Dialog와 route Workspace를 type/API 수준에서 분리한 구현이 없다.~~ **해소(DS-P3-007).**
+  `portalContainer`·`mode`·`layer`·`role`이 API에 없다.
+- ~~Dialog의 public export가 없다.~~ **해소(DS-P3-007).**
+- responsive geometry는 구현됐으나 Figma parity test가 없다(DS-F-006-dialog).
 
 ## Migration
 
-1. focus scope, inert, scroll lock, stack, overlay branch를 가진 headless `Dialog` primitive를 만든다.
-2. `ConfirmDialog`, `TaskDialog`, `MediaWorkbenchDialog` recipe를 그 위에 만든다.
+1. ~~focus scope, inert, scroll lock, stack, overlay branch를 가진 headless `Dialog` primitive를 만든다.~~
+   **해소(DS-P3-005).**
+2. 단일 `Dialog` compound와 `variant` prop으로 confirm·task·media-workbench를 표현한다. 세 개의 별도
+   recipe를 만들지 않는다 — 셋의 차이는 초기 포커스 기본값, dismiss 기본값, 크기 tier 세 값뿐이고,
+   그 값을 세 컴포넌트에 흩으면 규범이 한 곳에서 읽히지 않는다. 필요하면 소비자가 자기 앱에서
+   `variant`를 고정한 얇은 래퍼를 만든다.
 3. 단순 confirm 소비처를 먼저 이관하고 danger action의 전역 Enter confirm을 금지한다.
 4. form/legal/media modal을 공용 primitive로 옮겨 Escape·focus·scroll 정책을 맞춘다.
 5. 영상 편집 UI를 `VideoEditorWorkspaceCore`, `VideoEditorDialog`, `VideoEditorRouteWorkspace`로 분리한다.

@@ -1,0 +1,18 @@
+/* 아이콘 표면 — 크기는 토큰이, 색은 부모의 color가 소유한다 (iconography.md). */
+.kds-icon {
+  display: inline-block;
+  flex: none;
+  inline-size: var(--kds-icon-size-md);
+  block-size: var(--kds-icon-size-md);
+  color: inherit;
+}
+
+.kds-icon[data-size="sm"] {
+  inline-size: var(--kds-icon-size-sm);
+  block-size: var(--kds-icon-size-sm);
+}
+
+.kds-icon[data-size="lg"] {
+  inline-size: var(--kds-icon-size-lg);
+  block-size: var(--kds-icon-size-lg);
+}

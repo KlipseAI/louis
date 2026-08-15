@@ -9,16 +9,54 @@ authority: normative
 Figma와 코드는 서로를 자동으로 덮어쓰는 두 정본이 아니다. 승인된 design decision을 중심으로
 token과 component parity를 검토하며, 자동 sync가 구현되기 전까지 상태를 과장하지 않는다.
 
+## 운영 파일
+
+Figma에는 역할이 다른 두 파일이 있다. 둘을 섞지 않는다.
+
+| 역할 | File key | 소유 | 쓰기 |
+| --- | --- | --- | --- |
+| 디자인 시스템 라이브러리 (정본 projection) | `bxGEp0km5zluMJGulaTvFW` — "Klipse Design System — Library" | 이 저장소 | 허용. Foundations / Components / Templates 3개 페이지 |
+| 제품 미러 reference | `CNORJOONt4z0a4Bl22Kjuu` — "Klipse 3.0" | 제품/디자인 작업자 | **금지.** 읽기 전용 evidence ([KP-FIGMA-001](../../migration/product-baseline.md)) |
+
+라이브러리 파일은 2026-08-14에 `SEJUNKI` 팀(pro tier, Full seat) drafts에 생성됐다. 파일 분리는
+publish 이후에만 검토한다 — publish 전에는 파일 간 변수·component 소비가 불가능하므로 단일 파일
+3-페이지 구조를 유지한다.
+
+### 실측된 capability (2026-08-14, 라이브러리 파일)
+
+- variable collection 생성과 두 번째 mode 추가: 가능
+- collection당 mode 상한: **10개** (Professional tier 값과 일치)
+- `Pretendard` 폰트 사용 가능 (Inter, Noto Sans KR/JP도 있음)
+- 요금제나 API가 바뀌면 이 절을 재실측해 갱신한다.
+
+### 쓰기 정책
+
+1. 위 표에서 쓰기가 허용된 파일에만 쓴다. 다른 파일에 대한 쓰기는 사용자가 명시적으로 대상을
+   지정하기 전까지 `blocked`다.
+2. 자동화 경로는 Figma MCP(Plugin API)뿐이다. Variables REST API는 Enterprise 전용이라 쓰지 않는다.
+3. **library publish는 어떤 방법으로도 자동화하지 않는다.** publish API가 존재하지 않으며 항상
+   사람이 Figma UI에서 수행한다. publish 여부를 추측해 상태를 올리지 않는다.
+4. 쓰기 스크립트는 idempotent해야 하고, 실행 전후 상태를 대조해 무엇이 바뀌었는지 보고한다.
+5. Figma 쪽 수동 편집과 충돌하면 덮어쓰지 않고 diff를 보고한다.
+
 ## 현재 상태
 
 - published Klipse Design library: `not-ready`
+- library 파일: Foundations / Components / Templates 3-페이지, collection 3개와 변수 146개 적용됨
+  (Primitive 92 · Semantic 28 · Semantic Color 26 × Light/Dark). publish하지 않음
 - P2 token/Figma proposal pipeline: local `release-candidate`
 - generated proposal: `packages/tokens/generated/figma.tokens.json` — `done`, not published
-- component parity checker: `not-ready`
-- snapshot import/export: `not-ready`
+- variable/style parity checker: `done` — `scripts/verify-figma-parity.mjs`가 `pnpm verify`에
+  연결됨. 고유 토큰 174개를 변수 146 · style 10 · 미표현 18로 전수 대조하고 변조 canary 4종을
+  매 실행에서 자체 검증한다
+- snapshot export: `done` — `figma/snapshot.json`
+- text/effect style: `done` — `typography/*` 15종, `elevation/*` 4종 (semantic tier 이름)
+- component library: Button set 40 variant (Variant × Size × State), publish 전
+- component parity checker: `done` — Figma variant 옵션을 코드 타입 선언과 대조하고, 선언되지 않은
+  property와 raw 값 사용을 실패로 처리한다
 
 P2는 review 가능한 proposal까지만 소유한다. 실제 library evidence가 생길 때까지 manifest의 Figma 상태는
-`not-ready`다.
+`not-ready`다. 파일이 생성됐다는 사실만으로 어떤 상태도 올리지 않는다.
 
 ## P2 proposal contract
 

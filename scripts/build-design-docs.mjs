@@ -422,6 +422,25 @@ if (tokenPackage) {
   if (tokenPackage.sourceFormat !== "DTCG 2025.10") {
     errors.push("tokenPackage.sourceFormat은 DTCG 2025.10이어야 합니다.");
   }
+  for (const [statusField, evidenceField] of [
+    ["figmaLibrary", "figmaLibraryEvidence"],
+    ["packageRelease", "packageReleaseEvidence"],
+  ]) {
+    const status = tokenPackage[statusField];
+    const evidence = tokenPackage[evidenceField];
+    if (status !== "not-ready" && typeof evidence !== "string") {
+      errors.push(
+        `tokenPackage.${statusField}가 not-ready가 아니면 ` +
+          `${evidenceField}에 근거를 적어야 합니다.`,
+      );
+    }
+    if (status === "not-ready" && evidence !== undefined) {
+      errors.push(
+        `tokenPackage.${statusField}가 not-ready인데 ` +
+          `${evidenceField}가 있습니다.`,
+      );
+    }
+  }
   requireFile(tokenPackage.source, "tokenPackage source");
   requireFile("scripts/lib/token-model.mjs", "tokenPackage validator");
   requireFile("scripts/lib/atomic-output.mjs", "tokenPackage atomic writer");

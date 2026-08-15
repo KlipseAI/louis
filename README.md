@@ -40,4 +40,6 @@ pnpm verify
 - 생성 파일은 `pnpm build`로 만들고 `pnpm verify`로 drift와 누락을 차단한다.
 
 세부 정보는 [Design 문서 진입점](design/README.md)과
-[제품 이관 경계](migration/README.md)를 참고한다.
+[제품 이관 경계](migration/README.md)를 참고한다. Claude Code 후속 작업은
+[`CLAUDE.md`](CLAUDE.md)에서 시작하며, 상세 순서와 완료 조건은
+[실행 인계서](design/governance/execution-handoff.md)가 소유한다.

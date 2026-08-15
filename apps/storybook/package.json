@@ -1,0 +1,21 @@
+{
+  "name": "@klipse-design/storybook",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Klipse Design 컴포넌트 워크샵 (DS-D-0012)",
+  "scripts": {
+    "dev": "storybook dev -p 6006 --no-open",
+    "build": "storybook build -o dist"
+  },
+  "dependencies": {
+    "@klipse-design/css": "workspace:^",
+    "@klipse-design/react": "workspace:^"
+  },
+  "devDependencies": {
+    "@storybook/addon-a11y": "^10.5.8",
+    "@storybook/addon-docs": "^10.5.8",
+    "@storybook/react-vite": "^10.5.8",
+    "storybook": "^10.5.8"
+  }
+}

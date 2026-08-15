@@ -1,0 +1,166 @@
+/* Button — design/components/button.md
+ *
+ * 상태는 data-* 속성으로만 표현한다. React state를 className 문자열로 조합하지 않는다 (DS-D-0004).
+ * 높이는 padding과 line-height로 자연스럽게 결정되고, 44px 타깃은 .kds-hit-target이 보장한다.
+ * 번역과 200% 확대에서 잘리지 않도록 고정 높이를 쓰지 않는다.
+ */
+
+.kds-button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--kds-space-control-sm);
+  border: 1px solid transparent;
+  border-radius: var(--kds-radius-control);
+  cursor: pointer;
+  text-decoration: none;
+  /* 긴 KO/EN/JA 라벨이 잘리지 않고 줄바꿈되게 한다.
+   *
+   * `anywhere`가 아니라 `break-word`인 이유: `anywhere`는 **min-content 폭까지 낮춘다.**
+   * 그래서 flex 컨테이너 안에서 폭이 모자라면 flex 알고리즘이 버튼을 한 글자 폭까지 줄여
+   * "primary"가 "pri/ma/ry"로 쪼개진다. 실측하면 min-content가 74px → 38px로 반토막 난다.
+   * `break-word`는 실제로 넘칠 때만 단어를 끊고 min-content는 가장 긴 단어로 유지한다. */
+  min-width: 0;
+  text-align: center;
+  overflow-wrap: break-word;
+  /* motion.md: 허용 property는 opacity와 transform뿐이다. 색 전환은 두지 않는다. */
+  transition-property: opacity, transform;
+  transition-duration: var(--kds-motion-overlay-exit-duration);
+  transition-timing-function: var(--kds-motion-overlay-exit-timing-function);
+}
+
+/* size — 시각 크기만 바꾼다. hit area 계약은 .kds-hit-target이 별도로 유지한다. */
+.kds-button[data-size="md"] {
+  padding-block: var(--kds-space-control-sm);
+  padding-inline: var(--kds-space-control-md);
+  font-family: var(--kds-typography-body-sm-medium-font-family);
+  font-size: var(--kds-typography-body-sm-medium-font-size);
+  font-weight: var(--kds-typography-body-sm-medium-font-weight);
+  line-height: var(--kds-typography-body-sm-medium-line-height);
+  letter-spacing: var(--kds-typography-body-sm-medium-letter-spacing);
+}
+
+.kds-button[data-size="sm"] {
+  padding-block: var(--kds-space-control-xs);
+  padding-inline: var(--kds-space-control-sm);
+  font-family: var(--kds-typography-caption-medium-font-family);
+  font-size: var(--kds-typography-caption-medium-font-size);
+  font-weight: var(--kds-typography-caption-medium-font-weight);
+  line-height: var(--kds-typography-caption-medium-line-height);
+  letter-spacing: var(--kds-typography-caption-medium-letter-spacing);
+}
+
+/* variant — 강조를 색만으로 결정하지 않고 면·테두리·굵기를 함께 쓴다. */
+.kds-button[data-variant="primary"] {
+  background: var(--kds-color-action-primary);
+  color: var(--kds-color-foreground-inverse);
+}
+
+.kds-button[data-variant="secondary"] {
+  background: var(--kds-color-background-surface);
+  border-color: var(--kds-color-border-default);
+  color: var(--kds-color-foreground-primary);
+}
+
+.kds-button[data-variant="ghost"] {
+  background: transparent;
+  color: var(--kds-color-foreground-secondary);
+}
+
+/* Known deviation: solid danger를 표현할 action 토큰이 아직 없어 tonal로 둔다.
+ * DS-P3-014 단위 9가 color-action-danger* 를 추가하면 여기를 갱신한다. */
+.kds-button[data-variant="danger"] {
+  background: var(--kds-color-status-danger-background);
+  color: var(--kds-color-status-danger-foreground);
+}
+
+/* hover — hover에서만 기능을 드러내지 않는다. 면 강조만 바꾼다. */
+.kds-button:where(:not([aria-disabled="true"]):not(:disabled)):hover[data-variant="primary"] {
+  background: var(--kds-color-action-primary-hover);
+}
+
+.kds-button:where(:not([aria-disabled="true"]):not(:disabled)):hover[data-variant="secondary"],
+.kds-button:where(:not([aria-disabled="true"]):not(:disabled)):hover[data-variant="ghost"] {
+  background: var(--kds-color-background-inset);
+}
+
+/* pressed — reduced-motion에서는 scale 이동을 제거하되 의미는 유지한다. */
+.kds-button:where(:not([aria-disabled="true"]):not(:disabled)):active[data-variant="primary"] {
+  background: var(--kds-color-action-primary-pressed);
+}
+
+.kds-button:where(:not([aria-disabled="true"]):not(:disabled)):active {
+  scale: 0.98;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .kds-button {
+    transition-duration: var(--kds-motion-reduced-duration);
+  }
+
+  .kds-button:where(:not([aria-disabled="true"]):not(:disabled)):active {
+    scale: 1;
+  }
+}
+
+/* disabled와 loading — 둘 다 실행되지 않고, 그렇게 보인다. */
+.kds-button:disabled,
+.kds-button[aria-disabled="true"] {
+  cursor: not-allowed;
+  color: var(--kds-color-foreground-disabled);
+}
+
+.kds-button:disabled:where([data-variant="primary"], [data-variant="danger"]),
+.kds-button[aria-disabled="true"]:where([data-variant="primary"], [data-variant="danger"]) {
+  background: var(--kds-color-background-inset);
+}
+
+.kds-button:disabled:where([data-variant="secondary"]),
+.kds-button[aria-disabled="true"]:where([data-variant="secondary"]) {
+  border-color: var(--kds-color-border-subtle);
+}
+
+/* loading — label 의미를 유지한 채 progress indicator를 함께 보인다. */
+.kds-button[data-loading="true"] .kds-button__label {
+  opacity: 0.6;
+}
+
+.kds-button__icon {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+}
+
+.kds-button__spinner {
+  display: inline-flex;
+  flex: none;
+  width: 1em;
+  height: 1em;
+  border: 2px solid currentColor;
+  border-block-start-color: transparent;
+  border-radius: var(--kds-radius-pill);
+  animation: kds-button-spin 1s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .kds-button__spinner {
+    animation-duration: var(--kds-motion-reduced-duration);
+    /* 회전을 멈추더라도 진행 중이라는 의미는 aria-busy가 유지한다. */
+    animation-iteration-count: 1;
+  }
+}
+
+@keyframes kds-button-spin {
+  to {
+    rotate: 360deg;
+  }
+}
+
+/* forced-colors: 시스템 색이 이기게 두고 경계만 남긴다. */
+@media (forced-colors: active) {
+  .kds-button {
+    border-color: currentColor;
+  }
+}

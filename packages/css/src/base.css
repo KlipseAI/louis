@@ -1,0 +1,86 @@
+/* base — 컴포넌트가 공유하는 최소 유틸리티.
+ *
+ * DS-D-0004: 전역 선택자를 쓰지 않는다. 값은 --kds-* 변수로만 참조하고 숫자 z-index를 쓰지 않는다.
+ */
+
+/* 시각적으로 숨기되 accessibility tree에는 남긴다.
+ * dialog.md의 accessible description, button.md의 icon-only accessible name이 이 유틸을 쓴다. */
+.kds-visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* focus-visible 링 — 컴포넌트가 공유하는 단일 표현.
+ * button.md: light/dark/high contrast 모두에서 보여야 한다. */
+.kds-focus-ring:focus-visible {
+  outline: 2px solid var(--kds-color-border-focus);
+  outline-offset: 2px;
+}
+
+/* forced-colors에서는 시스템 색이 이기도록 비운다. 링 자체는 남긴다. */
+@media (forced-colors: active) {
+  .kds-focus-ring:focus-visible {
+    outline-color: Highlight;
+  }
+}
+
+/* 최소 hit target — button.md의 44px 내부 기준(WCAG 2.2 AA는 24px, 44px는 AAA).
+ * 시각 크기는 그대로 두고 타깃만 넓힌다. */
+.kds-hit-target {
+  position: relative;
+}
+
+.kds-hit-target::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  translate: -50% -50%;
+  width: max(100%, var(--kds-layout-control-hit-target-minimum));
+  height: max(100%, var(--kds-layout-control-hit-target-minimum));
+}
+
+/* overlay가 놓이는 stacking 문맥. 숫자 z-index 대신 layer 토큰만 쓴다. */
+.kds-layer-popover {
+  z-index: var(--kds-layer-popover);
+}
+
+.kds-layer-modal {
+  z-index: var(--kds-layer-modal);
+}
+
+.kds-layer-critical {
+  z-index: var(--kds-layer-critical);
+}
+
+/* 위치가 확정되기 전에는 보이지도 hit-test되지도 않는다.
+ * menu-popover.md: 임시 top/right 위치를 한 프레임도 노출하지 않는다.
+ * visibility를 쓰는 이유는 display:none이면 enter transition의 시작 프레임이 사라지기 때문이다. */
+[data-kds-state="opening"] {
+  visibility: hidden;
+  pointer-events: none;
+}
+
+/* closing 중인 layer는 아래 control의 hit test를 막지 않는다.
+ * elevation-layer.md: 투명하거나 closing 중인 layer가 pointer/focus를 가로채면 실패다. */
+[data-kds-state="closing"] {
+  pointer-events: none;
+}
+
+[data-kds-state="closed"] {
+  display: none;
+}
+
+/* modal이 scroll owner를 잠근다. 잠금 대상은 body 고정이 아니라 overlay layer가 지정한 요소다.
+ * dialog.md: 기존 inline style을 보존하고 닫힌 뒤 복원한다 — 복원은 JS가 하고 여기서는 잠금만
+ * 표현한다. 속성 선택자라 잠금 여부가 DOM에서 그대로 읽히고 테스트가 상태를 직접 볼 수 있다. */
+[data-kds-scroll-locked="true"] {
+  overflow: hidden;
+}

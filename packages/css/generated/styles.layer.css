@@ -1,0 +1,947 @@
+/* GENERATED FILE — packages/css/src의 저작 원본을 고치고 pnpm build:css를 실행한다. */
+@layer kds.base {
+  /* base — 컴포넌트가 공유하는 최소 유틸리티.
+   *
+   * DS-D-0004: 전역 선택자를 쓰지 않는다. 값은 --kds-* 변수로만 참조하고 숫자 z-index를 쓰지 않는다.
+   */
+
+  /* 시각적으로 숨기되 accessibility tree에는 남긴다.
+   * dialog.md의 accessible description, button.md의 icon-only accessible name이 이 유틸을 쓴다. */
+  .kds-visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  /* focus-visible 링 — 컴포넌트가 공유하는 단일 표현.
+   * button.md: light/dark/high contrast 모두에서 보여야 한다. */
+  .kds-focus-ring:focus-visible {
+    outline: 2px solid var(--kds-color-border-focus);
+    outline-offset: 2px;
+  }
+
+  /* forced-colors에서는 시스템 색이 이기도록 비운다. 링 자체는 남긴다. */
+  @media (forced-colors: active) {
+    .kds-focus-ring:focus-visible {
+      outline-color: Highlight;
+    }
+  }
+
+  /* 최소 hit target — button.md의 44px 내부 기준(WCAG 2.2 AA는 24px, 44px는 AAA).
+   * 시각 크기는 그대로 두고 타깃만 넓힌다. */
+  .kds-hit-target {
+    position: relative;
+  }
+
+  .kds-hit-target::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    translate: -50% -50%;
+    width: max(100%, var(--kds-layout-control-hit-target-minimum));
+    height: max(100%, var(--kds-layout-control-hit-target-minimum));
+  }
+
+  /* overlay가 놓이는 stacking 문맥. 숫자 z-index 대신 layer 토큰만 쓴다. */
+  .kds-layer-popover {
+    z-index: var(--kds-layer-popover);
+  }
+
+  .kds-layer-modal {
+    z-index: var(--kds-layer-modal);
+  }
+
+  .kds-layer-critical {
+    z-index: var(--kds-layer-critical);
+  }
+
+  /* 위치가 확정되기 전에는 보이지도 hit-test되지도 않는다.
+   * menu-popover.md: 임시 top/right 위치를 한 프레임도 노출하지 않는다.
+   * visibility를 쓰는 이유는 display:none이면 enter transition의 시작 프레임이 사라지기 때문이다. */
+  [data-kds-state="opening"] {
+    visibility: hidden;
+    pointer-events: none;
+  }
+
+  /* closing 중인 layer는 아래 control의 hit test를 막지 않는다.
+   * elevation-layer.md: 투명하거나 closing 중인 layer가 pointer/focus를 가로채면 실패다. */
+  [data-kds-state="closing"] {
+    pointer-events: none;
+  }
+
+  [data-kds-state="closed"] {
+    display: none;
+  }
+
+  /* modal이 scroll owner를 잠근다. 잠금 대상은 body 고정이 아니라 overlay layer가 지정한 요소다.
+   * dialog.md: 기존 inline style을 보존하고 닫힌 뒤 복원한다 — 복원은 JS가 하고 여기서는 잠금만
+   * 표현한다. 속성 선택자라 잠금 여부가 DOM에서 그대로 읽히고 테스트가 상태를 직접 볼 수 있다. */
+  [data-kds-scroll-locked="true"] {
+    overflow: hidden;
+  }
+}
+
+@layer kds.component {
+  /* Button — design/components/button.md
+   *
+   * 상태는 data-* 속성으로만 표현한다. React state를 className 문자열로 조합하지 않는다 (DS-D-0004).
+   * 높이는 padding과 line-height로 자연스럽게 결정되고, 44px 타깃은 .kds-hit-target이 보장한다.
+   * 번역과 200% 확대에서 잘리지 않도록 고정 높이를 쓰지 않는다.
+   */
+
+  .kds-button {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--kds-space-control-sm);
+    border: 1px solid transparent;
+    border-radius: var(--kds-radius-control);
+    cursor: pointer;
+    text-decoration: none;
+    /* 긴 KO/EN/JA 라벨이 잘리지 않고 줄바꿈되게 한다.
+     *
+     * `anywhere`가 아니라 `break-word`인 이유: `anywhere`는 **min-content 폭까지 낮춘다.**
+     * 그래서 flex 컨테이너 안에서 폭이 모자라면 flex 알고리즘이 버튼을 한 글자 폭까지 줄여
+     * "primary"가 "pri/ma/ry"로 쪼개진다. 실측하면 min-content가 74px → 38px로 반토막 난다.
+     * `break-word`는 실제로 넘칠 때만 단어를 끊고 min-content는 가장 긴 단어로 유지한다. */
+    min-width: 0;
+    text-align: center;
+    overflow-wrap: break-word;
+    /* motion.md: 허용 property는 opacity와 transform뿐이다. 색 전환은 두지 않는다. */
+    transition-property: opacity, transform;
+    transition-duration: var(--kds-motion-overlay-exit-duration);
+    transition-timing-function: var(--kds-motion-overlay-exit-timing-function);
+  }
+
+  /* size — 시각 크기만 바꾼다. hit area 계약은 .kds-hit-target이 별도로 유지한다. */
+  .kds-button[data-size="md"] {
+    padding-block: var(--kds-space-control-sm);
+    padding-inline: var(--kds-space-control-md);
+    font-family: var(--kds-typography-body-sm-medium-font-family);
+    font-size: var(--kds-typography-body-sm-medium-font-size);
+    font-weight: var(--kds-typography-body-sm-medium-font-weight);
+    line-height: var(--kds-typography-body-sm-medium-line-height);
+    letter-spacing: var(--kds-typography-body-sm-medium-letter-spacing);
+  }
+
+  .kds-button[data-size="sm"] {
+    padding-block: var(--kds-space-control-xs);
+    padding-inline: var(--kds-space-control-sm);
+    font-family: var(--kds-typography-caption-medium-font-family);
+    font-size: var(--kds-typography-caption-medium-font-size);
+    font-weight: var(--kds-typography-caption-medium-font-weight);
+    line-height: var(--kds-typography-caption-medium-line-height);
+    letter-spacing: var(--kds-typography-caption-medium-letter-spacing);
+  }
+
+  /* variant — 강조를 색만으로 결정하지 않고 면·테두리·굵기를 함께 쓴다. */
+  .kds-button[data-variant="primary"] {
+    background: var(--kds-color-action-primary);
+    color: var(--kds-color-foreground-inverse);
+  }
+
+  .kds-button[data-variant="secondary"] {
+    background: var(--kds-color-background-surface);
+    border-color: var(--kds-color-border-default);
+    color: var(--kds-color-foreground-primary);
+  }
+
+  .kds-button[data-variant="ghost"] {
+    background: transparent;
+    color: var(--kds-color-foreground-secondary);
+  }
+
+  /* Known deviation: solid danger를 표현할 action 토큰이 아직 없어 tonal로 둔다.
+   * DS-P3-014 단위 9가 color-action-danger* 를 추가하면 여기를 갱신한다. */
+  .kds-button[data-variant="danger"] {
+    background: var(--kds-color-status-danger-background);
+    color: var(--kds-color-status-danger-foreground);
+  }
+
+  /* hover — hover에서만 기능을 드러내지 않는다. 면 강조만 바꾼다. */
+  .kds-button:where(:not([aria-disabled="true"]):not(:disabled)):hover[data-variant="primary"] {
+    background: var(--kds-color-action-primary-hover);
+  }
+
+  .kds-button:where(:not([aria-disabled="true"]):not(:disabled)):hover[data-variant="secondary"],
+  .kds-button:where(:not([aria-disabled="true"]):not(:disabled)):hover[data-variant="ghost"] {
+    background: var(--kds-color-background-inset);
+  }
+
+  /* pressed — reduced-motion에서는 scale 이동을 제거하되 의미는 유지한다. */
+  .kds-button:where(:not([aria-disabled="true"]):not(:disabled)):active[data-variant="primary"] {
+    background: var(--kds-color-action-primary-pressed);
+  }
+
+  .kds-button:where(:not([aria-disabled="true"]):not(:disabled)):active {
+    scale: 0.98;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .kds-button {
+      transition-duration: var(--kds-motion-reduced-duration);
+    }
+
+    .kds-button:where(:not([aria-disabled="true"]):not(:disabled)):active {
+      scale: 1;
+    }
+  }
+
+  /* disabled와 loading — 둘 다 실행되지 않고, 그렇게 보인다. */
+  .kds-button:disabled,
+  .kds-button[aria-disabled="true"] {
+    cursor: not-allowed;
+    color: var(--kds-color-foreground-disabled);
+  }
+
+  .kds-button:disabled:where([data-variant="primary"], [data-variant="danger"]),
+  .kds-button[aria-disabled="true"]:where([data-variant="primary"], [data-variant="danger"]) {
+    background: var(--kds-color-background-inset);
+  }
+
+  .kds-button:disabled:where([data-variant="secondary"]),
+  .kds-button[aria-disabled="true"]:where([data-variant="secondary"]) {
+    border-color: var(--kds-color-border-subtle);
+  }
+
+  /* loading — label 의미를 유지한 채 progress indicator를 함께 보인다. */
+  .kds-button[data-loading="true"] .kds-button__label {
+    opacity: 0.6;
+  }
+
+  .kds-button__icon {
+    display: inline-flex;
+    flex: none;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .kds-button__spinner {
+    display: inline-flex;
+    flex: none;
+    width: 1em;
+    height: 1em;
+    border: 2px solid currentColor;
+    border-block-start-color: transparent;
+    border-radius: var(--kds-radius-pill);
+    animation: kds-button-spin 1s linear infinite;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .kds-button__spinner {
+      animation-duration: var(--kds-motion-reduced-duration);
+      /* 회전을 멈추더라도 진행 중이라는 의미는 aria-busy가 유지한다. */
+      animation-iteration-count: 1;
+    }
+  }
+
+  @keyframes kds-button-spin {
+    to {
+      rotate: 360deg;
+    }
+  }
+
+  /* forced-colors: 시스템 색이 이기게 두고 경계만 남긴다. */
+  @media (forced-colors: active) {
+    .kds-button {
+      border-color: currentColor;
+    }
+  }
+}
+
+@layer kds.component {
+  /* Dialog / Modal — design/components/dialog.md
+   *
+   * root의 모션 lifecycle(duration/timing/opacity)과 --kds-overlay-* seam은 overlay.css가
+   * 소유한다. 여기서 다시 선언하지 않는다.
+   *
+   * 이 파일은 파일명 정렬상 overlay.css보다 **먼저** 방출된다(build-css.mjs의 readdirSync().sort()).
+   * 그래서 overlay.css의 anchored 전용 선언을 덮어야 하는 곳에서는 `.kds-overlay-panel.kds-dialog`로
+   * 명시도를 한 칸 올린다 — 같은 요소에 두 클래스가 모두 붙으므로(use-overlay가 kds-overlay-panel을
+   * 항상 조합한다) 순서에 의존하지 않고 이긴다. overlay.css는 수정하지 않는다.
+   */
+
+  .kds-dialog {
+    /* DS-P3-014 대기 — semantic 토큰이 생기면 이 네 줄만 갈아끼운다. */
+    --kds-dialog-viewport-gutter: 20px;
+    --kds-dialog-inline-size: 480px;
+    --kds-dialog-surface-inset: var(--kds-space-layout-section);
+    --kds-dialog-surface-radius: var(--kds-radius-overlay);
+
+    position: fixed;
+    inset: 0;
+    display: grid;
+    /* safe 정렬 — surface가 넘칠 때 상단이 잘려 도달 불가가 되는 것을 막는다. */
+    align-items: safe center;
+    justify-items: center;
+    padding-block: max(var(--kds-dialog-viewport-gutter), env(safe-area-inset-top))
+      max(var(--kds-dialog-viewport-gutter), env(safe-area-inset-bottom));
+    padding-inline: max(var(--kds-dialog-viewport-gutter), env(safe-area-inset-left))
+      max(var(--kds-dialog-viewport-gutter), env(safe-area-inset-right));
+  }
+
+  /* overlay.css의 anchored 전용 geometry를 modal에서 되돌린다.
+   * overflow: auto가 남으면 root가 scroll owner가 되어 "body만 스크롤"이 깨지고,
+   * 중앙 정렬 컨테이너 + overflow의 고전 버그로 surface 상단이 스크롤 불가 영역에 갇힌다.
+   * 상한은 physical 속성명 그대로 쓴다 — logical로 쓰면 논리·물리 매핑의 cascade 규칙에
+   * 기대게 되고 리뷰어가 읽고 판정할 수 없는 코드가 된다. */
+  .kds-overlay-panel.kds-dialog {
+    max-width: none;
+    max-height: none;
+    overflow: hidden;
+  }
+
+  /* scale은 anchor 확장의 표현이다. modal에서는 (a) scrim이 함께 줄어 뷰포트 가장자리가 비치고
+   * (b) root에 transform이 생기는 순간 자손의 position: fixed 기준이 root로 바뀐다. */
+  .kds-overlay-panel.kds-dialog[data-kds-state="opening"] {
+    scale: 1;
+  }
+
+  /* scrim. absolute인 이유는 root에 transform이 생겨도 기준이 흔들리지 않게 하기 위해서다.
+   * grid 배치를 명시하지 않은 absolute 자식의 containing block은 grid 컨테이너의 padding box이며,
+   * out-of-flow라 grid item이 되지 않는다 — surface의 중앙 정렬을 방해하지 않는다. */
+  .kds-dialog__backdrop {
+    position: absolute;
+    inset: 0;
+    background: var(--kds-color-scrim-modal);
+  }
+
+  .kds-dialog__surface {
+    /* backdrop 위로 올리는 유일한 수단. positioned 자손은 in-flow 콘텐츠보다 위에 칠해지므로
+     * static인 채로 두면 surface가 scrim 밑으로 들어간다. 숫자 z-index를 쓰지 않는다. */
+    position: relative;
+    /* action 세로 전환의 기준. contain: layout style inline-size를 함의하므로 이 안에
+     * position: fixed를 두면 뷰포트가 아니라 이 박스를 기준으로 붙는다. translate/scale도
+     * 같은 효과를 낸다. Dialog 안 Popover는 non-modal host로 portal되어 자손이 아니라 무관하다. */
+    container-type: inline-size;
+    box-sizing: border-box;
+    display: grid;
+    /* minmax(0, 1fr)이 핵심이다. 1fr만 쓰면 grid item의 자동 최소 크기가 콘텐츠라
+     * body가 줄지 않고 surface가 넘쳐 footer가 화면 밖으로 나간다. */
+    grid-template-rows: auto minmax(0, 1fr) auto;
+    inline-size: min(var(--kds-dialog-inline-size), 100%);
+    /* 여백 산수를 반복하지 않는다. 좌우는 root padding이 소유하고 surface는 상한만 말한다.
+     * 곱셈 대신 두 번 빼는 이유는 저작 게이트의 전역 선택자 패턴이 공백으로 둘러싼 `*`를
+     * 선택자로 오인하기 때문이다 — menu-popover.css와 같은 회피다. */
+    max-block-size: min(
+      100%,
+      calc(
+        100dvh - var(--kds-dialog-viewport-gutter) - var(--kds-dialog-viewport-gutter)
+      )
+    );
+    overflow: hidden;
+    background: var(--kds-color-background-overlay);
+    border: 1px solid var(--kds-color-border-subtle);
+    border-radius: var(--kds-dialog-surface-radius);
+    box-shadow: var(--kds-elevation-modal);
+    color: var(--kds-color-foreground-primary);
+
+    /* enter/exit transform의 절반. duration/timing을 **inherit**로 받는 것이 이 블록의 핵심이다.
+     * presence의 readExitDuration은 root의 computed transition-duration을 읽는데, inherit는
+     * 계산값 시점에 부모(root)의 값을 그대로 가져오므로 시각 transition과 unmount timer가
+     * 같은 선언 하나에서 나온다 — 두 값이 어긋날 방법이 없다(DS-D-0011 결정 3).
+     * reduced-motion에서 root가 0ms가 되면 여기도 함께 0ms가 된다. */
+    transition-property: translate, scale;
+    transition-duration: inherit;
+    transition-timing-function: inherit;
+  }
+
+  .kds-dialog[data-kds-state="opening"] .kds-dialog__surface {
+    translate: 0 8px;
+    scale: 0.98;
+  }
+
+  .kds-dialog[data-kds-state="open"] .kds-dialog__surface {
+    translate: 0 0;
+    scale: 1;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    /* Specification의 Reduced motion = 비필수 transform 제거. opacity 순서는 root가 계속 진다.
+     * 위 opening 규칙과 같은 (0,2,0) 형태이므로 뒤에 와서 이긴다. */
+    .kds-dialog[data-kds-state="opening"] .kds-dialog__surface {
+      translate: 0 0;
+      scale: 1;
+    }
+  }
+
+  .kds-dialog__header {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--kds-space-control-sm);
+    padding: var(--kds-dialog-surface-inset);
+    padding-block-end: var(--kds-space-control-sm);
+  }
+
+  .kds-dialog__heading {
+    flex: 1 1 auto;
+    min-inline-size: 0;
+  }
+
+  .kds-dialog__title {
+    margin: 0;
+    color: var(--kds-color-foreground-primary);
+    overflow-wrap: break-word;
+    word-break: keep-all;
+    font-family: var(--kds-typography-heading-md-medium-font-family);
+    font-size: var(--kds-typography-heading-md-medium-font-size);
+    font-weight: var(--kds-typography-heading-md-medium-font-weight);
+    line-height: var(--kds-typography-heading-md-medium-line-height);
+    letter-spacing: var(--kds-typography-heading-md-medium-letter-spacing);
+  }
+
+  .kds-dialog__description {
+    margin: 0;
+    margin-block-start: var(--kds-space-control-xs);
+    color: var(--kds-color-foreground-secondary);
+    overflow-wrap: break-word;
+    word-break: keep-all;
+    font-family: var(--kds-typography-body-sm-regular-font-family);
+    font-size: var(--kds-typography-body-sm-regular-font-size);
+    font-weight: var(--kds-typography-body-sm-regular-font-weight);
+    line-height: var(--kds-typography-body-sm-regular-line-height);
+    letter-spacing: var(--kds-typography-body-sm-regular-letter-spacing);
+  }
+
+  .kds-dialog__close {
+    flex: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    inline-size: var(--kds-space-control-lg);
+    block-size: var(--kds-space-control-lg);
+    padding: 0;
+    border: 0;
+    border-radius: var(--kds-radius-control);
+    background: transparent;
+    color: var(--kds-color-foreground-secondary);
+    cursor: pointer;
+  }
+
+  .kds-dialog__close[aria-disabled="true"] {
+    cursor: not-allowed;
+    color: var(--kds-color-foreground-disabled);
+  }
+
+  /* 스크롤은 이 요소 하나만 한다. */
+  .kds-dialog__body {
+    min-block-size: 0;
+    overflow: auto;
+    overscroll-behavior: contain;
+    padding-inline: var(--kds-dialog-surface-inset);
+    padding-block: var(--kds-space-control-sm);
+    /* focus ring(offset 2 + width 2 = 4px)이 scrollport 경계에서 잘리지 않게 한다. */
+    scroll-padding-block: var(--kds-space-control-sm);
+  }
+
+  .kds-dialog__footer {
+    padding: var(--kds-dialog-surface-inset);
+    padding-block-start: var(--kds-space-control-sm);
+  }
+
+  .kds-dialog__actions {
+    display: flex;
+    /* 긴 KO/EN/JA 라벨이 한 행에 안 들어가면 각자 행으로 내려간다(콘텐츠 구동 경로). */
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    /* 8px. Button의 .kds-hit-target ::after가 44px 타깃을 시각 박스 밖으로 3px씩 확장하므로
+     * 3 + 3 = 6 < 8로 간신히 겹치지 않는다. space-control-xs(4px)로 줄이면 즉시 인접 액션의
+     * hit 영역을 침범한다 — Menu가 "삭제가 설정 바로 아래"에서 겪은 것과 같은 형태다. */
+    gap: var(--kds-space-control-sm);
+  }
+
+  /* 좁은 폭 / 200% 확대 경로. viewport media query가 아니라 container query를 쓰는 이유는
+   * compact(280px)와 large(720px)가 같은 뷰포트에서 서로 다른 판정을 받아야 하기 때문이다.
+   * 200% 확대는 CSS px 뷰포트를 절반으로 만들므로 같은 query가 발화한다. */
+  @container (max-width: 320px) {
+    .kds-dialog__actions {
+      flex-direction: column;
+      align-items: stretch;
+    }
+  }
+
+  .kds-dialog[data-size="compact"] {
+    --kds-dialog-inline-size: 360px;
+    --kds-dialog-surface-inset: var(--kds-space-layout-gutter);
+    /* 24px 토큰이 소스에 없다. radius-overlay(16)보다 크면서 large와 구분되는 유일한 값. */
+    --kds-dialog-surface-radius: var(--kds-radius-card);
+  }
+
+  .kds-dialog[data-size="large"] {
+    --kds-dialog-inline-size: 720px;
+  }
+
+  .kds-dialog[data-size="fullscreen"] {
+    --kds-dialog-surface-radius: 0;
+    padding: 0;
+  }
+
+  .kds-dialog[data-size="fullscreen"] .kds-dialog__surface {
+    inline-size: 100%;
+    block-size: 100%;
+    max-block-size: 100dvh;
+    border: 0;
+  }
+
+  /* fullscreen에서는 root padding이 0이므로 safe area를 내부가 진다. */
+  .kds-dialog[data-size="fullscreen"] .kds-dialog__header {
+    padding-block-start: max(var(--kds-dialog-surface-inset), env(safe-area-inset-top));
+  }
+
+  .kds-dialog[data-size="fullscreen"] .kds-dialog__footer {
+    padding-block-end: max(var(--kds-dialog-surface-inset), env(safe-area-inset-bottom));
+  }
+
+  /* sheet은 하단 정착이다. data-size의 폭 상한을 의도적으로 무시한다. */
+  .kds-dialog[data-variant="sheet"] {
+    align-items: safe end;
+    padding-inline: 0;
+    padding-block-end: 0;
+  }
+
+  .kds-dialog[data-variant="sheet"] .kds-dialog__surface {
+    inline-size: 100%;
+    border-end-start-radius: 0;
+    border-end-end-radius: 0;
+  }
+
+  @media (forced-colors: active) {
+    .kds-dialog__surface {
+      border-color: currentColor;
+    }
+  }
+
+  /* 장식 pseudo-element는 절대 pointer를 막지 않는다. */
+  .kds-dialog::before,
+  .kds-dialog::after,
+  .kds-dialog__surface::before,
+  .kds-dialog__surface::after {
+    pointer-events: none;
+  }
+}
+
+@layer kds.component {
+  /* 아이콘 표면 — 크기는 토큰이, 색은 부모의 color가 소유한다 (iconography.md). */
+  .kds-icon {
+    display: inline-block;
+    flex: none;
+    inline-size: var(--kds-icon-size-md);
+    block-size: var(--kds-icon-size-md);
+    color: inherit;
+  }
+
+  .kds-icon[data-size="sm"] {
+    inline-size: var(--kds-icon-size-sm);
+    block-size: var(--kds-icon-size-sm);
+  }
+
+  .kds-icon[data-size="lg"] {
+    inline-size: var(--kds-icon-size-lg);
+    block-size: var(--kds-icon-size-lg);
+  }
+}
+
+@layer kds.component {
+  /* Menu / Popover — design/components/menu-popover.md
+   *
+   * 패널 **표면**은 두 variant가 공유하므로 `.kds-popover`가 소유하고, action-menu 내부만
+   * `.kds-menu__*`를 쓴다. `role="dialog"`인 프로필 패널에 `.kds-menu`가 붙으면 DOM을 읽는
+   * 사람에게 거짓 신호가 되기 때문이다 — 두 variant가 공유하는 것은 표면이지 menu가 아니다.
+   *
+   * `max-width` / `max-height` / `overflow` / `transition` / `transform-origin`은
+   * `overlay.css`가 소유한다. 여기서 다시 선언하지 않고 하한과 스크롤 경계만 얹는다.
+   */
+
+  .kds-popover {
+    --kds-popover-inset: var(--kds-space-control-xs);
+    --kds-popover-preferred-inline-size: 200px;
+    --kds-popover-anchor-floor: 0px;
+    /* 상한 폴백. 곱셈 대신 두 번 빼는 이유는 저작 게이트의 전역 선택자 패턴이 공백으로 둘러싼
+     * `*`를 선택자로 오인하기 때문이다. 값이 같고 읽기도 명확하므로 게이트를 건드리지 않는다. */
+    --kds-popover-available-inline-size: var(
+      --kds-overlay-available-width,
+      calc(
+        100vw - var(--kds-overlay-collision-padding) -
+          var(--kds-overlay-collision-padding)
+      )
+    );
+
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    padding: var(--kds-popover-inset);
+    background: var(--kds-color-background-overlay);
+    border: 1px solid var(--kds-color-border-subtle);
+    border-radius: var(--kds-radius-overlay);
+    box-shadow: var(--kds-elevation-popover);
+    color: var(--kds-color-foreground-primary);
+
+    /* 상한은 overlay.css가 소유한다. min()으로 감싸지 않으면 min-inline-size가 max-width를
+     * 이겨서, 320px 화면 200% 확대(가용 폭 144px)에서 패널이 화면을 넘는다. */
+    min-inline-size: min(
+      max(var(--kds-popover-preferred-inline-size), var(--kds-popover-anchor-floor)),
+      var(--kds-popover-available-inline-size)
+    );
+
+    /* focus ring(offset 2 + width 2 = 4px)이 scrollport 경계에서 잘리지 않게 한다. */
+    scroll-padding-block: var(--kds-space-control-sm);
+    overscroll-behavior: contain;
+  }
+
+  /* action menu는 최소 trigger 폭 이상을 권장한다. anchor 폭은 positioner가 발행한다. */
+  .kds-popover[data-kind="action-menu"] {
+    --kds-popover-anchor-floor: var(--kds-overlay-anchor-width, 0px);
+  }
+
+  .kds-popover[data-kind="composite-popover"] {
+    --kds-popover-preferred-inline-size: 240px;
+    /* action menu와 달리 inset이 8px이다.
+     *
+     * composite popover는 임의의 컨트롤을 담고, `.kds-hit-target`을 쓰는 컨트롤은 44px 타겟을
+     * 시각 박스 **바깥으로** 확장한다. sm 버튼(28px)이면 위아래로 8px씩 넘치고, 패널이
+     * 스크롤 컨테이너(overlay.css의 `overflow: auto`)이므로 그 8px이 그대로 **유령 스크롤바**가
+     * 된다 — 내용이 다 보이는데 스크롤이 생긴다. 실측으로 분리했다(scrollHeight 157 → 153).
+     *
+     * action menu는 행 자체를 44px로 만들어 그 유틸을 쓰지 않으므로 4px을 유지한다.
+     * 거기서 8px을 쓰면 안쪽 곡률(16 - 8 = 8px)이 item radius(10px)보다 작아져 모서리가 뚫린다. */
+    --kds-popover-inset: var(--kds-space-control-sm);
+
+    gap: var(--kds-space-control-sm);
+  }
+
+  .kds-popover__title {
+    margin: 0;
+    padding-block: var(--kds-space-control-xs);
+    padding-inline: var(--kds-space-control-md);
+    color: var(--kds-color-foreground-primary);
+    font-family: var(--kds-typography-heading-sm-medium-font-family);
+    font-size: var(--kds-typography-heading-sm-medium-font-size);
+    font-weight: var(--kds-typography-heading-sm-medium-font-weight);
+    line-height: var(--kds-typography-heading-sm-medium-line-height);
+    letter-spacing: var(--kds-typography-heading-sm-medium-letter-spacing);
+  }
+
+  /* item — `.kds-hit-target`을 쓰지 않는다.
+   *
+   * 그 유틸의 ::after는 44px 사각형을 항목 **중앙에 겹쳐** 놓는다. 간격 없이 쌓이는 메뉴 행에서
+   * 시각 높이가 40px이면 위아래로 2px씩 삐져나오고, 겹친 구간은 tree order상 뒤 형제가 이긴다.
+   * "삭제"가 "설정" 바로 아래에 있으면 그 2px이 그대로 사고다. 대신 행 자체를 44px로 만든다. */
+  .kds-menu__item {
+    box-sizing: border-box;
+    position: relative;
+    display: flex;
+    flex: none;
+    align-items: center;
+    gap: var(--kds-space-control-sm);
+    inline-size: 100%;
+    min-inline-size: 0;
+    min-block-size: var(--kds-layout-control-hit-target-minimum);
+    padding-block: var(--kds-space-control-sm);
+    padding-inline: var(--kds-space-control-md);
+    border: 0;
+    border-radius: var(--kds-radius-overlay-item);
+    background: transparent;
+    color: inherit;
+    text-align: start;
+    text-decoration: none;
+    cursor: pointer;
+    /* KO 어절은 보존하고 넘치는 단어만 끊는다. */
+    overflow-wrap: break-word;
+    word-break: keep-all;
+    font-family: var(--kds-typography-body-sm-regular-font-family);
+    font-size: var(--kds-typography-body-sm-regular-font-size);
+    font-weight: var(--kds-typography-body-sm-regular-font-weight);
+    line-height: var(--kds-typography-body-sm-regular-line-height);
+    letter-spacing: var(--kds-typography-body-sm-regular-letter-spacing);
+  }
+
+  /* hover와 roving 하이라이트는 같은 표현이다. pointer로 열고 방향키로 이동하는 경로에서
+   * `:focus-visible`만으로는 표시가 비는 프레임이 생기므로 data 속성이 함께 필요하다. */
+  .kds-menu__item:where(:not([aria-disabled="true"]):not(:disabled)):hover,
+  .kds-menu__item:where(:not([aria-disabled="true"]):not(:disabled))[data-highlighted="true"] {
+    background: var(--kds-color-background-inset);
+  }
+
+  .kds-menu__item[data-tone="danger"] {
+    color: var(--kds-color-status-danger-foreground);
+  }
+
+  .kds-menu__item[data-tone="danger"]:where(:not([aria-disabled="true"]):not(:disabled)):hover,
+  .kds-menu__item[data-tone="danger"]:where(:not([aria-disabled="true"]):not(:disabled))[data-highlighted="true"] {
+    background: var(--kds-color-status-danger-background);
+  }
+
+  .kds-menu__item:disabled,
+  .kds-menu__item[aria-disabled="true"] {
+    cursor: not-allowed;
+    color: var(--kds-color-foreground-disabled);
+  }
+
+  /* 선택은 면 강조가 아니라 글리프가 표현한다. 이 저장소의 semantic 면 토큰 중 overlay 위에서
+   * 실제로 구분되는 것은 background-inset 하나뿐이라, 그것을 hover와 선택에 함께 쓰면 두 상태가
+   * 같아 보인다. 부수 효과로 forced-colors에서 선택 표시가 살아남는다 — 글리프는 내용이라
+   * 색 치환 대상이 아니다. */
+  .kds-menu__item-indicator {
+    flex: none;
+    inline-size: 1em;
+    block-size: 1em;
+    visibility: hidden;
+  }
+
+  .kds-menu__item[aria-checked="true"] .kds-menu__item-indicator {
+    visibility: visible;
+  }
+
+  .kds-menu__item-icon {
+    display: inline-flex;
+    flex: none;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .kds-menu__item-label {
+    flex: 1 1 auto;
+    min-inline-size: 0;
+  }
+
+  .kds-menu__item-trailing {
+    flex: none;
+    color: var(--kds-color-foreground-secondary);
+    font-family: var(--kds-typography-caption-regular-font-family);
+    font-size: var(--kds-typography-caption-regular-font-size);
+    font-weight: var(--kds-typography-caption-regular-font-weight);
+    line-height: var(--kds-typography-caption-regular-line-height);
+    letter-spacing: var(--kds-typography-caption-regular-letter-spacing);
+  }
+
+  /* disabled 항목 안에서 단축키만 정상 대비로 남으면 상태가 갈려 보인다. */
+  .kds-menu__item:disabled .kds-menu__item-trailing,
+  .kds-menu__item[aria-disabled="true"] .kds-menu__item-trailing {
+    color: inherit;
+  }
+
+  .kds-menu__item[aria-busy="true"] .kds-menu__item-label {
+    opacity: 0.6;
+  }
+
+  /* States 표가 busy item에 spinner를 요구한다. button.css의 것과 선언이 겹치므로 두 번째
+   * 소비자가 생긴 지금이 base.css의 공용 유틸로 승격할 시점이지만, 그러면 button.css를 같은
+   * 변경 단위에서 함께 고쳐야 한다. 여기서는 중복을 남기고 승격은 후속으로 둔다. */
+  .kds-menu__spinner {
+    display: inline-flex;
+    flex: none;
+    inline-size: 1em;
+    block-size: 1em;
+    border: 2px solid currentColor;
+    border-block-start-color: transparent;
+    border-radius: var(--kds-radius-pill);
+    animation: kds-menu-spin 1s linear infinite;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .kds-menu__spinner {
+      animation-duration: var(--kds-motion-reduced-duration);
+      /* 회전을 멈추더라도 진행 중이라는 의미는 aria-busy가 유지한다. */
+      animation-iteration-count: 1;
+    }
+  }
+
+  @keyframes kds-menu-spin {
+    to {
+      rotate: 360deg;
+    }
+  }
+
+  /* group label과 separator는 menuitem이 아니고 focusable하지 않다. */
+  .kds-menu__group-label {
+    padding-block: var(--kds-space-control-xs);
+    padding-inline: var(--kds-space-control-md);
+    color: var(--kds-color-foreground-secondary);
+    font-family: var(--kds-typography-caption-medium-font-family);
+    font-size: var(--kds-typography-caption-medium-font-size);
+    font-weight: var(--kds-typography-caption-medium-font-weight);
+    line-height: var(--kds-typography-caption-medium-line-height);
+    letter-spacing: var(--kds-typography-caption-medium-letter-spacing);
+  }
+
+  /* 음수 margin으로 패널 padding까지 선을 늘리지 않는다. 패널이 스크롤 컨테이너라
+   * inline-start 방향 overflow는 스크롤 가능 영역에 들어가지 않고 잘리며, LTR/RTL에서
+   * 비대칭 클리핑이 된다. */
+  .kds-menu__separator {
+    flex: none;
+    border: 0;
+    border-block-start: 1px solid var(--kds-color-border-subtle);
+    margin-block: var(--kds-space-control-xs);
+    margin-inline: 0;
+  }
+
+  /* 장식 pseudo-element는 절대 pointer를 막지 않는다. */
+  .kds-popover::before,
+  .kds-popover::after,
+  .kds-menu__item::before,
+  .kds-menu__item::after,
+  .kds-menu__group-label::before,
+  .kds-menu__group-label::after {
+    pointer-events: none;
+  }
+
+  /* forced-colors — 저작 색은 강제로 치환되므로, 그 과정에서 **사라지는 것만** 시스템 색으로
+   * 되살린다. `forced-color-adjust: none`은 쓰지 않는다. 시스템 색 키워드는 강제 모드에서도
+   * 존중되고, 끄는 것은 그 자체로 접근성 회귀다. focus ring은 base.css가 이미 처리한다.
+   *
+   * danger 선택자를 **같은 형태로 다시 적는 것이 핵심이다.** 아래 일반 규칙만 두면 (0,2,0)이라
+   * 저작된 danger 규칙 (0,3,0)의 background를 이기지 못하고 color만 바뀐다. 그 결과 하이라이트된
+   * 삭제 항목이 같은 시스템 색 위에 같은 색 글씨(대비 1:1)가 된다. */
+  @media (forced-colors: active) {
+    .kds-popover {
+      border-color: currentColor;
+    }
+
+    .kds-menu__separator {
+      border-block-start-color: currentColor;
+    }
+
+    .kds-menu__item:where(:not([aria-disabled="true"]):not(:disabled)):hover,
+    .kds-menu__item:where(:not([aria-disabled="true"]):not(:disabled))[data-highlighted="true"] {
+      background: Highlight;
+      color: HighlightText;
+    }
+
+    .kds-menu__item[data-tone="danger"]:where(:not([aria-disabled="true"]):not(:disabled)):hover,
+    .kds-menu__item[data-tone="danger"]:where(:not([aria-disabled="true"]):not(:disabled))[data-highlighted="true"] {
+      background: Highlight;
+      color: HighlightText;
+    }
+
+    /* 자체 color를 선언한 조각은 부모의 HighlightText를 상속받지 못한다. 어두운 Highlight 위
+     * CanvasText가 되어 단축키와 표시자가 사라진다. */
+    .kds-menu__item-trailing,
+    .kds-menu__item-icon,
+    .kds-menu__item-indicator {
+      color: inherit;
+    }
+
+    .kds-menu__item:disabled,
+    .kds-menu__item[aria-disabled="true"] {
+      color: GrayText;
+    }
+
+    /* 고대비 모드가 보장한 대비를 opacity로 깎지 않는다. 진행 상태는 spinner와 통지가 표현한다. */
+    .kds-menu__item[aria-busy="true"] .kds-menu__item-label {
+      opacity: 1;
+    }
+  }
+}
+
+@layer kds.component {
+  /* Overlay panel — design/components/menu-popover.md, dialog.md, foundations/motion.md
+   *
+   * 이 파일은 **단일 seam**이다. 하부 positioning 유틸이 발행하는 변수 이름이 나머지 CSS로
+   * 새어 나가지 않게 여기서 한 번만 --kds-* 로 재발행한다. DS-D-0003이 "branchId와 portal host
+   * 계약을 라이브러리 중립으로 설계해 하부 유틸을 교체해도 public API가 바뀌지 않게 한다"고
+   * 규정했고, CSS 쪽의 그 계약이 이 블록이다. 유틸을 교체하면 여기 5줄만 바뀐다.
+   *
+   * --radix-popper-* 는 positioning 래퍼에만 붙으므로 상속으로 받는다.
+   */
+
+  .kds-overlay-panel {
+    --kds-overlay-available-width: var(--radix-popper-available-width);
+    --kds-overlay-available-height: var(--radix-popper-available-height);
+    --kds-overlay-anchor-width: var(--radix-popper-anchor-width);
+    --kds-overlay-anchor-height: var(--radix-popper-anchor-height);
+    --kds-overlay-transform-origin: var(--radix-popper-transform-origin);
+
+    /* menu-popover.md: 확장 원점은 anchor다. */
+    transform-origin: var(--kds-overlay-transform-origin);
+    /* viewport를 넘기면 자르지 않고 패널 안에서 스크롤한다.
+     * fallback이 필요한 이유: positioner 없이 렌더되면 하부 변수가 guaranteed-invalid가 되고,
+     * 그러면 max-*가 초기값 none으로 무너져 패널이 화면 밖으로 자란다. */
+    max-width: var(--kds-overlay-available-width, 100vw);
+    max-height: var(--kds-overlay-available-height, 100vh);
+    overflow: auto;
+    /* motion.md: 허용 property는 opacity와 transform뿐이다. */
+    transition-property: opacity, transform;
+  }
+
+  /* positioning이 JS에서 CSS로 읽어가는 값. 상수로 하드코딩하지 않는 이유는
+   * DS-P3-014가 semantic spacing 토큰을 추가할 때 API 변경 없이 값만 갈아끼우기 위해서다. */
+  .kds-overlay-panel {
+    --kds-overlay-offset: 8px;
+    --kds-overlay-collision-padding: 8px;
+  }
+
+  .kds-overlay-panel[data-kds-state="opening"],
+  .kds-overlay-panel[data-kds-state="open"] {
+    transition-duration: var(--kds-motion-overlay-enter-duration);
+    transition-timing-function: var(--kds-motion-overlay-enter-timing-function);
+  }
+
+  /* enter motion의 실제 값. transition-property만 있고 전이할 값 선언이 없으면 아무 일도
+   * 일어나지 않는다 — menu-popover.md Specification의 "opacity + scale, origin=anchor"가
+   * 성립하려면 두 상태의 값이 모두 있어야 한다. transform-origin은 위에서 anchor로 맞춰 둔다. */
+  .kds-overlay-panel[data-kds-state="opening"] {
+    opacity: 0;
+    scale: 0.96;
+  }
+
+  .kds-overlay-panel[data-kds-state="open"] {
+    opacity: 1;
+    scale: 1;
+  }
+
+  /* readExitDuration()이 getComputedStyle로 읽는 값이 바로 이것이다.
+   * JS에 토큰 이름을 하드코딩하지 않으므로 시각 transition과 unmount timer의 source가 하나다. */
+  .kds-overlay-panel[data-kds-state="closing"] {
+    opacity: 0;
+    transition-duration: var(--kds-motion-overlay-exit-duration);
+    transition-timing-function: var(--kds-motion-overlay-exit-timing-function);
+  }
+
+  /* modal은 다른 recipe를 읽는다. Dialog가 mode 속성을 붙인다. */
+  .kds-overlay-panel[data-kds-overlay-mode="modal"][data-kds-state="opening"],
+  .kds-overlay-panel[data-kds-overlay-mode="modal"][data-kds-state="open"] {
+    transition-duration: var(--kds-motion-modal-enter-duration);
+    transition-timing-function: var(--kds-motion-modal-enter-timing-function);
+  }
+
+  .kds-overlay-panel[data-kds-overlay-mode="modal"][data-kds-state="closing"] {
+    transition-duration: var(--kds-motion-modal-exit-duration);
+    transition-timing-function: var(--kds-motion-modal-exit-timing-function);
+  }
+
+  /* DS-D-0011 결정 3: duration을 0으로 붕괴시키되 순서는 바꾸지 않는다.
+   * timer가 같은 선언을 읽으므로 unmount도 함께 0이 된다 — 두 값이 어긋날 수 없다.
+   *
+   * media query는 specificity를 더하지 않는다. 위 state 규칙이 [data-kds-overlay-mode]까지
+   * 포함해 (0,3,0)이므로 여기서 같은 형태를 다시 적으며 이긴다 — 클래스 하나만 적으면
+   * (0,1,0)이라 조용히 무시되고, reduced-motion에서 exit가 200ms 그대로 남는다. */
+  @media (prefers-reduced-motion: reduce) {
+    .kds-overlay-panel,
+    .kds-overlay-panel[data-kds-state],
+    .kds-overlay-panel[data-kds-overlay-mode][data-kds-state] {
+      transition-duration: var(--kds-motion-reduced-duration);
+      transition-timing-function: var(--kds-motion-reduced-timing-function);
+    }
+
+    /* Specification의 Reduced motion = "transform 제거". opacity는 남긴다.
+     * 위 opening 규칙과 같은 (0,2,0) 형태라 뒤에 와서 이긴다. */
+    .kds-overlay-panel[data-kds-state="opening"] {
+      scale: 1;
+    }
+  }
+
+  /* 장식 pseudo-element는 절대 pointer를 막지 않는다.
+   * elevation-layer.md: 보이지 않는 layer가 보이는 control의 pointer를 가로채면 실패다. */
+  .kds-overlay-panel::before,
+  .kds-overlay-panel::after {
+    pointer-events: none;
+  }
+}

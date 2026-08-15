@@ -253,6 +253,65 @@
         }
       },
       "$statesNote": "danger의 Hover/Active가 Default와 같은 것은 사실이다 — CSS의 hover 규칙이 primary/secondary/ghost만 덮는다. Pressed가 모든 variant에서 같은 것도 사실이며 aria-pressed 규칙이 variant를 덮기 때문이다. 둘 다 규범의 Known deviations에 있다."
+    },
+    "tooltip": {
+      "$doc": "design/components/tooltip.md",
+      "$source": "packages/react/src/tooltip/tooltip.tsx, packages/css/src/component/tooltip.css",
+      "$note": "variant 축이 없다. Figma의 Side는 배치를 위한 축이며 표면 시각은 네 방향이 같다.",
+      "sizes": {
+        "base": {
+          "height": 28,
+          "paddingBlock": 4,
+          "paddingInline": 8,
+          "gap": 0,
+          "borderWidth": 1,
+          "radius": 8,
+          "fontSize": 12,
+          "lineHeight": 18,
+          "$height": "padding 4+4 + line-height 18 + border 1+1 = 28"
+        }
+      },
+      "states": {
+        "base": {
+          "Default": {
+            "background": "color-background-inverse",
+            "foreground": "color-foreground-on-inverse",
+            "border": "color-border-tooltip"
+          }
+        }
+      }
+    },
+    "toast": {
+      "$doc": "design/components/toast.md",
+      "$source": "packages/react/src/toast/toast.tsx, packages/css/src/component/toast.css",
+      "$note": "제품에 공용 정본이 없다. 값은 DS가 정했고 migration/product.measured.json이 그 사실을 no-canon으로 기록한다.",
+      "sizes": {
+        "base": {
+          "height": 45,
+          "paddingBlock": 12,
+          "paddingInline": 16,
+          "gap": 0,
+          "borderWidth": 0,
+          "radius": 16,
+          "fontSize": 14,
+          "lineHeight": 21,
+          "$height": "padding 12+12 + line-height 21 = 45. 테두리가 없다"
+        }
+      },
+      "states": {
+        "neutral": {
+          "Default": {
+            "background": "color-background-inverse",
+            "foreground": "color-foreground-on-inverse"
+          }
+        },
+        "danger": {
+          "Default": {
+            "background": "color-status-danger-background",
+            "foreground": "color-status-danger-foreground"
+          }
+        }
+      }
     }
   },
   "$states": "variant × state마다 **어느 토큰을 무는가**. 개수가 아니라 정체를 고정한다. 이 표가 없던 동안 primary 배경을 danger 변수에 물려도 boundFills 수치가 그대로라 게이트가 통과했다. 값은 token id이며 Figma 변수 이름으로의 변환은 게이트가 생성 proposal의 figmaName으로 한다 — 여기에 Figma 이름을 적으면 정본이 둘이 된다. 코드 쪽 검증은 packages/react/test/component-states.browser.test.tsx가 계산값과 대조한다."

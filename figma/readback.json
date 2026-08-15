@@ -3310,6 +3310,118 @@
           ]
         }
       }
+    },
+    "Tooltip": {
+      "variantCount": 4,
+      "hasDescription": true,
+      "properties": {
+        "Side": {
+          "type": "VARIANT",
+          "options": [
+            "top",
+            "right",
+            "bottom",
+            "left"
+          ]
+        }
+      },
+      "binding": {
+        "boundFills": 8,
+        "rawFills": 0,
+        "boundStrokes": 4,
+        "rawStrokes": 0,
+        "textStyled": 4,
+        "textUnstyled": 0
+      },
+      "geometry": {
+        "base": {
+          "slots": {},
+          "height": [
+            28
+          ],
+          "width": [
+            64
+          ],
+          "paddingBlock": [
+            5
+          ],
+          "paddingBlockEnd": [
+            5
+          ],
+          "paddingInline": [
+            9
+          ],
+          "paddingInlineEnd": [
+            9
+          ],
+          "itemSpacing": [
+            0
+          ],
+          "cornerRadius": [
+            8
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ],
+          "strokeWeight": [
+            1
+          ]
+        }
+      }
+    },
+    "Toast": {
+      "variantCount": 2,
+      "hasDescription": true,
+      "properties": {
+        "Tone": {
+          "type": "VARIANT",
+          "options": [
+            "neutral",
+            "danger"
+          ]
+        }
+      },
+      "binding": {
+        "boundFills": 4,
+        "rawFills": 0,
+        "boundStrokes": 0,
+        "rawStrokes": 0,
+        "textStyled": 2,
+        "textUnstyled": 0
+      },
+      "geometry": {
+        "base": {
+          "slots": {},
+          "height": [
+            45
+          ],
+          "width": [
+            104,
+            144
+          ],
+          "paddingBlock": [
+            12
+          ],
+          "paddingBlockEnd": [
+            12
+          ],
+          "paddingInline": [
+            16
+          ],
+          "paddingInlineEnd": [
+            16
+          ],
+          "itemSpacing": [
+            0
+          ],
+          "cornerRadius": [
+            16
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ]
+        }
+      }
     }
   },
   "icons": {

@@ -122,6 +122,52 @@ const COMPONENT_CONTRACTS = [
       allowGlyphStroke: true,
     },
   },
+  {
+    id: "tooltip",
+    figmaName: "Tooltip",
+    declaration: "packages/react/dist/tooltip/tooltip.d.ts",
+    variantProperties: {
+      // 표면 시각은 네 방향이 같다. Side는 Figma에서 배치를 고르기 위한 축이며 코드의 side prop과
+      // 같은 집합을 쓴다. alias는 overlay primitive가 소유한다.
+      Side: { type: "OverlaySide", declaration: "packages/react/dist/overlay/positioner.d.ts" },
+    },
+    geometry: {
+      measuredId: "tooltip",
+      sizeKey: "base",
+      fields: {
+        height: "height",
+        paddingBlock: ["paddingBlock", "borderWidth"],
+        paddingBlockEnd: ["paddingBlock", "borderWidth"],
+        paddingInline: ["paddingInline", "borderWidth"],
+        paddingInlineEnd: ["paddingInline", "borderWidth"],
+        cornerRadius: "radius",
+        layoutMode: { literal: "HORIZONTAL" },
+      },
+      slots: {},
+      extraStrokeWeights: [],
+    },
+  },
+  {
+    id: "toast",
+    figmaName: "Toast",
+    declaration: "packages/react/dist/toast/toast.d.ts",
+    variantProperties: { Tone: "ToastTone" },
+    geometry: {
+      measuredId: "toast",
+      sizeKey: "base",
+      fields: {
+        height: "height",
+        paddingBlock: "paddingBlock",
+        paddingBlockEnd: "paddingBlock",
+        paddingInline: "paddingInline",
+        paddingInlineEnd: "paddingInline",
+        cornerRadius: "radius",
+        layoutMode: { literal: "HORIZONTAL" },
+      },
+      slots: {},
+      extraStrokeWeights: [],
+    },
+  },
 ];
 
 const COMPONENTS_MEASURED_PATH = "figma/components.measured.json";
@@ -597,7 +643,14 @@ function compareComponentGeometry(contract, got) {
     return issues;
   }
   const geometry = got.geometry ?? {};
-  for (const [size, spec] of Object.entries(measured)) {
+  // size 축이 없는 컴포넌트는 measured에 단일 키(base)만 두고 readback도 그 이름으로 담는다.
+  const entries = plan.sizeKey
+    ? [[plan.sizeKey, measured[plan.sizeKey]]].filter(([, spec]) => spec !== undefined)
+    : Object.entries(measured);
+  if (plan.sizeKey && entries.length === 0) {
+    issues.push(`${COMPONENTS_MEASURED_PATH}에 ${plan.measuredId}.${plan.sizeKey}가 없습니다.`);
+  }
+  for (const [size, spec] of entries) {
     const actual = geometry[size];
     if (actual === undefined) {
       issues.push(`${contract.figmaName}: size ${size}의 기하가 snapshot에 없습니다.`);

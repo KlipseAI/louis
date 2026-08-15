@@ -14,7 +14,7 @@ authority: normative
 | Surface       | 상태           | 근거                                                      |
 | ------------- | -------------- | --------------------------------------------------------- |
 | Web           | `partial`      | public export와 acceptance test; visual regression과 제품 소비 증거 없음 |
-| Figma         | `not-ready`    | component set 미생성                                      |
+| Figma         | `partial`      | component set 2 variant (Tone). publish는 DS-F-008        |
 | Documentation | `done`         | 이 문서                                                   |
 | Maturity      | `experimental` | 규범과 구현이 같은 변경 단위에서 처음 선다                |
 

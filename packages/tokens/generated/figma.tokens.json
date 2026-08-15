@@ -60,6 +60,18 @@
           "foreground": "color-foreground-inverse",
           "minimum": 4,
           "note": "pressed 면(blue.600)은 대비 4.41로 AA에 근소하게 미달한다. hover가 밝아지므로 pressed는 어두워져 두 상태를 구분한다. 기본 면과 같은 사유로 미달을 수용한다."
+        },
+        {
+          "background": "color-action-danger",
+          "foreground": "color-foreground-on-danger",
+          "minimum": 3,
+          "note": "제품의 danger는 solid #ff4b59에 흰 글자이고 대비가 3.14로 WCAG AA 4.5에 미달한다. owner가 제품 공용 컴포넌트를 정본으로 택했고 이 미달은 제품이 이미 갖고 있는 것이다. 해소하려면 면을 어둡게(red.600 이하) 하거나 라벨을 크게 해야 하며 둘 다 브랜드 판정 대상이다."
+        },
+        {
+          "background": "color-background-canvas",
+          "foreground": "color-action-secondary-foreground",
+          "minimum": 3.5,
+          "note": "제품의 secondary·ghost 전경은 gray-600 #777d89이고 흰 배경 대비 4.13, DS canvas 대비 3.67로 WCAG AA 4.5에 미달한다. 제품 값을 정본으로 채택한 결과다. 한 단계 진한 neutral.700을 쓰면 6.35로 통과하지만 제품과 달라진다. 다크 모드는 제품이 알파(paper-alpha 72)를 쓰는데 알파 전경은 배경에 따라 대비가 달라져 게이트가 잴 수 없으므로 가장 가까운 불투명 단계 neutral.400을 쓴다."
         }
       ],
       "figmaCollection": "Klipse",
@@ -963,6 +975,126 @@
             }
           }
         },
+        "color-ink-alpha-12": {
+          "$type": "color",
+          "fields": [],
+          "figmaName": "color/ink-alpha/12",
+          "hiddenFromPublishing": true,
+          "losses": [],
+          "nativeVariableType": "COLOR",
+          "representation": "variable",
+          "scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL",
+            "STROKE_COLOR",
+            "TEXT_FILL"
+          ],
+          "valuesByMode": {
+            "Base": {
+              "$value": {
+                "alpha": 0.12,
+                "colorSpace": "srgb",
+                "components": [
+                  0.090196,
+                  0.105882,
+                  0.133333
+                ],
+                "hex": "#171b22"
+              },
+              "aliasTarget": null,
+              "resolvedValue": {
+                "alpha": 0.12,
+                "colorSpace": "srgb",
+                "components": [
+                  0.090196,
+                  0.105882,
+                  0.133333
+                ]
+              },
+              "sourcePath": "primitive.color.ink-alpha.12"
+            }
+          }
+        },
+        "color-ink-alpha-5": {
+          "$type": "color",
+          "fields": [],
+          "figmaName": "color/ink-alpha/5",
+          "hiddenFromPublishing": true,
+          "losses": [],
+          "nativeVariableType": "COLOR",
+          "representation": "variable",
+          "scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL",
+            "STROKE_COLOR",
+            "TEXT_FILL"
+          ],
+          "valuesByMode": {
+            "Base": {
+              "$value": {
+                "alpha": 0.05,
+                "colorSpace": "srgb",
+                "components": [
+                  0.090196,
+                  0.105882,
+                  0.133333
+                ],
+                "hex": "#171b22"
+              },
+              "aliasTarget": null,
+              "resolvedValue": {
+                "alpha": 0.05,
+                "colorSpace": "srgb",
+                "components": [
+                  0.090196,
+                  0.105882,
+                  0.133333
+                ]
+              },
+              "sourcePath": "primitive.color.ink-alpha.5"
+            }
+          }
+        },
+        "color-ink-alpha-8": {
+          "$type": "color",
+          "fields": [],
+          "figmaName": "color/ink-alpha/8",
+          "hiddenFromPublishing": true,
+          "losses": [],
+          "nativeVariableType": "COLOR",
+          "representation": "variable",
+          "scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL",
+            "STROKE_COLOR",
+            "TEXT_FILL"
+          ],
+          "valuesByMode": {
+            "Base": {
+              "$value": {
+                "alpha": 0.08,
+                "colorSpace": "srgb",
+                "components": [
+                  0.090196,
+                  0.105882,
+                  0.133333
+                ],
+                "hex": "#171b22"
+              },
+              "aliasTarget": null,
+              "resolvedValue": {
+                "alpha": 0.08,
+                "colorSpace": "srgb",
+                "components": [
+                  0.090196,
+                  0.105882,
+                  0.133333
+                ]
+              },
+              "sourcePath": "primitive.color.ink-alpha.8"
+            }
+          }
+        },
         "color-neutral-0": {
           "$type": "color",
           "fields": [],
@@ -1467,6 +1599,166 @@
                 ]
               },
               "sourcePath": "primitive.color.neutral.900"
+            }
+          }
+        },
+        "color-paper-alpha-10": {
+          "$type": "color",
+          "fields": [],
+          "figmaName": "color/paper-alpha/10",
+          "hiddenFromPublishing": true,
+          "losses": [],
+          "nativeVariableType": "COLOR",
+          "representation": "variable",
+          "scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL",
+            "STROKE_COLOR",
+            "TEXT_FILL"
+          ],
+          "valuesByMode": {
+            "Base": {
+              "$value": {
+                "alpha": 0.1,
+                "colorSpace": "srgb",
+                "components": [
+                  0.980392,
+                  0.980392,
+                  0.980392
+                ],
+                "hex": "#fafafa"
+              },
+              "aliasTarget": null,
+              "resolvedValue": {
+                "alpha": 0.1,
+                "colorSpace": "srgb",
+                "components": [
+                  0.980392,
+                  0.980392,
+                  0.980392
+                ]
+              },
+              "sourcePath": "primitive.color.paper-alpha.10"
+            }
+          }
+        },
+        "color-paper-alpha-16": {
+          "$type": "color",
+          "fields": [],
+          "figmaName": "color/paper-alpha/16",
+          "hiddenFromPublishing": true,
+          "losses": [],
+          "nativeVariableType": "COLOR",
+          "representation": "variable",
+          "scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL",
+            "STROKE_COLOR",
+            "TEXT_FILL"
+          ],
+          "valuesByMode": {
+            "Base": {
+              "$value": {
+                "alpha": 0.16,
+                "colorSpace": "srgb",
+                "components": [
+                  0.980392,
+                  0.980392,
+                  0.980392
+                ],
+                "hex": "#fafafa"
+              },
+              "aliasTarget": null,
+              "resolvedValue": {
+                "alpha": 0.16,
+                "colorSpace": "srgb",
+                "components": [
+                  0.980392,
+                  0.980392,
+                  0.980392
+                ]
+              },
+              "sourcePath": "primitive.color.paper-alpha.16"
+            }
+          }
+        },
+        "color-paper-alpha-72": {
+          "$type": "color",
+          "fields": [],
+          "figmaName": "color/paper-alpha/72",
+          "hiddenFromPublishing": true,
+          "losses": [],
+          "nativeVariableType": "COLOR",
+          "representation": "variable",
+          "scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL",
+            "STROKE_COLOR",
+            "TEXT_FILL"
+          ],
+          "valuesByMode": {
+            "Base": {
+              "$value": {
+                "alpha": 0.72,
+                "colorSpace": "srgb",
+                "components": [
+                  0.980392,
+                  0.980392,
+                  0.980392
+                ],
+                "hex": "#fafafa"
+              },
+              "aliasTarget": null,
+              "resolvedValue": {
+                "alpha": 0.72,
+                "colorSpace": "srgb",
+                "components": [
+                  0.980392,
+                  0.980392,
+                  0.980392
+                ]
+              },
+              "sourcePath": "primitive.color.paper-alpha.72"
+            }
+          }
+        },
+        "color-paper-alpha-8": {
+          "$type": "color",
+          "fields": [],
+          "figmaName": "color/paper-alpha/8",
+          "hiddenFromPublishing": true,
+          "losses": [],
+          "nativeVariableType": "COLOR",
+          "representation": "variable",
+          "scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL",
+            "STROKE_COLOR",
+            "TEXT_FILL"
+          ],
+          "valuesByMode": {
+            "Base": {
+              "$value": {
+                "alpha": 0.08,
+                "colorSpace": "srgb",
+                "components": [
+                  0.980392,
+                  0.980392,
+                  0.980392
+                ],
+                "hex": "#fafafa"
+              },
+              "aliasTarget": null,
+              "resolvedValue": {
+                "alpha": 0.08,
+                "colorSpace": "srgb",
+                "components": [
+                  0.980392,
+                  0.980392,
+                  0.980392
+                ]
+              },
+              "sourcePath": "primitive.color.paper-alpha.8"
             }
           }
         },
@@ -2643,11 +2935,237 @@
             }
           }
         },
+        "shadow-control-bevel": {
+          "$type": "shadow",
+          "fields": [
+            "blur",
+            "color",
+            "inset",
+            "offsetX",
+            "offsetY",
+            "spread"
+          ],
+          "figmaName": "shadow/control-bevel",
+          "hiddenFromPublishing": true,
+          "losses": [
+            "primitive shadow은 Figma에 만들지 않습니다. Figma에는 style→style alias가 없어 semantic→primitive tier 관계를 보존할 수 없습니다 (DS-D-0007)."
+          ],
+          "nativeVariableType": null,
+          "representation": "unrepresented",
+          "scopes": [],
+          "valuesByMode": {
+            "Base": {
+              "$value": [
+                {
+                  "blur": {
+                    "unit": "px",
+                    "value": 1
+                  },
+                  "color": {
+                    "alpha": 0.25,
+                    "colorSpace": "srgb",
+                    "components": [
+                      0.980392,
+                      0.980392,
+                      0.980392
+                    ],
+                    "hex": "#fafafa"
+                  },
+                  "inset": true,
+                  "offsetX": {
+                    "unit": "px",
+                    "value": 0
+                  },
+                  "offsetY": {
+                    "unit": "px",
+                    "value": 1
+                  },
+                  "spread": {
+                    "unit": "px",
+                    "value": 0
+                  }
+                },
+                {
+                  "blur": {
+                    "unit": "px",
+                    "value": 1
+                  },
+                  "color": {
+                    "alpha": 0.25,
+                    "colorSpace": "srgb",
+                    "components": [
+                      0.980392,
+                      0.980392,
+                      0.980392
+                    ],
+                    "hex": "#fafafa"
+                  },
+                  "inset": true,
+                  "offsetX": {
+                    "unit": "px",
+                    "value": 0
+                  },
+                  "offsetY": {
+                    "unit": "px",
+                    "value": -1
+                  },
+                  "spread": {
+                    "unit": "px",
+                    "value": 0
+                  }
+                }
+              ],
+              "aliasTarget": null,
+              "resolvedValue": [
+                {
+                  "blur": {
+                    "unit": "px",
+                    "value": 1
+                  },
+                  "color": {
+                    "alpha": 0.25,
+                    "colorSpace": "srgb",
+                    "components": [
+                      0.980392,
+                      0.980392,
+                      0.980392
+                    ]
+                  },
+                  "inset": true,
+                  "offsetX": {
+                    "unit": "px",
+                    "value": 0
+                  },
+                  "offsetY": {
+                    "unit": "px",
+                    "value": 1
+                  },
+                  "spread": {
+                    "unit": "px",
+                    "value": 0
+                  }
+                },
+                {
+                  "blur": {
+                    "unit": "px",
+                    "value": 1
+                  },
+                  "color": {
+                    "alpha": 0.25,
+                    "colorSpace": "srgb",
+                    "components": [
+                      0.980392,
+                      0.980392,
+                      0.980392
+                    ]
+                  },
+                  "inset": true,
+                  "offsetX": {
+                    "unit": "px",
+                    "value": 0
+                  },
+                  "offsetY": {
+                    "unit": "px",
+                    "value": -1
+                  },
+                  "spread": {
+                    "unit": "px",
+                    "value": 0
+                  }
+                }
+              ],
+              "sourcePath": "primitive.shadow.control-bevel"
+            }
+          }
+        },
+        "shadow-control-gloss": {
+          "$type": "shadow",
+          "fields": [
+            "blur",
+            "color",
+            "inset",
+            "offsetX",
+            "offsetY",
+            "spread"
+          ],
+          "figmaName": "shadow/control-gloss",
+          "hiddenFromPublishing": true,
+          "losses": [
+            "primitive shadow은 Figma에 만들지 않습니다. Figma에는 style→style alias가 없어 semantic→primitive tier 관계를 보존할 수 없습니다 (DS-D-0007)."
+          ],
+          "nativeVariableType": null,
+          "representation": "unrepresented",
+          "scopes": [],
+          "valuesByMode": {
+            "Base": {
+              "$value": {
+                "blur": {
+                  "unit": "px",
+                  "value": 8
+                },
+                "color": {
+                  "alpha": 1,
+                  "colorSpace": "srgb",
+                  "components": [
+                    0.980392,
+                    0.980392,
+                    0.980392
+                  ],
+                  "hex": "#fafafa"
+                },
+                "inset": true,
+                "offsetX": {
+                  "unit": "px",
+                  "value": 0
+                },
+                "offsetY": {
+                  "unit": "px",
+                  "value": 0
+                },
+                "spread": {
+                  "unit": "px",
+                  "value": 0
+                }
+              },
+              "aliasTarget": null,
+              "resolvedValue": {
+                "blur": {
+                  "unit": "px",
+                  "value": 8
+                },
+                "color": {
+                  "alpha": 1,
+                  "colorSpace": "srgb",
+                  "components": [
+                    0.980392,
+                    0.980392,
+                    0.980392
+                  ]
+                },
+                "inset": true,
+                "offsetX": {
+                  "unit": "px",
+                  "value": 0
+                },
+                "offsetY": {
+                  "unit": "px",
+                  "value": 0
+                },
+                "spread": {
+                  "unit": "px",
+                  "value": 0
+                }
+              },
+              "sourcePath": "primitive.shadow.control-gloss"
+            }
+          }
+        },
         "shadow-focus-ring": {
           "$type": "shadow",
           "fields": [
             "blur",
             "color",
+            "inset",
             "offsetX",
             "offsetY",
             "spread"
@@ -2705,6 +3223,7 @@
                     1
                   ]
                 },
+                "inset": false,
                 "offsetX": {
                   "unit": "px",
                   "value": 0
@@ -2727,6 +3246,7 @@
           "fields": [
             "blur",
             "color",
+            "inset",
             "offsetX",
             "offsetY",
             "spread"
@@ -2784,6 +3304,7 @@
                     0
                   ]
                 },
+                "inset": false,
                 "offsetX": {
                   "unit": "px",
                   "value": 0
@@ -2806,6 +3327,7 @@
           "fields": [
             "blur",
             "color",
+            "inset",
             "offsetX",
             "offsetY",
             "spread"
@@ -2863,6 +3385,7 @@
                     0
                   ]
                 },
+                "inset": false,
                 "offsetX": {
                   "unit": "px",
                   "value": 0
@@ -2885,6 +3408,7 @@
           "fields": [
             "blur",
             "color",
+            "inset",
             "offsetX",
             "offsetY",
             "spread"
@@ -2942,6 +3466,7 @@
                     0
                   ]
                 },
+                "inset": false,
                 "offsetX": {
                   "unit": "px",
                   "value": 0
@@ -4779,11 +5304,156 @@
         "Global"
       ],
       "variables": {
+        "elevation-control-bevel": {
+          "$type": "shadow",
+          "fields": [
+            "blur",
+            "color",
+            "inset",
+            "offsetX",
+            "offsetY",
+            "spread"
+          ],
+          "figmaName": "elevation/control-bevel",
+          "hiddenFromPublishing": false,
+          "losses": [
+            "DTCG shadow composite는 단일 native variable로 표현되지 않아 effect-style로 만들고 내부 속성을 변수에 바인딩합니다."
+          ],
+          "nativeVariableType": null,
+          "representation": "effect-style",
+          "scopes": [],
+          "valuesByMode": {
+            "Global": {
+              "$value": "{primitive.shadow.control-bevel}",
+              "aliasTarget": {
+                "id": "shadow-control-bevel",
+                "mode": "base"
+              },
+              "resolvedValue": [
+                {
+                  "blur": {
+                    "unit": "px",
+                    "value": 1
+                  },
+                  "color": {
+                    "alpha": 0.25,
+                    "colorSpace": "srgb",
+                    "components": [
+                      0.980392,
+                      0.980392,
+                      0.980392
+                    ]
+                  },
+                  "inset": true,
+                  "offsetX": {
+                    "unit": "px",
+                    "value": 0
+                  },
+                  "offsetY": {
+                    "unit": "px",
+                    "value": 1
+                  },
+                  "spread": {
+                    "unit": "px",
+                    "value": 0
+                  }
+                },
+                {
+                  "blur": {
+                    "unit": "px",
+                    "value": 1
+                  },
+                  "color": {
+                    "alpha": 0.25,
+                    "colorSpace": "srgb",
+                    "components": [
+                      0.980392,
+                      0.980392,
+                      0.980392
+                    ]
+                  },
+                  "inset": true,
+                  "offsetX": {
+                    "unit": "px",
+                    "value": 0
+                  },
+                  "offsetY": {
+                    "unit": "px",
+                    "value": -1
+                  },
+                  "spread": {
+                    "unit": "px",
+                    "value": 0
+                  }
+                }
+              ],
+              "sourcePath": "semantic.global.elevation.control-bevel"
+            }
+          }
+        },
+        "elevation-control-gloss": {
+          "$type": "shadow",
+          "fields": [
+            "blur",
+            "color",
+            "inset",
+            "offsetX",
+            "offsetY",
+            "spread"
+          ],
+          "figmaName": "elevation/control-gloss",
+          "hiddenFromPublishing": false,
+          "losses": [
+            "DTCG shadow composite는 단일 native variable로 표현되지 않아 effect-style로 만들고 내부 속성을 변수에 바인딩합니다."
+          ],
+          "nativeVariableType": null,
+          "representation": "effect-style",
+          "scopes": [],
+          "valuesByMode": {
+            "Global": {
+              "$value": "{primitive.shadow.control-gloss}",
+              "aliasTarget": {
+                "id": "shadow-control-gloss",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "blur": {
+                  "unit": "px",
+                  "value": 8
+                },
+                "color": {
+                  "alpha": 1,
+                  "colorSpace": "srgb",
+                  "components": [
+                    0.980392,
+                    0.980392,
+                    0.980392
+                  ]
+                },
+                "inset": true,
+                "offsetX": {
+                  "unit": "px",
+                  "value": 0
+                },
+                "offsetY": {
+                  "unit": "px",
+                  "value": 0
+                },
+                "spread": {
+                  "unit": "px",
+                  "value": 0
+                }
+              },
+              "sourcePath": "semantic.global.elevation.control-gloss"
+            }
+          }
+        },
         "elevation-focus-ring": {
           "$type": "shadow",
           "fields": [
             "blur",
             "color",
+            "inset",
             "offsetX",
             "offsetY",
             "spread"
@@ -4817,6 +5487,7 @@
                     1
                   ]
                 },
+                "inset": false,
                 "offsetX": {
                   "unit": "px",
                   "value": 0
@@ -4839,6 +5510,7 @@
           "fields": [
             "blur",
             "color",
+            "inset",
             "offsetX",
             "offsetY",
             "spread"
@@ -4872,6 +5544,7 @@
                     0
                   ]
                 },
+                "inset": false,
                 "offsetX": {
                   "unit": "px",
                   "value": 0
@@ -4894,6 +5567,7 @@
           "fields": [
             "blur",
             "color",
+            "inset",
             "offsetX",
             "offsetY",
             "spread"
@@ -4927,6 +5601,7 @@
                     0
                   ]
                 },
+                "inset": false,
                 "offsetX": {
                   "unit": "px",
                   "value": 0
@@ -4949,6 +5624,7 @@
           "fields": [
             "blur",
             "color",
+            "inset",
             "offsetX",
             "offsetY",
             "spread"
@@ -4982,6 +5658,7 @@
                     0
                   ]
                 },
+                "inset": false,
                 "offsetX": {
                   "unit": "px",
                   "value": 0
@@ -6765,6 +7442,108 @@
         "Dark"
       ],
       "variables": {
+        "color-action-danger": {
+          "$type": "color",
+          "fields": [],
+          "figmaName": "color/action-danger",
+          "hiddenFromPublishing": false,
+          "losses": [],
+          "nativeVariableType": "COLOR",
+          "representation": "variable",
+          "scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL",
+            "STROKE_COLOR",
+            "TEXT_FILL"
+          ],
+          "valuesByMode": {
+            "Dark": {
+              "$value": "{primitive.color.red.500}",
+              "aliasTarget": {
+                "id": "color-red-500",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 1,
+                "colorSpace": "srgb",
+                "components": [
+                  1,
+                  0.294118,
+                  0.34902
+                ]
+              },
+              "sourcePath": "semantic.dark.color.action-danger"
+            },
+            "Light": {
+              "$value": "{primitive.color.red.500}",
+              "aliasTarget": {
+                "id": "color-red-500",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 1,
+                "colorSpace": "srgb",
+                "components": [
+                  1,
+                  0.294118,
+                  0.34902
+                ]
+              },
+              "sourcePath": "semantic.light.color.action-danger"
+            }
+          }
+        },
+        "color-action-ghost-hover": {
+          "$type": "color",
+          "fields": [],
+          "figmaName": "color/action-ghost-hover",
+          "hiddenFromPublishing": false,
+          "losses": [],
+          "nativeVariableType": "COLOR",
+          "representation": "variable",
+          "scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL",
+            "STROKE_COLOR",
+            "TEXT_FILL"
+          ],
+          "valuesByMode": {
+            "Dark": {
+              "$value": "{primitive.color.paper-alpha.10}",
+              "aliasTarget": {
+                "id": "color-paper-alpha-10",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 0.1,
+                "colorSpace": "srgb",
+                "components": [
+                  0.980392,
+                  0.980392,
+                  0.980392
+                ]
+              },
+              "sourcePath": "semantic.dark.color.action-ghost-hover"
+            },
+            "Light": {
+              "$value": "{primitive.color.ink-alpha.8}",
+              "aliasTarget": {
+                "id": "color-ink-alpha-8",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 0.08,
+                "colorSpace": "srgb",
+                "components": [
+                  0.090196,
+                  0.105882,
+                  0.133333
+                ]
+              },
+              "sourcePath": "semantic.light.color.action-ghost-hover"
+            }
+          }
+        },
         "color-action-primary": {
           "$type": "color",
           "fields": [],
@@ -6915,6 +7694,108 @@
                 ]
               },
               "sourcePath": "semantic.light.color.action-primary-pressed"
+            }
+          }
+        },
+        "color-action-secondary-foreground": {
+          "$type": "color",
+          "fields": [],
+          "figmaName": "color/action-secondary-foreground",
+          "hiddenFromPublishing": false,
+          "losses": [],
+          "nativeVariableType": "COLOR",
+          "representation": "variable",
+          "scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL",
+            "STROKE_COLOR",
+            "TEXT_FILL"
+          ],
+          "valuesByMode": {
+            "Dark": {
+              "$value": "{primitive.color.neutral.400}",
+              "aliasTarget": {
+                "id": "color-neutral-400",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 1,
+                "colorSpace": "srgb",
+                "components": [
+                  0.737255,
+                  0.752941,
+                  0.788235
+                ]
+              },
+              "sourcePath": "semantic.dark.color.action-secondary-foreground"
+            },
+            "Light": {
+              "$value": "{primitive.color.neutral.600}",
+              "aliasTarget": {
+                "id": "color-neutral-600",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 1,
+                "colorSpace": "srgb",
+                "components": [
+                  0.466667,
+                  0.490196,
+                  0.537255
+                ]
+              },
+              "sourcePath": "semantic.light.color.action-secondary-foreground"
+            }
+          }
+        },
+        "color-action-secondary-hover": {
+          "$type": "color",
+          "fields": [],
+          "figmaName": "color/action-secondary-hover",
+          "hiddenFromPublishing": false,
+          "losses": [],
+          "nativeVariableType": "COLOR",
+          "representation": "variable",
+          "scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL",
+            "STROKE_COLOR",
+            "TEXT_FILL"
+          ],
+          "valuesByMode": {
+            "Dark": {
+              "$value": "{primitive.color.paper-alpha.8}",
+              "aliasTarget": {
+                "id": "color-paper-alpha-8",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 0.08,
+                "colorSpace": "srgb",
+                "components": [
+                  0.980392,
+                  0.980392,
+                  0.980392
+                ]
+              },
+              "sourcePath": "semantic.dark.color.action-secondary-hover"
+            },
+            "Light": {
+              "$value": "{primitive.color.ink-alpha.5}",
+              "aliasTarget": {
+                "id": "color-ink-alpha-5",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 0.05,
+                "colorSpace": "srgb",
+                "components": [
+                  0.090196,
+                  0.105882,
+                  0.133333
+                ]
+              },
+              "sourcePath": "semantic.light.color.action-secondary-hover"
             }
           }
         },
@@ -7212,6 +8093,54 @@
             }
           }
         },
+        "color-border-control": {
+          "$type": "color",
+          "fields": [],
+          "figmaName": "color/border-control",
+          "hiddenFromPublishing": false,
+          "losses": [],
+          "nativeVariableType": "COLOR",
+          "representation": "variable",
+          "scopes": [
+            "STROKE_COLOR"
+          ],
+          "valuesByMode": {
+            "Dark": {
+              "$value": "{primitive.color.paper-alpha.16}",
+              "aliasTarget": {
+                "id": "color-paper-alpha-16",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 0.16,
+                "colorSpace": "srgb",
+                "components": [
+                  0.980392,
+                  0.980392,
+                  0.980392
+                ]
+              },
+              "sourcePath": "semantic.dark.color.border-control"
+            },
+            "Light": {
+              "$value": "{primitive.color.ink-alpha.12}",
+              "aliasTarget": {
+                "id": "color-ink-alpha-12",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 0.12,
+                "colorSpace": "srgb",
+                "components": [
+                  0.090196,
+                  0.105882,
+                  0.133333
+                ]
+              },
+              "sourcePath": "semantic.light.color.border-control"
+            }
+          }
+        },
         "color-border-default": {
           "$type": "color",
           "fields": [],
@@ -7497,6 +8426,54 @@
                 ]
               },
               "sourcePath": "semantic.light.color.foreground-inverse"
+            }
+          }
+        },
+        "color-foreground-on-danger": {
+          "$type": "color",
+          "fields": [],
+          "figmaName": "color/foreground-on-danger",
+          "hiddenFromPublishing": false,
+          "losses": [],
+          "nativeVariableType": "COLOR",
+          "representation": "variable",
+          "scopes": [
+            "TEXT_FILL"
+          ],
+          "valuesByMode": {
+            "Dark": {
+              "$value": "{primitive.color.neutral.0}",
+              "aliasTarget": {
+                "id": "color-neutral-0",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 1,
+                "colorSpace": "srgb",
+                "components": [
+                  0.980392,
+                  0.980392,
+                  0.980392
+                ]
+              },
+              "sourcePath": "semantic.dark.color.foreground-on-danger"
+            },
+            "Light": {
+              "$value": "{primitive.color.neutral.0}",
+              "aliasTarget": {
+                "id": "color-neutral-0",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 1,
+                "colorSpace": "srgb",
+                "components": [
+                  0.980392,
+                  0.980392,
+                  0.980392
+                ]
+              },
+              "sourcePath": "semantic.light.color.foreground-on-danger"
             }
           }
         },

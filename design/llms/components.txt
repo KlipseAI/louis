@@ -252,13 +252,20 @@ focus-visible 링은 브라우저가 그리므로 Figma variant로 두지 않는
   쓰면 중립 표면에서 무너지는데, 그 실측은 [Menu / Popover](../components/menu-popover.md)의 Known deviations에 있다.
 - **고정 높이가 없다.** 높이를 padding과 line-height로 결정하고 44px 타깃은 `kds-hit-target`이
   보장한다. 제품과 픽셀 단위로 맞추려면 control height 토큰이 필요하다(DS-P3-014).
-- **`primary` 면이 WCAG AA에 미달한다.** `color-action-primary`는 제품 브랜드 블루
-  `blue.500`(#0088ff)이고 흰 글자 대비가 **3.37**로 일반 텍스트 기준 4.5에 못 미친다. 4.5를 넘는
-  첫 단계는 `blue.700`(6.12)인데 제품 전체에서 두 번밖에 쓰이지 않아 브랜드가 아니다. **이 미달은
-  제품이 이미 갖고 있는 것이고 DS가 그것을 그대로 재현한다** — owner 결정이다. hover 면
-  `blue.400`은 2.54로 더 낮은데, 제품이 hover에서 밝아지기 때문이다(`filter: brightness(1.06)`).
-  해소하려면 라벨을 18.66px bold 이상으로 키우거나 면을 어둡게 바꿔야 하고 둘 다 owner 판정
-  대상이다. 같은 사유가 token source의 `contrastPairs.note`와 axe 테스트의 허용 목록에 있다.
+- **네 variant 전부 WCAG AA에 미달한다.** owner가 제품의 공용 Button을 정본으로 채택했고,
+  그 제품 Button이 네 variant 모두 4.5에 못 미친다. axe 실측값이다.
+
+  | variant | 전경 | 배경 | 대비 |
+  | --- | --- | --- | --- |
+  | `primary` | `#fafafa` | `#0088ff` | **3.37** |
+  | `secondary` | `#777d89` | 흰 배경 | **4.13** |
+  | `ghost` | `#777d89` | 흰 배경 | **4.13** |
+  | `danger` | `#fafafa` | `#ff4b59` | **3.14** |
+
+  이 미달은 제품이 이미 갖고 있는 것이고 DS가 그것을 그대로 재현한다. 해소하려면 면을 어둡게
+  하거나(primary는 `blue.700` 6.12, secondary는 `neutral.700` 6.35) 라벨을 18.66px bold 이상으로
+  키워야 하며 둘 다 브랜드 판정 대상이다. 같은 사유가 token source의 `contrastPairs[].note`,
+  axe 테스트의 허용 목록, `migration/product.measured.json`에 있다.
 - **아이콘 슬롯 크기를 Button이 소유한다.** [Iconography](../foundations/iconography.md)는 글리프
   크기를 아이콘이 소유한다고 하지만, 슬롯에 크기를 두지 않으면 호출부가 넘긴 아이콘 크기가 그대로
   버튼 높이가 된다. sm에 기본(20px) 아이콘을 넣으면 높이가 28이 아니라 **30**이 됐고, 같은 줄의

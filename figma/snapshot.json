@@ -6,16 +6,16 @@
     "capturedAt": "2026-08-15",
     "capturedBy": "figma-mcp-plugin-api",
     "published": false,
-    "tokenSourceSha256": "668a010671c0432f0b4d6cb4a1c67fcba04611bcc3c0d89e6f188a250f62d448",
-    "proposalSha256": "9614b5bc77e5e83a49bf2999fc5b72a6a25b7abb1e9b45d2dc0c372334cb90e0",
+    "tokenSourceSha256": "164507d90b8bbe3e236189a40a6a8f6ce7469798b4f54ac99ecab0215dced26e",
+    "proposalSha256": "946583869ad49acc9a9669ec3771c239a3788d1cf48d91c26fc1f9c7fedeeb11",
     "readback": {
-      "tokens": 155,
-      "canonicalLength": 12186,
-      "fnv1a32": "3a5fe4eb",
+      "tokens": 168,
+      "canonicalLength": 13614,
+      "fnv1a32": "b22c9487",
       "note": "변수는 readback.json의 되읽기 행을 tokenId 공간으로 옮긴 것이고, style과 component는 같은 되읽기의 style/component 절이다. canonical 해시는 컬렉션·이름·타입·mode 값을 정렬해 이은 문자열의 FNV-1a다.",
       "styles": {
         "text": 15,
-        "effect": 4
+        "effect": 6
       },
       "components": {
         "sets": 2,
@@ -31,7 +31,7 @@
         "Base"
       ],
       "defaultMode": "Base",
-      "variableCount": 92
+      "variableCount": 99
     },
     "Klipse Semantic": {
       "modes": [
@@ -46,10 +46,34 @@
         "Dark"
       ],
       "defaultMode": "Light",
-      "variableCount": 28
+      "variableCount": 34
     }
   },
   "variables": {
+    "color-action-danger": {
+      "figmaName": "color/action-danger",
+      "resolvedType": "COLOR",
+      "valuesByMode": {
+        "Light": {
+          "alias": "color-red-500"
+        },
+        "Dark": {
+          "alias": "color-red-500"
+        }
+      }
+    },
+    "color-action-ghost-hover": {
+      "figmaName": "color/action-ghost-hover",
+      "resolvedType": "COLOR",
+      "valuesByMode": {
+        "Light": {
+          "alias": "color-ink-alpha-8"
+        },
+        "Dark": {
+          "alias": "color-paper-alpha-10"
+        }
+      }
+    },
     "color-action-primary": {
       "figmaName": "color/action-primary",
       "resolvedType": "COLOR",
@@ -83,6 +107,30 @@
         },
         "Dark": {
           "alias": "color-blue-600"
+        }
+      }
+    },
+    "color-action-secondary-foreground": {
+      "figmaName": "color/action-secondary-foreground",
+      "resolvedType": "COLOR",
+      "valuesByMode": {
+        "Light": {
+          "alias": "color-neutral-600"
+        },
+        "Dark": {
+          "alias": "color-neutral-400"
+        }
+      }
+    },
+    "color-action-secondary-hover": {
+      "figmaName": "color/action-secondary-hover",
+      "resolvedType": "COLOR",
+      "valuesByMode": {
+        "Light": {
+          "alias": "color-ink-alpha-5"
+        },
+        "Dark": {
+          "alias": "color-paper-alpha-8"
         }
       }
     },
@@ -382,6 +430,18 @@
         }
       }
     },
+    "color-border-control": {
+      "figmaName": "color/border-control",
+      "resolvedType": "COLOR",
+      "valuesByMode": {
+        "Light": {
+          "alias": "color-ink-alpha-12"
+        },
+        "Dark": {
+          "alias": "color-paper-alpha-16"
+        }
+      }
+    },
     "color-border-default": {
       "figmaName": "color/border-default",
       "resolvedType": "COLOR",
@@ -444,6 +504,18 @@
     },
     "color-foreground-inverse": {
       "figmaName": "color/foreground-inverse",
+      "resolvedType": "COLOR",
+      "valuesByMode": {
+        "Light": {
+          "alias": "color-neutral-0"
+        },
+        "Dark": {
+          "alias": "color-neutral-0"
+        }
+      }
+    },
+    "color-foreground-on-danger": {
+      "figmaName": "color/foreground-on-danger",
       "resolvedType": "COLOR",
       "valuesByMode": {
         "Light": {
@@ -554,6 +626,48 @@
             0.239216,
             0.094118,
             1
+          ]
+        }
+      }
+    },
+    "color-ink-alpha-12": {
+      "figmaName": "color/ink-alpha/12",
+      "resolvedType": "COLOR",
+      "valuesByMode": {
+        "Base": {
+          "value": [
+            0.090196,
+            0.105882,
+            0.133333,
+            0.12
+          ]
+        }
+      }
+    },
+    "color-ink-alpha-5": {
+      "figmaName": "color/ink-alpha/5",
+      "resolvedType": "COLOR",
+      "valuesByMode": {
+        "Base": {
+          "value": [
+            0.090196,
+            0.105882,
+            0.133333,
+            0.05
+          ]
+        }
+      }
+    },
+    "color-ink-alpha-8": {
+      "figmaName": "color/ink-alpha/8",
+      "resolvedType": "COLOR",
+      "valuesByMode": {
+        "Base": {
+          "value": [
+            0.090196,
+            0.105882,
+            0.133333,
+            0.08
           ]
         }
       }
@@ -736,6 +850,62 @@
             0.105882,
             0.133333,
             1
+          ]
+        }
+      }
+    },
+    "color-paper-alpha-10": {
+      "figmaName": "color/paper-alpha/10",
+      "resolvedType": "COLOR",
+      "valuesByMode": {
+        "Base": {
+          "value": [
+            0.980392,
+            0.980392,
+            0.980392,
+            0.1
+          ]
+        }
+      }
+    },
+    "color-paper-alpha-16": {
+      "figmaName": "color/paper-alpha/16",
+      "resolvedType": "COLOR",
+      "valuesByMode": {
+        "Base": {
+          "value": [
+            0.980392,
+            0.980392,
+            0.980392,
+            0.16
+          ]
+        }
+      }
+    },
+    "color-paper-alpha-72": {
+      "figmaName": "color/paper-alpha/72",
+      "resolvedType": "COLOR",
+      "valuesByMode": {
+        "Base": {
+          "value": [
+            0.980392,
+            0.980392,
+            0.980392,
+            0.72
+          ]
+        }
+      }
+    },
+    "color-paper-alpha-8": {
+      "figmaName": "color/paper-alpha/8",
+      "resolvedType": "COLOR",
+      "valuesByMode": {
+        "Base": {
+          "value": [
+            0.980392,
+            0.980392,
+            0.980392,
+            0.08
           ]
         }
       }
@@ -1904,12 +2074,56 @@
       }
     },
     "effect": {
+      "elevation/control-bevel": {
+        "tokenId": "elevation-control-bevel",
+        "layers": [
+          {
+            "offsetY": 1,
+            "blur": 1,
+            "spread": 0,
+            "inset": true,
+            "color": [
+              0.980392,
+              0.980392,
+              0.980392,
+              0.25
+            ]
+          },
+          {
+            "offsetY": -1,
+            "blur": 1,
+            "spread": 0,
+            "inset": true,
+            "color": [
+              0.980392,
+              0.980392,
+              0.980392,
+              0.25
+            ]
+          }
+        ]
+      },
+      "elevation/control-gloss": {
+        "tokenId": "elevation-control-gloss",
+        "type": "INNER_SHADOW",
+        "offsetY": 0,
+        "blur": 8,
+        "spread": 0,
+        "inset": true,
+        "color": [
+          0.980392,
+          0.980392,
+          0.980392,
+          1
+        ]
+      },
       "elevation/focus-ring": {
         "tokenId": "elevation-focus-ring",
         "type": "DROP_SHADOW",
         "offsetY": 0,
         "blur": 0,
         "spread": 3,
+        "inset": false,
         "color": [
           0,
           0.533333,
@@ -1923,6 +2137,7 @@
         "offsetY": 16,
         "blur": 48,
         "spread": -8,
+        "inset": false,
         "color": [
           0,
           0,
@@ -1936,6 +2151,7 @@
         "offsetY": 8,
         "blur": 24,
         "spread": -4,
+        "inset": false,
         "color": [
           0,
           0,
@@ -1949,6 +2165,7 @@
         "offsetY": 2,
         "blur": 8,
         "spread": 0,
+        "inset": false,
         "color": [
           0,
           0,
@@ -2005,9 +2222,9 @@
         }
       },
       "binding": {
-        "boundFills": 74,
+        "boundFills": 68,
         "rawFills": 0,
-        "boundStrokes": 18,
+        "boundStrokes": 98,
         "rawStrokes": 0,
         "textStyled": 40,
         "textUnstyled": 0
@@ -2020,6 +2237,9 @@
             ],
             "RightIcon": [
               "20x20"
+            ],
+            "Gloss": [
+              "125x40"
             ],
             "Spinner": [
               "18x18"
@@ -2068,6 +2288,9 @@
             ],
             "RightIcon": [
               "16x16"
+            ],
+            "Gloss": [
+              "101x32"
             ],
             "Spinner": [
               "18x18"

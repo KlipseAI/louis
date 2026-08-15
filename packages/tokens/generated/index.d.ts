@@ -2,13 +2,17 @@
 export type TokenType = "color" | "dimension" | "fontFamily" | "fontWeight" | "duration" | "cubicBezier" | "number" | "shadow" | "typography" | "transition";
 export type TokenTheme = "light" | "dark";
 export type TokenMode = "base" | "global" | TokenTheme;
-export type TokenId = "color-action-primary" | "color-action-primary-hover" | "color-action-primary-pressed" | "color-amber-100" | "color-amber-500" | "color-amber-700" | "color-amber-900" | "color-background-canvas" | "color-background-inset" | "color-background-inverse" | "color-background-overlay" | "color-background-raised" | "color-background-surface" | "color-black-alpha-56" | "color-black-alpha-72" | "color-blue-100" | "color-blue-200" | "color-blue-300" | "color-blue-400" | "color-blue-50" | "color-blue-500" | "color-blue-600" | "color-blue-700" | "color-blue-800" | "color-blue-900" | "color-border-default" | "color-border-focus" | "color-border-strong" | "color-border-subtle" | "color-foreground-disabled" | "color-foreground-inverse" | "color-foreground-on-inverse" | "color-foreground-primary" | "color-foreground-secondary" | "color-foreground-tertiary" | "color-green-100" | "color-green-500" | "color-green-700" | "color-green-900" | "color-neutral-0" | "color-neutral-100" | "color-neutral-1000" | "color-neutral-150" | "color-neutral-200" | "color-neutral-300" | "color-neutral-400" | "color-neutral-50" | "color-neutral-500" | "color-neutral-600" | "color-neutral-700" | "color-neutral-800" | "color-neutral-900" | "color-red-100" | "color-red-500" | "color-red-600" | "color-red-700" | "color-red-900" | "color-scrim-modal" | "color-status-danger-background" | "color-status-danger-foreground" | "color-status-info-background" | "color-status-info-foreground" | "color-status-success-background" | "color-status-success-foreground" | "color-status-warning-background" | "color-status-warning-foreground" | "duration-fast" | "duration-instant" | "duration-normal" | "duration-slow" | "easing-enter" | "easing-exit" | "easing-standard" | "elevation-focus-ring" | "elevation-modal" | "elevation-popover" | "elevation-surface" | "font-family-mono" | "font-family-sans" | "font-size-body-lg" | "font-size-body-md" | "font-size-body-sm" | "font-size-caption" | "font-size-heading-lg" | "font-size-heading-md" | "font-size-heading-sm" | "font-weight-medium" | "font-weight-regular" | "font-weight-semibold" | "icon-size-lg" | "icon-size-md" | "icon-size-sm" | "layer-base-content" | "layer-base-critical" | "layer-base-modal" | "layer-base-popover" | "layer-base-sticky" | "layer-content" | "layer-critical" | "layer-modal" | "layer-popover" | "layer-sticky" | "layout-app-shell-content-inset" | "layout-app-shell-outer-gap" | "layout-app-shell-sidebar-minimum" | "layout-app-shell-sidebar-padding" | "layout-control-height-md" | "layout-control-height-sm" | "layout-control-hit-target-minimum" | "layout-control-minimum-width-sm" | "layout-project-card-minimum" | "layout-project-grid-gap" | "line-height-body" | "line-height-heading" | "line-height-tight" | "motion-modal-enter" | "motion-modal-exit" | "motion-overlay-enter" | "motion-overlay-exit" | "motion-reduced" | "radius-0" | "radius-10" | "radius-12" | "radius-16" | "radius-2" | "radius-20" | "radius-24" | "radius-4" | "radius-6" | "radius-8" | "radius-card" | "radius-control" | "radius-control-sm" | "radius-full" | "radius-overlay" | "radius-overlay-item" | "radius-pill" | "shadow-focus-ring" | "shadow-modal" | "shadow-popover" | "shadow-surface" | "space-0" | "space-10" | "space-12" | "space-120" | "space-14" | "space-16" | "space-18" | "space-2" | "space-20" | "space-24" | "space-240" | "space-32" | "space-4" | "space-40" | "space-44" | "space-48" | "space-6" | "space-64" | "space-8" | "space-control-lg" | "space-control-md" | "space-control-sm" | "space-control-xs" | "space-layout-gutter" | "space-layout-section" | "transition-modal-enter" | "transition-modal-exit" | "transition-overlay-enter" | "transition-overlay-exit" | "transition-reduced" | "type-style-body-lg-medium" | "type-style-body-lg-regular" | "type-style-body-lg-semibold" | "type-style-body-md-medium" | "type-style-body-md-regular" | "type-style-body-md-semibold" | "type-style-body-sm-medium" | "type-style-body-sm-regular" | "type-style-body-sm-semibold" | "type-style-caption-medium" | "type-style-caption-regular" | "type-style-caption-semibold" | "type-style-heading-lg-medium" | "type-style-heading-md-medium" | "type-style-heading-sm-medium" | "typography-body-lg-medium" | "typography-body-lg-regular" | "typography-body-lg-semibold" | "typography-body-md-medium" | "typography-body-md-regular" | "typography-body-md-semibold" | "typography-body-sm-medium" | "typography-body-sm-regular" | "typography-body-sm-semibold" | "typography-caption-medium" | "typography-caption-regular" | "typography-caption-semibold" | "typography-heading-lg-medium" | "typography-heading-md-medium" | "typography-heading-sm-medium";
-export type PrimitiveTokenId = "color-amber-100" | "color-amber-500" | "color-amber-700" | "color-amber-900" | "color-black-alpha-56" | "color-black-alpha-72" | "color-blue-100" | "color-blue-200" | "color-blue-300" | "color-blue-400" | "color-blue-50" | "color-blue-500" | "color-blue-600" | "color-blue-700" | "color-blue-800" | "color-blue-900" | "color-green-100" | "color-green-500" | "color-green-700" | "color-green-900" | "color-neutral-0" | "color-neutral-100" | "color-neutral-1000" | "color-neutral-150" | "color-neutral-200" | "color-neutral-300" | "color-neutral-400" | "color-neutral-50" | "color-neutral-500" | "color-neutral-600" | "color-neutral-700" | "color-neutral-800" | "color-neutral-900" | "color-red-100" | "color-red-500" | "color-red-600" | "color-red-700" | "color-red-900" | "duration-fast" | "duration-instant" | "duration-normal" | "duration-slow" | "easing-enter" | "easing-exit" | "easing-standard" | "font-family-mono" | "font-family-sans" | "font-size-body-lg" | "font-size-body-md" | "font-size-body-sm" | "font-size-caption" | "font-size-heading-lg" | "font-size-heading-md" | "font-size-heading-sm" | "font-weight-medium" | "font-weight-regular" | "font-weight-semibold" | "layer-base-content" | "layer-base-critical" | "layer-base-modal" | "layer-base-popover" | "layer-base-sticky" | "line-height-body" | "line-height-heading" | "line-height-tight" | "radius-0" | "radius-10" | "radius-12" | "radius-16" | "radius-2" | "radius-20" | "radius-24" | "radius-4" | "radius-6" | "radius-8" | "radius-full" | "shadow-focus-ring" | "shadow-modal" | "shadow-popover" | "shadow-surface" | "space-0" | "space-10" | "space-12" | "space-120" | "space-14" | "space-16" | "space-18" | "space-2" | "space-20" | "space-24" | "space-240" | "space-32" | "space-4" | "space-40" | "space-44" | "space-48" | "space-6" | "space-64" | "space-8" | "transition-modal-enter" | "transition-modal-exit" | "transition-overlay-enter" | "transition-overlay-exit" | "transition-reduced" | "type-style-body-lg-medium" | "type-style-body-lg-regular" | "type-style-body-lg-semibold" | "type-style-body-md-medium" | "type-style-body-md-regular" | "type-style-body-md-semibold" | "type-style-body-sm-medium" | "type-style-body-sm-regular" | "type-style-body-sm-semibold" | "type-style-caption-medium" | "type-style-caption-regular" | "type-style-caption-semibold" | "type-style-heading-lg-medium" | "type-style-heading-md-medium" | "type-style-heading-sm-medium";
-export type SemanticTokenId = "color-action-primary" | "color-action-primary-hover" | "color-action-primary-pressed" | "color-background-canvas" | "color-background-inset" | "color-background-inverse" | "color-background-overlay" | "color-background-raised" | "color-background-surface" | "color-border-default" | "color-border-focus" | "color-border-strong" | "color-border-subtle" | "color-foreground-disabled" | "color-foreground-inverse" | "color-foreground-on-inverse" | "color-foreground-primary" | "color-foreground-secondary" | "color-foreground-tertiary" | "color-scrim-modal" | "color-status-danger-background" | "color-status-danger-foreground" | "color-status-info-background" | "color-status-info-foreground" | "color-status-success-background" | "color-status-success-foreground" | "color-status-warning-background" | "color-status-warning-foreground" | "elevation-focus-ring" | "elevation-modal" | "elevation-popover" | "elevation-surface" | "icon-size-lg" | "icon-size-md" | "icon-size-sm" | "layer-content" | "layer-critical" | "layer-modal" | "layer-popover" | "layer-sticky" | "layout-app-shell-content-inset" | "layout-app-shell-outer-gap" | "layout-app-shell-sidebar-minimum" | "layout-app-shell-sidebar-padding" | "layout-control-height-md" | "layout-control-height-sm" | "layout-control-hit-target-minimum" | "layout-control-minimum-width-sm" | "layout-project-card-minimum" | "layout-project-grid-gap" | "motion-modal-enter" | "motion-modal-exit" | "motion-overlay-enter" | "motion-overlay-exit" | "motion-reduced" | "radius-card" | "radius-control" | "radius-control-sm" | "radius-overlay" | "radius-overlay-item" | "radius-pill" | "space-control-lg" | "space-control-md" | "space-control-sm" | "space-control-xs" | "space-layout-gutter" | "space-layout-section" | "typography-body-lg-medium" | "typography-body-lg-regular" | "typography-body-lg-semibold" | "typography-body-md-medium" | "typography-body-md-regular" | "typography-body-md-semibold" | "typography-body-sm-medium" | "typography-body-sm-regular" | "typography-body-sm-semibold" | "typography-caption-medium" | "typography-caption-regular" | "typography-caption-semibold" | "typography-heading-lg-medium" | "typography-heading-md-medium" | "typography-heading-sm-medium";
+export type TokenId = "color-action-danger" | "color-action-ghost-hover" | "color-action-primary" | "color-action-primary-hover" | "color-action-primary-pressed" | "color-action-secondary-foreground" | "color-action-secondary-hover" | "color-amber-100" | "color-amber-500" | "color-amber-700" | "color-amber-900" | "color-background-canvas" | "color-background-inset" | "color-background-inverse" | "color-background-overlay" | "color-background-raised" | "color-background-surface" | "color-black-alpha-56" | "color-black-alpha-72" | "color-blue-100" | "color-blue-200" | "color-blue-300" | "color-blue-400" | "color-blue-50" | "color-blue-500" | "color-blue-600" | "color-blue-700" | "color-blue-800" | "color-blue-900" | "color-border-control" | "color-border-default" | "color-border-focus" | "color-border-strong" | "color-border-subtle" | "color-foreground-disabled" | "color-foreground-inverse" | "color-foreground-on-danger" | "color-foreground-on-inverse" | "color-foreground-primary" | "color-foreground-secondary" | "color-foreground-tertiary" | "color-green-100" | "color-green-500" | "color-green-700" | "color-green-900" | "color-ink-alpha-12" | "color-ink-alpha-5" | "color-ink-alpha-8" | "color-neutral-0" | "color-neutral-100" | "color-neutral-1000" | "color-neutral-150" | "color-neutral-200" | "color-neutral-300" | "color-neutral-400" | "color-neutral-50" | "color-neutral-500" | "color-neutral-600" | "color-neutral-700" | "color-neutral-800" | "color-neutral-900" | "color-paper-alpha-10" | "color-paper-alpha-16" | "color-paper-alpha-72" | "color-paper-alpha-8" | "color-red-100" | "color-red-500" | "color-red-600" | "color-red-700" | "color-red-900" | "color-scrim-modal" | "color-status-danger-background" | "color-status-danger-foreground" | "color-status-info-background" | "color-status-info-foreground" | "color-status-success-background" | "color-status-success-foreground" | "color-status-warning-background" | "color-status-warning-foreground" | "duration-fast" | "duration-instant" | "duration-normal" | "duration-slow" | "easing-enter" | "easing-exit" | "easing-standard" | "elevation-control-bevel" | "elevation-control-gloss" | "elevation-focus-ring" | "elevation-modal" | "elevation-popover" | "elevation-surface" | "font-family-mono" | "font-family-sans" | "font-size-body-lg" | "font-size-body-md" | "font-size-body-sm" | "font-size-caption" | "font-size-heading-lg" | "font-size-heading-md" | "font-size-heading-sm" | "font-weight-medium" | "font-weight-regular" | "font-weight-semibold" | "icon-size-lg" | "icon-size-md" | "icon-size-sm" | "layer-base-content" | "layer-base-critical" | "layer-base-modal" | "layer-base-popover" | "layer-base-sticky" | "layer-content" | "layer-critical" | "layer-modal" | "layer-popover" | "layer-sticky" | "layout-app-shell-content-inset" | "layout-app-shell-outer-gap" | "layout-app-shell-sidebar-minimum" | "layout-app-shell-sidebar-padding" | "layout-control-height-md" | "layout-control-height-sm" | "layout-control-hit-target-minimum" | "layout-control-minimum-width-sm" | "layout-project-card-minimum" | "layout-project-grid-gap" | "line-height-body" | "line-height-heading" | "line-height-tight" | "motion-modal-enter" | "motion-modal-exit" | "motion-overlay-enter" | "motion-overlay-exit" | "motion-reduced" | "radius-0" | "radius-10" | "radius-12" | "radius-16" | "radius-2" | "radius-20" | "radius-24" | "radius-4" | "radius-6" | "radius-8" | "radius-card" | "radius-control" | "radius-control-sm" | "radius-full" | "radius-overlay" | "radius-overlay-item" | "radius-pill" | "shadow-control-bevel" | "shadow-control-gloss" | "shadow-focus-ring" | "shadow-modal" | "shadow-popover" | "shadow-surface" | "space-0" | "space-10" | "space-12" | "space-120" | "space-14" | "space-16" | "space-18" | "space-2" | "space-20" | "space-24" | "space-240" | "space-32" | "space-4" | "space-40" | "space-44" | "space-48" | "space-6" | "space-64" | "space-8" | "space-control-lg" | "space-control-md" | "space-control-sm" | "space-control-xs" | "space-layout-gutter" | "space-layout-section" | "transition-modal-enter" | "transition-modal-exit" | "transition-overlay-enter" | "transition-overlay-exit" | "transition-reduced" | "type-style-body-lg-medium" | "type-style-body-lg-regular" | "type-style-body-lg-semibold" | "type-style-body-md-medium" | "type-style-body-md-regular" | "type-style-body-md-semibold" | "type-style-body-sm-medium" | "type-style-body-sm-regular" | "type-style-body-sm-semibold" | "type-style-caption-medium" | "type-style-caption-regular" | "type-style-caption-semibold" | "type-style-heading-lg-medium" | "type-style-heading-md-medium" | "type-style-heading-sm-medium" | "typography-body-lg-medium" | "typography-body-lg-regular" | "typography-body-lg-semibold" | "typography-body-md-medium" | "typography-body-md-regular" | "typography-body-md-semibold" | "typography-body-sm-medium" | "typography-body-sm-regular" | "typography-body-sm-semibold" | "typography-caption-medium" | "typography-caption-regular" | "typography-caption-semibold" | "typography-heading-lg-medium" | "typography-heading-md-medium" | "typography-heading-sm-medium";
+export type PrimitiveTokenId = "color-amber-100" | "color-amber-500" | "color-amber-700" | "color-amber-900" | "color-black-alpha-56" | "color-black-alpha-72" | "color-blue-100" | "color-blue-200" | "color-blue-300" | "color-blue-400" | "color-blue-50" | "color-blue-500" | "color-blue-600" | "color-blue-700" | "color-blue-800" | "color-blue-900" | "color-green-100" | "color-green-500" | "color-green-700" | "color-green-900" | "color-ink-alpha-12" | "color-ink-alpha-5" | "color-ink-alpha-8" | "color-neutral-0" | "color-neutral-100" | "color-neutral-1000" | "color-neutral-150" | "color-neutral-200" | "color-neutral-300" | "color-neutral-400" | "color-neutral-50" | "color-neutral-500" | "color-neutral-600" | "color-neutral-700" | "color-neutral-800" | "color-neutral-900" | "color-paper-alpha-10" | "color-paper-alpha-16" | "color-paper-alpha-72" | "color-paper-alpha-8" | "color-red-100" | "color-red-500" | "color-red-600" | "color-red-700" | "color-red-900" | "duration-fast" | "duration-instant" | "duration-normal" | "duration-slow" | "easing-enter" | "easing-exit" | "easing-standard" | "font-family-mono" | "font-family-sans" | "font-size-body-lg" | "font-size-body-md" | "font-size-body-sm" | "font-size-caption" | "font-size-heading-lg" | "font-size-heading-md" | "font-size-heading-sm" | "font-weight-medium" | "font-weight-regular" | "font-weight-semibold" | "layer-base-content" | "layer-base-critical" | "layer-base-modal" | "layer-base-popover" | "layer-base-sticky" | "line-height-body" | "line-height-heading" | "line-height-tight" | "radius-0" | "radius-10" | "radius-12" | "radius-16" | "radius-2" | "radius-20" | "radius-24" | "radius-4" | "radius-6" | "radius-8" | "radius-full" | "shadow-control-bevel" | "shadow-control-gloss" | "shadow-focus-ring" | "shadow-modal" | "shadow-popover" | "shadow-surface" | "space-0" | "space-10" | "space-12" | "space-120" | "space-14" | "space-16" | "space-18" | "space-2" | "space-20" | "space-24" | "space-240" | "space-32" | "space-4" | "space-40" | "space-44" | "space-48" | "space-6" | "space-64" | "space-8" | "transition-modal-enter" | "transition-modal-exit" | "transition-overlay-enter" | "transition-overlay-exit" | "transition-reduced" | "type-style-body-lg-medium" | "type-style-body-lg-regular" | "type-style-body-lg-semibold" | "type-style-body-md-medium" | "type-style-body-md-regular" | "type-style-body-md-semibold" | "type-style-body-sm-medium" | "type-style-body-sm-regular" | "type-style-body-sm-semibold" | "type-style-caption-medium" | "type-style-caption-regular" | "type-style-caption-semibold" | "type-style-heading-lg-medium" | "type-style-heading-md-medium" | "type-style-heading-sm-medium";
+export type SemanticTokenId = "color-action-danger" | "color-action-ghost-hover" | "color-action-primary" | "color-action-primary-hover" | "color-action-primary-pressed" | "color-action-secondary-foreground" | "color-action-secondary-hover" | "color-background-canvas" | "color-background-inset" | "color-background-inverse" | "color-background-overlay" | "color-background-raised" | "color-background-surface" | "color-border-control" | "color-border-default" | "color-border-focus" | "color-border-strong" | "color-border-subtle" | "color-foreground-disabled" | "color-foreground-inverse" | "color-foreground-on-danger" | "color-foreground-on-inverse" | "color-foreground-primary" | "color-foreground-secondary" | "color-foreground-tertiary" | "color-scrim-modal" | "color-status-danger-background" | "color-status-danger-foreground" | "color-status-info-background" | "color-status-info-foreground" | "color-status-success-background" | "color-status-success-foreground" | "color-status-warning-background" | "color-status-warning-foreground" | "elevation-control-bevel" | "elevation-control-gloss" | "elevation-focus-ring" | "elevation-modal" | "elevation-popover" | "elevation-surface" | "icon-size-lg" | "icon-size-md" | "icon-size-sm" | "layer-content" | "layer-critical" | "layer-modal" | "layer-popover" | "layer-sticky" | "layout-app-shell-content-inset" | "layout-app-shell-outer-gap" | "layout-app-shell-sidebar-minimum" | "layout-app-shell-sidebar-padding" | "layout-control-height-md" | "layout-control-height-sm" | "layout-control-hit-target-minimum" | "layout-control-minimum-width-sm" | "layout-project-card-minimum" | "layout-project-grid-gap" | "motion-modal-enter" | "motion-modal-exit" | "motion-overlay-enter" | "motion-overlay-exit" | "motion-reduced" | "radius-card" | "radius-control" | "radius-control-sm" | "radius-overlay" | "radius-overlay-item" | "radius-pill" | "space-control-lg" | "space-control-md" | "space-control-sm" | "space-control-xs" | "space-layout-gutter" | "space-layout-section" | "typography-body-lg-medium" | "typography-body-lg-regular" | "typography-body-lg-semibold" | "typography-body-md-medium" | "typography-body-md-regular" | "typography-body-md-semibold" | "typography-body-sm-medium" | "typography-body-sm-regular" | "typography-body-sm-semibold" | "typography-caption-medium" | "typography-caption-regular" | "typography-caption-semibold" | "typography-heading-lg-medium" | "typography-heading-md-medium" | "typography-heading-sm-medium";
 export interface TokenTypeById {
+  readonly "color-action-danger": "color";
+  readonly "color-action-ghost-hover": "color";
   readonly "color-action-primary": "color";
   readonly "color-action-primary-hover": "color";
   readonly "color-action-primary-pressed": "color";
+  readonly "color-action-secondary-foreground": "color";
+  readonly "color-action-secondary-hover": "color";
   readonly "color-amber-100": "color";
   readonly "color-amber-500": "color";
   readonly "color-amber-700": "color";
@@ -31,12 +35,14 @@ export interface TokenTypeById {
   readonly "color-blue-700": "color";
   readonly "color-blue-800": "color";
   readonly "color-blue-900": "color";
+  readonly "color-border-control": "color";
   readonly "color-border-default": "color";
   readonly "color-border-focus": "color";
   readonly "color-border-strong": "color";
   readonly "color-border-subtle": "color";
   readonly "color-foreground-disabled": "color";
   readonly "color-foreground-inverse": "color";
+  readonly "color-foreground-on-danger": "color";
   readonly "color-foreground-on-inverse": "color";
   readonly "color-foreground-primary": "color";
   readonly "color-foreground-secondary": "color";
@@ -45,6 +51,9 @@ export interface TokenTypeById {
   readonly "color-green-500": "color";
   readonly "color-green-700": "color";
   readonly "color-green-900": "color";
+  readonly "color-ink-alpha-12": "color";
+  readonly "color-ink-alpha-5": "color";
+  readonly "color-ink-alpha-8": "color";
   readonly "color-neutral-0": "color";
   readonly "color-neutral-100": "color";
   readonly "color-neutral-1000": "color";
@@ -58,6 +67,10 @@ export interface TokenTypeById {
   readonly "color-neutral-700": "color";
   readonly "color-neutral-800": "color";
   readonly "color-neutral-900": "color";
+  readonly "color-paper-alpha-10": "color";
+  readonly "color-paper-alpha-16": "color";
+  readonly "color-paper-alpha-72": "color";
+  readonly "color-paper-alpha-8": "color";
   readonly "color-red-100": "color";
   readonly "color-red-500": "color";
   readonly "color-red-600": "color";
@@ -79,6 +92,8 @@ export interface TokenTypeById {
   readonly "easing-enter": "cubicBezier";
   readonly "easing-exit": "cubicBezier";
   readonly "easing-standard": "cubicBezier";
+  readonly "elevation-control-bevel": "shadow";
+  readonly "elevation-control-gloss": "shadow";
   readonly "elevation-focus-ring": "shadow";
   readonly "elevation-modal": "shadow";
   readonly "elevation-popover": "shadow";
@@ -143,6 +158,8 @@ export interface TokenTypeById {
   readonly "radius-overlay": "dimension";
   readonly "radius-overlay-item": "dimension";
   readonly "radius-pill": "dimension";
+  readonly "shadow-control-bevel": "shadow";
+  readonly "shadow-control-gloss": "shadow";
   readonly "shadow-focus-ring": "shadow";
   readonly "shadow-modal": "shadow";
   readonly "shadow-popover": "shadow";
@@ -223,6 +240,7 @@ export interface ShadowLayerValue {
   readonly offsetY: DimensionValue;
   readonly blur: DimensionValue;
   readonly spread: DimensionValue;
+  readonly inset: boolean;
 }
 export interface TypographyValue {
   readonly fontFamily: string | readonly string[];
@@ -300,6 +318,9 @@ export declare const primitives: Readonly<{
   readonly "color-green-500": TokenRecord<"color-green-500", "base", "primitive", null>;
   readonly "color-green-700": TokenRecord<"color-green-700", "base", "primitive", null>;
   readonly "color-green-900": TokenRecord<"color-green-900", "base", "primitive", null>;
+  readonly "color-ink-alpha-12": TokenRecord<"color-ink-alpha-12", "base", "primitive", null>;
+  readonly "color-ink-alpha-5": TokenRecord<"color-ink-alpha-5", "base", "primitive", null>;
+  readonly "color-ink-alpha-8": TokenRecord<"color-ink-alpha-8", "base", "primitive", null>;
   readonly "color-neutral-0": TokenRecord<"color-neutral-0", "base", "primitive", null>;
   readonly "color-neutral-100": TokenRecord<"color-neutral-100", "base", "primitive", null>;
   readonly "color-neutral-1000": TokenRecord<"color-neutral-1000", "base", "primitive", null>;
@@ -313,6 +334,10 @@ export declare const primitives: Readonly<{
   readonly "color-neutral-700": TokenRecord<"color-neutral-700", "base", "primitive", null>;
   readonly "color-neutral-800": TokenRecord<"color-neutral-800", "base", "primitive", null>;
   readonly "color-neutral-900": TokenRecord<"color-neutral-900", "base", "primitive", null>;
+  readonly "color-paper-alpha-10": TokenRecord<"color-paper-alpha-10", "base", "primitive", null>;
+  readonly "color-paper-alpha-16": TokenRecord<"color-paper-alpha-16", "base", "primitive", null>;
+  readonly "color-paper-alpha-72": TokenRecord<"color-paper-alpha-72", "base", "primitive", null>;
+  readonly "color-paper-alpha-8": TokenRecord<"color-paper-alpha-8", "base", "primitive", null>;
   readonly "color-red-100": TokenRecord<"color-red-100", "base", "primitive", null>;
   readonly "color-red-500": TokenRecord<"color-red-500", "base", "primitive", null>;
   readonly "color-red-600": TokenRecord<"color-red-600", "base", "primitive", null>;
@@ -356,6 +381,8 @@ export declare const primitives: Readonly<{
   readonly "radius-6": TokenRecord<"radius-6", "base", "primitive", null>;
   readonly "radius-8": TokenRecord<"radius-8", "base", "primitive", null>;
   readonly "radius-full": TokenRecord<"radius-full", "base", "primitive", null>;
+  readonly "shadow-control-bevel": TokenRecord<"shadow-control-bevel", "base", "primitive", null>;
+  readonly "shadow-control-gloss": TokenRecord<"shadow-control-gloss", "base", "primitive", null>;
   readonly "shadow-focus-ring": TokenRecord<"shadow-focus-ring", "base", "primitive", null>;
   readonly "shadow-modal": TokenRecord<"shadow-modal", "base", "primitive", null>;
   readonly "shadow-popover": TokenRecord<"shadow-popover", "base", "primitive", null>;
@@ -402,6 +429,8 @@ export declare const primitives: Readonly<{
 }>;
 export declare const tokens: Readonly<{
   readonly global: Readonly<{
+  readonly "elevation-control-bevel": TokenRecord<"elevation-control-bevel", "global", "semantic", { readonly id: "shadow-control-bevel"; readonly mode: "base" }>;
+  readonly "elevation-control-gloss": TokenRecord<"elevation-control-gloss", "global", "semantic", { readonly id: "shadow-control-gloss"; readonly mode: "base" }>;
   readonly "elevation-focus-ring": TokenRecord<"elevation-focus-ring", "global", "semantic", { readonly id: "shadow-focus-ring"; readonly mode: "base" }>;
   readonly "elevation-modal": TokenRecord<"elevation-modal", "global", "semantic", { readonly id: "shadow-modal"; readonly mode: "base" }>;
   readonly "elevation-popover": TokenRecord<"elevation-popover", "global", "semantic", { readonly id: "shadow-popover"; readonly mode: "base" }>;
@@ -458,21 +487,27 @@ export declare const tokens: Readonly<{
   readonly "typography-heading-sm-medium": TokenRecord<"typography-heading-sm-medium", "global", "semantic", { readonly id: "type-style-heading-sm-medium"; readonly mode: "base" }>;
   }> ;
   readonly light: Readonly<{
+  readonly "color-action-danger": TokenRecord<"color-action-danger", "light", "semantic", { readonly id: "color-red-500"; readonly mode: "base" }>;
+  readonly "color-action-ghost-hover": TokenRecord<"color-action-ghost-hover", "light", "semantic", { readonly id: "color-ink-alpha-8"; readonly mode: "base" }>;
   readonly "color-action-primary": TokenRecord<"color-action-primary", "light", "semantic", { readonly id: "color-blue-500"; readonly mode: "base" }>;
   readonly "color-action-primary-hover": TokenRecord<"color-action-primary-hover", "light", "semantic", { readonly id: "color-blue-400"; readonly mode: "base" }>;
   readonly "color-action-primary-pressed": TokenRecord<"color-action-primary-pressed", "light", "semantic", { readonly id: "color-blue-600"; readonly mode: "base" }>;
+  readonly "color-action-secondary-foreground": TokenRecord<"color-action-secondary-foreground", "light", "semantic", { readonly id: "color-neutral-600"; readonly mode: "base" }>;
+  readonly "color-action-secondary-hover": TokenRecord<"color-action-secondary-hover", "light", "semantic", { readonly id: "color-ink-alpha-5"; readonly mode: "base" }>;
   readonly "color-background-canvas": TokenRecord<"color-background-canvas", "light", "semantic", { readonly id: "color-neutral-100"; readonly mode: "base" }>;
   readonly "color-background-inset": TokenRecord<"color-background-inset", "light", "semantic", { readonly id: "color-neutral-150"; readonly mode: "base" }>;
   readonly "color-background-inverse": TokenRecord<"color-background-inverse", "light", "semantic", { readonly id: "color-neutral-800"; readonly mode: "base" }>;
   readonly "color-background-overlay": TokenRecord<"color-background-overlay", "light", "semantic", { readonly id: "color-neutral-0"; readonly mode: "base" }>;
   readonly "color-background-raised": TokenRecord<"color-background-raised", "light", "semantic", { readonly id: "color-neutral-0"; readonly mode: "base" }>;
   readonly "color-background-surface": TokenRecord<"color-background-surface", "light", "semantic", { readonly id: "color-neutral-0"; readonly mode: "base" }>;
+  readonly "color-border-control": TokenRecord<"color-border-control", "light", "semantic", { readonly id: "color-ink-alpha-12"; readonly mode: "base" }>;
   readonly "color-border-default": TokenRecord<"color-border-default", "light", "semantic", { readonly id: "color-neutral-300"; readonly mode: "base" }>;
   readonly "color-border-focus": TokenRecord<"color-border-focus", "light", "semantic", { readonly id: "color-blue-500"; readonly mode: "base" }>;
   readonly "color-border-strong": TokenRecord<"color-border-strong", "light", "semantic", { readonly id: "color-neutral-500"; readonly mode: "base" }>;
   readonly "color-border-subtle": TokenRecord<"color-border-subtle", "light", "semantic", { readonly id: "color-neutral-200"; readonly mode: "base" }>;
   readonly "color-foreground-disabled": TokenRecord<"color-foreground-disabled", "light", "semantic", { readonly id: "color-neutral-500"; readonly mode: "base" }>;
   readonly "color-foreground-inverse": TokenRecord<"color-foreground-inverse", "light", "semantic", { readonly id: "color-neutral-0"; readonly mode: "base" }>;
+  readonly "color-foreground-on-danger": TokenRecord<"color-foreground-on-danger", "light", "semantic", { readonly id: "color-neutral-0"; readonly mode: "base" }>;
   readonly "color-foreground-on-inverse": TokenRecord<"color-foreground-on-inverse", "light", "semantic", { readonly id: "color-neutral-0"; readonly mode: "base" }>;
   readonly "color-foreground-primary": TokenRecord<"color-foreground-primary", "light", "semantic", { readonly id: "color-neutral-900"; readonly mode: "base" }>;
   readonly "color-foreground-secondary": TokenRecord<"color-foreground-secondary", "light", "semantic", { readonly id: "color-neutral-700"; readonly mode: "base" }>;
@@ -488,21 +523,27 @@ export declare const tokens: Readonly<{
   readonly "color-status-warning-foreground": TokenRecord<"color-status-warning-foreground", "light", "semantic", { readonly id: "color-amber-900"; readonly mode: "base" }>;
   }> ;
   readonly dark: Readonly<{
+  readonly "color-action-danger": TokenRecord<"color-action-danger", "dark", "semantic", { readonly id: "color-red-500"; readonly mode: "base" }>;
+  readonly "color-action-ghost-hover": TokenRecord<"color-action-ghost-hover", "dark", "semantic", { readonly id: "color-paper-alpha-10"; readonly mode: "base" }>;
   readonly "color-action-primary": TokenRecord<"color-action-primary", "dark", "semantic", { readonly id: "color-blue-500"; readonly mode: "base" }>;
   readonly "color-action-primary-hover": TokenRecord<"color-action-primary-hover", "dark", "semantic", { readonly id: "color-blue-400"; readonly mode: "base" }>;
   readonly "color-action-primary-pressed": TokenRecord<"color-action-primary-pressed", "dark", "semantic", { readonly id: "color-blue-600"; readonly mode: "base" }>;
+  readonly "color-action-secondary-foreground": TokenRecord<"color-action-secondary-foreground", "dark", "semantic", { readonly id: "color-neutral-400"; readonly mode: "base" }>;
+  readonly "color-action-secondary-hover": TokenRecord<"color-action-secondary-hover", "dark", "semantic", { readonly id: "color-paper-alpha-8"; readonly mode: "base" }>;
   readonly "color-background-canvas": TokenRecord<"color-background-canvas", "dark", "semantic", { readonly id: "color-neutral-900"; readonly mode: "base" }>;
   readonly "color-background-inset": TokenRecord<"color-background-inset", "dark", "semantic", { readonly id: "color-neutral-800"; readonly mode: "base" }>;
   readonly "color-background-inverse": TokenRecord<"color-background-inverse", "dark", "semantic", { readonly id: "color-neutral-200"; readonly mode: "base" }>;
   readonly "color-background-overlay": TokenRecord<"color-background-overlay", "dark", "semantic", { readonly id: "color-neutral-800"; readonly mode: "base" }>;
   readonly "color-background-raised": TokenRecord<"color-background-raised", "dark", "semantic", { readonly id: "color-neutral-700"; readonly mode: "base" }>;
   readonly "color-background-surface": TokenRecord<"color-background-surface", "dark", "semantic", { readonly id: "color-neutral-800"; readonly mode: "base" }>;
+  readonly "color-border-control": TokenRecord<"color-border-control", "dark", "semantic", { readonly id: "color-paper-alpha-16"; readonly mode: "base" }>;
   readonly "color-border-default": TokenRecord<"color-border-default", "dark", "semantic", { readonly id: "color-neutral-600"; readonly mode: "base" }>;
   readonly "color-border-focus": TokenRecord<"color-border-focus", "dark", "semantic", { readonly id: "color-blue-400"; readonly mode: "base" }>;
   readonly "color-border-strong": TokenRecord<"color-border-strong", "dark", "semantic", { readonly id: "color-neutral-500"; readonly mode: "base" }>;
   readonly "color-border-subtle": TokenRecord<"color-border-subtle", "dark", "semantic", { readonly id: "color-neutral-700"; readonly mode: "base" }>;
   readonly "color-foreground-disabled": TokenRecord<"color-foreground-disabled", "dark", "semantic", { readonly id: "color-neutral-600"; readonly mode: "base" }>;
   readonly "color-foreground-inverse": TokenRecord<"color-foreground-inverse", "dark", "semantic", { readonly id: "color-neutral-0"; readonly mode: "base" }>;
+  readonly "color-foreground-on-danger": TokenRecord<"color-foreground-on-danger", "dark", "semantic", { readonly id: "color-neutral-0"; readonly mode: "base" }>;
   readonly "color-foreground-on-inverse": TokenRecord<"color-foreground-on-inverse", "dark", "semantic", { readonly id: "color-neutral-900"; readonly mode: "base" }>;
   readonly "color-foreground-primary": TokenRecord<"color-foreground-primary", "dark", "semantic", { readonly id: "color-neutral-0"; readonly mode: "base" }>;
   readonly "color-foreground-secondary": TokenRecord<"color-foreground-secondary", "dark", "semantic", { readonly id: "color-neutral-300"; readonly mode: "base" }>;

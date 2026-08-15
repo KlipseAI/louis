@@ -62,6 +62,18 @@
           "foreground": "color-foreground-inverse",
           "minimum": 4.0,
           "note": "pressed 면(blue.600)은 대비 4.41로 AA에 근소하게 미달한다. hover가 밝아지므로 pressed는 어두워져 두 상태를 구분한다. 기본 면과 같은 사유로 미달을 수용한다."
+        },
+        {
+          "background": "color-action-danger",
+          "foreground": "color-foreground-on-danger",
+          "minimum": 3.0,
+          "note": "제품의 danger는 solid #ff4b59에 흰 글자이고 대비가 3.14로 WCAG AA 4.5에 미달한다. owner가 제품 공용 컴포넌트를 정본으로 택했고 이 미달은 제품이 이미 갖고 있는 것이다. 해소하려면 면을 어둡게(red.600 이하) 하거나 라벨을 크게 해야 하며 둘 다 브랜드 판정 대상이다."
+        },
+        {
+          "background": "color-background-canvas",
+          "foreground": "color-action-secondary-foreground",
+          "minimum": 3.5,
+          "note": "제품의 secondary·ghost 전경은 gray-600 #777d89이고 흰 배경 대비 4.13, DS canvas 대비 3.67로 WCAG AA 4.5에 미달한다. 제품 값을 정본으로 채택한 결과다. 한 단계 진한 neutral.700을 쓰면 6.35로 통과하지만 제품과 달라진다. 다크 모드는 제품이 알파(paper-alpha 72)를 쓰는데 알파 전경은 배경에 따라 대비가 달라져 게이트가 잴 수 없으므로 가장 가까운 불투명 단계 neutral.400을 쓴다."
         }
       ],
       "layerOrder": [
@@ -829,6 +841,138 @@
           "$extensions": {
             "com.klipse-design": {
               "id": "color-black-alpha-72",
+              "tier": "primitive"
+            }
+          }
+        }
+      },
+      "ink-alpha": {
+        "$type": "color",
+        "5": {
+          "$value": {
+            "colorSpace": "srgb",
+            "components": [
+              0.090196,
+              0.105882,
+              0.133333
+            ],
+            "alpha": 0.05,
+            "hex": "#171b22"
+          },
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-ink-alpha-5",
+              "tier": "primitive"
+            }
+          }
+        },
+        "8": {
+          "$value": {
+            "colorSpace": "srgb",
+            "components": [
+              0.090196,
+              0.105882,
+              0.133333
+            ],
+            "alpha": 0.08,
+            "hex": "#171b22"
+          },
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-ink-alpha-8",
+              "tier": "primitive"
+            }
+          }
+        },
+        "12": {
+          "$value": {
+            "colorSpace": "srgb",
+            "components": [
+              0.090196,
+              0.105882,
+              0.133333
+            ],
+            "alpha": 0.12,
+            "hex": "#171b22"
+          },
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-ink-alpha-12",
+              "tier": "primitive"
+            }
+          }
+        }
+      },
+      "paper-alpha": {
+        "$type": "color",
+        "8": {
+          "$value": {
+            "colorSpace": "srgb",
+            "components": [
+              0.980392,
+              0.980392,
+              0.980392
+            ],
+            "alpha": 0.08,
+            "hex": "#fafafa"
+          },
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-paper-alpha-8",
+              "tier": "primitive"
+            }
+          }
+        },
+        "10": {
+          "$value": {
+            "colorSpace": "srgb",
+            "components": [
+              0.980392,
+              0.980392,
+              0.980392
+            ],
+            "alpha": 0.1,
+            "hex": "#fafafa"
+          },
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-paper-alpha-10",
+              "tier": "primitive"
+            }
+          }
+        },
+        "16": {
+          "$value": {
+            "colorSpace": "srgb",
+            "components": [
+              0.980392,
+              0.980392,
+              0.980392
+            ],
+            "alpha": 0.16,
+            "hex": "#fafafa"
+          },
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-paper-alpha-16",
+              "tier": "primitive"
+            }
+          }
+        },
+        "72": {
+          "$value": {
+            "colorSpace": "srgb",
+            "components": [
+              0.980392,
+              0.980392,
+              0.980392
+            ],
+            "alpha": 0.72,
+            "hex": "#fafafa"
+          },
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-paper-alpha-72",
               "tier": "primitive"
             }
           }
@@ -1965,6 +2109,111 @@
             "tier": "primitive"
           }
         }
+      },
+      "control-bevel": {
+        "$value": [
+          {
+            "color": {
+              "colorSpace": "srgb",
+              "components": [
+                0.980392,
+                0.980392,
+                0.980392
+              ],
+              "alpha": 0.25,
+              "hex": "#fafafa"
+            },
+            "offsetX": {
+              "value": 0,
+              "unit": "px"
+            },
+            "offsetY": {
+              "value": 1,
+              "unit": "px"
+            },
+            "blur": {
+              "value": 1,
+              "unit": "px"
+            },
+            "spread": {
+              "value": 0,
+              "unit": "px"
+            },
+            "inset": true
+          },
+          {
+            "color": {
+              "colorSpace": "srgb",
+              "components": [
+                0.980392,
+                0.980392,
+                0.980392
+              ],
+              "alpha": 0.25,
+              "hex": "#fafafa"
+            },
+            "offsetX": {
+              "value": 0,
+              "unit": "px"
+            },
+            "offsetY": {
+              "value": -1,
+              "unit": "px"
+            },
+            "blur": {
+              "value": 1,
+              "unit": "px"
+            },
+            "spread": {
+              "value": 0,
+              "unit": "px"
+            },
+            "inset": true
+          }
+        ],
+        "$extensions": {
+          "com.klipse-design": {
+            "id": "shadow-control-bevel",
+            "tier": "primitive"
+          }
+        }
+      },
+      "control-gloss": {
+        "$value": {
+          "color": {
+            "colorSpace": "srgb",
+            "components": [
+              0.980392,
+              0.980392,
+              0.980392
+            ],
+            "alpha": 1,
+            "hex": "#fafafa"
+          },
+          "offsetX": {
+            "value": 0,
+            "unit": "px"
+          },
+          "offsetY": {
+            "value": 0,
+            "unit": "px"
+          },
+          "blur": {
+            "value": 8,
+            "unit": "px"
+          },
+          "spread": {
+            "value": 0,
+            "unit": "px"
+          },
+          "inset": true
+        },
+        "$extensions": {
+          "com.klipse-design": {
+            "id": "shadow-control-gloss",
+            "tier": "primitive"
+          }
+        }
       }
     },
     "layer": {
@@ -2557,6 +2806,26 @@
               "mode": "global"
             }
           }
+        },
+        "control-bevel": {
+          "$value": "{primitive.shadow.control-bevel}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "elevation-control-bevel",
+              "tier": "semantic",
+              "mode": "global"
+            }
+          }
+        },
+        "control-gloss": {
+          "$value": "{primitive.shadow.control-gloss}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "elevation-control-gloss",
+              "tier": "semantic",
+              "mode": "global"
+            }
+          }
         }
       },
       "layer": {
@@ -3084,6 +3353,66 @@
               "mode": "light"
             }
           }
+        },
+        "action-secondary-hover": {
+          "$value": "{primitive.color.ink-alpha.5}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-action-secondary-hover",
+              "tier": "semantic",
+              "mode": "light"
+            }
+          }
+        },
+        "action-ghost-hover": {
+          "$value": "{primitive.color.ink-alpha.8}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-action-ghost-hover",
+              "tier": "semantic",
+              "mode": "light"
+            }
+          }
+        },
+        "border-control": {
+          "$value": "{primitive.color.ink-alpha.12}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-border-control",
+              "tier": "semantic",
+              "mode": "light"
+            }
+          }
+        },
+        "action-danger": {
+          "$value": "{primitive.color.red.500}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-action-danger",
+              "tier": "semantic",
+              "mode": "light"
+            }
+          }
+        },
+        "foreground-on-danger": {
+          "$value": "{primitive.color.neutral.0}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-foreground-on-danger",
+              "tier": "semantic",
+              "mode": "light"
+            }
+          }
+        },
+        "action-secondary-foreground": {
+          "$value": "{primitive.color.neutral.600}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-action-secondary-foreground",
+              "tier": "semantic",
+              "mode": "light"
+            }
+          }
         }
       }
     },
@@ -3365,6 +3694,66 @@
           "$extensions": {
             "com.klipse-design": {
               "id": "color-status-info-foreground",
+              "tier": "semantic",
+              "mode": "dark"
+            }
+          }
+        },
+        "action-secondary-hover": {
+          "$value": "{primitive.color.paper-alpha.8}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-action-secondary-hover",
+              "tier": "semantic",
+              "mode": "dark"
+            }
+          }
+        },
+        "action-ghost-hover": {
+          "$value": "{primitive.color.paper-alpha.10}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-action-ghost-hover",
+              "tier": "semantic",
+              "mode": "dark"
+            }
+          }
+        },
+        "border-control": {
+          "$value": "{primitive.color.paper-alpha.16}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-border-control",
+              "tier": "semantic",
+              "mode": "dark"
+            }
+          }
+        },
+        "action-danger": {
+          "$value": "{primitive.color.red.500}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-action-danger",
+              "tier": "semantic",
+              "mode": "dark"
+            }
+          }
+        },
+        "foreground-on-danger": {
+          "$value": "{primitive.color.neutral.0}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-foreground-on-danger",
+              "tier": "semantic",
+              "mode": "dark"
+            }
+          }
+        },
+        "action-secondary-foreground": {
+          "$value": "{primitive.color.neutral.400}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-action-secondary-foreground",
               "tier": "semantic",
               "mode": "dark"
             }

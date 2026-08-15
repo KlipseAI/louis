@@ -365,6 +365,57 @@
           ]
         ],
         [
+          "color/ink-alpha/12",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
+          [
+            [
+              "Base",
+              null,
+              [
+                0.090196,
+                0.105882,
+                0.133333,
+                0.12
+              ]
+            ]
+          ]
+        ],
+        [
+          "color/ink-alpha/5",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
+          [
+            [
+              "Base",
+              null,
+              [
+                0.090196,
+                0.105882,
+                0.133333,
+                0.05
+              ]
+            ]
+          ]
+        ],
+        [
+          "color/ink-alpha/8",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
+          [
+            [
+              "Base",
+              null,
+              [
+                0.090196,
+                0.105882,
+                0.133333,
+                0.08
+              ]
+            ]
+          ]
+        ],
+        [
           "color/neutral/0",
           "COLOR",
           "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
@@ -581,6 +632,74 @@
                 0.105882,
                 0.133333,
                 1
+              ]
+            ]
+          ]
+        ],
+        [
+          "color/paper-alpha/10",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
+          [
+            [
+              "Base",
+              null,
+              [
+                0.980392,
+                0.980392,
+                0.980392,
+                0.1
+              ]
+            ]
+          ]
+        ],
+        [
+          "color/paper-alpha/16",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
+          [
+            [
+              "Base",
+              null,
+              [
+                0.980392,
+                0.980392,
+                0.980392,
+                0.16
+              ]
+            ]
+          ]
+        ],
+        [
+          "color/paper-alpha/72",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
+          [
+            [
+              "Base",
+              null,
+              [
+                0.980392,
+                0.980392,
+                0.980392,
+                0.72
+              ]
+            ]
+          ]
+        ],
+        [
+          "color/paper-alpha/8",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
+          [
+            [
+              "Base",
+              null,
+              [
+                0.980392,
+                0.980392,
+                0.980392,
+                0.08
               ]
             ]
           ]
@@ -1756,6 +1875,40 @@
       "defaultMode": "Light",
       "rows": [
         [
+          "color/action-danger",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL",
+          [
+            [
+              "Light",
+              "Klipse Primitive::color/red/500",
+              null
+            ],
+            [
+              "Dark",
+              "Klipse Primitive::color/red/500",
+              null
+            ]
+          ]
+        ],
+        [
+          "color/action-ghost-hover",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL",
+          [
+            [
+              "Light",
+              "Klipse Primitive::color/ink-alpha/8",
+              null
+            ],
+            [
+              "Dark",
+              "Klipse Primitive::color/paper-alpha/10",
+              null
+            ]
+          ]
+        ],
+        [
           "color/action-primary",
           "COLOR",
           "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
@@ -1802,6 +1955,40 @@
             [
               "Dark",
               "Klipse Primitive::color/blue/600",
+              null
+            ]
+          ]
+        ],
+        [
+          "color/action-secondary-foreground",
+          "COLOR",
+          "TEXT_FILL",
+          [
+            [
+              "Light",
+              "Klipse Primitive::color/neutral/600",
+              null
+            ],
+            [
+              "Dark",
+              "Klipse Primitive::color/neutral/400",
+              null
+            ]
+          ]
+        ],
+        [
+          "color/action-secondary-hover",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL",
+          [
+            [
+              "Light",
+              "Klipse Primitive::color/ink-alpha/5",
+              null
+            ],
+            [
+              "Dark",
+              "Klipse Primitive::color/paper-alpha/8",
               null
             ]
           ]
@@ -1909,6 +2096,23 @@
           ]
         ],
         [
+          "color/border-control",
+          "COLOR",
+          "STROKE_COLOR",
+          [
+            [
+              "Light",
+              "Klipse Primitive::color/ink-alpha/12",
+              null
+            ],
+            [
+              "Dark",
+              "Klipse Primitive::color/paper-alpha/16",
+              null
+            ]
+          ]
+        ],
+        [
           "color/border-default",
           "COLOR",
           "STROKE_COLOR",
@@ -1995,6 +2199,23 @@
         ],
         [
           "color/foreground-inverse",
+          "COLOR",
+          "TEXT_FILL",
+          [
+            [
+              "Light",
+              "Klipse Primitive::color/neutral/0",
+              null
+            ],
+            [
+              "Dark",
+              "Klipse Primitive::color/neutral/0",
+              null
+            ]
+          ]
+        ],
+        [
+          "color/foreground-on-danger",
           "COLOR",
           "TEXT_FILL",
           [
@@ -2450,6 +2671,47 @@
           0,
           0.06
         ]
+      },
+      "elevation/control-bevel": {
+        "layers": [
+          {
+            "offsetY": 1,
+            "blur": 1,
+            "spread": 0,
+            "inset": true,
+            "color": [
+              0.980392,
+              0.980392,
+              0.980392,
+              0.25
+            ]
+          },
+          {
+            "offsetY": -1,
+            "blur": 1,
+            "spread": 0,
+            "inset": true,
+            "color": [
+              0.980392,
+              0.980392,
+              0.980392,
+              0.25
+            ]
+          }
+        ]
+      },
+      "elevation/control-gloss": {
+        "type": "INNER_SHADOW",
+        "offsetY": 0,
+        "blur": 8,
+        "spread": 0,
+        "inset": true,
+        "color": [
+          0.980392,
+          0.980392,
+          0.980392,
+          1
+        ]
       }
     }
   },
@@ -2498,9 +2760,9 @@
         }
       },
       "binding": {
-        "boundFills": 74,
+        "boundFills": 68,
         "rawFills": 0,
-        "boundStrokes": 18,
+        "boundStrokes": 98,
         "rawStrokes": 0,
         "textStyled": 40,
         "textUnstyled": 0
@@ -2513,6 +2775,9 @@
             ],
             "RightIcon": [
               "20x20"
+            ],
+            "Gloss": [
+              "125x40"
             ],
             "Spinner": [
               "18x18"
@@ -2561,6 +2826,9 @@
             ],
             "RightIcon": [
               "16x16"
+            ],
+            "Gloss": [
+              "101x32"
             ],
             "Spinner": [
               "18x18"

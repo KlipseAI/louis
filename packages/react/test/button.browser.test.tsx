@@ -191,6 +191,19 @@ test("320px 컨테이너에서 KO/EN/JA 긴 라벨이 잘리지 않는다", asyn
  * 비워 두는 것이 기본이다. 여기 이름을 올린다는 것은 그 위반을 알고도 내보낸다는 뜻이므로
  * 사유를 반드시 남긴다. 목록을 쓰지 않고 테스트를 지우면 그 variant의 나머지 검출력까지 사라진다.
  *
+ * **네 variant 전부 color-contrast에 걸린다.** owner가 제품의 공용 Button을 정본으로 채택했고,
+ * 그 제품 Button이 네 variant 모두 WCAG 2.2 AA(4.5)에 미달하기 때문이다. axe 실측값이다.
+ *
+ * | variant | 전경 | 배경 | 대비 |
+ * | --- | --- | --- | --- |
+ * | primary | #fafafa | #0088ff | 3.37 |
+ * | secondary | #777d89 | 흰 배경 | 4.13 |
+ * | ghost | #777d89 | 흰 배경 | 4.13 |
+ * | danger | #fafafa | #ff4b59 | 3.14 |
+ *
+ * 이 미달은 제품이 이미 갖고 있는 것이고 DS가 그것을 그대로 재현한다. 사유는 token source의
+ * contrastPairs note와 design/components/button.md의 Known deviations에도 있다.
+ *
  * primary/color-contrast — owner가 제품 브랜드 블루(blue.500 #0088ff)를 정본으로 채택했다.
  * 흰 글자 대비가 3.37로 WCAG 2.2 AA의 4.5에 미달한다. 4.5를 넘는 첫 단계 blue.700(6.12)은
  * 제품에서 두 번밖에 쓰이지 않아 브랜드가 아니다. 이 미달은 제품이 이미 갖고 있으며 DS가 그것을
@@ -199,9 +212,9 @@ test("320px 컨테이너에서 KO/EN/JA 긴 라벨이 잘리지 않는다", asyn
  */
 const ALLOWED_VIOLATIONS: Readonly<Record<string, readonly string[]>> = {
   primary: ["color-contrast"],
-  secondary: [],
-  ghost: [],
-  danger: [],
+  secondary: ["color-contrast"],
+  ghost: ["color-contrast"],
+  danger: ["color-contrast"],
 };
 
 test("variant마다 접근성 위반이 없다 (알려진 것 제외)", async () => {

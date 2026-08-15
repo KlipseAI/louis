@@ -1753,12 +1753,18 @@ function normalizeShadow(value, path, issues) {
       issues.push(`${layerPath}는 shadow object여야 합니다.`);
       return undefined;
     }
+    // inset은 DTCG 2025.10 shadow의 선택 property다. 없으면 바깥 그림자다.
     requireExactProperties(
       layer,
-      ["blur", "color", "offsetX", "offsetY", "spread"],
+      Object.hasOwn(layer, "inset")
+        ? ["blur", "color", "inset", "offsetX", "offsetY", "spread"]
+        : ["blur", "color", "offsetX", "offsetY", "spread"],
       layerPath,
       issues,
     );
+    if (Object.hasOwn(layer, "inset") && typeof layer.inset !== "boolean") {
+      issues.push(`${layerPath}.inset은 boolean이어야 합니다.`);
+    }
     const blur = normalizeDimension(layer.blur, `${layerPath}.blur`, issues);
     if (blur && blur.value < 0)
       issues.push(`${layerPath}.blur는 0 이상이어야 합니다.`);
@@ -1776,6 +1782,7 @@ function normalizeShadow(value, path, issues) {
       ),
       blur,
       spread: normalizeDimension(layer.spread, `${layerPath}.spread`, issues),
+      inset: layer.inset === true,
     };
   });
   return Array.isArray(value) ? normalized : normalized[0];
@@ -1987,6 +1994,7 @@ function renderTypes(model) {
     "  readonly offsetY: DimensionValue;",
     "  readonly blur: DimensionValue;",
     "  readonly spread: DimensionValue;",
+    "  readonly inset: boolean;",
     "}",
     "export interface TypographyValue {",
     "  readonly fontFamily: string | readonly string[];",
@@ -2204,6 +2212,16 @@ function figmaNativeTypeForToken(type, representation) {
 }
 
 function figmaCompositeFields(value) {
+  // 다층 shadow는 배열이다. 겹마다 같은 필드를 가지므로 합집합을 쓴다 — 빈 배열을 돌려주면
+  // "style인데 fields가 없다"로 분류 계약이 깨진다.
+  if (Array.isArray(value)) {
+    const union = new Set();
+    for (const layer of value) {
+      if (!isPlainObject(layer)) continue;
+      for (const key of Object.keys(layer)) union.add(key);
+    }
+    return [...union].sort(compareStrings);
+  }
   return isPlainObject(value) ? Object.keys(value).sort(compareStrings) : [];
 }
 
@@ -2315,6 +2333,8 @@ function cssShadow(value) {
   return layers
     .map((layer) =>
       [
+        // CSS는 inset을 값 앞이나 뒤 어디에 둬도 되지만 앞이 관례다.
+        ...(layer.inset ? ["inset"] : []),
         cssDimension(layer.offsetX),
         cssDimension(layer.offsetY),
         cssDimension(layer.blur),

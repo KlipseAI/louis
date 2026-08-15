@@ -173,14 +173,19 @@ for (const [figmaName, style] of Object.entries(readback.styles?.effect ?? {})) 
     failures.push(`proposal에 없는 effect style입니다: ${figmaName}`);
     continue;
   }
-  stylesOut.effect[figmaName] = {
-    tokenId,
-    type: style.type,
-    offsetY: style.offsetY,
-    blur: style.blur,
-    spread: style.spread,
-    color: style.color.map(round6),
-  };
+  // effect style은 한 겹일 수도 여러 겹일 수도 있다. 여러 겹이면 readback이 layers 배열로 담고
+  // parity도 겹 수와 순서를 그대로 비교한다 — 겹이 빠지면 시각이 달라진다.
+  const layer = (item) => ({
+    offsetY: item.offsetY,
+    blur: item.blur,
+    spread: item.spread,
+    // inset이 없는 예전 행은 바깥 그림자다.
+    inset: item.inset === true,
+    color: item.color.map(round6),
+  });
+  stylesOut.effect[figmaName] = Array.isArray(style.layers)
+    ? { tokenId, layers: style.layers.map(layer) }
+    : { tokenId, type: style.type, ...layer(style) };
 }
 
 const componentsOut = {};

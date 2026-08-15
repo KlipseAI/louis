@@ -3,21 +3,27 @@
 :root,
 [data-theme="light"] {
   color-scheme: light;
+  --kds-color-action-danger: color(srgb 1 0.294118 0.34902 / 1);
+  --kds-color-action-ghost-hover: color(srgb 0.090196 0.105882 0.133333 / 0.08);
   --kds-color-action-primary: color(srgb 0 0.533333 1 / 1);
   --kds-color-action-primary-hover: color(srgb 0.219608 0.643137 1 / 1);
   --kds-color-action-primary-pressed: color(srgb 0 0.458824 0.858824 / 1);
+  --kds-color-action-secondary-foreground: color(srgb 0.466667 0.490196 0.537255 / 1);
+  --kds-color-action-secondary-hover: color(srgb 0.090196 0.105882 0.133333 / 0.05);
   --kds-color-background-canvas: color(srgb 0.945098 0.945098 0.952941 / 1);
   --kds-color-background-inset: color(srgb 0.917647 0.921569 0.933333 / 1);
   --kds-color-background-inverse: color(srgb 0.192157 0.211765 0.25098 / 1);
   --kds-color-background-overlay: color(srgb 0.980392 0.980392 0.980392 / 1);
   --kds-color-background-raised: color(srgb 0.980392 0.980392 0.980392 / 1);
   --kds-color-background-surface: color(srgb 0.980392 0.980392 0.980392 / 1);
+  --kds-color-border-control: color(srgb 0.090196 0.105882 0.133333 / 0.12);
   --kds-color-border-default: color(srgb 0.835294 0.843137 0.866667 / 1);
   --kds-color-border-focus: color(srgb 0 0.533333 1 / 1);
   --kds-color-border-strong: color(srgb 0.603922 0.627451 0.670588 / 1);
   --kds-color-border-subtle: color(srgb 0.890196 0.894118 0.909804 / 1);
   --kds-color-foreground-disabled: color(srgb 0.603922 0.627451 0.670588 / 1);
   --kds-color-foreground-inverse: color(srgb 0.980392 0.980392 0.980392 / 1);
+  --kds-color-foreground-on-danger: color(srgb 0.980392 0.980392 0.980392 / 1);
   --kds-color-foreground-on-inverse: color(srgb 0.980392 0.980392 0.980392 / 1);
   --kds-color-foreground-primary: color(srgb 0.090196 0.105882 0.133333 / 1);
   --kds-color-foreground-secondary: color(srgb 0.341176 0.364706 0.407843 / 1);
@@ -31,6 +37,8 @@
   --kds-color-status-success-foreground: color(srgb 0.043137 0.239216 0.094118 / 1);
   --kds-color-status-warning-background: color(srgb 1 0.960784 0.839216 / 1);
   --kds-color-status-warning-foreground: color(srgb 0.360784 0.239216 0 / 1);
+  --kds-elevation-control-bevel: inset 0px 1px 1px 0px color(srgb 0.980392 0.980392 0.980392 / 0.25), inset 0px -1px 1px 0px color(srgb 0.980392 0.980392 0.980392 / 0.25);
+  --kds-elevation-control-gloss: inset 0px 0px 8px 0px color(srgb 0.980392 0.980392 0.980392 / 1);
   --kds-elevation-focus-ring: 0px 0px 0px 3px color(srgb 0 0.533333 1 / 0.42);
   --kds-elevation-modal: 0px 16px 48px -8px color(srgb 0 0 0 / 0.22);
   --kds-elevation-popover: 0px 8px 24px -4px color(srgb 0 0 0 / 0.14);
@@ -159,21 +167,27 @@
 
 [data-theme="dark"] {
   color-scheme: dark;
+  --kds-color-action-danger: color(srgb 1 0.294118 0.34902 / 1);
+  --kds-color-action-ghost-hover: color(srgb 0.980392 0.980392 0.980392 / 0.1);
   --kds-color-action-primary: color(srgb 0 0.533333 1 / 1);
   --kds-color-action-primary-hover: color(srgb 0.219608 0.643137 1 / 1);
   --kds-color-action-primary-pressed: color(srgb 0 0.458824 0.858824 / 1);
+  --kds-color-action-secondary-foreground: color(srgb 0.737255 0.752941 0.788235 / 1);
+  --kds-color-action-secondary-hover: color(srgb 0.980392 0.980392 0.980392 / 0.08);
   --kds-color-background-canvas: color(srgb 0.090196 0.105882 0.133333 / 1);
   --kds-color-background-inset: color(srgb 0.192157 0.211765 0.25098 / 1);
   --kds-color-background-inverse: color(srgb 0.890196 0.894118 0.909804 / 1);
   --kds-color-background-overlay: color(srgb 0.192157 0.211765 0.25098 / 1);
   --kds-color-background-raised: color(srgb 0.341176 0.364706 0.407843 / 1);
   --kds-color-background-surface: color(srgb 0.192157 0.211765 0.25098 / 1);
+  --kds-color-border-control: color(srgb 0.980392 0.980392 0.980392 / 0.16);
   --kds-color-border-default: color(srgb 0.466667 0.490196 0.537255 / 1);
   --kds-color-border-focus: color(srgb 0.219608 0.643137 1 / 1);
   --kds-color-border-strong: color(srgb 0.603922 0.627451 0.670588 / 1);
   --kds-color-border-subtle: color(srgb 0.341176 0.364706 0.407843 / 1);
   --kds-color-foreground-disabled: color(srgb 0.466667 0.490196 0.537255 / 1);
   --kds-color-foreground-inverse: color(srgb 0.980392 0.980392 0.980392 / 1);
+  --kds-color-foreground-on-danger: color(srgb 0.980392 0.980392 0.980392 / 1);
   --kds-color-foreground-on-inverse: color(srgb 0.090196 0.105882 0.133333 / 1);
   --kds-color-foreground-primary: color(srgb 0.980392 0.980392 0.980392 / 1);
   --kds-color-foreground-secondary: color(srgb 0.835294 0.843137 0.866667 / 1);

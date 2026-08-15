@@ -55,6 +55,18 @@ export const metadata = Object.freeze({
       "foreground": "color-foreground-inverse",
       "minimum": 4,
       "note": "pressed 면(blue.600)은 대비 4.41로 AA에 근소하게 미달한다. hover가 밝아지므로 pressed는 어두워져 두 상태를 구분한다. 기본 면과 같은 사유로 미달을 수용한다."
+    },
+    {
+      "background": "color-action-danger",
+      "foreground": "color-foreground-on-danger",
+      "minimum": 3,
+      "note": "제품의 danger는 solid #ff4b59에 흰 글자이고 대비가 3.14로 WCAG AA 4.5에 미달한다. owner가 제품 공용 컴포넌트를 정본으로 택했고 이 미달은 제품이 이미 갖고 있는 것이다. 해소하려면 면을 어둡게(red.600 이하) 하거나 라벨을 크게 해야 하며 둘 다 브랜드 판정 대상이다."
+    },
+    {
+      "background": "color-background-canvas",
+      "foreground": "color-action-secondary-foreground",
+      "minimum": 3.5,
+      "note": "제품의 secondary·ghost 전경은 gray-600 #777d89이고 흰 배경 대비 4.13, DS canvas 대비 3.67로 WCAG AA 4.5에 미달한다. 제품 값을 정본으로 채택한 결과다. 한 단계 진한 neutral.700을 쓰면 6.35로 통과하지만 제품과 달라진다. 다크 모드는 제품이 알파(paper-alpha 72)를 쓰는데 알파 전경은 배경에 따라 대비가 달라져 게이트가 잴 수 없으므로 가장 가까운 불투명 단계 neutral.400을 쓴다."
     }
   ],
   "description": "Klipse Design의 DTCG 2025.10 기반 토큰 정본",
@@ -743,6 +755,96 @@ export const primitives = {
       "alpha": 1
     }
   },
+  "color-ink-alpha-12": {
+    "aliasTarget": null,
+    "cssProperties": {},
+    "deprecated": null,
+    "description": null,
+    "id": "color-ink-alpha-12",
+    "mode": "base",
+    "rawValue": {
+      "colorSpace": "srgb",
+      "components": [
+        0.090196,
+        0.105882,
+        0.133333
+      ],
+      "alpha": 0.12,
+      "hex": "#171b22"
+    },
+    "sourcePath": "primitive.color.ink-alpha.12",
+    "tier": "primitive",
+    "type": "color",
+    "value": {
+      "colorSpace": "srgb",
+      "components": [
+        0.090196,
+        0.105882,
+        0.133333
+      ],
+      "alpha": 0.12
+    }
+  },
+  "color-ink-alpha-5": {
+    "aliasTarget": null,
+    "cssProperties": {},
+    "deprecated": null,
+    "description": null,
+    "id": "color-ink-alpha-5",
+    "mode": "base",
+    "rawValue": {
+      "colorSpace": "srgb",
+      "components": [
+        0.090196,
+        0.105882,
+        0.133333
+      ],
+      "alpha": 0.05,
+      "hex": "#171b22"
+    },
+    "sourcePath": "primitive.color.ink-alpha.5",
+    "tier": "primitive",
+    "type": "color",
+    "value": {
+      "colorSpace": "srgb",
+      "components": [
+        0.090196,
+        0.105882,
+        0.133333
+      ],
+      "alpha": 0.05
+    }
+  },
+  "color-ink-alpha-8": {
+    "aliasTarget": null,
+    "cssProperties": {},
+    "deprecated": null,
+    "description": null,
+    "id": "color-ink-alpha-8",
+    "mode": "base",
+    "rawValue": {
+      "colorSpace": "srgb",
+      "components": [
+        0.090196,
+        0.105882,
+        0.133333
+      ],
+      "alpha": 0.08,
+      "hex": "#171b22"
+    },
+    "sourcePath": "primitive.color.ink-alpha.8",
+    "tier": "primitive",
+    "type": "color",
+    "value": {
+      "colorSpace": "srgb",
+      "components": [
+        0.090196,
+        0.105882,
+        0.133333
+      ],
+      "alpha": 0.08
+    }
+  },
   "color-neutral-0": {
     "aliasTarget": null,
     "cssProperties": {},
@@ -1118,6 +1220,126 @@ export const primitives = {
         0.133333
       ],
       "alpha": 1
+    }
+  },
+  "color-paper-alpha-10": {
+    "aliasTarget": null,
+    "cssProperties": {},
+    "deprecated": null,
+    "description": null,
+    "id": "color-paper-alpha-10",
+    "mode": "base",
+    "rawValue": {
+      "colorSpace": "srgb",
+      "components": [
+        0.980392,
+        0.980392,
+        0.980392
+      ],
+      "alpha": 0.1,
+      "hex": "#fafafa"
+    },
+    "sourcePath": "primitive.color.paper-alpha.10",
+    "tier": "primitive",
+    "type": "color",
+    "value": {
+      "colorSpace": "srgb",
+      "components": [
+        0.980392,
+        0.980392,
+        0.980392
+      ],
+      "alpha": 0.1
+    }
+  },
+  "color-paper-alpha-16": {
+    "aliasTarget": null,
+    "cssProperties": {},
+    "deprecated": null,
+    "description": null,
+    "id": "color-paper-alpha-16",
+    "mode": "base",
+    "rawValue": {
+      "colorSpace": "srgb",
+      "components": [
+        0.980392,
+        0.980392,
+        0.980392
+      ],
+      "alpha": 0.16,
+      "hex": "#fafafa"
+    },
+    "sourcePath": "primitive.color.paper-alpha.16",
+    "tier": "primitive",
+    "type": "color",
+    "value": {
+      "colorSpace": "srgb",
+      "components": [
+        0.980392,
+        0.980392,
+        0.980392
+      ],
+      "alpha": 0.16
+    }
+  },
+  "color-paper-alpha-72": {
+    "aliasTarget": null,
+    "cssProperties": {},
+    "deprecated": null,
+    "description": null,
+    "id": "color-paper-alpha-72",
+    "mode": "base",
+    "rawValue": {
+      "colorSpace": "srgb",
+      "components": [
+        0.980392,
+        0.980392,
+        0.980392
+      ],
+      "alpha": 0.72,
+      "hex": "#fafafa"
+    },
+    "sourcePath": "primitive.color.paper-alpha.72",
+    "tier": "primitive",
+    "type": "color",
+    "value": {
+      "colorSpace": "srgb",
+      "components": [
+        0.980392,
+        0.980392,
+        0.980392
+      ],
+      "alpha": 0.72
+    }
+  },
+  "color-paper-alpha-8": {
+    "aliasTarget": null,
+    "cssProperties": {},
+    "deprecated": null,
+    "description": null,
+    "id": "color-paper-alpha-8",
+    "mode": "base",
+    "rawValue": {
+      "colorSpace": "srgb",
+      "components": [
+        0.980392,
+        0.980392,
+        0.980392
+      ],
+      "alpha": 0.08,
+      "hex": "#fafafa"
+    },
+    "sourcePath": "primitive.color.paper-alpha.8",
+    "tier": "primitive",
+    "type": "color",
+    "value": {
+      "colorSpace": "srgb",
+      "components": [
+        0.980392,
+        0.980392,
+        0.980392
+      ],
+      "alpha": 0.08
     }
   },
   "color-red-100": {
@@ -1947,6 +2169,203 @@ export const primitives = {
       "unit": "px"
     }
   },
+  "shadow-control-bevel": {
+    "aliasTarget": null,
+    "cssProperties": {},
+    "deprecated": null,
+    "description": null,
+    "id": "shadow-control-bevel",
+    "mode": "base",
+    "rawValue": [
+      {
+        "color": {
+          "colorSpace": "srgb",
+          "components": [
+            0.980392,
+            0.980392,
+            0.980392
+          ],
+          "alpha": 0.25,
+          "hex": "#fafafa"
+        },
+        "offsetX": {
+          "value": 0,
+          "unit": "px"
+        },
+        "offsetY": {
+          "value": 1,
+          "unit": "px"
+        },
+        "blur": {
+          "value": 1,
+          "unit": "px"
+        },
+        "spread": {
+          "value": 0,
+          "unit": "px"
+        },
+        "inset": true
+      },
+      {
+        "color": {
+          "colorSpace": "srgb",
+          "components": [
+            0.980392,
+            0.980392,
+            0.980392
+          ],
+          "alpha": 0.25,
+          "hex": "#fafafa"
+        },
+        "offsetX": {
+          "value": 0,
+          "unit": "px"
+        },
+        "offsetY": {
+          "value": -1,
+          "unit": "px"
+        },
+        "blur": {
+          "value": 1,
+          "unit": "px"
+        },
+        "spread": {
+          "value": 0,
+          "unit": "px"
+        },
+        "inset": true
+      }
+    ],
+    "sourcePath": "primitive.shadow.control-bevel",
+    "tier": "primitive",
+    "type": "shadow",
+    "value": [
+      {
+        "color": {
+          "colorSpace": "srgb",
+          "components": [
+            0.980392,
+            0.980392,
+            0.980392
+          ],
+          "alpha": 0.25
+        },
+        "offsetX": {
+          "value": 0,
+          "unit": "px"
+        },
+        "offsetY": {
+          "value": 1,
+          "unit": "px"
+        },
+        "blur": {
+          "value": 1,
+          "unit": "px"
+        },
+        "spread": {
+          "value": 0,
+          "unit": "px"
+        },
+        "inset": true
+      },
+      {
+        "color": {
+          "colorSpace": "srgb",
+          "components": [
+            0.980392,
+            0.980392,
+            0.980392
+          ],
+          "alpha": 0.25
+        },
+        "offsetX": {
+          "value": 0,
+          "unit": "px"
+        },
+        "offsetY": {
+          "value": -1,
+          "unit": "px"
+        },
+        "blur": {
+          "value": 1,
+          "unit": "px"
+        },
+        "spread": {
+          "value": 0,
+          "unit": "px"
+        },
+        "inset": true
+      }
+    ]
+  },
+  "shadow-control-gloss": {
+    "aliasTarget": null,
+    "cssProperties": {},
+    "deprecated": null,
+    "description": null,
+    "id": "shadow-control-gloss",
+    "mode": "base",
+    "rawValue": {
+      "color": {
+        "colorSpace": "srgb",
+        "components": [
+          0.980392,
+          0.980392,
+          0.980392
+        ],
+        "alpha": 1,
+        "hex": "#fafafa"
+      },
+      "offsetX": {
+        "value": 0,
+        "unit": "px"
+      },
+      "offsetY": {
+        "value": 0,
+        "unit": "px"
+      },
+      "blur": {
+        "value": 8,
+        "unit": "px"
+      },
+      "spread": {
+        "value": 0,
+        "unit": "px"
+      },
+      "inset": true
+    },
+    "sourcePath": "primitive.shadow.control-gloss",
+    "tier": "primitive",
+    "type": "shadow",
+    "value": {
+      "color": {
+        "colorSpace": "srgb",
+        "components": [
+          0.980392,
+          0.980392,
+          0.980392
+        ],
+        "alpha": 1
+      },
+      "offsetX": {
+        "value": 0,
+        "unit": "px"
+      },
+      "offsetY": {
+        "value": 0,
+        "unit": "px"
+      },
+      "blur": {
+        "value": 8,
+        "unit": "px"
+      },
+      "spread": {
+        "value": 0,
+        "unit": "px"
+      },
+      "inset": true
+    }
+  },
   "shadow-focus-ring": {
     "aliasTarget": null,
     "cssProperties": {},
@@ -2010,7 +2429,8 @@ export const primitives = {
       "spread": {
         "value": 3,
         "unit": "px"
-      }
+      },
+      "inset": false
     }
   },
   "shadow-modal": {
@@ -2076,7 +2496,8 @@ export const primitives = {
       "spread": {
         "value": -8,
         "unit": "px"
-      }
+      },
+      "inset": false
     }
   },
   "shadow-popover": {
@@ -2142,7 +2563,8 @@ export const primitives = {
       "spread": {
         "value": -4,
         "unit": "px"
-      }
+      },
+      "inset": false
     }
   },
   "shadow-surface": {
@@ -2208,7 +2630,8 @@ export const primitives = {
       "spread": {
         "value": 0,
         "unit": "px"
-      }
+      },
+      "inset": false
     }
   },
   "space-0": {
@@ -3585,6 +4008,126 @@ export const primitives = {
 };
 export const tokens = {
   "global": {
+    "elevation-control-bevel": {
+      "aliasTarget": {
+        "id": "shadow-control-bevel",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-elevation-control-bevel": "inset 0px 1px 1px 0px color(srgb 0.980392 0.980392 0.980392 / 0.25), inset 0px -1px 1px 0px color(srgb 0.980392 0.980392 0.980392 / 0.25)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "elevation-control-bevel",
+      "mode": "global",
+      "rawValue": "{primitive.shadow.control-bevel}",
+      "sourcePath": "semantic.global.elevation.control-bevel",
+      "tier": "semantic",
+      "type": "shadow",
+      "value": [
+        {
+          "color": {
+            "colorSpace": "srgb",
+            "components": [
+              0.980392,
+              0.980392,
+              0.980392
+            ],
+            "alpha": 0.25
+          },
+          "offsetX": {
+            "value": 0,
+            "unit": "px"
+          },
+          "offsetY": {
+            "value": 1,
+            "unit": "px"
+          },
+          "blur": {
+            "value": 1,
+            "unit": "px"
+          },
+          "spread": {
+            "value": 0,
+            "unit": "px"
+          },
+          "inset": true
+        },
+        {
+          "color": {
+            "colorSpace": "srgb",
+            "components": [
+              0.980392,
+              0.980392,
+              0.980392
+            ],
+            "alpha": 0.25
+          },
+          "offsetX": {
+            "value": 0,
+            "unit": "px"
+          },
+          "offsetY": {
+            "value": -1,
+            "unit": "px"
+          },
+          "blur": {
+            "value": 1,
+            "unit": "px"
+          },
+          "spread": {
+            "value": 0,
+            "unit": "px"
+          },
+          "inset": true
+        }
+      ]
+    },
+    "elevation-control-gloss": {
+      "aliasTarget": {
+        "id": "shadow-control-gloss",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-elevation-control-gloss": "inset 0px 0px 8px 0px color(srgb 0.980392 0.980392 0.980392 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "elevation-control-gloss",
+      "mode": "global",
+      "rawValue": "{primitive.shadow.control-gloss}",
+      "sourcePath": "semantic.global.elevation.control-gloss",
+      "tier": "semantic",
+      "type": "shadow",
+      "value": {
+        "color": {
+          "colorSpace": "srgb",
+          "components": [
+            0.980392,
+            0.980392,
+            0.980392
+          ],
+          "alpha": 1
+        },
+        "offsetX": {
+          "value": 0,
+          "unit": "px"
+        },
+        "offsetY": {
+          "value": 0,
+          "unit": "px"
+        },
+        "blur": {
+          "value": 8,
+          "unit": "px"
+        },
+        "spread": {
+          "value": 0,
+          "unit": "px"
+        },
+        "inset": true
+      }
+    },
     "elevation-focus-ring": {
       "aliasTarget": {
         "id": "shadow-focus-ring",
@@ -3626,7 +4169,8 @@ export const tokens = {
         "spread": {
           "value": 3,
           "unit": "px"
-        }
+        },
+        "inset": false
       }
     },
     "elevation-modal": {
@@ -3670,7 +4214,8 @@ export const tokens = {
         "spread": {
           "value": -8,
           "unit": "px"
-        }
+        },
+        "inset": false
       }
     },
     "elevation-popover": {
@@ -3714,7 +4259,8 @@ export const tokens = {
         "spread": {
           "value": -4,
           "unit": "px"
-        }
+        },
+        "inset": false
       }
     },
     "elevation-surface": {
@@ -3758,7 +4304,8 @@ export const tokens = {
         "spread": {
           "value": 0,
           "unit": "px"
-        }
+        },
+        "inset": false
       }
     },
     "icon-size-lg": {
@@ -5183,6 +5730,58 @@ export const tokens = {
     }
   },
   "light": {
+    "color-action-danger": {
+      "aliasTarget": {
+        "id": "color-red-500",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-color-action-danger": "color(srgb 1 0.294118 0.34902 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-action-danger",
+      "mode": "light",
+      "rawValue": "{primitive.color.red.500}",
+      "sourcePath": "semantic.light.color.action-danger",
+      "tier": "semantic",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.294118,
+          0.34902
+        ],
+        "alpha": 1
+      }
+    },
+    "color-action-ghost-hover": {
+      "aliasTarget": {
+        "id": "color-ink-alpha-8",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-color-action-ghost-hover": "color(srgb 0.090196 0.105882 0.133333 / 0.08)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-action-ghost-hover",
+      "mode": "light",
+      "rawValue": "{primitive.color.ink-alpha.8}",
+      "sourcePath": "semantic.light.color.action-ghost-hover",
+      "tier": "semantic",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.090196,
+          0.105882,
+          0.133333
+        ],
+        "alpha": 0.08
+      }
+    },
     "color-action-primary": {
       "aliasTarget": {
         "id": "color-blue-500",
@@ -5259,6 +5858,58 @@ export const tokens = {
           0.858824
         ],
         "alpha": 1
+      }
+    },
+    "color-action-secondary-foreground": {
+      "aliasTarget": {
+        "id": "color-neutral-600",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-color-action-secondary-foreground": "color(srgb 0.466667 0.490196 0.537255 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-action-secondary-foreground",
+      "mode": "light",
+      "rawValue": "{primitive.color.neutral.600}",
+      "sourcePath": "semantic.light.color.action-secondary-foreground",
+      "tier": "semantic",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.466667,
+          0.490196,
+          0.537255
+        ],
+        "alpha": 1
+      }
+    },
+    "color-action-secondary-hover": {
+      "aliasTarget": {
+        "id": "color-ink-alpha-5",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-color-action-secondary-hover": "color(srgb 0.090196 0.105882 0.133333 / 0.05)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-action-secondary-hover",
+      "mode": "light",
+      "rawValue": "{primitive.color.ink-alpha.5}",
+      "sourcePath": "semantic.light.color.action-secondary-hover",
+      "tier": "semantic",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.090196,
+          0.105882,
+          0.133333
+        ],
+        "alpha": 0.05
       }
     },
     "color-background-canvas": {
@@ -5417,6 +6068,32 @@ export const tokens = {
         "alpha": 1
       }
     },
+    "color-border-control": {
+      "aliasTarget": {
+        "id": "color-ink-alpha-12",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-color-border-control": "color(srgb 0.090196 0.105882 0.133333 / 0.12)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-border-control",
+      "mode": "light",
+      "rawValue": "{primitive.color.ink-alpha.12}",
+      "sourcePath": "semantic.light.color.border-control",
+      "tier": "semantic",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.090196,
+          0.105882,
+          0.133333
+        ],
+        "alpha": 0.12
+      }
+    },
     "color-border-default": {
       "aliasTarget": {
         "id": "color-neutral-300",
@@ -5561,6 +6238,32 @@ export const tokens = {
       "mode": "light",
       "rawValue": "{primitive.color.neutral.0}",
       "sourcePath": "semantic.light.color.foreground-inverse",
+      "tier": "semantic",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.980392,
+          0.980392,
+          0.980392
+        ],
+        "alpha": 1
+      }
+    },
+    "color-foreground-on-danger": {
+      "aliasTarget": {
+        "id": "color-neutral-0",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-color-foreground-on-danger": "color(srgb 0.980392 0.980392 0.980392 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-foreground-on-danger",
+      "mode": "light",
+      "rawValue": "{primitive.color.neutral.0}",
+      "sourcePath": "semantic.light.color.foreground-on-danger",
       "tier": "semantic",
       "type": "color",
       "value": {
@@ -5913,6 +6616,58 @@ export const tokens = {
     }
   },
   "dark": {
+    "color-action-danger": {
+      "aliasTarget": {
+        "id": "color-red-500",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-color-action-danger": "color(srgb 1 0.294118 0.34902 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-action-danger",
+      "mode": "dark",
+      "rawValue": "{primitive.color.red.500}",
+      "sourcePath": "semantic.dark.color.action-danger",
+      "tier": "semantic",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.294118,
+          0.34902
+        ],
+        "alpha": 1
+      }
+    },
+    "color-action-ghost-hover": {
+      "aliasTarget": {
+        "id": "color-paper-alpha-10",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-color-action-ghost-hover": "color(srgb 0.980392 0.980392 0.980392 / 0.1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-action-ghost-hover",
+      "mode": "dark",
+      "rawValue": "{primitive.color.paper-alpha.10}",
+      "sourcePath": "semantic.dark.color.action-ghost-hover",
+      "tier": "semantic",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.980392,
+          0.980392,
+          0.980392
+        ],
+        "alpha": 0.1
+      }
+    },
     "color-action-primary": {
       "aliasTarget": {
         "id": "color-blue-500",
@@ -5989,6 +6744,58 @@ export const tokens = {
           0.858824
         ],
         "alpha": 1
+      }
+    },
+    "color-action-secondary-foreground": {
+      "aliasTarget": {
+        "id": "color-neutral-400",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-color-action-secondary-foreground": "color(srgb 0.737255 0.752941 0.788235 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-action-secondary-foreground",
+      "mode": "dark",
+      "rawValue": "{primitive.color.neutral.400}",
+      "sourcePath": "semantic.dark.color.action-secondary-foreground",
+      "tier": "semantic",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.737255,
+          0.752941,
+          0.788235
+        ],
+        "alpha": 1
+      }
+    },
+    "color-action-secondary-hover": {
+      "aliasTarget": {
+        "id": "color-paper-alpha-8",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-color-action-secondary-hover": "color(srgb 0.980392 0.980392 0.980392 / 0.08)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-action-secondary-hover",
+      "mode": "dark",
+      "rawValue": "{primitive.color.paper-alpha.8}",
+      "sourcePath": "semantic.dark.color.action-secondary-hover",
+      "tier": "semantic",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.980392,
+          0.980392,
+          0.980392
+        ],
+        "alpha": 0.08
       }
     },
     "color-background-canvas": {
@@ -6147,6 +6954,32 @@ export const tokens = {
         "alpha": 1
       }
     },
+    "color-border-control": {
+      "aliasTarget": {
+        "id": "color-paper-alpha-16",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-color-border-control": "color(srgb 0.980392 0.980392 0.980392 / 0.16)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-border-control",
+      "mode": "dark",
+      "rawValue": "{primitive.color.paper-alpha.16}",
+      "sourcePath": "semantic.dark.color.border-control",
+      "tier": "semantic",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.980392,
+          0.980392,
+          0.980392
+        ],
+        "alpha": 0.16
+      }
+    },
     "color-border-default": {
       "aliasTarget": {
         "id": "color-neutral-600",
@@ -6291,6 +7124,32 @@ export const tokens = {
       "mode": "dark",
       "rawValue": "{primitive.color.neutral.0}",
       "sourcePath": "semantic.dark.color.foreground-inverse",
+      "tier": "semantic",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.980392,
+          0.980392,
+          0.980392
+        ],
+        "alpha": 1
+      }
+    },
+    "color-foreground-on-danger": {
+      "aliasTarget": {
+        "id": "color-neutral-0",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-color-foreground-on-danger": "color(srgb 0.980392 0.980392 0.980392 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-foreground-on-danger",
+      "mode": "dark",
+      "rawValue": "{primitive.color.neutral.0}",
+      "sourcePath": "semantic.dark.color.foreground-on-danger",
       "tier": "semantic",
       "type": "color",
       "value": {

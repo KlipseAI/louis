@@ -295,14 +295,21 @@ function styleAttributes(representation, resolved) {
       letterSpacingPx: resolved.letterSpacing.value,
     };
   }
-  const [r, g, b] = resolved.color.components;
+  // shadow는 한 겹일 수도 여러 겹일 수도 있다 (DTCG). Figma effect style도 effect 배열이므로
+  // 겹 수와 순서를 그대로 비교한다 — 겹이 빠지면 시각이 달라진다.
   const round = (value) => Math.round(value * 1e6) / 1e6;
-  return {
-    offsetY: resolved.offsetY.value,
-    blur: resolved.blur.value,
-    spread: resolved.spread.value,
-    color: [round(r), round(g), round(b), resolved.color.alpha ?? 1],
+  const layer = (item) => {
+    const [r, g, b] = item.color.components;
+    return {
+      offsetY: item.offsetY.value,
+      blur: item.blur.value,
+      spread: item.spread.value,
+      inset: item.inset === true,
+      color: [round(r), round(g), round(b), item.color.alpha ?? 1],
+    };
   };
+  if (Array.isArray(resolved)) return { layers: resolved.map(layer) };
+  return layer(resolved);
 }
 
 function compare(document, expected) {
@@ -1008,7 +1015,23 @@ function valueEqual(left, right) {
   if (Array.isArray(left) && Array.isArray(right)) {
     return (
       left.length === right.length &&
-      left.every((value, index) => nearlyEqual(value, right[index]))
+      left.every((value, index) => valueEqual(value, right[index]))
+    );
+  }
+  // 다층 shadow가 들어오면서 배열 원소가 숫자가 아니라 object가 됐다. 재귀하지 않으면
+  // 값이 같아도 nearlyEqual(object, object)가 false를 돌려준다 — 실제로 그렇게 걸렸다.
+  if (
+    left !== null &&
+    right !== null &&
+    typeof left === "object" &&
+    typeof right === "object"
+  ) {
+    const leftKeys = Object.keys(left).sort();
+    const rightKeys = Object.keys(right).sort();
+    return (
+      leftKeys.length === rightKeys.length &&
+      leftKeys.every((key, index) => key === rightKeys[index]) &&
+      leftKeys.every((key) => valueEqual(left[key], right[key]))
     );
   }
   if (typeof left === "number" && typeof right === "number") {

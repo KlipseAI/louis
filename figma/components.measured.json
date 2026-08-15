@@ -65,27 +65,27 @@
         },
         "secondary": {
           "Default": {
-            "background": "color-background-surface",
-            "foreground": "color-foreground-primary",
-            "border": "color-border-default"
+            "background": null,
+            "foreground": "color-action-secondary-foreground",
+            "border": "color-border-control"
           },
           "Hover": {
-            "background": "color-background-inset",
-            "foreground": "color-foreground-primary",
-            "border": "color-border-default"
+            "background": "color-action-secondary-hover",
+            "foreground": "color-action-secondary-foreground",
+            "border": "color-border-control"
           },
           "Active": {
-            "background": "color-background-inset",
-            "foreground": "color-foreground-primary",
-            "border": "color-border-default"
+            "background": "color-action-secondary-hover",
+            "foreground": "color-action-secondary-foreground",
+            "border": "color-border-control"
           },
           "Disabled": {
-            "background": "color-background-surface",
+            "background": null,
             "foreground": "color-foreground-disabled",
             "border": "color-border-subtle"
           },
           "Loading": {
-            "background": "color-background-surface",
+            "background": null,
             "foreground": "color-foreground-disabled",
             "border": "color-border-subtle"
           }
@@ -93,15 +93,15 @@
         "ghost": {
           "Default": {
             "background": null,
-            "foreground": "color-foreground-secondary"
+            "foreground": "color-action-secondary-foreground"
           },
           "Hover": {
-            "background": "color-background-inset",
-            "foreground": "color-foreground-secondary"
+            "background": "color-action-ghost-hover",
+            "foreground": "color-action-secondary-foreground"
           },
           "Active": {
-            "background": "color-background-inset",
-            "foreground": "color-foreground-secondary"
+            "background": "color-action-ghost-hover",
+            "foreground": "color-action-secondary-foreground"
           },
           "Disabled": {
             "background": null,
@@ -114,16 +114,16 @@
         },
         "danger": {
           "Default": {
-            "background": "color-status-danger-background",
-            "foreground": "color-status-danger-foreground"
+            "background": "color-action-danger",
+            "foreground": "color-foreground-on-danger"
           },
           "Hover": {
-            "background": "color-status-danger-background",
-            "foreground": "color-status-danger-foreground"
+            "background": "color-action-danger",
+            "foreground": "color-foreground-on-danger"
           },
           "Active": {
-            "background": "color-status-danger-background",
-            "foreground": "color-status-danger-foreground"
+            "background": "color-action-danger",
+            "foreground": "color-foreground-on-danger"
           },
           "Disabled": {
             "background": "color-background-inset",

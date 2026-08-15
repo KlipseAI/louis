@@ -364,6 +364,21 @@ submenu의 방향키가 부모 핸들러까지 실행해 focus가 부모로 튀�
 
 ## Known deviations
 
+- **바깥 클릭이 드물게 배경 액션을 실행한다 — 간헐 결함.** 규범이 차단급으로 지정한 계약
+  ("바깥 클릭은 메뉴만 닫고 배경 액션을 실행하지 않는다")이 전체 suite 실행 **36회 중 1회** 깨졌다. 실측한 증상은 **패널은 정상적으로 닫히는데 클릭이 배경까지 도달하는 것**이고,
+  `browser-reduced-motion` project에서만 관측됐다. 단일 테스트 20회, 단일 project(reduced-motion) 10회로는
+  재현되지 않아 **파일 간 상태 간섭**으로 보인다.
+
+  후보 기제는 `OverlayDismissRegion`의 게이트다. 이 layer가 store의 topmost가 아니면
+  `shouldConsiderOutside`가 false를 반환하고, 그 경로는 하부 유틸의 dismiss만 취소한 뒤
+  **클릭을 삼킬 리스너를 등록하지 않는다.** 그 뒤 다른 경로가 패널을 닫으면 클릭은 그대로 배경에
+  떨어진다. 즉 store에 **이전 테스트의 record가 남아 topmost가 어긋난 상태**가 조건일 수 있다.
+  【추정】 — 계측으로 확증하지 못했다.
+
+  **추측으로 dismiss 로직을 고치지 않는다.** 재현이 36회에 1회라 고침의 효과를 증명할 수 없고,
+  증명되지 않은 수정은 이 경로에서 더 나쁜 회귀를 만든다. 재현 절차와 관측 기록을 남기고
+  계측 가능한 형태가 될 때 판정한다.
+
 - **`surface-overlay` 대신 `color-background-overlay`를 쓴다.** Specification 표가 대는 이름의 토큰이
   소스에 없다. DS-P3-014가 이름을 정리하면 갱신한다.
 - **panel padding이 6px이 아니라 4px이다.** `space-overlay-inset`이 없어 `space-control-xs`로

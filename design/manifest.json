@@ -869,6 +869,11 @@
       "authority": "reference"
     },
     {
+      "path": "migration/component-parity.md",
+      "purpose": "제품 배포 코드와 DS 구현의 시각 계약을 축별로 실측 대조한 비규범 기록. 205축 중 143건 격차. DS↔제품을 재는 게이트가 없다는 사실의 증거이며 값 재조정의 입력",
+      "authority": "reference"
+    },
+    {
       "path": "packages/react/src/icons/provenance.json",
       "purpose": "글리프별 출처·라이선스 선언. 채택 가능 여부의 판정 근거이며 고지문의 입력이다",
       "authority": "reference"

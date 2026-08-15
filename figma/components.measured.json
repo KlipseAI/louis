@@ -36,7 +36,103 @@
           "iconSlot": 16,
           "$iconSlot": "icon-size-sm 16. 20을 쓰면 line-height 18을 넘어 높이가 28에서 30으로 밀린다 — 실제로 그렇게 돼 있었다"
         }
-      }
+      },
+      "states": {
+        "primary": {
+          "Default": {
+            "background": "color-action-primary",
+            "foreground": "color-foreground-inverse"
+          },
+          "Hover": {
+            "background": "color-action-primary-hover",
+            "foreground": "color-foreground-inverse"
+          },
+          "Active": {
+            "background": "color-action-primary-pressed",
+            "foreground": "color-foreground-inverse"
+          },
+          "Disabled": {
+            "background": "color-background-inset",
+            "foreground": "color-foreground-disabled"
+          },
+          "Loading": {
+            "background": "color-background-inset",
+            "foreground": "color-foreground-disabled"
+          }
+        },
+        "secondary": {
+          "Default": {
+            "background": "color-background-surface",
+            "foreground": "color-foreground-primary",
+            "border": "color-border-default"
+          },
+          "Hover": {
+            "background": "color-background-inset",
+            "foreground": "color-foreground-primary",
+            "border": "color-border-default"
+          },
+          "Active": {
+            "background": "color-background-inset",
+            "foreground": "color-foreground-primary",
+            "border": "color-border-default"
+          },
+          "Disabled": {
+            "background": "color-background-surface",
+            "foreground": "color-foreground-disabled",
+            "border": "color-border-subtle"
+          },
+          "Loading": {
+            "background": "color-background-surface",
+            "foreground": "color-foreground-disabled",
+            "border": "color-border-subtle"
+          }
+        },
+        "ghost": {
+          "Default": {
+            "background": null,
+            "foreground": "color-foreground-secondary"
+          },
+          "Hover": {
+            "background": "color-background-inset",
+            "foreground": "color-foreground-secondary"
+          },
+          "Active": {
+            "background": "color-background-inset",
+            "foreground": "color-foreground-secondary"
+          },
+          "Disabled": {
+            "background": null,
+            "foreground": "color-foreground-disabled"
+          },
+          "Loading": {
+            "background": null,
+            "foreground": "color-foreground-disabled"
+          }
+        },
+        "danger": {
+          "Default": {
+            "background": "color-status-danger-background",
+            "foreground": "color-status-danger-foreground"
+          },
+          "Hover": {
+            "background": "color-status-danger-background",
+            "foreground": "color-status-danger-foreground"
+          },
+          "Active": {
+            "background": "color-status-danger-background",
+            "foreground": "color-status-danger-foreground"
+          },
+          "Disabled": {
+            "background": "color-background-inset",
+            "foreground": "color-foreground-disabled"
+          },
+          "Loading": {
+            "background": "color-background-inset",
+            "foreground": "color-foreground-disabled"
+          }
+        }
+      },
+      "$statesNote": "Loading이 Disabled와 같은 면인 것은 사실이다 — button.tsx가 loading일 때 aria-disabled=\"true\"를 붙이고(중복 실행 차단), CSS의 disabled 규칙이 그것을 함께 잡는다. Loading을 Disabled와 가르는 것은 면이 아니라 spinner의 존재와 라벨 opacity 0.6이다. 처음 만든 Figma set은 Loading을 variant의 기본 면으로 그려 틀렸고, 이 표가 그것을 잡았다."
     },
     "icon-button": {
       "$doc": "design/components/icon-button.md",
@@ -57,7 +153,104 @@
           "radius": 12,
           "glyph": 20
         }
-      }
+      },
+      "states": {
+        "primary": {
+          "Default": {
+            "background": "color-action-primary",
+            "foreground": "color-foreground-inverse"
+          },
+          "Hover": {
+            "background": "color-action-primary-hover",
+            "foreground": "color-foreground-inverse"
+          },
+          "Active": {
+            "background": "color-action-primary-pressed",
+            "foreground": "color-foreground-inverse"
+          },
+          "Pressed": {
+            "background": "color-background-inset",
+            "foreground": "color-foreground-primary"
+          },
+          "Disabled": {
+            "background": "color-background-inset",
+            "foreground": "color-foreground-disabled"
+          }
+        },
+        "secondary": {
+          "Default": {
+            "background": "color-background-surface",
+            "foreground": "color-foreground-primary",
+            "border": "color-border-default"
+          },
+          "Hover": {
+            "background": "color-background-inset",
+            "foreground": "color-foreground-primary",
+            "border": "color-border-default"
+          },
+          "Active": {
+            "background": "color-background-inset",
+            "foreground": "color-foreground-primary",
+            "border": "color-border-default"
+          },
+          "Pressed": {
+            "background": "color-background-inset",
+            "foreground": "color-foreground-primary",
+            "border": "color-border-default"
+          },
+          "Disabled": {
+            "background": "color-background-surface",
+            "foreground": "color-foreground-disabled",
+            "border": "color-border-subtle"
+          }
+        },
+        "ghost": {
+          "Default": {
+            "background": null,
+            "foreground": "color-foreground-secondary"
+          },
+          "Hover": {
+            "background": "color-background-inset",
+            "foreground": "color-foreground-secondary"
+          },
+          "Active": {
+            "background": "color-background-inset",
+            "foreground": "color-foreground-secondary"
+          },
+          "Pressed": {
+            "background": "color-background-inset",
+            "foreground": "color-foreground-primary"
+          },
+          "Disabled": {
+            "background": null,
+            "foreground": "color-foreground-disabled"
+          }
+        },
+        "danger": {
+          "Default": {
+            "background": "color-status-danger-background",
+            "foreground": "color-status-danger-foreground"
+          },
+          "Hover": {
+            "background": "color-status-danger-background",
+            "foreground": "color-status-danger-foreground"
+          },
+          "Active": {
+            "background": "color-status-danger-background",
+            "foreground": "color-status-danger-foreground"
+          },
+          "Pressed": {
+            "background": "color-background-inset",
+            "foreground": "color-foreground-primary"
+          },
+          "Disabled": {
+            "background": "color-background-inset",
+            "foreground": "color-foreground-disabled"
+          }
+        }
+      },
+      "$statesNote": "danger의 Hover/Active가 Default와 같은 것은 사실이다 — CSS의 hover 규칙이 primary/secondary/ghost만 덮는다. Pressed가 모든 variant에서 같은 것도 사실이며 aria-pressed 규칙이 variant를 덮기 때문이다. 둘 다 규범의 Known deviations에 있다."
     }
-  }
+  },
+  "$states": "variant × state마다 **어느 토큰을 무는가**. 개수가 아니라 정체를 고정한다. 이 표가 없던 동안 primary 배경을 danger 변수에 물려도 boundFills 수치가 그대로라 게이트가 통과했다. 값은 token id이며 Figma 변수 이름으로의 변환은 게이트가 생성 proposal의 figmaName으로 한다 — 여기에 Figma 이름을 적으면 정본이 둘이 된다. 코드 쪽 검증은 packages/react/test/component-states.browser.test.tsx가 계산값과 대조한다."
 }

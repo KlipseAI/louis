@@ -803,6 +803,11 @@
       "authority": "reference"
     },
     {
+      "path": "migration/figma-gap-registry.md",
+      "purpose": "배포 화면을 DS 자산만으로 재조립할 때의 카탈로그 gap 기록. DS-P3-009 순서와 DS-P3-013 아이콘 범위의 입력",
+      "authority": "reference"
+    },
+    {
       "path": "packages/react/src/icons/provenance.json",
       "purpose": "글리프별 출처·라이선스 선언. 채택 가능 여부의 판정 근거이며 고지문의 입력이다",
       "authority": "reference"

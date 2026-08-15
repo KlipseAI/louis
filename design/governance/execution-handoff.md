@@ -202,6 +202,22 @@ Core RC는 P3 전체 완료가 아니다.
 큐는 네 트랙으로 나뉜다. 코드 트랙(P3)과 Figma 트랙(DS-F)은 병렬이며, Figma variables 구축은 React
 구현을 기다리지 않는다. DS-F-006 component parity만 해당 컴포넌트의 코드 구현과 짝을 이룬다.
 
+**DS↔제품 게이트가 생겼다 (2026-08-15).** `scripts/verify-product-parity.mjs`가 `pnpm verify`에
+들어 있다. 제품 공용 구현을 정본으로 삼아 205축을 실측했고 격차 143건을 전부 판정했다 — 채택 45,
+사유를 적은 의도적 편차 46, 제품에 공용 정본이 없어 대조 대상이 아닌 것 52. 근거는
+[`migration/product.measured.json`](../../migration/product.measured.json)과
+[`migration/component-parity.md`](../../migration/component-parity.md)에 있다.
+
+이 게이트가 없던 동안 DS의 다른 게이트는 **전부 DS 내부 일관성만** 봤다(코드↔Figma, 토큰↔생성물).
+그래서 DS가 제품과 143축이 다른데도 전부 초록이었다. 앞으로 제품과의 차이는 고쳐지거나 사유가
+적힌 편차로 선언되거나 둘 중 하나여야 한다.
+
+**제품에 공용 정본이 있는 컴포넌트는 셋뿐이다** — Button(공용 컴포넌트 + `--button-*` 토큰),
+Tooltip(`.app-tooltip-chrome` + `--app-tooltip-*`), Menu(`--dropdown-*`). Icon Button·Dialog·Toast는
+제품에 공용 구현이 없다. 조사자가 Icon Button의 정본으로 지목한 제품의 공유 UI 패키지는 Turborepo
+스타터 보일러플레이트였고 어떤 컴포넌트도 쓰지 않는다. 경로와 판정 근거는 비규범 기록인
+[`migration/product.measured.json`](../../migration/product.measured.json)에 있다.
+
 **현재 다음 포인터 (2026-08-15 갱신):** `DS-GOV-000`을 제외한 GOV 트랙, `DS-F-000`~`DS-F-005`,
 `DS-P3-002a`, `DS-P3-002`(1단계), `DS-P3-003`, `DS-P3-009a`, `DS-P3-013`이 `done`이다. `DS-P3-001`은
 자기 몫의 Decision 6종을 다 쓰고 `in-progress`이며 owner 확인만 남았다(저장소 전체 Decision은 12종).
@@ -833,7 +849,7 @@ description에 기록했다. parity 게이트가 style 10종까지 검증하므�
 | 하위 작업 | 코드 | Figma | gap registry 순위 |
 | --- | --- | --- | --- |
 | `DS-F-006-button` | `partial` | `partial` | — |
-| `DS-F-006-icon-button` | `partial` | `not-ready` | 1 |
+| `DS-F-006-icon-button` | `partial` | `partial` | 1 |
 | `DS-F-006-tooltip` | `partial` | `not-ready` | 2 |
 | `DS-F-006-toast` | `partial` | `not-ready` | 3 |
 | `DS-F-006-menu-popover` | `partial` | `not-ready` | 4 |

@@ -127,7 +127,7 @@ toast가 떴다는 사실 자체가 이미 "그 일이 일어났다"이므로 �
 | 전경        | `color-foreground-on-inverse`                            |
 | danger 배경 | `color-status-danger-background`                         |
 | danger 전경 | `color-status-danger-foreground`                         |
-| 그림자      | `elevation-toast` — drop 1겹 + 글래스 베벨 inset 2겹      |
+| 그림자      | `elevation-toast` — drop 1겹                             |
 | layer       | `layer-critical`                                         |
 | 최대 폭     | 420px                                                    |
 | 자동 소멸   | 4000ms                                                   |
@@ -144,9 +144,10 @@ Figma에서 이 컴포넌트가 갖는 effect를 종류와 순서까지 고정�
 | 순서 | 종류 | 값 |
 | --- | --- | --- |
 | 1 | `DROP_SHADOW` | y 8 · blur 20 · spread 0 · 검정 16% |
-| 2 | `INNER_SHADOW` | y 1 · blur 1 · 흰색 25% (글래스 베벨) |
-| 3 | `INNER_SHADOW` | y −1 · blur 1 · 흰색 25% (글래스 베벨) |
-| 4 | `BACKGROUND_BLUR` | radius가 `blur/surface` 변수에 묶인다 |
+| 2 | `BACKGROUND_BLUR` | radius가 `blur/surface` 변수에 묶인다 |
+
+글래스 베벨 inset 2겹은 owner 결정으로 제거했다 — 이 디자인 시스템에 글래스 섀도우 개념을 두지
+않는다.
 
 ## Implementation
 

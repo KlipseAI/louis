@@ -197,7 +197,7 @@
   flex: none;
   inline-size: 1em;
   block-size: 1em;
-  border: 2px solid currentColor;
+  border: var(--kds-border-width-ring) solid currentColor;
   border-block-start-color: transparent;
   border-radius: var(--kds-radius-pill);
   animation: kds-menu-spin 1s linear infinite;
@@ -235,7 +235,7 @@
 .kds-menu__separator {
   flex: none;
   border: 0;
-  border-block-start: 1px solid var(--kds-color-border-subtle);
+  border-block-start: var(--kds-border-width-hairline) solid var(--kds-color-border-subtle);
   margin-block: var(--kds-space-control-xs);
   margin-inline: 0;
 }

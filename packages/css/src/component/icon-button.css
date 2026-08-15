@@ -14,7 +14,7 @@
   justify-content: center;
   inline-size: var(--kds-layout-control-height-md);
   block-size: var(--kds-layout-control-height-md);
-  border: 1px solid transparent;
+  border: var(--kds-border-width-hairline) solid transparent;
   border-radius: var(--kds-radius-control);
   cursor: pointer;
   /* motion.md: 허용 property는 opacity와 transform뿐이다. 색 전환은 두지 않는다. */

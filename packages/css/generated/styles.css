@@ -99,7 +99,7 @@
   align-items: center;
   justify-content: center;
   gap: var(--kds-space-control-sm);
-  border: 1px solid transparent;
+  border: var(--kds-border-width-hairline) solid transparent;
   border-radius: var(--kds-radius-control);
   cursor: pointer;
   text-decoration: none;
@@ -170,8 +170,6 @@
 .kds-button[data-variant="primary"] {
   background: var(--kds-color-action-primary);
   color: var(--kds-color-foreground-inverse);
-  /* 제품 primary·danger의 글래스 베벨 2겹 (Button.tsx:94). */
-  box-shadow: var(--kds-elevation-control-bevel);
 }
 
 /* 제품의 secondary·ghost는 **면이 없다.** 이전 DS는 secondary에 surface 면과 불투명 테두리를
@@ -191,19 +189,6 @@
 .kds-button[data-variant="danger"] {
   background: var(--kds-color-action-danger);
   color: var(--kds-color-foreground-on-danger);
-  box-shadow: var(--kds-elevation-control-bevel);
-}
-
-/* primary의 광택 오버레이 (제품 Button.tsx:96-99). mix-blend-mode: overlay라 아래 면 색에
- * 따라 결과가 달라진다 — 면을 밝히지 않고 재질감만 얹는다. */
-.kds-button[data-variant="primary"]::before {
-  position: absolute;
-  border-radius: inherit;
-  box-shadow: var(--kds-elevation-control-gloss);
-  mix-blend-mode: overlay;
-  content: "";
-  inset: 0;
-  pointer-events: none;
 }
 
 /* hover — hover에서만 기능을 드러내지 않는다. 면 강조만 바꾼다.
@@ -310,7 +295,7 @@
   flex: none;
   width: 1em;
   height: 1em;
-  border: 2px solid currentColor;
+  border: var(--kds-border-width-ring) solid currentColor;
   border-block-start-color: transparent;
   border-radius: var(--kds-radius-pill);
   animation: kds-button-spin 1s linear infinite;
@@ -418,7 +403,7 @@
   );
   overflow: hidden;
   background: var(--kds-color-background-overlay);
-  border: 1px solid var(--kds-color-border-subtle);
+  border: var(--kds-border-width-hairline) solid var(--kds-color-border-subtle);
   border-radius: var(--kds-dialog-surface-radius);
   box-shadow: var(--kds-elevation-modal);
   color: var(--kds-color-foreground-primary);
@@ -622,7 +607,7 @@
   justify-content: center;
   inline-size: var(--kds-layout-control-height-md);
   block-size: var(--kds-layout-control-height-md);
-  border: 1px solid transparent;
+  border: var(--kds-border-width-hairline) solid transparent;
   border-radius: var(--kds-radius-control);
   cursor: pointer;
   /* motion.md: 허용 property는 opacity와 transform뿐이다. 색 전환은 두지 않는다. */
@@ -945,7 +930,7 @@
   flex: none;
   inline-size: 1em;
   block-size: 1em;
-  border: 2px solid currentColor;
+  border: var(--kds-border-width-ring) solid currentColor;
   border-block-start-color: transparent;
   border-radius: var(--kds-radius-pill);
   animation: kds-menu-spin 1s linear infinite;
@@ -983,7 +968,7 @@
 .kds-menu__separator {
   flex: none;
   border: 0;
-  border-block-start: 1px solid var(--kds-color-border-subtle);
+  border-block-start: var(--kds-border-width-hairline) solid var(--kds-color-border-subtle);
   margin-block: var(--kds-space-control-xs);
   margin-inline: 0;
 }
@@ -1242,7 +1227,7 @@
   padding-inline: var(--kds-space-control-sm);
   /* **표면이 페이지와 반전된다.** 라이트에서 어두운 면, 다크에서 밝은 면이다. 이전 DS는
    * background-inset이라 페이지와 같은 극성이었고 제품과 정반대였다. */
-  border: 1px solid var(--kds-color-border-tooltip);
+  border: var(--kds-border-width-hairline) solid var(--kds-color-border-tooltip);
   border-radius: var(--kds-radius-control-sm);
   background: var(--kds-color-background-inverse);
   color: var(--kds-color-foreground-on-inverse);

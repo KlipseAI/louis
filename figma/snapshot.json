@@ -6,16 +6,16 @@
     "capturedAt": "2026-08-15",
     "capturedBy": "figma-mcp-plugin-api",
     "published": false,
-    "tokenSourceSha256": "e73b4a45d04c94eeae54022b1c65cee9e5d5af4296751fa050de5b801b3accfb",
-    "proposalSha256": "f5fc3957c657d1aa23d0502c6faab14bb87ae1d3c487d7ed7e16027e6ed8d45b",
+    "tokenSourceSha256": "a900d2c5132c8e8644d99a135514046488552310ff87389437c5539493e95c14",
+    "proposalSha256": "ae148ceb9a70b6bde40d40745b2dda91cb1007c8c7348a2e8474e3146210d2ef",
     "readback": {
-      "tokens": 194,
-      "canonicalLength": 16126,
-      "fnv1a32": "0ca80351",
+      "tokens": 198,
+      "canonicalLength": 16410,
+      "fnv1a32": "a6cee6ec",
       "note": "변수는 readback.json의 되읽기 행을 tokenId 공간으로 옮긴 것이고, style과 component는 같은 되읽기의 style/component 절이다. canonical 해시는 컬렉션·이름·타입·mode 값을 정렬해 이은 문자열의 FNV-1a다.",
       "styles": {
         "text": 15,
-        "effect": 9
+        "effect": 7
       },
       "components": {
         "sets": 6,
@@ -31,14 +31,14 @@
         "Base"
       ],
       "defaultMode": "Base",
-      "variableCount": 109
+      "variableCount": 111
     },
     "Klipse Semantic": {
       "modes": [
         "Global"
       ],
       "defaultMode": "Global",
-      "variableCount": 45
+      "variableCount": 47
     },
     "Klipse Semantic Color": {
       "modes": [
@@ -83,6 +83,42 @@
       "valuesByMode": {
         "Global": {
           "alias": "blur-10"
+        }
+      }
+    },
+    "border-width-hairline": {
+      "figmaName": "border-width/hairline",
+      "resolvedType": "FLOAT",
+      "valuesByMode": {
+        "Global": {
+          "alias": "border-width-hairline-base"
+        }
+      }
+    },
+    "border-width-hairline-base": {
+      "figmaName": "border-width/hairline",
+      "resolvedType": "FLOAT",
+      "valuesByMode": {
+        "Base": {
+          "value": 0.5
+        }
+      }
+    },
+    "border-width-ring": {
+      "figmaName": "border-width/ring",
+      "resolvedType": "FLOAT",
+      "valuesByMode": {
+        "Global": {
+          "alias": "border-width-ring-base"
+        }
+      }
+    },
+    "border-width-ring-base": {
+      "figmaName": "border-width/ring",
+      "resolvedType": "FLOAT",
+      "valuesByMode": {
+        "Base": {
+          "value": 2
         }
       }
     },
@@ -2366,49 +2402,6 @@
       }
     },
     "effect": {
-      "elevation/control-bevel": {
-        "tokenId": "elevation-control-bevel",
-        "layers": [
-          {
-            "offsetY": 1,
-            "blur": 1,
-            "spread": 0,
-            "inset": true,
-            "color": [
-              0.980392,
-              0.980392,
-              0.980392,
-              0.25
-            ]
-          },
-          {
-            "offsetY": -1,
-            "blur": 1,
-            "spread": 0,
-            "inset": true,
-            "color": [
-              0.980392,
-              0.980392,
-              0.980392,
-              0.25
-            ]
-          }
-        ]
-      },
-      "elevation/control-gloss": {
-        "tokenId": "elevation-control-gloss",
-        "type": "INNER_SHADOW",
-        "offsetY": 0,
-        "blur": 8,
-        "spread": 0,
-        "inset": true,
-        "color": [
-          0.980392,
-          0.980392,
-          0.980392,
-          1
-        ]
-      },
       "elevation/focus-ring": {
         "tokenId": "elevation-focus-ring",
         "type": "DROP_SHADOW",
@@ -2508,30 +2501,6 @@
               0,
               0.16
             ]
-          },
-          {
-            "offsetY": 1,
-            "blur": 1,
-            "spread": 0,
-            "inset": true,
-            "color": [
-              0.980392,
-              0.980392,
-              0.980392,
-              0.25
-            ]
-          },
-          {
-            "offsetY": -1,
-            "blur": 1,
-            "spread": 0,
-            "inset": true,
-            "color": [
-              0.980392,
-              0.980392,
-              0.980392,
-              0.25
-            ]
           }
         ]
       },
@@ -2614,9 +2583,6 @@
             "RightIcon": [
               "20x20"
             ],
-            "Gloss": [
-              "125x40"
-            ],
             "Spinner": [
               "18x18"
             ]
@@ -2625,20 +2591,20 @@
             40
           ],
           "width": [
-            69,
-            95
+            68,
+            94
           ],
           "paddingBlock": [
-            1
+            0.5
           ],
           "paddingBlockEnd": [
-            1
+            0.5
           ],
           "paddingInline": [
-            17
+            16.5
           ],
           "paddingInlineEnd": [
-            17
+            16.5
           ],
           "itemSpacing": [
             8
@@ -2654,7 +2620,7 @@
           ],
           "strokeWeight": [
             2,
-            1
+            0.5
           ]
         },
         "sm": {
@@ -2665,9 +2631,6 @@
             "RightIcon": [
               "16x16"
             ],
-            "Gloss": [
-              "101x32"
-            ],
             "Spinner": [
               "18x18"
             ]
@@ -2676,20 +2639,20 @@
             32
           ],
           "width": [
-            61,
-            83
+            60,
+            82
           ],
           "paddingBlock": [
-            1
+            0.5
           ],
           "paddingBlockEnd": [
-            1
+            0.5
           ],
           "paddingInline": [
-            13
+            12.5
           ],
           "paddingInlineEnd": [
-            13
+            12.5
           ],
           "itemSpacing": [
             4
@@ -2705,7 +2668,7 @@
           ],
           "strokeWeight": [
             2,
-            1
+            0.5
           ]
         }
       },
@@ -2720,17 +2683,10 @@
           "2|INSIDE"
         ],
         "self": [
-          "1|INSIDE"
+          "0.5|INSIDE"
         ]
       },
-      "effects": {
-        "Gloss": [
-          "INNER_SHADOW:0:8:0"
-        ],
-        "self": [
-          "INNER_SHADOW:1:1:0 + INNER_SHADOW:-1:1:0"
-        ]
-      }
+      "effects": {}
     },
     "Dialog": {
       "tokenId": "dialog",
@@ -2757,23 +2713,23 @@
       "geometry": {
         "compact": {
           "slots": {},
+          "height": [
+            108
+          ],
           "width": [
             360
           ],
-          "height": [
-            109
-          ],
           "paddingBlock": [
-            21
+            20.5
           ],
           "paddingBlockEnd": [
-            21
+            20.5
           ],
           "paddingInline": [
-            21
+            20.5
           ],
           "paddingInlineEnd": [
-            21
+            20.5
           ],
           "itemSpacing": [
             8
@@ -2785,28 +2741,28 @@
             "VERTICAL"
           ],
           "strokeWeight": [
-            1
+            0.5
           ]
         },
         "large": {
           "slots": {},
+          "height": [
+            108
+          ],
           "width": [
             720
           ],
-          "height": [
-            109
-          ],
           "paddingBlock": [
-            21
+            20.5
           ],
           "paddingBlockEnd": [
-            21
+            20.5
           ],
           "paddingInline": [
-            21
+            20.5
           ],
           "paddingInlineEnd": [
-            21
+            20.5
           ],
           "itemSpacing": [
             8
@@ -2818,28 +2774,28 @@
             "VERTICAL"
           ],
           "strokeWeight": [
-            1
+            0.5
           ]
         },
         "medium": {
           "slots": {},
+          "height": [
+            108
+          ],
           "width": [
             480
           ],
-          "height": [
-            109
-          ],
           "paddingBlock": [
-            21
+            20.5
           ],
           "paddingBlockEnd": [
-            21
+            20.5
           ],
           "paddingInline": [
-            21
+            20.5
           ],
           "paddingInlineEnd": [
-            21
+            20.5
           ],
           "itemSpacing": [
             8
@@ -2851,13 +2807,13 @@
             "VERTICAL"
           ],
           "strokeWeight": [
-            1
+            0.5
           ]
         }
       },
       "strokes": {
         "self": [
-          "1|INSIDE"
+          "0.5|INSIDE"
         ]
       },
       "effects": {
@@ -2914,9 +2870,6 @@
           "slots": {
             "Glyph": [
               "20x20"
-            ],
-            "Vector": [
-              "13.75x14.375"
             ]
           },
           "height": [
@@ -2947,17 +2900,13 @@
             "HORIZONTAL"
           ],
           "strokeWeight": [
-            1.5,
-            1
+            0.5
           ]
         },
         "sm": {
           "slots": {
             "Glyph": [
               "20x20"
-            ],
-            "Vector": [
-              "13.75x14.375"
             ]
           },
           "height": [
@@ -2988,8 +2937,7 @@
             "HORIZONTAL"
           ],
           "strokeWeight": [
-            1.5,
-            1
+            0.5
           ]
         }
       },
@@ -2998,7 +2946,7 @@
           "1.5|CENTER"
         ],
         "self": [
-          "1|INSIDE"
+          "0.5|INSIDE"
         ]
       },
       "effects": {}
@@ -3113,13 +3061,16 @@
           ],
           "layoutMode": [
             "HORIZONTAL"
+          ],
+          "minWidth": [
+            null
           ]
         }
       },
       "strokes": {},
       "effects": {
         "self": [
-          "DROP_SHADOW:8:20:0 + INNER_SHADOW:1:1:0 + INNER_SHADOW:-1:1:0 + BACKGROUND_BLUR:NORMAL:var(blur/surface)"
+          "DROP_SHADOW:8:20:0 + BACKGROUND_BLUR:NORMAL:var(blur/surface)"
         ]
       }
     },
@@ -3153,19 +3104,19 @@
             28
           ],
           "width": [
-            64
+            63
           ],
           "paddingBlock": [
-            5
+            4.5
           ],
           "paddingBlockEnd": [
-            5
+            4.5
           ],
           "paddingInline": [
-            9
+            8.5
           ],
           "paddingInlineEnd": [
-            9
+            8.5
           ],
           "itemSpacing": [
             0
@@ -3177,13 +3128,13 @@
             "HORIZONTAL"
           ],
           "strokeWeight": [
-            1
+            0.5
           ]
         }
       },
       "strokes": {
         "self": [
-          "1|INSIDE"
+          "0.5|INSIDE"
         ]
       },
       "effects": {

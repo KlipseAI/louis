@@ -2304,111 +2304,6 @@
           }
         }
       },
-      "control-bevel": {
-        "$value": [
-          {
-            "color": {
-              "colorSpace": "srgb",
-              "components": [
-                0.980392,
-                0.980392,
-                0.980392
-              ],
-              "alpha": 0.25,
-              "hex": "#fafafa"
-            },
-            "offsetX": {
-              "value": 0,
-              "unit": "px"
-            },
-            "offsetY": {
-              "value": 1,
-              "unit": "px"
-            },
-            "blur": {
-              "value": 1,
-              "unit": "px"
-            },
-            "spread": {
-              "value": 0,
-              "unit": "px"
-            },
-            "inset": true
-          },
-          {
-            "color": {
-              "colorSpace": "srgb",
-              "components": [
-                0.980392,
-                0.980392,
-                0.980392
-              ],
-              "alpha": 0.25,
-              "hex": "#fafafa"
-            },
-            "offsetX": {
-              "value": 0,
-              "unit": "px"
-            },
-            "offsetY": {
-              "value": -1,
-              "unit": "px"
-            },
-            "blur": {
-              "value": 1,
-              "unit": "px"
-            },
-            "spread": {
-              "value": 0,
-              "unit": "px"
-            },
-            "inset": true
-          }
-        ],
-        "$extensions": {
-          "com.klipse-design": {
-            "id": "shadow-control-bevel",
-            "tier": "primitive"
-          }
-        }
-      },
-      "control-gloss": {
-        "$value": {
-          "color": {
-            "colorSpace": "srgb",
-            "components": [
-              0.980392,
-              0.980392,
-              0.980392
-            ],
-            "alpha": 1,
-            "hex": "#fafafa"
-          },
-          "offsetX": {
-            "value": 0,
-            "unit": "px"
-          },
-          "offsetY": {
-            "value": 0,
-            "unit": "px"
-          },
-          "blur": {
-            "value": 8,
-            "unit": "px"
-          },
-          "spread": {
-            "value": 0,
-            "unit": "px"
-          },
-          "inset": true
-        },
-        "$extensions": {
-          "com.klipse-design": {
-            "id": "shadow-control-gloss",
-            "tier": "primitive"
-          }
-        }
-      },
       "tooltip-light": {
         "$value": {
           "color": {
@@ -2642,64 +2537,6 @@
               "value": 0,
               "unit": "px"
             }
-          },
-          {
-            "color": {
-              "colorSpace": "srgb",
-              "components": [
-                0.980392,
-                0.980392,
-                0.980392
-              ],
-              "alpha": 0.25,
-              "hex": "#fafafa"
-            },
-            "offsetX": {
-              "value": 0,
-              "unit": "px"
-            },
-            "offsetY": {
-              "value": 1,
-              "unit": "px"
-            },
-            "blur": {
-              "value": 1,
-              "unit": "px"
-            },
-            "spread": {
-              "value": 0,
-              "unit": "px"
-            },
-            "inset": true
-          },
-          {
-            "color": {
-              "colorSpace": "srgb",
-              "components": [
-                0.980392,
-                0.980392,
-                0.980392
-              ],
-              "alpha": 0.25,
-              "hex": "#fafafa"
-            },
-            "offsetX": {
-              "value": 0,
-              "unit": "px"
-            },
-            "offsetY": {
-              "value": -1,
-              "unit": "px"
-            },
-            "blur": {
-              "value": 1,
-              "unit": "px"
-            },
-            "spread": {
-              "value": 0,
-              "unit": "px"
-            },
-            "inset": true
           }
         ],
         "$extensions": {
@@ -3099,6 +2936,33 @@
           }
         }
       }
+    },
+    "border-width": {
+      "$type": "dimension",
+      "hairline": {
+        "$value": {
+          "value": 0.5,
+          "unit": "px"
+        },
+        "$extensions": {
+          "com.klipse-design": {
+            "id": "border-width-hairline-base",
+            "tier": "primitive"
+          }
+        }
+      },
+      "ring": {
+        "$value": {
+          "value": 2,
+          "unit": "px"
+        },
+        "$extensions": {
+          "com.klipse-design": {
+            "id": "border-width-ring-base",
+            "tier": "primitive"
+          }
+        }
+      }
     }
   },
   "semantic": {
@@ -3464,26 +3328,6 @@
             }
           }
         },
-        "control-bevel": {
-          "$value": "{primitive.shadow.control-bevel}",
-          "$extensions": {
-            "com.klipse-design": {
-              "id": "elevation-control-bevel",
-              "tier": "semantic",
-              "mode": "global"
-            }
-          }
-        },
-        "control-gloss": {
-          "$value": "{primitive.shadow.control-gloss}",
-          "$extensions": {
-            "com.klipse-design": {
-              "id": "elevation-control-gloss",
-              "tier": "semantic",
-              "mode": "global"
-            }
-          }
-        },
         "toast": {
           "$value": "{primitive.shadow.toast}",
           "$extensions": {
@@ -3794,6 +3638,29 @@
           "$extensions": {
             "com.klipse-design": {
               "id": "blur-panel",
+              "tier": "semantic",
+              "mode": "global"
+            }
+          }
+        }
+      },
+      "border-width": {
+        "$type": "dimension",
+        "hairline": {
+          "$value": "{primitive.border-width.hairline}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "border-width-hairline",
+              "tier": "semantic",
+              "mode": "global"
+            }
+          }
+        },
+        "ring": {
+          "$value": "{primitive.border-width.ring}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "border-width-ring",
               "tier": "semantic",
               "mode": "global"
             }

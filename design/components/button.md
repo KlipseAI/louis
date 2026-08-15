@@ -149,7 +149,7 @@ focus-visible 링은 브라우저가 그리므로 Figma variant로 두지 않는
 | 최소 폭     | 없음                                | `layout-control-minimum-width-sm` 48px |
 | padding     | 0 / `space-control-lg` 16px         | 0 / `space-control-md` 12px         |
 | gap         | `space-control-sm` 8px              | `space-control-xs` 4px              |
-| border      | 1px                                 | 1px                                 |
+| border      | `border-width-hairline` 0.5px       | `border-width-hairline` 0.5px       |
 | radius      | `radius-control` 12px               | `radius-control` 12px               |
 | 타이포      | `body-sm-medium` 14px / 21px        | `body-sm-medium` 14px / 21px        |
 | spinner     | 18px (`1em` + border 2)             | 18px (`1em` + border 2)             |

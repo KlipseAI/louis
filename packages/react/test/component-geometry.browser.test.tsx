@@ -20,6 +20,15 @@ const rect = (node: Element): DOMRect => node.getBoundingClientRect();
 const round = (value: number): number => Math.round(value * 1000) / 1000;
 
 /**
+ * 선언된 헤어라인 두께.
+ *
+ * **계산값을 쓰지 않는다.** 브라우저는 DPR 1에서 0.5px 테두리의 사용값을 1px로 올리므로
+ * getComputedStyle은 언제나 1px을 돌려준다. 레티나에서는 half-pixel로 그려진다.
+ */
+const declaredBorderWidth = (): number =>
+  px(getComputedStyle(document.documentElement).getPropertyValue("--kds-border-width-hairline"));
+
+/**
  * 각 컨트롤을 자기 블록에 담아 렌더한다.
  *
  * 같은 flex 행에 넣으면 기본 `align-items: stretch`가 높이를 가장 큰 형제에 맞춰 늘린다. 실제로
@@ -63,7 +72,7 @@ for (const size of SIZES) {
     expect(px(style.paddingTop), "paddingBlock").toBe(spec.paddingBlock);
     expect(px(style.paddingLeft), "paddingInline").toBe(spec.paddingInline);
     expect(px(style.columnGap), "gap").toBe(spec.gap);
-    expect(px(style.borderTopWidth), "borderWidth").toBe(spec.borderWidth);
+    expect(declaredBorderWidth(), "borderWidth").toBe(spec.borderWidth);
     expect(px(style.borderTopLeftRadius), "radius").toBe(spec.radius);
     expect(px(style.fontSize), "fontSize").toBe(spec.fontSize);
     expect(px(style.lineHeight), "lineHeight").toBe(spec.lineHeight);
@@ -102,7 +111,7 @@ for (const size of SIZES) {
     expect(round(box.height), "height").toBe(spec.height);
     // 정사각이 계약이다. 위 둘이 각각 맞아도 여기서 한 번 더 못을 박는다.
     expect(round(box.width), "정사각").toBe(round(box.height));
-    expect(px(style.borderTopWidth), "borderWidth").toBe(spec.borderWidth);
+    expect(declaredBorderWidth(), "borderWidth").toBe(spec.borderWidth);
     expect(px(style.borderTopLeftRadius), "radius").toBe(spec.radius);
 
     const glyph = node.querySelector(".kds-icon-button__glyph");

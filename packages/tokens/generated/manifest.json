@@ -2,23 +2,23 @@
   "artifacts": [
     {
       "path": "packages/tokens/generated/figma.tokens.json",
-      "sha256": "f5fc3957c657d1aa23d0502c6faab14bb87ae1d3c487d7ed7e16027e6ed8d45b"
+      "sha256": "ae148ceb9a70b6bde40d40745b2dda91cb1007c8c7348a2e8474e3146210d2ef"
     },
     {
       "path": "packages/tokens/generated/index.d.ts",
-      "sha256": "78f1b241a0cc142ba7d0928deb02e5136e3a20eaf9ddd82627ca4f83a384eab8"
+      "sha256": "245de865bf4296a34a964916d284c507a1da95e133814c7697a45c511bfcd860"
     },
     {
       "path": "packages/tokens/generated/index.js",
-      "sha256": "0c6bfdb15e33585d627c46bd4346d6774652b71fba1a2ad641003cb2b082ea74"
+      "sha256": "8de078b9d007a0a86c39a44940f3e1d287b15318403e9bd57585c103bd093906"
     },
     {
       "path": "packages/tokens/generated/tokens.css",
-      "sha256": "cd59f195d664c75ab69fd78e2a03594d597cf019d259aa5fe53971314abf3e61"
+      "sha256": "57ed2096b3ed1f3376fcc17203ba42d7e8e010bb74eb44935524f6b1a6aafc2c"
     },
     {
       "path": "packages/tokens/generated/tokens.json",
-      "sha256": "46054bc3640690f639126eab78993f860cbb3210bf51edd2994633b9a2a818af"
+      "sha256": "ba90e25391d7ef3a2b80ac93142fab35eff1a1473a087405b0b95999b9598dc4"
     }
   ],
   "contrastPairs": [
@@ -238,7 +238,7 @@
   },
   "source": {
     "path": "packages/tokens/src/klipse.tokens.json",
-    "sha256": "e73b4a45d04c94eeae54022b1c65cee9e5d5af4296751fa050de5b801b3accfb"
+    "sha256": "a900d2c5132c8e8644d99a135514046488552310ff87389437c5539493e95c14"
   },
   "themes": [
     "light",
@@ -324,6 +324,86 @@
       },
       "sourcePath": "semantic.global.blur.surface",
       "tier": "semantic",
+      "type": "dimension"
+    },
+    {
+      "aliasTarget": {
+        "id": "border-width-hairline-base",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-border-width-hairline": "0.5px"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "border-width-hairline",
+      "mode": "global",
+      "rawValue": "{primitive.border-width.hairline}",
+      "resolvedValue": {
+        "unit": "px",
+        "value": 0.5
+      },
+      "sourcePath": "semantic.global.border-width.hairline",
+      "tier": "semantic",
+      "type": "dimension"
+    },
+    {
+      "aliasTarget": null,
+      "cssProperties": {},
+      "deprecated": null,
+      "description": null,
+      "id": "border-width-hairline-base",
+      "mode": "base",
+      "rawValue": {
+        "unit": "px",
+        "value": 0.5
+      },
+      "resolvedValue": {
+        "unit": "px",
+        "value": 0.5
+      },
+      "sourcePath": "primitive.border-width.hairline",
+      "tier": "primitive",
+      "type": "dimension"
+    },
+    {
+      "aliasTarget": {
+        "id": "border-width-ring-base",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-border-width-ring": "2px"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "border-width-ring",
+      "mode": "global",
+      "rawValue": "{primitive.border-width.ring}",
+      "resolvedValue": {
+        "unit": "px",
+        "value": 2
+      },
+      "sourcePath": "semantic.global.border-width.ring",
+      "tier": "semantic",
+      "type": "dimension"
+    },
+    {
+      "aliasTarget": null,
+      "cssProperties": {},
+      "deprecated": null,
+      "description": null,
+      "id": "border-width-ring-base",
+      "mode": "base",
+      "rawValue": {
+        "unit": "px",
+        "value": 2
+      },
+      "resolvedValue": {
+        "unit": "px",
+        "value": 2
+      },
+      "sourcePath": "primitive.border-width.ring",
+      "tier": "primitive",
       "type": "dimension"
     },
     {
@@ -4107,126 +4187,6 @@
     },
     {
       "aliasTarget": {
-        "id": "shadow-control-bevel",
-        "mode": "base"
-      },
-      "cssProperties": {
-        "--kds-elevation-control-bevel": "inset 0px 1px 1px 0px color(srgb 0.980392 0.980392 0.980392 / 0.25), inset 0px -1px 1px 0px color(srgb 0.980392 0.980392 0.980392 / 0.25)"
-      },
-      "deprecated": null,
-      "description": null,
-      "id": "elevation-control-bevel",
-      "mode": "global",
-      "rawValue": "{primitive.shadow.control-bevel}",
-      "resolvedValue": [
-        {
-          "blur": {
-            "unit": "px",
-            "value": 1
-          },
-          "color": {
-            "alpha": 0.25,
-            "colorSpace": "srgb",
-            "components": [
-              0.980392,
-              0.980392,
-              0.980392
-            ]
-          },
-          "inset": true,
-          "offsetX": {
-            "unit": "px",
-            "value": 0
-          },
-          "offsetY": {
-            "unit": "px",
-            "value": 1
-          },
-          "spread": {
-            "unit": "px",
-            "value": 0
-          }
-        },
-        {
-          "blur": {
-            "unit": "px",
-            "value": 1
-          },
-          "color": {
-            "alpha": 0.25,
-            "colorSpace": "srgb",
-            "components": [
-              0.980392,
-              0.980392,
-              0.980392
-            ]
-          },
-          "inset": true,
-          "offsetX": {
-            "unit": "px",
-            "value": 0
-          },
-          "offsetY": {
-            "unit": "px",
-            "value": -1
-          },
-          "spread": {
-            "unit": "px",
-            "value": 0
-          }
-        }
-      ],
-      "sourcePath": "semantic.global.elevation.control-bevel",
-      "tier": "semantic",
-      "type": "shadow"
-    },
-    {
-      "aliasTarget": {
-        "id": "shadow-control-gloss",
-        "mode": "base"
-      },
-      "cssProperties": {
-        "--kds-elevation-control-gloss": "inset 0px 0px 8px 0px color(srgb 0.980392 0.980392 0.980392 / 1)"
-      },
-      "deprecated": null,
-      "description": null,
-      "id": "elevation-control-gloss",
-      "mode": "global",
-      "rawValue": "{primitive.shadow.control-gloss}",
-      "resolvedValue": {
-        "blur": {
-          "unit": "px",
-          "value": 8
-        },
-        "color": {
-          "alpha": 1,
-          "colorSpace": "srgb",
-          "components": [
-            0.980392,
-            0.980392,
-            0.980392
-          ]
-        },
-        "inset": true,
-        "offsetX": {
-          "unit": "px",
-          "value": 0
-        },
-        "offsetY": {
-          "unit": "px",
-          "value": 0
-        },
-        "spread": {
-          "unit": "px",
-          "value": 0
-        }
-      },
-      "sourcePath": "semantic.global.elevation.control-gloss",
-      "tier": "semantic",
-      "type": "shadow"
-    },
-    {
-      "aliasTarget": {
         "id": "shadow-focus-ring",
         "mode": "base"
       },
@@ -4561,7 +4521,7 @@
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-elevation-toast": "0px 8px 20px 0px color(srgb 0 0 0 / 0.16), inset 0px 1px 1px 0px color(srgb 0.980392 0.980392 0.980392 / 0.25), inset 0px -1px 1px 0px color(srgb 0.980392 0.980392 0.980392 / 0.25)"
+        "--kds-elevation-toast": "0px 8px 20px 0px color(srgb 0 0 0 / 0.16)"
       },
       "deprecated": null,
       "description": null,
@@ -4591,62 +4551,6 @@
           "offsetY": {
             "unit": "px",
             "value": 8
-          },
-          "spread": {
-            "unit": "px",
-            "value": 0
-          }
-        },
-        {
-          "blur": {
-            "unit": "px",
-            "value": 1
-          },
-          "color": {
-            "alpha": 0.25,
-            "colorSpace": "srgb",
-            "components": [
-              0.980392,
-              0.980392,
-              0.980392
-            ]
-          },
-          "inset": true,
-          "offsetX": {
-            "unit": "px",
-            "value": 0
-          },
-          "offsetY": {
-            "unit": "px",
-            "value": 1
-          },
-          "spread": {
-            "unit": "px",
-            "value": 0
-          }
-        },
-        {
-          "blur": {
-            "unit": "px",
-            "value": 1
-          },
-          "color": {
-            "alpha": 0.25,
-            "colorSpace": "srgb",
-            "components": [
-              0.980392,
-              0.980392,
-              0.980392
-            ]
-          },
-          "inset": true,
-          "offsetX": {
-            "unit": "px",
-            "value": 0
-          },
-          "offsetY": {
-            "unit": "px",
-            "value": -1
           },
           "spread": {
             "unit": "px",
@@ -6094,203 +5998,6 @@
       "cssProperties": {},
       "deprecated": null,
       "description": null,
-      "id": "shadow-control-bevel",
-      "mode": "base",
-      "rawValue": [
-        {
-          "blur": {
-            "unit": "px",
-            "value": 1
-          },
-          "color": {
-            "alpha": 0.25,
-            "colorSpace": "srgb",
-            "components": [
-              0.980392,
-              0.980392,
-              0.980392
-            ],
-            "hex": "#fafafa"
-          },
-          "inset": true,
-          "offsetX": {
-            "unit": "px",
-            "value": 0
-          },
-          "offsetY": {
-            "unit": "px",
-            "value": 1
-          },
-          "spread": {
-            "unit": "px",
-            "value": 0
-          }
-        },
-        {
-          "blur": {
-            "unit": "px",
-            "value": 1
-          },
-          "color": {
-            "alpha": 0.25,
-            "colorSpace": "srgb",
-            "components": [
-              0.980392,
-              0.980392,
-              0.980392
-            ],
-            "hex": "#fafafa"
-          },
-          "inset": true,
-          "offsetX": {
-            "unit": "px",
-            "value": 0
-          },
-          "offsetY": {
-            "unit": "px",
-            "value": -1
-          },
-          "spread": {
-            "unit": "px",
-            "value": 0
-          }
-        }
-      ],
-      "resolvedValue": [
-        {
-          "blur": {
-            "unit": "px",
-            "value": 1
-          },
-          "color": {
-            "alpha": 0.25,
-            "colorSpace": "srgb",
-            "components": [
-              0.980392,
-              0.980392,
-              0.980392
-            ]
-          },
-          "inset": true,
-          "offsetX": {
-            "unit": "px",
-            "value": 0
-          },
-          "offsetY": {
-            "unit": "px",
-            "value": 1
-          },
-          "spread": {
-            "unit": "px",
-            "value": 0
-          }
-        },
-        {
-          "blur": {
-            "unit": "px",
-            "value": 1
-          },
-          "color": {
-            "alpha": 0.25,
-            "colorSpace": "srgb",
-            "components": [
-              0.980392,
-              0.980392,
-              0.980392
-            ]
-          },
-          "inset": true,
-          "offsetX": {
-            "unit": "px",
-            "value": 0
-          },
-          "offsetY": {
-            "unit": "px",
-            "value": -1
-          },
-          "spread": {
-            "unit": "px",
-            "value": 0
-          }
-        }
-      ],
-      "sourcePath": "primitive.shadow.control-bevel",
-      "tier": "primitive",
-      "type": "shadow"
-    },
-    {
-      "aliasTarget": null,
-      "cssProperties": {},
-      "deprecated": null,
-      "description": null,
-      "id": "shadow-control-gloss",
-      "mode": "base",
-      "rawValue": {
-        "blur": {
-          "unit": "px",
-          "value": 8
-        },
-        "color": {
-          "alpha": 1,
-          "colorSpace": "srgb",
-          "components": [
-            0.980392,
-            0.980392,
-            0.980392
-          ],
-          "hex": "#fafafa"
-        },
-        "inset": true,
-        "offsetX": {
-          "unit": "px",
-          "value": 0
-        },
-        "offsetY": {
-          "unit": "px",
-          "value": 0
-        },
-        "spread": {
-          "unit": "px",
-          "value": 0
-        }
-      },
-      "resolvedValue": {
-        "blur": {
-          "unit": "px",
-          "value": 8
-        },
-        "color": {
-          "alpha": 1,
-          "colorSpace": "srgb",
-          "components": [
-            0.980392,
-            0.980392,
-            0.980392
-          ]
-        },
-        "inset": true,
-        "offsetX": {
-          "unit": "px",
-          "value": 0
-        },
-        "offsetY": {
-          "unit": "px",
-          "value": 0
-        },
-        "spread": {
-          "unit": "px",
-          "value": 0
-        }
-      },
-      "sourcePath": "primitive.shadow.control-gloss",
-      "tier": "primitive",
-      "type": "shadow"
-    },
-    {
-      "aliasTarget": null,
-      "cssProperties": {},
-      "deprecated": null,
-      "description": null,
       "id": "shadow-focus-ring",
       "mode": "base",
       "rawValue": {
@@ -6843,64 +6550,6 @@
             "unit": "px",
             "value": 0
           }
-        },
-        {
-          "blur": {
-            "unit": "px",
-            "value": 1
-          },
-          "color": {
-            "alpha": 0.25,
-            "colorSpace": "srgb",
-            "components": [
-              0.980392,
-              0.980392,
-              0.980392
-            ],
-            "hex": "#fafafa"
-          },
-          "inset": true,
-          "offsetX": {
-            "unit": "px",
-            "value": 0
-          },
-          "offsetY": {
-            "unit": "px",
-            "value": 1
-          },
-          "spread": {
-            "unit": "px",
-            "value": 0
-          }
-        },
-        {
-          "blur": {
-            "unit": "px",
-            "value": 1
-          },
-          "color": {
-            "alpha": 0.25,
-            "colorSpace": "srgb",
-            "components": [
-              0.980392,
-              0.980392,
-              0.980392
-            ],
-            "hex": "#fafafa"
-          },
-          "inset": true,
-          "offsetX": {
-            "unit": "px",
-            "value": 0
-          },
-          "offsetY": {
-            "unit": "px",
-            "value": -1
-          },
-          "spread": {
-            "unit": "px",
-            "value": 0
-          }
         }
       ],
       "resolvedValue": [
@@ -6926,62 +6575,6 @@
           "offsetY": {
             "unit": "px",
             "value": 8
-          },
-          "spread": {
-            "unit": "px",
-            "value": 0
-          }
-        },
-        {
-          "blur": {
-            "unit": "px",
-            "value": 1
-          },
-          "color": {
-            "alpha": 0.25,
-            "colorSpace": "srgb",
-            "components": [
-              0.980392,
-              0.980392,
-              0.980392
-            ]
-          },
-          "inset": true,
-          "offsetX": {
-            "unit": "px",
-            "value": 0
-          },
-          "offsetY": {
-            "unit": "px",
-            "value": 1
-          },
-          "spread": {
-            "unit": "px",
-            "value": 0
-          }
-        },
-        {
-          "blur": {
-            "unit": "px",
-            "value": 1
-          },
-          "color": {
-            "alpha": 0.25,
-            "colorSpace": "srgb",
-            "components": [
-              0.980392,
-              0.980392,
-              0.980392
-            ]
-          },
-          "inset": true,
-          "offsetX": {
-            "unit": "px",
-            "value": 0
-          },
-          "offsetY": {
-            "unit": "px",
-            "value": -1
           },
           "spread": {
             "unit": "px",

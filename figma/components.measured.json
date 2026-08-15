@@ -14,13 +14,14 @@
           "paddingBlock": 0,
           "paddingInline": 16,
           "gap": 8,
-          "borderWidth": 1,
+          "borderWidth": 0.5,
           "radius": 12,
           "fontSize": 14,
           "lineHeight": 21,
           "spinner": 18,
           "iconSlot": 20,
-          "$iconSlot": "icon-size-md 20. 제품에는 슬롯 크기 계약이 없어 DS가 정한다"
+          "$iconSlot": "icon-size-md 20. 제품에는 슬롯 크기 계약이 없어 DS가 정한다",
+          "$borderWidth": "0.5px. **브라우저는 DPR 1에서 사용값을 1px로 올린다** — getComputedStyle이 1px을 돌려주므로 테스트는 계산값이 아니라 선언 토큰(--kds-border-width-hairline)을 본다. 레티나에서는 진짜 half-pixel로 그려진다."
         },
         "sm": {
           "height": 32,
@@ -28,7 +29,7 @@
           "paddingBlock": 0,
           "paddingInline": 12,
           "gap": 4,
-          "borderWidth": 1,
+          "borderWidth": 0.5,
           "radius": 12,
           "fontSize": 14,
           "lineHeight": 21,
@@ -145,14 +146,14 @@
         "md": {
           "height": 40,
           "width": 40,
-          "borderWidth": 1,
+          "borderWidth": 0.5,
           "radius": 12,
           "glyph": 20
         },
         "sm": {
           "height": 32,
           "width": 32,
-          "borderWidth": 1,
+          "borderWidth": 0.5,
           "radius": 12,
           "glyph": 20
         }
@@ -264,7 +265,7 @@
           "paddingBlock": 4,
           "paddingInline": 8,
           "gap": 0,
-          "borderWidth": 1,
+          "borderWidth": 0.5,
           "radius": 8,
           "fontSize": 12,
           "lineHeight": 18,
@@ -298,7 +299,8 @@
           "$height": "padding 12+12 + line-height 21 = 45. 테두리가 없다",
           "backdropBlur": 10,
           "$paddingInline": "제품 20px. space-toast-inline을 세웠다",
-          "$backdropBlur": "제품 backdrop-filter: blur(10px). Figma에서는 BACKGROUND_BLUR effect이며 radius를 blur/surface 변수에 문다"
+          "$backdropBlur": "제품 backdrop-filter: blur(10px). Figma에서는 BACKGROUND_BLUR effect이며 radius를 blur/surface 변수에 문다",
+          "$shadow": "drop 1겹만 남았다. 글래스 베벨 inset 2겹은 owner가 개념 자체를 없애기로 해 제거했다"
         }
       },
       "states": {
@@ -377,7 +379,7 @@
           "width": 360,
           "paddingBlock": 20,
           "paddingInline": 20,
-          "borderWidth": 1,
+          "borderWidth": 0.5,
           "radius": 20,
           "$radius": "radius-card 20. 24px 토큰이 소스에 없어 radius-overlay(16)보다 크면서 large와 구분되는 유일한 값이다",
           "gap": 8
@@ -386,7 +388,7 @@
           "width": 480,
           "paddingBlock": 20,
           "paddingInline": 20,
-          "borderWidth": 1,
+          "borderWidth": 0.5,
           "radius": 16,
           "gap": 8
         },
@@ -394,7 +396,7 @@
           "width": 720,
           "paddingBlock": 20,
           "paddingInline": 20,
-          "borderWidth": 1,
+          "borderWidth": 0.5,
           "radius": 16,
           "gap": 8
         }
@@ -410,5 +412,6 @@
       }
     }
   },
-  "$states": "variant × state마다 **어느 토큰을 무는가**. 개수가 아니라 정체를 고정한다. 이 표가 없던 동안 primary 배경을 danger 변수에 물려도 boundFills 수치가 그대로라 게이트가 통과했다. 값은 token id이며 Figma 변수 이름으로의 변환은 게이트가 생성 proposal의 figmaName으로 한다 — 여기에 Figma 이름을 적으면 정본이 둘이 된다. 코드 쪽 검증은 packages/react/test/component-states.browser.test.tsx가 계산값과 대조한다."
+  "$states": "variant × state마다 **어느 토큰을 무는가**. 개수가 아니라 정체를 고정한다. 이 표가 없던 동안 primary 배경을 danger 변수에 물려도 boundFills 수치가 그대로라 게이트가 통과했다. 값은 token id이며 Figma 변수 이름으로의 변환은 게이트가 생성 proposal의 figmaName으로 한다 — 여기에 Figma 이름을 적으면 정본이 둘이 된다. 코드 쪽 검증은 packages/react/test/component-states.browser.test.tsx가 계산값과 대조한다.",
+  "$borderWidthNote": "모든 1px 테두리를 0.5px로 바꿨다(owner 결정). Figma strokeWeight도 0.5다. Figma padding = CSS padding + 0.5이며 프레임 높이는 min-block-size가 고정하므로 바뀌지 않는다."
 }

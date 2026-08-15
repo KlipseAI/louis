@@ -49,6 +49,30 @@
           ]
         ],
         [
+          "border-width/hairline",
+          "FLOAT",
+          "STROKE_FLOAT",
+          [
+            [
+              "Base",
+              null,
+              0.5
+            ]
+          ]
+        ],
+        [
+          "border-width/ring",
+          "FLOAT",
+          "STROKE_FLOAT",
+          [
+            [
+              "Base",
+              null,
+              2
+            ]
+          ]
+        ],
+        [
           "color/amber/100",
           "COLOR",
           "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
@@ -1630,6 +1654,30 @@
           ]
         ],
         [
+          "border-width/hairline",
+          "FLOAT",
+          "STROKE_FLOAT",
+          [
+            [
+              "Global",
+              "Klipse Primitive::border-width/hairline",
+              null
+            ]
+          ]
+        ],
+        [
+          "border-width/ring",
+          "FLOAT",
+          "STROKE_FLOAT",
+          [
+            [
+              "Global",
+              "Klipse Primitive::border-width/ring",
+              null
+            ]
+          ]
+        ],
+        [
           "icon/size-lg",
           "FLOAT",
           "WIDTH_HEIGHT",
@@ -3054,47 +3102,6 @@
           0.06
         ]
       },
-      "elevation/control-bevel": {
-        "layers": [
-          {
-            "offsetY": 1,
-            "blur": 1,
-            "spread": 0,
-            "inset": true,
-            "color": [
-              0.980392,
-              0.980392,
-              0.980392,
-              0.25
-            ]
-          },
-          {
-            "offsetY": -1,
-            "blur": 1,
-            "spread": 0,
-            "inset": true,
-            "color": [
-              0.980392,
-              0.980392,
-              0.980392,
-              0.25
-            ]
-          }
-        ]
-      },
-      "elevation/control-gloss": {
-        "type": "INNER_SHADOW",
-        "offsetY": 0,
-        "blur": 8,
-        "spread": 0,
-        "inset": true,
-        "color": [
-          0.980392,
-          0.980392,
-          0.980392,
-          1
-        ]
-      },
       "elevation/tooltip": {
         "type": "DROP_SHADOW",
         "offsetY": 12,
@@ -3148,30 +3155,6 @@
               0,
               0,
               0.16
-            ]
-          },
-          {
-            "offsetY": 1,
-            "blur": 1,
-            "spread": 0,
-            "inset": true,
-            "color": [
-              0.980392,
-              0.980392,
-              0.980392,
-              0.25
-            ]
-          },
-          {
-            "offsetY": -1,
-            "blur": 1,
-            "spread": 0,
-            "inset": true,
-            "color": [
-              0.980392,
-              0.980392,
-              0.980392,
-              0.25
             ]
           }
         ]
@@ -3239,9 +3222,6 @@
             "RightIcon": [
               "20x20"
             ],
-            "Gloss": [
-              "125x40"
-            ],
             "Spinner": [
               "18x18"
             ]
@@ -3250,20 +3230,20 @@
             40
           ],
           "width": [
-            69,
-            95
+            68,
+            94
           ],
           "paddingBlock": [
-            1
+            0.5
           ],
           "paddingBlockEnd": [
-            1
+            0.5
           ],
           "paddingInline": [
-            17
+            16.5
           ],
           "paddingInlineEnd": [
-            17
+            16.5
           ],
           "itemSpacing": [
             8
@@ -3279,7 +3259,7 @@
           ],
           "strokeWeight": [
             2,
-            1
+            0.5
           ]
         },
         "sm": {
@@ -3290,9 +3270,6 @@
             "RightIcon": [
               "16x16"
             ],
-            "Gloss": [
-              "101x32"
-            ],
             "Spinner": [
               "18x18"
             ]
@@ -3301,20 +3278,20 @@
             32
           ],
           "width": [
-            61,
-            83
+            60,
+            82
           ],
           "paddingBlock": [
-            1
+            0.5
           ],
           "paddingBlockEnd": [
-            1
+            0.5
           ],
           "paddingInline": [
-            13
+            12.5
           ],
           "paddingInlineEnd": [
-            13
+            12.5
           ],
           "itemSpacing": [
             4
@@ -3330,7 +3307,7 @@
           ],
           "strokeWeight": [
             2,
-            1
+            0.5
           ]
         }
       },
@@ -3345,17 +3322,10 @@
           "2|INSIDE"
         ],
         "self": [
-          "1|INSIDE"
+          "0.5|INSIDE"
         ]
       },
-      "effects": {
-        "self": [
-          "INNER_SHADOW:1:1:0 + INNER_SHADOW:-1:1:0"
-        ],
-        "Gloss": [
-          "INNER_SHADOW:0:8:0"
-        ]
-      }
+      "effects": {}
     },
     "IconButton": {
       "variantCount": 40,
@@ -3404,9 +3374,6 @@
           "slots": {
             "Glyph": [
               "20x20"
-            ],
-            "Vector": [
-              "13.75x14.375"
             ]
           },
           "height": [
@@ -3437,17 +3404,13 @@
             "HORIZONTAL"
           ],
           "strokeWeight": [
-            1.5,
-            1
+            0.5
           ]
         },
         "sm": {
           "slots": {
             "Glyph": [
               "20x20"
-            ],
-            "Vector": [
-              "13.75x14.375"
             ]
           },
           "height": [
@@ -3478,8 +3441,7 @@
             "HORIZONTAL"
           ],
           "strokeWeight": [
-            1.5,
-            1
+            0.5
           ]
         }
       },
@@ -3488,7 +3450,7 @@
           "1.5|CENTER"
         ],
         "self": [
-          "1|INSIDE"
+          "0.5|INSIDE"
         ]
       },
       "effects": {}
@@ -3522,19 +3484,19 @@
             28
           ],
           "width": [
-            64
+            63
           ],
           "paddingBlock": [
-            5
+            4.5
           ],
           "paddingBlockEnd": [
-            5
+            4.5
           ],
           "paddingInline": [
-            9
+            8.5
           ],
           "paddingInlineEnd": [
-            9
+            8.5
           ],
           "itemSpacing": [
             0
@@ -3546,13 +3508,13 @@
             "HORIZONTAL"
           ],
           "strokeWeight": [
-            1
+            0.5
           ]
         }
       },
       "strokes": {
         "self": [
-          "1|INSIDE"
+          "0.5|INSIDE"
         ]
       },
       "effects": {
@@ -3611,13 +3573,16 @@
           ],
           "layoutMode": [
             "HORIZONTAL"
+          ],
+          "minWidth": [
+            null
           ]
         }
       },
       "strokes": {},
       "effects": {
         "self": [
-          "DROP_SHADOW:8:20:0 + INNER_SHADOW:1:1:0 + INNER_SHADOW:-1:1:0 + BACKGROUND_BLUR:NORMAL:var(blur/surface)"
+          "DROP_SHADOW:8:20:0 + BACKGROUND_BLUR:NORMAL:var(blur/surface)"
         ]
       }
     },
@@ -3703,23 +3668,23 @@
       "geometry": {
         "compact": {
           "slots": {},
+          "height": [
+            108
+          ],
           "width": [
             360
           ],
-          "height": [
-            109
-          ],
           "paddingBlock": [
-            21
+            20.5
           ],
           "paddingBlockEnd": [
-            21
+            20.5
           ],
           "paddingInline": [
-            21
+            20.5
           ],
           "paddingInlineEnd": [
-            21
+            20.5
           ],
           "itemSpacing": [
             8
@@ -3731,28 +3696,28 @@
             "VERTICAL"
           ],
           "strokeWeight": [
-            1
+            0.5
           ]
         },
         "medium": {
           "slots": {},
+          "height": [
+            108
+          ],
           "width": [
             480
           ],
-          "height": [
-            109
-          ],
           "paddingBlock": [
-            21
+            20.5
           ],
           "paddingBlockEnd": [
-            21
+            20.5
           ],
           "paddingInline": [
-            21
+            20.5
           ],
           "paddingInlineEnd": [
-            21
+            20.5
           ],
           "itemSpacing": [
             8
@@ -3764,28 +3729,28 @@
             "VERTICAL"
           ],
           "strokeWeight": [
-            1
+            0.5
           ]
         },
         "large": {
           "slots": {},
+          "height": [
+            108
+          ],
           "width": [
             720
           ],
-          "height": [
-            109
-          ],
           "paddingBlock": [
-            21
+            20.5
           ],
           "paddingBlockEnd": [
-            21
+            20.5
           ],
           "paddingInline": [
-            21
+            20.5
           ],
           "paddingInlineEnd": [
-            21
+            20.5
           ],
           "itemSpacing": [
             8
@@ -3797,13 +3762,13 @@
             "VERTICAL"
           ],
           "strokeWeight": [
-            1
+            0.5
           ]
         }
       },
       "strokes": {
         "self": [
-          "1|INSIDE"
+          "0.5|INSIDE"
         ]
       },
       "effects": {

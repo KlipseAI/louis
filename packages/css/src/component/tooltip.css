@@ -20,7 +20,7 @@
   padding-inline: var(--kds-space-control-sm);
   /* **표면이 페이지와 반전된다.** 라이트에서 어두운 면, 다크에서 밝은 면이다. 이전 DS는
    * background-inset이라 페이지와 같은 극성이었고 제품과 정반대였다. */
-  border: 1px solid var(--kds-color-border-tooltip);
+  border: var(--kds-border-width-hairline) solid var(--kds-color-border-tooltip);
   border-radius: var(--kds-radius-control-sm);
   background: var(--kds-color-background-inverse);
   color: var(--kds-color-foreground-on-inverse);

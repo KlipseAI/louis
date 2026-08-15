@@ -161,7 +161,7 @@
           "match": "different",
           "evidence": "apps/web/components/ui/Button.tsx:81",
           "status": "adopted",
-          "reason": "제품은 secondary만 1px이고 나머지는 none이다. DS는 전 variant 1px을 유지하되 색만 바꾼다 — 높이가 min-block-size로 고정이라 박스 크기는 어느 쪽이든 40/32로 같고, 전 variant 1px이면 variant를 바꿔도 내부 공간이 흔들리지 않는다"
+          "reason": "제품은 secondary만 1px이고 나머지는 none이다. DS는 전 variant에 테두리를 두되 **두께를 0.5px로 한다** — owner 결정이며 제품의 1px보다 얇다. 높이가 min-block-size로 고정이라 박스 크기는 어느 쪽이든 같고, 전 variant 동일 두께면 variant를 바꿔도 내부 공간이 흔들리지 않는다. 브라우저는 DPR 1에서 사용값을 1px로 올리고 레티나에서 half-pixel로 그린다."
         },
         "border 색 secondary": {
           "product": "rgb(23 27 34 / 12%) = #171B22 12% (다크: rgb(250 250 250 / 16%))",
@@ -256,16 +256,16 @@
           "ds": "없음 (button.css에 box-shadow 선언 0건)",
           "match": "ds-missing",
           "evidence": "apps/web/components/ui/Button.tsx:94",
-          "status": "adopted",
-          "reason": "제품의 글래스 베벨 2겹을 채택했다. elevation-control-bevel 토큰을 세웠고 DTCG shadow의 inset property 지원을 token 모델에 추가했다"
+          "status": "accepted-deviation",
+          "reason": "owner 결정으로 채택을 철회했다. 이번 개편에서 **버튼에는 이너섀도우를 쓰지 않고** 글래스 섀도우라는 개념 자체를 없앤다. 이너섀도우는 노드 사이드 버튼에만 남는다. 제품 값을 그대로 따르지 않는다는 뜻이며 그 결정이 여기 기록이다."
         },
         "오버레이 레이어(primary ::before)": {
           "product": "::before inset:0, box-shadow: inset 0 0 8px 0 rgb(250 250 250 / 100%), mix-blend-mode: overlay",
           "ds": "없음 — pseudo element 레이어 자체가 없다",
           "match": "ds-missing",
           "evidence": "apps/web/components/ui/Button.tsx:96",
-          "status": "adopted",
-          "reason": "제품의 ::before 광택 오버레이를 채택했다. elevation-control-gloss 토큰과 mix-blend-mode: overlay를 쓴다"
+          "status": "accepted-deviation",
+          "reason": "owner 결정으로 채택을 철회했다. 이번 개편에서 **버튼에는 이너섀도우를 쓰지 않고** 글래스 섀도우라는 개념 자체를 없앤다. 이너섀도우는 노드 사이드 버튼에만 남는다. 제품 값을 그대로 따르지 않는다는 뜻이며 그 결정이 여기 기록이다."
         },
         "타이포 sm": {
           "product": "14px / 500 / 1.5 / -0.14px — md와 동일. size가 타이포를 바꾸지 않는다",

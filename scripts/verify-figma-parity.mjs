@@ -50,10 +50,8 @@ const COMPONENT_CONTRACTS = [
       "LeftIcon.glyph": { weight: "icon", align: "CENTER" },
       "RightIcon.glyph": { weight: "icon", align: "CENTER" },
     },
-    effects: {
-      self: "INNER_SHADOW:1:1:0 + INNER_SHADOW:-1:1:0",
-      Gloss: "INNER_SHADOW:0:8:0",
-    },
+    // owner 결정: 이 버튼들에는 이너섀도우를 쓰지 않는다. 글래스 섀도우 개념 자체를 없앴다.
+    effects: {},
     figmaName: "Button",
     declaration: "packages/react/dist/button/button.d.ts",
     // Figma variant property 이름 → 코드에서 같은 집합을 정의하는 타입 alias
@@ -168,7 +166,7 @@ const COMPONENT_CONTRACTS = [
     id: "toast",
     strokes: {},
     effects: {
-      self: "DROP_SHADOW:8:20:0 + INNER_SHADOW:1:1:0 + INNER_SHADOW:-1:1:0 + BACKGROUND_BLUR:NORMAL:var(blur/surface)",
+      self: "DROP_SHADOW:8:20:0 + BACKGROUND_BLUR:NORMAL:var(blur/surface)",
     },
     figmaName: "Toast",
     declaration: "packages/react/dist/toast/toast.d.ts",
@@ -1259,7 +1257,15 @@ function tamperComponentEffectType(document) {
     const effects = document.components?.[contract.figmaName]?.effects;
     const role = Object.keys(contract.effects ?? {}).find((key) => Array.isArray(effects?.[key]));
     if (role === undefined) continue;
-    effects[role] = [effects[role][0].replace("INNER_SHADOW", "DROP_SHADOW").replace("BACKGROUND_BLUR", "LAYER_BLUR")];
+    // 종류를 문자열로 바꿔치기한다. 특정 종류에 의존하면 그 종류가 없는 컴포넌트에서 변조가
+    // no-op이 되어 canary가 조용히 무력해진다 — 실제로 그렇게 됐다.
+    const swap = { DROP_SHADOW: "INNER_SHADOW", INNER_SHADOW: "DROP_SHADOW", BACKGROUND_BLUR: "LAYER_BLUR", LAYER_BLUR: "BACKGROUND_BLUR" };
+    const mutated = effects[role][0].replace(
+      /DROP_SHADOW|INNER_SHADOW|BACKGROUND_BLUR|LAYER_BLUR/,
+      (match) => swap[match],
+    );
+    if (mutated === effects[role][0]) continue;
+    effects[role] = [mutated];
     return `component effect 종류 변조 ${contract.figmaName}.${role}`;
   }
   return null;

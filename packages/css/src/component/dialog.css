@@ -79,7 +79,7 @@
   );
   overflow: hidden;
   background: var(--kds-color-background-overlay);
-  border: 1px solid var(--kds-color-border-subtle);
+  border: var(--kds-border-width-hairline) solid var(--kds-color-border-subtle);
   border-radius: var(--kds-dialog-surface-radius);
   box-shadow: var(--kds-elevation-modal);
   color: var(--kds-color-foreground-primary);

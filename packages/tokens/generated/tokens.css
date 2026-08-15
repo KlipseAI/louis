@@ -5,6 +5,8 @@
   color-scheme: light;
   --kds-blur-panel: 12px;
   --kds-blur-surface: 10px;
+  --kds-border-width-hairline: 0.5px;
+  --kds-border-width-ring: 2px;
   --kds-color-action-danger: color(srgb 1 0.294118 0.34902 / 1);
   --kds-color-action-ghost-hover: color(srgb 0.090196 0.105882 0.133333 / 0.08);
   --kds-color-action-menu-danger-hover: color(srgb 1 0.294118 0.34902 / 0.1);
@@ -45,14 +47,12 @@
   --kds-color-status-success-foreground: color(srgb 0.043137 0.239216 0.094118 / 1);
   --kds-color-status-warning-background: color(srgb 1 0.960784 0.839216 / 1);
   --kds-color-status-warning-foreground: color(srgb 0.360784 0.239216 0 / 1);
-  --kds-elevation-control-bevel: inset 0px 1px 1px 0px color(srgb 0.980392 0.980392 0.980392 / 0.25), inset 0px -1px 1px 0px color(srgb 0.980392 0.980392 0.980392 / 0.25);
-  --kds-elevation-control-gloss: inset 0px 0px 8px 0px color(srgb 0.980392 0.980392 0.980392 / 1);
   --kds-elevation-focus-ring: 0px 0px 0px 3px color(srgb 0 0.533333 1 / 0.42);
   --kds-elevation-menu: 0px 8px 15px 0px color(srgb 0 0 0 / 0.04), 0px 0px 0px 0.5px color(srgb 0.835294 0.843137 0.866667 / 1);
   --kds-elevation-modal: 0px 16px 48px -8px color(srgb 0 0 0 / 0.22);
   --kds-elevation-popover: 0px 8px 24px -4px color(srgb 0 0 0 / 0.14);
   --kds-elevation-surface: 0px 2px 8px 0px color(srgb 0 0 0 / 0.06);
-  --kds-elevation-toast: 0px 8px 20px 0px color(srgb 0 0 0 / 0.16), inset 0px 1px 1px 0px color(srgb 0.980392 0.980392 0.980392 / 0.25), inset 0px -1px 1px 0px color(srgb 0.980392 0.980392 0.980392 / 0.25);
+  --kds-elevation-toast: 0px 8px 20px 0px color(srgb 0 0 0 / 0.16);
   --kds-elevation-tooltip: 0px 12px 24px 0px color(srgb 0.466667 0.490196 0.537255 / 0.12);
   --kds-icon-size-lg: 24px;
   --kds-icon-size-md: 20px;

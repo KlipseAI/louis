@@ -293,6 +293,62 @@
             }
           }
         },
+        "border-width-hairline-base": {
+          "$type": "dimension",
+          "fields": [],
+          "figmaName": "border-width/hairline",
+          "hiddenFromPublishing": true,
+          "losses": [
+            "Figma FLOAT는 DTCG 단위 의미를 직접 보존하지 않으므로 source metadata를 함께 검토해야 합니다."
+          ],
+          "nativeVariableType": "FLOAT",
+          "representation": "variable",
+          "scopes": [
+            "WIDTH_HEIGHT"
+          ],
+          "valuesByMode": {
+            "Base": {
+              "$value": {
+                "unit": "px",
+                "value": 0.5
+              },
+              "aliasTarget": null,
+              "resolvedValue": {
+                "unit": "px",
+                "value": 0.5
+              },
+              "sourcePath": "primitive.border-width.hairline"
+            }
+          }
+        },
+        "border-width-ring-base": {
+          "$type": "dimension",
+          "fields": [],
+          "figmaName": "border-width/ring",
+          "hiddenFromPublishing": true,
+          "losses": [
+            "Figma FLOAT는 DTCG 단위 의미를 직접 보존하지 않으므로 source metadata를 함께 검토해야 합니다."
+          ],
+          "nativeVariableType": "FLOAT",
+          "representation": "variable",
+          "scopes": [
+            "WIDTH_HEIGHT"
+          ],
+          "valuesByMode": {
+            "Base": {
+              "$value": {
+                "unit": "px",
+                "value": 2
+              },
+              "aliasTarget": null,
+              "resolvedValue": {
+                "unit": "px",
+                "value": 2
+              },
+              "sourcePath": "primitive.border-width.ring"
+            }
+          }
+        },
         "color-amber-100": {
           "$type": "color",
           "fields": [],
@@ -3355,231 +3411,6 @@
             }
           }
         },
-        "shadow-control-bevel": {
-          "$type": "shadow",
-          "fields": [
-            "blur",
-            "color",
-            "inset",
-            "offsetX",
-            "offsetY",
-            "spread"
-          ],
-          "figmaName": "shadow/control-bevel",
-          "hiddenFromPublishing": true,
-          "losses": [
-            "primitive shadow은 Figma에 만들지 않습니다. Figma에는 style→style alias가 없어 semantic→primitive tier 관계를 보존할 수 없습니다 (DS-D-0007)."
-          ],
-          "nativeVariableType": null,
-          "representation": "unrepresented",
-          "scopes": [],
-          "valuesByMode": {
-            "Base": {
-              "$value": [
-                {
-                  "blur": {
-                    "unit": "px",
-                    "value": 1
-                  },
-                  "color": {
-                    "alpha": 0.25,
-                    "colorSpace": "srgb",
-                    "components": [
-                      0.980392,
-                      0.980392,
-                      0.980392
-                    ],
-                    "hex": "#fafafa"
-                  },
-                  "inset": true,
-                  "offsetX": {
-                    "unit": "px",
-                    "value": 0
-                  },
-                  "offsetY": {
-                    "unit": "px",
-                    "value": 1
-                  },
-                  "spread": {
-                    "unit": "px",
-                    "value": 0
-                  }
-                },
-                {
-                  "blur": {
-                    "unit": "px",
-                    "value": 1
-                  },
-                  "color": {
-                    "alpha": 0.25,
-                    "colorSpace": "srgb",
-                    "components": [
-                      0.980392,
-                      0.980392,
-                      0.980392
-                    ],
-                    "hex": "#fafafa"
-                  },
-                  "inset": true,
-                  "offsetX": {
-                    "unit": "px",
-                    "value": 0
-                  },
-                  "offsetY": {
-                    "unit": "px",
-                    "value": -1
-                  },
-                  "spread": {
-                    "unit": "px",
-                    "value": 0
-                  }
-                }
-              ],
-              "aliasTarget": null,
-              "resolvedValue": [
-                {
-                  "blur": {
-                    "unit": "px",
-                    "value": 1
-                  },
-                  "color": {
-                    "alpha": 0.25,
-                    "colorSpace": "srgb",
-                    "components": [
-                      0.980392,
-                      0.980392,
-                      0.980392
-                    ]
-                  },
-                  "inset": true,
-                  "offsetX": {
-                    "unit": "px",
-                    "value": 0
-                  },
-                  "offsetY": {
-                    "unit": "px",
-                    "value": 1
-                  },
-                  "spread": {
-                    "unit": "px",
-                    "value": 0
-                  }
-                },
-                {
-                  "blur": {
-                    "unit": "px",
-                    "value": 1
-                  },
-                  "color": {
-                    "alpha": 0.25,
-                    "colorSpace": "srgb",
-                    "components": [
-                      0.980392,
-                      0.980392,
-                      0.980392
-                    ]
-                  },
-                  "inset": true,
-                  "offsetX": {
-                    "unit": "px",
-                    "value": 0
-                  },
-                  "offsetY": {
-                    "unit": "px",
-                    "value": -1
-                  },
-                  "spread": {
-                    "unit": "px",
-                    "value": 0
-                  }
-                }
-              ],
-              "sourcePath": "primitive.shadow.control-bevel"
-            }
-          }
-        },
-        "shadow-control-gloss": {
-          "$type": "shadow",
-          "fields": [
-            "blur",
-            "color",
-            "inset",
-            "offsetX",
-            "offsetY",
-            "spread"
-          ],
-          "figmaName": "shadow/control-gloss",
-          "hiddenFromPublishing": true,
-          "losses": [
-            "primitive shadow은 Figma에 만들지 않습니다. Figma에는 style→style alias가 없어 semantic→primitive tier 관계를 보존할 수 없습니다 (DS-D-0007)."
-          ],
-          "nativeVariableType": null,
-          "representation": "unrepresented",
-          "scopes": [],
-          "valuesByMode": {
-            "Base": {
-              "$value": {
-                "blur": {
-                  "unit": "px",
-                  "value": 8
-                },
-                "color": {
-                  "alpha": 1,
-                  "colorSpace": "srgb",
-                  "components": [
-                    0.980392,
-                    0.980392,
-                    0.980392
-                  ],
-                  "hex": "#fafafa"
-                },
-                "inset": true,
-                "offsetX": {
-                  "unit": "px",
-                  "value": 0
-                },
-                "offsetY": {
-                  "unit": "px",
-                  "value": 0
-                },
-                "spread": {
-                  "unit": "px",
-                  "value": 0
-                }
-              },
-              "aliasTarget": null,
-              "resolvedValue": {
-                "blur": {
-                  "unit": "px",
-                  "value": 8
-                },
-                "color": {
-                  "alpha": 1,
-                  "colorSpace": "srgb",
-                  "components": [
-                    0.980392,
-                    0.980392,
-                    0.980392
-                  ]
-                },
-                "inset": true,
-                "offsetX": {
-                  "unit": "px",
-                  "value": 0
-                },
-                "offsetY": {
-                  "unit": "px",
-                  "value": 0
-                },
-                "spread": {
-                  "unit": "px",
-                  "value": 0
-                }
-              },
-              "sourcePath": "primitive.shadow.control-gloss"
-            }
-          }
-        },
         "shadow-focus-ring": {
           "$type": "shadow",
           "fields": [
@@ -4234,64 +4065,6 @@
                     "unit": "px",
                     "value": 0
                   }
-                },
-                {
-                  "blur": {
-                    "unit": "px",
-                    "value": 1
-                  },
-                  "color": {
-                    "alpha": 0.25,
-                    "colorSpace": "srgb",
-                    "components": [
-                      0.980392,
-                      0.980392,
-                      0.980392
-                    ],
-                    "hex": "#fafafa"
-                  },
-                  "inset": true,
-                  "offsetX": {
-                    "unit": "px",
-                    "value": 0
-                  },
-                  "offsetY": {
-                    "unit": "px",
-                    "value": 1
-                  },
-                  "spread": {
-                    "unit": "px",
-                    "value": 0
-                  }
-                },
-                {
-                  "blur": {
-                    "unit": "px",
-                    "value": 1
-                  },
-                  "color": {
-                    "alpha": 0.25,
-                    "colorSpace": "srgb",
-                    "components": [
-                      0.980392,
-                      0.980392,
-                      0.980392
-                    ],
-                    "hex": "#fafafa"
-                  },
-                  "inset": true,
-                  "offsetX": {
-                    "unit": "px",
-                    "value": 0
-                  },
-                  "offsetY": {
-                    "unit": "px",
-                    "value": -1
-                  },
-                  "spread": {
-                    "unit": "px",
-                    "value": 0
-                  }
                 }
               ],
               "aliasTarget": null,
@@ -4318,62 +4091,6 @@
                   "offsetY": {
                     "unit": "px",
                     "value": 8
-                  },
-                  "spread": {
-                    "unit": "px",
-                    "value": 0
-                  }
-                },
-                {
-                  "blur": {
-                    "unit": "px",
-                    "value": 1
-                  },
-                  "color": {
-                    "alpha": 0.25,
-                    "colorSpace": "srgb",
-                    "components": [
-                      0.980392,
-                      0.980392,
-                      0.980392
-                    ]
-                  },
-                  "inset": true,
-                  "offsetX": {
-                    "unit": "px",
-                    "value": 0
-                  },
-                  "offsetY": {
-                    "unit": "px",
-                    "value": 1
-                  },
-                  "spread": {
-                    "unit": "px",
-                    "value": 0
-                  }
-                },
-                {
-                  "blur": {
-                    "unit": "px",
-                    "value": 1
-                  },
-                  "color": {
-                    "alpha": 0.25,
-                    "colorSpace": "srgb",
-                    "components": [
-                      0.980392,
-                      0.980392,
-                      0.980392
-                    ]
-                  },
-                  "inset": true,
-                  "offsetX": {
-                    "unit": "px",
-                    "value": 0
-                  },
-                  "offsetY": {
-                    "unit": "px",
-                    "value": -1
                   },
                   "spread": {
                     "unit": "px",
@@ -6639,147 +6356,59 @@
             }
           }
         },
-        "elevation-control-bevel": {
-          "$type": "shadow",
-          "fields": [
-            "blur",
-            "color",
-            "inset",
-            "offsetX",
-            "offsetY",
-            "spread"
-          ],
-          "figmaName": "elevation/control-bevel",
+        "border-width-hairline": {
+          "$type": "dimension",
+          "fields": [],
+          "figmaName": "border-width/hairline",
           "hiddenFromPublishing": false,
           "losses": [
-            "DTCG shadow composite는 단일 native variable로 표현되지 않아 effect-style로 만들고 내부 속성을 변수에 바인딩합니다."
+            "Figma FLOAT는 DTCG 단위 의미를 직접 보존하지 않으므로 source metadata를 함께 검토해야 합니다."
           ],
-          "nativeVariableType": null,
-          "representation": "effect-style",
-          "scopes": [],
+          "nativeVariableType": "FLOAT",
+          "representation": "variable",
+          "scopes": [
+            "WIDTH_HEIGHT"
+          ],
           "valuesByMode": {
             "Global": {
-              "$value": "{primitive.shadow.control-bevel}",
+              "$value": "{primitive.border-width.hairline}",
               "aliasTarget": {
-                "id": "shadow-control-bevel",
-                "mode": "base"
-              },
-              "resolvedValue": [
-                {
-                  "blur": {
-                    "unit": "px",
-                    "value": 1
-                  },
-                  "color": {
-                    "alpha": 0.25,
-                    "colorSpace": "srgb",
-                    "components": [
-                      0.980392,
-                      0.980392,
-                      0.980392
-                    ]
-                  },
-                  "inset": true,
-                  "offsetX": {
-                    "unit": "px",
-                    "value": 0
-                  },
-                  "offsetY": {
-                    "unit": "px",
-                    "value": 1
-                  },
-                  "spread": {
-                    "unit": "px",
-                    "value": 0
-                  }
-                },
-                {
-                  "blur": {
-                    "unit": "px",
-                    "value": 1
-                  },
-                  "color": {
-                    "alpha": 0.25,
-                    "colorSpace": "srgb",
-                    "components": [
-                      0.980392,
-                      0.980392,
-                      0.980392
-                    ]
-                  },
-                  "inset": true,
-                  "offsetX": {
-                    "unit": "px",
-                    "value": 0
-                  },
-                  "offsetY": {
-                    "unit": "px",
-                    "value": -1
-                  },
-                  "spread": {
-                    "unit": "px",
-                    "value": 0
-                  }
-                }
-              ],
-              "sourcePath": "semantic.global.elevation.control-bevel"
-            }
-          }
-        },
-        "elevation-control-gloss": {
-          "$type": "shadow",
-          "fields": [
-            "blur",
-            "color",
-            "inset",
-            "offsetX",
-            "offsetY",
-            "spread"
-          ],
-          "figmaName": "elevation/control-gloss",
-          "hiddenFromPublishing": false,
-          "losses": [
-            "DTCG shadow composite는 단일 native variable로 표현되지 않아 effect-style로 만들고 내부 속성을 변수에 바인딩합니다."
-          ],
-          "nativeVariableType": null,
-          "representation": "effect-style",
-          "scopes": [],
-          "valuesByMode": {
-            "Global": {
-              "$value": "{primitive.shadow.control-gloss}",
-              "aliasTarget": {
-                "id": "shadow-control-gloss",
+                "id": "border-width-hairline-base",
                 "mode": "base"
               },
               "resolvedValue": {
-                "blur": {
-                  "unit": "px",
-                  "value": 8
-                },
-                "color": {
-                  "alpha": 1,
-                  "colorSpace": "srgb",
-                  "components": [
-                    0.980392,
-                    0.980392,
-                    0.980392
-                  ]
-                },
-                "inset": true,
-                "offsetX": {
-                  "unit": "px",
-                  "value": 0
-                },
-                "offsetY": {
-                  "unit": "px",
-                  "value": 0
-                },
-                "spread": {
-                  "unit": "px",
-                  "value": 0
-                }
+                "unit": "px",
+                "value": 0.5
               },
-              "sourcePath": "semantic.global.elevation.control-gloss"
+              "sourcePath": "semantic.global.border-width.hairline"
+            }
+          }
+        },
+        "border-width-ring": {
+          "$type": "dimension",
+          "fields": [],
+          "figmaName": "border-width/ring",
+          "hiddenFromPublishing": false,
+          "losses": [
+            "Figma FLOAT는 DTCG 단위 의미를 직접 보존하지 않으므로 source metadata를 함께 검토해야 합니다."
+          ],
+          "nativeVariableType": "FLOAT",
+          "representation": "variable",
+          "scopes": [
+            "WIDTH_HEIGHT"
+          ],
+          "valuesByMode": {
+            "Global": {
+              "$value": "{primitive.border-width.ring}",
+              "aliasTarget": {
+                "id": "border-width-ring-base",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "unit": "px",
+                "value": 2
+              },
+              "sourcePath": "semantic.global.border-width.ring"
             }
           }
         },
@@ -7059,62 +6688,6 @@
                   "offsetY": {
                     "unit": "px",
                     "value": 8
-                  },
-                  "spread": {
-                    "unit": "px",
-                    "value": 0
-                  }
-                },
-                {
-                  "blur": {
-                    "unit": "px",
-                    "value": 1
-                  },
-                  "color": {
-                    "alpha": 0.25,
-                    "colorSpace": "srgb",
-                    "components": [
-                      0.980392,
-                      0.980392,
-                      0.980392
-                    ]
-                  },
-                  "inset": true,
-                  "offsetX": {
-                    "unit": "px",
-                    "value": 0
-                  },
-                  "offsetY": {
-                    "unit": "px",
-                    "value": 1
-                  },
-                  "spread": {
-                    "unit": "px",
-                    "value": 0
-                  }
-                },
-                {
-                  "blur": {
-                    "unit": "px",
-                    "value": 1
-                  },
-                  "color": {
-                    "alpha": 0.25,
-                    "colorSpace": "srgb",
-                    "components": [
-                      0.980392,
-                      0.980392,
-                      0.980392
-                    ]
-                  },
-                  "inset": true,
-                  "offsetX": {
-                    "unit": "px",
-                    "value": 0
-                  },
-                  "offsetY": {
-                    "unit": "px",
-                    "value": -1
                   },
                   "spread": {
                     "unit": "px",

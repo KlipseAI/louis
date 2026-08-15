@@ -2,23 +2,23 @@
   "artifacts": [
     {
       "path": "packages/tokens/generated/figma.tokens.json",
-      "sha256": "a58ec6fb7fc46bc1cfff99f77366545294b44c73cef9ea3b19d4da3eb8fbc037"
+      "sha256": "6c9690443daba5c7a99e807acd3ef29b7ecfb4db1b3715cc104f410822a72d3a"
     },
     {
       "path": "packages/tokens/generated/index.d.ts",
-      "sha256": "5372c6ee20aa5bd9c7c7dd89a2f1b830ee60b95f72dfd387e242d1d7e6d58bc0"
+      "sha256": "f908596ca57dc3b4f98efdbe244e4363393b5206119694cc9cb663e3ed69e25a"
     },
     {
       "path": "packages/tokens/generated/index.js",
-      "sha256": "b078c8c984bc53d6f357b625af127ffe71f73bfefaefa3c00a73bf755fcac2e4"
+      "sha256": "749a00672cc24bf7c18d5948a4122a94439dca3736b1c4c8f74aa03bebab873c"
     },
     {
       "path": "packages/tokens/generated/tokens.css",
-      "sha256": "4bc449a913968bc673305c0b85aac4065874874fe38fffa26c5c6fa542ab2839"
+      "sha256": "163e37ea5ac5c51f97a392d388c7c923be337586d1f84158387c3a2409ac2e3e"
     },
     {
       "path": "packages/tokens/generated/tokens.json",
-      "sha256": "bf1f4ef9af8a8ab6ae6081bd9a6d35bd97032fce3420f520db0c8c873ffe5643"
+      "sha256": "861fcaca9fa9a06fda3977fa30f0f6ad2db798d53327208401a39049ad277275"
     }
   ],
   "contrastPairs": [
@@ -30,6 +30,11 @@
     {
       "background": "color-background-surface",
       "foreground": "color-foreground-primary",
+      "minimum": 4.5
+    },
+    {
+      "background": "color-background-inverse",
+      "foreground": "color-foreground-on-inverse",
       "minimum": 4.5
     },
     {
@@ -164,13 +169,13 @@
   },
   "source": {
     "path": "packages/tokens/src/klipse.tokens.json",
-    "sha256": "0d5fd17cdb338f888f3da6a1c4058b764259b63c80de8a0cfc7e6e66307a8c10"
+    "sha256": "76c18d9378363f4fcff19604f94092ad5aad7a957a66e8de2d8d02f30bed3f16"
   },
   "themes": [
     "light",
     "dark"
   ],
-  "tokenCount": 224,
+  "tokenCount": 228,
   "tokens": [
     {
       "aliasTarget": {
@@ -545,6 +550,58 @@
         ]
       },
       "sourcePath": "semantic.dark.color.background-inset",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-neutral-800",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-color-background-inverse": "color(srgb 0.192157 0.211765 0.25098 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-background-inverse",
+      "mode": "light",
+      "rawValue": "{primitive.color.neutral.800}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0.192157,
+          0.211765,
+          0.25098
+        ]
+      },
+      "sourcePath": "semantic.light.color.background-inverse",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-neutral-200",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-color-background-inverse": "color(srgb 0.890196 0.894118 0.909804 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-background-inverse",
+      "mode": "dark",
+      "rawValue": "{primitive.color.neutral.200}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0.890196,
+          0.894118,
+          0.909804
+        ]
+      },
+      "sourcePath": "semantic.dark.color.background-inverse",
       "tier": "semantic",
       "type": "color"
     },
@@ -1363,6 +1420,58 @@
         ]
       },
       "sourcePath": "semantic.dark.color.foreground-inverse",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-neutral-0",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-color-foreground-on-inverse": "color(srgb 0.980392 0.980392 0.980392 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-foreground-on-inverse",
+      "mode": "light",
+      "rawValue": "{primitive.color.neutral.0}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0.980392,
+          0.980392,
+          0.980392
+        ]
+      },
+      "sourcePath": "semantic.light.color.foreground-on-inverse",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-neutral-900",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-color-foreground-on-inverse": "color(srgb 0.090196 0.105882 0.133333 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-foreground-on-inverse",
+      "mode": "dark",
+      "rawValue": "{primitive.color.neutral.900}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0.090196,
+          0.105882,
+          0.133333
+        ]
+      },
+      "sourcePath": "semantic.dark.color.foreground-on-inverse",
       "tier": "semantic",
       "type": "color"
     },

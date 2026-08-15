@@ -14,6 +14,11 @@ export const metadata = Object.freeze({
       "minimum": 4.5
     },
     {
+      "foreground": "color-foreground-on-inverse",
+      "background": "color-background-inverse",
+      "minimum": 4.5
+    },
+    {
       "foreground": "color-foreground-inverse",
       "background": "color-action-primary",
       "minimum": 4.5
@@ -5274,6 +5279,32 @@ export const tokens = {
         "alpha": 1
       }
     },
+    "color-background-inverse": {
+      "aliasTarget": {
+        "id": "color-neutral-800",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-color-background-inverse": "color(srgb 0.192157 0.211765 0.25098 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-background-inverse",
+      "mode": "light",
+      "rawValue": "{primitive.color.neutral.800}",
+      "sourcePath": "semantic.light.color.background-inverse",
+      "tier": "semantic",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.192157,
+          0.211765,
+          0.25098
+        ],
+        "alpha": 1
+      }
+    },
     "color-background-overlay": {
       "aliasTarget": {
         "id": "color-neutral-0",
@@ -5496,6 +5527,32 @@ export const tokens = {
       "mode": "light",
       "rawValue": "{primitive.color.neutral.0}",
       "sourcePath": "semantic.light.color.foreground-inverse",
+      "tier": "semantic",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.980392,
+          0.980392,
+          0.980392
+        ],
+        "alpha": 1
+      }
+    },
+    "color-foreground-on-inverse": {
+      "aliasTarget": {
+        "id": "color-neutral-0",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-color-foreground-on-inverse": "color(srgb 0.980392 0.980392 0.980392 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-foreground-on-inverse",
+      "mode": "light",
+      "rawValue": "{primitive.color.neutral.0}",
+      "sourcePath": "semantic.light.color.foreground-on-inverse",
       "tier": "semantic",
       "type": "color",
       "value": {
@@ -5952,6 +6009,32 @@ export const tokens = {
         "alpha": 1
       }
     },
+    "color-background-inverse": {
+      "aliasTarget": {
+        "id": "color-neutral-200",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-color-background-inverse": "color(srgb 0.890196 0.894118 0.909804 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-background-inverse",
+      "mode": "dark",
+      "rawValue": "{primitive.color.neutral.200}",
+      "sourcePath": "semantic.dark.color.background-inverse",
+      "tier": "semantic",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.890196,
+          0.894118,
+          0.909804
+        ],
+        "alpha": 1
+      }
+    },
     "color-background-overlay": {
       "aliasTarget": {
         "id": "color-neutral-800",
@@ -6182,6 +6265,32 @@ export const tokens = {
           0.980392,
           0.980392,
           0.980392
+        ],
+        "alpha": 1
+      }
+    },
+    "color-foreground-on-inverse": {
+      "aliasTarget": {
+        "id": "color-neutral-900",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-color-foreground-on-inverse": "color(srgb 0.090196 0.105882 0.133333 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-foreground-on-inverse",
+      "mode": "dark",
+      "rawValue": "{primitive.color.neutral.900}",
+      "sourcePath": "semantic.dark.color.foreground-on-inverse",
+      "tier": "semantic",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.090196,
+          0.105882,
+          0.133333
         ],
         "alpha": 1
       }

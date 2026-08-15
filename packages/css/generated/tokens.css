@@ -8,6 +8,7 @@
   --kds-color-action-primary-pressed: color(srgb 0 0.203922 0.380392 / 1);
   --kds-color-background-canvas: color(srgb 0.945098 0.945098 0.952941 / 1);
   --kds-color-background-inset: color(srgb 0.917647 0.921569 0.933333 / 1);
+  --kds-color-background-inverse: color(srgb 0.192157 0.211765 0.25098 / 1);
   --kds-color-background-overlay: color(srgb 0.980392 0.980392 0.980392 / 1);
   --kds-color-background-raised: color(srgb 0.980392 0.980392 0.980392 / 1);
   --kds-color-background-surface: color(srgb 0.980392 0.980392 0.980392 / 1);
@@ -17,6 +18,7 @@
   --kds-color-border-subtle: color(srgb 0.890196 0.894118 0.909804 / 1);
   --kds-color-foreground-disabled: color(srgb 0.603922 0.627451 0.670588 / 1);
   --kds-color-foreground-inverse: color(srgb 0.980392 0.980392 0.980392 / 1);
+  --kds-color-foreground-on-inverse: color(srgb 0.980392 0.980392 0.980392 / 1);
   --kds-color-foreground-primary: color(srgb 0.090196 0.105882 0.133333 / 1);
   --kds-color-foreground-secondary: color(srgb 0.341176 0.364706 0.407843 / 1);
   --kds-color-foreground-tertiary: color(srgb 0.466667 0.490196 0.537255 / 1);
@@ -161,6 +163,7 @@
   --kds-color-action-primary-pressed: color(srgb 0 0.286275 0.541176 / 1);
   --kds-color-background-canvas: color(srgb 0.090196 0.105882 0.133333 / 1);
   --kds-color-background-inset: color(srgb 0.192157 0.211765 0.25098 / 1);
+  --kds-color-background-inverse: color(srgb 0.890196 0.894118 0.909804 / 1);
   --kds-color-background-overlay: color(srgb 0.192157 0.211765 0.25098 / 1);
   --kds-color-background-raised: color(srgb 0.341176 0.364706 0.407843 / 1);
   --kds-color-background-surface: color(srgb 0.192157 0.211765 0.25098 / 1);
@@ -170,6 +173,7 @@
   --kds-color-border-subtle: color(srgb 0.341176 0.364706 0.407843 / 1);
   --kds-color-foreground-disabled: color(srgb 0.466667 0.490196 0.537255 / 1);
   --kds-color-foreground-inverse: color(srgb 0.980392 0.980392 0.980392 / 1);
+  --kds-color-foreground-on-inverse: color(srgb 0.090196 0.105882 0.133333 / 1);
   --kds-color-foreground-primary: color(srgb 0.980392 0.980392 0.980392 / 1);
   --kds-color-foreground-secondary: color(srgb 0.835294 0.843137 0.866667 / 1);
   --kds-color-foreground-tertiary: color(srgb 0.737255 0.752941 0.788235 / 1);

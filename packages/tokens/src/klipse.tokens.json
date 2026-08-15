@@ -21,6 +21,11 @@
           "minimum": 4.5
         },
         {
+          "foreground": "color-foreground-on-inverse",
+          "background": "color-background-inverse",
+          "minimum": 4.5
+        },
+        {
           "foreground": "color-foreground-inverse",
           "background": "color-action-primary",
           "minimum": 4.5
@@ -2817,6 +2822,26 @@
             }
           }
         },
+        "background-inverse": {
+          "$value": "{primitive.color.neutral.800}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-background-inverse",
+              "tier": "semantic",
+              "mode": "light"
+            }
+          }
+        },
+        "foreground-on-inverse": {
+          "$value": "{primitive.color.neutral.0}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-foreground-on-inverse",
+              "tier": "semantic",
+              "mode": "light"
+            }
+          }
+        },
         "background-overlay": {
           "$value": "{primitive.color.neutral.0}",
           "$extensions": {
@@ -3077,6 +3102,26 @@
           "$extensions": {
             "com.klipse-design": {
               "id": "color-background-inset",
+              "tier": "semantic",
+              "mode": "dark"
+            }
+          }
+        },
+        "background-inverse": {
+          "$value": "{primitive.color.neutral.200}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-background-inverse",
+              "tier": "semantic",
+              "mode": "dark"
+            }
+          }
+        },
+        "foreground-on-inverse": {
+          "$value": "{primitive.color.neutral.900}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-foreground-on-inverse",
               "tier": "semantic",
               "mode": "dark"
             }

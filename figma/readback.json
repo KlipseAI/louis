@@ -1,6 +1,6 @@
 {
   "$comment": "GENERATED EVIDENCE — Figma Plugin API 되읽기 원본. 손으로 수정하지 않는다. 재생성 절차는 scripts/build-figma-snapshot.mjs 헤더에 있다.",
-  "capturedAt": "2026-08-14",
+  "capturedAt": "2026-08-15",
   "capturedBy": "figma-mcp-plugin-api",
   "figmaFileKey": "bxGEp0km5zluMJGulaTvFW",
   "figmaFileName": "Klipse Design System — Library",
@@ -1829,6 +1829,23 @@
           ]
         ],
         [
+          "color/background-inverse",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL",
+          [
+            [
+              "Light",
+              "Klipse Primitive::color/neutral/800",
+              null
+            ],
+            [
+              "Dark",
+              "Klipse Primitive::color/neutral/200",
+              null
+            ]
+          ]
+        ],
+        [
           "color/background-overlay",
           "COLOR",
           "FRAME_FILL,SHAPE_FILL",
@@ -1977,6 +1994,23 @@
             [
               "Dark",
               "Klipse Primitive::color/neutral/0",
+              null
+            ]
+          ]
+        ],
+        [
+          "color/foreground-on-inverse",
+          "COLOR",
+          "TEXT_FILL",
+          [
+            [
+              "Light",
+              "Klipse Primitive::color/neutral/0",
+              null
+            ],
+            [
+              "Dark",
+              "Klipse Primitive::color/neutral/900",
               null
             ]
           ]

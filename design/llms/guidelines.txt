@@ -100,7 +100,7 @@ Figma library는 아직 `not-ready`다. 시스템 전체 maturity도 `experiment
 | 항목 | 현재 값 |
 | --- | --- |
 | System maturity | `experimental` |
-| Normative documents | 49 |
+| Normative documents | 50 |
 | Generated documents | 5 |
 | Components | 9 |
 | Patterns | 4 |
@@ -4224,6 +4224,68 @@ canary가 없었으면 "통과하지만 아무것도 보지 않는" 테스트가
 ### Updates
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
+
+#### 2026-08-15 — Toast
+
+gap registry 3순위다. 세 화면 실측에서 **20개 파일이 toast를 쓰는데 공용 컴포넌트가 없었고**, 같은
+정의가 `appHomeSceneStyles.ts`와 `highlightSceneStyles.ts`에 최소 2벌 중복돼 있었다.
+
+##### Added
+
+- [Toast](../components/toast.md) 규범과 `ToastProvider` / `useToast` public export
+- `packages/css/src/component/toast.css`
+- `--kds-color-background-inverse`와 `--kds-color-foreground-on-inverse`. Toast가 첫 소비자이며
+  contrast pair로 등록해 두 모드 모두 게이트가 잰다(light 11.61, dark 13.59). Figma 변수로도
+  함께 만들었다.
+- Storybook `Components/Toast` story 5종
+
+##### 기존 `color-foreground-inverse`를 쓸 수 없었던 이유
+
+이름이 비슷해 헷갈리기 쉽다. `color-foreground-inverse`는 **두 모드 모두 `neutral-0`**이다 —
+`action-primary` 같은 진한 표면 위 텍스트를 위한 것이다. Toast의 표면은 다크에서 오히려 **밝아지는**
+반전 표면이므로 그 위에 흰 글자를 얹으면 읽히지 않는다. 그래서 모드에 따라 뒤집히는 쌍을 새로 만들었다.
+
+##### Baseline 갱신 (DS-GOV-001)
+
+`contrastPairs` 배열 변경은 diff 정책상 **무조건 breaking**이다 — 배열 전체를 한 단위로 비교하므로
+추가와 제거를 구분하지 않는다. 이번 변경의 분류별 diff는 additive 10건, breaking은 `contrastPairs`
+1건뿐이며 그 내용은 `color-background-inverse` / `color-foreground-on-inverse` 쌍 **추가 1, 제거 0**이다.
+
+정책을 느슨하게 고치지 않고 [Releases](../governance/releases.md)의 DS-GOV-001 절차를 따랐다.
+분류를 "추가는 non-breaking"으로 바꾸면 게이트가 앞으로 **보증 철회를 놓칠 위험**이 생기고, 그것이
+이 게이트의 존재 이유다. 공개 package release와 published Figma library가 아직 없어 소비자가 없으므로
+baseline 복사로 처리했다.
+
+##### 계약
+
+- **놓쳐도 되는 것만 담는다.** 확인이나 선택이 필요하면 Dialog이고, 반드시 읽어야 하면 화면에
+  자리를 준다. 폼 오류는 해당 필드 옆이다 — 화면 반대편에서 사라지는 알림으로는 어디를 고칠지 모른다.
+- **`message`는 `ReactNode`가 아니라 string이다.** live region은 텍스트를 읽는다. 요소를 넣으면
+  보조 기술이 읽는 내용과 화면에 보이는 것이 갈린다.
+- **live region 둘을 처음부터 렌더한다.** 보조 기술은 region이 존재한 뒤의 변화만 감지하므로,
+  toast가 생길 때 region을 함께 만들면 **첫 메시지가 읽히지 않는다.** polite와 assertive를 별도
+  region에 두는 것도 같은 이유다 — 한 region의 `aria-live`를 바꾸면 그 시점의 변경이 유실된다.
+- **닫기 버튼을 두지 않는다.** 대신 포인터·focus로 타이머가 멈춘다. 닫기 버튼은 focus 순서에
+  끼어들고, 사라지는 대상에 focus를 두면 focus가 소실된다.
+- **멈췄다 풀리면 남은 시간부터 흐른다.** 처음부터 다시 세면 읽으려고 얹어 둔 것이 벌이 된다.
+- **대기 중인 toast는 자기 차례가 와야 시계가 시작된다.** 상한 3개를 넘긴 것이 보이지 않는 동안
+  소멸하면, 사용자는 뜬 적 없는 알림을 놓친 것이 된다.
+
+##### overlay primitive를 쓰지 않는다
+
+Menu·Dialog·Tooltip과 달리 toast는 anchor가 없고 focus를 가져가지 않으며 바깥 클릭과 무관하다 —
+positioner·focus scope·dismissable layer 중 해당하는 것이 하나도 없다. 붙이면 없는 문제를 위해
+배경을 잠그게 되므로 Provider가 자기 viewport를 소유한다. 대신 viewport가 **비어 있을 때 포인터를
+가로채지 않는다**는 점을 테스트로 고정했다. 화면 하단을 덮는 투명한 판이 되면 그 아래 컨트롤이
+눌리지 않는다.
+
+##### Known deviations
+
+제품과 셋이 다르다. 제품의 `backdrop-filter: blur(10px)`은 DS에 backdrop blur effect가 없어 불투명
+반전 표면으로 대체했다. 제품의 **단일 슬롯 교체**(새 메시지가 이전 것을 지움)는 자동 소멸과 겹치면
+읽기 전에 사라지므로 스택으로 바꿨다. **퇴장 전환은 넣지 않았다** — `animationend`로 걸면 그 이벤트가
+오지 않는 경우 사라지지 않고 남는다. 전환보다 반드시 사라지는 것이 우선이다. 실행 취소 액션과 Figma
+component set은 남아 있다.
 
 #### 2026-08-15 — Tooltip
 

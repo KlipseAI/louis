@@ -2,23 +2,23 @@
   "artifacts": [
     {
       "path": "packages/tokens/generated/figma.tokens.json",
-      "sha256": "9363602e223fdca82f8f6786062e3f99971b82bf71e0ee0cf09d8dbf0dfb77af"
+      "sha256": "6c9690443daba5c7a99e807acd3ef29b7ecfb4db1b3715cc104f410822a72d3a"
     },
     {
       "path": "packages/tokens/generated/index.d.ts",
-      "sha256": "3da450cd5c55d9d3fc9b5f2a8522517c602215ce7b993562e0f83aeb279fa888"
+      "sha256": "f908596ca57dc3b4f98efdbe244e4363393b5206119694cc9cb663e3ed69e25a"
     },
     {
       "path": "packages/tokens/generated/index.js",
-      "sha256": "38b1115cb8a1ae80818011df0412c95773bacb463387a66adb1a6e4bef56ebd6"
+      "sha256": "749a00672cc24bf7c18d5948a4122a94439dca3736b1c4c8f74aa03bebab873c"
     },
     {
       "path": "packages/tokens/generated/tokens.css",
-      "sha256": "7110ef3c829d34c525bc678b10316df7c4eb065d50838a714f48a01e716f44d0"
+      "sha256": "163e37ea5ac5c51f97a392d388c7c923be337586d1f84158387c3a2409ac2e3e"
     },
     {
       "path": "packages/tokens/generated/tokens.json",
-      "sha256": "4e9eae1cfafff2acbc042c8b681b4df2d781452a9617c4da8660bc93d3699d47"
+      "sha256": "861fcaca9fa9a06fda3977fa30f0f6ad2db798d53327208401a39049ad277275"
     }
   ],
   "contrastPairs": [
@@ -30,6 +30,11 @@
     {
       "background": "color-background-surface",
       "foreground": "color-foreground-primary",
+      "minimum": 4.5
+    },
+    {
+      "background": "color-background-inverse",
+      "foreground": "color-foreground-on-inverse",
       "minimum": 4.5
     },
     {
@@ -164,13 +169,13 @@
   },
   "source": {
     "path": "packages/tokens/src/klipse.tokens.json",
-    "sha256": "5de0733475e4886b8dee165a083e03829eb57bbaa071ac223a73b096664cecc1"
+    "sha256": "76c18d9378363f4fcff19604f94092ad5aad7a957a66e8de2d8d02f30bed3f16"
   },
   "themes": [
     "light",
     "dark"
   ],
-  "tokenCount": 218,
+  "tokenCount": 228,
   "tokens": [
     {
       "aliasTarget": {
@@ -545,6 +550,58 @@
         ]
       },
       "sourcePath": "semantic.dark.color.background-inset",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-neutral-800",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-color-background-inverse": "color(srgb 0.192157 0.211765 0.25098 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-background-inverse",
+      "mode": "light",
+      "rawValue": "{primitive.color.neutral.800}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0.192157,
+          0.211765,
+          0.25098
+        ]
+      },
+      "sourcePath": "semantic.light.color.background-inverse",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-neutral-200",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-color-background-inverse": "color(srgb 0.890196 0.894118 0.909804 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-background-inverse",
+      "mode": "dark",
+      "rawValue": "{primitive.color.neutral.200}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0.890196,
+          0.894118,
+          0.909804
+        ]
+      },
+      "sourcePath": "semantic.dark.color.background-inverse",
       "tier": "semantic",
       "type": "color"
     },
@@ -1363,6 +1420,58 @@
         ]
       },
       "sourcePath": "semantic.dark.color.foreground-inverse",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-neutral-0",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-color-foreground-on-inverse": "color(srgb 0.980392 0.980392 0.980392 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-foreground-on-inverse",
+      "mode": "light",
+      "rawValue": "{primitive.color.neutral.0}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0.980392,
+          0.980392,
+          0.980392
+        ]
+      },
+      "sourcePath": "semantic.light.color.foreground-on-inverse",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-neutral-900",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-color-foreground-on-inverse": "color(srgb 0.090196 0.105882 0.133333 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-foreground-on-inverse",
+      "mode": "dark",
+      "rawValue": "{primitive.color.neutral.900}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0.090196,
+          0.105882,
+          0.133333
+        ]
+      },
+      "sourcePath": "semantic.dark.color.foreground-on-inverse",
       "tier": "semantic",
       "type": "color"
     },
@@ -3174,6 +3283,69 @@
       "type": "fontWeight"
     },
     {
+      "aliasTarget": {
+        "id": "space-24",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-icon-size-lg": "24px"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "icon-size-lg",
+      "mode": "global",
+      "rawValue": "{primitive.spacing.24}",
+      "resolvedValue": {
+        "unit": "px",
+        "value": 24
+      },
+      "sourcePath": "semantic.global.icon.size-lg",
+      "tier": "semantic",
+      "type": "dimension"
+    },
+    {
+      "aliasTarget": {
+        "id": "space-20",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-icon-size-md": "20px"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "icon-size-md",
+      "mode": "global",
+      "rawValue": "{primitive.spacing.20}",
+      "resolvedValue": {
+        "unit": "px",
+        "value": 20
+      },
+      "sourcePath": "semantic.global.icon.size-md",
+      "tier": "semantic",
+      "type": "dimension"
+    },
+    {
+      "aliasTarget": {
+        "id": "space-16",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-icon-size-sm": "16px"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "icon-size-sm",
+      "mode": "global",
+      "rawValue": "{primitive.spacing.16}",
+      "resolvedValue": {
+        "unit": "px",
+        "value": 16
+      },
+      "sourcePath": "semantic.global.icon.size-sm",
+      "tier": "semantic",
+      "type": "dimension"
+    },
+    {
       "aliasTarget": null,
       "cssProperties": {},
       "deprecated": null,
@@ -3409,6 +3581,48 @@
         "value": 12
       },
       "sourcePath": "semantic.global.layout.app-shell-sidebar-padding",
+      "tier": "semantic",
+      "type": "dimension"
+    },
+    {
+      "aliasTarget": {
+        "id": "space-40",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-layout-control-height-md": "40px"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "layout-control-height-md",
+      "mode": "global",
+      "rawValue": "{primitive.spacing.40}",
+      "resolvedValue": {
+        "unit": "px",
+        "value": 40
+      },
+      "sourcePath": "semantic.global.layout.control-height-md",
+      "tier": "semantic",
+      "type": "dimension"
+    },
+    {
+      "aliasTarget": {
+        "id": "space-32",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-layout-control-height-sm": "32px"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "layout-control-height-sm",
+      "mode": "global",
+      "rawValue": "{primitive.spacing.32}",
+      "resolvedValue": {
+        "unit": "px",
+        "value": 32
+      },
+      "sourcePath": "semantic.global.layout.control-height-sm",
       "tier": "semantic",
       "type": "dimension"
     },
@@ -3918,6 +4132,27 @@
         "value": 12
       },
       "sourcePath": "semantic.global.radius.control",
+      "tier": "semantic",
+      "type": "dimension"
+    },
+    {
+      "aliasTarget": {
+        "id": "radius-8",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-radius-control-sm": "8px"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "radius-control-sm",
+      "mode": "global",
+      "rawValue": "{primitive.radius.8}",
+      "resolvedValue": {
+        "unit": "px",
+        "value": 8
+      },
+      "sourcePath": "semantic.global.radius.control-sm",
       "tier": "semantic",
       "type": "dimension"
     },

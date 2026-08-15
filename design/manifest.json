@@ -248,6 +248,15 @@
       "generated": false
     },
     {
+      "id": "component-toast",
+      "path": "design/components/toast.md",
+      "title": "Toast",
+      "section": "components",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
+    },
+    {
       "id": "component-dialog",
       "path": "design/components/dialog.md",
       "title": "Dialog",
@@ -601,6 +610,7 @@
         "design/components/icon-button.md",
         "design/components/menu-popover.md",
         "design/components/tooltip.md",
+        "design/components/toast.md",
         "design/components/dialog.md"
       ]
     },
@@ -737,12 +747,13 @@
     },
     {
       "id": "toast",
-      "name": "Toast / Snackbar",
+      "name": "Toast",
       "maturity": "experimental",
       "figma": "not-ready",
-      "web": "not-ready",
-      "docs": "not-ready",
-      "note": "P3 component backlog"
+      "web": "partial",
+      "docs": "done",
+      "note": "public export와 실브라우저 acceptance test 12건. overlay primitive를 쓰지 않는다 — anchor·focus·바깥 클릭 어느 것도 해당하지 않아 Provider가 자기 live region viewport를 소유한다. 실행 취소 액션과 Figma component set이 남음",
+      "doc": "design/components/toast.md"
     },
     {
       "id": "empty-state",

@@ -250,6 +250,31 @@ const COMPONENT_CONTRACTS = [
       extraStrokeWeights: [],
     },
   },
+  {
+    id: "menu-popover",
+    figmaName: "MenuPanel",
+    declaration: "packages/react/dist/menu/action-menu.d.ts",
+    // 패널은 variant 축이 없다. 항목을 붙이고 빼서 조립하며 auto-layout이 크기를 정한다.
+    variantProperties: {},
+    strokes: {},
+    effects: { self: "DROP_SHADOW:8:15:0 + DROP_SHADOW:0:0:0.5" },
+    geometry: {
+      measuredId: "menu-popover",
+      sizeKey: "panel",
+      fields: {
+        paddingBlock: "paddingBlock",
+        paddingBlockEnd: "paddingBlock",
+        paddingInline: "paddingInline",
+        paddingInlineEnd: "paddingInline",
+        itemSpacing: "gap",
+        cornerRadius: "radius",
+        minWidth: "minWidth",
+        layoutMode: { literal: "VERTICAL" },
+      },
+      slots: {},
+      extraStrokeWeights: [],
+    },
+  },
 ];
 
 const COMPONENTS_MEASURED_PATH = "figma/components.measured.json";

@@ -446,6 +446,15 @@
           "description": "Figma component set 이름. name은 사람이 읽는 표시 이름이라 슬래시를 포함할 수 있는데(\"Dialog / Confirm Modal\") Figma에서 슬래시는 폴더 구분자라 이름이 쪼개진다. 그래서 별도 필드로 두고 슬래시와 공백을 금지한다.",
           "type": "string",
           "pattern": "^[A-Z][A-Za-z0-9]*$"
+        },
+        "figmaNames": {
+          "description": "한 컴포넌트가 Figma에서 여러 component로 나뉘는 경우의 이름 목록. Menu는 항목과 패널이 별개 component다 — 항목은 조립 단위이고 패널은 그것을 담는 그릇이다. 지정하면 figmaName 대신 이 목록이 쓰인다.",
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Z][A-Za-z0-9]*$"
+          }
         }
       },
       "anyOf": [

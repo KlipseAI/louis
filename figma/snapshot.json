@@ -18,8 +18,8 @@
         "effect": 7
       },
       "components": {
-        "sets": 6,
-        "variants": 94
+        "sets": 7,
+        "variants": 95
       },
       "icons": 26,
       "templates": 1
@@ -3009,6 +3009,61 @@
       },
       "strokes": {},
       "effects": {}
+    },
+    "MenuPanel": {
+      "tokenId": "menu-popover",
+      "variantCount": 1,
+      "hasDescription": true,
+      "properties": {},
+      "binding": {
+        "boundFills": 1,
+        "rawFills": 0,
+        "boundStrokes": 0,
+        "rawStrokes": 0,
+        "textStyled": 0,
+        "textUnstyled": 0
+      },
+      "geometry": {
+        "panel": {
+          "slots": {},
+          "height": [
+            127
+          ],
+          "width": [
+            192
+          ],
+          "paddingBlock": [
+            6
+          ],
+          "paddingBlockEnd": [
+            6
+          ],
+          "paddingInline": [
+            6
+          ],
+          "paddingInlineEnd": [
+            6
+          ],
+          "itemSpacing": [
+            2
+          ],
+          "cornerRadius": [
+            16
+          ],
+          "layoutMode": [
+            "VERTICAL"
+          ],
+          "minWidth": [
+            160
+          ]
+        }
+      },
+      "strokes": {},
+      "effects": {
+        "self": [
+          "DROP_SHADOW:8:15:0 + DROP_SHADOW:0:0:0.5"
+        ]
+      }
     },
     "Toast": {
       "tokenId": "toast",

@@ -8,8 +8,8 @@
     "accepted-deviation": "의도적으로 다르게 간다. reason 20자 이상이 필수다",
     "no-canon": "제품에 공용 정본이 없어 대조 대상이 아니다. 정보로만 남긴다"
   },
-  "productRepo": "/Users/sejunki/klipse",
-  "productBranch": "louis",
+  "productRepo": "/Users/sejunki/klipse-web",
+  "productBranch": "design",
   "measuredAt": "2026-08-15",
   "components": {
     "button": {
@@ -547,12 +547,12 @@
           "reason": "제품 2px를 채택하고 space-overlay-item-gap을 세웠다. 이전 DS의 action-menu는 gap이 없어 행이 붙어 있었다"
         },
         "패널 border (두께·색)": {
-          "product": "border: none. 헤어라인은 box-shadow 스프레드로 그린다 — 0 0 0 0.5px #575d68 (dark) / 0 0 0 0.5px #d5d7dd (light)",
+          "product": "5겹 글래스 프레임 — 0 0 0 0.5px rgba(0,0,0,0.5) + 좌우 엣지 ±1.25px rgba(0,0,0,0.8) + inset 상하 흰 림 rgba(255,255,255,0.5). border는 여전히 none이다",
           "ds": "border: 1px solid var(--kds-color-border-subtle) → light #E3E4E8 / dark #575D68 (실제 border, 레이아웃 차지)",
           "match": "different",
-          "evidence": "apps/web/components/scenes/appHomeSceneStyles.ts:67,70 → apps/web/app/globals.css:65,586,34,30",
-          "status": "adopted",
-          "reason": "제품처럼 border를 없애고 헤어라인을 box-shadow 스프레드 0.5px로 그린다. 레이아웃 박스를 늘리지 않으면서 1px보다 얇은 선이 된다"
+          "evidence": "apps/web/app/globals.css:63-68",
+          "status": "accepted-deviation",
+          "reason": "제품은 klipse-web에서 헤어라인을 5겹 글래스 프레임으로 바꿨다. **owner가 글래스 섀도우 개념 자체를 없애기로 했으므로 채택하지 않는다.** DS는 ambient 그림자 + 0.5px 헤어라인 한 겹만 쓴다. 0.5px 두께 자체는 같다."
         },
         "패널 배경": {
           "product": "dark #313640 (rgb(49 54 64), 불투명) / light #f1f1f3 (rgb(241 241 243), 불투명)",
@@ -1239,5 +1239,7 @@
         }
       }
     }
-  }
+  },
+  "productCommit": "086f4a62",
+  "$baselineNote": "2026-08-15에 기준선을 바로잡았다. 그 전까지는 sniperfactory-official/klipse의 louis 브랜치(2026-08-04)를 재고 있었는데, 실제 최신 제품은 KlipseAI/klipse-web의 design 브랜치(2026-08-14)다. 근거 파일 13개가 양쪽에 모두 있고 11개는 내용이 같다. 다른 둘 중 globals.css는 인용한 35개 선언 중 34개가 그대로 옮겨갔고, 옮겨가지 못한 1개(--glass-dropdown-frame)는 값이 바뀌어 아래에서 다시 판정했다."
 }

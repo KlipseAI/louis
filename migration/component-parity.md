@@ -424,6 +424,19 @@ DS의 게이트는 전부 **DS 내부 일관성**만 본다 — 코드 ↔ Figma
 - keyframes.css:5의 주석이 제품 스스로 상태를 기록해 두었다 — toastIn이라는 이름이 저장소에 7곳 서로 다른 본문으로 존재해 전부 네임스페이스를 붙여야 했다. 이 파일이 중복의 실측 근거다.
 - 축 요약: 완전 일치는 radius(16px), border(없음), 전경 색 2종(#fafafa/#171b22), 폰트 굵기(400), 행간(1.5), active/disabled(없음) 뿐이다. padding·최대폭·배경 불투명도·blur·그림자·글자 크기·줄바꿈·진입 이징·퇴장·자동 소멸·z-index·스택·tone·hover pause·live region은 모두 다르거나 제품에 없다.
 
+## 기준선 정정 (2026-08-15)
+
+이 문서의 205축 측정은 `sniperfactory-official/klipse`의 `louis` 브랜치를 대상으로 했다. 실제
+최신 제품은 **`KlipseAI/klipse-web`의 `design` 브랜치**다 — 조직도 저장소도 다르고 열흘 오래된
+것을 재고 있었다.
+
+다시 대조했다. 근거 파일 13개가 양쪽에 모두 있고 11개는 내용이 같다. `ui/Button.tsx`는 완전히
+동일하다. `globals.css`는 인용한 35개 선언 중 34개가 그대로 옮겨갔고, `--glass-dropdown-frame`
+하나만 값이 바뀌었다(단순 헤어라인 → 5겹 글래스 프레임). 그 축은
+[`migration/product.measured.json`](product.measured.json)에서 다시 판정했다.
+
+**측정 결과 자체는 유효하고 기준선 표기가 틀려 있었다.** 아래 표의 경로는 두 저장소에서 같다.
+
 ## 측정 방법
 
 - 컴포넌트마다 조사자 하나가 제품과 DS를 축별로 대조하고, **다른 조사자가 그 주장을 반증**했다.

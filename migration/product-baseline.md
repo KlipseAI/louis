@@ -2,9 +2,22 @@
 
 - Captured: 2026-08-11; product location and commit recorded 2026-08-14
 - Authority: reference, non-normative
-- Product repository: `klipse` at `/Users/sejunki/klipse` (user-confirmed 2026-08-14)
-- Product branch: `louis`
-- Product commit at inventory time: `0d188651`
+- Product repository: `klipse-web` at `/Users/sejunki/klipse-web`
+  (`KlipseAI/klipse-web`, user-confirmed 2026-08-15 — **AWS 전환을 마친 최신 저장소**)
+- Product branch: `design`
+- Product commit: `086f4a62` (2026-08-14)
+
+**2026-08-15 정정.** 그 전까지 이 문서는 `sniperfactory-official/klipse`의 `louis` 브랜치
+(`0d188651`, 2026-08-04)를 가리키고 있었다. 저장소도 조직도 다르고 열흘 오래된 것이었다.
+205축 실측과 143건 판정은 그 저장소를 대상으로 했다.
+
+다시 대조한 결과는 이렇다. 근거 파일 13개가 **양쪽에 모두 존재**하고 11개는 내용이 같다.
+`ui/Button.tsx`는 완전히 동일하다. `globals.css`는 인용한 35개 선언 중 34개가 그대로 옮겨갔고,
+`--glass-dropdown-frame` 하나만 값이 바뀌어 해당 축을 다시 판정했다. 즉 측정 결과 자체는
+유효하지만 **기준선 표기가 틀려 있었다.**
+
+이 사고의 교훈은 문서에 남긴다 — 제품 저장소 경로는 사용자 확인을 받았다는 사실만으로 계속
+유효하지 않다. 조직이 바뀌거나 저장소가 갈라지면 같은 이름의 다른 저장소를 재게 된다.
 - Original 2026-08-11 extraction commit: not recorded because the source design files were
   intentionally untracked. Later inventories use the commit above.
 - Design-system target: this repository

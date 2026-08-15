@@ -1,6 +1,6 @@
 {
   "$comment": "GENERATED EVIDENCE — Figma Plugin API 되읽기 원본. 손으로 수정하지 않는다. 재생성 절차는 scripts/build-figma-snapshot.mjs 헤더에 있다.",
-  "capturedAt": "2026-08-15",
+  "capturedAt": "2026-08-16",
   "capturedBy": "figma-mcp-plugin-api",
   "figmaFileKey": "bxGEp0km5zluMJGulaTvFW",
   "figmaFileName": "Klipse Design System — Library",
@@ -2008,6 +2008,18 @@
           [
             [
               "Global",
+              "Klipse Primitive::radius/16",
+              null
+            ]
+          ]
+        ],
+        [
+          "radius/card-lg",
+          "FLOAT",
+          "CORNER_RADIUS",
+          [
+            [
+              "Global",
               "Klipse Primitive::radius/20",
               null
             ]
@@ -2069,6 +2081,18 @@
             [
               "Global",
               "Klipse Primitive::radius/full",
+              null
+            ]
+          ]
+        ],
+        [
+          "spacing/card-text-gap",
+          "FLOAT",
+          "GAP",
+          [
+            [
+              "Global",
+              "Klipse Primitive::spacing/4",
               null
             ]
           ]

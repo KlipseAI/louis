@@ -4,6 +4,27 @@ export { IconButton } from "./icon-button/icon-button.js";
 export type { IconButtonProps, IconButtonSize } from "./icon-button/icon-button.js";
 export { Tooltip } from "./tooltip/tooltip.js";
 export type { TooltipProps } from "./tooltip/tooltip.js";
+export {
+  ProjectCard,
+  ProjectCardAdornment,
+  ProjectCardEyebrow,
+  ProjectCardMedia,
+  ProjectCardMeta,
+  ProjectCardOverlay,
+  ProjectCardPlaceholder,
+  ProjectCardTitle,
+} from "./project-card/project-card.js";
+export type {
+  ProjectCardAdornmentPlacement,
+  ProjectCardAdornmentProps,
+  ProjectCardButtonProps,
+  ProjectCardLinkProps,
+  ProjectCardMediaProps,
+  ProjectCardOverlayProps,
+  ProjectCardPlaceholderProps,
+  ProjectCardProps,
+  ProjectCardTextProps,
+} from "./project-card/project-card.js";
 export { ToastProvider, useToast, TOAST_VISIBLE_LIMIT } from "./toast/toast.js";
 export type { ToastContextValue, ToastHandle, ToastInput, ToastProviderProps, ToastTone } from "./toast/toast.js";
 

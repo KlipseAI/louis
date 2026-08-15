@@ -99,12 +99,14 @@
   --kds-motion-tooltip-exit-delay: 0ms;
   --kds-motion-tooltip-exit-duration: 120ms;
   --kds-motion-tooltip-exit-timing-function: cubic-bezier(0.19, 1, 0.22, 1);
-  --kds-radius-card: 20px;
+  --kds-radius-card: 16px;
+  --kds-radius-card-lg: 20px;
   --kds-radius-control: 12px;
   --kds-radius-control-sm: 8px;
   --kds-radius-overlay: 16px;
   --kds-radius-overlay-item: 10px;
   --kds-radius-pill: 999px;
+  --kds-space-card-text-gap: 4px;
   --kds-space-control-lg: 16px;
   --kds-space-control-md: 12px;
   --kds-space-control-sm: 8px;

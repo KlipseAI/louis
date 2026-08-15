@@ -3068,6 +3068,16 @@
               "mode": "global"
             }
           }
+        },
+        "card-text-gap": {
+          "$value": "{primitive.spacing.4}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "space-card-text-gap",
+              "tier": "semantic",
+              "mode": "global"
+            }
+          }
         }
       },
       "radius": {
@@ -3113,10 +3123,20 @@
           }
         },
         "card": {
-          "$value": "{primitive.radius.20}",
+          "$value": "{primitive.radius.16}",
           "$extensions": {
             "com.klipse-design": {
               "id": "radius-card",
+              "tier": "semantic",
+              "mode": "global"
+            }
+          }
+        },
+        "card-lg": {
+          "$value": "{primitive.radius.20}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "radius-card-lg",
               "tier": "semantic",
               "mode": "global"
             }

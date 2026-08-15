@@ -218,21 +218,30 @@ Tooltip(`.app-tooltip-chrome` + `--app-tooltip-*`), Menu(`--dropdown-*`). Icon B
 스타터 보일러플레이트였고 어떤 컴포넌트도 쓰지 않는다. 경로와 판정 근거는 비규범 기록인
 [`migration/product.measured.json`](../../migration/product.measured.json)에 있다.
 
-**현재 다음 포인터 (2026-08-15 갱신):** `DS-GOV-000`을 제외한 GOV 트랙, `DS-F-000`~`DS-F-005`,
+**현재 다음 포인터 (2026-08-16 갱신):** `DS-GOV-000`을 제외한 GOV 트랙, `DS-F-000`~`DS-F-005`,
 `DS-P3-002a`, `DS-P3-002`(1단계), `DS-P3-003`, `DS-P3-009a`, `DS-P3-013`이 `done`이다. `DS-P3-001`은
-자기 몫의 Decision 6종을 다 쓰고 `in-progress`이며 owner 확인만 남았다(저장소 전체 Decision은 12종).
+자기 몫의 Decision 6종을 다 쓰고 `in-progress`이며 owner 확인만 남았다(저장소 전체 Decision은 14종).
 
-Web 구현이 선 component는 일곱이다 — Button, Menu/Popover, Dialog, Icon Button, Tooltip, Toast가
-모두 Web `partial`이고 docs `done`이다. Input·Select·Empty State는 여전히 `not-ready`다.
+Web 구현이 선 component는 일곱이다 — Button, Menu/Popover, Dialog, Icon Button, Tooltip, Toast,
+Project Card가 모두 Web `partial`이고 docs `done`이다. Input·Select·Empty State는 여전히
+`not-ready`다. Figma에는 component set 일곱과 Project Card component 하나가 서 있다.
 
-**다음은 `DS-F-006`의 나머지 component set이다.** 근거는 이렇다. Figma에 있는 component는 여전히
-`Button` 하나뿐인데(아이콘 26개는 별도), Web에는 여섯이 서 있다. 목표 B는 배포 화면을 DS 자산만으로
-재조립하는 것이고 그 자산은 Figma component이므로, **코드와 Figma의 격차가 지금 목표 B의 단일
-병목이다.** DS-F-007-home이 실측으로 그것을 확인했다 — 321건 중 gap 72건, 재조립이 픽셀 재현이 아니라
-coverage 측정에 머물렀다.
+**다음은 두 가지다. 순서가 있다.**
 
-순서는 [gap registry](../../migration/figma-gap-registry.md)의 우선순위를 따른다. 4순위 Menu/Popover와
-5순위 Dialog가 "코드는 있고 Figma에 없다"에 정확히 해당하며, Icon Button·Tooltip·Toast도 같은 상태다.
+**(1) Project Card의 parity 게이트 확장.** Figma component는 섰지만 게이트가 덮지 않는다 —
+`COMPONENT_CONTRACTS`의 `geometry.fields`가 **root 노드만** 읽는데, 이 카드의 계약값(오버레이 여백,
+줄 간격, 프로그레시브 블러)은 전부 자손인 `Title overlay`에 있다. `slots`는 폭·높이만 대조하므로
+그대로 쓸 수 없다. 자손 단위 field 대조와 `BACKGROUND_BLUR:PROGRESSIVE` 비교를 추가하고 변조 canary를
+붙여야 `figma: partial`로 올릴 수 있다. **지금 상태에서 `figma: partial`을 쓰지 않는다.**
+
+**(2) gap registry 7순위 이하.** TextField/Input, EmptyState, Badge, Spinner/Progress,
+SidebarNavItem·AppTopBar, Slider, SegmentedControl, Checkbox, SelectableListRow.
+
+**`DS-F-007-home`의 gap 72건은 다시 재야 한다.** 그 실측은 Figma에 Button 하나만 있을 때 한 것이고
+지금은 여덟이다. 재측정 전까지 72라는 숫자를 현재 상태로 인용하지 않는다.
+
+**gap registry의 ProjectCard 항목은 "정의 3벌"로 적혀 있으나 실제로는 4벌이다** — 앱 홈,
+노드캔버스 홈, 하이라이트 허브, 비디오 에디터 허브. 등록부가 NodeCanvasHome을 빠뜨렸다.
 
 `DS-P3-008`(Core local RC)은 의존성이 모두 충족돼 열려 있으나 아직 시작하지 않았다. `DS-P3-009`
 카탈로그도 열려 있고, 남은 것은 Input·Select·Empty State와 gap registry 6순위 이하다.

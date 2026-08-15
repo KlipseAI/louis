@@ -5793,18 +5793,39 @@ export const tokens = {
     },
     "radius-card": {
       "aliasTarget": {
-        "id": "radius-20",
+        "id": "radius-16",
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-radius-card": "20px"
+        "--kds-radius-card": "16px"
       },
       "deprecated": null,
       "description": null,
       "id": "radius-card",
       "mode": "global",
-      "rawValue": "{primitive.radius.20}",
+      "rawValue": "{primitive.radius.16}",
       "sourcePath": "semantic.global.radius.card",
+      "tier": "semantic",
+      "type": "dimension",
+      "value": {
+        "value": 16,
+        "unit": "px"
+      }
+    },
+    "radius-card-lg": {
+      "aliasTarget": {
+        "id": "radius-20",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-radius-card-lg": "20px"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "radius-card-lg",
+      "mode": "global",
+      "rawValue": "{primitive.radius.20}",
+      "sourcePath": "semantic.global.radius.card-lg",
       "tier": "semantic",
       "type": "dimension",
       "value": {
@@ -5914,6 +5935,27 @@ export const tokens = {
       "type": "dimension",
       "value": {
         "value": 999,
+        "unit": "px"
+      }
+    },
+    "space-card-text-gap": {
+      "aliasTarget": {
+        "id": "space-4",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-space-card-text-gap": "4px"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "space-card-text-gap",
+      "mode": "global",
+      "rawValue": "{primitive.spacing.4}",
+      "sourcePath": "semantic.global.spacing.card-text-gap",
+      "tier": "semantic",
+      "type": "dimension",
+      "value": {
+        "value": 4,
         "unit": "px"
       }
     },

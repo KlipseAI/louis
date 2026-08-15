@@ -2,23 +2,23 @@
   "artifacts": [
     {
       "path": "packages/tokens/generated/figma.tokens.json",
-      "sha256": "ae148ceb9a70b6bde40d40745b2dda91cb1007c8c7348a2e8474e3146210d2ef"
+      "sha256": "18f00e4b330e4fda1865096bf693bd68c8421d2ff6386732e1fbdad2a2291c72"
     },
     {
       "path": "packages/tokens/generated/index.d.ts",
-      "sha256": "245de865bf4296a34a964916d284c507a1da95e133814c7697a45c511bfcd860"
+      "sha256": "40c25964a0113e2007ebbcea1628c6d0c320f48f4718df0e5c1d71b431133547"
     },
     {
       "path": "packages/tokens/generated/index.js",
-      "sha256": "8de078b9d007a0a86c39a44940f3e1d287b15318403e9bd57585c103bd093906"
+      "sha256": "e412a7be6e5adc06c7ce51427cc113ebb33bebbc1d4864f60403063a5fc140cb"
     },
     {
       "path": "packages/tokens/generated/tokens.css",
-      "sha256": "57ed2096b3ed1f3376fcc17203ba42d7e8e010bb74eb44935524f6b1a6aafc2c"
+      "sha256": "344252a2e4ed65532e2399492da3b9624ca037565d6be96276e86fba9ca6d709"
     },
     {
       "path": "packages/tokens/generated/tokens.json",
-      "sha256": "ba90e25391d7ef3a2b80ac93142fab35eff1a1473a087405b0b95999b9598dc4"
+      "sha256": "e3659aa971d86ac339303c1e29c2dfda3a6b1f679508f2e74183cd83698a33f5"
     }
   ],
   "contrastPairs": [
@@ -238,13 +238,13 @@
   },
   "source": {
     "path": "packages/tokens/src/klipse.tokens.json",
-    "sha256": "a900d2c5132c8e8644d99a135514046488552310ff87389437c5539493e95c14"
+    "sha256": "78063a5e0674a21968b24a11a9945be8f79004961a502abf035f1a266bf680b1"
   },
   "themes": [
     "light",
     "dark"
   ],
-  "tokenCount": 298,
+  "tokenCount": 299,
   "tokens": [
     {
       "aliasTarget": null,
@@ -5850,22 +5850,43 @@
     },
     {
       "aliasTarget": {
-        "id": "radius-20",
+        "id": "radius-16",
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-radius-card": "20px"
+        "--kds-radius-card": "16px"
       },
       "deprecated": null,
       "description": null,
       "id": "radius-card",
+      "mode": "global",
+      "rawValue": "{primitive.radius.16}",
+      "resolvedValue": {
+        "unit": "px",
+        "value": 16
+      },
+      "sourcePath": "semantic.global.radius.card",
+      "tier": "semantic",
+      "type": "dimension"
+    },
+    {
+      "aliasTarget": {
+        "id": "radius-20",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-radius-card-lg": "20px"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "radius-card-lg",
       "mode": "global",
       "rawValue": "{primitive.radius.20}",
       "resolvedValue": {
         "unit": "px",
         "value": 20
       },
-      "sourcePath": "semantic.global.radius.card",
+      "sourcePath": "semantic.global.radius.card-lg",
       "tier": "semantic",
       "type": "dimension"
     },

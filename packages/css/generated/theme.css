@@ -59,6 +59,7 @@
 
   /* 곡률 — rounded-* 유틸리티가 된다 */
   --radius-card: var(--kds-radius-card);
+  --radius-card-lg: var(--kds-radius-card-lg);
   --radius-control: var(--kds-radius-control);
   --radius-control-sm: var(--kds-radius-control-sm);
   --radius-overlay: var(--kds-radius-overlay);
@@ -88,6 +89,7 @@
   --spacing-layout-control-minimum-width-sm: var(--kds-layout-control-minimum-width-sm);
   --spacing-layout-project-card-minimum: var(--kds-layout-project-card-minimum);
   --spacing-layout-project-grid-gap: var(--kds-layout-project-grid-gap);
+  --spacing-card-text-gap: var(--kds-space-card-text-gap);
   --spacing-control-lg: var(--kds-space-control-lg);
   --spacing-control-md: var(--kds-space-control-md);
   --spacing-control-sm: var(--kds-space-control-sm);

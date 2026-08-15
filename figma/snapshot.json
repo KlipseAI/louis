@@ -3,15 +3,15 @@
   "provenance": {
     "figmaFileKey": "bxGEp0km5zluMJGulaTvFW",
     "figmaFileName": "Klipse Design System — Library",
-    "capturedAt": "2026-08-15",
+    "capturedAt": "2026-08-16",
     "capturedBy": "figma-mcp-plugin-api",
     "published": false,
-    "tokenSourceSha256": "a900d2c5132c8e8644d99a135514046488552310ff87389437c5539493e95c14",
-    "proposalSha256": "ae148ceb9a70b6bde40d40745b2dda91cb1007c8c7348a2e8474e3146210d2ef",
+    "tokenSourceSha256": "814b9b45f8eef7bbdbe1df8ca83d86d19f826e9679b58c2c5605260dc81b3ca0",
+    "proposalSha256": "9b8a61fefc116e7379ecff126c3392ee1aaa967fbad28156d80db2bc09c1f390",
     "readback": {
-      "tokens": 198,
-      "canonicalLength": 16410,
-      "fnv1a32": "a6cee6ec",
+      "tokens": 200,
+      "canonicalLength": 16565,
+      "fnv1a32": "120d5882",
       "note": "변수는 readback.json의 되읽기 행을 tokenId 공간으로 옮긴 것이고, style과 component는 같은 되읽기의 style/component 절이다. canonical 해시는 컬렉션·이름·타입·mode 값을 정렬해 이은 문자열의 FNV-1a다.",
       "styles": {
         "text": 15,
@@ -38,7 +38,7 @@
         "Global"
       ],
       "defaultMode": "Global",
-      "variableCount": 47
+      "variableCount": 49
     },
     "Klipse Semantic Color": {
       "modes": [
@@ -1898,6 +1898,15 @@
       "resolvedType": "FLOAT",
       "valuesByMode": {
         "Global": {
+          "alias": "radius-16"
+        }
+      }
+    },
+    "radius-card-lg": {
+      "figmaName": "radius/card-lg",
+      "resolvedType": "FLOAT",
+      "valuesByMode": {
+        "Global": {
           "alias": "radius-20"
         }
       }
@@ -2124,6 +2133,15 @@
       "valuesByMode": {
         "Base": {
           "value": 8
+        }
+      }
+    },
+    "space-card-text-gap": {
+      "figmaName": "spacing/card-text-gap",
+      "resolvedType": "FLOAT",
+      "valuesByMode": {
+        "Global": {
+          "alias": "space-4"
         }
       }
     },

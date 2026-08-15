@@ -7561,6 +7561,34 @@
           ],
           "valuesByMode": {
             "Global": {
+              "$value": "{primitive.radius.16}",
+              "aliasTarget": {
+                "id": "radius-16",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "unit": "px",
+                "value": 16
+              },
+              "sourcePath": "semantic.global.radius.card"
+            }
+          }
+        },
+        "radius-card-lg": {
+          "$type": "dimension",
+          "fields": [],
+          "figmaName": "radius/card-lg",
+          "hiddenFromPublishing": false,
+          "losses": [
+            "Figma FLOAT는 DTCG 단위 의미를 직접 보존하지 않으므로 source metadata를 함께 검토해야 합니다."
+          ],
+          "nativeVariableType": "FLOAT",
+          "representation": "variable",
+          "scopes": [
+            "CORNER_RADIUS"
+          ],
+          "valuesByMode": {
+            "Global": {
               "$value": "{primitive.radius.20}",
               "aliasTarget": {
                 "id": "radius-20",
@@ -7570,7 +7598,7 @@
                 "unit": "px",
                 "value": 20
               },
-              "sourcePath": "semantic.global.radius.card"
+              "sourcePath": "semantic.global.radius.card-lg"
             }
           }
         },
@@ -7711,6 +7739,35 @@
                 "value": 999
               },
               "sourcePath": "semantic.global.radius.pill"
+            }
+          }
+        },
+        "space-card-text-gap": {
+          "$type": "dimension",
+          "fields": [],
+          "figmaName": "spacing/card-text-gap",
+          "hiddenFromPublishing": false,
+          "losses": [
+            "Figma FLOAT는 DTCG 단위 의미를 직접 보존하지 않으므로 source metadata를 함께 검토해야 합니다."
+          ],
+          "nativeVariableType": "FLOAT",
+          "representation": "variable",
+          "scopes": [
+            "GAP",
+            "WIDTH_HEIGHT"
+          ],
+          "valuesByMode": {
+            "Global": {
+              "$value": "{primitive.spacing.4}",
+              "aliasTarget": {
+                "id": "space-4",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "unit": "px",
+                "value": 4
+              },
+              "sourcePath": "semantic.global.spacing.card-text-gap"
             }
           }
         },

@@ -4,7 +4,7 @@
 
 - System maturity: experimental
 - Coverage: exhaustive
-- Documents: 27
+- Documents: 28
 - Purpose: 개발, 콘텐츠, 거버넌스와 adoption 계약
 
 ## Sources
@@ -36,6 +36,7 @@
 - design/governance/decisions/DS-D-0011-overlay-primitive-boundary.md
 - design/governance/decisions/DS-D-0012-component-workshop.md
 - design/governance/decisions/DS-D-0013-tailwind-interop.md
+- design/governance/decisions/DS-D-0014-card-radius.md
 - design/updates/README.md
 
 ---
@@ -101,9 +102,9 @@ Figma library는 아직 `not-ready`다. 시스템 전체 maturity도 `experiment
 | 항목 | 현재 값 |
 | --- | --- |
 | System maturity | `experimental` |
-| Normative documents | 52 |
+| Normative documents | 54 |
 | Generated documents | 5 |
-| Components | 9 |
+| Components | 10 |
 | Patterns | 4 |
 | Web done | 0 |
 | Token artifacts done | 6/6 |
@@ -843,21 +844,30 @@ Tooltip(`.app-tooltip-chrome` + `--app-tooltip-*`), Menu(`--dropdown-*`). Icon B
 스타터 보일러플레이트였고 어떤 컴포넌트도 쓰지 않는다. 경로와 판정 근거는 비규범 기록인
 [`migration/product.measured.json`](../../migration/product.measured.json)에 있다.
 
-**현재 다음 포인터 (2026-08-15 갱신):** `DS-GOV-000`을 제외한 GOV 트랙, `DS-F-000`~`DS-F-005`,
+**현재 다음 포인터 (2026-08-16 갱신):** `DS-GOV-000`을 제외한 GOV 트랙, `DS-F-000`~`DS-F-005`,
 `DS-P3-002a`, `DS-P3-002`(1단계), `DS-P3-003`, `DS-P3-009a`, `DS-P3-013`이 `done`이다. `DS-P3-001`은
-자기 몫의 Decision 6종을 다 쓰고 `in-progress`이며 owner 확인만 남았다(저장소 전체 Decision은 12종).
+자기 몫의 Decision 6종을 다 쓰고 `in-progress`이며 owner 확인만 남았다(저장소 전체 Decision은 14종).
 
-Web 구현이 선 component는 일곱이다 — Button, Menu/Popover, Dialog, Icon Button, Tooltip, Toast가
-모두 Web `partial`이고 docs `done`이다. Input·Select·Empty State는 여전히 `not-ready`다.
+Web 구현이 선 component는 일곱이다 — Button, Menu/Popover, Dialog, Icon Button, Tooltip, Toast,
+Project Card가 모두 Web `partial`이고 docs `done`이다. Input·Select·Empty State는 여전히
+`not-ready`다. Figma에는 component set 일곱과 Project Card component 하나가 서 있다.
 
-**다음은 `DS-F-006`의 나머지 component set이다.** 근거는 이렇다. Figma에 있는 component는 여전히
-`Button` 하나뿐인데(아이콘 26개는 별도), Web에는 여섯이 서 있다. 목표 B는 배포 화면을 DS 자산만으로
-재조립하는 것이고 그 자산은 Figma component이므로, **코드와 Figma의 격차가 지금 목표 B의 단일
-병목이다.** DS-F-007-home이 실측으로 그것을 확인했다 — 321건 중 gap 72건, 재조립이 픽셀 재현이 아니라
-coverage 측정에 머물렀다.
+**다음은 두 가지다. 순서가 있다.**
 
-순서는 [gap registry](../../migration/figma-gap-registry.md)의 우선순위를 따른다. 4순위 Menu/Popover와
-5순위 Dialog가 "코드는 있고 Figma에 없다"에 정확히 해당하며, Icon Button·Tooltip·Toast도 같은 상태다.
+**(1) Project Card의 parity 게이트 확장.** Figma component는 섰지만 게이트가 덮지 않는다 —
+`COMPONENT_CONTRACTS`의 `geometry.fields`가 **root 노드만** 읽는데, 이 카드의 계약값(오버레이 여백,
+줄 간격, 프로그레시브 블러)은 전부 자손인 `Title overlay`에 있다. `slots`는 폭·높이만 대조하므로
+그대로 쓸 수 없다. 자손 단위 field 대조와 `BACKGROUND_BLUR:PROGRESSIVE` 비교를 추가하고 변조 canary를
+붙여야 `figma: partial`로 올릴 수 있다. **지금 상태에서 `figma: partial`을 쓰지 않는다.**
+
+**(2) gap registry 7순위 이하.** TextField/Input, EmptyState, Badge, Spinner/Progress,
+SidebarNavItem·AppTopBar, Slider, SegmentedControl, Checkbox, SelectableListRow.
+
+**`DS-F-007-home`의 gap 72건은 다시 재야 한다.** 그 실측은 Figma에 Button 하나만 있을 때 한 것이고
+지금은 여덟이다. 재측정 전까지 72라는 숫자를 현재 상태로 인용하지 않는다.
+
+**gap registry의 ProjectCard 항목은 "정의 3벌"로 적혀 있으나 실제로는 4벌이다** — 앱 홈,
+노드캔버스 홈, 하이라이트 허브, 비디오 에디터 허브. 등록부가 NodeCanvasHome을 빠뜨렸다.
 
 `DS-P3-008`(Core local RC)은 의존성이 모두 충족돼 열려 있으나 아직 시작하지 않았다. `DS-P3-009`
 카탈로그도 열려 있고, 남은 것은 Input·Select·Empty State와 gap registry 6순위 이하다.
@@ -4384,6 +4394,73 @@ build/check 체인에서 한 줄씩 뺀다. 컴포넌트 CSS와 토큰 파이프
 3. `@theme inline`이며 값이 `var(--kds-*)`를 가리킨다 — 리터럴 색이 들어가지 않는다.
 4. semantic token 수와 theme 항목 수가 일치한다(유틸리티 + 변수 전용).
 
+## DS-D-0014 카드 반경 — `radius-card`를 제품 정본 16px에 맞춘다
+
+- Source: design/governance/decisions/DS-D-0014-card-radius.md
+- Maturity: experimental
+
+### DS-D-0014 카드 반경 — `radius-card`를 제품 정본 16px에 맞춘다
+
+- Status: proposed
+- Date: 2026-08-16
+- Owners: repository owner, token maintainer
+- Affects: `radius-card`(breaking), Dialog compact, Project Card, DS-D-0010
+
+#### Context
+
+`radius-card`는 20px인데 **제품의 프로젝트 카드는 4벌 전부 16px이다.**
+
+| 정의 | 파일 | 반경 |
+| --- | --- | ---: |
+| 앱 홈 | `appHomeSceneStyles.ts` `archiveCard` | 16px |
+| 노드캔버스 홈 | `NodeCanvasHomeScene.tsx` `ARCHIVE_CARD` | 16px |
+| 하이라이트 허브 | `highlightSceneStyles.ts` `historyCard` | 16px |
+| 비디오 에디터 허브 | `VideoEditScene.tsx` `HISTORY_CARD` | 16px |
+
+owner가 정한 정본 규칙은 **제품의 공용 구현**이다. 네 벌이 이견 없이 같은 값을 쓰므로 카드 반경의
+정본은 16px이다.
+
+`radius-card`의 현재 유일한 소비처는 **Dialog compact**이며, 그 자리에서 20px이 맞다. Dialog는 이것을
+이미 known deviation으로 적어 두었다 — "20px의 토큰이 소스에 없어 `radius-card`를 빌려 쓴다."
+즉 지금 `radius-card`는 **카드가 쓰지 않고 카드가 아닌 것이 빌려 쓰는** 이름이다.
+
+제품의 20px 사용처도 카드가 아니거나 큰 표면이다 — `clipModalContent`(모달), `uploadCard`(드롭 존),
+`floatingCreateButton`(≤780px). 20px은 값이 틀린 것이 아니라 **이름이 틀렸다.**
+
+#### Decision
+
+**`radius-card`를 16px로 내리고, 20px을 `radius-card-lg`로 새로 만든다.**
+
+1. `radius-card` = `{primitive.radius.16}`. Project Card가 이것을 쓴다.
+2. `radius-card-lg` = `{primitive.radius.20}`. Dialog compact가 빌려 쓰던 자리를 이것으로 바꾼다.
+3. **화면은 바뀌지 않는다.** 유일한 기존 소비처인 Dialog compact가 같은 변경 단위에서 새 토큰을
+   가리키므로 20px이 그대로 유지된다.
+
+#### 왜 반대로 하지 않는가
+
+Project Card가 `radius-overlay`(16px)를 쓰면 토큰을 건드리지 않아도 된다. 그러나 그것은 같은 거짓말을
+방향만 바꾼 것이다 — 카드가 overlay 이름을 쓰고, 카드 이름은 여전히 카드가 아닌 것에 붙는다. 이름으로
+집는 사람이 두 번 틀린다.
+
+#### Consequences
+
+- `radius-card`의 값이 바뀌므로 **breaking**이다. DS-GOV-001의 baseline 절차를 적용한다.
+- 소비자는 아직 없다. package는 미발행이고 Figma library는 미공개다.
+- 제품(klipse-web)의 카드 16px과 DS `radius-card`가 처음으로 같은 값이 된다.
+- 이름으로 토큰을 집었을 때 화면이 달라지던 함정 하나가 사라진다.
+
+#### Rollback
+
+`radius-card`를 `{primitive.radius.20}`으로 되돌리고 `radius-card-lg`를 지운 뒤 Dialog compact의
+참조를 `radius-card`로 되돌린다. 세 줄이며 primitive는 손대지 않는다.
+
+#### Acceptance tests
+
+1. `radius-card`가 16px, `radius-card-lg`가 20px로 생성된다.
+2. Dialog compact의 계산 반경이 변경 전후 20px로 같다(브라우저 테스트).
+3. `diff-tokens.mjs`가 이 변경을 breaking으로 분류하고, baseline 갱신 후 `--fail-on-breaking`이 통과한다.
+4. Project Card의 계산 반경이 16px이며 `radius-card`에서 온다.
+
 ## Updates
 
 - Source: design/updates/README.md
@@ -4392,6 +4469,54 @@ build/check 체인에서 한 줄씩 뺀다. 컴포넌트 CSS와 토큰 파이프
 ### Updates
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
+
+#### 2026-08-16 — Project Card와 카드 반경 정정
+
+##### `radius-card`가 20px에서 16px로 내려간다 — breaking
+
+제품의 프로젝트 카드는 **정의 4벌이 전부 16px**인데 DS의 `radius-card`는 20px이었고, 그 20px의 유일한
+소비처는 Dialog compact였다. 이름이 카드를 가리키면서 카드가 아닌 것에만 쓰이고 있었다.
+
+[DS-D-0014](../governance/decisions/DS-D-0014-card-radius.md)로 바로잡았다.
+
+- `radius-card` = 16px. Project Card가 쓴다
+- `radius-card-lg` = 20px 신설. Dialog compact가 같은 변경 단위에서 이쪽을 가리킨다
+- **화면은 바뀌지 않는다.** Dialog compact는 여전히 20px이다
+
+breaking이므로 [DS-GOV-001 절차](../governance/releases.md)를 따랐다 — 결정을 먼저 쓰고, `diff-tokens`로 분류를
+확인하고(additive 1 · value 1, 의도하지 않은 breaking 0), baseline을 갱신하고 재검증했다.
+
+##### Project Card
+
+카탈로그 우선순위 6번이다. 제품의 홈과 허브가 각자 만든 정의 4벌의 기하가 서로 같아, 값은 DS가 정한
+것이 아니라 **제품 정본을 옮긴 것**이다. 규범은 [project-card.md](../components/project-card.md).
+
+- `@klipse-design/react`에 8종 export. root가 네이티브 `<a>`/`<button>`이다 — 제품 네 벌은 전부
+  `<article>` + `onClick`이라 키보드로 열 수 없다
+- `space-card-text-gap`(4px) 신설. 제품의 `--project-card-overlay-stack-gap`에 대응한다
+- Figma `Content` 섹션에 component 하나. parity 게이트는 아직 이 component를 덮지 않는다
+
+##### 프로그레시브 블러의 첫 소비처가 생겼다
+
+API와 게이트만 있고 쓰는 곳이 없던 프로그레시브 블러가 여기서 쓰인다. 제품이 이미 쓰고 있었다 —
+카드 제목 띠의 `backdrop-filter: blur(10px)` + 위로 사라지는 mask가 그것이다.
+
+불투명 스크림과 다르다. 스크림은 썸네일의 색을 지우고, 흐림은 색을 남기면서 글자 뒤의 고주파 성분만
+없앤다. 정지점은 `figma/components.measured.json`이 갖고 코드와 Figma가 같은 원천을 본다.
+
+**Figma의 표현에 한계가 하나 있다.** CSS mask는 정지점 다섯 개로 비선형 곡선을 그리는데 Figma의
+`PROGRESSIVE`는 두 지점 사이의 선형 램프다. 중간 구간에서 0.8/0.4 대신 0.67/0.33이 된다.
+
+##### 표면 컴포넌트 넷이 게이트 없이 있었다
+
+Dialog·Tooltip·Toast·Menu는 `components.measured.json`에 값이 있는데 **코드 쪽 대조가 없었다.**
+parity 게이트는 Figma가 measured와 같은지만 보므로, 그동안 "Figma와 measured는 서로 맞고 둘 다 코드와
+틀린" 상태로 통과할 수 있었다. 실제로 `radius-card`를 내렸을 때 Dialog compact가 20px을 유지하는지
+확인해 주는 테스트가 하나도 없었다.
+
+`surface-geometry.browser.test.tsx`를 세워 넷과 Project Card를 덮는다. 세우는 과정에서 두 가지를
+실측으로 찾았다 — Dialog 폭이 여는 애니메이션의 `scale`을 타고 정확히 98%로 읽히는 것(`offsetWidth`로
+바꿨다), 그리고 오버레이 띠가 `content-box`라 여백만큼 두꺼워지던 것(`box-sizing`을 명시했다).
 
 #### 2026-08-15 — Tailwind 4 interop과 글래스 섀도우 제거
 

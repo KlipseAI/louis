@@ -266,6 +266,15 @@
       "generated": false
     },
     {
+      "id": "component-project-card",
+      "path": "design/components/project-card.md",
+      "title": "Project Card",
+      "section": "components",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
+    },
+    {
       "id": "component-dialog",
       "path": "design/components/dialog.md",
       "title": "Dialog",
@@ -554,6 +563,15 @@
       "generated": false
     },
     {
+      "id": "decision-card-radius",
+      "path": "design/governance/decisions/DS-D-0014-card-radius.md",
+      "title": "DS-D-0014 카드 반경 — `radius-card`를 제품 정본 16px에 맞춘다",
+      "section": "governance",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
+    },
+    {
       "id": "updates-overview",
       "path": "design/updates/README.md",
       "title": "Updates",
@@ -630,6 +648,7 @@
         "design/components/menu-popover.md",
         "design/components/tooltip.md",
         "design/components/toast.md",
+        "design/components/project-card.md",
         "design/components/dialog.md"
       ]
     },
@@ -692,6 +711,7 @@
         "design/governance/decisions/DS-D-0011-overlay-primitive-boundary.md",
         "design/governance/decisions/DS-D-0012-component-workshop.md",
         "design/governance/decisions/DS-D-0013-tailwind-interop.md",
+        "design/governance/decisions/DS-D-0014-card-radius.md",
         "design/updates/README.md"
       ]
     }
@@ -796,6 +816,17 @@
       "docs": "not-ready",
       "note": "P3 component backlog",
       "figmaName": "EmptyState"
+    },
+    {
+      "id": "project-card",
+      "name": "Project Card",
+      "maturity": "experimental",
+      "figma": "not-ready",
+      "web": "partial",
+      "docs": "done",
+      "note": "public export 8종과 실브라우저 구조 테스트 2건. 값은 제품 정의 4벌의 정본을 옮긴 것이다. 프로그레시브 블러의 첫 소비처이며 Figma component는 아직 없다",
+      "doc": "design/components/project-card.md",
+      "figmaName": "ProjectCard"
     }
   ],
   "patterns": [

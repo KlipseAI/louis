@@ -24,6 +24,7 @@ Klipse 화면을 이루는 재사용 가능한 UI 단위다. 컴포넌트가 코
 | [Tooltip](tooltip.md) | `experimental` | `partial` | `partial` | `done` | public export와 실브라우저 acceptance test 12건. Figma component set 4 variant(Side). 표면이 페이지와 반전된다 — 제품 공용 SSOT에서 채택했다. 그룹 지연 건너뛰기와 arrow가 남음 |
 | [Toast](toast.md) | `experimental` | `partial` | `partial` | `done` | public export와 실브라우저 acceptance test 14건. Figma component set 2 variant(Tone). 제품에 공용 정본이 없어 값은 DS가 정했다. 실행 취소 액션이 남음 |
 | Empty State | `experimental` | `not-ready` | `not-ready` | `not-ready` | P3 component backlog |
+| [Project Card](project-card.md) | `experimental` | `not-ready` | `partial` | `done` | public export 8종과 실브라우저 구조 테스트 2건. 값은 제품 정의 4벌의 정본을 옮긴 것이다. 프로그레시브 블러의 첫 소비처이며 Figma component는 아직 없다 |
 <!-- GENERATED:component-progress END -->
 <!-- prettier-ignore-end -->
 

@@ -536,7 +536,7 @@
   --kds-dialog-inline-size: 360px;
   --kds-dialog-surface-inset: var(--kds-space-layout-gutter);
   /* 24px 토큰이 소스에 없다. radius-overlay(16)보다 크면서 large와 구분되는 유일한 값. */
-  --kds-dialog-surface-radius: var(--kds-radius-card);
+  --kds-dialog-surface-radius: var(--kds-radius-card-lg);
 }
 
 .kds-dialog[data-size="large"] {
@@ -1131,6 +1131,207 @@
 .kds-overlay-panel::before,
 .kds-overlay-panel::after {
   pointer-events: none;
+}
+
+/* Project Card — design/components/project-card.md
+ *
+ * 제품에 정의가 **4벌** 있고(앱 홈·노드캔버스 홈·하이라이트 허브·비디오 에디터 허브) 네 벌의
+ * 기하가 같다. 그래서 이 컴포넌트는 DS가 정한 값이 아니라 **제품 정본을 옮긴 것**이다.
+ *
+ * ## 제목 오버레이가 이 컴포넌트의 어려운 부분이다
+ *
+ * 썸네일 위에 글자를 얹으면 이미지에 따라 읽히지 않는다. 제품은 불투명 스크림을 덮는 대신
+ * **아래로 갈수록 강해지는 배경 흐림**을 쓴다 — `backdrop-filter`에 위로 사라지는 mask를 걸어
+ * 흐림 자체를 서서히 없앤다. 스크림과 달리 썸네일의 색을 남기면서 글자 뒤만 고르게 만든다.
+ *
+ * mask의 정지점은 제품 실측값이며 네 벌이 모두 같다. 곡선을 토큰 넷으로 쪼개면 따로 놀 수 있어
+ * **한 선언에 묶어 둔다** — dialog의 20px 리터럴과 같은 판단이다.
+ */
+
+.kds-project-card {
+  /* **명시한다.** `<button>`은 UA 기본이 border-box지만 `<a>`는 아니다. 소비자의 reset에 기대면
+   * 링크 형태의 카드만 테두리만큼 넘친다. */
+  box-sizing: border-box;
+  position: relative;
+  display: grid;
+  /* **트랙을 채운다.** `<button>`/`<a>`는 내용에 맞춰 줄어드는데 미디어 면의 폭이 `100%`라
+   * 서로를 참조해 0으로 접힌다. 실제로 240px 트랙 안에서 2px(테두리만)로 쟀다. 폭은 그리드가
+   * 정하고 카드는 그것을 받는다. */
+  inline-size: 100%;
+  min-inline-size: 0;
+  padding: 0;
+  /* 제품은 spread-only box-shadow로 링을 바깥에 둔다. 여기서는 border다 — `overflow: hidden`과
+   * 만나면 border가 썸네일 **위에** 그려져, 제품이 dark에서 ::before 층을 하나 더 얹어 얻던
+   * 결과를 선언 하나로 얻는다. 0.5px에서 안팎 차이는 보이지 않는다. */
+  border: var(--kds-border-width-hairline) solid var(--kds-color-border-subtle);
+  border-radius: var(--kds-radius-card);
+  background: none;
+  overflow: hidden;
+  text-align: start;
+  cursor: pointer;
+  /* motion.md: 허용 property는 opacity와 transform뿐이다. */
+  transition-property: opacity, transform;
+  transition-duration: var(--kds-motion-overlay-exit-duration);
+  transition-timing-function: var(--kds-motion-overlay-exit-timing-function);
+}
+
+/* 누르면 살짝 들어간다. 제품 네 벌이 모두 0.975다. */
+.kds-project-card:active {
+  scale: 0.975;
+}
+
+/* 미디어 면. 비율은 소비하는 쪽이 정한다 — 홈은 1:1이고 다른 그리드는 다를 수 있다.
+ *
+ * 배경은 **빈 썸네일과 레터박스의 색**이다. 제품은 이 자리에 노드 캔버스와 같은 색을 쓴다고
+ * 명시하고 있어 canvas 토큰을 쓴다. */
+.kds-project-card-media {
+  /* 호출부가 인라인으로 덮는다. 기본값을 여기 두어야 토큰 참조가 실재하고, 덮지 않은 카드도
+   * 제품 홈과 같은 정사각이 된다. */
+  --kds-project-card-aspect-ratio: 1;
+
+  position: relative;
+  inline-size: 100%;
+  min-inline-size: 0;
+  aspect-ratio: var(--kds-project-card-aspect-ratio);
+  background: var(--kds-color-background-canvas);
+  overflow: hidden;
+  /* 미디어 면 안에서 칠 순서를 닫는다. 카드 밖 요소가 오버레이 사이로 끼어들지 못한다. */
+  isolation: isolate;
+}
+
+.kds-project-card-media > img,
+.kds-project-card-media > video {
+  position: absolute;
+  inset: 0;
+  inline-size: 100%;
+  block-size: 100%;
+  object-fit: cover;
+}
+
+/* 썸네일이 없을 때. 면과 같은 색이라 빈 면으로 보이고 자리표시 그래픽은 자식이 넣는다. */
+.kds-project-card-placeholder {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--kds-color-foreground-tertiary);
+}
+
+.kds-project-card-overlay {
+  /* 30%는 **띠 전체**의 높이다. content-box로 두면 padding 32px이 위에 더해져 띠가 39%가 된다 —
+   * 소비자가 reset을 켰는지에 따라 결과가 달라지는 자리라 여기서 못을 박는다. */
+  box-sizing: border-box;
+  position: absolute;
+  inset-inline: 0;
+  inset-block-end: 0;
+  /* 높이는 미디어 면의 비율이다. 고정 px로 두면 카드가 작아질 때 흐림 구간이 글자를 못 덮는다. */
+  block-size: 30%;
+  display: flex;
+  align-items: flex-end;
+  padding: var(--kds-space-layout-gutter);
+}
+
+/* **프로그레시브 블러.** 흐림을 칠하는 층이다.
+ *
+ * mask의 정지점은 **색이 아니라 알파 램프**다 — 흐림이 얼마나 남는지만 정한다. 그래서 semantic
+ * 색 토큰이 아니라 `color-mix`로 검정의 불투명도를 직접 적는다. 여기에 색 토큰을 넣으면 테마에
+ * 따라 흐림의 세기가 달라진다. */
+.kds-project-card-overlay::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  backdrop-filter: blur(var(--kds-blur-surface));
+  mask-image: linear-gradient(
+    to top,
+    black 0%,
+    black 55%,
+    color-mix(in srgb, black 80%, transparent) 70%,
+    color-mix(in srgb, black 40%, transparent) 85%,
+    transparent 100%
+  );
+}
+
+.kds-project-card-overlay-content {
+  /* 세 줄이 미디어 높이의 30% 안에 들어가야 한다. typography 토큰의 1.5로는 넘친다. 제품도 같은
+   * 이유로 `--project-card-overlay-line-height: 1.2`를 따로 둔다. tight 축의 토큰이 소스에
+   * 없어 리터럴을 이 한 줄에 격리한다. */
+  --kds-project-card-line-height: 1.2;
+
+  /* 흐림 층(`::before`)보다 위에 칠해지는 유일한 수단. 둘 다 positioned이고 z-index가 auto라
+   * 트리 순서로 칠해지는데, `::before`가 먼저다. 숫자 z-index를 쓰지 않는다(dialog surface와
+   * 같은 방식). */
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-end;
+  gap: var(--kds-space-card-text-gap);
+  inline-size: 100%;
+  min-inline-size: 0;
+}
+
+/* 세 줄 모두 한 줄로 자른다. 카드 폭은 그리드가 정하므로 줄바꿈을 허용하면 카드마다 높이가 다르다. */
+.kds-project-card-eyebrow,
+.kds-project-card-title,
+.kds-project-card-meta {
+  display: block;
+  max-inline-size: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  line-height: var(--kds-project-card-line-height);
+}
+
+/* 위계를 **토큰**으로 만든다. 제품은 같은 색에 opacity 0.72/0.7을 곱하는데, 그러면 결과가 뒤에
+ * 놓인 썸네일에 따라 달라진다. 토큰은 달라지지 않는다. */
+.kds-project-card-eyebrow,
+.kds-project-card-meta {
+  color: var(--kds-color-foreground-secondary);
+  font-family: var(--kds-typography-body-sm-regular-font-family);
+  font-size: var(--kds-typography-body-sm-regular-font-size);
+  font-weight: var(--kds-typography-body-sm-regular-font-weight);
+  letter-spacing: var(--kds-typography-body-sm-regular-letter-spacing);
+}
+
+.kds-project-card-title {
+  color: var(--kds-color-foreground-primary);
+  font-family: var(--kds-typography-body-md-medium-font-family);
+  font-size: var(--kds-typography-body-md-medium-font-size);
+  font-weight: var(--kds-typography-body-md-medium-font-weight);
+  letter-spacing: var(--kds-typography-body-md-medium-letter-spacing);
+}
+
+/* 미디어 면 모서리에 붙는 슬롯 — 상태 칩과 더보기 버튼이 여기 들어간다.
+ *
+ * **오버레이 뒤에 둔다.** 여기도 숫자 z-index를 쓰지 않으므로 칠 순서는 DOM 순서다. 오버레이
+ * 앞에 두면 하단 모서리의 슬롯이 흐림 층에 덮여 눌리지 않는다. 계약이므로 문서와 테스트가
+ * 함께 고정한다. */
+.kds-project-card-adornment {
+  position: absolute;
+  display: inline-flex;
+  align-items: center;
+}
+
+.kds-project-card-adornment[data-placement="top-start"] {
+  inset-block-start: var(--kds-space-layout-gutter);
+  inset-inline-start: var(--kds-space-layout-gutter);
+}
+
+.kds-project-card-adornment[data-placement="top-end"] {
+  inset-block-start: var(--kds-space-layout-gutter);
+  inset-inline-end: var(--kds-space-layout-gutter);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .kds-project-card {
+    transition-duration: var(--kds-motion-reduced-duration);
+  }
+
+  .kds-project-card:active {
+    scale: 1;
+  }
 }
 
 /* Toast — design/components/toast.md

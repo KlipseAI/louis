@@ -285,9 +285,10 @@ host의 두 번째 직속 자식이 되고, primitive의 중첩 격리가 자기
 
 ## Known deviations
 
-- **compact surface radius가 24px이 아니라 20px이다.** 그 값의 토큰이 소스에 없다. `radius-overlay`(16px)
-  보다 크면서 large와 구분되는 것은 `radius-card`(20px) 하나뿐이다. "compact가 large보다 둥글다"는
-  서열은 유지된다. DS-P3-014가 값을 추가하면 변수 한 줄만 바꾼다.
+- **compact surface radius가 24px이 아니라 20px이다.** 24px 토큰이 소스에 없다. 값 자체는
+  `radius-card-lg`(20px)로 자기 이름을 갖는다 — [DS-D-0014](../governance/decisions/DS-D-0014-card-radius.md)
+  전까지는 `radius-card`를 빌려 썼고, 제품의 프로젝트 카드가 4벌 전부 16px이라 그 이름이 16으로
+  내려갔다. "compact가 large보다 둥글다"는 서열은 유지된다.
 - **최대폭과 viewport 여백이 토큰이 아니라 리터럴이다.** content tier 토큰과 20px spacing 토큰이 없다.
   Specification의 `viewport - 40px`을 맞추려면 20px이 필요해 값을 지키고 리터럴을 한 줄에 격리했다.
 - **surface padding이 `space-layout-*`에서 온다.** `space-surface-*` tier가 없다. `space-control-*`는

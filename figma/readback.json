@@ -3422,6 +3422,62 @@
           ]
         }
       }
+    },
+    "Menu": {
+      "variantCount": 5,
+      "hasDescription": true,
+      "properties": {
+        "State": {
+          "type": "VARIANT",
+          "options": [
+            "Default",
+            "Hover",
+            "Danger",
+            "DangerHover",
+            "Disabled"
+          ]
+        }
+      },
+      "binding": {
+        "boundFills": 7,
+        "rawFills": 0,
+        "boundStrokes": 0,
+        "rawStrokes": 0,
+        "textStyled": 5,
+        "textUnstyled": 0
+      },
+      "geometry": {
+        "panel": {
+          "slots": {},
+          "height": [
+            44
+          ],
+          "width": [
+            180
+          ],
+          "paddingBlock": [
+            8
+          ],
+          "paddingBlockEnd": [
+            8
+          ],
+          "paddingInline": [
+            12
+          ],
+          "paddingInlineEnd": [
+            12
+          ],
+          "itemSpacing": [
+            6
+          ],
+          "cornerRadius": [
+            10
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ]
+        }
+      }
     }
   },
   "icons": {

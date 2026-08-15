@@ -168,6 +168,37 @@ const COMPONENT_CONTRACTS = [
       extraStrokeWeights: [],
     },
   },
+  {
+    id: "menu-popover",
+    figmaName: "Menu",
+    declaration: "packages/react/dist/menu/item.d.ts",
+    // 이 set은 **메뉴 항목**이다. 항목 상태는 코드에서 CSS 상태와 prop이 섞여 있어 variant 축이
+    // 코드 타입 alias와 1:1로 대응하지 않는다. 그래서 전부 Figma 전용 축으로 선언한다.
+    variantProperties: {},
+    figmaOnlyProperties: {
+      State: {
+        options: ["Default", "Hover", "Danger", "DangerHover", "Disabled"],
+        reason:
+          "Default/Hover는 CSS 상태이고 Danger는 tone prop, Disabled는 disabled prop이다. Figma에는 CSS 상태가 없어 한 축에 합친다. DangerHover가 따로 있는 이유는 danger 항목의 hover 면이 일반 항목과 다른 토큰을 쓰기 때문이다.",
+      },
+    },
+    geometry: {
+      measuredId: "menu-popover",
+      sizeKey: "panel",
+      fields: {
+        height: "itemHeight",
+        paddingBlock: "itemPaddingBlock",
+        paddingBlockEnd: "itemPaddingBlock",
+        paddingInline: "itemPaddingInline",
+        paddingInlineEnd: "itemPaddingInline",
+        itemSpacing: "itemGap",
+        cornerRadius: "itemRadius",
+        layoutMode: { literal: "HORIZONTAL" },
+      },
+      slots: {},
+      extraStrokeWeights: [],
+    },
+  },
 ];
 
 const COMPONENTS_MEASURED_PATH = "figma/components.measured.json";

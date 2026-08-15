@@ -724,10 +724,10 @@
       "id": "menu-popover",
       "name": "Menu / Popover",
       "maturity": "experimental",
-      "figma": "not-ready",
+      "figma": "partial",
       "web": "partial",
       "docs": "done",
-      "note": "ActionMenu·CompositePopover·submenu가 public export다. Figma component와 시각 회귀는 아직 없다",
+      "note": "public export와 실브라우저 acceptance test. Figma component set 5 variant(항목 상태). 제품 공용 정본은 --dropdown-* 토큰이며 면·간격·알파를 채택했다. 패널 component와 서브메뉴·체크 상태가 남음",
       "doc": "design/components/menu-popover.md",
       "figmaName": "Menu"
     },

@@ -791,6 +791,9 @@
     var(--kds-popover-available-inline-size)
   );
 
+  /* 제품은 항목 사이를 2px 띄운다. 이전 DS는 gap이 없어 행이 붙어 있었다. */
+  gap: var(--kds-space-overlay-item-gap);
+
   /* focus ring(offset 2 + width 2 = 4px)이 scrollport 경계에서 잘리지 않게 한다. */
   scroll-padding-block: var(--kds-space-control-sm);
   overscroll-behavior: contain;
@@ -814,7 +817,8 @@
    * 거기서 8px을 쓰면 안쪽 곡률(16 - 8 = 8px)이 item radius(10px)보다 작아져 모서리가 뚫린다. */
   --kds-popover-inset: var(--kds-space-control-sm);
 
-  gap: var(--kds-space-overlay-item-gap);
+  /* 임의의 컨트롤을 담으므로 행 간격이 메뉴 항목보다 넓다. */
+  gap: var(--kds-space-control-sm);
 }
 
 .kds-popover__title {
@@ -840,7 +844,8 @@
   display: flex;
   flex: none;
   align-items: center;
-  gap: var(--kds-space-control-sm);
+  /* 제품 6px. 아이콘과 라벨 사이다. */
+  gap: var(--kds-space-overlay-item-content-gap);
   inline-size: 100%;
   min-inline-size: 0;
   min-block-size: var(--kds-layout-control-hit-target-minimum);

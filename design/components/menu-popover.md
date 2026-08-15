@@ -14,7 +14,7 @@ authority: normative
 | Surface       | 상태           | 근거                                                        |
 | ------------- | -------------- | ----------------------------------------------------------- |
 | Web           | `partial`      | `ActionMenu`·`CompositePopover` public export, 실브라우저 회귀 35건 |
-| Figma         | `not-ready`    | published Menu/Popover component가 없음                     |
+| Figma         | `partial`      | component set 5 variant (항목 상태). 패널 component는 남음. publish는 DS-F-008 |
 | Documentation | `done`         | 이 문서                                                     |
 | Maturity      | `experimental` | 시각 회귀와 수동 screen-reader 검토가 아직 없음            |
 

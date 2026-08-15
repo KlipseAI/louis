@@ -38,7 +38,7 @@ Klipse 화면을 이루는 재사용 가능한 UI 단위다. 컴포넌트가 코
 | [Button](../components/button.md) | `experimental` | `partial` | `partial` | `done` | public export와 실브라우저 acceptance test. Figma component set 40 variant에 아이콘 슬롯과 기하 계약이 붙었다. primary 면이 제품 브랜드 블루라 WCAG AA에 미달하며 owner 결정으로 수용한 상태다 — 규범 Known deviations 참조 |
 | [Icon Button](../components/icon-button.md) | `experimental` | `partial` | `partial` | `done` | public export와 실브라우저 acceptance test 11건. Figma component set 40 variant가 기하 계약(한 변 40/32)으로 묶여 있다. pressed의 hover 면과 loading 상태가 남음 |
 | [Dialog / Confirm Modal](../components/dialog.md) | `experimental` | `not-ready` | `partial` | `done` | Dialog compound가 public export다. variant 5종·backdrop 정책·차단 안내를 recipe가 소유한다. Figma component와 시각 회귀는 아직 없다 |
-| [Menu / Popover](../components/menu-popover.md) | `experimental` | `not-ready` | `partial` | `done` | ActionMenu·CompositePopover·submenu가 public export다. Figma component와 시각 회귀는 아직 없다 |
+| [Menu / Popover](../components/menu-popover.md) | `experimental` | `partial` | `partial` | `done` | public export와 실브라우저 acceptance test. Figma component set 5 variant(항목 상태). 제품 공용 정본은 --dropdown-* 토큰이며 면·간격·알파를 채택했다. 패널 component와 서브메뉴·체크 상태가 남음 |
 | Input / Field | `experimental` | `not-ready` | `not-ready` | `not-ready` | P3 component backlog |
 | Select / Dropdown | `experimental` | `not-ready` | `not-ready` | `not-ready` | P3 component backlog |
 | [Tooltip](../components/tooltip.md) | `experimental` | `partial` | `partial` | `done` | public export와 실브라우저 acceptance test 12건. Figma component set 4 variant(Side). 표면이 페이지와 반전된다 — 제품 공용 SSOT에서 채택했다. 그룹 지연 건너뛰기와 arrow가 남음 |
@@ -456,7 +456,7 @@ Icon Button은 `active`(누르는 중)와 `pressed`(토글 켜짐)를 **둘 다*
 | Surface       | 상태           | 근거                                                        |
 | ------------- | -------------- | ----------------------------------------------------------- |
 | Web           | `partial`      | `ActionMenu`·`CompositePopover` public export, 실브라우저 회귀 35건 |
-| Figma         | `not-ready`    | published Menu/Popover component가 없음                     |
+| Figma         | `partial`      | component set 5 variant (항목 상태). 패널 component는 남음. publish는 DS-F-008 |
 | Documentation | `done`         | 이 문서                                                     |
 | Maturity      | `experimental` | 시각 회귀와 수동 screen-reader 검토가 아직 없음            |
 

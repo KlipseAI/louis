@@ -1189,11 +1189,16 @@
   .kds-toast {
     max-inline-size: 420px;
     padding-block: var(--kds-space-control-md);
-    padding-inline: var(--kds-space-control-lg);
+    /* 제품은 좌우 20px이다. space 축에 20이 없어 layout-gutter(16)가 아니라 layout-section(24)도
+     * 아닌 값이라, 제품 실측값을 그대로 갖는 space-toast-inline을 세웠다. */
+    padding-inline: var(--kds-space-toast-inline);
     border-radius: var(--kds-radius-overlay);
-    background: var(--kds-color-background-inverse);
+    /* **반투명 + 배경 흐림.** 제품과 같다. 불투명 면으로 대체하면 뒤 콘텐츠가 사라져 toast가
+     * 화면에서 떠 있는 물체가 아니라 판이 된다. */
+    background: var(--kds-color-background-inverse-translucent);
     color: var(--kds-color-foreground-on-inverse);
-    box-shadow: var(--kds-elevation-modal);
+    box-shadow: var(--kds-elevation-toast);
+    backdrop-filter: blur(var(--kds-blur-surface));
     /* 읽는 동안 멈추려면 얹을 수 있어야 한다. viewport가 none이므로 여기서 되살린다. */
     pointer-events: auto;
     overflow-wrap: break-word;

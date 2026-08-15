@@ -120,13 +120,14 @@ toast가 떴다는 사실 자체가 이미 "그 일이 일어났다"이므로 �
 | 스택 간격   | `space-control-sm` 8px                                   |
 | 동시 표시   | 3                                                        |
 | 타이포      | `typography-body-sm-regular` (14px)                      |
-| padding     | `space-control-md` 12px / `space-control-lg` 16px        |
+| padding     | `space-control-md` 12px / `space-toast-inline` 20px      |
 | radius      | `radius-overlay` 16px                                    |
-| 배경        | `color-background-inverse`                               |
+| 배경        | `color-background-inverse-translucent` — **70% 반투명**   |
+| 배경 흐림   | `backdrop-filter: blur(--kds-blur-surface)` 10px         |
 | 전경        | `color-foreground-on-inverse`                            |
 | danger 배경 | `color-status-danger-background`                         |
 | danger 전경 | `color-status-danger-foreground`                         |
-| 그림자      | `elevation-modal`                                        |
+| 그림자      | `elevation-toast` — drop 1겹 + 글래스 베벨 inset 2겹      |
 | layer       | `layer-critical`                                         |
 | 최대 폭     | 420px                                                    |
 | 자동 소멸   | 4000ms                                                   |
@@ -134,6 +135,18 @@ toast가 떴다는 사실 자체가 이미 "그 일이 일어났다"이므로 �
 `color-background-inverse`와 `color-foreground-on-inverse`는 이 컴포넌트가 첫 소비자다. 기존
 `color-foreground-inverse`는 두 모드 모두 `neutral-0`이라 **다크에서 밝아지는 반전 표면 위에서는
 쓸 수 없다** — 그 토큰은 `action-primary` 위 텍스트를 위한 것이다.
+
+## Effects
+
+Figma에서 이 컴포넌트가 갖는 effect를 종류와 순서까지 고정한다. parity 게이트가 매 실행 대조하며,
+`INNER_SHADOW`가 `DROP_SHADOW`로 바뀌거나 blur radius가 변수에서 풀려 숫자로 박히면 실패한다.
+
+| 순서 | 종류 | 값 |
+| --- | --- | --- |
+| 1 | `DROP_SHADOW` | y 8 · blur 20 · spread 0 · 검정 16% |
+| 2 | `INNER_SHADOW` | y 1 · blur 1 · 흰색 25% (글래스 베벨) |
+| 3 | `INNER_SHADOW` | y −1 · blur 1 · 흰색 25% (글래스 베벨) |
+| 4 | `BACKGROUND_BLUR` | radius가 `blur/surface` 변수에 묶인다 |
 
 ## Implementation
 
@@ -150,7 +163,7 @@ toast가 떴다는 사실 자체가 이미 "그 일이 일어났다"이므로 �
 | Figma component set | 없음 | DS-F-006 대상 |
 | 동시 표시 3개 | 임의값 | 자동 소멸 4초 안에 읽을 수 있는 수를 근거로 정했으나 실측이 아니다 |
 | 실행 취소 액션 | 없음 | "되돌리기"를 담으려면 toast가 상호작용 대상이 되고 focus 정책이 통째로 달라진다. 별도 판정이 필요하다 |
-| 제품의 backdrop blur | 미채택 | 제품은 반투명 배경에 `blur(10px)`을 쓴다. DS에 backdrop blur effect가 없어 불투명 반전 표면으로 대체했다 |
+| 제품의 backdrop blur | **채택** | 반투명 70% 표면과 `blur(10px)`을 그대로 쓴다. 불투명 면으로 대체하면 뒤 콘텐츠가 사라져 toast가 떠 있는 물체가 아니라 판이 된다. Figma에서도 `BACKGROUND_BLUR`로 서 있고 radius를 `blur/surface` 변수에 문다 |
 | 제품의 단일 슬롯 교체 | 미채택 | 제품은 새 메시지가 이전 것을 지운다. 자동 소멸과 겹치면 읽기 전에 사라지므로 스택으로 바꿨다 |
 | 퇴장 전환 | 없음 | 진입만 애니메이션한다. 퇴장을 `animationend`로 걸면 그 이벤트가 오지 않는 경우(요소가 화면 밖, 애니메이션 미적용) 사라지지 않고 남는 실패 모드가 생긴다. 전환보다 **반드시 사라지는 것**이 우선이다 |
 

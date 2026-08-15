@@ -213,6 +213,13 @@ for (const [figmaName, component] of Object.entries(readback.components ?? {})) 
     // 크기별 기하. 값마다 배열인 이유는 **같은 size의 variant가 서로 다르면 배열이 길어지기**
     // 때문이다. 대표값 하나만 담으면 40개 중 하나만 어긋난 경우가 보이지 않는다.
     geometry: sortByKey(component.geometry ?? {}),
+    // 역할별 stroke와 effect. 두께를 집합으로만 보면 버튼 테두리가 2px이 돼도 spinner의 2와
+    // 구분되지 않는다. strokeAlign까지 담는 이유는 CSS border(box-sizing: border-box)가 INSIDE와
+    // 같고 CENTER/OUTSIDE로 바뀌면 시각 박스가 달라지기 때문이다.
+    strokes: sortByKey(component.strokes ?? {}),
+    // effect는 **종류와 순서**까지 담는다. 개수만 보면 INNER_SHADOW가 DROP_SHADOW로 바뀌어도
+    // 통과한다. blur는 radius가 변수에 묶였는지도 담는다.
+    effects: sortByKey(component.effects ?? {}),
   };
 }
 

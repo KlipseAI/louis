@@ -290,13 +290,13 @@ test("Specification 표의 값이 실제 계산값과 같다", async () => {
   const style = getComputedStyle(node);
   expect(style.borderRadius).toBe(token("radius-overlay"));
   expect(style.paddingTop).toBe(token("space-control-md"));
-  expect(style.paddingLeft).toBe(token("space-control-lg"));
+  expect(style.paddingLeft).toBe(token("space-toast-inline"));
   expect(style.maxWidth).toBe("420px");
   expect(style.fontSize).toBe(token("typography-body-sm-regular-font-size"));
 
   // 색은 토큰이 소유한다. 같은 var를 다른 요소에서 계산해 비교하면 리터럴을 적어 넣을 필요가 없다.
   const probe = document.createElement("div");
-  probe.style.background = "var(--kds-color-background-inverse)";
+  probe.style.background = "var(--kds-color-background-inverse-translucent)";
   probe.style.color = "var(--kds-color-foreground-on-inverse)";
   document.body.append(probe);
   const expected = getComputedStyle(probe);

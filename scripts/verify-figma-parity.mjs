@@ -44,6 +44,16 @@ try {
 const COMPONENT_CONTRACTS = [
   {
     id: "button",
+    strokes: {
+      self: { weight: "borderWidth", align: "INSIDE" },
+      Spinner: { weight: 2, align: "INSIDE" },
+      "LeftIcon.glyph": { weight: "icon", align: "CENTER" },
+      "RightIcon.glyph": { weight: "icon", align: "CENTER" },
+    },
+    effects: {
+      self: "INNER_SHADOW:1:1:0 + INNER_SHADOW:-1:1:0",
+      Gloss: "INNER_SHADOW:0:8:0",
+    },
     figmaName: "Button",
     declaration: "packages/react/dist/button/button.d.ts",
     // Figma variant property 이름 → 코드에서 같은 집합을 정의하는 타입 alias
@@ -90,6 +100,11 @@ const COMPONENT_CONTRACTS = [
   },
   {
     id: "icon-button",
+    strokes: {
+      self: { weight: "borderWidth", align: "INSIDE" },
+      "Glyph.glyph": { weight: "icon", align: "CENTER" },
+    },
+    effects: {},
     figmaName: "IconButton",
     declaration: "packages/react/dist/icon-button/icon-button.d.ts",
     variantProperties: {
@@ -124,6 +139,8 @@ const COMPONENT_CONTRACTS = [
   },
   {
     id: "tooltip",
+    strokes: { self: { weight: "borderWidth", align: "INSIDE" } },
+    effects: { self: "DROP_SHADOW:12:24:0" },
     figmaName: "Tooltip",
     declaration: "packages/react/dist/tooltip/tooltip.d.ts",
     variantProperties: {
@@ -149,6 +166,10 @@ const COMPONENT_CONTRACTS = [
   },
   {
     id: "toast",
+    strokes: {},
+    effects: {
+      self: "DROP_SHADOW:8:20:0 + INNER_SHADOW:1:1:0 + INNER_SHADOW:-1:1:0 + BACKGROUND_BLUR:NORMAL:var(blur/surface)",
+    },
     figmaName: "Toast",
     declaration: "packages/react/dist/toast/toast.d.ts",
     variantProperties: { Tone: "ToastTone" },
@@ -170,6 +191,8 @@ const COMPONENT_CONTRACTS = [
   },
   {
     id: "menu-popover",
+    strokes: {},
+    effects: {},
     figmaName: "Menu",
     declaration: "packages/react/dist/menu/item.d.ts",
     // 이 set은 **메뉴 항목**이다. 항목 상태는 코드에서 CSS 상태와 prop이 섞여 있어 variant 축이
@@ -201,6 +224,8 @@ const COMPONENT_CONTRACTS = [
   },
   {
     id: "dialog",
+    strokes: { self: { weight: "borderWidth", align: "INSIDE" } },
+    effects: { self: "DROP_SHADOW:16:48:-8" },
     figmaName: "Dialog",
     declaration: "packages/react/dist/dialog/types.d.ts",
     variantProperties: {},
@@ -281,6 +306,11 @@ const TAMPERS = [
   tamperComponentGeometryDrift,
   tamperComponentPropProperty,
   tamperComponentDescription,
+  tamperComponentStrokeWeight,
+  tamperComponentStrokeAlign,
+  tamperComponentEffectType,
+  tamperComponentBlurUnbound,
+  tamperComponentExtraEffect,
   tamperIconMissing,
   tamperIconFrame,
   tamperIconRawPaint,
@@ -784,6 +814,102 @@ function compareComponentGeometry(contract, got) {
   return issues;
 }
 
+/**
+ * 역할별 stroke 두께와 정렬을 대조한다.
+ *
+ * 두께를 **집합**으로만 보면 버튼 테두리가 2px이 돼도 spinner의 2와 구분되지 않는다. 그래서
+ * 어느 노드의 stroke인지까지 본다. strokeAlign을 함께 보는 이유는 CSS `border`가
+ * `box-sizing: border-box`에서 INSIDE와 같고, CENTER/OUTSIDE로 바뀌면 같은 두께라도 시각 박스가
+ * 달라지기 때문이다.
+ */
+function compareComponentStrokes(contract, got) {
+  const issues = [];
+  const plan = contract.strokes;
+  if (plan === undefined) return issues;
+  const measured = componentsMeasured.components?.[contract.geometry?.measuredId]?.sizes ?? {};
+  const anySize = Object.values(measured)[0] ?? {};
+  const actual = got.strokes ?? {};
+
+  for (const [role, spec] of Object.entries(plan)) {
+    let want;
+    if (typeof spec.weight === "number") {
+      want = spec.weight;
+    } else if (spec.weight === "icon") {
+      // 글리프 두께의 정본은 아이콘 manifest다. 여기에 숫자를 복사하지 않는다.
+      const widths = [...new Set(iconManifest.strokeWidths.map(Number))];
+      want = widths.length === 1 ? widths[0] : undefined;
+      if (want === undefined) {
+        issues.push(
+          `${contract.figmaName}: 아이콘 정본 stroke 두께가 하나가 아닙니다 (${widths.join(", ")}).`,
+        );
+        continue;
+      }
+    } else {
+      want = anySize[spec.weight];
+    }
+    if (want === undefined) {
+      issues.push(
+        `${contract.figmaName}: stroke 역할 ${role}의 기대 두께를 ${COMPONENTS_MEASURED_PATH}에서 찾지 못했습니다 (${spec.weight}).`,
+      );
+      continue;
+    }
+    const values = actual[role];
+    if (!Array.isArray(values) || values.length === 0) {
+      issues.push(`${contract.figmaName}: stroke 역할 ${role}이 Figma에 없습니다.`);
+      continue;
+    }
+    const expected = `${want}|${spec.align}`;
+    const wrong = values.filter((value) => value !== expected);
+    if (wrong.length > 0) {
+      issues.push(
+        `${contract.figmaName}: ${role}의 stroke가 다릅니다 — 기대 ${expected}, 실제 [${values.join(", ")}]`,
+      );
+    }
+  }
+  for (const role of Object.keys(actual)) {
+    if (plan[role] === undefined) {
+      issues.push(
+        `${contract.figmaName}: 계약에 없는 stroke가 있습니다 — ${role} [${actual[role].join(", ")}]`,
+      );
+    }
+  }
+  return issues;
+}
+
+/**
+ * 역할별 effect를 **종류와 순서까지** 대조한다.
+ *
+ * 개수만 세면 INNER_SHADOW가 DROP_SHADOW로 바뀌어도 통과한다. blur는 radius가 변수에 묶였는지도
+ * 본다 — 숫자를 직접 적으면 테마·해상도 변경이 따라오지 않는다.
+ */
+function compareComponentEffects(contract, got) {
+  const issues = [];
+  const plan = contract.effects;
+  if (plan === undefined) return issues;
+  const actual = got.effects ?? {};
+  for (const [role, expected] of Object.entries(plan)) {
+    const values = actual[role];
+    if (!Array.isArray(values) || values.length === 0) {
+      issues.push(`${contract.figmaName}: effect 역할 ${role}이 Figma에 없습니다 — 기대 ${expected}`);
+      continue;
+    }
+    const wrong = values.filter((value) => value !== expected);
+    if (wrong.length > 0) {
+      issues.push(
+        `${contract.figmaName}: ${role}의 effect가 다릅니다 — 기대 "${expected}", 실제 [${values.join(", ")}]`,
+      );
+    }
+  }
+  for (const role of Object.keys(actual)) {
+    if (plan[role] === undefined) {
+      issues.push(
+        `${contract.figmaName}: 계약에 없는 effect가 있습니다 — ${role} [${actual[role].join(", ")}]`,
+      );
+    }
+  }
+  return issues;
+}
+
 function compareComponents(actualComponents) {
   const issues = [];
   const seen = new Set();
@@ -888,6 +1014,8 @@ function compareComponents(actualComponents) {
     }
 
     issues.push(...compareComponentGeometry(contract, got));
+    issues.push(...compareComponentStrokes(contract, got));
+    issues.push(...compareComponentEffects(contract, got));
 
     const declaredProperties = new Set([
       ...Object.keys(contract.variantProperties),
@@ -1095,6 +1223,69 @@ function tamperComponentDescription(document) {
     if (target?.hasDescription !== true) continue;
     target.hasDescription = false;
     return `component description 삭제 변조 ${contract.figmaName}`;
+  }
+  return null;
+}
+
+/** stroke 두께 변조. 버튼 테두리를 spinner와 같은 2px로 바꿔도 잡혀야 한다. */
+function tamperComponentStrokeWeight(document) {
+  for (const contract of COMPONENT_CONTRACTS) {
+    const strokes = document.components?.[contract.figmaName]?.strokes;
+    const role = Object.keys(contract.strokes ?? {}).find((key) => Array.isArray(strokes?.[key]));
+    if (role === undefined) continue;
+    strokes[role] = ["2|INSIDE"];
+    return `component stroke 두께 변조 ${contract.figmaName}.${role}`;
+  }
+  return null;
+}
+
+/** stroke 정렬 변조. 두께가 같아도 CENTER가 되면 시각 박스가 달라진다. */
+function tamperComponentStrokeAlign(document) {
+  for (const contract of COMPONENT_CONTRACTS) {
+    const strokes = document.components?.[contract.figmaName]?.strokes;
+    const role = Object.keys(contract.strokes ?? {}).find(
+      (key) => Array.isArray(strokes?.[key]) && strokes[key][0]?.endsWith("|INSIDE"),
+    );
+    if (role === undefined) continue;
+    strokes[role] = [strokes[role][0].replace("|INSIDE", "|CENTER")];
+    return `component stroke 정렬 변조 ${contract.figmaName}.${role}`;
+  }
+  return null;
+}
+
+/** effect 종류 변조. INNER_SHADOW를 DROP_SHADOW로 바꿔도 잡혀야 한다. */
+function tamperComponentEffectType(document) {
+  for (const contract of COMPONENT_CONTRACTS) {
+    const effects = document.components?.[contract.figmaName]?.effects;
+    const role = Object.keys(contract.effects ?? {}).find((key) => Array.isArray(effects?.[key]));
+    if (role === undefined) continue;
+    effects[role] = [effects[role][0].replace("INNER_SHADOW", "DROP_SHADOW").replace("BACKGROUND_BLUR", "LAYER_BLUR")];
+    return `component effect 종류 변조 ${contract.figmaName}.${role}`;
+  }
+  return null;
+}
+
+/** blur radius가 변수에서 풀려 숫자로 박히는 경우. */
+function tamperComponentBlurUnbound(document) {
+  for (const contract of COMPONENT_CONTRACTS) {
+    const effects = document.components?.[contract.figmaName]?.effects;
+    const role = Object.keys(effects ?? {}).find((key) =>
+      effects[key].some((value) => value.includes("var(")),
+    );
+    if (role === undefined) continue;
+    effects[role] = [effects[role][0].replace(/var\([^)]+\)/, "10")];
+    return `component blur 변수 해제 변조 ${contract.figmaName}.${role}`;
+  }
+  return null;
+}
+
+/** 계약에 없는 effect가 새로 생기는 경우. */
+function tamperComponentExtraEffect(document) {
+  for (const contract of COMPONENT_CONTRACTS) {
+    const target = document.components?.[contract.figmaName];
+    if (!target || contract.effects === undefined) continue;
+    target.effects = { ...target.effects, __extra__: ["LAYER_BLUR:NORMAL:4"] };
+    return `계약에 없는 effect 추가 변조 ${contract.figmaName}`;
   }
   return null;
 }

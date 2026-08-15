@@ -6,16 +6,16 @@
     "capturedAt": "2026-08-15",
     "capturedBy": "figma-mcp-plugin-api",
     "published": false,
-    "tokenSourceSha256": "3a72e4e6ea27d1a4052d5e67b621ca01cc810d7f336d0624baddc4d1581d4487",
-    "proposalSha256": "2aef8de640cf2b991139f6bdb391e105421c8e97bd53c6f4394f4380ba7f4479",
+    "tokenSourceSha256": "e73b4a45d04c94eeae54022b1c65cee9e5d5af4296751fa050de5b801b3accfb",
+    "proposalSha256": "f5fc3957c657d1aa23d0502c6faab14bb87ae1d3c487d7ed7e16027e6ed8d45b",
     "readback": {
-      "tokens": 186,
-      "canonicalLength": 15470,
-      "fnv1a32": "a16e5336",
+      "tokens": 194,
+      "canonicalLength": 16126,
+      "fnv1a32": "0ca80351",
       "note": "변수는 readback.json의 되읽기 행을 tokenId 공간으로 옮긴 것이고, style과 component는 같은 되읽기의 style/component 절이다. canonical 해시는 컬렉션·이름·타입·mode 값을 정렬해 이은 문자열의 FNV-1a다.",
       "styles": {
         "text": 15,
-        "effect": 8
+        "effect": 9
       },
       "components": {
         "sets": 6,
@@ -31,14 +31,14 @@
         "Base"
       ],
       "defaultMode": "Base",
-      "variableCount": 105
+      "variableCount": 109
     },
     "Klipse Semantic": {
       "modes": [
         "Global"
       ],
       "defaultMode": "Global",
-      "variableCount": 42
+      "variableCount": 45
     },
     "Klipse Semantic Color": {
       "modes": [
@@ -46,10 +46,46 @@
         "Dark"
       ],
       "defaultMode": "Light",
-      "variableCount": 39
+      "variableCount": 40
     }
   },
   "variables": {
+    "blur-10": {
+      "figmaName": "blur/10",
+      "resolvedType": "FLOAT",
+      "valuesByMode": {
+        "Base": {
+          "value": 10
+        }
+      }
+    },
+    "blur-12": {
+      "figmaName": "blur/12",
+      "resolvedType": "FLOAT",
+      "valuesByMode": {
+        "Base": {
+          "value": 12
+        }
+      }
+    },
+    "blur-panel": {
+      "figmaName": "blur/panel",
+      "resolvedType": "FLOAT",
+      "valuesByMode": {
+        "Global": {
+          "alias": "blur-12"
+        }
+      }
+    },
+    "blur-surface": {
+      "figmaName": "blur/surface",
+      "resolvedType": "FLOAT",
+      "valuesByMode": {
+        "Global": {
+          "alias": "blur-10"
+        }
+      }
+    },
     "color-action-danger": {
       "figmaName": "color/action-danger",
       "resolvedType": "COLOR",
@@ -247,6 +283,18 @@
         },
         "Dark": {
           "alias": "color-neutral-200"
+        }
+      }
+    },
+    "color-background-inverse-translucent": {
+      "figmaName": "color/background-inverse-translucent",
+      "resolvedType": "COLOR",
+      "valuesByMode": {
+        "Light": {
+          "alias": "color-inverse-alpha-dark-70"
+        },
+        "Dark": {
+          "alias": "color-inverse-alpha-light-70"
         }
       }
     },
@@ -756,6 +804,34 @@
             0.105882,
             0.133333,
             0.86
+          ]
+        }
+      }
+    },
+    "color-inverse-alpha-dark-70": {
+      "figmaName": "color/inverse-alpha/dark-70",
+      "resolvedType": "COLOR",
+      "valuesByMode": {
+        "Base": {
+          "value": [
+            0.192157,
+            0.211765,
+            0.25098,
+            0.7
+          ]
+        }
+      }
+    },
+    "color-inverse-alpha-light-70": {
+      "figmaName": "color/inverse-alpha/light-70",
+      "resolvedType": "COLOR",
+      "valuesByMode": {
+        "Base": {
+          "value": [
+            0.890196,
+            0.894118,
+            0.909804,
+            0.7
           ]
         }
       }
@@ -2095,6 +2171,15 @@
           "alias": "space-2"
         }
       }
+    },
+    "space-toast-inline": {
+      "figmaName": "spacing/toast-inline",
+      "resolvedType": "FLOAT",
+      "valuesByMode": {
+        "Global": {
+          "alias": "space-20"
+        }
+      }
     }
   },
   "styles": {
@@ -2409,6 +2494,47 @@
           0.06
         ]
       },
+      "elevation/toast": {
+        "tokenId": "elevation-toast",
+        "layers": [
+          {
+            "offsetY": 8,
+            "blur": 20,
+            "spread": 0,
+            "inset": false,
+            "color": [
+              0,
+              0,
+              0,
+              0.16
+            ]
+          },
+          {
+            "offsetY": 1,
+            "blur": 1,
+            "spread": 0,
+            "inset": true,
+            "color": [
+              0.980392,
+              0.980392,
+              0.980392,
+              0.25
+            ]
+          },
+          {
+            "offsetY": -1,
+            "blur": 1,
+            "spread": 0,
+            "inset": true,
+            "color": [
+              0.980392,
+              0.980392,
+              0.980392,
+              0.25
+            ]
+          }
+        ]
+      },
       "elevation/tooltip": {
         "tokenId": "elevation-tooltip",
         "type": "DROP_SHADOW",
@@ -2582,6 +2708,28 @@
             1
           ]
         }
+      },
+      "strokes": {
+        "LeftIcon.glyph": [
+          "1.5|CENTER"
+        ],
+        "RightIcon.glyph": [
+          "1.5|CENTER"
+        ],
+        "Spinner": [
+          "2|INSIDE"
+        ],
+        "self": [
+          "1|INSIDE"
+        ]
+      },
+      "effects": {
+        "Gloss": [
+          "INNER_SHADOW:0:8:0"
+        ],
+        "self": [
+          "INNER_SHADOW:1:1:0 + INNER_SHADOW:-1:1:0"
+        ]
       }
     },
     "Dialog": {
@@ -2706,6 +2854,16 @@
             1
           ]
         }
+      },
+      "strokes": {
+        "self": [
+          "1|INSIDE"
+        ]
+      },
+      "effects": {
+        "self": [
+          "DROP_SHADOW:16:48:-8"
+        ]
       }
     },
     "IconButton": {
@@ -2834,7 +2992,16 @@
             1
           ]
         }
-      }
+      },
+      "strokes": {
+        "Glyph.glyph": [
+          "1.5|CENTER"
+        ],
+        "self": [
+          "1|INSIDE"
+        ]
+      },
+      "effects": {}
     },
     "Menu": {
       "tokenId": "menu-popover",
@@ -2891,7 +3058,9 @@
             "HORIZONTAL"
           ]
         }
-      }
+      },
+      "strokes": {},
+      "effects": {}
     },
     "Toast": {
       "tokenId": "toast",
@@ -2921,8 +3090,8 @@
             45
           ],
           "width": [
-            104,
-            144
+            112,
+            152
           ],
           "paddingBlock": [
             12
@@ -2931,10 +3100,10 @@
             12
           ],
           "paddingInline": [
-            16
+            20
           ],
           "paddingInlineEnd": [
-            16
+            20
           ],
           "itemSpacing": [
             0
@@ -2946,6 +3115,12 @@
             "HORIZONTAL"
           ]
         }
+      },
+      "strokes": {},
+      "effects": {
+        "self": [
+          "DROP_SHADOW:8:20:0 + INNER_SHADOW:1:1:0 + INNER_SHADOW:-1:1:0 + BACKGROUND_BLUR:NORMAL:var(blur/surface)"
+        ]
       }
     },
     "Tooltip": {
@@ -3005,6 +3180,16 @@
             1
           ]
         }
+      },
+      "strokes": {
+        "self": [
+          "1|INSIDE"
+        ]
+      },
+      "effects": {
+        "self": [
+          "DROP_SHADOW:12:24:0"
+        ]
       }
     }
   },

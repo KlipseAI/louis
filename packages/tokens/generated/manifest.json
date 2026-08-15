@@ -2,23 +2,23 @@
   "artifacts": [
     {
       "path": "packages/tokens/generated/figma.tokens.json",
-      "sha256": "2aef8de640cf2b991139f6bdb391e105421c8e97bd53c6f4394f4380ba7f4479"
+      "sha256": "f5fc3957c657d1aa23d0502c6faab14bb87ae1d3c487d7ed7e16027e6ed8d45b"
     },
     {
       "path": "packages/tokens/generated/index.d.ts",
-      "sha256": "bfdda607261b02aa05343bf01820343c393ca5e82f12f097a9c8a836c6754798"
+      "sha256": "78f1b241a0cc142ba7d0928deb02e5136e3a20eaf9ddd82627ca4f83a384eab8"
     },
     {
       "path": "packages/tokens/generated/index.js",
-      "sha256": "7398aa865e6019eaf87e19fb15d2b67353598811f593436f56a2856052d540f8"
+      "sha256": "0c6bfdb15e33585d627c46bd4346d6774652b71fba1a2ad641003cb2b082ea74"
     },
     {
       "path": "packages/tokens/generated/tokens.css",
-      "sha256": "0798d9579612e1364e4a354d04cb8227aec89fe87c08b8743cc17f6dd6335631"
+      "sha256": "cd59f195d664c75ab69fd78e2a03594d597cf019d259aa5fe53971314abf3e61"
     },
     {
       "path": "packages/tokens/generated/tokens.json",
-      "sha256": "fc7eba19e92f05ef0fe614eeb2d3212bd6e18091acb019639639e779261cb36e"
+      "sha256": "46054bc3640690f639126eab78993f860cbb3210bf51edd2994633b9a2a818af"
     }
   ],
   "contrastPairs": [
@@ -238,14 +238,94 @@
   },
   "source": {
     "path": "packages/tokens/src/klipse.tokens.json",
-    "sha256": "3a72e4e6ea27d1a4052d5e67b621ca01cc810d7f336d0624baddc4d1581d4487"
+    "sha256": "e73b4a45d04c94eeae54022b1c65cee9e5d5af4296751fa050de5b801b3accfb"
   },
   "themes": [
     "light",
     "dark"
   ],
-  "tokenCount": 287,
+  "tokenCount": 298,
   "tokens": [
+    {
+      "aliasTarget": null,
+      "cssProperties": {},
+      "deprecated": null,
+      "description": null,
+      "id": "blur-10",
+      "mode": "base",
+      "rawValue": {
+        "unit": "px",
+        "value": 10
+      },
+      "resolvedValue": {
+        "unit": "px",
+        "value": 10
+      },
+      "sourcePath": "primitive.blur.10",
+      "tier": "primitive",
+      "type": "dimension"
+    },
+    {
+      "aliasTarget": null,
+      "cssProperties": {},
+      "deprecated": null,
+      "description": null,
+      "id": "blur-12",
+      "mode": "base",
+      "rawValue": {
+        "unit": "px",
+        "value": 12
+      },
+      "resolvedValue": {
+        "unit": "px",
+        "value": 12
+      },
+      "sourcePath": "primitive.blur.12",
+      "tier": "primitive",
+      "type": "dimension"
+    },
+    {
+      "aliasTarget": {
+        "id": "blur-12",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-blur-panel": "12px"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "blur-panel",
+      "mode": "global",
+      "rawValue": "{primitive.blur.12}",
+      "resolvedValue": {
+        "unit": "px",
+        "value": 12
+      },
+      "sourcePath": "semantic.global.blur.panel",
+      "tier": "semantic",
+      "type": "dimension"
+    },
+    {
+      "aliasTarget": {
+        "id": "blur-10",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-blur-surface": "10px"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "blur-surface",
+      "mode": "global",
+      "rawValue": "{primitive.blur.10}",
+      "resolvedValue": {
+        "unit": "px",
+        "value": 10
+      },
+      "sourcePath": "semantic.global.blur.surface",
+      "tier": "semantic",
+      "type": "dimension"
+    },
     {
       "aliasTarget": {
         "id": "color-red-500",
@@ -983,6 +1063,58 @@
         ]
       },
       "sourcePath": "semantic.dark.color.background-inverse",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-inverse-alpha-dark-70",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-color-background-inverse-translucent": "color(srgb 0.192157 0.211765 0.25098 / 0.7)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-background-inverse-translucent",
+      "mode": "light",
+      "rawValue": "{primitive.color.inverse-alpha.dark-70}",
+      "resolvedValue": {
+        "alpha": 0.7,
+        "colorSpace": "srgb",
+        "components": [
+          0.192157,
+          0.211765,
+          0.25098
+        ]
+      },
+      "sourcePath": "semantic.light.color.background-inverse-translucent",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-inverse-alpha-light-70",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-color-background-inverse-translucent": "color(srgb 0.890196 0.894118 0.909804 / 0.7)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-background-inverse-translucent",
+      "mode": "dark",
+      "rawValue": "{primitive.color.inverse-alpha.light-70}",
+      "resolvedValue": {
+        "alpha": 0.7,
+        "colorSpace": "srgb",
+        "components": [
+          0.890196,
+          0.894118,
+          0.909804
+        ]
+      },
+      "sourcePath": "semantic.dark.color.background-inverse-translucent",
       "tier": "semantic",
       "type": "color"
     },
@@ -2535,6 +2667,66 @@
         ]
       },
       "sourcePath": "primitive.color.ink-alpha.86",
+      "tier": "primitive",
+      "type": "color"
+    },
+    {
+      "aliasTarget": null,
+      "cssProperties": {},
+      "deprecated": null,
+      "description": null,
+      "id": "color-inverse-alpha-dark-70",
+      "mode": "base",
+      "rawValue": {
+        "alpha": 0.7,
+        "colorSpace": "srgb",
+        "components": [
+          0.192157,
+          0.211765,
+          0.25098
+        ],
+        "hex": "#313640"
+      },
+      "resolvedValue": {
+        "alpha": 0.7,
+        "colorSpace": "srgb",
+        "components": [
+          0.192157,
+          0.211765,
+          0.25098
+        ]
+      },
+      "sourcePath": "primitive.color.inverse-alpha.dark-70",
+      "tier": "primitive",
+      "type": "color"
+    },
+    {
+      "aliasTarget": null,
+      "cssProperties": {},
+      "deprecated": null,
+      "description": null,
+      "id": "color-inverse-alpha-light-70",
+      "mode": "base",
+      "rawValue": {
+        "alpha": 0.7,
+        "colorSpace": "srgb",
+        "components": [
+          0.890196,
+          0.894118,
+          0.909804
+        ],
+        "hex": "#e3e4e8"
+      },
+      "resolvedValue": {
+        "alpha": 0.7,
+        "colorSpace": "srgb",
+        "components": [
+          0.890196,
+          0.894118,
+          0.909804
+        ]
+      },
+      "sourcePath": "primitive.color.inverse-alpha.light-70",
       "tier": "primitive",
       "type": "color"
     },
@@ -4360,6 +4552,109 @@
         }
       },
       "sourcePath": "semantic.global.elevation.surface",
+      "tier": "semantic",
+      "type": "shadow"
+    },
+    {
+      "aliasTarget": {
+        "id": "shadow-toast",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-elevation-toast": "0px 8px 20px 0px color(srgb 0 0 0 / 0.16), inset 0px 1px 1px 0px color(srgb 0.980392 0.980392 0.980392 / 0.25), inset 0px -1px 1px 0px color(srgb 0.980392 0.980392 0.980392 / 0.25)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "elevation-toast",
+      "mode": "global",
+      "rawValue": "{primitive.shadow.toast}",
+      "resolvedValue": [
+        {
+          "blur": {
+            "unit": "px",
+            "value": 20
+          },
+          "color": {
+            "alpha": 0.16,
+            "colorSpace": "srgb",
+            "components": [
+              0,
+              0,
+              0
+            ]
+          },
+          "inset": false,
+          "offsetX": {
+            "unit": "px",
+            "value": 0
+          },
+          "offsetY": {
+            "unit": "px",
+            "value": 8
+          },
+          "spread": {
+            "unit": "px",
+            "value": 0
+          }
+        },
+        {
+          "blur": {
+            "unit": "px",
+            "value": 1
+          },
+          "color": {
+            "alpha": 0.25,
+            "colorSpace": "srgb",
+            "components": [
+              0.980392,
+              0.980392,
+              0.980392
+            ]
+          },
+          "inset": true,
+          "offsetX": {
+            "unit": "px",
+            "value": 0
+          },
+          "offsetY": {
+            "unit": "px",
+            "value": 1
+          },
+          "spread": {
+            "unit": "px",
+            "value": 0
+          }
+        },
+        {
+          "blur": {
+            "unit": "px",
+            "value": 1
+          },
+          "color": {
+            "alpha": 0.25,
+            "colorSpace": "srgb",
+            "components": [
+              0.980392,
+              0.980392,
+              0.980392
+            ]
+          },
+          "inset": true,
+          "offsetX": {
+            "unit": "px",
+            "value": 0
+          },
+          "offsetY": {
+            "unit": "px",
+            "value": -1
+          },
+          "spread": {
+            "unit": "px",
+            "value": 0
+          }
+        }
+      ],
+      "sourcePath": "semantic.global.elevation.toast",
       "tier": "semantic",
       "type": "shadow"
     },
@@ -6518,6 +6813,191 @@
       "cssProperties": {},
       "deprecated": null,
       "description": null,
+      "id": "shadow-toast",
+      "mode": "base",
+      "rawValue": [
+        {
+          "blur": {
+            "unit": "px",
+            "value": 20
+          },
+          "color": {
+            "alpha": 0.16,
+            "colorSpace": "srgb",
+            "components": [
+              0,
+              0,
+              0
+            ],
+            "hex": "#000000"
+          },
+          "offsetX": {
+            "unit": "px",
+            "value": 0
+          },
+          "offsetY": {
+            "unit": "px",
+            "value": 8
+          },
+          "spread": {
+            "unit": "px",
+            "value": 0
+          }
+        },
+        {
+          "blur": {
+            "unit": "px",
+            "value": 1
+          },
+          "color": {
+            "alpha": 0.25,
+            "colorSpace": "srgb",
+            "components": [
+              0.980392,
+              0.980392,
+              0.980392
+            ],
+            "hex": "#fafafa"
+          },
+          "inset": true,
+          "offsetX": {
+            "unit": "px",
+            "value": 0
+          },
+          "offsetY": {
+            "unit": "px",
+            "value": 1
+          },
+          "spread": {
+            "unit": "px",
+            "value": 0
+          }
+        },
+        {
+          "blur": {
+            "unit": "px",
+            "value": 1
+          },
+          "color": {
+            "alpha": 0.25,
+            "colorSpace": "srgb",
+            "components": [
+              0.980392,
+              0.980392,
+              0.980392
+            ],
+            "hex": "#fafafa"
+          },
+          "inset": true,
+          "offsetX": {
+            "unit": "px",
+            "value": 0
+          },
+          "offsetY": {
+            "unit": "px",
+            "value": -1
+          },
+          "spread": {
+            "unit": "px",
+            "value": 0
+          }
+        }
+      ],
+      "resolvedValue": [
+        {
+          "blur": {
+            "unit": "px",
+            "value": 20
+          },
+          "color": {
+            "alpha": 0.16,
+            "colorSpace": "srgb",
+            "components": [
+              0,
+              0,
+              0
+            ]
+          },
+          "inset": false,
+          "offsetX": {
+            "unit": "px",
+            "value": 0
+          },
+          "offsetY": {
+            "unit": "px",
+            "value": 8
+          },
+          "spread": {
+            "unit": "px",
+            "value": 0
+          }
+        },
+        {
+          "blur": {
+            "unit": "px",
+            "value": 1
+          },
+          "color": {
+            "alpha": 0.25,
+            "colorSpace": "srgb",
+            "components": [
+              0.980392,
+              0.980392,
+              0.980392
+            ]
+          },
+          "inset": true,
+          "offsetX": {
+            "unit": "px",
+            "value": 0
+          },
+          "offsetY": {
+            "unit": "px",
+            "value": 1
+          },
+          "spread": {
+            "unit": "px",
+            "value": 0
+          }
+        },
+        {
+          "blur": {
+            "unit": "px",
+            "value": 1
+          },
+          "color": {
+            "alpha": 0.25,
+            "colorSpace": "srgb",
+            "components": [
+              0.980392,
+              0.980392,
+              0.980392
+            ]
+          },
+          "inset": true,
+          "offsetX": {
+            "unit": "px",
+            "value": 0
+          },
+          "offsetY": {
+            "unit": "px",
+            "value": -1
+          },
+          "spread": {
+            "unit": "px",
+            "value": 0
+          }
+        }
+      ],
+      "sourcePath": "primitive.shadow.toast",
+      "tier": "primitive",
+      "type": "shadow"
+    },
+    {
+      "aliasTarget": null,
+      "cssProperties": {},
+      "deprecated": null,
+      "description": null,
       "id": "shadow-tooltip-dark",
       "mode": "base",
       "rawValue": {
@@ -7194,6 +7674,27 @@
         "value": 2
       },
       "sourcePath": "semantic.global.spacing.overlay-item-gap",
+      "tier": "semantic",
+      "type": "dimension"
+    },
+    {
+      "aliasTarget": {
+        "id": "space-20",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-space-toast-inline": "20px"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "space-toast-inline",
+      "mode": "global",
+      "rawValue": "{primitive.spacing.20}",
+      "resolvedValue": {
+        "unit": "px",
+        "value": 20
+      },
+      "sourcePath": "semantic.global.spacing.toast-inline",
       "tier": "semantic",
       "type": "dimension"
     },

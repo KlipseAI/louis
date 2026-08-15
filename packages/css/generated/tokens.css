@@ -3,6 +3,8 @@
 :root,
 [data-theme="light"] {
   color-scheme: light;
+  --kds-blur-panel: 12px;
+  --kds-blur-surface: 10px;
   --kds-color-action-danger: color(srgb 1 0.294118 0.34902 / 1);
   --kds-color-action-ghost-hover: color(srgb 0.090196 0.105882 0.133333 / 0.08);
   --kds-color-action-menu-danger-hover: color(srgb 1 0.294118 0.34902 / 0.1);
@@ -15,6 +17,7 @@
   --kds-color-background-canvas: color(srgb 0.945098 0.945098 0.952941 / 1);
   --kds-color-background-inset: color(srgb 0.917647 0.921569 0.933333 / 1);
   --kds-color-background-inverse: color(srgb 0.192157 0.211765 0.25098 / 1);
+  --kds-color-background-inverse-translucent: color(srgb 0.192157 0.211765 0.25098 / 0.7);
   --kds-color-background-menu: color(srgb 0.945098 0.945098 0.952941 / 1);
   --kds-color-background-overlay: color(srgb 0.980392 0.980392 0.980392 / 1);
   --kds-color-background-raised: color(srgb 0.980392 0.980392 0.980392 / 1);
@@ -49,6 +52,7 @@
   --kds-elevation-modal: 0px 16px 48px -8px color(srgb 0 0 0 / 0.22);
   --kds-elevation-popover: 0px 8px 24px -4px color(srgb 0 0 0 / 0.14);
   --kds-elevation-surface: 0px 2px 8px 0px color(srgb 0 0 0 / 0.06);
+  --kds-elevation-toast: 0px 8px 20px 0px color(srgb 0 0 0 / 0.16), inset 0px 1px 1px 0px color(srgb 0.980392 0.980392 0.980392 / 0.25), inset 0px -1px 1px 0px color(srgb 0.980392 0.980392 0.980392 / 0.25);
   --kds-elevation-tooltip: 0px 12px 24px 0px color(srgb 0.466667 0.490196 0.537255 / 0.12);
   --kds-icon-size-lg: 24px;
   --kds-icon-size-md: 20px;
@@ -110,6 +114,7 @@
   --kds-space-overlay-inset: 6px;
   --kds-space-overlay-item-content-gap: 6px;
   --kds-space-overlay-item-gap: 2px;
+  --kds-space-toast-inline: 20px;
   --kds-typography-body-lg-medium-font-family: "Pretendard Variable", "Pretendard", "Inter", "Noto Sans KR", "Noto Sans JP", system-ui, sans-serif;
   --kds-typography-body-lg-medium-font-size: 20px;
   --kds-typography-body-lg-medium-font-weight: 500;
@@ -201,6 +206,7 @@
   --kds-color-background-canvas: color(srgb 0.090196 0.105882 0.133333 / 1);
   --kds-color-background-inset: color(srgb 0.192157 0.211765 0.25098 / 1);
   --kds-color-background-inverse: color(srgb 0.890196 0.894118 0.909804 / 1);
+  --kds-color-background-inverse-translucent: color(srgb 0.890196 0.894118 0.909804 / 0.7);
   --kds-color-background-menu: color(srgb 0.192157 0.211765 0.25098 / 1);
   --kds-color-background-overlay: color(srgb 0.192157 0.211765 0.25098 / 1);
   --kds-color-background-raised: color(srgb 0.341176 0.364706 0.407843 / 1);

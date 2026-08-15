@@ -25,6 +25,30 @@
       "defaultMode": "Base",
       "rows": [
         [
+          "blur/10",
+          "FLOAT",
+          "EFFECT_FLOAT",
+          [
+            [
+              "Base",
+              null,
+              10
+            ]
+          ]
+        ],
+        [
+          "blur/12",
+          "FLOAT",
+          "EFFECT_FLOAT",
+          [
+            [
+              "Base",
+              null,
+              12
+            ]
+          ]
+        ],
+        [
           "color/amber/100",
           "COLOR",
           "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
@@ -445,6 +469,40 @@
                 0.105882,
                 0.133333,
                 0.86
+              ]
+            ]
+          ]
+        ],
+        [
+          "color/inverse-alpha/dark-70",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL",
+          [
+            [
+              "Base",
+              null,
+              [
+                0.192157,
+                0.211765,
+                0.25098,
+                0.7
+              ]
+            ]
+          ]
+        ],
+        [
+          "color/inverse-alpha/light-70",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL",
+          [
+            [
+              "Base",
+              null,
+              [
+                0.890196,
+                0.894118,
+                0.909804,
+                0.7
               ]
             ]
           ]
@@ -1548,6 +1606,30 @@
       "defaultMode": "Global",
       "rows": [
         [
+          "blur/panel",
+          "FLOAT",
+          "EFFECT_FLOAT",
+          [
+            [
+              "Global",
+              "Klipse Primitive::blur/12",
+              null
+            ]
+          ]
+        ],
+        [
+          "blur/surface",
+          "FLOAT",
+          "EFFECT_FLOAT",
+          [
+            [
+              "Global",
+              "Klipse Primitive::blur/10",
+              null
+            ]
+          ]
+        ],
+        [
           "icon/size-lg",
           "FLOAT",
           "WIDTH_HEIGHT",
@@ -2050,6 +2132,18 @@
               null
             ]
           ]
+        ],
+        [
+          "spacing/toast-inline",
+          "FLOAT",
+          "WIDTH_HEIGHT,GAP",
+          [
+            [
+              "Global",
+              "Klipse Primitive::spacing/20",
+              null
+            ]
+          ]
         ]
       ]
     },
@@ -2260,6 +2354,23 @@
             [
               "Dark",
               "Klipse Primitive::color/neutral/200",
+              null
+            ]
+          ]
+        ],
+        [
+          "color/background-inverse-translucent",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL",
+          [
+            [
+              "Light",
+              "Klipse Primitive::color/inverse-alpha/dark-70",
+              null
+            ],
+            [
+              "Dark",
+              "Klipse Primitive::color/inverse-alpha/light-70",
               null
             ]
           ]
@@ -3024,6 +3135,46 @@
             ]
           }
         ]
+      },
+      "elevation/toast": {
+        "layers": [
+          {
+            "offsetY": 8,
+            "blur": 20,
+            "spread": 0,
+            "inset": false,
+            "color": [
+              0,
+              0,
+              0,
+              0.16
+            ]
+          },
+          {
+            "offsetY": 1,
+            "blur": 1,
+            "spread": 0,
+            "inset": true,
+            "color": [
+              0.980392,
+              0.980392,
+              0.980392,
+              0.25
+            ]
+          },
+          {
+            "offsetY": -1,
+            "blur": 1,
+            "spread": 0,
+            "inset": true,
+            "color": [
+              0.980392,
+              0.980392,
+              0.980392,
+              0.25
+            ]
+          }
+        ]
       }
     }
   },
@@ -3182,6 +3333,28 @@
             1
           ]
         }
+      },
+      "strokes": {
+        "LeftIcon.glyph": [
+          "1.5|CENTER"
+        ],
+        "RightIcon.glyph": [
+          "1.5|CENTER"
+        ],
+        "Spinner": [
+          "2|INSIDE"
+        ],
+        "self": [
+          "1|INSIDE"
+        ]
+      },
+      "effects": {
+        "self": [
+          "INNER_SHADOW:1:1:0 + INNER_SHADOW:-1:1:0"
+        ],
+        "Gloss": [
+          "INNER_SHADOW:0:8:0"
+        ]
       }
     },
     "IconButton": {
@@ -3309,7 +3482,16 @@
             1
           ]
         }
-      }
+      },
+      "strokes": {
+        "Glyph.glyph": [
+          "1.5|CENTER"
+        ],
+        "self": [
+          "1|INSIDE"
+        ]
+      },
+      "effects": {}
     },
     "Tooltip": {
       "variantCount": 4,
@@ -3367,6 +3549,16 @@
             1
           ]
         }
+      },
+      "strokes": {
+        "self": [
+          "1|INSIDE"
+        ]
+      },
+      "effects": {
+        "self": [
+          "DROP_SHADOW:12:24:0"
+        ]
       }
     },
     "Toast": {
@@ -3396,8 +3588,8 @@
             45
           ],
           "width": [
-            104,
-            144
+            112,
+            152
           ],
           "paddingBlock": [
             12
@@ -3406,10 +3598,10 @@
             12
           ],
           "paddingInline": [
-            16
+            20
           ],
           "paddingInlineEnd": [
-            16
+            20
           ],
           "itemSpacing": [
             0
@@ -3421,6 +3613,12 @@
             "HORIZONTAL"
           ]
         }
+      },
+      "strokes": {},
+      "effects": {
+        "self": [
+          "DROP_SHADOW:8:20:0 + INNER_SHADOW:1:1:0 + INNER_SHADOW:-1:1:0 + BACKGROUND_BLUR:NORMAL:var(blur/surface)"
+        ]
       }
     },
     "Menu": {
@@ -3477,7 +3675,9 @@
             "HORIZONTAL"
           ]
         }
-      }
+      },
+      "strokes": {},
+      "effects": {}
     },
     "Dialog": {
       "variantCount": 3,
@@ -3600,6 +3800,16 @@
             1
           ]
         }
+      },
+      "strokes": {
+        "self": [
+          "1|INSIDE"
+        ]
+      },
+      "effects": {
+        "self": [
+          "DROP_SHADOW:16:48:-8"
+        ]
       }
     }
   },

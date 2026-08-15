@@ -217,6 +217,44 @@ export const metadata = Object.freeze({
   }
 });
 export const primitives = {
+  "blur-10": {
+    "aliasTarget": null,
+    "cssProperties": {},
+    "deprecated": null,
+    "description": null,
+    "id": "blur-10",
+    "mode": "base",
+    "rawValue": {
+      "value": 10,
+      "unit": "px"
+    },
+    "sourcePath": "primitive.blur.10",
+    "tier": "primitive",
+    "type": "dimension",
+    "value": {
+      "value": 10,
+      "unit": "px"
+    }
+  },
+  "blur-12": {
+    "aliasTarget": null,
+    "cssProperties": {},
+    "deprecated": null,
+    "description": null,
+    "id": "blur-12",
+    "mode": "base",
+    "rawValue": {
+      "value": 12,
+      "unit": "px"
+    },
+    "sourcePath": "primitive.blur.12",
+    "tier": "primitive",
+    "type": "dimension",
+    "value": {
+      "value": 12,
+      "unit": "px"
+    }
+  },
   "color-amber-100": {
     "aliasTarget": null,
     "cssProperties": {},
@@ -947,6 +985,66 @@ export const primitives = {
         0.133333
       ],
       "alpha": 0.86
+    }
+  },
+  "color-inverse-alpha-dark-70": {
+    "aliasTarget": null,
+    "cssProperties": {},
+    "deprecated": null,
+    "description": null,
+    "id": "color-inverse-alpha-dark-70",
+    "mode": "base",
+    "rawValue": {
+      "colorSpace": "srgb",
+      "components": [
+        0.192157,
+        0.211765,
+        0.25098
+      ],
+      "alpha": 0.7,
+      "hex": "#313640"
+    },
+    "sourcePath": "primitive.color.inverse-alpha.dark-70",
+    "tier": "primitive",
+    "type": "color",
+    "value": {
+      "colorSpace": "srgb",
+      "components": [
+        0.192157,
+        0.211765,
+        0.25098
+      ],
+      "alpha": 0.7
+    }
+  },
+  "color-inverse-alpha-light-70": {
+    "aliasTarget": null,
+    "cssProperties": {},
+    "deprecated": null,
+    "description": null,
+    "id": "color-inverse-alpha-light-70",
+    "mode": "base",
+    "rawValue": {
+      "colorSpace": "srgb",
+      "components": [
+        0.890196,
+        0.894118,
+        0.909804
+      ],
+      "alpha": 0.7,
+      "hex": "#e3e4e8"
+    },
+    "sourcePath": "primitive.color.inverse-alpha.light-70",
+    "tier": "primitive",
+    "type": "color",
+    "value": {
+      "colorSpace": "srgb",
+      "components": [
+        0.890196,
+        0.894118,
+        0.909804
+      ],
+      "alpha": 0.7
     }
   },
   "color-neutral-0": {
@@ -3112,6 +3210,191 @@ export const primitives = {
       "inset": false
     }
   },
+  "shadow-toast": {
+    "aliasTarget": null,
+    "cssProperties": {},
+    "deprecated": null,
+    "description": null,
+    "id": "shadow-toast",
+    "mode": "base",
+    "rawValue": [
+      {
+        "color": {
+          "colorSpace": "srgb",
+          "components": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.16,
+          "hex": "#000000"
+        },
+        "offsetX": {
+          "value": 0,
+          "unit": "px"
+        },
+        "offsetY": {
+          "value": 8,
+          "unit": "px"
+        },
+        "blur": {
+          "value": 20,
+          "unit": "px"
+        },
+        "spread": {
+          "value": 0,
+          "unit": "px"
+        }
+      },
+      {
+        "color": {
+          "colorSpace": "srgb",
+          "components": [
+            0.980392,
+            0.980392,
+            0.980392
+          ],
+          "alpha": 0.25,
+          "hex": "#fafafa"
+        },
+        "offsetX": {
+          "value": 0,
+          "unit": "px"
+        },
+        "offsetY": {
+          "value": 1,
+          "unit": "px"
+        },
+        "blur": {
+          "value": 1,
+          "unit": "px"
+        },
+        "spread": {
+          "value": 0,
+          "unit": "px"
+        },
+        "inset": true
+      },
+      {
+        "color": {
+          "colorSpace": "srgb",
+          "components": [
+            0.980392,
+            0.980392,
+            0.980392
+          ],
+          "alpha": 0.25,
+          "hex": "#fafafa"
+        },
+        "offsetX": {
+          "value": 0,
+          "unit": "px"
+        },
+        "offsetY": {
+          "value": -1,
+          "unit": "px"
+        },
+        "blur": {
+          "value": 1,
+          "unit": "px"
+        },
+        "spread": {
+          "value": 0,
+          "unit": "px"
+        },
+        "inset": true
+      }
+    ],
+    "sourcePath": "primitive.shadow.toast",
+    "tier": "primitive",
+    "type": "shadow",
+    "value": [
+      {
+        "color": {
+          "colorSpace": "srgb",
+          "components": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.16
+        },
+        "offsetX": {
+          "value": 0,
+          "unit": "px"
+        },
+        "offsetY": {
+          "value": 8,
+          "unit": "px"
+        },
+        "blur": {
+          "value": 20,
+          "unit": "px"
+        },
+        "spread": {
+          "value": 0,
+          "unit": "px"
+        },
+        "inset": false
+      },
+      {
+        "color": {
+          "colorSpace": "srgb",
+          "components": [
+            0.980392,
+            0.980392,
+            0.980392
+          ],
+          "alpha": 0.25
+        },
+        "offsetX": {
+          "value": 0,
+          "unit": "px"
+        },
+        "offsetY": {
+          "value": 1,
+          "unit": "px"
+        },
+        "blur": {
+          "value": 1,
+          "unit": "px"
+        },
+        "spread": {
+          "value": 0,
+          "unit": "px"
+        },
+        "inset": true
+      },
+      {
+        "color": {
+          "colorSpace": "srgb",
+          "components": [
+            0.980392,
+            0.980392,
+            0.980392
+          ],
+          "alpha": 0.25
+        },
+        "offsetX": {
+          "value": 0,
+          "unit": "px"
+        },
+        "offsetY": {
+          "value": -1,
+          "unit": "px"
+        },
+        "blur": {
+          "value": 1,
+          "unit": "px"
+        },
+        "spread": {
+          "value": 0,
+          "unit": "px"
+        },
+        "inset": true
+      }
+    ]
+  },
   "shadow-tooltip-dark": {
     "aliasTarget": null,
     "cssProperties": {},
@@ -4792,6 +5075,48 @@ export const primitives = {
 };
 export const tokens = {
   "global": {
+    "blur-panel": {
+      "aliasTarget": {
+        "id": "blur-12",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-blur-panel": "12px"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "blur-panel",
+      "mode": "global",
+      "rawValue": "{primitive.blur.12}",
+      "sourcePath": "semantic.global.blur.panel",
+      "tier": "semantic",
+      "type": "dimension",
+      "value": {
+        "value": 12,
+        "unit": "px"
+      }
+    },
+    "blur-surface": {
+      "aliasTarget": {
+        "id": "blur-10",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-blur-surface": "10px"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "blur-surface",
+      "mode": "global",
+      "rawValue": "{primitive.blur.10}",
+      "sourcePath": "semantic.global.blur.surface",
+      "tier": "semantic",
+      "type": "dimension",
+      "value": {
+        "value": 10,
+        "unit": "px"
+      }
+    },
     "elevation-control-bevel": {
       "aliasTarget": {
         "id": "shadow-control-bevel",
@@ -5091,6 +5416,109 @@ export const tokens = {
         },
         "inset": false
       }
+    },
+    "elevation-toast": {
+      "aliasTarget": {
+        "id": "shadow-toast",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-elevation-toast": "0px 8px 20px 0px color(srgb 0 0 0 / 0.16), inset 0px 1px 1px 0px color(srgb 0.980392 0.980392 0.980392 / 0.25), inset 0px -1px 1px 0px color(srgb 0.980392 0.980392 0.980392 / 0.25)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "elevation-toast",
+      "mode": "global",
+      "rawValue": "{primitive.shadow.toast}",
+      "sourcePath": "semantic.global.elevation.toast",
+      "tier": "semantic",
+      "type": "shadow",
+      "value": [
+        {
+          "color": {
+            "colorSpace": "srgb",
+            "components": [
+              0,
+              0,
+              0
+            ],
+            "alpha": 0.16
+          },
+          "offsetX": {
+            "value": 0,
+            "unit": "px"
+          },
+          "offsetY": {
+            "value": 8,
+            "unit": "px"
+          },
+          "blur": {
+            "value": 20,
+            "unit": "px"
+          },
+          "spread": {
+            "value": 0,
+            "unit": "px"
+          },
+          "inset": false
+        },
+        {
+          "color": {
+            "colorSpace": "srgb",
+            "components": [
+              0.980392,
+              0.980392,
+              0.980392
+            ],
+            "alpha": 0.25
+          },
+          "offsetX": {
+            "value": 0,
+            "unit": "px"
+          },
+          "offsetY": {
+            "value": 1,
+            "unit": "px"
+          },
+          "blur": {
+            "value": 1,
+            "unit": "px"
+          },
+          "spread": {
+            "value": 0,
+            "unit": "px"
+          },
+          "inset": true
+        },
+        {
+          "color": {
+            "colorSpace": "srgb",
+            "components": [
+              0.980392,
+              0.980392,
+              0.980392
+            ],
+            "alpha": 0.25
+          },
+          "offsetX": {
+            "value": 0,
+            "unit": "px"
+          },
+          "offsetY": {
+            "value": -1,
+            "unit": "px"
+          },
+          "blur": {
+            "value": 1,
+            "unit": "px"
+          },
+          "spread": {
+            "value": 0,
+            "unit": "px"
+          },
+          "inset": true
+        }
+      ]
     },
     "icon-size-lg": {
       "aliasTarget": {
@@ -6085,6 +6513,27 @@ export const tokens = {
         "unit": "px"
       }
     },
+    "space-toast-inline": {
+      "aliasTarget": {
+        "id": "space-20",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-space-toast-inline": "20px"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "space-toast-inline",
+      "mode": "global",
+      "rawValue": "{primitive.spacing.20}",
+      "sourcePath": "semantic.global.spacing.toast-inline",
+      "tier": "semantic",
+      "type": "dimension",
+      "value": {
+        "value": 20,
+        "unit": "px"
+      }
+    },
     "typography-body-lg-medium": {
       "aliasTarget": {
         "id": "type-style-body-lg-medium",
@@ -7027,6 +7476,32 @@ export const tokens = {
           0.25098
         ],
         "alpha": 1
+      }
+    },
+    "color-background-inverse-translucent": {
+      "aliasTarget": {
+        "id": "color-inverse-alpha-dark-70",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-color-background-inverse-translucent": "color(srgb 0.192157 0.211765 0.25098 / 0.7)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-background-inverse-translucent",
+      "mode": "light",
+      "rawValue": "{primitive.color.inverse-alpha.dark-70}",
+      "sourcePath": "semantic.light.color.background-inverse-translucent",
+      "tier": "semantic",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.192157,
+          0.211765,
+          0.25098
+        ],
+        "alpha": 0.7
       }
     },
     "color-background-menu": {
@@ -8163,6 +8638,32 @@ export const tokens = {
           0.909804
         ],
         "alpha": 1
+      }
+    },
+    "color-background-inverse-translucent": {
+      "aliasTarget": {
+        "id": "color-inverse-alpha-light-70",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-color-background-inverse-translucent": "color(srgb 0.890196 0.894118 0.909804 / 0.7)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-background-inverse-translucent",
+      "mode": "dark",
+      "rawValue": "{primitive.color.inverse-alpha.light-70}",
+      "sourcePath": "semantic.dark.color.background-inverse-translucent",
+      "tier": "semantic",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.890196,
+          0.894118,
+          0.909804
+        ],
+        "alpha": 0.7
       }
     },
     "color-background-menu": {

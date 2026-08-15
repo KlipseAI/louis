@@ -237,6 +237,62 @@
         "Base"
       ],
       "variables": {
+        "blur-10": {
+          "$type": "dimension",
+          "fields": [],
+          "figmaName": "blur/10",
+          "hiddenFromPublishing": true,
+          "losses": [
+            "Figma FLOAT는 DTCG 단위 의미를 직접 보존하지 않으므로 source metadata를 함께 검토해야 합니다."
+          ],
+          "nativeVariableType": "FLOAT",
+          "representation": "variable",
+          "scopes": [
+            "WIDTH_HEIGHT"
+          ],
+          "valuesByMode": {
+            "Base": {
+              "$value": {
+                "unit": "px",
+                "value": 10
+              },
+              "aliasTarget": null,
+              "resolvedValue": {
+                "unit": "px",
+                "value": 10
+              },
+              "sourcePath": "primitive.blur.10"
+            }
+          }
+        },
+        "blur-12": {
+          "$type": "dimension",
+          "fields": [],
+          "figmaName": "blur/12",
+          "hiddenFromPublishing": true,
+          "losses": [
+            "Figma FLOAT는 DTCG 단위 의미를 직접 보존하지 않으므로 source metadata를 함께 검토해야 합니다."
+          ],
+          "nativeVariableType": "FLOAT",
+          "representation": "variable",
+          "scopes": [
+            "WIDTH_HEIGHT"
+          ],
+          "valuesByMode": {
+            "Base": {
+              "$value": {
+                "unit": "px",
+                "value": 12
+              },
+              "aliasTarget": null,
+              "resolvedValue": {
+                "unit": "px",
+                "value": 12
+              },
+              "sourcePath": "primitive.blur.12"
+            }
+          }
+        },
         "color-amber-100": {
           "$type": "color",
           "fields": [],
@@ -1216,6 +1272,86 @@
                 ]
               },
               "sourcePath": "primitive.color.ink-alpha.86"
+            }
+          }
+        },
+        "color-inverse-alpha-dark-70": {
+          "$type": "color",
+          "fields": [],
+          "figmaName": "color/inverse-alpha/dark-70",
+          "hiddenFromPublishing": true,
+          "losses": [],
+          "nativeVariableType": "COLOR",
+          "representation": "variable",
+          "scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL",
+            "STROKE_COLOR",
+            "TEXT_FILL"
+          ],
+          "valuesByMode": {
+            "Base": {
+              "$value": {
+                "alpha": 0.7,
+                "colorSpace": "srgb",
+                "components": [
+                  0.192157,
+                  0.211765,
+                  0.25098
+                ],
+                "hex": "#313640"
+              },
+              "aliasTarget": null,
+              "resolvedValue": {
+                "alpha": 0.7,
+                "colorSpace": "srgb",
+                "components": [
+                  0.192157,
+                  0.211765,
+                  0.25098
+                ]
+              },
+              "sourcePath": "primitive.color.inverse-alpha.dark-70"
+            }
+          }
+        },
+        "color-inverse-alpha-light-70": {
+          "$type": "color",
+          "fields": [],
+          "figmaName": "color/inverse-alpha/light-70",
+          "hiddenFromPublishing": true,
+          "losses": [],
+          "nativeVariableType": "COLOR",
+          "representation": "variable",
+          "scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL",
+            "STROKE_COLOR",
+            "TEXT_FILL"
+          ],
+          "valuesByMode": {
+            "Base": {
+              "$value": {
+                "alpha": 0.7,
+                "colorSpace": "srgb",
+                "components": [
+                  0.890196,
+                  0.894118,
+                  0.909804
+                ],
+                "hex": "#e3e4e8"
+              },
+              "aliasTarget": null,
+              "resolvedValue": {
+                "alpha": 0.7,
+                "colorSpace": "srgb",
+                "components": [
+                  0.890196,
+                  0.894118,
+                  0.909804
+                ]
+              },
+              "sourcePath": "primitive.color.inverse-alpha.light-70"
             }
           }
         },
@@ -4050,6 +4186,205 @@
             }
           }
         },
+        "shadow-toast": {
+          "$type": "shadow",
+          "fields": [
+            "blur",
+            "color",
+            "inset",
+            "offsetX",
+            "offsetY",
+            "spread"
+          ],
+          "figmaName": "shadow/toast",
+          "hiddenFromPublishing": true,
+          "losses": [
+            "primitive shadow은 Figma에 만들지 않습니다. Figma에는 style→style alias가 없어 semantic→primitive tier 관계를 보존할 수 없습니다 (DS-D-0007)."
+          ],
+          "nativeVariableType": null,
+          "representation": "unrepresented",
+          "scopes": [],
+          "valuesByMode": {
+            "Base": {
+              "$value": [
+                {
+                  "blur": {
+                    "unit": "px",
+                    "value": 20
+                  },
+                  "color": {
+                    "alpha": 0.16,
+                    "colorSpace": "srgb",
+                    "components": [
+                      0,
+                      0,
+                      0
+                    ],
+                    "hex": "#000000"
+                  },
+                  "offsetX": {
+                    "unit": "px",
+                    "value": 0
+                  },
+                  "offsetY": {
+                    "unit": "px",
+                    "value": 8
+                  },
+                  "spread": {
+                    "unit": "px",
+                    "value": 0
+                  }
+                },
+                {
+                  "blur": {
+                    "unit": "px",
+                    "value": 1
+                  },
+                  "color": {
+                    "alpha": 0.25,
+                    "colorSpace": "srgb",
+                    "components": [
+                      0.980392,
+                      0.980392,
+                      0.980392
+                    ],
+                    "hex": "#fafafa"
+                  },
+                  "inset": true,
+                  "offsetX": {
+                    "unit": "px",
+                    "value": 0
+                  },
+                  "offsetY": {
+                    "unit": "px",
+                    "value": 1
+                  },
+                  "spread": {
+                    "unit": "px",
+                    "value": 0
+                  }
+                },
+                {
+                  "blur": {
+                    "unit": "px",
+                    "value": 1
+                  },
+                  "color": {
+                    "alpha": 0.25,
+                    "colorSpace": "srgb",
+                    "components": [
+                      0.980392,
+                      0.980392,
+                      0.980392
+                    ],
+                    "hex": "#fafafa"
+                  },
+                  "inset": true,
+                  "offsetX": {
+                    "unit": "px",
+                    "value": 0
+                  },
+                  "offsetY": {
+                    "unit": "px",
+                    "value": -1
+                  },
+                  "spread": {
+                    "unit": "px",
+                    "value": 0
+                  }
+                }
+              ],
+              "aliasTarget": null,
+              "resolvedValue": [
+                {
+                  "blur": {
+                    "unit": "px",
+                    "value": 20
+                  },
+                  "color": {
+                    "alpha": 0.16,
+                    "colorSpace": "srgb",
+                    "components": [
+                      0,
+                      0,
+                      0
+                    ]
+                  },
+                  "inset": false,
+                  "offsetX": {
+                    "unit": "px",
+                    "value": 0
+                  },
+                  "offsetY": {
+                    "unit": "px",
+                    "value": 8
+                  },
+                  "spread": {
+                    "unit": "px",
+                    "value": 0
+                  }
+                },
+                {
+                  "blur": {
+                    "unit": "px",
+                    "value": 1
+                  },
+                  "color": {
+                    "alpha": 0.25,
+                    "colorSpace": "srgb",
+                    "components": [
+                      0.980392,
+                      0.980392,
+                      0.980392
+                    ]
+                  },
+                  "inset": true,
+                  "offsetX": {
+                    "unit": "px",
+                    "value": 0
+                  },
+                  "offsetY": {
+                    "unit": "px",
+                    "value": 1
+                  },
+                  "spread": {
+                    "unit": "px",
+                    "value": 0
+                  }
+                },
+                {
+                  "blur": {
+                    "unit": "px",
+                    "value": 1
+                  },
+                  "color": {
+                    "alpha": 0.25,
+                    "colorSpace": "srgb",
+                    "components": [
+                      0.980392,
+                      0.980392,
+                      0.980392
+                    ]
+                  },
+                  "inset": true,
+                  "offsetX": {
+                    "unit": "px",
+                    "value": 0
+                  },
+                  "offsetY": {
+                    "unit": "px",
+                    "value": -1
+                  },
+                  "spread": {
+                    "unit": "px",
+                    "value": 0
+                  }
+                }
+              ],
+              "sourcePath": "primitive.shadow.toast"
+            }
+          }
+        },
         "shadow-tooltip-dark": {
           "$type": "shadow",
           "fields": [
@@ -6248,6 +6583,62 @@
         "Global"
       ],
       "variables": {
+        "blur-panel": {
+          "$type": "dimension",
+          "fields": [],
+          "figmaName": "blur/panel",
+          "hiddenFromPublishing": false,
+          "losses": [
+            "Figma FLOAT는 DTCG 단위 의미를 직접 보존하지 않으므로 source metadata를 함께 검토해야 합니다."
+          ],
+          "nativeVariableType": "FLOAT",
+          "representation": "variable",
+          "scopes": [
+            "WIDTH_HEIGHT"
+          ],
+          "valuesByMode": {
+            "Global": {
+              "$value": "{primitive.blur.12}",
+              "aliasTarget": {
+                "id": "blur-12",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "unit": "px",
+                "value": 12
+              },
+              "sourcePath": "semantic.global.blur.panel"
+            }
+          }
+        },
+        "blur-surface": {
+          "$type": "dimension",
+          "fields": [],
+          "figmaName": "blur/surface",
+          "hiddenFromPublishing": false,
+          "losses": [
+            "Figma FLOAT는 DTCG 단위 의미를 직접 보존하지 않으므로 source metadata를 함께 검토해야 합니다."
+          ],
+          "nativeVariableType": "FLOAT",
+          "representation": "variable",
+          "scopes": [
+            "WIDTH_HEIGHT"
+          ],
+          "valuesByMode": {
+            "Global": {
+              "$value": "{primitive.blur.10}",
+              "aliasTarget": {
+                "id": "blur-10",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "unit": "px",
+                "value": 10
+              },
+              "sourcePath": "semantic.global.blur.surface"
+            }
+          }
+        },
         "elevation-control-bevel": {
           "$type": "shadow",
           "fields": [
@@ -6617,6 +7008,121 @@
                 }
               },
               "sourcePath": "semantic.global.elevation.surface"
+            }
+          }
+        },
+        "elevation-toast": {
+          "$type": "shadow",
+          "fields": [
+            "blur",
+            "color",
+            "inset",
+            "offsetX",
+            "offsetY",
+            "spread"
+          ],
+          "figmaName": "elevation/toast",
+          "hiddenFromPublishing": false,
+          "losses": [
+            "DTCG shadow composite는 단일 native variable로 표현되지 않아 effect-style로 만들고 내부 속성을 변수에 바인딩합니다."
+          ],
+          "nativeVariableType": null,
+          "representation": "effect-style",
+          "scopes": [],
+          "valuesByMode": {
+            "Global": {
+              "$value": "{primitive.shadow.toast}",
+              "aliasTarget": {
+                "id": "shadow-toast",
+                "mode": "base"
+              },
+              "resolvedValue": [
+                {
+                  "blur": {
+                    "unit": "px",
+                    "value": 20
+                  },
+                  "color": {
+                    "alpha": 0.16,
+                    "colorSpace": "srgb",
+                    "components": [
+                      0,
+                      0,
+                      0
+                    ]
+                  },
+                  "inset": false,
+                  "offsetX": {
+                    "unit": "px",
+                    "value": 0
+                  },
+                  "offsetY": {
+                    "unit": "px",
+                    "value": 8
+                  },
+                  "spread": {
+                    "unit": "px",
+                    "value": 0
+                  }
+                },
+                {
+                  "blur": {
+                    "unit": "px",
+                    "value": 1
+                  },
+                  "color": {
+                    "alpha": 0.25,
+                    "colorSpace": "srgb",
+                    "components": [
+                      0.980392,
+                      0.980392,
+                      0.980392
+                    ]
+                  },
+                  "inset": true,
+                  "offsetX": {
+                    "unit": "px",
+                    "value": 0
+                  },
+                  "offsetY": {
+                    "unit": "px",
+                    "value": 1
+                  },
+                  "spread": {
+                    "unit": "px",
+                    "value": 0
+                  }
+                },
+                {
+                  "blur": {
+                    "unit": "px",
+                    "value": 1
+                  },
+                  "color": {
+                    "alpha": 0.25,
+                    "colorSpace": "srgb",
+                    "components": [
+                      0.980392,
+                      0.980392,
+                      0.980392
+                    ]
+                  },
+                  "inset": true,
+                  "offsetX": {
+                    "unit": "px",
+                    "value": 0
+                  },
+                  "offsetY": {
+                    "unit": "px",
+                    "value": -1
+                  },
+                  "spread": {
+                    "unit": "px",
+                    "value": 0
+                  }
+                }
+              ],
+              "sourcePath": "semantic.global.elevation.toast"
             }
           }
         },
@@ -7893,6 +8399,35 @@
                 "value": 2
               },
               "sourcePath": "semantic.global.spacing.overlay-item-gap"
+            }
+          }
+        },
+        "space-toast-inline": {
+          "$type": "dimension",
+          "fields": [],
+          "figmaName": "spacing/toast-inline",
+          "hiddenFromPublishing": false,
+          "losses": [
+            "Figma FLOAT는 DTCG 단위 의미를 직접 보존하지 않으므로 source metadata를 함께 검토해야 합니다."
+          ],
+          "nativeVariableType": "FLOAT",
+          "representation": "variable",
+          "scopes": [
+            "GAP",
+            "WIDTH_HEIGHT"
+          ],
+          "valuesByMode": {
+            "Global": {
+              "$value": "{primitive.spacing.20}",
+              "aliasTarget": {
+                "id": "space-20",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "unit": "px",
+                "value": 20
+              },
+              "sourcePath": "semantic.global.spacing.toast-inline"
             }
           }
         },
@@ -9244,6 +9779,55 @@
                 ]
               },
               "sourcePath": "semantic.light.color.background-inverse"
+            }
+          }
+        },
+        "color-background-inverse-translucent": {
+          "$type": "color",
+          "fields": [],
+          "figmaName": "color/background-inverse-translucent",
+          "hiddenFromPublishing": false,
+          "losses": [],
+          "nativeVariableType": "COLOR",
+          "representation": "variable",
+          "scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL"
+          ],
+          "valuesByMode": {
+            "Dark": {
+              "$value": "{primitive.color.inverse-alpha.light-70}",
+              "aliasTarget": {
+                "id": "color-inverse-alpha-light-70",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 0.7,
+                "colorSpace": "srgb",
+                "components": [
+                  0.890196,
+                  0.894118,
+                  0.909804
+                ]
+              },
+              "sourcePath": "semantic.dark.color.background-inverse-translucent"
+            },
+            "Light": {
+              "$value": "{primitive.color.inverse-alpha.dark-70}",
+              "aliasTarget": {
+                "id": "color-inverse-alpha-dark-70",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 0.7,
+                "colorSpace": "srgb",
+                "components": [
+                  0.192157,
+                  0.211765,
+                  0.25098
+                ]
+              },
+              "sourcePath": "semantic.light.color.background-inverse-translucent"
             }
           }
         },

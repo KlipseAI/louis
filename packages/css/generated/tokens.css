@@ -5,6 +5,8 @@
   color-scheme: light;
   --kds-color-action-danger: color(srgb 1 0.294118 0.34902 / 1);
   --kds-color-action-ghost-hover: color(srgb 0.090196 0.105882 0.133333 / 0.08);
+  --kds-color-action-menu-danger-hover: color(srgb 1 0.294118 0.34902 / 0.1);
+  --kds-color-action-menu-item-hover: color(srgb 0.090196 0.105882 0.133333 / 0.06);
   --kds-color-action-primary: color(srgb 0 0.533333 1 / 1);
   --kds-color-action-primary-hover: color(srgb 0.219608 0.643137 1 / 1);
   --kds-color-action-primary-pressed: color(srgb 0 0.458824 0.858824 / 1);
@@ -13,6 +15,7 @@
   --kds-color-background-canvas: color(srgb 0.945098 0.945098 0.952941 / 1);
   --kds-color-background-inset: color(srgb 0.917647 0.921569 0.933333 / 1);
   --kds-color-background-inverse: color(srgb 0.192157 0.211765 0.25098 / 1);
+  --kds-color-background-menu: color(srgb 0.945098 0.945098 0.952941 / 1);
   --kds-color-background-overlay: color(srgb 0.980392 0.980392 0.980392 / 1);
   --kds-color-background-raised: color(srgb 0.980392 0.980392 0.980392 / 1);
   --kds-color-background-surface: color(srgb 0.980392 0.980392 0.980392 / 1);
@@ -21,8 +24,10 @@
   --kds-color-border-focus: color(srgb 0 0.533333 1 / 1);
   --kds-color-border-strong: color(srgb 0.603922 0.627451 0.670588 / 1);
   --kds-color-border-subtle: color(srgb 0.890196 0.894118 0.909804 / 1);
+  --kds-color-border-tooltip: color(srgb 0.980392 0.980392 0.980392 / 0.14);
   --kds-color-foreground-disabled: color(srgb 0.603922 0.627451 0.670588 / 1);
   --kds-color-foreground-inverse: color(srgb 0.980392 0.980392 0.980392 / 1);
+  --kds-color-foreground-menu-item: color(srgb 0.090196 0.105882 0.133333 / 0.86);
   --kds-color-foreground-on-danger: color(srgb 0.980392 0.980392 0.980392 / 1);
   --kds-color-foreground-on-inverse: color(srgb 0.980392 0.980392 0.980392 / 1);
   --kds-color-foreground-primary: color(srgb 0.090196 0.105882 0.133333 / 1);
@@ -40,9 +45,11 @@
   --kds-elevation-control-bevel: inset 0px 1px 1px 0px color(srgb 0.980392 0.980392 0.980392 / 0.25), inset 0px -1px 1px 0px color(srgb 0.980392 0.980392 0.980392 / 0.25);
   --kds-elevation-control-gloss: inset 0px 0px 8px 0px color(srgb 0.980392 0.980392 0.980392 / 1);
   --kds-elevation-focus-ring: 0px 0px 0px 3px color(srgb 0 0.533333 1 / 0.42);
+  --kds-elevation-menu: 0px 8px 15px 0px color(srgb 0 0 0 / 0.04), 0px 0px 0px 0.5px color(srgb 0.835294 0.843137 0.866667 / 1);
   --kds-elevation-modal: 0px 16px 48px -8px color(srgb 0 0 0 / 0.22);
   --kds-elevation-popover: 0px 8px 24px -4px color(srgb 0 0 0 / 0.14);
   --kds-elevation-surface: 0px 2px 8px 0px color(srgb 0 0 0 / 0.06);
+  --kds-elevation-tooltip: 0px 12px 24px 0px color(srgb 0.466667 0.490196 0.537255 / 0.12);
   --kds-icon-size-lg: 24px;
   --kds-icon-size-md: 20px;
   --kds-icon-size-sm: 16px;
@@ -61,6 +68,12 @@
   --kds-layout-control-minimum-width-sm: 48px;
   --kds-layout-project-card-minimum: 240px;
   --kds-layout-project-grid-gap: 12px;
+  --kds-motion-menu-enter-delay: 0ms;
+  --kds-motion-menu-enter-duration: 260ms;
+  --kds-motion-menu-enter-timing-function: cubic-bezier(0.32, 0.72, 0, 1);
+  --kds-motion-menu-exit-delay: 0ms;
+  --kds-motion-menu-exit-duration: 130ms;
+  --kds-motion-menu-exit-timing-function: cubic-bezier(0.42, 0, 1, 1);
   --kds-motion-modal-enter-delay: 0ms;
   --kds-motion-modal-enter-duration: 320ms;
   --kds-motion-modal-enter-timing-function: cubic-bezier(0.32, 0.72, 0, 1);
@@ -76,6 +89,12 @@
   --kds-motion-reduced-delay: 0ms;
   --kds-motion-reduced-duration: 0ms;
   --kds-motion-reduced-timing-function: cubic-bezier(0.2, 0, 0, 1);
+  --kds-motion-tooltip-enter-delay: 0ms;
+  --kds-motion-tooltip-enter-duration: 140ms;
+  --kds-motion-tooltip-enter-timing-function: cubic-bezier(0.23, 1, 0.32, 1);
+  --kds-motion-tooltip-exit-delay: 0ms;
+  --kds-motion-tooltip-exit-duration: 120ms;
+  --kds-motion-tooltip-exit-timing-function: cubic-bezier(0.19, 1, 0.22, 1);
   --kds-radius-card: 20px;
   --kds-radius-control: 12px;
   --kds-radius-control-sm: 8px;
@@ -88,6 +107,9 @@
   --kds-space-control-xs: 4px;
   --kds-space-layout-gutter: 16px;
   --kds-space-layout-section: 24px;
+  --kds-space-overlay-inset: 6px;
+  --kds-space-overlay-item-content-gap: 6px;
+  --kds-space-overlay-item-gap: 2px;
   --kds-typography-body-lg-medium-font-family: "Pretendard Variable", "Pretendard", "Inter", "Noto Sans KR", "Noto Sans JP", system-ui, sans-serif;
   --kds-typography-body-lg-medium-font-size: 20px;
   --kds-typography-body-lg-medium-font-weight: 500;
@@ -169,6 +191,8 @@
   color-scheme: dark;
   --kds-color-action-danger: color(srgb 1 0.294118 0.34902 / 1);
   --kds-color-action-ghost-hover: color(srgb 0.980392 0.980392 0.980392 / 0.1);
+  --kds-color-action-menu-danger-hover: color(srgb 1 0.294118 0.34902 / 0.12);
+  --kds-color-action-menu-item-hover: color(srgb 0.980392 0.980392 0.980392 / 0.1);
   --kds-color-action-primary: color(srgb 0 0.533333 1 / 1);
   --kds-color-action-primary-hover: color(srgb 0.219608 0.643137 1 / 1);
   --kds-color-action-primary-pressed: color(srgb 0 0.458824 0.858824 / 1);
@@ -177,6 +201,7 @@
   --kds-color-background-canvas: color(srgb 0.090196 0.105882 0.133333 / 1);
   --kds-color-background-inset: color(srgb 0.192157 0.211765 0.25098 / 1);
   --kds-color-background-inverse: color(srgb 0.890196 0.894118 0.909804 / 1);
+  --kds-color-background-menu: color(srgb 0.192157 0.211765 0.25098 / 1);
   --kds-color-background-overlay: color(srgb 0.192157 0.211765 0.25098 / 1);
   --kds-color-background-raised: color(srgb 0.341176 0.364706 0.407843 / 1);
   --kds-color-background-surface: color(srgb 0.192157 0.211765 0.25098 / 1);
@@ -185,8 +210,10 @@
   --kds-color-border-focus: color(srgb 0.219608 0.643137 1 / 1);
   --kds-color-border-strong: color(srgb 0.603922 0.627451 0.670588 / 1);
   --kds-color-border-subtle: color(srgb 0.341176 0.364706 0.407843 / 1);
+  --kds-color-border-tooltip: color(srgb 0.090196 0.105882 0.133333 / 0.12);
   --kds-color-foreground-disabled: color(srgb 0.466667 0.490196 0.537255 / 1);
   --kds-color-foreground-inverse: color(srgb 0.980392 0.980392 0.980392 / 1);
+  --kds-color-foreground-menu-item: color(srgb 0.980392 0.980392 0.980392 / 0.86);
   --kds-color-foreground-on-danger: color(srgb 0.980392 0.980392 0.980392 / 1);
   --kds-color-foreground-on-inverse: color(srgb 0.090196 0.105882 0.133333 / 1);
   --kds-color-foreground-primary: color(srgb 0.980392 0.980392 0.980392 / 1);
@@ -201,4 +228,6 @@
   --kds-color-status-success-foreground: color(srgb 0.894118 0.972549 0.917647 / 1);
   --kds-color-status-warning-background: color(srgb 0.360784 0.239216 0 / 1);
   --kds-color-status-warning-foreground: color(srgb 1 0.960784 0.839216 / 1);
+  --kds-elevation-menu: 0px 8px 15px 0px color(srgb 0 0 0 / 0.04), 0px 0px 0px 0.5px color(srgb 0.341176 0.364706 0.407843 / 1);
+  --kds-elevation-tooltip: 0px 12px 24px 0px color(srgb 0.090196 0.105882 0.133333 / 0.12);
 }

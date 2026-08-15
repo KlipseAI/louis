@@ -59,7 +59,7 @@ import { IconTrashSimple } from "@klipse-design/react/icons";
 | -------------- | ----------------------------------------- | ------- | --------------------------------------------- |
 | `content`      | ReactNode                                 | **필수**| 설명. 상호작용 요소를 넣지 않는다             |
 | `side`         | `top`, `bottom`, `left`, `right`          | `top`   | 선호 방향. 공간이 없으면 뒤집힌다             |
-| `openDelay`    | number (ms)                               | `280`   | 포인터 진입 후 열리기까지                     |
+| `openDelay`    | number (ms)                               | `300`   | 포인터 진입 후 열리기까지. 제품 값             |
 | `disabled`     | boolean                                   | `false` | tooltip을 띄우지 않는다. trigger는 그대로다   |
 | `children`     | ReactElement                              | **필수**| 상호작용 가능한 요소 하나                     |
 
@@ -114,18 +114,29 @@ variant가 없다. Tooltip은 강조 축을 갖지 않는다 — 위계를 표�
 | 타이포      | `typography-caption-regular` (12px)                     |
 | padding     | `space-control-xs` 4px / `space-control-sm` 8px         |
 | radius      | `radius-control-sm` 8px                                 |
-| 배경        | `color-background-inset`                                |
-| 전경        | `color-foreground-primary`                              |
-| 그림자      | `elevation-popover`                                     |
+| 테두리      | 1px `color-border-tooltip`                              |
+| 배경        | `color-background-inverse` — **페이지와 반전된다**       |
+| 전경        | `color-foreground-on-inverse`                           |
+| 그림자      | `elevation-tooltip` (테마마다 색이 다르다)              |
 | layer       | `layer-popover`                                         |
-| 최대 폭     | 288px                                                   |
+| 최대 폭     | min(320px, 사용 가능 폭)                                |
 | anchor 간격 | `--kds-overlay-offset` 8px — Menu·Dialog와 같은 값       |
 | collision   | `--kds-overlay-collision-padding` 8px                    |
-| 열림 지연   | 280ms                                                   |
+| 열림 지연   | 300ms                                                   |
 | 닫힘        | 즉시                                                    |
+| 열림 모션   | `motion-tooltip-enter` 140ms, scale 0.97 → 1            |
 
 `radius-control-sm`(8px)은 이 컴포넌트가 첫 소비자다. 제품 실측에서 8px이 가장 많이 쓰이는
 radius인데 semantic 이름이 없었다.
+
+**표면이 반전된다는 것이 이 컴포넌트의 핵심이다.** 라이트에서 어두운 면에 밝은 글자, 다크에서
+그 반대다. 이전 DS는 `background-inset`을 써서 페이지와 같은 극성이었고 제품과 정반대였다.
+`color-background-inverse`/`color-foreground-on-inverse`는 Toast가 먼저 세운 토큰인데 값이 제품의
+tooltip 면과 정확히 같았다.
+
+**모션이 아예 걸리지 않고 있었다.** `animation-duration`과 `animation-timing-function`만 있고
+`animation-name`이 없었다. 값만 적어 두고 실제로 도는지 확인하지 않은 결과다. 제품의
+140ms/`cubic-bezier(0.23, 1, 0.32, 1)`와 scale 0.97을 채택했다.
 
 ## Implementation
 

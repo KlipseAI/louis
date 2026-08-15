@@ -243,13 +243,16 @@ function buildExpectation(document) {
           variable.representation === "text-style" ||
           variable.representation === "effect-style"
         ) {
+          // **Figma style에는 mode가 없다.** 토큰이 테마마다 값이 다르면(elevation-tooltip,
+          // elevation-menu) 하나의 style로 표현할 수 없으므로 collection의 기본 모드인 Light를
+          // 정본으로 삼는다. 다크 값은 CSS만 갖는다 — 이 한계는 style 계약의 일부다.
+          const modes = variable.valuesByMode;
+          const source = modes.Light ?? Object.values(modes)[0];
           styles.set(id, {
             representation: variable.representation,
             figmaName: variable.figmaName,
-            attributes: styleAttributes(
-              variable.representation,
-              Object.values(variable.valuesByMode)[0].resolvedValue,
-            ),
+            themeVarying: Object.keys(modes).length > 1,
+            attributes: styleAttributes(variable.representation, source.resolvedValue),
           });
         }
         continue;

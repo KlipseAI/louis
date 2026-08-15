@@ -4300,6 +4300,59 @@ canary가 없었으면 "통과하지만 아무것도 보지 않는" 테스트가
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
 
+#### 2026-08-15 — 제품과의 격차 143건을 전부 판정했다
+
+`product-parity` 게이트가 **초록이 됐다.** 205축 실측에서 나온 격차 143건이 전부 판정됐다는 뜻이다.
+
+| | 건수 |
+| --- | --- |
+| 제품 값 채택 | **45** (그중 7건은 기계 대조) |
+| 사유를 적은 의도적 편차 | **46** |
+| 제품에 공용 정본이 없음 | **52** |
+
+`gap` 0건. 이제 제품과의 차이는 전부 **기록된 결정**이다.
+
+##### Tooltip — 표면이 정반대였다
+
+제품 tooltip은 **페이지와 반전된 면**이다. 라이트에서 어두운 면에 밝은 글자, 다크에서 그 반대.
+DS는 `background-inset`을 써서 페이지와 같은 극성이었다. 정확히 반대로 만들어져 있었다.
+
+Toast가 먼저 세운 `color-background-inverse`/`color-foreground-on-inverse`가 제품 tooltip 면과
+**값이 정확히 같았다.** 토큰은 이미 있었고 tooltip이 다른 것을 쓰고 있었을 뿐이다.
+
+**모션이 아예 걸리지 않고 있었다.** `animation-duration`과 `animation-timing-function`만 있고
+`animation-name`이 없었다. 값만 적어 두고 실제로 도는지 확인하지 않은 것이다. 제품의 140ms /
+`cubic-bezier(0.23, 1, 0.32, 1)` / scale 0.97을 채택하며 함께 고쳤다.
+
+그 밖에 max-width 320, 1px 테두리, 테마별 그림자, 열림 지연 300ms를 채택했다. 22축 전부 판정.
+
+##### Menu / Popover — 면·간격·알파를 다 채택했다
+
+제품의 공용 정본은 컴포넌트가 아니라 `--dropdown-*` 토큰이다. 패널 padding 6, 항목 사이 2,
+항목 내부 6, 최소 폭 160, 라이트 면 neutral-100을 채택했다. 이전 DS는 padding이 action-menu 4 /
+composite 8로 갈려 있었고 항목 사이 gap이 없어 **행이 붙어 있었다.**
+
+- **테두리를 없앴다.** 제품처럼 헤어라인을 `box-shadow` 스프레드 0.5px로 그린다. 레이아웃 박스를
+  늘리지 않으면서 1px보다 얇은 선이 된다.
+- **hover를 알파 오버레이로 바꿨다.** 이전 DS는 불투명 `background-inset`이라 배경이 다른 자리에서
+  면이 튀었다.
+- **`danger` 전경을 `#ff4b59`로 바꿨다.** 이전 `status-danger-foreground`가 중립 표면 위에서 대비가
+  무너지는 것은 규범이 이미 인정하던 결함이고, 제품 값 채택이 그것을 해소한다.
+
+항목 높이 44px과 focus ring은 제품을 따르지 않았다. 제품은 37px에 focus ring이 없고 둘 다 WCAG
+계약이다. 34축 전부 판정.
+
+##### 토큰 모델이 두 군데 넓어졌다
+
+- **테마별 elevation.** `semantic.light/dark`에 elevation 축을 열었다. 기존 elevation은 global이라
+  테마마다 그림자 색이 다른 것을 표현할 수 없었다. tooltip과 menu가 첫 소비자다.
+- **Figma style에는 mode가 없다.** 그래서 테마별 elevation은 Light를 정본으로 삼고 다크 값은 CSS만
+  갖는다. parity 계약이 그 사실을 명시적으로 담는다 — 이전에는 mode가 여럿일 때 어느 것을 쓰는지가
+  우연에 달려 있었고 실제로 다크가 뽑혀 나왔다.
+
+alpha primitive 13개, semantic 색 11개, spacing 3개, motion 4개, elevation 2개가 늘었다. Figma에도
+같은 변수 186개와 style 23개가 서 있다.
+
 #### 2026-08-15 — primary를 제품 브랜드 블루로 되돌리고, 그 대가를 기록한다
 
 Owner가 Figma의 Button을 보고 물었다 — "프라이머리 컬러가 왜 저래, 왤케 어둡냐. 내 실제 배포환경에서

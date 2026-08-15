@@ -9,8 +9,10 @@
  */
 
 .kds-popover {
-  --kds-popover-inset: var(--kds-space-control-xs);
-  --kds-popover-preferred-inline-size: 200px;
+  /* 제품 --dropdown-padding: 6px. 이전 DS는 action-menu 4 / composite 8로 갈려 있었다. */
+  --kds-popover-inset: var(--kds-space-overlay-inset);
+  /* 제품 min-width 160px. */
+  --kds-popover-preferred-inline-size: 160px;
   --kds-popover-anchor-floor: 0px;
   /* 상한 폴백. 곱셈 대신 두 번 빼는 이유는 저작 게이트의 전역 선택자 패턴이 공백으로 둘러싼
    * `*`를 선택자로 오인하기 때문이다. 값이 같고 읽기도 명확하므로 게이트를 건드리지 않는다. */
@@ -26,11 +28,13 @@
   display: flex;
   flex-direction: column;
   padding: var(--kds-popover-inset);
-  background: var(--kds-color-background-overlay);
-  border: 1px solid var(--kds-color-border-subtle);
+  background: var(--kds-color-background-menu);
+  /* 제품은 border가 없고 헤어라인을 box-shadow 스프레드 0.5px로 그린다. 그래야 레이아웃 박스를
+   * 늘리지 않으면서 1px보다 얇은 선이 된다. elevation-menu가 ambient와 헤어라인 2겹을 담는다. */
+  border: 0;
   border-radius: var(--kds-radius-overlay);
-  box-shadow: var(--kds-elevation-popover);
-  color: var(--kds-color-foreground-primary);
+  box-shadow: var(--kds-elevation-menu);
+  color: var(--kds-color-foreground-menu-item);
 
   /* 상한은 overlay.css가 소유한다. min()으로 감싸지 않으면 min-inline-size가 max-width를
    * 이겨서, 320px 화면 200% 확대(가용 폭 144px)에서 패널이 화면을 넘는다. */
@@ -62,7 +66,7 @@
    * 거기서 8px을 쓰면 안쪽 곡률(16 - 8 = 8px)이 item radius(10px)보다 작아져 모서리가 뚫린다. */
   --kds-popover-inset: var(--kds-space-control-sm);
 
-  gap: var(--kds-space-control-sm);
+  gap: var(--kds-space-overlay-item-gap);
 }
 
 .kds-popover__title {
@@ -115,16 +119,16 @@
  * `:focus-visible`만으로는 표시가 비는 프레임이 생기므로 data 속성이 함께 필요하다. */
 .kds-menu__item:where(:not([aria-disabled="true"]):not(:disabled)):hover,
 .kds-menu__item:where(:not([aria-disabled="true"]):not(:disabled))[data-highlighted="true"] {
-  background: var(--kds-color-background-inset);
+  background: var(--kds-color-action-menu-item-hover);
 }
 
 .kds-menu__item[data-tone="danger"] {
-  color: var(--kds-color-status-danger-foreground);
+  color: var(--kds-color-action-danger);
 }
 
 .kds-menu__item[data-tone="danger"]:where(:not([aria-disabled="true"]):not(:disabled)):hover,
 .kds-menu__item[data-tone="danger"]:where(:not([aria-disabled="true"]):not(:disabled))[data-highlighted="true"] {
-  background: var(--kds-color-status-danger-background);
+  background: var(--kds-color-action-menu-danger-hover);
 }
 
 .kds-menu__item:disabled,

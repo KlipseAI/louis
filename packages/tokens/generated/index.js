@@ -112,6 +112,34 @@ export const metadata = Object.freeze({
       "properties": [
         "opacity"
       ]
+    },
+    {
+      "motion": "motion-tooltip-enter",
+      "properties": [
+        "opacity",
+        "transform"
+      ]
+    },
+    {
+      "motion": "motion-tooltip-exit",
+      "properties": [
+        "opacity",
+        "transform"
+      ]
+    },
+    {
+      "motion": "motion-menu-enter",
+      "properties": [
+        "opacity",
+        "transform"
+      ]
+    },
+    {
+      "motion": "motion-menu-exit",
+      "properties": [
+        "opacity",
+        "transform"
+      ]
     }
   ],
   "reducedMotionPairs": [
@@ -129,6 +157,22 @@ export const metadata = Object.freeze({
     },
     {
       "motion": "motion-modal-exit",
+      "reduced": "motion-reduced"
+    },
+    {
+      "motion": "motion-tooltip-enter",
+      "reduced": "motion-reduced"
+    },
+    {
+      "motion": "motion-tooltip-exit",
+      "reduced": "motion-reduced"
+    },
+    {
+      "motion": "motion-menu-enter",
+      "reduced": "motion-reduced"
+    },
+    {
+      "motion": "motion-menu-exit",
       "reduced": "motion-reduced"
     }
   ],
@@ -815,6 +859,36 @@ export const primitives = {
       "alpha": 0.05
     }
   },
+  "color-ink-alpha-6": {
+    "aliasTarget": null,
+    "cssProperties": {},
+    "deprecated": null,
+    "description": null,
+    "id": "color-ink-alpha-6",
+    "mode": "base",
+    "rawValue": {
+      "colorSpace": "srgb",
+      "components": [
+        0.090196,
+        0.105882,
+        0.133333
+      ],
+      "alpha": 0.06,
+      "hex": "#171b22"
+    },
+    "sourcePath": "primitive.color.ink-alpha.6",
+    "tier": "primitive",
+    "type": "color",
+    "value": {
+      "colorSpace": "srgb",
+      "components": [
+        0.090196,
+        0.105882,
+        0.133333
+      ],
+      "alpha": 0.06
+    }
+  },
   "color-ink-alpha-8": {
     "aliasTarget": null,
     "cssProperties": {},
@@ -843,6 +917,36 @@ export const primitives = {
         0.133333
       ],
       "alpha": 0.08
+    }
+  },
+  "color-ink-alpha-86": {
+    "aliasTarget": null,
+    "cssProperties": {},
+    "deprecated": null,
+    "description": null,
+    "id": "color-ink-alpha-86",
+    "mode": "base",
+    "rawValue": {
+      "colorSpace": "srgb",
+      "components": [
+        0.090196,
+        0.105882,
+        0.133333
+      ],
+      "alpha": 0.86,
+      "hex": "#171b22"
+    },
+    "sourcePath": "primitive.color.ink-alpha.86",
+    "tier": "primitive",
+    "type": "color",
+    "value": {
+      "colorSpace": "srgb",
+      "components": [
+        0.090196,
+        0.105882,
+        0.133333
+      ],
+      "alpha": 0.86
     }
   },
   "color-neutral-0": {
@@ -1252,6 +1356,36 @@ export const primitives = {
       "alpha": 0.1
     }
   },
+  "color-paper-alpha-14": {
+    "aliasTarget": null,
+    "cssProperties": {},
+    "deprecated": null,
+    "description": null,
+    "id": "color-paper-alpha-14",
+    "mode": "base",
+    "rawValue": {
+      "colorSpace": "srgb",
+      "components": [
+        0.980392,
+        0.980392,
+        0.980392
+      ],
+      "alpha": 0.14,
+      "hex": "#fafafa"
+    },
+    "sourcePath": "primitive.color.paper-alpha.14",
+    "tier": "primitive",
+    "type": "color",
+    "value": {
+      "colorSpace": "srgb",
+      "components": [
+        0.980392,
+        0.980392,
+        0.980392
+      ],
+      "alpha": 0.14
+    }
+  },
   "color-paper-alpha-16": {
     "aliasTarget": null,
     "cssProperties": {},
@@ -1340,6 +1474,36 @@ export const primitives = {
         0.980392
       ],
       "alpha": 0.08
+    }
+  },
+  "color-paper-alpha-86": {
+    "aliasTarget": null,
+    "cssProperties": {},
+    "deprecated": null,
+    "description": null,
+    "id": "color-paper-alpha-86",
+    "mode": "base",
+    "rawValue": {
+      "colorSpace": "srgb",
+      "components": [
+        0.980392,
+        0.980392,
+        0.980392
+      ],
+      "alpha": 0.86,
+      "hex": "#fafafa"
+    },
+    "sourcePath": "primitive.color.paper-alpha.86",
+    "tier": "primitive",
+    "type": "color",
+    "value": {
+      "colorSpace": "srgb",
+      "components": [
+        0.980392,
+        0.980392,
+        0.980392
+      ],
+      "alpha": 0.86
     }
   },
   "color-red-100": {
@@ -1485,6 +1649,66 @@ export const primitives = {
         0.098039
       ],
       "alpha": 1
+    }
+  },
+  "color-red-alpha-10": {
+    "aliasTarget": null,
+    "cssProperties": {},
+    "deprecated": null,
+    "description": null,
+    "id": "color-red-alpha-10",
+    "mode": "base",
+    "rawValue": {
+      "colorSpace": "srgb",
+      "components": [
+        1,
+        0.294118,
+        0.34902
+      ],
+      "alpha": 0.1,
+      "hex": "#ff4b59"
+    },
+    "sourcePath": "primitive.color.red-alpha.10",
+    "tier": "primitive",
+    "type": "color",
+    "value": {
+      "colorSpace": "srgb",
+      "components": [
+        1,
+        0.294118,
+        0.34902
+      ],
+      "alpha": 0.1
+    }
+  },
+  "color-red-alpha-12": {
+    "aliasTarget": null,
+    "cssProperties": {},
+    "deprecated": null,
+    "description": null,
+    "id": "color-red-alpha-12",
+    "mode": "base",
+    "rawValue": {
+      "colorSpace": "srgb",
+      "components": [
+        1,
+        0.294118,
+        0.34902
+      ],
+      "alpha": 0.12,
+      "hex": "#ff4b59"
+    },
+    "sourcePath": "primitive.color.red-alpha.12",
+    "tier": "primitive",
+    "type": "color",
+    "value": {
+      "colorSpace": "srgb",
+      "components": [
+        1,
+        0.294118,
+        0.34902
+      ],
+      "alpha": 0.12
     }
   },
   "duration-fast": {
@@ -2433,6 +2657,260 @@ export const primitives = {
       "inset": false
     }
   },
+  "shadow-menu-dark": {
+    "aliasTarget": null,
+    "cssProperties": {},
+    "deprecated": null,
+    "description": null,
+    "id": "shadow-menu-dark",
+    "mode": "base",
+    "rawValue": [
+      {
+        "color": {
+          "colorSpace": "srgb",
+          "components": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.04,
+          "hex": "#000000"
+        },
+        "offsetX": {
+          "value": 0,
+          "unit": "px"
+        },
+        "offsetY": {
+          "value": 8,
+          "unit": "px"
+        },
+        "blur": {
+          "value": 15,
+          "unit": "px"
+        },
+        "spread": {
+          "value": 0,
+          "unit": "px"
+        }
+      },
+      {
+        "color": {
+          "colorSpace": "srgb",
+          "components": [
+            0.341176,
+            0.364706,
+            0.407843
+          ],
+          "alpha": 1,
+          "hex": "#575d68"
+        },
+        "offsetX": {
+          "value": 0,
+          "unit": "px"
+        },
+        "offsetY": {
+          "value": 0,
+          "unit": "px"
+        },
+        "blur": {
+          "value": 0,
+          "unit": "px"
+        },
+        "spread": {
+          "value": 0.5,
+          "unit": "px"
+        }
+      }
+    ],
+    "sourcePath": "primitive.shadow.menu-dark",
+    "tier": "primitive",
+    "type": "shadow",
+    "value": [
+      {
+        "color": {
+          "colorSpace": "srgb",
+          "components": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.04
+        },
+        "offsetX": {
+          "value": 0,
+          "unit": "px"
+        },
+        "offsetY": {
+          "value": 8,
+          "unit": "px"
+        },
+        "blur": {
+          "value": 15,
+          "unit": "px"
+        },
+        "spread": {
+          "value": 0,
+          "unit": "px"
+        },
+        "inset": false
+      },
+      {
+        "color": {
+          "colorSpace": "srgb",
+          "components": [
+            0.341176,
+            0.364706,
+            0.407843
+          ],
+          "alpha": 1
+        },
+        "offsetX": {
+          "value": 0,
+          "unit": "px"
+        },
+        "offsetY": {
+          "value": 0,
+          "unit": "px"
+        },
+        "blur": {
+          "value": 0,
+          "unit": "px"
+        },
+        "spread": {
+          "value": 0.5,
+          "unit": "px"
+        },
+        "inset": false
+      }
+    ]
+  },
+  "shadow-menu-light": {
+    "aliasTarget": null,
+    "cssProperties": {},
+    "deprecated": null,
+    "description": null,
+    "id": "shadow-menu-light",
+    "mode": "base",
+    "rawValue": [
+      {
+        "color": {
+          "colorSpace": "srgb",
+          "components": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.04,
+          "hex": "#000000"
+        },
+        "offsetX": {
+          "value": 0,
+          "unit": "px"
+        },
+        "offsetY": {
+          "value": 8,
+          "unit": "px"
+        },
+        "blur": {
+          "value": 15,
+          "unit": "px"
+        },
+        "spread": {
+          "value": 0,
+          "unit": "px"
+        }
+      },
+      {
+        "color": {
+          "colorSpace": "srgb",
+          "components": [
+            0.835294,
+            0.843137,
+            0.866667
+          ],
+          "alpha": 1,
+          "hex": "#d5d7dd"
+        },
+        "offsetX": {
+          "value": 0,
+          "unit": "px"
+        },
+        "offsetY": {
+          "value": 0,
+          "unit": "px"
+        },
+        "blur": {
+          "value": 0,
+          "unit": "px"
+        },
+        "spread": {
+          "value": 0.5,
+          "unit": "px"
+        }
+      }
+    ],
+    "sourcePath": "primitive.shadow.menu-light",
+    "tier": "primitive",
+    "type": "shadow",
+    "value": [
+      {
+        "color": {
+          "colorSpace": "srgb",
+          "components": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.04
+        },
+        "offsetX": {
+          "value": 0,
+          "unit": "px"
+        },
+        "offsetY": {
+          "value": 8,
+          "unit": "px"
+        },
+        "blur": {
+          "value": 15,
+          "unit": "px"
+        },
+        "spread": {
+          "value": 0,
+          "unit": "px"
+        },
+        "inset": false
+      },
+      {
+        "color": {
+          "colorSpace": "srgb",
+          "components": [
+            0.835294,
+            0.843137,
+            0.866667
+          ],
+          "alpha": 1
+        },
+        "offsetX": {
+          "value": 0,
+          "unit": "px"
+        },
+        "offsetY": {
+          "value": 0,
+          "unit": "px"
+        },
+        "blur": {
+          "value": 0,
+          "unit": "px"
+        },
+        "spread": {
+          "value": 0.5,
+          "unit": "px"
+        },
+        "inset": false
+      }
+    ]
+  },
   "shadow-modal": {
     "aliasTarget": null,
     "cssProperties": {},
@@ -2625,6 +3103,140 @@ export const primitives = {
       },
       "blur": {
         "value": 8,
+        "unit": "px"
+      },
+      "spread": {
+        "value": 0,
+        "unit": "px"
+      },
+      "inset": false
+    }
+  },
+  "shadow-tooltip-dark": {
+    "aliasTarget": null,
+    "cssProperties": {},
+    "deprecated": null,
+    "description": null,
+    "id": "shadow-tooltip-dark",
+    "mode": "base",
+    "rawValue": {
+      "color": {
+        "colorSpace": "srgb",
+        "components": [
+          0.090196,
+          0.105882,
+          0.133333
+        ],
+        "alpha": 0.12,
+        "hex": "#171b22"
+      },
+      "offsetX": {
+        "value": 0,
+        "unit": "px"
+      },
+      "offsetY": {
+        "value": 12,
+        "unit": "px"
+      },
+      "blur": {
+        "value": 24,
+        "unit": "px"
+      },
+      "spread": {
+        "value": 0,
+        "unit": "px"
+      }
+    },
+    "sourcePath": "primitive.shadow.tooltip-dark",
+    "tier": "primitive",
+    "type": "shadow",
+    "value": {
+      "color": {
+        "colorSpace": "srgb",
+        "components": [
+          0.090196,
+          0.105882,
+          0.133333
+        ],
+        "alpha": 0.12
+      },
+      "offsetX": {
+        "value": 0,
+        "unit": "px"
+      },
+      "offsetY": {
+        "value": 12,
+        "unit": "px"
+      },
+      "blur": {
+        "value": 24,
+        "unit": "px"
+      },
+      "spread": {
+        "value": 0,
+        "unit": "px"
+      },
+      "inset": false
+    }
+  },
+  "shadow-tooltip-light": {
+    "aliasTarget": null,
+    "cssProperties": {},
+    "deprecated": null,
+    "description": null,
+    "id": "shadow-tooltip-light",
+    "mode": "base",
+    "rawValue": {
+      "color": {
+        "colorSpace": "srgb",
+        "components": [
+          0.466667,
+          0.490196,
+          0.537255
+        ],
+        "alpha": 0.12,
+        "hex": "#777d89"
+      },
+      "offsetX": {
+        "value": 0,
+        "unit": "px"
+      },
+      "offsetY": {
+        "value": 12,
+        "unit": "px"
+      },
+      "blur": {
+        "value": 24,
+        "unit": "px"
+      },
+      "spread": {
+        "value": 0,
+        "unit": "px"
+      }
+    },
+    "sourcePath": "primitive.shadow.tooltip-light",
+    "tier": "primitive",
+    "type": "shadow",
+    "value": {
+      "color": {
+        "colorSpace": "srgb",
+        "components": [
+          0.466667,
+          0.490196,
+          0.537255
+        ],
+        "alpha": 0.12
+      },
+      "offsetX": {
+        "value": 0,
+        "unit": "px"
+      },
+      "offsetY": {
+        "value": 12,
+        "unit": "px"
+      },
+      "blur": {
+        "value": 24,
         "unit": "px"
       },
       "spread": {
@@ -2995,6 +3607,92 @@ export const primitives = {
       "unit": "px"
     }
   },
+  "transition-menu-enter": {
+    "aliasTarget": null,
+    "cssProperties": {},
+    "deprecated": null,
+    "description": null,
+    "id": "transition-menu-enter",
+    "mode": "base",
+    "rawValue": {
+      "duration": {
+        "value": 260,
+        "unit": "ms"
+      },
+      "delay": {
+        "value": 0,
+        "unit": "ms"
+      },
+      "timingFunction": [
+        0.32,
+        0.72,
+        0,
+        1
+      ]
+    },
+    "sourcePath": "primitive.transition.menu-enter",
+    "tier": "primitive",
+    "type": "transition",
+    "value": {
+      "duration": {
+        "value": 260,
+        "unit": "ms"
+      },
+      "delay": {
+        "value": 0,
+        "unit": "ms"
+      },
+      "timingFunction": [
+        0.32,
+        0.72,
+        0,
+        1
+      ]
+    }
+  },
+  "transition-menu-exit": {
+    "aliasTarget": null,
+    "cssProperties": {},
+    "deprecated": null,
+    "description": null,
+    "id": "transition-menu-exit",
+    "mode": "base",
+    "rawValue": {
+      "duration": {
+        "value": 130,
+        "unit": "ms"
+      },
+      "delay": {
+        "value": 0,
+        "unit": "ms"
+      },
+      "timingFunction": [
+        0.42,
+        0,
+        1,
+        1
+      ]
+    },
+    "sourcePath": "primitive.transition.menu-exit",
+    "tier": "primitive",
+    "type": "transition",
+    "value": {
+      "duration": {
+        "value": 130,
+        "unit": "ms"
+      },
+      "delay": {
+        "value": 0,
+        "unit": "ms"
+      },
+      "timingFunction": [
+        0.42,
+        0,
+        1,
+        1
+      ]
+    }
+  },
   "transition-modal-enter": {
     "aliasTarget": null,
     "cssProperties": {},
@@ -3206,6 +3904,92 @@ export const primitives = {
         0.2,
         0,
         0,
+        1
+      ]
+    }
+  },
+  "transition-tooltip-enter": {
+    "aliasTarget": null,
+    "cssProperties": {},
+    "deprecated": null,
+    "description": null,
+    "id": "transition-tooltip-enter",
+    "mode": "base",
+    "rawValue": {
+      "duration": {
+        "value": 140,
+        "unit": "ms"
+      },
+      "delay": {
+        "value": 0,
+        "unit": "ms"
+      },
+      "timingFunction": [
+        0.23,
+        1,
+        0.32,
+        1
+      ]
+    },
+    "sourcePath": "primitive.transition.tooltip-enter",
+    "tier": "primitive",
+    "type": "transition",
+    "value": {
+      "duration": {
+        "value": 140,
+        "unit": "ms"
+      },
+      "delay": {
+        "value": 0,
+        "unit": "ms"
+      },
+      "timingFunction": [
+        0.23,
+        1,
+        0.32,
+        1
+      ]
+    }
+  },
+  "transition-tooltip-exit": {
+    "aliasTarget": null,
+    "cssProperties": {},
+    "deprecated": null,
+    "description": null,
+    "id": "transition-tooltip-exit",
+    "mode": "base",
+    "rawValue": {
+      "duration": {
+        "value": 120,
+        "unit": "ms"
+      },
+      "delay": {
+        "value": 0,
+        "unit": "ms"
+      },
+      "timingFunction": [
+        0.19,
+        1,
+        0.22,
+        1
+      ]
+    },
+    "sourcePath": "primitive.transition.tooltip-exit",
+    "tier": "primitive",
+    "type": "transition",
+    "value": {
+      "duration": {
+        "value": 120,
+        "unit": "ms"
+      },
+      "delay": {
+        "value": 0,
+        "unit": "ms"
+      },
+      "timingFunction": [
+        0.19,
+        1,
+        0.22,
         1
       ]
     }
@@ -4671,6 +5455,76 @@ export const tokens = {
         "unit": "px"
       }
     },
+    "motion-menu-enter": {
+      "aliasTarget": {
+        "id": "transition-menu-enter",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-motion-menu-enter-duration": "260ms",
+        "--kds-motion-menu-enter-delay": "0ms",
+        "--kds-motion-menu-enter-timing-function": "cubic-bezier(0.32, 0.72, 0, 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "motion-menu-enter",
+      "mode": "global",
+      "rawValue": "{primitive.transition.menu-enter}",
+      "sourcePath": "semantic.global.motion.menu-enter",
+      "tier": "semantic",
+      "type": "transition",
+      "value": {
+        "duration": {
+          "value": 260,
+          "unit": "ms"
+        },
+        "delay": {
+          "value": 0,
+          "unit": "ms"
+        },
+        "timingFunction": [
+          0.32,
+          0.72,
+          0,
+          1
+        ]
+      }
+    },
+    "motion-menu-exit": {
+      "aliasTarget": {
+        "id": "transition-menu-exit",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-motion-menu-exit-duration": "130ms",
+        "--kds-motion-menu-exit-delay": "0ms",
+        "--kds-motion-menu-exit-timing-function": "cubic-bezier(0.42, 0, 1, 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "motion-menu-exit",
+      "mode": "global",
+      "rawValue": "{primitive.transition.menu-exit}",
+      "sourcePath": "semantic.global.motion.menu-exit",
+      "tier": "semantic",
+      "type": "transition",
+      "value": {
+        "duration": {
+          "value": 130,
+          "unit": "ms"
+        },
+        "delay": {
+          "value": 0,
+          "unit": "ms"
+        },
+        "timingFunction": [
+          0.42,
+          0,
+          1,
+          1
+        ]
+      }
+    },
     "motion-modal-enter": {
       "aliasTarget": {
         "id": "transition-modal-enter",
@@ -4842,6 +5696,76 @@ export const tokens = {
           0.2,
           0,
           0,
+          1
+        ]
+      }
+    },
+    "motion-tooltip-enter": {
+      "aliasTarget": {
+        "id": "transition-tooltip-enter",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-motion-tooltip-enter-duration": "140ms",
+        "--kds-motion-tooltip-enter-delay": "0ms",
+        "--kds-motion-tooltip-enter-timing-function": "cubic-bezier(0.23, 1, 0.32, 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "motion-tooltip-enter",
+      "mode": "global",
+      "rawValue": "{primitive.transition.tooltip-enter}",
+      "sourcePath": "semantic.global.motion.tooltip-enter",
+      "tier": "semantic",
+      "type": "transition",
+      "value": {
+        "duration": {
+          "value": 140,
+          "unit": "ms"
+        },
+        "delay": {
+          "value": 0,
+          "unit": "ms"
+        },
+        "timingFunction": [
+          0.23,
+          1,
+          0.32,
+          1
+        ]
+      }
+    },
+    "motion-tooltip-exit": {
+      "aliasTarget": {
+        "id": "transition-tooltip-exit",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-motion-tooltip-exit-duration": "120ms",
+        "--kds-motion-tooltip-exit-delay": "0ms",
+        "--kds-motion-tooltip-exit-timing-function": "cubic-bezier(0.19, 1, 0.22, 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "motion-tooltip-exit",
+      "mode": "global",
+      "rawValue": "{primitive.transition.tooltip-exit}",
+      "sourcePath": "semantic.global.motion.tooltip-exit",
+      "tier": "semantic",
+      "type": "transition",
+      "value": {
+        "duration": {
+          "value": 120,
+          "unit": "ms"
+        },
+        "delay": {
+          "value": 0,
+          "unit": "ms"
+        },
+        "timingFunction": [
+          0.19,
+          1,
+          0.22,
           1
         ]
       }
@@ -5095,6 +6019,69 @@ export const tokens = {
       "type": "dimension",
       "value": {
         "value": 24,
+        "unit": "px"
+      }
+    },
+    "space-overlay-inset": {
+      "aliasTarget": {
+        "id": "space-6",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-space-overlay-inset": "6px"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "space-overlay-inset",
+      "mode": "global",
+      "rawValue": "{primitive.spacing.6}",
+      "sourcePath": "semantic.global.spacing.overlay-inset",
+      "tier": "semantic",
+      "type": "dimension",
+      "value": {
+        "value": 6,
+        "unit": "px"
+      }
+    },
+    "space-overlay-item-content-gap": {
+      "aliasTarget": {
+        "id": "space-6",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-space-overlay-item-content-gap": "6px"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "space-overlay-item-content-gap",
+      "mode": "global",
+      "rawValue": "{primitive.spacing.6}",
+      "sourcePath": "semantic.global.spacing.overlay-item-content-gap",
+      "tier": "semantic",
+      "type": "dimension",
+      "value": {
+        "value": 6,
+        "unit": "px"
+      }
+    },
+    "space-overlay-item-gap": {
+      "aliasTarget": {
+        "id": "space-2",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-space-overlay-item-gap": "2px"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "space-overlay-item-gap",
+      "mode": "global",
+      "rawValue": "{primitive.spacing.2}",
+      "sourcePath": "semantic.global.spacing.overlay-item-gap",
+      "tier": "semantic",
+      "type": "dimension",
+      "value": {
+        "value": 2,
         "unit": "px"
       }
     },
@@ -5782,6 +6769,58 @@ export const tokens = {
         "alpha": 0.08
       }
     },
+    "color-action-menu-danger-hover": {
+      "aliasTarget": {
+        "id": "color-red-alpha-10",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-color-action-menu-danger-hover": "color(srgb 1 0.294118 0.34902 / 0.1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-action-menu-danger-hover",
+      "mode": "light",
+      "rawValue": "{primitive.color.red-alpha.10}",
+      "sourcePath": "semantic.light.color.action-menu-danger-hover",
+      "tier": "semantic",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.294118,
+          0.34902
+        ],
+        "alpha": 0.1
+      }
+    },
+    "color-action-menu-item-hover": {
+      "aliasTarget": {
+        "id": "color-ink-alpha-6",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-color-action-menu-item-hover": "color(srgb 0.090196 0.105882 0.133333 / 0.06)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-action-menu-item-hover",
+      "mode": "light",
+      "rawValue": "{primitive.color.ink-alpha.6}",
+      "sourcePath": "semantic.light.color.action-menu-item-hover",
+      "tier": "semantic",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.090196,
+          0.105882,
+          0.133333
+        ],
+        "alpha": 0.06
+      }
+    },
     "color-action-primary": {
       "aliasTarget": {
         "id": "color-blue-500",
@@ -5986,6 +7025,32 @@ export const tokens = {
           0.192157,
           0.211765,
           0.25098
+        ],
+        "alpha": 1
+      }
+    },
+    "color-background-menu": {
+      "aliasTarget": {
+        "id": "color-neutral-100",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-color-background-menu": "color(srgb 0.945098 0.945098 0.952941 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-background-menu",
+      "mode": "light",
+      "rawValue": "{primitive.color.neutral.100}",
+      "sourcePath": "semantic.light.color.background-menu",
+      "tier": "semantic",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.945098,
+          0.945098,
+          0.952941
         ],
         "alpha": 1
       }
@@ -6198,6 +7263,32 @@ export const tokens = {
         "alpha": 1
       }
     },
+    "color-border-tooltip": {
+      "aliasTarget": {
+        "id": "color-paper-alpha-14",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-color-border-tooltip": "color(srgb 0.980392 0.980392 0.980392 / 0.14)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-border-tooltip",
+      "mode": "light",
+      "rawValue": "{primitive.color.paper-alpha.14}",
+      "sourcePath": "semantic.light.color.border-tooltip",
+      "tier": "semantic",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.980392,
+          0.980392,
+          0.980392
+        ],
+        "alpha": 0.14
+      }
+    },
     "color-foreground-disabled": {
       "aliasTarget": {
         "id": "color-neutral-500",
@@ -6248,6 +7339,32 @@ export const tokens = {
           0.980392
         ],
         "alpha": 1
+      }
+    },
+    "color-foreground-menu-item": {
+      "aliasTarget": {
+        "id": "color-ink-alpha-86",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-color-foreground-menu-item": "color(srgb 0.090196 0.105882 0.133333 / 0.86)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-foreground-menu-item",
+      "mode": "light",
+      "rawValue": "{primitive.color.ink-alpha.86}",
+      "sourcePath": "semantic.light.color.foreground-menu-item",
+      "tier": "semantic",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.090196,
+          0.105882,
+          0.133333
+        ],
+        "alpha": 0.86
       }
     },
     "color-foreground-on-danger": {
@@ -6613,6 +7730,126 @@ export const tokens = {
         ],
         "alpha": 1
       }
+    },
+    "elevation-menu": {
+      "aliasTarget": {
+        "id": "shadow-menu-light",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-elevation-menu": "0px 8px 15px 0px color(srgb 0 0 0 / 0.04), 0px 0px 0px 0.5px color(srgb 0.835294 0.843137 0.866667 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "elevation-menu",
+      "mode": "light",
+      "rawValue": "{primitive.shadow.menu-light}",
+      "sourcePath": "semantic.light.elevation.menu",
+      "tier": "semantic",
+      "type": "shadow",
+      "value": [
+        {
+          "color": {
+            "colorSpace": "srgb",
+            "components": [
+              0,
+              0,
+              0
+            ],
+            "alpha": 0.04
+          },
+          "offsetX": {
+            "value": 0,
+            "unit": "px"
+          },
+          "offsetY": {
+            "value": 8,
+            "unit": "px"
+          },
+          "blur": {
+            "value": 15,
+            "unit": "px"
+          },
+          "spread": {
+            "value": 0,
+            "unit": "px"
+          },
+          "inset": false
+        },
+        {
+          "color": {
+            "colorSpace": "srgb",
+            "components": [
+              0.835294,
+              0.843137,
+              0.866667
+            ],
+            "alpha": 1
+          },
+          "offsetX": {
+            "value": 0,
+            "unit": "px"
+          },
+          "offsetY": {
+            "value": 0,
+            "unit": "px"
+          },
+          "blur": {
+            "value": 0,
+            "unit": "px"
+          },
+          "spread": {
+            "value": 0.5,
+            "unit": "px"
+          },
+          "inset": false
+        }
+      ]
+    },
+    "elevation-tooltip": {
+      "aliasTarget": {
+        "id": "shadow-tooltip-light",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-elevation-tooltip": "0px 12px 24px 0px color(srgb 0.466667 0.490196 0.537255 / 0.12)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "elevation-tooltip",
+      "mode": "light",
+      "rawValue": "{primitive.shadow.tooltip-light}",
+      "sourcePath": "semantic.light.elevation.tooltip",
+      "tier": "semantic",
+      "type": "shadow",
+      "value": {
+        "color": {
+          "colorSpace": "srgb",
+          "components": [
+            0.466667,
+            0.490196,
+            0.537255
+          ],
+          "alpha": 0.12
+        },
+        "offsetX": {
+          "value": 0,
+          "unit": "px"
+        },
+        "offsetY": {
+          "value": 12,
+          "unit": "px"
+        },
+        "blur": {
+          "value": 24,
+          "unit": "px"
+        },
+        "spread": {
+          "value": 0,
+          "unit": "px"
+        },
+        "inset": false
+      }
     }
   },
   "dark": {
@@ -6656,6 +7893,58 @@ export const tokens = {
       "mode": "dark",
       "rawValue": "{primitive.color.paper-alpha.10}",
       "sourcePath": "semantic.dark.color.action-ghost-hover",
+      "tier": "semantic",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.980392,
+          0.980392,
+          0.980392
+        ],
+        "alpha": 0.1
+      }
+    },
+    "color-action-menu-danger-hover": {
+      "aliasTarget": {
+        "id": "color-red-alpha-12",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-color-action-menu-danger-hover": "color(srgb 1 0.294118 0.34902 / 0.12)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-action-menu-danger-hover",
+      "mode": "dark",
+      "rawValue": "{primitive.color.red-alpha.12}",
+      "sourcePath": "semantic.dark.color.action-menu-danger-hover",
+      "tier": "semantic",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.294118,
+          0.34902
+        ],
+        "alpha": 0.12
+      }
+    },
+    "color-action-menu-item-hover": {
+      "aliasTarget": {
+        "id": "color-paper-alpha-10",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-color-action-menu-item-hover": "color(srgb 0.980392 0.980392 0.980392 / 0.1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-action-menu-item-hover",
+      "mode": "dark",
+      "rawValue": "{primitive.color.paper-alpha.10}",
+      "sourcePath": "semantic.dark.color.action-menu-item-hover",
       "tier": "semantic",
       "type": "color",
       "value": {
@@ -6876,6 +8165,32 @@ export const tokens = {
         "alpha": 1
       }
     },
+    "color-background-menu": {
+      "aliasTarget": {
+        "id": "color-neutral-800",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-color-background-menu": "color(srgb 0.192157 0.211765 0.25098 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-background-menu",
+      "mode": "dark",
+      "rawValue": "{primitive.color.neutral.800}",
+      "sourcePath": "semantic.dark.color.background-menu",
+      "tier": "semantic",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.192157,
+          0.211765,
+          0.25098
+        ],
+        "alpha": 1
+      }
+    },
     "color-background-overlay": {
       "aliasTarget": {
         "id": "color-neutral-800",
@@ -7084,6 +8399,32 @@ export const tokens = {
         "alpha": 1
       }
     },
+    "color-border-tooltip": {
+      "aliasTarget": {
+        "id": "color-ink-alpha-12",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-color-border-tooltip": "color(srgb 0.090196 0.105882 0.133333 / 0.12)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-border-tooltip",
+      "mode": "dark",
+      "rawValue": "{primitive.color.ink-alpha.12}",
+      "sourcePath": "semantic.dark.color.border-tooltip",
+      "tier": "semantic",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.090196,
+          0.105882,
+          0.133333
+        ],
+        "alpha": 0.12
+      }
+    },
     "color-foreground-disabled": {
       "aliasTarget": {
         "id": "color-neutral-600",
@@ -7134,6 +8475,32 @@ export const tokens = {
           0.980392
         ],
         "alpha": 1
+      }
+    },
+    "color-foreground-menu-item": {
+      "aliasTarget": {
+        "id": "color-paper-alpha-86",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-color-foreground-menu-item": "color(srgb 0.980392 0.980392 0.980392 / 0.86)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-foreground-menu-item",
+      "mode": "dark",
+      "rawValue": "{primitive.color.paper-alpha.86}",
+      "sourcePath": "semantic.dark.color.foreground-menu-item",
+      "tier": "semantic",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.980392,
+          0.980392,
+          0.980392
+        ],
+        "alpha": 0.86
       }
     },
     "color-foreground-on-danger": {
@@ -7498,6 +8865,126 @@ export const tokens = {
           0.839216
         ],
         "alpha": 1
+      }
+    },
+    "elevation-menu": {
+      "aliasTarget": {
+        "id": "shadow-menu-dark",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-elevation-menu": "0px 8px 15px 0px color(srgb 0 0 0 / 0.04), 0px 0px 0px 0.5px color(srgb 0.341176 0.364706 0.407843 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "elevation-menu",
+      "mode": "dark",
+      "rawValue": "{primitive.shadow.menu-dark}",
+      "sourcePath": "semantic.dark.elevation.menu",
+      "tier": "semantic",
+      "type": "shadow",
+      "value": [
+        {
+          "color": {
+            "colorSpace": "srgb",
+            "components": [
+              0,
+              0,
+              0
+            ],
+            "alpha": 0.04
+          },
+          "offsetX": {
+            "value": 0,
+            "unit": "px"
+          },
+          "offsetY": {
+            "value": 8,
+            "unit": "px"
+          },
+          "blur": {
+            "value": 15,
+            "unit": "px"
+          },
+          "spread": {
+            "value": 0,
+            "unit": "px"
+          },
+          "inset": false
+        },
+        {
+          "color": {
+            "colorSpace": "srgb",
+            "components": [
+              0.341176,
+              0.364706,
+              0.407843
+            ],
+            "alpha": 1
+          },
+          "offsetX": {
+            "value": 0,
+            "unit": "px"
+          },
+          "offsetY": {
+            "value": 0,
+            "unit": "px"
+          },
+          "blur": {
+            "value": 0,
+            "unit": "px"
+          },
+          "spread": {
+            "value": 0.5,
+            "unit": "px"
+          },
+          "inset": false
+        }
+      ]
+    },
+    "elevation-tooltip": {
+      "aliasTarget": {
+        "id": "shadow-tooltip-dark",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-elevation-tooltip": "0px 12px 24px 0px color(srgb 0.090196 0.105882 0.133333 / 0.12)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "elevation-tooltip",
+      "mode": "dark",
+      "rawValue": "{primitive.shadow.tooltip-dark}",
+      "sourcePath": "semantic.dark.elevation.tooltip",
+      "tier": "semantic",
+      "type": "shadow",
+      "value": {
+        "color": {
+          "colorSpace": "srgb",
+          "components": [
+            0.090196,
+            0.105882,
+            0.133333
+          ],
+          "alpha": 0.12
+        },
+        "offsetX": {
+          "value": 0,
+          "unit": "px"
+        },
+        "offsetY": {
+          "value": 12,
+          "unit": "px"
+        },
+        "blur": {
+          "value": 24,
+          "unit": "px"
+        },
+        "spread": {
+          "value": 0,
+          "unit": "px"
+        },
+        "inset": false
       }
     }
   }

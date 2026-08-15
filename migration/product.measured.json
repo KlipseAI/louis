@@ -511,238 +511,272 @@
           "ds": "min(max(200px, anchor 폭), 사용 가능 폭) — action-menu 기준 200px",
           "match": "different",
           "evidence": "apps/web/components/scenes/appHomeSceneStyles.ts:62",
-          "status": "gap"
+          "status": "adopted",
+          "reason": "제품 160px를 채택했다. 이전 DS는 200px였다"
         },
         "패널 폭 상한 / 뷰포트 대응": {
           "product": "선언 없음 (max-width 없음)",
           "ds": "max-width: var(--kds-overlay-available-width, 100vw)",
           "match": "product-missing",
           "evidence": "apps/web/components/scenes/appHomeSceneStyles.ts:57-84",
-          "status": "gap"
+          "status": "accepted-deviation",
+          "reason": "제품은 max-width 선언이 없어 좁은 화면에서 패널이 넘친다. DS는 overlay primitive가 잰 가용 폭을 상한으로 쓴다"
         },
         "패널 최대 높이 / 내부 스크롤": {
           "product": "선언 없음. overflow 선언도 없고 overscroll-behavior:none만 있다",
           "ds": "max-height: var(--kds-overlay-available-height, 100vh); overflow: auto; overscroll-behavior: contain",
           "match": "product-missing",
           "evidence": "apps/web/components/scenes/appHomeSceneStyles.ts:71",
-          "status": "gap"
+          "status": "accepted-deviation",
+          "reason": "제품은 overflow 선언이 없어 항목이 많으면 화면 밖으로 나간다. DS는 가용 높이를 상한으로 두고 내부 스크롤을 만든다"
         },
         "패널 padding (inset)": {
           "product": "6px — var(--dropdown-padding)",
           "ds": "4px (action-menu, --kds-space-control-xs) / 8px (composite-popover, --kds-space-control-sm)",
           "match": "different",
           "evidence": "apps/web/components/scenes/appHomeSceneStyles.ts:66 → apps/web/app/globals.css:77",
-          "status": "gap"
+          "status": "adopted",
+          "reason": "제품 --dropdown-padding 6px를 채택하고 space-overlay-inset을 세웠다. 이전 DS는 action-menu 4 / composite 8로 갈려 있었다"
         },
         "패널 gap (항목 사이)": {
           "product": "2px",
           "ds": "0 (action-menu는 gap 미선언, 행이 붙는다) / 8px (composite-popover)",
           "match": "different",
           "evidence": "apps/web/components/scenes/appHomeSceneStyles.ts:65",
-          "status": "gap"
+          "status": "adopted",
+          "reason": "제품 2px를 채택하고 space-overlay-item-gap을 세웠다. 이전 DS의 action-menu는 gap이 없어 행이 붙어 있었다"
         },
         "패널 border (두께·색)": {
           "product": "border: none. 헤어라인은 box-shadow 스프레드로 그린다 — 0 0 0 0.5px #575d68 (dark) / 0 0 0 0.5px #d5d7dd (light)",
           "ds": "border: 1px solid var(--kds-color-border-subtle) → light #E3E4E8 / dark #575D68 (실제 border, 레이아웃 차지)",
           "match": "different",
           "evidence": "apps/web/components/scenes/appHomeSceneStyles.ts:67,70 → apps/web/app/globals.css:65,586,34,30",
-          "status": "gap"
+          "status": "adopted",
+          "reason": "제품처럼 border를 없애고 헤어라인을 box-shadow 스프레드 0.5px로 그린다. 레이아웃 박스를 늘리지 않으면서 1px보다 얇은 선이 된다"
         },
         "패널 배경": {
           "product": "dark #313640 (rgb(49 54 64), 불투명) / light #f1f1f3 (rgb(241 241 243), 불투명)",
           "ds": "dark #313640 / light #FAFAFA — var(--kds-color-background-overlay)",
           "match": "different",
           "evidence": "apps/web/components/scenes/appHomeSceneStyles.ts:69 → apps/web/app/globals.css:93,587,50,42",
-          "status": "gap"
+          "status": "adopted",
+          "reason": "제품 라이트 #f1f1f3 / 다크 #313640을 채택해 color-background-menu를 세웠다. 이전 DS의 라이트는 #FAFAFA로 제품보다 밝았다"
         },
         "패널 그림자 (elevation)": {
           "product": "0px 8px 15px 0px rgba(0,0,0,0.04) + 0 0 0 0.5px 헤어라인",
           "ds": "0px 8px 24px -4px rgba(0,0,0,0.14) — var(--kds-elevation-popover)",
           "match": "different",
           "evidence": "apps/web/components/scenes/appHomeSceneStyles.ts:70 → apps/web/app/globals.css:73",
-          "status": "gap"
+          "status": "adopted",
+          "reason": "제품 0 8px 15px rgba(0,0,0,0.04) + 헤어라인 2겹을 elevation-menu로 채택했다. 테마마다 헤어라인 색이 달라 semantic.light/dark의 elevation 축을 쓴다"
         },
         "충돌 여백 (collision padding)": {
           "product": "선언 없음. flip/shift 로직 자체가 없다",
           "ds": "8px — --kds-overlay-collision-padding, positioner가 읽어 flip/shift",
           "match": "product-missing",
           "evidence": "apps/web/components/scenes/appHomeSceneStyles.ts:57-84",
-          "status": "gap"
+          "status": "accepted-deviation",
+          "reason": "제품은 flip/shift 로직 자체가 없다. DS는 8px collision padding으로 방향을 뒤집는다"
         },
         "z-index / 레이어": {
           "product": "1100 (숫자 리터럴). 프로필 nested 언어 메뉴는 1200, HomeCreateNewMenu는 40, LanguageSelector는 2000",
           "ds": "200 — .kds-layer-popover { z-index: var(--kds-layer-popover) }, 리터럴 금지",
           "match": "different",
           "evidence": "apps/web/components/scenes/appHomeSceneStyles.ts:73",
-          "status": "gap"
+          "status": "accepted-deviation",
+          "reason": "제품은 1100·1200·40·2000으로 구현마다 갈린다. DS는 layer-popover 토큰 하나를 쓰고 규범이 숫자 리터럴을 금지한다"
         },
         "포털 / 스태킹 컨텍스트": {
           "product": "포털 없음. 카드 subtree 안 position:absolute",
           "ds": "overlay root로 portal + layer 토큰 (positioner.tsx, use-overlay.tsx가 kds-overlay-panel + kds-layer-* 부여)",
           "match": "different",
           "evidence": "apps/web/components/scenes/appHomeSceneStyles.ts:59",
-          "status": "gap"
+          "status": "accepted-deviation",
+          "reason": "제품은 포털 없이 카드 subtree 안에 둔다. 조상의 overflow나 transform이 생기면 패널이 잘린다. DS는 overlay root로 portal한다"
         },
         "항목 높이": {
           "product": "37px (계산값: padding-block 8+8 + line-height 21px). min-height 선언 없음",
           "ds": "min-block-size: 44px — var(--kds-layout-control-hit-target-minimum)",
           "match": "different",
           "evidence": "apps/web/components/scenes/appHomeSceneStyles.ts:92 → apps/web/app/globals.css:1175,1176,362,363",
-          "status": "gap"
+          "status": "accepted-deviation",
+          "reason": "제품은 37px로 WCAG 2.5.8의 44px에 미달한다. DS는 min-block-size 44px을 보장한다. 접근성 계약이라 제품에 맞춰 낮추지 않는다"
         },
         "항목 gap": {
           "product": "6px",
           "ds": "8px — var(--kds-space-control-sm)",
           "match": "different",
           "evidence": "apps/web/components/scenes/appHomeSceneStyles.ts:90",
-          "status": "gap"
+          "status": "adopted",
+          "reason": "제품 6px를 채택하고 space-overlay-item-content-gap을 세웠다"
         },
         "항목 전경 (기본)": {
           "product": "dark rgb(250 250 250 / 86%) / light rgb(23 27 34 / 86%) — 알파 86%",
           "ds": "dark #FAFAFA / light #171B22 — 알파 100% (color: inherit ← 패널의 --kds-color-foreground-primary)",
           "match": "different",
           "evidence": "apps/web/components/scenes/appHomeSceneStyles.ts:96,102 → apps/web/app/globals.css:664,40,51",
-          "status": "gap"
+          "status": "adopted",
+          "reason": "제품의 알파 86%를 채택해 color-foreground-menu-item을 세웠다. 이전 DS는 알파 100%였다"
         },
         "항목 hover 배경": {
           "product": "dark rgb(250 250 250 / 10%) / light rgb(23 27 34 / 6%) — 반투명 오버레이",
           "ds": "var(--kds-color-background-inset) → light #EAEBEE / dark #313640 — 불투명 면",
           "match": "different",
           "evidence": "apps/web/components/scenes/appHomeSceneStyles.ts:101,103",
-          "status": "gap"
+          "status": "adopted",
+          "reason": "제품의 반투명 오버레이(라이트 6% / 다크 10%)를 채택했다. 이전 DS는 불투명 background-inset이었다"
         },
         "항목 키보드 하이라이트 (roving)": {
           "product": "선언 없음. hover만 있고 방향키 하이라이트 개념이 없다",
           "ds": "[data-highlighted=\"true\"]가 hover와 같은 표현을 공유",
           "match": "product-missing",
           "evidence": "apps/web/components/scenes/appHomeSceneStyles.ts:86-105",
-          "status": "gap"
+          "status": "accepted-deviation",
+          "reason": "제품에는 방향키 하이라이트 개념이 없다. DS는 data-highlighted로 표현한다. 키보드만 쓰는 사용자에게 현재 위치가 보이지 않으면 메뉴를 쓸 수 없다"
         },
         "항목 active / pressed": {
           "product": "카드 메뉴에는 선언 없음. 프로필 팝오버만 background: rgb(250 250 250 / 12%) (dark) / rgb(0 0 0 / 10%) (light)",
           "ds": "선언 없음 (DS도 active 표현이 없다)",
           "match": "different",
           "evidence": "apps/web/components/navigation/Gnb.tsx:1057,1058,1285,1292",
-          "status": "gap"
+          "status": "accepted-deviation",
+          "reason": "양쪽 다 카드 메뉴에는 표현이 없다. 제품의 프로필 팝오버만 갖고 있으며 공용 정본이 아니다"
         },
         "항목 disabled": {
           "product": "선언 없음. cursor·색 변화 없음",
           "ds": "cursor: not-allowed + color light #9AA0AB / dark #777D89 (--kds-color-foreground-disabled). :disabled와 [aria-disabled=\"true\"] 둘 다",
           "match": "product-missing",
           "evidence": "apps/web/components/scenes/appHomeSceneStyles.ts:86-105",
-          "status": "gap"
+          "status": "accepted-deviation",
+          "reason": "제품에는 표현이 없어 눌리지 않는 항목이 눌리는 것처럼 보인다. DS는 전경 disabled 색과 cursor를 준다"
         },
         "항목 focus-visible ring": {
           "product": "선언 없음 (카드 메뉴·프로필 메뉴 항목 모두)",
           "ds": ".kds-focus-ring — outline 2px solid light #0088FF / dark #38A4FF, outline-offset 2px",
           "match": "product-missing",
           "evidence": "apps/web/components/scenes/appHomeSceneStyles.ts:86-105",
-          "status": "gap"
+          "status": "accepted-deviation",
+          "reason": "제품에는 focus ring이 없다. WCAG 2.4.7 계약이라 제품에 없다고 빼지 않는다"
         },
         "danger 항목 전경": {
           "product": "#ff4b59 (양 테마 동일) — var(--accent-red-500)",
           "ds": "light #541119 / dark #FFE5E8 — var(--kds-color-status-danger-foreground). 문서가 인정한 대비 결함(light 1.21, dark 1.14)",
           "match": "different",
           "evidence": "apps/web/components/scenes/appHomeSceneStyles.ts:109 → apps/web/app/globals.css:226",
-          "status": "gap"
+          "status": "adopted",
+          "reason": "제품 #ff4b59를 채택했다. 이전 DS의 status-danger-foreground는 중립 표면 위에서 대비가 무너지는 것이 문서에 이미 기록돼 있었고 이 채택이 그것을 해소한다"
         },
         "danger 항목 hover 배경": {
           "product": "dark rgb(255 75 89 / 12%) / light rgb(255 75 89 / 10%)",
           "ds": "var(--kds-color-status-danger-background) → light #FFE5E8 / dark #541119 (불투명 면)",
           "match": "different",
           "evidence": "apps/web/components/scenes/appHomeSceneStyles.ts:110,111 → apps/web/app/globals.css:235",
-          "status": "gap"
+          "status": "adopted",
+          "reason": "제품의 red 알파 오버레이(라이트 10% / 다크 12%)를 채택했다. 이전 DS는 불투명 면이었다"
         },
         "구분선 (separator)": {
           "product": "카드 메뉴에는 없음. 프로필 팝오버만 height 1px, margin 4px 10px, background dark #575d68 / light #e3e4e8",
           "ds": "border-block-start 1px solid var(--kds-color-border-subtle) (dark #575D68 / light #E3E4E8), margin-block 4px, margin-inline 0",
           "match": "different",
           "evidence": "apps/web/components/navigation/Gnb.tsx:1033,1034,1035,1036,1037,1286,1293",
-          "status": "gap"
+          "status": "accepted-deviation",
+          "reason": "제품 카드 메뉴에는 구분선이 없고 프로필 팝오버만 갖는다. 공용 정본이 아니므로 DS 값을 유지한다"
         },
         "group label": {
           "product": "선언 없음",
           "ds": ".kds-menu__group-label — padding 4px 12px, 12px/500/1.5/-0.12px, color foreground-secondary (light #575D68 / dark #D5D7DD)",
           "match": "product-missing",
           "evidence": "apps/web/components/scenes/appHomeSceneStyles.ts:57-122",
-          "status": "gap"
+          "status": "accepted-deviation",
+          "reason": "제품에 없다. DS가 더 갖는 확장이다"
         },
         "항목 아이콘 크기": {
           "product": "카드 메뉴에는 아이콘 없음. HomeCreateNewMenu 20×20 마스크(opacity 0.92), 프로필 항목 20×20(opacity 0.7)",
           "ds": ".kds-menu__item-icon — 크기 미지정, flex:none으로 내용 크기를 따른다",
           "match": "different",
           "evidence": "apps/web/components/scenes/HomeCreateNewMenu.tsx:60",
-          "status": "gap"
+          "status": "accepted-deviation",
+          "reason": "제품 카드 메뉴에는 아이콘이 없고 다른 화면이 20×20을 쓴다. 공용 정본이 아니므로 DS는 슬롯 크기를 지정하지 않고 내용 크기를 따른다"
         },
         "단축키/보조 텍스트 (trailing)": {
           "product": "선언 없음",
           "ds": ".kds-menu__item-trailing — 12px/400/1.5, color foreground-secondary, disabled 시 inherit",
           "match": "product-missing",
           "evidence": "apps/web/components/scenes/appHomeSceneStyles.ts:86-105",
-          "status": "gap"
+          "status": "accepted-deviation",
+          "reason": "제품에 없다. DS가 더 갖는 확장이다"
         },
         "busy(진행 중) 항목": {
           "product": "선언 없음",
           "ds": ".kds-menu__spinner 1em 원형 + [aria-busy=\"true\"] 라벨 opacity 0.6",
           "match": "product-missing",
           "evidence": "apps/web/components/scenes/appHomeSceneStyles.ts:86-105",
-          "status": "gap"
+          "status": "accepted-deviation",
+          "reason": "제품에 없다. DS가 더 갖는 확장이다"
         },
         "열림 애니메이션 (시간·이징)": {
           "product": "transform 260ms cubic-bezier(0.32,0.72,0,1). 단축 교체로 opacity 전이는 제거된다(즉시 불투명)",
           "ds": "opacity + scale, 200ms cubic-bezier(0.32,0.72,0,1) — --kds-motion-overlay-enter-*",
           "match": "different",
           "evidence": "apps/web/components/scenes/appHomeSceneStyles.ts:119",
-          "status": "gap"
+          "status": "accepted-deviation",
+          "reason": "제품 260ms를 motion-menu-enter 토큰으로 만들어 두었으나 채택은 하지 않았다. DS는 overlay-enter 200ms를 Menu·Dialog·Popover가 공유한다 — 표면마다 열림 속도가 다르면 같은 제스처가 다른 반응을 준다. 토큰이 있으므로 채택은 한 줄 변경이며 별도 판정 대상이다"
         },
         "닫힘 애니메이션 (시간·이징)": {
           "product": "opacity 130ms ease-in, transform 130ms ease-in",
           "ds": "opacity 120ms cubic-bezier(0.4,0,1,1) — --kds-motion-overlay-exit-*",
           "match": "different",
           "evidence": "apps/web/components/scenes/appHomeSceneStyles.ts:78",
-          "status": "gap"
+          "status": "accepted-deviation",
+          "reason": "위와 같은 사유다. motion-menu-exit 토큰은 만들어 두었다"
         },
         "enter scale 값": {
           "product": "scale(0.92) → scale(1)",
           "ds": "scale 0.96 → 1",
           "match": "different",
           "evidence": "apps/web/components/scenes/appHomeSceneStyles.ts:76,118",
-          "status": "gap"
+          "status": "accepted-deviation",
+          "reason": "제품 0.92는 260ms에 맞춘 값이다. DS는 200ms에 맞춘 0.96을 쓴다. 시간을 채택하지 않은 채 scale만 채택하면 더 급해 보인다"
         },
         "transform-origin (확장 원점)": {
           "product": "top right 하드코딩 (배치가 flip돼도 원점이 안 따라간다)",
           "ds": "var(--kds-overlay-transform-origin) — anchor·placement에서 계산",
           "match": "different",
           "evidence": "apps/web/components/scenes/appHomeSceneStyles.ts:77",
-          "status": "gap"
+          "status": "accepted-deviation",
+          "reason": "제품은 top right 하드코딩이라 배치가 뒤집혀도 원점이 따라가지 않는다. DS는 anchor·placement에서 계산한다"
         },
         "reduced-motion": {
           "product": "transform: none + transition: opacity 120ms ease (여전히 120ms 페이드)",
           "ds": "transition-duration 0ms(--kds-motion-reduced-duration) + opening scale 1. exit 타이머도 같은 선언을 읽어 함께 0",
           "match": "different",
           "evidence": "apps/web/components/scenes/appHomeSceneStyles.ts:82,83,120,121",
-          "status": "gap"
+          "status": "accepted-deviation",
+          "reason": "제품은 transform만 끄고 120ms 페이드는 남긴다. DS는 duration을 0으로 만든다. 규범의 reduced-motion 계약이다"
         },
         "닫힘 상태의 DOM/히트테스트": {
           "product": "opacity 0 + pointer-events: none로 상시 마운트. inert/hidden 없어 자손이 Tab 순서에 남는다",
           "ds": "presence primitive가 closing 뒤 unmount, 위치 확정 전 비가시·비 hit-test",
           "match": "different",
           "evidence": "apps/web/components/scenes/appHomeSceneStyles.ts:74,75",
-          "status": "gap"
+          "status": "accepted-deviation",
+          "reason": "제품은 opacity 0으로 상시 마운트라 닫힌 메뉴의 항목이 Tab 순서에 남는다. DS는 닫힘 뒤 unmount한다. 보이지 않는 것에 focus가 가면 안 된다"
         },
         "forced-colors (고대비)": {
           "product": "선언 없음",
           "ds": "border-color currentColor, hover/highlight를 Highlight/HighlightText로, disabled를 GrayText로, danger 선택자 재선언까지",
           "match": "product-missing",
           "evidence": "apps/web/components/scenes/appHomeSceneStyles.ts:57-122",
-          "status": "gap"
+          "status": "accepted-deviation",
+          "reason": "제품에 처리가 없다. DS는 시스템 색에 양보한다"
         },
         "장식 pseudo-element pointer 차단": {
           "product": "선언 없음 (프로필 배지 ::after만 개별적으로 pointer-events:none)",
           "ds": ".kds-popover/.kds-menu__item/.kds-menu__group-label의 ::before/::after 전부 pointer-events: none",
           "match": "product-missing",
           "evidence": "apps/web/components/navigation/Gnb.tsx:1076",
-          "status": "gap"
+          "status": "accepted-deviation",
+          "reason": "제품에 없다. DS는 ::before/::after의 pointer-events를 막아 장식이 클릭을 가로채지 않게 한다"
         }
       }
     },
@@ -925,154 +959,176 @@
           "ds": "288px (max-inline-size)",
           "match": "different",
           "evidence": "apps/web/components/scenes/create/node-canvas-v2/components/ChromeTooltip.tsx:36",
-          "status": "gap"
+          "status": "adopted",
+          "reason": "제품 min(320px, calc(100vw - 20px))을 채택했다. 뷰포트 여유는 overlay primitive가 잰 --kds-overlay-available-width를 쓴다. 이전 DS는 288px 고정이었다"
         },
         "border — 두께": {
           "product": "1px solid",
           "ds": "없음 (border 선언 자체가 없다 = 0)",
           "match": "different",
           "evidence": "apps/web/app/globals.css:1498",
-          "status": "gap"
+          "status": "adopted",
+          "reason": "제품의 1px solid를 채택했다. 이전 DS에는 border 선언 자체가 없었다"
         },
         "border — 색 (dark theme)": {
           "product": "rgba(23, 27, 34, 0.12) — rgb(--palette-gray-900-rgb 23 27 34 / 12%)",
           "ds": "해당 없음 (border 없음)",
           "match": "ds-missing",
           "evidence": "apps/web/app/globals.css:1498 → 698 → 51",
-          "status": "gap"
+          "status": "adopted",
+          "reason": "color-border-tooltip을 세웠다. 라이트는 paper-alpha 14%, 다크는 ink-alpha 12%로 제품과 같다"
         },
         "배경 (light theme)": {
           "product": "#313640 (--palette-gray-800) — 어두운 면. 페이지와 반전",
           "ds": "#EAEBEE (--kds-color-background-inset, srgb 0.917647 0.921569 0.933333) — 밝은 면. 페이지와 같은 극성",
           "match": "different",
           "evidence": "apps/web/app/globals.css:1500 → 751 → 36",
-          "status": "gap"
+          "status": "adopted",
+          "reason": "제품의 반전 면을 채택했다. 라이트에서 gray-800 = color-background-inverse이며 Toast가 먼저 세운 토큰과 값이 정확히 같았다. 이전 DS는 background-inset이라 페이지와 같은 극성이었다"
         },
         "배경 (dark theme)": {
           "product": "#E3E4E8 (--palette-gray-200) — 밝은 면. 페이지와 반전",
           "ds": "#313640 (--kds-color-background-inset, srgb 0.192157 0.211765 0.250980) — 어두운 면. 페이지와 같은 극성",
           "match": "different",
           "evidence": "apps/web/app/globals.css:1500 → 695 → 28",
-          "status": "gap"
+          "status": "adopted",
+          "reason": "다크에서 gray-200 = color-background-inverse. 같은 토큰이 모드로 뒤집힌다"
         },
         "전경 (light theme)": {
           "product": "#FAFAFA (--palette-gray-000)",
           "ds": "#171B22 (--kds-color-foreground-primary, srgb 0.090196 0.105882 0.133333)",
           "match": "different",
           "evidence": "apps/web/app/globals.css:1502 → 752 → 20",
-          "status": "gap"
+          "status": "adopted",
+          "reason": "라이트에서 gray-000 = color-foreground-on-inverse"
         },
         "전경 (dark theme)": {
           "product": "#171B22 (--palette-gray-900)",
           "ds": "#FAFAFA (--kds-color-foreground-primary, srgb 0.980392 0.980392 0.980392)",
           "match": "different",
           "evidence": "apps/web/app/globals.css:1502 → 696 → 37",
-          "status": "gap"
+          "status": "adopted",
+          "reason": "다크에서 gray-900 = color-foreground-on-inverse"
         },
         "그림자 (light theme)": {
           "product": "0 12px 24px rgba(119, 125, 137, 0.12) — rgb(--palette-gray-600-rgb / 12%). spread 없음, y=12, blur=24",
           "ds": "0px 8px 24px -4px rgba(0, 0, 0, 0.14) — y=8, blur=24, spread=-4. 테마 불변",
           "match": "different",
           "evidence": "apps/web/app/globals.css:1501 → 755 → 48",
-          "status": "gap"
+          "status": "adopted",
+          "reason": "제품 0 12px 24px rgb(gray-600 / 12%)를 채택했다. elevation-tooltip을 테마별로 두기 위해 semantic.light/dark에 elevation 축을 새로 열었다 — 기존 elevation은 global이라 테마별 그림자 색을 표현할 수 없었다"
         },
         "그림자 (dark theme)": {
           "product": "0 12px 24px rgba(23, 27, 34, 0.12) — rgb(--palette-gray-900-rgb / 12%)",
           "ds": "0px 8px 24px -4px rgba(0, 0, 0, 0.14) — 라이트와 동일 (--kds-elevation-popover는 dark 스코프에서 재정의되지 않는다)",
           "match": "different",
           "evidence": "apps/web/app/globals.css:1501 → 699 → 51",
-          "status": "gap"
+          "status": "adopted",
+          "reason": "다크는 rgb(gray-900 / 12%). 같은 토큰이 모드로 갈린다"
         },
         "타이포 — font-family": {
           "product": "선언 없음 — body의 Pretendard를 상속. ja 로케일이면 Pretendard JP로 갈린다",
           "ds": "\"Pretendard Variable\", \"Pretendard\", \"Inter\", \"Noto Sans KR\", \"Noto Sans JP\", system-ui, sans-serif — 표면에 명시",
           "match": "different",
           "evidence": "apps/web/app/globals.css:1497-1508 (font-family 선언 부재), 391-397",
-          "status": "gap"
+          "status": "accepted-deviation",
+          "reason": "DS-D-0009가 결정한 계약이다. 폰트 바이너리를 동봉하지 않고 폴백 스택을 교정한다"
         },
         "애니메이션 — 열림 시간·이징": {
           "product": "140ms cubic-bezier(0.23, 1, 0.32, 1). opacity 0→1 + scale 0.97→1",
           "ds": "200ms cubic-bezier(0.32, 0.72, 0, 1) (--kds-motion-overlay-enter-*)",
           "match": "different",
           "evidence": "apps/web/app/globals.css:383,385; apps/web/components/scenes/create/node-canvas-v2/components/ChromeTooltip.tsx:62-66",
-          "status": "gap"
+          "status": "adopted",
+          "reason": "제품 140ms cubic-bezier(0.23, 1, 0.32, 1)을 motion-tooltip-enter로 채택했다"
         },
         "애니메이션 — 닫힘 시간·이징": {
           "product": "120ms cubic-bezier(0.19, 1, 0.22, 1) — 별도의 exit 커브를 갖는다. 언마운트 fallback 180ms",
           "ds": "없음 — 닫힘은 즉시(모션 없음). [data-kds-state=\"opening\"]에만 애니메이션이 걸린다",
           "match": "different",
           "evidence": "apps/web/app/globals.css:384,386; apps/web/components/scenes/create/node-canvas-v2/components/ChromeTooltip.tsx:55-59,227",
-          "status": "gap"
+          "status": "accepted-deviation",
+          "reason": "제품은 120ms 페이드아웃 뒤 최대 180ms 더 DOM에 남는다. DS는 닫힘을 즉시로 둔다 — 포인터가 떠났는데 설명이 남으면 어느 컨트롤의 설명인지 알 수 없다. motion-tooltip-exit 토큰은 만들어 두었고 채택은 별도 판정이다"
         },
         "애니메이션 — scale 시작값": {
           "product": "0.97 (--app-tooltip-motion-scale-rest), transform-origin = 트리거 쪽 모서리(origin-bottom/right/left)",
           "ds": "없음 — tooltip.css에 keyframe/변형 선언이 없다. duration·timing만 지정하고 실제 animation-name이 없어 현재 상태로는 모션이 발생하지 않는다",
           "match": "different",
           "evidence": "apps/web/app/globals.css:382; apps/web/components/scenes/create/node-canvas-v2/components/ChromeTooltip.tsx:56,71-73",
-          "status": "gap"
+          "status": "adopted",
+          "reason": "제품 0.97을 채택했다. 그 과정에서 **DS에 animation-name이 없어 모션이 아예 걸리지 않던 것**을 발견해 고쳤다"
         },
         "애니메이션 — prefers-reduced-motion": {
           "product": "enter/exit 1ms, scale-rest 1 (모션 사실상 제거)",
           "ds": "animation-duration 0ms (--kds-motion-reduced-duration)",
           "match": "different",
           "evidence": "apps/web/app/globals.css:1577-1583",
-          "status": "gap"
+          "status": "accepted-deviation",
+          "reason": "제품은 1ms로 줄인다. DS는 motion-reduced 0ms와 animation-name: none으로 크기 이동 자체를 제거한다. 결과는 같고 표현만 다르다"
         },
         "z-index / 레이어": {
           "product": "10400 (ChromeTooltip 포털 앵커). 구현마다 갈린다 — 10300(radix), 10002(VideoEditModal), 1200(analytics bar), 100(node handle ::after), 10(TIER_FEATURE_TIP), 2(chart)",
           "ds": "200 (--kds-layer-popover), positioner에 1회 선언",
           "match": "different",
           "evidence": "apps/web/components/scenes/create/node-canvas-v2/components/ChromeTooltip.tsx:35",
-          "status": "gap"
+          "status": "accepted-deviation",
+          "reason": "제품은 구현마다 10400·10300·10002·1200으로 갈린다. DS는 layer-popover 토큰 하나를 쓰고 elevation-layer 규범이 숫자 리터럴을 금지한다"
         },
         "열림 지연": {
           "product": "300ms. 단, 직전에 다른 tooltip이 떠 있었으면 0ms(그룹 skip), 그룹 해제 대기 600ms. focus는 지연 없이 즉시",
           "ds": "280ms (openDelay 기본값). 그룹 skip 없음. focus는 지연 없이 즉시",
           "match": "different",
           "evidence": "apps/web/components/scenes/create/node-canvas-v2/components/ChromeTooltip.tsx:140,157,285",
-          "status": "gap"
+          "status": "adopted",
+          "reason": "제품 300ms를 채택했다(이전 DS 280ms). 그룹 skip은 아직 없다 — Known deviations 참조"
         },
         "닫힘 지연": {
           "product": "즉시 상태 전환 후 120ms 페이드아웃. 표면이 최대 180ms 더 DOM에 남는다",
           "ds": "즉시. 페이드아웃 없음",
           "match": "different",
           "evidence": "apps/web/components/scenes/create/node-canvas-v2/components/ChromeTooltip.tsx:220-227",
-          "status": "gap"
+          "status": "accepted-deviation",
+          "reason": "제품은 즉시 상태 전환 뒤 페이드아웃한다. DS는 페이드 없이 즉시 사라진다 — 위와 같은 사유다"
         },
         "anchor 간격": {
           "product": "top 5px / left·right 8px — 방향마다 값이 다르다. 다른 구현은 또 다르다: 9px(node handle), 6px(radix sideOffset, ComposerBar, TIER_FEATURE_TIP), 10px(myPage)",
           "ds": "8px 전 방향 동일 (--kds-overlay-offset, Menu·Dialog와 공유)",
           "match": "different",
           "evidence": "apps/web/components/scenes/create/node-canvas-v2/components/ChromeTooltip.tsx:17,18",
-          "status": "gap"
+          "status": "accepted-deviation",
+          "reason": "제품은 방향마다 5px/8px로 다르고 구현마다 9px·6px로 또 갈린다. DS는 8px 하나를 Menu·Dialog와 공유한다. 여기서 자체 숫자를 가지면 표면마다 간격이 갈린다"
         },
         "collision padding": {
           "product": "명시적 collision padding 없음. max-width의 calc(100vw - 20px)로 좌우 20px 여유를 간접 확보. 방향 뒤집기(flip) 없음 — placement가 고정",
           "ds": "8px (--kds-overlay-collision-padding). 공간이 없으면 방향이 뒤집힌다",
           "match": "different",
           "evidence": "apps/web/components/scenes/create/node-canvas-v2/components/ChromeTooltip.tsx:36,265-270",
-          "status": "gap"
+          "status": "accepted-deviation",
+          "reason": "제품은 flip이 없어 화면 밖으로 나갈 수 있다. DS는 8px collision padding으로 방향을 뒤집는다. 잘리는 설명은 설명이 아니다"
         },
         "arrow": {
           "product": "가장 널리 쓰이는 ChromeTooltip에는 없음. Radix 구현만 10x5 삼각형(fill: --app-tooltip-bg, stroke 없음 → 1px border와 이가 맞지 않는다). VideoEditModal은 별도 CSS 삼각형",
           "ds": "없음 (Known deviations에 미판정으로 기록됨)",
           "match": "different",
           "evidence": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/inspectorPrimitives.tsx:405-409, 131-134",
-          "status": "gap"
+          "status": "accepted-deviation",
+          "reason": "제품도 가장 널리 쓰이는 구현에는 arrow가 없다. DS도 두지 않는다. Radix 구현의 10x5 삼각형은 1px border와 이가 맞지 않아 채택 대상이 아니다"
         },
         "줄바꿈 / overflow": {
           "product": "whitespace-normal + overflow-wrap:break-word + word-break:normal (ChromeTooltip). 단, node handle ::after는 white-space:nowrap로 줄바꿈 자체를 금지",
           "ds": "overflow-wrap: break-word. nowrap 분기 없음",
           "match": "different",
           "evidence": "apps/web/components/scenes/create/node-canvas-v2/components/ChromeTooltip.tsx:87; apps/web/app/globals.css:1515",
-          "status": "gap"
+          "status": "accepted-deviation",
+          "reason": "제품의 node handle 경로는 nowrap이라 긴 설명이 잘린다. DS는 break-word 하나만 둔다"
         },
         "role / aria (구조 계약)": {
           "product": "없음 — ChromeTooltip은 role=\"tooltip\"도 aria-describedby도 붙이지 않는다. 표면은 순수 시각 요소다",
           "ds": "표면에 role=\"tooltip\", trigger에 aria-describedby",
           "match": "product-missing",
           "evidence": "apps/web/components/scenes/create/node-canvas-v2/components/ChromeTooltip.tsx:293-303",
-          "status": "gap"
+          "status": "accepted-deviation",
+          "reason": "제품의 표면은 role도 aria-describedby도 없어 보조 기술에 존재하지 않는다. DS는 role=tooltip과 aria-describedby를 붙인다. 접근성 계약이라 제품에 없다고 빼지 않는다"
         }
       }
     },

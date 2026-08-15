@@ -319,17 +319,33 @@ body로 떨어진다. 따라서 exit 모션 동안 화면에는 패널이 보이
 
 | Part/state     | 목표 token/recipe                                      | 검증                       |
 | -------------- | ------------------------------------------------------ | -------------------------- |
-| Panel surface  | `surface-overlay` / 불투명 theme surface               | light/dark/high contrast   |
+| Panel surface  | `color-background-menu` — 라이트 neutral-100 / 다크 neutral-800 | light/dark/high contrast   |
 | Panel radius   | `radius-overlay` = 16px                                | visual regression          |
 | Panel padding  | `space-overlay-inset` = 6px                            | item hit area 유지         |
+| Panel border   | 없음. 헤어라인은 `elevation-menu`의 0.5px 스프레드     | 레이아웃 박스 불변         |
 | Item radius    | `radius-overlay-item` = 10px                           | hover/focus/selected state |
-| Item height    | visual 40px 이상, touch target 44px 권장               | pointer/touch target       |
+| Item 사이 간격 | `space-overlay-item-gap` = 2px                         | 행이 붙지 않는다           |
+| Item 내부 gap  | `space-overlay-item-content-gap` = 6px                 | 아이콘·라벨 간격           |
+| Item 전경      | `color-foreground-menu-item` — 알파 86%                | light/dark                 |
+| Item hover     | `color-action-menu-item-hover` — 반투명 오버레이       | 배경이 달라도 같은 정도    |
+| Item height    | 44px 이상 (`layout-control-hit-target-minimum`)        | pointer/touch target       |
+| Danger 전경    | `color-action-danger` = #ff4b59                        | 중립 표면 위 대비          |
+| Danger hover   | `color-action-menu-danger-hover` — red 알파            | light/dark                 |
 | Anchor offset  | 8px                                                    | collision/flip             |
-| Panel width    | action 200px+, profile 240px reference                 | 긴 locale 문구와 200% zoom |
-| Elevation      | `elevation-popover`                                    | overlay hierarchy          |
+| Panel width    | 최소 160px, composite 240px reference                  | 긴 locale 문구와 200% zoom |
+| Elevation      | `elevation-menu` — ambient + 0.5px 헤어라인 2겹        | overlay hierarchy          |
 | Open motion    | opacity + scale, `motion-overlay-enter`; origin=anchor | reduced-motion 대체        |
 | Reduced motion | transform 제거, 짧은 opacity 또는 즉시 전환            | motion preference          |
 | Layer          | `layer-popover`, 숫자 리터럴 금지                      | nested overlay stack       |
+
+표의 값 대부분은 제품의 공용 토큰(`--dropdown-*`)에서 채택했다. 채택/편차 판정과 근거는
+[`migration/product.measured.json`](../../migration/product.measured.json)에 있고 게이트가 매 실행
+확인한다.
+
+**항목 높이 44px과 focus ring은 제품을 따르지 않는다.** 제품 항목은 37px이고 focus ring이 없다.
+둘 다 WCAG 계약이라 제품에 맞춰 낮추지 않았다. **`danger` 전경을 제품 값으로 바꾼 것이 문서가
+이미 인정하던 대비 결함을 해소한다** — 이전 `status-danger-foreground`는 중립 표면 위에서
+무너졌다.
 
 ## Implementation
 

@@ -6,16 +6,16 @@
     "capturedAt": "2026-08-15",
     "capturedBy": "figma-mcp-plugin-api",
     "published": false,
-    "tokenSourceSha256": "164507d90b8bbe3e236189a40a6a8f6ce7469798b4f54ac99ecab0215dced26e",
-    "proposalSha256": "946583869ad49acc9a9669ec3771c239a3788d1cf48d91c26fc1f9c7fedeeb11",
+    "tokenSourceSha256": "3a72e4e6ea27d1a4052d5e67b621ca01cc810d7f336d0624baddc4d1581d4487",
+    "proposalSha256": "2aef8de640cf2b991139f6bdb391e105421c8e97bd53c6f4394f4380ba7f4479",
     "readback": {
-      "tokens": 168,
-      "canonicalLength": 13614,
-      "fnv1a32": "b22c9487",
+      "tokens": 186,
+      "canonicalLength": 15470,
+      "fnv1a32": "a16e5336",
       "note": "변수는 readback.json의 되읽기 행을 tokenId 공간으로 옮긴 것이고, style과 component는 같은 되읽기의 style/component 절이다. canonical 해시는 컬렉션·이름·타입·mode 값을 정렬해 이은 문자열의 FNV-1a다.",
       "styles": {
         "text": 15,
-        "effect": 6
+        "effect": 8
       },
       "components": {
         "sets": 2,
@@ -31,14 +31,14 @@
         "Base"
       ],
       "defaultMode": "Base",
-      "variableCount": 99
+      "variableCount": 105
     },
     "Klipse Semantic": {
       "modes": [
         "Global"
       ],
       "defaultMode": "Global",
-      "variableCount": 35
+      "variableCount": 42
     },
     "Klipse Semantic Color": {
       "modes": [
@@ -46,7 +46,7 @@
         "Dark"
       ],
       "defaultMode": "Light",
-      "variableCount": 34
+      "variableCount": 39
     }
   },
   "variables": {
@@ -68,6 +68,30 @@
       "valuesByMode": {
         "Light": {
           "alias": "color-ink-alpha-8"
+        },
+        "Dark": {
+          "alias": "color-paper-alpha-10"
+        }
+      }
+    },
+    "color-action-menu-danger-hover": {
+      "figmaName": "color/action-menu-danger-hover",
+      "resolvedType": "COLOR",
+      "valuesByMode": {
+        "Light": {
+          "alias": "color-red-alpha-10"
+        },
+        "Dark": {
+          "alias": "color-red-alpha-12"
+        }
+      }
+    },
+    "color-action-menu-item-hover": {
+      "figmaName": "color/action-menu-item-hover",
+      "resolvedType": "COLOR",
+      "valuesByMode": {
+        "Light": {
+          "alias": "color-ink-alpha-6"
         },
         "Dark": {
           "alias": "color-paper-alpha-10"
@@ -223,6 +247,18 @@
         },
         "Dark": {
           "alias": "color-neutral-200"
+        }
+      }
+    },
+    "color-background-menu": {
+      "figmaName": "color/background-menu",
+      "resolvedType": "COLOR",
+      "valuesByMode": {
+        "Light": {
+          "alias": "color-neutral-100"
+        },
+        "Dark": {
+          "alias": "color-neutral-800"
         }
       }
     },
@@ -490,6 +526,18 @@
         }
       }
     },
+    "color-border-tooltip": {
+      "figmaName": "color/border-tooltip",
+      "resolvedType": "COLOR",
+      "valuesByMode": {
+        "Light": {
+          "alias": "color-paper-alpha-14"
+        },
+        "Dark": {
+          "alias": "color-ink-alpha-12"
+        }
+      }
+    },
     "color-foreground-disabled": {
       "figmaName": "color/foreground-disabled",
       "resolvedType": "COLOR",
@@ -511,6 +559,18 @@
         },
         "Dark": {
           "alias": "color-neutral-0"
+        }
+      }
+    },
+    "color-foreground-menu-item": {
+      "figmaName": "color/foreground-menu-item",
+      "resolvedType": "COLOR",
+      "valuesByMode": {
+        "Light": {
+          "alias": "color-ink-alpha-86"
+        },
+        "Dark": {
+          "alias": "color-paper-alpha-86"
         }
       }
     },
@@ -658,6 +718,20 @@
         }
       }
     },
+    "color-ink-alpha-6": {
+      "figmaName": "color/ink-alpha/6",
+      "resolvedType": "COLOR",
+      "valuesByMode": {
+        "Base": {
+          "value": [
+            0.090196,
+            0.105882,
+            0.133333,
+            0.06
+          ]
+        }
+      }
+    },
     "color-ink-alpha-8": {
       "figmaName": "color/ink-alpha/8",
       "resolvedType": "COLOR",
@@ -668,6 +742,20 @@
             0.105882,
             0.133333,
             0.08
+          ]
+        }
+      }
+    },
+    "color-ink-alpha-86": {
+      "figmaName": "color/ink-alpha/86",
+      "resolvedType": "COLOR",
+      "valuesByMode": {
+        "Base": {
+          "value": [
+            0.090196,
+            0.105882,
+            0.133333,
+            0.86
           ]
         }
       }
@@ -868,6 +956,20 @@
         }
       }
     },
+    "color-paper-alpha-14": {
+      "figmaName": "color/paper-alpha/14",
+      "resolvedType": "COLOR",
+      "valuesByMode": {
+        "Base": {
+          "value": [
+            0.980392,
+            0.980392,
+            0.980392,
+            0.14
+          ]
+        }
+      }
+    },
     "color-paper-alpha-16": {
       "figmaName": "color/paper-alpha/16",
       "resolvedType": "COLOR",
@@ -906,6 +1008,20 @@
             0.980392,
             0.980392,
             0.08
+          ]
+        }
+      }
+    },
+    "color-paper-alpha-86": {
+      "figmaName": "color/paper-alpha/86",
+      "resolvedType": "COLOR",
+      "valuesByMode": {
+        "Base": {
+          "value": [
+            0.980392,
+            0.980392,
+            0.980392,
+            0.86
           ]
         }
       }
@@ -976,6 +1092,34 @@
             0.066667,
             0.098039,
             1
+          ]
+        }
+      }
+    },
+    "color-red-alpha-10": {
+      "figmaName": "color/red-alpha/10",
+      "resolvedType": "COLOR",
+      "valuesByMode": {
+        "Base": {
+          "value": [
+            1,
+            0.294118,
+            0.34902,
+            0.1
+          ]
+        }
+      }
+    },
+    "color-red-alpha-12": {
+      "figmaName": "color/red-alpha/12",
+      "resolvedType": "COLOR",
+      "valuesByMode": {
+        "Base": {
+          "value": [
+            1,
+            0.294118,
+            0.34902,
+            0.12
           ]
         }
       }
@@ -1466,6 +1610,24 @@
         }
       }
     },
+    "motion-menu-enter": {
+      "figmaName": "motion/menu-enter",
+      "resolvedType": "STRING",
+      "valuesByMode": {
+        "Global": {
+          "value": "260ms cubic-bezier(0.32, 0.72, 0, 1) delay 0ms"
+        }
+      }
+    },
+    "motion-menu-exit": {
+      "figmaName": "motion/menu-exit",
+      "resolvedType": "STRING",
+      "valuesByMode": {
+        "Global": {
+          "value": "130ms cubic-bezier(0.42, 0, 1, 1) delay 0ms"
+        }
+      }
+    },
     "motion-modal-enter": {
       "figmaName": "motion/modal-enter",
       "resolvedType": "STRING",
@@ -1508,6 +1670,24 @@
       "valuesByMode": {
         "Global": {
           "value": "0ms cubic-bezier(0.2, 0, 0, 1) delay 0ms"
+        }
+      }
+    },
+    "motion-tooltip-enter": {
+      "figmaName": "motion/tooltip-enter",
+      "resolvedType": "STRING",
+      "valuesByMode": {
+        "Global": {
+          "value": "140ms cubic-bezier(0.23, 1, 0.32, 1) delay 0ms"
+        }
+      }
+    },
+    "motion-tooltip-exit": {
+      "figmaName": "motion/tooltip-exit",
+      "resolvedType": "STRING",
+      "valuesByMode": {
+        "Global": {
+          "value": "120ms cubic-bezier(0.19, 1, 0.22, 1) delay 0ms"
         }
       }
     },
@@ -1888,6 +2068,33 @@
           "alias": "space-24"
         }
       }
+    },
+    "space-overlay-inset": {
+      "figmaName": "spacing/overlay-inset",
+      "resolvedType": "FLOAT",
+      "valuesByMode": {
+        "Global": {
+          "alias": "space-6"
+        }
+      }
+    },
+    "space-overlay-item-content-gap": {
+      "figmaName": "spacing/overlay-item-content-gap",
+      "resolvedType": "FLOAT",
+      "valuesByMode": {
+        "Global": {
+          "alias": "space-6"
+        }
+      }
+    },
+    "space-overlay-item-gap": {
+      "figmaName": "spacing/overlay-item-gap",
+      "resolvedType": "FLOAT",
+      "valuesByMode": {
+        "Global": {
+          "alias": "space-2"
+        }
+      }
     }
   },
   "styles": {
@@ -2131,6 +2338,35 @@
           0.42
         ]
       },
+      "elevation/menu": {
+        "tokenId": "elevation-menu",
+        "layers": [
+          {
+            "offsetY": 8,
+            "blur": 15,
+            "spread": 0,
+            "inset": false,
+            "color": [
+              0,
+              0,
+              0,
+              0.04
+            ]
+          },
+          {
+            "offsetY": 0,
+            "blur": 0,
+            "spread": 0.5,
+            "inset": false,
+            "color": [
+              0.835294,
+              0.843137,
+              0.866667,
+              1
+            ]
+          }
+        ]
+      },
       "elevation/modal": {
         "tokenId": "elevation-modal",
         "type": "DROP_SHADOW",
@@ -2171,6 +2407,20 @@
           0,
           0,
           0.06
+        ]
+      },
+      "elevation/tooltip": {
+        "tokenId": "elevation-tooltip",
+        "type": "DROP_SHADOW",
+        "offsetY": 12,
+        "blur": 24,
+        "spread": 0,
+        "inset": false,
+        "color": [
+          0.466667,
+          0.490196,
+          0.537255,
+          0.12
         ]
       }
     },

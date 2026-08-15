@@ -49,7 +49,7 @@ export function Tooltip({
   content,
   side = "top",
   align = "center",
-  openDelay = 280,
+  openDelay = 300,
   disabled = false,
   children,
 }: TooltipProps): JSX.Element {

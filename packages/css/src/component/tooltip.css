@@ -2,6 +2,9 @@
  *
  * 표면은 포인터 이벤트를 받지 않는다. 받으면 표면 위로 포인터가 옮겨갔을 때 trigger가 이탈로
  * 판정돼 열고 닫기를 반복한다 — 깜빡임의 원인이 표면 자신이 되는 구조다.
+ *
+ * 시각 값은 제품의 공용 SSOT(.app-tooltip-chrome + --app-tooltip-*)에서 채택했다. 채택/편차
+ * 판정은 migration/product.measured.json에 근거와 함께 있다.
  */
 
 .kds-tooltip-positioner {
@@ -11,13 +14,17 @@
 }
 
 .kds-tooltip {
-  max-inline-size: 288px;
+  /* 제품: min(320px, calc(100vw - 20px)). 뷰포트 여유는 overlay primitive가 잰 값을 쓴다. */
+  max-inline-size: min(320px, var(--kds-overlay-available-width, 100vw));
   padding-block: var(--kds-space-control-xs);
   padding-inline: var(--kds-space-control-sm);
+  /* **표면이 페이지와 반전된다.** 라이트에서 어두운 면, 다크에서 밝은 면이다. 이전 DS는
+   * background-inset이라 페이지와 같은 극성이었고 제품과 정반대였다. */
+  border: 1px solid var(--kds-color-border-tooltip);
   border-radius: var(--kds-radius-control-sm);
-  background: var(--kds-color-background-inset);
-  color: var(--kds-color-foreground-primary);
-  box-shadow: var(--kds-elevation-popover);
+  background: var(--kds-color-background-inverse);
+  color: var(--kds-color-foreground-on-inverse);
+  box-shadow: var(--kds-elevation-tooltip);
   pointer-events: none;
   /* 한 줄이 기본이고 길면 줄바꿈한다. 잘라내지 않는다 — 잘린 설명은 설명이 아니다. */
   overflow-wrap: break-word;
@@ -28,13 +35,30 @@
   letter-spacing: var(--kds-typography-caption-regular-letter-spacing);
 }
 
+/* 이전에는 animation-duration과 timing-function만 있고 **animation-name이 없었다** — 모션이
+ * 아예 걸리지 않았다. 값만 적어 두고 실제로 도는지 확인하지 않은 결과다. */
+@keyframes kds-tooltip-enter {
+  from {
+    opacity: 0;
+    scale: 0.97;
+  }
+
+  to {
+    opacity: 1;
+    scale: 1;
+  }
+}
+
 .kds-tooltip[data-kds-state="opening"] {
-  animation-duration: var(--kds-motion-overlay-enter-duration);
-  animation-timing-function: var(--kds-motion-overlay-enter-timing-function);
+  animation-name: kds-tooltip-enter;
+  animation-duration: var(--kds-motion-tooltip-enter-duration);
+  animation-timing-function: var(--kds-motion-tooltip-enter-timing-function);
 }
 
 @media (prefers-reduced-motion: reduce) {
   .kds-tooltip[data-kds-state="opening"] {
     animation-duration: var(--kds-motion-reduced-duration);
+    /* 크기 이동을 제거한다. 나타남 자체는 유지된다. */
+    animation-name: none;
   }
 }

@@ -41,27 +41,44 @@ DS 토큰 하나를 바꾸면 CSS 변수와 Tailwind 유틸리티가 함께 바�
 
 ## 단계
 
-### 1단계 — 패키지 연결 (선행)
+### 1단계 — 연결 — **완료** (2026-08-15)
 
-DS는 아직 registry에 publish되지 않았다. 연결 방법은 셋이고 각각 대가가 다르다.
+연결 방법을 셋 다 따져보면 오늘 가능한 것은 하나뿐이었다.
 
-| 방법 | 장점 | 대가 |
-| --- | --- | --- |
-| registry publish | 버전 고정, CI에서 동작 | publish 권한이 필요하다 (`DS-GOV-000` blocked) |
-| git dependency | 권한 없이 가능, 커밋 고정 | 설치가 느리고 private 저장소 접근 설정이 필요하다 |
-| `file:` 경로 | 즉시 가능 | 로컬 경로에 묶여 CI에서 깨진다 |
+| 방법 | 가능한가 |
+| --- | --- |
+| registry publish | 불가 — publish 권한이 없다 (`DS-GOV-000` blocked) |
+| git dependency | **불가 — DS 저장소에 원격이 0개다.** 가리킬 URL 자체가 없다 |
+| 복사본(vendoring) | 가능 |
 
-**판단이 필요한 지점이다.** 아래 단계는 연결 방식과 무관하게 같다.
+그래서 복사본으로 했다. klipse-web 브랜치 `design-system-adoption`, 커밋 `d7be4831`.
 
-### 2단계 — 토큰 정본 이관 (되돌리기 쉬움)
+- `apps/web/app/klipse-ds/tokens.css` — `--kds-*` 변수. `:root`와 `[data-theme="dark"]`에
+  정의되어 klipse-web의 `html[data-theme]` 토글을 그대로 따라간다
+- `apps/web/app/klipse-ds/theme.css` — `@theme inline`
+- `apps/web/scripts/check-klipse-ds.mjs` — 복사본이 원본과 같은지 검사한다. 원본을 찾지 못하면
+  건너뛴다(다른 기계에 DS 저장소가 없다고 빌드를 막을 근거는 없다)
 
-`check-tailwind-theme.mjs`의 입력을 `globals.css`에서 `@klipse-design/css/theme.css`로 바꾼다.
+**순서 함정을 실측으로 찾았다.** theme import를 klipse-web의 기존 `@theme inline` 블록 **앞에**
+두면 그 블록의 `--color-*: initial`이 DS 색을 통째로 지운다. 빌드 산출물에서
+`bg-action-primary`와 `rounded-control`이 생성되지 않고 shadow·spacing·blur만 살아남는 것을
+확인하고 뒤로 옮겼다.
 
-- 그 스크립트는 이미 생성 + 검사 구조라 입력만 바뀐다.
-- DS의 `theme.css`는 유틸리티 토큰 93개와 변수 전용 16개를 담는다.
-- **되돌리기**: 입력 경로를 원래대로 돌리면 끝난다.
+이름 충돌은 0건이다(klipse-web 144개 · DS 154개). 기존 화면은 아무것도 바뀌지 않는다.
 
-이 단계까지는 화면이 바뀌지 않는다 — 같은 값을 다른 곳에서 가져올 뿐이다.
+원격이 생기면 두 파일을 지우고 `@klipse-design/css` 의존성으로 바꾼다 — import 경로 두 줄이다.
+
+### 2단계 — 새 화면부터 DS 이름으로
+
+1단계로 DS 유틸리티가 생겼지만 **아무도 아직 쓰지 않는다.** Tailwind는 쓰인 것만 만들므로 지금
+산출물에는 DS 클래스가 하나도 없다.
+
+- 새로 짓는 화면은 `bg-action-primary` 같은 DS 이름을 쓴다.
+- 기존 화면은 그대로 둔다. `--gray-*` 계열을 한 번에 걷어내지 않는다.
+- **되돌리기**: 그 화면의 클래스만 되돌리면 된다.
+
+klipse-web의 `check-tailwind-theme.mjs`가 여전히 `globals.css`를 입력으로 쓰는 것은 그대로 둔다.
+그 블록은 `--gray-*` 계열을 담당하고 DS 블록은 별개이므로 서로 간섭하지 않는다.
 
 ### 3단계 — 값 정합 (화면이 바뀐다)
 

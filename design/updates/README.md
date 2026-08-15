@@ -8,6 +8,37 @@ authority: normative
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
 
+## 2026-08-15 — 인계서를 실제 상태에 맞춘다
+
+**규범이 아니라 사실 정정이다.** [인계서](../governance/execution-handoff.md)의 다음 포인터가
+2026-08-14 이후 갱신되지 않아, 그 사이 커밋 다섯 개가 만든 상태를 담지 못했다. 큐가 정본인데 정본이
+실제와 어긋나 있었다.
+
+무엇이 틀려 있었나.
+
+- `DS-P3-013`(아이콘)이 "여전히 0개"라고 적혀 있었다. 실제로는 글리프 26개가 React·Figma 양쪽에
+  서 있고 게이트가 positive 6 + canary 20종이다. `done`으로 고쳤다.
+- Icon Button·Tooltip·Toast가 큐 어디에도 없었다. 셋 다 Web `partial`이고 docs `done`이다.
+  `DS-P3-009`에 gap registry 순위표로 넣었다.
+- `DS-F-007-home`이 수행됐다는 기록이 없었다. gap 72건과 그 판정을 항목에 적었다.
+- `DS-F-006`은 Button만 있고 나머지가 열려 있다는 사실이 드러나지 않았다.
+
+**앞질러 간 의존성을 감추지 않고 적었다.** `DS-P3-009`는 문서상 `DS-P3-008`(RC 패키징) 의존이지만
+Icon Button·Tooltip·Toast를 그보다 먼저 구현했다. RC는 "무엇을 먼저 만들 것인가"의 입력이 아니고,
+DS-P3-009a 인벤토리와 Home 재조립이 그 근거를 실측으로 냈기 때문이다. 완료 조건은 약화하지 않았다.
+Icon Button이 원래 목록(Input, Select, Tooltip, Toast, Empty State)에 없던 항목이라는 것도 함께 적었다.
+
+계획 밖에서 들어온 토큰도 기록했다. `icon-size-*`, `layout-control-height-*`, `radius-control-sm`,
+`color-background-inverse`/`color-foreground-on-inverse`는 `DS-P3-014`의 10개 단위 바깥에서
+component가 요구해 들어왔다. 각각 규범·Figma 변수·snapshot까지 같은 변경 단위에서 반영했으므로
+누락은 없으나 단위 6·7의 잔여 범위는 다시 세어야 한다.
+
+### 다음 포인터
+
+`DS-F-006`의 나머지 component set 다섯이다. Web에 여섯이 서 있는데 Figma에는 Button 하나뿐이고,
+목표 B는 Figma component로만 재조립하는 것이므로 **코드와 Figma의 격차가 지금 목표 B의 단일
+병목**이다. 순서는 gap registry를 따른다.
+
 ## 2026-08-15 — Toast
 
 gap registry 3순위다. 세 화면 실측에서 **20개 파일이 toast를 쓰는데 공용 컴포넌트가 없었고**, 같은

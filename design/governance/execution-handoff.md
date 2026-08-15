@@ -202,28 +202,45 @@ Core RC는 P3 전체 완료가 아니다.
 큐는 네 트랙으로 나뉜다. 코드 트랙(P3)과 Figma 트랙(DS-F)은 병렬이며, Figma variables 구축은 React
 구현을 기다리지 않는다. DS-F-006 component parity만 해당 컴포넌트의 코드 구현과 짝을 이룬다.
 
-**현재 다음 포인터 (2026-08-14 갱신):** `DS-GOV-001`, `DS-P3-009a`, `DS-F-000`~`DS-F-005`,
-`DS-P3-002a`, `DS-P3-002`(1단계)가 `done`이다. `DS-P3-001`은 Decision 7종 작성 완료로
-`in-progress`이며 owner 확인만 남았다.
+**현재 다음 포인터 (2026-08-15 갱신):** `DS-GOV-000`을 제외한 GOV 트랙, `DS-F-000`~`DS-F-005`,
+`DS-P3-002a`, `DS-P3-002`(1단계), `DS-P3-003`, `DS-P3-009a`, `DS-P3-013`이 `done`이다. `DS-P3-001`은
+자기 몫의 Decision 6종을 다 쓰고 `in-progress`이며 owner 확인만 남았다(저장소 전체 Decision은 12종).
 
-`DS-P3-003` foundation, `DS-P3-004`(Button, Web `partial`), `DS-P3-005`(overlay behavior layer)도
-완료했다.
+Web 구현이 선 component는 일곱이다 — Button, Menu/Popover, Dialog, Icon Button, Tooltip, Toast가
+모두 Web `partial`이고 docs `done`이다. Input·Select·Empty State는 여전히 `not-ready`다.
 
-`DS-P3-006`(Menu/Popover)도 완료했다 — Web `partial`.
+**다음은 `DS-F-006`의 나머지 component set이다.** 근거는 이렇다. Figma에 있는 component는 여전히
+`Button` 하나뿐인데(아이콘 26개는 별도), Web에는 여섯이 서 있다. 목표 B는 배포 화면을 DS 자산만으로
+재조립하는 것이고 그 자산은 Figma component이므로, **코드와 Figma의 격차가 지금 목표 B의 단일
+병목이다.** DS-F-007-home이 실측으로 그것을 확인했다 — 321건 중 gap 72건, 재조립이 픽셀 재현이 아니라
+coverage 측정에 머물렀다.
 
-`DS-P3-007`(Dialog)도 완료했다 — Web `partial`.
+순서는 [gap registry](../../migration/figma-gap-registry.md)의 우선순위를 따른다. 4순위 Menu/Popover와
+5순위 Dialog가 "코드는 있고 Figma에 없다"에 정확히 해당하며, Icon Button·Tooltip·Toast도 같은 상태다.
 
-**다음은 `DS-P3-008`(Core local RC)이다.** 의존성인 DS-P3-004·006·007이 모두 `done`이므로 열렸다.
-다만 `DS-P3-013`(아이콘)이 여전히 0개이고 `DS-P3-014`가 `in-progress`라, RC의 내용이 무엇을 담을지는
-그 둘의 진행에 달려 있다. 아이콘 없이는 목표 B(Figma 재조립)가 성립하지 않으므로 `DS-P3-013`을
-먼저 처리하는 편이 낫다.
+`DS-P3-008`(Core local RC)은 의존성이 모두 충족돼 열려 있으나 아직 시작하지 않았다. `DS-P3-009`
+카탈로그도 열려 있고, 남은 것은 Input·Select·Empty State와 gap registry 6순위 이하다.
+
+**큐 순서를 바꾼 사실을 명시한다.** `DS-P3-009`는 문서상 `DS-P3-008` 의존이지만, Icon Button·Tooltip·
+Toast는 DS-P3-008보다 먼저 구현했다. 이유는 DS-P3-009a 인벤토리와 Home 재조립이 만든 gap registry가
+"무엇을 먼저 만들어야 하는가"의 근거를 실측으로 제공했고, RC 패키징이 그 판단의 입력이 아니기
+때문이다. 완료 조건은 약화하지 않았다 — 세 component 모두 규범·구현·실브라우저 acceptance test·
+Storybook·Updates·manifest를 같은 변경 단위에서 갖췄다.
+
+**Icon Button은 원래 큐에 없던 항목이다.** DS-P3-009의 목록(Input, Select, Tooltip, Toast, Empty
+State)에 없었고, 제품 실측에서 raw `<button>` 108개의 다수가 아이콘 전용이라는 사실이 나온 뒤
+gap registry 1순위로 추가됐다.
 
 **컴포넌트 워크샵이 섰다** — `pnpm --filter @klipse-design/storybook dev`.
 [DS-D-0012](decisions/DS-D-0012-component-workshop.md)가 경계를 소유하고, 게이트 수 변화는 0이다.
 도입 직후 실측에서 헤드리스 테스트가 못 보던 결함 셋이 나왔고 그 기록은 그 Decision에 있다.
 남은 component와 pattern은 **눈으로 확인하며** 만든다.
 
-`DS-P3-014`(token coverage 확장)와 `DS-P3-013`(아이콘)도 병렬로 진행할 수 있다.
+`DS-P3-014`(token coverage 확장)는 `in-progress`이며 병렬로 진행할 수 있다. 다만 계획된 10개 단위
+바깥에서 component가 요구한 토큰이 이미 여럿 들어왔다 — `icon-size-*`, `layout-control-height-*`,
+`radius-control-sm`, `color-background-inverse`/`color-foreground-on-inverse`. 각각은 해당 component의
+변경 단위 안에서 규범·Figma 변수·snapshot까지 함께 반영했으므로 누락은 없으나, 단위 6·7의 잔여
+범위는 다시 세어야 한다.
 
 그 외 항목은 `pending`이며, 예외는 DS-GOV-000(`blocked`)과 DS-P3-011(해체됨)이다.
 
@@ -562,7 +579,24 @@ Home/Highlight/Editor가 각각 단일 route가 아니라는 사실과 카탈로
 
 #### DS-P3-009 — Catalog coverage
 
+**상태:** `in-progress` (2026-08-15). 순서를 문서상 목록이 아니라
+[gap registry](../../migration/figma-gap-registry.md)의 실측 우선순위로 바꿨다.
+
+| 순위 | 항목 | 상태 |
+| --- | --- | --- |
+| 1 | Icon Button | `done` — Web `partial`. 원래 목록에 없던 항목이다 |
+| 2 | Tooltip | `done` — Web `partial` |
+| 3 | Toast | `done` — Web `partial` |
+| 6 이하 | ProjectCard, TextField/Input, EmptyState, Badge, Spinner/Progress, 셸, Slider, SegmentedControl, Checkbox, SelectableListRow | `pending` |
+| — | Select | `pending`. gap registry 상위 15에 들지 않았다 |
+
+4·5순위(Menu/Popover, Dialog)는 코드가 이미 서 있어 이 항목이 아니라 DS-F-006이 남은 몫이다.
+
 **의존성:** DS-P3-008. 우선순위 근거는 DS-P3-009a.
+
+**의존성을 앞질렀다는 사실을 기록한다.** 1·2·3순위는 DS-P3-008(RC 패키징) 전에 구현했다. RC는 무엇을
+먼저 만들지의 입력이 아니고, gap registry가 그 근거를 실측으로 제공했기 때문이다. 완료 조건은
+약화하지 않았다.
 
 - product adoption 우선순위와 접근성 위험을 기준으로 Input, Select, Tooltip, Toast, Empty State를 순서화한다.
 - docs가 `not-ready`인 항목은 component template에 맞는 규범부터 작성한다.
@@ -604,7 +638,19 @@ library(DS-F-008)는 선행 조건이 아니며, npm 공개와 Figma publish는 
 coverage가 끝나지 않았다면 P3 core release라고 명시한다. published Figma library는 DS-F-008의 완료
 근거다.
 
-#### DS-P3-013 — 아이콘 트랙
+#### DS-P3-013 — 아이콘 트랙 — `done`
+
+**상태:** `done` (2026-08-15). 정본은 저장소 SVG이고
+[DS-D-0008](decisions/DS-D-0008-icon-source.md)이 그 경계를 소유한다. 글리프 26개가 React·Figma
+양쪽에 서 있으며 provenance와 라이선스 원문이 글리프마다 붙는다.
+
+- 정본 `packages/react/src/icons/svg/*.svg` 26개, generated React component와 manifest, Figma
+  component 26개. `figma/snapshot.json`의 icon 수가 그 증거다.
+- 게이트는 positive 6 + 변조 canary 20종이다. 그중 셋은 여기서 실제로 잡은 결함이다 —
+  작은따옴표 속성을 파서가 조용히 흘려 **게이트를 통과하면서 출력에서 사라지던** 버그, 혼합
+  라이선스를 하나로 뭉개 `ISC AND MIT`를 감추던 고지문, 최상위 부수효과.
+- 남은 owner 판정: `eye-slash` 은유 변경(제품 17곳), `x-circle` Fill→regular, `magic-wand` 처리,
+  Wave B 4개.
 
 **의존성:** DS-P3-009a
 
@@ -782,6 +828,19 @@ description에 기록했다. parity 게이트가 style 10종까지 검증하므�
 #### DS-F-006-{component} — Component library
 
 **상태:** `DS-F-006-button` `done` (2026-08-14). Figma `partial`로 올렸고 publish는 DS-F-008이다.
+**나머지 다섯은 `ready`이며 이것이 현재 다음 포인터다** (2026-08-15).
+
+| 하위 작업 | 코드 | Figma | gap registry 순위 |
+| --- | --- | --- | --- |
+| `DS-F-006-button` | `partial` | `partial` | — |
+| `DS-F-006-icon-button` | `partial` | `not-ready` | 1 |
+| `DS-F-006-tooltip` | `partial` | `not-ready` | 2 |
+| `DS-F-006-toast` | `partial` | `not-ready` | 3 |
+| `DS-F-006-menu-popover` | `partial` | `not-ready` | 4 |
+| `DS-F-006-dialog` | `partial` | `not-ready` | 5 |
+
+여섯 중 다섯이 코드만 서 있고 Figma에 없다. DS-F-007-home 실측이 이 격차를 숫자로 확인했다 —
+재조립이 요구한 자산 대부분이 Figma에 존재하지 않아 gap 72건이 나왔다. 목표 B의 병목은 여기다.
 
 - `Button` component set 40 variant (Variant 4 × Size 2 × State 5). fill 72·stroke 18이 전부 변수
   바인딩이고 텍스트 40개가 전부 text style이다 — **raw 값 0**.
@@ -805,6 +864,22 @@ parity 게이트가 이제 mode 순서와 기본 모드를 검증한다. token g
 **완료 근거:** component set, 상태별 시각 대조 기록, 확장된 parity report.
 
 #### DS-F-007-{screen} — 배포 화면 재조립 검증
+
+**상태:** `DS-F-007-home` 1차 수행 완료 (2026-08-15), 그러나 화면 기준은 **미충족**이다. 산출물은
+[gap registry](../../migration/figma-gap-registry.md)이고 template은 `figma/templates.measured.json`이
+제품 실측값에 묶는다.
+
+- 제품 홈(`/archive`)을 축 4개로 321건 실측해 **gap 72건**을 찾았다. Figma에 있던 자산은 Button
+  component set 하나와 아이콘 26개뿐이라 ProjectCard·SidebarNavItem·AppTopBar·Menu·EmptyState·
+  Avatar·Badge·BannerCarousel이 전부 없었다.
+- 그래서 이 단계는 픽셀 재현이 아니라 **coverage 측정**이다. 자홍색 파선이 raw 영역을 드러내며,
+  그 파선이 화면 대부분을 차지한다는 사실 자체가 판정이다.
+- Highlight 130건, Editor 144건의 gap도 같은 방식으로 기록했다.
+- 이름만 보고 집으면 화면이 달라지는 토큰 둘을 여기서 찾았다 — `radius-card`(20px)의 유일한
+  소비처가 dialog sheet인데 제품의 실제 카드는 전부 16px이고, `layout-project-card-minimum`은
+  CSS 소비자가 0이며 제품이 쓰지 않는 `minmax` 알고리즘을 서술한다. 둘 다 owner 판정 대기다.
+
+**세 화면 모두 gap 0이 될 때까지 이 항목은 `done`이 아니다.**
 
 **의존성:** DS-F-005, 해당 화면에 필요한 DS-F-006 component, DS-P3-009a. 화면(Home, Highlight,
 Editor)별로 하위 작업 단위다.

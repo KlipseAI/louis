@@ -11,6 +11,7 @@ import {
   ICON_LICENSE_DIRECTORY,
   ICON_OUTPUT_DIRECTORY,
   ICON_OUTPUT_PATHS,
+  ICON_KEYWORDS_PATH,
   ICON_PROVENANCE_PATH,
   ICON_SOURCE_DIRECTORY,
   IconValidationError,
@@ -129,16 +130,26 @@ if (
   }
 }
 
+let keywords = null;
+const keywordsAbsolute = absoluteRepoPath(ICON_KEYWORDS_PATH, "icon keywords");
+if (keywordsAbsolute && validateExistingFile(keywordsAbsolute, "icon keywords", true)) {
+  try {
+    keywords = JSON.parse(readFileSync(keywordsAbsolute, "utf8")).keywords ?? {};
+  } catch (error) {
+    errors.push(`검색 키워드를 읽을 수 없습니다: ${error.message}`);
+  }
+}
+
 let expectedOutputs = null;
-if (errors.length === 0 && provenance) {
+if (errors.length === 0 && provenance && keywords) {
   try {
     expectedOutputs = renderIconOutputs(
-      compileIconSource(svgFiles, provenance, licenses),
+      compileIconSource(svgFiles, provenance, licenses, keywords),
     );
     // 순수성 증명 — 같은 process에서 두 번 render해 byte 동일함을 확인한다. 생성이
     // 입력 외의 무엇(삽입 순서, 시각, 난수)에 의존하면 여기서 드러난다.
     const again = renderIconOutputs(
-      compileIconSource(svgFiles, provenance, licenses),
+      compileIconSource(svgFiles, provenance, licenses, keywords),
     );
     for (const [path, value] of expectedOutputs) {
       if (again.get(path) !== value) {

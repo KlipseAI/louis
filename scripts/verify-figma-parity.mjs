@@ -335,6 +335,7 @@ const TAMPERS = [
   tamperComponentBlurUnbound,
   tamperComponentExtraEffect,
   tamperIconMissing,
+  tamperIconKeywords,
   tamperIconFrame,
   tamperIconRawPaint,
   tamperIconElementCount,
@@ -711,6 +712,18 @@ function compareIcons(actualIcons) {
     }
     if (got.hasDescription !== true) {
       issues.push(`${icon.figmaName}: description이 없습니다. 정본 경로를 적어 두어야 합니다.`);
+    }
+    // description은 설명문이자 **검색 채널**이다. 사람은 아이콘의 이름을 모른 채 찾는다 —
+    // "휴지통"을 떠올리지 `trash-simple`을 떠올리지 않는다. 코드 manifest의 키워드가 그대로
+    // Figma에 있어야 asset 패널 검색과 문서 검색이 같은 결과를 낸다.
+    const wantKeywords = [...(icon.keywords ?? [])].sort();
+    const gotKeywords = [...(got.keywords ?? [])].sort();
+    if (wantKeywords.length === 0) {
+      issues.push(`${icon.figmaName}: 코드 manifest에 검색 키워드가 없습니다.`);
+    } else if (JSON.stringify(wantKeywords) !== JSON.stringify(gotKeywords)) {
+      issues.push(
+        `${icon.figmaName}: 검색 키워드가 다릅니다 — 코드 [${wantKeywords.join(", ")}], Figma [${gotKeywords.join(", ")}]`,
+      );
     }
   }
 
@@ -1383,6 +1396,16 @@ function nearlyEqual(left, right) {
 
 function firstIconName(document) {
   return Object.keys(document.icons ?? {}).sort()[0];
+}
+
+/** 아이콘 검색 키워드가 Figma에서 갈라지는 경우. */
+function tamperIconKeywords(document) {
+  for (const [name, icon] of Object.entries(document.icons ?? {})) {
+    if (!Array.isArray(icon.keywords) || icon.keywords.length === 0) continue;
+    icon.keywords = [icon.keywords[0]];
+    return `아이콘 검색 키워드 변조 ${name}`;
+  }
+  return null;
 }
 
 function tamperIconMissing(document) {

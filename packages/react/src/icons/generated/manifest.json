@@ -12,6 +12,14 @@
       "source": "packages/react/src/icons/svg/arrow-up.svg",
       "geometryHash": "2969776bbb07797d",
       "elementCount": 2,
+      "keywords": [
+        "arrow",
+        "up",
+        "위로",
+        "화살표",
+        "맨 위",
+        "상단"
+      ],
       "provenance": {
         "origin": "upstream",
         "project": "Phosphor Icons",
@@ -30,6 +38,16 @@
       "source": "packages/react/src/icons/svg/arrows-left-right.svg",
       "geometryHash": "32512613eab010b9",
       "elementCount": 4,
+      "keywords": [
+        "arrows",
+        "swap",
+        "left",
+        "right",
+        "좌우",
+        "교체",
+        "전환",
+        "화살표"
+      ],
       "provenance": {
         "origin": "upstream",
         "project": "Phosphor Icons",
@@ -48,6 +66,15 @@
       "source": "packages/react/src/icons/svg/check-circle.svg",
       "geometryHash": "86e9656177522226",
       "elementCount": 2,
+      "keywords": [
+        "check",
+        "success",
+        "done",
+        "완료",
+        "성공",
+        "확인",
+        "체크"
+      ],
       "provenance": {
         "origin": "upstream",
         "project": "Phosphor Icons",
@@ -66,6 +93,12 @@
       "source": "packages/react/src/icons/svg/copy.svg",
       "geometryHash": "eaf3d9746792985b",
       "elementCount": 2,
+      "keywords": [
+        "copy",
+        "duplicate",
+        "복사",
+        "복제"
+      ],
       "provenance": {
         "origin": "upstream",
         "project": "Lucide",
@@ -84,6 +117,13 @@
       "source": "packages/react/src/icons/svg/copy-check.svg",
       "geometryHash": "c23bcbaa980915cd",
       "elementCount": 3,
+      "keywords": [
+        "copy",
+        "copied",
+        "done",
+        "복사됨",
+        "복사 완료"
+      ],
       "provenance": {
         "origin": "upstream",
         "project": "Lucide",
@@ -102,6 +142,15 @@
       "source": "packages/react/src/icons/svg/dots-three-vertical.svg",
       "geometryHash": "56b6632ebbe0b4fb",
       "elementCount": 3,
+      "keywords": [
+        "more",
+        "menu",
+        "overflow",
+        "kebab",
+        "더보기",
+        "메뉴",
+        "점 세 개"
+      ],
       "provenance": {
         "origin": "upstream",
         "project": "Phosphor Icons",
@@ -120,6 +169,13 @@
       "source": "packages/react/src/icons/svg/download-simple.svg",
       "geometryHash": "1ee1b1b597b2ab45",
       "elementCount": 3,
+      "keywords": [
+        "download",
+        "save",
+        "내려받기",
+        "다운로드",
+        "저장"
+      ],
       "provenance": {
         "origin": "upstream",
         "project": "Phosphor Icons",
@@ -138,6 +194,16 @@
       "source": "packages/react/src/icons/svg/eye.svg",
       "geometryHash": "5e380373791ad833",
       "elementCount": 2,
+      "keywords": [
+        "eye",
+        "view",
+        "visible",
+        "preview",
+        "보기",
+        "표시",
+        "미리보기",
+        "눈"
+      ],
       "provenance": {
         "origin": "upstream",
         "project": "Iconoir",
@@ -156,6 +222,15 @@
       "source": "packages/react/src/icons/svg/eye-slash.svg",
       "geometryHash": "800ddc1c0c95b85c",
       "elementCount": 4,
+      "keywords": [
+        "eye",
+        "hide",
+        "hidden",
+        "invisible",
+        "숨기기",
+        "가리기",
+        "비표시"
+      ],
       "provenance": {
         "origin": "upstream",
         "project": "Iconoir",
@@ -174,6 +249,14 @@
       "source": "packages/react/src/icons/svg/file-zip.svg",
       "geometryHash": "736b406193f61254",
       "elementCount": 5,
+      "keywords": [
+        "file",
+        "zip",
+        "archive",
+        "압축",
+        "파일",
+        "아카이브"
+      ],
       "provenance": {
         "origin": "upstream",
         "project": "Phosphor Icons",
@@ -192,6 +275,12 @@
       "source": "packages/react/src/icons/svg/folder.svg",
       "geometryHash": "2d8d3ded0cbd0741",
       "elementCount": 2,
+      "keywords": [
+        "folder",
+        "directory",
+        "폴더",
+        "디렉터리"
+      ],
       "provenance": {
         "origin": "upstream",
         "project": "Phosphor Icons",
@@ -210,6 +299,16 @@
       "source": "packages/react/src/icons/svg/graph.svg",
       "geometryHash": "509767344c5fa8d2",
       "elementCount": 9,
+      "keywords": [
+        "graph",
+        "chart",
+        "analytics",
+        "stats",
+        "그래프",
+        "차트",
+        "통계",
+        "분석"
+      ],
       "provenance": {
         "origin": "upstream",
         "project": "Phosphor Icons",
@@ -228,6 +327,15 @@
       "source": "packages/react/src/icons/svg/hand.svg",
       "geometryHash": "c1c33e8aa9e89cba",
       "elementCount": 2,
+      "keywords": [
+        "hand",
+        "drag",
+        "pan",
+        "grab",
+        "손",
+        "이동",
+        "끌기"
+      ],
       "provenance": {
         "origin": "upstream",
         "project": "Phosphor Icons",
@@ -246,6 +354,13 @@
       "source": "packages/react/src/icons/svg/house.svg",
       "geometryHash": "ea6d69a610b7e38a",
       "elementCount": 1,
+      "keywords": [
+        "home",
+        "house",
+        "홈",
+        "집",
+        "처음"
+      ],
       "provenance": {
         "origin": "upstream",
         "project": "Phosphor Icons",
@@ -264,6 +379,14 @@
       "source": "packages/react/src/icons/svg/image.svg",
       "geometryHash": "e29fc897cc10a40c",
       "elementCount": 3,
+      "keywords": [
+        "image",
+        "photo",
+        "picture",
+        "이미지",
+        "사진",
+        "그림"
+      ],
       "provenance": {
         "origin": "upstream",
         "project": "Iconoir",
@@ -282,6 +405,14 @@
       "source": "packages/react/src/icons/svg/info.svg",
       "geometryHash": "da06e939122835d2",
       "elementCount": 3,
+      "keywords": [
+        "info",
+        "information",
+        "help",
+        "정보",
+        "안내",
+        "도움말"
+      ],
       "provenance": {
         "origin": "upstream",
         "project": "Phosphor Icons",
@@ -300,6 +431,14 @@
       "source": "packages/react/src/icons/svg/magnifying-glass.svg",
       "geometryHash": "d87d50c0db6f98d9",
       "elementCount": 2,
+      "keywords": [
+        "search",
+        "find",
+        "zoom",
+        "검색",
+        "찾기",
+        "돋보기"
+      ],
       "provenance": {
         "origin": "upstream",
         "project": "Phosphor Icons",
@@ -318,6 +457,16 @@
       "source": "packages/react/src/icons/svg/monitor-arrow-up.svg",
       "geometryHash": "b6cd857b0c294f17",
       "elementCount": 4,
+      "keywords": [
+        "monitor",
+        "upload",
+        "screen",
+        "export",
+        "모니터",
+        "화면",
+        "업로드",
+        "내보내기"
+      ],
       "provenance": {
         "origin": "upstream",
         "project": "Phosphor Icons",
@@ -336,6 +485,16 @@
       "source": "packages/react/src/icons/svg/music-notes-simple.svg",
       "geometryHash": "d6c2fa0ddcbbe508",
       "elementCount": 3,
+      "keywords": [
+        "music",
+        "audio",
+        "sound",
+        "note",
+        "음악",
+        "오디오",
+        "소리",
+        "음표"
+      ],
       "provenance": {
         "origin": "upstream",
         "project": "Phosphor Icons",
@@ -354,6 +513,16 @@
       "source": "packages/react/src/icons/svg/plus.svg",
       "geometryHash": "8c206963d083da32",
       "elementCount": 2,
+      "keywords": [
+        "plus",
+        "add",
+        "new",
+        "create",
+        "추가",
+        "새로",
+        "만들기",
+        "더하기"
+      ],
       "provenance": {
         "origin": "upstream",
         "project": "Phosphor Icons",
@@ -372,6 +541,16 @@
       "source": "packages/react/src/icons/svg/text.svg",
       "geometryHash": "db46a66f8619e1ca",
       "elementCount": 3,
+      "keywords": [
+        "text",
+        "type",
+        "font",
+        "caption",
+        "텍스트",
+        "글자",
+        "자막",
+        "문자"
+      ],
       "provenance": {
         "origin": "upstream",
         "project": "Lucide",
@@ -390,6 +569,15 @@
       "source": "packages/react/src/icons/svg/trash-simple.svg",
       "geometryHash": "b1c3233e93dfad33",
       "elementCount": 3,
+      "keywords": [
+        "trash",
+        "delete",
+        "remove",
+        "bin",
+        "삭제",
+        "지우기",
+        "휴지통"
+      ],
       "provenance": {
         "origin": "upstream",
         "project": "Phosphor Icons",
@@ -408,6 +596,16 @@
       "source": "packages/react/src/icons/svg/user-sound.svg",
       "geometryHash": "9b6c692fd27603ce",
       "elementCount": 4,
+      "keywords": [
+        "user",
+        "voice",
+        "speaker",
+        "narration",
+        "사용자",
+        "목소리",
+        "화자",
+        "내레이션"
+      ],
       "provenance": {
         "origin": "upstream",
         "project": "Phosphor Icons",
@@ -426,6 +624,15 @@
       "source": "packages/react/src/icons/svg/waveform.svg",
       "geometryHash": "3b7d9413045dbd90",
       "elementCount": 5,
+      "keywords": [
+        "waveform",
+        "audio",
+        "wave",
+        "sound",
+        "파형",
+        "오디오",
+        "소리"
+      ],
       "provenance": {
         "origin": "upstream",
         "project": "Phosphor Icons",
@@ -444,6 +651,15 @@
       "source": "packages/react/src/icons/svg/x.svg",
       "geometryHash": "16c6b878ab320c97",
       "elementCount": 2,
+      "keywords": [
+        "close",
+        "x",
+        "dismiss",
+        "cancel",
+        "닫기",
+        "취소",
+        "엑스"
+      ],
       "provenance": {
         "origin": "upstream",
         "project": "Phosphor Icons",
@@ -462,6 +678,16 @@
       "source": "packages/react/src/icons/svg/x-circle.svg",
       "geometryHash": "9b77c94ecff24b16",
       "elementCount": 3,
+      "keywords": [
+        "close",
+        "error",
+        "remove",
+        "clear",
+        "닫기",
+        "오류",
+        "지우기",
+        "제거"
+      ],
       "provenance": {
         "origin": "upstream",
         "project": "Phosphor Icons",

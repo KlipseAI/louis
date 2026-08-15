@@ -552,6 +552,29 @@ upstream 글리프를 채택하면 그 라이선스 원문이 저장소에 함�
 - 히트 영역은 아이콘이 소유하지 않는다. 주요 액션의 44×44 CSS px 계약은 부모 컨트롤이 소유한다
   ([Inclusive Design](../foundations/inclusive-design.md)의 "시각 아이콘 크기와 실제 히트 영역을 분리").
 
+#### 검색
+
+**사람은 아이콘의 이름을 모른 채 찾는다.** "휴지통"을 떠올리지 `trash-simple`을 떠올리지 않는다.
+그래서 글리프마다 한국어와 영어 동의어를 함께 선언한다.
+
+- 원천은 [`packages/react/src/icons/keywords.json`](../../packages/react/src/icons/keywords.json)이며
+  글리프당 2개 이상, **한국어를 최소 하나** 포함해야 한다. 없으면 빌드가 실패한다.
+- 같은 목록이 icon manifest와 Figma component description의 `KEYWORDS:` 블록에 함께 들어간다.
+  parity 게이트가 둘이 갈라지지 않는지 매 실행 확인한다.
+- 구분자는 ASCII 마커다. 이모지 마커는 파싱과 diff에서 다루기 어렵다.
+
+#### 왜 낱개 component인가
+
+Figma에서 아이콘 26개는 **각각 독립 component**다. component set으로 묶지 않는다.
+
+variant 축은 **값이 2개 이상일 때만** 만든다. Klipse 아이콘은 두께가 `1.5` 하나뿐이라 묶을 축이
+없다 — 축이 하나뿐인 set은 드롭다운에 값이 하나만 있는 빈 껍데기가 된다. 나중에 Fill 두께를
+그리게 되면 그때 `Weight` 축으로 묶는다.
+
+낱개여도 활용성이 떨어지지 않는 이유는 **소비 방식이 instance swap이기 때문**이다. Button의
+`LeftIconGlyph`, IconButton의 `Glyph`가 INSTANCE_SWAP property이므로 컴포넌트 안에서 26개 중
+아무거나 고를 수 있다. asset 패널은 `icon/` 접두사로 이미 한 폴더로 묶는다.
+
 #### Color contract
 
 - 아이콘은 `currentColor`만 쓴다. 자기 색을 정하지 않으며 부모의 `color`를 상속한다.

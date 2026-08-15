@@ -1,0 +1,231 @@
+{
+  "$comment": "아이콘 검색 키워드. 사람이 Figma asset 패널과 문서에서 아이콘을 **이름을 몰라도** 찾을 수 있게 한다. 한국어와 영어를 함께 넣는다 — 이름은 영어인데 찾는 사람은 한국어로 떠올린다. SEED가 Figma description에 키워드 블록을 두고 파이프라인이 파싱하는 방식을 따랐고, 구분자는 이모지 대신 ASCII 마커를 쓴다(파싱과 diff에 안전하다). 글리프가 추가되면 여기에도 항목이 있어야 빌드가 통과한다.",
+  "keywords": {
+    "arrow-up": [
+      "arrow",
+      "up",
+      "위로",
+      "화살표",
+      "맨 위",
+      "상단"
+    ],
+    "arrows-left-right": [
+      "arrows",
+      "swap",
+      "left",
+      "right",
+      "좌우",
+      "교체",
+      "전환",
+      "화살표"
+    ],
+    "check-circle": [
+      "check",
+      "success",
+      "done",
+      "완료",
+      "성공",
+      "확인",
+      "체크"
+    ],
+    "copy": [
+      "copy",
+      "duplicate",
+      "복사",
+      "복제"
+    ],
+    "copy-check": [
+      "copy",
+      "copied",
+      "done",
+      "복사됨",
+      "복사 완료"
+    ],
+    "dots-three-vertical": [
+      "more",
+      "menu",
+      "overflow",
+      "kebab",
+      "더보기",
+      "메뉴",
+      "점 세 개"
+    ],
+    "download-simple": [
+      "download",
+      "save",
+      "내려받기",
+      "다운로드",
+      "저장"
+    ],
+    "eye": [
+      "eye",
+      "view",
+      "visible",
+      "preview",
+      "보기",
+      "표시",
+      "미리보기",
+      "눈"
+    ],
+    "eye-slash": [
+      "eye",
+      "hide",
+      "hidden",
+      "invisible",
+      "숨기기",
+      "가리기",
+      "비표시"
+    ],
+    "file-zip": [
+      "file",
+      "zip",
+      "archive",
+      "압축",
+      "파일",
+      "아카이브"
+    ],
+    "folder": [
+      "folder",
+      "directory",
+      "폴더",
+      "디렉터리"
+    ],
+    "graph": [
+      "graph",
+      "chart",
+      "analytics",
+      "stats",
+      "그래프",
+      "차트",
+      "통계",
+      "분석"
+    ],
+    "hand": [
+      "hand",
+      "drag",
+      "pan",
+      "grab",
+      "손",
+      "이동",
+      "끌기"
+    ],
+    "house": [
+      "home",
+      "house",
+      "홈",
+      "집",
+      "처음"
+    ],
+    "image": [
+      "image",
+      "photo",
+      "picture",
+      "이미지",
+      "사진",
+      "그림"
+    ],
+    "info": [
+      "info",
+      "information",
+      "help",
+      "정보",
+      "안내",
+      "도움말"
+    ],
+    "magnifying-glass": [
+      "search",
+      "find",
+      "zoom",
+      "검색",
+      "찾기",
+      "돋보기"
+    ],
+    "monitor-arrow-up": [
+      "monitor",
+      "upload",
+      "screen",
+      "export",
+      "모니터",
+      "화면",
+      "업로드",
+      "내보내기"
+    ],
+    "music-notes-simple": [
+      "music",
+      "audio",
+      "sound",
+      "note",
+      "음악",
+      "오디오",
+      "소리",
+      "음표"
+    ],
+    "plus": [
+      "plus",
+      "add",
+      "new",
+      "create",
+      "추가",
+      "새로",
+      "만들기",
+      "더하기"
+    ],
+    "text": [
+      "text",
+      "type",
+      "font",
+      "caption",
+      "텍스트",
+      "글자",
+      "자막",
+      "문자"
+    ],
+    "trash-simple": [
+      "trash",
+      "delete",
+      "remove",
+      "bin",
+      "삭제",
+      "지우기",
+      "휴지통"
+    ],
+    "user-sound": [
+      "user",
+      "voice",
+      "speaker",
+      "narration",
+      "사용자",
+      "목소리",
+      "화자",
+      "내레이션"
+    ],
+    "waveform": [
+      "waveform",
+      "audio",
+      "wave",
+      "sound",
+      "파형",
+      "오디오",
+      "소리"
+    ],
+    "x": [
+      "close",
+      "x",
+      "dismiss",
+      "cancel",
+      "닫기",
+      "취소",
+      "엑스"
+    ],
+    "x-circle": [
+      "close",
+      "error",
+      "remove",
+      "clear",
+      "닫기",
+      "오류",
+      "지우기",
+      "제거"
+    ]
+  }
+}

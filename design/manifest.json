@@ -888,8 +888,18 @@
       "authority": "reference"
     },
     {
+      "path": "migration/klipse-web-adoption.md",
+      "purpose": "klipse-web이 이 디자인 시스템을 따라가게 만드는 단계와 각 단계의 측정된 영향 범위. 1px 테두리 147곳, 글래스 토큰 80파일 등 실측 숫자가 판단의 입력이다",
+      "authority": "reference"
+    },
+    {
       "path": "packages/react/src/icons/provenance.json",
       "purpose": "글리프별 출처·라이선스 선언. 채택 가능 여부의 판정 근거이며 고지문의 입력이다",
+      "authority": "reference"
+    },
+    {
+      "path": "packages/react/src/icons/keywords.json",
+      "purpose": "글리프별 검색 키워드(한국어·영어). icon manifest와 Figma description의 KEYWORDS 블록이 같은 원천을 쓰며 parity 게이트가 대조한다",
       "authority": "reference"
     },
     {

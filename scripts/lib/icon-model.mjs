@@ -8,6 +8,13 @@ import { createHash } from "node:crypto";
 export const ICON_SOURCE_DIRECTORY = "packages/react/src/icons/svg";
 export const ICON_OUTPUT_DIRECTORY = "packages/react/src/icons/generated";
 export const ICON_PROVENANCE_PATH = "packages/react/src/icons/provenance.json";
+/**
+ * 아이콘 검색 키워드.
+ *
+ * 사람은 아이콘의 **이름을 모른 채** 찾는다 — "휴지통"을 떠올리지 `trash-simple`을 떠올리지 않는다.
+ * 그래서 한국어와 영어 동의어를 함께 담고, Figma description과 문서 검색이 같은 원천을 쓴다.
+ */
+export const ICON_KEYWORDS_PATH = "packages/react/src/icons/keywords.json";
 export const ICON_LICENSE_DIRECTORY = "packages/react/src/icons/licenses";
 export const ICON_NOTICES_PATH = "packages/react/THIRD-PARTY-NOTICES.md";
 export const ICON_OUTPUT_PATHS = [
@@ -410,7 +417,7 @@ function validateProvenance(name, record, licenseFiles, issues) {
  * @param {object} provenance provenance.json을 파싱한 객체
  * @param {Map<string, string>} licenses 파일명 → 라이선스 원문
  */
-export function compileIconSource(files, provenance, licenses) {
+export function compileIconSource(files, provenance, licenses, keywords = {}) {
   const issues = [];
   const glyphs = [];
   const licenseFiles = new Set(licenses.keys());
@@ -451,10 +458,21 @@ export function compileIconSource(files, provenance, licenses) {
     if (seen.length === 0) issues.push(`${name}: 그릴 요소가 없습니다.`);
     for (const element of seen) normalizeColors(element, name, issues);
 
+    // 키워드가 없으면 그 글리프는 이름을 아는 사람만 찾을 수 있다. 그래서 빠뜨리면 실패다.
+    const glyphKeywords = keywords[name];
+    if (!Array.isArray(glyphKeywords) || glyphKeywords.length < 2) {
+      issues.push(
+        `${name}: 검색 키워드가 없거나 2개 미만입니다. ${ICON_KEYWORDS_PATH}에 한국어와 영어를 함께 넣으십시오.`,
+      );
+    } else if (!glyphKeywords.some((word) => /[가-힣]/.test(word))) {
+      issues.push(`${name}: 검색 키워드에 한국어가 없습니다. 이름은 영어인데 찾는 사람은 한국어로 떠올립니다.`);
+    }
+
     glyphs.push({
       name,
       elements,
       sourcePath: `${ICON_SOURCE_DIRECTORY}/${name}.svg`,
+      keywords: Array.isArray(glyphKeywords) ? [...glyphKeywords] : [],
       provenance: record ?? null,
     });
   }
@@ -582,6 +600,7 @@ function renderManifest(model) {
           source: glyph.sourcePath,
           geometryHash: geometryHash(glyph.elements),
           elementCount: glyph.elements.length,
+          keywords: glyph.keywords,
           provenance: glyph.provenance,
         })),
       },

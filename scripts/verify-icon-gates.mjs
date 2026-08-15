@@ -17,6 +17,7 @@ const canaries = [];
 
 const GLYPH = "packages/react/src/icons/svg/check-circle.svg";
 const PROVENANCE = "packages/react/src/icons/provenance.json";
+const KEYWORDS = "packages/react/src/icons/keywords.json";
 const GENERATED = "packages/react/src/icons/generated/index.tsx";
 
 function runBuild(...args) {
@@ -385,6 +386,30 @@ withCanary(
     }),
   "provenance 삭제",
   "provenance가 선언되지 않았습니다",
+);
+
+// 키워드가 없으면 그 아이콘은 **이름을 아는 사람만** 찾을 수 있다. 조용히 빠지면 아무도 모른다.
+withCanary(
+  KEYWORDS,
+  (source) => {
+    const document = JSON.parse(source);
+    delete document.keywords["check-circle"];
+    return `${JSON.stringify(document, null, 2)}\n`;
+  },
+  "검색 키워드 삭제",
+  "검색 키워드가 없거나",
+);
+
+// 영어만 넣으면 "휴지통"으로 찾는 사람이 못 찾는다.
+withCanary(
+  KEYWORDS,
+  (source) => {
+    const document = JSON.parse(source);
+    document.keywords["check-circle"] = ["check", "success", "done"];
+    return `${JSON.stringify(document, null, 2)}\n`;
+  },
+  "검색 키워드 한국어 누락",
+  "검색 키워드에 한국어가 없습니다",
 );
 
 withCanary(

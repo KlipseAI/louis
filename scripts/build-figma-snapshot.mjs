@@ -244,6 +244,8 @@ for (const [figmaName, icon] of Object.entries(readback.icons ?? {})) {
     strokeCaps: [...icon.strokeCaps].sort(),
     binding: { ...icon.binding },
     hasDescription: icon.hasDescription,
+    // description은 설명문이자 검색 채널이다. KEYWORDS: 블록을 파싱해 담는다.
+    keywords: [...(icon.keywords ?? [])].sort(),
   };
 }
 

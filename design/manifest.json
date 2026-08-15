@@ -78,9 +78,9 @@
       "maturity": "experimental",
       "packageRelease": "not-ready",
       "web": "partial",
-      "webEvidence": "layers/tokens/reset/styles 5개 서브패스, 저작 규칙 canary 7종, 브라우저 테스트 9건. 컴포넌트 recipe는 button·overlay·dialog·menu-popover·icon 5종",
+      "webEvidence": "layers/tokens/reset/styles/theme 6개 서브패스, 저작 규칙 canary 9종, 브라우저 테스트 9건. 컴포넌트 recipe는 button·icon-button·overlay·dialog·menu-popover·tooltip·toast·icon 8종",
       "docs": "partial",
-      "note": "foundation과 컴포넌트 recipe 2종이 구현됐다. reduced-motion 대입은 두 project로 실측한다"
+      "note": "foundation과 컴포넌트 recipe가 구현됐다. reduced-motion 대입은 두 project로 실측한다. theme.css는 Tailwind 4 `@theme inline` 레이어이며 DS-D-0013이 경계를 소유한다 — 토큰만 발행하고 컴포넌트 CSS는 authored plain CSS로 남는다"
     },
     {
       "id": "react",
@@ -545,6 +545,15 @@
       "generated": false
     },
     {
+      "id": "decision-tailwind-interop",
+      "path": "design/governance/decisions/DS-D-0013-tailwind-interop.md",
+      "title": "DS-D-0013 Tailwind 4 interop",
+      "section": "governance",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
+    },
+    {
       "id": "updates-overview",
       "path": "design/updates/README.md",
       "title": "Updates",
@@ -682,6 +691,7 @@
         "design/governance/decisions/DS-D-0010-token-coverage.md",
         "design/governance/decisions/DS-D-0011-overlay-primitive-boundary.md",
         "design/governance/decisions/DS-D-0012-component-workshop.md",
+        "design/governance/decisions/DS-D-0013-tailwind-interop.md",
         "design/updates/README.md"
       ]
     }

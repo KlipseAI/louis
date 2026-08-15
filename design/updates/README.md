@@ -8,6 +8,68 @@ authority: normative
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
 
+## 2026-08-15 — Tailwind 4 interop과 글래스 섀도우 제거
+
+### 배포 환경이 Tailwind 4다
+
+DS는 Tailwind 의존성이 **0개**였고 [DS-D-0004](../governance/decisions/DS-D-0004-css-authoring.md)가
+"소비 제품은 Tailwind 사용 여부를 고정할 수 없다"를 근거로 authored plain CSS를 택해 둔 상태였다.
+그 전제가 틀렸다 — 제품은 `tailwindcss ^4.3.3`을 쓴다.
+
+더 중요한 것은 제품이 이미 `@theme inline` 블록을 **생성기로** 만들고 있었다는 점이다. 그 생성기의
+입력이 제품의 `globals.css`라서, **제품 CSS가 토큰의 정본**이었다. DS가 토큰을 바꿔도 제품 유틸리티는
+따라오지 않고, 제품이 색을 바꾸면 DS와 조용히 갈라진다. 205축 중 143축이 그렇게 갈라져 있었다.
+
+[DS-D-0013](../governance/decisions/DS-D-0013-tailwind-interop.md)로 결정했다 — **토큰만** Tailwind 4
+`@theme inline` 레이어로 발행하고 컴포넌트 CSS는 authored plain CSS로 남긴다.
+
+- `@klipse-design/css/theme.css` 신설. 유틸리티 토큰 93개 + 변수 전용 16개
+- 값이 리터럴이 아니라 `var(--kds-*)`를 가리킨다. `@theme`가 아니라 **`@theme inline`**인 이유가
+  이것이다 — semantic 색이 런타임에 바뀌므로 inline이 아니면 빌드 시점 값이 구워져 테마 전환을
+  따라가지 않는다
+- Tailwind에 대응 namespace가 없는 범주(`layer`, `border-width`, `motion`)도 변수로 내보낸다
+- **매핑되지 않은 토큰 접두사를 만나면 생성이 실패한다.** 새 범주가 생겼는데 매핑을 빠뜨리면
+  유틸리티가 조용히 안 나오고 아무도 모른다. canary가 그 검출력을 증명한다
+
+컴포넌트까지 유틸리티로 내보내지 않은 이유는 셋이다. 소비하는 쪽이 Tailwind를 반드시 갖춰야 하고,
+같은 클래스가 소비자 설정에 따라 다른 결과를 내며(제품은 `--spacing: 2px` 격자라 `p-4`가 8px이다),
+cascade layer가 주는 override 계약이 사라진다. 제품 자신이 그 함정을 주석으로 적어 두었다 —
+레이어 안의 유틸리티는 레이어 밖 모듈 CSS에 **특이도와 무관하게 진다**.
+
+### 글래스 섀도우 개념을 없앴다
+
+owner 결정이다. 버튼에는 이너섀도우를 쓰지 않고, 이너섀도우는 노드 사이드 버튼에만 남긴다.
+
+- Button의 글래스 베벨 2겹과 `::before` 광택 오버레이를 제거했다. Figma에서 Gloss 사각형 6개와
+  effect style 둘을 지웠다
+- 토큰 4개를 제거했다 — `shadow`/`elevation`의 `control-bevel`, `control-gloss`
+- Toast 그림자에서도 베벨 inset 2겹을 뺐다. drop 1겹 + 배경 흐림만 남는다
+
+제품 값을 채택했던 두 축을 **철회**해 사유를 적은 편차로 바꿨다. 제품과 다르게 가는 결정이므로
+`migration/product.measured.json`에 그 사실이 남는다.
+
+### 모든 헤어라인이 0.5px다
+
+`border-width` 토큰을 세웠다(hairline 0.5 / ring 2). Button·IconButton·Tooltip·Dialog·Menu 구분선의
+테두리가 전부 hairline이며 Figma 스트로크 27개도 `0.5|INSIDE`다. spinner 링(2)과 글리프(1.5)는
+테두리가 아니라 그대로다.
+
+**브라우저는 DPR 1에서 0.5px의 사용값을 1px로 올린다.** `getComputedStyle`이 언제나 1px을 돌려주므로
+기하 테스트가 계산값이 아니라 선언 토큰을 보도록 고쳤다. 레티나에서는 진짜 half-pixel로 그려진다.
+
+### 스트로크와 effect를 역할별로 잰다
+
+두께를 **집합**으로만 보면 버튼 테두리가 2px이 돼도 spinner의 2와 구분되지 않았다. `strokeAlign`은
+아예 보지 않았다 — 같은 두께라도 `CENTER`가 되면 시각 박스가 달라진다. effect는 개수만 세서
+`INNER_SHADOW`가 `DROP_SHADOW`로 바뀌어도 통과했다.
+
+역할별로 두께·정렬·effect 종류·순서를 대조하고, blur는 radius가 변수에 묶였는지까지 본다.
+변조 canary가 20종에서 25종이 됐다.
+
+그 과정에서 effect 종류 canary가 **무력화돼 있던 것**도 찾았다. `INNER_SHADOW`를 찾아 바꾸는
+방식이라 그 종류가 없는 컴포넌트에서는 no-op이었고, Button의 effect가 비면서 대상이 Tooltip으로
+넘어가 조용히 통과하고 있었다.
+
 ## 2026-08-15 — 제품과의 격차 143건을 전부 판정했다
 
 `product-parity` 게이트가 **초록이 됐다.** 205축 실측에서 나온 격차 143건이 전부 판정됐다는 뜻이다.

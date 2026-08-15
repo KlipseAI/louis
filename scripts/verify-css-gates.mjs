@@ -10,12 +10,56 @@ const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const errors = [];
 const canaries = [];
 
+function runScript(script, ...args) {
+  return execFileSync(process.execPath, [resolve(repoRoot, script), ...args], {
+    cwd: repoRoot,
+    encoding: "utf8",
+    stdio: ["ignore", "pipe", "pipe"],
+  });
+}
+
 function runBuild(...args) {
-  return execFileSync(
-    process.execPath,
-    [resolve(repoRoot, "scripts/build-css.mjs"), ...args],
-    { cwd: repoRoot, encoding: "utf8", stdio: ["ignore", "pipe", "pipe"] },
-  );
+  return runScript("scripts/build-css.mjs", ...args);
+}
+
+/**
+ * Tailwind theme 생성기(DS-D-0013)의 검출력을 증명한다.
+ *
+ * 생성물 drift와 **매핑되지 않은 토큰 접두사** 둘을 본다. 후자가 중요한 이유는, 새 토큰 범주가
+ * 생겼는데 매핑을 빠뜨리면 유틸리티가 조용히 안 나오기 때문이다 — 실패하지 않으면 아무도 모른다.
+ */
+function withThemeCanary(path, mutate, label, expectedDiagnostic) {
+  const absolute = resolve(repoRoot, path);
+  const before = readFileSync(absolute, "utf8");
+  const mutated = mutate(before);
+  if (mutated === before) {
+    errors.push(`${label} canary가 입력을 변경하지 못했습니다: ${path}`);
+    return;
+  }
+  writeFileSync(absolute, mutated);
+  let failed = false;
+  let output = "";
+  try {
+    runScript("scripts/build-tailwind-theme.mjs", "--check");
+  } catch (error) {
+    failed = true;
+    output = String(error.stdout ?? "") + String(error.stderr ?? "");
+  } finally {
+    writeFileSync(absolute, before);
+  }
+  if (!failed) {
+    errors.push(`${label} canary가 통과했습니다. 게이트가 위반을 잡지 못합니다.`);
+    return;
+  }
+  if (!output.includes(expectedDiagnostic)) {
+    errors.push(`${label} canary가 예상 진단을 내지 않았습니다: ${expectedDiagnostic}\n${output.trim()}`);
+    return;
+  }
+  if (readFileSync(absolute, "utf8") !== before) {
+    errors.push(`${label} canary가 원본을 복원하지 못했습니다.`);
+    return;
+  }
+  canaries.push(label);
 }
 
 function withCanary(path, mutate, label, expectedDiagnostic) {
@@ -114,6 +158,21 @@ withCanary(
   (source) => `${source}\n.kds-drift { color: red; }\n`,
   "generated drift",
   "generated CSS가 최신이 아닙니다",
+);
+
+withThemeCanary(
+  "packages/css/generated/theme.css",
+  (source) => `${source}\n/* drift */\n`,
+  "tailwind theme drift",
+  "generated CSS가 최신이 아닙니다",
+);
+
+withThemeCanary(
+  "packages/tokens/generated/manifest.json",
+  (source) =>
+    source.replace('"id": "color-action-primary"', '"id": "brandnew-action-primary"'),
+  "tailwind theme 미매핑 접두사",
+  "매핑되지 않은 토큰 접두사입니다",
 );
 
 // canary 이후에도 정상 상태여야 한다.

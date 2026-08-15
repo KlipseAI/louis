@@ -31,19 +31,21 @@
     "typecheck": "tsc -p tsconfig.json",
     "build:tokens": "pnpm run build-tokens",
     "build:icons": "pnpm run build-icons",
-    "build:css": "pnpm run build-css",
+    "build:css": "pnpm run build-css && pnpm run build-tailwind-theme",
     "build:react": "pnpm run build-react",
     "build:catalog": "pnpm run build-design-docs",
     "build:llms": "pnpm run build-llms-docs",
     "build:docs": "pnpm run build:catalog && pnpm run build:llms",
     "check:tokens": "pnpm run check-tokens",
     "check:icons": "pnpm run check-icons",
-    "check:css": "pnpm run check-css",
+    "check:css": "pnpm run check-css && pnpm run check-tailwind-theme",
     "check:catalog": "pnpm run check-design-docs",
     "check:llms": "pnpm run check-llms-docs",
     "check": "pnpm run check:tokens && pnpm run check:icons && pnpm run check:css && pnpm run check:catalog && pnpm run check:llms && pnpm run typecheck",
     "verify": "pnpm run verify-gates && pnpm run verify-token-gates && pnpm run verify-css-gates && pnpm run verify-icon-gates && pnpm run check-token-diff && pnpm run check-figma-snapshot && pnpm run verify-figma-parity && pnpm run verify-product-parity && pnpm run verify-test-harness",
-    "verify-product-parity": "node ./scripts/verify-product-parity.mjs"
+    "verify-product-parity": "node ./scripts/verify-product-parity.mjs",
+    "build-tailwind-theme": "node ./scripts/build-tailwind-theme.mjs",
+    "check-tailwind-theme": "node ./scripts/build-tailwind-theme.mjs --check"
   },
   "engines": {
     "node": ">=22"

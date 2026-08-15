@@ -16,7 +16,8 @@
     "./reset.css": "./generated/reset.css",
     "./styles.css": "./generated/styles.css",
     "./styles.layer.css": "./generated/styles.layer.css",
-    "./package.json": "./package.json"
+    "./package.json": "./package.json",
+    "./theme.css": "./generated/theme.css"
   },
   "scripts": {
     "build": "node ../../scripts/build-css.mjs",

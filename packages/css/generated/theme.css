@@ -1,0 +1,182 @@
+/* GENERATED — 손으로 수정하지 않는다.
+ *
+ * 생성: node scripts/build-tailwind-theme.mjs
+ * 원천: packages/tokens/src/klipse.tokens.json
+ * 결정: design/governance/decisions/DS-D-0013-tailwind-interop.md
+ *
+ * 이 파일만 import해도 유틸리티는 동작하지 않는다. 값이 `var(--kds-*)`를 가리키므로
+ * `@klipse-design/css/tokens.css`를 함께 불러야 한다.
+ *
+ * `inline`인 이유: semantic 색이 `:root`와 `[data-theme="dark"]`에서 각각 정의되어 런타임에
+ * 바뀐다. inline이 아니면 Tailwind가 빌드 시점 값을 구워 넣어 테마 전환을 따라가지 않는다.
+ */
+@theme inline {
+  /* 흐림 — blur-*, backdrop-blur-* 유틸리티가 된다 */
+  --blur-panel: var(--kds-blur-panel);
+  --blur-surface: var(--kds-blur-surface);
+
+  /* 색 — bg-*, text-*, border-* 유틸리티가 된다 */
+  --color-action-danger: var(--kds-color-action-danger);
+  --color-action-ghost-hover: var(--kds-color-action-ghost-hover);
+  --color-action-menu-danger-hover: var(--kds-color-action-menu-danger-hover);
+  --color-action-menu-item-hover: var(--kds-color-action-menu-item-hover);
+  --color-action-primary: var(--kds-color-action-primary);
+  --color-action-primary-hover: var(--kds-color-action-primary-hover);
+  --color-action-primary-pressed: var(--kds-color-action-primary-pressed);
+  --color-action-secondary-foreground: var(--kds-color-action-secondary-foreground);
+  --color-action-secondary-hover: var(--kds-color-action-secondary-hover);
+  --color-background-canvas: var(--kds-color-background-canvas);
+  --color-background-inset: var(--kds-color-background-inset);
+  --color-background-inverse: var(--kds-color-background-inverse);
+  --color-background-inverse-translucent: var(--kds-color-background-inverse-translucent);
+  --color-background-menu: var(--kds-color-background-menu);
+  --color-background-overlay: var(--kds-color-background-overlay);
+  --color-background-raised: var(--kds-color-background-raised);
+  --color-background-surface: var(--kds-color-background-surface);
+  --color-border-control: var(--kds-color-border-control);
+  --color-border-default: var(--kds-color-border-default);
+  --color-border-focus: var(--kds-color-border-focus);
+  --color-border-strong: var(--kds-color-border-strong);
+  --color-border-subtle: var(--kds-color-border-subtle);
+  --color-border-tooltip: var(--kds-color-border-tooltip);
+  --color-foreground-disabled: var(--kds-color-foreground-disabled);
+  --color-foreground-inverse: var(--kds-color-foreground-inverse);
+  --color-foreground-menu-item: var(--kds-color-foreground-menu-item);
+  --color-foreground-on-danger: var(--kds-color-foreground-on-danger);
+  --color-foreground-on-inverse: var(--kds-color-foreground-on-inverse);
+  --color-foreground-primary: var(--kds-color-foreground-primary);
+  --color-foreground-secondary: var(--kds-color-foreground-secondary);
+  --color-foreground-tertiary: var(--kds-color-foreground-tertiary);
+  --color-scrim-modal: var(--kds-color-scrim-modal);
+  --color-status-danger-background: var(--kds-color-status-danger-background);
+  --color-status-danger-foreground: var(--kds-color-status-danger-foreground);
+  --color-status-info-background: var(--kds-color-status-info-background);
+  --color-status-info-foreground: var(--kds-color-status-info-foreground);
+  --color-status-success-background: var(--kds-color-status-success-background);
+  --color-status-success-foreground: var(--kds-color-status-success-foreground);
+  --color-status-warning-background: var(--kds-color-status-warning-background);
+  --color-status-warning-foreground: var(--kds-color-status-warning-foreground);
+
+  /* 곡률 — rounded-* 유틸리티가 된다 */
+  --radius-card: var(--kds-radius-card);
+  --radius-control: var(--kds-radius-control);
+  --radius-control-sm: var(--kds-radius-control-sm);
+  --radius-overlay: var(--kds-radius-overlay);
+  --radius-overlay-item: var(--kds-radius-overlay-item);
+  --radius-pill: var(--kds-radius-pill);
+
+  /* 그림자 — shadow-* 유틸리티가 된다 */
+  --shadow-focus-ring: var(--kds-elevation-focus-ring);
+  --shadow-menu: var(--kds-elevation-menu);
+  --shadow-modal: var(--kds-elevation-modal);
+  --shadow-popover: var(--kds-elevation-popover);
+  --shadow-surface: var(--kds-elevation-surface);
+  --shadow-toast: var(--kds-elevation-toast);
+  --shadow-tooltip: var(--kds-elevation-tooltip);
+
+  /* 치수 — p-*, m-*, gap-*, w-*, h-* 유틸리티가 된다 */
+  --spacing-icon-size-lg: var(--kds-icon-size-lg);
+  --spacing-icon-size-md: var(--kds-icon-size-md);
+  --spacing-icon-size-sm: var(--kds-icon-size-sm);
+  --spacing-layout-app-shell-content-inset: var(--kds-layout-app-shell-content-inset);
+  --spacing-layout-app-shell-outer-gap: var(--kds-layout-app-shell-outer-gap);
+  --spacing-layout-app-shell-sidebar-minimum: var(--kds-layout-app-shell-sidebar-minimum);
+  --spacing-layout-app-shell-sidebar-padding: var(--kds-layout-app-shell-sidebar-padding);
+  --spacing-layout-control-height-md: var(--kds-layout-control-height-md);
+  --spacing-layout-control-height-sm: var(--kds-layout-control-height-sm);
+  --spacing-layout-control-hit-target-minimum: var(--kds-layout-control-hit-target-minimum);
+  --spacing-layout-control-minimum-width-sm: var(--kds-layout-control-minimum-width-sm);
+  --spacing-layout-project-card-minimum: var(--kds-layout-project-card-minimum);
+  --spacing-layout-project-grid-gap: var(--kds-layout-project-grid-gap);
+  --spacing-control-lg: var(--kds-space-control-lg);
+  --spacing-control-md: var(--kds-space-control-md);
+  --spacing-control-sm: var(--kds-space-control-sm);
+  --spacing-control-xs: var(--kds-space-control-xs);
+  --spacing-layout-gutter: var(--kds-space-layout-gutter);
+  --spacing-layout-section: var(--kds-space-layout-section);
+  --spacing-overlay-inset: var(--kds-space-overlay-inset);
+  --spacing-overlay-item-content-gap: var(--kds-space-overlay-item-content-gap);
+  --spacing-overlay-item-gap: var(--kds-space-overlay-item-gap);
+  --spacing-toast-inline: var(--kds-space-toast-inline);
+
+  /* 타이포 — text-* 유틸리티가 된다. 크기·행간·자간·굵기가 함께 붙는다 */
+  --text-body-lg-medium: var(--kds-typography-body-lg-medium-font-size);
+  --text-body-lg-medium--line-height: var(--kds-typography-body-lg-medium-line-height);
+  --text-body-lg-medium--letter-spacing: var(--kds-typography-body-lg-medium-letter-spacing);
+  --text-body-lg-medium--font-weight: var(--kds-typography-body-lg-medium-font-weight);
+  --text-body-lg-regular: var(--kds-typography-body-lg-regular-font-size);
+  --text-body-lg-regular--line-height: var(--kds-typography-body-lg-regular-line-height);
+  --text-body-lg-regular--letter-spacing: var(--kds-typography-body-lg-regular-letter-spacing);
+  --text-body-lg-regular--font-weight: var(--kds-typography-body-lg-regular-font-weight);
+  --text-body-lg-semibold: var(--kds-typography-body-lg-semibold-font-size);
+  --text-body-lg-semibold--line-height: var(--kds-typography-body-lg-semibold-line-height);
+  --text-body-lg-semibold--letter-spacing: var(--kds-typography-body-lg-semibold-letter-spacing);
+  --text-body-lg-semibold--font-weight: var(--kds-typography-body-lg-semibold-font-weight);
+  --text-body-md-medium: var(--kds-typography-body-md-medium-font-size);
+  --text-body-md-medium--line-height: var(--kds-typography-body-md-medium-line-height);
+  --text-body-md-medium--letter-spacing: var(--kds-typography-body-md-medium-letter-spacing);
+  --text-body-md-medium--font-weight: var(--kds-typography-body-md-medium-font-weight);
+  --text-body-md-regular: var(--kds-typography-body-md-regular-font-size);
+  --text-body-md-regular--line-height: var(--kds-typography-body-md-regular-line-height);
+  --text-body-md-regular--letter-spacing: var(--kds-typography-body-md-regular-letter-spacing);
+  --text-body-md-regular--font-weight: var(--kds-typography-body-md-regular-font-weight);
+  --text-body-md-semibold: var(--kds-typography-body-md-semibold-font-size);
+  --text-body-md-semibold--line-height: var(--kds-typography-body-md-semibold-line-height);
+  --text-body-md-semibold--letter-spacing: var(--kds-typography-body-md-semibold-letter-spacing);
+  --text-body-md-semibold--font-weight: var(--kds-typography-body-md-semibold-font-weight);
+  --text-body-sm-medium: var(--kds-typography-body-sm-medium-font-size);
+  --text-body-sm-medium--line-height: var(--kds-typography-body-sm-medium-line-height);
+  --text-body-sm-medium--letter-spacing: var(--kds-typography-body-sm-medium-letter-spacing);
+  --text-body-sm-medium--font-weight: var(--kds-typography-body-sm-medium-font-weight);
+  --text-body-sm-regular: var(--kds-typography-body-sm-regular-font-size);
+  --text-body-sm-regular--line-height: var(--kds-typography-body-sm-regular-line-height);
+  --text-body-sm-regular--letter-spacing: var(--kds-typography-body-sm-regular-letter-spacing);
+  --text-body-sm-regular--font-weight: var(--kds-typography-body-sm-regular-font-weight);
+  --text-body-sm-semibold: var(--kds-typography-body-sm-semibold-font-size);
+  --text-body-sm-semibold--line-height: var(--kds-typography-body-sm-semibold-line-height);
+  --text-body-sm-semibold--letter-spacing: var(--kds-typography-body-sm-semibold-letter-spacing);
+  --text-body-sm-semibold--font-weight: var(--kds-typography-body-sm-semibold-font-weight);
+  --text-caption-medium: var(--kds-typography-caption-medium-font-size);
+  --text-caption-medium--line-height: var(--kds-typography-caption-medium-line-height);
+  --text-caption-medium--letter-spacing: var(--kds-typography-caption-medium-letter-spacing);
+  --text-caption-medium--font-weight: var(--kds-typography-caption-medium-font-weight);
+  --text-caption-regular: var(--kds-typography-caption-regular-font-size);
+  --text-caption-regular--line-height: var(--kds-typography-caption-regular-line-height);
+  --text-caption-regular--letter-spacing: var(--kds-typography-caption-regular-letter-spacing);
+  --text-caption-regular--font-weight: var(--kds-typography-caption-regular-font-weight);
+  --text-caption-semibold: var(--kds-typography-caption-semibold-font-size);
+  --text-caption-semibold--line-height: var(--kds-typography-caption-semibold-line-height);
+  --text-caption-semibold--letter-spacing: var(--kds-typography-caption-semibold-letter-spacing);
+  --text-caption-semibold--font-weight: var(--kds-typography-caption-semibold-font-weight);
+  --text-heading-lg-medium: var(--kds-typography-heading-lg-medium-font-size);
+  --text-heading-lg-medium--line-height: var(--kds-typography-heading-lg-medium-line-height);
+  --text-heading-lg-medium--letter-spacing: var(--kds-typography-heading-lg-medium-letter-spacing);
+  --text-heading-lg-medium--font-weight: var(--kds-typography-heading-lg-medium-font-weight);
+  --text-heading-md-medium: var(--kds-typography-heading-md-medium-font-size);
+  --text-heading-md-medium--line-height: var(--kds-typography-heading-md-medium-line-height);
+  --text-heading-md-medium--letter-spacing: var(--kds-typography-heading-md-medium-letter-spacing);
+  --text-heading-md-medium--font-weight: var(--kds-typography-heading-md-medium-font-weight);
+  --text-heading-sm-medium: var(--kds-typography-heading-sm-medium-font-size);
+  --text-heading-sm-medium--line-height: var(--kds-typography-heading-sm-medium-line-height);
+  --text-heading-sm-medium--letter-spacing: var(--kds-typography-heading-sm-medium-letter-spacing);
+  --text-heading-sm-medium--font-weight: var(--kds-typography-heading-sm-medium-font-weight);
+
+  /* Tailwind 4에 대응 namespace가 없다. 변수로만 내보내며 유틸리티는 생기지 않는다 —
+   * `[z-index:var(--kds-layer-modal)]` 같은 임의값으로 쓴다. */
+  --kds-border-width-hairline: var(--kds-border-width-hairline);
+  --kds-border-width-ring: var(--kds-border-width-ring);
+  --kds-layer-content: var(--kds-layer-content);
+  --kds-layer-critical: var(--kds-layer-critical);
+  --kds-layer-modal: var(--kds-layer-modal);
+  --kds-layer-popover: var(--kds-layer-popover);
+  --kds-layer-sticky: var(--kds-layer-sticky);
+  --kds-motion-menu-enter: var(--kds-motion-menu-enter);
+  --kds-motion-menu-exit: var(--kds-motion-menu-exit);
+  --kds-motion-modal-enter: var(--kds-motion-modal-enter);
+  --kds-motion-modal-exit: var(--kds-motion-modal-exit);
+  --kds-motion-overlay-enter: var(--kds-motion-overlay-enter);
+  --kds-motion-overlay-exit: var(--kds-motion-overlay-exit);
+  --kds-motion-reduced: var(--kds-motion-reduced);
+  --kds-motion-tooltip-enter: var(--kds-motion-tooltip-enter);
+  --kds-motion-tooltip-exit: var(--kds-motion-tooltip-exit);
+}

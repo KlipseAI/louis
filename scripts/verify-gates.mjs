@@ -544,6 +544,9 @@ function validatePackageScaffolds() {
           "./reset.css",
           "./styles.css",
           "./styles.layer.css",
+          // Tailwind 4 `@theme inline` 레이어 (DS-D-0013). 토큰만 발행하며 컴포넌트 CSS는
+          // authored plain CSS로 남는다.
+          "./theme.css",
           "./package.json",
         ],
         sideEffects: ["*.css"],

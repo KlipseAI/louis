@@ -185,7 +185,26 @@ test("320px 컨테이너에서 KO/EN/JA 긴 라벨이 잘리지 않는다", asyn
   }
 });
 
-test("variant마다 접근성 위반이 없다", async () => {
+/**
+ * variant별로 **허용된** 접근성 위반.
+ *
+ * 비워 두는 것이 기본이다. 여기 이름을 올린다는 것은 그 위반을 알고도 내보낸다는 뜻이므로
+ * 사유를 반드시 남긴다. 목록을 쓰지 않고 테스트를 지우면 그 variant의 나머지 검출력까지 사라진다.
+ *
+ * primary/color-contrast — owner가 제품 브랜드 블루(blue.500 #0088ff)를 정본으로 채택했다.
+ * 흰 글자 대비가 3.37로 WCAG 2.2 AA의 4.5에 미달한다. 4.5를 넘는 첫 단계 blue.700(6.12)은
+ * 제품에서 두 번밖에 쓰이지 않아 브랜드가 아니다. 이 미달은 제품이 이미 갖고 있으며 DS가 그것을
+ * 그대로 재현한다. 같은 사유가 packages/tokens/src/klipse.tokens.json의 contrastPairs note와
+ * design/components/button.md의 Known deviations에 있다.
+ */
+const ALLOWED_VIOLATIONS: Readonly<Record<string, readonly string[]>> = {
+  primary: ["color-contrast"],
+  secondary: [],
+  ghost: [],
+  danger: [],
+};
+
+test("variant마다 접근성 위반이 없다 (알려진 것 제외)", async () => {
   for (const variant of ["primary", "secondary", "ghost", "danger"] as const) {
     const host = document.createElement("div");
     document.body.append(host);
@@ -195,10 +214,9 @@ test("variant마다 접근성 위반이 없다", async () => {
         // target-size는 24px만 보므로 위 44px 단언이 별도로 담보한다.
         runOnly: { type: "tag", values: ["wcag2a", "wcag2aa", "wcag22aa"] },
       });
-      expect(
-        results.violations.map((violation) => violation.id),
-        `${variant}에서 접근성 위반이 있습니다`,
-      ).toEqual([]);
+      const found = results.violations.map((violation) => violation.id).sort();
+      const allowed = [...(ALLOWED_VIOLATIONS[variant] ?? [])].sort();
+      expect(found, `${variant}에서 새 접근성 위반이 있습니다`).toEqual(allowed);
     } finally {
       host.remove();
     }

@@ -1115,6 +1115,15 @@ function validateCssNames(records, issues) {
   }
 }
 
+/**
+ * WCAG 2.2 AA의 일반 텍스트 대비 기준.
+ *
+ * 이 숫자 아래로 내리는 것은 접근성 기준을 포기하는 일이므로, 그때만 note를 요구한다.
+ * 큰 텍스트(18.66px bold / 24px)와 비텍스트 UI 요소의 기준 3.0은 여기서 다루지 않는다 —
+ * 컨트롤 라벨은 큰 텍스트가 아니다.
+ */
+const WCAG_AA_NORMAL_TEXT = 4.5;
+
 function validateContrastPairShape(pairs, issues) {
   const label = `$.$extensions.${KLIPSE_EXTENSION}.contrastPairs`;
   if (!Array.isArray(pairs)) {
@@ -1127,9 +1136,13 @@ function validateContrastPairShape(pairs, issues) {
       issues.push(`${itemLabel}은 object여야 합니다.`);
       continue;
     }
+    // note는 minimum이 WCAG AA(4.5) 아래일 때만 허용되고, 그때는 필수다.
+    const relaxed = isFiniteNumber(pair.minimum) && pair.minimum < WCAG_AA_NORMAL_TEXT;
     requireExactProperties(
       pair,
-      ["background", "foreground", "minimum"],
+      relaxed
+        ? ["background", "foreground", "minimum", "note"]
+        : ["background", "foreground", "minimum"],
       itemLabel,
       issues,
     );
@@ -1143,6 +1156,15 @@ function validateContrastPairShape(pairs, issues) {
       pair.minimum > 21
     ) {
       issues.push(`${itemLabel}.minimum은 1..21 숫자여야 합니다.`);
+    }
+    // 기준을 낮추는 일이 조용히 일어나지 않게 한다. 낮추려면 왜 낮추는지를 소스에 남겨야 한다.
+    if (relaxed) {
+      if (typeof pair.note !== "string" || pair.note.trim().length < 20) {
+        issues.push(
+          `${itemLabel}.minimum이 ${WCAG_AA_NORMAL_TEXT} 미만이면 note에 20자 이상의 사유가 필요합니다. ` +
+            "기준을 낮추는 변경은 근거 없이 통과하지 않습니다.",
+        );
+      }
     }
   }
 }

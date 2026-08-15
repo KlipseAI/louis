@@ -35,8 +35,8 @@ Klipse 화면을 이루는 재사용 가능한 UI 단위다. 컴포넌트가 코
 <!-- GENERATED:component-progress START -->
 | Component | Maturity | Figma | Web | Docs | Note |
 | --- | --- | --- | --- | --- | --- |
-| [Button](../components/button.md) | `experimental` | `partial` | `partial` | `done` | public export와 실브라우저 acceptance test. Figma component set 40 variant에 아이콘 슬롯과 기하 계약이 붙었다 — figma/components.measured.json이 정본이고 코드·Figma 양방향을 게이트가 잰다. color-action-danger* 부재로 danger가 tonal이고 hover 면 변화가 없다 |
-| [Icon Button](../components/icon-button.md) | `experimental` | `not-ready` | `partial` | `done` | public export와 실브라우저 acceptance test 10건. Button을 아이콘 전용으로 렌더하면 정사각이 아니라는 실측이 별도 컴포넌트의 근거이며 그 실측도 테스트로 고정했다. Figma component set, visual regression, 제품 사용처가 남음 |
+| [Button](../components/button.md) | `experimental` | `partial` | `partial` | `done` | public export와 실브라우저 acceptance test. Figma component set 40 variant에 아이콘 슬롯과 기하 계약이 붙었다. primary 면이 제품 브랜드 블루라 WCAG AA에 미달하며 owner 결정으로 수용한 상태다 — 규범 Known deviations 참조 |
+| [Icon Button](../components/icon-button.md) | `experimental` | `partial` | `partial` | `done` | public export와 실브라우저 acceptance test 11건. Figma component set 40 variant가 기하 계약(한 변 40/32)으로 묶여 있다. pressed의 hover 면과 loading 상태가 남음 |
 | [Dialog / Confirm Modal](../components/dialog.md) | `experimental` | `not-ready` | `partial` | `done` | Dialog compound가 public export다. variant 5종·backdrop 정책·차단 안내를 recipe가 소유한다. Figma component와 시각 회귀는 아직 없다 |
 | [Menu / Popover](../components/menu-popover.md) | `experimental` | `not-ready` | `partial` | `done` | ActionMenu·CompositePopover·submenu가 public export다. Figma component와 시각 회귀는 아직 없다 |
 | Input / Field | `experimental` | `not-ready` | `not-ready` | `not-ready` | P3 component backlog |
@@ -239,6 +239,13 @@ Figma 프레임을 이 숫자로 잡을 때 border 2px를 빠뜨리기 쉽다 �
   쓰면 중립 표면에서 무너지는데, 그 실측은 [Menu / Popover](../components/menu-popover.md)의 Known deviations에 있다.
 - **고정 높이가 없다.** 높이를 padding과 line-height로 결정하고 44px 타깃은 `kds-hit-target`이
   보장한다. 제품과 픽셀 단위로 맞추려면 control height 토큰이 필요하다(DS-P3-014).
+- **`primary` 면이 WCAG AA에 미달한다.** `color-action-primary`는 제품 브랜드 블루
+  `blue.500`(#0088ff)이고 흰 글자 대비가 **3.37**로 일반 텍스트 기준 4.5에 못 미친다. 4.5를 넘는
+  첫 단계는 `blue.700`(6.12)인데 제품 전체에서 두 번밖에 쓰이지 않아 브랜드가 아니다. **이 미달은
+  제품이 이미 갖고 있는 것이고 DS가 그것을 그대로 재현한다** — owner 결정이다. hover 면
+  `blue.400`은 2.54로 더 낮은데, 제품이 hover에서 밝아지기 때문이다(`filter: brightness(1.06)`).
+  해소하려면 라벨을 18.66px bold 이상으로 키우거나 면을 어둡게 바꿔야 하고 둘 다 owner 판정
+  대상이다. 같은 사유가 token source의 `contrastPairs.note`와 axe 테스트의 허용 목록에 있다.
 - **아이콘 슬롯 크기를 Button이 소유한다.** [Iconography](../foundations/iconography.md)는 글리프
   크기를 아이콘이 소유한다고 하지만, 슬롯에 크기를 두지 않으면 호출부가 넘긴 아이콘 크기가 그대로
   버튼 높이가 된다. sm에 기본(20px) 아이콘을 넣으면 높이가 28이 아니라 **30**이 됐고, 같은 줄의
@@ -271,7 +278,7 @@ Web `done`과 `stable`에는 다음이 남아 있다.
 | Surface       | 상태           | 근거                                                      |
 | ------------- | -------------- | --------------------------------------------------------- |
 | Web           | `partial`      | public export와 acceptance test; visual regression과 제품 소비 증거 없음 |
-| Figma         | `not-ready`    | component set 미생성                                      |
+| Figma         | `partial`      | component set 40 variant (Variant 4 × Size 2 × State 5). publish는 DS-F-008 |
 | Documentation | `done`         | 이 문서                                                   |
 | Maturity      | `experimental` | 규범과 구현이 같은 변경 단위에서 처음 선다                |
 
@@ -340,6 +347,12 @@ Icon Button은 `active`(누르는 중)와 `pressed`(토글 켜짐)를 **둘 다*
 - `pressed`와 `active`는 **다른 축**이다. `active`는 누르고 있는 동안이고 `pressed`는 토글의 켜짐
   상태다. 둘을 같은 시각으로 표현하면 토글이 눌린 것인지 켜진 것인지 구분되지 않는다.
 - `pressed`는 토글에만 쓴다. 한 번 실행되고 끝나는 액션에 주면 스크린리더가 상태를 잘못 읽는다.
+- **hover와 active는 `pressed`를 덮지 않는다.** 지속 상태를 일시적 상태가 지우면 포인터를 얹는
+  동안 토글이 꺼진 것으로 보인다. 실제로 그렇게 돼 있었다 — pressed primary에 hover하면 배경이
+  variant 색으로 되돌아가고 글자만 pressed 색으로 남았다. CSS 특정성이 `[aria-pressed]`(0,2,0)보다
+  `:hover[data-variant]`(0,3,0)가 높았기 때문이다. hover/active 규칙에서 pressed를 제외해 고쳤다.
+- **`pressed`에는 별도의 hover 면이 없다.** 켜진 상태에서 포인터 피드백이 사라진다. Known
+  deviations 참조.
 - `loading` 상태는 아직 없다. Known deviations 참조.
 
 #### Interaction and responsive behavior
@@ -385,7 +398,8 @@ Icon Button은 `active`(누르는 중)와 `pressed`(토글 켜짐)를 **둘 다*
 
 | 항목 | 상태 | 사유 |
 | --- | --- | --- |
-| Figma component set | 없음 | DS-F-006 대상 |
+| pressed의 hover 면 | 없음 | `background-inset`보다 한 단계 강한 중립 표면 토큰이 없다. 만들면 hover가 pressed를 덮지 않으면서도 피드백을 줄 수 있다. DS-P3-014 대상 |
+| Figma 글리프 색 | instance override | Figma에는 `currentColor`가 없어 아이콘 instance 안 vector의 stroke를 variant마다 직접 변수에 다시 묶었다. 아이콘 정본이 바뀌어도 이 override는 따라오지 않는다 — 재적용은 수동이다 |
 | `loading` 상태 | 없음 | 아이콘 자리에 무엇을 넣을지 미정. Button의 loading과 같은 축인지 판정이 필요하다 |
 | 제품 32×32 radius 12 ↔ 모바일 40×40 radius 14 | 미채택 | 제품은 ≤719px에서 radius를 14로 바꾼다. 뷰포트로 radius를 바꾸는 근거를 찾지 못해 12로 고정했다 |
 
@@ -400,6 +414,7 @@ Icon Button은 `active`(누르는 중)와 `pressed`(토글 켜짐)를 **둘 다*
 7. `disabled`면 클릭 핸들러가 실행되지 않는다.
 8. 부모 `color` 변경이 글리프에 반영된다.
 9. 두 size의 글리프 계산 박스가 모두 20px다.
+10. 토글이 켜진 상태를 hover가 덮지 않는다.
 
 #### Migration and changelog
 

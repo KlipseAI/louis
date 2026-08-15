@@ -19,9 +19,10 @@ export const metadata = Object.freeze({
       "minimum": 4.5
     },
     {
-      "foreground": "color-foreground-inverse",
       "background": "color-action-primary",
-      "minimum": 4.5
+      "foreground": "color-foreground-inverse",
+      "minimum": 3,
+      "note": "제품 브랜드 블루(blue.500 #0088ff)를 정본으로 채택한 owner 결정의 결과다. 흰 글자(neutral-0) 대비가 3.37로 WCAG 2.2 AA의 일반 텍스트 기준 4.5에 미달한다. 4.5를 넘는 첫 단계는 blue.700(6.12)인데 제품에서 2번밖에 쓰이지 않는 색이라 브랜드가 아니다. 이 미달은 제품이 이미 갖고 있는 것이며 DS가 그것을 그대로 재현한다. 해소하려면 라벨을 18.66px bold 이상으로 키우거나 면 색을 어둡게 바꿔야 하고, 둘 다 owner 판정 대상이다."
     },
     {
       "foreground": "color-status-danger-foreground",
@@ -42,6 +43,18 @@ export const metadata = Object.freeze({
       "foreground": "color-status-info-foreground",
       "background": "color-status-info-background",
       "minimum": 4.5
+    },
+    {
+      "background": "color-action-primary-hover",
+      "foreground": "color-foreground-inverse",
+      "minimum": 2.5,
+      "note": "hover 면(blue.400)은 대비가 2.54로 기본 면보다 더 낮다. 제품이 hover에서 밝아지기 때문이며(filter: brightness(1.06)), 그 방향을 따랐다. 기본 면이 이미 AA 미달이므로 hover만 따로 지킬 수 없다. 이 쌍을 게이트에 올려 두는 이유는 통과시키려는 것이 아니라 수치를 드러내 두기 위해서다."
+    },
+    {
+      "background": "color-action-primary-pressed",
+      "foreground": "color-foreground-inverse",
+      "minimum": 4,
+      "note": "pressed 면(blue.600)은 대비 4.41로 AA에 근소하게 미달한다. hover가 밝아지므로 pressed는 어두워져 두 상태를 구분한다. 기본 면과 같은 사유로 미달을 수용한다."
     }
   ],
   "description": "Klipse Design의 DTCG 2025.10 기반 토큰 정본",
@@ -5151,17 +5164,17 @@ export const tokens = {
   "light": {
     "color-action-primary": {
       "aliasTarget": {
-        "id": "color-blue-700",
+        "id": "color-blue-500",
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-action-primary": "color(srgb 0 0.372549 0.701961 / 1)"
+        "--kds-color-action-primary": "color(srgb 0 0.533333 1 / 1)"
       },
       "deprecated": null,
       "description": null,
       "id": "color-action-primary",
       "mode": "light",
-      "rawValue": "{primitive.color.blue.700}",
+      "rawValue": "{primitive.color.blue.500}",
       "sourcePath": "semantic.light.color.action-primary",
       "tier": "semantic",
       "type": "color",
@@ -5169,51 +5182,51 @@ export const tokens = {
         "colorSpace": "srgb",
         "components": [
           0,
-          0.372549,
-          0.701961
+          0.533333,
+          1
         ],
         "alpha": 1
       }
     },
     "color-action-primary-hover": {
       "aliasTarget": {
-        "id": "color-blue-800",
+        "id": "color-blue-400",
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-action-primary-hover": "color(srgb 0 0.286275 0.541176 / 1)"
+        "--kds-color-action-primary-hover": "color(srgb 0.219608 0.643137 1 / 1)"
       },
       "deprecated": null,
       "description": null,
       "id": "color-action-primary-hover",
       "mode": "light",
-      "rawValue": "{primitive.color.blue.800}",
+      "rawValue": "{primitive.color.blue.400}",
       "sourcePath": "semantic.light.color.action-primary-hover",
       "tier": "semantic",
       "type": "color",
       "value": {
         "colorSpace": "srgb",
         "components": [
-          0,
-          0.286275,
-          0.541176
+          0.219608,
+          0.643137,
+          1
         ],
         "alpha": 1
       }
     },
     "color-action-primary-pressed": {
       "aliasTarget": {
-        "id": "color-blue-900",
+        "id": "color-blue-600",
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-action-primary-pressed": "color(srgb 0 0.203922 0.380392 / 1)"
+        "--kds-color-action-primary-pressed": "color(srgb 0 0.458824 0.858824 / 1)"
       },
       "deprecated": null,
       "description": null,
       "id": "color-action-primary-pressed",
       "mode": "light",
-      "rawValue": "{primitive.color.blue.900}",
+      "rawValue": "{primitive.color.blue.600}",
       "sourcePath": "semantic.light.color.action-primary-pressed",
       "tier": "semantic",
       "type": "color",
@@ -5221,8 +5234,8 @@ export const tokens = {
         "colorSpace": "srgb",
         "components": [
           0,
-          0.203922,
-          0.380392
+          0.458824,
+          0.858824
         ],
         "alpha": 1
       }
@@ -5881,17 +5894,17 @@ export const tokens = {
   "dark": {
     "color-action-primary": {
       "aliasTarget": {
-        "id": "color-blue-700",
+        "id": "color-blue-500",
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-action-primary": "color(srgb 0 0.372549 0.701961 / 1)"
+        "--kds-color-action-primary": "color(srgb 0 0.533333 1 / 1)"
       },
       "deprecated": null,
       "description": null,
       "id": "color-action-primary",
       "mode": "dark",
-      "rawValue": "{primitive.color.blue.700}",
+      "rawValue": "{primitive.color.blue.500}",
       "sourcePath": "semantic.dark.color.action-primary",
       "tier": "semantic",
       "type": "color",
@@ -5899,26 +5912,52 @@ export const tokens = {
         "colorSpace": "srgb",
         "components": [
           0,
-          0.372549,
-          0.701961
+          0.533333,
+          1
         ],
         "alpha": 1
       }
     },
     "color-action-primary-hover": {
       "aliasTarget": {
-        "id": "color-blue-600",
+        "id": "color-blue-400",
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-action-primary-hover": "color(srgb 0 0.458824 0.858824 / 1)"
+        "--kds-color-action-primary-hover": "color(srgb 0.219608 0.643137 1 / 1)"
       },
       "deprecated": null,
       "description": null,
       "id": "color-action-primary-hover",
       "mode": "dark",
-      "rawValue": "{primitive.color.blue.600}",
+      "rawValue": "{primitive.color.blue.400}",
       "sourcePath": "semantic.dark.color.action-primary-hover",
+      "tier": "semantic",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.219608,
+          0.643137,
+          1
+        ],
+        "alpha": 1
+      }
+    },
+    "color-action-primary-pressed": {
+      "aliasTarget": {
+        "id": "color-blue-600",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-color-action-primary-pressed": "color(srgb 0 0.458824 0.858824 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-action-primary-pressed",
+      "mode": "dark",
+      "rawValue": "{primitive.color.blue.600}",
+      "sourcePath": "semantic.dark.color.action-primary-pressed",
       "tier": "semantic",
       "type": "color",
       "value": {
@@ -5927,32 +5966,6 @@ export const tokens = {
           0,
           0.458824,
           0.858824
-        ],
-        "alpha": 1
-      }
-    },
-    "color-action-primary-pressed": {
-      "aliasTarget": {
-        "id": "color-blue-800",
-        "mode": "base"
-      },
-      "cssProperties": {
-        "--kds-color-action-primary-pressed": "color(srgb 0 0.286275 0.541176 / 1)"
-      },
-      "deprecated": null,
-      "description": null,
-      "id": "color-action-primary-pressed",
-      "mode": "dark",
-      "rawValue": "{primitive.color.blue.800}",
-      "sourcePath": "semantic.dark.color.action-primary-pressed",
-      "tier": "semantic",
-      "type": "color",
-      "value": {
-        "colorSpace": "srgb",
-        "components": [
-          0,
-          0.286275,
-          0.541176
         ],
         "alpha": 1
       }

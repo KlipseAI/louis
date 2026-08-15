@@ -93,7 +93,9 @@ for (const [collectionName, collection] of Object.entries(
 }
 
 const componentTokenIdByName = new Map(
-  (designManifest.components ?? []).map((c) => [c.name, c.id]),
+  // manifest의 name은 사람이 읽는 표시 이름이다("Dialog / Confirm Modal"). Figma 이름으로 쓸 수 없다 —
+  // 슬래시가 Figma에서 폴더 구분자가 되어 component set 이름이 쪼개진다. 그래서 figmaName을 따로 둔다.
+  (designManifest.components ?? []).map((c) => [c.figmaName ?? c.name, c.id]),
 );
 
 const failures = [];

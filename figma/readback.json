@@ -1750,12 +1750,12 @@
           [
             [
               "Light",
-              "Klipse Primitive::color/blue/700",
+              "Klipse Primitive::color/blue/500",
               null
             ],
             [
               "Dark",
-              "Klipse Primitive::color/blue/700",
+              "Klipse Primitive::color/blue/500",
               null
             ]
           ]
@@ -1767,12 +1767,12 @@
           [
             [
               "Light",
-              "Klipse Primitive::color/blue/800",
+              "Klipse Primitive::color/blue/400",
               null
             ],
             [
               "Dark",
-              "Klipse Primitive::color/blue/600",
+              "Klipse Primitive::color/blue/400",
               null
             ]
           ]
@@ -1784,12 +1784,12 @@
           [
             [
               "Light",
-              "Klipse Primitive::color/blue/900",
+              "Klipse Primitive::color/blue/600",
               null
             ],
             [
               "Dark",
-              "Klipse Primitive::color/blue/800",
+              "Klipse Primitive::color/blue/600",
               null
             ]
           ]
@@ -2533,6 +2533,11 @@
           "strokeWeight": [
             2,
             1
+          ],
+          "width": [
+            61,
+            87,
+            117
           ]
         },
         "sm": {
@@ -2573,6 +2578,138 @@
           ],
           "strokeWeight": [
             2,
+            1
+          ],
+          "width": [
+            48,
+            72,
+            96
+          ]
+        }
+      }
+    },
+    "IconButton": {
+      "variantCount": 40,
+      "hasDescription": true,
+      "properties": {
+        "Glyph": {
+          "type": "INSTANCE_SWAP"
+        },
+        "Variant": {
+          "type": "VARIANT",
+          "options": [
+            "primary",
+            "secondary",
+            "ghost",
+            "danger"
+          ]
+        },
+        "Size": {
+          "type": "VARIANT",
+          "options": [
+            "md",
+            "sm"
+          ]
+        },
+        "State": {
+          "type": "VARIANT",
+          "options": [
+            "Default",
+            "Hover",
+            "Active",
+            "Pressed",
+            "Disabled"
+          ]
+        }
+      },
+      "binding": {
+        "boundFills": 36,
+        "rawFills": 0,
+        "boundStrokes": 50,
+        "rawStrokes": 0,
+        "textStyled": 0,
+        "textUnstyled": 0
+      },
+      "geometry": {
+        "md": {
+          "slots": {
+            "Glyph": [
+              "20x20"
+            ],
+            "Vector": [
+              "13.75x14.375"
+            ]
+          },
+          "height": [
+            40
+          ],
+          "width": [
+            40
+          ],
+          "paddingBlock": [
+            0
+          ],
+          "paddingBlockEnd": [
+            0
+          ],
+          "paddingInline": [
+            0
+          ],
+          "paddingInlineEnd": [
+            0
+          ],
+          "itemSpacing": [
+            0
+          ],
+          "cornerRadius": [
+            12
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ],
+          "strokeWeight": [
+            1.5,
+            1
+          ]
+        },
+        "sm": {
+          "slots": {
+            "Glyph": [
+              "20x20"
+            ],
+            "Vector": [
+              "13.75x14.375"
+            ]
+          },
+          "height": [
+            32
+          ],
+          "width": [
+            32
+          ],
+          "paddingBlock": [
+            0
+          ],
+          "paddingBlockEnd": [
+            0
+          ],
+          "paddingInline": [
+            0
+          ],
+          "paddingInlineEnd": [
+            0
+          ],
+          "itemSpacing": [
+            0
+          ],
+          "cornerRadius": [
+            12
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ],
+          "strokeWeight": [
+            1.5,
             1
           ]
         }

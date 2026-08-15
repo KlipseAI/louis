@@ -6,20 +6,20 @@
     "capturedAt": "2026-08-15",
     "capturedBy": "figma-mcp-plugin-api",
     "published": false,
-    "tokenSourceSha256": "76c18d9378363f4fcff19604f94092ad5aad7a957a66e8de2d8d02f30bed3f16",
-    "proposalSha256": "6c9690443daba5c7a99e807acd3ef29b7ecfb4db1b3715cc104f410822a72d3a",
+    "tokenSourceSha256": "9a1bae89ccf4f28ea9005333ccd1ca3bb742a876af1f955d6f98da3185aa0b9f",
+    "proposalSha256": "5f323f1cb498f1c32a8463ad7fd64c584922cdb7c303181c4b9768e467794fe1",
     "readback": {
       "tokens": 154,
       "canonicalLength": 12094,
-      "fnv1a32": "98c000fd",
+      "fnv1a32": "14bc6adc",
       "note": "변수는 readback.json의 되읽기 행을 tokenId 공간으로 옮긴 것이고, style과 component는 같은 되읽기의 style/component 절이다. canonical 해시는 컬렉션·이름·타입·mode 값을 정렬해 이은 문자열의 FNV-1a다.",
       "styles": {
         "text": 15,
         "effect": 4
       },
       "components": {
-        "sets": 1,
-        "variants": 40
+        "sets": 2,
+        "variants": 80
       },
       "icons": 26,
       "templates": 1
@@ -55,10 +55,10 @@
       "resolvedType": "COLOR",
       "valuesByMode": {
         "Light": {
-          "alias": "color-blue-700"
+          "alias": "color-blue-500"
         },
         "Dark": {
-          "alias": "color-blue-700"
+          "alias": "color-blue-500"
         }
       }
     },
@@ -67,10 +67,10 @@
       "resolvedType": "COLOR",
       "valuesByMode": {
         "Light": {
-          "alias": "color-blue-800"
+          "alias": "color-blue-400"
         },
         "Dark": {
-          "alias": "color-blue-600"
+          "alias": "color-blue-400"
         }
       }
     },
@@ -79,10 +79,10 @@
       "resolvedType": "COLOR",
       "valuesByMode": {
         "Light": {
-          "alias": "color-blue-900"
+          "alias": "color-blue-600"
         },
         "Dark": {
-          "alias": "color-blue-800"
+          "alias": "color-blue-600"
         }
       }
     },
@@ -2043,6 +2043,11 @@
           "strokeWeight": [
             2,
             1
+          ],
+          "width": [
+            61,
+            87,
+            117
           ]
         },
         "sm": {
@@ -2083,6 +2088,139 @@
           ],
           "strokeWeight": [
             2,
+            1
+          ],
+          "width": [
+            48,
+            72,
+            96
+          ]
+        }
+      }
+    },
+    "IconButton": {
+      "tokenId": "icon-button",
+      "variantCount": 40,
+      "hasDescription": true,
+      "properties": {
+        "Glyph": {
+          "type": "INSTANCE_SWAP"
+        },
+        "Variant": {
+          "type": "VARIANT",
+          "options": [
+            "primary",
+            "secondary",
+            "ghost",
+            "danger"
+          ]
+        },
+        "Size": {
+          "type": "VARIANT",
+          "options": [
+            "md",
+            "sm"
+          ]
+        },
+        "State": {
+          "type": "VARIANT",
+          "options": [
+            "Default",
+            "Hover",
+            "Active",
+            "Pressed",
+            "Disabled"
+          ]
+        }
+      },
+      "binding": {
+        "boundFills": 36,
+        "rawFills": 0,
+        "boundStrokes": 50,
+        "rawStrokes": 0,
+        "textStyled": 0,
+        "textUnstyled": 0
+      },
+      "geometry": {
+        "md": {
+          "slots": {
+            "Glyph": [
+              "20x20"
+            ],
+            "Vector": [
+              "13.75x14.375"
+            ]
+          },
+          "height": [
+            40
+          ],
+          "width": [
+            40
+          ],
+          "paddingBlock": [
+            0
+          ],
+          "paddingBlockEnd": [
+            0
+          ],
+          "paddingInline": [
+            0
+          ],
+          "paddingInlineEnd": [
+            0
+          ],
+          "itemSpacing": [
+            0
+          ],
+          "cornerRadius": [
+            12
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ],
+          "strokeWeight": [
+            1.5,
+            1
+          ]
+        },
+        "sm": {
+          "slots": {
+            "Glyph": [
+              "20x20"
+            ],
+            "Vector": [
+              "13.75x14.375"
+            ]
+          },
+          "height": [
+            32
+          ],
+          "width": [
+            32
+          ],
+          "paddingBlock": [
+            0
+          ],
+          "paddingBlockEnd": [
+            0
+          ],
+          "paddingInline": [
+            0
+          ],
+          "paddingInlineEnd": [
+            0
+          ],
+          "itemSpacing": [
+            0
+          ],
+          "cornerRadius": [
+            12
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ],
+          "strokeWeight": [
+            1.5,
             1
           ]
         }

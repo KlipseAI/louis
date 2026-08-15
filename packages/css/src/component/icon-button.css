@@ -52,11 +52,17 @@
   color: var(--kds-color-status-danger-foreground);
 }
 
-.kds-icon-button:where(:not([aria-disabled="true"]):not(:disabled)):hover[data-variant="primary"] {
+/* hover와 active는 **pressed를 덮지 않는다.**
+ *
+ * 이 :not()이 없으면 토글이 켜진 버튼에 포인터를 얹었을 때 배경이 variant 색으로 되돌아가고
+ * 글자만 pressed 색으로 남는다. 켜짐 상태가 시야에서 사라지는 것이고, 실측으로 확인했다 —
+ * pressed primary에 hover하면 bg가 #38a4ff, fg가 foreground-primary가 됐다.
+ * 지속 상태를 일시적 상태가 덮으면 안 된다 (design/foundations/interaction-states.md). */
+.kds-icon-button:where(:not([aria-disabled="true"]):not(:disabled)):not([aria-pressed="true"]):hover[data-variant="primary"] {
   background: var(--kds-color-action-primary-hover);
 }
 
-.kds-icon-button:where(:not([aria-disabled="true"]):not(:disabled)):hover:where(
+.kds-icon-button:where(:not([aria-disabled="true"]):not(:disabled)):not([aria-pressed="true"]):hover:where(
     [data-variant="secondary"],
     [data-variant="ghost"]
   ) {
@@ -69,7 +75,7 @@
   color: var(--kds-color-foreground-primary);
 }
 
-.kds-icon-button:where(:not([aria-disabled="true"]):not(:disabled)):active[data-variant="primary"] {
+.kds-icon-button:where(:not([aria-disabled="true"]):not(:disabled)):not([aria-pressed="true"]):active[data-variant="primary"] {
   background: var(--kds-color-action-primary-pressed);
 }
 

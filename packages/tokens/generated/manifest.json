@@ -2,23 +2,23 @@
   "artifacts": [
     {
       "path": "packages/tokens/generated/figma.tokens.json",
-      "sha256": "6c9690443daba5c7a99e807acd3ef29b7ecfb4db1b3715cc104f410822a72d3a"
+      "sha256": "5f323f1cb498f1c32a8463ad7fd64c584922cdb7c303181c4b9768e467794fe1"
     },
     {
       "path": "packages/tokens/generated/index.d.ts",
-      "sha256": "f908596ca57dc3b4f98efdbe244e4363393b5206119694cc9cb663e3ed69e25a"
+      "sha256": "965c9bb11adb9b1738e0f4cfaf825775ee130e73ef0e7d63c4f3543dbad58ae9"
     },
     {
       "path": "packages/tokens/generated/index.js",
-      "sha256": "749a00672cc24bf7c18d5948a4122a94439dca3736b1c4c8f74aa03bebab873c"
+      "sha256": "5e70389915a407e6286500374705031d20848ed24a1060065e43158aed0395ea"
     },
     {
       "path": "packages/tokens/generated/tokens.css",
-      "sha256": "163e37ea5ac5c51f97a392d388c7c923be337586d1f84158387c3a2409ac2e3e"
+      "sha256": "46f64b9758dac8b458daf2f85a7f5372815dc471ea7443e8cb3b04e7f4678da7"
     },
     {
       "path": "packages/tokens/generated/tokens.json",
-      "sha256": "861fcaca9fa9a06fda3977fa30f0f6ad2db798d53327208401a39049ad277275"
+      "sha256": "667800ffd22feff060968601c30179d3060d07d2274121b56d9c778cf8bb25e7"
     }
   ],
   "contrastPairs": [
@@ -40,7 +40,8 @@
     {
       "background": "color-action-primary",
       "foreground": "color-foreground-inverse",
-      "minimum": 4.5
+      "minimum": 3,
+      "note": "제품 브랜드 블루(blue.500 #0088ff)를 정본으로 채택한 owner 결정의 결과다. 흰 글자(neutral-0) 대비가 3.37로 WCAG 2.2 AA의 일반 텍스트 기준 4.5에 미달한다. 4.5를 넘는 첫 단계는 blue.700(6.12)인데 제품에서 2번밖에 쓰이지 않는 색이라 브랜드가 아니다. 이 미달은 제품이 이미 갖고 있는 것이며 DS가 그것을 그대로 재현한다. 해소하려면 라벨을 18.66px bold 이상으로 키우거나 면 색을 어둡게 바꿔야 하고, 둘 다 owner 판정 대상이다."
     },
     {
       "background": "color-status-danger-background",
@@ -61,6 +62,18 @@
       "background": "color-status-info-background",
       "foreground": "color-status-info-foreground",
       "minimum": 4.5
+    },
+    {
+      "background": "color-action-primary-hover",
+      "foreground": "color-foreground-inverse",
+      "minimum": 2.5,
+      "note": "hover 면(blue.400)은 대비가 2.54로 기본 면보다 더 낮다. 제품이 hover에서 밝아지기 때문이며(filter: brightness(1.06)), 그 방향을 따랐다. 기본 면이 이미 AA 미달이므로 hover만 따로 지킬 수 없다. 이 쌍을 게이트에 올려 두는 이유는 통과시키려는 것이 아니라 수치를 드러내 두기 위해서다."
+    },
+    {
+      "background": "color-action-primary-pressed",
+      "foreground": "color-foreground-inverse",
+      "minimum": 4,
+      "note": "pressed 면(blue.600)은 대비 4.41로 AA에 근소하게 미달한다. hover가 밝아지므로 pressed는 어두워져 두 상태를 구분한다. 기본 면과 같은 사유로 미달을 수용한다."
     }
   ],
   "description": "Klipse Design의 DTCG 2025.10 기반 토큰 정본",
@@ -169,7 +182,7 @@
   },
   "source": {
     "path": "packages/tokens/src/klipse.tokens.json",
-    "sha256": "76c18d9378363f4fcff19604f94092ad5aad7a957a66e8de2d8d02f30bed3f16"
+    "sha256": "9a1bae89ccf4f28ea9005333ccd1ca3bb742a876af1f955d6f98da3185aa0b9f"
   },
   "themes": [
     "light",
@@ -179,24 +192,24 @@
   "tokens": [
     {
       "aliasTarget": {
-        "id": "color-blue-700",
+        "id": "color-blue-500",
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-action-primary": "color(srgb 0 0.372549 0.701961 / 1)"
+        "--kds-color-action-primary": "color(srgb 0 0.533333 1 / 1)"
       },
       "deprecated": null,
       "description": null,
       "id": "color-action-primary",
       "mode": "light",
-      "rawValue": "{primitive.color.blue.700}",
+      "rawValue": "{primitive.color.blue.500}",
       "resolvedValue": {
         "alpha": 1,
         "colorSpace": "srgb",
         "components": [
           0,
-          0.372549,
-          0.701961
+          0.533333,
+          1
         ]
       },
       "sourcePath": "semantic.light.color.action-primary",
@@ -205,24 +218,24 @@
     },
     {
       "aliasTarget": {
-        "id": "color-blue-700",
+        "id": "color-blue-500",
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-action-primary": "color(srgb 0 0.372549 0.701961 / 1)"
+        "--kds-color-action-primary": "color(srgb 0 0.533333 1 / 1)"
       },
       "deprecated": null,
       "description": null,
       "id": "color-action-primary",
       "mode": "dark",
-      "rawValue": "{primitive.color.blue.700}",
+      "rawValue": "{primitive.color.blue.500}",
       "resolvedValue": {
         "alpha": 1,
         "colorSpace": "srgb",
         "components": [
           0,
-          0.372549,
-          0.701961
+          0.533333,
+          1
         ]
       },
       "sourcePath": "semantic.dark.color.action-primary",
@@ -231,27 +244,53 @@
     },
     {
       "aliasTarget": {
-        "id": "color-blue-800",
+        "id": "color-blue-400",
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-action-primary-hover": "color(srgb 0 0.286275 0.541176 / 1)"
+        "--kds-color-action-primary-hover": "color(srgb 0.219608 0.643137 1 / 1)"
       },
       "deprecated": null,
       "description": null,
       "id": "color-action-primary-hover",
       "mode": "light",
-      "rawValue": "{primitive.color.blue.800}",
+      "rawValue": "{primitive.color.blue.400}",
       "resolvedValue": {
         "alpha": 1,
         "colorSpace": "srgb",
         "components": [
-          0,
-          0.286275,
-          0.541176
+          0.219608,
+          0.643137,
+          1
         ]
       },
       "sourcePath": "semantic.light.color.action-primary-hover",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-blue-400",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-color-action-primary-hover": "color(srgb 0.219608 0.643137 1 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-action-primary-hover",
+      "mode": "dark",
+      "rawValue": "{primitive.color.blue.400}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0.219608,
+          0.643137,
+          1
+        ]
+      },
+      "sourcePath": "semantic.dark.color.action-primary-hover",
       "tier": "semantic",
       "type": "color"
     },
@@ -261,12 +300,12 @@
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-action-primary-hover": "color(srgb 0 0.458824 0.858824 / 1)"
+        "--kds-color-action-primary-pressed": "color(srgb 0 0.458824 0.858824 / 1)"
       },
       "deprecated": null,
       "description": null,
-      "id": "color-action-primary-hover",
-      "mode": "dark",
+      "id": "color-action-primary-pressed",
+      "mode": "light",
       "rawValue": "{primitive.color.blue.600}",
       "resolvedValue": {
         "alpha": 1,
@@ -277,56 +316,30 @@
           0.858824
         ]
       },
-      "sourcePath": "semantic.dark.color.action-primary-hover",
-      "tier": "semantic",
-      "type": "color"
-    },
-    {
-      "aliasTarget": {
-        "id": "color-blue-900",
-        "mode": "base"
-      },
-      "cssProperties": {
-        "--kds-color-action-primary-pressed": "color(srgb 0 0.203922 0.380392 / 1)"
-      },
-      "deprecated": null,
-      "description": null,
-      "id": "color-action-primary-pressed",
-      "mode": "light",
-      "rawValue": "{primitive.color.blue.900}",
-      "resolvedValue": {
-        "alpha": 1,
-        "colorSpace": "srgb",
-        "components": [
-          0,
-          0.203922,
-          0.380392
-        ]
-      },
       "sourcePath": "semantic.light.color.action-primary-pressed",
       "tier": "semantic",
       "type": "color"
     },
     {
       "aliasTarget": {
-        "id": "color-blue-800",
+        "id": "color-blue-600",
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-action-primary-pressed": "color(srgb 0 0.286275 0.541176 / 1)"
+        "--kds-color-action-primary-pressed": "color(srgb 0 0.458824 0.858824 / 1)"
       },
       "deprecated": null,
       "description": null,
       "id": "color-action-primary-pressed",
       "mode": "dark",
-      "rawValue": "{primitive.color.blue.800}",
+      "rawValue": "{primitive.color.blue.600}",
       "resolvedValue": {
         "alpha": 1,
         "colorSpace": "srgb",
         "components": [
           0,
-          0.286275,
-          0.541176
+          0.458824,
+          0.858824
         ]
       },
       "sourcePath": "semantic.dark.color.action-primary-pressed",

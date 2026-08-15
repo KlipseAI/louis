@@ -168,3 +168,19 @@ test("Button을 아이콘 전용으로 쓰면 정사각이 되지 않는다 — 
 });
 
 export type _EnsureTsx = JSX.Element;
+
+test("토글이 켜진 상태를 hover가 덮지 않는다", async () => {
+  // pressed는 지속 상태고 hover는 일시적 상태다. 일시적인 것이 지속적인 것을 지우면 사용자는
+  // 포인터를 얹는 동안 토글이 꺼진 것으로 본다. 실제로 그렇게 돼 있었다.
+  await render(
+    <IconButton variant="primary" label="토글" pressed>
+      <IconTrashSimple />
+    </IconButton>,
+  );
+  const node = document.querySelector("button.kds-icon-button");
+  if (node === null) throw new Error("IconButton을 찾지 못했습니다");
+  const resting = getComputedStyle(node).backgroundColor;
+  await userEvent.hover(node);
+  expect(getComputedStyle(node).backgroundColor, "hover가 pressed 면을 바꿨습니다").toBe(resting);
+  expect(node.getAttribute("aria-pressed")).toBe("true");
+});

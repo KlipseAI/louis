@@ -47,6 +47,8 @@ const COMPONENT_CONTRACTS = [
     figmaName: "Button",
     declaration: "packages/react/dist/button/button.d.ts",
     // Figma variant property 이름 → 코드에서 같은 집합을 정의하는 타입 alias
+    // 값은 타입 alias 이름이거나 { type, declaration } 이다. IconButton처럼 alias가 다른 파일에
+    // 선언된 경우(ButtonVariant는 button.d.ts에 있다) 파일을 따로 지정한다.
     variantProperties: { Variant: "ButtonVariant", Size: "ButtonSize" },
     figmaOnlyProperties: {
       State: {
@@ -69,7 +71,55 @@ const COMPONENT_CONTRACTS = [
     // 실제로 md 39 대신 37, sm 28 대신 26으로 만들어져 있었고 아무 게이트도 잡지 못했다.
     geometry: {
       measuredId: "button",
+      // readback 기하 필드 → 기대값. 문자열이면 measured의 키, 배열이면 그 키들의 합, 그 외는 리터럴.
+      // Button은 폭이 라벨에 달려 있으므로 width를 보지 않는다.
+      fields: {
+        height: "height",
+        paddingBlock: ["paddingBlock", "borderWidth"],
+        paddingBlockEnd: ["paddingBlock", "borderWidth"],
+        paddingInline: ["paddingInline", "borderWidth"],
+        paddingInlineEnd: ["paddingInline", "borderWidth"],
+        itemSpacing: "gap",
+        cornerRadius: "radius",
+        layoutMode: { literal: "HORIZONTAL" },
+      },
       slots: { LeftIcon: "iconSlot", RightIcon: "iconSlot", Spinner: "spinner" },
+      // 보이는 테두리 외에 허용되는 stroke 두께. spinner 링은 테두리가 아니다.
+      extraStrokeWeights: [2],
+    },
+  },
+  {
+    id: "icon-button",
+    figmaName: "IconButton",
+    declaration: "packages/react/dist/icon-button/icon-button.d.ts",
+    variantProperties: {
+      // Icon Button은 Button과 같은 강조 축을 쓴다. alias 선언은 button.d.ts에 있다.
+      Variant: { type: "ButtonVariant", declaration: "packages/react/dist/button/button.d.ts" },
+      Size: "IconButtonSize",
+    },
+    // 글리프는 코드에서 children이다. Button과 달리 슬롯이 하나뿐이라 boolean 가시성이 없다.
+    propProperties: { Glyph: "children" },
+    figmaOnlyProperties: {
+      State: {
+        options: ["Default", "Hover", "Active", "Pressed", "Disabled"],
+        reason:
+          "Hover/Active는 CSS 상태라 Figma에 variant로 둔다. Pressed는 코드에서 boolean prop이지만 aria-pressed로 표현되는 지속 상태이므로 같은 축에 둔다. 이름의 뜻은 design/foundations/interaction-states.md가 소유한다 — Active는 :active, Pressed는 aria-pressed다. Icon Button은 둘을 다 갖는 첫 컴포넌트다.",
+      },
+    },
+    geometry: {
+      measuredId: "icon-button",
+      // 한 변의 길이가 계약이므로 폭도 본다. 라벨이 없어 폭이 콘텐츠에 흔들리지 않는다.
+      fields: {
+        height: "height",
+        width: "width",
+        cornerRadius: "radius",
+        layoutMode: { literal: "HORIZONTAL" },
+      },
+      slots: { Glyph: "glyph" },
+      extraStrokeWeights: [],
+      // 글리프 instance가 보이므로 그 안의 vector stroke가 함께 읽힌다. 두께의 정본은 아이콘
+      // manifest이며 여기에 숫자를 복사하지 않는다 — 복사하면 두 정본이 생긴다.
+      allowGlyphStroke: true,
     },
   },
 ];
@@ -543,18 +593,24 @@ function compareComponentGeometry(contract, got) {
       issues.push(`${contract.figmaName}: size ${size}의 기하가 snapshot에 없습니다.`);
       continue;
     }
-    // Figma padding은 CSS padding에 border를 접어 넣은 값이다.
+    // Figma padding은 CSS padding에 border를 접어 넣은 값이다. 그 접기를 계약이 선언한다.
     const border = spec.borderWidth;
-    const expected = {
-      height: spec.height,
-      paddingBlock: spec.paddingBlock + border,
-      paddingBlockEnd: spec.paddingBlock + border,
-      paddingInline: spec.paddingInline + border,
-      paddingInlineEnd: spec.paddingInline + border,
-      itemSpacing: spec.gap,
-      cornerRadius: spec.radius,
-      layoutMode: "HORIZONTAL",
-    };
+    const expected = {};
+    for (const [field, rule] of Object.entries(plan.fields ?? {})) {
+      if (typeof rule === "string") {
+        expected[field] = spec[rule];
+      } else if (Array.isArray(rule)) {
+        expected[field] = rule.reduce((total, key) => total + spec[key], 0);
+      } else {
+        expected[field] = rule.literal;
+      }
+      if (expected[field] === undefined || Number.isNaN(expected[field])) {
+        issues.push(
+          `${COMPONENTS_MEASURED_PATH}의 ${plan.measuredId}.${size}에 ${field}의 근거 값이 없습니다.`,
+        );
+        delete expected[field];
+      }
+    }
     for (const [field, want] of Object.entries(expected)) {
       const values = actual[field];
       if (!Array.isArray(values) || values.length === 0) {
@@ -573,11 +629,16 @@ function compareComponentGeometry(contract, got) {
         );
       }
     }
-    // 보이는 테두리는 CSS border 두께여야 한다. spinner의 링 두께 2는 테두리가 아니므로 제외한다.
+    // 보이는 테두리는 CSS border 두께여야 한다. 컴포넌트가 선언한 예외(spinner 링 등)만 허용한다.
+    const allowedWeights = new Set([
+      border,
+      ...(plan.extraStrokeWeights ?? []),
+      ...(plan.allowGlyphStroke ? iconManifest.strokeWidths.map(Number) : []),
+    ]);
     for (const weight of actual.strokeWeight ?? []) {
-      if (weight !== border && weight !== 2) {
+      if (!allowedWeights.has(weight)) {
         issues.push(
-          `${contract.figmaName} ${size}: stroke 두께 ${weight}는 CSS border(${border})도 spinner 링(2)도 아닙니다.`,
+          `${contract.figmaName} ${size}: stroke 두께 ${weight}는 허용 집합 밖입니다 (${[...allowedWeights].join(", ")}).`,
         );
       }
     }
@@ -632,10 +693,22 @@ function compareComponents(actualComponents) {
     }
 
     const properties = got.properties ?? {};
-    for (const [figmaProperty, codeType] of Object.entries(
+    for (const [figmaProperty, entry] of Object.entries(
       contract.variantProperties,
     )) {
-      const codeOptions = unionMembers(declarationSource, codeType);
+      const codeType = typeof entry === "string" ? entry : entry.type;
+      let source = declarationSource;
+      if (typeof entry !== "string" && entry.declaration !== undefined) {
+        try {
+          source = readFileSync(resolve(repoRoot, entry.declaration), "utf8");
+        } catch {
+          issues.push(
+            `코드 선언을 읽을 수 없습니다: ${entry.declaration} — 먼저 pnpm build:react를 실행합니다.`,
+          );
+          continue;
+        }
+      }
+      const codeOptions = unionMembers(source, codeType);
       if (codeOptions === null) {
         issues.push(`코드 타입을 찾지 못했습니다: ${codeType}`);
         continue;

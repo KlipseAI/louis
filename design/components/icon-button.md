@@ -14,7 +14,7 @@ authority: normative
 | Surface       | 상태           | 근거                                                      |
 | ------------- | -------------- | --------------------------------------------------------- |
 | Web           | `partial`      | public export와 acceptance test; visual regression과 제품 소비 증거 없음 |
-| Figma         | `not-ready`    | component set 미생성                                      |
+| Figma         | `partial`      | component set 40 variant (Variant 4 × Size 2 × State 5). publish는 DS-F-008 |
 | Documentation | `done`         | 이 문서                                                   |
 | Maturity      | `experimental` | 규범과 구현이 같은 변경 단위에서 처음 선다                |
 
@@ -83,6 +83,12 @@ Icon Button은 `active`(누르는 중)와 `pressed`(토글 켜짐)를 **둘 다*
 - `pressed`와 `active`는 **다른 축**이다. `active`는 누르고 있는 동안이고 `pressed`는 토글의 켜짐
   상태다. 둘을 같은 시각으로 표현하면 토글이 눌린 것인지 켜진 것인지 구분되지 않는다.
 - `pressed`는 토글에만 쓴다. 한 번 실행되고 끝나는 액션에 주면 스크린리더가 상태를 잘못 읽는다.
+- **hover와 active는 `pressed`를 덮지 않는다.** 지속 상태를 일시적 상태가 지우면 포인터를 얹는
+  동안 토글이 꺼진 것으로 보인다. 실제로 그렇게 돼 있었다 — pressed primary에 hover하면 배경이
+  variant 색으로 되돌아가고 글자만 pressed 색으로 남았다. CSS 특정성이 `[aria-pressed]`(0,2,0)보다
+  `:hover[data-variant]`(0,3,0)가 높았기 때문이다. hover/active 규칙에서 pressed를 제외해 고쳤다.
+- **`pressed`에는 별도의 hover 면이 없다.** 켜진 상태에서 포인터 피드백이 사라진다. Known
+  deviations 참조.
 - `loading` 상태는 아직 없다. Known deviations 참조.
 
 ## Interaction and responsive behavior
@@ -128,7 +134,8 @@ Icon Button은 `active`(누르는 중)와 `pressed`(토글 켜짐)를 **둘 다*
 
 | 항목 | 상태 | 사유 |
 | --- | --- | --- |
-| Figma component set | 없음 | DS-F-006 대상 |
+| pressed의 hover 면 | 없음 | `background-inset`보다 한 단계 강한 중립 표면 토큰이 없다. 만들면 hover가 pressed를 덮지 않으면서도 피드백을 줄 수 있다. DS-P3-014 대상 |
+| Figma 글리프 색 | instance override | Figma에는 `currentColor`가 없어 아이콘 instance 안 vector의 stroke를 variant마다 직접 변수에 다시 묶었다. 아이콘 정본이 바뀌어도 이 override는 따라오지 않는다 — 재적용은 수동이다 |
 | `loading` 상태 | 없음 | 아이콘 자리에 무엇을 넣을지 미정. Button의 loading과 같은 축인지 판정이 필요하다 |
 | 제품 32×32 radius 12 ↔ 모바일 40×40 radius 14 | 미채택 | 제품은 ≤719px에서 radius를 14로 바꾼다. 뷰포트로 radius를 바꾸는 근거를 찾지 못해 12로 고정했다 |
 
@@ -143,6 +150,7 @@ Icon Button은 `active`(누르는 중)와 `pressed`(토글 켜짐)를 **둘 다*
 7. `disabled`면 클릭 핸들러가 실행되지 않는다.
 8. 부모 `color` 변경이 글리프에 반영된다.
 9. 두 size의 글리프 계산 박스가 모두 20px다.
+10. 토글이 켜진 상태를 hover가 덮지 않는다.
 
 ## Migration and changelog
 

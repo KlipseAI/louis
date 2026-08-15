@@ -4300,6 +4300,86 @@ canary가 없었으면 "통과하지만 아무것도 보지 않는" 테스트가
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
 
+#### 2026-08-15 — primary를 제품 브랜드 블루로 되돌리고, 그 대가를 기록한다
+
+Owner가 Figma의 Button을 보고 물었다 — "프라이머리 컬러가 왜 저래, 왤케 어둡냐. 내 실제 배포환경에서
+진짜 저 컬러를 쓰고 있다고?" 세어 보니 아니었다.
+
+| 단계 | 제품 사용 횟수 | 흰 글자 대비 |
+| --- | --- | --- |
+| `--primary-400` #38a4ff | 28 | 2.54 |
+| `--primary-500` #0088ff | **30** | 3.37 |
+| `--primary-700` #005fb3 | **2** | 6.12 |
+
+DS는 사용 횟수 2회짜리 `blue.700`을 action 색으로 쓰고 있었다. **왜 그렇게 됐는지는 명확하다 —
+대비 게이트다.** 제품 브랜드 블루로는 4.5를 넘길 수 없어서, 통과하는 가장 가까운 값까지 어두워진
+것이다. 그런데 그 판단이 어디에도 Decision으로 기록돼 있지 않았다. `migration/token-mapping.md`에
+"시각값이 다르다" 한 줄뿐이었다. **브랜드 색이 접근성 게이트 때문에 조용히 바뀐 상태였다.**
+
+##### 결정
+
+Owner가 `blue.500`을 정본으로 택했다. 반단계(450/550 같은 것)는 쓰지 않는다.
+
+- `color-action-primary` → `blue.500`
+- `color-action-primary-hover` → `blue.400`. 제품이 hover에서 **밝아진다**(`filter: brightness(1.06)`).
+  기존 DS는 어두워졌다 — 방향이 반대였다.
+- `color-action-primary-pressed` → `blue.600`. hover가 밝아지므로 눌림은 어두워져 둘을 가른다.
+
+제품의 3-stop 그라디언트는 채택하지 않는다. 그것은 노드 생성 FAB과 공유하는 면이고
+(`--node-prompt-generate-gradient`), 버튼이 FAB의 면을 물려받은 구조다. DS는 flat으로 간다.
+
+##### 대가를 숨기지 않는다
+
+`primary` 버튼은 이제 **WCAG 2.2 AA 미달**이다(3.37 < 4.5). 이 미달은 제품이 이미 갖고 있던 것이고
+DS가 그것을 그대로 재현한다. 세 곳에 같은 사유를 남겼다.
+
+- token source의 `contrastPairs[].note`
+- [Button](../components/button.md)의 Known deviations
+- axe 테스트의 허용 위반 목록
+
+그리고 **기준을 낮추는 일이 다시는 조용히 일어나지 않도록** 게이트를 고쳤다.
+
+- `minimum`이 4.5 미만인 contrast pair는 **`note`가 필수**다(20자 이상).
+- 완화하지 않았는데 `note`를 붙이는 것도 막는다. 사유가 실제 완화와만 짝지어야 "note가 있으니
+  괜찮다"는 오독이 안 생긴다.
+- canary 2종이 매 실행에서 이 두 방향의 검출력을 증명한다.
+
+axe 테스트도 지우지 않고 **알려진 위반만 고정**했다. `primary: ["color-contrast"]` 하나뿐이고,
+새 위반이 생기면 여전히 실패한다. 테스트를 지웠다면 그 variant의 나머지 검출력까지 사라졌을 것이다.
+
+##### 토글이 hover에 지워지고 있었다
+
+Icon Button을 Figma로 옮기려고 CSS 특정성을 실제로 계산하다가 찾았다. `[aria-pressed="true"]`는
+(0,2,0)이고 `:hover[data-variant="primary"]`는 (0,3,0)이다. **켜진 토글에 포인터를 얹으면 배경이
+variant 색으로 되돌아가고 글자만 pressed 색으로 남는다.** 실측으로 확인했다 — bg가 #38a4ff,
+fg가 foreground-primary.
+
+지속 상태를 일시적 상태가 덮는 것이고 [Interaction states](../foundations/interaction-states.md)가
+금지하는 것이다. hover/active 규칙에서 pressed를 제외해 고치고 acceptance test로 고정했다.
+
+##### Icon Button이 Figma에 섰다
+
+40 variant(Variant 4 × Size 2 × State 5). 한 변 40/32가 기하 계약으로 묶여 있고, `State`는
+`Default/Hover/Active/Pressed/Disabled`다 — Icon Button이 `active`와 `pressed`를 **둘 다** 갖는
+첫 컴포넌트다.
+
+**글리프 색 문제를 한 번 잘못 판단했다가 고쳤다.** 처음에는 "Figma에 currentColor가 없고 instance
+내부를 플러그인 API로 못 바꾼다"고 결론내고 Known deviation으로 적으려 했다. 실제로는 **숨겨진
+instance라서** 내용이 로드되지 않았던 것이고, 보이는 instance는 내부 vector에 접근된다. 글리프
+stroke를 variant마다 올바른 전경 토큰에 다시 묶었다(IconButton 40 + Button 80 = 120개).
+
+##### manifest가 Figma 이름을 갖는다
+
+`name`은 사람이 읽는 표시 이름이라 `Dialog / Confirm Modal` 같은 값이 들어 있다. Figma에서 슬래시는
+**폴더 구분자**라 component set 이름이 쪼개진다. `figmaName`을 별도 필드로 두고 schema가 대문자
+시작 PascalCase만 허용한다.
+
+##### Baseline 갱신 (DS-GOV-001)
+
+분류별 diff는 breaking 4종 — `value`/`rawValue`/`aliasTarget` 각 6건(토큰 3개 × 모드 2개)과
+`contrastPairs` 1건이다. `removal`은 0이고 의도하지 않은 항목은 없다. 공개 release와 published
+library가 없어 baseline 복사로 처리했다.
+
 #### 2026-08-15 — Figma의 Button이 코드와 2px 어긋나 있었다
 
 사용자가 "피그마에 만들어둔 버튼은 뭐냐"고 물어 열어 봤고, **틀려 있었다.**

@@ -695,17 +695,19 @@
       "web": "partial",
       "docs": "done",
       "doc": "design/components/button.md",
-      "note": "public export와 실브라우저 acceptance test. Figma component set 40 variant에 아이콘 슬롯과 기하 계약이 붙었다 — figma/components.measured.json이 정본이고 코드·Figma 양방향을 게이트가 잰다. color-action-danger* 부재로 danger가 tonal이고 hover 면 변화가 없다"
+      "note": "public export와 실브라우저 acceptance test. Figma component set 40 variant에 아이콘 슬롯과 기하 계약이 붙었다. primary 면이 제품 브랜드 블루라 WCAG AA에 미달하며 owner 결정으로 수용한 상태다 — 규범 Known deviations 참조",
+      "figmaName": "Button"
     },
     {
       "id": "icon-button",
       "name": "Icon Button",
       "maturity": "experimental",
-      "figma": "not-ready",
+      "figma": "partial",
       "web": "partial",
       "docs": "done",
       "doc": "design/components/icon-button.md",
-      "note": "public export와 실브라우저 acceptance test 10건. Button을 아이콘 전용으로 렌더하면 정사각이 아니라는 실측이 별도 컴포넌트의 근거이며 그 실측도 테스트로 고정했다. Figma component set, visual regression, 제품 사용처가 남음"
+      "note": "public export와 실브라우저 acceptance test 11건. Figma component set 40 variant가 기하 계약(한 변 40/32)으로 묶여 있다. pressed의 hover 면과 loading 상태가 남음",
+      "figmaName": "IconButton"
     },
     {
       "id": "dialog",
@@ -715,7 +717,8 @@
       "web": "partial",
       "docs": "done",
       "note": "Dialog compound가 public export다. variant 5종·backdrop 정책·차단 안내를 recipe가 소유한다. Figma component와 시각 회귀는 아직 없다",
-      "doc": "design/components/dialog.md"
+      "doc": "design/components/dialog.md",
+      "figmaName": "Dialog"
     },
     {
       "id": "menu-popover",
@@ -725,7 +728,8 @@
       "web": "partial",
       "docs": "done",
       "note": "ActionMenu·CompositePopover·submenu가 public export다. Figma component와 시각 회귀는 아직 없다",
-      "doc": "design/components/menu-popover.md"
+      "doc": "design/components/menu-popover.md",
+      "figmaName": "Menu"
     },
     {
       "id": "input",
@@ -734,7 +738,8 @@
       "figma": "not-ready",
       "web": "not-ready",
       "docs": "not-ready",
-      "note": "P3 component backlog"
+      "note": "P3 component backlog",
+      "figmaName": "TextField"
     },
     {
       "id": "select",
@@ -743,7 +748,8 @@
       "figma": "not-ready",
       "web": "not-ready",
       "docs": "not-ready",
-      "note": "P3 component backlog"
+      "note": "P3 component backlog",
+      "figmaName": "Select"
     },
     {
       "id": "tooltip",
@@ -753,7 +759,8 @@
       "web": "partial",
       "docs": "done",
       "note": "public export와 실브라우저 acceptance test 11건. overlay primitive의 positioner와 portal만 소비하고 focus scope·inert·scroll lock은 쓰지 않는다. 그룹 지연 건너뛰기와 arrow, Figma component set이 남음",
-      "doc": "design/components/tooltip.md"
+      "doc": "design/components/tooltip.md",
+      "figmaName": "Tooltip"
     },
     {
       "id": "toast",
@@ -763,7 +770,8 @@
       "web": "partial",
       "docs": "done",
       "note": "public export와 실브라우저 acceptance test 12건. overlay primitive를 쓰지 않는다 — anchor·focus·바깥 클릭 어느 것도 해당하지 않아 Provider가 자기 live region viewport를 소유한다. 실행 취소 액션과 Figma component set이 남음",
-      "doc": "design/components/toast.md"
+      "doc": "design/components/toast.md",
+      "figmaName": "Toast"
     },
     {
       "id": "empty-state",
@@ -772,7 +780,8 @@
       "figma": "not-ready",
       "web": "not-ready",
       "docs": "not-ready",
-      "note": "P3 component backlog"
+      "note": "P3 component backlog",
+      "figmaName": "EmptyState"
     }
   ],
   "patterns": [

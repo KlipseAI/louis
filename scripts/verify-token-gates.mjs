@@ -613,6 +613,20 @@ try {
     );
     delete dark.parent[dark.name];
   });
+  // 접근성 기준을 낮추는 변경이 사유 없이 통과하지 않는지 증명한다.
+  // 이 canary가 없으면 "minimum을 3.0으로 낮춘다" 한 줄이 아무 흔적도 없이 지나간다.
+  expectModelFailure("contrast-relaxation-needs-reason", (document) => {
+    const pairs = document.$extensions[KLIPSE_EXTENSION].contrastPairs;
+    const strict = pairs.find((pair) => pair.minimum >= 4.5);
+    strict.minimum = 3;
+  });
+  // 반대 방향: 완화하지 않았는데 note를 달아 두는 것도 막는다. 사유가 실제 완화와만 짝지어야
+  // "note가 있으니 괜찮다"는 오독이 생기지 않는다.
+  expectModelFailure("contrast-reason-without-relaxation", (document) => {
+    const pairs = document.$extensions[KLIPSE_EXTENSION].contrastPairs;
+    const strict = pairs.find((pair) => pair.minimum >= 4.5);
+    strict.note = "완화하지 않았는데 붙인 사유. 이것은 통과하면 안 된다.";
+  });
   expectModelFailure("motion-property-contract", (document) => {
     document.$extensions[KLIPSE_EXTENSION].motionProperties[0].properties.push(
       "left",

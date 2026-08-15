@@ -441,6 +441,11 @@
         },
         "note": {
           "$ref": "#/$defs/nonEmptyString"
+        },
+        "figmaName": {
+          "description": "Figma component set 이름. name은 사람이 읽는 표시 이름이라 슬래시를 포함할 수 있는데(\"Dialog / Confirm Modal\") Figma에서 슬래시는 폴더 구분자라 이름이 쪼개진다. 그래서 별도 필드로 두고 슬래시와 공백을 금지한다.",
+          "type": "string",
+          "pattern": "^[A-Z][A-Za-z0-9]*$"
         }
       },
       "anyOf": [

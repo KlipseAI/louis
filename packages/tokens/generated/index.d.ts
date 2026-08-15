@@ -456,9 +456,9 @@ export declare const tokens: Readonly<{
   readonly "typography-heading-sm-medium": TokenRecord<"typography-heading-sm-medium", "global", "semantic", { readonly id: "type-style-heading-sm-medium"; readonly mode: "base" }>;
   }> ;
   readonly light: Readonly<{
-  readonly "color-action-primary": TokenRecord<"color-action-primary", "light", "semantic", { readonly id: "color-blue-700"; readonly mode: "base" }>;
-  readonly "color-action-primary-hover": TokenRecord<"color-action-primary-hover", "light", "semantic", { readonly id: "color-blue-800"; readonly mode: "base" }>;
-  readonly "color-action-primary-pressed": TokenRecord<"color-action-primary-pressed", "light", "semantic", { readonly id: "color-blue-900"; readonly mode: "base" }>;
+  readonly "color-action-primary": TokenRecord<"color-action-primary", "light", "semantic", { readonly id: "color-blue-500"; readonly mode: "base" }>;
+  readonly "color-action-primary-hover": TokenRecord<"color-action-primary-hover", "light", "semantic", { readonly id: "color-blue-400"; readonly mode: "base" }>;
+  readonly "color-action-primary-pressed": TokenRecord<"color-action-primary-pressed", "light", "semantic", { readonly id: "color-blue-600"; readonly mode: "base" }>;
   readonly "color-background-canvas": TokenRecord<"color-background-canvas", "light", "semantic", { readonly id: "color-neutral-100"; readonly mode: "base" }>;
   readonly "color-background-inset": TokenRecord<"color-background-inset", "light", "semantic", { readonly id: "color-neutral-150"; readonly mode: "base" }>;
   readonly "color-background-inverse": TokenRecord<"color-background-inverse", "light", "semantic", { readonly id: "color-neutral-800"; readonly mode: "base" }>;
@@ -486,9 +486,9 @@ export declare const tokens: Readonly<{
   readonly "color-status-warning-foreground": TokenRecord<"color-status-warning-foreground", "light", "semantic", { readonly id: "color-amber-900"; readonly mode: "base" }>;
   }> ;
   readonly dark: Readonly<{
-  readonly "color-action-primary": TokenRecord<"color-action-primary", "dark", "semantic", { readonly id: "color-blue-700"; readonly mode: "base" }>;
-  readonly "color-action-primary-hover": TokenRecord<"color-action-primary-hover", "dark", "semantic", { readonly id: "color-blue-600"; readonly mode: "base" }>;
-  readonly "color-action-primary-pressed": TokenRecord<"color-action-primary-pressed", "dark", "semantic", { readonly id: "color-blue-800"; readonly mode: "base" }>;
+  readonly "color-action-primary": TokenRecord<"color-action-primary", "dark", "semantic", { readonly id: "color-blue-500"; readonly mode: "base" }>;
+  readonly "color-action-primary-hover": TokenRecord<"color-action-primary-hover", "dark", "semantic", { readonly id: "color-blue-400"; readonly mode: "base" }>;
+  readonly "color-action-primary-pressed": TokenRecord<"color-action-primary-pressed", "dark", "semantic", { readonly id: "color-blue-600"; readonly mode: "base" }>;
   readonly "color-background-canvas": TokenRecord<"color-background-canvas", "dark", "semantic", { readonly id: "color-neutral-900"; readonly mode: "base" }>;
   readonly "color-background-inset": TokenRecord<"color-background-inset", "dark", "semantic", { readonly id: "color-neutral-800"; readonly mode: "base" }>;
   readonly "color-background-inverse": TokenRecord<"color-background-inverse", "dark", "semantic", { readonly id: "color-neutral-200"; readonly mode: "base" }>;

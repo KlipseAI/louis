@@ -4225,6 +4225,47 @@ canary가 없었으면 "통과하지만 아무것도 보지 않는" 테스트가
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
 
+#### 2026-08-15 — 세 화면 gap 합산과 카탈로그 순서
+
+Highlight(허브·상세)와 Editor(허브·워크스페이스)를 추가로 실측해 Home과 합산했다. gap은 Home 72 ·
+Highlight 130 · Editor 144다. 산출물은
+[figma-gap-registry.md](../../migration/figma-gap-registry.md)다.
+
+##### 이 실측의 결론 하나
+
+**제품에는 공용 컴포넌트 층이 사실상 없다.** 제품의 공용 UI 디렉터리는 파일 10개이고 그중 시각
+컴포넌트는 넷뿐이다 — Button · VideoPlayer · InlineLoadingLabel · LoadingSpinner. 나머지는 브랜드
+마크와 훅이다. 경로와 줄번호는 [gap registry](../../migration/figma-gap-registry.md)가 소유한다. 그래서 Klipse Design은 제품을 따라잡는 것이 아니라 **제품에 없던 층을 처음 만드는**
+것이다. 실측이 찾은 중복 정의(ProjectCard 3벌, Menu 서피스 3벌, Spinner 5종, PaneDivider 6선언)는
+전부 그 부재의 비용이다.
+
+##### 가장 강한 단일 신호 — 버튼 공용 사용률 6%
+
+네 파일의 버튼을 직접 셌다. raw `<button>` **108개** vs 공용 `<Button>` **8개**. 제품에 Button이
+있는데도 94%가 손으로 만들어진다. Button 하나로는 덮이지 않는다는 뜻이고, 빠진 축은 아이콘 전용
+버튼·크기 단계·loading 상태다.
+
+##### 순서가 바뀌었다
+
+Home만 봤을 때의 1순위는 ProjectCard였으나, 세 화면을 합치니 **IconButton · Tooltip · Toast**가
+앞선다. Tooltip은 22개 파일, Toast는 20개 파일에 나타나는데 **제품 자신의 Button(17개 파일)보다
+넓게 쓰이면서 공용 컴포넌트가 없다.** 한 화면만 보고 순서를 정했으면 틀렸을 자리다.
+
+##### 토큰 — 세 화면이 함께 요구하는 것
+
+- **`radius-8`에 semantic 이름이 없다.** 에디터에서 가장 많이 쓰이는 radius다(직접 센 분포:
+  8이 28회로 최다, 12가 20회, 999·6이 각 11회). Klipse semantic radius 5종에 8이 없다.
+- **범주형 색 팔레트가 없다.** 에디터는 클립을 소스별로 색 구분한다(sky 63 · pink 19 · red 16 ·
+  mint 13 · amber 12 · yellow 2). Klipse에는 status 4종뿐이다.
+- **컨트롤 높이 토큰이 없다.** 에디터에 22/28/30/32/36/40/44/48 여덟 단계가 돈다.
+
+##### 실측 방법에서 배운 것
+
+검증 단계에서 10건이 `confirmed=false`로 나왔는데, 읽어 보니 **전부 "gap 자체는 실재한다"고
+확인하면서 세부 수치가 달라 false가 된 것**이었다. 판정 기준을 "하나라도 틀리면 false"로 준 탓에
+"gap이 없다"와 "숫자가 틀리다"가 뭉개졌다. 그대로 읽었으면 IconButton·Slider·ProjectCard를 통째로
+버릴 뻔했다. **그래서 이 registry의 수치는 직접 다시 센 값만 썼다.**
+
 #### 2026-08-15 — Home 재조립 검증과 gap registry
 
 DS-F-007의 첫 화면. 앱 홈(`/archive`)을 Klipse Design 자산만으로 Figma에서 재조립해 **무엇이

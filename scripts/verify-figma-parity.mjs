@@ -39,6 +39,36 @@ try {
   process.exit(1);
 }
 
+const COMPONENTS_MEASURED_PATH = "figma/components.measured.json";
+const componentsMeasured = readJson(COMPONENTS_MEASURED_PATH);
+
+/**
+ * CSS mask의 정지점에서 Figma PROGRESSIVE 흐림의 기대 문자열을 **유도한다.**
+ *
+ * 두 매체가 같은 것을 다르게 적는다 — CSS는 아래에서부터의 정지점 다섯 개로 곡선을 그리고,
+ * Figma는 두 점 사이의 선형 램프다. 계약에 offset을 손으로 옮겨 적으면 정본이 둘이 되어 CSS를
+ * 고쳐도 게이트는 옛 값을 계속 통과시킨다. 그래서 measured의 정지점 하나에서 유도한다.
+ *
+ * 좌표계 변환: 정지점은 **아래에서부터의 %**이고 Figma offset은 **위에서부터의 비율**이다.
+ *   - 흐림이 0인 지점(마지막 정지점, remaining 0) → startOffset
+ *   - 흐림이 온전한 마지막 지점(remaining 1) → endOffset
+ */
+function progressiveBlurFrom(measuredId, sizeKey, blurVariable) {
+  const spec = componentsMeasured.components?.[measuredId]?.sizes?.[sizeKey];
+  const stops = spec?.overlayMaskStops;
+  if (!Array.isArray(stops) || stops.length < 2) return null;
+  const zero = [...stops].reverse().find(([, remaining]) => remaining === 0);
+  const full = [...stops].reverse().find(([, remaining]) => remaining === 1);
+  if (zero === undefined || full === undefined) return null;
+  const round6 = (value) => Math.round(value * 1e6) / 1e6;
+  const startY = round6(1 - zero[0] / 100);
+  const endY = round6(1 - full[0] / 100);
+  return (
+    `BACKGROUND_BLUR:PROGRESSIVE:var(${blurVariable}):0:` +
+    `0.5,${startY}:0.5,${endY}`
+  );
+}
+
 // 코드 컴포넌트 ↔ Figma component set 계약 (DS-F-006).
 // Figma에만 있는 property는 사유와 함께 선언해야 통과한다. 선언되지 않은 property는 실패다.
 const COMPONENT_CONTRACTS = [
@@ -275,10 +305,82 @@ const COMPONENT_CONTRACTS = [
       extraStrokeWeights: [],
     },
   },
+  {
+    id: "project-card",
+    figmaName: "ProjectCard",
+    declaration: "packages/react/dist/project-card/project-card.d.ts",
+    // variant 축이 없다. 카드의 강조는 카드가 아니라 썸네일이 만든다.
+    variantProperties: {},
+    strokes: { self: { weight: "borderWidth", align: "INSIDE" } },
+    // Figma text style은 all-or-nothing이라 line-height만 덮으면 style 연결이 끊긴다(실측 확인).
+    // 카드 오버레이는 세 줄이 30% 띠에 들어가야 해서 120%가 필요하고, 그 줄 간격을 가진 style이
+    // 토큰 소스에 없다. 검사를 빼는 대신 아래 parts가 fontSize와 lineHeightPercent를 직접 대조한다.
+    textStyleExempt: {
+      reason:
+        "Figma text style은 all-or-nothing이라 컴포넌트 고유의 줄 간격을 얹으면 연결이 끊긴다. 값을 직접 대조해 대체한다.",
+      parts: ["Eyebrow", "Title", "Meta"],
+    },
+    // 흐림은 root가 아니라 제목 띠가 갖는다. offset은 계약에 옮겨 적지 않고 measured의 mask
+    // 정지점에서 유도한다 — 옮겨 적으면 정본이 둘이 되어 CSS를 고쳐도 옛 값을 계속 통과시킨다.
+    effects: { "Title overlay": progressiveBlurFrom("project-card", "base", "blur/surface") },
+    geometry: {
+      measuredId: "project-card",
+      sizeKey: "base",
+      fields: {
+        width: "width",
+        height: "height",
+        cornerRadius: "radius",
+      },
+      slots: {},
+      extraStrokeWeights: [],
+      // **계약값이 자손에 있는 첫 컴포넌트다.** root만 보면 여백·간격·흐림이 하나도 검증되지 않는다.
+      parts: {
+        Media: {
+          fields: { width: "mediaSide", height: "mediaSide" },
+        },
+        "Title overlay": {
+          fields: {
+            paddingBlock: "overlayPadding",
+            paddingBlockEnd: "overlayPadding",
+            paddingInline: "overlayPadding",
+            paddingInlineEnd: "overlayPadding",
+            itemSpacing: "overlayTextGap",
+            layoutMode: { literal: "VERTICAL" },
+          },
+          // 띠 높이는 px이 아니라 미디어에 대한 비율이다.
+          heightRatioOf: { part: "Media", measured: "overlayHeightRatio" },
+        },
+        // 세 줄의 타이포. **Figma text style은 all-or-nothing이라** line-height만 덮으면 style
+        // 연결이 끊긴다(실측 확인). 그래서 style 바인딩을 요구하는 대신 값을 직접 대조한다 —
+        // 바인딩 검사는 "값이 토큰에서 온다"의 대리 지표이고, 값 대조는 그 자체다.
+        Eyebrow: {
+          fields: {
+            fontSize: "overlayMetaFontSize",
+            lineHeightPercent: "overlayLineHeightPercent",
+          },
+        },
+        Title: {
+          fields: {
+            fontSize: "overlayTitleFontSize",
+            lineHeightPercent: "overlayLineHeightPercent",
+          },
+        },
+        Meta: {
+          fields: {
+            fontSize: "overlayMetaFontSize",
+            lineHeightPercent: "overlayLineHeightPercent",
+          },
+        },
+        // 클릭 타깃과 슬롯은 **구조가 계약**이다. 크기보다 존재와 순서가 중요하다.
+        Action: { fields: { width: "mediaSide", height: "mediaSide" } },
+        Adornment: {},
+        Thumbnail: {},
+      },
+      // 자식 순서가 계약이다 — 슬롯이 클릭 타깃 앞에 오면 슬롯 안의 컨트롤이 눌리지 않는다.
+      childOrder: ["Media", "Action", "Adornment"],
+    },
+  },
 ];
-
-const COMPONENTS_MEASURED_PATH = "figma/components.measured.json";
-const componentsMeasured = readJson(COMPONENTS_MEASURED_PATH);
 
 // 아이콘 계약 (DS-D-0008). component set이 아니라 개별 component이므로 COMPONENT_CONTRACTS와
 // 별도 경로다 — 아이콘 이름은 prop이 아니라 심볼 식별자라서 variant 대조 규칙이 의미가 없다.
@@ -334,6 +436,13 @@ const TAMPERS = [
   tamperComponentEffectType,
   tamperComponentBlurUnbound,
   tamperComponentExtraEffect,
+  tamperComponentPartPadding,
+  tamperComponentPartTypography,
+  tamperComponentPartRatio,
+  tamperComponentPartMissing,
+  tamperComponentPartExtra,
+  tamperComponentChildOrder,
+  tamperComponentProgressiveOffset,
   tamperIconMissing,
   tamperIconKeywords,
   tamperIconFrame,
@@ -846,6 +955,96 @@ function compareComponentGeometry(contract, got) {
         );
       }
     }
+
+    // **자손의 계약값.** slots는 자손을 이름으로 잡지만 `WxH` 한 축뿐이라, padding·gap·타이포처럼
+    // 자손이 소유하는 값을 대조하지 못한다. ProjectCard가 그 경우다 — 계약값이 전부 `Title
+    // overlay` 프레임에 있어서 root만 보면 아무것도 검증되지 않는다.
+    //
+    // 규칙은 root의 `fields`와 **같다**(문자열=measured 키, 배열=합, 객체=literal). 새 어휘를
+    // 만들지 않아야 계약을 읽는 사람이 두 규칙을 외우지 않는다.
+    for (const [partName, partPlan] of Object.entries(plan.parts ?? {})) {
+      const part = actual.parts?.[partName];
+      if (part === undefined) {
+        issues.push(`${contract.figmaName} ${size}: 자손 ${partName}이 snapshot에 없습니다.`);
+        continue;
+      }
+      for (const [field, rule] of Object.entries(partPlan.fields ?? {})) {
+        let want;
+        if (typeof rule === "string") want = spec[rule];
+        else if (Array.isArray(rule)) want = rule.reduce((total, key) => total + spec[key], 0);
+        else want = rule.literal;
+        if (want === undefined || Number.isNaN(want)) {
+          issues.push(
+            `${COMPONENTS_MEASURED_PATH}의 ${plan.measuredId}.${size}에 ${partName}.${field}의 근거 값이 없습니다.`,
+          );
+          continue;
+        }
+        const values = part[field];
+        if (!Array.isArray(values) || values.length === 0) {
+          issues.push(`${contract.figmaName} ${size}: ${partName}.${field}가 없습니다.`);
+          continue;
+        }
+        if (values.length > 1) {
+          issues.push(
+            `${contract.figmaName} ${size}: variant마다 ${partName}.${field}가 다릅니다 — [${values.join(", ")}]`,
+          );
+          continue;
+        }
+        // **float32 오차를 허용한다.** Figma는 숫자를 float32로 저장하므로 120%가
+        // 120.00000476837158로 돌아온다. 실제 drift는 이 크기가 아니라 최소 0.5px 단위라
+        // 1e-4는 검출력을 낮추지 않는다 — 변조 canary가 그것을 증명한다.
+        const same =
+          typeof want === "number" && typeof values[0] === "number"
+            ? Math.abs(values[0] - want) <= 1e-4
+            : values[0] === want;
+        if (!same) {
+          issues.push(
+            `${contract.figmaName} ${size}: ${partName}.${field}가 다릅니다 — 코드 실측 ${want}, Figma ${values[0]}`,
+          );
+        }
+      }
+      // 자손의 높이가 다른 자손에 대한 **비율**로 정의되는 경우. 카드의 제목 띠가 그렇다.
+      const ratio = partPlan.heightRatioOf;
+      if (ratio !== undefined) {
+        const want = spec[ratio.measured];
+        const base = actual.parts?.[ratio.part]?.height?.[0];
+        const own = part.height?.[0];
+        if (want === undefined || base === undefined || own === undefined) {
+          issues.push(
+            `${contract.figmaName} ${size}: ${partName}의 높이 비율을 잴 근거가 없습니다 (${ratio.part}).`,
+          );
+        } else {
+          const actualRatio = Math.round((own / base) * 1000) / 1000;
+          if (actualRatio !== want) {
+            issues.push(
+              `${contract.figmaName} ${size}: ${partName} 높이 비율이 다릅니다 — 코드 실측 ${want}, Figma ${actualRatio}`,
+            );
+          }
+        }
+      }
+    }
+
+    // 계약이 선언하지 않은 자손이 snapshot에 있으면 실패다. 한쪽만 보면 Figma에 층이 하나 더
+    // 생겨도 통과한다 — stroke 비교가 이미 양방향인 것과 같은 이유다.
+    for (const partName of Object.keys(actual.parts ?? {})) {
+      if (plan.parts?.[partName] === undefined) {
+        issues.push(`${contract.figmaName} ${size}: 계약에 없는 자손이 있습니다 — ${partName}`);
+      }
+    }
+
+    // **자식 순서.** 숫자 z-index를 쓰지 않는 컴포넌트는 칠 순서가 곧 DOM/자식 순서다. 카드에서
+    // 슬롯이 클릭 타깃 앞에 오면 슬롯 안의 컨트롤이 눌리지 않는다 — 크기는 다 맞는데 못 쓰는
+    // 상태이므로 값 비교로는 잡히지 않는다.
+    if (Array.isArray(plan.childOrder)) {
+      const order = actual.childOrder;
+      if (!Array.isArray(order)) {
+        issues.push(`${contract.figmaName} ${size}: 자식 순서가 snapshot에 없습니다.`);
+      } else if (order.join(" → ") !== plan.childOrder.join(" → ")) {
+        issues.push(
+          `${contract.figmaName} ${size}: 자식 순서가 다릅니다 — 계약 [${plan.childOrder.join(", ")}], Figma [${order.join(", ")}]`,
+        );
+      }
+    }
   }
   return issues;
 }
@@ -1074,12 +1273,40 @@ function compareComponents(actualComponents) {
     }
 
     // raw 값 사용 0 — 모든 시각 속성이 변수·style에 바인딩돼야 한다 (DS-F-006).
+    //
+    // **text style만 면제가 가능하다.** Figma text style은 all-or-nothing이라 line-height 하나만
+    // 덮어도 style 연결이 끊긴다(실측 확인). 카드 오버레이처럼 컴포넌트 고유의 줄 간격이 필요한
+    // 자리는 style을 붙일 방법이 없다. 면제하되 **검사를 빼지 않는다** — 바인딩 검사는 "값이
+    // 토큰에서 온다"의 대리 지표이므로, 그 자리에서는 값을 직접 대조하도록 강제한다.
     const binding = got.binding ?? {};
+    const exempt = contract.textStyleExempt;
     for (const field of ["rawFills", "rawStrokes", "textUnstyled"]) {
+      if (field === "textUnstyled" && exempt !== undefined) continue;
       if ((binding[field] ?? 0) !== 0) {
         issues.push(
           `${contract.figmaName}에 바인딩되지 않은 값이 있습니다: ${field}=${binding[field]}`,
         );
+      }
+    }
+    if (exempt !== undefined) {
+      if (typeof exempt.reason !== "string" || exempt.reason.length < 20) {
+        issues.push(`${contract.figmaName}: textStyleExempt에 20자 이상의 사유가 필요합니다.`);
+      }
+      if ((binding.textUnstyled ?? 0) !== exempt.parts.length) {
+        issues.push(
+          `${contract.figmaName}: style이 없는 텍스트 수가 면제 선언과 다릅니다 — 선언 ${exempt.parts.length}, Figma ${binding.textUnstyled}`,
+        );
+      }
+      // 면제한 자리는 값을 직접 대조해야 한다. 대조하지 않으면 그냥 검사를 뺀 것이다.
+      for (const partName of exempt.parts) {
+        const fields = contract.geometry?.parts?.[partName]?.fields ?? {};
+        for (const required of ["fontSize", "lineHeightPercent"]) {
+          if (fields[required] === undefined) {
+            issues.push(
+              `${contract.figmaName}: ${partName}은 text style을 면제받았는데 ${required}를 대조하지 않습니다.`,
+            );
+          }
+        }
       }
     }
   }
@@ -1197,6 +1424,100 @@ function tamperComponentHeight(document) {
     // border 두께의 두 배를 뺀다 — 실제로 났던 사고를 그대로 재현한다.
     geometry[size].height = [geometry[size].height[0] - 2];
     return `component 프레임 높이 변조 ${contract.figmaName}.${size}`;
+  }
+  return null;
+}
+
+/**
+ * 자손 비교의 검출력을 고정한다.
+ *
+ * 계약값이 자손에 있는 컴포넌트는 root만 보면 전부 통과한다 — 그 상태가 정확히 이 게이트를
+ * 확장하기 전의 상태였다. 아래 일곱은 그 확장이 실제로 무언가를 잡는지 증명한다.
+ */
+function firstPartContract() {
+  return COMPONENT_CONTRACTS.find((contract) => contract.geometry?.parts !== undefined);
+}
+
+function firstPartGeometry(document) {
+  const contract = firstPartContract();
+  if (contract === undefined) return null;
+  const geometry = document.components?.[contract.figmaName]?.geometry;
+  const size = Object.keys(geometry ?? {})[0];
+  if (size === undefined) return null;
+  return { contract, geometry, size, parts: geometry[size].parts };
+}
+
+function tamperComponentPartPadding(document) {
+  const found = firstPartGeometry(document);
+  if (found === null) return null;
+  for (const [name, plan] of Object.entries(found.contract.geometry.parts)) {
+    if (plan.fields?.paddingBlock === undefined) continue;
+    found.parts[name].paddingBlock = [found.parts[name].paddingBlock[0] + 4];
+    return `자손 padding 변조 ${found.contract.figmaName}.${name}`;
+  }
+  return null;
+}
+
+function tamperComponentPartTypography(document) {
+  const found = firstPartGeometry(document);
+  if (found === null) return null;
+  for (const [name, plan] of Object.entries(found.contract.geometry.parts)) {
+    if (plan.fields?.lineHeightPercent === undefined) continue;
+    // **1e-4 허용치보다 큰 값으로 흔든다.** float32 오차를 허용하면서도 실제 drift는 잡는지 본다.
+    found.parts[name].lineHeightPercent = [found.parts[name].lineHeightPercent[0] + 30];
+    return `자손 줄 간격 변조 ${found.contract.figmaName}.${name}`;
+  }
+  return null;
+}
+
+function tamperComponentPartRatio(document) {
+  const found = firstPartGeometry(document);
+  if (found === null) return null;
+  for (const [name, plan] of Object.entries(found.contract.geometry.parts)) {
+    if (plan.heightRatioOf === undefined) continue;
+    found.parts[name].height = [found.parts[name].height[0] * 1.5];
+    return `자손 높이 비율 변조 ${found.contract.figmaName}.${name}`;
+  }
+  return null;
+}
+
+function tamperComponentPartMissing(document) {
+  const found = firstPartGeometry(document);
+  if (found === null) return null;
+  const name = Object.keys(found.contract.geometry.parts)[0];
+  if (name === undefined || found.parts[name] === undefined) return null;
+  delete found.parts[name];
+  return `자손 삭제 ${found.contract.figmaName}.${name}`;
+}
+
+function tamperComponentPartExtra(document) {
+  const found = firstPartGeometry(document);
+  if (found === null) return null;
+  found.parts["ZZZ 계약에 없는 층"] = { width: [10], height: [10] };
+  return `계약에 없는 자손 추가 ${found.contract.figmaName}`;
+}
+
+function tamperComponentChildOrder(document) {
+  const contract = COMPONENT_CONTRACTS.find((c) => Array.isArray(c.geometry?.childOrder));
+  if (contract === undefined) return null;
+  const geometry = document.components?.[contract.figmaName]?.geometry;
+  const size = Object.keys(geometry ?? {})[0];
+  if (size === undefined || !Array.isArray(geometry[size].childOrder)) return null;
+  // 슬롯을 클릭 타깃 앞으로 옮긴다 — 크기는 다 맞는데 슬롯이 눌리지 않는 상태다.
+  geometry[size].childOrder = [...geometry[size].childOrder].reverse();
+  return `자식 순서 변조 ${contract.figmaName}.${size}`;
+}
+
+function tamperComponentProgressiveOffset(document) {
+  for (const contract of COMPONENT_CONTRACTS) {
+    for (const [role, expected] of Object.entries(contract.effects ?? {})) {
+      if (typeof expected !== "string" || !expected.includes("PROGRESSIVE")) continue;
+      const effects = document.components?.[contract.figmaName]?.effects;
+      if (effects?.[role] === undefined) continue;
+      // 램프의 끝점만 옮긴다 — 종류도 반경도 그대로라 type 검사로는 잡히지 않는다.
+      effects[role] = [effects[role][0].replace(/0\.45$/, "0.9")];
+      return `프로그레시브 램프 끝점 변조 ${contract.figmaName}.${role}`;
+    }
   }
   return null;
 }

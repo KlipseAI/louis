@@ -16,10 +16,12 @@ import {
   ActionMenuTrigger,
   Button,
   Dialog,
+  DialogHeader,
   DialogSurface,
   DialogTitle,
   OverlayProvider,
   ProjectCard,
+  ProjectCardAction,
   ProjectCardAdornment,
   ProjectCardEyebrow,
   ProjectCardMedia,
@@ -27,7 +29,9 @@ import {
   ProjectCardOverlay,
   ProjectCardPlaceholder,
   ProjectCardTitle,
+  ToastProvider,
   Tooltip,
+  useToast,
 } from "@klipse-design/react";
 import measured from "../../../figma/components.measured.json" with { type: "json" };
 import "@klipse-design/css/layers.css";
@@ -64,7 +68,9 @@ for (const size of DIALOG_SIZES) {
       <OverlayProvider>
         <Dialog open size={size} onOpenChange={() => {}}>
           <DialogSurface>
-            <DialogTitle>제목</DialogTitle>
+            <DialogHeader>
+              <DialogTitle>제목</DialogTitle>
+            </DialogHeader>
           </DialogSurface>
         </Dialog>
       </OverlayProvider>,
@@ -78,6 +84,15 @@ for (const size of DIALOG_SIZES) {
     expect(surface.offsetWidth, "width").toBe(spec.width);
     expect(px(style.borderTopLeftRadius), "radius").toBe(spec.radius);
     expect(declaredBorderWidth(), "borderWidth").toBe(spec.borderWidth);
+
+    // measured의 padding 20은 **surface가 아니라 dialog root의 여백**이다(measured $note).
+    // 그 값을 읽지 않으면 세 size 중 하나만 어긋나도 아무도 모른다.
+    const root = find(".kds-dialog");
+    const rootStyle = getComputedStyle(root);
+    expect(px(rootStyle.paddingBlockStart), "paddingBlock").toBe(spec.paddingBlock);
+    expect(px(rootStyle.paddingInlineStart), "paddingInline").toBe(spec.paddingInline);
+    // measured의 gap 8은 header와 action이 함께 쓰는 space-control-sm이다(dialog.md "Action gap 8px").
+    expect(px(getComputedStyle(find(".kds-dialog__header")).columnGap), "gap").toBe(spec.gap);
   });
 }
 
@@ -96,7 +111,8 @@ test("Tooltip의 구조값이 components.measured.json과 같다", async () => {
   const panel = find(".kds-tooltip");
   const style = getComputedStyle(panel);
 
-  expect(round(rect(panel).height), "height").toBe(spec.height);
+  // 여는 애니메이션의 변환에 영향받지 않도록 레이아웃 값을 쓴다.
+  expect(panel.offsetHeight, "height").toBe(spec.height);
   expect(px(style.paddingBlockStart), "paddingBlock").toBe(spec.paddingBlock);
   expect(px(style.paddingInlineStart), "paddingInline").toBe(spec.paddingInline);
   expect(px(style.borderTopLeftRadius), "radius").toBe(spec.radius);
@@ -105,6 +121,32 @@ test("Tooltip의 구조값이 components.measured.json과 같다", async () => {
   expect(declaredBorderWidth(), "borderWidth").toBe(spec.borderWidth);
   // 포인터를 치운다. 얹은 채로 두면 뒤에 같은 좌표에 렌더되는 요소가 :hover를 받는다.
   await userEvent.unhover(find("button.kds-button"));
+});
+
+test("Toast의 구조값이 components.measured.json과 같다", async () => {
+  const spec = measured.components.toast.sizes.base;
+  function Emitter(): JSX.Element {
+    const { toast } = useToast();
+    return <Button onClick={() => toast("저장했습니다")}>띄우기</Button>;
+  }
+  await render(
+    <ToastProvider>
+      <Emitter />
+    </ToastProvider>,
+  );
+  await userEvent.click(find("button.kds-button"));
+  await expect.poll(() => document.querySelector(".kds-toast")).not.toBeNull();
+
+  const toastNode = find(".kds-toast");
+  const style = getComputedStyle(toastNode);
+  expect(toastNode.offsetHeight, "height").toBe(spec.height);
+  expect(px(style.paddingBlockStart), "paddingBlock").toBe(spec.paddingBlock);
+  expect(px(style.paddingInlineStart), "paddingInline").toBe(spec.paddingInline);
+  expect(px(style.borderTopLeftRadius), "radius").toBe(spec.radius);
+  expect(px(style.fontSize), "fontSize").toBe(spec.fontSize);
+  expect(round(px(style.lineHeight)), "lineHeight").toBe(spec.lineHeight);
+  expect(px(style.borderTopWidth), "borderWidth").toBe(spec.borderWidth);
+  expect(style.backdropFilter, "backdropBlur").toBe(`blur(${spec.backdropBlur}px)`);
 });
 
 test("Menu 패널과 항목의 구조값이 components.measured.json과 같다", async () => {
@@ -130,11 +172,14 @@ test("Menu 패널과 항목의 구조값이 components.measured.json과 같다",
   expect(px(panelStyle.paddingInlineStart), "panel paddingInline").toBe(spec.paddingInline);
   expect(px(panelStyle.rowGap), "panel gap").toBe(spec.gap);
   expect(px(panelStyle.borderTopLeftRadius), "panel radius").toBe(spec.radius);
-  expect(round(rect(panel).width), "panel minWidth").toBeGreaterThanOrEqual(spec.minWidth);
+  // **offsetWidth를 쓴다.** 패널의 enter 애니메이션이 scale 0.96을 걸고 있어 rect는 변환 후
+  // 크기를 돌려준다 — 160이 153.6으로 읽힌다. transition-property에 scale을 넣기 전에는 scale이
+  // 즉시 1로 튀어서 이 함정이 보이지 않았다.
+  expect(panel.offsetWidth, "panel minWidth").toBeGreaterThanOrEqual(spec.minWidth);
 
   const item = find(".kds-menu__item");
   const itemStyle = getComputedStyle(item);
-  expect(round(rect(item).height), "item height").toBe(spec.itemHeight);
+  expect(item.offsetHeight, "item height").toBe(spec.itemHeight);
   expect(px(itemStyle.paddingBlockStart), "item paddingBlock").toBe(spec.itemPaddingBlock);
   expect(px(itemStyle.paddingInlineStart), "item paddingInline").toBe(spec.itemPaddingInline);
   expect(px(itemStyle.columnGap), "item gap").toBe(spec.itemGap);
@@ -144,12 +189,23 @@ test("Menu 패널과 항목의 구조값이 components.measured.json과 같다",
 /**
  * ProjectCard는 그리드가 폭을 정하므로 폭을 계약에 두지 않는다. 여기서는 measured가 적어 둔
  * 측정용 폭을 강제해 나머지 구조값을 잰다.
+ *
+ * 자식 순서가 계약이다 — Media → Action → Adornment. harness가 그 순서를 쓰는 것은 계약을
+ * 지키는 것이지 증명하는 것이 아니다. 증명은 아래 "슬롯이 눌린다" 테스트가 실제 hit test로 한다.
  */
-function CardHarness({ children }: { children?: ReactNode }): JSX.Element {
+function CardHarness({
+  width,
+  adornment,
+  href,
+}: {
+  width?: number;
+  adornment?: ReactNode;
+  href?: string;
+}): JSX.Element {
   const spec = measured.components["project-card"].sizes.base;
   return (
-    <div style={{ inlineSize: `${spec.width}px` }}>
-      <ProjectCard aria-label="프로젝트">
+    <div style={{ inlineSize: `${width ?? spec.width}px` }}>
+      <ProjectCard>
         <ProjectCardMedia>
           <ProjectCardPlaceholder />
           <ProjectCardOverlay>
@@ -157,8 +213,13 @@ function CardHarness({ children }: { children?: ReactNode }): JSX.Element {
             <ProjectCardTitle>여름 여행</ProjectCardTitle>
             <ProjectCardMeta>3일 전 편집</ProjectCardMeta>
           </ProjectCardOverlay>
-          {children}
         </ProjectCardMedia>
+        {href === undefined ? (
+          <ProjectCardAction />
+        ) : (
+          <ProjectCardAction href={href} />
+        )}
+        {adornment}
       </ProjectCard>
     </div>
   );
@@ -168,7 +229,7 @@ test("ProjectCard의 구조값이 components.measured.json과 같다", async () 
   const spec = measured.components["project-card"].sizes.base;
   await render(<CardHarness />);
 
-  const card = find("button.kds-project-card");
+  const card = find("div.kds-project-card");
   const cardStyle = getComputedStyle(card);
   expect(round(rect(card).width), "width").toBe(spec.width);
   // aspect-ratio 1이라 폭과 높이가 같아야 한다. 다르면 그리드에서 줄이 튄다.
@@ -217,43 +278,125 @@ test("ProjectCard의 구조값이 components.measured.json과 같다", async () 
   }
 });
 
-test("ProjectCard의 adornment는 오버레이보다 위에 칠해진다", async () => {
-  // 숫자 z-index를 쓰지 않으므로 칠 순서가 DOM 순서다. adornment를 overlay 뒤에 두는 것이
-  // 계약이며, 어기면 하단 모서리의 컨트롤이 흐림 층에 덮여 눌리지 않는다.
-  await render(
-    <CardHarness>
-      <ProjectCardAdornment placement="top-end">
-        <span data-testid="chip">더보기</span>
-      </ProjectCardAdornment>
-    </CardHarness>,
-  );
-  const adornment = find(".kds-project-card-adornment");
+test("ProjectCard의 제목 띠는 최소 트랙에서 내용보다 작아지지 않는다", async () => {
+  // 처음 구현은 `block-size: 30%`만 두었다. 절대 위치 박스의 확정 크기라 내용이 커져도 자라지
+  // 않고 **글자가 띠 위로 넘쳤다** — 240px 트랙에서 띠 71.4px에 내용 92.8px이라 eyebrow가 흐림이
+  // 0인 구간에 놓였다. 문서·measured는 "자란다"고 적고 있어 실제와 어긋나 있었다.
+  const spec = measured.components["project-card"].sizes.base;
+  await render(<CardHarness width={spec.minimumTrack} />);
+
   const overlay = find(".kds-project-card-overlay");
+  const content = find(".kds-project-card-overlay-content");
+  const media = find(".kds-project-card-media");
+
+  expect(rect(content).top, "내용이 띠 위로 넘치지 않는다").toBeGreaterThanOrEqual(
+    rect(overlay).top - 0.5,
+  );
+  // 큰 카드에서는 30%가 이기고, 작은 카드에서는 내용이 이긴다. 최소 트랙은 후자다.
   expect(
-    overlay.compareDocumentPosition(adornment) & Node.DOCUMENT_POSITION_FOLLOWING,
-    "adornment가 overlay 뒤에 있어야 한다",
-  ).toBeGreaterThan(0);
-  expect(getComputedStyle(adornment).zIndex, "숫자 z-index를 쓰지 않는다").toBe("auto");
-  expect(getComputedStyle(overlay).zIndex, "숫자 z-index를 쓰지 않는다").toBe("auto");
+    round(rect(overlay).height / rect(media).height),
+    "최소 트랙에서는 띠가 30%보다 크다",
+  ).toBeGreaterThan(spec.overlayHeightRatio);
 });
 
-test("ProjectCard는 href가 있으면 링크, 없으면 버튼이다", async () => {
-  // 제품의 네 벌은 전부 <article> + onClick이라 키보드로 열 수 없다. root가 네이티브 대화형
-  // 요소인 것이 이 컴포넌트가 제품과 다른 유일한 구조다 — 그래서 여기서 못을 박는다.
+test("ProjectCard의 슬롯은 클릭 타깃 위에 있어 실제로 눌린다", async () => {
+  // DOM 순서를 되읽는 것으로는 증명되지 않는다 — harness가 그 순서를 직접 썼기 때문이다.
+  // 실제 hit test로 본다.
+  const clicks: string[] = [];
+  await render(
+    <CardHarness
+      adornment={
+        <ProjectCardAdornment placement="top-end">
+          <button type="button" data-testid="more" onClick={() => clicks.push("more")}>
+            더보기
+          </button>
+        </ProjectCardAdornment>
+      }
+    />,
+  );
+  const action = find(".kds-project-card-action");
+  action.addEventListener("click", () => clicks.push("card"));
+
+  const more = find('[data-testid="more"]');
+  const box = more.getBoundingClientRect();
+  const hit = document.elementFromPoint(box.left + box.width / 2, box.top + box.height / 2);
+  expect(hit, "슬롯 좌표의 최상위 요소가 슬롯 안의 버튼이어야 한다").toBe(more);
+
+  await userEvent.click(more);
+  expect(clicks, "슬롯 버튼만 눌린다").toEqual(["more"]);
+});
+
+test("ProjectCard의 클릭 타깃은 카드 전체를 덮고 대화형 자손을 갖지 않는다", async () => {
+  await render(<CardHarness href="/highlight/1" />);
+  const card = find("div.kds-project-card");
+  const action = find("a.kds-project-card-action");
+
+  // 카드 전체가 클릭 타깃이다. `inset: 0`은 **padding box** 기준이므로 테두리 안쪽을 덮는다 —
+  // 비교 대상도 padding box(clientWidth)여야 한다. border-box와 재면 테두리 두께만큼 어긋난다.
+  expect(action.offsetWidth, "action width").toBe(card.clientWidth);
+  expect(action.offsetHeight, "action height").toBe(card.clientHeight);
+
+  // **`<a>` 안에 대화형 자손이 없어야 한다.** 처음 구현은 root가 `<a>`였고 슬롯의 버튼이 그
+  // 안에 들어가 HTML이 무효였다. 규범 문서가 그 사용을 예시로 들고 있었다.
+  expect(
+    action.querySelectorAll("a, button, input, select, textarea, [tabindex]").length,
+    "클릭 타깃 안에 대화형 자손이 없다",
+  ).toBe(0);
+
+  // 이름은 제목에서 온다.
+  const title = find(".kds-project-card-title");
+  expect(action.getAttribute("aria-labelledby"), "이름은 제목에서 온다").toBe(title.id);
+  expect(title.id.length, "제목 id가 인스턴스마다 발급된다").toBeGreaterThan(0);
+});
+
+test("ProjectCardAction은 href가 있으면 링크, 없으면 버튼이다", async () => {
+  // 제품의 네 벌은 전부 <article> + onClick이라 키보드로 열 수 없다. 클릭 타깃이 네이티브
+  // 대화형 요소인 것이 이 컴포넌트가 제품과 다른 유일한 구조다 — 그래서 여기서 못을 박는다.
   await render(
     <div>
-      <ProjectCard href="/highlight/1" aria-label="링크 카드">
-        <ProjectCardMedia />
-      </ProjectCard>
-      <ProjectCard aria-label="버튼 카드">
-        <ProjectCardMedia />
+      <CardHarness href="/highlight/1" />
+      <CardHarness />
+    </div>,
+  );
+  const actions = [...document.querySelectorAll(".kds-project-card-action")];
+  expect(actions.map((node) => node.tagName)).toEqual(["A", "BUTTON"]);
+  expect(actions[0]?.getAttribute("href")).toBe("/highlight/1");
+  expect(actions[1]?.getAttribute("type")).toBe("button");
+});
+
+test("ProjectCardMedia는 양수가 아닌 aspectRatio를 무시한다", async () => {
+  // 0이나 음수가 흘러들면 미디어 면의 높이가 0이 되어 카드가 테두리만 남고 그 안의 절대 위치
+  // 자식이 전부 사라진다. 계산 결과가 실수로 흘러드는 자리다.
+  await render(
+    <div style={{ inlineSize: "240px" }}>
+      <ProjectCard>
+        <ProjectCardMedia aspectRatio={0} data-testid="zero">
+          <ProjectCardPlaceholder />
+        </ProjectCardMedia>
       </ProjectCard>
     </div>,
   );
-  const cards = [...document.querySelectorAll(".kds-project-card")];
-  expect(cards.map((node) => node.tagName)).toEqual(["A", "BUTTON"]);
-  expect(cards[0]?.getAttribute("href")).toBe("/highlight/1");
-  expect(cards[1]?.getAttribute("type")).toBe("button");
+  const media = find('[data-testid="zero"]');
+  // 계산값은 `1 / 1`로 직렬화된다.
+  expect(getComputedStyle(media).aspectRatio, "0은 무시하고 기본 1을 쓴다").toBe("1 / 1");
+  expect(rect(media).height, "면이 사라지지 않는다").toBeGreaterThan(0);
+});
+
+test("누름 전환이 실제로 걸린다 — scale은 transform과 별개 property다", async () => {
+  // `transition-property: opacity, transform`만 적고 `scale`을 움직이면 선언이 아무것도 전이하지
+  // 않는다. 네 컴포넌트가 그 상태였다. 선언한 property가 실제로 움직이는 것과 같아야 한다.
+  await render(
+    <div>
+      <CardHarness />
+      <Button>버튼</Button>
+    </div>,
+  );
+  for (const selector of [".kds-project-card", ".kds-button"]) {
+    const node = find(selector);
+    expect(getComputedStyle(node).transitionProperty, `${selector} transitionProperty`).toContain(
+      "scale",
+    );
+  }
 });
 
 export type _EnsureTsx = JSX.Element;

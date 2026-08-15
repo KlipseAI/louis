@@ -228,11 +228,9 @@ Project Card가 모두 Web `partial`이고 docs `done`이다. Input·Select·Emp
 
 **다음은 두 가지다. 순서가 있다.**
 
-**(1) Project Card의 parity 게이트 확장.** Figma component는 섰지만 게이트가 덮지 않는다 —
-`COMPONENT_CONTRACTS`의 `geometry.fields`가 **root 노드만** 읽는데, 이 카드의 계약값(오버레이 여백,
-줄 간격, 프로그레시브 블러)은 전부 자손인 `Title overlay`에 있다. `slots`는 폭·높이만 대조하므로
-그대로 쓸 수 없다. 자손 단위 field 대조와 `BACKGROUND_BLUR:PROGRESSIVE` 비교를 추가하고 변조 canary를
-붙여야 `figma: partial`로 올릴 수 있다. **지금 상태에서 `figma: partial`을 쓰지 않는다.**
+**(1) ~~Project Card의 parity 게이트 확장~~ — `done` (2026-08-16).** `geometry.parts`, `heightRatioOf`,
+`childOrder`, 프로그레시브 램프 유도, float32 허용치, text style 면제를 붙이고 canary를 26→33종으로
+늘렸다. Project Card는 `figma: partial`이다.
 
 **(2) gap registry 7순위 이하.** TextField/Input, EmptyState, Badge, Spinner/Progress,
 SidebarNavItem·AppTopBar, Slider, SegmentedControl, Checkbox, SelectableListRow.

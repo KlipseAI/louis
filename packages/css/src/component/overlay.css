@@ -23,8 +23,11 @@
   max-width: var(--kds-overlay-available-width, 100vw);
   max-height: var(--kds-overlay-available-height, 100vh);
   overflow: auto;
-  /* motion.md: 허용 property는 opacity와 transform뿐이다. */
-  transition-property: opacity, transform;
+  /* motion.md: 허용 property는 opacity와 transform뿐이다.
+   * **`scale`은 `transform`과 별개 property다.** `transform`만 적으면 이 선언은 아무것도 전이하지
+   * 않는다 — 실측하면 transitionProperty가 "opacity, transform"인데 움직이는 것은 scale뿐이라
+   * 누름이 즉시 튄다. dialog.css는 처음부터 `translate, scale`로 적고 있었다. */
+  transition-property: opacity, scale;
 }
 
 /* positioning이 JS에서 CSS로 읽어가는 값. 상수로 하드코딩하지 않는 이유는

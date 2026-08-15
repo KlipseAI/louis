@@ -414,7 +414,7 @@
     "project-card": {
       "$doc": "design/components/project-card.md",
       "$source": "packages/react/src/project-card/project-card.tsx, packages/css/src/component/project-card.css",
-      "$note": "제품에 정의가 4벌 있고(앱 홈·노드캔버스 홈·하이라이트 허브·비디오 에디터 허브) 기하가 네 벌 모두 같다. 값은 DS가 정한 것이 아니라 제품 정본이다. 카드 폭은 그리드가 정하므로 계약에 두지 않는다 — 여기 width는 테스트가 고정하는 측정용 폭이다.",
+      "$note": "제품에 정의가 4벌 있고(앱 홈·노드캔버스 홈·하이라이트 허브·비디오 에디터 허브) 기하가 네 벌 모두 같다. 값은 DS가 정한 것이 아니라 제품 정본이다. 카드 폭은 그리드가 정하므로 계약에 두지 않는다 — 여기 width는 테스트가 고정하는 측정용 폭이다. **DOM 구조는 제품과 다르다** — 프레임은 div이고 클릭 타깃(action)이 카드 전체를 덮는 형제다. root를 <a>로 두면 슬롯의 더보기 버튼이 <a> 안의 대화형 자손이 되어 HTML이 무효가 된다.",
       "sizes": {
         "base": {
           "width": 360,
@@ -429,7 +429,7 @@
           "overlayTextGap": 4,
           "overlayLineHeight": 1.2,
           "backdropBlur": 10,
-          "$overlayHeightRatio": "미디어 높이의 30%. px이 아니라 비율이라 카드가 줄어도 흐림이 글자를 덮는다. **다만 하한이 있다** — 세 줄과 padding의 합(약 93px)이 30%보다 커지면 오버레이가 내용 높이로 자란다. 그 경계는 미디어 높이 약 310px이고, 최소 트랙 240에서는 실제로 30%를 넘는다. 그래서 비율을 재는 측정 폭은 360이다.",
+          "$overlayHeightRatio": "미디어 높이의 30%를 **하한**으로 쓴다(`block-size: fit-content; min-block-size: 30%`). 처음에는 `block-size: 30%`만 두었는데 절대 위치 박스의 확정 크기라 내용이 커져도 자라지 않고 글자가 띠 위로 넘쳤다 — 최소 트랙 240px에서 띠 71.4px에 내용 92.8px이라 eyebrow가 흐림 0 구간에 놓였다. 이 비율은 **측정 폭 360에서만** 정확히 0.3이고, 그보다 작은 카드에서는 내용이 이겨 더 커진다.",
           "$backdropBlur": "blur-surface 10. Figma에서는 BACKGROUND_BLUR effect의 PROGRESSIVE 모드다 — 위로 갈수록 흐림이 사라지는 mask와 같은 뜻이다",
           "$overlayLineHeight": "1.2. 세 줄이 30% 안에 들어가야 한다. tight 축 토큰이 소스에 없어 리터럴을 한 줄에 격리했다",
           "minimumTrack": 240,
@@ -456,7 +456,13 @@
               0
             ]
           ],
-          "$overlayMaskStops": "[아래에서부터의 위치%, 흐림이 남는 비율]. 아래는 온전히 흐리고 위로 갈수록 사라진다. Figma의 BACKGROUND_BLUR PROGRESSIVE가 startOffset/endOffset으로 같은 뜻을 표현한다 — 이 표가 두 쪽의 공통 원천이다."
+          "$overlayMaskStops": "[아래에서부터의 위치%, 흐림이 남는 비율]. 아래는 온전히 흐리고 위로 갈수록 사라진다. Figma의 BACKGROUND_BLUR PROGRESSIVE가 startOffset/endOffset으로 같은 뜻을 표현한다 — 이 표가 두 쪽의 공통 원천이다.",
+          "mediaSide": 359,
+          "$mediaSide": "측정 폭 360에서 테두리(선언 0.5px, 브라우저 사용값 1px씩)를 뺀 미디어 면의 한 변. Figma는 strokeAlign INSIDE라 같은 값이 나온다",
+          "overlayTitleFontSize": 16,
+          "overlayMetaFontSize": 14,
+          "overlayLineHeightPercent": 120,
+          "$overlayLineHeightPercent": "CSS의 overlayLineHeight 1.2를 Figma의 PERCENT 단위로 옮긴 값. **Figma text style은 all-or-nothing이라** line-height만 덮으면 style 연결이 끊긴다(실측 확인). 그래서 세 줄은 style에 묶이지 않고 게이트가 값을 직접 대조한다 — 바인딩 검사는 '값이 토큰에서 온다'의 대리 지표이고 값 대조는 그 자체다."
         }
       },
       "states": {

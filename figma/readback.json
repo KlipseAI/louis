@@ -3854,6 +3854,180 @@
           "DROP_SHADOW:8:15:0 + DROP_SHADOW:0:0:0.5"
         ]
       }
+    },
+    "ProjectCard": {
+      "variantCount": 1,
+      "hasDescription": true,
+      "properties": {},
+      "binding": {
+        "boundFills": 4,
+        "rawFills": 0,
+        "boundStrokes": 1,
+        "rawStrokes": 0,
+        "textStyled": 0,
+        "textUnstyled": 3
+      },
+      "geometry": {
+        "base": {
+          "slots": {},
+          "height": [
+            360
+          ],
+          "width": [
+            360
+          ],
+          "cornerRadius": [
+            16
+          ],
+          "strokeWeight": [
+            0.5
+          ],
+          "childOrder": [
+            "Media",
+            "Action",
+            "Adornment"
+          ],
+          "parts": {
+            "Media": {
+              "width": [
+                359
+              ],
+              "height": [
+                359
+              ]
+            },
+            "Thumbnail": {
+              "width": [
+                359
+              ],
+              "height": [
+                359
+              ]
+            },
+            "Title overlay": {
+              "width": [
+                359
+              ],
+              "height": [
+                107.699997
+              ],
+              "paddingBlock": [
+                16
+              ],
+              "paddingBlockEnd": [
+                16
+              ],
+              "paddingInline": [
+                16
+              ],
+              "paddingInlineEnd": [
+                16
+              ],
+              "itemSpacing": [
+                4
+              ],
+              "layoutMode": [
+                "VERTICAL"
+              ]
+            },
+            "Eyebrow": {
+              "width": [
+                327
+              ],
+              "height": [
+                17
+              ],
+              "fontSize": [
+                14
+              ],
+              "fontStyle": [
+                "Regular"
+              ],
+              "lineHeightPercent": [
+                120.000005
+              ]
+            },
+            "Title": {
+              "width": [
+                327
+              ],
+              "height": [
+                19
+              ],
+              "fontSize": [
+                16
+              ],
+              "fontStyle": [
+                "Medium"
+              ],
+              "lineHeightPercent": [
+                120.000005
+              ]
+            },
+            "Meta": {
+              "width": [
+                327
+              ],
+              "height": [
+                17
+              ],
+              "fontSize": [
+                14
+              ],
+              "fontStyle": [
+                "Regular"
+              ],
+              "lineHeightPercent": [
+                120.000005
+              ]
+            },
+            "Action": {
+              "width": [
+                359
+              ],
+              "height": [
+                359
+              ]
+            },
+            "Adornment": {
+              "width": [
+                32
+              ],
+              "height": [
+                32
+              ],
+              "paddingBlock": [
+                0
+              ],
+              "paddingBlockEnd": [
+                0
+              ],
+              "paddingInline": [
+                0
+              ],
+              "paddingInlineEnd": [
+                0
+              ],
+              "itemSpacing": [
+                4
+              ],
+              "layoutMode": [
+                "HORIZONTAL"
+              ]
+            }
+          }
+        }
+      },
+      "strokes": {
+        "self": [
+          "0.5|INSIDE"
+        ]
+      },
+      "effects": {
+        "Title overlay": [
+          "BACKGROUND_BLUR:PROGRESSIVE:var(blur/surface):0:0.5,0:0.5,0.45"
+        ]
+      }
     }
   },
   "icons": {

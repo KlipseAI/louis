@@ -127,8 +127,11 @@
     font-weight: var(--kds-typography-body-sm-medium-font-weight);
     line-height: var(--kds-typography-body-sm-medium-line-height);
     letter-spacing: var(--kds-typography-body-sm-medium-letter-spacing);
-    /* motion.md: 허용 property는 opacity와 transform뿐이다. 색 전환은 두지 않는다. */
-    transition-property: opacity, transform;
+    /* motion.md: 허용 property는 opacity와 transform뿐이다.
+     * **`scale`은 `transform`과 별개 property다.** `transform`만 적으면 이 선언은 아무것도 전이하지
+     * 않는다 — 실측하면 transitionProperty가 "opacity, transform"인데 움직이는 것은 scale뿐이라
+     * 누름이 즉시 튄다. dialog.css는 처음부터 `translate, scale`로 적고 있었다. */
+    transition-property: opacity, scale;
     transition-duration: var(--kds-motion-overlay-exit-duration);
     transition-timing-function: var(--kds-motion-overlay-exit-timing-function);
   }
@@ -617,8 +620,11 @@
     border: var(--kds-border-width-hairline) solid transparent;
     border-radius: var(--kds-radius-control);
     cursor: pointer;
-    /* motion.md: 허용 property는 opacity와 transform뿐이다. 색 전환은 두지 않는다. */
-    transition-property: opacity, transform;
+    /* motion.md: 허용 property는 opacity와 transform뿐이다.
+     * **`scale`은 `transform`과 별개 property다.** `transform`만 적으면 이 선언은 아무것도 전이하지
+     * 않는다 — 실측하면 transitionProperty가 "opacity, transform"인데 움직이는 것은 scale뿐이라
+     * 누름이 즉시 튄다. dialog.css는 처음부터 `translate, scale`로 적고 있었다. */
+    transition-property: opacity, scale;
     transition-duration: var(--kds-motion-overlay-exit-duration);
     transition-timing-function: var(--kds-motion-overlay-exit-timing-function);
   }
@@ -1068,8 +1074,11 @@
     max-width: var(--kds-overlay-available-width, 100vw);
     max-height: var(--kds-overlay-available-height, 100vh);
     overflow: auto;
-    /* motion.md: 허용 property는 opacity와 transform뿐이다. */
-    transition-property: opacity, transform;
+    /* motion.md: 허용 property는 opacity와 transform뿐이다.
+     * **`scale`은 `transform`과 별개 property다.** `transform`만 적으면 이 선언은 아무것도 전이하지
+     * 않는다 — 실측하면 transitionProperty가 "opacity, transform"인데 움직이는 것은 scale뿐이라
+     * 누름이 즉시 튄다. dialog.css는 처음부터 `translate, scale`로 적고 있었다. */
+    transition-property: opacity, scale;
   }
 
   /* positioning이 JS에서 CSS로 읽어가는 값. 상수로 하드코딩하지 않는 이유는
@@ -1164,14 +1173,12 @@
    */
 
   .kds-project-card {
-    /* **명시한다.** `<button>`은 UA 기본이 border-box지만 `<a>`는 아니다. 소비자의 reset에 기대면
-     * 링크 형태의 카드만 테두리만큼 넘친다. */
+    /* 소비자의 reset에 기대지 않는다. */
     box-sizing: border-box;
     position: relative;
     display: grid;
-    /* **트랙을 채운다.** `<button>`/`<a>`는 내용에 맞춰 줄어드는데 미디어 면의 폭이 `100%`라
-     * 서로를 참조해 0으로 접힌다. 실제로 240px 트랙 안에서 2px(테두리만)로 쟀다. 폭은 그리드가
-     * 정하고 카드는 그것을 받는다. */
+    /* **트랙을 채운다.** 미디어 면의 폭이 `100%`라 프레임이 내용에 맞춰 줄어들면 서로를 참조해
+     * 0으로 접힌다. 실제로 240px 트랙 안에서 2px(테두리만)로 쟀다. 폭은 그리드가 정한다. */
     inline-size: 100%;
     min-inline-size: 0;
     padding: 0;
@@ -1183,16 +1190,51 @@
     background: none;
     overflow: hidden;
     text-align: start;
-    cursor: pointer;
-    /* motion.md: 허용 property는 opacity와 transform뿐이다. */
-    transition-property: opacity, transform;
+    /* motion.md: 허용 property는 opacity와 transform뿐이다.
+     * **`scale`은 `transform`과 별개 property다.** `transform`만 적으면 이 선언은 아무것도 전이하지
+     * 않는다 — 실측하면 transitionProperty가 "opacity, transform"인데 움직이는 것은 scale뿐이라
+     * 누름이 즉시 튄다. dialog.css는 처음부터 `translate, scale`로 적고 있었다. */
+    transition-property: opacity, scale;
     transition-duration: var(--kds-motion-overlay-exit-duration);
     transition-timing-function: var(--kds-motion-overlay-exit-timing-function);
   }
 
-  /* 누르면 살짝 들어간다. 제품 네 벌이 모두 0.975다. */
-  .kds-project-card:active {
+  /* 카드 전체를 덮는 클릭 타깃. **프레임의 형제이지 조상이 아니다.**
+   *
+   * root를 `<a>`로 두면 안에 있는 더보기 버튼이 `<a>` 안의 대화형 자손이 되어 HTML이 무효가 되고
+   * 보조기술에서 동작이 정의되지 않는다. 규범 문서가 바로 그 사용(슬롯 안의 메뉴)을 예시로 들고
+   * 있었다. 그래서 링크를 카드 전체에 늘려 깔고, 슬롯은 그 **위**에 형제로 둔다. */
+  .kds-project-card-action {
+    position: absolute;
+    inset: 0;
+    display: block;
+    padding: 0;
+    border: 0;
+    background: none;
+    /* 링크 자체는 아무것도 그리지 않는다. `<a>`가 UA에서 물려받는 색과 밑줄도 여기서 끊는다. */
+    color: inherit;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  /* 누르면 살짝 들어간다. 제품 네 벌이 모두 0.975다.
+   *
+   * **`:has()`로 액션만 본다.** 프레임에 `:active`를 직접 걸면 슬롯 안의 더보기 버튼을 눌렀을 때도
+   * 카드가 눌린 것처럼 줄어든다 — `:active`는 조상에도 붙기 때문이다. */
+  .kds-project-card:has(.kds-project-card-action:active) {
     scale: 0.975;
+  }
+
+  /* focus ring도 액션이 받되 링은 프레임에 그린다. 투명한 층에 링만 뜨면 무엇이 선택됐는지 모른다. */
+  .kds-project-card:has(.kds-project-card-action:focus-visible) {
+    outline: var(--kds-border-width-ring) solid var(--kds-color-border-focus);
+    outline-offset: var(--kds-space-card-text-gap);
+  }
+
+  @media (forced-colors: active) {
+    .kds-project-card:has(.kds-project-card-action:focus-visible) {
+      outline-color: Highlight;
+    }
   }
 
   /* 미디어 면. 비율은 소비하는 쪽이 정한다 — 홈은 1:1이고 다른 그리드는 다를 수 있다.
@@ -1214,10 +1256,16 @@
     isolation: isolate;
   }
 
-  .kds-project-card-media > img,
-  .kds-project-card-media > video {
+  /* 썸네일 자리. `.kds-project-card-media > img`를 직접 잡으면 Next.js `Image`처럼 래퍼를 하나 더
+   * 만드는 컴포넌트를 넣는 순간 선택자가 빗나가 썸네일이 면을 못 채운다. 자리를 잡는 것은 이 요소이고
+   * 안에 무엇이 들어와도 채운다. */
+  .kds-project-card-thumbnail {
     position: absolute;
     inset: 0;
+  }
+
+  .kds-project-card-thumbnail,
+  .kds-project-card-thumbnail :where(img, video) {
     inline-size: 100%;
     block-size: 100%;
     object-fit: cover;
@@ -1240,8 +1288,14 @@
     position: absolute;
     inset-inline: 0;
     inset-block-end: 0;
-    /* 높이는 미디어 면의 비율이다. 고정 px로 두면 카드가 작아질 때 흐림 구간이 글자를 못 덮는다. */
-    block-size: 30%;
+    /* 띠는 미디어 높이의 30%이되 **내용보다 작아지지 않는다.**
+     *
+     * `block-size: 30%`만 두면 절대 위치 박스의 확정 크기라 내용이 커져도 자라지 않고 **글자가 띠
+     * 위로 넘친다.** 최소 트랙 240px에서 실측하면 띠 71.4px에 내용 92.8px이라 eyebrow가 흐림이 0인
+     * 구간에 놓여 썸네일 위에서 읽히지 않는다. 30%를 하한으로 바꿔 큰 카드에서는 넉넉한 띠를,
+     * 작은 카드에서는 내용을 담는 띠를 얻는다. */
+    block-size: fit-content;
+    min-block-size: 30%;
     display: flex;
     align-items: flex-end;
     padding: var(--kds-space-layout-gutter);
@@ -1318,15 +1372,17 @@
     letter-spacing: var(--kds-typography-body-md-medium-letter-spacing);
   }
 
-  /* 미디어 면 모서리에 붙는 슬롯 — 상태 칩과 더보기 버튼이 여기 들어간다.
+  /* 카드 모서리에 붙는 슬롯 — 상태 칩과 더보기 메뉴가 여기 들어간다.
    *
-   * **오버레이 뒤에 둔다.** 여기도 숫자 z-index를 쓰지 않으므로 칠 순서는 DOM 순서다. 오버레이
-   * 앞에 두면 하단 모서리의 슬롯이 흐림 층에 덮여 눌리지 않는다. 계약이므로 문서와 테스트가
-   * 함께 고정한다. */
+   * **`.kds-project-card-action` 뒤에 둔다.** 숫자 z-index를 쓰지 않으므로 칠 순서는 DOM 순서이고,
+   * 앞에 두면 카드 전체를 덮은 클릭 타깃이 위에 깔려 이 안의 컨트롤이 눌리지 않는다. 계약이므로
+   * 문서와 테스트가 함께 고정한다. */
   .kds-project-card-adornment {
     position: absolute;
     display: inline-flex;
     align-items: center;
+    /* 프레임이 `<a>`가 아니게 됐지만, 슬롯 안에 링크를 넣는 소비자가 UA 색을 물려받지 않게 한다. */
+    color: var(--kds-color-foreground-primary);
   }
 
   .kds-project-card-adornment[data-placement="top-start"] {

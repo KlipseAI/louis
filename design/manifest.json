@@ -821,10 +821,10 @@
       "id": "project-card",
       "name": "Project Card",
       "maturity": "experimental",
-      "figma": "not-ready",
+      "figma": "partial",
       "web": "partial",
       "docs": "done",
-      "note": "public export 8종과 실브라우저 구조 테스트 2건. 값은 제품 정의 4벌의 정본을 옮긴 것이다. 프로그레시브 블러의 첫 소비처이며 Figma component는 아직 없다",
+      "note": "public export 10종과 실브라우저 acceptance test 6건. 값은 제품 정의 4벌의 정본을 옮긴 것이다. 프로그레시브 블러의 첫 소비처이며, parity 게이트가 자손 기하·타이포·흐림·자식 순서를 대조한다. 구조는 제품과 다르다 — 프레임은 div이고 클릭 타깃이 카드 전체를 덮는 형제다",
       "doc": "design/components/project-card.md",
       "figmaName": "ProjectCard"
     }

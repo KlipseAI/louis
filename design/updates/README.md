@@ -8,6 +8,76 @@ authority: normative
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
 
+## 2026-08-16 (2) — Project Card 구조 정정과 parity 게이트 확장
+
+### 프레임을 링크로 만들면 안 됐다
+
+처음 구현은 카드 root 자체가 `<a>`/`<button>`이었다. 그러면 슬롯의 더보기 버튼이 `<a>` 안의 대화형
+자손이 되어 **HTML이 무효**가 되고 보조기술에서 동작이 정의되지 않는다. 규범 문서가 바로 그 사용을
+예시로 들고 있었다.
+
+프레임을 `div`로 되돌리고 클릭 타깃(`ProjectCardAction`)을 카드 전체에 늘려 깐 형제로 두었다.
+자식 순서가 계약이다 — **Media → Action → Adornment**. 슬롯이 앞에 오면 클릭 타깃이 위에 깔려
+슬롯 안의 컨트롤이 눌리지 않는다. 테스트는 DOM 순서가 아니라 **실제 hit test**로 확인한다.
+
+클릭 타깃의 이름은 `ProjectCardTitle`에서 온다. id는 컴포넌트가 인스턴스마다 발급한다.
+
+### 오버레이 띠가 자라지 않고 있었다
+
+문서·measured·인계 근거가 모두 "내용이 크면 띠가 자란다"고 적어 두었는데 실제로는 아니었다.
+`block-size: 30%`는 절대 위치 박스의 확정 크기라 내용이 커져도 자라지 않고 **글자가 띠 위로
+넘친다** — 최소 트랙 240px에서 띠 71.4px에 내용 92.8px이라 eyebrow가 흐림이 0인 구간에 놓였다.
+
+`block-size: fit-content; min-block-size: 30%`로 바꿔 30%를 하한으로 만들었다. 측정 폭 360에서는
+30%가 이기고 240에서는 내용이 이긴다. 테스트가 두 지점을 모두 고정한다.
+
+### 누름 전환이 네 컴포넌트에서 죽어 있었다
+
+`transition-property: opacity, transform`이라고 적고 `scale`을 움직이고 있었다. **`scale`은
+`transform`과 별개 property**라 이 선언은 아무것도 전이하지 않는다 — 계산값을 읽으면
+`"opacity, transform"`인데 실제로 움직이는 것은 `scale`뿐이다.
+
+Button·IconButton·overlay·ProjectCard 넷을 `opacity, scale`로 고쳤다. Dialog는 처음부터
+`translate, scale`로 적고 있었다. 고치자마자 Menu 패널과 항목의 크기가 여는 애니메이션의 `scale`을
+타고 96%로 읽히기 시작해, 그 테스트들도 변환에 영향받지 않는 레이아웃 값으로 바꿨다.
+
+### parity 게이트가 자손을 본다
+
+지금까지 component 계약은 **root 노드만** 대조했다. Project Card는 계약값이 전부 자손인
+`Title overlay`에 있어서 root만 보면 여백·간격·흐림이 하나도 검증되지 않는다.
+
+- `geometry.parts`로 자손의 field를 root와 **같은 규칙**으로 대조한다(문자열=measured 키, 배열=합,
+  객체=literal). 새 어휘를 만들지 않았다
+- 자손의 높이가 다른 자손에 대한 비율로 정의되는 경우(`heightRatioOf`)
+- `childOrder` — 크기는 다 맞는데 못 쓰는 상태는 값 비교로 잡히지 않는다
+- 프로그레시브 흐림의 램프 끝점을 **measured의 mask 정지점에서 유도한다.** 계약에 옮겨 적으면
+  정본이 둘이 되어 CSS를 고쳐도 옛 값을 계속 통과시킨다
+- Figma는 숫자를 float32로 저장해 120%가 120.00000476837158로 돌아온다. 자손 비교에 1e-4 허용치를
+  두되, canary가 그 허용치가 검출력을 낮추지 않음을 증명한다
+
+**text style 면제를 하나 도입했다.** Figma text style은 all-or-nothing이라 줄 간격만 덮어도 style
+연결이 끊긴다(실측 확인). 카드 오버레이는 120%가 필요하고 그 줄 간격을 가진 style이 토큰 소스에
+없다. 면제하되 **검사를 빼지 않는다** — 그 자리는 `fontSize`와 `lineHeightPercent`를 직접
+대조하도록 게이트가 강제한다. 바인딩 검사는 "값이 토큰에서 온다"의 대리 지표이고 값 대조는 그
+자체다.
+
+canary는 26종에서 **33종**으로 늘었다.
+
+### Toast는 게이트가 없었다
+
+앞선 변경에서 만든 `surface-geometry.browser.test.tsx`의 머리말이 Dialog·Tooltip·Toast·Menu를
+덮는다고 적어 두었는데 **Toast 테스트가 없었다.** 채웠다. Dialog의 padding·gap도 함께 넣었다.
+
+### states 표 17건도 아무도 읽지 않았다
+
+같은 함정이 색 축에 그대로 있었다. `components.measured.json`의 states 표 중 코드가 읽는 것은
+Button과 IconButton뿐이고, Tooltip·Toast·Menu·Dialog·ProjectCard의 17건은 Figma 쪽에서만
+대조되고 있었다. `component-states.browser.test.tsx`의 "빠짐없이 덮는다" 가드조차 기대 목록에 두
+컴포넌트만 하드코딩돼 있었다.
+
+`surface-states.browser.test.tsx`가 다섯을 덮고, **measured에 states가 있는데 테스트가 없는
+컴포넌트가 생기면 실패하는 가드**를 함께 둔다 — 목록을 손으로 유지하는 대신 measured에서 읽는다.
+
 ## 2026-08-16 — Project Card와 카드 반경 정정
 
 ### `radius-card`가 20px에서 16px로 내려간다 — breaking

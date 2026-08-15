@@ -40,9 +40,36 @@
 //   (2) style — `getLocalTextStylesAsync` / `getLocalEffectStylesAsync`를 이름순으로 덤프한다.
 //       lineHeightPercent와 letterSpacingPx는 r6으로 반올림한다.
 //
-//   (3) component — `figma.currentPage`는 매 호출 첫 페이지로 초기화되므로 component set이 있는
-//       페이지로 `await figma.setCurrentPageAsync(page)` 한 뒤 `page.query("COMPONENT_SET")`를 센다.
-//       이 절차 없이 첫 페이지에서 세면 component가 조용히 0개로 나온다.
+//   (3) component — `figma.currentPage`는 매 호출 첫 페이지로 초기화되므로 component가 있는
+//       페이지로 `await figma.setCurrentPageAsync(page)`를 먼저 한다. 이 절차 없이 첫 페이지에서
+//       세면 component가 조용히 0개로 나온다.
+//
+//       **`COMPONENT_SET`만 세지 않는다.** variant 축이 없는 컴포넌트(ProjectCard)는 단일
+//       `COMPONENT`이고, 그것만 빠뜨리면 계약을 추가해도 "snapshot에 없습니다"로 막힌다.
+//       아이콘은 `icon/` 접두사로 이미 분리되므로 그 접두사를 제외한 COMPONENT를 함께 센다.
+//
+//       컴포넌트마다 다음을 담는다. 값이 전부 **배열**인 이유는 같은 size의 variant가 서로 다르면
+//       배열이 길어져 "40개 중 하나만 어긋난" 경우가 보이기 때문이다.
+//
+//         variantCount / hasDescription / properties / binding / geometry / strokes / effects
+//
+//       geometry[size]에는 root의 값과 함께 **자손**을 담는다. 계약값이 자손에 있는 컴포넌트가
+//       있어서(카드의 제목 띠) root만 담으면 게이트가 아무것도 검증하지 못한다.
+//
+//         parts: { [자손이름]: { width, height, padding*, itemSpacing, layoutMode,
+//                               fontSize, fontStyle, lineHeightPercent } }
+//         childOrder: card.children.map((c) => c.name)   // 칠 순서가 계약인 컴포넌트용
+//
+//       effect 직렬화 문법(문자열 완전 일치로 비교되므로 형식을 지킨다):
+//         DROP_SHADOW|INNER_SHADOW → `{TYPE}:{offsetY}:{radius}:{spread}`
+//         BACKGROUND_BLUR|LAYER_BLUR (NORMAL) → `{TYPE}:{blurType}:{radius|var(figmaName)}`
+//         BACKGROUND_BLUR (PROGRESSIVE) →
+//           `{TYPE}:PROGRESSIVE:{radius|var(...)}:{startRadius}:{sx},{sy}:{ex},{ey}`
+//       여러 겹은 ` + `로 잇는다. 좌표는 r6으로 반올림한다 — Figma는 float32라 0.45가
+//       0.44999998807907104로 돌아온다.
+//
+//       binding은 set 자신의 노드만 센다. 완전히 투명한 fill(opacity 0)은 색이 아니므로 rawFills에
+//       세지 않는다 — Figma 배경 흐림이 렌더되려면 그 층에 fill이 있어야 하기 때문에 생기는 것이다.
 import { readFileSync, writeFileSync } from "node:fs";
 import { createHash } from "node:crypto";
 import { fileURLToPath } from "node:url";

@@ -6,24 +6,28 @@ export { Tooltip } from "./tooltip/tooltip.js";
 export type { TooltipProps } from "./tooltip/tooltip.js";
 export {
   ProjectCard,
+  ProjectCardAction,
   ProjectCardAdornment,
   ProjectCardEyebrow,
   ProjectCardMedia,
   ProjectCardMeta,
   ProjectCardOverlay,
   ProjectCardPlaceholder,
+  ProjectCardThumbnail,
   ProjectCardTitle,
 } from "./project-card/project-card.js";
 export type {
+  ProjectCardActionButtonProps,
+  ProjectCardActionLinkProps,
+  ProjectCardActionProps,
   ProjectCardAdornmentPlacement,
   ProjectCardAdornmentProps,
-  ProjectCardButtonProps,
-  ProjectCardLinkProps,
   ProjectCardMediaProps,
   ProjectCardOverlayProps,
   ProjectCardPlaceholderProps,
   ProjectCardProps,
   ProjectCardTextProps,
+  ProjectCardThumbnailProps,
 } from "./project-card/project-card.js";
 export { ToastProvider, useToast, TOAST_VISIBLE_LIMIT } from "./toast/toast.js";
 export type { ToastContextValue, ToastHandle, ToastInput, ToastProviderProps, ToastTone } from "./toast/toast.js";

@@ -364,6 +364,47 @@
           }
         }
       }
+    },
+    "dialog": {
+      "$doc": "design/components/dialog.md",
+      "$source": "packages/react/src/dialog/*, packages/css/src/component/dialog.css",
+      "$note": "제품에 공용 정본이 없다(no-canon). 값은 DS가 정했다. 높이는 내용에 따라 달라져 계약에 두지 않는다. padding 20은 dialog root의 여백이며 surface 자체 padding은 header/body/footer가 나눠 갖는다 — Figma 프레임은 그 합을 담는다.",
+      "sizes": {
+        "compact": {
+          "width": 360,
+          "paddingBlock": 20,
+          "paddingInline": 20,
+          "borderWidth": 1,
+          "radius": 20,
+          "$radius": "radius-card 20. 24px 토큰이 소스에 없어 radius-overlay(16)보다 크면서 large와 구분되는 유일한 값이다",
+          "gap": 8
+        },
+        "medium": {
+          "width": 480,
+          "paddingBlock": 20,
+          "paddingInline": 20,
+          "borderWidth": 1,
+          "radius": 16,
+          "gap": 8
+        },
+        "large": {
+          "width": 720,
+          "paddingBlock": 20,
+          "paddingInline": 20,
+          "borderWidth": 1,
+          "radius": 16,
+          "gap": 8
+        }
+      },
+      "states": {
+        "base": {
+          "Default": {
+            "background": "color-background-surface",
+            "foreground": "color-foreground-primary",
+            "border": "color-border-subtle"
+          }
+        }
+      }
     }
   },
   "$states": "variant × state마다 **어느 토큰을 무는가**. 개수가 아니라 정체를 고정한다. 이 표가 없던 동안 primary 배경을 danger 변수에 물려도 boundFills 수치가 그대로라 게이트가 통과했다. 값은 token id이며 Figma 변수 이름으로의 변환은 게이트가 생성 proposal의 figmaName으로 한다 — 여기에 Figma 이름을 적으면 정본이 둘이 된다. 코드 쪽 검증은 packages/react/test/component-states.browser.test.tsx가 계산값과 대조한다."

@@ -15,7 +15,7 @@ authority: normative
 | Surface       | 상태           | 근거                                           |
 | ------------- | -------------- | ---------------------------------------------- |
 | Web           | `partial`      | `Dialog` compound public export, 실브라우저 회귀 15건 |
-| Figma         | `not-ready`    | published Dialog component가 없음              |
+| Figma         | `partial`      | component set 3 variant (Size). fullscreen 제외. publish는 DS-F-008 |
 | Documentation | `done`         | 이 문서                                        |
 | Maturity      | `experimental` | 시각 회귀와 수동 screen-reader 검토가 아직 없음 |
 

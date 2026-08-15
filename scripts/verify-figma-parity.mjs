@@ -199,6 +199,34 @@ const COMPONENT_CONTRACTS = [
       extraStrokeWeights: [],
     },
   },
+  {
+    id: "dialog",
+    figmaName: "Dialog",
+    declaration: "packages/react/dist/dialog/types.d.ts",
+    variantProperties: {},
+    figmaOnlyProperties: {
+      Size: {
+        options: ["compact", "medium", "large"],
+        reason:
+          "코드의 DialogSize는 fullscreen을 포함해 넷이다. fullscreen은 표면이 뷰포트 자체이고 radius가 0이며 border가 없어 **고정 폭 variant로 그릴 수 없다** — Figma에서 그리면 어떤 폭을 골라도 거짓이 된다. 그래서 코드 축의 부분집합을 Figma 전용으로 선언한다.",
+      },
+    },
+    geometry: {
+      measuredId: "dialog",
+      fields: {
+        width: "width",
+        paddingBlock: ["paddingBlock", "borderWidth"],
+        paddingBlockEnd: ["paddingBlock", "borderWidth"],
+        paddingInline: ["paddingInline", "borderWidth"],
+        paddingInlineEnd: ["paddingInline", "borderWidth"],
+        itemSpacing: "gap",
+        cornerRadius: "radius",
+        layoutMode: { literal: "VERTICAL" },
+      },
+      slots: {},
+      extraStrokeWeights: [],
+    },
+  },
 ];
 
 const COMPONENTS_MEASURED_PATH = "figma/components.measured.json";

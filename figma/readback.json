@@ -3478,6 +3478,129 @@
           ]
         }
       }
+    },
+    "Dialog": {
+      "variantCount": 3,
+      "hasDescription": true,
+      "properties": {
+        "Size": {
+          "type": "VARIANT",
+          "options": [
+            "compact",
+            "medium",
+            "large"
+          ]
+        }
+      },
+      "binding": {
+        "boundFills": 9,
+        "rawFills": 0,
+        "boundStrokes": 3,
+        "rawStrokes": 0,
+        "textStyled": 6,
+        "textUnstyled": 0
+      },
+      "geometry": {
+        "compact": {
+          "slots": {},
+          "width": [
+            360
+          ],
+          "height": [
+            109
+          ],
+          "paddingBlock": [
+            21
+          ],
+          "paddingBlockEnd": [
+            21
+          ],
+          "paddingInline": [
+            21
+          ],
+          "paddingInlineEnd": [
+            21
+          ],
+          "itemSpacing": [
+            8
+          ],
+          "cornerRadius": [
+            20
+          ],
+          "layoutMode": [
+            "VERTICAL"
+          ],
+          "strokeWeight": [
+            1
+          ]
+        },
+        "medium": {
+          "slots": {},
+          "width": [
+            480
+          ],
+          "height": [
+            109
+          ],
+          "paddingBlock": [
+            21
+          ],
+          "paddingBlockEnd": [
+            21
+          ],
+          "paddingInline": [
+            21
+          ],
+          "paddingInlineEnd": [
+            21
+          ],
+          "itemSpacing": [
+            8
+          ],
+          "cornerRadius": [
+            16
+          ],
+          "layoutMode": [
+            "VERTICAL"
+          ],
+          "strokeWeight": [
+            1
+          ]
+        },
+        "large": {
+          "slots": {},
+          "width": [
+            720
+          ],
+          "height": [
+            109
+          ],
+          "paddingBlock": [
+            21
+          ],
+          "paddingBlockEnd": [
+            21
+          ],
+          "paddingInline": [
+            21
+          ],
+          "paddingInlineEnd": [
+            21
+          ],
+          "itemSpacing": [
+            8
+          ],
+          "cornerRadius": [
+            16
+          ],
+          "layoutMode": [
+            "VERTICAL"
+          ],
+          "strokeWeight": [
+            1
+          ]
+        }
+      }
     }
   },
   "icons": {

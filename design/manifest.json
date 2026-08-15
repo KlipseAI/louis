@@ -713,10 +713,10 @@
       "id": "dialog",
       "name": "Dialog / Confirm Modal",
       "maturity": "experimental",
-      "figma": "not-ready",
+      "figma": "partial",
       "web": "partial",
       "docs": "done",
-      "note": "Dialog compound가 public export다. variant 5종·backdrop 정책·차단 안내를 recipe가 소유한다. Figma component와 시각 회귀는 아직 없다",
+      "note": "public export와 실브라우저 acceptance test. Figma component set 3 variant(Size). fullscreen은 표면이 뷰포트라 고정 폭 variant로 그릴 수 없어 제외했다. 제품에 공용 정본이 없다",
       "doc": "design/components/dialog.md",
       "figmaName": "Dialog"
     },

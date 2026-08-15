@@ -98,6 +98,9 @@ for (const variant of VARIANTS) {
       const expected = spec.Hover;
       if (expected === undefined) throw new Error("states 표에 Hover가 없습니다");
       assertPaint(node, expected, `${variant}/Hover`);
+      // **포인터를 치운다.** 얹은 채로 두면 뒤에 같은 좌표에 렌더되는 요소가 :hover를 받아
+      // Default를 재는 단언이 간헐적으로 hover 값을 읽는다 — 실제로 그렇게 실패했다.
+      await userEvent.unhover(node);
     } finally {
       host.remove();
     }
@@ -142,6 +145,7 @@ for (const variant of VARIANTS) {
       const expected = spec.Hover;
       if (expected === undefined) throw new Error("states 표에 Hover가 없습니다");
       assertPaint(node, expected, `${variant}/Hover`);
+      await userEvent.unhover(node);
     } finally {
       host.remove();
     }

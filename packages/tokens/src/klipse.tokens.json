@@ -2756,6 +2756,16 @@
               "mode": "global"
             }
           }
+        },
+        "control-minimum-width-sm": {
+          "$value": "{primitive.spacing.48}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "layout-control-minimum-width-sm",
+              "tier": "semantic",
+              "mode": "global"
+            }
+          }
         }
       },
       "icon": {

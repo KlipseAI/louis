@@ -2,23 +2,23 @@
   "artifacts": [
     {
       "path": "packages/tokens/generated/figma.tokens.json",
-      "sha256": "5f323f1cb498f1c32a8463ad7fd64c584922cdb7c303181c4b9768e467794fe1"
+      "sha256": "9614b5bc77e5e83a49bf2999fc5b72a6a25b7abb1e9b45d2dc0c372334cb90e0"
     },
     {
       "path": "packages/tokens/generated/index.d.ts",
-      "sha256": "965c9bb11adb9b1738e0f4cfaf825775ee130e73ef0e7d63c4f3543dbad58ae9"
+      "sha256": "a0f51b92a364f31aca9112a83dd1d099618dfbeb1e0fa909e185957508043bd6"
     },
     {
       "path": "packages/tokens/generated/index.js",
-      "sha256": "5e70389915a407e6286500374705031d20848ed24a1060065e43158aed0395ea"
+      "sha256": "c09ab2b5c8c68b56a455b9b7a3326f9b1ea6a564148e98f2507be53cada2514f"
     },
     {
       "path": "packages/tokens/generated/tokens.css",
-      "sha256": "46f64b9758dac8b458daf2f85a7f5372815dc471ea7443e8cb3b04e7f4678da7"
+      "sha256": "c10cac7d265852f11243242ed41827f7e1284de5b0cb568600e260908456b4b8"
     },
     {
       "path": "packages/tokens/generated/tokens.json",
-      "sha256": "667800ffd22feff060968601c30179d3060d07d2274121b56d9c778cf8bb25e7"
+      "sha256": "ad2fa901ebacfa46b7c9c3846a3a55c97409f28829dc8ae14cb424a9b1600c34"
     }
   ],
   "contrastPairs": [
@@ -182,13 +182,13 @@
   },
   "source": {
     "path": "packages/tokens/src/klipse.tokens.json",
-    "sha256": "9a1bae89ccf4f28ea9005333ccd1ca3bb742a876af1f955d6f98da3185aa0b9f"
+    "sha256": "668a010671c0432f0b4d6cb4a1c67fcba04611bcc3c0d89e6f188a250f62d448"
   },
   "themes": [
     "light",
     "dark"
   ],
-  "tokenCount": 228,
+  "tokenCount": 229,
   "tokens": [
     {
       "aliasTarget": {
@@ -3657,6 +3657,27 @@
         "value": 44
       },
       "sourcePath": "semantic.global.layout.control-hit-target-minimum",
+      "tier": "semantic",
+      "type": "dimension"
+    },
+    {
+      "aliasTarget": {
+        "id": "space-48",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-layout-control-minimum-width-sm": "48px"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "layout-control-minimum-width-sm",
+      "mode": "global",
+      "rawValue": "{primitive.spacing.48}",
+      "resolvedValue": {
+        "unit": "px",
+        "value": 48
+      },
+      "sourcePath": "semantic.global.layout.control-minimum-width-sm",
       "tier": "semantic",
       "type": "dimension"
     },

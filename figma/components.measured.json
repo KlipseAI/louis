@@ -9,10 +9,10 @@
       "$source": "packages/react/src/button/button.tsx, packages/css/src/component/button.css",
       "sizes": {
         "md": {
-          "height": 39,
-          "$height": "padding 8+8, border 1+1, line-height 21 = 39. Figma 프레임을 padding+line-height만으로 잡으면 37이 되고 실제로 그렇게 틀려 있었다",
-          "paddingBlock": 8,
-          "paddingInline": 12,
+          "height": 40,
+          "$height": "제품 --button-height 40px 채택. CSS는 height가 아니라 min-block-size라 일반 라벨에서 정확히 40이고 긴 라벨에서만 자란다",
+          "paddingBlock": 0,
+          "paddingInline": 16,
           "gap": 8,
           "borderWidth": 1,
           "radius": 12,
@@ -20,21 +20,24 @@
           "lineHeight": 21,
           "spinner": 18,
           "iconSlot": 20,
-          "$iconSlot": "icon-size-md 20. line-height 21보다 작아 높이를 밀지 않는다"
+          "$iconSlot": "icon-size-md 20. 제품에는 슬롯 크기 계약이 없어 DS가 정한다"
         },
         "sm": {
-          "height": 28,
-          "$height": "padding 4+4, border 1+1, line-height 18 = 28",
-          "paddingBlock": 4,
-          "paddingInline": 8,
-          "gap": 8,
+          "height": 32,
+          "$height": "제품 --button-height-sm 32px 채택",
+          "paddingBlock": 0,
+          "paddingInline": 12,
+          "gap": 4,
           "borderWidth": 1,
           "radius": 12,
-          "fontSize": 12,
-          "lineHeight": 18,
-          "spinner": 16,
+          "fontSize": 14,
+          "lineHeight": 21,
+          "spinner": 18,
           "iconSlot": 16,
-          "$iconSlot": "icon-size-sm 16. 20을 쓰면 line-height 18을 넘어 높이가 28에서 30으로 밀린다 — 실제로 그렇게 돼 있었다"
+          "$iconSlot": "icon-size-sm 16. 제품에는 슬롯 크기 계약이 없어 DS가 정한다",
+          "minWidth": 48,
+          "$minWidth": "제품 --button-min-width-sm 48px 채택. md에는 최소 폭 계약이 없다",
+          "$fontSize": "제품은 md·sm 모두 14px다. size가 타이포를 바꾸지 않는다"
         }
       },
       "states": {

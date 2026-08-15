@@ -217,19 +217,32 @@ focus-visible 링은 브라우저가 그리므로 Figma variant로 두지 않는
 `packages/react/test/component-geometry.browser.test.tsx`가, Figma가 이 값과 같은지는 parity
 게이트가 매 실행 검증한다.
 
-| 항목        | md                      | sm                      |
-| ----------- | ----------------------- | ----------------------- |
-| 높이        | 39px                    | 28px                    |
-| padding     | 8px / 12px              | 4px / 8px               |
-| gap         | `space-control-sm` 8px  | `space-control-sm` 8px  |
-| border      | 1px                     | 1px                     |
-| radius      | `radius-control` 12px   | `radius-control` 12px   |
-| 타이포      | 14px / 21px             | 12px / 18px             |
-| spinner     | 18px (`1em` + border 2) | 16px (`1em` + border 2) |
-| 아이콘 슬롯 | `icon-size-md` 20px     | `icon-size-sm` 16px     |
+| 항목        | md                                  | sm                                  |
+| ----------- | ----------------------------------- | ----------------------------------- |
+| 높이        | `layout-control-height-md` 40px     | `layout-control-height-sm` 32px     |
+| 최소 폭     | 없음                                | `layout-control-minimum-width-sm` 48px |
+| padding     | 0 / `space-control-lg` 16px         | 0 / `space-control-md` 12px         |
+| gap         | `space-control-sm` 8px              | `space-control-xs` 4px              |
+| border      | 1px                                 | 1px                                 |
+| radius      | `radius-control` 12px               | `radius-control` 12px               |
+| 타이포      | `body-sm-medium` 14px / 21px        | `body-sm-medium` 14px / 21px        |
+| spinner     | 18px (`1em` + border 2)             | 18px (`1em` + border 2)             |
+| 아이콘 슬롯 | `icon-size-md` 20px                 | `icon-size-sm` 16px                 |
 
-높이는 고정값이 아니라 padding·border·line-height의 합이다. 표의 숫자는 그 합의 **결과**이며,
-Figma 프레임을 이 숫자로 잡을 때 border 2px를 빠뜨리기 쉽다 — 실제로 그렇게 틀려 있었다.
+**이 값들은 제품 배포 코드에서 채택한 것이다.** 근거와 채택/편차 판정은
+[`migration/product.measured.json`](../../migration/product.measured.json)에 있고 게이트가 매 실행
+확인한다.
+
+두 가지가 제품과 다르고 사유가 그 파일에 적혀 있다.
+
+- **높이가 `height`가 아니라 `min-block-size`다.** 일반 라벨에서는 제품과 정확히 같은 40/32가
+  나오고, KO/EN/JA 긴 라벨이나 200% 확대에서는 잘리는 대신 자란다. 제품은 `nowrap`이라 그 경우
+  라벨이 넘친다.
+- **타이포가 size 축이 아니다.** 제품과 같이 md·sm 모두 14px/21px를 쓴다. 이전 DS는 sm에서
+  caption 12px로 줄여 제품과 달랐다.
+
+아이콘이 붙은 쪽은 padding을 2px 줄인다(md 16→14, sm 12→10). 아이콘의 자체 시각 여백 때문에
+텍스트-only 대비 그 쪽이 넓어 보이는 것을 보정하는 것이며 제품과 같다.
 
 #### Known deviations
 

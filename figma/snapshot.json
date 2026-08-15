@@ -6,12 +6,12 @@
     "capturedAt": "2026-08-15",
     "capturedBy": "figma-mcp-plugin-api",
     "published": false,
-    "tokenSourceSha256": "9a1bae89ccf4f28ea9005333ccd1ca3bb742a876af1f955d6f98da3185aa0b9f",
-    "proposalSha256": "5f323f1cb498f1c32a8463ad7fd64c584922cdb7c303181c4b9768e467794fe1",
+    "tokenSourceSha256": "668a010671c0432f0b4d6cb4a1c67fcba04611bcc3c0d89e6f188a250f62d448",
+    "proposalSha256": "9614b5bc77e5e83a49bf2999fc5b72a6a25b7abb1e9b45d2dc0c372334cb90e0",
     "readback": {
-      "tokens": 154,
-      "canonicalLength": 12094,
-      "fnv1a32": "14bc6adc",
+      "tokens": 155,
+      "canonicalLength": 12186,
+      "fnv1a32": "3a5fe4eb",
       "note": "변수는 readback.json의 되읽기 행을 tokenId 공간으로 옮긴 것이고, style과 component는 같은 되읽기의 style/component 절이다. canonical 해시는 컬렉션·이름·타입·mode 값을 정렬해 이은 문자열의 FNV-1a다.",
       "styles": {
         "text": 15,
@@ -38,7 +38,7 @@
         "Global"
       ],
       "defaultMode": "Global",
-      "variableCount": 34
+      "variableCount": 35
     },
     "Klipse Semantic Color": {
       "modes": [
@@ -1242,6 +1242,15 @@
         }
       }
     },
+    "layout-control-minimum-width-sm": {
+      "figmaName": "layout/control-minimum-width-sm",
+      "resolvedType": "FLOAT",
+      "valuesByMode": {
+        "Global": {
+          "alias": "space-48"
+        }
+      }
+    },
     "layout-project-card-minimum": {
       "figmaName": "layout/project-card-minimum",
       "resolvedType": "FLOAT",
@@ -2017,19 +2026,23 @@
             ]
           },
           "height": [
-            39
+            40
+          ],
+          "width": [
+            69,
+            95
           ],
           "paddingBlock": [
-            9
+            1
           ],
           "paddingBlockEnd": [
-            9
+            1
           ],
           "paddingInline": [
-            13
+            17
           ],
           "paddingInlineEnd": [
-            13
+            17
           ],
           "itemSpacing": [
             8
@@ -2040,14 +2053,12 @@
           "layoutMode": [
             "HORIZONTAL"
           ],
+          "minWidth": [
+            null
+          ],
           "strokeWeight": [
             2,
             1
-          ],
-          "width": [
-            61,
-            87,
-            117
           ]
         },
         "sm": {
@@ -2059,26 +2070,30 @@
               "16x16"
             ],
             "Spinner": [
-              "16x16"
+              "18x18"
             ]
           },
           "height": [
-            28
+            32
+          ],
+          "width": [
+            61,
+            83
           ],
           "paddingBlock": [
-            5
+            1
           ],
           "paddingBlockEnd": [
-            5
+            1
           ],
           "paddingInline": [
-            9
+            13
           ],
           "paddingInlineEnd": [
-            9
+            13
           ],
           "itemSpacing": [
-            8
+            4
           ],
           "cornerRadius": [
             12
@@ -2086,14 +2101,12 @@
           "layoutMode": [
             "HORIZONTAL"
           ],
+          "minWidth": [
+            48
+          ],
           "strokeWeight": [
             2,
             1
-          ],
-          "width": [
-            48,
-            72,
-            96
           ]
         }
       }

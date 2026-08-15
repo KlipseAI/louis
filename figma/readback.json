@@ -1507,6 +1507,18 @@
           ]
         ],
         [
+          "layout/control-minimum-width-sm",
+          "FLOAT",
+          "WIDTH_HEIGHT",
+          [
+            [
+              "Global",
+              "Klipse Primitive::spacing/48",
+              null
+            ]
+          ]
+        ],
+        [
           "layout/project-card-minimum",
           "FLOAT",
           "WIDTH_HEIGHT",
@@ -2507,19 +2519,23 @@
             ]
           },
           "height": [
-            39
+            40
+          ],
+          "width": [
+            69,
+            95
           ],
           "paddingBlock": [
-            9
+            1
           ],
           "paddingBlockEnd": [
-            9
+            1
           ],
           "paddingInline": [
-            13
+            17
           ],
           "paddingInlineEnd": [
-            13
+            17
           ],
           "itemSpacing": [
             8
@@ -2530,14 +2546,12 @@
           "layoutMode": [
             "HORIZONTAL"
           ],
+          "minWidth": [
+            null
+          ],
           "strokeWeight": [
             2,
             1
-          ],
-          "width": [
-            61,
-            87,
-            117
           ]
         },
         "sm": {
@@ -2549,26 +2563,30 @@
               "16x16"
             ],
             "Spinner": [
-              "16x16"
+              "18x18"
             ]
           },
           "height": [
-            28
+            32
+          ],
+          "width": [
+            61,
+            83
           ],
           "paddingBlock": [
-            5
+            1
           ],
           "paddingBlockEnd": [
-            5
+            1
           ],
           "paddingInline": [
-            9
+            13
           ],
           "paddingInlineEnd": [
-            9
+            13
           ],
           "itemSpacing": [
-            8
+            4
           ],
           "cornerRadius": [
             12
@@ -2576,14 +2594,12 @@
           "layoutMode": [
             "HORIZONTAL"
           ],
+          "minWidth": [
+            48
+          ],
           "strokeWeight": [
             2,
             1
-          ],
-          "width": [
-            48,
-            72,
-            96
           ]
         }
       }

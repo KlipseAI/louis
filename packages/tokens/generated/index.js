@@ -4061,6 +4061,27 @@ export const tokens = {
         "unit": "px"
       }
     },
+    "layout-control-minimum-width-sm": {
+      "aliasTarget": {
+        "id": "space-48",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-layout-control-minimum-width-sm": "48px"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "layout-control-minimum-width-sm",
+      "mode": "global",
+      "rawValue": "{primitive.spacing.48}",
+      "sourcePath": "semantic.global.layout.control-minimum-width-sm",
+      "tier": "semantic",
+      "type": "dimension",
+      "value": {
+        "value": 48,
+        "unit": "px"
+      }
+    },
     "layout-project-card-minimum": {
       "aliasTarget": {
         "id": "space-240",

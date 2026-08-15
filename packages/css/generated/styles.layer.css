@@ -115,6 +115,18 @@
     min-width: 0;
     text-align: center;
     overflow-wrap: break-word;
+    /* 제품은 h-[40px]/h-[32px] 고정이다(globals.css:82,85). 여기서 height가 아니라 min-block-size를
+     * 쓰는 이유는 하나뿐이다 — 일반 라벨에서는 제품과 **정확히 같은 40/32**가 나오고, KO/EN/JA 긴
+     * 라벨이나 200% 확대에서는 잘리는 대신 자란다. 제품은 nowrap이라 그 경우 라벨이 넘친다.
+     * 이 차이는 migration/product.measured.json에 사유와 함께 선언돼 있다. */
+    min-block-size: var(--kds-layout-control-height-md);
+    /* **타이포는 size 축이 아니다.** 제품은 md·sm 모두 14px/500이며 size가 글자 크기를 바꾸지
+     * 않는다(Button.tsx:56-67). 이전 DS는 sm에서 caption 12px로 줄여 제품과 달랐다. */
+    font-family: var(--kds-typography-body-sm-medium-font-family);
+    font-size: var(--kds-typography-body-sm-medium-font-size);
+    font-weight: var(--kds-typography-body-sm-medium-font-weight);
+    line-height: var(--kds-typography-body-sm-medium-line-height);
+    letter-spacing: var(--kds-typography-body-sm-medium-letter-spacing);
     /* motion.md: 허용 property는 opacity와 transform뿐이다. 색 전환은 두지 않는다. */
     transition-property: opacity, transform;
     transition-duration: var(--kds-motion-overlay-exit-duration);
@@ -123,23 +135,37 @@
 
   /* size — 시각 크기만 바꾼다. hit area 계약은 .kds-hit-target이 별도로 유지한다. */
   .kds-button[data-size="md"] {
-    padding-block: var(--kds-space-control-sm);
-    padding-inline: var(--kds-space-control-md);
-    font-family: var(--kds-typography-body-sm-medium-font-family);
-    font-size: var(--kds-typography-body-sm-medium-font-size);
-    font-weight: var(--kds-typography-body-sm-medium-font-weight);
-    line-height: var(--kds-typography-body-sm-medium-line-height);
-    letter-spacing: var(--kds-typography-body-sm-medium-letter-spacing);
+    /* 제품: py-0 · px-16 · gap-8 (globals.css:81, Button.tsx:58,66) */
+    padding-block: 0;
+    padding-inline: var(--kds-space-control-lg);
   }
 
+  /* 제품: h-32 · px-12 · gap-4 · min-w-48. **타이포는 md와 같다** — size가 글자 크기를 바꾸지
+   * 않는다(globals.css:85-87, Button.tsx:62-67). 이전 DS는 sm에서 12px로 줄여 제품과 달랐다. */
   .kds-button[data-size="sm"] {
-    padding-block: var(--kds-space-control-xs);
-    padding-inline: var(--kds-space-control-sm);
-    font-family: var(--kds-typography-caption-medium-font-family);
-    font-size: var(--kds-typography-caption-medium-font-size);
-    font-weight: var(--kds-typography-caption-medium-font-weight);
-    line-height: var(--kds-typography-caption-medium-line-height);
-    letter-spacing: var(--kds-typography-caption-medium-letter-spacing);
+    min-block-size: var(--kds-layout-control-height-sm);
+    min-inline-size: var(--kds-layout-control-minimum-width-sm);
+    padding-block: 0;
+    padding-inline: var(--kds-space-control-md);
+    column-gap: var(--kds-space-control-xs);
+  }
+
+  /* 아이콘이 붙은 쪽만 2px 줄여 광학 균형을 맞춘다 (제품 Button.tsx:73-77). 아이콘의 자체 시각
+   * 여백 때문에 텍스트-only 대비 그 쪽 padding이 넓어 보인다. */
+  .kds-button[data-size="md"][data-left-icon="true"] {
+    padding-inline-start: calc(var(--kds-space-control-lg) - 2px);
+  }
+
+  .kds-button[data-size="md"][data-right-icon="true"] {
+    padding-inline-end: calc(var(--kds-space-control-lg) - 2px);
+  }
+
+  .kds-button[data-size="sm"][data-left-icon="true"] {
+    padding-inline-start: calc(var(--kds-space-control-md) - 2px);
+  }
+
+  .kds-button[data-size="sm"][data-right-icon="true"] {
+    padding-inline-end: calc(var(--kds-space-control-md) - 2px);
   }
 
   /* variant — 강조를 색만으로 결정하지 않고 면·테두리·굵기를 함께 쓴다. */

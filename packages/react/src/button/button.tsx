@@ -57,6 +57,10 @@ export function Button({
       data-variant={variant}
       data-size={size}
       data-loading={loading ? "true" : undefined}
+      // 아이콘이 붙은 쪽만 padding을 줄여 광학 균형을 맞춘다 (제품 Button.tsx:73과 같은 보정).
+      // CSS :has()가 아니라 속성으로 표현한다 — 상태와 변형은 data-*가 소유한다 (DS-D-0004).
+      data-left-icon={leftIcon !== undefined && !loading ? "true" : undefined}
+      data-right-icon={rightIcon !== undefined ? "true" : undefined}
       aria-busy={loading ? true : undefined}
       aria-disabled={blocked ? true : undefined}
       onClick={(event) => {

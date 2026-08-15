@@ -25,66 +25,135 @@
       "axes": {
         "높이 md": {
           "product": "40px (고정. --button-height)",
-          "ds": "39px (고정 높이 없음. padding-block 8+8 + border 1+1 + line-height 21의 합. button.css:34-42)",
+          "ds": "제품 값 채택 (40). figma/components.measured.json이 정본이고 브라우저 실측 테스트가 매 실행 확인한다",
           "match": "different",
           "evidence": "apps/web/app/globals.css:82",
-          "status": "gap"
+          "status": "adopted",
+          "dsPointer": {
+            "file": "figma/components.measured.json",
+            "path": [
+              "components",
+              "button",
+              "sizes",
+              "md",
+              "height"
+            ]
+          },
+          "productValue": 40
         },
         "높이 sm": {
           "product": "32px (고정. --button-height-sm)",
-          "ds": "28px (padding-block 4+4 + border 1+1 + line-height 18. button.css:44-52)",
+          "ds": "제품 값 채택 (32). figma/components.measured.json이 정본이고 브라우저 실측 테스트가 매 실행 확인한다",
           "match": "different",
           "evidence": "apps/web/app/globals.css:85",
-          "status": "gap"
+          "status": "adopted",
+          "dsPointer": {
+            "file": "figma/components.measured.json",
+            "path": [
+              "components",
+              "button",
+              "sizes",
+              "sm",
+              "height"
+            ]
+          },
+          "productValue": 32
         },
         "높이 결정 방식": {
           "product": "h-[40px]/h-[32px] 고정 + py-0. 라벨이 커지거나 200% 확대해도 박스가 늘어나지 않는다",
           "ds": "고정 높이 없음. padding+line-height 합으로 결정 (button.css:4-5 주석에 명시)",
           "match": "different",
           "evidence": "apps/web/components/ui/Button.tsx:57",
-          "status": "gap"
+          "status": "accepted-deviation",
+          "reason": "제품은 height 고정이라 KO/EN/JA 긴 라벨과 200% 확대에서 라벨이 넘친다. DS는 min-block-size를 써서 **일반 라벨에서는 제품과 정확히 같은 40/32**가 나오고 긴 라벨에서만 자란다. 규범의 acceptance test가 320px 컨테이너에서 잘리지 않을 것을 요구한다"
         },
         "최소 폭 sm": {
           "product": "48px (--button-min-width-sm)",
-          "ds": "min-width: 0 (최소 폭 계약 없음. button.css:24)",
+          "ds": "제품 값 채택 (48). figma/components.measured.json이 정본이고 브라우저 실측 테스트가 매 실행 확인한다",
           "match": "different",
           "evidence": "apps/web/app/globals.css:87",
-          "status": "gap"
+          "status": "adopted",
+          "dsPointer": {
+            "file": "figma/components.measured.json",
+            "path": [
+              "components",
+              "button",
+              "sizes",
+              "sm",
+              "minWidth"
+            ]
+          },
+          "productValue": 48
         },
         "padding-inline md": {
           "product": "16px (--button-padding-inline)",
-          "ds": "12px (--kds-space-control-md, tokens.css:77)",
+          "ds": "제품 값 채택 (16). figma/components.measured.json이 정본이고 브라우저 실측 테스트가 매 실행 확인한다",
           "match": "different",
           "evidence": "apps/web/app/globals.css:81",
-          "status": "gap"
+          "status": "adopted",
+          "dsPointer": {
+            "file": "figma/components.measured.json",
+            "path": [
+              "components",
+              "button",
+              "sizes",
+              "md",
+              "paddingInline"
+            ]
+          },
+          "productValue": 16
         },
         "padding-inline sm": {
           "product": "12px (--button-padding-inline-sm)",
-          "ds": "8px (--kds-space-control-sm, tokens.css:78)",
+          "ds": "제품 값 채택 (12). figma/components.measured.json이 정본이고 브라우저 실측 테스트가 매 실행 확인한다",
           "match": "different",
           "evidence": "apps/web/app/globals.css:86",
-          "status": "gap"
+          "status": "adopted",
+          "dsPointer": {
+            "file": "figma/components.measured.json",
+            "path": [
+              "components",
+              "button",
+              "sizes",
+              "sm",
+              "paddingInline"
+            ]
+          },
+          "productValue": 12
         },
         "padding-block": {
           "product": "0px (py-0, md·sm 공통)",
-          "ds": "md 8px / sm 4px (button.css:35,45)",
+          "ds": "제품 값 채택",
           "match": "different",
           "evidence": "apps/web/components/ui/Button.tsx:58",
-          "status": "gap"
+          "status": "adopted",
+          "reason": "제품 py-0을 채택했다. button.css의 두 size 모두 padding-block: 0이며 높이는 min-block-size가 소유한다. components.measured.json의 paddingBlock 0을 브라우저 테스트가 확인한다"
         },
         "padding 광학 보정": {
           "product": "아이콘이 붙은 쪽만 2px 축소 — md 16→14px, sm 12→10px",
-          "ds": "없음 (아이콘 유무로 padding이 변하지 않는다)",
+          "ds": "제품 값 채택",
           "match": "ds-missing",
           "evidence": "apps/web/components/ui/Button.tsx:73",
-          "status": "gap"
+          "status": "adopted",
+          "reason": "제품 Button.tsx:73-77의 보정을 채택했다. data-left-icon/data-right-icon 속성으로 아이콘이 붙은 쪽만 2px 줄인다. 실측으로 md 16→14, sm 12→10을 확인했다"
         },
         "gap sm": {
           "product": "4px (gap-2 × --spacing:2px)",
-          "ds": "8px (md·sm 동일. button.css:13)",
+          "ds": "제품 값 채택 (4). figma/components.measured.json이 정본이고 브라우저 실측 테스트가 매 실행 확인한다",
           "match": "different",
           "evidence": "apps/web/components/ui/Button.tsx:66",
-          "status": "gap"
+          "status": "adopted",
+          "dsPointer": {
+            "file": "figma/components.measured.json",
+            "path": [
+              "components",
+              "button",
+              "sizes",
+              "sm",
+              "gap"
+            ]
+          },
+          "productValue": 4
         },
         "border 두께": {
           "product": "secondary만 1px solid, primary·ghost·danger는 border:none (박스 크기 계산에서 2px가 빠진다)",
@@ -186,66 +255,85 @@
         },
         "타이포 sm": {
           "product": "14px / 500 / 1.5 / -0.14px — md와 동일. size가 타이포를 바꾸지 않는다",
-          "ds": "12px / 500 / 1.5(=18px) / -0.12px (--kds-typography-caption-medium-*, tokens.css:128-131)",
+          "ds": "제품 값 채택 (14). figma/components.measured.json이 정본이고 브라우저 실측 테스트가 매 실행 확인한다",
           "match": "different",
           "evidence": "apps/web/components/ui/Button.tsx:185",
-          "status": "gap"
+          "status": "adopted",
+          "dsPointer": {
+            "file": "figma/components.measured.json",
+            "path": [
+              "components",
+              "button",
+              "sizes",
+              "sm",
+              "fontSize"
+            ]
+          },
+          "productValue": 14
         },
         "font-family": {
           "product": "var(--font-pretendard) 단일 (JA 로케일에서만 --font-pretendard-jp 선행). [font-family:inherit]로 상속",
           "ds": "\"Pretendard Variable\", \"Pretendard\", \"Inter\", \"Noto Sans KR\", \"Noto Sans JP\", system-ui, sans-serif (tokens.css:112)",
           "match": "different",
           "evidence": "apps/web/app/globals.css:333",
-          "status": "gap"
+          "status": "accepted-deviation",
+          "reason": "DS-D-0009가 결정한 계약이다. DS는 폰트 바이너리를 동봉하지 않고 --kds-font-family-sans로 교체 지점을 단일화하며 폴백 스택을 교정한다. 제품의 inherit는 소비자마다 결과가 달라진다"
         },
         "줄바꿈/오버플로": {
           "product": "white-space: nowrap — 긴 라벨이 잘리거나 넘친다 (랜딩 셸에서는 전역 text-wrap:balance가 이겨 뒤집힌다)",
           "ds": "overflow-wrap: break-word + text-align: center + min-width: 0 — 넘칠 때만 끊고 줄바꿈 (button.css:24-26)",
           "match": "different",
           "evidence": "apps/web/components/ui/Button.tsx:49",
-          "status": "gap"
+          "status": "accepted-deviation",
+          "reason": "제품은 white-space: nowrap이라 긴 라벨이 잘리거나 넘친다. 제품 자신도 랜딩 셸에서 전역 text-wrap:balance에 뒤집히는 것을 주석으로 인정한다. DS는 overflow-wrap: break-word로 넘칠 때만 끊는다"
         },
         "애니메이션 대상/시간/이징": {
           "product": "background-color 140ms ease, border-color 140ms ease, opacity 140ms ease, filter 140ms ease, transform 120ms ease (색 전환 포함)",
           "ds": "opacity, transform만 120ms cubic-bezier(0.4, 0, 1, 1). 색 전환은 두지 않는다 (button.css:27-30, tokens.css:65-66)",
           "match": "different",
           "evidence": "apps/web/components/ui/Button.tsx:51",
-          "status": "gap"
+          "status": "accepted-deviation",
+          "reason": "제품은 background-color와 filter까지 전환한다. DS의 motion 규범은 합성 레이어에서만 도는 opacity와 transform으로 허용 property를 제한한다 — 색 전환은 매 프레임 레이아웃 밖 페인트를 유발한다"
         },
         "reduced-motion": {
           "product": "처리 없음 — Button.tsx 전체에 prefers-reduced-motion 선언 0건. 140/120ms transition과 scale이 그대로 실행",
           "ds": "transition-duration 0ms + active scale 1 (button.css:97-105), spinner iteration 1회 (button.css:170-176)",
           "match": "product-missing",
           "evidence": "apps/web/components/ui/Button.tsx:51",
-          "status": "gap"
+          "status": "accepted-deviation",
+          "reason": "제품에는 prefers-reduced-motion 처리가 0건이다. DS는 transition을 0ms로, active scale을 1로, spinner를 1회로 줄인다. 접근성 계약이라 제품에 없다고 빼지 않는다"
         },
         "focus-visible": {
           "product": "outline: none — 전역이 button:focus-visible의 outline을 명시적으로 제거한다. 버튼에 포커스 표시가 없다",
           "ds": "outline: 2px solid #0088FF, outline-offset: 2px (.kds-focus-ring, base.css:22-25 + tokens.css:16)",
           "match": "different",
           "evidence": "apps/web/app/globals.css:1013",
-          "status": "gap"
+          "status": "accepted-deviation",
+          "reason": "제품은 전역에서 button:focus-visible의 outline을 제거한다 — 키보드 사용자에게 포커스 표시가 없다. WCAG 2.4.7 위반이므로 채택하지 않는다. DS는 2px outline과 2px offset을 준다"
         },
         "hit target (최소 터치 영역)": {
           "product": "없음 — 실측 박스가 전부. md 40×라벨폭, sm 32×48. 44px 미달",
           "ds": "::after로 max(100%, 44px) 정사각 보장 (.kds-hit-target, base.css:36-48 + tokens.css:52)",
           "match": "product-missing",
           "evidence": "apps/web/components/ui/Button.tsx:57",
-          "status": "gap"
+          "status": "accepted-deviation",
+          "reason": "제품의 실측 박스는 md 40, sm 32×48로 44px에 미달한다. DS는 ::after로 44×44를 보장한다. WCAG 2.5.8 계약이라 제품에 없다고 빼지 않는다"
         },
         "아이콘 슬롯 크기": {
           "product": "없음 — span에 inline-flex items-center만. 호출부가 넘긴 아이콘 크기가 그대로 들어온다",
           "ds": "md 20px / sm 16px 고정 슬롯 + flex:none, 글리프를 100%로 슬롯에 맞춤 (button.css:138-157)",
           "match": "product-missing",
           "evidence": "apps/web/components/ui/Button.tsx:155",
-          "status": "gap"
+          "status": "accepted-deviation",
+          "reason": "제품에는 슬롯 크기 계약이 없어 호출부가 넘긴 아이콘 크기가 그대로 들어온다. DS는 md 20 / sm 16으로 슬롯이 크기를 소유한다 — 없으면 컨트롤 높이가 호출부에 따라 달라진다"
         },
         "loading / progress indicator": {
           "product": "없음 — loading prop도 spinner 요소도 ButtonProps(157-166)에 존재하지 않는다",
           "ds": "data-loading=true + .kds-button__spinner (1em 정사각, border 2px currentColor, radius 999px, 1s linear infinite), label opacity 0.6, aria-busy (button.css:125-127,159-182)",
           "match": "product-missing",
           "evidence": "apps/web/components/ui/Button.tsx:157",
-          "status": "gap"
+          "status": "accepted-deviation",
+          "reason": "제품 ButtonProps에는 loading이 없다. DS는 aria-busy와 spinner로 중복 실행 차단을 표현한다. 제품에 없는 기능을 DS가 더 갖는 것이므로 격차가 아니라 확장이다"
         },
         "z-index / 레이어": {
           "product": "루트 relative + [transform:translateZ(0)] 로 stacking context 생성, ::before는 z-index 없이 inset:0 (primary 한정). 라벨 span에는 z-index 없어 ::before가 mix-blend-overlay로 라벨 위에 얹힌다",
@@ -259,14 +347,16 @@
           "ds": "border-color: currentColor로 경계만 남기고 시스템 색에 양보 (button.css:185-189)",
           "match": "product-missing",
           "evidence": "apps/web/components/ui/Button.tsx:44",
-          "status": "gap"
+          "status": "accepted-deviation",
+          "reason": "제품에는 forced-colors 처리가 0건이다. DS는 border-color를 currentColor로 두어 시스템 색에 양보한다"
         },
         "상태 표현 메커니즘": {
           "product": "className 문자열 조합 (VARIANT_CLASS 맵 + 삼항). 상태는 CSS 의사클래스, 변형은 클래스 문자열",
           "ds": "data-variant / data-size / data-loading 속성만으로 표현 (button.tsx:56-59, DS-D-0004)",
           "match": "different",
           "evidence": "apps/web/components/ui/Button.tsx:184",
-          "status": "gap"
+          "status": "accepted-deviation",
+          "reason": "DS-D-0004가 결정한 계약이다. 상태와 변형을 data-* 속성으로만 표현하고 className 문자열을 조합하지 않는다. 시각 결과는 같고 저작 방식만 다르다"
         }
       }
     },

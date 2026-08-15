@@ -202,6 +202,27 @@ for (const [figmaName, component] of Object.entries(readback.components ?? {})) 
   };
 }
 
+// 아이콘은 component set이 아니라 개별 component다. 이름은 `icon/{kebab}` 하나이고 variant가
+// 없으므로(iconography.md Figma mapping) components와 다른 절에 둔다.
+const ICON_PREFIX = "icon/";
+const iconsOut = {};
+for (const [figmaName, icon] of Object.entries(readback.icons ?? {})) {
+  if (!figmaName.startsWith(ICON_PREFIX)) {
+    failures.push(`icon 접두사가 아닌 항목이 icons 절에 있습니다: ${figmaName}`);
+    continue;
+  }
+  iconsOut[figmaName.slice(ICON_PREFIX.length)] = {
+    figmaName,
+    width: icon.width,
+    height: icon.height,
+    vectors: icon.vectors,
+    strokeWeights: [...icon.strokeWeights].sort((a, b) => a - b),
+    strokeCaps: [...icon.strokeCaps].sort(),
+    binding: { ...icon.binding },
+    hasDescription: icon.hasDescription,
+  };
+}
+
 if (failures.length > 0) {
   for (const failure of failures) console.error(`[figma-snapshot] ${failure}`);
   process.exit(1);
@@ -236,6 +257,7 @@ const snapshot = {
         sets: Object.keys(componentsOut).length,
         variants: variantTotal,
       },
+      icons: Object.keys(iconsOut).length,
     },
   },
   collections: collectionsOut,
@@ -246,6 +268,7 @@ const snapshot = {
     note: STYLE_NOTE,
   },
   components: sortByKey(componentsOut),
+  icons: sortByKey(iconsOut),
 };
 
 const serialized = `${JSON.stringify(snapshot, null, 2)}\n`;
@@ -269,14 +292,14 @@ if (checkOnly) {
   console.log(
     `[figma-snapshot] check OK (변수 ${Object.keys(variables).length}개, ` +
       `style ${Object.keys(stylesOut.text).length + Object.keys(stylesOut.effect).length}개, ` +
-      `component ${Object.keys(componentsOut).length}개)`,
+      `component ${Object.keys(componentsOut).length}개, icon ${Object.keys(iconsOut).length}개)`,
   );
 } else {
   writeFileSync(snapshotFile, serialized);
   console.log(
     `[figma-snapshot] built: 변수 ${Object.keys(variables).length}개, ` +
       `style ${Object.keys(stylesOut.text).length + Object.keys(stylesOut.effect).length}개, ` +
-      `component ${Object.keys(componentsOut).length}개`,
+      `component ${Object.keys(componentsOut).length}개, icon ${Object.keys(iconsOut).length}개`,
   );
 }
 

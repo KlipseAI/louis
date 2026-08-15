@@ -38,18 +38,29 @@ publish 이후에만 검토한다 — publish 전에는 파일 간 변수·compo
    사람이 Figma UI에서 수행한다. publish 여부를 추측해 상태를 올리지 않는다.
 4. 쓰기 스크립트는 idempotent해야 하고, 실행 전후 상태를 대조해 무엇이 바뀌었는지 보고한다.
 5. Figma 쪽 수동 편집과 충돌하면 덮어쓰지 않고 diff를 보고한다.
+6. **되읽기는 페이지를 명시적으로 전환한 뒤 수행한다.** `figma.currentPage`는 매 호출 첫 페이지로
+   초기화되므로, `await figma.setCurrentPageAsync(page)` 없이 세면 component가 조용히 0개로 나온다.
+   실제로 겪은 사고이며, 덤프가 "없음"과 "안 봄"을 구분하지 못하는 형태다.
+7. 아이콘 되읽기는 `icon/` 접두사 component마다 frame 크기·vector 수·stroke 두께·cap·paint
+   바인딩 수를 담는다. **좌표는 담지 않는다** — Figma vector 왕복 손실을 아직 실측하지 않았기
+   때문이며, 대신 요소 분해 보존(코드 `elementCount` ↔ Figma `vectors`)을 대조한다. 도형이
+   병합되거나 사라지는 사고는 좌표를 보지 않아도 이것으로 드러난다.
 
 ## 현재 상태
 
 - published Klipse Design library: `not-ready`
-- library 파일: Foundations / Components / Templates 3-페이지, collection 3개와 변수 146개 적용됨
-  (Primitive 92 · Semantic 28 · Semantic Color 26 × Light/Dark). publish하지 않음
+- library 파일: Foundations / Components / Templates 3-페이지, collection 3개와 변수 149개 적용됨
+  (Primitive 92 · Semantic 31 · Semantic Color 26 × Light/Dark). publish하지 않음
 - P2 token/Figma proposal pipeline: local `release-candidate`
 - generated proposal: `packages/tokens/generated/figma.tokens.json` — `done`, not published
 - variable/style parity checker: `done` — `scripts/verify-figma-parity.mjs`가 `pnpm verify`에
-  연결됨. 고유 토큰 174개를 변수 146 · style 10 · 미표현 18로 전수 대조하고 변조 canary 4종을
-  매 실행에서 자체 검증한다
-- snapshot export: `done` — `figma/snapshot.json`
+  연결됨. 변수 149 · style 19 · component 1 · icon 26을 전수 대조하고 **변조 canary 11종**을 매
+  실행에서 자체 검증한다
+- snapshot export: `done` — `figma/readback.json`(Plugin API 되읽기 원본)과 `figma/snapshot.json`
+  (parity 입력)으로 나뉘며 `scripts/build-figma-snapshot.mjs`가 후자를 생성한다. snapshot을 손으로
+  쓰지 않는다는 규칙이 성립하려면 **손으로 쓰지 않는 경로가 실제로 존재해야 한다**
+- icon component: `partial` — `icon/{kebab}` 26개, 24×24 frame 하나, 크기 variant 없음. stroke와
+  fill을 전부 `color/foreground-primary`에 바인딩해 raw 값 0을 만족한다. publish 전
 - text/effect style: `done` — `typography/*` 15종, `elevation/*` 4종 (semantic tier 이름)
 - component library: Button set 40 variant (Variant × Size × State), publish 전
 - component parity checker: `done` — Figma variant 옵션을 코드 타입 선언과 대조하고, 선언되지 않은

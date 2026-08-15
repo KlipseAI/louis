@@ -2411,5 +2411,471 @@
         "textUnstyled": 0
       }
     }
+  },
+  "icons": {
+    "icon/arrow-up": {
+      "width": 24,
+      "height": 24,
+      "vectors": 2,
+      "strokeWeights": [
+        1.5
+      ],
+      "strokeCaps": [
+        "ROUND"
+      ],
+      "binding": {
+        "boundStrokes": 2,
+        "rawStrokes": 0,
+        "boundFills": 0,
+        "rawFills": 0
+      },
+      "hasDescription": true
+    },
+    "icon/arrows-left-right": {
+      "width": 24,
+      "height": 24,
+      "vectors": 4,
+      "strokeWeights": [
+        1.5
+      ],
+      "strokeCaps": [
+        "ROUND"
+      ],
+      "binding": {
+        "boundStrokes": 4,
+        "rawStrokes": 0,
+        "boundFills": 0,
+        "rawFills": 0
+      },
+      "hasDescription": true
+    },
+    "icon/check-circle": {
+      "width": 24,
+      "height": 24,
+      "vectors": 2,
+      "strokeWeights": [
+        1.5
+      ],
+      "strokeCaps": [
+        "ROUND"
+      ],
+      "binding": {
+        "boundStrokes": 2,
+        "rawStrokes": 0,
+        "boundFills": 0,
+        "rawFills": 0
+      },
+      "hasDescription": true
+    },
+    "icon/copy": {
+      "width": 24,
+      "height": 24,
+      "vectors": 2,
+      "strokeWeights": [
+        1.5
+      ],
+      "strokeCaps": [
+        "ROUND"
+      ],
+      "binding": {
+        "boundStrokes": 2,
+        "rawStrokes": 0,
+        "boundFills": 0,
+        "rawFills": 0
+      },
+      "hasDescription": true
+    },
+    "icon/copy-check": {
+      "width": 24,
+      "height": 24,
+      "vectors": 3,
+      "strokeWeights": [
+        1.5
+      ],
+      "strokeCaps": [
+        "ROUND"
+      ],
+      "binding": {
+        "boundStrokes": 3,
+        "rawStrokes": 0,
+        "boundFills": 0,
+        "rawFills": 0
+      },
+      "hasDescription": true
+    },
+    "icon/dots-three-vertical": {
+      "width": 24,
+      "height": 24,
+      "vectors": 3,
+      "strokeWeights": [],
+      "strokeCaps": [],
+      "binding": {
+        "boundStrokes": 0,
+        "rawStrokes": 0,
+        "boundFills": 3,
+        "rawFills": 0
+      },
+      "hasDescription": true
+    },
+    "icon/download-simple": {
+      "width": 24,
+      "height": 24,
+      "vectors": 3,
+      "strokeWeights": [
+        1.5
+      ],
+      "strokeCaps": [
+        "ROUND"
+      ],
+      "binding": {
+        "boundStrokes": 3,
+        "rawStrokes": 0,
+        "boundFills": 0,
+        "rawFills": 0
+      },
+      "hasDescription": true
+    },
+    "icon/eye": {
+      "width": 24,
+      "height": 24,
+      "vectors": 2,
+      "strokeWeights": [
+        1.5
+      ],
+      "strokeCaps": [
+        "ROUND"
+      ],
+      "binding": {
+        "boundStrokes": 2,
+        "rawStrokes": 0,
+        "boundFills": 0,
+        "rawFills": 0
+      },
+      "hasDescription": true
+    },
+    "icon/eye-slash": {
+      "width": 24,
+      "height": 24,
+      "vectors": 4,
+      "strokeWeights": [
+        1.5
+      ],
+      "strokeCaps": [
+        "ROUND"
+      ],
+      "binding": {
+        "boundStrokes": 4,
+        "rawStrokes": 0,
+        "boundFills": 0,
+        "rawFills": 0
+      },
+      "hasDescription": true
+    },
+    "icon/file-zip": {
+      "width": 24,
+      "height": 24,
+      "vectors": 5,
+      "strokeWeights": [
+        1.5
+      ],
+      "strokeCaps": [
+        "ROUND"
+      ],
+      "binding": {
+        "boundStrokes": 5,
+        "rawStrokes": 0,
+        "boundFills": 0,
+        "rawFills": 0
+      },
+      "hasDescription": true
+    },
+    "icon/folder": {
+      "width": 24,
+      "height": 24,
+      "vectors": 2,
+      "strokeWeights": [
+        1.5
+      ],
+      "strokeCaps": [
+        "ROUND"
+      ],
+      "binding": {
+        "boundStrokes": 2,
+        "rawStrokes": 0,
+        "boundFills": 0,
+        "rawFills": 0
+      },
+      "hasDescription": true
+    },
+    "icon/graph": {
+      "width": 24,
+      "height": 24,
+      "vectors": 9,
+      "strokeWeights": [
+        1.5
+      ],
+      "strokeCaps": [
+        "ROUND"
+      ],
+      "binding": {
+        "boundStrokes": 9,
+        "rawStrokes": 0,
+        "boundFills": 0,
+        "rawFills": 0
+      },
+      "hasDescription": true
+    },
+    "icon/hand": {
+      "width": 24,
+      "height": 24,
+      "vectors": 2,
+      "strokeWeights": [
+        1.5
+      ],
+      "strokeCaps": [
+        "ROUND"
+      ],
+      "binding": {
+        "boundStrokes": 2,
+        "rawStrokes": 0,
+        "boundFills": 0,
+        "rawFills": 0
+      },
+      "hasDescription": true
+    },
+    "icon/house": {
+      "width": 24,
+      "height": 24,
+      "vectors": 1,
+      "strokeWeights": [
+        1.5
+      ],
+      "strokeCaps": [
+        "ROUND"
+      ],
+      "binding": {
+        "boundStrokes": 1,
+        "rawStrokes": 0,
+        "boundFills": 0,
+        "rawFills": 0
+      },
+      "hasDescription": true
+    },
+    "icon/image": {
+      "width": 24,
+      "height": 24,
+      "vectors": 3,
+      "strokeWeights": [
+        1.5
+      ],
+      "strokeCaps": [
+        "ROUND"
+      ],
+      "binding": {
+        "boundStrokes": 3,
+        "rawStrokes": 0,
+        "boundFills": 0,
+        "rawFills": 0
+      },
+      "hasDescription": true
+    },
+    "icon/info": {
+      "width": 24,
+      "height": 24,
+      "vectors": 3,
+      "strokeWeights": [
+        1.5
+      ],
+      "strokeCaps": [
+        "ROUND"
+      ],
+      "binding": {
+        "boundStrokes": 2,
+        "rawStrokes": 0,
+        "boundFills": 1,
+        "rawFills": 0
+      },
+      "hasDescription": true
+    },
+    "icon/magnifying-glass": {
+      "width": 24,
+      "height": 24,
+      "vectors": 2,
+      "strokeWeights": [
+        1.5
+      ],
+      "strokeCaps": [
+        "ROUND"
+      ],
+      "binding": {
+        "boundStrokes": 2,
+        "rawStrokes": 0,
+        "boundFills": 0,
+        "rawFills": 0
+      },
+      "hasDescription": true
+    },
+    "icon/monitor-arrow-up": {
+      "width": 24,
+      "height": 24,
+      "vectors": 4,
+      "strokeWeights": [
+        1.5
+      ],
+      "strokeCaps": [
+        "ROUND"
+      ],
+      "binding": {
+        "boundStrokes": 4,
+        "rawStrokes": 0,
+        "boundFills": 0,
+        "rawFills": 0
+      },
+      "hasDescription": true
+    },
+    "icon/music-notes-simple": {
+      "width": 24,
+      "height": 24,
+      "vectors": 3,
+      "strokeWeights": [
+        1.5
+      ],
+      "strokeCaps": [
+        "ROUND"
+      ],
+      "binding": {
+        "boundStrokes": 3,
+        "rawStrokes": 0,
+        "boundFills": 0,
+        "rawFills": 0
+      },
+      "hasDescription": true
+    },
+    "icon/plus": {
+      "width": 24,
+      "height": 24,
+      "vectors": 2,
+      "strokeWeights": [
+        1.5
+      ],
+      "strokeCaps": [
+        "ROUND"
+      ],
+      "binding": {
+        "boundStrokes": 2,
+        "rawStrokes": 0,
+        "boundFills": 0,
+        "rawFills": 0
+      },
+      "hasDescription": true
+    },
+    "icon/text": {
+      "width": 24,
+      "height": 24,
+      "vectors": 3,
+      "strokeWeights": [
+        1.5
+      ],
+      "strokeCaps": [
+        "ROUND"
+      ],
+      "binding": {
+        "boundStrokes": 3,
+        "rawStrokes": 0,
+        "boundFills": 0,
+        "rawFills": 0
+      },
+      "hasDescription": true
+    },
+    "icon/trash-simple": {
+      "width": 24,
+      "height": 24,
+      "vectors": 3,
+      "strokeWeights": [
+        1.5
+      ],
+      "strokeCaps": [
+        "ROUND"
+      ],
+      "binding": {
+        "boundStrokes": 3,
+        "rawStrokes": 0,
+        "boundFills": 0,
+        "rawFills": 0
+      },
+      "hasDescription": true
+    },
+    "icon/user-sound": {
+      "width": 24,
+      "height": 24,
+      "vectors": 4,
+      "strokeWeights": [
+        1.5
+      ],
+      "strokeCaps": [
+        "ROUND"
+      ],
+      "binding": {
+        "boundStrokes": 4,
+        "rawStrokes": 0,
+        "boundFills": 0,
+        "rawFills": 0
+      },
+      "hasDescription": true
+    },
+    "icon/waveform": {
+      "width": 24,
+      "height": 24,
+      "vectors": 5,
+      "strokeWeights": [
+        1.5
+      ],
+      "strokeCaps": [
+        "ROUND"
+      ],
+      "binding": {
+        "boundStrokes": 5,
+        "rawStrokes": 0,
+        "boundFills": 0,
+        "rawFills": 0
+      },
+      "hasDescription": true
+    },
+    "icon/x": {
+      "width": 24,
+      "height": 24,
+      "vectors": 2,
+      "strokeWeights": [
+        1.5
+      ],
+      "strokeCaps": [
+        "ROUND"
+      ],
+      "binding": {
+        "boundStrokes": 2,
+        "rawStrokes": 0,
+        "boundFills": 0,
+        "rawFills": 0
+      },
+      "hasDescription": true
+    },
+    "icon/x-circle": {
+      "width": 24,
+      "height": 24,
+      "vectors": 3,
+      "strokeWeights": [
+        1.5
+      ],
+      "strokeCaps": [
+        "ROUND"
+      ],
+      "binding": {
+        "boundStrokes": 3,
+        "rawStrokes": 0,
+        "boundFills": 0,
+        "rawFills": 0
+      },
+      "hasDescription": true
+    }
   }
 }

@@ -58,6 +58,20 @@ const COMPONENT_CONTRACTS = [
   },
 ];
 
+// 아이콘 계약 (DS-D-0008). component set이 아니라 개별 component이므로 COMPONENT_CONTRACTS와
+// 별도 경로다 — 아이콘 이름은 prop이 아니라 심볼 식별자라서 variant 대조 규칙이 의미가 없다.
+//
+// 지오메트리 좌표까지 대조하지 않는 이유는 Figma vector 왕복 손실을 아직 실측하지 않았기
+// 때문이다. 대신 **요소 분해가 보존됐는지**(elementCount ↔ vectors)를 본다. 이것이 깨지면
+// 도형이 병합되거나 사라진 것이고, 그건 좌표를 보지 않아도 알 수 있는 사고다.
+const ICON_MANIFEST_PATH = "packages/react/src/icons/generated/manifest.json";
+const ICON_CONTRACT = {
+  namePrefix: "icon/",
+  frame: { width: 24, height: 24 },
+  strokeCap: "ROUND",
+};
+const iconManifest = readJson(ICON_MANIFEST_PATH);
+
 const expectation = buildExpectation(proposal);
 
 const failures = compare(snapshot, expectation);
@@ -71,18 +85,24 @@ const warnings = staleness(snapshot);
 //
 // 그래서 판정 기준을 "변조 후 실패가 있는가"가 아니라 **"변조가 baseline에 없던 실패를
 // 새로 만드는가"**로 바꾼다. baseline이 비어 있으면 두 기준은 정확히 같다.
+const TAMPERS = [
+  tamperValue,
+  tamperAlias,
+  tamperCollection,
+  tamperModeOrder,
+  tamperStyle,
+  tamperComponentVariant,
+  tamperComponentBinding,
+  tamperIconMissing,
+  tamperIconFrame,
+  tamperIconRawPaint,
+  tamperIconElementCount,
+];
+
 if (runCanary) {
   const baseline = new Set(failures);
   const canaryFailures = [];
-  for (const mutate of [
-    tamperValue,
-    tamperAlias,
-    tamperCollection,
-    tamperModeOrder,
-    tamperStyle,
-    tamperComponentVariant,
-    tamperComponentBinding,
-  ]) {
+  for (const mutate of TAMPERS) {
     const copy = JSON.parse(JSON.stringify(snapshot));
     const label = mutate(copy, expectation);
     if (!label) continue;
@@ -111,7 +131,7 @@ console.log(
     `${expectation.collections.size}개, style ${expectation.styles.size}개, ` +
     `component ${COMPONENT_CONTRACTS.length}개, ` +
     `미표현 ${expectation.nonVariableCount - expectation.styles.size}개 제외` +
-    `${runCanary ? ", 변조 canary 7종" : ""})`,
+    `${runCanary ? `, 변조 canary ${TAMPERS.length}종` : ""})`,
 );
 
 function buildExpectation(document) {
@@ -331,6 +351,72 @@ function compare(document, expected) {
   }
 
   issues.push(...compareComponents(document.components ?? {}));
+  issues.push(...compareIcons(document.icons ?? {}));
+  return issues;
+}
+
+/** 코드 아이콘 manifest ↔ Figma icon/* component. */
+function compareIcons(actualIcons) {
+  const issues = [];
+  const allowedWeights = new Set(iconManifest.strokeWidths.map(Number));
+  const seen = new Set();
+
+  for (const icon of iconManifest.icons) {
+    const got = actualIcons[icon.name];
+    if (got === undefined) {
+      issues.push(`아이콘 component가 snapshot에 없습니다: ${icon.figmaName}`);
+      continue;
+    }
+    seen.add(icon.name);
+    if (got.figmaName !== icon.figmaName) {
+      issues.push(
+        `${icon.name}: Figma 이름이 다릅니다 — 기대 ${icon.figmaName}, 실제 ${got.figmaName}`,
+      );
+    }
+    if (got.width !== ICON_CONTRACT.frame.width || got.height !== ICON_CONTRACT.frame.height) {
+      issues.push(
+        `${icon.figmaName}: frame이 ${got.width}x${got.height}입니다. ` +
+          `정본은 ${ICON_CONTRACT.frame.width}x${ICON_CONTRACT.frame.height} 하나이며 크기 variant를 두지 않습니다.`,
+      );
+    }
+    // 요소 분해 보존. 병합되거나 사라진 도형은 좌표를 보지 않아도 여기서 드러난다.
+    if (got.vectors !== icon.elementCount) {
+      issues.push(
+        `${icon.figmaName}: 요소 수가 다릅니다 — 코드 ${icon.elementCount}, Figma ${got.vectors}`,
+      );
+    }
+    // raw 값 사용 0 (DS-F-006). Figma에는 currentColor가 없으므로 변수를 물어야 한다.
+    for (const field of ["rawStrokes", "rawFills"]) {
+      const count = got.binding?.[field] ?? 0;
+      if (count !== 0) {
+        issues.push(`${icon.figmaName}에 바인딩되지 않은 값이 있습니다: ${field}=${count}`);
+      }
+    }
+    if ((got.binding?.boundStrokes ?? 0) + (got.binding?.boundFills ?? 0) === 0) {
+      issues.push(`${icon.figmaName}: 바인딩된 paint가 하나도 없습니다.`);
+    }
+    for (const weight of got.strokeWeights ?? []) {
+      if (!allowedWeights.has(weight)) {
+        issues.push(
+          `${icon.figmaName}: stroke 두께 ${weight}는 허용 집합 밖입니다 (${[...allowedWeights].join(", ")}).`,
+        );
+      }
+    }
+    for (const cap of got.strokeCaps ?? []) {
+      if (cap !== ICON_CONTRACT.strokeCap) {
+        issues.push(`${icon.figmaName}: stroke cap이 ${cap}입니다. 정본은 ${ICON_CONTRACT.strokeCap}입니다.`);
+      }
+    }
+    if (got.hasDescription !== true) {
+      issues.push(`${icon.figmaName}: description이 없습니다. 정본 경로를 적어 두어야 합니다.`);
+    }
+  }
+
+  for (const name of Object.keys(actualIcons)) {
+    if (!seen.has(name)) {
+      issues.push(`코드 manifest에 없는 아이콘 component가 있습니다: ${ICON_CONTRACT.namePrefix}${name}`);
+    }
+  }
   return issues;
 }
 
@@ -583,4 +669,37 @@ function valueEqual(left, right) {
 
 function nearlyEqual(left, right) {
   return Math.abs(Number(left) - Number(right)) <= 1e-5;
+}
+
+function firstIconName(document) {
+  return Object.keys(document.icons ?? {}).sort()[0];
+}
+
+function tamperIconMissing(document) {
+  const name = firstIconName(document);
+  if (name === undefined) return null;
+  delete document.icons[name];
+  return `아이콘 제거 ${name}`;
+}
+
+function tamperIconFrame(document) {
+  const name = firstIconName(document);
+  if (name === undefined) return null;
+  document.icons[name].width = 32;
+  document.icons[name].height = 32;
+  return `아이콘 frame 변조 ${name}`;
+}
+
+function tamperIconRawPaint(document) {
+  const name = firstIconName(document);
+  if (name === undefined) return null;
+  document.icons[name].binding.rawStrokes = 1;
+  return `아이콘 raw paint ${name}`;
+}
+
+function tamperIconElementCount(document) {
+  const name = firstIconName(document);
+  if (name === undefined) return null;
+  document.icons[name].vectors += 1;
+  return `아이콘 요소 수 변조 ${name}`;
 }

@@ -20,7 +20,8 @@
       "components": {
         "sets": 1,
         "variants": 40
-      }
+      },
+      "icons": 26
     }
   },
   "collections": {
@@ -1937,6 +1938,498 @@
         "textStyled": 40,
         "textUnstyled": 0
       }
+    }
+  },
+  "icons": {
+    "arrow-up": {
+      "figmaName": "icon/arrow-up",
+      "width": 24,
+      "height": 24,
+      "vectors": 2,
+      "strokeWeights": [
+        1.5
+      ],
+      "strokeCaps": [
+        "ROUND"
+      ],
+      "binding": {
+        "boundStrokes": 2,
+        "rawStrokes": 0,
+        "boundFills": 0,
+        "rawFills": 0
+      },
+      "hasDescription": true
+    },
+    "arrows-left-right": {
+      "figmaName": "icon/arrows-left-right",
+      "width": 24,
+      "height": 24,
+      "vectors": 4,
+      "strokeWeights": [
+        1.5
+      ],
+      "strokeCaps": [
+        "ROUND"
+      ],
+      "binding": {
+        "boundStrokes": 4,
+        "rawStrokes": 0,
+        "boundFills": 0,
+        "rawFills": 0
+      },
+      "hasDescription": true
+    },
+    "check-circle": {
+      "figmaName": "icon/check-circle",
+      "width": 24,
+      "height": 24,
+      "vectors": 2,
+      "strokeWeights": [
+        1.5
+      ],
+      "strokeCaps": [
+        "ROUND"
+      ],
+      "binding": {
+        "boundStrokes": 2,
+        "rawStrokes": 0,
+        "boundFills": 0,
+        "rawFills": 0
+      },
+      "hasDescription": true
+    },
+    "copy": {
+      "figmaName": "icon/copy",
+      "width": 24,
+      "height": 24,
+      "vectors": 2,
+      "strokeWeights": [
+        1.5
+      ],
+      "strokeCaps": [
+        "ROUND"
+      ],
+      "binding": {
+        "boundStrokes": 2,
+        "rawStrokes": 0,
+        "boundFills": 0,
+        "rawFills": 0
+      },
+      "hasDescription": true
+    },
+    "copy-check": {
+      "figmaName": "icon/copy-check",
+      "width": 24,
+      "height": 24,
+      "vectors": 3,
+      "strokeWeights": [
+        1.5
+      ],
+      "strokeCaps": [
+        "ROUND"
+      ],
+      "binding": {
+        "boundStrokes": 3,
+        "rawStrokes": 0,
+        "boundFills": 0,
+        "rawFills": 0
+      },
+      "hasDescription": true
+    },
+    "dots-three-vertical": {
+      "figmaName": "icon/dots-three-vertical",
+      "width": 24,
+      "height": 24,
+      "vectors": 3,
+      "strokeWeights": [],
+      "strokeCaps": [],
+      "binding": {
+        "boundStrokes": 0,
+        "rawStrokes": 0,
+        "boundFills": 3,
+        "rawFills": 0
+      },
+      "hasDescription": true
+    },
+    "download-simple": {
+      "figmaName": "icon/download-simple",
+      "width": 24,
+      "height": 24,
+      "vectors": 3,
+      "strokeWeights": [
+        1.5
+      ],
+      "strokeCaps": [
+        "ROUND"
+      ],
+      "binding": {
+        "boundStrokes": 3,
+        "rawStrokes": 0,
+        "boundFills": 0,
+        "rawFills": 0
+      },
+      "hasDescription": true
+    },
+    "eye": {
+      "figmaName": "icon/eye",
+      "width": 24,
+      "height": 24,
+      "vectors": 2,
+      "strokeWeights": [
+        1.5
+      ],
+      "strokeCaps": [
+        "ROUND"
+      ],
+      "binding": {
+        "boundStrokes": 2,
+        "rawStrokes": 0,
+        "boundFills": 0,
+        "rawFills": 0
+      },
+      "hasDescription": true
+    },
+    "eye-slash": {
+      "figmaName": "icon/eye-slash",
+      "width": 24,
+      "height": 24,
+      "vectors": 4,
+      "strokeWeights": [
+        1.5
+      ],
+      "strokeCaps": [
+        "ROUND"
+      ],
+      "binding": {
+        "boundStrokes": 4,
+        "rawStrokes": 0,
+        "boundFills": 0,
+        "rawFills": 0
+      },
+      "hasDescription": true
+    },
+    "file-zip": {
+      "figmaName": "icon/file-zip",
+      "width": 24,
+      "height": 24,
+      "vectors": 5,
+      "strokeWeights": [
+        1.5
+      ],
+      "strokeCaps": [
+        "ROUND"
+      ],
+      "binding": {
+        "boundStrokes": 5,
+        "rawStrokes": 0,
+        "boundFills": 0,
+        "rawFills": 0
+      },
+      "hasDescription": true
+    },
+    "folder": {
+      "figmaName": "icon/folder",
+      "width": 24,
+      "height": 24,
+      "vectors": 2,
+      "strokeWeights": [
+        1.5
+      ],
+      "strokeCaps": [
+        "ROUND"
+      ],
+      "binding": {
+        "boundStrokes": 2,
+        "rawStrokes": 0,
+        "boundFills": 0,
+        "rawFills": 0
+      },
+      "hasDescription": true
+    },
+    "graph": {
+      "figmaName": "icon/graph",
+      "width": 24,
+      "height": 24,
+      "vectors": 9,
+      "strokeWeights": [
+        1.5
+      ],
+      "strokeCaps": [
+        "ROUND"
+      ],
+      "binding": {
+        "boundStrokes": 9,
+        "rawStrokes": 0,
+        "boundFills": 0,
+        "rawFills": 0
+      },
+      "hasDescription": true
+    },
+    "hand": {
+      "figmaName": "icon/hand",
+      "width": 24,
+      "height": 24,
+      "vectors": 2,
+      "strokeWeights": [
+        1.5
+      ],
+      "strokeCaps": [
+        "ROUND"
+      ],
+      "binding": {
+        "boundStrokes": 2,
+        "rawStrokes": 0,
+        "boundFills": 0,
+        "rawFills": 0
+      },
+      "hasDescription": true
+    },
+    "house": {
+      "figmaName": "icon/house",
+      "width": 24,
+      "height": 24,
+      "vectors": 1,
+      "strokeWeights": [
+        1.5
+      ],
+      "strokeCaps": [
+        "ROUND"
+      ],
+      "binding": {
+        "boundStrokes": 1,
+        "rawStrokes": 0,
+        "boundFills": 0,
+        "rawFills": 0
+      },
+      "hasDescription": true
+    },
+    "image": {
+      "figmaName": "icon/image",
+      "width": 24,
+      "height": 24,
+      "vectors": 3,
+      "strokeWeights": [
+        1.5
+      ],
+      "strokeCaps": [
+        "ROUND"
+      ],
+      "binding": {
+        "boundStrokes": 3,
+        "rawStrokes": 0,
+        "boundFills": 0,
+        "rawFills": 0
+      },
+      "hasDescription": true
+    },
+    "info": {
+      "figmaName": "icon/info",
+      "width": 24,
+      "height": 24,
+      "vectors": 3,
+      "strokeWeights": [
+        1.5
+      ],
+      "strokeCaps": [
+        "ROUND"
+      ],
+      "binding": {
+        "boundStrokes": 2,
+        "rawStrokes": 0,
+        "boundFills": 1,
+        "rawFills": 0
+      },
+      "hasDescription": true
+    },
+    "magnifying-glass": {
+      "figmaName": "icon/magnifying-glass",
+      "width": 24,
+      "height": 24,
+      "vectors": 2,
+      "strokeWeights": [
+        1.5
+      ],
+      "strokeCaps": [
+        "ROUND"
+      ],
+      "binding": {
+        "boundStrokes": 2,
+        "rawStrokes": 0,
+        "boundFills": 0,
+        "rawFills": 0
+      },
+      "hasDescription": true
+    },
+    "monitor-arrow-up": {
+      "figmaName": "icon/monitor-arrow-up",
+      "width": 24,
+      "height": 24,
+      "vectors": 4,
+      "strokeWeights": [
+        1.5
+      ],
+      "strokeCaps": [
+        "ROUND"
+      ],
+      "binding": {
+        "boundStrokes": 4,
+        "rawStrokes": 0,
+        "boundFills": 0,
+        "rawFills": 0
+      },
+      "hasDescription": true
+    },
+    "music-notes-simple": {
+      "figmaName": "icon/music-notes-simple",
+      "width": 24,
+      "height": 24,
+      "vectors": 3,
+      "strokeWeights": [
+        1.5
+      ],
+      "strokeCaps": [
+        "ROUND"
+      ],
+      "binding": {
+        "boundStrokes": 3,
+        "rawStrokes": 0,
+        "boundFills": 0,
+        "rawFills": 0
+      },
+      "hasDescription": true
+    },
+    "plus": {
+      "figmaName": "icon/plus",
+      "width": 24,
+      "height": 24,
+      "vectors": 2,
+      "strokeWeights": [
+        1.5
+      ],
+      "strokeCaps": [
+        "ROUND"
+      ],
+      "binding": {
+        "boundStrokes": 2,
+        "rawStrokes": 0,
+        "boundFills": 0,
+        "rawFills": 0
+      },
+      "hasDescription": true
+    },
+    "text": {
+      "figmaName": "icon/text",
+      "width": 24,
+      "height": 24,
+      "vectors": 3,
+      "strokeWeights": [
+        1.5
+      ],
+      "strokeCaps": [
+        "ROUND"
+      ],
+      "binding": {
+        "boundStrokes": 3,
+        "rawStrokes": 0,
+        "boundFills": 0,
+        "rawFills": 0
+      },
+      "hasDescription": true
+    },
+    "trash-simple": {
+      "figmaName": "icon/trash-simple",
+      "width": 24,
+      "height": 24,
+      "vectors": 3,
+      "strokeWeights": [
+        1.5
+      ],
+      "strokeCaps": [
+        "ROUND"
+      ],
+      "binding": {
+        "boundStrokes": 3,
+        "rawStrokes": 0,
+        "boundFills": 0,
+        "rawFills": 0
+      },
+      "hasDescription": true
+    },
+    "user-sound": {
+      "figmaName": "icon/user-sound",
+      "width": 24,
+      "height": 24,
+      "vectors": 4,
+      "strokeWeights": [
+        1.5
+      ],
+      "strokeCaps": [
+        "ROUND"
+      ],
+      "binding": {
+        "boundStrokes": 4,
+        "rawStrokes": 0,
+        "boundFills": 0,
+        "rawFills": 0
+      },
+      "hasDescription": true
+    },
+    "waveform": {
+      "figmaName": "icon/waveform",
+      "width": 24,
+      "height": 24,
+      "vectors": 5,
+      "strokeWeights": [
+        1.5
+      ],
+      "strokeCaps": [
+        "ROUND"
+      ],
+      "binding": {
+        "boundStrokes": 5,
+        "rawStrokes": 0,
+        "boundFills": 0,
+        "rawFills": 0
+      },
+      "hasDescription": true
+    },
+    "x": {
+      "figmaName": "icon/x",
+      "width": 24,
+      "height": 24,
+      "vectors": 2,
+      "strokeWeights": [
+        1.5
+      ],
+      "strokeCaps": [
+        "ROUND"
+      ],
+      "binding": {
+        "boundStrokes": 2,
+        "rawStrokes": 0,
+        "boundFills": 0,
+        "rawFills": 0
+      },
+      "hasDescription": true
+    },
+    "x-circle": {
+      "figmaName": "icon/x-circle",
+      "width": 24,
+      "height": 24,
+      "vectors": 3,
+      "strokeWeights": [
+        1.5
+      ],
+      "strokeCaps": [
+        "ROUND"
+      ],
+      "binding": {
+        "boundStrokes": 3,
+        "rawStrokes": 0,
+        "boundFills": 0,
+        "rawFills": 0
+      },
+      "hasDescription": true
     }
   }
 }

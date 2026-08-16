@@ -80,6 +80,7 @@
   --spacing-icon-size-lg: var(--kds-icon-size-lg);
   --spacing-icon-size-md: var(--kds-icon-size-md);
   --spacing-icon-size-sm: var(--kds-icon-size-sm);
+  --spacing-icon-size-xl: var(--kds-icon-size-xl);
   --spacing-layout-app-shell-content-inset: var(--kds-layout-app-shell-content-inset);
   --spacing-layout-app-shell-outer-gap: var(--kds-layout-app-shell-outer-gap);
   --spacing-layout-app-shell-sidebar-minimum: var(--kds-layout-app-shell-sidebar-minimum);
@@ -90,7 +91,6 @@
   --spacing-layout-control-minimum-width-sm: var(--kds-layout-control-minimum-width-sm);
   --spacing-layout-project-card-minimum: var(--kds-layout-project-card-minimum);
   --spacing-layout-project-grid-gap: var(--kds-layout-project-grid-gap);
-  --spacing-card-text-gap: var(--kds-space-card-text-gap);
   --spacing-control-lg: var(--kds-space-control-lg);
   --spacing-control-md: var(--kds-space-control-md);
   --spacing-control-sm: var(--kds-space-control-sm);
@@ -100,6 +100,8 @@
   --spacing-overlay-inset: var(--kds-space-overlay-inset);
   --spacing-overlay-item-content-gap: var(--kds-space-overlay-item-content-gap);
   --spacing-overlay-item-gap: var(--kds-space-overlay-item-gap);
+  --spacing-stack-md: var(--kds-space-stack-md);
+  --spacing-stack-xs: var(--kds-space-stack-xs);
   --spacing-toast-inline: var(--kds-space-toast-inline);
 
   /* 타이포 — text-* 유틸리티가 된다. 크기·행간·자간·굵기가 함께 붙는다 */

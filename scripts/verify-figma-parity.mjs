@@ -346,6 +346,46 @@ const COMPONENT_CONTRACTS = [
     },
   },
   {
+    id: "empty-state",
+    figmaName: "EmptyState",
+    declaration: "packages/react/dist/empty-state/empty-state.d.ts",
+    // variant 축이 없다. 강조는 시각이 아니라 행동 유도의 유무가 만든다.
+    variantProperties: {},
+    // **면을 갖지 않는 것이 계약이다.** 제품 9벌이 유일하게 합의한 축이고, stroke를 하나라도
+    // 선언하면 여기서 걸린다.
+    strokes: {},
+    effects: {},
+    geometry: {
+      measuredId: "empty-state",
+      sizeKey: "base",
+      fields: {
+        paddingBlock: "paddingBlock",
+        paddingBlockEnd: "paddingBlock",
+        paddingInline: "paddingInline",
+        paddingInlineEnd: "paddingInline",
+        itemSpacing: "gap",
+        cornerRadius: "radius",
+        layoutMode: { literal: "VERTICAL" },
+      },
+      slots: {},
+      extraStrokeWeights: [],
+      parts: {
+        Graphic: { fields: { width: "graphic", height: "graphic" } },
+        Title: { fields: { fontSize: "titleFontSize" } },
+        Description: { fields: { fontSize: "descriptionFontSize" } },
+        // CSS는 액션에 `margin-block-start: 4px`를 더해 앞 요소와 16px 떨어진다. Figma
+        // auto-layout에는 자식별 간격이 없어 같은 4px을 이 프레임의 위쪽 padding으로 만든다.
+        Action: {
+          fields: {
+            paddingBlock: "actionMarginBlockStart",
+            itemSpacing: "actionGap",
+            layoutMode: { literal: "HORIZONTAL" },
+          },
+        },
+      },
+    },
+  },
+  {
     id: "project-card",
     figmaName: "ProjectCard",
     declaration: "packages/react/dist/project-card/project-card.d.ts",

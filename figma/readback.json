@@ -1714,6 +1714,18 @@
           ]
         ],
         [
+          "icon/size-xl",
+          "FLOAT",
+          "WIDTH_HEIGHT",
+          [
+            [
+              "Global",
+              "Klipse Primitive::spacing/64",
+              null
+            ]
+          ]
+        ],
+        [
           "layer/content",
           "FLOAT",
           "",
@@ -2086,18 +2098,6 @@
           ]
         ],
         [
-          "spacing/card-text-gap",
-          "FLOAT",
-          "GAP",
-          [
-            [
-              "Global",
-              "Klipse Primitive::spacing/4",
-              null
-            ]
-          ]
-        ],
-        [
           "spacing/control-lg",
           "FLOAT",
           "WIDTH_HEIGHT,GAP",
@@ -2201,6 +2201,30 @@
             [
               "Global",
               "Klipse Primitive::spacing/2",
+              null
+            ]
+          ]
+        ],
+        [
+          "spacing/stack-md",
+          "FLOAT",
+          "GAP",
+          [
+            [
+              "Global",
+              "Klipse Primitive::spacing/12",
+              null
+            ]
+          ]
+        ],
+        [
+          "spacing/stack-xs",
+          "FLOAT",
+          "GAP",
+          [
+            [
+              "Global",
+              "Klipse Primitive::spacing/4",
               null
             ]
           ]
@@ -4212,6 +4236,103 @@
           "0.5|INSIDE"
         ]
       },
+      "effects": {}
+    },
+    "EmptyState": {
+      "variantCount": 1,
+      "hasDescription": true,
+      "properties": {},
+      "binding": {
+        "boundFills": 3,
+        "rawFills": 0,
+        "boundStrokes": 0,
+        "rawStrokes": 0,
+        "textStyled": 2,
+        "textUnstyled": 0
+      },
+      "geometry": {
+        "base": {
+          "paddingBlock": [
+            80
+          ],
+          "paddingBlockEnd": [
+            80
+          ],
+          "paddingInline": [
+            16
+          ],
+          "paddingInlineEnd": [
+            16
+          ],
+          "itemSpacing": [
+            12
+          ],
+          "cornerRadius": [
+            0
+          ],
+          "layoutMode": [
+            "VERTICAL"
+          ],
+          "strokeWeight": [],
+          "slots": {},
+          "parts": {
+            "Graphic": {
+              "width": [
+                64
+              ],
+              "height": [
+                64
+              ]
+            },
+            "Title": {
+              "width": [
+                198
+              ],
+              "height": [
+                30
+              ],
+              "fontSize": [
+                20
+              ],
+              "lineHeightPercent": [
+                150
+              ]
+            },
+            "Description": {
+              "width": [
+                400
+              ],
+              "height": [
+                24
+              ],
+              "fontSize": [
+                16
+              ],
+              "lineHeightPercent": [
+                150
+              ]
+            },
+            "Action": {
+              "width": [
+                60
+              ],
+              "height": [
+                36
+              ],
+              "paddingBlock": [
+                4
+              ],
+              "itemSpacing": [
+                8
+              ],
+              "layoutMode": [
+                "HORIZONTAL"
+              ]
+            }
+          }
+        }
+      },
+      "strokes": {},
       "effects": {}
     }
   },

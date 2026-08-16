@@ -3069,11 +3069,21 @@
             }
           }
         },
-        "card-text-gap": {
+        "stack-xs": {
           "$value": "{primitive.spacing.4}",
           "$extensions": {
             "com.klipse-design": {
-              "id": "space-card-text-gap",
+              "id": "space-stack-xs",
+              "tier": "semantic",
+              "mode": "global"
+            }
+          }
+        },
+        "stack-md": {
+          "$value": "{primitive.spacing.12}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "space-stack-md",
               "tier": "semantic",
               "mode": "global"
             }
@@ -3635,6 +3645,16 @@
           "$extensions": {
             "com.klipse-design": {
               "id": "icon-size-lg",
+              "tier": "semantic",
+              "mode": "global"
+            }
+          }
+        },
+        "size-xl": {
+          "$value": "{primitive.spacing.64}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "icon-size-xl",
               "tier": "semantic",
               "mode": "global"
             }

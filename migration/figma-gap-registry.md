@@ -120,8 +120,8 @@ Spinner 레시피 5종, PaneDivider 6선언.
 | 4 | **Menu / Popover** | 3/3 | 서피스 정의 3벌 | 코드에 ActionMenu가 있으나 Figma component가 없다. 임의 좌표 앵커 변형이 추가로 필요 |
 | 5 | **Dialog** | 3/3 | 직접 import 8곳 | 코드에 있고 Figma에 없다. DS-F-006 대상 |
 | 6 | **ProjectCard** | 3/3 | 정의 **4벌** | 앱 홈·노드캔버스 홈·하이라이트 허브·에디터 허브. **web done**(2026-08-16) — 네 벌의 기하가 같아 그 값을 정본으로 옮겼다. Figma component 있음, parity 게이트 미적용 |
-| 7 | **TextField / Input** | 2/3 | **약 40벌 · 5계열** | 공용 구현 0. 2026-08-16 재측정 |
-| 8 | **EmptyState** | 3/3 | **9벌**(살아 있는 것 8) | 홈 2 · 하이라이트 2(그중 1은 죽은 분기) · 에디터 **5**. 2026-08-16 재측정 |
+| 7 | **TextField / Input** | 2/3 | **약 40벌 · 5계열** | 공용 구현 0. **web·figma partial**(2026-08-16) |
+| 8 | **EmptyState** | 3/3 | **9벌**(살아 있는 것 8) | 홈 2 · 하이라이트 2(그중 1은 죽은 분기) · 에디터 **5**. **web·figma partial**(2026-08-16) — 9벌이 합의하는 축은 "면을 갖지 않는다" 하나뿐이고 그것을 옮겼다 |
 | 9 | **Badge / StatusBadge** | 3/3 | 톤 4 + 상태 5 | 하이라이트 상태 5톤이 가장 복잡 |
 | 10 | **Spinner / Progress** | 2/3 | 레시피 **5종** | 하이라이트 상세 한 화면에 로딩 표현 5종, Skeleton 0종 |
 | 11 | **SidebarNavItem · AppTopBar** | 3/3 | Gnb import 31곳 | 셸. 상세는 breadcrumb·trailing 슬롯을 추가로 요구한다 |

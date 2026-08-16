@@ -29,6 +29,8 @@ export type {
   ProjectCardTextProps,
   ProjectCardThumbnailProps,
 } from "./project-card/project-card.js";
+export { EmptyState } from "./empty-state/empty-state.js";
+export type { EmptyStateHeadingLevel, EmptyStateProps } from "./empty-state/empty-state.js";
 export { TextField } from "./text-field/text-field.js";
 export type { TextFieldProps, TextFieldSize } from "./text-field/text-field.js";
 export { ToastProvider, useToast, TOAST_VISIBLE_LIMIT } from "./toast/toast.js";

@@ -142,7 +142,7 @@ variant 축이 없다. 카드의 강조는 카드가 아니라 **썸네일**이 
 | 테두리 | 0.5px | `border-width-hairline` + `color-border-subtle` |
 | 미디어 배경 | — | `color-background-canvas` |
 | 오버레이 여백 | 16px | `space-layout-gutter` |
-| 줄 간격 | 4px | `space-card-text-gap` |
+| 줄 간격 | 4px | `space-stack-xs` |
 | 줄 높이 | 1.2 | — |
 | 배경 흐림 | 10px | `blur-surface` |
 | 제목 | body-md-medium | `typography-body-md-medium` |

@@ -238,9 +238,9 @@ Project Card가 모두 Web `partial`이고 docs `done`이다. Input·Select·Emp
 종류의 함정**이다 — 이름으로 집으면 화면이 달라진다. 다만 Figma effect style로도 발행돼 있어
 폐기는 breaking이며, DS-D-0014와 같은 절차가 필요하다. 지금은 리터럴 2px만 토큰으로 바꿔 두었다.
 
-**(2) gap registry 8순위 이하.** ~~TextField/Input~~(7순위, `done` 2026-08-16 — Web `partial`,
-Figma `partial`), EmptyState, Badge, Spinner/Progress, SidebarNavItem·AppTopBar, Slider,
-SegmentedControl, Checkbox, SelectableListRow.
+**(2) gap registry 9순위 이하.** ~~TextField/Input~~(7순위) · ~~EmptyState~~(8순위) 모두
+`done`(2026-08-16 — Web `partial`, Figma `partial`). 남은 것은 Badge, Spinner/Progress,
+SidebarNavItem·AppTopBar, Slider, SegmentedControl, Checkbox, SelectableListRow.
 
 **(2b) 컨트롤 테두리의 정본이 정해지지 않았다.** Button secondary는 `color-border-control`(반투명),
 IconButton secondary는 `color-border-default`(불투명)를 쓴다. TextField는 Button을 따랐다. 셋 중

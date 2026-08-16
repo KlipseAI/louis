@@ -2,23 +2,23 @@
   "artifacts": [
     {
       "path": "packages/tokens/generated/figma.tokens.json",
-      "sha256": "7f55b303904bafe9c6cd1d9a5ecddc3d2367712b79b42f9f4ff87f2e2381f02f"
+      "sha256": "9baa46007d62d571d8011cec89b1e87fe0222b216067fc81538d8181ed212c52"
     },
     {
       "path": "packages/tokens/generated/index.d.ts",
-      "sha256": "4bdb9ca0acfa4e4b2047a39134a0be79dc9f266c1ffbdbd4398b0535c3b8c59d"
+      "sha256": "20a14ff68fc7010c8519e228bb813709c118b9bb01a447802deada4e2bcf2637"
     },
     {
       "path": "packages/tokens/generated/index.js",
-      "sha256": "81c00afd91578fb89e21e0c4b3631c8d39f3e92df78515440857fc15a2714457"
+      "sha256": "a39c0320602fe9681a4de24bd7e6f705cb8144af2cb4aae7b4fe21af53443af1"
     },
     {
       "path": "packages/tokens/generated/tokens.css",
-      "sha256": "23a16a20192993bd9dd9e97ff4b67eb3817def090e3db1edae9f020e813355bd"
+      "sha256": "c8cebe81adf4611dda28204f26d500d3478a709f1d9c618159eee994326f5b74"
     },
     {
       "path": "packages/tokens/generated/tokens.json",
-      "sha256": "6fdacb31ae18167fb05047250add561c2d146a163c83e8ac71597ca79244201d"
+      "sha256": "e46344fefd91d5280319f9fbd537b0e80440ec46aab6c39fdbe78abbc6938aa6"
     }
   ],
   "contrastPairs": [
@@ -238,13 +238,13 @@
   },
   "source": {
     "path": "packages/tokens/src/klipse.tokens.json",
-    "sha256": "93ef0b6cd8ade4588db740e57f5d7ad3d01615bf93899e4bec60162f35acfd60"
+    "sha256": "8d6a40fa252b30c43db6507b92251780f9e2d5331100288be9505b55ea355fc6"
   },
   "themes": [
     "light",
     "dark"
   ],
-  "tokenCount": 302,
+  "tokenCount": 304,
   "tokens": [
     {
       "aliasTarget": null,
@@ -4992,6 +4992,27 @@
       "type": "dimension"
     },
     {
+      "aliasTarget": {
+        "id": "space-64",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-icon-size-xl": "64px"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "icon-size-xl",
+      "mode": "global",
+      "rawValue": "{primitive.spacing.64}",
+      "resolvedValue": {
+        "unit": "px",
+        "value": 64
+      },
+      "sourcePath": "semantic.global.icon.size-xl",
+      "tier": "semantic",
+      "type": "dimension"
+    },
+    {
       "aliasTarget": null,
       "cssProperties": {},
       "deprecated": null,
@@ -7156,27 +7177,6 @@
     },
     {
       "aliasTarget": {
-        "id": "space-4",
-        "mode": "base"
-      },
-      "cssProperties": {
-        "--kds-space-card-text-gap": "4px"
-      },
-      "deprecated": null,
-      "description": null,
-      "id": "space-card-text-gap",
-      "mode": "global",
-      "rawValue": "{primitive.spacing.4}",
-      "resolvedValue": {
-        "unit": "px",
-        "value": 4
-      },
-      "sourcePath": "semantic.global.spacing.card-text-gap",
-      "tier": "semantic",
-      "type": "dimension"
-    },
-    {
-      "aliasTarget": {
         "id": "space-16",
         "mode": "base"
       },
@@ -7361,6 +7361,48 @@
         "value": 2
       },
       "sourcePath": "semantic.global.spacing.overlay-item-gap",
+      "tier": "semantic",
+      "type": "dimension"
+    },
+    {
+      "aliasTarget": {
+        "id": "space-12",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-space-stack-md": "12px"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "space-stack-md",
+      "mode": "global",
+      "rawValue": "{primitive.spacing.12}",
+      "resolvedValue": {
+        "unit": "px",
+        "value": 12
+      },
+      "sourcePath": "semantic.global.spacing.stack-md",
+      "tier": "semantic",
+      "type": "dimension"
+    },
+    {
+      "aliasTarget": {
+        "id": "space-4",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-space-stack-xs": "4px"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "space-stack-xs",
+      "mode": "global",
+      "rawValue": "{primitive.spacing.4}",
+      "resolvedValue": {
+        "unit": "px",
+        "value": 4
+      },
+      "sourcePath": "semantic.global.spacing.stack-xs",
       "tier": "semantic",
       "type": "dimension"
     },

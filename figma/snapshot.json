@@ -6,20 +6,20 @@
     "capturedAt": "2026-08-16",
     "capturedBy": "figma-mcp-plugin-api",
     "published": false,
-    "tokenSourceSha256": "93ef0b6cd8ade4588db740e57f5d7ad3d01615bf93899e4bec60162f35acfd60",
-    "proposalSha256": "7f55b303904bafe9c6cd1d9a5ecddc3d2367712b79b42f9f4ff87f2e2381f02f",
+    "tokenSourceSha256": "8d6a40fa252b30c43db6507b92251780f9e2d5331100288be9505b55ea355fc6",
+    "proposalSha256": "9baa46007d62d571d8011cec89b1e87fe0222b216067fc81538d8181ed212c52",
     "readback": {
-      "tokens": 201,
-      "canonicalLength": 16692,
-      "fnv1a32": "7de3bd13",
+      "tokens": 203,
+      "canonicalLength": 16837,
+      "fnv1a32": "ce9f2d3d",
       "note": "변수는 readback.json의 되읽기 행을 tokenId 공간으로 옮긴 것이고, style과 component는 같은 되읽기의 style/component 절이다. canonical 해시는 컬렉션·이름·타입·mode 값을 정렬해 이은 문자열의 FNV-1a다.",
       "styles": {
         "text": 15,
         "effect": 7
       },
       "components": {
-        "sets": 9,
-        "variants": 104
+        "sets": 10,
+        "variants": 105
       },
       "icons": 26,
       "templates": 1
@@ -38,7 +38,7 @@
         "Global"
       ],
       "defaultMode": "Global",
-      "variableCount": 49
+      "variableCount": 51
     },
     "Klipse Semantic Color": {
       "modes": [
@@ -1527,6 +1527,15 @@
         }
       }
     },
+    "icon-size-xl": {
+      "figmaName": "icon/size-xl",
+      "resolvedType": "FLOAT",
+      "valuesByMode": {
+        "Global": {
+          "alias": "space-64"
+        }
+      }
+    },
     "layer-base-content": {
       "figmaName": "layer/content",
       "resolvedType": "FLOAT",
@@ -2148,15 +2157,6 @@
         }
       }
     },
-    "space-card-text-gap": {
-      "figmaName": "spacing/card-text-gap",
-      "resolvedType": "FLOAT",
-      "valuesByMode": {
-        "Global": {
-          "alias": "space-4"
-        }
-      }
-    },
     "space-control-lg": {
       "figmaName": "spacing/control-lg",
       "resolvedType": "FLOAT",
@@ -2235,6 +2235,24 @@
       "valuesByMode": {
         "Global": {
           "alias": "space-2"
+        }
+      }
+    },
+    "space-stack-md": {
+      "figmaName": "spacing/stack-md",
+      "resolvedType": "FLOAT",
+      "valuesByMode": {
+        "Global": {
+          "alias": "space-12"
+        }
+      }
+    },
+    "space-stack-xs": {
+      "figmaName": "spacing/stack-xs",
+      "resolvedType": "FLOAT",
+      "valuesByMode": {
+        "Global": {
+          "alias": "space-4"
         }
       }
     },
@@ -2851,6 +2869,104 @@
           "DROP_SHADOW:16:48:-8"
         ]
       }
+    },
+    "EmptyState": {
+      "tokenId": "empty-state",
+      "variantCount": 1,
+      "hasDescription": true,
+      "properties": {},
+      "binding": {
+        "boundFills": 3,
+        "rawFills": 0,
+        "boundStrokes": 0,
+        "rawStrokes": 0,
+        "textStyled": 2,
+        "textUnstyled": 0
+      },
+      "geometry": {
+        "base": {
+          "paddingBlock": [
+            80
+          ],
+          "paddingBlockEnd": [
+            80
+          ],
+          "paddingInline": [
+            16
+          ],
+          "paddingInlineEnd": [
+            16
+          ],
+          "itemSpacing": [
+            12
+          ],
+          "cornerRadius": [
+            0
+          ],
+          "layoutMode": [
+            "VERTICAL"
+          ],
+          "strokeWeight": [],
+          "slots": {},
+          "parts": {
+            "Graphic": {
+              "width": [
+                64
+              ],
+              "height": [
+                64
+              ]
+            },
+            "Title": {
+              "width": [
+                198
+              ],
+              "height": [
+                30
+              ],
+              "fontSize": [
+                20
+              ],
+              "lineHeightPercent": [
+                150
+              ]
+            },
+            "Description": {
+              "width": [
+                400
+              ],
+              "height": [
+                24
+              ],
+              "fontSize": [
+                16
+              ],
+              "lineHeightPercent": [
+                150
+              ]
+            },
+            "Action": {
+              "width": [
+                60
+              ],
+              "height": [
+                36
+              ],
+              "paddingBlock": [
+                4
+              ],
+              "itemSpacing": [
+                8
+              ],
+              "layoutMode": [
+                "HORIZONTAL"
+              ]
+            }
+          }
+        }
+      },
+      "strokes": {},
+      "effects": {}
     },
     "IconButton": {
       "tokenId": "icon-button",

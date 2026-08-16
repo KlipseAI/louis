@@ -5176,6 +5176,27 @@ export const tokens = {
         "unit": "px"
       }
     },
+    "icon-size-xl": {
+      "aliasTarget": {
+        "id": "space-64",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-icon-size-xl": "64px"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "icon-size-xl",
+      "mode": "global",
+      "rawValue": "{primitive.spacing.64}",
+      "sourcePath": "semantic.global.icon.size-xl",
+      "tier": "semantic",
+      "type": "dimension",
+      "value": {
+        "value": 64,
+        "unit": "px"
+      }
+    },
     "layer-content": {
       "aliasTarget": {
         "id": "layer-base-content",
@@ -5938,27 +5959,6 @@ export const tokens = {
         "unit": "px"
       }
     },
-    "space-card-text-gap": {
-      "aliasTarget": {
-        "id": "space-4",
-        "mode": "base"
-      },
-      "cssProperties": {
-        "--kds-space-card-text-gap": "4px"
-      },
-      "deprecated": null,
-      "description": null,
-      "id": "space-card-text-gap",
-      "mode": "global",
-      "rawValue": "{primitive.spacing.4}",
-      "sourcePath": "semantic.global.spacing.card-text-gap",
-      "tier": "semantic",
-      "type": "dimension",
-      "value": {
-        "value": 4,
-        "unit": "px"
-      }
-    },
     "space-control-lg": {
       "aliasTarget": {
         "id": "space-16",
@@ -6145,6 +6145,48 @@ export const tokens = {
       "type": "dimension",
       "value": {
         "value": 2,
+        "unit": "px"
+      }
+    },
+    "space-stack-md": {
+      "aliasTarget": {
+        "id": "space-12",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-space-stack-md": "12px"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "space-stack-md",
+      "mode": "global",
+      "rawValue": "{primitive.spacing.12}",
+      "sourcePath": "semantic.global.spacing.stack-md",
+      "tier": "semantic",
+      "type": "dimension",
+      "value": {
+        "value": 12,
+        "unit": "px"
+      }
+    },
+    "space-stack-xs": {
+      "aliasTarget": {
+        "id": "space-4",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-space-stack-xs": "4px"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "space-stack-xs",
+      "mode": "global",
+      "rawValue": "{primitive.spacing.4}",
+      "sourcePath": "semantic.global.spacing.stack-xs",
+      "tier": "semantic",
+      "type": "dimension",
+      "value": {
+        "value": 4,
         "unit": "px"
       }
     },

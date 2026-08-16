@@ -1,0 +1,72 @@
+/* Empty State — design/components/empty-state.md
+ *
+ * 제품에 정의가 **9벌** 있고(앱 홈 2 · 하이라이트 2 · 에디터 5) 그중 하나는 조건상 도달할 수 없는
+ * 죽은 분기다. 아홉 벌은 거의 합의하지 않는다 — padding 80/64px, gap 12/16px, 제목 계층 있음/없음,
+ * CTA 있음 3 · 없음 6.
+ *
+ * **딱 하나 9/9가 합의한다: 자기 배경도 테두리도 반경도 갖지 않는다.** 상자가 아니라 부모 표면 위에
+ * 얹히는 텍스트 블록이다. 그 합의를 그대로 옮겼고, 나머지는 두 홈이 동의한 값(padding 80, gap 12,
+ * 제목 20/600 + 설명 16/400)을 정본으로 골랐다 — 근거가 가장 두껍다.
+ */
+
+.kds-empty-state {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--kds-space-stack-md);
+  /* 세로 여백 80px. 두 홈이 합의한 값이며 **소비처가 여기 하나뿐이라 토큰으로 만들지 않는다** —
+   * spacing 축은 두 곳 이상에서 쓰일 때 이름을 준다. 리터럴을 이 한 줄에 격리한다. */
+  padding-block: 80px;
+  padding-inline: var(--kds-space-layout-gutter);
+  inline-size: 100%;
+  text-align: center;
+}
+
+/* 그래픽 슬롯. **선택이다** — 제품의 페이지 빈 상태는 아이콘을 넣지 않고 캔버스 빈 상태만 넣는다. */
+.kds-empty-state__graphic {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: var(--kds-icon-size-xl);
+  block-size: var(--kds-icon-size-xl);
+  color: var(--kds-color-foreground-tertiary);
+}
+
+/* 슬롯 안의 아이콘이 자기 크기를 갖고 오더라도 64px 자리를 채우게 한다. */
+.kds-empty-state__graphic > :where(svg, img) {
+  inline-size: 100%;
+  block-size: 100%;
+}
+
+.kds-empty-state__title {
+  margin: 0;
+  color: var(--kds-color-foreground-primary);
+  font-family: var(--kds-typography-body-lg-semibold-font-family);
+  font-size: var(--kds-typography-body-lg-semibold-font-size);
+  font-weight: var(--kds-typography-body-lg-semibold-font-weight);
+  line-height: var(--kds-typography-body-lg-semibold-line-height);
+  letter-spacing: var(--kds-typography-body-lg-semibold-letter-spacing);
+}
+
+.kds-empty-state__description {
+  margin: 0;
+  /* 폭을 제한한다. 빈 상태는 넓은 화면 가운데 놓이는데 설명이 한 줄로 늘어나면 눈이 되돌아오지
+   * 못한다. `ch`는 글꼴 크기를 따라가므로 확대해도 줄당 글자 수가 유지된다. */
+  max-inline-size: 44ch;
+  color: var(--kds-color-foreground-secondary);
+  font-family: var(--kds-typography-body-md-regular-font-family);
+  font-size: var(--kds-typography-body-md-regular-font-size);
+  font-weight: var(--kds-typography-body-md-regular-font-weight);
+  line-height: var(--kds-typography-body-md-regular-line-height);
+  letter-spacing: var(--kds-typography-body-md-regular-letter-spacing);
+}
+
+/* 행동 유도 슬롯. 제목·설명과 12px이 아니라 한 단계 더 떨어진다 — 읽는 것과 누르는 것 사이의 경계다. */
+.kds-empty-state__action {
+  display: flex;
+  align-items: center;
+  gap: var(--kds-space-control-sm);
+  margin-block-start: var(--kds-space-control-xs);
+}

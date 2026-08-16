@@ -26,6 +26,61 @@ DS-F-007의 산출물이다. 배포 화면을 Klipse Design의 component·변수
 
 Figma에 있는 것은 Button component set 하나와 아이콘 26개다.
 
+> **위 표는 2026-08-14의 기준선이다.** 그때 Figma에는 Button 하나뿐이었다. 지금은 여덟이고
+> 토큰도 늘었다. 아래 "재측정"이 그 차이를 적는다. **72·130·144를 현재 값으로 인용하지 않는다.**
+
+## 재측정 (2026-08-16)
+
+카탈로그 1~6순위가 Web과 Figma에 모두 섰다 — IconButton · Tooltip · Toast · Menu/Popover ·
+Dialog · ProjectCard. Figma component는 하나에서 여덟로 늘었다.
+
+토큰 요구 일곱 중 셋이 해소됐다. **화면 단위 gap 재계수는 아직 하지 않았다** — 그것은 Figma에서
+Home을 실제로 다시 조립해야 나오는 숫자이고, 여기서는 근거였던 토큰 요구만 다시 판정한다.
+
+| 항목 | 판정 | 근거 |
+| --- | --- | --- |
+| T-1 `radius-8` 이름 없음 | **해소** | `radius-control-sm` 8px |
+| T-2 범주형 색 팔레트 | 미해소 | `color-status-*` 넷뿐. 에디터가 쓰는 sky·pink·red·mint·amber·yellow 없음 |
+| T-3 컨트롤 높이 토큰 | **부분** | `layout-control-height-md`(40) `-sm`(32) 생김. 제품은 여덟 단계이므로 나머지는 그대로 |
+| T-4 `radius-card` 20↔16 | **해소** | [DS-D-0014](../design/governance/decisions/DS-D-0014-card-radius.md)로 16px. Dialog는 `radius-card-lg`로 옮겼다 |
+| T-5 `layout-project-card-minimum` 소비처 | 미해소 | 여전히 CSS 소비처가 없다. ProjectCard는 폭을 그리드에 맡기므로 이 토큰은 Project Grid **패턴**의 것이고 그 패턴이 아직 없다 |
+| T-6 라이트 팔레트 앱 셸 재정의 | 미해소 | 제품 쪽. `apps/web/components/navigation/Gnb.tsx:1962`가 `--palette-gray-100`을 `#f8f8f9`로 덮는다 |
+| T-7 0.5px hairline과 glass bevel | **부분** | 제품에서 글래스를 걷어내 베벨은 사라졌다. DS에는 여전히 spread-only 전용 elevation 토큰이 없다 — `elevation-menu`가 drop 겹과 함께 갖고 있을 뿐이다 |
+
+### 7·8순위를 실제로 세어 보니 등록부가 틀렸다
+
+7순위와 8순위를 채택하기 전에 제품을 전수로 다시 셌다. 두 항목 모두 **처음 센 숫자가 적었다.**
+
+**TextField / Input — 공용 구현 0, 정의 약 40벌, 5계열.** 처음엔 "에디터 16 · 하이라이트 3"으로
+적었으나 인증·설정·블로그·문의·노드 캔버스까지 합치면 그보다 훨씬 넓다.
+
+| 계열 | 벌 | 시각적 필드가 무엇인가 |
+| --- | ---: | --- |
+| A. floating-label 인증 | 9 | **감싸는 `div`.** `<input>`은 투명·무테두리다 |
+| B. 테두리 보이는 박스 | 5 | `<input>` 자신 |
+| C. 테두리 없는 채운 면 | 9 | `<input>` 자신 (배경만) |
+| D. 투명 인라인 rename | 8 | 없음 (제자리 편집) |
+| E. 노드 캔버스 프롬프트 | 5 | `<textarea>` 자신 |
+
+**포커스 표현이 통일돼 있지 않다.** 인증 계열은 outline을 쓰지 않고 wrapper의 border-color를
+바꾸며 `box-shadow: inset 0 0 0 1px`로 테두리를 두껍게 보이게 한다. `outline: 2px solid
+rgb(var(--gray-000-rgb)/22%)` + `outline-offset: 1px`을 문자 단위로 똑같이 갖는 것이 다섯 벌 있고,
+`[&:focus-visible]:[outline:none]`으로 포커스 표시를 **의도적으로 없앤** 것도 있다
+(`NodeLayersPanel.tsx:178`의 주석이 "요청대로 색 제거"라고 적어 두었다).
+
+**EmptyState — 9벌.** "홈 2 · 하이라이트 2 · 에디터 3 = 7벌"은 틀렸다. 에디터가 3이 아니라 5다 —
+`VideoEditModal` **한 파일 안에만 세 벌**(preview · source · inspector)이 있고 허브와 프로젝트
+피커가 더 있다. 파일 단위로 세면 놓치는 형태였다. 하이라이트의 두 번째 벌은 조건상 도달할 수
+없는 죽은 분기라 살아 있는 것은 8벌이다.
+
+아홉 벌은 거의 합의하지 않는다 — 컨테이너 padding이 80/64px, gap이 12/16px, 제목 계층이 있는 것과
+없는 것, CTA가 있는 것 3 · 없는 것 6. 자기 배경이나 테두리를 가진 것은 **0벌**이다.
+
+두 항목 모두 ProjectCard가 3벌이 아니라 4벌이었던 것과 같은 종류의 누락이다. **처음 센 숫자를
+근거로 쓰지 않는다.**
+
+남은 카탈로그는 7순위 이하다.
+
 ## 이 실측의 결론 하나
 
 **제품에는 공용 컴포넌트 층이 사실상 없다.** `apps/web/components/ui/`는 파일 10개이고 그중 시각
@@ -65,8 +120,8 @@ Spinner 레시피 5종, PaneDivider 6선언.
 | 4 | **Menu / Popover** | 3/3 | 서피스 정의 3벌 | 코드에 ActionMenu가 있으나 Figma component가 없다. 임의 좌표 앵커 변형이 추가로 필요 |
 | 5 | **Dialog** | 3/3 | 직접 import 8곳 | 코드에 있고 Figma에 없다. DS-F-006 대상 |
 | 6 | **ProjectCard** | 3/3 | 정의 **4벌** | 앱 홈·노드캔버스 홈·하이라이트 허브·에디터 허브. **web done**(2026-08-16) — 네 벌의 기하가 같아 그 값을 정본으로 옮겼다. Figma component 있음, parity 게이트 미적용 |
-| 7 | **TextField / Input** | 2/3 | 에디터 16 · 하이라이트 3 | manifest `not-ready` |
-| 8 | **EmptyState** | 3/3 | 홈 2 · 하이라이트 2 · 에디터 3 | manifest `not-ready` |
+| 7 | **TextField / Input** | 2/3 | **약 40벌 · 5계열** | 공용 구현 0. 2026-08-16 재측정 |
+| 8 | **EmptyState** | 3/3 | **9벌**(살아 있는 것 8) | 홈 2 · 하이라이트 2(그중 1은 죽은 분기) · 에디터 **5**. 2026-08-16 재측정 |
 | 9 | **Badge / StatusBadge** | 3/3 | 톤 4 + 상태 5 | 하이라이트 상태 5톤이 가장 복잡 |
 | 10 | **Spinner / Progress** | 2/3 | 레시피 **5종** | 하이라이트 상세 한 화면에 로딩 표현 5종, Skeleton 0종 |
 | 11 | **SidebarNavItem · AppTopBar** | 3/3 | Gnb import 31곳 | 셸. 상세는 breadcrumb·trailing 슬롯을 추가로 요구한다 |

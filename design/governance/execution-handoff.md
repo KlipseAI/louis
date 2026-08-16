@@ -232,6 +232,12 @@ Project Card가 모두 Web `partial`이고 docs `done`이다. Input·Select·Emp
 `childOrder`, 프로그레시브 램프 유도, float32 허용치, text style 면제를 붙이고 canary를 26→33종으로
 늘렸다. Project Card는 `figma: partial`이다.
 
+**(1b) `elevation-focus-ring`의 소비처가 0이다 — owner 결정이 필요하다.** 이름은 focus ring인데
+실제 focus ring은 `outline: var(--kds-border-width-ring) solid var(--kds-color-border-focus)`이고
+그 토큰(box-shadow `0 0 0 3px` 파랑 42%)은 아무 데서도 쓰이지 않는다. `radius-card`와 **같은
+종류의 함정**이다 — 이름으로 집으면 화면이 달라진다. 다만 Figma effect style로도 발행돼 있어
+폐기는 breaking이며, DS-D-0014와 같은 절차가 필요하다. 지금은 리터럴 2px만 토큰으로 바꿔 두었다.
+
 **(2) gap registry 7순위 이하.** TextField/Input, EmptyState, Badge, Spinner/Progress,
 SidebarNavItem·AppTopBar, Slider, SegmentedControl, Checkbox, SelectableListRow.
 

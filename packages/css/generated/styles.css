@@ -19,9 +19,15 @@
 }
 
 /* focus-visible 링 — 컴포넌트가 공유하는 단일 표현.
- * button.md: light/dark/high contrast 모두에서 보여야 한다. */
+ * button.md: light/dark/high contrast 모두에서 보여야 한다.
+ *
+ * **`elevation-focus-ring` 토큰을 쓰지 않는다.** 그 토큰은 box-shadow 기반 설계의 잔재이고
+ * (0 0 0 3px 파랑 42%) 소비처가 하나도 없다. 링을 outline으로 그리는 이유는 셋이다 —
+ * overflow에 잘리지 않고, border-radius를 따라가며, forced-colors에서 시스템 색으로 바뀐다.
+ * 토큰의 처리는 owner 결정이 필요하다(Figma effect style로도 발행돼 있다). */
 .kds-focus-ring:focus-visible {
-  outline: 2px solid var(--kds-color-border-focus);
+  outline: var(--kds-border-width-ring) solid var(--kds-color-border-focus);
+  /* 링과 요소 사이의 틈. 2px 간격 토큰이 spacing 축에 없어 리터럴을 한 줄에 격리한다. */
   outline-offset: 2px;
 }
 
@@ -1213,7 +1219,9 @@
 /* focus ring도 액션이 받되 링은 프레임에 그린다. 투명한 층에 링만 뜨면 무엇이 선택됐는지 모른다. */
 .kds-project-card:has(.kds-project-card-action:focus-visible) {
   outline: var(--kds-border-width-ring) solid var(--kds-color-border-focus);
-  outline-offset: var(--kds-space-card-text-gap);
+  /* base.css의 공유 링과 같은 틈이다. `space-card-text-gap`(4px)을 쓰면 그 토큰이 텍스트 간격과
+   * 링 간격 두 자리를 한 값으로 묶어 버린다 — 하나를 고치면 다른 하나가 따라 움직인다. */
+  outline-offset: 2px;
 }
 
 @media (forced-colors: active) {

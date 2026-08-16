@@ -69,7 +69,9 @@
 /* focus ring도 액션이 받되 링은 프레임에 그린다. 투명한 층에 링만 뜨면 무엇이 선택됐는지 모른다. */
 .kds-project-card:has(.kds-project-card-action:focus-visible) {
   outline: var(--kds-border-width-ring) solid var(--kds-color-border-focus);
-  outline-offset: var(--kds-space-card-text-gap);
+  /* base.css의 공유 링과 같은 틈이다. `space-card-text-gap`(4px)을 쓰면 그 토큰이 텍스트 간격과
+   * 링 간격 두 자리를 한 값으로 묶어 버린다 — 하나를 고치면 다른 하나가 따라 움직인다. */
+  outline-offset: 2px;
 }
 
 @media (forced-colors: active) {

@@ -1238,6 +1238,76 @@
           "status": "no-canon"
         }
       }
+    },
+    "text-field": {
+      "canon": {
+        "kind": "none",
+        "note": "제품에 공용 구현이 없다. 정의 약 40벌이 5계열로 갈리고 계열 사이에 합의가 없다. packages/ui/src에는 button·card·code 셋뿐이고 입력 primitive 라이브러리도 없다"
+      },
+      "axisCount": 8,
+      "$measuredBy": "2026-08-16 전수 조사. 클래스 쪽과 요소 쪽 두 방향으로 훑어 합쳤다",
+      "axes": {
+        "계열 분포": {
+          "product": "A 인증 floating-label 9벌(시각적 필드가 감싸는 div, input은 투명) · B 테두리 박스 5벌 · C 테두리 없는 채운 면 9벌 · D 투명 인라인 rename 8벌 · E 노드 캔버스 프롬프트 textarea 5벌",
+          "ds": "단일 계열. 테두리 있는 박스형 하나이며 slot으로 접두·접미를 받는다",
+          "match": "different",
+          "evidence": "apps/web/app/login/page.tsx:112-140 · apps/web/components/projects/CreateProjectModal.tsx:94-103 · apps/web/components/scenes/create/PublishFlow.tsx:60-68",
+          "status": "no-canon"
+        },
+        "높이": {
+          "product": "48px(CreateProjectModal) · min 44px(Inquiry) · 34px(settingsRowNameInput) · 30px(NodeLayersPanel 검색). 인증 계열은 높이를 선언하지 않고 padding으로 결정된다",
+          "ds": "layout-control-height-md 40px / -sm 32px. Button과 같은 계단",
+          "match": "different",
+          "evidence": "apps/web/components/projects/CreateProjectModal.tsx:94 · apps/web/app/inquiry/InquiryClient.tsx:313",
+          "status": "no-canon"
+        },
+        "반경": {
+          "product": "12px이 다수(인증·CreateProjectModal·Inquiry) · 10px(블로그 댓글·드롭다운 검색) · 8px(구독 해지·레이어 검색) · 999px(설정 닉네임)",
+          "ds": "radius-control 12px",
+          "match": "partial",
+          "evidence": "apps/web/app/login/page.tsx:112 · apps/web/components/blog/BlogComments.tsx:40",
+          "status": "no-canon"
+        },
+        "테두리": {
+          "product": "1px이 다수. 색은 gray-000/12%(인증·CreateProjectModal) · palette-gray-600(구독 해지) · palette-gray-900/12%(하이라이트 보정). 테두리가 아예 없는 계열이 C·D·E 22벌",
+          "ds": "border-width-hairline 0.5px + color-border-control",
+          "match": "different",
+          "evidence": "apps/web/app/login/page.tsx:118 · apps/web/components/scenes/myPageSceneStyles.ts:1418-1439",
+          "status": "no-canon"
+        },
+        "포커스 표현": {
+          "product": "통일돼 있지 않다. 인증 계열은 outline 없이 wrapper border-color 변경 + box-shadow inset 0 0 0 1px. `outline: 2px solid rgb(var(--gray-000-rgb)/22%)` + offset 1px을 문자 단위로 같이 갖는 것이 5벌. outline:none만 두고 배경색으로만 표현하는 것이 다수. 포커스 표시를 의도적으로 없앤 것도 있다",
+          "ds": "공유 .kds-focus-ring — outline: var(--kds-border-width-ring) solid var(--kds-color-border-focus), offset 2px",
+          "match": "different",
+          "evidence": "apps/web/app/login/page.tsx:133 · apps/web/components/scenes/create/node-canvas-v2/components/NodeLayersPanel.tsx:178",
+          "status": "accepted-deviation",
+          "reason": "제품은 포커스 표현이 계열마다 다르고 일부는 의도적으로 제거했다. 키보드 사용자가 지금 어디에 있는지 알 수 없는 상태를 DS가 옮기지 않는다. 공유 링 하나로 통일한다"
+        },
+        "placeholder 색": {
+          "product": "gray-000/25~42% 알파 다수 · 비어서 경고일 때 rgb(255 120 80)/45%(ShotCarousel)",
+          "ds": "color-foreground-secondary. 값 텍스트는 foreground-primary라 서로 구분된다",
+          "match": "different",
+          "evidence": "apps/web/components/scenes/create/ShotCarousel.tsx:93-94 · apps/web/components/scenes/create/node-canvas-v2/components/NodeLayersPanel.tsx:184",
+          "status": "accepted-deviation",
+          "reason": "제품의 알파 placeholder는 light에서 4.5:1에 미달한다. foreground-tertiary도 3.96:1로 미달해 secondary를 쓴다. 값과의 구분은 색 단계가 아니라 primary/secondary 위계가 맡는다"
+        },
+        "라벨": {
+          "product": "인증 계열만 floating label을 갖는다. 나머지 대부분은 시각 라벨이 없고 placeholder가 그 역할을 대신하거나 aria-label만 있다",
+          "ds": "라벨을 필수로 요구한다. 시각 라벨이 없으면 aria-label을 강제한다",
+          "match": "different",
+          "evidence": "apps/web/components/projects/CreateProjectModal.tsx:459",
+          "status": "accepted-deviation",
+          "reason": "placeholder는 입력을 시작하면 사라져 라벨을 대신할 수 없다. 제품의 라벨 부재를 DS 규범으로 옮기지 않는다"
+        },
+        "invalid 표현": {
+          "product": "거의 없다. 텍스트 필드에서 invalid를 색으로 표현하는 것은 ShotCarousel의 placeholder 주황 하나뿐이고 aria-invalid를 붙이는 곳은 확인되지 않았다",
+          "ds": "aria-invalid + 전용 테두리 색 + 오류 메시지를 aria-describedby로 연결",
+          "match": "different",
+          "evidence": "apps/web/components/scenes/create/ShotCarousel.tsx:93-94",
+          "status": "accepted-deviation",
+          "reason": "오류를 색으로만 전달하면 색각 이상에서 전달되지 않는다. 텍스트와 aria를 함께 요구한다"
+        }
+      }
     }
   },
   "productCommit": "086f4a62",

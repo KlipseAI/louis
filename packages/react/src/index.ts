@@ -29,6 +29,8 @@ export type {
   ProjectCardTextProps,
   ProjectCardThumbnailProps,
 } from "./project-card/project-card.js";
+export { TextField } from "./text-field/text-field.js";
+export type { TextFieldProps, TextFieldSize } from "./text-field/text-field.js";
 export { ToastProvider, useToast, TOAST_VISIBLE_LIMIT } from "./toast/toast.js";
 export type { ToastContextValue, ToastHandle, ToastInput, ToastProviderProps, ToastTone } from "./toast/toast.js";
 

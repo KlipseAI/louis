@@ -6,20 +6,20 @@
     "capturedAt": "2026-08-16",
     "capturedBy": "figma-mcp-plugin-api",
     "published": false,
-    "tokenSourceSha256": "814b9b45f8eef7bbdbe1df8ca83d86d19f826e9679b58c2c5605260dc81b3ca0",
-    "proposalSha256": "9b8a61fefc116e7379ecff126c3392ee1aaa967fbad28156d80db2bc09c1f390",
+    "tokenSourceSha256": "93ef0b6cd8ade4588db740e57f5d7ad3d01615bf93899e4bec60162f35acfd60",
+    "proposalSha256": "7f55b303904bafe9c6cd1d9a5ecddc3d2367712b79b42f9f4ff87f2e2381f02f",
     "readback": {
-      "tokens": 200,
-      "canonicalLength": 16565,
-      "fnv1a32": "120d5882",
+      "tokens": 201,
+      "canonicalLength": 16692,
+      "fnv1a32": "7de3bd13",
       "note": "변수는 readback.json의 되읽기 행을 tokenId 공간으로 옮긴 것이고, style과 component는 같은 되읽기의 style/component 절이다. canonical 해시는 컬렉션·이름·타입·mode 값을 정렬해 이은 문자열의 FNV-1a다.",
       "styles": {
         "text": 15,
         "effect": 7
       },
       "components": {
-        "sets": 8,
-        "variants": 96
+        "sets": 9,
+        "variants": 104
       },
       "icons": 26,
       "templates": 1
@@ -46,7 +46,7 @@
         "Dark"
       ],
       "defaultMode": "Light",
-      "variableCount": 40
+      "variableCount": 41
     }
   },
   "variables": {
@@ -559,6 +559,18 @@
         },
         "Dark": {
           "alias": "color-paper-alpha-16"
+        }
+      }
+    },
+    "color-border-danger": {
+      "figmaName": "color/border-danger",
+      "resolvedType": "COLOR",
+      "valuesByMode": {
+        "Light": {
+          "alias": "color-red-500"
+        },
+        "Dark": {
+          "alias": "color-red-500"
         }
       }
     },
@@ -3257,6 +3269,175 @@
           "BACKGROUND_BLUR:PROGRESSIVE:var(blur/surface):0:0.5,0:0.5,0.45"
         ]
       }
+    },
+    "TextField": {
+      "tokenId": "input",
+      "variantCount": 8,
+      "hasDescription": true,
+      "properties": {
+        "Size": {
+          "type": "VARIANT",
+          "options": [
+            "md",
+            "sm"
+          ]
+        },
+        "State": {
+          "type": "VARIANT",
+          "options": [
+            "Default",
+            "Focus",
+            "Invalid",
+            "Disabled"
+          ]
+        }
+      },
+      "binding": {
+        "boundFills": 32,
+        "rawFills": 0,
+        "boundStrokes": 10,
+        "rawStrokes": 0,
+        "textStyled": 24,
+        "textUnstyled": 0
+      },
+      "geometry": {
+        "md": {
+          "slots": {},
+          "parts": {
+            "Box": {
+              "height": [
+                40
+              ],
+              "paddingInline": [
+                16
+              ],
+              "paddingInlineEnd": [
+                16
+              ],
+              "itemSpacing": [
+                8
+              ],
+              "layoutMode": [
+                "HORIZONTAL"
+              ],
+              "cornerRadius": [
+                12
+              ]
+            },
+            "Label": {
+              "height": [
+                21
+              ],
+              "fontSize": [
+                14
+              ],
+              "lineHeightPercent": [
+                150
+              ]
+            },
+            "Value": {
+              "height": [
+                21
+              ],
+              "fontSize": [
+                14
+              ],
+              "lineHeightPercent": [
+                150
+              ]
+            },
+            "Message": {
+              "height": [
+                18
+              ],
+              "fontSize": [
+                12
+              ],
+              "lineHeightPercent": [
+                150
+              ]
+            }
+          },
+          "strokeWeight": [
+            0.5,
+            2
+          ],
+          "itemSpacing": [
+            4
+          ]
+        },
+        "sm": {
+          "slots": {},
+          "parts": {
+            "Box": {
+              "height": [
+                32
+              ],
+              "paddingInline": [
+                12
+              ],
+              "paddingInlineEnd": [
+                12
+              ],
+              "itemSpacing": [
+                8
+              ],
+              "layoutMode": [
+                "HORIZONTAL"
+              ],
+              "cornerRadius": [
+                12
+              ]
+            },
+            "Label": {
+              "height": [
+                21
+              ],
+              "fontSize": [
+                14
+              ],
+              "lineHeightPercent": [
+                150
+              ]
+            },
+            "Value": {
+              "height": [
+                21
+              ],
+              "fontSize": [
+                14
+              ],
+              "lineHeightPercent": [
+                150
+              ]
+            },
+            "Message": {
+              "height": [
+                18
+              ],
+              "fontSize": [
+                12
+              ],
+              "lineHeightPercent": [
+                150
+              ]
+            }
+          },
+          "strokeWeight": [
+            0.5,
+            2
+          ],
+          "itemSpacing": [
+            4
+          ]
+        }
+      },
+      "strokes": {
+        "Box": [
+          "0.5|INSIDE"
+        ]
+      },
+      "effects": {}
     },
     "Toast": {
       "tokenId": "toast",

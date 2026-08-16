@@ -9705,6 +9705,54 @@
             }
           }
         },
+        "color-border-danger": {
+          "$type": "color",
+          "fields": [],
+          "figmaName": "color/border-danger",
+          "hiddenFromPublishing": false,
+          "losses": [],
+          "nativeVariableType": "COLOR",
+          "representation": "variable",
+          "scopes": [
+            "STROKE_COLOR"
+          ],
+          "valuesByMode": {
+            "Dark": {
+              "$value": "{primitive.color.red.500}",
+              "aliasTarget": {
+                "id": "color-red-500",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 1,
+                "colorSpace": "srgb",
+                "components": [
+                  1,
+                  0.294118,
+                  0.34902
+                ]
+              },
+              "sourcePath": "semantic.dark.color.border-danger"
+            },
+            "Light": {
+              "$value": "{primitive.color.red.500}",
+              "aliasTarget": {
+                "id": "color-red-500",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 1,
+                "colorSpace": "srgb",
+                "components": [
+                  1,
+                  0.294118,
+                  0.34902
+                ]
+              },
+              "sourcePath": "semantic.light.color.border-danger"
+            }
+          }
+        },
         "color-border-default": {
           "$type": "color",
           "fields": [],

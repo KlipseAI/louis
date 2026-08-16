@@ -275,6 +275,15 @@
       "generated": false
     },
     {
+      "id": "component-text-field",
+      "path": "design/components/text-field.md",
+      "title": "Text Field",
+      "section": "components",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
+    },
+    {
       "id": "component-dialog",
       "path": "design/components/dialog.md",
       "title": "Dialog",
@@ -649,6 +658,7 @@
         "design/components/tooltip.md",
         "design/components/toast.md",
         "design/components/project-card.md",
+        "design/components/text-field.md",
         "design/components/dialog.md"
       ]
     },
@@ -769,11 +779,12 @@
       "id": "input",
       "name": "Input / Field",
       "maturity": "experimental",
-      "figma": "not-ready",
-      "web": "not-ready",
-      "docs": "not-ready",
-      "note": "P3 component backlog",
-      "figmaName": "TextField"
+      "figma": "partial",
+      "web": "partial",
+      "docs": "done",
+      "note": "public export와 실브라우저 acceptance test 8건. Figma component set 8 variant(Size×State)이며 parity 게이트가 Box·Label·Value·Message를 자손으로 대조한다. **제품에 공용 구현이 없다** — 정의 약 40벌이 다섯 계열로 갈려 값은 DS가 정했다. 시각적 필드는 <input>이 아니라 감싸는 박스다. Textarea는 아직 없다",
+      "figmaName": "TextField",
+      "doc": "design/components/text-field.md"
     },
     {
       "id": "select",

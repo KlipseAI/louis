@@ -221,12 +221,13 @@ test("ProjectCard의 states 표가 코드와 같다", async () => {
 });
 
 test("states 표를 코드가 빠짐없이 읽는다", () => {
-  // 이 파일과 component-states.browser.test.tsx가 함께 measured의 모든 states를 덮어야 한다.
-  // 새 컴포넌트가 states를 추가하고 테스트를 잊으면 여기서 걸린다 — 실제로 다섯이 그렇게
-  // 덮이지 않은 채 있었다.
+  // 이 파일과 component-states / text-field 테스트가 함께 measured의 모든 states를 덮어야 한다.
+  // 새 컴포넌트가 states를 추가하고 테스트를 잊으면 여기서 걸린다 — 실제로 다섯이 그렇게 덮이지
+  // 않은 채 있었고, TextField를 추가했을 때도 이 가드가 먼저 걸렸다.
   const covered = new Set([
-    "button",
-    "icon-button",
+    "button", //          component-states.browser.test.tsx
+    "icon-button", //     component-states.browser.test.tsx
+    "input", //           text-field.browser.test.tsx
     "tooltip",
     "toast",
     "menu-popover",

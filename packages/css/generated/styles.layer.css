@@ -1415,6 +1415,144 @@
 }
 
 @layer kds.component {
+  /* Text Field — design/components/text-field.md
+   *
+   * 제품에 **공용 구현이 없다.** 텍스트 입력 정의가 약 40벌이고 다섯 계열로 갈리며 계열 사이에
+   * 합의가 없다. 그래서 이 컴포넌트의 값은 제품 정본을 옮긴 것이 아니라 DS가 정한 것이고, 어디서
+   * 갈라지는지는 migration/product.measured.json이 사유와 함께 갖는다.
+   *
+   * ## 시각적 필드는 `<input>`이 아니라 감싸는 박스다
+   *
+   * 제품의 가장 큰 계열(인증 9벌)이 그 구조를 쓴다. 이유가 있다 — 접두 아이콘과 접미 버튼(지우기,
+   * 표시 전환)을 필드 **안에** 두려면 `<input>` 하나로는 안 된다. 박스가 테두리·반경·배경을 갖고
+   * `<input>`은 그 안에서 투명하다.
+   *
+   * 그래서 포커스 링도 `:focus-within`이 받는다. `<input>`에 걸면 링이 글자 주위에만 뜨고 슬롯은
+   * 밖에 남는다.
+   */
+
+  .kds-text-field {
+    display: flex;
+    flex-direction: column;
+    gap: var(--kds-space-control-xs);
+    min-inline-size: 0;
+  }
+
+  .kds-text-field__label {
+    color: var(--kds-color-foreground-primary);
+    font-family: var(--kds-typography-body-sm-medium-font-family);
+    font-size: var(--kds-typography-body-sm-medium-font-size);
+    font-weight: var(--kds-typography-body-sm-medium-font-weight);
+    line-height: var(--kds-typography-body-sm-medium-line-height);
+    letter-spacing: var(--kds-typography-body-sm-medium-letter-spacing);
+  }
+
+  /* 시각적 필드. 높이·여백·테두리·반경을 여기가 소유한다. */
+  .kds-text-field__box {
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    gap: var(--kds-space-control-sm);
+    min-inline-size: 0;
+    min-block-size: var(--kds-layout-control-height-md);
+    padding-inline: var(--kds-space-control-lg);
+    border: var(--kds-border-width-hairline) solid var(--kds-color-border-control);
+    border-radius: var(--kds-radius-control);
+    background: var(--kds-color-background-surface);
+    /* 텍스트 커서는 박스 어디를 눌러도 나와야 한다. 클릭은 React가 input으로 넘긴다. */
+    cursor: text;
+  }
+
+  .kds-text-field[data-size="sm"] .kds-text-field__box {
+    min-block-size: var(--kds-layout-control-height-sm);
+    padding-inline: var(--kds-space-control-md);
+  }
+
+  /* **`:focus-within`이 받는다.** `<input>`에 걸면 링이 글자 주위에만 뜨고 슬롯이 밖에 남는다.
+   * 링의 모양은 base.css의 공유 링과 같다 — 컴포넌트마다 다른 링을 만들지 않는다. */
+  .kds-text-field__box:focus-within {
+    outline: var(--kds-border-width-ring) solid var(--kds-color-border-focus);
+    outline-offset: 2px;
+  }
+
+  @media (forced-colors: active) {
+    .kds-text-field__box:focus-within {
+      outline-color: Highlight;
+    }
+  }
+
+  /* invalid — **색만으로 전달하지 않는다.** 테두리 색과 함께 메시지가 뜨고 aria-invalid가 붙는다.
+   * 색 하나로만 알리면 색각 이상에서 오류가 전달되지 않는다. */
+  .kds-text-field[data-invalid="true"] .kds-text-field__box {
+    border-color: var(--kds-color-border-danger);
+  }
+
+  .kds-text-field:has(.kds-text-field__control:disabled) .kds-text-field__box {
+    border-color: var(--kds-color-border-subtle);
+    cursor: not-allowed;
+  }
+
+  /* 실제 입력 요소. 박스가 시각을 소유하므로 여기는 전부 비운다. */
+  .kds-text-field__control {
+    flex: 1 1 auto;
+    min-inline-size: 0;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: var(--kds-color-foreground-primary);
+    font-family: var(--kds-typography-body-sm-regular-font-family);
+    font-size: var(--kds-typography-body-sm-regular-font-size);
+    font-weight: var(--kds-typography-body-sm-regular-font-weight);
+    line-height: var(--kds-typography-body-sm-regular-line-height);
+    letter-spacing: var(--kds-typography-body-sm-regular-letter-spacing);
+    /* 링은 박스가 그린다. 여기 링이 또 뜨면 두 겹이 된다. */
+    outline: none;
+  }
+
+  /* **caret 색을 선언하지 않는다.** 브라우저 기본은 `currentColor`이고 값 텍스트가
+   * `foreground-primary`이므로 자동으로 따라간다. 전용 토큰을 만들면 값과 캐럿이 따로 놀 수 있다. */
+
+  .kds-text-field__control::placeholder {
+    /* **tertiary가 아니라 secondary다.** tertiary는 light에서 배경 대비 3.96:1로 4.5:1에 미달한다.
+     * 값과의 구분은 색 단계가 아니라 primary/secondary 위계가 맡는다. */
+    color: var(--kds-color-foreground-secondary);
+    /* Firefox가 기본으로 낮춘다. 대비를 계산해 놓고 브라우저가 다시 흐리게 만들면 의미가 없다. */
+    opacity: 1;
+  }
+
+  .kds-text-field__control:disabled {
+    color: var(--kds-color-foreground-disabled);
+    cursor: not-allowed;
+  }
+
+  .kds-text-field__control:disabled::placeholder {
+    color: var(--kds-color-foreground-disabled);
+  }
+
+  /* 접두·접미 슬롯. 아이콘과 버튼이 들어간다. */
+  .kds-text-field__adornment {
+    display: inline-flex;
+    align-items: center;
+    flex: 0 0 auto;
+    color: var(--kds-color-foreground-secondary);
+  }
+
+  /* 도움말과 오류가 같은 자리를 쓴다. 둘이 동시에 뜨면 어느 것을 읽어야 하는지 모른다. */
+  .kds-text-field__message {
+    color: var(--kds-color-foreground-secondary);
+    font-family: var(--kds-typography-caption-regular-font-family);
+    font-size: var(--kds-typography-caption-regular-font-size);
+    font-weight: var(--kds-typography-caption-regular-font-weight);
+    line-height: var(--kds-typography-caption-regular-line-height);
+    letter-spacing: var(--kds-typography-caption-regular-letter-spacing);
+  }
+
+  .kds-text-field[data-invalid="true"] .kds-text-field__message {
+    color: var(--kds-color-status-danger-foreground);
+  }
+}
+
+@layer kds.component {
   /* Toast — design/components/toast.md
    *
    * viewport는 toast가 없어도 항상 렌더된다. 그래서 **비어 있을 때 포인터를 가로채지 않아야 한다** —

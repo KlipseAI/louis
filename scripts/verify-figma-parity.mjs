@@ -306,6 +306,46 @@ const COMPONENT_CONTRACTS = [
     },
   },
   {
+    id: "input",
+    figmaName: "TextField",
+    declaration: "packages/react/dist/text-field/text-field.d.ts",
+    variantProperties: { Size: "TextFieldSize" },
+    figmaOnlyProperties: {
+      State: {
+        options: ["Default", "Focus", "Invalid", "Disabled"],
+        reason:
+          "Focus는 코드에서 CSS 상태(:focus-within)이고 Invalid/Disabled는 boolean prop이다. Figma에는 CSS 상태가 없어 variant로 둔다. Hover 축은 없다 — 필드는 hover에서 아무것도 바꾸지 않는다.",
+      },
+    },
+    // 보이는 테두리는 Box가 갖는다. root(component set)에는 stroke가 없다.
+    strokes: { Box: { weight: "borderWidth", align: "INSIDE" } },
+    effects: {},
+    geometry: {
+      measuredId: "input",
+      // size가 두 개이므로 sizeKey를 두지 않는다 — measured의 md/sm을 그대로 돈다.
+      fields: {},
+      slots: {},
+      // Focus 링의 2px. **테두리가 아니다** — CSS에서는 outline이고 Figma에 outline이 없어
+      // 바깥으로 나가는 stroke로 그린다. 값은 border-width-ring과 같다.
+      extraStrokeWeights: [2],
+      parts: {
+        Box: {
+          fields: {
+            height: "height",
+            paddingInline: "paddingInline",
+            paddingInlineEnd: "paddingInline",
+            itemSpacing: "gap",
+            cornerRadius: "radius",
+            layoutMode: { literal: "HORIZONTAL" },
+          },
+        },
+        Label: { fields: { fontSize: "labelFontSize" } },
+        Value: { fields: { fontSize: "fontSize" } },
+        Message: { fields: { fontSize: "messageFontSize" } },
+      },
+    },
+  },
+  {
     id: "project-card",
     figmaName: "ProjectCard",
     declaration: "packages/react/dist/project-card/project-card.d.ts",

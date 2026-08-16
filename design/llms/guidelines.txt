@@ -102,7 +102,7 @@ Figma library는 아직 `not-ready`다. 시스템 전체 maturity도 `experiment
 | 항목 | 현재 값 |
 | --- | --- |
 | System maturity | `experimental` |
-| Normative documents | 54 |
+| Normative documents | 55 |
 | Generated documents | 5 |
 | Components | 10 |
 | Patterns | 4 |
@@ -864,8 +864,16 @@ Project Card가 모두 Web `partial`이고 docs `done`이다. Input·Select·Emp
 종류의 함정**이다 — 이름으로 집으면 화면이 달라진다. 다만 Figma effect style로도 발행돼 있어
 폐기는 breaking이며, DS-D-0014와 같은 절차가 필요하다. 지금은 리터럴 2px만 토큰으로 바꿔 두었다.
 
-**(2) gap registry 7순위 이하.** TextField/Input, EmptyState, Badge, Spinner/Progress,
-SidebarNavItem·AppTopBar, Slider, SegmentedControl, Checkbox, SelectableListRow.
+**(2) gap registry 8순위 이하.** ~~TextField/Input~~(7순위, `done` 2026-08-16 — Web `partial`,
+Figma `partial`), EmptyState, Badge, Spinner/Progress, SidebarNavItem·AppTopBar, Slider,
+SegmentedControl, Checkbox, SelectableListRow.
+
+**(2b) 컨트롤 테두리의 정본이 정해지지 않았다.** Button secondary는 `color-border-control`(반투명),
+IconButton secondary는 `color-border-default`(불투명)를 쓴다. TextField는 Button을 따랐다. 셋 중
+하나가 틀렸거나 셋 다 맞고 이름이 부족한 것이며, 어느 쪽인지는 owner가 정해야 한다.
+
+**(2c) Textarea가 없다.** 제품에 여러 줄 입력이 최소 5벌 있다(노드 캔버스 프롬프트 계열). TextField와
+같은 박스 구조로 확장할 수 있다.
 
 **`DS-F-007-home`의 gap 72건은 다시 재야 한다.** 그 실측은 Figma에 Button 하나만 있을 때 한 것이고
 지금은 여덟이다. 재측정 전까지 72라는 숫자를 현재 상태로 인용하지 않는다.
@@ -4473,6 +4481,58 @@ Project Card가 `radius-overlay`(16px)를 쓰면 토큰을 건드리지 않아�
 ### Updates
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
+
+#### 2026-08-16 (3) — Text Field
+
+카탈로그 7순위다. **제품에 공용 구현이 없다** — 텍스트 입력 정의가 약 40벌이고 다섯 계열로 갈리며
+계열 사이에 합의가 없다. 등록부는 "에디터 16 · 하이라이트 3"으로 적고 있었다.
+
+| 계열 | 벌 | 시각적 필드가 무엇인가 |
+| --- | ---: | --- |
+| 인증 floating-label | 9 | **감싸는 `div`.** `<input>`은 투명하다 |
+| 테두리 보이는 박스 | 5 | `<input>` 자신 |
+| 테두리 없는 채운 면 | 9 | `<input>` 자신(배경만) |
+| 투명 인라인 rename | 8 | 없음 |
+| 노드 캔버스 프롬프트 | 5 | `<textarea>` 자신 |
+
+정본이 없으므로 값은 DS가 정했고, 어디서 갈라지는지는 `product.measured.json`이 사유와 함께 갖는다.
+
+##### 시각적 필드는 `<input>`이 아니라 감싸는 박스다
+
+제품의 가장 큰 계열이 그 구조를 쓰고, 이유가 있다 — 접두 아이콘과 접미 버튼을 필드 **안에** 두려면
+`<input>` 하나로는 안 된다. 포커스 링도 박스가 `:focus-within`으로 받는다. `<input>`에 걸면 링이
+글자 주위에만 뜨고 슬롯이 밖에 남는다.
+
+박스는 `<label>`이 아니라 `<div>`다. `<label>`로 두면 슬롯 안의 버튼을 눌러도 입력이 포커스를
+가져가 버튼이 동작하지 않는다.
+
+##### 제품에서 옮기지 않은 것
+
+- **포커스 표현.** 제품은 계열마다 다르고 일부는 `[&:focus-visible]:[outline:none]`으로 **의도적으로
+  없앴다**(`NodeLayersPanel.tsx:178` 주석이 "요청대로 색 제거"라고 적어 두었다). 키보드 사용자가
+  지금 어디에 있는지 모르는 상태를 규범으로 옮기지 않는다. 공유 링 하나로 통일했다
+- **라벨 부재.** 대부분의 필드에 시각 라벨이 없고 placeholder가 그 역할을 대신한다. placeholder는
+  입력을 시작하면 사라지므로 라벨이 될 수 없다. 라벨을 필수로 요구한다
+- **placeholder 색.** 제품의 알파 placeholder는 light에서 4.5:1에 미달한다. `foreground-tertiary`도
+  3.96:1로 미달해 `foreground-secondary`를 쓰고, 값과의 구분은 색 단계가 아니라 primary/secondary
+  위계가 맡는다
+- **색만으로 알리는 오류.** `aria-invalid`와 `aria-describedby`로 연결된 문구가 함께 뜨고 그 문구는
+  `role="alert"`이다. 도움말은 alert가 아니다 — 화면을 여는 것만으로 스크린 리더가 시끄러우면 안 된다
+
+##### 토큰 하나
+
+`color-border-danger` = red.500. 테두리 역할의 danger 토큰이 없어서 IconButton도 solid danger를
+포기하고 tonal로 우회한 적이 있다. red.500만 light 3.14 · dark 3.70으로 양쪽에서 비텍스트 경계
+3:1을 넘는다. 순수 additive이며 breaking이 아니다.
+
+`caret-color`는 **선언하지 않는다.** 브라우저 기본이 `currentColor`라 값 텍스트를 자동으로 따라간다.
+전용 토큰을 만들면 값과 캐럿이 따로 놀 수 있다.
+
+##### 드러난 불일치 하나
+
+TextField는 `color-border-control`을 쓰는데 IconButton은 같은 자리에 `color-border-default`를 쓴다.
+값도 다르다(전자는 반투명, 후자는 불투명). **컨트롤 테두리의 정본이 저장소 안에서 아직 정해지지
+않았다.** 이 컴포넌트가 만든 문제가 아니라 드러낸 문제다.
 
 #### 2026-08-16 (2) — Project Card 구조 정정과 parity 게이트 확장
 

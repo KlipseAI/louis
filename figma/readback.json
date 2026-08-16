@@ -2533,6 +2533,23 @@
           ]
         ],
         [
+          "color/border-danger",
+          "COLOR",
+          "STROKE_COLOR",
+          [
+            [
+              "Light",
+              "Klipse Primitive::color/red/500",
+              null
+            ],
+            [
+              "Dark",
+              "Klipse Primitive::color/red/500",
+              null
+            ]
+          ]
+        ],
+        [
           "color/border-default",
           "COLOR",
           "STROKE_COLOR",
@@ -4028,6 +4045,174 @@
           "BACKGROUND_BLUR:PROGRESSIVE:var(blur/surface):0:0.5,0:0.5,0.45"
         ]
       }
+    },
+    "TextField": {
+      "variantCount": 8,
+      "hasDescription": true,
+      "properties": {
+        "Size": {
+          "type": "VARIANT",
+          "options": [
+            "md",
+            "sm"
+          ]
+        },
+        "State": {
+          "type": "VARIANT",
+          "options": [
+            "Default",
+            "Focus",
+            "Invalid",
+            "Disabled"
+          ]
+        }
+      },
+      "binding": {
+        "boundFills": 32,
+        "rawFills": 0,
+        "boundStrokes": 10,
+        "rawStrokes": 0,
+        "textStyled": 24,
+        "textUnstyled": 0
+      },
+      "geometry": {
+        "md": {
+          "slots": {},
+          "parts": {
+            "Box": {
+              "height": [
+                40
+              ],
+              "paddingInline": [
+                16
+              ],
+              "paddingInlineEnd": [
+                16
+              ],
+              "itemSpacing": [
+                8
+              ],
+              "layoutMode": [
+                "HORIZONTAL"
+              ],
+              "cornerRadius": [
+                12
+              ]
+            },
+            "Label": {
+              "height": [
+                21
+              ],
+              "fontSize": [
+                14
+              ],
+              "lineHeightPercent": [
+                150
+              ]
+            },
+            "Value": {
+              "height": [
+                21
+              ],
+              "fontSize": [
+                14
+              ],
+              "lineHeightPercent": [
+                150
+              ]
+            },
+            "Message": {
+              "height": [
+                18
+              ],
+              "fontSize": [
+                12
+              ],
+              "lineHeightPercent": [
+                150
+              ]
+            }
+          },
+          "strokeWeight": [
+            0.5,
+            2
+          ],
+          "itemSpacing": [
+            4
+          ]
+        },
+        "sm": {
+          "slots": {},
+          "parts": {
+            "Box": {
+              "height": [
+                32
+              ],
+              "paddingInline": [
+                12
+              ],
+              "paddingInlineEnd": [
+                12
+              ],
+              "itemSpacing": [
+                8
+              ],
+              "layoutMode": [
+                "HORIZONTAL"
+              ],
+              "cornerRadius": [
+                12
+              ]
+            },
+            "Label": {
+              "height": [
+                21
+              ],
+              "fontSize": [
+                14
+              ],
+              "lineHeightPercent": [
+                150
+              ]
+            },
+            "Value": {
+              "height": [
+                21
+              ],
+              "fontSize": [
+                14
+              ],
+              "lineHeightPercent": [
+                150
+              ]
+            },
+            "Message": {
+              "height": [
+                18
+              ],
+              "fontSize": [
+                12
+              ],
+              "lineHeightPercent": [
+                150
+              ]
+            }
+          },
+          "strokeWeight": [
+            0.5,
+            2
+          ],
+          "itemSpacing": [
+            4
+          ]
+        }
+      },
+      "strokes": {
+        "Box": [
+          "0.5|INSIDE"
+        ]
+      },
+      "effects": {}
     }
   },
   "icons": {

@@ -2,23 +2,23 @@
   "artifacts": [
     {
       "path": "packages/tokens/generated/figma.tokens.json",
-      "sha256": "9b8a61fefc116e7379ecff126c3392ee1aaa967fbad28156d80db2bc09c1f390"
+      "sha256": "7f55b303904bafe9c6cd1d9a5ecddc3d2367712b79b42f9f4ff87f2e2381f02f"
     },
     {
       "path": "packages/tokens/generated/index.d.ts",
-      "sha256": "5a19ff7117b006de373b2fd01d65e935307c9e54c7070d5452d6377525c02600"
+      "sha256": "4bdb9ca0acfa4e4b2047a39134a0be79dc9f266c1ffbdbd4398b0535c3b8c59d"
     },
     {
       "path": "packages/tokens/generated/index.js",
-      "sha256": "f59913fe2e7c196c68ca76c4d23a0633eb0d445aadd9cd36067312776a817d24"
+      "sha256": "81c00afd91578fb89e21e0c4b3631c8d39f3e92df78515440857fc15a2714457"
     },
     {
       "path": "packages/tokens/generated/tokens.css",
-      "sha256": "7ccaeb7a49943f5cc42ee0637fbb3f99c3ca93679c6b45294e840cfb1868770c"
+      "sha256": "23a16a20192993bd9dd9e97ff4b67eb3817def090e3db1edae9f020e813355bd"
     },
     {
       "path": "packages/tokens/generated/tokens.json",
-      "sha256": "5d9c587bc2b53f19d016728bc2b915ff2d291e771a0e51de1a64a82623ae9651"
+      "sha256": "6fdacb31ae18167fb05047250add561c2d146a163c83e8ac71597ca79244201d"
     }
   ],
   "contrastPairs": [
@@ -238,13 +238,13 @@
   },
   "source": {
     "path": "packages/tokens/src/klipse.tokens.json",
-    "sha256": "814b9b45f8eef7bbdbe1df8ca83d86d19f826e9679b58c2c5605260dc81b3ca0"
+    "sha256": "93ef0b6cd8ade4588db740e57f5d7ad3d01615bf93899e4bec60162f35acfd60"
   },
   "themes": [
     "light",
     "dark"
   ],
-  "tokenCount": 300,
+  "tokenCount": 302,
   "tokens": [
     {
       "aliasTarget": null,
@@ -1805,6 +1805,58 @@
         ]
       },
       "sourcePath": "semantic.dark.color.border-control",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-red-500",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-color-border-danger": "color(srgb 1 0.294118 0.34902 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-border-danger",
+      "mode": "light",
+      "rawValue": "{primitive.color.red.500}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.294118,
+          0.34902
+        ]
+      },
+      "sourcePath": "semantic.light.color.border-danger",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-red-500",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-color-border-danger": "color(srgb 1 0.294118 0.34902 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-border-danger",
+      "mode": "dark",
+      "rawValue": "{primitive.color.red.500}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.294118,
+          0.34902
+        ]
+      },
+      "sourcePath": "semantic.dark.color.border-danger",
       "tier": "semantic",
       "type": "color"
     },

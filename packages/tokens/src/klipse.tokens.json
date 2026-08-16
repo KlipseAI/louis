@@ -3861,6 +3861,16 @@
             }
           }
         },
+        "border-danger": {
+          "$value": "{primitive.color.red.500}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-border-danger",
+              "tier": "semantic",
+              "mode": "light"
+            }
+          }
+        },
         "action-primary": {
           "$value": "{primitive.color.blue.500}",
           "$extensions": {
@@ -4284,6 +4294,16 @@
           "$extensions": {
             "com.klipse-design": {
               "id": "color-border-focus",
+              "tier": "semantic",
+              "mode": "dark"
+            }
+          }
+        },
+        "border-danger": {
+          "$value": "{primitive.color.red.500}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-border-danger",
               "tier": "semantic",
               "mode": "dark"
             }

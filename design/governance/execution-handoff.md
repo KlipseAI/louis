@@ -238,8 +238,16 @@ Project Card가 모두 Web `partial`이고 docs `done`이다. Input·Select·Emp
 종류의 함정**이다 — 이름으로 집으면 화면이 달라진다. 다만 Figma effect style로도 발행돼 있어
 폐기는 breaking이며, DS-D-0014와 같은 절차가 필요하다. 지금은 리터럴 2px만 토큰으로 바꿔 두었다.
 
-**(2) gap registry 7순위 이하.** TextField/Input, EmptyState, Badge, Spinner/Progress,
-SidebarNavItem·AppTopBar, Slider, SegmentedControl, Checkbox, SelectableListRow.
+**(2) gap registry 8순위 이하.** ~~TextField/Input~~(7순위, `done` 2026-08-16 — Web `partial`,
+Figma `partial`), EmptyState, Badge, Spinner/Progress, SidebarNavItem·AppTopBar, Slider,
+SegmentedControl, Checkbox, SelectableListRow.
+
+**(2b) 컨트롤 테두리의 정본이 정해지지 않았다.** Button secondary는 `color-border-control`(반투명),
+IconButton secondary는 `color-border-default`(불투명)를 쓴다. TextField는 Button을 따랐다. 셋 중
+하나가 틀렸거나 셋 다 맞고 이름이 부족한 것이며, 어느 쪽인지는 owner가 정해야 한다.
+
+**(2c) Textarea가 없다.** 제품에 여러 줄 입력이 최소 5벌 있다(노드 캔버스 프롬프트 계열). TextField와
+같은 박스 구조로 확장할 수 있다.
 
 **`DS-F-007-home`의 gap 72건은 다시 재야 한다.** 그 실측은 Figma에 Button 하나만 있을 때 한 것이고
 지금은 여덟이다. 재측정 전까지 72라는 숫자를 현재 상태로 인용하지 않는다.

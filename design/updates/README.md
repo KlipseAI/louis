@@ -8,6 +8,60 @@ authority: normative
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
 
+## 2026-08-17 (4) — keyframe이 무엇을 애니메이션하는지 게이트가 본다
+
+Skeleton을 짓기 전에 실측을 했더니 **제가 두 커밋 전에 만든 문제**가 나왔다.
+[DS-D-0017](../governance/decisions/DS-D-0017-keyframe-contract.md).
+
+### 규범은 있는데 게이트가 없었다
+
+motion.md는 "선언되지 않은 property를 component가 임의로 animation하지 않는다"를 규범으로 두었다.
+**그것을 검사하는 것이 없었다.** 검증되는 것은 토큰 선언의 모양뿐이고 저작 CSS의 `@keyframes`
+본문은 아무도 읽지 않았다.
+
+그래서 **이미 둘이 어긋나 있었다** — Toast는 선언이 `transform`인데 `translate`를, Tooltip은
+`scale`을 애니메이션했다. 둘 다 `transform`의 **개별 속성**이며 CSS에서 별개 property다.
+새 게이트를 세우자 **첫 실행에서 그 둘을 잡았다.**
+
+### `motion-loop`는 이름이 너무 넓었다
+
+[DS-D-0016](../governance/decisions/DS-D-0016-loop-motion.md)이 700ms·linear를 **회전 22벌만 보고**
+정했고 그 문서가 스스로 그렇게 적었다. 자리표시 19벌을 재 보면 다르다.
+
+| 축 | 회전 | 자리표시 |
+| --- | --- | --- |
+| 주기 | 700ms (22벌 중 10) | **1.6s** (19벌 중 12). 700ms는 **하나도 없다** |
+| easing | `linear` (22/22) | 가감속 14 · 등속 5 |
+
+motion.md의 "easing은 등속이다"도 근거가 "가감속이 붙으면 회전이 맥박처럼 뛴다"였다 —
+**회전에만 성립하는 논거**를 loop 전체로 일반화한 것이다.
+
+- `motion-loop` → **`motion-spin`**(700ms · 등속). 회전 전용임을 이름이 말한다
+- **`motion-shimmer`**(1.6s · `easing-standard`) 신설. 자리표시용
+- 등속 규칙을 회전에 한정했다
+
+`motion-shimmer`의 easing이 제품의 `cubic-bezier(0.4, 0, 0.2, 1)`이 아닌 이유는 제품의 자리표시
+easing이 9/5/5로 갈려 **정본이 없기** 때문이다. 근사한 곡선을 새로 세우기보다 이미 있는 표준
+곡선을 쓴다.
+
+### 허용 property를 실제에 맞췄다
+
+- enter/exit — `opacity`·`transform`에 개별 속성 `translate`·`scale`·`rotate`를 더했다
+- loop — `background-position`을 더했다. 합성 축이 아니라 DS-D-0016의 "transform 축을 통째로
+  잡지 않는다"는 논거에 걸리지 않는다. `transform` shorthand는 **여전히 거부**되며 카나리아가
+  그것을 확인한다
+
+### 카나리아 3종
+
+저작 규칙 카나리아가 9종에서 12종이 됐다 — 선언되지 않은 property, motion 토큰에 연결되지 않은
+keyframe, loop에서의 `transform` 거부.
+
+### 왜 Skeleton보다 이것이 먼저인가
+
+제품 자리표시의 우세 기법은 `background-position` 이동(19벌 중 12)이다. 그대로 지었으면
+**게이트는 전부 초록인 채로 규범을 위반**했을 것이다 — Badge의 죽은 축이 게이트를 통과했던 것과
+같은 구조다.
+
 ## 2026-08-17 (3) — Spinner
 
 카탈로그 10순위다. 직전에 세운 loop lifecycle이 이것을 위한 선행 작업이었다.

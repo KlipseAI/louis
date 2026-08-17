@@ -45,12 +45,12 @@ test("spinner의 loop recipe가 토큰에서 온다", async () => {
   const style = getComputedStyle(spinner);
 
   // 리터럴이던 자리다. 토큰을 바꾸면 여기가 따라와야 한다.
-  const duration = __KDS_REDUCED_MOTION__ ? "motion-reduced-duration" : "motion-loop-duration";
+  const duration = __KDS_REDUCED_MOTION__ ? "motion-reduced-duration" : "motion-spin-duration";
   expect(ms(style.animationDuration), "duration이 토큰에서 온다").toBe(ms(tokenValue(duration)));
 
   // easing은 reduced에서도 loop 것을 유지한다 — 멈추는 것은 iteration이지 곡선이 아니다.
   expect(style.animationTimingFunction, "등속이다").toBe(
-    tokenValue("motion-loop-timing-function"),
+    tokenValue("motion-spin-timing-function"),
   );
   expect(style.animationName, "keyframe이 붙어 있다").not.toBe("none");
 });
@@ -79,10 +79,15 @@ test("reduced-motion에서 회전이 멈추고 진행은 aria가 남긴다", asy
   ).not.toBeNull();
 });
 
-test("loop duration이 700ms다", () => {
+test("spin duration이 700ms다", () => {
   // 제품의 우세값이다(회전 22벌 중 10벌). 이전 DS의 1s는 제품 어디와도 일치하지 않았다.
-  expect(tokenValue("motion-loop-duration")).toBe("700ms");
-  expect(tokenValue("motion-loop-timing-function")).toBe("cubic-bezier(0, 0, 1, 1)");
+  expect(tokenValue("motion-spin-duration")).toBe("700ms");
+  expect(tokenValue("motion-spin-timing-function")).toBe("cubic-bezier(0, 0, 1, 1)");
+  // DS-D-0017 — 자리표시는 다른 recipe다. 회전의 700ms·등속을 쓰지 않는다.
+  expect(tokenValue("motion-shimmer-duration")).toBe("1600ms");
+  expect(tokenValue("motion-shimmer-timing-function")).not.toBe(
+    tokenValue("motion-spin-timing-function"),
+  );
 });
 
 export type _EnsureTsx = JSX.Element;

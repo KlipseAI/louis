@@ -202,8 +202,8 @@
   border-radius: var(--kds-radius-pill);
   /* DS-D-0016 — loop lifecycle. button spinner와 같은 recipe다. */
   animation-name: kds-spin;
-  animation-duration: var(--kds-motion-loop-duration);
-  animation-timing-function: var(--kds-motion-loop-timing-function);
+  animation-duration: var(--kds-motion-spin-duration);
+  animation-timing-function: var(--kds-motion-spin-timing-function);
   animation-iteration-count: infinite;
 }
 

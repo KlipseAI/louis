@@ -263,7 +263,15 @@ Project Card가 모두 Web `partial`이고 docs `done`이다. Input·Select·Emp
 
 - **determinate 진행률** — 제품 2벌이 두께·색·전환이 셋 다 다르다. `role="progressbar"`는 저장소
   전체에 1곳, `<progress>`는 0곳이다. 접근성 계약부터 정해야 한다
-- **스켈레톤 15벌** · **텍스트 쉬머 11벌** — 같은 loop lifecycle을 쓰되 축이 다르다
+- **스켈레톤과 텍스트 쉬머** — 재실측(2026-08-17)으로 수가 늘었다. 자리표시 정의 **32벌**
+  (면 계열 19 + 텍스트 쉬머 13), 로딩용 keyframe **12종**, 기법 **5갈래**. 앞선 조사의
+  "15벌 · 4종 · 3기법"은 전부 과소집계였다. 우세 기법은 면 그라디언트 `background-position`
+  이동이고 그 8개 소비처 중 6개가 바이트 동일하다. **선행 작업은 끝났다**(DS-D-0017) —
+  `motion-shimmer`와 `background-position` 허용이 섰다
+- **면 색이 문제다.** 제품은 면/하이라이트를 전경색 알파 2단(다크 6%/12%, 라이트 3%/7%)으로
+  만드는데, DS에서 집을 두 조합이 각각 한 테마에서 죽는다 — `background-inset`은 **다크에서
+  surface·menu·overlay와 넷이 동일**하고, `background-raised`는 **라이트에서 surface·overlay와
+  셋이 동일**하다. Badge의 죽은 축과 같은 종류이며 Skeleton을 짓기 전에 판정이 필요하다
 
 아래는 해소된 기록이다. 실측은 끝났다(약 62벌). 실측은 끝났고(약 62벌 — 회전 22 ·
 스켈레톤 15 · 진행률 5 · 텍스트 쉬머 11), 막고 있던 셋을 [DS-D-0016](decisions/DS-D-0016-loop-motion.md)이
@@ -287,6 +295,15 @@ Project Card가 모두 Web `partial`이고 docs `done`이다. Input·Select·Emp
   루프 토큰을 만들면 짝이 필수인데 `0ms + infinite`는 의미가 성립하지 않는다
 - 허용 property가 `opacity`·`transform` 둘뿐인데 기존 스피너 둘은 개별 속성 `rotate`를
   애니메이션한다 — 선언과 실제가 어긋난다
+
+**(1d) `select`가 계획에 없다 — 판정이 필요하다.** manifest에 `not-ready`로 남아 있는 유일한
+component인데 **gap registry 우선순위 1~15 어디에도 없다.** 실측 이유가 있다 — 제품은 네이티브
+`<select>`를 3파일에서만 쓰고, 고르는 일은 대부분 트리거 + 메뉴 패널로 한다(`CustomDropdown`·
+`VideoModelMenu` 계열 9파일). DS에는 이미 `ActionMenu`와 `CompositePopover`가 있다.
+
+셋 중 하나를 골라야 한다 — (a) Select를 세운다, (b) "고르기는 Menu가 소유한다"로 정하고 manifest
+항목을 `not-planned`로 바꾼다, (c) 남겨 둔다. 지금처럼 계획 없이 `not-ready`로 두면 카탈로그가
+영원히 미완으로 읽힌다.
 
 **(2) gap registry 11순위 이하.** ~~TextField/Input~~(7순위) · ~~EmptyState~~(8순위) 모두
 `done`(2026-08-16 — Web `partial`, Figma `partial`). ~~Badge~~(9순위)도

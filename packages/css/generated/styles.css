@@ -412,8 +412,8 @@
   /* DS-D-0016 — loop lifecycle. 700ms는 제품의 우세값이고 linear는 제품 22벌이 전수
    일치하는 유일한 축이다. 가감속이 붙으면 회전이 맥박처럼 뛴다. */
   animation-name: kds-spin;
-  animation-duration: var(--kds-motion-loop-duration);
-  animation-timing-function: var(--kds-motion-loop-timing-function);
+  animation-duration: var(--kds-motion-spin-duration);
+  animation-timing-function: var(--kds-motion-spin-timing-function);
   animation-iteration-count: infinite;
 }
 
@@ -1122,8 +1122,8 @@
   border-radius: var(--kds-radius-pill);
   /* DS-D-0016 — loop lifecycle. button spinner와 같은 recipe다. */
   animation-name: kds-spin;
-  animation-duration: var(--kds-motion-loop-duration);
-  animation-timing-function: var(--kds-motion-loop-timing-function);
+  animation-duration: var(--kds-motion-spin-duration);
+  animation-timing-function: var(--kds-motion-spin-timing-function);
   animation-iteration-count: infinite;
 }
 
@@ -1575,7 +1575,7 @@
 /* Spinner — design/components/spinner.md
  *
  * 제품의 로딩 표현은 약 62벌이고 그중 회전 링만 **22벌**이다. 다만 이번에는 정본이 뚜렷하다 —
- * 공용 `LoadingSpinner`가 있고, 그 recipe가 `motion-loop`(700ms · linear)와 정확히 같다.
+ * 공용 `LoadingSpinner`가 있고, 그 recipe가 `motion-spin`(700ms · linear)와 정확히 같다.
  * 링 구조도 그대로 옮긴다.
  *
  * ## 링이 둘인 이유
@@ -1607,8 +1607,8 @@
   block-size: 16px;
   border-radius: var(--kds-radius-pill);
   animation-name: kds-spin;
-  animation-duration: var(--kds-motion-loop-duration);
-  animation-timing-function: var(--kds-motion-loop-timing-function);
+  animation-duration: var(--kds-motion-spin-duration);
+  animation-timing-function: var(--kds-motion-spin-timing-function);
   animation-iteration-count: infinite;
 }
 

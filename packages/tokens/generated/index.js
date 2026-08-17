@@ -83,28 +83,32 @@ export const metadata = Object.freeze({
       "motion": "motion-overlay-enter",
       "properties": [
         "opacity",
-        "transform"
+        "translate",
+        "scale"
       ]
     },
     {
       "motion": "motion-overlay-exit",
       "properties": [
         "opacity",
-        "transform"
+        "translate",
+        "scale"
       ]
     },
     {
       "motion": "motion-modal-enter",
       "properties": [
         "opacity",
-        "transform"
+        "translate",
+        "scale"
       ]
     },
     {
       "motion": "motion-modal-exit",
       "properties": [
         "opacity",
-        "transform"
+        "translate",
+        "scale"
       ]
     },
     {
@@ -117,34 +121,43 @@ export const metadata = Object.freeze({
       "motion": "motion-tooltip-enter",
       "properties": [
         "opacity",
-        "transform"
+        "scale"
       ]
     },
     {
       "motion": "motion-tooltip-exit",
       "properties": [
         "opacity",
-        "transform"
+        "scale"
       ]
     },
     {
       "motion": "motion-menu-enter",
       "properties": [
         "opacity",
-        "transform"
+        "translate",
+        "scale"
       ]
     },
     {
       "motion": "motion-menu-exit",
       "properties": [
         "opacity",
-        "transform"
+        "translate",
+        "scale"
       ]
     },
     {
-      "motion": "motion-loop",
+      "motion": "motion-spin",
       "properties": [
-        "rotate",
+        "rotate"
+      ],
+      "lifecycle": "loop"
+    },
+    {
+      "motion": "motion-shimmer",
+      "properties": [
+        "background-position",
         "opacity"
       ],
       "lifecycle": "loop"
@@ -3648,49 +3661,6 @@ export const primitives = {
       "unit": "px"
     }
   },
-  "transition-loop": {
-    "aliasTarget": null,
-    "cssProperties": {},
-    "deprecated": null,
-    "description": null,
-    "id": "transition-loop",
-    "mode": "base",
-    "rawValue": {
-      "duration": {
-        "value": 700,
-        "unit": "ms"
-      },
-      "delay": {
-        "value": 0,
-        "unit": "ms"
-      },
-      "timingFunction": [
-        0,
-        0,
-        1,
-        1
-      ]
-    },
-    "sourcePath": "primitive.transition.loop",
-    "tier": "primitive",
-    "type": "transition",
-    "value": {
-      "duration": {
-        "value": 700,
-        "unit": "ms"
-      },
-      "delay": {
-        "value": 0,
-        "unit": "ms"
-      },
-      "timingFunction": [
-        0,
-        0,
-        1,
-        1
-      ]
-    }
-  },
   "transition-menu-enter": {
     "aliasTarget": null,
     "cssProperties": {},
@@ -3988,6 +3958,92 @@ export const primitives = {
         0.2,
         0,
         0,
+        1
+      ]
+    }
+  },
+  "transition-shimmer": {
+    "aliasTarget": null,
+    "cssProperties": {},
+    "deprecated": null,
+    "description": null,
+    "id": "transition-shimmer",
+    "mode": "base",
+    "rawValue": {
+      "duration": {
+        "value": 1600,
+        "unit": "ms"
+      },
+      "delay": {
+        "value": 0,
+        "unit": "ms"
+      },
+      "timingFunction": [
+        0.2,
+        0,
+        0,
+        1
+      ]
+    },
+    "sourcePath": "primitive.transition.shimmer",
+    "tier": "primitive",
+    "type": "transition",
+    "value": {
+      "duration": {
+        "value": 1600,
+        "unit": "ms"
+      },
+      "delay": {
+        "value": 0,
+        "unit": "ms"
+      },
+      "timingFunction": [
+        0.2,
+        0,
+        0,
+        1
+      ]
+    }
+  },
+  "transition-spin": {
+    "aliasTarget": null,
+    "cssProperties": {},
+    "deprecated": null,
+    "description": null,
+    "id": "transition-spin",
+    "mode": "base",
+    "rawValue": {
+      "duration": {
+        "value": 700,
+        "unit": "ms"
+      },
+      "delay": {
+        "value": 0,
+        "unit": "ms"
+      },
+      "timingFunction": [
+        0,
+        0,
+        1,
+        1
+      ]
+    },
+    "sourcePath": "primitive.transition.spin",
+    "tier": "primitive",
+    "type": "transition",
+    "value": {
+      "duration": {
+        "value": 700,
+        "unit": "ms"
+      },
+      "delay": {
+        "value": 0,
+        "unit": "ms"
+      },
+      "timingFunction": [
+        0,
+        0,
+        1,
         1
       ]
     }
@@ -5571,41 +5627,6 @@ export const tokens = {
         "unit": "px"
       }
     },
-    "motion-loop": {
-      "aliasTarget": {
-        "id": "transition-loop",
-        "mode": "base"
-      },
-      "cssProperties": {
-        "--kds-motion-loop-duration": "700ms",
-        "--kds-motion-loop-delay": "0ms",
-        "--kds-motion-loop-timing-function": "cubic-bezier(0, 0, 1, 1)"
-      },
-      "deprecated": null,
-      "description": null,
-      "id": "motion-loop",
-      "mode": "global",
-      "rawValue": "{primitive.transition.loop}",
-      "sourcePath": "semantic.global.motion.loop",
-      "tier": "semantic",
-      "type": "transition",
-      "value": {
-        "duration": {
-          "value": 700,
-          "unit": "ms"
-        },
-        "delay": {
-          "value": 0,
-          "unit": "ms"
-        },
-        "timingFunction": [
-          0,
-          0,
-          1,
-          1
-        ]
-      }
-    },
     "motion-menu-enter": {
       "aliasTarget": {
         "id": "transition-menu-enter",
@@ -5847,6 +5868,76 @@ export const tokens = {
           0.2,
           0,
           0,
+          1
+        ]
+      }
+    },
+    "motion-shimmer": {
+      "aliasTarget": {
+        "id": "transition-shimmer",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-motion-shimmer-duration": "1600ms",
+        "--kds-motion-shimmer-delay": "0ms",
+        "--kds-motion-shimmer-timing-function": "cubic-bezier(0.2, 0, 0, 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "motion-shimmer",
+      "mode": "global",
+      "rawValue": "{primitive.transition.shimmer}",
+      "sourcePath": "semantic.global.motion.shimmer",
+      "tier": "semantic",
+      "type": "transition",
+      "value": {
+        "duration": {
+          "value": 1600,
+          "unit": "ms"
+        },
+        "delay": {
+          "value": 0,
+          "unit": "ms"
+        },
+        "timingFunction": [
+          0.2,
+          0,
+          0,
+          1
+        ]
+      }
+    },
+    "motion-spin": {
+      "aliasTarget": {
+        "id": "transition-spin",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-motion-spin-duration": "700ms",
+        "--kds-motion-spin-delay": "0ms",
+        "--kds-motion-spin-timing-function": "cubic-bezier(0, 0, 1, 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "motion-spin",
+      "mode": "global",
+      "rawValue": "{primitive.transition.spin}",
+      "sourcePath": "semantic.global.motion.spin",
+      "tier": "semantic",
+      "type": "transition",
+      "value": {
+        "duration": {
+          "value": 700,
+          "unit": "ms"
+        },
+        "delay": {
+          "value": 0,
+          "unit": "ms"
+        },
+        "timingFunction": [
+          0,
+          0,
+          1,
           1
         ]
       }

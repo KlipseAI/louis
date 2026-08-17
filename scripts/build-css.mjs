@@ -28,6 +28,7 @@ const checkOnly = args.has("--check");
 const SOURCE_DIRECTORY = "packages/css/src";
 const OUTPUT_DIRECTORY = "packages/css/generated";
 const TOKEN_CSS = "packages/tokens/generated/tokens.css";
+const TOKEN_PROPOSAL = "packages/tokens/generated/figma.tokens.json";
 
 // layer 순서. 소비자 override가 항상 마지막에 오도록 kds.override를 끝에 둔다.
 const LAYERS = ["kds.reset", "kds.tokens", "kds.base", "kds.component", "kds.override"];
@@ -153,6 +154,75 @@ function lintTokenReferences(entries) {
   }
 }
 
+/**
+ * `@keyframes` 본문이 애니메이션하는 property가 **선언된 것인지** 확인한다 (DS-D-0017).
+ *
+ * motion.md는 "선언되지 않은 property를 component가 임의로 animation하지 않는다"를 규범으로
+ * 두었는데 그것을 보는 게이트가 없었다. 그래서 셋이 이미 어긋나 있었다 — toast는 선언이
+ * `transform`인데 `translate`를, tooltip은 `scale`을 애니메이션했고, 회전은 motion 토큰에
+ * 연결되지도 않은 채 `1s linear` 리터럴을 쓰고 있었다.
+ *
+ * **파일이 달라도 따라간다.** keyframe은 base.css에 있고 소비처는 컴포넌트 셋이다.
+ *
+ * **motion 토큰에 연결되지 않은 keyframe도 실패다.** 연결이 없으면 대조할 선언이 없고, 그것이
+ * 리터럴 duration이 게이트 밖에 있던 방식이다.
+ */
+function lintKeyframeContracts(entries, motionProperties) {
+  const declared = new Map(
+    motionProperties.map((entry) => [entry.motion, new Set(entry.properties)]),
+  );
+  const all = entries.map((entry) => entry.source).join("\n");
+
+  // keyframe 이름 -> 애니메이션되는 property 집합
+  const bodies = new Map();
+  for (const entry of entries) {
+    const stripped = stripComments(entry.source);
+    for (const match of stripped.matchAll(/@keyframes\s+([\w-]+)\s*\{([\s\S]*?)\n\}/g)) {
+      const properties = new Set(
+        [...match[2].matchAll(/^\s+([a-z-]+):/gm)].map((declaration) => declaration[1]),
+      );
+      bodies.set(match[1], { label: entry.label, properties });
+    }
+  }
+
+  // keyframe 이름 -> 그것을 참조하는 규칙이 쓰는 motion 토큰
+  const used = new Map();
+  for (const match of stripComments(all).matchAll(
+    /animation-name:\s*([\w-]+);([\s\S]*?)\n\s*\}/g,
+  )) {
+    const token = /--kds-(motion-[\w-]+)-duration/.exec(match[2]);
+    if (token === null) continue;
+    const set = used.get(match[1]) ?? new Set();
+    set.add(token[1]);
+    used.set(match[1], set);
+  }
+
+  for (const [name, body] of bodies) {
+    const motions = used.get(name);
+    if (motions === undefined || motions.size === 0) {
+      errors.push(
+        `${body.label}: @keyframes ${name}이 motion 토큰에 연결되지 않았습니다. ` +
+          `같은 규칙에서 animation-duration을 var(--kds-motion-*-duration)으로 지정하십시오.`,
+      );
+      continue;
+    }
+    for (const motion of [...motions].sort()) {
+      const allowed = declared.get(motion);
+      if (allowed === undefined) {
+        errors.push(`${body.label}: motionProperties에 없는 motion을 참조합니다: ${motion}`);
+        continue;
+      }
+      for (const property of [...body.properties].sort()) {
+        if (allowed.has(property)) continue;
+        errors.push(
+          `${body.label}: @keyframes ${name}이 ${motion}에 선언되지 않은 property를 ` +
+            `animation합니다: ${property} (선언된 것: ${[...allowed].sort().join(", ")})`,
+        );
+      }
+    }
+  }
+}
+
 // --- 생성 ----------------------------------------------------------------------
 const reset = read(`${SOURCE_DIRECTORY}/reset.css`);
 const base = read(`${SOURCE_DIRECTORY}/base.css`);
@@ -161,14 +231,19 @@ const components = componentSources();
 lintSource("reset.css", reset, { isReset: true });
 lintSource("base.css", base);
 for (const component of components) lintSource(component.path, component.source);
-lintTokenReferences([
+const lintEntries = [
   { label: "reset.css", source: reset },
   { label: "base.css", source: base },
   ...components.map((component) => ({
     label: component.path,
     source: component.source,
   })),
-]);
+];
+lintTokenReferences(lintEntries);
+lintKeyframeContracts(
+  lintEntries,
+  JSON.parse(read(TOKEN_PROPOSAL))["$extensions"]["com.klipse-design"].motionProperties,
+);
 
 const layersCss = `${GENERATED_NOTICE}@layer ${LAYERS.join(", ")};\n`;
 

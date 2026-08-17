@@ -1906,18 +1906,6 @@
           ]
         ],
         [
-          "motion/loop",
-          "STRING",
-          "",
-          [
-            [
-              "Global",
-              null,
-              "700ms cubic-bezier(0, 0, 1, 1) delay 0ms"
-            ]
-          ]
-        ],
-        [
           "motion/menu-enter",
           "STRING",
           "",
@@ -1998,6 +1986,30 @@
               "Global",
               null,
               "0ms cubic-bezier(0.2, 0, 0, 1) delay 0ms"
+            ]
+          ]
+        ],
+        [
+          "motion/shimmer",
+          "STRING",
+          "",
+          [
+            [
+              "Global",
+              null,
+              "1600ms cubic-bezier(0.2, 0, 0, 1) delay 0ms"
+            ]
+          ]
+        ],
+        [
+          "motion/spin",
+          "STRING",
+          "",
+          [
+            [
+              "Global",
+              null,
+              "700ms cubic-bezier(0, 0, 1, 1) delay 0ms"
             ]
           ]
         ],

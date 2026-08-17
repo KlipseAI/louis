@@ -6,12 +6,12 @@
     "capturedAt": "2026-08-17",
     "capturedBy": "figma-mcp-plugin-api",
     "published": false,
-    "tokenSourceSha256": "dc67b4815961bb1474c8804b98d33654ab0e1abd2efde63ee21e7313c72d20d5",
-    "proposalSha256": "662ff8652a1383a2734a05f4fb848dec2c2eb96612c4f48da6fa0ee004fdd4e5",
+    "tokenSourceSha256": "84efb12b3f4f65b1ea4586e46a2dd3a3586bda21a721d3a5388afdd20e1b2df7",
+    "proposalSha256": "a1b67b27efc94bbbfe4b883fbc1be64d974dfb085f0f6e208cc8108c1f1665e3",
     "readback": {
-      "tokens": 204,
-      "canonicalLength": 16924,
-      "fnv1a32": "29e94f70",
+      "tokens": 205,
+      "canonicalLength": 17017,
+      "fnv1a32": "c437e32d",
       "note": "변수는 readback.json의 되읽기 행을 tokenId 공간으로 옮긴 것이고, style과 component는 같은 되읽기의 style/component 절이다. canonical 해시는 컬렉션·이름·타입·mode 값을 정렬해 이은 문자열의 FNV-1a다.",
       "styles": {
         "text": 15,
@@ -38,7 +38,7 @@
         "Global"
       ],
       "defaultMode": "Global",
-      "variableCount": 52
+      "variableCount": 53
     },
     "Klipse Semantic Color": {
       "modes": [
@@ -1743,15 +1743,6 @@
         }
       }
     },
-    "motion-loop": {
-      "figmaName": "motion/loop",
-      "resolvedType": "STRING",
-      "valuesByMode": {
-        "Global": {
-          "value": "700ms cubic-bezier(0, 0, 1, 1) delay 0ms"
-        }
-      }
-    },
     "motion-menu-enter": {
       "figmaName": "motion/menu-enter",
       "resolvedType": "STRING",
@@ -1812,6 +1803,24 @@
       "valuesByMode": {
         "Global": {
           "value": "0ms cubic-bezier(0.2, 0, 0, 1) delay 0ms"
+        }
+      }
+    },
+    "motion-shimmer": {
+      "figmaName": "motion/shimmer",
+      "resolvedType": "STRING",
+      "valuesByMode": {
+        "Global": {
+          "value": "1600ms cubic-bezier(0.2, 0, 0, 1) delay 0ms"
+        }
+      }
+    },
+    "motion-spin": {
+      "figmaName": "motion/spin",
+      "resolvedType": "STRING",
+      "valuesByMode": {
+        "Global": {
+          "value": "700ms cubic-bezier(0, 0, 1, 1) delay 0ms"
         }
       }
     },

@@ -2,23 +2,23 @@
   "artifacts": [
     {
       "path": "packages/tokens/generated/figma.tokens.json",
-      "sha256": "662ff8652a1383a2734a05f4fb848dec2c2eb96612c4f48da6fa0ee004fdd4e5"
+      "sha256": "a1b67b27efc94bbbfe4b883fbc1be64d974dfb085f0f6e208cc8108c1f1665e3"
     },
     {
       "path": "packages/tokens/generated/index.d.ts",
-      "sha256": "e09400ff9fcc89bc80cdc9441c32882f41138f0318fd6cc8d876b24c653e0540"
+      "sha256": "00a94818ad9cca55cc32ff8902f796c1512bdbfcf2bbffc72ecb432aea0a3051"
     },
     {
       "path": "packages/tokens/generated/index.js",
-      "sha256": "ed6d6df3edb0a3143f871e000afa490ce7bb7addd6766e82894e651cd01ac01a"
+      "sha256": "e70c77a00cd8f6b1e24fb654b0480012876b5cd8f63f4b7891fa1ccbb4dc00ef"
     },
     {
       "path": "packages/tokens/generated/tokens.css",
-      "sha256": "c586bb9f697942081dc723a5d8fa5be4c780c84611ad5bbed9e0652e1600f171"
+      "sha256": "35f65e07dbec0da3119f67a7e73985908c18f09e7c8b53b3332441d7bdbf7e70"
     },
     {
       "path": "packages/tokens/generated/tokens.json",
-      "sha256": "f6130902e3824d6bfe3b2daa7a4bc18226c9962be9a9672a76f1f2d90a2045f2"
+      "sha256": "9342330ccdc1ac3e9367931643a2172f6b71dab5ad7e944dff7e21180b7a9178"
     }
   ],
   "contrastPairs": [
@@ -104,28 +104,32 @@
       "motion": "motion-overlay-enter",
       "properties": [
         "opacity",
-        "transform"
+        "translate",
+        "scale"
       ]
     },
     {
       "motion": "motion-overlay-exit",
       "properties": [
         "opacity",
-        "transform"
+        "translate",
+        "scale"
       ]
     },
     {
       "motion": "motion-modal-enter",
       "properties": [
         "opacity",
-        "transform"
+        "translate",
+        "scale"
       ]
     },
     {
       "motion": "motion-modal-exit",
       "properties": [
         "opacity",
-        "transform"
+        "translate",
+        "scale"
       ]
     },
     {
@@ -138,35 +142,44 @@
       "motion": "motion-tooltip-enter",
       "properties": [
         "opacity",
-        "transform"
+        "scale"
       ]
     },
     {
       "motion": "motion-tooltip-exit",
       "properties": [
         "opacity",
-        "transform"
+        "scale"
       ]
     },
     {
       "motion": "motion-menu-enter",
       "properties": [
         "opacity",
-        "transform"
+        "translate",
+        "scale"
       ]
     },
     {
       "motion": "motion-menu-exit",
       "properties": [
         "opacity",
-        "transform"
+        "translate",
+        "scale"
       ]
     },
     {
       "lifecycle": "loop",
-      "motion": "motion-loop",
+      "motion": "motion-spin",
       "properties": [
-        "rotate",
+        "rotate"
+      ]
+    },
+    {
+      "lifecycle": "loop",
+      "motion": "motion-shimmer",
+      "properties": [
+        "background-position",
         "opacity"
       ]
     }
@@ -246,13 +259,13 @@
   },
   "source": {
     "path": "packages/tokens/src/klipse.tokens.json",
-    "sha256": "dc67b4815961bb1474c8804b98d33654ab0e1abd2efde63ee21e7313c72d20d5"
+    "sha256": "84efb12b3f4f65b1ea4586e46a2dd3a3586bda21a721d3a5388afdd20e1b2df7"
   },
   "themes": [
     "light",
     "dark"
   ],
-  "tokenCount": 307,
+  "tokenCount": 309,
   "tokens": [
     {
       "aliasTarget": null,
@@ -5449,41 +5462,6 @@
     },
     {
       "aliasTarget": {
-        "id": "transition-loop",
-        "mode": "base"
-      },
-      "cssProperties": {
-        "--kds-motion-loop-delay": "0ms",
-        "--kds-motion-loop-duration": "700ms",
-        "--kds-motion-loop-timing-function": "cubic-bezier(0, 0, 1, 1)"
-      },
-      "deprecated": null,
-      "description": null,
-      "id": "motion-loop",
-      "mode": "global",
-      "rawValue": "{primitive.transition.loop}",
-      "resolvedValue": {
-        "delay": {
-          "unit": "ms",
-          "value": 0
-        },
-        "duration": {
-          "unit": "ms",
-          "value": 700
-        },
-        "timingFunction": [
-          0,
-          0,
-          1,
-          1
-        ]
-      },
-      "sourcePath": "semantic.global.motion.loop",
-      "tier": "semantic",
-      "type": "transition"
-    },
-    {
-      "aliasTarget": {
         "id": "transition-menu-enter",
         "mode": "base"
       },
@@ -5724,6 +5702,76 @@
         ]
       },
       "sourcePath": "semantic.global.motion.reduced",
+      "tier": "semantic",
+      "type": "transition"
+    },
+    {
+      "aliasTarget": {
+        "id": "transition-shimmer",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-motion-shimmer-delay": "0ms",
+        "--kds-motion-shimmer-duration": "1600ms",
+        "--kds-motion-shimmer-timing-function": "cubic-bezier(0.2, 0, 0, 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "motion-shimmer",
+      "mode": "global",
+      "rawValue": "{primitive.transition.shimmer}",
+      "resolvedValue": {
+        "delay": {
+          "unit": "ms",
+          "value": 0
+        },
+        "duration": {
+          "unit": "ms",
+          "value": 1600
+        },
+        "timingFunction": [
+          0.2,
+          0,
+          0,
+          1
+        ]
+      },
+      "sourcePath": "semantic.global.motion.shimmer",
+      "tier": "semantic",
+      "type": "transition"
+    },
+    {
+      "aliasTarget": {
+        "id": "transition-spin",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-motion-spin-delay": "0ms",
+        "--kds-motion-spin-duration": "700ms",
+        "--kds-motion-spin-timing-function": "cubic-bezier(0, 0, 1, 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "motion-spin",
+      "mode": "global",
+      "rawValue": "{primitive.transition.spin}",
+      "resolvedValue": {
+        "delay": {
+          "unit": "ms",
+          "value": 0
+        },
+        "duration": {
+          "unit": "ms",
+          "value": 700
+        },
+        "timingFunction": [
+          0,
+          0,
+          1,
+          1
+        ]
+      },
+      "sourcePath": "semantic.global.motion.spin",
       "tier": "semantic",
       "type": "transition"
     },
@@ -7498,49 +7546,6 @@
       "cssProperties": {},
       "deprecated": null,
       "description": null,
-      "id": "transition-loop",
-      "mode": "base",
-      "rawValue": {
-        "delay": {
-          "unit": "ms",
-          "value": 0
-        },
-        "duration": {
-          "unit": "ms",
-          "value": 700
-        },
-        "timingFunction": [
-          0,
-          0,
-          1,
-          1
-        ]
-      },
-      "resolvedValue": {
-        "delay": {
-          "unit": "ms",
-          "value": 0
-        },
-        "duration": {
-          "unit": "ms",
-          "value": 700
-        },
-        "timingFunction": [
-          0,
-          0,
-          1,
-          1
-        ]
-      },
-      "sourcePath": "primitive.transition.loop",
-      "tier": "primitive",
-      "type": "transition"
-    },
-    {
-      "aliasTarget": null,
-      "cssProperties": {},
-      "deprecated": null,
-      "description": null,
       "id": "transition-menu-enter",
       "mode": "base",
       "rawValue": {
@@ -7834,6 +7839,92 @@
         ]
       },
       "sourcePath": "primitive.transition.reduced",
+      "tier": "primitive",
+      "type": "transition"
+    },
+    {
+      "aliasTarget": null,
+      "cssProperties": {},
+      "deprecated": null,
+      "description": null,
+      "id": "transition-shimmer",
+      "mode": "base",
+      "rawValue": {
+        "delay": {
+          "unit": "ms",
+          "value": 0
+        },
+        "duration": {
+          "unit": "ms",
+          "value": 1600
+        },
+        "timingFunction": [
+          0.2,
+          0,
+          0,
+          1
+        ]
+      },
+      "resolvedValue": {
+        "delay": {
+          "unit": "ms",
+          "value": 0
+        },
+        "duration": {
+          "unit": "ms",
+          "value": 1600
+        },
+        "timingFunction": [
+          0.2,
+          0,
+          0,
+          1
+        ]
+      },
+      "sourcePath": "primitive.transition.shimmer",
+      "tier": "primitive",
+      "type": "transition"
+    },
+    {
+      "aliasTarget": null,
+      "cssProperties": {},
+      "deprecated": null,
+      "description": null,
+      "id": "transition-spin",
+      "mode": "base",
+      "rawValue": {
+        "delay": {
+          "unit": "ms",
+          "value": 0
+        },
+        "duration": {
+          "unit": "ms",
+          "value": 700
+        },
+        "timingFunction": [
+          0,
+          0,
+          1,
+          1
+        ]
+      },
+      "resolvedValue": {
+        "delay": {
+          "unit": "ms",
+          "value": 0
+        },
+        "duration": {
+          "unit": "ms",
+          "value": 700
+        },
+        "timingFunction": [
+          0,
+          0,
+          1,
+          1
+        ]
+      },
+      "sourcePath": "primitive.transition.spin",
       "tier": "primitive",
       "type": "transition"
     },

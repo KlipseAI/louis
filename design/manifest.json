@@ -626,6 +626,15 @@
       "generated": false
     },
     {
+      "id": "decision-keyframe-contract",
+      "path": "design/governance/decisions/DS-D-0017-keyframe-contract.md",
+      "title": "DS-D-0017 keyframe이 애니메이션하는 property를 게이트가 본다",
+      "section": "governance",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
+    },
+    {
       "id": "updates-overview",
       "path": "design/updates/README.md",
       "title": "Updates",
@@ -772,6 +781,7 @@
         "design/governance/decisions/DS-D-0014-card-radius.md",
         "design/governance/decisions/DS-D-0015-stack-spacing.md",
         "design/governance/decisions/DS-D-0016-loop-motion.md",
+        "design/governance/decisions/DS-D-0017-keyframe-contract.md",
         "design/updates/README.md"
       ]
     }

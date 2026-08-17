@@ -122,28 +122,32 @@
           "motion": "motion-overlay-enter",
           "properties": [
             "opacity",
-            "transform"
+            "translate",
+            "scale"
           ]
         },
         {
           "motion": "motion-overlay-exit",
           "properties": [
             "opacity",
-            "transform"
+            "translate",
+            "scale"
           ]
         },
         {
           "motion": "motion-modal-enter",
           "properties": [
             "opacity",
-            "transform"
+            "translate",
+            "scale"
           ]
         },
         {
           "motion": "motion-modal-exit",
           "properties": [
             "opacity",
-            "transform"
+            "translate",
+            "scale"
           ]
         },
         {
@@ -156,34 +160,43 @@
           "motion": "motion-tooltip-enter",
           "properties": [
             "opacity",
-            "transform"
+            "scale"
           ]
         },
         {
           "motion": "motion-tooltip-exit",
           "properties": [
             "opacity",
-            "transform"
+            "scale"
           ]
         },
         {
           "motion": "motion-menu-enter",
           "properties": [
             "opacity",
-            "transform"
+            "translate",
+            "scale"
           ]
         },
         {
           "motion": "motion-menu-exit",
           "properties": [
             "opacity",
-            "transform"
+            "translate",
+            "scale"
           ]
         },
         {
-          "motion": "motion-loop",
+          "motion": "motion-spin",
           "properties": [
-            "rotate",
+            "rotate"
+          ],
+          "lifecycle": "loop"
+        },
+        {
+          "motion": "motion-shimmer",
+          "properties": [
+            "background-position",
             "opacity"
           ],
           "lifecycle": "loop"
@@ -2739,7 +2752,7 @@
           }
         }
       },
-      "loop": {
+      "spin": {
         "$value": {
           "duration": {
             "value": 700,
@@ -2758,7 +2771,7 @@
         },
         "$extensions": {
           "com.klipse-design": {
-            "id": "transition-loop",
+            "id": "transition-spin",
             "tier": "primitive"
           }
         }
@@ -2951,6 +2964,30 @@
         "$extensions": {
           "com.klipse-design": {
             "id": "transition-menu-exit",
+            "tier": "primitive"
+          }
+        }
+      },
+      "shimmer": {
+        "$value": {
+          "duration": {
+            "value": 1600,
+            "unit": "ms"
+          },
+          "delay": {
+            "value": 0,
+            "unit": "ms"
+          },
+          "timingFunction": [
+            0.2,
+            0,
+            0,
+            1
+          ]
+        },
+        "$extensions": {
+          "com.klipse-design": {
+            "id": "transition-shimmer",
             "tier": "primitive"
           }
         }
@@ -3510,16 +3547,6 @@
             }
           }
         },
-        "loop": {
-          "$value": "{primitive.transition.loop}",
-          "$extensions": {
-            "com.klipse-design": {
-              "id": "motion-loop",
-              "tier": "semantic",
-              "mode": "global"
-            }
-          }
-        },
         "reduced": {
           "$value": "{primitive.transition.reduced}",
           "$extensions": {
@@ -3565,6 +3592,26 @@
           "$extensions": {
             "com.klipse-design": {
               "id": "motion-menu-exit",
+              "tier": "semantic",
+              "mode": "global"
+            }
+          }
+        },
+        "spin": {
+          "$value": "{primitive.transition.spin}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "motion-spin",
+              "tier": "semantic",
+              "mode": "global"
+            }
+          }
+        },
+        "shimmer": {
+          "$value": "{primitive.transition.shimmer}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "motion-shimmer",
               "tier": "semantic",
               "mode": "global"
             }

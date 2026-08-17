@@ -45,10 +45,15 @@ Motion primitive와 semantic recipe는 단일 DTCG source 안의 논리적 계�
   전하지 않는다. 위의 "지속 시간을 가장하지 않는다"와 충돌하지 않는 이유가 이것이다 — 그 문장이
   금지하는 것은 진행률을 시간으로 위장하는 것이고, 주기는 진행률이 아니다.
   진행률을 아는 작업에는 loop가 아니라 determinate 표시를 쓴다.
-- **easing은 등속이다.** 가감속이 붙으면 회전이 맥박처럼 뛰어 "무언가 일어나는 중"이 아니라
-  "무언가 잘못됨"으로 읽힌다. `motion-loop`가 그 recipe를 소유한다.
-- 허용 property는 `rotate`와 `opacity`다. `transform` 전체가 아니라 개별 속성 `rotate`인 이유는
-  `scale`·`translate`와 합성되기 때문이다 — 회전 하나 때문에 transform 축을 통째로 잡지 않는다.
+- **회전의 easing은 등속이다.** 가감속이 붙으면 회전이 맥박처럼 뛰어 "무언가 일어나는 중"이 아니라
+  "무언가 잘못됨"으로 읽힌다. `motion-spin`이 그 recipe를 소유한다. **이 규칙은 회전에만 적용된다**
+  — 자리표시의 쓸림에는 가감속이 맞으며 제품도 그렇게 쓴다([DS-D-0017](../governance/decisions/DS-D-0017-keyframe-contract.md)).
+- loop recipe는 둘이다. `motion-spin`(700ms · 등속)과 `motion-shimmer`(1.6s · standard).
+- 허용 property는 `opacity`·`rotate`·`background-position`이다. `transform` 전체를 넣지 않는 이유는
+  개별 속성이 `scale`·`translate`와 합성되기 때문이다 — 회전 하나 때문에 transform 축을 통째로
+  잡지 않는다. `background-position`은 합성 축이 아니라 같은 논거에 걸리지 않는다.
+- **`@keyframes` 본문이 애니메이션하는 property를 게이트가 읽는다.** 선언과 실제가 어긋나면
+  빌드가 실패한다. motion 토큰에 연결되지 않은 keyframe도 실패다.
 - **loop는 `reducedMotionPairs`의 대상이 아니다.** 아래 Reduced motion을 본다.
 
 ## Reduced motion

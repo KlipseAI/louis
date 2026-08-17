@@ -88,28 +88,32 @@
           "motion": "motion-overlay-enter",
           "properties": [
             "opacity",
-            "transform"
+            "translate",
+            "scale"
           ]
         },
         {
           "motion": "motion-overlay-exit",
           "properties": [
             "opacity",
-            "transform"
+            "translate",
+            "scale"
           ]
         },
         {
           "motion": "motion-modal-enter",
           "properties": [
             "opacity",
-            "transform"
+            "translate",
+            "scale"
           ]
         },
         {
           "motion": "motion-modal-exit",
           "properties": [
             "opacity",
-            "transform"
+            "translate",
+            "scale"
           ]
         },
         {
@@ -122,35 +126,44 @@
           "motion": "motion-tooltip-enter",
           "properties": [
             "opacity",
-            "transform"
+            "scale"
           ]
         },
         {
           "motion": "motion-tooltip-exit",
           "properties": [
             "opacity",
-            "transform"
+            "scale"
           ]
         },
         {
           "motion": "motion-menu-enter",
           "properties": [
             "opacity",
-            "transform"
+            "translate",
+            "scale"
           ]
         },
         {
           "motion": "motion-menu-exit",
           "properties": [
             "opacity",
-            "transform"
+            "translate",
+            "scale"
           ]
         },
         {
           "lifecycle": "loop",
-          "motion": "motion-loop",
+          "motion": "motion-spin",
           "properties": [
-            "rotate",
+            "rotate"
+          ]
+        },
+        {
+          "lifecycle": "loop",
+          "motion": "motion-shimmer",
+          "properties": [
+            "background-position",
             "opacity"
           ]
         }
@@ -4853,60 +4866,6 @@
             }
           }
         },
-        "transition-loop": {
-          "$type": "transition",
-          "fields": [
-            "delay",
-            "duration",
-            "timingFunction"
-          ],
-          "figmaName": "transition/loop",
-          "hiddenFromPublishing": true,
-          "losses": [
-            "primitive transition은 Figma에 만들지 않습니다. Figma에는 style→style alias가 없어 semantic→primitive tier 관계를 보존할 수 없습니다 (DS-D-0007)."
-          ],
-          "nativeVariableType": null,
-          "representation": "unrepresented",
-          "scopes": [],
-          "valuesByMode": {
-            "Base": {
-              "$value": {
-                "delay": {
-                  "unit": "ms",
-                  "value": 0
-                },
-                "duration": {
-                  "unit": "ms",
-                  "value": 700
-                },
-                "timingFunction": [
-                  0,
-                  0,
-                  1,
-                  1
-                ]
-              },
-              "aliasTarget": null,
-              "resolvedValue": {
-                "delay": {
-                  "unit": "ms",
-                  "value": 0
-                },
-                "duration": {
-                  "unit": "ms",
-                  "value": 700
-                },
-                "timingFunction": [
-                  0,
-                  0,
-                  1,
-                  1
-                ]
-              },
-              "sourcePath": "primitive.transition.loop"
-            }
-          }
-        },
         "transition-menu-enter": {
           "$type": "transition",
           "fields": [
@@ -5282,6 +5241,114 @@
                 ]
               },
               "sourcePath": "primitive.transition.reduced"
+            }
+          }
+        },
+        "transition-shimmer": {
+          "$type": "transition",
+          "fields": [
+            "delay",
+            "duration",
+            "timingFunction"
+          ],
+          "figmaName": "transition/shimmer",
+          "hiddenFromPublishing": true,
+          "losses": [
+            "primitive transition은 Figma에 만들지 않습니다. Figma에는 style→style alias가 없어 semantic→primitive tier 관계를 보존할 수 없습니다 (DS-D-0007)."
+          ],
+          "nativeVariableType": null,
+          "representation": "unrepresented",
+          "scopes": [],
+          "valuesByMode": {
+            "Base": {
+              "$value": {
+                "delay": {
+                  "unit": "ms",
+                  "value": 0
+                },
+                "duration": {
+                  "unit": "ms",
+                  "value": 1600
+                },
+                "timingFunction": [
+                  0.2,
+                  0,
+                  0,
+                  1
+                ]
+              },
+              "aliasTarget": null,
+              "resolvedValue": {
+                "delay": {
+                  "unit": "ms",
+                  "value": 0
+                },
+                "duration": {
+                  "unit": "ms",
+                  "value": 1600
+                },
+                "timingFunction": [
+                  0.2,
+                  0,
+                  0,
+                  1
+                ]
+              },
+              "sourcePath": "primitive.transition.shimmer"
+            }
+          }
+        },
+        "transition-spin": {
+          "$type": "transition",
+          "fields": [
+            "delay",
+            "duration",
+            "timingFunction"
+          ],
+          "figmaName": "transition/spin",
+          "hiddenFromPublishing": true,
+          "losses": [
+            "primitive transition은 Figma에 만들지 않습니다. Figma에는 style→style alias가 없어 semantic→primitive tier 관계를 보존할 수 없습니다 (DS-D-0007)."
+          ],
+          "nativeVariableType": null,
+          "representation": "unrepresented",
+          "scopes": [],
+          "valuesByMode": {
+            "Base": {
+              "$value": {
+                "delay": {
+                  "unit": "ms",
+                  "value": 0
+                },
+                "duration": {
+                  "unit": "ms",
+                  "value": 700
+                },
+                "timingFunction": [
+                  0,
+                  0,
+                  1,
+                  1
+                ]
+              },
+              "aliasTarget": null,
+              "resolvedValue": {
+                "delay": {
+                  "unit": "ms",
+                  "value": 0
+                },
+                "duration": {
+                  "unit": "ms",
+                  "value": 700
+                },
+                "timingFunction": [
+                  0,
+                  0,
+                  1,
+                  1
+                ]
+              },
+              "sourcePath": "primitive.transition.spin"
             }
           }
         },
@@ -7288,48 +7355,6 @@
             }
           }
         },
-        "motion-loop": {
-          "$type": "transition",
-          "fields": [
-            "delay",
-            "duration",
-            "timingFunction"
-          ],
-          "figmaName": "motion/loop",
-          "hiddenFromPublishing": false,
-          "losses": [
-            "DTCG transition은 Figma가 해석하지 않는 문서용 STRING 변수로 격하됩니다."
-          ],
-          "nativeVariableType": "STRING",
-          "representation": "variable-documentation",
-          "scopes": [],
-          "valuesByMode": {
-            "Global": {
-              "$value": "{primitive.transition.loop}",
-              "aliasTarget": {
-                "id": "transition-loop",
-                "mode": "base"
-              },
-              "resolvedValue": {
-                "delay": {
-                  "unit": "ms",
-                  "value": 0
-                },
-                "duration": {
-                  "unit": "ms",
-                  "value": 700
-                },
-                "timingFunction": [
-                  0,
-                  0,
-                  1,
-                  1
-                ]
-              },
-              "sourcePath": "semantic.global.motion.loop"
-            }
-          }
-        },
         "motion-menu-enter": {
           "$type": "transition",
           "fields": [
@@ -7621,6 +7646,90 @@
                 ]
               },
               "sourcePath": "semantic.global.motion.reduced"
+            }
+          }
+        },
+        "motion-shimmer": {
+          "$type": "transition",
+          "fields": [
+            "delay",
+            "duration",
+            "timingFunction"
+          ],
+          "figmaName": "motion/shimmer",
+          "hiddenFromPublishing": false,
+          "losses": [
+            "DTCG transition은 Figma가 해석하지 않는 문서용 STRING 변수로 격하됩니다."
+          ],
+          "nativeVariableType": "STRING",
+          "representation": "variable-documentation",
+          "scopes": [],
+          "valuesByMode": {
+            "Global": {
+              "$value": "{primitive.transition.shimmer}",
+              "aliasTarget": {
+                "id": "transition-shimmer",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "delay": {
+                  "unit": "ms",
+                  "value": 0
+                },
+                "duration": {
+                  "unit": "ms",
+                  "value": 1600
+                },
+                "timingFunction": [
+                  0.2,
+                  0,
+                  0,
+                  1
+                ]
+              },
+              "sourcePath": "semantic.global.motion.shimmer"
+            }
+          }
+        },
+        "motion-spin": {
+          "$type": "transition",
+          "fields": [
+            "delay",
+            "duration",
+            "timingFunction"
+          ],
+          "figmaName": "motion/spin",
+          "hiddenFromPublishing": false,
+          "losses": [
+            "DTCG transition은 Figma가 해석하지 않는 문서용 STRING 변수로 격하됩니다."
+          ],
+          "nativeVariableType": "STRING",
+          "representation": "variable-documentation",
+          "scopes": [],
+          "valuesByMode": {
+            "Global": {
+              "$value": "{primitive.transition.spin}",
+              "aliasTarget": {
+                "id": "transition-spin",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "delay": {
+                  "unit": "ms",
+                  "value": 0
+                },
+                "duration": {
+                  "unit": "ms",
+                  "value": 700
+                },
+                "timingFunction": [
+                  0,
+                  0,
+                  1,
+                  1
+                ]
+              },
+              "sourcePath": "semantic.global.motion.spin"
             }
           }
         },

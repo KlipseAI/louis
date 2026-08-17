@@ -91,10 +91,10 @@ test("loop recipe가 토큰에서 온다", async () => {
 
   const expected = __KDS_REDUCED_MOTION__
     ? root.getPropertyValue("--kds-motion-reduced-duration")
-    : root.getPropertyValue("--kds-motion-loop-duration");
+    : root.getPropertyValue("--kds-motion-spin-duration");
   expect(ms(style.animationDuration), "duration").toBe(ms(expected));
   expect(style.animationTimingFunction, "등속").toBe(
-    root.getPropertyValue("--kds-motion-loop-timing-function").trim(),
+    root.getPropertyValue("--kds-motion-spin-timing-function").trim(),
   );
   // **이름 하나에 본문 하나.** button·menu·spinner가 같은 keyframe을 쓴다.
   expect(style.animationName, "공용 keyframe").toBe("kds-spin");

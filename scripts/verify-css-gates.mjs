@@ -153,6 +153,35 @@ withCanary(
   "존재하지 않는 토큰을 참조합니다",
 );
 
+// DS-D-0017 — keyframe 본문이 선언된 property만 애니메이션하는지. 이 검사가 없던 동안 toast는
+// `translate`를, tooltip은 `scale`을 선언 없이 애니메이션하고 있었고 게이트는 전부 초록이었다.
+withCanary(
+  BASE,
+  (source) =>
+    `${source}\n.kds-canary { animation-name: kds-canary-spin; animation-duration: var(--kds-motion-spin-duration); }\n` +
+    `@keyframes kds-canary-spin {\n  to {\n    left: 10px;\n  }\n}\n`,
+  "keyframe undeclared property",
+  "선언되지 않은 property를",
+);
+
+// motion 토큰에 연결되지 않은 keyframe. `1s linear` 리터럴이 게이트 밖에 있던 방식이다.
+withCanary(
+  BASE,
+  (source) => `${source}\n@keyframes kds-canary-orphan {\n  to {\n    opacity: 1;\n  }\n}\n`,
+  "keyframe without motion token",
+  "motion 토큰에 연결되지 않았습니다",
+);
+
+// **면제가 좁은지 본다.** loop에 transform은 여전히 거부되어야 한다 (DS-D-0016의 논거).
+withCanary(
+  BASE,
+  (source) =>
+    `${source}\n.kds-canary { animation-name: kds-canary-transform; animation-duration: var(--kds-motion-spin-duration); }\n` +
+    `@keyframes kds-canary-transform {\n  to {\n    transform: rotate(360deg);\n  }\n}\n`,
+  "loop rejects transform shorthand",
+  "선언되지 않은 property를",
+);
+
 withCanary(
   "packages/css/generated/styles.css",
   (source) => `${source}\n.kds-drift { color: red; }\n`,

@@ -859,7 +859,28 @@ Project Card가 모두 Web `partial`이고 docs `done`이다. Input·Select·Emp
 `childOrder`, 프로그레시브 램프 유도, float32 허용치, text style 면제를 붙이고 canary를 26→33종으로
 늘렸다. Project Card는 `figma: partial`이다.
 
-**(1b) `elevation-focus-ring`의 소비처가 0이다 — owner 결정이 필요하다.** 이름은 focus ring인데
+**(1a) 소비처 0인 semantic 토큰이 41/132다 — 전수 감사(2026-08-17).** 셋으로 갈린다.
+
+| 갈래 | 수 | 판정 |
+| --- | ---: | --- |
+| **컴포넌트를 기다리는 중** | 28 | 정상이다. `color-status-{info,success,warning}-*`는 Badge가, `layout-app-shell-*`는 AppTopBar가, `layout-project-*`는 Project Grid 패턴이 소비한다. 미사용 typography weight도 여기다 |
+| **구조상 참조될 일이 없다** | 9 | `motion-*-delay` 8종은 전부 0ms이고 CSS는 delay를 생략한다. `layer-content`(0)도 같다 |
+| **이름이 가리키는 것이 그 이름을 안 쓴다** | **4** | 아래. `radius-card`·`elevation-focus-ring`과 같은 종류다 |
+
+넷은 이렇다.
+
+- **`elevation-popover`** — `.kds-popover`는 action-menu와 composite-popover **둘 다**
+  `elevation-menu`를 쓴다. popover라는 이름의 토큰을 popover가 안 쓴다
+- **`elevation-focus-ring`** — 실제 링은 `outline`이고 이 토큰은 box-shadow `0 0 0 3px` 파랑 42%다
+- **`blur-panel`**(12px) — 흐림을 쓰는 둘(Toast·ProjectCard)이 모두 `blur-surface`(10px)를 쓴다
+- **`color-border-strong`** — light·dark 모두 neutral.500. 테두리 세 종(`control`·`default`·
+  `subtle`) 중 어느 것도 이것을 쓰지 않는다
+
+**넷 다 Figma 변수나 effect style로 발행돼 있어 폐기가 breaking이다.** DS-D-0014와 같은 절차가
+필요하며 owner 결정이다. "기다리는 중"과 "이름이 틀린 것"을 가르는 것이 이 감사의 값이다 —
+전자는 두면 되고 후자는 다음 사람이 집으면 화면이 달라진다.
+
+**(1b) 위 넷 중 `elevation-focus-ring`은 이미 한 번 걸렸다.** 이름은 focus ring인데
 실제 focus ring은 `outline: var(--kds-border-width-ring) solid var(--kds-color-border-focus)`이고
 그 토큰(box-shadow `0 0 0 3px` 파랑 42%)은 아무 데서도 쓰이지 않는다. `radius-card`와 **같은
 종류의 함정**이다 — 이름으로 집으면 화면이 달라진다. 다만 Figma effect style로도 발행돼 있어

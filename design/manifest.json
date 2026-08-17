@@ -293,6 +293,15 @@
       "generated": false
     },
     {
+      "id": "component-badge",
+      "path": "design/components/badge.md",
+      "title": "Badge",
+      "section": "components",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
+    },
+    {
       "id": "component-dialog",
       "path": "design/components/dialog.md",
       "title": "Dialog",
@@ -678,6 +687,7 @@
         "design/components/project-card.md",
         "design/components/text-field.md",
         "design/components/empty-state.md",
+        "design/components/badge.md",
         "design/components/dialog.md"
       ]
     },
@@ -859,6 +869,17 @@
       "note": "public export 10종과 실브라우저 acceptance test 6건. 값은 제품 정의 4벌의 정본을 옮긴 것이다. 프로그레시브 블러의 첫 소비처이며, parity 게이트가 자손 기하·타이포·흐림·자식 순서를 대조한다. 구조는 제품과 다르다 — 프레임은 div이고 클릭 타깃이 카드 전체를 덮는 형제다",
       "doc": "design/components/project-card.md",
       "figmaName": "ProjectCard"
+    },
+    {
+      "id": "badge",
+      "name": "Badge",
+      "maturity": "experimental",
+      "figma": "partial",
+      "web": "partial",
+      "docs": "done",
+      "note": "public export, Figma component set 5 variant(Tone), parity 게이트가 Label을 자손으로 대조한다. 실브라우저 acceptance test 7건. 제품에 정의가 65벌이고 공용 구현은 0이다. gap registry의 '톤 4 + 상태 5'는 둘 다 틀렸다 — 네 톤 클래스의 선언이 바이트 단위로 같고, 앱 홈 4변형의 색이 전부 같은 변수를 가리킨다. 새 토큰 없이 기존 토큰에 맞는 기하를 골랐다. 알약(999px) 증감·개수 칩은 별도 컴포넌트이며 아직 없다",
+      "doc": "design/components/badge.md",
+      "figmaName": "Badge"
     }
   ],
   "patterns": [

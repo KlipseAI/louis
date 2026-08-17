@@ -259,9 +259,21 @@ Project Card가 모두 Web `partial`이고 docs `done`이다. Input·Select·Emp
 종류의 함정**이다 — 이름으로 집으면 화면이 달라진다. 다만 Figma effect style로도 발행돼 있어
 폐기는 breaking이며, DS-D-0014와 같은 절차가 필요하다. 지금은 리터럴 2px만 토큰으로 바꿔 두었다.
 
-**(2) gap registry 9순위 이하.** ~~TextField/Input~~(7순위) · ~~EmptyState~~(8순위) 모두
-`done`(2026-08-16 — Web `partial`, Figma `partial`). 남은 것은 Badge, Spinner/Progress,
-SidebarNavItem·AppTopBar, Slider, SegmentedControl, Checkbox, SelectableListRow.
+**(1c) Spinner/Progress(10순위)는 규범 확장이 선행된다.** 실측은 끝났다(약 62벌 — 회전 22 ·
+스켈레톤 15 · 진행률 5 · 텍스트 쉬머 11). 막는 것은 셋이다.
+
+- [motion.md](../foundations/motion.md)가 **무한 반복을 다루지 않는다.** 소유 목적을
+  enter/exit/layout-change로 한정해 두었고, 무한이 등장하는 유일한 문장은 P3/P5 게이트의
+  "reduced-motion에서 무한 shimmer가 제거된다" 하나이며 아직 `not-ready`다
+- `scripts/lib/token-model.mjs`가 semantic transition 토큰 전량에 reduced-motion 짝을 강제한다.
+  루프 토큰을 만들면 짝이 필수인데 `0ms + infinite`는 의미가 성립하지 않는다
+- 허용 property가 `opacity`·`transform` 둘뿐인데 기존 스피너 둘은 개별 속성 `rotate`를
+  애니메이션한다 — 선언과 실제가 어긋난다
+
+**(2) gap registry 11순위 이하.** ~~TextField/Input~~(7순위) · ~~EmptyState~~(8순위) 모두
+`done`(2026-08-16 — Web `partial`, Figma `partial`). ~~Badge~~(9순위)도
+`done`(2026-08-17). 남은 것은 Spinner/Progress(위 1c 참조), SidebarNavItem·AppTopBar, Slider,
+SegmentedControl, Checkbox, SelectableListRow.
 
 **(2b) 컨트롤 테두리의 정본이 정해지지 않았다.** Button secondary는 `color-border-control`(반투명),
 IconButton secondary는 `color-border-default`(불투명)를 쓴다. TextField는 Button을 따랐다. 셋 중

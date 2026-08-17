@@ -3,7 +3,7 @@
   "provenance": {
     "figmaFileKey": "bxGEp0km5zluMJGulaTvFW",
     "figmaFileName": "Klipse Design System — Library",
-    "capturedAt": "2026-08-16",
+    "capturedAt": "2026-08-17",
     "capturedBy": "figma-mcp-plugin-api",
     "published": false,
     "tokenSourceSha256": "8d6a40fa252b30c43db6507b92251780f9e2d5331100288be9505b55ea355fc6",
@@ -18,8 +18,8 @@
         "effect": 7
       },
       "components": {
-        "sets": 10,
-        "variants": 105
+        "sets": 11,
+        "variants": 110
       },
       "icons": 26,
       "templates": 1
@@ -2570,6 +2570,73 @@
     "note": "semantic tier 이름으로만 생성한다. primitive type-style-*/shadow-*는 Figma 미표현(DS-D-0007)."
   },
   "components": {
+    "Badge": {
+      "tokenId": "badge",
+      "variantCount": 5,
+      "hasDescription": true,
+      "properties": {
+        "Tone": {
+          "type": "VARIANT",
+          "options": [
+            "neutral",
+            "success",
+            "warning",
+            "danger",
+            "info"
+          ]
+        }
+      },
+      "binding": {
+        "boundFills": 10,
+        "rawFills": 0,
+        "boundStrokes": 0,
+        "rawStrokes": 0,
+        "textStyled": 5,
+        "textUnstyled": 0
+      },
+      "geometry": {
+        "base": {
+          "slots": {},
+          "parts": {
+            "Label": {
+              "fontSize": [
+                12
+              ],
+              "lineHeightPercent": [
+                150
+              ]
+            }
+          },
+          "strokeWeight": [],
+          "height": [
+            26
+          ],
+          "paddingBlock": [
+            4
+          ],
+          "paddingBlockEnd": [
+            4
+          ],
+          "paddingInline": [
+            8
+          ],
+          "paddingInlineEnd": [
+            8
+          ],
+          "itemSpacing": [
+            4
+          ],
+          "cornerRadius": [
+            8
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ]
+        }
+      },
+      "strokes": {},
+      "effects": {}
+    },
     "Button": {
       "tokenId": "button",
       "variantCount": 40,

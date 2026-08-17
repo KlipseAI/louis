@@ -346,6 +346,34 @@ const COMPONENT_CONTRACTS = [
     },
   },
   {
+    id: "badge",
+    figmaName: "Badge",
+    declaration: "packages/react/dist/badge/badge.d.ts",
+    variantProperties: { Tone: "BadgeTone" },
+    // **테두리를 쓰지 않는 것이 계약이다.** tone마다 border 토큰이 필요한데 danger에만 있다.
+    strokes: {},
+    effects: {},
+    geometry: {
+      measuredId: "badge",
+      sizeKey: "base",
+      fields: {
+        height: "height",
+        paddingBlock: "paddingBlock",
+        paddingBlockEnd: "paddingBlock",
+        paddingInline: "paddingInline",
+        paddingInlineEnd: "paddingInline",
+        itemSpacing: "gap",
+        cornerRadius: "radius",
+        layoutMode: { literal: "HORIZONTAL" },
+      },
+      slots: {},
+      extraStrokeWeights: [],
+      parts: {
+        Label: { fields: { fontSize: "fontSize" } },
+      },
+    },
+  },
+  {
     id: "empty-state",
     figmaName: "EmptyState",
     declaration: "packages/react/dist/empty-state/empty-state.d.ts",

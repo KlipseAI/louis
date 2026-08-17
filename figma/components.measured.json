@@ -566,6 +566,60 @@
         }
       },
       "$statesNote": "상태 축이 없다. 제품 9벌 중 hover·focus·disabled를 스스로 갖는 것이 0벌이고, 빈 상태는 대화형 요소가 아니다. 그 안의 CTA가 자기 상태를 갖는다."
+    },
+    "badge": {
+      "$doc": "design/components/badge.md",
+      "$source": "packages/react/src/badge/badge.tsx, packages/css/src/component/badge.css",
+      "$note": "제품에 배지 계열 정의가 65벌 있고 공용 구현은 0이다. 반경 7갈래·세로 여백 7갈래로 흩어져 단일 정본이 없다. 상태 배지의 대표(highlightSceneStyles.ts:760)를 골랐고 그 여백 4/8과 반경 8이 기존 토큰에 정확히 맞는다. 알약(999px) 무리는 증감·개수를 담는 다른 물건이라 여기 축으로 접지 않았다. 폭은 라벨이 정하므로 계약에 두지 않는다.",
+      "sizes": {
+        "base": {
+          "height": 26,
+          "paddingBlock": 4,
+          "paddingInline": 8,
+          "gap": 4,
+          "radius": 8,
+          "borderWidth": 0,
+          "fontSize": 12,
+          "lineHeight": 18,
+          "$height": "padding 4+4 + line-height 18(12×1.5) = 26. 테두리가 없다",
+          "$radius": "radius-control-sm 8. 제품 상태 배지와 같다 — 알약이 아니다",
+          "$gap": "space-control-xs 4. 아이콘/점과 라벨 사이",
+          "$borderWidth": "0. 면과 글자로만 tone을 전달한다"
+        }
+      },
+      "states": {
+        "neutral": {
+          "Default": {
+            "background": "color-background-inset",
+            "foreground": "color-foreground-secondary"
+          }
+        },
+        "success": {
+          "Default": {
+            "background": "color-status-success-background",
+            "foreground": "color-status-success-foreground"
+          }
+        },
+        "warning": {
+          "Default": {
+            "background": "color-status-warning-background",
+            "foreground": "color-status-warning-foreground"
+          }
+        },
+        "danger": {
+          "Default": {
+            "background": "color-status-danger-background",
+            "foreground": "color-status-danger-foreground"
+          }
+        },
+        "info": {
+          "Default": {
+            "background": "color-status-info-background",
+            "foreground": "color-status-info-foreground"
+          }
+        }
+      },
+      "$statesNote": "상태 축이 없다 — 배지는 대화형이 아니라 hover·focus·press를 갖지 않는다. tone이 variant 축이고 각 tone은 Default 하나뿐이다. status 네 쌍은 contrastPairs에 minimum 4.5로 선언돼 있고 실측 9.09~11.98이다."
     }
   },
   "$states": "variant × state마다 **어느 토큰을 무는가**. 개수가 아니라 정체를 고정한다. 이 표가 없던 동안 primary 배경을 danger 변수에 물려도 boundFills 수치가 그대로라 게이트가 통과했다. 값은 token id이며 Figma 변수 이름으로의 변환은 게이트가 생성 proposal의 figmaName으로 한다 — 여기에 Figma 이름을 적으면 정본이 둘이 된다. 코드 쪽 검증은 packages/react/test/component-states.browser.test.tsx가 계산값과 대조한다.",

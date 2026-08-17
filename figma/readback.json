@@ -1,6 +1,6 @@
 {
   "$comment": "GENERATED EVIDENCE — Figma Plugin API 되읽기 원본. 손으로 수정하지 않는다. 재생성 절차는 scripts/build-figma-snapshot.mjs 헤더에 있다.",
-  "capturedAt": "2026-08-16",
+  "capturedAt": "2026-08-17",
   "capturedBy": "figma-mcp-plugin-api",
   "figmaFileKey": "bxGEp0km5zluMJGulaTvFW",
   "figmaFileName": "Klipse Design System — Library",
@@ -4330,6 +4330,72 @@
               ]
             }
           }
+        }
+      },
+      "strokes": {},
+      "effects": {}
+    },
+    "Badge": {
+      "variantCount": 5,
+      "hasDescription": true,
+      "properties": {
+        "Tone": {
+          "type": "VARIANT",
+          "options": [
+            "neutral",
+            "success",
+            "warning",
+            "danger",
+            "info"
+          ]
+        }
+      },
+      "binding": {
+        "boundFills": 10,
+        "rawFills": 0,
+        "boundStrokes": 0,
+        "rawStrokes": 0,
+        "textStyled": 5,
+        "textUnstyled": 0
+      },
+      "geometry": {
+        "base": {
+          "slots": {},
+          "parts": {
+            "Label": {
+              "fontSize": [
+                12
+              ],
+              "lineHeightPercent": [
+                150
+              ]
+            }
+          },
+          "strokeWeight": [],
+          "height": [
+            26
+          ],
+          "paddingBlock": [
+            4
+          ],
+          "paddingBlockEnd": [
+            4
+          ],
+          "paddingInline": [
+            8
+          ],
+          "paddingInlineEnd": [
+            8
+          ],
+          "itemSpacing": [
+            4
+          ],
+          "cornerRadius": [
+            8
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ]
         }
       },
       "strokes": {},

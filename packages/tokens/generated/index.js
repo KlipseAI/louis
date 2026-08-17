@@ -140,6 +140,14 @@ export const metadata = Object.freeze({
         "opacity",
         "transform"
       ]
+    },
+    {
+      "motion": "motion-loop",
+      "properties": [
+        "rotate",
+        "opacity"
+      ],
+      "lifecycle": "loop"
     }
   ],
   "reducedMotionPairs": [
@@ -1969,6 +1977,29 @@ export const primitives = {
       1
     ]
   },
+  "easing-linear": {
+    "aliasTarget": null,
+    "cssProperties": {},
+    "deprecated": null,
+    "description": null,
+    "id": "easing-linear",
+    "mode": "base",
+    "rawValue": [
+      0,
+      0,
+      1,
+      1
+    ],
+    "sourcePath": "primitive.easing.linear",
+    "tier": "primitive",
+    "type": "cubicBezier",
+    "value": [
+      0,
+      0,
+      1,
+      1
+    ]
+  },
   "easing-standard": {
     "aliasTarget": null,
     "cssProperties": {},
@@ -3615,6 +3646,49 @@ export const primitives = {
     "value": {
       "value": 8,
       "unit": "px"
+    }
+  },
+  "transition-loop": {
+    "aliasTarget": null,
+    "cssProperties": {},
+    "deprecated": null,
+    "description": null,
+    "id": "transition-loop",
+    "mode": "base",
+    "rawValue": {
+      "duration": {
+        "value": 700,
+        "unit": "ms"
+      },
+      "delay": {
+        "value": 0,
+        "unit": "ms"
+      },
+      "timingFunction": [
+        0,
+        0,
+        1,
+        1
+      ]
+    },
+    "sourcePath": "primitive.transition.loop",
+    "tier": "primitive",
+    "type": "transition",
+    "value": {
+      "duration": {
+        "value": 700,
+        "unit": "ms"
+      },
+      "delay": {
+        "value": 0,
+        "unit": "ms"
+      },
+      "timingFunction": [
+        0,
+        0,
+        1,
+        1
+      ]
     }
   },
   "transition-menu-enter": {
@@ -5495,6 +5569,41 @@ export const tokens = {
       "value": {
         "value": 12,
         "unit": "px"
+      }
+    },
+    "motion-loop": {
+      "aliasTarget": {
+        "id": "transition-loop",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-motion-loop-duration": "700ms",
+        "--kds-motion-loop-delay": "0ms",
+        "--kds-motion-loop-timing-function": "cubic-bezier(0, 0, 1, 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "motion-loop",
+      "mode": "global",
+      "rawValue": "{primitive.transition.loop}",
+      "sourcePath": "semantic.global.motion.loop",
+      "tier": "semantic",
+      "type": "transition",
+      "value": {
+        "duration": {
+          "value": 700,
+          "unit": "ms"
+        },
+        "delay": {
+          "value": 0,
+          "unit": "ms"
+        },
+        "timingFunction": [
+          0,
+          0,
+          1,
+          1
+        ]
       }
     },
     "motion-menu-enter": {

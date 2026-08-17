@@ -30,7 +30,21 @@ export const SUPPORTED_TOKEN_TYPES = Object.freeze([
 
 const supportedTypeSet = new Set(SUPPORTED_TOKEN_TYPES);
 const motionTypeSet = new Set(["duration", "cubicBezier", "transition"]);
-const allowedMotionProperties = new Set(["opacity", "transform"]);
+/**
+ * lifecycle마다 허용되는 CSS property (DS-D-0016).
+ *
+ * loop에 `transform`이 아니라 `rotate`가 있는 이유 — 개별 속성 `rotate`는 `scale`·`translate`와
+ * 합성되므로 회전 하나 때문에 transform 축을 통째로 잡지 않는다. 반대로 enter/exit은 위치와
+ * 크기를 함께 움직이므로 `transform`이 맞다.
+ */
+const MOTION_LIFECYCLES = new Set(["enter", "exit", "loop"]);
+const allowedMotionPropertiesByLifecycle = {
+  enter: new Set(["opacity", "transform"]),
+  exit: new Set(["opacity", "transform"]),
+  loop: new Set(["opacity", "rotate"]),
+};
+const motionLifecycleOf = (entry) =>
+  typeof entry?.lifecycle === "string" ? entry.lifecycle : "enter";
 const groupReservedProperties = new Set([
   "$description",
   "$extensions",
@@ -1296,13 +1310,22 @@ function validateReducedMotion(config, tokenByIdMode, issues) {
       issues.push(`${label}: reduced motion이 원본보다 길 수 없습니다.`);
     }
   }
+  // **loop는 reduce 짝을 갖지 않는다 (DS-D-0016).** reduced-motion에서 loop는 짧아지는 것이 아니라
+  // 사라지며, `0ms`짜리 애니메이션을 무한 반복하는 것은 성립하지 않는다. 그 대체는 duration
+  // 토큰이 아니라 component의 `animation-iteration-count: 1`과 aria-busy가 소유한다.
+  const loopMotions = new Set(
+    (config.motionProperties ?? [])
+      .filter((entry) => isPlainObject(entry) && entry.lifecycle === "loop")
+      .map((entry) => entry.motion),
+  );
   for (const token of tokenByIdMode.values()) {
     if (
       token.tier === "semantic" &&
       token.mode === "global" &&
       token.type === "transition" &&
       !reducedTargets.has(token.id) &&
-      !motions.has(token.id)
+      !motions.has(token.id) &&
+      !loopMotions.has(token.id)
     ) {
       issues.push(
         `reducedMotionPairs에 transition이 누락되었습니다: ${token.id}`,
@@ -1324,7 +1347,20 @@ function validateMotionPropertyShape(entries, issues) {
       issues.push(`${itemLabel}은 object여야 합니다.`);
       continue;
     }
-    requireExactProperties(entry, ["motion", "properties"], itemLabel, issues);
+    // `lifecycle`은 선택이다 — 없으면 enter/exit로 본다. 기존 항목이 그대로 통과한다.
+    requireExactProperties(
+      entry,
+      entry.lifecycle === undefined
+        ? ["motion", "properties"]
+        : ["motion", "properties", "lifecycle"],
+      itemLabel,
+      issues,
+    );
+    if (entry.lifecycle !== undefined && !MOTION_LIFECYCLES.has(entry.lifecycle)) {
+      issues.push(
+        `${itemLabel}.lifecycle은 ${[...MOTION_LIFECYCLES].join("|")} 중 하나여야 합니다: ${String(entry.lifecycle)}`,
+      );
+    }
     if (!isValidTokenId(entry.motion))
       issues.push(`${itemLabel}.motion id가 잘못되었습니다.`);
     if (seenMotions.has(entry.motion))
@@ -1334,11 +1370,15 @@ function validateMotionPropertyShape(entries, issues) {
       issues.push(`${itemLabel}.properties는 non-empty array여야 합니다.`);
       continue;
     }
+    const lifecycle = motionLifecycleOf(entry);
+    const allowed =
+      allowedMotionPropertiesByLifecycle[lifecycle] ??
+      allowedMotionPropertiesByLifecycle.enter;
     const seenProperties = new Set();
     for (const [propertyIndex, property] of entry.properties.entries()) {
-      if (!allowedMotionProperties.has(property)) {
+      if (!allowed.has(property)) {
         issues.push(
-          `${itemLabel}.properties[${propertyIndex}] 허용되지 않은 property: ${String(property)}`,
+          `${itemLabel}.properties[${propertyIndex}] ${lifecycle} lifecycle에 허용되지 않은 property: ${String(property)}`,
         );
       }
       if (seenProperties.has(property))

@@ -74,6 +74,9 @@
   --kds-layout-control-minimum-width-sm: 48px;
   --kds-layout-project-card-minimum: 240px;
   --kds-layout-project-grid-gap: 12px;
+  --kds-motion-loop-delay: 0ms;
+  --kds-motion-loop-duration: 700ms;
+  --kds-motion-loop-timing-function: cubic-bezier(0, 0, 1, 1);
   --kds-motion-menu-enter-delay: 0ms;
   --kds-motion-menu-enter-duration: 260ms;
   --kds-motion-menu-enter-timing-function: cubic-bezier(0.32, 0.72, 0, 1);

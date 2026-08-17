@@ -30,14 +30,33 @@ Motion primitive와 semantic recipe는 단일 DTCG source 안의 논리적 계�
 
 - primitive는 duration과 easing 재료를 소유한다.
 - semantic recipe는 overlay-enter, overlay-exit, modal-enter, modal-exit, layout-change처럼 목적을 소유한다.
-- Klipse `motionProperties` extension은 enter/exit lifecycle마다 duration, easing과 함께 허용 CSS property를
+- Klipse `motionProperties` extension은 lifecycle마다 duration, easing과 함께 허용 CSS property를
   선언한다. 선언되지 않은 property를 component가 임의로 animation하지 않는다.
+- lifecycle은 셋이다 — `enter`, `exit`, **`loop`**. 항목에 `lifecycle`이 없으면 enter/exit로 본다.
 - unmount timer와 interaction lock은 시각 transition과 같은 resolved recipe를 읽는다.
 - loading처럼 지속 시간이 작업 완료에 달린 상태를 고정 animation duration으로 가장하지 않는다.
 
+## Loop
+
+무한히 반복하는 motion이다. spinner의 회전, shimmer의 쓸림이 여기 속한다.
+[DS-D-0016](../governance/decisions/DS-D-0016-loop-motion.md)이 이 절을 세웠다.
+
+- **loop는 진행률을 말하지 않는다.** 한 바퀴의 주기일 뿐이며 얼마나 남았는지에 대해 아무것도
+  전하지 않는다. 위의 "지속 시간을 가장하지 않는다"와 충돌하지 않는 이유가 이것이다 — 그 문장이
+  금지하는 것은 진행률을 시간으로 위장하는 것이고, 주기는 진행률이 아니다.
+  진행률을 아는 작업에는 loop가 아니라 determinate 표시를 쓴다.
+- **easing은 등속이다.** 가감속이 붙으면 회전이 맥박처럼 뛰어 "무언가 일어나는 중"이 아니라
+  "무언가 잘못됨"으로 읽힌다. `motion-loop`가 그 recipe를 소유한다.
+- 허용 property는 `rotate`와 `opacity`다. `transform` 전체가 아니라 개별 속성 `rotate`인 이유는
+  `scale`·`translate`와 합성되기 때문이다 — 회전 하나 때문에 transform 축을 통째로 잡지 않는다.
+- **loop는 `reducedMotionPairs`의 대상이 아니다.** 아래 Reduced motion을 본다.
+
 ## Reduced motion
 
-- semantic recipe마다 `reduce` mode 또는 명시적인 대체가 있어야 한다.
+- enter/exit semantic recipe마다 `reduce` mode 또는 명시적인 대체가 있어야 한다.
+- **loop는 짧아지지 않고 사라진다.** `0ms`짜리 애니메이션을 무한 반복하는 것은 성립하지 않으므로
+  reduce 짝을 두지 않는다. 대신 loop를 쓰는 component는 `animation-iteration-count: 1`로 회전을
+  멈추고, **진행 중이라는 의미를 `aria-busy`나 텍스트로 남긴다.** 그것이 loop의 reduce 대체다.
 - 위치·크기·scale 기반 비필수 motion은 제거하거나 짧은 opacity/state change로 대체한다.
 - motion을 제거해도 open/closed, loading, success, error 의미가 텍스트와 상태로 남아야 한다.
 - reduced-motion에서도 focus 이동, scroll lock, inert와 unmount 순서는 동일하다.
@@ -71,3 +90,4 @@ P2 local RC는 아래의 구조·생성 검사를 자동화한다.
 
 - Dialog/Popover exit 완료와 unmount 시점이 같은 source를 사용한다.
 - `prefers-reduced-motion: reduce`에서 비필수 transform과 무한 shimmer가 제거된다.
+- loop를 쓰는 component가 reduce에서 회전을 멈추고 `aria-busy` 또는 텍스트로 진행을 남긴다.

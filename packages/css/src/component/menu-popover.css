@@ -200,7 +200,11 @@
   border: var(--kds-border-width-ring) solid currentColor;
   border-block-start-color: transparent;
   border-radius: var(--kds-radius-pill);
-  animation: kds-menu-spin 1s linear infinite;
+  /* DS-D-0016 — loop lifecycle. button spinner와 같은 recipe다. */
+  animation-name: kds-menu-spin;
+  animation-duration: var(--kds-motion-loop-duration);
+  animation-timing-function: var(--kds-motion-loop-timing-function);
+  animation-iteration-count: infinite;
 }
 
 @media (prefers-reduced-motion: reduce) {

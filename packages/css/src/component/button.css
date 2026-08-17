@@ -213,7 +213,12 @@
   border: var(--kds-border-width-ring) solid currentColor;
   border-block-start-color: transparent;
   border-radius: var(--kds-radius-pill);
-  animation: kds-button-spin 1s linear infinite;
+  /* DS-D-0016 — loop lifecycle. 700ms는 제품의 우세값이고 linear는 제품 22벌이 전수
+   일치하는 유일한 축이다. 가감속이 붙으면 회전이 맥박처럼 뛴다. */
+  animation-name: kds-button-spin;
+  animation-duration: var(--kds-motion-loop-duration);
+  animation-timing-function: var(--kds-motion-loop-timing-function);
+  animation-iteration-count: infinite;
 }
 
 @media (prefers-reduced-motion: reduce) {

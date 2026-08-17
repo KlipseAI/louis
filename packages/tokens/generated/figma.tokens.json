@@ -145,6 +145,14 @@
             "opacity",
             "transform"
           ]
+        },
+        {
+          "lifecycle": "loop",
+          "motion": "motion-loop",
+          "properties": [
+            "rotate",
+            "opacity"
+          ]
         }
       ],
       "proposalNotice": "REVIEW PROPOSAL — validate in Figma before publishing variables or styles.",
@@ -2597,6 +2605,36 @@
             }
           }
         },
+        "easing-linear": {
+          "$type": "cubicBezier",
+          "fields": [],
+          "figmaName": "easing/linear",
+          "hiddenFromPublishing": true,
+          "losses": [
+            "primitive cubicBezier은 Figma에 만들지 않습니다. Figma에는 style→style alias가 없어 semantic→primitive tier 관계를 보존할 수 없습니다 (DS-D-0007)."
+          ],
+          "nativeVariableType": null,
+          "representation": "unrepresented",
+          "scopes": [],
+          "valuesByMode": {
+            "Base": {
+              "$value": [
+                0,
+                0,
+                1,
+                1
+              ],
+              "aliasTarget": null,
+              "resolvedValue": [
+                0,
+                0,
+                1,
+                1
+              ],
+              "sourcePath": "primitive.easing.linear"
+            }
+          }
+        },
         "easing-standard": {
           "$type": "cubicBezier",
           "fields": [],
@@ -4812,6 +4850,60 @@
                 "value": 8
               },
               "sourcePath": "primitive.spacing.8"
+            }
+          }
+        },
+        "transition-loop": {
+          "$type": "transition",
+          "fields": [
+            "delay",
+            "duration",
+            "timingFunction"
+          ],
+          "figmaName": "transition/loop",
+          "hiddenFromPublishing": true,
+          "losses": [
+            "primitive transition은 Figma에 만들지 않습니다. Figma에는 style→style alias가 없어 semantic→primitive tier 관계를 보존할 수 없습니다 (DS-D-0007)."
+          ],
+          "nativeVariableType": null,
+          "representation": "unrepresented",
+          "scopes": [],
+          "valuesByMode": {
+            "Base": {
+              "$value": {
+                "delay": {
+                  "unit": "ms",
+                  "value": 0
+                },
+                "duration": {
+                  "unit": "ms",
+                  "value": 700
+                },
+                "timingFunction": [
+                  0,
+                  0,
+                  1,
+                  1
+                ]
+              },
+              "aliasTarget": null,
+              "resolvedValue": {
+                "delay": {
+                  "unit": "ms",
+                  "value": 0
+                },
+                "duration": {
+                  "unit": "ms",
+                  "value": 700
+                },
+                "timingFunction": [
+                  0,
+                  0,
+                  1,
+                  1
+                ]
+              },
+              "sourcePath": "primitive.transition.loop"
             }
           }
         },
@@ -7193,6 +7285,48 @@
                 "value": 12
               },
               "sourcePath": "semantic.global.layout.project-grid-gap"
+            }
+          }
+        },
+        "motion-loop": {
+          "$type": "transition",
+          "fields": [
+            "delay",
+            "duration",
+            "timingFunction"
+          ],
+          "figmaName": "motion/loop",
+          "hiddenFromPublishing": false,
+          "losses": [
+            "DTCG transition은 Figma가 해석하지 않는 문서용 STRING 변수로 격하됩니다."
+          ],
+          "nativeVariableType": "STRING",
+          "representation": "variable-documentation",
+          "scopes": [],
+          "valuesByMode": {
+            "Global": {
+              "$value": "{primitive.transition.loop}",
+              "aliasTarget": {
+                "id": "transition-loop",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "delay": {
+                  "unit": "ms",
+                  "value": 0
+                },
+                "duration": {
+                  "unit": "ms",
+                  "value": 700
+                },
+                "timingFunction": [
+                  0,
+                  0,
+                  1,
+                  1
+                ]
+              },
+              "sourcePath": "semantic.global.motion.loop"
             }
           }
         },

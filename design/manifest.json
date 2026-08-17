@@ -608,6 +608,15 @@
       "generated": false
     },
     {
+      "id": "decision-loop-motion",
+      "path": "design/governance/decisions/DS-D-0016-loop-motion.md",
+      "title": "DS-D-0016 무한 반복 motion에 lifecycle을 준다",
+      "section": "governance",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
+    },
+    {
       "id": "updates-overview",
       "path": "design/updates/README.md",
       "title": "Updates",
@@ -752,6 +761,7 @@
         "design/governance/decisions/DS-D-0013-tailwind-interop.md",
         "design/governance/decisions/DS-D-0014-card-radius.md",
         "design/governance/decisions/DS-D-0015-stack-spacing.md",
+        "design/governance/decisions/DS-D-0016-loop-motion.md",
         "design/updates/README.md"
       ]
     }

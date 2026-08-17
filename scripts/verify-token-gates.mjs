@@ -632,6 +632,26 @@ try {
       "left",
     );
   });
+  // DS-D-0016 — lifecycle마다 허용 property가 다르다. 면제가 검출력을 잃지 않았는지 본다.
+  expectModelFailure("motion-loop-property-contract", (document) => {
+    const entries = document.$extensions[KLIPSE_EXTENSION].motionProperties;
+    const loop = entries.find((entry) => entry.lifecycle === "loop");
+    // `transform`은 enter/exit에서는 허용이고 loop에서는 아니다.
+    loop.properties.push("transform");
+  });
+  expectModelFailure("motion-lifecycle-vocabulary", (document) => {
+    const entries = document.$extensions[KLIPSE_EXTENSION].motionProperties;
+    entries.find((entry) => entry.lifecycle === "loop").lifecycle = "forever";
+  });
+  // **loop 면제가 너무 넓지 않은지 본다.** lifecycle을 떼면 그 순간 reduced 짝이 다시 필수가 된다.
+  expectModelFailure("motion-loop-exemption-is-narrow", (document) => {
+    const entries = document.$extensions[KLIPSE_EXTENSION].motionProperties;
+    const loop = entries.find((entry) => entry.lifecycle === "loop");
+    delete loop.lifecycle;
+    // enter lifecycle에서는 rotate가 허용되지 않으므로 property도 바꿔 준다 — 이 카나리아가
+    // 확인하려는 것은 property가 아니라 **reducedMotionPairs 누락**이다.
+    loop.properties = ["opacity"];
+  });
   expectModelFailure("responsive-profile-contract", (document) => {
     document.$extensions[
       KLIPSE_EXTENSION

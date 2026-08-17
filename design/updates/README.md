@@ -8,6 +8,47 @@ authority: normative
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
 
+## 2026-08-17 (2) — 무한 반복 motion에 lifecycle을 준다
+
+Spinner를 세우기 전에 규범이 먼저 필요했다.
+[DS-D-0016](../governance/decisions/DS-D-0016-loop-motion.md).
+
+### 이미 있는 회전 둘이 게이트 밖에 있었다
+
+`motion.md`의 Token model이 소유 목적을 enter/exit/layout-change로 한정해 두어, Button과 Menu의
+spinner가 **어떤 게이트에도 잡히지 않았다.**
+
+- `animation: ... 1s linear infinite` — duration과 easing이 리터럴이라 토큰을 바꿔도 따라오지 않았다
+- keyframe이 `rotate`를 애니메이션하는데 `rotate`는 허용 property가 아니었다
+- reduced-motion에서 실제로 멈추는지 확인하는 테스트가 없었다
+
+### `loop`를 세 번째 lifecycle로 세웠다
+
+- `motionProperties` 항목에 선택적 `lifecycle` 필드 — `enter` | `exit` | **`loop`**.
+  생략하면 enter/exit로 본다(기존 9개 항목이 그대로 통과한다)
+- 허용 property가 lifecycle마다 다르다. loop는 `rotate`·`opacity`이고 `transform`이 아니다 —
+  개별 속성 `rotate`는 `scale`·`translate`와 합성되므로 회전 하나 때문에 transform 축을 통째로
+  잡지 않는다
+- **loop는 `reducedMotionPairs`의 대상이 아니다.** reduced에서 loop는 짧아지는 것이 아니라
+  사라지며, `0ms`짜리 애니메이션을 무한 반복하는 것은 성립하지 않는다. 대체는 duration 토큰이
+  아니라 component의 `animation-iteration-count: 1`과 `aria-busy`가 소유한다
+
+### `motion-loop` = 700ms · linear
+
+700ms는 제품의 우세값이다(회전 22벌 중 10벌). `linear`는 제품 22벌이 **전수 일치하는 유일한
+축**이다 — 가감속이 붙으면 회전이 맥박처럼 뛰어 "진행 중"이 아니라 "잘못됨"으로 읽힌다.
+
+Button과 Menu의 spinner가 1s에서 700ms로 바뀐다. 제품과 일치한다.
+
+### 면제가 넓지 않다는 것을 카나리아가 증명한다
+
+카나리아 3종을 붙였다(39 → 42). 그중 하나는 loop 항목에서 `lifecycle`만 떼는데, 그 순간
+`reducedMotionPairs에 transition이 누락되었습니다: motion-loop`로 실패한다 — 면제가 `lifecycle`에
+정확히 걸려 있고 그것을 빼면 다시 강제된다는 뜻이다.
+
+브라우저 테스트 3건이 두 motion context에서 각각 돈다. 회전이 토큰에서 오는지, reduced에서
+멈추는지, 멈추더라도 `aria`가 진행을 남기는지를 본다.
+
 ## 2026-08-17 — Badge, 그리고 죽은 축 둘
 
 카탈로그 9순위다. 제품에 배지 계열 정의가 **65벌**이고 공용 구현은 0이다.

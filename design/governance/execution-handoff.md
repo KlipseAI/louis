@@ -259,8 +259,20 @@ Project Card가 모두 Web `partial`이고 docs `done`이다. Input·Select·Emp
 종류의 함정**이다 — 이름으로 집으면 화면이 달라진다. 다만 Figma effect style로도 발행돼 있어
 폐기는 breaking이며, DS-D-0014와 같은 절차가 필요하다. 지금은 리터럴 2px만 토큰으로 바꿔 두었다.
 
-**(1c) Spinner/Progress(10순위)는 규범 확장이 선행된다.** 실측은 끝났다(약 62벌 — 회전 22 ·
-스켈레톤 15 · 진행률 5 · 텍스트 쉬머 11). 막는 것은 셋이다.
+**(1c) Spinner/Progress(10순위) — 선행 규범이 섰다(2026-08-17).** 실측은 끝났고(약 62벌 — 회전 22 ·
+스켈레톤 15 · 진행률 5 · 텍스트 쉬머 11), 막고 있던 셋을 [DS-D-0016](decisions/DS-D-0016-loop-motion.md)이
+풀었다 — `loop` lifecycle, `reducedMotionPairs` 면제, `rotate` 허용. `motion-loop`(700ms · linear)가
+서고 기존 spinner 둘이 그 토큰을 가리킨다. **이제 컴포넌트를 지을 수 있다.**
+
+지을 때의 입력.
+
+- 크기 단계가 없다. 제품 LoadingSpinner는 md 16 / sm 12이고 DS spinner는 `1em`(=18px)이다
+- 트랙 색이 없다. 제품은 `currentColor`를 0.22로 깐 링, DS는 위쪽 테두리만 비운다
+- 스켈레톤 15벌과 텍스트 쉬머 11벌은 **다른 컴포넌트**다. 같은 loop lifecycle을 쓰되 축이 다르다
+- 진행률(determinate) 2벌은 두께·색·전환이 셋 다 다르다. `role="progressbar"`는 저장소 전체에
+  1곳뿐이고 `<progress>`는 0곳이다
+
+아래는 해소된 기록이다.
 
 - [motion.md](../foundations/motion.md)가 **무한 반복을 다루지 않는다.** 소유 목적을
   enter/exit/layout-change로 한정해 두었고, 무한이 등장하는 유일한 문장은 P3/P5 게이트의

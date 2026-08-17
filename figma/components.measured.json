@@ -620,6 +620,44 @@
         }
       },
       "$statesNote": "상태 축이 없다 — 배지는 대화형이 아니라 hover·focus·press를 갖지 않는다. tone이 variant 축이고 각 tone은 Default 하나뿐이다. status 네 쌍은 contrastPairs에 minimum 4.5로 선언돼 있고 실측 9.09~11.98이다."
+    },
+    "spinner": {
+      "$doc": "design/components/spinner.md",
+      "$source": "packages/react/src/spinner/spinner.tsx, packages/css/src/component/spinner.css",
+      "$note": "제품의 로딩 표현은 약 62벌이고 회전 링만 22벌이지만 **정본이 뚜렷하다** — 공용 LoadingSpinner가 있고 그 recipe(700ms · linear)가 motion-loop와 정확히 같다. 링 구조(흐린 전체 링 + 한 조각 링)도 그대로 옮겼다.",
+      "sizes": {
+        "md": {
+          "width": 16,
+          "height": 16,
+          "ringWidth": 2,
+          "$width": "제품 LoadingSpinner md. 두 값이 이 컴포넌트에만 있어 토큰으로 승격하지 않았다",
+          "$ringWidth": "border-width-ring 2"
+        },
+        "sm": {
+          "width": 12,
+          "height": 12,
+          "ringWidth": 1,
+          "$ringWidth": "md의 절반이다. 12px 원에 2px 링을 두르면 가운데가 거의 남지 않는다. 리터럴 1px이 아니라 calc(ring / 2)로 적어 border-width-ring이 움직이면 함께 따라온다"
+        }
+      },
+      "motion": {
+        "duration": 700,
+        "timingFunction": "linear",
+        "iterationCount": "infinite",
+        "reducedIterationCount": 1,
+        "$duration": "motion-loop 700ms. 제품 회전 22벌 중 10벌의 우세값이며 공용 LoadingSpinner와 같다",
+        "$timingFunction": "제품 22벌이 전수 일치하는 유일한 축이다. 가감속이 붙으면 회전이 맥박처럼 뛴다",
+        "$reducedIterationCount": "reduced-motion에서 loop는 짧아지는 것이 아니라 사라진다(DS-D-0016). 의미는 role/aria-busy가 유지한다"
+      },
+      "states": {
+        "base": {
+          "Default": {
+            "background": null,
+            "foreground": "currentcolor"
+          }
+        }
+      },
+      "$statesNote": "상태 축이 없다. 대화형이 아니고 색은 currentColor를 물려받는다 — 놓이는 자리마다 다르므로 semantic 토큰으로 고정하지 않는다. 트랙은 그 색의 22%다."
     }
   },
   "$states": "variant × state마다 **어느 토큰을 무는가**. 개수가 아니라 정체를 고정한다. 이 표가 없던 동안 primary 배경을 danger 변수에 물려도 boundFills 수치가 그대로라 게이트가 통과했다. 값은 token id이며 Figma 변수 이름으로의 변환은 게이트가 생성 proposal의 figmaName으로 한다 — 여기에 Figma 이름을 적으면 정본이 둘이 된다. 코드 쪽 검증은 packages/react/test/component-states.browser.test.tsx가 계산값과 대조한다.",

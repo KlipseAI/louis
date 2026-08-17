@@ -201,7 +201,7 @@
   border-block-start-color: transparent;
   border-radius: var(--kds-radius-pill);
   /* DS-D-0016 — loop lifecycle. button spinner와 같은 recipe다. */
-  animation-name: kds-menu-spin;
+  animation-name: kds-spin;
   animation-duration: var(--kds-motion-loop-duration);
   animation-timing-function: var(--kds-motion-loop-timing-function);
   animation-iteration-count: infinite;
@@ -215,11 +215,6 @@
   }
 }
 
-@keyframes kds-menu-spin {
-  to {
-    rotate: 360deg;
-  }
-}
 
 /* group label과 separator는 menuitem이 아니고 focusable하지 않다. */
 .kds-menu__group-label {

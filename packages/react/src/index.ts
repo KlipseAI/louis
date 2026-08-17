@@ -33,6 +33,8 @@ export { Badge } from "./badge/badge.js";
 export type { BadgeProps, BadgeTone } from "./badge/badge.js";
 export { EmptyState } from "./empty-state/empty-state.js";
 export type { EmptyStateHeadingLevel, EmptyStateProps } from "./empty-state/empty-state.js";
+export { Spinner } from "./spinner/spinner.js";
+export type { SpinnerProps, SpinnerSize } from "./spinner/spinner.js";
 export { TextField } from "./text-field/text-field.js";
 export type { TextFieldProps, TextFieldSize } from "./text-field/text-field.js";
 export { ToastProvider, useToast, TOAST_VISIBLE_LIMIT } from "./toast/toast.js";

@@ -8,6 +8,48 @@ authority: normative
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
 
+## 2026-08-17 (3) — Spinner
+
+카탈로그 10순위다. 직전에 세운 loop lifecycle이 이것을 위한 선행 작업이었다.
+
+### 이번에는 정본이 뚜렷하다
+
+제품의 로딩 표현은 약 62벌이지만, 공용 `LoadingSpinner`가 있고 그 recipe가 **700ms · linear**로
+방금 세운 `motion-loop`와 정확히 같다. 링 구조도 그대로 옮겼다.
+
+**링이 둘이다** — 네 변이 칠해진 흐린 트랙과 위쪽 한 조각만 칠해진 진행. 트랙이 없으면 회전하는
+조각이 어디를 도는지 보이지 않아 "무언가 깜빡인다"로 읽힌다. 이전 DS의 spinner는 트랙 없이 위쪽
+테두리만 비웠고, 그것은 제품과 다른 표현이었으며 편차로 선언된 적도 없었다.
+
+### keyframe 중복을 합쳤다
+
+제품이 회전 keyframe 이름 18개에 본문 1종을 가진 것과 **같은 중복이 이 저장소에도 둘 있었다** —
+`kds-button-spin`과 `kds-menu-spin`. `base.css`의 공용 `kds-spin` 하나로 합쳤다. 같은 것을 두 번
+적으면 한쪽만 고쳐지는 날이 온다.
+
+### 라벨에 기본값을 두지 않는다
+
+`label`이 있으면 `role="status"`로 알리고 없으면 `aria-hidden`으로 숨는다. 기본 문자열을 두지 않는
+이유는 제품에 `aria-label="Loading"`이 하드코딩된 자리가 있기 때문이다 — DS가 기본값을 배포하면
+그 하드코딩을 시스템 전체로 퍼뜨리는 셈이 된다.
+
+### 제품에서 옮기지 않은 것
+
+제품의 공용 `LoadingSpinner`에는 `prefers-reduced-motion` 처리가 **없다.** 비공용 정의 중 일부는
+갖고 있다. 공용을 그대로 승격하면 그 결함이 시스템 전체로 퍼지므로 여기서는 넣었다.
+
+### Figma의 표현 한계 둘
+
+- CSS는 두 겹의 `border`인데 Figma에는 "테두리 한 변만 칠하기"가 없다. stroke로 그렸더니
+  `innerRadius: 0`인 파이 조각의 외곽선(중심으로 가는 반지름 두 줄)이 함께 그려졌다 — 실측으로
+  확인하고 fill + `innerRadius`의 arc 밴드로 바꿨다
+- Figma는 `currentColor`를 표현하지 못한다. 문서용으로 `foreground-primary`를 쓴다
+
+### 아직 없는 것
+
+determinate 진행률, 스켈레톤(15벌), 텍스트 쉬머(11벌)는 별도 컴포넌트다. 진행률 쪽은 제품의 2벌이
+두께·색·전환이 셋 다 다르고 `role="progressbar"`가 저장소 전체에 1곳, `<progress>`가 0곳이다.
+
 ## 2026-08-17 (2) — 무한 반복 motion에 lifecycle을 준다
 
 Spinner를 세우기 전에 규범이 먼저 필요했다.

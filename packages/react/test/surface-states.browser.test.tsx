@@ -228,6 +228,7 @@ test("states 표를 코드가 빠짐없이 읽는다", () => {
     "button", //          component-states.browser.test.tsx
     "icon-button", //     component-states.browser.test.tsx
     "badge", //           badge.browser.test.tsx
+    "spinner", //         spinner.browser.test.tsx
     "empty-state", //     empty-state.browser.test.tsx
     "input", //           text-field.browser.test.tsx
     "tooltip",

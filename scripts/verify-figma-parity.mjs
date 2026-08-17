@@ -346,6 +346,26 @@ const COMPONENT_CONTRACTS = [
     },
   },
   {
+    id: "spinner",
+    figmaName: "Spinner",
+    declaration: "packages/react/dist/spinner/spinner.d.ts",
+    variantProperties: { Size: "SpinnerSize" },
+    // 링을 stroke가 아니라 **채운 arc 밴드**로 그린다. stroke로 그리면 innerRadius 0인 파이
+    // 조각의 외곽선(중심으로 가는 반지름 두 줄)이 함께 그려진다 — 실측으로 확인했다.
+    strokes: {},
+    effects: {},
+    geometry: {
+      measuredId: "spinner",
+      fields: {},
+      slots: {},
+      extraStrokeWeights: [],
+      parts: {
+        Track: { fields: { width: "width", height: "height" } },
+        Arc: { fields: { width: "width", height: "height" } },
+      },
+    },
+  },
+  {
     id: "badge",
     figmaName: "Badge",
     declaration: "packages/react/dist/badge/badge.d.ts",

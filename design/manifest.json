@@ -302,6 +302,15 @@
       "generated": false
     },
     {
+      "id": "component-spinner",
+      "path": "design/components/spinner.md",
+      "title": "Spinner",
+      "section": "components",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
+    },
+    {
       "id": "component-dialog",
       "path": "design/components/dialog.md",
       "title": "Dialog",
@@ -697,6 +706,7 @@
         "design/components/text-field.md",
         "design/components/empty-state.md",
         "design/components/badge.md",
+        "design/components/spinner.md",
         "design/components/dialog.md"
       ]
     },
@@ -890,6 +900,17 @@
       "note": "public export, Figma component set 5 variant(Tone), parity 게이트가 Label을 자손으로 대조한다. 실브라우저 acceptance test 7건. 제품에 정의가 65벌이고 공용 구현은 0이다. gap registry의 '톤 4 + 상태 5'는 둘 다 틀렸다 — 네 톤 클래스의 선언이 바이트 단위로 같고, 앱 홈 4변형의 색이 전부 같은 변수를 가리킨다. 새 토큰 없이 기존 토큰에 맞는 기하를 골랐다. 알약(999px) 증감·개수 칩은 별도 컴포넌트이며 아직 없다",
       "doc": "design/components/badge.md",
       "figmaName": "Badge"
+    },
+    {
+      "id": "spinner",
+      "name": "Spinner",
+      "maturity": "experimental",
+      "figma": "partial",
+      "web": "partial",
+      "docs": "done",
+      "note": "public export, Figma component set 2 variant(Size), parity 게이트가 Track·Arc를 자손으로 대조한다. 실브라우저 acceptance test 8건이 두 motion context에서 각각 돈다. 제품의 로딩 표현은 약 62벌이지만 공용 LoadingSpinner가 정본이고 그 recipe(700ms · linear)가 motion-loop와 정확히 같다. 회전 keyframe은 base.css의 공용 kds-spin 하나이며 Button·Menu도 그것을 가리킨다. determinate 진행률·스켈레톤·텍스트 쉬머는 별도 컴포넌트이며 아직 없다",
+      "doc": "design/components/spinner.md",
+      "figmaName": "Spinner"
     }
   ],
   "patterns": [

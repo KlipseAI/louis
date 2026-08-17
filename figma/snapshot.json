@@ -18,8 +18,8 @@
         "effect": 7
       },
       "components": {
-        "sets": 11,
-        "variants": 110
+        "sets": 12,
+        "variants": 112
       },
       "icons": 26,
       "templates": 1
@@ -3461,6 +3461,76 @@
           "BACKGROUND_BLUR:PROGRESSIVE:var(blur/surface):0:0.5,0:0.5,0.45"
         ]
       }
+    },
+    "Spinner": {
+      "tokenId": "spinner",
+      "variantCount": 2,
+      "hasDescription": true,
+      "properties": {
+        "Size": {
+          "type": "VARIANT",
+          "options": [
+            "md",
+            "sm"
+          ]
+        }
+      },
+      "binding": {
+        "boundFills": 4,
+        "rawFills": 0,
+        "boundStrokes": 0,
+        "rawStrokes": 0,
+        "textStyled": 0,
+        "textUnstyled": 0
+      },
+      "geometry": {
+        "md": {
+          "slots": {},
+          "parts": {
+            "Track": {
+              "width": [
+                16
+              ],
+              "height": [
+                16
+              ]
+            },
+            "Arc": {
+              "width": [
+                16
+              ],
+              "height": [
+                16
+              ]
+            }
+          },
+          "strokeWeight": []
+        },
+        "sm": {
+          "slots": {},
+          "parts": {
+            "Track": {
+              "width": [
+                12
+              ],
+              "height": [
+                12
+              ]
+            },
+            "Arc": {
+              "width": [
+                12
+              ],
+              "height": [
+                12
+              ]
+            }
+          },
+          "strokeWeight": []
+        }
+      },
+      "strokes": {},
+      "effects": {}
     },
     "TextField": {
       "tokenId": "input",

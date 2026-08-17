@@ -92,6 +92,20 @@
   overflow: hidden;
 }
 
+/* 공용 회전 — loop lifecycle (DS-D-0016).
+ *
+ * **이름 하나에 본문 하나다.** 제품은 회전 keyframe 이름이 18개인데 본문이 전부
+ * `to { rotate: 360deg }` 한 종류이고, 이 저장소도 button과 menu가 각자 자기 이름을 갖고
+ * 있었다. 같은 것을 두 번 적으면 한쪽만 고쳐지는 날이 온다.
+ *
+ * `transform: rotate()`가 아니라 개별 속성 `rotate`인 이유는 motion.md의 loop 절이 그것을
+ * 허용 property로 선언했기 때문이다 — `scale`·`translate`와 합성된다. */
+@keyframes kds-spin {
+  to {
+    rotate: 360deg;
+  }
+}
+
 /* Badge — design/components/badge.md
  *
  * 제품에 배지 계열 정의가 **65벌** 있고 공용 구현은 0이다. 기하는 반경 7갈래(999·12·10·8·6·5·4),
@@ -397,7 +411,7 @@
   border-radius: var(--kds-radius-pill);
   /* DS-D-0016 — loop lifecycle. 700ms는 제품의 우세값이고 linear는 제품 22벌이 전수
    일치하는 유일한 축이다. 가감속이 붙으면 회전이 맥박처럼 뛴다. */
-  animation-name: kds-button-spin;
+  animation-name: kds-spin;
   animation-duration: var(--kds-motion-loop-duration);
   animation-timing-function: var(--kds-motion-loop-timing-function);
   animation-iteration-count: infinite;
@@ -411,11 +425,6 @@
   }
 }
 
-@keyframes kds-button-spin {
-  to {
-    rotate: 360deg;
-  }
-}
 
 /* forced-colors: 시스템 색이 이기게 두고 경계만 남긴다. */
 @media (forced-colors: active) {
@@ -1112,7 +1121,7 @@
   border-block-start-color: transparent;
   border-radius: var(--kds-radius-pill);
   /* DS-D-0016 — loop lifecycle. button spinner와 같은 recipe다. */
-  animation-name: kds-menu-spin;
+  animation-name: kds-spin;
   animation-duration: var(--kds-motion-loop-duration);
   animation-timing-function: var(--kds-motion-loop-timing-function);
   animation-iteration-count: infinite;
@@ -1126,11 +1135,6 @@
   }
 }
 
-@keyframes kds-menu-spin {
-  to {
-    rotate: 360deg;
-  }
-}
 
 /* group label과 separator는 menuitem이 아니고 focusable하지 않다. */
 .kds-menu__group-label {
@@ -1565,6 +1569,90 @@
 
   .kds-project-card:active {
     scale: 1;
+  }
+}
+
+/* Spinner — design/components/spinner.md
+ *
+ * 제품의 로딩 표현은 약 62벌이고 그중 회전 링만 **22벌**이다. 다만 이번에는 정본이 뚜렷하다 —
+ * 공용 `LoadingSpinner`가 있고, 그 recipe가 `motion-loop`(700ms · linear)와 정확히 같다.
+ * 링 구조도 그대로 옮긴다.
+ *
+ * ## 링이 둘인 이유
+ *
+ * 제품은 같은 자리에 원을 두 겹 겹친다 — 흐린 전체 링(트랙)과 한 조각만 칠한 링(진행). 트랙이
+ * 없으면 회전하는 조각이 어디를 도는지 보이지 않아 "무언가 깜빡인다"로 읽힌다.
+ *
+ * 이전 DS의 spinner는 트랙 없이 위쪽 테두리만 비웠다. 그것은 제품과 다른 표현이었고 편차로
+ * 선언된 적도 없었다.
+ */
+
+.kds-spinner {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  vertical-align: middle;
+  /* 링은 색을 물려받는다. 버튼 안에서는 버튼 글자색, 본문에서는 본문 색이 된다. */
+  color: inherit;
+  line-height: 0;
+}
+
+.kds-spinner__ring {
+  position: relative;
+  display: block;
+  /* md. sm은 아래에서 덮는다. 두 값이 한 컴포넌트에만 있어 토큰으로 승격하지 않았다 —
+   * spacing-radius.md가 "두 개 이상의 사용처"를 조건으로 둔다. */
+  inline-size: 16px;
+  block-size: 16px;
+  border-radius: var(--kds-radius-pill);
+  animation-name: kds-spin;
+  animation-duration: var(--kds-motion-loop-duration);
+  animation-timing-function: var(--kds-motion-loop-timing-function);
+  animation-iteration-count: infinite;
+}
+
+.kds-spinner[data-size="sm"] .kds-spinner__ring {
+  inline-size: 12px;
+  block-size: 12px;
+}
+
+.kds-spinner__ring::before,
+.kds-spinner__ring::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  box-sizing: border-box;
+  border-radius: inherit;
+  border-style: solid;
+  border-width: var(--kds-border-width-ring);
+}
+
+/* sm의 링은 md의 절반이다. 12px 원에 2px 링을 두르면 가운데가 거의 남지 않는다.
+ * 리터럴 1px 대신 관계로 적어 두면 `border-width-ring`이 움직일 때 함께 따라온다. */
+.kds-spinner[data-size="sm"] .kds-spinner__ring::before,
+.kds-spinner[data-size="sm"] .kds-spinner__ring::after {
+  border-width: calc(var(--kds-border-width-ring) / 2);
+}
+
+/* 트랙. **색이 아니라 현재 색의 흐린 것**이라 semantic 토큰으로 표현되지 않는다 —
+ * `currentColor`에 달려 있고 그것은 놓이는 자리마다 다르다. 제품의 opacity 0.22와 같은 값이다. */
+.kds-spinner__ring::before {
+  border-color: color-mix(in srgb, currentcolor 22%, transparent);
+}
+
+/* 진행. 한 조각만 칠해 회전이 보이게 한다. */
+.kds-spinner__ring::after {
+  border-color: transparent;
+  border-block-start-color: currentcolor;
+}
+
+/* reduced-motion에서 loop는 짧아지는 것이 아니라 **사라진다**(DS-D-0016). 회전을 멈추더라도
+ * 진행 중이라는 의미는 role/aria-busy가 유지한다. */
+@media (prefers-reduced-motion: reduce) {
+  .kds-spinner__ring {
+    animation-duration: var(--kds-motion-reduced-duration);
+    animation-iteration-count: 1;
   }
 }
 

@@ -4412,6 +4412,75 @@
       },
       "strokes": {},
       "effects": {}
+    },
+    "Spinner": {
+      "variantCount": 2,
+      "hasDescription": true,
+      "properties": {
+        "Size": {
+          "type": "VARIANT",
+          "options": [
+            "md",
+            "sm"
+          ]
+        }
+      },
+      "binding": {
+        "boundFills": 4,
+        "rawFills": 0,
+        "boundStrokes": 0,
+        "rawStrokes": 0,
+        "textStyled": 0,
+        "textUnstyled": 0
+      },
+      "geometry": {
+        "md": {
+          "slots": {},
+          "parts": {
+            "Track": {
+              "width": [
+                16
+              ],
+              "height": [
+                16
+              ]
+            },
+            "Arc": {
+              "width": [
+                16
+              ],
+              "height": [
+                16
+              ]
+            }
+          },
+          "strokeWeight": []
+        },
+        "sm": {
+          "slots": {},
+          "parts": {
+            "Track": {
+              "width": [
+                12
+              ],
+              "height": [
+                12
+              ]
+            },
+            "Arc": {
+              "width": [
+                12
+              ],
+              "height": [
+                12
+              ]
+            }
+          },
+          "strokeWeight": []
+        }
+      },
+      "strokes": {},
+      "effects": {}
     }
   },
   "icons": {

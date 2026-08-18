@@ -4933,6 +4933,93 @@
       },
       "strokes": {},
       "effects": {}
+    },
+    "Checkbox": {
+      "variantCount": 4,
+      "hasDescription": true,
+      "properties": {
+        "State": {
+          "type": "VARIANT",
+          "options": [
+            "Default",
+            "Checked",
+            "Indeterminate",
+            "Disabled"
+          ]
+        }
+      },
+      "binding": {
+        "boundFills": 9,
+        "rawFills": 0,
+        "boundStrokes": 5,
+        "rawStrokes": 0,
+        "textStyled": 4,
+        "textUnstyled": 0
+      },
+      "geometry": {
+        "base": {
+          "slots": {},
+          "parts": {
+            "Box": {
+              "width": [
+                20
+              ],
+              "height": [
+                20
+              ],
+              "cornerRadius": [
+                8
+              ]
+            },
+            "Label": {
+              "width": [
+                100
+              ],
+              "height": [
+                21
+              ],
+              "fontSize": [
+                14
+              ]
+            },
+            "Check": {
+              "width": [
+                5
+              ],
+              "height": [
+                9
+              ]
+            },
+            "Dash": {
+              "width": [
+                10
+              ],
+              "height": [
+                2
+              ]
+            }
+          },
+          "strokeWeight": [
+            0.5,
+            2
+          ],
+          "itemSpacing": [
+            8
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ]
+        }
+      },
+      "strokes": {
+        "Box": [
+          "0.5|INSIDE"
+        ],
+        "Check": [
+          "2|INSIDE"
+        ]
+      },
+      "effects": {}
     }
   },
   "icons": {

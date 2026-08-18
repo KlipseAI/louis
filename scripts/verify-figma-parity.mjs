@@ -517,6 +517,42 @@ const COMPONENT_CONTRACTS = [
     },
   },
   {
+    id: "checkbox",
+    figmaName: "Checkbox",
+    declaration: "packages/react/dist/checkbox/checkbox.d.ts",
+    // 코드에 union 축이 없다. checked·indeterminate·disabled가 전부 boolean이다.
+    variantProperties: {},
+    figmaOnlyProperties: {
+      State: {
+        options: ["Default", "Checked", "Indeterminate", "Disabled"],
+        reason:
+          "코드에서 셋 다 boolean prop이고 Figma에는 boolean 상태의 시각 표현이 없어 variant로 둔다. Indeterminate가 Checked와 동시에 참일 수 있다는 사실은 variant로 표현하지 않는다 — 그때 화면이 무엇을 보여야 하는지는 규범과 브라우저 테스트가 소유한다.",
+      },
+    },
+    // 상자 테두리는 CSS border이고, 체크 표시의 2px은 border가 아니라 획이다.
+    strokes: { Box: { weight: "borderWidth", align: "INSIDE" }, Check: { weight: "checkStroke", align: "INSIDE" } },
+    effects: {},
+    geometry: {
+      measuredId: "checkbox",
+      sizeKey: "base",
+      fields: {
+        itemSpacing: "gap",
+        layoutMode: { literal: "HORIZONTAL" },
+      },
+      slots: {},
+      // 체크 표시의 획. 상자 테두리(0.5)와 같은 집합에 들어가야 통과한다.
+      extraStrokeWeights: [2],
+      parts: {
+        Box: { fields: { width: "boxSize", height: "boxSize", cornerRadius: "radius" } },
+        // **표시를 이름으로 나눈다.** 하나로 두면 5×9와 10×2가 한 배열에 섞여
+        // "variant마다 다릅니다"로 걸린다. 둘은 서로 다른 부품이며 각각 한 variant에만 있다.
+        Check: { fields: { width: "checkInline", height: "checkBlock" } },
+        Dash: { fields: { width: "indeterminateInline", height: "indeterminateBlock" } },
+        Label: { fields: { fontSize: "fontSize" } },
+      },
+    },
+  },
+  {
     id: "badge",
     figmaName: "Badge",
     declaration: "packages/react/dist/badge/badge.d.ts",

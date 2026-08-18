@@ -986,10 +986,10 @@
       "id": "checkbox",
       "name": "Checkbox",
       "maturity": "experimental",
-      "figma": "not-ready",
+      "figma": "partial",
       "web": "partial",
       "docs": "done",
-      "note": "public export와 실브라우저 acceptance test 14건이 두 motion context에서 각각 돈다. **제품에 정본이 있는데 21벌 중 2벌만 쓴다** \u2014 그 전역 클래스가 cascade layer 밖이라 소비처가 이길 수 없었다. 크기 20px은 채택하고 accent-color는 채택하지 않았다(면 색 하나만 주고 표시\u00b7링\u00b7부분선택 막대를 브라우저가 정한다). indeterminate는 DOM 프로퍼티라 ref로 맞추고 aria-checked=mixed를 함께 준다. **선택 안 한 테두리 대비가 SC 1.4.11(3:1)에 미달하며 테두리 토큰 셋 중 어느 것도 라이트에서 넘지 못한다** \u2014 실측을 규범에 적었고 인계서 (2b) 판정의 입력이다. color-border-strong의 첫 소비처다. Figma component set은 DS-F-006-checkbox가 소유한다",
+      "note": "public export와 실브라우저 acceptance test 14건이 두 motion context에서 각각 돈다. **제품에 정본이 있는데 21벌 중 2벌만 쓴다** \u2014 그 전역 클래스가 cascade layer 밖이라 소비처가 이길 수 없었다. 크기 20px은 채택하고 accent-color는 채택하지 않았다(면 색 하나만 주고 표시\u00b7링\u00b7부분선택 막대를 브라우저가 정한다). indeterminate는 DOM 프로퍼티라 ref로 맞추고 aria-checked=mixed를 함께 준다. **선택 안 한 테두리 대비가 SC 1.4.11(3:1)에 미달하며 테두리 토큰 셋 중 어느 것도 라이트에서 넘지 못한다** \u2014 실측을 규범에 적었고 인계서 (2b) 판정의 입력이다. color-border-strong의 첫 소비처다. Figma component set 4 variant(State)가 섰고 parity 게이트가 Box\u00b7Check\u00b7Dash\u00b7Label을 자손으로 대조한다 \u2014 raw fill\u00b7stroke 0. 체크는 CSS와 같은 구조(5\u00d79 사각형의 두 변 + 45\u00b0 회전)라 계약값이 그대로 남는다. publish는 DS-F-008이다",
       "doc": "design/components/checkbox.md",
       "figmaName": "Checkbox"
     },

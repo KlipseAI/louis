@@ -8,6 +8,18 @@ authority: normative
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
 
+## 2026-08-18 (8) — Checkbox가 Figma에 섰다
+
+`DS-F-006-checkbox` 완료. component set 16개 → **17개**.
+
+**체크 표시를 CSS와 같은 구조로 그렸다** — 5×9 사각형의 오른쪽·아래 변만 남기고 45° 회전이다.
+Figma의 회전은 `width`/`height`를 바꾸지 않으므로 계약값 5×9가 그대로 남는다. 벡터 패스로 그리면
+모양은 같아도 계약이 코드와 다른 수를 갖게 된다.
+
+**표시를 `Check`와 `Dash` 두 이름으로 나눴다.** 하나로 두면 5×9와 10×2가 한 배열에 섞여
+"variant마다 다릅니다"로 걸린다. 둘은 서로 다른 부품이고 각각 한 variant에만 있다 — 이것이
+variant마다 기하가 다른 부품을 기존 모델 안에서 다루는 방법이다.
+
 ## 2026-08-18 (7) — SelectableListRow가 Figma에 섰다
 
 `DS-F-006-selectable-list-row` 완료. Figma component set 15개 → **16개**.

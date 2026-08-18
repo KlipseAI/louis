@@ -94,6 +94,7 @@ test("톤은 테마가 아니다 — 라이트와 다크에서 같은 색이 나
 
 test("화살표와 점이 슬라이드를 바꾼다", async () => {
   await mount(<BannerCarousel slides={SLIDES} label="홈 배너" autoAdvanceMs={0} />);
+  // autoAdvanceMs=0이라 정지 버튼이 없다. [0]=이전, [1]=다음.
   const next = scope().querySelectorAll<HTMLElement>(".kds-banner-carousel__arrow")[1]!;
   await userEvent.click(next);
   expect(dots()[1]!.getAttribute("aria-selected")).toBe("true");
@@ -101,6 +102,26 @@ test("화살표와 점이 슬라이드를 바꾼다", async () => {
   expect(dots()[2]!.getAttribute("aria-selected")).toBe("true");
   // 포인터를 치운다. 남기면 다음 테스트가 hover 상태의 값을 읽는다.
   await userEvent.unhover(dots()[2]!);
+});
+
+test("자동 넘김을 멈출 수 있다 — WCAG 2.2.2", async () => {
+  await mount(<BannerCarousel slides={SLIDES} label="홈 배너" autoAdvanceMs={5000} />);
+  const buttons = [...scope().querySelectorAll<HTMLElement>(".kds-banner-carousel__arrow")];
+  // 화살표 둘 + 정지 하나.
+  expect(buttons).toHaveLength(3);
+  const toggle = buttons.find((b) => b.getAttribute("aria-pressed") !== null)!;
+  expect(toggle.getAttribute("aria-pressed")).toBe("false");
+  expect(toggle.getAttribute("aria-label")).toContain("정지");
+  await userEvent.click(toggle);
+  expect(toggle.getAttribute("aria-pressed")).toBe("true");
+  expect(toggle.getAttribute("aria-label")).toContain("시작");
+  await userEvent.unhover(toggle);
+});
+
+test("자동 넘김을 끄면 정지 버튼도 그리지 않는다", async () => {
+  await mount(<BannerCarousel slides={SLIDES} label="홈 배너" autoAdvanceMs={0} />);
+  const buttons = scope().querySelectorAll(".kds-banner-carousel__arrow");
+  expect(buttons).toHaveLength(2);
 });
 
 test("슬라이드가 하나면 컨트롤을 그리지 않는다", async () => {

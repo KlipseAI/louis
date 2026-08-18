@@ -12,7 +12,7 @@ authority: normative
 
 | Surface       | 상태           | 근거                                                                 |
 | ------------- | -------------- | -------------------------------------------------------------------- |
-| Web           | `partial`      | public export와 실브라우저 acceptance test 8건이 두 motion context에서 각각 돈다; visual regression, Figma component와 제품 소비 증거 없음 |
+| Web           | `partial`      | public export와 실브라우저 acceptance test 10건이 두 motion context에서 각각 돈다; visual regression, Figma component와 제품 소비 증거 없음 |
 | Figma         | `partial`      | component set 4 variant(Tone × Bleed)에 기하 계약이 붙었고 parity가 매 실행 대조한다; publish 전 |
 | Documentation | `done`         | 이 문서                                                              |
 | Maturity      | `experimental` | 규범과 구현이 같은 변경 단위에서 처음 선다                           |
@@ -87,6 +87,15 @@ variant 축은 `bleed` 하나다. 톤은 variant가 아니라 **슬라이드마�
 화살표는 이전/다음, 점은 직접 이동. 자동 넘김은 `setInterval`이며 **현재 값에서 다음을 계산한다** —
 활성 index를 타이머 의존성에 넣으면 넘길 때마다 타이머가 재시작해 간격이 들쭉날쭉해진다.
 
+자동 넘김이 멈추는 경우가 셋이다.
+
+1. **정지 버튼**을 누르면 멈춘다. 상태는 버튼이 소유하며 `aria-pressed`로 말한다.
+2. 포인터가 위에 있거나 **초점이 안에 있으면** 멈춘다. 읽는 중에 글자가 바뀌지 않게 한다.
+3. `prefers-reduced-motion: reduce`이면 **아예 돌지 않는다.** 느리게 도는 것은 답이 아니다.
+
+2번을 `aria-pressed`에 반영하지 않는다. hover는 **의도가 아니라 부수효과**이고, 그것으로 상태를
+흔들면 스크린 리더가 커서 움직임마다 상태를 읽는다.
+
 ## Content
 
 제목은 한 줄을 넘길 수 있다. 설명은 최대 480px에서 접힌다. 워드마크는 **톤에 맞는 것 하나만**
@@ -131,9 +140,9 @@ variant 축은 `bleed` 하나다. 톤은 variant가 아니라 **슬라이드마�
 - **숫자 z-index를 쓰지 않는다.** 제품은 `z-1`·`z-2`·`z-3`을 쓴다. DS는 DOM 순서가 곧 칠 순서이며
   Dialog·ProjectCard가 같은 방식이다. 결과는 같다.
 - **reduced-motion에서 progressive blur도 지운다.** 제품과 같다. 흐림 자체가 합성 부담이다.
-- 자동 넘김이 **포커스나 hover에서 멈추지 않는다.** 제품도 멈추지 않는다. WCAG 2.2.2를 만족하려면
-  멈춤 수단이 필요하며, 제품 값을 그대로 옮긴 상태라 **이것은 해소되지 않은 접근성 결함**이다.
-  다음 변경 단위에서 정지 버튼 또는 hover 일시정지를 판정한다.
+- **정지 버튼이 있다. 제품에는 없다.** 자동으로 움직이는 것은 멈출 수 있어야 하고(WCAG 2.2.2),
+  이 저장소는 제품의 과거 UI 부채를 공용 규범으로 복사하지 않는다. 그 결과 컨트롤 폭이 제품보다
+  36px 넓다(28 버튼 + 8 간격) — **의도적으로 다른 값**이다.
 
 ## Acceptance tests
 
@@ -147,3 +156,5 @@ variant 축은 `bleed` 하나다. 톤은 variant가 아니라 **슬라이드마�
 6. 슬라이드가 하나면 컨트롤을 그리지 않는다.
 7. `bleed="full"`이면 반경이 0이다.
 8. 모션이 문맥에 따라 갈린다 — 기본에서 점 220ms · 슬라이드 420/680ms, reduced-motion에서 0.
+9. 정지 버튼이 `aria-pressed`와 라벨을 함께 바꾼다.
+10. `autoAdvanceMs={0}`이면 정지 버튼을 그리지 않는다 — 멈출 것이 없는 버튼은 거짓말이다.

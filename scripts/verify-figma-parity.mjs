@@ -650,6 +650,8 @@ const COMPONENT_CONTRACTS = [
           },
         },
         ArrowPrevious: { fields: { width: "arrowSize", height: "arrowSize", cornerRadius: "arrowRadius" } },
+        // 제품에 없는 부품이다. 자동으로 움직이는 것은 멈출 수 있어야 한다(WCAG 2.2.2).
+        PlaybackToggle: { fields: { width: "arrowSize", height: "arrowSize", cornerRadius: "arrowRadius" } },
         ArrowNext: { fields: { width: "arrowSize", height: "arrowSize", cornerRadius: "arrowRadius" } },
         // **폭이 상태다**(DS-D-0019). 같은 부품의 두 값이라면 합성 키를 쓰겠지만, 활성과 비활성은
         // 서로 다른 자리에 동시에 존재하므로 이름을 갈라 둘 다 대조한다.

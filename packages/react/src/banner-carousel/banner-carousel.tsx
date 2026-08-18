@@ -44,6 +44,32 @@ export interface BannerCarouselProps {
 
 const DEFAULT_AUTO_ADVANCE_MS = 5_500;
 
+/**
+ * 자동으로 움직이는 것은 멈출 수 있어야 한다(WCAG 2.2.2).
+ *
+ * 제품은 멈추지 않는다. 그 부채는 옮기지 않는다 — 이 저장소는 제품의 과거 UI 부채를 공용 규범으로
+ * 복사하지 않기로 되어 있다.
+ */
+function usePaused(root: HTMLElement | null): boolean {
+  const [paused, setPaused] = useState(false);
+  useEffect(() => {
+    if (root === null) return;
+    const pause = () => setPaused(true);
+    const resume = () => setPaused(false);
+    root.addEventListener("pointerenter", pause);
+    root.addEventListener("pointerleave", resume);
+    root.addEventListener("focusin", pause);
+    root.addEventListener("focusout", resume);
+    return () => {
+      root.removeEventListener("pointerenter", pause);
+      root.removeEventListener("pointerleave", resume);
+      root.removeEventListener("focusin", pause);
+      root.removeEventListener("focusout", resume);
+    };
+  }, [root]);
+  return paused;
+}
+
 export function BannerCarousel({
   slides,
   label,
@@ -56,6 +82,9 @@ export function BannerCarousel({
 }: BannerCarouselProps): JSX.Element | null {
   const generatedId = useId();
   const [internalIndex, setInternalIndex] = useState(0);
+  const [stopped, setStopped] = useState(false);
+  const [root, setRoot] = useState<HTMLElement | null>(null);
+  const hovering = usePaused(root);
   const controlled = index !== undefined;
   const activeIndex = controlled ? index : internalIndex;
 
@@ -72,8 +101,15 @@ export function BannerCarousel({
   );
 
   const count = slides.length;
+  // 움직임을 줄여 달라고 한 사람에게는 **아예 돌리지 않는다.** 느리게 돌리는 것은 답이 아니다.
+  const reduced =
+    typeof window !== "undefined" &&
+    typeof window.matchMedia === "function" &&
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const running = autoAdvanceMs > 0 && count > 1 && !stopped && !hovering && !reduced;
+
   useEffect(() => {
-    if (autoAdvanceMs <= 0 || count <= 1) return;
+    if (!running) return;
     const timer = window.setInterval(() => {
       // 제어 여부와 무관하게 **현재 값**에서 다음을 계산해야 한다. activeIndex를 의존성에 넣으면
       // 넘길 때마다 타이머가 재시작해 간격이 들쭉날쭉해진다.
@@ -84,7 +120,7 @@ export function BannerCarousel({
       });
     }, autoAdvanceMs);
     return () => window.clearInterval(timer);
-  }, [autoAdvanceMs, count]);
+  }, [autoAdvanceMs, count, running]);
 
   if (count === 0) return null;
 
@@ -92,7 +128,11 @@ export function BannerCarousel({
 
   return (
     <section
-      ref={ref}
+      ref={(node) => {
+        setRoot(node);
+        if (typeof ref === "function") ref(node);
+        else if (ref) (ref as { current: HTMLElement | null }).current = node;
+      }}
       className={["kds-banner-carousel", className].filter(Boolean).join(" ")}
       data-bleed={bleed}
       aria-roledescription="carousel"
@@ -147,6 +187,19 @@ export function BannerCarousel({
           >
             <ArrowGlyph direction="start" />
           </button>
+          {autoAdvanceMs > 0 ? (
+            <button
+              type="button"
+              className="kds-banner-carousel__arrow"
+              // 정지 상태는 버튼이 소유한다. hover/focus 일시정지는 **의도가 아니라 부수효과**라
+              // 그것으로 aria-pressed를 흔들면 스크린 리더가 커서 움직임마다 상태를 읽는다.
+              aria-pressed={stopped}
+              aria-label={stopped ? "배너 자동 넘김 시작" : "배너 자동 넘김 정지"}
+              onClick={() => setStopped((current) => !current)}
+            >
+              <PlaybackGlyph stopped={stopped} />
+            </button>
+          ) : null}
           <div className="kds-banner-carousel__dots" role="tablist" aria-label={label}>
             {slides.map((slide, slideIndex) => (
               <button
@@ -175,6 +228,28 @@ export function BannerCarousel({
         </div>
       ) : null}
     </section>
+  );
+}
+
+function PlaybackGlyph({ stopped }: { readonly stopped: boolean }): JSX.Element {
+  return (
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill="currentColor"
+      aria-hidden="true"
+      focusable="false"
+    >
+      {stopped ? (
+        <path d="M5 3.5 12.5 8 5 12.5Z" />
+      ) : (
+        <>
+          <rect x="4.5" y="3.5" width="2.5" height="9" rx="0.75" />
+          <rect x="9" y="3.5" width="2.5" height="9" rx="0.75" />
+        </>
+      )}
+    </svg>
   );
 }
 

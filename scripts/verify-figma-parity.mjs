@@ -90,6 +90,7 @@ const COMPONENT_CONTRACTS = [
     // 선언된 경우(ButtonVariant는 button.d.ts에 있다) 파일을 따로 지정한다.
     variantProperties: { Variant: "ButtonVariant", Size: "ButtonSize" },
     figmaOnlyProperties: {
+      Label: { type: "TEXT", reason: "코드에서 children이라 타입 선언에 항목으로 나타나지 않는다(React가 준다)." },
       State: {
         options: ["Default", "Hover", "Active", "Disabled", "Loading"],
         reason:
@@ -99,12 +100,10 @@ const COMPONENT_CONTRACTS = [
     // variant 축이 아니라 **존재 여부**로 코드 prop과 대응하는 property.
     // ReactNode prop은 문자열 union이 아니므로 옵션을 대조할 수 없다. 대신 선언에 그 prop이
     // 실제로 있는지를 본다. 이 칸이 없으면 Figma에만 있는 슬롯이 조용히 생긴다.
-    propProperties: {
-      LeftIcon: "leftIcon",
+    propProperties: { LeftIcon: "leftIcon",
       RightIcon: "rightIcon",
       LeftIconGlyph: "leftIcon",
-      RightIconGlyph: "rightIcon",
-    },
+      RightIconGlyph: "rightIcon", },
     // 기하 계약. Figma padding = CSS padding + border이고 stroke는 INSIDE다.
     // 이렇게 접지 않으면 프레임 높이가 CSS보다 border 두께의 두 배만큼 작아진다 —
     // 실제로 md 39 대신 37, sm 28 대신 26으로 만들어져 있었고 아무 게이트도 잡지 못했다.
@@ -172,6 +171,7 @@ const COMPONENT_CONTRACTS = [
     strokes: { self: { weight: "borderWidth", align: "INSIDE" } },
     effects: { self: "DROP_SHADOW:12:24:0" },
     figmaName: "Tooltip",
+    propProperties: { Content: "content" },
     declaration: "packages/react/dist/tooltip/tooltip.d.ts",
     variantProperties: {
       // 표면 시각은 네 방향이 같다. Side는 Figma에서 배치를 고르기 위한 축이며 코드의 side prop과
@@ -201,6 +201,7 @@ const COMPONENT_CONTRACTS = [
       self: "DROP_SHADOW:8:20:0 + BACKGROUND_BLUR:NORMAL:var(blur/surface)",
     },
     figmaName: "Toast",
+    propProperties: { Message: "message" },
     declaration: "packages/react/dist/toast/toast.d.ts",
     variantProperties: { Tone: "ToastTone" },
     geometry: {
@@ -257,6 +258,7 @@ const COMPONENT_CONTRACTS = [
     strokes: { self: { weight: "borderWidth", align: "INSIDE" } },
     effects: { self: "DROP_SHADOW:16:48:-8" },
     figmaName: "Dialog",
+    propProperties: { Title: "children", Description: "children" },
     declaration: "packages/react/dist/dialog/types.d.ts",
     variantProperties: {},
     figmaOnlyProperties: {
@@ -310,9 +312,11 @@ const COMPONENT_CONTRACTS = [
   {
     id: "input",
     figmaName: "TextField",
+    propProperties: { Label: "label", Message: "description" },
     declaration: "packages/react/dist/text-field/text-field.d.ts",
     variantProperties: { Size: "TextFieldSize" },
     figmaOnlyProperties: {
+      Value: { type: "TEXT", reason: "코드에서 children이라 타입 선언에 항목으로 나타나지 않는다(React가 준다)." },
       State: {
         options: ["Default", "Focus", "Invalid", "Disabled"],
         reason:
@@ -353,12 +357,13 @@ const COMPONENT_CONTRACTS = [
     iconSlots: ["Glyph"],
     // 아이콘은 코드에서 `icon` prop이다. 슬롯 없이 박혀 있으면 사이드바 네 행이 전부 같은
     // 글리프가 된다 — 실제로 그렇게 만든 홈 템플릿을 내렸다(2026-08-18).
-    propProperties: { Glyph: "icon" },
+    propProperties: { Glyph: "icon", },
     declaration: "packages/react/dist/app-shell/app-shell-parts.d.ts",
     // State는 CSS 상태(hover)와 prop(current)이 섞여 있고 Collapsed는 boolean prop이다.
     // 코드 타입 alias와 1:1로 대응하지 않으므로 Figma 전용 축으로 선언한다.
     variantProperties: {},
     figmaOnlyProperties: {
+      Label: { type: "TEXT", reason: "코드에서 children이라 타입 선언에 항목으로 나타나지 않는다(React가 준다)." },
       State: {
         options: ["Default", "Hover", "Current"],
         reason:
@@ -391,6 +396,7 @@ const COMPONENT_CONTRACTS = [
   {
     id: "app-shell-parts",
     figmaName: "AppTopBar",
+    propProperties: { Title: "title" },
     declaration: "packages/react/dist/app-shell/app-shell-parts.d.ts",
     variantProperties: {},
     strokes: {},
@@ -433,6 +439,7 @@ const COMPONENT_CONTRACTS = [
   {
     id: "segmented-control",
     figmaName: "SegmentedControl",
+    propProperties: { Label1: "children", Label2: "children", Label3: "children" },
     declaration: "packages/react/dist/segmented-control/segmented-control.d.ts",
     variantProperties: { Size: "SegmentedControlSize" },
     // **헤어라인은 OUTSIDE stroke다.** CSS는 spread-only box-shadow로 그리는데, Figma에서
@@ -483,6 +490,7 @@ const COMPONENT_CONTRACTS = [
   {
     id: "selectable-list-row",
     figmaName: "SelectableListRow",
+    propProperties: { Title: "title", Meta: "meta", Trailing: "trailing" },
     declaration: "packages/react/dist/selectable-list-row/selectable-list-row.d.ts",
     // 코드에 union 축이 없다. 선택은 boolean prop이고 Figma에는 그 표현이 없어 variant로 둔다.
     variantProperties: {},
@@ -525,6 +533,7 @@ const COMPONENT_CONTRACTS = [
   {
     id: "checkbox",
     figmaName: "Checkbox",
+    propProperties: { Label: "label" },
     declaration: "packages/react/dist/checkbox/checkbox.d.ts",
     // 코드에 union 축이 없다. checked·indeterminate·disabled가 전부 boolean이다.
     variantProperties: {},
@@ -561,6 +570,7 @@ const COMPONENT_CONTRACTS = [
   {
     id: "slider",
     figmaName: "Slider",
+    propProperties: { Label: "label" },
     declaration: "packages/react/dist/slider/slider.d.ts",
     variantProperties: { Size: "SliderSize", Variant: "SliderVariant" },
     // 썸의 링은 CSS border다. track 변형의 표식에는 테두리가 없어 이 역할이 thumb 변형에만 있다.
@@ -619,6 +629,7 @@ const COMPONENT_CONTRACTS = [
   {
     id: "banner-carousel",
     figmaName: "BannerCarousel",
+    propProperties: { Title: "slides", Description: "slides" },
     declaration: "packages/react/dist/banner-carousel/banner-carousel.d.ts",
     // Tone은 사진의 밝기이지 테마가 아니다. 두 축 모두 코드의 타입 선언과 대조된다.
     variantProperties: { Tone: "BannerTone", Bleed: "BannerCarouselBleed" },
@@ -669,6 +680,8 @@ const COMPONENT_CONTRACTS = [
   {
     id: "badge",
     figmaName: "Badge",
+    // 라벨은 코드에서 children이고 badge.d.ts에 선언 항목으로 나타나지 않는다(React가 준다).
+    figmaOnlyProperties: { Label: { type: "TEXT", reason: "코드에서 children. 타입 선언에 항목으로 없다." } },
     declaration: "packages/react/dist/badge/badge.d.ts",
     variantProperties: { Tone: "BadgeTone" },
     // **테두리를 쓰지 않는 것이 계약이다.** tone마다 border 토큰이 필요한데 danger에만 있다.
@@ -698,7 +711,7 @@ const COMPONENT_CONTRACTS = [
     id: "empty-state",
     figmaName: "EmptyState",
     iconSlots: ["Glyph"],
-    propProperties: { Glyph: "graphic" },
+    propProperties: { Glyph: "graphic", Title: "title", Description: "description" },
     declaration: "packages/react/dist/empty-state/empty-state.d.ts",
     // variant 축이 없다. 강조는 시각이 아니라 행동 유도의 유무가 만든다.
     variantProperties: {},
@@ -739,6 +752,13 @@ const COMPONENT_CONTRACTS = [
   {
     id: "project-card",
     figmaName: "ProjectCard",
+    // 합성 컴포넌트라 텍스트가 루트 prop이 아니라 하위 부품(Eyebrow·Title·Meta)의 children이다.
+    // 코드 prop 대조 대상이 아니므로 Figma 전용 슬롯으로 선언한다.
+    figmaOnlyProperties: {
+      Eyebrow: { type: "TEXT", reason: "ProjectCardEyebrow의 children. 루트 prop이 아니다." },
+      Title: { type: "TEXT", reason: "ProjectCardTitle의 children." },
+      Meta: { type: "TEXT", reason: "ProjectCardMeta의 children." },
+    },
     declaration: "packages/react/dist/project-card/project-card.d.ts",
     // variant 축이 없다. 카드의 강조는 카드가 아니라 썸네일이 만든다.
     variantProperties: {},
@@ -1673,6 +1693,21 @@ function compareComponents(actualComponents) {
     for (const [figmaProperty, declared] of Object.entries(
       contract.figmaOnlyProperties ?? {},
     )) {
+      // VARIANT가 아닌 축(TEXT·INSTANCE_SWAP)은 옵션이 없다. 합성 컴포넌트의 텍스트처럼
+      // 코드에서 루트 prop이 아닌 슬롯이 여기 온다 — 옵션 대신 type만 대조한다.
+      if (declared.options === undefined) {
+        const actualType = properties[figmaProperty]?.type;
+        if (actualType === undefined) {
+          issues.push(
+            `선언된 Figma 전용 property가 실제로 없습니다: ${contract.figmaName}.${figmaProperty}`,
+          );
+        } else if (declared.type !== undefined && declared.type !== actualType) {
+          issues.push(
+            `Figma 전용 property type 불일치: ${contract.figmaName}.${figmaProperty} — 선언 ${declared.type}, 실제 ${actualType}`,
+          );
+        }
+        continue;
+      }
       const figmaOptions = properties[figmaProperty]?.options;
       if (!Array.isArray(figmaOptions)) {
         issues.push(

@@ -3638,7 +3638,11 @@
     "AppTopBar": {
       "variantCount": 1,
       "hasDescription": true,
-      "properties": {},
+      "properties": {
+        "Title": {
+          "type": "TEXT"
+        }
+      },
       "binding": {
         "boundFills": 1,
         "rawFills": 0,
@@ -3753,6 +3757,9 @@
       "variantCount": 5,
       "hasDescription": true,
       "properties": {
+        "Label": {
+          "type": "TEXT"
+        },
         "Tone": {
           "type": "VARIANT",
           "options": [
@@ -3819,6 +3826,12 @@
       "variantCount": 4,
       "hasDescription": true,
       "properties": {
+        "Title": {
+          "type": "TEXT"
+        },
+        "Description": {
+          "type": "TEXT"
+        },
         "Tone": {
           "type": "VARIANT",
           "options": [
@@ -4071,6 +4084,9 @@
         "RightIconGlyph": {
           "type": "INSTANCE_SWAP"
         },
+        "Label": {
+          "type": "TEXT"
+        },
         "Variant": {
           "type": "VARIANT",
           "options": [
@@ -4224,6 +4240,9 @@
       "variantCount": 4,
       "hasDescription": true,
       "properties": {
+        "Label": {
+          "type": "TEXT"
+        },
         "State": {
           "type": "VARIANT",
           "options": [
@@ -4311,6 +4330,12 @@
       "variantCount": 3,
       "hasDescription": true,
       "properties": {
+        "Title": {
+          "type": "TEXT"
+        },
+        "Description": {
+          "type": "TEXT"
+        },
         "Size": {
           "type": "VARIANT",
           "options": [
@@ -4446,6 +4471,12 @@
       "properties": {
         "Glyph": {
           "type": "INSTANCE_SWAP"
+        },
+        "Title": {
+          "type": "TEXT"
+        },
+        "Description": {
+          "type": "TEXT"
         }
       },
       "binding": {
@@ -4784,7 +4815,17 @@
     "ProjectCard": {
       "variantCount": 1,
       "hasDescription": true,
-      "properties": {},
+      "properties": {
+        "Eyebrow": {
+          "type": "TEXT"
+        },
+        "Title": {
+          "type": "TEXT"
+        },
+        "Meta": {
+          "type": "TEXT"
+        }
+      },
       "binding": {
         "boundFills": 4,
         "rawFills": 0,
@@ -4959,6 +5000,15 @@
       "variantCount": 2,
       "hasDescription": true,
       "properties": {
+        "Label1": {
+          "type": "TEXT"
+        },
+        "Label2": {
+          "type": "TEXT"
+        },
+        "Label3": {
+          "type": "TEXT"
+        },
         "Size": {
           "type": "VARIANT",
           "options": [
@@ -5136,6 +5186,15 @@
       "variantCount": 3,
       "hasDescription": true,
       "properties": {
+        "Title": {
+          "type": "TEXT"
+        },
+        "Meta": {
+          "type": "TEXT"
+        },
+        "Trailing": {
+          "type": "TEXT"
+        },
         "State": {
           "type": "VARIANT",
           "options": [
@@ -5246,12 +5305,8 @@
         "Glyph": {
           "type": "INSTANCE_SWAP"
         },
-        "Collapsed": {
-          "type": "VARIANT",
-          "options": [
-            "false",
-            "true"
-          ]
+        "Label": {
+          "type": "TEXT"
         },
         "State": {
           "type": "VARIANT",
@@ -5259,6 +5314,13 @@
             "Default",
             "Hover",
             "Current"
+          ]
+        },
+        "Collapsed": {
+          "type": "VARIANT",
+          "options": [
+            "false",
+            "true"
           ]
         }
       },
@@ -5305,6 +5367,9 @@
       "variantCount": 4,
       "hasDescription": true,
       "properties": {
+        "Label": {
+          "type": "TEXT"
+        },
         "Size": {
           "type": "VARIANT",
           "options": [
@@ -5634,6 +5699,15 @@
       "variantCount": 8,
       "hasDescription": true,
       "properties": {
+        "Label": {
+          "type": "TEXT"
+        },
+        "Value": {
+          "type": "TEXT"
+        },
+        "Message": {
+          "type": "TEXT"
+        },
         "Size": {
           "type": "VARIANT",
           "options": [
@@ -5802,6 +5876,9 @@
       "variantCount": 2,
       "hasDescription": true,
       "properties": {
+        "Message": {
+          "type": "TEXT"
+        },
         "Tone": {
           "type": "VARIANT",
           "options": [
@@ -5865,6 +5942,9 @@
       "variantCount": 4,
       "hasDescription": true,
       "properties": {
+        "Content": {
+          "type": "TEXT"
+        },
         "Side": {
           "type": "VARIANT",
           "options": [

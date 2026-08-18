@@ -5346,6 +5346,45 @@ popover에 가린다. **이 결정은 드로어를 다루지 않는다** — 드
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
 
+#### 2026-08-18 (40) — 컴포넌트 16개 중 11개가 텍스트를 못 바꿨습니다
+
+owner 요구: **"실무적으로 안 되어있는 부분들 모두 해결해라."**
+
+아이콘 슬롯을 고치고 나서 같은 방식으로 텍스트를 쟀습니다. **16개 중 11개가 하드코딩이었습니다.**
+
+| 열려 있던 것 | 박혀 있던 것 |
+| --- | --- |
+| Button · Menu/Item · Dialog · Tooltip · Toast | ProjectCard · SelectableListRow · TextField · SegmentedControl · EmptyState · BannerCarousel · Badge · SidebarNavItem · AppTopBar · Checkbox · Slider |
+
+디자이너가 인스턴스를 놓고 글자를 바꾸려면 **레이어를 열어 하나씩 고쳐야 했습니다.** 실무에서는
+그렇게 쓰지 않습니다 — 인스턴스 속성 패널에서 바꿀 수 없으면 그 컴포넌트는 안 쓰이거나 detach됩니다.
+
+##### 21개 속성을 열었습니다
+
+`ProjectCard.Eyebrow/Title/Meta` · `TextField.Label/Value/Message` ·
+`SegmentedControl.Label1/2/3` · `SelectableListRow.Title/Meta/Trailing` 등입니다.
+
+**모든 variant의 같은 자리 텍스트를 한 속성에 묶었습니다.** 하나라도 빠지면 variant를 바꿀 때
+입력한 글자가 기본값으로 되돌아갑니다 — TextField는 8 variant, Badge는 5 variant입니다.
+
+##### readback이 이 축을 통째로 안 보고 있었습니다
+
+더 나쁜 발견입니다. `figma/readback.json`의 `properties`에 **TEXT 속성이 하나도 기록돼 있지
+않았습니다.** Button은 원래 `Label`이 있었는데도요.
+
+그래서 parity가 *"선언되지 않은 property"*를 검사하고 있었지만, **애초에 읽지 않는 축이라 아무것도
+못 잡았습니다.** 게이트가 초록인 채로 11개가 하드코딩이었던 이유입니다.
+
+##### 계약을 넓혔습니다
+
+`figmaOnlyProperties`가 VARIANT 옵션만 받고 있어서 TEXT·INSTANCE_SWAP 슬롯을 선언할 자리가
+없었습니다. 옵션이 없는 축은 **type만 대조**하도록 넓혔습니다.
+
+그리고 텍스트 슬롯 26개를 전부 코드 prop과 짝지어 선언했습니다. `children`으로 받는 것(타입
+선언에 항목으로 안 나타납니다)과 합성 컴포넌트의 하위 부품 children은 Figma 전용으로 갈랐습니다.
+
+**탐지력을 확인했습니다** — `ProjectCard.Title`을 지우니 exit 1.
+
 #### 2026-08-18 (39) — 아이콘이 박혀 있던 것을 게이트가 잡게 합니다
 
 owner 질문: **"아이콘도 이렇게 다 따로따로 컴포넌트화 하는 방식이 실무적인 방식이야?"**

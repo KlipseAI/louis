@@ -2591,6 +2591,23 @@
           ]
         ],
         [
+          "color/action-primary-active",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
+          [
+            [
+              "Light",
+              "Klipse Primitive::color/blue/600",
+              null
+            ],
+            [
+              "Dark",
+              "Klipse Primitive::color/blue/600",
+              null
+            ]
+          ]
+        ],
+        [
           "color/action-primary-hover",
           "COLOR",
           "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
@@ -2603,23 +2620,6 @@
             [
               "Dark",
               "Klipse Primitive::color/blue/400",
-              null
-            ]
-          ]
-        ],
-        [
-          "color/action-primary-pressed",
-          "COLOR",
-          "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
-          [
-            [
-              "Light",
-              "Klipse Primitive::color/blue/600",
-              null
-            ],
-            [
-              "Dark",
-              "Klipse Primitive::color/blue/600",
               null
             ]
           ]
@@ -2671,6 +2671,40 @@
             [
               "Dark",
               "Klipse Primitive::color/neutral/900",
+              null
+            ]
+          ]
+        ],
+        [
+          "color/background-danger",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
+          [
+            [
+              "Light",
+              "Klipse Primitive::color/red/100",
+              null
+            ],
+            [
+              "Dark",
+              "Klipse Primitive::color/red/900",
+              null
+            ]
+          ]
+        ],
+        [
+          "color/background-info",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
+          [
+            [
+              "Light",
+              "Klipse Primitive::color/blue/50",
+              null
+            ],
+            [
+              "Dark",
+              "Klipse Primitive::color/blue/900",
               null
             ]
           ]
@@ -2778,6 +2812,23 @@
           ]
         ],
         [
+          "color/background-success",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
+          [
+            [
+              "Light",
+              "Klipse Primitive::color/green/100",
+              null
+            ],
+            [
+              "Dark",
+              "Klipse Primitive::color/green/900",
+              null
+            ]
+          ]
+        ],
+        [
           "color/background-surface",
           "COLOR",
           "FRAME_FILL,SHAPE_FILL",
@@ -2790,6 +2841,23 @@
             [
               "Dark",
               "Klipse Primitive::color/neutral/800",
+              null
+            ]
+          ]
+        ],
+        [
+          "color/background-warning",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
+          [
+            [
+              "Light",
+              "Klipse Primitive::color/amber/100",
+              null
+            ],
+            [
+              "Dark",
+              "Klipse Primitive::color/amber/900",
               null
             ]
           ]
@@ -2914,6 +2982,23 @@
           ]
         ],
         [
+          "color/foreground-danger",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
+          [
+            [
+              "Light",
+              "Klipse Primitive::color/red/900",
+              null
+            ],
+            [
+              "Dark",
+              "Klipse Primitive::color/red/100",
+              null
+            ]
+          ]
+        ],
+        [
           "color/foreground-disabled",
           "COLOR",
           "TEXT_FILL",
@@ -2926,6 +3011,23 @@
             [
               "Dark",
               "Klipse Primitive::color/neutral/600",
+              null
+            ]
+          ]
+        ],
+        [
+          "color/foreground-info",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
+          [
+            [
+              "Light",
+              "Klipse Primitive::color/blue/900",
+              null
+            ],
+            [
+              "Dark",
+              "Klipse Primitive::color/blue/50",
               null
             ]
           ]
@@ -3033,6 +3135,23 @@
           ]
         ],
         [
+          "color/foreground-success",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
+          [
+            [
+              "Light",
+              "Klipse Primitive::color/green/900",
+              null
+            ],
+            [
+              "Dark",
+              "Klipse Primitive::color/green/100",
+              null
+            ]
+          ]
+        ],
+        [
           "color/foreground-tertiary",
           "COLOR",
           "TEXT_FILL",
@@ -3045,6 +3164,23 @@
             [
               "Dark",
               "Klipse Primitive::color/neutral/400",
+              null
+            ]
+          ]
+        ],
+        [
+          "color/foreground-warning",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
+          [
+            [
+              "Light",
+              "Klipse Primitive::color/amber/900",
+              null
+            ],
+            [
+              "Dark",
+              "Klipse Primitive::color/amber/100",
               null
             ]
           ]
@@ -3215,142 +3351,6 @@
             [
               "Dark",
               "Klipse Primitive::color/black-alpha/72",
-              null
-            ]
-          ]
-        ],
-        [
-          "color/status-danger-background",
-          "COLOR",
-          "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
-          [
-            [
-              "Light",
-              "Klipse Primitive::color/red/100",
-              null
-            ],
-            [
-              "Dark",
-              "Klipse Primitive::color/red/900",
-              null
-            ]
-          ]
-        ],
-        [
-          "color/status-danger-foreground",
-          "COLOR",
-          "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
-          [
-            [
-              "Light",
-              "Klipse Primitive::color/red/900",
-              null
-            ],
-            [
-              "Dark",
-              "Klipse Primitive::color/red/100",
-              null
-            ]
-          ]
-        ],
-        [
-          "color/status-info-background",
-          "COLOR",
-          "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
-          [
-            [
-              "Light",
-              "Klipse Primitive::color/blue/50",
-              null
-            ],
-            [
-              "Dark",
-              "Klipse Primitive::color/blue/900",
-              null
-            ]
-          ]
-        ],
-        [
-          "color/status-info-foreground",
-          "COLOR",
-          "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
-          [
-            [
-              "Light",
-              "Klipse Primitive::color/blue/900",
-              null
-            ],
-            [
-              "Dark",
-              "Klipse Primitive::color/blue/50",
-              null
-            ]
-          ]
-        ],
-        [
-          "color/status-success-background",
-          "COLOR",
-          "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
-          [
-            [
-              "Light",
-              "Klipse Primitive::color/green/100",
-              null
-            ],
-            [
-              "Dark",
-              "Klipse Primitive::color/green/900",
-              null
-            ]
-          ]
-        ],
-        [
-          "color/status-success-foreground",
-          "COLOR",
-          "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
-          [
-            [
-              "Light",
-              "Klipse Primitive::color/green/900",
-              null
-            ],
-            [
-              "Dark",
-              "Klipse Primitive::color/green/100",
-              null
-            ]
-          ]
-        ],
-        [
-          "color/status-warning-background",
-          "COLOR",
-          "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
-          [
-            [
-              "Light",
-              "Klipse Primitive::color/amber/100",
-              null
-            ],
-            [
-              "Dark",
-              "Klipse Primitive::color/amber/900",
-              null
-            ]
-          ]
-        ],
-        [
-          "color/status-warning-foreground",
-          "COLOR",
-          "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
-          [
-            [
-              "Light",
-              "Klipse Primitive::color/amber/900",
-              null
-            ],
-            [
-              "Dark",
-              "Klipse Primitive::color/amber/100",
               null
             ]
           ]

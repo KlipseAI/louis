@@ -8,6 +8,65 @@ authority: normative
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
 
+## 2026-08-18 (36) — SEED과 대조했더니 우리 이름의 결함 둘이 나왔습니다
+
+owner 요청으로 seed-design.io 전 영역(색·타이포·레이아웃·tier 구조·컴포넌트)을 읽고 우리 토큰과
+축별로 대조했습니다. **판정은 "SEED 이름을 가져오지 않는다"입니다.**
+
+근거가 셋입니다.
+
+1. `execution-handoff.md`가 *"SEED의 token 이름·값"*을 복제 대상에서 제외한 **normative 문장**을
+   이미 갖고 있습니다. 가져오려면 그것을 뒤집는 Decision이 먼저입니다.
+2. **SEED에는 `hover` 토큰이 0개입니다.** 모바일 앱 우선 시스템이라 hover 축이 없습니다. 데스크톱
+   웹인 우리는 7개를 쓰고, SEED 어휘로는 표현할 방법이 없습니다.
+3. SEED의 적응형 팔레트(primitive `gray-00`이 테마에 따라 흰↔검으로 뒤집힘)는 `DS-D-0010 §2`가
+   *"반전을 primitive로 옮기면 mode 축이 두 벌이 된다"*고 적고 **이미 기각한 설계**입니다.
+
+즉 SEED과 다른 축의 상당수는 실수가 아니라 **기록된 결정**이었습니다.
+
+### 그런데 대조 과정에서 우리 결함 둘이 드러났습니다
+
+**① `color-action-primary-pressed`가 옛 혼동을 들고 있었습니다.**
+
+`interaction-states.md`는 `active`=`:active`(누르는 중, 일시적), `pressed`=`aria-pressed="true"`
+(토글 켜짐, 지속)로 고정하고 **"절대 섞지 않는다"**고 못 박았습니다. 그 문서 자체가 과거 이
+혼동을 기록하려고 쓰였습니다.
+
+그런데 이 토큰은 `button.css`와 `icon-button.css`에서 **`:active`로 소비됩니다.** 컴포넌트 층은
+고쳤는데 **토큰 이름만 옛 이름으로 남아 있었습니다.** `color-action-primary-active`로 바꿨습니다.
+
+**SEED은 이것을 잡아 주지 못합니다** — SEED에 `active` 축이 없어 SEED도 `pressed`라 부릅니다.
+우리 규범이 SEED보다 정밀한 자리입니다.
+
+**② 축 순서가 세 갈래였습니다.**
+
+| 형태 | 개수 |
+| --- | ---: |
+| 속성이 앞 (`color-background-canvas`) | **24** |
+| 속성이 뒤 (`color-status-danger-background`) | 8 |
+| role 우선, 그룹 안에서도 흔들림 | 18 |
+
+SEED은 `$color.{property}.{role}` 하나로 예외가 없고, **이 축은 SEED이 낫습니다.** 다만 처방은
+"SEED 이름을 쓴다"가 아니라 **"우리 다수파로 통일한다"**입니다.
+
+`color-status-*` 8개를 속성 앞으로 옮겼습니다 — `color-background-danger` ·
+`color-foreground-danger` 식입니다. `color-border-danger`가 이미 그 형태라 나란히 섭니다.
+
+### 왜 지금인가
+
+**공개 release도 published 라이브러리도 없어 외부 소비자가 0입니다.** 지금이 가장 싼 시점입니다.
+`DS-P3-014`가 토큰을 174 → 약 340개로 확장 중이라, 확장 전에 규칙을 고정해 두는 편이 사후
+rename보다 훨씬 쌉니다.
+
+### 같은 변경 단위에서 움직인 것
+
+토큰 원천 · 생성물 6종 · 저작 CSS 5개 · Figma 변수 9개 · readback · snapshot · measured 계약 ·
+규범 문서 4개 · baseline 재고정. **테스트가 두 번 막았습니다** — badge와 surface-states가
+`components.measured.json`의 states 표를 읽는데 거기 옛 이름이 남아 있었습니다.
+
+`design/updates/README.md`의 과거 항목은 **바꾸지 않았습니다.** 그때 그 이름이었던 것이 사실이고,
+기록을 고치면 그 사실이 사라집니다.
+
 ## 2026-08-18 (35) — Templates에 진짜 화면이 섰습니다
 
 owner 지적: **SEED 문서가 "Figma 라이브러리는 모든 토큰, 아이콘, 컴포넌트, 화면 템플릿을

@@ -359,23 +359,23 @@
 }
 
 .kds-badge[data-tone="success"] {
-  background: var(--kds-color-status-success-background);
-  color: var(--kds-color-status-success-foreground);
+  background: var(--kds-color-background-success);
+  color: var(--kds-color-foreground-success);
 }
 
 .kds-badge[data-tone="warning"] {
-  background: var(--kds-color-status-warning-background);
-  color: var(--kds-color-status-warning-foreground);
+  background: var(--kds-color-background-warning);
+  color: var(--kds-color-foreground-warning);
 }
 
 .kds-badge[data-tone="danger"] {
-  background: var(--kds-color-status-danger-background);
-  color: var(--kds-color-status-danger-foreground);
+  background: var(--kds-color-background-danger);
+  color: var(--kds-color-foreground-danger);
 }
 
 .kds-badge[data-tone="info"] {
-  background: var(--kds-color-status-info-background);
-  color: var(--kds-color-status-info-foreground);
+  background: var(--kds-color-background-info);
+  color: var(--kds-color-foreground-info);
 }
 
 /* 아이콘 슬롯. **크기가 글자를 따라간다** — `1em`이라 12px 아이콘 토큰을 새로 만들지 않아도 되고,
@@ -823,7 +823,7 @@
 
 /* pressed — reduced-motion에서는 scale 이동을 제거하되 의미는 유지한다. */
 .kds-button:where(:not([aria-disabled="true"]):not(:disabled)):active[data-variant="primary"] {
-  background: var(--kds-color-action-primary-pressed);
+  background: var(--kds-color-action-primary-active);
 }
 
 .kds-button:where(:not([aria-disabled="true"]):not(:disabled)):active {
@@ -1487,8 +1487,8 @@
 /* Known deviation: solid danger를 표현할 action 토큰이 아직 없어 tonal로 둔다.
  * Button과 같은 사유이며 color-action-danger*가 생기면 함께 갱신한다. */
 .kds-icon-button[data-variant="danger"] {
-  background: var(--kds-color-status-danger-background);
-  color: var(--kds-color-status-danger-foreground);
+  background: var(--kds-color-background-danger);
+  color: var(--kds-color-foreground-danger);
 }
 
 /* hover와 active는 **pressed를 덮지 않는다.**
@@ -1515,7 +1515,7 @@
 }
 
 .kds-icon-button:where(:not([aria-disabled="true"]):not(:disabled)):not([aria-pressed="true"]):active[data-variant="primary"] {
-  background: var(--kds-color-action-primary-pressed);
+  background: var(--kds-color-action-primary-active);
 }
 
 .kds-icon-button:where(:not([aria-disabled="true"]):not(:disabled)):active {
@@ -3055,7 +3055,7 @@
 }
 
 .kds-text-field[data-invalid="true"] .kds-text-field__message {
-  color: var(--kds-color-status-danger-foreground);
+  color: var(--kds-color-foreground-danger);
 }
 
 /* Toast — design/components/toast.md
@@ -3108,8 +3108,8 @@
 }
 
 .kds-toast[data-tone="danger"] {
-  background: var(--kds-color-status-danger-background);
-  color: var(--kds-color-status-danger-foreground);
+  background: var(--kds-color-background-danger);
+  color: var(--kds-color-foreground-danger);
 }
 
 @keyframes kds-toast-enter {

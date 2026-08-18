@@ -48,8 +48,8 @@
 }
 
 .kds-toast[data-tone="danger"] {
-  background: var(--kds-color-status-danger-background);
-  color: var(--kds-color-status-danger-foreground);
+  background: var(--kds-color-background-danger);
+  color: var(--kds-color-foreground-danger);
 }
 
 @keyframes kds-toast-enter {

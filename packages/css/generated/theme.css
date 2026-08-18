@@ -21,18 +21,22 @@
   --color-action-menu-danger-hover: var(--kds-color-action-menu-danger-hover);
   --color-action-menu-item-hover: var(--kds-color-action-menu-item-hover);
   --color-action-primary: var(--kds-color-action-primary);
+  --color-action-primary-active: var(--kds-color-action-primary-active);
   --color-action-primary-hover: var(--kds-color-action-primary-hover);
-  --color-action-primary-pressed: var(--kds-color-action-primary-pressed);
   --color-action-secondary-foreground: var(--kds-color-action-secondary-foreground);
   --color-action-secondary-hover: var(--kds-color-action-secondary-hover);
   --color-background-canvas: var(--kds-color-background-canvas);
+  --color-background-danger: var(--kds-color-background-danger);
+  --color-background-info: var(--kds-color-background-info);
   --color-background-inset: var(--kds-color-background-inset);
   --color-background-inverse: var(--kds-color-background-inverse);
   --color-background-inverse-translucent: var(--kds-color-background-inverse-translucent);
   --color-background-menu: var(--kds-color-background-menu);
   --color-background-overlay: var(--kds-color-background-overlay);
   --color-background-raised: var(--kds-color-background-raised);
+  --color-background-success: var(--kds-color-background-success);
   --color-background-surface: var(--kds-color-background-surface);
+  --color-background-warning: var(--kds-color-background-warning);
   --color-border-control: var(--kds-color-border-control);
   --color-border-danger: var(--kds-color-border-danger);
   --color-border-default: var(--kds-color-border-default);
@@ -40,14 +44,18 @@
   --color-border-strong: var(--kds-color-border-strong);
   --color-border-subtle: var(--kds-color-border-subtle);
   --color-border-tooltip: var(--kds-color-border-tooltip);
+  --color-foreground-danger: var(--kds-color-foreground-danger);
   --color-foreground-disabled: var(--kds-color-foreground-disabled);
+  --color-foreground-info: var(--kds-color-foreground-info);
   --color-foreground-inverse: var(--kds-color-foreground-inverse);
   --color-foreground-menu-item: var(--kds-color-foreground-menu-item);
   --color-foreground-on-danger: var(--kds-color-foreground-on-danger);
   --color-foreground-on-inverse: var(--kds-color-foreground-on-inverse);
   --color-foreground-primary: var(--kds-color-foreground-primary);
   --color-foreground-secondary: var(--kds-color-foreground-secondary);
+  --color-foreground-success: var(--kds-color-foreground-success);
   --color-foreground-tertiary: var(--kds-color-foreground-tertiary);
+  --color-foreground-warning: var(--kds-color-foreground-warning);
   --color-media-control-foreground: var(--kds-color-media-control-foreground);
   --color-media-control-hover: var(--kds-color-media-control-hover);
   --color-media-control-surface: var(--kds-color-media-control-surface);
@@ -58,14 +66,6 @@
   --color-media-scrim-bright: var(--kds-color-media-scrim-bright);
   --color-media-scrim-dark: var(--kds-color-media-scrim-dark);
   --color-scrim-modal: var(--kds-color-scrim-modal);
-  --color-status-danger-background: var(--kds-color-status-danger-background);
-  --color-status-danger-foreground: var(--kds-color-status-danger-foreground);
-  --color-status-info-background: var(--kds-color-status-info-background);
-  --color-status-info-foreground: var(--kds-color-status-info-foreground);
-  --color-status-success-background: var(--kds-color-status-success-background);
-  --color-status-success-foreground: var(--kds-color-status-success-foreground);
-  --color-status-warning-background: var(--kds-color-status-warning-background);
-  --color-status-warning-foreground: var(--kds-color-status-warning-foreground);
 
   /* 곡률 — rounded-* 유틸리티가 된다 */
   --radius-card: var(--kds-radius-card);

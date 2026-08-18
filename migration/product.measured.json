@@ -181,7 +181,7 @@
         },
         "배경 danger": {
           "product": "#ff4b59 단색 (--accent-red-500) — solid",
-          "ds": "#FFE5E8 (--kds-color-status-danger-background, tokens.css:26) — tonal",
+          "ds": "#FFE5E8 (--kds-color-background-danger, tokens.css:26) — tonal",
           "match": "different",
           "evidence": "apps/web/app/globals.css:226",
           "status": "adopted",
@@ -205,7 +205,7 @@
         },
         "전경 danger": {
           "product": "#fafafa (--palette-gray-000)",
-          "ds": "#541119 (--kds-color-status-danger-foreground, tokens.css:27)",
+          "ds": "#541119 (--kds-color-foreground-danger, tokens.css:27)",
           "match": "different",
           "evidence": "apps/web/components/ui/Button.tsx:128",
           "status": "adopted",
@@ -660,7 +660,7 @@
         },
         "danger 항목 전경": {
           "product": "#ff4b59 (양 테마 동일) — var(--accent-red-500)",
-          "ds": "light #541119 / dark #FFE5E8 — var(--kds-color-status-danger-foreground). 문서가 인정한 대비 결함(light 1.21, dark 1.14)",
+          "ds": "light #541119 / dark #FFE5E8 — var(--kds-color-foreground-danger). 문서가 인정한 대비 결함(light 1.21, dark 1.14)",
           "match": "different",
           "evidence": "apps/web/components/scenes/appHomeSceneStyles.ts:109 → apps/web/app/globals.css:226",
           "status": "adopted",
@@ -668,7 +668,7 @@
         },
         "danger 항목 hover 배경": {
           "product": "dark rgb(255 75 89 / 12%) / light rgb(255 75 89 / 10%)",
-          "ds": "var(--kds-color-status-danger-background) → light #FFE5E8 / dark #541119 (불투명 면)",
+          "ds": "var(--kds-color-background-danger) → light #FFE5E8 / dark #541119 (불투명 면)",
           "match": "different",
           "evidence": "apps/web/components/scenes/appHomeSceneStyles.ts:110,111 → apps/web/app/globals.css:235",
           "status": "adopted",

@@ -345,7 +345,7 @@ body로 떨어진다. 따라서 exit 모션 동안 화면에는 패널이 보이
 
 **항목 높이 44px과 focus ring은 제품을 따르지 않는다.** 제품 항목은 37px이고 focus ring이 없다.
 둘 다 WCAG 계약이라 제품에 맞춰 낮추지 않았다. **`danger` 전경을 제품 값으로 바꾼 것이 문서가
-이미 인정하던 대비 결함을 해소한다** — 이전 `status-danger-foreground`는 중립 표면 위에서
+이미 인정하던 대비 결함을 해소한다** — 이전 `color-foreground-danger`는 중립 표면 위에서
 무너졌다.
 
 ## Implementation
@@ -416,7 +416,7 @@ submenu의 방향키가 부모 핸들러까지 실행해 focus가 부모로 튀�
   action menu는 행 자체를 44px로 만들어 그 유틸을 쓰지 않으므로 4px을 유지한다 — 거기서 8px을 쓰면
   안쪽 곡률이 item radius보다 작아져 모서리가 뚫린다. 두 값이 다른 것은 실수가 아니다.
 - **danger item의 톤이 일반 item과 거의 구분되지 않는다.** 워크샵에서 실측한 대비는 light
-  **1.21**, dark **1.14**다(danger 텍스트 : 일반 텍스트). `status-danger-*`는 foreground와
+  **1.21**, dark **1.14**다(danger 텍스트 : 일반 텍스트). `background-danger`·`foreground-danger`는 foreground와
   background가 **함께 쓰이도록 만들어진 쌍**이고 두 테마에서 서로 값이 뒤바뀐다 — light의
   `danger-foreground`(짙은 적갈)가 dark에서는 `danger-background`다. 그래서 텍스트 색으로만 쓰면
   light에서는 hue로 겨우 읽히고 dark에서는 사실상 사라진다. 해소에는 중립 표면 위에서 성립하는

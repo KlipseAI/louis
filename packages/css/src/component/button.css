@@ -131,7 +131,7 @@
 
 /* pressed — reduced-motion에서는 scale 이동을 제거하되 의미는 유지한다. */
 .kds-button:where(:not([aria-disabled="true"]):not(:disabled)):active[data-variant="primary"] {
-  background: var(--kds-color-action-primary-pressed);
+  background: var(--kds-color-action-primary-active);
 }
 
 .kds-button:where(:not([aria-disabled="true"]):not(:disabled)):active {

@@ -51,8 +51,8 @@
 /* Known deviation: solid danger를 표현할 action 토큰이 아직 없어 tonal로 둔다.
  * Button과 같은 사유이며 color-action-danger*가 생기면 함께 갱신한다. */
 .kds-icon-button[data-variant="danger"] {
-  background: var(--kds-color-status-danger-background);
-  color: var(--kds-color-status-danger-foreground);
+  background: var(--kds-color-background-danger);
+  color: var(--kds-color-foreground-danger);
 }
 
 /* hover와 active는 **pressed를 덮지 않는다.**
@@ -79,7 +79,7 @@
 }
 
 .kds-icon-button:where(:not([aria-disabled="true"]):not(:disabled)):not([aria-pressed="true"]):active[data-variant="primary"] {
-  background: var(--kds-color-action-primary-pressed);
+  background: var(--kds-color-action-primary-active);
 }
 
 .kds-icon-button:where(:not([aria-disabled="true"]):not(:disabled)):active {

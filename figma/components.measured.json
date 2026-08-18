@@ -52,7 +52,7 @@
             "foreground": "color-foreground-inverse"
           },
           "Active": {
-            "background": "color-action-primary-pressed",
+            "background": "color-action-primary-active",
             "foreground": "color-foreground-inverse"
           },
           "Disabled": {
@@ -169,7 +169,7 @@
             "foreground": "color-foreground-inverse"
           },
           "Active": {
-            "background": "color-action-primary-pressed",
+            "background": "color-action-primary-active",
             "foreground": "color-foreground-inverse"
           },
           "Pressed": {
@@ -232,16 +232,16 @@
         },
         "danger": {
           "Default": {
-            "background": "color-status-danger-background",
-            "foreground": "color-status-danger-foreground"
+            "background": "color-background-danger",
+            "foreground": "color-foreground-danger"
           },
           "Hover": {
-            "background": "color-status-danger-background",
-            "foreground": "color-status-danger-foreground"
+            "background": "color-background-danger",
+            "foreground": "color-foreground-danger"
           },
           "Active": {
-            "background": "color-status-danger-background",
-            "foreground": "color-status-danger-foreground"
+            "background": "color-background-danger",
+            "foreground": "color-foreground-danger"
           },
           "Pressed": {
             "background": "color-background-inset",
@@ -312,8 +312,8 @@
         },
         "danger": {
           "Default": {
-            "background": "color-status-danger-background",
-            "foreground": "color-status-danger-foreground"
+            "background": "color-background-danger",
+            "foreground": "color-foreground-danger"
           }
         }
       }
@@ -622,26 +622,26 @@
         },
         "success": {
           "Default": {
-            "background": "color-status-success-background",
-            "foreground": "color-status-success-foreground"
+            "background": "color-background-success",
+            "foreground": "color-foreground-success"
           }
         },
         "warning": {
           "Default": {
-            "background": "color-status-warning-background",
-            "foreground": "color-status-warning-foreground"
+            "background": "color-background-warning",
+            "foreground": "color-foreground-warning"
           }
         },
         "danger": {
           "Default": {
-            "background": "color-status-danger-background",
-            "foreground": "color-status-danger-foreground"
+            "background": "color-background-danger",
+            "foreground": "color-foreground-danger"
           }
         },
         "info": {
           "Default": {
-            "background": "color-status-info-background",
-            "foreground": "color-status-info-foreground"
+            "background": "color-background-info",
+            "foreground": "color-foreground-info"
           }
         }
       },

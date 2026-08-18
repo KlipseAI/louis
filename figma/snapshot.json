@@ -6,12 +6,12 @@
     "capturedAt": "2026-08-18",
     "capturedBy": "figma-mcp-plugin-api",
     "published": false,
-    "tokenSourceSha256": "102b33547a4c49819818c52199ff16b1b1882a96f2c78f75c63eb7ef53e13a95",
-    "proposalSha256": "fa0b3eae1227599fe0b5042b14167e3adaa5f8891353b969acde527050ed89b3",
+    "tokenSourceSha256": "7c188c221a60bebcc3cd04ac5ea84092df6c79faceec62a9ab8696307fcf33b1",
+    "proposalSha256": "49fa4185282aa5af24635416c9fb621cac1d3edbefa0c486ef613613393a73b9",
     "readback": {
       "tokens": 232,
-      "canonicalLength": 19908,
-      "fnv1a32": "a639340c",
+      "canonicalLength": 19851,
+      "fnv1a32": "ec892c9c",
       "note": "변수는 readback.json의 되읽기 행을 tokenId 공간으로 옮긴 것이고, style과 component는 같은 되읽기의 style/component 절이다. canonical 해시는 컬렉션·이름·타입·mode 값을 정렬해 이은 문자열의 FNV-1a다.",
       "styles": {
         "text": 15,
@@ -182,6 +182,18 @@
         }
       }
     },
+    "color-action-primary-active": {
+      "figmaName": "color/action-primary-active",
+      "resolvedType": "COLOR",
+      "valuesByMode": {
+        "Light": {
+          "alias": "color-blue-600"
+        },
+        "Dark": {
+          "alias": "color-blue-600"
+        }
+      }
+    },
     "color-action-primary-hover": {
       "figmaName": "color/action-primary-hover",
       "resolvedType": "COLOR",
@@ -191,18 +203,6 @@
         },
         "Dark": {
           "alias": "color-blue-400"
-        }
-      }
-    },
-    "color-action-primary-pressed": {
-      "figmaName": "color/action-primary-pressed",
-      "resolvedType": "COLOR",
-      "valuesByMode": {
-        "Light": {
-          "alias": "color-blue-600"
-        },
-        "Dark": {
-          "alias": "color-blue-600"
         }
       }
     },
@@ -298,6 +298,30 @@
         }
       }
     },
+    "color-background-danger": {
+      "figmaName": "color/background-danger",
+      "resolvedType": "COLOR",
+      "valuesByMode": {
+        "Light": {
+          "alias": "color-red-100"
+        },
+        "Dark": {
+          "alias": "color-red-900"
+        }
+      }
+    },
+    "color-background-info": {
+      "figmaName": "color/background-info",
+      "resolvedType": "COLOR",
+      "valuesByMode": {
+        "Light": {
+          "alias": "color-blue-50"
+        },
+        "Dark": {
+          "alias": "color-blue-900"
+        }
+      }
+    },
     "color-background-inset": {
       "figmaName": "color/background-inset",
       "resolvedType": "COLOR",
@@ -370,6 +394,18 @@
         }
       }
     },
+    "color-background-success": {
+      "figmaName": "color/background-success",
+      "resolvedType": "COLOR",
+      "valuesByMode": {
+        "Light": {
+          "alias": "color-green-100"
+        },
+        "Dark": {
+          "alias": "color-green-900"
+        }
+      }
+    },
     "color-background-surface": {
       "figmaName": "color/background-surface",
       "resolvedType": "COLOR",
@@ -379,6 +415,18 @@
         },
         "Dark": {
           "alias": "color-neutral-800"
+        }
+      }
+    },
+    "color-background-warning": {
+      "figmaName": "color/background-warning",
+      "resolvedType": "COLOR",
+      "valuesByMode": {
+        "Light": {
+          "alias": "color-amber-100"
+        },
+        "Dark": {
+          "alias": "color-amber-900"
         }
       }
     },
@@ -648,6 +696,18 @@
         }
       }
     },
+    "color-foreground-danger": {
+      "figmaName": "color/foreground-danger",
+      "resolvedType": "COLOR",
+      "valuesByMode": {
+        "Light": {
+          "alias": "color-red-900"
+        },
+        "Dark": {
+          "alias": "color-red-100"
+        }
+      }
+    },
     "color-foreground-disabled": {
       "figmaName": "color/foreground-disabled",
       "resolvedType": "COLOR",
@@ -657,6 +717,18 @@
         },
         "Dark": {
           "alias": "color-neutral-600"
+        }
+      }
+    },
+    "color-foreground-info": {
+      "figmaName": "color/foreground-info",
+      "resolvedType": "COLOR",
+      "valuesByMode": {
+        "Light": {
+          "alias": "color-blue-900"
+        },
+        "Dark": {
+          "alias": "color-blue-50"
         }
       }
     },
@@ -732,6 +804,18 @@
         }
       }
     },
+    "color-foreground-success": {
+      "figmaName": "color/foreground-success",
+      "resolvedType": "COLOR",
+      "valuesByMode": {
+        "Light": {
+          "alias": "color-green-900"
+        },
+        "Dark": {
+          "alias": "color-green-100"
+        }
+      }
+    },
     "color-foreground-tertiary": {
       "figmaName": "color/foreground-tertiary",
       "resolvedType": "COLOR",
@@ -741,6 +825,18 @@
         },
         "Dark": {
           "alias": "color-neutral-400"
+        }
+      }
+    },
+    "color-foreground-warning": {
+      "figmaName": "color/foreground-warning",
+      "resolvedType": "COLOR",
+      "valuesByMode": {
+        "Light": {
+          "alias": "color-amber-900"
+        },
+        "Dark": {
+          "alias": "color-amber-100"
         }
       }
     },
@@ -1407,102 +1503,6 @@
         },
         "Dark": {
           "alias": "color-black-alpha-72"
-        }
-      }
-    },
-    "color-status-danger-background": {
-      "figmaName": "color/status-danger-background",
-      "resolvedType": "COLOR",
-      "valuesByMode": {
-        "Light": {
-          "alias": "color-red-100"
-        },
-        "Dark": {
-          "alias": "color-red-900"
-        }
-      }
-    },
-    "color-status-danger-foreground": {
-      "figmaName": "color/status-danger-foreground",
-      "resolvedType": "COLOR",
-      "valuesByMode": {
-        "Light": {
-          "alias": "color-red-900"
-        },
-        "Dark": {
-          "alias": "color-red-100"
-        }
-      }
-    },
-    "color-status-info-background": {
-      "figmaName": "color/status-info-background",
-      "resolvedType": "COLOR",
-      "valuesByMode": {
-        "Light": {
-          "alias": "color-blue-50"
-        },
-        "Dark": {
-          "alias": "color-blue-900"
-        }
-      }
-    },
-    "color-status-info-foreground": {
-      "figmaName": "color/status-info-foreground",
-      "resolvedType": "COLOR",
-      "valuesByMode": {
-        "Light": {
-          "alias": "color-blue-900"
-        },
-        "Dark": {
-          "alias": "color-blue-50"
-        }
-      }
-    },
-    "color-status-success-background": {
-      "figmaName": "color/status-success-background",
-      "resolvedType": "COLOR",
-      "valuesByMode": {
-        "Light": {
-          "alias": "color-green-100"
-        },
-        "Dark": {
-          "alias": "color-green-900"
-        }
-      }
-    },
-    "color-status-success-foreground": {
-      "figmaName": "color/status-success-foreground",
-      "resolvedType": "COLOR",
-      "valuesByMode": {
-        "Light": {
-          "alias": "color-green-900"
-        },
-        "Dark": {
-          "alias": "color-green-100"
-        }
-      }
-    },
-    "color-status-warning-background": {
-      "figmaName": "color/status-warning-background",
-      "resolvedType": "COLOR",
-      "valuesByMode": {
-        "Light": {
-          "alias": "color-amber-100"
-        },
-        "Dark": {
-          "alias": "color-amber-900"
-        }
-      }
-    },
-    "color-status-warning-foreground": {
-      "figmaName": "color/status-warning-foreground",
-      "resolvedType": "COLOR",
-      "valuesByMode": {
-        "Light": {
-          "alias": "color-amber-900"
-        },
-        "Dark": {
-          "alias": "color-amber-100"
         }
       }
     },

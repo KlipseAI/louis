@@ -131,5 +131,5 @@
 }
 
 .kds-text-field[data-invalid="true"] .kds-text-field__message {
-  color: var(--kds-color-status-danger-foreground);
+  color: var(--kds-color-foreground-danger);
 }

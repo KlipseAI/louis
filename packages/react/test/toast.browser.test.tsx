@@ -326,8 +326,8 @@ test("danger tone이 status-danger 토큰을 쓴다", async () => {
   const node = toasts()[0];
   if (node === undefined) throw new Error("toast가 없습니다");
   const probe = document.createElement("div");
-  probe.style.background = "var(--kds-color-status-danger-background)";
-  probe.style.color = "var(--kds-color-status-danger-foreground)";
+  probe.style.background = "var(--kds-color-background-danger)";
+  probe.style.color = "var(--kds-color-foreground-danger)";
   document.body.append(probe);
   const expected = getComputedStyle(probe);
   const wantBackground = expected.backgroundColor;

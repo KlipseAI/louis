@@ -126,8 +126,8 @@ toast가 떴다는 사실 자체가 이미 "그 일이 일어났다"이므로 �
 | 배경        | `color-background-inverse-translucent` — **70% 반투명**   |
 | 배경 흐림   | `backdrop-filter: blur(--kds-blur-surface)` 10px         |
 | 전경        | `color-foreground-on-inverse`                            |
-| danger 배경 | `color-status-danger-background`                         |
-| danger 전경 | `color-status-danger-foreground`                         |
+| danger 배경 | `color-background-danger`                         |
+| danger 전경 | `color-foreground-danger`                         |
 | 그림자      | `elevation-toast` — drop 1겹                             |
 | layer       | `layer-critical`                                         |
 | 최대 폭     | 420px                                                    |

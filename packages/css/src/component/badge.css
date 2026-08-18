@@ -44,23 +44,23 @@
 }
 
 .kds-badge[data-tone="success"] {
-  background: var(--kds-color-status-success-background);
-  color: var(--kds-color-status-success-foreground);
+  background: var(--kds-color-background-success);
+  color: var(--kds-color-foreground-success);
 }
 
 .kds-badge[data-tone="warning"] {
-  background: var(--kds-color-status-warning-background);
-  color: var(--kds-color-status-warning-foreground);
+  background: var(--kds-color-background-warning);
+  color: var(--kds-color-foreground-warning);
 }
 
 .kds-badge[data-tone="danger"] {
-  background: var(--kds-color-status-danger-background);
-  color: var(--kds-color-status-danger-foreground);
+  background: var(--kds-color-background-danger);
+  color: var(--kds-color-foreground-danger);
 }
 
 .kds-badge[data-tone="info"] {
-  background: var(--kds-color-status-info-background);
-  color: var(--kds-color-status-info-foreground);
+  background: var(--kds-color-background-info);
+  color: var(--kds-color-foreground-info);
 }
 
 /* 아이콘 슬롯. **크기가 글자를 따라간다** — `1em`이라 12px 아이콘 토큰을 새로 만들지 않아도 되고,

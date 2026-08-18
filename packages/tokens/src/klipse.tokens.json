@@ -32,23 +32,23 @@
           "note": "제품 브랜드 블루(blue.500 #0088ff)를 정본으로 채택한 owner 결정의 결과다. 흰 글자(neutral-0) 대비가 3.37로 WCAG 2.2 AA의 일반 텍스트 기준 4.5에 미달한다. 4.5를 넘는 첫 단계는 blue.700(6.12)인데 제품에서 2번밖에 쓰이지 않는 색이라 브랜드가 아니다. 이 미달은 제품이 이미 갖고 있는 것이며 DS가 그것을 그대로 재현한다. 해소하려면 라벨을 18.66px bold 이상으로 키우거나 면 색을 어둡게 바꿔야 하고, 둘 다 owner 판정 대상이다."
         },
         {
-          "foreground": "color-status-danger-foreground",
-          "background": "color-status-danger-background",
+          "foreground": "color-foreground-danger",
+          "background": "color-background-danger",
           "minimum": 4.5
         },
         {
-          "foreground": "color-status-success-foreground",
-          "background": "color-status-success-background",
+          "foreground": "color-foreground-success",
+          "background": "color-background-success",
           "minimum": 4.5
         },
         {
-          "foreground": "color-status-warning-foreground",
-          "background": "color-status-warning-background",
+          "foreground": "color-foreground-warning",
+          "background": "color-background-warning",
           "minimum": 4.5
         },
         {
-          "foreground": "color-status-info-foreground",
-          "background": "color-status-info-background",
+          "foreground": "color-foreground-info",
+          "background": "color-background-info",
           "minimum": 4.5
         },
         {
@@ -58,7 +58,7 @@
           "note": "hover 면(blue.400)은 대비가 2.54로 기본 면보다 더 낮다. 제품이 hover에서 밝아지기 때문이며(filter: brightness(1.06)), 그 방향을 따랐다. 기본 면이 이미 AA 미달이므로 hover만 따로 지킬 수 없다. 이 쌍을 게이트에 올려 두는 이유는 통과시키려는 것이 아니라 수치를 드러내 두기 위해서다."
         },
         {
-          "background": "color-action-primary-pressed",
+          "background": "color-action-primary-active",
           "foreground": "color-foreground-inverse",
           "minimum": 4.0,
           "note": "pressed 면(blue.600)은 대비 4.41로 AA에 근소하게 미달한다. hover가 밝아지므로 pressed는 어두워져 두 상태를 구분한다. 기본 면과 같은 사유로 미달을 수용한다."
@@ -4534,91 +4534,91 @@
             }
           }
         },
-        "action-primary-pressed": {
+        "action-primary-active": {
           "$value": "{primitive.color.blue.600}",
           "$extensions": {
             "com.klipse-design": {
-              "id": "color-action-primary-pressed",
+              "id": "color-action-primary-active",
               "tier": "semantic",
               "mode": "light"
             }
           }
         },
-        "status-danger-background": {
+        "background-danger": {
           "$value": "{primitive.color.red.100}",
           "$extensions": {
             "com.klipse-design": {
-              "id": "color-status-danger-background",
+              "id": "color-background-danger",
               "tier": "semantic",
               "mode": "light"
             }
           }
         },
-        "status-danger-foreground": {
+        "foreground-danger": {
           "$value": "{primitive.color.red.900}",
           "$extensions": {
             "com.klipse-design": {
-              "id": "color-status-danger-foreground",
+              "id": "color-foreground-danger",
               "tier": "semantic",
               "mode": "light"
             }
           }
         },
-        "status-success-background": {
+        "background-success": {
           "$value": "{primitive.color.green.100}",
           "$extensions": {
             "com.klipse-design": {
-              "id": "color-status-success-background",
+              "id": "color-background-success",
               "tier": "semantic",
               "mode": "light"
             }
           }
         },
-        "status-success-foreground": {
+        "foreground-success": {
           "$value": "{primitive.color.green.900}",
           "$extensions": {
             "com.klipse-design": {
-              "id": "color-status-success-foreground",
+              "id": "color-foreground-success",
               "tier": "semantic",
               "mode": "light"
             }
           }
         },
-        "status-warning-background": {
+        "background-warning": {
           "$value": "{primitive.color.amber.100}",
           "$extensions": {
             "com.klipse-design": {
-              "id": "color-status-warning-background",
+              "id": "color-background-warning",
               "tier": "semantic",
               "mode": "light"
             }
           }
         },
-        "status-warning-foreground": {
+        "foreground-warning": {
           "$value": "{primitive.color.amber.900}",
           "$extensions": {
             "com.klipse-design": {
-              "id": "color-status-warning-foreground",
+              "id": "color-foreground-warning",
               "tier": "semantic",
               "mode": "light"
             }
           }
         },
-        "status-info-background": {
+        "background-info": {
           "$value": "{primitive.color.blue.50}",
           "$extensions": {
             "com.klipse-design": {
-              "id": "color-status-info-background",
+              "id": "color-background-info",
               "tier": "semantic",
               "mode": "light"
             }
           }
         },
-        "status-info-foreground": {
+        "foreground-info": {
           "$value": "{primitive.color.blue.900}",
           "$extensions": {
             "com.klipse-design": {
-              "id": "color-status-info-foreground",
+              "id": "color-foreground-info",
               "tier": "semantic",
               "mode": "light"
             }
@@ -5062,91 +5062,91 @@
             }
           }
         },
-        "action-primary-pressed": {
+        "action-primary-active": {
           "$value": "{primitive.color.blue.600}",
           "$extensions": {
             "com.klipse-design": {
-              "id": "color-action-primary-pressed",
+              "id": "color-action-primary-active",
               "tier": "semantic",
               "mode": "dark"
             }
           }
         },
-        "status-danger-background": {
+        "background-danger": {
           "$value": "{primitive.color.red.900}",
           "$extensions": {
             "com.klipse-design": {
-              "id": "color-status-danger-background",
+              "id": "color-background-danger",
               "tier": "semantic",
               "mode": "dark"
             }
           }
         },
-        "status-danger-foreground": {
+        "foreground-danger": {
           "$value": "{primitive.color.red.100}",
           "$extensions": {
             "com.klipse-design": {
-              "id": "color-status-danger-foreground",
+              "id": "color-foreground-danger",
               "tier": "semantic",
               "mode": "dark"
             }
           }
         },
-        "status-success-background": {
+        "background-success": {
           "$value": "{primitive.color.green.900}",
           "$extensions": {
             "com.klipse-design": {
-              "id": "color-status-success-background",
+              "id": "color-background-success",
               "tier": "semantic",
               "mode": "dark"
             }
           }
         },
-        "status-success-foreground": {
+        "foreground-success": {
           "$value": "{primitive.color.green.100}",
           "$extensions": {
             "com.klipse-design": {
-              "id": "color-status-success-foreground",
+              "id": "color-foreground-success",
               "tier": "semantic",
               "mode": "dark"
             }
           }
         },
-        "status-warning-background": {
+        "background-warning": {
           "$value": "{primitive.color.amber.900}",
           "$extensions": {
             "com.klipse-design": {
-              "id": "color-status-warning-background",
+              "id": "color-background-warning",
               "tier": "semantic",
               "mode": "dark"
             }
           }
         },
-        "status-warning-foreground": {
+        "foreground-warning": {
           "$value": "{primitive.color.amber.100}",
           "$extensions": {
             "com.klipse-design": {
-              "id": "color-status-warning-foreground",
+              "id": "color-foreground-warning",
               "tier": "semantic",
               "mode": "dark"
             }
           }
         },
-        "status-info-background": {
+        "background-info": {
           "$value": "{primitive.color.blue.900}",
           "$extensions": {
             "com.klipse-design": {
-              "id": "color-status-info-background",
+              "id": "color-background-info",
               "tier": "semantic",
               "mode": "dark"
             }
           }
         },
-        "status-info-foreground": {
+        "foreground-info": {
           "$value": "{primitive.color.blue.50}",
           "$extensions": {
             "com.klipse-design": {
-              "id": "color-status-info-foreground",
+              "id": "color-foreground-info",
               "tier": "semantic",
               "mode": "dark"
             }

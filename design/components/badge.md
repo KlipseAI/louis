@@ -130,7 +130,7 @@ gap registry가 "가장 복잡한" 것으로 지목한 배지이며 비디오 �
 
 ## Implementation
 
-- 면과 글자를 짝지은 `color-status-*` 토큰을 쓴다. 네 쌍은 `contrastPairs`에 `minimum 4.5`로
+- 면과 글자를 짝지은 `color-background-{tone}`·`color-foreground-{tone}` 토큰을 쓴다. 네 쌍은 `contrastPairs`에 `minimum 4.5`로
   선언돼 있고 실측 대비는 9.09~11.98이다.
 - 테두리 축을 열지 않는다. tone마다 border 토큰이 필요한데 `color-border-danger` 하나만 있고
   나머지 셋에는 대응이 없다.

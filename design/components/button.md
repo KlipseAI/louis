@@ -174,7 +174,7 @@ focus-visible 링은 브라우저가 그리므로 Figma variant로 두지 않는
 ## Known deviations
 
 - **`danger` variant가 tonal이다.** solid danger를 표현할 `color-action-danger*` 토큰이 아직 없어
-  `color-status-danger-*`로 대체했다. `DS-P3-014` 단위 9가 토큰을 추가하면 갱신한다.
+  `color-background-danger`·`color-foreground-danger`로 대체했다. `DS-P3-014` 단위 9가 토큰을 추가하면 갱신한다.
   Button은 foreground와 background를 **쌍으로** 쓰므로 대비가 성립한다. 같은 토큰을 텍스트 색으로만
   쓰면 중립 표면에서 무너지는데, 그 실측은 [Menu / Popover](menu-popover.md)의 Known deviations에 있다.
 - **고정 높이가 없다.** 높이를 padding과 line-height로 결정하고 44px 타깃은 `kds-hit-target`이

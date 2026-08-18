@@ -1065,8 +1065,8 @@ coverage가 끝나지 않았다면 P3 core release라고 명시한다. published
 
 **단위 9가 반드시 포함해야 하는 것 (2026-08-14 워크샵 실측):**
 
-중립 표면 위에서 성립하는 **danger foreground**가 없다. 현재 `status-danger-foreground`는
-`status-danger-background`와 **쌍으로** 쓰도록 만들어졌고 두 테마에서 값이 서로 뒤바뀐다. 그래서
+중립 표면 위에서 성립하는 **danger foreground**가 없다. 현재 `color-foreground-danger`는
+`color-background-danger`와 **쌍으로** 쓰도록 만들어졌고 두 테마에서 값이 서로 뒤바뀐다. 그래서
 텍스트 색으로만 쓰면 일반 텍스트와의 대비가 light 1.21, dark 1.14로 사실상 구분되지 않는다.
 Button은 쌍으로 써서 성립하지만 Menu의 danger item은 이 공백을 그대로 밟는다 —
 [Menu / Popover](../components/menu-popover.md)의 Known deviations에 실측이 있다.

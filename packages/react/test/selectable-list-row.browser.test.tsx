@@ -95,7 +95,22 @@ test("states 표가 코드와 같다", async () => {
   await render(<Fixture />);
   const [selected, plain] = all("button.kds-selectable-list-row");
 
-  expect(getComputedStyle(plain!).backgroundColor, "Default background").toBe(TRANSPARENT);
+  // **임시 진단(2026-08-18).** 이 단언이 hosted CI의 browser-reduced-motion에서만 결정적으로
+  // 실패하고 로컬에서는 같은 project로도 재현되지 않는다. 원인을 모르는 채 단언을 고치지 않고,
+  // 실패 메시지에 환경을 실어 CI 한 사이클로 관측한다. 원인이 밝혀지면 이 블록은 지운다.
+  const diagnostics = {
+    background: getComputedStyle(plain!).backgroundColor,
+    ariaCurrent: plain!.getAttribute("aria-current"),
+    title: plain!.textContent,
+    rowCount: all("button.kds-selectable-list-row").length,
+    fixtureCount: document.querySelectorAll("[data-kds-fixture]").length,
+    theme: document.documentElement.getAttribute("data-theme"),
+    prefersDark: matchMedia("(prefers-color-scheme: dark)").matches,
+    forcedColors: matchMedia("(forced-colors: active)").matches,
+    reducedMotion: matchMedia("(prefers-reduced-motion: reduce)").matches,
+    canvas: tokenValue("color-background-canvas", "background-color"),
+  };
+  expect(diagnostics, "Default background").toEqual({ ...diagnostics, background: TRANSPARENT });
   expect(getComputedStyle(plain!).color, "Default foreground").toBe(
     tokenValue(states.Default.foreground, "color"),
   );

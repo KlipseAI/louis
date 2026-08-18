@@ -106,9 +106,9 @@ Figma library는 아직 `not-ready`다. 시스템 전체 maturity도 `experiment
 | 항목 | 현재 값 |
 | --- | --- |
 | System maturity | `experimental` |
-| Normative documents | 68 |
+| Normative documents | 69 |
 | Generated documents | 5 |
-| Components | 18 |
+| Components | 19 |
 | Patterns | 4 |
 | Web done | 0 |
 | Token artifacts done | 6/6 |
@@ -907,10 +907,12 @@ owner 결정이 필요해 병렬로 열려 있다.
   "15벌 · 4종 · 3기법"은 전부 과소집계였다. 우세 기법은 면 그라디언트 `background-position`
   이동이고 그 8개 소비처 중 6개가 바이트 동일하다. **선행 작업은 끝났다**(DS-D-0017) —
   `motion-shimmer`와 `background-position` 허용이 섰다
-- **면 색이 문제다.** 제품은 면/하이라이트를 전경색 알파 2단(다크 6%/12%, 라이트 3%/7%)으로
-  만드는데, DS에서 집을 두 조합이 각각 한 테마에서 죽는다 — `background-inset`은 **다크에서
-  surface·menu·overlay와 넷이 동일**하고, `background-raised`는 **라이트에서 surface·overlay와
-  셋이 동일**하다. Badge의 죽은 축과 같은 종류이며 Skeleton을 짓기 전에 판정이 필요하다
+- ~~**면 색이 문제다.**~~ — **해소됨(2026-08-18). 이것은 답이 아니라 틀린 질문이었다.**
+  제품을 직접 재보니 면은 `rgb(var(--gray-000-rgb) / 8%)`, 하이라이트는 같은 색 9%다.
+  `--gray-000`은 **전경색**이고 테마마다 뒤집히므로 **제품은 테마별 면을 고른 적이 없다.**
+  위 문장은 "solid 면 토큰이 필요하다"를 전제했고 실측이 그 전제를 부정한다 — 고를 면이 없으므로
+  죽을 조합도 없다. Skeleton이 `currentcolor` 알파로 섰고 owner 판정은 필요하지 않았다.
+  **인계서에 적힌 판정 문장도 실측을 면제받지 않는다**
 
 아래는 해소된 기록이다. 실측은 끝났다(약 62벌). 실측은 끝났고(약 62벌 — 회전 22 ·
 스켈레톤 15 · 진행률 5 · 텍스트 쉬머 11), 막고 있던 셋을 [DS-D-0016](../governance/decisions/DS-D-0016-loop-motion.md)이
@@ -5175,6 +5177,48 @@ popover에 가린다. **이 결정은 드로어를 다루지 않는다** — 드
 ### Updates
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
+
+#### 2026-08-18 (20) — Skeleton · (1c)는 답이 아니라 틀린 질문이었다
+
+`import { Skeleton } from "@klipse-design/react"`. **owner 판정 대기로 두었던 (1c)가 판정 없이
+풀렸다** — 제품을 직접 재보니 물어야 할 질문이 달랐다.
+
+##### 제품은 면 색을 고르지 않는다
+
+```
+면:        rgb(var(--gray-000-rgb) / 8%)
+하이라이트: linear-gradient(90deg, /0%, /9%, /0%)
+```
+
+`--gray-000`은 **전경색**이고 테마마다 뒤집힌다(라이트 `palette-gray-1000` · 다크
+`palette-gray-000`). 즉 제품은 **테마별 면을 고른 적이 없다.** 전경색을 낮은 알파로 깔면
+어느 배경 위에서도 성립하기 때문이다.
+
+인계서 (1c)는 이렇게 적혀 있었다 — "면 색이 문제다. `background-inset`은 다크에서
+surface·menu·overlay와 넷이 동일하고 `background-raised`는 라이트에서 셋이 동일하다."
+
+**그 문장은 "스켈레톤에 solid 면 토큰이 필요하다"를 전제한다.** 실측이 그 전제를 부정한다.
+고를 면이 없으므로 죽을 조합도 없다. owner가 정할 것이 아니라 값 하나였다.
+
+DS에는 이미 같은 판단이 둘 있었다 — Spinner의 트랙(`currentcolor 22%`)과 ProjectCard의 스크림.
+후자의 주석은 **"색 토큰이 아니라 `color-mix`로 불투명도를 직접 적는다"**고 이미 적어 두었다.
+
+##### 왜 대기했었나
+
+**인계서에 적힌 판정 문장을 직접 재보지 않고 그대로 옮겼다.** 이번 세션에서 gap registry의 수치는
+아홉 번 다시 셌으면서 인계서의 판정은 같은 의심을 하지 않았다. 같은 실수이고, 규범 문서라고
+해서 실측을 면제받지 않는다.
+
+##### 흐름은 `background-position`이다
+
+loop lifecycle의 허용 property는 `opacity`·`rotate`·`background-position` 셋이고(DS-D-0016),
+제품의 우세 기법도 면 그라디언트 이동이라 둘이 같은 곳을 가리킨다 — **층을 하나 덜 만든다.**
+reduced-motion에서 흐름은 짧아지는 것이 아니라 사라지고, 테스트가 두 motion context를 갈라서 잰다.
+
+##### 공개 API 표면 baseline 갱신 (additive)
+
+심볼 `Skeleton`, 타입 `SkeletonProps`·`SkeletonShape`가 늘었다. **두 커밋 전에 세운 게이트가
+이 변경을 잡아 baseline과 이 항목을 함께 요구했다** — 설계대로 동작했다.
 
 #### 2026-08-18 (19) — Project Grid · `layout-project-card-minimum`이 소비처를 얻었다
 

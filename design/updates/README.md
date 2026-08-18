@@ -8,6 +8,48 @@ authority: normative
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
 
+## 2026-08-18 (20) — Skeleton · (1c)는 답이 아니라 틀린 질문이었다
+
+`import { Skeleton } from "@klipse-design/react"`. **owner 판정 대기로 두었던 (1c)가 판정 없이
+풀렸다** — 제품을 직접 재보니 물어야 할 질문이 달랐다.
+
+### 제품은 면 색을 고르지 않는다
+
+```
+면:        rgb(var(--gray-000-rgb) / 8%)
+하이라이트: linear-gradient(90deg, /0%, /9%, /0%)
+```
+
+`--gray-000`은 **전경색**이고 테마마다 뒤집힌다(라이트 `palette-gray-1000` · 다크
+`palette-gray-000`). 즉 제품은 **테마별 면을 고른 적이 없다.** 전경색을 낮은 알파로 깔면
+어느 배경 위에서도 성립하기 때문이다.
+
+인계서 (1c)는 이렇게 적혀 있었다 — "면 색이 문제다. `background-inset`은 다크에서
+surface·menu·overlay와 넷이 동일하고 `background-raised`는 라이트에서 셋이 동일하다."
+
+**그 문장은 "스켈레톤에 solid 면 토큰이 필요하다"를 전제한다.** 실측이 그 전제를 부정한다.
+고를 면이 없으므로 죽을 조합도 없다. owner가 정할 것이 아니라 값 하나였다.
+
+DS에는 이미 같은 판단이 둘 있었다 — Spinner의 트랙(`currentcolor 22%`)과 ProjectCard의 스크림.
+후자의 주석은 **"색 토큰이 아니라 `color-mix`로 불투명도를 직접 적는다"**고 이미 적어 두었다.
+
+### 왜 대기했었나
+
+**인계서에 적힌 판정 문장을 직접 재보지 않고 그대로 옮겼다.** 이번 세션에서 gap registry의 수치는
+아홉 번 다시 셌으면서 인계서의 판정은 같은 의심을 하지 않았다. 같은 실수이고, 규범 문서라고
+해서 실측을 면제받지 않는다.
+
+### 흐름은 `background-position`이다
+
+loop lifecycle의 허용 property는 `opacity`·`rotate`·`background-position` 셋이고(DS-D-0016),
+제품의 우세 기법도 면 그라디언트 이동이라 둘이 같은 곳을 가리킨다 — **층을 하나 덜 만든다.**
+reduced-motion에서 흐름은 짧아지는 것이 아니라 사라지고, 테스트가 두 motion context를 갈라서 잰다.
+
+### 공개 API 표면 baseline 갱신 (additive)
+
+심볼 `Skeleton`, 타입 `SkeletonProps`·`SkeletonShape`가 늘었다. **두 커밋 전에 세운 게이트가
+이 변경을 잡아 baseline과 이 항목을 함께 요구했다** — 설계대로 동작했다.
+
 ## 2026-08-18 (19) — Project Grid · `layout-project-card-minimum`이 소비처를 얻었다
 
 `DS-P3-010`의 세 패턴 중 하나가 섰다. 공용 recipe `.kds-project-grid` 하나이고 pattern의 Web

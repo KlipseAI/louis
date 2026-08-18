@@ -8,6 +8,39 @@ authority: normative
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
 
+## 2026-08-18 (32) — BannerCarousel의 Figma set이 섰다
+
+component 19 → **20**. `figma: not-ready` → `partial`. **이제 parity가 이 컴포넌트를 지킨다** —
+그 전까지는 코드만 있고 Figma 쪽 계약이 비어 있었다.
+
+### variant 축 둘
+
+`Tone`(bright · dark) × `Bleed`(boxed · full) 4벌이다. 둘 다 코드의 타입 선언과 대조된다 —
+`BannerTone`과 `BannerCarouselBleed`. 후자는 이 계약을 위해 export를 새로 열었다. 인라인
+union으로 두면 Figma variant가 무엇과 맞는지 게이트가 확인할 수 없다.
+
+**Tone이 variant인 이유**는 톤이 색을 바꾸기 때문이고, **Bleed가 variant인 이유**는 반경을 바꾸기
+때문이다. 기하 키를 `Bleed` 값으로 잡았다 — Size 축이 없고 반경을 바꾸는 유일한 축이라 그 값이
+곧 키다.
+
+### 점의 활성과 비활성을 둘 다 잰다
+
+같은 부품의 두 값이면 합성 키를 쓰겠지만, **활성과 비활성은 서로 다른 자리에 동시에 존재한다.**
+그래서 `DotActive`(20×7)와 `DotRest1`(7×7)로 이름을 갈라 둘 다 대조한다. 폭이 상태라는 계약이
+Figma 쪽에서도 기계로 지켜진다.
+
+### 960×240은 정본이 아니다
+
+measured에 `$note`로 박아 뒀다. 높이는 소비처가 정하고 **허브 4종이 서로 다르다.** Figma의 예시
+크기가 정본인 척하지 않도록 적어 둔 것이며, 규범과 component set description에도 같은 문장이 있다.
+
+### 테두리도 그림자도 없는 것이 계약이다
+
+배너의 경계는 **사진 자체**이고 컨트롤은 면과 흐림으로만 떠 있다. 여기에 테두리가 생기면 사진
+위에 선이 그어진다. `strokes: {}` · `effects: {}`로 못 박아, 누가 나중에 얹으면 parity가 잡는다.
+
+raw fill 0 · raw stroke 0 · 텍스트 스타일 8개 전부 바인딩.
+
 ## 2026-08-18 (31) — BannerCarousel이 섰다
 
 허브 4종을 동시에 막던 컴포넌트다. 배포본 실측을 CSS · React · 테스트 · 규범으로 옮겼다.

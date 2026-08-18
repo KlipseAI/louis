@@ -570,12 +570,18 @@
     "avatar": {
       "$doc": "design/components/avatar.md",
       "$source": "packages/react/src/avatar/avatar.tsx, packages/css/src/component/avatar.css",
-      "$note": "제품에 공용 구현이 **부분만** 있다 \u2014 UserCircleDefaultAvatar.tsx가 기본 아바타 SVG 하나(28×28 · currentColor · aria-hidden)를 소유하고 본체는 Gnb.tsx에 인라인이다. 크기 24·28은 제품의 --profile-avatar-size 두 값을 그대로 옮겼다.",
+      "$note": "제품에 공용 구현이 **부분만** 있다 — UserCircleDefaultAvatar.tsx가 기본 아바타 SVG 하나(28×28 · currentColor · aria-hidden)를 소유하고 본체는 Gnb.tsx에 인라인이다. 크기 24·28은 제품의 --profile-avatar-size 두 값을 그대로 옮겼다.",
       "$noRing": "**링을 소유하지 않는다.** 제품은 프로필 트리거에 진행률 링을 겹치지만(--profile-ring-width/gap 2px) 아바타는 신원 표식이고 링은 사용량이다. 흡수하면 인계서 (1c)의 미결 판정(determinate 진행률의 접근성 계약)이 이 컴포넌트의 API로 새어 들어온다.",
       "$noControlLadder": "크기가 control 계단(40/32)을 따르지 않는다. 아바타는 컨트롤이 아니라 표식이라 나란히 서도 줄이 어긋나지 않는다.",
       "sizes": {
-        "md": { "size": 28, "radius": 999 },
-        "sm": { "size": 24, "radius": 999 }
+        "md": {
+          "size": 28,
+          "radius": 999
+        },
+        "sm": {
+          "size": 24,
+          "radius": 999
+        }
       },
       "states": {
         "base": {
@@ -585,7 +591,7 @@
           }
         }
       },
-      "$statesNote": "상태 축이 없다. 대화형이 아니고 hover/focus를 갖지 않는다 \u2014 아바타가 버튼 안에 놓이면 그 버튼이 상태를 소유한다. foreground는 폴백 글리프의 색이며 이미지가 있으면 보이지 않는다."
+      "$statesNote": "상태 축이 없다. 대화형이 아니고 hover/focus를 갖지 않는다 — 아바타가 버튼 안에 놓이면 그 버튼이 상태를 소유한다. foreground는 폴백 글리프의 색이며 이미지가 있으면 보이지 않는다."
     },
     "badge": {
       "$doc": "design/components/badge.md",
@@ -830,13 +836,13 @@
     "skeleton": {
       "$doc": "design/components/skeleton.md",
       "$source": "packages/react/src/skeleton/skeleton.tsx, packages/css/src/component/skeleton.css",
-      "$note": "**면 색을 고르지 않는다.** 제품 실측(2026-08-18) \u2014 면 `rgb(var(--gray-000-rgb)/8%)`, 하이라이트 같은 색 9% 그라디언트. --gray-000은 전경색이고 테마마다 뒤집히므로 제품은 테마별 면을 고른 적이 없다. 인계서 (1c)의 \"면 색 판정\"은 solid 토큰이 필요하다는 전제 위에 있었고 실측이 그 전제를 부정한다.",
+      "$note": "**면 색을 고르지 않는다.** 제품 실측(2026-08-18) — 면 `rgb(var(--gray-000-rgb)/8%)`, 하이라이트 같은 색 9% 그라디언트. --gray-000은 전경색이고 테마마다 뒤집히므로 제품은 테마별 면을 고른 적이 없다. 인계서 (1c)의 \"면 색 판정\"은 solid 토큰이 필요하다는 전제 위에 있었고 실측이 그 전제를 부정한다.",
       "sizes": {
         "base": {
           "surfaceAlpha": 8,
           "highlightAlpha": 9,
           "radius": 8,
-          "$alpha": "제품 값 그대로. currentColor를 물어 어느 배경 위에서도 성립한다 \u2014 Spinner의 트랙 22%, ProjectCard의 스크림과 같은 기법이다"
+          "$alpha": "제품 값 그대로. currentColor를 물어 어느 배경 위에서도 성립한다 — Spinner의 트랙 22%, ProjectCard의 스크림과 같은 기법이다"
         }
       },
       "motion": {
@@ -844,9 +850,9 @@
         "timingFunction": "cubic-bezier(0.2, 0, 0, 1)",
         "iterationCount": "infinite",
         "reducedIterationCount": 1,
-        "$property": "background-position. loop lifecycle의 허용 property는 opacity·rotate·background-position 셋이고(DS-D-0016), 제품의 우세 기법도 면 그라디언트 이동이라 둘이 같은 곳을 가리킨다 \u2014 층을 하나 덜 만든다"
+        "$property": "background-position. loop lifecycle의 허용 property는 opacity·rotate·background-position 셋이고(DS-D-0016), 제품의 우세 기법도 면 그라디언트 이동이라 둘이 같은 곳을 가리킨다 — 층을 하나 덜 만든다"
       },
-      "$statesNote": "상태 축이 없다. 대화형이 아니고 aria-hidden이다 \u2014 로딩을 알리는 것은 이 요소가 아니라 감싸는 영역의 aria-busy나 live region의 일이며, 스켈레톤마다 읽히면 소음이 된다."
+      "$statesNote": "상태 축이 없다. 대화형이 아니고 aria-hidden이다 — 로딩을 알리는 것은 이 요소가 아니라 감싸는 영역의 aria-busy나 live region의 일이며, 스켈레톤마다 읽히면 소음이 된다."
     },
     "slider": {
       "$doc": "design/components/slider.md",
@@ -949,6 +955,53 @@
         }
       },
       "$statesNote": "선택은 aria-current='page'가 소유한다. 시각 전용 속성을 따로 두면 화면에는 선택으로 보이는데 보조기술에는 전달되지 않는 상태를 만들 수 있다. TopBar는 상태 축이 없다 — 대화형이 아니고 안의 슬롯이 자기 상태를 갖는다."
+    },
+    "banner-carousel": {
+      "$doc": "design/components/banner-carousel.md",
+      "$source": "packages/react/src/banner-carousel/banner-carousel.tsx, packages/css/src/component/banner-carousel.css",
+      "$note": "값은 전부 배포본 KlipseAI/klipse-web origin/main 7e9c3b69의 TabBannerCarousel.tsx 실측이다. 960×240은 **예시 크기**이고 정본이 아니다 — 높이는 소비처가 정하며 허브 4종이 서로 다르다.",
+      "$keyRule": "기하 키가 Bleed다. Size 축이 없고 Bleed가 반경을 바꾸는 유일한 축이라 그 값을 키로 쓴다.",
+      "$noAutoLayout": "루트가 auto-layout이 아니다. 슬라이드가 겹쳐 쌓이므로 흐름 배치가 성립하지 않는다.",
+      "sizes": {
+        "boxed": {
+          "width": 960,
+          "height": 240,
+          "contentInline": 540,
+          "contentBlockPadding": 24,
+          "contentInlinePadding": 20,
+          "controlsWidth": 126,
+          "controlsHeight": 36,
+          "controlsRadius": 999,
+          "controlsGap": 8,
+          "controlsPadding": 4,
+          "arrowSize": 28,
+          "arrowRadius": 999,
+          "dotActiveWidth": 20,
+          "dotRestWidth": 7,
+          "dotHeight": 7,
+          "dotRadius": 999,
+          "radius": 16
+        },
+        "full": {
+          "width": 960,
+          "height": 240,
+          "contentInline": 540,
+          "contentBlockPadding": 24,
+          "contentInlinePadding": 20,
+          "controlsWidth": 126,
+          "controlsHeight": 36,
+          "controlsRadius": 999,
+          "controlsGap": 8,
+          "controlsPadding": 4,
+          "arrowSize": 28,
+          "arrowRadius": 999,
+          "dotActiveWidth": 20,
+          "dotRestWidth": 7,
+          "dotHeight": 7,
+          "dotRadius": 999,
+          "radius": 0
+        }
+      }
     }
   },
   "$states": "variant × state마다 **어느 토큰을 무는가**. 개수가 아니라 정체를 고정한다. 이 표가 없던 동안 primary 배경을 danger 변수에 물려도 boundFills 수치가 그대로라 게이트가 통과했다. 값은 token id이며 Figma 변수 이름으로의 변환은 게이트가 생성 proposal의 figmaName으로 한다 — 여기에 Figma 이름을 적으면 정본이 둘이 된다. 코드 쪽 검증은 packages/react/test/component-states.browser.test.tsx가 계산값과 대조한다.",

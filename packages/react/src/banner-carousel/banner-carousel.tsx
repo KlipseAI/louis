@@ -20,6 +20,9 @@ export interface BannerCarouselSlide {
   readonly wordmark?: { readonly src: string; readonly alt: string };
 }
 
+/** 컨테이너가 반경을 갖는지. `full`은 화면 폭까지 각지게 흘린다. */
+export type BannerCarouselBleed = "boxed" | "full";
+
 export interface BannerCarouselProps {
   readonly slides: readonly BannerCarouselSlide[];
   /**
@@ -30,7 +33,7 @@ export interface BannerCarouselProps {
    */
   readonly label: string;
   /** `boxed`는 카드 반경, `full`은 각지게. 기본은 `boxed`. */
-  readonly bleed?: "boxed" | "full";
+  readonly bleed?: BannerCarouselBleed;
   /** 자동 넘김 간격(ms). `0`이면 넘기지 않는다. */
   readonly autoAdvanceMs?: number;
   readonly index?: number;

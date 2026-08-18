@@ -18,8 +18,8 @@
         "effect": 7
       },
       "components": {
-        "sets": 19,
-        "variants": 134
+        "sets": 20,
+        "variants": 138
       },
       "icons": 29,
       "templates": 1
@@ -3050,6 +3050,225 @@
           ],
           "layoutMode": [
             "HORIZONTAL"
+          ]
+        }
+      },
+      "strokes": {},
+      "effects": {}
+    },
+    "BannerCarousel": {
+      "tokenId": "banner-carousel",
+      "variantCount": 4,
+      "hasDescription": true,
+      "properties": {
+        "Tone": {
+          "type": "VARIANT",
+          "options": [
+            "bright",
+            "dark"
+          ]
+        },
+        "Bleed": {
+          "type": "VARIANT",
+          "options": [
+            "boxed",
+            "full"
+          ]
+        }
+      },
+      "binding": {
+        "boundFills": 28,
+        "rawFills": 0,
+        "boundStrokes": 0,
+        "rawStrokes": 0,
+        "textStyled": 8,
+        "textUnstyled": 0
+      },
+      "geometry": {
+        "boxed": {
+          "slots": {},
+          "parts": {
+            "Content": {
+              "width": [
+                540
+              ],
+              "height": [
+                240
+              ],
+              "paddingLeft": [
+                20
+              ],
+              "paddingTop": [
+                24
+              ]
+            },
+            "Controls": {
+              "width": [
+                126
+              ],
+              "height": [
+                36
+              ],
+              "cornerRadius": [
+                999
+              ],
+              "itemSpacing": [
+                8
+              ],
+              "paddingLeft": [
+                4
+              ]
+            },
+            "ArrowPrevious": {
+              "width": [
+                28
+              ],
+              "height": [
+                28
+              ],
+              "cornerRadius": [
+                999
+              ]
+            },
+            "ArrowNext": {
+              "width": [
+                28
+              ],
+              "height": [
+                28
+              ],
+              "cornerRadius": [
+                999
+              ]
+            },
+            "DotActive": {
+              "width": [
+                20
+              ],
+              "height": [
+                7
+              ],
+              "cornerRadius": [
+                999
+              ]
+            },
+            "DotRest1": {
+              "width": [
+                7
+              ],
+              "height": [
+                7
+              ],
+              "cornerRadius": [
+                999
+              ]
+            }
+          },
+          "strokeWeight": [],
+          "width": [
+            960
+          ],
+          "height": [
+            240
+          ],
+          "layoutMode": [
+            "NONE"
+          ],
+          "cornerRadius": [
+            16
+          ]
+        },
+        "full": {
+          "slots": {},
+          "parts": {
+            "Content": {
+              "width": [
+                540
+              ],
+              "height": [
+                240
+              ],
+              "paddingLeft": [
+                20
+              ],
+              "paddingTop": [
+                24
+              ]
+            },
+            "Controls": {
+              "width": [
+                126
+              ],
+              "height": [
+                36
+              ],
+              "cornerRadius": [
+                999
+              ],
+              "itemSpacing": [
+                8
+              ],
+              "paddingLeft": [
+                4
+              ]
+            },
+            "ArrowPrevious": {
+              "width": [
+                28
+              ],
+              "height": [
+                28
+              ],
+              "cornerRadius": [
+                999
+              ]
+            },
+            "ArrowNext": {
+              "width": [
+                28
+              ],
+              "height": [
+                28
+              ],
+              "cornerRadius": [
+                999
+              ]
+            },
+            "DotActive": {
+              "width": [
+                20
+              ],
+              "height": [
+                7
+              ],
+              "cornerRadius": [
+                999
+              ]
+            },
+            "DotRest1": {
+              "width": [
+                7
+              ],
+              "height": [
+                7
+              ],
+              "cornerRadius": [
+                999
+              ]
+            }
+          },
+          "strokeWeight": [],
+          "width": [
+            960
+          ],
+          "height": [
+            240
+          ],
+          "layoutMode": [
+            "NONE"
+          ],
+          "cornerRadius": [
+            0
           ]
         }
       },

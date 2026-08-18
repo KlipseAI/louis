@@ -611,6 +611,54 @@ const COMPONENT_CONTRACTS = [
     },
   },
   {
+    id: "banner-carousel",
+    figmaName: "BannerCarousel",
+    declaration: "packages/react/dist/banner-carousel/banner-carousel.d.ts",
+    // Tone은 사진의 밝기이지 테마가 아니다. 두 축 모두 코드의 타입 선언과 대조된다.
+    variantProperties: { Tone: "BannerTone", Bleed: "BannerCarouselBleed" },
+    // **테두리도 그림자도 없는 것이 계약이다.** 배너의 경계는 사진 자체이고, 컨트롤은 면과
+    // 흐림으로만 떠 있다. 여기에 테두리가 생기면 사진 위에 선이 그어진다.
+    strokes: {},
+    effects: {},
+    geometry: {
+      measuredId: "banner-carousel",
+      fields: {
+        width: "width",
+        height: "height",
+        cornerRadius: "radius",
+        // 슬라이드가 겹쳐 쌓이므로 흐름 배치가 성립하지 않는다.
+        layoutMode: { literal: "NONE" },
+      },
+      slots: {},
+      extraStrokeWeights: [],
+      parts: {
+        Content: {
+          fields: {
+            width: "contentInline",
+            height: "height",
+            paddingLeft: "contentInlinePadding",
+            paddingTop: "contentBlockPadding",
+          },
+        },
+        Controls: {
+          fields: {
+            width: "controlsWidth",
+            height: "controlsHeight",
+            cornerRadius: "controlsRadius",
+            itemSpacing: "controlsGap",
+            paddingLeft: "controlsPadding",
+          },
+        },
+        ArrowPrevious: { fields: { width: "arrowSize", height: "arrowSize", cornerRadius: "arrowRadius" } },
+        ArrowNext: { fields: { width: "arrowSize", height: "arrowSize", cornerRadius: "arrowRadius" } },
+        // **폭이 상태다**(DS-D-0019). 같은 부품의 두 값이라면 합성 키를 쓰겠지만, 활성과 비활성은
+        // 서로 다른 자리에 동시에 존재하므로 이름을 갈라 둘 다 대조한다.
+        DotActive: { fields: { width: "dotActiveWidth", height: "dotHeight", cornerRadius: "dotRadius" } },
+        DotRest1: { fields: { width: "dotRestWidth", height: "dotHeight", cornerRadius: "dotRadius" } },
+      },
+    },
+  },
+  {
     id: "badge",
     figmaName: "Badge",
     declaration: "packages/react/dist/badge/badge.d.ts",

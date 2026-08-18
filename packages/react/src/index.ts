@@ -45,7 +45,7 @@ export type { CheckboxProps } from "./checkbox/checkbox.js";
 export { EmptyState } from "./empty-state/empty-state.js";
 export type { EmptyStateHeadingLevel, EmptyStateProps } from "./empty-state/empty-state.js";
 export { BannerCarousel } from "./banner-carousel/banner-carousel.js";
-export type { BannerCarouselProps, BannerCarouselSlide, BannerTone } from "./banner-carousel/banner-carousel.js";
+export type { BannerCarouselBleed, BannerCarouselProps, BannerCarouselSlide, BannerTone } from "./banner-carousel/banner-carousel.js";
 export { SegmentedControl, SegmentedControlItem } from "./segmented-control/segmented-control.js";
 export type {
   SegmentedControlItemProps,

@@ -421,7 +421,14 @@ Badge의 `Label`). **모든 fill이 변수 바인딩이고 raw 값이 0이다.**
 파일에 인라인이다. **화면 gap의 수(72·130·144)는 갱신하지 않았다** — 그것은 Figma에서 Home을
 실제로 다시 조립해야 나오고 아직 하지 않았다. 배너 캐러셀의 선행 조건이던 아이콘
 `caret-left`·`caret-right`·`caret-down` 셋은 **2026-08-18에 섰다**(글리프 26 → 29개, Figma
-component 26 → 29개). **Avatar가 섰다(2026-08-18) — 남은 것은 `BannerCarousel` 하나다.** caret 3종이 이미 서서 선행 조건이 없다.
+component 26 → 29개). **Avatar가 섰다(2026-08-18) — 남은 것은 `BannerCarousel` 하나이고 그것은 지금 착수할 수 없다.**
+census를 [gap registry](../../migration/figma-gap-registry.md)에 남겼다(359줄 · 4벌 · 2파일).
+**막는 것 넷이 전부 이 컴포넌트 바깥의 미결이다** — 톤이 `useBannerImageTone`으로 이미지에서
+**런타임 샘플링**된다 · progressive blur의 표현 방법 없음 · stagger((1a)의 `motion-*-delay`
+8종이 전부 0ms이고 CSS가 delay를 생략한다) · 점의 폭 전환(`layout-change` 토큰 부재).
+
+지금 지으면 **네 미결이 전부 이 컴포넌트의 API와 Figma 계약으로 새어 들어온다.** 정지 상태만
+먼저 세우는 대안이 있으나 그것을 gap 0으로 셀지는 owner 판정이다.
 
 **`Avatar`의 census는 2026-08-18에 끝냈다** — [gap registry](../../migration/figma-gap-registry.md)의
 "Avatar 실측" 절에 있다. 공용 구현이 **부분만**(기본 아바타 SVG 하나) 있고 본체는 셸 파일에

@@ -98,6 +98,46 @@ Home의 남은 구멍 둘 중 하나다. **착수 전 census를 여기 남긴다
 **크기 축은 24·28 둘이고 DS의 control 계단(40/32)과 맞지 않는다.** 아바타는 컨트롤이 아니라
 표식이므로 계단을 따를 이유가 없다 — 제품 값을 그대로 옮기는 쪽이 유력하다.
 
+### BannerCarousel 실측 (2026-08-18) — 선행 조건 넷이 충족되지 않았다
+
+Home의 마지막 구멍이다. **Avatar와 달리 지금 착수할 수 없다.** census와 막는 것을 남긴다.
+
+`TabBannerCarousel.tsx` **359줄**, 소비처 3(NodeCanvasHome · VideoEditScene · HighlightScene).
+`HomeBannerSlide.tsx`가 앱 홈 전용으로 따로 있다. 합 **4벌 · 2파일**.
+
+| 축 | 제품 |
+| --- | --- |
+| 배치 | `boxed`(`rounded-16`)와 `full-bleed` 둘 |
+| 슬라이드 전환 | fade + `scale(1.012 → 1)`. 비활성은 `pointer-events:none`로 죽인다 |
+| 콘텐츠 등장 | **stagger** — `translate3d(0,10px,0) → 0`에 지연을 걸어 순차로 올린다 |
+| 톤 | `bright` · `dark`. **`useBannerImageTone(image_url)`이 런타임에 이미지에서 샘플링한다** |
+| 부품 | wordmark(h-8, 톤에 따라 둘 중 하나만 보인다) · title(`heading-36-medium`) · description · 화살표 · 점 |
+| 점 | 알약. 비활성 7px, **활성 20px로 늘어난다**(폭이 상태다) |
+| 자동 넘김 | `useEffect` 타이머 |
+| reduced-motion | `motion-reduce:duration-[0.01ms]` |
+
+**막는 것 넷. 전부 이 컴포넌트 바깥의 미결이다.**
+
+1. **톤이 런타임 샘플링이다.** 이 문서가 이미 "dominant-color 동적 텍스트 반전 — 런타임 휘도
+   계산"을 Figma 표현 불가로 적고 "밝은/어두운 두 variant로 근사"라고 남겼다. 근사는 Figma
+   쪽 이야기이고 **코드 쪽은 이미지 샘플링 훅에 달려 있어** DS가 소유할 수 있는 계약이 아니다
+2. **progressive blur.** 같은 표가 `backdrop-filter` + 다단 mask를 표현 불가로 적었다. DS에는
+   `blur-*` 토큰 둘뿐이고 단계적 흐림을 표현할 방법이 없다
+3. **stagger.** 같은 표가 "진입 stagger · `filter` 단계"를 표현 불가로 적었다. DS motion에는
+   **지연 축이 사실상 없다** — 인계서 (1a)가 `motion-*-delay` 8종이 **전부 0ms**이고 CSS가
+   delay를 생략한다고 적어 두었다. stagger를 세우려면 그 8종의 처분부터 정해야 한다
+4. **점의 폭이 상태다.** 7px ↔ 20px 전환은 `layout-change` motion이고, 그 토큰이 없다는 것이
+   SegmentedControl에서 이미 걸린 미결이다
+
+**그래서 순서가 있다.** (1a) delay 토큰 처분 → `layout-change` lifecycle → blur·톤의 표현 방법
+(또는 채택하지 않는다는 판정)이 풀린 뒤라야 이 컴포넌트가 정직하게 선다. 지금 지으면 **네 미결이
+전부 이 컴포넌트의 API와 Figma 계약으로 새어 들어온다** — Avatar에서 링을 흡수하지 않은 것과
+같은 이유다.
+
+**대안 하나.** 배너를 `boxed` 정지 상태(전환·stagger·blur·샘플링 없음, 톤은 prop)로만 먼저
+세우고 움직임을 뒤로 미루는 길이 있다. 다만 그 경우 Home 재조립의 gap이 "없다"가 아니라
+**"정지 상태만 있다"**가 되므로, 그것을 gap 0으로 셀지는 owner 판정이다.
+
 ### 다음 순서
 
 Avatar와 Banner/Carousel 둘이 카탈로그의 다음 후보다. 등록부 우선순위 1~15에 없었던 이유는

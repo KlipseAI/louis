@@ -346,6 +346,65 @@ const COMPONENT_CONTRACTS = [
     },
   },
   {
+    id: "app-shell-parts",
+    figmaName: "SidebarNavItem",
+    declaration: "packages/react/dist/app-shell/app-shell-parts.d.ts",
+    // State는 CSS 상태(hover)와 prop(current)이 섞여 있고 Collapsed는 boolean prop이다.
+    // 코드 타입 alias와 1:1로 대응하지 않으므로 Figma 전용 축으로 선언한다.
+    variantProperties: {},
+    figmaOnlyProperties: {
+      State: {
+        options: ["Default", "Hover", "Current"],
+        reason:
+          "Hover는 CSS 상태이고 Current는 boolean prop(aria-current)이다. Figma에 CSS 상태가 없어 variant로 둔다.",
+      },
+      Collapsed: {
+        options: ["false", "true"],
+        reason:
+          "코드에서는 boolean prop이다. 접힘에서 라벨은 코드에서 clip으로 시각에서만 숨는데 Figma에 그 표현이 없어 노드를 뺐다 — 접근성 이름 유지는 코드 테스트가 본다.",
+      },
+    },
+    strokes: {},
+    effects: {},
+    geometry: {
+      measuredId: "app-shell-parts",
+      sizeKey: "navItem",
+      fields: {
+        height: "height",
+        itemSpacing: "gap",
+        cornerRadius: "radius",
+        layoutMode: { literal: "HORIZONTAL" },
+      },
+      slots: {},
+      extraStrokeWeights: [],
+      parts: {
+        Icon: { fields: { width: "icon", height: "icon" } },
+      },
+    },
+  },
+  {
+    id: "app-shell-parts",
+    figmaName: "AppTopBar",
+    declaration: "packages/react/dist/app-shell/app-shell-parts.d.ts",
+    variantProperties: {},
+    strokes: {},
+    effects: {},
+    geometry: {
+      measuredId: "app-shell-parts",
+      sizeKey: "topBar",
+      fields: {
+        height: "height",
+        paddingInline: "paddingInline",
+        paddingInlineEnd: "paddingInline",
+        itemSpacing: "gap",
+        layoutMode: { literal: "HORIZONTAL" },
+      },
+      slots: {},
+      extraStrokeWeights: [],
+      parts: {},
+    },
+  },
+  {
     id: "spinner",
     figmaName: "Spinner",
     declaration: "packages/react/dist/spinner/spinner.d.ts",

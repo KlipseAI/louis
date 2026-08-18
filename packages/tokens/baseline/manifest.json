@@ -2,23 +2,23 @@
   "artifacts": [
     {
       "path": "packages/tokens/generated/figma.tokens.json",
-      "sha256": "a1b67b27efc94bbbfe4b883fbc1be64d974dfb085f0f6e208cc8108c1f1665e3"
+      "sha256": "d41c7d0a68a9a67e4ac6d8bbf1c401d097cca140f52c8e91bc10f0f50639b492"
     },
     {
       "path": "packages/tokens/generated/index.d.ts",
-      "sha256": "00a94818ad9cca55cc32ff8902f796c1512bdbfcf2bbffc72ecb432aea0a3051"
+      "sha256": "8967e2a1a422fc9798f655b882af514945bb557e437c9410a10f08d685575303"
     },
     {
       "path": "packages/tokens/generated/index.js",
-      "sha256": "e70c77a00cd8f6b1e24fb654b0480012876b5cd8f63f4b7891fa1ccbb4dc00ef"
+      "sha256": "6df2fa26ecbb6bc725e49527c2b6152c4d7b6e03392871b2285ce7d5e8794161"
     },
     {
       "path": "packages/tokens/generated/tokens.css",
-      "sha256": "35f65e07dbec0da3119f67a7e73985908c18f09e7c8b53b3332441d7bdbf7e70"
+      "sha256": "c130e181ff624527e11e052463ddcaae243307330156bd9518df03c1f4d29b62"
     },
     {
       "path": "packages/tokens/generated/tokens.json",
-      "sha256": "9342330ccdc1ac3e9367931643a2172f6b71dab5ad7e944dff7e21180b7a9178"
+      "sha256": "8ca1020055ea99b49cab2800f859c0854416ff260e6e3fd388c9e20930fe0be5"
     }
   ],
   "contrastPairs": [
@@ -259,13 +259,13 @@
   },
   "source": {
     "path": "packages/tokens/src/klipse.tokens.json",
-    "sha256": "84efb12b3f4f65b1ea4586e46a2dd3a3586bda21a721d3a5388afdd20e1b2df7"
+    "sha256": "ff0e724b0cb4757dfdde6517cd166b0ebc16b49657ea4ee4ad101e4f0ef9e6ef"
   },
   "themes": [
     "light",
     "dark"
   ],
-  "tokenCount": 309,
+  "tokenCount": 314,
   "tokens": [
     {
       "aliasTarget": null,
@@ -5234,6 +5234,27 @@
     },
     {
       "aliasTarget": {
+        "id": "space-120",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-layout-app-shell-content-reserve": "120px"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "layout-app-shell-content-reserve",
+      "mode": "global",
+      "rawValue": "{primitive.spacing.120}",
+      "resolvedValue": {
+        "unit": "px",
+        "value": 120
+      },
+      "sourcePath": "semantic.global.layout.app-shell-content-reserve",
+      "tier": "semantic",
+      "type": "dimension"
+    },
+    {
+      "aliasTarget": {
         "id": "space-12",
         "mode": "base"
       },
@@ -5255,22 +5276,22 @@
     },
     {
       "aliasTarget": {
-        "id": "space-120",
+        "id": "space-56",
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-layout-app-shell-sidebar-minimum": "120px"
+        "--kds-layout-app-shell-sidebar-collapsed": "56px"
       },
       "deprecated": null,
       "description": null,
-      "id": "layout-app-shell-sidebar-minimum",
+      "id": "layout-app-shell-sidebar-collapsed",
       "mode": "global",
-      "rawValue": "{primitive.spacing.120}",
+      "rawValue": "{primitive.spacing.56}",
       "resolvedValue": {
         "unit": "px",
-        "value": 120
+        "value": 56
       },
-      "sourcePath": "semantic.global.layout.app-shell-sidebar-minimum",
+      "sourcePath": "semantic.global.layout.app-shell-sidebar-collapsed",
       "tier": "semantic",
       "type": "dimension"
     },
@@ -5292,6 +5313,48 @@
         "value": 12
       },
       "sourcePath": "semantic.global.layout.app-shell-sidebar-padding",
+      "tier": "semantic",
+      "type": "dimension"
+    },
+    {
+      "aliasTarget": {
+        "id": "space-280",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-layout-app-shell-sidebar-width": "280px"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "layout-app-shell-sidebar-width",
+      "mode": "global",
+      "rawValue": "{primitive.spacing.280}",
+      "resolvedValue": {
+        "unit": "px",
+        "value": 280
+      },
+      "sourcePath": "semantic.global.layout.app-shell-sidebar-width",
+      "tier": "semantic",
+      "type": "dimension"
+    },
+    {
+      "aliasTarget": {
+        "id": "space-40",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-layout-app-shell-top-bar-height": "40px"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "layout-app-shell-top-bar-height",
+      "mode": "global",
+      "rawValue": "{primitive.spacing.40}",
+      "resolvedValue": {
+        "unit": "px",
+        "value": 40
+      },
+      "sourcePath": "semantic.global.layout.app-shell-top-bar-height",
       "tier": "semantic",
       "type": "dimension"
     },
@@ -7142,6 +7205,25 @@
       "cssProperties": {},
       "deprecated": null,
       "description": null,
+      "id": "space-280",
+      "mode": "base",
+      "rawValue": {
+        "unit": "px",
+        "value": 280
+      },
+      "resolvedValue": {
+        "unit": "px",
+        "value": 280
+      },
+      "sourcePath": "primitive.spacing.280",
+      "tier": "primitive",
+      "type": "dimension"
+    },
+    {
+      "aliasTarget": null,
+      "cssProperties": {},
+      "deprecated": null,
+      "description": null,
       "id": "space-32",
       "mode": "base",
       "rawValue": {
@@ -7229,6 +7311,25 @@
         "value": 48
       },
       "sourcePath": "primitive.spacing.48",
+      "tier": "primitive",
+      "type": "dimension"
+    },
+    {
+      "aliasTarget": null,
+      "cssProperties": {},
+      "deprecated": null,
+      "description": null,
+      "id": "space-56",
+      "mode": "base",
+      "rawValue": {
+        "unit": "px",
+        "value": 56
+      },
+      "resolvedValue": {
+        "unit": "px",
+        "value": 56
+      },
+      "sourcePath": "primitive.spacing.56",
       "tier": "primitive",
       "type": "dimension"
     },

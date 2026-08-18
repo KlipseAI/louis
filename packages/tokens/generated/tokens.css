@@ -65,9 +65,12 @@
   --kds-layer-popover: 200;
   --kds-layer-sticky: 100;
   --kds-layout-app-shell-content-inset: 16px;
+  --kds-layout-app-shell-content-reserve: 120px;
   --kds-layout-app-shell-outer-gap: 12px;
-  --kds-layout-app-shell-sidebar-minimum: 120px;
+  --kds-layout-app-shell-sidebar-collapsed: 56px;
   --kds-layout-app-shell-sidebar-padding: 12px;
+  --kds-layout-app-shell-sidebar-width: 280px;
+  --kds-layout-app-shell-top-bar-height: 40px;
   --kds-layout-control-height-md: 40px;
   --kds-layout-control-height-sm: 32px;
   --kds-layout-control-hit-target-minimum: 44px;

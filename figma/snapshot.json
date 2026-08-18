@@ -3,23 +3,23 @@
   "provenance": {
     "figmaFileKey": "bxGEp0km5zluMJGulaTvFW",
     "figmaFileName": "Klipse Design System — Library",
-    "capturedAt": "2026-08-17",
+    "capturedAt": "2026-08-18",
     "capturedBy": "figma-mcp-plugin-api",
     "published": false,
-    "tokenSourceSha256": "84efb12b3f4f65b1ea4586e46a2dd3a3586bda21a721d3a5388afdd20e1b2df7",
-    "proposalSha256": "a1b67b27efc94bbbfe4b883fbc1be64d974dfb085f0f6e208cc8108c1f1665e3",
+    "tokenSourceSha256": "ff0e724b0cb4757dfdde6517cd166b0ebc16b49657ea4ee4ad101e4f0ef9e6ef",
+    "proposalSha256": "d41c7d0a68a9a67e4ac6d8bbf1c401d097cca140f52c8e91bc10f0f50639b492",
     "readback": {
-      "tokens": 205,
-      "canonicalLength": 17017,
-      "fnv1a32": "c437e32d",
+      "tokens": 210,
+      "canonicalLength": 17386,
+      "fnv1a32": "1af2b3c7",
       "note": "변수는 readback.json의 되읽기 행을 tokenId 공간으로 옮긴 것이고, style과 component는 같은 되읽기의 style/component 절이다. canonical 해시는 컬렉션·이름·타입·mode 값을 정렬해 이은 문자열의 FNV-1a다.",
       "styles": {
         "text": 15,
         "effect": 7
       },
       "components": {
-        "sets": 12,
-        "variants": 112
+        "sets": 14,
+        "variants": 119
       },
       "icons": 26,
       "templates": 1
@@ -31,14 +31,14 @@
         "Base"
       ],
       "defaultMode": "Base",
-      "variableCount": 111
+      "variableCount": 113
     },
     "Klipse Semantic": {
       "modes": [
         "Global"
       ],
       "defaultMode": "Global",
-      "variableCount": 53
+      "variableCount": 56
     },
     "Klipse Semantic Color": {
       "modes": [
@@ -1635,6 +1635,15 @@
         }
       }
     },
+    "layout-app-shell-content-reserve": {
+      "figmaName": "layout/app-shell-content-reserve",
+      "resolvedType": "FLOAT",
+      "valuesByMode": {
+        "Global": {
+          "alias": "space-120"
+        }
+      }
+    },
     "layout-app-shell-outer-gap": {
       "figmaName": "layout/app-shell-outer-gap",
       "resolvedType": "FLOAT",
@@ -1644,12 +1653,12 @@
         }
       }
     },
-    "layout-app-shell-sidebar-minimum": {
-      "figmaName": "layout/app-shell-sidebar-minimum",
+    "layout-app-shell-sidebar-collapsed": {
+      "figmaName": "layout/app-shell-sidebar-collapsed",
       "resolvedType": "FLOAT",
       "valuesByMode": {
         "Global": {
-          "alias": "space-120"
+          "alias": "space-56"
         }
       }
     },
@@ -1659,6 +1668,24 @@
       "valuesByMode": {
         "Global": {
           "alias": "space-12"
+        }
+      }
+    },
+    "layout-app-shell-sidebar-width": {
+      "figmaName": "layout/app-shell-sidebar-width",
+      "resolvedType": "FLOAT",
+      "valuesByMode": {
+        "Global": {
+          "alias": "space-280"
+        }
+      }
+    },
+    "layout-app-shell-top-bar-height": {
+      "figmaName": "layout/app-shell-top-bar-height",
+      "resolvedType": "FLOAT",
+      "valuesByMode": {
+        "Global": {
+          "alias": "space-40"
         }
       }
     },
@@ -2103,6 +2130,15 @@
         }
       }
     },
+    "space-280": {
+      "figmaName": "spacing/280",
+      "resolvedType": "FLOAT",
+      "valuesByMode": {
+        "Base": {
+          "value": 280
+        }
+      }
+    },
     "space-32": {
       "figmaName": "spacing/32",
       "resolvedType": "FLOAT",
@@ -2145,6 +2181,15 @@
       "valuesByMode": {
         "Base": {
           "value": 48
+        }
+      }
+    },
+    "space-56": {
+      "figmaName": "spacing/56",
+      "resolvedType": "FLOAT",
+      "valuesByMode": {
+        "Base": {
+          "value": 56
         }
       }
     },
@@ -2588,6 +2633,44 @@
     "note": "semantic tier 이름으로만 생성한다. primitive type-style-*/shadow-*는 Figma 미표현(DS-D-0007)."
   },
   "components": {
+    "AppTopBar": {
+      "tokenId": "app-shell-parts",
+      "variantCount": 1,
+      "hasDescription": true,
+      "properties": {},
+      "binding": {
+        "boundFills": 1,
+        "rawFills": 0,
+        "boundStrokes": 0,
+        "rawStrokes": 0,
+        "textStyled": 1,
+        "textUnstyled": 0
+      },
+      "geometry": {
+        "topBar": {
+          "slots": {},
+          "parts": {},
+          "strokeWeight": [],
+          "height": [
+            40
+          ],
+          "paddingInline": [
+            16
+          ],
+          "paddingInlineEnd": [
+            16
+          ],
+          "itemSpacing": [
+            8
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ]
+        }
+      },
+      "strokes": {},
+      "effects": {}
+    },
     "Badge": {
       "tokenId": "badge",
       "variantCount": 5,
@@ -3470,6 +3553,66 @@
           "BACKGROUND_BLUR:PROGRESSIVE:var(blur/surface):0:0.5,0:0.5,0.45"
         ]
       }
+    },
+    "SidebarNavItem": {
+      "tokenId": "app-shell-parts",
+      "variantCount": 6,
+      "hasDescription": true,
+      "properties": {
+        "State": {
+          "type": "VARIANT",
+          "options": [
+            "Default",
+            "Hover",
+            "Current"
+          ]
+        },
+        "Collapsed": {
+          "type": "VARIANT",
+          "options": [
+            "false",
+            "true"
+          ]
+        }
+      },
+      "binding": {
+        "boundFills": 7,
+        "rawFills": 0,
+        "boundStrokes": 0,
+        "rawStrokes": 0,
+        "textStyled": 3,
+        "textUnstyled": 0
+      },
+      "geometry": {
+        "navItem": {
+          "slots": {},
+          "parts": {
+            "Icon": {
+              "width": [
+                20
+              ],
+              "height": [
+                20
+              ]
+            }
+          },
+          "strokeWeight": [],
+          "height": [
+            32
+          ],
+          "itemSpacing": [
+            8
+          ],
+          "cornerRadius": [
+            10
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ]
+        }
+      },
+      "strokes": {},
+      "effects": {}
     },
     "Spinner": {
       "tokenId": "spinner",

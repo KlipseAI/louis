@@ -3509,6 +3509,25 @@ export const primitives = {
       "unit": "px"
     }
   },
+  "space-280": {
+    "aliasTarget": null,
+    "cssProperties": {},
+    "deprecated": null,
+    "description": null,
+    "id": "space-280",
+    "mode": "base",
+    "rawValue": {
+      "value": 280,
+      "unit": "px"
+    },
+    "sourcePath": "primitive.spacing.280",
+    "tier": "primitive",
+    "type": "dimension",
+    "value": {
+      "value": 280,
+      "unit": "px"
+    }
+  },
   "space-32": {
     "aliasTarget": null,
     "cssProperties": {},
@@ -3601,6 +3620,25 @@ export const primitives = {
     "type": "dimension",
     "value": {
       "value": 48,
+      "unit": "px"
+    }
+  },
+  "space-56": {
+    "aliasTarget": null,
+    "cssProperties": {},
+    "deprecated": null,
+    "description": null,
+    "id": "space-56",
+    "mode": "base",
+    "rawValue": {
+      "value": 56,
+      "unit": "px"
+    },
+    "sourcePath": "primitive.spacing.56",
+    "tier": "primitive",
+    "type": "dimension",
+    "value": {
+      "value": 56,
       "unit": "px"
     }
   },
@@ -5438,6 +5476,27 @@ export const tokens = {
         "unit": "px"
       }
     },
+    "layout-app-shell-content-reserve": {
+      "aliasTarget": {
+        "id": "space-120",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-layout-app-shell-content-reserve": "120px"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "layout-app-shell-content-reserve",
+      "mode": "global",
+      "rawValue": "{primitive.spacing.120}",
+      "sourcePath": "semantic.global.layout.app-shell-content-reserve",
+      "tier": "semantic",
+      "type": "dimension",
+      "value": {
+        "value": 120,
+        "unit": "px"
+      }
+    },
     "layout-app-shell-outer-gap": {
       "aliasTarget": {
         "id": "space-12",
@@ -5459,24 +5518,24 @@ export const tokens = {
         "unit": "px"
       }
     },
-    "layout-app-shell-sidebar-minimum": {
+    "layout-app-shell-sidebar-collapsed": {
       "aliasTarget": {
-        "id": "space-120",
+        "id": "space-56",
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-layout-app-shell-sidebar-minimum": "120px"
+        "--kds-layout-app-shell-sidebar-collapsed": "56px"
       },
       "deprecated": null,
       "description": null,
-      "id": "layout-app-shell-sidebar-minimum",
+      "id": "layout-app-shell-sidebar-collapsed",
       "mode": "global",
-      "rawValue": "{primitive.spacing.120}",
-      "sourcePath": "semantic.global.layout.app-shell-sidebar-minimum",
+      "rawValue": "{primitive.spacing.56}",
+      "sourcePath": "semantic.global.layout.app-shell-sidebar-collapsed",
       "tier": "semantic",
       "type": "dimension",
       "value": {
-        "value": 120,
+        "value": 56,
         "unit": "px"
       }
     },
@@ -5498,6 +5557,48 @@ export const tokens = {
       "type": "dimension",
       "value": {
         "value": 12,
+        "unit": "px"
+      }
+    },
+    "layout-app-shell-sidebar-width": {
+      "aliasTarget": {
+        "id": "space-280",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-layout-app-shell-sidebar-width": "280px"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "layout-app-shell-sidebar-width",
+      "mode": "global",
+      "rawValue": "{primitive.spacing.280}",
+      "sourcePath": "semantic.global.layout.app-shell-sidebar-width",
+      "tier": "semantic",
+      "type": "dimension",
+      "value": {
+        "value": 280,
+        "unit": "px"
+      }
+    },
+    "layout-app-shell-top-bar-height": {
+      "aliasTarget": {
+        "id": "space-40",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-layout-app-shell-top-bar-height": "40px"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "layout-app-shell-top-bar-height",
+      "mode": "global",
+      "rawValue": "{primitive.spacing.40}",
+      "sourcePath": "semantic.global.layout.app-shell-top-bar-height",
+      "tier": "semantic",
+      "type": "dimension",
+      "value": {
+        "value": 40,
         "unit": "px"
       }
     },

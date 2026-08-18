@@ -124,7 +124,7 @@ Spinner 레시피 5종, PaneDivider 6선언.
 | 8 | **EmptyState** | 3/3 | **9벌**(살아 있는 것 8) | 홈 2 · 하이라이트 2(그중 1은 죽은 분기) · 에디터 **5**. **web·figma partial**(2026-08-16) — 9벌이 합의하는 축은 "면을 갖지 않는다" 하나뿐이고 그것을 옮겼다 |
 | 9 | **Badge / StatusBadge** | 3/3 | **65벌** | **web·figma partial**(2026-08-17). "톤 4 + 상태 5"는 **둘 다 틀렸다** — 네 톤 클래스의 선언이 바이트 단위로 같고, 앱 홈 4변형의 색이 전부 `var(--gray-400)`다. 두 축 다 죽어 있었다 |
 | 10 | **Spinner / Progress** | 2/3 | **약 62벌** | 재실측(2026-08-17): 회전 스피너 **22벌** · 스켈레톤 **15벌**("0종"이 틀렸다) · 진행률 5 · 텍스트 쉬머 11. 회전 키프레임 이름 18개인데 본문은 1종이다. **web·figma partial**(2026-08-17). 공용 LoadingSpinner의 recipe가 motion-loop와 정확히 같아 그것을 정본으로 옮겼다. determinate 진행률·스켈레톤·텍스트 쉬머는 별도 컴포넌트이며 아직 없다 |
-| 11 | **SidebarNavItem · AppTopBar** | 3/3 | Gnb import 31곳 | 셸. 상세는 breadcrumb·trailing 슬롯을 추가로 요구한다 |
+| 11 | **SidebarNavItem · AppTopBar** | 3/3 | 앱 셸 **25파일** | **web·figma partial**(2026-08-18). "31곳"은 두 컴포넌트 합산이었다 — 앱 셸 Gnb 25 + 랜딩 Gnb 7, 한 파일이 둘 다 import한다. 셸 composition과 compact 드로어는 아직 없다 |
 | 12 | **Slider** | 1/3 | 에디터 `Slider.Root` 9 | 에디터 전용이지만 속성 패널이 통째로 막힌다 |
 | 13 | **SegmentedControl** | 2/3 | 3 파일 | 뷰 전환·정렬 |
 | 14 | **Checkbox** (indeterminate) | 1/3 | 4 파일 | 하이라이트 일괄 선택 |

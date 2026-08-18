@@ -29,6 +29,13 @@ export type {
   ProjectCardTextProps,
   ProjectCardThumbnailProps,
 } from "./project-card/project-card.js";
+export { AppTopBar, SidebarNavItem } from "./app-shell/app-shell-parts.js";
+export type {
+  AppTopBarProps,
+  SidebarNavItemButtonProps,
+  SidebarNavItemLinkProps,
+  SidebarNavItemProps,
+} from "./app-shell/app-shell-parts.js";
 export { Badge } from "./badge/badge.js";
 export type { BadgeProps, BadgeTone } from "./badge/badge.js";
 export { EmptyState } from "./empty-state/empty-state.js";

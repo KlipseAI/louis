@@ -227,6 +227,7 @@ test("states 표를 코드가 빠짐없이 읽는다", () => {
   const covered = new Set([
     "button", //          component-states.browser.test.tsx
     "icon-button", //     component-states.browser.test.tsx
+    "app-shell-parts", // app-shell-parts.browser.test.tsx
     "badge", //           badge.browser.test.tsx
     "spinner", //         spinner.browser.test.tsx
     "empty-state", //     empty-state.browser.test.tsx

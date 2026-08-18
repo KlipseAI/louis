@@ -1,6 +1,6 @@
 {
   "$comment": "GENERATED EVIDENCE — Figma Plugin API 되읽기 원본. 손으로 수정하지 않는다. 재생성 절차는 scripts/build-figma-snapshot.mjs 헤더에 있다.",
-  "capturedAt": "2026-08-17",
+  "capturedAt": "2026-08-18",
   "capturedBy": "figma-mcp-plugin-api",
   "figmaFileKey": "bxGEp0km5zluMJGulaTvFW",
   "figmaFileName": "Klipse Design System — Library",
@@ -1526,6 +1526,18 @@
           ]
         ],
         [
+          "spacing/280",
+          "FLOAT",
+          "WIDTH_HEIGHT,GAP",
+          [
+            [
+              "Base",
+              null,
+              280
+            ]
+          ]
+        ],
+        [
           "spacing/32",
           "FLOAT",
           "WIDTH_HEIGHT,GAP",
@@ -1582,6 +1594,18 @@
               "Base",
               null,
               48
+            ]
+          ]
+        ],
+        [
+          "spacing/56",
+          "FLOAT",
+          "WIDTH_HEIGHT,GAP",
+          [
+            [
+              "Base",
+              null,
+              56
             ]
           ]
         ],
@@ -1798,6 +1822,18 @@
           ]
         ],
         [
+          "layout/app-shell-content-reserve",
+          "FLOAT",
+          "WIDTH_HEIGHT",
+          [
+            [
+              "Global",
+              "Klipse Primitive::spacing/120",
+              null
+            ]
+          ]
+        ],
+        [
           "layout/app-shell-outer-gap",
           "FLOAT",
           "WIDTH_HEIGHT",
@@ -1810,13 +1846,13 @@
           ]
         ],
         [
-          "layout/app-shell-sidebar-minimum",
+          "layout/app-shell-sidebar-collapsed",
           "FLOAT",
           "WIDTH_HEIGHT",
           [
             [
               "Global",
-              "Klipse Primitive::spacing/120",
+              "Klipse Primitive::spacing/56",
               null
             ]
           ]
@@ -1829,6 +1865,30 @@
             [
               "Global",
               "Klipse Primitive::spacing/12",
+              null
+            ]
+          ]
+        ],
+        [
+          "layout/app-shell-sidebar-width",
+          "FLOAT",
+          "WIDTH_HEIGHT",
+          [
+            [
+              "Global",
+              "Klipse Primitive::spacing/280",
+              null
+            ]
+          ]
+        ],
+        [
+          "layout/app-shell-top-bar-height",
+          "FLOAT",
+          "WIDTH_HEIGHT",
+          [
+            [
+              "Global",
+              "Klipse Primitive::spacing/40",
               null
             ]
           ]
@@ -4489,6 +4549,102 @@
             }
           },
           "strokeWeight": []
+        }
+      },
+      "strokes": {},
+      "effects": {}
+    },
+    "SidebarNavItem": {
+      "variantCount": 6,
+      "hasDescription": true,
+      "properties": {
+        "State": {
+          "type": "VARIANT",
+          "options": [
+            "Default",
+            "Hover",
+            "Current"
+          ]
+        },
+        "Collapsed": {
+          "type": "VARIANT",
+          "options": [
+            "false",
+            "true"
+          ]
+        }
+      },
+      "binding": {
+        "boundFills": 7,
+        "rawFills": 0,
+        "boundStrokes": 0,
+        "rawStrokes": 0,
+        "textStyled": 3,
+        "textUnstyled": 0
+      },
+      "geometry": {
+        "navItem": {
+          "slots": {},
+          "parts": {
+            "Icon": {
+              "width": [
+                20
+              ],
+              "height": [
+                20
+              ]
+            }
+          },
+          "strokeWeight": [],
+          "height": [
+            32
+          ],
+          "itemSpacing": [
+            8
+          ],
+          "cornerRadius": [
+            10
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ]
+        }
+      },
+      "strokes": {},
+      "effects": {}
+    },
+    "AppTopBar": {
+      "variantCount": 1,
+      "hasDescription": true,
+      "properties": {},
+      "binding": {
+        "boundFills": 1,
+        "rawFills": 0,
+        "boundStrokes": 0,
+        "rawStrokes": 0,
+        "textStyled": 1,
+        "textUnstyled": 0
+      },
+      "geometry": {
+        "topBar": {
+          "slots": {},
+          "parts": {},
+          "strokeWeight": [],
+          "height": [
+            40
+          ],
+          "paddingInline": [
+            16
+          ],
+          "paddingInlineEnd": [
+            16
+          ],
+          "itemSpacing": [
+            8
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ]
         }
       },
       "strokes": {},

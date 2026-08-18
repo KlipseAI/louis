@@ -305,7 +305,14 @@ component인데 **gap registry 우선순위 1~15 어디에도 없다.** 실측 �
 항목을 `not-planned`로 바꾼다, (c) 남겨 둔다. 지금처럼 계획 없이 `not-ready`로 두면 카탈로그가
 영원히 미완으로 읽힌다.
 
-**(2) gap registry 11순위 이하.** ~~TextField/Input~~(7순위) · ~~EmptyState~~(8순위) 모두
+**(2) gap registry 12순위 이하.** ~~SidebarNavItem · AppTopBar~~(11순위)도 `done`(2026-08-18).
+남은 것은 Slider · SegmentedControl · Checkbox · SelectableListRow 넷이다.
+
+**셸 composition은 아직 없다.** 부품 둘은 섰지만 rail·drawer·scroll root·safe area는
+[패턴](../patterns/app-shell.md)이 기술만 하고 구현이 없다. compact 드로어의 layer 자리도
+사다리에 없다 — 제품의 드로어(1400)는 popover(1100)보다 위인데 DS는 `sticky < popover`다.
+
+**(2b) gap registry 11순위 이하.** ~~TextField/Input~~(7순위) · ~~EmptyState~~(8순위) 모두
 `done`(2026-08-16 — Web `partial`, Figma `partial`). ~~Badge~~(9순위)도
 `done`(2026-08-17). 남은 것은 Spinner/Progress(위 1c 참조), SidebarNavItem·AppTopBar, Slider,
 SegmentedControl, Checkbox, SelectableListRow.

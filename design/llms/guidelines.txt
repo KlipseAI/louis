@@ -4,7 +4,7 @@
 
 - System maturity: experimental
 - Coverage: exhaustive
-- Documents: 31
+- Documents: 32
 - Purpose: 개발, 콘텐츠, 거버넌스와 adoption 계약
 
 ## Sources
@@ -40,6 +40,7 @@
 - design/governance/decisions/DS-D-0015-stack-spacing.md
 - design/governance/decisions/DS-D-0016-loop-motion.md
 - design/governance/decisions/DS-D-0017-keyframe-contract.md
+- design/governance/decisions/DS-D-0018-app-shell-geometry.md
 - design/updates/README.md
 
 ---
@@ -105,9 +106,9 @@ Figma library는 아직 `not-ready`다. 시스템 전체 maturity도 `experiment
 | 항목 | 현재 값 |
 | --- | --- |
 | System maturity | `experimental` |
-| Normative documents | 61 |
+| Normative documents | 63 |
 | Generated documents | 5 |
-| Components | 12 |
+| Components | 13 |
 | Patterns | 4 |
 | Web done | 0 |
 | Token artifacts done | 6/6 |
@@ -934,7 +935,14 @@ component인데 **gap registry 우선순위 1~15 어디에도 없다.** 실측 �
 항목을 `not-planned`로 바꾼다, (c) 남겨 둔다. 지금처럼 계획 없이 `not-ready`로 두면 카탈로그가
 영원히 미완으로 읽힌다.
 
-**(2) gap registry 11순위 이하.** ~~TextField/Input~~(7순위) · ~~EmptyState~~(8순위) 모두
+**(2) gap registry 12순위 이하.** ~~SidebarNavItem · AppTopBar~~(11순위)도 `done`(2026-08-18).
+남은 것은 Slider · SegmentedControl · Checkbox · SelectableListRow 넷이다.
+
+**셸 composition은 아직 없다.** 부품 둘은 섰지만 rail·drawer·scroll root·safe area는
+[패턴](../patterns/app-shell.md)이 기술만 하고 구현이 없다. compact 드로어의 layer 자리도
+사다리에 없다 — 제품의 드로어(1400)는 popover(1100)보다 위인데 DS는 `sticky < popover`다.
+
+**(2b) gap registry 11순위 이하.** ~~TextField/Input~~(7순위) · ~~EmptyState~~(8순위) 모두
 `done`(2026-08-16 — Web `partial`, Figma `partial`). ~~Badge~~(9순위)도
 `done`(2026-08-17). 남은 것은 Spinner/Progress(위 1c 참조), SidebarNavItem·AppTopBar, Slider,
 SegmentedControl, Checkbox, SelectableListRow.
@@ -4808,6 +4816,98 @@ motion.md의 "**easing은 등속이다**"도 근거가 "가감속이 붙으면 �
 5. `motion-loop`가 더 이상 생성되지 않는다.
 6. loop lifecycle에서 `background-position`이 허용되고 `transform`은 여전히 거부된다.
 
+## DS-D-0018 앱 셸의 실제 치수에 이름을 준다
+
+- Source: design/governance/decisions/DS-D-0018-app-shell-geometry.md
+- Maturity: experimental
+
+### DS-D-0018 앱 셸의 실제 치수에 이름을 준다
+
+- Status: proposed
+- Date: 2026-08-17
+- Owners: repository owner, token maintainer
+- Affects: `layout-app-shell-sidebar-minimum`(breaking rename), 앱 셸 토큰 3종(additive), `.kds-layer-sticky`, SidebarNavItem·AppTopBar
+
+#### Context
+
+`layout-app-shell-*` 넷은 **소비처가 0**이고, 실측해 보니 넷 중 둘만 제품과 맞는다.
+
+| 토큰 | 값 | 제품 | 판정 |
+| --- | ---: | --- | --- |
+| `content-inset` | 16px | `--app-gnb-main-inline-padding` 16px | **맞다** |
+| `sidebar-padding` | 12px | `--app-gnb-sidebar-padding-x` 12px | **맞다** |
+| `outer-gap` | 12px | 제품에 12px 관계가 **셋**이고 compact에서 갈라진다 | 부분 |
+| `sidebar-minimum` | 120px | **사이드바가 아니다** | 틀렸다 |
+
+**`sidebar-minimum`이 이름 함정이다.** 제품에서 120px이 나오는 유일한 자리는
+`--app-gnb-sidebar-width: min(280px, calc(100vw - 120px))`의 **빼는 값**, 즉 사이드바가 아니라
+**본문에 남겨 두는 최소 공간**이다. 모바일 드로어는 같은 자리에 40px을 쓴다. 실제 사이드바 폭은
+펼침 280px · 접힘 56px · compact 0px 셋인데 **어느 것도 120px이 아니고 셋 다 토큰이 없다.**
+
+`migration/token-mapping.md`에 이 토큰의 매핑 행이 **없다** — 출처 없이 생긴 토큰이다.
+`radius-card`·`elevation-focus-ring`과 같은 종류이며, 다음 사람이
+`inline-size: max(var(--kds-layout-app-shell-sidebar-minimum), …)`이라고 쓰면 제품에 존재한 적 없는
+120px 사이드바가 생긴다.
+
+**정작 필요한 값이 없다.** 사이드바 펼침 280 · 접힘 56 · 상단 크롬 행 40 셋이 토큰에 없어
+SidebarNavItem과 AppTopBar를 지을 수 없다.
+
+#### Decision
+
+1. **`layout-app-shell-sidebar-minimum` → `layout-app-shell-content-reserve`.** 값 120px은 그대로다.
+   이름이 "본문에 남기는 최소 공간"이라는 실제 뜻을 말한다.
+2. **`layout-app-shell-sidebar-width` 280px** 신설. 사이드바 펼침 폭.
+3. **`layout-app-shell-sidebar-collapsed` 56px** 신설. 접힘 폭.
+4. **`layout-app-shell-top-bar-height` 40px** 신설. 상단 크롬 행 높이.
+5. **`.kds-layer-sticky` 유틸리티**를 `base.css`에 추가한다. 토큰은 있는데 쓸 클래스가 없어
+   셸을 짓는 사람이 숫자를 쓰게 되어 있었다.
+
+280과 56은 primitive spacing에 없으므로 함께 세운다(`spacing.280`, `spacing.56`).
+
+#### 상단 바 높이가 40px인 근거
+
+제품에는 세 값이 있고 서로 맞지 않는다 — portal 변종 52px(8+36+8), fixed 변종 36px, 사이드바 헤더
+행 `min-height: 40px`. **40을 고른다.** `globals.css`의 주석이 `--app-gnb-sidebar-align-main-margin-top`을
+40px 전제로 계산하고 있어 **정렬의 기준이 40**이며, 나머지 둘은 그 안에 담기는 내용의 결과다.
+
+**`layout-control-height-md`(40px)를 쓰지 않는다.** 값이 같지만 뜻이 다르다 — 버튼 높이를 바꾸는 날
+상단 바가 같이 움직이면 안 된다. `migration/token-mapping.md`가 이미 "값이 같은 것과 의미가 같은
+것은 별개다"를 규범으로 적어 두었다.
+
+#### `outer-gap`은 손대지 않는다
+
+제품의 12px 관계 셋(rail-below-chrome-gap · rail-padding-bottom · main-inline-padding-end)이
+compact에서 16/12/0으로 갈라지므로 하나의 토큰으로 표현되지 않는다.
+`migration/token-mapping.md`가 정확히 이 합침을 금지한다. **셸 composition을 실제로 지을 때** 셋으로
+가를지 판정하며, 지금은 소비처가 없으므로 미룬다.
+
+#### Consequences
+
+- `sidebar-minimum`이 사라지므로 **breaking**이다. 소비처가 0이라 코드 영향은 없고 Figma 변수
+  이름만 바뀐다. DS-GOV-001 절차를 적용한다.
+- 소비처 0인 semantic 토큰 41개 중 앱 셸 몫 넷이 실제 소비처를 갖게 된다.
+- `layer-sticky`가 쓸 수 있는 형태가 된다.
+
+#### 남는 문제 — compact 드로어의 layer
+
+제품의 드로어(1400)와 scrim(1399)은 프로필 popover(1100)보다 **위**인데, DS 사다리
+(`content < sticky < popover < modal < critical`)에는 그 자리가 없다. 드로어를 `sticky`에 두면 열린
+popover에 가린다. **이 결정은 드로어를 다루지 않는다** — 드로어는 App Shell composition의 일부이며
+그것을 지을 때 사다리에 자리를 추가할지 판정한다.
+
+#### Rollback
+
+세 토큰과 두 primitive를 지우고 `content-reserve`를 `sidebar-minimum`으로 되돌린다.
+`.kds-layer-sticky` 규칙 세 줄을 뺀다.
+
+#### Acceptance tests
+
+1. `layout-app-shell-sidebar-width` 280px, `-sidebar-collapsed` 56px, `-top-bar-height` 40px가
+   생성된다.
+2. `layout-app-shell-sidebar-minimum`이 더 이상 생성되지 않고 `-content-reserve`가 그 자리를 갖는다.
+3. `.kds-layer-sticky`의 `z-index`가 `layer-sticky` 토큰에서 온다.
+4. `diff-tokens.mjs`가 removal 1 · additive 5로 분류하고 baseline 갱신 후 통과한다.
+
 ## Updates
 
 - Source: design/updates/README.md
@@ -4816,6 +4916,53 @@ motion.md의 "**easing은 등속이다**"도 근거가 "가감속이 붙으면 �
 ### Updates
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
+
+#### 2026-08-18 — Sidebar Nav Item · App Top Bar
+
+카탈로그 11순위다. 셸의 **레이아웃 계약은 [app-shell 패턴](../patterns/app-shell.md)이 이미
+소유하고 있어** 여기서 지은 것은 그 안에 놓이는 부품 둘이다.
+
+##### 등록부의 "Gnb import 31곳"은 두 컴포넌트 합산이었다
+
+앱 셸 `Gnb.tsx` **25파일** + 랜딩 `Gnb.tsx` 7파일이고 한 파일이 둘 다 import한다. 앱 셸만 세면
+25(파일) 또는 29(인스턴스)다.
+
+##### 제품의 사이드바 항목에는 포커스 표시가 없다
+
+`globals.css`의 `button:focus, button:focus-visible { outline: none }`이 `@layer base` 블록
+**밖**에 있어 `@layer utilities` 안의 Tailwind 임의 유틸리티를 **특이도와 무관하게** 이긴다.
+항목이 선언한 링 세 줄이 전부 사문이고, 앱 셸 소비처 25곳이 모두 `<button>` 분기를 타므로
+**키보드 사용자가 지금 어디에 있는지 알 수 없다.** 옮기지 않았고 테스트가 링이 실제로 그려지는지
+확인한다.
+
+##### 옮기지 않은 것 둘 더
+
+- **목적지가 있으면 링크다.** 제품은 소비처 25곳이 전부 `onNavigate`를 넘겨 `<button>` 분기를
+  타는데, 그 결과 새 탭·링크 복사·미들클릭이 죽는다
+- **접혀도 라벨이 DOM에 남는다.** 지우면 접기/펴기마다 접근성 이름이 사라졌다 나타나고,
+  스크린 리더 사용자에게는 접힘이 보이지 않는 상태 변화가 된다
+
+##### 선택은 `aria-current`가 소유한다
+
+시각 전용 속성을 따로 두면 화면에는 선택으로 보이는데 보조기술에는 아무것도 전달되지 않는 상태를
+만들 수 있다. 제품이 쓰는 두 메커니즘(형제 인디케이터 / 항목 직접) 중 **항목이 직접** 갖는 쪽을
+골랐다 — 인디케이터를 형제로 두면 항목 하나를 다른 곳에 옮겨 놓을 수 없다.
+
+##### 토큰 — 이름이 틀린 것 하나를 고쳤다
+
+[DS-D-0018](../governance/decisions/DS-D-0018-app-shell-geometry.md).
+
+`layout-app-shell-sidebar-minimum`(120px)의 이름은 "사이드바 최소"인데 제품에서 120이 나오는
+유일한 자리는 `min(280px, calc(100vw - 120px))`의 **빼는 값**, 즉 **본문에 남기는 최소 공간**이다.
+실제 사이드바 폭은 280 · 56 · 0 셋인데 어느 것도 120이 아니었다.
+
+- `sidebar-minimum` → **`content-reserve`**. 값은 그대로
+- **`sidebar-width` 280** · **`sidebar-collapsed` 56** · **`top-bar-height` 40** 신설
+- **`.kds-layer-sticky` 유틸리티** 추가 — 토큰은 있는데 쓸 클래스가 없어 숫자를 쓰게 되어 있었다
+
+상단 바 높이가 40인 근거는 제품에 52/36/40 셋이 있고 `globals.css`의 주석이 **정렬을 40 전제로
+계산**하기 때문이다. `layout-control-height-md`가 같은 40이지만 쓰지 않는다 — 버튼 높이를 바꾸는
+날 상단 바가 같이 움직이면 안 된다.
 
 #### 2026-08-17 (4) — keyframe이 무엇을 애니메이션하는지 게이트가 본다
 

@@ -82,9 +82,12 @@
   --spacing-icon-size-sm: var(--kds-icon-size-sm);
   --spacing-icon-size-xl: var(--kds-icon-size-xl);
   --spacing-layout-app-shell-content-inset: var(--kds-layout-app-shell-content-inset);
+  --spacing-layout-app-shell-content-reserve: var(--kds-layout-app-shell-content-reserve);
   --spacing-layout-app-shell-outer-gap: var(--kds-layout-app-shell-outer-gap);
-  --spacing-layout-app-shell-sidebar-minimum: var(--kds-layout-app-shell-sidebar-minimum);
+  --spacing-layout-app-shell-sidebar-collapsed: var(--kds-layout-app-shell-sidebar-collapsed);
   --spacing-layout-app-shell-sidebar-padding: var(--kds-layout-app-shell-sidebar-padding);
+  --spacing-layout-app-shell-sidebar-width: var(--kds-layout-app-shell-sidebar-width);
+  --spacing-layout-app-shell-top-bar-height: var(--kds-layout-app-shell-top-bar-height);
   --spacing-layout-control-height-md: var(--kds-layout-control-height-md);
   --spacing-layout-control-height-sm: var(--kds-layout-control-height-sm);
   --spacing-layout-control-hit-target-minimum: var(--kds-layout-control-hit-target-minimum);

@@ -1195,7 +1195,6 @@
       }
     },
     "spacing": {
-      "$type": "dimension",
       "0": {
         "$value": {
           "value": 0,
@@ -1388,6 +1387,18 @@
           }
         }
       },
+      "56": {
+        "$value": {
+          "value": 56,
+          "unit": "px"
+        },
+        "$extensions": {
+          "com.klipse-design": {
+            "id": "space-56",
+            "tier": "primitive"
+          }
+        }
+      },
       "64": {
         "$value": {
           "value": 64,
@@ -1423,7 +1434,20 @@
             "tier": "primitive"
           }
         }
-      }
+      },
+      "280": {
+        "$value": {
+          "value": 280,
+          "unit": "px"
+        },
+        "$extensions": {
+          "com.klipse-design": {
+            "id": "space-280",
+            "tier": "primitive"
+          }
+        }
+      },
+      "$type": "dimension"
     },
     "radius": {
       "$type": "dimension",
@@ -3620,6 +3644,26 @@
       },
       "layout": {
         "$type": "dimension",
+        "app-shell-content-inset": {
+          "$value": "{primitive.spacing.16}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "layout-app-shell-content-inset",
+              "tier": "semantic",
+              "mode": "global"
+            }
+          }
+        },
+        "app-shell-content-reserve": {
+          "$value": "{primitive.spacing.120}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "layout-app-shell-content-reserve",
+              "tier": "semantic",
+              "mode": "global"
+            }
+          }
+        },
         "app-shell-outer-gap": {
           "$value": "{primitive.spacing.12}",
           "$extensions": {
@@ -3630,11 +3674,11 @@
             }
           }
         },
-        "app-shell-content-inset": {
-          "$value": "{primitive.spacing.16}",
+        "app-shell-sidebar-collapsed": {
+          "$value": "{primitive.spacing.56}",
           "$extensions": {
             "com.klipse-design": {
-              "id": "layout-app-shell-content-inset",
+              "id": "layout-app-shell-sidebar-collapsed",
               "tier": "semantic",
               "mode": "global"
             }
@@ -3650,21 +3694,21 @@
             }
           }
         },
-        "app-shell-sidebar-minimum": {
-          "$value": "{primitive.spacing.120}",
+        "app-shell-sidebar-width": {
+          "$value": "{primitive.spacing.280}",
           "$extensions": {
             "com.klipse-design": {
-              "id": "layout-app-shell-sidebar-minimum",
+              "id": "layout-app-shell-sidebar-width",
               "tier": "semantic",
               "mode": "global"
             }
           }
         },
-        "control-height-sm": {
-          "$value": "{primitive.spacing.32}",
+        "app-shell-top-bar-height": {
+          "$value": "{primitive.spacing.40}",
           "$extensions": {
             "com.klipse-design": {
-              "id": "layout-control-height-sm",
+              "id": "layout-app-shell-top-bar-height",
               "tier": "semantic",
               "mode": "global"
             }
@@ -3680,6 +3724,16 @@
             }
           }
         },
+        "control-height-sm": {
+          "$value": "{primitive.spacing.32}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "layout-control-height-sm",
+              "tier": "semantic",
+              "mode": "global"
+            }
+          }
+        },
         "control-hit-target-minimum": {
           "$value": "{primitive.spacing.44}",
           "$extensions": {
@@ -3690,11 +3744,11 @@
             }
           }
         },
-        "project-grid-gap": {
-          "$value": "{primitive.spacing.12}",
+        "control-minimum-width-sm": {
+          "$value": "{primitive.spacing.48}",
           "$extensions": {
             "com.klipse-design": {
-              "id": "layout-project-grid-gap",
+              "id": "layout-control-minimum-width-sm",
               "tier": "semantic",
               "mode": "global"
             }
@@ -3710,11 +3764,11 @@
             }
           }
         },
-        "control-minimum-width-sm": {
-          "$value": "{primitive.spacing.48}",
+        "project-grid-gap": {
+          "$value": "{primitive.spacing.12}",
           "$extensions": {
             "com.klipse-design": {
-              "id": "layout-control-minimum-width-sm",
+              "id": "layout-project-grid-gap",
               "tier": "semantic",
               "mode": "global"
             }

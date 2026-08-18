@@ -54,6 +54,11 @@
 }
 
 /* overlay가 놓이는 stacking 문맥. 숫자 z-index 대신 layer 토큰만 쓴다. */
+/* sticky 층 — 앱 셸의 navigation rail과 top chrome이 쓴다. 토큰만 있고 쓸 클래스가 없어
+ * 셸을 짓는 사람이 숫자를 쓰게 되어 있었다 (DS-D-0018). */
+.kds-layer-sticky {
+  z-index: var(--kds-layer-sticky);
+}
 .kds-layer-popover {
   z-index: var(--kds-layer-popover);
 }

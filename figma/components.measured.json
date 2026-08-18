@@ -658,6 +658,55 @@
         }
       },
       "$statesNote": "상태 축이 없다. 대화형이 아니고 색은 currentColor를 물려받는다 — 놓이는 자리마다 다르므로 semantic 토큰으로 고정하지 않는다. 트랙은 그 색의 22%다."
+    },
+    "app-shell-parts": {
+      "$doc": "design/components/app-shell-parts.md",
+      "$source": "packages/react/src/app-shell/app-shell-parts.tsx, packages/css/src/component/app-shell.css",
+      "$note": "셸의 레이아웃 계약은 design/patterns/app-shell.md가 소유한다. 여기 있는 것은 그 안의 부품 둘이다. 제품 실측에서 사이드바 항목에 포커스 표시가 아예 없다는 것을 찾았다 — globals.css의 button:focus-visible{outline:none}이 @layer base 밖에 있어 항목이 선언한 링 세 줄이 전부 사문이다. 폭은 rail이 정하므로 계약에 두지 않는다.",
+      "sizes": {
+        "navItem": {
+          "height": 32,
+          "paddingInline": 8,
+          "gap": 8,
+          "radius": 10,
+          "icon": 20,
+          "$height": "layout-control-height-sm 32. min-block-size라 긴 라벨이나 200% 확대에서 자란다",
+          "$radius": "radius-overlay-item 10. 제품 사이드바 항목과 같다",
+          "$icon": "icon-size-md 20"
+        },
+        "navItemCollapsed": {
+          "height": 32,
+          "paddingInline": 0,
+          "icon": 20,
+          "$paddingInline": "0. 아이콘만 남고 가운데 정렬된다"
+        },
+        "topBar": {
+          "height": 40,
+          "paddingInline": 16,
+          "gap": 8,
+          "borderWidth": 0,
+          "$height": "layout-app-shell-top-bar-height 40 (DS-D-0018). 제품에 52/36/40 셋이 있고 정렬의 기준이 40이다",
+          "$paddingInline": "layout-app-shell-content-inset 16. 본문과 같은 원천을 읽는다",
+          "$borderWidth": "0. 경계선은 기본이 아니다 — 제품의 것은 스크롤 진행률에 따라 색이 변하는 런타임 계약이다"
+        }
+      },
+      "states": {
+        "navItem": {
+          "Default": {
+            "background": null,
+            "foreground": "color-foreground-secondary"
+          },
+          "Hover": {
+            "background": "color-action-ghost-hover",
+            "foreground": "color-foreground-primary"
+          },
+          "Current": {
+            "background": "color-background-inset",
+            "foreground": "color-foreground-primary"
+          }
+        }
+      },
+      "$statesNote": "선택은 aria-current='page'가 소유한다. 시각 전용 속성을 따로 두면 화면에는 선택으로 보이는데 보조기술에는 전달되지 않는 상태를 만들 수 있다. TopBar는 상태 축이 없다 — 대화형이 아니고 안의 슬롯이 자기 상태를 갖는다."
     }
   },
   "$states": "variant × state마다 **어느 토큰을 무는가**. 개수가 아니라 정체를 고정한다. 이 표가 없던 동안 primary 배경을 danger 변수에 물려도 boundFills 수치가 그대로라 게이트가 통과했다. 값은 token id이며 Figma 변수 이름으로의 변환은 게이트가 생성 proposal의 figmaName으로 한다 — 여기에 Figma 이름을 적으면 정본이 둘이 된다. 코드 쪽 검증은 packages/react/test/component-states.browser.test.tsx가 계산값과 대조한다.",

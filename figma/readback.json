@@ -4443,7 +4443,11 @@
     "EmptyState": {
       "variantCount": 1,
       "hasDescription": true,
-      "properties": {},
+      "properties": {
+        "Glyph": {
+          "type": "INSTANCE_SWAP"
+        }
+      },
       "binding": {
         "boundFills": 3,
         "rawFills": 0,
@@ -5239,19 +5243,22 @@
       "variantCount": 6,
       "hasDescription": true,
       "properties": {
-        "State": {
-          "type": "VARIANT",
-          "options": [
-            "Default",
-            "Hover",
-            "Current"
-          ]
+        "Glyph": {
+          "type": "INSTANCE_SWAP"
         },
         "Collapsed": {
           "type": "VARIANT",
           "options": [
             "false",
             "true"
+          ]
+        },
+        "State": {
+          "type": "VARIANT",
+          "options": [
+            "Default",
+            "Hover",
+            "Current"
           ]
         }
       },

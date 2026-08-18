@@ -83,6 +83,7 @@ const COMPONENT_CONTRACTS = [
     // owner 결정: 이 버튼들에는 이너섀도우를 쓰지 않는다. 글래스 섀도우 개념 자체를 없앴다.
     effects: {},
     figmaName: "Button",
+    iconSlots: ["LeftIconGlyph", "RightIconGlyph"],
     declaration: "packages/react/dist/button/button.d.ts",
     // Figma variant property 이름 → 코드에서 같은 집합을 정의하는 타입 alias
     // 값은 타입 alias 이름이거나 { type, declaration } 이다. IconButton처럼 alias가 다른 파일에
@@ -134,6 +135,7 @@ const COMPONENT_CONTRACTS = [
     },
     effects: {},
     figmaName: "IconButton",
+    iconSlots: ["Glyph"],
     declaration: "packages/react/dist/icon-button/icon-button.d.ts",
     variantProperties: {
       // Icon Button은 Button과 같은 강조 축을 쓴다. alias 선언은 button.d.ts에 있다.
@@ -348,6 +350,10 @@ const COMPONENT_CONTRACTS = [
   {
     id: "app-shell-parts",
     figmaName: "SidebarNavItem",
+    iconSlots: ["Glyph"],
+    // 아이콘은 코드에서 `icon` prop이다. 슬롯 없이 박혀 있으면 사이드바 네 행이 전부 같은
+    // 글리프가 된다 — 실제로 그렇게 만든 홈 템플릿을 내렸다(2026-08-18).
+    propProperties: { Glyph: "icon" },
     declaration: "packages/react/dist/app-shell/app-shell-parts.d.ts",
     // State는 CSS 상태(hover)와 prop(current)이 섞여 있고 Collapsed는 boolean prop이다.
     // 코드 타입 alias와 1:1로 대응하지 않으므로 Figma 전용 축으로 선언한다.
@@ -691,6 +697,8 @@ const COMPONENT_CONTRACTS = [
   {
     id: "empty-state",
     figmaName: "EmptyState",
+    iconSlots: ["Glyph"],
+    propProperties: { Glyph: "graphic" },
     declaration: "packages/react/dist/empty-state/empty-state.d.ts",
     // variant 축이 없다. 강조는 시각이 아니라 행동 유도의 유무가 만든다.
     variantProperties: {},
@@ -1714,6 +1722,22 @@ function compareComponents(actualComponents) {
         issues.push(
           `선언되지 않은 Figma property가 있습니다: ${contract.figmaName}.${name}`,
         );
+      }
+    }
+
+    // **아이콘을 품는 컴포넌트는 교체 슬롯을 가져야 한다.**
+    // 슬롯 없이 아이콘 인스턴스가 박혀 있으면 소비처가 바꿔 끼울 수 없고, 화면을 조립할 때
+    // 전부 같은 글리프가 된다. 실제로 그렇게 만든 홈 템플릿을 내린 적이 있다(2026-08-18).
+    if (contract.iconSlots !== undefined) {
+      for (const slot of contract.iconSlots) {
+        const declared = Object.entries(properties).find(
+          ([name, definition]) => name === slot && definition.type === "INSTANCE_SWAP",
+        );
+        if (declared === undefined) {
+          issues.push(
+            `${contract.figmaName}: 아이콘 교체 슬롯 \`${slot}\`이 없습니다. 아이콘이 박혀 있으면 소비처가 바꿔 끼울 수 없습니다.`,
+          );
+        }
       }
     }
 

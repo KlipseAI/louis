@@ -8,6 +8,15 @@ importers:
 
   .:
     devDependencies:
+      '@klipse-design/css':
+        specifier: workspace:*
+        version: link:packages/css
+      '@klipse-design/react':
+        specifier: workspace:*
+        version: link:packages/react
+      '@klipse-design/tokens':
+        specifier: workspace:*
+        version: link:packages/tokens
       '@types/react':
         specifier: ^19.2.18
         version: 19.2.18

@@ -8,6 +8,42 @@ authority: normative
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
 
+## 2026-08-18 (17) — DS-P3-008 소비자 게이트 · 테스트는 self-reference였다
+
+`pnpm verify`에 `verify-consumer`가 붙었다. **패키지가 저장소 밖에서 실제로 소비되는가**를 처음
+확인한다.
+
+### 지금까지의 게이트는 전부 저장소 안을 봤다
+
+생성물 drift · 토큰 graph · CSS 저작 규칙 · Figma parity · 실브라우저 650건. 그 전부가 초록이어도
+"소비자가 `import { Button } from "@klipse-design/react"`를 쓸 수 있는가"는 한 번도 확인된 적이
+없었다.
+
+**테스트가 그 질문에 답하지 못한 이유가 있다.** 테스트 파일이 `packages/react/test/` 안에 있어서
+`@klipse-design/react`가 **package self-reference**로 해석된다. export map을 보긴 하지만
+"바깥에서 설치해 쓴다"와는 다르다 — 실제로 워크스페이스 패키지는 **루트에 링크조차 돼 있지
+않았고**, 루트에서 resolve하면 셋 다 실패했다.
+
+루트를 실제 소비자로 만들었다(`workspace:*` 세 줄).
+
+### 확인하는 것 넷
+
+1. **선언된 서브패스 16개**(react 3 · css 7 · tokens 6)가 전부 resolve된다
+2. **Node에서 SSR 렌더된다** — import·렌더 시점에 브라우저 API를 만지면 여기서 죽는다
+3. 타입 선언이 `.d.ts`로 함께 나온다
+4. **tree-shaking이 실제로 동작한다** — Button만 쓴 번들 1KB, Dialog까지 쓴 번들 2KB
+
+4번에는 **canary가 붙는다.** "Dialog 문자열이 없다"만 보면 탐지가 죽어도 통과하므로, Dialog를
+실제로 쓰는 번들에는 그 문자열이 **있어야** 한다는 반대 방향을 함께 증명한다.
+
+### 스크립트가 두 번 틀렸고 둘 다 기록해 둔다
+
+- **임시 디렉터리를 저장소 밖에 만들었다.** Node가 위로 올라가며 `node_modules`를 찾지 못해
+  아무것도 resolve되지 않았다 — 소비자 관점을 재현하려던 것이 오히려 아무것도 재현하지 못했다
+- **`require.resolve`로 쟀다.** 이 패키지들은 DS-D-0002에 따라 **ESM 전용**이라 `require` 조건이
+  없고, CJS로 재면 "No exports main defined"가 나온다. **패키지 결함이 아니라 재는 쪽이 틀린
+  것이다.** `import.meta.resolve`로 바꿨다
+
 ## 2026-08-18 (16) — Avatar가 Figma에 섰다
 
 `DS-F-006-avatar`. component set 18 → **19개**.

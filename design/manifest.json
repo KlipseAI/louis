@@ -88,7 +88,7 @@
       "maturity": "experimental",
       "packageRelease": "not-ready",
       "web": "partial",
-      "webEvidence": "Button·ActionMenu·CompositePopover·Dialog public export과 아이콘 26개 서브패스(./icons). 실브라우저 회귀 121건과 node 단위 14건이 두 motion context에서 각각 돌고, 변조 canary 13종과 아이콘 canary 20종이 검출력을 고정한다. 나머지 5 component는 미구현",
+      "webEvidence": "Button·ActionMenu·CompositePopover·Dialog public export과 아이콘 29개 서브패스(./icons). 실브라우저 회귀와 node 단위가 두 motion context에서 각각 돌고 변조 canary가 검출력을 고정한다. **DS-P3-008: 루트를 실제 소비자로 두고 선언된 서브패스 16개 resolve·타입 선언·Node SSR 렌더·production 번들 tree-shaking을 verify-consumer가 매 실행 확인한다** — 그 전까지 테스트는 package self-reference로 해석돼 바깥 소비를 증명하지 못했다",
       "docs": "partial",
       "note": "overlay primitive는 DS-D-0011에 따라 export하지 않는다. Menu와 Dialog가 그 두 consumer다. 아이콘 지오메트리의 실루엣 정확성은 게이트가 판정하지 못한다(DS-D-0008 Known deviation)"
     }

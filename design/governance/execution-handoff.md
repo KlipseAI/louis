@@ -549,7 +549,11 @@ IconButton secondary는 `color-border-default`(불투명)를 쓴다. TextField�
 **gap registry의 ProjectCard 항목은 "정의 3벌"로 적혀 있으나 실제로는 4벌이다** — 앱 홈,
 노드캔버스 홈, 하이라이트 허브, 비디오 에디터 허브. 등록부가 NodeCanvasHome을 빠뜨렸다.
 
-`DS-P3-008`(Core local RC)은 의존성이 모두 충족돼 열려 있으나 아직 시작하지 않았다. `DS-P3-009`
+**`DS-P3-008`(Core local RC)의 소비자 검증이 섰다(2026-08-18).** `verify-consumer`가 `pnpm verify`에
+들어 있고, 루트를 실제 소비자로 두어 서브패스 16개 resolve · 타입 선언 · **Node SSR 렌더** ·
+**production 번들 tree-shaking**(canary 포함)을 매 실행 확인한다. **그 전까지 테스트는 package
+self-reference로 해석돼 바깥 소비를 증명하지 못했고, 워크스페이스 패키지는 루트에 링크조차 돼
+있지 않았다.** 남은 것은 changesets 도입 · `private` 해제 · 버전 정책 · API diff와 migration note다. `DS-P3-009`
 카탈로그도 열려 있고, 남은 것은 Input·Select·Empty State와 gap registry 6순위 이하다.
 
 **큐 순서를 바꾼 사실을 명시한다.** `DS-P3-009`는 문서상 `DS-P3-008` 의존이지만, Icon Button·Tooltip·

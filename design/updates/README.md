@@ -8,6 +8,35 @@ authority: normative
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
 
+## 2026-08-18 (9) — Slider가 Figma에 섰다 · DS-F-006이 닫혔다
+
+`DS-F-006-slider` 완료. component set 17개 → **18개**이고 **네 컴포넌트가 전부 Figma에 섰다.**
+
+### 복합 키를 쓰는 유일한 컴포넌트다
+
+`{size}/{variant}` 네 그룹(`md/thumb`·`md/track`·`sm/thumb`·`sm/track`)이다. Variant 축이 레일
+두께 4↔28과 썸 16↔2×14를 바꾸므로 size 하나로 묶으면 두 값이 한 배열에 섞여 **어느 쪽이 어느
+변형의 것인지 사라진다.**
+
+되읽기가 그 키로 묶어 주고 measured가 같은 키를 쓰자 **비교 코드를 한 줄도 바꾸지 않고**
+대조가 성립했다. 키를 아무도 해석하지 않기 때문이다.
+
+### 변조 canary가 그 검출력을 증명한다
+
+`tamperCompositeKeyGeometry`는 `md/track`의 레일 높이를 `md/thumb`의 값으로 바꿔 넣는다. 복합
+키가 없었다면 그 변조는 "배열에 4가 하나 더 있다" 정도로 묻힌다. canary 33종 → **34종**.
+
+### 부품이 갈리면 이름으로, 값이 갈리면 복합 키로
+
+Checkbox는 표시가 `Check`(5×9)와 `Dash`(10×2)로 **다른 부품**이라 이름을 나눴고, Slider는
+레일과 썸이 **같은 부품의 다른 값**이라 복합 키를 썼다. 둘을 가르는 기준이 이번에 섰다.
+
+### DS-F-006이 닫혔다
+
+Figma component set 18개, 변수 210개, style 22개. 카탈로그 15항목 중 Web·Figma 모두 `partial`이
+14개이고 `select`만 `not-ready`다. 남은 Figma 작업은 `DS-F-007` 화면 재조립 gap 재계수와
+`DS-F-008` 수동 publish다 — 후자는 owner가 Figma UI에서 직접 하며 자동화하지 않는다.
+
 ## 2026-08-18 (8) — Checkbox가 Figma에 섰다
 
 `DS-F-006-checkbox` 완료. component set 16개 → **17개**.

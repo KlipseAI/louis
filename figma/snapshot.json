@@ -18,8 +18,8 @@
         "effect": 7
       },
       "components": {
-        "sets": 17,
-        "variants": 128
+        "sets": 18,
+        "variants": 132
       },
       "icons": 26,
       "templates": 1
@@ -3986,6 +3986,267 @@
         }
       },
       "strokes": {},
+      "effects": {}
+    },
+    "Slider": {
+      "tokenId": "slider",
+      "variantCount": 4,
+      "hasDescription": true,
+      "properties": {
+        "Size": {
+          "type": "VARIANT",
+          "options": [
+            "md",
+            "sm"
+          ]
+        },
+        "Variant": {
+          "type": "VARIANT",
+          "options": [
+            "thumb",
+            "track"
+          ]
+        }
+      },
+      "binding": {
+        "boundFills": 16,
+        "rawFills": 0,
+        "boundStrokes": 2,
+        "rawStrokes": 0,
+        "textStyled": 4,
+        "textUnstyled": 0
+      },
+      "geometry": {
+        "md/thumb": {
+          "slots": {},
+          "parts": {
+            "Label": {
+              "width": [
+                37
+              ],
+              "height": [
+                21
+              ],
+              "fontSize": [
+                14
+              ]
+            },
+            "Control": {
+              "width": [
+                240
+              ],
+              "height": [
+                40
+              ]
+            },
+            "Rail": {
+              "width": [
+                240
+              ],
+              "height": [
+                4
+              ]
+            },
+            "Fill": {
+              "width": [
+                96
+              ],
+              "height": [
+                4
+              ]
+            },
+            "Thumb": {
+              "width": [
+                16
+              ],
+              "height": [
+                16
+              ]
+            }
+          },
+          "strokeWeight": [
+            2
+          ],
+          "itemSpacing": [
+            4
+          ],
+          "layoutMode": [
+            "VERTICAL"
+          ]
+        },
+        "md/track": {
+          "slots": {},
+          "parts": {
+            "Label": {
+              "width": [
+                37
+              ],
+              "height": [
+                21
+              ],
+              "fontSize": [
+                14
+              ]
+            },
+            "Control": {
+              "width": [
+                240
+              ],
+              "height": [
+                40
+              ]
+            },
+            "Rail": {
+              "width": [
+                240
+              ],
+              "height": [
+                28
+              ]
+            },
+            "Fill": {
+              "width": [
+                96
+              ],
+              "height": [
+                28
+              ]
+            },
+            "Thumb": {
+              "width": [
+                2
+              ],
+              "height": [
+                14
+              ]
+            }
+          },
+          "strokeWeight": [],
+          "itemSpacing": [
+            4
+          ],
+          "layoutMode": [
+            "VERTICAL"
+          ]
+        },
+        "sm/thumb": {
+          "slots": {},
+          "parts": {
+            "Label": {
+              "width": [
+                37
+              ],
+              "height": [
+                21
+              ],
+              "fontSize": [
+                14
+              ]
+            },
+            "Control": {
+              "width": [
+                240
+              ],
+              "height": [
+                32
+              ]
+            },
+            "Rail": {
+              "width": [
+                240
+              ],
+              "height": [
+                4
+              ]
+            },
+            "Fill": {
+              "width": [
+                96
+              ],
+              "height": [
+                4
+              ]
+            },
+            "Thumb": {
+              "width": [
+                12
+              ],
+              "height": [
+                12
+              ]
+            }
+          },
+          "strokeWeight": [
+            2
+          ],
+          "itemSpacing": [
+            4
+          ],
+          "layoutMode": [
+            "VERTICAL"
+          ]
+        },
+        "sm/track": {
+          "slots": {},
+          "parts": {
+            "Label": {
+              "width": [
+                37
+              ],
+              "height": [
+                21
+              ],
+              "fontSize": [
+                14
+              ]
+            },
+            "Control": {
+              "width": [
+                240
+              ],
+              "height": [
+                32
+              ]
+            },
+            "Rail": {
+              "width": [
+                240
+              ],
+              "height": [
+                20
+              ]
+            },
+            "Fill": {
+              "width": [
+                96
+              ],
+              "height": [
+                20
+              ]
+            },
+            "Thumb": {
+              "width": [
+                2
+              ],
+              "height": [
+                14
+              ]
+            }
+          },
+          "strokeWeight": [],
+          "itemSpacing": [
+            4
+          ],
+          "layoutMode": [
+            "VERTICAL"
+          ]
+        }
+      },
+      "strokes": {
+        "Thumb": [
+          "2|INSIDE"
+        ]
+      },
       "effects": {}
     },
     "Spinner": {

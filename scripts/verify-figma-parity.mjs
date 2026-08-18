@@ -553,6 +553,36 @@ const COMPONENT_CONTRACTS = [
     },
   },
   {
+    id: "slider",
+    figmaName: "Slider",
+    declaration: "packages/react/dist/slider/slider.d.ts",
+    variantProperties: { Size: "SliderSize", Variant: "SliderVariant" },
+    // 썸의 링은 CSS border다. track 변형의 표식에는 테두리가 없어 이 역할이 thumb 변형에만 있다.
+    strokes: { Thumb: { weight: 2, align: "INSIDE" } },
+    effects: {},
+    geometry: {
+      // **복합 키를 쓰는 유일한 컴포넌트다.** Variant 축이 레일 두께 4↔28과 썸 16↔2×14를
+      // 바꾸므로 size 하나로 묶으면 두 값이 한 배열에 섞여 어느 쪽이 어느 변형의 것인지
+      // 사라진다. 키는 아무도 해석하지 않는다 — 되읽기와 measured가 같은 이름을 쓰면 된다.
+      measuredId: "slider",
+      fields: {
+        itemSpacing: "stackGap",
+        layoutMode: { literal: "VERTICAL" },
+      },
+      slots: {},
+      // 썸의 링(border-width-ring 2). 레일에는 테두리가 없다.
+      extraStrokeWeights: [2],
+      parts: {
+        Label: { fields: { fontSize: "labelFontSize" } },
+        Control: { fields: { height: "height" } },
+        // 굵은 막대는 레일이고 얇은 표식은 썸이다 — 두 변형이 **같은 부품의 다른 값**을 갖는다.
+        Rail: { fields: { height: "railHeight" } },
+        Fill: { fields: { height: "railHeight" } },
+        Thumb: { fields: { width: "thumbInline", height: "thumbBlock" } },
+      },
+    },
+  },
+  {
     id: "badge",
     figmaName: "Badge",
     declaration: "packages/react/dist/badge/badge.d.ts",
@@ -732,6 +762,34 @@ const warnings = staleness(snapshot);
 //
 // 그래서 판정 기준을 "변조 후 실패가 있는가"가 아니라 **"변조가 baseline에 없던 실패를
 // 새로 만드는가"**로 바꾼다. baseline이 비어 있으면 두 기준은 정확히 같다.
+
+/**
+ * **한 variant의 기하만 어긋났을 때를 잡는다.**
+ *
+ * Slider는 `{size}/{variant}` 복합 키를 쓰는 유일한 컴포넌트다. Variant 축이 레일 두께 4↔28을
+ * 바꾸므로, 키가 size 하나였다면 두 값이 같은 배열에 섞여 **어느 쪽이 어느 변형의 것인지 사라진다.**
+ * 이 canary는 `md/track`의 레일 높이를 `md/thumb`의 값으로 바꿔 넣는다 — 복합 키가 없으면
+ * 그 변조가 "배열에 4가 하나 더 있다" 정도로 묻히고, 있으면 그 그룹의 기대값과 어긋나 실패한다.
+ */
+function tamperCompositeKeyGeometry(document) {
+  const contract = COMPONENT_CONTRACTS.find(
+    (c) => Object.keys(componentsMeasured.components?.[c.geometry?.measuredId]?.sizes ?? {})
+      .some((key) => key.includes("/")),
+  );
+  if (contract === undefined) return null;
+  const geometry = document.components?.[contract.figmaName]?.geometry;
+  if (geometry === undefined) return null;
+  const keys = Object.keys(geometry).filter((k) => k.includes("/"));
+  const donor = keys.find((k) => k.endsWith("/thumb"));
+  const target = keys.find((k) => k.endsWith("/track"));
+  if (donor === undefined || target === undefined) return null;
+  const from = geometry[donor]?.parts?.Rail?.height?.[0];
+  const to = geometry[target]?.parts?.Rail;
+  if (from === undefined || to === undefined || to.height?.[0] === from) return null;
+  to.height = [from];
+  return `${contract.figmaName} ${target}의 Rail 높이를 ${donor}의 값으로 바꿈`;
+}
+
 const TAMPERS = [
   tamperValue,
   tamperAlias,
@@ -744,6 +802,7 @@ const TAMPERS = [
   tamperComponentPadding,
   tamperComponentSlot,
   tamperComponentGeometryDrift,
+  tamperCompositeKeyGeometry,
   tamperComponentPropProperty,
   tamperComponentDescription,
   tamperComponentStrokeWeight,

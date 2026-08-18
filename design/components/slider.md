@@ -18,7 +18,7 @@ authority: normative
 | Surface       | 상태           | 근거                                                                                 |
 | ------------- | -------------- | ------------------------------------------------------------------------------------ |
 | Web           | `partial`      | public export와 실브라우저 acceptance test 16건이 두 motion context에서 각각 돈다; visual regression, Figma component와 제품 소비 증거 없음 |
-| Figma         | `not-ready`    | component set이 아직 없다. DS-F-006-slider가 소유한다                                |
+| Figma         | `partial`      | component set 4 variant(Size×Variant). 복합 키 `{size}/{variant}`로 그룹을 나눠 parity 게이트가 variant별 기하를 각각 대조한다. raw fill·stroke 0. publish는 DS-F-008 |
 | Documentation | `done`         | 이 문서                                                                              |
 | Maturity      | `experimental` | 규범과 구현이 같은 변경 단위에서 처음 선다                                           |
 

@@ -231,8 +231,8 @@ Tooltip(`.app-tooltip-chrome` + `--app-tooltip-*`), Menu(`--dropdown-*`). Icon B
 | Decision | **18종** (`DS-D-0001`~`DS-D-0018`) |
 | 카탈로그 | **15/15 — 전부 섰다.** 1~11순위가 Web·Figma 모두 `partial`, 12~15순위는 Web만 `partial` |
 | manifest component | 17개. `select`만 `not-ready`(아래 1d). 12~15순위 넷은 Figma가 `not-ready` |
-| Figma | component **17개** · 변수 210개 · style 22개 |
-| 검증 | 브라우저 632건(두 motion context) · 토큰 게이트 canary 42종 · CSS canary 12종 · parity canary 33종 |
+| Figma | component **18개** · 변수 210개 · style 22개 |
+| 검증 | 브라우저 632건(두 motion context) · 토큰 게이트 canary 42종 · CSS canary 12종 · parity canary **34종** |
 
 **카탈로그가 닫혔다. 바로 다음에 할 일은 `DS-F-006`의 남은 Figma component set 넷이다** —
 그것이 목표 B의 병목이고 코드 쪽에는 더 이상 막는 것이 없다. (1a)~(1d)와 아래 새 판정 둘은
@@ -383,9 +383,9 @@ Badge의 `Label`). **모든 fill이 변수 바인딩이고 raw 값이 0이다.**
    전에는 `railHeight`(4)와 `trackBarHeight`(28)가 한 항목에 섞여 있었다
 3. ~~브라우저 테스트가 복합 키를 읽게 고친다~~ — **done.** 16건 그대로 통과하며 track 변형의
    `thumbBorderWidth: 0`까지 대조한다
-4. **변조 canary를 하나 더 세운다** — 한 variant의 기하만 어긋났을 때 게이트가 실패하는지를
-   증명한다. 이 canary는 snapshot에 복합 키 컴포넌트가 실제로 있어야 쓸 수 있으므로
-   **`DS-F-006-slider` 빌드와 같은 변경 단위에 들어간다.** 남은 하나다
+4. ~~변조 canary를 하나 더 세운다~~ — **done.** `tamperCompositeKeyGeometry`가 `md/track`의 레일
+   높이를 `md/thumb`의 값으로 바꿔 넣고, 게이트가 그것을 잡는지 매 실행에서 증명한다
+   (canary 33 → **34종**)
 
 `(b) Slider를 Figma에서 두 set으로 나누기`는 택하지 않는다 — 코드의 한 컴포넌트가 Figma에서
 둘이 되면 대응이 1:1이 아니게 되고, parity 계약의 전제가 그것이다.
@@ -393,7 +393,7 @@ Badge의 `Label`). **모든 fill이 변수 바인딩이고 raw 값이 0이다.**
 **게이트를 약하게 만드는 방향은 택하지 않는다.**
 
 **착수 순서.** (1)~(3)이 끝났고 **SegmentedControl은 2026-08-18에 섰다**(component 15개, parity
-통과). 남은 하나는 **Slider**다(복합 키 canary와 같은 단위). SelectableListRow와 Checkbox는 2026-08-18에 섰다(component 17개).
+통과). **넷이 전부 섰다(2026-08-18). `DS-F-006`이 닫혔다** — component 18개, parity canary 34종. 남은 Figma 작업은 `DS-F-007` 화면 재조립 gap 재계수와 `DS-F-008` 수동 publish다.
 
 **빌드 루프가 검증됐다.** 순서는 이렇다 — ① `use_figma`로 set 생성(모든 시각 속성을 변수·style에
 바인딩, raw 0) ② 되읽기 덤프 ③ `figma/readback.json`의 `components`에 **그 컴포넌트만 병합**
@@ -1124,7 +1124,7 @@ description에 기록했다. parity 게이트가 style 10종까지 검증하므�
 | `DS-F-006-toast` | `partial` | `not-ready` | 3 |
 | `DS-F-006-menu-popover` | `partial` | `not-ready` | 4 |
 | `DS-F-006-dialog` | `partial` | `not-ready` | 5 |
-| `DS-F-006-slider` | `partial` | `not-ready` | 12 |
+| `DS-F-006-slider` | `partial` | **`partial`** | 12 |
 | `DS-F-006-segmented-control` | `partial` | **`partial`** | 13 |
 | `DS-F-006-checkbox` | `partial` | **`partial`** | 14 |
 | `DS-F-006-selectable-list-row` | `partial` | **`partial`** | 15 |

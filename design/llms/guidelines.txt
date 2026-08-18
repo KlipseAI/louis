@@ -108,9 +108,9 @@ Figma library는 아직 `not-ready`다. 시스템 전체 maturity도 `experiment
 | 항목 | 현재 값 |
 | --- | --- |
 | System maturity | `experimental` |
-| Normative documents | 71 |
+| Normative documents | 72 |
 | Generated documents | 5 |
-| Components | 19 |
+| Components | 20 |
 | Patterns | 4 |
 | Web done | 0 |
 | Token artifacts done | 6/6 |
@@ -5345,6 +5345,47 @@ popover에 가린다. **이 결정은 드로어를 다루지 않는다** — 드
 ### Updates
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
+
+#### 2026-08-18 (31) — BannerCarousel이 섰다
+
+허브 4종을 동시에 막던 컴포넌트다. 배포본 실측을 CSS · React · 테스트 · 규범으로 옮겼다.
+component 20 → **21**, 테스트 688 → **696**.
+
+##### 계약 셋
+
+**톤은 테마가 아니다.** `tone="bright"`는 사진이 밝다는 뜻이고, 그래서 글자가 **어두워진다**.
+샘플링은 소비처가 갖는다 — 흡수하면 DS가 이미지 로딩과 CORS를 떠안는다.
+
+**높이는 소비처가 정한다.** 슬라이드가 전부 absolute라 높이를 안 주면 0으로 접히고
+`overflow: hidden`이 컨트롤을 잘라 클릭조차 되지 않는다. 기본값을 넣지 않은 이유는 허브 4종의
+배너 높이가 서로 달라 **실측된 단일 정본이 없기 때문**이다. 임의의 값은 정본인 척한다.
+
+**슬라이드가 하나면 컨트롤을 그리지 않는다.** 넘길 곳이 없는 화살표와 점은 거짓말이다.
+
+##### 폭이 상태이고, 폭만으로는 부족하다
+
+점의 활성 폭 20px가 "지금 몇 번째인가"를 말한다(DS-D-0019). 그런데 **폭은 보조기술이 읽지
+않는다.** 그래서 `aria-selected`가 함께 상태를 갖는다 — 시각과 의미가 각자 자기 축으로 말하며
+어느 한쪽만으로는 계약이 성립하지 않는다.
+
+##### 테스트가 나를 세 번 세웠다
+
+1. **`render`가 비동기 커밋이다.** `await` 없이 질의하니 컨테이너가 비어 있었다. 이 저장소의
+   기존 테스트는 전부 `await render(...)`인데 내가 빠뜨렸다.
+2. **화살표 클릭이 15초 타임아웃**으로 죽었다. 높이 0 + `overflow: hidden`이라 컨트롤이 잘려
+   있었다. 컴포넌트 결함이 아니라 **계약을 테스트가 안 지킨 것**이었고, 그 사실을 규범에 적었다.
+3. **`userEvent` import 경로를 지어냈다.** `@vitest/browser/context`가 아니라 `vitest/browser`다.
+   typecheck가 잡았다.
+
+##### 남긴 결함 하나
+
+**자동 넘김이 포커스나 hover에서 멈추지 않는다.** 제품도 멈추지 않는다. 제품 값을 그대로 옮긴
+상태라 **WCAG 2.2.2가 해소되지 않았다.** 감추지 않고 Known deviations에 적었고 manifest note에도
+남겼다. 다음 변경 단위에서 정지 수단을 판정한다.
+
+##### 남은 것
+
+Figma component set. `figma: not-ready`이며 그것이 서야 parity가 이 컴포넌트를 지킨다.
 
 #### 2026-08-18 (30) — Tailwind 다리를 실제로 건너 본다
 

@@ -293,6 +293,15 @@
       "generated": false
     },
     {
+      "id": "banner-carousel",
+      "path": "design/components/banner-carousel.md",
+      "title": "Banner Carousel",
+      "section": "components",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
+    },
+    {
       "id": "component-badge",
       "path": "design/components/badge.md",
       "title": "Badge",
@@ -804,6 +813,7 @@
         "design/components/project-card.md",
         "design/components/text-field.md",
         "design/components/empty-state.md",
+        "design/components/banner-carousel.md",
         "design/components/badge.md",
         "design/components/spinner.md",
         "design/components/avatar.md",
@@ -998,6 +1008,17 @@
       "note": "public export 10종과 실브라우저 acceptance test 6건. 값은 제품 정의 4벌의 정본을 옮긴 것이다. 프로그레시브 블러의 첫 소비처이며, parity 게이트가 자손 기하·타이포·흐림·자식 순서를 대조한다. 구조는 제품과 다르다 — 프레임은 div이고 클릭 타깃이 카드 전체를 덮는 형제다",
       "doc": "design/components/project-card.md",
       "figmaName": "ProjectCard"
+    },
+    {
+      "id": "banner-carousel",
+      "name": "Banner Carousel",
+      "maturity": "experimental",
+      "figma": "not-ready",
+      "web": "partial",
+      "docs": "done",
+      "doc": "design/components/banner-carousel.md",
+      "note": "public export와 실브라우저 acceptance test 8건. 값은 전부 배포본 실측이며 모션 9종·미디어 색 9종·space-media-inset이 이 컴포넌트를 위해 섰다. Figma component set과 제품 소비 증거가 없다. 자동 넘김이 포커스·hover에서 멈추지 않아 WCAG 2.2.2 미해소 — 규범 Known deviations 참조",
+      "figmaName": "BannerCarousel"
     },
     {
       "id": "badge",

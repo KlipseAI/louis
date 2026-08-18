@@ -662,9 +662,9 @@
     "checkbox": {
       "$doc": "design/components/checkbox.md",
       "$source": "packages/react/src/checkbox/checkbox.tsx, packages/css/src/component/checkbox.css",
-      "$note": "제품에 공용 정본이 있다 \u2014 globals.css:990의 .app-native-checkbox(20\u00d720 \u00b7 accent-color). **그런데 21벌 중 2벌만 쓴다.** 그 클래스가 cascade layer 밖이라 @layer utilities를 무조건 이겨서, 색 하나를 바꾸려는 소비처가 클래스를 떼고 선언을 베껴야 했다(VideoEditProjectPicker.tsx:140-151이 그 사실을 적어 두었다). 크기 20px은 채택하고 accent-color는 채택하지 않았다.",
+      "$note": "제품에 공용 정본이 있다 — globals.css:990의 .app-native-checkbox(20×20 · accent-color). **그런데 21벌 중 2벌만 쓴다.** 그 클래스가 cascade layer 밖이라 @layer utilities를 무조건 이겨서, 색 하나를 바꾸려는 소비처가 클래스를 떼고 선언을 베껴야 했다(VideoEditProjectPicker.tsx:140-151이 그 사실을 적어 두었다). 크기 20px은 채택하고 accent-color는 채택하지 않았다.",
       "$sizeKey": "size 축이 없는 컴포넌트는 measured 키를 `base` 하나로 둔다 — verify-figma-parity의 `sizeKey: \"base\"` 계약이 그 이름으로 readback을 찾는다(Badge·EmptyState와 같다).",
-      "$noSizeAxis": "크기 축이 없다. 제품의 다른 값(14px \u00b7 브라우저 기본)은 서로 합의하지 않고 두 번째 소비처도 없다. 필요해지면 그때 추가한다.",
+      "$noSizeAxis": "크기 축이 없다. 제품의 다른 값(14px · 브라우저 기본)은 서로 합의하지 않고 두 번째 소비처도 없다. 필요해지면 그때 추가한다.",
       "sizes": {
         "base": {
           "boxSize": 20,
@@ -707,15 +707,15 @@
           }
         }
       },
-      "$borderNote": "**border-control이 아니라 border-strong이다.** 선택하지 않은 체크박스는 테두리가 어포던스의 전부라 SC 1.4.11(3:1)이 그 선에 걸린다. 상자 면 대비 실측 \u2014 control 1.27/1.63 · default 1.38/2.93 · strong 2.52/4.61(라이트/다크). **셋 다 라이트에서 3:1 미달**이고 가장 가까운 것을 골랐다. 이 실측은 인계서 (2b) 컨트롤 테두리 정본 판정과 (1a) color-border-strong 처분의 입력이다 \u2014 그 토큰은 여기가 첫 소비처다.",
-      "$statesNote": "foreground는 라벨의 색이다. 표시(체크 \u00b7 막대)의 색은 면 위에 얹히므로 color-foreground-inverse이며 states 표가 아니라 아래 규범이 갖는다 \u2014 states 표의 세 값은 면\u00b7전경\u00b7테두리로 고정돼 있다."
+      "$borderNote": "**border-control이 아니라 border-strong이다.** 선택하지 않은 체크박스는 테두리가 어포던스의 전부라 SC 1.4.11(3:1)이 그 선에 걸린다. 상자 면 대비 실측 — control 1.27/1.63 · default 1.38/2.93 · strong 2.52/4.61(라이트/다크). **셋 다 라이트에서 3:1 미달**이고 가장 가까운 것을 골랐다. 이 실측은 인계서 (2b) 컨트롤 테두리 정본 판정과 (1a) color-border-strong 처분의 입력이다 — 그 토큰은 여기가 첫 소비처다.",
+      "$statesNote": "foreground는 라벨의 색이다. 표시(체크 · 막대)의 색은 면 위에 얹히므로 color-foreground-inverse이며 states 표가 아니라 아래 규범이 갖는다 — states 표의 세 값은 면·전경·테두리로 고정돼 있다."
     },
     "selectable-list-row": {
       "$doc": "design/components/selectable-list-row.md",
       "$source": "packages/react/src/selectable-list-row/selectable-list-row.tsx, packages/css/src/component/selectable-list-row.css",
-      "$note": "master-detail의 좌측 열. 제품 3벌이고 **등록부의 수치가 처음으로 맞았다**(하이라이트 2 · 에디터 1). 셋이 합의하는 것은 골격(가로 flex 행 · 선행 슬롯 · 글자 묶음 · hover 면 · 전환 140ms)이고, 갈라지는 것은 선택을 행의 면이 갖느냐 안의 체크박스가 갖느냐다. 후자는 이 컴포넌트가 아니다 \u2014 행을 버튼으로 만들면서 체크박스를 넣으면 컨트롤이 중첩된다.",
+      "$note": "master-detail의 좌측 열. 제품 3벌이고 **등록부의 수치가 처음으로 맞았다**(하이라이트 2 · 에디터 1). 셋이 합의하는 것은 골격(가로 flex 행 · 선행 슬롯 · 글자 묶음 · hover 면 · 전환 140ms)이고, 갈라지는 것은 선택을 행의 면이 갖느냐 안의 체크박스가 갖느냐다. 후자는 이 컴포넌트가 아니다 — 행을 버튼으로 만들면서 체크박스를 넣으면 컨트롤이 중첩된다.",
       "$sizeKey": "size 축이 없으므로 measured 키는 `base` 하나다. verify-figma-parity의 `sizeKey` 계약이 그 이름으로 readback을 찾는다.",
-      "$geometry": "기하는 제품 값을 그대로 옮기지 않았다. gap 10px과 반경 14px에 맞는 semantic 토큰이 없고, 새 토큰은 token source를 바꿔 Figma 재적용이 따라온다. DS에 이미 있는 선택 가능한 행(SidebarNavItem)의 값을 따랐다 \u2014 같은 성질의 두 컴포넌트가 다른 기하를 갖지 않게 하는 것이 더 중요하다.",
+      "$geometry": "기하는 제품 값을 그대로 옮기지 않았다. gap 10px과 반경 14px에 맞는 semantic 토큰이 없고, 새 토큰은 token source를 바꿔 Figma 재적용이 따라온다. DS에 이미 있는 선택 가능한 행(SidebarNavItem)의 값을 따랐다 — 같은 성질의 두 컴포넌트가 다른 기하를 갖지 않게 하는 것이 더 중요하다.",
       "sizes": {
         "base": {
           "padding": 8,
@@ -750,7 +750,7 @@
           }
         }
       },
-      "$statesNote": "Selected의 면은 SidebarNavItem과 같은 토큰이지만 **면만으로 선택을 전달하지 않는다** \u2014 3px 선행 표식이 color-action-primary로 함께 그려진다. 보조 문구는 선택된 행에서도 secondary로 남는다(둘 다 primary가 되면 위계가 사라진다)."
+      "$statesNote": "Selected의 면은 SidebarNavItem과 같은 토큰이지만 **면만으로 선택을 전달하지 않는다** — 3px 선행 표식이 color-action-primary로 함께 그려진다. 보조 문구는 선택된 행에서도 secondary로 남는다(둘 다 primary가 되면 위계가 사라진다)."
     },
     "segmented-control": {
       "$doc": "design/components/segmented-control.md",
@@ -812,36 +812,52 @@
       "$note": "제품에 공용 구현이 없다. 정의 37벌이 일곱 레시피로 갈리고 **합의하는 축이 하나도 없다** — 트랙 높이 2·4·20·28px, 썸 0·10·12·14·16px. 그래서 값은 DS가 정했다. 컨트롤 높이만 제품이 아니라 이 저장소의 control 계단(TextField·Button)을 따른다 — 인스펙터에서 나란히 서기 때문이다.",
       "$howMeasured": "**레일과 썸은 계산값으로 잴 수 없다.** Chromium의 getComputedStyle(input, '::-webkit-slider-runnable-track')은 섀도우 pseudo-element가 아니라 호스트 input의 값을 돌려준다(2026-08-18 실측: 320×40, 배경 투명, 반경 0). 그래서 이 값들은 CSSOM의 **선언**을 대조한다 — Button의 borderWidth가 계산값 대신 선언 토큰을 보는 것과 같은 이유다. height·stackGap·labelFontSize만 실제 렌더 계산값이다.",
       "sizes": {
-        "md": {
+        "md/thumb": {
           "height": 40,
-          "$height": "layout-control-height-md. 제품은 8·12·16·24·28px로 흩어져 있고 정본이 없어 control 계단을 따랐다",
           "stackGap": 4,
           "labelFontSize": 14,
+          "$height": "layout-control-height-md. 제품은 8·12·16·24·28px로 흩어져 있고 정본이 없어 control 계단을 따랐다",
           "railHeight": 4,
           "$railHeight": "제품 일곱 중 넷이 4px이다. 유일하게 다수가 있는 축이며 그것을 골랐다",
-          "thumbSize": 16,
+          "thumbInline": 16,
+          "thumbBlock": 16,
           "thumbBorderWidth": 2,
-          "$thumbBorderWidth": "border-width-ring 2. 그림자가 아니라 표면색 링으로 분리한다 — 제품 썸 그림자 넷이 값이 다 다르고 DS elevation 넷 중 맞는 것이 없다",
-          "trackBarHeight": 28,
-          "$trackBarHeight": "제품 인스펙터 패널의 실측값. track 변형 전용이다",
-          "trackGripInline": 2,
-          "trackGripBlock": 14,
-          "$trackGrip": "제품이 채움 오른쪽 끝에 ::after로 그리는 2×14px 표식과 같은 크기다. 제품은 장식이고 여기서는 그것이 곧 썸이다"
+          "$thumbBorderWidth": "border-width-ring 2. 그림자가 아니라 표면색 링으로 분리한다 — 제품 썸 그림자 넷이 값이 다 다르고 DS elevation 넷 중 맞는 것이 없다"
         },
-        "sm": {
+        "md/track": {
+          "height": 40,
+          "stackGap": 4,
+          "labelFontSize": 14,
+          "railHeight": 28,
+          "$railHeight": "제품 인스펙터 패널의 실측값. thumb 변형의 4px과 같은 부품의 다른 값이다",
+          "thumbInline": 2,
+          "thumbBlock": 14,
+          "thumbBorderWidth": 0,
+          "$thumb": "제품이 채움 오른쪽 끝에 ::after로 그리는 2×14px 표식과 같은 크기다. 제품은 장식이고 여기서는 그것이 곧 썸이라 테두리가 없다"
+        },
+        "sm/thumb": {
           "height": 32,
           "stackGap": 4,
           "labelFontSize": 14,
           "railHeight": 4,
-          "thumbSize": 12,
-          "thumbBorderWidth": 2,
-          "trackBarHeight": 20,
-          "$trackBarHeight": "제품 인스펙터 기본값. 패널 밖에서 쓰는 크기다",
-          "trackGripInline": 2,
-          "trackGripBlock": 14
+          "thumbInline": 12,
+          "thumbBlock": 12,
+          "thumbBorderWidth": 2
+        },
+        "sm/track": {
+          "height": 32,
+          "stackGap": 4,
+          "labelFontSize": 14,
+          "railHeight": 20,
+          "$railHeight": "제품 인스펙터 기본값. 패널 밖에서 쓰는 크기다",
+          "thumbInline": 2,
+          "thumbBlock": 14,
+          "thumbBorderWidth": 0
         }
       },
-      "$statesNote": "states 표를 두지 않는다. 칠해지는 면(레일·채움·썸)이 전부 섀도우 pseudo-element라 계산값을 읽을 수 없고, 게이트가 확인할 수 없는 표를 두면 '확인했다'는 주장만 남는다. Default·Disabled의 토큰 배정은 규범 문서가 갖고 CSSOM 선언 대조가 그것을 고정한다."
+      "$statesNote": "states 표를 두지 않는다. 칠해지는 면(레일·채움·썸)이 전부 섀도우 pseudo-element라 계산값을 읽을 수 없고, 게이트가 확인할 수 없는 표를 두면 '확인했다'는 주장만 남는다. Default·Disabled의 토큰 배정은 규범 문서가 갖고 CSSOM 선언 대조가 그것을 고정한다.",
+      "$sizeKey": "**복합 키다.** `{size}/{variant}` 넷으로 나눈다 — Variant 축이 레일 두께와 썸 크기를 바꾸기 때문이다. verify-figma-parity는 measured의 키를 그대로 순회하고 build-figma-snapshot은 되읽기가 준 키를 그대로 옮기므로, 되읽기가 같은 키로 묶어 주면 비교 코드를 바꾸지 않고 variant별 기하가 대조된다. 한 그룹 안에서 값은 여전히 배열이라 '넷 중 하나만 어긋난' 경우가 보인다.",
+      "$fieldNames": "railHeight와 thumbInline/thumbBlock을 두 variant가 **같은 이름으로** 쓴다. track의 굵은 막대는 레일이고 얇은 표식은 썸이다 — 이름을 나누면 계약이 '같은 부품의 다른 값'이 아니라 '다른 부품'처럼 읽힌다."
     },
     "app-shell-parts": {
       "$doc": "design/components/app-shell-parts.md",

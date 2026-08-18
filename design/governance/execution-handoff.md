@@ -359,8 +359,8 @@ Badge의 `Label`). **모든 fill이 변수 바인딩이고 raw 값이 0이다.**
 | --- | --- | --- |
 | Checkbox | **가능** | size 축이 없고 State가 색만 바꾼다. Badge와 같은 모델 |
 | SelectableListRow | **가능** | 같음 |
-| SegmentedControl | 막힘 | 선택/비선택 세그먼트의 면이 다르고 기하는 같으나, 상태를 variant로 두면 같은 축을 두 번 세게 된다 — 계약 형태를 먼저 정해야 한다 |
-| Slider | 막힘 | `Variant=thumb\|track`이 레일 두께 4↔28과 썸 16↔2×14를 **바꾼다.** 게이트가 variant별 기대값을 표현할 수 없다 |
+| SegmentedControl | **가능** | ~~막힘~~ **정정(2026-08-18).** 선택/비선택이 색만 바꾸고 기하는 md/sm 두 값뿐이라 기존 Size 모델에 그대로 맞는다. Button처럼 `State`를 Figma 전용 property로 선언하면 된다 |
+| Slider | 확장 필요 | `Variant=thumb\|track`이 레일 두께 4↔28과 썸 16↔2×14를 **바꾼다** — 복합 키가 필요한 유일한 컴포넌트다 |
 
 **owner가 게이트 확장을 택했다(2026-08-18). 그 확장이 무엇인지 조사해 보니 처음 생각보다
 작다 — 비교 로직이 아니라 키 규약 문제다.**
@@ -372,26 +372,29 @@ Badge의 `Label`). **모든 fill이 변수 바인딩이고 raw 값이 0이다.**
 **비교 코드를 한 줄도 바꾸지 않고** variant별 기하가 대조된다. 같은 그룹 안에서는 배열이
 그대로 남아 "40개 중 하나만 어긋난" 것을 여전히 잡는다.
 
-그래서 확장의 실제 범위는 넷이다.
+그래서 확장의 실제 범위는 넷이었고 **셋은 끝났다(2026-08-18).**
 
-1. 복합 키 규약을 정하고 `build-figma-snapshot.mjs`의 되읽기 절차 주석에 적는다 —
-   기하를 바꾸는 축이 있을 때만 `{size}/{variant}`로 묶는다
-2. `slider`와 `segmented-control`의 measured를 복합 키로 재구성한다. Slider는 지금
-   `railHeight`와 `trackBarHeight`가 한 size 항목에 섞여 있는데, 쪼개면 각 variant가
-   실제로 그리는 값만 남아 **더 정확해진다**
-3. 두 컴포넌트의 브라우저 테스트가 복합 키를 읽게 고친다
+1. ~~복합 키 규약을 `build-figma-snapshot.mjs`의 되읽기 절차 주석에 적는다~~ — **done.**
+   기본은 Size 값, size 축이 없으면 `base`, **Size 말고 다른 축이 기하를 바꿀 때만**
+   `{size}/{variant}`
+2. ~~measured를 복합 키로 재구성한다~~ — **done.** Slider만 해당한다(`md/thumb`·`md/track`·
+   `sm/thumb`·`sm/track`). `railHeight`와 `thumbInline`/`thumbBlock`을 두 variant가 **같은
+   이름으로** 쓴다 — track의 굵은 막대는 레일이고 얇은 표식은 썸이라 같은 부품의 다른 값이다.
+   전에는 `railHeight`(4)와 `trackBarHeight`(28)가 한 항목에 섞여 있었다
+3. ~~브라우저 테스트가 복합 키를 읽게 고친다~~ — **done.** 16건 그대로 통과하며 track 변형의
+   `thumbBorderWidth: 0`까지 대조한다
 4. **변조 canary를 하나 더 세운다** — 한 variant의 기하만 어긋났을 때 게이트가 실패하는지를
    증명한다. 이 canary는 snapshot에 복합 키 컴포넌트가 실제로 있어야 쓸 수 있으므로
-   **Figma set 빌드와 같은 변경 단위에 들어간다**
+   **`DS-F-006-slider` 빌드와 같은 변경 단위에 들어간다.** 남은 하나다
 
 `(b) Slider를 Figma에서 두 set으로 나누기`는 택하지 않는다 — 코드의 한 컴포넌트가 Figma에서
 둘이 되면 대응이 1:1이 아니게 되고, parity 계약의 전제가 그것이다.
 
 **게이트를 약하게 만드는 방향은 택하지 않는다.**
 
-**착수 순서.** (1)~(3)을 독립 변경 단위로 먼저 하고, 그다음 Figma set을 큐 순서대로 짓되
-Slider의 변경 단위에 (4)의 canary를 함께 넣는다. Checkbox와 SelectableListRow는 이 확장을
-기다리지 않아도 된다.
+**착수 순서.** (1)~(3)이 끝났으므로 이제 Figma set을 큐 순서대로 지으면 된다 — Slider의 변경
+단위에 (4)의 canary를 함께 넣는다. Checkbox·SelectableListRow·SegmentedControl 셋은 확장과
+무관하게 언제든 지을 수 있다.
 
 **준비는 해 두었다.** size 축이 없는 두 컴포넌트의 measured 키를 `md` → `base`로 옮겼다 —
 게이트의 `sizeKey: "base"` 계약이 그 이름으로 readback을 찾는다(Badge·EmptyState와 같다).

@@ -53,6 +53,20 @@
 //
 //         variantCount / hasDescription / properties / binding / geometry / strokes / effects
 //
+//       **geometry의 키 규약.** 기본은 Size variant의 값(`md`/`sm`)이고, size 축이 없는
+//       컴포넌트는 `base` 하나다(Badge·EmptyState·Checkbox·SelectableListRow). 예외가 하나 있다 —
+//       **Size 말고 다른 variant 축이 기하를 바꾸면 `{size}/{variant}` 복합 키로 묶는다**
+//       (Slider의 `md/thumb`·`md/track`·`sm/thumb`·`sm/track`). Variant가 레일 두께 4↔28과
+//       썸 16↔2×14를 바꾸는데 size 하나로 묶으면 두 값이 한 배열에 섞여 어느 쪽이 어느 변형의
+//       것인지 사라지기 때문이다.
+//
+//       이 규약이 성립하는 이유는 키를 **아무도 해석하지 않기** 때문이다. 이 스크립트는
+//       `sortByKey(component.geometry)`로 되읽기가 준 키를 그대로 옮기고,
+//       verify-figma-parity는 `Object.entries(measured)`로 measured의 키를 그대로 순회한다.
+//       그래서 되읽기와 measured가 같은 키를 쓰기만 하면 비교 코드를 바꾸지 않고 variant별
+//       기하가 대조되고, 한 그룹 안에서 값은 여전히 배열이라 "넷 중 하나만 어긋난" 것이 보인다.
+//       색만 바뀌고 기하가 같은 축(SegmentedControl의 선택/비선택)은 복합 키로 나누지 않는다.
+//
 //       geometry[size]에는 root의 값과 함께 **자손**을 담는다. 계약값이 자손에 있는 컴포넌트가
 //       있어서(카드의 제목 띠) root만 담으면 게이트가 아무것도 검증하지 못한다.
 //

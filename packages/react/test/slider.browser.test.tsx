@@ -67,8 +67,13 @@ const SIZES: readonly SliderSize[] = ["md", "sm"];
 const sizeScope = (size: SliderSize): string =>
   size === "md" ? ".kds-slider__control" : '.kds-slider[data-size="sm"] .kds-slider__control';
 
+// **measured의 키가 `{size}/{variant}` 복합이다.** Variant 축이 레일 두께와 썸 크기를 바꾸므로
+// size 하나로 묶으면 두 값이 한 항목에 섞여 어느 쪽이 어느 변형의 것인지 사라진다.
+const specOf = (size: SliderSize, variant: "thumb" | "track") =>
+  measured.components.slider.sizes[`${size}/${variant}` as keyof typeof measured.components.slider.sizes];
+
 for (const size of SIZES) {
-  const spec = measured.components.slider.sizes[size];
+  const spec = specOf(size, "thumb");
 
   test(`Slider ${size}의 렌더 기하가 components.measured.json과 같다`, async () => {
     await render(
@@ -92,8 +97,8 @@ for (const size of SIZES) {
     const rail = ".kds-slider__control::-webkit-slider-runnable-track";
     const thumb = `${sizeScope(size)}::-webkit-slider-thumb`;
     expect(px(declared(rail, "block-size")), "railHeight").toBe(spec.railHeight);
-    expect(px(declared(thumb, "inline-size")), "thumbSize").toBe(spec.thumbSize);
-    expect(px(declared(thumb, "block-size")), "thumbSize").toBe(spec.thumbSize);
+    expect(px(declared(thumb, "inline-size")), "thumbInline").toBe(spec.thumbInline);
+    expect(px(declared(thumb, "block-size")), "thumbBlock").toBe(spec.thumbBlock);
 
     // 썸 테두리는 리터럴이 아니라 링 토큰이다. 선언이 그 토큰을 가리키는지와, 그 토큰이
     // 계약값으로 계산되는지를 따로 본다 — 둘 중 하나만 보면 조용히 갈라진다.
@@ -106,22 +111,29 @@ for (const size of SIZES) {
   });
 
   test(`Slider ${size}의 track 변형 선언이 components.measured.json과 같다`, async () => {
+    const trackSpec = specOf(size, "track");
     await render(<Slider label="투명도" size={size} variant="track" />);
 
+    // 굵은 막대는 레일이고 얇은 표식은 썸이다 — thumb 변형과 **같은 부품의 다른 값**이라
+    // 계약에서도 같은 이름을 쓴다.
     const barSelector =
       size === "md"
         ? '.kds-slider[data-variant="track"] .kds-slider__control::-webkit-slider-runnable-track'
         : '.kds-slider[data-variant="track"][data-size="sm"] .kds-slider__control::-webkit-slider-runnable-track';
-    expect(px(declared(barSelector, "block-size")), "trackBarHeight").toBe(spec.trackBarHeight);
+    expect(px(declared(barSelector, "block-size")), "railHeight").toBe(trackSpec.railHeight);
 
     const grip =
       '.kds-slider[data-variant="track"] .kds-slider__control::-webkit-slider-thumb';
-    expect(px(declared(grip, "inline-size")), "trackGripInline").toBe(spec.trackGripInline);
-    expect(px(declared(grip, "block-size")), "trackGripBlock").toBe(spec.trackGripBlock);
+    expect(px(declared(grip, "inline-size")), "thumbInline").toBe(trackSpec.thumbInline);
+    expect(px(declared(grip, "block-size")), "thumbBlock").toBe(trackSpec.thumbBlock);
+    // track의 표식은 테두리를 갖지 않는다. 계약이 0을 요구하고 선언이 border: 0이어야 한다.
+    expect(trackSpec.thumbBorderWidth, "track 썸은 테두리가 없다").toBe(0);
+    expect(declared(grip, "border"), "border를 0으로 지운다").toContain("0");
   });
 }
 
 test("track 변형의 썸이 지워지지 않는다 — 제품이 지운 바로 그 자리다", async () => {
+  const trackSpec = specOf("md", "track");
   await render(<Slider label="투명도" variant="track" />);
   const grip = '.kds-slider[data-variant="track"] .kds-slider__control::-webkit-slider-thumb';
 

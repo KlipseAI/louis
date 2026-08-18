@@ -119,3 +119,35 @@ DS와 제품의 값이 다른 축은 [`product.measured.json`](product.measured.
   spacing 토큰만 내보내므로 충돌하지 않지만, 두 체계가 한 화면에 섞이면 읽는 사람이 헷갈린다.
 - **preflight.** 제품은 기존 CSS Modules 때문에 일부러 뺐다. DS의 `reset.css`는 opt-in이라
   강요하지 않지만, 언제 켤지는 CSS Modules 제거 진척에 달려 있다.
+
+## Tailwind theme의 불러오기 순서 (2026-08-18 실측)
+
+`DS-D-0020`의 근거 기록이다. 규범 문서는 제품 저장소 경로를 직접 참조할 수 없으므로 위치는
+여기가 갖는다.
+
+제품의 `apps/web/app/tailwind.css`가 `@theme inline` 안에서 네 namespace를 지운다 —
+`--color-*: initial`(41행) · `--radius-*: initial`(169행) · `--text-*: initial`(185행) ·
+`--font-*: initial`(217행). Tailwind 기본 팔레트를 버리고 실측값으로 다시 세우기 위한 선언이다.
+
+제품이 실제로 쓰는 **Tailwind 4.3.3**으로 두 순서를 컴파일했다.
+
+| 유틸리티 | DS → 제품 | 제품 → DS |
+| --- | --- | --- |
+| `bg-action-primary` | **생성 안 됨** | 생성됨 |
+| `text-foreground-primary` | **생성 안 됨** | 생성됨 |
+| `rounded-card` | **생성 안 됨** | 생성됨 |
+| `rounded-control` | **생성 안 됨** | 생성됨 |
+| `p-3` · `gap-3` (대조군) | 생성됨 | 생성됨 |
+
+**빌드는 성공한다.** 오류 없이 `bg-action-primary`가 아무것도 하지 않는 클래스가 된다. 대조군이
+양쪽에서 살아 있으므로 빌드 실패가 아니라 정확히 reset 범위의 문제다.
+
+그래서 채택 단계에서 `@klipse-design/css/theme.css`는 **제품의 Tailwind 진입 CSS 뒤에** 온다.
+`scripts/verify-tailwind-interop.mjs`가 매 `pnpm verify`에서 확인하며, 제품 저장소가 없는 hosted
+CI에서는 건너뛴다.
+
+### 함께 확인된 것 — 이름 충돌은 없다
+
+DS `theme.css`의 변수 183개와 제품 `tailwind.css`의 144개를 이름으로 대조하니 **겹치는 것이 0개**다.
+DS는 `--spacing-<이름>`(예: `--spacing-control-md`)을 쓰고 제품의 격자 곱수는 `--spacing`이라
+서로 건드리지 않는다. **간격이 두 배로 틀어질 위험은 없다** — 재기 전에는 그럴 줄 알았다.

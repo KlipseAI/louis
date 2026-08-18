@@ -8,6 +8,57 @@ authority: normative
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
 
+## 2026-08-18 (30) — Tailwind 다리를 실제로 건너 본다
+
+owner 질문: **"디자인시스템은 테일윈드가 아니야?"** 아니다 — DS는 Tailwind에 의존하지 않고
+`.kds-*` plain CSS로 저작한다(DS-D-0004). 다만 토큰을 `@theme inline`으로 **발행**한다(DS-D-0013).
+쓰는 건 plain CSS, 주는 건 Tailwind 테마다.
+
+그 다리를 아직 아무도 건너지 않았다는 것이 문제였다. 건너 봤다.
+
+### 내가 틀렸던 것
+
+앞 항목에서 **"제품의 `--spacing: 2px` 격자와 DS 스케일이 부딪혀 모든 간격이 두 배로 틀어질 수
+있다"**고 적었다. 재보니 **아니다.** DS `theme.css`의 변수 183개와 제품 `tailwind.css`의 144개를
+이름으로 대조하니 **겹치는 것이 0개**다. DS는 `--spacing-<이름>`을 쓰고 제품의 곱수는 `--spacing`이라
+서로 건드리지 않는다.
+
+### 진짜 위험은 순서였다
+
+제품은 `@theme`에서 네 namespace를 통째로 지운다 — `--color-*` · `--radius-*` · `--text-*` ·
+`--font-*`. **DS도 그 네 namespace를 쓴다.**
+
+제품이 실제로 쓰는 Tailwind 4.3.3으로 두 순서를 컴파일했다.
+
+| 유틸리티 | DS → 제품 | 제품 → DS |
+| --- | --- | --- |
+| `bg-action-primary` | **생성 안 됨** | 생성됨 |
+| `text-foreground-primary` | **생성 안 됨** | 생성됨 |
+| `rounded-card` · `rounded-control` | **생성 안 됨** | 생성됨 |
+| `p-3` · `gap-3` (대조군) | 생성됨 | 생성됨 |
+
+**빌드는 성공한다.** 오류 없이 `bg-action-primary`가 아무것도 하지 않는 클래스가 된다. 대조군이
+양쪽에서 살아 있으니 빌드 실패가 아니라 정확히 reset 범위의 문제다. **가장 나쁜 실패 모양이다.**
+
+### 계약으로 못 박았다 — DS-D-0020
+
+`@klipse-design/css/theme.css`는 제품의 Tailwind 진입 CSS **뒤에** 온다. 문서의 권고가 아니라
+`scripts/verify-tailwind-interop.mjs`가 매 `pnpm verify`에서 검사하는 계약이다.
+
+**Tailwind는 제품 저장소의 것을 쓴다.** DS는 Tailwind에 의존하지 않고, interop을 재는 데는 제품이
+실제로 쓰는 버전이 정본이다. 새 의존성이 0이다.
+
+canary가 두 방향이다. 반대 순서에서 **전부 살아남아도 실패**하고(계약이 사라진 것이므로 다시
+판정해야 한다) **일부만 사라져도 실패**한다(제품의 reset 범위가 바뀐 것이다).
+
+### 게이트가 또 한 번 나를 막았다
+
+DS-D-0020 초안이 제품의 Tailwind 진입 CSS 경로를 줄 번호까지 직접 인용했더니 빌드가 거부했다 —
+**규범 문서는 제품 저장소 전용 경로를 참조할 수 없다.** 옳은 규칙이라 위치 근거를 비규범
+`migration/klipse-web-adoption.md`로 옮겼다.
+
+`pnpm verify`가 12단계가 됐다.
+
 ## 2026-08-18 (29) — 캐러셀 CSS가 섰다
 
 배포본 `TabBannerCarousel.tsx` 실측을 CSS로 옮겼다. component 21 → **22**.

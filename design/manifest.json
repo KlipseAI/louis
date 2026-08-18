@@ -716,6 +716,15 @@
       "generated": false
     },
     {
+      "id": "decision-tailwind-load-order",
+      "path": "design/governance/decisions/DS-D-0020-tailwind-load-order.md",
+      "title": "DS-D-0020 Tailwind theme의 불러오기 순서를 계약으로 못 박는다",
+      "section": "governance",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
+    },
+    {
       "id": "updates-overview",
       "path": "design/updates/README.md",
       "title": "Updates",
@@ -872,6 +881,7 @@
         "design/governance/decisions/DS-D-0017-keyframe-contract.md",
         "design/governance/decisions/DS-D-0018-app-shell-geometry.md",
         "design/governance/decisions/DS-D-0019-layout-change-motion.md",
+        "design/governance/decisions/DS-D-0020-tailwind-load-order.md",
         "design/updates/README.md"
       ]
     }

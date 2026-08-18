@@ -318,6 +318,54 @@ DS는 의도한 값을 채택한다. `color-action-primary`가 이미 `#0088ff`�
 `role="progressbar"`와 `aria-valuenow`가 필요하고, **값이 바뀔 때 스크린 리더가 얼마나 자주 읽을지**를
 정해야 한다. 매 퍼센트마다 읽으면 100번 말한다. 구현 단위에서 `aria-live`를 걸지 말지 판정한다.
 
+### 사이드바 부품 실측 (2026-08-18) — 앱 홈 템플릿의 선행 조건
+
+배포본 `origin/main` 7e9c3b69의 `Gnb.tsx`를 읽었다. 감사가 확정한 공용 7종 중 넷이 여기 있다.
+
+#### 1. 브랜드 워드마크 행 (`sidebarHeaderRow` · `sidebarLogoRail` · `sidebarBrandCrop`)
+
+| 축 | 값 |
+| --- | --- |
+| 행 | `display:flex` · `align-items:center` · `gap:8px` · `width:100%` · `flex-shrink:0` |
+| 로고 레일 | `min-height: var(--app-gnb-sidebar-logo-h, 28px)` · `overflow:hidden` |
+| 크롭 | `transition: width 320ms cubic-bezier(0.4, 0, 0.2, 1)` |
+
+#### 2. 하단 업그레이드 CTA (`sidebarUpgradeWrap` · `sidebarUpgradeButton` · `sidebarUpgradeLabel`)
+
+| 축 | 값 |
+| --- | --- |
+| 자리 | `margin-top:auto` · `width:100%` · `padding-bottom: env(safe-area-inset-bottom, 0)` |
+| 버튼 | `inline-flex` · `gap:8px` · `width:100%` · 타이포 `type-body-14-medium` |
+| 라벨 | `max-width:240px` → 접힘 상태 `4.5rem`. `transition: max-width 320ms cubic-bezier(0.4, 0, 0.2, 1)` |
+
+#### 3. 프로필 사용량 링 (`profileTrigger` · `profileImage`)
+
+| 축 | 값 |
+| --- | --- |
+| 아바타 | `--profile-avatar-size: 28px` · `border-radius:999px` · `object-fit:cover` |
+| 링 | 두께 `2px` · 간격 `2px` · 색 `var(--accent-mint-500)` · 트랙 `gray-000 / 20%` |
+| 링 지름 | `avatar + (gap + width) × 2` = **36px** |
+| 진행률 | `--profile-ring-progress: 0%` — 런타임 값 |
+
+#### 4. 복합 내비 행
+
+감사가 `Gnb.tsx:4626`·`:4743`에서 확인했다. 내비 행 안에 생성(+) 버튼이 인셋으로 들어간다.
+
+#### 여기서 나온 판정 하나 — `motion-layout-change`가 한 값으로 부족하다
+
+사이드바의 접힘 전환이 **320ms** `cubic-bezier(0.4, 0, 0.2, 1)`인데, 캐러셀 점은 **220ms**에 같은
+곡선이다. 곡선은 같고 지속만 다르다. [DS-D-0019](../design/governance/decisions/DS-D-0019-layout-change-motion.md)가
+연 lifecycle은 맞지만 **토큰이 하나뿐이라 둘 중 하나는 틀린 값을 쓰게 된다.**
+
+구현 단위에서 `motion-layout-change`를 크기 축으로 가를지(예: 컨트롤 220 · 셸 320) 판정한다.
+재보지 않고 하나로 뭉치면 오늘 반복된 실수를 또 하는 것이다.
+
+#### 아이콘도 없다
+
+카탈로그 29개에 노드 캔버스 · 비디오 에디터 · 하이라이트 · 분석 아이콘이 없다. `magic-wand`는
+이 문서가 이미 *"−45° 회전 rect라 `transform` 없이 표현되지 않는다 · 이관 보류"*로 적어 두었고,
+그 처분이 사이드바의 선행 조건이 됐다.
+
 ### 다음 순서
 
 Avatar와 Banner/Carousel 둘이 카탈로그의 다음 후보다. 등록부 우선순위 1~15에 없었던 이유는

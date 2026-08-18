@@ -33,7 +33,7 @@
 <!-- GENERATED:pattern-progress START -->
 | Pattern | Maturity | Figma | Web | Docs | Note |
 | --- | --- | --- | --- | --- | --- |
-| [Loading](../patterns/loading.md) | `beta` | `not-ready` | `not-ready` | `done` | — |
+| [Loading](../patterns/loading.md) | `beta` | `not-ready` | `partial` | `done` | **새 CSS가 없다** — 컴포넌트가 아니라 경계다. 부품은 Spinner와 Skeleton이 소유하고 이 패턴은 무엇을 언제 쓰는가와 **누가 로딩을 알리는가**를 정한다: 영역이 aria-busy를 갖고 자리표시는 전부 aria-hidden이다(여덟 개가 각각 읽히면 같은 말이 여덟 번 들린다). 실브라우저 5건이 그 합성을 대조한다. determinate progress는 접근성 계약이 선행이라 아직 두 갈래만 소유한다 |
 | [App Shell](../patterns/app-shell.md) | `experimental` | `not-ready` | `not-ready` | `done` | — |
 | [Project Grid](../patterns/project-grid.md) | `experimental` | `not-ready` | `partial` | `done` | — |
 | [Editor Workspace](../patterns/editor-workspace.md) | `experimental` | `not-ready` | `not-ready` | `done` | — |
@@ -123,6 +123,53 @@ Web과 Figma 구현은 아직 `not-ready`다. 기존 제품의 spinner, inline l
 - Skeleton은 접근성 트리에서 숨고 실제 영역이 `aria-busy`를 소유한다.
 - reduced-motion에서 회전·shimmer를 제거해도 텍스트로 상태를 이해할 수 있다.
 - 200% zoom과 KO/EN/JA 긴 문구에서 상태와 핵심 action이 잘리지 않는다.
+
+#### 구현 (2026-08-18)
+
+**새 CSS가 없다.** 이 패턴은 컴포넌트가 아니라 **경계**다 — 무엇을 언제 쓰는가와 누가 로딩을
+알리는가를 정한다. 부품은 [Spinner](../components/spinner.md)와
+[Skeleton](../components/skeleton.md)이 이미 소유한다.
+
+##### 무엇을 쓰는가
+
+| 자리 | 쓰는 것 | 왜 |
+| --- | --- | --- |
+| 올 내용의 **모양을 아는** 곳 | Skeleton | 목록 행·카드 격자·프로필 머리. 도착했을 때 화면이 튀지 않는다 |
+| 모양을 **모르는** 곳 | Spinner | 버튼 안, 짧은 동작. 틀린 자리표시는 없는 것보다 나쁘다 |
+| 진행률을 **아는** 곳 | 아직 없다 | determinate progress는 카탈로그에 없다. 접근성 계약이 선행이다 |
+
+##### 누가 로딩을 알리는가
+
+**영역이 알린다. 자리표시는 장식이다.**
+
+```tsx
+<section aria-busy={loading} aria-label="프로젝트 목록">
+  {loading ? <Skeleton … /> : <ProjectList … />}
+</section>
+```
+
+Spinner와 Skeleton은 스스로 읽히지 않는다. 스켈레톤이 여덟 개 놓인 자리에서 각각이 읽히면
+같은 말이 여덟 번 들린다. **한 영역이 한 번 말한다.**
+
+끝나면 `aria-busy`가 내려가고 자리표시가 사라진다. 자리표시를 남긴 채 내용을 덧그리지 않는다.
+
+##### reduced-motion
+
+Spinner와 Skeleton 모두 반복이 **1회로 끝난다**(DS-D-0016 — loop는 짧아지는 것이 아니라
+사라진다). 로딩 중이라는 뜻은 `aria-busy`와 면이 유지하며 움직임이 그 뜻을 만드는 것이 아니다.
+
+##### Acceptance tests
+
+1. 자리표시는 전부 `aria-hidden`이고 영역이 `aria-busy`를 갖는다.
+2. 끝나면 `aria-busy`가 내려가고 자리표시가 사라진다.
+3. 모양을 아는 자리와 모르는 자리가 서로 다른 것을 쓴다.
+4. reduced-motion에서 Spinner·Skeleton 모두 반복이 1회다.
+5. 합성에 접근성 위반이 없다.
+
+##### 남은 것
+
+determinate progress. 인계서 (1c)가 "접근성 계약부터 정해야 한다"로 남겨 두었고 제품 전체에
+`role="progressbar"`가 1곳뿐이다. 그것이 서기 전까지 이 패턴은 두 갈래만 소유한다.
 
 ## App Shell
 

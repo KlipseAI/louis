@@ -15,7 +15,7 @@ authority: normative
 <!-- GENERATED:pattern-progress START -->
 | Pattern | Maturity | Figma | Web | Docs | Note |
 | --- | --- | --- | --- | --- | --- |
-| [Loading](loading.md) | `beta` | `not-ready` | `not-ready` | `done` | — |
+| [Loading](loading.md) | `beta` | `not-ready` | `partial` | `done` | **새 CSS가 없다** — 컴포넌트가 아니라 경계다. 부품은 Spinner와 Skeleton이 소유하고 이 패턴은 무엇을 언제 쓰는가와 **누가 로딩을 알리는가**를 정한다: 영역이 aria-busy를 갖고 자리표시는 전부 aria-hidden이다(여덟 개가 각각 읽히면 같은 말이 여덟 번 들린다). 실브라우저 5건이 그 합성을 대조한다. determinate progress는 접근성 계약이 선행이라 아직 두 갈래만 소유한다 |
 | [App Shell](app-shell.md) | `experimental` | `not-ready` | `not-ready` | `done` | — |
 | [Project Grid](project-grid.md) | `experimental` | `not-ready` | `partial` | `done` | — |
 | [Editor Workspace](editor-workspace.md) | `experimental` | `not-ready` | `not-ready` | `done` | — |

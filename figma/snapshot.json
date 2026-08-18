@@ -6,12 +6,12 @@
     "capturedAt": "2026-08-18",
     "capturedBy": "figma-mcp-plugin-api",
     "published": false,
-    "tokenSourceSha256": "ff0e724b0cb4757dfdde6517cd166b0ebc16b49657ea4ee4ad101e4f0ef9e6ef",
-    "proposalSha256": "d41c7d0a68a9a67e4ac6d8bbf1c401d097cca140f52c8e91bc10f0f50639b492",
+    "tokenSourceSha256": "de01576421443b7ea138783bf7b9186df936c79a0c3849e0b5c45efe2f37cc39",
+    "proposalSha256": "63d3437358c7c16dc680ac60e57059387037beb816267bf976f270fe0987ae20",
     "readback": {
-      "tokens": 210,
-      "canonicalLength": 17386,
-      "fnv1a32": "1af2b3c7",
+      "tokens": 219,
+      "canonicalLength": 18298,
+      "fnv1a32": "ee79ebe5",
       "note": "변수는 readback.json의 되읽기 행을 tokenId 공간으로 옮긴 것이고, style과 component는 같은 되읽기의 style/component 절이다. canonical 해시는 컬렉션·이름·타입·mode 값을 정렬해 이은 문자열의 FNV-1a다.",
       "styles": {
         "text": 15,
@@ -38,7 +38,7 @@
         "Global"
       ],
       "defaultMode": "Global",
-      "variableCount": 56
+      "variableCount": 65
     },
     "Klipse Semantic Color": {
       "modes": [
@@ -1770,6 +1770,51 @@
         }
       }
     },
+    "motion-content-fade": {
+      "figmaName": "motion/content-fade",
+      "resolvedType": "STRING",
+      "valuesByMode": {
+        "Global": {
+          "value": "300ms cubic-bezier(0.25, 0.1, 0.25, 1) delay 0ms"
+        }
+      }
+    },
+    "motion-content-rise": {
+      "figmaName": "motion/content-rise",
+      "resolvedType": "STRING",
+      "valuesByMode": {
+        "Global": {
+          "value": "360ms cubic-bezier(0.22, 1, 0.36, 1) delay 0ms"
+        }
+      }
+    },
+    "motion-control-hover": {
+      "figmaName": "motion/control-hover",
+      "resolvedType": "STRING",
+      "valuesByMode": {
+        "Global": {
+          "value": "160ms cubic-bezier(0.25, 0.1, 0.25, 1) delay 0ms"
+        }
+      }
+    },
+    "motion-crossfade-enter": {
+      "figmaName": "motion/crossfade-enter",
+      "resolvedType": "STRING",
+      "valuesByMode": {
+        "Global": {
+          "value": "420ms cubic-bezier(0.25, 0.1, 0.25, 1) delay 0ms"
+        }
+      }
+    },
+    "motion-layout-change": {
+      "figmaName": "motion/layout-change",
+      "resolvedType": "STRING",
+      "valuesByMode": {
+        "Global": {
+          "value": "220ms cubic-bezier(0.4, 0, 0.2, 1) delay 0ms"
+        }
+      }
+    },
     "motion-menu-enter": {
       "figmaName": "motion/menu-enter",
       "resolvedType": "STRING",
@@ -1851,6 +1896,33 @@
         }
       }
     },
+    "motion-stagger-1": {
+      "figmaName": "motion/stagger-1",
+      "resolvedType": "STRING",
+      "valuesByMode": {
+        "Global": {
+          "value": "360ms cubic-bezier(0.22, 1, 0.36, 1) delay 40ms"
+        }
+      }
+    },
+    "motion-stagger-2": {
+      "figmaName": "motion/stagger-2",
+      "resolvedType": "STRING",
+      "valuesByMode": {
+        "Global": {
+          "value": "360ms cubic-bezier(0.22, 1, 0.36, 1) delay 80ms"
+        }
+      }
+    },
+    "motion-stagger-3": {
+      "figmaName": "motion/stagger-3",
+      "resolvedType": "STRING",
+      "valuesByMode": {
+        "Global": {
+          "value": "360ms cubic-bezier(0.22, 1, 0.36, 1) delay 150ms"
+        }
+      }
+    },
     "motion-tooltip-enter": {
       "figmaName": "motion/tooltip-enter",
       "resolvedType": "STRING",
@@ -1866,6 +1938,15 @@
       "valuesByMode": {
         "Global": {
           "value": "120ms cubic-bezier(0.19, 1, 0.22, 1) delay 0ms"
+        }
+      }
+    },
+    "motion-zoom-settle": {
+      "figmaName": "motion/zoom-settle",
+      "resolvedType": "STRING",
+      "valuesByMode": {
+        "Global": {
+          "value": "680ms cubic-bezier(0.22, 1, 0.36, 1) delay 0ms"
         }
       }
     },

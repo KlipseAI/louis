@@ -37,7 +37,7 @@ const motionTypeSet = new Set(["duration", "cubicBezier", "transition"]);
  * 합성되므로 회전 하나 때문에 transform 축을 통째로 잡지 않는다. 반대로 enter/exit은 위치와
  * 크기를 함께 움직이므로 `transform`이 맞다.
  */
-const MOTION_LIFECYCLES = new Set(["enter", "exit", "loop"]);
+const MOTION_LIFECYCLES = new Set(["enter", "exit", "loop", "layout-change"]);
 const allowedMotionPropertiesByLifecycle = {
   // 개별 속성(`translate`·`scale`·`rotate`)을 함께 둔다 (DS-D-0017). 컴포넌트가 이미 그것을
   // 애니메이션하고 있었고 — 선언은 `transform`인데 실제는 `translate`/`scale`이었다 — 개별
@@ -47,6 +47,11 @@ const allowedMotionPropertiesByLifecycle = {
   // loop에 `transform`이 없는 것은 그대로다. `background-position`은 합성 축이 아니므로
   // "transform 축을 통째로 잡지 않는다"는 DS-D-0016의 논거와 충돌하지 않는다.
   loop: new Set(["opacity", "rotate", "background-position"]),
+  // layout-change는 **크기가 상태인** 컨트롤을 위한 것이다 (DS-D-0019). 배포본의 캐러셀 점이
+  // 비활성 7px에서 활성 20px로 늘어나며, 그 폭이 곧 "여기가 지금 몇 번째인가"다. transform으로는
+  // 표현할 수 없다 — scale은 두께와 반경까지 함께 늘려 알약이 찌그러진다.
+  // 레이아웃을 실제로 다시 계산시키므로 enter/exit과 섞지 않고 별도 lifecycle로 가둔다.
+  "layout-change": new Set(["inline-size", "block-size", "background-color"]),
 };
 const motionLifecycleOf = (entry) =>
   typeof entry?.lifecycle === "string" ? entry.lifecycle : "enter";

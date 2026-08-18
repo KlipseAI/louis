@@ -1966,6 +1966,66 @@
           ]
         ],
         [
+          "motion/content-fade",
+          "STRING",
+          "",
+          [
+            [
+              "Global",
+              null,
+              "300ms cubic-bezier(0.25, 0.1, 0.25, 1) delay 0ms"
+            ]
+          ]
+        ],
+        [
+          "motion/content-rise",
+          "STRING",
+          "",
+          [
+            [
+              "Global",
+              null,
+              "360ms cubic-bezier(0.22, 1, 0.36, 1) delay 0ms"
+            ]
+          ]
+        ],
+        [
+          "motion/control-hover",
+          "STRING",
+          "",
+          [
+            [
+              "Global",
+              null,
+              "160ms cubic-bezier(0.25, 0.1, 0.25, 1) delay 0ms"
+            ]
+          ]
+        ],
+        [
+          "motion/crossfade-enter",
+          "STRING",
+          "",
+          [
+            [
+              "Global",
+              null,
+              "420ms cubic-bezier(0.25, 0.1, 0.25, 1) delay 0ms"
+            ]
+          ]
+        ],
+        [
+          "motion/layout-change",
+          "STRING",
+          "",
+          [
+            [
+              "Global",
+              null,
+              "220ms cubic-bezier(0.4, 0, 0.2, 1) delay 0ms"
+            ]
+          ]
+        ],
+        [
           "motion/menu-enter",
           "STRING",
           "",
@@ -2074,6 +2134,42 @@
           ]
         ],
         [
+          "motion/stagger-1",
+          "STRING",
+          "",
+          [
+            [
+              "Global",
+              null,
+              "360ms cubic-bezier(0.22, 1, 0.36, 1) delay 40ms"
+            ]
+          ]
+        ],
+        [
+          "motion/stagger-2",
+          "STRING",
+          "",
+          [
+            [
+              "Global",
+              null,
+              "360ms cubic-bezier(0.22, 1, 0.36, 1) delay 80ms"
+            ]
+          ]
+        ],
+        [
+          "motion/stagger-3",
+          "STRING",
+          "",
+          [
+            [
+              "Global",
+              null,
+              "360ms cubic-bezier(0.22, 1, 0.36, 1) delay 150ms"
+            ]
+          ]
+        ],
+        [
           "motion/tooltip-enter",
           "STRING",
           "",
@@ -2094,6 +2190,18 @@
               "Global",
               null,
               "120ms cubic-bezier(0.19, 1, 0.22, 1) delay 0ms"
+            ]
+          ]
+        ],
+        [
+          "motion/zoom-settle",
+          "STRING",
+          "",
+          [
+            [
+              "Global",
+              null,
+              "680ms cubic-bezier(0.22, 1, 0.36, 1) delay 0ms"
             ]
           ]
         ],

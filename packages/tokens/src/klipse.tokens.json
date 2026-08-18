@@ -115,6 +115,42 @@
         {
           "motion": "motion-menu-exit",
           "reduced": "motion-reduced"
+        },
+        {
+          "motion": "motion-crossfade-enter",
+          "reduced": "motion-reduced"
+        },
+        {
+          "motion": "motion-zoom-settle",
+          "reduced": "motion-reduced"
+        },
+        {
+          "motion": "motion-content-fade",
+          "reduced": "motion-reduced"
+        },
+        {
+          "motion": "motion-content-rise",
+          "reduced": "motion-reduced"
+        },
+        {
+          "motion": "motion-stagger-1",
+          "reduced": "motion-reduced"
+        },
+        {
+          "motion": "motion-stagger-2",
+          "reduced": "motion-reduced"
+        },
+        {
+          "motion": "motion-stagger-3",
+          "reduced": "motion-reduced"
+        },
+        {
+          "motion": "motion-layout-change",
+          "reduced": "motion-reduced"
+        },
+        {
+          "motion": "motion-control-hover",
+          "reduced": "motion-reduced"
         }
       ],
       "motionProperties": [
@@ -200,6 +236,66 @@
             "opacity"
           ],
           "lifecycle": "loop"
+        },
+        {
+          "motion": "motion-crossfade-enter",
+          "properties": [
+            "opacity"
+          ]
+        },
+        {
+          "motion": "motion-zoom-settle",
+          "properties": [
+            "scale"
+          ]
+        },
+        {
+          "motion": "motion-content-fade",
+          "properties": [
+            "opacity"
+          ]
+        },
+        {
+          "motion": "motion-content-rise",
+          "properties": [
+            "translate"
+          ]
+        },
+        {
+          "motion": "motion-stagger-1",
+          "properties": [
+            "opacity",
+            "translate"
+          ]
+        },
+        {
+          "motion": "motion-stagger-2",
+          "properties": [
+            "opacity",
+            "translate"
+          ]
+        },
+        {
+          "motion": "motion-stagger-3",
+          "properties": [
+            "opacity",
+            "translate"
+          ]
+        },
+        {
+          "motion": "motion-layout-change",
+          "properties": [
+            "inline-size",
+            "background-color"
+          ],
+          "lifecycle": "layout-change"
+        },
+        {
+          "motion": "motion-control-hover",
+          "properties": [
+            "background-color"
+          ],
+          "lifecycle": "layout-change"
         }
       ],
       "responsiveProfiles": {
@@ -3015,6 +3111,222 @@
             "tier": "primitive"
           }
         }
+      },
+      "crossfade-enter": {
+        "$value": {
+          "duration": {
+            "value": 420,
+            "unit": "ms"
+          },
+          "delay": {
+            "value": 0,
+            "unit": "ms"
+          },
+          "timingFunction": [
+            0.25,
+            0.1,
+            0.25,
+            1
+          ]
+        },
+        "$extensions": {
+          "com.klipse-design": {
+            "id": "transition-crossfade-enter",
+            "tier": "primitive"
+          }
+        }
+      },
+      "zoom-settle": {
+        "$value": {
+          "duration": {
+            "value": 680,
+            "unit": "ms"
+          },
+          "delay": {
+            "value": 0,
+            "unit": "ms"
+          },
+          "timingFunction": [
+            0.22,
+            1,
+            0.36,
+            1
+          ]
+        },
+        "$extensions": {
+          "com.klipse-design": {
+            "id": "transition-zoom-settle",
+            "tier": "primitive"
+          }
+        }
+      },
+      "content-fade": {
+        "$value": {
+          "duration": {
+            "value": 300,
+            "unit": "ms"
+          },
+          "delay": {
+            "value": 0,
+            "unit": "ms"
+          },
+          "timingFunction": [
+            0.25,
+            0.1,
+            0.25,
+            1
+          ]
+        },
+        "$extensions": {
+          "com.klipse-design": {
+            "id": "transition-content-fade",
+            "tier": "primitive"
+          }
+        }
+      },
+      "content-rise": {
+        "$value": {
+          "duration": {
+            "value": 360,
+            "unit": "ms"
+          },
+          "delay": {
+            "value": 0,
+            "unit": "ms"
+          },
+          "timingFunction": [
+            0.22,
+            1,
+            0.36,
+            1
+          ]
+        },
+        "$extensions": {
+          "com.klipse-design": {
+            "id": "transition-content-rise",
+            "tier": "primitive"
+          }
+        }
+      },
+      "stagger-1": {
+        "$value": {
+          "duration": {
+            "value": 360,
+            "unit": "ms"
+          },
+          "delay": {
+            "value": 40,
+            "unit": "ms"
+          },
+          "timingFunction": [
+            0.22,
+            1,
+            0.36,
+            1
+          ]
+        },
+        "$extensions": {
+          "com.klipse-design": {
+            "id": "transition-stagger-1",
+            "tier": "primitive"
+          }
+        }
+      },
+      "stagger-2": {
+        "$value": {
+          "duration": {
+            "value": 360,
+            "unit": "ms"
+          },
+          "delay": {
+            "value": 80,
+            "unit": "ms"
+          },
+          "timingFunction": [
+            0.22,
+            1,
+            0.36,
+            1
+          ]
+        },
+        "$extensions": {
+          "com.klipse-design": {
+            "id": "transition-stagger-2",
+            "tier": "primitive"
+          }
+        }
+      },
+      "stagger-3": {
+        "$value": {
+          "duration": {
+            "value": 360,
+            "unit": "ms"
+          },
+          "delay": {
+            "value": 150,
+            "unit": "ms"
+          },
+          "timingFunction": [
+            0.22,
+            1,
+            0.36,
+            1
+          ]
+        },
+        "$extensions": {
+          "com.klipse-design": {
+            "id": "transition-stagger-3",
+            "tier": "primitive"
+          }
+        }
+      },
+      "layout-change": {
+        "$value": {
+          "duration": {
+            "value": 220,
+            "unit": "ms"
+          },
+          "delay": {
+            "value": 0,
+            "unit": "ms"
+          },
+          "timingFunction": [
+            0.4,
+            0,
+            0.2,
+            1
+          ]
+        },
+        "$extensions": {
+          "com.klipse-design": {
+            "id": "transition-layout-change",
+            "tier": "primitive"
+          }
+        }
+      },
+      "control-hover": {
+        "$value": {
+          "duration": {
+            "value": 160,
+            "unit": "ms"
+          },
+          "delay": {
+            "value": 0,
+            "unit": "ms"
+          },
+          "timingFunction": [
+            0.25,
+            0.1,
+            0.25,
+            1
+          ]
+        },
+        "$extensions": {
+          "com.klipse-design": {
+            "id": "transition-control-hover",
+            "tier": "primitive"
+          }
+        }
       }
     },
     "blur": {
@@ -3636,6 +3948,96 @@
           "$extensions": {
             "com.klipse-design": {
               "id": "motion-shimmer",
+              "tier": "semantic",
+              "mode": "global"
+            }
+          }
+        },
+        "crossfade-enter": {
+          "$value": "{primitive.transition.crossfade-enter}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "motion-crossfade-enter",
+              "tier": "semantic",
+              "mode": "global"
+            }
+          }
+        },
+        "zoom-settle": {
+          "$value": "{primitive.transition.zoom-settle}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "motion-zoom-settle",
+              "tier": "semantic",
+              "mode": "global"
+            }
+          }
+        },
+        "content-fade": {
+          "$value": "{primitive.transition.content-fade}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "motion-content-fade",
+              "tier": "semantic",
+              "mode": "global"
+            }
+          }
+        },
+        "content-rise": {
+          "$value": "{primitive.transition.content-rise}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "motion-content-rise",
+              "tier": "semantic",
+              "mode": "global"
+            }
+          }
+        },
+        "stagger-1": {
+          "$value": "{primitive.transition.stagger-1}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "motion-stagger-1",
+              "tier": "semantic",
+              "mode": "global"
+            }
+          }
+        },
+        "stagger-2": {
+          "$value": "{primitive.transition.stagger-2}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "motion-stagger-2",
+              "tier": "semantic",
+              "mode": "global"
+            }
+          }
+        },
+        "stagger-3": {
+          "$value": "{primitive.transition.stagger-3}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "motion-stagger-3",
+              "tier": "semantic",
+              "mode": "global"
+            }
+          }
+        },
+        "layout-change": {
+          "$value": "{primitive.transition.layout-change}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "motion-layout-change",
+              "tier": "semantic",
+              "mode": "global"
+            }
+          }
+        },
+        "control-hover": {
+          "$value": "{primitive.transition.control-hover}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "motion-control-hover",
               "tier": "semantic",
               "mode": "global"
             }

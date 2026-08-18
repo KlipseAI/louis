@@ -2,23 +2,23 @@
   "artifacts": [
     {
       "path": "packages/tokens/generated/figma.tokens.json",
-      "sha256": "d41c7d0a68a9a67e4ac6d8bbf1c401d097cca140f52c8e91bc10f0f50639b492"
+      "sha256": "63d3437358c7c16dc680ac60e57059387037beb816267bf976f270fe0987ae20"
     },
     {
       "path": "packages/tokens/generated/index.d.ts",
-      "sha256": "8967e2a1a422fc9798f655b882af514945bb557e437c9410a10f08d685575303"
+      "sha256": "5d9892ce2bd44550d931ec2d6e3d350d1539b12032cd0b1ae6933ab1914cb134"
     },
     {
       "path": "packages/tokens/generated/index.js",
-      "sha256": "6df2fa26ecbb6bc725e49527c2b6152c4d7b6e03392871b2285ce7d5e8794161"
+      "sha256": "53e11cfd4bd3d7f8974160e5508189daef6cf38976de3fb1e26a84b9f9011807"
     },
     {
       "path": "packages/tokens/generated/tokens.css",
-      "sha256": "c130e181ff624527e11e052463ddcaae243307330156bd9518df03c1f4d29b62"
+      "sha256": "081f4603755d67f0cf63f3ac61facb43c1d038f6126f6559899ab5aff887a980"
     },
     {
       "path": "packages/tokens/generated/tokens.json",
-      "sha256": "8ca1020055ea99b49cab2800f859c0854416ff260e6e3fd388c9e20930fe0be5"
+      "sha256": "8c2d3d7fb7c2ded019effc24d2cf174fe5793821a76126949db507b1745b30f5"
     }
   ],
   "contrastPairs": [
@@ -182,6 +182,66 @@
         "background-position",
         "opacity"
       ]
+    },
+    {
+      "motion": "motion-crossfade-enter",
+      "properties": [
+        "opacity"
+      ]
+    },
+    {
+      "motion": "motion-zoom-settle",
+      "properties": [
+        "scale"
+      ]
+    },
+    {
+      "motion": "motion-content-fade",
+      "properties": [
+        "opacity"
+      ]
+    },
+    {
+      "motion": "motion-content-rise",
+      "properties": [
+        "translate"
+      ]
+    },
+    {
+      "motion": "motion-stagger-1",
+      "properties": [
+        "opacity",
+        "translate"
+      ]
+    },
+    {
+      "motion": "motion-stagger-2",
+      "properties": [
+        "opacity",
+        "translate"
+      ]
+    },
+    {
+      "motion": "motion-stagger-3",
+      "properties": [
+        "opacity",
+        "translate"
+      ]
+    },
+    {
+      "lifecycle": "layout-change",
+      "motion": "motion-layout-change",
+      "properties": [
+        "inline-size",
+        "background-color"
+      ]
+    },
+    {
+      "lifecycle": "layout-change",
+      "motion": "motion-control-hover",
+      "properties": [
+        "background-color"
+      ]
     }
   ],
   "reducedMotionPairs": [
@@ -215,6 +275,42 @@
     },
     {
       "motion": "motion-menu-exit",
+      "reduced": "motion-reduced"
+    },
+    {
+      "motion": "motion-crossfade-enter",
+      "reduced": "motion-reduced"
+    },
+    {
+      "motion": "motion-zoom-settle",
+      "reduced": "motion-reduced"
+    },
+    {
+      "motion": "motion-content-fade",
+      "reduced": "motion-reduced"
+    },
+    {
+      "motion": "motion-content-rise",
+      "reduced": "motion-reduced"
+    },
+    {
+      "motion": "motion-stagger-1",
+      "reduced": "motion-reduced"
+    },
+    {
+      "motion": "motion-stagger-2",
+      "reduced": "motion-reduced"
+    },
+    {
+      "motion": "motion-stagger-3",
+      "reduced": "motion-reduced"
+    },
+    {
+      "motion": "motion-layout-change",
+      "reduced": "motion-reduced"
+    },
+    {
+      "motion": "motion-control-hover",
       "reduced": "motion-reduced"
     }
   ],
@@ -259,13 +355,13 @@
   },
   "source": {
     "path": "packages/tokens/src/klipse.tokens.json",
-    "sha256": "ff0e724b0cb4757dfdde6517cd166b0ebc16b49657ea4ee4ad101e4f0ef9e6ef"
+    "sha256": "de01576421443b7ea138783bf7b9186df936c79a0c3849e0b5c45efe2f37cc39"
   },
   "themes": [
     "light",
     "dark"
   ],
-  "tokenCount": 314,
+  "tokenCount": 332,
   "tokens": [
     {
       "aliasTarget": null,
@@ -5525,6 +5621,181 @@
     },
     {
       "aliasTarget": {
+        "id": "transition-content-fade",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-motion-content-fade-delay": "0ms",
+        "--kds-motion-content-fade-duration": "300ms",
+        "--kds-motion-content-fade-timing-function": "cubic-bezier(0.25, 0.1, 0.25, 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "motion-content-fade",
+      "mode": "global",
+      "rawValue": "{primitive.transition.content-fade}",
+      "resolvedValue": {
+        "delay": {
+          "unit": "ms",
+          "value": 0
+        },
+        "duration": {
+          "unit": "ms",
+          "value": 300
+        },
+        "timingFunction": [
+          0.25,
+          0.1,
+          0.25,
+          1
+        ]
+      },
+      "sourcePath": "semantic.global.motion.content-fade",
+      "tier": "semantic",
+      "type": "transition"
+    },
+    {
+      "aliasTarget": {
+        "id": "transition-content-rise",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-motion-content-rise-delay": "0ms",
+        "--kds-motion-content-rise-duration": "360ms",
+        "--kds-motion-content-rise-timing-function": "cubic-bezier(0.22, 1, 0.36, 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "motion-content-rise",
+      "mode": "global",
+      "rawValue": "{primitive.transition.content-rise}",
+      "resolvedValue": {
+        "delay": {
+          "unit": "ms",
+          "value": 0
+        },
+        "duration": {
+          "unit": "ms",
+          "value": 360
+        },
+        "timingFunction": [
+          0.22,
+          1,
+          0.36,
+          1
+        ]
+      },
+      "sourcePath": "semantic.global.motion.content-rise",
+      "tier": "semantic",
+      "type": "transition"
+    },
+    {
+      "aliasTarget": {
+        "id": "transition-control-hover",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-motion-control-hover-delay": "0ms",
+        "--kds-motion-control-hover-duration": "160ms",
+        "--kds-motion-control-hover-timing-function": "cubic-bezier(0.25, 0.1, 0.25, 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "motion-control-hover",
+      "mode": "global",
+      "rawValue": "{primitive.transition.control-hover}",
+      "resolvedValue": {
+        "delay": {
+          "unit": "ms",
+          "value": 0
+        },
+        "duration": {
+          "unit": "ms",
+          "value": 160
+        },
+        "timingFunction": [
+          0.25,
+          0.1,
+          0.25,
+          1
+        ]
+      },
+      "sourcePath": "semantic.global.motion.control-hover",
+      "tier": "semantic",
+      "type": "transition"
+    },
+    {
+      "aliasTarget": {
+        "id": "transition-crossfade-enter",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-motion-crossfade-enter-delay": "0ms",
+        "--kds-motion-crossfade-enter-duration": "420ms",
+        "--kds-motion-crossfade-enter-timing-function": "cubic-bezier(0.25, 0.1, 0.25, 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "motion-crossfade-enter",
+      "mode": "global",
+      "rawValue": "{primitive.transition.crossfade-enter}",
+      "resolvedValue": {
+        "delay": {
+          "unit": "ms",
+          "value": 0
+        },
+        "duration": {
+          "unit": "ms",
+          "value": 420
+        },
+        "timingFunction": [
+          0.25,
+          0.1,
+          0.25,
+          1
+        ]
+      },
+      "sourcePath": "semantic.global.motion.crossfade-enter",
+      "tier": "semantic",
+      "type": "transition"
+    },
+    {
+      "aliasTarget": {
+        "id": "transition-layout-change",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-motion-layout-change-delay": "0ms",
+        "--kds-motion-layout-change-duration": "220ms",
+        "--kds-motion-layout-change-timing-function": "cubic-bezier(0.4, 0, 0.2, 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "motion-layout-change",
+      "mode": "global",
+      "rawValue": "{primitive.transition.layout-change}",
+      "resolvedValue": {
+        "delay": {
+          "unit": "ms",
+          "value": 0
+        },
+        "duration": {
+          "unit": "ms",
+          "value": 220
+        },
+        "timingFunction": [
+          0.4,
+          0,
+          0.2,
+          1
+        ]
+      },
+      "sourcePath": "semantic.global.motion.layout-change",
+      "tier": "semantic",
+      "type": "transition"
+    },
+    {
+      "aliasTarget": {
         "id": "transition-menu-enter",
         "mode": "base"
       },
@@ -5840,6 +6111,111 @@
     },
     {
       "aliasTarget": {
+        "id": "transition-stagger-1",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-motion-stagger-1-delay": "40ms",
+        "--kds-motion-stagger-1-duration": "360ms",
+        "--kds-motion-stagger-1-timing-function": "cubic-bezier(0.22, 1, 0.36, 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "motion-stagger-1",
+      "mode": "global",
+      "rawValue": "{primitive.transition.stagger-1}",
+      "resolvedValue": {
+        "delay": {
+          "unit": "ms",
+          "value": 40
+        },
+        "duration": {
+          "unit": "ms",
+          "value": 360
+        },
+        "timingFunction": [
+          0.22,
+          1,
+          0.36,
+          1
+        ]
+      },
+      "sourcePath": "semantic.global.motion.stagger-1",
+      "tier": "semantic",
+      "type": "transition"
+    },
+    {
+      "aliasTarget": {
+        "id": "transition-stagger-2",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-motion-stagger-2-delay": "80ms",
+        "--kds-motion-stagger-2-duration": "360ms",
+        "--kds-motion-stagger-2-timing-function": "cubic-bezier(0.22, 1, 0.36, 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "motion-stagger-2",
+      "mode": "global",
+      "rawValue": "{primitive.transition.stagger-2}",
+      "resolvedValue": {
+        "delay": {
+          "unit": "ms",
+          "value": 80
+        },
+        "duration": {
+          "unit": "ms",
+          "value": 360
+        },
+        "timingFunction": [
+          0.22,
+          1,
+          0.36,
+          1
+        ]
+      },
+      "sourcePath": "semantic.global.motion.stagger-2",
+      "tier": "semantic",
+      "type": "transition"
+    },
+    {
+      "aliasTarget": {
+        "id": "transition-stagger-3",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-motion-stagger-3-delay": "150ms",
+        "--kds-motion-stagger-3-duration": "360ms",
+        "--kds-motion-stagger-3-timing-function": "cubic-bezier(0.22, 1, 0.36, 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "motion-stagger-3",
+      "mode": "global",
+      "rawValue": "{primitive.transition.stagger-3}",
+      "resolvedValue": {
+        "delay": {
+          "unit": "ms",
+          "value": 150
+        },
+        "duration": {
+          "unit": "ms",
+          "value": 360
+        },
+        "timingFunction": [
+          0.22,
+          1,
+          0.36,
+          1
+        ]
+      },
+      "sourcePath": "semantic.global.motion.stagger-3",
+      "tier": "semantic",
+      "type": "transition"
+    },
+    {
+      "aliasTarget": {
         "id": "transition-tooltip-enter",
         "mode": "base"
       },
@@ -5905,6 +6281,41 @@
         ]
       },
       "sourcePath": "semantic.global.motion.tooltip-exit",
+      "tier": "semantic",
+      "type": "transition"
+    },
+    {
+      "aliasTarget": {
+        "id": "transition-zoom-settle",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-motion-zoom-settle-delay": "0ms",
+        "--kds-motion-zoom-settle-duration": "680ms",
+        "--kds-motion-zoom-settle-timing-function": "cubic-bezier(0.22, 1, 0.36, 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "motion-zoom-settle",
+      "mode": "global",
+      "rawValue": "{primitive.transition.zoom-settle}",
+      "resolvedValue": {
+        "delay": {
+          "unit": "ms",
+          "value": 0
+        },
+        "duration": {
+          "unit": "ms",
+          "value": 680
+        },
+        "timingFunction": [
+          0.22,
+          1,
+          0.36,
+          1
+        ]
+      },
+      "sourcePath": "semantic.global.motion.zoom-settle",
       "tier": "semantic",
       "type": "transition"
     },
@@ -7647,6 +8058,221 @@
       "cssProperties": {},
       "deprecated": null,
       "description": null,
+      "id": "transition-content-fade",
+      "mode": "base",
+      "rawValue": {
+        "delay": {
+          "unit": "ms",
+          "value": 0
+        },
+        "duration": {
+          "unit": "ms",
+          "value": 300
+        },
+        "timingFunction": [
+          0.25,
+          0.1,
+          0.25,
+          1
+        ]
+      },
+      "resolvedValue": {
+        "delay": {
+          "unit": "ms",
+          "value": 0
+        },
+        "duration": {
+          "unit": "ms",
+          "value": 300
+        },
+        "timingFunction": [
+          0.25,
+          0.1,
+          0.25,
+          1
+        ]
+      },
+      "sourcePath": "primitive.transition.content-fade",
+      "tier": "primitive",
+      "type": "transition"
+    },
+    {
+      "aliasTarget": null,
+      "cssProperties": {},
+      "deprecated": null,
+      "description": null,
+      "id": "transition-content-rise",
+      "mode": "base",
+      "rawValue": {
+        "delay": {
+          "unit": "ms",
+          "value": 0
+        },
+        "duration": {
+          "unit": "ms",
+          "value": 360
+        },
+        "timingFunction": [
+          0.22,
+          1,
+          0.36,
+          1
+        ]
+      },
+      "resolvedValue": {
+        "delay": {
+          "unit": "ms",
+          "value": 0
+        },
+        "duration": {
+          "unit": "ms",
+          "value": 360
+        },
+        "timingFunction": [
+          0.22,
+          1,
+          0.36,
+          1
+        ]
+      },
+      "sourcePath": "primitive.transition.content-rise",
+      "tier": "primitive",
+      "type": "transition"
+    },
+    {
+      "aliasTarget": null,
+      "cssProperties": {},
+      "deprecated": null,
+      "description": null,
+      "id": "transition-control-hover",
+      "mode": "base",
+      "rawValue": {
+        "delay": {
+          "unit": "ms",
+          "value": 0
+        },
+        "duration": {
+          "unit": "ms",
+          "value": 160
+        },
+        "timingFunction": [
+          0.25,
+          0.1,
+          0.25,
+          1
+        ]
+      },
+      "resolvedValue": {
+        "delay": {
+          "unit": "ms",
+          "value": 0
+        },
+        "duration": {
+          "unit": "ms",
+          "value": 160
+        },
+        "timingFunction": [
+          0.25,
+          0.1,
+          0.25,
+          1
+        ]
+      },
+      "sourcePath": "primitive.transition.control-hover",
+      "tier": "primitive",
+      "type": "transition"
+    },
+    {
+      "aliasTarget": null,
+      "cssProperties": {},
+      "deprecated": null,
+      "description": null,
+      "id": "transition-crossfade-enter",
+      "mode": "base",
+      "rawValue": {
+        "delay": {
+          "unit": "ms",
+          "value": 0
+        },
+        "duration": {
+          "unit": "ms",
+          "value": 420
+        },
+        "timingFunction": [
+          0.25,
+          0.1,
+          0.25,
+          1
+        ]
+      },
+      "resolvedValue": {
+        "delay": {
+          "unit": "ms",
+          "value": 0
+        },
+        "duration": {
+          "unit": "ms",
+          "value": 420
+        },
+        "timingFunction": [
+          0.25,
+          0.1,
+          0.25,
+          1
+        ]
+      },
+      "sourcePath": "primitive.transition.crossfade-enter",
+      "tier": "primitive",
+      "type": "transition"
+    },
+    {
+      "aliasTarget": null,
+      "cssProperties": {},
+      "deprecated": null,
+      "description": null,
+      "id": "transition-layout-change",
+      "mode": "base",
+      "rawValue": {
+        "delay": {
+          "unit": "ms",
+          "value": 0
+        },
+        "duration": {
+          "unit": "ms",
+          "value": 220
+        },
+        "timingFunction": [
+          0.4,
+          0,
+          0.2,
+          1
+        ]
+      },
+      "resolvedValue": {
+        "delay": {
+          "unit": "ms",
+          "value": 0
+        },
+        "duration": {
+          "unit": "ms",
+          "value": 220
+        },
+        "timingFunction": [
+          0.4,
+          0,
+          0.2,
+          1
+        ]
+      },
+      "sourcePath": "primitive.transition.layout-change",
+      "tier": "primitive",
+      "type": "transition"
+    },
+    {
+      "aliasTarget": null,
+      "cssProperties": {},
+      "deprecated": null,
+      "description": null,
       "id": "transition-menu-enter",
       "mode": "base",
       "rawValue": {
@@ -8034,6 +8660,135 @@
       "cssProperties": {},
       "deprecated": null,
       "description": null,
+      "id": "transition-stagger-1",
+      "mode": "base",
+      "rawValue": {
+        "delay": {
+          "unit": "ms",
+          "value": 40
+        },
+        "duration": {
+          "unit": "ms",
+          "value": 360
+        },
+        "timingFunction": [
+          0.22,
+          1,
+          0.36,
+          1
+        ]
+      },
+      "resolvedValue": {
+        "delay": {
+          "unit": "ms",
+          "value": 40
+        },
+        "duration": {
+          "unit": "ms",
+          "value": 360
+        },
+        "timingFunction": [
+          0.22,
+          1,
+          0.36,
+          1
+        ]
+      },
+      "sourcePath": "primitive.transition.stagger-1",
+      "tier": "primitive",
+      "type": "transition"
+    },
+    {
+      "aliasTarget": null,
+      "cssProperties": {},
+      "deprecated": null,
+      "description": null,
+      "id": "transition-stagger-2",
+      "mode": "base",
+      "rawValue": {
+        "delay": {
+          "unit": "ms",
+          "value": 80
+        },
+        "duration": {
+          "unit": "ms",
+          "value": 360
+        },
+        "timingFunction": [
+          0.22,
+          1,
+          0.36,
+          1
+        ]
+      },
+      "resolvedValue": {
+        "delay": {
+          "unit": "ms",
+          "value": 80
+        },
+        "duration": {
+          "unit": "ms",
+          "value": 360
+        },
+        "timingFunction": [
+          0.22,
+          1,
+          0.36,
+          1
+        ]
+      },
+      "sourcePath": "primitive.transition.stagger-2",
+      "tier": "primitive",
+      "type": "transition"
+    },
+    {
+      "aliasTarget": null,
+      "cssProperties": {},
+      "deprecated": null,
+      "description": null,
+      "id": "transition-stagger-3",
+      "mode": "base",
+      "rawValue": {
+        "delay": {
+          "unit": "ms",
+          "value": 150
+        },
+        "duration": {
+          "unit": "ms",
+          "value": 360
+        },
+        "timingFunction": [
+          0.22,
+          1,
+          0.36,
+          1
+        ]
+      },
+      "resolvedValue": {
+        "delay": {
+          "unit": "ms",
+          "value": 150
+        },
+        "duration": {
+          "unit": "ms",
+          "value": 360
+        },
+        "timingFunction": [
+          0.22,
+          1,
+          0.36,
+          1
+        ]
+      },
+      "sourcePath": "primitive.transition.stagger-3",
+      "tier": "primitive",
+      "type": "transition"
+    },
+    {
+      "aliasTarget": null,
+      "cssProperties": {},
+      "deprecated": null,
+      "description": null,
       "id": "transition-tooltip-enter",
       "mode": "base",
       "rawValue": {
@@ -8112,6 +8867,49 @@
         ]
       },
       "sourcePath": "primitive.transition.tooltip-exit",
+      "tier": "primitive",
+      "type": "transition"
+    },
+    {
+      "aliasTarget": null,
+      "cssProperties": {},
+      "deprecated": null,
+      "description": null,
+      "id": "transition-zoom-settle",
+      "mode": "base",
+      "rawValue": {
+        "delay": {
+          "unit": "ms",
+          "value": 0
+        },
+        "duration": {
+          "unit": "ms",
+          "value": 680
+        },
+        "timingFunction": [
+          0.22,
+          1,
+          0.36,
+          1
+        ]
+      },
+      "resolvedValue": {
+        "delay": {
+          "unit": "ms",
+          "value": 0
+        },
+        "duration": {
+          "unit": "ms",
+          "value": 680
+        },
+        "timingFunction": [
+          0.22,
+          1,
+          0.36,
+          1
+        ]
+      },
+      "sourcePath": "primitive.transition.zoom-settle",
       "tier": "primitive",
       "type": "transition"
     },

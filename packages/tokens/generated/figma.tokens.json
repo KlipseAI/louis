@@ -166,6 +166,66 @@
             "background-position",
             "opacity"
           ]
+        },
+        {
+          "motion": "motion-crossfade-enter",
+          "properties": [
+            "opacity"
+          ]
+        },
+        {
+          "motion": "motion-zoom-settle",
+          "properties": [
+            "scale"
+          ]
+        },
+        {
+          "motion": "motion-content-fade",
+          "properties": [
+            "opacity"
+          ]
+        },
+        {
+          "motion": "motion-content-rise",
+          "properties": [
+            "translate"
+          ]
+        },
+        {
+          "motion": "motion-stagger-1",
+          "properties": [
+            "opacity",
+            "translate"
+          ]
+        },
+        {
+          "motion": "motion-stagger-2",
+          "properties": [
+            "opacity",
+            "translate"
+          ]
+        },
+        {
+          "motion": "motion-stagger-3",
+          "properties": [
+            "opacity",
+            "translate"
+          ]
+        },
+        {
+          "lifecycle": "layout-change",
+          "motion": "motion-layout-change",
+          "properties": [
+            "inline-size",
+            "background-color"
+          ]
+        },
+        {
+          "lifecycle": "layout-change",
+          "motion": "motion-control-hover",
+          "properties": [
+            "background-color"
+          ]
         }
       ],
       "proposalNotice": "REVIEW PROPOSAL — validate in Figma before publishing variables or styles.",
@@ -200,6 +260,42 @@
         },
         {
           "motion": "motion-menu-exit",
+          "reduced": "motion-reduced"
+        },
+        {
+          "motion": "motion-crossfade-enter",
+          "reduced": "motion-reduced"
+        },
+        {
+          "motion": "motion-zoom-settle",
+          "reduced": "motion-reduced"
+        },
+        {
+          "motion": "motion-content-fade",
+          "reduced": "motion-reduced"
+        },
+        {
+          "motion": "motion-content-rise",
+          "reduced": "motion-reduced"
+        },
+        {
+          "motion": "motion-stagger-1",
+          "reduced": "motion-reduced"
+        },
+        {
+          "motion": "motion-stagger-2",
+          "reduced": "motion-reduced"
+        },
+        {
+          "motion": "motion-stagger-3",
+          "reduced": "motion-reduced"
+        },
+        {
+          "motion": "motion-layout-change",
+          "reduced": "motion-reduced"
+        },
+        {
+          "motion": "motion-control-hover",
           "reduced": "motion-reduced"
         }
       ],
@@ -4924,6 +5020,276 @@
             }
           }
         },
+        "transition-content-fade": {
+          "$type": "transition",
+          "fields": [
+            "delay",
+            "duration",
+            "timingFunction"
+          ],
+          "figmaName": "transition/content-fade",
+          "hiddenFromPublishing": true,
+          "losses": [
+            "primitive transition은 Figma에 만들지 않습니다. Figma에는 style→style alias가 없어 semantic→primitive tier 관계를 보존할 수 없습니다 (DS-D-0007)."
+          ],
+          "nativeVariableType": null,
+          "representation": "unrepresented",
+          "scopes": [],
+          "valuesByMode": {
+            "Base": {
+              "$value": {
+                "delay": {
+                  "unit": "ms",
+                  "value": 0
+                },
+                "duration": {
+                  "unit": "ms",
+                  "value": 300
+                },
+                "timingFunction": [
+                  0.25,
+                  0.1,
+                  0.25,
+                  1
+                ]
+              },
+              "aliasTarget": null,
+              "resolvedValue": {
+                "delay": {
+                  "unit": "ms",
+                  "value": 0
+                },
+                "duration": {
+                  "unit": "ms",
+                  "value": 300
+                },
+                "timingFunction": [
+                  0.25,
+                  0.1,
+                  0.25,
+                  1
+                ]
+              },
+              "sourcePath": "primitive.transition.content-fade"
+            }
+          }
+        },
+        "transition-content-rise": {
+          "$type": "transition",
+          "fields": [
+            "delay",
+            "duration",
+            "timingFunction"
+          ],
+          "figmaName": "transition/content-rise",
+          "hiddenFromPublishing": true,
+          "losses": [
+            "primitive transition은 Figma에 만들지 않습니다. Figma에는 style→style alias가 없어 semantic→primitive tier 관계를 보존할 수 없습니다 (DS-D-0007)."
+          ],
+          "nativeVariableType": null,
+          "representation": "unrepresented",
+          "scopes": [],
+          "valuesByMode": {
+            "Base": {
+              "$value": {
+                "delay": {
+                  "unit": "ms",
+                  "value": 0
+                },
+                "duration": {
+                  "unit": "ms",
+                  "value": 360
+                },
+                "timingFunction": [
+                  0.22,
+                  1,
+                  0.36,
+                  1
+                ]
+              },
+              "aliasTarget": null,
+              "resolvedValue": {
+                "delay": {
+                  "unit": "ms",
+                  "value": 0
+                },
+                "duration": {
+                  "unit": "ms",
+                  "value": 360
+                },
+                "timingFunction": [
+                  0.22,
+                  1,
+                  0.36,
+                  1
+                ]
+              },
+              "sourcePath": "primitive.transition.content-rise"
+            }
+          }
+        },
+        "transition-control-hover": {
+          "$type": "transition",
+          "fields": [
+            "delay",
+            "duration",
+            "timingFunction"
+          ],
+          "figmaName": "transition/control-hover",
+          "hiddenFromPublishing": true,
+          "losses": [
+            "primitive transition은 Figma에 만들지 않습니다. Figma에는 style→style alias가 없어 semantic→primitive tier 관계를 보존할 수 없습니다 (DS-D-0007)."
+          ],
+          "nativeVariableType": null,
+          "representation": "unrepresented",
+          "scopes": [],
+          "valuesByMode": {
+            "Base": {
+              "$value": {
+                "delay": {
+                  "unit": "ms",
+                  "value": 0
+                },
+                "duration": {
+                  "unit": "ms",
+                  "value": 160
+                },
+                "timingFunction": [
+                  0.25,
+                  0.1,
+                  0.25,
+                  1
+                ]
+              },
+              "aliasTarget": null,
+              "resolvedValue": {
+                "delay": {
+                  "unit": "ms",
+                  "value": 0
+                },
+                "duration": {
+                  "unit": "ms",
+                  "value": 160
+                },
+                "timingFunction": [
+                  0.25,
+                  0.1,
+                  0.25,
+                  1
+                ]
+              },
+              "sourcePath": "primitive.transition.control-hover"
+            }
+          }
+        },
+        "transition-crossfade-enter": {
+          "$type": "transition",
+          "fields": [
+            "delay",
+            "duration",
+            "timingFunction"
+          ],
+          "figmaName": "transition/crossfade-enter",
+          "hiddenFromPublishing": true,
+          "losses": [
+            "primitive transition은 Figma에 만들지 않습니다. Figma에는 style→style alias가 없어 semantic→primitive tier 관계를 보존할 수 없습니다 (DS-D-0007)."
+          ],
+          "nativeVariableType": null,
+          "representation": "unrepresented",
+          "scopes": [],
+          "valuesByMode": {
+            "Base": {
+              "$value": {
+                "delay": {
+                  "unit": "ms",
+                  "value": 0
+                },
+                "duration": {
+                  "unit": "ms",
+                  "value": 420
+                },
+                "timingFunction": [
+                  0.25,
+                  0.1,
+                  0.25,
+                  1
+                ]
+              },
+              "aliasTarget": null,
+              "resolvedValue": {
+                "delay": {
+                  "unit": "ms",
+                  "value": 0
+                },
+                "duration": {
+                  "unit": "ms",
+                  "value": 420
+                },
+                "timingFunction": [
+                  0.25,
+                  0.1,
+                  0.25,
+                  1
+                ]
+              },
+              "sourcePath": "primitive.transition.crossfade-enter"
+            }
+          }
+        },
+        "transition-layout-change": {
+          "$type": "transition",
+          "fields": [
+            "delay",
+            "duration",
+            "timingFunction"
+          ],
+          "figmaName": "transition/layout-change",
+          "hiddenFromPublishing": true,
+          "losses": [
+            "primitive transition은 Figma에 만들지 않습니다. Figma에는 style→style alias가 없어 semantic→primitive tier 관계를 보존할 수 없습니다 (DS-D-0007)."
+          ],
+          "nativeVariableType": null,
+          "representation": "unrepresented",
+          "scopes": [],
+          "valuesByMode": {
+            "Base": {
+              "$value": {
+                "delay": {
+                  "unit": "ms",
+                  "value": 0
+                },
+                "duration": {
+                  "unit": "ms",
+                  "value": 220
+                },
+                "timingFunction": [
+                  0.4,
+                  0,
+                  0.2,
+                  1
+                ]
+              },
+              "aliasTarget": null,
+              "resolvedValue": {
+                "delay": {
+                  "unit": "ms",
+                  "value": 0
+                },
+                "duration": {
+                  "unit": "ms",
+                  "value": 220
+                },
+                "timingFunction": [
+                  0.4,
+                  0,
+                  0.2,
+                  1
+                ]
+              },
+              "sourcePath": "primitive.transition.layout-change"
+            }
+          }
+        },
         "transition-menu-enter": {
           "$type": "transition",
           "fields": [
@@ -5410,6 +5776,168 @@
             }
           }
         },
+        "transition-stagger-1": {
+          "$type": "transition",
+          "fields": [
+            "delay",
+            "duration",
+            "timingFunction"
+          ],
+          "figmaName": "transition/stagger-1",
+          "hiddenFromPublishing": true,
+          "losses": [
+            "primitive transition은 Figma에 만들지 않습니다. Figma에는 style→style alias가 없어 semantic→primitive tier 관계를 보존할 수 없습니다 (DS-D-0007)."
+          ],
+          "nativeVariableType": null,
+          "representation": "unrepresented",
+          "scopes": [],
+          "valuesByMode": {
+            "Base": {
+              "$value": {
+                "delay": {
+                  "unit": "ms",
+                  "value": 40
+                },
+                "duration": {
+                  "unit": "ms",
+                  "value": 360
+                },
+                "timingFunction": [
+                  0.22,
+                  1,
+                  0.36,
+                  1
+                ]
+              },
+              "aliasTarget": null,
+              "resolvedValue": {
+                "delay": {
+                  "unit": "ms",
+                  "value": 40
+                },
+                "duration": {
+                  "unit": "ms",
+                  "value": 360
+                },
+                "timingFunction": [
+                  0.22,
+                  1,
+                  0.36,
+                  1
+                ]
+              },
+              "sourcePath": "primitive.transition.stagger-1"
+            }
+          }
+        },
+        "transition-stagger-2": {
+          "$type": "transition",
+          "fields": [
+            "delay",
+            "duration",
+            "timingFunction"
+          ],
+          "figmaName": "transition/stagger-2",
+          "hiddenFromPublishing": true,
+          "losses": [
+            "primitive transition은 Figma에 만들지 않습니다. Figma에는 style→style alias가 없어 semantic→primitive tier 관계를 보존할 수 없습니다 (DS-D-0007)."
+          ],
+          "nativeVariableType": null,
+          "representation": "unrepresented",
+          "scopes": [],
+          "valuesByMode": {
+            "Base": {
+              "$value": {
+                "delay": {
+                  "unit": "ms",
+                  "value": 80
+                },
+                "duration": {
+                  "unit": "ms",
+                  "value": 360
+                },
+                "timingFunction": [
+                  0.22,
+                  1,
+                  0.36,
+                  1
+                ]
+              },
+              "aliasTarget": null,
+              "resolvedValue": {
+                "delay": {
+                  "unit": "ms",
+                  "value": 80
+                },
+                "duration": {
+                  "unit": "ms",
+                  "value": 360
+                },
+                "timingFunction": [
+                  0.22,
+                  1,
+                  0.36,
+                  1
+                ]
+              },
+              "sourcePath": "primitive.transition.stagger-2"
+            }
+          }
+        },
+        "transition-stagger-3": {
+          "$type": "transition",
+          "fields": [
+            "delay",
+            "duration",
+            "timingFunction"
+          ],
+          "figmaName": "transition/stagger-3",
+          "hiddenFromPublishing": true,
+          "losses": [
+            "primitive transition은 Figma에 만들지 않습니다. Figma에는 style→style alias가 없어 semantic→primitive tier 관계를 보존할 수 없습니다 (DS-D-0007)."
+          ],
+          "nativeVariableType": null,
+          "representation": "unrepresented",
+          "scopes": [],
+          "valuesByMode": {
+            "Base": {
+              "$value": {
+                "delay": {
+                  "unit": "ms",
+                  "value": 150
+                },
+                "duration": {
+                  "unit": "ms",
+                  "value": 360
+                },
+                "timingFunction": [
+                  0.22,
+                  1,
+                  0.36,
+                  1
+                ]
+              },
+              "aliasTarget": null,
+              "resolvedValue": {
+                "delay": {
+                  "unit": "ms",
+                  "value": 150
+                },
+                "duration": {
+                  "unit": "ms",
+                  "value": 360
+                },
+                "timingFunction": [
+                  0.22,
+                  1,
+                  0.36,
+                  1
+                ]
+              },
+              "sourcePath": "primitive.transition.stagger-3"
+            }
+          }
+        },
         "transition-tooltip-enter": {
           "$type": "transition",
           "fields": [
@@ -5515,6 +6043,60 @@
                 ]
               },
               "sourcePath": "primitive.transition.tooltip-exit"
+            }
+          }
+        },
+        "transition-zoom-settle": {
+          "$type": "transition",
+          "fields": [
+            "delay",
+            "duration",
+            "timingFunction"
+          ],
+          "figmaName": "transition/zoom-settle",
+          "hiddenFromPublishing": true,
+          "losses": [
+            "primitive transition은 Figma에 만들지 않습니다. Figma에는 style→style alias가 없어 semantic→primitive tier 관계를 보존할 수 없습니다 (DS-D-0007)."
+          ],
+          "nativeVariableType": null,
+          "representation": "unrepresented",
+          "scopes": [],
+          "valuesByMode": {
+            "Base": {
+              "$value": {
+                "delay": {
+                  "unit": "ms",
+                  "value": 0
+                },
+                "duration": {
+                  "unit": "ms",
+                  "value": 680
+                },
+                "timingFunction": [
+                  0.22,
+                  1,
+                  0.36,
+                  1
+                ]
+              },
+              "aliasTarget": null,
+              "resolvedValue": {
+                "delay": {
+                  "unit": "ms",
+                  "value": 0
+                },
+                "duration": {
+                  "unit": "ms",
+                  "value": 680
+                },
+                "timingFunction": [
+                  0.22,
+                  1,
+                  0.36,
+                  1
+                ]
+              },
+              "sourcePath": "primitive.transition.zoom-settle"
             }
           }
         },
@@ -7497,6 +8079,216 @@
             }
           }
         },
+        "motion-content-fade": {
+          "$type": "transition",
+          "fields": [
+            "delay",
+            "duration",
+            "timingFunction"
+          ],
+          "figmaName": "motion/content-fade",
+          "hiddenFromPublishing": false,
+          "losses": [
+            "DTCG transition은 Figma가 해석하지 않는 문서용 STRING 변수로 격하됩니다."
+          ],
+          "nativeVariableType": "STRING",
+          "representation": "variable-documentation",
+          "scopes": [],
+          "valuesByMode": {
+            "Global": {
+              "$value": "{primitive.transition.content-fade}",
+              "aliasTarget": {
+                "id": "transition-content-fade",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "delay": {
+                  "unit": "ms",
+                  "value": 0
+                },
+                "duration": {
+                  "unit": "ms",
+                  "value": 300
+                },
+                "timingFunction": [
+                  0.25,
+                  0.1,
+                  0.25,
+                  1
+                ]
+              },
+              "sourcePath": "semantic.global.motion.content-fade"
+            }
+          }
+        },
+        "motion-content-rise": {
+          "$type": "transition",
+          "fields": [
+            "delay",
+            "duration",
+            "timingFunction"
+          ],
+          "figmaName": "motion/content-rise",
+          "hiddenFromPublishing": false,
+          "losses": [
+            "DTCG transition은 Figma가 해석하지 않는 문서용 STRING 변수로 격하됩니다."
+          ],
+          "nativeVariableType": "STRING",
+          "representation": "variable-documentation",
+          "scopes": [],
+          "valuesByMode": {
+            "Global": {
+              "$value": "{primitive.transition.content-rise}",
+              "aliasTarget": {
+                "id": "transition-content-rise",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "delay": {
+                  "unit": "ms",
+                  "value": 0
+                },
+                "duration": {
+                  "unit": "ms",
+                  "value": 360
+                },
+                "timingFunction": [
+                  0.22,
+                  1,
+                  0.36,
+                  1
+                ]
+              },
+              "sourcePath": "semantic.global.motion.content-rise"
+            }
+          }
+        },
+        "motion-control-hover": {
+          "$type": "transition",
+          "fields": [
+            "delay",
+            "duration",
+            "timingFunction"
+          ],
+          "figmaName": "motion/control-hover",
+          "hiddenFromPublishing": false,
+          "losses": [
+            "DTCG transition은 Figma가 해석하지 않는 문서용 STRING 변수로 격하됩니다."
+          ],
+          "nativeVariableType": "STRING",
+          "representation": "variable-documentation",
+          "scopes": [],
+          "valuesByMode": {
+            "Global": {
+              "$value": "{primitive.transition.control-hover}",
+              "aliasTarget": {
+                "id": "transition-control-hover",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "delay": {
+                  "unit": "ms",
+                  "value": 0
+                },
+                "duration": {
+                  "unit": "ms",
+                  "value": 160
+                },
+                "timingFunction": [
+                  0.25,
+                  0.1,
+                  0.25,
+                  1
+                ]
+              },
+              "sourcePath": "semantic.global.motion.control-hover"
+            }
+          }
+        },
+        "motion-crossfade-enter": {
+          "$type": "transition",
+          "fields": [
+            "delay",
+            "duration",
+            "timingFunction"
+          ],
+          "figmaName": "motion/crossfade-enter",
+          "hiddenFromPublishing": false,
+          "losses": [
+            "DTCG transition은 Figma가 해석하지 않는 문서용 STRING 변수로 격하됩니다."
+          ],
+          "nativeVariableType": "STRING",
+          "representation": "variable-documentation",
+          "scopes": [],
+          "valuesByMode": {
+            "Global": {
+              "$value": "{primitive.transition.crossfade-enter}",
+              "aliasTarget": {
+                "id": "transition-crossfade-enter",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "delay": {
+                  "unit": "ms",
+                  "value": 0
+                },
+                "duration": {
+                  "unit": "ms",
+                  "value": 420
+                },
+                "timingFunction": [
+                  0.25,
+                  0.1,
+                  0.25,
+                  1
+                ]
+              },
+              "sourcePath": "semantic.global.motion.crossfade-enter"
+            }
+          }
+        },
+        "motion-layout-change": {
+          "$type": "transition",
+          "fields": [
+            "delay",
+            "duration",
+            "timingFunction"
+          ],
+          "figmaName": "motion/layout-change",
+          "hiddenFromPublishing": false,
+          "losses": [
+            "DTCG transition은 Figma가 해석하지 않는 문서용 STRING 변수로 격하됩니다."
+          ],
+          "nativeVariableType": "STRING",
+          "representation": "variable-documentation",
+          "scopes": [],
+          "valuesByMode": {
+            "Global": {
+              "$value": "{primitive.transition.layout-change}",
+              "aliasTarget": {
+                "id": "transition-layout-change",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "delay": {
+                  "unit": "ms",
+                  "value": 0
+                },
+                "duration": {
+                  "unit": "ms",
+                  "value": 220
+                },
+                "timingFunction": [
+                  0.4,
+                  0,
+                  0.2,
+                  1
+                ]
+              },
+              "sourcePath": "semantic.global.motion.layout-change"
+            }
+          }
+        },
         "motion-menu-enter": {
           "$type": "transition",
           "fields": [
@@ -7875,6 +8667,132 @@
             }
           }
         },
+        "motion-stagger-1": {
+          "$type": "transition",
+          "fields": [
+            "delay",
+            "duration",
+            "timingFunction"
+          ],
+          "figmaName": "motion/stagger-1",
+          "hiddenFromPublishing": false,
+          "losses": [
+            "DTCG transition은 Figma가 해석하지 않는 문서용 STRING 변수로 격하됩니다."
+          ],
+          "nativeVariableType": "STRING",
+          "representation": "variable-documentation",
+          "scopes": [],
+          "valuesByMode": {
+            "Global": {
+              "$value": "{primitive.transition.stagger-1}",
+              "aliasTarget": {
+                "id": "transition-stagger-1",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "delay": {
+                  "unit": "ms",
+                  "value": 40
+                },
+                "duration": {
+                  "unit": "ms",
+                  "value": 360
+                },
+                "timingFunction": [
+                  0.22,
+                  1,
+                  0.36,
+                  1
+                ]
+              },
+              "sourcePath": "semantic.global.motion.stagger-1"
+            }
+          }
+        },
+        "motion-stagger-2": {
+          "$type": "transition",
+          "fields": [
+            "delay",
+            "duration",
+            "timingFunction"
+          ],
+          "figmaName": "motion/stagger-2",
+          "hiddenFromPublishing": false,
+          "losses": [
+            "DTCG transition은 Figma가 해석하지 않는 문서용 STRING 변수로 격하됩니다."
+          ],
+          "nativeVariableType": "STRING",
+          "representation": "variable-documentation",
+          "scopes": [],
+          "valuesByMode": {
+            "Global": {
+              "$value": "{primitive.transition.stagger-2}",
+              "aliasTarget": {
+                "id": "transition-stagger-2",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "delay": {
+                  "unit": "ms",
+                  "value": 80
+                },
+                "duration": {
+                  "unit": "ms",
+                  "value": 360
+                },
+                "timingFunction": [
+                  0.22,
+                  1,
+                  0.36,
+                  1
+                ]
+              },
+              "sourcePath": "semantic.global.motion.stagger-2"
+            }
+          }
+        },
+        "motion-stagger-3": {
+          "$type": "transition",
+          "fields": [
+            "delay",
+            "duration",
+            "timingFunction"
+          ],
+          "figmaName": "motion/stagger-3",
+          "hiddenFromPublishing": false,
+          "losses": [
+            "DTCG transition은 Figma가 해석하지 않는 문서용 STRING 변수로 격하됩니다."
+          ],
+          "nativeVariableType": "STRING",
+          "representation": "variable-documentation",
+          "scopes": [],
+          "valuesByMode": {
+            "Global": {
+              "$value": "{primitive.transition.stagger-3}",
+              "aliasTarget": {
+                "id": "transition-stagger-3",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "delay": {
+                  "unit": "ms",
+                  "value": 150
+                },
+                "duration": {
+                  "unit": "ms",
+                  "value": 360
+                },
+                "timingFunction": [
+                  0.22,
+                  1,
+                  0.36,
+                  1
+                ]
+              },
+              "sourcePath": "semantic.global.motion.stagger-3"
+            }
+          }
+        },
         "motion-tooltip-enter": {
           "$type": "transition",
           "fields": [
@@ -7956,6 +8874,48 @@
                 ]
               },
               "sourcePath": "semantic.global.motion.tooltip-exit"
+            }
+          }
+        },
+        "motion-zoom-settle": {
+          "$type": "transition",
+          "fields": [
+            "delay",
+            "duration",
+            "timingFunction"
+          ],
+          "figmaName": "motion/zoom-settle",
+          "hiddenFromPublishing": false,
+          "losses": [
+            "DTCG transition은 Figma가 해석하지 않는 문서용 STRING 변수로 격하됩니다."
+          ],
+          "nativeVariableType": "STRING",
+          "representation": "variable-documentation",
+          "scopes": [],
+          "valuesByMode": {
+            "Global": {
+              "$value": "{primitive.transition.zoom-settle}",
+              "aliasTarget": {
+                "id": "transition-zoom-settle",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "delay": {
+                  "unit": "ms",
+                  "value": 0
+                },
+                "duration": {
+                  "unit": "ms",
+                  "value": 680
+                },
+                "timingFunction": [
+                  0.22,
+                  1,
+                  0.36,
+                  1
+                ]
+              },
+              "sourcePath": "semantic.global.motion.zoom-settle"
             }
           }
         },

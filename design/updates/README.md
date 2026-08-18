@@ -8,6 +8,58 @@ authority: normative
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
 
+## 2026-08-18 (26) — 캐러셀을 막던 넷 중 셋이 무너졌다
+
+`figma-gap-registry.md`는 BannerCarousel을 **"선행 조건 넷이 충족되지 않았다"**로 막아 뒀다.
+배포본(`origin/main` 7e9c3b69)의 `TabBannerCarousel.tsx`를 직접 재니 셋이 무너졌다.
+
+| 막는다던 것 | 배포본 실측 |
+| --- | --- |
+| stagger 지연 축이 DS에 없다 | **0 · 40 · 80 · 150ms**. opacity 300ms `ease`, transform 360ms `cubic-bezier(.22,1,.36,1)` |
+| 점 폭 전환 토큰이 없다 | **`width 220ms cubic-bezier(.4,0,.2,1)`** + 배경 160ms. 7px → `w-10` × `--spacing:2px` = **20px** |
+| 톤이 런타임 샘플링이라 DS가 소유할 수 없다 | 제품은 톤을 **CSS 변수 두 개**(`--banner-text-rgb`·`--banner-scrim-rgb`)로만 넘긴다. DS 계약은 `tone: "bright" \| "dark"` prop이고 샘플링은 제품이 갖는다 |
+| progressive blur를 표현할 방법이 없다 | **CSS로는 정확히 표현된다** — `blur(22px) saturate(125%)` + 5스톱 `mask-image`, `motion-reduce`에서 둘 다 제거. Figma 근사 문제만 남는다 |
+
+**미결이 아니라 값이었다.** 재보지 않고 "막혔다"를 세 번 반복한 것이 스켈레톤 면 색과 같은
+실수다.
+
+### 새 lifecycle — DS-D-0019
+
+점의 폭 전환은 기존 lifecycle 어디에도 못 들어갔다. `enter`/`exit`은 `opacity`·`transform` 계열,
+`loop`은 `opacity`·`rotate`·`background-position`뿐이고 **레이아웃을 다시 계산시키는 property가
+어디에도 없다.**
+
+그래서 `layout-change`를 열었다. 허용은 `inline-size`·`block-size`·`background-color` 셋이다.
+`scale`로 알약을 늘리면 **두께와 반경까지 함께 늘어나** 7px 알약이 20px 자리에서 찌그러진다 —
+제품도 `width`를 쓴다. 그 폭이 곧 "여기가 지금 몇 번째인가"이고, 점에는 라벨이 없어 폭 말고
+현재 위치를 말하는 것이 없다.
+
+`block-size`는 **소비처가 없다.** 이 저장소의 규칙대로 다음 재검토에서 소비처가 생기지 않으면
+뺀다고 Decision에 적어 뒀다.
+
+### 토큰 9종 · 양방향 계약이 작동했다
+
+`crossfade-enter` · `zoom-settle` · `content-fade` · `content-rise` · `stagger-1/2/3` ·
+`layout-change` · `control-hover`. **컴포넌트 이름을 붙이지 않았다** — 역할 이름이다.
+
+토큰을 넣자 세 게이트가 차례로 막았고 전부 정당한 요구였다.
+
+1. `motionProperties` — "이 모션이 무엇을 애니메이션하는가"를 선언하라(DS-D-0017)
+2. `reducedMotionPairs` — reduced-motion 짝을 두어라
+3. **`verify-figma-parity` — Figma에 없는 변수는 통과시키지 않는다**
+
+셋째가 핵심이다. **토큰만 코드에 넣고 Figma를 비워 두는 길이 막혀 있다.** Figma Semantic
+collection에 9개를 만들고 readback을 갱신했다. 변수 210 → **219**.
+
+baseline은 playbook의 "의도적 breaking" 절차대로 갱신했다 — Decision을 먼저 쓰고, diff를
+분류별로 확인하고, 그다음 복사했다.
+
+### 아직 컴포넌트가 없다
+
+**이 커밋의 토큰 9종은 소비처가 0이다.** 이 저장소가 이미 지적한 상태(delay 토큰 8종이 전부
+0ms에 소비처 0)와 같은 모양이며, 다음 변경 단위에서 BannerCarousel이 전부 소비한다. 그때까지
+이것은 **끝난 일이 아니라 절반**이다.
+
 ## 2026-08-18 (25) — 줄을 읽는 대신 브라우저가 풀게 한다
 
 `product.measured.json`의 187축은 제품 소스의 **줄**을 인용한다. `globals.css:82`를 읽고

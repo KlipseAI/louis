@@ -178,6 +178,11 @@
   --kds-layer-modal: var(--kds-layer-modal);
   --kds-layer-popover: var(--kds-layer-popover);
   --kds-layer-sticky: var(--kds-layer-sticky);
+  --kds-motion-content-fade: var(--kds-motion-content-fade);
+  --kds-motion-content-rise: var(--kds-motion-content-rise);
+  --kds-motion-control-hover: var(--kds-motion-control-hover);
+  --kds-motion-crossfade-enter: var(--kds-motion-crossfade-enter);
+  --kds-motion-layout-change: var(--kds-motion-layout-change);
   --kds-motion-menu-enter: var(--kds-motion-menu-enter);
   --kds-motion-menu-exit: var(--kds-motion-menu-exit);
   --kds-motion-modal-enter: var(--kds-motion-modal-enter);
@@ -187,6 +192,10 @@
   --kds-motion-reduced: var(--kds-motion-reduced);
   --kds-motion-shimmer: var(--kds-motion-shimmer);
   --kds-motion-spin: var(--kds-motion-spin);
+  --kds-motion-stagger-1: var(--kds-motion-stagger-1);
+  --kds-motion-stagger-2: var(--kds-motion-stagger-2);
+  --kds-motion-stagger-3: var(--kds-motion-stagger-3);
   --kds-motion-tooltip-enter: var(--kds-motion-tooltip-enter);
   --kds-motion-tooltip-exit: var(--kds-motion-tooltip-exit);
+  --kds-motion-zoom-settle: var(--kds-motion-zoom-settle);
 }

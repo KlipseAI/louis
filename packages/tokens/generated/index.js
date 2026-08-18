@@ -161,6 +161,66 @@ export const metadata = Object.freeze({
         "opacity"
       ],
       "lifecycle": "loop"
+    },
+    {
+      "motion": "motion-crossfade-enter",
+      "properties": [
+        "opacity"
+      ]
+    },
+    {
+      "motion": "motion-zoom-settle",
+      "properties": [
+        "scale"
+      ]
+    },
+    {
+      "motion": "motion-content-fade",
+      "properties": [
+        "opacity"
+      ]
+    },
+    {
+      "motion": "motion-content-rise",
+      "properties": [
+        "translate"
+      ]
+    },
+    {
+      "motion": "motion-stagger-1",
+      "properties": [
+        "opacity",
+        "translate"
+      ]
+    },
+    {
+      "motion": "motion-stagger-2",
+      "properties": [
+        "opacity",
+        "translate"
+      ]
+    },
+    {
+      "motion": "motion-stagger-3",
+      "properties": [
+        "opacity",
+        "translate"
+      ]
+    },
+    {
+      "motion": "motion-layout-change",
+      "properties": [
+        "inline-size",
+        "background-color"
+      ],
+      "lifecycle": "layout-change"
+    },
+    {
+      "motion": "motion-control-hover",
+      "properties": [
+        "background-color"
+      ],
+      "lifecycle": "layout-change"
     }
   ],
   "reducedMotionPairs": [
@@ -194,6 +254,42 @@ export const metadata = Object.freeze({
     },
     {
       "motion": "motion-menu-exit",
+      "reduced": "motion-reduced"
+    },
+    {
+      "motion": "motion-crossfade-enter",
+      "reduced": "motion-reduced"
+    },
+    {
+      "motion": "motion-zoom-settle",
+      "reduced": "motion-reduced"
+    },
+    {
+      "motion": "motion-content-fade",
+      "reduced": "motion-reduced"
+    },
+    {
+      "motion": "motion-content-rise",
+      "reduced": "motion-reduced"
+    },
+    {
+      "motion": "motion-stagger-1",
+      "reduced": "motion-reduced"
+    },
+    {
+      "motion": "motion-stagger-2",
+      "reduced": "motion-reduced"
+    },
+    {
+      "motion": "motion-stagger-3",
+      "reduced": "motion-reduced"
+    },
+    {
+      "motion": "motion-layout-change",
+      "reduced": "motion-reduced"
+    },
+    {
+      "motion": "motion-control-hover",
       "reduced": "motion-reduced"
     }
   ],
@@ -3699,6 +3795,221 @@ export const primitives = {
       "unit": "px"
     }
   },
+  "transition-content-fade": {
+    "aliasTarget": null,
+    "cssProperties": {},
+    "deprecated": null,
+    "description": null,
+    "id": "transition-content-fade",
+    "mode": "base",
+    "rawValue": {
+      "duration": {
+        "value": 300,
+        "unit": "ms"
+      },
+      "delay": {
+        "value": 0,
+        "unit": "ms"
+      },
+      "timingFunction": [
+        0.25,
+        0.1,
+        0.25,
+        1
+      ]
+    },
+    "sourcePath": "primitive.transition.content-fade",
+    "tier": "primitive",
+    "type": "transition",
+    "value": {
+      "duration": {
+        "value": 300,
+        "unit": "ms"
+      },
+      "delay": {
+        "value": 0,
+        "unit": "ms"
+      },
+      "timingFunction": [
+        0.25,
+        0.1,
+        0.25,
+        1
+      ]
+    }
+  },
+  "transition-content-rise": {
+    "aliasTarget": null,
+    "cssProperties": {},
+    "deprecated": null,
+    "description": null,
+    "id": "transition-content-rise",
+    "mode": "base",
+    "rawValue": {
+      "duration": {
+        "value": 360,
+        "unit": "ms"
+      },
+      "delay": {
+        "value": 0,
+        "unit": "ms"
+      },
+      "timingFunction": [
+        0.22,
+        1,
+        0.36,
+        1
+      ]
+    },
+    "sourcePath": "primitive.transition.content-rise",
+    "tier": "primitive",
+    "type": "transition",
+    "value": {
+      "duration": {
+        "value": 360,
+        "unit": "ms"
+      },
+      "delay": {
+        "value": 0,
+        "unit": "ms"
+      },
+      "timingFunction": [
+        0.22,
+        1,
+        0.36,
+        1
+      ]
+    }
+  },
+  "transition-control-hover": {
+    "aliasTarget": null,
+    "cssProperties": {},
+    "deprecated": null,
+    "description": null,
+    "id": "transition-control-hover",
+    "mode": "base",
+    "rawValue": {
+      "duration": {
+        "value": 160,
+        "unit": "ms"
+      },
+      "delay": {
+        "value": 0,
+        "unit": "ms"
+      },
+      "timingFunction": [
+        0.25,
+        0.1,
+        0.25,
+        1
+      ]
+    },
+    "sourcePath": "primitive.transition.control-hover",
+    "tier": "primitive",
+    "type": "transition",
+    "value": {
+      "duration": {
+        "value": 160,
+        "unit": "ms"
+      },
+      "delay": {
+        "value": 0,
+        "unit": "ms"
+      },
+      "timingFunction": [
+        0.25,
+        0.1,
+        0.25,
+        1
+      ]
+    }
+  },
+  "transition-crossfade-enter": {
+    "aliasTarget": null,
+    "cssProperties": {},
+    "deprecated": null,
+    "description": null,
+    "id": "transition-crossfade-enter",
+    "mode": "base",
+    "rawValue": {
+      "duration": {
+        "value": 420,
+        "unit": "ms"
+      },
+      "delay": {
+        "value": 0,
+        "unit": "ms"
+      },
+      "timingFunction": [
+        0.25,
+        0.1,
+        0.25,
+        1
+      ]
+    },
+    "sourcePath": "primitive.transition.crossfade-enter",
+    "tier": "primitive",
+    "type": "transition",
+    "value": {
+      "duration": {
+        "value": 420,
+        "unit": "ms"
+      },
+      "delay": {
+        "value": 0,
+        "unit": "ms"
+      },
+      "timingFunction": [
+        0.25,
+        0.1,
+        0.25,
+        1
+      ]
+    }
+  },
+  "transition-layout-change": {
+    "aliasTarget": null,
+    "cssProperties": {},
+    "deprecated": null,
+    "description": null,
+    "id": "transition-layout-change",
+    "mode": "base",
+    "rawValue": {
+      "duration": {
+        "value": 220,
+        "unit": "ms"
+      },
+      "delay": {
+        "value": 0,
+        "unit": "ms"
+      },
+      "timingFunction": [
+        0.4,
+        0,
+        0.2,
+        1
+      ]
+    },
+    "sourcePath": "primitive.transition.layout-change",
+    "tier": "primitive",
+    "type": "transition",
+    "value": {
+      "duration": {
+        "value": 220,
+        "unit": "ms"
+      },
+      "delay": {
+        "value": 0,
+        "unit": "ms"
+      },
+      "timingFunction": [
+        0.4,
+        0,
+        0.2,
+        1
+      ]
+    }
+  },
   "transition-menu-enter": {
     "aliasTarget": null,
     "cssProperties": {},
@@ -4086,6 +4397,135 @@ export const primitives = {
       ]
     }
   },
+  "transition-stagger-1": {
+    "aliasTarget": null,
+    "cssProperties": {},
+    "deprecated": null,
+    "description": null,
+    "id": "transition-stagger-1",
+    "mode": "base",
+    "rawValue": {
+      "duration": {
+        "value": 360,
+        "unit": "ms"
+      },
+      "delay": {
+        "value": 40,
+        "unit": "ms"
+      },
+      "timingFunction": [
+        0.22,
+        1,
+        0.36,
+        1
+      ]
+    },
+    "sourcePath": "primitive.transition.stagger-1",
+    "tier": "primitive",
+    "type": "transition",
+    "value": {
+      "duration": {
+        "value": 360,
+        "unit": "ms"
+      },
+      "delay": {
+        "value": 40,
+        "unit": "ms"
+      },
+      "timingFunction": [
+        0.22,
+        1,
+        0.36,
+        1
+      ]
+    }
+  },
+  "transition-stagger-2": {
+    "aliasTarget": null,
+    "cssProperties": {},
+    "deprecated": null,
+    "description": null,
+    "id": "transition-stagger-2",
+    "mode": "base",
+    "rawValue": {
+      "duration": {
+        "value": 360,
+        "unit": "ms"
+      },
+      "delay": {
+        "value": 80,
+        "unit": "ms"
+      },
+      "timingFunction": [
+        0.22,
+        1,
+        0.36,
+        1
+      ]
+    },
+    "sourcePath": "primitive.transition.stagger-2",
+    "tier": "primitive",
+    "type": "transition",
+    "value": {
+      "duration": {
+        "value": 360,
+        "unit": "ms"
+      },
+      "delay": {
+        "value": 80,
+        "unit": "ms"
+      },
+      "timingFunction": [
+        0.22,
+        1,
+        0.36,
+        1
+      ]
+    }
+  },
+  "transition-stagger-3": {
+    "aliasTarget": null,
+    "cssProperties": {},
+    "deprecated": null,
+    "description": null,
+    "id": "transition-stagger-3",
+    "mode": "base",
+    "rawValue": {
+      "duration": {
+        "value": 360,
+        "unit": "ms"
+      },
+      "delay": {
+        "value": 150,
+        "unit": "ms"
+      },
+      "timingFunction": [
+        0.22,
+        1,
+        0.36,
+        1
+      ]
+    },
+    "sourcePath": "primitive.transition.stagger-3",
+    "tier": "primitive",
+    "type": "transition",
+    "value": {
+      "duration": {
+        "value": 360,
+        "unit": "ms"
+      },
+      "delay": {
+        "value": 150,
+        "unit": "ms"
+      },
+      "timingFunction": [
+        0.22,
+        1,
+        0.36,
+        1
+      ]
+    }
+  },
   "transition-tooltip-enter": {
     "aliasTarget": null,
     "cssProperties": {},
@@ -4168,6 +4608,49 @@ export const primitives = {
         0.19,
         1,
         0.22,
+        1
+      ]
+    }
+  },
+  "transition-zoom-settle": {
+    "aliasTarget": null,
+    "cssProperties": {},
+    "deprecated": null,
+    "description": null,
+    "id": "transition-zoom-settle",
+    "mode": "base",
+    "rawValue": {
+      "duration": {
+        "value": 680,
+        "unit": "ms"
+      },
+      "delay": {
+        "value": 0,
+        "unit": "ms"
+      },
+      "timingFunction": [
+        0.22,
+        1,
+        0.36,
+        1
+      ]
+    },
+    "sourcePath": "primitive.transition.zoom-settle",
+    "tier": "primitive",
+    "type": "transition",
+    "value": {
+      "duration": {
+        "value": 680,
+        "unit": "ms"
+      },
+      "delay": {
+        "value": 0,
+        "unit": "ms"
+      },
+      "timingFunction": [
+        0.22,
+        1,
+        0.36,
         1
       ]
     }
@@ -5728,6 +6211,181 @@ export const tokens = {
         "unit": "px"
       }
     },
+    "motion-content-fade": {
+      "aliasTarget": {
+        "id": "transition-content-fade",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-motion-content-fade-duration": "300ms",
+        "--kds-motion-content-fade-delay": "0ms",
+        "--kds-motion-content-fade-timing-function": "cubic-bezier(0.25, 0.1, 0.25, 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "motion-content-fade",
+      "mode": "global",
+      "rawValue": "{primitive.transition.content-fade}",
+      "sourcePath": "semantic.global.motion.content-fade",
+      "tier": "semantic",
+      "type": "transition",
+      "value": {
+        "duration": {
+          "value": 300,
+          "unit": "ms"
+        },
+        "delay": {
+          "value": 0,
+          "unit": "ms"
+        },
+        "timingFunction": [
+          0.25,
+          0.1,
+          0.25,
+          1
+        ]
+      }
+    },
+    "motion-content-rise": {
+      "aliasTarget": {
+        "id": "transition-content-rise",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-motion-content-rise-duration": "360ms",
+        "--kds-motion-content-rise-delay": "0ms",
+        "--kds-motion-content-rise-timing-function": "cubic-bezier(0.22, 1, 0.36, 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "motion-content-rise",
+      "mode": "global",
+      "rawValue": "{primitive.transition.content-rise}",
+      "sourcePath": "semantic.global.motion.content-rise",
+      "tier": "semantic",
+      "type": "transition",
+      "value": {
+        "duration": {
+          "value": 360,
+          "unit": "ms"
+        },
+        "delay": {
+          "value": 0,
+          "unit": "ms"
+        },
+        "timingFunction": [
+          0.22,
+          1,
+          0.36,
+          1
+        ]
+      }
+    },
+    "motion-control-hover": {
+      "aliasTarget": {
+        "id": "transition-control-hover",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-motion-control-hover-duration": "160ms",
+        "--kds-motion-control-hover-delay": "0ms",
+        "--kds-motion-control-hover-timing-function": "cubic-bezier(0.25, 0.1, 0.25, 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "motion-control-hover",
+      "mode": "global",
+      "rawValue": "{primitive.transition.control-hover}",
+      "sourcePath": "semantic.global.motion.control-hover",
+      "tier": "semantic",
+      "type": "transition",
+      "value": {
+        "duration": {
+          "value": 160,
+          "unit": "ms"
+        },
+        "delay": {
+          "value": 0,
+          "unit": "ms"
+        },
+        "timingFunction": [
+          0.25,
+          0.1,
+          0.25,
+          1
+        ]
+      }
+    },
+    "motion-crossfade-enter": {
+      "aliasTarget": {
+        "id": "transition-crossfade-enter",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-motion-crossfade-enter-duration": "420ms",
+        "--kds-motion-crossfade-enter-delay": "0ms",
+        "--kds-motion-crossfade-enter-timing-function": "cubic-bezier(0.25, 0.1, 0.25, 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "motion-crossfade-enter",
+      "mode": "global",
+      "rawValue": "{primitive.transition.crossfade-enter}",
+      "sourcePath": "semantic.global.motion.crossfade-enter",
+      "tier": "semantic",
+      "type": "transition",
+      "value": {
+        "duration": {
+          "value": 420,
+          "unit": "ms"
+        },
+        "delay": {
+          "value": 0,
+          "unit": "ms"
+        },
+        "timingFunction": [
+          0.25,
+          0.1,
+          0.25,
+          1
+        ]
+      }
+    },
+    "motion-layout-change": {
+      "aliasTarget": {
+        "id": "transition-layout-change",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-motion-layout-change-duration": "220ms",
+        "--kds-motion-layout-change-delay": "0ms",
+        "--kds-motion-layout-change-timing-function": "cubic-bezier(0.4, 0, 0.2, 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "motion-layout-change",
+      "mode": "global",
+      "rawValue": "{primitive.transition.layout-change}",
+      "sourcePath": "semantic.global.motion.layout-change",
+      "tier": "semantic",
+      "type": "transition",
+      "value": {
+        "duration": {
+          "value": 220,
+          "unit": "ms"
+        },
+        "delay": {
+          "value": 0,
+          "unit": "ms"
+        },
+        "timingFunction": [
+          0.4,
+          0,
+          0.2,
+          1
+        ]
+      }
+    },
     "motion-menu-enter": {
       "aliasTarget": {
         "id": "transition-menu-enter",
@@ -6043,6 +6701,111 @@ export const tokens = {
         ]
       }
     },
+    "motion-stagger-1": {
+      "aliasTarget": {
+        "id": "transition-stagger-1",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-motion-stagger-1-duration": "360ms",
+        "--kds-motion-stagger-1-delay": "40ms",
+        "--kds-motion-stagger-1-timing-function": "cubic-bezier(0.22, 1, 0.36, 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "motion-stagger-1",
+      "mode": "global",
+      "rawValue": "{primitive.transition.stagger-1}",
+      "sourcePath": "semantic.global.motion.stagger-1",
+      "tier": "semantic",
+      "type": "transition",
+      "value": {
+        "duration": {
+          "value": 360,
+          "unit": "ms"
+        },
+        "delay": {
+          "value": 40,
+          "unit": "ms"
+        },
+        "timingFunction": [
+          0.22,
+          1,
+          0.36,
+          1
+        ]
+      }
+    },
+    "motion-stagger-2": {
+      "aliasTarget": {
+        "id": "transition-stagger-2",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-motion-stagger-2-duration": "360ms",
+        "--kds-motion-stagger-2-delay": "80ms",
+        "--kds-motion-stagger-2-timing-function": "cubic-bezier(0.22, 1, 0.36, 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "motion-stagger-2",
+      "mode": "global",
+      "rawValue": "{primitive.transition.stagger-2}",
+      "sourcePath": "semantic.global.motion.stagger-2",
+      "tier": "semantic",
+      "type": "transition",
+      "value": {
+        "duration": {
+          "value": 360,
+          "unit": "ms"
+        },
+        "delay": {
+          "value": 80,
+          "unit": "ms"
+        },
+        "timingFunction": [
+          0.22,
+          1,
+          0.36,
+          1
+        ]
+      }
+    },
+    "motion-stagger-3": {
+      "aliasTarget": {
+        "id": "transition-stagger-3",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-motion-stagger-3-duration": "360ms",
+        "--kds-motion-stagger-3-delay": "150ms",
+        "--kds-motion-stagger-3-timing-function": "cubic-bezier(0.22, 1, 0.36, 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "motion-stagger-3",
+      "mode": "global",
+      "rawValue": "{primitive.transition.stagger-3}",
+      "sourcePath": "semantic.global.motion.stagger-3",
+      "tier": "semantic",
+      "type": "transition",
+      "value": {
+        "duration": {
+          "value": 360,
+          "unit": "ms"
+        },
+        "delay": {
+          "value": 150,
+          "unit": "ms"
+        },
+        "timingFunction": [
+          0.22,
+          1,
+          0.36,
+          1
+        ]
+      }
+    },
     "motion-tooltip-enter": {
       "aliasTarget": {
         "id": "transition-tooltip-enter",
@@ -6109,6 +6872,41 @@ export const tokens = {
           0.19,
           1,
           0.22,
+          1
+        ]
+      }
+    },
+    "motion-zoom-settle": {
+      "aliasTarget": {
+        "id": "transition-zoom-settle",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-motion-zoom-settle-duration": "680ms",
+        "--kds-motion-zoom-settle-delay": "0ms",
+        "--kds-motion-zoom-settle-timing-function": "cubic-bezier(0.22, 1, 0.36, 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "motion-zoom-settle",
+      "mode": "global",
+      "rawValue": "{primitive.transition.zoom-settle}",
+      "sourcePath": "semantic.global.motion.zoom-settle",
+      "tier": "semantic",
+      "type": "transition",
+      "value": {
+        "duration": {
+          "value": 680,
+          "unit": "ms"
+        },
+        "delay": {
+          "value": 0,
+          "unit": "ms"
+        },
+        "timingFunction": [
+          0.22,
+          1,
+          0.36,
           1
         ]
       }

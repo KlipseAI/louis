@@ -707,6 +707,15 @@
       "generated": false
     },
     {
+      "id": "decision-layout-change-motion",
+      "path": "design/governance/decisions/DS-D-0019-layout-change-motion.md",
+      "title": "DS-D-0019 크기가 상태인 컨트롤을 위해 layout-change lifecycle을 연다",
+      "section": "governance",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
+    },
+    {
       "id": "updates-overview",
       "path": "design/updates/README.md",
       "title": "Updates",
@@ -862,6 +871,7 @@
         "design/governance/decisions/DS-D-0016-loop-motion.md",
         "design/governance/decisions/DS-D-0017-keyframe-contract.md",
         "design/governance/decisions/DS-D-0018-app-shell-geometry.md",
+        "design/governance/decisions/DS-D-0019-layout-change-motion.md",
         "design/updates/README.md"
       ]
     }

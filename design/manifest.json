@@ -910,11 +910,10 @@
       "id": "select",
       "name": "Select / Dropdown",
       "maturity": "experimental",
-      "figma": "not-ready",
-      "web": "not-ready",
-      "docs": "not-ready",
-      "note": "P3 component backlog",
-      "figmaName": "Select"
+      "figma": "not-planned",
+      "web": "not-planned",
+      "docs": "not-planned",
+      "note": "**고르기는 Menu가 소유한다**(2026-08-18 판정). 제품 실측에서 네이티브 <select> 12벌이 전부 /admin 아래이고 배포 화면(Home·Highlight·Editor)에는 0벌이다 — 제품은 트리거 + 메뉴 패널로 고르며 그 파일이 11개다. DS에는 이미 ActionMenu와 CompositePopover가 있어 그 자리를 덮는다. gap registry 우선순위 1~15 어디에도 들지 않은 이유도 같다. 관리자 도구는 이 저장소의 소비 surface가 아니다. 수요가 생기면 Decision으로 이 판정을 뒤집고 다시 연다"
     },
     {
       "id": "tooltip",

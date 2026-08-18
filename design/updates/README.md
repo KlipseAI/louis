@@ -8,6 +8,34 @@ authority: normative
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
 
+## 2026-08-18 (10) — `select`를 `not-planned`로 정한다 · 카탈로그 상태가 전부 확정됐다
+
+manifest의 마지막 `not-ready` 항목을 닫았다. **고르기는 Menu가 소유한다.**
+
+### 실측이 판정을 내렸다
+
+네이티브 `<select>`가 **12벌**인데 **전부 `/admin` 아래**다 — `AdminClient` 1 ·
+`CaptionTemplateManagement` 9 · `ProductMetricsDashboard` 2. 배포 화면(Home·Highlight·Editor)에는
+**0벌**이고, 제품은 트리거 + 메뉴 패널로 고른다(11파일). DS에는 이미 `ActionMenu`와
+`CompositePopover`가 있어 그 자리를 덮는다.
+
+gap registry 우선순위 1~15 어디에도 `select`가 들지 않은 이유가 이것이었다. **관리자 도구는 이
+저장소의 소비 surface가 아니다.**
+
+수요가 생기면 Decision으로 이 판정을 뒤집고 다시 연다 — `not-planned`는 "안 만든다"가 아니라
+"계획에 없다는 것이 결정됐다"는 뜻이다.
+
+### `color-border-strong`이 폐기 후보에서 빠졌다
+
+인계서 (1a)가 "소비처 0이고 이름이 가리키는 것이 그 이름을 안 쓴다"고 분류한 넷 중 하나였는데,
+Checkbox가 첫 소비처가 되면서 이름이 뜻과 맞게 됐다 — 경계가 반드시 보여야 하는 자리다.
+넷 → **셋**.
+
+### 카탈로그 상태가 전부 확정됐다
+
+manifest component 17개 중 16개가 `partial`이고 하나가 `not-planned`다. **`not-ready`가 0개다** —
+"아직 모르겠다"로 남은 항목이 없다.
+
 ## 2026-08-18 (9) — Slider가 Figma에 섰다 · DS-F-006이 닫혔다
 
 `DS-F-006-slider` 완료. component set 17개 → **18개**이고 **네 컴포넌트가 전부 Figma에 섰다.**

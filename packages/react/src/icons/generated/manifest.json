@@ -60,6 +60,75 @@
       }
     },
     {
+      "name": "caret-down",
+      "symbol": "IconCaretDown",
+      "figmaName": "icon/caret-down",
+      "source": "packages/react/src/icons/svg/caret-down.svg",
+      "geometryHash": "07c4cb95a7bb81d8",
+      "elementCount": 1,
+      "keywords": [
+        "caret",
+        "chevron",
+        "down",
+        "expand",
+        "dropdown",
+        "아래",
+        "펼치기",
+        "드롭다운",
+        "화살표"
+      ],
+      "provenance": {
+        "origin": "original",
+        "modifications": "저장소에서 직접 그렸다. 24 격자 위의 45° 갈매기꼴 한 겹이며 stroke-width 1.5와 round cap/join은 이 세트의 다른 글리프와 같다. upstream을 베끼지 않은 이유는 출처를 대조할 수 없는 상태에서 upstream이라고 적으면 그것이 추정 출처가 되기 때문이다 — DS-D-0008 결정 3이 추정 출처를 빌드 실패로 둔다. 꼭짓점은 중심(12)에서 좌우 3, 상하 7.5로 두어 세 방향이 회전 대칭이다."
+      }
+    },
+    {
+      "name": "caret-left",
+      "symbol": "IconCaretLeft",
+      "figmaName": "icon/caret-left",
+      "source": "packages/react/src/icons/svg/caret-left.svg",
+      "geometryHash": "f27a385867531d81",
+      "elementCount": 1,
+      "keywords": [
+        "caret",
+        "chevron",
+        "left",
+        "previous",
+        "back",
+        "이전",
+        "왼쪽",
+        "화살표",
+        "갈매기"
+      ],
+      "provenance": {
+        "origin": "original",
+        "modifications": "저장소에서 직접 그렸다. 24 격자 위의 45° 갈매기꼴 한 겹이며 stroke-width 1.5와 round cap/join은 이 세트의 다른 글리프와 같다. upstream을 베끼지 않은 이유는 출처를 대조할 수 없는 상태에서 upstream이라고 적으면 그것이 추정 출처가 되기 때문이다 — DS-D-0008 결정 3이 추정 출처를 빌드 실패로 둔다. 꼭짓점은 중심(12)에서 좌우 3, 상하 7.5로 두어 세 방향이 회전 대칭이다."
+      }
+    },
+    {
+      "name": "caret-right",
+      "symbol": "IconCaretRight",
+      "figmaName": "icon/caret-right",
+      "source": "packages/react/src/icons/svg/caret-right.svg",
+      "geometryHash": "57a650b6b1a54d81",
+      "elementCount": 1,
+      "keywords": [
+        "caret",
+        "chevron",
+        "right",
+        "next",
+        "forward",
+        "다음",
+        "오른쪽",
+        "화살표",
+        "갈매기"
+      ],
+      "provenance": {
+        "origin": "original",
+        "modifications": "저장소에서 직접 그렸다. 24 격자 위의 45° 갈매기꼴 한 겹이며 stroke-width 1.5와 round cap/join은 이 세트의 다른 글리프와 같다. upstream을 베끼지 않은 이유는 출처를 대조할 수 없는 상태에서 upstream이라고 적으면 그것이 추정 출처가 되기 때문이다 — DS-D-0008 결정 3이 추정 출처를 빌드 실패로 둔다. 꼭짓점은 중심(12)에서 좌우 3, 상하 7.5로 두어 세 방향이 회전 대칭이다."
+      }
+    },
+    {
       "name": "check-circle",
       "symbol": "IconCheckCircle",
       "figmaName": "icon/check-circle",

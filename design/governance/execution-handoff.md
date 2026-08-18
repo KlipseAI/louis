@@ -231,7 +231,7 @@ Tooltip(`.app-tooltip-chrome` + `--app-tooltip-*`), Menu(`--dropdown-*`). Icon B
 | Decision | **18종** (`DS-D-0001`~`DS-D-0018`) |
 | 카탈로그 | **15/15 — 전부 섰다.** 1~11순위가 Web·Figma 모두 `partial`, 12~15순위는 Web만 `partial` |
 | manifest component | 17개. **전부 상태가 확정됐다** — 16개 `partial`, `select` `not-planned`(아래 1d) |
-| Figma | component **18개** · 변수 210개 · style 22개 |
+| Figma | component **18개** · 아이콘 **29개** · 변수 210개 · style 22개 |
 | 검증 | 브라우저 632건(두 motion context) · 토큰 게이트 canary 42종 · CSS canary 12종 · parity canary **34종** |
 
 **카탈로그가 닫혔다. 바로 다음에 할 일은 `DS-F-006`의 남은 Figma component set 넷이다** —
@@ -336,7 +336,13 @@ component인데 **gap registry 우선순위 1~15 어디에도 없다.** 실측 �
   체크박스가 갖는 쪽(1벌)은 Checkbox + 행 레이아웃이다. 행을 버튼으로 만들면서 안에 체크박스를
   넣으면 컨트롤이 중첩된다
 
-**관측 기록 — `verify-test-harness`가 한 번 간헐 실패했다(2026-08-18).** canary를 제거한 뒤
+**관측 기록 — 간헐 실패가 2026-08-18에 두 번 나왔다.** 두 번째는 `pnpm test`에서 632건 중
+1건이 실패했고 **곧바로 다시 돌리니 632건 전부 통과했다.** 실패한 테스트 이름을 잡지 못했다.
+첫 번째와 합쳐 **같은 날 두 번**이므로 일회성으로 보기 어렵다 — hosted CI를 붙이기 전에
+`--reporter=json` 등으로 실패 상세를 파일에 남기게 하고, 재현되면 그 테스트를 격리한다.
+간헐 실패는 회귀를 가린다.
+
+첫 번째 기록 — **`verify-test-harness`가 한 번 간헐 실패했다(2026-08-18).** canary를 제거한 뒤
 돌리는 post-canary suite가 실패했고, 곧바로 이어진 **세 번의 실행에서 재현되지 않았다.** 실패한
 테스트 이름은 잡지 못했다(스크립트가 요약만 출력한다). 같은 실행의 `pnpm test`는 632건 전부
 통과했다. 추측으로 원인을 적지 않는다 — 다시 보이면 스크립트가 실패 상세를 남기도록 고치는 것이
@@ -405,8 +411,9 @@ Badge의 `Label`). **모든 fill이 변수 바인딩이고 raw 값이 0이다.**
 통과). **넷이 전부 섰다(2026-08-18). `DS-F-006`이 닫혔다** — component 18개, parity canary 34종. **`DS-F-007` 카탈로그 재계수를 했다(2026-08-18) — Home이 요구한 8종 중 6종이 섰고 둘이 남았다:
 `Avatar`와 `BannerCarousel`/`HomeBannerSlide`.** 배너 캐러셀은 허브 3곳이 공유하고 아바타는 셸
 파일에 인라인이다. **화면 gap의 수(72·130·144)는 갱신하지 않았다** — 그것은 Figma에서 Home을
-실제로 다시 조립해야 나오고 아직 하지 않았다. 배너 캐러셀에는 아이콘 `caret-left`·`caret-right`·
-`caret-down`이 먼저 필요하며 셋 다 미보유다.
+실제로 다시 조립해야 나오고 아직 하지 않았다. 배너 캐러셀의 선행 조건이던 아이콘
+`caret-left`·`caret-right`·`caret-down` 셋은 **2026-08-18에 섰다**(글리프 26 → 29개, Figma
+component 26 → 29개). 남은 것은 컴포넌트 둘뿐이다.
 
 남은 Figma 작업은 `DS-F-007` 화면 재조립(Avatar·Banner 선행)과 `DS-F-008` 수동 publish다.
 

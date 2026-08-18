@@ -8,6 +8,27 @@ authority: normative
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
 
+## 2026-08-18 (12) — caret 3종 · 배너 캐러셀의 선행 조건이 풀렸다
+
+글리프 26 → **29개**, Figma 아이콘 component도 29개.
+`import { IconCaretLeft, IconCaretRight, IconCaretDown } from "@klipse-design/react/icons"`.
+
+### 저장소에서 직접 그렸다
+
+출처를 `upstream`으로 적으려면 상류 좌표를 대조해야 하는데 그럴 수 없었다. **대조하지 않고
+upstream이라 적으면 그것이 추정 출처이고, DS-D-0008 결정 3이 추정 출처를 빌드 실패로 둔다.**
+그래서 `origin: "original"`로 두고 직접 그렸다 — 24 격자 위 45° 갈매기꼴 한 겹, stroke 1.5,
+round cap/join으로 세트의 다른 글리프와 같은 선 언어를 쓴다. 꼭짓점을 중심(12)에서 좌우 3 ·
+상하 7.5로 두어 세 방향이 회전 대칭이다.
+
+`origin`은 `original`과 `upstream` 둘뿐이고 둘 다 정직한 선택지다. 모르는 것을 아는 척하는
+칸이 없다는 것이 이 provenance 계약의 값이다.
+
+### 왜 지금인가
+
+[gap registry](../../migration/figma-gap-registry.md)의 재계수가 Home의 남은 구멍을 **Avatar와
+BannerCarousel 둘**로 좁혔는데, 배너 캐러셀은 화살표 없이 세울 수 없다. 이 셋이 그 선행 조건이다.
+
 ## 2026-08-18 (11) — DS-F-007 카탈로그 재계수 · Home의 구멍이 둘 남았다
 
 `DS-F-006`이 닫혀 Figma component가 1개 → **18개**가 됐으므로 Home이 요구하는 자산을 다시 셌다.

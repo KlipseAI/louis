@@ -9,6 +9,9 @@ export type { IconComponent, IconProps, IconSize } from "../types.js";
 export type IconName =
   | "arrow-up"
   | "arrows-left-right"
+  | "caret-down"
+  | "caret-left"
+  | "caret-right"
   | "check-circle"
   | "copy"
   | "copy-check"
@@ -50,6 +53,30 @@ export function IconArrowsLeftRight(props: IconProps): JSX.Element {
       <line x1="4.5" y1="16.5" x2="19.5" y2="16.5" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
       <polyline points="7.5 10.5 4.5 7.5 7.5 4.5" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
       <line x1="19.5" y1="7.5" x2="4.5" y2="7.5" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+    </IconRoot>
+  );
+}
+
+export function IconCaretDown(props: IconProps): JSX.Element {
+  return (
+    <IconRoot {...props} name="caret-down">
+      <polyline points="19.5 9 12 16.5 4.5 9" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+    </IconRoot>
+  );
+}
+
+export function IconCaretLeft(props: IconProps): JSX.Element {
+  return (
+    <IconRoot {...props} name="caret-left">
+      <polyline points="15 19.5 7.5 12 15 4.5" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+    </IconRoot>
+  );
+}
+
+export function IconCaretRight(props: IconProps): JSX.Element {
+  return (
+    <IconRoot {...props} name="caret-right">
+      <polyline points="9 4.5 16.5 12 9 19.5" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
     </IconRoot>
   );
 }

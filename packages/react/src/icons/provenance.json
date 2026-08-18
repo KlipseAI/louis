@@ -20,6 +20,18 @@
     "retrievedAt": "2026-08-14",
     "modifications": "좌표를 256 격자에서 24 격자로 한 번 스케일(×3/32, 나머지 없이 떨어짐). stroke-width 16 → 1.5. 렌더에 기여하지 않는 배경 <rect width=\"256\" height=\"256\" fill=\"none\"/> 제거. 256px 래스터 대조에서 upstream과 픽셀 동일."
   },
+  "caret-down": {
+    "origin": "original",
+    "modifications": "저장소에서 직접 그렸다. 24 격자 위의 45° 갈매기꼴 한 겹이며 stroke-width 1.5와 round cap/join은 이 세트의 다른 글리프와 같다. upstream을 베끼지 않은 이유는 출처를 대조할 수 없는 상태에서 upstream이라고 적으면 그것이 추정 출처가 되기 때문이다 — DS-D-0008 결정 3이 추정 출처를 빌드 실패로 둔다. 꼭짓점은 중심(12)에서 좌우 3, 상하 7.5로 두어 세 방향이 회전 대칭이다."
+  },
+  "caret-left": {
+    "origin": "original",
+    "modifications": "저장소에서 직접 그렸다. 24 격자 위의 45° 갈매기꼴 한 겹이며 stroke-width 1.5와 round cap/join은 이 세트의 다른 글리프와 같다. upstream을 베끼지 않은 이유는 출처를 대조할 수 없는 상태에서 upstream이라고 적으면 그것이 추정 출처가 되기 때문이다 — DS-D-0008 결정 3이 추정 출처를 빌드 실패로 둔다. 꼭짓점은 중심(12)에서 좌우 3, 상하 7.5로 두어 세 방향이 회전 대칭이다."
+  },
+  "caret-right": {
+    "origin": "original",
+    "modifications": "저장소에서 직접 그렸다. 24 격자 위의 45° 갈매기꼴 한 겹이며 stroke-width 1.5와 round cap/join은 이 세트의 다른 글리프와 같다. upstream을 베끼지 않은 이유는 출처를 대조할 수 없는 상태에서 upstream이라고 적으면 그것이 추정 출처가 되기 때문이다 — DS-D-0008 결정 3이 추정 출처를 빌드 실패로 둔다. 꼭짓점은 중심(12)에서 좌우 3, 상하 7.5로 두어 세 방향이 회전 대칭이다."
+  },
   "check-circle": {
     "origin": "upstream",
     "project": "Phosphor Icons",

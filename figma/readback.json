@@ -5337,6 +5337,93 @@
         "화살표"
       ]
     },
+    "icon/caret-down": {
+      "width": 24,
+      "height": 24,
+      "vectors": 1,
+      "strokeWeights": [
+        1.5
+      ],
+      "strokeCaps": [
+        "ROUND"
+      ],
+      "binding": {
+        "boundStrokes": 1,
+        "rawStrokes": 0,
+        "boundFills": 0,
+        "rawFills": 0
+      },
+      "hasDescription": true,
+      "keywords": [
+        "caret",
+        "chevron",
+        "down",
+        "dropdown",
+        "expand",
+        "드롭다운",
+        "아래",
+        "펼치기",
+        "화살표"
+      ]
+    },
+    "icon/caret-left": {
+      "width": 24,
+      "height": 24,
+      "vectors": 1,
+      "strokeWeights": [
+        1.5
+      ],
+      "strokeCaps": [
+        "ROUND"
+      ],
+      "binding": {
+        "boundStrokes": 1,
+        "rawStrokes": 0,
+        "boundFills": 0,
+        "rawFills": 0
+      },
+      "hasDescription": true,
+      "keywords": [
+        "back",
+        "caret",
+        "chevron",
+        "left",
+        "previous",
+        "갈매기",
+        "왼쪽",
+        "이전",
+        "화살표"
+      ]
+    },
+    "icon/caret-right": {
+      "width": 24,
+      "height": 24,
+      "vectors": 1,
+      "strokeWeights": [
+        1.5
+      ],
+      "strokeCaps": [
+        "ROUND"
+      ],
+      "binding": {
+        "boundStrokes": 1,
+        "rawStrokes": 0,
+        "boundFills": 0,
+        "rawFills": 0
+      },
+      "hasDescription": true,
+      "keywords": [
+        "caret",
+        "chevron",
+        "forward",
+        "next",
+        "right",
+        "갈매기",
+        "다음",
+        "오른쪽",
+        "화살표"
+      ]
+    },
     "icon/check-circle": {
       "width": 24,
       "height": 24,

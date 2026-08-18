@@ -55,10 +55,11 @@ Button component set 하나와 아이콘 26개뿐"이라 적었던 상태가 바
 기본 아바타 SVG만 분리돼 있으며(133·340행), 배너 캐러셀은 **허브 3곳이 공유**한다(150·168·236·279행).
 연체 배너(`PastDueBanner`)도 카탈로그에 없는 banner/alert 계열이며 루트 레이아웃 전역이다.
 
-### 아이콘은 그대로 26개다
+### 아이콘 26개 → 29개
 
-Wave B의 `caret-left`·`caret-right`·`caret-down`(배너 화살표·드롭다운 트리거)과 `sidebar-toggle`이
-여전히 미보유다. **배너 캐러셀을 세우려면 caret 셋이 먼저 필요하다.**
+Wave B의 `caret-left`·`caret-right`·`caret-down`을 세웠다(2026-08-18) — **배너 캐러셀의 선행 조건이
+풀렸다.** `sidebar-toggle`은 여전히 미보유이고 `magic-wand`·`eye-slash`·`x-circle`은 owner 판정
+대기다.
 
 ### 다음 순서
 
@@ -228,7 +229,7 @@ inset bevel도 마찬가지다.
 | 글리프 | 쓰임 | 상태 |
 | --- | --- | --- |
 | `magic-wand` | 사이드바 "비디오 에디터" | **이관 보류됨.** −45° 회전 rect라 `transform` 없이 표현되지 않는다. 실사용처가 확인됐으므로 처분 판단이 필요하다 |
-| `caret-left` `caret-right` `caret-down` | 배너 화살표, 드롭다운 트리거 | 미보유 |
+| `caret-left` `caret-right` `caret-down` | 배너 화살표, 드롭다운 트리거 | **보유**(2026-08-18). 저장소에서 직접 그렸다 — 출처를 대조할 수 없는 상태에서 upstream이라 적으면 추정 출처가 되고 DS-D-0008이 그것을 빌드 실패로 둔다 |
 | `sidebar-toggle` | 사이드바 접기 | 미보유. 제품은 인라인 SVG |
 | 에디터 아이콘 약 24종 | 타임라인·툴바·인스펙터 | 미실측. 에디터 착수 시 별도 인벤토리 필요 |
 | `highlight-symbol` · `youtube` | 사이드바 | **브랜드/상표.** DS-D-0008 결정 5에 따라 아이콘 세트가 아니다 |

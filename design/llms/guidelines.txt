@@ -862,7 +862,7 @@ Tooltip(`.app-tooltip-chrome` + `--app-tooltip-*`), Menu(`--dropdown-*`). Icon B
 | Decision | **18종** (`DS-D-0001`~`DS-D-0018`) |
 | 카탈로그 | **15/15 — 전부 섰다.** 1~11순위가 Web·Figma 모두 `partial`, 12~15순위는 Web만 `partial` |
 | manifest component | 17개. **전부 상태가 확정됐다** — 16개 `partial`, `select` `not-planned`(아래 1d) |
-| Figma | component **18개** · 변수 210개 · style 22개 |
+| Figma | component **18개** · 아이콘 **29개** · 변수 210개 · style 22개 |
 | 검증 | 브라우저 632건(두 motion context) · 토큰 게이트 canary 42종 · CSS canary 12종 · parity canary **34종** |
 
 **카탈로그가 닫혔다. 바로 다음에 할 일은 `DS-F-006`의 남은 Figma component set 넷이다** —
@@ -967,7 +967,13 @@ component인데 **gap registry 우선순위 1~15 어디에도 없다.** 실측 �
   체크박스가 갖는 쪽(1벌)은 Checkbox + 행 레이아웃이다. 행을 버튼으로 만들면서 안에 체크박스를
   넣으면 컨트롤이 중첩된다
 
-**관측 기록 — `verify-test-harness`가 한 번 간헐 실패했다(2026-08-18).** canary를 제거한 뒤
+**관측 기록 — 간헐 실패가 2026-08-18에 두 번 나왔다.** 두 번째는 `pnpm test`에서 632건 중
+1건이 실패했고 **곧바로 다시 돌리니 632건 전부 통과했다.** 실패한 테스트 이름을 잡지 못했다.
+첫 번째와 합쳐 **같은 날 두 번**이므로 일회성으로 보기 어렵다 — hosted CI를 붙이기 전에
+`--reporter=json` 등으로 실패 상세를 파일에 남기게 하고, 재현되면 그 테스트를 격리한다.
+간헐 실패는 회귀를 가린다.
+
+첫 번째 기록 — **`verify-test-harness`가 한 번 간헐 실패했다(2026-08-18).** canary를 제거한 뒤
 돌리는 post-canary suite가 실패했고, 곧바로 이어진 **세 번의 실행에서 재현되지 않았다.** 실패한
 테스트 이름은 잡지 못했다(스크립트가 요약만 출력한다). 같은 실행의 `pnpm test`는 632건 전부
 통과했다. 추측으로 원인을 적지 않는다 — 다시 보이면 스크립트가 실패 상세를 남기도록 고치는 것이
@@ -1036,8 +1042,9 @@ Badge의 `Label`). **모든 fill이 변수 바인딩이고 raw 값이 0이다.**
 통과). **넷이 전부 섰다(2026-08-18). `DS-F-006`이 닫혔다** — component 18개, parity canary 34종. **`DS-F-007` 카탈로그 재계수를 했다(2026-08-18) — Home이 요구한 8종 중 6종이 섰고 둘이 남았다:
 `Avatar`와 `BannerCarousel`/`HomeBannerSlide`.** 배너 캐러셀은 허브 3곳이 공유하고 아바타는 셸
 파일에 인라인이다. **화면 gap의 수(72·130·144)는 갱신하지 않았다** — 그것은 Figma에서 Home을
-실제로 다시 조립해야 나오고 아직 하지 않았다. 배너 캐러셀에는 아이콘 `caret-left`·`caret-right`·
-`caret-down`이 먼저 필요하며 셋 다 미보유다.
+실제로 다시 조립해야 나오고 아직 하지 않았다. 배너 캐러셀의 선행 조건이던 아이콘
+`caret-left`·`caret-right`·`caret-down` 셋은 **2026-08-18에 섰다**(글리프 26 → 29개, Figma
+component 26 → 29개). 남은 것은 컴포넌트 둘뿐이다.
 
 남은 Figma 작업은 `DS-F-007` 화면 재조립(Avatar·Banner 선행)과 `DS-F-008` 수동 publish다.
 
@@ -5111,6 +5118,27 @@ popover에 가린다. **이 결정은 드로어를 다루지 않는다** — 드
 ### Updates
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
+
+#### 2026-08-18 (12) — caret 3종 · 배너 캐러셀의 선행 조건이 풀렸다
+
+글리프 26 → **29개**, Figma 아이콘 component도 29개.
+`import { IconCaretLeft, IconCaretRight, IconCaretDown } from "@klipse-design/react/icons"`.
+
+##### 저장소에서 직접 그렸다
+
+출처를 `upstream`으로 적으려면 상류 좌표를 대조해야 하는데 그럴 수 없었다. **대조하지 않고
+upstream이라 적으면 그것이 추정 출처이고, DS-D-0008 결정 3이 추정 출처를 빌드 실패로 둔다.**
+그래서 `origin: "original"`로 두고 직접 그렸다 — 24 격자 위 45° 갈매기꼴 한 겹, stroke 1.5,
+round cap/join으로 세트의 다른 글리프와 같은 선 언어를 쓴다. 꼭짓점을 중심(12)에서 좌우 3 ·
+상하 7.5로 두어 세 방향이 회전 대칭이다.
+
+`origin`은 `original`과 `upstream` 둘뿐이고 둘 다 정직한 선택지다. 모르는 것을 아는 척하는
+칸이 없다는 것이 이 provenance 계약의 값이다.
+
+##### 왜 지금인가
+
+[gap registry](../../migration/figma-gap-registry.md)의 재계수가 Home의 남은 구멍을 **Avatar와
+BannerCarousel 둘**로 좁혔는데, 배너 캐러셀은 화살표 없이 세울 수 없다. 이 셋이 그 선행 조건이다.
 
 #### 2026-08-18 (11) — DS-F-007 카탈로그 재계수 · Home의 구멍이 둘 남았다
 

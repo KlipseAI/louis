@@ -53,17 +53,25 @@ function wrapInLayer(layer, source) {
   return `@layer ${layer} {\n${indent(source.trimEnd())}\n}\n`;
 }
 
-function componentSources() {
-  const directory = resolve(repoRoot, SOURCE_DIRECTORY, "component");
+// component와 pattern을 함께 모은다. 이 저장소에서 pattern은 component와 **다른 권위 계층**이며
+// (design/patterns/*가 별도 정본이다) recipe도 그 구분을 따라 폴더를 나눈다. 출력 순서는
+// component 다음 pattern이다 — pattern이 component recipe를 덮어야 하는 경우가 생기면 그
+// 순서가 필요하고, 반대는 필요하지 않다.
+function directorySources(kind) {
+  const directory = resolve(repoRoot, SOURCE_DIRECTORY, kind);
   if (!existsSync(directory)) return [];
   return readdirSync(directory)
     .filter((name) => name.endsWith(".css"))
     .sort()
     .map((name) => ({
       name,
-      path: `${SOURCE_DIRECTORY}/component/${name}`,
-      source: read(`${SOURCE_DIRECTORY}/component/${name}`),
+      path: `${SOURCE_DIRECTORY}/${kind}/${name}`,
+      source: read(`${SOURCE_DIRECTORY}/${kind}/${name}`),
     }));
+}
+
+function componentSources() {
+  return [...directorySources("component"), ...directorySources("pattern")];
 }
 
 // --- 저작 규칙 검사 (DS-D-0004) -------------------------------------------------

@@ -461,8 +461,9 @@ census를 [gap registry](../../migration/figma-gap-registry.md)에 남겼다(359
    빠졌다) · ~~(1d) `select`~~(`not-planned`). 남은 셋은 전부 **새 값이나 새 토큰이 필요해
    token source를 바꾸고 Figma 재적용이 따라온다** — (1c) Skeleton 면 색 · (2b) 컨트롤
    테두리(셋 다 3:1 미달) · `layout-change` motion lifecycle
-3. **`DS-P3-008` Core local RC**와 **`DS-P3-010` 공용 Pattern fixture**. 둘 다 의존성이 충족돼
-   있고 아직 시작하지 않았다. 셸 composition·Project Grid·Loading이 여기 있다
+3. **`DS-P3-010` 공용 Pattern fixture** — **Project Grid는 섰다**(2026-08-18, `.kds-project-grid`,
+   Web `partial`). 남은 둘은 `Loading`(Skeleton에 막힘 — (1c) 면 색 판정)과 `App Shell`
+   (rail·drawer·scroll root·safe area, compact 드로어의 layer 자리도 사다리에 없다)이다
 
 **14순위 Checkbox가 섰다(2026-08-18).** 등록부의 "4 파일"에 대해 실제는 **21벌 · 5레시피 ·
 14파일**이다. 앞의 셋과 달리 **제품에 정본이 있었는데 21벌 중 2벌만 쓴다.** 이유를 제품이 스스로

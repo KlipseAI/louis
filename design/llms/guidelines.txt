@@ -1092,8 +1092,9 @@ census를 [gap registry](../../migration/figma-gap-registry.md)에 남겼다(359
    빠졌다) · ~~(1d) `select`~~(`not-planned`). 남은 셋은 전부 **새 값이나 새 토큰이 필요해
    token source를 바꾸고 Figma 재적용이 따라온다** — (1c) Skeleton 면 색 · (2b) 컨트롤
    테두리(셋 다 3:1 미달) · `layout-change` motion lifecycle
-3. **`DS-P3-008` Core local RC**와 **`DS-P3-010` 공용 Pattern fixture**. 둘 다 의존성이 충족돼
-   있고 아직 시작하지 않았다. 셸 composition·Project Grid·Loading이 여기 있다
+3. **`DS-P3-010` 공용 Pattern fixture** — **Project Grid는 섰다**(2026-08-18, `.kds-project-grid`,
+   Web `partial`). 남은 둘은 `Loading`(Skeleton에 막힘 — (1c) 면 색 판정)과 `App Shell`
+   (rail·drawer·scroll root·safe area, compact 드로어의 layer 자리도 사다리에 없다)이다
 
 **14순위 Checkbox가 섰다(2026-08-18).** 등록부의 "4 파일"에 대해 실제는 **21벌 · 5레시피 ·
 14파일**이다. 앞의 셋과 달리 **제품에 정본이 있었는데 21벌 중 2벌만 쓴다.** 이유를 제품이 스스로
@@ -5174,6 +5175,50 @@ popover에 가린다. **이 결정은 드로어를 다루지 않는다** — 드
 ### Updates
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
+
+#### 2026-08-18 (19) — Project Grid · `layout-project-card-minimum`이 소비처를 얻었다
+
+`DS-P3-010`의 세 패턴 중 하나가 섰다. 공용 recipe `.kds-project-grid` 하나이고 pattern의 Web
+상태가 `not-ready` → `partial`이다.
+
+##### viewport가 아니라 container다
+
+```css
+grid-template-columns: repeat(auto-fill, minmax(min(카드최소, 100%), 1fr));
+```
+
+`auto-fill`은 **grid 자신의 content box**로 열 수를 계산한다. 사이드바가 접혀 유효 폭이 늘면 같은
+viewport에서 열이 늘고, 좁은 패널 안에 놓이면 준다 — **media query로는 그 둘을 구분할 수 없다.**
+
+테스트가 그것을 그대로 잰다: **viewport를 바꾸지 않고 container 폭만** 바꿔 1·2·3·4·5열을
+확인한다. media query 구현이었다면 전부 같은 열 수가 나와 실패한다. 규범의 compatibility
+profile(2 / 3@720 / 4@1200 / 5@1800)은 `floor((W + gap) / (최소 + gap))`으로 환산해 대조하며,
+숫자를 손으로 적지 않고 토큰에서 유도한다.
+
+##### 1열 fallback이 공짜로 따라온다
+
+`min(최소, 100%)`가 없으면 container가 카드 최소 폭보다 좁을 때 track이 container를 넘어
+**가로 스크롤이 생긴다.** 규범이 못 박은 자리이고 테스트가 `scrollWidth ≤ clientWidth`로 잡는다.
+
+##### T-5가 해소됐다
+
+gap registry가 `layout-project-card-minimum`을 **"소비처 0 · 존재하지 않는 알고리즘을 기술하는
+토큰"**으로 분류하고 owner 판정 대기로 두었다. 그 추측이 맞았다 — **이 토큰은 카드가 아니라
+그리드의 것이었고**, Project Grid가 서면서 첫 CSS 소비처가 생겼다.
+
+인계서 (1a)의 `color-border-strong`과 같은 종류다. **"소비처가 0"은 폐기 사유가 아니라 아직
+그것을 쓸 것이 서지 않았다는 뜻일 수 있다.** 이름이 뜻과 맞는지를 먼저 본다.
+
+##### 패턴 recipe의 자리가 생겼다
+
+`packages/css/src/pattern/`을 신설하고 빌드가 `component/` 다음에 그것을 모은다. 이 저장소에서
+pattern은 component와 **다른 권위 계층**(`design/patterns/*`가 별도 정본)이라 recipe도 그 구분을
+따른다.
+
+##### 남은 둘
+
+`Loading`은 Skeleton에 막혀 있다((1c) 면 색 판정). `App Shell`은 rail·drawer·scroll root·safe
+area가 남아 있고 compact 드로어의 layer 자리도 사다리에 없다.
 
 #### 2026-08-18 (18) — release dry-run과 공개 API 표면이 게이트가 됐다
 

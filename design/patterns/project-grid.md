@@ -190,3 +190,40 @@ refetch 순서는 공용 recipe로 가져오지 않는다.
 - empty, initial loading, incremental loading, request failure를 시각·접근성 트리에서 구분한다.
 - 200% 확대와 KO/EN/JA 긴 제목에서 open target과 menu가 겹치지 않는다.
 - light/dark, 밝고 어두운 썸네일, reduced-motion에서 title/status/focus가 읽힌다.
+
+## 구현 (2026-08-18)
+
+공용 recipe는 `.kds-project-grid` 하나다.
+
+```css
+display: grid;
+gap: var(--kds-layout-project-grid-gap);
+grid-template-columns: repeat(
+  auto-fill,
+  minmax(min(var(--kds-layout-project-card-minimum), 100%), 1fr)
+);
+```
+
+**`auto-fill`이 grid 자신의 content box로 열 수를 계산한다.** 그래서 사이드바가 접혀 유효 폭이
+늘면 같은 viewport에서 열이 늘고, 좁은 패널 안에 놓이면 준다 — media query로는 그 둘을 구분할 수
+없다. 위의 compatibility profile은 container 폭으로 환산해 대조한다:
+열 수 = `floor((W + gap) / (최소 + gap))`.
+
+**`min(최소, 100%)`가 1열 fallback을 만든다.** 그것이 없으면 container가 카드 최소 폭보다 좁을 때
+track이 container를 넘어 가로 스크롤이 생긴다.
+
+이 규칙이 **`layout-project-card-minimum`의 첫 CSS 소비처**다. 그 전까지 그 토큰은 소비처가
+0이었고 gap registry가 "존재하지 않는 알고리즘을 기술하는 토큰"으로 분류해 두었다.
+
+### Acceptance tests
+
+1. 열 수가 container 폭에서 유도된다 — 1·2·3·4·5열이 각각 그 폭에서 나온다.
+2. **viewport를 바꾸지 않고 container만 줄여도** 열이 준다.
+3. 최소 폭보다 좁으면 1열로 떨어지고 **가로 스크롤이 없다.**
+4. 마지막 행이 덜 차도 모든 카드의 폭이 같다.
+5. gap이 공용 토큰이고 열 수가 달라져도 같다.
+
+### 남은 것
+
+한 행 소비처의 request limit 동기화와 resize 시 항목 보존은 **소비 제품의 데이터 흐름**이라
+`DS-P5-003`이 소유한다. 이 패턴이 소유하는 것은 열 수 계산과 fallback까지다.

@@ -158,7 +158,7 @@ Home을 실제로 다시 조립해야 나오는 숫자이고, 여기서는 근�
 | T-2 범주형 색 팔레트 | 미해소 | `color-status-*` 넷뿐. 에디터가 쓰는 sky·pink·red·mint·amber·yellow 없음 |
 | T-3 컨트롤 높이 토큰 | **부분** | `layout-control-height-md`(40) `-sm`(32) 생김. 제품은 여덟 단계이므로 나머지는 그대로 |
 | T-4 `radius-card` 20↔16 | **해소** | [DS-D-0014](../design/governance/decisions/DS-D-0014-card-radius.md)로 16px. Dialog는 `radius-card-lg`로 옮겼다 |
-| T-5 `layout-project-card-minimum` 소비처 | 미해소 | 여전히 CSS 소비처가 없다. ProjectCard는 폭을 그리드에 맡기므로 이 토큰은 Project Grid **패턴**의 것이고 그 패턴이 아직 없다 |
+| T-5 `layout-project-card-minimum` 소비처 | **해소**(2026-08-18) | Project Grid 패턴이 섰고 `.kds-project-grid`가 **첫 CSS 소비처**다. 추측이 맞았다 — 이 토큰은 카드가 아니라 그리드의 것이었다. 다만 제품이 쓰지 않는 `minmax` 알고리즘이라는 지적은 그대로다: DS는 container 기반 `auto-fill`로 가고 제품은 breakpoint 고정이며, 그 둘이 같은 결과를 내는지는 브라우저 테스트가 환산해 대조한다 |
 | T-6 라이트 팔레트 앱 셸 재정의 | 미해소 | 제품 쪽. `apps/web/components/navigation/Gnb.tsx:1962`가 `--palette-gray-100`을 `#f8f8f9`로 덮는다 |
 | T-7 0.5px hairline과 glass bevel | **부분** | 제품에서 글래스를 걷어내 베벨은 사라졌다. DS에는 여전히 spread-only 전용 elevation 토큰이 없다 — `elevation-menu`가 drop 겹과 함께 갖고 있을 뿐이다 |
 

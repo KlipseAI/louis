@@ -17,7 +17,7 @@ authority: normative
 | --- | --- | --- | --- | --- | --- |
 | [Loading](loading.md) | `beta` | `not-ready` | `not-ready` | `done` | — |
 | [App Shell](app-shell.md) | `experimental` | `not-ready` | `not-ready` | `done` | — |
-| [Project Grid](project-grid.md) | `experimental` | `not-ready` | `not-ready` | `done` | — |
+| [Project Grid](project-grid.md) | `experimental` | `not-ready` | `partial` | `done` | — |
 | [Editor Workspace](editor-workspace.md) | `experimental` | `not-ready` | `not-ready` | `done` | — |
 <!-- GENERATED:pattern-progress END -->
 <!-- prettier-ignore-end -->

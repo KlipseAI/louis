@@ -69,6 +69,20 @@ publish 이후에만 검토한다 — publish 전에는 파일 간 변수·compo
   세웠고 **전부 변수·style 바인딩이라 값이 바뀌면 문서가 따라온다.**
 - **게이트가 검사하는 것만 잘돼 있었다.** parity는 raw 값 0·변수 바인딩·기하를 34종 canary로
   지키지만 "사람이 열었을 때 쓸 수 있는가"는 아무도 검사하지 않는다. 그 부분만 비어 있었다.
+- **Components 페이지 정리(2026-08-18): 세트마다 이름과 목적문이 캔버스에 보인다.** 그 전에는
+  세트를 클릭해야만 설명이 보였고, 새로 만든 6개(TextField · SegmentedControl · Checkbox · Slider ·
+  SelectableListRow · Avatar)는 **아예 섹션 밖에 흩어져 있었다.** Forms 섹션을 만들어 입력 계열을
+  모으고, 나머지 둘은 Content로 넣었다. 섹션 순서는 Actions → Forms → Content → Overlays →
+  Feedback → Shell → Icons이며 **읽는 순서**를 따른다 — 누르는 것, 값을 넣는 것, 내용, 위에 뜨는
+  것, 알리는 것, 껍데기, 글리프
+- **라벨의 목적문은 손으로 쓰지 않는다.** `figma/component-summaries.json`이 규범 문서의 H1 다음
+  첫 문단 첫 문장을 담고 `scripts/build-figma-summaries.mjs`가 생성한다. `pnpm check`에 연결돼
+  있어 규범 문서가 바뀌면 **생성물이 어긋나 실패한다** — Figma 라벨이 조용히 낡는 경로를 닫는다.
+  이름 해석은 `build-figma-snapshot.mjs`와 같은 규칙(`figmaNames ?? figmaName`)을 쓴다
+- 이 과정에서 실측으로 드러난 것 둘: Forms 섹션이 Figma 기본 짙은 회색으로 만들어져 **검은 글자가
+  안 보였고**(나머지 6개는 흰색), Components 페이지 배경만 **순검정**이라 다른 세 페이지와 달랐다.
+  둘 다 형제에서 값을 읽어 맞췄다. 섹션은 자식을 붙여도 스스로 커지지 않아 흰 면이 내용 밖에서
+  끊겼다 — 자식 경계로 다시 크기를 잡았다
 - component library: component set 19개 · 아이콘 29개, publish 전. 최신은 SegmentedControl 2 variant(Size)이며
   선택/비선택은 variant 축이 아니라 한 variant 안의 두 자손이다 — 색만 다르고 기하가 같다
 - component parity checker: `done` — Figma variant 옵션을 코드 타입 선언과 대조하고, 선언되지 않은

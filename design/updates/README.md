@@ -8,6 +8,43 @@ authority: normative
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
 
+## 2026-08-18 (23) — Components 페이지를 정리하고 목적문을 생성물로 만든다
+
+Cover와 Foundations를 세운 뒤 Components 페이지를 열어 보니 두 가지가 더 있었다.
+
+### 새 컴포넌트 6개가 섹션 밖에 흩어져 있었다
+
+TextField · SegmentedControl · Checkbox · Slider · SelectableListRow · Avatar. 만들 때 계약(변수
+바인딩 · 기하 · variant)은 맞췄지만 **어디에 두는지는 아무도 검사하지 않아** 페이지 바닥에 그대로
+남아 있었다. Forms 섹션을 만들어 입력 계열을 모으고 나머지 둘은 Content로 넣었다.
+
+섹션 순서는 **읽는 순서**를 따른다 — Actions(누르는 것) → Forms(값을 넣는 것) → Content(내용) →
+Overlays(위에 뜨는 것) → Feedback(알리는 것) → Shell(껍데기) → Icons(글리프).
+
+### 세트를 클릭해야만 설명이 보였다
+
+이제 세트마다 **이름과 목적문 한 줄이 캔버스에 보인다.** 그런데 그 문장을 손으로 옮기면 규범
+문서가 바뀌어도 Figma가 따라오지 않는다. 그래서 옮기지 않고 **뽑는다**:
+
+`scripts/build-figma-summaries.mjs`가 각 규범 문서의 H1 다음 첫 문단 첫 문장을 모아
+`figma/component-summaries.json`을 생성하고 `pnpm check`가 어긋남을 실패로 만든다. 이름 해석은
+`build-figma-snapshot.mjs`와 같은 규칙(`figmaNames ?? figmaName`)이라 Menu처럼 Figma에서 둘로
+나뉘는 문서도 함께 실린다. 탐지력은 손으로 확인했다 — badge의 첫 문장을 한 글자 바꾸니 `--check`가
+**exit 1**로 떨어졌고 되돌리니 통과했다.
+
+옛 description은 `klipse component id: input`으로 시작해서, 그대로 실었더니 라벨에 **기계 ID가
+찍혔다.** 그것이 이 생성물을 만든 직접적인 계기다.
+
+### 실측으로 드러난 것 셋
+
+| 증상 | 원인 |
+| --- | --- |
+| Forms 섹션의 글자가 안 보였다 | Figma 기본 채움이 짙은 회색(0.267)인데 나머지 6개는 흰색이었다 |
+| 흰 면이 내용 밖에서 끊겼다 | **섹션은 자식을 붙여도 스스로 커지지 않는다** |
+| 이 페이지만 배경이 순검정 | 다른 세 페이지는 밝은 회색이었다 |
+
+셋 다 **형제에서 값을 읽어** 맞췄다. 짐작한 값을 넣지 않았다.
+
 ## 2026-08-18 (22) — Figma 파일에 Cover와 Foundations를 세운다
 
 owner 지적: **"지금 피그마에 있는것도 그지같던데."** 재보니 사실이었다.

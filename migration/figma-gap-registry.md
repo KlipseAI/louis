@@ -29,6 +29,43 @@ Figma에 있는 것은 Button component set 하나와 아이콘 26개다.
 > **위 표는 2026-08-14의 기준선이다.** 그때 Figma에는 Button 하나뿐이었다. 지금은 여덟이고
 > 토큰도 늘었다. 아래 "재측정"이 그 차이를 적는다. **72·130·144를 현재 값으로 인용하지 않는다.**
 
+## 재계수 (2026-08-18) — 카탈로그 gap이 8종 → 2종
+
+`DS-F-006`이 닫혀 Figma component가 **1개 → 18개**가 됐다. 2026-08-14 실측이 "Figma에 있던 자산은
+Button component set 하나와 아이콘 26개뿐"이라 적었던 상태가 바뀌었으므로 다시 센다.
+
+**이것은 카탈로그 gap의 재계수이지 화면 gap의 재계수가 아니다.** 72·130·144는 화면을 축 단위로
+실측한 수이고, 그 수를 갱신하려면 **Figma에서 Home을 실제로 다시 조립해야 한다.** 아직 하지
+않았다. 아래 표를 그 숫자로 인용하지 않는다.
+
+### Home이 요구한 8종 중 6종이 섰다
+
+| 요구 자산 | 2026-08-14 | 지금 |
+| --- | --- | --- |
+| Button | 있음 | 있음 |
+| ProjectCard | 없음 | **web·figma `partial`** |
+| SidebarNavItem · AppTopBar | 없음 | **web·figma `partial`**(app-shell-parts) |
+| Menu | 없음 | **web·figma `partial`** |
+| EmptyState | 없음 | **web·figma `partial`** |
+| Badge | 없음 | **web·figma `partial`** |
+| **Avatar** | 없음 | **여전히 없음** |
+| **BannerCarousel · HomeBannerSlide** | 없음 | **여전히 없음** |
+
+남은 둘의 근거는 [screen-inventory.md](screen-inventory.md)에 있다 — 아바타는 셸 파일에 인라인이고
+기본 아바타 SVG만 분리돼 있으며(133·340행), 배너 캐러셀은 **허브 3곳이 공유**한다(150·168·236·279행).
+연체 배너(`PastDueBanner`)도 카탈로그에 없는 banner/alert 계열이며 루트 레이아웃 전역이다.
+
+### 아이콘은 그대로 26개다
+
+Wave B의 `caret-left`·`caret-right`·`caret-down`(배너 화살표·드롭다운 트리거)과 `sidebar-toggle`이
+여전히 미보유다. **배너 캐러셀을 세우려면 caret 셋이 먼저 필요하다.**
+
+### 다음 순서
+
+Avatar와 Banner/Carousel 둘이 카탈로그의 다음 후보다. 등록부 우선순위 1~15에 없었던 이유는
+그 목록이 **컴포넌트 확산도**로 정렬됐기 때문이고, 화면 재조립 기준으로는 이 둘이 Home의
+마지막 구멍이다. 세우고 나서 Home을 조립하면 그때 화면 gap의 실제 수가 나온다.
+
 ## 재측정 (2026-08-16)
 
 카탈로그 1~6순위가 Web과 Figma에 모두 섰다 — IconButton · Tooltip · Toast · Menu/Popover ·

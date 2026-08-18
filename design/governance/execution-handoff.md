@@ -402,7 +402,13 @@ Badge의 `Label`). **모든 fill이 변수 바인딩이고 raw 값이 0이다.**
 **게이트를 약하게 만드는 방향은 택하지 않는다.**
 
 **착수 순서.** (1)~(3)이 끝났고 **SegmentedControl은 2026-08-18에 섰다**(component 15개, parity
-통과). **넷이 전부 섰다(2026-08-18). `DS-F-006`이 닫혔다** — component 18개, parity canary 34종. 남은 Figma 작업은 `DS-F-007` 화면 재조립 gap 재계수와 `DS-F-008` 수동 publish다.
+통과). **넷이 전부 섰다(2026-08-18). `DS-F-006`이 닫혔다** — component 18개, parity canary 34종. **`DS-F-007` 카탈로그 재계수를 했다(2026-08-18) — Home이 요구한 8종 중 6종이 섰고 둘이 남았다:
+`Avatar`와 `BannerCarousel`/`HomeBannerSlide`.** 배너 캐러셀은 허브 3곳이 공유하고 아바타는 셸
+파일에 인라인이다. **화면 gap의 수(72·130·144)는 갱신하지 않았다** — 그것은 Figma에서 Home을
+실제로 다시 조립해야 나오고 아직 하지 않았다. 배너 캐러셀에는 아이콘 `caret-left`·`caret-right`·
+`caret-down`이 먼저 필요하며 셋 다 미보유다.
+
+남은 Figma 작업은 `DS-F-007` 화면 재조립(Avatar·Banner 선행)과 `DS-F-008` 수동 publish다.
 
 **빌드 루프가 검증됐다.** 순서는 이렇다 — ① `use_figma`로 set 생성(모든 시각 속성을 변수·style에
 바인딩, raw 0) ② 되읽기 덤프 ③ `figma/readback.json`의 `components`에 **그 컴포넌트만 병합**

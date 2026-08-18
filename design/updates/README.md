@@ -8,6 +8,23 @@ authority: normative
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
 
+## 2026-08-18 (11) — DS-F-007 카탈로그 재계수 · Home의 구멍이 둘 남았다
+
+`DS-F-006`이 닫혀 Figma component가 1개 → **18개**가 됐으므로 Home이 요구하는 자산을 다시 셌다.
+
+**8종 중 6종이 섰다.** Button · ProjectCard · SidebarNavItem·AppTopBar · Menu · EmptyState · Badge.
+남은 둘은 **Avatar**와 **BannerCarousel·HomeBannerSlide**다 — 아바타는 셸 파일에 인라인이고
+기본 아바타 SVG만 분리돼 있으며, 배너 캐러셀은 **허브 3곳이 공유**한다. 연체 배너도 카탈로그에
+없는 banner/alert 계열이다.
+
+**배너 캐러셀에는 아이콘이 먼저 필요하다** — `caret-left`·`caret-right`·`caret-down` 셋이 여전히
+미보유이고 아이콘은 26개 그대로다.
+
+### 화면 gap의 수는 갱신하지 않았다
+
+72·130·144는 화면을 축 단위로 실측한 값이고, 그 수를 바꾸려면 **Figma에서 Home을 실제로 다시
+조립해야 한다.** 아직 하지 않았으므로 카탈로그 gap(8종 → 2종)만 갱신했다. 둘을 섞어 쓰지 않는다.
+
 ## 2026-08-18 (10) — `select`를 `not-planned`로 정한다 · 카탈로그 상태가 전부 확정됐다
 
 manifest의 마지막 `not-ready` 항목을 닫았다. **고르기는 Menu가 소유한다.**

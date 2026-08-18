@@ -553,7 +553,14 @@ IconButton secondary는 `color-border-default`(불투명)를 쓴다. TextField�
 들어 있고, 루트를 실제 소비자로 두어 서브패스 16개 resolve · 타입 선언 · **Node SSR 렌더** ·
 **production 번들 tree-shaking**(canary 포함)을 매 실행 확인한다. **그 전까지 테스트는 package
 self-reference로 해석돼 바깥 소비를 증명하지 못했고, 워크스페이스 패키지는 루트에 링크조차 돼
-있지 않았다.** 남은 것은 changesets 도입 · `private` 해제 · 버전 정책 · API diff와 migration note다. `DS-P3-009`
+있지 않았다.** **release dry-run과 공개 API 표면도 붙었다** — `npm pack --dry-run`으로 세 패키지의 배포 목록을
+계약과 대조하고(담길 것·금지 경로 양방향), `packages/react/api-surface.json`이 심볼 56 · 타입 89를
+고정해 사라짐은 breaking, 새로 생김은 additive로 각각 잡는다. 검출력은 실측으로 증명했다.
+
+**남은 것은 changesets 도입 · `private: true` 해제 · 버전 정책 셋이고, 지금 하지 않는다.**
+`DS-D-0006`이 `proposed`인 동안 의존성을 넣는 것은 플레이북의 spike 규칙("의존성 도입은 Decision
+승인 뒤")에 어긋나고, `private`를 푸는 것은 릴리스 흐름이 서기 전에 **실수로 publish될 수 있는
+문을 여는 일**이다. owner가 DS-D-0006을 `accepted`로 옮기면 셋을 한 변경 단위로 한다. `DS-P3-009`
 카탈로그도 열려 있고, 남은 것은 Input·Select·Empty State와 gap registry 6순위 이하다.
 
 **큐 순서를 바꾼 사실을 명시한다.** `DS-P3-009`는 문서상 `DS-P3-008` 의존이지만, Icon Button·Tooltip·

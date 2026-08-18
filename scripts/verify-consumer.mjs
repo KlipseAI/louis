@@ -14,7 +14,7 @@
 // 4번에는 canary가 붙는다. "Dialog 문자열이 없다"만 보면 탐지 자체가 죽어도 통과하므로,
 // Dialog를 실제로 쓰는 번들에서는 그 문자열이 **있어야** 한다는 반대 방향을 함께 증명한다.
 import { execFileSync } from "node:child_process";
-import { mkdtempSync, rmSync, writeFileSync, existsSync } from "node:fs";
+import { mkdtempSync, rmSync, writeFileSync, existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 
 const failures = [];
@@ -117,6 +117,60 @@ process.stdout.write(html);
   );
 } finally {
   rmSync(work, { recursive: true, force: true });
+}
+
+
+// ── release dry-run ─────────────────────────────────────────────────────────
+// 실제로 publish하지 않고 **무엇이 담기는지**만 본다. `files` 필드가 틀리면 dist가 빠진 채
+// 올라가거나 source·test가 함께 올라간다 — 둘 다 publish 뒤에야 드러나는 종류다.
+const PACK_CONTRACT = {
+  "packages/tokens": { must: ["generated/tokens.css", "generated/index.js", "generated/index.d.ts"], mustNot: ["src/", "test/", "baseline/"] },
+  "packages/css": { must: ["generated/styles.css", "generated/tokens.css", "generated/layers.css"], mustNot: ["src/", "test/"] },
+  "packages/react": { must: ["dist/index.js", "dist/index.d.ts", "THIRD-PARTY-NOTICES.md"], mustNot: ["src/", "test/", "tsconfig"] },
+};
+for (const [dir, contract] of Object.entries(PACK_CONTRACT)) {
+  let listed;
+  try {
+    const raw = execFileSync("npm", ["pack", "--dry-run", "--json"], { cwd: dir, encoding: "utf8", stdio: ["ignore", "pipe", "ignore"] });
+    listed = JSON.parse(raw)[0].files.map((f) => f.path);
+  } catch (error) {
+    failures.push(`${dir}: pack dry-run이 실패했습니다: ${String(error.message).slice(0, 200)}`);
+    continue;
+  }
+  for (const need of contract.must) {
+    if (!listed.some((f) => f === need || f.startsWith(need))) {
+      failures.push(`${dir}: 배포물에 ${need}가 없습니다.`);
+    }
+  }
+  for (const banned of contract.mustNot) {
+    const hit = listed.find((f) => f.startsWith(banned));
+    if (hit !== undefined) failures.push(`${dir}: 배포물에 들어가면 안 되는 ${hit}가 있습니다.`);
+  }
+}
+positives.push("release dry-run 3패키지 (담길 것 확인, 금지 경로 없음)");
+
+// ── 공개 API 표면 ───────────────────────────────────────────────────────────
+// 심볼이 사라지거나 이름이 바뀌면 breaking이다. 토큰 baseline과 같은 규율로 고정한다 —
+// 이 파일을 갱신하는 변경 단위에는 Updates의 migration note가 함께 있어야 한다.
+{
+  const dts = readFileSync("packages/react/dist/index.d.ts", "utf8");
+  const values = new Set(), types = new Set();
+  for (const m of dts.matchAll(/export\s+(type\s+)?\{([^}]*)\}/gs)) {
+    for (const raw of m[2].split(",")) {
+      const name = raw.trim().split(" as ").pop().trim();
+      if (name) (m[1] ? types : values).add(name);
+    }
+  }
+  const base = JSON.parse(readFileSync("packages/react/api-surface.json", "utf8"));
+  const diff = (actual, declared, label) => {
+    const removed = declared.filter((x) => !actual.has(x));
+    const added = [...actual].filter((x) => !declared.includes(x));
+    if (removed.length > 0) failures.push(`공개 ${label}이 사라졌습니다(breaking): ${removed.join(", ")}`);
+    if (added.length > 0) failures.push(`공개 ${label}이 baseline에 없습니다(additive): ${added.join(", ")} \u2014 api-surface.json을 Updates와 같은 변경 단위에서 갱신한다.`);
+  };
+  diff(values, base.values, "심볼");
+  diff(types, base.types, "타입");
+  positives.push(`공개 API 표면 대조 (심볼 ${base.values.length} \u00b7 타입 ${base.types.length})`);
 }
 
 for (const failure of failures) console.error(`[consumer] ${failure}`);

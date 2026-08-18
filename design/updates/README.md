@@ -8,6 +8,33 @@ authority: normative
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
 
+## 2026-08-18 (18) — release dry-run과 공개 API 표면이 게이트가 됐다
+
+`verify-consumer`가 넷에서 **여섯**으로 늘었다. `DS-P3-008`의 남은 완료 근거 둘이다.
+
+### release dry-run — publish하지 않고 담길 것만 본다
+
+`npm pack --dry-run`으로 세 패키지의 배포 파일 목록을 읽어 계약과 대조한다. **`files` 필드가
+틀리면 dist가 빠진 채 올라가거나 source·test가 함께 올라가는데, 둘 다 publish 뒤에야 드러난다.**
+
+담겨야 하는 것(`dist/index.js`·`.d.ts`·생성 CSS·고지문)과 담기면 안 되는 것(`src/`·`test/`·
+`tsconfig`·`baseline/`)을 양쪽으로 본다.
+
+### 공개 API 표면 baseline
+
+`packages/react/api-surface.json`에 **심볼 56 · 타입 89**를 고정하고 `dist/index.d.ts`와 매 실행
+대조한다. 심볼이 사라지면 **breaking**, 새로 생기면 **additive**로 각각 다른 문구로 실패한다.
+
+**검출력을 실측으로 증명했다** — baseline에서 `Avatar`를 빼면 additive로 잡히고, 없는 심볼을
+넣으면 breaking으로 잡힌다. 토큰 baseline과 같은 규율이라, **이 파일을 갱신하는 변경 단위에는
+Updates의 migration note가 함께 있어야 한다.**
+
+### DS-P3-008에 남은 것
+
+changesets 도입 · `private: true` 해제 · 버전 정책. **셋 다 `DS-D-0006`이 `proposed`인 동안에는
+하지 않는다** — 플레이북이 "의존성 도입은 Decision으로 승인된 뒤"로 정해 두었고, `private`를
+푸는 것은 실수로 publish될 수 있는 문을 여는 일이라 릴리스 흐름보다 먼저 오면 안 된다.
+
 ## 2026-08-18 (17) — DS-P3-008 소비자 게이트 · 테스트는 self-reference였다
 
 `pnpm verify`에 `verify-consumer`가 붙었다. **패키지가 저장소 밖에서 실제로 소비되는가**를 처음

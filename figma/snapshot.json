@@ -21,7 +21,7 @@
         "sets": 20,
         "variants": 138
       },
-      "icons": 29,
+      "icons": 31,
       "templates": 0
     }
   },
@@ -3141,6 +3141,9 @@
               ],
               "cornerRadius": [
                 999
+              ],
+              "children": [
+                1
               ]
             },
             "ArrowNext": {
@@ -3152,6 +3155,9 @@
               ],
               "cornerRadius": [
                 999
+              ],
+              "children": [
+                1
               ]
             },
             "DotActive": {
@@ -3185,6 +3191,9 @@
               ],
               "cornerRadius": [
                 999
+              ],
+              "children": [
+                1
               ]
             }
           },
@@ -3245,6 +3254,9 @@
               ],
               "cornerRadius": [
                 999
+              ],
+              "children": [
+                1
               ]
             },
             "ArrowNext": {
@@ -3256,6 +3268,9 @@
               ],
               "cornerRadius": [
                 999
+              ],
+              "children": [
+                1
               ]
             },
             "DotActive": {
@@ -3289,6 +3304,9 @@
               ],
               "cornerRadius": [
                 999
+              ],
+              "children": [
+                1
               ]
             }
           },
@@ -5873,6 +5891,59 @@
         "오디오",
         "음악",
         "음표"
+      ]
+    },
+    "pause": {
+      "figmaName": "icon/pause",
+      "width": 24,
+      "height": 24,
+      "vectors": 2,
+      "strokeWeights": [
+        1.5
+      ],
+      "strokeCaps": [
+        "ROUND"
+      ],
+      "binding": {
+        "boundStrokes": 2,
+        "rawStrokes": 0,
+        "boundFills": 0,
+        "rawFills": 0
+      },
+      "hasDescription": true,
+      "keywords": [
+        "hold",
+        "pause",
+        "stop",
+        "멈춤",
+        "일시정지",
+        "정지"
+      ]
+    },
+    "play": {
+      "figmaName": "icon/play",
+      "width": 24,
+      "height": 24,
+      "vectors": 1,
+      "strokeWeights": [
+        1.5
+      ],
+      "strokeCaps": [
+        "ROUND"
+      ],
+      "binding": {
+        "boundStrokes": 1,
+        "rawStrokes": 0,
+        "boundFills": 0,
+        "rawFills": 0
+      },
+      "hasDescription": true,
+      "keywords": [
+        "play",
+        "resume",
+        "start",
+        "시작",
+        "재생"
       ]
     },
     "plus": {

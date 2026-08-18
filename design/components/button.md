@@ -29,8 +29,18 @@ import { Button } from "@klipse-design/react";
 <Button variant="danger">삭제</Button>
 ```
 
-소비자는 `@klipse-design/css`의 `layers.css`를 root layout 최상단에서 먼저 import하고
-`styles.css`(또는 Tailwind 사용 시 `styles.layer.css`)를 함께 불러온다.
+소비자는 `@klipse-design/css`를 **세 줄로** 불러온다. 순서가 계약이다 —
+자세한 이유와 Tailwind 사용 시의 순서는
+[`packages/css/README.md`](../../packages/css/README.md)가 소유한다.
+
+```ts
+import "@klipse-design/css/layers.css";
+import "@klipse-design/css/tokens.css";
+import "@klipse-design/css/styles.css";
+```
+
+**`tokens.css`를 빼면 오류 없이 색·간격·반경이 전부 무효값이 된다.** `styles.css`에는 `--kds-*`
+정의가 없고 `var(--kds-*)` 참조만 있으며, 생성물끼리 `@import`하지 않는다.
 
 링크 이동이 목적이면 클릭으로 navigation을 흉내 내지 말고 Link primitive를 사용한다.
 

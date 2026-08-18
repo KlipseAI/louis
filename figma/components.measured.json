@@ -980,7 +980,8 @@
           "dotRestWidth": 7,
           "dotHeight": 7,
           "dotRadius": 999,
-          "radius": 16
+          "radius": 16,
+          "controlGlyphCount": 1
         },
         "full": {
           "width": 960,
@@ -999,10 +1000,12 @@
           "dotRestWidth": 7,
           "dotHeight": 7,
           "dotRadius": 999,
-          "radius": 0
+          "radius": 0,
+          "controlGlyphCount": 1
         }
       },
-      "$pause": "정지 버튼이 컨트롤 안에 있다. **제품에는 없다** — 자동으로 움직이는 것은 멈출 수 있어야 하고(WCAG 2.2.2), 이 저장소는 제품의 과거 UI 부채를 공용 규범으로 복사하지 않는다. 그래서 컨트롤 폭이 제품보다 36px 넓다(28 버튼 + 8 간격)."
+      "$pause": "정지 버튼이 컨트롤 안에 있다. **제품에는 없다** — 자동으로 움직이는 것은 멈출 수 있어야 하고(WCAG 2.2.2), 이 저장소는 제품의 과거 UI 부채를 공용 규범으로 복사하지 않는다. 그래서 컨트롤 폭이 제품보다 36px 넓다(28 버튼 + 8 간격).",
+      "$glyphs": "화살표 둘과 정지 토글에 각각 글리프가 **하나씩** 있어야 한다. 빈 프레임이면 눈으로만 보이고 게이트는 못 본다 — 실제로 4 variant × 3 부품이 비어 있었고 실무 감사가 잡았다."
     }
   },
   "$states": "variant × state마다 **어느 토큰을 무는가**. 개수가 아니라 정체를 고정한다. 이 표가 없던 동안 primary 배경을 danger 변수에 물려도 boundFills 수치가 그대로라 게이트가 통과했다. 값은 token id이며 Figma 변수 이름으로의 변환은 게이트가 생성 proposal의 figmaName으로 한다 — 여기에 Figma 이름을 적으면 정본이 둘이 된다. 코드 쪽 검증은 packages/react/test/component-states.browser.test.tsx가 계산값과 대조한다.",

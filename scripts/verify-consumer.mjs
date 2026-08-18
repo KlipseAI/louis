@@ -58,6 +58,41 @@ positives.push("공개 진입점의 타입 선언이 존재함");
 // 아무것도 재현하지 못하게 된다.
 const work = mkdtempSync(join(process.cwd(), ".kds-consumer-"));
 try {
+  // **import 순서 안내가 완전한지 본다.**
+  // styles.css는 토큰을 정의하지 않고 생성물끼리 @import하지도 않는다. 그래서 tokens.css를
+  // 빼면 오류 없이 색·간격·반경이 전부 무효값이 된다 — 실패가 조용해서 사람이 못 잡는다.
+  // 규범이 styles.css import를 안내하면서 tokens.css를 빼먹은 적이 있다(2026-08-18).
+  {
+    const stylesCss = readFileSync(join(process.cwd(), "packages/css/generated/styles.css"), "utf8");
+    if (/:root\s*\{/.test(stylesCss)) {
+      failures.push(
+        "styles.css에 :root 블록이 생겼습니다. 이 검사의 전제(토큰은 tokens.css에만 있다)가 깨졌으니 게이트를 다시 쓰세요.",
+      );
+    }
+    const guides = [
+      "packages/css/README.md",
+      "packages/react/README.md",
+      "design/components/button.md",
+      "design/governance/decisions/DS-D-0004-css-authoring.md",
+    ];
+    for (const guide of guides) {
+      let text;
+      try {
+        text = readFileSync(join(process.cwd(), guide), "utf8");
+      } catch {
+        continue;
+      }
+      const mentionsStyles = /styles(\.layer)?\.css/.test(text);
+      const mentionsTokens = /tokens\.css/.test(text);
+      if (mentionsStyles && !mentionsTokens) {
+        failures.push(
+          `${guide}: styles.css import를 안내하면서 tokens.css를 빠뜨렸습니다. 그대로 따르면 토큰이 하나도 정의되지 않습니다.`,
+        );
+      }
+    }
+    positives.push("CSS import 안내 " + guides.length + "곳이 tokens.css를 함께 적음");
+  }
+
   // SSR. Node에는 window가 없으므로 import/렌더 시점에 브라우저 API를 만지면 여기서 죽는다.
   const ssrEntry = join(work, "ssr.mjs");
   writeFileSync(

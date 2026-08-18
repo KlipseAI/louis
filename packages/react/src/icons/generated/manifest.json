@@ -576,6 +576,45 @@
       }
     },
     {
+      "name": "pause",
+      "symbol": "IconPause",
+      "figmaName": "icon/pause",
+      "source": "packages/react/src/icons/svg/pause.svg",
+      "geometryHash": "6c5e04c22c1ddd24",
+      "elementCount": 2,
+      "keywords": [
+        "정지",
+        "일시정지",
+        "멈춤",
+        "pause",
+        "stop",
+        "hold"
+      ],
+      "provenance": {
+        "origin": "original",
+        "modifications": "저장소에서 직접 그렸다. 24 격자 위의 세로 막대 두 겹이며 stroke-width 1.5와 round join은 이 세트의 다른 글리프와 같다. 폭 3.75 · 높이 15 · 간격 1.5는 중심(12)에 대해 좌우 대칭이고, 반경 1.125는 폭의 30%로 caret 계열의 cap 곡률과 눈으로 맞춘 값이다. upstream을 베끼지 않은 이유는 출처를 대조할 수 없는 상태에서 upstream이라고 적으면 그것이 추정 출처가 되기 때문이다 — DS-D-0008 결정 3."
+      }
+    },
+    {
+      "name": "play",
+      "symbol": "IconPlay",
+      "figmaName": "icon/play",
+      "source": "packages/react/src/icons/svg/play.svg",
+      "geometryHash": "edaaa8d7c6dd5e36",
+      "elementCount": 1,
+      "keywords": [
+        "재생",
+        "시작",
+        "play",
+        "start",
+        "resume"
+      ],
+      "provenance": {
+        "origin": "original",
+        "modifications": "저장소에서 직접 그렸다. pause와 짝이며 같은 세로 범위(4.5~19.5)를 차지해 두 상태를 오갈 때 글리프 높이가 변하지 않는다. 꼭짓점은 좌변 x=7.5, 우측 정점 x=19.5로 두어 시각 무게 중심이 중앙에 오게 했다 — 기하 중심을 그대로 쓰면 왼쪽으로 치우쳐 보인다. DS-D-0008 결정 3에 따라 출처를 대조할 수 없는 upstream 주장을 하지 않는다."
+      }
+    },
+    {
       "name": "plus",
       "symbol": "IconPlus",
       "figmaName": "icon/plus",

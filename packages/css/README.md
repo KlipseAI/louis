@@ -8,6 +8,23 @@
 Token CSS의 source와 generator는 `@klipse-design/tokens`가 P2부터 소유한다. 이 package는 그 결과를
 **그대로 재export**할 뿐 같은 token CSS를 다시 생성하거나 별도 정본을 만들지 않는다.
 
+## 최소 import
+
+순서가 계약이다. **세 줄을 그대로 복사한다.**
+
+```ts
+import "@klipse-design/css/layers.css";
+import "@klipse-design/css/tokens.css";
+import "@klipse-design/css/styles.css";
+```
+
+Tailwind를 쓰면 셋째 줄을 `styles.layer.css`로 바꾸고, `theme.css`를 **제품의 Tailwind 진입 CSS
+뒤에** 둔다([DS-D-0020](../../design/governance/decisions/DS-D-0020-tailwind-load-order.md)).
+
+**`tokens.css`를 빼면 아무 오류 없이 색·간격·반경이 전부 무효값이 된다.** `styles.css`에는 semantic
+토큰 정의가 없고 `var(--kds-*)` 참조만 있으며, 생성 CSS끼리는 `@import`하지 않는다. 브라우저는
+정의되지 않은 custom property를 만나면 조용히 초기값으로 떨어뜨린다.
+
 ## 배포 파일
 
 | 서브패스 | 내용 |

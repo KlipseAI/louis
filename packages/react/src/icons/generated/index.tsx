@@ -29,6 +29,8 @@ export type IconName =
   | "magnifying-glass"
   | "monitor-arrow-up"
   | "music-notes-simple"
+  | "pause"
+  | "play"
   | "plus"
   | "text"
   | "trash-simple"
@@ -249,6 +251,23 @@ export function IconMusicNotesSimple(props: IconProps): JSX.Element {
       <circle cx="16.875" cy="15.375" r="2.625" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
       <circle cx="4.875" cy="18.375" r="2.625" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
       <polyline points="7.5 18.375 7.5 5.25 19.5 2.25 19.5 15.375" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+    </IconRoot>
+  );
+}
+
+export function IconPause(props: IconProps): JSX.Element {
+  return (
+    <IconRoot {...props} name="pause">
+      <rect rx="1.125" x="7.5" y="4.5" width="3.75" height="15" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
+      <rect rx="1.125" x="12.75" y="4.5" width="3.75" height="15" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
+    </IconRoot>
+  );
+}
+
+export function IconPlay(props: IconProps): JSX.Element {
+  return (
+    <IconRoot {...props} name="play">
+      <path d="M7.5 4.5 19.5 12 7.5 19.5Z" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
     </IconRoot>
   );
 }

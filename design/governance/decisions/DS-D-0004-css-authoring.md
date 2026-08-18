@@ -87,7 +87,7 @@ CSS가 끼면 원인 격리가 느려진다.
 - 게이트 2개가 추가된다: 배포 CSS의 `!important`·전역 선택자·z-index 리터럴 부재 검사, layered와
   unlayered의 규칙 수 일치 검사. 인계서 DS-P3-003 완료 근거가 명시적으로 요구하는 검사이므로 억제
   원칙에 부합한다.
-- 소비자 부담은 `layers.css` import 한 줄이다.
+- 소비자 부담은 import **세 줄**이다(`layers.css` → `tokens.css` → `styles.css`). 처음에는 "한 줄"이라고 적었는데 **틀렸다** — `styles.css`는 토큰을 정의하지 않고 `@import`하지도 않아, `tokens.css`를 빼면 오류 없이 전부 무효값이 된다.
 - `@layer`는 Baseline widely available이라 하한 판정에 걸리지 않는다.
 
 ### 규범 충족 근거

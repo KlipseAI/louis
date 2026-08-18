@@ -17,7 +17,7 @@ master-detail의 좌측 열에서 하나를 고른다.
 | Surface       | 상태           | 근거                                                                                 |
 | ------------- | -------------- | ------------------------------------------------------------------------------------ |
 | Web           | `partial`      | public export와 실브라우저 acceptance test 12건이 두 motion context에서 각각 돈다; visual regression, Figma component와 제품 소비 증거 없음 |
-| Figma         | `not-ready`    | component set이 아직 없다. DS-F-006-selectable-list-row가 소유한다                    |
+| Figma         | `partial`      | component set 3 variant(State). parity 게이트가 Marker·Text·Title·Meta·Media·Trailing을 자손으로 대조하며 raw fill 0이다. publish는 DS-F-008 |
 | Documentation | `done`         | 이 문서                                                                              |
 | Maturity      | `experimental` | 규범과 구현이 같은 변경 단위에서 처음 선다                                           |
 
@@ -164,6 +164,9 @@ master-detail의 좌측 열에서 하나를 고른다.
 - **제품의 반응형 전환을 옮기지 않았다.** 하이라이트의 행은 900px 이하에서 220px 세로 카드로
   바뀌는데, 그것은 행이 아니라 **다른 컴포넌트로의 전환**이라 패턴이 소유할 문제다.
 - **선택 표식 3px에 토큰이 없다.** 소비처가 하나뿐이라 승격하지 않았다.
+- **Figma의 State는 코드에 없는 축이다.** 코드에서 `selected`는 boolean prop이고 `disabled`는
+  `<button>`의 네이티브 속성인데, Figma에는 boolean 상태의 시각 표현이 없어 variant로 둔다.
+  parity 계약이 그 사유와 함께 `figmaOnlyProperties`로 선언한다.
 
 ## Acceptance tests
 

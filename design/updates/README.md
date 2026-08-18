@@ -8,6 +8,23 @@ authority: normative
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
 
+## 2026-08-18 (7) — SelectableListRow가 Figma에 섰다
+
+`DS-F-006-selectable-list-row` 완료. Figma component set 15개 → **16개**.
+
+**선택 표식이 계약이 됐다.** parity 게이트가 `Marker`의 폭 3px을 대조하므로, 누군가 "면이 있으니
+표식은 없어도 된다"고 지우면 게이트가 잡는다 — 다크에서 `background-inset`이 `surface`와 같은
+색이라 표면 위 목록에서 선택이 통째로 사라지는 자리다.
+
+`State`(Default·Selected·Disabled)는 **코드에 없는 축**이다. 코드에서 `selected`는 boolean prop이고
+`disabled`는 `<button>`의 네이티브 속성인데 Figma에는 boolean 상태의 시각 표현이 없다. Button이
+Hover/Active를 variant로 두는 것과 같은 처리이며 `figmaOnlyProperties`가 사유와 함께 선언한다.
+
+**빌드에서 잡은 결함 하나.** `figma.createAutoLayout`이 만든 프레임에 **기본 흰 면이 남아** 선택된
+행(회색) 위에서 글자 묶음이 흰 상자로 드러났다. 스크린샷으로 보고 지웠다 — 되읽기의 `rawFills`는
+0이었으므로 게이트로는 잡히지 않는 종류다(변수에 묶이지 않은 것이 아니라 **있으면 안 되는 면**이
+있었다).
+
 ## 2026-08-18 (6) — SegmentedControl이 Figma에 섰다
 
 `DS-F-006-segmented-control` 완료. Figma component set 14개 → **15개**이고 `segmented-control`의

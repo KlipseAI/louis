@@ -4826,6 +4826,113 @@
         ]
       },
       "effects": {}
+    },
+    "SelectableListRow": {
+      "variantCount": 3,
+      "hasDescription": true,
+      "properties": {
+        "State": {
+          "type": "VARIANT",
+          "options": [
+            "Default",
+            "Selected",
+            "Disabled"
+          ]
+        }
+      },
+      "binding": {
+        "boundFills": 14,
+        "rawFills": 0,
+        "boundStrokes": 0,
+        "rawStrokes": 0,
+        "textStyled": 9,
+        "textUnstyled": 0
+      },
+      "geometry": {
+        "base": {
+          "slots": {},
+          "parts": {
+            "Media": {
+              "width": [
+                96
+              ]
+            },
+            "Text": {
+              "width": [
+                186
+              ],
+              "height": [
+                43
+              ],
+              "itemSpacing": [
+                4
+              ]
+            },
+            "Title": {
+              "width": [
+                186
+              ],
+              "height": [
+                21
+              ],
+              "fontSize": [
+                14
+              ]
+            },
+            "Meta": {
+              "width": [
+                186
+              ],
+              "height": [
+                18
+              ],
+              "fontSize": [
+                12
+              ]
+            },
+            "Trailing": {
+              "width": [
+                6
+              ],
+              "height": [
+                18
+              ],
+              "fontSize": [
+                12
+              ]
+            },
+            "Marker": {
+              "width": [
+                3
+              ]
+            }
+          },
+          "strokeWeight": [],
+          "paddingBlock": [
+            8
+          ],
+          "paddingBlockEnd": [
+            8
+          ],
+          "paddingInline": [
+            8
+          ],
+          "paddingInlineEnd": [
+            8
+          ],
+          "itemSpacing": [
+            8
+          ],
+          "cornerRadius": [
+            10
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ]
+        }
+      },
+      "strokes": {},
+      "effects": {}
     }
   },
   "icons": {

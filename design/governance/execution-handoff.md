@@ -231,7 +231,7 @@ Tooltip(`.app-tooltip-chrome` + `--app-tooltip-*`), Menu(`--dropdown-*`). Icon B
 | Decision | **18종** (`DS-D-0001`~`DS-D-0018`) |
 | 카탈로그 | **15/15 — 전부 섰다.** 1~11순위가 Web·Figma 모두 `partial`, 12~15순위는 Web만 `partial` |
 | manifest component | 17개. `select`만 `not-ready`(아래 1d). 12~15순위 넷은 Figma가 `not-ready` |
-| Figma | component **15개** · 변수 210개 · style 22개 |
+| Figma | component **16개** · 변수 210개 · style 22개 |
 | 검증 | 브라우저 632건(두 motion context) · 토큰 게이트 canary 42종 · CSS canary 12종 · parity canary 33종 |
 
 **카탈로그가 닫혔다. 바로 다음에 할 일은 `DS-F-006`의 남은 Figma component set 넷이다** —
@@ -393,7 +393,7 @@ Badge의 `Label`). **모든 fill이 변수 바인딩이고 raw 값이 0이다.**
 **게이트를 약하게 만드는 방향은 택하지 않는다.**
 
 **착수 순서.** (1)~(3)이 끝났고 **SegmentedControl은 2026-08-18에 섰다**(component 15개, parity
-통과). 남은 셋은 Slider(복합 키 canary와 같은 단위) · Checkbox · SelectableListRow다.
+통과). 남은 둘은 **Slider**(복합 키 canary와 같은 단위) · **Checkbox**다. SelectableListRow는 2026-08-18에 섰다(component 16개).
 
 **빌드 루프가 검증됐다.** 순서는 이렇다 — ① `use_figma`로 set 생성(모든 시각 속성을 변수·style에
 바인딩, raw 0) ② 되읽기 덤프 ③ `figma/readback.json`의 `components`에 **그 컴포넌트만 병합**
@@ -1127,7 +1127,7 @@ description에 기록했다. parity 게이트가 style 10종까지 검증하므�
 | `DS-F-006-slider` | `partial` | `not-ready` | 12 |
 | `DS-F-006-segmented-control` | `partial` | **`partial`** | 13 |
 | `DS-F-006-checkbox` | `partial` | `not-ready` | 14 |
-| `DS-F-006-selectable-list-row` | `partial` | `not-ready` | 15 |
+| `DS-F-006-selectable-list-row` | `partial` | **`partial`** | 15 |
 
 여섯 중 다섯이 코드만 서 있고 Figma에 없다. DS-F-007-home 실측이 이 격차를 숫자로 확인했다 —
 재조립이 요구한 자산 대부분이 Figma에 존재하지 않아 gap 72건이 나왔다. 목표 B의 병목은 여기다.

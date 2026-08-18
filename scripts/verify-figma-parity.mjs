@@ -475,6 +475,48 @@ const COMPONENT_CONTRACTS = [
     },
   },
   {
+    id: "selectable-list-row",
+    figmaName: "SelectableListRow",
+    declaration: "packages/react/dist/selectable-list-row/selectable-list-row.d.ts",
+    // 코드에 union 축이 없다. 선택은 boolean prop이고 Figma에는 그 표현이 없어 variant로 둔다.
+    variantProperties: {},
+    figmaOnlyProperties: {
+      State: {
+        options: ["Default", "Selected", "Disabled"],
+        reason:
+          "코드에서 selected는 boolean prop이고 disabled는 <button>의 네이티브 속성이다. Figma에는 boolean 상태의 시각 표현이 없어 variant로 둔다. Default와 Selected를 가르는 것은 면과 선행 표식이며 그 계약은 아래 parts의 Marker가 갖는다.",
+      },
+    },
+    strokes: {},
+    effects: {},
+    geometry: {
+      measuredId: "selectable-list-row",
+      sizeKey: "base",
+      fields: {
+        paddingBlock: "padding",
+        paddingBlockEnd: "padding",
+        paddingInline: "padding",
+        paddingInlineEnd: "padding",
+        itemSpacing: "gap",
+        cornerRadius: "radius",
+        layoutMode: { literal: "HORIZONTAL" },
+      },
+      slots: {},
+      extraStrokeWeights: [],
+      parts: {
+        // **선택 표식이 계약이다.** 다크에서 background-inset이 surface와 같은 색이라 면 하나에
+        // 기대면 표면 위 목록에서 선택이 사라진다. 폭이 0이 되거나 사라지면 여기서 걸린다.
+        Marker: { fields: { width: "markerInline" } },
+        Text: { fields: { itemSpacing: "textGap" } },
+        Title: { fields: { fontSize: "titleFontSize" } },
+        Meta: { fields: { fontSize: "metaFontSize" } },
+        // 선행 슬롯과 후행 슬롯의 크기는 호출부가 정한다. 존재만 계약이다.
+        Media: { fields: {} },
+        Trailing: { fields: {} },
+      },
+    },
+  },
+  {
     id: "badge",
     figmaName: "Badge",
     declaration: "packages/react/dist/badge/badge.d.ts",

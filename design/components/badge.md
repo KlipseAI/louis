@@ -2,6 +2,7 @@
 id: badge
 status: experimental
 authority: normative
+summary: 상태나 분류를 한 조각의 라벨로 붙입니다.
 ---
 
 # Badge

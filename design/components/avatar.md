@@ -2,6 +2,7 @@
 id: avatar
 status: experimental
 authority: normative
+summary: 사람을 나타내는 작은 원형 표식입니다.
 ---
 
 # Avatar

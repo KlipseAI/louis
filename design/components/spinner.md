@@ -2,6 +2,7 @@
 id: spinner
 status: experimental
 authority: normative
+summary: 끝나는 시점을 모르는 작업이 진행 중임을 알립니다.
 ---
 
 # Spinner

@@ -2,6 +2,7 @@
 id: dialog
 status: experimental
 authority: normative
+summary: 결정을 받거나 짧은 작업을 마칠 때 맥락 위에 띄우는 창입니다.
 ---
 
 # Dialog / Modal

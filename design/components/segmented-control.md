@@ -2,6 +2,7 @@
 id: segmented-control
 status: experimental
 authority: normative
+summary: 한 줄에 놓인 두셋 중 하나를 고릅니다.
 ---
 
 # Segmented Control

@@ -2,6 +2,7 @@
 id: empty-state
 status: experimental
 authority: normative
+summary: 보여 줄 것이 없을 때 그 사실과 다음 행동을 안내합니다.
 ---
 
 # Empty State

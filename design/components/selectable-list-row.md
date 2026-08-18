@@ -2,6 +2,7 @@
 id: selectable-list-row
 status: experimental
 authority: normative
+summary: 목록에서 하나를 골라 오른쪽 내용을 바꿉니다.
 ---
 
 # Selectable List Row

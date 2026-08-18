@@ -2,6 +2,7 @@
 id: checkbox
 status: experimental
 authority: normative
+summary: 켜짐과 꺼짐을 독립적으로 고릅니다.
 ---
 
 # Checkbox

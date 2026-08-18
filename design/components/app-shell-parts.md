@@ -2,6 +2,7 @@
 id: app-shell-parts
 status: experimental
 authority: normative
+summary: 앱 셸을 이루는 사이드바 행과 상단 바입니다.
 ---
 
 # Sidebar Nav Item · App Top Bar

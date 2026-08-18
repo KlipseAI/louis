@@ -62,7 +62,9 @@ if (checkOnly) {
 
 reportAndExit();
 
-// H1 다음 첫 문단의 첫 문장. 목록·표·인용은 문단이 아니므로 건너뛴다.
+// frontmatter의 `summary`가 있으면 그것을 쓴다. 규범 본문은 "~한다"체인데, 사람이 보는
+// 표면(Figma 캔버스)에는 SEED의 상세 페이지처럼 **존댓말 한 문장**이 맞다. 없으면 H1 다음 첫
+// 문단의 첫 문장으로 물러난다 — 어느 쪽이든 **문서가 원천이고 여기서 짓지 않는다.**
 function purposeSentence(entry) {
   let source;
   try {
@@ -71,6 +73,10 @@ function purposeSentence(entry) {
     errors.push("규범 문서를 읽을 수 없습니다: " + entry.doc);
     return undefined;
   }
+  const frontmatter = source.match(/^---\n([\s\S]*?)\n---\n/);
+  const summary = frontmatter?.[1].match(/^summary:\s*(.+)$/m);
+  if (summary) return summary[1].trim();
+
   const body = source.replace(/^---\n[\s\S]*?\n---\n/, "");
   const heading = body.indexOf("\n# ");
   const afterHeading = body.slice(

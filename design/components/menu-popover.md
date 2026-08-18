@@ -2,6 +2,7 @@
 id: menu-popover
 status: experimental
 authority: normative
+summary: 트리거 옆에서 액션 목록이나 설정을 펼쳐 보여 줍니다.
 ---
 
 # Menu / Popover

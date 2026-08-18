@@ -2,6 +2,7 @@
 id: input
 status: experimental
 authority: normative
+summary: 한 줄 텍스트를 입력받습니다.
 ---
 
 # Text Field

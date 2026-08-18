@@ -2,6 +2,7 @@
 id: icon-button
 status: experimental
 authority: normative
+summary: 아이콘 하나로 뜻이 분명할 때 라벨 없이 액션을 담습니다.
 ---
 
 # Icon Button

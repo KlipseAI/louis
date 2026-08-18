@@ -2,6 +2,7 @@
 id: banner-carousel
 status: experimental
 authority: normative
+summary: 허브 화면 맨 위에서 사진 배너를 돌려 보여 줍니다.
 ---
 
 # Banner Carousel

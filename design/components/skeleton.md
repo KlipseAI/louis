@@ -2,6 +2,7 @@
 id: skeleton
 status: experimental
 authority: normative
+summary: 아직 오지 않은 내용의 자리를 지킵니다.
 ---
 
 # Skeleton

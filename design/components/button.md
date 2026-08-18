@@ -2,6 +2,7 @@
 id: button
 status: experimental
 authority: normative
+summary: 사용자가 바로 실행할 수 있는 액션을 표현합니다.
 ---
 
 # Button

@@ -2,6 +2,7 @@
 id: toast
 status: experimental
 authority: normative
+summary: 방금 한 일의 결과를 짧게 알리고 스스로 사라집니다.
 ---
 
 # Toast

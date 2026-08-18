@@ -2,6 +2,7 @@
 id: slider
 status: experimental
 authority: normative
+summary: 정해진 범위 안에서 값 하나를 고릅니다.
 ---
 
 # Slider

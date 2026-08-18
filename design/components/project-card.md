@@ -2,6 +2,7 @@
 id: project-card
 status: experimental
 authority: normative
+summary: 프로젝트를 썸네일과 제목으로 보여 주고, 눌러서 엽니다.
 ---
 
 # Project Card

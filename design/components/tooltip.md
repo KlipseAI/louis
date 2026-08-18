@@ -2,6 +2,7 @@
 id: tooltip
 status: experimental
 authority: normative
+summary: 포인터나 초점이 머무를 때 짧은 설명을 덧붙입니다.
 ---
 
 # Tooltip

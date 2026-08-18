@@ -16,6 +16,94 @@ DS-F-007의 산출물이다. 배포 화면을 Klipse Design의 component·변수
 
 ---
 
+## 배포본 재분해 (2026-08-18) — 낡은 인벤토리의 수를 폐기한다
+
+`migration/screen-inventory.md`는 `sniperfactory-official/klipse`의 `louis`(2026-08-04, dirty)를
+읽고 만든 것이고, 그 문서 스스로 **"브라우저 실측 렌더를 하지 않았다"**고 적어 두었다.
+배포본 `KlipseAI/klipse-web` `origin/main` 7e9c3b69에서 8화면을 다시 분해했다.
+
+| 단계 | 수 |
+| --- | ---: |
+| 분해된 구성요소 | **393** |
+| 카탈로그로 조립 불가로 1차 판정 | **227** |
+| **그중 반증 검증을 실제로 거친 것** | **64** |
+| 반증으로 뒤집힌 것 | 8 |
+| 확정 미등록 | 56 |
+| 중복 제거 후 고유 종류 | **49** |
+
+### 상한을 명시한다 — 163건은 검증되지 않았다
+
+반증 단계에 **화면당 8건**의 상한을 걸었다(8화면 × 8 = 64). 따라서 227건 중 **163건은
+아무도 반증을 시도하지 않았다.** 위의 49라는 수는 *"검증을 거친 64건에서 나온 고유
+종류"*이지 전체 gap의 크기가 아니다. 검증 비율이 28%이고, 검증된 것 중 **12.5%가
+뒤집혔다**는 점을 감안하면 나머지 163건에도 비슷한 비율의 오판이 섞여 있다고 봐야 한다.
+
+**이 수를 "전체 gap"으로 인용하지 않는다.**
+
+### 두 화면 이상에서 쓰이는 것 — 7종
+
+공용 컴포넌트 후보이며 우선순위가 가장 높다.
+
+| 종류 | 화면 | 근거 |
+| --- | --- | --- |
+| **진행률 링 프로필 아바타** | 하이라이트 상세 · 비디오에디터 워크스페이스 | `components/navigation/Gnb.tsx:5322` |
+| **탭 배너 캐러셀** | 앱 홈 · 하이라이트 허브 | `components/banners/TabBannerCarousel.tsx:290` |
+| **배너 컨트롤 (화살표 + 진행 도트)** | 앱 홈 · 하이라이트 허브 | `components/banners/TabBannerCarousel.tsx:317` |
+| **업로드 진행바 (determinate)** | 하이라이트 상세 · 숏폼 클립 편집 | `components/scenes/HighlightProjectScene.tsx:2652` |
+| **사이드바 브랜드 워드마크 행** | 앱 홈 · 노드캔버스 허브 | `components/navigation/Gnb.tsx:4377` |
+| **복합 내비 행 + 인셋 생성(+) 버튼** | 하이라이트 허브 · 비디오에디터 허브 | `components/navigation/Gnb.tsx:4743` |
+| **사이드바 하단 '보관함' 버튼** | 앱 홈 · 노드캔버스 허브 | `components/navigation/Gnb.tsx:5015` |
+
+### 한 화면 전용 — 42종
+
+제품 전용일 가능성이 높다. 이 저장소의 규칙은 **제품 전용 화면 코드를 공용 규범으로
+복사하지 않는다**이므로, 각각 DS가 소유할지 제품이 소유할지 판정이 필요하다.
+
+| 종류 | 화면 | 근거 |
+| --- | --- | --- |
+| 앱 셸 사이드바 레일 레이아웃 | 앱 홈 | `components/scenes/AppHomeScene.tsx:822` |
+| 카드 인라인 이름 변경 입력 | 앱 홈 | `components/scenes/AppHomeScene.tsx:1204` |
+| 크레딧 잔량 게이지 바 | 앱 홈 | `components/navigation/Gnb.tsx:3172` |
+| 사이드바 생성 행 인셋 「+」 애드온 버튼 | 앱 홈 | `components/navigation/Gnb.tsx:4678` |
+| 브레드크럼 (하이라이트 / 프로젝트명) | 하이라이트 상세 | `components/navigation/Gnb.tsx:5285` |
+| 리뷰 세그먼트 행 (체크박스 + 썸네일 + 2줄 정보) | 하이라이트 상세 | `components/scenes/HighlightProjectScene.tsx:2926` |
+| 상태 카드 스피너 (로딩·업로드·분석·추출) | 하이라이트 상세 | `components/scenes/HighlightProjectScene.tsx:2639` |
+| 테마 선택 칩 그룹 | 하이라이트 상세 | `components/scenes/HighlightProjectScene.tsx:2699` |
+| 영상 업로드 드롭존 | 하이라이트 상세 | `components/scenes/HighlightProjectScene.tsx:2679` |
+| 빈 상태 워드마크 hero | 하이라이트 허브 | `components/scenes/HighlightScene.tsx:1200` |
+| 진입 로딩 시머 텍스트 | 하이라이트 허브 | `components/scenes/HighlightScene.tsx:1189` |
+| 업로드 카드 셸 (인플로우 960×240 / 하단 고정 400×140 두 변형) | 하이라이트 허브 | `components/scenes/HighlightScene.tsx:885` |
+| 업로드 드롭존 버튼 | 하이라이트 허브 | `components/scenes/HighlightScene.tsx:895` |
+| 점 격자 배경 | 노드캔버스 에디터 | `components/scenes/create/node-canvas-v2/components/CanvasBackground.tsx:11` |
+| 도움말 버튼 점 뱃지 | 노드캔버스 에디터 | `components/scenes/create/node-canvas-v2/index.tsx:11136` |
+| 하단 플로팅 툴바 알약 | 노드캔버스 에디터 | `components/scenes/create/node-canvas-v2/components/Toolbar.tsx:269` |
+| 프로젝트명 인라인 이름 편집 | 노드캔버스 에디터 | `components/scenes/create/ProjectHeader.tsx:507` |
+| 프로젝트 헤더 크롬 (프로그레시브 블러 + 글래스 브랜드 셸) | 노드캔버스 에디터 | `components/scenes/create/ProjectHeader.tsx:454` |
+| 저장 상태 클라우드 글리프 | 노드캔버스 에디터 | `components/scenes/create/ProjectHeader.tsx:559` |
+| 툴바 그라디언트 구분선 | 노드캔버스 에디터 | `components/scenes/create/node-canvas-v2/components/Toolbar.tsx:99` |
+| 줌 비율 트리거 알약 | 노드캔버스 에디터 | `components/scenes/create/node-canvas-v2/components/CanvasZoomControl.tsx:145` |
+| 앱 셸 레이아웃(좌측 레일 예약 + 우측 메인 카드 + 카드 안 스크롤 루트) | 노드캔버스 허브 | `components/scenes/NodeCanvasHomeScene.tsx:86` |
+| 잔여 크레딧 진행 바 | 노드캔버스 허브 | `components/navigation/Gnb.tsx:3175` |
+| 사이드바 복합 내비 행(내비 + 인셋 생성 버튼) | 노드캔버스 허브 | `components/navigation/Gnb.tsx:4626` |
+| 결과 액션 2열 그리드 (YouTube 업로드 primary + 다운로드·다시 편집 soft ghost) | 숏폼 클립 편집 | `app/highlight/[projectId]/shorts/[shortId]/page.tsx:253` |
+| 레이아웃 프리셋 칩 + 9:16 미니 다이어그램 | 숏폼 클립 편집 | `app/highlight/[projectId]/shorts/[shortId]/page.tsx:371` |
+| 결과 메타데이터 정의 목록 (비율/길이/해상도/용량/형식, 행 사이 상단 구분선) | 숏폼 클립 편집 | `app/highlight/[projectId]/shorts/[shortId]/page.tsx:1284` |
+| 전체 화면 로딩 스피너 (36px 링, 두께 3px) | 숏폼 클립 편집 | `app/highlight/[projectId]/shorts/[shortId]/page.tsx:125` |
+| 전체화면 확대 미리보기 모달 (플레이어 확대 칩 → 라이트박스) | 숏폼 클립 편집 | `components/ui/VideoPlayer.tsx:674` |
+| 결과 9:16 영상 플레이어 (apple 크롬: blur pill 재생바·스크럽·±10초·확대 칩) | 숏폼 클립 편집 | `components/ui/VideoPlayer.tsx:842` |
+| YouTube 업로드 모달 (유튜브 플레이어 모사 + 제목·설명·태그 폼 + 예약 선택기) | 숏폼 클립 편집 | `components/youtube/YoutubeUploadModal.tsx:978` |
+| 크레딧 카드(플랜 배지 + 잔여 수치 + 4px 잔량 바) | 비디오에디터 허브 | `components/navigation/Gnb.tsx:3147` |
+| 메인 카드 표면 크롬(16px 곡률 + glass 프레임 + 베벨, ≤719px 전폭 되돌림) | 비디오에디터 허브 | `components/scenes/VideoEditScene.tsx:83` |
+| 프로필 트리거(28px 아바타 + conic 사용량 링) | 비디오에디터 허브 | `components/navigation/Gnb.tsx:5312` |
+| 사이드바 브랜드 헤더(로고 레일 + 워드마크 크롭) | 비디오에디터 허브 | `components/navigation/Gnb.tsx:4378` |
+| 사이드바 하단 업그레이드 CTA(mint 알약) | 비디오에디터 허브 | `components/navigation/Gnb.tsx:5033` |
+| 접이식 소스 섹션 헤더(chevron + 라벨 + 개수 + 추가) | 비디오에디터 워크스페이스 | `components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx:16274` |
+| 3분할 에디터 워크스페이스 레이아웃 | 비디오에디터 워크스페이스 | `components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx:15997` |
+| 패널 리사이즈 디바이더 3종 | 비디오에디터 워크스페이스 | `components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx:15998` |
+| 렌더 진행 오버레이(라벨 + 퍼센트) | 비디오에디터 워크스페이스 | `app/videoeditor/[projectId]/EditorProjectWorkspace.tsx:1114` |
+| 결과 영상 플레이어(apple UI variant) | 비디오에디터 워크스페이스 | `app/videoeditor/[projectId]/EditorProjectWorkspace.tsx:1243` |
+| 세로 아이콘 에셋 레일 탭(영상·이미지·오디오·텍스트) | 비디오에디터 워크스페이스 | `components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx:16015` |
+
 ## 판정 — 세 화면 모두 gap 없이 재조립되지 않는다
 
 | 화면 | route | 실측 | gap |

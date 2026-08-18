@@ -61,6 +61,30 @@
       "overlayLineHeightPercent": {
         "value": 120,
         "evidence": "apps/web/app/globals.css:96 --project-card-overlay-line-height: 1.2. eyebrow·제목·최종수정 3줄이 !important로 덮는다"
+      },
+      "requiredParts": {
+        "value": [
+          "AppTopBar",
+          "BannerCarousel",
+          "FloatingCreate",
+          "ProjectCard",
+          "ProjectGrid",
+          "SectionHeader",
+          "Sidebar"
+        ],
+        "evidence": "AppHomeScene.tsx 렌더 트리. scene → main → ArchiveRailScrollShell → 배너 section(bannerContent·bannerCta·bannerControls) → archiveSection(archiveSectionHeader + archiveGrid) 그리고 floatingCreateDock. **부품이 빠지면 화면이 아니라 화면 흉내다.**"
+      },
+      "navLabelsDistinct": {
+        "value": 4,
+        "evidence": "제품 사이드바는 홈·노드 캔버스·비디오 에디터·하이라이트 4행이고 라벨이 전부 다르다. 같은 라벨이 반복되면 템플릿이 아니라 자리표시자다"
+      },
+      "cardTitlesDistinct": {
+        "value": 8,
+        "evidence": "archiveGrid의 카드는 각자 다른 프로젝트다. 제목이 같으면 그리드가 아니라 벽지로 읽힌다"
+      },
+      "placeholderLabelsAllowed": {
+        "value": 0,
+        "evidence": "'배너 제목'·'Label'·'배너 설명 한 줄' 같은 컴포넌트 기본 문자열이 화면 템플릿에 남아 있으면 그것은 조립이 끝나지 않은 것이다"
       }
     }
   }

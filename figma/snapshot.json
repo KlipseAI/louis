@@ -6010,8 +6010,20 @@
         120
       ],
       "gapMarkers": 8,
-      "dsInstances": 18,
-      "$note": "2026-08-18: coverage 도표를 **실제 화면 템플릿으로 바꿨다.** 사이드바 4행 · 상단 바 · 배너 · 프로젝트 카드 8장이 전부 DS 컴포넌트 인스턴스다. 여기서 새로 그린 도형은 없다 — 그리는 순간 컴포넌트와 갈라진다."
+      "dsInstances": 21,
+      "$note": "2026-08-18: coverage 도표를 **실제 화면 템플릿으로 바꿨다.** 사이드바 4행 · 상단 바 · 배너 · 프로젝트 카드 8장이 전부 DS 컴포넌트 인스턴스다. 여기서 새로 그린 도형은 없다 — 그리는 순간 컴포넌트와 갈라진다.",
+      "requiredParts": [
+        "AppTopBar",
+        "BannerCarousel",
+        "FloatingCreate",
+        "ProjectCard",
+        "ProjectGrid",
+        "SectionHeader",
+        "Sidebar"
+      ],
+      "navLabelsDistinct": 4,
+      "cardTitlesDistinct": 8,
+      "placeholderLabelsAllowed": 0
     }
   }
 }

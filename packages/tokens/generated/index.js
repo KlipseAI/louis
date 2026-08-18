@@ -7274,6 +7274,27 @@ export const tokens = {
         "unit": "px"
       }
     },
+    "space-media-inset": {
+      "aliasTarget": {
+        "id": "space-20",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-space-media-inset": "20px"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "space-media-inset",
+      "mode": "global",
+      "rawValue": "{primitive.spacing.20}",
+      "sourcePath": "semantic.global.spacing.media-inset",
+      "tier": "semantic",
+      "type": "dimension",
+      "value": {
+        "value": 20,
+        "unit": "px"
+      }
+    },
     "space-overlay-inset": {
       "aliasTarget": {
         "id": "space-6",

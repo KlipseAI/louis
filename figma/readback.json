@@ -2413,6 +2413,18 @@
           ]
         ],
         [
+          "spacing/media-inset",
+          "FLOAT",
+          "WIDTH_HEIGHT,GAP",
+          [
+            [
+              "Global",
+              "Klipse Primitive::spacing/20",
+              null
+            ]
+          ]
+        ],
+        [
           "spacing/overlay-inset",
           "FLOAT",
           "WIDTH_HEIGHT,GAP",

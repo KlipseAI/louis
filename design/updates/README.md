@@ -8,6 +8,39 @@ authority: normative
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
 
+## 2026-08-18 (29) — 캐러셀 CSS가 섰다
+
+배포본 `TabBannerCarousel.tsx` 실측을 CSS로 옮겼다. component 21 → **22**.
+
+### 이름 하나를 더 세웠다
+
+콘텐츠 좌우 인셋 20px에 맞는 이름이 `space-toast-inline`뿐이었다. 값은 같지만 **빌리지 않았다** —
+이 저장소는 컴포넌트 이름 토큰을 금지하는데 토스트 이름을 배너가 쓰면 그 규칙이 무의미해진다.
+`space-media-inset`을 세웠다. 변수 231 → **232**.
+
+### 게이트가 두 번 막았고 둘 다 옳았다
+
+1. **raw color 리터럴** — progressive blur의 mask가 `rgb(0 0 0 / 92%)` 다섯 스톱이었다. mask는
+   색이 아니라 **알파만** 쓰므로 `currentcolor`를 섞어 같은 결과를 낸다. 어떤 색을 넣어도 결과가
+   같고 규칙은 그대로 지킨다.
+2. **없는 토큰** — `border-width-focus-ring`을 지어냈다. 실제 이름은 `border-width-ring`이고
+   Slider가 이미 그것을 쓰고 있다.
+
+### 숫자 z-index를 쓰지 않았다
+
+제품은 `z-1`·`z-2`·`z-3`을 쓴다. DS는 **DOM 순서가 곧 칠 순서**다 — 슬라이드 뒤에 컨트롤을 두면
+같은 결과가 나온다. Dialog와 ProjectCard가 이미 같은 방식이다.
+
+### reduced motion에서 흐림도 지운다
+
+레이아웃 재계산이 가장 비싸므로 점의 폭 전환을 제일 먼저 끈다. progressive blur도 함께 지운다 —
+제품이 `motion-reduce`에서 지우는 것과 맞췄고, 흐림 자체가 합성 부담이다.
+
+### 남은 것
+
+React · 브라우저 테스트 · 규범 문서 · Figma component set · manifest. CSS만으로는 아직
+소비처가 없다.
+
 ## 2026-08-18 (28) — 사진 위의 색에 이름을 준다
 
 캐러셀 CSS를 쓰려다 멈춘 자리를 푼다. 제품의 배너 부품은 **고정 `--palette-gray-*`를 쓰고**

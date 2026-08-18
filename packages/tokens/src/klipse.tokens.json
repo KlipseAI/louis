@@ -3561,6 +3561,16 @@
               "mode": "global"
             }
           }
+        },
+        "media-inset": {
+          "$value": "{primitive.spacing.20}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "space-media-inset",
+              "tier": "semantic",
+              "mode": "global"
+            }
+          }
         }
       },
       "radius": {

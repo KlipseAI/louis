@@ -9409,6 +9409,35 @@
             }
           }
         },
+        "space-media-inset": {
+          "$type": "dimension",
+          "fields": [],
+          "figmaName": "spacing/media-inset",
+          "hiddenFromPublishing": false,
+          "losses": [
+            "Figma FLOAT는 DTCG 단위 의미를 직접 보존하지 않으므로 source metadata를 함께 검토해야 합니다."
+          ],
+          "nativeVariableType": "FLOAT",
+          "representation": "variable",
+          "scopes": [
+            "GAP",
+            "WIDTH_HEIGHT"
+          ],
+          "valuesByMode": {
+            "Global": {
+              "$value": "{primitive.spacing.20}",
+              "aliasTarget": {
+                "id": "space-20",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "unit": "px",
+                "value": 20
+              },
+              "sourcePath": "semantic.global.spacing.media-inset"
+            }
+          }
+        },
         "space-overlay-inset": {
           "$type": "dimension",
           "fields": [],

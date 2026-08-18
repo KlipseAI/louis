@@ -1,0 +1,288 @@
+/* Banner Carousel — 허브 화면 최상단의 사진 배너.
+ *
+ * 값은 전부 배포본 KlipseAI/klipse-web `origin/main` 7e9c3b69의
+ * `apps/web/components/banners/TabBannerCarousel.tsx` 실측이다.
+ *
+ * **면이 사진이다.** 그래서 색이 `color-media-*`다 — 테마를 따라 뒤집히는 semantic 색을 쓰면
+ * 라이트 테마 위의 어두운 사진에서 흰 글자에 흰 스크림이 깔린다. 제품이 같은 이유로 고정
+ * 팔레트를 쓴다.
+ *
+ * **톤은 이미지가 정한다.** `data-tone`은 테마가 아니라 사진의 밝기다. 무엇으로 판정할지는
+ * 소비처가 갖는다 — 제품은 런타임 샘플링을 쓰고 DS는 값을 받기만 한다.
+ *
+ * 높이는 소비처가 정한다. 슬라이드가 absolute라 컨테이너에 `block-size`가 없으면 접힌다.
+ */
+
+.kds-banner-carousel {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  border-radius: var(--kds-radius-card);
+}
+
+.kds-banner-carousel[data-bleed="full"] {
+  border-radius: 0;
+}
+
+/* ── 슬라이드 ───────────────────────────────────────────────────────────────
+ * 비활성은 `visibility`나 `display`로 지우지 않는다 — 전환이 필요하고, 대신
+ * `pointer-events: none`으로 죽여 밑장이 클릭을 훔치지 않게 한다. 보조기술에서는
+ * 소비처가 `aria-hidden`을 건다. */
+
+.kds-banner-carousel__slide {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  border-radius: inherit;
+  /* `backdrop-filter`는 합성 레이어로 올라가 조상의 클립도 자기 radius도 무시한 사각형으로
+   * 그려진다. radius와 overflow를 같은 요소에 얹어 실제 클립을 강제한다. */
+  overflow: hidden;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: 68% center;
+  opacity: 0;
+  scale: 1.012;
+  pointer-events: none;
+  transition:
+    opacity var(--kds-motion-crossfade-enter-duration)
+      var(--kds-motion-crossfade-enter-timing-function),
+    scale var(--kds-motion-zoom-settle-duration) var(--kds-motion-zoom-settle-timing-function);
+}
+
+.kds-banner-carousel__slide[data-active="true"] {
+  opacity: 1;
+  scale: 1;
+  pointer-events: auto;
+}
+
+/* 스크림은 글자 쪽(좌)에서 사진 쪽(우)으로 걷힌다. 톤의 **반대 극**이라 글자와 항상 대비된다. */
+.kds-banner-carousel__slide[data-tone="bright"] {
+  --kds-banner-text: var(--kds-color-media-foreground-bright);
+  --kds-banner-scrim: var(--kds-color-media-scrim-bright);
+}
+
+.kds-banner-carousel__slide[data-tone="dark"] {
+  --kds-banner-text: var(--kds-color-media-foreground-dark);
+  --kds-banner-scrim: var(--kds-color-media-scrim-dark);
+}
+
+.kds-banner-carousel__slide::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(
+    to right,
+    color-mix(in srgb, var(--kds-banner-scrim) 78%, transparent) 0%,
+    color-mix(in srgb, var(--kds-banner-scrim) 46%, transparent) 30%,
+    transparent 60%
+  );
+  pointer-events: none;
+}
+
+/* progressive blur — 글자 쪽만 흐리고 사진 쪽으로 갈수록 걷힌다. */
+.kds-banner-carousel__slide::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  backdrop-filter: blur(22px) saturate(125%);
+  /* mask는 색이 아니라 알파만 쓴다. 그래서 `currentcolor`를 섞어 raw 리터럴을 피한다 —
+   * 어떤 색을 넣어도 결과가 같고, 토큰 게이트의 규칙은 그대로 지킨다. */
+  mask-image: linear-gradient(
+    to right,
+    currentcolor 0%,
+    color-mix(in srgb, currentcolor 92%, transparent) 24%,
+    color-mix(in srgb, currentcolor 52%, transparent) 50%,
+    color-mix(in srgb, currentcolor 18%, transparent) 68%,
+    transparent 82%
+  );
+  pointer-events: none;
+}
+
+/* ── 콘텐츠 ─────────────────────────────────────────────────────────────── */
+
+.kds-banner-carousel__content {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  inline-size: min(540px, 100%);
+  block-size: 100%;
+  padding-block: var(--kds-space-layout-section);
+  padding-inline: var(--kds-space-media-inset);
+}
+
+.kds-banner-carousel__wordmark {
+  block-size: var(--kds-space-control-lg);
+  inline-size: auto;
+  object-fit: contain;
+  opacity: 0.85;
+}
+
+.kds-banner-carousel__text {
+  margin-block: auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--kds-space-overlay-inset);
+}
+
+.kds-banner-carousel__title {
+  margin: 0;
+  font-family: var(--kds-typography-heading-md-medium-font-family);
+  font-size: var(--kds-typography-heading-md-medium-font-size);
+  font-weight: var(--kds-typography-heading-md-medium-font-weight);
+  letter-spacing: var(--kds-typography-heading-md-medium-letter-spacing);
+  line-height: var(--kds-typography-heading-md-medium-line-height);
+  color: var(--kds-banner-text);
+}
+
+.kds-banner-carousel__description {
+  margin: 0;
+  margin-block-start: var(--kds-space-overlay-inset);
+  max-inline-size: 480px;
+  font-family: var(--kds-typography-body-md-regular-font-family);
+  font-size: var(--kds-typography-body-md-regular-font-size);
+  font-weight: var(--kds-typography-body-md-regular-font-weight);
+  letter-spacing: var(--kds-typography-body-md-regular-letter-spacing);
+  line-height: var(--kds-typography-body-md-regular-line-height);
+  color: color-mix(in srgb, var(--kds-banner-text) 72%, transparent);
+}
+
+/* ── stagger ────────────────────────────────────────────────────────────────
+ * 지연을 세 단으로 걸어 워드마크 → 제목 → 설명 순으로 올린다. **나갈 때는 지연 0**이다 —
+ * 슬라이드가 물러나는 동안 stagger가 다시 걸리면 잔상이 어긋난다. */
+
+.kds-banner-carousel__stagger {
+  opacity: 0;
+  translate: 0 10px;
+  transition:
+    opacity var(--kds-motion-content-fade-duration)
+      var(--kds-motion-content-fade-timing-function),
+    translate var(--kds-motion-content-rise-duration)
+      var(--kds-motion-content-rise-timing-function);
+}
+
+.kds-banner-carousel__slide[data-active="true"] .kds-banner-carousel__stagger {
+  opacity: 1;
+  translate: 0 0;
+}
+
+.kds-banner-carousel__slide[data-active="true"] .kds-banner-carousel__wordmark {
+  transition-delay: var(--kds-motion-stagger-1-delay);
+}
+
+.kds-banner-carousel__slide[data-active="true"] .kds-banner-carousel__title {
+  transition-delay: var(--kds-motion-stagger-2-delay);
+}
+
+.kds-banner-carousel__slide[data-active="true"] .kds-banner-carousel__description {
+  transition-delay: var(--kds-motion-stagger-3-delay);
+}
+
+/* ── 컨트롤 ──────────────────────────────────────────────────────────────────
+ * 숫자 z-index를 쓰지 않는다. 슬라이드보다 뒤에 오는 DOM 순서가 곧 칠 순서다. */
+
+.kds-banner-carousel__controls {
+  position: absolute;
+  inset-inline-end: var(--kds-space-control-lg);
+  inset-block-end: var(--kds-space-control-lg);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--kds-space-control-sm);
+  padding: var(--kds-space-control-xs);
+  border-radius: var(--kds-radius-pill);
+  background-color: var(--kds-color-media-control-surface);
+  backdrop-filter: blur(var(--kds-blur-panel)) saturate(130%);
+}
+
+.kds-banner-carousel__arrow {
+  inline-size: 28px;
+  block-size: 28px;
+  padding: 0;
+  border: 0;
+  border-radius: var(--kds-radius-pill);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+  color: var(--kds-color-media-control-foreground);
+  cursor: pointer;
+  transition:
+    background-color var(--kds-motion-control-hover-duration)
+      var(--kds-motion-control-hover-timing-function),
+    scale var(--kds-motion-control-hover-duration)
+      var(--kds-motion-control-hover-timing-function);
+}
+
+@media (hover: hover) {
+  .kds-banner-carousel__arrow:hover {
+    background-color: var(--kds-color-media-control-hover);
+  }
+}
+
+.kds-banner-carousel__arrow:active {
+  scale: 0.94;
+}
+
+.kds-banner-carousel__arrow:focus-visible {
+  outline: var(--kds-border-width-ring) solid var(--kds-color-border-focus);
+  outline-offset: 2px;
+}
+
+.kds-banner-carousel__dots {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--kds-space-overlay-inset);
+}
+
+/* **폭이 상태다.** 점에는 라벨이 없어 폭 말고 현재 위치를 말하는 것이 없다(DS-D-0019).
+ * `scale`로 늘리면 두께와 반경까지 함께 늘어나 7px 알약이 20px 자리에서 찌그러진다. */
+.kds-banner-carousel__dot {
+  inline-size: 7px;
+  block-size: 7px;
+  padding: 0;
+  border: 0;
+  border-radius: var(--kds-radius-pill);
+  background-color: var(--kds-color-media-indicator-rest);
+  cursor: pointer;
+  transition:
+    inline-size var(--kds-motion-layout-change-duration)
+      var(--kds-motion-layout-change-timing-function),
+    background-color var(--kds-motion-control-hover-duration)
+      var(--kds-motion-control-hover-timing-function);
+}
+
+.kds-banner-carousel__dot[aria-current="true"] {
+  inline-size: 20px;
+  background-color: var(--kds-color-media-indicator-active);
+}
+
+.kds-banner-carousel__dot:focus-visible {
+  outline: var(--kds-border-width-ring) solid var(--kds-color-border-focus);
+  outline-offset: 2px;
+}
+
+/* ── reduced motion ──────────────────────────────────────────────────────────
+ * 레이아웃 재계산이 가장 비싸므로 제일 먼저 끈다. progressive blur도 제품과 같이 함께
+ * 지운다 — 흐림 자체가 합성 부담이고, 제품이 `motion-reduce`에서 지우는 것과 맞춘다. */
+
+@media (prefers-reduced-motion: reduce) {
+  .kds-banner-carousel__slide,
+  .kds-banner-carousel__stagger,
+  .kds-banner-carousel__arrow,
+  .kds-banner-carousel__dot {
+    transition-duration: var(--kds-motion-reduced-duration);
+    transition-delay: var(--kds-motion-reduced-delay);
+  }
+
+  .kds-banner-carousel__slide[data-active="true"] .kds-banner-carousel__wordmark,
+  .kds-banner-carousel__slide[data-active="true"] .kds-banner-carousel__title,
+  .kds-banner-carousel__slide[data-active="true"] .kds-banner-carousel__description {
+    transition-delay: var(--kds-motion-reduced-delay);
+  }
+
+  .kds-banner-carousel__slide::before {
+    backdrop-filter: none;
+    mask-image: none;
+  }
+}

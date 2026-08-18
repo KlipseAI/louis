@@ -5,8 +5,9 @@
   "productRef": "origin/main",
   "productCommit": "7e9c3b6946a71431479aef69d16baac5c53128b2",
   "stylesheets": [
-    "apps/web/app/globals.css",
-    "apps/web/app/keyframes.css"
+    "apps/web/app/tailwind.css",
+    "apps/web/app/keyframes.css",
+    "apps/web/app/globals.css"
   ],
   "contexts": [
     {
@@ -106,7 +107,7 @@
       "--palette-gray-900-rgb": "23 27 34",
       "--profile-avatar-size": "",
       "--profile-ring-width": "",
-      "--spacing": "",
+      "--spacing": "2px",
       "--type-body-16-size": "16px"
     },
     "light-desktop": {
@@ -141,7 +142,7 @@
       "--palette-gray-900-rgb": "23 27 34",
       "--profile-avatar-size": "",
       "--profile-ring-width": "",
-      "--spacing": "",
+      "--spacing": "2px",
       "--type-body-16-size": "16px"
     },
     "dark-mobile": {
@@ -176,7 +177,7 @@
       "--palette-gray-900-rgb": "23 27 34",
       "--profile-avatar-size": "",
       "--profile-ring-width": "",
-      "--spacing": "",
+      "--spacing": "2px",
       "--type-body-16-size": "14px"
     },
     "dark-reduced-motion": {
@@ -211,7 +212,7 @@
       "--palette-gray-900-rgb": "23 27 34",
       "--profile-avatar-size": "",
       "--profile-ring-width": "",
-      "--spacing": "",
+      "--spacing": "2px",
       "--type-body-16-size": "16px"
     }
   },

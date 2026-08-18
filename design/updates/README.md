@@ -53,6 +53,19 @@ owner 요구가 **"배포환경이랑 아주 똑같아야해"**이므로, 줄 �
 하나는 남겨 뒀다 — `--profile-avatar-size`는 `:root`에 없다. 특정 스코프가 소유한다는 뜻이고,
 실패가 아니라 **"이 변수를 제품 전역 정본으로 인용하면 안 된다"는 신호**라 그렇게 출력한다.
 
+### 곧바로 잡힌 결함 — 스타일시트를 덜 실었다
+
+첫 판은 `globals.css`와 `keyframes.css`만 올렸다. 그런데 제품은 `app/layout.tsx`에서
+**`tailwind.css`를 먼저** 싣고 그 안에서 `keyframes.css`를 `@import`한 뒤 `globals.css`가 온다.
+그리고 `--spacing: 2px`는 `tailwind.css`의 **`@theme inline`** 블록 안에 있다.
+
+브라우저는 `@theme`을 모른다. 그래서 그 값이 통째로 사라져 **없는 것처럼 보였고**, 제품이 4px이
+아니라 **2px 격자**를 쓴다는 사실이 게이트에서 지워져 있었다. Tailwind v4가 `@theme`의 선언을
+`:root`로 내보내므로 같게 번역해 싣도록 고쳤다. 지금은 `--spacing`이 `2px`로 풀린다.
+
+이것이 곧 `w-10`이 40px이 아니라 **20px**이라는 뜻이고, 캐러셀 점의 활성 폭 판정이 여기에 걸려
+있었다.
+
 ### 함께 선 것: 근거 파일 잠금
 
 `product-evidence.lock.json`이 인용 파일 34개의 blob 해시를 배포본 커밋과 함께 담고

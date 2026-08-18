@@ -15,7 +15,13 @@ const measuredPath = resolve(repoRoot, "migration/product.measured.json");
 const outputPath = resolve(repoRoot, "migration/product.rendered.json");
 const productRoot = process.env.KLIPSE_PRODUCT_REPO ?? "/Users/sejunki/klipse-web";
 const productRef = process.env.KLIPSE_PRODUCT_REF ?? "origin/main";
-const STYLESHEETS = ["apps/web/app/globals.css", "apps/web/app/keyframes.css"];
+// 제품이 app/layout.tsx에서 싣는 순서 그대로다 — tailwind.css가 먼저이고 그 안에서
+// keyframes.css를 @import한 뒤 globals.css가 온다. 순서를 바꾸면 cascade가 달라진다.
+const STYLESHEETS = [
+  "apps/web/app/tailwind.css",
+  "apps/web/app/keyframes.css",
+  "apps/web/app/globals.css",
+];
 const checkOnly = process.argv.includes("--check");
 
 // 제품이 실제로 갈라지는 축들. 하나라도 빠지면 "한 값"으로 보이는 것이 사실은 여럿이다.
@@ -59,7 +65,17 @@ for (const [componentId, component] of Object.entries(measured.components)) {
 }
 
 const commit = git(["rev-parse", productRef]).trim();
-const css = STYLESHEETS.map((path) => git(["show", commit + ":" + path])).join("\n\n");
+const css = STYLESHEETS.map((path) => normalize(git(["show", commit + ":" + path]))).join("\n\n");
+
+// 브라우저는 Tailwind의 at-rule을 모른다. Tailwind v4가 `@theme`의 선언을 `:root`로 내보내므로
+// 같게 번역한다. 번역하지 않으면 `--spacing: 2px` 같은 값이 통째로 사라져 **없는 것처럼 보인다** —
+// 실제로 첫 판이 그랬고, 제품이 2px 격자를 쓴다는 사실이 게이트에서 지워져 있었다.
+// 해석할 수 없는 `@import`(tailwindcss 패키지)는 버린다. 인용된 변수는 전부 제품 자신의 선언이다.
+function normalize(source) {
+  return source
+    .replace(/@import\s+["'][^"']+["'][^;]*;/g, "")
+    .replace(/@theme\s+(?:inline\s+)?\{/g, ":root {");
+}
 
 const names = [...variables].sort();
 const browser = await chromium.launch();

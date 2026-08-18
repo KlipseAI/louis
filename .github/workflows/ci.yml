@@ -31,6 +31,13 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      # **브라우저 바이너리는 lockfile에 없다.** DS-D-0005가 실브라우저 러너를 1단계에 뒀으므로
+      # `pnpm verify`의 test-harness가 실제로 Chromium을 띄운다. 이 단계가 없으면 로컬에서는
+      # 캐시가 있어 통과하고 clean checkout에서만 실패한다 — 2026-08-18의 첫 hosted CI 실행이
+      # 정확히 그렇게 실패했다("Executable doesn't exist at .../chrome-headless-shell").
+      - name: Install browser binary
+        run: pnpm exec playwright install --with-deps chromium
+
       # 생성물은 커밋되지만, clean checkout에서 재생성 결과가 같은지 확인한다.
       - name: Build generated artifacts
         run: pnpm build
@@ -44,3 +51,9 @@ jobs:
       # manifest에 등록됐지만 git에 추적되지 않은 파일을 잡는다.
       - name: Check tracked catalog inputs
         run: node scripts/build-design-docs.mjs --check --require-tracked
+
+      # **실브라우저 회귀 전량.** `pnpm verify`의 test-harness는 러너가 실패를 전파하는지만
+      # 증명하고 suite 자체를 돌리지 않는다. 컴포넌트 acceptance test가 실제로 도는 자리는
+      # 여기다 — 로컬에서 두 번 관측된 간헐 실패도 이 단계가 반복 실행으로 드러낼 자리다.
+      - name: Run browser regression suite
+        run: pnpm test

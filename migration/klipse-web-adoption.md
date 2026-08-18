@@ -48,7 +48,7 @@ DS 토큰 하나를 바꾸면 CSS 변수와 Tailwind 유틸리티가 함께 바�
 | 방법 | 가능한가 |
 | --- | --- |
 | registry publish | 불가 — publish 권한이 없다 (`DS-GOV-000` blocked) |
-| git dependency | **불가 — DS 저장소에 원격이 0개다.** 가리킬 URL 자체가 없다 |
+| git dependency | 그때는 불가 — DS 저장소에 원격이 0개였다. **2026-08-18에 `KlipseAI/louis`(private)가 생겨 이 길이 열렸다** |
 | 복사본(vendoring) | 가능 |
 
 그래서 복사본으로 했다. klipse-web 브랜치 `design-system-adoption`, 커밋 `d7be4831`.
@@ -66,7 +66,10 @@ DS 토큰 하나를 바꾸면 CSS 변수와 Tailwind 유틸리티가 함께 바�
 
 이름 충돌은 0건이다(klipse-web 144개 · DS 154개). 기존 화면은 아무것도 바뀌지 않는다.
 
-원격이 생기면 두 파일을 지우고 `@klipse-design/css` 의존성으로 바꾼다 — import 경로 두 줄이다.
+**원격이 생겼다(2026-08-18, `git@github.com:KlipseAI/louis.git`, private).** 두 파일을 지우고
+git dependency로 바꾸는 길이 열렸다 — import 경로 두 줄이다. 다만 private 저장소를 의존성으로
+쓰려면 klipse-web의 빌드 환경에 읽기 권한(deploy key 또는 토큰)이 필요하고, 그것은 owner가
+정할 일이다. registry publish는 여전히 `DS-GOV-000`이다.
 
 ### 2단계 — 새 화면부터 DS 이름으로
 

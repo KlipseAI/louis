@@ -8,6 +8,46 @@ authority: normative
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
 
+## 2026-08-18 (13) — 원격이 생겼고 첫 hosted CI가 실패했다
+
+owner가 `KlipseAI/louis`(private)를 만들고 `bf62eba`까지 push했다. **첫 hosted CI 실행이
+실패했다** — 그리고 그 실패가 옳았다.
+
+### 브라우저 바이너리 설치 단계가 없었다
+
+```
+browserType.launch: Executable doesn't exist at .../chrome-headless-shell
+```
+
+브라우저는 lockfile에 없는데 [DS-D-0005](../governance/decisions/DS-D-0005-test-stack.md)가
+실브라우저 러너를 1단계에 뒀으므로 `pnpm verify`의 test-harness가 실제로 Chromium을 띄운다.
+로컬에는 2026-08-14에 승인받아 받아 둔 캐시가 있어 **로컬에서만 통과하고 clean checkout에서만
+실패하는** 상태였다.
+
+`pnpm exec playwright install --with-deps chromium` 단계를 넣었다.
+
+### 실브라우저 회귀 전량을 CI에 붙였다
+
+`verify`의 test-harness는 **러너가 실패를 전파하는지만 증명하고 suite 자체를 돌리지 않는다.**
+그래서 컴포넌트 acceptance test 632건이 hosted CI에서 한 번도 돈 적이 없었다. `pnpm test`
+단계를 추가했다 — 로컬에서 두 번 관측된 간헐 실패도 이 단계가 반복 실행으로 드러낼 자리다.
+
+### DS-GOV-000이 `partial`이 됐다
+
+넷 중 **원격 연결이 done**이고, hosted CI는 **초록으로 통과한 실행이 아직 없어 미충족**이다.
+owner 승인과 registry/docs/Figma publish 권한은 그대로다. 상태를 미리 올리지 않는다.
+
+### klipse-web 채택의 길이 하나 열렸다
+
+[채택 계획](../../migration/klipse-web-adoption.md)이 "git dependency는 **불가 — DS 저장소에
+원격이 0개다**"라고 적어 두었는데 그 전제가 바뀌었다. 다만 private 저장소를 의존성으로 쓰려면
+klipse-web 빌드 환경에 읽기 권한(deploy key 또는 토큰)이 필요하고 그것은 owner가 정할 일이다.
+registry publish는 여전히 `DS-GOV-000`이다.
+
+### 이것이 hosted CI의 값이다
+
+로컬 게이트는 스무 번 초록이었고 clean checkout이 **한 번에** 잡았다.
+
 ## 2026-08-18 (12) — caret 3종 · 배너 캐러셀의 선행 조건이 풀렸다
 
 글리프 26 → **29개**, Figma 아이콘 component도 29개.

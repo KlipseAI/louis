@@ -224,7 +224,7 @@ Tooltip(`.app-tooltip-chrome` + `--app-tooltip-*`), Menu(`--dropdown-*`). Icon B
 
 | 축 | 상태 |
 | --- | --- |
-| GOV 트랙 | `DS-GOV-000`만 `blocked`, 나머지 `done` |
+| GOV 트랙 | `DS-GOV-000`이 `partial`(원격 연결 done, hosted CI 초록 대기), 나머지 `done` |
 | `DS-F-000`~`DS-F-005` | `done` |
 | `DS-P3-002a` · `002`(1단계) · `003` · `009a` · `013` | `done` |
 | `DS-P3-001` | `in-progress`. Decision 6종을 다 썼고 owner 확인만 남았다 |
@@ -558,12 +558,28 @@ gap registry 1순위로 추가됐다.
 
 #### DS-GOV-000 — 외부 운영 gate
 
-**상태:** `blocked`이지만 로컬 P3 작업과 병렬이며 이를 막지 않는다.
+**상태:** `partial` (2026-08-18). 넷 중 둘이 풀렸고 둘이 남았다. 로컬 P3 작업과 병렬이며 이를
+막지 않는다.
 
-- 원격 Git 저장소 연결
-- clean-checkout hosted CI
-- repository owner 승인
-- registry, docs hosting과 Figma publish 권한
+- ~~원격 Git 저장소 연결~~ — **done.** `git@github.com:KlipseAI/louis.git` (private, 기본 브랜치
+  `main`). 로컬 `main`이 `origin/main`보다 앞서 있을 수 있으므로 세션 시작 때 `git fetch`로 확인한다
+- **clean-checkout hosted CI** — 워크플로가 돌기 시작했고 **첫 실행이 실패했다.** 원인은
+  아래에 적었고 수정했다. **아직 초록으로 통과한 실행이 없으므로 이 항목은 미충족이다**
+- repository owner 승인 — 미해소
+- registry, docs hosting과 Figma publish 권한 — 미해소
+
+**첫 hosted CI 실행이 잡은 것(2026-08-18).** `bf62eba` push에서 `pnpm verify`가 실패했다 —
+`browserType.launch: Executable doesn't exist at .../chrome-headless-shell`. 워크플로에
+**브라우저 바이너리 설치 단계가 없었다.** 브라우저는 lockfile에 없는데 DS-D-0005가 실브라우저
+러너를 1단계에 뒀으므로 `verify`가 실제로 Chromium을 띄운다. 로컬에는 2026-08-14에 승인받아 받아
+둔 캐시가 있어 **로컬에서만 통과하고 clean checkout에서만 실패하는** 상태였다.
+
+`pnpm exec playwright install --with-deps chromium` 단계를 넣었고, 같은 김에 **실브라우저 회귀
+전량(`pnpm test`)을 CI에 붙였다** — `verify`의 test-harness는 러너가 실패를 전파하는지만 증명하고
+suite 자체를 돌리지 않아, 컴포넌트 acceptance test 632건이 hosted CI에서 한 번도 돈 적이 없다.
+로컬에서 두 번 관측된 간헐 실패도 이 단계가 반복 실행으로 드러낼 자리다.
+
+**이것이 hosted CI의 값이다.** 로컬 게이트는 스무 번 초록이었고 clean checkout이 한 번에 잡았다.
 
 **완료 근거:** 실제 remote/hosted run/owner evidence. 사용자가 연결을 요청하기 전에는 임의로 생성하거나
 가짜 URL·승인 기록을 만들지 않는다.

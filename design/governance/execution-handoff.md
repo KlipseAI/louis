@@ -423,6 +423,13 @@ Badge의 `Label`). **모든 fill이 변수 바인딩이고 raw 값이 0이다.**
 `caret-left`·`caret-right`·`caret-down` 셋은 **2026-08-18에 섰다**(글리프 26 → 29개, Figma
 component 26 → 29개). 남은 것은 컴포넌트 둘뿐이다.
 
+**`Avatar`의 census는 2026-08-18에 끝냈다** — [gap registry](../../migration/figma-gap-registry.md)의
+"Avatar 실측" 절에 있다. 공용 구현이 **부분만**(기본 아바타 SVG 하나) 있고 본체는 셸 파일에
+인라인이며, 크기 축은 24·28 둘이다. **착수 전에 판정할 것이 하나 있다 — 진행률 링을 Avatar가
+소유하는가.** 제품은 프로필 트리거에 `--profile-ring-*`로 링을 겹치는데, 그것이 아바타의 축인지
+아바타를 감싸는 별개 컴포넌트인지는 Slider의 `track` 변형을 흡수할지 갈랐던 것과 같은 경계
+결정이다. 세우기 전에 정한다.
+
 남은 Figma 작업은 `DS-F-007` 화면 재조립(Avatar·Banner 선행)과 `DS-F-008` 수동 publish다.
 
 **빌드 루프가 검증됐다.** 순서는 이렇다 — ① `use_figma`로 set 생성(모든 시각 속성을 변수·style에

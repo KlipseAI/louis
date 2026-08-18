@@ -61,6 +61,27 @@ Wave B의 `caret-left`·`caret-right`·`caret-down`을 세웠다(2026-08-18) —
 풀렸다.** `sidebar-toggle`은 여전히 미보유이고 `magic-wand`·`eye-slash`·`x-circle`은 owner 판정
 대기다.
 
+### Avatar 실측 (2026-08-18)
+
+Home의 남은 구멍 둘 중 하나다. **착수 전 census를 여기 남긴다** — 매 컴포넌트에서 가장 비싼
+단계이고, 앞선 아홉 번 중 여덟 번은 등록부의 수가 틀렸다.
+
+| 축 | 제품 |
+| --- | --- |
+| 공용 구현 | **부분만 있다.** `navigation/UserCircleDefaultAvatar.tsx`가 **기본 아바타 SVG 하나**를 소유한다 — 28×28(`w-14 h-14`), `currentColor`, `aria-hidden role="presentation"` |
+| 아바타 본체 | **셸 파일에 인라인.** `Gnb.tsx`가 이미지/폴백 분기와 크기를 갖는다. 기본 이미지 센티넬 `DEFAULT_PROFILE_IMAGE_SRC = "__default_avatar__"`가 4곳 |
+| 크기 | **24 · 28 둘.** `--profile-avatar-size`가 28px 기본이고 ProjectHeader 슬롯에서 24px로 덮인다(≤480px에서도 28px) |
+| 색 | 기본 아바타만 해당 — light `palette-gray-400` · dark `palette-gray-600`. 다크 면 위에서 한 단계 밝게 |
+| 링 | **진행률 링이 붙어 있다.** `--profile-ring-width: 2px` · `--profile-ring-gap: 2px` · `--profile-ring-progress`(0%)를 `::after`(`border-radius: 999px`)로 그린다 |
+| 그 밖 | `SettingsScene`에 avatar 언급 77건 — 업로드 input 등 편집 흐름이며 시각 계약과 별개다 |
+
+**판정이 필요한 것 하나 — 진행률 링을 Avatar가 소유하는가.** 제품은 프로필 트리거에 링을 겹쳐
+사용량/진행률을 표시한다. 그것은 아바타의 축이 아니라 **아바타를 감싸는 별개 컴포넌트**일 수
+있다. Slider의 `track` 변형을 흡수할지 갈랐던 것과 같은 종류의 경계 결정이며, 세우기 전에 정한다.
+
+**크기 축은 24·28 둘이고 DS의 control 계단(40/32)과 맞지 않는다.** 아바타는 컨트롤이 아니라
+표식이므로 계단을 따를 이유가 없다 — 제품 값을 그대로 옮기는 쪽이 유력하다.
+
 ### 다음 순서
 
 Avatar와 Banner/Carousel 둘이 카탈로그의 다음 후보다. 등록부 우선순위 1~15에 없었던 이유는

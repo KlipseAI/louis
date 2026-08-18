@@ -8,6 +8,28 @@ authority: normative
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
 
+## 2026-08-18 (14) — hosted CI가 처음 초록이 됐다
+
+[run 32094705359](https://github.com/KlipseAI/louis/actions/runs/32094705359) — clean checkout에서
+install → 브라우저 설치 → build → check → verify → `--require-tracked` → **실브라우저 632건**이
+전부 통과했다. `DS-GOV-000`의 네 조건 중 **원격 연결과 hosted CI 둘이 done**이 됐다.
+
+### 초록에 이르기까지 네 번 실패했고 넷 다 로컬에서 안 보이던 것이다
+
+1. **브라우저 바이너리 설치 단계가 없었다** — 로컬 캐시 때문에 로컬에서만 통과
+2. **632건이 CI에서 한 번도 돈 적이 없었다** — `verify`는 러너의 실패 전파만 증명한다
+3. **앞 테스트의 포인터가 남아 행이 `:hover`였다** — 받은 값 `#171b22 / 0.08`이
+   `color-action-ghost-hover`였다. `surface-states`가 이미 적어 둔 함정을 이 파일이 안 따랐다
+4. **틀린 진단 하나** — 3번을 "범위 한정 누락"이라 단정했다가 CI가 반증했다
+
+### 방법 하나가 섰다
+
+원인을 모를 때 **단언을 고치지 않고 진단을 실어 CI 한 사이클을 돌린다.** 3번이 그렇게 한 번에
+풀렸다 — `theme: null`·`prefersDark: false`·`fixtureCount: 1`이 두 가설을 지웠고 alpha 0.08이
+답을 가리켰다. 기대값은 끝까지 바꾸지 않았다.
+
+**로컬 초록은 이 종류를 증명하지 못한다.**
+
 ## 2026-08-18 (13) — 원격이 생겼고 첫 hosted CI가 실패했다
 
 owner가 `KlipseAI/louis`(private)를 만들고 `bf62eba`까지 push했다. **첫 hosted CI 실행이

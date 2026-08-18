@@ -855,7 +855,7 @@ Tooltip(`.app-tooltip-chrome` + `--app-tooltip-*`), Menu(`--dropdown-*`). Icon B
 
 | 축 | 상태 |
 | --- | --- |
-| GOV 트랙 | `DS-GOV-000`이 `partial`(원격 연결 done, hosted CI 초록 대기), 나머지 `done` |
+| GOV 트랙 | `DS-GOV-000`이 `partial` — **원격·hosted CI done**, owner 승인과 publish 권한 남음 |
 | `DS-F-000`~`DS-F-005` | `done` |
 | `DS-P3-002a` · `002`(1단계) · `003` · `009a` · `013` | `done` |
 | `DS-P3-001` | `in-progress`. Decision 6종을 다 썼고 owner 확인만 남았다 |
@@ -967,34 +967,25 @@ component인데 **gap registry 우선순위 1~15 어디에도 없다.** 실측 �
   체크박스가 갖는 쪽(1벌)은 Checkbox + 행 레이아웃이다. 행을 버튼으로 만들면서 안에 체크박스를
   넣으면 컨트롤이 중첩된다
 
-**미해결 — hosted CI가 결정적으로 재현하는 실패가 하나 있다(2026-08-18).** 상태를 정직하게
-적는다: **원인을 아직 모른다.**
+**hosted CI가 로컬에서 보이지 않던 것을 네 개 잡았다(2026-08-18).** 초록에 이르기까지의 기록이다.
 
-```
-selectable-list-row.browser.test.tsx > states 표가 코드와 같다
-AssertionError: Default background: expected 'color(srgb 0.090196 0.105882 0.133333…'
-                                    to be 'rgba(0, 0, 0, 0)'
-project: browser-reduced-motion (chromium)
-```
+1. **브라우저 바이너리 설치 단계 없음.** 브라우저는 lockfile에 없는데 DS-D-0005가 실브라우저
+   러너를 1단계에 뒀다. 로컬에는 2026-08-14에 받아 둔 캐시가 있어 **로컬에서만 통과했다**
+2. **실브라우저 632건이 CI에서 한 번도 돈 적이 없었다.** `verify`의 test-harness는 러너가 실패를
+   전파하는지만 증명하고 suite를 돌리지 않는다. `pnpm test` 단계를 붙였다
+3. **`selectable-list-row`의 Default background 실패.** 원인은 **앞 테스트가 얹어 둔 포인터**였다 —
+   받은 값이 `#171b22 / 0.08`, 곧 `color-action-ghost-hover`였고 그 행이 `:hover`였다. 같은 좌표에
+   새로 렌더된 요소가 hover를 받는 함정을 `surface-states` 테스트가 이미 적어 두었는데 이 파일이
+   그것을 따르지 않았다. 단언 앞에 `unhover`를 넣었다 — **기대값은 바꾸지 않았다**
+4. **틀린 진단 하나.** 3번을 "테스트의 범위 한정 누락"이라고 단정했다가 CI가 반증했다. 범위
+   한정 자체는 옳아 남겼지만 원인이 아니었다
 
-알아낸 것.
+**교훈은 하나다 — 로컬 초록은 이 종류를 증명하지 못한다.** 포인터 위치·브라우저 캐시·러너 환경에
+달린 실패는 clean checkout에서만 드러난다. 앞으로 실패 원인을 단정하기 전에 **CI에 진단을 실어
+한 사이클 돌린다.** 그것이 3번을 한 번에 풀었다.
 
-- **CI에서는 두 번 연속 같은 자리에서 실패한다.** 간헐이 아니라 그 환경에서 결정적이다
-- **`browser-reduced-motion` project에서만 난다.** `browser`는 통과한다
-- **로컬에서는 같은 project로 돌려도 통과한다**(12건). 러너 환경에 달렸다
-- 받은 값 `#171b22`는 `color-background-canvas`(dark) 또는 `color-foreground-primary`(light)의
-  값이다. 행은 그 어느 것도 배경으로 쓰지 않는다
-
-**틀린 진단을 하나 남겼다가 CI가 반증했다.** "테스트가 `document` 전체를 훑어 인덱스가 밀린다"고
-보고 `[data-kds-fixture]`로 범위를 좁혔는데 **같은 실패가 그대로 났다.** 범위 한정 자체는 옳은
-변경이라 되돌리지 않았지만 **원인이 아니었다.** 로컬 초록을 근거로 원인을 단정하지 않는다.
-
-**다음 사람이 먼저 할 것.** CI에서 그 시점의 `getComputedStyle` 전체와 `data-theme`,
-`matchMedia("(prefers-color-scheme: dark)")`, `forced-colors` 값을 함께 덤프하도록 단언을 임시로
-바꿔 한 번 돌린다. 로컬에서 재현되지 않으므로 **CI가 유일한 관측 장비다.**
-
-이것이 로컬에서 세 번 관측했던 간헐 실패와 같은 것인지도 아직 모른다 — 그 셋은 테스트 이름을
-잡지 못했다.
+**남은 위험.** `document`에서 첫 요소를 집는 `find` 헬퍼와 hover 뒤 `unhover`를 빠뜨린 자리가 다른
+테스트 파일에도 있을 수 있다. CI가 반복 실행으로 드러낼 것이고 그때마다 파일 단위로 고친다.
 
 **카탈로그가 닫혀 코드 트랙에서 막는 것이 없어졌다.** 남은 것은 셋이다.
 
@@ -1206,13 +1197,15 @@ gap registry 1순위로 추가됐다.
 
 ###### DS-GOV-000 — 외부 운영 gate
 
-**상태:** `partial` (2026-08-18). 넷 중 둘이 풀렸고 둘이 남았다. 로컬 P3 작업과 병렬이며 이를
+**상태:** `partial` (2026-08-18). **넷 중 둘이 done**이고 둘이 남았다. 로컬 P3 작업과 병렬이며 이를
 막지 않는다.
 
 - ~~원격 Git 저장소 연결~~ — **done.** `git@github.com:KlipseAI/louis.git` (private, 기본 브랜치
   `main`). 로컬 `main`이 `origin/main`보다 앞서 있을 수 있으므로 세션 시작 때 `git fetch`로 확인한다
-- **clean-checkout hosted CI** — 워크플로가 돌기 시작했고 **첫 실행이 실패했다.** 원인은
-  아래에 적었고 수정했다. **아직 초록으로 통과한 실행이 없으므로 이 항목은 미충족이다**
+- ~~clean-checkout hosted CI~~ — **done (2026-08-18).** 초록 실행:
+  `https://github.com/KlipseAI/louis/actions/runs/32094705359` (커밋 `d7f3910`). clean checkout에서
+  install → 브라우저 설치 → build → check → verify → `--require-tracked` → **실브라우저 632건**이
+  전부 통과했다. 초록에 이르기까지 네 번 실패했고 그 넷이 전부 로컬에서 보이지 않던 것이었다
 - repository owner 승인 — 미해소
 - registry, docs hosting과 Figma publish 권한 — 미해소
 
@@ -5151,6 +5144,28 @@ popover에 가린다. **이 결정은 드로어를 다루지 않는다** — 드
 ### Updates
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
+
+#### 2026-08-18 (14) — hosted CI가 처음 초록이 됐다
+
+[run 32094705359](https://github.com/KlipseAI/louis/actions/runs/32094705359) — clean checkout에서
+install → 브라우저 설치 → build → check → verify → `--require-tracked` → **실브라우저 632건**이
+전부 통과했다. `DS-GOV-000`의 네 조건 중 **원격 연결과 hosted CI 둘이 done**이 됐다.
+
+##### 초록에 이르기까지 네 번 실패했고 넷 다 로컬에서 안 보이던 것이다
+
+1. **브라우저 바이너리 설치 단계가 없었다** — 로컬 캐시 때문에 로컬에서만 통과
+2. **632건이 CI에서 한 번도 돈 적이 없었다** — `verify`는 러너의 실패 전파만 증명한다
+3. **앞 테스트의 포인터가 남아 행이 `:hover`였다** — 받은 값 `#171b22 / 0.08`이
+   `color-action-ghost-hover`였다. `surface-states`가 이미 적어 둔 함정을 이 파일이 안 따랐다
+4. **틀린 진단 하나** — 3번을 "범위 한정 누락"이라 단정했다가 CI가 반증했다
+
+##### 방법 하나가 섰다
+
+원인을 모를 때 **단언을 고치지 않고 진단을 실어 CI 한 사이클을 돌린다.** 3번이 그렇게 한 번에
+풀렸다 — `theme: null`·`prefersDark: false`·`fixtureCount: 1`이 두 가설을 지웠고 alpha 0.08이
+답을 가리켰다. 기대값은 끝까지 바꾸지 않았다.
+
+**로컬 초록은 이 종류를 증명하지 못한다.**
 
 #### 2026-08-18 (13) — 원격이 생겼고 첫 hosted CI가 실패했다
 

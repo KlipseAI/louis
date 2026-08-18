@@ -1196,7 +1196,34 @@ function compare(document, expected) {
 
   issues.push(...compareComponents(document.components ?? {}));
   issues.push(...compareIcons(document.icons ?? {}));
+  issues.push(...compareFoundations(document.foundations));
   issues.push(...compareTemplates(document.templates ?? {}));
+  return issues;
+}
+
+/**
+ * Foundations 페이지가 캔버스에 적어 둔 토큰 이름이 파일에 실재하는지.
+ *
+ * 문서는 게이트가 안 보는 자리라 조용히 낡는다 — `color-status-*` 8개와
+ * `action-primary-pressed`를 rename한 날, Color 절이 없는 이름 9개를 그대로 적고 있었고
+ * 새로 선 media 색 9종은 아예 빠져 있었다(2026-08-18).
+ */
+function compareFoundations(foundations) {
+  if (foundations === undefined) {
+    return ["Foundations 되읽기가 snapshot에 없습니다. 페이지를 다시 읽어 readback에 넣으세요."];
+  }
+  const issues = [];
+  const stale = foundations.staleNames ?? [];
+  if (stale.length > 0) {
+    issues.push(
+      `Foundations가 파일에 없는 이름을 적어 두었습니다(${stale.length}개): ${stale.slice(0, 8).join(", ")}`,
+    );
+  }
+  const expected = ["Color", "Typography", "Spacing & Radius", "Elevation"];
+  const actual = foundations.sections ?? [];
+  for (const name of expected) {
+    if (!actual.includes(name)) issues.push(`Foundations에 ${name} 절이 없습니다.`);
+  }
   return issues;
 }
 

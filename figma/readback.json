@@ -6858,5 +6858,16 @@
       ]
     }
   },
-  "templates": {}
+  "templates": {},
+  "foundations": {
+    "$comment": "Foundations 페이지가 캔버스에 적어 둔 토큰 이름. 파일에 없는 이름을 적어 두면 문서가 거짓말이 된다.",
+    "printedTokenNames": [],
+    "staleNames": [],
+    "sections": [
+      "Color",
+      "Typography",
+      "Spacing & Radius",
+      "Elevation"
+    ]
+  }
 }

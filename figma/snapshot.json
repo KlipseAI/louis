@@ -6147,5 +6147,14 @@
       ]
     }
   },
-  "templates": {}
+  "templates": {},
+  "foundations": {
+    "sections": [
+      "Color",
+      "Typography",
+      "Spacing & Radius",
+      "Elevation"
+    ],
+    "staleNames": []
+  }
 }

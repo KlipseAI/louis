@@ -18,8 +18,8 @@ authority: normative
 
 | Surface       | 상태           | 근거                                                                                   |
 | ------------- | -------------- | -------------------------------------------------------------------------------------- |
-| Web           | `partial`      | public export와 실브라우저 acceptance test 14건이 두 motion context에서 각각 돈다; visual regression, Figma component와 제품 소비 증거 없음 |
-| Figma         | `not-ready`    | component set이 아직 없다. DS-F-006-segmented-control이 소유한다                        |
+| Web           | `partial`      | public export와 실브라우저 acceptance test 14건이 두 motion context에서 각각 돈다; visual regression과 제품 소비 증거 없음 |
+| Figma         | `partial`      | component set 2 variant(Size). parity 게이트가 Track·Segment·Segment-Selected·Label을 자손으로 대조하며 raw fill·stroke 0이다. publish는 DS-F-008 |
 | Documentation | `done`         | 이 문서                                                                                |
 | Maturity      | `experimental` | 규범과 구현이 같은 변경 단위에서 처음 선다                                             |
 

@@ -8,6 +8,41 @@ authority: normative
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
 
+## 2026-08-18 (6) — SegmentedControl이 Figma에 섰다
+
+`DS-F-006-segmented-control` 완료. Figma component set 14개 → **15개**이고 `segmented-control`의
+Figma 상태가 `not-ready` → `partial`이다.
+
+### 선택/비선택을 variant 축으로 나누지 않았다
+
+한 variant 안의 두 자손(`Segment` · `Segment-Selected`)으로 두었다. **색만 다르고 기하가 같아서**
+축을 나누면 같은 것을 두 번 세게 된다. parity 게이트가 둘의 기하를 각각 대조하므로 한쪽만
+어긋나도 걸린다.
+
+이 판정 덕분에 SegmentedControl은 게이트 확장(복합 키)을 기다리지 않아도 됐다 — 앞선 조사에서
+"막힘"으로 적었던 것을 정정한 결과다.
+
+### 헤어라인은 OUTSIDE stroke다
+
+CSS는 spread-only box-shadow로 그린다. Figma에서 **레이아웃을 건드리지 않는 등가물이 OUTSIDE
+stroke**다. INSIDE로 바꾸면 안쪽 콘텐츠 박스가 줄어 세그먼트 높이가 32에서 31이 되고, 그 순간
+게이트가 실패한다 — 계약에 `align: "OUTSIDE"`로 못 박았다.
+
+### 게이트가 잡은 것 둘
+
+빌드가 아니라 **등록 과정에서** 걸렸다.
+
+- **stroke 되읽기 형식.** `{ self: { weight, align } }`로 덤프했는데 정본 형식은
+  `{ self: ["0.5|OUTSIDE"] }` 문자열 배열이다. 형식이 어긋나자 "stroke 역할 self이 Figma에
+  없습니다"로 걸렸다
+- **`borderWidth` 키 이름이 규약이다.** 보이는 테두리 두께를 `trackBorderWidth`로 적었더니
+  게이트의 허용 stroke 집합이 **비어서** 0.5가 통째로 거부됐다 — `verify-figma-parity`가
+  `spec.borderWidth`로 그 값을 읽는다. measured와 테스트를 함께 옮겼다
+
+### 남은 것
+
+Figma component set 셋 — Slider(복합 키 canary와 같은 단위) · Checkbox · SelectableListRow.
+
 ## 2026-08-18 (5) — Selectable List Row · 카탈로그 15/15
 
 카탈로그 15순위이자 **마지막 항목**이다.

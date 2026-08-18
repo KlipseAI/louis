@@ -96,7 +96,7 @@ for (const size of SIZES) {
     // 헤어라인은 border가 아니라 spread-only box-shadow다 — border를 쓰면 세그먼트 높이가
     // DPR에 따라 달라진다. 선언 토큰을 본다.
     expect(trackStyle.boxShadow, "트랙 테두리는 spread-only 그림자다").toContain("0px 0px 0px");
-    expect(tokenPx("border-width-hairline"), "trackBorderWidth").toBe(spec.trackBorderWidth);
+    expect(tokenPx("border-width-hairline"), "borderWidth").toBe(spec.borderWidth);
 
     const segment = find(".kds-segmented-control__segment");
     const segmentStyle = getComputedStyle(segment);

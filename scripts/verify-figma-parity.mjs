@@ -425,6 +425,56 @@ const COMPONENT_CONTRACTS = [
     },
   },
   {
+    id: "segmented-control",
+    figmaName: "SegmentedControl",
+    declaration: "packages/react/dist/segmented-control/segmented-control.d.ts",
+    variantProperties: { Size: "SegmentedControlSize" },
+    // **헤어라인은 OUTSIDE stroke다.** CSS는 spread-only box-shadow로 그리는데, Figma에서
+    // 레이아웃을 건드리지 않는 등가물이 OUTSIDE stroke다. INSIDE로 바꾸면 안쪽 콘텐츠 박스가
+    // 줄어 세그먼트 높이가 32에서 31이 된다 — 그 순간 아래 parts가 실패한다.
+    strokes: { self: { weight: "borderWidth", align: "OUTSIDE" } },
+    effects: {},
+    geometry: {
+      measuredId: "segmented-control",
+      fields: {
+        height: "trackHeight",
+        paddingBlock: "trackPadding",
+        paddingBlockEnd: "trackPadding",
+        paddingInline: "trackPadding",
+        paddingInlineEnd: "trackPadding",
+        // 세그먼트 사이에 간격을 두지 않는다. 선택 면이 자기 반경으로 경계를 만든다.
+        itemSpacing: { literal: 0 },
+        cornerRadius: "trackRadius",
+        layoutMode: { literal: "HORIZONTAL" },
+      },
+      slots: {},
+      extraStrokeWeights: [],
+      parts: {
+        // 선택/비선택은 **면 색만** 다르고 기하가 같다. 그래서 variant 축으로 나누지 않고
+        // 한 variant 안의 두 자손으로 둔다 — 둘의 기하가 갈리면 여기서 걸린다.
+        Segment: {
+          fields: {
+            height: "segmentHeight",
+            paddingInline: "segmentPaddingInline",
+            paddingInlineEnd: "segmentPaddingInline",
+            itemSpacing: "segmentGap",
+            cornerRadius: "segmentRadius",
+          },
+        },
+        "Segment-Selected": {
+          fields: {
+            height: "segmentHeight",
+            paddingInline: "segmentPaddingInline",
+            paddingInlineEnd: "segmentPaddingInline",
+            itemSpacing: "segmentGap",
+            cornerRadius: "segmentRadius",
+          },
+        },
+        Label: { fields: { fontSize: "fontSize" } },
+      },
+    },
+  },
+  {
     id: "badge",
     figmaName: "Badge",
     declaration: "packages/react/dist/badge/badge.d.ts",

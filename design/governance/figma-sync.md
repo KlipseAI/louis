@@ -62,7 +62,8 @@ publish 이후에만 검토한다 — publish 전에는 파일 간 변수·compo
 - icon component: `partial` — `icon/{kebab}` 26개, 24×24 frame 하나, 크기 variant 없음. stroke와
   fill을 전부 `color/foreground-primary`에 바인딩해 raw 값 0을 만족한다. publish 전
 - text/effect style: `done` — `typography/*` 15종, `elevation/*` 4종 (semantic tier 이름)
-- component library: Button set 40 variant (Variant × Size × State), publish 전
+- component library: component set 15개, publish 전. 최신은 SegmentedControl 2 variant(Size)이며
+  선택/비선택은 variant 축이 아니라 한 variant 안의 두 자손이다 — 색만 다르고 기하가 같다
 - component parity checker: `done` — Figma variant 옵션을 코드 타입 선언과 대조하고, 선언되지 않은
   property와 raw 값 사용을 실패로 처리한다
 

@@ -231,7 +231,7 @@ Tooltip(`.app-tooltip-chrome` + `--app-tooltip-*`), Menu(`--dropdown-*`). Icon B
 | Decision | **18종** (`DS-D-0001`~`DS-D-0018`) |
 | 카탈로그 | **15/15 — 전부 섰다.** 1~11순위가 Web·Figma 모두 `partial`, 12~15순위는 Web만 `partial` |
 | manifest component | 17개. `select`만 `not-ready`(아래 1d). 12~15순위 넷은 Figma가 `not-ready` |
-| Figma | component 14개 · 변수 210개 · style 22개 |
+| Figma | component **15개** · 변수 210개 · style 22개 |
 | 검증 | 브라우저 632건(두 motion context) · 토큰 게이트 canary 42종 · CSS canary 12종 · parity canary 33종 |
 
 **카탈로그가 닫혔다. 바로 다음에 할 일은 `DS-F-006`의 남은 Figma component set 넷이다** —
@@ -392,9 +392,18 @@ Badge의 `Label`). **모든 fill이 변수 바인딩이고 raw 값이 0이다.**
 
 **게이트를 약하게 만드는 방향은 택하지 않는다.**
 
-**착수 순서.** (1)~(3)이 끝났으므로 이제 Figma set을 큐 순서대로 지으면 된다 — Slider의 변경
-단위에 (4)의 canary를 함께 넣는다. Checkbox·SelectableListRow·SegmentedControl 셋은 확장과
-무관하게 언제든 지을 수 있다.
+**착수 순서.** (1)~(3)이 끝났고 **SegmentedControl은 2026-08-18에 섰다**(component 15개, parity
+통과). 남은 셋은 Slider(복합 키 canary와 같은 단위) · Checkbox · SelectableListRow다.
+
+**빌드 루프가 검증됐다.** 순서는 이렇다 — ① `use_figma`로 set 생성(모든 시각 속성을 변수·style에
+바인딩, raw 0) ② 되읽기 덤프 ③ `figma/readback.json`의 `components`에 **그 컴포넌트만 병합**
+(나머지는 바뀌지 않았으므로 건드리지 않는다) ④ `pnpm run build-figma-snapshot`
+⑤ `verify-figma-parity.mjs`에 계약 추가 ⑥ manifest·규범 문서의 Figma 상태를 `partial`로.
+
+**등록에서 걸리는 지점 둘을 미리 적는다.** stroke 되읽기 형식은 `{역할: ["두께|정렬"]}` 문자열
+배열이고, 보이는 테두리 두께의 measured 키는 반드시 **`borderWidth`**여야 한다 —
+게이트가 `spec.borderWidth`로 허용 stroke 집합을 만들기 때문에 다른 이름이면 집합이 비어
+모든 stroke가 거부된다.
 
 **준비는 해 두었다.** size 축이 없는 두 컴포넌트의 measured 키를 `md` → `base`로 옮겼다 —
 게이트의 `sizeKey: "base"` 계약이 그 이름으로 readback을 찾는다(Badge·EmptyState와 같다).
@@ -1116,7 +1125,7 @@ description에 기록했다. parity 게이트가 style 10종까지 검증하므�
 | `DS-F-006-menu-popover` | `partial` | `not-ready` | 4 |
 | `DS-F-006-dialog` | `partial` | `not-ready` | 5 |
 | `DS-F-006-slider` | `partial` | `not-ready` | 12 |
-| `DS-F-006-segmented-control` | `partial` | `not-ready` | 13 |
+| `DS-F-006-segmented-control` | `partial` | **`partial`** | 13 |
 | `DS-F-006-checkbox` | `partial` | `not-ready` | 14 |
 | `DS-F-006-selectable-list-row` | `partial` | `not-ready` | 15 |
 

@@ -4649,6 +4649,183 @@
       },
       "strokes": {},
       "effects": {}
+    },
+    "SegmentedControl": {
+      "variantCount": 2,
+      "hasDescription": true,
+      "properties": {
+        "Size": {
+          "type": "VARIANT",
+          "options": [
+            "md",
+            "sm"
+          ]
+        }
+      },
+      "binding": {
+        "boundFills": 10,
+        "rawFills": 0,
+        "boundStrokes": 2,
+        "rawStrokes": 0,
+        "textStyled": 6,
+        "textUnstyled": 0
+      },
+      "geometry": {
+        "md": {
+          "slots": {},
+          "parts": {
+            "Segment": {
+              "height": [
+                32
+              ],
+              "paddingInline": [
+                12
+              ],
+              "paddingInlineEnd": [
+                12
+              ],
+              "itemSpacing": [
+                8
+              ],
+              "cornerRadius": [
+                8
+              ]
+            },
+            "Label": {
+              "fontSize": [
+                14
+              ],
+              "lineHeightPercent": [
+                150
+              ]
+            },
+            "Segment-Selected": {
+              "height": [
+                32
+              ],
+              "paddingInline": [
+                12
+              ],
+              "paddingInlineEnd": [
+                12
+              ],
+              "itemSpacing": [
+                8
+              ],
+              "cornerRadius": [
+                8
+              ]
+            }
+          },
+          "strokeWeight": [
+            0.5
+          ],
+          "height": [
+            40
+          ],
+          "paddingBlock": [
+            4
+          ],
+          "paddingBlockEnd": [
+            4
+          ],
+          "paddingInline": [
+            4
+          ],
+          "paddingInlineEnd": [
+            4
+          ],
+          "itemSpacing": [
+            0
+          ],
+          "cornerRadius": [
+            12
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ]
+        },
+        "sm": {
+          "slots": {},
+          "parts": {
+            "Segment": {
+              "height": [
+                24
+              ],
+              "paddingInline": [
+                8
+              ],
+              "paddingInlineEnd": [
+                8
+              ],
+              "itemSpacing": [
+                8
+              ],
+              "cornerRadius": [
+                8
+              ]
+            },
+            "Label": {
+              "fontSize": [
+                12
+              ],
+              "lineHeightPercent": [
+                150
+              ]
+            },
+            "Segment-Selected": {
+              "height": [
+                24
+              ],
+              "paddingInline": [
+                8
+              ],
+              "paddingInlineEnd": [
+                8
+              ],
+              "itemSpacing": [
+                8
+              ],
+              "cornerRadius": [
+                8
+              ]
+            }
+          },
+          "strokeWeight": [
+            0.5
+          ],
+          "height": [
+            32
+          ],
+          "paddingBlock": [
+            4
+          ],
+          "paddingBlockEnd": [
+            4
+          ],
+          "paddingInline": [
+            4
+          ],
+          "paddingInlineEnd": [
+            4
+          ],
+          "itemSpacing": [
+            0
+          ],
+          "cornerRadius": [
+            12
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ]
+        }
+      },
+      "strokes": {
+        "self": [
+          "0.5|OUTSIDE"
+        ]
+      },
+      "effects": {}
     }
   },
   "icons": {

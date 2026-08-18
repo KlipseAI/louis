@@ -8,6 +8,44 @@ authority: normative
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
 
+## 2026-08-18 (28) — 사진 위의 색에 이름을 준다
+
+캐러셀 CSS를 쓰려다 멈춘 자리를 푼다. 제품의 배너 부품은 **고정 `--palette-gray-*`를 쓰고**
+주석이 이유를 적어 뒀다 — *"사이트 테마와 무관하게 항상 같은 모습이어야 하므로."*
+**배너의 면은 사진이지 테마 표면이 아니다.**
+
+DS의 semantic 색 41개는 전부 테마를 따라 뒤집힌다. 그리고 CSS 게이트가 primitive 직접 소비를
+막는다. 그래서 정직하게 쓸 방법이 없었다.
+
+### 값은 이미 DS 안에 있었다
+
+제품의 `--palette-gray-000`(#fafafa) · `900`(#171b22) · `1000`(#000000)은 각각 DS의
+`neutral.0` · `neutral.900` · `neutral.1000`과 **정확히 같다.** 없던 것은 이름이지 값이 아니다.
+알파 셋(`black-alpha.28` · `paper-alpha.45` · `paper-alpha.88`)만 더했다.
+
+### light와 dark에 같은 값을 넣는다
+
+| 토큰 | 별칭 |
+| --- | --- |
+| `color-media-foreground-bright` | `neutral.900` |
+| `color-media-foreground-dark` | `neutral.0` |
+| `color-media-scrim-bright` | `neutral.0` |
+| `color-media-scrim-dark` | `neutral.1000` |
+| `color-media-control-surface` | `black-alpha.28` |
+| `color-media-control-foreground` | `paper-alpha.88` |
+| `color-media-control-hover` | `paper-alpha.14` |
+| `color-media-indicator-rest` | `paper-alpha.45` |
+| `color-media-indicator-active` | `neutral.0` |
+
+두 모드에 같은 primitive를 건다. **값이 우연히 같은 것이 아니라 같아야 한다는 계약**이며,
+모델을 벗어나지 않으면서 "테마 무관"을 표현하는 유일한 방법이다. 누가 한쪽 모드만 바꾸면
+`theme-mode-completeness` canary가 아니라 **의도가 깨진 것**이므로, 규범 문서에 그 사실을 적는다.
+
+`bright`/`dark`가 테마 이름이 아니라 **이미지 톤** 이름인 것에 주의한다 — 밝은 사진 위에서는
+글자가 어두워야 하므로 `media-foreground-bright`가 `neutral.900`이다.
+
+Figma에도 primitive 3 · semantic 9를 만들고 readback을 갱신했다. 변수 219 → **231**.
+
 ## 2026-08-18 (27) — 배포본에서 8화면을 다시 분해한다
 
 `screen-inventory.md`는 `sniperfactory-official/klipse`의 `louis`(2026-08-04, dirty 트리)를 읽고

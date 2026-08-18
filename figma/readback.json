@@ -141,6 +141,23 @@
           ]
         ],
         [
+          "color/black-alpha/28",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
+          [
+            [
+              "Base",
+              null,
+              [
+                0,
+                0,
+                0,
+                0.28
+              ]
+            ]
+          ]
+        ],
+        [
           "color/black-alpha/56",
           "COLOR",
           "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
@@ -804,6 +821,23 @@
           ]
         ],
         [
+          "color/paper-alpha/45",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
+          [
+            [
+              "Base",
+              null,
+              [
+                0.980392,
+                0.980392,
+                0.980392,
+                0.45
+              ]
+            ]
+          ]
+        ],
+        [
           "color/paper-alpha/72",
           "COLOR",
           "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
@@ -850,6 +884,23 @@
                 0.980392,
                 0.980392,
                 0.86
+              ]
+            ]
+          ]
+        ],
+        [
+          "color/paper-alpha/88",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
+          [
+            [
+              "Base",
+              null,
+              [
+                0.980392,
+                0.980392,
+                0.980392,
+                0.88
               ]
             ]
           ]
@@ -2982,6 +3033,159 @@
             [
               "Dark",
               "Klipse Primitive::color/neutral/400",
+              null
+            ]
+          ]
+        ],
+        [
+          "color/media-control-foreground",
+          "COLOR",
+          "STROKE_COLOR",
+          [
+            [
+              "Light",
+              "Klipse Primitive::color/paper-alpha/88",
+              null
+            ],
+            [
+              "Dark",
+              "Klipse Primitive::color/paper-alpha/88",
+              null
+            ]
+          ]
+        ],
+        [
+          "color/media-control-hover",
+          "COLOR",
+          "STROKE_COLOR",
+          [
+            [
+              "Light",
+              "Klipse Primitive::color/paper-alpha/14",
+              null
+            ],
+            [
+              "Dark",
+              "Klipse Primitive::color/paper-alpha/14",
+              null
+            ]
+          ]
+        ],
+        [
+          "color/media-control-surface",
+          "COLOR",
+          "STROKE_COLOR",
+          [
+            [
+              "Light",
+              "Klipse Primitive::color/black-alpha/28",
+              null
+            ],
+            [
+              "Dark",
+              "Klipse Primitive::color/black-alpha/28",
+              null
+            ]
+          ]
+        ],
+        [
+          "color/media-foreground-bright",
+          "COLOR",
+          "STROKE_COLOR",
+          [
+            [
+              "Light",
+              "Klipse Primitive::color/neutral/900",
+              null
+            ],
+            [
+              "Dark",
+              "Klipse Primitive::color/neutral/900",
+              null
+            ]
+          ]
+        ],
+        [
+          "color/media-foreground-dark",
+          "COLOR",
+          "STROKE_COLOR",
+          [
+            [
+              "Light",
+              "Klipse Primitive::color/neutral/0",
+              null
+            ],
+            [
+              "Dark",
+              "Klipse Primitive::color/neutral/0",
+              null
+            ]
+          ]
+        ],
+        [
+          "color/media-indicator-active",
+          "COLOR",
+          "STROKE_COLOR",
+          [
+            [
+              "Light",
+              "Klipse Primitive::color/neutral/0",
+              null
+            ],
+            [
+              "Dark",
+              "Klipse Primitive::color/neutral/0",
+              null
+            ]
+          ]
+        ],
+        [
+          "color/media-indicator-rest",
+          "COLOR",
+          "STROKE_COLOR",
+          [
+            [
+              "Light",
+              "Klipse Primitive::color/paper-alpha/45",
+              null
+            ],
+            [
+              "Dark",
+              "Klipse Primitive::color/paper-alpha/45",
+              null
+            ]
+          ]
+        ],
+        [
+          "color/media-scrim-bright",
+          "COLOR",
+          "STROKE_COLOR",
+          [
+            [
+              "Light",
+              "Klipse Primitive::color/neutral/0",
+              null
+            ],
+            [
+              "Dark",
+              "Klipse Primitive::color/neutral/0",
+              null
+            ]
+          ]
+        ],
+        [
+          "color/media-scrim-dark",
+          "COLOR",
+          "STROKE_COLOR",
+          [
+            [
+              "Light",
+              "Klipse Primitive::color/neutral/1000",
+              null
+            ],
+            [
+              "Dark",
+              "Klipse Primitive::color/neutral/1000",
               null
             ]
           ]

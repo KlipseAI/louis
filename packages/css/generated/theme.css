@@ -48,6 +48,15 @@
   --color-foreground-primary: var(--kds-color-foreground-primary);
   --color-foreground-secondary: var(--kds-color-foreground-secondary);
   --color-foreground-tertiary: var(--kds-color-foreground-tertiary);
+  --color-media-control-foreground: var(--kds-color-media-control-foreground);
+  --color-media-control-hover: var(--kds-color-media-control-hover);
+  --color-media-control-surface: var(--kds-color-media-control-surface);
+  --color-media-foreground-bright: var(--kds-color-media-foreground-bright);
+  --color-media-foreground-dark: var(--kds-color-media-foreground-dark);
+  --color-media-indicator-active: var(--kds-color-media-indicator-active);
+  --color-media-indicator-rest: var(--kds-color-media-indicator-rest);
+  --color-media-scrim-bright: var(--kds-color-media-scrim-bright);
+  --color-media-scrim-dark: var(--kds-color-media-scrim-dark);
   --color-scrim-modal: var(--kds-color-scrim-modal);
   --color-status-danger-background: var(--kds-color-status-danger-background);
   --color-status-danger-foreground: var(--kds-color-status-danger-foreground);

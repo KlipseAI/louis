@@ -6,12 +6,12 @@
     "capturedAt": "2026-08-18",
     "capturedBy": "figma-mcp-plugin-api",
     "published": false,
-    "tokenSourceSha256": "de01576421443b7ea138783bf7b9186df936c79a0c3849e0b5c45efe2f37cc39",
-    "proposalSha256": "63d3437358c7c16dc680ac60e57059387037beb816267bf976f270fe0987ae20",
+    "tokenSourceSha256": "decd469a78333ee237cd2628ce6b1b58d025b81c600c10818cbd66be760d9372",
+    "proposalSha256": "3247ad1cc2d795b075985b3c3ed96942a4a0188004265ddcc2bf8b631de84079",
     "readback": {
-      "tokens": 219,
-      "canonicalLength": 18298,
-      "fnv1a32": "ee79ebe5",
+      "tokens": 231,
+      "canonicalLength": 19828,
+      "fnv1a32": "839bbef6",
       "note": "변수는 readback.json의 되읽기 행을 tokenId 공간으로 옮긴 것이고, style과 component는 같은 되읽기의 style/component 절이다. canonical 해시는 컬렉션·이름·타입·mode 값을 정렬해 이은 문자열의 FNV-1a다.",
       "styles": {
         "text": 15,
@@ -31,7 +31,7 @@
         "Base"
       ],
       "defaultMode": "Base",
-      "variableCount": 113
+      "variableCount": 116
     },
     "Klipse Semantic": {
       "modes": [
@@ -46,7 +46,7 @@
         "Dark"
       ],
       "defaultMode": "Light",
-      "variableCount": 41
+      "variableCount": 50
     }
   },
   "variables": {
@@ -379,6 +379,20 @@
         },
         "Dark": {
           "alias": "color-neutral-800"
+        }
+      }
+    },
+    "color-black-alpha-28": {
+      "figmaName": "color/black-alpha/28",
+      "resolvedType": "COLOR",
+      "valuesByMode": {
+        "Base": {
+          "value": [
+            0,
+            0,
+            0,
+            0.28
+          ]
         }
       }
     },
@@ -884,6 +898,114 @@
         }
       }
     },
+    "color-media-control-foreground": {
+      "figmaName": "color/media-control-foreground",
+      "resolvedType": "COLOR",
+      "valuesByMode": {
+        "Light": {
+          "alias": "color-paper-alpha-88"
+        },
+        "Dark": {
+          "alias": "color-paper-alpha-88"
+        }
+      }
+    },
+    "color-media-control-hover": {
+      "figmaName": "color/media-control-hover",
+      "resolvedType": "COLOR",
+      "valuesByMode": {
+        "Light": {
+          "alias": "color-paper-alpha-14"
+        },
+        "Dark": {
+          "alias": "color-paper-alpha-14"
+        }
+      }
+    },
+    "color-media-control-surface": {
+      "figmaName": "color/media-control-surface",
+      "resolvedType": "COLOR",
+      "valuesByMode": {
+        "Light": {
+          "alias": "color-black-alpha-28"
+        },
+        "Dark": {
+          "alias": "color-black-alpha-28"
+        }
+      }
+    },
+    "color-media-foreground-bright": {
+      "figmaName": "color/media-foreground-bright",
+      "resolvedType": "COLOR",
+      "valuesByMode": {
+        "Light": {
+          "alias": "color-neutral-900"
+        },
+        "Dark": {
+          "alias": "color-neutral-900"
+        }
+      }
+    },
+    "color-media-foreground-dark": {
+      "figmaName": "color/media-foreground-dark",
+      "resolvedType": "COLOR",
+      "valuesByMode": {
+        "Light": {
+          "alias": "color-neutral-0"
+        },
+        "Dark": {
+          "alias": "color-neutral-0"
+        }
+      }
+    },
+    "color-media-indicator-active": {
+      "figmaName": "color/media-indicator-active",
+      "resolvedType": "COLOR",
+      "valuesByMode": {
+        "Light": {
+          "alias": "color-neutral-0"
+        },
+        "Dark": {
+          "alias": "color-neutral-0"
+        }
+      }
+    },
+    "color-media-indicator-rest": {
+      "figmaName": "color/media-indicator-rest",
+      "resolvedType": "COLOR",
+      "valuesByMode": {
+        "Light": {
+          "alias": "color-paper-alpha-45"
+        },
+        "Dark": {
+          "alias": "color-paper-alpha-45"
+        }
+      }
+    },
+    "color-media-scrim-bright": {
+      "figmaName": "color/media-scrim-bright",
+      "resolvedType": "COLOR",
+      "valuesByMode": {
+        "Light": {
+          "alias": "color-neutral-0"
+        },
+        "Dark": {
+          "alias": "color-neutral-0"
+        }
+      }
+    },
+    "color-media-scrim-dark": {
+      "figmaName": "color/media-scrim-dark",
+      "resolvedType": "COLOR",
+      "valuesByMode": {
+        "Light": {
+          "alias": "color-neutral-1000"
+        },
+        "Dark": {
+          "alias": "color-neutral-1000"
+        }
+      }
+    },
     "color-neutral-0": {
       "figmaName": "color/neutral/0",
       "resolvedType": "COLOR",
@@ -1108,6 +1230,20 @@
         }
       }
     },
+    "color-paper-alpha-45": {
+      "figmaName": "color/paper-alpha/45",
+      "resolvedType": "COLOR",
+      "valuesByMode": {
+        "Base": {
+          "value": [
+            0.980392,
+            0.980392,
+            0.980392,
+            0.45
+          ]
+        }
+      }
+    },
     "color-paper-alpha-72": {
       "figmaName": "color/paper-alpha/72",
       "resolvedType": "COLOR",
@@ -1146,6 +1282,20 @@
             0.980392,
             0.980392,
             0.86
+          ]
+        }
+      }
+    },
+    "color-paper-alpha-88": {
+      "figmaName": "color/paper-alpha/88",
+      "resolvedType": "COLOR",
+      "valuesByMode": {
+        "Base": {
+          "value": [
+            0.980392,
+            0.980392,
+            0.980392,
+            0.88
           ]
         }
       }

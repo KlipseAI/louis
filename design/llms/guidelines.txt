@@ -848,19 +848,25 @@ Tooltip(`.app-tooltip-chrome` + `--app-tooltip-*`), Menu(`--dropdown-*`). Icon B
 스타터 보일러플레이트였고 어떤 컴포넌트도 쓰지 않는다. 경로와 판정 근거는 비규범 기록인
 [`migration/product.measured.json`](../../migration/product.measured.json)에 있다.
 
-**현재 다음 포인터 (2026-08-16 갱신):** `DS-GOV-000`을 제외한 GOV 트랙, `DS-F-000`~`DS-F-005`,
-`DS-P3-002a`, `DS-P3-002`(1단계), `DS-P3-003`, `DS-P3-009a`, `DS-P3-013`이 `done`이다. `DS-P3-001`은
-자기 몫의 Decision 6종을 다 쓰고 `in-progress`이며 owner 확인만 남았다(저장소 전체 Decision은 14종).
+**현재 다음 포인터 (2026-08-18 갱신).**
 
-Web 구현이 선 component는 일곱이다 — Button, Menu/Popover, Dialog, Icon Button, Tooltip, Toast,
-Project Card가 모두 Web `partial`이고 docs `done`이다. Input·Select·Empty State는 여전히
-`not-ready`다. Figma에는 component set 일곱과 Project Card component 하나가 서 있다.
+#### 지금 어디에 있는가
 
-**다음은 두 가지다. 순서가 있다.**
+| 축 | 상태 |
+| --- | --- |
+| GOV 트랙 | `DS-GOV-000`만 `blocked`, 나머지 `done` |
+| `DS-F-000`~`DS-F-005` | `done` |
+| `DS-P3-002a` · `002`(1단계) · `003` · `009a` · `013` | `done` |
+| `DS-P3-001` | `in-progress`. Decision 6종을 다 썼고 owner 확인만 남았다 |
+| Decision | **18종** (`DS-D-0001`~`DS-D-0018`) |
+| 카탈로그 | **11/15.** 1~11순위가 Web·Figma 모두 `partial` |
+| manifest component | 13개. `select`만 `not-ready`(아래 1d) |
+| Figma | component 14개 · 변수 210개 · style 22개 |
+| 검증 | 브라우저 502건(두 motion context) · 토큰 게이트 canary 42종 · CSS canary 12종 · parity canary 33종 |
 
-**(1) ~~Project Card의 parity 게이트 확장~~ — `done` (2026-08-16).** `geometry.parts`, `heightRatioOf`,
-`childOrder`, 프로그레시브 램프 유도, float32 허용치, text style 면제를 붙이고 canary를 26→33종으로
-늘렸다. Project Card는 `figma: partial`이다.
+**바로 다음에 할 일은 (2)의 12순위 Slider다.** (1a)~(1d)는 owner 결정이 필요해 병렬로 열려 있다.
+
+#### 다음 작업
 
 **(1a) 소비처 0인 semantic 토큰이 41/132다 — 전수 감사(2026-08-17).** 셋으로 갈린다.
 
@@ -935,17 +941,27 @@ component인데 **gap registry 우선순위 1~15 어디에도 없다.** 실측 �
 항목을 `not-planned`로 바꾼다, (c) 남겨 둔다. 지금처럼 계획 없이 `not-ready`로 두면 카탈로그가
 영원히 미완으로 읽힌다.
 
-**(2) gap registry 12순위 이하.** ~~SidebarNavItem · AppTopBar~~(11순위)도 `done`(2026-08-18).
-남은 것은 Slider · SegmentedControl · Checkbox · SelectableListRow 넷이다.
+**(2) gap registry 12순위 이하 — 이것이 바로 다음 작업이다.** 1~11순위는 전부 `done`이며
+남은 것은 **Slider · SegmentedControl · Checkbox · SelectableListRow** 넷이다.
+
+**절차는 앞선 여섯과 같다.** 매번 이 순서로 했고 매번 등록부의 수가 틀렸다.
+
+1. 제품을 **전수로 실측한다.** 등록부의 확산도 수치를 믿지 않는다 — ProjectCard "3벌"은 4벌,
+   EmptyState "7벌"은 9벌, TextField "16"은 약 40벌, Badge "톤 4 + 상태 5"는 **두 축 다 죽어
+   있었고**, Spinner "5종 · Skeleton 0종"은 22벌·15벌, 앱 셸 "31곳"은 두 컴포넌트 합산이었다.
+   **축이 코드에 있다고 해서 실제로 다른 결과를 내는지는 별개다** — 그것을 반드시 확인한다.
+2. 정본을 판정한다. 제품에 공용 구현이 있으면 그 값을 옮기고, 없으면 DS가 정하되
+   `migration/product.measured.json`에 `no-canon`으로 명시한다.
+3. 옮기지 않을 것을 고른다 — 접근성 결함(포커스 표시 부재·색만으로 전달하는 상태·라벨 없는 입력)은
+   제품에 있어도 옮기지 않고 `accepted-deviation`으로 사유를 적는다.
+4. 토큰이 모자라면 **Decision을 먼저 쓴다.** 이름이 실제 뜻과 어긋나지 않는지 확인한다.
+5. CSS recipe → React → `figma/components.measured.json` → 브라우저 테스트 → 규범 문서 →
+   manifest 등록 → Figma component → parity 계약 + 되읽기 → 등록부·Updates·인계서.
+6. `surface-states.browser.test.tsx`의 `covered` 목록에 새 id를 넣는다. 잊으면 가드가 잡는다.
 
 **셸 composition은 아직 없다.** 부품 둘은 섰지만 rail·drawer·scroll root·safe area는
 [패턴](../patterns/app-shell.md)이 기술만 하고 구현이 없다. compact 드로어의 layer 자리도
 사다리에 없다 — 제품의 드로어(1400)는 popover(1100)보다 위인데 DS는 `sticky < popover`다.
-
-**(2b) gap registry 11순위 이하.** ~~TextField/Input~~(7순위) · ~~EmptyState~~(8순위) 모두
-`done`(2026-08-16 — Web `partial`, Figma `partial`). ~~Badge~~(9순위)도
-`done`(2026-08-17). 남은 것은 Spinner/Progress(위 1c 참조), SidebarNavItem·AppTopBar, Slider,
-SegmentedControl, Checkbox, SelectableListRow.
 
 **(2b) 컨트롤 테두리의 정본이 정해지지 않았다.** Button secondary는 `color-border-control`(반투명),
 IconButton secondary는 `color-border-default`(불투명)를 쓴다. TextField는 Button을 따랐다. 셋 중

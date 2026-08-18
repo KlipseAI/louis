@@ -3,7 +3,8 @@
   "productRepo": "/Users/sejunki/klipse",
   "productBranch": "louis",
   "measuredAt": "2026-08-15",
-  "templates": {
+  "$status": "2026-08-18: 앱 홈 템플릿을 조립했다가 **내렸다.** 사이드바 부품 4종(브랜드 워드마크 · 하단 업그레이드 CTA · 복합 내비 행 · 프로필 사용량 링)과 노드캔버스·비디오에디터·하이라이트 아이콘이 카탈로그에 없고, 배치 규칙인 app-shell 패턴이 not-ready다. 재료와 규칙 없이 만든 화면은 제품처럼 보이지도 않고 다음 사람이 그것을 기준으로 삼게 된다. **계약도 함께 내린다** — 만들 수 없는 것에 초록 계약이 붙어 있으면 그게 거짓말이다. 부품이 서면 이 파일의 templates를 되살린다.",
+  "$suspendedTemplates": {
     "home": {
       "$screen": "앱 홈, route /archive, scene AppHomeScene",
       "sceneWidth": {

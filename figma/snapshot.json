@@ -5999,8 +5999,8 @@
       "gridColumns": 4,
       "gridGap": 12,
       "sectionPaddingTop": 40,
-      "cardWidth": 270,
-      "cardHeight": 270,
+      "cardWidth": 269,
+      "cardHeight": 269,
       "cardSquare": true,
       "cardRadius": 16,
       "overlayHeightRatio": 0.3,
@@ -6010,7 +6010,8 @@
         120
       ],
       "gapMarkers": 8,
-      "dsInstances": 7
+      "dsInstances": 18,
+      "$note": "2026-08-18: coverage 도표를 **실제 화면 템플릿으로 바꿨다.** 사이드바 4행 · 상단 바 · 배너 · 프로젝트 카드 8장이 전부 DS 컴포넌트 인스턴스다. 여기서 새로 그린 도형은 없다 — 그리는 순간 컴포넌트와 갈라진다."
     }
   }
 }

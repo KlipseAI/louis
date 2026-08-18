@@ -21,14 +21,23 @@ const round = (value: number): number => Math.round(value * 1000) / 1000;
 const spec = measured.components["selectable-list-row"].sizes.base;
 const states = measured.components["selectable-list-row"].states.base;
 
+// **`document` 전체를 훑지 않는다.** 같은 파일의 앞 테스트가 남긴 DOM이 있으면 인덱스가 밀려
+// `[0]`이 다른 렌더의 행을 가리킨다. hosted CI가 그것을 잡았고(2026-08-18, browser-reduced-motion
+// project), **로컬에서 세 번 관측된 간헐 실패의 정체가 이것이었다** — 순서에 따라 나기도 하고
+// 안 나기도 해서 로컬에서는 재현되지 않았다. 항상 **마지막으로 렌더된 무리**만 본다.
+function scope(): ParentNode {
+  const groups = document.querySelectorAll("[data-kds-fixture]");
+  return groups.length > 0 ? groups[groups.length - 1]! : document;
+}
+
 function find(selector: string): HTMLElement {
-  const node = document.querySelector(selector);
+  const node = scope().querySelector(selector);
   if (node === null) throw new Error(`찾지 못했습니다: ${selector}`);
   return node as HTMLElement;
 }
 
 const all = (selector: string): HTMLElement[] =>
-  Array.from(document.querySelectorAll(selector)) as HTMLElement[];
+  Array.from(scope().querySelectorAll(selector)) as HTMLElement[];
 
 const row = (): HTMLButtonElement => find("button.kds-selectable-list-row") as HTMLButtonElement;
 
@@ -51,7 +60,7 @@ const TRANSPARENT = "rgba(0, 0, 0, 0)";
 
 function Fixture({ selected = 0 }: { selected?: number }): JSX.Element {
   return (
-    <div style={{ inlineSize: 320 }}>
+    <div data-kds-fixture style={{ inlineSize: 320 }}>
       {["첫 클립", "둘째 클립", "셋째 클립"].map((label, index) => (
         <SelectableListRow
           key={label}
@@ -112,7 +121,7 @@ test("표면 위에서도 선택이 보인다 — 면이 배경과 같아지는 
   // **다크에서 background-inset은 surface와 같은 색이다.** 면 하나에 기대면 표면 위에 놓인
   // 목록에서 선택이 통째로 사라진다. 3px 선행 표식이 그 자리를 지킨다.
   await render(
-    <div style={{ inlineSize: 320, background: "var(--kds-color-background-surface)" }}>
+    <div data-kds-fixture style={{ inlineSize: 320, background: "var(--kds-color-background-surface)" }}>
       <SelectableListRow selected title="선택됨" />
       <SelectableListRow title="선택 안 됨" />
     </div>,
@@ -132,7 +141,7 @@ test("표면 위에서도 선택이 보인다 — 면이 배경과 같아지는 
 });
 
 test("선택하지 않은 행에는 표식이 없다", async () => {
-  await render(<SelectableListRow title="선택 안 됨" />);
+  await render(<div data-kds-fixture><SelectableListRow title="선택 안 됨" /></div>);
   expect(getComputedStyle(row(), "::before").content, "표식 없음").toBe("none");
 });
 
@@ -148,7 +157,7 @@ test("선택을 aria-current가 소유한다", async () => {
 
 test("행 전체가 버튼이고 클릭이 한 번만 실행된다", async () => {
   let count = 0;
-  await render(<SelectableListRow title="클립" meta="12초" onClick={() => (count += 1)} />);
+  await render(<div data-kds-fixture><SelectableListRow title="클립" meta="12초" onClick={() => (count += 1)} /></div>);
   const button = row();
   expect(button.tagName, "button 요소다").toBe("BUTTON");
   expect(button.type, "제출이 아니다").toBe("button");
@@ -161,7 +170,7 @@ test("행 전체가 버튼이고 클릭이 한 번만 실행된다", async () =>
 test("긴 제목이 줄바꿈이 아니라 말줄임으로 줄어든다", async () => {
   // 행 높이가 항목마다 달라지면 목록이 튄다.
   await render(
-    <div style={{ inlineSize: 200 }}>
+    <div data-kds-fixture style={{ inlineSize: 200 }}>
       <SelectableListRow
         title="아주 아주 아주 긴 클립 제목이 들어오는 경우"
         meta="아주 아주 긴 보조 문구도 마찬가지다"
@@ -177,7 +186,7 @@ test("긴 제목이 줄바꿈이 아니라 말줄임으로 줄어든다", async 
 });
 
 test("선택된 행에서도 보조 문구가 한 단계 낮게 남는다", async () => {
-  await render(<SelectableListRow selected title="제목" meta="보조" />);
+  await render(<div data-kds-fixture><SelectableListRow selected title="제목" meta="보조" /></div>);
   const titleColor = getComputedStyle(row()).color;
   const metaColor = getComputedStyle(find(".kds-selectable-list-row__meta")).color;
   expect(metaColor, "둘이 같으면 위계가 사라진다").not.toBe(titleColor);
@@ -186,7 +195,7 @@ test("선택된 행에서도 보조 문구가 한 단계 낮게 남는다", asyn
 
 test("disabled면 클릭이 실행되지 않고 hover가 면을 칠하지 않는다", async () => {
   let count = 0;
-  await render(<SelectableListRow title="비활성" disabled onClick={() => (count += 1)} />);
+  await render(<div data-kds-fixture><SelectableListRow title="비활성" disabled onClick={() => (count += 1)} /></div>);
   const button = row();
   await userEvent.click(button, { force: true });
   expect(count, "실행 안 됨").toBe(0);
@@ -201,10 +210,10 @@ test("disabled면 클릭이 실행되지 않고 hover가 면을 칠하지 않는
 
 test("포커스 링이 키보드에서만 나타난다", async () => {
   await render(
-    <>
+    <div data-kds-fixture>
       <button type="button">앞</button>
       <SelectableListRow title="포커스" />
-    </>,
+    </div>,
   );
   const button = row();
 
@@ -236,7 +245,7 @@ test("접근성 위반이 없다", async () => {
     function Interactive(): JSX.Element {
       const [selected, setSelected] = useState(0);
       return (
-        <div style={{ inlineSize: 320 }}>
+        <div data-kds-fixture style={{ inlineSize: 320 }}>
           {["첫", "둘", "셋"].map((label, index) => (
             <SelectableListRow
               key={label}

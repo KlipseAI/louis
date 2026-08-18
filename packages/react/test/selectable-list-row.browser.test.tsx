@@ -95,22 +95,12 @@ test("states 표가 코드와 같다", async () => {
   await render(<Fixture />);
   const [selected, plain] = all("button.kds-selectable-list-row");
 
-  // **임시 진단(2026-08-18).** 이 단언이 hosted CI의 browser-reduced-motion에서만 결정적으로
-  // 실패하고 로컬에서는 같은 project로도 재현되지 않는다. 원인을 모르는 채 단언을 고치지 않고,
-  // 실패 메시지에 환경을 실어 CI 한 사이클로 관측한다. 원인이 밝혀지면 이 블록은 지운다.
-  const diagnostics = {
-    background: getComputedStyle(plain!).backgroundColor,
-    ariaCurrent: plain!.getAttribute("aria-current"),
-    title: plain!.textContent,
-    rowCount: all("button.kds-selectable-list-row").length,
-    fixtureCount: document.querySelectorAll("[data-kds-fixture]").length,
-    theme: document.documentElement.getAttribute("data-theme"),
-    prefersDark: matchMedia("(prefers-color-scheme: dark)").matches,
-    forcedColors: matchMedia("(forced-colors: active)").matches,
-    reducedMotion: matchMedia("(prefers-reduced-motion: reduce)").matches,
-    canvas: tokenValue("color-background-canvas", "background-color"),
-  };
-  expect(diagnostics, "Default background").toEqual({ ...diagnostics, background: TRANSPARENT });
+  // **포인터를 먼저 치운다.** 앞 테스트가 얹어 둔 포인터가 같은 좌표에 남아 있으면 새로 렌더된
+  // 행이 그 자리에서 :hover를 받는다 — hosted CI가 그 상태를 결정적으로 재현했고(2026-08-18)
+  // 받은 값이 `#171b22 / 0.08`, 곧 `color-action-ghost-hover`였다. 로컬은 포인터 위치가 달라
+  // 재현되지 않는다. surface-states 테스트가 같은 함정을 이미 기록해 두었다.
+  await userEvent.unhover(plain!);
+  expect(getComputedStyle(plain!).backgroundColor, "Default background").toBe(TRANSPARENT);
   expect(getComputedStyle(plain!).color, "Default foreground").toBe(
     tokenValue(states.Default.foreground, "color"),
   );

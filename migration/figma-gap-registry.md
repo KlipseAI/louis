@@ -138,6 +138,52 @@ Home의 마지막 구멍이다. **Avatar와 달리 지금 착수할 수 없다.*
 세우고 움직임을 뒤로 미루는 길이 있다. 다만 그 경우 Home 재조립의 gap이 "없다"가 아니라
 **"정지 상태만 있다"**가 되므로, 그것을 gap 0으로 셀지는 owner 판정이다.
 
+### BannerCarousel 재실측 (2026-08-18) — 넷 중 셋이 무너졌고 다섯째가 나왔다
+
+배포본 `KlipseAI/klipse-web` `origin/main` 7e9c3b69의 `TabBannerCarousel.tsx`를 직접 읽었다.
+**앞의 "막는 것 넷"은 재보지 않고 세 번 반복한 것이다.** 재보니 셋이 값이었다.
+
+| 막는다던 것 | 실측 | 판정 |
+| --- | --- | --- |
+| stagger 지연 축이 없다 | 0 · 40 · 80 · 150ms | **해소** — 토큰 `motion-stagger-1/2/3` |
+| 점 폭 전환 토큰이 없다 | `width 220ms cubic-bezier(.4,0,.2,1)` + 배경 160ms | **해소** — `motion-layout-change`, DS-D-0019 |
+| 톤이 런타임 샘플링이다 | 제품은 톤을 CSS 변수 **두 개**로만 넘긴다 | **해소** — DS는 `tone` prop, 샘플링은 제품 |
+| progressive blur를 표현할 수 없다 | `blur(22px) saturate(125%)` + 5스톱 mask | **CSS는 해소**, Figma 근사만 남음 |
+
+#### 다섯째 — 테마와 무관한 색이 DS에 없다
+
+제품의 배너 부품은 **고정 `--palette-gray-*`를 쓴다.** 주석이 이유를 적어 뒀다 — *"사이트 테마와
+무관하게 항상 같은 모습이어야 하므로 테마에 따라 뒤바뀌는 `--gray-*` semantic 토큰 대신"*.
+배너의 면은 **사진**이지 테마 표면이 아니기 때문이다.
+
+DS의 semantic 색 41개는 **전부 테마를 따라 뒤집힌다.** 그리고 CSS 게이트가 primitive 직접 소비를
+막는다(canary `primitive consumption`). 즉 지금 상태로는 이 컴포넌트의 색을 정직하게 쓸 수 없다.
+
+**이것은 CSS를 실제로 쓰려고 해서 발견됐다.** 앞의 넷은 문서를 읽어 적은 것이고 이것은 손이
+멈춰서 나온 것이다.
+
+#### 실측 명세 (구현 단위의 입력)
+
+| 부위 | 값 |
+| --- | --- |
+| 컨테이너 | `boxed` radius 16px(= `--kds-radius-card`) · `fullBleed` 0. overflow hidden |
+| 슬라이드 | absolute inset 0. 활성 `opacity 1 / scale(1)`, 비활성 `opacity 0 / scale(1.012)` + `pointer-events: none` |
+| 슬라이드 전환 | opacity 420ms `ease` · transform 680ms `cubic-bezier(.22,1,.36,1)` |
+| 배경 | `background-position: 68% center`, cover |
+| 스크림 | `linear-gradient(to right, scrim/78% 0%, scrim/46% 30%, scrim/0% 60%)` |
+| progressive blur | `::before` `backdrop-filter: blur(22px) saturate(125%)` + `mask-image: linear-gradient(to right, 100% 0%, 92% 24%, 52% 50%, 18% 68%, 0% 82%)`. reduced-motion에서 **둘 다 none** |
+| 콘텐츠 | `min(540px, 100%)` · padding 24px / 20px |
+| 워드마크 | 높이 16px · opacity .85 · 톤에 따라 둘 중 하나만 |
+| 텍스트 묶음 | gap 6px. 제목 heading-36-medium, 설명 body-16-regular · margin-top 6px · max 480px · 텍스트색 72% |
+| stagger | 비활성 `opacity 0 / translate3d(0,10px,0)`. 지연 워드마크 40 · 제목 80 · 설명 150ms. **나갈 때는 지연 0** |
+| 컨트롤 | 우하단 16px · gap 8px · padding 4px · pill · 배경 28% · `backdrop-filter: blur(12px) saturate(130%)` |
+| 화살표 | 28×28 · pill · 색 88% · hover 배경 14% · active `scale(.94)` · 전환 160ms |
+| 점 | 높이 7px · 비활성 폭 7px 색 45% · **활성 폭 20px 색 100%** · 전환 `width 220ms cubic-bezier(.4,0,.2,1)`, 배경 160ms |
+| 자동 넘김 | 5,500ms |
+
+`w-10`이 40px이 아니라 20px인 것은 제품이 `--spacing: 2px` 격자를 쓰기 때문이다
+(`app/tailwind.css`). 이 사실은 렌더 게이트가 `@theme`을 번역하기 전까지 게이트에서 지워져 있었다.
+
 ### 다음 순서
 
 Avatar와 Banner/Carousel 둘이 카탈로그의 다음 후보다. 등록부 우선순위 1~15에 없었던 이유는

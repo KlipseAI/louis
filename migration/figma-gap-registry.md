@@ -126,7 +126,7 @@ Spinner 레시피 5종, PaneDivider 6선언.
 | 10 | **Spinner / Progress** | 2/3 | **약 62벌** | 재실측(2026-08-17): 회전 스피너 **22벌** · 스켈레톤 **15벌**("0종"이 틀렸다) · 진행률 5 · 텍스트 쉬머 11. 회전 키프레임 이름 18개인데 본문은 1종이다. **web·figma partial**(2026-08-17). 공용 LoadingSpinner의 recipe가 motion-loop와 정확히 같아 그것을 정본으로 옮겼다. determinate 진행률·스켈레톤·텍스트 쉬머는 별도 컴포넌트이며 아직 없다 |
 | 11 | **SidebarNavItem · AppTopBar** | 3/3 | 앱 셸 **25파일** | **web·figma partial**(2026-08-18). "31곳"은 두 컴포넌트 합산이었다 — 앱 셸 Gnb 25 + 랜딩 Gnb 7, 한 파일이 둘 다 import한다. 셸 composition과 compact 드로어는 아직 없다 |
 | 12 | **Slider** | 1/3 | **37벌 · 7레시피 · 6파일** | **web `partial` · figma `not-ready`**(2026-08-18). "에디터 `Slider.Root` 9"는 네 배 틀렸다 — Radix 22벌(3파일)을 덜 셌고 **네이티브 `input[type=range]` 15벌(5파일)을 통째로 빠뜨렸다.** 일곱 레시피가 **합의하는 축이 하나도 없어**(트랙 2·4·20·28px, 썸 0·10·12·14·16px) 정본이 없다. 포커스 표시를 명시적으로 지운 것이 25벌(68%)이고 옮기지 않았다. 인스펙터 17벌의 "썸을 지운 채움 막대"는 `track` 변형이 흡수하되 표식을 실제 썸으로 만들었다 |
-| 13 | **SegmentedControl** | 2/3 | 3 파일 | 뷰 전환·정렬 |
+| 13 | **SegmentedControl** | 2/3 | **11벌 · 6레시피 · 8파일** | **web `partial` · figma `not-ready`**(2026-08-18). "3 파일"은 틀렸다. Slider와 달리 **공용 구현이 둘 있는데 서로 아무것도 공유하지 않는다** — `SegmentedToggle` 컴포넌트(3벌, 스스로 SSOT라고 적혀 있다)와 `useSegmentedControlThumb` 훅(4벌, 스타일은 복붙). 전자를 정본으로 채택했고 반경·padding 3축에 기계 대조가 붙었다. `role="tablist"` 14곳 중 **5곳은 패널을 바꾸는 탭**이고 3곳은 카루셀 점이라 갈랐다 — 그쪽은 Tabs이며 아직 카탈로그에 없다 |
 | 14 | **Checkbox** (indeterminate) | 1/3 | 4 파일 | 하이라이트 일괄 선택 |
 | 15 | **SelectableListRow** | 2/3 | 하이라이트 2 · 에디터 1 | master-detail의 좌측 열 |
 

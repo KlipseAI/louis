@@ -1309,6 +1309,131 @@
         }
       }
     },
+    "segmented-control": {
+      "canon": {
+        "kind": "shared-component",
+        "paths": [
+          "apps/web/components/scenes/SegmentedToggle.tsx",
+          "apps/web/components/scenes/analytics/useSegmentedControlThumb.ts"
+        ],
+        "note": "**공용 구현이 둘인데 서로 아무것도 공유하지 않는다.** SegmentedToggle 컴포넌트(파일 주석이 스스로 SSOT라고 적어 두었다, 3벌)와 useSegmentedControlThumb 훅(4벌, 훅만 공유하고 스타일은 복붙). 전자를 정본으로 삼았다 — 재사용을 의도해 만든 유일한 컴포넌트이고, 후자는 선택을 색으로만 전달해 접근성 축이 비어 있다"
+      },
+      "axisCount": 10,
+      "$measuredBy": "2026-08-18 전수 조사. SegmentedToggle 소비처, useSegmentedControlThumb 소비처, role=tablist 14곳, aria-pressed 그룹, 슬라이딩 thumb 패턴을 다섯 방향으로 훑어 합쳤다. **gap registry가 적은 \"3 파일\"은 틀렸다** — 세그먼트 컨트롤만 8파일이고, 그중 5곳은 탭(패널 전환)이라 이 컴포넌트가 아니어서 따로 갈랐다",
+      "$recipes": "A SegmentedToggle 3벌(SettingsScene 2 + SubscriptionScene 1) · B useSegmentedControlThumb 훅 3벌(Youtube · Instagram · PerformanceTab, 앞 둘은 5상수 바이트 동일) · B2 StaticAnalyticsDemo 손수 복제 1벌 · C BgmNode MODE_SEGMENT 1벌(CSS만으로 썸 이동) · D ComposerBar COMPOSER_SEGMENT 1벌(CSS만) · E ComposerBar 알약 그룹 2벌(썸 없음). 합 11벌 · 6레시피",
+      "axes": {
+        "트랙 반경": {
+          "product": "12px(A) · 8px(B) · var(--button-radius)(C) · 없음(E, 트랙 자체가 없다)",
+          "ds": "radius-control 12px",
+          "match": "same",
+          "evidence": "apps/web/components/scenes/myPageSceneStyles.ts:1100",
+          "status": "adopted",
+          "dsPointer": {
+            "file": "figma/components.measured.json",
+            "path": [
+              "components",
+              "segmented-control",
+              "sizes",
+              "md",
+              "trackRadius"
+            ]
+          },
+          "productValue": 12
+        },
+        "트랙 padding": {
+          "product": "4px(A) · 3px(B) · 3px(C)",
+          "ds": "space-control-xs 4px",
+          "match": "same",
+          "evidence": "apps/web/components/scenes/myPageSceneStyles.ts:1099",
+          "status": "adopted",
+          "dsPointer": {
+            "file": "figma/components.measured.json",
+            "path": [
+              "components",
+              "segmented-control",
+              "sizes",
+              "md",
+              "trackPadding"
+            ]
+          },
+          "productValue": 4
+        },
+        "세그먼트 반경": {
+          "product": "8px(A) · 6px(B) · calc(var(--button-radius) - 2px)(C)",
+          "ds": "radius-control-sm 8px. 바깥 반경에서 padding을 뺀 값이며 12 − 4 = 8로 정확히 맞는다",
+          "match": "same",
+          "evidence": "apps/web/components/scenes/myPageSceneStyles.ts:1085",
+          "status": "adopted",
+          "dsPointer": {
+            "file": "figma/components.measured.json",
+            "path": [
+              "components",
+              "segmented-control",
+              "sizes",
+              "md",
+              "segmentRadius"
+            ]
+          },
+          "productValue": 8
+        },
+        "트랙 헤어라인 기법": {
+          "product": "box-shadow: var(--dropdown-frame) — spread-only 0.5px(A, B). C·E는 테두리가 없다",
+          "ds": "box-shadow: 0 0 0 var(--kds-border-width-hairline) var(--kds-color-border-subtle)",
+          "match": "same",
+          "evidence": "apps/web/components/scenes/myPageSceneStyles.ts:1103",
+          "status": "adopted",
+          "reason": "기법까지 같다. border를 쓰면 border-box 안쪽이 줄어 세그먼트 높이가 DPR에 따라 달라진다"
+        },
+        "컨트롤 높이": {
+          "product": "36px(A — 세그먼트 28 + padding 4×2) · 약 28px(B) · 약 32px(C) · 30px(E)",
+          "ds": "layout-control-height-md 40px / -sm 32px. Button·Text Field·Slider와 같은 계단",
+          "match": "different",
+          "evidence": "apps/web/components/scenes/myPageSceneStyles.ts:1064 · apps/web/components/scenes/YoutubeAnalyticsScene.tsx:986",
+          "status": "accepted-deviation",
+          "reason": "제품 A의 36px은 이 저장소의 어떤 컨트롤 높이와도 맞지 않는다. 나란히 서는 컨트롤이 서로 다른 높이를 가지면 줄이 어긋나므로 control 계단을 따른다"
+        },
+        "선택 전달": {
+          "product": "셋으로 갈린다 — aria-pressed(A) · **아무것도 없음, 색으로만**(B·B2, 4벌) · role=tab + aria-selected(C)",
+          "ds": "네이티브 input[type=radio]. checked가 선택을 소유하고 role/valuenow/그룹 안내가 브라우저의 것이다",
+          "match": "different",
+          "evidence": "apps/web/components/scenes/SegmentedToggle.tsx:56 · apps/web/components/scenes/YoutubeAnalyticsScene.tsx:2100-2110 · apps/web/components/scenes/create/node-canvas-v2/nodes/BgmNode.tsx:1171",
+          "status": "accepted-deviation",
+          "reason": "패널을 바꾸지 않고 값을 고르는 것은 radiogroup이다. B 계열 4벌은 선택을 색으로만 전달해 색각 이상과 스크린 리더 양쪽에서 현재 값이 사라진다"
+        },
+        "그룹 이름": {
+          "product": "A는 span에 aria-label을 얹는다 — **role 없는 span의 aria-label은 보조기술이 무시한다.** B는 그룹 이름이 아예 없다. C는 tablist에 aria-label",
+          "ds": "fieldset + 시각적으로 숨긴 legend. 그룹에 이름을 붙이는 유일한 네이티브 경로다",
+          "match": "different",
+          "evidence": "apps/web/components/scenes/SegmentedToggle.tsx:47",
+          "status": "accepted-deviation",
+          "reason": "이름이 없으면 스크린 리더가 \"3 중 1\"만 읽고 그 셋이 무엇인지 알 수 없다"
+        },
+        "포커스 표시": {
+          "product": "**여섯 레시피 어디에도 선언이 없다.** 브라우저 기본에 맡기는데 A·B·C 모두 버튼 배경을 투명으로 두어 기본 링이 배경과 겹친다",
+          "ds": "공유 링 — 세그먼트가 :has(:focus-visible)로 받는다. 숨긴 radio에 걸면 화면 밖에 그려진다",
+          "match": "different",
+          "evidence": "apps/web/components/scenes/myPageSceneStyles.ts:1057-1075",
+          "status": "accepted-deviation",
+          "reason": "Slider·Text Field·앱 셸 사이드바에서 한 판정과 같다. 키보드 사용자가 지금 어디에 있는지 알 수 없는 상태를 옮기지 않는다"
+        },
+        "선택 면 전환": {
+          "product": "여섯 중 넷이 슬라이딩 썸을 갖는다 — 220ms cubic-bezier(0.4,0,0.2,1)(A) · 0.22s cubic-bezier(0.2,0.9,0.3,1)(B) · 0.24s cubic-bezier(0.34,1.4,0.5,1)(C). **C만 motion-reduce를 지킨다.** 위치 계산도 셋으로 갈린다(JS offsetWidth · JS getBoundingClientRect+ResizeObserver · CSS만)",
+          "ds": "전환 없음. 선택 면이 즉시 바뀐다",
+          "match": "different",
+          "evidence": "apps/web/components/scenes/myPageSceneStyles.ts:1089 · apps/web/components/scenes/YoutubeAnalyticsScene.tsx:980 · apps/web/components/scenes/create/node-canvas-v2/nodes/BgmNode.tsx:174-175",
+          "status": "accepted-deviation",
+          "reason": "이 전환을 부를 토큰이 없다. motion.md가 layout-change를 이름만 예약해 두었고 lifecycle도 enter·exit·loop 셋뿐이라, 넷째 lifecycle을 세우는 것은 DS-D-0016과 같은 크기의 별도 변경이다. 이름이 맞지 않는 기존 motion 토큰을 빌려 쓰면 radius-card와 같은 함정이 된다"
+        },
+        "비활성 글자색": {
+          "product": "gray-000/42%(A) · 58%(B) · var(--dashboard-muted-color)(B PerformanceTab) · 55%(C) · 48%(E). 다섯 값이 흩어져 있다",
+          "ds": "color-foreground-secondary. hover에서 foreground-primary가 되고 면은 바뀌지 않는다",
+          "match": "different",
+          "evidence": "apps/web/components/scenes/myPageSceneStyles.ts:1069 · apps/web/components/scenes/YoutubeAnalyticsScene.tsx:994",
+          "status": "accepted-deviation",
+          "reason": "정본 A의 42%는 라이트에서 배경 대비가 낮고 다섯 값 사이에 근거가 없다. semantic 위계(secondary → primary)로 바꾸면 대비가 토큰 쪽 게이트에 걸린다"
+        }
+      }
+    },
     "slider": {
       "canon": {
         "kind": "none",

@@ -8,6 +8,95 @@ authority: normative
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
 
+## 2026-08-18 (3) — Segmented Control
+
+카탈로그 13순위. [규범](../components/segmented-control.md)과 구현, 실브라우저 acceptance test
+14건이 같은 변경 단위에 있다.
+`import { SegmentedControl, SegmentedControlItem } from "@klipse-design/react"`가 동작한다.
+
+### 등록부의 "3 파일"은 틀렸고, 이번에는 정본이 **둘**이었다
+
+세그먼트 컨트롤만 **11벌 · 6레시피 · 8파일**이다. Slider와 다른 점이 하나 있다 — 제품에 공용
+구현이 **둘** 있다. 그런데 **서로 아무것도 공유하지 않는다.**
+
+| 레시피 | 벌 | 썸 위치 계산 | 선택 전달 |
+| --- | ---: | --- | --- |
+| A `SegmentedToggle` 컴포넌트 | 3 | JS `offsetWidth`/`offsetLeft−4` | `aria-pressed` |
+| B `useSegmentedControlThumb` 훅 | 3 | JS `getBoundingClientRect` + ResizeObserver | **없음 — 색만** |
+| B2 StaticAnalyticsDemo 손수 복제 | 1 | JS, 자체 ref | 없음 |
+| C BgmNode `MODE_SEGMENT` | 1 | **CSS만** | `role=tab` |
+| D ComposerBar `COMPOSER_SEGMENT` | 1 | **CSS만** | — |
+| E ComposerBar 알약 그룹 | 2 | 썸 없음 | — |
+
+트랙 padding 4↔3, 트랙 반경 12↔8, 썸 반경 8↔6, easing 셋, 비활성 글자 42%↔58%↔55%↔48%가
+전부 다르다. A의 파일 주석은 스스로 SSOT라고 적어 두었는데 소비처는 3벌뿐이고, B는 훅만
+공유하고 **스타일은 복붙이다** — Youtube와 Instagram의 5상수가 바이트 단위로 같다.
+
+**정본을 A로 잡았다.** 재사용을 의도해 만든 유일한 컴포넌트이고, 트랙 반경 12 · padding 4 ·
+세그먼트 반경 8 · 헤어라인 기법까지 그대로 채택했다. 기계 대조가 3축 붙어 있다.
+
+### 대시보드 탭 다섯 자리는 이 컴포넌트가 아니다
+
+`role="tablist"` 14곳 중 **5곳은 패널을 바꾸는 탭**이고 3곳은 카루셀 점이다. 세그먼트 컨트롤은
+값을 고르고 자리를 옮기지 않는다. 갈라 두지 않으면 Tabs를 만들 때 같은 것을 두 번 만든다.
+
+### 네이티브 radio 그룹이다
+
+제품은 선택을 셋으로 다르게 전달한다 — `aria-pressed`, **아무것도 없음**(4벌, 색으로만),
+`role="tab"`. 패널을 바꾸지 않고 값을 고르는 것은 radiogroup이므로 네이티브 radio를 쓴다. 방향키
+roving, 끝에서 되돌기, "3 중 1" 그룹 안내, 폼 제출, forced-colors가 전부 브라우저의 것이 된다.
+
+`<fieldset>` + 숨긴 `<legend>`인 이유는 legend가 그룹에 이름을 붙이는 유일한 네이티브 경로이기
+때문이다. **제품 A는 `<span aria-label>`을 쓰는데 role 없는 span의 `aria-label`은 보조기술이
+무시한다** — 이름이 있다고 적혀 있지만 실제로는 없다.
+
+포커스 표시는 **여섯 레시피 어디에도 선언이 없다.** 옮기지 않았다.
+
+### 면 두 색이 한 테마에서 죽지 않는 유일한 짝이다
+
+인계서 (1a)·(1c)가 경고한 축의 실사례를 찾았다.
+
+- **다크에서 `background-inset`·`surface`·`menu`·`overlay` 넷이 같은 색**(#313644)
+- **라이트에서 `raised`·`overlay`·`surface` 셋이 같다**(#fafafa)
+
+트랙과 선택 면으로 쓸 수 있는 조합은 `inset` ↔ `raised` 하나뿐이고 나머지는 한 테마에서 선택이
+통째로 사라진다. 선언은 정상이라 다른 어떤 게이트도 잡지 못하므로 **두 테마를 각각 재는
+테스트를 넣었다.**
+
+트랙에 헤어라인을 두는 이유도 같다 — 다크에서 `inset`이 `surface`와 같아, 표면 위에 놓인 트랙이
+테두리 없이는 보이지 않는다. 제품 A가 같은 기법(spread-only box-shadow)을 쓰고 있어 채택했다.
+
+### 워크샵이 잡은 결함 둘
+
+헤드리스 테스트는 둘 다 통과한다 — 선언도 토큰도 정상이기 때문이다.
+
+- **좁은 컨테이너를 뚫었다.** `inline-flex`는 내용 크기로 자라므로 240px 상자 안에서 트랙이
+  364px이 됐다. `max-inline-size: 100%`로 막았다
+- **여유가 있는데 라벨이 잘렸다.** 세그먼트를 `flex: 1 1 0`으로 두면 기준 크기가 0이라 "시스템"이
+  "시…"가 된다(라벨 32px, 필요 36px). `1 1 auto`로 바꿨다. 제품 A·B도 내용 크기다
+
+### 새 토큰이 0개다
+
+트랙 40/32 · padding 4 · 반경 12 · 세그먼트 반경 8 · 여백 12/8이 전부 기존 토큰이다. **세그먼트
+반경은 바깥 반경에서 padding을 뺀 값**이라 12 − 4 = 8로 정확히 맞았다.
+
+트랙 헤어라인은 `border`가 아니라 spread-only box-shadow다. border를 쓰면 border-box 안쪽이
+줄어 세그먼트 높이가 DPR에 따라 달라진다.
+
+### 남은 것 — 선택 면이 움직이지 않는다
+
+제품 여섯 중 넷이 220~240ms 슬라이딩 썸을 갖고 **그것이 이 컴포넌트에서 가장 널리 합의된
+축인데 옮기지 못했다.** [Motion](../foundations/motion.md)이 semantic recipe로 `layout-change`를
+**이름만 예약해 두고 실제 토큰이 없으며**, lifecycle도 `enter`·`exit`·`loop` 셋뿐이다. 넷째
+lifecycle을 세우는 것은 DS-D-0016이 `loop`에 한 것과 같은 크기의 변경이고, token source가 바뀌면
+Figma 변수·style을 다시 적용해야 하므로 이 변경 단위 밖이다.
+
+이름이 맞지 않는 기존 motion 토큰(`overlay-enter` 등)을 빌려 쓰지 않았다 — `radius-card`와 같은
+함정이 된다.
+
+그 밖에 남은 것: Figma component set 없음(`DS-F-006-segmented-control`), Tabs 없음, 아이콘 슬롯
+크기 계약 없음, RTL 방향키 미검증.
+
 ## 2026-08-18 (2) — Slider
 
 카탈로그 12순위다. [규범](../components/slider.md)과 구현, 실브라우저 acceptance test 16건이 같은

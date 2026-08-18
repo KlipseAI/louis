@@ -40,6 +40,12 @@ export { Badge } from "./badge/badge.js";
 export type { BadgeProps, BadgeTone } from "./badge/badge.js";
 export { EmptyState } from "./empty-state/empty-state.js";
 export type { EmptyStateHeadingLevel, EmptyStateProps } from "./empty-state/empty-state.js";
+export { SegmentedControl, SegmentedControlItem } from "./segmented-control/segmented-control.js";
+export type {
+  SegmentedControlItemProps,
+  SegmentedControlProps,
+  SegmentedControlSize,
+} from "./segmented-control/segmented-control.js";
 export { Slider } from "./slider/slider.js";
 export type { SliderProps, SliderSize, SliderVariant } from "./slider/slider.js";
 export { Spinner } from "./spinner/spinner.js";

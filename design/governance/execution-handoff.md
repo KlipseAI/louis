@@ -229,13 +229,13 @@ Tooltip(`.app-tooltip-chrome` + `--app-tooltip-*`), Menu(`--dropdown-*`). Icon B
 | `DS-P3-002a` · `002`(1단계) · `003` · `009a` · `013` | `done` |
 | `DS-P3-001` | `in-progress`. Decision 6종을 다 썼고 owner 확인만 남았다 |
 | Decision | **18종** (`DS-D-0001`~`DS-D-0018`) |
-| 카탈로그 | **12/15.** 1~11순위가 Web·Figma 모두 `partial`, 12순위 Slider는 Web만 `partial` |
-| manifest component | 14개. `select`만 `not-ready`(아래 1d), `slider`는 Figma가 `not-ready` |
+| 카탈로그 | **13/15.** 1~11순위가 Web·Figma 모두 `partial`, 12·13순위는 Web만 `partial` |
+| manifest component | 15개. `select`만 `not-ready`(아래 1d). `slider`·`segmented-control`은 Figma가 `not-ready` |
 | Figma | component 14개 · 변수 210개 · style 22개 |
-| 검증 | 브라우저 552건(두 motion context) · 토큰 게이트 canary 42종 · CSS canary 12종 · parity canary 33종 |
+| 검증 | 브라우저 580건(두 motion context) · 토큰 게이트 canary 42종 · CSS canary 12종 · parity canary 33종 |
 
-**바로 다음에 할 일은 (2)의 13순위 SegmentedControl이다.** (1a)~(1d)는 owner 결정이 필요해
-병렬로 열려 있고, `DS-F-006-slider`(Figma component set)도 열려 있다.
+**바로 다음에 할 일은 (2)의 14순위 Checkbox다.** (1a)~(1d)는 owner 결정이 필요해 병렬로 열려
+있고, Figma component set 둘(`DS-F-006-slider`·`DS-F-006-segmented-control`)도 열려 있다.
 
 ## 다음 작업
 
@@ -312,8 +312,29 @@ component인데 **gap registry 우선순위 1~15 어디에도 없다.** 실측 �
 항목을 `not-planned`로 바꾼다, (c) 남겨 둔다. 지금처럼 계획 없이 `not-ready`로 두면 카탈로그가
 영원히 미완으로 읽힌다.
 
-**(2) gap registry 13순위 이하 — 이것이 바로 다음 작업이다.** 1~12순위는 전부 `done`이며
-남은 것은 **SegmentedControl · Checkbox · SelectableListRow** 셋이다.
+**(2) gap registry 14순위 이하 — 이것이 바로 다음 작업이다.** 1~13순위는 전부 `done`이며
+남은 것은 **Checkbox · SelectableListRow** 둘이다.
+
+**13순위 SegmentedControl이 섰다(2026-08-18).** 등록부의 "3 파일"은 틀렸고 실제 **11벌 ·
+6레시피 · 8파일**이다. Slider와 다른 점이 있다 — **공용 구현이 둘인데 서로 아무것도 공유하지
+않는다.** `SegmentedToggle` 컴포넌트(3벌, 파일 주석이 스스로 SSOT라고 적어 두었다)와
+`useSegmentedControlThumb` 훅(4벌, 훅만 공유하고 스타일은 복붙 — Youtube·Instagram의 5상수가
+바이트 동일). 전자를 정본으로 잡고 반경·padding 3축에 기계 대조를 붙였다.
+
+다음 사람이 알아야 할 것 셋.
+
+- **`role="tablist"` 14곳 중 5곳은 패널을 바꾸는 탭이고 3곳은 카루셀 점이다.** 세그먼트 컨트롤은
+  값을 고르고 자리를 옮기지 않는다. 갈라 두지 않으면 **Tabs를 만들 때 같은 것을 두 번 만든다.**
+  Tabs는 아직 카탈로그에 없고 제품에 5자리가 있다
+- **(1c)의 면 충돌이 실제로 컴포넌트를 막는다.** 다크에서 `background-inset`·`surface`·`menu`·
+  `overlay` 넷이 같은 색이고 라이트에서 `raised`·`overlay`·`surface` 셋이 같아, 트랙/선택 면으로
+  쓸 수 있는 조합이 `inset` ↔ `raised` **하나뿐이다.** 다음에 면 두 겹이 필요한 컴포넌트도 같은
+  벽을 만나며, owner 판정 전까지는 이 짝 말고 선택지가 없다
+- **`layout-change` motion 토큰이 없다.** [motion.md](../foundations/motion.md)가 semantic recipe로
+  이름만 예약해 두고 실제 토큰이 없으며 lifecycle도 셋뿐이다. 제품 여섯 중 넷이 220~240ms
+  슬라이딩 썸을 갖는데 그것을 옮기지 못했다 — 이름이 맞지 않는 기존 motion 토큰을 빌려 쓰면
+  `radius-card` 함정이 된다. 넷째 lifecycle을 세우는 것은 DS-D-0016과 같은 크기이고 token source가
+  바뀌므로 **Figma 변수·style 재적용이 따라온다**
 
 **12순위 Slider가 섰다(2026-08-18).** 등록부의 "에디터 `Slider.Root` 9"는 네 배 틀렸고 —
 실제 **37벌 · 7레시피**, 그중 네이티브 `input[type=range]` 15벌은 등록부에 아예 없었다 —
@@ -734,7 +755,8 @@ Home/Highlight/Editor가 각각 단일 route가 아니라는 사실과 카탈로
 | 3 | Toast | `done` — Web `partial` |
 | 6~11 | ProjectCard, TextField/Input, EmptyState, Badge, Spinner, 셸 부품 | `done` — 전부 Web·Figma `partial` |
 | 12 | Slider | `done` — Web `partial`. Figma는 `DS-F-006-slider`가 소유한다 |
-| 13 이하 | SegmentedControl, Checkbox, SelectableListRow | `pending` |
+| 13 | SegmentedControl | `done` — Web `partial`. Figma는 `DS-F-006-segmented-control`이 소유한다 |
+| 14 이하 | Checkbox, SelectableListRow | `pending` |
 | — | Select | `pending`. gap registry 상위 15에 들지 않았다 |
 
 4·5순위(Menu/Popover, Dialog)는 코드가 이미 서 있어 이 항목이 아니라 DS-F-006이 남은 몫이다.
@@ -986,6 +1008,7 @@ description에 기록했다. parity 게이트가 style 10종까지 검증하므�
 | `DS-F-006-menu-popover` | `partial` | `not-ready` | 4 |
 | `DS-F-006-dialog` | `partial` | `not-ready` | 5 |
 | `DS-F-006-slider` | `partial` | `not-ready` | 12 |
+| `DS-F-006-segmented-control` | `partial` | `not-ready` | 13 |
 
 여섯 중 다섯이 코드만 서 있고 Figma에 없다. DS-F-007-home 실측이 이 격차를 숫자로 확인했다 —
 재조립이 요구한 자산 대부분이 Figma에 존재하지 않아 gap 72건이 나왔다. 목표 B의 병목은 여기다.

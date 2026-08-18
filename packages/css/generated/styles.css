@@ -2034,6 +2034,154 @@
   padding: 0;
 }
 
+/* Selectable List Row — design/components/selectable-list-row.md
+ *
+ * master-detail의 좌측 열. 제품 실측은 3벌이고 **등록부의 수치가 처음으로 맞았다**
+ * (하이라이트 2 · 에디터 1). 셋이 합의하는 것은 골격이다 — 가로 flex 행, 선행 슬롯,
+ * 글자 묶음, 커서 포인터, hover 면, **전환 140ms ease.**
+ *
+ * 갈라지는 것은 선택을 무엇이 소유하느냐다. 하이라이트 2벌은 **행의 면**이, 에디터 1벌은 행
+ * 안의 **체크박스**가 갖는다. 후자는 이 컴포넌트가 아니다 — 행을 버튼으로 만들면서 안에 체크박스를
+ * 넣으면 컨트롤이 중첩된다. 규범이 그 경계를 적는다.
+ *
+ * ## 선택을 면 하나에 기대지 않는다
+ *
+ * DS에는 이미 선택 가능한 행이 있다 — `SidebarNavItem`은 `aria-current` + `background-inset`으로
+ * 선택을 표현한다. 그것이 성립하는 이유는 **사이드바가 캔버스 위에 있기 때문**이다. 다크에서
+ * `background-inset`은 `surface`·`menu`·`overlay`와 **같은 색**이라, 표면 위에 놓인 목록에서는
+ * 같은 방식이 통째로 사라진다. 목록은 표면 위에도 놓이므로 면에 더해 선행 표식을 함께 그린다.
+ * 색 하나로 상태를 전달하지 않는 것은 그 자체로도 맞다.
+ */
+
+.kds-selectable-list-row {
+  position: relative;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  gap: var(--kds-space-control-sm);
+  inline-size: 100%;
+  min-inline-size: 0;
+  margin: 0;
+  padding: var(--kds-space-control-sm);
+  border: 0;
+  border-radius: var(--kds-radius-overlay-item);
+  background: none;
+  color: var(--kds-color-foreground-secondary);
+  text-align: start;
+  cursor: pointer;
+  font-family: var(--kds-typography-body-sm-medium-font-family);
+  font-size: var(--kds-typography-body-sm-medium-font-size);
+  font-weight: var(--kds-typography-body-sm-medium-font-weight);
+  line-height: var(--kds-typography-body-sm-medium-line-height);
+  letter-spacing: var(--kds-typography-body-sm-medium-letter-spacing);
+}
+
+.kds-selectable-list-row:hover {
+  background: var(--kds-color-action-ghost-hover);
+  color: var(--kds-color-foreground-primary);
+}
+
+/* **`aria-current`가 선택을 소유한다.** SidebarNavItem과 같은 판정이다 — 시각 전용 속성을 두면
+ * 화면에는 선택으로 보이는데 보조기술에는 아무것도 전달되지 않는 상태를 만들 수 있다. */
+.kds-selectable-list-row[aria-current="true"] {
+  background: var(--kds-color-background-inset);
+  color: var(--kds-color-foreground-primary);
+}
+
+/* 선행 표식. 면이 배경과 같아지는 테마에서도 선택이 남고, 색 하나에 기대지 않게 한다. */
+.kds-selectable-list-row[aria-current="true"]::before {
+  content: "";
+  position: absolute;
+  inset-inline-start: 0;
+  inset-block: var(--kds-space-control-sm);
+  inline-size: 3px;
+  border-radius: var(--kds-radius-pill);
+  background: var(--kds-color-action-primary);
+}
+
+@media (forced-colors: active) {
+  /* forced-colors에서 면과 표식이 모두 시스템 색으로 치환된다. 테두리로 다시 세운다. */
+  .kds-selectable-list-row[aria-current="true"] {
+    outline: var(--kds-border-width-hairline) solid CanvasText;
+  }
+}
+
+.kds-selectable-list-row:focus-visible {
+  outline: var(--kds-border-width-ring) solid var(--kds-color-border-focus);
+  outline-offset: 2px;
+}
+
+@media (forced-colors: active) {
+  .kds-selectable-list-row:focus-visible {
+    outline-color: Highlight;
+  }
+}
+
+.kds-selectable-list-row:disabled {
+  color: var(--kds-color-foreground-disabled);
+  cursor: not-allowed;
+}
+
+.kds-selectable-list-row:disabled:hover {
+  background: none;
+  color: var(--kds-color-foreground-disabled);
+}
+
+/* 선행 슬롯. 썸네일이 들어가며 크기는 호출부가 정한다 — 96px(하이라이트)처럼 화면마다 다르다. */
+.kds-selectable-list-row__media {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-radius: var(--kds-radius-control-sm);
+}
+
+/* 글자 묶음. 줄바꿈이 아니라 말줄임으로 줄어든다 — 행 높이가 항목마다 달라지면 목록이 튄다. */
+.kds-selectable-list-row__text {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  gap: var(--kds-space-stack-xs);
+  min-inline-size: 0;
+  overflow: hidden;
+}
+
+.kds-selectable-list-row__title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.kds-selectable-list-row__meta {
+  overflow: hidden;
+  color: var(--kds-color-foreground-secondary);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-family: var(--kds-typography-caption-regular-font-family);
+  font-size: var(--kds-typography-caption-regular-font-size);
+  font-weight: var(--kds-typography-caption-regular-font-weight);
+  line-height: var(--kds-typography-caption-regular-line-height);
+  letter-spacing: var(--kds-typography-caption-regular-letter-spacing);
+}
+
+/* 선택된 행에서도 보조 문구는 한 단계 낮게 남는다. 둘 다 primary가 되면 위계가 사라진다. */
+.kds-selectable-list-row[aria-current="true"] .kds-selectable-list-row__meta {
+  color: var(--kds-color-foreground-secondary);
+}
+
+.kds-selectable-list-row:disabled .kds-selectable-list-row__meta {
+  color: var(--kds-color-foreground-disabled);
+}
+
+/* 후행 슬롯. 시간·개수 같은 짧은 값이 들어간다. 버튼은 넣지 않는다 — 행 자체가 버튼이다. */
+.kds-selectable-list-row__trailing {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  color: var(--kds-color-foreground-secondary);
+}
+
 /* Slider — design/components/slider.md
  *
  * 제품에 **공용 구현이 없다.** 정의가 37벌이고 일곱 레시피로 갈리며 레시피 사이에 합의하는 축이

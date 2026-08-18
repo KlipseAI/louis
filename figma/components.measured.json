@@ -709,6 +709,47 @@
       "$borderNote": "**border-control이 아니라 border-strong이다.** 선택하지 않은 체크박스는 테두리가 어포던스의 전부라 SC 1.4.11(3:1)이 그 선에 걸린다. 상자 면 대비 실측 \u2014 control 1.27/1.63 · default 1.38/2.93 · strong 2.52/4.61(라이트/다크). **셋 다 라이트에서 3:1 미달**이고 가장 가까운 것을 골랐다. 이 실측은 인계서 (2b) 컨트롤 테두리 정본 판정과 (1a) color-border-strong 처분의 입력이다 \u2014 그 토큰은 여기가 첫 소비처다.",
       "$statesNote": "foreground는 라벨의 색이다. 표시(체크 \u00b7 막대)의 색은 면 위에 얹히므로 color-foreground-inverse이며 states 표가 아니라 아래 규범이 갖는다 \u2014 states 표의 세 값은 면\u00b7전경\u00b7테두리로 고정돼 있다."
     },
+    "selectable-list-row": {
+      "$doc": "design/components/selectable-list-row.md",
+      "$source": "packages/react/src/selectable-list-row/selectable-list-row.tsx, packages/css/src/component/selectable-list-row.css",
+      "$note": "master-detail의 좌측 열. 제품 3벌이고 **등록부의 수치가 처음으로 맞았다**(하이라이트 2 · 에디터 1). 셋이 합의하는 것은 골격(가로 flex 행 · 선행 슬롯 · 글자 묶음 · hover 면 · 전환 140ms)이고, 갈라지는 것은 선택을 행의 면이 갖느냐 안의 체크박스가 갖느냐다. 후자는 이 컴포넌트가 아니다 \u2014 행을 버튼으로 만들면서 체크박스를 넣으면 컨트롤이 중첩된다.",
+      "$geometry": "기하는 제품 값을 그대로 옮기지 않았다. gap 10px과 반경 14px에 맞는 semantic 토큰이 없고, 새 토큰은 token source를 바꿔 Figma 재적용이 따라온다. DS에 이미 있는 선택 가능한 행(SidebarNavItem)의 값을 따랐다 \u2014 같은 성질의 두 컴포넌트가 다른 기하를 갖지 않게 하는 것이 더 중요하다.",
+      "sizes": {
+        "md": {
+          "padding": 8,
+          "gap": 8,
+          "radius": 10,
+          "markerInline": 3,
+          "$marker": "선택 표식. 다크에서 background-inset이 surface와 같은 색이라 면 하나에 기대면 표면 위에 놓인 목록에서 선택이 사라진다. SidebarNavItem은 사이드바가 캔버스 위에 있어서 면만으로 성립한다",
+          "titleFontSize": 14,
+          "titleLineHeight": 21,
+          "metaFontSize": 12,
+          "metaLineHeight": 18,
+          "textGap": 4
+        }
+      },
+      "states": {
+        "base": {
+          "Default": {
+            "background": null,
+            "foreground": "color-foreground-secondary"
+          },
+          "Hover": {
+            "background": "color-action-ghost-hover",
+            "foreground": "color-foreground-primary"
+          },
+          "Selected": {
+            "background": "color-background-inset",
+            "foreground": "color-foreground-primary"
+          },
+          "Disabled": {
+            "background": null,
+            "foreground": "color-foreground-disabled"
+          }
+        }
+      },
+      "$statesNote": "Selected의 면은 SidebarNavItem과 같은 토큰이지만 **면만으로 선택을 전달하지 않는다** \u2014 3px 선행 표식이 color-action-primary로 함께 그려진다. 보조 문구는 선택된 행에서도 secondary로 남는다(둘 다 primary가 되면 위계가 사라진다)."
+    },
     "segmented-control": {
       "$doc": "design/components/segmented-control.md",
       "$source": "packages/react/src/segmented-control/segmented-control.tsx, packages/css/src/component/segmented-control.css",

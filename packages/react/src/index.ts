@@ -48,6 +48,8 @@ export type {
   SegmentedControlProps,
   SegmentedControlSize,
 } from "./segmented-control/segmented-control.js";
+export { SelectableListRow } from "./selectable-list-row/selectable-list-row.js";
+export type { SelectableListRowProps } from "./selectable-list-row/selectable-list-row.js";
 export { Slider } from "./slider/slider.js";
 export type { SliderProps, SliderSize, SliderVariant } from "./slider/slider.js";
 export { Spinner } from "./spinner/spinner.js";

@@ -4,7 +4,7 @@
 
 - System maturity: experimental
 - Coverage: exhaustive
-- Documents: 16
+- Documents: 17
 - Purpose: 컴포넌트 사용·상태·접근성 계약
 
 ## Sources
@@ -22,6 +22,7 @@
 - design/components/badge.md
 - design/components/spinner.md
 - design/components/checkbox.md
+- design/components/selectable-list-row.md
 - design/components/segmented-control.md
 - design/components/slider.md
 - design/components/app-shell-parts.md
@@ -57,6 +58,7 @@ Klipse 화면을 이루는 재사용 가능한 UI 단위다. 컴포넌트가 코
 | [Badge](../components/badge.md) | `experimental` | `partial` | `partial` | `done` | public export, Figma component set 5 variant(Tone), parity 게이트가 Label을 자손으로 대조한다. 실브라우저 acceptance test 7건. 제품에 정의가 65벌이고 공용 구현은 0이다. gap registry의 '톤 4 + 상태 5'는 둘 다 틀렸다 — 네 톤 클래스의 선언이 바이트 단위로 같고, 앱 홈 4변형의 색이 전부 같은 변수를 가리킨다. 새 토큰 없이 기존 토큰에 맞는 기하를 골랐다. 알약(999px) 증감·개수 칩은 별도 컴포넌트이며 아직 없다 |
 | [Spinner](../components/spinner.md) | `experimental` | `partial` | `partial` | `done` | public export, Figma component set 2 variant(Size), parity 게이트가 Track·Arc를 자손으로 대조한다. 실브라우저 acceptance test 8건이 두 motion context에서 각각 돈다. 제품의 로딩 표현은 약 62벌이지만 공용 LoadingSpinner가 정본이고 그 recipe(700ms · linear)가 motion-loop와 정확히 같다. 회전 keyframe은 base.css의 공용 kds-spin 하나이며 Button·Menu도 그것을 가리킨다. determinate 진행률·스켈레톤·텍스트 쉬머는 별도 컴포넌트이며 아직 없다 |
 | [Checkbox](../components/checkbox.md) | `experimental` | `not-ready` | `partial` | `done` | public export와 실브라우저 acceptance test 14건이 두 motion context에서 각각 돈다. **제품에 정본이 있는데 21벌 중 2벌만 쓴다** — 그 전역 클래스가 cascade layer 밖이라 소비처가 이길 수 없었다. 크기 20px은 채택하고 accent-color는 채택하지 않았다(면 색 하나만 주고 표시·링·부분선택 막대를 브라우저가 정한다). indeterminate는 DOM 프로퍼티라 ref로 맞추고 aria-checked=mixed를 함께 준다. **선택 안 한 테두리 대비가 SC 1.4.11(3:1)에 미달하며 테두리 토큰 셋 중 어느 것도 라이트에서 넘지 못한다** — 실측을 규범에 적었고 인계서 (2b) 판정의 입력이다. color-border-strong의 첫 소비처다. Figma component set은 DS-F-006-checkbox가 소유한다 |
+| [Selectable List Row](../components/selectable-list-row.md) | `experimental` | `not-ready` | `partial` | `done` | public export와 실브라우저 acceptance test 12건이 두 motion context에서 각각 돈다. master-detail의 좌측 열이며 제품 3벌 중 2벌(행의 면이 선택을 갖는 쪽)을 덮는다 — 나머지 1벌은 선택을 체크박스가 가지므로 Checkbox + 행 레이아웃이다. 선택은 aria-current가 소유하고 **면 하나에 기대지 않는다**: 다크에서 background-inset이 surface와 같은 색이라 표면 위 목록에서 선택 면이 사라지므로 3px 선행 표식을 함께 그린다. 같은 위험이 SidebarNavItem에 남아 있다(사이드바가 캔버스 위라서 성립). listbox가 아니며 Tab이 목록을 훑는다. Figma component set은 DS-F-006-selectable-list-row가 소유한다 |
 | [Segmented Control](../components/segmented-control.md) | `experimental` | `not-ready` | `partial` | `done` | public export와 실브라우저 acceptance test 14건이 두 motion context에서 각각 돈다. **제품에 공용 구현이 둘인데 서로 아무것도 공유하지 않는다** — SegmentedToggle 컴포넌트(3벌)와 useSegmentedControlThumb 훅(4벌, 스타일은 복붙). 정본을 전자로 잡고 높이만 control 계단을 따랐다. 네이티브 radio 그룹이며 fieldset/legend가 그룹 이름을 소유한다. 트랙 inset ↔ 선택 raised는 두 테마 모두에서 죽지 않는 유일한 면 조합이다. 선택 면의 슬라이딩 전환은 layout-change motion 토큰이 없어 미구현이다. Figma component set은 DS-F-006-segmented-control이 소유한다 |
 | [Slider](../components/slider.md) | `experimental` | `not-ready` | `partial` | `done` | public export와 실브라우저 acceptance test 16건이 두 motion context에서 각각 돈다. **제품에 공용 구현이 없다** — 정의 37벌이 일곱 레시피로 갈리고 합의하는 축이 하나도 없어 값은 DS가 정했다. 네이티브 <input type="range">이며 track 변형이 제품 인스펙터의 채움 막대를 흡수한다(제품은 그 자리에서 썸을 지웠고 DS는 표식을 곧 썸으로 만든다). 레일·썸의 렌더 결과는 섀도우 pseudo-element라 계산값을 읽을 수 없어 CSSOM 선언을 대조한다. Figma component set은 DS-F-006-slider가 소유한다 |
 | [Sidebar Nav Item · App Top Bar](../components/app-shell-parts.md) | `experimental` | `partial` | `partial` | `done` | public export 2종, Figma component 둘(SidebarNavItem 6 variant · AppTopBar), parity 게이트가 Icon을 자손으로 대조한다. 실브라우저 acceptance test 10건. 셸의 레이아웃 계약은 app-shell 패턴이 소유하고 여기는 그 안의 부품 둘이다. 제품 실측에서 사이드바 항목에 포커스 표시가 아예 없다는 것을 찾았다 — 전역 리셋이 항목의 링 선언을 특이도와 무관하게 이긴다. 셸 composition과 compact 드로어는 아직 없다 |
@@ -2412,6 +2414,187 @@ variant 축이 없다. 체크박스는 강조 단계를 갖지 않는다.
 11. `disabled`면 클릭과 키보드로 값이 바뀌지 않고 콜백이 불리지 않는다.
 12. 포커스 링이 **키보드에서만** 나타나고 두께가 `border-width-ring`이다.
 13. 라벨 있음·선택됨·부분 선택·라벨 없음 넷 모두 자동 접근성 검사에 위반이 없다.
+
+## Selectable List Row
+
+- Source: design/components/selectable-list-row.md
+- Maturity: experimental
+
+### Selectable List Row
+
+master-detail의 좌측 열에서 하나를 고른다.
+
+제품 실측은 **3벌**이고 [gap registry](../../migration/figma-gap-registry.md)의 수치가 **처음으로
+맞았다**(하이라이트 2 · 에디터 1). 셋이 합의하는 것은 골격이다 — 가로 flex 행, 선행 슬롯, 글자
+묶음, 커서 포인터, hover 면, **전환 140ms ease.** 갈라지는 것은 선택을 무엇이 소유하느냐다.
+
+#### Availability
+
+| Surface       | 상태           | 근거                                                                                 |
+| ------------- | -------------- | ------------------------------------------------------------------------------------ |
+| Web           | `partial`      | public export와 실브라우저 acceptance test 12건이 두 motion context에서 각각 돈다; visual regression, Figma component와 제품 소비 증거 없음 |
+| Figma         | `not-ready`    | component set이 아직 없다. DS-F-006-selectable-list-row가 소유한다                    |
+| Documentation | `done`         | 이 문서                                                                              |
+| Maturity      | `experimental` | 규범과 구현이 같은 변경 단위에서 처음 선다                                           |
+
+#### When to use
+
+- **하나를 고르는** 목록의 행 — 클립 리뷰, 소스 선택, 버전 목록. 고른 것의 상세가 옆이나 아래에 뜬다.
+- 행 전체가 클릭 대상이고, 그 안에 다른 버튼이 없을 때.
+
+쓰지 않는 자리.
+
+- **여럿을 고르는 목록.** 그때 선택은 행이 아니라 [Checkbox](../components/checkbox.md)가 갖는다. 행을 버튼으로
+  만들면서 안에 체크박스를 넣으면 **컨트롤이 중첩된다.** 제품의 에디터 소스 목록이 그 형태이고,
+  그것은 이 컴포넌트가 아니라 Checkbox + 행 레이아웃이다.
+- 메뉴 항목. 그것은 [Menu / Popover](../components/menu-popover.md)이며 열렸다 닫히는 표면 안에 있다.
+- 앱 셸 사이드바. 그것은 [Sidebar Nav Item](../components/app-shell-parts.md)이며 목적지로 이동한다.
+- 카드 격자. 그것은 [Project Card](../components/project-card.md)다.
+- 행 안에 버튼이 여럿 필요할 때. 행을 버튼으로 만들 수 없으므로 다른 구조가 필요하다.
+
+#### API
+
+```tsx
+{clips.map((clip, index) => (
+  <SelectableListRow
+    key={clip.id}
+    selected={index === activeIndex}
+    media={<img src={clip.thumbnail} alt="" width={96} height={54} />}
+    title={clip.name}
+    meta={`${clip.start} · ${clip.duration}초`}
+    trailing={<span>{index + 1}</span>}
+    onClick={() => setActiveIndex(index)}
+  />
+))}
+```
+
+#### Anatomy
+
+1. **Row** — `<button type="button">`. **행 전체가 컨트롤이다.**
+2. **Media** — 선행 슬롯. 썸네일이 들어가고 크기는 호출부가 정한다.
+3. **Text** — 제목과 보조 문구를 세로로 담는다.
+4. **Trailing** — 후행 슬롯. 시간·개수 같은 짧은 값.
+5. **Marker** — 선택된 행의 선행 표식.
+
+#### Properties
+
+| prop | 값 | 기본 | 뜻 |
+| --- | --- | --- | --- |
+| `selected` | boolean | `false` | 선택 여부. `aria-current="true"`가 된다 |
+| `title` | ReactNode | **필수** | 제목 줄. 한 줄로 잘린다 |
+| `meta` | ReactNode | 없음 | 제목 아래 보조 문구. 한 줄로 잘린다 |
+| `media` | ReactNode | 없음 | 선행 슬롯 |
+| `trailing` | ReactNode | 없음 | 후행 슬롯. **버튼을 넣지 않는다** |
+| `disabled` | boolean | `false` | 비활성 |
+
+나머지는 `<button>`의 네이티브 속성을 그대로 받는다. `title`은 HTML 전역 속성과 이름이 겹치므로
+행의 제목 쪽 뜻으로 덮어썼다.
+
+**크기 축이 없다.** 행의 높이는 내용이 정한다 — 썸네일이 96px이면 96px 줄이고 글자만 있으면
+글자 줄이다. 제품 3벌도 고정 높이를 갖지 않는다.
+
+#### States
+
+| state | 표현 |
+| --- | --- |
+| Default | 면 없음, 전경 `color-foreground-secondary` |
+| Hover | 면 `color-action-ghost-hover`, 전경 `color-foreground-primary` |
+| Selected | 면 `color-background-inset` **+ 3px 선행 표식** `color-action-primary`, 전경 `color-foreground-primary` |
+| Disabled | 전경 `color-foreground-disabled`, hover가 면을 칠하지 않는다 |
+| Focus | 행이 공유 링을 받는다 |
+
+**선택된 행에서도 보조 문구는 `color-foreground-secondary`로 남는다.** 둘 다 primary가 되면
+제목과 보조의 위계가 사라진다.
+
+#### Interaction and responsive behavior
+
+- 제목·보조 문구·후행 슬롯 어디를 눌러도 행이 받는다. 행 자체가 버튼이기 때문이다.
+- 목록을 **Tab이 훑는다.** 방향키 roving을 흉내 내지 않는다 — 그것은 `listbox`의 계약이고
+  이 컴포넌트는 버튼 목록이다. `listbox`가 필요하면 별도 컴포넌트다.
+- 제목과 보조 문구는 **줄바꿈이 아니라 말줄임**으로 줄어든다. 행 높이가 항목마다 달라지면
+  목록이 튄다.
+- 폭은 호출부가 정한다. 행은 `inline-size: 100%`다.
+
+#### Content
+
+- 제목은 그 항목을 **구별하는 것**이다. 순번이 아니라 이름이다.
+- 보조 문구에는 시각·길이처럼 **비교에 쓰는 값**을 둔다. 설명 문장을 넣지 않는다 — 잘린다.
+- 후행 슬롯은 한두 글자다. 그보다 길면 보조 문구로 내린다.
+
+#### Accessibility
+
+- **선택을 `aria-current`가 소유한다.** [Sidebar Nav Item](../components/app-shell-parts.md)과 같은 판정이다 —
+  시각 전용 속성을 두면 화면에는 선택으로 보이는데 보조기술에는 아무것도 전달되지 않는다.
+- **선택을 면 하나로 전달하지 않는다.** 아래 Implementation의 실측을 보라.
+- 썸네일은 장식이므로 `alt=""`가 기본이다. 썸네일에만 있는 정보가 있으면 제목이 그것을 말해야 한다.
+- forced-colors에서 면과 표식이 모두 시스템 색으로 치환되므로 테두리로 선택을 다시 세운다.
+- 행이 버튼이므로 Enter와 Space가 모두 실행한다. 네이티브의 동작이다.
+
+#### Specification
+
+| 축 | 값 | 토큰 |
+| --- | ---: | --- |
+| 안쪽 여백 | 8px | `space-control-sm` |
+| 슬롯 간격 | 8px | `space-control-sm` |
+| 반경 | 10px | `radius-overlay-item` |
+| 글자 묶음 간격 | 4px | `space-stack-xs` |
+| 선택 표식 | 3px | 리터럴 |
+| 제목 타이포 | 14/1.5 | `typography-body-sm-medium` |
+| 보조 타이포 | 12/1.5 | `typography-caption-regular` |
+| 미디어 반경 | 8px | `radius-control-sm` |
+
+**기하는 제품 값을 그대로 옮기지 않았다.** 제품의 gap 10px과 반경 14px에 맞는 semantic 토큰이
+없고, 새 토큰은 token source를 바꿔 Figma 재적용이 따라온다. 대신 **DS에 이미 있는 선택 가능한
+행**인 Sidebar Nav Item의 값(`space-control-sm` · `radius-overlay-item` · `body-sm-medium`)을
+따랐다 — 같은 성질의 두 컴포넌트가 다른 기하를 갖지 않게 하는 것이 더 중요하다.
+
+#### Effects
+
+없다. 그림자도 흐림도 쓰지 않는다.
+
+#### Implementation
+
+**선택 면 하나에 기대면 다크에서 사라진다.** Sidebar Nav Item은 `aria-current` +
+`color-background-inset`만으로 선택을 표현하는데, 그것이 성립하는 이유는 **사이드바가 캔버스 위에
+있기 때문**이다. 다크에서 `background-inset`은 `surface`·`menu`·`overlay`와 **같은 색**이고,
+목록은 표면 위에도 놓인다.
+
+실측(2026-08-18, 표면 위):
+
+| 테마 | 표면 | 선택 면 | 구분되는가 |
+| --- | --- | --- | --- |
+| light | `#fafafa` | `#eaebee` | 예 |
+| dark | `#313644` | `#313644` | **아니오** |
+
+그래서 3px 선행 표식을 함께 그린다. 색 하나로 상태를 전달하지 않는 것은 그 자체로도 맞다.
+테스트가 두 테마에서 표식의 존재와 색을 각각 확인한다.
+
+#### Known deviations
+
+- **`Sidebar Nav Item`에 같은 위험이 남아 있다.** 그 컴포넌트는 면만으로 선택을 표현하며, 앱 셸
+  사이드바가 캔버스 위에 있는 동안에만 성립한다. 표면 위에 놓이는 배치가 생기면 선택이 사라진다.
+- **여럿 고르기를 다루지 않는다.** 제품 3벌 중 1벌(에디터 소스 목록)이 그 형태이고 그것은
+  Checkbox가 소유한다.
+- **`listbox`가 아니다.** 방향키 roving과 typeahead가 없다. 목록이 길어져 Tab이 부담이 되면
+  `listbox` 계약을 갖는 별도 컴포넌트가 필요하다.
+- **제품의 반응형 전환을 옮기지 않았다.** 하이라이트의 행은 900px 이하에서 220px 세로 카드로
+  바뀌는데, 그것은 행이 아니라 **다른 컴포넌트로의 전환**이라 패턴이 소유할 문제다.
+- **선택 표식 3px에 토큰이 없다.** 소비처가 하나뿐이라 승격하지 않았다.
+
+#### Acceptance tests
+
+1. 안쪽 여백·슬롯 간격·반경·글자 묶음 간격·제목/보조 타이포가 `components.measured.json`과 같다.
+2. Default·Hover·Selected·Disabled의 면과 전경이 states 표와 같다.
+3. **표면 위에서 light·dark 두 테마 모두 선택 표식이 있고 폭과 색이 계약과 같다.**
+4. 선택하지 않은 행에는 표식이 없다.
+5. 선택을 `aria-current="true"`가 소유하고 목록에 하나만 있다.
+6. 행이 `<button type="button">`이고 보조 문구를 눌러도 클릭이 **한 번만** 실행된다.
+7. 긴 제목이 말줄임으로 줄고 한 줄에 남는다.
+8. 선택된 행에서도 보조 문구가 제목과 다른 색이다.
+9. `disabled`면 클릭이 실행되지 않고 hover가 면을 칠하지 않는다.
+10. 포커스 링이 **키보드에서만** 나타나고 두께가 `border-width-ring`이다.
+11. Tab이 다음 행으로 이동한다.
+12. 자동 접근성 검사에 위반이 없다.
 
 ## Segmented Control
 

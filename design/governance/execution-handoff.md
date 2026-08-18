@@ -229,13 +229,14 @@ Tooltip(`.app-tooltip-chrome` + `--app-tooltip-*`), Menu(`--dropdown-*`). Icon B
 | `DS-P3-002a` · `002`(1단계) · `003` · `009a` · `013` | `done` |
 | `DS-P3-001` | `in-progress`. Decision 6종을 다 썼고 owner 확인만 남았다 |
 | Decision | **18종** (`DS-D-0001`~`DS-D-0018`) |
-| 카탈로그 | **14/15.** 1~11순위가 Web·Figma 모두 `partial`, 12~14순위는 Web만 `partial` |
-| manifest component | 16개. `select`만 `not-ready`(아래 1d). `slider`·`segmented-control`·`checkbox`는 Figma가 `not-ready` |
+| 카탈로그 | **15/15 — 전부 섰다.** 1~11순위가 Web·Figma 모두 `partial`, 12~15순위는 Web만 `partial` |
+| manifest component | 17개. `select`만 `not-ready`(아래 1d). 12~15순위 넷은 Figma가 `not-ready` |
 | Figma | component 14개 · 변수 210개 · style 22개 |
-| 검증 | 브라우저 608건(두 motion context) · 토큰 게이트 canary 42종 · CSS canary 12종 · parity canary 33종 |
+| 검증 | 브라우저 632건(두 motion context) · 토큰 게이트 canary 42종 · CSS canary 12종 · parity canary 33종 |
 
-**바로 다음에 할 일은 (2)의 15순위 SelectableListRow이고 그것이 카탈로그의 마지막이다.**
-(1a)~(1d)는 owner 결정이 필요해 병렬로 열려 있고, Figma component set 셋도 열려 있다.
+**카탈로그가 닫혔다. 바로 다음에 할 일은 `DS-F-006`의 남은 Figma component set 넷이다** —
+그것이 목표 B의 병목이고 코드 쪽에는 더 이상 막는 것이 없다. (1a)~(1d)와 아래 새 판정 둘은
+owner 결정이 필요해 병렬로 열려 있다.
 
 ## 다음 작업
 
@@ -312,8 +313,35 @@ component인데 **gap registry 우선순위 1~15 어디에도 없다.** 실측 �
 항목을 `not-planned`로 바꾼다, (c) 남겨 둔다. 지금처럼 계획 없이 `not-ready`로 두면 카탈로그가
 영원히 미완으로 읽힌다.
 
-**(2) gap registry 15순위 — 이것이 마지막 카탈로그 항목이다.** 1~14순위는 전부 `done`이며
-남은 것은 **SelectableListRow** 하나다.
+**(2) gap registry가 닫혔다 — 1~15순위가 전부 `done`이다(2026-08-18).**
+
+**15순위 SelectableListRow에서 등록부의 수치가 아홉 번 만에 처음으로 맞았다**(하이라이트 2 ·
+에디터 1 = 3벌). 그 전 여덟 번은 매번 틀렸다. 다음 사람이 알아야 할 것 둘.
+
+- **선택 면 하나에 기대면 다크에서 사라진다.** 표면 위에 놓고 재면 light는 `#fafafa`↔`#eaebee`로
+  구분되는데 **dark는 `#313644`↔`#313644`로 같다.** 워크샵에서 눈으로 확인했고, 3px 선행 표식이
+  없었으면 선택이 보이지 않았다. **같은 위험이 `SidebarNavItem`에 그대로 남아 있다** — 그것은
+  면만으로 선택을 표현하며 사이드바가 캔버스 위에 있는 동안에만 성립한다. 앱 셸 composition을
+  지을 때 이 사실을 함께 본다
+- **두 선택 모델을 한 컴포넌트에 담지 않았다.** 행의 면이 선택을 갖는 쪽(2벌)만 이 컴포넌트이고,
+  체크박스가 갖는 쪽(1벌)은 Checkbox + 행 레이아웃이다. 행을 버튼으로 만들면서 안에 체크박스를
+  넣으면 컨트롤이 중첩된다
+
+**관측 기록 — `verify-test-harness`가 한 번 간헐 실패했다(2026-08-18).** canary를 제거한 뒤
+돌리는 post-canary suite가 실패했고, 곧바로 이어진 **세 번의 실행에서 재현되지 않았다.** 실패한
+테스트 이름은 잡지 못했다(스크립트가 요약만 출력한다). 같은 실행의 `pnpm test`는 632건 전부
+통과했다. 추측으로 원인을 적지 않는다 — 다시 보이면 스크립트가 실패 상세를 남기도록 고치는 것이
+먼저다. 간헐 실패는 회귀를 가릴 수 있으므로 hosted CI를 붙일 때 이 항목을 함께 본다.
+
+**카탈로그가 닫혀 코드 트랙에서 막는 것이 없어졌다.** 남은 것은 셋이다.
+
+1. **`DS-F-006` Figma component set 넷** — Slider · SegmentedControl · Checkbox ·
+   SelectableListRow. 목표 B의 병목이며 사용자가 지정한 draft 파일에 MCP로 쓴다
+2. **owner 판정** — (1a) 이름이 어긋난 토큰 셋(`color-border-strong`은 소비처가 생겨 빠졌다) ·
+   (1c) Skeleton 면 색 · (1d) `select` · (2b) 컨트롤 테두리(아래 실측으로 답이 바뀌었다) ·
+   **`layout-change` motion lifecycle**(신규)
+3. **`DS-P3-008` Core local RC**와 **`DS-P3-010` 공용 Pattern fixture**. 둘 다 의존성이 충족돼
+   있고 아직 시작하지 않았다. 셸 composition·Project Grid·Loading이 여기 있다
 
 **14순위 Checkbox가 섰다(2026-08-18).** 등록부의 "4 파일"에 대해 실제는 **21벌 · 5레시피 ·
 14파일**이다. 앞의 셋과 달리 **제품에 정본이 있었는데 21벌 중 2벌만 쓴다.** 이유를 제품이 스스로
@@ -773,7 +801,7 @@ Home/Highlight/Editor가 각각 단일 route가 아니라는 사실과 카탈로
 | 12 | Slider | `done` — Web `partial`. Figma는 `DS-F-006-slider`가 소유한다 |
 | 13 | SegmentedControl | `done` — Web `partial`. Figma는 `DS-F-006-segmented-control`이 소유한다 |
 | 14 | Checkbox | `done` — Web `partial`. Figma는 `DS-F-006-checkbox`가 소유한다 |
-| 15 | SelectableListRow | `pending` — 카탈로그의 마지막 항목 |
+| 15 | SelectableListRow | `done` — Web `partial`. Figma는 `DS-F-006-selectable-list-row`가 소유한다 |
 | — | Select | `pending`. gap registry 상위 15에 들지 않았다 |
 
 4·5순위(Menu/Popover, Dialog)는 코드가 이미 서 있어 이 항목이 아니라 DS-F-006이 남은 몫이다.
@@ -1027,6 +1055,7 @@ description에 기록했다. parity 게이트가 style 10종까지 검증하므�
 | `DS-F-006-slider` | `partial` | `not-ready` | 12 |
 | `DS-F-006-segmented-control` | `partial` | `not-ready` | 13 |
 | `DS-F-006-checkbox` | `partial` | `not-ready` | 14 |
+| `DS-F-006-selectable-list-row` | `partial` | `not-ready` | 15 |
 
 여섯 중 다섯이 코드만 서 있고 Figma에 없다. DS-F-007-home 실측이 이 격차를 숫자로 확인했다 —
 재조립이 요구한 자산 대부분이 Figma에 존재하지 않아 gap 72건이 나왔다. 목표 B의 병목은 여기다.

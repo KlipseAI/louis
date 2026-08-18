@@ -663,9 +663,10 @@
       "$doc": "design/components/checkbox.md",
       "$source": "packages/react/src/checkbox/checkbox.tsx, packages/css/src/component/checkbox.css",
       "$note": "제품에 공용 정본이 있다 \u2014 globals.css:990의 .app-native-checkbox(20\u00d720 \u00b7 accent-color). **그런데 21벌 중 2벌만 쓴다.** 그 클래스가 cascade layer 밖이라 @layer utilities를 무조건 이겨서, 색 하나를 바꾸려는 소비처가 클래스를 떼고 선언을 베껴야 했다(VideoEditProjectPicker.tsx:140-151이 그 사실을 적어 두었다). 크기 20px은 채택하고 accent-color는 채택하지 않았다.",
+      "$sizeKey": "size 축이 없는 컴포넌트는 measured 키를 `base` 하나로 둔다 — verify-figma-parity의 `sizeKey: \"base\"` 계약이 그 이름으로 readback을 찾는다(Badge·EmptyState와 같다).",
       "$noSizeAxis": "크기 축이 없다. 제품의 다른 값(14px \u00b7 브라우저 기본)은 서로 합의하지 않고 두 번째 소비처도 없다. 필요해지면 그때 추가한다.",
       "sizes": {
-        "md": {
+        "base": {
           "boxSize": 20,
           "$boxSize": "제품 정본 .app-native-checkbox의 width/height 20px 채택",
           "borderWidth": 0.5,
@@ -713,9 +714,10 @@
       "$doc": "design/components/selectable-list-row.md",
       "$source": "packages/react/src/selectable-list-row/selectable-list-row.tsx, packages/css/src/component/selectable-list-row.css",
       "$note": "master-detail의 좌측 열. 제품 3벌이고 **등록부의 수치가 처음으로 맞았다**(하이라이트 2 · 에디터 1). 셋이 합의하는 것은 골격(가로 flex 행 · 선행 슬롯 · 글자 묶음 · hover 면 · 전환 140ms)이고, 갈라지는 것은 선택을 행의 면이 갖느냐 안의 체크박스가 갖느냐다. 후자는 이 컴포넌트가 아니다 \u2014 행을 버튼으로 만들면서 체크박스를 넣으면 컨트롤이 중첩된다.",
+      "$sizeKey": "size 축이 없으므로 measured 키는 `base` 하나다. verify-figma-parity의 `sizeKey` 계약이 그 이름으로 readback을 찾는다.",
       "$geometry": "기하는 제품 값을 그대로 옮기지 않았다. gap 10px과 반경 14px에 맞는 semantic 토큰이 없고, 새 토큰은 token source를 바꿔 Figma 재적용이 따라온다. DS에 이미 있는 선택 가능한 행(SidebarNavItem)의 값을 따랐다 \u2014 같은 성질의 두 컴포넌트가 다른 기하를 갖지 않게 하는 것이 더 중요하다.",
       "sizes": {
-        "md": {
+        "base": {
           "padding": 8,
           "gap": 8,
           "radius": 10,

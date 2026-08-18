@@ -18,7 +18,7 @@ import "@klipse-design/css/styles.css";
 
 const px = (value: string): number => Number.parseFloat(value);
 const round = (value: number): number => Math.round(value * 1000) / 1000;
-const spec = measured.components["selectable-list-row"].sizes.md;
+const spec = measured.components["selectable-list-row"].sizes.base;
 const states = measured.components["selectable-list-row"].states.base;
 
 function find(selector: string): HTMLElement {

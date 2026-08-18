@@ -336,7 +336,41 @@ component인데 **gap registry 우선순위 1~15 어디에도 없다.** 실측 �
 **카탈로그가 닫혀 코드 트랙에서 막는 것이 없어졌다.** 남은 것은 셋이다.
 
 1. **`DS-F-006` Figma component set 넷** — Slider · SegmentedControl · Checkbox ·
-   SelectableListRow. 목표 B의 병목이며 사용자가 지정한 draft 파일에 MCP로 쓴다
+   SelectableListRow. 목표 B의 병목이며 사용자가 지정한 draft 파일에 MCP로 쓴다.
+   **착수 전 조사를 2026-08-18에 마쳤다 — 아래가 그 결과다.**
+
+##### DS-F-006 착수 조사 (2026-08-18)
+
+파일(`bxGEp0km5zluMJGulaTvFW`) 규약은 이렇다. Components 페이지가 SECTION 여섯(Actions ·
+Overlays · Feedback · Icons · Content · Shell)으로 묶여 있고, component set 프레임은
+HORIZONTAL auto-layout(padding 24 · gap 16~24 · radius 5)이다. 변형 이름은 코드의 union과
+1:1(`Size=md`)이고, 부품 이름이 parity 계약의 `parts` 키와 짝을 이룬다(Spinner의 `Track`·`Arc`,
+Badge의 `Label`). **모든 fill이 변수 바인딩이고 raw 값이 0이다.**
+
+필요한 변수·style은 전부 이미 있다 — `spacing/control-{xs,sm,md,lg}` · `spacing/stack-xs` ·
+`radius/{control,control-sm,overlay-item,pill}` · `layout/control-height-{md,sm}` ·
+`border-width/{hairline,ring}` · 색 14종 · text style 15종. **새로 만들 토큰이 없다.**
+
+**막는 것이 하나 있다 — 게이트의 기하 모델이 variant 축을 다루지 못한다.**
+`verify-figma-parity.mjs`는 기하를 `geometry[size]` 하나로 읽고 각 필드를 배열로 모아 measured의
+단일 값과 대조한다. 그래서 **같은 size 안에서 variant마다 기하가 달라지면 대조가 성립하지 않는다.**
+
+| 컴포넌트 | 지금 가능한가 | 왜 |
+| --- | --- | --- |
+| Checkbox | **가능** | size 축이 없고 State가 색만 바꾼다. Badge와 같은 모델 |
+| SelectableListRow | **가능** | 같음 |
+| SegmentedControl | 막힘 | 선택/비선택 세그먼트의 면이 다르고 기하는 같으나, 상태를 variant로 두면 같은 축을 두 번 세게 된다 — 계약 형태를 먼저 정해야 한다 |
+| Slider | 막힘 | `Variant=thumb\|track`이 레일 두께 4↔28과 썸 16↔2×14를 **바꾼다.** 게이트가 variant별 기대값을 표현할 수 없다 |
+
+두 갈래가 있다 — (a) `geometry.byVariant` 같은 축을 계약에 추가해 게이트를 확장한다,
+(b) Slider를 Figma에서 두 set(`Slider` · `SliderTrack`)으로 나눈다. (a)가 옳아 보이지만 게이트
+확장은 변조 canary를 함께 늘려야 하므로 독립 변경 단위다. **게이트를 약하게 만드는 방향은
+택하지 않는다.**
+
+**준비는 해 두었다.** size 축이 없는 두 컴포넌트의 measured 키를 `md` → `base`로 옮겼다 —
+게이트의 `sizeKey: "base"` 계약이 그 이름으로 readback을 찾는다(Badge·EmptyState와 같다).
+이 상태에서 Checkbox와 SelectableListRow는 **build → snapshot 재덤프 → 계약 추가 → parity**
+순서로 바로 진행할 수 있다
 2. **owner 판정** — (1a) 이름이 어긋난 토큰 셋(`color-border-strong`은 소비처가 생겨 빠졌다) ·
    (1c) Skeleton 면 색 · (1d) `select` · (2b) 컨트롤 테두리(아래 실측으로 답이 바뀌었다) ·
    **`layout-change` motion lifecycle**(신규)

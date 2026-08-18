@@ -17,7 +17,7 @@ import "@klipse-design/css/styles.css";
 
 const px = (value: string): number => Number.parseFloat(value);
 const round = (value: number): number => Math.round(value * 1000) / 1000;
-const spec = measured.components.checkbox.sizes.md;
+const spec = measured.components.checkbox.sizes.base;
 const states = measured.components.checkbox.states.base;
 
 function find(selector: string): HTMLElement {

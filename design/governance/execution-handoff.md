@@ -231,7 +231,7 @@ Tooltip(`.app-tooltip-chrome` + `--app-tooltip-*`), Menu(`--dropdown-*`). Icon B
 | Decision | **18종** (`DS-D-0001`~`DS-D-0018`) |
 | 카탈로그 | **15/15 + Avatar.** 1~11순위가 Web·Figma 모두 `partial`, 12~15순위는 Web만 `partial` |
 | manifest component | **18개.** 17개 `partial`, `select` `not-planned`(아래 1d). `not-ready`는 0개다 |
-| Figma | component **18개** · 아이콘 **29개** · 변수 210개 · style 22개 |
+| Figma | component **19개** · 아이콘 29개 · 변수 210개 · style 22개 |
 | 검증 | 브라우저 632건(두 motion context) · 토큰 게이트 canary 42종 · CSS canary 12종 · parity canary **34종** |
 
 **카탈로그가 닫혔다. 바로 다음에 할 일은 `DS-F-006`의 남은 Figma component set 넷이다** —
@@ -1194,6 +1194,7 @@ description에 기록했다. parity 게이트가 style 10종까지 검증하므�
 | `DS-F-006-slider` | `partial` | **`partial`** | 12 |
 | `DS-F-006-segmented-control` | `partial` | **`partial`** | 13 |
 | `DS-F-006-checkbox` | `partial` | **`partial`** | 14 |
+| `DS-F-006-avatar` | `partial` | **`partial`** | — |
 | `DS-F-006-selectable-list-row` | `partial` | **`partial`** | 15 |
 
 여섯 중 다섯이 코드만 서 있고 Figma에 없다. DS-F-007-home 실측이 이 격차를 숫자로 확인했다 —

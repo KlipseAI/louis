@@ -8,6 +8,18 @@ authority: normative
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
 
+## 2026-08-18 (16) — Avatar가 Figma에 섰다
+
+`DS-F-006-avatar`. component set 18 → **19개**.
+
+**폴백을 path가 아니라 원 둘로 그렸다.** Figma의 `vectorPaths`가 SVG arc(`a`) 명령을 받지 않아
+코드의 글리프 path를 그대로 넣을 수 없었다. 변환해서 넣는 대신 머리·어깨 두 원으로 같은 그림을
+만들었다 — 좌표가 크기의 비율로 남아 **두 크기가 같은 그림**이 되고, 변환 과정에서 모양이 조용히
+달라질 여지가 없다.
+
+**계약이 stroke·effect 0을 요구한다.** 코드 쪽 테스트가 테두리·그림자·`::after` 층이 0인지
+확인하는 것과 짝이다. 링을 소유하지 않는다는 판정을 **양쪽에서 기계가 지킨다.**
+
 ## 2026-08-18 (15) — Avatar · Home의 구멍이 하나 남았다
 
 `import { Avatar } from "@klipse-design/react"`. 카탈로그 component 17 → **18개**.

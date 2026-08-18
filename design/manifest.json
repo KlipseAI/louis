@@ -995,10 +995,10 @@
       "id": "avatar",
       "name": "Avatar",
       "maturity": "experimental",
-      "figma": "not-ready",
+      "figma": "partial",
       "web": "partial",
       "docs": "done",
-      "note": "public export와 실브라우저 acceptance test 9건이 두 motion context에서 각각 돈다. 제품에 공용 구현이 **부분만** 있다 \u2014 기본 아바타 SVG 하나만 분리돼 있고 본체는 셸 파일에 인라인이다. 크기 28/24는 제품의 --profile-avatar-size 두 값을 그대로 옮겼고 control 계단을 따르지 않는다(아바타는 컨트롤이 아니라 표식이다). **진행률 링을 소유하지 않는다** \u2014 흡수하면 인계서 (1c)의 미결 판정이 API로 새어 들어온다. 테스트가 테두리\u00b7그림자\u00b7::after 층이 0인지 확인한다. Figma component set은 DS-F-006-avatar가 소유한다",
+      "note": "public export와 실브라우저 acceptance test 9건이 두 motion context에서 각각 돈다. 제품에 공용 구현이 **부분만** 있다 \u2014 기본 아바타 SVG 하나만 분리돼 있고 본체는 셸 파일에 인라인이다. 크기 28/24는 제품의 --profile-avatar-size 두 값을 그대로 옮겼고 control 계단을 따르지 않는다(아바타는 컨트롤이 아니라 표식이다). **진행률 링을 소유하지 않는다** \u2014 흡수하면 인계서 (1c)의 미결 판정이 API로 새어 들어온다. 테스트가 테두리\u00b7그림자\u00b7::after 층이 0인지 확인한다. Figma component set 2 variant(Size)가 섰고 parity 게이트가 Fallback을 자손으로 대조한다 \u2014 raw fill 0. **계약이 stroke\u00b7effect 0을 요구하므로 링이 새어 들어오면 게이트가 잡는다.** publish는 DS-F-008이다",
       "doc": "design/components/avatar.md",
       "figmaName": "Avatar"
     },

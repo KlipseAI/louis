@@ -3311,6 +3311,186 @@
     }
   },
   "components": {
+    "AppTopBar": {
+      "variantCount": 1,
+      "hasDescription": true,
+      "properties": {},
+      "binding": {
+        "boundFills": 1,
+        "rawFills": 0,
+        "boundStrokes": 0,
+        "rawStrokes": 0,
+        "textStyled": 1,
+        "textUnstyled": 0
+      },
+      "geometry": {
+        "topBar": {
+          "slots": {},
+          "parts": {},
+          "strokeWeight": [],
+          "height": [
+            40
+          ],
+          "paddingInline": [
+            16
+          ],
+          "paddingInlineEnd": [
+            16
+          ],
+          "itemSpacing": [
+            8
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ]
+        }
+      },
+      "strokes": {},
+      "effects": {}
+    },
+    "Avatar": {
+      "variantCount": 2,
+      "hasDescription": true,
+      "properties": {
+        "Size": {
+          "type": "VARIANT",
+          "options": [
+            "md",
+            "sm"
+          ]
+        }
+      },
+      "binding": {
+        "boundFills": 6,
+        "rawFills": 0,
+        "boundStrokes": 0,
+        "rawStrokes": 0,
+        "textStyled": 0,
+        "textUnstyled": 0
+      },
+      "geometry": {
+        "md": {
+          "slots": {},
+          "parts": {
+            "Fallback": {
+              "width": [
+                28
+              ],
+              "height": [
+                28
+              ]
+            }
+          },
+          "strokeWeight": [],
+          "width": [
+            28
+          ],
+          "height": [
+            28
+          ],
+          "cornerRadius": [
+            999
+          ],
+          "layoutMode": [
+            "NONE"
+          ]
+        },
+        "sm": {
+          "slots": {},
+          "parts": {
+            "Fallback": {
+              "width": [
+                24
+              ],
+              "height": [
+                24
+              ]
+            }
+          },
+          "strokeWeight": [],
+          "width": [
+            24
+          ],
+          "height": [
+            24
+          ],
+          "cornerRadius": [
+            999
+          ],
+          "layoutMode": [
+            "NONE"
+          ]
+        }
+      },
+      "strokes": {},
+      "effects": {}
+    },
+    "Badge": {
+      "variantCount": 5,
+      "hasDescription": true,
+      "properties": {
+        "Tone": {
+          "type": "VARIANT",
+          "options": [
+            "neutral",
+            "success",
+            "warning",
+            "danger",
+            "info"
+          ]
+        }
+      },
+      "binding": {
+        "boundFills": 10,
+        "rawFills": 0,
+        "boundStrokes": 0,
+        "rawStrokes": 0,
+        "textStyled": 5,
+        "textUnstyled": 0
+      },
+      "geometry": {
+        "base": {
+          "slots": {},
+          "parts": {
+            "Label": {
+              "fontSize": [
+                12
+              ],
+              "lineHeightPercent": [
+                150
+              ]
+            }
+          },
+          "strokeWeight": [],
+          "height": [
+            26
+          ],
+          "paddingBlock": [
+            4
+          ],
+          "paddingBlockEnd": [
+            4
+          ],
+          "paddingInline": [
+            8
+          ],
+          "paddingInlineEnd": [
+            8
+          ],
+          "itemSpacing": [
+            4
+          ],
+          "cornerRadius": [
+            8
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ]
+        }
+      },
+      "strokes": {},
+      "effects": {}
+    },
     "Button": {
       "variantCount": 40,
       "hasDescription": true,
@@ -3476,152 +3656,24 @@
       },
       "effects": {}
     },
-    "IconButton": {
-      "variantCount": 40,
+    "Checkbox": {
+      "variantCount": 4,
       "hasDescription": true,
       "properties": {
-        "Glyph": {
-          "type": "INSTANCE_SWAP"
-        },
-        "Variant": {
-          "type": "VARIANT",
-          "options": [
-            "primary",
-            "secondary",
-            "ghost",
-            "danger"
-          ]
-        },
-        "Size": {
-          "type": "VARIANT",
-          "options": [
-            "md",
-            "sm"
-          ]
-        },
         "State": {
           "type": "VARIANT",
           "options": [
             "Default",
-            "Hover",
-            "Active",
-            "Pressed",
+            "Checked",
+            "Indeterminate",
             "Disabled"
           ]
         }
       },
       "binding": {
-        "boundFills": 36,
+        "boundFills": 9,
         "rawFills": 0,
-        "boundStrokes": 50,
-        "rawStrokes": 0,
-        "textStyled": 0,
-        "textUnstyled": 0
-      },
-      "geometry": {
-        "md": {
-          "slots": {
-            "Glyph": [
-              "20x20"
-            ]
-          },
-          "height": [
-            40
-          ],
-          "width": [
-            40
-          ],
-          "paddingBlock": [
-            0
-          ],
-          "paddingBlockEnd": [
-            0
-          ],
-          "paddingInline": [
-            0
-          ],
-          "paddingInlineEnd": [
-            0
-          ],
-          "itemSpacing": [
-            0
-          ],
-          "cornerRadius": [
-            12
-          ],
-          "layoutMode": [
-            "HORIZONTAL"
-          ],
-          "strokeWeight": [
-            0.5
-          ]
-        },
-        "sm": {
-          "slots": {
-            "Glyph": [
-              "20x20"
-            ]
-          },
-          "height": [
-            32
-          ],
-          "width": [
-            32
-          ],
-          "paddingBlock": [
-            0
-          ],
-          "paddingBlockEnd": [
-            0
-          ],
-          "paddingInline": [
-            0
-          ],
-          "paddingInlineEnd": [
-            0
-          ],
-          "itemSpacing": [
-            0
-          ],
-          "cornerRadius": [
-            12
-          ],
-          "layoutMode": [
-            "HORIZONTAL"
-          ],
-          "strokeWeight": [
-            0.5
-          ]
-        }
-      },
-      "strokes": {
-        "Glyph.glyph": [
-          "1.5|CENTER"
-        ],
-        "self": [
-          "0.5|INSIDE"
-        ]
-      },
-      "effects": {}
-    },
-    "Tooltip": {
-      "variantCount": 4,
-      "hasDescription": true,
-      "properties": {
-        "Side": {
-          "type": "VARIANT",
-          "options": [
-            "top",
-            "right",
-            "bottom",
-            "left"
-          ]
-        }
-      },
-      "binding": {
-        "boundFills": 8,
-        "rawFills": 0,
-        "boundStrokes": 4,
+        "boundStrokes": 5,
         "rawStrokes": 0,
         "textStyled": 4,
         "textUnstyled": 0
@@ -3629,168 +3681,66 @@
       "geometry": {
         "base": {
           "slots": {},
-          "height": [
-            28
-          ],
-          "width": [
-            63
-          ],
-          "paddingBlock": [
-            4.5
-          ],
-          "paddingBlockEnd": [
-            4.5
-          ],
-          "paddingInline": [
-            8.5
-          ],
-          "paddingInlineEnd": [
-            8.5
+          "parts": {
+            "Box": {
+              "width": [
+                20
+              ],
+              "height": [
+                20
+              ],
+              "cornerRadius": [
+                8
+              ]
+            },
+            "Label": {
+              "width": [
+                100
+              ],
+              "height": [
+                21
+              ],
+              "fontSize": [
+                14
+              ]
+            },
+            "Check": {
+              "width": [
+                5
+              ],
+              "height": [
+                9
+              ]
+            },
+            "Dash": {
+              "width": [
+                10
+              ],
+              "height": [
+                2
+              ]
+            }
+          },
+          "strokeWeight": [
+            0.5,
+            2
           ],
           "itemSpacing": [
-            0
-          ],
-          "cornerRadius": [
             8
           ],
           "layoutMode": [
             "HORIZONTAL"
-          ],
-          "strokeWeight": [
-            0.5
           ]
         }
       },
       "strokes": {
-        "self": [
+        "Box": [
           "0.5|INSIDE"
+        ],
+        "Check": [
+          "2|INSIDE"
         ]
       },
-      "effects": {
-        "self": [
-          "DROP_SHADOW:12:24:0"
-        ]
-      }
-    },
-    "Toast": {
-      "variantCount": 2,
-      "hasDescription": true,
-      "properties": {
-        "Tone": {
-          "type": "VARIANT",
-          "options": [
-            "neutral",
-            "danger"
-          ]
-        }
-      },
-      "binding": {
-        "boundFills": 4,
-        "rawFills": 0,
-        "boundStrokes": 0,
-        "rawStrokes": 0,
-        "textStyled": 2,
-        "textUnstyled": 0
-      },
-      "geometry": {
-        "base": {
-          "slots": {},
-          "height": [
-            45
-          ],
-          "width": [
-            112,
-            152
-          ],
-          "paddingBlock": [
-            12
-          ],
-          "paddingBlockEnd": [
-            12
-          ],
-          "paddingInline": [
-            20
-          ],
-          "paddingInlineEnd": [
-            20
-          ],
-          "itemSpacing": [
-            0
-          ],
-          "cornerRadius": [
-            16
-          ],
-          "layoutMode": [
-            "HORIZONTAL"
-          ],
-          "minWidth": [
-            null
-          ]
-        }
-      },
-      "strokes": {},
-      "effects": {
-        "self": [
-          "DROP_SHADOW:8:20:0 + BACKGROUND_BLUR:NORMAL:var(blur/surface)"
-        ]
-      }
-    },
-    "Menu": {
-      "variantCount": 5,
-      "hasDescription": true,
-      "properties": {
-        "State": {
-          "type": "VARIANT",
-          "options": [
-            "Default",
-            "Hover",
-            "Danger",
-            "DangerHover",
-            "Disabled"
-          ]
-        }
-      },
-      "binding": {
-        "boundFills": 7,
-        "rawFills": 0,
-        "boundStrokes": 0,
-        "rawStrokes": 0,
-        "textStyled": 5,
-        "textUnstyled": 0
-      },
-      "geometry": {
-        "panel": {
-          "slots": {},
-          "height": [
-            44
-          ],
-          "width": [
-            180
-          ],
-          "paddingBlock": [
-            8
-          ],
-          "paddingBlockEnd": [
-            8
-          ],
-          "paddingInline": [
-            12
-          ],
-          "paddingInlineEnd": [
-            12
-          ],
-          "itemSpacing": [
-            6
-          ],
-          "cornerRadius": [
-            10
-          ],
-          "layoutMode": [
-            "HORIZONTAL"
-          ]
-        }
-      },
-      "strokes": {},
       "effects": {}
     },
     "Dialog": {
@@ -3925,6 +3875,289 @@
           "DROP_SHADOW:16:48:-8"
         ]
       }
+    },
+    "EmptyState": {
+      "variantCount": 1,
+      "hasDescription": true,
+      "properties": {},
+      "binding": {
+        "boundFills": 3,
+        "rawFills": 0,
+        "boundStrokes": 0,
+        "rawStrokes": 0,
+        "textStyled": 2,
+        "textUnstyled": 0
+      },
+      "geometry": {
+        "base": {
+          "paddingBlock": [
+            80
+          ],
+          "paddingBlockEnd": [
+            80
+          ],
+          "paddingInline": [
+            16
+          ],
+          "paddingInlineEnd": [
+            16
+          ],
+          "itemSpacing": [
+            12
+          ],
+          "cornerRadius": [
+            0
+          ],
+          "layoutMode": [
+            "VERTICAL"
+          ],
+          "strokeWeight": [],
+          "slots": {},
+          "parts": {
+            "Graphic": {
+              "width": [
+                64
+              ],
+              "height": [
+                64
+              ]
+            },
+            "Title": {
+              "width": [
+                198
+              ],
+              "height": [
+                30
+              ],
+              "fontSize": [
+                20
+              ],
+              "lineHeightPercent": [
+                150
+              ]
+            },
+            "Description": {
+              "width": [
+                400
+              ],
+              "height": [
+                24
+              ],
+              "fontSize": [
+                16
+              ],
+              "lineHeightPercent": [
+                150
+              ]
+            },
+            "Action": {
+              "width": [
+                60
+              ],
+              "height": [
+                36
+              ],
+              "paddingBlock": [
+                4
+              ],
+              "itemSpacing": [
+                8
+              ],
+              "layoutMode": [
+                "HORIZONTAL"
+              ]
+            }
+          }
+        }
+      },
+      "strokes": {},
+      "effects": {}
+    },
+    "IconButton": {
+      "variantCount": 40,
+      "hasDescription": true,
+      "properties": {
+        "Glyph": {
+          "type": "INSTANCE_SWAP"
+        },
+        "Variant": {
+          "type": "VARIANT",
+          "options": [
+            "primary",
+            "secondary",
+            "ghost",
+            "danger"
+          ]
+        },
+        "Size": {
+          "type": "VARIANT",
+          "options": [
+            "md",
+            "sm"
+          ]
+        },
+        "State": {
+          "type": "VARIANT",
+          "options": [
+            "Default",
+            "Hover",
+            "Active",
+            "Pressed",
+            "Disabled"
+          ]
+        }
+      },
+      "binding": {
+        "boundFills": 36,
+        "rawFills": 0,
+        "boundStrokes": 50,
+        "rawStrokes": 0,
+        "textStyled": 0,
+        "textUnstyled": 0
+      },
+      "geometry": {
+        "md": {
+          "slots": {
+            "Glyph": [
+              "20x20"
+            ]
+          },
+          "height": [
+            40
+          ],
+          "width": [
+            40
+          ],
+          "paddingBlock": [
+            0
+          ],
+          "paddingBlockEnd": [
+            0
+          ],
+          "paddingInline": [
+            0
+          ],
+          "paddingInlineEnd": [
+            0
+          ],
+          "itemSpacing": [
+            0
+          ],
+          "cornerRadius": [
+            12
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ],
+          "strokeWeight": [
+            0.5
+          ]
+        },
+        "sm": {
+          "slots": {
+            "Glyph": [
+              "20x20"
+            ]
+          },
+          "height": [
+            32
+          ],
+          "width": [
+            32
+          ],
+          "paddingBlock": [
+            0
+          ],
+          "paddingBlockEnd": [
+            0
+          ],
+          "paddingInline": [
+            0
+          ],
+          "paddingInlineEnd": [
+            0
+          ],
+          "itemSpacing": [
+            0
+          ],
+          "cornerRadius": [
+            12
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ],
+          "strokeWeight": [
+            0.5
+          ]
+        }
+      },
+      "strokes": {
+        "Glyph.glyph": [
+          "1.5|CENTER"
+        ],
+        "self": [
+          "0.5|INSIDE"
+        ]
+      },
+      "effects": {}
+    },
+    "Menu": {
+      "variantCount": 5,
+      "hasDescription": true,
+      "properties": {
+        "State": {
+          "type": "VARIANT",
+          "options": [
+            "Default",
+            "Hover",
+            "Danger",
+            "DangerHover",
+            "Disabled"
+          ]
+        }
+      },
+      "binding": {
+        "boundFills": 7,
+        "rawFills": 0,
+        "boundStrokes": 0,
+        "rawStrokes": 0,
+        "textStyled": 5,
+        "textUnstyled": 0
+      },
+      "geometry": {
+        "panel": {
+          "slots": {},
+          "height": [
+            44
+          ],
+          "width": [
+            180
+          ],
+          "paddingBlock": [
+            8
+          ],
+          "paddingBlockEnd": [
+            8
+          ],
+          "paddingInline": [
+            12
+          ],
+          "paddingInlineEnd": [
+            12
+          ],
+          "itemSpacing": [
+            6
+          ],
+          "cornerRadius": [
+            10
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ]
+        }
+      },
+      "strokes": {},
+      "effects": {}
     },
     "MenuPanel": {
       "variantCount": 1,
@@ -4153,502 +4386,6 @@
           "BACKGROUND_BLUR:PROGRESSIVE:var(blur/surface):0:0.5,0:0.5,0.45"
         ]
       }
-    },
-    "TextField": {
-      "variantCount": 8,
-      "hasDescription": true,
-      "properties": {
-        "Size": {
-          "type": "VARIANT",
-          "options": [
-            "md",
-            "sm"
-          ]
-        },
-        "State": {
-          "type": "VARIANT",
-          "options": [
-            "Default",
-            "Focus",
-            "Invalid",
-            "Disabled"
-          ]
-        }
-      },
-      "binding": {
-        "boundFills": 32,
-        "rawFills": 0,
-        "boundStrokes": 10,
-        "rawStrokes": 0,
-        "textStyled": 24,
-        "textUnstyled": 0
-      },
-      "geometry": {
-        "md": {
-          "slots": {},
-          "parts": {
-            "Box": {
-              "height": [
-                40
-              ],
-              "paddingInline": [
-                16
-              ],
-              "paddingInlineEnd": [
-                16
-              ],
-              "itemSpacing": [
-                8
-              ],
-              "layoutMode": [
-                "HORIZONTAL"
-              ],
-              "cornerRadius": [
-                12
-              ]
-            },
-            "Label": {
-              "height": [
-                21
-              ],
-              "fontSize": [
-                14
-              ],
-              "lineHeightPercent": [
-                150
-              ]
-            },
-            "Value": {
-              "height": [
-                21
-              ],
-              "fontSize": [
-                14
-              ],
-              "lineHeightPercent": [
-                150
-              ]
-            },
-            "Message": {
-              "height": [
-                18
-              ],
-              "fontSize": [
-                12
-              ],
-              "lineHeightPercent": [
-                150
-              ]
-            }
-          },
-          "strokeWeight": [
-            0.5,
-            2
-          ],
-          "itemSpacing": [
-            4
-          ]
-        },
-        "sm": {
-          "slots": {},
-          "parts": {
-            "Box": {
-              "height": [
-                32
-              ],
-              "paddingInline": [
-                12
-              ],
-              "paddingInlineEnd": [
-                12
-              ],
-              "itemSpacing": [
-                8
-              ],
-              "layoutMode": [
-                "HORIZONTAL"
-              ],
-              "cornerRadius": [
-                12
-              ]
-            },
-            "Label": {
-              "height": [
-                21
-              ],
-              "fontSize": [
-                14
-              ],
-              "lineHeightPercent": [
-                150
-              ]
-            },
-            "Value": {
-              "height": [
-                21
-              ],
-              "fontSize": [
-                14
-              ],
-              "lineHeightPercent": [
-                150
-              ]
-            },
-            "Message": {
-              "height": [
-                18
-              ],
-              "fontSize": [
-                12
-              ],
-              "lineHeightPercent": [
-                150
-              ]
-            }
-          },
-          "strokeWeight": [
-            0.5,
-            2
-          ],
-          "itemSpacing": [
-            4
-          ]
-        }
-      },
-      "strokes": {
-        "Box": [
-          "0.5|INSIDE"
-        ]
-      },
-      "effects": {}
-    },
-    "EmptyState": {
-      "variantCount": 1,
-      "hasDescription": true,
-      "properties": {},
-      "binding": {
-        "boundFills": 3,
-        "rawFills": 0,
-        "boundStrokes": 0,
-        "rawStrokes": 0,
-        "textStyled": 2,
-        "textUnstyled": 0
-      },
-      "geometry": {
-        "base": {
-          "paddingBlock": [
-            80
-          ],
-          "paddingBlockEnd": [
-            80
-          ],
-          "paddingInline": [
-            16
-          ],
-          "paddingInlineEnd": [
-            16
-          ],
-          "itemSpacing": [
-            12
-          ],
-          "cornerRadius": [
-            0
-          ],
-          "layoutMode": [
-            "VERTICAL"
-          ],
-          "strokeWeight": [],
-          "slots": {},
-          "parts": {
-            "Graphic": {
-              "width": [
-                64
-              ],
-              "height": [
-                64
-              ]
-            },
-            "Title": {
-              "width": [
-                198
-              ],
-              "height": [
-                30
-              ],
-              "fontSize": [
-                20
-              ],
-              "lineHeightPercent": [
-                150
-              ]
-            },
-            "Description": {
-              "width": [
-                400
-              ],
-              "height": [
-                24
-              ],
-              "fontSize": [
-                16
-              ],
-              "lineHeightPercent": [
-                150
-              ]
-            },
-            "Action": {
-              "width": [
-                60
-              ],
-              "height": [
-                36
-              ],
-              "paddingBlock": [
-                4
-              ],
-              "itemSpacing": [
-                8
-              ],
-              "layoutMode": [
-                "HORIZONTAL"
-              ]
-            }
-          }
-        }
-      },
-      "strokes": {},
-      "effects": {}
-    },
-    "Badge": {
-      "variantCount": 5,
-      "hasDescription": true,
-      "properties": {
-        "Tone": {
-          "type": "VARIANT",
-          "options": [
-            "neutral",
-            "success",
-            "warning",
-            "danger",
-            "info"
-          ]
-        }
-      },
-      "binding": {
-        "boundFills": 10,
-        "rawFills": 0,
-        "boundStrokes": 0,
-        "rawStrokes": 0,
-        "textStyled": 5,
-        "textUnstyled": 0
-      },
-      "geometry": {
-        "base": {
-          "slots": {},
-          "parts": {
-            "Label": {
-              "fontSize": [
-                12
-              ],
-              "lineHeightPercent": [
-                150
-              ]
-            }
-          },
-          "strokeWeight": [],
-          "height": [
-            26
-          ],
-          "paddingBlock": [
-            4
-          ],
-          "paddingBlockEnd": [
-            4
-          ],
-          "paddingInline": [
-            8
-          ],
-          "paddingInlineEnd": [
-            8
-          ],
-          "itemSpacing": [
-            4
-          ],
-          "cornerRadius": [
-            8
-          ],
-          "layoutMode": [
-            "HORIZONTAL"
-          ]
-        }
-      },
-      "strokes": {},
-      "effects": {}
-    },
-    "Spinner": {
-      "variantCount": 2,
-      "hasDescription": true,
-      "properties": {
-        "Size": {
-          "type": "VARIANT",
-          "options": [
-            "md",
-            "sm"
-          ]
-        }
-      },
-      "binding": {
-        "boundFills": 4,
-        "rawFills": 0,
-        "boundStrokes": 0,
-        "rawStrokes": 0,
-        "textStyled": 0,
-        "textUnstyled": 0
-      },
-      "geometry": {
-        "md": {
-          "slots": {},
-          "parts": {
-            "Track": {
-              "width": [
-                16
-              ],
-              "height": [
-                16
-              ]
-            },
-            "Arc": {
-              "width": [
-                16
-              ],
-              "height": [
-                16
-              ]
-            }
-          },
-          "strokeWeight": []
-        },
-        "sm": {
-          "slots": {},
-          "parts": {
-            "Track": {
-              "width": [
-                12
-              ],
-              "height": [
-                12
-              ]
-            },
-            "Arc": {
-              "width": [
-                12
-              ],
-              "height": [
-                12
-              ]
-            }
-          },
-          "strokeWeight": []
-        }
-      },
-      "strokes": {},
-      "effects": {}
-    },
-    "SidebarNavItem": {
-      "variantCount": 6,
-      "hasDescription": true,
-      "properties": {
-        "State": {
-          "type": "VARIANT",
-          "options": [
-            "Default",
-            "Hover",
-            "Current"
-          ]
-        },
-        "Collapsed": {
-          "type": "VARIANT",
-          "options": [
-            "false",
-            "true"
-          ]
-        }
-      },
-      "binding": {
-        "boundFills": 7,
-        "rawFills": 0,
-        "boundStrokes": 0,
-        "rawStrokes": 0,
-        "textStyled": 3,
-        "textUnstyled": 0
-      },
-      "geometry": {
-        "navItem": {
-          "slots": {},
-          "parts": {
-            "Icon": {
-              "width": [
-                20
-              ],
-              "height": [
-                20
-              ]
-            }
-          },
-          "strokeWeight": [],
-          "height": [
-            32
-          ],
-          "itemSpacing": [
-            8
-          ],
-          "cornerRadius": [
-            10
-          ],
-          "layoutMode": [
-            "HORIZONTAL"
-          ]
-        }
-      },
-      "strokes": {},
-      "effects": {}
-    },
-    "AppTopBar": {
-      "variantCount": 1,
-      "hasDescription": true,
-      "properties": {},
-      "binding": {
-        "boundFills": 1,
-        "rawFills": 0,
-        "boundStrokes": 0,
-        "rawStrokes": 0,
-        "textStyled": 1,
-        "textUnstyled": 0
-      },
-      "geometry": {
-        "topBar": {
-          "slots": {},
-          "parts": {},
-          "strokeWeight": [],
-          "height": [
-            40
-          ],
-          "paddingInline": [
-            16
-          ],
-          "paddingInlineEnd": [
-            16
-          ],
-          "itemSpacing": [
-            8
-          ],
-          "layoutMode": [
-            "HORIZONTAL"
-          ]
-        }
-      },
-      "strokes": {},
-      "effects": {}
     },
     "SegmentedControl": {
       "variantCount": 2,
@@ -4934,91 +4671,63 @@
       "strokes": {},
       "effects": {}
     },
-    "Checkbox": {
-      "variantCount": 4,
+    "SidebarNavItem": {
+      "variantCount": 6,
       "hasDescription": true,
       "properties": {
         "State": {
           "type": "VARIANT",
           "options": [
             "Default",
-            "Checked",
-            "Indeterminate",
-            "Disabled"
+            "Hover",
+            "Current"
+          ]
+        },
+        "Collapsed": {
+          "type": "VARIANT",
+          "options": [
+            "false",
+            "true"
           ]
         }
       },
       "binding": {
-        "boundFills": 9,
+        "boundFills": 7,
         "rawFills": 0,
-        "boundStrokes": 5,
+        "boundStrokes": 0,
         "rawStrokes": 0,
-        "textStyled": 4,
+        "textStyled": 3,
         "textUnstyled": 0
       },
       "geometry": {
-        "base": {
+        "navItem": {
           "slots": {},
           "parts": {
-            "Box": {
+            "Icon": {
               "width": [
                 20
               ],
               "height": [
                 20
-              ],
-              "cornerRadius": [
-                8
-              ]
-            },
-            "Label": {
-              "width": [
-                100
-              ],
-              "height": [
-                21
-              ],
-              "fontSize": [
-                14
-              ]
-            },
-            "Check": {
-              "width": [
-                5
-              ],
-              "height": [
-                9
-              ]
-            },
-            "Dash": {
-              "width": [
-                10
-              ],
-              "height": [
-                2
               ]
             }
           },
-          "strokeWeight": [
-            0.5,
-            2
+          "strokeWeight": [],
+          "height": [
+            32
           ],
           "itemSpacing": [
             8
+          ],
+          "cornerRadius": [
+            10
           ],
           "layoutMode": [
             "HORIZONTAL"
           ]
         }
       },
-      "strokes": {
-        "Box": [
-          "0.5|INSIDE"
-        ],
-        "Check": [
-          "2|INSIDE"
-        ]
-      },
+      "strokes": {},
       "effects": {}
     },
     "Slider": {
@@ -5280,6 +4989,374 @@
         ]
       },
       "effects": {}
+    },
+    "Spinner": {
+      "variantCount": 2,
+      "hasDescription": true,
+      "properties": {
+        "Size": {
+          "type": "VARIANT",
+          "options": [
+            "md",
+            "sm"
+          ]
+        }
+      },
+      "binding": {
+        "boundFills": 4,
+        "rawFills": 0,
+        "boundStrokes": 0,
+        "rawStrokes": 0,
+        "textStyled": 0,
+        "textUnstyled": 0
+      },
+      "geometry": {
+        "md": {
+          "slots": {},
+          "parts": {
+            "Track": {
+              "width": [
+                16
+              ],
+              "height": [
+                16
+              ]
+            },
+            "Arc": {
+              "width": [
+                16
+              ],
+              "height": [
+                16
+              ]
+            }
+          },
+          "strokeWeight": []
+        },
+        "sm": {
+          "slots": {},
+          "parts": {
+            "Track": {
+              "width": [
+                12
+              ],
+              "height": [
+                12
+              ]
+            },
+            "Arc": {
+              "width": [
+                12
+              ],
+              "height": [
+                12
+              ]
+            }
+          },
+          "strokeWeight": []
+        }
+      },
+      "strokes": {},
+      "effects": {}
+    },
+    "TextField": {
+      "variantCount": 8,
+      "hasDescription": true,
+      "properties": {
+        "Size": {
+          "type": "VARIANT",
+          "options": [
+            "md",
+            "sm"
+          ]
+        },
+        "State": {
+          "type": "VARIANT",
+          "options": [
+            "Default",
+            "Focus",
+            "Invalid",
+            "Disabled"
+          ]
+        }
+      },
+      "binding": {
+        "boundFills": 32,
+        "rawFills": 0,
+        "boundStrokes": 10,
+        "rawStrokes": 0,
+        "textStyled": 24,
+        "textUnstyled": 0
+      },
+      "geometry": {
+        "md": {
+          "slots": {},
+          "parts": {
+            "Box": {
+              "height": [
+                40
+              ],
+              "paddingInline": [
+                16
+              ],
+              "paddingInlineEnd": [
+                16
+              ],
+              "itemSpacing": [
+                8
+              ],
+              "layoutMode": [
+                "HORIZONTAL"
+              ],
+              "cornerRadius": [
+                12
+              ]
+            },
+            "Label": {
+              "height": [
+                21
+              ],
+              "fontSize": [
+                14
+              ],
+              "lineHeightPercent": [
+                150
+              ]
+            },
+            "Value": {
+              "height": [
+                21
+              ],
+              "fontSize": [
+                14
+              ],
+              "lineHeightPercent": [
+                150
+              ]
+            },
+            "Message": {
+              "height": [
+                18
+              ],
+              "fontSize": [
+                12
+              ],
+              "lineHeightPercent": [
+                150
+              ]
+            }
+          },
+          "strokeWeight": [
+            0.5,
+            2
+          ],
+          "itemSpacing": [
+            4
+          ]
+        },
+        "sm": {
+          "slots": {},
+          "parts": {
+            "Box": {
+              "height": [
+                32
+              ],
+              "paddingInline": [
+                12
+              ],
+              "paddingInlineEnd": [
+                12
+              ],
+              "itemSpacing": [
+                8
+              ],
+              "layoutMode": [
+                "HORIZONTAL"
+              ],
+              "cornerRadius": [
+                12
+              ]
+            },
+            "Label": {
+              "height": [
+                21
+              ],
+              "fontSize": [
+                14
+              ],
+              "lineHeightPercent": [
+                150
+              ]
+            },
+            "Value": {
+              "height": [
+                21
+              ],
+              "fontSize": [
+                14
+              ],
+              "lineHeightPercent": [
+                150
+              ]
+            },
+            "Message": {
+              "height": [
+                18
+              ],
+              "fontSize": [
+                12
+              ],
+              "lineHeightPercent": [
+                150
+              ]
+            }
+          },
+          "strokeWeight": [
+            0.5,
+            2
+          ],
+          "itemSpacing": [
+            4
+          ]
+        }
+      },
+      "strokes": {
+        "Box": [
+          "0.5|INSIDE"
+        ]
+      },
+      "effects": {}
+    },
+    "Toast": {
+      "variantCount": 2,
+      "hasDescription": true,
+      "properties": {
+        "Tone": {
+          "type": "VARIANT",
+          "options": [
+            "neutral",
+            "danger"
+          ]
+        }
+      },
+      "binding": {
+        "boundFills": 4,
+        "rawFills": 0,
+        "boundStrokes": 0,
+        "rawStrokes": 0,
+        "textStyled": 2,
+        "textUnstyled": 0
+      },
+      "geometry": {
+        "base": {
+          "slots": {},
+          "height": [
+            45
+          ],
+          "width": [
+            112,
+            152
+          ],
+          "paddingBlock": [
+            12
+          ],
+          "paddingBlockEnd": [
+            12
+          ],
+          "paddingInline": [
+            20
+          ],
+          "paddingInlineEnd": [
+            20
+          ],
+          "itemSpacing": [
+            0
+          ],
+          "cornerRadius": [
+            16
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ],
+          "minWidth": [
+            null
+          ]
+        }
+      },
+      "strokes": {},
+      "effects": {
+        "self": [
+          "DROP_SHADOW:8:20:0 + BACKGROUND_BLUR:NORMAL:var(blur/surface)"
+        ]
+      }
+    },
+    "Tooltip": {
+      "variantCount": 4,
+      "hasDescription": true,
+      "properties": {
+        "Side": {
+          "type": "VARIANT",
+          "options": [
+            "top",
+            "right",
+            "bottom",
+            "left"
+          ]
+        }
+      },
+      "binding": {
+        "boundFills": 8,
+        "rawFills": 0,
+        "boundStrokes": 4,
+        "rawStrokes": 0,
+        "textStyled": 4,
+        "textUnstyled": 0
+      },
+      "geometry": {
+        "base": {
+          "slots": {},
+          "height": [
+            28
+          ],
+          "width": [
+            63
+          ],
+          "paddingBlock": [
+            4.5
+          ],
+          "paddingBlockEnd": [
+            4.5
+          ],
+          "paddingInline": [
+            8.5
+          ],
+          "paddingInlineEnd": [
+            8.5
+          ],
+          "itemSpacing": [
+            0
+          ],
+          "cornerRadius": [
+            8
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ],
+          "strokeWeight": [
+            0.5
+          ]
+        }
+      },
+      "strokes": {
+        "self": [
+          "0.5|INSIDE"
+        ]
+      },
+      "effects": {
+        "self": [
+          "DROP_SHADOW:12:24:0"
+        ]
+      }
     }
   },
   "icons": {

@@ -583,6 +583,34 @@ const COMPONENT_CONTRACTS = [
     },
   },
   {
+    id: "avatar",
+    figmaName: "Avatar",
+    declaration: "packages/react/dist/avatar/avatar.d.ts",
+    variantProperties: { Size: "AvatarSize" },
+    // **테두리도 그림자도 없는 것이 계약이다.** 제품은 프로필 트리거에 진행률 링을 겹치는데,
+    // 그것이 이 컴포넌트로 새어 들어오면 여기서 걸린다. 코드 쪽은 브라우저 테스트가 같은 것을
+    // 확인한다(테두리·그림자·::after 층 0).
+    strokes: {},
+    effects: {},
+    geometry: {
+      measuredId: "avatar",
+      fields: {
+        width: "size",
+        height: "size",
+        cornerRadius: "radius",
+        // 자식이 하나뿐이고 절대 위치다. auto-layout을 쓰면 폴백이 원을 못 채운다.
+        layoutMode: { literal: "NONE" },
+      },
+      slots: {},
+      extraStrokeWeights: [],
+      parts: {
+        // 폴백은 원을 가득 채운다. 자기 크기를 가지면 24px 아바타 안에서 28px 글리프가 넘친다 —
+        // 제품의 UserCircleDefaultAvatar가 정확히 그 구조라 크기가 한 값에 묶여 있었다.
+        Fallback: { fields: { width: "size", height: "size" } },
+      },
+    },
+  },
+  {
     id: "badge",
     figmaName: "Badge",
     declaration: "packages/react/dist/badge/badge.d.ts",

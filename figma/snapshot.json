@@ -18,8 +18,8 @@
         "effect": 7
       },
       "components": {
-        "sets": 18,
-        "variants": 132
+        "sets": 19,
+        "variants": 134
       },
       "icons": 29,
       "templates": 1
@@ -2665,6 +2665,84 @@
           ],
           "layoutMode": [
             "HORIZONTAL"
+          ]
+        }
+      },
+      "strokes": {},
+      "effects": {}
+    },
+    "Avatar": {
+      "tokenId": "avatar",
+      "variantCount": 2,
+      "hasDescription": true,
+      "properties": {
+        "Size": {
+          "type": "VARIANT",
+          "options": [
+            "md",
+            "sm"
+          ]
+        }
+      },
+      "binding": {
+        "boundFills": 6,
+        "rawFills": 0,
+        "boundStrokes": 0,
+        "rawStrokes": 0,
+        "textStyled": 0,
+        "textUnstyled": 0
+      },
+      "geometry": {
+        "md": {
+          "slots": {},
+          "parts": {
+            "Fallback": {
+              "width": [
+                28
+              ],
+              "height": [
+                28
+              ]
+            }
+          },
+          "strokeWeight": [],
+          "width": [
+            28
+          ],
+          "height": [
+            28
+          ],
+          "cornerRadius": [
+            999
+          ],
+          "layoutMode": [
+            "NONE"
+          ]
+        },
+        "sm": {
+          "slots": {},
+          "parts": {
+            "Fallback": {
+              "width": [
+                24
+              ],
+              "height": [
+                24
+              ]
+            }
+          },
+          "strokeWeight": [],
+          "width": [
+            24
+          ],
+          "height": [
+            24
+          ],
+          "cornerRadius": [
+            999
+          ],
+          "layoutMode": [
+            "NONE"
           ]
         }
       },

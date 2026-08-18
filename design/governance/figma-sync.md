@@ -62,7 +62,14 @@ publish 이후에만 검토한다 — publish 전에는 파일 간 변수·compo
 - icon component: `partial` — `icon/{kebab}` 26개, 24×24 frame 하나, 크기 variant 없음. stroke와
   fill을 전부 `color/foreground-primary`에 바인딩해 raw 값 0을 만족한다. publish 전
 - text/effect style: `done` — `typography/*` 15종, `elevation/*` 4종 (semantic tier 이름)
-- component library: component set 15개, publish 전. 최신은 SegmentedControl 2 variant(Size)이며
+- **파일 구조(2026-08-18): Cover → Foundations → Components → Templates.** Foundations는 그 전까지
+  **최상위 노드가 0개**였다 — 변수 210개와 style 22개가 파일에 있는데 **보이는 것이 하나도
+  없었다.** 색(semantic 41 × Light·Dark 두 열, `setExplicitVariableModeForCollection`으로 한 화면),
+  타이포(text style 15), 간격·반경(막대 길이와 모서리가 변수 값 그대로), 그림자(effect style 7)를
+  세웠고 **전부 변수·style 바인딩이라 값이 바뀌면 문서가 따라온다.**
+- **게이트가 검사하는 것만 잘돼 있었다.** parity는 raw 값 0·변수 바인딩·기하를 34종 canary로
+  지키지만 "사람이 열었을 때 쓸 수 있는가"는 아무도 검사하지 않는다. 그 부분만 비어 있었다.
+- component library: component set 19개 · 아이콘 29개, publish 전. 최신은 SegmentedControl 2 variant(Size)이며
   선택/비선택은 variant 축이 아니라 한 variant 안의 두 자손이다 — 색만 다르고 기하가 같다
 - component parity checker: `done` — Figma variant 옵션을 코드 타입 선언과 대조하고, 선언되지 않은
   property와 raw 값 사용을 실패로 처리한다

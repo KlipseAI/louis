@@ -421,7 +421,14 @@ publish 이후에만 검토한다 — publish 전에는 파일 간 변수·compo
 - icon component: `partial` — `icon/{kebab}` 26개, 24×24 frame 하나, 크기 variant 없음. stroke와
   fill을 전부 `color/foreground-primary`에 바인딩해 raw 값 0을 만족한다. publish 전
 - text/effect style: `done` — `typography/*` 15종, `elevation/*` 4종 (semantic tier 이름)
-- component library: component set 15개, publish 전. 최신은 SegmentedControl 2 variant(Size)이며
+- **파일 구조(2026-08-18): Cover → Foundations → Components → Templates.** Foundations는 그 전까지
+  **최상위 노드가 0개**였다 — 변수 210개와 style 22개가 파일에 있는데 **보이는 것이 하나도
+  없었다.** 색(semantic 41 × Light·Dark 두 열, `setExplicitVariableModeForCollection`으로 한 화면),
+  타이포(text style 15), 간격·반경(막대 길이와 모서리가 변수 값 그대로), 그림자(effect style 7)를
+  세웠고 **전부 변수·style 바인딩이라 값이 바뀌면 문서가 따라온다.**
+- **게이트가 검사하는 것만 잘돼 있었다.** parity는 raw 값 0·변수 바인딩·기하를 34종 canary로
+  지키지만 "사람이 열었을 때 쓸 수 있는가"는 아무도 검사하지 않는다. 그 부분만 비어 있었다.
+- component library: component set 19개 · 아이콘 29개, publish 전. 최신은 SegmentedControl 2 variant(Size)이며
   선택/비선택은 variant 축이 아니라 한 variant 안의 두 자손이다 — 색만 다르고 기하가 같다
 - component parity checker: `done` — Figma variant 옵션을 코드 타입 선언과 대조하고, 선언되지 않은
   property와 raw 값 사용을 실패로 처리한다
@@ -5177,6 +5184,46 @@ popover에 가린다. **이 결정은 드로어를 다루지 않는다** — 드
 ### Updates
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
+
+#### 2026-08-18 (22) — Figma 파일에 Cover와 Foundations를 세운다
+
+owner 지적: **"지금 피그마에 있는것도 그지같던데."** 재보니 사실이었다.
+
+##### Foundations 페이지가 통째로 비어 있었다
+
+최상위 노드 **0개**. 변수 210개와 style 22개가 파일에 있는데 **보이는 것이 하나도 없었다** —
+색 스와치도, 타입 견본도, 간격 눈금도 없었다. Cover 페이지도 없어 파일을 열면 뭐가 뭔지 알 수
+없었다.
+
+##### 왜 이렇게 됐나 — 게이트가 검사하는 것만 잘돼 있었다
+
+parity 게이트는 raw 값 0 · 변수 바인딩 · 기하 일치를 본다. 그건 변조 canary 34종으로 지켜진다.
+그런데 **"사람이 열었을 때 쓸 수 있는가"는 아무도 검사하지 않는다.** 그래서 그 부분만 통째로
+비어 있었다.
+
+오늘 반복된 교훈과 같다 — **게이트는 시킨 것만 본다.** 계약을 맞추는 데 집중하느라 파일을
+열어본 사람의 눈으로 보지 않았다.
+
+##### 세운 것
+
+| 페이지 | 내용 |
+| --- | --- |
+| **Cover**(신설, 맨 앞) | 파일이 무엇이고 어디를 보는지. 정본이 저장소라는 것과 publish 전이라는 사실 |
+| **Foundations** | Color · Typography · Spacing & Radius · Elevation 네 절 |
+
+**색은 Light·Dark를 한 화면에 나란히 놓았다.** `setExplicitVariableModeForCollection`으로 두 열이
+각자 모드를 고정하므로 같은 변수가 두 테마에서 어떻게 보이는지 **동시에** 보인다. 다크 열에서
+`background-inset`·`menu`·`overlay`·`surface`가 같아 보이는 것이 **눈으로 바로 확인된다** —
+그동안 말로만 설명하던 충돌이다.
+
+간격·반경은 **막대 길이와 모서리가 변수 값 그대로**다. 숫자를 적지 않은 이유는 적은 숫자와 그린
+것이 갈라질 수 있기 때문이다. 타이포는 실제 text style을 적용했고 그림자는 effect style을 얹었다 —
+**전부 바인딩이라 값이 바뀌면 문서가 따라온다.**
+
+##### 남은 것
+
+Components 페이지의 정리(세트별 설명과 사용 예시)와 Templates. 그리고 publish는 여전히 owner의
+손에 있다.
 
 #### 2026-08-18 (21) — Loading 패턴 · 새 CSS가 하나도 없다
 

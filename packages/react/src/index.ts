@@ -38,6 +38,8 @@ export type {
 } from "./app-shell/app-shell-parts.js";
 export { Badge } from "./badge/badge.js";
 export type { BadgeProps, BadgeTone } from "./badge/badge.js";
+export { Checkbox } from "./checkbox/checkbox.js";
+export type { CheckboxProps } from "./checkbox/checkbox.js";
 export { EmptyState } from "./empty-state/empty-state.js";
 export type { EmptyStateHeadingLevel, EmptyStateProps } from "./empty-state/empty-state.js";
 export { SegmentedControl, SegmentedControlItem } from "./segmented-control/segmented-control.js";

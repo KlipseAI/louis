@@ -1503,6 +1503,86 @@
           "status": "no-canon"
         }
       }
+    },
+    "checkbox": {
+      "canon": {
+        "kind": "shared-css",
+        "paths": [
+          "apps/web/app/globals.css"
+        ],
+        "note": "globals.css:990의 .app-native-checkbox(20×20 · accent-color). **21벌 중 2벌만 쓴다** — 그 클래스가 cascade layer 밖이라 @layer utilities 안의 어떤 유틸리티도 이길 수 없어, 색 하나를 바꾸려는 소비처가 클래스를 떼고 선언을 통째로 베껴야 했다. VideoEditProjectPicker.tsx:140-151이 그 사실을 적어 두었다"
+      },
+      "axisCount": 7,
+      "$measuredBy": "2026-08-18 전수 조사. input[type=checkbox] 21벌 14파일을 클래스 쪽과 요소 쪽 두 방향으로 훑었다. **gap registry가 적은 \"4 파일\"은 틀렸다.** aria-checked 8건은 전부 radio/segment 계열이라 이 컴포넌트가 아니어서 갈랐다",
+      "$recipes": "A .app-native-checkbox 2벌(HighlightProjectScene) · B LEGAL_CHECKBOX_* 6벌(signup·aws/signup·hl-signup, 숨긴 input + ::after 체크마크) · C SOURCE_ROW_CHECK 1벌(A의 선언을 베끼고 accent만 sky-500) · D SKIP_CHECKBOX_CLASS 3벌(14×14) · E 맨 input 9벌(브라우저 기본). 합 21벌 · 5레시피",
+      "axes": {
+        "상자 크기": {
+          "product": "20px(A 정본 · C) · 14px(D, w-7 h-7) · 브라우저 기본 약 13px(E) · 커스텀 면(B)",
+          "ds": "20px. 크기 축을 두지 않는다",
+          "match": "same",
+          "evidence": "apps/web/app/globals.css:992-993",
+          "status": "adopted",
+          "dsPointer": {
+            "file": "figma/components.measured.json",
+            "path": [
+              "components",
+              "checkbox",
+              "sizes",
+              "md",
+              "boxSize"
+            ]
+          },
+          "productValue": 20
+        },
+        "그리는 방법": {
+          "product": "accent-color(A · C · D) · 숨긴 input + ::after 회전 테두리 체크마크(B 6벌) · 브라우저 기본(E)",
+          "ds": "appearance: none으로 입력 자신을 칠하고 ::before가 표시를 그린다",
+          "match": "partial",
+          "evidence": "apps/web/app/globals.css:996 · apps/web/app/signup/page.tsx:170-179",
+          "status": "accepted-deviation",
+          "reason": "accent-color는 면 색 하나만 주고 체크 표시의 굵기·반경·포커스 링·부분 선택 막대를 전부 브라우저가 정한다. 제품의 signup 계열 6벌이 이미 직접 그리는 것도 같은 이유다"
+        },
+        "정본의 캐스케이드 위치": {
+          "product": ".app-native-checkbox가 globals.css에 있어 **cascade layer 밖**이다. @layer utilities 안의 어떤 선언도 이길 수 없어 소비처가 색 하나를 바꾸려면 클래스를 떼야 한다. 그 결과 VideoEditProjectPicker의 accent가 라이트 sky-500 · 다크 near-white로 갈렸는데 결정이 아니라 캐스케이드 사고다",
+          "ds": "컴포넌트 CSS가 전부 @layer 안에 있다. 소비처가 유틸리티로 이길 수 있다",
+          "match": "different",
+          "evidence": "apps/web/components/scenes/VideoEditProjectPicker.tsx:140-151",
+          "status": "accepted-deviation",
+          "reason": "레이어 밖 전역 선언은 소비처가 이길 수 없어 정본이 정본으로 기능하지 못한다. 21벌 중 2벌만 쓰는 이유가 이것이다"
+        },
+        "테두리": {
+          "product": "A·C·D·E는 테두리를 선언하지 않는다(accent-color와 브라우저 기본). B만 1px rgb(gray-000/26%)",
+          "ds": "border-width-hairline + color-border-strong",
+          "match": "different",
+          "evidence": "apps/web/app/signup/page.tsx:186",
+          "status": "accepted-deviation",
+          "reason": "선택하지 않은 체크박스는 테두리가 어포던스의 전부다. 상자 면 대비 실측 — control 1.27/1.63 · default 1.38/2.93 · strong 2.52/4.61(라이트/다크)이고 셋 다 SC 1.4.11의 3:1에 라이트에서 미달한다. 가장 가까운 것을 골랐고 남은 격차는 규범에 수치로 적었다"
+        },
+        "선택 색": {
+          "product": "gray-900/gray-000(A 정본, 전경색) · sky-500/gray-000(C) · gray-000(D) · 브라우저 기본(E). 셋이 다르다",
+          "ds": "color-action-primary. 선택은 액션 색이 소유한다",
+          "match": "different",
+          "evidence": "apps/web/app/globals.css:996-1000 · apps/web/components/scenes/VideoEditProjectPicker.tsx:154-155",
+          "status": "accepted-deviation",
+          "reason": "A의 전경색(gray-900/gray-000)은 선택을 텍스트와 같은 색으로 칠해 상태가 아니라 밀도로 읽힌다. C의 sky-500은 캐스케이드 사고의 결과이며 제품의 브랜드 액션 색도 아니다"
+        },
+        "부분 선택": {
+          "product": "**21벌 중 1벌.** HighlightProjectScene:2892가 ref로 node.indeterminate를 설정한다. 표시는 브라우저가 그린다",
+          "ds": "10×2px 가로 막대를 직접 그린다. checked와 동시에 참이면 막대가 이긴다. aria-checked=mixed를 함께 준다",
+          "match": "different",
+          "evidence": "apps/web/components/scenes/HighlightProjectScene.tsx:2890-2895",
+          "status": "accepted-deviation",
+          "reason": "브라우저가 그리는 막대는 굵기와 색을 정할 수 없고 accent-color를 따르지 않는 플랫폼이 있다. aria-checked도 제품에 없어 보조기술이 '일부'를 읽지 못한다"
+        },
+        "라벨 연결": {
+          "product": "B는 label로 감싼다. A·C·D·E는 형제 텍스트를 두고 연결하지 않은 것이 다수다",
+          "ds": "label이 상자와 글자를 함께 감싼다. id가 아니라 포함 관계가 연결을 만든다",
+          "match": "partial",
+          "evidence": "apps/web/app/signup/page.tsx:630-660 · apps/web/app/admin/BlogManagement.tsx:368",
+          "status": "accepted-deviation",
+          "reason": "연결이 없으면 20px 상자만 클릭 영역이 되고 스크린 리더가 라벨을 읽지 못한다. id로 잇는 방식은 같은 화면에 여럿일 때 겹친다"
+        }
+      }
     }
   },
   "productCommit": "086f4a62",

@@ -659,6 +659,56 @@
       },
       "$statesNote": "상태 축이 없다. 대화형이 아니고 색은 currentColor를 물려받는다 — 놓이는 자리마다 다르므로 semantic 토큰으로 고정하지 않는다. 트랙은 그 색의 22%다."
     },
+    "checkbox": {
+      "$doc": "design/components/checkbox.md",
+      "$source": "packages/react/src/checkbox/checkbox.tsx, packages/css/src/component/checkbox.css",
+      "$note": "제품에 공용 정본이 있다 \u2014 globals.css:990의 .app-native-checkbox(20\u00d720 \u00b7 accent-color). **그런데 21벌 중 2벌만 쓴다.** 그 클래스가 cascade layer 밖이라 @layer utilities를 무조건 이겨서, 색 하나를 바꾸려는 소비처가 클래스를 떼고 선언을 베껴야 했다(VideoEditProjectPicker.tsx:140-151이 그 사실을 적어 두었다). 크기 20px은 채택하고 accent-color는 채택하지 않았다.",
+      "$noSizeAxis": "크기 축이 없다. 제품의 다른 값(14px \u00b7 브라우저 기본)은 서로 합의하지 않고 두 번째 소비처도 없다. 필요해지면 그때 추가한다.",
+      "sizes": {
+        "md": {
+          "boxSize": 20,
+          "$boxSize": "제품 정본 .app-native-checkbox의 width/height 20px 채택",
+          "borderWidth": 0.5,
+          "radius": 8,
+          "gap": 8,
+          "checkInline": 5,
+          "checkBlock": 9,
+          "checkStroke": 2,
+          "$check": "왼쪽 아래 두 변만 남긴 사각형을 45도 돌려 그린다. 아이콘 자산을 쓰지 않는 이유는 CSS package가 아이콘을 소비하지 않기 때문이다(DS-D-0008)",
+          "indeterminateInline": 10,
+          "indeterminateBlock": 2,
+          "$indeterminate": "가로 막대 하나. 부분 선택이 선택이 아니라는 것을 모양이 말해야 한다. 제품에서 indeterminate를 쓰는 곳은 21벌 중 1벌뿐이다",
+          "fontSize": 14,
+          "lineHeight": 21
+        }
+      },
+      "states": {
+        "base": {
+          "Default": {
+            "background": "color-background-surface",
+            "foreground": "color-foreground-primary",
+            "border": "color-border-strong"
+          },
+          "Checked": {
+            "background": "color-action-primary",
+            "foreground": "color-foreground-primary",
+            "border": "color-action-primary"
+          },
+          "Indeterminate": {
+            "background": "color-action-primary",
+            "foreground": "color-foreground-primary",
+            "border": "color-action-primary"
+          },
+          "Disabled": {
+            "background": "color-background-inset",
+            "foreground": "color-foreground-disabled",
+            "border": "color-border-subtle"
+          }
+        }
+      },
+      "$borderNote": "**border-control이 아니라 border-strong이다.** 선택하지 않은 체크박스는 테두리가 어포던스의 전부라 SC 1.4.11(3:1)이 그 선에 걸린다. 상자 면 대비 실측 \u2014 control 1.27/1.63 · default 1.38/2.93 · strong 2.52/4.61(라이트/다크). **셋 다 라이트에서 3:1 미달**이고 가장 가까운 것을 골랐다. 이 실측은 인계서 (2b) 컨트롤 테두리 정본 판정과 (1a) color-border-strong 처분의 입력이다 \u2014 그 토큰은 여기가 첫 소비처다.",
+      "$statesNote": "foreground는 라벨의 색이다. 표시(체크 \u00b7 막대)의 색은 면 위에 얹히므로 color-foreground-inverse이며 states 표가 아니라 아래 규범이 갖는다 \u2014 states 표의 세 값은 면\u00b7전경\u00b7테두리로 고정돼 있다."
+    },
     "segmented-control": {
       "$doc": "design/components/segmented-control.md",
       "$source": "packages/react/src/segmented-control/segmented-control.tsx, packages/css/src/component/segmented-control.css",

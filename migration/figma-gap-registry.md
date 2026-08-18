@@ -127,7 +127,7 @@ Spinner 레시피 5종, PaneDivider 6선언.
 | 11 | **SidebarNavItem · AppTopBar** | 3/3 | 앱 셸 **25파일** | **web·figma partial**(2026-08-18). "31곳"은 두 컴포넌트 합산이었다 — 앱 셸 Gnb 25 + 랜딩 Gnb 7, 한 파일이 둘 다 import한다. 셸 composition과 compact 드로어는 아직 없다 |
 | 12 | **Slider** | 1/3 | **37벌 · 7레시피 · 6파일** | **web `partial` · figma `not-ready`**(2026-08-18). "에디터 `Slider.Root` 9"는 네 배 틀렸다 — Radix 22벌(3파일)을 덜 셌고 **네이티브 `input[type=range]` 15벌(5파일)을 통째로 빠뜨렸다.** 일곱 레시피가 **합의하는 축이 하나도 없어**(트랙 2·4·20·28px, 썸 0·10·12·14·16px) 정본이 없다. 포커스 표시를 명시적으로 지운 것이 25벌(68%)이고 옮기지 않았다. 인스펙터 17벌의 "썸을 지운 채움 막대"는 `track` 변형이 흡수하되 표식을 실제 썸으로 만들었다 |
 | 13 | **SegmentedControl** | 2/3 | **11벌 · 6레시피 · 8파일** | **web `partial` · figma `not-ready`**(2026-08-18). "3 파일"은 틀렸다. Slider와 달리 **공용 구현이 둘 있는데 서로 아무것도 공유하지 않는다** — `SegmentedToggle` 컴포넌트(3벌, 스스로 SSOT라고 적혀 있다)와 `useSegmentedControlThumb` 훅(4벌, 스타일은 복붙). 전자를 정본으로 채택했고 반경·padding 3축에 기계 대조가 붙었다. `role="tablist"` 14곳 중 **5곳은 패널을 바꾸는 탭**이고 3곳은 카루셀 점이라 갈랐다 — 그쪽은 Tabs이며 아직 카탈로그에 없다 |
-| 14 | **Checkbox** (indeterminate) | 1/3 | 4 파일 | 하이라이트 일괄 선택 |
+| 14 | **Checkbox** (indeterminate) | 1/3 | **21벌 · 5레시피 · 14파일** | **web `partial` · figma `not-ready`**(2026-08-18). "4 파일"은 틀렸다. **제품에 정본이 있는데(globals.css의 `.app-native-checkbox`) 21벌 중 2벌만 쓴다** — 그 클래스가 cascade layer 밖이라 소비처가 이길 수 없어, 색 하나를 바꾸려면 선언을 베껴야 했다. 크기 20px만 채택하고 `accent-color`는 버렸다. `indeterminate`는 제품에 1벌뿐이다. **선택 안 한 테두리 대비가 SC 1.4.11에 미달하고 테두리 토큰 셋 중 어느 것도 라이트에서 3:1을 넘지 못한다**(실측 1.27 · 1.38 · 2.52) |
 | 15 | **SelectableListRow** | 2/3 | 하이라이트 2 · 에디터 1 | master-detail의 좌측 열 |
 
 **에디터 전용이지만 그 화면의 뼈대인 것** — 5-pane grid · PaneDivider · InspectorField(33회) ·

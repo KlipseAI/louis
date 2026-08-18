@@ -229,13 +229,13 @@ Tooltip(`.app-tooltip-chrome` + `--app-tooltip-*`), Menu(`--dropdown-*`). Icon B
 | `DS-P3-002a` · `002`(1단계) · `003` · `009a` · `013` | `done` |
 | `DS-P3-001` | `in-progress`. Decision 6종을 다 썼고 owner 확인만 남았다 |
 | Decision | **18종** (`DS-D-0001`~`DS-D-0018`) |
-| 카탈로그 | **13/15.** 1~11순위가 Web·Figma 모두 `partial`, 12·13순위는 Web만 `partial` |
-| manifest component | 15개. `select`만 `not-ready`(아래 1d). `slider`·`segmented-control`은 Figma가 `not-ready` |
+| 카탈로그 | **14/15.** 1~11순위가 Web·Figma 모두 `partial`, 12~14순위는 Web만 `partial` |
+| manifest component | 16개. `select`만 `not-ready`(아래 1d). `slider`·`segmented-control`·`checkbox`는 Figma가 `not-ready` |
 | Figma | component 14개 · 변수 210개 · style 22개 |
-| 검증 | 브라우저 580건(두 motion context) · 토큰 게이트 canary 42종 · CSS canary 12종 · parity canary 33종 |
+| 검증 | 브라우저 608건(두 motion context) · 토큰 게이트 canary 42종 · CSS canary 12종 · parity canary 33종 |
 
-**바로 다음에 할 일은 (2)의 14순위 Checkbox다.** (1a)~(1d)는 owner 결정이 필요해 병렬로 열려
-있고, Figma component set 둘(`DS-F-006-slider`·`DS-F-006-segmented-control`)도 열려 있다.
+**바로 다음에 할 일은 (2)의 15순위 SelectableListRow이고 그것이 카탈로그의 마지막이다.**
+(1a)~(1d)는 owner 결정이 필요해 병렬로 열려 있고, Figma component set 셋도 열려 있다.
 
 ## 다음 작업
 
@@ -312,8 +312,24 @@ component인데 **gap registry 우선순위 1~15 어디에도 없다.** 실측 �
 항목을 `not-planned`로 바꾼다, (c) 남겨 둔다. 지금처럼 계획 없이 `not-ready`로 두면 카탈로그가
 영원히 미완으로 읽힌다.
 
-**(2) gap registry 14순위 이하 — 이것이 바로 다음 작업이다.** 1~13순위는 전부 `done`이며
-남은 것은 **Checkbox · SelectableListRow** 둘이다.
+**(2) gap registry 15순위 — 이것이 마지막 카탈로그 항목이다.** 1~14순위는 전부 `done`이며
+남은 것은 **SelectableListRow** 하나다.
+
+**14순위 Checkbox가 섰다(2026-08-18).** 등록부의 "4 파일"에 대해 실제는 **21벌 · 5레시피 ·
+14파일**이다. 앞의 셋과 달리 **제품에 정본이 있었는데 21벌 중 2벌만 쓴다.** 이유를 제품이 스스로
+적어 두었다 — 그 전역 클래스가 **cascade layer 밖**이라 `@layer utilities`를 무조건 이겨서,
+색 하나를 바꾸려는 소비처가 클래스를 떼고 선언을 베껴야 했다. **레이어 밖 전역 선언은 정본으로
+기능하지 못한다.** 제품 CSS를 정본으로 인용할 때 이 사실을 함께 본다.
+
+**여기서 나온 실측이 열린 판정 둘을 직접 겨눈다.**
+
+- **(2b) 컨트롤 테두리 정본** — 선택하지 않은 체크박스는 테두리가 어포던스의 전부라 SC 1.4.11의
+  3:1이 걸린다. 상자 면 대비 실측은 `control` 1.27/1.63 · `default` 1.38/2.93 ·
+  `strong` 2.52/4.61(라이트/다크)이고 **셋 다 라이트에서 미달한다.** "셋 중 하나가 틀렸다"가
+  아니라 **셋 다 이 자리에는 모자란다**는 것이 답이다. 해소하려면 새 값이 필요하다
+- **(1a) `color-border-strong` 처분** — 소비처 0이던 그 토큰의 첫 소비처가 생겼고 이름이 뜻과
+  맞는다(경계가 반드시 보여야 하는 자리). **폐기 후보에서 빼고 다시 판정해야 한다.** 남은 셋
+  (`elevation-popover`·`elevation-focus-ring`·`blur-panel`)은 그대로다
 
 **13순위 SegmentedControl이 섰다(2026-08-18).** 등록부의 "3 파일"은 틀렸고 실제 **11벌 ·
 6레시피 · 8파일**이다. Slider와 다른 점이 있다 — **공용 구현이 둘인데 서로 아무것도 공유하지
@@ -756,7 +772,8 @@ Home/Highlight/Editor가 각각 단일 route가 아니라는 사실과 카탈로
 | 6~11 | ProjectCard, TextField/Input, EmptyState, Badge, Spinner, 셸 부품 | `done` — 전부 Web·Figma `partial` |
 | 12 | Slider | `done` — Web `partial`. Figma는 `DS-F-006-slider`가 소유한다 |
 | 13 | SegmentedControl | `done` — Web `partial`. Figma는 `DS-F-006-segmented-control`이 소유한다 |
-| 14 이하 | Checkbox, SelectableListRow | `pending` |
+| 14 | Checkbox | `done` — Web `partial`. Figma는 `DS-F-006-checkbox`가 소유한다 |
+| 15 | SelectableListRow | `pending` — 카탈로그의 마지막 항목 |
 | — | Select | `pending`. gap registry 상위 15에 들지 않았다 |
 
 4·5순위(Menu/Popover, Dialog)는 코드가 이미 서 있어 이 항목이 아니라 DS-F-006이 남은 몫이다.
@@ -1009,6 +1026,7 @@ description에 기록했다. parity 게이트가 style 10종까지 검증하므�
 | `DS-F-006-dialog` | `partial` | `not-ready` | 5 |
 | `DS-F-006-slider` | `partial` | `not-ready` | 12 |
 | `DS-F-006-segmented-control` | `partial` | `not-ready` | 13 |
+| `DS-F-006-checkbox` | `partial` | `not-ready` | 14 |
 
 여섯 중 다섯이 코드만 서 있고 Figma에 없다. DS-F-007-home 실측이 이 격차를 숫자로 확인했다 —
 재조립이 요구한 자산 대부분이 Figma에 존재하지 않아 gap 72건이 나왔다. 목표 B의 병목은 여기다.

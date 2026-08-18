@@ -5346,6 +5346,48 @@ popover에 가린다. **이 결정은 드로어를 다루지 않는다** — 드
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
 
+#### 2026-08-18 (41) — 오버레이가 서버 렌더에서 던지고 있었습니다
+
+실무 관점 전수 감사(5개 관점 · 35 에이전트)를 돌렸습니다. **확정 14건 중 blocker 7건**이고
+**13건이 신규**입니다. 가장 심각한 것부터 고칩니다.
+
+##### Next.js 페이지가 500이 됩니다
+
+`Dialog` · `ActionMenu` · `Tooltip` · `CompositePopover`가 **서버 렌더에서 예외를 던졌습니다.**
+그리고 **열려 있든 닫혀 있든 상관없었습니다** — 삭제 확인 모달을 `open={false}`로 미리 심어 둔
+App Router 페이지는 모달을 한 번도 열지 않아도 프리렌더가 죽습니다.
+
+`DS-D-0002`가 소비 제품을 Next.js App Router 하나로 못 박았으니 피할 방법도 없습니다.
+
+##### 원인은 구현 내부 모순이었습니다
+
+`OverlayProvider`가 서버에서 `services`를 `null`로 두고 그 값이 그대로 context로 흘렀습니다.
+`useOverlayContext`는 `null`을 **"Provider 밖"으로 오판**해 던집니다.
+
+그런데 같은 파일 77행 주석이 원래 의도를 적어 뒀습니다 — *"서버에서는 만들지 않는다. hosts가
+null이면 portal은 아무것도 렌더하지 않는다."* **hosts가 null인 것으로 이미 충분했고**, context까지
+null로 만들 이유가 없었습니다.
+
+서버에서도 값을 만들되 Escape 리스너의 host만 아무것도 하지 않는 것으로 줍니다. `scrollLock`과
+`inert`는 만들 때 DOM을 건드리지 않고 그 메서드는 effect 안에서만 불립니다.
+
+##### 게이트가 심볼만 보고 있었습니다
+
+`verify-consumer`의 SSR 검사는 **Button만 렌더하고** Dialog·ActionMenu는 `typeof === "function"`만
+확인했습니다. 그래서 이 결함이 게이트 12단계 초록인 채로 살아 있었습니다.
+
+이제 네 경우를 실제로 렌더합니다 — Tooltip · Dialog(열림) · Dialog(닫힘) · ActionMenu(닫힘).
+**반대 방향도 계약이라 함께 넣었습니다**: Provider 밖에서는 던져야 합니다. 안 던지면 host를
+컴포넌트가 고르게 됩니다.
+
+**탐지력을 확인했습니다** — 고친 것을 되돌리니 exit 1로 잡힙니다.
+
+##### 남은 blocker 6건
+
+CSS import 순서 안내가 `tokens.css`를 빠뜨림 · Foundations 색 문서가 없는 변수 이름 9개를 적음 ·
+아이콘 획 두께가 크기를 안 따라감 · EmptyState 64px 슬롯에 20px로 그려짐 · BannerCarousel 화살표가
+빈 프레임 · Dialog에 Footer와 버튼이 없음. 순서대로 고칩니다.
+
 #### 2026-08-18 (40) — 컴포넌트 16개 중 11개가 텍스트를 못 바꿨습니다
 
 owner 요구: **"실무적으로 안 되어있는 부분들 모두 해결해라."**

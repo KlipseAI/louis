@@ -83,10 +83,21 @@ export function OverlayProvider({
   const [mountedIn, setMountedIn] = useState<HTMLElement | null>(null);
   const [metrics, setMetrics] = useState<OverlayMetrics>(DEFAULT_OVERLAY_METRICS);
 
+  // 서버에서도 **값을 만든다.** 예전에는 여기서 null을 반환했고 그것이 context 값으로 흘러
+  // `useOverlayContext`가 "Provider 밖"으로 오판해 throw했다 — Next.js App Router에서 닫힌
+  // Dialog를 페이지에 놓아두기만 해도 프리렌더가 죽었다. 위 77행 주석이 적어 둔 원래 의도는
+  // "hosts가 null이면 portal이 아무것도 렌더하지 않는다"였고, 그것으로 충분하다.
+  //
+  // Escape 리스너만 host가 필요하므로 서버에서는 아무것도 하지 않는 host를 준다. scrollLock과
+  // inert는 만들 때 DOM을 건드리지 않고, 그 메서드는 effect 안에서만 불리므로 서버에서 실행되지
+  // 않는다.
   const services = useMemo(() => {
-    if (typeof document === "undefined") return null;
+    const escapeHost =
+      typeof document === "undefined"
+        ? { addEventListener: () => {}, removeEventListener: () => {} }
+        : document;
     return {
-      store: createOverlayStore(document),
+      store: createOverlayStore(escapeHost),
       scrollLock: createScrollLock(),
       inert: createInertController(),
     };
@@ -110,8 +121,7 @@ export function OverlayProvider({
     };
   }, [container, hosts]);
 
-  const value = useMemo<OverlayContextValue | null>(() => {
-    if (services === null) return null;
+  const value = useMemo<OverlayContextValue>(() => {
     return {
       store: services.store,
       scrollLock: services.scrollLock,

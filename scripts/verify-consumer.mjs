@@ -64,18 +64,44 @@ try {
     ssrEntry,
     `import { renderToStaticMarkup } from "react-dom/server";
 import { createElement as h } from "react";
-import { Button, ActionMenu, ActionMenuTrigger, ActionMenuContent, Dialog, DialogSurface, DialogTitle } from "@klipse-design/react";
+import { Button, OverlayProvider, Tooltip, Dialog, DialogSurface, DialogTitle, ActionMenu, ActionMenuTrigger, ActionMenuContent } from "@klipse-design/react";
+
 const html = renderToStaticMarkup(h(Button, null, "저장"));
 if (!html.includes("kds-button")) throw new Error("Button이 SSR에서 렌더되지 않았습니다");
-if (typeof ActionMenu !== "function" || typeof Dialog !== "function") throw new Error("공개 심볼 누락");
-void ActionMenuTrigger; void ActionMenuContent; void DialogSurface; void DialogTitle;
+
+// **overlay는 심볼 확인으로 충분하지 않다.** 예전에는 OverlayProvider가 서버에서 context를
+// null로 넘겨 useOverlayContext가 "Provider 밖"으로 오판해 throw했고, 닫힌 Dialog를 페이지에
+// 놓아두기만 해도 Next.js 프리렌더가 죽었다. 그 경로를 실제로 렌더해서 지킨다.
+const overlayCases = [
+  ["Tooltip", () => h(OverlayProvider, null, h(Tooltip, { content: "설명" }, h("button", null, "열기")))],
+  ["Dialog(closed)", () => h(OverlayProvider, null, h(Dialog, { open: false, onOpenChange: () => {} }, h(DialogSurface, null, h(DialogTitle, null, "제목"))))],
+  ["Dialog(open)", () => h(OverlayProvider, null, h(Dialog, { open: true, onOpenChange: () => {} }, h(DialogSurface, null, h(DialogTitle, null, "제목"))))],
+  ["ActionMenu(closed)", () => h(OverlayProvider, null, h(ActionMenu, { open: false, onOpenChange: () => {} }, h(ActionMenuTrigger, null, "메뉴"), h(ActionMenuContent, null)))],
+];
+for (const [name, make] of overlayCases) {
+  try {
+    renderToStaticMarkup(make());
+  } catch (error) {
+    throw new Error(name + "이 SSR에서 예외를 던졌습니다: " + String(error.message).slice(0, 120));
+  }
+}
+
+// 반대 방향도 계약이다 — Provider 밖에서는 던져야 한다. 안 던지면 host를 컴포넌트가 고르게 된다.
+let threwOutsideProvider = false;
+try {
+  renderToStaticMarkup(h(Tooltip, { content: "설명" }, h("button", null, "열기")));
+} catch {
+  threwOutsideProvider = true;
+}
+if (!threwOutsideProvider) throw new Error("OverlayProvider 밖에서 Tooltip이 던지지 않았습니다");
+
 process.stdout.write(html);
 `,
   );
   try {
     const out = execFileSync(process.execPath, [ssrEntry], { cwd: process.cwd(), encoding: "utf8" });
     if (!out.includes("kds-button")) failures.push("SSR 출력에 Button 클래스가 없습니다.");
-    positives.push("Button이 Node에서 SSR 렌더됨 (Menu·Dialog 공개 심볼 확인)");
+    positives.push("Node SSR: Button · Tooltip · Dialog(열림/닫힘) · ActionMenu가 렌더되고, Provider 밖에서는 던진다");
   } catch (error) {
     failures.push(`SSR 소비가 실패했습니다: ${String(error.stderr ?? error.message).slice(0, 400)}`);
   }

@@ -106,9 +106,9 @@ Figma library는 아직 `not-ready`다. 시스템 전체 maturity도 `experiment
 | 항목 | 현재 값 |
 | --- | --- |
 | System maturity | `experimental` |
-| Normative documents | 63 |
+| Normative documents | 64 |
 | Generated documents | 5 |
-| Components | 13 |
+| Components | 14 |
 | Patterns | 4 |
 | Web done | 0 |
 | Token artifacts done | 6/6 |
@@ -859,12 +859,13 @@ Tooltip(`.app-tooltip-chrome` + `--app-tooltip-*`), Menu(`--dropdown-*`). Icon B
 | `DS-P3-002a` · `002`(1단계) · `003` · `009a` · `013` | `done` |
 | `DS-P3-001` | `in-progress`. Decision 6종을 다 썼고 owner 확인만 남았다 |
 | Decision | **18종** (`DS-D-0001`~`DS-D-0018`) |
-| 카탈로그 | **11/15.** 1~11순위가 Web·Figma 모두 `partial` |
-| manifest component | 13개. `select`만 `not-ready`(아래 1d) |
+| 카탈로그 | **12/15.** 1~11순위가 Web·Figma 모두 `partial`, 12순위 Slider는 Web만 `partial` |
+| manifest component | 14개. `select`만 `not-ready`(아래 1d), `slider`는 Figma가 `not-ready` |
 | Figma | component 14개 · 변수 210개 · style 22개 |
-| 검증 | 브라우저 502건(두 motion context) · 토큰 게이트 canary 42종 · CSS canary 12종 · parity canary 33종 |
+| 검증 | 브라우저 552건(두 motion context) · 토큰 게이트 canary 42종 · CSS canary 12종 · parity canary 33종 |
 
-**바로 다음에 할 일은 (2)의 12순위 Slider다.** (1a)~(1d)는 owner 결정이 필요해 병렬로 열려 있다.
+**바로 다음에 할 일은 (2)의 13순위 SegmentedControl이다.** (1a)~(1d)는 owner 결정이 필요해
+병렬로 열려 있고, `DS-F-006-slider`(Figma component set)도 열려 있다.
 
 #### 다음 작업
 
@@ -941,8 +942,24 @@ component인데 **gap registry 우선순위 1~15 어디에도 없다.** 실측 �
 항목을 `not-planned`로 바꾼다, (c) 남겨 둔다. 지금처럼 계획 없이 `not-ready`로 두면 카탈로그가
 영원히 미완으로 읽힌다.
 
-**(2) gap registry 12순위 이하 — 이것이 바로 다음 작업이다.** 1~11순위는 전부 `done`이며
-남은 것은 **Slider · SegmentedControl · Checkbox · SelectableListRow** 넷이다.
+**(2) gap registry 13순위 이하 — 이것이 바로 다음 작업이다.** 1~12순위는 전부 `done`이며
+남은 것은 **SegmentedControl · Checkbox · SelectableListRow** 셋이다.
+
+**12순위 Slider가 섰다(2026-08-18).** 등록부의 "에디터 `Slider.Root` 9"는 네 배 틀렸고 —
+실제 **37벌 · 7레시피**, 그중 네이티브 `input[type=range]` 15벌은 등록부에 아예 없었다 —
+일곱 레시피가 **합의하는 축이 하나도 없어** 정본이 없다. 여기서 나온 것 둘을 다음 사람이 알아야
+한다.
+
+- **게이트가 볼 수 없는 자리가 있다.** Chromium은
+  `getComputedStyle(input, "::-webkit-slider-runnable-track")`에 섀도우 pseudo-element가 아니라
+  **호스트 요소의 값**을 돌려준다(실측 320×40 · 배경 투명 · 반경 0). 레일·채움·썸의 렌더 결과를
+  계산값으로 잴 수 없어 states 표를 두지 않았고 기하는 CSSOM 선언을 대조한다. `<select>`,
+  `<progress>`, `<meter>`, 파일 입력의 버튼도 같은 성질이라 **(1d)의 Select와 (1c)의 진행률이
+  같은 벽을 만난다.**
+- **워크샵이 헤드리스가 못 보는 결함을 또 잡았다.** `color-foreground-on-inverse`는 테마마다
+  뒤집히는데(#fafafa ↔ #171b22) `color-action-primary`는 두 테마가 같다. 그래서 파란 면 위의
+  표식이 다크에서만 검게 변했다. 선언도 토큰도 정상이라 테스트가 통과한다 —
+  **면과 전경의 테마 축이 다르면 한 테마에서만 죽는다.** Badge의 죽은 축과 같은 종류다.
 
 **절차는 앞선 여섯과 같다.** 매번 이 순서로 했고 매번 등록부의 수가 틀렸다.
 
@@ -1345,7 +1362,9 @@ Home/Highlight/Editor가 각각 단일 route가 아니라는 사실과 카탈로
 | 1 | Icon Button | `done` — Web `partial`. 원래 목록에 없던 항목이다 |
 | 2 | Tooltip | `done` — Web `partial` |
 | 3 | Toast | `done` — Web `partial` |
-| 6 이하 | ProjectCard, TextField/Input, EmptyState, Badge, Spinner/Progress, 셸, Slider, SegmentedControl, Checkbox, SelectableListRow | `pending` |
+| 6~11 | ProjectCard, TextField/Input, EmptyState, Badge, Spinner, 셸 부품 | `done` — 전부 Web·Figma `partial` |
+| 12 | Slider | `done` — Web `partial`. Figma는 `DS-F-006-slider`가 소유한다 |
+| 13 이하 | SegmentedControl, Checkbox, SelectableListRow | `pending` |
 | — | Select | `pending`. gap registry 상위 15에 들지 않았다 |
 
 4·5순위(Menu/Popover, Dialog)는 코드가 이미 서 있어 이 항목이 아니라 DS-F-006이 남은 몫이다.
@@ -1596,6 +1615,7 @@ description에 기록했다. parity 게이트가 style 10종까지 검증하므�
 | `DS-F-006-toast` | `partial` | `not-ready` | 3 |
 | `DS-F-006-menu-popover` | `partial` | `not-ready` | 4 |
 | `DS-F-006-dialog` | `partial` | `not-ready` | 5 |
+| `DS-F-006-slider` | `partial` | `not-ready` | 12 |
 
 여섯 중 다섯이 코드만 서 있고 Figma에 없다. DS-F-007-home 실측이 이 격차를 숫자로 확인했다 —
 재조립이 요구한 자산 대부분이 Figma에 존재하지 않아 gap 72건이 나왔다. 목표 B의 병목은 여기다.
@@ -4932,6 +4952,81 @@ popover에 가린다. **이 결정은 드로어를 다루지 않는다** — 드
 ### Updates
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
+
+#### 2026-08-18 (2) — Slider
+
+카탈로그 12순위다. [규범](../components/slider.md)과 구현, 실브라우저 acceptance test 16건이 같은
+변경 단위에 있다. `import { Slider } from "@klipse-design/react"`가 동작한다.
+
+##### 등록부의 "에디터 Slider.Root 9"는 네 배 틀렸다
+
+전수로 세니 **37벌 · 일곱 레시피 · 여섯 파일**이다. 등록부는 Radix를 덜 셌고 **네이티브
+`input[type=range]` 15벌을 통째로 빠뜨렸다.** ProjectCard "3벌"이 4벌, EmptyState "7벌"이 9벌,
+TextField "16"이 약 40벌이었던 것과 같은 종류다.
+
+| 레시피 | 벌 | 트랙 | 썸 | 포커스 표시 |
+| --- | ---: | --- | --- | --- |
+| `overlayRadix*` 인스펙터 | 17 | 20/28px | **0 — 지움** | `outline:none!` |
+| `timelineZoomRadix*` | 1 | 2/4px | 14px | 있음 |
+| `CROP_SLIDER_*` | 2 | 4px | 16px | 있음 |
+| `DURATION_SLIDER_*` | 2 | 4px | 12px | `outline:none` |
+| `RANGE_SLIDER`(Tts·Bgm) | 6 | 4px | 12px | `outline:none` |
+| `refinement…Slider` | 1 | 4px | 10px | 선언 없음 |
+| 맨 `input` + `accentColor` | 8 | 기본 | 기본 | 브라우저 기본 |
+
+**합의하는 축이 하나도 없다.** ProjectCard(네 벌 기하 동일)의 정반대이고 TextField와 같은
+"정본 0"이다. 값은 DS가 정했고 판정은
+[`product.measured.json`](../../migration/product.measured.json)의 8축에 있다.
+
+##### 포커스 표시를 지운 것이 37벌 중 25벌(68%)이다
+
+세 레시피가 `outline: none`을 직접 선언하고 그것이 사용의 다수다. **옮기지 않았다.** 사용의
+다수라는 사실이 그것을 정본으로 만들지 않는다 — Text Field와 앱 셸 사이드바에서도 같은 판정을
+했다.
+
+##### 제품이 지운 썸을 되살리되 모양은 바꾸지 않았다
+
+인스펙터 17벌은 썸을 `width:0; opacity:0; pointer-events:none`으로 지우고 채움 오른쪽 끝에
+**2×14px 표식을 `::after` 장식으로 따로 그린다.** 그 표식이 바로 손잡이가 있어야 할 자리다.
+`track` 변형은 같은 크기의 표식을 **실제 썸으로** 그린다 — 시각은 그대로이고 포커스와 방향키만
+살아난다. 회귀 테스트가 그 넷(`width:0`·`height:0`·`opacity`·`pointer-events`) 중 하나라도
+다시 들어오면 실패한다.
+
+##### 새 토큰이 0개다
+
+레일 4px, 썸 16/12px, 막대 28/20px, 표식 2×14px은 전부 리터럴이다. 소비처가 이 컴포넌트
+하나뿐이라 [Spacing & Radius](../foundations/spacing-radius.md)의 "두 개 이상의 사용처"를 아직
+만족하지 않는다 — Spinner의 16/12px과 같은 판정이다. **토큰 source가 바뀌지 않아 baseline
+재고정도 Figma 변수 재적용도 필요 없다.**
+
+썸에 그림자를 쓰지 않는다. 제품의 썸 그림자 셋이 값이 다 다르고(`0 1.5px 3px/24%`,
+`0 2px 8px/22%`, `0 1px 2px/30%`) DS elevation 넷 중 맞는 것이 없어, 채택하려면 새 elevation
+토큰이 필요했다. `border-width-ring` 두께의 표면색 링으로 분리한다.
+
+##### 게이트가 볼 수 없는 자리를 찾았다
+
+**Chromium은 `getComputedStyle(input, "::-webkit-slider-runnable-track")`에 섀도우
+pseudo-element가 아니라 호스트 input의 값을 돌려준다** — 실측하니 320×40, 배경 투명, 반경 0이
+나왔다. 레일·채움·썸의 **렌더 결과를 계산값으로 잴 수 없다.**
+
+그래서 states 표를 두지 않았고, 기하는 CSSOM의 **선언**을 대조한다 — Button의 `borderWidth`가
+계산값 대신 선언 토큰을 보는 것과 같은 이유다. 선언과 실제 그림이 갈라지는 경로는 열려 있으며
+이것은 visual regression(2단계 harness)이 닫아야 한다. 규범의 Known deviations에 적었다.
+
+##### 워크샵이 잡은 결함 하나
+
+`track` 표식에 `color-foreground-on-inverse`를 썼는데 그 토큰은 테마마다 뒤집힌다
+(#fafafa ↔ #171b22). 채움은 두 테마 모두 같은 파랑이라 **다크에서 표식만 검게 변했다.**
+헤드리스 테스트는 이것을 보지 못한다 — 선언은 정상이고 토큰도 실재한다. 눈으로 보고 찾았고
+(DS-D-0012), `color-action-primary`의 문서화된 대비 짝인 `color-foreground-inverse`로 고쳤다.
+
+##### 남은 것
+
+- **Figma component set이 없다.** `figma: not-ready`이며 `DS-F-006-slider`가 소유한다
+- **Firefox 경로가 미검증이다.** `::-moz-range-*` 규칙을 나란히 적었으나 harness가 Chromium 단독이다
+- **컨트롤 높이 40px이 `hit-target-minimum` 44px에 미달한다.** range input은 `::before`/`::after`가
+  트랙·썸에 배정돼 `.kds-hit-target`을 쓸 수 없다. Text Field도 같은 40px이다
+- **범위(두 손잡이) 선택이 없다.** 제품에 0벌이다
 
 #### 2026-08-18 — Sidebar Nav Item · App Top Bar
 

@@ -229,12 +229,13 @@ Tooltip(`.app-tooltip-chrome` + `--app-tooltip-*`), Menu(`--dropdown-*`). Icon B
 | `DS-P3-002a` · `002`(1단계) · `003` · `009a` · `013` | `done` |
 | `DS-P3-001` | `in-progress`. Decision 6종을 다 썼고 owner 확인만 남았다 |
 | Decision | **18종** (`DS-D-0001`~`DS-D-0018`) |
-| 카탈로그 | **11/15.** 1~11순위가 Web·Figma 모두 `partial` |
-| manifest component | 13개. `select`만 `not-ready`(아래 1d) |
+| 카탈로그 | **12/15.** 1~11순위가 Web·Figma 모두 `partial`, 12순위 Slider는 Web만 `partial` |
+| manifest component | 14개. `select`만 `not-ready`(아래 1d), `slider`는 Figma가 `not-ready` |
 | Figma | component 14개 · 변수 210개 · style 22개 |
-| 검증 | 브라우저 502건(두 motion context) · 토큰 게이트 canary 42종 · CSS canary 12종 · parity canary 33종 |
+| 검증 | 브라우저 552건(두 motion context) · 토큰 게이트 canary 42종 · CSS canary 12종 · parity canary 33종 |
 
-**바로 다음에 할 일은 (2)의 12순위 Slider다.** (1a)~(1d)는 owner 결정이 필요해 병렬로 열려 있다.
+**바로 다음에 할 일은 (2)의 13순위 SegmentedControl이다.** (1a)~(1d)는 owner 결정이 필요해
+병렬로 열려 있고, `DS-F-006-slider`(Figma component set)도 열려 있다.
 
 ## 다음 작업
 
@@ -311,8 +312,24 @@ component인데 **gap registry 우선순위 1~15 어디에도 없다.** 실측 �
 항목을 `not-planned`로 바꾼다, (c) 남겨 둔다. 지금처럼 계획 없이 `not-ready`로 두면 카탈로그가
 영원히 미완으로 읽힌다.
 
-**(2) gap registry 12순위 이하 — 이것이 바로 다음 작업이다.** 1~11순위는 전부 `done`이며
-남은 것은 **Slider · SegmentedControl · Checkbox · SelectableListRow** 넷이다.
+**(2) gap registry 13순위 이하 — 이것이 바로 다음 작업이다.** 1~12순위는 전부 `done`이며
+남은 것은 **SegmentedControl · Checkbox · SelectableListRow** 셋이다.
+
+**12순위 Slider가 섰다(2026-08-18).** 등록부의 "에디터 `Slider.Root` 9"는 네 배 틀렸고 —
+실제 **37벌 · 7레시피**, 그중 네이티브 `input[type=range]` 15벌은 등록부에 아예 없었다 —
+일곱 레시피가 **합의하는 축이 하나도 없어** 정본이 없다. 여기서 나온 것 둘을 다음 사람이 알아야
+한다.
+
+- **게이트가 볼 수 없는 자리가 있다.** Chromium은
+  `getComputedStyle(input, "::-webkit-slider-runnable-track")`에 섀도우 pseudo-element가 아니라
+  **호스트 요소의 값**을 돌려준다(실측 320×40 · 배경 투명 · 반경 0). 레일·채움·썸의 렌더 결과를
+  계산값으로 잴 수 없어 states 표를 두지 않았고 기하는 CSSOM 선언을 대조한다. `<select>`,
+  `<progress>`, `<meter>`, 파일 입력의 버튼도 같은 성질이라 **(1d)의 Select와 (1c)의 진행률이
+  같은 벽을 만난다.**
+- **워크샵이 헤드리스가 못 보는 결함을 또 잡았다.** `color-foreground-on-inverse`는 테마마다
+  뒤집히는데(#fafafa ↔ #171b22) `color-action-primary`는 두 테마가 같다. 그래서 파란 면 위의
+  표식이 다크에서만 검게 변했다. 선언도 토큰도 정상이라 테스트가 통과한다 —
+  **면과 전경의 테마 축이 다르면 한 테마에서만 죽는다.** Badge의 죽은 축과 같은 종류다.
 
 **절차는 앞선 여섯과 같다.** 매번 이 순서로 했고 매번 등록부의 수가 틀렸다.
 
@@ -715,7 +732,9 @@ Home/Highlight/Editor가 각각 단일 route가 아니라는 사실과 카탈로
 | 1 | Icon Button | `done` — Web `partial`. 원래 목록에 없던 항목이다 |
 | 2 | Tooltip | `done` — Web `partial` |
 | 3 | Toast | `done` — Web `partial` |
-| 6 이하 | ProjectCard, TextField/Input, EmptyState, Badge, Spinner/Progress, 셸, Slider, SegmentedControl, Checkbox, SelectableListRow | `pending` |
+| 6~11 | ProjectCard, TextField/Input, EmptyState, Badge, Spinner, 셸 부품 | `done` — 전부 Web·Figma `partial` |
+| 12 | Slider | `done` — Web `partial`. Figma는 `DS-F-006-slider`가 소유한다 |
+| 13 이하 | SegmentedControl, Checkbox, SelectableListRow | `pending` |
 | — | Select | `pending`. gap registry 상위 15에 들지 않았다 |
 
 4·5순위(Menu/Popover, Dialog)는 코드가 이미 서 있어 이 항목이 아니라 DS-F-006이 남은 몫이다.
@@ -966,6 +985,7 @@ description에 기록했다. parity 게이트가 style 10종까지 검증하므�
 | `DS-F-006-toast` | `partial` | `not-ready` | 3 |
 | `DS-F-006-menu-popover` | `partial` | `not-ready` | 4 |
 | `DS-F-006-dialog` | `partial` | `not-ready` | 5 |
+| `DS-F-006-slider` | `partial` | `not-ready` | 12 |
 
 여섯 중 다섯이 코드만 서 있고 Figma에 없다. DS-F-007-home 실측이 이 격차를 숫자로 확인했다 —
 재조립이 요구한 자산 대부분이 Figma에 존재하지 않아 gap 72건이 나왔다. 목표 B의 병목은 여기다.

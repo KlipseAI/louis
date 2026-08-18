@@ -659,6 +659,43 @@
       },
       "$statesNote": "상태 축이 없다. 대화형이 아니고 색은 currentColor를 물려받는다 — 놓이는 자리마다 다르므로 semantic 토큰으로 고정하지 않는다. 트랙은 그 색의 22%다."
     },
+    "slider": {
+      "$doc": "design/components/slider.md",
+      "$source": "packages/react/src/slider/slider.tsx, packages/css/src/component/slider.css",
+      "$note": "제품에 공용 구현이 없다. 정의 37벌이 일곱 레시피로 갈리고 **합의하는 축이 하나도 없다** — 트랙 높이 2·4·20·28px, 썸 0·10·12·14·16px. 그래서 값은 DS가 정했다. 컨트롤 높이만 제품이 아니라 이 저장소의 control 계단(TextField·Button)을 따른다 — 인스펙터에서 나란히 서기 때문이다.",
+      "$howMeasured": "**레일과 썸은 계산값으로 잴 수 없다.** Chromium의 getComputedStyle(input, '::-webkit-slider-runnable-track')은 섀도우 pseudo-element가 아니라 호스트 input의 값을 돌려준다(2026-08-18 실측: 320×40, 배경 투명, 반경 0). 그래서 이 값들은 CSSOM의 **선언**을 대조한다 — Button의 borderWidth가 계산값 대신 선언 토큰을 보는 것과 같은 이유다. height·stackGap·labelFontSize만 실제 렌더 계산값이다.",
+      "sizes": {
+        "md": {
+          "height": 40,
+          "$height": "layout-control-height-md. 제품은 8·12·16·24·28px로 흩어져 있고 정본이 없어 control 계단을 따랐다",
+          "stackGap": 4,
+          "labelFontSize": 14,
+          "railHeight": 4,
+          "$railHeight": "제품 일곱 중 넷이 4px이다. 유일하게 다수가 있는 축이며 그것을 골랐다",
+          "thumbSize": 16,
+          "thumbBorderWidth": 2,
+          "$thumbBorderWidth": "border-width-ring 2. 그림자가 아니라 표면색 링으로 분리한다 — 제품 썸 그림자 넷이 값이 다 다르고 DS elevation 넷 중 맞는 것이 없다",
+          "trackBarHeight": 28,
+          "$trackBarHeight": "제품 인스펙터 패널의 실측값. track 변형 전용이다",
+          "trackGripInline": 2,
+          "trackGripBlock": 14,
+          "$trackGrip": "제품이 채움 오른쪽 끝에 ::after로 그리는 2×14px 표식과 같은 크기다. 제품은 장식이고 여기서는 그것이 곧 썸이다"
+        },
+        "sm": {
+          "height": 32,
+          "stackGap": 4,
+          "labelFontSize": 14,
+          "railHeight": 4,
+          "thumbSize": 12,
+          "thumbBorderWidth": 2,
+          "trackBarHeight": 20,
+          "$trackBarHeight": "제품 인스펙터 기본값. 패널 밖에서 쓰는 크기다",
+          "trackGripInline": 2,
+          "trackGripBlock": 14
+        }
+      },
+      "$statesNote": "states 표를 두지 않는다. 칠해지는 면(레일·채움·썸)이 전부 섀도우 pseudo-element라 계산값을 읽을 수 없고, 게이트가 확인할 수 없는 표를 두면 '확인했다'는 주장만 남는다. Default·Disabled의 토큰 배정은 규범 문서가 갖고 CSSOM 선언 대조가 그것을 고정한다."
+    },
     "app-shell-parts": {
       "$doc": "design/components/app-shell-parts.md",
       "$source": "packages/react/src/app-shell/app-shell-parts.tsx, packages/css/src/component/app-shell.css",

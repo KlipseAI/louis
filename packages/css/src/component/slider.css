@@ -1,0 +1,239 @@
+/* Slider — design/components/slider.md
+ *
+ * 제품에 **공용 구현이 없다.** 정의가 37벌이고 일곱 레시피로 갈리며 레시피 사이에 합의하는 축이
+ * **하나도 없다.** 트랙 높이 2·4·20·28px, 썸 0·10·12·14·16px, 채움 색 다섯 갈래다. 그래서 이
+ * 컴포넌트의 값은 제품 정본을 옮긴 것이 아니라 DS가 정한 것이고, 어디서 갈라지는지는
+ * migration/product.measured.json이 사유와 함께 갖는다.
+ *
+ * ## 네이티브 `<input type="range">`다
+ *
+ * 제품의 22벌은 div 기반 라이브러리를, 15벌은 네이티브를 쓴다. DS는 네이티브를 고른다 —
+ * 키보드(방향키·Home/End·PageUp/Down), `role="slider"`, `aria-valuenow`, 터치, forced-colors,
+ * RTL이 전부 브라우저의 것이고, Button이 활성화를 네이티브 `<button>`에 맡긴 것과 같은 이유다.
+ *
+ * ## 두 변형이 같은 요소다
+ *
+ * `thumb`은 얇은 레일 위의 손잡이, `track`은 굵은 막대를 채우는 형태다. 제품의 인스펙터 17벌이
+ * 후자인데 **썸을 `width:0; opacity:0; pointer-events:none`으로 지우고 채움 오른쪽 끝에
+ * 2×14px 표식을 `::after`로 따로 그린다.** 그 표식이 바로 썸이 있어야 할 자리이므로, DS는
+ * 그것을 실제 썸으로 만든다 — 모양은 같고 포커스와 키보드가 살아난다.
+ *
+ * ## 채움에 인라인 커스텀 속성이 필요한 이유
+ *
+ * `::-webkit-slider-runnable-track`은 진행 구간을 따로 갖지 않아 그라디언트 정지점으로 그린다.
+ * 그 비율은 값에서만 나오므로 컴포넌트가 `--kds-slider-fill`을 인라인으로 준다. Firefox는
+ * `::-moz-range-progress`가 있어 비율이 필요 없다. 제품의 두 네이티브 레시피도 같은 구조다.
+ */
+
+.kds-slider {
+  display: flex;
+  flex-direction: column;
+  gap: var(--kds-space-control-xs);
+  min-inline-size: 0;
+}
+
+.kds-slider__label {
+  color: var(--kds-color-foreground-primary);
+  font-family: var(--kds-typography-body-sm-medium-font-family);
+  font-size: var(--kds-typography-body-sm-medium-font-size);
+  font-weight: var(--kds-typography-body-sm-medium-font-weight);
+  line-height: var(--kds-typography-body-sm-medium-line-height);
+  letter-spacing: var(--kds-typography-body-sm-medium-letter-spacing);
+}
+
+/* 실제 컨트롤. 높이는 TextField·Button과 같은 계단이다 — 인스펙터에서 나란히 서는 컨트롤이
+ * 서로 다른 높이를 가지면 줄이 어긋난다. */
+.kds-slider__control {
+  /* 채움 비율. **토큰이 아니라 이 컴포넌트의 지역 변수다.** 값에서만 나오는 수라 CSS가 알 수
+   * 없고 컴포넌트가 인라인으로 덮어쓴다. 기본값을 여기 두는 이유는 CSS만 로드한 소비자(정적
+   * 마크업, Figma 캡처용 fixture)에서도 레일이 깨지지 않게 하려는 것이다. */
+  --kds-slider-fill: 0%;
+  appearance: none;
+  -webkit-appearance: none;
+  box-sizing: border-box;
+  display: block;
+  inline-size: 100%;
+  min-inline-size: 0;
+  block-size: var(--kds-layout-control-height-md);
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  /* 드래그 중 스크롤이 따라오면 값이 튄다. */
+  touch-action: none;
+}
+
+.kds-slider[data-size="sm"] .kds-slider__control {
+  block-size: var(--kds-layout-control-height-sm);
+}
+
+/* 포커스 링은 **컨트롤 전체**가 받는다. 네이티브 range는 input 자신이 포커스 대상이라 링이
+ * 레일을 두른다. 제품의 세 레시피가 `outline: none`으로 이 링을 지웠고 그것이 사용의 다수인데,
+ * 키보드 사용자가 지금 어디에 있는지 알 수 없는 상태를 옮기지 않는다. */
+.kds-slider__control:focus-visible {
+  outline: var(--kds-border-width-ring) solid var(--kds-color-border-focus);
+  outline-offset: 2px;
+  border-radius: var(--kds-radius-control-sm);
+}
+
+@media (forced-colors: active) {
+  .kds-slider__control:focus-visible {
+    outline-color: Highlight;
+  }
+}
+
+.kds-slider__control:disabled {
+  cursor: not-allowed;
+}
+
+/* ── 레일 ─────────────────────────────────────────────────────────────────
+ *
+ * 레일 두께와 썸 크기는 리터럴이다. 소비처가 이 컴포넌트 하나뿐이라
+ * foundations/spacing-radius.md가 요구하는 "두 개 이상의 사용처"를 아직 만족하지 않는다 —
+ * Spinner의 16/12px과 같은 판정이다. 두 번째 소비처가 생기면 그때 토큰으로 올린다.
+ *
+ * 크로스 브라우저 주의: WebKit/Blink는 `::-webkit-slider-runnable-track` 하나에 트랙과 진행을
+ * 함께 그리고, Firefox는 `::-moz-range-track` + `::-moz-range-progress`로 나눈다. 두 벌을
+ * 나란히 적되 **선택자를 합치지 않는다** — 한 브라우저가 모르는 pseudo-element가 섞이면 규칙
+ * 전체가 버려진다.
+ */
+
+.kds-slider__control::-webkit-slider-runnable-track {
+  block-size: 4px;
+  border-radius: var(--kds-radius-pill);
+  background: linear-gradient(
+    to right,
+    var(--kds-color-action-primary) 0,
+    var(--kds-color-action-primary) var(--kds-slider-fill),
+    var(--kds-color-border-default) var(--kds-slider-fill),
+    var(--kds-color-border-default) 100%
+  );
+}
+
+.kds-slider__control::-moz-range-track {
+  block-size: 4px;
+  border-radius: var(--kds-radius-pill);
+  background: var(--kds-color-border-default);
+}
+
+.kds-slider__control::-moz-range-progress {
+  block-size: 4px;
+  border-radius: var(--kds-radius-pill);
+  background: var(--kds-color-action-primary);
+}
+
+/* ── 썸 ──────────────────────────────────────────────────────────────────
+ *
+ * 면은 action-primary, 테두리는 표면색이다. 그림자를 쓰지 않는 이유가 있다 — 제품의 썸 그림자
+ * 넷이 값이 다 다르고(`0 1.5px 3px/24%`, `0 2px 8px/22%`, `0 1px 2px/30%`) DS의 elevation 넷 중
+ * 맞는 것이 없다. 새 elevation 토큰을 만드는 대신 표면색 링으로 분리한다. 어느 배경 위에서도
+ * 성립하고 forced-colors에서도 사라지지 않는다.
+ *
+ * `margin-block-start`가 필요한 이유: WebKit은 썸을 트랙 박스의 **위쪽 가장자리**에 붙인다.
+ * 트랙과 썸의 차이의 절반만큼 올려야 가운데에 온다. Firefox는 자동으로 가운데 정렬한다.
+ */
+.kds-slider__control::-webkit-slider-thumb {
+  appearance: none;
+  -webkit-appearance: none;
+  box-sizing: border-box;
+  inline-size: 16px;
+  block-size: 16px;
+  margin-block-start: calc((4px - 16px) / 2);
+  border: var(--kds-border-width-ring) solid var(--kds-color-background-surface);
+  border-radius: var(--kds-radius-pill);
+  background: var(--kds-color-action-primary);
+}
+
+.kds-slider__control::-moz-range-thumb {
+  box-sizing: border-box;
+  inline-size: 16px;
+  block-size: 16px;
+  border: var(--kds-border-width-ring) solid var(--kds-color-background-surface);
+  border-radius: var(--kds-radius-pill);
+  background: var(--kds-color-action-primary);
+}
+
+.kds-slider[data-size="sm"] .kds-slider__control::-webkit-slider-thumb {
+  inline-size: 12px;
+  block-size: 12px;
+  margin-block-start: calc((4px - 12px) / 2);
+}
+
+.kds-slider[data-size="sm"] .kds-slider__control::-moz-range-thumb {
+  inline-size: 12px;
+  block-size: 12px;
+}
+
+.kds-slider__control:disabled::-webkit-slider-runnable-track {
+  background: var(--kds-color-border-subtle);
+}
+
+.kds-slider__control:disabled::-moz-range-track {
+  background: var(--kds-color-border-subtle);
+}
+
+.kds-slider__control:disabled::-moz-range-progress {
+  background: var(--kds-color-border-subtle);
+}
+
+.kds-slider__control:disabled::-webkit-slider-thumb {
+  background: var(--kds-color-foreground-disabled);
+}
+
+.kds-slider__control:disabled::-moz-range-thumb {
+  background: var(--kds-color-foreground-disabled);
+}
+
+/* ── track 변형 ───────────────────────────────────────────────────────────
+ *
+ * 굵은 막대를 채우고 채움 끝에 얇은 표식을 둔다. 제품 인스펙터 17벌의 형태이며, 다른 점은
+ * 하나다 — 제품은 그 표식을 장식(`::after`)으로 그리고 진짜 썸을 지웠고, 여기서는 표식이
+ * 곧 썸이다. 그래서 포커스가 보이고 방향키가 듣는다.
+ *
+ * 막대 높이 28/20px과 표식 2×14px은 제품 실측값이다(패널 28, 기본 20). 두 값 다 쓰므로
+ * 어느 하나를 버릴 필요가 없었다.
+ *
+ * 표식은 `foreground-inverse`이고 `foreground-on-inverse`가 **아니다.** 후자는 테마마다
+ * 뒤집히는데(#fafafa ↔ #171b22) 채움은 두 테마 모두 같은 파랑이라, 다크에서 표식만 검게
+ * 변한다. 워크샵에서 눈으로 보고 찾았다 — 두 테마 모두 흰색인 전자가 action-primary의
+ * 문서화된 대비 짝이다.
+ */
+.kds-slider[data-variant="track"] .kds-slider__control::-webkit-slider-runnable-track {
+  block-size: 28px;
+  border-radius: var(--kds-radius-control-sm);
+}
+
+.kds-slider[data-variant="track"] .kds-slider__control::-moz-range-track,
+.kds-slider[data-variant="track"] .kds-slider__control::-moz-range-progress {
+  block-size: 28px;
+  border-radius: var(--kds-radius-control-sm);
+}
+
+.kds-slider[data-variant="track"][data-size="sm"] .kds-slider__control::-webkit-slider-runnable-track {
+  block-size: 20px;
+}
+
+.kds-slider[data-variant="track"][data-size="sm"] .kds-slider__control::-moz-range-track,
+.kds-slider[data-variant="track"][data-size="sm"] .kds-slider__control::-moz-range-progress {
+  block-size: 20px;
+}
+
+.kds-slider[data-variant="track"] .kds-slider__control::-webkit-slider-thumb {
+  inline-size: 2px;
+  block-size: 14px;
+  margin-block-start: calc((28px - 14px) / 2);
+  border: 0;
+  background: var(--kds-color-foreground-inverse);
+}
+
+.kds-slider[data-variant="track"] .kds-slider__control::-moz-range-thumb {
+  inline-size: 2px;
+  block-size: 14px;
+  border: 0;
+  background: var(--kds-color-foreground-inverse);
+}
+
+.kds-slider[data-variant="track"][data-size="sm"] .kds-slider__control::-webkit-slider-thumb {
+  margin-block-start: calc((20px - 14px) / 2);
+}

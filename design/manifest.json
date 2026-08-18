@@ -311,6 +311,15 @@
       "generated": false
     },
     {
+      "id": "component-slider",
+      "path": "design/components/slider.md",
+      "title": "Slider",
+      "section": "components",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
+    },
+    {
       "id": "component-app-shell-parts",
       "path": "design/components/app-shell-parts.md",
       "title": "Sidebar Nav Item · App Top Bar",
@@ -734,6 +743,7 @@
         "design/components/empty-state.md",
         "design/components/badge.md",
         "design/components/spinner.md",
+        "design/components/slider.md",
         "design/components/app-shell-parts.md",
         "design/components/dialog.md"
       ]
@@ -941,6 +951,17 @@
       "note": "public export, Figma component set 2 variant(Size), parity 게이트가 Track·Arc를 자손으로 대조한다. 실브라우저 acceptance test 8건이 두 motion context에서 각각 돈다. 제품의 로딩 표현은 약 62벌이지만 공용 LoadingSpinner가 정본이고 그 recipe(700ms · linear)가 motion-loop와 정확히 같다. 회전 keyframe은 base.css의 공용 kds-spin 하나이며 Button·Menu도 그것을 가리킨다. determinate 진행률·스켈레톤·텍스트 쉬머는 별도 컴포넌트이며 아직 없다",
       "doc": "design/components/spinner.md",
       "figmaName": "Spinner"
+    },
+    {
+      "id": "slider",
+      "name": "Slider",
+      "maturity": "experimental",
+      "figma": "not-ready",
+      "web": "partial",
+      "docs": "done",
+      "note": "public export와 실브라우저 acceptance test 16건이 두 motion context에서 각각 돈다. **제품에 공용 구현이 없다** — 정의 37벌이 일곱 레시피로 갈리고 합의하는 축이 하나도 없어 값은 DS가 정했다. 네이티브 <input type=\"range\">이며 track 변형이 제품 인스펙터의 채움 막대를 흡수한다(제품은 그 자리에서 썸을 지웠고 DS는 표식을 곧 썸으로 만든다). 레일·썸의 렌더 결과는 섀도우 pseudo-element라 계산값을 읽을 수 없어 CSSOM 선언을 대조한다. Figma component set은 DS-F-006-slider가 소유한다",
+      "doc": "design/components/slider.md",
+      "figmaName": "Slider"
     },
     {
       "id": "app-shell-parts",

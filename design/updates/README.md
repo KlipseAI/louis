@@ -8,6 +8,81 @@ authority: normative
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
 
+## 2026-08-18 (2) — Slider
+
+카탈로그 12순위다. [규범](../components/slider.md)과 구현, 실브라우저 acceptance test 16건이 같은
+변경 단위에 있다. `import { Slider } from "@klipse-design/react"`가 동작한다.
+
+### 등록부의 "에디터 Slider.Root 9"는 네 배 틀렸다
+
+전수로 세니 **37벌 · 일곱 레시피 · 여섯 파일**이다. 등록부는 Radix를 덜 셌고 **네이티브
+`input[type=range]` 15벌을 통째로 빠뜨렸다.** ProjectCard "3벌"이 4벌, EmptyState "7벌"이 9벌,
+TextField "16"이 약 40벌이었던 것과 같은 종류다.
+
+| 레시피 | 벌 | 트랙 | 썸 | 포커스 표시 |
+| --- | ---: | --- | --- | --- |
+| `overlayRadix*` 인스펙터 | 17 | 20/28px | **0 — 지움** | `outline:none!` |
+| `timelineZoomRadix*` | 1 | 2/4px | 14px | 있음 |
+| `CROP_SLIDER_*` | 2 | 4px | 16px | 있음 |
+| `DURATION_SLIDER_*` | 2 | 4px | 12px | `outline:none` |
+| `RANGE_SLIDER`(Tts·Bgm) | 6 | 4px | 12px | `outline:none` |
+| `refinement…Slider` | 1 | 4px | 10px | 선언 없음 |
+| 맨 `input` + `accentColor` | 8 | 기본 | 기본 | 브라우저 기본 |
+
+**합의하는 축이 하나도 없다.** ProjectCard(네 벌 기하 동일)의 정반대이고 TextField와 같은
+"정본 0"이다. 값은 DS가 정했고 판정은
+[`product.measured.json`](../../migration/product.measured.json)의 8축에 있다.
+
+### 포커스 표시를 지운 것이 37벌 중 25벌(68%)이다
+
+세 레시피가 `outline: none`을 직접 선언하고 그것이 사용의 다수다. **옮기지 않았다.** 사용의
+다수라는 사실이 그것을 정본으로 만들지 않는다 — Text Field와 앱 셸 사이드바에서도 같은 판정을
+했다.
+
+### 제품이 지운 썸을 되살리되 모양은 바꾸지 않았다
+
+인스펙터 17벌은 썸을 `width:0; opacity:0; pointer-events:none`으로 지우고 채움 오른쪽 끝에
+**2×14px 표식을 `::after` 장식으로 따로 그린다.** 그 표식이 바로 손잡이가 있어야 할 자리다.
+`track` 변형은 같은 크기의 표식을 **실제 썸으로** 그린다 — 시각은 그대로이고 포커스와 방향키만
+살아난다. 회귀 테스트가 그 넷(`width:0`·`height:0`·`opacity`·`pointer-events`) 중 하나라도
+다시 들어오면 실패한다.
+
+### 새 토큰이 0개다
+
+레일 4px, 썸 16/12px, 막대 28/20px, 표식 2×14px은 전부 리터럴이다. 소비처가 이 컴포넌트
+하나뿐이라 [Spacing & Radius](../foundations/spacing-radius.md)의 "두 개 이상의 사용처"를 아직
+만족하지 않는다 — Spinner의 16/12px과 같은 판정이다. **토큰 source가 바뀌지 않아 baseline
+재고정도 Figma 변수 재적용도 필요 없다.**
+
+썸에 그림자를 쓰지 않는다. 제품의 썸 그림자 셋이 값이 다 다르고(`0 1.5px 3px/24%`,
+`0 2px 8px/22%`, `0 1px 2px/30%`) DS elevation 넷 중 맞는 것이 없어, 채택하려면 새 elevation
+토큰이 필요했다. `border-width-ring` 두께의 표면색 링으로 분리한다.
+
+### 게이트가 볼 수 없는 자리를 찾았다
+
+**Chromium은 `getComputedStyle(input, "::-webkit-slider-runnable-track")`에 섀도우
+pseudo-element가 아니라 호스트 input의 값을 돌려준다** — 실측하니 320×40, 배경 투명, 반경 0이
+나왔다. 레일·채움·썸의 **렌더 결과를 계산값으로 잴 수 없다.**
+
+그래서 states 표를 두지 않았고, 기하는 CSSOM의 **선언**을 대조한다 — Button의 `borderWidth`가
+계산값 대신 선언 토큰을 보는 것과 같은 이유다. 선언과 실제 그림이 갈라지는 경로는 열려 있으며
+이것은 visual regression(2단계 harness)이 닫아야 한다. 규범의 Known deviations에 적었다.
+
+### 워크샵이 잡은 결함 하나
+
+`track` 표식에 `color-foreground-on-inverse`를 썼는데 그 토큰은 테마마다 뒤집힌다
+(#fafafa ↔ #171b22). 채움은 두 테마 모두 같은 파랑이라 **다크에서 표식만 검게 변했다.**
+헤드리스 테스트는 이것을 보지 못한다 — 선언은 정상이고 토큰도 실재한다. 눈으로 보고 찾았고
+(DS-D-0012), `color-action-primary`의 문서화된 대비 짝인 `color-foreground-inverse`로 고쳤다.
+
+### 남은 것
+
+- **Figma component set이 없다.** `figma: not-ready`이며 `DS-F-006-slider`가 소유한다
+- **Firefox 경로가 미검증이다.** `::-moz-range-*` 규칙을 나란히 적었으나 harness가 Chromium 단독이다
+- **컨트롤 높이 40px이 `hit-target-minimum` 44px에 미달한다.** range input은 `::before`/`::after`가
+  트랙·썸에 배정돼 `.kds-hit-target`을 쓸 수 없다. Text Field도 같은 40px이다
+- **범위(두 손잡이) 선택이 없다.** 제품에 0벌이다
+
 ## 2026-08-18 — Sidebar Nav Item · App Top Bar
 
 카탈로그 11순위다. 셸의 **레이아웃 계약은 [app-shell 패턴](../patterns/app-shell.md)이 이미

@@ -40,6 +40,8 @@ export { Badge } from "./badge/badge.js";
 export type { BadgeProps, BadgeTone } from "./badge/badge.js";
 export { EmptyState } from "./empty-state/empty-state.js";
 export type { EmptyStateHeadingLevel, EmptyStateProps } from "./empty-state/empty-state.js";
+export { Slider } from "./slider/slider.js";
+export type { SliderProps, SliderSize, SliderVariant } from "./slider/slider.js";
 export { Spinner } from "./spinner/spinner.js";
 export type { SpinnerProps, SpinnerSize } from "./spinner/spinner.js";
 export { TextField } from "./text-field/text-field.js";

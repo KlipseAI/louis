@@ -1308,6 +1308,76 @@
           "reason": "오류를 색으로만 전달하면 색각 이상에서 전달되지 않는다. 텍스트와 aria를 함께 요구한다"
         }
       }
+    },
+    "slider": {
+      "canon": {
+        "kind": "none",
+        "note": "제품에 공용 구현이 없다. 정의 37벌이 일곱 레시피로 갈리고 **합의하는 축이 하나도 없다.** 일곱 전부 파일 로컬 상수이며 packages/ui/src에도 슬라이더가 없다"
+      },
+      "axisCount": 8,
+      "$measuredBy": "2026-08-18 전수 조사. Radix Slider.Root 22벌(3파일)과 네이티브 input[type=range] 15벌(5파일)을 양방향으로 훑었다. **gap registry가 적은 '에디터 Slider.Root 9'는 틀렸다** — Radix를 덜 셌고 네이티브 15벌을 통째로 빠뜨렸다. 슬라이더 코드는 기준선 086f4a62와 현재 9cc62f86 사이에 바이트 동일이라 두 커밋 모두에 유효하다",
+      "$recipes": "① overlayRadix* 인스펙터 17 ② timelineZoomRadix* 1 ③ CROP_SLIDER_* 2 ④ DURATION_SLIDER_* 2 ⑤ RANGE_SLIDER(Tts·Bgm) 6 ⑥ refinementExpandShellOpacitySlider 1 ⑦ 맨 input + accentColor 8",
+      "axes": {
+        "구현 기반": {
+          "product": "Radix Slider(div 기반) 22벌 · 네이티브 input[type=range] 15벌. 두 갈래가 같은 화면 안에 섞여 있다",
+          "ds": "네이티브 input[type=range] 하나. 키보드·role·aria·터치·forced-colors·RTL이 전부 브라우저의 것이다",
+          "match": "partial",
+          "evidence": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx:15177 · apps/web/components/scenes/create/node-canvas-v2/nodes/TtsNode.tsx:1349",
+          "status": "no-canon"
+        },
+        "포커스 표시": {
+          "product": "**37벌 중 25벌(68%)이 포커스 표시를 명시적으로 지운다.** overlayRadix 썸은 `width:0;height:0;opacity:0;pointer-events:none` + `focus-visible:outline:none!`(17벌), DURATION_SLIDER_THUMB은 `[&:focus-visible]:[outline:none]`(2벌), RANGE_SLIDER는 `[&:focus]:[outline:none] [&:focus-visible]:[outline:none]`(6벌). 링이 있는 것은 crop 2벌(sky-500 offset 3)과 timelineZoom 1벌(sky-500 offset 2)뿐이다",
+          "ds": "공유 링 하나 — outline: var(--kds-border-width-ring) solid var(--kds-color-border-focus), offset 2px. 컨트롤 전체가 받는다",
+          "match": "different",
+          "evidence": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx:2060-2072 · apps/web/components/scenes/create/node-canvas-v2/nodes/VideoNode.tsx:592 · apps/web/components/scenes/create/node-canvas-v2/nodes/TtsNode.tsx:516",
+          "status": "accepted-deviation",
+          "reason": "키보드 사용자가 지금 어디에 있는지 알 수 없는 상태를 옮기지 않는다. 사용의 다수라는 사실은 그것을 정본으로 만들지 않는다 — Text Field와 앱 셸 사이드바에서도 같은 판정을 했다"
+        },
+        "썸의 존재": {
+          "product": "인스펙터 17벌은 썸을 지우고 채움 오른쪽 끝에 2×14px 표식을 ::after 장식으로 따로 그린다. 그 표식은 포커스를 받지 못하고 방향키에 반응하지 않는다",
+          "ds": "track 변형이 같은 2×14px 표식을 **실제 썸으로** 그린다. 모양은 같고 포커스·키보드가 살아 있다",
+          "match": "different",
+          "evidence": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx:2003-2026",
+          "status": "accepted-deviation",
+          "reason": "장식과 손잡이를 분리하면 보이는 것과 조작되는 것이 어긋난다. 같은 자리에 진짜 썸을 두면 시각은 그대로이고 접근성만 회복된다"
+        },
+        "컨트롤 높이": {
+          "product": "8px(RANGE_SLIDER) · 12px(refinement) · 16px(DURATION) · 24px(crop) · 28px(timelineZoom) · 20/28px(overlay). 다섯 값이 흩어져 있다",
+          "ds": "layout-control-height-md 40px / -sm 32px. Button·Text Field와 같은 계단",
+          "match": "different",
+          "evidence": "apps/web/components/scenes/create/node-canvas-v2/nodes/BgmNode.tsx:361 · apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/ClipCropModal.tsx:185-186",
+          "status": "no-canon"
+        },
+        "레일 두께": {
+          "product": "2px(timelineZoom 기본) · 4px(timelineZoom 툴바 · crop · duration · RANGE_SLIDER · refinement) · 20/28px(overlay 막대)",
+          "ds": "4px. thumb 변형에서 크기 축을 갖지 않는다",
+          "match": "partial",
+          "evidence": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/ClipCropModal.tsx:187 · apps/web/components/scenes/create/node-canvas-v2/nodes/VideoNode.tsx:574",
+          "status": "no-canon"
+        },
+        "썸 크기": {
+          "product": "0px(overlay 17벌, 지워짐) · 10px(refinement) · 12px(duration · RANGE_SLIDER, --spacing:2px에서 w-6) · 14px(timelineZoom) · 16px(crop, w-8)",
+          "ds": "md 16px / sm 12px",
+          "match": "partial",
+          "evidence": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoNode.tsx:586 · apps/web/components/scenes/highlightSceneStyles.ts:1607-1608",
+          "status": "no-canon"
+        },
+        "썸 분리 방법": {
+          "product": "그림자 셋이 값이 다 다르다 — `0 1.5px 3px rgb(0 0 0/24%)`(duration) · `0 2px 8px rgb(0 0 0/22%)`(crop) · `0 1px 2px .../30%`(refinement). crop만 2px 테두리를 함께 갖는다",
+          "ds": "그림자 없음. border-width-ring 2px의 color-background-surface 링으로 분리한다",
+          "match": "different",
+          "evidence": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoNode.tsx:587 · apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/ClipCropModal.tsx:191-192",
+          "status": "accepted-deviation",
+          "reason": "세 그림자 중 어느 것도 DS elevation 넷과 맞지 않아 채택하려면 새 elevation 토큰이 필요하다. 표면색 링은 어느 배경 위에서도 성립하고 forced-colors에서 사라지지 않는다"
+        },
+        "채움 색": {
+          "product": "sky-500(crop · 맨 input 1벌) · pink-500(RANGE_SLIDER 6벌, 오디오 채널) · white/gray-900(duration) · white 96%(timelineZoom) · gray-100(refinement) · gray-700→800 그라디언트(overlay) · gray-500(맨 input 7벌 accentColor)",
+          "ds": "color-action-primary 하나. 빈 레일은 color-border-default",
+          "match": "different",
+          "evidence": "apps/web/components/scenes/create/node-canvas-v2/nodes/BgmNode.tsx:366 · apps/web/app/admin/CaptionTemplateManagement.tsx:783",
+          "status": "no-canon"
+        }
+      }
     }
   },
   "productCommit": "086f4a62",

@@ -125,7 +125,7 @@ Spinner 레시피 5종, PaneDivider 6선언.
 | 9 | **Badge / StatusBadge** | 3/3 | **65벌** | **web·figma partial**(2026-08-17). "톤 4 + 상태 5"는 **둘 다 틀렸다** — 네 톤 클래스의 선언이 바이트 단위로 같고, 앱 홈 4변형의 색이 전부 `var(--gray-400)`다. 두 축 다 죽어 있었다 |
 | 10 | **Spinner / Progress** | 2/3 | **약 62벌** | 재실측(2026-08-17): 회전 스피너 **22벌** · 스켈레톤 **15벌**("0종"이 틀렸다) · 진행률 5 · 텍스트 쉬머 11. 회전 키프레임 이름 18개인데 본문은 1종이다. **web·figma partial**(2026-08-17). 공용 LoadingSpinner의 recipe가 motion-loop와 정확히 같아 그것을 정본으로 옮겼다. determinate 진행률·스켈레톤·텍스트 쉬머는 별도 컴포넌트이며 아직 없다 |
 | 11 | **SidebarNavItem · AppTopBar** | 3/3 | 앱 셸 **25파일** | **web·figma partial**(2026-08-18). "31곳"은 두 컴포넌트 합산이었다 — 앱 셸 Gnb 25 + 랜딩 Gnb 7, 한 파일이 둘 다 import한다. 셸 composition과 compact 드로어는 아직 없다 |
-| 12 | **Slider** | 1/3 | 에디터 `Slider.Root` 9 | 에디터 전용이지만 속성 패널이 통째로 막힌다 |
+| 12 | **Slider** | 1/3 | **37벌 · 7레시피 · 6파일** | **web `partial` · figma `not-ready`**(2026-08-18). "에디터 `Slider.Root` 9"는 네 배 틀렸다 — Radix 22벌(3파일)을 덜 셌고 **네이티브 `input[type=range]` 15벌(5파일)을 통째로 빠뜨렸다.** 일곱 레시피가 **합의하는 축이 하나도 없어**(트랙 2·4·20·28px, 썸 0·10·12·14·16px) 정본이 없다. 포커스 표시를 명시적으로 지운 것이 25벌(68%)이고 옮기지 않았다. 인스펙터 17벌의 "썸을 지운 채움 막대"는 `track` 변형이 흡수하되 표식을 실제 썸으로 만들었다 |
 | 13 | **SegmentedControl** | 2/3 | 3 파일 | 뷰 전환·정렬 |
 | 14 | **Checkbox** (indeterminate) | 1/3 | 4 파일 | 하이라이트 일괄 선택 |
 | 15 | **SelectableListRow** | 2/3 | 하이라이트 2 · 에디터 1 | master-detail의 좌측 열 |

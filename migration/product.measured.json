@@ -1642,6 +1642,69 @@
           "reason": "행 높이가 항목마다 달라지면 목록이 튄다. 행에서 카드로 바뀌는 것은 행의 축이 아니라 다른 컴포넌트로의 전환이라 패턴의 문제다"
         }
       }
+    },
+    "avatar": {
+      "canon": {
+        "kind": "shared-component",
+        "paths": [
+          "apps/web/components/navigation/UserCircleDefaultAvatar.tsx"
+        ],
+        "note": "**부분만 공용이다.** 기본 아바타 SVG 하나(28×28 · currentColor · aria-hidden)만 파일로 분리돼 있고, 아바타 본체 — 이미지/폴백 분기와 크기 — 는 셸 파일 Gnb.tsx에 인라인이다. 기본 이미지 센티넬 __default_avatar__가 4곳"
+      },
+      "axisCount": 5,
+      "$measuredBy": "2026-08-18 전수 조사. avatar 언급을 파일별로 세고 --profile-avatar-size·--profile-ring-* 커스텀 속성의 선언 지점을 훑었다. SettingsScene의 77건은 업로드 input 등 편집 흐름이며 시각 계약과 별개다",
+      "axes": {
+        "크기": {
+          "product": "28px 기본(--profile-avatar-size), ProjectHeader 슬롯에서 24px로 덮인다. ≤480px에서도 28px",
+          "ds": "md 28 / sm 24. control 계단(40/32)을 따르지 않는다",
+          "match": "same",
+          "evidence": "apps/web/components/navigation/Gnb.tsx:1358 · 1395",
+          "status": "adopted",
+          "dsPointer": {
+            "file": "figma/components.measured.json",
+            "path": [
+              "components",
+              "avatar",
+              "sizes",
+              "md",
+              "size"
+            ]
+          },
+          "productValue": 28
+        },
+        "폴백 글리프 크기": {
+          "product": "UserCircleDefaultAvatar가 w-14 h-14(=28px, --spacing 2px)로 자기 크기를 갖는다",
+          "ds": "폴백이 100%×100%로 부모를 채운다. 크기는 root가 소유한다",
+          "match": "different",
+          "evidence": "apps/web/components/navigation/UserCircleDefaultAvatar.tsx:11-17",
+          "status": "accepted-deviation",
+          "reason": "폴백이 자기 크기를 가지면 24px 아바타 안에서 28px 글리프가 넘친다. 크기는 한 곳(root)만 소유해야 두 크기가 성립한다"
+        },
+        "폴백 색": {
+          "product": "light palette-gray-400 · dark palette-gray-600 — 다크 면 위에서 한 단계 밝게",
+          "ds": "color-foreground-tertiary. currentColor를 물어 놓이는 자리에서 덮을 수 있다",
+          "match": "different",
+          "evidence": "apps/web/components/navigation/UserCircleDefaultAvatar.tsx:12-13",
+          "status": "accepted-deviation",
+          "reason": "제품은 palette를 직접 집는다. semantic 위계로 옮기면 테마 축이 토큰 쪽 게이트에 걸리고, currentColor 구조는 그대로 유지된다"
+        },
+        "진행률 링": {
+          "product": "프로필 트리거가 --profile-ring-width 2px · -gap 2px · -progress를 ::after(border-radius 999px)로 그린다. 사용처는 그 한 곳",
+          "ds": "**소유하지 않는다.** 테두리·그림자·::after 층이 모두 0이고 테스트가 그것을 확인한다",
+          "match": "different",
+          "evidence": "apps/web/components/navigation/Gnb.tsx:1359 · 1364 · 1387-1389",
+          "status": "accepted-deviation",
+          "reason": "아바타는 신원 표식이고 링은 사용량이라 뜻이 다르다. 흡수하면 목록·댓글·멘션의 모든 아바타가 쓰지 않을 progress API를 갖고, 인계서 (1c)의 미결 판정(determinate 진행률의 접근성 계약)이 이 컴포넌트의 API로 새어 들어온다. 링은 그 판정이 풀린 뒤 감싸는 컴포넌트로 세운다"
+        },
+        "접근성 이름": {
+          "product": "기본 아바타가 aria-hidden role=presentation이다. 이미지 분기의 alt는 셸 파일이 정한다",
+          "ds": "name이 있으면 root가 role=img + aria-label을 갖고 안의 img는 alt=\"\"다. name이 없으면 root가 aria-hidden이다",
+          "match": "partial",
+          "evidence": "apps/web/components/navigation/UserCircleDefaultAvatar.tsx:22-25",
+          "status": "accepted-deviation",
+          "reason": "폴백이 장식이라는 판단은 같다. 다만 이름을 root가 소유해야 이미지가 있든 없든 같은 이름이 나오고, 옆에 이름이 적힌 자리에서는 통째로 숨길 수 있다"
+        }
+      }
     }
   },
   "productCommit": "086f4a62",

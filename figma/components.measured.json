@@ -567,6 +567,26 @@
       },
       "$statesNote": "상태 축이 없다. 제품 9벌 중 hover·focus·disabled를 스스로 갖는 것이 0벌이고, 빈 상태는 대화형 요소가 아니다. 그 안의 CTA가 자기 상태를 갖는다."
     },
+    "avatar": {
+      "$doc": "design/components/avatar.md",
+      "$source": "packages/react/src/avatar/avatar.tsx, packages/css/src/component/avatar.css",
+      "$note": "제품에 공용 구현이 **부분만** 있다 \u2014 UserCircleDefaultAvatar.tsx가 기본 아바타 SVG 하나(28×28 · currentColor · aria-hidden)를 소유하고 본체는 Gnb.tsx에 인라인이다. 크기 24·28은 제품의 --profile-avatar-size 두 값을 그대로 옮겼다.",
+      "$noRing": "**링을 소유하지 않는다.** 제품은 프로필 트리거에 진행률 링을 겹치지만(--profile-ring-width/gap 2px) 아바타는 신원 표식이고 링은 사용량이다. 흡수하면 인계서 (1c)의 미결 판정(determinate 진행률의 접근성 계약)이 이 컴포넌트의 API로 새어 들어온다.",
+      "$noControlLadder": "크기가 control 계단(40/32)을 따르지 않는다. 아바타는 컨트롤이 아니라 표식이라 나란히 서도 줄이 어긋나지 않는다.",
+      "sizes": {
+        "md": { "size": 28, "radius": 999 },
+        "sm": { "size": 24, "radius": 999 }
+      },
+      "states": {
+        "base": {
+          "Default": {
+            "background": "color-background-inset",
+            "foreground": "color-foreground-tertiary"
+          }
+        }
+      },
+      "$statesNote": "상태 축이 없다. 대화형이 아니고 hover/focus를 갖지 않는다 \u2014 아바타가 버튼 안에 놓이면 그 버튼이 상태를 소유한다. foreground는 폴백 글리프의 색이며 이미지가 있으면 보이지 않는다."
+    },
     "badge": {
       "$doc": "design/components/badge.md",
       "$source": "packages/react/src/badge/badge.tsx, packages/css/src/component/badge.css",

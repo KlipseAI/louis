@@ -264,6 +264,62 @@
 }
 
 @layer kds.component {
+  /* Avatar — design/components/avatar.md
+   *
+   * 제품에 공용 구현이 **부분만** 있다. `UserCircleDefaultAvatar.tsx`가 기본 아바타 SVG 하나를
+   * 소유하고(28×28 · currentColor · aria-hidden), 아바타 본체 — 이미지/폴백 분기와 크기 — 는
+   * 셸 파일(`Gnb.tsx`)에 인라인이다. 크기는 `--profile-avatar-size`가 28 기본, ProjectHeader
+   * 슬롯에서 24로 덮인다. 그 두 값을 그대로 옮겼다.
+   *
+   * ## 링을 소유하지 않는다
+   *
+   * 제품은 프로필 트리거에 진행률 링을 겹치지만(`--profile-ring-*`) **아바타는 신원 표식이고
+   * 링은 사용량이다.** 흡수하면 목록·댓글·멘션의 모든 아바타가 쓰지 않을 progress API를 갖고,
+   * 무엇보다 인계서 (1c)의 미결 판정(determinate 진행률의 접근성 계약)이 이 컴포넌트의 API로
+   * 새어 들어온다. 링은 그 판정이 풀린 뒤 아바타를 **감싸는** 별개 컴포넌트로 세운다.
+   *
+   * ## 크기가 control 계단을 따르지 않는다
+   *
+   * 24·28은 Button·Text Field의 40/32와 맞지 않는다. **아바타는 컨트롤이 아니라 표식**이므로
+   * 나란히 서도 줄이 어긋나지 않는다 — 계단을 따를 이유가 없어 제품 값을 그대로 옮겼다.
+   */
+
+  .kds-avatar {
+    display: inline-flex;
+    flex: none;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    inline-size: 28px;
+    block-size: 28px;
+    border-radius: var(--kds-radius-pill);
+    background: var(--kds-color-background-inset);
+    /* 폴백 글리프가 currentColor를 문다. 제품의 기본 아바타와 같은 구조다. */
+    color: var(--kds-color-foreground-tertiary);
+  }
+
+  .kds-avatar[data-size="sm"] {
+    inline-size: 24px;
+    block-size: 24px;
+  }
+
+  /* 이미지. 비율이 맞지 않아도 원을 채운다 — 여백이 생기면 원이 깨져 보인다. */
+  .kds-avatar__image {
+    inline-size: 100%;
+    block-size: 100%;
+    object-fit: cover;
+    /* 이미지가 뜨기 전과 깨졌을 때 아래 면이 그대로 보이게 둔다. */
+    background: none;
+  }
+
+  .kds-avatar__fallback {
+    display: block;
+    inline-size: 100%;
+    block-size: 100%;
+  }
+}
+
+@layer kds.component {
   /* Badge — design/components/badge.md
    *
    * 제품에 배지 계열 정의가 **65벌** 있고 공용 구현은 0이다. 기하는 반경 7갈래(999·12·10·8·6·5·4),

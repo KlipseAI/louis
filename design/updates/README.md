@@ -8,6 +8,46 @@ authority: normative
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
 
+## 2026-08-18 (15) — Avatar · Home의 구멍이 하나 남았다
+
+`import { Avatar } from "@klipse-design/react"`. 카탈로그 component 17 → **18개**.
+
+### 제품에 공용 구현이 "부분만" 있었다
+
+`UserCircleDefaultAvatar.tsx`가 **기본 아바타 SVG 하나**(28×28 · `currentColor` · `aria-hidden`)만
+소유하고, 아바타 본체 — 이미지/폴백 분기와 크기 — 는 셸 파일 `Gnb.tsx`에 인라인이다. 크기는
+`--profile-avatar-size`가 28 기본이고 ProjectHeader 슬롯에서 24로 덮인다. **그 두 값을 그대로
+옮겼다.**
+
+### 링을 소유하지 않는다
+
+제품은 프로필 트리거에 진행률 링을 겹치지만(`--profile-ring-width/gap: 2px`, `-progress`)
+**아바타는 신원 표식이고 링은 사용량이다.**
+
+흡수하지 않은 이유 셋 — 목록·댓글·멘션의 모든 아바타가 쓰지 않을 progress API를 갖게 되고,
+링을 아바타 밖에서 쓸 수 없게 되며, 무엇보다 **(1c)의 미결 판정(determinate 진행률의 접근성
+계약, 제품 전체에 `role="progressbar"`가 1곳뿐)이 이 컴포넌트의 API로 새어 들어온다.**
+
+**테스트가 테두리·그림자·`::after` 층이 전부 0인지 확인한다** — 나중에 누가 링을 여기에 넣으면
+게이트가 잡는다.
+
+### 크기가 control 계단을 따르지 않는다
+
+24·28은 Button·Text Field의 40/32와 맞지 않는다. **아바타는 컨트롤이 아니라 표식**이라 나란히
+서도 줄이 어긋나지 않는다 — 계단을 따를 이유가 없었다. Slider·SegmentedControl에서 계단을 따른
+것과 반대 판정이고, 기준은 "컨트롤인가"다.
+
+### 이름을 root가 소유한다
+
+`name`이 있으면 root가 `role="img"` + `aria-label`을 갖고 **안의 `<img>`는 `alt=""`다** — 둘 다
+이름을 가지면 같은 이름이 두 번 읽힌다. `name`이 없으면 root가 `aria-hidden`이다. 목록 행이나
+댓글 머리처럼 **옆에 이름이 이미 적혀 있는 자리에서는 생략이 옳다.**
+
+### 남은 것
+
+Home의 구멍은 이제 **`BannerCarousel` 하나**다. caret 3종이 이미 섰으므로 선행 조건이 없다.
+Figma component set(`DS-F-006-avatar`)도 남았다.
+
 ## 2026-08-18 (14) — hosted CI가 처음 초록이 됐다
 
 [run 32094705359](https://github.com/KlipseAI/louis/actions/runs/32094705359) — clean checkout에서

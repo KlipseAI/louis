@@ -36,6 +36,8 @@ export type {
   SidebarNavItemLinkProps,
   SidebarNavItemProps,
 } from "./app-shell/app-shell-parts.js";
+export { Avatar } from "./avatar/avatar.js";
+export type { AvatarProps, AvatarSize } from "./avatar/avatar.js";
 export { Badge } from "./badge/badge.js";
 export type { BadgeProps, BadgeTone } from "./badge/badge.js";
 export { Checkbox } from "./checkbox/checkbox.js";

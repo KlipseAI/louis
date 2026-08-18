@@ -232,6 +232,7 @@ test("states 표를 코드가 빠짐없이 읽는다", () => {
     "spinner", //         spinner.browser.test.tsx
     "empty-state", //     empty-state.browser.test.tsx
     "input", //           text-field.browser.test.tsx
+    "avatar", //          avatar.browser.test.tsx
     "checkbox", //        checkbox.browser.test.tsx
     "selectable-list-row", // selectable-list-row.browser.test.tsx
     "segmented-control", // segmented-control.browser.test.tsx

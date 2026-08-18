@@ -61,9 +61,9 @@ Figma library는 아직 `not-ready`다. 시스템 전체 maturity도 `experiment
 | 항목 | 현재 값 |
 | --- | --- |
 | System maturity | `experimental` |
-| Normative documents | 67 |
+| Normative documents | 68 |
 | Generated documents | 5 |
-| Components | 17 |
+| Components | 18 |
 | Patterns | 4 |
 | Web done | 0 |
 | Token artifacts done | 6/6 |

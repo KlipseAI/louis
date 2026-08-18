@@ -229,8 +229,8 @@ Tooltip(`.app-tooltip-chrome` + `--app-tooltip-*`), Menu(`--dropdown-*`). Icon B
 | `DS-P3-002a` · `002`(1단계) · `003` · `009a` · `013` | `done` |
 | `DS-P3-001` | `in-progress`. Decision 6종을 다 썼고 owner 확인만 남았다 |
 | Decision | **18종** (`DS-D-0001`~`DS-D-0018`) |
-| 카탈로그 | **15/15 — 전부 섰다.** 1~11순위가 Web·Figma 모두 `partial`, 12~15순위는 Web만 `partial` |
-| manifest component | 17개. **전부 상태가 확정됐다** — 16개 `partial`, `select` `not-planned`(아래 1d) |
+| 카탈로그 | **15/15 + Avatar.** 1~11순위가 Web·Figma 모두 `partial`, 12~15순위는 Web만 `partial` |
+| manifest component | **18개.** 17개 `partial`, `select` `not-planned`(아래 1d). `not-ready`는 0개다 |
 | Figma | component **18개** · 아이콘 **29개** · 변수 210개 · style 22개 |
 | 검증 | 브라우저 632건(두 motion context) · 토큰 게이트 canary 42종 · CSS canary 12종 · parity canary **34종** |
 
@@ -421,7 +421,7 @@ Badge의 `Label`). **모든 fill이 변수 바인딩이고 raw 값이 0이다.**
 파일에 인라인이다. **화면 gap의 수(72·130·144)는 갱신하지 않았다** — 그것은 Figma에서 Home을
 실제로 다시 조립해야 나오고 아직 하지 않았다. 배너 캐러셀의 선행 조건이던 아이콘
 `caret-left`·`caret-right`·`caret-down` 셋은 **2026-08-18에 섰다**(글리프 26 → 29개, Figma
-component 26 → 29개). 남은 것은 컴포넌트 둘뿐이다.
+component 26 → 29개). **Avatar가 섰다(2026-08-18) — 남은 것은 `BannerCarousel` 하나다.** caret 3종이 이미 서서 선행 조건이 없다.
 
 **`Avatar`의 census는 2026-08-18에 끝냈다** — [gap registry](../../migration/figma-gap-registry.md)의
 "Avatar 실측" 절에 있다. 공용 구현이 **부분만**(기본 아바타 SVG 하나) 있고 본체는 셸 파일에

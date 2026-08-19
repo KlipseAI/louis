@@ -689,6 +689,12 @@ adoption 노트로 넘긴다.
 | `slider-track-root-panel.height` | 28 | 40 | 제품 28, DS 40 |
 | `nav-item-inner.columnGap` | 10 | 8 | 제품 10, DS 8 |
 | `nav-item-hover-light.backgroundColor` | rgb(228 229 233 / 0.5) | color-action-ghost-hover | 라이트만 갈린다 |
+| `progress-bar-track.borderTopLeftRadius` | 3 | 999 | 제품 3, DS 999(알약) |
+| `nav-row.borderTopLeftRadius` | 10 | 0 | 제품 10, DS 0 |
+| `nav-row.paddingLeft` | 4 | 0 | 제품 4, DS 0 |
+| `progress-bar-fill.borderTopLeftRadius` | 3 | 999 | 제품 3, DS 999(알약) |
+| `segmented-segment.borderTopWidth` | 0 | 0.5 | 제품 0, DS 0 |
+| `segmented-thumb.height` | 28 | 32 | 제품 28, DS 32 |
 
 전문은 `migration/product.rendered-components.json`의 `deviations`가 갖는다.
 
@@ -841,3 +847,44 @@ INSTANCE_SWAP으로 열고 계약에 넣었다.
 - 사이드바 토글 아이콘이 제품과 다르다 — 전용 글리프가 카탈로그에 없어 `arrows-left-right`로
   대신한다.
 - 허브 템플릿 셋(노드캔버스 · 비디오에디터 · 하이라이트)이 남았다.
+
+
+## 방향을 뒤집었다 — 제품이 선언한 것을 기계가 열거한다 (2026-08-19)
+
+지금까지 게이트는 **내가 EXPECT에 넣기로 기억한 축만** 봤다. 그래서 하루 동안 나온 것이 이렇다 —
+mint CTA(지어냄) · 배너 240 vs 360 · 브랜드 24 vs 40 · 내비 여백 8 vs 4 · 상단 바 14 vs 16 ·
+스크림이 글자 위 · AppTopBar 슬롯 없음 · FloatingCreate 지어냄. **전부 게이트가 초록인 채로 틀린
+것**이었다. 방법이 틀렸다는 뜻이다.
+
+이제 반대로 한다.
+
+> 제품 정본 클래스가 이 요소에 대해 **선언한 property를 브라우저가 열거하고**, 분류되지 않은 것이
+> 하나라도 있으면 실패한다.
+
+분류는 셋 중 하나다 — ① EXPECT의 대조 행(같아야 한다 / 달라야 하고 사유가 있다) ②
+`figma/product-coverage.json`의 범위 밖 사유 ③ 대칭 묶음(모서리 넷·테두리 네 변·상하좌우 여백은
+**값이 같을 때만** 한 축으로 접힌다 — ProjectCard 오버레이처럼 아래만 깎는 자리를 덮지 않는다).
+
+**사유 없이 넘기는 길이 없다.** 낡은 사유도 실패다 — 제품이 더 이상 선언하지 않는 property에
+사유가 남아 있으면 지우라고 말한다. canary 3종이 매 실행 검출력을 증명한다.
+
+### 처음 돌렸을 때
+
+제품 선언 **1,661건 · property 122종**이 나왔고 그중 **754건이 미분류**였다. 대조하던 것은 144축
+뿐이었다. 즉 제품이 정한 것의 대부분을 보지 않고 "제품과 같다"고 적어 왔다.
+
+분류를 끝낸 지금은 **1,710건 전부 분류 · 199축 대조**(일치 171 · 기록된 편차 28)다.
+
+### 이 열거가 드러낸 것
+
+- **툴팁과 체크박스가 "아무것도 선언하지 않은" 것으로 보였다.** 유틸리티 시트만 보고 있어서다 —
+  제품이 `globals.css`의 전역 클래스로 쓰는 자리를 통째로 놓치고 있었다.
+- **낡은 사유 8건.** `carousel`이 `background-image`를 선언한다고 적어 두었는데 실제로는
+  슬라이드가 선언한다. 게이트가 그 거짓을 잡았다.
+- 대조하지 않던 55축이 새로 대조 대상이 됐다 — 버튼 반경·아이콘 버튼 최대 폭·캐러셀 화살표와 점의
+  반경·내비 항목 hover 기하·CTA 세 상태의 여백과 반경·슬라이더 레일과 썸의 반경 등.
+
+### 남은 한계
+
+열거는 **기본 상태**만 센다. `:hover`·`::before`·`::after`는 별도 탐침이 보고, 그 축의 열거는
+아직 없다. 다음 차례다.

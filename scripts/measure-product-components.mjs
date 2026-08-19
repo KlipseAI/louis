@@ -692,6 +692,70 @@ const EXPECT = [
 
   ["nav-row", "columnGap", ["app-shell-parts", "sizes", "navRow", "gap"], "same"],
 
+  // ── 열거가 드러낸 축 ──────────────────────────────────────────────────────
+  // 아래는 "제품이 선언했는데 대조하지 않던" 축이다. 열거 게이트를 붙이기 전까지 이 자리들은
+  // 게이트가 초록인 채로 비어 있었다.
+  ["button-md", "paddingTop", ["button", "sizes", "md", "paddingBlock"], "same"],
+  ["button-sm", "paddingTop", ["button", "sizes", "sm", "paddingBlock"], "same"],
+  ["button-sm", "borderTopLeftRadius", ["button", "sizes", "sm", "radius"], "same"],
+  ["button-secondary-border", "borderTopLeftRadius", ["button", "sizes", "md", "radius"], "same"],
+  ["button-secondary-border", "height", ["button", "sizes", "md", "height"], "same"],
+  ["icon-button", "maxWidth", ["icon-button", "sizes", "sm", "width"], "same"],
+  ["icon-button-card", "height", ["project-card", "sizes", "base", "moreSize"], "same"],
+  ["icon-button-card", "borderTopLeftRadius", ["project-card", "sizes", "base", "moreRadius"], "same"],
+  ["project-card-overlay", "paddingTop", ["project-card", "sizes", "base", "overlayPadding"], "same"],
+  ["project-card-overlay", "borderTopLeftRadius", ["project-card", "sizes", "base", "overlayTopRadius"], "same"],
+  ["project-grid", "columnGap", ["project-card", "sizes", "base", "gridGap"], "same"],
+  ["carousel-content", "height", ["banner-carousel", "sizes", "boxed", "height"], "same"],
+  ["carousel-arrow", "borderTopLeftRadius", ["banner-carousel", "sizes", "boxed", "arrowRadius"], "same"],
+  ["carousel-controls", "borderTopLeftRadius", ["banner-carousel", "sizes", "boxed", "controlsRadius"], "same"],
+  ["carousel-dot-active", "borderTopLeftRadius", ["banner-carousel", "sizes", "boxed", "dotRadius"], "same"],
+  ["carousel-dot-active", "height", ["banner-carousel", "sizes", "boxed", "dotHeight"], "same"],
+  ["carousel-dot-rest", "borderTopLeftRadius", ["banner-carousel", "sizes", "boxed", "dotRadius"], "same"],
+  ["menu-item", "borderTopWidth", ["menu-popover", "sizes", "panel", "borderWidth"], "same"],
+  ["nav-item", "paddingTop", ["app-shell-parts", "sizes", "navItem", "paddingBlock"], "same"],
+  ["nav-item-collapsed", "height", ["app-shell-parts", "sizes", "navItemCollapsed", "height"], "same"],
+  ["nav-item-collapsed", "borderTopLeftRadius", ["app-shell-parts", "sizes", "navItemCollapsed", "radius"], "same"],
+  ["nav-item-collapsed", "paddingTop", ["app-shell-parts", "sizes", "navItemCollapsed", "paddingBlock"], "same"],
+  ["nav-item-hover", "height", ["app-shell-parts", "sizes", "navItem", "height"], "same"],
+  ["nav-item-hover", "borderTopLeftRadius", ["app-shell-parts", "sizes", "navItem", "radius"], "same"],
+  ["nav-item-hover", "paddingLeft", ["app-shell-parts", "sizes", "navItem", "paddingInline"], "same"],
+  ["nav-item-hover", "paddingTop", ["app-shell-parts", "sizes", "navItem", "paddingBlock"], "same"],
+  ["nav-item-hover-light", "height", ["app-shell-parts", "sizes", "navItem", "height"], "same"],
+  ["nav-item-hover-light", "borderTopLeftRadius", ["app-shell-parts", "sizes", "navItem", "radius"], "same"],
+  ["nav-item-hover-light", "paddingLeft", ["app-shell-parts", "sizes", "navItem", "paddingInline"], "same"],
+  ["nav-item-hover-light", "paddingTop", ["app-shell-parts", "sizes", "navItem", "paddingBlock"], "same"],
+  ["nav-row", "height", ["app-shell-parts", "sizes", "navRow", "height"], "same"],
+  ["nav-row", "paddingTop", ["app-shell-parts", "sizes", "navRow", "paddingBlock"], "same"],
+  ["nav-row", "borderTopLeftRadius", ["app-shell-parts", "sizes", "navRow", "radius"], "deviates",
+    "제품 10, DS 0. 배포본은 복합 행이 곧 `menuLink`라 행이 선택 면과 반경을 갖는데, DS는 행이 껍데기이고 항목이 갖는다. 행에 두면 항목 하나를 다른 곳에 옮길 수 없다."],
+  ["nav-row", "paddingLeft", ["app-shell-parts", "sizes", "navRow", "paddingInline"], "deviates",
+    "제품 4, DS 0. 같은 이유다 — 좌우 여백도 항목이 갖는다. 행과 항목의 합은 두 쪽이 같다."],
+  ["sidebar-header-row-collapsed", "gap", ["app-shell-parts", "sizes", "navItem", "gap"], "same"],
+  ["sidebar-cta-current", "borderTopLeftRadius", ["sidebar-cta", "sizes", "false", "radius"], "same"],
+  ["sidebar-cta-current", "paddingTop", ["sidebar-cta", "sizes", "false", "paddingBlock"], "same"],
+  ["sidebar-cta-current", "paddingLeft", ["sidebar-cta", "sizes", "false", "paddingInline"], "same"],
+  ["sidebar-cta-current", "columnGap", ["sidebar-cta", "sizes", "false", "gap"], "same"],
+  ["sidebar-cta-current-light", "borderTopLeftRadius", ["sidebar-cta", "sizes", "false", "radius"], "same"],
+  ["sidebar-cta-current-light", "paddingTop", ["sidebar-cta", "sizes", "false", "paddingBlock"], "same"],
+  ["sidebar-cta-current-light", "paddingLeft", ["sidebar-cta", "sizes", "false", "paddingInline"], "same"],
+  ["sidebar-cta-current-light", "columnGap", ["sidebar-cta", "sizes", "false", "gap"], "same"],
+  ["sidebar-cta-light", "borderTopLeftRadius", ["sidebar-cta", "sizes", "false", "radius"], "same"],
+  ["sidebar-cta-light", "paddingTop", ["sidebar-cta", "sizes", "false", "paddingBlock"], "same"],
+  ["sidebar-cta-light", "paddingLeft", ["sidebar-cta", "sizes", "false", "paddingInline"], "same"],
+  ["sidebar-cta-light", "columnGap", ["sidebar-cta", "sizes", "false", "gap"], "same"],
+  ["sidebar-cta-collapsed", "borderTopLeftRadius", ["sidebar-cta", "sizes", "true", "radius"], "same"],
+  ["progress-ring", "height", ["progress-ring", "sizes", "base", "size"], "same"],
+  ["progress-bar-fill", "borderTopLeftRadius", ["progress-bar", "sizes", "base", "radius"], "deviates",
+    "제품 3, DS 999(알약). 트랙과 같은 사유다 — 높이 6에서 결과가 같고 리터럴 3은 높이를 바꾸는 날 따라오지 않는다."],
+  ["segmented-segment", "borderTopWidth", ["segmented-control", "sizes", "md", "borderWidth"], "deviates",
+    "제품 0, DS 0.5. hairline은 DS 전역 결정이다 — 눌리지 않은 세그먼트의 경계를 아주 얇게 남긴다."],
+  ["slider-thumb-rail", "borderTopLeftRadius", ["slider", "sizes", "md/thumb", "railRadius"], "same"],
+  ["slider-thumb-handle", "borderTopLeftRadius", ["slider", "sizes", "md/thumb", "thumbRadius"], "same"],
+  ["slider-track-marker", "borderTopLeftRadius", ["slider", "sizes", "md/track", "thumbRadius"], "same"],
+  ["segmented-thumb", "height", ["segmented-control", "sizes", "md", "segmentHeight"], "deviates",
+    "제품 28, DS 32. 세그먼트와 같은 사유다 — 제품 트랙 36은 control 계단에 없다."],
+
   ["carousel", "height", ["banner-carousel", "sizes", "boxed", "height"], "same"],
   ["carousel", "borderTopLeftRadius", ["banner-carousel", "sizes", "boxed", "radius"], "same"],
   ["carousel-content", "width", ["banner-carousel", "sizes", "boxed", "contentInline"], "same"],
@@ -706,6 +770,14 @@ const EXPECT = [
   ["carousel-dot-rest", "width", ["banner-carousel", "sizes", "boxed", "dotRestWidth"], "same"],
   ["carousel-dot-rest", "height", ["banner-carousel", "sizes", "boxed", "dotHeight"], "same"],
 ];
+
+// **대조하기로 한 축은 반드시 읽는다.** EXPECT에 행을 넣고 probe의 read에 넣는 것을 잊으면
+// "읽지 못했습니다"로 죽는다 — 두 곳에 같은 것을 적게 하지 말고 한 곳에서 파생시킨다.
+for (const [probeId, property] of EXPECT) {
+  const probe = PROBES.find((candidate) => candidate.id === probeId);
+  if (!probe) throw new Error("EXPECT가 없는 탐침을 가리킵니다: " + probeId);
+  if (!probe.read.includes(property)) probe.read.push(property);
+}
 
 if (!existsSync(resolve(productRoot, ".git"))) {
   console.log(
@@ -769,6 +841,7 @@ function extractClassList(source, key, where) {
 
 const workspace = mkdtempSync(join(tmpdir(), "kds-product-components-"));
 let rendered;
+let declaredByProbe;
 let sources;
 try {
   // 제품의 진입 CSS는 ./keyframes.css를 @import한다. 컴파일러가 찾을 수 있게 함께 꺼내 둔다.
@@ -828,14 +901,14 @@ try {
     process.exit(0);
   }
 
-  const productCss = [
+  const baseCss = [
     normalize(git(["show", commit + ":apps/web/app/tailwind.css"])),
     git(["show", commit + ":apps/web/app/globals.css"]),
-    utilities,
   ].join("\n\n");
 
   const docs = [...new Set(PROBES.map((probe) => probe.doc ?? "default"))];
   rendered = {};
+  declaredByProbe = {};
   const browser = await chromium.launch();
   try {
     const context = await browser.newContext({ viewport: { width: 1440, height: 900 }, colorScheme: "dark" });
@@ -849,7 +922,9 @@ try {
         (doc.includes("collapsed") ? ' data-app-gnb-sidebar-collapsed="true"' : "");
       await page.setContent(
         "<!doctype html><html " + htmlAttributes + "><head><style>" +
-          productCss.replace(/<\/style>/gi, "<\\/style>") +
+          baseCss.replace(/<\/style>/gi, "<\\/style>") +
+          '</style><style id="kds-product-utilities">' +
+          utilities.replace(/<\/style>/gi, "<\\/style>") +
           '</style></head><body><div hidden style="display:none" class="' + bodyMarker + '"></div>' +
           group
             .map((probe, index) => {
@@ -922,7 +997,72 @@ try {
           }
           return matched.sort((a, b) => a.rank - b.rank);
         };
+        // **제품이 이 요소에 대해 직접 선언한 property를 전부 센다.**
+        //
+        // 그전까지 게이트는 "내가 EXPECT에 넣기로 기억한 축"만 봤다. 그래서 배너 높이도, 브랜드
+        // 행 높이도, 스크림 칠 순서도 게이트가 초록인 채로 틀려 있었다. 이제 방향을 뒤집는다 —
+        // 제품 정본 클래스가 선언한 property를 기계가 열거하고, 분류되지 않은 것이 있으면 실패다.
+        // "확인하는 걸 잊었나?"가 "확인 안 된 것을 게이트가 나열해 준다"로 바뀐다.
+        const declaredProperties = (element) => {
+          const found = new Map();
+          // 이 요소가 실제로 지닌 클래스를 겨누는 규칙만 센다. Tailwind의 `*, ::before, ::after`
+          // 리셋(`--tw-*` 41개)은 제품이 이 컴포넌트에 대해 declare한 것이 아니다.
+          const own = [...element.classList].map((token) => "." + CSS.escape(token));
+          const walk = (rules) => {
+            for (const rule of rules) {
+              if (rule.media) {
+                if (window.matchMedia(rule.media.mediaText).matches) walk(rule.cssRules);
+                continue;
+              }
+              if (rule.cssRules && !rule.selectorText) {
+                walk(rule.cssRules);
+                continue;
+              }
+              if (!rule.selectorText) continue;
+              for (const part of rule.selectorText.split(/,(?![^(]*\))/)) {
+                // 상태·의사요소 규칙은 기본 상태 열거에서 뺀다. 그 축은 별도 탐침이 본다.
+                if (/(?<!\\)::/.test(part)) continue;
+                const base = part.replace(/(?<!\\):(hover|focus|focus-visible|active|disabled)\b/g, "");
+                let hit = false;
+                try {
+                  hit = element.matches(base);
+                } catch {
+                  hit = false;
+                }
+                if (!hit) continue;
+                if (!own.some((token) => part.includes(token))) continue;
+                const stateOnly = base !== part;
+                for (const property of rule.style) {
+                  const previous = found.get(property);
+                  if (previous === undefined || previous === "state") {
+                    found.set(property, stateOnly ? "state" : "base");
+                  }
+                }
+              }
+            }
+          };
+          // **globals.css도 센다.** `.app-tooltip-chrome`처럼 제품이 전역 클래스로 쓰는 자리가
+          // 있고, 유틸리티 시트만 보면 그 컴포넌트는 "아무것도 선언하지 않은" 것으로 보인다 —
+          // 실제로 툴팁과 체크박스가 그렇게 비어 있었다. 자기 클래스를 겨누는 규칙만 세므로
+          // 전역 리셋이 섞여 들어오지 않는다.
+          for (const sheet of document.styleSheets) {
+            try {
+              walk(sheet.cssRules);
+            } catch {
+              /* 인라인 시트뿐이라 접근이 막힐 일이 없다 */
+            }
+          }
+          const computed = getComputedStyle(element);
+          return Object.fromEntries(
+            [...found.entries()]
+              .filter(([, kind]) => kind === "base")
+              .map(([property]) => [property, computed.getPropertyValue(property).trim()])
+              .sort((a, b) => a[0].localeCompare(b[0])),
+          );
+        };
+
         const out = {};
+        const declared = {};
         probes.forEach((probe, index) => {
           const host = document.querySelector("#probe-" + index);
           let element = host.firstElementChild;
@@ -949,15 +1089,17 @@ try {
             values[property] = name.startsWith("--") ? computed.getPropertyValue(name).trim() : computed[name];
           }
           out[probe.id] = values;
+          declared[probe.id] = declaredProperties(element);
         });
-        return out;
+        return { values: out, declared };
       }, group.map((probe) => ({
         id: probe.id,
         read: probe.read,
         hover: probe.hover ?? false,
         wrapperDepth: [probe.wrapper ?? []].flat().length,
       })));
-      Object.assign(rendered, group_);
+      Object.assign(rendered, group_.values);
+      Object.assign(declaredByProbe, group_.declared);
       await page.close();
     }
     await context.close();
@@ -1120,6 +1262,147 @@ function compare(measured, expect, exempt, collect) {
   return failures;
 }
 
+// ── 제품이 선언한 것을 빠짐없이 분류한다 ──────────────────────────────────
+// **이 게이트의 두 번째 요지다.** 위 EXPECT는 "내가 보기로 한 축"이고, 여기는 "제품이 선언한
+// 축 전부"다. 둘의 차이가 곧 내가 놓친 것이며, 그 차이를 사람이 아니라 기계가 센다.
+const coverage = JSON.parse(readFileSync(resolve(repoRoot, "figma/product-coverage.json"), "utf8"));
+const camel = (property) => property.replace(/-([a-z])/g, (_, c) => c.toUpperCase());
+// 논리 property와 물리 property는 LTR에서 같은 축이다. 한쪽을 대조하면 다른 쪽도 대조된 것이다.
+const AXIS_ALIASES = {
+  paddingInlineStart: "paddingLeft",
+  paddingInlineEnd: "paddingRight",
+  paddingBlockStart: "paddingTop",
+  paddingBlockEnd: "paddingBottom",
+  blockSize: "height",
+  inlineSize: "width",
+  minBlockSize: "minHeight",
+  minInlineSize: "minWidth",
+  borderStartStartRadius: "borderTopLeftRadius",
+  borderEndStartRadius: "borderBottomLeftRadius",
+  borderEndEndRadius: "borderBottomRightRadius",
+  borderStartEndRadius: "borderTopRightRadius",
+  columnGap: "columnGap",
+  rowGap: "rowGap",
+};
+const axisOf = (property) => {
+  const name = camel(property);
+  return AXIS_ALIASES[name] ?? name;
+};
+const comparedAxes = new Map();
+for (const [probeId, property] of EXPECT) {
+  if (property.startsWith("::")) continue;
+  if (!comparedAxes.has(probeId)) comparedAxes.set(probeId, new Set());
+  comparedAxes.get(probeId).add(axisOf(property));
+}
+// 높이·최소높이처럼 한 축을 다른 이름으로 본 자리를 서로 인정한다.
+const EQUIVALENT = [["height", "minHeight"], ["width", "minWidth"]];
+// **대칭 묶음.** 모서리 넷·테두리 네 변·상하좌우 여백은 값이 같으면 한 축이다. 하나를 대조하면
+// 나머지도 대조된 것이다 — 단 **값이 다르면 각자 분류해야 한다.** ProjectCard의 오버레이처럼
+// 아래 두 모서리만 깎는 자리를 이 묶음이 덮어 버리면 안 된다.
+const SYMMETRY = [
+  ["border-top-left-radius", "border-top-right-radius", "border-bottom-left-radius", "border-bottom-right-radius"],
+  ["border-top-width", "border-right-width", "border-bottom-width", "border-left-width"],
+  ["border-top-color", "border-right-color", "border-bottom-color", "border-left-color"],
+  ["border-top-style", "border-right-style", "border-bottom-style", "border-left-style"],
+  ["padding-top", "padding-right", "padding-bottom", "padding-left",
+   "padding-block-start", "padding-inline-end", "padding-block-end", "padding-inline-start"],
+  ["row-gap", "column-gap"],
+];
+const groupOf = (property) => SYMMETRY.find((group) => group.includes(property));
+
+function classify(cov) {
+const unclassified = [];
+for (const [probeId, properties] of Object.entries(declaredByProbe)) {
+  const seen = comparedAxes.get(probeId) ?? new Set();
+  for (const [property, value] of Object.entries(properties)) {
+    const axis = axisOf(property);
+    if (seen.has(axis)) continue;
+    if (EQUIVALENT.some(([a, b]) => (axis === a && seen.has(b)) || (axis === b && seen.has(a)))) continue;
+    const group = groupOf(property);
+    if (
+      group &&
+      group.some(
+        (sibling) =>
+          sibling !== property &&
+          seen.has(axisOf(sibling)) &&
+          properties[sibling] !== undefined &&
+          properties[sibling] === value,
+      )
+    ) {
+      continue;
+    }
+    if (cov.probeScope?.[probeId]?.[property]) continue;
+    if (cov.scope?.[property]) continue;
+    unclassified.push(probeId + " · " + property + " = " + value);
+  }
+}
+// 낡은 사유도 실패다 — 제품이 더 이상 선언하지 않는 property에 사유가 남아 있으면 지운다.
+const declaredSet = new Set(
+  Object.entries(declaredByProbe).flatMap(([probeId, map]) =>
+    Object.keys(map).map((p) => probeId + " · " + p),
+  ),
+);
+const anyDeclared = new Set(Object.values(declaredByProbe).flatMap((map) => Object.keys(map)));
+for (const property of Object.keys(cov.scope ?? {})) {
+  if (property.startsWith("$")) continue;
+  if (!anyDeclared.has(property)) unclassified.push("사유가 낡았습니다 — 제품이 선언하지 않는 property: " + property);
+}
+for (const [probeId, properties] of Object.entries(cov.probeScope ?? {})) {
+  for (const property of Object.keys(properties)) {
+    if (!declaredSet.has(probeId + " · " + property)) {
+      unclassified.push("사유가 낡았습니다 — " + probeId + "이 " + property + "를 선언하지 않습니다");
+    }
+  }
+}
+return unclassified;
+}
+
+const unclassified = classify(coverage);
+
+// **이 게이트가 무엇을 잡는지 스스로 증명한다.** 사유를 하나 지우면 그 축이 미분류로 떠야 한다.
+if (!process.argv.includes("--no-canary")) {
+  const baseline = new Set(unclassified);
+  const TAMPER = [
+    [
+      "전역 사유 제거",
+      (cov) => {
+        const scope = { ...cov.scope };
+        delete scope.cursor;
+        return { ...cov, scope };
+      },
+    ],
+    [
+      "탐침 사유 제거",
+      (cov) => {
+        // 전역 사유가 함께 덮는 property를 지우면 아무 일도 일어나지 않는다 — 탐침 사유만
+        // 갖는 자리를 골라야 검출력이 증명된다.
+        const probeScope = { ...cov.probeScope };
+        for (const [probeId, properties] of Object.entries(probeScope)) {
+          const property = Object.keys(properties).find((name) => cov.scope?.[name] === undefined);
+          if (property === undefined) continue;
+          const { [property]: _removed, ...rest } = properties;
+          return { ...cov, probeScope: { ...probeScope, [probeId]: rest } };
+        }
+        return cov;
+      },
+    ],
+    [
+      "쓰이지 않는 사유 추가",
+      (cov) => ({ ...cov, scope: { ...cov.scope, "made-up-property": "사유" } }),
+    ],
+  ];
+  for (const [label, mutate] of TAMPER) {
+    const introduced = classify(mutate(coverage)).filter((item) => !baseline.has(item));
+    if (introduced.length === 0) {
+      unclassified.push(
+        baseline.size === 0
+          ? "canary가 변조를 잡지 못했습니다: " + label
+          : "canary의 검출력을 증명하지 못했습니다 — 기존 실패에 가려집니다: " + label,
+      );
+    }
+  }
+}
+
 const mismatches = compare(measuredFile.components, EXPECT, measuredFile.$noProductRender ?? {}, true);
 
 // **이 게이트가 무엇을 잡는지 스스로 증명한다.** 변조가 baseline에 없던 실패를 새로 만들어야 한다.
@@ -1186,6 +1469,17 @@ if (!process.argv.includes("--no-canary")) {
   }
 }
 
+if (unclassified.length > 0) {
+  console.error(
+    "[product-components] 제품이 선언했는데 분류되지 않은 축 " + unclassified.length + "건입니다. " +
+      "EXPECT에 대조 행을 넣거나 figma/product-coverage.json에 사유와 함께 범위 밖으로 적으세요.",
+  );
+  const limit = process.env.KDS_LIST_ALL ? unclassified.length : 60;
+  for (const item of unclassified.slice(0, limit)) console.error("[product-components]   " + item);
+  if (unclassified.length > limit) console.error("[product-components]   … 외 " + (unclassified.length - limit) + "건");
+  process.exit(1);
+}
+
 if (mismatches.length > 0) {
   for (const mismatch of mismatches) console.error("[product-components] " + mismatch);
   process.exit(1);
@@ -1212,6 +1506,7 @@ const payload =
         html,
       })),
       rendered,
+      declared: declaredByProbe,
       deviations,
     },
     null,
@@ -1248,5 +1543,7 @@ console.log(
     " · **브라우저가 잰 제품 값과 DS를 " + compared.length + "축 대조** (일치 " +
     (compared.length - deviations.length) + " · 기록된 편차 " + deviations.length +
     ") · 컴포넌트 " + new Set(EXPECT.map(([, , path]) => path[0])).size + "/" +
-    Object.keys(measuredFile.components).length + " 대조",
+    Object.keys(measuredFile.components).length + " 대조" +
+    " · **제품 선언 " + Object.values(declaredByProbe).reduce((sum, map) => sum + Object.keys(map).length, 0) +
+    "건이 빠짐없이 분류됨**",
 );

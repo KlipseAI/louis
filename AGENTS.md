@@ -12,6 +12,26 @@ Product scenes and product-only implementation audits belong in the Klipse produ
 3. `packages/tokens/src/klipse.tokens.json` owns P2 token values; generated token files are projections.
 4. Generated files must be rebuilt; never edit generated regions or `design/llms/*` by hand.
 
+## Never draw a value you did not measure
+
+**This is the rule that has been broken most often.** When reproducing anything the product owns —
+in Figma, in a token, in a measured contract — every number and colour must come from a measurement,
+and the measurement must be recorded in a generated file. Only placeholder *content* may be invented:
+a project title, a person's name, sample copy.
+
+The failure looks the same every time: one element gets measured, the parts around it get drawn from
+memory of what such a thing usually looks like, and the drawing then reads as evidence. It has
+produced a mint upgrade button the product never had, a banner 120px too short, a modal whose action
+row sat at the wrong inset, and a floating button that exists only in a landing-page demo.
+
+- `figma/product-specimens.json` may declare **structure only** — which constant wraps which, the tag
+  it renders as, and placeholder text. It may not contain a single spacing, size, colour, or radius.
+- `scripts/measure-product-variants.mjs` renders that structure and measures every node.
+- Figma inventory pages are generated from those measurements. If a value is absent, it cannot be
+  drawn; add a probe first.
+- The same applies to `figma/components.measured.json`: a value with no measurement behind it needs a
+  `$`-prefixed note naming who decided it and why.
+
 ## Workflow
 
 - Update the manifest, normative document, implementation, tests, and release note together.

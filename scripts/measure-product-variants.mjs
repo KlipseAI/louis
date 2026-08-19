@@ -18,6 +18,7 @@ import { atomicWriteBatch } from "./lib/atomic-output.mjs";
 
 const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const outputPath = resolve(repoRoot, "migration/product.variants.json");
+const specimenPath = resolve(repoRoot, "figma/product-specimens.json");
 const productRoot = process.env.KLIPSE_PRODUCT_REPO ?? "/Users/sejunki/klipse-web";
 const productRef = process.env.KLIPSE_PRODUCT_REF ?? "origin/main";
 const checkOnly = process.argv.includes("--check");
@@ -162,8 +163,60 @@ for (const [alias, source] of Object.entries(sources)) {
   }
 }
 
+// ── 표본: 구조는 사람이 적고 값은 브라우저가 잰다 ──────────────────────────
+// **상상해서 그리지 않기 위한 장치다.** 인벤토리를 처음 그릴 때 모달의 카드만 재고 제목·설명·
+// 액션은 상상해서 그렸다. 실제 제품은 액션 행이 `margin: -8px`로 카드 밖으로 삐져나와 버튼 쪽
+// 여백이 8이고 글자 쪽이 16인데 그림은 둘 다 16이었다. 잰 것 옆에 안 잰 것을 그려 넣으면
+// 그림 전체가 거짓말이 된다.
+//
+// 그래서 표본 파일에는 **구조만** 적는다 — 어떤 상수가 어떤 상수를 감싸는가. 여백·크기·색은
+// 한 줄도 없다. 여기서 그 트리를 그대로 렌더하고 **모든 노드를 잰다.**
+const specimenFile = JSON.parse(readFileSync(specimenPath, "utf8"));
+const constantsByFile = {};
+const classesOf = (file, part) => {
+  if (!constantsByFile[file]) {
+    const source = sources[file] ?? git(["show", commit + ":" + file]);
+    sources[file] = source;
+    constantsByFile[file] = Object.fromEntries(extractAll(source).map((entry) => [entry.name, entry]));
+  }
+  const found = constantsByFile[file][part];
+  if (!found) throw new Error(file + "에 " + part + " 상수가 없습니다.");
+  return found;
+};
+let specimenSeq = 0;
+const specimenNodes = [];
+const buildSpecimen = (specimen, node, path) => {
+  const constant = classesOf(specimen.file, node.part);
+  const index = specimenSeq;
+  specimenSeq += 1;
+  const record = {
+    index,
+    specimen: specimen.id,
+    path,
+    part: node.part,
+    tag: node.tag,
+    line: constant.line,
+    text: node.text ?? "",
+    classes: [node.typography, constant.classes].filter(Boolean).join(" "),
+    children: (node.children ?? []).map((child, order) =>
+      buildSpecimen(specimen, child, path + "/" + child.part + (order > 0 ? "#" + order : "")),
+    ),
+  };
+  specimenNodes.push(record);
+  return record;
+};
+const specimenTrees = specimenFile.specimens.map((specimen) => ({
+  ...specimen,
+  tree: buildSpecimen(specimen, specimen.node, specimen.node.part),
+}));
+const renderSpecimen = (node) =>
+  "<" + node.tag + ' data-sp="' + node.index + '" class="' + node.classes.replace(/"/g, "&quot;") + '">' +
+  (node.children.length > 0 ? node.children.map(renderSpecimen).join("") : node.text) +
+  "</" + node.tag + ">";
+
 const workspace = mkdtempSync(join(tmpdir(), "kds-product-variants-"));
 let rendered;
+let specimenMeasured;
 try {
   const tailwindEntry = git(["show", commit + ":apps/web/app/tailwind.css"]);
   writeFileSync(join(workspace, "entry.css"), tailwindEntry);
@@ -195,6 +248,10 @@ try {
     await page.setContent(
       '<!doctype html><html data-theme="dark"><head><style>' +
         productCss.replace(/<\/style>/gi, "<\\/style>") +
+        // **진입 애니메이션을 끝으로 보낸다.** 마이페이지 모달은 `myPageScaleIn`으로 커지며
+        // 들어오는데, 그 중간에 재면 폭이 345.97처럼 나온다 — 0.961배다. 우리가 그릴 것은
+        // 쉬는 상태이므로 애니메이션을 1ms로 줄여 끝난 뒤를 잰다.
+        "*, *::before, *::after { animation-duration: 1ms !important; animation-delay: 0s !important; }" +
         "</style></head><body>" +
         candidates
           .map(
@@ -202,6 +259,13 @@ try {
               '<div id="v-' + index + '" style="position:relative;width:360px;height:200px">' +
               "<" + candidate.tag + ' class="' + candidate.classes.replace(/"/g, "&quot;") + '">' +
               candidate.text + "</" + candidate.tag + "></div>",
+          )
+          .join("") +
+        specimenTrees
+          .map(
+            (specimen) =>
+              '<div class="kds-specimen-host" style="position:relative;width:420px;padding:24px">' +
+              renderSpecimen(specimen.tree) + "</div>",
           )
           .join("") +
         "</body></html>",
@@ -225,6 +289,23 @@ try {
       },
       { count: candidates.length, axes: AXES },
     );
+    await page.waitForTimeout(80);
+    specimenMeasured = await page.evaluate((axes) => {
+      const out = {};
+      for (const element of document.querySelectorAll("[data-sp]")) {
+        const style = getComputedStyle(element);
+        const values = {};
+        for (const axis of axes) values[axis] = style[axis];
+        for (const axis of ["marginTop", "marginRight", "marginBottom", "marginLeft", "rowGap", "textAlign", "justifyContent", "flexDirection", "display"]) {
+          values[axis] = style[axis];
+        }
+        const rect = element.getBoundingClientRect();
+        values.$width = Math.round(rect.width * 100) / 100;
+        values.$height = Math.round(rect.height * 100) / 100;
+        out[element.dataset.sp] = values;
+      }
+      return out;
+    }, AXES);
     await context.close();
   } finally {
     await browser.close();
@@ -281,6 +362,25 @@ const payload =
       productRef,
       productCommit: commit,
       axes: AXES,
+      $specimenNote:
+        "구조는 figma/product-specimens.json이 적고 값은 여기서 브라우저가 잰다. Figma 인벤토리는 이 트리만으로 그린다 — 여기 없는 값은 그릴 수 없다.",
+      specimens: specimenTrees.map((specimen) => ({
+        id: specimen.id,
+        kind: specimen.kind,
+        label: specimen.label,
+        jsx: specimen.jsx,
+        file: specimen.file,
+        tree: (function attach(node) {
+          return {
+            part: node.part,
+            tag: node.tag,
+            line: node.line,
+            text: node.text,
+            values: specimenMeasured[String(node.index)],
+            children: node.children.map(attach),
+          };
+        })(specimen.tree),
+      })),
       kinds,
     },
     null,
@@ -307,5 +407,5 @@ console.log(
   "[product-variants] " + (checkOnly ? "checked" : "built") + ": @ " + commit.slice(0, 8) + " · " +
     Object.entries(kinds)
       .map(([id, kind]) => id + " " + kind.definitions + "벌→" + kind.groups.length + "묶음")
-      .join(" · "),
+      .join(" · ") + " · 표본 " + specimenTrees.length + "종 노드 " + specimenNodes.length + "개 실측",
 );

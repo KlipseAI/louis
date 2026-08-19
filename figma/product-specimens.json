@@ -1,0 +1,126 @@
+{
+  "$comment": "제품 표본의 **구조**만 적는다. 값은 하나도 적지 않는다 — 모든 수치와 색은 scripts/measure-product-variants.mjs가 브라우저에서 재고, Figma 인벤토리는 그 잰 값만으로 그린다.",
+  "$rule": "**상상해서 그리지 않는다.** 여기 적을 수 있는 것은 셋뿐이다 — ① 어떤 상수가 어떤 상수를 감싸는가 ② 각 상수가 붙는 태그 ③ 사람이 읽을 자리 채움 문구. 여백·크기·색·반경은 적을 수 없고, 적으면 그것은 측정이 아니라 창작이다. 구조 자체도 JSX에서 읽은 것이며 `jsx` 필드가 그 위치를 가리킨다.",
+  "$whyThisExists": "인벤토리 첫 판에서 모달을 그릴 때 카드만 재고 제목·설명·액션은 상상해서 그렸다. 실제 제품은 액션 행이 `margin: -8px`로 카드 밖으로 삐져나와 버튼 쪽 여백이 8이고 글자 쪽이 16인데, 그림은 둘 다 16이었다. owner가 그 차이를 알아봤다. 잰 것 옆에 안 잰 것을 그려 넣으면 그림 전체가 거짓말이 된다.",
+  "specimens": [
+    {
+      "id": "dialog/appHome",
+      "kind": "dialog",
+      "label": "삭제 확인 모달",
+      "jsx": "apps/web/components/scenes/AppHomeScene.tsx:1379-1410",
+      "file": "apps/web/components/scenes/appHomeSceneStyles.ts",
+      "node": {
+        "part": "modalCard",
+        "tag": "div",
+        "children": [
+          {
+            "part": "modalTitle",
+            "tag": "h3",
+            "typography": "type-body-16-semibold",
+            "text": "프로젝트를 삭제할까요?"
+          },
+          {
+            "part": "modalDescription",
+            "tag": "p",
+            "typography": "type-body-16-regular",
+            "text": "삭제하면 되돌릴 수 없습니다."
+          },
+          {
+            "part": "modalActions",
+            "tag": "div",
+            "children": [
+              {
+                "part": "modalCancel",
+                "tag": "button",
+                "typography": "type-body-16-medium",
+                "text": "취소"
+              },
+              {
+                "part": "modalConfirm",
+                "tag": "button",
+                "typography": "type-body-16-medium",
+                "text": "삭제"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "dialog/myPage",
+      "kind": "dialog",
+      "label": "마이페이지 확인 모달",
+      "jsx": "apps/web/components/scenes/SubscriptionScene.tsx:1275-1310",
+      "file": "apps/web/components/scenes/myPageSceneStyles.ts",
+      "node": {
+        "part": "modalCard",
+        "tag": "div",
+        "children": [
+          {
+            "part": "modalTitle",
+            "tag": "h3",
+            "typography": "type-body-16-semibold",
+            "text": "프로젝트를 삭제할까요?"
+          },
+          {
+            "part": "modalDescription",
+            "tag": "p",
+            "typography": "type-body-14-regular",
+            "text": "삭제하면 되돌릴 수 없습니다."
+          },
+          {
+            "part": "modalActions",
+            "tag": "div",
+            "children": [
+              {
+                "part": "modalCancel",
+                "tag": "button",
+                "typography": "type-body-14-medium",
+                "text": "취소"
+              },
+              {
+                "part": "modalConfirm",
+                "tag": "button",
+                "typography": "type-body-14-medium",
+                "text": "삭제"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "toast/appHome",
+      "kind": "toast",
+      "label": "앱 홈 · 하이라이트 토스트",
+      "jsx": "apps/web/components/scenes/AppHomeScene.tsx:1418-1428",
+      "file": "apps/web/components/scenes/appHomeSceneStyles.ts",
+      "node": {
+        "part": "toast",
+        "tag": "div",
+        "children": [
+          {
+            "part": "toastText",
+            "tag": "span",
+            "typography": "type-body-16-regular",
+            "text": "저장했어요"
+          }
+        ]
+      }
+    },
+    {
+      "id": "toast/myPage",
+      "kind": "toast",
+      "label": "마이페이지 토스트 — 글자를 자기가 갖는다",
+      "jsx": "apps/web/components/scenes/SubscriptionScene.tsx:1322 · SettingsScene.tsx:1959",
+      "file": "apps/web/components/scenes/myPageSceneStyles.ts",
+      "node": {
+        "part": "toast",
+        "tag": "div",
+        "typography": "type-body-16-regular",
+        "text": "저장했어요"
+      }
+    }
+  ],
+  "$correctionLog": "첫 판에서 넷을 상상했다 — ① 모달 카드에 typography 클래스가 있다고 적었다(없다) ② 마이페이지 토스트에 toastText 자식이 있다고 적었다(없다. 토스트 자신이 글자를 갖는다) ③ 토스트 글자를 body-14-medium이라고 적었다(body-16-regular다) ④ 마이페이지 모달의 버튼 글자를 body-16이라고 적었다(그 소비처는 body-14다). 스크립트가 없는 상수를 만나면 죽는다 — ②가 그렇게 잡혔다. 나머지 셋은 JSX를 읽어 고쳤다."
+}

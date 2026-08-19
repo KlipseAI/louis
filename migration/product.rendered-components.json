@@ -97,12 +97,12 @@
     },
     {
       "id": "toast",
-      "source": "appHomeSceneStyles.ts toast",
+      "source": "appHomeSceneStyles.ts toast + AppHomeScene.tsx floatingCtaBlurStyle(인라인)",
       "hover": false,
       "from": "apps/web/components/scenes/appHomeSceneStyles.ts → toast",
       "doc": "default",
       "wrapper": null,
-      "html": "<div class=\"tw-ah-080 [position:fixed] [bottom:32px] [left:50%] [transform:translateX(-50%)] [z-index:1300] [padding:12px_20px] [border-radius:16px] [backdrop-filter:blur(10px)] [box-shadow:0_8px_20px_rgb(var(--gray-1000-rgb)_/_16%),_var(--glass-bevel-highlight)_rgb(var(--glass-inner-shadow-rgb)_/_25%),_var(--glass-bevel-shade)_rgb(var(--glass-inner-shadow-rgb)_/_25%)] [animation:appHomeToastIn_280ms_ease] [html[data-theme=light]_&]:[background:rgb(var(--palette-gray-800-rgb)_/_70%)] [html[data-theme=dark]_&]:[background:rgb(var(--palette-gray-200-rgb)_/_70%)]\">저장했어요</div>"
+      "html": "<div class=\"tw-ah-080 [position:fixed] [bottom:32px] [left:50%] [transform:translateX(-50%)] [z-index:1300] [padding:12px_20px] [border-radius:16px] [backdrop-filter:blur(10px)] [box-shadow:0_8px_20px_rgb(var(--gray-1000-rgb)_/_16%),_var(--glass-bevel-highlight)_rgb(var(--glass-inner-shadow-rgb)_/_25%),_var(--glass-bevel-shade)_rgb(var(--glass-inner-shadow-rgb)_/_25%)] [animation:appHomeToastIn_280ms_ease] [html[data-theme=light]_&]:[background:rgb(var(--palette-gray-800-rgb)_/_70%)] [html[data-theme=dark]_&]:[background:rgb(var(--palette-gray-200-rgb)_/_70%)]\" style=\"backdrop-filter:blur(16px) saturate(130%);-webkit-backdrop-filter:blur(16px) saturate(130%)\">저장했어요</div>"
     },
     {
       "id": "toast-highlight",
@@ -702,7 +702,7 @@
       "paddingLeft": "20px",
       "borderTopLeftRadius": "16px",
       "borderTopWidth": "0px",
-      "backdropFilter": "blur(10px)",
+      "backdropFilter": "blur(16px) saturate(1.3)",
       "height": "48px"
     },
     "toast-highlight": {
@@ -1293,7 +1293,7 @@
       "animation-range-start": "normal",
       "animation-timeline": "auto",
       "animation-timing-function": "ease",
-      "backdrop-filter": "blur(10px)",
+      "backdrop-filter": "blur(16px) saturate(1.3)",
       "background-attachment": "scroll",
       "background-clip": "border-box",
       "background-color": "rgba(227, 228, 232, 0.7)",
@@ -1314,7 +1314,7 @@
       "padding-right": "20px",
       "padding-top": "12px",
       "position": "fixed",
-      "transform": "matrix(1, 0, 0, 1, -59.5625, 9.83685)",
+      "transform": "matrix(1, 0, 0, 1, -59.5625, 10)",
       "z-index": "1300"
     },
     "toast-highlight": {
@@ -1350,7 +1350,7 @@
       "padding-right": "20px",
       "padding-top": "12px",
       "position": "fixed",
-      "transform": "matrix(1, 0, 0, 1, -59.5625, 9.83685)",
+      "transform": "matrix(1, 0, 0, 1, -59.5625, 10)",
       "z-index": "1300"
     },
     "toast-mypage": {
@@ -1403,7 +1403,7 @@
       "padding-right": "24px",
       "padding-top": "12px",
       "position": "fixed",
-      "transform": "matrix(1, 0, 0, 1, -64.5625, 9.83685)",
+      "transform": "matrix(1, 0, 0, 1, -64.5625, 10)",
       "z-index": "2000"
     },
     "dialog-card-mypage": {
@@ -2017,7 +2017,7 @@
       "::after position": "absolute",
       "::after right": "0px",
       "::after top": "0px",
-      "::after transform": "matrix(1, 0, 0, 1, -359.944, 0)",
+      "::after transform": "matrix(1, 0, 0, 1, -360, 0)",
       "background-attachment": "scroll",
       "background-clip": "border-box",
       "background-color": "rgba(250, 250, 250, 0.08)",

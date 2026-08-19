@@ -3722,7 +3722,6 @@
       }
     },
     "blur": {
-      "$type": "dimension",
       "10": {
         "$value": {
           "value": 10,
@@ -3746,7 +3745,20 @@
             "tier": "primitive"
           }
         }
-      }
+      },
+      "16": {
+        "$value": {
+          "value": 16,
+          "unit": "px"
+        },
+        "$extensions": {
+          "com.klipse-design": {
+            "id": "blur-16",
+            "tier": "primitive"
+          }
+        }
+      },
+      "$type": "dimension"
     },
     "border-width": {
       "$type": "dimension",
@@ -4703,7 +4715,16 @@
         }
       },
       "blur": {
-        "$type": "dimension",
+        "panel": {
+          "$value": "{primitive.blur.12}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "blur-panel",
+              "tier": "semantic",
+              "mode": "global"
+            }
+          }
+        },
         "surface": {
           "$value": "{primitive.blur.10}",
           "$extensions": {
@@ -4714,16 +4735,17 @@
             }
           }
         },
-        "panel": {
-          "$value": "{primitive.blur.12}",
+        "toast": {
+          "$value": "{primitive.blur.16}",
           "$extensions": {
             "com.klipse-design": {
-              "id": "blur-panel",
+              "id": "blur-toast",
               "tier": "semantic",
               "mode": "global"
             }
           }
-        }
+        },
+        "$type": "dimension"
       },
       "border-width": {
         "$type": "dimension",

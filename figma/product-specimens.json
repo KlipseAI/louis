@@ -105,7 +105,11 @@
             "typography": "type-body-16-regular",
             "text": "저장했어요"
           }
-        ]
+        ],
+        "inlineFrom": {
+          "file": "apps/web/components/scenes/AppHomeScene.tsx",
+          "name": "floatingCtaBlurStyle"
+        }
       }
     },
     {
@@ -179,5 +183,6 @@
       }
     }
   ],
-  "$correctionLog": "첫 판에서 넷을 상상했다 — ① 모달 카드에 typography 클래스가 있다고 적었다(없다) ② 마이페이지 토스트에 toastText 자식이 있다고 적었다(없다. 토스트 자신이 글자를 갖는다) ③ 토스트 글자를 body-14-medium이라고 적었다(body-16-regular다) ④ 마이페이지 모달의 버튼 글자를 body-16이라고 적었다(그 소비처는 body-14다). 스크립트가 없는 상수를 만나면 죽는다 — ②가 그렇게 잡혔다. 나머지 셋은 JSX를 읽어 고쳤다."
+  "$correctionLog": "첫 판에서 넷을 상상했다 — ① 모달 카드에 typography 클래스가 있다고 적었다(없다) ② 마이페이지 토스트에 toastText 자식이 있다고 적었다(없다. 토스트 자신이 글자를 갖는다) ③ 토스트 글자를 body-14-medium이라고 적었다(body-16-regular다) ④ 마이페이지 모달의 버튼 글자를 body-16이라고 적었다(그 소비처는 body-14다). 스크립트가 없는 상수를 만나면 죽는다 — ②가 그렇게 잡혔다. 나머지 셋은 JSX를 읽어 고쳤다.",
+  "$inlineRule": "소비처가 인라인 style로 얹는 선언은 클래스를 이긴다. 그 값을 여기 적지 않고 **상수 이름만** 가리킨다(`inlineFrom`) — 값은 스크립트가 소스에서 꺼낸다."
 }

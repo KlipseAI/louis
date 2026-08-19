@@ -300,9 +300,9 @@
           "fontSize": 14,
           "lineHeight": 21,
           "$height": "padding 12+12 + line-height 21 = 45. 테두리가 없다",
-          "backdropBlur": 10,
+          "backdropBlur": 16,
           "$paddingInline": "제품 20px. space-toast-inline을 세웠다",
-          "$backdropBlur": "제품 backdrop-filter: blur(10px). Figma에서는 BACKGROUND_BLUR effect이며 radius를 blur/surface 변수에 문다",
+          "$backdropBlur": "16. 10으로 적혀 있었고 사유가 '제품 backdrop-filter: blur(10px)'였는데 그것은 **지고 있는 선언**이었다 — 앱 홈과 노드캔버스 홈이 인라인 style로 blur(16px) saturate(130%)를 얹어 클래스를 이긴다. 제품 안에서도 갈린다(홈 둘 16 · 하이라이트 10 · 에디터 8 · 워크스페이스 12). 가장 많이 보이는 두 화면의 값을 따른다. Figma에서는 BACKGROUND_BLUR effect다.",
           "$shadow": "drop 1겹만 남았다. 글래스 베벨 inset 2겹은 owner가 개념 자체를 없애기로 해 제거했다"
         }
       },

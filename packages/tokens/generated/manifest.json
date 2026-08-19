@@ -2,23 +2,23 @@
   "artifacts": [
     {
       "path": "packages/tokens/generated/figma.tokens.json",
-      "sha256": "c88e927ba04ea40f6a884e88df04d5c40a3085edcb4560c66e779602aed2d4b5"
+      "sha256": "687e0eed95680278a68d1718c383b490c63a7092618b2e1ed673221e012c62cc"
     },
     {
       "path": "packages/tokens/generated/index.d.ts",
-      "sha256": "2b110f8cebc42fc959339e68341031c9c59defe3c915a56defd4d725a6f89531"
+      "sha256": "77d97b338f96702fb0cb9a952c29db3fef0ffb10c3032dc77eda468b495b982e"
     },
     {
       "path": "packages/tokens/generated/index.js",
-      "sha256": "609410ce38d61f10d3ec88ae252ce853f5107ff45c6a2e77d9c971a4fc00f9ff"
+      "sha256": "39e55be685701251cbf30eb583449334af5126f55f0f34fce22a2b539fed618f"
     },
     {
       "path": "packages/tokens/generated/tokens.css",
-      "sha256": "69bc1a9f34202ee0359441ff38872d90f85f4c6d6b2196681d1c1e285498d197"
+      "sha256": "05cc2cf2975fc247f95c0bc956e1b1e196172a15c0c0dd540506ccd3590ac676"
     },
     {
       "path": "packages/tokens/generated/tokens.json",
-      "sha256": "35dfef33e615cd082395351e7ef24c83d975a461409ea427863bb6d939576f6e"
+      "sha256": "39c2b2e01244e42066a4bfe8c89707e0f8fe5270f1d7f4a22a9a3fb0a73d7650"
     }
   ],
   "contrastPairs": [
@@ -388,13 +388,13 @@
   },
   "source": {
     "path": "packages/tokens/src/klipse.tokens.json",
-    "sha256": "e1495e34afb6ada76803f445a3fd8ee64ec4018fa29976aa164c85bff3d81246"
+    "sha256": "f68fa01dfb0dace070b224c5a63f208298a2a4104161de37d14fe95f337bb2c2"
   },
   "themes": [
     "light",
     "dark"
   ],
-  "tokenCount": 395,
+  "tokenCount": 397,
   "tokens": [
     {
       "aliasTarget": null,
@@ -431,6 +431,25 @@
         "value": 12
       },
       "sourcePath": "primitive.blur.12",
+      "tier": "primitive",
+      "type": "dimension"
+    },
+    {
+      "aliasTarget": null,
+      "cssProperties": {},
+      "deprecated": null,
+      "description": null,
+      "id": "blur-16",
+      "mode": "base",
+      "rawValue": {
+        "unit": "px",
+        "value": 16
+      },
+      "resolvedValue": {
+        "unit": "px",
+        "value": 16
+      },
+      "sourcePath": "primitive.blur.16",
       "tier": "primitive",
       "type": "dimension"
     },
@@ -473,6 +492,27 @@
         "value": 10
       },
       "sourcePath": "semantic.global.blur.surface",
+      "tier": "semantic",
+      "type": "dimension"
+    },
+    {
+      "aliasTarget": {
+        "id": "blur-16",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-blur-toast": "16px"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "blur-toast",
+      "mode": "global",
+      "rawValue": "{primitive.blur.16}",
+      "resolvedValue": {
+        "unit": "px",
+        "value": 16
+      },
+      "sourcePath": "semantic.global.blur.toast",
       "tier": "semantic",
       "type": "dimension"
     },

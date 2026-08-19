@@ -405,6 +405,25 @@ export const primitives = {
       "unit": "px"
     }
   },
+  "blur-16": {
+    "aliasTarget": null,
+    "cssProperties": {},
+    "deprecated": null,
+    "description": null,
+    "id": "blur-16",
+    "mode": "base",
+    "rawValue": {
+      "value": 16,
+      "unit": "px"
+    },
+    "sourcePath": "primitive.blur.16",
+    "tier": "primitive",
+    "type": "dimension",
+    "value": {
+      "value": 16,
+      "unit": "px"
+    }
+  },
   "border-width-hairline-base": {
     "aliasTarget": null,
     "cssProperties": {},
@@ -6158,6 +6177,27 @@ export const tokens = {
       "type": "dimension",
       "value": {
         "value": 10,
+        "unit": "px"
+      }
+    },
+    "blur-toast": {
+      "aliasTarget": {
+        "id": "blur-16",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-blur-toast": "16px"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "blur-toast",
+      "mode": "global",
+      "rawValue": "{primitive.blur.16}",
+      "sourcePath": "semantic.global.blur.toast",
+      "tier": "semantic",
+      "type": "dimension",
+      "value": {
+        "value": 16,
         "unit": "px"
       }
     },

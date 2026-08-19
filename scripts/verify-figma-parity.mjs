@@ -203,7 +203,7 @@ const COMPONENT_CONTRACTS = [
     id: "toast",
     strokes: {},
     effects: {
-      self: "DROP_SHADOW:8:20:0 + BACKGROUND_BLUR:NORMAL:var(blur/surface)",
+      self: "DROP_SHADOW:8:20:0 + BACKGROUND_BLUR:NORMAL:var(blur/toast)",
     },
     figmaName: "Toast",
     propProperties: { Message: "message" },

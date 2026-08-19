@@ -185,6 +185,30 @@ const classesOf = (file, part) => {
 };
 let specimenSeq = 0;
 const specimenNodes = [];
+/** 소비처가 인라인으로 얹는 style 객체를 소스에서 꺼낸다. **클래스를 이기는 선언이 여기 숨는다.** */
+const inlineStyleOf = (file, name) => {
+  const source = sources[file] ?? git(["show", commit + ":" + file]);
+  sources[file] = source;
+  const anchor = new RegExp("const\\s+" + name + "\\s*=\\s*\\{", "m").exec(source);
+  if (!anchor) throw new Error(file + "에 " + name + " 인라인 style이 없습니다.");
+  let depth = 0;
+  let cursor = anchor.index + anchor[0].length - 1;
+  for (; cursor < source.length; cursor += 1) {
+    if (source[cursor] === "{") depth += 1;
+    else if (source[cursor] === "}") {
+      depth -= 1;
+      if (depth === 0) break;
+    }
+  }
+  const body = source.slice(anchor.index + anchor[0].length, cursor);
+  const declarations = [];
+  for (const match of body.matchAll(/([A-Za-z][A-Za-z0-9]*)\s*:\s*"((?:[^"\\]|\\.)*)"/g)) {
+    const property = match[1].replace(/[A-Z]/g, (c) => "-" + c.toLowerCase());
+    declarations.push(property + ":" + JSON.parse('"' + match[2] + '"'));
+  }
+  return declarations.join(";");
+};
+
 const buildSpecimen = (specimen, node, path) => {
   const constant = classesOf(specimen.file, node.part);
   const index = specimenSeq;
@@ -198,6 +222,7 @@ const buildSpecimen = (specimen, node, path) => {
     line: constant.line,
     text: node.text ?? "",
     classes: [node.typography, constant.classes].filter(Boolean).join(" "),
+    inline: node.inlineFrom ? inlineStyleOf(node.inlineFrom.file, node.inlineFrom.name) : "",
     children: (node.children ?? []).map((child, order) =>
       buildSpecimen(specimen, child, path + "/" + child.part + (order > 0 ? "#" + order : "")),
     ),
@@ -210,7 +235,8 @@ const specimenTrees = specimenFile.specimens.map((specimen) => ({
   tree: buildSpecimen(specimen, specimen.node, specimen.node.part),
 }));
 const renderSpecimen = (node) =>
-  "<" + node.tag + ' data-sp="' + node.index + '" class="' + node.classes.replace(/"/g, "&quot;") + '">' +
+  "<" + node.tag + ' data-sp="' + node.index + '" class="' + node.classes.replace(/"/g, "&quot;") + '"' +
+  (node.inline ? ' style="' + node.inline.replace(/"/g, "&quot;") + '"' : "") + ">" +
   (node.children.length > 0 ? node.children.map(renderSpecimen).join("") : node.text) +
   "</" + node.tag + ">";
 
@@ -364,6 +390,8 @@ const payload =
       axes: AXES,
       $specimenNote:
         "구조는 figma/product-specimens.json이 적고 값은 여기서 브라우저가 잰다. Figma 인벤토리는 이 트리만으로 그린다 — 여기 없는 값은 그릴 수 없다.",
+      $inlineNote:
+        "소비처가 인라인 style로 얹어 클래스를 이기는 선언이 있다. 앱 홈 토스트가 그렇다 — 클래스는 blur(10px)인데 인라인이 blur(16px) saturate(130%)로 덮는다. 구조 파일이 그 상수 이름을 가리키고 여기서 소스에서 꺼내 함께 렌더한다.",
       specimens: specimenTrees.map((specimen) => ({
         id: specimen.id,
         kind: specimen.kind,

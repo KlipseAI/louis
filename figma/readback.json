@@ -49,6 +49,18 @@
           ]
         ],
         [
+          "blur/16",
+          "FLOAT",
+          "EFFECT_FLOAT",
+          [
+            [
+              "Base",
+              null,
+              16
+            ]
+          ]
+        ],
+        [
           "border-width/hairline",
           "FLOAT",
           "STROKE_FLOAT",
@@ -1816,6 +1828,18 @@
             [
               "Global",
               "Klipse Primitive::blur/10",
+              null
+            ]
+          ]
+        ],
+        [
+          "blur/toast",
+          "FLOAT",
+          "EFFECT_FLOAT",
+          [
+            [
+              "Global",
+              "Klipse Primitive::blur/16",
               null
             ]
           ]
@@ -6991,7 +7015,7 @@
       "strokes": {},
       "effects": {
         "self": [
-          "DROP_SHADOW:8:20:0 + BACKGROUND_BLUR:NORMAL:var(blur/surface)"
+          "DROP_SHADOW:8:20:0 + BACKGROUND_BLUR:NORMAL:var(blur/toast)"
         ]
       }
     },

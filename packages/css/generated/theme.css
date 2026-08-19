@@ -14,6 +14,7 @@
   /* 흐림 — blur-*, backdrop-blur-* 유틸리티가 된다 */
   --blur-panel: var(--kds-blur-panel);
   --blur-surface: var(--kds-blur-surface);
+  --blur-toast: var(--kds-blur-toast);
 
   /* 색 — bg-*, text-*, border-* 유틸리티가 된다 */
   --color-action-danger: var(--kds-color-action-danger);

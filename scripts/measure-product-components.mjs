@@ -28,6 +28,7 @@ const checkOnly = process.argv.includes("--check");
 const FILES = {
   gnb: "apps/web/components/navigation/Gnb.tsx",
   appHome: "apps/web/components/scenes/appHomeSceneStyles.ts",
+  appHomeScene: "apps/web/components/scenes/AppHomeScene.tsx",
   highlight: "apps/web/components/scenes/highlightSceneStyles.ts",
   myPage: "apps/web/components/scenes/myPageSceneStyles.ts",
   carousel: "apps/web/components/banners/TabBannerCarousel.tsx",
@@ -105,8 +106,12 @@ const PROBES = [
   },
   {
     id: "toast",
-    source: "appHomeSceneStyles.ts toast",
+    // **소비처가 인라인으로 얹는 선언이 클래스를 이긴다.** 클래스는 blur(10px)인데 앱 홈과
+    // 노드캔버스 홈이 인라인으로 blur(16px) saturate(130%)를 건다 — 화면에 보이는 것은 그쪽이다.
+    // 클래스만 재고 DS 값을 정했다가 10으로 굳어 있었다.
+    source: "appHomeSceneStyles.ts toast + AppHomeScene.tsx floatingCtaBlurStyle(인라인)",
     from: ["appHome", "toast"],
+    inlineFrom: ["appHomeScene", "floatingCtaBlurStyle"],
     text: "저장했어요",
     read: ["paddingTop", "paddingLeft", "borderTopLeftRadius", "borderTopWidth", "backdropFilter", "height"],
   },
@@ -569,6 +574,7 @@ const EXPECT = [
   ["toast", "paddingLeft", ["toast", "sizes", "base", "paddingInline"], "same"],
   ["toast", "borderTopLeftRadius", ["toast", "sizes", "base", "radius"], "same"],
   ["toast", "borderTopWidth", ["toast", "sizes", "base", "borderWidth"], "same"],
+  ["toast", "backdropFilter", ["toast", "sizes", "base", "backdropBlur"], "same"],
   ["toast", "height", ["toast", "sizes", "base", "height"], "deviates",
     "제품 48, DS 45. 제품 토스트는 글자 크기를 지정하지 않아 문서 기본 16/24를 물려받고 DS는 body-sm 14/21을 쓴다. 여백은 12/20으로 같다 — 높이 차이는 전부 타이포다."],
 
@@ -894,15 +900,36 @@ try {
   // 색을 잰다. 화면에 그리지 않고 `:has()`만 만족시키면 된다.
   const bodyMarker = extractClassList(sources.gnb, "wrapperSidebar", FILES.gnb);
 
+  // 소비처의 인라인 style 객체를 소스에서 꺼낸다. 값을 옮겨 적지 않는다.
+  const inlineStyleOf = (alias, name) => {
+    const source = sources[alias];
+    const anchor = new RegExp("const\\s+" + name + "\\s*=\\s*\\{", "m").exec(source);
+    if (!anchor) throw new Error(FILES[alias] + "에 " + name + " 인라인 style이 없습니다.");
+    let depth = 0;
+    let cursor = anchor.index + anchor[0].length - 1;
+    for (; cursor < source.length; cursor += 1) {
+      if (source[cursor] === "{") depth += 1;
+      else if (source[cursor] === "}") {
+        depth -= 1;
+        if (depth === 0) break;
+      }
+    }
+    const body = source.slice(anchor.index + anchor[0].length, cursor);
+    return [...body.matchAll(/([A-Za-z][A-Za-z0-9]*)\s*:\s*"((?:[^"\\]|\\.)*)"/g)]
+      .map((match) => match[1].replace(/[A-Z]/g, (c) => "-" + c.toLowerCase()) + ":" + JSON.parse('"' + match[2] + '"'))
+      .join(";");
+  };
   for (const probe of PROBES) {
     if (!probe.from) continue;
     const [alias, ...keys] = probe.from;
     probe.classes = keys
       .map((key) => extractClassList(sources[alias], key, FILES[alias]))
       .join(" ");
+    const inline = probe.inlineFrom ? inlineStyleOf(probe.inlineFrom[0], probe.inlineFrom[1]) : "";
     const tag = probe.tag ?? "div";
     probe.html =
-      "<" + tag + ' class="' + probe.classes + '">' + (probe.text ?? "") + "</" + tag + ">";
+      "<" + tag + ' class="' + probe.classes + '"' + (inline ? ' style="' + inline + '"' : "") + ">" +
+      (probe.text ?? "") + "</" + tag + ">";
   }
 
   const compiled = await compile(tailwindEntry, {
@@ -1250,7 +1277,9 @@ function compare(measured, expect, exempt, collect) {
       if (collect) compared.push(label);
       continue;
     }
-    const actual = Number.parseFloat(raw) * scale;
+    // `blur(16px) saturate(1.3)`처럼 함수로 감싼 값은 앞의 수가 축이다.
+    const numeric = Number.parseFloat(raw);
+    const actual = (Number.isFinite(numeric) ? numeric : Number.parseFloat((/[\d.]+/.exec(raw ?? "") ?? ["NaN"])[0])) * scale;
     if (!Number.isFinite(actual)) {
       failures.push(label + "를 읽지 못했습니다 (" + raw + ").");
       continue;

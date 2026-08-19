@@ -6,12 +6,12 @@
     "capturedAt": "2026-08-18",
     "capturedBy": "figma-mcp-plugin-api",
     "published": false,
-    "tokenSourceSha256": "e1495e34afb6ada76803f445a3fd8ee64ec4018fa29976aa164c85bff3d81246",
-    "proposalSha256": "c88e927ba04ea40f6a884e88df04d5c40a3085edcb4560c66e779602aed2d4b5",
+    "tokenSourceSha256": "f68fa01dfb0dace070b224c5a63f208298a2a4104161de37d14fe95f337bb2c2",
+    "proposalSha256": "687e0eed95680278a68d1718c383b490c63a7092618b2e1ed673221e012c62cc",
     "readback": {
-      "tokens": 256,
-      "canonicalLength": 22417,
-      "fnv1a32": "e2979a7f",
+      "tokens": 258,
+      "canonicalLength": 22526,
+      "fnv1a32": "72d11916",
       "note": "변수는 readback.json의 되읽기 행을 tokenId 공간으로 옮긴 것이고, style과 component는 같은 되읽기의 style/component 절이다. canonical 해시는 컬렉션·이름·타입·mode 값을 정렬해 이은 문자열의 FNV-1a다.",
       "styles": {
         "text": 15,
@@ -31,14 +31,14 @@
         "Base"
       ],
       "defaultMode": "Base",
-      "variableCount": 122
+      "variableCount": 123
     },
     "Klipse Semantic": {
       "modes": [
         "Global"
       ],
       "defaultMode": "Global",
-      "variableCount": 74
+      "variableCount": 75
     },
     "Klipse Semantic Color": {
       "modes": [
@@ -68,6 +68,15 @@
         }
       }
     },
+    "blur-16": {
+      "figmaName": "blur/16",
+      "resolvedType": "FLOAT",
+      "valuesByMode": {
+        "Base": {
+          "value": 16
+        }
+      }
+    },
     "blur-panel": {
       "figmaName": "blur/panel",
       "resolvedType": "FLOAT",
@@ -83,6 +92,15 @@
       "valuesByMode": {
         "Global": {
           "alias": "blur-10"
+        }
+      }
+    },
+    "blur-toast": {
+      "figmaName": "blur/toast",
+      "resolvedType": "FLOAT",
+      "valuesByMode": {
+        "Global": {
+          "alias": "blur-16"
         }
       }
     },
@@ -6188,7 +6206,7 @@
       "strokes": {},
       "effects": {
         "self": [
-          "DROP_SHADOW:8:20:0 + BACKGROUND_BLUR:NORMAL:var(blur/surface)"
+          "DROP_SHADOW:8:20:0 + BACKGROUND_BLUR:NORMAL:var(blur/toast)"
         ]
       }
     },

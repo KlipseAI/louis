@@ -166,7 +166,8 @@ test("Toast의 구조값이 components.measured.json과 같다", async () => {
   expect(px(style.fontSize), "fontSize").toBe(spec.fontSize);
   expect(round(px(style.lineHeight)), "lineHeight").toBe(spec.lineHeight);
   expect(px(style.borderTopWidth), "borderWidth").toBe(spec.borderWidth);
-  expect(style.backdropFilter, "backdropBlur").toBe(`blur(${spec.backdropBlur}px)`);
+  // saturate는 흐림 뒤로 비치는 색이 죽지 않게 되살린다. 제품이 흐림과 함께 얹는다.
+  expect(style.backdropFilter, "backdropBlur").toBe(`blur(${spec.backdropBlur}px) saturate(1.3)`);
 });
 
 test("Menu 패널과 항목의 구조값이 components.measured.json과 같다", async () => {

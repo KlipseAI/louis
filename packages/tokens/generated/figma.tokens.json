@@ -443,6 +443,34 @@
             }
           }
         },
+        "blur-16": {
+          "$type": "dimension",
+          "fields": [],
+          "figmaName": "blur/16",
+          "hiddenFromPublishing": true,
+          "losses": [
+            "Figma FLOAT는 DTCG 단위 의미를 직접 보존하지 않으므로 source metadata를 함께 검토해야 합니다."
+          ],
+          "nativeVariableType": "FLOAT",
+          "representation": "variable",
+          "scopes": [
+            "WIDTH_HEIGHT"
+          ],
+          "valuesByMode": {
+            "Base": {
+              "$value": {
+                "unit": "px",
+                "value": 16
+              },
+              "aliasTarget": null,
+              "resolvedValue": {
+                "unit": "px",
+                "value": 16
+              },
+              "sourcePath": "primitive.blur.16"
+            }
+          }
+        },
         "border-width-hairline-base": {
           "$type": "dimension",
           "fields": [],
@@ -7969,6 +7997,34 @@
                 "value": 10
               },
               "sourcePath": "semantic.global.blur.surface"
+            }
+          }
+        },
+        "blur-toast": {
+          "$type": "dimension",
+          "fields": [],
+          "figmaName": "blur/toast",
+          "hiddenFromPublishing": false,
+          "losses": [
+            "Figma FLOAT는 DTCG 단위 의미를 직접 보존하지 않으므로 source metadata를 함께 검토해야 합니다."
+          ],
+          "nativeVariableType": "FLOAT",
+          "representation": "variable",
+          "scopes": [
+            "WIDTH_HEIGHT"
+          ],
+          "valuesByMode": {
+            "Global": {
+              "$value": "{primitive.blur.16}",
+              "aliasTarget": {
+                "id": "blur-16",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "unit": "px",
+                "value": 16
+              },
+              "sourcePath": "semantic.global.blur.toast"
             }
           }
         },

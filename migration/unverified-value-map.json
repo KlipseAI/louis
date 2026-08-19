@@ -1,0 +1,3080 @@
+{
+  "$comment": "제품 대조도 사유도 없는 DS 값 359건이 제품의 무엇에 대응하는지 찾은 결과다. **검증되지 않았다.**",
+  "$warning": "이 파일은 에이전트가 소스를 읽고 적은 것이며 반증 판정을 거치지 않았다. 시간이 모자라 반증 단계를 떼어 냈다. **여기 적힌 값을 그대로 DS에 옮기지 않는다** — 인계서 (A2)가 반증을, (A3)이 브라우저 실측을 맡는다. 값을 판정하는 것은 사람도 에이전트도 아니고 브라우저다.",
+  "$howToUse": "product-has: 제품에 대응 선언이 있다는 주장이다. 상수·파일·줄을 직접 확인한 뒤 탐침과 EXPECT 행을 넣고 브라우저가 판정하게 한다. product-none·derived: 왜 그 값인지를 `$키` 주석과 규범 문서에 적고 명부에서 지운다.",
+  "$counts": {
+    "product-has": 244,
+    "derived": 62,
+    "product-none": 54
+  },
+  "$coverage": {
+    "명부": 359,
+    "매핑됨": 359,
+    "매핑 안 됨": 0,
+    "명부에 없는 항목": 1
+  },
+  "$unmapped": [],
+  "axes": [
+    {
+      "component": "button",
+      "path": "button.sizes.md.fontSize",
+      "decision": "product-has",
+      "productConstant": "--type-body-14-size",
+      "productFile": "apps/web/app/globals.css",
+      "productLine": 370,
+      "productValue": "14px. Button.tsx:185가 루트에 .type-body-14-medium을 얹고 그 클래스가 font-size: var(--type-body-14-size)를 준다(globals.css:1163-1164)"
+    },
+    {
+      "component": "button",
+      "path": "button.sizes.md.lineHeight",
+      "decision": "product-has",
+      "productConstant": "--type-body-14-line-height",
+      "productFile": "apps/web/app/globals.css",
+      "productLine": 371,
+      "productValue": "1.5 (무단위 비율). .type-body-14-medium이 line-height: var(--type-body-14-line-height)를 주고(globals.css:1165) font-size 14px에서 사용값이 21px이 된다"
+    },
+    {
+      "component": "button",
+      "path": "button.sizes.md.spinner",
+      "decision": "derived",
+      "reason": "spinner 18px은 독립 값이 아니라 .kds-button__spinner의 1em(=font-size 14px) 정사각에 border-width-ring 2px가 양쪽으로 붙어 나오는 값이며(14+2+2, content-box — reset.css는 opt-in이라 기본 배포에 포함되지 않는다), 제품 공용 Button에는 loading도 spinner도 없어 따로 잴 대상이 없다."
+    },
+    {
+      "component": "button",
+      "path": "button.sizes.sm.borderWidth",
+      "decision": "product-has",
+      "productConstant": "BORDER_SECONDARY",
+      "productFile": "apps/web/components/ui/Button.tsx",
+      "productLine": 80,
+      "productSelector": "variant=secondary (primary·ghost·danger는 BORDER_NONE = [border:none], Button.tsx:81)",
+      "productValue": "1px solid rgb(23 27 34 / 12%) (--palette-gray-900-rgb, globals.css:51). 제품에서 테두리는 size 축이 아니라 variant 축이라 md·sm이 같다. DS도 --kds-border-width-hairline 0.5px를 .kds-button에 한 번만 선언하고 size로 나누지 않는다(button.css:14) — md.borderWidth와 같은 값이며 판정 근거는 product.measured.json의 'border 두께' 축에 이미 있다"
+    },
+    {
+      "component": "button",
+      "path": "button.sizes.sm.lineHeight",
+      "decision": "product-has",
+      "productConstant": "--type-body-14-line-height",
+      "productFile": "apps/web/app/globals.css",
+      "productLine": 371,
+      "productValue": "1.5 (무단위 비율) — md와 같은 값이다. Button.tsx:185가 size와 무관하게 .type-body-14-medium 하나를 얹으므로 size가 타이포를 바꾸지 않으며, font-size 14px에서 사용값 21px이다"
+    },
+    {
+      "component": "button",
+      "path": "button.sizes.sm.spinner",
+      "decision": "derived",
+      "reason": "sm의 spinner도 md와 같은 계산 결과다 — .kds-button__spinner는 size로 나뉘지 않고 1em(=font-size 14px, sm도 14px)에 border-width-ring 2px가 양쪽으로 붙어 18px이 되며, 제품 공용 Button에는 loading도 spinner도 없어 따로 잴 대상이 없다."
+    },
+    {
+      "component": "button",
+      "path": "button.states.danger.Active.background",
+      "decision": "derived",
+      "reason": "DS에는 danger 전용 :active 배경 규칙이 없어 Active 면은 Default 면(color-action-danger)과 같고 누름은 scale 0.98로만 표현되며(button.css:137-139), 제품도 :active에서 색을 바꾸지 않는다(Button.tsx:131)."
+    },
+    {
+      "component": "button",
+      "path": "button.states.danger.Active.foreground",
+      "decision": "derived",
+      "reason": "DS에는 :active 전용 전경 규칙이 없어 Active 전경은 Default 전경(color-foreground-on-danger)과 항상 같다 — :active는 색이 아니라 scale로만 표현된다(button.css:137-144)."
+    },
+    {
+      "component": "button",
+      "path": "button.states.danger.Default.background",
+      "decision": "product-has",
+      "productConstant": "DANGER / --accent-red-500",
+      "productFile": "apps/web/components/ui/Button.tsx",
+      "productLine": 127,
+      "productValue": "[background:var(--accent-red-500)] = #ff4b59 (globals.css:234). 단색 solid이며 DS의 color-action-danger(red.500 #ff4b59)와 같은 값이다"
+    },
+    {
+      "component": "button",
+      "path": "button.states.danger.Default.foreground",
+      "decision": "product-has",
+      "productConstant": "DANGER / text-palette-gray-000",
+      "productFile": "apps/web/components/ui/Button.tsx",
+      "productLine": 128,
+      "productValue": "#fafafa (--palette-gray-000, globals.css:20). 다크 오버라이드 없음 — DS의 color-foreground-on-danger(neutral.0 #fafafa)와 같은 값이다"
+    },
+    {
+      "component": "button",
+      "path": "button.states.danger.Disabled.background",
+      "decision": "product-has",
+      "productConstant": "DANGER의 disabled:opacity-[0.4]",
+      "productFile": "apps/web/components/ui/Button.tsx",
+      "productLine": 132,
+      "productSelector": ":disabled",
+      "productValue": "배경 재선언 없음 — 기본 #ff4b59에 요소 전체 opacity 0.4만 적용한다. DS는 background-inset 면으로 바꾼다(판정은 product.measured.json의 'disabled 표현' 축에 accepted-deviation으로 있다)"
+    },
+    {
+      "component": "button",
+      "path": "button.states.danger.Disabled.foreground",
+      "decision": "product-has",
+      "productConstant": "DANGER의 disabled:opacity-[0.4]",
+      "productFile": "apps/web/components/ui/Button.tsx",
+      "productLine": 132,
+      "productSelector": ":disabled",
+      "productValue": "전경 재선언 없음 — #fafafa에 요소 전체 opacity 0.4만 적용한다(대비 약 1.5:1). DS는 foreground-disabled 토큰으로 바꾼다"
+    },
+    {
+      "component": "button",
+      "path": "button.states.danger.Hover.background",
+      "decision": "derived",
+      "reason": "DS는 danger의 hover를 색이 아니라 opacity 0.85로 표현하므로(button.css:128-130, 제품 Button.tsx:130과 같은 방식) Hover 면은 Default 면과 같은 color-action-danger다."
+    },
+    {
+      "component": "button",
+      "path": "button.states.danger.Hover.foreground",
+      "decision": "derived",
+      "reason": "DS에는 hover 전용 전경 규칙이 없어 Hover 전경은 Default 전경(color-foreground-on-danger)과 같고, 제품도 hover에서 전경을 재선언하지 않고 요소 전체에 opacity 0.85만 건다(Button.tsx:130)."
+    },
+    {
+      "component": "button",
+      "path": "button.states.danger.Loading.background",
+      "decision": "derived",
+      "reason": "Button은 loading일 때 aria-disabled=\"true\"를 붙이고(button.tsx:65) CSS의 disabled 규칙이 그것을 함께 잡으므로 Loading 면은 언제나 Disabled 면과 같으며 — Loading을 가르는 것은 면이 아니라 spinner의 존재와 label opacity 0.6이다 — 제품 공용 Button에는 loading prop 자체가 없다(Button.tsx:157-166)."
+    },
+    {
+      "component": "button",
+      "path": "button.states.danger.Loading.foreground",
+      "decision": "derived",
+      "reason": "Loading은 aria-disabled=\"true\"로 표시되어 disabled 전경 규칙(button.css:157-161)이 함께 적용되므로 Loading 전경은 언제나 Disabled 전경과 같고, 제품 공용 Button에는 loading prop 자체가 없다."
+    },
+    {
+      "component": "button",
+      "path": "button.states.ghost.Active.background",
+      "decision": "derived",
+      "reason": "DS에는 ghost 전용 :active 배경 규칙이 없고 포인터로 누르는 동안 :hover가 계속 매칭되므로 Active 면은 Hover 면(color-action-ghost-hover)과 항상 같다 — :active가 바꾸는 것은 scale 0.97뿐이다(button.css:142-144)."
+    },
+    {
+      "component": "button",
+      "path": "button.states.ghost.Active.foreground",
+      "decision": "derived",
+      "reason": "DS에는 :active 전용 전경 규칙이 없어 Active 전경은 Default 전경(color-action-secondary-foreground)과 항상 같다 — :active는 색이 아니라 scale로만 표현된다."
+    },
+    {
+      "component": "button",
+      "path": "button.states.ghost.Default.background",
+      "decision": "product-has",
+      "productConstant": "GHOST의 [background:transparent]",
+      "productFile": "apps/web/components/ui/Button.tsx",
+      "productLine": 117,
+      "productValue": "transparent — 면이 없다. DS도 background: transparent이며 measured에는 null로 기록된다"
+    },
+    {
+      "component": "button",
+      "path": "button.states.ghost.Default.foreground",
+      "decision": "product-has",
+      "productConstant": "GHOST / text-palette-gray-600",
+      "productFile": "apps/web/components/ui/Button.tsx",
+      "productLine": 118,
+      "productValue": "#777d89 (--palette-gray-600, globals.css:33) — secondary와 같은 단계다. 다크는 rgb(250 250 250 / 72%) (Button.tsx:122)"
+    },
+    {
+      "component": "button",
+      "path": "button.states.ghost.Disabled.background",
+      "decision": "derived",
+      "reason": "DS의 disabled 배경 규칙은 primary·danger만 잡으므로(button.css:163-166) ghost의 Disabled 면은 Default와 같은 투명이며 따로 잴 값이 아니다."
+    },
+    {
+      "component": "button",
+      "path": "button.states.ghost.Disabled.foreground",
+      "decision": "product-has",
+      "productConstant": "GHOST의 disabled:opacity-[0.5]",
+      "productFile": "apps/web/components/ui/Button.tsx",
+      "productLine": 121,
+      "productSelector": ":disabled",
+      "productValue": "전경 재선언 없음 — #777d89에 요소 전체 opacity 0.5만 적용한다. DS는 foreground-disabled 토큰으로 바꾼다"
+    },
+    {
+      "component": "button",
+      "path": "button.states.ghost.Hover.background",
+      "decision": "product-has",
+      "productConstant": "GHOST의 [&:hover:not(:disabled)]:[background:...]",
+      "productFile": "apps/web/components/ui/Button.tsx",
+      "productLine": 119,
+      "productSelector": ":hover:not(:disabled)",
+      "productValue": "rgb(23 27 34 / 8%) 알파 오버레이 (--palette-gray-900-rgb, globals.css:51). 다크는 rgb(250 250 250 / 10%) (Button.tsx:123). secondary의 5%와 다른 단계다"
+    },
+    {
+      "component": "button",
+      "path": "button.states.ghost.Hover.foreground",
+      "decision": "derived",
+      "reason": "DS에는 hover 전용 전경 규칙이 없어 Hover 전경은 Default 전경과 같고, 제품도 hover에서 알파 오버레이만 얹고 전경은 그대로 둔다(Button.tsx:119)."
+    },
+    {
+      "component": "button",
+      "path": "button.states.ghost.Loading.background",
+      "decision": "derived",
+      "reason": "Button은 loading일 때 aria-disabled=\"true\"를 붙여 disabled 규칙이 함께 적용되므로 Loading 면은 Disabled 면과 같고(ghost는 둘 다 투명), 제품 공용 Button에는 loading prop 자체가 없다."
+    },
+    {
+      "component": "button",
+      "path": "button.states.ghost.Loading.foreground",
+      "decision": "derived",
+      "reason": "Loading은 aria-disabled=\"true\"로 표시되어 disabled 전경 규칙(button.css:157-161)이 함께 적용되므로 Loading 전경은 언제나 Disabled 전경과 같고, 제품 공용 Button에는 loading prop 자체가 없다."
+    },
+    {
+      "component": "button",
+      "path": "button.states.primary.Active.background",
+      "decision": "product-none",
+      "reason": "제품은 :active에서 scale 0.98만 줄이고 색을 바꾸지 않지만(Button.tsx:84,101), DS는 prefers-reduced-motion에서 그 scale을 1로 되돌리므로(button.css:151-153) 색이 유일한 누름 신호가 되며 — 그래서 강조가 가장 큰 primary에만 눌림 전용 배경(blue.600 #0075db)을 세운다."
+    },
+    {
+      "component": "button",
+      "path": "button.states.primary.Active.foreground",
+      "decision": "derived",
+      "reason": "DS에는 :active 전용 전경 규칙이 없어 Active 전경은 Default 전경(color-foreground-inverse)과 항상 같다 — :active가 바꾸는 것은 배경과 scale뿐이다(button.css:133-139)."
+    },
+    {
+      "component": "button",
+      "path": "button.states.primary.Default.background",
+      "decision": "product-has",
+      "productConstant": "PRIMARY / --node-prompt-generate-gradient",
+      "productFile": "apps/web/components/ui/Button.tsx",
+      "productLine": 92,
+      "productValue": "linear-gradient(90deg, var(--primary-450) 0%, var(--primary-500) 50%, var(--primary-450) 100%) = #1491ff → #0088ff → #1491ff (globals.css:513-518; --primary-450 #1491ff:179, --primary-500 #0088ff:159). **단색이 아니라 그라디언트다** — DS의 color-action-primary는 그 중앙 정지점 blue.500 #0088ff와 같고 좌우 정지점(primary-450)은 버린 것이다. product.measured.json에 이 축이 아직 없다"
+    },
+    {
+      "component": "button",
+      "path": "button.states.primary.Default.foreground",
+      "decision": "product-has",
+      "productConstant": "PRIMARY / text-palette-gray-000",
+      "productFile": "apps/web/components/ui/Button.tsx",
+      "productLine": 93,
+      "productValue": "#fafafa (--palette-gray-000, globals.css:20). 다크 오버라이드 없음 — DS의 color-foreground-inverse(neutral.0 #fafafa)와 같은 값이다"
+    },
+    {
+      "component": "button",
+      "path": "button.states.primary.Disabled.background",
+      "decision": "product-has",
+      "productConstant": "PRIMARY의 disabled:opacity-[0.35]",
+      "productFile": "apps/web/components/ui/Button.tsx",
+      "productLine": 102,
+      "productSelector": ":disabled",
+      "productValue": "배경 재선언 없음 — 기본 그라디언트에 요소 전체 opacity 0.35만 적용한다. DS는 background-inset 면으로 바꾼다(판정은 product.measured.json의 'disabled 표현' 축에 accepted-deviation으로 있다)"
+    },
+    {
+      "component": "button",
+      "path": "button.states.primary.Disabled.foreground",
+      "decision": "product-has",
+      "productConstant": "PRIMARY의 disabled:opacity-[0.35]",
+      "productFile": "apps/web/components/ui/Button.tsx",
+      "productLine": 102,
+      "productSelector": ":disabled",
+      "productValue": "전경 재선언 없음 — #fafafa에 요소 전체 opacity 0.35만 적용한다(흰 라벨이 사실상 보이지 않는다). DS는 foreground-disabled 토큰으로 바꾼다"
+    },
+    {
+      "component": "button",
+      "path": "button.states.primary.Hover.background",
+      "decision": "product-has",
+      "productConstant": "PRIMARY의 [&:hover:not(:disabled)]:[filter:brightness(1.06)]",
+      "productFile": "apps/web/components/ui/Button.tsx",
+      "productLine": 100,
+      "productSelector": ":hover:not(:disabled)",
+      "productValue": "filter: brightness(1.06) — **배경색 재선언이 아니라 밝기 필터다.** 제품은 hover에서 어두워지지 않고 그라디언트를 6% 밝힌다. DS는 대신 색 토큰 color-action-primary-hover(blue.400 #38a4ff)를 쓰는데, 그 색은 제품 팔레트에 --primary-400 #38a4ff(globals.css:158)로 존재하지만 제품 Button은 그것을 쓰지 않는다"
+    },
+    {
+      "component": "button",
+      "path": "button.states.primary.Hover.foreground",
+      "decision": "derived",
+      "reason": "DS에는 hover 전용 전경 규칙이 없어 Hover 전경은 Default 전경(color-foreground-inverse)과 같고, 제품도 hover에서 전경을 재선언하지 않고 요소 전체에 brightness(1.06)만 건다(Button.tsx:100)."
+    },
+    {
+      "component": "button",
+      "path": "button.states.primary.Loading.background",
+      "decision": "derived",
+      "reason": "Button은 loading일 때 aria-disabled=\"true\"를 붙이고(button.tsx:65) CSS의 disabled 규칙이 그것을 함께 잡으므로 Loading 면은 언제나 Disabled 면과 같으며 — Loading을 가르는 것은 면이 아니라 spinner의 존재와 label opacity 0.6이다 — 제품 공용 Button에는 loading prop 자체가 없다(Button.tsx:157-166)."
+    },
+    {
+      "component": "button",
+      "path": "button.states.primary.Loading.foreground",
+      "decision": "derived",
+      "reason": "Loading은 aria-disabled=\"true\"로 표시되어 disabled 전경 규칙(button.css:157-161)이 함께 적용되므로 Loading 전경은 언제나 Disabled 전경과 같고, 제품 공용 Button에는 loading prop 자체가 없다."
+    },
+    {
+      "component": "button",
+      "path": "button.states.secondary.Active.background",
+      "decision": "derived",
+      "reason": "DS에는 secondary 전용 :active 배경 규칙이 없고 포인터로 누르는 동안 :hover가 계속 매칭되므로 Active 면은 Hover 면(color-action-secondary-hover)과 항상 같다 — :active가 바꾸는 것은 scale 0.98뿐이다(button.css:137-139)."
+    },
+    {
+      "component": "button",
+      "path": "button.states.secondary.Active.border",
+      "decision": "derived",
+      "reason": "DS에는 :active 전용 테두리 규칙이 없어 Active 테두리는 Default 테두리(color-border-control)와 항상 같다."
+    },
+    {
+      "component": "button",
+      "path": "button.states.secondary.Active.foreground",
+      "decision": "derived",
+      "reason": "DS에는 :active 전용 전경 규칙이 없어 Active 전경은 Default 전경(color-action-secondary-foreground)과 항상 같다 — :active는 색이 아니라 scale로만 표현된다."
+    },
+    {
+      "component": "button",
+      "path": "button.states.secondary.Default.background",
+      "decision": "product-has",
+      "productConstant": "SECONDARY의 [background:transparent]",
+      "productFile": "apps/web/components/ui/Button.tsx",
+      "productLine": 106,
+      "productValue": "transparent — 면이 없다. DS도 background: transparent이며 measured에는 null로 기록된다"
+    },
+    {
+      "component": "button",
+      "path": "button.states.secondary.Default.border",
+      "decision": "product-has",
+      "productConstant": "BORDER_SECONDARY",
+      "productFile": "apps/web/components/ui/Button.tsx",
+      "productLine": 80,
+      "productValue": "1px solid rgb(23 27 34 / 12%) (--palette-gray-900-rgb 23 27 34, globals.css:51) — 불투명색이 아니라 잉크 알파다. 다크는 rgb(250 250 250 / 16%) (Button.tsx:111). DS의 color-border-control(ink-alpha.12)과 같은 값이다"
+    },
+    {
+      "component": "button",
+      "path": "button.states.secondary.Default.foreground",
+      "decision": "product-has",
+      "productConstant": "SECONDARY / text-palette-gray-600",
+      "productFile": "apps/web/components/ui/Button.tsx",
+      "productLine": 107,
+      "productValue": "#777d89 (--palette-gray-600, globals.css:33). 다크는 rgb(250 250 250 / 72%) (Button.tsx:112) — DS는 알파 전경의 대비를 잴 수 없어 가장 가까운 불투명 단계 neutral.400을 쓴다"
+    },
+    {
+      "component": "button",
+      "path": "button.states.secondary.Disabled.background",
+      "decision": "derived",
+      "reason": "DS의 disabled 배경 규칙은 primary·danger만 잡으므로(button.css:163-166) secondary의 Disabled 면은 Default와 같은 투명이며 따로 잴 값이 아니다."
+    },
+    {
+      "component": "button",
+      "path": "button.states.secondary.Disabled.border",
+      "decision": "product-has",
+      "productConstant": "SECONDARY의 disabled:opacity-[0.45]",
+      "productFile": "apps/web/components/ui/Button.tsx",
+      "productLine": 110,
+      "productSelector": ":disabled",
+      "productValue": "테두리 재선언 없음 — 기본 rgb(23 27 34 / 12%) 테두리에 요소 전체 opacity 0.45만 적용한다(실효 알파 약 5.4%). DS는 border-subtle로 바꾼다"
+    },
+    {
+      "component": "button",
+      "path": "button.states.secondary.Disabled.foreground",
+      "decision": "product-has",
+      "productConstant": "SECONDARY의 disabled:opacity-[0.45]",
+      "productFile": "apps/web/components/ui/Button.tsx",
+      "productLine": 110,
+      "productSelector": ":disabled",
+      "productValue": "전경 재선언 없음 — #777d89에 요소 전체 opacity 0.45만 적용한다. DS는 foreground-disabled 토큰으로 바꾼다"
+    },
+    {
+      "component": "button",
+      "path": "button.states.secondary.Hover.background",
+      "decision": "product-has",
+      "productConstant": "SECONDARY의 [&:hover:not(:disabled)]:[background:...]",
+      "productFile": "apps/web/components/ui/Button.tsx",
+      "productLine": 108,
+      "productSelector": ":hover:not(:disabled)",
+      "productValue": "rgb(23 27 34 / 5%) 알파 오버레이 (--palette-gray-900-rgb, globals.css:51). 다크는 rgb(250 250 250 / 8%) (Button.tsx:113). ghost의 8%보다 한 단계 얕다"
+    },
+    {
+      "component": "button",
+      "path": "button.states.secondary.Hover.border",
+      "decision": "derived",
+      "reason": "DS에는 hover 전용 테두리 규칙이 없어 Hover 테두리는 Default 테두리(color-border-control)와 같고, 제품도 hover에서 배경 오버레이만 얹고 테두리는 그대로 둔다(Button.tsx:108)."
+    },
+    {
+      "component": "button",
+      "path": "button.states.secondary.Hover.foreground",
+      "decision": "derived",
+      "reason": "DS에는 hover 전용 전경 규칙이 없어 Hover 전경은 Default 전경과 같고, 제품도 hover에서 배경 오버레이만 얹고 전경은 그대로 둔다(Button.tsx:108)."
+    },
+    {
+      "component": "button",
+      "path": "button.states.secondary.Loading.background",
+      "decision": "derived",
+      "reason": "Button은 loading일 때 aria-disabled=\"true\"를 붙여 disabled 규칙이 함께 적용되므로 Loading 면은 Disabled 면과 같고(secondary는 둘 다 투명), 제품 공용 Button에는 loading prop 자체가 없다."
+    },
+    {
+      "component": "button",
+      "path": "button.states.secondary.Loading.border",
+      "decision": "derived",
+      "reason": "Loading은 aria-disabled=\"true\"로 표시되어 disabled 테두리 규칙(button.css:168-171)이 함께 적용되므로 Loading 테두리는 언제나 Disabled 테두리(color-border-subtle)와 같고, 제품 공용 Button에는 loading prop 자체가 없다."
+    },
+    {
+      "component": "button",
+      "path": "button.states.secondary.Loading.foreground",
+      "decision": "derived",
+      "reason": "Loading은 aria-disabled=\"true\"로 표시되어 disabled 전경 규칙(button.css:157-161)이 함께 적용되므로 Loading 전경은 언제나 Disabled 전경과 같고, 제품 공용 Button에는 loading prop 자체가 없다."
+    },
+    {
+      "component": "icon-button",
+      "path": "icon-button.sizes.md.borderWidth",
+      "decision": "product-has",
+      "productConstant": "VEM_CLASS.assetRailBtn — \"[border:none]\"",
+      "productFile": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx",
+      "productLine": 413,
+      "productValue": "none (테두리 두께 0)"
+    },
+    {
+      "component": "icon-button",
+      "path": "icon-button.sizes.md.glyph",
+      "decision": "product-has",
+      "productConstant": "VEM_CLASS.assetRailIcon — \"[width:20px]\" · \"[height:20px]\"",
+      "productFile": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx",
+      "productLine": 438,
+      "productValue": "20px",
+      "productSelector": "assetRailBtn(40×40) 안의 글리프 span. 버튼은 aria-label을 갖고 글리프는 aria-hidden이다"
+    },
+    {
+      "component": "icon-button",
+      "path": "icon-button.sizes.md.height",
+      "decision": "product-has",
+      "productConstant": "VEM_CLASS.assetRailBtn — \"[height:40px]\"",
+      "productFile": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx",
+      "productLine": 411,
+      "productValue": "40px (같은 값이 globals.css:90 --button-height 40px에도 있다)"
+    },
+    {
+      "component": "icon-button",
+      "path": "icon-button.sizes.md.radius",
+      "decision": "product-has",
+      "productConstant": "--button-radius",
+      "productFile": "apps/web/app/globals.css",
+      "productLine": 88,
+      "productValue": "12px (선언 위 주석이 \"공용 Button · 32×32 아이콘 액션 버튼 공통 곡률\"이라고 적고 있다. 제품의 40×40 아이콘 버튼 assetRailBtn은 이 토큰을 쓰지 않고 10px을 직접 적는다)"
+    },
+    {
+      "component": "icon-button",
+      "path": "icon-button.sizes.md.width",
+      "decision": "product-has",
+      "productConstant": "VEM_CLASS.assetRailBtn — \"[width:40px]\"",
+      "productFile": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx",
+      "productLine": 410,
+      "productValue": "40px (같은 정의에서 height도 40px이라 정사각이다)"
+    },
+    {
+      "component": "icon-button",
+      "path": "icon-button.sizes.sm.borderWidth",
+      "decision": "product-has",
+      "productConstant": "gnbStyles.iconButton — \"[border:0]\"",
+      "productFile": "apps/web/components/navigation/Gnb.tsx",
+      "productLine": 206,
+      "productValue": "0 (두께도 색도 없다)"
+    },
+    {
+      "component": "icon-button",
+      "path": "icon-button.sizes.sm.glyph",
+      "decision": "product-has",
+      "productConstant": "gnbStyles.iconButton — \"[.gnb-…projectHeaderActionsShell_&>svg]:[width:20px]\" · \"[…&>svg]:[height:20px]\"",
+      "productFile": "apps/web/components/navigation/Gnb.tsx",
+      "productLine": 241,
+      "productValue": "20px",
+      "productSelector": ".gnb-navCreate .gnb-projectHeader .gnb-projectHeaderActionsShell 문맥. 이 문맥 밖에서는 컨테이너가 글리프 크기를 소유하지 않아 호출부 SVG가 16px과 20px로 갈린다"
+    },
+    {
+      "component": "icon-button",
+      "path": "icon-button.states.danger.Default.background",
+      "decision": "product-has",
+      "productConstant": "VEM_CLASS.overlayDeleteBtn — \"[background:transparent]\"",
+      "productFile": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx",
+      "productLine": 1821,
+      "productValue": "transparent — 제품의 파괴 아이콘 버튼은 평소 면이 없다"
+    },
+    {
+      "component": "icon-button",
+      "path": "icon-button.states.danger.Default.foreground",
+      "decision": "product-has",
+      "productConstant": "VEM_CLASS.overlayDeleteBtn — \"[color:rgb(var(--gray-400-rgb)_/_92%)]\"",
+      "productFile": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx",
+      "productLine": 1822,
+      "productValue": "rgb(188 192 201 / 92%) — 두 테마 모두 #BCC0C9 92%(light 오버라이드는 :1828). 중립 회색이고 빨강이 아니다"
+    },
+    {
+      "component": "icon-button",
+      "path": "icon-button.states.danger.Hover.background",
+      "decision": "derived",
+      "reason": "danger에는 hover 면 규칙이 없어 Default의 background-danger가 그대로 남는다 — 제품의 파괴 아이콘 버튼(overlayDeleteBtn)은 반대로 평소 투명이고 hover에서만 accent-red-600 88%를 채우므로, 어느 쪽을 정본으로 삼을지 판정이 필요하다."
+    },
+    {
+      "component": "icon-button",
+      "path": "icon-button.states.danger.Hover.foreground",
+      "decision": "derived",
+      "reason": "hover 규칙이 danger를 덮지 않으므로 전경은 Default의 foreground-danger가 그대로 남는다 — 제품은 hover에서 전경을 흰색(palette-gray-000 95%)으로 뒤집는다."
+    },
+    {
+      "component": "icon-button",
+      "path": "icon-button.states.danger.Active.background",
+      "decision": "derived",
+      "reason": "danger에는 active 전용 면 규칙이 없어 누르는 동안에도 Default의 background-danger가 그대로 남는다 — 누름은 면이 아니라 scale 0.98로만 표현된다."
+    },
+    {
+      "component": "icon-button",
+      "path": "icon-button.states.danger.Active.foreground",
+      "decision": "derived",
+      "reason": "active 규칙이 scale만 바꾸므로 전경은 Default의 foreground-danger가 그대로 남는다."
+    },
+    {
+      "component": "icon-button",
+      "path": "icon-button.states.danger.Pressed.background",
+      "decision": "product-has",
+      "productConstant": "gnbStyles.projectGuideButtonActive — \"[…&]:[background:rgb(var(--gray-000-rgb)_/_14%)]\"",
+      "productFile": "apps/web/components/navigation/Gnb.tsx",
+      "productLine": 1529,
+      "productValue": "rgb(250 250 250 / 14%) (dark) / rgb(23 27 34 / 10%) (light, :1532)",
+      "productSelector": "DS의 [aria-pressed=\"true\"]는 variant를 가리지 않는 규칙 하나다. 제품도 마찬가지로 variant 개념이 없고, 켜짐은 호출부가 붙였다 떼는 .gnb-projectGuideButtonActive 클래스로만 표현된다"
+    },
+    {
+      "component": "icon-button",
+      "path": "icon-button.states.danger.Pressed.foreground",
+      "decision": "product-has",
+      "productConstant": "gnbStyles.projectGuideButtonActive — \"[…&]:[color:rgb(var(--gray-000-rgb)_/_100%)]\"",
+      "productFile": "apps/web/components/navigation/Gnb.tsx",
+      "productLine": 1530,
+      "productValue": "#FAFAFA (dark) / #171B22 (light, :1533)",
+      "productSelector": "DS의 [aria-pressed=\"true\"]는 variant를 가리지 않는 규칙 하나다 — 제품의 켜짐 클래스도 같다"
+    },
+    {
+      "component": "icon-button",
+      "path": "icon-button.states.danger.Disabled.background",
+      "decision": "product-none",
+      "reason": "제품 아이콘 버튼은 비활성에서 면을 그대로 두고 요소 전체 opacity만 0.56으로 낮춰 비활성 면 색이 없으며, DS는 채운 면을 중립 background-inset으로 바꿔 비활성이 '흐린 강조'가 아니라 '강조 아님'으로 읽히게 한다."
+    },
+    {
+      "component": "icon-button",
+      "path": "icon-button.states.danger.Disabled.foreground",
+      "decision": "product-none",
+      "reason": "제품 아이콘 버튼은 비활성을 요소 전체 opacity로만 만들어 비활성 전경 색 축이 없는데, opacity는 글리프·면·초점 링을 한꺼번에 흐려 대비를 예측할 수 없게 하므로 DS는 비활성 전경을 foreground-disabled 토큰으로 따로 선언한다."
+    },
+    {
+      "component": "icon-button",
+      "path": "icon-button.states.ghost.Default.background",
+      "decision": "product-has",
+      "productConstant": "gnbStyles.iconButton — \"[.gnb-…projectHeaderActionsShell_&]:[background:transparent]\"",
+      "productFile": "apps/web/components/navigation/Gnb.tsx",
+      "productLine": 234,
+      "productValue": "transparent (light 오버라이드도 transparent, :247)",
+      "productSelector": ".gnb-navCreate .gnb-projectHeader .gnb-projectHeaderActionsShell 문맥. 이 문맥 밖의 기본 gnb-iconButton은 흰색 10% 글래스 면을 갖는다(:212)"
+    },
+    {
+      "component": "icon-button",
+      "path": "icon-button.states.ghost.Default.foreground",
+      "decision": "product-has",
+      "productConstant": "gnbStyles.iconButton — \"[.gnb-…projectHeaderActionsShell_&]:[color:rgb(var(--gray-200-rgb)_/_100%)]\"",
+      "productFile": "apps/web/components/navigation/Gnb.tsx",
+      "productLine": 239,
+      "productValue": "#E3E4E8 (dark) / #313640 (light, :252)",
+      "productSelector": ".gnb-projectHeaderActionsShell 문맥"
+    },
+    {
+      "component": "icon-button",
+      "path": "icon-button.states.ghost.Hover.background",
+      "decision": "product-has",
+      "productConstant": "gnbStyles.iconButton — \"[.gnb-…projectHeaderActionsShell_&:hover:not(:disabled)]:[background:rgb(var(--gray-000-rgb)_/_10%)]\"",
+      "productFile": "apps/web/components/navigation/Gnb.tsx",
+      "productLine": 254,
+      "productValue": "rgb(250 250 250 / 10%) (dark) / rgb(23 27 34 / 8%) (light, :257)",
+      "productSelector": ":hover:not(:disabled), .gnb-projectHeaderActionsShell 문맥. 이 문맥 밖의 기본 gnb-iconButton은 hover를 면이 아니라 filter: saturate(125%) brightness(125%)로 표현한다(:217)"
+    },
+    {
+      "component": "icon-button",
+      "path": "icon-button.states.ghost.Hover.foreground",
+      "decision": "derived",
+      "reason": "hover 규칙이 면만 바꾸므로 전경은 Default의 foreground-secondary가 그대로 남는다 — 제품은 hover에서 전경도 100%로 올리므로 이 차이는 판정이 필요하다."
+    },
+    {
+      "component": "icon-button",
+      "path": "icon-button.states.ghost.Active.background",
+      "decision": "derived",
+      "reason": "ghost에는 active 전용 면 규칙이 없어 포인터가 얹힌 채 눌리는 동안 Hover의 background-inset이 그대로 유지된다 — Hover.background와 같은 값이다."
+    },
+    {
+      "component": "icon-button",
+      "path": "icon-button.states.ghost.Active.foreground",
+      "decision": "derived",
+      "reason": "active 규칙이 scale만 바꾸므로 전경은 Default의 foreground-secondary가 그대로 남는다."
+    },
+    {
+      "component": "icon-button",
+      "path": "icon-button.states.ghost.Pressed.background",
+      "decision": "product-has",
+      "productConstant": "gnbStyles.projectGuideButtonActive — \"[…&]:[background:rgb(var(--gray-000-rgb)_/_14%)]\"",
+      "productFile": "apps/web/components/navigation/Gnb.tsx",
+      "productLine": 1529,
+      "productValue": "rgb(250 250 250 / 14%) (dark) / rgb(23 27 34 / 10%) (light, :1532). 제품에는 DS에 없는 pressed hover 면도 있다 — 18%(:1531) / 14%(:1534)",
+      "productSelector": "호출부가 켜짐일 때 붙이는 .gnb-projectGuideButtonActive 클래스. DS의 [aria-pressed=\"true\"]에 해당한다"
+    },
+    {
+      "component": "icon-button",
+      "path": "icon-button.states.ghost.Pressed.foreground",
+      "decision": "product-has",
+      "productConstant": "gnbStyles.projectGuideButtonActive — \"[…&]:[color:rgb(var(--gray-000-rgb)_/_100%)]\"",
+      "productFile": "apps/web/components/navigation/Gnb.tsx",
+      "productLine": 1530,
+      "productValue": "#FAFAFA (dark) / #171B22 (light, :1533)",
+      "productSelector": "호출부가 켜짐일 때 붙이는 .gnb-projectGuideButtonActive 클래스"
+    },
+    {
+      "component": "icon-button",
+      "path": "icon-button.states.ghost.Disabled.background",
+      "decision": "derived",
+      "reason": "비활성 면 규칙이 primary와 danger만 덮으므로 ghost는 Default의 투명 면이 그대로 남는다 — 따로 잴 값이 아니다."
+    },
+    {
+      "component": "icon-button",
+      "path": "icon-button.states.ghost.Disabled.foreground",
+      "decision": "product-none",
+      "reason": "제품 아이콘 버튼은 비활성을 요소 전체 opacity로만 만들어 비활성 전경 색 축이 없는데, opacity는 글리프·면·초점 링을 한꺼번에 흐려 대비를 예측할 수 없게 하므로 DS는 비활성 전경을 foreground-disabled 토큰으로 따로 선언한다."
+    },
+    {
+      "component": "icon-button",
+      "path": "icon-button.states.primary.Default.background",
+      "decision": "product-none",
+      "reason": "제품에는 강조를 채운 아이콘 전용 버튼이 없어(24~64px 정사각 버튼 정의 29벌을 훑었을 때 면은 전부 투명이거나 중립 회색 반투명이고 강조색 채움은 하나도 없다) 대조할 면이 없으며, DS는 아이콘 전용 버튼도 Button과 같은 네 강조 축을 갖도록 primary에 action-primary 면을 준다."
+    },
+    {
+      "component": "icon-button",
+      "path": "icon-button.states.primary.Default.foreground",
+      "decision": "product-none",
+      "reason": "제품에 강조를 채운 아이콘 버튼이 없어 그 면 위의 글리프 색도 없으며, DS는 채운 면 위에서 대비를 보장하려고 전경을 foreground-inverse로 고정한다."
+    },
+    {
+      "component": "icon-button",
+      "path": "icon-button.states.primary.Hover.background",
+      "decision": "product-none",
+      "reason": "제품 아이콘 버튼의 hover는 색이 아니라 filter(saturate·brightness)나 중립 반투명 면으로 표현돼 강조 면의 hover 색이 없으며, DS는 filter를 허용 전이 property에서 제외하므로(motion.md) hover 피드백을 action-primary-hover 면으로 대신 선언한다."
+    },
+    {
+      "component": "icon-button",
+      "path": "icon-button.states.primary.Hover.foreground",
+      "decision": "derived",
+      "reason": "hover 규칙이 면만 바꾸므로 전경은 Default의 foreground-inverse가 그대로 남는다."
+    },
+    {
+      "component": "icon-button",
+      "path": "icon-button.states.primary.Active.background",
+      "decision": "product-none",
+      "reason": "제품 아이콘 버튼의 누름은 transform scale과 filter로만 표현돼 누름 면 색이 없으며, DS는 hover보다 한 단계 진한 action-primary-active를 줘 누름이 움직임 없이도 면에서 읽히게 한다."
+    },
+    {
+      "component": "icon-button",
+      "path": "icon-button.states.primary.Active.foreground",
+      "decision": "derived",
+      "reason": "active 규칙이 면과 scale만 바꾸므로 전경은 Default의 foreground-inverse가 그대로 남는다."
+    },
+    {
+      "component": "icon-button",
+      "path": "icon-button.states.primary.Pressed.background",
+      "decision": "product-has",
+      "productConstant": "gnbStyles.projectGuideButtonActive — \"[…&]:[background:rgb(var(--gray-000-rgb)_/_14%)]\"",
+      "productFile": "apps/web/components/navigation/Gnb.tsx",
+      "productLine": 1529,
+      "productValue": "rgb(250 250 250 / 14%) (dark) / rgb(23 27 34 / 10%) (light, :1532)",
+      "productSelector": "DS의 [aria-pressed=\"true\"] 규칙은 variant를 덮어 네 variant가 같은 면을 갖는다 — 제품도 variant 개념 없이 켜짐 클래스 하나뿐이라 대응은 1:1이다"
+    },
+    {
+      "component": "icon-button",
+      "path": "icon-button.states.primary.Pressed.foreground",
+      "decision": "product-has",
+      "productConstant": "gnbStyles.projectGuideButtonActive — \"[…&]:[color:rgb(var(--gray-000-rgb)_/_100%)]\"",
+      "productFile": "apps/web/components/navigation/Gnb.tsx",
+      "productLine": 1530,
+      "productValue": "#FAFAFA (dark) / #171B22 (light, :1533)",
+      "productSelector": "DS의 [aria-pressed=\"true\"] 규칙은 variant를 덮는다 — 제품의 켜짐 클래스도 같다"
+    },
+    {
+      "component": "icon-button",
+      "path": "icon-button.states.primary.Disabled.background",
+      "decision": "product-none",
+      "reason": "제품 아이콘 버튼은 비활성에서 면을 그대로 두고 요소 전체 opacity만 0.56으로 낮춰 비활성 면 색이 없으며, DS는 채운 면을 중립 background-inset으로 바꿔 비활성이 '흐린 강조'가 아니라 '강조 아님'으로 읽히게 한다."
+    },
+    {
+      "component": "icon-button",
+      "path": "icon-button.states.primary.Disabled.foreground",
+      "decision": "product-none",
+      "reason": "제품 아이콘 버튼은 비활성을 요소 전체 opacity로만 만들어 비활성 전경 색 축이 없는데, opacity는 글리프·면·초점 링을 한꺼번에 흐려 대비를 예측할 수 없게 하므로 DS는 비활성 전경을 foreground-disabled 토큰으로 따로 선언한다."
+    },
+    {
+      "component": "icon-button",
+      "path": "icon-button.states.secondary.Default.background",
+      "decision": "product-has",
+      "productConstant": "highlightSceneStyles backButton — \"[html[data-theme=light]_&]:[background:var(--palette-gray-100)]\"",
+      "productFile": "apps/web/components/scenes/highlightSceneStyles.ts",
+      "productLine": 31,
+      "productValue": "#F1F1F3 (light) / rgb(250 250 250 / 15%) (dark, :34). 테마 무관 기본값은 rgb(0 0 0 / 12%)(:23)",
+      "productSelector": "면과 테두리를 함께 가진 유일한 아이콘 전용 정사각 버튼(36×36, aria-label + aria-hidden 20px SVG). 제품에 variant 축은 없고 이 한 벌이 DS secondary와 같은 모양이다"
+    },
+    {
+      "component": "icon-button",
+      "path": "icon-button.states.secondary.Default.border",
+      "decision": "product-has",
+      "productConstant": "highlightSceneStyles backButton — \"[border:0.1px_solid_rgb(var(--palette-gray-900-rgb)_/_30%)]\"",
+      "productFile": "apps/web/components/scenes/highlightSceneStyles.ts",
+      "productLine": 21,
+      "productValue": "0.1px solid rgb(23 27 34 / 30%) — 제품 아이콘 버튼 중 테두리를 가진 유일한 벌이다"
+    },
+    {
+      "component": "icon-button",
+      "path": "icon-button.states.secondary.Default.foreground",
+      "decision": "product-has",
+      "productConstant": "highlightSceneStyles backButton — \"[color:var(--palette-gray-700)]\"",
+      "productFile": "apps/web/components/scenes/highlightSceneStyles.ts",
+      "productLine": 24,
+      "productValue": "#575D68 (light) / #E3E4E8 (dark, :35) — DS의 foreground-primary(#171B22 / #FAFAFA)가 아니라 foreground-secondary 쪽 값이다"
+    },
+    {
+      "component": "icon-button",
+      "path": "icon-button.states.secondary.Hover.background",
+      "decision": "product-has",
+      "productConstant": "highlightSceneStyles backButton — \"[html[data-theme=light]_&:hover]:[background:var(--palette-gray-200)]\"",
+      "productFile": "apps/web/components/scenes/highlightSceneStyles.ts",
+      "productLine": 33,
+      "productValue": "#E3E4E8 (light) / rgb(250 250 250 / 25%) (dark, :37). 테마 무관 기본값은 rgb(0 0 0 / 20%)(:29)",
+      "productSelector": ":hover"
+    },
+    {
+      "component": "icon-button",
+      "path": "icon-button.states.secondary.Hover.foreground",
+      "decision": "derived",
+      "reason": "hover 규칙이 면만 바꾸므로 전경은 Default의 foreground-primary가 그대로 남는다 — 제품 backButton은 hover에서 전경도 한 단계 올리므로 이 차이는 판정이 필요하다."
+    },
+    {
+      "component": "icon-button",
+      "path": "icon-button.states.secondary.Hover.border",
+      "decision": "derived",
+      "reason": "hover 규칙이 border-color를 건드리지 않으므로 Default의 border-default가 그대로 남는다 — hover에서는 면만 바뀌고 경계는 흔들리지 않는다."
+    },
+    {
+      "component": "icon-button",
+      "path": "icon-button.states.secondary.Active.background",
+      "decision": "derived",
+      "reason": "secondary에는 active 전용 면 규칙이 없어 포인터가 얹힌 채 눌리는 동안 Hover의 background-inset이 그대로 유지된다 — Hover.background와 같은 값이다."
+    },
+    {
+      "component": "icon-button",
+      "path": "icon-button.states.secondary.Active.foreground",
+      "decision": "derived",
+      "reason": "active 규칙이 scale만 바꾸므로 전경은 Default의 foreground-primary가 그대로 남는다."
+    },
+    {
+      "component": "icon-button",
+      "path": "icon-button.states.secondary.Active.border",
+      "decision": "derived",
+      "reason": "active 규칙이 border-color를 건드리지 않으므로 Default의 border-default가 그대로 남는다."
+    },
+    {
+      "component": "icon-button",
+      "path": "icon-button.states.secondary.Pressed.background",
+      "decision": "product-has",
+      "productConstant": "gnbStyles.projectGuideButtonActive — \"[…&]:[background:rgb(var(--gray-000-rgb)_/_14%)]\"",
+      "productFile": "apps/web/components/navigation/Gnb.tsx",
+      "productLine": 1529,
+      "productValue": "rgb(250 250 250 / 14%) (dark) / rgb(23 27 34 / 10%) (light, :1532)",
+      "productSelector": "DS의 [aria-pressed=\"true\"] 규칙은 variant를 덮는다 — 제품의 켜짐 클래스도 variant 없이 하나뿐이다"
+    },
+    {
+      "component": "icon-button",
+      "path": "icon-button.states.secondary.Pressed.foreground",
+      "decision": "product-has",
+      "productConstant": "gnbStyles.projectGuideButtonActive — \"[…&]:[color:rgb(var(--gray-000-rgb)_/_100%)]\"",
+      "productFile": "apps/web/components/navigation/Gnb.tsx",
+      "productLine": 1530,
+      "productValue": "#FAFAFA (dark) / #171B22 (light, :1533)",
+      "productSelector": "DS의 [aria-pressed=\"true\"] 규칙은 variant를 덮는다"
+    },
+    {
+      "component": "icon-button",
+      "path": "icon-button.states.secondary.Pressed.border",
+      "decision": "derived",
+      "reason": "aria-pressed 규칙은 면과 전경만 덮으므로 테두리는 Default의 border-default가 그대로 남는다."
+    },
+    {
+      "component": "icon-button",
+      "path": "icon-button.states.secondary.Disabled.background",
+      "decision": "derived",
+      "reason": "비활성 면 규칙이 primary와 danger만 덮으므로 secondary는 Default의 background-surface가 그대로 남는다 — 비활성은 면이 아니라 전경과 테두리로 표현된다."
+    },
+    {
+      "component": "icon-button",
+      "path": "icon-button.states.secondary.Disabled.border",
+      "decision": "product-none",
+      "reason": "제품 아이콘 버튼은 비활성에서 테두리 색을 바꾸지 않고 요소 전체 opacity만 낮추므로 비활성 테두리 색이 없으며, DS는 비활성에서 테두리까지 border-subtle로 내려 버튼 전체가 한 단계 물러나 보이게 한다."
+    },
+    {
+      "component": "icon-button",
+      "path": "icon-button.states.secondary.Disabled.foreground",
+      "decision": "product-none",
+      "reason": "제품 아이콘 버튼은 비활성을 요소 전체 opacity로만 만들어 비활성 전경 색 축이 없는데, opacity는 글리프·면·초점 링을 한꺼번에 흐려 대비를 예측할 수 없게 하므로 DS는 비활성 전경을 foreground-disabled 토큰으로 따로 선언한다."
+    },
+    {
+      "component": "input",
+      "path": "input.sizes.md.boxWidth",
+      "decision": "product-none",
+      "reason": "필드의 폭은 호출부(폼 격자)가 정하므로 계약이 아니다 — 320px는 Figma variant와 브라우저 실측(packages/react/test/text-field.browser.test.tsx:44의 inlineSize 320px)을 같은 조건에서 재기 위한 고정 폭이며, 제품에도 필드 폭의 정본은 없다(w-full이 다수, 60·72·360px이 섞여 있다)."
+    },
+    {
+      "component": "input",
+      "path": "input.sizes.md.fontSize",
+      "decision": "product-has",
+      "productConstant": "INPUT — `[font-size:var(--type-body-16-size)]`",
+      "productFile": "/Users/sejunki/klipse-web/apps/web/app/inquiry/InquiryClient.tsx",
+      "productLine": 319,
+      "productValue": "16px (`--type-body-16-size`, apps/web/app/globals.css:366; 뷰포트 ≤450px에서 14px로 내려간다). 제품은 계열마다 갈린다 — 인증·모달 계열 16px(login/page.tsx:434, CreateProjectModal.tsx:465), admin·노드 캔버스 14px(AdminClient.tsx:296, NodeLayersPanel.tsx:719), VideoEditModal 수치 입력 12px."
+    },
+    {
+      "component": "input",
+      "path": "input.sizes.md.frameWidth",
+      "decision": "derived",
+      "reason": "frameWidth = boxWidth + 2 × (focus 링 outline 2px + offset 2px) = 320 + 8 = 328 — 링이 잘리지 않게 Figma 프레임만 좌우 4씩 넓힌 값이라 따로 잴 축이 아니다."
+    },
+    {
+      "component": "input",
+      "path": "input.sizes.md.labelFontSize",
+      "decision": "product-has",
+      "productConstant": "META_LABEL에 붙는 `type-caption-12-medium`",
+      "productFile": "/Users/sejunki/klipse-web/apps/web/components/scenes/create/PublishFlow.tsx",
+      "productLine": 342,
+      "productValue": "12px (`--type-caption-12-size`, apps/web/app/globals.css:374). 라벨을 박스 위에 쌓는 제품 계열은 전부 12px이다(AdminClient.tsx:1255, BannerManagement.tsx:655, CaptionTemplateManagement.tsx:634). 인증 계열의 floating label만 뜨기 전 16px이고 뜬 뒤 12px이다(login/page.tsx:180·186)."
+    },
+    {
+      "component": "input",
+      "path": "input.sizes.md.lineHeight",
+      "decision": "product-has",
+      "productConstant": "INPUT — `[line-height:var(--type-body-16-line-height)]`",
+      "productFile": "/Users/sejunki/klipse-web/apps/web/app/inquiry/InquiryClient.tsx",
+      "productLine": 319,
+      "productValue": "1.5 (globals.css:367) — 16px에서 24px. DS의 21px도 같은 1.5 비율을 14px에 건 값이며, 제품의 `--type-body-14-line-height`도 1.5라 제품의 14px 계열은 21px로 DS와 같아진다."
+    },
+    {
+      "component": "input",
+      "path": "input.sizes.md.messageFontSize",
+      "decision": "product-has",
+      "productConstant": "ERROR_TEXT에 붙는 `type-caption-12-regular`",
+      "productFile": "/Users/sejunki/klipse-web/apps/web/components/projects/CreateProjectModal.tsx",
+      "productLine": 477,
+      "productValue": "12px (`--type-caption-12-size`, globals.css:374). login/page.tsx:587의 오류 문구와 580의 CapsLock 경고도 같은 클래스다 — 제품에서 필드 아래 문구는 예외 없이 12px이다."
+    },
+    {
+      "component": "input",
+      "path": "input.sizes.sm.borderWidth",
+      "decision": "product-has",
+      "productConstant": "NAME_INPUT — `[border:1px_solid_rgb(var(--gray-000-rgb)/12%)]`",
+      "productFile": "/Users/sejunki/klipse-web/apps/web/components/projects/CreateProjectModal.tsx",
+      "productLine": 96,
+      "productValue": "1px. 제품에는 크기 축이 없어 작은 필드와 큰 필드가 같은 두께를 쓴다. 다만 제품의 작은 계단은 테두리를 아예 선언하지 않는다 — Gnb.tsx:1610 `border:none`, myPageSceneStyles.ts:1027 `border:0`, AdminClient.tsx:294 `[border:0]`."
+    },
+    {
+      "component": "input",
+      "path": "input.sizes.sm.boxWidth",
+      "decision": "product-none",
+      "reason": "필드의 폭은 호출부가 정하므로 계약이 아니다 — 320px는 md와 같은 고정 폭이며 sm도 같은 조건에서 재기 위해 같은 값을 쓴다."
+    },
+    {
+      "component": "input",
+      "path": "input.sizes.sm.frameWidth",
+      "decision": "derived",
+      "reason": "frameWidth = boxWidth + 2 × (focus 링 outline 2px + offset 2px) = 320 + 8 = 328. sm의 링 기하가 md와 같으므로 값도 같다."
+    },
+    {
+      "component": "input",
+      "path": "input.sizes.sm.gap",
+      "decision": "product-has",
+      "productConstant": "HEADER — `gap-5`",
+      "productFile": "/Users/sejunki/klipse-web/apps/web/components/navigation/CommandPalette.tsx",
+      "productLine": 101,
+      "productValue": "10px (`--spacing: 2px` 기준 gap-5). 슬롯(검색 글리프)·입력·접미 버튼을 한 flex 줄에 두고 간격을 선언하는 유일한 제품 필드다. 나머지 계열은 슬롯을 absolute로 얹어 간격 선언이 없다 — login/page.tsx:145 PASSWORD_TOGGLE, NodeLayersPanel.tsx:173 SEARCH_ICON(좌 8px + 입력 좌패딩 28px)."
+    },
+    {
+      "component": "input",
+      "path": "input.sizes.sm.height",
+      "decision": "product-has",
+      "productConstant": "projectInlineRenameInput — `[height:32px]`",
+      "productFile": "/Users/sejunki/klipse-web/apps/web/components/navigation/Gnb.tsx",
+      "productLine": 1607,
+      "productValue": "32px. 제품의 작은 필드 계단은 30·32·34px이다(NodeLayersPanel.tsx:181 30px, myPageSceneStyles.ts:1025 min 34px). 큰 계단은 44·48px이다(InquiryClient.tsx:314, CreateProjectModal.tsx:95)."
+    },
+    {
+      "component": "input",
+      "path": "input.sizes.sm.labelFontSize",
+      "decision": "product-has",
+      "productConstant": "META_LABEL에 붙는 `type-caption-12-medium`",
+      "productFile": "/Users/sejunki/klipse-web/apps/web/components/scenes/create/PublishFlow.tsx",
+      "productLine": 342,
+      "productValue": "12px (`--type-caption-12-size`, globals.css:374). 제품에는 크기 축이 없어 라벨 크기가 필드 크기를 따라 바뀌지 않는다 — DS가 sm에서 md와 같은 값을 쓰는 것과 결과가 같다."
+    },
+    {
+      "component": "input",
+      "path": "input.sizes.sm.lineHeight",
+      "decision": "product-has",
+      "productConstant": "INPUT — `[line-height:var(--type-body-16-line-height)]`",
+      "productFile": "/Users/sejunki/klipse-web/apps/web/app/inquiry/InquiryClient.tsx",
+      "productLine": 319,
+      "productValue": "1.5 (globals.css:367). 제품에는 크기 축이 없어 행간 비율이 필드 크기를 따라 바뀌지 않는다. DS의 21px = 14px × 1.5."
+    },
+    {
+      "component": "input",
+      "path": "input.sizes.sm.messageFontSize",
+      "decision": "product-has",
+      "productConstant": "ERROR_TEXT에 붙는 `type-caption-12-regular`",
+      "productFile": "/Users/sejunki/klipse-web/apps/web/components/projects/CreateProjectModal.tsx",
+      "productLine": 477,
+      "productValue": "12px (`--type-caption-12-size`, globals.css:374). 제품에는 크기 축이 없어 메시지 크기가 필드 크기를 따라 바뀌지 않는다."
+    },
+    {
+      "component": "input",
+      "path": "input.sizes.sm.paddingInline",
+      "decision": "product-has",
+      "productConstant": "projectInlineRenameInput — `[padding:0_10px]`",
+      "productFile": "/Users/sejunki/klipse-web/apps/web/components/navigation/Gnb.tsx",
+      "productLine": 1609,
+      "productValue": "10px. 같은 작은 계단 안에서도 갈린다 — myPageSceneStyles.ts:1026 12px(DS와 같음), NodeLayersPanel.tsx:181 좌 28/우 10px, CustomDropdown.tsx:113·VideoModelMenu.tsx:70 드롭다운 검색 7px. 큰 계단은 14~16px이다."
+    },
+    {
+      "component": "input",
+      "path": "input.sizes.sm.radius",
+      "decision": "product-has",
+      "productConstant": "projectInlineRenameInput — `[border-radius:12px]`",
+      "productFile": "/Users/sejunki/klipse-web/apps/web/components/navigation/Gnb.tsx",
+      "productLine": 1611,
+      "productValue": "12px. 제품에서 가장 흔한 값이고 큰 계단도 같다(login/page.tsx:129, CreateProjectModal.tsx:96, InquiryClient.tsx:314). 같은 작은 계단에 8px(NodeLayersPanel.tsx:181)·999px(myPageSceneStyles.ts:1028)도 섞여 있다."
+    },
+    {
+      "component": "input",
+      "path": "input.sizes.sm.stackGap",
+      "decision": "product-has",
+      "productConstant": "META_FIELD — `grid gap-3`",
+      "productFile": "/Users/sejunki/klipse-web/apps/web/components/scenes/create/PublishFlow.tsx",
+      "productLine": 57,
+      "productValue": "6px (`--spacing: 2px` 기준 gap-3). 라벨을 박스 위에 쌓는 계열 셋 중 둘이 6px(AdminClient.tsx:391, InquiryClient.tsx:204), 하나가 4px로 DS와 같다(CaptionTemplateManagement.tsx:116 `gap-2`). 라벨이 박스 안에 뜨는 인증 계열은 라벨↔박스 간격 자체가 없고, 박스↔메시지만 8px이다(CreateProjectModal.tsx:105 `mt-4`)."
+    },
+    {
+      "component": "input",
+      "path": "input.states.base.Default.background",
+      "decision": "product-has",
+      "productConstant": "INPUT_BOX — `bg-[rgb(var(--gray-000-rgb)/6%)]`",
+      "productFile": "/Users/sejunki/klipse-web/apps/web/app/login/page.tsx",
+      "productLine": 115,
+      "productValue": "rgb(var(--gray-000-rgb) / 6%) — 라이트 테마는 같은 상수 116행이 `var(--gray-900)`으로 덮는다. CreateProjectModal.tsx:97·InquiryClient.tsx:317도 같은 6%이며, 작은 계단은 10%다(myPageSceneStyles.ts:1029, NodeLayersPanel.tsx:182, AdminClient.tsx:298)."
+    },
+    {
+      "component": "input",
+      "path": "input.states.base.Default.border",
+      "decision": "product-has",
+      "productConstant": "INPUT_BOX_IDLE — `border-[rgb(var(--gray-000-rgb)/12%)]`",
+      "productFile": "/Users/sejunki/klipse-web/apps/web/app/login/page.tsx",
+      "productLine": 120,
+      "productValue": "rgb(var(--gray-000-rgb) / 12%), 두께는 같은 파일 114행의 `border`(1px). CreateProjectModal.tsx:96·InquiryClient.tsx:316도 같은 12%다. 포커스 분기(같은 파일 123행 `INPUT_BOX_FOCUSED`)에서 40%로 올라간다."
+    },
+    {
+      "component": "input",
+      "path": "input.states.base.Default.foreground",
+      "decision": "product-has",
+      "productConstant": "INPUT — `text-gray-000`",
+      "productFile": "/Users/sejunki/klipse-web/apps/web/app/login/page.tsx",
+      "productLine": 135,
+      "productValue": "var(--gray-000). CreateProjectModal.tsx:97·InquiryClient.tsx:318·myPageSceneStyles.ts:388도 같은 값이라 값 텍스트 색만은 제품 전체가 일치한다."
+    },
+    {
+      "component": "input",
+      "path": "input.states.base.Disabled.background",
+      "decision": "derived",
+      "reason": "Disabled은 테두리 색과 커서만 바꾼다 — 면은 Default의 `color-background-surface`가 그대로 계산된 값이라 따로 선언하지 않는다."
+    },
+    {
+      "component": "input",
+      "path": "input.states.base.Disabled.border",
+      "decision": "product-none",
+      "reason": "제품은 필드를 비활성화할 때 테두리 색을 바꾸지 않고 요소 전체에 `opacity`를 걸며(CreateProjectModal.tsx:102 `disabled:opacity-65`, InquiryClient.tsx:325 `opacity-50`, myPageSceneStyles.ts:391 `opacity:0.72`), 투명도는 배경까지 함께 흐려 대비를 예측할 수 없으므로 DS는 비활성 테두리를 값으로 따로 세운다."
+    },
+    {
+      "component": "input",
+      "path": "input.states.base.Disabled.foreground",
+      "decision": "product-none",
+      "reason": "제품은 비활성 상태에서 글자 색을 선언하지 않고 필드 전체 `opacity`로만 낮추는데, 투명도로 만든 색은 배경에 따라 실제 대비가 달라지므로 DS는 비활성 전경색을 값으로 고정한다."
+    },
+    {
+      "component": "input",
+      "path": "input.states.base.Invalid.background",
+      "decision": "derived",
+      "reason": "Invalid은 테두리 색과 메시지 색만 바꾼다 — 면은 Default의 `color-background-surface`가 그대로 계산된 값이라 따로 선언하지 않는다."
+    },
+    {
+      "component": "input",
+      "path": "input.states.base.Invalid.border",
+      "decision": "product-none",
+      "reason": "제품에는 필드의 오류 상태를 테두리로 알리는 선언이 없고 `aria-invalid`도 저장소 전체에 한 곳도 없어(오류는 필드 밖 문구로만 뜬다), 오류를 문구·aria와 함께 시각으로도 전달하려면 DS가 오류 테두리를 값으로 세워야 한다."
+    },
+    {
+      "component": "input",
+      "path": "input.states.base.Invalid.foreground",
+      "decision": "derived",
+      "reason": "Invalid은 테두리와 메시지 색만 바꾼다 — 값 텍스트는 Default의 `color-foreground-primary`가 그대로 계산된 값이다."
+    },
+    {
+      "component": "checkbox",
+      "path": "checkbox.sizes.base.borderWidth",
+      "decision": "product-has",
+      "productConstant": "LEGAL_CHECKBOX_FACE_UNCHECKED / LEGAL_CHECKBOX_FACE_CHECKED",
+      "productFile": "apps/web/app/signup/page.tsx",
+      "productLine": 186,
+      "productValue": "1px (`[border:1px_solid_rgb(var(--gray-000-rgb)/26%)]`; :186 미선택 · :195 선택 모두 1px)",
+      "reason": "제품 21벌 중 테두리를 선언하는 것은 B 레시피 6벌뿐이고 전부 1px이다(aws/signup/page.tsx:223·231, hl-signup/page.module.css:215). 정본 `.app-native-checkbox`를 포함한 A·C·D·E는 accent-color·브라우저 기본이라 테두리 선언 자체가 없다. DS의 0.5px은 제품 값이 아니다."
+    },
+    {
+      "component": "checkbox",
+      "path": "checkbox.sizes.base.checkBlock",
+      "decision": "product-has",
+      "productConstant": "LEGAL_CHECKBOX_FACE (`after:h-[7px]`)",
+      "productFile": "apps/web/app/signup/page.tsx",
+      "productLine": 174,
+      "productValue": "7px",
+      "reason": "B 레시피 6벌이 DS와 같은 구조(왼쪽·아래 두 변만 남긴 사각형을 45도 회전)로 그리며 세로가 전부 7px이다(aws/signup/page.tsx:213, hl-signup/page.module.css:232의 `height: 7px`). DS의 9px은 제품 값이 아니다."
+    },
+    {
+      "component": "checkbox",
+      "path": "checkbox.sizes.base.checkInline",
+      "decision": "product-has",
+      "productConstant": "LEGAL_CHECKBOX_FACE (`after:w-2`)",
+      "productFile": "apps/web/app/signup/page.tsx",
+      "productLine": 174,
+      "productValue": "4px (`w-2` × `--spacing: 2px`)",
+      "reason": "hl-signup/page.module.css:231이 같은 값을 리터럴 `width: 4px`로 적는다. aws/signup/page.tsx:213도 `after:w-2`다. DS의 5px은 제품 값이 아니다."
+    },
+    {
+      "component": "checkbox",
+      "path": "checkbox.sizes.base.checkStroke",
+      "decision": "product-has",
+      "productConstant": "LEGAL_CHECKBOX_FACE (`after:[border-width:0_1px_1px_0]`)",
+      "productFile": "apps/web/app/signup/page.tsx",
+      "productLine": 176,
+      "productValue": "1px (signup·aws 4벌) · 1.5px (hl-signup 2벌, page.module.css:234)",
+      "reason": "B 레시피 안에서도 획 두께가 1px과 1.5px로 갈린다. A·C·D·E는 체크 표시를 브라우저가 그려 획 선언이 없다. DS의 2px은 제품 값이 아니다."
+    },
+    {
+      "component": "checkbox",
+      "path": "checkbox.sizes.base.fontSize",
+      "decision": "product-has",
+      "productConstant": "--type-body-14-size",
+      "productFile": "apps/web/app/globals.css",
+      "productLine": 370,
+      "productValue": "14px",
+      "reason": "체크박스 라벨에 `type-body-14-regular`(globals.css:1156-1161)가 붙는 자리가 C(VideoEditProjectPicker.tsx:498)·D(CreditConfirmModal.tsx:121)이고 hl-signup의 `.checkText`(page.module.css:250)도 같은 토큰을 직접 읽는다. 다만 제품이 합의하지 않는다 — signup·aws는 `type-body-16-regular`(16px, signup/page.tsx:651·685), A의 일괄 선택 헤더는 `type-caption-12-medium`(12px, HighlightProjectScene.tsx:2911)이다."
+    },
+    {
+      "component": "checkbox",
+      "path": "checkbox.sizes.base.gap",
+      "decision": "product-has",
+      "productConstant": "LEGAL_AGREEMENT_LABEL (`gap-5`)",
+      "productFile": "apps/web/app/signup/page.tsx",
+      "productLine": 164,
+      "productValue": "10px (`gap-5` × `--spacing: 2px`) — D 레시피 SKIP_LABEL_CLASS만 8px(`gap-4`, CreditConfirmModal.tsx:47)",
+      "reason": "상자–라벨 간격은 제품 5레시피 중 4개가 10px이다 — A `clipDetailListItem`/`clipDetailListHeader` `[gap:10px]`(highlightSceneStyles.ts:117·150), B `gap-5`(signup:164, aws:204)와 hl-signup `.checkRow { gap: 10px }`(page.module.css:197), C `SOURCE_ROW` `gap-5`(VideoEditProjectPicker.tsx:128). DS의 8px과 같은 것은 D 3벌뿐이다."
+    },
+    {
+      "component": "checkbox",
+      "path": "checkbox.sizes.base.indeterminateBlock",
+      "decision": "product-none",
+      "reason": "제품은 부분 선택 표시를 브라우저에 맡겨 막대의 두께를 선언한 적이 없다(21벌 중 유일한 소비처인 HighlightProjectScene.tsx:2892-2898이 ref로 DOM 프로퍼티만 세운다). 두께를 플랫폼에 맡기면 같은 화면이 기기마다 다른 굵기로 \"일부\"를 말하므로 DS가 직접 그리고 값을 소유한다."
+    },
+    {
+      "component": "checkbox",
+      "path": "checkbox.sizes.base.indeterminateInline",
+      "decision": "product-none",
+      "reason": "제품은 부분 선택 막대의 폭을 선언한 적이 없다(브라우저가 그린다). DS는 막대 폭을 체크 표시 폭(5px)의 두 배로 세워, 색이 아니라 **모양**만으로 부분 선택과 선택이 갈리게 한다 — WCAG 1.4.1에 걸리는 자리다."
+    },
+    {
+      "component": "checkbox",
+      "path": "checkbox.sizes.base.lineHeight",
+      "decision": "product-has",
+      "productConstant": "--type-body-14-line-height",
+      "productFile": "apps/web/app/globals.css",
+      "productLine": 371,
+      "productValue": "1.5 (무단위) — font-size 14px과 곱해 21px",
+      "reason": "라벨에 붙는 `.type-body-14-regular`가 이 토큰을 line-height로 읽는다(globals.css:1158). DS의 21px은 같은 값의 px 실측이다."
+    },
+    {
+      "component": "checkbox",
+      "path": "checkbox.sizes.base.radius",
+      "decision": "product-has",
+      "productConstant": "LEGAL_CHECKBOX_FACE (`rounded-[5px]`)",
+      "productFile": "apps/web/app/signup/page.tsx",
+      "productLine": 171,
+      "productValue": "5px",
+      "reason": "반경을 선언하는 것은 B 레시피 6벌뿐이고 전부 5px이다(aws/signup/page.tsx:210, hl-signup/page.module.css:214의 `border-radius: 5px`). 정본 `.app-native-checkbox`를 포함한 A·C·D·E는 accent-color라 반경을 브라우저가 정한다. DS의 8px은 제품 값이 아니다."
+    },
+    {
+      "component": "checkbox",
+      "path": "checkbox.states.base.Checked.background",
+      "decision": "product-has",
+      "productConstant": ".app-native-checkbox { accent-color }",
+      "productFile": "apps/web/app/globals.css",
+      "productLine": 1019,
+      "productSelector": "선택된 면 — 라이트 `var(--palette-gray-900)`(globals.css:1019) · 다크 `html[data-theme=\"dark\"] .app-native-checkbox`가 `var(--palette-gray-000)`으로 덮는다(globals.css:1023)",
+      "productValue": "var(--palette-gray-900) / 다크 var(--palette-gray-000)",
+      "reason": "제품의 선택 면 색이 네 갈래다 — A 정본 gray-900/gray-000, C는 `SOURCE_ROW_CHECK`가 라이트에서만 `rgb(14 165 233)`로 갈렸고(VideoEditProjectPicker.tsx:154-155, 캐스케이드 사고), D는 `accent-gray-000`(CreditConfirmModal.tsx:53), B는 `bg-gray-000`(signup/page.tsx:195)과 `#FFDD00`(hl-signup/page.module.css:222)이다. 어느 것도 액션 색이 아니다."
+    },
+    {
+      "component": "checkbox",
+      "path": "checkbox.states.base.Checked.border",
+      "decision": "product-has",
+      "productConstant": "LEGAL_CHECKBOX_FACE_CHECKED",
+      "productFile": "apps/web/app/signup/page.tsx",
+      "productLine": 195,
+      "productSelector": "체크됨 — React가 `checked`일 때 이 상수를 붙인다(원본 CSS의 `.checkbox:checked + .checkMark`, hl-signup/page.module.css:221-224)",
+      "productValue": "1px solid var(--gray-000) (hl-signup은 `border-color: #FFDD00`, aws는 `var(--palette-gray-000)`)",
+      "reason": "선택 상태 테두리를 선언하는 것은 B 레시피 6벌뿐이며 셋 다 면 색과 같은 색을 쓴다 — 면·테두리를 한 색으로 묶는다는 점만 DS와 같다. A·C·D·E는 테두리 선언이 없다."
+    },
+    {
+      "component": "checkbox",
+      "path": "checkbox.states.base.Checked.foreground",
+      "decision": "product-has",
+      "productConstant": "LEGAL_AGREEMENT_TEXT",
+      "productFile": "apps/web/app/signup/page.tsx",
+      "productLine": 200,
+      "productValue": "rgb(var(--gray-000-rgb)/86%)",
+      "reason": "이 축은 라벨 색이다. 제품에는 `:checked`에서 라벨 색을 바꾸는 선언이 21벌 어디에도 없어 라벨 색이 상태와 무관한 선언 하나뿐이다 — DS가 Checked를 Default와 같은 값으로 둔 것과 결과가 같다."
+    },
+    {
+      "component": "checkbox",
+      "path": "checkbox.states.base.Default.background",
+      "decision": "product-has",
+      "productConstant": "LEGAL_CHECKBOX_FACE_UNCHECKED",
+      "productFile": "apps/web/app/signup/page.tsx",
+      "productLine": 186,
+      "productSelector": "미선택 — React가 `checked`가 아닐 때 이 상수를 붙인다(원본 CSS의 `.checkMark` 기본 면, hl-signup/page.module.css:216)",
+      "productValue": "rgb(var(--gray-000-rgb)/5%) (aws는 `bg-palette-gray-800`:223, hl-signup은 `rgb(var(--palette-gray-000-rgb)/0.05)`:216)",
+      "reason": "미선택 면을 선언하는 것은 B 레시피 6벌뿐이다. 정본 `.app-native-checkbox`를 포함한 A·C·D·E는 accent-color만 주므로 미선택 면을 브라우저가 그린다."
+    },
+    {
+      "component": "checkbox",
+      "path": "checkbox.states.base.Default.border",
+      "decision": "product-has",
+      "productConstant": "LEGAL_CHECKBOX_FACE_UNCHECKED",
+      "productFile": "apps/web/app/signup/page.tsx",
+      "productLine": 186,
+      "productSelector": "미선택 (hover는 44%, focus-visible은 62%로 따로 걸린다 — signup/page.tsx:188·190)",
+      "productValue": "1px solid rgb(var(--gray-000-rgb)/26%) (aws는 `var(--palette-gray-600)`:223, hl-signup은 `rgb(var(--palette-gray-000-rgb)/0.25)`:215)",
+      "reason": "제품의 미선택 테두리는 B 레시피 6벌에만 있고 전부 흰색 20%대 알파다 — 어두운 면 위에서만 성립하는 값이라 라이트 테마 대비 근거가 없다. A·C·D·E는 테두리 선언이 아예 없다."
+    },
+    {
+      "component": "checkbox",
+      "path": "checkbox.states.base.Default.foreground",
+      "decision": "product-has",
+      "productConstant": "LEGAL_AGREEMENT_TEXT",
+      "productFile": "apps/web/app/signup/page.tsx",
+      "productLine": 200,
+      "productValue": "rgb(var(--gray-000-rgb)/86%)",
+      "reason": "이 축은 라벨 색이다. 다섯 레시피가 합의하지 않는다 — 86%(signup:200) · `palette-gray-300`(aws:235) · 80%(hl-signup `.checkText`:251) · 78%/라이트 74%(VideoEditProjectPicker.tsx:132·135) · 60%(CreditConfirmModal.tsx:49). 어느 것도 본문 기본색이 아니고 전부 흐린 값이다."
+    },
+    {
+      "component": "checkbox",
+      "path": "checkbox.states.base.Disabled.background",
+      "decision": "product-none",
+      "reason": "제품의 체크박스 21벌 중 `disabled`를 받는 것이 하나도 없고 `input[type=checkbox]`에 걸린 `:disabled` 규칙도 없다(21벌 전체의 input 블록을 훑어 확인했다). 폼이 조건부로 잠기는 자리에서 잠긴 상자가 누를 수 있는 것처럼 보이면 안 되므로 DS가 면 색을 세운다."
+    },
+    {
+      "component": "checkbox",
+      "path": "checkbox.states.base.Disabled.border",
+      "decision": "product-none",
+      "reason": "제품에 disabled 체크박스가 한 벌도 없어 잠긴 상태의 테두리 선언이 없다. 미선택 상자는 테두리가 어포던스의 전부라, 잠겼을 때 그 선이 함께 약해지지 않으면 상태가 면에서만 읽히므로 DS가 값을 세운다."
+    },
+    {
+      "component": "checkbox",
+      "path": "checkbox.states.base.Disabled.foreground",
+      "decision": "product-none",
+      "reason": "제품에 disabled 체크박스가 한 벌도 없어 잠긴 상태의 라벨 색 선언이 없다. 라벨이 클릭 영역의 대부분을 차지하므로 라벨 색이 함께 죽지 않으면 잠긴 줄이 살아 있는 줄로 읽힌다 — DS가 값을 세운다."
+    },
+    {
+      "component": "checkbox",
+      "path": "checkbox.states.base.Indeterminate.background",
+      "decision": "product-none",
+      "reason": "제품의 유일한 부분 선택 소비처(HighlightProjectScene.tsx:2885-2905)는 ref로 `node.indeterminate`만 세우고 부분 선택 면에 어떤 색 선언도 두지 않는다 — 면을 브라우저가 그린다. 부분 선택도 선택과 같은 면 위에 서야 세 상태가 하나의 축으로 읽히므로 DS가 선택과 같은 액션 색을 세운다."
+    },
+    {
+      "component": "checkbox",
+      "path": "checkbox.states.base.Indeterminate.border",
+      "decision": "product-none",
+      "reason": "제품의 유일한 부분 선택 소비처는 레시피 A(`.app-native-checkbox`)라 테두리 선언 자체가 없다. 면과 테두리가 같은 색이어야 상자가 한 덩어리로 읽히므로 DS가 선택과 같은 값을 세운다."
+    },
+    {
+      "component": "checkbox",
+      "path": "checkbox.states.base.Indeterminate.foreground",
+      "decision": "product-has",
+      "productConstant": "clipDetailListHeaderLabel",
+      "productFile": "apps/web/components/scenes/highlightSceneStyles.ts",
+      "productLine": 126,
+      "productValue": "var(--palette-gray-500) / 다크 var(--palette-gray-400) (:127)",
+      "reason": "이 축은 라벨 색이며, 제품의 유일한 부분 선택 체크박스 옆 라벨이 이 상수를 쓴다(HighlightProjectScene.tsx:2911). 부분 선택에서 라벨 색을 바꾸는 선언은 제품에 없어 상태와 무관한 값 하나뿐이다 — DS가 Indeterminate를 Default와 같은 값으로 둔 것과 결과가 같다."
+    },
+    {
+      "component": "segmented-control",
+      "path": "segmented-control.sizes.md.fontSize",
+      "decision": "product-has",
+      "productConstant": "--type-body-14-size (정본 A `SegmentedToggle`이 세그먼트 버튼에 `type-body-14-medium`을 건다 — apps/web/components/scenes/SegmentedToggle.tsx:52)",
+      "productFile": "apps/web/app/globals.css",
+      "productLine": 370,
+      "productValue": "14px"
+    },
+    {
+      "component": "segmented-control",
+      "path": "segmented-control.sizes.md.lineHeight",
+      "decision": "product-has",
+      "productConstant": "--type-body-14-line-height (`.type-body-14-medium`이 무는 값 — apps/web/app/globals.css:1163-1168)",
+      "productFile": "apps/web/app/globals.css",
+      "productLine": 371,
+      "productValue": "1.5 → 14px에서 21px",
+      "reason": "DS는 px(21)로, 제품은 무단위 비율(1.5)로 적었을 뿐 같은 값이다."
+    },
+    {
+      "component": "segmented-control",
+      "path": "segmented-control.sizes.md.trackHeight",
+      "decision": "product-none",
+      "reason": "제품은 트랙 높이를 어느 벌에서도 선언하지 않는다 — 세그먼트 높이와 트랙 padding에서 36px(A: 28+4×2) · 32px(C BgmNode: 26+3×2) · 38px(D ComposerBar: 32+3×2)이 결과로 떨어질 뿐이고 셋 다 서로 다르다. DS는 나란히 선 Button·Text Field·Slider와 줄이 어긋나지 않도록 트랙 높이를 `layout-control-height-md`로 직접 세운다."
+    },
+    {
+      "component": "segmented-control",
+      "path": "segmented-control.sizes.sm.borderWidth",
+      "decision": "product-has",
+      "productConstant": "--glass-dropdown-frame 첫 그림자(spread-only 링). 트랙이 `settingsToggleWrap`의 box-shadow로 이 토큰을 문다 — apps/web/components/scenes/myPageSceneStyles.ts:1106",
+      "productFile": "apps/web/app/globals.css",
+      "productLine": 64,
+      "productValue": "0.5px (`0px 0px 0px 0.5px rgba(0,0,0,0.5)`, 라이트는 :594에서 알파만 0.15로 바뀐다)",
+      "reason": "DS `sm`에는 테두리 두께의 별도 선언이 없다 — `[data-size=\"sm\"]`은 `block-size`만 덮으므로 md와 같은 `border-width-hairline` 하나를 쓴다. 기존 md 대조 행(measure-product-components.mjs:787)은 트랙 헤어라인이 아니라 세그먼트의 `borderTopWidth`(제품 0)를 재고 있어 이 축을 가리키지 않는다."
+    },
+    {
+      "component": "segmented-control",
+      "path": "segmented-control.sizes.sm.fontSize",
+      "decision": "product-has",
+      "productConstant": "--type-caption-12-size (제품의 작은 세그먼트 컨트롤들이 `type-caption-12-medium`을 건다 — B: InstagramAnalyticsScene.tsx:1838-1839 · YoutubeAnalyticsScene.tsx:2109-2110, C: BgmNode.tsx:1174·1187)",
+      "productFile": "apps/web/app/globals.css",
+      "productLine": 374,
+      "productValue": "12px",
+      "reason": "정본 `SegmentedToggle`(A)에는 크기 축이 없어 sm의 대응물은 정본 밖 벌(B·C)에 있다. 두 벌 모두 12px로 같아 값 자체에는 갈림이 없다."
+    },
+    {
+      "component": "segmented-control",
+      "path": "segmented-control.sizes.sm.lineHeight",
+      "decision": "product-has",
+      "productConstant": "--type-caption-12-line-height (`.type-caption-12-medium`이 무는 값 — apps/web/app/globals.css:1178-1183)",
+      "productFile": "apps/web/app/globals.css",
+      "productLine": 375,
+      "productValue": "1.5 → 12px에서 18px"
+    },
+    {
+      "component": "segmented-control",
+      "path": "segmented-control.sizes.sm.segmentGap",
+      "decision": "product-has",
+      "productConstant": "아이콘+라벨 슬롯을 감싸는 inline-flex span의 인라인 `gap` (SegmentedToggle 안, 정본 A)",
+      "productFile": "apps/web/components/scenes/SegmentedToggle.tsx",
+      "productLine": 63,
+      "productValue": "4px (DS는 8px)",
+      "reason": "이 축은 세그먼트 **안쪽** 슬롯 간격이다 — DS CSS는 `.kds-segmented-control__segment`에 `gap`을 걸고 테스트도 `segmentStyle.columnGap`을 읽는다(packages/react/test/segmented-control.browser.test.tsx:108). 기존 md 대조 행(scripts/measure-product-components.mjs:649)은 제품 **트랙**의 `columnGap`(2px, 세그먼트 사이 간격)을 재고 있어 다른 축을 가리킨다 — sm을 닫기 전에 md 행부터 다시 봐야 한다. `sm`에는 별도 선언이 없어 md와 같은 `space-control-sm` 하나를 쓴다."
+    },
+    {
+      "component": "segmented-control",
+      "path": "segmented-control.sizes.sm.segmentHeight",
+      "decision": "derived",
+      "reason": "세그먼트 높이는 트랙 높이에서 트랙 padding을 두 번 뺀 값이다 — 32 − 2×4 = 24. CSS에 이 값을 적은 선언이 없고 `align-items: stretch`가 트랙 안쪽을 그대로 채워 만든다."
+    },
+    {
+      "component": "segmented-control",
+      "path": "segmented-control.sizes.sm.segmentPaddingInline",
+      "decision": "product-has",
+      "productConstant": "MODE_SEGMENT_BTN_BASE의 `px-4` (C BgmNode 모드 세그먼트 — `--spacing: 2px` 격자라 8px, apps/web/app/tailwind.css:164)",
+      "productFile": "apps/web/components/scenes/create/node-canvas-v2/nodes/BgmNode.tsx",
+      "productLine": 184,
+      "productValue": "8px",
+      "reason": "정본 A는 크기가 하나뿐이라 12px(myPageSceneStyles.ts:1068)만 갖고 그것은 md의 대응물이다. sm의 8px에 대응하는 선언은 정본 밖 벌에 있다 — C가 12px 타이포에서 `px-4`(8px)를 쓰고, B도 480px 이하에서 `px-4!`(8px)로 내려간다(InstagramAnalyticsScene.tsx:437)."
+    },
+    {
+      "component": "segmented-control",
+      "path": "segmented-control.sizes.sm.segmentRadius",
+      "decision": "product-has",
+      "productConstant": "settingsToggleBtn의 `border-radius` (같은 값을 썸 `settingsToggleThumb`도 :1088에서 쓴다)",
+      "productFile": "apps/web/components/scenes/myPageSceneStyles.ts",
+      "productLine": 1070,
+      "productValue": "8px",
+      "reason": "DS `sm`에는 세그먼트 반경의 별도 선언이 없어 md와 같은 `radius-control-sm` 하나를 쓴다 — 제품 대조도 md와 같은 선언 한 곳으로 끝난다."
+    },
+    {
+      "component": "segmented-control",
+      "path": "segmented-control.sizes.sm.trackHeight",
+      "decision": "product-none",
+      "reason": "제품은 트랙 높이를 어느 벌에서도 선언하지 않는다 — 세그먼트 높이와 트랙 padding에서 36px(A) · 32px(C) · 38px(D)이 결과로 떨어질 뿐이다. DS는 작은 컨트롤도 같은 줄의 Button·Text Field와 어긋나지 않도록 트랙 높이를 `layout-control-height-sm`으로 직접 세운다."
+    },
+    {
+      "component": "segmented-control",
+      "path": "segmented-control.sizes.sm.trackPadding",
+      "decision": "product-has",
+      "productConstant": "settingsToggleWrap의 `padding` (썸의 `top: 4px`·`left: 4px`도 같은 값 — :1085-1086)",
+      "productFile": "apps/web/components/scenes/myPageSceneStyles.ts",
+      "productLine": 1102,
+      "productValue": "4px",
+      "reason": "DS `sm`에는 트랙 padding의 별도 선언이 없어 md와 같은 `space-control-xs` 하나를 쓴다."
+    },
+    {
+      "component": "segmented-control",
+      "path": "segmented-control.sizes.sm.trackRadius",
+      "decision": "product-has",
+      "productConstant": "settingsToggleWrap의 `border-radius`",
+      "productFile": "apps/web/components/scenes/myPageSceneStyles.ts",
+      "productLine": 1103,
+      "productValue": "12px",
+      "reason": "DS `sm`에는 트랙 반경의 별도 선언이 없어 md와 같은 `radius-control` 하나를 쓴다."
+    },
+    {
+      "component": "segmented-control",
+      "path": "segmented-control.states.base.Default.background",
+      "decision": "product-has",
+      "productConstant": "settingsToggleBtn의 `background`",
+      "productFile": "apps/web/components/scenes/myPageSceneStyles.ts",
+      "productLine": 1071,
+      "productValue": "transparent (DS의 null과 같은 뜻 — 트랙 색이 그대로 보인다)"
+    },
+    {
+      "component": "segmented-control",
+      "path": "segmented-control.states.base.Default.foreground",
+      "decision": "product-has",
+      "productConstant": "settingsToggleBtn의 `color`",
+      "productFile": "apps/web/components/scenes/myPageSceneStyles.ts",
+      "productLine": 1072,
+      "productValue": "rgb(var(--gray-000-rgb) / 42%) (DS는 `color-foreground-secondary`)"
+    },
+    {
+      "component": "segmented-control",
+      "path": "segmented-control.states.base.Disabled.background",
+      "decision": "product-none",
+      "reason": "제품에는 세그먼트의 비활성 면 선언이 없다 — 정본 `SegmentedToggle`에 `disabled`가 아예 없고, 비활성을 다루는 유일한 벌인 BgmNode는 트랙 전체에 `opacity: 0.65`를 걸 뿐(BgmNode.tsx:165) 세그먼트 면을 따로 칠하지 않는다. DS도 비활성에서 면을 바꾸지 않는다 — 면을 지우면 비활성 그룹 안에서 어느 값이 현재 값인지 사라진다."
+    },
+    {
+      "component": "segmented-control",
+      "path": "segmented-control.states.base.Disabled.foreground",
+      "decision": "product-none",
+      "reason": "제품에는 비활성 글자색 선언이 없다 — 정본 `SegmentedToggle`에 `disabled`가 없고, BgmNode는 `disabled:cursor-not-allowed`(BgmNode.tsx:190)와 트랙 전체 `opacity: 0.65`(BgmNode.tsx:165)로만 표시해 글자·면·아이콘이 함께 흐려진다. DS는 비활성을 전경 토큰 하나로 전달해 선택 면과의 대비가 남게 한다."
+    },
+    {
+      "component": "segmented-control",
+      "path": "segmented-control.states.base.Hover.background",
+      "decision": "product-has",
+      "productConstant": "settingsToggleBtn의 `[&:hover]` 규칙 — `color`만 바꾸고 배경 선언이 없어 :1071의 `transparent`가 유지된다",
+      "productFile": "apps/web/components/scenes/myPageSceneStyles.ts",
+      "productLine": 1077,
+      "productSelector": "[&:hover]",
+      "productValue": "면 없음 (transparent 유지)",
+      "reason": "정본 A는 hover에서 면을 바꾸지 않고 DS도 같다. 제품 B(PERIOD_BTN)는 hover에 `rgb(var(--gray-000-rgb) / 10%)` 면을 칠하는데(InstagramAnalyticsScene.tsx:443), 그러면 얹은 것과 선택된 것이 같은 표현이 되어 어느 쪽이 현재 값인지 순간 읽히지 않는다."
+    },
+    {
+      "component": "segmented-control",
+      "path": "segmented-control.states.base.Hover.foreground",
+      "decision": "product-has",
+      "productConstant": "settingsToggleBtn의 `[&:hover]:[color:…]`",
+      "productFile": "apps/web/components/scenes/myPageSceneStyles.ts",
+      "productLine": 1077,
+      "productSelector": "[&:hover]",
+      "productValue": "rgb(var(--gray-000-rgb) / 72%) (DS는 `color-foreground-primary`)"
+    },
+    {
+      "component": "segmented-control",
+      "path": "segmented-control.states.base.Selected.background",
+      "decision": "product-has",
+      "productConstant": "settingsToggleThumb의 `background` (다크 :1089 / 라이트 `html[data-theme=light]` :1093 `var(--palette-gray-000)`)",
+      "productFile": "apps/web/components/scenes/myPageSceneStyles.ts",
+      "productLine": 1089,
+      "productSelector": "선택된 세그먼트. 제품은 면을 세그먼트가 아니라 그 아래를 미끄러지는 별도 요소 `settingsToggleThumb`이 갖는다 — SegmentedToggle.tsx:44에서 활성 버튼의 offsetLeft/offsetWidth로 옮긴다",
+      "productValue": "rgb(var(--gray-000-rgb) / 14%) · 라이트 var(--palette-gray-000) (DS는 `color-background-raised`)"
+    },
+    {
+      "component": "segmented-control",
+      "path": "segmented-control.states.base.Selected.foreground",
+      "decision": "product-has",
+      "productConstant": "settingsToggleBtnActive의 `color`",
+      "productFile": "apps/web/components/scenes/myPageSceneStyles.ts",
+      "productLine": 1080,
+      "productSelector": "`value === v`일 때 붙는 클래스. 제품은 같은 조건을 `aria-pressed`로도 낸다 — SegmentedToggle.tsx:53·55",
+      "productValue": "var(--gray-000) (DS는 `color-foreground-primary`)"
+    },
+    {
+      "component": "menu-popover",
+      "path": "menu-popover.sizes.panel.fontSize",
+      "decision": "product-has",
+      "productConstant": "--type-body-14-size",
+      "productFile": "apps/web/app/globals.css",
+      "productLine": 370,
+      "productValue": "14px — 카드 메뉴 항목이 `type-body-14-regular` 클래스로 이 값을 받는다(globals.css:1156-1161 정의, AppHomeScene.tsx:1307·1322·1332 적용). 프로필 메뉴(Gnb.tsx:1041)·NodeMoreMenu:217·AnalyticsAccountMoreMenu:352 항목도 같은 14px다"
+    },
+    {
+      "component": "menu-popover",
+      "path": "menu-popover.sizes.panel.gap",
+      "decision": "product-has",
+      "productConstant": "archiveDropdown",
+      "productFile": "apps/web/components/scenes/appHomeSceneStyles.ts",
+      "productLine": 65,
+      "productValue": "2px (`[gap:2px]`). HomeCreateNewMenu.tsx:36·NodeMoreMenu.tsx:54·AnalyticsAccountMoreMenu.tsx:63·PaneContextMenu.tsx:43도 모두 `gap-1` = 2px(--spacing: 2px)로 같아 제품 전체가 한 값이다"
+    },
+    {
+      "component": "menu-popover",
+      "path": "menu-popover.sizes.panel.groupLabelHeight",
+      "decision": "derived",
+      "reason": "그룹 라벨 높이는 padding-block 4px 두 겹과 caption 12px에 행간 1.5를 곱한 18px의 합이다 — 4 + 18 + 4 = 26px이므로 따로 선언하지 않는다."
+    },
+    {
+      "component": "menu-popover",
+      "path": "menu-popover.sizes.panel.groupLabelPaddingBlock",
+      "decision": "product-none",
+      "reason": "제품 메뉴에는 그룹 라벨 축이 없다. DS는 라벨 위아래를 4px만 띄워 라벨이 누를 수 있는 행처럼 보이지 않으면서도 앞뒤 묶음의 경계가 읽히게 한다."
+    },
+    {
+      "component": "menu-popover",
+      "path": "menu-popover.sizes.panel.groupLabelPaddingInline",
+      "decision": "product-none",
+      "reason": "제품 메뉴에는 그룹 라벨 축이 없다. DS는 라벨의 좌우 여백을 항목과 같은 12px로 두어 라벨과 항목의 글자 시작선이 한 줄로 맞게 한다."
+    },
+    {
+      "component": "menu-popover",
+      "path": "menu-popover.sizes.panel.lineHeight",
+      "decision": "product-has",
+      "productConstant": "--type-body-14-line-height",
+      "productFile": "apps/web/app/globals.css",
+      "productLine": 371,
+      "productValue": "1.5 (단위 없는 비율) — font-size 14px에서 21px. 제품은 px이 아니라 비율로 선언하므로 DS가 적은 21px은 14 × 1.5의 계산값이다"
+    },
+    {
+      "component": "menu-popover",
+      "path": "menu-popover.sizes.panel.minWidth",
+      "decision": "product-has",
+      "productConstant": "archiveDropdown",
+      "productFile": "apps/web/components/scenes/appHomeSceneStyles.ts",
+      "productLine": 62,
+      "productValue": "160px (`[min-width:160px]`). 제품의 다른 메뉴는 갈린다 — AnalyticsAccountMoreMenu 160px(min-w-80, :69), NodeMoreMenu 140px(min-w-70, :54), PaneContextMenu 190px(min-w-95, :39), HomeCreateNewMenu 200px(:36). DS가 채택한 160px은 카드 메뉴 값이다"
+    },
+    {
+      "component": "menu-popover",
+      "path": "menu-popover.sizes.panel.separatorMargin",
+      "decision": "product-has",
+      "productConstant": "profileMenuDivider",
+      "productFile": "apps/web/components/navigation/Gnb.tsx",
+      "productLine": 1036,
+      "productValue": "margin: 4px 10px — 블록 방향 4px. VideoEditModal.tsx:4580 transitionMenuDivider가 4px 6px, PaneContextMenu.tsx:47 DIVIDER가 my-2(=4px) mx-3(=6px)로 블록 4px는 세 벌이 모두 같고 인라인만 10/6/6으로 갈린다(DS는 인라인 0)"
+    },
+    {
+      "component": "menu-popover",
+      "path": "menu-popover.sizes.panel.separatorWidth",
+      "decision": "product-has",
+      "productConstant": "profileMenuDivider",
+      "productFile": "apps/web/components/navigation/Gnb.tsx",
+      "productLine": 1035,
+      "productValue": "height: 1px. VideoEditModal.tsx:4579 transitionMenuDivider도 1px, PaneContextMenu.tsx:47 DIVIDER도 h-px = 1px로 세 벌이 같다"
+    },
+    {
+      "component": "menu-popover",
+      "path": "menu-popover.states.base.Danger.background",
+      "decision": "product-has",
+      "productConstant": "archiveDropdownItem",
+      "productFile": "apps/web/components/scenes/appHomeSceneStyles.ts",
+      "productLine": 95,
+      "productSelector": ".tw-ah-005 (danger 항목) 기본 상태 — danger 수식자 archiveDropdownItemDanger는 색만 바꾸고 면은 덮지 않는다",
+      "productValue": "transparent (`[background:transparent]`). AnalyticsAccountMoreMenu.tsx:106 danger 톤도 `bg-transparent`로 같다"
+    },
+    {
+      "component": "menu-popover",
+      "path": "menu-popover.states.base.Danger.foreground",
+      "decision": "product-has",
+      "productConstant": "archiveDropdownItemDanger",
+      "productFile": "apps/web/components/scenes/appHomeSceneStyles.ts",
+      "productLine": 109,
+      "productSelector": ".tw-ah-005 (danger 항목) 기본 상태",
+      "productValue": "var(--accent-red-500) = #ff4b59 (globals.css:234). 라이트도 같은 값을 명시한다(appHomeSceneStyles.ts:104)"
+    },
+    {
+      "component": "menu-popover",
+      "path": "menu-popover.states.base.DangerHover.background",
+      "decision": "product-has",
+      "productConstant": "archiveDropdownItemDanger",
+      "productFile": "apps/web/components/scenes/appHomeSceneStyles.ts",
+      "productLine": 110,
+      "productSelector": ".tw-ah-005:hover — 라이트는 html[data-theme=light] .tw-ah-005:hover (같은 파일 111줄)",
+      "productValue": "rgb(var(--accent-red-500-rgb) / 12%) = rgb(255 75 89 / 12%) 다크 / rgb(255 75 89 / 10%) 라이트 (globals.css:243)"
+    },
+    {
+      "component": "menu-popover",
+      "path": "menu-popover.states.base.DangerHover.foreground",
+      "decision": "product-has",
+      "productConstant": "archiveDropdownItemDanger",
+      "productFile": "apps/web/components/scenes/appHomeSceneStyles.ts",
+      "productLine": 109,
+      "productSelector": ".tw-ah-005:hover — hover 전용 전경 선언이 없어 danger 기본 색이 그대로 유효하다",
+      "productValue": "var(--accent-red-500) = #ff4b59. 다만 AnalyticsAccountMoreMenu.tsx:108은 hover에서 전경을 accent-red-200/98%로 바꾼다 — 카드 메뉴와 갈린다"
+    },
+    {
+      "component": "menu-popover",
+      "path": "menu-popover.states.base.Default.background",
+      "decision": "product-has",
+      "productConstant": "--dropdown-surface-bg",
+      "productFile": "apps/web/app/globals.css",
+      "productLine": 101,
+      "productValue": "rgb(var(--palette-gray-800-rgb)) = rgb(49 54 64) #313640 다크 / rgb(var(--palette-gray-100-rgb)) = rgb(241 241 243) #f1f1f3 라이트(같은 파일 600줄). 카드 메뉴 패널이 appHomeSceneStyles.ts:69에서 이 변수를 읽고, AnalyticsAccountMoreMenu.tsx:64도 같은 변수를 쓴다"
+    },
+    {
+      "component": "menu-popover",
+      "path": "menu-popover.states.base.Default.foreground",
+      "decision": "product-has",
+      "productConstant": "archiveDropdownItem",
+      "productFile": "apps/web/components/scenes/appHomeSceneStyles.ts",
+      "productLine": 96,
+      "productValue": "rgb(var(--gray-000-rgb) / 86%) = rgb(250 250 250 / 86%) 다크 / rgb(var(--palette-gray-900-rgb) / 86%) = rgb(23 27 34 / 86%) 라이트(같은 파일 102줄, globals.css:40·51)"
+    },
+    {
+      "component": "menu-popover",
+      "path": "menu-popover.states.base.Disabled.background",
+      "decision": "product-has",
+      "productConstant": "SIDE_MENU_ITEM_TONE",
+      "productFile": "apps/web/components/scenes/analytics/AnalyticsAccountMoreMenu.tsx",
+      "productLine": 91,
+      "productSelector": ":disabled:hover — 기본 상태의 bg-transparent는 같은 파일 88줄, danger 톤의 같은 선언은 109줄",
+      "productValue": "transparent — disabled 항목은 hover에서도 면을 칠하지 않는다. 정본으로 삼은 카드 메뉴(appHomeSceneStyles.ts)에는 disabled 항목 자체가 없고, 제품에서 메뉴 항목 disabled를 선언한 곳은 이 파일과 NodeMoreMenu.tsx:68, PaneContextMenu.tsx:63뿐이다"
+    },
+    {
+      "component": "menu-popover",
+      "path": "menu-popover.states.base.Disabled.foreground",
+      "decision": "product-none",
+      "reason": "제품 메뉴에는 disabled 전용 전경색이 없고 행 전체를 opacity 0.45(AnalyticsAccountMoreMenu.tsx:82)·0.38(PaneContextMenu.tsx:63)로 흐릴 뿐이라 아이콘과 배지까지 함께 흐려져 대비를 값으로 보장할 수 없으므로, DS는 전경만 color-foreground-disabled로 바꾼다."
+    },
+    {
+      "component": "menu-popover",
+      "path": "menu-popover.states.base.Hover.background",
+      "decision": "product-has",
+      "productConstant": "archiveDropdownItem",
+      "productFile": "apps/web/components/scenes/appHomeSceneStyles.ts",
+      "productLine": 101,
+      "productSelector": ":hover:not(.tw-ah-005) — 라이트는 html[data-theme=light] &:hover:not(.tw-ah-005) (같은 파일 103줄)",
+      "productValue": "rgb(var(--gray-000-rgb) / 10%) = rgb(250 250 250 / 10%) 다크 / rgb(var(--palette-gray-900-rgb) / 6%) = rgb(23 27 34 / 6%) 라이트"
+    },
+    {
+      "component": "menu-popover",
+      "path": "menu-popover.states.base.Hover.foreground",
+      "decision": "product-has",
+      "productConstant": "archiveDropdownItem",
+      "productFile": "apps/web/components/scenes/appHomeSceneStyles.ts",
+      "productLine": 96,
+      "productSelector": ":hover:not(.tw-ah-005) — hover 전용 전경 선언이 없어 기본 전경(96·102줄)이 그대로 유효하다",
+      "productValue": "rgb(var(--gray-000-rgb) / 86%) = rgb(250 250 250 / 86%) 다크 / rgb(var(--palette-gray-900-rgb) / 86%) 라이트. 다만 AnalyticsAccountMoreMenu.tsx:90은 hover에서 74% → 96%로 올린다 — 카드 메뉴와 갈린다"
+    },
+    {
+      "component": "banner-carousel",
+      "path": "banner-carousel.sizes.boxed.controlGlyphCount",
+      "decision": "product-none",
+      "reason": "제품에는 글리프 개수라는 축이 없다 — 화살표마다 `<svg>` 하나를 JSX에 직접 인라인할 뿐 개수를 정한 선언이 없고 DS가 더한 정지 토글은 제품에 아예 없다; DS가 이 값을 세우는 이유는 Figma 컨트롤 프레임이 비어 있어도 눈으로는 티가 나지 않아 실제로 4 variant × 3 부품이 빈 채로 통과했기 때문이며, 부품마다 글리프가 정확히 하나 있어야 parity 게이트가 그것을 잡는다."
+    },
+    {
+      "component": "banner-carousel",
+      "path": "banner-carousel.sizes.boxed.controlsHeight",
+      "decision": "derived",
+      "reason": "컨트롤 높이 = 컨트롤 padding 4 × 2 + 화살표 28 = 36. 제품 컨트롤도 `inline-flex`(TabBannerCarousel.tsx:128 CONTROLS, appHomeSceneStyles.ts:442 bannerControls)라 높이를 선언하지 않고 가장 큰 자식인 화살표에서 나온다."
+    },
+    {
+      "component": "banner-carousel",
+      "path": "banner-carousel.sizes.boxed.controlsWidth",
+      "decision": "derived",
+      "reason": "컨트롤 폭 = padding 4 × 2 + 화살표 28 × 2 + 정지 28 + 컨트롤 gap 8 × 3 + 점 묶음(활성 20 + 비활성 7 × 2 + 점 gap 6 × 2 = 46) = 162, 슬라이드 3장 기준. 제품 컨트롤은 `inline-flex`라 폭을 선언하지 않으며, 정지 버튼이 없는 제품에 같은 식을 쓰면 126이 되어 DS가 36 넓다는 서술과 맞는다."
+    },
+    {
+      "component": "banner-carousel",
+      "path": "banner-carousel.sizes.boxed.width",
+      "decision": "product-none",
+      "reason": "제품은 배너 폭을 선언하지 않는다 — boxed는 `max-w-none w-full`(TabBannerCarousel.tsx:15,19)이고 AppHomeScene의 `updateBanner`도 `[width:100%] [max-width:none]`(appHomeSceneStyles.ts:964)이라 폭이 언제나 부모에서 온다; 960은 Figma component set을 그리려면 프레임에 실제 폭이 있어야 해서 DS가 고른 캔버스 폭이며 소비처가 지켜야 할 계약이 아니다."
+    },
+    {
+      "component": "banner-carousel",
+      "path": "banner-carousel.sizes.full.arrowRadius",
+      "decision": "product-has",
+      "productConstant": "ARROW_BUTTON",
+      "productFile": "apps/web/components/banners/TabBannerCarousel.tsx",
+      "productLine": 137,
+      "productValue": "rounded-full → var(--radius-full) = 999px (appHomeSceneStyles.ts:414 bannerArrowButton `[border-radius:999px]`로 원본 CSS 확인)"
+    },
+    {
+      "component": "banner-carousel",
+      "path": "banner-carousel.sizes.full.arrowSize",
+      "decision": "product-has",
+      "productConstant": "ARROW_BUTTON",
+      "productFile": "apps/web/components/banners/TabBannerCarousel.tsx",
+      "productLine": 137,
+      "productValue": "w-14 h-14 → 28px × 28px (--spacing 2px; appHomeSceneStyles.ts:411-412 `[width:28px] [height:28px]`로 원본 CSS 확인)"
+    },
+    {
+      "component": "banner-carousel",
+      "path": "banner-carousel.sizes.full.contentBlockPadding",
+      "decision": "product-has",
+      "productConstant": "CONTENT",
+      "productFile": "apps/web/components/banners/TabBannerCarousel.tsx",
+      "productLine": 114,
+      "productValue": "py-12 → 24px",
+      "reason": "배포본 TabBannerCarousel은 블록 24 / 인라인 20으로 갈라 두었으나, 같은 제품의 AppHomeScene 배너(appHomeSceneStyles.ts:438 bannerContent)는 `[padding:20px]` 균일이다 — 제품 안에 두 벌이 있고 DS는 배포본 값을 골랐다."
+    },
+    {
+      "component": "banner-carousel",
+      "path": "banner-carousel.sizes.full.contentInline",
+      "decision": "product-has",
+      "productConstant": "CONTENT",
+      "productFile": "apps/web/components/banners/TabBannerCarousel.tsx",
+      "productLine": 114,
+      "productValue": "w-[min(540px,100%)] → 상한 540px (appHomeSceneStyles.ts:435 bannerContent `[width:min(540px,_100%)]` 동일)"
+    },
+    {
+      "component": "banner-carousel",
+      "path": "banner-carousel.sizes.full.contentInlinePadding",
+      "decision": "product-has",
+      "productConstant": "CONTENT",
+      "productFile": "apps/web/components/banners/TabBannerCarousel.tsx",
+      "productLine": 114,
+      "productValue": "px-10 → 20px (--spacing 2px; appHomeSceneStyles.ts:438 bannerContent `[padding:20px]`와 인라인 축에서 일치)"
+    },
+    {
+      "component": "banner-carousel",
+      "path": "banner-carousel.sizes.full.controlGlyphCount",
+      "decision": "product-none",
+      "reason": "제품에는 글리프 개수라는 축이 없다 — 화살표마다 `<svg>` 하나를 JSX에 직접 인라인할 뿐 개수를 정한 선언이 없고 DS가 더한 정지 토글은 제품에 아예 없다; DS가 이 값을 세우는 이유는 Figma 컨트롤 프레임이 비어 있어도 눈으로는 티가 나지 않아 실제로 4 variant × 3 부품이 빈 채로 통과했기 때문이며, 부품마다 글리프가 정확히 하나 있어야 parity 게이트가 그것을 잡는다."
+    },
+    {
+      "component": "banner-carousel",
+      "path": "banner-carousel.sizes.full.controlsGap",
+      "decision": "product-has",
+      "productConstant": "CONTROLS",
+      "productFile": "apps/web/components/banners/TabBannerCarousel.tsx",
+      "productLine": 128,
+      "productValue": "gap-4 → 8px (--spacing 2px; appHomeSceneStyles.ts:450 bannerControls `[gap:8px]`로 원본 CSS 확인)"
+    },
+    {
+      "component": "banner-carousel",
+      "path": "banner-carousel.sizes.full.controlsHeight",
+      "decision": "derived",
+      "reason": "컨트롤 높이 = 컨트롤 padding 4 × 2 + 화살표 28 = 36. 제품 컨트롤도 `inline-flex`(TabBannerCarousel.tsx:128 CONTROLS, appHomeSceneStyles.ts:442 bannerControls)라 높이를 선언하지 않고 가장 큰 자식인 화살표에서 나온다."
+    },
+    {
+      "component": "banner-carousel",
+      "path": "banner-carousel.sizes.full.controlsPadding",
+      "decision": "product-has",
+      "productConstant": "CONTROLS",
+      "productFile": "apps/web/components/banners/TabBannerCarousel.tsx",
+      "productLine": 128,
+      "productValue": "p-2 → 4px (--spacing 2px; appHomeSceneStyles.ts:451 bannerControls `[padding:4px]`로 원본 CSS 확인)"
+    },
+    {
+      "component": "banner-carousel",
+      "path": "banner-carousel.sizes.full.controlsRadius",
+      "decision": "product-has",
+      "productConstant": "CONTROLS",
+      "productFile": "apps/web/components/banners/TabBannerCarousel.tsx",
+      "productLine": 128,
+      "productValue": "rounded-full → var(--radius-full) = 999px (appHomeSceneStyles.ts:452 bannerControls `[border-radius:999px]`로 원본 CSS 확인)"
+    },
+    {
+      "component": "banner-carousel",
+      "path": "banner-carousel.sizes.full.controlsWidth",
+      "decision": "derived",
+      "reason": "컨트롤 폭 = padding 4 × 2 + 화살표 28 × 2 + 정지 28 + 컨트롤 gap 8 × 3 + 점 묶음(활성 20 + 비활성 7 × 2 + 점 gap 6 × 2 = 46) = 162, 슬라이드 3장 기준. 제품 컨트롤은 `inline-flex`라 폭을 선언하지 않으며, 정지 버튼이 없는 제품에 같은 식을 쓰면 126이 되어 DS가 36 넓다는 서술과 맞는다."
+    },
+    {
+      "component": "banner-carousel",
+      "path": "banner-carousel.sizes.full.dotActiveWidth",
+      "decision": "product-has",
+      "productConstant": "DOT_ACTIVE",
+      "productFile": "apps/web/components/banners/TabBannerCarousel.tsx",
+      "productLine": 155,
+      "productValue": "w-10 → 20px (--spacing 2px; appHomeSceneStyles.ts:486 bannerDotActive `[width:20px]`로 원본 CSS 확인)",
+      "productSelector": "활성 점 — `activeIndex === index`일 때만 DOT_ACTIVE가 붙는다(TabBannerCarousel.tsx:337). 같은 조건이 `aria-selected=\"true\"`도 함께 건다"
+    },
+    {
+      "component": "banner-carousel",
+      "path": "banner-carousel.sizes.full.dotHeight",
+      "decision": "product-has",
+      "productConstant": "DOT",
+      "productFile": "apps/web/components/banners/TabBannerCarousel.tsx",
+      "productLine": 149,
+      "productValue": "h-[7px] → 7px (appHomeSceneStyles.ts:473 bannerDot `[height:7px]`로 원본 CSS 확인)"
+    },
+    {
+      "component": "banner-carousel",
+      "path": "banner-carousel.sizes.full.dotRadius",
+      "decision": "product-has",
+      "productConstant": "DOT",
+      "productFile": "apps/web/components/banners/TabBannerCarousel.tsx",
+      "productLine": 149,
+      "productValue": "rounded-full → var(--radius-full) = 999px (appHomeSceneStyles.ts:476 bannerDot `[border-radius:999px]`로 원본 CSS 확인)"
+    },
+    {
+      "component": "banner-carousel",
+      "path": "banner-carousel.sizes.full.dotRestWidth",
+      "decision": "product-has",
+      "productConstant": "DOT_REST",
+      "productFile": "apps/web/components/banners/TabBannerCarousel.tsx",
+      "productLine": 154,
+      "productValue": "w-[7px] → 7px (appHomeSceneStyles.ts:472 bannerDot `[width:7px]`가 기본값이고 활성만 덮는다)",
+      "productSelector": "비활성 점 — `activeIndex !== index`일 때 DOT_REST(TabBannerCarousel.tsx:337). 제품 원본 CSS에서는 7px이 점의 기본값이고 활성 규칙이 그것을 덮는 구조다"
+    },
+    {
+      "component": "banner-carousel",
+      "path": "banner-carousel.sizes.full.dotsGap",
+      "decision": "product-has",
+      "productConstant": "DOTS",
+      "productFile": "apps/web/components/banners/TabBannerCarousel.tsx",
+      "productLine": 144,
+      "productValue": "gap-3 → 6px (--spacing 2px; appHomeSceneStyles.ts:494 bannerDots `[gap:6px]`로 원본 CSS 확인)"
+    },
+    {
+      "component": "banner-carousel",
+      "path": "banner-carousel.sizes.full.height",
+      "decision": "product-has",
+      "productConstant": "CAROUSEL",
+      "productFile": "apps/web/components/banners/TabBannerCarousel.tsx",
+      "productLine": 15,
+      "productValue": "h-180 → 360px (--spacing 2px; appHomeSceneStyles.ts:970 updateBanner `[height:360px]`로 원본 CSS 확인). fullBleed 분기가 높이를 덮지 않으므로 boxed·full이 같은 값이다"
+    },
+    {
+      "component": "banner-carousel",
+      "path": "banner-carousel.sizes.full.radius",
+      "decision": "product-has",
+      "productConstant": "CAROUSEL_FULL_BLEED",
+      "productFile": "apps/web/components/banners/TabBannerCarousel.tsx",
+      "productLine": 25,
+      "productValue": "rounded-none → 0px (boxed 분기 CAROUSEL_BOXED:19는 `rounded-16` → 16px)",
+      "productSelector": "`fullBleed` prop이 true인 분기에서만 CAROUSEL_FULL_BLEED가 붙는다(TabBannerCarousel.tsx:296) — DS의 `full` 키에 대응하는 조건"
+    },
+    {
+      "component": "banner-carousel",
+      "path": "banner-carousel.sizes.full.width",
+      "decision": "product-none",
+      "reason": "제품은 배너 폭을 선언하지 않는다 — full bleed는 `w-auto`에 좌·우·상단 음수 마진을 걸어 부모 패딩을 상쇄할 뿐이고(TabBannerCarousel.tsx:24-29) 실제 폭은 언제나 부모 패널이 준다; 960은 Figma component set을 그리려면 프레임에 실제 폭이 있어야 해서 DS가 고른 캔버스 폭이며 소비처가 지켜야 할 계약이 아니다."
+    },
+    {
+      "component": "skeleton",
+      "path": "skeleton.motion.iterationCount",
+      "decision": "product-has",
+      "productConstant": "SKELETON_SURFACE",
+      "productFile": "/Users/sejunki/klipse-web/apps/web/components/scenes/analytics/shared.tsx",
+      "productLine": 166,
+      "productValue": "infinite (animate-[dashboardSkeletonPulse_1.6s_cubic-bezier(0.4,0,0.2,1)_infinite])"
+    },
+    {
+      "component": "skeleton",
+      "path": "skeleton.motion.reducedIterationCount",
+      "decision": "product-none",
+      "reason": "reduced-motion에서 무한 loop는 멈춰야 하고(DS-D-0016) 반복을 1회로 끊으면 흐름이 한 번 지나간 뒤 정지 상태로 남아 자리표시라는 뜻이 유지되는데, 제품에는 `animation-iteration-count` 선언이 저장소 전체에 하나도 없고 이 축을 다루는 유일한 벌인 VideoEditProjectPicker.tsx:98의 `motion-reduce:animate-none`은 흐름을 통째로 지운다."
+    },
+    {
+      "component": "skeleton",
+      "path": "skeleton.motion.timingFunction",
+      "decision": "product-has",
+      "productConstant": "SKELETON_SURFACE",
+      "productFile": "/Users/sejunki/klipse-web/apps/web/components/scenes/analytics/shared.tsx",
+      "productLine": 166,
+      "productValue": "cubic-bezier(0.4, 0, 0.2, 1)"
+    },
+    {
+      "component": "skeleton",
+      "path": "skeleton.sizes.base.surfaceAlpha",
+      "decision": "product-has",
+      "productConstant": "myPageSceneStyles.skeletonBlock",
+      "productFile": "/Users/sejunki/klipse-web/apps/web/components/scenes/myPageSceneStyles.ts",
+      "productLine": 1115,
+      "productValue": "rgb(var(--gray-000-rgb) / 8%) — 8%"
+    },
+    {
+      "component": "skeleton",
+      "path": "skeleton.sizes.base.highlightAlpha",
+      "decision": "product-has",
+      "productConstant": "myPageSceneStyles.skeletonBlock",
+      "productFile": "/Users/sejunki/klipse-web/apps/web/components/scenes/myPageSceneStyles.ts",
+      "productLine": 1120,
+      "productSelector": "&::after (linear-gradient 90deg의 50% 지점)",
+      "productValue": "rgb(var(--gray-000-rgb) / 9%) — 9%"
+    },
+    {
+      "component": "skeleton",
+      "path": "skeleton.sizes.text.radius",
+      "decision": "product-has",
+      "productConstant": "SKELETON_BLOCK",
+      "productFile": "/Users/sejunki/klipse-web/apps/web/components/scenes/analytics/shared.tsx",
+      "productLine": 169,
+      "productValue": "8px (rounded-8 → --radius-8: 8px, apps/web/app/tailwind.css:173)"
+    },
+    {
+      "component": "skeleton",
+      "path": "skeleton.sizes.block.radius",
+      "decision": "product-has",
+      "productConstant": "SKELETON_BLOCK",
+      "productFile": "/Users/sejunki/klipse-web/apps/web/components/scenes/analytics/shared.tsx",
+      "productLine": 169,
+      "productValue": "8px (rounded-8 → --radius-8: 8px). 제품은 반경을 shape로 가르지 않고 한 값을 쓰며, 블록 자리표시가 반경을 덮는 자리는 6px(TABLE_SKELETON_THUMB, shared.tsx:306)까지만 내려간다 — 16px 자리표시는 제품에 없다"
+    },
+    {
+      "component": "skeleton",
+      "path": "skeleton.sizes.circle.radius",
+      "decision": "product-has",
+      "productConstant": "myPageSceneStyles.skeletonBlock",
+      "productFile": "/Users/sejunki/klipse-web/apps/web/components/scenes/myPageSceneStyles.ts",
+      "productLine": 1114,
+      "productValue": "999px (원형 자리표시인 settingsRowAvatar는 같은 파일 958줄에서 border-radius:50%로 덮는다)"
+    },
+    {
+      "component": "skeleton",
+      "path": "skeleton.sizes.circle.width",
+      "decision": "product-has",
+      "productConstant": "myPageSceneStyles.settingsRowAvatar",
+      "productFile": "/Users/sejunki/klipse-web/apps/web/components/scenes/myPageSceneStyles.ts",
+      "productLine": 956,
+      "productSelector": "SettingsScene.tsx:687 `<SkeletonBlock className={styles.settingsRowAvatar} />` — 자리표시로 쓰일 때",
+      "productValue": "40px"
+    },
+    {
+      "component": "skeleton",
+      "path": "skeleton.sizes.circle.height",
+      "decision": "product-has",
+      "productConstant": "myPageSceneStyles.settingsRowAvatar",
+      "productFile": "/Users/sejunki/klipse-web/apps/web/components/scenes/myPageSceneStyles.ts",
+      "productLine": 957,
+      "productSelector": "SettingsScene.tsx:687 `<SkeletonBlock className={styles.settingsRowAvatar} />` — 자리표시로 쓰일 때",
+      "productValue": "40px"
+    },
+    {
+      "component": "skeleton",
+      "path": "skeleton.sizes.text.height",
+      "decision": "derived",
+      "reason": "글자 줄을 대신하므로 대신할 글자의 행간이 곧 높이다 — skeleton.css가 `block-size: var(--kds-typography-body-sm-regular-line-height)`로 typography 축을 그대로 받으며 따로 세운 값이 아니다. (다만 기록된 16px은 그 식에서 나오지 않는다: 생성된 토큰이 단위 없는 `1.5`라 `block-size`가 무효 선언으로 버려지고, 14px × 1.5 = 21px과도 맞지 않는다 — 이 어긋남은 사람이 판정해야 한다.)"
+    },
+    {
+      "component": "skeleton",
+      "path": "skeleton.sizes.text.width",
+      "decision": "product-none",
+      "reason": "자리표시의 폭은 대신할 것이 놓인 자리마다 달라 컴포넌트가 정할 수 없고 호출부가 정한다 — 제품에도 컴포넌트 기본 폭을 정한 선언이 없이 40·88·140·180·200·220px과 `min(100%,…)`·`w-full`·`68%`가 자리마다 섞여 있으며, DS 역시 CSS에 폭을 선언하지 않는다. 이 값은 Figma가 정지 상태를 그리려면 프레임 폭이 있어야 해서 세운 표본 치수다."
+    },
+    {
+      "component": "skeleton",
+      "path": "skeleton.sizes.block.width",
+      "decision": "product-none",
+      "reason": "자리표시의 폭은 대신할 것이 놓인 자리마다 달라 컴포넌트가 정할 수 없고 호출부가 정한다 — 제품의 블록형 자리표시도 `w-28`(56px)·`w-32`(64px)·`w-46`(92px)·`aspect-*`처럼 자리마다 다르게 받고 200px로 선언된 자리는 없으며, DS 역시 CSS에 폭을 선언하지 않는다. 이 값은 Figma 표본 프레임의 치수다."
+    },
+    {
+      "component": "skeleton",
+      "path": "skeleton.sizes.block.height",
+      "decision": "product-none",
+      "reason": "자리표시의 높이는 대신할 것이 놓인 자리마다 달라 컴포넌트가 정할 수 없고 호출부가 정한다 — 제품의 블록형 자리표시는 `h-48`(96px)이나 종횡비(`aspect-[16/9]`·`aspect-[9/16]`)로 높이를 받고 120px로 선언된 자리표시가 없으며, DS 역시 block shape에 높이를 선언하지 않는다. 이 값은 Figma 표본 프레임의 치수다."
+    },
+    {
+      "component": "badge",
+      "path": "badge.sizes.base.fontSize",
+      "decision": "product-has",
+      "productConstant": "--type-caption-12-size",
+      "productFile": "apps/web/app/globals.css",
+      "productLine": 374,
+      "productValue": "12px",
+      "productSelector": "",
+      "reason": "제품 상태 배지 span이 HighlightScene.tsx:1368에서 `type-caption-12-regular` 클래스를 함께 달고, 그 클래스(globals.css:1177)가 font-size를 이 토큰으로 문다. 배지 자체 스타일(historyCardStatus)에는 글자 선언이 없다."
+    },
+    {
+      "component": "badge",
+      "path": "badge.sizes.base.lineHeight",
+      "decision": "product-has",
+      "productConstant": "--type-caption-12-line-height",
+      "productFile": "apps/web/app/globals.css",
+      "productLine": 375,
+      "productValue": "1.5 (무단위 비율) — font-size 12px에서 18px로 해석된다",
+      "productSelector": "",
+      "reason": "제품은 행간을 px가 아니라 비율 1.5로 선언한다. DS가 적은 18px은 같은 자리의 12px×1.5 해석값이라 값 자체는 제품과 일치하지만, 제품이 고정한 것은 비율이지 px가 아니다. globals.css:1177의 `.type-caption-12-regular`가 이 토큰을 문다."
+    },
+    {
+      "component": "badge",
+      "path": "badge.states.neutral.Default.background",
+      "decision": "product-has",
+      "productConstant": "styles.historyCardStatus",
+      "productFile": "apps/web/components/scenes/highlightSceneStyles.ts",
+      "productLine": 775,
+      "productValue": "var(--palette-gray-800) = #313640 (globals.css:36, :root 한 곳에만 정의 — 테마 불변). 777줄이 html[data-theme=dark]에 같은 값을 다시 선언한다",
+      "productSelector": "",
+      "reason": "기본 클래스의 면 선언이다. 제품 상태 배지 다섯 갈래가 전부 이 한 값을 쓰므로 제품에는 tone별 면 축이 존재하지 않는다 — DS의 tone별 배경 5종은 DS가 세운 것이다."
+    },
+    {
+      "component": "badge",
+      "path": "badge.states.neutral.Default.foreground",
+      "decision": "product-has",
+      "productConstant": "styles.historyCardStatus",
+      "productFile": "apps/web/components/scenes/highlightSceneStyles.ts",
+      "productLine": 776,
+      "productValue": "var(--palette-gray-200) = #e3e4e8 (globals.css:28). 778줄이 html[data-theme=dark]에 같은 값을 다시 선언한다",
+      "productSelector": "",
+      "reason": "선언은 있으나 렌더되는 적이 없다 — HighlightScene.tsx:1262-1269가 항상 네 상태 클래스 중 하나를 함께 붙이고, 그 클래스들이 뒤에 와서 색을 덮는다. 제품 상태 배지 무리에 '중립'이라는 도메인 값이 없다는 뜻이다."
+    },
+    {
+      "component": "badge",
+      "path": "badge.states.success.Default.background",
+      "decision": "product-has",
+      "productConstant": "styles.historyCardStatusDone",
+      "productFile": "apps/web/components/scenes/highlightSceneStyles.ts",
+      "productLine": 791,
+      "productValue": "var(--palette-gray-800) = #313640 (globals.css:36, 테마 불변). 793줄이 dark에 같은 값을 다시 선언한다",
+      "productSelector": "item.status === \"extracted\" || isExtractingDone (HighlightScene.tsx:1263-1264)",
+      "reason": "중립·경고·위험·정보와 바이트 단위로 같은 면 값이다. 제품은 면으로 tone을 나르지 않는다."
+    },
+    {
+      "component": "badge",
+      "path": "badge.states.success.Default.foreground",
+      "decision": "product-has",
+      "productConstant": "styles.historyCardStatusDone",
+      "productFile": "apps/web/components/scenes/highlightSceneStyles.ts",
+      "productLine": 792,
+      "productValue": "var(--accent-mint-400) = #28d9a5 (globals.css:194). 794줄이 dark에 같은 값을 다시 선언한다",
+      "productSelector": "item.status === \"extracted\" || isExtractingDone (HighlightScene.tsx:1263-1264)"
+    },
+    {
+      "component": "badge",
+      "path": "badge.states.warning.Default.background",
+      "decision": "product-has",
+      "productConstant": "styles.historyCardStatusProcessing",
+      "productFile": "apps/web/components/scenes/highlightSceneStyles.ts",
+      "productLine": 807,
+      "productValue": "var(--palette-gray-800) = #313640 (globals.css:36, 테마 불변). 809줄이 dark에 같은 값을 다시 선언한다",
+      "productSelector": "위 세 분기에 걸리지 않는 나머지 상태 — uploading·needs_upload·extracting·analyzing (HighlightScene.tsx:1269, else 갈래)",
+      "reason": "다른 네 tone과 같은 면 값이다."
+    },
+    {
+      "component": "badge",
+      "path": "badge.states.warning.Default.foreground",
+      "decision": "product-has",
+      "productConstant": "styles.historyCardStatusProcessing",
+      "productFile": "apps/web/components/scenes/highlightSceneStyles.ts",
+      "productLine": 808,
+      "productValue": "var(--accent-amber-400) = #ffc847 (globals.css:259). 810줄이 dark에 같은 값을 다시 선언한다",
+      "productSelector": "위 세 분기에 걸리지 않는 나머지 상태 — uploading·needs_upload·extracting·analyzing (HighlightScene.tsx:1269, else 갈래)",
+      "reason": "제품의 도메인 값은 '진행 중'이고 DS의 warning과 이름이 다르다. 색(amber)으로 대응을 잡았다 — 어느 도메인 값이 어느 tone인지는 호출부가 정한다는 규범과 일치한다."
+    },
+    {
+      "component": "badge",
+      "path": "badge.states.danger.Default.background",
+      "decision": "product-has",
+      "productConstant": "styles.historyCardStatusFailed",
+      "productFile": "apps/web/components/scenes/highlightSceneStyles.ts",
+      "productLine": 799,
+      "productValue": "var(--palette-gray-800) = #313640 (globals.css:36, 테마 불변). 801줄이 dark에 같은 값을 다시 선언한다",
+      "productSelector": "item.status === \"failed\" (HighlightScene.tsx:1265-1266)",
+      "reason": "다른 네 tone과 같은 면 값이다."
+    },
+    {
+      "component": "badge",
+      "path": "badge.states.danger.Default.foreground",
+      "decision": "product-has",
+      "productConstant": "styles.historyCardStatusFailed",
+      "productFile": "apps/web/components/scenes/highlightSceneStyles.ts",
+      "productLine": 800,
+      "productValue": "var(--accent-red-400) = #ff6f7c (globals.css:233). 802줄이 dark에 같은 값을 다시 선언한다",
+      "productSelector": "item.status === \"failed\" (HighlightScene.tsx:1265-1266)"
+    },
+    {
+      "component": "badge",
+      "path": "badge.states.info.Default.background",
+      "decision": "product-has",
+      "productConstant": "styles.historyCardStatusAnalyzed",
+      "productFile": "apps/web/components/scenes/highlightSceneStyles.ts",
+      "productLine": 783,
+      "productValue": "var(--palette-gray-800) = #313640 (globals.css:36, 테마 불변). 785줄이 dark에 같은 값을 다시 선언한다",
+      "productSelector": "item.status === \"done\" (HighlightScene.tsx:1267-1268)",
+      "reason": "다른 네 tone과 같은 면 값이다."
+    },
+    {
+      "component": "badge",
+      "path": "badge.states.info.Default.foreground",
+      "decision": "product-has",
+      "productConstant": "styles.historyCardStatusAnalyzed",
+      "productFile": "apps/web/components/scenes/highlightSceneStyles.ts",
+      "productLine": 784,
+      "productValue": "var(--primary-400) = #38a4ff (globals.css:158). 786줄이 dark에 같은 값을 다시 선언한다",
+      "productSelector": "item.status === \"done\" (HighlightScene.tsx:1267-1268)",
+      "reason": "제품의 도메인 값은 '분석 완료'이며 브랜드 primary 색을 쓴다. DS의 info(파랑)와 색으로 대응한다."
+    },
+    {
+      "component": "selectable-list-row",
+      "path": "selectable-list-row.sizes.base.markerInline",
+      "decision": "product-none",
+      "reason": "제품의 선택된 행은 면 하나만 바꾸고 표식도 테두리도 그리지 않는다(clipDetailListItemActive에 background 선언 넷뿐, apps/web/components/scenes/highlightSceneStyles.ts:167-173). DS 다크에서 `color-background-inset`은 `surface`·`menu`·`overlay`와 같은 색(#313644)이라 표면 위에 놓인 목록에서는 면만으로 선택이 사라지므로, 3px 선행 표식을 두 번째 신호로 함께 그려 선택을 색 하나에 싣지 않는다."
+    },
+    {
+      "component": "selectable-list-row",
+      "path": "selectable-list-row.sizes.base.metaFontSize",
+      "decision": "product-has",
+      "productConstant": "--type-caption-12-size (클래스 .type-caption-12-regular)",
+      "productFile": "apps/web/app/globals.css",
+      "productLine": 374,
+      "productValue": "12px — 보조 문구 span에 `type-caption-12-regular`가 붙는다(A: apps/web/components/scenes/HighlightProjectScene.tsx:2956, 3238 / B: apps/web/components/scenes/VideoEditProjectPicker.tsx:512 배지). 클래스 정의는 globals.css:1177."
+    },
+    {
+      "component": "selectable-list-row",
+      "path": "selectable-list-row.sizes.base.metaLineHeight",
+      "decision": "product-has",
+      "productConstant": "--type-caption-12-line-height (클래스 .type-caption-12-regular)",
+      "productFile": "apps/web/app/globals.css",
+      "productLine": 375,
+      "productValue": "1.5 (무단위) — font-size 12px에서 18px. DS의 18px과 같다."
+    },
+    {
+      "component": "selectable-list-row",
+      "path": "selectable-list-row.sizes.base.textGap",
+      "decision": "product-has",
+      "productConstant": "SOURCE_ROW_META",
+      "productFile": "apps/web/components/scenes/VideoEditProjectPicker.tsx",
+      "productLine": 166,
+      "productValue": "4px (`gap-2`, apps/web/app/tailwind.css:164 `--spacing: 2px`). 다른 레시피 A는 2px다 — clipDetailListInfo `[gap:2px]`, apps/web/components/scenes/highlightSceneStyles.ts:143. 두 레시피가 갈리며 DS 4px는 B와 같다."
+    },
+    {
+      "component": "selectable-list-row",
+      "path": "selectable-list-row.sizes.base.titleFontSize",
+      "decision": "product-has",
+      "productConstant": "--type-body-14-size (클래스 .type-body-14-medium / .type-body-14-regular)",
+      "productFile": "apps/web/app/globals.css",
+      "productLine": 370,
+      "productValue": "14px — 제목에 A는 `type-body-14-medium`(apps/web/components/scenes/HighlightProjectScene.tsx:2951, 3232), B는 `type-body-14-regular`(apps/web/components/scenes/VideoEditProjectPicker.tsx:514)를 붙인다. 굵기만 갈리고 크기는 셋 다 14px."
+    },
+    {
+      "component": "selectable-list-row",
+      "path": "selectable-list-row.sizes.base.titleLineHeight",
+      "decision": "product-has",
+      "productConstant": "--type-body-14-line-height (클래스 .type-body-14-medium)",
+      "productFile": "apps/web/app/globals.css",
+      "productLine": 371,
+      "productValue": "1.5 (무단위) — font-size 14px에서 21px. DS의 21px과 같다."
+    },
+    {
+      "component": "selectable-list-row",
+      "path": "selectable-list-row.states.base.Default.background",
+      "decision": "product-has",
+      "productConstant": "clipDetailListItem",
+      "productFile": "apps/web/components/scenes/highlightSceneStyles.ts",
+      "productLine": 155,
+      "productValue": "`[background:transparent]` — 면 없음. B도 같다(`bg-transparent`, apps/web/components/scenes/VideoEditProjectPicker.tsx:129). 실측 렌더값도 `rgba(0, 0, 0, 0)`(migration/product.variants.json, clipDetailListItem 그룹)."
+    },
+    {
+      "component": "selectable-list-row",
+      "path": "selectable-list-row.states.base.Default.foreground",
+      "decision": "product-has",
+      "productConstant": "SOURCE_ROW",
+      "productFile": "apps/web/components/scenes/VideoEditProjectPicker.tsx",
+      "productLine": 132,
+      "productValue": "dark `rgb(var(--palette-gray-000-rgb)/78%)` (:132) · light `rgb(var(--palette-gray-900-rgb)/74%)` (:135). 행 전체에 걸린 쉼 상태 전경이며 DS의 secondary처럼 100%보다 낮춰 둔 값이다. 레시피 A는 행 수준 color가 없고 제목(`--palette-gray-900`/dark `--palette-gray-000`, highlightSceneStyles.ts:195, 201)과 보조 문구(`--palette-gray-500`, :175)로 나눠 선언한다."
+    },
+    {
+      "component": "selectable-list-row",
+      "path": "selectable-list-row.states.base.Disabled.background",
+      "decision": "product-none",
+      "reason": "제품 3벌 어디에도 비활성 축이 없다 — 같은 파일에서 `disabled:` 선언을 갖는 것은 IMPORT_BUTTON뿐이고(apps/web/components/scenes/VideoEditProjectPicker.tsx:120) 그것은 행이 아니라 버튼이다. DS의 행은 `<button>`이라 `disabled`가 네이티브로 들어오는데, 비활성일 때도 hover 면이 칠해지면 눌리지 않는 행이 눌리는 것처럼 반응하므로 비활성에서는 면을 세우지 않는다고 못박는다."
+    },
+    {
+      "component": "selectable-list-row",
+      "path": "selectable-list-row.states.base.Disabled.foreground",
+      "decision": "product-none",
+      "reason": "제품에 비활성 행이 없어 대응하는 선언이 없다. DS의 행은 `<button>`이므로 `disabled`가 네이티브 속성으로 항상 들어올 수 있는데, 전경을 낮추지 않으면 클릭이 실행되지 않는 행이 실행되는 행과 똑같이 보인다."
+    },
+    {
+      "component": "selectable-list-row",
+      "path": "selectable-list-row.states.base.Hover.background",
+      "decision": "product-has",
+      "productConstant": "clipDetailListItem",
+      "productFile": "apps/web/components/scenes/highlightSceneStyles.ts",
+      "productLine": 159,
+      "productSelector": "&:hover (다크는 html[data-theme=dark] &:hover)",
+      "productValue": "light `rgb(var(--palette-gray-900-rgb) / 5%)` (:159) · dark `rgb(var(--palette-gray-000-rgb) / 6%)` (:160). B도 같은 꼴의 알파 오버레이다 — dark `rgb(var(--palette-gray-000-rgb)/8%)`, light `rgb(var(--palette-gray-900-rgb)/6%)` (apps/web/components/scenes/VideoEditProjectPicker.tsx:133, 136). DS의 `color-action-ghost-hover`도 같은 꼴(light ink-alpha.8 · dark paper-alpha.10)이고 불투명도만 갈린다."
+    },
+    {
+      "component": "selectable-list-row",
+      "path": "selectable-list-row.states.base.Hover.foreground",
+      "decision": "product-has",
+      "productConstant": "SOURCE_ROW",
+      "productFile": "apps/web/components/scenes/VideoEditProjectPicker.tsx",
+      "productLine": 134,
+      "productSelector": "&:hover (라이트는 html[data-theme=light] &:hover)",
+      "productValue": "dark `rgb(var(--palette-gray-000-rgb)/96%)` (:134) · light `rgb(var(--palette-gray-900-rgb)/96%)` (:137). 쉼 상태 78%/74%에서 96%로 올린다 — DS가 secondary→primary로 올리는 것과 같은 방향이다. 레시피 A는 hover에서 면만 바꾸고 전경은 건드리지 않는다(highlightSceneStyles.ts:159-160)."
+    },
+    {
+      "component": "selectable-list-row",
+      "path": "selectable-list-row.states.base.Selected.background",
+      "decision": "product-has",
+      "productConstant": "clipDetailListItemActive",
+      "productFile": "apps/web/components/scenes/highlightSceneStyles.ts",
+      "productLine": 169,
+      "productSelector": "isActive일 때 clipDetailListItem에 덧붙는 클래스 (apps/web/components/scenes/HighlightProjectScene.tsx:2926, 3211)",
+      "productValue": "light `var(--palette-gray-200)` (:169, hover에서도 같은 값으로 고정 :170) · dark `var(--palette-gray-700)` (:171, hover 고정 :172). 레시피 B에는 행 수준 선택 면이 없다 — 선택을 행 안의 체크박스가 갖는다."
+    },
+    {
+      "component": "selectable-list-row",
+      "path": "selectable-list-row.states.base.Selected.foreground",
+      "decision": "product-none",
+      "reason": "제품에 선택 상태의 전경 선언이 없다 — 레시피 A의 clipDetailListItemActive는 면 넷만 바꾸고 color를 두지 않으며(apps/web/components/scenes/highlightSceneStyles.ts:167-173) 레시피 B에는 행 수준 선택 상태 자체가 없다. DS는 쉼 상태 전경을 secondary로 낮춰 두므로, 선택된 행에서 제목이 primary로 올라오지 않으면 선택이 면 색 하나에만 실린다."
+    },
+    {
+      "component": "tooltip",
+      "path": "tooltip.sizes.base.arrowWidth",
+      "decision": "product-has",
+      "productConstant": "Tooltip.Arrow width (Radix Tooltip.Arrow prop; 클래스는 VEM_CLASS.modalRadixTooltipArrow, inspectorPrimitives.tsx:131-134)",
+      "productFile": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/inspectorPrimitives.tsx",
+      "productLine": 407,
+      "productValue": "10 (px) — `width={10}`",
+      "reason": "제품 전체에서 arrow는 이 Radix 구현 하나뿐이고(`Tooltip.Arrow`가 저장소에 1회), 가장 널리 쓰이는 ChromeTooltip·[data-tooltip]::after·TIER_FEATURE_TIP에는 arrow가 없다. 이 삼각형은 fill이 `var(--app-tooltip-bg)`뿐이고 stroke가 없어 표면의 1px border와 이가 맞지 않는다. DS 기록값 12는 제품의 10과 다르다."
+    },
+    {
+      "component": "tooltip",
+      "path": "tooltip.sizes.base.arrowHeight",
+      "decision": "product-has",
+      "productConstant": "Tooltip.Arrow height (Radix Tooltip.Arrow prop; 클래스는 VEM_CLASS.modalRadixTooltipArrow, inspectorPrimitives.tsx:131-134)",
+      "productFile": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/inspectorPrimitives.tsx",
+      "productLine": 408,
+      "productValue": "5 (px) — `height={5}`",
+      "reason": "위와 같은 단 하나의 Radix 구현이다(width 10 × height 5). DS 기록값 6은 제품의 5와 다르다. DS의 arrowWidth/arrowHeight는 packages/css/src/component/tooltip.css에 대응 선언이 없고 Figma 도형에만 존재한다 — components.measured.json의 $arrow 주석대로 Side 4 variant가 전부 같은 그림이던 것을 고치려 Figma 쪽에서 세운 값이다."
+    },
+    {
+      "component": "tooltip",
+      "path": "tooltip.sizes.base.gap",
+      "decision": "product-none",
+      "reason": "제품의 tooltip 표면은 `.app-tooltip-chrome`과 그것을 쓰는 ChromeTooltip(BUBBLE_INNER `block`)·ComposerBar 힌트·TIER_FEATURE_TIP·`[data-tooltip]::after`가 모두 텍스트 한 덩어리만 담는 block이라 슬롯 사이 간격이라는 축 자체가 없으며(같은 크롬 클래스에 gap을 얹는 곳은 값+날짜 두 줄을 쌓는 차트 툴팁 계열 CHART_TOOLTIP `gap-1`=2px와 useAnalyticsBarTooltip `gap-5`=10px뿐으로, DS tooltip이 아닌 다른 구성이다), DS의 gap 0은 표면에 둘째 슬롯을 두지 않는다는 계약이다 — 간격이 필요한 내용이라면 그것은 tooltip이 아니다."
+    },
+    {
+      "component": "tooltip",
+      "path": "tooltip.states.base.Default.background",
+      "decision": "product-has",
+      "productConstant": "--app-tooltip-bg (소비 지점: globals.css:1482 `.app-tooltip-chrome { background }`, globals.css:1500 `[data-tooltip]::after`, inspectorPrimitives.tsx:143)",
+      "productFile": "apps/web/app/globals.css",
+      "productLine": 742,
+      "productSelector": "html[data-theme=\"light\"] (742) / html[data-theme=\"dark\"] (697). [data-landing-walkthrough-dark] 786과 [data-landing-walkthrough-light] 830이 같은 값을 복제한다",
+      "productValue": "light: var(--palette-gray-800) = #313640 / dark: var(--palette-gray-200) = #e3e4e8 — 페이지와 반전된 면이며, DS의 color-background-inverse가 모드별로 뒤집히는 것과 값이 같다"
+    },
+    {
+      "component": "tooltip",
+      "path": "tooltip.states.base.Default.foreground",
+      "decision": "product-has",
+      "productConstant": "--app-tooltip-text (소비 지점: globals.css:1484 `.app-tooltip-chrome { color }`, globals.css:1499 `[data-tooltip]::after`, inspectorPrimitives.tsx:144)",
+      "productFile": "apps/web/app/globals.css",
+      "productLine": 743,
+      "productSelector": "html[data-theme=\"light\"] (743) / html[data-theme=\"dark\"] (698). [data-landing-walkthrough-dark] 787과 [data-landing-walkthrough-light] 831이 같은 값을 복제한다",
+      "productValue": "light: var(--palette-gray-000) = #fafafa / dark: var(--palette-gray-900) = #171b22 — DS의 color-foreground-on-inverse와 값이 같다. 별개로 --app-tooltip-text-subtle(744/699, 각각 gray-700/72%, gray-000/72%)이 있으나 DS에는 대응 축이 없다"
+    },
+    {
+      "component": "tooltip",
+      "path": "tooltip.states.base.Default.border",
+      "decision": "product-has",
+      "productConstant": "--app-tooltip-border (소비 지점: globals.css:1480 `.app-tooltip-chrome { border: 1px solid var(--app-tooltip-border) }`, globals.css:1501 `[data-tooltip]::after`, inspectorPrimitives.tsx:142)",
+      "productFile": "apps/web/app/globals.css",
+      "productLine": 745,
+      "productSelector": "html[data-theme=\"light\"] (745) / html[data-theme=\"dark\"] (700). [data-landing-walkthrough-dark] 789와 [data-landing-walkthrough-light] 833이 같은 값을 복제한다",
+      "productValue": "light: rgb(var(--palette-gray-000-rgb) / 14%) = rgba(250, 250, 250, 0.14) / dark: rgb(var(--palette-gray-900-rgb) / 12%) = rgba(23, 27, 34, 0.12) — DS의 color-border-tooltip(라이트 paper-alpha 14%, 다크 ink-alpha 12%)과 값이 같다. 제품 두께는 1px이고 DS는 border-width-hairline 0.5px이라 두께 축은 다르다"
+    },
+    {
+      "component": "toast",
+      "path": "toast.sizes.base.fontSize",
+      "decision": "product-has",
+      "productConstant": "--type-body-16-size",
+      "productFile": "apps/web/app/globals.css",
+      "productLine": 366,
+      "productValue": "16px. 제품의 떠 있는 toast는 모두 `.type-body-16-regular`(globals.css:1135-1140)로 이 값을 받는다 — AppHomeScene.tsx:1426, CreateScene.tsx:1008, VideoEditScene.tsx:968, NodeCanvasHomeScene.tsx:1691, SettingsScene.tsx:1959, SubscriptionScene.tsx:1322이 그 클래스를 붙이고 GenerationProvider.tsx:296은 같은 변수를 인라인으로 쓴다. ≤450px 뷰포트에서는 globals.css:838-842가 --type-body-14-size(14px)로 내린다. 별개로 admin·문의 화면의 **인라인 알약 배너**(이름만 TOAST)는 14px를 명시한다 — AdminClient.tsx:152 `[font-size:var(--type-body-14-size)]!`. DS의 14px는 후자와 같고 떠 있는 toast와는 다르다."
+    },
+    {
+      "component": "toast",
+      "path": "toast.sizes.base.gap",
+      "decision": "product-has",
+      "productConstant": "TOAST",
+      "productFile": "apps/web/components/scenes/CreateScene.tsx",
+      "productLine": 171,
+      "productSelector": "toast.action이 있어 메시지 옆에 TOAST_ACTION 버튼이 함께 렌더될 때만 실제 간격이 된다 (CreateScene.tsx:1008-1019)",
+      "productValue": "gap-6 = 12px (`--spacing: 2px` × 6, apps/web/app/tailwind.css:164). 제품의 떠 있는 toast 중 자식이 둘인 것은 이 벌뿐이고, 나머지(appHomeSceneStyles.ts:936, highlightSceneStyles.ts:2213, myPageSceneStyles.ts:1285, VideoEditModal.tsx:952, GenerationProvider.tsx:280)는 텍스트 한 조각뿐이라 간격 선언이 없다 — migration/product.variants.json이 잰 네 벌 모두 columnGap \"normal\"이다. admin·문의의 인라인 알약 배너는 gap-4 = 8px를 쓴다(AdminClient.tsx:151). 즉 DS의 0은 '제품에 없다'가 아니라 **액션 슬롯을 두지 않기로 한 결과**이며, 그 결정은 design/components/toast.md의 Known deviations '실행 취소 액션: 없음'에 이미 적혀 있다."
+    },
+    {
+      "component": "toast",
+      "path": "toast.sizes.base.lineHeight",
+      "decision": "product-has",
+      "productConstant": "--type-body-16-line-height",
+      "productFile": "apps/web/app/globals.css",
+      "productLine": 367,
+      "productValue": "1.5 (비율). font-size 16px에서 24px로 계산되며 migration/product.variants.json이 잰 제품 toast 4벌 전부 lineHeight 24px다. DS의 21px은 **같은 1.5 비율**을 14px에 적용한 값이다(packages/tokens/src/klipse.tokens.json primitive.typography.body-sm-regular.lineHeight = 1.5) — 즉 비율은 제품과 같고 차이는 fontSize 축에서만 온다."
+    },
+    {
+      "component": "toast",
+      "path": "toast.states.danger.Default.background",
+      "decision": "product-has",
+      "productConstant": "--accent-red-500-rgb",
+      "productFile": "apps/web/components/generation/GenerationProvider.tsx",
+      "productLine": 287,
+      "productSelector": "toast.type === \"error\" (GlobalToast.type: \"success\" | \"error\", GenerationProvider.tsx:88-93). 생성 실패 알림에서만 뜬다",
+      "productValue": "rgb(var(--accent-red-500-rgb) / 85%) = #ff4b59 85% (--accent-red-500, globals.css:234). success는 같은 삼항의 286줄에서 rgb(var(--gray-900-rgb) / 80%)로 갈린다. **migration/product.measured.json의 '제품에 danger tone이 없다'는 판정은 AppHomeScene 한 벌만 본 것이고, product.variants.json의 이름 패턴 `/^toast$|Toast$/`도 이 인라인 style 정의를 잡지 못했다 — 제품에는 tone 축이 있다.** DS의 color-background-danger는 라이트 #ffe5e8 / 다크 #541119(packages/css/generated/tokens.css:20,283)로, 제품 팔레트의 --accent-red-100·--accent-red-900(globals.css:230,238)과 값이 같다 — 같은 빨강 스케일을 쓰되 채도 높은 면 대신 옅은 틴트를 골랐다. 참고로 admin·문의의 인라인 배너는 rgb(var(--accent-red-500-rgb) / 10%)(AdminClient.tsx:163), 비디오 에디터의 errorToast는 빨강이 아닌 rgb(var(--gray-900-rgb) / 82%)(EditorProjectWorkspace.tsx:152)로 셋이 서로 다르다."
+    },
+    {
+      "component": "toast",
+      "path": "toast.states.danger.Default.foreground",
+      "decision": "product-has",
+      "productConstant": "--gray-000",
+      "productFile": "apps/web/components/generation/GenerationProvider.tsx",
+      "productLine": 292,
+      "productSelector": "toast.type === \"error\"에도 같은 선언이 적용된다 — 전경은 삼항 밖에 있어 tone으로 갈리지 않는다",
+      "productValue": "var(--gray-000, #fafafa). 제품은 채도 높은 빨간 면 위에 흰 글자다. DS의 color-foreground-danger는 라이트 #541119 / 다크 #ffe5e8(packages/css/generated/tokens.css:41,304)로 면과 글자를 함께 뒤집는 방식이라 제품과 접근이 다르다. admin·문의 인라인 배너는 또 달라서 text-accent-red-500(#ff4b59)을 전경으로 쓴다(AdminClient.tsx:165)."
+    },
+    {
+      "component": "toast",
+      "path": "toast.states.neutral.Default.background",
+      "decision": "product-has",
+      "productConstant": "appHomeSceneStyles.toast (tw-ah-080)",
+      "productFile": "apps/web/components/scenes/appHomeSceneStyles.ts",
+      "productLine": 948,
+      "productSelector": "html[data-theme=light] (948줄) / html[data-theme=dark] (949줄)",
+      "productValue": "라이트 rgb(var(--palette-gray-800-rgb) / 70%) = #313640 70%, 다크 rgb(var(--palette-gray-200-rgb) / 70%) = #e3e4e8 70% (globals.css:36,44,50). DS의 color-background-inverse-translucent가 두 모드 모두 이 값을 그대로 채택했다 — packages/css/generated/tokens.css:24는 color(srgb 0.192157 0.211765 0.25098 / 0.7) = rgb(49 54 64)/70%, :287은 color(srgb 0.890196 0.894118 0.909804 / 0.7) = rgb(227 228 232)/70%로 제품 실측값과 정확히 같다. highlightSceneStyles.ts:2224-2225와 CreateScene.tsx:174-175도 같은 선언이다."
+    },
+    {
+      "component": "toast",
+      "path": "toast.states.neutral.Default.foreground",
+      "decision": "product-has",
+      "productConstant": "appHomeSceneStyles.toastText (tw-ah-082)",
+      "productFile": "apps/web/components/scenes/appHomeSceneStyles.ts",
+      "productLine": 960,
+      "productSelector": "html[data-theme=light] (960줄) / html[data-theme=dark] (961줄)",
+      "productValue": "라이트 var(--palette-gray-000) = #fafafa, 다크 var(--palette-gray-900) = #171b22 (globals.css:20,37). DS의 color-foreground-on-inverse가 두 모드 모두 이 값을 그대로 채택했다 — packages/css/generated/tokens.css:47은 color(srgb 0.980392 0.980392 0.980392) = rgb(250 250 250), :310은 color(srgb 0.090196 0.105882 0.133333) = rgb(23 27 34)로 제품과 같다. highlightSceneStyles.ts:2236-2237, CreateScene.tsx:180-181도 같은 선언이다."
+    },
+    {
+      "component": "dialog",
+      "path": "dialog.sizes.compact.actionCount",
+      "decision": "product-has",
+      "productConstant": "styles.modalActions",
+      "productFile": "apps/web/components/scenes/AppHomeScene.tsx",
+      "productLine": 1395,
+      "productValue": "2 — 취소 버튼 + 확인 버튼. `styles.modalActions` div의 자식이 정확히 둘이다(버튼 1395+1, 1403). 배포본의 다른 확인 모달도 전부 둘이다: myPageSceneStyles의 modalActions 사용부, GlassConfirmModal.tsx:296(cancel/confirm), ConfirmModal.tsx, CreateProjectModal.tsx."
+    },
+    {
+      "component": "dialog",
+      "path": "dialog.sizes.compact.actionsGap",
+      "decision": "product-has",
+      "productConstant": "modalActions",
+      "productFile": "apps/web/components/scenes/appHomeSceneStyles.ts",
+      "productLine": 820,
+      "productValue": "8px — `[gap:8px]`. 배포본 두 벌이 같다(myPageSceneStyles.ts:346). Tailwind로 옮긴 벌도 같은 값이다 — GlassConfirmModal.tsx:89, ConfirmModal.tsx:60, CreateProjectModal.tsx:108 전부 `gap-4`(= 8px, --spacing:2px)."
+    },
+    {
+      "component": "dialog",
+      "path": "dialog.sizes.compact.footerChildren",
+      "decision": "product-none",
+      "reason": "제품에는 Footer 래퍼가 없고 액션 행이 카드의 직계 자식이라 대응하는 선언이 없다 — DS는 배포본이 액션 행에 걸던 음수 마진(`margin: -8px`)을 Footer가 소유하는 실제 여백으로 바꿨으므로, Footer가 액션 행 하나만 담아야 `footerInset`·`footerPaddingTop` 계약이 성립한다."
+    },
+    {
+      "component": "dialog",
+      "path": "dialog.sizes.compact.gap",
+      "decision": "product-has",
+      "productConstant": "HEADER",
+      "productFile": "apps/web/components/youtube/YoutubeUploadModal.tsx",
+      "productLine": 48,
+      "productValue": "12px — `gap-6`(--spacing:2px), 제목과 닫기 버튼 사이. 같은 12px가 ClipCropModal.tsx:74와 PromptVariantCompareModal.tsx:86에 있고, HighlightCreateModal.tsx:39만 16px(`gap-8`)다. PricingModal·ImageCropModal·CropModal 헤더는 `justify-between`뿐이라 gap 선언이 없고, 배포본 360 확인 모달 두 벌에는 닫기 버튼 자체가 없어 헤더 gap이 없다 — **8px는 제품 어느 모달 헤더에도 없다.** 세로 방향(Figma 프레임 itemSpacing)으로 읽으면 배포본 값은 myPageSceneStyles.ts:484의 `[gap:16px]`이고, appHome 벌은 카드 gap 없이 modalDescription의 `[margin-top:8px]`(appHomeSceneStyles.ts:868)로 제목-설명 8px를 만든다."
+    },
+    {
+      "component": "dialog",
+      "path": "dialog.sizes.compact.paddingInline",
+      "decision": "product-has",
+      "productConstant": "PRICING_MODAL_BACKDROP",
+      "productFile": "apps/web/components/scenes/create/PricingModal.tsx",
+      "productLine": 31,
+      "productValue": "20px — `p-10`(--spacing:2px), 모달 루트 4변 패딩. YoutubeUploadModal.tsx:32의 OVERLAY도 `p-10`이다. 배포본 360 벌은 패딩 대신 폭 계산식에 넣는다 — `width: min(360px, calc(100vw - 40px))`(appHomeSceneStyles.ts:844, myPageSceneStyles.ts:478)이며 40 = 좌우 20씩이다. HighlightCreateModal.tsx:23은 `p-12`(24px), SignupLegalModal·GlassConfirmModal 루트는 최소 gutter 없이 safe-area만 준다."
+    },
+    {
+      "component": "dialog",
+      "path": "dialog.sizes.large.actionCount",
+      "decision": "product-has",
+      "productConstant": "styles.modalActions",
+      "productFile": "apps/web/components/scenes/AppHomeScene.tsx",
+      "productLine": 1395,
+      "productValue": "2 — 취소 버튼 + 확인 버튼. 배포본 확인 모달의 액션 행 자식이 정확히 둘이다. 제품에 720 폭 확인 모달은 없고(720 벌은 문서·크롭·업로드), 액션 둘 계약은 360 확인 모달에서만 실측된다."
+    },
+    {
+      "component": "dialog",
+      "path": "dialog.sizes.large.actionsGap",
+      "decision": "product-has",
+      "productConstant": "modalActions",
+      "productFile": "apps/web/components/scenes/appHomeSceneStyles.ts",
+      "productLine": 820,
+      "productValue": "8px — `[gap:8px]`. myPageSceneStyles.ts:346 동일, Tailwind 벌은 `gap-4`(GlassConfirmModal.tsx:89, ConfirmModal.tsx:60, CreateProjectModal.tsx:108). 셋 다 360 폭 확인 모달이며 720 폭 벌에는 액션 행이 없다."
+    },
+    {
+      "component": "dialog",
+      "path": "dialog.sizes.large.borderWidth",
+      "decision": "product-has",
+      "productConstant": "--glass-dropdown-frame",
+      "productFile": "apps/web/app/globals.css",
+      "productLine": 64,
+      "productValue": "0.5px — `0px 0px 0px 0.5px rgba(0, 0, 0, 0.5)` 스프레드 링. border 선언이 아니라 box-shadow 첫 겹이며, 배포본 모달이 `[box-shadow:var(--glass-dropdown-frame)]`로 문다(appHomeSceneStyles.ts:848). 720 폭 벌도 같은 토큰을 쓴다 — PricingModal.tsx:40, SignupLegalModal.tsx:76, HighlightCreateModal.tsx:35, YoutubeUploadModal.tsx:42. 라이트는 두께가 같고 색만 rgba(0, 0, 0, 0.15)다(globals.css:595)."
+    },
+    {
+      "component": "dialog",
+      "path": "dialog.sizes.large.footerChildren",
+      "decision": "product-none",
+      "reason": "제품에는 Footer 래퍼가 없고 액션 행이 카드의 직계 자식이라 대응하는 선언이 없다 — DS는 배포본이 액션 행에 걸던 음수 마진(`margin: -8px`)을 Footer가 소유하는 실제 여백으로 바꿨으므로, Footer가 액션 행 하나만 담아야 `footerInset`·`footerPaddingTop` 계약이 성립한다."
+    },
+    {
+      "component": "dialog",
+      "path": "dialog.sizes.large.gap",
+      "decision": "product-has",
+      "productConstant": "HEADER",
+      "productFile": "apps/web/components/youtube/YoutubeUploadModal.tsx",
+      "productLine": 48,
+      "productValue": "12px — `gap-6`, 제목과 닫기 버튼 사이. 이 벌은 720 폭이다(CARD, 같은 파일 39). 같은 12px가 ClipCropModal.tsx:74·PromptVariantCompareModal.tsx:86에, 16px가 HighlightCreateModal.tsx:39(720 폭)에 있고, 720 폭인 PricingModal.tsx:44·ImageCropModal.tsx:38·CropModal.tsx:52 헤더에는 gap 선언이 없다(`justify-between`뿐). **8px는 제품 어느 모달 헤더에도 없다.** 세로 방향(Figma itemSpacing)으로 읽으면 720 벌은 SignupLegalModal.tsx:84가 `gap-6`(12px), HighlightCreateModal.tsx:33이 `gap-8`(16px)이다."
+    },
+    {
+      "component": "dialog",
+      "path": "dialog.sizes.large.paddingInline",
+      "decision": "product-has",
+      "productConstant": "PRICING_MODAL_BACKDROP",
+      "productFile": "apps/web/components/scenes/create/PricingModal.tsx",
+      "productLine": 31,
+      "productValue": "20px — `p-10`, 720 폭 모달 루트의 4변 패딩. 같은 720 계열 YoutubeUploadModal.tsx:32도 `p-10`이고, 그 카드 폭은 `min(720px, calc(100vw - 40px))`로 좌우 20을 한 번 더 담는다(같은 파일 39). HighlightCreateModal.tsx:23은 `p-12`(24px), SignupLegalModal.tsx:87은 폭 계산식에 `- 24px`(좌우 12)를 쓴다 — 720 벌 사이에서 값이 20·24·12로 갈린다."
+    },
+    {
+      "component": "dialog",
+      "path": "dialog.sizes.large.radius",
+      "decision": "product-has",
+      "productConstant": "--dropdown-radius",
+      "productFile": "apps/web/app/globals.css",
+      "productLine": 84,
+      "productValue": "16px — 드롭다운/팝오버/카드 공용 표면 곡률. 720 폭 HighlightCreateModal이 `rounded-[var(--dropdown-radius)]`로 문다(HighlightCreateModal.tsx:34). 리터럴 16도 있다 — CropModal.tsx:39(720 폭 `rounded-16`), ClipCropModal.tsx:61(760 폭). 다만 다른 720 벌은 24다 — PricingModal.tsx:38, SignupLegalModal.tsx:71, YoutubeUploadModal.tsx:41. 배포본 360 두 벌도 24다(appHomeSceneStyles.ts:846)."
+    },
+    {
+      "component": "dialog",
+      "path": "dialog.sizes.large.width",
+      "decision": "product-has",
+      "productConstant": "CARD",
+      "productFile": "apps/web/components/youtube/YoutubeUploadModal.tsx",
+      "productLine": 39,
+      "productValue": "720px — `w-[min(720px,calc(100vw - 40px))]`. 720 벌이 여섯이다: PricingModal.tsx:39 `max-w-[720px] w-full`, SignupLegalModal.tsx:81 `w-[min(720px,calc(100vw - 24px))]`, HighlightCreateModal.tsx:33 `w-full max-w-[720px]`, ImageCropModal.tsx:32 `max-w-[720px] w-full`, CropModal.tsx:36 `w-[min(92vw,720px)]`."
+    },
+    {
+      "component": "dialog",
+      "path": "dialog.sizes.medium.actionCount",
+      "decision": "product-has",
+      "productConstant": "styles.modalActions",
+      "productFile": "apps/web/components/scenes/AppHomeScene.tsx",
+      "productLine": 1395,
+      "productValue": "2 — 취소 버튼 + 확인 버튼. 제품에 480 폭 모달은 없고(아래 medium.width 참조), 액션 둘 계약은 360 확인 모달에서만 실측된다."
+    },
+    {
+      "component": "dialog",
+      "path": "dialog.sizes.medium.actionsGap",
+      "decision": "product-has",
+      "productConstant": "modalActions",
+      "productFile": "apps/web/components/scenes/appHomeSceneStyles.ts",
+      "productLine": 820,
+      "productValue": "8px — `[gap:8px]`. myPageSceneStyles.ts:346 동일, Tailwind 벌은 `gap-4`(GlassConfirmModal.tsx:89, ConfirmModal.tsx:60, CreateProjectModal.tsx:108). 제품에 480 폭 모달이 없어 medium 계층 자체의 표본은 없고, 값은 360 확인 모달에서 온다."
+    },
+    {
+      "component": "dialog",
+      "path": "dialog.sizes.medium.borderWidth",
+      "decision": "product-has",
+      "productConstant": "--glass-dropdown-frame",
+      "productFile": "apps/web/app/globals.css",
+      "productLine": 64,
+      "productValue": "0.5px — `0px 0px 0px 0.5px rgba(0, 0, 0, 0.5)` 스프레드 링. border 선언이 아니라 box-shadow 첫 겹이며 배포본 모달이 `[box-shadow:var(--glass-dropdown-frame)]`로 문다(appHomeSceneStyles.ts:848). 폭 계층과 무관한 전역 SSOT이므로 480 모달이 없어도 값의 출처는 확인된다. 라이트는 두께가 같고 색만 rgba(0, 0, 0, 0.15)다(globals.css:595)."
+    },
+    {
+      "component": "dialog",
+      "path": "dialog.sizes.medium.footerChildren",
+      "decision": "product-none",
+      "reason": "제품에는 Footer 래퍼가 없고 액션 행이 카드의 직계 자식이라 대응하는 선언이 없다 — DS는 배포본이 액션 행에 걸던 음수 마진(`margin: -8px`)을 Footer가 소유하는 실제 여백으로 바꿨으므로, Footer가 액션 행 하나만 담아야 `footerInset`·`footerPaddingTop` 계약이 성립한다."
+    },
+    {
+      "component": "dialog",
+      "path": "dialog.sizes.medium.gap",
+      "decision": "product-has",
+      "productConstant": "HEADER",
+      "productFile": "apps/web/components/youtube/YoutubeUploadModal.tsx",
+      "productLine": 48,
+      "productValue": "12px — `gap-6`, 제목과 닫기 버튼 사이. 같은 12px가 ClipCropModal.tsx:74·PromptVariantCompareModal.tsx:86에 있고 HighlightCreateModal.tsx:39만 16px다. **8px는 제품 어느 모달 헤더에도 없다.** 세로 방향(Figma itemSpacing)으로 읽으면 배포본 값은 myPageSceneStyles.ts:484의 `[gap:16px]`이다. 제품에 480 폭 모달이 없어 medium 계층 자체의 표본은 없다."
+    },
+    {
+      "component": "dialog",
+      "path": "dialog.sizes.medium.paddingInline",
+      "decision": "product-has",
+      "productConstant": "PRICING_MODAL_BACKDROP",
+      "productFile": "apps/web/components/scenes/create/PricingModal.tsx",
+      "productLine": 31,
+      "productValue": "20px — `p-10`, 모달 루트 4변 패딩. YoutubeUploadModal.tsx:32도 `p-10`이다. 배포본 360 벌은 패딩 대신 폭 계산식에 넣는다 — `min(360px, calc(100vw - 40px))`(appHomeSceneStyles.ts:844), 40 = 좌우 20씩. 폭 계층과 무관한 루트 여백이므로 480 모달이 없어도 값의 출처는 확인된다."
+    },
+    {
+      "component": "dialog",
+      "path": "dialog.sizes.medium.radius",
+      "decision": "product-has",
+      "productConstant": "--dropdown-radius",
+      "productFile": "apps/web/app/globals.css",
+      "productLine": 84,
+      "productValue": "16px — 드롭다운/팝오버/카드 공용 표면 곡률. 제품에 480 폭 모달이 없어 medium 계층의 표본은 없고, 값 16은 이 공용 곡률에서 온다 — 720 폭 HighlightCreateModal이 `rounded-[var(--dropdown-radius)]`(HighlightCreateModal.tsx:34), CropModal.tsx:39가 리터럴 `rounded-16`이다. 배포본 360 두 벌은 24다(appHomeSceneStyles.ts:846)."
+    },
+    {
+      "component": "dialog",
+      "path": "dialog.sizes.medium.width",
+      "decision": "product-none",
+      "reason": "제품에 480px 폭 모달이 한 벌도 없고 실제 폭은 360(확인)과 720(문서·크롭·업로드) 둘로만 갈리므로, 짧은 폼·설정이 360에서는 좁고 720에서는 빈 여백이 남는 구간을 메우려고 DS가 기본 task 폭 480을 세운 것이다."
+    },
+    {
+      "component": "dialog",
+      "path": "dialog.states.base.Default.background",
+      "decision": "product-has",
+      "productConstant": "modalCard",
+      "productFile": "apps/web/components/scenes/appHomeSceneStyles.ts",
+      "productLine": 847,
+      "productValue": "`rgb(var(--palette-gray-800-rgb) / 100%)` = #313640. 라이트는 `html[data-theme=light] &`에서 `rgb(var(--palette-gray-100-rgb) / 100%)` = #f1f1f3(같은 파일 849). 팔레트를 직접 참조해 테마 시맨틱 토큰을 우회한다. myPageSceneStyles.ts:481·487, GlassConfirmModal.tsx:53·55, PricingModal.tsx:38·41, SignupLegalModal.tsx:73·74가 모두 같은 팔레트 쌍이다."
+    },
+    {
+      "component": "dialog",
+      "path": "dialog.states.base.Default.border",
+      "decision": "product-has",
+      "productConstant": "--glass-dropdown-frame",
+      "productFile": "apps/web/app/globals.css",
+      "productLine": 64,
+      "productValue": "border 선언이 없다 — 경계는 box-shadow 첫 겹 `0px 0px 0px 0.5px rgba(0, 0, 0, 0.5)`(다크) / `rgba(0, 0, 0, 0.15)`(라이트, globals.css:595)의 스프레드 링이 만든다. 배포본 모달이 `[box-shadow:var(--glass-dropdown-frame)]`로 문다(appHomeSceneStyles.ts:848, myPageSceneStyles.ts:485). 이 토큰은 좌우 ±1.25px 검정 엣지와 상하 흰 림 inset 두 겹을 더 싣는다 — DS의 단색 1겹 테두리와 형태가 다르다."
+    },
+    {
+      "component": "dialog",
+      "path": "dialog.states.base.Default.foreground",
+      "decision": "product-has",
+      "productConstant": "modalTitle",
+      "productFile": "apps/web/components/scenes/appHomeSceneStyles.ts",
+      "productLine": 882,
+      "productValue": "`var(--gray-000)` = #fafafa(다크) / #000000(라이트). 설명은 별도로 `rgb(var(--gray-000-rgb) / 60%)` 알파 합성이다(같은 파일 869). myPageSceneStyles.ts:548, GlassConfirmModal.tsx:80·84가 같다."
+    },
+    {
+      "component": "slider",
+      "path": "slider.sizes.md/thumb.labelFontSize",
+      "decision": "product-has",
+      "productConstant": "DURATION_CONTROL_HEADER + type-body-14-regular",
+      "productFile": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoNode.tsx",
+      "productLine": 2621,
+      "productValue": "14px (`type-body-14-regular` → `--type-body-14-size: 14px`, apps/web/app/globals.css:370)",
+      "reason": "제품 슬라이더 라벨 중 14px은 영상 길이 드롭다운 벌뿐이고, 오버레이 인스펙터·TTS/BGM 드롭다운·관리자 화면의 라벨은 모두 `type-caption-12-medium` 12px이다."
+    },
+    {
+      "component": "slider",
+      "path": "slider.sizes.md/thumb.stackGap",
+      "decision": "product-has",
+      "productConstant": "SLIDER_DROPDOWN",
+      "productFile": "apps/web/components/scenes/create/node-canvas-v2/nodes/TtsNode.tsx",
+      "productLine": 497,
+      "productValue": "8px (`gap-4`, `--spacing: 2px`)",
+      "reason": "제품에서 라벨을 컨트롤 위에 쌓는 벌은 8px(`SLIDER_DROPDOWN`·`CROP_SLIDER_BLOCK`)과 12px(`DURATION_CONTROL`) 둘로 갈리고, track형 인스펙터는 라벨을 컨트롤 옆 행(`inspectorField` gap 10px)에 두어 세로 간격 자체를 갖지 않는다."
+    },
+    {
+      "component": "slider",
+      "path": "slider.sizes.md/track.labelFontSize",
+      "decision": "product-has",
+      "productConstant": "DURATION_CONTROL_HEADER + type-body-14-regular",
+      "productFile": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoNode.tsx",
+      "productLine": 2621,
+      "productValue": "14px (`type-body-14-regular` → `--type-body-14-size: 14px`, apps/web/app/globals.css:370)",
+      "reason": "track형에 해당하는 오버레이 인스펙터 라벨(`propertiesFieldLabel` + `type-caption-12-medium`, VideoEditModal.tsx:19836 등)은 12px이며, 제품 슬라이더 라벨 중 14px은 영상 길이 드롭다운 벌뿐이다."
+    },
+    {
+      "component": "slider",
+      "path": "slider.sizes.md/track.stackGap",
+      "decision": "product-has",
+      "productConstant": "SLIDER_DROPDOWN",
+      "productFile": "apps/web/components/scenes/create/node-canvas-v2/nodes/TtsNode.tsx",
+      "productLine": 497,
+      "productValue": "8px (`gap-4`, `--spacing: 2px`)",
+      "reason": "track형 인스펙터 벌은 라벨을 컨트롤 옆 행(`inspectorField` `flex-direction: row`, gap 10px, VideoEditModal.tsx:1169)에 두어 세로 간격이 없고, 제품에서 라벨을 위에 쌓는 벌은 8px과 12px로 갈린다."
+    },
+    {
+      "component": "slider",
+      "path": "slider.sizes.md/track.thumbBorderWidth",
+      "decision": "product-has",
+      "productConstant": "VEM_CLASS.overlayRadixThumb",
+      "productFile": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx",
+      "productLine": 2073,
+      "productSelector": ".vem-overlay-radix-root-full &",
+      "productValue": "`border: none` → 0px",
+      "reason": "DS가 실제 썸으로 삼은 채움 끝 표식(`overlayRadixRange`의 `::after`, VideoEditModal.tsx:2025-2027)도 테두리를 선언하지 않아 지워진 Radix 썸과 표식 양쪽 모두 0이다."
+    },
+    {
+      "component": "slider",
+      "path": "slider.sizes.sm/thumb.height",
+      "decision": "product-has",
+      "productConstant": "DURATION_SLIDER",
+      "productFile": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoNode.tsx",
+      "productLine": 570,
+      "productValue": "16px (`h-8`, `--spacing: 2px`)",
+      "reason": "썸 12px을 쓰는 제품 벌의 컨트롤 높이가 이 16px이며, 제품 thumb형 컨트롤 높이는 12·16·24·28px로 갈려 정본이 없고 DS 32px은 Button·Text Field와 같은 control 계단에서 온 값이다."
+    },
+    {
+      "component": "slider",
+      "path": "slider.sizes.sm/thumb.labelFontSize",
+      "decision": "product-has",
+      "productConstant": "DURATION_CONTROL_HEADER + type-body-14-regular",
+      "productFile": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoNode.tsx",
+      "productLine": 2621,
+      "productValue": "14px (`type-body-14-regular` → `--type-body-14-size: 14px`, apps/web/app/globals.css:370)",
+      "reason": "제품은 크기 축에 따라 라벨 타이포를 바꾸지 않으며, 14px은 영상 길이 드롭다운 벌뿐이고 나머지 슬라이더 라벨은 모두 12px이다."
+    },
+    {
+      "component": "slider",
+      "path": "slider.sizes.sm/thumb.railHeight",
+      "decision": "product-has",
+      "productConstant": "DURATION_SLIDER_TRACK",
+      "productFile": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoNode.tsx",
+      "productLine": 574,
+      "productValue": "4px (`h-2`, `--spacing: 2px`)",
+      "reason": "crop(ClipCropModal.tsx:187)·RANGE_SLIDER(TtsNode.tsx:517)·refinement(highlightSceneStyles.ts)·timelineZoom 툴바도 같은 4px이라, 레일 두께는 일곱 레시피 중 다수가 합의하는 유일한 축이고 제품은 이 축에 크기 변형을 두지 않는다."
+    },
+    {
+      "component": "slider",
+      "path": "slider.sizes.sm/thumb.stackGap",
+      "decision": "product-has",
+      "productConstant": "SLIDER_DROPDOWN",
+      "productFile": "apps/web/components/scenes/create/node-canvas-v2/nodes/TtsNode.tsx",
+      "productLine": 497,
+      "productValue": "8px (`gap-4`, `--spacing: 2px`)",
+      "reason": "제품은 크기 축에 따라 라벨·컨트롤 간격을 바꾸지 않으며, 라벨을 위에 쌓는 벌은 8px과 12px 둘로만 갈린다."
+    },
+    {
+      "component": "slider",
+      "path": "slider.sizes.sm/thumb.thumbBlock",
+      "decision": "product-has",
+      "productConstant": "DURATION_SLIDER_THUMB",
+      "productFile": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoNode.tsx",
+      "productLine": 586,
+      "productValue": "12px (`h-6`, `--spacing: 2px`)",
+      "reason": "TTS·BGM `RANGE_SLIDER`의 `::-webkit-slider-thumb`(TtsNode.tsx:523)도 같은 12px이며, DS sm 썸은 제품이 실제로 쓰는 12px 벌에서 왔다."
+    },
+    {
+      "component": "slider",
+      "path": "slider.sizes.sm/thumb.thumbBorderWidth",
+      "decision": "product-has",
+      "productConstant": "CROP_SLIDER_THUMB",
+      "productFile": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/ClipCropModal.tsx",
+      "productLine": 192,
+      "productValue": "2px (`border-2 border-solid`)",
+      "reason": "`timelineZoomRadixThumb`(VideoEditModal.tsx:4405)도 2px 표면색 테두리를 갖는다. 다만 12px 썸을 쓰는 duration·RANGE_SLIDER 벌은 테두리 없이 그림자로만 분리하므로 제품에 정본은 없다."
+    },
+    {
+      "component": "slider",
+      "path": "slider.sizes.sm/thumb.thumbInline",
+      "decision": "product-has",
+      "productConstant": "DURATION_SLIDER_THUMB",
+      "productFile": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoNode.tsx",
+      "productLine": 586,
+      "productValue": "12px (`w-6`, `--spacing: 2px`)",
+      "reason": "TTS·BGM `RANGE_SLIDER`의 `::-webkit-slider-thumb`(TtsNode.tsx:523)도 같은 12px이다."
+    },
+    {
+      "component": "slider",
+      "path": "slider.sizes.sm/track.height",
+      "decision": "product-has",
+      "productConstant": "VEM_CLASS.overlayRadixRootFull",
+      "productFile": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx",
+      "productLine": 2041,
+      "productValue": "20px (`[height:20px]`)",
+      "reason": "제품에서 20px은 컨트롤 높이인 동시에 레일 높이다 — 레일이 컨트롤을 꽉 채운다. DS는 같은 20px 레일을 32px 컨트롤 안에 넣어 위아래 6px씩을 손잡이 여유로 남긴다."
+    },
+    {
+      "component": "slider",
+      "path": "slider.sizes.sm/track.labelFontSize",
+      "decision": "product-has",
+      "productConstant": "DURATION_CONTROL_HEADER + type-body-14-regular",
+      "productFile": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoNode.tsx",
+      "productLine": 2621,
+      "productValue": "14px (`type-body-14-regular` → `--type-body-14-size: 14px`, apps/web/app/globals.css:370)",
+      "reason": "track형에 해당하는 오버레이 인스펙터 라벨은 크기와 무관하게 `type-caption-12-medium` 12px이며, 제품 슬라이더 라벨 중 14px은 영상 길이 드롭다운 벌뿐이다."
+    },
+    {
+      "component": "slider",
+      "path": "slider.sizes.sm/track.stackGap",
+      "decision": "product-has",
+      "productConstant": "SLIDER_DROPDOWN",
+      "productFile": "apps/web/components/scenes/create/node-canvas-v2/nodes/TtsNode.tsx",
+      "productLine": 497,
+      "productValue": "8px (`gap-4`, `--spacing: 2px`)",
+      "reason": "track형 인스펙터 벌은 라벨을 컨트롤 옆 행에 두어 세로 간격이 없고, 제품에서 라벨을 위에 쌓는 벌은 크기와 무관하게 8px과 12px로 갈린다."
+    },
+    {
+      "component": "slider",
+      "path": "slider.sizes.sm/track.thumbBlock",
+      "decision": "product-has",
+      "productConstant": "VEM_CLASS.overlayRadixRange",
+      "productFile": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx",
+      "productLine": 2026,
+      "productSelector": ".vem-overlay-radix-root-full &::after",
+      "productValue": "14px (`[height:14px]`)",
+      "reason": "제품은 이 표식을 레일 높이(패널 28px·기본 20px)와 무관하게 한 번만 선언하므로 sm과 md가 같은 값을 갖는다."
+    },
+    {
+      "component": "slider",
+      "path": "slider.sizes.sm/track.thumbBorderWidth",
+      "decision": "product-has",
+      "productConstant": "VEM_CLASS.overlayRadixThumb",
+      "productFile": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx",
+      "productLine": 2073,
+      "productSelector": ".vem-overlay-radix-root-full &",
+      "productValue": "`border: none` → 0px",
+      "reason": "DS가 실제 썸으로 삼은 채움 끝 표식(`overlayRadixRange`의 `::after`)도 테두리를 선언하지 않고, 제품은 이 축을 크기별로 나누지 않는다."
+    },
+    {
+      "component": "slider",
+      "path": "slider.sizes.sm/track.thumbInline",
+      "decision": "product-has",
+      "productConstant": "VEM_CLASS.overlayRadixRange",
+      "productFile": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx",
+      "productLine": 2025,
+      "productSelector": ".vem-overlay-radix-root-full &::after",
+      "productValue": "2px (`[width:2px]`)",
+      "reason": "제품은 이 표식을 레일 높이(패널 28px·기본 20px)와 무관하게 한 번만 선언하므로 sm과 md가 같은 값을 갖는다."
+    },
+    {
+      "component": "slider",
+      "path": "slider.sizes.sm/track.thumbRadius",
+      "decision": "product-has",
+      "productConstant": "VEM_CLASS.overlayRadixRange",
+      "productFile": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx",
+      "productLine": 2027,
+      "productSelector": ".vem-overlay-radix-root-full &::after",
+      "productValue": "999px (`[border-radius:999px]`)",
+      "reason": "제품은 이 표식을 레일 높이와 무관하게 한 번만 선언하므로 sm과 md가 같은 알약 반경을 갖는다."
+    },
+    {
+      "component": "avatar",
+      "path": "avatar.sizes.md.radius",
+      "decision": "product-has",
+      "productConstant": "gnbStyles.profileImage",
+      "productFile": "apps/web/components/navigation/Gnb.tsx",
+      "productLine": 967,
+      "productValue": "border-radius: 999px",
+      "productSelector": "",
+      "reason": "프로필 트리거의 아바타(`--profile-avatar-size: 28px`, Gnb.tsx:1364)가 쓰는 클래스다. 이미지 분기와 폴백 분기(GnbProfileAvatar)가 같은 요소에 이 문자열을 얹으므로 두 분기 모두 999px이다."
+    },
+    {
+      "component": "avatar",
+      "path": "avatar.sizes.sm.radius",
+      "decision": "product-has",
+      "productConstant": "gnbStyles.profileImage",
+      "productFile": "apps/web/components/navigation/Gnb.tsx",
+      "productLine": 967,
+      "productValue": "border-radius: 999px",
+      "productSelector": "",
+      "reason": "제품의 24px 아바타는 별도 클래스가 아니라 같은 `profileImage`다 — ProjectHeader 슬롯이 `--profile-avatar-size`만 24px로 덮고 반경은 크기에 걸려 있지 않다. 그래서 md·sm이 한 선언을 공유한다. 참고로 설정 화면의 아바타 틀(`settingsAvatarFigure`, myPageSceneStyles.ts:862)도 40px에 같은 999px이다."
+    },
+    {
+      "component": "avatar",
+      "path": "avatar.sizes.sm.size",
+      "decision": "product-has",
+      "productConstant": "PROFILE_SLOT",
+      "productFile": "apps/web/components/scenes/create/ProjectHeader.tsx",
+      "productLine": 334,
+      "productValue": "--profile-avatar-size: 24px (기본 28px를 덮는다)",
+      "productSelector": "ProjectHeader 프로필 슬롯 안의 프로필 트리거 — `[&_[class*=profileTrigger]]`, `!` 로 우선순위 고정"
+    },
+    {
+      "component": "avatar",
+      "path": "avatar.states.base.Default.background",
+      "decision": "product-has",
+      "productConstant": "settingsAvatarFigure",
+      "productFile": "apps/web/components/scenes/myPageSceneStyles.ts",
+      "productLine": 864,
+      "productValue": "background: rgb(var(--gray-000-rgb) / 12%) — 전경색의 12% 반투명 면(라이트에서 palette-gray-1000, 다크에서 palette-gray-000 기준)",
+      "productSelector": "",
+      "reason": "GNB 프로필 트리거에는 면이 없다(트리거가 `background: transparent`, Gnb.tsx:1385). 면을 선언하는 곳은 설정 화면의 아바타 틀이며 구조가 DS root와 같다 — 40px 원, `overflow: hidden`, 안에서 이미지(`object-fit: cover`)와 폴백 글리프가 갈린다(SettingsScene.tsx:990-1006). 채널 아바타도 같은 축을 갖되 값이 다르다(`bg-[color:var(--gray-700)]`, YoutubeAnalyticsScene.tsx:888 · InstagramAnalyticsScene.tsx:358)."
+    },
+    {
+      "component": "avatar",
+      "path": "avatar.states.base.Default.foreground",
+      "decision": "product-has",
+      "productConstant": "AVATAR",
+      "productFile": "apps/web/components/navigation/UserCircleDefaultAvatar.tsx",
+      "productLine": 13,
+      "productValue": "text-palette-gray-400 = #bcc0c9 (globals.css:31). 다크는 dark:text-palette-gray-600 = #777d89 (같은 파일 14행, globals.css:33). 워크스루 서브트리용 변형 2줄(15-16행)이 같은 두 값을 되풀이한다",
+      "productSelector": "",
+      "reason": "폴백 글리프가 `fill=\"currentColor\"`라 이 색이 글리프 색이다. 제품은 semantic이 아니라 palette를 직접 집는다."
+    },
+    {
+      "component": "spinner",
+      "path": "spinner.motion.iterationCount",
+      "decision": "product-has",
+      "productConstant": "SPINNER_BASE",
+      "productFile": "apps/web/components/ui/LoadingSpinner.tsx",
+      "productLine": 16,
+      "productValue": "infinite — `[animation:inlineLoadingSpin_700ms_linear_infinite]`의 shorthand 넷째 자리. keyframe 본문은 apps/web/app/keyframes.css:50 `@keyframes inlineLoadingSpin`이며 InlineLoadingLabel.tsx:37이 같은 문자열을 쓴다",
+      "productSelector": ""
+    },
+    {
+      "component": "spinner",
+      "path": "spinner.sizes.sm.height",
+      "decision": "product-has",
+      "productConstant": "SPINNER_SM",
+      "productFile": "apps/web/components/ui/LoadingSpinner.tsx",
+      "productLine": 27,
+      "productValue": "12px — `w-6 h-6`의 `h-6`. apps/web/app/tailwind.css:164의 `--spacing: 2px` 기준이라 6 × 2px = 12px이며, 파일 머리 주석(4행)이 `w-6`=12px라고 직접 적고 있다. 같은 상수의 `w-6`이 폭 12px이라 정원이다",
+      "productSelector": "size=\"sm\" (LoadingSpinner.tsx:50 `size === \"sm\" ? SPINNER_SM : SPINNER_MD`)"
+    },
+    {
+      "component": "spinner",
+      "path": "spinner.states.base.Default.background",
+      "decision": "product-none",
+      "reason": "제품의 공용 `LoadingSpinner`는 배경을 어디에도 선언하지 않는다 — spinner는 테두리 두 겹으로만 그려지는 도형이라 배경을 칠하면 버튼·행·카드 어느 자리에 놓이든 링 뒤에 원판이 남으므로, DS도 배경 축을 비워 둔다."
+    },
+    {
+      "component": "spinner",
+      "path": "spinner.states.base.Default.foreground",
+      "decision": "product-has",
+      "productConstant": "SPINNER_BASE",
+      "productFile": "apps/web/components/ui/LoadingSpinner.tsx",
+      "productLine": 20,
+      "productValue": "currentColor — 진행 링이 `after:border-t-current`(20행), 트랙이 `before:border-current` + `before:opacity-[0.22]`(19행)이고, root가 `[color:inherit]`(SPINNER_STANDALONE, 9행)이라 놓이는 자리의 글자색을 물려받는다",
+      "productSelector": ""
+    },
+    {
+      "component": "empty-state",
+      "path": "empty-state.sizes.base.titleFontSize",
+      "decision": "product-has",
+      "productConstant": "--type-body-20-size (유틸 클래스 `.type-body-20-semibold` 경유, globals.css:1128-1133)",
+      "productFile": "apps/web/app/globals.css",
+      "productLine": 362,
+      "productValue": "20px — 두 홈의 빈 상태 제목이 이 유틸을 쓴다: AppHomeScene.tsx:1004 `<h2 className={`type-body-20-semibold ${styles.emptyTitle}`}>`, NodeCanvasHomeScene.tsx:1294 `<h2 className={`type-body-20-semibold ${EMPTY_TITLE}`}>`. 제목 계층을 가진 제품 정의는 이 둘뿐이고 둘 다 같은 값이다. `[data-page-root]`(랜딩 마케팅 페이지)에서는 이 토큰이 18px·16px로 내려가지만 두 홈은 앱 씬이라 해당하지 않는다."
+    },
+    {
+      "component": "empty-state",
+      "path": "empty-state.sizes.base.titleLineHeight",
+      "decision": "product-has",
+      "productConstant": "--type-body-20-line-height (유틸 클래스 `.type-body-20-semibold` 경유, globals.css:1128-1133)",
+      "productFile": "apps/web/app/globals.css",
+      "productLine": 363,
+      "productValue": "1.5 (단위 없는 배수) — font-size 20px에서 계산값 30px. 제품은 행간을 px가 아니라 배수로 선언하므로 DS가 적은 30px은 이 선언의 해결값이다."
+    },
+    {
+      "component": "empty-state",
+      "path": "empty-state.sizes.base.descriptionFontSize",
+      "decision": "product-has",
+      "productConstant": "--type-body-16-size (유틸 클래스 `.type-body-16-regular` 경유, globals.css:1135-1140)",
+      "productFile": "apps/web/app/globals.css",
+      "productLine": 366,
+      "productValue": "16px — AppHomeScene.tsx:1007과 NodeCanvasHomeScene.tsx:1297의 설명 문단이 `.type-body-16-regular`를 쓴다. 주의: globals.css:838-842의 `@media (max-width: 450px) { :root { --type-body-16-size: var(--type-body-14-size); } }`가 좁은 뷰포트에서 이 토큰을 14px로 덮는다 — 제품의 16px은 451px 이상에서만 참이다. (같은 축에서 갈리는 나머지 제품 정의: VideoEditScene EMPTY_TEXT도 16, VEM inspectorEmptyStateText와 HighlightScene historyEmpty는 14, VideoEditProjectPicker는 12다.)"
+    },
+    {
+      "component": "empty-state",
+      "path": "empty-state.sizes.base.descriptionLineHeight",
+      "decision": "product-has",
+      "productConstant": "--type-body-16-line-height (유틸 클래스 `.type-body-16-regular` 경유, globals.css:1135-1140)",
+      "productFile": "apps/web/app/globals.css",
+      "productLine": 367,
+      "productValue": "1.5 (단위 없는 배수) — font-size 16px에서 계산값 24px. ≤450px에서는 font-size가 14px로 덮이므로 21px이 된다."
+    },
+    {
+      "component": "empty-state",
+      "path": "empty-state.states.base.Default.background",
+      "decision": "product-none",
+      "reason": "제품의 빈 상태 9벌(앱 홈 2 · 하이라이트 2 · 에디터 5) 어디에도 배경 선언이 없어 계산 배경이 전부 투명이다 — 빈 상태는 자기 면을 갖는 상자가 아니라 이미 면을 가진 부모 위에 얹히는 텍스트 블록이며, 여기에 면을 주면 \"아무것도 없다\"는 자리에 카드가 하나 생긴 것처럼 보인다. (확인한 선언: appHomeSceneStyles.ts:697 `emptyState`, NodeCanvasHomeScene.tsx:167 `EMPTY_STATE`, highlightSceneStyles.ts:675 `emptyHero`·877 `historyEmpty`, VideoEditScene.tsx:187 `EMPTY_STATE`, VideoEditProjectPicker.tsx:80 `WARN`(emptyProjects·emptySources 2벌), VideoEditModal.tsx:1156 `inspectorEmptyState`, CanvasEmptyState.tsx:18·24 `OVERLAY_CLASS`/`INNER_CLASS`.)"
+    },
+    {
+      "component": "empty-state",
+      "path": "empty-state.states.base.Default.foreground",
+      "decision": "product-has",
+      "productConstant": "emptyTitle (tw-ah-059) — 짝: NodeCanvasHomeScene.tsx:173-176 `EMPTY_TITLE` `text-[var(--gray-000)]`",
+      "productFile": "apps/web/components/scenes/appHomeSceneStyles.ts",
+      "productLine": 711,
+      "productValue": "color: var(--gray-000) — 제품의 페이지 전경 별칭이다(`--foreground: var(--gray-000)`, globals.css:690 다크 · 733 라이트). 해결값은 다크 `--palette-gray-000` = #fafafa, 라이트 `--palette-gray-1000` = #000000. DS의 color-foreground-primary는 다크 neutral.0 = #fafafa로 같고 라이트 neutral.900 = #171b22로 다르다 — 라이트만 갈린다. 두 홈이 같은 값을 쓴다. (같은 블록의 컨테이너 색 `rgb(var(--gray-000-rgb)/40%)`(appHomeSceneStyles.ts:704)와 설명 색 `rgb(var(--gray-000-rgb)/55%)`(:692)는 이 축이 아니라 각각 DS의 root 무색·foreground-secondary에 대응한다. `[html[data-theme=light] [data-forced-theme=dark] &]` 분기는 랜딩 임베드 데모용 강제 다크 재선언이며 기본 상태가 아니다.)"
+    },
+    {
+      "component": "project-card",
+      "path": "project-card.sizes.base.borderWidth",
+      "decision": "product-has",
+      "productConstant": "--glass-dropdown-frame (첫 겹의 spread)",
+      "productFile": "apps/web/app/globals.css",
+      "productLine": 64,
+      "productValue": "0.5px — `0px 0px 0px 0.5px rgba(0, 0, 0, 0.5)` (다크). 라이트는 :595의 `0px 0px 0px 0.5px rgba(0, 0, 0, 0.15)`로 색만 바뀌고 두께는 같다",
+      "productSelector": "",
+      "reason": "제품 카드 프레임 4벌은 전부 `border: none`이고 테두리 대신 spread 0.5px의 box-shadow 링을 쓴다(appHomeSceneStyles.ts:20·22 · NodeCanvasHomeScene.tsx:240·241 · highlightSceneStyles.ts:749·751 · VideoEditScene.tsx:229·230) — 0.5px이라는 두께는 제품에서 온 값이고, 그것을 링이 아니라 border로 그리는 것만 DS의 선택이다."
+    },
+    {
+      "component": "project-card",
+      "path": "project-card.sizes.base.overlayTitleFontSize",
+      "decision": "product-has",
+      "productConstant": "--type-body-16-size (유틸리티 클래스 `.type-body-16-medium`, globals.css:1142-1143)",
+      "productFile": "apps/web/app/globals.css",
+      "productLine": 366,
+      "productValue": "16px",
+      "productSelector": "",
+      "reason": "제목 줄이 네 벌 모두 `type-body-16-medium`을 단다(AppHomeScene.tsx:1226 · NodeCanvasHomeScene.tsx:1477 · HighlightScene.tsx:1517 · VideoEditScene.tsx:920). 다만 제품은 globals.css:838-842에서 `@media (max-width: 450px)`에 이 토큰을 `--type-body-14-size`로 낮추므로 좁은 뷰포트에서는 제목이 14px이 된다 — DS에는 그 축이 없다."
+    },
+    {
+      "component": "project-card",
+      "path": "project-card.sizes.base.overlayMetaFontSize",
+      "decision": "product-has",
+      "productConstant": "--type-body-14-size (유틸리티 클래스 `.type-body-14-regular`, globals.css:1156-1157)",
+      "productFile": "apps/web/app/globals.css",
+      "productLine": 370,
+      "productValue": "14px",
+      "productSelector": "",
+      "reason": "eyebrow와 마지막 편집 줄이 네 벌 모두 `type-body-14-regular`을 단다(AppHomeScene.tsx:1191·1245 · NodeCanvasHomeScene.tsx:1493 · HighlightScene.tsx:1489·1536 · VideoEditScene.tsx:938). 비디오 에디터 허브에는 eyebrow가 없고 meta 줄만 있다."
+    },
+    {
+      "component": "project-card",
+      "path": "project-card.sizes.base.overlayTextGap",
+      "decision": "product-has",
+      "productConstant": "--project-card-overlay-stack-gap",
+      "productFile": "apps/web/app/globals.css",
+      "productLine": 103,
+      "productValue": "4px",
+      "productSelector": "",
+      "reason": "제품이 이 이름으로 직접 선언한 카드 전용 변수다(주석: \"프로젝트 카드 썸네일 오버레이 텍스트 스택 — AppHome · Highlight · VideoEdit 공통\"). 네 벌의 오버레이 텍스트 스택이 모두 `gap: var(--project-card-overlay-stack-gap)`을 쓴다(appHomeSceneStyles.ts:331 · NodeCanvasHomeScene.tsx:343 · highlightSceneStyles.ts:1018 · VideoEditScene.tsx:390)."
+    },
+    {
+      "component": "project-card",
+      "path": "project-card.states.base.Default.background",
+      "decision": "product-none",
+      "productSelector": "",
+      "reason": "프레임은 배경을 칠하지 않는다 — 미디어 면이 카드 전체를 덮어 프레임의 색은 어디에도 보이지 않고, 색을 주면 미디어 배경과 조용히 어긋나는 두 번째 정본이 생긴다(제품 카드 프레임 4벌도 background 선언이 없고 면은 미디어 자식이 칠한다: appHomeSceneStyles.ts:196 `--gray-900`·라이트 `--palette-gray-200`, NodeCanvasHomeScene.tsx:273-278, highlightSceneStyles.ts:940-942, VideoEditScene.tsx:245-247)."
+    },
+    {
+      "component": "project-card",
+      "path": "project-card.states.base.Default.border",
+      "decision": "product-has",
+      "productConstant": "--glass-dropdown-frame (첫 겹의 색)",
+      "productFile": "apps/web/app/globals.css",
+      "productLine": 64,
+      "productValue": "rgba(0, 0, 0, 0.5) (다크, :64) · rgba(0, 0, 0, 0.15) (라이트, :595)",
+      "productSelector": "",
+      "reason": "제품의 카드 가장자리 선은 `border-color`가 아니라 같은 링(box-shadow 첫 겹)의 색이다 — 알파를 가진 검정이라 뒤에 놓인 썸네일에 따라 결과가 달라지고, DS는 그 자리에 불투명 토큰 `color-border-subtle`(라이트 #e3e4e8 · 다크 #575d68)을 둔다. 값 자체는 DS와 제품이 다르므로 이 축은 대조 대상이지 채택이 아니다."
+    },
+    {
+      "component": "project-card",
+      "path": "project-card.states.base.Default.foreground",
+      "decision": "product-has",
+      "productConstant": "--palette-gray-100 (다크) · --palette-gray-900 (라이트) — `archivePreviewTitleOverlayText`",
+      "productFile": "apps/web/components/scenes/appHomeSceneStyles.ts",
+      "productLine": 337,
+      "productValue": "#f1f1f3 (다크, :337) · #171b22 (라이트, :345)",
+      "productSelector": "",
+      "reason": "DS의 이 축은 제목 줄의 색이다(surface-states.browser.test.tsx:218이 `.kds-project-card-title`의 color로 확인한다). 제품 제목 색은 앱 홈·노드캔버스 홈이 위 두 값이고(NodeCanvasHomeScene.tsx:349·352 동일), 라이트값 #171b22는 DS `color-foreground-primary`의 라이트값과 정확히 같지만 다크는 제품 #f1f1f3 대 DS #fafafa로 다르다. 하이라이트 허브와 비디오 에디터 허브는 썸네일 dominant color 광도로 뒤집는 `--card-text-color`가 이 색을 덮는다(appHomeSceneStyles.ts:346·348 조건 `.tw-ah-017` = dominantColor가 있는 하이라이트 카드, highlightSceneStyles.ts:1071, VideoEditScene.tsx:395-400) — 그 런타임 계약은 DS가 옮기지 않았다."
+    },
+    {
+      "component": "app-shell-parts",
+      "path": "app-shell-parts.sizes.navItemCollapsed.icon",
+      "decision": "product-has",
+      "productConstant": "gnbStyles.menuLinkIconMask",
+      "productFile": "apps/web/components/navigation/Gnb.tsx",
+      "productLine": 567,
+      "productValue": "20px (width 20px · height 20px, 567–568행)",
+      "productSelector": "접힘 전용 선언이 없다 — `html[data-app-gnb-sidebar-collapsed=\"true\"]`에서도 조건 없는 같은 규칙 하나가 아이콘을 20으로 두며, 접힘 항목의 폭 `--app-gnb-sidebar-menu-hit-w`(globals.css:132) = (16 − 12) + 20 + 8 = 32가 이 20을 그대로 읽는다"
+    },
+    {
+      "component": "app-shell-parts",
+      "path": "app-shell-parts.sizes.navRow.width",
+      "decision": "derived",
+      "reason": "행은 자기 폭을 갖지 않는다 — DS는 `inline-size: 100%`, 배포본은 `.gnb-menuSidebar .gnb-menuLink { width: 100% }`(Gnb.tsx:484)로 레일을 채우므로 256 = `layout-app-shell-sidebar-width`(280) − 2 × `layout-app-shell-sidebar-padding`(12)이고, 제품도 `--app-gnb-sidebar-width`(280, globals.css:143) − 2 × `--app-gnb-sidebar-padding-x`(12, globals.css:126)로 같은 폭이 된다."
+    },
+    {
+      "component": "app-shell-parts",
+      "path": "app-shell-parts.sizes.topBar.leadingSlotHeight",
+      "decision": "product-has",
+      "productConstant": "gnbStyles.mainChromeSidebarToggle",
+      "productFile": "apps/web/components/navigation/Gnb.tsx",
+      "productLine": 358,
+      "productValue": "32px (width 32px · height 32px, 357–358행). 선행 슬롯 `mainChromeLeadingCluster`(Gnb.tsx:297)는 높이를 선언하지 않고 그 안의 사이드바 토글에서 받는다(사용처 5211–5214행)"
+    },
+    {
+      "component": "app-shell-parts",
+      "path": "app-shell-parts.sizes.topBar.trailingSlotHeight",
+      "decision": "product-has",
+      "productConstant": "gnbStyles.profileTrigger",
+      "productFile": "apps/web/components/navigation/Gnb.tsx",
+      "productLine": 1373,
+      "productValue": "36px — `--profile-ring-size: calc(--profile-avatar-size 28px + (--profile-ring-gap 2px + --profile-ring-width 2px) × 2)`(1370행)를 `width`·`height`가 그대로 읽는다(1372·1373행). 후행 슬롯 `mainChromeProfileCluster`(Gnb.tsx:343)는 높이를 선언하지 않고 이 프로필 버튼에서 받는다(사용처 5310–5337행)"
+    },
+    {
+      "component": "app-shell-parts",
+      "path": "app-shell-parts.states.navItem.Current.background",
+      "decision": "product-has",
+      "productConstant": "gnbStyles.menuSidebarActiveIndicator",
+      "productFile": "apps/web/components/navigation/Gnb.tsx",
+      "productLine": 675,
+      "productValue": "라이트 `var(--palette-gray-300)` · 다크 `var(--palette-gray-800)` #313640 (675–676행). 라이트는 `wrapperSidebar`가 사이드바가 있는 문서에서 `--palette-gray-300`을 #e4e5e9로 재매핑하므로(Gnb.tsx:1975) 실제 그려지는 값은 #e4e5e9다",
+      "productSelector": "선택 면을 항목이 아니라 형제로 놓인 절대배치 인디케이터가 그린다 — 항목 자신은 `html[data-theme=light|dark] .gnb-menuSidebar .gnb-menuLinkActive`에서 `background-color: transparent`다(528·532행). admin 사이드바만 항목이 직접 갖는다 — `html[data-theme=light|dark] .gnb-customSidebarMenu .gnb-menuLinkActive`(536·538행)가 같은 두 색을 항목에 준다"
+    },
+    {
+      "component": "app-shell-parts",
+      "path": "app-shell-parts.states.navItem.Current.foreground",
+      "decision": "product-has",
+      "productConstant": "gnbStyles.menuLinkActive",
+      "productFile": "apps/web/components/navigation/Gnb.tsx",
+      "productLine": 522,
+      "productValue": "`var(--gray-000)` — 라이트 `--palette-gray-1000` #000000(globals.css:708·38) · 다크 `--palette-gray-000` #fafafa(globals.css:665·20)",
+      "productSelector": "`.gnb-menuLinkActive` — DS의 `aria-current=\"page\"`에 대응하는 클래스다. hover에서도 같은 값이 유지된다(523행)"
+    },
+    {
+      "component": "app-shell-parts",
+      "path": "app-shell-parts.states.navItem.Default.background",
+      "decision": "product-has",
+      "productConstant": "gnbStyles.menuLink",
+      "productFile": "apps/web/components/navigation/Gnb.tsx",
+      "productLine": 468,
+      "productValue": "transparent"
+    },
+    {
+      "component": "app-shell-parts",
+      "path": "app-shell-parts.states.navItem.Default.foreground",
+      "decision": "product-has",
+      "productConstant": "gnbStyles.menuLinkActive",
+      "productFile": "apps/web/components/navigation/Gnb.tsx",
+      "productLine": 516,
+      "productValue": "`var(--gray-300)` — 라이트 `--palette-gray-700` #575d68(globals.css:711·34) · 다크 `--palette-gray-300` #d5d7dd(globals.css:668·30). 두 테마 모두 DS `color-foreground-secondary`와 값이 같다",
+      "productSelector": "`.gnb-menuSidebar .gnb-menuLink:not(.gnb-menuLinkActive)` — 선택되지 않은 사이드바 항목에만 걸린다. 선언 자리는 `menuLinkActive` 상수 안이지만 겨누는 것은 형제(비선택) 항목이다"
+    },
+    {
+      "component": "app-shell-parts",
+      "path": "app-shell-parts.states.navItem.Hover.foreground",
+      "decision": "product-has",
+      "productConstant": "gnbStyles.menuLinkActive",
+      "productFile": "apps/web/components/navigation/Gnb.tsx",
+      "productLine": 518,
+      "productValue": "`var(--gray-200)` — 라이트 `--palette-gray-800` #313640(globals.css:710·36) · 다크 `--palette-gray-200` #e3e4e8(globals.css:667·28). 브라우저 실측 `rgb(227, 228, 232)` (migration/product.rendered-components.json → rendered[\"nav-item-hover\"].color)",
+      "productSelector": "`.gnb-menuSidebar .gnb-menuLink:hover:not(.gnb-menuLinkActive)` — 선택되지 않은 항목의 hover에만 걸린다. 선택 항목은 hover에서도 `var(--gray-000)`이다(523행)"
+    },
+    {
+      "component": "sidebar-brand",
+      "path": "sidebar-brand.sizes.false.radius",
+      "decision": "product-none",
+      "reason": "배포본의 브랜드 행을 이루는 네 클래스(`gnb-sidebarHeaderRow`·`gnb-sidebarLogoHit`·`gnb-sidebarLogoRail`·`gnb-sidebarBrandCrop`, apps/web/components/navigation/Gnb.tsx:1755·1770·1787·1819)와 로고 이미지(`gnb-logo`, 같은 파일 262) 어디에도 `border-radius` 선언이 없다 — 브랜드 행은 내비 항목과 달리 hover·선택 면을 그리지 않아 반경을 걸 축 자체가 없고, DS의 0은 Figma 프레임이 반경 속성을 반드시 하나 갖기 때문에 '면이 없다'를 값으로 적은 것이다."
+    },
+    {
+      "component": "sidebar-brand",
+      "path": "sidebar-brand.sizes.false.width",
+      "decision": "derived",
+      "reason": "브랜드 행은 폭을 스스로 선언하지 않고 레일을 가득 채운다(`.kds-sidebar-brand { inline-size: 100% }`) — 펼침 폭 256 = `layout-app-shell-sidebar-width`(280) − 2 × `layout-app-shell-sidebar-padding`(12)이며, 배포본도 `--app-gnb-sidebar-width: min(280px, calc(100vw - 120px))`(apps/web/app/globals.css:143)에서 `gnb-wrapperSidebar`의 좌우 `--app-gnb-sidebar-padding-x: 12px`(같은 파일 126)를 빼는 같은 식이다."
+    },
+    {
+      "component": "sidebar-brand",
+      "path": "sidebar-brand.sizes.false.wordmarkWidth",
+      "decision": "product-has",
+      "productConstant": "--app-gnb-sidebar-logo-wordmark-w",
+      "productFile": "apps/web/app/globals.css",
+      "productLine": 139,
+      "productValue": "96px",
+      "reason": "같은 96이 Gnb.tsx:2251 `SIDEBAR_WORDMARK_FULL_W = logoWordmarkWidthForHeight(SIDEBAR_LOGO_H)` = round(28 × 291 / 85) = 96으로도 계산되어 사이드바 로고의 `width`로 들어간다(Gnb.tsx:2444 → 4390·4412). 다만 제품의 96은 **큐브 심볼과 활자가 한 SVG에 붙은 로고 전체 폭**이고 DS는 mark 슬롯과 wordmark 슬롯을 나눠 두었으므로, 96을 활자 슬롯에만 주면 DS 브랜드 행이 제품보다 mark(28) + gap(8)만큼 넓어진다 — 제품의 활자만 폭은 logoTextWordmarkWidthForHeight(28) = 72다."
+    },
+    {
+      "component": "sidebar-brand",
+      "path": "sidebar-brand.sizes.true.height",
+      "decision": "product-has",
+      "productConstant": "sidebarHeaderRow (`[min-height:40px]`)",
+      "productFile": "apps/web/components/navigation/Gnb.tsx",
+      "productLine": 1780,
+      "productValue": "40px",
+      "reason": "접힘 선택자(`html[data-app-gnb-sidebar-collapsed=true]`)는 이 행의 width·max-width만 덮고 min-height는 건드리지 않으므로 접혀도 40 그대로다. 안쪽 히트 영역 `gnb-sidebarLogoHit`도 같은 `[min-height:40px]`(Gnb.tsx:1793)을 갖고, 접힘에서 `height:auto`가 붙어도 min-height가 남는다."
+    },
+    {
+      "component": "sidebar-brand",
+      "path": "sidebar-brand.sizes.true.markSize",
+      "decision": "product-has",
+      "productConstant": "--app-gnb-sidebar-logo-h",
+      "productFile": "apps/web/app/globals.css",
+      "productLine": 136,
+      "productValue": "28px",
+      "reason": "`gnb-sidebarLogoRail`이 `[min-height:var(--app-gnb-sidebar-logo-h,_28px)]`로 소비한다(Gnb.tsx:1822). 접힘에서 레일 **폭**만 `--app-gnb-sidebar-logo-symbol-w: 28px`(globals.css:141)로 바뀌고 높이는 그대로 28이다. JS 미러는 `SIDEBAR_LOGO_H = 28`(Gnb.tsx:2250)이며 로고 이미지의 `height`로 들어간다(Gnb.tsx:4393·4415), `gnb-logo`도 `[height:28px]`(Gnb.tsx:264)다."
+    },
+    {
+      "component": "sidebar-brand",
+      "path": "sidebar-brand.sizes.true.radius",
+      "decision": "product-none",
+      "reason": "펼침과 같다 — 접힘 선택자(`html[data-app-gnb-sidebar-collapsed=true]`)가 브랜드 행 네 클래스에 대해 덮는 것은 width·max-width·overflow·transform·justify-content뿐이고 `border-radius`는 접힘에서도 어디에도 선언되지 않는다. 접힌 레일에서도 브랜드는 면을 그리지 않으므로 반경 축이 없다."
+    },
+    {
+      "component": "sidebar-brand",
+      "path": "sidebar-brand.sizes.true.width",
+      "decision": "product-has",
+      "productConstant": "--app-gnb-sidebar-menu-hit-w",
+      "productFile": "apps/web/app/globals.css",
+      "productLine": 132,
+      "productValue": "calc((--app-gnb-main-inline-padding 16px − --app-gnb-sidebar-padding-x 12px) + 20px + 8px) = 32px",
+      "productSelector": "html[data-app-gnb-sidebar-collapsed=\"true\"] .gnb-sidebarLogoHit — 접힘에서 width·min-width가 이 값이 된다(apps/web/components/navigation/Gnb.tsx:1811-1812)",
+      "reason": "이 32가 원시값이고 접힌 레일 폭이 여기서 거꾸로 나온다 — globals.css:408-410의 `--app-gnb-sidebar-width: calc(2 * var(--app-gnb-sidebar-padding-x) + var(--app-gnb-sidebar-menu-hit-w))` = 56. 그래서 펼침 256과 달리 접힘 32는 레일에서 파생된 값이 아니라 제품이 직접 선언한 값이다(DS 토큰 `layout-app-shell-sidebar-collapsed` 56 − 2 × 12 = 32로도 같다)."
+    },
+    {
+      "component": "sidebar-cta",
+      "path": "sidebar-cta.sizes.false.labelWidth",
+      "decision": "product-none",
+      "reason": "제품은 CTA 라벨에 폭 축이 없고 텍스트 고유 폭으로 흐른다(`gnbStyles.sidebarUpgradeLabel`은 `min-width:0`·`overflow:hidden`·`white-space:nowrap`과 상한 `max-width:240px`만 선언한다) — 60은 Figma 펼침 variant의 Label 텍스트 노드가 코드가 그리는 라벨 상자와 같은 폭을 갖게 하려고 DS가 세운 값이며, 접힘 variant에는 같은 근거가 없어 parity 게이트가 그 자손을 optional로 둔다."
+    },
+    {
+      "component": "sidebar-cta",
+      "path": "sidebar-cta.sizes.false.width",
+      "decision": "derived",
+      "reason": "펼침 CTA는 제품에서 `width:100%`라 폭을 스스로 정하지 않는다 — 256 = 데스크톱 `--app-gnb-sidebar-width` 280(`min(280px, calc(100vw - 120px))`) − 2 × `--app-gnb-sidebar-padding-x` 12, 즉 사이드바 열의 콘텐츠 폭이다."
+    },
+    {
+      "component": "sidebar-cta",
+      "path": "sidebar-cta.sizes.true.width",
+      "decision": "derived",
+      "reason": "접힘 CTA는 제품에서 `width:fit-content` + `max-width:100%`라 접힌 레일의 콘텐츠 폭에서 잘린다 — 32 = 접힘 `--app-gnb-sidebar-width`(2 × `--app-gnb-sidebar-padding-x` 12 + `--app-gnb-sidebar-menu-hit-w` 32 = 56) − 2 × 12이고, `--app-gnb-sidebar-menu-hit-w`는 다시 (`--app-gnb-main-inline-padding` 16 − `--app-gnb-sidebar-padding-x` 12) + 아이콘 20 + 우측 8 = 32이다."
+    },
+    {
+      "component": "sidebar-cta",
+      "path": "sidebar-cta.states.base.Hover.background",
+      "decision": "product-has",
+      "productConstant": "gnbStyles.sidebarUpgradeButtonActive",
+      "productFile": "apps/web/components/navigation/Gnb.tsx",
+      "productLine": 1891,
+      "productSelector": "html[data-theme=light] .gnb-sidebarUpgradeButton:not(<sidebarUpgradeButtonActive>):hover — 즉 aria-current=\"page\"가 아닌 CTA에 hover할 때. 다크는 같은 형태로 L1896.",
+      "productValue": "light `var(--palette-gray-800)` = #313640 (Gnb.tsx:1891) · dark `var(--palette-gray-200)` = #e3e4e8 (Gnb.tsx:1896). 같은 파일 L1883의 기본 선언 `[&:hover]:[background:rgb(var(--accent-mint-500-rgb) / 24%)]`은 명시도에서 져 실제로는 그려지지 않는다. DS 토큰(light neutral.800 #313640 / dark neutral.200 #e3e4e8)과 일치한다.",
+      "reason": ""
+    },
+    {
+      "component": "sidebar-cta",
+      "path": "sidebar-cta.states.base.Hover.foreground",
+      "decision": "product-has",
+      "productConstant": "gnbStyles.sidebarUpgradeButtonActive",
+      "productFile": "apps/web/components/navigation/Gnb.tsx",
+      "productLine": 1892,
+      "productSelector": "html[data-theme=light] .gnb-sidebarUpgradeButton:not(<sidebarUpgradeButtonActive>):hover — 즉 aria-current=\"page\"가 아닌 CTA에 hover할 때. 다크는 같은 형태로 L1897.",
+      "productValue": "light `var(--palette-gray-100)` (Gnb.tsx:1892) — 사이드바가 있는 문서에서는 Gnb.tsx:1972의 `html[data-theme=light] body:has(.gnb-wrapperSidebar)` 재정의로 #f8f8f9로 풀린다(globals.css:24의 전역 기본값은 #f1f1f3) · dark `var(--palette-gray-900)` = #171b22 (Gnb.tsx:1897). L1884의 기본 선언 `[&:hover]:[color:var(--accent-mint-800)]`은 명시도에서 져 그려지지 않는다. DS 토큰(light neutral.50 #f8f8f9 / dark neutral.900 #171b22)과 일치한다.",
+      "reason": ""
+    },
+    {
+      "component": "progress-bar",
+      "path": "progress-bar.sizes.base.fillHeight",
+      "decision": "derived",
+      "reason": "채움 높이는 잴 축이 아니라 트랙 높이 그 자체다 — 제품 두 벌(highlightSceneStyles.ts:1179 `[height:100%]`, shorts/[shortId]/page.tsx:1127 `height: \"100%\"`)과 DS 구현(packages/css/src/component/progress.css:24 `block-size: 100%`)이 모두 채움을 트랙에 꽉 채우므로 fillHeight = sizes.base.height = 6px으로 계산된다."
+    },
+    {
+      "component": "progress-bar",
+      "path": "progress-bar.states.base.Default.background",
+      "decision": "product-has",
+      "productConstant": "progressBarTrack",
+      "productFile": "apps/web/components/scenes/highlightSceneStyles.ts",
+      "productLine": 1190,
+      "productValue": "rgb(var(--palette-gray-900-rgb) / 10%) = rgb(23 27 34 / 10%) — #171b22 10% (globals.css:37,51). 다크는 같은 상수 1193줄의 `[html[data-theme=dark]_&]:[background:rgb(var(--palette-gray-000-rgb)_/_10%)]` = rgb(250 250 250 / 10%) — #fafafa 10% (globals.css:20,40)",
+      "reason": "DS 토큰 `color-progress-track`이 light `color-ink-alpha-10` = srgb(0.090196 0.105882 0.133333 / 0.1) = rgb(23 27 34 / 10%), dark `color-paper-alpha-10` = rgb(250 250 250 / 10%)로 하이라이트 상세 진행바의 트랙 선언과 두 모드 모두 정확히 같다 — 즉 \"색은 DS가 골랐다\"는 progress.md의 서술과 달리 트랙 색에는 제품 대응이 있다. 다만 제품의 다른 한 벌(숏폼 클립 편집, apps/web/app/highlight/[projectId]/shorts/[shortId]/page.tsx:1124)은 `rgb(var(--palette-gray-900-rgb) / 12%)`로 12%를 쓰므로 두 벌이 어긋나며 DS는 10% 쪽을 채택했다."
+    },
+    {
+      "component": "progress-bar",
+      "path": "progress-bar.states.base.Default.foreground",
+      "decision": "product-has",
+      "productConstant": "progressBarFill",
+      "productFile": "apps/web/components/scenes/highlightSceneStyles.ts",
+      "productLine": 1180,
+      "productValue": "var(--palette-primary-500, #6366f1) — 선언된 그대로. 이름이 정의되지 않아 화면에 실제로 그려지는 색은 폴백 #6366f1(인디고)이고, 의도한 이름은 --primary-500 = #0088ff (apps/web/app/globals.css:159)",
+      "reason": "`--palette-primary-500`은 제품 전역에 0곳이며(제품의 `--palette-` 접두사는 회색 계열 전용, 파랑은 접두사 없는 `--primary-500`) 유일한 정의는 무관한 라우트 스코프 `(highlight-standalone)/hl/page.module.css:53`의 #FFDD00뿐이라, 이 선언은 브랜드 파랑을 의도했으나 폴백 #6366f1로 그려지고 있다 — DS의 `color-progress-fill`은 `color-blue-500` #0088ff로 **실제로 그려지는 색이 아니라 의도한 색**을 채택한 것이며(`color-action-primary`와 같은 값), 제품의 다른 한 벌(숏폼 클립 편집, shorts/[shortId]/page.tsx:1128)은 `var(--palette-gray-900)` #171b22를 써서 두 벌의 채움 색이 어긋난다."
+    },
+    {
+      "component": "progress-ring",
+      "path": "progress-ring.sizes.base.radius",
+      "decision": "product-has",
+      "productConstant": "gnbStyles.profileTrigger",
+      "productFile": "apps/web/components/navigation/Gnb.tsx",
+      "productLine": 1385,
+      "productValue": "0 (arbitrary class `[border-radius:0]`)",
+      "productSelector": ""
+    },
+    {
+      "component": "progress-ring",
+      "path": "progress-ring.states.base.Default.background",
+      "decision": "product-has",
+      "productConstant": "gnbStyles.profileTrigger — `--profile-ring-track`",
+      "productFile": "apps/web/components/navigation/Gnb.tsx",
+      "productLine": 1367,
+      "productValue": "rgb(var(--gray-000-rgb) / 20%) — dark 테마 rgb(250 250 250 / 20%), light 테마 rgb(0 0 0 / 20%)",
+      "productSelector": ""
+    },
+    {
+      "component": "progress-ring",
+      "path": "progress-ring.states.base.Default.foreground",
+      "decision": "product-has",
+      "productConstant": "gnbStyles.profileTrigger — `--profile-ring-fill`",
+      "productFile": "apps/web/components/navigation/Gnb.tsx",
+      "productLine": 1366,
+      "productValue": "var(--accent-mint-500) = #00c68e",
+      "productSelector": ""
+    }
+  ]
+}

@@ -1,0 +1,311 @@
+#!/usr/bin/env node
+// **제품의 경쟁 정의를 전부 재서 묶는다.**
+//
+// "제품에 정본이 없다"는 지금까지 산문이었다 — 한 벌만 재고 나머지는 세지 않은 채 그렇게 적었고,
+// 그 판단을 아무도 검증할 수 없었다. 여기서는 이름 패턴으로 후보를 **전부** 찾아 실제로 렌더하고,
+// 값이 같은 것끼리 묶는다. 그러면 "몇 벌이 몇 묶음으로 갈리는가"가 주장이 아니라 수가 된다.
+//
+// 결과는 migration/product.variants.json이고, Figma의 Inventory 페이지가 그것을 그린다.
+// 정본을 고르는 일은 **눈으로 비교하는 일**이지 남의 산문을 믿는 일이 아니어야 한다.
+import { execFileSync } from "node:child_process";
+import { existsSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
+import { createRequire } from "node:module";
+import { tmpdir } from "node:os";
+import { dirname, join, resolve } from "node:path";
+import { fileURLToPath } from "node:url";
+import { chromium } from "playwright";
+import { atomicWriteBatch } from "./lib/atomic-output.mjs";
+
+const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), "..");
+const outputPath = resolve(repoRoot, "migration/product.variants.json");
+const productRoot = process.env.KLIPSE_PRODUCT_REPO ?? "/Users/sejunki/klipse-web";
+const productRef = process.env.KLIPSE_PRODUCT_REF ?? "origin/main";
+const checkOnly = process.argv.includes("--check");
+
+
+// 컴포넌트마다 **이름 패턴**으로 후보를 찾는다. 패턴을 함께 적는 이유는 놓친 것이 있으면
+// 그것이 보이게 하기 위해서다 — 목록이 아니라 규칙을 감사할 수 있어야 한다.
+const KINDS = [
+  { id: "toast", pattern: /^toast$|Toast$/, tag: "div", text: "저장했어요" },
+  { id: "dialog", pattern: /^modalCard$|ModalCard$|DialogCard$/, tag: "div", text: "" },
+  { id: "icon-button", pattern: /iconButton$|MoreButton$|CloseButton$|ArrowButton$|ToggleButton$/i, tag: "button", text: "" },
+  { id: "text-field", pattern: /Input$|InputBox$|inputBox$|SearchInput$/, tag: "div", text: "" },
+  { id: "slider", pattern: /(SLIDER|Slider)(_?(ROOT|Root|TRACK|Track|RANGE|Range|THUMB|Thumb))?$|overlayRadix(RootFull|Range|Thumb)$|timelineZoomRadix(Root|Range|Thumb)$/, tag: "div", text: "" },
+  { id: "selectable-list-row", pattern: /ListItem$|listItem$|SelectRow$|OptionRow$|DropdownItem$|MenuItem$/, tag: "button", text: "항목" },
+  { id: "badge", pattern: /Badge$|Chip$|Pill$/, tag: "span", text: "완료" },
+];
+
+// 재는 축. 컴포넌트를 가리지 않는 공통 집합이라 묶음 비교가 성립한다.
+const AXES = [
+  "height", "minHeight", "width", "minWidth", "maxWidth",
+  "paddingTop", "paddingRight", "paddingBottom", "paddingLeft",
+  "borderTopLeftRadius", "borderTopWidth", "borderTopColor", "borderTopStyle",
+  "backgroundColor", "backgroundImage", "color", "boxShadow", "backdropFilter",
+  "columnGap", "fontSize", "fontWeight", "lineHeight", "opacity",
+];
+
+if (!existsSync(resolve(productRoot, ".git"))) {
+  console.log(
+    "[product-variants] " + (checkOnly ? "SKIPPED" : "제품 저장소가 없습니다") +
+      " (" + productRoot + "). 인벤토리는 로컬에서 만든다.",
+  );
+  process.exit(0);
+}
+
+const require_ = createRequire(join(productRoot, "package.json"));
+let compile;
+try {
+  const packagePath = require_.resolve("tailwindcss/package.json");
+  ({ compile } = require_(join(dirname(packagePath), "dist", "lib.js")));
+} catch (error) {
+  console.log("[product-variants] SKIPPED (제품 tailwindcss를 불러오지 못했습니다: " + error.message + ")");
+  process.exit(0);
+}
+
+const productRefForList = productRef;
+const git = (args) =>
+  execFileSync("git", args, { cwd: productRoot, encoding: "utf8", maxBuffer: 128 * 1024 * 1024 });
+const commit = git(["rev-parse", productRef]).trim();
+const normalize = (source) =>
+  source.replace(/@import\s+["'][^"']+["'][^;]*;/g, "").replace(/@theme\s+(?:inline\s+)?\{/g, ":root {");
+
+/** `key: [...].join(" ")` 와 `const KEY = [...].join(" ")` 를 모두 읽는다. */
+function extractAll(source) {
+  const found = [];
+  const pattern = /(?:^|\n)(?:\s{2}|const\s+)([A-Za-z_][A-Za-z0-9_]*)\s*[:=]\s*(?=\[|")/g;
+  let match;
+  while ((match = pattern.exec(source)) !== null) {
+    const name = match[1];
+    let index = pattern.lastIndex;
+    while (source[index] === "\n" || source[index] === " ") index += 1;
+    if (source[index] === '"') {
+      const end = source.indexOf('"', index + 1);
+      const line = source.slice(0, index).split("\n").length;
+      found.push({ name, line, classes: source.slice(index + 1, end) });
+      continue;
+    }
+    if (source[index] !== "[") continue;
+    let depth = 0;
+    let quote = null;
+    let cursor = index;
+    for (; cursor < source.length; cursor += 1) {
+      const char = source[cursor];
+      if (quote) {
+        if (char === "\\") cursor += 1;
+        else if (char === quote) quote = null;
+        continue;
+      }
+      if (char === '"' || char === "'" || char === "`") quote = char;
+      else if (char === "[") depth += 1;
+      else if (char === "]") {
+        depth -= 1;
+        if (depth === 0) break;
+      }
+    }
+    const body = source.slice(index, cursor + 1);
+    if (!/\]\s*\.join\(/.test(source.slice(cursor, cursor + 40))) continue;
+    const parts = body.match(/"(?:[^"\\]|\\.)*"/g) ?? [];
+    if (parts.length === 0) continue;
+    const line = source.slice(0, index).split("\n").length;
+    found.push({ name, line, classes: parts.map((part) => JSON.parse(part)).join(" ") });
+  }
+  return found;
+}
+
+// **파일 목록을 손으로 적지 않는다.** 적으면 빠뜨린 파일이 보이지 않고, "제품에 몇 벌 있다"는
+// 수가 다시 주장이 된다. 모서리를 그리는 선언이 하나라도 있는 파일을 제품에서 직접 찾는다.
+const FILES = Object.fromEntries(
+  execFileSync(
+    "git",
+    ["grep", "-l", "-E", "\\[border-radius:|rounded-\\[|rounded-[0-9]", productRefForList, "--", "apps/web"],
+    { cwd: productRoot, encoding: "utf8", maxBuffer: 64 * 1024 * 1024 },
+  )
+    .split("\n")
+    .filter(Boolean)
+    .map((line) => line.replace(/^[^:]*:/, ""))
+    .filter((path) => /\.tsx?$/.test(path))
+    .map((path) => [path, path]),
+);
+
+const sources = Object.fromEntries(
+  Object.entries(FILES).map(([alias, path]) => [alias, git(["show", commit + ":" + path])]),
+);
+// **상수 이름으로 센다.** 클래스 토큰으로 세면 짧은 마커가 다른 문자열에 섞여 수가 터진다.
+// 정의 자신을 빼고 남는 수가 곧 "몇 곳에서 쓰는가"다.
+const usageCount = (name) => {
+  const pattern = new RegExp("\\b" + name.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + "\\b", "g");
+  let total = 0;
+  for (const source of Object.values(sources)) {
+    total += (source.match(pattern) ?? []).length;
+  }
+  return Math.max(0, total - 1);
+};
+
+const candidates = [];
+for (const [alias, source] of Object.entries(sources)) {
+  for (const entry of extractAll(source)) {
+    for (const kind of KINDS) {
+      if (!kind.pattern.test(entry.name)) continue;
+      candidates.push({
+        kind: kind.id,
+        id: kind.id + "/" + alias + "." + entry.name,
+        file: FILES[alias],
+        line: entry.line,
+        name: entry.name,
+        tag: kind.tag,
+        text: kind.text,
+        classes: entry.classes,
+        uses: usageCount(entry.name),
+      });
+      break;
+    }
+  }
+}
+
+const workspace = mkdtempSync(join(tmpdir(), "kds-product-variants-"));
+let rendered;
+try {
+  const tailwindEntry = git(["show", commit + ":apps/web/app/tailwind.css"]);
+  writeFileSync(join(workspace, "entry.css"), tailwindEntry);
+  writeFileSync(join(workspace, "keyframes.css"), git(["show", commit + ":apps/web/app/keyframes.css"]));
+  const compiled = await compile(tailwindEntry, {
+    base: workspace,
+    loadStylesheet: async (id, base) => {
+      const path = id.startsWith("tailwindcss") ? require_.resolve(id) : resolve(base, id);
+      return { path, base: dirname(path), content: readFileSync(path, "utf8") };
+    },
+  });
+  const tokens = new Set();
+  for (const source of Object.values(sources)) {
+    for (const literal of source.match(/"(?:[^"\\\n]|\\.)*"/g) ?? []) {
+      for (const token of literal.slice(1, -1).split(/\s+/)) if (token) tokens.add(token);
+    }
+  }
+  const utilities = compiled.build([...tokens]);
+  const productCss = [
+    normalize(tailwindEntry),
+    git(["show", commit + ":apps/web/app/globals.css"]),
+    utilities,
+  ].join("\n\n");
+
+  const browser = await chromium.launch();
+  try {
+    const context = await browser.newContext({ viewport: { width: 1440, height: 900 }, colorScheme: "dark" });
+    const page = await context.newPage();
+    await page.setContent(
+      '<!doctype html><html data-theme="dark"><head><style>' +
+        productCss.replace(/<\/style>/gi, "<\\/style>") +
+        "</style></head><body>" +
+        candidates
+          .map(
+            (candidate, index) =>
+              '<div id="v-' + index + '" style="position:relative;width:360px;height:200px">' +
+              "<" + candidate.tag + ' class="' + candidate.classes.replace(/"/g, "&quot;") + '">' +
+              candidate.text + "</" + candidate.tag + "></div>",
+          )
+          .join("") +
+        "</body></html>",
+      { waitUntil: "load" },
+    );
+    rendered = await page.evaluate(
+      ({ count, axes }) => {
+        const out = [];
+        for (let index = 0; index < count; index += 1) {
+          const element = document.querySelector("#v-" + index)?.firstElementChild;
+          if (!element) {
+            out.push(null);
+            continue;
+          }
+          const style = getComputedStyle(element);
+          const values = {};
+          for (const axis of axes) values[axis] = style[axis];
+          out.push(values);
+        }
+        return out;
+      },
+      { count: candidates.length, axes: AXES },
+    );
+    await context.close();
+  } finally {
+    await browser.close();
+  }
+} finally {
+  rmSync(workspace, { recursive: true, force: true });
+}
+
+// 값이 같은 것끼리 묶는다. **묶음 수가 곧 "몇 갈래로 갈리는가"다.**
+const kinds = {};
+for (const kind of KINDS) {
+  const members = candidates
+    .map((candidate, index) => ({ ...candidate, values: rendered[index] }))
+    .filter((candidate) => candidate.kind === kind.id && candidate.values);
+  const groups = new Map();
+  for (const member of members) {
+    const fingerprint = JSON.stringify(member.values);
+    if (!groups.has(fingerprint)) groups.set(fingerprint, { values: member.values, members: [] });
+    groups.get(fingerprint).members.push({
+      id: member.id,
+      file: member.file,
+      line: member.line,
+      name: member.name,
+      uses: member.uses,
+    });
+  }
+  const ordered = [...groups.values()].sort(
+    (a, b) =>
+      b.members.reduce((sum, m) => sum + m.uses, 0) - a.members.reduce((sum, m) => sum + m.uses, 0) ||
+      b.members.length - a.members.length,
+  );
+  kinds[kind.id] = {
+    pattern: String(kind.pattern),
+    definitions: members.length,
+    groups: ordered.map((group, index) => ({
+      rank: index + 1,
+      members: group.members.length,
+      uses: group.members.reduce((sum, m) => sum + m.uses, 0),
+      values: group.values,
+      sources: group.members,
+    })),
+  };
+}
+
+const payload =
+  JSON.stringify(
+    {
+      $comment:
+        "생성물. scripts/measure-product-variants.mjs가 제품의 경쟁 정의를 이름 패턴으로 찾아 실제로 렌더하고 값이 같은 것끼리 묶는다. 직접 수정하지 않는다.",
+      $whyThisExists:
+        "\"제품에 정본이 없다\"가 산문이었다 — 한 벌만 재고 나머지는 세지 않은 채 그렇게 적었다. 여기서는 몇 벌이 몇 묶음으로 갈리는지가 수로 남고, Figma의 Inventory 페이지가 그것을 나란히 그린다. 정본을 고르는 일은 눈으로 비교하는 일이어야 한다.",
+      $howToRead:
+        "groups는 사용 횟수가 많은 순이다. rank 1이 가장 널리 쓰이는 벌이며 정본 후보다. members가 여럿이면 그 벌들이 값까지 동일하다는 뜻이다.",
+      productRef,
+      productCommit: commit,
+      axes: AXES,
+      kinds,
+    },
+    null,
+    2,
+  ) + "\n";
+
+if (checkOnly) {
+  let current = "";
+  try {
+    current = readFileSync(outputPath, "utf8");
+  } catch {
+    console.error("[product-variants] 생성물이 없습니다: migration/product.variants.json");
+    process.exit(1);
+  }
+  if (current !== payload) {
+    console.error("[product-variants] 제품 정의가 기록과 다릅니다. 다시 만들고 인벤토리를 갱신하세요.");
+    process.exit(1);
+  }
+} else {
+  atomicWriteBatch([{ absolute: outputPath, expected: payload }]);
+}
+
+console.log(
+  "[product-variants] " + (checkOnly ? "checked" : "built") + ": @ " + commit.slice(0, 8) + " · " +
+    Object.entries(kinds)
+      .map(([id, kind]) => id + " " + kind.definitions + "벌→" + kind.groups.length + "묶음")
+      .join(" · "),
+);

@@ -42,7 +42,7 @@
     "check:catalog": "pnpm run check-design-docs && pnpm run check-figma-summaries",
     "check:llms": "pnpm run check-llms-docs",
     "check": "pnpm run check:tokens && pnpm run check:icons && pnpm run check:css && pnpm run check:catalog && pnpm run check:llms && pnpm run typecheck",
-    "verify": "pnpm run verify-gates && pnpm run verify-token-gates && pnpm run verify-css-gates && pnpm run verify-icon-gates && pnpm run check-token-diff && pnpm run check-figma-snapshot && pnpm run verify-figma-parity && pnpm run verify-product-parity && pnpm run verify-product-evidence && pnpm run verify-product-render && pnpm run verify-product-components && pnpm run verify-tailwind-interop && pnpm run verify-consumer && pnpm run verify-test-harness",
+    "verify": "pnpm run verify-gates && pnpm run verify-token-gates && pnpm run verify-css-gates && pnpm run verify-icon-gates && pnpm run check-token-diff && pnpm run check-figma-snapshot && pnpm run verify-figma-parity && pnpm run verify-product-parity && pnpm run verify-product-evidence && pnpm run verify-product-render && pnpm run verify-product-components && pnpm run verify-product-variants && pnpm run verify-tailwind-interop && pnpm run verify-consumer && pnpm run verify-test-harness",
     "verify-product-parity": "node ./scripts/verify-product-parity.mjs",
     "build-tailwind-theme": "node ./scripts/build-tailwind-theme.mjs",
     "check-tailwind-theme": "node ./scripts/build-tailwind-theme.mjs --check",
@@ -55,7 +55,8 @@
     "verify-product-render": "node ./scripts/measure-product-render.mjs --check",
     "verify-tailwind-interop": "node ./scripts/verify-tailwind-interop.mjs",
     "measure-product-components": "node ./scripts/measure-product-components.mjs",
-    "verify-product-components": "node ./scripts/measure-product-components.mjs --check"
+    "verify-product-components": "node ./scripts/measure-product-components.mjs --check",
+    "verify-product-variants": "node ./scripts/measure-product-variants.mjs --check"
   },
   "engines": {
     "node": ">=22"

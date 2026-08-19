@@ -260,6 +260,10 @@
   border-radius: var(--kds-radius-control);
   background-color: var(--kds-color-background-upgrade);
   color: var(--kds-color-foreground-upgrade);
+  /* 안쪽 1px 링과 아주 얕은 드롭. 배포본에 실제로 그려지는데 DS에는 아예 없었고, 규범 문서의
+   * "Effects: 없다"는 사유가 아니라 누락의 결과 서술이었다. 반전 pill이 사이드바 면에서
+   * 떨어져 보이게 하는 것이 이 그림자의 일이다. */
+  box-shadow: var(--kds-elevation-upgrade);
   text-align: center;
   cursor: pointer;
   font-family: var(--kds-typography-body-sm-medium-font-family);

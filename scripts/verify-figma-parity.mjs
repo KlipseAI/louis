@@ -740,7 +740,8 @@ const COMPONENT_CONTRACTS = [
       },
     },
     strokes: {},
-    effects: {},
+    // 반전 pill이 사이드바 면에서 떨어져 보이게 하는 안쪽 1px 링과 얕은 드롭이다.
+    effects: { self: "INNER_SHADOW:0:0:1 + DROP_SHADOW:1:2:0" },
     geometry: {
       measuredId: "sidebar-cta",
       fields: {

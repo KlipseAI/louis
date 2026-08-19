@@ -644,7 +644,7 @@ adoption 노트로 넘긴다.
 "지금 있는 모든 컴포넌트를 실제품과 대조해"에 대한 결과다. 그전까지 제품 값은 대부분 사람이
 코드를 읽고 옮긴 것이었고 기계 대조는 **10축**뿐이었다. 이제 제품 소스의 클래스 상수를
 **손으로 옮기지 않고** 배포 커밋에서 직접 꺼내 제품 자신의 Tailwind로 컴파일하고, 실브라우저에서
-계산값을 읽어 DS와 맞춘다 — 탐침 58종 · **135축** · 컴포넌트 21/21.
+계산값을 읽어 DS와 맞춘다 — 탐침 60종 · **137축** · 컴포넌트 21/21.
 
 `scripts/measure-product-components.mjs`가 그 게이트이며 축마다 `same`(같아야 한다) 또는
 `deviates`(달라야 하고 사유가 있어야 한다) 중 하나를 요구한다. **편차가 사라지는 것도 실패다** —
@@ -688,6 +688,7 @@ adoption 노트로 넘긴다.
 | `slider-thumb-root.height` | 24 | 40 | 제품 24, DS 40 |
 | `slider-track-root-panel.height` | 28 | 40 | 제품 28, DS 40 |
 | `nav-item-inner.columnGap` | 10 | 8 | 제품 10, DS 8 |
+| `nav-item-hover-light.backgroundColor` | rgb(228 229 233 / 0.5) | color-action-ghost-hover | 라이트만 갈린다 |
 
 전문은 `migration/product.rendered-components.json`의 `deviations`가 갖는다.
 
@@ -750,3 +751,29 @@ adoption 노트로 넘긴다.
 의심 축 222개를 컴포넌트별로 판정하고, `ds-wrong`으로 살아남은 것은 다시 반증 전용 판정을
 거치게 했다(확신이 없으면 기각). 결과는 `ds-wrong` 26 → 반증 통과 14, `recorded-deviation` 95,
 `already-covered` 35, `not-real` 66이다. 통과한 14 중 측정 가능한 것은 전부 게이트 축이 됐다.
+
+
+## hover와 문서 상태까지 잰다 (2026-08-19, 3차)
+
+2차까지도 두 종류의 값을 놓치고 있었다.
+
+**hover 전용 선언은 `getComputedStyle`로 읽히지 않는다.** 마우스를 올리거나 CDP로 상태를 강제하는
+방법은 둘 다 흔들렸다. 대신 스타일시트에서 이 요소를 겨누는 `:hover` 규칙을 모아 특이도·소스
+순서대로 복제본에 얹고 계산값을 읽는다. 값이 시트에서 오므로 사람이 옮겨 적을 자리가 없다.
+(처음에 한 건도 안 잡힌 이유는 `:hover`를 지울 때 **이스케이프된 클래스 이름 안의 `\:hover\:`까지**
+지워 선택자가 깨졌기 때문이다.)
+
+**문서에 사이드바가 있다는 사실 자체가 색을 바꾼다.** 배포본의 `wrapperSidebar`는
+`html[data-theme=light] body:has(&)`로 `--palette-gray-*`를 통째로 한 단계 밝게 재매핑한다.
+그 표식이 없으면 라이트 탐침이 제품에 없는 색을 잰다 — 실제로 업그레이드 CTA의 라이트 전경을
+`neutral.100`으로 잘못 재고 있었고 실제 값은 `neutral.50`이다.
+
+### 3차에서 고친 것
+
+| 컴포넌트 | 축 | 제품 | 고치기 전 DS |
+| --- | --- | --- | --- |
+| SidebarCta | 그림자 | 안쪽 1px 링 + 얕은 드롭 | **선언 없음** (규범에 "Effects 없다") |
+| SidebarCta | 라이트 전경 | `neutral.50` | `neutral.100` |
+| SidebarCta | 라이트 current 면 | `neutral.50` | `neutral.100` |
+| SidebarNavItem | 다크 hover 면 | `rgb(250 250 250 / 0.1)` | 같음 — **이제 증명된다** |
+| SidebarNavItem | 라이트 hover 면 | `rgb(228 229 233 / 0.5)` | 잉크 8% (편차로 기록) |

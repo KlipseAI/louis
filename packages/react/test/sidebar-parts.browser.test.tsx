@@ -109,6 +109,23 @@ test("CTA 색이 반전 solid pill이다 — mint도 브랜드 파랑도 아니�
   expect(style.color).toBe(tokenValue(stateOf(spec, "Default").foreground as string));
 });
 
+test("CTA에 그림자가 그려진다 — 규범이 '없다'고 적어 두었던 자리다", async () => {
+  await render(
+    <div data-kds-fixture style={{ inlineSize: "280px" }}>
+      <SidebarCta label="업그레이드" />
+    </div>,
+  );
+  const button = scope().querySelector<HTMLElement>(".kds-sidebar-cta__button")!;
+  const probe = document.createElement("div");
+  probe.style.boxShadow = "var(--kds-elevation-upgrade)";
+  document.body.append(probe);
+  const want = getComputedStyle(probe).boxShadow;
+  probe.remove();
+  // 배포본에는 안쪽 1px 링과 얕은 드롭이 실제로 그려진다. 값은 토큰이 소유한다.
+  expect(getComputedStyle(button).boxShadow).toBe(want);
+  expect(want).toContain("inset");
+});
+
 test("현재 위치면 한 단계 더 뒤집힌다 — aria-current가 소유한다", async () => {
   await render(
     <div data-kds-fixture style={{ inlineSize: "280px" }}>

@@ -2,23 +2,23 @@
   "artifacts": [
     {
       "path": "packages/tokens/generated/figma.tokens.json",
-      "sha256": "440f1a29e19141532b5fdb61ed86f1ba20ab1f5353c22cb47a42fdc4819c1a0b"
+      "sha256": "1c293401181760358c98a6959efda5feed24bf06fb6fbcbf12ae89a413abc3ed"
     },
     {
       "path": "packages/tokens/generated/index.d.ts",
-      "sha256": "2c215df904b67f13ab07b37d19c40cb43ba662c30e7f87811ac911b159a2b824"
+      "sha256": "1181d8eeb5a2025131728d6524f40a109f915d53a30b162a67a6a098af424442"
     },
     {
       "path": "packages/tokens/generated/index.js",
-      "sha256": "26e74fd8990357d6365fbf543d85a3f5a3636c065953e14553c69d6ca0235859"
+      "sha256": "655384ad71a832b864baa427c0e0e69f977ed0096d69fb05960871315b7f8171"
     },
     {
       "path": "packages/tokens/generated/tokens.css",
-      "sha256": "8ee68c4372b9af86c64440c3f5611da61686a2b5b03c77e049a4f6ff8050c02e"
+      "sha256": "7fbfd2dc8461440a0b2b4a08a7d841489479ad35f113855bc81a9cb2057fa5ee"
     },
     {
       "path": "packages/tokens/generated/tokens.json",
-      "sha256": "3037b7c6a078afe0c8e11c32468bedbe2e79c8929c1e9f56829262e6bad07249"
+      "sha256": "52fb89e8de6ac33b27086d9053735fbf879f8cdff163b0ce1c07997ecc94fc87"
     }
   ],
   "contrastPairs": [
@@ -388,13 +388,13 @@
   },
   "source": {
     "path": "packages/tokens/src/klipse.tokens.json",
-    "sha256": "8f2674a705b3ce0772eb79d97ebd89ac40f236ab83b46f535f00da3fe3b64b47"
+    "sha256": "24e8dd608c6930b6e2e1c9e892bb6e490f9b3dcf77c859dee7fe4b007eb10d09"
   },
   "themes": [
     "light",
     "dark"
   ],
-  "tokenCount": 374,
+  "tokenCount": 378,
   "tokens": [
     {
       "aliasTarget": null,
@@ -1766,24 +1766,24 @@
     },
     {
       "aliasTarget": {
-        "id": "color-neutral-100",
+        "id": "color-neutral-50",
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-background-upgrade-current": "color(srgb 0.945098 0.945098 0.952941 / 1)"
+        "--kds-color-background-upgrade-current": "color(srgb 0.972549 0.972549 0.976471 / 1)"
       },
       "deprecated": null,
       "description": null,
       "id": "color-background-upgrade-current",
       "mode": "light",
-      "rawValue": "{primitive.color.neutral.100}",
+      "rawValue": "{primitive.color.neutral.50}",
       "resolvedValue": {
         "alpha": 1,
         "colorSpace": "srgb",
         "components": [
-          0.945098,
-          0.945098,
-          0.952941
+          0.972549,
+          0.972549,
+          0.976471
         ]
       },
       "sourcePath": "semantic.light.color.background-upgrade-current",
@@ -3238,24 +3238,24 @@
     },
     {
       "aliasTarget": {
-        "id": "color-neutral-100",
+        "id": "color-neutral-50",
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-foreground-upgrade": "color(srgb 0.945098 0.945098 0.952941 / 1)"
+        "--kds-color-foreground-upgrade": "color(srgb 0.972549 0.972549 0.976471 / 1)"
       },
       "deprecated": null,
       "description": null,
       "id": "color-foreground-upgrade",
       "mode": "light",
-      "rawValue": "{primitive.color.neutral.100}",
+      "rawValue": "{primitive.color.neutral.50}",
       "resolvedValue": {
         "alpha": 1,
         "colorSpace": "srgb",
         "components": [
-          0.945098,
-          0.945098,
-          0.952941
+          0.972549,
+          0.972549,
+          0.976471
         ]
       },
       "sourcePath": "semantic.light.color.foreground-upgrade",
@@ -3342,24 +3342,24 @@
     },
     {
       "aliasTarget": {
-        "id": "color-neutral-100",
+        "id": "color-neutral-50",
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-foreground-upgrade-hover": "color(srgb 0.945098 0.945098 0.952941 / 1)"
+        "--kds-color-foreground-upgrade-hover": "color(srgb 0.972549 0.972549 0.976471 / 1)"
       },
       "deprecated": null,
       "description": null,
       "id": "color-foreground-upgrade-hover",
       "mode": "light",
-      "rawValue": "{primitive.color.neutral.100}",
+      "rawValue": "{primitive.color.neutral.50}",
       "resolvedValue": {
         "alpha": 1,
         "colorSpace": "srgb",
         "components": [
-          0.945098,
-          0.945098,
-          0.952941
+          0.972549,
+          0.972549,
+          0.976471
         ]
       },
       "sourcePath": "semantic.light.color.foreground-upgrade-hover",
@@ -5744,6 +5744,156 @@
         }
       },
       "sourcePath": "semantic.dark.elevation.tooltip",
+      "tier": "semantic",
+      "type": "shadow"
+    },
+    {
+      "aliasTarget": {
+        "id": "shadow-upgrade-light",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-elevation-upgrade": "inset 0px 0px 0px 1px color(srgb 0.980392 0.980392 0.980392 / 0.08), 0px 1px 2px 0px color(srgb 0 0 0 / 0.06)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "elevation-upgrade",
+      "mode": "light",
+      "rawValue": "{primitive.shadow.upgrade-light}",
+      "resolvedValue": [
+        {
+          "blur": {
+            "unit": "px",
+            "value": 0
+          },
+          "color": {
+            "alpha": 0.08,
+            "colorSpace": "srgb",
+            "components": [
+              0.980392,
+              0.980392,
+              0.980392
+            ]
+          },
+          "inset": true,
+          "offsetX": {
+            "unit": "px",
+            "value": 0
+          },
+          "offsetY": {
+            "unit": "px",
+            "value": 0
+          },
+          "spread": {
+            "unit": "px",
+            "value": 1
+          }
+        },
+        {
+          "blur": {
+            "unit": "px",
+            "value": 2
+          },
+          "color": {
+            "alpha": 0.06,
+            "colorSpace": "srgb",
+            "components": [
+              0,
+              0,
+              0
+            ]
+          },
+          "inset": false,
+          "offsetX": {
+            "unit": "px",
+            "value": 0
+          },
+          "offsetY": {
+            "unit": "px",
+            "value": 1
+          },
+          "spread": {
+            "unit": "px",
+            "value": 0
+          }
+        }
+      ],
+      "sourcePath": "semantic.light.elevation.upgrade",
+      "tier": "semantic",
+      "type": "shadow"
+    },
+    {
+      "aliasTarget": {
+        "id": "shadow-upgrade-dark",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-elevation-upgrade": "inset 0px 0px 0px 1px color(srgb 0 0 0 / 0.08), 0px 1px 2px 0px color(srgb 0 0 0 / 0.12)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "elevation-upgrade",
+      "mode": "dark",
+      "rawValue": "{primitive.shadow.upgrade-dark}",
+      "resolvedValue": [
+        {
+          "blur": {
+            "unit": "px",
+            "value": 0
+          },
+          "color": {
+            "alpha": 0.08,
+            "colorSpace": "srgb",
+            "components": [
+              0,
+              0,
+              0
+            ]
+          },
+          "inset": true,
+          "offsetX": {
+            "unit": "px",
+            "value": 0
+          },
+          "offsetY": {
+            "unit": "px",
+            "value": 0
+          },
+          "spread": {
+            "unit": "px",
+            "value": 1
+          }
+        },
+        {
+          "blur": {
+            "unit": "px",
+            "value": 2
+          },
+          "color": {
+            "alpha": 0.12,
+            "colorSpace": "srgb",
+            "components": [
+              0,
+              0,
+              0
+            ]
+          },
+          "inset": false,
+          "offsetX": {
+            "unit": "px",
+            "value": 0
+          },
+          "offsetY": {
+            "unit": "px",
+            "value": 1
+          },
+          "spread": {
+            "unit": "px",
+            "value": 0
+          }
+        }
+      ],
+      "sourcePath": "semantic.dark.elevation.upgrade",
       "tier": "semantic",
       "type": "shadow"
     },
@@ -8428,6 +8578,262 @@
         }
       },
       "sourcePath": "primitive.shadow.tooltip-light",
+      "tier": "primitive",
+      "type": "shadow"
+    },
+    {
+      "aliasTarget": null,
+      "cssProperties": {},
+      "deprecated": null,
+      "description": null,
+      "id": "shadow-upgrade-dark",
+      "mode": "base",
+      "rawValue": [
+        {
+          "blur": {
+            "unit": "px",
+            "value": 0
+          },
+          "color": {
+            "alpha": 0.08,
+            "colorSpace": "srgb",
+            "components": [
+              0,
+              0,
+              0
+            ],
+            "hex": "#000000"
+          },
+          "inset": true,
+          "offsetX": {
+            "unit": "px",
+            "value": 0
+          },
+          "offsetY": {
+            "unit": "px",
+            "value": 0
+          },
+          "spread": {
+            "unit": "px",
+            "value": 1
+          }
+        },
+        {
+          "blur": {
+            "unit": "px",
+            "value": 2
+          },
+          "color": {
+            "alpha": 0.12,
+            "colorSpace": "srgb",
+            "components": [
+              0,
+              0,
+              0
+            ],
+            "hex": "#000000"
+          },
+          "offsetX": {
+            "unit": "px",
+            "value": 0
+          },
+          "offsetY": {
+            "unit": "px",
+            "value": 1
+          },
+          "spread": {
+            "unit": "px",
+            "value": 0
+          }
+        }
+      ],
+      "resolvedValue": [
+        {
+          "blur": {
+            "unit": "px",
+            "value": 0
+          },
+          "color": {
+            "alpha": 0.08,
+            "colorSpace": "srgb",
+            "components": [
+              0,
+              0,
+              0
+            ]
+          },
+          "inset": true,
+          "offsetX": {
+            "unit": "px",
+            "value": 0
+          },
+          "offsetY": {
+            "unit": "px",
+            "value": 0
+          },
+          "spread": {
+            "unit": "px",
+            "value": 1
+          }
+        },
+        {
+          "blur": {
+            "unit": "px",
+            "value": 2
+          },
+          "color": {
+            "alpha": 0.12,
+            "colorSpace": "srgb",
+            "components": [
+              0,
+              0,
+              0
+            ]
+          },
+          "inset": false,
+          "offsetX": {
+            "unit": "px",
+            "value": 0
+          },
+          "offsetY": {
+            "unit": "px",
+            "value": 1
+          },
+          "spread": {
+            "unit": "px",
+            "value": 0
+          }
+        }
+      ],
+      "sourcePath": "primitive.shadow.upgrade-dark",
+      "tier": "primitive",
+      "type": "shadow"
+    },
+    {
+      "aliasTarget": null,
+      "cssProperties": {},
+      "deprecated": null,
+      "description": null,
+      "id": "shadow-upgrade-light",
+      "mode": "base",
+      "rawValue": [
+        {
+          "blur": {
+            "unit": "px",
+            "value": 0
+          },
+          "color": {
+            "alpha": 0.08,
+            "colorSpace": "srgb",
+            "components": [
+              0.980392,
+              0.980392,
+              0.980392
+            ],
+            "hex": "#fafafa"
+          },
+          "inset": true,
+          "offsetX": {
+            "unit": "px",
+            "value": 0
+          },
+          "offsetY": {
+            "unit": "px",
+            "value": 0
+          },
+          "spread": {
+            "unit": "px",
+            "value": 1
+          }
+        },
+        {
+          "blur": {
+            "unit": "px",
+            "value": 2
+          },
+          "color": {
+            "alpha": 0.06,
+            "colorSpace": "srgb",
+            "components": [
+              0,
+              0,
+              0
+            ],
+            "hex": "#000000"
+          },
+          "offsetX": {
+            "unit": "px",
+            "value": 0
+          },
+          "offsetY": {
+            "unit": "px",
+            "value": 1
+          },
+          "spread": {
+            "unit": "px",
+            "value": 0
+          }
+        }
+      ],
+      "resolvedValue": [
+        {
+          "blur": {
+            "unit": "px",
+            "value": 0
+          },
+          "color": {
+            "alpha": 0.08,
+            "colorSpace": "srgb",
+            "components": [
+              0.980392,
+              0.980392,
+              0.980392
+            ]
+          },
+          "inset": true,
+          "offsetX": {
+            "unit": "px",
+            "value": 0
+          },
+          "offsetY": {
+            "unit": "px",
+            "value": 0
+          },
+          "spread": {
+            "unit": "px",
+            "value": 1
+          }
+        },
+        {
+          "blur": {
+            "unit": "px",
+            "value": 2
+          },
+          "color": {
+            "alpha": 0.06,
+            "colorSpace": "srgb",
+            "components": [
+              0,
+              0,
+              0
+            ]
+          },
+          "inset": false,
+          "offsetX": {
+            "unit": "px",
+            "value": 0
+          },
+          "offsetY": {
+            "unit": "px",
+            "value": 1
+          },
+          "spread": {
+            "unit": "px",
+            "value": 0
+          }
+        }
+      ],
+      "sourcePath": "primitive.shadow.upgrade-light",
       "tier": "primitive",
       "type": "shadow"
     },

@@ -2929,7 +2929,7 @@
           [
             [
               "Light",
-              "Klipse Primitive::color/neutral/100",
+              "Klipse Primitive::color/neutral/50",
               null
             ],
             [
@@ -3286,7 +3286,7 @@
           [
             [
               "Light",
-              "Klipse Primitive::color/neutral/100",
+              "Klipse Primitive::color/neutral/50",
               null
             ],
             [
@@ -3320,7 +3320,7 @@
           [
             [
               "Light",
-              "Klipse Primitive::color/neutral/100",
+              "Klipse Primitive::color/neutral/50",
               null
             ],
             [
@@ -3701,6 +3701,34 @@
           0.42
         ]
       },
+      "elevation/menu": {
+        "layers": [
+          {
+            "offsetY": 8,
+            "blur": 15,
+            "spread": 0,
+            "inset": false,
+            "color": [
+              0,
+              0,
+              0,
+              0.04
+            ]
+          },
+          {
+            "offsetY": 0,
+            "blur": 0,
+            "spread": 0.5,
+            "inset": false,
+            "color": [
+              0.835294,
+              0.843137,
+              0.866667,
+              1
+            ]
+          }
+        ]
+      },
       "elevation/modal": {
         "type": "DROP_SHADOW",
         "offsetY": 16,
@@ -3737,6 +3765,22 @@
           0.06
         ]
       },
+      "elevation/toast": {
+        "layers": [
+          {
+            "offsetY": 8,
+            "blur": 20,
+            "spread": 0,
+            "inset": false,
+            "color": [
+              0,
+              0,
+              0,
+              0.16
+            ]
+          }
+        ]
+      },
       "elevation/tooltip": {
         "type": "DROP_SHADOW",
         "offsetY": 12,
@@ -3750,46 +3794,30 @@
           0.12
         ]
       },
-      "elevation/menu": {
+      "elevation/upgrade": {
         "layers": [
-          {
-            "offsetY": 8,
-            "blur": 15,
-            "spread": 0,
-            "inset": false,
-            "color": [
-              0,
-              0,
-              0,
-              0.04
-            ]
-          },
           {
             "offsetY": 0,
             "blur": 0,
-            "spread": 0.5,
-            "inset": false,
+            "spread": 1,
+            "inset": true,
             "color": [
-              0.835294,
-              0.843137,
-              0.866667,
-              1
+              0.980392,
+              0.980392,
+              0.980392,
+              0.08
             ]
-          }
-        ]
-      },
-      "elevation/toast": {
-        "layers": [
+          },
           {
-            "offsetY": 8,
-            "blur": 20,
+            "offsetY": 1,
+            "blur": 2,
             "spread": 0,
             "inset": false,
             "color": [
               0,
               0,
               0,
-              0.16
+              0.06
             ]
           }
         ]
@@ -5792,7 +5820,11 @@
         }
       },
       "strokes": {},
-      "effects": {}
+      "effects": {
+        "self": [
+          "INNER_SHADOW:0:0:1 + DROP_SHADOW:1:2:0"
+        ]
+      }
     },
     "SidebarNavItem": {
       "variantCount": 6,

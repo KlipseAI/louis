@@ -2399,115 +2399,6 @@
       }
     },
     "shadow": {
-      "$type": "shadow",
-      "surface": {
-        "$value": {
-          "color": {
-            "colorSpace": "srgb",
-            "components": [
-              0,
-              0,
-              0
-            ],
-            "alpha": 0.06,
-            "hex": "#000000"
-          },
-          "offsetX": {
-            "value": 0,
-            "unit": "px"
-          },
-          "offsetY": {
-            "value": 2,
-            "unit": "px"
-          },
-          "blur": {
-            "value": 8,
-            "unit": "px"
-          },
-          "spread": {
-            "value": 0,
-            "unit": "px"
-          }
-        },
-        "$extensions": {
-          "com.klipse-design": {
-            "id": "shadow-surface",
-            "tier": "primitive"
-          }
-        }
-      },
-      "popover": {
-        "$value": {
-          "color": {
-            "colorSpace": "srgb",
-            "components": [
-              0,
-              0,
-              0
-            ],
-            "alpha": 0.14,
-            "hex": "#000000"
-          },
-          "offsetX": {
-            "value": 0,
-            "unit": "px"
-          },
-          "offsetY": {
-            "value": 8,
-            "unit": "px"
-          },
-          "blur": {
-            "value": 24,
-            "unit": "px"
-          },
-          "spread": {
-            "value": -4,
-            "unit": "px"
-          }
-        },
-        "$extensions": {
-          "com.klipse-design": {
-            "id": "shadow-popover",
-            "tier": "primitive"
-          }
-        }
-      },
-      "modal": {
-        "$value": {
-          "color": {
-            "colorSpace": "srgb",
-            "components": [
-              0,
-              0,
-              0
-            ],
-            "alpha": 0.22,
-            "hex": "#000000"
-          },
-          "offsetX": {
-            "value": 0,
-            "unit": "px"
-          },
-          "offsetY": {
-            "value": 16,
-            "unit": "px"
-          },
-          "blur": {
-            "value": 48,
-            "unit": "px"
-          },
-          "spread": {
-            "value": -8,
-            "unit": "px"
-          }
-        },
-        "$extensions": {
-          "com.klipse-design": {
-            "id": "shadow-modal",
-            "tier": "primitive"
-          }
-        }
-      },
       "focus-ring": {
         "$value": {
           "color": {
@@ -2540,144 +2431,6 @@
         "$extensions": {
           "com.klipse-design": {
             "id": "shadow-focus-ring",
-            "tier": "primitive"
-          }
-        }
-      },
-      "tooltip-light": {
-        "$value": {
-          "color": {
-            "colorSpace": "srgb",
-            "components": [
-              0.466667,
-              0.490196,
-              0.537255
-            ],
-            "alpha": 0.12,
-            "hex": "#777d89"
-          },
-          "offsetX": {
-            "value": 0,
-            "unit": "px"
-          },
-          "offsetY": {
-            "value": 12,
-            "unit": "px"
-          },
-          "blur": {
-            "value": 24,
-            "unit": "px"
-          },
-          "spread": {
-            "value": 0,
-            "unit": "px"
-          }
-        },
-        "$extensions": {
-          "com.klipse-design": {
-            "id": "shadow-tooltip-light",
-            "tier": "primitive"
-          }
-        }
-      },
-      "tooltip-dark": {
-        "$value": {
-          "color": {
-            "colorSpace": "srgb",
-            "components": [
-              0.090196,
-              0.105882,
-              0.133333
-            ],
-            "alpha": 0.12,
-            "hex": "#171b22"
-          },
-          "offsetX": {
-            "value": 0,
-            "unit": "px"
-          },
-          "offsetY": {
-            "value": 12,
-            "unit": "px"
-          },
-          "blur": {
-            "value": 24,
-            "unit": "px"
-          },
-          "spread": {
-            "value": 0,
-            "unit": "px"
-          }
-        },
-        "$extensions": {
-          "com.klipse-design": {
-            "id": "shadow-tooltip-dark",
-            "tier": "primitive"
-          }
-        }
-      },
-      "menu-light": {
-        "$value": [
-          {
-            "color": {
-              "colorSpace": "srgb",
-              "components": [
-                0,
-                0,
-                0
-              ],
-              "alpha": 0.04,
-              "hex": "#000000"
-            },
-            "offsetX": {
-              "value": 0,
-              "unit": "px"
-            },
-            "offsetY": {
-              "value": 8,
-              "unit": "px"
-            },
-            "blur": {
-              "value": 15,
-              "unit": "px"
-            },
-            "spread": {
-              "value": 0,
-              "unit": "px"
-            }
-          },
-          {
-            "color": {
-              "colorSpace": "srgb",
-              "components": [
-                0.835294,
-                0.843137,
-                0.866667
-              ],
-              "alpha": 1,
-              "hex": "#d5d7dd"
-            },
-            "offsetX": {
-              "value": 0,
-              "unit": "px"
-            },
-            "offsetY": {
-              "value": 0,
-              "unit": "px"
-            },
-            "blur": {
-              "value": 0,
-              "unit": "px"
-            },
-            "spread": {
-              "value": 0.5,
-              "unit": "px"
-            }
-          }
-        ],
-        "$extensions": {
-          "com.klipse-design": {
-            "id": "shadow-menu-light",
             "tier": "primitive"
           }
         }
@@ -2748,6 +2501,180 @@
           }
         }
       },
+      "menu-light": {
+        "$value": [
+          {
+            "color": {
+              "colorSpace": "srgb",
+              "components": [
+                0,
+                0,
+                0
+              ],
+              "alpha": 0.04,
+              "hex": "#000000"
+            },
+            "offsetX": {
+              "value": 0,
+              "unit": "px"
+            },
+            "offsetY": {
+              "value": 8,
+              "unit": "px"
+            },
+            "blur": {
+              "value": 15,
+              "unit": "px"
+            },
+            "spread": {
+              "value": 0,
+              "unit": "px"
+            }
+          },
+          {
+            "color": {
+              "colorSpace": "srgb",
+              "components": [
+                0.835294,
+                0.843137,
+                0.866667
+              ],
+              "alpha": 1,
+              "hex": "#d5d7dd"
+            },
+            "offsetX": {
+              "value": 0,
+              "unit": "px"
+            },
+            "offsetY": {
+              "value": 0,
+              "unit": "px"
+            },
+            "blur": {
+              "value": 0,
+              "unit": "px"
+            },
+            "spread": {
+              "value": 0.5,
+              "unit": "px"
+            }
+          }
+        ],
+        "$extensions": {
+          "com.klipse-design": {
+            "id": "shadow-menu-light",
+            "tier": "primitive"
+          }
+        }
+      },
+      "modal": {
+        "$value": {
+          "color": {
+            "colorSpace": "srgb",
+            "components": [
+              0,
+              0,
+              0
+            ],
+            "alpha": 0.22,
+            "hex": "#000000"
+          },
+          "offsetX": {
+            "value": 0,
+            "unit": "px"
+          },
+          "offsetY": {
+            "value": 16,
+            "unit": "px"
+          },
+          "blur": {
+            "value": 48,
+            "unit": "px"
+          },
+          "spread": {
+            "value": -8,
+            "unit": "px"
+          }
+        },
+        "$extensions": {
+          "com.klipse-design": {
+            "id": "shadow-modal",
+            "tier": "primitive"
+          }
+        }
+      },
+      "popover": {
+        "$value": {
+          "color": {
+            "colorSpace": "srgb",
+            "components": [
+              0,
+              0,
+              0
+            ],
+            "alpha": 0.14,
+            "hex": "#000000"
+          },
+          "offsetX": {
+            "value": 0,
+            "unit": "px"
+          },
+          "offsetY": {
+            "value": 8,
+            "unit": "px"
+          },
+          "blur": {
+            "value": 24,
+            "unit": "px"
+          },
+          "spread": {
+            "value": -4,
+            "unit": "px"
+          }
+        },
+        "$extensions": {
+          "com.klipse-design": {
+            "id": "shadow-popover",
+            "tier": "primitive"
+          }
+        }
+      },
+      "surface": {
+        "$value": {
+          "color": {
+            "colorSpace": "srgb",
+            "components": [
+              0,
+              0,
+              0
+            ],
+            "alpha": 0.06,
+            "hex": "#000000"
+          },
+          "offsetX": {
+            "value": 0,
+            "unit": "px"
+          },
+          "offsetY": {
+            "value": 2,
+            "unit": "px"
+          },
+          "blur": {
+            "value": 8,
+            "unit": "px"
+          },
+          "spread": {
+            "value": 0,
+            "unit": "px"
+          }
+        },
+        "$extensions": {
+          "com.klipse-design": {
+            "id": "shadow-surface",
+            "tier": "primitive"
+          }
+        }
+      },
       "toast": {
         "$value": [
           {
@@ -2785,7 +2712,214 @@
             "tier": "primitive"
           }
         }
-      }
+      },
+      "tooltip-dark": {
+        "$value": {
+          "color": {
+            "colorSpace": "srgb",
+            "components": [
+              0.090196,
+              0.105882,
+              0.133333
+            ],
+            "alpha": 0.12,
+            "hex": "#171b22"
+          },
+          "offsetX": {
+            "value": 0,
+            "unit": "px"
+          },
+          "offsetY": {
+            "value": 12,
+            "unit": "px"
+          },
+          "blur": {
+            "value": 24,
+            "unit": "px"
+          },
+          "spread": {
+            "value": 0,
+            "unit": "px"
+          }
+        },
+        "$extensions": {
+          "com.klipse-design": {
+            "id": "shadow-tooltip-dark",
+            "tier": "primitive"
+          }
+        }
+      },
+      "tooltip-light": {
+        "$value": {
+          "color": {
+            "colorSpace": "srgb",
+            "components": [
+              0.466667,
+              0.490196,
+              0.537255
+            ],
+            "alpha": 0.12,
+            "hex": "#777d89"
+          },
+          "offsetX": {
+            "value": 0,
+            "unit": "px"
+          },
+          "offsetY": {
+            "value": 12,
+            "unit": "px"
+          },
+          "blur": {
+            "value": 24,
+            "unit": "px"
+          },
+          "spread": {
+            "value": 0,
+            "unit": "px"
+          }
+        },
+        "$extensions": {
+          "com.klipse-design": {
+            "id": "shadow-tooltip-light",
+            "tier": "primitive"
+          }
+        }
+      },
+      "upgrade-dark": {
+        "$value": [
+          {
+            "color": {
+              "colorSpace": "srgb",
+              "components": [
+                0,
+                0,
+                0
+              ],
+              "alpha": 0.08,
+              "hex": "#000000"
+            },
+            "offsetX": {
+              "value": 0,
+              "unit": "px"
+            },
+            "offsetY": {
+              "value": 0,
+              "unit": "px"
+            },
+            "blur": {
+              "value": 0,
+              "unit": "px"
+            },
+            "spread": {
+              "value": 1,
+              "unit": "px"
+            },
+            "inset": true
+          },
+          {
+            "color": {
+              "colorSpace": "srgb",
+              "components": [
+                0,
+                0,
+                0
+              ],
+              "alpha": 0.12,
+              "hex": "#000000"
+            },
+            "offsetX": {
+              "value": 0,
+              "unit": "px"
+            },
+            "offsetY": {
+              "value": 1,
+              "unit": "px"
+            },
+            "blur": {
+              "value": 2,
+              "unit": "px"
+            },
+            "spread": {
+              "value": 0,
+              "unit": "px"
+            }
+          }
+        ],
+        "$extensions": {
+          "com.klipse-design": {
+            "id": "shadow-upgrade-dark",
+            "tier": "primitive"
+          }
+        }
+      },
+      "upgrade-light": {
+        "$value": [
+          {
+            "color": {
+              "colorSpace": "srgb",
+              "components": [
+                0.980392,
+                0.980392,
+                0.980392
+              ],
+              "alpha": 0.08,
+              "hex": "#fafafa"
+            },
+            "offsetX": {
+              "value": 0,
+              "unit": "px"
+            },
+            "offsetY": {
+              "value": 0,
+              "unit": "px"
+            },
+            "blur": {
+              "value": 0,
+              "unit": "px"
+            },
+            "spread": {
+              "value": 1,
+              "unit": "px"
+            },
+            "inset": true
+          },
+          {
+            "color": {
+              "colorSpace": "srgb",
+              "components": [
+                0,
+                0,
+                0
+              ],
+              "alpha": 0.06,
+              "hex": "#000000"
+            },
+            "offsetX": {
+              "value": 0,
+              "unit": "px"
+            },
+            "offsetY": {
+              "value": 1,
+              "unit": "px"
+            },
+            "blur": {
+              "value": 2,
+              "unit": "px"
+            },
+            "spread": {
+              "value": 0,
+              "unit": "px"
+            }
+          }
+        ],
+        "$extensions": {
+          "com.klipse-design": {
+            "id": "shadow-upgrade-light",
+            "tier": "primitive"
+          }
+        }
+      },
+      "$type": "shadow"
     },
     "layer": {
       "$type": "number",
@@ -4542,7 +4676,7 @@
           }
         },
         "background-upgrade-current": {
-          "$value": "{primitive.color.neutral.100}",
+          "$value": "{primitive.color.neutral.50}",
           "$extensions": {
             "com.klipse-design": {
               "id": "color-background-upgrade-current",
@@ -5032,7 +5166,7 @@
           }
         },
         "foreground-upgrade": {
-          "$value": "{primitive.color.neutral.100}",
+          "$value": "{primitive.color.neutral.50}",
           "$extensions": {
             "com.klipse-design": {
               "id": "color-foreground-upgrade",
@@ -5042,7 +5176,7 @@
           }
         },
         "foreground-upgrade-hover": {
-          "$value": "{primitive.color.neutral.100}",
+          "$value": "{primitive.color.neutral.50}",
           "$extensions": {
             "com.klipse-design": {
               "id": "color-foreground-upgrade-hover",
@@ -5053,6 +5187,16 @@
         }
       },
       "elevation": {
+        "menu": {
+          "$value": "{primitive.shadow.menu-light}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "elevation-menu",
+              "tier": "semantic",
+              "mode": "light"
+            }
+          }
+        },
         "tooltip": {
           "$value": "{primitive.shadow.tooltip-light}",
           "$extensions": {
@@ -5063,17 +5207,17 @@
             }
           }
         },
-        "$type": "shadow",
-        "menu": {
-          "$value": "{primitive.shadow.menu-light}",
+        "upgrade": {
+          "$value": "{primitive.shadow.upgrade-light}",
           "$extensions": {
             "com.klipse-design": {
-              "id": "elevation-menu",
+              "id": "elevation-upgrade",
               "tier": "semantic",
               "mode": "light"
             }
           }
-        }
+        },
+        "$type": "shadow"
       }
     },
     "dark": {
@@ -5641,6 +5785,16 @@
         }
       },
       "elevation": {
+        "menu": {
+          "$value": "{primitive.shadow.menu-dark}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "elevation-menu",
+              "tier": "semantic",
+              "mode": "dark"
+            }
+          }
+        },
         "tooltip": {
           "$value": "{primitive.shadow.tooltip-dark}",
           "$extensions": {
@@ -5651,17 +5805,17 @@
             }
           }
         },
-        "$type": "shadow",
-        "menu": {
-          "$value": "{primitive.shadow.menu-dark}",
+        "upgrade": {
+          "$value": "{primitive.shadow.upgrade-dark}",
           "$extensions": {
             "com.klipse-design": {
-              "id": "elevation-menu",
+              "id": "elevation-upgrade",
               "tier": "semantic",
               "mode": "dark"
             }
           }
-        }
+        },
+        "$type": "shadow"
       }
     }
   }

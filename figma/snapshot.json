@@ -6,16 +6,16 @@
     "capturedAt": "2026-08-18",
     "capturedBy": "figma-mcp-plugin-api",
     "published": false,
-    "tokenSourceSha256": "8f2674a705b3ce0772eb79d97ebd89ac40f236ab83b46f535f00da3fe3b64b47",
-    "proposalSha256": "440f1a29e19141532b5fdb61ed86f1ba20ab1f5353c22cb47a42fdc4819c1a0b",
+    "tokenSourceSha256": "24e8dd608c6930b6e2e1c9e892bb6e490f9b3dcf77c859dee7fe4b007eb10d09",
+    "proposalSha256": "1c293401181760358c98a6959efda5feed24bf06fb6fbcbf12ae89a413abc3ed",
     "readback": {
       "tokens": 243,
-      "canonicalLength": 21164,
-      "fnv1a32": "bed75d2e",
+      "canonicalLength": 21161,
+      "fnv1a32": "7feb70fa",
       "note": "변수는 readback.json의 되읽기 행을 tokenId 공간으로 옮긴 것이고, style과 component는 같은 되읽기의 style/component 절이다. canonical 해시는 컬렉션·이름·타입·mode 값을 정렬해 이은 문자열의 FNV-1a다.",
       "styles": {
         "text": 15,
-        "effect": 7
+        "effect": 8
       },
       "components": {
         "sets": 23,
@@ -435,7 +435,7 @@
       "resolvedType": "COLOR",
       "valuesByMode": {
         "Light": {
-          "alias": "color-neutral-100"
+          "alias": "color-neutral-50"
         },
         "Dark": {
           "alias": "color-neutral-800"
@@ -869,7 +869,7 @@
       "resolvedType": "COLOR",
       "valuesByMode": {
         "Light": {
-          "alias": "color-neutral-100"
+          "alias": "color-neutral-50"
         },
         "Dark": {
           "alias": "color-neutral-900"
@@ -893,7 +893,7 @@
       "resolvedType": "COLOR",
       "valuesByMode": {
         "Light": {
-          "alias": "color-neutral-100"
+          "alias": "color-neutral-50"
         },
         "Dark": {
           "alias": "color-neutral-900"
@@ -2985,6 +2985,35 @@
           0.537255,
           0.12
         ]
+      },
+      "elevation/upgrade": {
+        "tokenId": "elevation-upgrade",
+        "layers": [
+          {
+            "offsetY": 0,
+            "blur": 0,
+            "spread": 1,
+            "inset": true,
+            "color": [
+              0.980392,
+              0.980392,
+              0.980392,
+              0.08
+            ]
+          },
+          {
+            "offsetY": 1,
+            "blur": 2,
+            "spread": 0,
+            "inset": false,
+            "color": [
+              0,
+              0,
+              0,
+              0.06
+            ]
+          }
+        ]
       }
     },
     "note": "semantic tier 이름으로만 생성한다. primitive type-style-*/shadow-*는 Figma 미표현(DS-D-0007)."
@@ -5017,7 +5046,11 @@
         }
       },
       "strokes": {},
-      "effects": {}
+      "effects": {
+        "self": [
+          "INNER_SHADOW:0:0:1 + DROP_SHADOW:1:2:0"
+        ]
+      }
     },
     "SidebarNavItem": {
       "outsideParts": [],

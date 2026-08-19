@@ -274,7 +274,7 @@ const PROBES = [
     from: ["gnb", "sidebarUpgradeButton"],
     tag: "button",
     text: "업그레이드",
-    read: ["minHeight", "paddingTop", "paddingLeft", "columnGap", "borderTopLeftRadius", "backgroundColor", "color"],
+    read: ["minHeight", "paddingTop", "paddingLeft", "columnGap", "borderTopLeftRadius", "backgroundColor", "color", "boxShadow"],
   },
   {
     id: "sidebar-cta-collapsed",
@@ -293,6 +293,30 @@ const PROBES = [
     doc: "collapsed",
     text: "업그레이드",
     read: ["maxWidth", "fontSize"],
+  },
+  {
+    id: "nav-item-hover",
+    source: "Gnb.tsx menuLink :hover (사이드바, 다크)",
+    // Active 클래스는 요소에 붙이지 않는다 — hover 규칙이 `:not(.gnb-menuLinkActive)`라
+    // 붙이면 규칙이 매칭되지 않는다. 규칙 자체는 파일 전체를 컴파일하므로 이미 스타일시트에 있다.
+    from: ["gnb", "menuLink"],
+    tag: "button",
+    wrapper: ["gnb-menu gnb-menuSidebar"],
+    doc: "hover",
+    hover: true,
+    text: "아카이브",
+    read: ["backgroundColor", "color"],
+  },
+  {
+    id: "nav-item-hover-light",
+    source: "Gnb.tsx menuLink :hover (사이드바, 라이트)",
+    from: ["gnb", "menuLink"],
+    tag: "button",
+    wrapper: ["gnb-menu gnb-menuSidebar"],
+    doc: "hover-light",
+    hover: true,
+    text: "아카이브",
+    read: ["backgroundColor", "--palette-gray-300-rgb"],
   },
   {
     id: "sidebar-cta-light",
@@ -621,6 +645,10 @@ const EXPECT = [
   ["empty-state-actions", "columnGap", ["empty-state", "sizes", "base", "actionGap"], "same"],
   ["project-card-overlay", "borderBottomLeftRadius", ["project-card", "sizes", "base", "radius"], "same"],
 
+  ["nav-item-hover", "backgroundColor", ["app-shell-parts", "states", "navItem", "Hover", "background"], "same"],
+  ["nav-item-hover-light", "backgroundColor", ["app-shell-parts", "states", "navItem", "Hover", "background"], "deviates",
+    "라이트만 갈린다. 제품은 재매핑된 palette-gray-300을 50%로 덮고(rgb 228 229 233 / 0.5) DS는 ink 8%를 쓴다 — 면 계열에 매는 것과 잉크에 매는 것의 차이다. `action-ghost-hover`는 SelectableListRow와 공유하는 토큰이라 사이드바 하나 때문에 옮기지 않는다. 다크는 rgb(250 250 250 / 0.1)로 정확히 같다."],
+
   ["carousel", "height", ["banner-carousel", "sizes", "boxed", "height"], "same"],
   ["carousel", "borderTopLeftRadius", ["banner-carousel", "sizes", "boxed", "radius"], "same"],
   ["carousel-content", "width", ["banner-carousel", "sizes", "boxed", "contentInline"], "same"],
@@ -708,6 +736,12 @@ try {
   sources = Object.fromEntries(
     Object.entries(FILES).map(([alias, path]) => [alias, git(["show", commit + ":" + path])]),
   );
+  // **문서에 사이드바가 있다는 사실 자체가 색을 바꾼다.** 배포본의 `wrapperSidebar`는
+  // `html[data-theme=light] body:has(&)`로 팔레트 단계를 통째로 재매핑한다 — 사이드바가 있는
+  // 화면에서는 라이트 팔레트가 한 단계씩 밝아진다. 그 표식이 없으면 라이트 탐침이 제품에 없는
+  // 색을 잰다. 화면에 그리지 않고 `:has()`만 만족시키면 된다.
+  const bodyMarker = extractClassList(sources.gnb, "wrapperSidebar", FILES.gnb);
+
   for (const probe of PROBES) {
     if (!probe.from) continue;
     const [alias, ...keys] = probe.from;
@@ -742,7 +776,14 @@ try {
     for (const token of probe.html.match(/class="([^"]*)"/)[1].split(/\s+/)) if (token) candidates.add(token);
     for (const className of [probe.wrapper ?? []].flat()) candidates.add(className);
   }
+  for (const token of bodyMarker.split(/\s+/)) if (token) candidates.add(token);
   const utilities = compiled.build([...candidates]);
+  if (process.env.KDS_DUMP_RULE) {
+    for (const line of utilities.split("\n")) {
+      if (line.includes("body:has")) console.log(line.slice(0, 200));
+    }
+    process.exit(0);
+  }
 
   const productCss = [
     normalize(git(["show", commit + ":apps/web/app/tailwind.css"])),
@@ -766,7 +807,7 @@ try {
       await page.setContent(
         "<!doctype html><html " + htmlAttributes + "><head><style>" +
           productCss.replace(/<\/style>/gi, "<\\/style>") +
-          "</style></head><body>" +
+          '</style></head><body><div hidden style="display:none" class="' + bodyMarker + '"></div>' +
           group
             .map((probe, index) => {
               // wrapper는 조상 선택자를 살리기 위한 것이다. 배열이면 바깥부터 순서대로 감싼다 —
@@ -786,16 +827,83 @@ try {
         { waitUntil: "load" },
       );
       const group_ = await page.evaluate((probes) => {
+        // **hover 전용 선언은 getComputedStyle로 읽히지 않는다.** 마우스를 움직이거나 CDP로
+        // 상태를 강제하는 대신, 스타일시트에서 이 요소를 겨누는 `:hover` 규칙을 모아
+        // 특이도·소스 순서대로 복제본에 얹고 계산값을 읽는다. 값이 시트에서 오므로
+        // 사람이 옮겨 적을 자리가 없다.
+        const specificity = (selector) => {
+          const cleaned = selector.replace(/::[a-z-]+/g, "");
+          const ids = (cleaned.match(/#[\w-]+/g) ?? []).length;
+          const classes = (cleaned.match(/\.[\w\\[\]:.()=%-]+|\[[^\]]+\]|:[a-z-]+(\([^)]*\))?/g) ?? []).length;
+          const elements = (cleaned.match(/(^|[\s>+~])[a-z][\w-]*/g) ?? []).length;
+          return ids * 10000 + classes * 100 + elements;
+        };
+        const hoverDeclarations = (element) => {
+          const matched = [];
+          let order = 0;
+          const walk = (rules) => {
+            for (const rule of rules) {
+              order += 1;
+              if (rule.media) {
+                if (window.matchMedia(rule.media.mediaText).matches) walk(rule.cssRules);
+                continue;
+              }
+              if (rule.cssRules && !rule.selectorText) {
+                walk(rule.cssRules);
+                continue;
+              }
+              // **이스케이프된 클래스 이름 안의 `:hover`는 건드리지 않는다.** Tailwind가
+              // `:not(&)`를 클래스 이름으로 펼치면 그 이름 안에 `\:hover\:`가 들어 있고,
+              // 그것까지 지우면 선택자가 깨져 matches()가 던진다 — 그래서 한 건도 안 잡혔다.
+              const HOVER = /(?<!\\):hover/g;
+              if (!rule.selectorText || !HOVER.test(rule.selectorText)) continue;
+              for (const part of rule.selectorText.split(/,(?![^(]*\))/)) {
+                if (!/(?<!\\):hover/.test(part)) continue;
+                const base = part.replace(/(?<!\\):hover/g, "");
+                let hit = false;
+                try {
+                  hit = element.matches(base);
+                } catch {
+                  hit = false;
+                }
+                if (hit) matched.push({ rule, rank: specificity(part) * 100000 + order });
+              }
+            }
+          };
+          for (const sheet of document.styleSheets) {
+            try {
+              walk(sheet.cssRules);
+            } catch {
+              /* cross-origin 시트는 없다 — 인라인 <style> 하나뿐이다 */
+            }
+          }
+          return matched.sort((a, b) => a.rank - b.rank);
+        };
         const out = {};
         probes.forEach((probe, index) => {
           const host = document.querySelector("#probe-" + index);
           let element = host.firstElementChild;
           for (let depth = 0; depth < probe.wrapperDepth; depth += 1) element = element.firstElementChild;
+          if (probe.hover) {
+            const clone = element.cloneNode(true);
+            element.parentElement.append(clone);
+            for (const { rule } of hoverDeclarations(element)) {
+              for (const property of rule.style) {
+                clone.style.setProperty(
+                  property,
+                  rule.style.getPropertyValue(property),
+                  rule.style.getPropertyPriority(property),
+                );
+              }
+            }
+            element = clone;
+          }
           const values = {};
           for (const property of probe.read) {
             const pseudo = property.startsWith("::") ? property.slice(0, property.indexOf(":", 2)) : null;
             const name = pseudo ? property.slice(pseudo.length + 1) : property;
-            values[property] = getComputedStyle(element, pseudo)[name];
+            const computed = getComputedStyle(element, pseudo);
+            values[property] = name.startsWith("--") ? computed.getPropertyValue(name).trim() : computed[name];
           }
           out[probe.id] = values;
         });
@@ -803,6 +911,7 @@ try {
       }, group.map((probe) => ({
         id: probe.id,
         read: probe.read,
+        hover: probe.hover ?? false,
         wrapperDepth: [probe.wrapper ?? []].flat().length,
       })));
       Object.assign(rendered, group_);
@@ -1050,9 +1159,10 @@ const payload =
         "제품 서버를 띄우지 않는다. 클래스 문자열은 손으로 옮기지 않고 제품 소스의 상수 이름을 가리켜 커밋에서 직접 꺼낸다. 그것을 제품 Tailwind로 컴파일하고 제품 CSS와 함께 빈 문서에 올려 계산값을 읽는다.",
       productRef,
       productCommit: commit,
-      probes: PROBES.map(({ id, source, from, html, doc, wrapper }) => ({
+      probes: PROBES.map(({ id, source, from, html, doc, wrapper, hover }) => ({
         id,
         source,
+        hover: hover ?? false,
         from: from ? FILES[from[0]] + " → " + from.slice(1).join(" + ") : null,
         doc: doc ?? "default",
         wrapper: wrapper ?? null,

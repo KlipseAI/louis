@@ -8,6 +8,7 @@
     {
       "id": "button-md",
       "source": "apps/web/components/ui/Button.tsx ROOT + SIZE_MD",
+      "hover": false,
       "from": null,
       "doc": "default",
       "wrapper": null,
@@ -16,6 +17,7 @@
     {
       "id": "button-sm",
       "source": "apps/web/components/ui/Button.tsx ROOT + SIZE_SM",
+      "hover": false,
       "from": null,
       "doc": "default",
       "wrapper": null,
@@ -24,6 +26,7 @@
     {
       "id": "button-secondary-border",
       "source": "apps/web/components/ui/Button.tsx BORDER_SECONDARY",
+      "hover": false,
       "from": null,
       "doc": "default",
       "wrapper": null,
@@ -32,6 +35,7 @@
     {
       "id": "icon-button",
       "source": "Gnb.tsx iconButton — 제품에 공용 IconButton은 없고 이것이 가장 많이 쓰인 벌이다",
+      "hover": false,
       "from": "apps/web/components/navigation/Gnb.tsx → iconButton",
       "doc": "default",
       "wrapper": null,
@@ -40,6 +44,7 @@
     {
       "id": "icon-button-card",
       "source": "appHomeSceneStyles.ts archiveMoreButton — 카드 위 more 버튼",
+      "hover": false,
       "from": "apps/web/components/scenes/appHomeSceneStyles.ts → archiveMoreButton",
       "doc": "default",
       "wrapper": null,
@@ -48,6 +53,7 @@
     {
       "id": "project-card",
       "source": "apps/web/components/scenes/appHomeSceneStyles.ts archiveCard",
+      "hover": false,
       "from": null,
       "doc": "default",
       "wrapper": null,
@@ -56,6 +62,7 @@
     {
       "id": "project-card-overlay",
       "source": "apps/web/components/scenes/appHomeSceneStyles.ts archivePreviewTitleOverlay",
+      "hover": false,
       "from": null,
       "doc": "default",
       "wrapper": null,
@@ -64,6 +71,7 @@
     {
       "id": "project-card-preview",
       "source": "appHomeSceneStyles.ts archivePreview — 카드 미디어 면",
+      "hover": false,
       "from": "apps/web/components/scenes/appHomeSceneStyles.ts → archivePreview",
       "doc": "default",
       "wrapper": null,
@@ -72,6 +80,7 @@
     {
       "id": "project-grid",
       "source": "apps/web/components/scenes/appHomeSceneStyles.ts archiveGrid",
+      "hover": false,
       "from": null,
       "doc": "default",
       "wrapper": null,
@@ -80,6 +89,7 @@
     {
       "id": "tooltip",
       "source": "globals.css .app-tooltip-chrome — 제품 툴팁 면·타이포 SSOT",
+      "hover": false,
       "from": null,
       "doc": "default",
       "wrapper": null,
@@ -88,6 +98,7 @@
     {
       "id": "toast",
       "source": "appHomeSceneStyles.ts toast",
+      "hover": false,
       "from": "apps/web/components/scenes/appHomeSceneStyles.ts → toast",
       "doc": "default",
       "wrapper": null,
@@ -96,6 +107,7 @@
     {
       "id": "menu-panel",
       "source": "globals.css --dropdown-radius / --dropdown-padding — 제품 드롭다운 면 SSOT",
+      "hover": false,
       "from": null,
       "doc": "default",
       "wrapper": null,
@@ -104,6 +116,7 @@
     {
       "id": "menu-item",
       "source": "highlightSceneStyles.ts historyDropdownItem",
+      "hover": false,
       "from": "apps/web/components/scenes/highlightSceneStyles.ts → historyDropdownItem",
       "doc": "default",
       "wrapper": null,
@@ -112,6 +125,7 @@
     {
       "id": "dialog-card",
       "source": "appHomeSceneStyles.ts modalCard",
+      "hover": false,
       "from": "apps/web/components/scenes/appHomeSceneStyles.ts → modalCard",
       "doc": "default",
       "wrapper": null,
@@ -120,6 +134,7 @@
     {
       "id": "dialog-overlay",
       "source": "appHomeSceneStyles.ts modalOverlay",
+      "hover": false,
       "from": "apps/web/components/scenes/appHomeSceneStyles.ts → modalOverlay",
       "doc": "default",
       "wrapper": null,
@@ -128,6 +143,7 @@
     {
       "id": "dialog-action",
       "source": "appHomeSceneStyles.ts modalConfirm",
+      "hover": false,
       "from": "apps/web/components/scenes/appHomeSceneStyles.ts → modalConfirm",
       "doc": "default",
       "wrapper": null,
@@ -136,6 +152,7 @@
     {
       "id": "input-box",
       "source": "myPageSceneStyles.ts modalAuthInputBox + modalAuthInputBoxSingle",
+      "hover": false,
       "from": "apps/web/components/scenes/myPageSceneStyles.ts → modalAuthInputBox + modalAuthInputBoxSingle",
       "doc": "default",
       "wrapper": null,
@@ -144,6 +161,7 @@
     {
       "id": "empty-state",
       "source": "appHomeSceneStyles.ts emptyState",
+      "hover": false,
       "from": "apps/web/components/scenes/appHomeSceneStyles.ts → emptyState",
       "doc": "default",
       "wrapper": null,
@@ -152,6 +170,7 @@
     {
       "id": "empty-state-actions",
       "source": "CanvasEmptyState.tsx ACTIONS_CLASS — 제품에서 액션이 둘 이상인 빈 상태는 이 한 벌뿐이다",
+      "hover": false,
       "from": "apps/web/components/scenes/create/node-canvas-v2/components/CanvasEmptyState.tsx → ACTIONS_CLASS",
       "doc": "default",
       "wrapper": null,
@@ -160,6 +179,7 @@
     {
       "id": "avatar",
       "source": "UserCircleDefaultAvatar.tsx AVATAR",
+      "hover": false,
       "from": "apps/web/components/navigation/UserCircleDefaultAvatar.tsx → AVATAR",
       "doc": "default",
       "wrapper": null,
@@ -168,6 +188,7 @@
     {
       "id": "badge",
       "source": "highlightSceneStyles.ts historyCardStatus — 제품 상태 배지",
+      "hover": false,
       "from": "apps/web/components/scenes/highlightSceneStyles.ts → historyCardStatus",
       "doc": "default",
       "wrapper": null,
@@ -176,6 +197,7 @@
     {
       "id": "spinner-md",
       "source": "LoadingSpinner.tsx SPINNER_BASE + SPINNER_MD",
+      "hover": false,
       "from": "apps/web/components/ui/LoadingSpinner.tsx → SPINNER_BASE + SPINNER_MD",
       "doc": "default",
       "wrapper": null,
@@ -184,6 +206,7 @@
     {
       "id": "spinner-sm",
       "source": "LoadingSpinner.tsx SPINNER_BASE + SPINNER_SM",
+      "hover": false,
       "from": "apps/web/components/ui/LoadingSpinner.tsx → SPINNER_BASE + SPINNER_SM",
       "doc": "default",
       "wrapper": null,
@@ -192,6 +215,7 @@
     {
       "id": "checkbox",
       "source": "globals.css .app-native-checkbox — 제품 선택 목록 정본",
+      "hover": false,
       "from": null,
       "doc": "default",
       "wrapper": null,
@@ -200,6 +224,7 @@
     {
       "id": "selectable-row",
       "source": "highlightSceneStyles.ts clipDetailListItem",
+      "hover": false,
       "from": "apps/web/components/scenes/highlightSceneStyles.ts → clipDetailListItem",
       "doc": "default",
       "wrapper": null,
@@ -208,6 +233,7 @@
     {
       "id": "segmented-track",
       "source": "myPageSceneStyles.ts settingsToggleWrap",
+      "hover": false,
       "from": "apps/web/components/scenes/myPageSceneStyles.ts → settingsToggleWrap",
       "doc": "default",
       "wrapper": null,
@@ -216,6 +242,7 @@
     {
       "id": "segmented-segment",
       "source": "myPageSceneStyles.ts settingsToggleBtn",
+      "hover": false,
       "from": "apps/web/components/scenes/myPageSceneStyles.ts → settingsToggleBtn",
       "doc": "default",
       "wrapper": null,
@@ -224,6 +251,7 @@
     {
       "id": "segmented-thumb",
       "source": "myPageSceneStyles.ts settingsToggleThumb",
+      "hover": false,
       "from": "apps/web/components/scenes/myPageSceneStyles.ts → settingsToggleThumb",
       "doc": "default",
       "wrapper": null,
@@ -232,6 +260,7 @@
     {
       "id": "skeleton",
       "source": "myPageSceneStyles.ts skeletonBlock",
+      "hover": false,
       "from": "apps/web/components/scenes/myPageSceneStyles.ts → skeletonBlock",
       "doc": "default",
       "wrapper": null,
@@ -240,6 +269,7 @@
     {
       "id": "nav-item",
       "source": "Gnb.tsx menuLink (사이드바 문맥)",
+      "hover": false,
       "from": "apps/web/components/navigation/Gnb.tsx → menuLink",
       "doc": "default",
       "wrapper": "gnb-menu gnb-menuSidebar",
@@ -248,6 +278,7 @@
     {
       "id": "nav-item-collapsed",
       "source": "Gnb.tsx menuLink (사이드바 접힘)",
+      "hover": false,
       "from": "apps/web/components/navigation/Gnb.tsx → menuLink",
       "doc": "collapsed",
       "wrapper": "gnb-menu gnb-menuSidebar",
@@ -256,6 +287,7 @@
     {
       "id": "sidebar-header-row",
       "source": "Gnb.tsx sidebarHeaderRow",
+      "hover": false,
       "from": "apps/web/components/navigation/Gnb.tsx → sidebarHeaderRow",
       "doc": "default",
       "wrapper": null,
@@ -264,6 +296,7 @@
     {
       "id": "sidebar-header-row-collapsed",
       "source": "Gnb.tsx sidebarHeaderRow (접힘)",
+      "hover": false,
       "from": "apps/web/components/navigation/Gnb.tsx → sidebarHeaderRow",
       "doc": "collapsed",
       "wrapper": null,
@@ -272,6 +305,7 @@
     {
       "id": "sidebar-logo-rail",
       "source": "Gnb.tsx sidebarLogoRail",
+      "hover": false,
       "from": "apps/web/components/navigation/Gnb.tsx → sidebarLogoRail",
       "doc": "default",
       "wrapper": null,
@@ -280,6 +314,7 @@
     {
       "id": "sidebar-cta",
       "source": "Gnb.tsx sidebarUpgradeButton",
+      "hover": false,
       "from": "apps/web/components/navigation/Gnb.tsx → sidebarUpgradeButton",
       "doc": "default",
       "wrapper": null,
@@ -288,6 +323,7 @@
     {
       "id": "sidebar-cta-collapsed",
       "source": "Gnb.tsx sidebarUpgradeButton (접힘)",
+      "hover": false,
       "from": "apps/web/components/navigation/Gnb.tsx → sidebarUpgradeButton",
       "doc": "collapsed",
       "wrapper": null,
@@ -296,14 +332,38 @@
     {
       "id": "sidebar-cta-label-collapsed",
       "source": "Gnb.tsx sidebarUpgradeLabel (접힘)",
+      "hover": false,
       "from": "apps/web/components/navigation/Gnb.tsx → sidebarUpgradeLabel",
       "doc": "collapsed",
       "wrapper": null,
       "html": "<span class=\"gnb-sidebarUpgradeLabel [min-width:0] [overflow:hidden] [white-space:nowrap] [max-width:240px] [transition:max-width_320ms_cubic-bezier(0.4,_0,_0.2,_1)] [html[data-app-gnb-sidebar-collapsed=true]_&]:[max-width:4.5rem] [html[data-app-gnb-sidebar-collapsed=true]_&]:[margin:0] [html[data-app-gnb-sidebar-collapsed=true]_&]:[padding:0] [html[data-app-gnb-sidebar-collapsed=true]_&]:[text-overflow:ellipsis] [html[data-app-gnb-sidebar-collapsed=true]_&]:[font-size:var(--type-caption-12-size)] [html[data-app-gnb-sidebar-collapsed=true]_&]:[line-height:var(--type-caption-12-line-height)] [html[data-app-gnb-sidebar-collapsed=true]_&]:[letter-spacing:var(--type-caption-12-letter-spacing)]\">업그레이드</span>"
     },
     {
+      "id": "nav-item-hover",
+      "source": "Gnb.tsx menuLink :hover (사이드바, 다크)",
+      "hover": true,
+      "from": "apps/web/components/navigation/Gnb.tsx → menuLink",
+      "doc": "hover",
+      "wrapper": [
+        "gnb-menu gnb-menuSidebar"
+      ],
+      "html": "<button class=\"gnb-menuLink [@media(max-width:719px)]:[html[data-app-gnb-sidebar-collapsed=true]_.gnb-menuSidebar_&]:[width:100%] [@media(max-width:719px)]:[html[data-app-gnb-sidebar-collapsed=true]_.gnb-menuSidebar_&]:[max-width:none] [@media(max-width:719px)]:[html[data-app-gnb-sidebar-collapsed=true]_.gnb-menuSidebar_&]:[padding-right:4px] [display:inline-flex] [align-items:center] [justify-content:center] [height:28px] [padding:0_12px] [border:0] [border-radius:999px] [background-color:transparent] [color:var(--gray-000)] [opacity:1] [cursor:pointer] [-webkit-user-drag:none] [user-select:none] [-webkit-user-select:none] [font-family:var(--type-font-family)] [font-feature-settings:var(--type-feature-settings)] [font-size:var(--type-body-16-size)] [line-height:var(--type-body-16-line-height)] [letter-spacing:var(--type-body-16-letter-spacing)] [font-weight:var(--type-weight-regular)] [transition:color_200ms_ease,_background-color_200ms_ease,_box-shadow_200ms_ease] [.gnb-menuSidebar_&]:[justify-content:flex-start] [.gnb-menuSidebar_&]:[align-items:center] [.gnb-menuSidebar_&]:[width:100%] [.gnb-menuSidebar_&]:[box-sizing:border-box] [.gnb-menuSidebar_&]:[height:32px] [.gnb-menuSidebar_&]:[min-height:32px] [.gnb-menuSidebar_&]:[padding-left:calc(_var(--app-gnb-main-inline-padding)_-_var(--app-gnb-sidebar-padding-x)_)] [.gnb-menuSidebar_&]:[padding-right:4px] [.gnb-menuSidebar_&]:[border-radius:10px] [.gnb-menuSidebar_&]:[font-size:var(--type-body-14-size)] [.gnb-menuSidebar_&]:[line-height:var(--type-body-14-line-height)] [.gnb-menuSidebar_&]:[letter-spacing:var(--type-body-14-letter-spacing)] [.gnb-menuSidebar_&]:[font-weight:var(--type-weight-medium)] [.gnb-menuSidebar_&]:[transition:color_200ms_ease,_background-color_200ms_ease,_box-shadow_200ms_ease] [html[data-app-gnb-sidebar-collapsed=true]_.gnb-menuSidebar_&]:[justify-content:center] [html[data-app-gnb-sidebar-collapsed=true]_.gnb-menuSidebar_&]:[width:var(--app-gnb-sidebar-menu-hit-w)] [html[data-app-gnb-sidebar-collapsed=true]_.gnb-menuSidebar_&]:[min-width:var(--app-gnb-sidebar-menu-hit-w)] [html[data-app-gnb-sidebar-collapsed=true]_.gnb-menuSidebar_&]:[max-width:var(--app-gnb-sidebar-menu-hit-w)] [html[data-app-gnb-sidebar-collapsed=true]_.gnb-menuSidebar_&]:[height:32px] [html[data-app-gnb-sidebar-collapsed=true]_.gnb-menuSidebar_&]:[min-height:32px] [html[data-app-gnb-sidebar-collapsed=true]_.gnb-menuSidebar_&]:[padding-left:0] [html[data-app-gnb-sidebar-collapsed=true]_.gnb-menuSidebar_&]:[padding-right:0] [html[data-app-gnb-sidebar-collapsed=true]_.gnb-menuSidebar_&]:[box-sizing:border-box] [@media(max-width:780px)]:[.gnb-menu:not(.gnb-menuSidebar)_&]:[font-size:var(--type-body-14-size)] [@media(max-width:780px)]:[.gnb-menu:not(.gnb-menuSidebar)_&]:[line-height:var(--type-body-14-line-height)] [@media(max-width:780px)]:[.gnb-menu:not(.gnb-menuSidebar)_&]:[letter-spacing:var(--type-body-14-letter-spacing)] [@media(max-width:780px)]:[.gnb-menu:not(.gnb-menuSidebar)_&]:[font-weight:var(--type-weight-regular)] [@media(max-width:480px)]:[.gnb-menu:not(.gnb-menuSidebar)_&]:[padding-inline:8px]!\">아카이브</button>"
+    },
+    {
+      "id": "nav-item-hover-light",
+      "source": "Gnb.tsx menuLink :hover (사이드바, 라이트)",
+      "hover": true,
+      "from": "apps/web/components/navigation/Gnb.tsx → menuLink",
+      "doc": "hover-light",
+      "wrapper": [
+        "gnb-menu gnb-menuSidebar"
+      ],
+      "html": "<button class=\"gnb-menuLink [@media(max-width:719px)]:[html[data-app-gnb-sidebar-collapsed=true]_.gnb-menuSidebar_&]:[width:100%] [@media(max-width:719px)]:[html[data-app-gnb-sidebar-collapsed=true]_.gnb-menuSidebar_&]:[max-width:none] [@media(max-width:719px)]:[html[data-app-gnb-sidebar-collapsed=true]_.gnb-menuSidebar_&]:[padding-right:4px] [display:inline-flex] [align-items:center] [justify-content:center] [height:28px] [padding:0_12px] [border:0] [border-radius:999px] [background-color:transparent] [color:var(--gray-000)] [opacity:1] [cursor:pointer] [-webkit-user-drag:none] [user-select:none] [-webkit-user-select:none] [font-family:var(--type-font-family)] [font-feature-settings:var(--type-feature-settings)] [font-size:var(--type-body-16-size)] [line-height:var(--type-body-16-line-height)] [letter-spacing:var(--type-body-16-letter-spacing)] [font-weight:var(--type-weight-regular)] [transition:color_200ms_ease,_background-color_200ms_ease,_box-shadow_200ms_ease] [.gnb-menuSidebar_&]:[justify-content:flex-start] [.gnb-menuSidebar_&]:[align-items:center] [.gnb-menuSidebar_&]:[width:100%] [.gnb-menuSidebar_&]:[box-sizing:border-box] [.gnb-menuSidebar_&]:[height:32px] [.gnb-menuSidebar_&]:[min-height:32px] [.gnb-menuSidebar_&]:[padding-left:calc(_var(--app-gnb-main-inline-padding)_-_var(--app-gnb-sidebar-padding-x)_)] [.gnb-menuSidebar_&]:[padding-right:4px] [.gnb-menuSidebar_&]:[border-radius:10px] [.gnb-menuSidebar_&]:[font-size:var(--type-body-14-size)] [.gnb-menuSidebar_&]:[line-height:var(--type-body-14-line-height)] [.gnb-menuSidebar_&]:[letter-spacing:var(--type-body-14-letter-spacing)] [.gnb-menuSidebar_&]:[font-weight:var(--type-weight-medium)] [.gnb-menuSidebar_&]:[transition:color_200ms_ease,_background-color_200ms_ease,_box-shadow_200ms_ease] [html[data-app-gnb-sidebar-collapsed=true]_.gnb-menuSidebar_&]:[justify-content:center] [html[data-app-gnb-sidebar-collapsed=true]_.gnb-menuSidebar_&]:[width:var(--app-gnb-sidebar-menu-hit-w)] [html[data-app-gnb-sidebar-collapsed=true]_.gnb-menuSidebar_&]:[min-width:var(--app-gnb-sidebar-menu-hit-w)] [html[data-app-gnb-sidebar-collapsed=true]_.gnb-menuSidebar_&]:[max-width:var(--app-gnb-sidebar-menu-hit-w)] [html[data-app-gnb-sidebar-collapsed=true]_.gnb-menuSidebar_&]:[height:32px] [html[data-app-gnb-sidebar-collapsed=true]_.gnb-menuSidebar_&]:[min-height:32px] [html[data-app-gnb-sidebar-collapsed=true]_.gnb-menuSidebar_&]:[padding-left:0] [html[data-app-gnb-sidebar-collapsed=true]_.gnb-menuSidebar_&]:[padding-right:0] [html[data-app-gnb-sidebar-collapsed=true]_.gnb-menuSidebar_&]:[box-sizing:border-box] [@media(max-width:780px)]:[.gnb-menu:not(.gnb-menuSidebar)_&]:[font-size:var(--type-body-14-size)] [@media(max-width:780px)]:[.gnb-menu:not(.gnb-menuSidebar)_&]:[line-height:var(--type-body-14-line-height)] [@media(max-width:780px)]:[.gnb-menu:not(.gnb-menuSidebar)_&]:[letter-spacing:var(--type-body-14-letter-spacing)] [@media(max-width:780px)]:[.gnb-menu:not(.gnb-menuSidebar)_&]:[font-weight:var(--type-weight-regular)] [@media(max-width:480px)]:[.gnb-menu:not(.gnb-menuSidebar)_&]:[padding-inline:8px]!\">아카이브</button>"
+    },
+    {
       "id": "sidebar-cta-light",
       "source": "Gnb.tsx sidebarUpgradeButton (라이트)",
+      "hover": false,
       "from": "apps/web/components/navigation/Gnb.tsx → sidebarUpgradeButton",
       "doc": "light",
       "wrapper": null,
@@ -312,6 +372,7 @@
     {
       "id": "sidebar-cta-current",
       "source": "Gnb.tsx sidebarUpgradeButton + sidebarUpgradeButtonActive (현재 위치)",
+      "hover": false,
       "from": "apps/web/components/navigation/Gnb.tsx → sidebarUpgradeButton + sidebarUpgradeButtonActive",
       "doc": "default",
       "wrapper": null,
@@ -320,6 +381,7 @@
     {
       "id": "sidebar-cta-current-light",
       "source": "Gnb.tsx sidebarUpgradeButton + sidebarUpgradeButtonActive (라이트)",
+      "hover": false,
       "from": "apps/web/components/navigation/Gnb.tsx → sidebarUpgradeButton + sidebarUpgradeButtonActive",
       "doc": "light",
       "wrapper": null,
@@ -328,6 +390,7 @@
     {
       "id": "nav-item-inner",
       "source": "Gnb.tsx menuLinkInner — 아이콘과 라벨 사이 간격을 갖는 것은 행이 아니라 이 안쪽 상자다",
+      "hover": false,
       "from": "apps/web/components/navigation/Gnb.tsx → menuLinkInner",
       "doc": "default",
       "wrapper": [
@@ -338,6 +401,7 @@
     {
       "id": "nav-item-inner-collapsed",
       "source": "Gnb.tsx menuLinkInner (접힘)",
+      "hover": false,
       "from": "apps/web/components/navigation/Gnb.tsx → menuLinkInner",
       "doc": "collapsed",
       "wrapper": [
@@ -348,6 +412,7 @@
     {
       "id": "top-bar-title",
       "source": "Gnb.tsx mainChromePageNavTitle",
+      "hover": false,
       "from": "apps/web/components/navigation/Gnb.tsx → mainChromePageNavTitle",
       "doc": "default",
       "wrapper": null,
@@ -356,6 +421,7 @@
     {
       "id": "top-bar-leading",
       "source": "Gnb.tsx mainChromeLeadingCluster",
+      "hover": false,
       "from": "apps/web/components/navigation/Gnb.tsx → mainChromeLeadingCluster",
       "doc": "default",
       "wrapper": null,
@@ -364,6 +430,7 @@
     {
       "id": "top-bar",
       "source": "Gnb.tsx mainChromeTopBar + mainChromeTopBarInPanel",
+      "hover": false,
       "from": "apps/web/components/navigation/Gnb.tsx → mainChromeTopBar + mainChromeTopBarInPanel",
       "doc": "default",
       "wrapper": null,
@@ -372,6 +439,7 @@
     {
       "id": "slider-thumb-root",
       "source": "ClipCropModal.tsx CROP_SLIDER_ROOT — thumb형 중 DS 기하에 가장 가까운 벌",
+      "hover": false,
       "from": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/ClipCropModal.tsx → CROP_SLIDER_ROOT",
       "doc": "default",
       "wrapper": null,
@@ -380,6 +448,7 @@
     {
       "id": "slider-thumb-rail",
       "source": "ClipCropModal.tsx CROP_SLIDER_TRACK",
+      "hover": false,
       "from": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/ClipCropModal.tsx → CROP_SLIDER_TRACK",
       "doc": "default",
       "wrapper": null,
@@ -388,6 +457,7 @@
     {
       "id": "slider-thumb-handle",
       "source": "ClipCropModal.tsx CROP_SLIDER_THUMB",
+      "hover": false,
       "from": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/ClipCropModal.tsx → CROP_SLIDER_THUMB",
       "doc": "default",
       "wrapper": null,
@@ -396,6 +466,7 @@
     {
       "id": "slider-track-root",
       "source": "VideoEditModal.tsx overlayRadixRootFull — track형 중 최다 사용(8곳)",
+      "hover": false,
       "from": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx → overlayRadixRootFull",
       "doc": "default",
       "wrapper": null,
@@ -404,6 +475,7 @@
     {
       "id": "slider-track-root-panel",
       "source": "VideoEditModal.tsx overlayRadixRootFull (인스펙터 패널 안)",
+      "hover": false,
       "from": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx → overlayRadixRootFull",
       "doc": "default",
       "wrapper": [
@@ -414,6 +486,7 @@
     {
       "id": "slider-track-marker",
       "source": "VideoEditModal.tsx overlayRadixRange ::after — 채움 오른쪽 끝 표식",
+      "hover": false,
       "from": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx → overlayRadixRange",
       "doc": "default",
       "wrapper": [
@@ -424,6 +497,7 @@
     {
       "id": "carousel",
       "source": "TabBannerCarousel.tsx CAROUSEL + CAROUSEL_BOXED",
+      "hover": false,
       "from": "apps/web/components/banners/TabBannerCarousel.tsx → CAROUSEL + CAROUSEL_BOXED",
       "doc": "default",
       "wrapper": null,
@@ -432,6 +506,7 @@
     {
       "id": "carousel-content",
       "source": "TabBannerCarousel.tsx CONTENT",
+      "hover": false,
       "from": "apps/web/components/banners/TabBannerCarousel.tsx → CONTENT",
       "doc": "default",
       "wrapper": null,
@@ -440,6 +515,7 @@
     {
       "id": "carousel-controls",
       "source": "TabBannerCarousel.tsx CONTROLS",
+      "hover": false,
       "from": "apps/web/components/banners/TabBannerCarousel.tsx → CONTROLS",
       "doc": "default",
       "wrapper": null,
@@ -448,6 +524,7 @@
     {
       "id": "carousel-arrow",
       "source": "TabBannerCarousel.tsx ARROW_BUTTON",
+      "hover": false,
       "from": "apps/web/components/banners/TabBannerCarousel.tsx → ARROW_BUTTON",
       "doc": "default",
       "wrapper": null,
@@ -456,6 +533,7 @@
     {
       "id": "carousel-dots",
       "source": "TabBannerCarousel.tsx DOTS",
+      "hover": false,
       "from": "apps/web/components/banners/TabBannerCarousel.tsx → DOTS",
       "doc": "default",
       "wrapper": null,
@@ -464,6 +542,7 @@
     {
       "id": "carousel-dot-active",
       "source": "TabBannerCarousel.tsx DOT + DOT_ACTIVE",
+      "hover": false,
       "from": "apps/web/components/banners/TabBannerCarousel.tsx → DOT + DOT_ACTIVE",
       "doc": "default",
       "wrapper": null,
@@ -472,6 +551,7 @@
     {
       "id": "carousel-dot-rest",
       "source": "TabBannerCarousel.tsx DOT + DOT_REST",
+      "hover": false,
       "from": "apps/web/components/banners/TabBannerCarousel.tsx → DOT + DOT_REST",
       "doc": "default",
       "wrapper": null,
@@ -659,7 +739,8 @@
       "columnGap": "8px",
       "borderTopLeftRadius": "12px",
       "backgroundColor": "rgb(241, 241, 243)",
-      "color": "rgb(23, 27, 34)"
+      "color": "rgb(23, 27, 34)",
+      "boxShadow": "rgba(0, 0, 0, 0.08) 0px 0px 0px 1px inset, rgba(0, 0, 0, 0.12) 0px 1px 2px 0px"
     },
     "sidebar-cta-current": {
       "backgroundColor": "rgb(49, 54, 64)",
@@ -757,13 +838,21 @@
     "nav-item-inner-collapsed": {
       "columnGap": "0px"
     },
+    "nav-item-hover": {
+      "backgroundColor": "rgba(250, 250, 250, 0.1)",
+      "color": "rgb(227, 228, 232)"
+    },
+    "nav-item-hover-light": {
+      "backgroundColor": "rgba(228, 229, 233, 0.5)",
+      "--palette-gray-300-rgb": "228 229 233"
+    },
     "sidebar-cta-light": {
       "backgroundColor": "rgb(23, 27, 34)",
-      "color": "rgb(241, 241, 243)",
+      "color": "rgb(248, 248, 249)",
       "boxShadow": "rgba(250, 250, 250, 0.08) 0px 0px 0px 1px inset, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px"
     },
     "sidebar-cta-current-light": {
-      "backgroundColor": "rgb(241, 241, 243)",
+      "backgroundColor": "rgb(248, 248, 249)",
       "color": "rgb(0, 0, 0)"
     }
   },
@@ -893,6 +982,12 @@
       "product": 10,
       "ds": 8,
       "why": "제품 10, DS 8. 배포본은 행이 아니라 안쪽 상자가 이 간격을 갖고 값이 10이다. 10은 DS 간격 계단(4·8·12·16)에 없어 SelectableListRow와 같은 판단을 한다 — 한 컴포넌트를 위해 계단을 늘리지 않는다."
+    },
+    {
+      "axis": "nav-item-hover-light.backgroundColor",
+      "product": "rgb(228 229 233 / 0.5)",
+      "ds": "color-action-ghost-hover",
+      "why": "라이트만 갈린다. 제품은 재매핑된 palette-gray-300을 50%로 덮고(rgb 228 229 233 / 0.5) DS는 ink 8%를 쓴다 — 면 계열에 매는 것과 잉크에 매는 것의 차이다. `action-ghost-hover`는 SelectableListRow와 공유하는 토큰이라 사이드바 하나 때문에 옮기지 않는다. 다크는 rgb(250 250 250 / 0.1)로 정확히 같다."
     }
   ]
 }

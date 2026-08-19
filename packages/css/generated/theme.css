@@ -90,6 +90,7 @@
   --shadow-surface: var(--kds-elevation-surface);
   --shadow-toast: var(--kds-elevation-toast);
   --shadow-tooltip: var(--kds-elevation-tooltip);
+  --shadow-upgrade: var(--kds-elevation-upgrade);
 
   /* 치수 — p-*, m-*, gap-*, w-*, h-* 유틸리티가 된다 */
   --spacing-icon-size-lg: var(--kds-icon-size-lg);

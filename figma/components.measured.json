@@ -992,7 +992,8 @@
           },
           "Hover": {
             "background": "color-action-ghost-hover",
-            "foreground": "color-foreground-primary"
+            "foreground": "color-foreground-primary",
+            "$background": "다크는 제품과 정확히 같다(rgb 250 250 250 / 10%). 라이트만 갈린다 — 제품은 재매핑된 palette-gray-300을 50%로 덮고 DS는 ink 8%를 쓴다."
           },
           "Current": {
             "background": "color-background-inset",

@@ -4564,6 +4564,290 @@
             }
           }
         },
+        "shadow-upgrade-dark": {
+          "$type": "shadow",
+          "fields": [
+            "blur",
+            "color",
+            "inset",
+            "offsetX",
+            "offsetY",
+            "spread"
+          ],
+          "figmaName": "shadow/upgrade-dark",
+          "hiddenFromPublishing": true,
+          "losses": [
+            "primitive shadow은 Figma에 만들지 않습니다. Figma에는 style→style alias가 없어 semantic→primitive tier 관계를 보존할 수 없습니다 (DS-D-0007)."
+          ],
+          "nativeVariableType": null,
+          "representation": "unrepresented",
+          "scopes": [],
+          "valuesByMode": {
+            "Base": {
+              "$value": [
+                {
+                  "blur": {
+                    "unit": "px",
+                    "value": 0
+                  },
+                  "color": {
+                    "alpha": 0.08,
+                    "colorSpace": "srgb",
+                    "components": [
+                      0,
+                      0,
+                      0
+                    ],
+                    "hex": "#000000"
+                  },
+                  "inset": true,
+                  "offsetX": {
+                    "unit": "px",
+                    "value": 0
+                  },
+                  "offsetY": {
+                    "unit": "px",
+                    "value": 0
+                  },
+                  "spread": {
+                    "unit": "px",
+                    "value": 1
+                  }
+                },
+                {
+                  "blur": {
+                    "unit": "px",
+                    "value": 2
+                  },
+                  "color": {
+                    "alpha": 0.12,
+                    "colorSpace": "srgb",
+                    "components": [
+                      0,
+                      0,
+                      0
+                    ],
+                    "hex": "#000000"
+                  },
+                  "offsetX": {
+                    "unit": "px",
+                    "value": 0
+                  },
+                  "offsetY": {
+                    "unit": "px",
+                    "value": 1
+                  },
+                  "spread": {
+                    "unit": "px",
+                    "value": 0
+                  }
+                }
+              ],
+              "aliasTarget": null,
+              "resolvedValue": [
+                {
+                  "blur": {
+                    "unit": "px",
+                    "value": 0
+                  },
+                  "color": {
+                    "alpha": 0.08,
+                    "colorSpace": "srgb",
+                    "components": [
+                      0,
+                      0,
+                      0
+                    ]
+                  },
+                  "inset": true,
+                  "offsetX": {
+                    "unit": "px",
+                    "value": 0
+                  },
+                  "offsetY": {
+                    "unit": "px",
+                    "value": 0
+                  },
+                  "spread": {
+                    "unit": "px",
+                    "value": 1
+                  }
+                },
+                {
+                  "blur": {
+                    "unit": "px",
+                    "value": 2
+                  },
+                  "color": {
+                    "alpha": 0.12,
+                    "colorSpace": "srgb",
+                    "components": [
+                      0,
+                      0,
+                      0
+                    ]
+                  },
+                  "inset": false,
+                  "offsetX": {
+                    "unit": "px",
+                    "value": 0
+                  },
+                  "offsetY": {
+                    "unit": "px",
+                    "value": 1
+                  },
+                  "spread": {
+                    "unit": "px",
+                    "value": 0
+                  }
+                }
+              ],
+              "sourcePath": "primitive.shadow.upgrade-dark"
+            }
+          }
+        },
+        "shadow-upgrade-light": {
+          "$type": "shadow",
+          "fields": [
+            "blur",
+            "color",
+            "inset",
+            "offsetX",
+            "offsetY",
+            "spread"
+          ],
+          "figmaName": "shadow/upgrade-light",
+          "hiddenFromPublishing": true,
+          "losses": [
+            "primitive shadow은 Figma에 만들지 않습니다. Figma에는 style→style alias가 없어 semantic→primitive tier 관계를 보존할 수 없습니다 (DS-D-0007)."
+          ],
+          "nativeVariableType": null,
+          "representation": "unrepresented",
+          "scopes": [],
+          "valuesByMode": {
+            "Base": {
+              "$value": [
+                {
+                  "blur": {
+                    "unit": "px",
+                    "value": 0
+                  },
+                  "color": {
+                    "alpha": 0.08,
+                    "colorSpace": "srgb",
+                    "components": [
+                      0.980392,
+                      0.980392,
+                      0.980392
+                    ],
+                    "hex": "#fafafa"
+                  },
+                  "inset": true,
+                  "offsetX": {
+                    "unit": "px",
+                    "value": 0
+                  },
+                  "offsetY": {
+                    "unit": "px",
+                    "value": 0
+                  },
+                  "spread": {
+                    "unit": "px",
+                    "value": 1
+                  }
+                },
+                {
+                  "blur": {
+                    "unit": "px",
+                    "value": 2
+                  },
+                  "color": {
+                    "alpha": 0.06,
+                    "colorSpace": "srgb",
+                    "components": [
+                      0,
+                      0,
+                      0
+                    ],
+                    "hex": "#000000"
+                  },
+                  "offsetX": {
+                    "unit": "px",
+                    "value": 0
+                  },
+                  "offsetY": {
+                    "unit": "px",
+                    "value": 1
+                  },
+                  "spread": {
+                    "unit": "px",
+                    "value": 0
+                  }
+                }
+              ],
+              "aliasTarget": null,
+              "resolvedValue": [
+                {
+                  "blur": {
+                    "unit": "px",
+                    "value": 0
+                  },
+                  "color": {
+                    "alpha": 0.08,
+                    "colorSpace": "srgb",
+                    "components": [
+                      0.980392,
+                      0.980392,
+                      0.980392
+                    ]
+                  },
+                  "inset": true,
+                  "offsetX": {
+                    "unit": "px",
+                    "value": 0
+                  },
+                  "offsetY": {
+                    "unit": "px",
+                    "value": 0
+                  },
+                  "spread": {
+                    "unit": "px",
+                    "value": 1
+                  }
+                },
+                {
+                  "blur": {
+                    "unit": "px",
+                    "value": 2
+                  },
+                  "color": {
+                    "alpha": 0.06,
+                    "colorSpace": "srgb",
+                    "components": [
+                      0,
+                      0,
+                      0
+                    ]
+                  },
+                  "inset": false,
+                  "offsetX": {
+                    "unit": "px",
+                    "value": 0
+                  },
+                  "offsetY": {
+                    "unit": "px",
+                    "value": 1
+                  },
+                  "spread": {
+                    "unit": "px",
+                    "value": 0
+                  }
+                }
+              ],
+              "sourcePath": "primitive.shadow.upgrade-light"
+            }
+          }
+        },
         "space-0": {
           "$type": "dimension",
           "fields": [],
@@ -11813,18 +12097,18 @@
               "sourcePath": "semantic.dark.color.background-upgrade-current"
             },
             "Light": {
-              "$value": "{primitive.color.neutral.100}",
+              "$value": "{primitive.color.neutral.50}",
               "aliasTarget": {
-                "id": "color-neutral-100",
+                "id": "color-neutral-50",
                 "mode": "base"
               },
               "resolvedValue": {
                 "alpha": 1,
                 "colorSpace": "srgb",
                 "components": [
-                  0.945098,
-                  0.945098,
-                  0.952941
+                  0.972549,
+                  0.972549,
+                  0.976471
                 ]
               },
               "sourcePath": "semantic.light.color.background-upgrade-current"
@@ -12823,18 +13107,18 @@
               "sourcePath": "semantic.dark.color.foreground-upgrade"
             },
             "Light": {
-              "$value": "{primitive.color.neutral.100}",
+              "$value": "{primitive.color.neutral.50}",
               "aliasTarget": {
-                "id": "color-neutral-100",
+                "id": "color-neutral-50",
                 "mode": "base"
               },
               "resolvedValue": {
                 "alpha": 1,
                 "colorSpace": "srgb",
                 "components": [
-                  0.945098,
-                  0.945098,
-                  0.952941
+                  0.972549,
+                  0.972549,
+                  0.976471
                 ]
               },
               "sourcePath": "semantic.light.color.foreground-upgrade"
@@ -12919,18 +13203,18 @@
               "sourcePath": "semantic.dark.color.foreground-upgrade-hover"
             },
             "Light": {
-              "$value": "{primitive.color.neutral.100}",
+              "$value": "{primitive.color.neutral.50}",
               "aliasTarget": {
-                "id": "color-neutral-100",
+                "id": "color-neutral-50",
                 "mode": "base"
               },
               "resolvedValue": {
                 "alpha": 1,
                 "colorSpace": "srgb",
                 "components": [
-                  0.945098,
-                  0.945098,
-                  0.952941
+                  0.972549,
+                  0.972549,
+                  0.976471
                 ]
               },
               "sourcePath": "semantic.light.color.foreground-upgrade-hover"
@@ -13738,6 +14022,159 @@
                 }
               },
               "sourcePath": "semantic.light.elevation.tooltip"
+            }
+          }
+        },
+        "elevation-upgrade": {
+          "$type": "shadow",
+          "fields": [
+            "blur",
+            "color",
+            "inset",
+            "offsetX",
+            "offsetY",
+            "spread"
+          ],
+          "figmaName": "elevation/upgrade",
+          "hiddenFromPublishing": false,
+          "losses": [
+            "DTCG shadow composite는 단일 native variable로 표현되지 않아 effect-style로 만들고 내부 속성을 변수에 바인딩합니다."
+          ],
+          "nativeVariableType": null,
+          "representation": "effect-style",
+          "scopes": [],
+          "valuesByMode": {
+            "Dark": {
+              "$value": "{primitive.shadow.upgrade-dark}",
+              "aliasTarget": {
+                "id": "shadow-upgrade-dark",
+                "mode": "base"
+              },
+              "resolvedValue": [
+                {
+                  "blur": {
+                    "unit": "px",
+                    "value": 0
+                  },
+                  "color": {
+                    "alpha": 0.08,
+                    "colorSpace": "srgb",
+                    "components": [
+                      0,
+                      0,
+                      0
+                    ]
+                  },
+                  "inset": true,
+                  "offsetX": {
+                    "unit": "px",
+                    "value": 0
+                  },
+                  "offsetY": {
+                    "unit": "px",
+                    "value": 0
+                  },
+                  "spread": {
+                    "unit": "px",
+                    "value": 1
+                  }
+                },
+                {
+                  "blur": {
+                    "unit": "px",
+                    "value": 2
+                  },
+                  "color": {
+                    "alpha": 0.12,
+                    "colorSpace": "srgb",
+                    "components": [
+                      0,
+                      0,
+                      0
+                    ]
+                  },
+                  "inset": false,
+                  "offsetX": {
+                    "unit": "px",
+                    "value": 0
+                  },
+                  "offsetY": {
+                    "unit": "px",
+                    "value": 1
+                  },
+                  "spread": {
+                    "unit": "px",
+                    "value": 0
+                  }
+                }
+              ],
+              "sourcePath": "semantic.dark.elevation.upgrade"
+            },
+            "Light": {
+              "$value": "{primitive.shadow.upgrade-light}",
+              "aliasTarget": {
+                "id": "shadow-upgrade-light",
+                "mode": "base"
+              },
+              "resolvedValue": [
+                {
+                  "blur": {
+                    "unit": "px",
+                    "value": 0
+                  },
+                  "color": {
+                    "alpha": 0.08,
+                    "colorSpace": "srgb",
+                    "components": [
+                      0.980392,
+                      0.980392,
+                      0.980392
+                    ]
+                  },
+                  "inset": true,
+                  "offsetX": {
+                    "unit": "px",
+                    "value": 0
+                  },
+                  "offsetY": {
+                    "unit": "px",
+                    "value": 0
+                  },
+                  "spread": {
+                    "unit": "px",
+                    "value": 1
+                  }
+                },
+                {
+                  "blur": {
+                    "unit": "px",
+                    "value": 2
+                  },
+                  "color": {
+                    "alpha": 0.06,
+                    "colorSpace": "srgb",
+                    "components": [
+                      0,
+                      0,
+                      0
+                    ]
+                  },
+                  "inset": false,
+                  "offsetX": {
+                    "unit": "px",
+                    "value": 0
+                  },
+                  "offsetY": {
+                    "unit": "px",
+                    "value": 1
+                  },
+                  "spread": {
+                    "unit": "px",
+                    "value": 0
+                  }
+                }
+              ],
+              "sourcePath": "semantic.light.elevation.upgrade"
             }
           }
         }

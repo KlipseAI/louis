@@ -3519,6 +3519,262 @@ export const primitives = {
       "inset": false
     }
   },
+  "shadow-upgrade-dark": {
+    "aliasTarget": null,
+    "cssProperties": {},
+    "deprecated": null,
+    "description": null,
+    "id": "shadow-upgrade-dark",
+    "mode": "base",
+    "rawValue": [
+      {
+        "color": {
+          "colorSpace": "srgb",
+          "components": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.08,
+          "hex": "#000000"
+        },
+        "offsetX": {
+          "value": 0,
+          "unit": "px"
+        },
+        "offsetY": {
+          "value": 0,
+          "unit": "px"
+        },
+        "blur": {
+          "value": 0,
+          "unit": "px"
+        },
+        "spread": {
+          "value": 1,
+          "unit": "px"
+        },
+        "inset": true
+      },
+      {
+        "color": {
+          "colorSpace": "srgb",
+          "components": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.12,
+          "hex": "#000000"
+        },
+        "offsetX": {
+          "value": 0,
+          "unit": "px"
+        },
+        "offsetY": {
+          "value": 1,
+          "unit": "px"
+        },
+        "blur": {
+          "value": 2,
+          "unit": "px"
+        },
+        "spread": {
+          "value": 0,
+          "unit": "px"
+        }
+      }
+    ],
+    "sourcePath": "primitive.shadow.upgrade-dark",
+    "tier": "primitive",
+    "type": "shadow",
+    "value": [
+      {
+        "color": {
+          "colorSpace": "srgb",
+          "components": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.08
+        },
+        "offsetX": {
+          "value": 0,
+          "unit": "px"
+        },
+        "offsetY": {
+          "value": 0,
+          "unit": "px"
+        },
+        "blur": {
+          "value": 0,
+          "unit": "px"
+        },
+        "spread": {
+          "value": 1,
+          "unit": "px"
+        },
+        "inset": true
+      },
+      {
+        "color": {
+          "colorSpace": "srgb",
+          "components": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.12
+        },
+        "offsetX": {
+          "value": 0,
+          "unit": "px"
+        },
+        "offsetY": {
+          "value": 1,
+          "unit": "px"
+        },
+        "blur": {
+          "value": 2,
+          "unit": "px"
+        },
+        "spread": {
+          "value": 0,
+          "unit": "px"
+        },
+        "inset": false
+      }
+    ]
+  },
+  "shadow-upgrade-light": {
+    "aliasTarget": null,
+    "cssProperties": {},
+    "deprecated": null,
+    "description": null,
+    "id": "shadow-upgrade-light",
+    "mode": "base",
+    "rawValue": [
+      {
+        "color": {
+          "colorSpace": "srgb",
+          "components": [
+            0.980392,
+            0.980392,
+            0.980392
+          ],
+          "alpha": 0.08,
+          "hex": "#fafafa"
+        },
+        "offsetX": {
+          "value": 0,
+          "unit": "px"
+        },
+        "offsetY": {
+          "value": 0,
+          "unit": "px"
+        },
+        "blur": {
+          "value": 0,
+          "unit": "px"
+        },
+        "spread": {
+          "value": 1,
+          "unit": "px"
+        },
+        "inset": true
+      },
+      {
+        "color": {
+          "colorSpace": "srgb",
+          "components": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.06,
+          "hex": "#000000"
+        },
+        "offsetX": {
+          "value": 0,
+          "unit": "px"
+        },
+        "offsetY": {
+          "value": 1,
+          "unit": "px"
+        },
+        "blur": {
+          "value": 2,
+          "unit": "px"
+        },
+        "spread": {
+          "value": 0,
+          "unit": "px"
+        }
+      }
+    ],
+    "sourcePath": "primitive.shadow.upgrade-light",
+    "tier": "primitive",
+    "type": "shadow",
+    "value": [
+      {
+        "color": {
+          "colorSpace": "srgb",
+          "components": [
+            0.980392,
+            0.980392,
+            0.980392
+          ],
+          "alpha": 0.08
+        },
+        "offsetX": {
+          "value": 0,
+          "unit": "px"
+        },
+        "offsetY": {
+          "value": 0,
+          "unit": "px"
+        },
+        "blur": {
+          "value": 0,
+          "unit": "px"
+        },
+        "spread": {
+          "value": 1,
+          "unit": "px"
+        },
+        "inset": true
+      },
+      {
+        "color": {
+          "colorSpace": "srgb",
+          "components": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.06
+        },
+        "offsetX": {
+          "value": 0,
+          "unit": "px"
+        },
+        "offsetY": {
+          "value": 1,
+          "unit": "px"
+        },
+        "blur": {
+          "value": 2,
+          "unit": "px"
+        },
+        "spread": {
+          "value": 0,
+          "unit": "px"
+        },
+        "inset": false
+      }
+    ]
+  },
   "space-0": {
     "aliasTarget": null,
     "cssProperties": {},
@@ -8908,26 +9164,26 @@ export const tokens = {
     },
     "color-background-upgrade-current": {
       "aliasTarget": {
-        "id": "color-neutral-100",
+        "id": "color-neutral-50",
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-background-upgrade-current": "color(srgb 0.945098 0.945098 0.952941 / 1)"
+        "--kds-color-background-upgrade-current": "color(srgb 0.972549 0.972549 0.976471 / 1)"
       },
       "deprecated": null,
       "description": null,
       "id": "color-background-upgrade-current",
       "mode": "light",
-      "rawValue": "{primitive.color.neutral.100}",
+      "rawValue": "{primitive.color.neutral.50}",
       "sourcePath": "semantic.light.color.background-upgrade-current",
       "tier": "semantic",
       "type": "color",
       "value": {
         "colorSpace": "srgb",
         "components": [
-          0.945098,
-          0.945098,
-          0.952941
+          0.972549,
+          0.972549,
+          0.976471
         ],
         "alpha": 1
       }
@@ -9454,26 +9710,26 @@ export const tokens = {
     },
     "color-foreground-upgrade": {
       "aliasTarget": {
-        "id": "color-neutral-100",
+        "id": "color-neutral-50",
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-foreground-upgrade": "color(srgb 0.945098 0.945098 0.952941 / 1)"
+        "--kds-color-foreground-upgrade": "color(srgb 0.972549 0.972549 0.976471 / 1)"
       },
       "deprecated": null,
       "description": null,
       "id": "color-foreground-upgrade",
       "mode": "light",
-      "rawValue": "{primitive.color.neutral.100}",
+      "rawValue": "{primitive.color.neutral.50}",
       "sourcePath": "semantic.light.color.foreground-upgrade",
       "tier": "semantic",
       "type": "color",
       "value": {
         "colorSpace": "srgb",
         "components": [
-          0.945098,
-          0.945098,
-          0.952941
+          0.972549,
+          0.972549,
+          0.976471
         ],
         "alpha": 1
       }
@@ -9506,26 +9762,26 @@ export const tokens = {
     },
     "color-foreground-upgrade-hover": {
       "aliasTarget": {
-        "id": "color-neutral-100",
+        "id": "color-neutral-50",
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-foreground-upgrade-hover": "color(srgb 0.945098 0.945098 0.952941 / 1)"
+        "--kds-color-foreground-upgrade-hover": "color(srgb 0.972549 0.972549 0.976471 / 1)"
       },
       "deprecated": null,
       "description": null,
       "id": "color-foreground-upgrade-hover",
       "mode": "light",
-      "rawValue": "{primitive.color.neutral.100}",
+      "rawValue": "{primitive.color.neutral.50}",
       "sourcePath": "semantic.light.color.foreground-upgrade-hover",
       "tier": "semantic",
       "type": "color",
       "value": {
         "colorSpace": "srgb",
         "components": [
-          0.945098,
-          0.945098,
-          0.952941
+          0.972549,
+          0.972549,
+          0.976471
         ],
         "alpha": 1
       }
@@ -9935,6 +10191,81 @@ export const tokens = {
         },
         "inset": false
       }
+    },
+    "elevation-upgrade": {
+      "aliasTarget": {
+        "id": "shadow-upgrade-light",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-elevation-upgrade": "inset 0px 0px 0px 1px color(srgb 0.980392 0.980392 0.980392 / 0.08), 0px 1px 2px 0px color(srgb 0 0 0 / 0.06)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "elevation-upgrade",
+      "mode": "light",
+      "rawValue": "{primitive.shadow.upgrade-light}",
+      "sourcePath": "semantic.light.elevation.upgrade",
+      "tier": "semantic",
+      "type": "shadow",
+      "value": [
+        {
+          "color": {
+            "colorSpace": "srgb",
+            "components": [
+              0.980392,
+              0.980392,
+              0.980392
+            ],
+            "alpha": 0.08
+          },
+          "offsetX": {
+            "value": 0,
+            "unit": "px"
+          },
+          "offsetY": {
+            "value": 0,
+            "unit": "px"
+          },
+          "blur": {
+            "value": 0,
+            "unit": "px"
+          },
+          "spread": {
+            "value": 1,
+            "unit": "px"
+          },
+          "inset": true
+        },
+        {
+          "color": {
+            "colorSpace": "srgb",
+            "components": [
+              0,
+              0,
+              0
+            ],
+            "alpha": 0.06
+          },
+          "offsetX": {
+            "value": 0,
+            "unit": "px"
+          },
+          "offsetY": {
+            "value": 1,
+            "unit": "px"
+          },
+          "blur": {
+            "value": 2,
+            "unit": "px"
+          },
+          "spread": {
+            "value": 0,
+            "unit": "px"
+          },
+          "inset": false
+        }
+      ]
     }
   },
   "dark": {
@@ -11513,6 +11844,81 @@ export const tokens = {
         },
         "inset": false
       }
+    },
+    "elevation-upgrade": {
+      "aliasTarget": {
+        "id": "shadow-upgrade-dark",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-elevation-upgrade": "inset 0px 0px 0px 1px color(srgb 0 0 0 / 0.08), 0px 1px 2px 0px color(srgb 0 0 0 / 0.12)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "elevation-upgrade",
+      "mode": "dark",
+      "rawValue": "{primitive.shadow.upgrade-dark}",
+      "sourcePath": "semantic.dark.elevation.upgrade",
+      "tier": "semantic",
+      "type": "shadow",
+      "value": [
+        {
+          "color": {
+            "colorSpace": "srgb",
+            "components": [
+              0,
+              0,
+              0
+            ],
+            "alpha": 0.08
+          },
+          "offsetX": {
+            "value": 0,
+            "unit": "px"
+          },
+          "offsetY": {
+            "value": 0,
+            "unit": "px"
+          },
+          "blur": {
+            "value": 0,
+            "unit": "px"
+          },
+          "spread": {
+            "value": 1,
+            "unit": "px"
+          },
+          "inset": true
+        },
+        {
+          "color": {
+            "colorSpace": "srgb",
+            "components": [
+              0,
+              0,
+              0
+            ],
+            "alpha": 0.12
+          },
+          "offsetX": {
+            "value": 0,
+            "unit": "px"
+          },
+          "offsetY": {
+            "value": 1,
+            "unit": "px"
+          },
+          "blur": {
+            "value": 2,
+            "unit": "px"
+          },
+          "spread": {
+            "value": 0,
+            "unit": "px"
+          },
+          "inset": false
+        }
+      ]
     }
   }
 };

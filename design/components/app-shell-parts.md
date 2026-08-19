@@ -183,7 +183,15 @@ fixed 변종 36px, 사이드바 헤더 행 `min-height: 40px`. `globals.css`의 
 
 ## Effects
 
-없다.
+| 부품 | 값 | 토큰 |
+| --- | --- | --- |
+| SidebarCta 버튼 | 안쪽 1px 링 + 얕은 드롭 | `elevation-upgrade` |
+
+"없다"고 적어 두었는데 그것은 사유가 아니라 누락의 결과 서술이었다. 배포본의 업그레이드 버튼에는
+실제로 그림자가 그려진다 — 반전 pill이 사이드바 면에서 떨어져 보이게 하는 일을 한다. 라이트는
+안쪽 링이 흰색 8%, 다크는 검정 8%로 뒤집힌다.
+
+내비 항목과 상단 바에는 없다. 그 둘은 사이드바 면 위에 그대로 놓인다.
 
 ## Implementation
 
@@ -196,6 +204,14 @@ fixed 변종 36px, 사이드바 헤더 행 `min-height: 40px`. `globals.css`의 
 
 ## Known deviations
 
+- **라이트에서 hover 면이 갈린다.** 제품은 재매핑된 `palette-gray-300`을 50%로 덮고(브라우저 실측
+  `rgb(228 229 233 / 0.5)`), DS는 `color-action-ghost-hover`의 잉크 8%를 쓴다. 면 계열에 매는 것과
+  잉크에 매는 것의 차이이며, 그 토큰을 SelectableListRow와 공유하므로 사이드바 하나 때문에 옮기지
+  않는다. **다크는 `rgb(250 250 250 / 0.1)`로 정확히 같다.**
+- **사이드바가 화면에 있으면 라이트 팔레트가 통째로 한 단계 밝아진다.** 배포본의 `wrapperSidebar`가
+  `html[data-theme=light] body:has(&)`로 `--palette-gray-*`를 재매핑한다. 그래서 업그레이드 CTA의
+  라이트 전경이 `neutral.100`이 아니라 `neutral.50`이다 — 탐침이 그 표식을 두지 않았을 때 한 단계
+  어두운 값을 재고 있었다.
 - **제품의 사이드바 항목에는 포커스 표시가 없다.** `globals.css`의
   `button:focus, button:focus-visible { outline: none }`이 `@layer base` 블록 **밖**에 있어
   `@layer utilities` 안의 Tailwind 임의 유틸리티를 특이도와 무관하게 이긴다. 항목이 선언한

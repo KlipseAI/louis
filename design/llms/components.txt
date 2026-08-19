@@ -3569,7 +3569,7 @@ CTA**를 갖는다. 그 둘이 없어서 한 번 조립한 홈 템플릿을 내�
 
 | 부품 | 계약 |
 | --- | --- |
-| `SidebarBrand` | `gap` `space-control-sm` · 로고 레일 최소 높이 `icon-size-lg`(24) · 워드마크 최대 폭 240 |
+| `SidebarBrand` | 행 최소 높이 `layout-app-shell-top-bar-height`(40) · 마크 레일 `layout-app-shell-brand-mark-height`(28) · 워드마크 최대 폭 240 |
 | `SidebarCta` | `margin-block-start: auto`로 바닥에 붙는다 · 버튼 최소 높이 `layout-control-height-md` · **아이콘 슬롯이 없다** |
 
 **CTA에는 아이콘이 없고 색은 mint다.** 처음 만들 때 앞에 plus 글리프를 넣고 브랜드 파랑을 썼는데
@@ -3605,7 +3605,7 @@ CTA**를 갖는다. 그 둘이 없어서 한 번 조립한 홈 템플릿을 내�
 | 축 | 값 | 토큰 |
 | --- | ---: | --- |
 | 행 높이 | 32px | `layout-control-height-sm` |
-| 행 좌우 여백 | 8px | `space-control-sm` |
+| 행 좌우 여백 | 4px | `space-control-xs` |
 | 행 간격 | 8px | `space-control-sm` |
 | 행 반경 | 10px | `radius-overlay-item` |
 | 아이콘 | 20px | `icon-size-md` |
@@ -3615,6 +3615,15 @@ CTA**를 갖는다. 그 둘이 없어서 한 번 조립한 홈 템플릿을 내�
 | CTA 좌우 여백 | 14px → 접힘 10px | 제품 실측 |
 | CTA 반경 | 12px | `radius-control` |
 | CTA 면 · 글자 | mint 500 16% · mint 700 | `background-upgrade` · `foreground-upgrade` |
+
+**행 좌우 여백이 4px인 근거.** 배포본은 `main-inline-padding − sidebar-padding-x` = 16 − 12 = 4를 쓴다.
+행만 떼어 보면 좁지만 **행과 레일의 합이 계약이다** — 레일 12 + 행 4 = 16이 본문 좌측선과 맞는다.
+여기를 8로 두면 아이콘이 본문보다 4px 안쪽으로 들어가고, 사이드바와 본문이 어긋난 것처럼 보인다.
+
+**브랜드 행은 40이고 그 안의 마크가 28이다.** 처음에는 행 자체를 24로 두었는데 그것은 아이콘 슬롯
+크기(`icon-size-lg`)를 행 높이로 착각한 것이었다. 배포본의 사이드바 헤더 행은 `min-height: 40`이고
+로고 레일이 `--app-gnb-sidebar-logo-h: 28`이다. 브랜드 행이 상단 바와 같은 40이라 좌우가 한 줄에서
+만난다 — [DS-D-0018](../governance/decisions/DS-D-0018-app-shell-geometry.md)이 그 40을 소유한다.
 
 **상단 바 높이가 40px인 근거.** 제품에는 세 값이 있고 서로 맞지 않는다 — portal 변종 52px,
 fixed 변종 36px, 사이드바 헤더 행 `min-height: 40px`. `globals.css`의 주석이 정렬을 40px 전제로

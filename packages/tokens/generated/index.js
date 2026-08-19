@@ -3875,6 +3875,25 @@ export const primitives = {
       "unit": "px"
     }
   },
+  "space-28": {
+    "aliasTarget": null,
+    "cssProperties": {},
+    "deprecated": null,
+    "description": null,
+    "id": "space-28",
+    "mode": "base",
+    "rawValue": {
+      "value": 28,
+      "unit": "px"
+    },
+    "sourcePath": "primitive.spacing.28",
+    "tier": "primitive",
+    "type": "dimension",
+    "value": {
+      "value": 28,
+      "unit": "px"
+    }
+  },
   "space-280": {
     "aliasTarget": null,
     "cssProperties": {},
@@ -6336,6 +6355,27 @@ export const tokens = {
       "tier": "semantic",
       "type": "number",
       "value": 100
+    },
+    "layout-app-shell-brand-mark-height": {
+      "aliasTarget": {
+        "id": "space-28",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-layout-app-shell-brand-mark-height": "28px"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "layout-app-shell-brand-mark-height",
+      "mode": "global",
+      "rawValue": "{primitive.spacing.28}",
+      "sourcePath": "semantic.global.layout.app-shell-brand-mark-height",
+      "tier": "semantic",
+      "type": "dimension",
+      "value": {
+        "value": 28,
+        "unit": "px"
+      }
     },
     "layout-app-shell-content-inset": {
       "aliasTarget": {

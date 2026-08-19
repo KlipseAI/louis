@@ -1615,6 +1615,18 @@
           }
         }
       },
+      "28": {
+        "$value": {
+          "value": 28,
+          "unit": "px"
+        },
+        "$extensions": {
+          "com.klipse-design": {
+            "id": "space-28",
+            "tier": "primitive"
+          }
+        }
+      },
       "32": {
         "$value": {
           "value": 32,
@@ -4393,6 +4405,16 @@
           "$extensions": {
             "com.klipse-design": {
               "id": "layout-app-shell-sidebar-width",
+              "tier": "semantic",
+              "mode": "global"
+            }
+          }
+        },
+        "app-shell-brand-mark-height": {
+          "$value": "{primitive.spacing.28}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "layout-app-shell-brand-mark-height",
               "tier": "semantic",
               "mode": "global"
             }

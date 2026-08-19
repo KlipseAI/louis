@@ -28,6 +28,20 @@ test("워드마크는 접히면 폭이 0이 되고 DOM에는 남는다", async (
   expect(wordmark.textContent).toBe("Klipse");
 });
 
+test("브랜드 행은 40이고 마크 레일은 28이다 — 제품 실측", async () => {
+  await render(
+    <div data-kds-fixture style={{ inlineSize: "280px" }}>
+      <SidebarBrand mark={<span>K</span>} wordmark="Klipse" />
+    </div>,
+  );
+  const brand = scope().querySelector<HTMLElement>(".kds-sidebar-brand")!;
+  const mark = scope().querySelector<HTMLElement>(".kds-sidebar-brand__mark")!;
+  // 처음에는 행을 24로 두었는데 그것은 아이콘 슬롯 크기이지 행 높이가 아니었다.
+  // 배포본은 헤더 행 min-height 40 · 로고 레일 28이다.
+  expect(px(getComputedStyle(brand).minBlockSize)).toBe(40);
+  expect(px(getComputedStyle(mark).minBlockSize)).toBe(28);
+});
+
 test("펼치면 워드마크가 보인다", async () => {
   await render(
     <div data-kds-fixture style={{ inlineSize: "280px" }}>

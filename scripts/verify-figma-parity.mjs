@@ -400,6 +400,8 @@ const COMPONENT_CONTRACTS = [
         height: "height",
         itemSpacing: "gap",
         cornerRadius: "radius",
+        paddingInline: "paddingInline",
+        paddingInlineEnd: "paddingInline",
         layoutMode: { literal: "HORIZONTAL" },
       },
       slots: {},
@@ -715,7 +717,11 @@ const COMPONENT_CONTRACTS = [
       slots: {},
       extraStrokeWeights: [],
       // 접히면 워드마크가 사라진다 — variant마다 자손이 다른 것이 계약이다.
-      parts: { Wordmark: { fields: { width: "wordmarkWidth" }, optional: true } },
+      parts: {
+        // 마크 레일은 접혀도 남는다 — 접힘 상태에서 화면에 남는 유일한 부품이다.
+        Mark: { fields: { width: "markSize", height: "markSize" } },
+        Wordmark: { fields: { width: "wordmarkWidth" }, optional: true },
+      },
     },
   },
   {

@@ -5080,6 +5080,35 @@
             }
           }
         },
+        "space-28": {
+          "$type": "dimension",
+          "fields": [],
+          "figmaName": "spacing/28",
+          "hiddenFromPublishing": true,
+          "losses": [
+            "Figma FLOAT는 DTCG 단위 의미를 직접 보존하지 않으므로 source metadata를 함께 검토해야 합니다."
+          ],
+          "nativeVariableType": "FLOAT",
+          "representation": "variable",
+          "scopes": [
+            "GAP",
+            "WIDTH_HEIGHT"
+          ],
+          "valuesByMode": {
+            "Base": {
+              "$value": {
+                "unit": "px",
+                "value": 28
+              },
+              "aliasTarget": null,
+              "resolvedValue": {
+                "unit": "px",
+                "value": 28
+              },
+              "sourcePath": "primitive.spacing.28"
+            }
+          }
+        },
         "space-280": {
           "$type": "dimension",
           "fields": [],
@@ -8224,6 +8253,34 @@
               },
               "resolvedValue": 100,
               "sourcePath": "semantic.global.layer.sticky"
+            }
+          }
+        },
+        "layout-app-shell-brand-mark-height": {
+          "$type": "dimension",
+          "fields": [],
+          "figmaName": "layout/app-shell-brand-mark-height",
+          "hiddenFromPublishing": false,
+          "losses": [
+            "Figma FLOAT는 DTCG 단위 의미를 직접 보존하지 않으므로 source metadata를 함께 검토해야 합니다."
+          ],
+          "nativeVariableType": "FLOAT",
+          "representation": "variable",
+          "scopes": [
+            "WIDTH_HEIGHT"
+          ],
+          "valuesByMode": {
+            "Global": {
+              "$value": "{primitive.spacing.28}",
+              "aliasTarget": {
+                "id": "space-28",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "unit": "px",
+                "value": 28
+              },
+              "sourcePath": "semantic.global.layout.app-shell-brand-mark-height"
             }
           }
         },

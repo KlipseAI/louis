@@ -2,23 +2,23 @@
   "artifacts": [
     {
       "path": "packages/tokens/generated/figma.tokens.json",
-      "sha256": "b4fa04e8e422b73d05b31d5a215a46b05945e83fc3b7f46ea6f446b109a4f0ce"
+      "sha256": "46a9c4d9fd60febfd9e5ccb5b28e711e6d4cc21c8feaeb3e68f356a0ddf73f3e"
     },
     {
       "path": "packages/tokens/generated/index.d.ts",
-      "sha256": "7c8081fe348d4392be12bc1f4a8011d48ab4d12831ddcb7773867d7e3cb3ceeb"
+      "sha256": "7df9e6d9ec4b95b644cd070e9125fdab6994e24480f28810e6d41187b05af920"
     },
     {
       "path": "packages/tokens/generated/index.js",
-      "sha256": "077d6bfc7e7b87c31e549924b9e306d9651c7f5c3ffb80ecb96c326d7b09578b"
+      "sha256": "24b21267736040c02e35f1fe1502af9549026fce50431def128b5589c68dc262"
     },
     {
       "path": "packages/tokens/generated/tokens.css",
-      "sha256": "f24d1034090932c5cda3befa70683b8fba969839303865d1bf145c512b97fba8"
+      "sha256": "8f0b120b0d63d963ed1b7890d848b12d533d62a7e56a6283c600aead76c286ba"
     },
     {
       "path": "packages/tokens/generated/tokens.json",
-      "sha256": "57b8e6984c0f289d87221c07939507dbe0c9544d1f4be8d8fe153977e0669bf3"
+      "sha256": "fae148a098513defb896329b1ab8b447659f1ff5c15be0d7452a56b8e3f41396"
     }
   ],
   "contrastPairs": [
@@ -388,13 +388,13 @@
   },
   "source": {
     "path": "packages/tokens/src/klipse.tokens.json",
-    "sha256": "2b9f9125b82945e0f9c037c637a2c82ae1acd83913104277fe8403ae8762f7ba"
+    "sha256": "a62ec649eb3f3a5dddd16d1cf398f7c9f44d1063615c65baa23732f03c4c1195"
   },
   "themes": [
     "light",
     "dark"
   ],
-  "tokenCount": 373,
+  "tokenCount": 375,
   "tokens": [
     {
       "aliasTarget": null,
@@ -6255,6 +6255,27 @@
     },
     {
       "aliasTarget": {
+        "id": "space-28",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-layout-app-shell-brand-mark-height": "28px"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "layout-app-shell-brand-mark-height",
+      "mode": "global",
+      "rawValue": "{primitive.spacing.28}",
+      "resolvedValue": {
+        "unit": "px",
+        "value": 28
+      },
+      "sourcePath": "semantic.global.layout.app-shell-brand-mark-height",
+      "tier": "semantic",
+      "type": "dimension"
+    },
+    {
+      "aliasTarget": {
         "id": "space-16",
         "mode": "base"
       },
@@ -8659,6 +8680,25 @@
         "value": 240
       },
       "sourcePath": "primitive.spacing.240",
+      "tier": "primitive",
+      "type": "dimension"
+    },
+    {
+      "aliasTarget": null,
+      "cssProperties": {},
+      "deprecated": null,
+      "description": null,
+      "id": "space-28",
+      "mode": "base",
+      "rawValue": {
+        "unit": "px",
+        "value": 28
+      },
+      "resolvedValue": {
+        "unit": "px",
+        "value": 28
+      },
+      "sourcePath": "primitive.spacing.28",
       "tier": "primitive",
       "type": "dimension"
     },

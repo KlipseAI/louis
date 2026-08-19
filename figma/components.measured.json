@@ -952,13 +952,16 @@
       "sizes": {
         "navItem": {
           "height": 32,
-          "paddingInline": 8,
+          "paddingInline": 4,
           "gap": 8,
           "radius": 10,
           "icon": 20,
           "$height": "layout-control-height-sm 32. min-block-size라 긴 라벨이나 200% 확대에서 자란다",
           "$radius": "radius-overlay-item 10. 제품 사이드바 항목과 같다",
-          "$icon": "icon-size-md 20"
+          "$icon": "icon-size-md 20",
+          "$paddingInline": "4. 배포본은 `main-inline-padding − sidebar-padding-x` = 16 − 12 = 4를 쓴다. 행과 레일의 합이 계약이다 — 레일 12 + 행 4 = 16이 본문 좌측선과 맞는다.",
+          "fontSize": 14,
+          "$fontSize": "body-sm 14. 배포본 사이드바 항목이 --type-body-14-*를 쓴다. 사이드바 밖의 상단 GNB 항목만 16이다."
         },
         "navItemCollapsed": {
           "height": 32,
@@ -997,13 +1000,13 @@
     "banner-carousel": {
       "$doc": "design/components/banner-carousel.md",
       "$source": "packages/react/src/banner-carousel/banner-carousel.tsx, packages/css/src/component/banner-carousel.css",
-      "$note": "값은 전부 배포본 KlipseAI/klipse-web origin/main 7e9c3b69의 TabBannerCarousel.tsx 실측이다. 960×240은 **예시 크기**이고 정본이 아니다 — 높이는 소비처가 정하며 허브 4종이 서로 다르다.",
+      "$note": "배포본 TabBannerCarousel.tsx CAROUSEL은 `h-180`이고 --spacing이 2px라 360px이다. 처음에 240으로 둔 것은 제품을 재지 않고 정한 값이었다.",
       "$keyRule": "기하 키가 Bleed다. Size 축이 없고 Bleed가 반경을 바꾸는 유일한 축이라 그 값을 키로 쓴다.",
       "$noAutoLayout": "루트가 auto-layout이 아니다. 슬라이드가 겹쳐 쌓이므로 흐름 배치가 성립하지 않는다.",
       "sizes": {
         "boxed": {
           "width": 960,
-          "height": 240,
+          "height": 360,
           "contentInline": 540,
           "contentBlockPadding": 24,
           "contentInlinePadding": 20,
@@ -1019,11 +1022,12 @@
           "dotHeight": 7,
           "dotRadius": 999,
           "radius": 16,
-          "controlGlyphCount": 1
+          "controlGlyphCount": 1,
+          "dotsGap": 6
         },
         "full": {
           "width": 960,
-          "height": 240,
+          "height": 360,
           "contentInline": 540,
           "contentBlockPadding": 24,
           "contentInlinePadding": 20,
@@ -1039,7 +1043,8 @@
           "dotHeight": 7,
           "dotRadius": 999,
           "radius": 0,
-          "controlGlyphCount": 1
+          "controlGlyphCount": 1,
+          "dotsGap": 6
         }
       },
       "$pause": "정지 버튼이 컨트롤 안에 있다. **제품에는 없다** — 자동으로 움직이는 것은 멈출 수 있어야 하고(WCAG 2.2.2), 이 저장소는 제품의 과거 UI 부채를 공용 규범으로 복사하지 않는다. 그래서 컨트롤 폭이 제품보다 36px 넓다(28 버튼 + 8 간격).",
@@ -1048,18 +1053,20 @@
     "sidebar-brand": {
       "$doc": "design/components/app-shell-parts.md",
       "$source": "packages/react/src/app-shell/app-shell-parts.tsx, packages/css/src/component/app-shell.css",
-      "$note": "배포본 Gnb.tsx의 sidebarHeaderRow·sidebarLogoRail 실측. 접힘은 워드마크 폭이 0이 되는 것이고 DOM에서 지우지 않는다.",
+      "$note": "배포본 Gnb.tsx sidebarHeaderRow(min-height 40) · sidebarLogoRail(min-height 28) 실측. 처음에 행을 24로 둔 것은 아이콘 슬롯 크기를 행 높이로 착각한 것이었다.",
       "sizes": {
         "false": {
           "width": 256,
-          "height": 24,
+          "height": 40,
           "radius": 0,
-          "wordmarkWidth": 45
+          "markSize": 28,
+          "wordmarkWidth": 96
         },
         "true": {
           "width": 72,
-          "height": 24,
-          "radius": 0
+          "height": 40,
+          "radius": 0,
+          "markSize": 28
         }
       }
     },
@@ -1089,5 +1096,8 @@
     }
   },
   "$states": "variant × state마다 **어느 토큰을 무는가**. 개수가 아니라 정체를 고정한다. 이 표가 없던 동안 primary 배경을 danger 변수에 물려도 boundFills 수치가 그대로라 게이트가 통과했다. 값은 token id이며 Figma 변수 이름으로의 변환은 게이트가 생성 proposal의 figmaName으로 한다 — 여기에 Figma 이름을 적으면 정본이 둘이 된다. 코드 쪽 검증은 packages/react/test/component-states.browser.test.tsx가 계산값과 대조한다.",
-  "$borderWidthNote": "모든 1px 테두리를 0.5px로 바꿨다(owner 결정). Figma strokeWeight도 0.5다. Figma padding = CSS padding + 0.5이며 프레임 높이는 min-block-size가 고정하므로 바뀌지 않는다."
+  "$borderWidthNote": "모든 1px 테두리를 0.5px로 바꿨다(owner 결정). Figma strokeWeight도 0.5다. Figma padding = CSS padding + 0.5이며 프레임 높이는 min-block-size가 고정하므로 바뀌지 않는다.",
+  "$noProductRender": {
+    "slider": "제품에 공용 구현이 없고 정의 37벌이 일곱 레시피로 갈리며 **합의하는 축이 하나도 없다**(migration/product.measured.json slider). 어느 벌을 골라도 그것이 제품을 대표하지 않으므로 렌더 대조 대상이 아니다. 레일 4px만 다수(일곱 중 넷)이고 그 근거는 measured의 $railHeight가 적는다."
+  }
 }

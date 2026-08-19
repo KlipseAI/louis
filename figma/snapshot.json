@@ -6,12 +6,12 @@
     "capturedAt": "2026-08-18",
     "capturedBy": "figma-mcp-plugin-api",
     "published": false,
-    "tokenSourceSha256": "2b9f9125b82945e0f9c037c637a2c82ae1acd83913104277fe8403ae8762f7ba",
-    "proposalSha256": "b4fa04e8e422b73d05b31d5a215a46b05945e83fc3b7f46ea6f446b109a4f0ce",
+    "tokenSourceSha256": "a62ec649eb3f3a5dddd16d1cf398f7c9f44d1063615c65baa23732f03c4c1195",
+    "proposalSha256": "46a9c4d9fd60febfd9e5ccb5b28e711e6d4cc21c8feaeb3e68f356a0ddf73f3e",
     "readback": {
-      "tokens": 244,
-      "canonicalLength": 21087,
-      "fnv1a32": "ad16c5a1",
+      "tokens": 246,
+      "canonicalLength": 21226,
+      "fnv1a32": "a7a85275",
       "note": "변수는 readback.json의 되읽기 행을 tokenId 공간으로 옮긴 것이고, style과 component는 같은 되읽기의 style/component 절이다. canonical 해시는 컬렉션·이름·타입·mode 값을 정렬해 이은 문자열의 FNV-1a다.",
       "styles": {
         "text": 15,
@@ -31,14 +31,14 @@
         "Base"
       ],
       "defaultMode": "Base",
-      "variableCount": 121
+      "variableCount": 122
     },
     "Klipse Semantic": {
       "modes": [
         "Global"
       ],
       "defaultMode": "Global",
-      "variableCount": 69
+      "variableCount": 70
     },
     "Klipse Semantic Color": {
       "modes": [
@@ -1894,6 +1894,15 @@
         }
       }
     },
+    "layout-app-shell-brand-mark-height": {
+      "figmaName": "layout/app-shell-brand-mark-height",
+      "resolvedType": "FLOAT",
+      "valuesByMode": {
+        "Global": {
+          "alias": "space-28"
+        }
+      }
+    },
     "layout-app-shell-content-inset": {
       "figmaName": "layout/app-shell-content-inset",
       "resolvedType": "FLOAT",
@@ -2503,6 +2512,15 @@
       "valuesByMode": {
         "Base": {
           "value": 240
+        }
+      }
+    },
+    "space-28": {
+      "figmaName": "spacing/28",
+      "resolvedType": "FLOAT",
+      "valuesByMode": {
+        "Base": {
+          "value": 28
         }
       }
     },
@@ -3272,7 +3290,7 @@
                 540
               ],
               "height": [
-                240
+                360
               ],
               "paddingLeft": [
                 20
@@ -3368,7 +3386,7 @@
             960
           ],
           "height": [
-            240
+            360
           ],
           "layoutMode": [
             "NONE"
@@ -3387,7 +3405,7 @@
                 540
               ],
               "height": [
-                240
+                360
               ],
               "paddingLeft": [
                 20
@@ -3483,7 +3501,7 @@
             960
           ],
           "height": [
-            240
+            360
           ],
           "layoutMode": [
             "NONE"
@@ -4866,9 +4884,17 @@
         "false": {
           "slots": {},
           "parts": {
+            "Mark": {
+              "width": [
+                28
+              ],
+              "height": [
+                28
+              ]
+            },
             "Wordmark": {
               "width": [
-                45
+                96
               ],
               "height": [
                 24
@@ -4880,7 +4906,7 @@
             256
           ],
           "height": [
-            24
+            40
           ],
           "cornerRadius": [
             0
@@ -4893,13 +4919,22 @@
         },
         "true": {
           "slots": {},
-          "parts": {},
+          "parts": {
+            "Mark": {
+              "width": [
+                28
+              ],
+              "height": [
+                28
+              ]
+            }
+          },
           "strokeWeight": [],
           "width": [
             72
           ],
           "height": [
-            24
+            40
           ],
           "cornerRadius": [
             0
@@ -5081,7 +5116,13 @@
             "HORIZONTAL"
           ],
           "overflowingParts": [],
-          "offCenterMarks": []
+          "offCenterMarks": [],
+          "paddingInline": [
+            4
+          ],
+          "paddingInlineEnd": [
+            4
+          ]
         }
       },
       "strokes": {},

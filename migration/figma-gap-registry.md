@@ -637,3 +637,59 @@ adoption 노트로 넘긴다.
 목표 B의 기준은 Home·Highlight·Editor 3개 화면이 카탈로그 gap과 parity 결함 없이 재조립되는
 것이다. **현재 셋 다 미달이고, 가장 먼 것은 에디터다.** 위 표의 1~11번이 서면 홈과 하이라이트
 허브가 대부분 조립되고, 12번 이후와 에디터 전용 뼈대가 서야 에디터가 조립된다.
+
+
+## 전 컴포넌트 제품 대조 (2026-08-19)
+
+"지금 있는 모든 컴포넌트를 실제품과 대조해"에 대한 결과다. 그전까지 제품 값은 대부분 사람이
+코드를 읽고 옮긴 것이었고 기계 대조는 **10축**뿐이었다. 이제 제품 소스의 클래스 상수를
+**손으로 옮기지 않고** 배포 커밋에서 직접 꺼내 제품 자신의 Tailwind로 컴파일하고, 실브라우저에서
+계산값을 읽어 DS와 맞춘다 — 탐침 43종 · **108축** · 컴포넌트 20/21.
+
+`scripts/measure-product-components.mjs`가 그 게이트이며 축마다 `same`(같아야 한다) 또는
+`deviates`(달라야 하고 사유가 있어야 한다) 중 하나를 요구한다. **편차가 사라지는 것도 실패다** —
+사유가 낡았다는 뜻이기 때문이다. canary 4종이 검출력을 매 실행 증명한다.
+
+### 이 대조로 드러난 것 — 제품과 달랐고 고친 것
+
+| 축 | 제품 | 고치기 전 DS | 무엇이 틀렸나 |
+| --- | ---: | ---: | --- |
+| 배너 높이 | 360 | 240 | `h-180`과 `--spacing: 2px`를 곱하지 않고 눈대중으로 정한 값이었다 |
+| 브랜드 행 높이 | 40 | 24 | 아이콘 슬롯 크기(`icon-size-lg`)를 행 높이로 착각했다 |
+| 브랜드 마크 레일 | 28 | 없음 | 제품의 `--app-gnb-sidebar-logo-h`에 해당하는 부품이 아예 없었다 |
+| 내비 항목 좌우 여백 | 4 | 8 | 레일 12 + 행 4 = 본문 16이라는 정렬 산수를 읽지 않았다 |
+| 사이드바 CTA 아이콘 | 없음 | plus 글리프 | 제품을 읽지 않고 지어냈다 |
+| 사이드바 CTA 색 | mint | 브랜드 파랑 | 같은 이유다 |
+| 사이드바 CTA 접힘 | 32 / 0·10 | 40 / 10·14 | 접힘이 폭만 줄인다고 보았다 |
+| 내비 항목 글자 | 14 | 기록 없음 | 축 자체가 없었다 |
+
+### 남은 편차 — 다르고, 다른 이유가 있다
+
+| 축 | 제품 | DS | 사유(요약) |
+| --- | ---: | ---: | --- |
+| `button-secondary-border.borderTopWidth` | 1 | 0.5 | 제품 1px, DS 0 |
+| `tooltip.borderTopWidth` | 1 | 0.5 | 제품 1px, DS 0 |
+| `toast.height` | 48 | 45 | 제품 48, DS 45 |
+| `menu-item.height` | 40 | 44 | 제품 40, DS 44 |
+| `dialog-card.paddingTop` | 16 | 20 | 제품 16, DS 20 |
+| `dialog-card.borderTopLeftRadius` | 24 | 20 | 제품 24, DS 20 |
+| `dialog-card.borderTopWidth` | 0 | 0.5 | 제품 0, DS 0 |
+| `input-box.borderTopWidth` | 1 | 0.5 | 제품 1px, DS 0 |
+| `empty-state.paddingLeft` | 0 | 16 | 제품 0, DS 16 |
+| `spinner-sm.::after:borderTopWidth` | 2 | 1 | 제품 2, DS 1 |
+| `selectable-row.paddingTop` | 6 | 8 | 제품 6, DS 8 |
+| `selectable-row.columnGap` | 10 | 8 | 제품 10, DS 8 |
+| `selectable-row.borderTopLeftRadius` | 14 | 10 | 제품 14, DS 10 |
+| `segmented-segment.height` | 28 | 32 | 제품 28, DS 32 |
+| `segmented-track.columnGap` | 2 | 8 | 제품 2, DS 8 |
+| `skeleton.borderTopLeftRadius` | 999 | 8 | 제품 999(알약), DS 8 |
+| `skeleton.::after:animationDuration` | 1300 | 1600 | 제품 1300ms, DS 1600ms |
+| `top-bar.paddingLeft` | 8 | 16 | 제품 8, DS 16 |
+
+전문은 `migration/product.rendered-components.json`의 `deviations`가 갖는다.
+
+### 대조하지 않은 것
+
+`slider` 하나다. 제품 정의 37벌이 일곱 레시피로 갈리고 **합의하는 축이 하나도 없어** 어느 벌을
+골라도 제품을 대표하지 못한다. `figma/components.measured.json`의 `$noProductRender`가 그 사유를
+갖고, 게이트는 사유 없는 미대조를 실패로 만든다.

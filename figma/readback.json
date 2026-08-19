@@ -1662,6 +1662,18 @@
           ]
         ],
         [
+          "spacing/28",
+          "FLOAT",
+          "WIDTH_HEIGHT,GAP",
+          [
+            [
+              "Base",
+              null,
+              28
+            ]
+          ]
+        ],
+        [
           "spacing/280",
           "FLOAT",
           "WIDTH_HEIGHT,GAP",
@@ -1941,6 +1953,18 @@
             [
               "Global",
               "Klipse Primitive::layer/sticky",
+              null
+            ]
+          ]
+        ],
+        [
+          "layout/app-shell-brand-mark-height",
+          "FLOAT",
+          "WIDTH_HEIGHT",
+          [
+            [
+              "Global",
+              "Klipse Primitive::spacing/28",
               null
             ]
           ]
@@ -4070,7 +4094,7 @@
                 540
               ],
               "height": [
-                240
+                360
               ],
               "paddingLeft": [
                 20
@@ -4166,7 +4190,7 @@
             960
           ],
           "height": [
-            240
+            360
           ],
           "layoutMode": [
             "NONE"
@@ -4185,7 +4209,7 @@
                 540
               ],
               "height": [
-                240
+                360
               ],
               "paddingLeft": [
                 20
@@ -4281,7 +4305,7 @@
             960
           ],
           "height": [
-            240
+            360
           ],
           "layoutMode": [
             "NONE"
@@ -5642,9 +5666,17 @@
         "false": {
           "slots": {},
           "parts": {
+            "Mark": {
+              "width": [
+                28
+              ],
+              "height": [
+                28
+              ]
+            },
             "Wordmark": {
               "width": [
-                45
+                96
               ],
               "height": [
                 24
@@ -5656,7 +5688,7 @@
             256
           ],
           "height": [
-            24
+            40
           ],
           "cornerRadius": [
             0
@@ -5669,13 +5701,22 @@
         },
         "true": {
           "slots": {},
-          "parts": {},
+          "parts": {
+            "Mark": {
+              "width": [
+                28
+              ],
+              "height": [
+                28
+              ]
+            }
+          },
           "strokeWeight": [],
           "width": [
             72
           ],
           "height": [
-            24
+            40
           ],
           "cornerRadius": [
             0
@@ -5853,7 +5894,13 @@
             "HORIZONTAL"
           ],
           "overflowingParts": [],
-          "offCenterMarks": []
+          "offCenterMarks": [],
+          "paddingInline": [
+            4
+          ],
+          "paddingInlineEnd": [
+            4
+          ]
         }
       },
       "strokes": {},

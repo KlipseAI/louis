@@ -1,39 +1,353 @@
 {
   "$comment": "생성물. scripts/measure-product-components.mjs가 제품 클래스를 제품 Tailwind로 컴파일해 실브라우저에서 잰다. 직접 수정하지 않는다.",
   "$whyThisExists": "그전까지 제품 값은 전부 소스 읽기였다. product.measured.json의 187축 중 기계 대조는 12축뿐이고 나머지는 사람이 코드를 읽고 옮긴 값이다. 여기 값은 브라우저가 실제로 계산한 것이다.",
-  "$method": "제품 서버를 띄우지 않는다. 클래스 문자열을 제품 소스에서 그대로 옮겨 제품 Tailwind로 컴파일하고, 제품 CSS와 함께 빈 문서에 올려 계산값을 읽는다.",
+  "$method": "제품 서버를 띄우지 않는다. 클래스 문자열은 손으로 옮기지 않고 제품 소스의 상수 이름을 가리켜 커밋에서 직접 꺼낸다. 그것을 제품 Tailwind로 컴파일하고 제품 CSS와 함께 빈 문서에 올려 계산값을 읽는다.",
   "productRef": "origin/main",
   "productCommit": "7e9c3b6946a71431479aef69d16baac5c53128b2",
   "probes": [
     {
       "id": "button-md",
       "source": "apps/web/components/ui/Button.tsx ROOT + SIZE_MD",
+      "from": null,
+      "doc": "default",
+      "wrapper": null,
       "html": "<button class=\"box-border relative inline-flex items-center justify-center rounded-[var(--button-radius)] whitespace-nowrap h-[var(--button-height)] py-0 px-[var(--button-padding-inline)] gap-4\">저장</button>"
     },
     {
       "id": "button-sm",
       "source": "apps/web/components/ui/Button.tsx ROOT + SIZE_SM",
+      "from": null,
+      "doc": "default",
+      "wrapper": null,
       "html": "<button class=\"box-border relative inline-flex items-center justify-center rounded-[var(--button-radius)] whitespace-nowrap h-[var(--button-height-sm)] min-w-[var(--button-min-width-sm)] py-0 px-[var(--button-padding-inline-sm)] gap-2\">저장</button>"
+    },
+    {
+      "id": "button-secondary-border",
+      "source": "apps/web/components/ui/Button.tsx BORDER_SECONDARY",
+      "from": null,
+      "doc": "default",
+      "wrapper": null,
+      "html": "<button class=\"box-border [border:1px_solid_rgb(var(--palette-gray-900-rgb)/12%)] rounded-[var(--button-radius)] h-[var(--button-height)]\">저장</button>"
+    },
+    {
+      "id": "icon-button",
+      "source": "Gnb.tsx iconButton — 제품에 공용 IconButton은 없고 이것이 가장 많이 쓰인 벌이다",
+      "from": "apps/web/components/navigation/Gnb.tsx → iconButton",
+      "doc": "default",
+      "wrapper": null,
+      "html": "<button class=\"gnb-iconButton [.gnb-navCreate_&]:[width:32px] [.gnb-navCreate_&]:[height:32px] [.gnb-projectHeader_&]:[width:32px] [.gnb-projectHeader_&]:[height:32px] [position:relative] [width:32px] [min-width:32px] [max-width:32px] [height:32px] [min-height:32px] [max-height:32px] [box-sizing:border-box] [flex:0_0_32px] [border:0] [border-radius:var(--button-radius)] [display:inline-flex] [align-items:center] [justify-content:center] [color:rgb(var(--gray-000-rgb)_/_82%)] [background:rgb(var(--gray-000-rgb)_/_10%)] [box-shadow:var(--glass-bevel-highlight)_rgb(var(--glass-inner-shadow-rgb)_/_25%),_var(--glass-bevel-shade)_rgb(var(--glass-inner-shadow-rgb)_/_25%)] [backdrop-filter:blur(10px)] [cursor:pointer] [transition:transform_180ms_ease,_filter_180ms_ease] [&:hover:not(:disabled)]:[filter:saturate(125%)_brightness(125%)] [&:active:not(:disabled)]:[transform:scale(0.95)] [&:active:not(:disabled)]:[filter:saturate(150%)_brightness(150%)] [&:disabled]:[cursor:default] [&:disabled]:[opacity:0.56] [.gnb-navCreate_.gnb-projectHeader_.gnb-projectHeaderActionsShell_&]:[box-sizing:border-box] [.gnb-navCreate_.gnb-projectHeader_.gnb-projectHeaderActionsShell_&]:[width:32px] [.gnb-navCreate_.gnb-projectHeader_.gnb-projectHeaderActionsShell_&]:[height:32px] [.gnb-navCreate_.gnb-projectHeader_.gnb-projectHeaderActionsShell_&]:[min-width:32px] [.gnb-navCreate_.gnb-projectHeader_.gnb-projectHeaderActionsShell_&]:[min-height:32px] [.gnb-navCreate_.gnb-projectHeader_.gnb-projectHeaderActionsShell_&]:[max-width:32px] [.gnb-navCreate_.gnb-projectHeader_.gnb-projectHeaderActionsShell_&]:[max-height:32px] [.gnb-navCreate_.gnb-projectHeader_.gnb-projectHeaderActionsShell_&]:[flex:0_0_32px] [.gnb-navCreate_.gnb-projectHeader_.gnb-projectHeaderActionsShell_&]:[padding:0] [.gnb-navCreate_.gnb-projectHeader_.gnb-projectHeaderActionsShell_&]:[margin:0] [.gnb-navCreate_.gnb-projectHeader_.gnb-projectHeaderActionsShell_&]:[line-height:1] [.gnb-navCreate_.gnb-projectHeader_.gnb-projectHeaderActionsShell_&]:[border-radius:var(--button-radius)] [.gnb-navCreate_.gnb-projectHeader_.gnb-projectHeaderActionsShell_&]:[background:transparent] [.gnb-navCreate_.gnb-projectHeader_.gnb-projectHeaderActionsShell_&]:[box-shadow:none] [.gnb-navCreate_.gnb-projectHeader_.gnb-projectHeaderActionsShell_&]:[backdrop-filter:none] [.gnb-navCreate_.gnb-projectHeader_.gnb-projectHeaderActionsShell_&]:[filter:none] [.gnb-navCreate_.gnb-projectHeader_.gnb-projectHeaderActionsShell_&]:[transform:none] [.gnb-navCreate_.gnb-projectHeader_.gnb-projectHeaderActionsShell_&]:[color:rgb(var(--gray-200-rgb)_/_100%)] [.gnb-navCreate_.gnb-projectHeader_.gnb-projectHeaderActionsShell_&]:[transition:background_0.15s_ease,_color_0.15s_ease] [.gnb-navCreate_.gnb-projectHeader_.gnb-projectHeaderActionsShell_&>svg]:[width:20px] [.gnb-navCreate_.gnb-projectHeader_.gnb-projectHeaderActionsShell_&>svg]:[height:20px] [.gnb-navCreate_.gnb-projectHeader_.gnb-projectHeaderActionsShell_&>svg]:[flex-shrink:0] [.gnb-navCreate_.gnb-projectHeader_.gnb-projectHeaderActionsShell_&>svg]:[display:block] [.gnb-navCreate_.gnb-projectHeader_.gnb-projectHeaderActionsShell_&>svg]:[color:inherit] [.gnb-navCreate_.gnb-projectHeader_.gnb-projectHeaderActionsShell_&>svg_:is(path,_circle,_rect,_line,_polyline)]:[vector-effect:non-scaling-stroke] [html[data-theme=light]_.gnb-navCreate_.gnb-projectHeader_.gnb-projectHeaderActionsShell_&]:[background:transparent] [html[data-theme=light]_.gnb-navCreate_.gnb-projectHeader_.gnb-projectHeaderActionsShell_&]:[box-shadow:none] [html[data-theme=light]_.gnb-navCreate_.gnb-projectHeader_.gnb-projectHeaderActionsShell_&]:[backdrop-filter:none] [html[data-theme=light]_.gnb-navCreate_.gnb-projectHeader_.gnb-projectHeaderActionsShell_&]:[filter:none] [html[data-theme=light]_.gnb-navCreate_.gnb-projectHeader_.gnb-projectHeaderActionsShell_&]:[transform:none] [html[data-theme=light]_.gnb-navCreate_.gnb-projectHeader_.gnb-projectHeaderActionsShell_&]:[color:rgb(var(--palette-gray-800-rgb)_/_100%)] [.gnb-navCreate_.gnb-projectHeader_.gnb-projectHeaderActionsShell_&:hover:not(:disabled)]:[filter:none] [.gnb-navCreate_.gnb-projectHeader_.gnb-projectHeaderActionsShell_&:hover:not(:disabled)]:[background:rgb(var(--gray-000-rgb)_/_10%)] [.gnb-navCreate_.gnb-projectHeader_.gnb-projectHeaderActionsShell_&:hover:not(:disabled)]:[color:rgb(var(--gray-000-rgb)_/_100%)] [html[data-theme=light]_.gnb-navCreate_.gnb-projectHeader_.gnb-projectHeaderActionsShell_&:hover:not(:disabled)]:[filter:none] [html[data-theme=light]_.gnb-navCreate_.gnb-projectHeader_.gnb-projectHeaderActionsShell_&:hover:not(:disabled)]:[background:rgb(var(--palette-gray-900-rgb)_/_8%)] [html[data-theme=light]_.gnb-navCreate_.gnb-projectHeader_.gnb-projectHeaderActionsShell_&:hover:not(:disabled)]:[color:rgb(var(--palette-gray-900-rgb)_/_100%)] [.gnb-navCreate_.gnb-projectHeader_.gnb-projectHeaderActionsShell_&:active:not(:disabled)]:[filter:none] [.gnb-navCreate_.gnb-projectHeader_.gnb-projectHeaderActionsShell_&:active:not(:disabled)]:[transform:none]\"></button>"
+    },
+    {
+      "id": "icon-button-card",
+      "source": "appHomeSceneStyles.ts archiveMoreButton — 카드 위 more 버튼",
+      "from": "apps/web/components/scenes/appHomeSceneStyles.ts → archiveMoreButton",
+      "doc": "default",
+      "wrapper": null,
+      "html": "<button class=\"tw-ah-012 [flex-shrink:0] [width:32px] [height:32px] [border:0] [border-radius:var(--button-radius)] [background:rgb(var(--gray-800-rgb)_/_50%)] [color:var(--gray-000)] [display:inline-flex] [align-items:center] [justify-content:center] [cursor:pointer] [opacity:0] [transition:opacity_160ms_ease,_transform_160ms_ease,_box-shadow_160ms_ease] [&:hover]:[background:rgb(var(--gray-800-rgb)_/_60%)] [&:hover]:[box-shadow:var(--glass-bevel-highlight)_rgb(var(--glass-inner-shadow-rgb)_/_25%),_var(--glass-bevel-shade)_rgb(var(--glass-inner-shadow-rgb)_/_25%)] [&:active]:[transform:scale(0.97)] [.tw-ah-001:hover_&]:[opacity:1]\"></button>"
     },
     {
       "id": "project-card",
       "source": "apps/web/components/scenes/appHomeSceneStyles.ts archiveCard",
+      "from": null,
+      "doc": "default",
+      "wrapper": null,
       "html": "<div class=\"[position:relative] [display:grid] [gap:12px] [row-gap:8px] [padding:0] [min-width:0] [border-radius:16px]\"></div>"
     },
     {
       "id": "project-card-overlay",
       "source": "apps/web/components/scenes/appHomeSceneStyles.ts archivePreviewTitleOverlay",
+      "from": null,
+      "doc": "default",
+      "wrapper": null,
       "html": "<div class=\"[position:absolute] [height:30%] [padding:16px] [border-radius:0_0_16px_16px]\"></div>"
+    },
+    {
+      "id": "project-card-preview",
+      "source": "appHomeSceneStyles.ts archivePreview — 카드 미디어 면",
+      "from": "apps/web/components/scenes/appHomeSceneStyles.ts → archivePreview",
+      "doc": "default",
+      "wrapper": null,
+      "html": "<div class=\"tw-ah-013 [--archive-overlay-rgb:var(--palette-gray-900-rgb)] [--archive-node-canvas-bg:var(--palette-gray-900)] [position:relative] [width:100%] [min-width:0] [border-radius:16px] [background:var(--gray-900)] [overflow:visible] [box-shadow:var(--glass-bevel-highlight)_rgb(var(--glass-inner-shadow-rgb)_/_25%),_var(--glass-bevel-shade)_rgb(var(--glass-inner-shadow-rgb)_/_25%)] [html[data-theme=light]_&]:[--archive-overlay-rgb:var(--palette-gray-200-rgb)] [html[data-theme=light]_&]:[--archive-node-canvas-bg:var(--palette-gray-200)] [html[data-theme=light]_&]:[background:var(--palette-gray-200)] [html[data-theme=light]_&]:[box-shadow:var(--glass-bevel-highlight)_rgb(var(--glass-inner-shadow-rgb)_/_25%),_var(--glass-bevel-shade)_rgb(var(--glass-inner-shadow-rgb)_/_25%)]\"></div>"
     },
     {
       "id": "project-grid",
       "source": "apps/web/components/scenes/appHomeSceneStyles.ts archiveGrid",
+      "from": null,
+      "doc": "default",
+      "wrapper": null,
       "html": "<div class=\"[display:grid] [grid-template-columns:repeat(2,_1fr)] [gap:12px] min-[1200px]:[grid-template-columns:repeat(4,_1fr)]\"></div>"
     },
     {
-      "id": "button-secondary-border",
-      "source": "apps/web/components/ui/Button.tsx BORDER_SECONDARY",
-      "html": "<button class=\"box-border [border:1px_solid_rgb(var(--palette-gray-900-rgb)/12%)] rounded-[var(--button-radius)] h-[var(--button-height)]\">저장</button>"
+      "id": "tooltip",
+      "source": "globals.css .app-tooltip-chrome — 제품 툴팁 면·타이포 SSOT",
+      "from": null,
+      "doc": "default",
+      "wrapper": null,
+      "html": "<div class=\"app-tooltip-chrome\">저장</div>"
+    },
+    {
+      "id": "toast",
+      "source": "appHomeSceneStyles.ts toast",
+      "from": "apps/web/components/scenes/appHomeSceneStyles.ts → toast",
+      "doc": "default",
+      "wrapper": null,
+      "html": "<div class=\"tw-ah-080 [position:fixed] [bottom:32px] [left:50%] [transform:translateX(-50%)] [z-index:1300] [padding:12px_20px] [border-radius:16px] [backdrop-filter:blur(10px)] [box-shadow:0_8px_20px_rgb(var(--gray-1000-rgb)_/_16%),_var(--glass-bevel-highlight)_rgb(var(--glass-inner-shadow-rgb)_/_25%),_var(--glass-bevel-shade)_rgb(var(--glass-inner-shadow-rgb)_/_25%)] [animation:appHomeToastIn_280ms_ease] [html[data-theme=light]_&]:[background:rgb(var(--palette-gray-800-rgb)_/_70%)] [html[data-theme=dark]_&]:[background:rgb(var(--palette-gray-200-rgb)_/_70%)]\">저장했어요</div>"
+    },
+    {
+      "id": "menu-panel",
+      "source": "globals.css --dropdown-radius / --dropdown-padding — 제품 드롭다운 면 SSOT",
+      "from": null,
+      "doc": "default",
+      "wrapper": null,
+      "html": "<div class=\"[border-radius:var(--dropdown-radius)] [padding:var(--dropdown-padding)] [background:var(--dropdown-surface-bg)]\"></div>"
+    },
+    {
+      "id": "menu-item",
+      "source": "highlightSceneStyles.ts historyDropdownItem",
+      "from": "apps/web/components/scenes/highlightSceneStyles.ts → historyDropdownItem",
+      "doc": "default",
+      "wrapper": null,
+      "html": "<button class=\"tw-hs-074 [display:flex] [align-items:center] [gap:6px] [width:100%] [padding:8px_12px] [border:none] [border-radius:var(--dropdown-item-radius)] [background:transparent] [color:rgb(var(--gray-000-rgb)_/_86%)] [font-family:inherit]! [text-align:left] [cursor:pointer] [transition:background-color_140ms_ease] [&:hover:not(.tw-hs-075)]:[background:rgb(var(--gray-000-rgb)_/_10%)] [html[data-theme=light]_&]:[color:rgb(var(--palette-gray-900-rgb)_/_86%)] [html[data-theme=light]_&:hover:not(.tw-hs-075)]:[background:rgb(var(--palette-gray-900-rgb)_/_6%)] [html[data-theme=light]_&.tw-hs-075]:[color:var(--accent-red-500)]\">이름 바꾸기</button>"
+    },
+    {
+      "id": "dialog-card",
+      "source": "appHomeSceneStyles.ts modalCard",
+      "from": "apps/web/components/scenes/appHomeSceneStyles.ts → modalCard",
+      "doc": "default",
+      "wrapper": null,
+      "html": "<div class=\"tw-ah-071 [width:min(360px,_calc(100vw_-_40px))] [padding:16px] [border-radius:24px] [background:rgb(var(--palette-gray-800-rgb)_/_100%)] [box-shadow:var(--glass-dropdown-frame)] [html[data-theme=light]_&]:[background:rgb(var(--palette-gray-100-rgb)_/_100%)]\"></div>"
+    },
+    {
+      "id": "dialog-overlay",
+      "source": "appHomeSceneStyles.ts modalOverlay",
+      "from": "apps/web/components/scenes/appHomeSceneStyles.ts → modalOverlay",
+      "doc": "default",
+      "wrapper": null,
+      "html": "<div class=\"tw-ah-074 [position:fixed] [inset:0] [z-index:1200] [display:grid] [place-items:center] [background:rgb(var(--palette-gray-900-rgb)_/_50%)]\"></div>"
+    },
+    {
+      "id": "dialog-action",
+      "source": "appHomeSceneStyles.ts modalConfirm",
+      "from": "apps/web/components/scenes/appHomeSceneStyles.ts → modalConfirm",
+      "doc": "default",
+      "wrapper": null,
+      "html": "<button class=\"tw-ah-072 [flex:1] [height:44px] [border:0] [border-radius:16px] [cursor:pointer] [transition:transform_180ms_ease,_filter_180ms_ease] [&:active]:[transform:scale(0.97)] [background:var(--accent-red-500)] [color:var(--palette-gray-000)] [&:hover]:[filter:brightness(112%)]\">삭제</button>"
+    },
+    {
+      "id": "input-box",
+      "source": "myPageSceneStyles.ts modalAuthInputBox + modalAuthInputBoxSingle",
+      "from": "apps/web/components/scenes/myPageSceneStyles.ts → modalAuthInputBox + modalAuthInputBoxSingle",
+      "doc": "default",
+      "wrapper": null,
+      "html": "<div class=\"tw-mp-039 [position:relative] [border:1px_solid_rgb(var(--gray-000-rgb)_/_12%)] [padding:12px_16px] [background:rgb(var(--gray-000-rgb)_/_6%)] [box-sizing:border-box] [transition:border-color_180ms_ease,_box-shadow_180ms_ease] [z-index:1] [cursor:text] tw-mp-042 [border-radius:12px]\"></div>"
+    },
+    {
+      "id": "empty-state",
+      "source": "appHomeSceneStyles.ts emptyState",
+      "from": "apps/web/components/scenes/appHomeSceneStyles.ts → emptyState",
+      "doc": "default",
+      "wrapper": null,
+      "html": "<div class=\"tw-ah-058 [display:flex] [flex-direction:column] [align-items:center] [justify-content:center] [gap:12px] [padding:80px_0] [color:rgb(var(--gray-000-rgb)_/_40%)] [html[data-theme=light]_[data-forced-theme=dark]_&]:[color:rgb(var(--palette-gray-000-rgb)_/_40%)]\"></div>"
+    },
+    {
+      "id": "avatar",
+      "source": "UserCircleDefaultAvatar.tsx AVATAR",
+      "from": "apps/web/components/navigation/UserCircleDefaultAvatar.tsx → AVATAR",
+      "doc": "default",
+      "wrapper": null,
+      "html": "<div class=\"inline-flex items-center justify-center box-border w-14 h-14 text-palette-gray-400 dark:text-palette-gray-600 walkthrough-light:text-palette-gray-400 walkthrough-dark:text-palette-gray-600\"></div>"
+    },
+    {
+      "id": "badge",
+      "source": "highlightSceneStyles.ts historyCardStatus — 제품 상태 배지",
+      "from": "apps/web/components/scenes/highlightSceneStyles.ts → historyCardStatus",
+      "doc": "default",
+      "wrapper": null,
+      "html": "<div class=\"tw-hs-068 [margin:0] [padding:4px_8px] [border-radius:8px] [background:var(--palette-gray-800)] [color:var(--palette-gray-200)] [html[data-theme=dark]_&]:[background:var(--palette-gray-800)] [html[data-theme=dark]_&]:[color:var(--palette-gray-200)]\">완료</div>"
+    },
+    {
+      "id": "spinner-md",
+      "source": "LoadingSpinner.tsx SPINNER_BASE + SPINNER_MD",
+      "from": "apps/web/components/ui/LoadingSpinner.tsx → SPINNER_BASE + SPINNER_MD",
+      "doc": "default",
+      "wrapper": null,
+      "html": "<div class=\"relative rounded-[50%] [animation:inlineLoadingSpin_700ms_linear_infinite] before:content-[''] before:absolute before:inset-0 before:rounded-[inherit] before:box-border after:content-[''] after:absolute after:inset-0 after:rounded-[inherit] after:box-border before:border-2 before:border-solid before:border-current before:opacity-[0.22] after:border-2 after:border-solid after:border-transparent after:border-t-current w-8 h-8\"></div>"
+    },
+    {
+      "id": "spinner-sm",
+      "source": "LoadingSpinner.tsx SPINNER_BASE + SPINNER_SM",
+      "from": "apps/web/components/ui/LoadingSpinner.tsx → SPINNER_BASE + SPINNER_SM",
+      "doc": "default",
+      "wrapper": null,
+      "html": "<div class=\"relative rounded-[50%] [animation:inlineLoadingSpin_700ms_linear_infinite] before:content-[''] before:absolute before:inset-0 before:rounded-[inherit] before:box-border after:content-[''] after:absolute after:inset-0 after:rounded-[inherit] after:box-border before:border-2 before:border-solid before:border-current before:opacity-[0.22] after:border-2 after:border-solid after:border-transparent after:border-t-current w-6 h-6 before:border after:border\"></div>"
+    },
+    {
+      "id": "checkbox",
+      "source": "globals.css .app-native-checkbox — 제품 선택 목록 정본",
+      "from": null,
+      "doc": "default",
+      "wrapper": null,
+      "html": "<input type=\"checkbox\" class=\"app-native-checkbox\" />"
+    },
+    {
+      "id": "selectable-row",
+      "source": "highlightSceneStyles.ts clipDetailListItem",
+      "from": "apps/web/components/scenes/highlightSceneStyles.ts → clipDetailListItem",
+      "doc": "default",
+      "wrapper": null,
+      "html": "<button class=\"tw-hs-012 [display:flex] [align-items:center] [gap:10px] [width:100%] [padding:6px] [border:none] [border-radius:14px] [background:transparent] [cursor:pointer] [text-align:left] [transition:background_140ms_ease] [&:hover]:[background:rgb(var(--palette-gray-900-rgb)_/_5%)] [html[data-theme=dark]_&:hover]:[background:rgb(var(--palette-gray-000-rgb)_/_6%)] [@media(max-width:900px)]:[flex:0_0_220px] [@media(max-width:900px)]:[width:220px] [@media(max-width:900px)]:[flex-direction:column] [@media(max-width:900px)]:[align-items:stretch]\">클립 1</button>"
+    },
+    {
+      "id": "segmented-track",
+      "source": "myPageSceneStyles.ts settingsToggleWrap",
+      "from": "apps/web/components/scenes/myPageSceneStyles.ts → settingsToggleWrap",
+      "doc": "default",
+      "wrapper": null,
+      "html": "<span class=\"tw-mp-114 [display:inline-flex] [align-items:center] [gap:2px] [padding:4px] [border-radius:12px] [background:rgb(var(--gray-000-rgb)_/_8%)] [position:relative] [box-shadow:var(--glass-dropdown-frame)] [html[data-theme=light]_&]:[background:var(--palette-gray-200)]\"></span>"
+    },
+    {
+      "id": "segmented-segment",
+      "source": "myPageSceneStyles.ts settingsToggleBtn",
+      "from": "apps/web/components/scenes/myPageSceneStyles.ts → settingsToggleBtn",
+      "doc": "default",
+      "wrapper": null,
+      "html": "<button class=\"tw-mp-111 [position:relative] [z-index:1] [display:inline-flex] [align-items:center] [justify-content:center] [height:28px] [padding:0_12px] [border:0] [border-radius:8px] [background:transparent] [color:rgb(var(--gray-000-rgb)_/_42%)] [cursor:pointer] [font-family:inherit]! [white-space:nowrap] [transition:color_160ms_ease] [&:hover]:[color:rgb(var(--gray-000-rgb)_/_72%)]\">시스템</button>"
+    },
+    {
+      "id": "segmented-thumb",
+      "source": "myPageSceneStyles.ts settingsToggleThumb",
+      "from": "apps/web/components/scenes/myPageSceneStyles.ts → settingsToggleThumb",
+      "doc": "default",
+      "wrapper": null,
+      "html": "<span class=\"tw-mp-113 [position:absolute] [top:4px] [left:4px] [height:28px] [border-radius:8px] [background:rgb(var(--gray-000-rgb)_/_14%)] [box-shadow:var(--glass-dropdown-frame)] [pointer-events:none] [transition:transform_220ms_cubic-bezier(0.4,_0,_0.2,_1),_width_220ms_cubic-bezier(0.4,_0,_0.2,_1)] [html[data-theme=light]_&]:[background:var(--palette-gray-000)] [html[data-theme=light]_&]:[box-shadow:var(--glass-dropdown-frame)]\"></span>"
+    },
+    {
+      "id": "skeleton",
+      "source": "myPageSceneStyles.ts skeletonBlock",
+      "from": "apps/web/components/scenes/myPageSceneStyles.ts → skeletonBlock",
+      "doc": "default",
+      "wrapper": null,
+      "html": "<div class=\"tw-mp-115 [position:relative] [overflow:hidden] [border-radius:999px] [background:rgb(var(--gray-000-rgb)_/_8%)] [&::after]:[content:''] [&::after]:[position:absolute] [&::after]:[inset:0] [&::after]:[transform:translateX(-100%)] [&::after]:[background:linear-gradient(_90deg,_rgb(var(--gray-000-rgb)_/_0%)_0%,_rgb(var(--gray-000-rgb)_/_9%)_50%,_rgb(var(--gray-000-rgb)_/_0%)_100%_)] [&::after]:[animation:myPageSkeletonShimmer_1.3s_ease-in-out_infinite]\"></div>"
+    },
+    {
+      "id": "nav-item",
+      "source": "Gnb.tsx menuLink (사이드바 문맥)",
+      "from": "apps/web/components/navigation/Gnb.tsx → menuLink",
+      "doc": "default",
+      "wrapper": "gnb-menu gnb-menuSidebar",
+      "html": "<button class=\"gnb-menuLink [@media(max-width:719px)]:[html[data-app-gnb-sidebar-collapsed=true]_.gnb-menuSidebar_&]:[width:100%] [@media(max-width:719px)]:[html[data-app-gnb-sidebar-collapsed=true]_.gnb-menuSidebar_&]:[max-width:none] [@media(max-width:719px)]:[html[data-app-gnb-sidebar-collapsed=true]_.gnb-menuSidebar_&]:[padding-right:4px] [display:inline-flex] [align-items:center] [justify-content:center] [height:28px] [padding:0_12px] [border:0] [border-radius:999px] [background-color:transparent] [color:var(--gray-000)] [opacity:1] [cursor:pointer] [-webkit-user-drag:none] [user-select:none] [-webkit-user-select:none] [font-family:var(--type-font-family)] [font-feature-settings:var(--type-feature-settings)] [font-size:var(--type-body-16-size)] [line-height:var(--type-body-16-line-height)] [letter-spacing:var(--type-body-16-letter-spacing)] [font-weight:var(--type-weight-regular)] [transition:color_200ms_ease,_background-color_200ms_ease,_box-shadow_200ms_ease] [.gnb-menuSidebar_&]:[justify-content:flex-start] [.gnb-menuSidebar_&]:[align-items:center] [.gnb-menuSidebar_&]:[width:100%] [.gnb-menuSidebar_&]:[box-sizing:border-box] [.gnb-menuSidebar_&]:[height:32px] [.gnb-menuSidebar_&]:[min-height:32px] [.gnb-menuSidebar_&]:[padding-left:calc(_var(--app-gnb-main-inline-padding)_-_var(--app-gnb-sidebar-padding-x)_)] [.gnb-menuSidebar_&]:[padding-right:4px] [.gnb-menuSidebar_&]:[border-radius:10px] [.gnb-menuSidebar_&]:[font-size:var(--type-body-14-size)] [.gnb-menuSidebar_&]:[line-height:var(--type-body-14-line-height)] [.gnb-menuSidebar_&]:[letter-spacing:var(--type-body-14-letter-spacing)] [.gnb-menuSidebar_&]:[font-weight:var(--type-weight-medium)] [.gnb-menuSidebar_&]:[transition:color_200ms_ease,_background-color_200ms_ease,_box-shadow_200ms_ease] [html[data-app-gnb-sidebar-collapsed=true]_.gnb-menuSidebar_&]:[justify-content:center] [html[data-app-gnb-sidebar-collapsed=true]_.gnb-menuSidebar_&]:[width:var(--app-gnb-sidebar-menu-hit-w)] [html[data-app-gnb-sidebar-collapsed=true]_.gnb-menuSidebar_&]:[min-width:var(--app-gnb-sidebar-menu-hit-w)] [html[data-app-gnb-sidebar-collapsed=true]_.gnb-menuSidebar_&]:[max-width:var(--app-gnb-sidebar-menu-hit-w)] [html[data-app-gnb-sidebar-collapsed=true]_.gnb-menuSidebar_&]:[height:32px] [html[data-app-gnb-sidebar-collapsed=true]_.gnb-menuSidebar_&]:[min-height:32px] [html[data-app-gnb-sidebar-collapsed=true]_.gnb-menuSidebar_&]:[padding-left:0] [html[data-app-gnb-sidebar-collapsed=true]_.gnb-menuSidebar_&]:[padding-right:0] [html[data-app-gnb-sidebar-collapsed=true]_.gnb-menuSidebar_&]:[box-sizing:border-box] [@media(max-width:780px)]:[.gnb-menu:not(.gnb-menuSidebar)_&]:[font-size:var(--type-body-14-size)] [@media(max-width:780px)]:[.gnb-menu:not(.gnb-menuSidebar)_&]:[line-height:var(--type-body-14-line-height)] [@media(max-width:780px)]:[.gnb-menu:not(.gnb-menuSidebar)_&]:[letter-spacing:var(--type-body-14-letter-spacing)] [@media(max-width:780px)]:[.gnb-menu:not(.gnb-menuSidebar)_&]:[font-weight:var(--type-weight-regular)] [@media(max-width:480px)]:[.gnb-menu:not(.gnb-menuSidebar)_&]:[padding-inline:8px]!\">아카이브</button>"
+    },
+    {
+      "id": "nav-item-collapsed",
+      "source": "Gnb.tsx menuLink (사이드바 접힘)",
+      "from": "apps/web/components/navigation/Gnb.tsx → menuLink",
+      "doc": "collapsed",
+      "wrapper": "gnb-menu gnb-menuSidebar",
+      "html": "<button class=\"gnb-menuLink [@media(max-width:719px)]:[html[data-app-gnb-sidebar-collapsed=true]_.gnb-menuSidebar_&]:[width:100%] [@media(max-width:719px)]:[html[data-app-gnb-sidebar-collapsed=true]_.gnb-menuSidebar_&]:[max-width:none] [@media(max-width:719px)]:[html[data-app-gnb-sidebar-collapsed=true]_.gnb-menuSidebar_&]:[padding-right:4px] [display:inline-flex] [align-items:center] [justify-content:center] [height:28px] [padding:0_12px] [border:0] [border-radius:999px] [background-color:transparent] [color:var(--gray-000)] [opacity:1] [cursor:pointer] [-webkit-user-drag:none] [user-select:none] [-webkit-user-select:none] [font-family:var(--type-font-family)] [font-feature-settings:var(--type-feature-settings)] [font-size:var(--type-body-16-size)] [line-height:var(--type-body-16-line-height)] [letter-spacing:var(--type-body-16-letter-spacing)] [font-weight:var(--type-weight-regular)] [transition:color_200ms_ease,_background-color_200ms_ease,_box-shadow_200ms_ease] [.gnb-menuSidebar_&]:[justify-content:flex-start] [.gnb-menuSidebar_&]:[align-items:center] [.gnb-menuSidebar_&]:[width:100%] [.gnb-menuSidebar_&]:[box-sizing:border-box] [.gnb-menuSidebar_&]:[height:32px] [.gnb-menuSidebar_&]:[min-height:32px] [.gnb-menuSidebar_&]:[padding-left:calc(_var(--app-gnb-main-inline-padding)_-_var(--app-gnb-sidebar-padding-x)_)] [.gnb-menuSidebar_&]:[padding-right:4px] [.gnb-menuSidebar_&]:[border-radius:10px] [.gnb-menuSidebar_&]:[font-size:var(--type-body-14-size)] [.gnb-menuSidebar_&]:[line-height:var(--type-body-14-line-height)] [.gnb-menuSidebar_&]:[letter-spacing:var(--type-body-14-letter-spacing)] [.gnb-menuSidebar_&]:[font-weight:var(--type-weight-medium)] [.gnb-menuSidebar_&]:[transition:color_200ms_ease,_background-color_200ms_ease,_box-shadow_200ms_ease] [html[data-app-gnb-sidebar-collapsed=true]_.gnb-menuSidebar_&]:[justify-content:center] [html[data-app-gnb-sidebar-collapsed=true]_.gnb-menuSidebar_&]:[width:var(--app-gnb-sidebar-menu-hit-w)] [html[data-app-gnb-sidebar-collapsed=true]_.gnb-menuSidebar_&]:[min-width:var(--app-gnb-sidebar-menu-hit-w)] [html[data-app-gnb-sidebar-collapsed=true]_.gnb-menuSidebar_&]:[max-width:var(--app-gnb-sidebar-menu-hit-w)] [html[data-app-gnb-sidebar-collapsed=true]_.gnb-menuSidebar_&]:[height:32px] [html[data-app-gnb-sidebar-collapsed=true]_.gnb-menuSidebar_&]:[min-height:32px] [html[data-app-gnb-sidebar-collapsed=true]_.gnb-menuSidebar_&]:[padding-left:0] [html[data-app-gnb-sidebar-collapsed=true]_.gnb-menuSidebar_&]:[padding-right:0] [html[data-app-gnb-sidebar-collapsed=true]_.gnb-menuSidebar_&]:[box-sizing:border-box] [@media(max-width:780px)]:[.gnb-menu:not(.gnb-menuSidebar)_&]:[font-size:var(--type-body-14-size)] [@media(max-width:780px)]:[.gnb-menu:not(.gnb-menuSidebar)_&]:[line-height:var(--type-body-14-line-height)] [@media(max-width:780px)]:[.gnb-menu:not(.gnb-menuSidebar)_&]:[letter-spacing:var(--type-body-14-letter-spacing)] [@media(max-width:780px)]:[.gnb-menu:not(.gnb-menuSidebar)_&]:[font-weight:var(--type-weight-regular)] [@media(max-width:480px)]:[.gnb-menu:not(.gnb-menuSidebar)_&]:[padding-inline:8px]!\">아카이브</button>"
+    },
+    {
+      "id": "sidebar-header-row",
+      "source": "Gnb.tsx sidebarHeaderRow",
+      "from": "apps/web/components/navigation/Gnb.tsx → sidebarHeaderRow",
+      "doc": "default",
+      "wrapper": null,
+      "html": "<div class=\"gnb-sidebarHeaderRow [display:flex] [align-items:center] [justify-content:flex-start] [width:100%] [flex-shrink:0] [gap:8px] [padding-left:0] [box-sizing:border-box] [min-height:40px] [transition:padding-left_320ms_cubic-bezier(0.4,_0,_0.2,_1)] [html:not([data-app-gnb-sidebar-collapsed=true])_&]:[padding-left:calc(_var(--app-gnb-main-inline-padding)_-_var(--app-gnb-sidebar-padding-x)_)] [html[data-app-gnb-sidebar-collapsed=true]_&]:[width:100%] [html[data-app-gnb-sidebar-collapsed=true]_&]:[max-width:100%] [@media(prefers-reduced-motion:reduce)]:[transition-duration:0.01ms]!\"></div>"
+    },
+    {
+      "id": "sidebar-logo-rail",
+      "source": "Gnb.tsx sidebarLogoRail",
+      "from": "apps/web/components/navigation/Gnb.tsx → sidebarLogoRail",
+      "doc": "default",
+      "wrapper": null,
+      "html": "<div class=\"gnb-sidebarLogoRail [min-width:0] [min-height:var(--app-gnb-sidebar-logo-h,_28px)] [display:flex] [align-items:center] [justify-content:flex-start] [box-sizing:border-box] [overflow:hidden] [flex-shrink:0] [width:100%] [max-width:100%] [transform:translateX(0)] [transition:width_320ms_cubic-bezier(0.4,_0,_0.2,_1),_transform_320ms_cubic-bezier(0.4,_0,_0.2,_1)] [html:not([data-app-gnb-sidebar-collapsed=true])_&]:[width:100%] [html:not([data-app-gnb-sidebar-collapsed=true])_&]:[transform:translateX(0)] [html[data-app-gnb-sidebar-collapsed=true]_&]:[width:var(--app-gnb-sidebar-logo-symbol-w)] [html[data-app-gnb-sidebar-collapsed=true]_&]:[justify-content:center] [html[data-app-gnb-sidebar-collapsed=true]_&]:[transform:translateX(_calc(_(_var(--app-gnb-sidebar-menu-hit-w)_-_var(--app-gnb-sidebar-logo-symbol-w)_)_/_2_)_)] [html[data-app-gnb-sidebar-collapsed=true]_&]:[overflow:visible] [@media(prefers-reduced-motion:reduce)]:[transition-duration:0.01ms]!\"></div>"
+    },
+    {
+      "id": "sidebar-cta",
+      "source": "Gnb.tsx sidebarUpgradeButton",
+      "from": "apps/web/components/navigation/Gnb.tsx → sidebarUpgradeButton",
+      "doc": "default",
+      "wrapper": null,
+      "html": "<button class=\"gnb-sidebarUpgradeButton [position:relative] [display:inline-flex] [align-items:center] [justify-content:center] [gap:8px] [width:100%] [box-sizing:border-box] [min-height:40px] [padding:10px_14px] [border:0] [border-radius:12px] [text-align:center] [text-decoration:none] [cursor:pointer] [font-family:inherit] [font-weight:var(--type-weight-medium)] [background:rgb(var(--accent-mint-500-rgb)_/_16%)] [color:var(--accent-mint-700)] [&:not(.gnb-sidebarUpgradeButtonActive)]:[box-shadow:var(--glass-bevel-highlight)_rgb(var(--glass-inner-shadow-rgb)_/_20%),_var(--glass-bevel-shade)_rgb(var(--glass-inner-shadow-rgb)_/_20%)] [transition:width_320ms_cubic-bezier(0.4,_0,_0.2,_1),_min-width_320ms_cubic-bezier(0.4,_0,_0.2,_1),_max-width_320ms_cubic-bezier(0.4,_0,_0.2,_1),_min-height_320ms_cubic-bezier(0.4,_0,_0.2,_1),_height_320ms_cubic-bezier(0.4,_0,_0.2,_1),_padding_320ms_cubic-bezier(0.4,_0,_0.2,_1),_gap_320ms_cubic-bezier(0.4,_0,_0.2,_1),_background_160ms_ease,_color_160ms_ease] [html[data-app-gnb-sidebar-collapsed=true]_&]:[width:fit-content] [html[data-app-gnb-sidebar-collapsed=true]_&]:[max-width:100%] [html[data-app-gnb-sidebar-collapsed=true]_&]:[min-height:32px] [html[data-app-gnb-sidebar-collapsed=true]_&]:[height:32px] [html[data-app-gnb-sidebar-collapsed=true]_&]:[padding:0_10px] [html[data-app-gnb-sidebar-collapsed=true]_&]:[justify-content:center] [html[data-app-gnb-sidebar-collapsed=true]_&]:[gap:0] [&:hover]:[background:rgb(var(--accent-mint-500-rgb)_/_24%)] [&:hover]:[color:var(--accent-mint-800)]\">업그레이드</button>"
+    },
+    {
+      "id": "sidebar-cta-collapsed",
+      "source": "Gnb.tsx sidebarUpgradeButton (접힘)",
+      "from": "apps/web/components/navigation/Gnb.tsx → sidebarUpgradeButton",
+      "doc": "collapsed",
+      "wrapper": null,
+      "html": "<button class=\"gnb-sidebarUpgradeButton [position:relative] [display:inline-flex] [align-items:center] [justify-content:center] [gap:8px] [width:100%] [box-sizing:border-box] [min-height:40px] [padding:10px_14px] [border:0] [border-radius:12px] [text-align:center] [text-decoration:none] [cursor:pointer] [font-family:inherit] [font-weight:var(--type-weight-medium)] [background:rgb(var(--accent-mint-500-rgb)_/_16%)] [color:var(--accent-mint-700)] [&:not(.gnb-sidebarUpgradeButtonActive)]:[box-shadow:var(--glass-bevel-highlight)_rgb(var(--glass-inner-shadow-rgb)_/_20%),_var(--glass-bevel-shade)_rgb(var(--glass-inner-shadow-rgb)_/_20%)] [transition:width_320ms_cubic-bezier(0.4,_0,_0.2,_1),_min-width_320ms_cubic-bezier(0.4,_0,_0.2,_1),_max-width_320ms_cubic-bezier(0.4,_0,_0.2,_1),_min-height_320ms_cubic-bezier(0.4,_0,_0.2,_1),_height_320ms_cubic-bezier(0.4,_0,_0.2,_1),_padding_320ms_cubic-bezier(0.4,_0,_0.2,_1),_gap_320ms_cubic-bezier(0.4,_0,_0.2,_1),_background_160ms_ease,_color_160ms_ease] [html[data-app-gnb-sidebar-collapsed=true]_&]:[width:fit-content] [html[data-app-gnb-sidebar-collapsed=true]_&]:[max-width:100%] [html[data-app-gnb-sidebar-collapsed=true]_&]:[min-height:32px] [html[data-app-gnb-sidebar-collapsed=true]_&]:[height:32px] [html[data-app-gnb-sidebar-collapsed=true]_&]:[padding:0_10px] [html[data-app-gnb-sidebar-collapsed=true]_&]:[justify-content:center] [html[data-app-gnb-sidebar-collapsed=true]_&]:[gap:0] [&:hover]:[background:rgb(var(--accent-mint-500-rgb)_/_24%)] [&:hover]:[color:var(--accent-mint-800)]\">업그레이드</button>"
+    },
+    {
+      "id": "sidebar-cta-label-collapsed",
+      "source": "Gnb.tsx sidebarUpgradeLabel (접힘)",
+      "from": "apps/web/components/navigation/Gnb.tsx → sidebarUpgradeLabel",
+      "doc": "collapsed",
+      "wrapper": null,
+      "html": "<span class=\"gnb-sidebarUpgradeLabel [min-width:0] [overflow:hidden] [white-space:nowrap] [max-width:240px] [transition:max-width_320ms_cubic-bezier(0.4,_0,_0.2,_1)] [html[data-app-gnb-sidebar-collapsed=true]_&]:[max-width:4.5rem] [html[data-app-gnb-sidebar-collapsed=true]_&]:[margin:0] [html[data-app-gnb-sidebar-collapsed=true]_&]:[padding:0] [html[data-app-gnb-sidebar-collapsed=true]_&]:[text-overflow:ellipsis] [html[data-app-gnb-sidebar-collapsed=true]_&]:[font-size:var(--type-caption-12-size)] [html[data-app-gnb-sidebar-collapsed=true]_&]:[line-height:var(--type-caption-12-line-height)] [html[data-app-gnb-sidebar-collapsed=true]_&]:[letter-spacing:var(--type-caption-12-letter-spacing)]\">업그레이드</span>"
+    },
+    {
+      "id": "top-bar",
+      "source": "Gnb.tsx mainChromeTopBar + mainChromeTopBarInPanel",
+      "from": "apps/web/components/navigation/Gnb.tsx → mainChromeTopBar + mainChromeTopBarInPanel",
+      "doc": "default",
+      "wrapper": null,
+      "html": "<div class=\"gnb-mainChromeTopBar [position:fixed] [z-index:1002] [top:var(--app-gnb-safe-top)] [left:var(--app-gnb-sidebar-width)] [right:0] [&:not(.gnb-mainChromeTopBarInPanel)]:[padding-right:max(12px,_env(safe-area-inset-right,_0px))] [box-sizing:border-box] [display:flex] [align-items:center] [gap:8px] [min-width:0] [width:auto] [max-width:none] [&:not(.gnb-mainChromeTopBarInPanel)]:[transition:left_320ms_cubic-bezier(0.4,_0,_0.2,_1)] [&:not(.gnb-mainChromeTopBarInPanel)]:[pointer-events:none] [&>*]:[pointer-events:auto] gnb-mainChromeTopBarInPanel [@media(max-width:719px)]:[.gnb-mainChromeTopBar:not(&)]:[padding-left:max(12px,_env(safe-area-inset-left,_0px))] [position:static] [--mainchrome-pad-x:8px] [width:calc(_100%_+_var(--mainchrome-bleed-left,_var(--app-gnb-main-inline-padding))_+_var(--mainchrome-bleed-right,_var(--app-gnb-main-inline-padding))_)] [margin-left:calc(_-1_*_var(--mainchrome-bleed-left,_var(--app-gnb-main-inline-padding))_)] [margin-right:calc(_-1_*_var(--mainchrome-bleed-right,_var(--app-gnb-main-inline-padding))_)] [max-width:none] [padding:8px_var(--mainchrome-pad-x)] [background:var(--app-page-bg)] [border-bottom:1px_solid_color-mix(_in_srgb,_rgb(var(--gray-000-rgb)_/_8%)_calc(var(--mainchrome-divider-progress,_1)_*_100%),_transparent_)] [transition:border-bottom-color_120ms_ease] [pointer-events:auto] [html[data-theme=light]_&]:[background:var(--palette-gray-100)] [html[data-theme=light]_&]:[border-bottom-color:color-mix(_in_srgb,_var(--palette-gray-200)_calc(var(--mainchrome-divider-progress,_1)_*_100%),_transparent_)] [html[data-theme=dark]_&]:[background:var(--palette-gray-800)] [@media(max-width:719px)]:[--mainchrome-pad-x:var(--app-gnb-main-inline-padding)] [@media(max-width:719px)]:[padding:8px_var(--app-gnb-main-inline-padding-end)_8px_var(--app-gnb-main-inline-padding)]\">홈</div>"
+    },
+    {
+      "id": "carousel",
+      "source": "TabBannerCarousel.tsx CAROUSEL + CAROUSEL_BOXED",
+      "from": "apps/web/components/banners/TabBannerCarousel.tsx → CAROUSEL + CAROUSEL_BOXED",
+      "doc": "default",
+      "wrapper": null,
+      "html": "<div class=\"relative max-w-none h-180 overflow-hidden flex isolate bg-palette-gray-800 dark:bg-palette-gray-900 w-full rounded-16\"></div>"
+    },
+    {
+      "id": "carousel-content",
+      "source": "TabBannerCarousel.tsx CONTENT",
+      "from": "apps/web/components/banners/TabBannerCarousel.tsx → CONTENT",
+      "doc": "default",
+      "wrapper": null,
+      "html": "<div class=\"relative z-2 flex flex-col w-[min(540px,100%)] h-full justify-start items-start py-12 px-10\"></div>"
+    },
+    {
+      "id": "carousel-controls",
+      "source": "TabBannerCarousel.tsx CONTROLS",
+      "from": "apps/web/components/banners/TabBannerCarousel.tsx → CONTROLS",
+      "doc": "default",
+      "wrapper": null,
+      "html": "<div class=\"absolute right-8 bottom-8 z-3 inline-flex items-center gap-4 p-2 rounded-full bg-[rgb(var(--palette-gray-1000-rgb)/28%)] [backdrop-filter:blur(12px)_saturate(130%)] [-webkit-backdrop-filter:blur(12px)_saturate(130%)]\"></div>"
+    },
+    {
+      "id": "carousel-arrow",
+      "source": "TabBannerCarousel.tsx ARROW_BUTTON",
+      "from": "apps/web/components/banners/TabBannerCarousel.tsx → ARROW_BUTTON",
+      "doc": "default",
+      "wrapper": null,
+      "html": "<button class=\"w-14 h-14 p-0 [border:0] rounded-full inline-flex items-center justify-center text-[rgb(var(--palette-gray-000-rgb)/88%)] bg-transparent cursor-pointer [transition:background_160ms_ease,transform_160ms_ease] [&:hover]:bg-[rgb(var(--palette-gray-000-rgb)/14%)] active:[transform:scale(0.94)]\"></button>"
+    },
+    {
+      "id": "carousel-dots",
+      "source": "TabBannerCarousel.tsx DOTS",
+      "from": "apps/web/components/banners/TabBannerCarousel.tsx → DOTS",
+      "doc": "default",
+      "wrapper": null,
+      "html": "<div class=\"inline-flex items-center gap-3\"></div>"
+    },
+    {
+      "id": "carousel-dot-active",
+      "source": "TabBannerCarousel.tsx DOT + DOT_ACTIVE",
+      "from": "apps/web/components/banners/TabBannerCarousel.tsx → DOT + DOT_ACTIVE",
+      "doc": "default",
+      "wrapper": null,
+      "html": "<button class=\"h-[7px] p-0 [border:0] rounded-full cursor-pointer [transition:width_220ms_cubic-bezier(0.4,0,0.2,1),background_160ms_ease] motion-reduce:duration-[0.01ms] w-10 bg-palette-gray-000\"></button>"
+    },
+    {
+      "id": "carousel-dot-rest",
+      "source": "TabBannerCarousel.tsx DOT + DOT_REST",
+      "from": "apps/web/components/banners/TabBannerCarousel.tsx → DOT + DOT_REST",
+      "doc": "default",
+      "wrapper": null,
+      "html": "<button class=\"h-[7px] p-0 [border:0] rounded-full cursor-pointer [transition:width_220ms_cubic-bezier(0.4,0,0.2,1),background_160ms_ease] motion-reduce:duration-[0.01ms] w-[7px] bg-[rgb(var(--palette-gray-000-rgb)/45%)]\"></button>"
     }
   ],
   "rendered": {
@@ -52,6 +366,20 @@
       "columnGap": "4px",
       "minWidth": "48px"
     },
+    "button-secondary-border": {
+      "borderTopWidth": "1px",
+      "borderTopColor": "rgba(23, 27, 34, 0.12)"
+    },
+    "icon-button": {
+      "width": "32px",
+      "height": "32px",
+      "borderTopLeftRadius": "12px"
+    },
+    "icon-button-card": {
+      "width": "32px",
+      "height": "32px",
+      "borderTopLeftRadius": "12px"
+    },
     "project-card": {
       "borderTopLeftRadius": "16px",
       "rowGap": "8px",
@@ -63,14 +391,306 @@
       "borderBottomLeftRadius": "16px",
       "height": "108px"
     },
+    "project-card-preview": {
+      "borderTopLeftRadius": "16px"
+    },
     "project-grid": {
       "columnGap": "12px",
       "rowGap": "12px",
       "gridTemplateColumns": "81px 81px 81px 81px"
     },
-    "button-secondary-border": {
+    "tooltip": {
+      "paddingTop": "4px",
+      "paddingLeft": "8px",
+      "borderTopLeftRadius": "8px",
       "borderTopWidth": "1px",
-      "borderTopColor": "rgba(23, 27, 34, 0.12)"
+      "fontSize": "12px",
+      "lineHeight": "18px",
+      "height": "28px"
+    },
+    "toast": {
+      "paddingTop": "12px",
+      "paddingLeft": "20px",
+      "borderTopLeftRadius": "16px",
+      "borderTopWidth": "0px",
+      "backdropFilter": "blur(10px)",
+      "height": "48px"
+    },
+    "menu-panel": {
+      "borderTopLeftRadius": "16px",
+      "paddingTop": "6px",
+      "paddingLeft": "6px"
+    },
+    "menu-item": {
+      "paddingTop": "8px",
+      "paddingLeft": "12px",
+      "columnGap": "6px",
+      "borderTopLeftRadius": "10px",
+      "height": "40px"
+    },
+    "dialog-card": {
+      "width": "360px",
+      "paddingTop": "16px",
+      "paddingLeft": "16px",
+      "borderTopLeftRadius": "24px",
+      "borderTopWidth": "0px"
+    },
+    "dialog-overlay": {
+      "backgroundColor": "rgba(23, 27, 34, 0.5)",
+      "zIndex": "1200"
+    },
+    "dialog-action": {
+      "height": "44px",
+      "borderTopLeftRadius": "16px"
+    },
+    "input-box": {
+      "paddingTop": "12px",
+      "paddingLeft": "16px",
+      "borderTopWidth": "1px",
+      "borderTopLeftRadius": "12px"
+    },
+    "empty-state": {
+      "paddingTop": "80px",
+      "paddingLeft": "0px",
+      "rowGap": "12px",
+      "borderTopWidth": "0px",
+      "borderTopLeftRadius": "0px"
+    },
+    "avatar": {
+      "width": "28px",
+      "height": "28px"
+    },
+    "badge": {
+      "paddingTop": "4px",
+      "paddingLeft": "8px",
+      "borderTopLeftRadius": "8px",
+      "borderTopWidth": "0px"
+    },
+    "spinner-md": {
+      "width": "16px",
+      "height": "16px",
+      "::after:borderTopWidth": "2px"
+    },
+    "spinner-sm": {
+      "width": "12px",
+      "height": "12px",
+      "::after:borderTopWidth": "2px"
+    },
+    "checkbox": {
+      "width": "20px",
+      "height": "20px"
+    },
+    "selectable-row": {
+      "paddingTop": "6px",
+      "paddingLeft": "6px",
+      "columnGap": "10px",
+      "borderTopLeftRadius": "14px"
+    },
+    "segmented-track": {
+      "paddingTop": "4px",
+      "paddingLeft": "4px",
+      "columnGap": "2px",
+      "borderTopLeftRadius": "12px"
+    },
+    "segmented-segment": {
+      "height": "28px",
+      "paddingLeft": "12px",
+      "borderTopLeftRadius": "8px"
+    },
+    "segmented-thumb": {
+      "height": "28px",
+      "borderTopLeftRadius": "8px",
+      "top": "4px"
+    },
+    "skeleton": {
+      "borderTopLeftRadius": "999px",
+      "::after:animationDuration": "1.3s"
+    },
+    "nav-item": {
+      "height": "32px",
+      "paddingLeft": "4px",
+      "paddingRight": "4px",
+      "borderTopLeftRadius": "10px",
+      "fontSize": "14px"
+    },
+    "sidebar-header-row": {
+      "minHeight": "40px",
+      "columnGap": "8px"
+    },
+    "sidebar-logo-rail": {
+      "minHeight": "28px"
+    },
+    "sidebar-cta": {
+      "minHeight": "40px",
+      "paddingTop": "10px",
+      "paddingLeft": "14px",
+      "columnGap": "8px",
+      "borderTopLeftRadius": "12px",
+      "backgroundColor": "rgba(0, 198, 142, 0.16)",
+      "color": "rgb(0, 143, 103)"
+    },
+    "top-bar": {
+      "paddingTop": "8px",
+      "paddingLeft": "8px",
+      "columnGap": "8px",
+      "height": "41px"
+    },
+    "carousel": {
+      "height": "360px",
+      "borderTopLeftRadius": "16px"
+    },
+    "carousel-content": {
+      "width": "540px",
+      "paddingTop": "24px",
+      "paddingLeft": "20px"
+    },
+    "carousel-controls": {
+      "paddingTop": "4px",
+      "columnGap": "8px",
+      "right": "16px",
+      "bottom": "16px"
+    },
+    "carousel-arrow": {
+      "width": "28px",
+      "height": "28px"
+    },
+    "carousel-dots": {
+      "columnGap": "6px"
+    },
+    "carousel-dot-active": {
+      "width": "20px",
+      "height": "7px"
+    },
+    "carousel-dot-rest": {
+      "width": "7px",
+      "height": "7px"
+    },
+    "nav-item-collapsed": {
+      "width": "32px",
+      "height": "32px",
+      "paddingLeft": "0px",
+      "paddingRight": "0px"
+    },
+    "sidebar-cta-collapsed": {
+      "minHeight": "32px",
+      "height": "32px",
+      "paddingTop": "0px",
+      "paddingLeft": "10px",
+      "columnGap": "0px"
+    },
+    "sidebar-cta-label-collapsed": {
+      "maxWidth": "54px",
+      "fontSize": "12px"
     }
-  }
+  },
+  "deviations": [
+    {
+      "axis": "button-secondary-border.borderTopWidth",
+      "product": 1,
+      "ds": 0.5,
+      "why": "제품 1px, DS 0.5px. hairline은 DS 전역 결정이고 브라우저는 DPR 1에서 사용값을 1px로 올린다 — 레티나에서만 갈린다."
+    },
+    {
+      "axis": "tooltip.borderTopWidth",
+      "product": 1,
+      "ds": 0.5,
+      "why": "제품 1px, DS 0.5px. 위 button과 같은 hairline 결정이다."
+    },
+    {
+      "axis": "toast.height",
+      "product": 48,
+      "ds": 45,
+      "why": "제품 48, DS 45. 제품 토스트는 글자 크기를 지정하지 않아 문서 기본 16/24를 물려받고 DS는 body-sm 14/21을 쓴다. 여백은 12/20으로 같다 — 높이 차이는 전부 타이포다."
+    },
+    {
+      "axis": "menu-item.height",
+      "product": 40,
+      "ds": 44,
+      "why": "제품 40, DS 44. 여백 8/12는 같고 제품 항목이 문서 기본 16/24를, DS가 body-sm 14/21에 아이콘 슬롯 20을 담아 44가 된다."
+    },
+    {
+      "axis": "dialog-card.paddingTop",
+      "product": 16,
+      "ds": 20,
+      "why": "제품 16, DS 20. 제품 모달은 공용 구현 없이 화면별 14벌이고 여백이 12·16·20·24로 갈린다. DS는 dialog.md가 고른 20을 쓴다."
+    },
+    {
+      "axis": "dialog-card.borderTopLeftRadius",
+      "product": 24,
+      "ds": 20,
+      "why": "제품 24, DS 20. radius-card-lg 20은 DS-D-0014가 소유한다 — 제품 14벌의 반경도 16·20·24로 갈려 정본이 없다."
+    },
+    {
+      "axis": "dialog-card.borderTopWidth",
+      "product": 0,
+      "ds": 0.5,
+      "why": "제품 0, DS 0.5. 제품 모달은 그림자만으로 면을 띄우는데 DS는 라이트 테마에서 그림자가 약해 테두리를 남긴다."
+    },
+    {
+      "axis": "input-box.borderTopWidth",
+      "product": 1,
+      "ds": 0.5,
+      "why": "제품 1px, DS 0.5px. hairline 결정이다."
+    },
+    {
+      "axis": "empty-state.paddingLeft",
+      "product": 0,
+      "ds": 16,
+      "why": "제품 0, DS 16. 제품의 빈 상태는 이미 좌우 여백이 있는 그리드 안에만 놓여 스스로 여백을 두지 않는다. DS 컴포넌트는 어디에 놓일지 모르므로 자기 여백을 갖는다."
+    },
+    {
+      "axis": "spinner-sm.::after:borderTopWidth",
+      "product": 2,
+      "ds": 1,
+      "why": "제품 2, DS 1. 제품 sm은 `after:border`(1px)를 적지만 같은 요소의 `after:border-2`가 Tailwind 정렬에서 이겨 실제로는 2px로 그려진다 — 12px 원에 2px 링이면 가운데가 거의 남지 않는다. DS는 의도한 1px을 그린다."
+    },
+    {
+      "axis": "selectable-row.paddingTop",
+      "product": 6,
+      "ds": 8,
+      "why": "제품 6, DS 8. 제품 3벌이 전부 파일 로컬 상수이고 6·8·10으로 갈린다. DS는 space-control-sm 8로 사이드바 항목과 계단을 맞춘다."
+    },
+    {
+      "axis": "selectable-row.columnGap",
+      "product": 10,
+      "ds": 8,
+      "why": "제품 10, DS 8. 위와 같은 사유다 — 10은 DS 간격 계단에 없는 값이다."
+    },
+    {
+      "axis": "selectable-row.borderTopLeftRadius",
+      "product": 14,
+      "ds": 10,
+      "why": "제품 14, DS 10. radius-overlay-item 10을 쓴다 — 메뉴 항목·사이드바 항목과 같은 반경이어야 목록 행끼리 어긋나지 않는다."
+    },
+    {
+      "axis": "segmented-segment.height",
+      "product": 28,
+      "ds": 32,
+      "why": "제품 28, DS 32. 제품 트랙은 28+4+4 = 36으로 control 계단(40/32) 어디에도 없다. DS는 트랙을 40에 맞추고 padding 4를 빼 32를 얻는다 — 세그먼티드가 다른 control과 한 줄에 설 수 있어야 한다."
+    },
+    {
+      "axis": "segmented-track.columnGap",
+      "product": 2,
+      "ds": 8,
+      "why": "제품 2, DS 8. 제품은 thumb가 세그먼트 폭을 그대로 덮으므로 간격이 거의 필요 없다. DS는 thumb가 세그먼트 안에 놓여 간격이 눌린 세그먼트의 경계를 만든다."
+    },
+    {
+      "axis": "skeleton.borderTopLeftRadius",
+      "product": 999,
+      "ds": 8,
+      "why": "제품 999(알약), DS 8. 제품의 그 벌은 한 줄 텍스트 자리 표시라 알약이 맞지만, 블록·원까지 덮는 컴포넌트는 shape 축이 반경을 정한다(text 8 · block 16 · circle 999)."
+    },
+    {
+      "axis": "skeleton.::after:animationDuration",
+      "product": 1300,
+      "ds": 1600,
+      "why": "제품 1300ms, DS 1600ms. 제품 shimmer 정의가 1.3s·1.5s·1.6s로 갈리고 DS는 motion-loop 계단의 1600을 쓴다."
+    },
+    {
+      "axis": "top-bar.paddingLeft",
+      "product": 8,
+      "ds": 16,
+      "why": "제품 8, DS 16. 제품 상단 바는 좌우로 --app-gnb-main-inline-padding(16)만큼 음수 마진으로 번져 나간 뒤 8을 다시 넣는다 — 항목이 본문 좌측선보다 8px 바깥에 선다. DS TopBar에는 그 bleed가 없어 본문과 같은 16을 쓴다."
+    }
+  ]
 }

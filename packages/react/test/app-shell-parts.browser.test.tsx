@@ -8,7 +8,7 @@ import type { JSX } from "react";
 import { expect, test } from "vitest";
 import { userEvent } from "vitest/browser";
 import { render } from "vitest-browser-react";
-import { AppTopBar, SidebarNavItem } from "@klipse-design/react";
+import { AppTopBar, IconButton, SidebarNavItem, SidebarNavRow } from "@klipse-design/react";
 import { IconHouse } from "@klipse-design/react/icons";
 import measured from "../../../figma/components.measured.json" with { type: "json" };
 import "@klipse-design/css/layers.css";
@@ -150,6 +150,39 @@ test("아이콘은 보조기술에서 숨는다", async () => {
     </SidebarNavItem>,
   );
   expect(find(".kds-sidebar-nav-item__icon").getAttribute("aria-hidden")).toBe("true");
+});
+
+test("복합 행은 버튼 안에 버튼을 넣지 않는다", async () => {
+  await render(
+    <div data-kds-fixture style={{ inlineSize: "280px" }}>
+      <SidebarNavRow action={<IconButton size="sm" variant="ghost" label="새로 만들기"><span /></IconButton>}>
+        <SidebarNavItem href="/highlight">하이라이트</SidebarNavItem>
+      </SidebarNavRow>
+    </div>,
+  );
+  const row = find(".kds-sidebar-nav-row");
+  // 배포본도 같은 이유로 행을 div로 두고 내비와 액션을 형제로 놓는다.
+  expect(row.tagName).toBe("DIV");
+  expect(row.querySelectorAll("button button")).toHaveLength(0);
+  expect(row.querySelectorAll("a button")).toHaveLength(0);
+  // 두 목적지가 각자 tab stop을 갖는다.
+  expect(row.querySelector("a")).not.toBeNull();
+  expect(row.querySelector("button")).not.toBeNull();
+});
+
+test("접히면 보조 액션이 사라진다 — 아이콘 하나 자리에 둘이 들어갈 수 없다", async () => {
+  await render(
+    <div data-kds-fixture style={{ inlineSize: "72px" }}>
+      <SidebarNavRow collapsed action={<IconButton size="sm" variant="ghost" label="새로 만들기"><span /></IconButton>}>
+        <SidebarNavItem href="/highlight" collapsed>
+          하이라이트
+        </SidebarNavItem>
+      </SidebarNavRow>
+    </div>,
+  );
+  const row = find(".kds-sidebar-nav-row");
+  expect(row.querySelector(".kds-sidebar-nav-row__action")).toBeNull();
+  expect(row.querySelector(".kds-sidebar-nav-item")).not.toBeNull();
 });
 
 test("AppTopBar의 구조값이 components.measured.json과 같다", async () => {

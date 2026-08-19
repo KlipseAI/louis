@@ -18,8 +18,8 @@
         "effect": 8
       },
       "components": {
-        "sets": 25,
-        "variants": 148
+        "sets": 26,
+        "variants": 149
       },
       "icons": 31,
       "templates": 0
@@ -5384,6 +5384,61 @@
           "paddingInlineEnd": [
             4
           ]
+        }
+      },
+      "strokes": {},
+      "effects": {}
+    },
+    "SidebarNavRow": {
+      "outsideParts": [],
+      "tokenId": "app-shell-parts",
+      "variantCount": 1,
+      "hasDescription": true,
+      "properties": {},
+      "binding": {
+        "boundFills": 1,
+        "rawFills": 0,
+        "boundStrokes": 0,
+        "rawStrokes": 0,
+        "textStyled": 0,
+        "textUnstyled": 0
+      },
+      "geometry": {
+        "navRow": {
+          "slots": {},
+          "parts": {
+            "Item": {
+              "height": [
+                32
+              ]
+            },
+            "Action": {
+              "width": [
+                24
+              ],
+              "height": [
+                24
+              ]
+            }
+          },
+          "strokeWeight": [],
+          "width": [
+            256
+          ],
+          "height": [
+            32
+          ],
+          "cornerRadius": [
+            0
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ],
+          "itemSpacing": [
+            4
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
         }
       },
       "strokes": {},

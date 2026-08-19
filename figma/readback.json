@@ -6201,6 +6201,59 @@
       "strokes": {},
       "effects": {}
     },
+    "SidebarNavRow": {
+      "variantCount": 1,
+      "hasDescription": true,
+      "properties": {},
+      "binding": {
+        "boundFills": 1,
+        "rawFills": 0,
+        "boundStrokes": 0,
+        "rawStrokes": 0,
+        "textStyled": 0,
+        "textUnstyled": 0
+      },
+      "geometry": {
+        "navRow": {
+          "slots": {},
+          "parts": {
+            "Item": {
+              "height": [
+                32
+              ]
+            },
+            "Action": {
+              "width": [
+                24
+              ],
+              "height": [
+                24
+              ]
+            }
+          },
+          "strokeWeight": [],
+          "width": [
+            256
+          ],
+          "height": [
+            32
+          ],
+          "cornerRadius": [
+            0
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ],
+          "itemSpacing": [
+            4
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        }
+      },
+      "strokes": {},
+      "effects": {}
+    },
     "Skeleton": {
       "variantCount": 3,
       "hasDescription": true,

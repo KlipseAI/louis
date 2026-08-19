@@ -82,6 +82,54 @@ export function SidebarNavItem(props: SidebarNavItemProps): JSX.Element {
   );
 }
 
+export interface SidebarNavRowProps extends Omit<HTMLAttributes<HTMLDivElement>, "children"> {
+  /**
+   * 행이 감싸는 내비 항목. 하나만 넣는다.
+   *
+   * **`SidebarNavItem`을 그대로 쓴다.** 다른 컴포넌트를 만들면 선택 색·높이·반경이 두 곳에서
+   * 갈린다.
+   */
+  readonly children: ReactNode;
+  /**
+   * 행 안쪽 끝에 붙는 보조 액션. 배포본의 「+」 생성 버튼이다.
+   *
+   * **행 자체는 버튼이 아니다.** 버튼 안에 버튼을 넣으면 HTML이 깨지고 키보드 순회가 무너진다 —
+   * 배포본도 같은 이유로 행을 `<div>`로 두고 내비와 액션을 형제로 놓는다.
+   */
+  readonly action?: ReactNode;
+  /** rail이 접혔는가. 접히면 액션이 사라진다 — 아이콘 하나 자리에 둘이 들어갈 수 없다. */
+  readonly collapsed?: boolean;
+  readonly ref?: Ref<HTMLDivElement>;
+}
+
+/**
+ * 내비 항목 하나와 보조 액션을 한 줄에 놓는다.
+ *
+ * 배포본에는 이 형태가 두 화면에 있다(하이라이트 허브 · 비디오에디터 허브). 행 전체가 하나의
+ * 히트 영역인 보통 항목과 달리, 여기서는 **두 개의 목적지가 한 줄을 나눠 쓴다** — 왼쪽은
+ * "그 화면으로", 오른쪽 「+」는 "새로 만들기"다.
+ */
+export function SidebarNavRow({
+  children,
+  action,
+  collapsed = false,
+  className,
+  ...rest
+}: SidebarNavRowProps): JSX.Element {
+  return (
+    <div
+      {...rest}
+      className={join("kds-sidebar-nav-row", className)}
+      data-collapsed={collapsed ? "true" : undefined}
+    >
+      {children}
+      {action === undefined || collapsed ? null : (
+        <span className="kds-sidebar-nav-row__action">{action}</span>
+      )}
+    </div>
+  );
+}
+
 export interface AppTopBarProps extends Omit<HTMLAttributes<HTMLDivElement>, "title"> {
   /** 앞쪽 슬롯 — 보통 사이드바 토글이다. */
   readonly leading?: ReactNode;

@@ -777,3 +777,28 @@ adoption 노트로 넘긴다.
 | SidebarCta | 라이트 current 면 | `neutral.50` | `neutral.100` |
 | SidebarNavItem | 다크 hover 면 | `rgb(250 250 250 / 0.1)` | 같음 — **이제 증명된다** |
 | SidebarNavItem | 라이트 hover 면 | `rgb(228 229 233 / 0.5)` | 잉크 8% (편차로 기록) |
+
+
+## 두 화면 이상에서 쓰이는 7종이 전부 닫혔다 (2026-08-19)
+
+이 문서가 "공용 컴포넌트 후보이며 우선순위가 가장 높다"고 적어 둔 목록이다. 마지막 둘이 오늘
+닫혔다.
+
+| 종류 | 무엇이 소유하나 |
+| --- | --- |
+| 진행률 링 프로필 아바타 | `ProgressRing` (2026-08-19) |
+| 탭 배너 캐러셀 | `BannerCarousel` |
+| 배너 컨트롤 | `BannerCarousel`의 부품 |
+| 업로드 진행바 (determinate) | `ProgressBar` (2026-08-19) |
+| 사이드바 브랜드 워드마크 행 | `SidebarBrand` |
+| 복합 내비 행 + 인셋 생성(+) 버튼 | `SidebarNavRow` (2026-08-19) |
+| 사이드바 하단 '보관함' 버튼 | `SidebarCta` — **새로 만들지 않았다** |
+
+마지막 것은 census가 두 개로 세었지만 하나였다. 배포본을 읽어 보니 '보관함' 버튼과 업그레이드
+CTA가 **같은 클래스 세 개**(`sidebarUpgradeWrap` · `sidebarUpgradeButton` · `sidebarUpgradeLabel`)를
+쓴다 — 바닥 자리는 하나이고 화면에 따라 라벨과 목적지만 바뀐다. 이름이 `SidebarCta`인 것은 그
+자리의 첫 쓰임 때문이지 계약이 업그레이드에 매여 있다는 뜻이 아니다.
+
+`SidebarNavRow`에서 배운 것 하나. 배포본은 이 행을 `<div>`로 두고 내비와 「+」를 **형제 버튼**으로
+놓는다. 행 전체를 버튼으로 만들고 그 안에 버튼을 넣으면 HTML이 깨지고 키보드 순회가 무너지기
+때문이다. DS도 같은 구조를 쓰고 acceptance test가 `button button`과 `a button`이 0건임을 확인한다.

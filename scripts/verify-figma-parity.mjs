@@ -754,6 +754,32 @@ const COMPONENT_CONTRACTS = [
   },
   {
     id: "app-shell-parts",
+    figmaName: "SidebarNavRow",
+    declaration: "packages/react/dist/app-shell/app-shell-parts.d.ts",
+    variantProperties: {},
+    strokes: {},
+    effects: {},
+    geometry: {
+      measuredId: "app-shell-parts",
+      sizeKeys: ["navRow"],
+      fields: {
+        width: "width",
+        height: "height",
+        cornerRadius: "radius",
+        itemSpacing: "gap",
+        layoutMode: { literal: "HORIZONTAL" },
+      },
+      slots: {},
+      extraStrokeWeights: [],
+      parts: {
+        // 항목이 남는 자리를 먹으므로 폭은 계약이 아니다. 높이만 항목과 같아야 한다.
+        Item: { fields: { height: "height" } },
+        Action: { fields: { width: "actionSize", height: "actionSize" } },
+      },
+    },
+  },
+  {
+    id: "app-shell-parts",
     figmaName: "SidebarBrand",
     declaration: "packages/react/dist/app-shell/app-shell-parts.d.ts",
     variantProperties: {},

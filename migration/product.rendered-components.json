@@ -285,6 +285,26 @@
       "html": "<button class=\"gnb-menuLink [@media(max-width:719px)]:[html[data-app-gnb-sidebar-collapsed=true]_.gnb-menuSidebar_&]:[width:100%] [@media(max-width:719px)]:[html[data-app-gnb-sidebar-collapsed=true]_.gnb-menuSidebar_&]:[max-width:none] [@media(max-width:719px)]:[html[data-app-gnb-sidebar-collapsed=true]_.gnb-menuSidebar_&]:[padding-right:4px] [display:inline-flex] [align-items:center] [justify-content:center] [height:28px] [padding:0_12px] [border:0] [border-radius:999px] [background-color:transparent] [color:var(--gray-000)] [opacity:1] [cursor:pointer] [-webkit-user-drag:none] [user-select:none] [-webkit-user-select:none] [font-family:var(--type-font-family)] [font-feature-settings:var(--type-feature-settings)] [font-size:var(--type-body-16-size)] [line-height:var(--type-body-16-line-height)] [letter-spacing:var(--type-body-16-letter-spacing)] [font-weight:var(--type-weight-regular)] [transition:color_200ms_ease,_background-color_200ms_ease,_box-shadow_200ms_ease] [.gnb-menuSidebar_&]:[justify-content:flex-start] [.gnb-menuSidebar_&]:[align-items:center] [.gnb-menuSidebar_&]:[width:100%] [.gnb-menuSidebar_&]:[box-sizing:border-box] [.gnb-menuSidebar_&]:[height:32px] [.gnb-menuSidebar_&]:[min-height:32px] [.gnb-menuSidebar_&]:[padding-left:calc(_var(--app-gnb-main-inline-padding)_-_var(--app-gnb-sidebar-padding-x)_)] [.gnb-menuSidebar_&]:[padding-right:4px] [.gnb-menuSidebar_&]:[border-radius:10px] [.gnb-menuSidebar_&]:[font-size:var(--type-body-14-size)] [.gnb-menuSidebar_&]:[line-height:var(--type-body-14-line-height)] [.gnb-menuSidebar_&]:[letter-spacing:var(--type-body-14-letter-spacing)] [.gnb-menuSidebar_&]:[font-weight:var(--type-weight-medium)] [.gnb-menuSidebar_&]:[transition:color_200ms_ease,_background-color_200ms_ease,_box-shadow_200ms_ease] [html[data-app-gnb-sidebar-collapsed=true]_.gnb-menuSidebar_&]:[justify-content:center] [html[data-app-gnb-sidebar-collapsed=true]_.gnb-menuSidebar_&]:[width:var(--app-gnb-sidebar-menu-hit-w)] [html[data-app-gnb-sidebar-collapsed=true]_.gnb-menuSidebar_&]:[min-width:var(--app-gnb-sidebar-menu-hit-w)] [html[data-app-gnb-sidebar-collapsed=true]_.gnb-menuSidebar_&]:[max-width:var(--app-gnb-sidebar-menu-hit-w)] [html[data-app-gnb-sidebar-collapsed=true]_.gnb-menuSidebar_&]:[height:32px] [html[data-app-gnb-sidebar-collapsed=true]_.gnb-menuSidebar_&]:[min-height:32px] [html[data-app-gnb-sidebar-collapsed=true]_.gnb-menuSidebar_&]:[padding-left:0] [html[data-app-gnb-sidebar-collapsed=true]_.gnb-menuSidebar_&]:[padding-right:0] [html[data-app-gnb-sidebar-collapsed=true]_.gnb-menuSidebar_&]:[box-sizing:border-box] [@media(max-width:780px)]:[.gnb-menu:not(.gnb-menuSidebar)_&]:[font-size:var(--type-body-14-size)] [@media(max-width:780px)]:[.gnb-menu:not(.gnb-menuSidebar)_&]:[line-height:var(--type-body-14-line-height)] [@media(max-width:780px)]:[.gnb-menu:not(.gnb-menuSidebar)_&]:[letter-spacing:var(--type-body-14-letter-spacing)] [@media(max-width:780px)]:[.gnb-menu:not(.gnb-menuSidebar)_&]:[font-weight:var(--type-weight-regular)] [@media(max-width:480px)]:[.gnb-menu:not(.gnb-menuSidebar)_&]:[padding-inline:8px]!\">아카이브</button>"
     },
     {
+      "id": "nav-row",
+      "source": "Gnb.tsx menuSidebarCreateCompound — 내비 항목과 「+」가 한 줄을 나눠 쓰는 행",
+      "hover": false,
+      "from": "apps/web/components/navigation/Gnb.tsx → menuLink + menuSidebarCreateCompound",
+      "doc": "default",
+      "wrapper": [
+        "gnb-menu gnb-menuSidebar"
+      ],
+      "html": "<div class=\"gnb-menuLink [@media(max-width:719px)]:[html[data-app-gnb-sidebar-collapsed=true]_.gnb-menuSidebar_&]:[width:100%] [@media(max-width:719px)]:[html[data-app-gnb-sidebar-collapsed=true]_.gnb-menuSidebar_&]:[max-width:none] [@media(max-width:719px)]:[html[data-app-gnb-sidebar-collapsed=true]_.gnb-menuSidebar_&]:[padding-right:4px] [display:inline-flex] [align-items:center] [justify-content:center] [height:28px] [padding:0_12px] [border:0] [border-radius:999px] [background-color:transparent] [color:var(--gray-000)] [opacity:1] [cursor:pointer] [-webkit-user-drag:none] [user-select:none] [-webkit-user-select:none] [font-family:var(--type-font-family)] [font-feature-settings:var(--type-feature-settings)] [font-size:var(--type-body-16-size)] [line-height:var(--type-body-16-line-height)] [letter-spacing:var(--type-body-16-letter-spacing)] [font-weight:var(--type-weight-regular)] [transition:color_200ms_ease,_background-color_200ms_ease,_box-shadow_200ms_ease] [.gnb-menuSidebar_&]:[justify-content:flex-start] [.gnb-menuSidebar_&]:[align-items:center] [.gnb-menuSidebar_&]:[width:100%] [.gnb-menuSidebar_&]:[box-sizing:border-box] [.gnb-menuSidebar_&]:[height:32px] [.gnb-menuSidebar_&]:[min-height:32px] [.gnb-menuSidebar_&]:[padding-left:calc(_var(--app-gnb-main-inline-padding)_-_var(--app-gnb-sidebar-padding-x)_)] [.gnb-menuSidebar_&]:[padding-right:4px] [.gnb-menuSidebar_&]:[border-radius:10px] [.gnb-menuSidebar_&]:[font-size:var(--type-body-14-size)] [.gnb-menuSidebar_&]:[line-height:var(--type-body-14-line-height)] [.gnb-menuSidebar_&]:[letter-spacing:var(--type-body-14-letter-spacing)] [.gnb-menuSidebar_&]:[font-weight:var(--type-weight-medium)] [.gnb-menuSidebar_&]:[transition:color_200ms_ease,_background-color_200ms_ease,_box-shadow_200ms_ease] [html[data-app-gnb-sidebar-collapsed=true]_.gnb-menuSidebar_&]:[justify-content:center] [html[data-app-gnb-sidebar-collapsed=true]_.gnb-menuSidebar_&]:[width:var(--app-gnb-sidebar-menu-hit-w)] [html[data-app-gnb-sidebar-collapsed=true]_.gnb-menuSidebar_&]:[min-width:var(--app-gnb-sidebar-menu-hit-w)] [html[data-app-gnb-sidebar-collapsed=true]_.gnb-menuSidebar_&]:[max-width:var(--app-gnb-sidebar-menu-hit-w)] [html[data-app-gnb-sidebar-collapsed=true]_.gnb-menuSidebar_&]:[height:32px] [html[data-app-gnb-sidebar-collapsed=true]_.gnb-menuSidebar_&]:[min-height:32px] [html[data-app-gnb-sidebar-collapsed=true]_.gnb-menuSidebar_&]:[padding-left:0] [html[data-app-gnb-sidebar-collapsed=true]_.gnb-menuSidebar_&]:[padding-right:0] [html[data-app-gnb-sidebar-collapsed=true]_.gnb-menuSidebar_&]:[box-sizing:border-box] [@media(max-width:780px)]:[.gnb-menu:not(.gnb-menuSidebar)_&]:[font-size:var(--type-body-14-size)] [@media(max-width:780px)]:[.gnb-menu:not(.gnb-menuSidebar)_&]:[line-height:var(--type-body-14-line-height)] [@media(max-width:780px)]:[.gnb-menu:not(.gnb-menuSidebar)_&]:[letter-spacing:var(--type-body-14-letter-spacing)] [@media(max-width:780px)]:[.gnb-menu:not(.gnb-menuSidebar)_&]:[font-weight:var(--type-weight-regular)] [@media(max-width:480px)]:[.gnb-menu:not(.gnb-menuSidebar)_&]:[padding-inline:8px]! gnb-menuSidebarCreateCompound [.gnb-menuSidebar_.gnb-menuLink&]:[display:flex] [.gnb-menuSidebar_.gnb-menuLink&]:[flex-direction:row] [.gnb-menuSidebar_.gnb-menuLink&]:[align-items:center] [.gnb-menuSidebar_.gnb-menuLink&]:[gap:4px] [.gnb-menuSidebar_.gnb-menuLink&]:[cursor:default]\"></div>"
+    },
+    {
+      "id": "nav-row-action",
+      "source": "Gnb.tsx menuSidebarCreateAddonInset — 행 안쪽 끝의 「+」",
+      "hover": false,
+      "from": "apps/web/components/navigation/Gnb.tsx → menuSidebarCreateAddonInset",
+      "doc": "default",
+      "wrapper": null,
+      "html": "<button class=\"gnb-menuSidebarCreateAddonInset [flex-shrink:0] [display:inline-flex] [align-items:center] [justify-content:center] [width:24px] [height:24px] [margin:0] [padding:0] [border:0] [border-radius:6px] [cursor:pointer] [font-family:inherit] [font-size:calc(var(--type-body-14-size)_+_3px)] [line-height:1] [font-weight:var(--type-weight-semibold)] [background:var(--palette-gray-700)] [color:inherit] [transition:background_160ms_ease] [&:hover]:[background:var(--palette-gray-600)] [html[data-theme=light]_&]:[background:var(--palette-gray-200)] [html[data-theme=light]_&:hover]:[background:var(--palette-gray-300)] [html[data-app-gnb-sidebar-collapsed=true]_&]:[display:none]!\"></button>"
+    },
+    {
       "id": "sidebar-header-row",
       "source": "Gnb.tsx sidebarHeaderRow",
       "hover": false,
@@ -750,6 +770,14 @@
       "paddingRight": "4px",
       "borderTopLeftRadius": "10px",
       "fontSize": "14px"
+    },
+    "nav-row": {
+      "columnGap": "4px"
+    },
+    "nav-row-action": {
+      "width": "24px",
+      "height": "24px",
+      "borderTopLeftRadius": "6px"
     },
     "sidebar-header-row": {
       "minHeight": "40px",

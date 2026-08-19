@@ -1033,6 +1033,17 @@
           "$titleFontSize": "body-md 16. 배포본 mainChromePageNavTitle이 --type-body-16-*를 쓴다(16/24/500).",
           "leadingGap": 4,
           "$leadingGap": "배포본 mainChromeLeadingCluster의 gap:4px. 바 자신의 gap 8과 다르다 — 뒤로가기·구분자·제목이 한 덩어리로 붙는다."
+        },
+        "navRow": {
+          "gap": 4,
+          "height": 32,
+          "$gap": "space-control-xs 4. 배포본 menuSidebarCreateCompound의 gap이다.",
+          "$height": "항목의 높이를 그대로 쓴다. 행이 스스로 높이를 갖지 않는다 — 갖게 하면 항목과 두 곳에서 갈린다.",
+          "$action": "액션의 크기는 **소비처가 정한다.** 배포본은 24×24에 반경 6을 쓰는데, DS의 IconButton sm은 32이고 컨트롤 계단을 따른다. 행이 액션을 소유하지 않으므로 계약으로 두지 않는다 — 제품과 같은 모습이 필요하면 24짜리 컨트롤을 넣는다.",
+          "width": 256,
+          "radius": 0,
+          "actionSize": 24,
+          "$actionSize": "Figma 예시의 크기이며 계약이 아니다. 배포본이 24를 쓰므로 예시도 24로 둔다 — 소비처가 다른 크기를 넣을 수 있다."
         }
       },
       "states": {

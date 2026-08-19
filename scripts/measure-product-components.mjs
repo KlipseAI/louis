@@ -250,6 +250,20 @@ const PROBES = [
     read: ["width", "height", "paddingLeft", "paddingRight"],
   },
   {
+    id: "nav-row",
+    source: "Gnb.tsx menuSidebarCreateCompound — 내비 항목과 「+」가 한 줄을 나눠 쓰는 행",
+    from: ["gnb", "menuLink", "menuSidebarCreateCompound"],
+    wrapper: ["gnb-menu gnb-menuSidebar"],
+    read: ["columnGap"],
+  },
+  {
+    id: "nav-row-action",
+    source: "Gnb.tsx menuSidebarCreateAddonInset — 행 안쪽 끝의 「+」",
+    from: ["gnb", "menuSidebarCreateAddonInset"],
+    tag: "button",
+    read: ["width", "height", "borderTopLeftRadius"],
+  },
+  {
     id: "sidebar-header-row",
     source: "Gnb.tsx sidebarHeaderRow",
     from: ["gnb", "sidebarHeaderRow"],
@@ -675,6 +689,8 @@ const EXPECT = [
   ["progress-ring", "--profile-ring-gap", ["progress-ring", "sizes", "base", "gap"], "same"],
   ["progress-bar-track", "borderTopLeftRadius", ["progress-bar", "sizes", "base", "radius"], "deviates",
     "제품 3, DS 999(알약). 높이가 6이라 브라우저가 그리는 곡률은 둘 다 3으로 조여져 **결과가 같다.** 리터럴 3은 높이를 바꾸는 날 따라오지 않으므로 알약으로 적는다."],
+
+  ["nav-row", "columnGap", ["app-shell-parts", "sizes", "navRow", "gap"], "same"],
 
   ["carousel", "height", ["banner-carousel", "sizes", "boxed", "height"], "same"],
   ["carousel", "borderTopLeftRadius", ["banner-carousel", "sizes", "boxed", "radius"], "same"],

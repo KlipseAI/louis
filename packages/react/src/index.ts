@@ -35,7 +35,7 @@ export type {
 } from "./project-card/project-card.js";
 export { AppShell } from "./app-shell/app-shell.js";
 export type { AppShellProps, AppShellVariant } from "./app-shell/app-shell.js";
-export { AppTopBar, SidebarBrand, SidebarCta, SidebarNavItem } from "./app-shell/app-shell-parts.js";
+export { AppTopBar, SidebarBrand, SidebarCta, SidebarNavItem, SidebarNavRow } from "./app-shell/app-shell-parts.js";
 export type {
   AppTopBarProps,
   SidebarBrandProps,
@@ -43,6 +43,7 @@ export type {
   SidebarNavItemButtonProps,
   SidebarNavItemLinkProps,
   SidebarNavItemProps,
+  SidebarNavRowProps,
 } from "./app-shell/app-shell-parts.js";
 export { Avatar } from "./avatar/avatar.js";
 export type { AvatarProps, AvatarSize } from "./avatar/avatar.js";

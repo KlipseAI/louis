@@ -18,7 +18,8 @@
       "types": "./dist/icons/generated/index.d.ts",
       "import": "./dist/icons/generated/index.js"
     },
-    "./package.json": "./package.json"
+    "./package.json": "./package.json",
+    "./icons/manifest.json": "./dist/icons/manifest.json"
   },
   "peerDependencies": {
     "@klipse-design/css": "workspace:^",
@@ -32,7 +33,7 @@
     }
   },
   "scripts": {
-    "build": "tsc -p tsconfig.build.json"
+    "build": "tsc -p tsconfig.build.json && node ../../scripts/copy-icon-manifest.mjs"
   },
   "dependencies": {
     "@radix-ui/react-dismissable-layer": "^1.1.19",

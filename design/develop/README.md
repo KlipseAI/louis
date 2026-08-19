@@ -14,7 +14,7 @@ authority: normative
 | ----------------------- | --------------------------------------------------- | ------------------------------------------------------- |
 | `@klipse-design/tokens` | 구조화 토큰과 CSS·JS·TS·JSON·Figma proposal         | P2 local RC, `experimental`, private, no public release |
 | `@klipse-design/css`    | token CSS 재export, opt-in reset, base 유틸리티     | P3 foundation 구현, private, no public release          |
-| `@klipse-design/react`  | 접근 가능한 React 컴포넌트                          | P3 `planned`, private, no exports                       |
+| `@klipse-design/react`  | 접근 가능한 React 컴포넌트                          | 컴포넌트 20종, 서브패스 3(`.` · `./icons` · `./icons/manifest.json`). 공개 심볼 58 · 타입 95. **private, 미배포** |
 | `design/llms/*`         | AI가 읽는 규범 projection                           | P1, generated                                           |
 
 Public release 전에는 제품에서 package import, generated deep import나 source path import를 만들지 않는다.

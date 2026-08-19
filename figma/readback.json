@@ -3760,6 +3760,15 @@
         "Label": {
           "type": "TEXT"
         },
+        "IconGlyph": {
+          "type": "INSTANCE_SWAP"
+        },
+        "Icon": {
+          "type": "BOOLEAN"
+        },
+        "Dot": {
+          "type": "BOOLEAN"
+        },
         "Tone": {
           "type": "VARIANT",
           "options": [
@@ -5780,6 +5789,18 @@
         "Message": {
           "type": "TEXT"
         },
+        "PrefixGlyph": {
+          "type": "INSTANCE_SWAP"
+        },
+        "Prefix": {
+          "type": "BOOLEAN"
+        },
+        "SuffixGlyph": {
+          "type": "INSTANCE_SWAP"
+        },
+        "Suffix": {
+          "type": "BOOLEAN"
+        },
         "Size": {
           "type": "VARIANT",
           "options": [
@@ -6937,6 +6958,7 @@
       "64": [
         4
       ]
-    }
+    },
+    "colorMismatched": 0
   }
 }

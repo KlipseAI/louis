@@ -318,7 +318,10 @@ const COMPONENT_CONTRACTS = [
   {
     id: "input",
     figmaName: "TextField",
-    propProperties: { Label: "label", Message: "description" },
+    propProperties: {
+      // 코드에 prefix·suffix prop이 있는데 Figma에 자리가 없어 검색 필드와 지우기 버튼을 그릴 수
+      // 없었다(2026-08-18 실무 감사). Boolean으로 켜고 INSTANCE_SWAP으로 글리프를 고른다.
+      Prefix: "prefix", Suffix: "suffix", PrefixGlyph: "prefix", SuffixGlyph: "suffix", Label: "label", Message: "description" },
     declaration: "packages/react/dist/text-field/text-field.d.ts",
     variantProperties: { Size: "TextFieldSize" },
     figmaOnlyProperties: {
@@ -687,6 +690,7 @@ const COMPONENT_CONTRACTS = [
     id: "badge",
     figmaName: "Badge",
     // 라벨은 코드에서 children이고 badge.d.ts에 선언 항목으로 나타나지 않는다(React가 준다).
+    propProperties: { Icon: "icon", IconGlyph: "icon", Dot: "dot" },
     figmaOnlyProperties: { Label: { type: "TEXT", reason: "코드에서 children. 타입 선언에 항목으로 없다." } },
     declaration: "packages/react/dist/badge/badge.d.ts",
     variantProperties: { Tone: "BadgeTone" },
@@ -1220,6 +1224,13 @@ function compareIconInstances(actual) {
     return ["아이콘 인스턴스 되읽기가 snapshot에 없습니다."];
   }
   const issues = [];
+  // fill 글리프(dots-three-vertical · info)는 소비처가 stroke만 override하면 색이 안 바뀐다.
+  // 지금은 어긋난 인스턴스가 0이며, 생기면 여기서 잡는다.
+  if ((actual.colorMismatched ?? 0) > 0) {
+    issues.push(
+      `아이콘 인스턴스 ${actual.colorMismatched}개에서 stroke와 fill이 다른 색 변수를 가리킵니다. fill 글리프는 stroke override만으로 색이 바뀌지 않습니다.`,
+    );
+  }
   const allowed = new Set([16, 20, 24, 64]);
   for (const [size, weights] of Object.entries(actual.strokeBySize ?? {})) {
     const px = Number(size);

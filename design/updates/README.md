@@ -8,6 +8,49 @@ authority: normative
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
 
+## 2026-08-18 (46) — major 7건을 닫습니다
+
+blocker 7건에 이어 major 7건입니다. 실무 감사가 확정한 14건이 전부 닫혔습니다.
+
+### 아이콘을 찾을 채널이 없었습니다
+
+검색 키워드가 `manifest.json`에 있는데 **`dist`에 들어가지 않아 npm으로 나가지 않았습니다.**
+소비 개발자가 아이콘 이름을 모르면 찾을 방법이 없었습니다.
+
+생성된 `index.tsx`에 상수로 넣으려다 게이트가 막았습니다 — **`DS-D-0008` 결정 8이 생성물 최상위에
+함수 아닌 문장을 금지**하고 그것이 tree-shaking을 지킵니다. 옳은 규칙이라 JSON을 `dist`로 복사해
+`./icons/manifest.json` 서브패스로 내보냈습니다. 서브패스 16 → **17**.
+
+`src/`를 배포에 넣으려던 첫 시도도 게이트가 막았습니다.
+
+### focus 링이 자리를 절반으로 알려줬습니다
+
+CSS는 `outline: 2px` + `outline-offset: 2px`이라 **박스와 링 사이에 2px 간격**이 있고 링 바깥
+모서리는 박스 + 4입니다. Figma는 324×44(박스 + 2)였습니다 — offset을 0으로 알려주고 있었습니다.
+**328×48**로 고쳤습니다.
+
+### 코드에 있는데 Figma에 없던 축 둘
+
+`TextField`의 `prefix`/`suffix` — 검색 필드와 지우기 버튼을 그릴 수 없었습니다.
+`Badge`의 `icon`/`dot` — 상태 점이 붙은 배지를 그릴 수 없었습니다.
+
+넷 다 Boolean으로 켜고 `INSTANCE_SWAP`으로 글리프를 고르는 형태입니다. 코드 prop과 짝지어
+계약에 넣었습니다.
+
+### fill 글리프의 색
+
+`dots-three-vertical`(fill 3 · stroke 0)과 `info`(stroke 2 · fill 1)는 소비처가 stroke만
+override하면 색이 안 바뀝니다. 전수로 재보니 **실제로 어긋난 인스턴스는 0건**이었습니다 —
+잠재 위험이지 현재 결함은 아니었습니다.
+
+**그래도 게이트에 넣었습니다.** stroke와 fill이 다른 색 변수를 가리키면 실패합니다.
+
+### 문서 둘
+
+`develop/README.md`가 react 패키지를 *"P3 planned, private, no exports"*로 적고 있었습니다 —
+실제는 컴포넌트 20종 · 공개 심볼 58 · 타입 95입니다. 그리고 `packages/react/README.md`에 아이콘을
+키워드로 찾는 법과 CSS 세 줄을 넣었습니다.
+
 ## 2026-08-18 (45) — 마지막 blocker: Dialog로 확인 대화상자를 못 만들었습니다
 
 Figma의 Dialog 세트에 **Footer도 버튼도 없었습니다.** 제목과 설명만 있어서, 디자이너가 삭제 확인

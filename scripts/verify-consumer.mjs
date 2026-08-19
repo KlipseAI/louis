@@ -20,7 +20,7 @@ import { join } from "node:path";
 const failures = [];
 const positives = [];
 
-const REACT_SUBPATHS = [".", "./icons", "./package.json"];
+const REACT_SUBPATHS = [".", "./icons", "./icons/manifest.json", "./package.json"];
 const CSS_SUBPATHS = [
   "./layers.css", "./tokens.css", "./reset.css",
   "./styles.css", "./styles.layer.css", "./theme.css", "./package.json",

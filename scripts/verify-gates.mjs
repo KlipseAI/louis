@@ -556,7 +556,7 @@ function validatePackageScaffolds() {
       "packages/react/package.json",
       {
         name: "@klipse-design/react",
-        subpaths: [".", "./icons", "./package.json"],
+        subpaths: [".", "./icons", "./icons/manifest.json", "./package.json"],
         sideEffects: false,
       },
     ],

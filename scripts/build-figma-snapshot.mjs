@@ -246,6 +246,7 @@ for (const [figmaName, component] of Object.entries(readback.components ?? {})) 
     properties[name] = { type: definition.type, options: definition.options };
   }
   componentsOut[figmaName] = {
+    outsideParts: component.outsideParts ?? [],
     tokenId,
     variantCount: component.variantCount,
     hasDescription: component.hasDescription === true,

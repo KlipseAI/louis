@@ -2901,6 +2901,7 @@
   },
   "components": {
     "AppTopBar": {
+      "outsideParts": [],
       "tokenId": "app-shell-parts",
       "variantCount": 1,
       "hasDescription": true,
@@ -2936,13 +2937,15 @@
           ],
           "layoutMode": [
             "HORIZONTAL"
-          ]
+          ],
+          "overflowingParts": []
         }
       },
       "strokes": {},
       "effects": {}
     },
     "Avatar": {
+      "outsideParts": [],
       "tokenId": "avatar",
       "variantCount": 2,
       "hasDescription": true,
@@ -2988,7 +2991,8 @@
           ],
           "layoutMode": [
             "NONE"
-          ]
+          ],
+          "overflowingParts": []
         },
         "sm": {
           "slots": {},
@@ -3014,13 +3018,15 @@
           ],
           "layoutMode": [
             "NONE"
-          ]
+          ],
+          "overflowingParts": []
         }
       },
       "strokes": {},
       "effects": {}
     },
     "Badge": {
+      "outsideParts": [],
       "tokenId": "badge",
       "variantCount": 5,
       "hasDescription": true,
@@ -3093,13 +3099,15 @@
           ],
           "layoutMode": [
             "HORIZONTAL"
-          ]
+          ],
+          "overflowingParts": []
         }
       },
       "strokes": {},
       "effects": {}
     },
     "BannerCarousel": {
+      "outsideParts": [],
       "tokenId": "banner-carousel",
       "variantCount": 4,
       "hasDescription": true,
@@ -3245,7 +3253,8 @@
           ],
           "cornerRadius": [
             16
-          ]
+          ],
+          "overflowingParts": []
         },
         "full": {
           "slots": {},
@@ -3358,13 +3367,15 @@
           ],
           "cornerRadius": [
             0
-          ]
+          ],
+          "overflowingParts": []
         }
       },
       "strokes": {},
       "effects": {}
     },
     "Button": {
+      "outsideParts": [],
       "tokenId": "button",
       "variantCount": 40,
       "hasDescription": true,
@@ -3466,7 +3477,8 @@
           "strokeWeight": [
             2,
             0.5
-          ]
+          ],
+          "overflowingParts": []
         },
         "sm": {
           "slots": {
@@ -3514,7 +3526,8 @@
           "strokeWeight": [
             2,
             0.5
-          ]
+          ],
+          "overflowingParts": []
         }
       },
       "strokes": {
@@ -3534,6 +3547,7 @@
       "effects": {}
     },
     "Checkbox": {
+      "outsideParts": [],
       "tokenId": "checkbox",
       "variantCount": 4,
       "hasDescription": true,
@@ -3611,7 +3625,8 @@
           ],
           "layoutMode": [
             "HORIZONTAL"
-          ]
+          ],
+          "overflowingParts": []
         }
       },
       "strokes": {
@@ -3625,6 +3640,7 @@
       "effects": {}
     },
     "Dialog": {
+      "outsideParts": [],
       "tokenId": "dialog",
       "variantCount": 3,
       "hasDescription": true,
@@ -3702,7 +3718,8 @@
                 2
               ]
             }
-          }
+          },
+          "overflowingParts": []
         },
         "large": {
           "slots": {},
@@ -3753,7 +3770,8 @@
                 2
               ]
             }
-          }
+          },
+          "overflowingParts": []
         },
         "medium": {
           "slots": {},
@@ -3804,7 +3822,8 @@
                 2
               ]
             }
-          }
+          },
+          "overflowingParts": []
         }
       },
       "strokes": {
@@ -3819,6 +3838,7 @@
       }
     },
     "EmptyState": {
+      "outsideParts": [],
       "tokenId": "empty-state",
       "variantCount": 1,
       "hasDescription": true,
@@ -3920,13 +3940,15 @@
                 "HORIZONTAL"
               ]
             }
-          }
+          },
+          "overflowingParts": []
         }
       },
       "strokes": {},
       "effects": {}
     },
     "IconButton": {
+      "outsideParts": [],
       "tokenId": "icon-button",
       "variantCount": 40,
       "hasDescription": true,
@@ -4005,7 +4027,8 @@
           ],
           "strokeWeight": [
             0.5
-          ]
+          ],
+          "overflowingParts": []
         },
         "sm": {
           "slots": {
@@ -4042,7 +4065,8 @@
           ],
           "strokeWeight": [
             0.5
-          ]
+          ],
+          "overflowingParts": []
         }
       },
       "strokes": {
@@ -4056,6 +4080,7 @@
       "effects": {}
     },
     "Menu": {
+      "outsideParts": [],
       "tokenId": "menu-popover",
       "variantCount": 5,
       "hasDescription": true,
@@ -4108,13 +4133,15 @@
           ],
           "layoutMode": [
             "HORIZONTAL"
-          ]
+          ],
+          "overflowingParts": []
         }
       },
       "strokes": {},
       "effects": {}
     },
     "MenuPanel": {
+      "outsideParts": [],
       "tokenId": "menu-popover",
       "variantCount": 1,
       "hasDescription": true,
@@ -4159,7 +4186,8 @@
           ],
           "minWidth": [
             160
-          ]
+          ],
+          "overflowingParts": []
         }
       },
       "strokes": {},
@@ -4170,6 +4198,7 @@
       }
     },
     "ProjectCard": {
+      "outsideParts": [],
       "tokenId": "project-card",
       "variantCount": 1,
       "hasDescription": true,
@@ -4348,7 +4377,8 @@
                 32
               ]
             }
-          }
+          },
+          "overflowingParts": []
         }
       },
       "strokes": {
@@ -4363,6 +4393,7 @@
       }
     },
     "SegmentedControl": {
+      "outsideParts": [],
       "tokenId": "segmented-control",
       "variantCount": 2,
       "hasDescription": true,
@@ -4465,7 +4496,8 @@
           ],
           "layoutMode": [
             "HORIZONTAL"
-          ]
+          ],
+          "overflowingParts": []
         },
         "sm": {
           "slots": {},
@@ -4539,7 +4571,8 @@
           ],
           "layoutMode": [
             "HORIZONTAL"
-          ]
+          ],
+          "overflowingParts": []
         }
       },
       "strokes": {
@@ -4550,6 +4583,7 @@
       "effects": {}
     },
     "SelectableListRow": {
+      "outsideParts": [],
       "tokenId": "selectable-list-row",
       "variantCount": 3,
       "hasDescription": true,
@@ -4660,13 +4694,15 @@
           ],
           "layoutMode": [
             "HORIZONTAL"
-          ]
+          ],
+          "overflowingParts": []
         }
       },
       "strokes": {},
       "effects": {}
     },
     "SidebarBrand": {
+      "outsideParts": [],
       "tokenId": "app-shell-parts",
       "variantCount": 2,
       "hasDescription": true,
@@ -4712,7 +4748,8 @@
           ],
           "layoutMode": [
             "HORIZONTAL"
-          ]
+          ],
+          "overflowingParts": []
         },
         "true": {
           "slots": {},
@@ -4729,13 +4766,15 @@
           ],
           "layoutMode": [
             "HORIZONTAL"
-          ]
+          ],
+          "overflowingParts": []
         }
       },
       "strokes": {},
       "effects": {}
     },
     "SidebarCta": {
+      "outsideParts": [],
       "tokenId": "app-shell-parts",
       "variantCount": 2,
       "hasDescription": true,
@@ -4781,7 +4820,8 @@
           ],
           "layoutMode": [
             "HORIZONTAL"
-          ]
+          ],
+          "overflowingParts": []
         },
         "true": {
           "slots": {},
@@ -4798,13 +4838,15 @@
           ],
           "layoutMode": [
             "HORIZONTAL"
-          ]
+          ],
+          "overflowingParts": []
         }
       },
       "strokes": {},
       "effects": {}
     },
     "SidebarNavItem": {
+      "outsideParts": [],
       "tokenId": "app-shell-parts",
       "variantCount": 6,
       "hasDescription": true,
@@ -4864,13 +4906,15 @@
           ],
           "layoutMode": [
             "HORIZONTAL"
-          ]
+          ],
+          "overflowingParts": []
         }
       },
       "strokes": {},
       "effects": {}
     },
     "Skeleton": {
+      "outsideParts": [],
       "tokenId": "skeleton",
       "variantCount": 3,
       "hasDescription": true,
@@ -4908,7 +4952,8 @@
           ],
           "layoutMode": [
             "NONE"
-          ]
+          ],
+          "overflowingParts": []
         },
         "circle": {
           "slots": {},
@@ -4925,7 +4970,8 @@
           ],
           "layoutMode": [
             "NONE"
-          ]
+          ],
+          "overflowingParts": []
         },
         "text": {
           "slots": {},
@@ -4942,13 +4988,15 @@
           ],
           "layoutMode": [
             "NONE"
-          ]
+          ],
+          "overflowingParts": []
         }
       },
       "strokes": {},
       "effects": {}
     },
     "Slider": {
+      "outsideParts": [],
       "tokenId": "slider",
       "variantCount": 4,
       "hasDescription": true,
@@ -5035,7 +5083,8 @@
           ],
           "layoutMode": [
             "VERTICAL"
-          ]
+          ],
+          "overflowingParts": []
         },
         "md/track": {
           "slots": {},
@@ -5090,7 +5139,8 @@
           ],
           "layoutMode": [
             "VERTICAL"
-          ]
+          ],
+          "overflowingParts": []
         },
         "sm/thumb": {
           "slots": {},
@@ -5147,7 +5197,8 @@
           ],
           "layoutMode": [
             "VERTICAL"
-          ]
+          ],
+          "overflowingParts": []
         },
         "sm/track": {
           "slots": {},
@@ -5202,7 +5253,8 @@
           ],
           "layoutMode": [
             "VERTICAL"
-          ]
+          ],
+          "overflowingParts": []
         }
       },
       "strokes": {
@@ -5213,6 +5265,7 @@
       "effects": {}
     },
     "Spinner": {
+      "outsideParts": [],
       "tokenId": "spinner",
       "variantCount": 2,
       "hasDescription": true,
@@ -5254,7 +5307,8 @@
               ]
             }
           },
-          "strokeWeight": []
+          "strokeWeight": [],
+          "overflowingParts": []
         },
         "sm": {
           "slots": {},
@@ -5276,13 +5330,15 @@
               ]
             }
           },
-          "strokeWeight": []
+          "strokeWeight": [],
+          "overflowingParts": []
         }
       },
       "strokes": {},
       "effects": {}
     },
     "TextField": {
+      "outsideParts": [],
       "tokenId": "input",
       "variantCount": 8,
       "hasDescription": true,
@@ -5355,6 +5411,9 @@
               ],
               "cornerRadius": [
                 12
+              ],
+              "width": [
+                320
               ]
             },
             "Label": {
@@ -5397,7 +5456,11 @@
           ],
           "itemSpacing": [
             4
-          ]
+          ],
+          "width": [
+            328
+          ],
+          "overflowingParts": []
         },
         "sm": {
           "slots": {},
@@ -5420,6 +5483,9 @@
               ],
               "cornerRadius": [
                 12
+              ],
+              "width": [
+                320
               ]
             },
             "Label": {
@@ -5462,7 +5528,11 @@
           ],
           "itemSpacing": [
             4
-          ]
+          ],
+          "width": [
+            328
+          ],
+          "overflowingParts": []
         }
       },
       "strokes": {
@@ -5473,6 +5543,7 @@
       "effects": {}
     },
     "Toast": {
+      "outsideParts": [],
       "tokenId": "toast",
       "variantCount": 2,
       "hasDescription": true,
@@ -5529,7 +5600,8 @@
           ],
           "minWidth": [
             null
-          ]
+          ],
+          "overflowingParts": []
         }
       },
       "strokes": {},
@@ -5540,6 +5612,9 @@
       }
     },
     "Tooltip": {
+      "outsideParts": [
+        "Arrow"
+      ],
       "tokenId": "tooltip",
       "variantCount": 4,
       "hasDescription": true,
@@ -5597,6 +5672,19 @@
           ],
           "strokeWeight": [
             0.5
+          ],
+          "parts": {
+            "Arrow": {
+              "width": [
+                12
+              ],
+              "height": [
+                6
+              ]
+            }
+          },
+          "overflowingParts": [
+            "Arrow"
           ]
         }
       },

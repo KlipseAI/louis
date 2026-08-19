@@ -174,8 +174,9 @@ const COMPONENT_CONTRACTS = [
     propProperties: { Content: "content" },
     declaration: "packages/react/dist/tooltip/tooltip.d.ts",
     variantProperties: {
-      // 표면 시각은 네 방향이 같다. Side는 Figma에서 배치를 고르기 위한 축이며 코드의 side prop과
-      // 같은 집합을 쓴다. alias는 overlay primitive가 소유한다.
+      // Side는 화살표의 방향을 바꾼다. **표면 시각이 네 방향 같다고 적어 두었던 것이 잘못이었다** —
+      // 그래서 화살표 없이 네 variant가 전부 같은 그림이었고, 축이 아무것도 바꾸지 않으면
+      // 그 축은 거짓말이다(2026-08-18).
       Side: { type: "OverlaySide", declaration: "packages/react/dist/overlay/positioner.d.ts" },
     },
     geometry: {
@@ -192,6 +193,10 @@ const COMPONENT_CONTRACTS = [
       },
       slots: {},
       extraStrokeWeights: [],
+      parts: {
+        // Side 축이 바꾸는 유일한 것. 없으면 네 variant가 같은 그림이 된다.
+        Arrow: { fields: { width: "arrowWidth", height: "arrowHeight" } },
+      },
     },
   },
   {
@@ -344,6 +349,8 @@ const COMPONENT_CONTRACTS = [
       // 바깥으로 나가는 stroke로 그린다. 값은 border-width-ring과 같다.
       extraStrokeWeights: [2],
       parts: {
+        // 프레임이 박스보다 좌우 4씩 넓다 — focus 링이 잘리지 않게.
+        Box: { fields: { width: "boxWidth" } },
         Box: {
           fields: {
             height: "height",
@@ -1273,9 +1280,33 @@ function compare(document, expected) {
 
   issues.push(...compareComponents(document.components ?? {}));
   issues.push(...compareIcons(document.icons ?? {}));
+  issues.push(...compareOverflow(document.components));
   issues.push(...compareIconInstances(document.iconInstances));
   issues.push(...compareFoundations(document.foundations));
   issues.push(...compareTemplates(document.templates ?? {}));
+  return issues;
+}
+
+/**
+ * 보이는 자손이 variant 프레임 밖으로 나가는지.
+ *
+ * 나가면 썸네일과 인스턴스에서 **잘려 보인다.** TextField의 focus 링이 그랬다 — 링이 박스 바깥
+ * 4px에 있는데 프레임이 그만큼 넓지 않아 offset이 0으로 보였다(2026-08-18).
+ * 화살표처럼 **일부러 밖에 붙는 것**은 measured에 `outsideParts`로 선언한다.
+ */
+function compareOverflow(components) {
+  const issues = [];
+  for (const [figmaName, component] of Object.entries(components ?? {})) {
+    const outside = new Set(component.outsideParts ?? []);
+    for (const [size, geometry] of Object.entries(component.geometry ?? {})) {
+      for (const name of geometry.overflowingParts ?? []) {
+        if (outside.has(name)) continue;
+        issues.push(
+          `${figmaName} ${size}: 자손 ${name}이 프레임 밖으로 나갑니다. 인스턴스에서 잘려 보입니다.`,
+        );
+      }
+    }
+  }
   return issues;
 }
 

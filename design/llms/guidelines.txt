@@ -662,6 +662,10 @@ P3에서 먼저 검증한다. Editor Workspace geometry 검증은 DS-P5-005의 �
 
 ### Claude Code 실행 인계서
 
+> **2026-08-19 — 이어받는 사람은 [제품 실측 대조 인계서](../governance/handoff-2026-08-19-product-parity.md)를
+> 먼저 읽는다.** 아래 큐보다 그것이 앞선다. DS 값 359건이 제품을 확인하지 않고 정해져 있고,
+> 그것을 0으로 만드는 일이 지금의 본류다. 그 문서에 절대 하지 말 것과 다음 순서가 있다.
+
 이 문서는 Claude Code Opus 5를 포함한 후속 작업자가 Klipse Design의 P3–P5를 중단 없이 이어가기 위한
 실행 계약이다. 특정 모델의 기억이나 대화 기록에 의존하지 않는다. 실제 상태는 항상
 [`design/manifest.json`](../manifest.json), 행동 계약은 관련 규범 문서, 배포 가능 여부는 package와 검증

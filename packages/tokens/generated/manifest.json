@@ -2,23 +2,23 @@
   "artifacts": [
     {
       "path": "packages/tokens/generated/figma.tokens.json",
-      "sha256": "49fa4185282aa5af24635416c9fb621cac1d3edbefa0c486ef613613393a73b9"
+      "sha256": "f0eaa865f957b7bb0c8b236c1e139d33677080c0dfbc2037cb6df76a3f7d2575"
     },
     {
       "path": "packages/tokens/generated/index.d.ts",
-      "sha256": "fd2e4c74fddb22fa461cfa6c1252f40d055c975f348ef6501f154e799ea68f7a"
+      "sha256": "c2c7e710fec4a625a3b3bced6be1c270ad61aa010890c60496f3c962490d89aa"
     },
     {
       "path": "packages/tokens/generated/index.js",
-      "sha256": "012a9b47164a5186a7549a59d23a4c203f5a30725a7d1816fb2820bf9a70217d"
+      "sha256": "bb09c5167687ac372de0693e51e8bd69d8452a9c53d366d2bc1e466d3ea2f7e3"
     },
     {
       "path": "packages/tokens/generated/tokens.css",
-      "sha256": "6d468023f83283f6b03ae25404ebe80d27dbb164f0a8b8e3ef0491c5b35f6b35"
+      "sha256": "a9f55df801948a727e64dc12aeac9dd265249c230a18c6e44e8971ba0d0b07ff"
     },
     {
       "path": "packages/tokens/generated/tokens.json",
-      "sha256": "c51b5c5d3eada1c31ed8a48cf0eb3307cc537279ffab58e818d87bb55e6cfbde"
+      "sha256": "46f9569975f7df22acea03e92fe533fb9b4bd588ecc71e9fd83737d443d40442"
     }
   ],
   "contrastPairs": [
@@ -242,6 +242,13 @@
       "properties": [
         "background-color"
       ]
+    },
+    {
+      "lifecycle": "layout-change",
+      "motion": "motion-shell-collapse",
+      "properties": [
+        "inline-size"
+      ]
     }
   ],
   "reducedMotionPairs": [
@@ -312,6 +319,10 @@
     {
       "motion": "motion-control-hover",
       "reduced": "motion-reduced"
+    },
+    {
+      "motion": "motion-shell-collapse",
+      "reduced": "motion-reduced"
     }
   ],
   "responsiveProfiles": {
@@ -355,13 +366,13 @@
   },
   "source": {
     "path": "packages/tokens/src/klipse.tokens.json",
-    "sha256": "7c188c221a60bebcc3cd04ac5ea84092df6c79faceec62a9ab8696307fcf33b1"
+    "sha256": "3bca3fc7b8c8fdb1e17977f4a41d127f055aa7d96345b617188d25e4b7e46d80"
   },
   "themes": [
     "light",
     "dark"
   ],
-  "tokenCount": 354,
+  "tokenCount": 356,
   "tokens": [
     {
       "aliasTarget": null,
@@ -6599,6 +6610,41 @@
     },
     {
       "aliasTarget": {
+        "id": "transition-shell-collapse",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-motion-shell-collapse-delay": "0ms",
+        "--kds-motion-shell-collapse-duration": "320ms",
+        "--kds-motion-shell-collapse-timing-function": "cubic-bezier(0.4, 0, 0.2, 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "motion-shell-collapse",
+      "mode": "global",
+      "rawValue": "{primitive.transition.shell-collapse}",
+      "resolvedValue": {
+        "delay": {
+          "unit": "ms",
+          "value": 0
+        },
+        "duration": {
+          "unit": "ms",
+          "value": 320
+        },
+        "timingFunction": [
+          0.4,
+          0,
+          0.2,
+          1
+        ]
+      },
+      "sourcePath": "semantic.global.motion.shell-collapse",
+      "tier": "semantic",
+      "type": "transition"
+    },
+    {
+      "aliasTarget": {
         "id": "transition-shimmer",
         "mode": "base"
       },
@@ -9145,6 +9191,49 @@
         ]
       },
       "sourcePath": "primitive.transition.reduced",
+      "tier": "primitive",
+      "type": "transition"
+    },
+    {
+      "aliasTarget": null,
+      "cssProperties": {},
+      "deprecated": null,
+      "description": null,
+      "id": "transition-shell-collapse",
+      "mode": "base",
+      "rawValue": {
+        "delay": {
+          "unit": "ms",
+          "value": 0
+        },
+        "duration": {
+          "unit": "ms",
+          "value": 320
+        },
+        "timingFunction": [
+          0.4,
+          0,
+          0.2,
+          1
+        ]
+      },
+      "resolvedValue": {
+        "delay": {
+          "unit": "ms",
+          "value": 0
+        },
+        "duration": {
+          "unit": "ms",
+          "value": 320
+        },
+        "timingFunction": [
+          0.4,
+          0,
+          0.2,
+          1
+        ]
+      },
+      "sourcePath": "primitive.transition.shell-collapse",
       "tier": "primitive",
       "type": "transition"
     },

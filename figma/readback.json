@@ -2161,6 +2161,18 @@
           ]
         ],
         [
+          "motion/shell-collapse",
+          "STRING",
+          "",
+          [
+            [
+              "Global",
+              null,
+              "320ms cubic-bezier(0.4, 0, 0.2, 1) delay 0ms"
+            ]
+          ]
+        ],
+        [
           "motion/shimmer",
           "STRING",
           "",

@@ -151,6 +151,10 @@
         {
           "motion": "motion-control-hover",
           "reduced": "motion-reduced"
+        },
+        {
+          "motion": "motion-shell-collapse",
+          "reduced": "motion-reduced"
         }
       ],
       "motionProperties": [
@@ -294,6 +298,13 @@
           "motion": "motion-control-hover",
           "properties": [
             "background-color"
+          ],
+          "lifecycle": "layout-change"
+        },
+        {
+          "motion": "motion-shell-collapse",
+          "properties": [
+            "inline-size"
           ],
           "lifecycle": "layout-change"
         }
@@ -3381,6 +3392,30 @@
             "tier": "primitive"
           }
         }
+      },
+      "shell-collapse": {
+        "$value": {
+          "duration": {
+            "value": 320,
+            "unit": "ms"
+          },
+          "delay": {
+            "value": 0,
+            "unit": "ms"
+          },
+          "timingFunction": [
+            0.4,
+            0,
+            0.2,
+            1
+          ]
+        },
+        "$extensions": {
+          "com.klipse-design": {
+            "id": "transition-shell-collapse",
+            "tier": "primitive"
+          }
+        }
       }
     },
     "blur": {
@@ -4102,6 +4137,16 @@
           "$extensions": {
             "com.klipse-design": {
               "id": "motion-control-hover",
+              "tier": "semantic",
+              "mode": "global"
+            }
+          }
+        },
+        "shell-collapse": {
+          "$value": "{primitive.transition.shell-collapse}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "motion-shell-collapse",
               "tier": "semantic",
               "mode": "global"
             }

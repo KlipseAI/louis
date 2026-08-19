@@ -122,6 +122,9 @@
   --kds-motion-reduced-delay: 0ms;
   --kds-motion-reduced-duration: 0ms;
   --kds-motion-reduced-timing-function: cubic-bezier(0.2, 0, 0, 1);
+  --kds-motion-shell-collapse-delay: 0ms;
+  --kds-motion-shell-collapse-duration: 320ms;
+  --kds-motion-shell-collapse-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   --kds-motion-shimmer-delay: 0ms;
   --kds-motion-shimmer-duration: 1600ms;
   --kds-motion-shimmer-timing-function: cubic-bezier(0.2, 0, 0, 1);

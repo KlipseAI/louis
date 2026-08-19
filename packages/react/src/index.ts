@@ -29,9 +29,11 @@ export type {
   ProjectCardTextProps,
   ProjectCardThumbnailProps,
 } from "./project-card/project-card.js";
-export { AppTopBar, SidebarNavItem } from "./app-shell/app-shell-parts.js";
+export { AppTopBar, SidebarBrand, SidebarCta, SidebarNavItem } from "./app-shell/app-shell-parts.js";
 export type {
   AppTopBarProps,
+  SidebarBrandProps,
+  SidebarCtaProps,
   SidebarNavItemButtonProps,
   SidebarNavItemLinkProps,
   SidebarNavItemProps,

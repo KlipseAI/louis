@@ -17,7 +17,7 @@ summary: 앱 셸을 이루는 사이드바 행과 상단 바입니다.
 
 | Surface       | 상태           | 근거                                                          |
 | ------------- | -------------- | -------------------------------------------------------------- |
-| Web           | `partial`      | public export와 실브라우저 acceptance test 10건; 셸 composition은 없다 |
+| Web           | `partial`      | 브랜드 행·CTA 포함. public export와 실브라우저 acceptance test 10건; 셸 composition은 없다 |
 | Figma         | `partial`      | component 둘 — SidebarNavItem 6 variant(State×Collapsed)와 AppTopBar. publish는 DS-F-008 |
 | Documentation | `done`         | 이 문서                                                        |
 | Maturity      | `experimental` | 규범과 구현이 같은 변경 단위에서 처음 선다                     |
@@ -94,6 +94,26 @@ AppTopBar는 상태 축이 **없다.** 대화형이 아니고 안의 슬롯이 �
 - 라벨은 **화면의 이름**이다. "보관함"이지 "보관함으로 이동"이 아니다.
 - TopBar의 제목은 현재 위치를 말한다. 브레드크럼이 필요하면 `title` 자리에 넣는다 — 이 컴포넌트가
   브레드크럼 구조를 소유하지 않는다.
+
+## Sidebar brand와 CTA
+
+사이드바는 내비 항목만으로 성립하지 않는다. 배포본은 **맨 위에 브랜드 행**, **맨 아래에 업그레이드
+CTA**를 갖는다. 그 둘이 없어서 한 번 조립한 홈 템플릿을 내렸다(2026-08-18).
+
+| 부품 | 계약 |
+| --- | --- |
+| `SidebarBrand` | `gap` `space-control-sm` · 로고 레일 최소 높이 `icon-size-lg`(24) · 워드마크 최대 폭 240 |
+| `SidebarCta` | `margin-block-start: auto`로 바닥에 붙는다 · 버튼 최소 높이 `layout-control-height-md` |
+
+**접힘은 폭이다.** 워드마크와 라벨의 `max-inline-size`가 0으로 줄어들며 잘린다 — 폭이 상태이므로
+`layout-change` lifecycle이고([DS-D-0019](../governance/decisions/DS-D-0019-layout-change-motion.md))
+값은 `motion-shell-collapse`(320ms)다. 캐러셀 점의 `motion-layout-change`(220ms)와 **곡선은 같고
+지속만 다르다** — 제품 실측이 그렇고, 하나로 뭉치면 둘 중 하나가 틀린 값을 쓴다.
+
+**접혀도 글자를 DOM에서 지우지 않는다.** 지우면 버튼의 접근 가능한 이름이 사라져 스크린 리더가
+"버튼"만 읽는다. 폭만 0으로 만든다.
+
+**접힘 상태는 소비처가 소유한다.** 셸이 접혔는지 아는 것은 셸이고 이 부품은 결과를 받는다.
 
 ## Accessibility
 

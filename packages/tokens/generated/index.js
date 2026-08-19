@@ -221,6 +221,13 @@ export const metadata = Object.freeze({
         "background-color"
       ],
       "lifecycle": "layout-change"
+    },
+    {
+      "motion": "motion-shell-collapse",
+      "properties": [
+        "inline-size"
+      ],
+      "lifecycle": "layout-change"
     }
   ],
   "reducedMotionPairs": [
@@ -290,6 +297,10 @@ export const metadata = Object.freeze({
     },
     {
       "motion": "motion-control-hover",
+      "reduced": "motion-reduced"
+    },
+    {
+      "motion": "motion-shell-collapse",
       "reduced": "motion-reduced"
     }
   ],
@@ -4401,6 +4412,49 @@ export const primitives = {
       ]
     }
   },
+  "transition-shell-collapse": {
+    "aliasTarget": null,
+    "cssProperties": {},
+    "deprecated": null,
+    "description": null,
+    "id": "transition-shell-collapse",
+    "mode": "base",
+    "rawValue": {
+      "duration": {
+        "value": 320,
+        "unit": "ms"
+      },
+      "delay": {
+        "value": 0,
+        "unit": "ms"
+      },
+      "timingFunction": [
+        0.4,
+        0,
+        0.2,
+        1
+      ]
+    },
+    "sourcePath": "primitive.transition.shell-collapse",
+    "tier": "primitive",
+    "type": "transition",
+    "value": {
+      "duration": {
+        "value": 320,
+        "unit": "ms"
+      },
+      "delay": {
+        "value": 0,
+        "unit": "ms"
+      },
+      "timingFunction": [
+        0.4,
+        0,
+        0.2,
+        1
+      ]
+    }
+  },
   "transition-shimmer": {
     "aliasTarget": null,
     "cssProperties": {},
@@ -6717,6 +6771,41 @@ export const tokens = {
           0.2,
           0,
           0,
+          1
+        ]
+      }
+    },
+    "motion-shell-collapse": {
+      "aliasTarget": {
+        "id": "transition-shell-collapse",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-motion-shell-collapse-duration": "320ms",
+        "--kds-motion-shell-collapse-delay": "0ms",
+        "--kds-motion-shell-collapse-timing-function": "cubic-bezier(0.4, 0, 0.2, 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "motion-shell-collapse",
+      "mode": "global",
+      "rawValue": "{primitive.transition.shell-collapse}",
+      "sourcePath": "semantic.global.motion.shell-collapse",
+      "tier": "semantic",
+      "type": "transition",
+      "value": {
+        "duration": {
+          "value": 320,
+          "unit": "ms"
+        },
+        "delay": {
+          "value": 0,
+          "unit": "ms"
+        },
+        "timingFunction": [
+          0.4,
+          0,
+          0.2,
           1
         ]
       }

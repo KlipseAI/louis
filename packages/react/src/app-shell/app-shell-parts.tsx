@@ -131,3 +131,85 @@ export function AppTopBar({
     </div>
   );
 }
+
+/**
+ * 사이드바 맨 위의 로고 행.
+ *
+ * **접힘은 소비처가 소유한다.** 셸이 접혔는지 아는 것은 셸이고, 이 부품은 결과를 받는다.
+ * 워드마크는 폭이 줄어들며 잘린다 — 폭이 상태이므로 layout-change lifecycle이다(DS-D-0019).
+ */
+export interface SidebarBrandProps extends HTMLAttributes<HTMLDivElement> {
+  /** 로고 자리. 24px 글리프나 이미지가 온다. */
+  readonly mark: ReactNode;
+  /** 접히면 사라지는 글자. */
+  readonly wordmark: ReactNode;
+  readonly collapsed?: boolean;
+  readonly ref?: Ref<HTMLDivElement>;
+}
+
+export function SidebarBrand({
+  mark,
+  wordmark,
+  collapsed = false,
+  className,
+  ref,
+  ...rest
+}: SidebarBrandProps): JSX.Element {
+  return (
+    <div
+      {...rest}
+      ref={ref}
+      className={["kds-sidebar-brand", className].filter(Boolean).join(" ")}
+      data-collapsed={collapsed ? "true" : "false"}
+    >
+      <span className="kds-sidebar-brand__mark" aria-hidden="true">
+        {mark}
+      </span>
+      <span className="kds-sidebar-brand__wordmark">{wordmark}</span>
+    </div>
+  );
+}
+
+/**
+ * 사이드바 맨 아래에 붙는 행동 유도.
+ *
+ * `margin-block-start: auto`가 자리를 만들므로 **내비 항목이 몇 개든 바닥에 남는다.**
+ * 접히면 라벨이 사라지고 아이콘만 남는다.
+ */
+export interface SidebarCtaProps extends HTMLAttributes<HTMLDivElement> {
+  readonly label: ReactNode;
+  readonly icon?: ReactNode;
+  readonly collapsed?: boolean;
+  readonly onActivate?: () => void;
+  readonly ref?: Ref<HTMLDivElement>;
+}
+
+export function SidebarCta({
+  label,
+  icon,
+  collapsed = false,
+  onActivate,
+  className,
+  ref,
+  ...rest
+}: SidebarCtaProps): JSX.Element {
+  return (
+    <div
+      {...rest}
+      ref={ref}
+      className={["kds-sidebar-cta", className].filter(Boolean).join(" ")}
+      data-collapsed={collapsed ? "true" : "false"}
+    >
+      <button type="button" className="kds-sidebar-cta__button" onClick={onActivate}>
+        {icon === undefined ? null : (
+          <span className="kds-sidebar-cta__icon" aria-hidden="true">
+            {icon}
+          </span>
+        )}
+        {/* 접히면 라벨이 시각적으로 사라진다. **DOM에서는 지우지 않는다** — 지우면
+            버튼의 접근 가능한 이름이 사라져 스크린 리더가 "버튼"만 읽는다. */}
+        <span className="kds-sidebar-cta__label">{label}</span>
+      </button>
+    </div>
+  );
+}

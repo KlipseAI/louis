@@ -382,7 +382,11 @@
           "borderWidth": 0.5,
           "radius": 20,
           "$radius": "radius-card-lg 20 (DS-D-0014). 그 전에는 radius-card를 빌려 썼는데, 제품의 프로젝트 카드가 4벌 전부 16px이라 radius-card가 16으로 내려가면서 20px이 자기 이름을 갖게 됐다",
-          "gap": 8
+          "gap": 8,
+          "footerPaddingTop": 8,
+          "actionsGap": 8,
+          "actionCount": 2,
+          "footerChildren": 1
         },
         "medium": {
           "width": 480,
@@ -390,7 +394,11 @@
           "paddingInline": 20,
           "borderWidth": 0.5,
           "radius": 16,
-          "gap": 8
+          "gap": 8,
+          "footerPaddingTop": 8,
+          "actionsGap": 8,
+          "actionCount": 2,
+          "footerChildren": 1
         },
         "large": {
           "width": 720,
@@ -398,7 +406,11 @@
           "paddingInline": 20,
           "borderWidth": 0.5,
           "radius": 16,
-          "gap": 8
+          "gap": 8,
+          "footerPaddingTop": 8,
+          "actionsGap": 8,
+          "actionCount": 2,
+          "footerChildren": 1
         }
       },
       "states": {
@@ -409,7 +421,8 @@
             "border": "color-border-subtle"
           }
         }
-      }
+      },
+      "$footer": "확인 대화상자는 Footer와 액션 둘이 있어야 성립한다. Figma 세트에 그것이 없어서 **디자이너가 확인 대화상자를 만들 수 없었다**(2026-08-18 실무 감사). 값은 코드의 dialog.css와 같다 — Footer는 padding-block-start가 space-control-sm이고 Actions는 오른쪽 정렬에 같은 gap이다."
     },
     "project-card": {
       "$doc": "design/components/project-card.md",

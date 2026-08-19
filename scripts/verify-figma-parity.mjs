@@ -281,6 +281,12 @@ const COMPONENT_CONTRACTS = [
         layoutMode: { literal: "VERTICAL" },
       },
       slots: {},
+      parts: {
+        // 확인 대화상자가 성립하려면 Footer와 액션 둘이 있어야 한다. 없으면 디자이너가
+        // 확인 대화상자를 Figma로 만들 수 없다(2026-08-18 실무 감사).
+        Footer: { fields: { paddingTop: "footerPaddingTop", children: "footerChildren" } },
+        Actions: { fields: { itemSpacing: "actionsGap", children: "actionCount" } },
+      },
       extraStrokeWeights: [],
     },
   },

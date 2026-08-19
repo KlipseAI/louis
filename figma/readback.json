@@ -4403,7 +4403,25 @@
           ],
           "strokeWeight": [
             0.5
-          ]
+          ],
+          "parts": {
+            "Footer": {
+              "paddingTop": [
+                8
+              ],
+              "children": [
+                1
+              ]
+            },
+            "Actions": {
+              "itemSpacing": [
+                8
+              ],
+              "children": [
+                2
+              ]
+            }
+          }
         },
         "medium": {
           "slots": {},
@@ -4436,7 +4454,25 @@
           ],
           "strokeWeight": [
             0.5
-          ]
+          ],
+          "parts": {
+            "Footer": {
+              "paddingTop": [
+                8
+              ],
+              "children": [
+                1
+              ]
+            },
+            "Actions": {
+              "itemSpacing": [
+                8
+              ],
+              "children": [
+                2
+              ]
+            }
+          }
         },
         "large": {
           "slots": {},
@@ -4469,7 +4505,25 @@
           ],
           "strokeWeight": [
             0.5
-          ]
+          ],
+          "parts": {
+            "Footer": {
+              "paddingTop": [
+                8
+              ],
+              "children": [
+                1
+              ]
+            },
+            "Actions": {
+              "itemSpacing": [
+                8
+              ],
+              "children": [
+                2
+              ]
+            }
+          }
         }
       },
       "strokes": {

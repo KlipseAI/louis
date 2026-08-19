@@ -8,6 +8,42 @@ authority: normative
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
 
+## 2026-08-18 (45) — 마지막 blocker: Dialog로 확인 대화상자를 못 만들었습니다
+
+Figma의 Dialog 세트에 **Footer도 버튼도 없었습니다.** 제목과 설명만 있어서, 디자이너가 삭제 확인
+같은 가장 흔한 대화상자를 그리려면 세트 밖에서 버튼을 따로 붙여야 했습니다.
+
+코드에는 `DialogFooter`와 `DialogActions`가 처음부터 있었습니다. **Figma만 빠져 있었습니다.**
+
+### 세 variant 전부에 넣었습니다
+
+코드의 `dialog.css` 값 그대로입니다 — Footer는 `padding-block-start`가 `space-control-sm`(8),
+Actions는 오른쪽 정렬에 같은 gap. **취소가 먼저, 확인이 나중**이고 라벨도 채웠습니다.
+
+### 계약
+
+`footerPaddingTop` · `actionsGap` · `actionCount`를 measured에 두고 parity가 대조합니다. Footer를
+지워 보니 실패합니다.
+
+여기서 게이트가 이미 한 가지를 잡고 있었다는 것도 확인했습니다 — 부품을 넣자마자
+*"계약에 없는 자손이 있습니다 — Footer"*로 막았습니다. **선언하지 않은 부품을 몰래 넣는 길은
+원래 막혀 있었고, 없는 부품을 안 넣는 길만 열려 있었습니다.**
+
+### blocker 7건이 전부 닫혔습니다
+
+| 결함 | 어떻게 닫혔나 |
+| --- | --- |
+| 오버레이 SSR 예외 | context를 서버에서도 만든다. `verify-consumer`가 4경우를 실제 렌더 |
+| CSS import 안내 누락 | 세 문서 수정 + 안내 완결성 게이트 |
+| Foundations 색 문서가 없는 이름 | 변수 목록에서 생성 + `compareFoundations` |
+| 아이콘 획이 크기를 안 따름 | 146개를 `rescale`로 재배치 + 크기별 획 게이트 |
+| EmptyState 64px 슬롯 | 위와 같은 원인이라 함께 닫힘 |
+| 캐러셀 빈 컨트롤 | 아이콘 넣고 `controlGlyphCount` 계약 |
+| Dialog Footer 없음 | 이 항목 |
+
+**일곱 중 여섯이 게이트를 새로 만들어서 닫혔습니다.** 고친 것보다 **다시 생기지 못하게 한 것**이
+많습니다.
+
 ## 2026-08-18 (44) — 아이콘 획이 크기를 안 따라가고 있었습니다
 
 같은 아이콘이 20px 자리에서 **Figma 1.5 · 코드 1.25**로 그려지고 있었습니다.

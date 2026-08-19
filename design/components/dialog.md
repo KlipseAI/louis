@@ -225,6 +225,15 @@ Dialog는 modal behavior만 소유한다. route가 주 작업을 소유하면
 - async action은 `저장 중`, `삭제 중`처럼 상태를 표시하되 말줄임표를 쓰지 않는다.
 - 오류 후 Dialog를 닫지 말고 사용자가 복구할 방법을 제공한다.
 
+## Footer
+
+확인 대화상자는 **Footer와 액션 둘**로 성립한다. Footer는 `padding-block-start`가
+`space-control-sm`이고 Actions는 오른쪽 정렬에 같은 gap이다. **취소가 먼저, 확인이 나중**이다.
+
+Figma 세트에 이것이 없어서 디자이너가 확인 대화상자를 만들 수 없었다(2026-08-18 실무 감사).
+지금은 세 Size variant 전부에 있고 parity가 `footerPaddingTop` · `actionsGap` · `actionCount`를
+대조한다.
+
 ## Accessibility
 
 - Surface는 `role="dialog"`와 `aria-modal="true"`를 사용한다. `alertdialog`는 이번 구현 범위가 **아니다.**

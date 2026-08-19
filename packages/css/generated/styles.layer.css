@@ -1697,8 +1697,10 @@
   .kds-dialog[data-size="compact"] {
     --kds-dialog-inline-size: 360px;
     --kds-dialog-surface-inset: var(--kds-space-layout-gutter);
-    /* 24px 토큰이 소스에 없다. radius-overlay(16)보다 크면서 large와 구분되는 유일한 값. */
-    --kds-dialog-surface-radius: var(--kds-radius-card-lg);
+    /* **24다.** 토큰이 없다는 이유로 20(`radius-card-lg`)을 빌려 쓰고 있었는데, 그것은 값을 제품이
+     * 아니라 토큰 계단이 정하게 둔 것이다. 배포본의 모달 두 벌(앱 홈 · 마이페이지)이 **전수 24로
+     * 일치**하므로 계단에 `radius-overlay-lg`를 세우고 그 값을 쓴다. */
+    --kds-dialog-surface-radius: var(--kds-radius-overlay-lg);
   }
 
   .kds-dialog[data-size="large"] {

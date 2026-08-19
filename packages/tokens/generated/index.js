@@ -7871,6 +7871,27 @@ export const tokens = {
         "unit": "px"
       }
     },
+    "radius-overlay-lg": {
+      "aliasTarget": {
+        "id": "radius-24",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-radius-overlay-lg": "24px"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "radius-overlay-lg",
+      "mode": "global",
+      "rawValue": "{primitive.radius.24}",
+      "sourcePath": "semantic.global.radius.overlay-lg",
+      "tier": "semantic",
+      "type": "dimension",
+      "value": {
+        "value": 24,
+        "unit": "px"
+      }
+    },
     "radius-pill": {
       "aliasTarget": {
         "id": "radius-full",

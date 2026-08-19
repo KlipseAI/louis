@@ -110,6 +110,31 @@ const PROBES = [
     text: "저장했어요",
     read: ["paddingTop", "paddingLeft", "borderTopLeftRadius", "borderTopWidth", "backdropFilter", "height"],
   },
+  // ── 경쟁 정의 ────────────────────────────────────────────────────────────
+  // "제품에 정본이 없다"는 **주장이 아니라 증거여야 한다.** 한 벌만 재고 정본이 없다고 적으면
+  // 그 판단을 아무도 검증할 수 없다. 갈리는 컴포넌트는 경쟁 정의도 함께 재서 **무엇이 얼마나
+  // 갈리는지**를 게이트가 들고 있게 한다.
+  {
+    id: "toast-highlight",
+    source: "highlightSceneStyles.ts toast — appHome 벌과 바이트 동일한 두 번째 정의",
+    from: ["highlight", "toast"],
+    text: "저장했어요",
+    read: ["paddingTop", "paddingLeft", "borderTopLeftRadius", "backdropFilter"],
+  },
+  {
+    id: "toast-mypage",
+    source: "myPageSceneStyles.ts toast — 갈리는 세 번째 정의(알약 · 불투명 면 · 테두리)",
+    from: ["myPage", "toast"],
+    text: "저장했어요",
+    read: ["paddingTop", "paddingLeft", "borderTopLeftRadius", "borderTopWidth"],
+  },
+  {
+    id: "dialog-card-mypage",
+    source: "myPageSceneStyles.ts modalCard — appHome 벌과 기하가 같은 두 번째 정의",
+    from: ["myPage", "modalCard"],
+    hostWidth: 1440,
+    read: ["width", "paddingTop", "borderTopLeftRadius", "rowGap"],
+  },
   {
     id: "menu-panel",
     source: "globals.css --dropdown-radius / --dropdown-padding — 제품 드롭다운 면 SSOT",
@@ -558,10 +583,21 @@ const EXPECT = [
     "제품 40, DS 44. 여백 8/12는 같고 제품 항목이 문서 기본 16/24를, DS가 body-sm 14/21에 아이콘 슬롯 20을 담아 44가 된다."],
 
   ["dialog-card", "width", ["dialog", "sizes", "compact", "width"], "same"],
-  ["dialog-card", "paddingTop", ["dialog", "sizes", "compact", "paddingBlock"], "deviates",
-    "제품 16, DS 20. 제품 모달은 공용 구현 없이 화면별 14벌이고 여백이 12·16·20·24로 갈린다. DS는 dialog.md가 고른 20을 쓴다."],
-  ["dialog-card", "borderTopLeftRadius", ["dialog", "sizes", "compact", "radius"], "deviates",
-    "제품 24, DS 20. radius-card-lg 20은 DS-D-0014가 소유한다 — 제품 14벌의 반경도 16·20·24로 갈려 정본이 없다."],
+  ["dialog-card", "paddingTop", ["dialog", "sizes", "compact", "surfaceInset"], "same"],
+  ["dialog-card", "borderTopLeftRadius", ["dialog", "sizes", "compact", "radius"], "same"],
+  ["dialog-card-mypage", "width", ["dialog", "sizes", "compact", "width"], "same"],
+  ["dialog-card-mypage", "paddingTop", ["dialog", "sizes", "compact", "surfaceInset"], "same"],
+  ["dialog-card-mypage", "borderTopLeftRadius", ["dialog", "sizes", "compact", "radius"], "same"],
+  ["toast-highlight", "paddingTop", ["toast", "sizes", "base", "paddingBlock"], "same"],
+  ["toast-highlight", "paddingLeft", ["toast", "sizes", "base", "paddingInline"], "same"],
+  ["toast-highlight", "borderTopLeftRadius", ["toast", "sizes", "base", "radius"], "same"],
+  ["toast-mypage", "paddingTop", ["toast", "sizes", "base", "paddingBlock"], "same"],
+  ["toast-mypage", "paddingLeft", ["toast", "sizes", "base", "paddingInline"], "deviates",
+    "제품 24, DS 20. **세 벌 중 둘이 20이고 이 벌만 24다.** 앱 홈과 하이라이트의 정의는 바이트 동일하며 DS가 그 다수를 따른다."],
+  ["toast-mypage", "borderTopLeftRadius", ["toast", "sizes", "base", "radius"], "deviates",
+    "제품 999(알약), DS 16. 위와 같다 — 다른 두 벌은 16이다. 마이페이지 토스트만 알약이고 면도 불투명이다."],
+  ["toast-mypage", "borderTopWidth", ["toast", "sizes", "base", "borderWidth"], "deviates",
+    "제품 1px, DS 0. 이 벌만 테두리를 두른다. 다른 두 벌은 그림자와 흐림으로만 면을 띄운다."],
   ["dialog-card", "borderTopWidth", ["dialog", "sizes", "compact", "borderWidth"], "deviates",
     "제품 0, DS 0.5. 제품 모달은 그림자만으로 면을 띄우는데 DS는 라이트 테마에서 그림자가 약해 테두리를 남긴다."],
 

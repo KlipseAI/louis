@@ -10114,6 +10114,34 @@
             }
           }
         },
+        "radius-overlay-lg": {
+          "$type": "dimension",
+          "fields": [],
+          "figmaName": "radius/overlay-lg",
+          "hiddenFromPublishing": false,
+          "losses": [
+            "Figma FLOAT는 DTCG 단위 의미를 직접 보존하지 않으므로 source metadata를 함께 검토해야 합니다."
+          ],
+          "nativeVariableType": "FLOAT",
+          "representation": "variable",
+          "scopes": [
+            "CORNER_RADIUS"
+          ],
+          "valuesByMode": {
+            "Global": {
+              "$value": "{primitive.radius.24}",
+              "aliasTarget": {
+                "id": "radius-24",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "unit": "px",
+                "value": 24
+              },
+              "sourcePath": "semantic.global.radius.overlay-lg"
+            }
+          }
+        },
         "radius-pill": {
           "$type": "dimension",
           "fields": [],

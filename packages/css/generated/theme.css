@@ -84,6 +84,7 @@
   --radius-control-sm: var(--kds-radius-control-sm);
   --radius-overlay: var(--kds-radius-overlay);
   --radius-overlay-item: var(--kds-radius-overlay-item);
+  --radius-overlay-lg: var(--kds-radius-overlay-lg);
   --radius-pill: var(--kds-radius-pill);
 
   /* 그림자 — shadow-* 유틸리티가 된다 */

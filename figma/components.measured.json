@@ -383,13 +383,16 @@
           "paddingBlock": 20,
           "paddingInline": 20,
           "borderWidth": 0.5,
-          "radius": 20,
-          "$radius": "radius-card-lg 20 (DS-D-0014). 그 전에는 radius-card를 빌려 썼는데, 제품의 프로젝트 카드가 4벌 전부 16px이라 radius-card가 16으로 내려가면서 20px이 자기 이름을 갖게 됐다",
+          "radius": 24,
+          "$radius": "24(radius-overlay-lg). 20을 쓰던 이유가 '24 토큰이 소스에 없다'였는데, 그것은 값을 제품이 아니라 토큰 계단이 정하게 둔 것이다. 배포본 모달 두 벌이 전수 24다.",
           "gap": 8,
           "footerPaddingTop": 8,
           "actionsGap": 8,
           "actionCount": 2,
-          "footerChildren": 1
+          "footerChildren": 1,
+          "$paddingBlock": "**뷰포트 여백이다.** 화면 가장자리와 surface 사이이며 `.kds-dialog` 루트가 갖는다. surface 안쪽 여백은 `surfaceInset`이 따로 갖는다 — 한 이름으로 둘을 가리키다가 Figma가 20.5로 그려진 채 CSS는 16·24를 렌더하고 있었다.",
+          "surfaceInset": 16,
+          "$surfaceInset": "16(space-layout-gutter). 배포본 모달 두 벌(앱 홈 · 마이페이지)이 전수 16이다."
         },
         "medium": {
           "width": 480,
@@ -401,7 +404,10 @@
           "footerPaddingTop": 8,
           "actionsGap": 8,
           "actionCount": 2,
-          "footerChildren": 1
+          "footerChildren": 1,
+          "$paddingBlock": "**뷰포트 여백이다.** 화면 가장자리와 surface 사이이며 `.kds-dialog` 루트가 갖는다. surface 안쪽 여백은 `surfaceInset`이 따로 갖는다 — 한 이름으로 둘을 가리키다가 Figma가 20.5로 그려진 채 CSS는 16·24를 렌더하고 있었다.",
+          "surfaceInset": 24,
+          "$surfaceInset": "24(space-layout-section). 제품에는 360 모달 한 벌뿐이라 이 둘은 DS가 정한 값이다 — compact만 좁힌다."
         },
         "large": {
           "width": 720,
@@ -413,7 +419,10 @@
           "footerPaddingTop": 8,
           "actionsGap": 8,
           "actionCount": 2,
-          "footerChildren": 1
+          "footerChildren": 1,
+          "$paddingBlock": "**뷰포트 여백이다.** 화면 가장자리와 surface 사이이며 `.kds-dialog` 루트가 갖는다. surface 안쪽 여백은 `surfaceInset`이 따로 갖는다 — 한 이름으로 둘을 가리키다가 Figma가 20.5로 그려진 채 CSS는 16·24를 렌더하고 있었다.",
+          "surfaceInset": 24,
+          "$surfaceInset": "24(space-layout-section). 제품에는 360 모달 한 벌뿐이라 이 둘은 DS가 정한 값이다 — compact만 좁힌다."
         }
       },
       "states": {

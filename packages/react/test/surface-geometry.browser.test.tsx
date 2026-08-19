@@ -90,6 +90,12 @@ for (const size of DIALOG_SIZES) {
     const root = find(".kds-dialog");
     const rootStyle = getComputedStyle(root);
     expect(px(rootStyle.paddingBlockStart), "paddingBlock").toBe(spec.paddingBlock);
+    // **surface 안쪽 여백을 따로 본다.** 한 이름(`paddingBlock`)으로 뷰포트 여백과 surface
+    // 여백을 둘 다 가리키다가, Figma가 20.5로 그려진 채 CSS는 16·24를 렌더하고 있었다.
+    // 그 축을 보는 테스트가 없어 둘이 갈린 채로 통과했다.
+    const header = find(".kds-dialog__header");
+    expect(px(getComputedStyle(header).paddingBlockStart), "surfaceInset").toBe(spec.surfaceInset);
+    expect(px(getComputedStyle(header).paddingInlineStart), "surfaceInset").toBe(spec.surfaceInset);
     expect(px(rootStyle.paddingInlineStart), "paddingInline").toBe(spec.paddingInline);
     // measured의 gap 8은 header와 action이 함께 쓰는 space-control-sm이다(dialog.md "Action gap 8px").
     expect(px(getComputedStyle(find(".kds-dialog__header")).columnGap), "gap").toBe(spec.gap);

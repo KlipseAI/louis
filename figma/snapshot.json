@@ -6,12 +6,12 @@
     "capturedAt": "2026-08-18",
     "capturedBy": "figma-mcp-plugin-api",
     "published": false,
-    "tokenSourceSha256": "353b1b6d36a5a915690da5c8c8a355184dcc388d22b0dc790efe77037a55b38e",
-    "proposalSha256": "27515b83b7d909a981a4e7c4a932bd1614d04ccd287a7962060c7b52d80b4094",
+    "tokenSourceSha256": "e1495e34afb6ada76803f445a3fd8ee64ec4018fa29976aa164c85bff3d81246",
+    "proposalSha256": "c88e927ba04ea40f6a884e88df04d5c40a3085edcb4560c66e779602aed2d4b5",
     "readback": {
-      "tokens": 255,
-      "canonicalLength": 22340,
-      "fnv1a32": "cb48faeb",
+      "tokens": 256,
+      "canonicalLength": 22417,
+      "fnv1a32": "e2979a7f",
       "note": "변수는 readback.json의 되읽기 행을 tokenId 공간으로 옮긴 것이고, style과 component는 같은 되읽기의 style/component 절이다. canonical 해시는 컬렉션·이름·타입·mode 값을 정렬해 이은 문자열의 FNV-1a다.",
       "styles": {
         "text": 15,
@@ -38,7 +38,7 @@
         "Global"
       ],
       "defaultMode": "Global",
-      "variableCount": 73
+      "variableCount": 74
     },
     "Klipse Semantic Color": {
       "modes": [
@@ -2483,6 +2483,15 @@
         }
       }
     },
+    "radius-overlay-lg": {
+      "figmaName": "radius/overlay-lg",
+      "resolvedType": "FLOAT",
+      "valuesByMode": {
+        "Global": {
+          "alias": "radius-24"
+        }
+      }
+    },
     "radius-pill": {
       "figmaName": "radius/pill",
       "resolvedType": "FLOAT",
@@ -3966,22 +3975,22 @@
             360
           ],
           "paddingBlock": [
-            20.5
+            16.5
           ],
           "paddingBlockEnd": [
-            20.5
+            16.5
           ],
           "paddingInline": [
-            20.5
+            16.5
           ],
           "paddingInlineEnd": [
-            20.5
+            16.5
           ],
           "itemSpacing": [
             8
           ],
           "cornerRadius": [
-            20
+            24
           ],
           "layoutMode": [
             "VERTICAL"
@@ -4019,16 +4028,16 @@
             720
           ],
           "paddingBlock": [
-            20.5
+            24.5
           ],
           "paddingBlockEnd": [
-            20.5
+            24.5
           ],
           "paddingInline": [
-            20.5
+            24.5
           ],
           "paddingInlineEnd": [
-            20.5
+            24.5
           ],
           "itemSpacing": [
             8
@@ -4072,16 +4081,16 @@
             480
           ],
           "paddingBlock": [
-            20.5
+            24.5
           ],
           "paddingBlockEnd": [
-            20.5
+            24.5
           ],
           "paddingInline": [
-            20.5
+            24.5
           ],
           "paddingInlineEnd": [
-            20.5
+            24.5
           ],
           "itemSpacing": [
             8

@@ -338,6 +338,10 @@
     },
     "top-bar": {
       "max-width": "제품 상단 바는 상한을 풀고 셸이 폭을 정한다."
+    },
+    "dialog-card-mypage": {
+      "column-gap": "이 벌만 카드가 직접 flex 간격을 갖는다. 앱 홈 벌은 자식들이 margin으로 띄우고, DS는 body가 gap을 갖는다 — 같은 결과를 만드는 다른 기법이라 값이 대응하지 않는다.",
+      "row-gap": "위와 같다."
     }
   }
 }

@@ -2,23 +2,23 @@
   "artifacts": [
     {
       "path": "packages/tokens/generated/figma.tokens.json",
-      "sha256": "27515b83b7d909a981a4e7c4a932bd1614d04ccd287a7962060c7b52d80b4094"
+      "sha256": "c88e927ba04ea40f6a884e88df04d5c40a3085edcb4560c66e779602aed2d4b5"
     },
     {
       "path": "packages/tokens/generated/index.d.ts",
-      "sha256": "a0e51b84e28685a6253f984f8210b31cea5e6055ae42249211b39c564330d25c"
+      "sha256": "2b110f8cebc42fc959339e68341031c9c59defe3c915a56defd4d725a6f89531"
     },
     {
       "path": "packages/tokens/generated/index.js",
-      "sha256": "80bc3bd6211aaccdaeeddb1e14f062504bd91292b7809ce1d67901ed605fa2d0"
+      "sha256": "609410ce38d61f10d3ec88ae252ce853f5107ff45c6a2e77d9c971a4fc00f9ff"
     },
     {
       "path": "packages/tokens/generated/tokens.css",
-      "sha256": "62ed6a38353891bbc8756eb11f58c2bb4075a65cdf4e1eb767e296a86672322f"
+      "sha256": "69bc1a9f34202ee0359441ff38872d90f85f4c6d6b2196681d1c1e285498d197"
     },
     {
       "path": "packages/tokens/generated/tokens.json",
-      "sha256": "ae315ac0a42a34d5092720f006496c8d6ceab3a6c2a05d37e30da9270e4ff243"
+      "sha256": "35dfef33e615cd082395351e7ef24c83d975a461409ea427863bb6d939576f6e"
     }
   ],
   "contrastPairs": [
@@ -388,13 +388,13 @@
   },
   "source": {
     "path": "packages/tokens/src/klipse.tokens.json",
-    "sha256": "353b1b6d36a5a915690da5c8c8a355184dcc388d22b0dc790efe77037a55b38e"
+    "sha256": "e1495e34afb6ada76803f445a3fd8ee64ec4018fa29976aa164c85bff3d81246"
   },
   "themes": [
     "light",
     "dark"
   ],
-  "tokenCount": 394,
+  "tokenCount": 395,
   "tokens": [
     {
       "aliasTarget": null,
@@ -8200,6 +8200,27 @@
         "value": 10
       },
       "sourcePath": "semantic.global.radius.overlay-item",
+      "tier": "semantic",
+      "type": "dimension"
+    },
+    {
+      "aliasTarget": {
+        "id": "radius-24",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-radius-overlay-lg": "24px"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "radius-overlay-lg",
+      "mode": "global",
+      "rawValue": "{primitive.radius.24}",
+      "resolvedValue": {
+        "unit": "px",
+        "value": 24
+      },
+      "sourcePath": "semantic.global.radius.overlay-lg",
       "tier": "semantic",
       "type": "dimension"
     },

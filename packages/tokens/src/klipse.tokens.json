@@ -3922,12 +3922,21 @@
         "$type": "dimension"
       },
       "radius": {
-        "$type": "dimension",
-        "control-sm": {
-          "$value": "{primitive.radius.8}",
+        "card": {
+          "$value": "{primitive.radius.16}",
           "$extensions": {
             "com.klipse-design": {
-              "id": "radius-control-sm",
+              "id": "radius-card",
+              "tier": "semantic",
+              "mode": "global"
+            }
+          }
+        },
+        "card-lg": {
+          "$value": "{primitive.radius.20}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "radius-card-lg",
               "tier": "semantic",
               "mode": "global"
             }
@@ -3938,6 +3947,16 @@
           "$extensions": {
             "com.klipse-design": {
               "id": "radius-control",
+              "tier": "semantic",
+              "mode": "global"
+            }
+          }
+        },
+        "control-sm": {
+          "$value": "{primitive.radius.8}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "radius-control-sm",
               "tier": "semantic",
               "mode": "global"
             }
@@ -3963,21 +3982,11 @@
             }
           }
         },
-        "card": {
-          "$value": "{primitive.radius.16}",
+        "overlay-lg": {
+          "$value": "{primitive.radius.24}",
           "$extensions": {
             "com.klipse-design": {
-              "id": "radius-card",
-              "tier": "semantic",
-              "mode": "global"
-            }
-          }
-        },
-        "card-lg": {
-          "$value": "{primitive.radius.20}",
-          "$extensions": {
-            "com.klipse-design": {
-              "id": "radius-card-lg",
+              "id": "radius-overlay-lg",
               "tier": "semantic",
               "mode": "global"
             }
@@ -3992,7 +4001,8 @@
               "mode": "global"
             }
           }
-        }
+        },
+        "$type": "dimension"
       },
       "typography": {
         "$type": "typography",

@@ -33,6 +33,8 @@ const FILES = {
   carousel: "apps/web/components/banners/TabBannerCarousel.tsx",
   avatar: "apps/web/components/navigation/UserCircleDefaultAvatar.tsx",
   spinner: "apps/web/components/ui/LoadingSpinner.tsx",
+  vem: "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx",
+  crop: "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/ClipCropModal.tsx",
 };
 
 // 재는 대상. `from`은 제품 소스의 상수를 가리키고, `html`은 제품에 공용 상수가 없어
@@ -286,6 +288,47 @@ const PROBES = [
     text: "홈",
     read: ["paddingTop", "paddingLeft", "columnGap", "height"],
   },
+  // Slider — 제품에 공용 구현이 없고 37벌이 일곱 레시피로 갈린다. 그래서 "대조 불가"로 두었는데
+  // 그것은 틀렸다. **가장 많이 쓰이는 벌과 DS 기하에 가장 가까운 벌은 고를 수 있고**, 고른 이유를
+  // 적으면 그 자체가 판정이다. 아무것도 재지 않는 것보다 무엇을 골랐는지 적고 재는 것이 낫다.
+  {
+    id: "slider-thumb-root",
+    source: "ClipCropModal.tsx CROP_SLIDER_ROOT — thumb형 중 DS 기하에 가장 가까운 벌",
+    from: ["crop", "CROP_SLIDER_ROOT"],
+    read: ["height"],
+  },
+  {
+    id: "slider-thumb-rail",
+    source: "ClipCropModal.tsx CROP_SLIDER_TRACK",
+    from: ["crop", "CROP_SLIDER_TRACK"],
+    read: ["height", "borderTopLeftRadius"],
+  },
+  {
+    id: "slider-thumb-handle",
+    source: "ClipCropModal.tsx CROP_SLIDER_THUMB",
+    from: ["crop", "CROP_SLIDER_THUMB"],
+    read: ["width", "height", "borderTopWidth"],
+  },
+  {
+    id: "slider-track-root",
+    source: "VideoEditModal.tsx overlayRadixRootFull — track형 중 최다 사용(8곳)",
+    from: ["vem", "overlayRadixRootFull"],
+    read: ["height"],
+  },
+  {
+    id: "slider-track-root-panel",
+    source: "VideoEditModal.tsx overlayRadixRootFull (인스펙터 패널 안)",
+    from: ["vem", "overlayRadixRootFull"],
+    wrapper: ["vem-propertiesPanel"],
+    read: ["height"],
+  },
+  {
+    id: "slider-track-marker",
+    source: "VideoEditModal.tsx overlayRadixRange ::after — 채움 오른쪽 끝 표식",
+    from: ["vem", "overlayRadixRange"],
+    wrapper: ["vem-overlay-radix-root-full"],
+    read: ["::after:width", "::after:height"],
+  },
   {
     id: "carousel",
     source: "TabBannerCarousel.tsx CAROUSEL + CAROUSEL_BOXED",
@@ -472,6 +515,22 @@ const EXPECT = [
   ["sidebar-cta-collapsed", "paddingLeft", ["sidebar-cta", "sizes", "true", "paddingInline"], "same"],
   ["sidebar-cta-collapsed", "columnGap", ["sidebar-cta", "sizes", "true", "gap"], "same"],
 
+  // Slider — 제품에 정본이 없다는 것은 사실이지만 "그래서 아무것도 재지 않는다"는 틀렸다.
+  // thumb형은 DS 기하에 가장 가까운 ClipCropModal 벌, track형은 최다 사용(8곳) VideoEditModal 벌을
+  // 골랐다. 고른 이유가 곧 판정이고, 나머지 벌과 어긋나는 것은 제품 안의 불일치다.
+  ["slider-thumb-rail", "height", ["slider", "sizes", "md/thumb", "railHeight"], "same"],
+  ["slider-thumb-handle", "width", ["slider", "sizes", "md/thumb", "thumbInline"], "same"],
+  ["slider-thumb-handle", "height", ["slider", "sizes", "md/thumb", "thumbBlock"], "same"],
+  ["slider-thumb-handle", "borderTopWidth", ["slider", "sizes", "md/thumb", "thumbBorderWidth"], "same"],
+  ["slider-track-root-panel", "height", ["slider", "sizes", "md/track", "railHeight"], "same"],
+  ["slider-track-root", "height", ["slider", "sizes", "sm/track", "railHeight"], "same"],
+  ["slider-track-marker", "::after:width", ["slider", "sizes", "md/track", "thumbInline"], "same"],
+  ["slider-track-marker", "::after:height", ["slider", "sizes", "md/track", "thumbBlock"], "same"],
+  ["slider-thumb-root", "height", ["slider", "sizes", "md/thumb", "height"], "deviates",
+    "제품 24, DS 40. thumb형 세 벌이 16·24·28로 갈려 컨트롤 높이의 정본이 없다. DS는 control 계단(40/32)을 따라 슬라이더가 다른 컨트롤과 한 줄에 설 수 있게 한다."],
+  ["slider-track-root-panel", "height", ["slider", "sizes", "md/track", "height"], "deviates",
+    "제품 28, DS 40. 제품에서 28은 레일 높이인 동시에 컨트롤 높이다 — 레일이 컨트롤을 꽉 채운다. DS는 같은 28 레일을 40 컨트롤 안에 넣어 위아래 6px씩을 손잡이 여유로 남긴다."],
+
   ["carousel", "height", ["banner-carousel", "sizes", "boxed", "height"], "same"],
   ["carousel", "borderTopLeftRadius", ["banner-carousel", "sizes", "boxed", "radius"], "same"],
   ["carousel-content", "width", ["banner-carousel", "sizes", "boxed", "contentInline"], "same"],
@@ -578,7 +637,9 @@ try {
     },
   });
   const classes = PROBES.flatMap((probe) =>
-    [probe.html.match(/class="([^"]*)"/)[1], probe.wrapper ?? ""].join(" ").split(/\s+/),
+    [probe.html.match(/class="([^"]*)"/)[1], [probe.wrapper ?? []].flat().join(" ")]
+      .join(" ")
+      .split(/\s+/),
   ).filter(Boolean);
   const utilities = compiled.build(classes);
 
@@ -604,9 +665,13 @@ try {
           "</style></head><body>" +
           group
             .map((probe, index) => {
-              const inner = probe.wrapper
-                ? '<div class="' + probe.wrapper + '">' + probe.html + "</div>"
-                : probe.html;
+              // wrapper는 조상 선택자를 살리기 위한 것이다. 배열이면 바깥부터 순서대로 감싼다 —
+              // `.a .b &` 처럼 조상이 둘인 규칙은 한 겹으로는 매칭되지 않는다.
+              const wrappers = [probe.wrapper ?? []].flat();
+              const inner = wrappers.reduceRight(
+                (html, className) => '<div class="' + className + '">' + html + "</div>",
+                probe.html,
+              );
               return (
                 '<div id="probe-' + index + '" style="position:relative;width:' +
                 (probe.hostWidth ?? 360) + 'px;height:360px">' + inner + "</div>"
@@ -620,7 +685,8 @@ try {
         const out = {};
         probes.forEach((probe, index) => {
           const host = document.querySelector("#probe-" + index);
-          const element = probe.wrapper ? host.firstElementChild.firstElementChild : host.firstElementChild;
+          let element = host.firstElementChild;
+          for (let depth = 0; depth < probe.wrapperDepth; depth += 1) element = element.firstElementChild;
           const values = {};
           for (const property of probe.read) {
             const pseudo = property.startsWith("::") ? property.slice(0, property.indexOf(":", 2)) : null;
@@ -630,7 +696,11 @@ try {
           out[probe.id] = values;
         });
         return out;
-      }, group.map((probe) => ({ id: probe.id, read: probe.read, wrapper: probe.wrapper ?? null })));
+      }, group.map((probe) => ({
+        id: probe.id,
+        read: probe.read,
+        wrapperDepth: [probe.wrapper ?? []].flat().length,
+      })));
       Object.assign(rendered, group_);
       await page.close();
     }
@@ -744,7 +814,15 @@ const TAMPERS = [
   ],
   [
     "대조 없는 컴포넌트를 면제 없이 두는 경우",
-    (measured, expect, exempt) => [measured, expect, { ...exempt, slider: undefined }],
+    (measured, expect, exempt) => [
+      { ...measured, "made-up-component": { sizes: {} } },
+      expect,
+      exempt,
+    ],
+  ],
+  [
+    "components에 없는 것을 면제에 남겨 둔 경우",
+    (measured, expect, exempt) => [measured, expect, { ...exempt, "made-up-component": "사유" }],
   ],
   [
     "사유 없는 편차",

@@ -644,7 +644,7 @@ adoption 노트로 넘긴다.
 "지금 있는 모든 컴포넌트를 실제품과 대조해"에 대한 결과다. 그전까지 제품 값은 대부분 사람이
 코드를 읽고 옮긴 것이었고 기계 대조는 **10축**뿐이었다. 이제 제품 소스의 클래스 상수를
 **손으로 옮기지 않고** 배포 커밋에서 직접 꺼내 제품 자신의 Tailwind로 컴파일하고, 실브라우저에서
-계산값을 읽어 DS와 맞춘다 — 탐침 43종 · **108축** · 컴포넌트 20/21.
+계산값을 읽어 DS와 맞춘다 — 탐침 49종 · **118축** · 컴포넌트 21/21.
 
 `scripts/measure-product-components.mjs`가 그 게이트이며 축마다 `same`(같아야 한다) 또는
 `deviates`(달라야 하고 사유가 있어야 한다) 중 하나를 요구한다. **편차가 사라지는 것도 실패다** —
@@ -685,11 +685,20 @@ adoption 노트로 넘긴다.
 | `skeleton.borderTopLeftRadius` | 999 | 8 | 제품 999(알약), DS 8 |
 | `skeleton.::after:animationDuration` | 1300 | 1600 | 제품 1300ms, DS 1600ms |
 | `top-bar.paddingLeft` | 8 | 16 | 제품 8, DS 16 |
+| `slider-thumb-root.height` | 24 | 40 | 제품 24, DS 40 |
+| `slider-track-root-panel.height` | 28 | 40 | 제품 28, DS 40 |
 
 전문은 `migration/product.rendered-components.json`의 `deviations`가 갖는다.
 
-### 대조하지 않은 것
+### Slider — "정본이 없다"를 "재지 않는다"로 바꾸지 않는다
 
-`slider` 하나다. 제품 정의 37벌이 일곱 레시피로 갈리고 **합의하는 축이 하나도 없어** 어느 벌을
-골라도 제품을 대표하지 못한다. `figma/components.measured.json`의 `$noProductRender`가 그 사유를
-갖고, 게이트는 사유 없는 미대조를 실패로 만든다.
+처음에는 slider를 면제했다. 제품 정의 37벌이 일곱 레시피로 갈려 대표값이 없다는 것이 사유였다.
+사실은 맞지만 결론이 틀렸다 — **어느 벌을 골랐는지 적으면 그 자체가 판정이고**, 아무것도 재지 않는
+것보다 낫다. thumb형은 DS 기하에 가장 가까운 `ClipCropModal.tsx CROP_SLIDER_*`, track형은 최다
+사용(8곳)인 `VideoEditModal.tsx overlayRadix*`를 골랐다.
+
+골라서 재 보니 레일 4 · 썸 16 · 썸 테두리 2 · 트랙 레일 28/20 · 표식 2×14가 **전부 일치했다.**
+어긋나는 것은 컨트롤 높이 하나이며(제품 24·28 vs DS 40) 그것은 control 계단을 따른 의도된 편차다.
+면제 상태였다면 이 여덟 축의 일치를 아무도 증명하지 못했을 것이다.
+
+이제 면제는 0건이고, 게이트는 사유 없는 미대조를 실패로 만든다.

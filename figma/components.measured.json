@@ -1096,8 +1096,5 @@
     }
   },
   "$states": "variant × state마다 **어느 토큰을 무는가**. 개수가 아니라 정체를 고정한다. 이 표가 없던 동안 primary 배경을 danger 변수에 물려도 boundFills 수치가 그대로라 게이트가 통과했다. 값은 token id이며 Figma 변수 이름으로의 변환은 게이트가 생성 proposal의 figmaName으로 한다 — 여기에 Figma 이름을 적으면 정본이 둘이 된다. 코드 쪽 검증은 packages/react/test/component-states.browser.test.tsx가 계산값과 대조한다.",
-  "$borderWidthNote": "모든 1px 테두리를 0.5px로 바꿨다(owner 결정). Figma strokeWeight도 0.5다. Figma padding = CSS padding + 0.5이며 프레임 높이는 min-block-size가 고정하므로 바뀌지 않는다.",
-  "$noProductRender": {
-    "slider": "제품에 공용 구현이 없고 정의 37벌이 일곱 레시피로 갈리며 **합의하는 축이 하나도 없다**(migration/product.measured.json slider). 어느 벌을 골라도 그것이 제품을 대표하지 않으므로 렌더 대조 대상이 아니다. 레일 4px만 다수(일곱 중 넷)이고 그 근거는 measured의 $railHeight가 적는다."
-  }
+  "$borderWidthNote": "모든 1px 테두리를 0.5px로 바꿨다(owner 결정). Figma strokeWeight도 0.5다. Figma padding = CSS padding + 0.5이며 프레임 높이는 min-block-size가 고정하므로 바뀌지 않는다."
 }

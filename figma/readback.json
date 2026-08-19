@@ -7918,13 +7918,14 @@
       "requiredParts": [
         "AppTopBar",
         "BannerCarousel",
-        "FloatingCreate",
+        "CreateMenu",
+        "NavEyebrow",
         "ProjectCard",
         "ProjectGrid",
         "SectionHeader",
         "Sidebar"
       ],
-      "navLabelsDistinct": 5,
+      "navLabelsDistinct": 6,
       "cardTitlesDistinct": 8,
       "placeholderLabelsAllowed": 0
     }

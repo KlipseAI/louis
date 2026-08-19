@@ -1536,6 +1536,52 @@ if (!process.argv.includes("--no-canary")) {
   }
 }
 
+// ── DS 기록이 제품을 확인하고 정해졌는가 ──────────────────────────────────
+// **오늘 드러난 근본 원인이다.** Figma는 `components.measured.json`을 보고 그렸고, CSS 테스트도
+// 같은 파일과 맞췄다. 그래서 Figma ↔ DS와 CSS ↔ DS는 초록인데 **셋 다 제품과 다를 수 있었다** —
+// 실제로 모달 여백·반경·액션 여백이 그랬다. 게이트가 DS ↔ 제품을 본 적이 없었기 때문이다.
+//
+// 규칙: 기록의 모든 값은 ① 제품 렌더와 대조되거나 ② 왜 그 값인지 `$`주석을 갖거나 ③ 아직
+// 못 한 빚으로 명부에 있어야 한다. 명부에 없는 새 값은 실패다 — **빚은 줄기만 하고 늘지 않는다.**
+const debtPath = resolve(repoRoot, "figma/unverified-values.json");
+const comparedPaths = new Set(EXPECT.map(([, , path]) => path.join(".")));
+const unverified = [];
+const walkMeasured = (node, path) => {
+  if (node === null || typeof node !== "object" || Array.isArray(node)) return;
+  for (const [key, value] of Object.entries(node)) {
+    if (key.startsWith("$")) continue;
+    const next = [...path, key];
+    if (value !== null && typeof value === "object" && !Array.isArray(value)) {
+      walkMeasured(value, next);
+      continue;
+    }
+    if (comparedPaths.has(next.join("."))) continue;
+    if (Object.hasOwn(node, "$" + key)) continue;
+    unverified.push(next.join("."));
+  }
+};
+for (const [name, spec] of Object.entries(measuredFile.components)) walkMeasured(spec, [name]);
+
+const debt = JSON.parse(readFileSync(debtPath, "utf8"));
+const owed = new Set(debt.values);
+const grown = unverified.filter((entry) => !owed.has(entry));
+const settled = [...owed].filter((entry) => !unverified.includes(entry));
+if (grown.length > 0) {
+  console.error(
+    "[product-components] 제품 대조도 사유도 없는 값이 새로 " + grown.length + "개 생겼습니다. " +
+      "EXPECT에 대조 행을 넣거나 `$" + "키` 주석으로 왜 그 값인지 적으세요.",
+  );
+  for (const entry of grown.slice(0, 20)) console.error("[product-components]   " + entry);
+  process.exit(1);
+}
+if (settled.length > 0) {
+  console.error(
+    "[product-components] 빚 " + settled.length + "건이 해소됐습니다. figma/unverified-values.json에서 지우세요:",
+  );
+  for (const entry of settled.slice(0, 20)) console.error("[product-components]   " + entry);
+  process.exit(1);
+}
+
 if (unclassified.length > 0) {
   console.error(
     "[product-components] 제품이 선언했는데 분류되지 않은 축 " + unclassified.length + "건입니다. " +
@@ -1612,5 +1658,6 @@ console.log(
     ") · 컴포넌트 " + new Set(EXPECT.map(([, , path]) => path[0])).size + "/" +
     Object.keys(measuredFile.components).length + " 대조" +
     " · **제품 선언 " + Object.values(declaredByProbe).reduce((sum, map) => sum + Object.keys(map).length, 0) +
-    "건이 빠짐없이 분류됨**",
+    "건이 빠짐없이 분류됨** · DS 기록 " +
+    (Object.values(measuredFile.components).length > 0 ? unverified.length : 0) + "건이 아직 제품 미대조",
 );

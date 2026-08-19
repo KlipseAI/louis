@@ -1668,9 +1668,13 @@
     scroll-padding-block: var(--kds-space-control-sm);
   }
 
+  /* **액션은 글자보다 가장자리에 가깝다.** 배포본의 모달 두 벌이 액션 행에 `margin: -8px`을 걸어
+   * 카드의 16 여백 밖으로 8만큼 되밀어 낸다 — 결과가 좌우·아래 8이고, 제목과 설명은 16에 남는다.
+   * 음수 마진 대신 여백을 직접 적어 같은 결과를 만든다. 그 위 간격도 8이 아니라 24다(`margin-top: 24`).
+   * 실측은 migration/product.variants.json의 dialog 표본에 있다. */
   .kds-dialog__footer {
-    padding: var(--kds-dialog-surface-inset);
-    padding-block-start: var(--kds-space-control-sm);
+    padding: var(--kds-space-control-sm);
+    padding-block-start: var(--kds-space-layout-section);
   }
 
   .kds-dialog__actions {

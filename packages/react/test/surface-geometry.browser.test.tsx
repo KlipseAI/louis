@@ -16,6 +16,8 @@ import {
   ActionMenuTrigger,
   Button,
   Dialog,
+  DialogActions,
+  DialogFooter,
   DialogHeader,
   DialogSurface,
   DialogTitle,
@@ -71,6 +73,11 @@ for (const size of DIALOG_SIZES) {
             <DialogHeader>
               <DialogTitle>제목</DialogTitle>
             </DialogHeader>
+            <DialogFooter>
+              <DialogActions>
+                <Button>취소</Button>
+              </DialogActions>
+            </DialogFooter>
           </DialogSurface>
         </Dialog>
       </OverlayProvider>,
@@ -93,6 +100,13 @@ for (const size of DIALOG_SIZES) {
     // **surface 안쪽 여백을 따로 본다.** 한 이름(`paddingBlock`)으로 뷰포트 여백과 surface
     // 여백을 둘 다 가리키다가, Figma가 20.5로 그려진 채 CSS는 16·24를 렌더하고 있었다.
     // 그 축을 보는 테스트가 없어 둘이 갈린 채로 통과했다.
+    // **액션은 글자보다 가장자리에 가깝다.** 배포본이 액션 행에 `margin: -8px`을 걸어 만드는
+    // 결과이며, 그 축을 보는 테스트가 없어 DS가 16에 두고도 통과하고 있었다.
+    const footer = find(".kds-dialog__footer");
+    expect(px(getComputedStyle(footer).paddingInlineStart), "footerInset").toBe(spec.footerInset);
+    expect(px(getComputedStyle(footer).paddingBlockEnd), "footerInset").toBe(spec.footerInset);
+    expect(px(getComputedStyle(footer).paddingBlockStart), "footerPaddingTop").toBe(spec.footerPaddingTop);
+
     const header = find(".kds-dialog__header");
     expect(px(getComputedStyle(header).paddingBlockStart), "surfaceInset").toBe(spec.surfaceInset);
     expect(px(getComputedStyle(header).paddingInlineStart), "surfaceInset").toBe(spec.surfaceInset);

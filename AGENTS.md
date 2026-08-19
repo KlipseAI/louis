@@ -32,6 +32,19 @@ row sat at the wrong inset, and a floating button that exists only in a landing-
 - The same applies to `figma/components.measured.json`: a value with no measurement behind it needs a
   `$`-prefixed note naming who decided it and why.
 
+## The record is not evidence for itself
+
+`figma/components.measured.json` is what Figma is drawn from and what the browser tests assert
+against. Both comparisons pass whenever the record is internally consistent — including when the
+record disagrees with the product. That is how a modal shipped with the wrong padding, the wrong
+radius, and its action row at the wrong inset while every gate stayed green.
+
+So a value in that record has to earn its place. Each one must be either compared to a product
+render in `scripts/measure-product-components.mjs`, or carry a `$`-prefixed note saying who decided
+it and why. `figma/unverified-values.json` holds the ones that are neither — a debt ledger, not a
+contract. The gate fails when an unlisted unverified value appears and when a listed one has been
+settled, so the number only goes down.
+
 ## Workflow
 
 - Update the manifest, normative document, implementation, tests, and release note together.

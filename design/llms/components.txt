@@ -4138,6 +4138,17 @@ Figma 세트에 이것이 없어서 디자이너가 확인 대화상자를 만�
   인스턴스마다 polite live region을 하나 소유하고 dismiss 차단 안내를 그곳에 쓴다.
 - 320px, 200% 확대, light/dark, reduced-motion, KO/EN/JA를 검증한다.
 
+#### 액션은 글자보다 가장자리에 가깝다
+
+배포본의 모달 두 벌이 액션 행에 `margin: -8px`을 걸어 카드의 16 여백 **밖으로** 8만큼 되밀어
+낸다. 결과는 좌우·아래가 8이고 제목과 설명은 16에 남는다. 그 위 간격도 8이 아니라 24다.
+
+DS는 음수 마진 대신 footer의 여백을 직접 적어 같은 결과를 만든다 — 음수 마진은 부모의 여백을
+아는 값이라 부모가 바뀌면 조용히 어긋난다.
+
+**16으로 두고 있었고 그 축을 보는 테스트가 없었다.** 인벤토리를 그리다 owner가 알아봤고,
+제품 표본 실측(`migration/product.variants.json`)이 값을 확정했다.
+
 #### Specification
 
 | Part/state      | 목표 token/recipe                                    | 검증                              |
@@ -4149,6 +4160,8 @@ Figma 세트에 이것이 없어서 디자이너가 확인 대화상자를 만�
 | Backdrop        | `surface-scrim-modal` = neutral 50% reference        | light/dark 대비                   |
 | Action height   | 44px 이상                                            | pointer/touch target              |
 | Action gap      | 8px                                                  | 200% zoom reflow                  |
+| Action inset    | 8px — 글자보다 가장자리에 가깝다                      | surface-geometry 실측             |
+| Action 위 간격  | 24px                                                 | surface-geometry 실측             |
 | Elevation       | `elevation-modal`                                    | overlay hierarchy                 |
 | Layer           | `layer-modal`, 숫자 리터럴 금지                      | nested overlay stack              |
 | Enter motion    | `motion-modal-enter`: opacity + translate/scale      | reduced-motion 대체               |

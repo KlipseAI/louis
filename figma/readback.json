@@ -2077,6 +2077,30 @@
           ]
         ],
         [
+          "motion/list-enter",
+          "STRING",
+          "",
+          [
+            [
+              "Global",
+              null,
+              "560ms cubic-bezier(0.23, 1, 0.32, 1) delay 0ms"
+            ]
+          ]
+        ],
+        [
+          "motion/list-stagger-step",
+          "STRING",
+          "",
+          [
+            [
+              "Global",
+              null,
+              "560ms cubic-bezier(0.23, 1, 0.32, 1) delay 36ms"
+            ]
+          ]
+        ],
+        [
           "motion/menu-enter",
           "STRING",
           "",

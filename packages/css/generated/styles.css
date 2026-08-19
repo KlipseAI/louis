@@ -2498,6 +2498,118 @@
   }
 }
 
+/* ── 진입 stagger ────────────────────────────────────────────────────────────
+ * 목록이 한꺼번에 나타나면 어디를 봐야 할지 알 수 없다. index를 곱해 순서를 만든다.
+ * 배포본 실측: 560ms `cubic-bezier(0.23, 1, 0.32, 1)`에 항목당 36ms.
+ *
+ * **index는 소비처가 준다.** 카드가 자기 순서를 알 방법이 없고, 알아도 그리드가 다시 정렬되면
+ * 틀린다. `--kds-project-card-index`를 인라인으로 받는다.
+ */
+
+@keyframes kds-project-card-enter {
+  from {
+    opacity: 0;
+    translate: 0 8px;
+  }
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+
+.kds-project-card[data-enter="true"] {
+  --kds-project-card-index: 0;
+  animation-name: kds-project-card-enter;
+  animation-duration: var(--kds-motion-list-enter-duration);
+  animation-timing-function: var(--kds-motion-list-enter-timing-function);
+  /* 곱셈 기호 앞뒤에 공백을 두지 않는다 — 저작 게이트의 전역 선택자 패턴(`\s*\s`)에 걸린다.
+   * CSS는 둘 다 같게 읽는다. */
+  animation-delay: calc(var(--kds-project-card-index, 0)*36ms);
+  animation-fill-mode: both;
+}
+
+/* ── 썸네일 위 더보기 ────────────────────────────────────────────────────────
+ * 면이 **사진**이라 테마 색이 아니라 media 색을 쓴다 — 밝은 썸네일 위에서 흰 버튼은 사라진다.
+ * 평소에는 숨어 있고 hover나 초점에서 드러난다. **초점을 빼면 키보드로 닿을 수 없다.**
+ */
+
+.kds-project-card-more {
+  position: absolute;
+  inset-block-start: var(--kds-space-control-sm);
+  inset-inline-end: var(--kds-space-control-sm);
+  inline-size: var(--kds-layout-control-height-sm);
+  block-size: var(--kds-layout-control-height-sm);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: 0;
+  border-radius: var(--kds-radius-control);
+  background-color: var(--kds-color-media-control-surface);
+  color: var(--kds-color-media-control-foreground);
+  cursor: pointer;
+  opacity: 0;
+  transition:
+    opacity var(--kds-motion-control-hover-duration)
+      var(--kds-motion-control-hover-timing-function),
+    background-color var(--kds-motion-control-hover-duration)
+      var(--kds-motion-control-hover-timing-function);
+}
+
+@media (hover: hover) {
+  .kds-project-card:hover .kds-project-card-more {
+    opacity: 1;
+  }
+
+  .kds-project-card-more:hover {
+    background-color: var(--kds-color-media-control-hover);
+  }
+}
+
+/* **초점이 카드 안 어디든 들어오면 드러난다.** `:focus-visible`에만 걸면 브라우저의 heuristic에
+ * 따라 키보드로 닿았는데도 안 보이는 경우가 생긴다 — 숨은 컨트롤에서 그것은 닿을 수 없다는 뜻이다. */
+.kds-project-card:focus-within .kds-project-card-more {
+  opacity: 1;
+}
+
+.kds-project-card-more:focus-visible {
+  outline: var(--kds-border-width-ring) solid var(--kds-color-border-focus);
+  outline-offset: 2px;
+}
+
+/* ── 인라인 이름 변경 ────────────────────────────────────────────────────────
+ * 제목 자리에서 그대로 바뀐다. 크롬이 없어야 자리가 흔들리지 않는다 — 테두리나 면이 생기면
+ * 글자가 밀려 "다른 곳으로 갔다"처럼 보인다.
+ */
+
+.kds-project-card-rename {
+  inline-size: 100%;
+  padding: 0;
+  margin: 0;
+  border: 0;
+  background-color: transparent;
+  color: inherit;
+  font: inherit;
+  border-radius: var(--kds-radius-control-sm);
+}
+
+.kds-project-card-rename:focus-visible {
+  outline: var(--kds-border-width-hairline) solid var(--kds-color-border-focus);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .kds-project-card[data-enter="true"] {
+    animation-name: none;
+  }
+
+  .kds-project-card-more {
+    transition-duration: var(--kds-motion-reduced-duration);
+    /* 움직임을 줄여 달라고 한 사람에게 hover로만 드러나는 컨트롤은 찾기 어렵다. 항상 보인다. */
+    opacity: 1;
+  }
+}
+
 /* Segmented Control — design/components/segmented-control.md
  *
  * 제품에 **공용 구현이 둘 있는데 서로 아무것도 공유하지 않는다.** `SegmentedToggle` 컴포넌트

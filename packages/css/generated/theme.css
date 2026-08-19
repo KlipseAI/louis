@@ -193,6 +193,8 @@
   --kds-motion-control-hover: var(--kds-motion-control-hover);
   --kds-motion-crossfade-enter: var(--kds-motion-crossfade-enter);
   --kds-motion-layout-change: var(--kds-motion-layout-change);
+  --kds-motion-list-enter: var(--kds-motion-list-enter);
+  --kds-motion-list-stagger-step: var(--kds-motion-list-stagger-step);
   --kds-motion-menu-enter: var(--kds-motion-menu-enter);
   --kds-motion-menu-exit: var(--kds-motion-menu-exit);
   --kds-motion-modal-enter: var(--kds-motion-modal-enter);

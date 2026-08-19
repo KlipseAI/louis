@@ -155,6 +155,14 @@
         {
           "motion": "motion-shell-collapse",
           "reduced": "motion-reduced"
+        },
+        {
+          "motion": "motion-list-enter",
+          "reduced": "motion-reduced"
+        },
+        {
+          "motion": "motion-list-stagger-step",
+          "reduced": "motion-reduced"
         }
       ],
       "motionProperties": [
@@ -307,6 +315,20 @@
             "inline-size"
           ],
           "lifecycle": "layout-change"
+        },
+        {
+          "motion": "motion-list-enter",
+          "properties": [
+            "opacity",
+            "translate"
+          ]
+        },
+        {
+          "motion": "motion-list-stagger-step",
+          "properties": [
+            "opacity",
+            "translate"
+          ]
         }
       ],
       "responsiveProfiles": {
@@ -3416,6 +3438,54 @@
             "tier": "primitive"
           }
         }
+      },
+      "list-enter": {
+        "$value": {
+          "duration": {
+            "value": 560,
+            "unit": "ms"
+          },
+          "delay": {
+            "value": 0,
+            "unit": "ms"
+          },
+          "timingFunction": [
+            0.23,
+            1,
+            0.32,
+            1
+          ]
+        },
+        "$extensions": {
+          "com.klipse-design": {
+            "id": "transition-list-enter",
+            "tier": "primitive"
+          }
+        }
+      },
+      "list-stagger-step": {
+        "$value": {
+          "duration": {
+            "value": 560,
+            "unit": "ms"
+          },
+          "delay": {
+            "value": 36,
+            "unit": "ms"
+          },
+          "timingFunction": [
+            0.23,
+            1,
+            0.32,
+            1
+          ]
+        },
+        "$extensions": {
+          "com.klipse-design": {
+            "id": "transition-list-stagger-step",
+            "tier": "primitive"
+          }
+        }
       }
     },
     "blur": {
@@ -4147,6 +4217,26 @@
           "$extensions": {
             "com.klipse-design": {
               "id": "motion-shell-collapse",
+              "tier": "semantic",
+              "mode": "global"
+            }
+          }
+        },
+        "list-enter": {
+          "$value": "{primitive.transition.list-enter}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "motion-list-enter",
+              "tier": "semantic",
+              "mode": "global"
+            }
+          }
+        },
+        "list-stagger-step": {
+          "$value": "{primitive.transition.list-stagger-step}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "motion-list-stagger-step",
               "tier": "semantic",
               "mode": "global"
             }

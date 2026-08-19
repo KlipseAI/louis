@@ -1,5 +1,7 @@
 import type {
   AnchorHTMLAttributes,
+  CSSProperties,
+  InputHTMLAttributes,
   ButtonHTMLAttributes,
   HTMLAttributes,
   JSX,
@@ -23,6 +25,13 @@ function join(...values: readonly (string | undefined)[]): string {
 const ProjectCardContext = createContext<string | null>(null);
 
 export interface ProjectCardProps extends HTMLAttributes<HTMLDivElement> {
+  /**
+   * 목록 진입 stagger의 순서. 주지 않으면 애니메이션하지 않는다.
+   *
+   * 페이지를 다시 여는 것이 아니라 **처음 그려질 때만** 준다. 스크롤로 더 불러온 카드에 0부터
+   * 다시 주면 이미 있던 카드가 함께 튄다.
+   */
+  readonly enterIndex?: number;
   readonly ref?: Ref<HTMLDivElement>;
 }
 
@@ -36,11 +45,28 @@ export interface ProjectCardProps extends HTMLAttributes<HTMLDivElement> {
  * 그래서 링크를 카드 전체에 늘려 깔고 슬롯을 그 위에 형제로 둔다. 자식 순서가 계약이다 —
  * Media → Action → Adornment. 숫자 z-index를 쓰지 않으므로 칠 순서가 곧 DOM 순서다.
  */
-export function ProjectCard({ className, children, ...rest }: ProjectCardProps): JSX.Element {
+export function ProjectCard({
+  className,
+  children,
+  enterIndex,
+  style,
+  ...rest
+}: ProjectCardProps): JSX.Element {
   const titleId = useId();
   return (
     <ProjectCardContext.Provider value={titleId}>
-      <div {...rest} className={join("kds-project-card", className)}>
+      <div
+        {...rest}
+        className={join("kds-project-card", className)}
+        // 진입 순서는 **소비처가 준다.** 카드가 자기 순서를 알 방법이 없고, 알아도 그리드가
+        // 다시 정렬되면 틀린다.
+        data-enter={enterIndex === undefined ? undefined : "true"}
+        style={
+          enterIndex === undefined
+            ? style
+            : ({ ...style, "--kds-project-card-index": enterIndex } as CSSProperties)
+        }
+      >
         {children}
       </div>
     </ProjectCardContext.Provider>
@@ -237,6 +263,68 @@ export function ProjectCardAdornment({
       {...rest}
       className={join("kds-project-card-adornment", className)}
       data-placement={placement}
+    />
+  );
+}
+
+/**
+ * 썸네일 위에 놓이는 더보기 버튼.
+ *
+ * **면이 사진이라 media 색을 쓴다.** 테마 색이면 밝은 썸네일 위에서 흰 버튼이 사라진다.
+ * 평소 숨어 있다가 hover나 초점에서 드러나며, **초점을 빼면 키보드로 닿을 수 없다.**
+ */
+export interface ProjectCardMoreProps
+  extends ButtonHTMLAttributes<HTMLButtonElement> {
+  /** 접근 가능한 이름. 아이콘만 있으므로 **필수다.** */
+  readonly label: string;
+  readonly ref?: Ref<HTMLButtonElement>;
+}
+
+export function ProjectCardMore({
+  label,
+  className,
+  children,
+  ref,
+  ...rest
+}: ProjectCardMoreProps): JSX.Element {
+  return (
+    <button
+      {...rest}
+      ref={ref}
+      type="button"
+      className={join("kds-project-card-more", className)}
+      aria-label={label}
+    >
+      {children}
+    </button>
+  );
+}
+
+/**
+ * 제목 자리에서 그대로 이름을 바꾼다.
+ *
+ * 크롬이 없어야 자리가 흔들리지 않는다 — 테두리나 면이 생기면 글자가 밀려 "다른 곳으로 갔다"처럼
+ * 보인다. 그래서 초점 표시만 남기고 전부 지운다.
+ */
+export interface ProjectCardRenameProps
+  extends Omit<InputHTMLAttributes<HTMLInputElement>, "type"> {
+  readonly label: string;
+  readonly ref?: Ref<HTMLInputElement>;
+}
+
+export function ProjectCardRename({
+  label,
+  className,
+  ref,
+  ...rest
+}: ProjectCardRenameProps): JSX.Element {
+  return (
+    <input
+      {...rest}
+      ref={ref}
+      type="text"
+      className={join("kds-project-card-rename", className)}
+      aria-label={label}
     />
   );
 }

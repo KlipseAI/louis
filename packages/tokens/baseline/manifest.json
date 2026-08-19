@@ -2,23 +2,23 @@
   "artifacts": [
     {
       "path": "packages/tokens/generated/figma.tokens.json",
-      "sha256": "f0eaa865f957b7bb0c8b236c1e139d33677080c0dfbc2037cb6df76a3f7d2575"
+      "sha256": "575a81f456cacdbab71df27502745254c5a8a1098c4eff5b2e9e2da41f9bbfbb"
     },
     {
       "path": "packages/tokens/generated/index.d.ts",
-      "sha256": "c2c7e710fec4a625a3b3bced6be1c270ad61aa010890c60496f3c962490d89aa"
+      "sha256": "8abe0b01c2485f1bafc1605106fd069b079921bc0d51cd50d9a8b87551c09bf1"
     },
     {
       "path": "packages/tokens/generated/index.js",
-      "sha256": "bb09c5167687ac372de0693e51e8bd69d8452a9c53d366d2bc1e466d3ea2f7e3"
+      "sha256": "2a9b24f60294ad8472e36b872b6b71522e9128cb708785701dae172d6a03d813"
     },
     {
       "path": "packages/tokens/generated/tokens.css",
-      "sha256": "a9f55df801948a727e64dc12aeac9dd265249c230a18c6e44e8971ba0d0b07ff"
+      "sha256": "5b2105fceb6225116781564459c1d278a78416463142649ab042d3efb7873a60"
     },
     {
       "path": "packages/tokens/generated/tokens.json",
-      "sha256": "46f9569975f7df22acea03e92fe533fb9b4bd588ecc71e9fd83737d443d40442"
+      "sha256": "69c5491b5b8ac4c857780ab843c4bad6730b0c8beeb61f61862fecd1ab48ff70"
     }
   ],
   "contrastPairs": [
@@ -249,6 +249,20 @@
       "properties": [
         "inline-size"
       ]
+    },
+    {
+      "motion": "motion-list-enter",
+      "properties": [
+        "opacity",
+        "translate"
+      ]
+    },
+    {
+      "motion": "motion-list-stagger-step",
+      "properties": [
+        "opacity",
+        "translate"
+      ]
     }
   ],
   "reducedMotionPairs": [
@@ -323,6 +337,14 @@
     {
       "motion": "motion-shell-collapse",
       "reduced": "motion-reduced"
+    },
+    {
+      "motion": "motion-list-enter",
+      "reduced": "motion-reduced"
+    },
+    {
+      "motion": "motion-list-stagger-step",
+      "reduced": "motion-reduced"
     }
   ],
   "responsiveProfiles": {
@@ -366,13 +388,13 @@
   },
   "source": {
     "path": "packages/tokens/src/klipse.tokens.json",
-    "sha256": "3bca3fc7b8c8fdb1e17977f4a41d127f055aa7d96345b617188d25e4b7e46d80"
+    "sha256": "0d7af3075dceabd451b824ae307b7dc5b1dd27e8e86d2108ee8609d10fc11317"
   },
   "themes": [
     "light",
     "dark"
   ],
-  "tokenCount": 356,
+  "tokenCount": 360,
   "tokens": [
     {
       "aliasTarget": null,
@@ -6365,6 +6387,76 @@
     },
     {
       "aliasTarget": {
+        "id": "transition-list-enter",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-motion-list-enter-delay": "0ms",
+        "--kds-motion-list-enter-duration": "560ms",
+        "--kds-motion-list-enter-timing-function": "cubic-bezier(0.23, 1, 0.32, 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "motion-list-enter",
+      "mode": "global",
+      "rawValue": "{primitive.transition.list-enter}",
+      "resolvedValue": {
+        "delay": {
+          "unit": "ms",
+          "value": 0
+        },
+        "duration": {
+          "unit": "ms",
+          "value": 560
+        },
+        "timingFunction": [
+          0.23,
+          1,
+          0.32,
+          1
+        ]
+      },
+      "sourcePath": "semantic.global.motion.list-enter",
+      "tier": "semantic",
+      "type": "transition"
+    },
+    {
+      "aliasTarget": {
+        "id": "transition-list-stagger-step",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-motion-list-stagger-step-delay": "36ms",
+        "--kds-motion-list-stagger-step-duration": "560ms",
+        "--kds-motion-list-stagger-step-timing-function": "cubic-bezier(0.23, 1, 0.32, 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "motion-list-stagger-step",
+      "mode": "global",
+      "rawValue": "{primitive.transition.list-stagger-step}",
+      "resolvedValue": {
+        "delay": {
+          "unit": "ms",
+          "value": 36
+        },
+        "duration": {
+          "unit": "ms",
+          "value": 560
+        },
+        "timingFunction": [
+          0.23,
+          1,
+          0.32,
+          1
+        ]
+      },
+      "sourcePath": "semantic.global.motion.list-stagger-step",
+      "tier": "semantic",
+      "type": "transition"
+    },
+    {
+      "aliasTarget": {
         "id": "transition-menu-enter",
         "mode": "base"
       },
@@ -8890,6 +8982,92 @@
         ]
       },
       "sourcePath": "primitive.transition.layout-change",
+      "tier": "primitive",
+      "type": "transition"
+    },
+    {
+      "aliasTarget": null,
+      "cssProperties": {},
+      "deprecated": null,
+      "description": null,
+      "id": "transition-list-enter",
+      "mode": "base",
+      "rawValue": {
+        "delay": {
+          "unit": "ms",
+          "value": 0
+        },
+        "duration": {
+          "unit": "ms",
+          "value": 560
+        },
+        "timingFunction": [
+          0.23,
+          1,
+          0.32,
+          1
+        ]
+      },
+      "resolvedValue": {
+        "delay": {
+          "unit": "ms",
+          "value": 0
+        },
+        "duration": {
+          "unit": "ms",
+          "value": 560
+        },
+        "timingFunction": [
+          0.23,
+          1,
+          0.32,
+          1
+        ]
+      },
+      "sourcePath": "primitive.transition.list-enter",
+      "tier": "primitive",
+      "type": "transition"
+    },
+    {
+      "aliasTarget": null,
+      "cssProperties": {},
+      "deprecated": null,
+      "description": null,
+      "id": "transition-list-stagger-step",
+      "mode": "base",
+      "rawValue": {
+        "delay": {
+          "unit": "ms",
+          "value": 36
+        },
+        "duration": {
+          "unit": "ms",
+          "value": 560
+        },
+        "timingFunction": [
+          0.23,
+          1,
+          0.32,
+          1
+        ]
+      },
+      "resolvedValue": {
+        "delay": {
+          "unit": "ms",
+          "value": 36
+        },
+        "duration": {
+          "unit": "ms",
+          "value": 560
+        },
+        "timingFunction": [
+          0.23,
+          1,
+          0.32,
+          1
+        ]
+      },
+      "sourcePath": "primitive.transition.list-stagger-step",
       "tier": "primitive",
       "type": "transition"
     },

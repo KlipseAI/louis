@@ -228,6 +228,20 @@ export const metadata = Object.freeze({
         "inline-size"
       ],
       "lifecycle": "layout-change"
+    },
+    {
+      "motion": "motion-list-enter",
+      "properties": [
+        "opacity",
+        "translate"
+      ]
+    },
+    {
+      "motion": "motion-list-stagger-step",
+      "properties": [
+        "opacity",
+        "translate"
+      ]
     }
   ],
   "reducedMotionPairs": [
@@ -301,6 +315,14 @@ export const metadata = Object.freeze({
     },
     {
       "motion": "motion-shell-collapse",
+      "reduced": "motion-reduced"
+    },
+    {
+      "motion": "motion-list-enter",
+      "reduced": "motion-reduced"
+    },
+    {
+      "motion": "motion-list-stagger-step",
       "reduced": "motion-reduced"
     }
   ],
@@ -4111,6 +4133,92 @@ export const primitives = {
       ]
     }
   },
+  "transition-list-enter": {
+    "aliasTarget": null,
+    "cssProperties": {},
+    "deprecated": null,
+    "description": null,
+    "id": "transition-list-enter",
+    "mode": "base",
+    "rawValue": {
+      "duration": {
+        "value": 560,
+        "unit": "ms"
+      },
+      "delay": {
+        "value": 0,
+        "unit": "ms"
+      },
+      "timingFunction": [
+        0.23,
+        1,
+        0.32,
+        1
+      ]
+    },
+    "sourcePath": "primitive.transition.list-enter",
+    "tier": "primitive",
+    "type": "transition",
+    "value": {
+      "duration": {
+        "value": 560,
+        "unit": "ms"
+      },
+      "delay": {
+        "value": 0,
+        "unit": "ms"
+      },
+      "timingFunction": [
+        0.23,
+        1,
+        0.32,
+        1
+      ]
+    }
+  },
+  "transition-list-stagger-step": {
+    "aliasTarget": null,
+    "cssProperties": {},
+    "deprecated": null,
+    "description": null,
+    "id": "transition-list-stagger-step",
+    "mode": "base",
+    "rawValue": {
+      "duration": {
+        "value": 560,
+        "unit": "ms"
+      },
+      "delay": {
+        "value": 36,
+        "unit": "ms"
+      },
+      "timingFunction": [
+        0.23,
+        1,
+        0.32,
+        1
+      ]
+    },
+    "sourcePath": "primitive.transition.list-stagger-step",
+    "tier": "primitive",
+    "type": "transition",
+    "value": {
+      "duration": {
+        "value": 560,
+        "unit": "ms"
+      },
+      "delay": {
+        "value": 36,
+        "unit": "ms"
+      },
+      "timingFunction": [
+        0.23,
+        1,
+        0.32,
+        1
+      ]
+    }
+  },
   "transition-menu-enter": {
     "aliasTarget": null,
     "cssProperties": {},
@@ -6526,6 +6634,76 @@ export const tokens = {
           0.4,
           0,
           0.2,
+          1
+        ]
+      }
+    },
+    "motion-list-enter": {
+      "aliasTarget": {
+        "id": "transition-list-enter",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-motion-list-enter-duration": "560ms",
+        "--kds-motion-list-enter-delay": "0ms",
+        "--kds-motion-list-enter-timing-function": "cubic-bezier(0.23, 1, 0.32, 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "motion-list-enter",
+      "mode": "global",
+      "rawValue": "{primitive.transition.list-enter}",
+      "sourcePath": "semantic.global.motion.list-enter",
+      "tier": "semantic",
+      "type": "transition",
+      "value": {
+        "duration": {
+          "value": 560,
+          "unit": "ms"
+        },
+        "delay": {
+          "value": 0,
+          "unit": "ms"
+        },
+        "timingFunction": [
+          0.23,
+          1,
+          0.32,
+          1
+        ]
+      }
+    },
+    "motion-list-stagger-step": {
+      "aliasTarget": {
+        "id": "transition-list-stagger-step",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-motion-list-stagger-step-duration": "560ms",
+        "--kds-motion-list-stagger-step-delay": "36ms",
+        "--kds-motion-list-stagger-step-timing-function": "cubic-bezier(0.23, 1, 0.32, 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "motion-list-stagger-step",
+      "mode": "global",
+      "rawValue": "{primitive.transition.list-stagger-step}",
+      "sourcePath": "semantic.global.motion.list-stagger-step",
+      "tier": "semantic",
+      "type": "transition",
+      "value": {
+        "duration": {
+          "value": 560,
+          "unit": "ms"
+        },
+        "delay": {
+          "value": 36,
+          "unit": "ms"
+        },
+        "timingFunction": [
+          0.23,
+          1,
+          0.32,
           1
         ]
       }

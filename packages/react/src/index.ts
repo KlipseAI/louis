@@ -11,8 +11,10 @@ export {
   ProjectCardEyebrow,
   ProjectCardMedia,
   ProjectCardMeta,
+  ProjectCardMore,
   ProjectCardOverlay,
   ProjectCardPlaceholder,
+  ProjectCardRename,
   ProjectCardThumbnail,
   ProjectCardTitle,
 } from "./project-card/project-card.js";
@@ -23,9 +25,11 @@ export type {
   ProjectCardAdornmentPlacement,
   ProjectCardAdornmentProps,
   ProjectCardMediaProps,
+  ProjectCardMoreProps,
   ProjectCardOverlayProps,
   ProjectCardPlaceholderProps,
   ProjectCardProps,
+  ProjectCardRenameProps,
   ProjectCardTextProps,
   ProjectCardThumbnailProps,
 } from "./project-card/project-card.js";

@@ -41,6 +41,31 @@ const dots = (): HTMLElement[] =>
 const slides = (): HTMLElement[] =>
   [...scope().querySelectorAll<HTMLElement>(".kds-banner-carousel__slide")];
 
+test("스크림이 글자 위에 칠해지지 않는다 — 사진과 같은 층에 있다", async () => {
+  await mount(<BannerCarousel label="배너" slides={SLIDES} />);
+  const slide = slides()[0]!;
+  const style = getComputedStyle(slide);
+  // 예전에는 스크림이 `::after`였다. 그것과 콘텐츠가 둘 다 positioned이고 z-index가 없어
+  // 트리 순서대로 칠해졌고, `::after`가 마지막이라 **제목과 설명 위에 스크림이 덮였다.**
+  // 이제 슬라이드 자신의 background-image 첫 레이어라 구조적으로 그 상태가 될 수 없다.
+  expect(style.backgroundImage.startsWith("linear-gradient")).toBe(true);
+  expect(getComputedStyle(slide, "::after").backgroundImage).toBe("none");
+});
+
+test("사진은 스크림 아래 칸에 들어간다 — background-image를 통째로 덮지 않는다", async () => {
+  await mount(
+    <BannerCarousel
+      label="배너"
+      slides={[{ ...SLIDES[0]!, imageUrl: "data:image/gif;base64,R0lGODlhAQABAAAAACw=" }]}
+    />,
+  );
+  const slide = slides()[0]!;
+  const layers = getComputedStyle(slide).backgroundImage;
+  // 소비처가 넘긴 URL이 두 번째 레이어로 붙는다. 첫 레이어를 덮으면 스크림이 사라진다.
+  expect(layers).toContain("url(");
+  expect(layers.indexOf("linear-gradient")).toBeLessThan(layers.indexOf("url("));
+});
+
 test("점의 폭이 상태다 — 활성 20px, 비활성 7px", async () => {
   // 자동 넘김을 끈다. 켜 두면 220ms 전환 도중에 재는 일이 생겨 값이 흔들린다.
   await mount(<BannerCarousel slides={SLIDES} label="홈 배너" autoAdvanceMs={0} />);

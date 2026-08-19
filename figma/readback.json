@@ -549,91 +549,6 @@
           ]
         ],
         [
-          "color/mint-alpha/16",
-          "COLOR",
-          "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
-          [
-            [
-              "Base",
-              null,
-              [
-                0,
-                0.776471,
-                0.556863,
-                0.16
-              ]
-            ]
-          ]
-        ],
-        [
-          "color/mint-alpha/24",
-          "COLOR",
-          "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
-          [
-            [
-              "Base",
-              null,
-              [
-                0,
-                0.776471,
-                0.556863,
-                0.24
-              ]
-            ]
-          ]
-        ],
-        [
-          "color/mint/500",
-          "COLOR",
-          "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
-          [
-            [
-              "Base",
-              null,
-              [
-                0,
-                0.776471,
-                0.556863,
-                1
-              ]
-            ]
-          ]
-        ],
-        [
-          "color/mint/700",
-          "COLOR",
-          "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
-          [
-            [
-              "Base",
-              null,
-              [
-                0,
-                0.560784,
-                0.403922,
-                1
-              ]
-            ]
-          ]
-        ],
-        [
-          "color/mint/800",
-          "COLOR",
-          "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
-          [
-            [
-              "Base",
-              null,
-              [
-                0,
-                0.431373,
-                0.317647,
-                1
-              ]
-            ]
-          ]
-        ],
-        [
           "color/neutral/0",
           "COLOR",
           "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
@@ -2997,12 +2912,29 @@
           [
             [
               "Light",
-              "Klipse Primitive::color/mint-alpha/16",
+              "Klipse Primitive::color/neutral/900",
               null
             ],
             [
               "Dark",
-              "Klipse Primitive::color/mint-alpha/16",
+              "Klipse Primitive::color/neutral/100",
+              null
+            ]
+          ]
+        ],
+        [
+          "color/background-upgrade-current",
+          "COLOR",
+          "STROKE_COLOR",
+          [
+            [
+              "Light",
+              "Klipse Primitive::color/neutral/100",
+              null
+            ],
+            [
+              "Dark",
+              "Klipse Primitive::color/neutral/800",
               null
             ]
           ]
@@ -3014,12 +2946,12 @@
           [
             [
               "Light",
-              "Klipse Primitive::color/mint-alpha/24",
+              "Klipse Primitive::color/neutral/800",
               null
             ],
             [
               "Dark",
-              "Klipse Primitive::color/mint-alpha/24",
+              "Klipse Primitive::color/neutral/200",
               null
             ]
           ]
@@ -3354,12 +3286,29 @@
           [
             [
               "Light",
-              "Klipse Primitive::color/mint/700",
+              "Klipse Primitive::color/neutral/100",
               null
             ],
             [
               "Dark",
-              "Klipse Primitive::color/mint/700",
+              "Klipse Primitive::color/neutral/900",
+              null
+            ]
+          ]
+        ],
+        [
+          "color/foreground-upgrade-current",
+          "COLOR",
+          "STROKE_COLOR",
+          [
+            [
+              "Light",
+              "Klipse Primitive::color/neutral/1000",
+              null
+            ],
+            [
+              "Dark",
+              "Klipse Primitive::color/neutral/0",
               null
             ]
           ]
@@ -3371,12 +3320,12 @@
           [
             [
               "Light",
-              "Klipse Primitive::color/mint/800",
+              "Klipse Primitive::color/neutral/100",
               null
             ],
             [
               "Dark",
-              "Klipse Primitive::color/mint/800",
+              "Klipse Primitive::color/neutral/900",
               null
             ]
           ]
@@ -4878,7 +4827,7 @@
                 4
               ],
               "itemSpacing": [
-                8
+                12
               ],
               "layoutMode": [
                 "HORIZONTAL"
@@ -5697,7 +5646,13 @@
             "HORIZONTAL"
           ],
           "overflowingParts": [],
-          "offCenterMarks": []
+          "offCenterMarks": [],
+          "paddingInline": [
+            4
+          ],
+          "paddingInlineEnd": [
+            0
+          ]
         },
         "true": {
           "slots": {},
@@ -5713,7 +5668,7 @@
           },
           "strokeWeight": [],
           "width": [
-            72
+            32
           ],
           "height": [
             40
@@ -5725,7 +5680,13 @@
             "HORIZONTAL"
           ],
           "overflowingParts": [],
-          "offCenterMarks": []
+          "offCenterMarks": [],
+          "paddingInline": [
+            0
+          ],
+          "paddingInlineEnd": [
+            0
+          ]
         }
       },
       "strokes": {},
@@ -5800,7 +5761,7 @@
           "parts": {},
           "strokeWeight": [],
           "width": [
-            44
+            32
           ],
           "height": [
             32

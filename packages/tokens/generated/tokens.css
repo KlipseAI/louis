@@ -27,8 +27,9 @@
   --kds-color-background-raised: color(srgb 0.980392 0.980392 0.980392 / 1);
   --kds-color-background-success: color(srgb 0.894118 0.972549 0.917647 / 1);
   --kds-color-background-surface: color(srgb 0.980392 0.980392 0.980392 / 1);
-  --kds-color-background-upgrade: color(srgb 0 0.776471 0.556863 / 0.16);
-  --kds-color-background-upgrade-hover: color(srgb 0 0.776471 0.556863 / 0.24);
+  --kds-color-background-upgrade: color(srgb 0.090196 0.105882 0.133333 / 1);
+  --kds-color-background-upgrade-current: color(srgb 0.945098 0.945098 0.952941 / 1);
+  --kds-color-background-upgrade-hover: color(srgb 0.192157 0.211765 0.25098 / 1);
   --kds-color-background-warning: color(srgb 1 0.960784 0.839216 / 1);
   --kds-color-border-control: color(srgb 0.090196 0.105882 0.133333 / 0.12);
   --kds-color-border-danger: color(srgb 1 0.294118 0.34902 / 1);
@@ -48,8 +49,9 @@
   --kds-color-foreground-secondary: color(srgb 0.341176 0.364706 0.407843 / 1);
   --kds-color-foreground-success: color(srgb 0.043137 0.239216 0.094118 / 1);
   --kds-color-foreground-tertiary: color(srgb 0.466667 0.490196 0.537255 / 1);
-  --kds-color-foreground-upgrade: color(srgb 0 0.560784 0.403922 / 1);
-  --kds-color-foreground-upgrade-hover: color(srgb 0 0.431373 0.317647 / 1);
+  --kds-color-foreground-upgrade: color(srgb 0.945098 0.945098 0.952941 / 1);
+  --kds-color-foreground-upgrade-current: color(srgb 0 0 0 / 1);
+  --kds-color-foreground-upgrade-hover: color(srgb 0.945098 0.945098 0.952941 / 1);
   --kds-color-foreground-warning: color(srgb 0.360784 0.239216 0 / 1);
   --kds-color-media-control-foreground: color(srgb 0.980392 0.980392 0.980392 / 0.88);
   --kds-color-media-control-hover: color(srgb 0.980392 0.980392 0.980392 / 0.14);
@@ -279,8 +281,9 @@
   --kds-color-background-raised: color(srgb 0.341176 0.364706 0.407843 / 1);
   --kds-color-background-success: color(srgb 0.043137 0.239216 0.094118 / 1);
   --kds-color-background-surface: color(srgb 0.192157 0.211765 0.25098 / 1);
-  --kds-color-background-upgrade: color(srgb 0 0.776471 0.556863 / 0.16);
-  --kds-color-background-upgrade-hover: color(srgb 0 0.776471 0.556863 / 0.24);
+  --kds-color-background-upgrade: color(srgb 0.945098 0.945098 0.952941 / 1);
+  --kds-color-background-upgrade-current: color(srgb 0.192157 0.211765 0.25098 / 1);
+  --kds-color-background-upgrade-hover: color(srgb 0.890196 0.894118 0.909804 / 1);
   --kds-color-background-warning: color(srgb 0.360784 0.239216 0 / 1);
   --kds-color-border-control: color(srgb 0.980392 0.980392 0.980392 / 0.16);
   --kds-color-border-danger: color(srgb 1 0.294118 0.34902 / 1);
@@ -300,8 +303,9 @@
   --kds-color-foreground-secondary: color(srgb 0.835294 0.843137 0.866667 / 1);
   --kds-color-foreground-success: color(srgb 0.894118 0.972549 0.917647 / 1);
   --kds-color-foreground-tertiary: color(srgb 0.737255 0.752941 0.788235 / 1);
-  --kds-color-foreground-upgrade: color(srgb 0 0.560784 0.403922 / 1);
-  --kds-color-foreground-upgrade-hover: color(srgb 0 0.431373 0.317647 / 1);
+  --kds-color-foreground-upgrade: color(srgb 0.090196 0.105882 0.133333 / 1);
+  --kds-color-foreground-upgrade-current: color(srgb 0.980392 0.980392 0.980392 / 1);
+  --kds-color-foreground-upgrade-hover: color(srgb 0.090196 0.105882 0.133333 / 1);
   --kds-color-foreground-warning: color(srgb 1 0.960784 0.839216 / 1);
   --kds-color-media-control-foreground: color(srgb 0.980392 0.980392 0.980392 / 0.88);
   --kds-color-media-control-hover: color(srgb 0.980392 0.980392 0.980392 / 0.14);

@@ -1265,153 +1265,6 @@ export const primitives = {
       "alpha": 0.7
     }
   },
-  "color-mint-500": {
-    "aliasTarget": null,
-    "cssProperties": {},
-    "deprecated": null,
-    "description": null,
-    "id": "color-mint-500",
-    "mode": "base",
-    "rawValue": {
-      "colorSpace": "srgb",
-      "components": [
-        0,
-        0.776471,
-        0.556863
-      ],
-      "hex": "#00c68e"
-    },
-    "sourcePath": "primitive.color.mint.500",
-    "tier": "primitive",
-    "type": "color",
-    "value": {
-      "colorSpace": "srgb",
-      "components": [
-        0,
-        0.776471,
-        0.556863
-      ],
-      "alpha": 1
-    }
-  },
-  "color-mint-700": {
-    "aliasTarget": null,
-    "cssProperties": {},
-    "deprecated": null,
-    "description": null,
-    "id": "color-mint-700",
-    "mode": "base",
-    "rawValue": {
-      "colorSpace": "srgb",
-      "components": [
-        0,
-        0.560784,
-        0.403922
-      ],
-      "hex": "#008f67"
-    },
-    "sourcePath": "primitive.color.mint.700",
-    "tier": "primitive",
-    "type": "color",
-    "value": {
-      "colorSpace": "srgb",
-      "components": [
-        0,
-        0.560784,
-        0.403922
-      ],
-      "alpha": 1
-    }
-  },
-  "color-mint-800": {
-    "aliasTarget": null,
-    "cssProperties": {},
-    "deprecated": null,
-    "description": null,
-    "id": "color-mint-800",
-    "mode": "base",
-    "rawValue": {
-      "colorSpace": "srgb",
-      "components": [
-        0,
-        0.431373,
-        0.317647
-      ],
-      "hex": "#006e51"
-    },
-    "sourcePath": "primitive.color.mint.800",
-    "tier": "primitive",
-    "type": "color",
-    "value": {
-      "colorSpace": "srgb",
-      "components": [
-        0,
-        0.431373,
-        0.317647
-      ],
-      "alpha": 1
-    }
-  },
-  "color-mint-alpha-16": {
-    "aliasTarget": null,
-    "cssProperties": {},
-    "deprecated": null,
-    "description": null,
-    "id": "color-mint-alpha-16",
-    "mode": "base",
-    "rawValue": {
-      "colorSpace": "srgb",
-      "components": [
-        0,
-        0.776471,
-        0.556863
-      ],
-      "alpha": 0.16,
-      "hex": "#00c68e"
-    },
-    "sourcePath": "primitive.color.mint-alpha.16",
-    "tier": "primitive",
-    "type": "color",
-    "value": {
-      "colorSpace": "srgb",
-      "components": [
-        0,
-        0.776471,
-        0.556863
-      ],
-      "alpha": 0.16
-    }
-  },
-  "color-mint-alpha-24": {
-    "aliasTarget": null,
-    "cssProperties": {},
-    "deprecated": null,
-    "description": null,
-    "id": "color-mint-alpha-24",
-    "mode": "base",
-    "rawValue": {
-      "colorSpace": "srgb",
-      "components": [
-        0,
-        0.776471,
-        0.556863
-      ],
-      "alpha": 0.24,
-      "hex": "#00c68e"
-    },
-    "sourcePath": "primitive.color.mint-alpha.24",
-    "tier": "primitive",
-    "type": "color",
-    "value": {
-      "colorSpace": "srgb",
-      "components": [
-        0,
-        0.776471,
-        0.556863
-      ],
-      "alpha": 0.24
-    }
-  },
   "color-neutral-0": {
     "aliasTarget": null,
     "cssProperties": {},
@@ -9029,54 +8882,80 @@ export const tokens = {
     },
     "color-background-upgrade": {
       "aliasTarget": {
-        "id": "color-mint-alpha-16",
+        "id": "color-neutral-900",
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-background-upgrade": "color(srgb 0 0.776471 0.556863 / 0.16)"
+        "--kds-color-background-upgrade": "color(srgb 0.090196 0.105882 0.133333 / 1)"
       },
       "deprecated": null,
       "description": null,
       "id": "color-background-upgrade",
       "mode": "light",
-      "rawValue": "{primitive.color.mint-alpha.16}",
+      "rawValue": "{primitive.color.neutral.900}",
       "sourcePath": "semantic.light.color.background-upgrade",
       "tier": "semantic",
       "type": "color",
       "value": {
         "colorSpace": "srgb",
         "components": [
-          0,
-          0.776471,
-          0.556863
+          0.090196,
+          0.105882,
+          0.133333
         ],
-        "alpha": 0.16
+        "alpha": 1
+      }
+    },
+    "color-background-upgrade-current": {
+      "aliasTarget": {
+        "id": "color-neutral-100",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-color-background-upgrade-current": "color(srgb 0.945098 0.945098 0.952941 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-background-upgrade-current",
+      "mode": "light",
+      "rawValue": "{primitive.color.neutral.100}",
+      "sourcePath": "semantic.light.color.background-upgrade-current",
+      "tier": "semantic",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.945098,
+          0.945098,
+          0.952941
+        ],
+        "alpha": 1
       }
     },
     "color-background-upgrade-hover": {
       "aliasTarget": {
-        "id": "color-mint-alpha-24",
+        "id": "color-neutral-800",
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-background-upgrade-hover": "color(srgb 0 0.776471 0.556863 / 0.24)"
+        "--kds-color-background-upgrade-hover": "color(srgb 0.192157 0.211765 0.25098 / 1)"
       },
       "deprecated": null,
       "description": null,
       "id": "color-background-upgrade-hover",
       "mode": "light",
-      "rawValue": "{primitive.color.mint-alpha.24}",
+      "rawValue": "{primitive.color.neutral.800}",
       "sourcePath": "semantic.light.color.background-upgrade-hover",
       "tier": "semantic",
       "type": "color",
       "value": {
         "colorSpace": "srgb",
         "components": [
-          0,
-          0.776471,
-          0.556863
+          0.192157,
+          0.211765,
+          0.25098
         ],
-        "alpha": 0.24
+        "alpha": 1
       }
     },
     "color-background-warning": {
@@ -9575,52 +9454,78 @@ export const tokens = {
     },
     "color-foreground-upgrade": {
       "aliasTarget": {
-        "id": "color-mint-700",
+        "id": "color-neutral-100",
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-foreground-upgrade": "color(srgb 0 0.560784 0.403922 / 1)"
+        "--kds-color-foreground-upgrade": "color(srgb 0.945098 0.945098 0.952941 / 1)"
       },
       "deprecated": null,
       "description": null,
       "id": "color-foreground-upgrade",
       "mode": "light",
-      "rawValue": "{primitive.color.mint.700}",
+      "rawValue": "{primitive.color.neutral.100}",
       "sourcePath": "semantic.light.color.foreground-upgrade",
       "tier": "semantic",
       "type": "color",
       "value": {
         "colorSpace": "srgb",
         "components": [
-          0,
-          0.560784,
-          0.403922
+          0.945098,
+          0.945098,
+          0.952941
         ],
         "alpha": 1
       }
     },
-    "color-foreground-upgrade-hover": {
+    "color-foreground-upgrade-current": {
       "aliasTarget": {
-        "id": "color-mint-800",
+        "id": "color-neutral-1000",
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-foreground-upgrade-hover": "color(srgb 0 0.431373 0.317647 / 1)"
+        "--kds-color-foreground-upgrade-current": "color(srgb 0 0 0 / 1)"
       },
       "deprecated": null,
       "description": null,
-      "id": "color-foreground-upgrade-hover",
+      "id": "color-foreground-upgrade-current",
       "mode": "light",
-      "rawValue": "{primitive.color.mint.800}",
-      "sourcePath": "semantic.light.color.foreground-upgrade-hover",
+      "rawValue": "{primitive.color.neutral.1000}",
+      "sourcePath": "semantic.light.color.foreground-upgrade-current",
       "tier": "semantic",
       "type": "color",
       "value": {
         "colorSpace": "srgb",
         "components": [
           0,
-          0.431373,
-          0.317647
+          0,
+          0
+        ],
+        "alpha": 1
+      }
+    },
+    "color-foreground-upgrade-hover": {
+      "aliasTarget": {
+        "id": "color-neutral-100",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-color-foreground-upgrade-hover": "color(srgb 0.945098 0.945098 0.952941 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-foreground-upgrade-hover",
+      "mode": "light",
+      "rawValue": "{primitive.color.neutral.100}",
+      "sourcePath": "semantic.light.color.foreground-upgrade-hover",
+      "tier": "semantic",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.945098,
+          0.945098,
+          0.952941
         ],
         "alpha": 1
       }
@@ -10555,54 +10460,80 @@ export const tokens = {
     },
     "color-background-upgrade": {
       "aliasTarget": {
-        "id": "color-mint-alpha-16",
+        "id": "color-neutral-100",
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-background-upgrade": "color(srgb 0 0.776471 0.556863 / 0.16)"
+        "--kds-color-background-upgrade": "color(srgb 0.945098 0.945098 0.952941 / 1)"
       },
       "deprecated": null,
       "description": null,
       "id": "color-background-upgrade",
       "mode": "dark",
-      "rawValue": "{primitive.color.mint-alpha.16}",
+      "rawValue": "{primitive.color.neutral.100}",
       "sourcePath": "semantic.dark.color.background-upgrade",
       "tier": "semantic",
       "type": "color",
       "value": {
         "colorSpace": "srgb",
         "components": [
-          0,
-          0.776471,
-          0.556863
+          0.945098,
+          0.945098,
+          0.952941
         ],
-        "alpha": 0.16
+        "alpha": 1
+      }
+    },
+    "color-background-upgrade-current": {
+      "aliasTarget": {
+        "id": "color-neutral-800",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-color-background-upgrade-current": "color(srgb 0.192157 0.211765 0.25098 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-background-upgrade-current",
+      "mode": "dark",
+      "rawValue": "{primitive.color.neutral.800}",
+      "sourcePath": "semantic.dark.color.background-upgrade-current",
+      "tier": "semantic",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.192157,
+          0.211765,
+          0.25098
+        ],
+        "alpha": 1
       }
     },
     "color-background-upgrade-hover": {
       "aliasTarget": {
-        "id": "color-mint-alpha-24",
+        "id": "color-neutral-200",
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-background-upgrade-hover": "color(srgb 0 0.776471 0.556863 / 0.24)"
+        "--kds-color-background-upgrade-hover": "color(srgb 0.890196 0.894118 0.909804 / 1)"
       },
       "deprecated": null,
       "description": null,
       "id": "color-background-upgrade-hover",
       "mode": "dark",
-      "rawValue": "{primitive.color.mint-alpha.24}",
+      "rawValue": "{primitive.color.neutral.200}",
       "sourcePath": "semantic.dark.color.background-upgrade-hover",
       "tier": "semantic",
       "type": "color",
       "value": {
         "colorSpace": "srgb",
         "components": [
-          0,
-          0.776471,
-          0.556863
+          0.890196,
+          0.894118,
+          0.909804
         ],
-        "alpha": 0.24
+        "alpha": 1
       }
     },
     "color-background-warning": {
@@ -11101,52 +11032,78 @@ export const tokens = {
     },
     "color-foreground-upgrade": {
       "aliasTarget": {
-        "id": "color-mint-700",
+        "id": "color-neutral-900",
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-foreground-upgrade": "color(srgb 0 0.560784 0.403922 / 1)"
+        "--kds-color-foreground-upgrade": "color(srgb 0.090196 0.105882 0.133333 / 1)"
       },
       "deprecated": null,
       "description": null,
       "id": "color-foreground-upgrade",
       "mode": "dark",
-      "rawValue": "{primitive.color.mint.700}",
+      "rawValue": "{primitive.color.neutral.900}",
       "sourcePath": "semantic.dark.color.foreground-upgrade",
       "tier": "semantic",
       "type": "color",
       "value": {
         "colorSpace": "srgb",
         "components": [
-          0,
-          0.560784,
-          0.403922
+          0.090196,
+          0.105882,
+          0.133333
+        ],
+        "alpha": 1
+      }
+    },
+    "color-foreground-upgrade-current": {
+      "aliasTarget": {
+        "id": "color-neutral-0",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-color-foreground-upgrade-current": "color(srgb 0.980392 0.980392 0.980392 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-foreground-upgrade-current",
+      "mode": "dark",
+      "rawValue": "{primitive.color.neutral.0}",
+      "sourcePath": "semantic.dark.color.foreground-upgrade-current",
+      "tier": "semantic",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.980392,
+          0.980392,
+          0.980392
         ],
         "alpha": 1
       }
     },
     "color-foreground-upgrade-hover": {
       "aliasTarget": {
-        "id": "color-mint-800",
+        "id": "color-neutral-900",
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-foreground-upgrade-hover": "color(srgb 0 0.431373 0.317647 / 1)"
+        "--kds-color-foreground-upgrade-hover": "color(srgb 0.090196 0.105882 0.133333 / 1)"
       },
       "deprecated": null,
       "description": null,
       "id": "color-foreground-upgrade-hover",
       "mode": "dark",
-      "rawValue": "{primitive.color.mint.800}",
+      "rawValue": "{primitive.color.neutral.900}",
       "sourcePath": "semantic.dark.color.foreground-upgrade-hover",
       "tier": "semantic",
       "type": "color",
       "value": {
         "colorSpace": "srgb",
         "components": [
-          0,
-          0.431373,
-          0.317647
+          0.090196,
+          0.105882,
+          0.133333
         ],
         "alpha": 1
       }

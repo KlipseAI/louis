@@ -15,7 +15,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: var(--kds-space-stack-md);
+  gap: var(--kds-space-control-md);
   /* 세로 여백 80px. 두 홈이 합의한 값이며 **소비처가 여기 하나뿐이라 토큰으로 만들지 않는다** —
    * spacing 축은 두 곳 이상에서 쓰일 때 이름을 준다. 리터럴을 이 한 줄에 격리한다. */
   padding-block: 80px;
@@ -67,6 +67,8 @@
 .kds-empty-state__action {
   display: flex;
   align-items: center;
-  gap: var(--kds-space-control-sm);
+  /* 12다. 8로 두고 있었는데 제품에서 액션이 둘 이상인 빈 상태는 CanvasEmptyState 한 벌뿐이고
+   * 그것이 `gap-6` = 12px이다. 정본이 하나뿐인 축에서는 "제품이 갈린다"는 면책이 성립하지 않는다. */
+  gap: var(--kds-space-stack-md);
   margin-block-start: var(--kds-space-control-xs);
 }

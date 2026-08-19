@@ -6,12 +6,12 @@
     "capturedAt": "2026-08-18",
     "capturedBy": "figma-mcp-plugin-api",
     "published": false,
-    "tokenSourceSha256": "a62ec649eb3f3a5dddd16d1cf398f7c9f44d1063615c65baa23732f03c4c1195",
-    "proposalSha256": "46a9c4d9fd60febfd9e5ccb5b28e711e6d4cc21c8feaeb3e68f356a0ddf73f3e",
+    "tokenSourceSha256": "8f2674a705b3ce0772eb79d97ebd89ac40f236ab83b46f535f00da3fe3b64b47",
+    "proposalSha256": "440f1a29e19141532b5fdb61ed86f1ba20ab1f5353c22cb47a42fdc4819c1a0b",
     "readback": {
-      "tokens": 246,
-      "canonicalLength": 21226,
-      "fnv1a32": "a7a85275",
+      "tokens": 243,
+      "canonicalLength": 21164,
+      "fnv1a32": "bed75d2e",
       "note": "변수는 readback.json의 되읽기 행을 tokenId 공간으로 옮긴 것이고, style과 component는 같은 되읽기의 style/component 절이다. canonical 해시는 컬렉션·이름·타입·mode 값을 정렬해 이은 문자열의 FNV-1a다.",
       "styles": {
         "text": 15,
@@ -31,7 +31,7 @@
         "Base"
       ],
       "defaultMode": "Base",
-      "variableCount": 122
+      "variableCount": 117
     },
     "Klipse Semantic": {
       "modes": [
@@ -46,7 +46,7 @@
         "Dark"
       ],
       "defaultMode": "Light",
-      "variableCount": 54
+      "variableCount": 56
     }
   },
   "variables": {
@@ -423,10 +423,22 @@
       "resolvedType": "COLOR",
       "valuesByMode": {
         "Light": {
-          "alias": "color-mint-alpha-16"
+          "alias": "color-neutral-900"
         },
         "Dark": {
-          "alias": "color-mint-alpha-16"
+          "alias": "color-neutral-100"
+        }
+      }
+    },
+    "color-background-upgrade-current": {
+      "figmaName": "color/background-upgrade-current",
+      "resolvedType": "COLOR",
+      "valuesByMode": {
+        "Light": {
+          "alias": "color-neutral-100"
+        },
+        "Dark": {
+          "alias": "color-neutral-800"
         }
       }
     },
@@ -435,10 +447,10 @@
       "resolvedType": "COLOR",
       "valuesByMode": {
         "Light": {
-          "alias": "color-mint-alpha-24"
+          "alias": "color-neutral-800"
         },
         "Dark": {
-          "alias": "color-mint-alpha-24"
+          "alias": "color-neutral-200"
         }
       }
     },
@@ -857,10 +869,22 @@
       "resolvedType": "COLOR",
       "valuesByMode": {
         "Light": {
-          "alias": "color-mint-700"
+          "alias": "color-neutral-100"
         },
         "Dark": {
-          "alias": "color-mint-700"
+          "alias": "color-neutral-900"
+        }
+      }
+    },
+    "color-foreground-upgrade-current": {
+      "figmaName": "color/foreground-upgrade-current",
+      "resolvedType": "COLOR",
+      "valuesByMode": {
+        "Light": {
+          "alias": "color-neutral-1000"
+        },
+        "Dark": {
+          "alias": "color-neutral-0"
         }
       }
     },
@@ -869,10 +893,10 @@
       "resolvedType": "COLOR",
       "valuesByMode": {
         "Light": {
-          "alias": "color-mint-800"
+          "alias": "color-neutral-100"
         },
         "Dark": {
-          "alias": "color-mint-800"
+          "alias": "color-neutral-900"
         }
       }
     },
@@ -1147,76 +1171,6 @@
         },
         "Dark": {
           "alias": "color-neutral-1000"
-        }
-      }
-    },
-    "color-mint-500": {
-      "figmaName": "color/mint/500",
-      "resolvedType": "COLOR",
-      "valuesByMode": {
-        "Base": {
-          "value": [
-            0,
-            0.776471,
-            0.556863,
-            1
-          ]
-        }
-      }
-    },
-    "color-mint-700": {
-      "figmaName": "color/mint/700",
-      "resolvedType": "COLOR",
-      "valuesByMode": {
-        "Base": {
-          "value": [
-            0,
-            0.560784,
-            0.403922,
-            1
-          ]
-        }
-      }
-    },
-    "color-mint-800": {
-      "figmaName": "color/mint/800",
-      "resolvedType": "COLOR",
-      "valuesByMode": {
-        "Base": {
-          "value": [
-            0,
-            0.431373,
-            0.317647,
-            1
-          ]
-        }
-      }
-    },
-    "color-mint-alpha-16": {
-      "figmaName": "color/mint-alpha/16",
-      "resolvedType": "COLOR",
-      "valuesByMode": {
-        "Base": {
-          "value": [
-            0,
-            0.776471,
-            0.556863,
-            0.16
-          ]
-        }
-      }
-    },
-    "color-mint-alpha-24": {
-      "figmaName": "color/mint-alpha/24",
-      "resolvedType": "COLOR",
-      "valuesByMode": {
-        "Base": {
-          "value": [
-            0,
-            0.776471,
-            0.556863,
-            0.24
-          ]
         }
       }
     },
@@ -4082,7 +4036,7 @@
                 4
               ],
               "itemSpacing": [
-                8
+                12
               ],
               "layoutMode": [
                 "HORIZONTAL"
@@ -4915,7 +4869,13 @@
             "HORIZONTAL"
           ],
           "overflowingParts": [],
-          "offCenterMarks": []
+          "offCenterMarks": [],
+          "paddingInline": [
+            4
+          ],
+          "paddingInlineEnd": [
+            0
+          ]
         },
         "true": {
           "slots": {},
@@ -4931,7 +4891,7 @@
           },
           "strokeWeight": [],
           "width": [
-            72
+            32
           ],
           "height": [
             40
@@ -4943,7 +4903,13 @@
             "HORIZONTAL"
           ],
           "overflowingParts": [],
-          "offCenterMarks": []
+          "offCenterMarks": [],
+          "paddingInline": [
+            0
+          ],
+          "paddingInlineEnd": [
+            0
+          ]
         }
       },
       "strokes": {},
@@ -5020,7 +4986,7 @@
           "parts": {},
           "strokeWeight": [],
           "width": [
-            44
+            32
           ],
           "height": [
             32

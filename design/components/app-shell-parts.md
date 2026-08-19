@@ -105,11 +105,19 @@ CTA**를 갖는다. 그 둘이 없어서 한 번 조립한 홈 템플릿을 내�
 | `SidebarBrand` | 행 최소 높이 `layout-app-shell-top-bar-height`(40) · 마크 레일 `layout-app-shell-brand-mark-height`(28) · 워드마크 최대 폭 240 |
 | `SidebarCta` | `margin-block-start: auto`로 바닥에 붙는다 · 버튼 최소 높이 `layout-control-height-md` · **아이콘 슬롯이 없다** |
 
-**CTA에는 아이콘이 없고 색은 mint다.** 처음 만들 때 앞에 plus 글리프를 넣고 브랜드 파랑을 썼는데
-배포본에는 둘 다 없다. 마크업은 라벨 `<span>` 하나뿐이고, 면은 mint 500의 16%, 글자는 mint 700이다.
-`background-upgrade` / `foreground-upgrade`가 그 값을 소유하며 **라이트와 다크가 같다** — 업그레이드
-면은 테마 표면이 아니라 제품이 하나로 정한 강조색이기 때문이다. 제품을 읽지 않고 지어낸 부분이었고,
-같은 실수를 막기 위해 `figma/components.measured.json`의 `sidebar-cta`가 실측값을 고정한다.
+**CTA에는 아이콘이 없고 색은 반전 solid pill이다.** 처음에는 plus 글리프와 브랜드 파랑, 다음에는
+mint 16%로 고쳤는데 셋 다 배포본에 없는 것이었다. 마크업은 라벨 `<span>` 하나뿐이고, 면과 글자는
+테마를 따라 뒤집힌다 — 라이트 `#171b22` 위 `#f1f1f3`, 다크 `#f1f1f3` 위 `#171b22`.
+
+mint를 두 번째로 틀린 이유가 중요하다. `sidebarUpgradeButton`은 실제로 mint 16%를 **선언한다.**
+그런데 형제 상수 `sidebarUpgradeButtonActive`가
+`html[data-theme=*] .gnb-sidebarUpgradeButton:not(&)`를 선언해 **비활성 버튼의 면과 글자를 덮는다.**
+탐침이 그 형제 상수를 컴파일하지 않아, 제품 스타일시트에 있는 규칙이 측정 문서에는 없었다. 지금은
+탐침이 읽은 제품 파일의 클래스를 전부 컴파일한다 — 형제가 겨누는 규칙도 함께 선다.
+
+`aria-current="page"`면 한 단계 더 뒤집힌다(라이트 `#f1f1f3` 위 near-black, 다크 `#313640` 위
+`#fafafa`). 그 상태는 "이 버튼의 목적지에 이미 와 있다"는 뜻이고, 선택을 `aria-current`가 소유하는
+것은 `SidebarNavItem`과 같은 규칙이다.
 
 **접히면 높이와 여백이 함께 줄어든다.** 40 → 32, 좌우 14 → 10, 상하 10 → 0, 간격 8 → 0. 폭만 줄이면
 접힌 레일에서 버튼이 혼자 커 보인다.
@@ -119,8 +127,10 @@ CTA**를 갖는다. 그 둘이 없어서 한 번 조립한 홈 템플릿을 내�
 값은 `motion-shell-collapse`(320ms)다. 캐러셀 점의 `motion-layout-change`(220ms)와 **곡선은 같고
 지속만 다르다** — 제품 실측이 그렇고, 하나로 뭉치면 둘 중 하나가 틀린 값을 쓴다.
 
-**접혀도 글자를 DOM에서 지우지 않는다.** 지우면 버튼의 접근 가능한 이름이 사라져 스크린 리더가
-"버튼"만 읽는다. 폭만 0으로 만든다.
+**접혀도 CTA 라벨은 보인다.** 폭을 0으로 만들어 완전히 지우고 있었는데 배포본은 54px까지 남기고
+말줄임하며 글자도 caption으로 한 단계 줄인다. 아이콘이 없는 버튼이라 라벨을 지우면 접힌 레일에
+아무 단서도 남지 않는다. 브랜드 워드마크는 마크가 남으므로 0으로 줄여도 단서가 있다 — 그래서 둘의
+접힘이 다르다. 어느 쪽이든 **DOM에서 지우지는 않는다.** 지우면 접근 가능한 이름이 사라진다.
 
 **접힘 상태는 소비처가 소유한다.** 셸이 접혔는지 아는 것은 셸이고 이 부품은 결과를 받는다.
 
@@ -139,7 +149,7 @@ CTA**를 갖는다. 그 둘이 없어서 한 번 조립한 홈 템플릿을 내�
 | --- | ---: | --- |
 | 행 높이 | 32px | `layout-control-height-sm` |
 | 행 좌우 여백 | 4px | `space-control-xs` |
-| 행 간격 | 8px | `space-control-sm` |
+| 행 간격 | 8px | `space-control-sm` — 배포본은 10이다(아래 편차) |
 | 행 반경 | 10px | `radius-overlay-item` |
 | 아이콘 | 20px | `icon-size-md` |
 | 상단 바 높이 | 40px | `layout-app-shell-top-bar-height` |
@@ -147,7 +157,12 @@ CTA**를 갖는다. 그 둘이 없어서 한 번 조립한 홈 템플릿을 내�
 | CTA 버튼 높이 | 40px → 접힘 32px | `layout-control-height-md` → `-sm` |
 | CTA 좌우 여백 | 14px → 접힘 10px | 제품 실측 |
 | CTA 반경 | 12px | `radius-control` |
-| CTA 면 · 글자 | mint 500 16% · mint 700 | `background-upgrade` · `foreground-upgrade` |
+| CTA 면 · 글자 | 반전 solid | `background-upgrade` · `foreground-upgrade` |
+| CTA 현재 위치 | 한 단계 더 반전 | `background-upgrade-current` · `foreground-upgrade-current` |
+| CTA 접힘 라벨 | 54px 말줄임 · 12px | 제품 실측 |
+| 브랜드 좌측 여백 | 4px → 접힘 0 | `space-control-xs` |
+| 상단 바 제목 | 16px | `typography-body-md-medium` |
+| 상단 바 선행 슬롯 간격 | 4px | `space-control-xs` |
 
 **행 좌우 여백이 4px인 근거.** 배포본은 `main-inline-padding − sidebar-padding-x` = 16 − 12 = 4를 쓴다.
 행만 떼어 보면 좁지만 **행과 레일의 합이 계약이다** — 레일 12 + 행 4 = 16이 본문 좌측선과 맞는다.

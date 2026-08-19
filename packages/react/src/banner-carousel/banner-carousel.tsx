@@ -1,4 +1,4 @@
-import type { JSX, ReactNode, Ref } from "react";
+import type { CSSProperties, JSX, ReactNode, Ref } from "react";
 import { useCallback, useEffect, useId, useRef, useState } from "react";
 
 /**
@@ -152,7 +152,13 @@ export function BannerCarousel({
             role="group"
             aria-roledescription="slide"
             aria-label={`${slideIndex + 1} / ${count}`}
-            style={slide.imageUrl ? { backgroundImage: `url(${slide.imageUrl})` } : undefined}
+            // 사진을 `background-image`에 직접 넣으면 CSS의 스크림 레이어를 통째로 덮는다.
+            // 커스텀 프로퍼티를 경유해 스크림 아래 칸에만 들어가게 한다.
+            style={
+              slide.imageUrl
+                ? ({ "--kds-banner-image": `url(${slide.imageUrl})` } as CSSProperties)
+                : undefined
+            }
           >
             <div className="kds-banner-carousel__content">
               {slide.wordmark ? (

@@ -183,6 +183,11 @@ export interface SidebarCtaProps extends HTMLAttributes<HTMLDivElement> {
    * 것은 제품을 읽지 않고 지어낸 것이었다(2026-08-18 정정).
    */
   readonly collapsed?: boolean;
+  /**
+   * 이미 그 목적지에 있을 때 켠다. 배포본은 `aria-current="page"`가 붙으면 pill을 한 단계 더
+   * 뒤집는다 — SidebarNavItem과 같은 규칙이며 시각 전용 속성을 따로 두지 않는다.
+   */
+  readonly current?: boolean;
   readonly onActivate?: () => void;
   readonly ref?: Ref<HTMLDivElement>;
 }
@@ -190,6 +195,7 @@ export interface SidebarCtaProps extends HTMLAttributes<HTMLDivElement> {
 export function SidebarCta({
   label,
   collapsed = false,
+  current = false,
   onActivate,
   className,
   ref,
@@ -202,9 +208,14 @@ export function SidebarCta({
       className={["kds-sidebar-cta", className].filter(Boolean).join(" ")}
       data-collapsed={collapsed ? "true" : "false"}
     >
-      <button type="button" className="kds-sidebar-cta__button" onClick={onActivate}>
-        {/* 접히면 라벨이 시각적으로 사라진다. **DOM에서는 지우지 않는다** — 지우면
-            버튼의 접근 가능한 이름이 사라져 스크린 리더가 "버튼"만 읽는다. */}
+      <button
+        type="button"
+        className="kds-sidebar-cta__button"
+        aria-current={current ? "page" : undefined}
+        onClick={onActivate}
+      >
+        {/* 접히면 라벨이 54px까지 줄고 말줄임한다. **지우지 않는다** — 아이콘이 없는 버튼이라
+            라벨을 지우면 접힌 레일에 아무 단서도 남지 않고, 접근 가능한 이름도 사라진다. */}
         <span className="kds-sidebar-cta__label">{label}</span>
       </button>
     </div>

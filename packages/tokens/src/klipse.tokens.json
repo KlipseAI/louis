@@ -1375,99 +1375,6 @@
             }
           }
         }
-      },
-      "mint": {
-        "$type": "color",
-        "500": {
-          "$value": {
-            "colorSpace": "srgb",
-            "components": [
-              0.0,
-              0.776471,
-              0.556863
-            ],
-            "hex": "#00c68e"
-          },
-          "$extensions": {
-            "com.klipse-design": {
-              "id": "color-mint-500",
-              "tier": "primitive"
-            }
-          }
-        },
-        "700": {
-          "$value": {
-            "colorSpace": "srgb",
-            "components": [
-              0.0,
-              0.560784,
-              0.403922
-            ],
-            "hex": "#008f67"
-          },
-          "$extensions": {
-            "com.klipse-design": {
-              "id": "color-mint-700",
-              "tier": "primitive"
-            }
-          }
-        },
-        "800": {
-          "$value": {
-            "colorSpace": "srgb",
-            "components": [
-              0.0,
-              0.431373,
-              0.317647
-            ],
-            "hex": "#006e51"
-          },
-          "$extensions": {
-            "com.klipse-design": {
-              "id": "color-mint-800",
-              "tier": "primitive"
-            }
-          }
-        }
-      },
-      "mint-alpha": {
-        "$type": "color",
-        "16": {
-          "$value": {
-            "colorSpace": "srgb",
-            "components": [
-              0.0,
-              0.776471,
-              0.556863
-            ],
-            "alpha": 0.16,
-            "hex": "#00c68e"
-          },
-          "$extensions": {
-            "com.klipse-design": {
-              "id": "color-mint-alpha-16",
-              "tier": "primitive"
-            }
-          }
-        },
-        "24": {
-          "$value": {
-            "colorSpace": "srgb",
-            "components": [
-              0.0,
-              0.776471,
-              0.556863
-            ],
-            "alpha": 0.24,
-            "hex": "#00c68e"
-          },
-          "$extensions": {
-            "com.klipse-design": {
-              "id": "color-mint-alpha-24",
-              "tier": "primitive"
-            }
-          }
-        }
       }
     },
     "spacing": {
@@ -4634,6 +4541,16 @@
             }
           }
         },
+        "background-upgrade-current": {
+          "$value": "{primitive.color.neutral.100}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-background-upgrade-current",
+              "tier": "semantic",
+              "mode": "light"
+            }
+          }
+        },
         "foreground-on-inverse": {
           "$value": "{primitive.color.neutral.0}",
           "$extensions": {
@@ -4649,6 +4566,16 @@
           "$extensions": {
             "com.klipse-design": {
               "id": "color-background-overlay",
+              "tier": "semantic",
+              "mode": "light"
+            }
+          }
+        },
+        "foreground-upgrade-current": {
+          "$value": "{primitive.color.neutral.1000}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-foreground-upgrade-current",
               "tier": "semantic",
               "mode": "light"
             }
@@ -5085,7 +5012,7 @@
           }
         },
         "background-upgrade": {
-          "$value": "{primitive.color.mint-alpha.16}",
+          "$value": "{primitive.color.neutral.900}",
           "$extensions": {
             "com.klipse-design": {
               "id": "color-background-upgrade",
@@ -5095,7 +5022,7 @@
           }
         },
         "background-upgrade-hover": {
-          "$value": "{primitive.color.mint-alpha.24}",
+          "$value": "{primitive.color.neutral.800}",
           "$extensions": {
             "com.klipse-design": {
               "id": "color-background-upgrade-hover",
@@ -5105,7 +5032,7 @@
           }
         },
         "foreground-upgrade": {
-          "$value": "{primitive.color.mint.700}",
+          "$value": "{primitive.color.neutral.100}",
           "$extensions": {
             "com.klipse-design": {
               "id": "color-foreground-upgrade",
@@ -5115,7 +5042,7 @@
           }
         },
         "foreground-upgrade-hover": {
-          "$value": "{primitive.color.mint.800}",
+          "$value": "{primitive.color.neutral.100}",
           "$extensions": {
             "com.klipse-design": {
               "id": "color-foreground-upgrade-hover",
@@ -5202,6 +5129,16 @@
             }
           }
         },
+        "background-upgrade-current": {
+          "$value": "{primitive.color.neutral.800}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-background-upgrade-current",
+              "tier": "semantic",
+              "mode": "dark"
+            }
+          }
+        },
         "foreground-on-inverse": {
           "$value": "{primitive.color.neutral.900}",
           "$extensions": {
@@ -5217,6 +5154,16 @@
           "$extensions": {
             "com.klipse-design": {
               "id": "color-background-overlay",
+              "tier": "semantic",
+              "mode": "dark"
+            }
+          }
+        },
+        "foreground-upgrade-current": {
+          "$value": "{primitive.color.neutral.0}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-foreground-upgrade-current",
               "tier": "semantic",
               "mode": "dark"
             }
@@ -5653,7 +5600,7 @@
           }
         },
         "background-upgrade": {
-          "$value": "{primitive.color.mint-alpha.16}",
+          "$value": "{primitive.color.neutral.100}",
           "$extensions": {
             "com.klipse-design": {
               "id": "color-background-upgrade",
@@ -5663,7 +5610,7 @@
           }
         },
         "background-upgrade-hover": {
-          "$value": "{primitive.color.mint-alpha.24}",
+          "$value": "{primitive.color.neutral.200}",
           "$extensions": {
             "com.klipse-design": {
               "id": "color-background-upgrade-hover",
@@ -5673,7 +5620,7 @@
           }
         },
         "foreground-upgrade": {
-          "$value": "{primitive.color.mint.700}",
+          "$value": "{primitive.color.neutral.900}",
           "$extensions": {
             "com.klipse-design": {
               "id": "color-foreground-upgrade",
@@ -5683,7 +5630,7 @@
           }
         },
         "foreground-upgrade-hover": {
-          "$value": "{primitive.color.mint.800}",
+          "$value": "{primitive.color.neutral.900}",
           "$extensions": {
             "com.klipse-design": {
               "id": "color-foreground-upgrade-hover",

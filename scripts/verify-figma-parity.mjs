@@ -713,7 +713,11 @@ const COMPONENT_CONTRACTS = [
     effects: {},
     geometry: {
       measuredId: "sidebar-brand",
-      fields: { width: "width", height: "height", cornerRadius: "radius", layoutMode: { literal: "HORIZONTAL" } },
+      fields: {
+        width: "width", height: "height", cornerRadius: "radius",
+        paddingInline: "paddingInlineStart", paddingInlineEnd: { literal: 0 },
+        layoutMode: { literal: "HORIZONTAL" },
+      },
       slots: {},
       extraStrokeWeights: [],
       // 접히면 워드마크가 사라진다 — variant마다 자손이 다른 것이 계약이다.

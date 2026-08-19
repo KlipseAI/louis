@@ -33,6 +33,7 @@ const FILES = {
   carousel: "apps/web/components/banners/TabBannerCarousel.tsx",
   avatar: "apps/web/components/navigation/UserCircleDefaultAvatar.tsx",
   spinner: "apps/web/components/ui/LoadingSpinner.tsx",
+  canvasEmpty: "apps/web/components/scenes/create/node-canvas-v2/components/CanvasEmptyState.tsx",
   vem: "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx",
   crop: "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/ClipCropModal.tsx",
 };
@@ -157,6 +158,12 @@ const PROBES = [
     read: ["paddingTop", "paddingLeft", "rowGap", "borderTopWidth", "borderTopLeftRadius"],
   },
   {
+    id: "empty-state-actions",
+    source: "CanvasEmptyState.tsx ACTIONS_CLASS — 제품에서 액션이 둘 이상인 빈 상태는 이 한 벌뿐이다",
+    from: ["canvasEmpty", "ACTIONS_CLASS"],
+    read: ["columnGap"],
+  },
+  {
     id: "avatar",
     source: "UserCircleDefaultAvatar.tsx AVATAR",
     from: ["avatar", "AVATAR"],
@@ -246,7 +253,14 @@ const PROBES = [
     id: "sidebar-header-row",
     source: "Gnb.tsx sidebarHeaderRow",
     from: ["gnb", "sidebarHeaderRow"],
-    read: ["minHeight", "columnGap"],
+    read: ["minHeight", "columnGap", "paddingLeft"],
+  },
+  {
+    id: "sidebar-header-row-collapsed",
+    source: "Gnb.tsx sidebarHeaderRow (접힘)",
+    from: ["gnb", "sidebarHeaderRow"],
+    doc: "collapsed",
+    read: ["paddingLeft"],
   },
   {
     id: "sidebar-logo-rail",
@@ -279,6 +293,62 @@ const PROBES = [
     doc: "collapsed",
     text: "업그레이드",
     read: ["maxWidth", "fontSize"],
+  },
+  {
+    id: "sidebar-cta-light",
+    source: "Gnb.tsx sidebarUpgradeButton (라이트)",
+    from: ["gnb", "sidebarUpgradeButton"],
+    tag: "button",
+    doc: "light",
+    text: "업그레이드",
+    read: ["backgroundColor", "color", "boxShadow"],
+  },
+  {
+    id: "sidebar-cta-current",
+    source: "Gnb.tsx sidebarUpgradeButton + sidebarUpgradeButtonActive (현재 위치)",
+    from: ["gnb", "sidebarUpgradeButton", "sidebarUpgradeButtonActive"],
+    tag: "button",
+    text: "업그레이드",
+    read: ["backgroundColor", "color"],
+  },
+  {
+    id: "sidebar-cta-current-light",
+    source: "Gnb.tsx sidebarUpgradeButton + sidebarUpgradeButtonActive (라이트)",
+    from: ["gnb", "sidebarUpgradeButton", "sidebarUpgradeButtonActive"],
+    tag: "button",
+    doc: "light",
+    text: "업그레이드",
+    read: ["backgroundColor", "color"],
+  },
+  {
+    id: "nav-item-inner",
+    source: "Gnb.tsx menuLinkInner — 아이콘과 라벨 사이 간격을 갖는 것은 행이 아니라 이 안쪽 상자다",
+    from: ["gnb", "menuLinkInner"],
+    wrapper: ["gnb-menu gnb-menuSidebar"],
+    text: "아카이브",
+    read: ["columnGap"],
+  },
+  {
+    id: "nav-item-inner-collapsed",
+    source: "Gnb.tsx menuLinkInner (접힘)",
+    from: ["gnb", "menuLinkInner"],
+    wrapper: ["gnb-menu gnb-menuSidebar"],
+    doc: "collapsed",
+    text: "아카이브",
+    read: ["columnGap"],
+  },
+  {
+    id: "top-bar-title",
+    source: "Gnb.tsx mainChromePageNavTitle",
+    from: ["gnb", "mainChromePageNavTitle"],
+    text: "홈",
+    read: ["fontSize", "lineHeight", "fontWeight"],
+  },
+  {
+    id: "top-bar-leading",
+    source: "Gnb.tsx mainChromeLeadingCluster",
+    from: ["gnb", "mainChromeLeadingCluster"],
+    read: ["columnGap"],
   },
   {
     id: "top-bar",
@@ -531,6 +601,26 @@ const EXPECT = [
   ["slider-track-root-panel", "height", ["slider", "sizes", "md/track", "height"], "deviates",
     "제품 28, DS 40. 제품에서 28은 레일 높이인 동시에 컨트롤 높이다 — 레일이 컨트롤을 꽉 채운다. DS는 같은 28 레일을 40 컨트롤 안에 넣어 위아래 6px씩을 손잡이 여유로 남긴다."],
 
+  ["sidebar-cta", "backgroundColor", ["sidebar-cta", "states", "base", "Default", "background"], "same"],
+  ["sidebar-cta", "color", ["sidebar-cta", "states", "base", "Default", "foreground"], "same"],
+  ["sidebar-cta-light", "backgroundColor", ["sidebar-cta", "states", "base", "Default", "background"], "same"],
+  ["sidebar-cta-light", "color", ["sidebar-cta", "states", "base", "Default", "foreground"], "same"],
+  ["sidebar-cta-current", "backgroundColor", ["sidebar-cta", "states", "base", "Current", "background"], "same"],
+  ["sidebar-cta-current", "color", ["sidebar-cta", "states", "base", "Current", "foreground"], "same"],
+  ["sidebar-cta-current-light", "backgroundColor", ["sidebar-cta", "states", "base", "Current", "background"], "same"],
+  ["sidebar-cta-label-collapsed", "maxWidth", ["sidebar-cta", "sizes", "true", "labelMaxWidth"], "same"],
+  ["sidebar-cta-label-collapsed", "fontSize", ["sidebar-cta", "sizes", "true", "labelFontSize"], "same"],
+  ["nav-item-inner", "columnGap", ["app-shell-parts", "sizes", "navItem", "gap"], "deviates",
+    "제품 10, DS 8. 배포본은 행이 아니라 안쪽 상자가 이 간격을 갖고 값이 10이다. 10은 DS 간격 계단(4·8·12·16)에 없어 SelectableListRow와 같은 판단을 한다 — 한 컴포넌트를 위해 계단을 늘리지 않는다."],
+  ["nav-item-inner-collapsed", "columnGap", ["app-shell-parts", "sizes", "navItemCollapsed", "paddingInline"], "same"],
+  ["top-bar-title", "fontSize", ["app-shell-parts", "sizes", "topBar", "titleFontSize"], "same"],
+  ["top-bar-leading", "columnGap", ["app-shell-parts", "sizes", "topBar", "leadingGap"], "same"],
+
+  ["sidebar-header-row", "paddingLeft", ["sidebar-brand", "sizes", "false", "paddingInlineStart"], "same"],
+  ["sidebar-header-row-collapsed", "paddingLeft", ["sidebar-brand", "sizes", "true", "paddingInlineStart"], "same"],
+  ["empty-state-actions", "columnGap", ["empty-state", "sizes", "base", "actionGap"], "same"],
+  ["project-card-overlay", "borderBottomLeftRadius", ["project-card", "sizes", "base", "radius"], "same"],
+
   ["carousel", "height", ["banner-carousel", "sizes", "boxed", "height"], "same"],
   ["carousel", "borderTopLeftRadius", ["banner-carousel", "sizes", "boxed", "radius"], "same"],
   ["carousel-content", "width", ["banner-carousel", "sizes", "boxed", "contentInline"], "same"],
@@ -636,12 +726,23 @@ try {
       return { path, base: dirname(path), content: readFileSync(path, "utf8") };
     },
   });
-  const classes = PROBES.flatMap((probe) =>
-    [probe.html.match(/class="([^"]*)"/)[1], [probe.wrapper ?? []].flat().join(" ")]
-      .join(" ")
-      .split(/\s+/),
-  ).filter(Boolean);
-  const utilities = compiled.build(classes);
+  // **탐침이 쓴 클래스만 컴파일하면 안 된다.** 제품에는 형제 상수에 선언되어 이 요소를 겨누는
+  // 규칙이 있다 — 예를 들어 `sidebarUpgradeButtonActive`가
+  // `html[data-theme=dark] .gnb-sidebarUpgradeButton:not(&)`를 선언해 **비활성 버튼의 색을 덮는다.**
+  // 그 상수를 컴파일하지 않으면 그 규칙이 스타일시트에 없고, 탐침은 제품에 존재하지 않는 모습을
+  // 잰다. 실제로 그렇게 해서 업그레이드 버튼을 mint로 잘못 판정했다.
+  // 제품 번들은 저장소 전체를 훑으므로, 우리도 탐침이 읽은 파일의 클래스 후보를 전부 넣는다.
+  const candidates = new Set();
+  for (const source of Object.values(sources)) {
+    for (const literal of source.match(/"(?:[^"\\\n]|\\.)*"/g) ?? []) {
+      for (const token of literal.slice(1, -1).split(/\s+/)) if (token) candidates.add(token);
+    }
+  }
+  for (const probe of PROBES) {
+    for (const token of probe.html.match(/class="([^"]*)"/)[1].split(/\s+/)) if (token) candidates.add(token);
+    for (const className of [probe.wrapper ?? []].flat()) candidates.add(className);
+  }
+  const utilities = compiled.build([...candidates]);
 
   const productCss = [
     normalize(git(["show", commit + ":apps/web/app/tailwind.css"])),
@@ -657,8 +758,11 @@ try {
     for (const doc of docs) {
       const group = PROBES.filter((probe) => (probe.doc ?? "default") === doc);
       const page = await context.newPage();
+      // doc은 문서 수준 상태다. 제품 규칙 상당수가 `html[data-theme=...]`와
+      // `html[data-app-gnb-sidebar-collapsed=true]`를 조상으로 요구하므로 문서를 나눠 렌더한다.
       const htmlAttributes =
-        'data-theme="dark"' + (doc === "collapsed" ? ' data-app-gnb-sidebar-collapsed="true"' : "");
+        'data-theme="' + (doc.includes("light") ? "light" : "dark") + '"' +
+        (doc.includes("collapsed") ? ' data-app-gnb-sidebar-collapsed="true"' : "");
       await page.setContent(
         "<!doctype html><html " + htmlAttributes + "><head><style>" +
           productCss.replace(/<\/style>/gi, "<\\/style>") +
@@ -717,6 +821,45 @@ try {
 // 이제 브라우저가 실제로 계산한 제품 값과 맞춘다.
 const measuredFile = JSON.parse(readFileSync(resolve(repoRoot, "figma/components.measured.json"), "utf8"));
 
+// ── 색 대조 ────────────────────────────────────────────────────────────────
+// 기하만 맞추고 색을 넘기면 "제품과 같다"고 말할 수 없다. measured가 색을 **토큰 이름**으로 적으므로
+// 생성된 tokens.css에서 그 이름의 값을 테마별로 꺼내 제품이 렌더한 색과 맞춘다.
+const tokensCss = readFileSync(resolve(repoRoot, "packages/css/generated/tokens.css"), "utf8");
+function readTokenBlock(source, marker) {
+  const start = source.indexOf(marker);
+  if (start < 0) throw new Error("tokens.css에서 " + marker + "를 찾지 못했습니다.");
+  const open = source.indexOf("{", start);
+  const close = source.indexOf("\n}", open);
+  const map = new Map();
+  for (const line of source.slice(open, close).split("\n")) {
+    const match = /^\s*(--kds-[a-z0-9-]+):\s*(.+);\s*$/.exec(line);
+    if (match) map.set(match[1], match[2].trim());
+  }
+  return map;
+}
+const THEME_TOKENS = {
+  light: readTokenBlock(tokensCss, ":root"),
+  dark: readTokenBlock(tokensCss, '[data-theme="dark"]'),
+};
+function parseColor(value) {
+  if (!value) return null;
+  const srgb = /^color\(srgb\s+([\d.]+)\s+([\d.]+)\s+([\d.]+)(?:\s*\/\s*([\d.]+))?\)$/.exec(value);
+  if (srgb) return [+srgb[1], +srgb[2], +srgb[3], srgb[4] === undefined ? 1 : +srgb[4]];
+  const rgb = /^rgba?\(\s*([\d.]+)[,\s]+([\d.]+)[,\s]+([\d.]+)(?:[,\s/]+([\d.]+))?\s*\)$/.exec(value);
+  if (rgb) return [+rgb[1] / 255, +rgb[2] / 255, +rgb[3] / 255, rgb[4] === undefined ? 1 : +rgb[4]];
+  const hex = /^#([0-9a-f]{6})$/i.exec(value);
+  if (hex) {
+    const n = Number.parseInt(hex[1], 16);
+    return [((n >> 16) & 255) / 255, ((n >> 8) & 255) / 255, (n & 255) / 255, 1];
+  }
+  if (value === "transparent") return [0, 0, 0, 0];
+  return null;
+}
+const sameColor = (a, b) =>
+  a !== null && b !== null && a.every((value, index) => Math.abs(value - b[index]) < 0.004);
+const showColor = (parsed, raw) =>
+  parsed ? "rgb(" + parsed.slice(0, 3).map((v) => Math.round(v * 255)).join(" ") + " / " + parsed[3] + ")" : String(raw);
+
 const deviations = [];
 const compared = [];
 
@@ -726,7 +869,6 @@ function compare(measured, expect, exempt, collect) {
     const scale = typeof a === "number" ? a : 1;
     const why = typeof a === "string" ? a : b;
     const raw = rendered[probeId]?.[property];
-    const actual = Number.parseFloat(raw) * scale;
     let want = measured;
     for (const key of path) want = want?.[key];
     const label = probeId + "." + property;
@@ -734,6 +876,48 @@ function compare(measured, expect, exempt, collect) {
       failures.push(path.join(".") + "가 figma/components.measured.json에 없습니다.");
       continue;
     }
+    // measured가 색이면 토큰 이름이다. 탐침이 어느 테마 문서에서 렌더됐는지를 따라 값을 푼다.
+    if (typeof want === "string") {
+      const probe = PROBES.find((p) => p.id === probeId);
+      const theme = (probe?.doc ?? "").includes("light") ? "light" : "dark";
+      const tokenValue = THEME_TOKENS[theme].get("--kds-" + want);
+      if (tokenValue === undefined) {
+        failures.push(label + ": DS 토큰 --kds-" + want + "가 " + theme + " 테마에 없습니다.");
+        continue;
+      }
+      const productColor = parseColor(raw);
+      const dsColor = parseColor(tokenValue);
+      if (productColor === null || dsColor === null) {
+        failures.push(label + ": 색을 해석하지 못했습니다 (제품 " + raw + " · DS " + tokenValue + ").");
+        continue;
+      }
+      const equal = sameColor(productColor, dsColor);
+      if (relation === "same" && !equal) {
+        failures.push(
+          label + ": 제품이 렌더한 색은 " + showColor(productColor, raw) + "인데 DS " + want + "는 " +
+            showColor(dsColor, tokenValue) + "입니다 (" + theme + ").",
+        );
+        continue;
+      }
+      if (relation === "deviates") {
+        if (!why) {
+          failures.push(label + ": 편차인데 사유가 없습니다.");
+          continue;
+        }
+        if (equal) {
+          failures.push(label + ": 편차로 기록해 둔 색인데 같아졌습니다. 사유가 낡았으니 지우세요.");
+          continue;
+        }
+        if (collect) {
+          deviations.push({ axis: label, product: showColor(productColor, raw), ds: want, why });
+          compared.push(label);
+        }
+        continue;
+      }
+      if (collect) compared.push(label);
+      continue;
+    }
+    const actual = Number.parseFloat(raw) * scale;
     if (!Number.isFinite(actual)) {
       failures.push(label + "를 읽지 못했습니다 (" + raw + ").");
       continue;

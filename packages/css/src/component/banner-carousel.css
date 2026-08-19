@@ -30,6 +30,9 @@
  * 소비처가 `aria-hidden`을 건다. */
 
 .kds-banner-carousel__slide {
+  /* 사진은 소비처가 인라인으로 넣는다. 여기서 기본값을 선언해 두면 사진이 없는 슬라이드에서도
+   * 스크림 레이어가 온전히 성립한다. */
+  --kds-banner-image: none;
   position: absolute;
   inset: 0;
   display: flex;
@@ -37,6 +40,17 @@
   /* `backdrop-filter`는 합성 레이어로 올라가 조상의 클립도 자기 radius도 무시한 사각형으로
    * 그려진다. radius와 overflow를 같은 요소에 얹어 실제 클립을 강제한다. */
   overflow: hidden;
+  /* **스크림이 사진과 같은 층에 있다.** 예전에는 `::after`로 얹었는데, 그것과 콘텐츠가 둘 다
+   * positioned이고 z-index가 없어 트리 순서대로 칠해졌다 — `::after`가 마지막이라 **스크림이
+   * 제목과 설명 위에 칠해졌다.** 배포본은 스크림을 슬라이드 자신의 background-image 첫 레이어로
+   * 두어 구조적으로 그 상태가 될 수 없게 한다. 숫자 z-index를 새로 들이지 않고 같은 결과를 얻는다. */
+  background-image: linear-gradient(
+      to right,
+      color-mix(in srgb, var(--kds-banner-scrim) 78%, transparent) 0%,
+      color-mix(in srgb, var(--kds-banner-scrim) 46%, transparent) 30%,
+      transparent 60%
+    ),
+    var(--kds-banner-image, none);
   background-repeat: no-repeat;
   background-size: cover;
   background-position: 68% center;
@@ -64,19 +78,6 @@
 .kds-banner-carousel__slide[data-tone="dark"] {
   --kds-banner-text: var(--kds-color-media-foreground-dark);
   --kds-banner-scrim: var(--kds-color-media-scrim-dark);
-}
-
-.kds-banner-carousel__slide::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-image: linear-gradient(
-    to right,
-    color-mix(in srgb, var(--kds-banner-scrim) 78%, transparent) 0%,
-    color-mix(in srgb, var(--kds-banner-scrim) 46%, transparent) 30%,
-    transparent 60%
-  );
-  pointer-events: none;
 }
 
 /* progressive blur — 글자 쪽만 흐리고 사진 쪽으로 갈수록 걷힌다. */

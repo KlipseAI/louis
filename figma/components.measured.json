@@ -574,8 +574,8 @@
           "$graphic": "icon-size-xl 64 (DS-D-0015). iconography.md가 '빈 상태 컴포넌트가 생길 때 추가한다'고 예약해 둔 자리다",
           "$borderWidth": "0. 제품 9벌 전부 테두리가 없다 — 상자가 아니라 텍스트 블록이다",
           "$radius": "0. 같은 이유다",
-          "actionGap": 8,
-          "$actionGap": "space-control-sm 8. 액션이 여럿일 때 버튼 사이 간격이다",
+          "actionGap": 12,
+          "$actionGap": "12. 제품에서 액션이 둘 이상인 빈 상태는 CanvasEmptyState 한 벌뿐이고 그것이 gap-6 = 12px이다. 8로 두고 있었는데 정본이 하나뿐인 축에서는 '제품이 갈린다'는 면책이 성립하지 않는다.",
           "$actionMarginBlockStart": "4. 제목·설명과 12px이 아니라 한 단계 더 떨어진다 — 읽는 것과 누르는 것 사이의 경계다. Figma에는 자식별 간격이 없어 Action 프레임의 위쪽 padding으로 같은 16px을 만든다"
         }
       },
@@ -961,7 +961,8 @@
           "$icon": "icon-size-md 20",
           "$paddingInline": "4. 배포본은 `main-inline-padding − sidebar-padding-x` = 16 − 12 = 4를 쓴다. 행과 레일의 합이 계약이다 — 레일 12 + 행 4 = 16이 본문 좌측선과 맞는다.",
           "fontSize": 14,
-          "$fontSize": "body-sm 14. 배포본 사이드바 항목이 --type-body-14-*를 쓴다. 사이드바 밖의 상단 GNB 항목만 16이다."
+          "$fontSize": "body-sm 14. 배포본 사이드바 항목이 --type-body-14-*를 쓴다. 사이드바 밖의 상단 GNB 항목만 16이다.",
+          "$gap": "배포본은 8이 아니라 10이다(gnb-menuLinkInner의 gap:10px). 10은 DS 간격 계단(4·8·12·16)에 없는 값이라 SelectableListRow와 같은 판단을 한다 — 한 컴포넌트를 위해 계단을 늘리지 않는다."
         },
         "navItemCollapsed": {
           "height": 32,
@@ -976,7 +977,11 @@
           "borderWidth": 0,
           "$height": "layout-app-shell-top-bar-height 40 (DS-D-0018). 제품에 52/36/40 셋이 있고 정렬의 기준이 40이다",
           "$paddingInline": "layout-app-shell-content-inset 16. 본문과 같은 원천을 읽는다",
-          "$borderWidth": "0. 경계선은 기본이 아니다 — 제품의 것은 스크롤 진행률에 따라 색이 변하는 런타임 계약이다"
+          "$borderWidth": "0. 경계선은 기본이 아니다 — 제품의 것은 스크롤 진행률에 따라 색이 변하는 런타임 계약이다",
+          "titleFontSize": 16,
+          "$titleFontSize": "body-md 16. 배포본 mainChromePageNavTitle이 --type-body-16-*를 쓴다(16/24/500).",
+          "leadingGap": 4,
+          "$leadingGap": "배포본 mainChromeLeadingCluster의 gap:4px. 바 자신의 gap 8과 다르다 — 뒤로가기·구분자·제목이 한 덩어리로 붙는다."
         }
       },
       "states": {
@@ -1060,20 +1065,23 @@
           "height": 40,
           "radius": 0,
           "markSize": 28,
-          "wordmarkWidth": 96
+          "wordmarkWidth": 96,
+          "paddingInlineStart": 4,
+          "$paddingInlineStart": "배포본 sidebarHeaderRow의 padding-left = main-inline-padding 16 − sidebar-padding-x 12 = 4. 접히면 0이다."
         },
         "true": {
-          "width": 72,
+          "width": 32,
           "height": 40,
           "radius": 0,
-          "markSize": 28
+          "markSize": 28,
+          "paddingInlineStart": 0
         }
       }
     },
     "sidebar-cta": {
       "$doc": "design/components/app-shell-parts.md",
       "$source": "packages/react/src/app-shell/app-shell-parts.tsx, packages/css/src/component/app-shell.css",
-      "$note": "배포본 Gnb.tsx sidebarUpgradeButton 실측. **아이콘이 없다** — 처음에 plus를 넣은 것은 제품을 읽지 않고 지어낸 것이었다. 색도 브랜드 파랑이 아니라 mint다.",
+      "$note": "배포본 Gnb.tsx sidebarUpgradeButton 실측. **아이콘이 없다.** 색은 반전 solid pill이며 brand blue도 mint도 아니다 — mint는 기본 선언이지만 형제 상수 sidebarUpgradeButtonActive가 `.gnb-sidebarUpgradeButton:not(&)`로 비활성 버튼의 색을 덮는다.",
       "sizes": {
         "false": {
           "width": 256,
@@ -1085,12 +1093,30 @@
           "labelWidth": 60
         },
         "true": {
-          "width": 44,
+          "width": 32,
           "height": 32,
           "radius": 12,
           "paddingInline": 10,
           "paddingBlock": 0,
-          "gap": 0
+          "gap": 0,
+          "labelMaxWidth": 54,
+          "labelFontSize": 12
+        }
+      },
+      "states": {
+        "base": {
+          "Default": {
+            "background": "color-background-upgrade",
+            "foreground": "color-foreground-upgrade"
+          },
+          "Hover": {
+            "background": "color-background-upgrade-hover",
+            "foreground": "color-foreground-upgrade-hover"
+          },
+          "Current": {
+            "background": "color-background-upgrade-current",
+            "foreground": "color-foreground-upgrade-current"
+          }
         }
       }
     }

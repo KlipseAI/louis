@@ -1,0 +1,76 @@
+{
+  "$comment": "생성물. scripts/measure-product-components.mjs가 제품 클래스를 제품 Tailwind로 컴파일해 실브라우저에서 잰다. 직접 수정하지 않는다.",
+  "$whyThisExists": "그전까지 제품 값은 전부 소스 읽기였다. product.measured.json의 187축 중 기계 대조는 12축뿐이고 나머지는 사람이 코드를 읽고 옮긴 값이다. 여기 값은 브라우저가 실제로 계산한 것이다.",
+  "$method": "제품 서버를 띄우지 않는다. 클래스 문자열을 제품 소스에서 그대로 옮겨 제품 Tailwind로 컴파일하고, 제품 CSS와 함께 빈 문서에 올려 계산값을 읽는다.",
+  "productRef": "origin/main",
+  "productCommit": "7e9c3b6946a71431479aef69d16baac5c53128b2",
+  "probes": [
+    {
+      "id": "button-md",
+      "source": "apps/web/components/ui/Button.tsx ROOT + SIZE_MD",
+      "html": "<button class=\"box-border relative inline-flex items-center justify-center rounded-[var(--button-radius)] whitespace-nowrap h-[var(--button-height)] py-0 px-[var(--button-padding-inline)] gap-4\">저장</button>"
+    },
+    {
+      "id": "button-sm",
+      "source": "apps/web/components/ui/Button.tsx ROOT + SIZE_SM",
+      "html": "<button class=\"box-border relative inline-flex items-center justify-center rounded-[var(--button-radius)] whitespace-nowrap h-[var(--button-height-sm)] min-w-[var(--button-min-width-sm)] py-0 px-[var(--button-padding-inline-sm)] gap-2\">저장</button>"
+    },
+    {
+      "id": "project-card",
+      "source": "apps/web/components/scenes/appHomeSceneStyles.ts archiveCard",
+      "html": "<div class=\"[position:relative] [display:grid] [gap:12px] [row-gap:8px] [padding:0] [min-width:0] [border-radius:16px]\"></div>"
+    },
+    {
+      "id": "project-card-overlay",
+      "source": "apps/web/components/scenes/appHomeSceneStyles.ts archivePreviewTitleOverlay",
+      "html": "<div class=\"[position:absolute] [height:30%] [padding:16px] [border-radius:0_0_16px_16px]\"></div>"
+    },
+    {
+      "id": "project-grid",
+      "source": "apps/web/components/scenes/appHomeSceneStyles.ts archiveGrid",
+      "html": "<div class=\"[display:grid] [grid-template-columns:repeat(2,_1fr)] [gap:12px] min-[1200px]:[grid-template-columns:repeat(4,_1fr)]\"></div>"
+    },
+    {
+      "id": "button-secondary-border",
+      "source": "apps/web/components/ui/Button.tsx BORDER_SECONDARY",
+      "html": "<button class=\"box-border [border:1px_solid_rgb(var(--palette-gray-900-rgb)/12%)] rounded-[var(--button-radius)] h-[var(--button-height)]\">저장</button>"
+    }
+  ],
+  "rendered": {
+    "button-md": {
+      "height": "40px",
+      "paddingLeft": "16px",
+      "paddingRight": "16px",
+      "borderTopLeftRadius": "12px",
+      "columnGap": "8px"
+    },
+    "button-sm": {
+      "height": "32px",
+      "paddingLeft": "12px",
+      "paddingRight": "12px",
+      "borderTopLeftRadius": "12px",
+      "columnGap": "4px",
+      "minWidth": "48px"
+    },
+    "project-card": {
+      "borderTopLeftRadius": "16px",
+      "rowGap": "8px",
+      "columnGap": "12px",
+      "padding": "0px"
+    },
+    "project-card-overlay": {
+      "padding": "16px",
+      "borderBottomLeftRadius": "16px",
+      "height": "108px"
+    },
+    "project-grid": {
+      "columnGap": "12px",
+      "rowGap": "12px",
+      "gridTemplateColumns": "81px 81px 81px 81px"
+    },
+    "button-secondary-border": {
+      "borderTopWidth": "1px",
+      "borderTopColor": "rgba(23, 27, 34, 0.12)"
+    }
+  }
+}

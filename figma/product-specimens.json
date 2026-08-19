@@ -120,6 +120,63 @@
         "typography": "type-body-16-regular",
         "text": "저장했어요"
       }
+    },
+    {
+      "id": "badge/exploreSoonChip",
+      "kind": "badge",
+      "label": "사이드바 예정 칩",
+      "jsx": "apps/web/components/navigation/Gnb.tsx:4795-4800",
+      "file": "apps/web/components/navigation/Gnb.tsx",
+      "node": {
+        "part": "exploreSoonChip",
+        "tag": "span",
+        "typography": "type-caption-12-medium",
+        "text": "업데이트 예정"
+      }
+    },
+    {
+      "id": "badge/customSidebarBadge",
+      "kind": "badge",
+      "label": "사이드바 개수 배지",
+      "jsx": "apps/web/components/navigation/Gnb.tsx:4540-4548",
+      "file": "apps/web/components/navigation/Gnb.tsx",
+      "node": {
+        "part": "customSidebarBadge",
+        "tag": "span",
+        "typography": "type-caption-12-medium",
+        "text": "3"
+      }
+    },
+    {
+      "id": "badge/profileMenuItemBadge",
+      "kind": "badge",
+      "label": "프로필 메뉴 플랜 배지 — 글자를 자식이 갖는다",
+      "jsx": "apps/web/components/navigation/Gnb.tsx:3153-3157",
+      "file": "apps/web/components/navigation/Gnb.tsx",
+      "node": {
+        "part": "profileMenuItemBadge",
+        "tag": "span",
+        "children": [
+          {
+            "part": "profileMenuItemBadgeText",
+            "tag": "span",
+            "text": "프로"
+          }
+        ]
+      }
+    },
+    {
+      "id": "badge/previewZoomBadge",
+      "kind": "badge",
+      "label": "미리보기 확대 배지",
+      "jsx": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx:17823-17829",
+      "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx",
+      "node": {
+        "part": "previewZoomBadge",
+        "tag": "div",
+        "typography": "type-caption-12-medium",
+        "text": "120%"
+      }
     }
   ],
   "$correctionLog": "첫 판에서 넷을 상상했다 — ① 모달 카드에 typography 클래스가 있다고 적었다(없다) ② 마이페이지 토스트에 toastText 자식이 있다고 적었다(없다. 토스트 자신이 글자를 갖는다) ③ 토스트 글자를 body-14-medium이라고 적었다(body-16-regular다) ④ 마이페이지 모달의 버튼 글자를 body-16이라고 적었다(그 소비처는 body-14다). 스크립트가 없는 상수를 만나면 죽는다 — ②가 그렇게 잡혔다. 나머지 셋은 JSX를 읽어 고쳤다."

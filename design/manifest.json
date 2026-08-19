@@ -1100,7 +1100,7 @@
       "id": "skeleton",
       "name": "Skeleton",
       "maturity": "experimental",
-      "figma": "not-ready",
+      "figma": "partial",
       "web": "partial",
       "docs": "done",
       "note": "public export와 실브라우저 acceptance test 5건이 두 motion context에서 각각 돈다. **면 색을 고르지 않는다** — 제품 실측(면 8% · 하이라이트 9%, 전경색 기준)대로 currentColor를 낮은 알파로 깐다. 인계서 (1c)의 \"면 색 판정\"은 solid 토큰이 필요하다는 전제 위에 있었고 실측이 그것을 부정했다. 흐름은 background-position이며 loop 허용 property(DS-D-0016)와 제품 우세 기법이 같은 곳을 가리킨다. 크기는 호출부가 정한다",
@@ -1129,7 +1129,9 @@
       "doc": "design/components/app-shell-parts.md",
       "figmaNames": [
         "SidebarNavItem",
-        "AppTopBar"
+        "AppTopBar",
+        "SidebarBrand",
+        "SidebarCta"
       ]
     }
   ],

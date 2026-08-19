@@ -687,6 +687,71 @@ const COMPONENT_CONTRACTS = [
     },
   },
   {
+    id: "app-shell-parts",
+    figmaName: "SidebarBrand",
+    declaration: "packages/react/dist/app-shell/app-shell-parts.d.ts",
+    variantProperties: {},
+    // 접힘은 코드에서 boolean prop이라 타입 alias가 없다. Figma에서만 축이 된다.
+    figmaOnlyProperties: {
+      Collapsed: {
+        options: ["false", "true"],
+        reason:
+          "코드에서는 `collapsed` boolean prop이다. Figma에 boolean 상태를 그릴 방법이 variant뿐이라 축으로 둔다.",
+      },
+    },
+    // 브랜드 행은 면도 테두리도 없다. 사이드바 자신의 면 위에 놓인다.
+    strokes: {},
+    effects: {},
+    geometry: {
+      measuredId: "sidebar-brand",
+      fields: { width: "width", height: "height", cornerRadius: "radius", layoutMode: { literal: "HORIZONTAL" } },
+      slots: {},
+      extraStrokeWeights: [],
+      // 접히면 워드마크가 사라진다 — variant마다 자손이 다른 것이 계약이다.
+      parts: { Wordmark: { fields: { width: "wordmarkWidth" }, optional: true } },
+    },
+  },
+  {
+    id: "app-shell-parts",
+    figmaName: "SidebarCta",
+    declaration: "packages/react/dist/app-shell/app-shell-parts.d.ts",
+    variantProperties: {},
+    figmaOnlyProperties: {
+      Collapsed: {
+        options: ["false", "true"],
+        reason: "코드에서는 `collapsed` boolean prop이다.",
+      },
+    },
+    strokes: {},
+    effects: {},
+    geometry: {
+      measuredId: "sidebar-cta",
+      fields: { width: "width", height: "height", cornerRadius: "radius", layoutMode: { literal: "HORIZONTAL" } },
+      slots: {},
+      extraStrokeWeights: [],
+      parts: { Label: { fields: { width: "labelWidth" }, optional: true } },
+    },
+  },
+  {
+    id: "skeleton",
+    figmaName: "Skeleton",
+    declaration: "packages/react/dist/skeleton/skeleton.d.ts",
+    variantProperties: { Shape: "SkeletonShape" },
+    // **면 색을 고르지 않는 것이 계약이다.** 놓이는 자리의 글자색을 낮은 알파로 문다.
+    // 테두리도 그림자도 없다 — 생기면 자리표시자가 아니라 카드로 읽힌다.
+    strokes: {},
+    effects: {},
+    geometry: {
+      measuredId: "skeleton",
+      // `base`는 색 계약(알파)만 갖고 기하가 없다. Figma의 shape 세 벌만 기하를 대조한다.
+      sizeKeys: ["text", "block", "circle"],
+      fields: { width: "width", height: "height", cornerRadius: "radius", layoutMode: { literal: "NONE" } },
+      slots: {},
+      extraStrokeWeights: [],
+      parts: {},
+    },
+  },
+  {
     id: "badge",
     figmaName: "Badge",
     // 라벨은 코드에서 children이고 badge.d.ts에 선언 항목으로 나타나지 않는다(React가 준다).
@@ -796,6 +861,8 @@ const COMPONENT_CONTRACTS = [
       extraStrokeWeights: [],
       // **계약값이 자손에 있는 첫 컴포넌트다.** root만 보면 여백·간격·흐림이 하나도 검증되지 않는다.
       parts: {
+        // 썸네일 위 더보기. 면이 사진이라 media 색을 쓴다.
+        More: { fields: { width: "moreSize", height: "moreSize" } },
         Media: {
           fields: { width: "mediaSide", height: "mediaSide" },
         },
@@ -1434,9 +1501,18 @@ function compareComponentGeometry(contract, got) {
   }
   const geometry = got.geometry ?? {};
   // size 축이 없는 컴포넌트는 measured에 단일 키(base)만 두고 readback도 그 이름으로 담는다.
-  const entries = plan.sizeKey
-    ? [[plan.sizeKey, measured[plan.sizeKey]]].filter(([, spec]) => spec !== undefined)
-    : Object.entries(measured);
+  // `sizeKeys`는 measured에 기하 없는 키가 섞여 있을 때 쓴다 — Skeleton의 `base`는 색 계약(알파)만
+  // 갖고 기하가 없으며, Figma는 흐름을 못 그려 정지 shape 세 벌만 있다.
+  const entries = plan.sizeKeys
+    ? plan.sizeKeys.map((key) => [key, measured[key]]).filter(([, spec]) => spec !== undefined)
+    : plan.sizeKey
+      ? [[plan.sizeKey, measured[plan.sizeKey]]].filter(([, spec]) => spec !== undefined)
+      : Object.entries(measured);
+  if (plan.sizeKeys && entries.length !== plan.sizeKeys.length) {
+    issues.push(
+      `${COMPONENTS_MEASURED_PATH}에 ${plan.measuredId}의 선언된 size 키가 빠졌습니다: ${plan.sizeKeys.join(", ")}`,
+    );
+  }
   if (plan.sizeKey && entries.length === 0) {
     issues.push(`${COMPONENTS_MEASURED_PATH}에 ${plan.measuredId}.${plan.sizeKey}가 없습니다.`);
   }
@@ -1521,6 +1597,12 @@ function compareComponentGeometry(contract, got) {
     for (const [partName, partPlan] of Object.entries(plan.parts ?? {})) {
       const part = actual.parts?.[partName];
       if (part === undefined) {
+        // variant에 따라 사라지는 자손이 있다 — 사이드바가 접히면 워드마크와 라벨이 없어진다.
+        // 그 경우 `optional: true`를 선언하고, **그 크기의 근거 값도 없어야** 통과한다.
+        // 선언만 해 두고 값이 남아 있으면 "있어야 하는데 빠진 것"과 구분되지 않는다.
+        if (partPlan.optional === true && spec[Object.values(partPlan.fields ?? {})[0]] === undefined) {
+          continue;
+        }
         issues.push(`${contract.figmaName} ${size}: 자손 ${partName}이 snapshot에 없습니다.`);
         continue;
       }

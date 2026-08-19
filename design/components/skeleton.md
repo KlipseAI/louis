@@ -14,7 +14,7 @@ summary: 아직 오지 않은 내용의 자리를 지킵니다.
 | Surface       | 상태           | 근거                                                                 |
 | ------------- | -------------- | -------------------------------------------------------------------- |
 | Web           | `partial`      | public export와 실브라우저 acceptance test 5건이 두 motion context에서 각각 돈다; visual regression, Figma component와 제품 소비 증거 없음 |
-| Figma         | `not-ready`    | component set이 아직 없다                                            |
+| Figma         | `partial`      | component set 3 shape(text·block·circle). Figma는 흐름을 표현하지 못해 정지 상태만 그린다; publish 전 |
 | Documentation | `done`         | 이 문서                                                              |
 | Maturity      | `experimental` | 규범과 구현이 같은 변경 단위에서 처음 선다                           |
 

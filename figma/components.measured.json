@@ -475,7 +475,8 @@
           "overlayTitleFontSize": 16,
           "overlayMetaFontSize": 14,
           "overlayLineHeightPercent": 120,
-          "$overlayLineHeightPercent": "CSS의 overlayLineHeight 1.2를 Figma의 PERCENT 단위로 옮긴 값. **Figma text style은 all-or-nothing이라** line-height만 덮으면 style 연결이 끊긴다(실측 확인). 그래서 세 줄은 style에 묶이지 않고 게이트가 값을 직접 대조한다 — 바인딩 검사는 '값이 토큰에서 온다'의 대리 지표이고 값 대조는 그 자체다."
+          "$overlayLineHeightPercent": "CSS의 overlayLineHeight 1.2를 Figma의 PERCENT 단위로 옮긴 값. **Figma text style은 all-or-nothing이라** line-height만 덮으면 style 연결이 끊긴다(실측 확인). 그래서 세 줄은 style에 묶이지 않고 게이트가 값을 직접 대조한다 — 바인딩 검사는 '값이 토큰에서 온다'의 대리 지표이고 값 대조는 그 자체다.",
+          "moreSize": 32
         }
       },
       "states": {
@@ -856,6 +857,21 @@
           "highlightAlpha": 9,
           "radius": 8,
           "$alpha": "제품 값 그대로. currentColor를 물어 어느 배경 위에서도 성립한다 — Spinner의 트랙 22%, ProjectCard의 스크림과 같은 기법이다"
+        },
+        "text": {
+          "width": 200,
+          "height": 16,
+          "radius": 8
+        },
+        "block": {
+          "width": 200,
+          "height": 120,
+          "radius": 16
+        },
+        "circle": {
+          "width": 40,
+          "height": 40,
+          "radius": 999
         }
       },
       "motion": {
@@ -865,7 +881,8 @@
         "reducedIterationCount": 1,
         "$property": "background-position. loop lifecycle의 허용 property는 opacity·rotate·background-position 셋이고(DS-D-0016), 제품의 우세 기법도 면 그라디언트 이동이라 둘이 같은 곳을 가리킨다 — 층을 하나 덜 만든다"
       },
-      "$statesNote": "상태 축이 없다. 대화형이 아니고 aria-hidden이다 — 로딩을 알리는 것은 이 요소가 아니라 감싸는 영역의 aria-busy나 live region의 일이며, 스켈레톤마다 읽히면 소음이 된다."
+      "$statesNote": "상태 축이 없다. 대화형이 아니고 aria-hidden이다 — 로딩을 알리는 것은 이 요소가 아니라 감싸는 영역의 aria-busy나 live region의 일이며, 스켈레톤마다 읽히면 소음이 된다.",
+      "$figmaShapes": "Figma는 흐름(shimmer)을 표현하지 못하므로 정지 상태만 그린다. shape 세 벌은 코드의 반경 계약(text·block·circle)과 같다."
     },
     "slider": {
       "$doc": "design/components/slider.md",
@@ -1019,6 +1036,42 @@
       },
       "$pause": "정지 버튼이 컨트롤 안에 있다. **제품에는 없다** — 자동으로 움직이는 것은 멈출 수 있어야 하고(WCAG 2.2.2), 이 저장소는 제품의 과거 UI 부채를 공용 규범으로 복사하지 않는다. 그래서 컨트롤 폭이 제품보다 36px 넓다(28 버튼 + 8 간격).",
       "$glyphs": "화살표 둘과 정지 토글에 각각 글리프가 **하나씩** 있어야 한다. 빈 프레임이면 눈으로만 보이고 게이트는 못 본다 — 실제로 4 variant × 3 부품이 비어 있었고 실무 감사가 잡았다."
+    },
+    "sidebar-brand": {
+      "$doc": "design/components/app-shell-parts.md",
+      "$source": "packages/react/src/app-shell/app-shell-parts.tsx, packages/css/src/component/app-shell.css",
+      "$note": "배포본 Gnb.tsx의 sidebarHeaderRow·sidebarLogoRail 실측. 접힘은 워드마크 폭이 0이 되는 것이고 DOM에서 지우지 않는다.",
+      "sizes": {
+        "false": {
+          "width": 256,
+          "height": 24,
+          "radius": 0,
+          "wordmarkWidth": 45
+        },
+        "true": {
+          "width": 72,
+          "height": 24,
+          "radius": 0
+        }
+      }
+    },
+    "sidebar-cta": {
+      "$doc": "design/components/app-shell-parts.md",
+      "$source": "packages/react/src/app-shell/app-shell-parts.tsx, packages/css/src/component/app-shell.css",
+      "$note": "배포본 sidebarUpgradeButton·sidebarUpgradeLabel 실측. margin-block-start: auto로 바닥에 붙는다.",
+      "sizes": {
+        "false": {
+          "width": 256,
+          "height": 40,
+          "radius": 12,
+          "labelWidth": 60
+        },
+        "true": {
+          "width": 48,
+          "height": 40,
+          "radius": 12
+        }
+      }
     }
   },
   "$states": "variant × state마다 **어느 토큰을 무는가**. 개수가 아니라 정체를 고정한다. 이 표가 없던 동안 primary 배경을 danger 변수에 물려도 boundFills 수치가 그대로라 게이트가 통과했다. 값은 token id이며 Figma 변수 이름으로의 변환은 게이트가 생성 proposal의 figmaName으로 한다 — 여기에 Figma 이름을 적으면 정본이 둘이 된다. 코드 쪽 검증은 packages/react/test/component-states.browser.test.tsx가 계산값과 대조한다.",

@@ -18,8 +18,8 @@
         "effect": 7
       },
       "components": {
-        "sets": 20,
-        "variants": 138
+        "sets": 23,
+        "variants": 145
       },
       "icons": 31,
       "templates": 0
@@ -4339,6 +4339,14 @@
               "layoutMode": [
                 "HORIZONTAL"
               ]
+            },
+            "More": {
+              "width": [
+                32
+              ],
+              "height": [
+                32
+              ]
             }
           }
         }
@@ -4658,6 +4666,144 @@
       "strokes": {},
       "effects": {}
     },
+    "SidebarBrand": {
+      "tokenId": "app-shell-parts",
+      "variantCount": 2,
+      "hasDescription": true,
+      "properties": {
+        "Collapsed": {
+          "type": "VARIANT",
+          "options": [
+            "false",
+            "true"
+          ]
+        }
+      },
+      "binding": {
+        "boundFills": 1,
+        "rawFills": 0,
+        "boundStrokes": 0,
+        "rawStrokes": 0,
+        "textStyled": 1,
+        "textUnstyled": 0
+      },
+      "geometry": {
+        "false": {
+          "slots": {},
+          "parts": {
+            "Wordmark": {
+              "width": [
+                45
+              ],
+              "height": [
+                24
+              ]
+            }
+          },
+          "strokeWeight": [],
+          "width": [
+            256
+          ],
+          "height": [
+            24
+          ],
+          "cornerRadius": [
+            0
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ]
+        },
+        "true": {
+          "slots": {},
+          "parts": {},
+          "strokeWeight": [],
+          "width": [
+            72
+          ],
+          "height": [
+            24
+          ],
+          "cornerRadius": [
+            0
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ]
+        }
+      },
+      "strokes": {},
+      "effects": {}
+    },
+    "SidebarCta": {
+      "tokenId": "app-shell-parts",
+      "variantCount": 2,
+      "hasDescription": true,
+      "properties": {
+        "Collapsed": {
+          "type": "VARIANT",
+          "options": [
+            "false",
+            "true"
+          ]
+        }
+      },
+      "binding": {
+        "boundFills": 3,
+        "rawFills": 0,
+        "boundStrokes": 0,
+        "rawStrokes": 0,
+        "textStyled": 1,
+        "textUnstyled": 0
+      },
+      "geometry": {
+        "false": {
+          "slots": {},
+          "parts": {
+            "Label": {
+              "width": [
+                60
+              ],
+              "height": [
+                21
+              ]
+            }
+          },
+          "strokeWeight": [],
+          "width": [
+            256
+          ],
+          "height": [
+            40
+          ],
+          "cornerRadius": [
+            12
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ]
+        },
+        "true": {
+          "slots": {},
+          "parts": {},
+          "strokeWeight": [],
+          "width": [
+            48
+          ],
+          "height": [
+            40
+          ],
+          "cornerRadius": [
+            12
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ]
+        }
+      },
+      "strokes": {},
+      "effects": {}
+    },
     "SidebarNavItem": {
       "tokenId": "app-shell-parts",
       "variantCount": 6,
@@ -4718,6 +4864,84 @@
           ],
           "layoutMode": [
             "HORIZONTAL"
+          ]
+        }
+      },
+      "strokes": {},
+      "effects": {}
+    },
+    "Skeleton": {
+      "tokenId": "skeleton",
+      "variantCount": 3,
+      "hasDescription": true,
+      "properties": {
+        "Shape": {
+          "type": "VARIANT",
+          "options": [
+            "text",
+            "block",
+            "circle"
+          ]
+        }
+      },
+      "binding": {
+        "boundFills": 3,
+        "rawFills": 0,
+        "boundStrokes": 0,
+        "rawStrokes": 0,
+        "textStyled": 0,
+        "textUnstyled": 0
+      },
+      "geometry": {
+        "block": {
+          "slots": {},
+          "parts": {},
+          "strokeWeight": [],
+          "width": [
+            200
+          ],
+          "height": [
+            120
+          ],
+          "cornerRadius": [
+            16
+          ],
+          "layoutMode": [
+            "NONE"
+          ]
+        },
+        "circle": {
+          "slots": {},
+          "parts": {},
+          "strokeWeight": [],
+          "width": [
+            40
+          ],
+          "height": [
+            40
+          ],
+          "cornerRadius": [
+            999
+          ],
+          "layoutMode": [
+            "NONE"
+          ]
+        },
+        "text": {
+          "slots": {},
+          "parts": {},
+          "strokeWeight": [],
+          "width": [
+            200
+          ],
+          "height": [
+            16
+          ],
+          "cornerRadius": [
+            8
+          ],
+          "layoutMode": [
+            "NONE"
           ]
         }
       },

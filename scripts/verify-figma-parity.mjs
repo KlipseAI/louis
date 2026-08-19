@@ -696,6 +696,63 @@ const COMPONENT_CONTRACTS = [
     },
   },
   {
+    id: "progress",
+    figmaName: "ProgressBar",
+    declaration: "packages/react/dist/progress/progress.d.ts",
+    variantProperties: {},
+    // 코드에서는 `indeterminate` boolean prop이다. Figma에 boolean 상태를 그릴 방법이 variant뿐이다.
+    figmaOnlyProperties: {
+      State: {
+        options: ["determinate", "indeterminate"],
+        reason:
+          "코드에서는 `indeterminate` boolean prop이다. 두 상태의 채움이 다르게 그려지므로 Figma에서는 축이 된다.",
+      },
+    },
+    strokes: {},
+    effects: {},
+    geometry: {
+      measuredId: "progress-bar",
+      fields: {
+        width: "width",
+        height: "height",
+        cornerRadius: "radius",
+        layoutMode: { literal: "HORIZONTAL" },
+      },
+      slots: {},
+      extraStrokeWeights: [],
+      // 채움의 폭은 값이므로 계약이 아니다. 높이만 트랙과 같아야 한다.
+      parts: { Fill: { fields: { height: "fillHeight" } } },
+    },
+  },
+  {
+    id: "progress",
+    figmaName: "ProgressRing",
+    declaration: "packages/react/dist/progress/progress.d.ts",
+    variantProperties: {},
+    strokes: {},
+    effects: {},
+    geometry: {
+      measuredId: "progress-ring",
+      fields: {
+        width: "size",
+        height: "size",
+        cornerRadius: "radius",
+        paddingInline: "gap-plus-width",
+        paddingInlineEnd: "gap-plus-width",
+        paddingBlock: "gap-plus-width",
+        paddingBlockEnd: "gap-plus-width",
+        layoutMode: { literal: "HORIZONTAL" },
+      },
+      slots: {},
+      extraStrokeWeights: [],
+      parts: {
+        // 트랙은 링 전체를 덮고 내용은 그 안에 놓인다. 지름이 내용에서 나온다는 것이 이 둘의 관계다.
+        Track: { fields: { width: "size", height: "size" } },
+        Content: { fields: { width: "contentSize", height: "contentSize" } },
+      },
+    },
+  },
+  {
     id: "app-shell-parts",
     figmaName: "SidebarBrand",
     declaration: "packages/react/dist/app-shell/app-shell-parts.d.ts",

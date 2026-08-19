@@ -1321,6 +1321,46 @@
             }
           }
         },
+        "color-ink-alpha-10": {
+          "$type": "color",
+          "fields": [],
+          "figmaName": "color/ink-alpha/10",
+          "hiddenFromPublishing": true,
+          "losses": [],
+          "nativeVariableType": "COLOR",
+          "representation": "variable",
+          "scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL",
+            "STROKE_COLOR",
+            "TEXT_FILL"
+          ],
+          "valuesByMode": {
+            "Base": {
+              "$value": {
+                "alpha": 0.1,
+                "colorSpace": "srgb",
+                "components": [
+                  0.090196,
+                  0.105882,
+                  0.133333
+                ],
+                "hex": "#171b22"
+              },
+              "aliasTarget": null,
+              "resolvedValue": {
+                "alpha": 0.1,
+                "colorSpace": "srgb",
+                "components": [
+                  0.090196,
+                  0.105882,
+                  0.133333
+                ]
+              },
+              "sourcePath": "primitive.color.ink-alpha.10"
+            }
+          }
+        },
         "color-ink-alpha-12": {
           "$type": "color",
           "fields": [],
@@ -1358,6 +1398,46 @@
                 ]
               },
               "sourcePath": "primitive.color.ink-alpha.12"
+            }
+          }
+        },
+        "color-ink-alpha-20": {
+          "$type": "color",
+          "fields": [],
+          "figmaName": "color/ink-alpha/20",
+          "hiddenFromPublishing": true,
+          "losses": [],
+          "nativeVariableType": "COLOR",
+          "representation": "variable",
+          "scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL",
+            "STROKE_COLOR",
+            "TEXT_FILL"
+          ],
+          "valuesByMode": {
+            "Base": {
+              "$value": {
+                "alpha": 0.2,
+                "colorSpace": "srgb",
+                "components": [
+                  0.090196,
+                  0.105882,
+                  0.133333
+                ],
+                "hex": "#171b22"
+              },
+              "aliasTarget": null,
+              "resolvedValue": {
+                "alpha": 0.2,
+                "colorSpace": "srgb",
+                "components": [
+                  0.090196,
+                  0.105882,
+                  0.133333
+                ]
+              },
+              "sourcePath": "primitive.color.ink-alpha.20"
             }
           }
         },
@@ -1598,6 +1678,46 @@
                 ]
               },
               "sourcePath": "primitive.color.inverse-alpha.light-70"
+            }
+          }
+        },
+        "color-mint-500": {
+          "$type": "color",
+          "fields": [],
+          "figmaName": "color/mint/500",
+          "hiddenFromPublishing": true,
+          "losses": [],
+          "nativeVariableType": "COLOR",
+          "representation": "variable",
+          "scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL",
+            "STROKE_COLOR",
+            "TEXT_FILL"
+          ],
+          "valuesByMode": {
+            "Base": {
+              "$value": {
+                "alpha": 1,
+                "colorSpace": "srgb",
+                "components": [
+                  0,
+                  0.776471,
+                  0.556863
+                ],
+                "hex": "#00c68e"
+              },
+              "aliasTarget": null,
+              "resolvedValue": {
+                "alpha": 1,
+                "colorSpace": "srgb",
+                "components": [
+                  0,
+                  0.776471,
+                  0.556863
+                ]
+              },
+              "sourcePath": "primitive.color.mint.500"
             }
           }
         },
@@ -2225,6 +2345,46 @@
                 ]
               },
               "sourcePath": "primitive.color.paper-alpha.16"
+            }
+          }
+        },
+        "color-paper-alpha-20": {
+          "$type": "color",
+          "fields": [],
+          "figmaName": "color/paper-alpha/20",
+          "hiddenFromPublishing": true,
+          "losses": [],
+          "nativeVariableType": "COLOR",
+          "representation": "variable",
+          "scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL",
+            "STROKE_COLOR",
+            "TEXT_FILL"
+          ],
+          "valuesByMode": {
+            "Base": {
+              "$value": {
+                "alpha": 0.2,
+                "colorSpace": "srgb",
+                "components": [
+                  0.980392,
+                  0.980392,
+                  0.980392
+                ],
+                "hex": "#fafafa"
+              },
+              "aliasTarget": null,
+              "resolvedValue": {
+                "alpha": 0.2,
+                "colorSpace": "srgb",
+                "components": [
+                  0.980392,
+                  0.980392,
+                  0.980392
+                ]
+              },
+              "sourcePath": "primitive.color.paper-alpha.20"
             }
           }
         },
@@ -5251,6 +5411,35 @@
                 "value": 32
               },
               "sourcePath": "primitive.spacing.32"
+            }
+          }
+        },
+        "space-320": {
+          "$type": "dimension",
+          "fields": [],
+          "figmaName": "spacing/320",
+          "hiddenFromPublishing": true,
+          "losses": [
+            "Figma FLOAT는 DTCG 단위 의미를 직접 보존하지 않으므로 source metadata를 함께 검토해야 합니다."
+          ],
+          "nativeVariableType": "FLOAT",
+          "representation": "variable",
+          "scopes": [
+            "GAP",
+            "WIDTH_HEIGHT"
+          ],
+          "valuesByMode": {
+            "Base": {
+              "$value": {
+                "unit": "px",
+                "value": 320
+              },
+              "aliasTarget": null,
+              "resolvedValue": {
+                "unit": "px",
+                "value": 320
+              },
+              "sourcePath": "primitive.spacing.320"
             }
           }
         },
@@ -8679,6 +8868,62 @@
             }
           }
         },
+        "layout-progress-bar-height": {
+          "$type": "dimension",
+          "fields": [],
+          "figmaName": "layout/progress-bar-height",
+          "hiddenFromPublishing": false,
+          "losses": [
+            "Figma FLOAT는 DTCG 단위 의미를 직접 보존하지 않으므로 source metadata를 함께 검토해야 합니다."
+          ],
+          "nativeVariableType": "FLOAT",
+          "representation": "variable",
+          "scopes": [
+            "WIDTH_HEIGHT"
+          ],
+          "valuesByMode": {
+            "Global": {
+              "$value": "{primitive.spacing.6}",
+              "aliasTarget": {
+                "id": "space-6",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "unit": "px",
+                "value": 6
+              },
+              "sourcePath": "semantic.global.layout.progress-bar-height"
+            }
+          }
+        },
+        "layout-progress-bar-max-inline-size": {
+          "$type": "dimension",
+          "fields": [],
+          "figmaName": "layout/progress-bar-max-inline-size",
+          "hiddenFromPublishing": false,
+          "losses": [
+            "Figma FLOAT는 DTCG 단위 의미를 직접 보존하지 않으므로 source metadata를 함께 검토해야 합니다."
+          ],
+          "nativeVariableType": "FLOAT",
+          "representation": "variable",
+          "scopes": [
+            "WIDTH_HEIGHT"
+          ],
+          "valuesByMode": {
+            "Global": {
+              "$value": "{primitive.spacing.320}",
+              "aliasTarget": {
+                "id": "space-320",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "unit": "px",
+                "value": 320
+              },
+              "sourcePath": "semantic.global.layout.progress-bar-max-inline-size"
+            }
+          }
+        },
         "layout-project-card-minimum": {
           "$type": "dimension",
           "fields": [],
@@ -10184,6 +10429,35 @@
                 "value": 2
               },
               "sourcePath": "semantic.global.spacing.overlay-item-gap"
+            }
+          }
+        },
+        "space-progress-ring-gap": {
+          "$type": "dimension",
+          "fields": [],
+          "figmaName": "spacing/progress-ring-gap",
+          "hiddenFromPublishing": false,
+          "losses": [
+            "Figma FLOAT는 DTCG 단위 의미를 직접 보존하지 않으므로 source metadata를 함께 검토해야 합니다."
+          ],
+          "nativeVariableType": "FLOAT",
+          "representation": "variable",
+          "scopes": [
+            "GAP",
+            "WIDTH_HEIGHT"
+          ],
+          "valuesByMode": {
+            "Global": {
+              "$value": "{primitive.spacing.2}",
+              "aliasTarget": {
+                "id": "space-2",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "unit": "px",
+                "value": 2
+              },
+              "sourcePath": "semantic.global.spacing.progress-ring-gap"
             }
           }
         },
@@ -13725,6 +13999,210 @@
                 ]
               },
               "sourcePath": "semantic.light.color.media-scrim-dark"
+            }
+          }
+        },
+        "color-progress-fill": {
+          "$type": "color",
+          "fields": [],
+          "figmaName": "color/progress-fill",
+          "hiddenFromPublishing": false,
+          "losses": [],
+          "nativeVariableType": "COLOR",
+          "representation": "variable",
+          "scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL",
+            "STROKE_COLOR",
+            "TEXT_FILL"
+          ],
+          "valuesByMode": {
+            "Dark": {
+              "$value": "{primitive.color.blue.500}",
+              "aliasTarget": {
+                "id": "color-blue-500",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 1,
+                "colorSpace": "srgb",
+                "components": [
+                  0,
+                  0.533333,
+                  1
+                ]
+              },
+              "sourcePath": "semantic.dark.color.progress-fill"
+            },
+            "Light": {
+              "$value": "{primitive.color.blue.500}",
+              "aliasTarget": {
+                "id": "color-blue-500",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 1,
+                "colorSpace": "srgb",
+                "components": [
+                  0,
+                  0.533333,
+                  1
+                ]
+              },
+              "sourcePath": "semantic.light.color.progress-fill"
+            }
+          }
+        },
+        "color-progress-ring-fill": {
+          "$type": "color",
+          "fields": [],
+          "figmaName": "color/progress-ring-fill",
+          "hiddenFromPublishing": false,
+          "losses": [],
+          "nativeVariableType": "COLOR",
+          "representation": "variable",
+          "scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL",
+            "STROKE_COLOR",
+            "TEXT_FILL"
+          ],
+          "valuesByMode": {
+            "Dark": {
+              "$value": "{primitive.color.mint.500}",
+              "aliasTarget": {
+                "id": "color-mint-500",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 1,
+                "colorSpace": "srgb",
+                "components": [
+                  0,
+                  0.776471,
+                  0.556863
+                ]
+              },
+              "sourcePath": "semantic.dark.color.progress-ring-fill"
+            },
+            "Light": {
+              "$value": "{primitive.color.mint.500}",
+              "aliasTarget": {
+                "id": "color-mint-500",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 1,
+                "colorSpace": "srgb",
+                "components": [
+                  0,
+                  0.776471,
+                  0.556863
+                ]
+              },
+              "sourcePath": "semantic.light.color.progress-ring-fill"
+            }
+          }
+        },
+        "color-progress-ring-track": {
+          "$type": "color",
+          "fields": [],
+          "figmaName": "color/progress-ring-track",
+          "hiddenFromPublishing": false,
+          "losses": [],
+          "nativeVariableType": "COLOR",
+          "representation": "variable",
+          "scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL",
+            "STROKE_COLOR",
+            "TEXT_FILL"
+          ],
+          "valuesByMode": {
+            "Dark": {
+              "$value": "{primitive.color.paper-alpha.20}",
+              "aliasTarget": {
+                "id": "color-paper-alpha-20",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 0.2,
+                "colorSpace": "srgb",
+                "components": [
+                  0.980392,
+                  0.980392,
+                  0.980392
+                ]
+              },
+              "sourcePath": "semantic.dark.color.progress-ring-track"
+            },
+            "Light": {
+              "$value": "{primitive.color.ink-alpha.20}",
+              "aliasTarget": {
+                "id": "color-ink-alpha-20",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 0.2,
+                "colorSpace": "srgb",
+                "components": [
+                  0.090196,
+                  0.105882,
+                  0.133333
+                ]
+              },
+              "sourcePath": "semantic.light.color.progress-ring-track"
+            }
+          }
+        },
+        "color-progress-track": {
+          "$type": "color",
+          "fields": [],
+          "figmaName": "color/progress-track",
+          "hiddenFromPublishing": false,
+          "losses": [],
+          "nativeVariableType": "COLOR",
+          "representation": "variable",
+          "scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL",
+            "STROKE_COLOR",
+            "TEXT_FILL"
+          ],
+          "valuesByMode": {
+            "Dark": {
+              "$value": "{primitive.color.paper-alpha.10}",
+              "aliasTarget": {
+                "id": "color-paper-alpha-10",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 0.1,
+                "colorSpace": "srgb",
+                "components": [
+                  0.980392,
+                  0.980392,
+                  0.980392
+                ]
+              },
+              "sourcePath": "semantic.dark.color.progress-track"
+            },
+            "Light": {
+              "$value": "{primitive.color.ink-alpha.10}",
+              "aliasTarget": {
+                "id": "color-ink-alpha-10",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 0.1,
+                "colorSpace": "srgb",
+                "components": [
+                  0.090196,
+                  0.105882,
+                  0.133333
+                ]
+              },
+              "sourcePath": "semantic.light.color.progress-track"
             }
           }
         },

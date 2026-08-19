@@ -492,6 +492,57 @@
         }
       }
     },
+    "progress-bar": {
+      "$doc": "design/components/progress.md",
+      "$source": "packages/react/src/progress/progress.tsx, packages/css/src/component/progress.css",
+      "$note": "제품에 정본이 없다. 진행바 정의 셋이 두께·색·전환이 다 다르고 합의하는 축은 높이 6 · 반경(알약) · 최대 폭 320 셋뿐이다. 그 셋만 옮기고 색은 DS가 고른다.",
+      "sizes": {
+        "base": {
+          "height": 6,
+          "maxInlineSize": 320,
+          "radius": 999,
+          "$height": "제품 두 벌이 합의하는 값이다.",
+          "$radius": "알약. 제품은 3px 리터럴을 쓰는데 높이 6의 절반이라 결과가 같다.",
+          "width": 320,
+          "fillHeight": 6,
+          "$width": "Figma 프레임 폭이다. 최대 폭과 같은 320을 쓰는 이유는 그것이 제품 두 벌이 합의하는 유일한 폭 계약이기 때문이다."
+        }
+      },
+      "states": {
+        "base": {
+          "Default": {
+            "background": "color-progress-track",
+            "foreground": "color-progress-fill"
+          }
+        }
+      }
+    },
+    "progress-ring": {
+      "$doc": "design/components/progress.md",
+      "$source": "packages/react/src/progress/progress.tsx, packages/css/src/component/progress.css",
+      "$note": "제품 정본이 하나다(Gnb.tsx profileTrigger). 두께·간격·지름 식·색을 그대로 옮겼다.",
+      "sizes": {
+        "base": {
+          "size": 36,
+          "width": 2,
+          "gap": 2,
+          "$size": "제품 식 avatar + (gap + width) × 2 = 28 + 8. DS는 padding으로 같은 값을 만들어 내용이 커지면 지름이 따라온다.",
+          "contentSize": 28,
+          "radius": 0,
+          "$contentSize": "측정용 내용 크기다. 배포본의 아바타가 28이고 지름 36이 거기서 나온다.",
+          "gap-plus-width": 4,
+          "$gap-plus-width": "padding으로 만드는 링 두께다 — 두께 2 + 간격 2. 제품이 지름을 직접 계산하는 자리를 여기서는 padding이 대신한다."
+        }
+      },
+      "states": {
+        "base": {
+          "Default": {
+            "background": "color-progress-ring-track",
+            "foreground": "color-progress-ring-fill"
+          }
+        }
+      }
+    },
     "input": {
       "$doc": "design/components/text-field.md",
       "$source": "packages/react/src/text-field/text-field.tsx, packages/css/src/component/text-field.css",

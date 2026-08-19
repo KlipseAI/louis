@@ -495,6 +495,33 @@
       "html": "<div class=\"vem-overlay-radix-range [.vem-overlay-radix-root-full_&]:[position:absolute] [.vem-overlay-radix-root-full_&]:[top:0]! [.vem-overlay-radix-root-full_&]:[bottom:0]! [.vem-overlay-radix-root-full_&]:[height:100%]! [.vem-overlay-radix-root-full_&]:[border-radius:6px] [.vem-overlay-radix-root-full_&]:[overflow:visible] [.vem-overlay-radix-root-full_&]:[background:linear-gradient(_180deg,_rgb(var(--gray-700-rgb)),_rgb(var(--gray-800-rgb))_)] [.vem-overlay-radix-root-full_&]:[box-shadow:none] [.vem-overlay-radix-root-full_&::after]:[content:''] [.vem-overlay-radix-root-full_&::after]:[position:absolute] [.vem-overlay-radix-root-full_&::after]:[right:2px] [.vem-overlay-radix-root-full_&::after]:[top:50%] [.vem-overlay-radix-root-full_&::after]:[transform:translateY(-50%)] [.vem-overlay-radix-root-full_&::after]:[width:2px] [.vem-overlay-radix-root-full_&::after]:[height:14px] [.vem-overlay-radix-root-full_&::after]:[border-radius:999px] [.vem-overlay-radix-root-full_&::after]:[background:rgb(var(--gray-500-rgb))] [.vem-overlay-radix-root-full_&::after]:[pointer-events:none] [html[data-theme=light]_.vem-overlay-radix-root-full_&]:[background:linear-gradient(_180deg,_rgb(var(--gray-600-rgb)),_rgb(var(--gray-700-rgb))_)] [html[data-theme=light]_.vem-overlay-radix-root-full_&::after]:[background:rgb(var(--gray-400-rgb))] [.vem-propertiesPanel_.vem-overlay-radix-root-full_&]:[border-radius:8px]!\"></div>"
     },
     {
+      "id": "progress-bar-track",
+      "source": "highlightSceneStyles.ts progressBarTrack — determinate 진행바 두 벌 중 하나",
+      "hover": false,
+      "from": "apps/web/components/scenes/highlightSceneStyles.ts → progressBarTrack",
+      "doc": "default",
+      "wrapper": null,
+      "html": "<div class=\"tw-hs-105 [width:100%] [max-width:320px] [height:6px] [background:rgb(var(--palette-gray-900-rgb)_/_10%)] [border-radius:3px] [overflow:hidden] [html[data-theme=dark]_&]:[background:rgb(var(--palette-gray-000-rgb)_/_10%)]\"></div>"
+    },
+    {
+      "id": "progress-bar-fill",
+      "source": "highlightSceneStyles.ts progressBarFill",
+      "hover": false,
+      "from": "apps/web/components/scenes/highlightSceneStyles.ts → progressBarFill",
+      "doc": "default",
+      "wrapper": null,
+      "html": "<div class=\"tw-hs-104 [height:100%] [background:var(--palette-primary-500,_#6366f1)] [border-radius:3px] [transition:width_0.3s_ease]\"></div>"
+    },
+    {
+      "id": "progress-ring",
+      "source": "Gnb.tsx profileTrigger — 제품의 유일한 진행률 링",
+      "hover": false,
+      "from": "apps/web/components/navigation/Gnb.tsx → profileTrigger",
+      "doc": "default",
+      "wrapper": null,
+      "html": "<button class=\"gnb-profileTrigger [--profile-avatar-size:28px] [--profile-ring-progress:0%] [--profile-ring-fill:var(--accent-mint-500)] [--profile-ring-track:rgb(var(--gray-000-rgb)_/_20%)] [--profile-ring-gap:2px] [--profile-ring-width:2px] [--profile-ring-size:calc(_var(--profile-avatar-size)_+_(var(--profile-ring-gap)_+_var(--profile-ring-width))_*_2_)] [position:relative] [width:var(--profile-ring-size)] [height:var(--profile-ring-size)] [min-width:var(--profile-ring-size)] [min-height:var(--profile-ring-size)] [max-width:var(--profile-ring-size)] [max-height:var(--profile-ring-size)] [flex:none] [justify-content:center] [align-items:center] [line-height:0] [font-size:0] [padding:0] [gap:0] [border-radius:0] [background:transparent] [box-shadow:none] [backdrop-filter:none] [transition:transform_140ms_var(--ease-out-strong)] [&:active]:[transform:scale(0.94)] [&::after]:[content:''] [&::after]:[position:absolute] [&::after]:[inset:0] [&::after]:[border-radius:999px] [&::after]:[pointer-events:none] [&::after]:[background:conic-gradient(_from_0deg,_var(--profile-ring-fill)_0_var(--profile-ring-progress),_var(--profile-ring-track)_var(--profile-ring-progress)_100%_)] [&::after]:[-webkit-mask:radial-gradient(_farthest-side,_transparent_calc(100%_-_var(--profile-ring-width)),_#000_calc(100%_-_var(--profile-ring-width))_)] [&::after]:[mask:radial-gradient(_farthest-side,_transparent_calc(100%_-_var(--profile-ring-width)),_#000_calc(100%_-_var(--profile-ring-width))_)] [@media(max-width:480px)]:[gap:0]! [@media(max-width:480px)]:[padding:0]! [@media(max-width:480px)]:[--profile-avatar-size:28px]!\"></button>"
+    },
+    {
       "id": "carousel",
       "source": "TabBannerCarousel.tsx CAROUSEL + CAROUSEL_BOXED",
       "hover": false,
@@ -785,6 +812,20 @@
       "::after:width": "2px",
       "::after:height": "14px"
     },
+    "progress-bar-track": {
+      "height": "6px",
+      "maxWidth": "320px",
+      "borderTopLeftRadius": "3px"
+    },
+    "progress-bar-fill": {
+      "borderTopLeftRadius": "3px"
+    },
+    "progress-ring": {
+      "width": "36px",
+      "height": "36px",
+      "--profile-ring-width": "2px",
+      "--profile-ring-gap": "2px"
+    },
     "carousel": {
       "height": "360px",
       "borderTopLeftRadius": "16px"
@@ -988,6 +1029,12 @@
       "product": "rgb(228 229 233 / 0.5)",
       "ds": "color-action-ghost-hover",
       "why": "라이트만 갈린다. 제품은 재매핑된 palette-gray-300을 50%로 덮고(rgb 228 229 233 / 0.5) DS는 ink 8%를 쓴다 — 면 계열에 매는 것과 잉크에 매는 것의 차이다. `action-ghost-hover`는 SelectableListRow와 공유하는 토큰이라 사이드바 하나 때문에 옮기지 않는다. 다크는 rgb(250 250 250 / 0.1)로 정확히 같다."
+    },
+    {
+      "axis": "progress-bar-track.borderTopLeftRadius",
+      "product": 3,
+      "ds": 999,
+      "why": "제품 3, DS 999(알약). 높이가 6이라 브라우저가 그리는 곡률은 둘 다 3으로 조여져 **결과가 같다.** 리터럴 3은 높이를 바꾸는 날 따라오지 않으므로 알약으로 적는다."
     }
   ]
 }

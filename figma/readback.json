@@ -430,6 +430,23 @@
           ]
         ],
         [
+          "color/ink-alpha/10",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
+          [
+            [
+              "Base",
+              null,
+              [
+                0.090196,
+                0.105882,
+                0.133333,
+                0.1
+              ]
+            ]
+          ]
+        ],
+        [
           "color/ink-alpha/12",
           "COLOR",
           "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
@@ -442,6 +459,23 @@
                 0.105882,
                 0.133333,
                 0.12
+              ]
+            ]
+          ]
+        ],
+        [
+          "color/ink-alpha/20",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
+          [
+            [
+              "Base",
+              null,
+              [
+                0.090196,
+                0.105882,
+                0.133333,
+                0.2
               ]
             ]
           ]
@@ -544,6 +578,23 @@
                 0.894118,
                 0.909804,
                 0.7
+              ]
+            ]
+          ]
+        ],
+        [
+          "color/mint/500",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
+          [
+            [
+              "Base",
+              null,
+              [
+                0,
+                0.776471,
+                0.556863,
+                1
               ]
             ]
           ]
@@ -816,6 +867,23 @@
                 0.980392,
                 0.980392,
                 0.16
+              ]
+            ]
+          ]
+        ],
+        [
+          "color/paper-alpha/20",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
+          [
+            [
+              "Base",
+              null,
+              [
+                0.980392,
+                0.980392,
+                0.980392,
+                0.2
               ]
             ]
           ]
@@ -1613,6 +1681,18 @@
           ]
         ],
         [
+          "spacing/320",
+          "FLOAT",
+          "WIDTH_HEIGHT,GAP",
+          [
+            [
+              "Base",
+              null,
+              320
+            ]
+          ]
+        ],
+        [
           "spacing/4",
           "FLOAT",
           "WIDTH_HEIGHT,GAP",
@@ -2012,6 +2092,30 @@
             [
               "Global",
               "Klipse Primitive::spacing/48",
+              null
+            ]
+          ]
+        ],
+        [
+          "layout/progress-bar-height",
+          "FLOAT",
+          "WIDTH_HEIGHT",
+          [
+            [
+              "Global",
+              "Klipse Primitive::spacing/6",
+              null
+            ]
+          ]
+        ],
+        [
+          "layout/progress-bar-max-inline-size",
+          "FLOAT",
+          "WIDTH_HEIGHT",
+          [
+            [
+              "Global",
+              "Klipse Primitive::spacing/320",
               null
             ]
           ]
@@ -2510,6 +2614,18 @@
         ],
         [
           "spacing/overlay-item-gap",
+          "FLOAT",
+          "WIDTH_HEIGHT,GAP",
+          [
+            [
+              "Global",
+              "Klipse Primitive::spacing/2",
+              null
+            ]
+          ]
+        ],
+        [
+          "spacing/progress-ring-gap",
           "FLOAT",
           "WIDTH_HEIGHT,GAP",
           [
@@ -3496,6 +3612,74 @@
             [
               "Dark",
               "Klipse Primitive::color/neutral/1000",
+              null
+            ]
+          ]
+        ],
+        [
+          "color/progress-fill",
+          "COLOR",
+          "STROKE_COLOR",
+          [
+            [
+              "Light",
+              "Klipse Primitive::color/blue/500",
+              null
+            ],
+            [
+              "Dark",
+              "Klipse Primitive::color/blue/500",
+              null
+            ]
+          ]
+        ],
+        [
+          "color/progress-ring-fill",
+          "COLOR",
+          "STROKE_COLOR",
+          [
+            [
+              "Light",
+              "Klipse Primitive::color/mint/500",
+              null
+            ],
+            [
+              "Dark",
+              "Klipse Primitive::color/mint/500",
+              null
+            ]
+          ]
+        ],
+        [
+          "color/progress-ring-track",
+          "COLOR",
+          "STROKE_COLOR",
+          [
+            [
+              "Light",
+              "Klipse Primitive::color/ink-alpha/20",
+              null
+            ],
+            [
+              "Dark",
+              "Klipse Primitive::color/paper-alpha/20",
+              null
+            ]
+          ]
+        ],
+        [
+          "color/progress-track",
+          "COLOR",
+          "STROKE_COLOR",
+          [
+            [
+              "Light",
+              "Klipse Primitive::color/ink-alpha/10",
+              null
+            ],
+            [
+              "Dark",
+              "Klipse Primitive::color/paper-alpha/10",
               null
             ]
           ]
@@ -5116,6 +5300,124 @@
           "DROP_SHADOW:8:15:0 + DROP_SHADOW:0:0:0.5"
         ]
       }
+    },
+    "ProgressBar": {
+      "variantCount": 2,
+      "hasDescription": true,
+      "properties": {
+        "State": {
+          "type": "VARIANT",
+          "options": [
+            "determinate",
+            "indeterminate"
+          ]
+        }
+      },
+      "binding": {
+        "boundFills": 4,
+        "rawFills": 0,
+        "boundStrokes": 0,
+        "rawStrokes": 0,
+        "textStyled": 0,
+        "textUnstyled": 0
+      },
+      "geometry": {
+        "base": {
+          "slots": {},
+          "parts": {
+            "Fill": {
+              "height": [
+                6
+              ]
+            }
+          },
+          "strokeWeight": [],
+          "width": [
+            320
+          ],
+          "height": [
+            6
+          ],
+          "cornerRadius": [
+            999
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        }
+      },
+      "strokes": {},
+      "effects": {}
+    },
+    "ProgressRing": {
+      "variantCount": 1,
+      "hasDescription": true,
+      "properties": {},
+      "binding": {
+        "boundFills": 2,
+        "rawFills": 0,
+        "boundStrokes": 0,
+        "rawStrokes": 0,
+        "textStyled": 0,
+        "textUnstyled": 0
+      },
+      "geometry": {
+        "base": {
+          "slots": {},
+          "parts": {
+            "Track": {
+              "width": [
+                36
+              ],
+              "height": [
+                36
+              ]
+            },
+            "Content": {
+              "width": [
+                28
+              ],
+              "height": [
+                28
+              ]
+            }
+          },
+          "strokeWeight": [],
+          "width": [
+            36
+          ],
+          "height": [
+            36
+          ],
+          "cornerRadius": [
+            0
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ],
+          "paddingInline": [
+            4
+          ],
+          "paddingInlineEnd": [
+            4
+          ],
+          "paddingBlock": [
+            4
+          ],
+          "paddingBlockEnd": [
+            4
+          ],
+          "itemSpacing": [
+            0
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        }
+      },
+      "strokes": {},
+      "effects": {}
     },
     "ProjectCard": {
       "variantCount": 1,

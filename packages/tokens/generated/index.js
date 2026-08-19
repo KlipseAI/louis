@@ -1055,6 +1055,36 @@ export const primitives = {
       "alpha": 1
     }
   },
+  "color-ink-alpha-10": {
+    "aliasTarget": null,
+    "cssProperties": {},
+    "deprecated": null,
+    "description": null,
+    "id": "color-ink-alpha-10",
+    "mode": "base",
+    "rawValue": {
+      "colorSpace": "srgb",
+      "components": [
+        0.090196,
+        0.105882,
+        0.133333
+      ],
+      "alpha": 0.1,
+      "hex": "#171b22"
+    },
+    "sourcePath": "primitive.color.ink-alpha.10",
+    "tier": "primitive",
+    "type": "color",
+    "value": {
+      "colorSpace": "srgb",
+      "components": [
+        0.090196,
+        0.105882,
+        0.133333
+      ],
+      "alpha": 0.1
+    }
+  },
   "color-ink-alpha-12": {
     "aliasTarget": null,
     "cssProperties": {},
@@ -1083,6 +1113,36 @@ export const primitives = {
         0.133333
       ],
       "alpha": 0.12
+    }
+  },
+  "color-ink-alpha-20": {
+    "aliasTarget": null,
+    "cssProperties": {},
+    "deprecated": null,
+    "description": null,
+    "id": "color-ink-alpha-20",
+    "mode": "base",
+    "rawValue": {
+      "colorSpace": "srgb",
+      "components": [
+        0.090196,
+        0.105882,
+        0.133333
+      ],
+      "alpha": 0.2,
+      "hex": "#171b22"
+    },
+    "sourcePath": "primitive.color.ink-alpha.20",
+    "tier": "primitive",
+    "type": "color",
+    "value": {
+      "colorSpace": "srgb",
+      "components": [
+        0.090196,
+        0.105882,
+        0.133333
+      ],
+      "alpha": 0.2
     }
   },
   "color-ink-alpha-5": {
@@ -1263,6 +1323,36 @@ export const primitives = {
         0.909804
       ],
       "alpha": 0.7
+    }
+  },
+  "color-mint-500": {
+    "aliasTarget": null,
+    "cssProperties": {},
+    "deprecated": null,
+    "description": null,
+    "id": "color-mint-500",
+    "mode": "base",
+    "rawValue": {
+      "colorSpace": "srgb",
+      "components": [
+        0,
+        0.776471,
+        0.556863
+      ],
+      "alpha": 1,
+      "hex": "#00c68e"
+    },
+    "sourcePath": "primitive.color.mint.500",
+    "tier": "primitive",
+    "type": "color",
+    "value": {
+      "colorSpace": "srgb",
+      "components": [
+        0,
+        0.776471,
+        0.556863
+      ],
+      "alpha": 1
     }
   },
   "color-neutral-0": {
@@ -1730,6 +1820,36 @@ export const primitives = {
         0.980392
       ],
       "alpha": 0.16
+    }
+  },
+  "color-paper-alpha-20": {
+    "aliasTarget": null,
+    "cssProperties": {},
+    "deprecated": null,
+    "description": null,
+    "id": "color-paper-alpha-20",
+    "mode": "base",
+    "rawValue": {
+      "colorSpace": "srgb",
+      "components": [
+        0.980392,
+        0.980392,
+        0.980392
+      ],
+      "alpha": 0.2,
+      "hex": "#fafafa"
+    },
+    "sourcePath": "primitive.color.paper-alpha.20",
+    "tier": "primitive",
+    "type": "color",
+    "value": {
+      "colorSpace": "srgb",
+      "components": [
+        0.980392,
+        0.980392,
+        0.980392
+      ],
+      "alpha": 0.2
     }
   },
   "color-paper-alpha-45": {
@@ -4038,6 +4158,25 @@ export const primitives = {
     "type": "dimension",
     "value": {
       "value": 32,
+      "unit": "px"
+    }
+  },
+  "space-320": {
+    "aliasTarget": null,
+    "cssProperties": {},
+    "deprecated": null,
+    "description": null,
+    "id": "space-320",
+    "mode": "base",
+    "rawValue": {
+      "value": 320,
+      "unit": "px"
+    },
+    "sourcePath": "primitive.spacing.320",
+    "tier": "primitive",
+    "type": "dimension",
+    "value": {
+      "value": 320,
       "unit": "px"
     }
   },
@@ -6717,6 +6856,48 @@ export const tokens = {
         "unit": "px"
       }
     },
+    "layout-progress-bar-height": {
+      "aliasTarget": {
+        "id": "space-6",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-layout-progress-bar-height": "6px"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "layout-progress-bar-height",
+      "mode": "global",
+      "rawValue": "{primitive.spacing.6}",
+      "sourcePath": "semantic.global.layout.progress-bar-height",
+      "tier": "semantic",
+      "type": "dimension",
+      "value": {
+        "value": 6,
+        "unit": "px"
+      }
+    },
+    "layout-progress-bar-max-inline-size": {
+      "aliasTarget": {
+        "id": "space-320",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-layout-progress-bar-max-inline-size": "320px"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "layout-progress-bar-max-inline-size",
+      "mode": "global",
+      "rawValue": "{primitive.spacing.320}",
+      "sourcePath": "semantic.global.layout.progress-bar-max-inline-size",
+      "tier": "semantic",
+      "type": "dimension",
+      "value": {
+        "value": 320,
+        "unit": "px"
+      }
+    },
     "layout-project-card-minimum": {
       "aliasTarget": {
         "id": "space-240",
@@ -7914,6 +8095,27 @@ export const tokens = {
       "mode": "global",
       "rawValue": "{primitive.spacing.2}",
       "sourcePath": "semantic.global.spacing.overlay-item-gap",
+      "tier": "semantic",
+      "type": "dimension",
+      "value": {
+        "value": 2,
+        "unit": "px"
+      }
+    },
+    "space-progress-ring-gap": {
+      "aliasTarget": {
+        "id": "space-2",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-space-progress-ring-gap": "2px"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "space-progress-ring-gap",
+      "mode": "global",
+      "rawValue": "{primitive.spacing.2}",
+      "sourcePath": "semantic.global.spacing.progress-ring-gap",
       "tier": "semantic",
       "type": "dimension",
       "value": {
@@ -10046,6 +10248,110 @@ export const tokens = {
         "alpha": 1
       }
     },
+    "color-progress-fill": {
+      "aliasTarget": {
+        "id": "color-blue-500",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-color-progress-fill": "color(srgb 0 0.533333 1 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-progress-fill",
+      "mode": "light",
+      "rawValue": "{primitive.color.blue.500}",
+      "sourcePath": "semantic.light.color.progress-fill",
+      "tier": "semantic",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          0,
+          0.533333,
+          1
+        ],
+        "alpha": 1
+      }
+    },
+    "color-progress-ring-fill": {
+      "aliasTarget": {
+        "id": "color-mint-500",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-color-progress-ring-fill": "color(srgb 0 0.776471 0.556863 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-progress-ring-fill",
+      "mode": "light",
+      "rawValue": "{primitive.color.mint.500}",
+      "sourcePath": "semantic.light.color.progress-ring-fill",
+      "tier": "semantic",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          0,
+          0.776471,
+          0.556863
+        ],
+        "alpha": 1
+      }
+    },
+    "color-progress-ring-track": {
+      "aliasTarget": {
+        "id": "color-ink-alpha-20",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-color-progress-ring-track": "color(srgb 0.090196 0.105882 0.133333 / 0.2)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-progress-ring-track",
+      "mode": "light",
+      "rawValue": "{primitive.color.ink-alpha.20}",
+      "sourcePath": "semantic.light.color.progress-ring-track",
+      "tier": "semantic",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.090196,
+          0.105882,
+          0.133333
+        ],
+        "alpha": 0.2
+      }
+    },
+    "color-progress-track": {
+      "aliasTarget": {
+        "id": "color-ink-alpha-10",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-color-progress-track": "color(srgb 0.090196 0.105882 0.133333 / 0.1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-progress-track",
+      "mode": "light",
+      "rawValue": "{primitive.color.ink-alpha.10}",
+      "sourcePath": "semantic.light.color.progress-track",
+      "tier": "semantic",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.090196,
+          0.105882,
+          0.133333
+        ],
+        "alpha": 0.1
+      }
+    },
     "color-scrim-modal": {
       "aliasTarget": {
         "id": "color-black-alpha-56",
@@ -11697,6 +12003,110 @@ export const tokens = {
           0
         ],
         "alpha": 1
+      }
+    },
+    "color-progress-fill": {
+      "aliasTarget": {
+        "id": "color-blue-500",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-color-progress-fill": "color(srgb 0 0.533333 1 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-progress-fill",
+      "mode": "dark",
+      "rawValue": "{primitive.color.blue.500}",
+      "sourcePath": "semantic.dark.color.progress-fill",
+      "tier": "semantic",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          0,
+          0.533333,
+          1
+        ],
+        "alpha": 1
+      }
+    },
+    "color-progress-ring-fill": {
+      "aliasTarget": {
+        "id": "color-mint-500",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-color-progress-ring-fill": "color(srgb 0 0.776471 0.556863 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-progress-ring-fill",
+      "mode": "dark",
+      "rawValue": "{primitive.color.mint.500}",
+      "sourcePath": "semantic.dark.color.progress-ring-fill",
+      "tier": "semantic",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          0,
+          0.776471,
+          0.556863
+        ],
+        "alpha": 1
+      }
+    },
+    "color-progress-ring-track": {
+      "aliasTarget": {
+        "id": "color-paper-alpha-20",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-color-progress-ring-track": "color(srgb 0.980392 0.980392 0.980392 / 0.2)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-progress-ring-track",
+      "mode": "dark",
+      "rawValue": "{primitive.color.paper-alpha.20}",
+      "sourcePath": "semantic.dark.color.progress-ring-track",
+      "tier": "semantic",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.980392,
+          0.980392,
+          0.980392
+        ],
+        "alpha": 0.2
+      }
+    },
+    "color-progress-track": {
+      "aliasTarget": {
+        "id": "color-paper-alpha-10",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-color-progress-track": "color(srgb 0.980392 0.980392 0.980392 / 0.1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-progress-track",
+      "mode": "dark",
+      "rawValue": "{primitive.color.paper-alpha.10}",
+      "sourcePath": "semantic.dark.color.progress-track",
+      "tier": "semantic",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.980392,
+          0.980392,
+          0.980392
+        ],
+        "alpha": 0.1
       }
     },
     "color-scrim-modal": {

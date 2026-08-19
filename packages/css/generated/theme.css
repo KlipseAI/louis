@@ -71,6 +71,10 @@
   --color-media-indicator-rest: var(--kds-color-media-indicator-rest);
   --color-media-scrim-bright: var(--kds-color-media-scrim-bright);
   --color-media-scrim-dark: var(--kds-color-media-scrim-dark);
+  --color-progress-fill: var(--kds-color-progress-fill);
+  --color-progress-ring-fill: var(--kds-color-progress-ring-fill);
+  --color-progress-ring-track: var(--kds-color-progress-ring-track);
+  --color-progress-track: var(--kds-color-progress-track);
   --color-scrim-modal: var(--kds-color-scrim-modal);
 
   /* 곡률 — rounded-* 유틸리티가 된다 */
@@ -109,6 +113,8 @@
   --spacing-layout-control-height-sm: var(--kds-layout-control-height-sm);
   --spacing-layout-control-hit-target-minimum: var(--kds-layout-control-hit-target-minimum);
   --spacing-layout-control-minimum-width-sm: var(--kds-layout-control-minimum-width-sm);
+  --spacing-layout-progress-bar-height: var(--kds-layout-progress-bar-height);
+  --spacing-layout-progress-bar-max-inline-size: var(--kds-layout-progress-bar-max-inline-size);
   --spacing-layout-project-card-minimum: var(--kds-layout-project-card-minimum);
   --spacing-layout-project-grid-gap: var(--kds-layout-project-grid-gap);
   --spacing-control-lg: var(--kds-space-control-lg);
@@ -121,6 +127,7 @@
   --spacing-overlay-inset: var(--kds-space-overlay-inset);
   --spacing-overlay-item-content-gap: var(--kds-space-overlay-item-content-gap);
   --spacing-overlay-item-gap: var(--kds-space-overlay-item-gap);
+  --spacing-progress-ring-gap: var(--kds-space-progress-ring-gap);
   --spacing-stack-md: var(--kds-space-stack-md);
   --spacing-stack-xs: var(--kds-space-stack-xs);
   --spacing-toast-inline: var(--kds-space-toast-inline);

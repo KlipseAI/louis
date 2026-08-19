@@ -62,6 +62,10 @@
   --kds-color-media-indicator-rest: color(srgb 0.980392 0.980392 0.980392 / 0.45);
   --kds-color-media-scrim-bright: color(srgb 0.980392 0.980392 0.980392 / 1);
   --kds-color-media-scrim-dark: color(srgb 0 0 0 / 1);
+  --kds-color-progress-fill: color(srgb 0 0.533333 1 / 1);
+  --kds-color-progress-ring-fill: color(srgb 0 0.776471 0.556863 / 1);
+  --kds-color-progress-ring-track: color(srgb 0.090196 0.105882 0.133333 / 0.2);
+  --kds-color-progress-track: color(srgb 0.090196 0.105882 0.133333 / 0.1);
   --kds-color-scrim-modal: color(srgb 0 0 0 / 0.56);
   --kds-elevation-focus-ring: 0px 0px 0px 3px color(srgb 0 0.533333 1 / 0.42);
   --kds-elevation-menu: 0px 8px 15px 0px color(srgb 0 0 0 / 0.04), 0px 0px 0px 0.5px color(srgb 0.835294 0.843137 0.866667 / 1);
@@ -92,6 +96,8 @@
   --kds-layout-control-height-sm: 32px;
   --kds-layout-control-hit-target-minimum: 44px;
   --kds-layout-control-minimum-width-sm: 48px;
+  --kds-layout-progress-bar-height: 6px;
+  --kds-layout-progress-bar-max-inline-size: 320px;
   --kds-layout-project-card-minimum: 240px;
   --kds-layout-project-grid-gap: 12px;
   --kds-motion-content-fade-delay: 0ms;
@@ -180,6 +186,7 @@
   --kds-space-overlay-inset: 6px;
   --kds-space-overlay-item-content-gap: 6px;
   --kds-space-overlay-item-gap: 2px;
+  --kds-space-progress-ring-gap: 2px;
   --kds-space-stack-md: 12px;
   --kds-space-stack-xs: 4px;
   --kds-space-toast-inline: 20px;
@@ -317,6 +324,10 @@
   --kds-color-media-indicator-rest: color(srgb 0.980392 0.980392 0.980392 / 0.45);
   --kds-color-media-scrim-bright: color(srgb 0.980392 0.980392 0.980392 / 1);
   --kds-color-media-scrim-dark: color(srgb 0 0 0 / 1);
+  --kds-color-progress-fill: color(srgb 0 0.533333 1 / 1);
+  --kds-color-progress-ring-fill: color(srgb 0 0.776471 0.556863 / 1);
+  --kds-color-progress-ring-track: color(srgb 0.980392 0.980392 0.980392 / 0.2);
+  --kds-color-progress-track: color(srgb 0.980392 0.980392 0.980392 / 0.1);
   --kds-color-scrim-modal: color(srgb 0 0 0 / 0.72);
   --kds-elevation-menu: 0px 8px 15px 0px color(srgb 0 0 0 / 0.04), 0px 0px 0px 0.5px color(srgb 0.341176 0.364706 0.407843 / 1);
   --kds-elevation-tooltip: 0px 12px 24px 0px color(srgb 0.090196 0.105882 0.133333 / 0.12);

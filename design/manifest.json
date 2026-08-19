@@ -275,6 +275,15 @@
       "generated": false
     },
     {
+      "id": "progress",
+      "path": "design/components/progress.md",
+      "title": "Progress",
+      "section": "components",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
+    },
+    {
       "id": "component-text-field",
       "path": "design/components/text-field.md",
       "title": "Text Field",
@@ -743,6 +752,15 @@
       "generated": false
     },
     {
+      "id": "decision-determinate-progress-a11y",
+      "path": "design/governance/decisions/DS-D-0022-determinate-progress-a11y.md",
+      "title": "DS-D-0022 determinate 진행률의 접근성 계약을 DS가 정한다",
+      "section": "governance",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
+    },
+    {
       "id": "updates-overview",
       "path": "design/updates/README.md",
       "title": "Updates",
@@ -820,6 +838,7 @@
         "design/components/tooltip.md",
         "design/components/toast.md",
         "design/components/project-card.md",
+        "design/components/progress.md",
         "design/components/text-field.md",
         "design/components/empty-state.md",
         "design/components/banner-carousel.md",
@@ -902,6 +921,7 @@
         "design/governance/decisions/DS-D-0019-layout-change-motion.md",
         "design/governance/decisions/DS-D-0020-tailwind-load-order.md",
         "design/governance/decisions/DS-D-0021-icon-size-axis.md",
+        "design/governance/decisions/DS-D-0022-determinate-progress-a11y.md",
         "design/updates/README.md"
       ]
     }
@@ -1018,6 +1038,20 @@
       "note": "public export 10종과 실브라우저 acceptance test 6건. 값은 제품 정의 4벌의 정본을 옮긴 것이다. 프로그레시브 블러의 첫 소비처이며, parity 게이트가 자손 기하·타이포·흐림·자식 순서를 대조한다. 구조는 제품과 다르다 — 프레임은 div이고 클릭 타깃이 카드 전체를 덮는 형제다",
       "doc": "design/components/project-card.md",
       "figmaName": "ProjectCard"
+    },
+    {
+      "id": "progress",
+      "name": "Progress",
+      "maturity": "experimental",
+      "figma": "partial",
+      "web": "partial",
+      "docs": "done",
+      "note": "determinate 진행률. **제품에 정본이 없어 접근성 계약부터 DS가 정했다**(DS-D-0022) — 배포본에 role=\"progressbar\"가 1곳, <progress>가 0곳이다. 값을 갖는 것은 트랙이고 채움은 장식이다. 기하는 제품 셋이 합의하는 축(높이 6 · 알약 · 최대 폭 320)만 옮기고 색은 DS가 골랐다. 링은 제품 정본이 하나뿐이라 두께·간격·지름 식을 그대로 옮겼고, 지름을 계산하는 대신 padding으로 만들어 내용이 커지면 따라온다. indeterminate는 폭이 아니라 면 그라디언트를 흘린다 — loop 허용 property가 그렇다",
+      "doc": "design/components/progress.md",
+      "figmaNames": [
+        "ProgressBar",
+        "ProgressRing"
+      ]
     },
     {
       "id": "banner-carousel",

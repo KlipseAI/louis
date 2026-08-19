@@ -2332,6 +2332,120 @@
   pointer-events: none;
 }
 
+/* Progress — determinate·indeterminate 진행률.
+ *
+ * 접근성 계약은 [DS-D-0022](../../../../design/governance/decisions/DS-D-0022-determinate-progress-a11y.md)가
+ * 소유한다. **값을 갖는 것은 트랙이고 채움은 장식이다.**
+ *
+ * 제품에는 옮겨 올 정본이 없었다 — 진행바 정의 셋이 두께·색·전환이 다 다르고 합의하는 축은
+ * 높이 6 · 반경(알약) · 최대 폭 320 셋뿐이다. 그 셋은 그대로 옮기고 색은 DS가 고른다.
+ */
+
+.kds-progress-bar {
+  /* 소비처가 값을 인라인으로 준다. 0~100 사이의 수이며 % 단위는 여기서 붙인다. */
+  --kds-progress-value: 0;
+  box-sizing: border-box;
+  inline-size: 100%;
+  /* 제품 두 벌이 합의하는 유일한 폭 계약이다. 소비처가 더 좁게 쓸 수 있다. */
+  max-inline-size: var(--kds-layout-progress-bar-max-inline-size);
+  block-size: var(--kds-layout-progress-bar-height);
+  border-radius: var(--kds-radius-pill);
+  background-color: var(--kds-color-progress-track);
+  overflow: hidden;
+}
+
+.kds-progress-bar__fill {
+  block-size: 100%;
+  inline-size: calc(var(--kds-progress-value)*1%);
+  border-radius: inherit;
+  background-color: var(--kds-color-progress-fill);
+  transition: inline-size var(--kds-motion-layout-change-duration)
+    var(--kds-motion-layout-change-timing-function);
+}
+
+/* **indeterminate는 폭을 옮기지 않는다.** loop lifecycle이 허용하는 property는
+ * opacity·rotate·background-position 셋이고(DS-D-0016) transform은 그 안에 없다. 면 그라디언트를
+ * 흘려 같은 뜻을 만든다 — Skeleton과 같은 기법이라 층을 하나 덜 만든다. */
+.kds-progress-bar[data-indeterminate="true"] .kds-progress-bar__fill {
+  inline-size: 100%;
+  background-image: linear-gradient(
+    to right,
+    transparent 0%,
+    var(--kds-color-progress-fill) 40%,
+    var(--kds-color-progress-fill) 60%,
+    transparent 100%
+  );
+  background-color: transparent;
+  background-size: 250% 100%;
+  animation-name: kds-progress-slide;
+  animation-duration: var(--kds-motion-shimmer-duration);
+  animation-timing-function: var(--kds-motion-shimmer-timing-function);
+  animation-iteration-count: infinite;
+  transition: none;
+}
+
+@keyframes kds-progress-slide {
+  from {
+    background-position: 150% 0;
+  }
+  to {
+    background-position: -150% 0;
+  }
+}
+
+/* ── Ring ───────────────────────────────────────────────────────────────────
+ * 아바타를 감싸는 사용량 링. **Avatar가 소유하지 않는다** — 아바타는 신원 표식이고 링은
+ * 사용량이라 뜻이 다르고, 링을 흡수하면 목록·댓글에 놓이는 모든 아바타가 쓰지 않을 progress
+ * API를 갖는다.
+ *
+ * 제품은 지름을 `avatar + (gap + width) × 2`로 직접 계산한다. 여기서는 padding으로 같은 값을
+ * 만든다 — 안에 무엇이 들어가든 지름이 따라오므로 소비처가 크기를 두 번 적지 않는다.
+ */
+.kds-progress-ring {
+  --kds-progress-value: 0;
+  --kds-progress-ring-width: var(--kds-border-width-ring);
+  --kds-progress-ring-gap: var(--kds-space-progress-ring-gap);
+  position: relative;
+  display: inline-grid;
+  place-items: center;
+  box-sizing: content-box;
+  padding: calc(var(--kds-progress-ring-width) + var(--kds-progress-ring-gap));
+  border-radius: var(--kds-radius-pill);
+}
+
+.kds-progress-ring::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background-image: conic-gradient(
+    from 0deg,
+    var(--kds-color-progress-ring-fill) 0 calc(var(--kds-progress-value)*1%),
+    var(--kds-color-progress-ring-track) calc(var(--kds-progress-value)*1%) 100%
+  );
+  /* 가운데를 뚫어 링만 남긴다. mask는 색이 아니라 알파만 쓰므로 `currentcolor`를 넣는다 —
+   * 어떤 색을 넣어도 결과가 같고 raw 리터럴을 두지 않는다. */
+  mask-image: radial-gradient(
+    farthest-side,
+    transparent calc(100% - var(--kds-progress-ring-width)),
+    currentcolor calc(100% - var(--kds-progress-ring-width))
+  );
+  transition: background-image var(--kds-motion-layout-change-duration)
+    var(--kds-motion-layout-change-timing-function);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .kds-progress-bar__fill,
+  .kds-progress-ring::after {
+    transition-duration: var(--kds-motion-reduced-duration);
+  }
+
+  .kds-progress-bar[data-indeterminate="true"] .kds-progress-bar__fill {
+    animation-iteration-count: 1;
+  }
+}
+
 /* Project Card — design/components/project-card.md
  *
  * 제품에 정의가 **4벌** 있고(앱 홈·노드캔버스 홈·하이라이트 허브·비디오 에디터 허브) 네 벌의

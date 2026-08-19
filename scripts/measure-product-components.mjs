@@ -424,6 +424,25 @@ const PROBES = [
     read: ["::after:width", "::after:height"],
   },
   {
+    id: "progress-bar-track",
+    source: "highlightSceneStyles.ts progressBarTrack — determinate 진행바 두 벌 중 하나",
+    from: ["highlight", "progressBarTrack"],
+    read: ["height", "maxWidth", "borderTopLeftRadius"],
+  },
+  {
+    id: "progress-bar-fill",
+    source: "highlightSceneStyles.ts progressBarFill",
+    from: ["highlight", "progressBarFill"],
+    read: ["borderTopLeftRadius"],
+  },
+  {
+    id: "progress-ring",
+    source: "Gnb.tsx profileTrigger — 제품의 유일한 진행률 링",
+    from: ["gnb", "profileTrigger"],
+    tag: "button",
+    read: ["width", "height", "--profile-ring-width", "--profile-ring-gap"],
+  },
+  {
     id: "carousel",
     source: "TabBannerCarousel.tsx CAROUSEL + CAROUSEL_BOXED",
     from: ["carousel", "CAROUSEL", "CAROUSEL_BOXED"],
@@ -648,6 +667,14 @@ const EXPECT = [
   ["nav-item-hover", "backgroundColor", ["app-shell-parts", "states", "navItem", "Hover", "background"], "same"],
   ["nav-item-hover-light", "backgroundColor", ["app-shell-parts", "states", "navItem", "Hover", "background"], "deviates",
     "라이트만 갈린다. 제품은 재매핑된 palette-gray-300을 50%로 덮고(rgb 228 229 233 / 0.5) DS는 ink 8%를 쓴다 — 면 계열에 매는 것과 잉크에 매는 것의 차이다. `action-ghost-hover`는 SelectableListRow와 공유하는 토큰이라 사이드바 하나 때문에 옮기지 않는다. 다크는 rgb(250 250 250 / 0.1)로 정확히 같다."],
+
+  ["progress-bar-track", "height", ["progress-bar", "sizes", "base", "height"], "same"],
+  ["progress-bar-track", "maxWidth", ["progress-bar", "sizes", "base", "maxInlineSize"], "same"],
+  ["progress-ring", "width", ["progress-ring", "sizes", "base", "size"], "same"],
+  ["progress-ring", "--profile-ring-width", ["progress-ring", "sizes", "base", "width"], "same"],
+  ["progress-ring", "--profile-ring-gap", ["progress-ring", "sizes", "base", "gap"], "same"],
+  ["progress-bar-track", "borderTopLeftRadius", ["progress-bar", "sizes", "base", "radius"], "deviates",
+    "제품 3, DS 999(알약). 높이가 6이라 브라우저가 그리는 곡률은 둘 다 3으로 조여져 **결과가 같다.** 리터럴 3은 높이를 바꾸는 날 따라오지 않으므로 알약으로 적는다."],
 
   ["carousel", "height", ["banner-carousel", "sizes", "boxed", "height"], "same"],
   ["carousel", "borderTopLeftRadius", ["banner-carousel", "sizes", "boxed", "radius"], "same"],

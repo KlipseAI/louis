@@ -242,6 +242,8 @@ test("states 표를 코드가 빠짐없이 읽는다", () => {
     "dialog",
     "project-card",
     "sidebar-cta", //     sidebar-parts.browser.test.tsx
+    "progress-bar", //    progress.browser.test.tsx
+    "progress-ring", //   progress.browser.test.tsx
   ]);
   const declared = Object.entries(measured.components)
     .filter(([, value]) => (value as { states?: unknown }).states !== undefined)

@@ -6,20 +6,20 @@
     "capturedAt": "2026-08-18",
     "capturedBy": "figma-mcp-plugin-api",
     "published": false,
-    "tokenSourceSha256": "24e8dd608c6930b6e2e1c9e892bb6e490f9b3dcf77c859dee7fe4b007eb10d09",
-    "proposalSha256": "1c293401181760358c98a6959efda5feed24bf06fb6fbcbf12ae89a413abc3ed",
+    "tokenSourceSha256": "353b1b6d36a5a915690da5c8c8a355184dcc388d22b0dc790efe77037a55b38e",
+    "proposalSha256": "27515b83b7d909a981a4e7c4a932bd1614d04ccd287a7962060c7b52d80b4094",
     "readback": {
-      "tokens": 243,
-      "canonicalLength": 21161,
-      "fnv1a32": "7feb70fa",
+      "tokens": 255,
+      "canonicalLength": 22340,
+      "fnv1a32": "cb48faeb",
       "note": "변수는 readback.json의 되읽기 행을 tokenId 공간으로 옮긴 것이고, style과 component는 같은 되읽기의 style/component 절이다. canonical 해시는 컬렉션·이름·타입·mode 값을 정렬해 이은 문자열의 FNV-1a다.",
       "styles": {
         "text": 15,
         "effect": 8
       },
       "components": {
-        "sets": 23,
-        "variants": 145
+        "sets": 25,
+        "variants": 148
       },
       "icons": 31,
       "templates": 0
@@ -31,14 +31,14 @@
         "Base"
       ],
       "defaultMode": "Base",
-      "variableCount": 117
+      "variableCount": 122
     },
     "Klipse Semantic": {
       "modes": [
         "Global"
       ],
       "defaultMode": "Global",
-      "variableCount": 70
+      "variableCount": 73
     },
     "Klipse Semantic Color": {
       "modes": [
@@ -46,7 +46,7 @@
         "Dark"
       ],
       "defaultMode": "Light",
-      "variableCount": 56
+      "variableCount": 60
     }
   },
   "variables": {
@@ -968,6 +968,20 @@
         }
       }
     },
+    "color-ink-alpha-10": {
+      "figmaName": "color/ink-alpha/10",
+      "resolvedType": "COLOR",
+      "valuesByMode": {
+        "Base": {
+          "value": [
+            0.090196,
+            0.105882,
+            0.133333,
+            0.1
+          ]
+        }
+      }
+    },
     "color-ink-alpha-12": {
       "figmaName": "color/ink-alpha/12",
       "resolvedType": "COLOR",
@@ -978,6 +992,20 @@
             0.105882,
             0.133333,
             0.12
+          ]
+        }
+      }
+    },
+    "color-ink-alpha-20": {
+      "figmaName": "color/ink-alpha/20",
+      "resolvedType": "COLOR",
+      "valuesByMode": {
+        "Base": {
+          "value": [
+            0.090196,
+            0.105882,
+            0.133333,
+            0.2
           ]
         }
       }
@@ -1171,6 +1199,20 @@
         },
         "Dark": {
           "alias": "color-neutral-1000"
+        }
+      }
+    },
+    "color-mint-500": {
+      "figmaName": "color/mint/500",
+      "resolvedType": "COLOR",
+      "valuesByMode": {
+        "Base": {
+          "value": [
+            0,
+            0.776471,
+            0.556863,
+            1
+          ]
         }
       }
     },
@@ -1398,6 +1440,20 @@
         }
       }
     },
+    "color-paper-alpha-20": {
+      "figmaName": "color/paper-alpha/20",
+      "resolvedType": "COLOR",
+      "valuesByMode": {
+        "Base": {
+          "value": [
+            0.980392,
+            0.980392,
+            0.980392,
+            0.2
+          ]
+        }
+      }
+    },
     "color-paper-alpha-45": {
       "figmaName": "color/paper-alpha/45",
       "resolvedType": "COLOR",
@@ -1465,6 +1521,54 @@
             0.980392,
             0.88
           ]
+        }
+      }
+    },
+    "color-progress-fill": {
+      "figmaName": "color/progress-fill",
+      "resolvedType": "COLOR",
+      "valuesByMode": {
+        "Light": {
+          "alias": "color-blue-500"
+        },
+        "Dark": {
+          "alias": "color-blue-500"
+        }
+      }
+    },
+    "color-progress-ring-fill": {
+      "figmaName": "color/progress-ring-fill",
+      "resolvedType": "COLOR",
+      "valuesByMode": {
+        "Light": {
+          "alias": "color-mint-500"
+        },
+        "Dark": {
+          "alias": "color-mint-500"
+        }
+      }
+    },
+    "color-progress-ring-track": {
+      "figmaName": "color/progress-ring-track",
+      "resolvedType": "COLOR",
+      "valuesByMode": {
+        "Light": {
+          "alias": "color-ink-alpha-20"
+        },
+        "Dark": {
+          "alias": "color-paper-alpha-20"
+        }
+      }
+    },
+    "color-progress-track": {
+      "figmaName": "color/progress-track",
+      "resolvedType": "COLOR",
+      "valuesByMode": {
+        "Light": {
+          "alias": "color-ink-alpha-10"
+        },
+        "Dark": {
+          "alias": "color-paper-alpha-10"
         }
       }
     },
@@ -1953,6 +2057,24 @@
       "valuesByMode": {
         "Global": {
           "alias": "space-48"
+        }
+      }
+    },
+    "layout-progress-bar-height": {
+      "figmaName": "layout/progress-bar-height",
+      "resolvedType": "FLOAT",
+      "valuesByMode": {
+        "Global": {
+          "alias": "space-6"
+        }
+      }
+    },
+    "layout-progress-bar-max-inline-size": {
+      "figmaName": "layout/progress-bar-max-inline-size",
+      "resolvedType": "FLOAT",
+      "valuesByMode": {
+        "Global": {
+          "alias": "space-320"
         }
       }
     },
@@ -2496,6 +2618,15 @@
         }
       }
     },
+    "space-320": {
+      "figmaName": "spacing/320",
+      "resolvedType": "FLOAT",
+      "valuesByMode": {
+        "Base": {
+          "value": 320
+        }
+      }
+    },
     "space-4": {
       "figmaName": "spacing/4",
       "resolvedType": "FLOAT",
@@ -2651,6 +2782,15 @@
     },
     "space-overlay-item-gap": {
       "figmaName": "spacing/overlay-item-gap",
+      "resolvedType": "FLOAT",
+      "valuesByMode": {
+        "Global": {
+          "alias": "space-2"
+        }
+      }
+    },
+    "space-progress-ring-gap": {
+      "figmaName": "spacing/progress-ring-gap",
       "resolvedType": "FLOAT",
       "valuesByMode": {
         "Global": {
@@ -4332,6 +4472,128 @@
           "DROP_SHADOW:8:15:0 + DROP_SHADOW:0:0:0.5"
         ]
       }
+    },
+    "ProgressBar": {
+      "outsideParts": [],
+      "tokenId": "progress",
+      "variantCount": 2,
+      "hasDescription": true,
+      "properties": {
+        "State": {
+          "type": "VARIANT",
+          "options": [
+            "determinate",
+            "indeterminate"
+          ]
+        }
+      },
+      "binding": {
+        "boundFills": 4,
+        "rawFills": 0,
+        "boundStrokes": 0,
+        "rawStrokes": 0,
+        "textStyled": 0,
+        "textUnstyled": 0
+      },
+      "geometry": {
+        "base": {
+          "slots": {},
+          "parts": {
+            "Fill": {
+              "height": [
+                6
+              ]
+            }
+          },
+          "strokeWeight": [],
+          "width": [
+            320
+          ],
+          "height": [
+            6
+          ],
+          "cornerRadius": [
+            999
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        }
+      },
+      "strokes": {},
+      "effects": {}
+    },
+    "ProgressRing": {
+      "outsideParts": [],
+      "tokenId": "progress",
+      "variantCount": 1,
+      "hasDescription": true,
+      "properties": {},
+      "binding": {
+        "boundFills": 2,
+        "rawFills": 0,
+        "boundStrokes": 0,
+        "rawStrokes": 0,
+        "textStyled": 0,
+        "textUnstyled": 0
+      },
+      "geometry": {
+        "base": {
+          "slots": {},
+          "parts": {
+            "Track": {
+              "width": [
+                36
+              ],
+              "height": [
+                36
+              ]
+            },
+            "Content": {
+              "width": [
+                28
+              ],
+              "height": [
+                28
+              ]
+            }
+          },
+          "strokeWeight": [],
+          "width": [
+            36
+          ],
+          "height": [
+            36
+          ],
+          "cornerRadius": [
+            0
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ],
+          "paddingInline": [
+            4
+          ],
+          "paddingInlineEnd": [
+            4
+          ],
+          "paddingBlock": [
+            4
+          ],
+          "paddingBlockEnd": [
+            4
+          ],
+          "itemSpacing": [
+            0
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        }
+      },
+      "strokes": {},
+      "effects": {}
     },
     "ProjectCard": {
       "outsideParts": [],

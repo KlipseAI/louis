@@ -8,6 +8,50 @@ authority: normative
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
 
+## 2026-08-18 (48) — App Shell composition이 섰습니다 — 미등록 14건이 함께 닫힙니다
+
+전수 검증이 84건을 주제로 묶으니 **앱 셸이 14건으로 가장 컸습니다.** 그런데 그 14건은 서로 다른
+부품이 아니라 **같은 것이 화면마다 다른 이름으로 잡힌 것**이었습니다 — `app-shell-composition` ·
+`app-shell-page-frame` · `main-card-chrome-surface` · `in-card-header-slot` ·
+`top-chrome-portal-slot` 등. 여덟 화면이 각자 *"셸 조립이 없다"*를 보고한 것입니다.
+
+**패턴 하나가 서면 14건이 함께 닫힙니다.** 그래서 이것부터 했습니다.
+
+### 규범이 이미 답을 갖고 있었습니다
+
+`app-shell.md`의 layout contract를 그대로 옮겼습니다.
+
+| 계약 | 구현 |
+| --- | --- |
+| 자리 예약 | 레일이 `absolute`여도 본문이 **같은 상태 원천**으로 `padding-inline-start`를 잡는다 |
+| 전환 | offset과 폭이 `motion-shell-collapse` 하나를 쓴다 |
+| scroll root | 하나. 셸은 `overflow: hidden` |
+| 상단 크롬 | scroll root **안에** sticky, 본문과 같은 좌우 inset 원천 |
+| compact | 예약 0 · drawer · scrim · 뒤 콘텐츠 `inert` |
+| 건너뛰기 링크 | anatomy의 첫 항목 |
+
+**offset과 폭을 따로 지연시키지 않는 이유**를 코드 주석에 적었습니다 — 하나만 늦으면 전환 중에
+겹치는 프레임이 생깁니다. 규범이 *"따로 지연시키지 않는다"*고 적어 둔 것이 그 뜻입니다.
+
+**`page`와 `workspace`를 한 composition에 둡니다.** 가르면 `<main>`과 시각 panel의 소유권이
+variant마다 달라지고, 그것이 규범이 금지하는 것입니다.
+
+### 테스트가 compact를 드러냈습니다
+
+"접히면 본문이 넓어진다"가 실패했습니다 — 양쪽 1200이었습니다. **테스트 뷰포트가 720px 미만이라
+compact 분기로 갔고, 거기서는 예약이 0이라 접힘이 무의미**했습니다.
+
+테스트를 문맥에 따라 갈랐습니다. compact에서는 예약이 0인 것이 계약이고, regular에서는 280 →
+collapsed로 줄어드는 것이 계약입니다. **둘 다 지금 확인됩니다.**
+
+### 남긴 것
+
+`app-shell` 패턴이 `web: not-ready` → **`partial`**입니다. 남은 것도 적었습니다 — **focus trap
+자체와 scroll lock은 아직 없습니다.** 뒤를 `inert`로 죽이는 것과 초점을 가두는 것은 다른 일이고,
+규범의 blocker 문장을 그렇게 고쳤습니다.
+
+테스트 710 → **726**.
+
 ## 2026-08-18 (47) — 사이드바 부품 둘을 세웁니다
 
 홈 템플릿을 내리게 만든 원인 넷 중 둘입니다 — **브랜드 행**과 **하단 업그레이드 CTA**.

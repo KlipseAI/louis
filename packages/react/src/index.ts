@@ -29,6 +29,8 @@ export type {
   ProjectCardTextProps,
   ProjectCardThumbnailProps,
 } from "./project-card/project-card.js";
+export { AppShell } from "./app-shell/app-shell.js";
+export type { AppShellProps, AppShellVariant } from "./app-shell/app-shell.js";
 export { AppTopBar, SidebarBrand, SidebarCta, SidebarNavItem } from "./app-shell/app-shell-parts.js";
 export type {
   AppTopBarProps,

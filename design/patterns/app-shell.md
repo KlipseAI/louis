@@ -159,11 +159,28 @@ overlay 숫자가 분산됐다. 비규범 provenance는
 보존할 결과는 sidebar 단일 geometry, compact drawer의 zero reserve, immersive route의
 collapse/restore다. 복제된 Scene shell, 전역 최소폭, raw z-index는 새 package 계약으로 가져오지 않는다.
 
+## 구현 (2026-08-18)
+
+공용 composition `AppShell`이 `@klipse-design/react`에 있다. `variant`가 `page`(본문이 구른다)와
+`workspace`(에디터가 안쪽 스크롤을 소유한다) 둘이며 **한 composition에 둔다** — 가르면 `<main>`과
+시각 panel의 소유권이 variant마다 달라진다.
+
+| 계약 | 구현 |
+| --- | --- |
+| 자리 예약 | 레일이 `absolute`여도 본문이 **같은 상태 원천**으로 `padding-inline-start`를 잡는다 |
+| 전환 | offset과 폭이 `motion-shell-collapse` 하나를 쓴다 — 따로 지연시키면 겹치는 프레임이 생긴다 |
+| scroll root | `.kds-app-shell__content` 하나. 셸은 `overflow: hidden` |
+| 상단 크롬 | scroll root **안에** sticky. 본문과 같은 좌우 inset 원천을 읽는다 |
+| compact | 예약 0 · 레일이 drawer · scrim · 뒤 콘텐츠 `inert` |
+| 건너뛰기 링크 | anatomy의 첫 항목. 초점을 받으면 나타난다 |
+
+**접힘 상태는 소비처가 소유한다.** 라우트가 정하는 경우가 있어 셸이 갖지 않는다.
+
 ## Pre-implementation blockers
 
-- P2 local RC에 App Shell geometry token은 있다. 이를 소비하는 공용 App Shell composition과 실제 제품
-  integration은 아직 없다.
-- drawer focus trap/inert/scroll lock test가 없다.
+- ~~P2 local RC에 App Shell geometry token은 있다. 이를 소비하는 공용 App Shell composition과 실제 제품
+  integration은 아직 없다.~~ composition은 섰다(2026-08-18). **제품 integration은 여전히 없다.**
+- drawer의 `inert` 테스트는 섰다. **focus trap 자체와 scroll lock은 아직 없다** — 뒤를 죽이는 것과 초점을 가두는 것은 다른 일이다.
 - safe-area와 viewport-height 전략이 package로 정의되지 않았다.
 - semantic overlay layer와 profile menu interaction test가 없다.
 

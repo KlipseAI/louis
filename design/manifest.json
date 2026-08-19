@@ -1149,9 +1149,10 @@
       "name": "App Shell",
       "maturity": "experimental",
       "figma": "not-ready",
-      "web": "not-ready",
+      "web": "partial",
       "docs": "done",
-      "doc": "design/patterns/app-shell.md"
+      "doc": "design/patterns/app-shell.md",
+      "note": "공용 composition `AppShell`이 섰다(2026-08-18). 레일과 본문이 **같은 상태 원천**으로 자리를 예약해 어떤 접힘 상태에서도 겹치지 않고, primary scroll root가 하나이며 상단 크롬이 그 안에 sticky로 있다. page·workspace variant를 한 composition에 둔다. 실브라우저 acceptance test 8건. Figma 표현과 제품 소비 증거는 없다. compact drawer의 focus trap은 inert로 뒤를 죽이는 데까지이며 trap 자체는 아직 없다"
     },
     {
       "id": "project-grid",

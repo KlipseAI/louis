@@ -10,6 +10,7 @@
     "--profile-ring-progress": "런타임 값이다. 진행률은 데이터가 정한다.",
     "--profile-ring-size": "지름은 DS가 padding으로 만든다(progress.md). 제품의 계산식을 그대로 옮기면 아바타 크기를 두 곳에 적게 된다.",
     "--tw-border-style": "Tailwind 내부 변수다. 제품이 이 컴포넌트에 대해 정한 값이 아니라 유틸리티 구현의 부산물이다.",
+    "--tw-content": "Tailwind가 `content`를 구현하는 내부 변수다. 제품이 이 컴포넌트에 대해 정한 값이 아니다.",
     "--tw-shadow": "위와 같다.",
     "-webkit-user-drag": "위와 같다.",
     "align-items": "위와 같다.",
@@ -56,8 +57,10 @@
     "box-shadow": "그림자는 elevation 토큰이 갖고 figma-parity가 effect style로 대조한다. 제품에만 있는 글래스 베벨은 각 문서의 Known deviations가 적는다.",
     "box-sizing": "위와 같다. DS는 reset이 border-box를 전역으로 깐다.",
     "color": "전경색은 states 표가 갖고 브라우저 테스트가 토큰 값과 대조한다. EXPECT가 색을 보는 자리는 제품과 DS가 갈릴 수 있는 곳(업그레이드 CTA · 내비 hover)이다.",
+    "content": "의사요소를 존재하게 하는 관용구다(`content: ''`). 값이 아니라 스위치이며, 그 층이 무엇을 그리는지는 나머지 property가 말한다.",
     "cursor": "포인터 모양은 상호작용 가능성의 결과다. 누를 수 있는가는 role과 마크업이 말하고 커서는 그 부산물이다.",
     "display": "내부 배치 기법이다. 제품이 flex로 만든 결과를 DS가 grid로 만들어도 눈에 보이는 값이 같으면 같다 — 계약은 결과(간격·정렬·크기)에 둔다.",
+    "filter": "밝기·채도 변화로 상태를 표현하는 기법이다. DS는 상태를 색으로 바꾸므로 대응 값이 없다 — 각 문서의 Known deviations가 그 차이를 적는다.",
     "flex-basis": "남는 자리를 어떻게 나눌지는 소비처의 배치다.",
     "flex-direction": "위와 같다.",
     "flex-grow": "위와 같다.",
@@ -208,6 +211,10 @@
     "progress-ring": {
       "--profile-ring-fill": "색은 states 표가 소유한다(progress-ring.states.base).",
       "--profile-ring-track": "위와 같다.",
+      "::after border-bottom-left-radius": "고리는 원이다. 지름을 EXPECT가 보고 원형 여부는 mask가 만든다.",
+      "::after border-bottom-right-radius": "고리는 원이다. 지름을 EXPECT가 보고 원형 여부는 mask가 만든다.",
+      "::after border-top-left-radius": "고리는 원이다. 지름을 EXPECT가 보고 원형 여부는 mask가 만든다.",
+      "::after border-top-right-radius": "고리는 원이다. 지름을 EXPECT가 보고 원형 여부는 mask가 만든다.",
       "border-bottom-left-radius": "위와 같다.",
       "border-bottom-right-radius": "위와 같다.",
       "border-top-left-radius": "링 자체는 각진 상자이고 둥근 것은 `::after`가 그리는 고리다. 반경은 그 고리의 것이며 mask가 만든다.",
@@ -283,6 +290,10 @@
       "background-color": "면 알파는 components.measured.json의 surfaceAlpha가 고정하고 skeleton 테스트가 본다."
     },
     "slider-track-marker": {
+      "border-bottom-left-radius": "채움(range)의 반경이다. 표식은 그 위의 `::after`이고 그쪽 반경을 EXPECT가 본다.",
+      "border-bottom-right-radius": "채움(range)의 반경이다. 표식은 그 위의 `::after`이고 그쪽 반경을 EXPECT가 본다.",
+      "border-top-left-radius": "채움(range)의 반경이다. 표식은 그 위의 `::after`이고 그쪽 반경을 EXPECT가 본다.",
+      "border-top-right-radius": "채움(range)의 반경이다. 표식은 그 위의 `::after`이고 그쪽 반경을 EXPECT가 본다.",
       "height": "레일을 채우는 표식이라 레일의 값이다. 표식의 실제 크기는 `::after`를 EXPECT가 본다."
     },
     "slider-track-root": {

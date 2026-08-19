@@ -752,7 +752,7 @@ const EXPECT = [
     "제품 0, DS 0.5. hairline은 DS 전역 결정이다 — 눌리지 않은 세그먼트의 경계를 아주 얇게 남긴다."],
   ["slider-thumb-rail", "borderTopLeftRadius", ["slider", "sizes", "md/thumb", "railRadius"], "same"],
   ["slider-thumb-handle", "borderTopLeftRadius", ["slider", "sizes", "md/thumb", "thumbRadius"], "same"],
-  ["slider-track-marker", "borderTopLeftRadius", ["slider", "sizes", "md/track", "thumbRadius"], "same"],
+  ["slider-track-marker", "::after:borderTopLeftRadius", ["slider", "sizes", "md/track", "thumbRadius"], "same"],
   ["segmented-thumb", "height", ["segmented-control", "sizes", "md", "segmentHeight"], "deviates",
     "제품 28, DS 32. 세그먼트와 같은 사유다 — 제품 트랙 36은 control 계단에 없다."],
 
@@ -1020,9 +1020,10 @@ try {
               }
               if (!rule.selectorText) continue;
               for (const part of rule.selectorText.split(/,(?![^(]*\))/)) {
-                // 상태·의사요소 규칙은 기본 상태 열거에서 뺀다. 그 축은 별도 탐침이 본다.
-                if (/(?<!\\)::/.test(part)) continue;
-                const base = part.replace(/(?<!\\):(hover|focus|focus-visible|active|disabled)\b/g, "");
+                const pseudo = /(?<!\\)::(before|after)\b/.exec(part);
+                const base = part
+                  .replace(/(?<!\\)::(before|after)\b/g, "")
+                  .replace(/(?<!\\):(hover|focus|focus-visible|active|disabled)\b/g, "");
                 let hit = false;
                 try {
                   hit = element.matches(base);
@@ -1031,12 +1032,12 @@ try {
                 }
                 if (!hit) continue;
                 if (!own.some((token) => part.includes(token))) continue;
-                const stateOnly = base !== part;
+                // 기본 · 상태 · 의사요소를 각각 센다. 셋 다 제품이 정한 것이고, 기본만 세면
+                // hover 색과 흐림 층이 열거에서 통째로 빠진다.
+                const bucket = pseudo ? "::" + pseudo[1] : base !== part ? ":state" : "base";
                 for (const property of rule.style) {
-                  const previous = found.get(property);
-                  if (previous === undefined || previous === "state") {
-                    found.set(property, stateOnly ? "state" : "base");
-                  }
+                  const key = bucket === "base" ? property : bucket + " " + property;
+                  if (!found.has(key)) found.set(key, bucket);
                 }
               }
             }
@@ -1052,11 +1053,13 @@ try {
               /* 인라인 시트뿐이라 접근이 막힐 일이 없다 */
             }
           }
-          const computed = getComputedStyle(element);
+          const read = (bucket, property) =>
+            getComputedStyle(element, bucket.startsWith("::") ? bucket : null)
+              .getPropertyValue(property)
+              .trim();
           return Object.fromEntries(
             [...found.entries()]
-              .filter(([, kind]) => kind === "base")
-              .map(([property]) => [property, computed.getPropertyValue(property).trim()])
+              .map(([key, bucket]) => [key, read(bucket, bucket === "base" ? key : key.slice(bucket.length + 1))])
               .sort((a, b) => a[0].localeCompare(b[0])),
           );
         };
@@ -1288,10 +1291,16 @@ const axisOf = (property) => {
   const name = camel(property);
   return AXIS_ALIASES[name] ?? name;
 };
+const kebab = (property) => property.replace(/[A-Z]/g, (c) => "-" + c.toLowerCase());
 const comparedAxes = new Map();
 for (const [probeId, property] of EXPECT) {
-  if (property.startsWith("::")) continue;
   if (!comparedAxes.has(probeId)) comparedAxes.set(probeId, new Set());
+  // `::after:borderTopWidth` 같은 행은 열거의 `::after border-top-width`와 같은 축이다.
+  if (property.startsWith("::")) {
+    const cut = property.indexOf(":", 2);
+    comparedAxes.get(probeId).add(property.slice(0, cut) + " " + axisOf(kebab(property.slice(cut + 1))));
+    continue;
+  }
   comparedAxes.get(probeId).add(axisOf(property));
 }
 // 높이·최소높이처럼 한 축을 다른 이름으로 본 자리를 서로 인정한다.
@@ -1314,35 +1323,57 @@ function classify(cov) {
 const unclassified = [];
 for (const [probeId, properties] of Object.entries(declaredByProbe)) {
   const seen = comparedAxes.get(probeId) ?? new Set();
-  for (const [property, value] of Object.entries(properties)) {
-    const axis = axisOf(property);
+  for (const [key, value] of Object.entries(properties)) {
+    // 버킷(:state · ::before · ::after)과 property를 나눈다. 전역 사유는 버킷을 가리지 않는다 —
+    // `cursor`가 기본에서 범위 밖이면 hover에서도 그렇다. 버킷별로 다르게 판정해야 하는 자리는
+    // 전체 키(`::after content`)로 적는다.
+    const space = key.indexOf(" ");
+    const bucket = space > 0 && (key.startsWith(":") || key.startsWith("::")) ? key.slice(0, space) : "";
+    const property = bucket ? key.slice(space + 1) : key;
+    const axis = bucket && bucket.startsWith("::") ? bucket + " " + axisOf(property) : axisOf(property);
     if (seen.has(axis)) continue;
     if (EQUIVALENT.some(([a, b]) => (axis === a && seen.has(b)) || (axis === b && seen.has(a)))) continue;
     const group = groupOf(property);
     if (
       group &&
-      group.some(
-        (sibling) =>
+      group.some((sibling) => {
+        const siblingKey = bucket ? bucket + " " + sibling : sibling;
+        const siblingAxis = bucket && bucket.startsWith("::") ? bucket + " " + axisOf(sibling) : axisOf(sibling);
+        return (
           sibling !== property &&
-          seen.has(axisOf(sibling)) &&
-          properties[sibling] !== undefined &&
-          properties[sibling] === value,
-      )
+          seen.has(siblingAxis) &&
+          properties[siblingKey] !== undefined &&
+          properties[siblingKey] === value
+        );
+      })
     ) {
       continue;
     }
+    if (cov.probeScope?.[probeId]?.[key]) continue;
     if (cov.probeScope?.[probeId]?.[property]) continue;
+    if (cov.scope?.[key]) continue;
     if (cov.scope?.[property]) continue;
-    unclassified.push(probeId + " · " + property + " = " + value);
+    unclassified.push(probeId + " · " + key + " = " + value);
   }
 }
 // 낡은 사유도 실패다 — 제품이 더 이상 선언하지 않는 property에 사유가 남아 있으면 지운다.
 const declaredSet = new Set(
   Object.entries(declaredByProbe).flatMap(([probeId, map]) =>
-    Object.keys(map).map((p) => probeId + " · " + p),
+    Object.keys(map).flatMap((key) => {
+      const space = key.indexOf(" ");
+      const bare = space > 0 && key.startsWith(":") ? key.slice(space + 1) : key;
+      return [probeId + " · " + key, probeId + " · " + bare];
+    }),
   ),
 );
-const anyDeclared = new Set(Object.values(declaredByProbe).flatMap((map) => Object.keys(map)));
+const anyDeclared = new Set(
+  Object.values(declaredByProbe).flatMap((map) =>
+    Object.keys(map).flatMap((key) => {
+      const space = key.indexOf(" ");
+      return space > 0 && key.startsWith(":") ? [key, key.slice(space + 1)] : [key];
+    }),
+  ),
+);
 for (const property of Object.keys(cov.scope ?? {})) {
   if (property.startsWith("$")) continue;
   if (!anyDeclared.has(property)) unclassified.push("사유가 낡았습니다 — 제품이 선언하지 않는 property: " + property);

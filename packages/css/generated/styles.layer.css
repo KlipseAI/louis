@@ -3479,6 +3479,9 @@
     block-size: 14px;
     margin-block-start: calc((28px - 14px) / 2);
     border: 0;
+    /* 끝이 둥글다. 각진 2×14 막대로 두고 있었는데 배포본의 표식은 알약이다 — 2px 폭에서 이 차이가
+     * 눈에 띈다. 열거 게이트가 `::after`의 반경을 세면서 드러났다. */
+    border-radius: var(--kds-radius-pill);
     background: var(--kds-color-foreground-inverse);
   }
 
@@ -3486,6 +3489,7 @@
     inline-size: 2px;
     block-size: 14px;
     border: 0;
+    border-radius: var(--kds-radius-pill);
     background: var(--kds-color-foreground-inverse);
   }
 

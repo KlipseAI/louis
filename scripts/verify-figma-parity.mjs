@@ -1281,9 +1281,31 @@ function compare(document, expected) {
   issues.push(...compareComponents(document.components ?? {}));
   issues.push(...compareIcons(document.icons ?? {}));
   issues.push(...compareOverflow(document.components));
+  issues.push(...compareOpticalCentering(document.components));
   issues.push(...compareIconInstances(document.iconInstances));
   issues.push(...compareFoundations(document.foundations));
   issues.push(...compareTemplates(document.templates ?? {}));
+  return issues;
+}
+
+/**
+ * 정사각 슬롯 안의 표식이 **눈으로** 중앙에 있는지.
+ *
+ * 레이아웃 상자를 가운데 두어도 도형이 자기 상자 안에서 치우쳐 있으면 쏠려 보인다 — 체크 표식은
+ * 회전한 사각형이라 5×9 상자를 가운데 두었을 때 실제로는 **4.9px 왼쪽**에 있었다(2026-08-18).
+ * 그래서 상자가 아니라 회전을 반영한 실제 차지 영역으로 잰다.
+ */
+function compareOpticalCentering(components) {
+  const issues = [];
+  for (const [figmaName, component] of Object.entries(components ?? {})) {
+    for (const [size, geometry] of Object.entries(component.geometry ?? {})) {
+      for (const entry of geometry.offCenterMarks ?? []) {
+        issues.push(
+          `${figmaName} ${size}: ${entry}가 슬롯 중앙에서 벗어나 있습니다. 상자가 아니라 실제 차지 영역으로 맞추세요.`,
+        );
+      }
+    }
+  }
   return issues;
 }
 

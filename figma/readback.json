@@ -4015,10 +4015,16 @@
       "properties": {
         "Title": {
           "type": "TEXT"
+        },
+        "LeadingSlot": {
+          "type": "INSTANCE_SWAP"
+        },
+        "TrailingSlot": {
+          "type": "INSTANCE_SWAP"
         }
       },
       "binding": {
-        "boundFills": 1,
+        "boundFills": 3,
         "rawFills": 0,
         "boundStrokes": 0,
         "rawStrokes": 0,
@@ -4027,8 +4033,22 @@
       },
       "geometry": {
         "topBar": {
-          "slots": {},
-          "parts": {},
+          "slots": {
+            "LeadingSlot": true,
+            "TrailingSlot": true
+          },
+          "parts": {
+            "Leading": {
+              "height": [
+                32
+              ]
+            },
+            "Trailing": {
+              "height": [
+                36
+              ]
+            }
+          },
           "strokeWeight": [],
           "height": [
             40
@@ -7873,7 +7893,42 @@
       ]
     }
   },
-  "templates": {},
+  "templates": {
+    "home": {
+      "sceneWidth": 1440,
+      "sidebarWidth": 280,
+      "sidebarPaddingLeft": 12,
+      "mainCardRadius": 16,
+      "mainCardPaddingInline": 16,
+      "gridColumns": 4,
+      "gridGap": 12,
+      "sectionPaddingTop": 40,
+      "cardWidth": 270,
+      "cardHeight": 270,
+      "cardSquare": true,
+      "cardRadius": 16,
+      "overlayHeightRatio": 0.4,
+      "overlayPadding": 16,
+      "overlayStackGap": 4,
+      "overlayLineHeightPercent": [
+        120,
+        120,
+        120
+      ],
+      "requiredParts": [
+        "AppTopBar",
+        "BannerCarousel",
+        "FloatingCreate",
+        "ProjectCard",
+        "ProjectGrid",
+        "SectionHeader",
+        "Sidebar"
+      ],
+      "navLabelsDistinct": 5,
+      "cardTitlesDistinct": 8,
+      "placeholderLabelsAllowed": 0
+    }
+  },
   "foundations": {
     "$comment": "Foundations 페이지가 캔버스에 적어 둔 토큰 이름. 파일에 없는 이름을 적어 두면 문서가 거짓말이 된다.",
     "printedTokenNames": [],

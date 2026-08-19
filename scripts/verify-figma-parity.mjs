@@ -414,7 +414,9 @@ const COMPONENT_CONTRACTS = [
   {
     id: "app-shell-parts",
     figmaName: "AppTopBar",
-    propProperties: { Title: "title" },
+    // 슬롯이 없으면 조립할 때 화면이 비어 보인다. 코드 API에는 처음부터 있었다.
+    iconSlots: [],
+    propProperties: { Title: "title", LeadingSlot: "leading", TrailingSlot: "trailing" },
     declaration: "packages/react/dist/app-shell/app-shell-parts.d.ts",
     variantProperties: {},
     strokes: {},
@@ -429,9 +431,12 @@ const COMPONENT_CONTRACTS = [
         itemSpacing: "gap",
         layoutMode: { literal: "HORIZONTAL" },
       },
-      slots: {},
+      slots: { LeadingSlot: true, TrailingSlot: true },
       extraStrokeWeights: [],
-      parts: {},
+      parts: {
+        Leading: { fields: { height: "leadingSlotHeight" } },
+        Trailing: { fields: { height: "trailingSlotHeight" } },
+      },
     },
   },
   {

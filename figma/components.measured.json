@@ -1032,7 +1032,10 @@
           "titleFontSize": 16,
           "$titleFontSize": "body-md 16. 배포본 mainChromePageNavTitle이 --type-body-16-*를 쓴다(16/24/500).",
           "leadingGap": 4,
-          "$leadingGap": "배포본 mainChromeLeadingCluster의 gap:4px. 바 자신의 gap 8과 다르다 — 뒤로가기·구분자·제목이 한 덩어리로 붙는다."
+          "$leadingGap": "배포본 mainChromeLeadingCluster의 gap:4px. 바 자신의 gap 8과 다르다 — 뒤로가기·구분자·제목이 한 덩어리로 붙는다.",
+          "leadingSlotHeight": 32,
+          "trailingSlotHeight": 36,
+          "$slots": "선행 슬롯은 사이드바 토글(IconButton sm 32), 후행은 프로필 사용량 링(36)이다. 코드 API에는 leading·trailing이 처음부터 있었는데 Figma에는 제목 하나뿐이었다 — 표현하지 못하는 API는 없는 것과 같아 조립할 때 화면이 비어 보였다."
         },
         "navRow": {
           "gap": 4,

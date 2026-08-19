@@ -172,6 +172,8 @@ mint를 두 번째로 틀린 이유가 중요하다. `sidebarUpgradeButton`은 �
 | 아이콘 | 20px | `icon-size-md` |
 | 상단 바 높이 | 40px | `layout-app-shell-top-bar-height` |
 | 상단 바 좌우 여백 | 16px | `layout-app-shell-content-inset` |
+| 상단 바 선행 슬롯 | 32px | `IconButton` sm이 들어가는 자리 |
+| 상단 바 후행 슬롯 | 36px | `ProgressRing`이 아바타를 감싼 크기 |
 | CTA 버튼 높이 | 40px → 접힘 32px | `layout-control-height-md` → `-sm` |
 | CTA 좌우 여백 | 14px → 접힘 10px | 제품 실측 |
 | CTA 반경 | 12px | `radius-control` |
@@ -243,6 +245,8 @@ fixed 변종 36px, 사이드바 헤더 행 `min-height: 40px`. `globals.css`의 
   이 둘은 그 안에 놓일 조각이며, 그 자체로는 셸을 만들지 못한다.
 - **Figma의 접힘에는 라벨이 없다.** 코드는 `clip-path`로 시각에서만 숨기는데 Figma에 그 표현이
   없어 노드를 뺐다. 접근성 이름이 유지되는지는 코드 테스트가 본다.
+- **사이드바 토글 아이콘이 제품과 다르다.** 배포본은 전용 토글 글리프를 쓰는데 카탈로그에 없어
+  `arrows-left-right`로 대신한다. 아이콘 자산이 서면 바꾼다.
 - **compact 드로어의 layer 자리가 사다리에 없다.** 제품의 드로어(1400)와 scrim(1399)은 프로필
   popover(1100)보다 위인데 DS 사다리는 `sticky < popover`다. 드로어는 composition의 일부이며 그때
   판정한다.

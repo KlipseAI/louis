@@ -22,7 +22,7 @@
         "variants": 149
       },
       "icons": 31,
-      "templates": 0
+      "templates": 1
     }
   },
   "collections": {
@@ -3167,10 +3167,16 @@
       "properties": {
         "Title": {
           "type": "TEXT"
+        },
+        "LeadingSlot": {
+          "type": "INSTANCE_SWAP"
+        },
+        "TrailingSlot": {
+          "type": "INSTANCE_SWAP"
         }
       },
       "binding": {
-        "boundFills": 1,
+        "boundFills": 3,
         "rawFills": 0,
         "boundStrokes": 0,
         "rawStrokes": 0,
@@ -3179,8 +3185,22 @@
       },
       "geometry": {
         "topBar": {
-          "slots": {},
-          "parts": {},
+          "slots": {
+            "LeadingSlot": true,
+            "TrailingSlot": true
+          },
+          "parts": {
+            "Leading": {
+              "height": [
+                32
+              ]
+            },
+            "Trailing": {
+              "height": [
+                36
+              ]
+            }
+          },
           "strokeWeight": [],
           "height": [
             40
@@ -7105,7 +7125,40 @@
       ]
     }
   },
-  "templates": {},
+  "templates": {
+    "home": {
+      "sceneWidth": 1440,
+      "sidebarWidth": 280,
+      "sidebarPaddingLeft": 12,
+      "mainCardRadius": 16,
+      "mainCardPaddingInline": 16,
+      "gridColumns": 4,
+      "gridGap": 12,
+      "sectionPaddingTop": 40,
+      "cardWidth": 270,
+      "cardHeight": 270,
+      "cardSquare": true,
+      "cardRadius": 16,
+      "overlayHeightRatio": 0.4,
+      "overlayPadding": 16,
+      "overlayStackGap": 4,
+      "overlayLineHeightPercent": [
+        120
+      ],
+      "requiredParts": [
+        "AppTopBar",
+        "BannerCarousel",
+        "FloatingCreate",
+        "ProjectCard",
+        "ProjectGrid",
+        "SectionHeader",
+        "Sidebar"
+      ],
+      "navLabelsDistinct": 5,
+      "cardTitlesDistinct": 8,
+      "placeholderLabelsAllowed": 0
+    }
+  },
   "iconInstances": {
     "$comment": "파일 안 아이콘 인스턴스의 크기별 실제 획 두께. resize로 놓으면 1.5가 남고 rescale로 놓아야 코드와 같아진다(DS-D-0021).",
     "total": 146,

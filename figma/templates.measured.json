@@ -1,10 +1,10 @@
 {
   "$comment": "재조립 template이 만족해야 하는 **제품 실측값**. 이 파일만 손으로 쓴다 — figma/readback.json과 snapshot.json은 되읽기와 생성으로만 바뀐다. 각 값에는 제품 저장소의 근거 위치를 붙인다. 근거 없는 수치를 넣지 않는다.",
-  "productRepo": "/Users/sejunki/klipse",
-  "productBranch": "louis",
-  "measuredAt": "2026-08-15",
-  "$status": "2026-08-18: 앱 홈 템플릿을 조립했다가 **내렸다.** 사이드바 부품 4종(브랜드 워드마크 · 하단 업그레이드 CTA · 복합 내비 행 · 프로필 사용량 링)과 노드캔버스·비디오에디터·하이라이트 아이콘이 카탈로그에 없고, 배치 규칙인 app-shell 패턴이 not-ready다. 재료와 규칙 없이 만든 화면은 제품처럼 보이지도 않고 다음 사람이 그것을 기준으로 삼게 된다. **계약도 함께 내린다** — 만들 수 없는 것에 초록 계약이 붙어 있으면 그게 거짓말이다. 부품이 서면 이 파일의 templates를 되살린다.",
-  "$suspendedTemplates": {
+  "productRepo": "/Users/sejunki/klipse-web",
+  "productBranch": "origin/main (7e9c3b69)",
+  "measuredAt": "2026-08-19",
+  "$status": "2026-08-19: 앱 홈 템플릿을 **다시 세웠다.** 2026-08-18에 내린 이유였던 부품 넷(브랜드 워드마크 · 하단 CTA · 복합 내비 행 · 사용량 링)이 전부 섰고 아이콘도 카탈로그에 있다. 이번에는 지어낸 부품이 없다 — 사이드바 다섯 행이 배포본의 다섯 행과 같고 라벨·아이콘이 전부 다르다.",
+  "templates": {
     "home": {
       "$screen": "앱 홈, route /archive, scene AppHomeScene",
       "sceneWidth": {
@@ -37,7 +37,7 @@
       },
       "sectionPaddingTop": {
         "value": 40,
-        "evidence": "그리드 섹션 margin-top 40px. DS spacing에 40이 없다 — gap registry 참조"
+        "evidence": "그리드 섹션 margin-top 40px. primitive spacing/40을 직접 문다 — 이 간격을 쓰는 곳이 여기 하나라 semantic을 세우지 않았다."
       },
       "cardSquare": {
         "value": true,
@@ -48,8 +48,9 @@
         "evidence": "appHomeSceneStyles.ts archiveCard [border-radius:16px], archivePreview 동일"
       },
       "overlayHeightRatio": {
-        "value": 0.3,
-        "evidence": "appHomeSceneStyles.ts archivePreviewTitleOverlay [height:30%]"
+        "value": 0.4,
+        "evidence": "**제품은 30%를 고정 높이로 쓰고 DS는 하한으로 쓴다.** 제품 archivePreviewTitleOverlay는 height:30%라 270px 카드에서 81px이 되고 세 줄이 넘친다 — DS가 block-size:fit-content · min-block-size:30%로 고친 그 결함이다(project-card.md). 4열 1440 화면의 카드가 270이므로 세 줄이 하한을 이겨 107.7/269 = 0.4가 된다. 0.3은 카드가 360 이상일 때의 값이며 figma/components.measured.json의 project-card가 그 사실을 적는다.",
+        "$productValue": 0.3
       },
       "overlayPadding": {
         "value": 16,
@@ -76,8 +77,8 @@
         "evidence": "AppHomeScene.tsx 렌더 트리. scene → main → ArchiveRailScrollShell → 배너 section(bannerContent·bannerCta·bannerControls) → archiveSection(archiveSectionHeader + archiveGrid) 그리고 floatingCreateDock. **부품이 빠지면 화면이 아니라 화면 흉내다.**"
       },
       "navLabelsDistinct": {
-        "value": 4,
-        "evidence": "제품 사이드바는 홈·노드 캔버스·비디오 에디터·하이라이트 4행이고 라벨이 전부 다르다. 같은 라벨이 반복되면 템플릿이 아니라 자리표시자다"
+        "value": 5,
+        "evidence": "배포본 Gnb.tsx:2401-2405가 사이드바 경로 다섯을 적는다 — /archive 홈 · 노드 캔버스 · /videoeditor 비디오 에디터 · /highlight 하이라이트 · /analytics/youtube YouTube 분석. 앞선 계약의 4는 YouTube 분석을 세지 않은 것이었다."
       },
       "cardTitlesDistinct": {
         "value": 8,
@@ -86,6 +87,14 @@
       "placeholderLabelsAllowed": {
         "value": 0,
         "evidence": "'배너 제목'·'Label'·'배너 설명 한 줄' 같은 컴포넌트 기본 문자열이 화면 템플릿에 남아 있으면 그것은 조립이 끝나지 않은 것이다"
+      },
+      "cardWidth": {
+        "value": 270,
+        "evidence": "1440 화면에서 본문 폭 1116을 4열 · gap 12로 나눈 값이다. (1116 − 36) / 4 = 270. 카드 폭은 그리드가 정하므로 계약이 아니라 결과다."
+      },
+      "cardHeight": {
+        "value": 270,
+        "evidence": "aspect-ratio 1이라 폭과 같다."
       }
     }
   }

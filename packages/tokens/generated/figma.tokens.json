@@ -1601,6 +1601,203 @@
             }
           }
         },
+        "color-mint-500": {
+          "$type": "color",
+          "fields": [],
+          "figmaName": "color/mint/500",
+          "hiddenFromPublishing": true,
+          "losses": [],
+          "nativeVariableType": "COLOR",
+          "representation": "variable",
+          "scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL",
+            "STROKE_COLOR",
+            "TEXT_FILL"
+          ],
+          "valuesByMode": {
+            "Base": {
+              "$value": {
+                "colorSpace": "srgb",
+                "components": [
+                  0,
+                  0.776471,
+                  0.556863
+                ],
+                "hex": "#00c68e"
+              },
+              "aliasTarget": null,
+              "resolvedValue": {
+                "alpha": 1,
+                "colorSpace": "srgb",
+                "components": [
+                  0,
+                  0.776471,
+                  0.556863
+                ]
+              },
+              "sourcePath": "primitive.color.mint.500"
+            }
+          }
+        },
+        "color-mint-700": {
+          "$type": "color",
+          "fields": [],
+          "figmaName": "color/mint/700",
+          "hiddenFromPublishing": true,
+          "losses": [],
+          "nativeVariableType": "COLOR",
+          "representation": "variable",
+          "scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL",
+            "STROKE_COLOR",
+            "TEXT_FILL"
+          ],
+          "valuesByMode": {
+            "Base": {
+              "$value": {
+                "colorSpace": "srgb",
+                "components": [
+                  0,
+                  0.560784,
+                  0.403922
+                ],
+                "hex": "#008f67"
+              },
+              "aliasTarget": null,
+              "resolvedValue": {
+                "alpha": 1,
+                "colorSpace": "srgb",
+                "components": [
+                  0,
+                  0.560784,
+                  0.403922
+                ]
+              },
+              "sourcePath": "primitive.color.mint.700"
+            }
+          }
+        },
+        "color-mint-800": {
+          "$type": "color",
+          "fields": [],
+          "figmaName": "color/mint/800",
+          "hiddenFromPublishing": true,
+          "losses": [],
+          "nativeVariableType": "COLOR",
+          "representation": "variable",
+          "scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL",
+            "STROKE_COLOR",
+            "TEXT_FILL"
+          ],
+          "valuesByMode": {
+            "Base": {
+              "$value": {
+                "colorSpace": "srgb",
+                "components": [
+                  0,
+                  0.431373,
+                  0.317647
+                ],
+                "hex": "#006e51"
+              },
+              "aliasTarget": null,
+              "resolvedValue": {
+                "alpha": 1,
+                "colorSpace": "srgb",
+                "components": [
+                  0,
+                  0.431373,
+                  0.317647
+                ]
+              },
+              "sourcePath": "primitive.color.mint.800"
+            }
+          }
+        },
+        "color-mint-alpha-16": {
+          "$type": "color",
+          "fields": [],
+          "figmaName": "color/mint-alpha/16",
+          "hiddenFromPublishing": true,
+          "losses": [],
+          "nativeVariableType": "COLOR",
+          "representation": "variable",
+          "scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL",
+            "STROKE_COLOR",
+            "TEXT_FILL"
+          ],
+          "valuesByMode": {
+            "Base": {
+              "$value": {
+                "alpha": 0.16,
+                "colorSpace": "srgb",
+                "components": [
+                  0,
+                  0.776471,
+                  0.556863
+                ],
+                "hex": "#00c68e"
+              },
+              "aliasTarget": null,
+              "resolvedValue": {
+                "alpha": 0.16,
+                "colorSpace": "srgb",
+                "components": [
+                  0,
+                  0.776471,
+                  0.556863
+                ]
+              },
+              "sourcePath": "primitive.color.mint-alpha.16"
+            }
+          }
+        },
+        "color-mint-alpha-24": {
+          "$type": "color",
+          "fields": [],
+          "figmaName": "color/mint-alpha/24",
+          "hiddenFromPublishing": true,
+          "losses": [],
+          "nativeVariableType": "COLOR",
+          "representation": "variable",
+          "scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL",
+            "STROKE_COLOR",
+            "TEXT_FILL"
+          ],
+          "valuesByMode": {
+            "Base": {
+              "$value": {
+                "alpha": 0.24,
+                "colorSpace": "srgb",
+                "components": [
+                  0,
+                  0.776471,
+                  0.556863
+                ],
+                "hex": "#00c68e"
+              },
+              "aliasTarget": null,
+              "resolvedValue": {
+                "alpha": 0.24,
+                "colorSpace": "srgb",
+                "components": [
+                  0,
+                  0.776471,
+                  0.556863
+                ]
+              },
+              "sourcePath": "primitive.color.mint-alpha.24"
+            }
+          }
+        },
         "color-neutral-0": {
           "$type": "color",
           "fields": [],
@@ -11676,6 +11873,104 @@
             }
           }
         },
+        "color-background-upgrade": {
+          "$type": "color",
+          "fields": [],
+          "figmaName": "color/background-upgrade",
+          "hiddenFromPublishing": false,
+          "losses": [],
+          "nativeVariableType": "COLOR",
+          "representation": "variable",
+          "scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL"
+          ],
+          "valuesByMode": {
+            "Dark": {
+              "$value": "{primitive.color.mint-alpha.16}",
+              "aliasTarget": {
+                "id": "color-mint-alpha-16",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 0.16,
+                "colorSpace": "srgb",
+                "components": [
+                  0,
+                  0.776471,
+                  0.556863
+                ]
+              },
+              "sourcePath": "semantic.dark.color.background-upgrade"
+            },
+            "Light": {
+              "$value": "{primitive.color.mint-alpha.16}",
+              "aliasTarget": {
+                "id": "color-mint-alpha-16",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 0.16,
+                "colorSpace": "srgb",
+                "components": [
+                  0,
+                  0.776471,
+                  0.556863
+                ]
+              },
+              "sourcePath": "semantic.light.color.background-upgrade"
+            }
+          }
+        },
+        "color-background-upgrade-hover": {
+          "$type": "color",
+          "fields": [],
+          "figmaName": "color/background-upgrade-hover",
+          "hiddenFromPublishing": false,
+          "losses": [],
+          "nativeVariableType": "COLOR",
+          "representation": "variable",
+          "scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL"
+          ],
+          "valuesByMode": {
+            "Dark": {
+              "$value": "{primitive.color.mint-alpha.24}",
+              "aliasTarget": {
+                "id": "color-mint-alpha-24",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 0.24,
+                "colorSpace": "srgb",
+                "components": [
+                  0,
+                  0.776471,
+                  0.556863
+                ]
+              },
+              "sourcePath": "semantic.dark.color.background-upgrade-hover"
+            },
+            "Light": {
+              "$value": "{primitive.color.mint-alpha.24}",
+              "aliasTarget": {
+                "id": "color-mint-alpha-24",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 0.24,
+                "colorSpace": "srgb",
+                "components": [
+                  0,
+                  0.776471,
+                  0.556863
+                ]
+              },
+              "sourcePath": "semantic.light.color.background-upgrade-hover"
+            }
+          }
+        },
         "color-background-warning": {
           "$type": "color",
           "fields": [],
@@ -12586,6 +12881,102 @@
                 ]
               },
               "sourcePath": "semantic.light.color.foreground-tertiary"
+            }
+          }
+        },
+        "color-foreground-upgrade": {
+          "$type": "color",
+          "fields": [],
+          "figmaName": "color/foreground-upgrade",
+          "hiddenFromPublishing": false,
+          "losses": [],
+          "nativeVariableType": "COLOR",
+          "representation": "variable",
+          "scopes": [
+            "TEXT_FILL"
+          ],
+          "valuesByMode": {
+            "Dark": {
+              "$value": "{primitive.color.mint.700}",
+              "aliasTarget": {
+                "id": "color-mint-700",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 1,
+                "colorSpace": "srgb",
+                "components": [
+                  0,
+                  0.560784,
+                  0.403922
+                ]
+              },
+              "sourcePath": "semantic.dark.color.foreground-upgrade"
+            },
+            "Light": {
+              "$value": "{primitive.color.mint.700}",
+              "aliasTarget": {
+                "id": "color-mint-700",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 1,
+                "colorSpace": "srgb",
+                "components": [
+                  0,
+                  0.560784,
+                  0.403922
+                ]
+              },
+              "sourcePath": "semantic.light.color.foreground-upgrade"
+            }
+          }
+        },
+        "color-foreground-upgrade-hover": {
+          "$type": "color",
+          "fields": [],
+          "figmaName": "color/foreground-upgrade-hover",
+          "hiddenFromPublishing": false,
+          "losses": [],
+          "nativeVariableType": "COLOR",
+          "representation": "variable",
+          "scopes": [
+            "TEXT_FILL"
+          ],
+          "valuesByMode": {
+            "Dark": {
+              "$value": "{primitive.color.mint.800}",
+              "aliasTarget": {
+                "id": "color-mint-800",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 1,
+                "colorSpace": "srgb",
+                "components": [
+                  0,
+                  0.431373,
+                  0.317647
+                ]
+              },
+              "sourcePath": "semantic.dark.color.foreground-upgrade-hover"
+            },
+            "Light": {
+              "$value": "{primitive.color.mint.800}",
+              "aliasTarget": {
+                "id": "color-mint-800",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 1,
+                "colorSpace": "srgb",
+                "components": [
+                  0,
+                  0.431373,
+                  0.317647
+                ]
+              },
+              "sourcePath": "semantic.light.color.foreground-upgrade-hover"
             }
           }
         },

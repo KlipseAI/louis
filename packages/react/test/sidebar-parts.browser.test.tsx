@@ -38,6 +38,44 @@ test("펼치면 워드마크가 보인다", async () => {
   expect(px(getComputedStyle(wordmark).maxInlineSize)).toBeGreaterThan(0);
 });
 
+test("CTA에 아이콘 슬롯이 없다 — 제품은 라벨 하나뿐이다", async () => {
+  await render(
+    <div data-kds-fixture style={{ inlineSize: "280px" }}>
+      <SidebarCta label="업그레이드" />
+    </div>,
+  );
+  const button = scope().querySelector<HTMLElement>(".kds-sidebar-cta__button")!;
+  // 처음에 plus 글리프를 넣었는데 제품에는 없었다. 슬롯 자체를 두지 않는다.
+  expect(button.querySelector(".kds-sidebar-cta__icon")).toBeNull();
+  expect(button.children).toHaveLength(1);
+});
+
+test("CTA 색이 mint다 — 브랜드 파랑이 아니다", async () => {
+  await render(
+    <div data-kds-fixture style={{ inlineSize: "280px" }}>
+      <SidebarCta label="업그레이드" />
+    </div>,
+  );
+  const button = scope().querySelector<HTMLElement>(".kds-sidebar-cta__button")!;
+  const style = getComputedStyle(button);
+  // 제품 실측: 배경 mint-500 16%, 글자 mint-700. 테마를 따라 뒤집히지 않는다.
+  expect(style.backgroundColor).toBe("color(srgb 0 0.776471 0.556863 / 0.16)");
+  expect(style.color).toBe("color(srgb 0 0.560784 0.403922)");
+});
+
+test("접히면 높이와 여백이 함께 줄어든다 — 제품 실측 40→32, 14→10", async () => {
+  await render(
+    <div data-kds-fixture style={{ inlineSize: "72px" }}>
+      <SidebarCta label="업그레이드" collapsed />
+    </div>,
+  );
+  const button = scope().querySelector<HTMLElement>(".kds-sidebar-cta__button")!;
+  const style = getComputedStyle(button);
+  expect(px(style.minBlockSize)).toBe(32);
+  expect(px(style.paddingInlineStart)).toBe(10);
+  expect(px(style.paddingBlockStart)).toBe(0);
+});
+
 test("CTA가 바닥에 붙는다 — 내비 항목이 몇 개든", async () => {
   await render(
     <div

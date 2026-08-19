@@ -36,6 +36,8 @@
   --color-background-raised: var(--kds-color-background-raised);
   --color-background-success: var(--kds-color-background-success);
   --color-background-surface: var(--kds-color-background-surface);
+  --color-background-upgrade: var(--kds-color-background-upgrade);
+  --color-background-upgrade-hover: var(--kds-color-background-upgrade-hover);
   --color-background-warning: var(--kds-color-background-warning);
   --color-border-control: var(--kds-color-border-control);
   --color-border-danger: var(--kds-color-border-danger);
@@ -55,6 +57,8 @@
   --color-foreground-secondary: var(--kds-color-foreground-secondary);
   --color-foreground-success: var(--kds-color-foreground-success);
   --color-foreground-tertiary: var(--kds-color-foreground-tertiary);
+  --color-foreground-upgrade: var(--kds-color-foreground-upgrade);
+  --color-foreground-upgrade-hover: var(--kds-color-foreground-upgrade-hover);
   --color-foreground-warning: var(--kds-color-foreground-warning);
   --color-media-control-foreground: var(--kds-color-media-control-foreground);
   --color-media-control-hover: var(--kds-color-media-control-hover);

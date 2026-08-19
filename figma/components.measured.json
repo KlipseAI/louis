@@ -1066,18 +1066,24 @@
     "sidebar-cta": {
       "$doc": "design/components/app-shell-parts.md",
       "$source": "packages/react/src/app-shell/app-shell-parts.tsx, packages/css/src/component/app-shell.css",
-      "$note": "배포본 sidebarUpgradeButton·sidebarUpgradeLabel 실측. margin-block-start: auto로 바닥에 붙는다.",
+      "$note": "배포본 Gnb.tsx sidebarUpgradeButton 실측. **아이콘이 없다** — 처음에 plus를 넣은 것은 제품을 읽지 않고 지어낸 것이었다. 색도 브랜드 파랑이 아니라 mint다.",
       "sizes": {
         "false": {
           "width": 256,
           "height": 40,
           "radius": 12,
+          "paddingInline": 14,
+          "paddingBlock": 10,
+          "gap": 8,
           "labelWidth": 60
         },
         "true": {
-          "width": 48,
-          "height": 40,
-          "radius": 12
+          "width": 44,
+          "height": 32,
+          "radius": 12,
+          "paddingInline": 10,
+          "paddingBlock": 0,
+          "gap": 0
         }
       }
     }

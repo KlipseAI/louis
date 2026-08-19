@@ -733,7 +733,13 @@ const COMPONENT_CONTRACTS = [
     effects: {},
     geometry: {
       measuredId: "sidebar-cta",
-      fields: { width: "width", height: "height", cornerRadius: "radius", layoutMode: { literal: "HORIZONTAL" } },
+      fields: {
+        width: "width", height: "height", cornerRadius: "radius",
+        paddingInline: "paddingInline", paddingInlineEnd: "paddingInline",
+        paddingBlock: "paddingBlock", paddingBlockEnd: "paddingBlock",
+        itemSpacing: "gap",
+        layoutMode: { literal: "HORIZONTAL" },
+      },
       slots: {},
       extraStrokeWeights: [],
       parts: { Label: { fields: { width: "labelWidth" }, optional: true } },

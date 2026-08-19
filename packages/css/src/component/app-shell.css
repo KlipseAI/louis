@@ -205,18 +205,30 @@
   padding-block-end: env(safe-area-inset-bottom, 0);
 }
 
+/* 값은 전부 배포본 `Gnb.tsx`의 `sidebarUpgradeButton` 실측이다.
+ *
+ * **아이콘이 없다.** 처음에 plus 글리프를 넣었는데 제품에는 라벨 하나뿐이었다 — 제품을 읽지 않고
+ * "업그레이드 CTA면 이렇겠지"로 만든 것이었다(2026-08-18 정정).
+ *
+ * 색이 브랜드 파랑이 아니라 **mint**인 것도 같은 이유로 틀렸었다. mint는 테마를 따라 뒤집히지
+ * 않는다 — 제품이 raw 팔레트를 직접 쓴다.
+ */
 .kds-sidebar-cta__button {
+  position: relative;
+  box-sizing: border-box;
   inline-size: 100%;
   min-block-size: var(--kds-layout-control-height-md);
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: var(--kds-space-control-sm);
-  padding-inline: var(--kds-space-control-md);
+  padding-block: 10px;
+  padding-inline: 14px;
   border: 0;
   border-radius: var(--kds-radius-control);
-  background-color: var(--kds-color-action-primary);
-  color: var(--kds-color-foreground-inverse);
+  background-color: var(--kds-color-background-upgrade);
+  color: var(--kds-color-foreground-upgrade);
+  text-align: center;
   cursor: pointer;
   font-family: var(--kds-typography-body-sm-medium-font-family);
   font-size: var(--kds-typography-body-sm-medium-font-size);
@@ -224,18 +236,23 @@
   letter-spacing: var(--kds-typography-body-sm-medium-letter-spacing);
   line-height: var(--kds-typography-body-sm-medium-line-height);
   transition:
+    min-block-size var(--kds-motion-shell-collapse-duration)
+      var(--kds-motion-shell-collapse-timing-function),
+    padding var(--kds-motion-shell-collapse-duration)
+      var(--kds-motion-shell-collapse-timing-function),
+    gap var(--kds-motion-shell-collapse-duration)
+      var(--kds-motion-shell-collapse-timing-function),
     background-color var(--kds-motion-control-hover-duration)
+      var(--kds-motion-control-hover-timing-function),
+    color var(--kds-motion-control-hover-duration)
       var(--kds-motion-control-hover-timing-function);
 }
 
 @media (hover: hover) {
   .kds-sidebar-cta__button:hover {
-    background-color: var(--kds-color-action-primary-hover);
+    background-color: var(--kds-color-background-upgrade-hover);
+    color: var(--kds-color-foreground-upgrade-hover);
   }
-}
-
-.kds-sidebar-cta__button:active {
-  background-color: var(--kds-color-action-primary-active);
 }
 
 .kds-sidebar-cta__button:focus-visible {
@@ -243,7 +260,14 @@
   outline-offset: 2px;
 }
 
-/* 접히면 라벨이 사라지고 버튼이 정사각에 가까워진다. 폭이 상태다(DS-D-0019). */
+/* 접히면 높이와 여백이 함께 줄어든다. 제품 실측 32 · `0 10`. */
+.kds-sidebar-cta[data-collapsed="true"] .kds-sidebar-cta__button {
+  min-block-size: var(--kds-layout-control-height-sm);
+  padding-block: 0;
+  padding-inline: 10px;
+  gap: 0;
+}
+
 .kds-sidebar-cta__label {
   min-inline-size: 0;
   overflow: hidden;

@@ -103,7 +103,16 @@ CTA**를 갖는다. 그 둘이 없어서 한 번 조립한 홈 템플릿을 내�
 | 부품 | 계약 |
 | --- | --- |
 | `SidebarBrand` | `gap` `space-control-sm` · 로고 레일 최소 높이 `icon-size-lg`(24) · 워드마크 최대 폭 240 |
-| `SidebarCta` | `margin-block-start: auto`로 바닥에 붙는다 · 버튼 최소 높이 `layout-control-height-md` |
+| `SidebarCta` | `margin-block-start: auto`로 바닥에 붙는다 · 버튼 최소 높이 `layout-control-height-md` · **아이콘 슬롯이 없다** |
+
+**CTA에는 아이콘이 없고 색은 mint다.** 처음 만들 때 앞에 plus 글리프를 넣고 브랜드 파랑을 썼는데
+배포본에는 둘 다 없다. 마크업은 라벨 `<span>` 하나뿐이고, 면은 mint 500의 16%, 글자는 mint 700이다.
+`background-upgrade` / `foreground-upgrade`가 그 값을 소유하며 **라이트와 다크가 같다** — 업그레이드
+면은 테마 표면이 아니라 제품이 하나로 정한 강조색이기 때문이다. 제품을 읽지 않고 지어낸 부분이었고,
+같은 실수를 막기 위해 `figma/components.measured.json`의 `sidebar-cta`가 실측값을 고정한다.
+
+**접히면 높이와 여백이 함께 줄어든다.** 40 → 32, 좌우 14 → 10, 상하 10 → 0, 간격 8 → 0. 폭만 줄이면
+접힌 레일에서 버튼이 혼자 커 보인다.
 
 **접힘은 폭이다.** 워드마크와 라벨의 `max-inline-size`가 0으로 줄어들며 잘린다 — 폭이 상태이므로
 `layout-change` lifecycle이고([DS-D-0019](../governance/decisions/DS-D-0019-layout-change-motion.md))
@@ -135,6 +144,10 @@ CTA**를 갖는다. 그 둘이 없어서 한 번 조립한 홈 템플릿을 내�
 | 아이콘 | 20px | `icon-size-md` |
 | 상단 바 높이 | 40px | `layout-app-shell-top-bar-height` |
 | 상단 바 좌우 여백 | 16px | `layout-app-shell-content-inset` |
+| CTA 버튼 높이 | 40px → 접힘 32px | `layout-control-height-md` → `-sm` |
+| CTA 좌우 여백 | 14px → 접힘 10px | 제품 실측 |
+| CTA 반경 | 12px | `radius-control` |
+| CTA 면 · 글자 | mint 500 16% · mint 700 | `background-upgrade` · `foreground-upgrade` |
 
 **상단 바 높이가 40px인 근거.** 제품에는 세 값이 있고 서로 맞지 않는다 — portal 변종 52px,
 fixed 변종 36px, 사이드바 헤더 행 `min-height: 40px`. `globals.css`의 주석이 정렬을 40px 전제로

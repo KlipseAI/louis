@@ -178,7 +178,10 @@ export function SidebarBrand({
  */
 export interface SidebarCtaProps extends HTMLAttributes<HTMLDivElement> {
   readonly label: ReactNode;
-  readonly icon?: ReactNode;
+  /**
+   * **아이콘 슬롯을 두지 않는다.** 제품의 업그레이드 버튼은 라벨 하나뿐이고, 처음에 plus를 넣은
+   * 것은 제품을 읽지 않고 지어낸 것이었다(2026-08-18 정정).
+   */
   readonly collapsed?: boolean;
   readonly onActivate?: () => void;
   readonly ref?: Ref<HTMLDivElement>;
@@ -186,7 +189,6 @@ export interface SidebarCtaProps extends HTMLAttributes<HTMLDivElement> {
 
 export function SidebarCta({
   label,
-  icon,
   collapsed = false,
   onActivate,
   className,
@@ -201,11 +203,6 @@ export function SidebarCta({
       data-collapsed={collapsed ? "true" : "false"}
     >
       <button type="button" className="kds-sidebar-cta__button" onClick={onActivate}>
-        {icon === undefined ? null : (
-          <span className="kds-sidebar-cta__icon" aria-hidden="true">
-            {icon}
-          </span>
-        )}
         {/* 접히면 라벨이 시각적으로 사라진다. **DOM에서는 지우지 않는다** — 지우면
             버튼의 접근 가능한 이름이 사라져 스크린 리더가 "버튼"만 읽는다. */}
         <span className="kds-sidebar-cta__label">{label}</span>

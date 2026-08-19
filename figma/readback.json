@@ -549,6 +549,91 @@
           ]
         ],
         [
+          "color/mint-alpha/16",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
+          [
+            [
+              "Base",
+              null,
+              [
+                0,
+                0.776471,
+                0.556863,
+                0.16
+              ]
+            ]
+          ]
+        ],
+        [
+          "color/mint-alpha/24",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
+          [
+            [
+              "Base",
+              null,
+              [
+                0,
+                0.776471,
+                0.556863,
+                0.24
+              ]
+            ]
+          ]
+        ],
+        [
+          "color/mint/500",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
+          [
+            [
+              "Base",
+              null,
+              [
+                0,
+                0.776471,
+                0.556863,
+                1
+              ]
+            ]
+          ]
+        ],
+        [
+          "color/mint/700",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
+          [
+            [
+              "Base",
+              null,
+              [
+                0,
+                0.560784,
+                0.403922,
+                1
+              ]
+            ]
+          ]
+        ],
+        [
+          "color/mint/800",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
+          [
+            [
+              "Base",
+              null,
+              [
+                0,
+                0.431373,
+                0.317647,
+                1
+              ]
+            ]
+          ]
+        ],
+        [
           "color/neutral/0",
           "COLOR",
           "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
@@ -2882,6 +2967,40 @@
           ]
         ],
         [
+          "color/background-upgrade",
+          "COLOR",
+          "STROKE_COLOR",
+          [
+            [
+              "Light",
+              "Klipse Primitive::color/mint-alpha/16",
+              null
+            ],
+            [
+              "Dark",
+              "Klipse Primitive::color/mint-alpha/16",
+              null
+            ]
+          ]
+        ],
+        [
+          "color/background-upgrade-hover",
+          "COLOR",
+          "STROKE_COLOR",
+          [
+            [
+              "Light",
+              "Klipse Primitive::color/mint-alpha/24",
+              null
+            ],
+            [
+              "Dark",
+              "Klipse Primitive::color/mint-alpha/24",
+              null
+            ]
+          ]
+        ],
+        [
           "color/background-warning",
           "COLOR",
           "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
@@ -3200,6 +3319,40 @@
             [
               "Dark",
               "Klipse Primitive::color/neutral/400",
+              null
+            ]
+          ]
+        ],
+        [
+          "color/foreground-upgrade",
+          "COLOR",
+          "STROKE_COLOR",
+          [
+            [
+              "Light",
+              "Klipse Primitive::color/mint/700",
+              null
+            ],
+            [
+              "Dark",
+              "Klipse Primitive::color/mint/700",
+              null
+            ]
+          ]
+        ],
+        [
+          "color/foreground-upgrade-hover",
+          "COLOR",
+          "STROKE_COLOR",
+          [
+            [
+              "Light",
+              "Klipse Primitive::color/mint/800",
+              null
+            ],
+            [
+              "Dark",
+              "Klipse Primitive::color/mint/800",
               null
             ]
           ]
@@ -5583,18 +5736,33 @@
           "layoutMode": [
             "HORIZONTAL"
           ],
+          "paddingInline": [
+            14
+          ],
+          "paddingBlock": [
+            10
+          ],
+          "itemSpacing": [
+            8
+          ],
           "overflowingParts": [],
-          "offCenterMarks": []
+          "offCenterMarks": [],
+          "paddingInlineEnd": [
+            14
+          ],
+          "paddingBlockEnd": [
+            10
+          ]
         },
         "true": {
           "slots": {},
           "parts": {},
           "strokeWeight": [],
           "width": [
-            48
+            44
           ],
           "height": [
-            40
+            32
           ],
           "cornerRadius": [
             12
@@ -5602,8 +5770,23 @@
           "layoutMode": [
             "HORIZONTAL"
           ],
+          "paddingInline": [
+            10
+          ],
+          "paddingBlock": [
+            0
+          ],
+          "itemSpacing": [
+            0
+          ],
           "overflowingParts": [],
-          "offCenterMarks": []
+          "offCenterMarks": [],
+          "paddingInlineEnd": [
+            10
+          ],
+          "paddingBlockEnd": [
+            0
+          ]
         }
       },
       "strokes": {},

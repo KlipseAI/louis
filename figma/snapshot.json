@@ -6,12 +6,12 @@
     "capturedAt": "2026-08-18",
     "capturedBy": "figma-mcp-plugin-api",
     "published": false,
-    "tokenSourceSha256": "0d7af3075dceabd451b824ae307b7dc5b1dd27e8e86d2108ee8609d10fc11317",
-    "proposalSha256": "575a81f456cacdbab71df27502745254c5a8a1098c4eff5b2e9e2da41f9bbfbb",
+    "tokenSourceSha256": "2b9f9125b82945e0f9c037c637a2c82ae1acd83913104277fe8403ae8762f7ba",
+    "proposalSha256": "b4fa04e8e422b73d05b31d5a215a46b05945e83fc3b7f46ea6f446b109a4f0ce",
     "readback": {
-      "tokens": 235,
-      "canonicalLength": 20158,
-      "fnv1a32": "4e6246c1",
+      "tokens": 244,
+      "canonicalLength": 21087,
+      "fnv1a32": "ad16c5a1",
       "note": "변수는 readback.json의 되읽기 행을 tokenId 공간으로 옮긴 것이고, style과 component는 같은 되읽기의 style/component 절이다. canonical 해시는 컬렉션·이름·타입·mode 값을 정렬해 이은 문자열의 FNV-1a다.",
       "styles": {
         "text": 15,
@@ -31,7 +31,7 @@
         "Base"
       ],
       "defaultMode": "Base",
-      "variableCount": 116
+      "variableCount": 121
     },
     "Klipse Semantic": {
       "modes": [
@@ -46,7 +46,7 @@
         "Dark"
       ],
       "defaultMode": "Light",
-      "variableCount": 50
+      "variableCount": 54
     }
   },
   "variables": {
@@ -415,6 +415,30 @@
         },
         "Dark": {
           "alias": "color-neutral-800"
+        }
+      }
+    },
+    "color-background-upgrade": {
+      "figmaName": "color/background-upgrade",
+      "resolvedType": "COLOR",
+      "valuesByMode": {
+        "Light": {
+          "alias": "color-mint-alpha-16"
+        },
+        "Dark": {
+          "alias": "color-mint-alpha-16"
+        }
+      }
+    },
+    "color-background-upgrade-hover": {
+      "figmaName": "color/background-upgrade-hover",
+      "resolvedType": "COLOR",
+      "valuesByMode": {
+        "Light": {
+          "alias": "color-mint-alpha-24"
+        },
+        "Dark": {
+          "alias": "color-mint-alpha-24"
         }
       }
     },
@@ -828,6 +852,30 @@
         }
       }
     },
+    "color-foreground-upgrade": {
+      "figmaName": "color/foreground-upgrade",
+      "resolvedType": "COLOR",
+      "valuesByMode": {
+        "Light": {
+          "alias": "color-mint-700"
+        },
+        "Dark": {
+          "alias": "color-mint-700"
+        }
+      }
+    },
+    "color-foreground-upgrade-hover": {
+      "figmaName": "color/foreground-upgrade-hover",
+      "resolvedType": "COLOR",
+      "valuesByMode": {
+        "Light": {
+          "alias": "color-mint-800"
+        },
+        "Dark": {
+          "alias": "color-mint-800"
+        }
+      }
+    },
     "color-foreground-warning": {
       "figmaName": "color/foreground-warning",
       "resolvedType": "COLOR",
@@ -1099,6 +1147,76 @@
         },
         "Dark": {
           "alias": "color-neutral-1000"
+        }
+      }
+    },
+    "color-mint-500": {
+      "figmaName": "color/mint/500",
+      "resolvedType": "COLOR",
+      "valuesByMode": {
+        "Base": {
+          "value": [
+            0,
+            0.776471,
+            0.556863,
+            1
+          ]
+        }
+      }
+    },
+    "color-mint-700": {
+      "figmaName": "color/mint/700",
+      "resolvedType": "COLOR",
+      "valuesByMode": {
+        "Base": {
+          "value": [
+            0,
+            0.560784,
+            0.403922,
+            1
+          ]
+        }
+      }
+    },
+    "color-mint-800": {
+      "figmaName": "color/mint/800",
+      "resolvedType": "COLOR",
+      "valuesByMode": {
+        "Base": {
+          "value": [
+            0,
+            0.431373,
+            0.317647,
+            1
+          ]
+        }
+      }
+    },
+    "color-mint-alpha-16": {
+      "figmaName": "color/mint-alpha/16",
+      "resolvedType": "COLOR",
+      "valuesByMode": {
+        "Base": {
+          "value": [
+            0,
+            0.776471,
+            0.556863,
+            0.16
+          ]
+        }
+      }
+    },
+    "color-mint-alpha-24": {
+      "figmaName": "color/mint-alpha/24",
+      "resolvedType": "COLOR",
+      "valuesByMode": {
+        "Base": {
+          "value": [
+            0,
+            0.776471,
+            0.556863,
+            0.24
+          ]
         }
       }
     },
@@ -4844,18 +4962,33 @@
           "layoutMode": [
             "HORIZONTAL"
           ],
+          "paddingInline": [
+            14
+          ],
+          "paddingBlock": [
+            10
+          ],
+          "itemSpacing": [
+            8
+          ],
           "overflowingParts": [],
-          "offCenterMarks": []
+          "offCenterMarks": [],
+          "paddingInlineEnd": [
+            14
+          ],
+          "paddingBlockEnd": [
+            10
+          ]
         },
         "true": {
           "slots": {},
           "parts": {},
           "strokeWeight": [],
           "width": [
-            48
+            44
           ],
           "height": [
-            40
+            32
           ],
           "cornerRadius": [
             12
@@ -4863,8 +4996,23 @@
           "layoutMode": [
             "HORIZONTAL"
           ],
+          "paddingInline": [
+            10
+          ],
+          "paddingBlock": [
+            0
+          ],
+          "itemSpacing": [
+            0
+          ],
           "overflowingParts": [],
-          "offCenterMarks": []
+          "offCenterMarks": [],
+          "paddingInlineEnd": [
+            10
+          ],
+          "paddingBlockEnd": [
+            0
+          ]
         }
       },
       "strokes": {},

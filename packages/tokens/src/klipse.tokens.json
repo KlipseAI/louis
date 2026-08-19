@@ -1375,6 +1375,99 @@
             }
           }
         }
+      },
+      "mint": {
+        "$type": "color",
+        "500": {
+          "$value": {
+            "colorSpace": "srgb",
+            "components": [
+              0.0,
+              0.776471,
+              0.556863
+            ],
+            "hex": "#00c68e"
+          },
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-mint-500",
+              "tier": "primitive"
+            }
+          }
+        },
+        "700": {
+          "$value": {
+            "colorSpace": "srgb",
+            "components": [
+              0.0,
+              0.560784,
+              0.403922
+            ],
+            "hex": "#008f67"
+          },
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-mint-700",
+              "tier": "primitive"
+            }
+          }
+        },
+        "800": {
+          "$value": {
+            "colorSpace": "srgb",
+            "components": [
+              0.0,
+              0.431373,
+              0.317647
+            ],
+            "hex": "#006e51"
+          },
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-mint-800",
+              "tier": "primitive"
+            }
+          }
+        }
+      },
+      "mint-alpha": {
+        "$type": "color",
+        "16": {
+          "$value": {
+            "colorSpace": "srgb",
+            "components": [
+              0.0,
+              0.776471,
+              0.556863
+            ],
+            "alpha": 0.16,
+            "hex": "#00c68e"
+          },
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-mint-alpha-16",
+              "tier": "primitive"
+            }
+          }
+        },
+        "24": {
+          "$value": {
+            "colorSpace": "srgb",
+            "components": [
+              0.0,
+              0.776471,
+              0.556863
+            ],
+            "alpha": 0.24,
+            "hex": "#00c68e"
+          },
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-mint-alpha-24",
+              "tier": "primitive"
+            }
+          }
+        }
       }
     },
     "spacing": {
@@ -4968,6 +5061,46 @@
               "mode": "light"
             }
           }
+        },
+        "background-upgrade": {
+          "$value": "{primitive.color.mint-alpha.16}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-background-upgrade",
+              "tier": "semantic",
+              "mode": "light"
+            }
+          }
+        },
+        "background-upgrade-hover": {
+          "$value": "{primitive.color.mint-alpha.24}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-background-upgrade-hover",
+              "tier": "semantic",
+              "mode": "light"
+            }
+          }
+        },
+        "foreground-upgrade": {
+          "$value": "{primitive.color.mint.700}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-foreground-upgrade",
+              "tier": "semantic",
+              "mode": "light"
+            }
+          }
+        },
+        "foreground-upgrade-hover": {
+          "$value": "{primitive.color.mint.800}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-foreground-upgrade-hover",
+              "tier": "semantic",
+              "mode": "light"
+            }
+          }
         }
       },
       "elevation": {
@@ -5492,6 +5625,46 @@
           "$extensions": {
             "com.klipse-design": {
               "id": "color-media-indicator-active",
+              "tier": "semantic",
+              "mode": "dark"
+            }
+          }
+        },
+        "background-upgrade": {
+          "$value": "{primitive.color.mint-alpha.16}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-background-upgrade",
+              "tier": "semantic",
+              "mode": "dark"
+            }
+          }
+        },
+        "background-upgrade-hover": {
+          "$value": "{primitive.color.mint-alpha.24}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-background-upgrade-hover",
+              "tier": "semantic",
+              "mode": "dark"
+            }
+          }
+        },
+        "foreground-upgrade": {
+          "$value": "{primitive.color.mint.700}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-foreground-upgrade",
+              "tier": "semantic",
+              "mode": "dark"
+            }
+          }
+        },
+        "foreground-upgrade-hover": {
+          "$value": "{primitive.color.mint.800}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-foreground-upgrade-hover",
               "tier": "semantic",
               "mode": "dark"
             }

@@ -6148,6 +6148,21 @@
     }
   },
   "templates": {},
+  "iconInstances": {
+    "$comment": "파일 안 아이콘 인스턴스의 크기별 실제 획 두께. resize로 놓으면 1.5가 남고 rescale로 놓아야 코드와 같아진다(DS-D-0021).",
+    "total": 146,
+    "strokeBySize": {
+      "16": [
+        1
+      ],
+      "20": [
+        1.25
+      ],
+      "64": [
+        4
+      ]
+    }
+  },
   "foundations": {
     "sections": [
       "Color",

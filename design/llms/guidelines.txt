@@ -4,7 +4,7 @@
 
 - System maturity: experimental
 - Coverage: exhaustive
-- Documents: 34
+- Documents: 35
 - Purpose: 개발, 콘텐츠, 거버넌스와 adoption 계약
 
 ## Sources
@@ -43,6 +43,7 @@
 - design/governance/decisions/DS-D-0018-app-shell-geometry.md
 - design/governance/decisions/DS-D-0019-layout-change-motion.md
 - design/governance/decisions/DS-D-0020-tailwind-load-order.md
+- design/governance/decisions/DS-D-0021-icon-size-axis.md
 - design/updates/README.md
 
 ---
@@ -108,7 +109,7 @@ Figma library는 아직 `not-ready`다. 시스템 전체 maturity도 `experiment
 | 항목 | 현재 값 |
 | --- | --- |
 | System maturity | `experimental` |
-| Normative documents | 72 |
+| Normative documents | 73 |
 | Generated documents | 5 |
 | Components | 20 |
 | Patterns | 4 |
@@ -5337,6 +5338,63 @@ popover에 가린다. **이 결정은 드로어를 다루지 않는다** — 드
 게이트를 `pnpm verify`에서 빼고 이 문서를 폐기한다. 되돌리면 순서를 지키는지 아무도 검사하지
 않으며, 잘못된 순서는 **빌드 오류 없이** 색과 반경이 사라지는 형태로만 드러난다.
 
+## DS-D-0021 아이콘 크기 축을 Figma에 만들지 않고, 두는 자리를 24로 고정한다
+
+- Source: design/governance/decisions/DS-D-0021-icon-size-axis.md
+- Maturity: experimental
+
+### DS-D-0021 아이콘은 크기 variant 없이 rescale로 놓는다
+
+- Status: proposed
+- Date: 2026-08-18
+- Owners: repository owner, design system maintainer
+- Affects: Figma 아이콘 31개와 인스턴스 146개, `icon-size-*` 토큰 4종, iconography.md
+
+#### Context
+
+코드의 아이콘은 `viewBox="0 0 24 24"`에 `stroke-width="1.5"`를 담은 SVG다. 크기는 CSS가 정하므로
+**획이 크기를 따라 함께 줄어든다** — 20px에서 `1.5 × 20/24 = 1.25`, 16px에서 `1.0`, 64px에서 `4`다.
+Phosphor와 Lucide를 비롯한 표준 세트가 같게 동작한다.
+
+Figma에서는 인스턴스를 **어떻게 줄이느냐**에 따라 결과가 갈린다. 실측했다.
+
+| 방법 | 20px에서의 stroke |
+| --- | --- |
+| `resize(20, 20)` | **1.5** — 크기만 바뀌고 획이 남는다 |
+| `rescale(20 / 24)` | **1.25** — 기하와 획이 함께 줄어든다 |
+| 코드(SVG viewBox) | **1.25** |
+
+`constraints: SCALE`을 걸어도 `resize`의 결과는 바뀌지 않는다. 이것도 실측했다.
+
+**파일의 아이콘 인스턴스 146개가 전부 `resize`로 놓여 있었다.** 그래서 20px 자리의 아이콘이
+Figma에서는 1.5, 코드에서는 1.25로 그려지고 있었다 — 같은 아이콘이 두 도구에서 다른 굵기였다.
+
+#### Decision
+
+**크기 variant를 만들지 않는다. 대신 인스턴스를 `rescale`로 놓는다.**
+
+1. 아이콘 컴포넌트는 24×24 하나다. 31개 × 크기 4종 = 124 variant는 유지 비용이 이득보다 크고,
+   아이콘 하나를 고칠 때마다 네 곳을 고쳐야 한다.
+2. 인스턴스는 **`rescale(target / 24)`**로 놓는다. Figma UI에서는 Scale 도구(⌘K)가 같은 동작이며,
+   일반 크기 조절 핸들은 **쓰지 않는다.**
+3. `icon-size-*` 토큰 4종(16 · 20 · 24 · 64)이 허용 크기의 정본이다. 그 밖의 크기는 쓰지 않는다.
+4. **게이트가 실제 획 두께를 본다.** 크기별 기대값은 `1.5 × size / 24`이며, 어긋나면 누군가
+   `resize`로 놓은 것이다.
+
+#### Consequences
+
+- 디자이너가 크기 조절 핸들로 아이콘을 줄이면 게이트가 잡는다. 불편해 보이지만, 그것이 코드와
+  다른 그림이 파일에 남는 유일한 경로다.
+- 64px 자리(EmptyState의 그래픽 슬롯)에서 획이 4px가 된다. 그것이 코드의 값이므로 그대로 둔다 —
+  일러스트레이션이 필요하다면 아이콘이 아니라 별도 축이며 그 판정은 여기 없다.
+- 아이콘을 추가할 때 크기 작업이 없다. 24 하나만 그리면 모든 자리가 따라온다.
+
+#### Rollback
+
+크기 variant를 만들기로 하면 아이콘 31개에 `Size` 축을 열고 각 variant의 stroke를
+`1.5 × size / 24`로 굳힌다. 그때 아래 stroke 게이트를 지운다. 되돌리면 아이콘 하나를 고칠 때
+고칠 자리가 네 곳이 된다.
+
 ## Updates
 
 - Source: design/updates/README.md
@@ -5345,6 +5403,51 @@ popover에 가린다. **이 결정은 드로어를 다루지 않는다** — 드
 ### Updates
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
+
+#### 2026-08-18 (44) — 아이콘 획이 크기를 안 따라가고 있었습니다
+
+같은 아이콘이 20px 자리에서 **Figma 1.5 · 코드 1.25**로 그려지고 있었습니다.
+
+코드는 SVG `viewBox`라 획이 크기를 따라 함께 줄어듭니다 — `1.5 × size / 24`. Phosphor와 Lucide도
+같습니다. Figma는 **어떻게 줄이느냐**에 따라 갈립니다.
+
+| 방법 | 20px에서의 stroke |
+| --- | --- |
+| 크기 조절 핸들 (`resize`) | **1.5** |
+| Scale 도구 (`rescale`) | **1.25** |
+| 코드 | **1.25** |
+
+`constraints: SCALE`을 걸어도 `resize` 결과는 안 바뀝니다. 이것도 재봤습니다.
+
+**파일의 아이콘 인스턴스 146개가 전부 `resize`로 놓여 있었습니다.**
+
+##### 제 첫 판정이 틀렸습니다
+
+처음에는 *"크기 variant를 만들지 말고 두는 자리를 24로 고정한다"*고 썼습니다. 그런데 재보니
+146개가 **전부 24가 아니었고**, 그건 실수가 아니라 컴포넌트가 의도적으로 16·20에 놓는 것이었습니다.
+버튼의 아이콘이 20인 것은 옳습니다.
+
+`rescale`을 실측하고 나서야 답이 나왔습니다 — **크기 variant도, 24 고정도 아니고, 놓는 방법이
+문제였습니다.**
+
+##### 146개를 다시 놓았습니다
+
+전부 24로 되돌린 뒤 `rescale(target / 24)`로 다시 넣었습니다. 지금 파일의 실제 값입니다.
+
+| 크기 | 획 | 코드 기대값 |
+| ---: | ---: | ---: |
+| 16 | **1.0** | 1.0 |
+| 20 | **1.25** | 1.25 |
+| 64 | **4.0** | 4.0 |
+
+64px는 EmptyState의 그래픽 슬롯입니다 — **그 blocker도 함께 닫혔습니다.**
+
+##### 게이트
+
+`compareIconInstances`가 크기별 획을 `1.5 × size / 24`와 대조하고, 허용 크기(`icon-size-*` 토큰
+16·20·24·64) 밖이면 실패합니다. 탐지력 확인 — 20px를 1.5로 바꾸니 실패, 18px를 넣으니 실패.
+
+**DS-D-0021**에 판정과 되돌리는 법을 적었습니다.
 
 #### 2026-08-18 (43) — Foundations 색 문서가 없는 이름을 적고 있었습니다
 

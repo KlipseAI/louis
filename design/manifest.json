@@ -734,6 +734,15 @@
       "generated": false
     },
     {
+      "id": "decision-icon-size-axis",
+      "path": "design/governance/decisions/DS-D-0021-icon-size-axis.md",
+      "title": "DS-D-0021 아이콘 크기 축을 Figma에 만들지 않고, 두는 자리를 24로 고정한다",
+      "section": "governance",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
+    },
+    {
       "id": "updates-overview",
       "path": "design/updates/README.md",
       "title": "Updates",
@@ -892,6 +901,7 @@
         "design/governance/decisions/DS-D-0018-app-shell-geometry.md",
         "design/governance/decisions/DS-D-0019-layout-change-motion.md",
         "design/governance/decisions/DS-D-0020-tailwind-load-order.md",
+        "design/governance/decisions/DS-D-0021-icon-size-axis.md",
         "design/updates/README.md"
       ]
     }

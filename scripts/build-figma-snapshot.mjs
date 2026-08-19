@@ -351,6 +351,7 @@ const snapshot = {
   icons: sortByKey(iconsOut),
   templates: sortByKey(templatesOut),
   // Foundations 페이지의 문서 상태. 캔버스에 적힌 토큰 이름이 파일에 실재하는지 게이트가 본다.
+  iconInstances: readback.iconInstances ?? null,
   foundations: {
     sections: readback.foundations?.sections ?? [],
     staleNames: readback.foundations?.staleNames ?? [],

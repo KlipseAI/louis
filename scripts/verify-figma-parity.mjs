@@ -1196,8 +1196,40 @@ function compare(document, expected) {
 
   issues.push(...compareComponents(document.components ?? {}));
   issues.push(...compareIcons(document.icons ?? {}));
+  issues.push(...compareIconInstances(document.iconInstances));
   issues.push(...compareFoundations(document.foundations));
   issues.push(...compareTemplates(document.templates ?? {}));
+  return issues;
+}
+
+/**
+ * 아이콘 인스턴스의 획이 크기를 따라갔는지.
+ *
+ * 코드는 SVG viewBox라 `1.5 × size / 24`로 줄어든다. Figma는 **어떻게 줄이느냐**에 따라 갈리는데,
+ * 일반 크기 조절(`resize`)은 획을 1.5로 남기고 Scale 도구(`rescale`)만 비례시킨다.
+ * 파일의 인스턴스 146개가 전부 전자로 놓여 있었다(2026-08-18). DS-D-0021.
+ */
+function compareIconInstances(actual) {
+  if (actual === null || actual === undefined) {
+    return ["아이콘 인스턴스 되읽기가 snapshot에 없습니다."];
+  }
+  const issues = [];
+  const allowed = new Set([16, 20, 24, 64]);
+  for (const [size, weights] of Object.entries(actual.strokeBySize ?? {})) {
+    const px = Number(size);
+    if (!allowed.has(px)) {
+      issues.push(`아이콘이 허용되지 않은 크기로 놓여 있습니다: ${px}px (허용 16·20·24·64, icon-size-* 토큰)`);
+      continue;
+    }
+    const expected = Math.round((1.5 * px) / 24 * 1000) / 1000;
+    for (const weight of weights) {
+      if (weight !== expected) {
+        issues.push(
+          `${px}px 아이콘의 획이 ${weight}입니다. 코드는 ${expected}입니다 — 크기 조절 핸들이 아니라 Scale 도구(rescale)로 놓으세요.`,
+        );
+      }
+    }
+  }
   return issues;
 }
 

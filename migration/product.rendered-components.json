@@ -2,8 +2,8 @@
   "$comment": "생성물. scripts/measure-product-components.mjs가 제품 클래스를 제품 Tailwind로 컴파일해 실브라우저에서 잰다. 직접 수정하지 않는다.",
   "$whyThisExists": "그전까지 제품 값은 전부 소스 읽기였다. product.measured.json의 187축 중 기계 대조는 12축뿐이고 나머지는 사람이 코드를 읽고 옮긴 값이다. 여기 값은 브라우저가 실제로 계산한 것이다.",
   "$method": "제품 서버를 띄우지 않는다. 클래스 문자열은 손으로 옮기지 않고 제품 소스의 상수 이름을 가리켜 커밋에서 직접 꺼낸다. 그것을 제품 Tailwind로 컴파일하고 제품 CSS와 함께 빈 문서에 올려 계산값을 읽는다.",
-  "productRef": "7e9c3b6946a71431479aef69d16baac5c53128b2",
-  "productCommit": "7e9c3b6946a71431479aef69d16baac5c53128b2",
+  "productRef": "6337ad541dcf6bd80880248e5b5e0d5b376dcc24",
+  "productCommit": "6337ad541dcf6bd80880248e5b5e0d5b376dcc24",
   "probes": [
     {
       "id": "button-md",
@@ -514,7 +514,7 @@
       "id": "slider-track-root",
       "source": "VideoEditModal.tsx overlayRadixRootFull — track형 중 최다 사용(8곳)",
       "hover": false,
-      "from": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx → overlayRadixRootFull",
+      "from": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts → overlayRadixRootFull",
       "doc": "default",
       "wrapper": null,
       "html": "<div class=\"vem-overlay-radix-root-full [position:relative] [width:100%] [min-width:0] [max-width:none] [flex:0_1_auto] [height:20px] [display:flex] [align-items:center] [cursor:pointer] [padding:0] [background:transparent] [box-shadow:none] [border-radius:0] [backdrop-filter:none] [-webkit-backdrop-filter:none] [.vem-clip-speed-fine-row>&]:[flex:1_1_0] [.vem-clip-speed-fine-row>&]:[min-width:0] [.vem-clip-speed-fine-row>&]:[width:auto] [.vem-clip-speed-fine-row>&]:[max-width:none] [.vem-propertiesPanel_.vem-properties-slider-value-strip>&]:[flex:1_1_0]! [.vem-propertiesPanel_.vem-properties-slider-value-strip>&]:[min-width:0]! [.vem-propertiesPanel_.vem-properties-slider-value-strip>&]:[width:auto]! [.vem-propertiesPanel_.vem-properties-slider-value-strip>&]:[max-width:none]! [.vem-propertiesPanel_&]:[width:140px]! [.vem-propertiesPanel_&]:[max-width:140px]! [.vem-propertiesPanel_&]:[min-width:140px]! [.vem-propertiesPanel_&]:[flex:0_0_140px]! [.vem-propertiesPanel_&]:[height:28px] [.vem-propertiesPanel_&]:[padding:0] [.vem-propertiesPanel_&]:[align-self:center]\"></div>"
@@ -523,7 +523,7 @@
       "id": "slider-track-root-panel",
       "source": "VideoEditModal.tsx overlayRadixRootFull (인스펙터 패널 안)",
       "hover": false,
-      "from": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx → overlayRadixRootFull",
+      "from": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts → overlayRadixRootFull",
       "doc": "default",
       "wrapper": [
         "vem-propertiesPanel"
@@ -534,7 +534,7 @@
       "id": "slider-track-marker",
       "source": "VideoEditModal.tsx overlayRadixRange ::after — 채움 오른쪽 끝 표식",
       "hover": false,
-      "from": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx → overlayRadixRange",
+      "from": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts → overlayRadixRange",
       "doc": "default",
       "wrapper": [
         "vem-overlay-radix-root-full"

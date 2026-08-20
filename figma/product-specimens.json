@@ -137,7 +137,7 @@
       "kind": "badge",
       "label": "미리보기 확대 배지",
       "jsx": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx:17823-17829",
-      "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx",
+      "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts",
       "node": {
         "part": "previewZoomBadge",
         "tag": "div",
@@ -146,7 +146,7 @@
       },
       "host": [
         {
-          "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx",
+          "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts",
           "part": "previewArea"
         }
       ]
@@ -466,7 +466,7 @@
       "label": "비디오 편집 인스펙터 빈 상태",
       "jsx": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx:22662-22668",
       "jsxQuote": "                              <div className={VEM_CLASS.inspectorEmptyState}>",
-      "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx",
+      "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts",
       "node": {
         "part": "inspectorEmptyState",
         "tag": "div",
@@ -481,7 +481,7 @@
       },
       "host": [
         {
-          "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx",
+          "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts",
           "part": "propertiesPanelInner"
         }
       ]
@@ -546,7 +546,7 @@
       "label": "오버레이 삭제 버튼 — 글리프를 자식이 갖는다",
       "jsx": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx:19788-19802",
       "jsxQuote": "                                    className={`${VEM_CLASS.overlayDeleteBtn} ${VEM_CLASS.overlayDeleteBtnIcon}`}",
-      "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx",
+      "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts",
       "node": {
         "part": "overlayDeleteBtn",
         "tag": "button",
@@ -559,7 +559,7 @@
       },
       "host": [
         {
-          "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx",
+          "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts",
           "part": "propertiesPanelHeaderRow"
         }
       ]
@@ -1007,7 +1007,7 @@
                 ]
               }
             ],
-            "inlineAt": "apps/web/components/scenes/AppHomeScene.tsx:1094"
+            "inlineAt": "apps/web/components/scenes/AppHomeScene.tsx:1093"
           }
         ]
       },
@@ -1108,7 +1108,7 @@
                 ]
               }
             ],
-            "inlineAt": "apps/web/components/scenes/NodeCanvasHomeScene.tsx:1396"
+            "inlineAt": "apps/web/components/scenes/NodeCanvasHomeScene.tsx:1398"
           }
         ]
       },
@@ -1747,7 +1747,7 @@
       "label": "인스펙터 초·프레임 입력 행 — 숫자 입력 둘과 단위 둘",
       "jsx": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx:22545-22593",
       "jsxQuote": "                                              VEM_CLASS.inspectorFramedInputRow",
-      "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx",
+      "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts",
       "node": {
         "part": "inspectorFramedInputRow",
         "tag": "div",
@@ -1778,7 +1778,7 @@
       },
       "host": [
         {
-          "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx",
+          "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts",
           "part": "inspectorField"
         }
       ]

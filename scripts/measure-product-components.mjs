@@ -39,7 +39,8 @@ const FILES = {
   avatar: "apps/web/components/navigation/UserCircleDefaultAvatar.tsx",
   spinner: "apps/web/components/ui/LoadingSpinner.tsx",
   canvasEmpty: "apps/web/components/scenes/create/node-canvas-v2/components/CanvasEmptyState.tsx",
-  vem: "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx",
+  // 6337ad54 재기준선: VEM_CLASS가 VideoEditModal.tsx에서 분리됐다(66d48071 리팩토링).
+  vem: "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts",
   crop: "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/ClipCropModal.tsx",
 };
 

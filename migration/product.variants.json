@@ -2,8 +2,8 @@
   "$comment": "생성물. scripts/measure-product-variants.mjs가 제품의 경쟁 정의를 이름 패턴으로 찾아 실제로 렌더하고 값이 같은 것끼리 묶는다. 직접 수정하지 않는다.",
   "$whyThisExists": "\"제품에 정본이 없다\"가 산문이었다 — 한 벌만 재고 나머지는 세지 않은 채 그렇게 적었다. 여기서는 몇 벌이 몇 묶음으로 갈리는지가 수로 남고, Figma의 Inventory 페이지가 그것을 나란히 그린다. 정본을 고르는 일은 눈으로 비교하는 일이어야 한다.",
   "$howToRead": "groups는 사용 횟수가 많은 순이다. rank 1이 가장 널리 쓰이는 벌이며 정본 후보다. members가 여럿이면 그 벌들이 값까지 동일하다는 뜻이다.",
-  "productRef": "7e9c3b6946a71431479aef69d16baac5c53128b2",
-  "productCommit": "7e9c3b6946a71431479aef69d16baac5c53128b2",
+  "productRef": "6337ad541dcf6bd80880248e5b5e0d5b376dcc24",
+  "productCommit": "6337ad541dcf6bd80880248e5b5e0d5b376dcc24",
   "axes": [
     "height",
     "minHeight",
@@ -43,7 +43,7 @@
       "tree": {
         "part": "AVATAR",
         "tag": "div",
-        "line": 334,
+        "line": 335,
         "text": "K",
         "values": {
           "height": "44px",
@@ -498,11 +498,11 @@
       "kind": "badge",
       "label": "미리보기 확대 배지",
       "jsx": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx:17823-17829",
-      "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx",
+      "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts",
       "tree": {
         "part": "previewZoomBadge",
         "tag": "div",
-        "line": 2807,
+        "line": 2527,
         "text": "120%",
         "values": {
           "height": "24px",
@@ -2154,11 +2154,11 @@
       "kind": "empty-state",
       "label": "비디오 편집 인스펙터 빈 상태",
       "jsx": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx:22662-22668",
-      "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx",
+      "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts",
       "tree": {
         "part": "inspectorEmptyState",
         "tag": "div",
-        "line": 1156,
+        "line": 876,
         "text": "",
         "values": {
           "height": "200px",
@@ -2203,7 +2203,7 @@
           {
             "part": "inspectorEmptyStateText",
             "tag": "span",
-            "line": 1165,
+            "line": 885,
             "text": "아직 선택된 항목이 없습니다",
             "values": {
               "height": "21px",
@@ -2413,11 +2413,11 @@
       "kind": "icon-button",
       "label": "오버레이 삭제 버튼 — 글리프를 자식이 갖는다",
       "jsx": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx:19788-19802",
-      "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx",
+      "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts",
       "tree": {
         "part": "overlayDeleteBtn",
         "tag": "button",
-        "line": 1806,
+        "line": 1526,
         "text": "",
         "values": {
           "height": "28px",
@@ -2462,7 +2462,7 @@
           {
             "part": "overlayDeleteBtnGlyph",
             "tag": "svg",
-            "line": 1834,
+            "line": 1554,
             "text": "",
             "values": {
               "height": "14px",
@@ -10064,11 +10064,11 @@
       "kind": "text-field",
       "label": "인스펙터 초·프레임 입력 행 — 숫자 입력 둘과 단위 둘",
       "jsx": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx:22545-22593",
-      "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx",
+      "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts",
       "tree": {
         "part": "inspectorFramedInputRow",
         "tag": "div",
-        "line": 1220,
+        "line": 940,
         "text": "",
         "values": {
           "height": "28px",
@@ -10113,7 +10113,7 @@
           {
             "part": "inspectorNumInput",
             "tag": "input",
-            "line": 1284,
+            "line": 1004,
             "text": "",
             "values": {
               "height": "28px",
@@ -10159,7 +10159,7 @@
           {
             "part": "inspectorFramedInputUnit",
             "tag": "span",
-            "line": 1234,
+            "line": 954,
             "text": "초",
             "values": {
               "height": "18px",
@@ -10205,7 +10205,7 @@
           {
             "part": "inspectorNumInput",
             "tag": "input",
-            "line": 1284,
+            "line": 1004,
             "text": "",
             "values": {
               "height": "28px",
@@ -10251,7 +10251,7 @@
           {
             "part": "inspectorFramedInputUnit",
             "tag": "span",
-            "line": 1234,
+            "line": 954,
             "text": "프레임",
             "values": {
               "height": "18px",
@@ -10883,7 +10883,7 @@
         {
           "rank": 1,
           "members": 2,
-          "uses": 156,
+          "uses": 172,
           "values": {
             "height": "48px",
             "minHeight": "0px",
@@ -10917,21 +10917,21 @@
               "file": "apps/web/components/scenes/appHomeSceneStyles.ts",
               "line": 936,
               "name": "toast",
-              "uses": 78
+              "uses": 86
             },
             {
               "id": "toast/apps/web/components/scenes/highlightSceneStyles.ts.toast",
               "file": "apps/web/components/scenes/highlightSceneStyles.ts",
               "line": 2213,
               "name": "toast",
-              "uses": 78
+              "uses": 86
             }
           ]
         },
         {
           "rank": 2,
           "members": 1,
-          "uses": 78,
+          "uses": 86,
           "values": {
             "height": "50px",
             "minHeight": "0px",
@@ -10965,14 +10965,14 @@
               "file": "apps/web/components/scenes/myPageSceneStyles.ts",
               "line": 1285,
               "name": "toast",
-              "uses": 78
+              "uses": 86
             }
           ]
         },
         {
           "rank": 3,
           "members": 1,
-          "uses": 4,
+          "uses": 0,
           "values": {
             "height": "48px",
             "minHeight": "0px",
@@ -11002,11 +11002,11 @@
           },
           "sources": [
             {
-              "id": "toast/apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx.editorToast",
-              "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx",
-              "line": 952,
+              "id": "toast/apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts.editorToast",
+              "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts",
+              "line": 672,
               "name": "editorToast",
-              "uses": 4
+              "uses": 0
             }
           ]
         }
@@ -11019,7 +11019,7 @@
         {
           "rank": 1,
           "members": 1,
-          "uses": 15,
+          "uses": 17,
           "values": {
             "height": "32px",
             "minHeight": "0px",
@@ -11053,14 +11053,14 @@
               "file": "apps/web/components/scenes/appHomeSceneStyles.ts",
               "line": 842,
               "name": "modalCard",
-              "uses": 15
+              "uses": 17
             }
           ]
         },
         {
           "rank": 2,
           "members": 1,
-          "uses": 15,
+          "uses": 17,
           "values": {
             "height": "32px",
             "minHeight": "0px",
@@ -11094,7 +11094,7 @@
               "file": "apps/web/components/scenes/myPageSceneStyles.ts",
               "line": 476,
               "name": "modalCard",
-              "uses": 15
+              "uses": 17
             }
           ]
         }
@@ -11325,102 +11325,6 @@
         {
           "rank": 1,
           "members": 1,
-          "uses": 7,
-          "values": {
-            "height": "0px",
-            "minHeight": "0px",
-            "width": "60px",
-            "minWidth": "60px",
-            "maxWidth": "60px",
-            "paddingTop": "0px",
-            "paddingRight": "0px",
-            "paddingBottom": "0px",
-            "paddingLeft": "0px",
-            "borderTopLeftRadius": "0px",
-            "borderTopWidth": "0px",
-            "borderTopColor": "rgb(250, 250, 250)",
-            "borderTopStyle": "none",
-            "backgroundColor": "rgba(0, 0, 0, 0)",
-            "backgroundImage": "none",
-            "color": "rgb(250, 250, 250)",
-            "boxShadow": "none",
-            "backdropFilter": "none",
-            "columnGap": "normal",
-            "fontSize": "16px",
-            "fontWeight": "400",
-            "lineHeight": "24px",
-            "opacity": "1",
-            "letterSpacing": "-0.16px",
-            "fontFamily": "PretendardHarness"
-          },
-          "sources": [
-            {
-              "id": "text-field/apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx.propertiesValueNumInput",
-              "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx",
-              "line": 3336,
-              "name": "propertiesValueNumInput",
-              "uses": 7
-            }
-          ]
-        },
-        {
-          "rank": 2,
-          "members": 3,
-          "uses": 3,
-          "values": {
-            "height": "0px",
-            "minHeight": "0px",
-            "width": "360px",
-            "minWidth": "0px",
-            "maxWidth": "none",
-            "paddingTop": "0px",
-            "paddingRight": "0px",
-            "paddingBottom": "0px",
-            "paddingLeft": "0px",
-            "borderTopLeftRadius": "0px",
-            "borderTopWidth": "0px",
-            "borderTopColor": "rgb(250, 250, 250)",
-            "borderTopStyle": "none",
-            "backgroundColor": "rgba(0, 0, 0, 0)",
-            "backgroundImage": "none",
-            "color": "rgb(250, 250, 250)",
-            "boxShadow": "none",
-            "backdropFilter": "none",
-            "columnGap": "normal",
-            "fontSize": "16px",
-            "fontWeight": "400",
-            "lineHeight": "24px",
-            "opacity": "1",
-            "letterSpacing": "-0.16px",
-            "fontFamily": "PretendardHarness"
-          },
-          "sources": [
-            {
-              "id": "text-field/apps/web/components/navigation/Gnb.tsx.projectGnbTitleInput",
-              "file": "apps/web/components/navigation/Gnb.tsx",
-              "line": 1467,
-              "name": "projectGnbTitleInput",
-              "uses": 2
-            },
-            {
-              "id": "text-field/apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx.modalHeaderTitleInput",
-              "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx",
-              "line": 1659,
-              "name": "modalHeaderTitleInput",
-              "uses": 1
-            },
-            {
-              "id": "text-field/apps/web/components/scenes/myPageSceneStyles.ts.modalAuthInput",
-              "file": "apps/web/components/scenes/myPageSceneStyles.ts",
-              "line": 381,
-              "name": "modalAuthInput",
-              "uses": 0
-            }
-          ]
-        },
-        {
-          "rank": 3,
-          "members": 1,
           "uses": 3,
           "values": {
             "height": "32px",
@@ -11460,7 +11364,62 @@
           ]
         },
         {
-          "rank": 4,
+          "rank": 2,
+          "members": 3,
+          "uses": 2,
+          "values": {
+            "height": "0px",
+            "minHeight": "0px",
+            "width": "360px",
+            "minWidth": "0px",
+            "maxWidth": "none",
+            "paddingTop": "0px",
+            "paddingRight": "0px",
+            "paddingBottom": "0px",
+            "paddingLeft": "0px",
+            "borderTopLeftRadius": "0px",
+            "borderTopWidth": "0px",
+            "borderTopColor": "rgb(250, 250, 250)",
+            "borderTopStyle": "none",
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "backgroundImage": "none",
+            "color": "rgb(250, 250, 250)",
+            "boxShadow": "none",
+            "backdropFilter": "none",
+            "columnGap": "normal",
+            "fontSize": "16px",
+            "fontWeight": "400",
+            "lineHeight": "24px",
+            "opacity": "1",
+            "letterSpacing": "-0.16px",
+            "fontFamily": "PretendardHarness"
+          },
+          "sources": [
+            {
+              "id": "text-field/apps/web/components/navigation/Gnb.tsx.projectGnbTitleInput",
+              "file": "apps/web/components/navigation/Gnb.tsx",
+              "line": 1467,
+              "name": "projectGnbTitleInput",
+              "uses": 2
+            },
+            {
+              "id": "text-field/apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts.modalHeaderTitleInput",
+              "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts",
+              "line": 1379,
+              "name": "modalHeaderTitleInput",
+              "uses": 0
+            },
+            {
+              "id": "text-field/apps/web/components/scenes/myPageSceneStyles.ts.modalAuthInput",
+              "file": "apps/web/components/scenes/myPageSceneStyles.ts",
+              "line": 381,
+              "name": "modalAuthInput",
+              "uses": 0
+            }
+          ]
+        },
+        {
+          "rank": 3,
           "members": 2,
           "uses": 2,
           "values": {
@@ -11508,48 +11467,7 @@
           ]
         },
         {
-          "rank": 5,
-          "members": 1,
-          "uses": 2,
-          "values": {
-            "height": "10px",
-            "minHeight": "0px",
-            "width": "72px",
-            "minWidth": "0px",
-            "maxWidth": "none",
-            "paddingTop": "4px",
-            "paddingRight": "8px",
-            "paddingBottom": "4px",
-            "paddingLeft": "8px",
-            "borderTopLeftRadius": "6px",
-            "borderTopWidth": "1px",
-            "borderTopColor": "rgba(250, 250, 250, 0.12)",
-            "borderTopStyle": "solid",
-            "backgroundColor": "rgba(250, 250, 250, 0.06)",
-            "backgroundImage": "none",
-            "color": "rgb(250, 250, 250)",
-            "boxShadow": "none",
-            "backdropFilter": "none",
-            "columnGap": "normal",
-            "fontSize": "16px",
-            "fontWeight": "400",
-            "lineHeight": "24px",
-            "opacity": "1",
-            "letterSpacing": "-0.16px",
-            "fontFamily": "PretendardHarness"
-          },
-          "sources": [
-            {
-              "id": "text-field/apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx.inspectorNumInput",
-              "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx",
-              "line": 1284,
-              "name": "inspectorNumInput",
-              "uses": 2
-            }
-          ]
-        },
-        {
-          "rank": 6,
+          "rank": 4,
           "members": 1,
           "uses": 1,
           "values": {
@@ -11590,7 +11508,7 @@
           ]
         },
         {
-          "rank": 7,
+          "rank": 5,
           "members": 1,
           "uses": 0,
           "values": {
@@ -11626,6 +11544,88 @@
               "file": "apps/web/components/scenes/appHomeSceneStyles.ts",
               "line": 351,
               "name": "archivePreviewTitleRenameInput",
+              "uses": 0
+            }
+          ]
+        },
+        {
+          "rank": 6,
+          "members": 1,
+          "uses": 0,
+          "values": {
+            "height": "10px",
+            "minHeight": "0px",
+            "width": "72px",
+            "minWidth": "0px",
+            "maxWidth": "none",
+            "paddingTop": "4px",
+            "paddingRight": "8px",
+            "paddingBottom": "4px",
+            "paddingLeft": "8px",
+            "borderTopLeftRadius": "6px",
+            "borderTopWidth": "1px",
+            "borderTopColor": "rgba(250, 250, 250, 0.12)",
+            "borderTopStyle": "solid",
+            "backgroundColor": "rgba(250, 250, 250, 0.06)",
+            "backgroundImage": "none",
+            "color": "rgb(250, 250, 250)",
+            "boxShadow": "none",
+            "backdropFilter": "none",
+            "columnGap": "normal",
+            "fontSize": "16px",
+            "fontWeight": "400",
+            "lineHeight": "24px",
+            "opacity": "1",
+            "letterSpacing": "-0.16px",
+            "fontFamily": "PretendardHarness"
+          },
+          "sources": [
+            {
+              "id": "text-field/apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts.inspectorNumInput",
+              "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts",
+              "line": 1004,
+              "name": "inspectorNumInput",
+              "uses": 0
+            }
+          ]
+        },
+        {
+          "rank": 7,
+          "members": 1,
+          "uses": 0,
+          "values": {
+            "height": "0px",
+            "minHeight": "0px",
+            "width": "60px",
+            "minWidth": "60px",
+            "maxWidth": "60px",
+            "paddingTop": "0px",
+            "paddingRight": "0px",
+            "paddingBottom": "0px",
+            "paddingLeft": "0px",
+            "borderTopLeftRadius": "0px",
+            "borderTopWidth": "0px",
+            "borderTopColor": "rgb(250, 250, 250)",
+            "borderTopStyle": "none",
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "backgroundImage": "none",
+            "color": "rgb(250, 250, 250)",
+            "boxShadow": "none",
+            "backdropFilter": "none",
+            "columnGap": "normal",
+            "fontSize": "16px",
+            "fontWeight": "400",
+            "lineHeight": "24px",
+            "opacity": "1",
+            "letterSpacing": "-0.16px",
+            "fontFamily": "PretendardHarness"
+          },
+          "sources": [
+            {
+              "id": "text-field/apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts.propertiesValueNumInput",
+              "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts",
+              "line": 3056,
+              "name": "propertiesValueNumInput",
               "uses": 0
             }
           ]
@@ -11762,54 +11762,6 @@
         {
           "rank": 1,
           "members": 2,
-          "uses": 16,
-          "values": {
-            "height": "0px",
-            "minHeight": "0px",
-            "width": "360px",
-            "minWidth": "0px",
-            "maxWidth": "none",
-            "paddingTop": "0px",
-            "paddingRight": "0px",
-            "paddingBottom": "0px",
-            "paddingLeft": "0px",
-            "borderTopLeftRadius": "0px",
-            "borderTopWidth": "0px",
-            "borderTopColor": "rgb(250, 250, 250)",
-            "borderTopStyle": "none",
-            "backgroundColor": "rgba(0, 0, 0, 0)",
-            "backgroundImage": "none",
-            "color": "rgb(250, 250, 250)",
-            "boxShadow": "none",
-            "backdropFilter": "none",
-            "columnGap": "normal",
-            "fontSize": "16px",
-            "fontWeight": "400",
-            "lineHeight": "24px",
-            "opacity": "1",
-            "letterSpacing": "-0.16px",
-            "fontFamily": "PretendardHarness"
-          },
-          "sources": [
-            {
-              "id": "slider/apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx.overlayRadixRange",
-              "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx",
-              "line": 2010,
-              "name": "overlayRadixRange",
-              "uses": 8
-            },
-            {
-              "id": "slider/apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx.overlayRadixThumb",
-              "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx",
-              "line": 2067,
-              "name": "overlayRadixThumb",
-              "uses": 8
-            }
-          ]
-        },
-        {
-          "rank": 2,
-          "members": 2,
           "uses": 12,
           "values": {
             "height": "4px",
@@ -11856,48 +11808,7 @@
           ]
         },
         {
-          "rank": 3,
-          "members": 1,
-          "uses": 8,
-          "values": {
-            "height": "20px",
-            "minHeight": "0px",
-            "width": "360px",
-            "minWidth": "0px",
-            "maxWidth": "none",
-            "paddingTop": "0px",
-            "paddingRight": "0px",
-            "paddingBottom": "0px",
-            "paddingLeft": "0px",
-            "borderTopLeftRadius": "0px",
-            "borderTopWidth": "0px",
-            "borderTopColor": "rgb(250, 250, 250)",
-            "borderTopStyle": "none",
-            "backgroundColor": "rgba(0, 0, 0, 0)",
-            "backgroundImage": "none",
-            "color": "rgb(250, 250, 250)",
-            "boxShadow": "none",
-            "backdropFilter": "none",
-            "columnGap": "normal",
-            "fontSize": "16px",
-            "fontWeight": "400",
-            "lineHeight": "24px",
-            "opacity": "1",
-            "letterSpacing": "-0.16px",
-            "fontFamily": "PretendardHarness"
-          },
-          "sources": [
-            {
-              "id": "slider/apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx.overlayRadixRootFull",
-              "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx",
-              "line": 2034,
-              "name": "overlayRadixRootFull",
-              "uses": 8
-            }
-          ]
-        },
-        {
-          "rank": 4,
+          "rank": 2,
           "members": 1,
           "uses": 1,
           "values": {
@@ -11938,7 +11849,7 @@
           ]
         },
         {
-          "rank": 5,
+          "rank": 3,
           "members": 1,
           "uses": 1,
           "values": {
@@ -11979,130 +11890,7 @@
           ]
         },
         {
-          "rank": 6,
-          "members": 1,
-          "uses": 1,
-          "values": {
-            "height": "3px",
-            "minHeight": "0px",
-            "width": "0px",
-            "minWidth": "0px",
-            "maxWidth": "none",
-            "paddingTop": "0px",
-            "paddingRight": "0px",
-            "paddingBottom": "0px",
-            "paddingLeft": "0px",
-            "borderTopLeftRadius": "1.5px",
-            "borderTopWidth": "0px",
-            "borderTopColor": "rgb(250, 250, 250)",
-            "borderTopStyle": "none",
-            "backgroundColor": "rgba(250, 250, 250, 0.96)",
-            "backgroundImage": "none",
-            "color": "rgb(250, 250, 250)",
-            "boxShadow": "none",
-            "backdropFilter": "none",
-            "columnGap": "normal",
-            "fontSize": "16px",
-            "fontWeight": "400",
-            "lineHeight": "24px",
-            "opacity": "1",
-            "letterSpacing": "-0.16px",
-            "fontFamily": "PretendardHarness"
-          },
-          "sources": [
-            {
-              "id": "slider/apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx.timelineZoomRadixRange",
-              "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx",
-              "line": 4369,
-              "name": "timelineZoomRadixRange",
-              "uses": 1
-            }
-          ]
-        },
-        {
-          "rank": 7,
-          "members": 1,
-          "uses": 1,
-          "values": {
-            "height": "28px",
-            "minHeight": "0px",
-            "width": "360px",
-            "minWidth": "0px",
-            "maxWidth": "none",
-            "paddingTop": "0px",
-            "paddingRight": "0px",
-            "paddingBottom": "0px",
-            "paddingLeft": "0px",
-            "borderTopLeftRadius": "0px",
-            "borderTopWidth": "0px",
-            "borderTopColor": "rgb(250, 250, 250)",
-            "borderTopStyle": "none",
-            "backgroundColor": "rgba(0, 0, 0, 0)",
-            "backgroundImage": "none",
-            "color": "rgb(250, 250, 250)",
-            "boxShadow": "none",
-            "backdropFilter": "none",
-            "columnGap": "normal",
-            "fontSize": "16px",
-            "fontWeight": "400",
-            "lineHeight": "24px",
-            "opacity": "1",
-            "letterSpacing": "-0.16px",
-            "fontFamily": "PretendardHarness"
-          },
-          "sources": [
-            {
-              "id": "slider/apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx.timelineZoomRadixRoot",
-              "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx",
-              "line": 4383,
-              "name": "timelineZoomRadixRoot",
-              "uses": 1
-            }
-          ]
-        },
-        {
-          "rank": 8,
-          "members": 1,
-          "uses": 1,
-          "values": {
-            "height": "14px",
-            "minHeight": "0px",
-            "width": "14px",
-            "minWidth": "0px",
-            "maxWidth": "none",
-            "paddingTop": "0px",
-            "paddingRight": "0px",
-            "paddingBottom": "0px",
-            "paddingLeft": "0px",
-            "borderTopLeftRadius": "50%",
-            "borderTopWidth": "2px",
-            "borderTopColor": "rgba(250, 250, 250, 0.96)",
-            "borderTopStyle": "solid",
-            "backgroundColor": "rgb(49, 54, 64)",
-            "backgroundImage": "none",
-            "color": "rgb(250, 250, 250)",
-            "boxShadow": "none",
-            "backdropFilter": "none",
-            "columnGap": "normal",
-            "fontSize": "16px",
-            "fontWeight": "400",
-            "lineHeight": "24px",
-            "opacity": "1",
-            "letterSpacing": "-0.16px",
-            "fontFamily": "PretendardHarness"
-          },
-          "sources": [
-            {
-              "id": "slider/apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx.timelineZoomRadixThumb",
-              "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx",
-              "line": 4396,
-              "name": "timelineZoomRadixThumb",
-              "uses": 1
-            }
-          ]
-        },
-        {
-          "rank": 9,
+          "rank": 4,
           "members": 1,
           "uses": 1,
           "values": {
@@ -12143,7 +11931,7 @@
           ]
         },
         {
-          "rank": 10,
+          "rank": 5,
           "members": 1,
           "uses": 1,
           "values": {
@@ -12184,7 +11972,7 @@
           ]
         },
         {
-          "rank": 11,
+          "rank": 6,
           "members": 1,
           "uses": 1,
           "values": {
@@ -12225,7 +12013,7 @@
           ]
         },
         {
-          "rank": 12,
+          "rank": 7,
           "members": 1,
           "uses": 1,
           "values": {
@@ -12266,7 +12054,7 @@
           ]
         },
         {
-          "rank": 13,
+          "rank": 8,
           "members": 1,
           "uses": 1,
           "values": {
@@ -12307,7 +12095,7 @@
           ]
         },
         {
-          "rank": 14,
+          "rank": 9,
           "members": 1,
           "uses": 1,
           "values": {
@@ -12348,7 +12136,7 @@
           ]
         },
         {
-          "rank": 15,
+          "rank": 10,
           "members": 1,
           "uses": 1,
           "values": {
@@ -12389,7 +12177,7 @@
           ]
         },
         {
-          "rank": 16,
+          "rank": 11,
           "members": 1,
           "uses": 1,
           "values": {
@@ -12430,7 +12218,7 @@
           ]
         },
         {
-          "rank": 17,
+          "rank": 12,
           "members": 1,
           "uses": 1,
           "values": {
@@ -12471,7 +12259,7 @@
           ]
         },
         {
-          "rank": 18,
+          "rank": 13,
           "members": 1,
           "uses": 1,
           "values": {
@@ -12508,6 +12296,218 @@
               "line": 208,
               "name": "YT_VOLUME_SLIDER",
               "uses": 1
+            }
+          ]
+        },
+        {
+          "rank": 14,
+          "members": 2,
+          "uses": 0,
+          "values": {
+            "height": "0px",
+            "minHeight": "0px",
+            "width": "360px",
+            "minWidth": "0px",
+            "maxWidth": "none",
+            "paddingTop": "0px",
+            "paddingRight": "0px",
+            "paddingBottom": "0px",
+            "paddingLeft": "0px",
+            "borderTopLeftRadius": "0px",
+            "borderTopWidth": "0px",
+            "borderTopColor": "rgb(250, 250, 250)",
+            "borderTopStyle": "none",
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "backgroundImage": "none",
+            "color": "rgb(250, 250, 250)",
+            "boxShadow": "none",
+            "backdropFilter": "none",
+            "columnGap": "normal",
+            "fontSize": "16px",
+            "fontWeight": "400",
+            "lineHeight": "24px",
+            "opacity": "1",
+            "letterSpacing": "-0.16px",
+            "fontFamily": "PretendardHarness"
+          },
+          "sources": [
+            {
+              "id": "slider/apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts.overlayRadixRange",
+              "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts",
+              "line": 1730,
+              "name": "overlayRadixRange",
+              "uses": 0
+            },
+            {
+              "id": "slider/apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts.overlayRadixThumb",
+              "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts",
+              "line": 1787,
+              "name": "overlayRadixThumb",
+              "uses": 0
+            }
+          ]
+        },
+        {
+          "rank": 15,
+          "members": 1,
+          "uses": 0,
+          "values": {
+            "height": "20px",
+            "minHeight": "0px",
+            "width": "360px",
+            "minWidth": "0px",
+            "maxWidth": "none",
+            "paddingTop": "0px",
+            "paddingRight": "0px",
+            "paddingBottom": "0px",
+            "paddingLeft": "0px",
+            "borderTopLeftRadius": "0px",
+            "borderTopWidth": "0px",
+            "borderTopColor": "rgb(250, 250, 250)",
+            "borderTopStyle": "none",
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "backgroundImage": "none",
+            "color": "rgb(250, 250, 250)",
+            "boxShadow": "none",
+            "backdropFilter": "none",
+            "columnGap": "normal",
+            "fontSize": "16px",
+            "fontWeight": "400",
+            "lineHeight": "24px",
+            "opacity": "1",
+            "letterSpacing": "-0.16px",
+            "fontFamily": "PretendardHarness"
+          },
+          "sources": [
+            {
+              "id": "slider/apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts.overlayRadixRootFull",
+              "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts",
+              "line": 1754,
+              "name": "overlayRadixRootFull",
+              "uses": 0
+            }
+          ]
+        },
+        {
+          "rank": 16,
+          "members": 1,
+          "uses": 0,
+          "values": {
+            "height": "3px",
+            "minHeight": "0px",
+            "width": "0px",
+            "minWidth": "0px",
+            "maxWidth": "none",
+            "paddingTop": "0px",
+            "paddingRight": "0px",
+            "paddingBottom": "0px",
+            "paddingLeft": "0px",
+            "borderTopLeftRadius": "1.5px",
+            "borderTopWidth": "0px",
+            "borderTopColor": "rgb(250, 250, 250)",
+            "borderTopStyle": "none",
+            "backgroundColor": "rgba(250, 250, 250, 0.96)",
+            "backgroundImage": "none",
+            "color": "rgb(250, 250, 250)",
+            "boxShadow": "none",
+            "backdropFilter": "none",
+            "columnGap": "normal",
+            "fontSize": "16px",
+            "fontWeight": "400",
+            "lineHeight": "24px",
+            "opacity": "1",
+            "letterSpacing": "-0.16px",
+            "fontFamily": "PretendardHarness"
+          },
+          "sources": [
+            {
+              "id": "slider/apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts.timelineZoomRadixRange",
+              "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts",
+              "line": 4089,
+              "name": "timelineZoomRadixRange",
+              "uses": 0
+            }
+          ]
+        },
+        {
+          "rank": 17,
+          "members": 1,
+          "uses": 0,
+          "values": {
+            "height": "28px",
+            "minHeight": "0px",
+            "width": "360px",
+            "minWidth": "0px",
+            "maxWidth": "none",
+            "paddingTop": "0px",
+            "paddingRight": "0px",
+            "paddingBottom": "0px",
+            "paddingLeft": "0px",
+            "borderTopLeftRadius": "0px",
+            "borderTopWidth": "0px",
+            "borderTopColor": "rgb(250, 250, 250)",
+            "borderTopStyle": "none",
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "backgroundImage": "none",
+            "color": "rgb(250, 250, 250)",
+            "boxShadow": "none",
+            "backdropFilter": "none",
+            "columnGap": "normal",
+            "fontSize": "16px",
+            "fontWeight": "400",
+            "lineHeight": "24px",
+            "opacity": "1",
+            "letterSpacing": "-0.16px",
+            "fontFamily": "PretendardHarness"
+          },
+          "sources": [
+            {
+              "id": "slider/apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts.timelineZoomRadixRoot",
+              "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts",
+              "line": 4103,
+              "name": "timelineZoomRadixRoot",
+              "uses": 0
+            }
+          ]
+        },
+        {
+          "rank": 18,
+          "members": 1,
+          "uses": 0,
+          "values": {
+            "height": "14px",
+            "minHeight": "0px",
+            "width": "14px",
+            "minWidth": "0px",
+            "maxWidth": "none",
+            "paddingTop": "0px",
+            "paddingRight": "0px",
+            "paddingBottom": "0px",
+            "paddingLeft": "0px",
+            "borderTopLeftRadius": "50%",
+            "borderTopWidth": "2px",
+            "borderTopColor": "rgba(250, 250, 250, 0.96)",
+            "borderTopStyle": "solid",
+            "backgroundColor": "rgb(49, 54, 64)",
+            "backgroundImage": "none",
+            "color": "rgb(250, 250, 250)",
+            "boxShadow": "none",
+            "backdropFilter": "none",
+            "columnGap": "normal",
+            "fontSize": "16px",
+            "fontWeight": "400",
+            "lineHeight": "24px",
+            "opacity": "1",
+            "letterSpacing": "-0.16px",
+            "fontFamily": "PretendardHarness"
+          },
+          "sources": [
+            {
+              "id": "slider/apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts.timelineZoomRadixThumb",
+              "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts",
+              "line": 4116,
+              "name": "timelineZoomRadixThumb",
+              "uses": 0
             }
           ]
         }
@@ -12602,47 +12602,6 @@
         {
           "rank": 3,
           "members": 1,
-          "uses": 3,
-          "values": {
-            "height": "36px",
-            "minHeight": "0px",
-            "width": "360px",
-            "minWidth": "0px",
-            "maxWidth": "none",
-            "paddingTop": "6px",
-            "paddingRight": "10px",
-            "paddingBottom": "6px",
-            "paddingLeft": "10px",
-            "borderTopLeftRadius": "8px",
-            "borderTopWidth": "0px",
-            "borderTopColor": "rgb(250, 250, 250)",
-            "borderTopStyle": "none",
-            "backgroundColor": "rgba(0, 0, 0, 0)",
-            "backgroundImage": "none",
-            "color": "rgb(250, 250, 250)",
-            "boxShadow": "none",
-            "backdropFilter": "none",
-            "columnGap": "normal",
-            "fontSize": "16px",
-            "fontWeight": "400",
-            "lineHeight": "24px",
-            "opacity": "1",
-            "letterSpacing": "normal",
-            "fontFamily": "PretendardHarness"
-          },
-          "sources": [
-            {
-              "id": "selectable-list-row/apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx.transitionMenuItem",
-              "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx",
-              "line": 4591,
-              "name": "transitionMenuItem",
-              "uses": 3
-            }
-          ]
-        },
-        {
-          "rank": 4,
-          "members": 1,
           "uses": 2,
           "values": {
             "height": "36px",
@@ -12682,7 +12641,7 @@
           ]
         },
         {
-          "rank": 5,
+          "rank": 4,
           "members": 2,
           "uses": 1,
           "values": {
@@ -12730,9 +12689,9 @@
           ]
         },
         {
-          "rank": 6,
+          "rank": 5,
           "members": 1,
-          "uses": 0,
+          "uses": 1,
           "values": {
             "height": "48px",
             "minHeight": "48px",
@@ -12766,6 +12725,47 @@
               "file": "apps/web/components/scenes/myPageSceneStyles.ts",
               "line": 138,
               "name": "creditHistoryListItem",
+              "uses": 1
+            }
+          ]
+        },
+        {
+          "rank": 6,
+          "members": 1,
+          "uses": 0,
+          "values": {
+            "height": "36px",
+            "minHeight": "0px",
+            "width": "360px",
+            "minWidth": "0px",
+            "maxWidth": "none",
+            "paddingTop": "6px",
+            "paddingRight": "10px",
+            "paddingBottom": "6px",
+            "paddingLeft": "10px",
+            "borderTopLeftRadius": "8px",
+            "borderTopWidth": "0px",
+            "borderTopColor": "rgb(250, 250, 250)",
+            "borderTopStyle": "none",
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "backgroundImage": "none",
+            "color": "rgb(250, 250, 250)",
+            "boxShadow": "none",
+            "backdropFilter": "none",
+            "columnGap": "normal",
+            "fontSize": "16px",
+            "fontWeight": "400",
+            "lineHeight": "24px",
+            "opacity": "1",
+            "letterSpacing": "normal",
+            "fontFamily": "PretendardHarness"
+          },
+          "sources": [
+            {
+              "id": "selectable-list-row/apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts.transitionMenuItem",
+              "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts",
+              "line": 4311,
+              "name": "transitionMenuItem",
               "uses": 0
             }
           ]
@@ -12861,47 +12861,6 @@
         {
           "rank": 3,
           "members": 1,
-          "uses": 4,
-          "values": {
-            "height": "30px",
-            "minHeight": "0px",
-            "width": "47.3438px",
-            "minWidth": "0px",
-            "maxWidth": "none",
-            "paddingTop": "3px",
-            "paddingRight": "10px",
-            "paddingBottom": "3px",
-            "paddingLeft": "10px",
-            "borderTopLeftRadius": "8px",
-            "borderTopWidth": "0px",
-            "borderTopColor": "rgb(250, 250, 250)",
-            "borderTopStyle": "none",
-            "backgroundColor": "rgba(23, 27, 34, 0.7)",
-            "backgroundImage": "none",
-            "color": "rgb(250, 250, 250)",
-            "boxShadow": "none",
-            "backdropFilter": "none",
-            "columnGap": "normal",
-            "fontSize": "16px",
-            "fontWeight": "400",
-            "lineHeight": "24px",
-            "opacity": "1",
-            "letterSpacing": "-0.16px",
-            "fontFamily": "PretendardHarness"
-          },
-          "sources": [
-            {
-              "id": "badge/apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx.previewZoomBadge",
-              "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx",
-              "line": 2807,
-              "name": "previewZoomBadge",
-              "uses": 4
-            }
-          ]
-        },
-        {
-          "rank": 4,
-          "members": 1,
           "uses": 2,
           "values": {
             "height": "18px",
@@ -12941,7 +12900,7 @@
           ]
         },
         {
-          "rank": 5,
+          "rank": 4,
           "members": 1,
           "uses": 2,
           "values": {
@@ -12982,130 +12941,7 @@
           ]
         },
         {
-          "rank": 6,
-          "members": 1,
-          "uses": 2,
-          "values": {
-            "height": "26px",
-            "minHeight": "0px",
-            "width": "39.3438px",
-            "minWidth": "0px",
-            "maxWidth": "100%",
-            "paddingTop": "1px",
-            "paddingRight": "6px",
-            "paddingBottom": "1px",
-            "paddingLeft": "6px",
-            "borderTopLeftRadius": "5px",
-            "borderTopWidth": "0px",
-            "borderTopColor": "rgb(250, 250, 250)",
-            "borderTopStyle": "none",
-            "backgroundColor": "rgb(14, 165, 233)",
-            "backgroundImage": "none",
-            "color": "rgb(250, 250, 250)",
-            "boxShadow": "rgba(0, 0, 0, 0.3) 0px 1px 3px 0px",
-            "backdropFilter": "none",
-            "columnGap": "normal",
-            "fontSize": "16px",
-            "fontWeight": "400",
-            "lineHeight": "24px",
-            "opacity": "1",
-            "letterSpacing": "-0.16px",
-            "fontFamily": "PretendardHarness"
-          },
-          "sources": [
-            {
-              "id": "badge/apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx.clipEffectBadge",
-              "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx",
-              "line": 681,
-              "name": "clipEffectBadge",
-              "uses": 2
-            }
-          ]
-        },
-        {
-          "rank": 7,
-          "members": 1,
-          "uses": 1,
-          "values": {
-            "height": "26px",
-            "minHeight": "0px",
-            "width": "49.3438px",
-            "minWidth": "0px",
-            "maxWidth": "180px",
-            "paddingTop": "0px",
-            "paddingRight": "10px",
-            "paddingBottom": "0px",
-            "paddingLeft": "10px",
-            "borderTopLeftRadius": "8px",
-            "borderTopWidth": "1px",
-            "borderTopColor": "rgba(14, 165, 233, 0.8)",
-            "borderTopStyle": "dashed",
-            "backgroundColor": "rgba(14, 165, 233, 0.16)",
-            "backgroundImage": "none",
-            "color": "rgb(250, 250, 250)",
-            "boxShadow": "none",
-            "backdropFilter": "none",
-            "columnGap": "normal",
-            "fontSize": "16px",
-            "fontWeight": "400",
-            "lineHeight": "24px",
-            "opacity": "1",
-            "letterSpacing": "-0.16px",
-            "fontFamily": "PretendardHarness"
-          },
-          "sources": [
-            {
-              "id": "badge/apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx.assetDragChip",
-              "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx",
-              "line": 355,
-              "name": "assetDragChip",
-              "uses": 1
-            }
-          ]
-        },
-        {
-          "rank": 8,
-          "members": 1,
-          "uses": 1,
-          "values": {
-            "height": "auto",
-            "minHeight": "0px",
-            "width": "auto",
-            "minWidth": "0px",
-            "maxWidth": "none",
-            "paddingTop": "5px",
-            "paddingRight": "0px",
-            "paddingBottom": "5px",
-            "paddingLeft": "0px",
-            "borderTopLeftRadius": "8px",
-            "borderTopWidth": "0px",
-            "borderTopColor": "rgb(250, 250, 250)",
-            "borderTopStyle": "none",
-            "backgroundColor": "rgb(87, 93, 104)",
-            "backgroundImage": "none",
-            "color": "rgb(250, 250, 250)",
-            "boxShadow": "none",
-            "backdropFilter": "none",
-            "columnGap": "normal",
-            "fontSize": "16px",
-            "fontWeight": "400",
-            "lineHeight": "24px",
-            "opacity": "1",
-            "letterSpacing": "-0.16px",
-            "fontFamily": "PretendardHarness"
-          },
-          "sources": [
-            {
-              "id": "badge/apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx.transitionDurationChip",
-              "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx",
-              "line": 4483,
-              "name": "transitionDurationChip",
-              "uses": 1
-            }
-          ]
-        },
-        {
-          "rank": 9,
+          "rank": 5,
           "members": 1,
           "uses": 1,
           "values": {
@@ -13146,7 +12982,7 @@
           ]
         },
         {
-          "rank": 10,
+          "rank": 6,
           "members": 1,
           "uses": 1,
           "values": {
@@ -13187,7 +13023,7 @@
           ]
         },
         {
-          "rank": 11,
+          "rank": 7,
           "members": 1,
           "uses": 1,
           "values": {
@@ -13228,7 +13064,7 @@
           ]
         },
         {
-          "rank": 12,
+          "rank": 8,
           "members": 1,
           "uses": 1,
           "values": {
@@ -13269,9 +13105,9 @@
           ]
         },
         {
-          "rank": 13,
+          "rank": 9,
           "members": 1,
-          "uses": 0,
+          "uses": 1,
           "values": {
             "height": "24px",
             "minHeight": "0px",
@@ -13305,6 +13141,170 @@
               "file": "apps/web/components/scenes/myPageSceneStyles.ts",
               "line": 687,
               "name": "planTabExpiringCreditsBadge",
+              "uses": 1
+            }
+          ]
+        },
+        {
+          "rank": 10,
+          "members": 1,
+          "uses": 0,
+          "values": {
+            "height": "26px",
+            "minHeight": "0px",
+            "width": "49.3438px",
+            "minWidth": "0px",
+            "maxWidth": "180px",
+            "paddingTop": "0px",
+            "paddingRight": "10px",
+            "paddingBottom": "0px",
+            "paddingLeft": "10px",
+            "borderTopLeftRadius": "8px",
+            "borderTopWidth": "1px",
+            "borderTopColor": "rgba(14, 165, 233, 0.8)",
+            "borderTopStyle": "dashed",
+            "backgroundColor": "rgba(14, 165, 233, 0.16)",
+            "backgroundImage": "none",
+            "color": "rgb(250, 250, 250)",
+            "boxShadow": "none",
+            "backdropFilter": "none",
+            "columnGap": "normal",
+            "fontSize": "16px",
+            "fontWeight": "400",
+            "lineHeight": "24px",
+            "opacity": "1",
+            "letterSpacing": "-0.16px",
+            "fontFamily": "PretendardHarness"
+          },
+          "sources": [
+            {
+              "id": "badge/apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts.assetDragChip",
+              "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts",
+              "line": 75,
+              "name": "assetDragChip",
+              "uses": 0
+            }
+          ]
+        },
+        {
+          "rank": 11,
+          "members": 1,
+          "uses": 0,
+          "values": {
+            "height": "26px",
+            "minHeight": "0px",
+            "width": "39.3438px",
+            "minWidth": "0px",
+            "maxWidth": "100%",
+            "paddingTop": "1px",
+            "paddingRight": "6px",
+            "paddingBottom": "1px",
+            "paddingLeft": "6px",
+            "borderTopLeftRadius": "5px",
+            "borderTopWidth": "0px",
+            "borderTopColor": "rgb(250, 250, 250)",
+            "borderTopStyle": "none",
+            "backgroundColor": "rgb(14, 165, 233)",
+            "backgroundImage": "none",
+            "color": "rgb(250, 250, 250)",
+            "boxShadow": "rgba(0, 0, 0, 0.3) 0px 1px 3px 0px",
+            "backdropFilter": "none",
+            "columnGap": "normal",
+            "fontSize": "16px",
+            "fontWeight": "400",
+            "lineHeight": "24px",
+            "opacity": "1",
+            "letterSpacing": "-0.16px",
+            "fontFamily": "PretendardHarness"
+          },
+          "sources": [
+            {
+              "id": "badge/apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts.clipEffectBadge",
+              "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts",
+              "line": 401,
+              "name": "clipEffectBadge",
+              "uses": 0
+            }
+          ]
+        },
+        {
+          "rank": 12,
+          "members": 1,
+          "uses": 0,
+          "values": {
+            "height": "30px",
+            "minHeight": "0px",
+            "width": "47.3438px",
+            "minWidth": "0px",
+            "maxWidth": "none",
+            "paddingTop": "3px",
+            "paddingRight": "10px",
+            "paddingBottom": "3px",
+            "paddingLeft": "10px",
+            "borderTopLeftRadius": "8px",
+            "borderTopWidth": "0px",
+            "borderTopColor": "rgb(250, 250, 250)",
+            "borderTopStyle": "none",
+            "backgroundColor": "rgba(23, 27, 34, 0.7)",
+            "backgroundImage": "none",
+            "color": "rgb(250, 250, 250)",
+            "boxShadow": "none",
+            "backdropFilter": "none",
+            "columnGap": "normal",
+            "fontSize": "16px",
+            "fontWeight": "400",
+            "lineHeight": "24px",
+            "opacity": "1",
+            "letterSpacing": "-0.16px",
+            "fontFamily": "PretendardHarness"
+          },
+          "sources": [
+            {
+              "id": "badge/apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts.previewZoomBadge",
+              "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts",
+              "line": 2527,
+              "name": "previewZoomBadge",
+              "uses": 0
+            }
+          ]
+        },
+        {
+          "rank": 13,
+          "members": 1,
+          "uses": 0,
+          "values": {
+            "height": "auto",
+            "minHeight": "0px",
+            "width": "auto",
+            "minWidth": "0px",
+            "maxWidth": "none",
+            "paddingTop": "5px",
+            "paddingRight": "0px",
+            "paddingBottom": "5px",
+            "paddingLeft": "0px",
+            "borderTopLeftRadius": "8px",
+            "borderTopWidth": "0px",
+            "borderTopColor": "rgb(250, 250, 250)",
+            "borderTopStyle": "none",
+            "backgroundColor": "rgb(87, 93, 104)",
+            "backgroundImage": "none",
+            "color": "rgb(250, 250, 250)",
+            "boxShadow": "none",
+            "backdropFilter": "none",
+            "columnGap": "normal",
+            "fontSize": "16px",
+            "fontWeight": "400",
+            "lineHeight": "24px",
+            "opacity": "1",
+            "letterSpacing": "-0.16px",
+            "fontFamily": "PretendardHarness"
+          },
+          "sources": [
+            {
+              "id": "badge/apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts.transitionDurationChip",
+              "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts",
+              "line": 4203,
+              "name": "transitionDurationChip",
               "uses": 0
             }
           ]

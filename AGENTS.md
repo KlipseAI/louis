@@ -45,6 +45,26 @@ it and why. `figma/unverified-values.json` holds the ones that are neither — a
 contract. The gate fails when an unlisted unverified value appears and when a listed one has been
 settled, so the number only goes down.
 
+## A claim about the product needs a quotation
+
+An agent that is asked "does the product declare this?" will usually say yes. Asking it to check
+carefully does not change that — the instruction is unfalsifiable, so skimming and reading are
+indistinguishable in the output. The record is then filled with confident sentences nobody can audit.
+
+So a verdict that confirms a product declaration is not a sentence. It must carry, per axis:
+
+- the **exact command** that was run, against the pinned commit — `git show <commit>:<path>` or
+  `git grep -n <pattern> <commit> -- <path>`, never the product working tree, which is ahead of it;
+- the **verbatim source line**, copied not paraphrased;
+- the **line number** that line sits on.
+
+A confirmation whose quotation cannot be found, byte for byte, at that path and commit is **void** —
+not a weaker confirmation, a rejected one. That check is mechanical, so run it: the quotation is
+there precisely so a script can re-derive the verdict without trusting the agent that produced it.
+
+This is the same rule as *Never draw a value you did not measure*, applied one level up. There the
+machine judges the value; here the machine judges whether the value was ever looked at.
+
 ## Workflow
 
 - Update the manifest, normative document, implementation, tests, and release note together.

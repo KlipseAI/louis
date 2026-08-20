@@ -2,16 +2,30 @@
   "$comment": "제품 대조도 사유도 없는 DS 값 359건이 제품의 무엇에 대응하는지 찾은 결과다. **검증되지 않았다.**",
   "$warning": "이 파일은 에이전트가 소스를 읽고 적은 것이며 반증 판정을 거치지 않았다. 시간이 모자라 반증 단계를 떼어 냈다. **여기 적힌 값을 그대로 DS에 옮기지 않는다** — 인계서 (A2)가 반증을, (A3)이 브라우저 실측을 맡는다. 값을 판정하는 것은 사람도 에이전트도 아니고 브라우저다.",
   "$howToUse": "product-has: 제품에 대응 선언이 있다는 주장이다. 상수·파일·줄을 직접 확인한 뒤 탐침과 EXPECT 행을 넣고 브라우저가 판정하게 한다. product-none·derived: 왜 그 값인지를 `$키` 주석과 규범 문서에 적고 명부에서 지운다.",
+  "$derivedTrap": "**`derived`를 (A4)로 바로 보내지 않는다.** 게이트는 값을 해소하는 두 길 중 `$키` 주석 쪽의 **내용을 검사하지 않는다** — `$키`가 있기만 하면 통과하고, 그 뒤 게이트가 그 항목을 명부에서 지우라고 요구한다(measure-product-components.mjs:1592-1612). 그래서 \"DS에 그 상태 규칙이 없어 Default와 같다\"는 사유는 **DS 캐스케이드에 대한 참인 진술이지 제품을 확인한 진술이 아닌데도** 빚을 영구히 지운다. 61건을 사유 본문까지 읽어 네 갈래로 나눴다. `route`가 그것이다. **(A4)로 갈 수 있는 것은 `제품-없음` 13건뿐이다.**",
+  "$routes": {
+    "제품-없음": "제품에 그 상태·기능·축 자체가 없다(공용 Button에 loading prop이 없다, frameWidth는 Figma 프레임 전용). 잴 대상이 없으므로 (A4) `$키` 주석으로 해소한다. 사유에 **왜 제품에 없는지**를 반드시 적는다.",
+    "제품-주장": "사유 안에 제품에 대한 주장(상수·파일·줄)이 들어 있다. 판정 이름만 `derived`일 뿐 내용은 `product-has`다. **(A2) 반증 대상이며 (A3) 탐침까지 간다.**",
+    "DS-내부만": "DS 캐스케이드나 DS 기하만 말한다 — \"그 상태 규칙이 없어 Default와 같다\". 참이지만 **제품이 그 상태를 어떻게 표현하는지 확인한 적이 없다.** (A2)로 되돌려 제품 선언을 찾는다. 찾지 못하면 그때 `제품-없음`으로 내린다.",
+    "충돌-기록됨": "사유 본문이 이미 제품과의 어긋남이나 자기모순을 적고 있다. **해소하면 안 된다** — `$키` 주석으로 지우면 어긋남이 영구히 보이지 않게 된다. (A3) 브라우저 판정과 DS 수정 대상이다."
+  },
+  "$productNoneTrap": "`product-none` 54건은 함정이 다르다 — 사유의 질은 `derived`보다 훨씬 낫지만(제품이 대신 무엇을 하는지를 적고 파일·줄이나 탐색 범위를 밝힌다) **전부 부정 존재 명제다.** 인용은 있는 자리를 가리킬 뿐 없음을 증명하지 못한다. 탐침이 가리키는 그 요소에 대한 주장이면 `measure-product-components.mjs`의 선언 열거가 이미 강제하고 있으니 사유를 `figma/product-coverage.json`으로 옮긴다. 제품 정의 전체에 대한 주장(\"29벌을 훑었을 때 하나도 없다\")이면 `measure-product-variants.mjs`에 이름 패턴을 넣어 기계가 다시 세게 한다. 인계서 (A2\")를 본다.",
   "$counts": {
     "product-has": 244,
-    "derived": 62,
+    "derived": 61,
     "product-none": 54
+  },
+  "$derivedRouteCounts": {
+    "제품-없음": 13,
+    "제품-주장": 14,
+    "DS-내부만": 27,
+    "충돌-기록됨": 7
   },
   "$coverage": {
     "명부": 359,
     "매핑됨": 359,
     "매핑 안 됨": 0,
-    "명부에 없는 항목": 1
+    "명부에 없는 항목": 0
   },
   "$unmapped": [],
   "axes": [
@@ -37,6 +51,7 @@
       "component": "button",
       "path": "button.sizes.md.spinner",
       "decision": "derived",
+      "route": "제품-없음",
       "reason": "spinner 18px은 독립 값이 아니라 .kds-button__spinner의 1em(=font-size 14px) 정사각에 border-width-ring 2px가 양쪽으로 붙어 나오는 값이며(14+2+2, content-box — reset.css는 opt-in이라 기본 배포에 포함되지 않는다), 제품 공용 Button에는 loading도 spinner도 없어 따로 잴 대상이 없다."
     },
     {
@@ -62,18 +77,21 @@
       "component": "button",
       "path": "button.sizes.sm.spinner",
       "decision": "derived",
+      "route": "제품-없음",
       "reason": "sm의 spinner도 md와 같은 계산 결과다 — .kds-button__spinner는 size로 나뉘지 않고 1em(=font-size 14px, sm도 14px)에 border-width-ring 2px가 양쪽으로 붙어 18px이 되며, 제품 공용 Button에는 loading도 spinner도 없어 따로 잴 대상이 없다."
     },
     {
       "component": "button",
       "path": "button.states.danger.Active.background",
       "decision": "derived",
+      "route": "제품-주장",
       "reason": "DS에는 danger 전용 :active 배경 규칙이 없어 Active 면은 Default 면(color-action-danger)과 같고 누름은 scale 0.98로만 표현되며(button.css:137-139), 제품도 :active에서 색을 바꾸지 않는다(Button.tsx:131)."
     },
     {
       "component": "button",
       "path": "button.states.danger.Active.foreground",
       "decision": "derived",
+      "route": "DS-내부만",
       "reason": "DS에는 :active 전용 전경 규칙이 없어 Active 전경은 Default 전경(color-foreground-on-danger)과 항상 같다 — :active는 색이 아니라 scale로만 표현된다(button.css:137-144)."
     },
     {
@@ -118,36 +136,42 @@
       "component": "button",
       "path": "button.states.danger.Hover.background",
       "decision": "derived",
+      "route": "제품-주장",
       "reason": "DS는 danger의 hover를 색이 아니라 opacity 0.85로 표현하므로(button.css:128-130, 제품 Button.tsx:130과 같은 방식) Hover 면은 Default 면과 같은 color-action-danger다."
     },
     {
       "component": "button",
       "path": "button.states.danger.Hover.foreground",
       "decision": "derived",
+      "route": "제품-주장",
       "reason": "DS에는 hover 전용 전경 규칙이 없어 Hover 전경은 Default 전경(color-foreground-on-danger)과 같고, 제품도 hover에서 전경을 재선언하지 않고 요소 전체에 opacity 0.85만 건다(Button.tsx:130)."
     },
     {
       "component": "button",
       "path": "button.states.danger.Loading.background",
       "decision": "derived",
+      "route": "제품-없음",
       "reason": "Button은 loading일 때 aria-disabled=\"true\"를 붙이고(button.tsx:65) CSS의 disabled 규칙이 그것을 함께 잡으므로 Loading 면은 언제나 Disabled 면과 같으며 — Loading을 가르는 것은 면이 아니라 spinner의 존재와 label opacity 0.6이다 — 제품 공용 Button에는 loading prop 자체가 없다(Button.tsx:157-166)."
     },
     {
       "component": "button",
       "path": "button.states.danger.Loading.foreground",
       "decision": "derived",
+      "route": "제품-없음",
       "reason": "Loading은 aria-disabled=\"true\"로 표시되어 disabled 전경 규칙(button.css:157-161)이 함께 적용되므로 Loading 전경은 언제나 Disabled 전경과 같고, 제품 공용 Button에는 loading prop 자체가 없다."
     },
     {
       "component": "button",
       "path": "button.states.ghost.Active.background",
       "decision": "derived",
+      "route": "DS-내부만",
       "reason": "DS에는 ghost 전용 :active 배경 규칙이 없고 포인터로 누르는 동안 :hover가 계속 매칭되므로 Active 면은 Hover 면(color-action-ghost-hover)과 항상 같다 — :active가 바꾸는 것은 scale 0.97뿐이다(button.css:142-144)."
     },
     {
       "component": "button",
       "path": "button.states.ghost.Active.foreground",
       "decision": "derived",
+      "route": "DS-내부만",
       "reason": "DS에는 :active 전용 전경 규칙이 없어 Active 전경은 Default 전경(color-action-secondary-foreground)과 항상 같다 — :active는 색이 아니라 scale로만 표현된다."
     },
     {
@@ -172,6 +196,7 @@
       "component": "button",
       "path": "button.states.ghost.Disabled.background",
       "decision": "derived",
+      "route": "DS-내부만",
       "reason": "DS의 disabled 배경 규칙은 primary·danger만 잡으므로(button.css:163-166) ghost의 Disabled 면은 Default와 같은 투명이며 따로 잴 값이 아니다."
     },
     {
@@ -198,18 +223,21 @@
       "component": "button",
       "path": "button.states.ghost.Hover.foreground",
       "decision": "derived",
+      "route": "제품-주장",
       "reason": "DS에는 hover 전용 전경 규칙이 없어 Hover 전경은 Default 전경과 같고, 제품도 hover에서 알파 오버레이만 얹고 전경은 그대로 둔다(Button.tsx:119)."
     },
     {
       "component": "button",
       "path": "button.states.ghost.Loading.background",
       "decision": "derived",
+      "route": "제품-없음",
       "reason": "Button은 loading일 때 aria-disabled=\"true\"를 붙여 disabled 규칙이 함께 적용되므로 Loading 면은 Disabled 면과 같고(ghost는 둘 다 투명), 제품 공용 Button에는 loading prop 자체가 없다."
     },
     {
       "component": "button",
       "path": "button.states.ghost.Loading.foreground",
       "decision": "derived",
+      "route": "제품-없음",
       "reason": "Loading은 aria-disabled=\"true\"로 표시되어 disabled 전경 규칙(button.css:157-161)이 함께 적용되므로 Loading 전경은 언제나 Disabled 전경과 같고, 제품 공용 Button에는 loading prop 자체가 없다."
     },
     {
@@ -222,6 +250,7 @@
       "component": "button",
       "path": "button.states.primary.Active.foreground",
       "decision": "derived",
+      "route": "DS-내부만",
       "reason": "DS에는 :active 전용 전경 규칙이 없어 Active 전경은 Default 전경(color-foreground-inverse)과 항상 같다 — :active가 바꾸는 것은 배경과 scale뿐이다(button.css:133-139)."
     },
     {
@@ -276,36 +305,42 @@
       "component": "button",
       "path": "button.states.primary.Hover.foreground",
       "decision": "derived",
+      "route": "제품-주장",
       "reason": "DS에는 hover 전용 전경 규칙이 없어 Hover 전경은 Default 전경(color-foreground-inverse)과 같고, 제품도 hover에서 전경을 재선언하지 않고 요소 전체에 brightness(1.06)만 건다(Button.tsx:100)."
     },
     {
       "component": "button",
       "path": "button.states.primary.Loading.background",
       "decision": "derived",
+      "route": "제품-없음",
       "reason": "Button은 loading일 때 aria-disabled=\"true\"를 붙이고(button.tsx:65) CSS의 disabled 규칙이 그것을 함께 잡으므로 Loading 면은 언제나 Disabled 면과 같으며 — Loading을 가르는 것은 면이 아니라 spinner의 존재와 label opacity 0.6이다 — 제품 공용 Button에는 loading prop 자체가 없다(Button.tsx:157-166)."
     },
     {
       "component": "button",
       "path": "button.states.primary.Loading.foreground",
       "decision": "derived",
+      "route": "제품-없음",
       "reason": "Loading은 aria-disabled=\"true\"로 표시되어 disabled 전경 규칙(button.css:157-161)이 함께 적용되므로 Loading 전경은 언제나 Disabled 전경과 같고, 제품 공용 Button에는 loading prop 자체가 없다."
     },
     {
       "component": "button",
       "path": "button.states.secondary.Active.background",
       "decision": "derived",
+      "route": "DS-내부만",
       "reason": "DS에는 secondary 전용 :active 배경 규칙이 없고 포인터로 누르는 동안 :hover가 계속 매칭되므로 Active 면은 Hover 면(color-action-secondary-hover)과 항상 같다 — :active가 바꾸는 것은 scale 0.98뿐이다(button.css:137-139)."
     },
     {
       "component": "button",
       "path": "button.states.secondary.Active.border",
       "decision": "derived",
+      "route": "DS-내부만",
       "reason": "DS에는 :active 전용 테두리 규칙이 없어 Active 테두리는 Default 테두리(color-border-control)와 항상 같다."
     },
     {
       "component": "button",
       "path": "button.states.secondary.Active.foreground",
       "decision": "derived",
+      "route": "DS-내부만",
       "reason": "DS에는 :active 전용 전경 규칙이 없어 Active 전경은 Default 전경(color-action-secondary-foreground)과 항상 같다 — :active는 색이 아니라 scale로만 표현된다."
     },
     {
@@ -339,6 +374,7 @@
       "component": "button",
       "path": "button.states.secondary.Disabled.background",
       "decision": "derived",
+      "route": "DS-내부만",
       "reason": "DS의 disabled 배경 규칙은 primary·danger만 잡으므로(button.css:163-166) secondary의 Disabled 면은 Default와 같은 투명이며 따로 잴 값이 아니다."
     },
     {
@@ -375,30 +411,35 @@
       "component": "button",
       "path": "button.states.secondary.Hover.border",
       "decision": "derived",
+      "route": "제품-주장",
       "reason": "DS에는 hover 전용 테두리 규칙이 없어 Hover 테두리는 Default 테두리(color-border-control)와 같고, 제품도 hover에서 배경 오버레이만 얹고 테두리는 그대로 둔다(Button.tsx:108)."
     },
     {
       "component": "button",
       "path": "button.states.secondary.Hover.foreground",
       "decision": "derived",
+      "route": "제품-주장",
       "reason": "DS에는 hover 전용 전경 규칙이 없어 Hover 전경은 Default 전경과 같고, 제품도 hover에서 배경 오버레이만 얹고 전경은 그대로 둔다(Button.tsx:108)."
     },
     {
       "component": "button",
       "path": "button.states.secondary.Loading.background",
       "decision": "derived",
+      "route": "제품-없음",
       "reason": "Button은 loading일 때 aria-disabled=\"true\"를 붙여 disabled 규칙이 함께 적용되므로 Loading 면은 Disabled 면과 같고(secondary는 둘 다 투명), 제품 공용 Button에는 loading prop 자체가 없다."
     },
     {
       "component": "button",
       "path": "button.states.secondary.Loading.border",
       "decision": "derived",
+      "route": "제품-없음",
       "reason": "Loading은 aria-disabled=\"true\"로 표시되어 disabled 테두리 규칙(button.css:168-171)이 함께 적용되므로 Loading 테두리는 언제나 Disabled 테두리(color-border-subtle)와 같고, 제품 공용 Button에는 loading prop 자체가 없다."
     },
     {
       "component": "button",
       "path": "button.states.secondary.Loading.foreground",
       "decision": "derived",
+      "route": "제품-없음",
       "reason": "Loading은 aria-disabled=\"true\"로 표시되어 disabled 전경 규칙(button.css:157-161)이 함께 적용되므로 Loading 전경은 언제나 Disabled 전경과 같고, 제품 공용 Button에는 loading prop 자체가 없다."
     },
     {
@@ -488,24 +529,28 @@
       "component": "icon-button",
       "path": "icon-button.states.danger.Hover.background",
       "decision": "derived",
+      "route": "충돌-기록됨",
       "reason": "danger에는 hover 면 규칙이 없어 Default의 background-danger가 그대로 남는다 — 제품의 파괴 아이콘 버튼(overlayDeleteBtn)은 반대로 평소 투명이고 hover에서만 accent-red-600 88%를 채우므로, 어느 쪽을 정본으로 삼을지 판정이 필요하다."
     },
     {
       "component": "icon-button",
       "path": "icon-button.states.danger.Hover.foreground",
       "decision": "derived",
+      "route": "충돌-기록됨",
       "reason": "hover 규칙이 danger를 덮지 않으므로 전경은 Default의 foreground-danger가 그대로 남는다 — 제품은 hover에서 전경을 흰색(palette-gray-000 95%)으로 뒤집는다."
     },
     {
       "component": "icon-button",
       "path": "icon-button.states.danger.Active.background",
       "decision": "derived",
+      "route": "DS-내부만",
       "reason": "danger에는 active 전용 면 규칙이 없어 누르는 동안에도 Default의 background-danger가 그대로 남는다 — 누름은 면이 아니라 scale 0.98로만 표현된다."
     },
     {
       "component": "icon-button",
       "path": "icon-button.states.danger.Active.foreground",
       "decision": "derived",
+      "route": "DS-내부만",
       "reason": "active 규칙이 scale만 바꾸므로 전경은 Default의 foreground-danger가 그대로 남는다."
     },
     {
@@ -574,18 +619,21 @@
       "component": "icon-button",
       "path": "icon-button.states.ghost.Hover.foreground",
       "decision": "derived",
+      "route": "충돌-기록됨",
       "reason": "hover 규칙이 면만 바꾸므로 전경은 Default의 foreground-secondary가 그대로 남는다 — 제품은 hover에서 전경도 100%로 올리므로 이 차이는 판정이 필요하다."
     },
     {
       "component": "icon-button",
       "path": "icon-button.states.ghost.Active.background",
       "decision": "derived",
+      "route": "DS-내부만",
       "reason": "ghost에는 active 전용 면 규칙이 없어 포인터가 얹힌 채 눌리는 동안 Hover의 background-inset이 그대로 유지된다 — Hover.background와 같은 값이다."
     },
     {
       "component": "icon-button",
       "path": "icon-button.states.ghost.Active.foreground",
       "decision": "derived",
+      "route": "DS-내부만",
       "reason": "active 규칙이 scale만 바꾸므로 전경은 Default의 foreground-secondary가 그대로 남는다."
     },
     {
@@ -612,6 +660,7 @@
       "component": "icon-button",
       "path": "icon-button.states.ghost.Disabled.background",
       "decision": "derived",
+      "route": "DS-내부만",
       "reason": "비활성 면 규칙이 primary와 danger만 덮으므로 ghost는 Default의 투명 면이 그대로 남는다 — 따로 잴 값이 아니다."
     },
     {
@@ -642,6 +691,7 @@
       "component": "icon-button",
       "path": "icon-button.states.primary.Hover.foreground",
       "decision": "derived",
+      "route": "DS-내부만",
       "reason": "hover 규칙이 면만 바꾸므로 전경은 Default의 foreground-inverse가 그대로 남는다."
     },
     {
@@ -654,6 +704,7 @@
       "component": "icon-button",
       "path": "icon-button.states.primary.Active.foreground",
       "decision": "derived",
+      "route": "DS-내부만",
       "reason": "active 규칙이 면과 scale만 바꾸므로 전경은 Default의 foreground-inverse가 그대로 남는다."
     },
     {
@@ -730,30 +781,35 @@
       "component": "icon-button",
       "path": "icon-button.states.secondary.Hover.foreground",
       "decision": "derived",
+      "route": "충돌-기록됨",
       "reason": "hover 규칙이 면만 바꾸므로 전경은 Default의 foreground-primary가 그대로 남는다 — 제품 backButton은 hover에서 전경도 한 단계 올리므로 이 차이는 판정이 필요하다."
     },
     {
       "component": "icon-button",
       "path": "icon-button.states.secondary.Hover.border",
       "decision": "derived",
+      "route": "DS-내부만",
       "reason": "hover 규칙이 border-color를 건드리지 않으므로 Default의 border-default가 그대로 남는다 — hover에서는 면만 바뀌고 경계는 흔들리지 않는다."
     },
     {
       "component": "icon-button",
       "path": "icon-button.states.secondary.Active.background",
       "decision": "derived",
+      "route": "DS-내부만",
       "reason": "secondary에는 active 전용 면 규칙이 없어 포인터가 얹힌 채 눌리는 동안 Hover의 background-inset이 그대로 유지된다 — Hover.background와 같은 값이다."
     },
     {
       "component": "icon-button",
       "path": "icon-button.states.secondary.Active.foreground",
       "decision": "derived",
+      "route": "DS-내부만",
       "reason": "active 규칙이 scale만 바꾸므로 전경은 Default의 foreground-primary가 그대로 남는다."
     },
     {
       "component": "icon-button",
       "path": "icon-button.states.secondary.Active.border",
       "decision": "derived",
+      "route": "DS-내부만",
       "reason": "active 규칙이 border-color를 건드리지 않으므로 Default의 border-default가 그대로 남는다."
     },
     {
@@ -780,12 +836,14 @@
       "component": "icon-button",
       "path": "icon-button.states.secondary.Pressed.border",
       "decision": "derived",
+      "route": "DS-내부만",
       "reason": "aria-pressed 규칙은 면과 전경만 덮으므로 테두리는 Default의 border-default가 그대로 남는다."
     },
     {
       "component": "icon-button",
       "path": "icon-button.states.secondary.Disabled.background",
       "decision": "derived",
+      "route": "DS-내부만",
       "reason": "비활성 면 규칙이 primary와 danger만 덮으므로 secondary는 Default의 background-surface가 그대로 남는다 — 비활성은 면이 아니라 전경과 테두리로 표현된다."
     },
     {
@@ -819,6 +877,7 @@
       "component": "input",
       "path": "input.sizes.md.frameWidth",
       "decision": "derived",
+      "route": "제품-없음",
       "reason": "frameWidth = boxWidth + 2 × (focus 링 outline 2px + offset 2px) = 320 + 8 = 328 — 링이 잘리지 않게 Figma 프레임만 좌우 4씩 넓힌 값이라 따로 잴 축이 아니다."
     },
     {
@@ -867,6 +926,7 @@
       "component": "input",
       "path": "input.sizes.sm.frameWidth",
       "decision": "derived",
+      "route": "제품-없음",
       "reason": "frameWidth = boxWidth + 2 × (focus 링 outline 2px + offset 2px) = 320 + 8 = 328. sm의 링 기하가 md와 같으므로 값도 같다."
     },
     {
@@ -972,6 +1032,7 @@
       "component": "input",
       "path": "input.states.base.Disabled.background",
       "decision": "derived",
+      "route": "DS-내부만",
       "reason": "Disabled은 테두리 색과 커서만 바꾼다 — 면은 Default의 `color-background-surface`가 그대로 계산된 값이라 따로 선언하지 않는다."
     },
     {
@@ -990,6 +1051,7 @@
       "component": "input",
       "path": "input.states.base.Invalid.background",
       "decision": "derived",
+      "route": "DS-내부만",
       "reason": "Invalid은 테두리 색과 메시지 색만 바꾼다 — 면은 Default의 `color-background-surface`가 그대로 계산된 값이라 따로 선언하지 않는다."
     },
     {
@@ -1002,6 +1064,7 @@
       "component": "input",
       "path": "input.states.base.Invalid.foreground",
       "decision": "derived",
+      "route": "DS-내부만",
       "reason": "Invalid은 테두리와 메시지 색만 바꾼다 — 값 텍스트는 Default의 `color-foreground-primary`가 그대로 계산된 값이다."
     },
     {
@@ -1268,6 +1331,7 @@
       "component": "segmented-control",
       "path": "segmented-control.sizes.sm.segmentHeight",
       "decision": "derived",
+      "route": "DS-내부만",
       "reason": "세그먼트 높이는 트랙 높이에서 트랙 padding을 두 번 뺀 값이다 — 32 − 2×4 = 24. CSS에 이 값을 적은 선언이 없고 `align-items: stretch`가 트랙 안쪽을 그대로 채워 만든다."
     },
     {
@@ -1409,6 +1473,7 @@
       "component": "menu-popover",
       "path": "menu-popover.sizes.panel.groupLabelHeight",
       "decision": "derived",
+      "route": "DS-내부만",
       "reason": "그룹 라벨 높이는 padding-block 4px 두 겹과 caption 12px에 행간 1.5를 곱한 18px의 합이다 — 4 + 18 + 4 = 26px이므로 따로 선언하지 않는다."
     },
     {
@@ -1563,12 +1628,14 @@
       "component": "banner-carousel",
       "path": "banner-carousel.sizes.boxed.controlsHeight",
       "decision": "derived",
+      "route": "제품-주장",
       "reason": "컨트롤 높이 = 컨트롤 padding 4 × 2 + 화살표 28 = 36. 제품 컨트롤도 `inline-flex`(TabBannerCarousel.tsx:128 CONTROLS, appHomeSceneStyles.ts:442 bannerControls)라 높이를 선언하지 않고 가장 큰 자식인 화살표에서 나온다."
     },
     {
       "component": "banner-carousel",
       "path": "banner-carousel.sizes.boxed.controlsWidth",
       "decision": "derived",
+      "route": "충돌-기록됨",
       "reason": "컨트롤 폭 = padding 4 × 2 + 화살표 28 × 2 + 정지 28 + 컨트롤 gap 8 × 3 + 점 묶음(활성 20 + 비활성 7 × 2 + 점 gap 6 × 2 = 46) = 162, 슬라이드 3장 기준. 제품 컨트롤은 `inline-flex`라 폭을 선언하지 않으며, 정지 버튼이 없는 제품에 같은 식을 쓰면 126이 되어 DS가 36 넓다는 서술과 맞는다."
     },
     {
@@ -1642,6 +1709,7 @@
       "component": "banner-carousel",
       "path": "banner-carousel.sizes.full.controlsHeight",
       "decision": "derived",
+      "route": "제품-주장",
       "reason": "컨트롤 높이 = 컨트롤 padding 4 × 2 + 화살표 28 = 36. 제품 컨트롤도 `inline-flex`(TabBannerCarousel.tsx:128 CONTROLS, appHomeSceneStyles.ts:442 bannerControls)라 높이를 선언하지 않고 가장 큰 자식인 화살표에서 나온다."
     },
     {
@@ -1666,6 +1734,7 @@
       "component": "banner-carousel",
       "path": "banner-carousel.sizes.full.controlsWidth",
       "decision": "derived",
+      "route": "충돌-기록됨",
       "reason": "컨트롤 폭 = padding 4 × 2 + 화살표 28 × 2 + 정지 28 + 컨트롤 gap 8 × 3 + 점 묶음(활성 20 + 비활성 7 × 2 + 점 gap 6 × 2 = 46) = 162, 슬라이드 3장 기준. 제품 컨트롤은 `inline-flex`라 폭을 선언하지 않으며, 정지 버튼이 없는 제품에 같은 식을 쓰면 126이 되어 DS가 36 넓다는 서술과 맞는다."
     },
     {
@@ -1834,6 +1903,7 @@
       "component": "skeleton",
       "path": "skeleton.sizes.text.height",
       "decision": "derived",
+      "route": "충돌-기록됨",
       "reason": "글자 줄을 대신하므로 대신할 글자의 행간이 곧 높이다 — skeleton.css가 `block-size: var(--kds-typography-body-sm-regular-line-height)`로 typography 축을 그대로 받으며 따로 세운 값이 아니다. (다만 기록된 16px은 그 식에서 나오지 않는다: 생성된 토큰이 단위 없는 `1.5`라 `block-size`가 무효 선언으로 버려지고, 14px × 1.5 = 21px과도 맞지 않는다 — 이 어긋남은 사람이 판정해야 한다.)"
     },
     {
@@ -2852,6 +2922,7 @@
       "component": "app-shell-parts",
       "path": "app-shell-parts.sizes.navRow.width",
       "decision": "derived",
+      "route": "제품-주장",
       "reason": "행은 자기 폭을 갖지 않는다 — DS는 `inline-size: 100%`, 배포본은 `.gnb-menuSidebar .gnb-menuLink { width: 100% }`(Gnb.tsx:484)로 레일을 채우므로 256 = `layout-app-shell-sidebar-width`(280) − 2 × `layout-app-shell-sidebar-padding`(12)이고, 제품도 `--app-gnb-sidebar-width`(280, globals.css:143) − 2 × `--app-gnb-sidebar-padding-x`(12, globals.css:126)로 같은 폭이 된다."
     },
     {
@@ -2931,6 +3002,7 @@
       "component": "sidebar-brand",
       "path": "sidebar-brand.sizes.false.width",
       "decision": "derived",
+      "route": "제품-주장",
       "reason": "브랜드 행은 폭을 스스로 선언하지 않고 레일을 가득 채운다(`.kds-sidebar-brand { inline-size: 100% }`) — 펼침 폭 256 = `layout-app-shell-sidebar-width`(280) − 2 × `layout-app-shell-sidebar-padding`(12)이며, 배포본도 `--app-gnb-sidebar-width: min(280px, calc(100vw - 120px))`(apps/web/app/globals.css:143)에서 `gnb-wrapperSidebar`의 좌우 `--app-gnb-sidebar-padding-x: 12px`(같은 파일 126)를 빼는 같은 식이다."
     },
     {
@@ -2990,12 +3062,14 @@
       "component": "sidebar-cta",
       "path": "sidebar-cta.sizes.false.width",
       "decision": "derived",
+      "route": "제품-주장",
       "reason": "펼침 CTA는 제품에서 `width:100%`라 폭을 스스로 정하지 않는다 — 256 = 데스크톱 `--app-gnb-sidebar-width` 280(`min(280px, calc(100vw - 120px))`) − 2 × `--app-gnb-sidebar-padding-x` 12, 즉 사이드바 열의 콘텐츠 폭이다."
     },
     {
       "component": "sidebar-cta",
       "path": "sidebar-cta.sizes.true.width",
       "decision": "derived",
+      "route": "제품-주장",
       "reason": "접힘 CTA는 제품에서 `width:fit-content` + `max-width:100%`라 접힌 레일의 콘텐츠 폭에서 잘린다 — 32 = 접힘 `--app-gnb-sidebar-width`(2 × `--app-gnb-sidebar-padding-x` 12 + `--app-gnb-sidebar-menu-hit-w` 32 = 56) − 2 × 12이고, `--app-gnb-sidebar-menu-hit-w`는 다시 (`--app-gnb-main-inline-padding` 16 − `--app-gnb-sidebar-padding-x` 12) + 아이콘 20 + 우측 8 = 32이다."
     },
     {
@@ -3024,6 +3098,7 @@
       "component": "progress-bar",
       "path": "progress-bar.sizes.base.fillHeight",
       "decision": "derived",
+      "route": "제품-주장",
       "reason": "채움 높이는 잴 축이 아니라 트랙 높이 그 자체다 — 제품 두 벌(highlightSceneStyles.ts:1179 `[height:100%]`, shorts/[shortId]/page.tsx:1127 `height: \"100%\"`)과 DS 구현(packages/css/src/component/progress.css:24 `block-size: 100%`)이 모두 채움을 트랙에 꽉 채우므로 fillHeight = sizes.base.height = 6px으로 계산된다."
     },
     {

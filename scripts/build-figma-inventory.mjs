@@ -114,32 +114,36 @@ const layout = (node, file, specimenId, parentCtx) => {
   const selfCtx = selfIsFlex ? { flex: true, row: V.flexDirection === "row" } : { flex: false, row: false };
   const children = (node.children ?? []).map((c) => layout(c, file, specimenId, selfCtx));
 
+  // absolute 자식은 flow에 없다 — 좌표는 측정에서 그대로 받고, 간격·여백 추론에서 뺀다.
+  // 프로젝트 카드가 그렇다: 썸네일(inset:0)·타이틀 오버레이·메뉴 앵커·드롭다운 전부 absolute다.
+  const flow = children.filter((c) => !c.abs);
+
   // 자식 좌표: 여백 → 마진 → 크기 → 간격 순으로 쌓는다.
   let cursor = row ? cssPad[3] : cssPad[0];
-  children.forEach((child, i) => {
-    const raw = (node.children[i].values ?? {});
+  flow.forEach((child, i) => {
+    const raw = (node.children[children.indexOf(child)].values ?? {});
     const m = [px(raw.marginTop), px(raw.marginRight), px(raw.marginBottom), px(raw.marginLeft)];
     if (row) {
       cursor += m[3];
       child.x = round3(cursor); child.y = round3(cssPad[0] + m[0]);
-      cursor += child.w + m[1] + (i < children.length - 1 ? gap : 0);
+      cursor += child.w + m[1] + (i < flow.length - 1 ? gap : 0);
     } else {
       cursor += m[0];
       child.x = round3(cssPad[3] + m[3]); child.y = round3(cursor);
-      cursor += child.h + m[2] + (i < children.length - 1 ? gap : 0);
+      cursor += child.h + m[2] + (i < flow.length - 1 ? gap : 0);
     }
   });
 
   // ⑤ 음수 마진: 실제 바깥 여백은 첫 자식의 자리다. 나머지는 그만큼 안쪽으로 들어간다.
   const pad = [...cssPad];
-  if (children.length) {
-    const leadCross = Math.min(...children.map((c) => (row ? c.y : c.x)));
-    const leadMain = Math.min(...children.map((c) => (row ? c.x : c.y)));
+  if (flow.length) {
+    const leadCross = Math.min(...flow.map((c) => (row ? c.y : c.x)));
+    const leadMain = Math.min(...flow.map((c) => (row ? c.x : c.y)));
     const crossIdx = row ? 0 : 3;
     const mainIdx = row ? 3 : 0;
     if (leadCross < cssPad[crossIdx] - 0.02) pad[crossIdx] = Math.max(0, round3(leadCross));
     if (leadMain < cssPad[mainIdx] - 0.02) pad[mainIdx] = Math.max(0, round3(leadMain));
-    const tailMain = (row ? width - Math.max(...children.map((c) => c.x + c.w)) : height - Math.max(...children.map((c) => c.y + c.h)));
+    const tailMain = (row ? width - Math.max(...flow.map((c) => c.x + c.w)) : height - Math.max(...flow.map((c) => c.y + c.h)));
     const tailIdx = row ? 1 : 2;
     if (tailMain < cssPad[tailIdx] - 0.02) pad[tailIdx] = Math.max(0, round3(tailMain));
   }
@@ -147,14 +151,15 @@ const layout = (node, file, specimenId, parentCtx) => {
 
   // ④ 이웃 사이 빈틈. 모두 같으면 itemSpacing 하나, 아니면 큰 간격에서 잘라 중첩한다.
   const gaps = [];
-  for (let i = 1; i < children.length; i++) {
-    const a = children[i - 1], b = children[i];
+  for (let i = 1; i < flow.length; i++) {
+    const a = flow[i - 1], b = flow[i];
     gaps.push(round3(row ? b.x - (a.x + a.w) : b.y - (a.y + a.h)));
   }
   const uniform = gaps.length === 0 || gaps.every((g) => Math.abs(g - gaps[0]) < 0.02);
 
   const decl = declarationOf(file, node.part);
-  const empty = children.length === 0 && !node.text;
+  const empty = flow.length === 0 && !node.text;
+  const isAbs = V.position === "absolute" || V.position === "fixed";
   const lineHeight = px(V.lineHeight);
   const fontSize = px(V.fontSize);
   const plain = !colorOf(V.backgroundColor)?.[3] && px(V.borderTopWidth) === 0 && px(V.borderTopLeftRadius) === 0;
@@ -162,7 +167,9 @@ const layout = (node, file, specimenId, parentCtx) => {
   return {
     part: node.part,
     text: node.text ?? "",
-    w: width, h: height, x: 0, y: 0,
+    w: width, h: height,
+    // absolute면 측정된 오프셋을 그대로 갖는다. flow면 위 커서 계산이 채운다.
+    abs: isAbs, x: isAbs ? (V.$x ?? 0) : 0, y: isAbs ? (V.$y ?? 0) : 0,
     pad, inset,
     gap: uniform ? (gaps[0] ?? 0) : 0,
     gaps: uniform ? [] : gaps,
@@ -235,6 +242,9 @@ for (const spec of measured.specimens) {
     rootCtx = { flex: true, row: !isCol };
   }
   const tree = layout(spec.tree, file, spec.id, rootCtx);
+  // 표본 **루트**의 absolute/fixed는 페이지 기준 좌표라 판에 옮길 수 없다(토스트가
+  // y:-18175로 나왔다). 루트는 flow로 그리고, absolute 처리는 자식에게만 적용한다.
+  tree.abs = false; tree.x = 0; tree.y = 0;
   const meta = specimenFile.specimens.find((s) => s.id === spec.id);
   const entry = {
     id: spec.id,
@@ -285,6 +295,11 @@ const mkTxt=n=>{const t=figma.createText();t.name=n.p;t.fontName=F(n.fw);t.chara
 // FILL은 FILL로 남긴다. FILL이 성립하려면 부모가 폭을 가져야 하므로,
 // hug 부모가 FILL 자식을 가지면 build()가 그 부모를 실측폭으로 고정한다.
 const place=(parent,spec)=>{const node=build(spec);parent.appendChild(node);
+ if(spec.abs){
+  // 제품이 absolute로 띄우는 자식이다. flow 밖에 측정 좌표 그대로 놓는다.
+  try{node.layoutPositioning="ABSOLUTE";}catch(e){}
+  node.x=spec.x;node.y=spec.y;
+  return node;}
  try{if(spec.wx==="FILL")node.layoutSizingHorizontal="FILL";}catch(e){}
  try{if(spec.hx==="FILL")node.layoutSizingVertical="FILL";}catch(e){}
  return node;};
@@ -377,7 +392,10 @@ return {count:created.length,어긋난것:drift.length,drift:drift.slice(0,12),�
 // 계획을 그리기 좋은 최소 형태로 줄인다.
 const zero = (a) => a.every((x) => !x);
 const compact = (n) => {
-  const o = { p: n.part, w: n.w, h: n.h, wx: n.wx, hx: n.hx };
+  // absolute는 부모 flow 밖이라 FILL이 성립하지 않는다 — 측정 크기로 고정하고 좌표를 갖는다.
+  const o = n.abs
+    ? { p: n.part, w: n.w, h: n.h, wx: "FIX", hx: "FIX", abs: 1, x: n.x, y: n.y }
+    : { p: n.part, w: n.w, h: n.h, wx: n.wx, hx: n.hx };
   if (!zero(n.pad)) o.pad = n.pad;
   if (!zero(n.inset)) o.ins = n.inset;
   if (n.gap) o.gap = n.gap;

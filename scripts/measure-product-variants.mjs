@@ -252,6 +252,24 @@ const inlineStyleOf = (file, name) => {
   return declarations.join(";");
 };
 
+// 소비처가 JSX에 **리터럴로** 얹는 인라인 style이다. 상수가 아니라 `inlineFrom`으로 가리킬 수
+// 없고, 값을 표본에 적으면 창작이 된다. 그래서 고정 커밋의 그 줄에서 읽는다 — 프로젝트 카드의
+// 높이가 이렇게 온다(AppHomeScene.tsx:1094 `aspectRatio: "1 / 1"`). 줄이 옮겨져 선언을 읽지
+// 못하면 조용히 넘기지 않고 실패한다.
+const inlineAtOf = (ref) => {
+  const at = ref.lastIndexOf(":");
+  const file = ref.slice(0, at);
+  const line = Number(ref.slice(at + 1));
+  const src = sources[file] ?? git(["show", commit + ":" + file]);
+  sources[file] = src;
+  const text = src.split("\n")[line - 1] ?? "";
+  const decls = [];
+  for (const m of text.matchAll(/([A-Za-z][A-Za-z0-9]*)\s*:\s*"((?:[^"\\]|\\.)*)"/g)) {
+    decls.push(m[1].replace(/[A-Z]/g, (c) => "-" + c.toLowerCase()) + ":" + JSON.parse('"' + m[2] + '"'));
+  }
+  if (decls.length === 0) throw new Error(ref + " 에서 인라인 선언을 읽지 못했습니다. 줄이 옮겨졌는지 확인하세요.");
+  return decls.join(";");
+};
 const buildSpecimen = (specimen, node, path) => {
   const constant = classesOf(specimen.file, node.part);
   const index = specimenSeq;
@@ -265,7 +283,9 @@ const buildSpecimen = (specimen, node, path) => {
     line: constant.line,
     text: node.text ?? "",
     classes: [node.typography, constant.classes].filter(Boolean).join(" "),
-    inline: node.inlineFrom ? inlineStyleOf(node.inlineFrom.file, node.inlineFrom.name) : "",
+    inline: node.inlineFrom
+      ? inlineStyleOf(node.inlineFrom.file, node.inlineFrom.name)
+      : (node.inlineAt ? inlineAtOf(node.inlineAt) : ""),
     children: (node.children ?? []).map((child, order) =>
       buildSpecimen(specimen, child, path + "/" + child.part + (order > 0 ? "#" + order : "")),
     ),
@@ -399,12 +419,20 @@ try {
         const style = getComputedStyle(element);
         const values = {};
         for (const axis of axes) values[axis] = style[axis];
-        for (const axis of ["marginTop", "marginRight", "marginBottom", "marginLeft", "rowGap", "textAlign", "justifyContent", "flexDirection", "display"]) {
+        for (const axis of ["marginTop", "marginRight", "marginBottom", "marginLeft", "rowGap", "textAlign", "justifyContent", "flexDirection", "display", "position"]) {
           values[axis] = style[axis];
         }
         const rect = element.getBoundingClientRect();
         values.$width = Math.round(rect.width * 100) / 100;
         values.$height = Math.round(rect.height * 100) / 100;
+        // absolute 자식은 flow에 없어 좌표를 부모에게서 직접 받아야 그릴 수 있다.
+        // 프로젝트 카드의 썸네일(inset:0)·타이틀 오버레이·드롭다운이 전부 그렇다.
+        if (values.position === "absolute" || values.position === "fixed") {
+          const host = element.offsetParent ?? element.parentElement;
+          const hostRect = host.getBoundingClientRect();
+          values.$x = Math.round((rect.left - hostRect.left) * 100) / 100;
+          values.$y = Math.round((rect.top - hostRect.top) * 100) / 100;
+        }
         out[element.dataset.sp] = values;
       }
       return out;

@@ -89,7 +89,11 @@ for(const sec of PLAN){
    stage.appendChild(T("실측 "+sp.t.w+"×"+sp.t.h+" — 하네스에서 내용(썸네일·비디오)이 없어 접혔다. 아직 그릴 수 없다.",12,"r",0.55,cardW-96));
    skipped.push(sp.i);
   } else {
-   const built=place(stage,sp.t);
+   // 표본 루트의 FILL은 무대 폭이 아니라 **실측 폭**으로 고정한다.
+   // 무대는 제품 부모가 아니다 — 실측이 곧 제품 부모가 준 값이다.
+   const built=build(sp.t);stage.appendChild(built);
+   if(sp.t.wx==="FILL"){built.layoutSizingHorizontal="FIXED";built.resize(Math.max(1,sp.t.w),built.height);}
+   if(sp.t.hx==="FILL"){built.layoutSizingVertical="FIXED";built.resize(built.width,Math.max(1,sp.t.h));}
    check.push({i:sp.i,m:sp.t.w+"×"+sp.t.h,f:Math.round(built.width*100)/100+"×"+Math.round(built.height*100)/100});
   }
   const head=figma.createAutoLayout("VERTICAL",{name:"head",itemSpacing:3});

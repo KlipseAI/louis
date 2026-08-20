@@ -101,7 +101,8 @@ const firstOuterShadow = (v) => {
 const fileOfSpecimen = new Map(specimenFile.specimens.map((s) => [s.id, s.file]));
 
 // 자식 위치를 실측 padding·margin·gap에서 계산한다. 추정하지 않는다.
-const layout = (node, file, specimenId) => {
+// parentCtx: null(부모 없음) | {flex:true,row:true|false}
+const layout = (node, file, specimenId, parentCtx) => {
   const V = node.values ?? {};
   const width = V.$width ?? 0;
   const height = V.$height ?? 0;
@@ -109,7 +110,9 @@ const layout = (node, file, specimenId) => {
   const row = (V.display ?? "").includes("flex") && V.flexDirection === "row";
   const gap = V.rowGap && V.rowGap !== "normal" ? px(V.rowGap)
     : (V.columnGap && V.columnGap !== "normal" ? px(V.columnGap) : 0);
-  const children = (node.children ?? []).map((c) => layout(c, file, specimenId));
+  const selfIsFlex = (V.display ?? "").includes("flex") || (V.display ?? "").includes("grid");
+  const selfCtx = selfIsFlex ? { flex: true, row: V.flexDirection === "row" } : { flex: false, row: false };
+  const children = (node.children ?? []).map((c) => layout(c, file, specimenId, selfCtx));
 
   // 자식 좌표: 여백 → 마진 → 크기 → 간격 순으로 쌓는다.
   let cursor = row ? cssPad[3] : cssPad[0];
@@ -179,7 +182,22 @@ const layout = (node, file, specimenId) => {
     isText: Boolean(node.text) && children.length === 0 && plain,
     textFill: (V.display ?? "") === "block",
     // ① 크기는 선언된 것만 고정한다.
-    wx: decl.wFixed ? "FIX" : (decl.wFill ? "FILL" : (empty ? "FIX" : "HUG")),
+    // 폭을 누가 정하는가.
+    //   선언이 있으면 그것이 정한다.
+    //   **flex/grid 자식**은 blockify돼도 폭이 내용에서 나온다 → 내용이 정한다.
+    //   일반 흐름의 block은 부모 폭을 채운다 → 부모가 준다.
+    //   inline 계열도 내용이 정한다.
+    // 이 구분을 놓쳐 빈 상태 패널이 372에서 225로 줄고, 배지가 반대로 늘어났었다.
+    // 폭을 누가 정하는가. 부모의 축이 가른다.
+    //   flex **행**의 자식 → 폭이 주축이라 내용이 정한다(HUG). 배지·칩이 그렇다.
+    //   flex **열**의 자식 → 폭이 교차축이고 stretch가 기본이라 부모가 준다(FILL). 빈 상태가 그렇다.
+    //   일반 흐름의 block → 부모 폭을 채운다(FILL).
+    //   inline 계열 → 내용이 정한다(HUG).
+    // 이 구분을 놓쳐 빈 상태 패널이 372에서 225로 줄고 배지가 반대로 늘어났었다.
+    wx: decl.wFixed ? "FIX"
+      : (decl.wFill ? "FILL"
+        : (empty ? "FIX"
+          : ((parentCtx && parentCtx.flex && parentCtx.row) || (V.display ?? "").startsWith("inline") ? "HUG" : "FILL"))),
     hx: decl.hFixed ? "FIX" : (decl.hFill ? "FILL" : (empty ? "FIX" : "HUG")),
     minW: decl.minW || px(V.minWidth) || 0,
     minH: px(V.minHeight) || 0,
@@ -201,7 +219,22 @@ const byKind = new Map();
 for (const spec of measured.specimens) {
   const file = fileOfSpecimen.get(spec.id);
   if (!file) continue;
-  const tree = layout(spec.tree, file, spec.id);
+  const meta0 = specimenFile.specimens.find((s) => s.id === spec.id);
+  // 표본 루트의 부모는 host다. host를 선언했다면 그것은 크기를 바꾸는 부모이며
+  // (scripts/verify-specimen-context.mjs가 그것만 host로 받는다) 사실상 flex다.
+  const host = (meta0?.host ?? [])[0];
+  // host가 flex 열이면 표본은 부모 폭으로 늘어난다. 행이면 내용이 폭을 정한다.
+  let rootCtx = { flex: false, row: false };
+  if (host) {
+    const hostFile = typeof host === "string" ? file : host.file;
+    const hostPart = typeof host === "string" ? host : host.part;
+    const body = source(hostFile);
+    const m = new RegExp("^\\s*(?:const\\s+)?" + hostPart + "\\s*[:=]\\s*(\\[[\\s\\S]*?\\]\\.join|\"[^\"]*\")", "m").exec(body);
+    const text = m ? m[1] : "";
+    const isCol = /\bflex-col\b/.test(text) || /flex-direction:\s*column/.test(text);
+    rootCtx = { flex: true, row: !isCol };
+  }
+  const tree = layout(spec.tree, file, spec.id, rootCtx);
   const meta = specimenFile.specimens.find((s) => s.id === spec.id);
   const entry = {
     id: spec.id,

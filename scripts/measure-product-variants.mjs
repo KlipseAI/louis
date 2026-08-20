@@ -16,6 +16,7 @@ import { fileURLToPath } from "node:url";
 import { chromium } from "playwright";
 import { atomicWriteBatch } from "./lib/atomic-output.mjs";
 import { resolveProductRef } from "./lib/product-ref.mjs";
+import { productFontFace } from "./lib/product-font.mjs";
 
 const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const outputPath = resolve(repoRoot, "migration/product.variants.json");
@@ -46,6 +47,10 @@ const AXES = [
   "borderTopLeftRadius", "borderTopWidth", "borderTopColor", "borderTopStyle",
   "backgroundColor", "backgroundImage", "color", "boxShadow", "backdropFilter",
   "columnGap", "fontSize", "fontWeight", "lineHeight", "opacity",
+  // 자간과 글꼴을 빼고 재고 있었다. 제품은 타입 클래스마다 letter-spacing을 선언하고
+  // (globals.css:352-376, heading -0.02em / body·caption -0.01em) 그것이 글자 폭을 바꾼다.
+  // 안 재면 표본을 다시 그릴 때 폭이 어긋나고, 그 어긋남이 어디서 왔는지 알 길이 없다.
+  "letterSpacing", "fontFamily",
 ];
 
 if (!existsSync(resolve(productRoot, ".git"))) {
@@ -265,6 +270,7 @@ try {
   }
   const utilities = compiled.build([...tokens]);
   const productCss = [
+    productFontFace(productRoot, commit),
     normalize(tailwindEntry),
     git(["show", commit + ":apps/web/app/globals.css"]),
     utilities,
@@ -304,18 +310,15 @@ try {
     // 안의 아무 지점이나 잡히고, 그래서 이 게이트가 실행마다 흔들렸다(3회 중 1회, 4회 중 2회 실패).
     // `finish()`는 무한 애니메이션에서 던지므로 그것으로 두 경우를 가른다 — 끝나는 것은 끝으로,
     // 끝나지 않는 것은 0s에 세운다. 어느 쪽이든 결정적이다.
-    await page.evaluate(() => {
-      for (const animation of document.getAnimations()) {
-        try {
-          animation.finish();
-        } catch {
-          animation.currentTime = 0;
-          animation.pause();
-        }
-      }
-    });
     rendered = await page.evaluate(
       ({ count, axes }) => {
+        // **읽기 직전에 얼린다.** 별도 호출로 얼리면 CSS 애니메이션이 스타일 재계산 때
+        // API로 건 pause를 되돌려 다시 흐른다(실측 확인: 300ms 뒤 -360 → -355.348).
+        // 같은 evaluate 안에서 시각을 0으로 놓고 바로 읽으면 그 틈이 없고,
+        // `animation-duration`과 `animation-play-state`는 제품 선언 그대로 남는다.
+        for (const a of document.getAnimations()) {
+          try { a.finish(); } catch { a.currentTime = 0; }
+        }
         const out = [];
         for (let index = 0; index < count; index += 1) {
           const element = document.querySelector("#v-" + index)?.firstElementChild;
@@ -334,6 +337,10 @@ try {
     );
     await page.waitForTimeout(80);
     specimenMeasured = await page.evaluate((axes) => {
+      // 표본도 읽기 직전에 얼린다. 위 evaluate에서 얼린 것은 스타일 재계산 때 되돌아온다.
+      for (const a of document.getAnimations()) {
+        try { a.finish(); } catch { a.currentTime = 0; }
+      }
       const out = {};
       for (const element of document.querySelectorAll("[data-sp]")) {
         const style = getComputedStyle(element);

@@ -27,7 +27,9 @@
     "fontSize",
     "fontWeight",
     "lineHeight",
-    "opacity"
+    "opacity",
+    "letterSpacing",
+    "fontFamily"
   ],
   "$specimenNote": "구조는 figma/product-specimens.json이 적고 값은 여기서 브라우저가 잰다. Figma 인벤토리는 이 트리만으로 그린다 — 여기 없는 값은 그릴 수 없다.",
   "$inlineNote": "소비처가 인라인 style로 얹어 클래스를 이기는 선언이 있다. 앱 홈 토스트가 그렇다 — 클래스는 blur(10px)인데 인라인이 blur(16px) saturate(130%)로 덮는다. 구조 파일이 그 상수 이름을 가리키고 여기서 소스에서 꺼내 함께 렌더한다.",
@@ -67,6 +69,8 @@
           "fontWeight": "400",
           "lineHeight": "30px",
           "opacity": "1",
+          "letterSpacing": "-0.16px",
+          "fontFamily": "PretendardHarness",
           "marginTop": "0px",
           "marginRight": "0px",
           "marginBottom": "0px",
@@ -117,6 +121,8 @@
           "fontWeight": "400",
           "lineHeight": "24px",
           "opacity": "1",
+          "letterSpacing": "-0.16px",
+          "fontFamily": "PretendardHarness",
           "marginTop": "0px",
           "marginRight": "0px",
           "marginBottom": "0px",
@@ -159,6 +165,8 @@
               "fontWeight": "400",
               "lineHeight": "24px",
               "opacity": "1",
+              "letterSpacing": "-0.16px",
+              "fontFamily": "PretendardHarness",
               "marginTop": "0px",
               "marginRight": "0px",
               "marginBottom": "0px",
@@ -211,6 +219,8 @@
           "fontWeight": "400",
           "lineHeight": "24px",
           "opacity": "1",
+          "letterSpacing": "-0.16px",
+          "fontFamily": "PretendardHarness",
           "marginTop": "0px",
           "marginRight": "0px",
           "marginBottom": "0px",
@@ -253,6 +263,8 @@
               "fontWeight": "400",
               "lineHeight": "24px",
               "opacity": "1",
+              "letterSpacing": "-0.16px",
+              "fontFamily": "PretendardHarness",
               "marginTop": "0px",
               "marginRight": "0px",
               "marginBottom": "0px",
@@ -305,6 +317,8 @@
           "fontWeight": "400",
           "lineHeight": "24px",
           "opacity": "1",
+          "letterSpacing": "-0.16px",
+          "fontFamily": "PretendardHarness",
           "marginTop": "0px",
           "marginRight": "0px",
           "marginBottom": "0px",
@@ -347,6 +361,8 @@
               "fontWeight": "400",
               "lineHeight": "24px",
               "opacity": "1",
+              "letterSpacing": "-0.16px",
+              "fontFamily": "PretendardHarness",
               "marginTop": "0px",
               "marginRight": "0px",
               "marginBottom": "0px",
@@ -399,6 +415,8 @@
           "fontWeight": "500",
           "lineHeight": "18px",
           "opacity": "1",
+          "letterSpacing": "-0.12px",
+          "fontFamily": "PretendardHarness",
           "marginTop": "0px",
           "marginRight": "0px",
           "marginBottom": "0px",
@@ -449,6 +467,8 @@
           "fontWeight": "500",
           "lineHeight": "18px",
           "opacity": "1",
+          "letterSpacing": "-0.12px",
+          "fontFamily": "PretendardHarness",
           "marginTop": "0px",
           "marginRight": "0px",
           "marginBottom": "0px",
@@ -458,7 +478,7 @@
           "justifyContent": "normal",
           "flexDirection": "row",
           "display": "inline",
-          "$width": 90.09,
+          "$width": 80.33,
           "$height": 20
         },
         "children": []
@@ -478,7 +498,7 @@
         "values": {
           "height": "24px",
           "minHeight": "0px",
-          "width": "47.5312px",
+          "width": "50.1875px",
           "minWidth": "0px",
           "maxWidth": "none",
           "paddingTop": "3px",
@@ -499,6 +519,8 @@
           "fontWeight": "500",
           "lineHeight": "18px",
           "opacity": "1",
+          "letterSpacing": "-0.12px",
+          "fontFamily": "PretendardHarness",
           "marginTop": "0px",
           "marginRight": "0px",
           "marginBottom": "0px",
@@ -508,7 +530,7 @@
           "justifyContent": "normal",
           "flexDirection": "row",
           "display": "block",
-          "$width": 47.53,
+          "$width": 50.19,
           "$height": 24
         },
         "children": []
@@ -549,6 +571,8 @@
           "fontWeight": "600",
           "lineHeight": "18px",
           "opacity": "1",
+          "letterSpacing": "-0.16px",
+          "fontFamily": "PretendardHarness",
           "marginTop": "0px",
           "marginRight": "0px",
           "marginBottom": "0px",
@@ -558,7 +582,7 @@
           "justifyContent": "normal",
           "flexDirection": "row",
           "display": "inline",
-          "$width": 39.67,
+          "$width": 36.44,
           "$height": 18
         },
         "children": [
@@ -591,6 +615,8 @@
               "fontWeight": "600",
               "lineHeight": "18px",
               "opacity": "1",
+              "letterSpacing": "-0.16px",
+              "fontFamily": "PretendardHarness",
               "marginTop": "0px",
               "marginRight": "0px",
               "marginBottom": "0px",
@@ -600,7 +626,7 @@
               "justifyContent": "normal",
               "flexDirection": "row",
               "display": "inline",
-              "$width": 23.67,
+              "$width": 20.44,
               "$height": 14
             },
             "children": []
@@ -643,6 +669,8 @@
           "fontWeight": "400",
           "lineHeight": "24px",
           "opacity": "1",
+          "letterSpacing": "-0.16px",
+          "fontFamily": "PretendardHarness",
           "marginTop": "0px",
           "marginRight": "0px",
           "marginBottom": "0px",
@@ -685,6 +713,8 @@
               "fontWeight": "400",
               "lineHeight": "24px",
               "opacity": "1",
+              "letterSpacing": "-0.16px",
+              "fontFamily": "PretendardHarness",
               "marginTop": "1px",
               "marginRight": "0px",
               "marginBottom": "0px",
@@ -727,6 +757,8 @@
                   "fontWeight": "400",
                   "lineHeight": "24px",
                   "opacity": "0",
+                  "letterSpacing": "normal",
+                  "fontFamily": "PretendardHarness",
                   "marginTop": "0px",
                   "marginRight": "0px",
                   "marginBottom": "0px",
@@ -770,6 +802,8 @@
                   "fontWeight": "400",
                   "lineHeight": "24px",
                   "opacity": "1",
+                  "letterSpacing": "-0.16px",
+                  "fontFamily": "PretendardHarness",
                   "marginTop": "0px",
                   "marginRight": "0px",
                   "marginBottom": "0px",
@@ -794,7 +828,7 @@
             "values": {
               "height": "25px",
               "minHeight": "auto",
-              "width": "229.234px",
+              "width": "199.078px",
               "minWidth": "auto",
               "maxWidth": "none",
               "paddingTop": "1px",
@@ -815,6 +849,8 @@
               "fontWeight": "400",
               "lineHeight": "24px",
               "opacity": "1",
+              "letterSpacing": "-0.16px",
+              "fontFamily": "PretendardHarness",
               "marginTop": "0px",
               "marginRight": "0px",
               "marginBottom": "0px",
@@ -824,7 +860,7 @@
               "justifyContent": "normal",
               "flexDirection": "row",
               "display": "block",
-              "$width": 229.23,
+              "$width": 199.08,
               "$height": 25
             },
             "children": []
@@ -867,6 +903,8 @@
           "fontWeight": "400",
           "lineHeight": "24px",
           "opacity": "1",
+          "letterSpacing": "-0.16px",
+          "fontFamily": "PretendardHarness",
           "marginTop": "0px",
           "marginRight": "0px",
           "marginBottom": "0px",
@@ -909,6 +947,8 @@
               "fontWeight": "400",
               "lineHeight": "24px",
               "opacity": "1",
+              "letterSpacing": "-0.16px",
+              "fontFamily": "PretendardHarness",
               "marginTop": "1px",
               "marginRight": "0px",
               "marginBottom": "0px",
@@ -951,6 +991,8 @@
                   "fontWeight": "400",
                   "lineHeight": "24px",
                   "opacity": "0",
+                  "letterSpacing": "normal",
+                  "fontFamily": "PretendardHarness",
                   "marginTop": "0px",
                   "marginRight": "0px",
                   "marginBottom": "0px",
@@ -994,6 +1036,8 @@
                   "fontWeight": "400",
                   "lineHeight": "24px",
                   "opacity": "1",
+                  "letterSpacing": "-0.16px",
+                  "fontFamily": "PretendardHarness",
                   "marginTop": "0px",
                   "marginRight": "0px",
                   "marginBottom": "0px",
@@ -1018,7 +1062,7 @@
             "values": {
               "height": "25px",
               "minHeight": "auto",
-              "width": "229.234px",
+              "width": "199.078px",
               "minWidth": "auto",
               "maxWidth": "none",
               "paddingTop": "1px",
@@ -1039,6 +1083,8 @@
               "fontWeight": "400",
               "lineHeight": "24px",
               "opacity": "1",
+              "letterSpacing": "-0.16px",
+              "fontFamily": "PretendardHarness",
               "marginTop": "0px",
               "marginRight": "0px",
               "marginBottom": "0px",
@@ -1048,7 +1094,7 @@
               "justifyContent": "normal",
               "flexDirection": "row",
               "display": "block",
-              "$width": 229.23,
+              "$width": 199.08,
               "$height": 25
             },
             "children": []
@@ -1091,6 +1137,8 @@
           "fontWeight": "400",
           "lineHeight": "24px",
           "opacity": "1",
+          "letterSpacing": "normal",
+          "fontFamily": "PretendardHarness",
           "marginTop": "0px",
           "marginRight": "0px",
           "marginBottom": "0px",
@@ -1141,6 +1189,8 @@
           "fontWeight": "400",
           "lineHeight": "24px",
           "opacity": "1",
+          "letterSpacing": "-0.16px",
+          "fontFamily": "PretendardHarness",
           "marginTop": "0px",
           "marginRight": "0px",
           "marginBottom": "0px",
@@ -1183,6 +1233,8 @@
               "fontWeight": "600",
               "lineHeight": "24px",
               "opacity": "1",
+              "letterSpacing": "-0.16px",
+              "fontFamily": "PretendardHarness",
               "marginTop": "0px",
               "marginRight": "0px",
               "marginBottom": "0px",
@@ -1226,6 +1278,8 @@
               "fontWeight": "400",
               "lineHeight": "24px",
               "opacity": "1",
+              "letterSpacing": "-0.16px",
+              "fontFamily": "PretendardHarness",
               "marginTop": "8px",
               "marginRight": "0px",
               "marginBottom": "0px",
@@ -1269,6 +1323,8 @@
               "fontWeight": "400",
               "lineHeight": "24px",
               "opacity": "1",
+              "letterSpacing": "-0.16px",
+              "fontFamily": "PretendardHarness",
               "marginTop": "24px",
               "marginRight": "-8px",
               "marginBottom": "-8px",
@@ -1311,6 +1367,8 @@
                   "fontWeight": "500",
                   "lineHeight": "24px",
                   "opacity": "1",
+                  "letterSpacing": "-0.16px",
+                  "fontFamily": "PretendardHarness",
                   "marginTop": "0px",
                   "marginRight": "0px",
                   "marginBottom": "0px",
@@ -1354,6 +1412,8 @@
                   "fontWeight": "500",
                   "lineHeight": "24px",
                   "opacity": "1",
+                  "letterSpacing": "-0.16px",
+                  "fontFamily": "PretendardHarness",
                   "marginTop": "0px",
                   "marginRight": "0px",
                   "marginBottom": "0px",
@@ -1408,6 +1468,8 @@
           "fontWeight": "400",
           "lineHeight": "24px",
           "opacity": "1",
+          "letterSpacing": "-0.16px",
+          "fontFamily": "PretendardHarness",
           "marginTop": "0px",
           "marginRight": "0px",
           "marginBottom": "0px",
@@ -1450,6 +1512,8 @@
               "fontWeight": "600",
               "lineHeight": "24px",
               "opacity": "1",
+              "letterSpacing": "-0.16px",
+              "fontFamily": "PretendardHarness",
               "marginTop": "0px",
               "marginRight": "0px",
               "marginBottom": "0px",
@@ -1493,6 +1557,8 @@
               "fontWeight": "400",
               "lineHeight": "21px",
               "opacity": "1",
+              "letterSpacing": "-0.14px",
+              "fontFamily": "PretendardHarness",
               "marginTop": "0px",
               "marginRight": "0px",
               "marginBottom": "0px",
@@ -1536,6 +1602,8 @@
               "fontWeight": "400",
               "lineHeight": "24px",
               "opacity": "1",
+              "letterSpacing": "-0.16px",
+              "fontFamily": "PretendardHarness",
               "marginTop": "24px",
               "marginRight": "-8px",
               "marginBottom": "-8px",
@@ -1578,6 +1646,8 @@
                   "fontWeight": "500",
                   "lineHeight": "21px",
                   "opacity": "1",
+                  "letterSpacing": "-0.14px",
+                  "fontFamily": "PretendardHarness",
                   "marginTop": "0px",
                   "marginRight": "0px",
                   "marginBottom": "0px",
@@ -1621,6 +1691,8 @@
                   "fontWeight": "500",
                   "lineHeight": "21px",
                   "opacity": "1",
+                  "letterSpacing": "-0.14px",
+                  "fontFamily": "PretendardHarness",
                   "marginTop": "0px",
                   "marginRight": "0px",
                   "marginBottom": "0px",
@@ -1675,6 +1747,8 @@
           "fontWeight": "400",
           "lineHeight": "24px",
           "opacity": "1",
+          "letterSpacing": "-0.16px",
+          "fontFamily": "PretendardHarness",
           "marginTop": "0px",
           "marginRight": "0px",
           "marginBottom": "0px",
@@ -1717,6 +1791,8 @@
               "fontWeight": "600",
               "lineHeight": "24px",
               "opacity": "1",
+              "letterSpacing": "-0.16px",
+              "fontFamily": "PretendardHarness",
               "marginTop": "0px",
               "marginRight": "0px",
               "marginBottom": "0px",
@@ -1760,6 +1836,8 @@
               "fontWeight": "400",
               "lineHeight": "21px",
               "opacity": "1",
+              "letterSpacing": "-0.14px",
+              "fontFamily": "PretendardHarness",
               "marginTop": "0px",
               "marginRight": "0px",
               "marginBottom": "0px",
@@ -1812,6 +1890,8 @@
           "fontWeight": "400",
           "lineHeight": "24px",
           "opacity": "1",
+          "letterSpacing": "-0.16px",
+          "fontFamily": "PretendardHarness",
           "marginTop": "0px",
           "marginRight": "0px",
           "marginBottom": "0px",
@@ -1833,7 +1913,7 @@
             "values": {
               "height": "30px",
               "minHeight": "auto",
-              "width": "207.406px",
+              "width": "179.969px",
               "minWidth": "auto",
               "maxWidth": "none",
               "paddingTop": "0px",
@@ -1854,6 +1934,8 @@
               "fontWeight": "600",
               "lineHeight": "30px",
               "opacity": "1",
+              "letterSpacing": "-0.2px",
+              "fontFamily": "PretendardHarness",
               "marginTop": "0px",
               "marginRight": "0px",
               "marginBottom": "0px",
@@ -1863,7 +1945,7 @@
               "justifyContent": "normal",
               "flexDirection": "row",
               "display": "block",
-              "$width": 207.41,
+              "$width": 179.97,
               "$height": 30
             },
             "children": []
@@ -1876,7 +1958,7 @@
             "values": {
               "height": "24px",
               "minHeight": "auto",
-              "width": "173.609px",
+              "width": "152.156px",
               "minWidth": "auto",
               "maxWidth": "none",
               "paddingTop": "0px",
@@ -1897,6 +1979,8 @@
               "fontWeight": "400",
               "lineHeight": "24px",
               "opacity": "1",
+              "letterSpacing": "-0.16px",
+              "fontFamily": "PretendardHarness",
               "marginTop": "0px",
               "marginRight": "0px",
               "marginBottom": "0px",
@@ -1906,7 +1990,7 @@
               "justifyContent": "normal",
               "flexDirection": "row",
               "display": "block",
-              "$width": 173.61,
+              "$width": 152.16,
               "$height": 24
             },
             "children": []
@@ -1949,6 +2033,8 @@
           "fontWeight": "400",
           "lineHeight": "24px",
           "opacity": "1",
+          "letterSpacing": "-0.16px",
+          "fontFamily": "PretendardHarness",
           "marginTop": "0px",
           "marginRight": "0px",
           "marginBottom": "0px",
@@ -1970,7 +2056,7 @@
             "values": {
               "height": "21px",
               "minHeight": "auto",
-              "width": "131.344px",
+              "width": "114.391px",
               "minWidth": "auto",
               "maxWidth": "none",
               "paddingTop": "0px",
@@ -1991,6 +2077,8 @@
               "fontWeight": "400",
               "lineHeight": "21px",
               "opacity": "1",
+              "letterSpacing": "-0.14px",
+              "fontFamily": "PretendardHarness",
               "marginTop": "0px",
               "marginRight": "0px",
               "marginBottom": "0px",
@@ -2000,7 +2088,7 @@
               "justifyContent": "normal",
               "flexDirection": "row",
               "display": "block",
-              "$width": 131.34,
+              "$width": 114.39,
               "$height": 21
             },
             "children": []
@@ -2043,6 +2131,8 @@
           "fontWeight": "400",
           "lineHeight": "24px",
           "opacity": "1",
+          "letterSpacing": "-0.16px",
+          "fontFamily": "PretendardHarness",
           "marginTop": "0px",
           "marginRight": "0px",
           "marginBottom": "0px",
@@ -2064,7 +2154,7 @@
             "values": {
               "height": "21px",
               "minHeight": "auto",
-              "width": "176.25px",
+              "width": "153.641px",
               "minWidth": "auto",
               "maxWidth": "none",
               "paddingTop": "0px",
@@ -2085,6 +2175,8 @@
               "fontWeight": "400",
               "lineHeight": "21px",
               "opacity": "1",
+              "letterSpacing": "-0.14px",
+              "fontFamily": "PretendardHarness",
               "marginTop": "0px",
               "marginRight": "0px",
               "marginBottom": "0px",
@@ -2094,7 +2186,7 @@
               "justifyContent": "normal",
               "flexDirection": "row",
               "display": "block",
-              "$width": 176.25,
+              "$width": 153.64,
               "$height": 21
             },
             "children": []
@@ -2137,6 +2229,8 @@
           "fontWeight": "400",
           "lineHeight": "24px",
           "opacity": "0",
+          "letterSpacing": "normal",
+          "fontFamily": "PretendardHarness",
           "marginTop": "0px",
           "marginRight": "0px",
           "marginBottom": "0px",
@@ -2187,6 +2281,8 @@
           "fontWeight": "400",
           "lineHeight": "24px",
           "opacity": "1",
+          "letterSpacing": "normal",
+          "fontFamily": "PretendardHarness",
           "marginTop": "0px",
           "marginRight": "0px",
           "marginBottom": "0px",
@@ -2237,6 +2333,8 @@
           "fontWeight": "400",
           "lineHeight": "24px",
           "opacity": "0",
+          "letterSpacing": "normal",
+          "fontFamily": "PretendardHarness",
           "marginTop": "0px",
           "marginRight": "0px",
           "marginBottom": "0px",
@@ -2287,6 +2385,8 @@
           "fontWeight": "400",
           "lineHeight": "24px",
           "opacity": "1",
+          "letterSpacing": "normal",
+          "fontFamily": "PretendardHarness",
           "marginTop": "0px",
           "marginRight": "0px",
           "marginBottom": "0px",
@@ -2329,6 +2429,8 @@
               "fontWeight": "400",
               "lineHeight": "24px",
               "opacity": "1",
+              "letterSpacing": "normal",
+              "fontFamily": "PretendardHarness",
               "marginTop": "0px",
               "marginRight": "0px",
               "marginBottom": "0px",
@@ -2381,6 +2483,8 @@
           "fontWeight": "400",
           "lineHeight": "24px",
           "opacity": "1",
+          "letterSpacing": "-0.16px",
+          "fontFamily": "PretendardHarness",
           "marginTop": "0px",
           "marginRight": "0px",
           "marginBottom": "0px",
@@ -2423,6 +2527,8 @@
               "fontWeight": "500",
               "lineHeight": "21px",
               "opacity": "1",
+              "letterSpacing": "-0.14px",
+              "fontFamily": "PretendardHarness",
               "marginTop": "0px",
               "marginRight": "0px",
               "marginBottom": "0px",
@@ -2465,6 +2571,8 @@
                   "fontWeight": "500",
                   "lineHeight": "21px",
                   "opacity": "0.92",
+                  "letterSpacing": "-0.14px",
+                  "fontFamily": "PretendardHarness",
                   "marginTop": "0px",
                   "marginRight": "0px",
                   "marginBottom": "0px",
@@ -2510,6 +2618,8 @@
               "fontWeight": "500",
               "lineHeight": "21px",
               "opacity": "1",
+              "letterSpacing": "-0.14px",
+              "fontFamily": "PretendardHarness",
               "marginTop": "0px",
               "marginRight": "0px",
               "marginBottom": "0px",
@@ -2552,6 +2662,8 @@
                   "fontWeight": "500",
                   "lineHeight": "21px",
                   "opacity": "0.92",
+                  "letterSpacing": "-0.14px",
+                  "fontFamily": "PretendardHarness",
                   "marginTop": "0px",
                   "marginRight": "0px",
                   "marginBottom": "0px",
@@ -2597,6 +2709,8 @@
               "fontWeight": "500",
               "lineHeight": "21px",
               "opacity": "1",
+              "letterSpacing": "-0.14px",
+              "fontFamily": "PretendardHarness",
               "marginTop": "0px",
               "marginRight": "0px",
               "marginBottom": "0px",
@@ -2639,6 +2753,8 @@
                   "fontWeight": "500",
                   "lineHeight": "21px",
                   "opacity": "0.92",
+                  "letterSpacing": "-0.14px",
+                  "fontFamily": "PretendardHarness",
                   "marginTop": "0px",
                   "marginRight": "0px",
                   "marginBottom": "0px",
@@ -2693,6 +2809,8 @@
           "fontWeight": "400",
           "lineHeight": "24px",
           "opacity": "1",
+          "letterSpacing": "-0.16px",
+          "fontFamily": "PretendardHarness",
           "marginTop": "0px",
           "marginRight": "0px",
           "marginBottom": "0px",
@@ -2735,6 +2853,8 @@
               "fontWeight": "500",
               "lineHeight": "18px",
               "opacity": "1",
+              "letterSpacing": "normal",
+              "fontFamily": "PretendardHarness",
               "marginTop": "0px",
               "marginRight": "0px",
               "marginBottom": "0px",
@@ -2756,7 +2876,7 @@
                 "values": {
                   "height": "18px",
                   "minHeight": "auto",
-                  "width": "87.9531px",
+                  "width": "79.7969px",
                   "minWidth": "0px",
                   "maxWidth": "none",
                   "paddingTop": "0px",
@@ -2777,6 +2897,8 @@
                   "fontWeight": "500",
                   "lineHeight": "18px",
                   "opacity": "1",
+                  "letterSpacing": "normal",
+                  "fontFamily": "PretendardHarness",
                   "marginTop": "0px",
                   "marginRight": "0px",
                   "marginBottom": "0px",
@@ -2786,7 +2908,7 @@
                   "justifyContent": "normal",
                   "flexDirection": "row",
                   "display": "flex",
-                  "$width": 87.95,
+                  "$width": 79.8,
                   "$height": 18
                 },
                 "children": [
@@ -2819,6 +2941,8 @@
                       "fontWeight": "500",
                       "lineHeight": "18px",
                       "opacity": "1",
+                      "letterSpacing": "normal",
+                      "fontFamily": "PretendardHarness",
                       "marginTop": "0px",
                       "marginRight": "0px",
                       "marginBottom": "0px",
@@ -2841,7 +2965,7 @@
                     "values": {
                       "height": "18px",
                       "minHeight": "auto",
-                      "width": "62.9531px",
+                      "width": "54.7969px",
                       "minWidth": "auto",
                       "maxWidth": "none",
                       "paddingTop": "0px",
@@ -2862,6 +2986,8 @@
                       "fontWeight": "500",
                       "lineHeight": "18px",
                       "opacity": "1",
+                      "letterSpacing": "normal",
+                      "fontFamily": "PretendardHarness",
                       "marginTop": "0px",
                       "marginRight": "0px",
                       "marginBottom": "0px",
@@ -2871,7 +2997,7 @@
                       "justifyContent": "normal",
                       "flexDirection": "row",
                       "display": "block",
-                      "$width": 62.95,
+                      "$width": 54.8,
                       "$height": 18
                     },
                     "children": []
@@ -2909,6 +3035,8 @@
               "fontWeight": "500",
               "lineHeight": "18px",
               "opacity": "1",
+              "letterSpacing": "normal",
+              "fontFamily": "PretendardHarness",
               "marginTop": "0px",
               "marginRight": "0px",
               "marginBottom": "0px",
@@ -2930,7 +3058,7 @@
                 "values": {
                   "height": "18px",
                   "minHeight": "auto",
-                  "width": "99.9375px",
+                  "width": "90.1562px",
                   "minWidth": "0px",
                   "maxWidth": "none",
                   "paddingTop": "0px",
@@ -2951,6 +3079,8 @@
                   "fontWeight": "500",
                   "lineHeight": "18px",
                   "opacity": "1",
+                  "letterSpacing": "normal",
+                  "fontFamily": "PretendardHarness",
                   "marginTop": "0px",
                   "marginRight": "0px",
                   "marginBottom": "0px",
@@ -2960,7 +3090,7 @@
                   "justifyContent": "normal",
                   "flexDirection": "row",
                   "display": "flex",
-                  "$width": 99.94,
+                  "$width": 90.16,
                   "$height": 18
                 },
                 "children": [
@@ -2993,6 +3123,8 @@
                       "fontWeight": "500",
                       "lineHeight": "18px",
                       "opacity": "1",
+                      "letterSpacing": "normal",
+                      "fontFamily": "PretendardHarness",
                       "marginTop": "0px",
                       "marginRight": "0px",
                       "marginBottom": "0px",
@@ -3015,7 +3147,7 @@
                     "values": {
                       "height": "18px",
                       "minHeight": "auto",
-                      "width": "74.9375px",
+                      "width": "65.1562px",
                       "minWidth": "auto",
                       "maxWidth": "none",
                       "paddingTop": "0px",
@@ -3036,6 +3168,8 @@
                       "fontWeight": "500",
                       "lineHeight": "18px",
                       "opacity": "1",
+                      "letterSpacing": "normal",
+                      "fontFamily": "PretendardHarness",
                       "marginTop": "0px",
                       "marginRight": "0px",
                       "marginBottom": "0px",
@@ -3045,7 +3179,7 @@
                       "justifyContent": "normal",
                       "flexDirection": "row",
                       "display": "block",
-                      "$width": 74.94,
+                      "$width": 65.16,
                       "$height": 18
                     },
                     "children": []
@@ -3083,6 +3217,8 @@
               "fontWeight": "400",
               "lineHeight": "24px",
               "opacity": "1",
+              "letterSpacing": "-0.16px",
+              "fontFamily": "PretendardHarness",
               "marginTop": "4px",
               "marginRight": "6px",
               "marginBottom": "4px",
@@ -3126,6 +3262,8 @@
               "fontWeight": "500",
               "lineHeight": "18px",
               "opacity": "1",
+              "letterSpacing": "normal",
+              "fontFamily": "PretendardHarness",
               "marginTop": "0px",
               "marginRight": "0px",
               "marginBottom": "0px",
@@ -3147,7 +3285,7 @@
                 "values": {
                   "height": "18px",
                   "minHeight": "auto",
-                  "width": "75.9531px",
+                  "width": "69.4219px",
                   "minWidth": "0px",
                   "maxWidth": "none",
                   "paddingTop": "0px",
@@ -3168,6 +3306,8 @@
                   "fontWeight": "500",
                   "lineHeight": "18px",
                   "opacity": "1",
+                  "letterSpacing": "normal",
+                  "fontFamily": "PretendardHarness",
                   "marginTop": "0px",
                   "marginRight": "0px",
                   "marginBottom": "0px",
@@ -3177,7 +3317,7 @@
                   "justifyContent": "normal",
                   "flexDirection": "row",
                   "display": "flex",
-                  "$width": 75.95,
+                  "$width": 69.42,
                   "$height": 18
                 },
                 "children": [
@@ -3210,6 +3350,8 @@
                       "fontWeight": "500",
                       "lineHeight": "18px",
                       "opacity": "1",
+                      "letterSpacing": "normal",
+                      "fontFamily": "PretendardHarness",
                       "marginTop": "0px",
                       "marginRight": "0px",
                       "marginBottom": "0px",
@@ -3232,7 +3374,7 @@
                     "values": {
                       "height": "18px",
                       "minHeight": "auto",
-                      "width": "50.9531px",
+                      "width": "44.4219px",
                       "minWidth": "auto",
                       "maxWidth": "none",
                       "paddingTop": "0px",
@@ -3253,6 +3395,8 @@
                       "fontWeight": "500",
                       "lineHeight": "18px",
                       "opacity": "1",
+                      "letterSpacing": "normal",
+                      "fontFamily": "PretendardHarness",
                       "marginTop": "0px",
                       "marginRight": "0px",
                       "marginBottom": "0px",
@@ -3262,7 +3406,7 @@
                       "justifyContent": "normal",
                       "flexDirection": "row",
                       "display": "block",
-                      "$width": 50.95,
+                      "$width": 44.42,
                       "$height": 18
                     },
                     "children": []
@@ -3288,7 +3432,7 @@
         "values": {
           "height": "152px",
           "minHeight": "0px",
-          "width": "201.656px",
+          "width": "188.672px",
           "minWidth": "0px",
           "maxWidth": "none",
           "paddingTop": "6px",
@@ -3309,6 +3453,8 @@
           "fontWeight": "400",
           "lineHeight": "24px",
           "opacity": "1",
+          "letterSpacing": "-0.16px",
+          "fontFamily": "PretendardHarness",
           "marginTop": "0px",
           "marginRight": "0px",
           "marginBottom": "0px",
@@ -3318,7 +3464,7 @@
           "justifyContent": "normal",
           "flexDirection": "column",
           "display": "flex",
-          "$width": 201.66,
+          "$width": 188.67,
           "$height": 152
         },
         "children": [
@@ -3330,7 +3476,7 @@
             "values": {
               "height": "28px",
               "minHeight": "auto",
-              "width": "189.656px",
+              "width": "176.672px",
               "minWidth": "auto",
               "maxWidth": "none",
               "paddingTop": "0px",
@@ -3351,6 +3497,8 @@
               "fontWeight": "400",
               "lineHeight": "24px",
               "opacity": "1",
+              "letterSpacing": "-0.16px",
+              "fontFamily": "PretendardHarness",
               "marginTop": "0px",
               "marginRight": "0px",
               "marginBottom": "4px",
@@ -3360,7 +3508,7 @@
               "justifyContent": "space-between",
               "flexDirection": "row",
               "display": "flex",
-              "$width": 189.66,
+              "$width": 176.67,
               "$height": 28
             },
             "children": [
@@ -3372,7 +3520,7 @@
                 "values": {
                   "height": "21px",
                   "minHeight": "auto",
-                  "width": "117.5px",
+                  "width": "102.234px",
                   "minWidth": "auto",
                   "maxWidth": "none",
                   "paddingTop": "0px",
@@ -3393,6 +3541,8 @@
                   "fontWeight": "500",
                   "lineHeight": "21px",
                   "opacity": "1",
+                  "letterSpacing": "-0.14px",
+                  "fontFamily": "PretendardHarness",
                   "marginTop": "0px",
                   "marginRight": "0px",
                   "marginBottom": "0px",
@@ -3402,7 +3552,7 @@
                   "justifyContent": "normal",
                   "flexDirection": "row",
                   "display": "block",
-                  "$width": 117.5,
+                  "$width": 102.23,
                   "$height": 21
                 },
                 "children": []
@@ -3436,6 +3586,8 @@
                   "fontWeight": "400",
                   "lineHeight": "18px",
                   "opacity": "1",
+                  "letterSpacing": "-0.12px",
+                  "fontFamily": "PretendardHarness",
                   "marginTop": "0px",
                   "marginRight": "0px",
                   "marginBottom": "0px",
@@ -3460,7 +3612,7 @@
             "values": {
               "height": "108px",
               "minHeight": "0px",
-              "width": "189.656px",
+              "width": "176.672px",
               "minWidth": "auto",
               "maxWidth": "none",
               "paddingTop": "0px",
@@ -3481,6 +3633,8 @@
               "fontWeight": "400",
               "lineHeight": "24px",
               "opacity": "1",
+              "letterSpacing": "-0.16px",
+              "fontFamily": "PretendardHarness",
               "marginTop": "0px",
               "marginRight": "0px",
               "marginBottom": "0px",
@@ -3490,7 +3644,7 @@
               "justifyContent": "normal",
               "flexDirection": "column",
               "display": "flex",
-              "$width": 189.66,
+              "$width": 176.67,
               "$height": 108
             },
             "children": [
@@ -3502,7 +3656,7 @@
                 "values": {
                   "height": "53px",
                   "minHeight": "auto",
-                  "width": "189.656px",
+                  "width": "176.672px",
                   "minWidth": "auto",
                   "maxWidth": "none",
                   "paddingTop": "0px",
@@ -3523,6 +3677,8 @@
                   "fontWeight": "400",
                   "lineHeight": "24px",
                   "opacity": "1",
+                  "letterSpacing": "-0.16px",
+                  "fontFamily": "PretendardHarness",
                   "marginTop": "0px",
                   "marginRight": "0px",
                   "marginBottom": "0px",
@@ -3532,7 +3688,7 @@
                   "justifyContent": "normal",
                   "flexDirection": "row",
                   "display": "flex",
-                  "$width": 189.66,
+                  "$width": 176.67,
                   "$height": 53
                 },
                 "children": [
@@ -3544,7 +3700,7 @@
                     "values": {
                       "height": "53px",
                       "minHeight": "auto",
-                      "width": "189.656px",
+                      "width": "176.672px",
                       "minWidth": "auto",
                       "maxWidth": "none",
                       "paddingTop": "6px",
@@ -3565,6 +3721,8 @@
                       "fontWeight": "400",
                       "lineHeight": "24px",
                       "opacity": "1",
+                      "letterSpacing": "normal",
+                      "fontFamily": "PretendardHarness",
                       "marginTop": "0px",
                       "marginRight": "0px",
                       "marginBottom": "0px",
@@ -3574,7 +3732,7 @@
                       "justifyContent": "normal",
                       "flexDirection": "row",
                       "display": "flex",
-                      "$width": 189.66,
+                      "$width": 176.67,
                       "$height": 53
                     },
                     "children": [
@@ -3607,6 +3765,8 @@
                           "fontWeight": "400",
                           "lineHeight": "24px",
                           "opacity": "1",
+                          "letterSpacing": "normal",
+                          "fontFamily": "PretendardHarness",
                           "marginTop": "0px",
                           "marginRight": "0px",
                           "marginBottom": "0px",
@@ -3649,6 +3809,8 @@
                               "fontWeight": "400",
                               "lineHeight": "24px",
                               "opacity": "1",
+                              "letterSpacing": "normal",
+                              "fontFamily": "PretendardHarness",
                               "marginTop": "0px",
                               "marginRight": "0px",
                               "marginBottom": "0px",
@@ -3673,7 +3835,7 @@
                         "values": {
                           "height": "41px",
                           "minHeight": "auto",
-                          "width": "103.656px",
+                          "width": "90.6719px",
                           "minWidth": "0px",
                           "maxWidth": "none",
                           "paddingTop": "0px",
@@ -3694,6 +3856,8 @@
                           "fontWeight": "400",
                           "lineHeight": "24px",
                           "opacity": "1",
+                          "letterSpacing": "normal",
+                          "fontFamily": "PretendardHarness",
                           "marginTop": "0px",
                           "marginRight": "0px",
                           "marginBottom": "0px",
@@ -3703,7 +3867,7 @@
                           "justifyContent": "normal",
                           "flexDirection": "column",
                           "display": "flex",
-                          "$width": 103.66,
+                          "$width": 90.67,
                           "$height": 41
                         },
                         "children": [
@@ -3715,7 +3879,7 @@
                             "values": {
                               "height": "21px",
                               "minHeight": "auto",
-                              "width": "103.656px",
+                              "width": "90.6719px",
                               "minWidth": "auto",
                               "maxWidth": "none",
                               "paddingTop": "0px",
@@ -3736,6 +3900,8 @@
                               "fontWeight": "500",
                               "lineHeight": "21px",
                               "opacity": "1",
+                              "letterSpacing": "-0.14px",
+                              "fontFamily": "PretendardHarness",
                               "marginTop": "0px",
                               "marginRight": "0px",
                               "marginBottom": "0px",
@@ -3745,7 +3911,7 @@
                               "justifyContent": "normal",
                               "flexDirection": "row",
                               "display": "block",
-                              "$width": 103.66,
+                              "$width": 90.67,
                               "$height": 21
                             },
                             "children": []
@@ -3758,7 +3924,7 @@
                             "values": {
                               "height": "18px",
                               "minHeight": "auto",
-                              "width": "103.656px",
+                              "width": "90.6719px",
                               "minWidth": "auto",
                               "maxWidth": "none",
                               "paddingTop": "0px",
@@ -3779,6 +3945,8 @@
                               "fontWeight": "400",
                               "lineHeight": "18px",
                               "opacity": "1",
+                              "letterSpacing": "-0.12px",
+                              "fontFamily": "PretendardHarness",
                               "marginTop": "0px",
                               "marginRight": "0px",
                               "marginBottom": "0px",
@@ -3788,7 +3956,7 @@
                               "justifyContent": "normal",
                               "flexDirection": "row",
                               "display": "block",
-                              "$width": 103.66,
+                              "$width": 90.67,
                               "$height": 18
                             },
                             "children": []
@@ -3807,7 +3975,7 @@
                 "values": {
                   "height": "53px",
                   "minHeight": "auto",
-                  "width": "189.656px",
+                  "width": "176.672px",
                   "minWidth": "auto",
                   "maxWidth": "none",
                   "paddingTop": "0px",
@@ -3828,6 +3996,8 @@
                   "fontWeight": "400",
                   "lineHeight": "24px",
                   "opacity": "1",
+                  "letterSpacing": "-0.16px",
+                  "fontFamily": "PretendardHarness",
                   "marginTop": "0px",
                   "marginRight": "0px",
                   "marginBottom": "0px",
@@ -3837,7 +4007,7 @@
                   "justifyContent": "normal",
                   "flexDirection": "row",
                   "display": "flex",
-                  "$width": 189.66,
+                  "$width": 176.67,
                   "$height": 53
                 },
                 "children": [
@@ -3849,7 +4019,7 @@
                     "values": {
                       "height": "53px",
                       "minHeight": "auto",
-                      "width": "189.656px",
+                      "width": "176.672px",
                       "minWidth": "auto",
                       "maxWidth": "none",
                       "paddingTop": "6px",
@@ -3870,6 +4040,8 @@
                       "fontWeight": "400",
                       "lineHeight": "24px",
                       "opacity": "1",
+                      "letterSpacing": "normal",
+                      "fontFamily": "PretendardHarness",
                       "marginTop": "0px",
                       "marginRight": "0px",
                       "marginBottom": "0px",
@@ -3879,7 +4051,7 @@
                       "justifyContent": "normal",
                       "flexDirection": "row",
                       "display": "flex",
-                      "$width": 189.66,
+                      "$width": 176.67,
                       "$height": 53
                     },
                     "children": [
@@ -3912,6 +4084,8 @@
                           "fontWeight": "400",
                           "lineHeight": "24px",
                           "opacity": "1",
+                          "letterSpacing": "normal",
+                          "fontFamily": "PretendardHarness",
                           "marginTop": "0px",
                           "marginRight": "0px",
                           "marginBottom": "0px",
@@ -3954,6 +4128,8 @@
                               "fontWeight": "400",
                               "lineHeight": "24px",
                               "opacity": "1",
+                              "letterSpacing": "normal",
+                              "fontFamily": "PretendardHarness",
                               "marginTop": "0px",
                               "marginRight": "0px",
                               "marginBottom": "0px",
@@ -3978,7 +4154,7 @@
                         "values": {
                           "height": "41px",
                           "minHeight": "auto",
-                          "width": "103.656px",
+                          "width": "90.6719px",
                           "minWidth": "0px",
                           "maxWidth": "none",
                           "paddingTop": "0px",
@@ -3999,6 +4175,8 @@
                           "fontWeight": "400",
                           "lineHeight": "24px",
                           "opacity": "1",
+                          "letterSpacing": "normal",
+                          "fontFamily": "PretendardHarness",
                           "marginTop": "0px",
                           "marginRight": "0px",
                           "marginBottom": "0px",
@@ -4008,7 +4186,7 @@
                           "justifyContent": "normal",
                           "flexDirection": "column",
                           "display": "flex",
-                          "$width": 103.66,
+                          "$width": 90.67,
                           "$height": 41
                         },
                         "children": [
@@ -4020,7 +4198,7 @@
                             "values": {
                               "height": "21px",
                               "minHeight": "auto",
-                              "width": "103.656px",
+                              "width": "90.6719px",
                               "minWidth": "auto",
                               "maxWidth": "none",
                               "paddingTop": "0px",
@@ -4041,6 +4219,8 @@
                               "fontWeight": "500",
                               "lineHeight": "21px",
                               "opacity": "1",
+                              "letterSpacing": "-0.14px",
+                              "fontFamily": "PretendardHarness",
                               "marginTop": "0px",
                               "marginRight": "0px",
                               "marginBottom": "0px",
@@ -4050,7 +4230,7 @@
                               "justifyContent": "normal",
                               "flexDirection": "row",
                               "display": "block",
-                              "$width": 103.66,
+                              "$width": 90.67,
                               "$height": 21
                             },
                             "children": []
@@ -4063,7 +4243,7 @@
                             "values": {
                               "height": "18px",
                               "minHeight": "auto",
-                              "width": "103.656px",
+                              "width": "90.6719px",
                               "minWidth": "auto",
                               "maxWidth": "none",
                               "paddingTop": "0px",
@@ -4084,6 +4264,8 @@
                               "fontWeight": "400",
                               "lineHeight": "18px",
                               "opacity": "1",
+                              "letterSpacing": "-0.12px",
+                              "fontFamily": "PretendardHarness",
                               "marginTop": "0px",
                               "marginRight": "0px",
                               "marginBottom": "0px",
@@ -4093,7 +4275,7 @@
                               "justifyContent": "normal",
                               "flexDirection": "row",
                               "display": "block",
-                              "$width": 103.66,
+                              "$width": 90.67,
                               "$height": 18
                             },
                             "children": []
@@ -4144,6 +4326,8 @@
           "fontWeight": "400",
           "lineHeight": "24px",
           "opacity": "1",
+          "letterSpacing": "-0.16px",
+          "fontFamily": "PretendardHarness",
           "marginTop": "0px",
           "marginRight": "0px",
           "marginBottom": "0px",
@@ -4186,6 +4370,8 @@
               "fontWeight": "400",
               "lineHeight": "24px",
               "opacity": "1",
+              "letterSpacing": "-0.16px",
+              "fontFamily": "PretendardHarness",
               "marginTop": "0px",
               "marginRight": "0px",
               "marginBottom": "0px",
@@ -4228,6 +4414,8 @@
                   "fontWeight": "400",
                   "lineHeight": "24px",
                   "opacity": "1",
+                  "letterSpacing": "-0.16px",
+                  "fontFamily": "PretendardHarness",
                   "marginTop": "0px",
                   "marginRight": "0px",
                   "marginBottom": "0px",
@@ -4273,6 +4461,8 @@
               "fontWeight": "400",
               "lineHeight": "24px",
               "opacity": "1",
+              "letterSpacing": "-0.16px",
+              "fontFamily": "PretendardHarness",
               "marginTop": "0px",
               "marginRight": "0px",
               "marginBottom": "0px",
@@ -4325,6 +4515,8 @@
           "fontWeight": "400",
           "lineHeight": "24px",
           "opacity": "1",
+          "letterSpacing": "-0.16px",
+          "fontFamily": "PretendardHarness",
           "marginTop": "2px",
           "marginRight": "0px",
           "marginBottom": "0px",
@@ -4367,6 +4559,8 @@
               "fontWeight": "400",
               "lineHeight": "24px",
               "opacity": "1",
+              "letterSpacing": "-0.16px",
+              "fontFamily": "PretendardHarness",
               "marginTop": "0px",
               "marginRight": "0px",
               "marginBottom": "0px",
@@ -4409,6 +4603,8 @@
                   "fontWeight": "400",
                   "lineHeight": "24px",
                   "opacity": "1",
+                  "letterSpacing": "-0.16px",
+                  "fontFamily": "PretendardHarness",
                   "marginTop": "0px",
                   "marginRight": "0px",
                   "marginBottom": "0px",
@@ -4454,6 +4650,8 @@
               "fontWeight": "500",
               "lineHeight": "18px",
               "opacity": "1",
+              "letterSpacing": "-0.12px",
+              "fontFamily": "PretendardHarness",
               "marginTop": "0px",
               "marginRight": "0px",
               "marginBottom": "0px",
@@ -4506,6 +4704,8 @@
           "fontWeight": "400",
           "lineHeight": "24px",
           "opacity": "1",
+          "letterSpacing": "-0.16px",
+          "fontFamily": "PretendardHarness",
           "marginTop": "0px",
           "marginRight": "0px",
           "marginBottom": "0px",
@@ -4548,6 +4748,8 @@
               "fontWeight": "400",
               "lineHeight": "24px",
               "opacity": "1",
+              "letterSpacing": "-0.16px",
+              "fontFamily": "PretendardHarness",
               "marginTop": "0px",
               "marginRight": "0px",
               "marginBottom": "0px",
@@ -4600,6 +4802,8 @@
           "fontWeight": "400",
           "lineHeight": "24px",
           "opacity": "1",
+          "letterSpacing": "-0.16px",
+          "fontFamily": "PretendardHarness",
           "marginTop": "0px",
           "marginRight": "0px",
           "marginBottom": "0px",
@@ -4642,6 +4846,8 @@
               "fontWeight": "400",
               "lineHeight": "24px",
               "opacity": "1",
+              "letterSpacing": "-0.16px",
+              "fontFamily": "PretendardHarness",
               "marginTop": "0px",
               "marginRight": "0px",
               "marginBottom": "0px",
@@ -4684,6 +4890,8 @@
                   "fontWeight": "400",
                   "lineHeight": "24px",
                   "opacity": "1",
+                  "letterSpacing": "-0.16px",
+                  "fontFamily": "PretendardHarness",
                   "marginTop": "0px",
                   "marginRight": "0px",
                   "marginBottom": "0px",
@@ -4726,6 +4934,8 @@
                       "fontWeight": "400",
                       "lineHeight": "24px",
                       "opacity": "1",
+                      "letterSpacing": "-0.16px",
+                      "fontFamily": "PretendardHarness",
                       "marginTop": "0px",
                       "marginRight": "0px",
                       "marginBottom": "0px",
@@ -4768,6 +4978,8 @@
                           "fontWeight": "400",
                           "lineHeight": "24px",
                           "opacity": "1",
+                          "letterSpacing": "-0.16px",
+                          "fontFamily": "PretendardHarness",
                           "marginTop": "0px",
                           "marginRight": "0px",
                           "marginBottom": "0px",
@@ -4815,6 +5027,8 @@
                   "fontWeight": "400",
                   "lineHeight": "24px",
                   "opacity": "1",
+                  "letterSpacing": "-0.16px",
+                  "fontFamily": "PretendardHarness",
                   "marginTop": "0px",
                   "marginRight": "0px",
                   "marginBottom": "0px",
@@ -4857,6 +5071,8 @@
                       "fontWeight": "400",
                       "lineHeight": "24px",
                       "opacity": "1",
+                      "letterSpacing": "-0.16px",
+                      "fontFamily": "PretendardHarness",
                       "marginTop": "0px",
                       "marginRight": "0px",
                       "marginBottom": "0px",
@@ -4878,7 +5094,7 @@
                         "values": {
                           "height": "16.7969px",
                           "minHeight": "auto",
-                          "width": "72.5938px",
+                          "width": "63.1719px",
                           "minWidth": "auto",
                           "maxWidth": "100%",
                           "paddingTop": "0px",
@@ -4899,6 +5115,8 @@
                           "fontWeight": "400",
                           "lineHeight": "16.8px",
                           "opacity": "0.72",
+                          "letterSpacing": "-0.14px",
+                          "fontFamily": "PretendardHarness",
                           "marginTop": "0px",
                           "marginRight": "0px",
                           "marginBottom": "0px",
@@ -4908,7 +5126,7 @@
                           "justifyContent": "normal",
                           "flexDirection": "row",
                           "display": "block",
-                          "$width": 72.59,
+                          "$width": 63.17,
                           "$height": 16.8
                         },
                         "children": []
@@ -4921,7 +5139,7 @@
                         "values": {
                           "height": "19.1875px",
                           "minHeight": "auto",
-                          "width": "150.109px",
+                          "width": "130.516px",
                           "minWidth": "auto",
                           "maxWidth": "100%",
                           "paddingTop": "0px",
@@ -4942,6 +5160,8 @@
                           "fontWeight": "500",
                           "lineHeight": "19.2px",
                           "opacity": "1",
+                          "letterSpacing": "-0.16px",
+                          "fontFamily": "PretendardHarness",
                           "marginTop": "0px",
                           "marginRight": "0px",
                           "marginBottom": "0px",
@@ -4951,7 +5171,7 @@
                           "justifyContent": "normal",
                           "flexDirection": "row",
                           "display": "block",
-                          "$width": 150.11,
+                          "$width": 130.52,
                           "$height": 19.19
                         },
                         "children": []
@@ -4964,7 +5184,7 @@
                         "values": {
                           "height": "16.7969px",
                           "minHeight": "auto",
-                          "width": "68.9688px",
+                          "width": "63.0938px",
                           "minWidth": "auto",
                           "maxWidth": "100%",
                           "paddingTop": "0px",
@@ -4985,6 +5205,8 @@
                           "fontWeight": "400",
                           "lineHeight": "16.8px",
                           "opacity": "0.7",
+                          "letterSpacing": "-0.14px",
+                          "fontFamily": "PretendardHarness",
                           "marginTop": "0px",
                           "marginRight": "0px",
                           "marginBottom": "0px",
@@ -4994,7 +5216,7 @@
                           "justifyContent": "normal",
                           "flexDirection": "row",
                           "display": "block",
-                          "$width": 68.97,
+                          "$width": 63.09,
                           "$height": 16.8
                         },
                         "children": []
@@ -5032,6 +5254,8 @@
                   "fontWeight": "400",
                   "lineHeight": "24px",
                   "opacity": "1",
+                  "letterSpacing": "-0.16px",
+                  "fontFamily": "PretendardHarness",
                   "marginTop": "0px",
                   "marginRight": "0px",
                   "marginBottom": "0px",
@@ -5074,6 +5298,8 @@
                       "fontWeight": "400",
                       "lineHeight": "24px",
                       "opacity": "0",
+                      "letterSpacing": "normal",
+                      "fontFamily": "PretendardHarness",
                       "marginTop": "0px",
                       "marginRight": "0px",
                       "marginBottom": "0px",
@@ -5117,6 +5343,8 @@
                       "fontWeight": "400",
                       "lineHeight": "24px",
                       "opacity": "0",
+                      "letterSpacing": "-0.16px",
+                      "fontFamily": "PretendardHarness",
                       "marginTop": "0px",
                       "marginRight": "0px",
                       "marginBottom": "0px",
@@ -5159,6 +5387,8 @@
                           "fontWeight": "400",
                           "lineHeight": "21px",
                           "opacity": "1",
+                          "letterSpacing": "-0.14px",
+                          "fontFamily": "PretendardHarness",
                           "marginTop": "0px",
                           "marginRight": "0px",
                           "marginBottom": "0px",
@@ -5202,6 +5432,8 @@
                           "fontWeight": "400",
                           "lineHeight": "21px",
                           "opacity": "1",
+                          "letterSpacing": "-0.14px",
+                          "fontFamily": "PretendardHarness",
                           "marginTop": "0px",
                           "marginRight": "0px",
                           "marginBottom": "0px",
@@ -5245,6 +5477,8 @@
                           "fontWeight": "400",
                           "lineHeight": "21px",
                           "opacity": "1",
+                          "letterSpacing": "-0.14px",
+                          "fontFamily": "PretendardHarness",
                           "marginTop": "0px",
                           "marginRight": "0px",
                           "marginBottom": "0px",
@@ -5303,6 +5537,8 @@
           "fontWeight": "400",
           "lineHeight": "24px",
           "opacity": "1",
+          "letterSpacing": "-0.16px",
+          "fontFamily": "PretendardHarness",
           "marginTop": "0px",
           "marginRight": "0px",
           "marginBottom": "0px",
@@ -5345,6 +5581,8 @@
               "fontWeight": "400",
               "lineHeight": "24px",
               "opacity": "1",
+              "letterSpacing": "-0.16px",
+              "fontFamily": "PretendardHarness",
               "marginTop": "0px",
               "marginRight": "0px",
               "marginBottom": "0px",
@@ -5387,6 +5625,8 @@
                   "fontWeight": "400",
                   "lineHeight": "24px",
                   "opacity": "1",
+                  "letterSpacing": "-0.16px",
+                  "fontFamily": "PretendardHarness",
                   "marginTop": "0px",
                   "marginRight": "0px",
                   "marginBottom": "0px",
@@ -5429,6 +5669,8 @@
                       "fontWeight": "400",
                       "lineHeight": "24px",
                       "opacity": "1",
+                      "letterSpacing": "-0.16px",
+                      "fontFamily": "PretendardHarness",
                       "marginTop": "0px",
                       "marginRight": "0px",
                       "marginBottom": "0px",
@@ -5471,6 +5713,8 @@
                           "fontWeight": "400",
                           "lineHeight": "24px",
                           "opacity": "1",
+                          "letterSpacing": "-0.16px",
+                          "fontFamily": "PretendardHarness",
                           "marginTop": "0px",
                           "marginRight": "0px",
                           "marginBottom": "0px",
@@ -5518,6 +5762,8 @@
                   "fontWeight": "400",
                   "lineHeight": "24px",
                   "opacity": "1",
+                  "letterSpacing": "-0.16px",
+                  "fontFamily": "PretendardHarness",
                   "marginTop": "0px",
                   "marginRight": "0px",
                   "marginBottom": "0px",
@@ -5560,6 +5806,8 @@
                       "fontWeight": "400",
                       "lineHeight": "24px",
                       "opacity": "1",
+                      "letterSpacing": "-0.16px",
+                      "fontFamily": "PretendardHarness",
                       "marginTop": "0px",
                       "marginRight": "0px",
                       "marginBottom": "0px",
@@ -5581,7 +5829,7 @@
                         "values": {
                           "height": "19.1875px",
                           "minHeight": "auto",
-                          "width": "150.109px",
+                          "width": "130.516px",
                           "minWidth": "auto",
                           "maxWidth": "100%",
                           "paddingTop": "0px",
@@ -5602,6 +5850,8 @@
                           "fontWeight": "500",
                           "lineHeight": "19.2px",
                           "opacity": "1",
+                          "letterSpacing": "-0.16px",
+                          "fontFamily": "PretendardHarness",
                           "marginTop": "0px",
                           "marginRight": "0px",
                           "marginBottom": "0px",
@@ -5611,7 +5861,7 @@
                           "justifyContent": "normal",
                           "flexDirection": "row",
                           "display": "block",
-                          "$width": 150.11,
+                          "$width": 130.52,
                           "$height": 19.19
                         },
                         "children": []
@@ -5624,7 +5874,7 @@
                         "values": {
                           "height": "16.7969px",
                           "minHeight": "auto",
-                          "width": "68.9688px",
+                          "width": "63.0938px",
                           "minWidth": "auto",
                           "maxWidth": "100%",
                           "paddingTop": "0px",
@@ -5645,6 +5895,8 @@
                           "fontWeight": "400",
                           "lineHeight": "16.8px",
                           "opacity": "0.7",
+                          "letterSpacing": "-0.14px",
+                          "fontFamily": "PretendardHarness",
                           "marginTop": "0px",
                           "marginRight": "0px",
                           "marginBottom": "0px",
@@ -5654,7 +5906,7 @@
                           "justifyContent": "normal",
                           "flexDirection": "row",
                           "display": "block",
-                          "$width": 68.97,
+                          "$width": 63.09,
                           "$height": 16.8
                         },
                         "children": []
@@ -5692,6 +5944,8 @@
                   "fontWeight": "400",
                   "lineHeight": "24px",
                   "opacity": "1",
+                  "letterSpacing": "-0.16px",
+                  "fontFamily": "PretendardHarness",
                   "marginTop": "0px",
                   "marginRight": "0px",
                   "marginBottom": "0px",
@@ -5734,6 +5988,8 @@
                       "fontWeight": "400",
                       "lineHeight": "24px",
                       "opacity": "0",
+                      "letterSpacing": "normal",
+                      "fontFamily": "PretendardHarness",
                       "marginTop": "0px",
                       "marginRight": "0px",
                       "marginBottom": "0px",
@@ -5777,6 +6033,8 @@
                       "fontWeight": "400",
                       "lineHeight": "24px",
                       "opacity": "1",
+                      "letterSpacing": "-0.16px",
+                      "fontFamily": "PretendardHarness",
                       "marginTop": "0px",
                       "marginRight": "0px",
                       "marginBottom": "0px",
@@ -5819,6 +6077,8 @@
                           "fontWeight": "400",
                           "lineHeight": "21px",
                           "opacity": "1",
+                          "letterSpacing": "-0.14px",
+                          "fontFamily": "PretendardHarness",
                           "marginTop": "0px",
                           "marginRight": "0px",
                           "marginBottom": "0px",
@@ -5862,6 +6122,8 @@
                           "fontWeight": "400",
                           "lineHeight": "21px",
                           "opacity": "1",
+                          "letterSpacing": "-0.14px",
+                          "fontFamily": "PretendardHarness",
                           "marginTop": "0px",
                           "marginRight": "0px",
                           "marginBottom": "0px",
@@ -5905,6 +6167,8 @@
                           "fontWeight": "400",
                           "lineHeight": "21px",
                           "opacity": "1",
+                          "letterSpacing": "-0.14px",
+                          "fontFamily": "PretendardHarness",
                           "marginTop": "0px",
                           "marginRight": "0px",
                           "marginBottom": "0px",
@@ -5963,6 +6227,8 @@
           "fontWeight": "400",
           "lineHeight": "24px",
           "opacity": "1",
+          "letterSpacing": "-0.16px",
+          "fontFamily": "PretendardHarness",
           "marginTop": "0px",
           "marginRight": "0px",
           "marginBottom": "0px",
@@ -6005,6 +6271,8 @@
               "fontWeight": "400",
               "lineHeight": "24px",
               "opacity": "1",
+              "letterSpacing": "-0.16px",
+              "fontFamily": "PretendardHarness",
               "marginTop": "0px",
               "marginRight": "0px",
               "marginBottom": "0px",
@@ -6027,7 +6295,7 @@
             "values": {
               "height": "22px",
               "minHeight": "auto",
-              "width": "21.75px",
+              "width": "20.8594px",
               "minWidth": "auto",
               "maxWidth": "none",
               "paddingTop": "0px",
@@ -6048,6 +6316,8 @@
               "fontWeight": "500",
               "lineHeight": "18px",
               "opacity": "1",
+              "letterSpacing": "-0.12px",
+              "fontFamily": "PretendardHarness",
               "marginTop": "0px",
               "marginRight": "0px",
               "marginBottom": "0px",
@@ -6057,7 +6327,7 @@
               "justifyContent": "normal",
               "flexDirection": "row",
               "display": "block",
-              "$width": 21.75,
+              "$width": 20.86,
               "$height": 22
             },
             "children": []
@@ -6070,7 +6340,7 @@
             "values": {
               "height": "22px",
               "minHeight": "auto",
-              "width": "33.625px",
+              "width": "29.7812px",
               "minWidth": "auto",
               "maxWidth": "none",
               "paddingTop": "0px",
@@ -6091,6 +6361,8 @@
               "fontWeight": "500",
               "lineHeight": "18px",
               "opacity": "1",
+              "letterSpacing": "-0.12px",
+              "fontFamily": "PretendardHarness",
               "marginTop": "0px",
               "marginRight": "0px",
               "marginBottom": "0px",
@@ -6100,7 +6372,7 @@
               "justifyContent": "normal",
               "flexDirection": "row",
               "display": "block",
-              "$width": 33.63,
+              "$width": 29.78,
               "$height": 22
             },
             "children": []
@@ -6113,7 +6385,7 @@
             "values": {
               "height": "22px",
               "minHeight": "auto",
-              "width": "33.625px",
+              "width": "31.8906px",
               "minWidth": "auto",
               "maxWidth": "none",
               "paddingTop": "0px",
@@ -6134,6 +6406,8 @@
               "fontWeight": "500",
               "lineHeight": "18px",
               "opacity": "1",
+              "letterSpacing": "-0.12px",
+              "fontFamily": "PretendardHarness",
               "marginTop": "0px",
               "marginRight": "0px",
               "marginBottom": "0px",
@@ -6143,7 +6417,7 @@
               "justifyContent": "normal",
               "flexDirection": "row",
               "display": "block",
-              "$width": 33.63,
+              "$width": 31.89,
               "$height": 22
             },
             "children": []
@@ -6186,6 +6460,8 @@
           "fontWeight": "400",
           "lineHeight": "24px",
           "opacity": "1",
+          "letterSpacing": "-0.16px",
+          "fontFamily": "PretendardHarness",
           "marginTop": "0px",
           "marginRight": "0px",
           "marginBottom": "0px",
@@ -6228,6 +6504,8 @@
               "fontWeight": "400",
               "lineHeight": "24px",
               "opacity": "1",
+              "letterSpacing": "-0.16px",
+              "fontFamily": "PretendardHarness",
               "marginTop": "0px",
               "marginRight": "0px",
               "marginBottom": "0px",
@@ -6250,7 +6528,7 @@
             "values": {
               "height": "22px",
               "minHeight": "auto",
-              "width": "21.75px",
+              "width": "20.8594px",
               "minWidth": "auto",
               "maxWidth": "none",
               "paddingTop": "0px",
@@ -6271,6 +6549,8 @@
               "fontWeight": "500",
               "lineHeight": "18px",
               "opacity": "1",
+              "letterSpacing": "-0.12px",
+              "fontFamily": "PretendardHarness",
               "marginTop": "0px",
               "marginRight": "0px",
               "marginBottom": "0px",
@@ -6280,7 +6560,7 @@
               "justifyContent": "normal",
               "flexDirection": "row",
               "display": "block",
-              "$width": 21.75,
+              "$width": 20.86,
               "$height": 22
             },
             "children": []
@@ -6293,7 +6573,7 @@
             "values": {
               "height": "22px",
               "minHeight": "auto",
-              "width": "33.625px",
+              "width": "29.7812px",
               "minWidth": "auto",
               "maxWidth": "none",
               "paddingTop": "0px",
@@ -6314,6 +6594,8 @@
               "fontWeight": "500",
               "lineHeight": "18px",
               "opacity": "1",
+              "letterSpacing": "-0.12px",
+              "fontFamily": "PretendardHarness",
               "marginTop": "0px",
               "marginRight": "0px",
               "marginBottom": "0px",
@@ -6323,7 +6605,7 @@
               "justifyContent": "normal",
               "flexDirection": "row",
               "display": "block",
-              "$width": 33.63,
+              "$width": 29.78,
               "$height": 22
             },
             "children": []
@@ -6336,7 +6618,7 @@
             "values": {
               "height": "22px",
               "minHeight": "auto",
-              "width": "33.625px",
+              "width": "31.8906px",
               "minWidth": "auto",
               "maxWidth": "none",
               "paddingTop": "0px",
@@ -6357,6 +6639,8 @@
               "fontWeight": "500",
               "lineHeight": "18px",
               "opacity": "1",
+              "letterSpacing": "-0.12px",
+              "fontFamily": "PretendardHarness",
               "marginTop": "0px",
               "marginRight": "0px",
               "marginBottom": "0px",
@@ -6366,7 +6650,7 @@
               "justifyContent": "normal",
               "flexDirection": "row",
               "display": "block",
-              "$width": 33.63,
+              "$width": 31.89,
               "$height": 22
             },
             "children": []
@@ -6379,7 +6663,7 @@
             "values": {
               "height": "22px",
               "minHeight": "auto",
-              "width": "21.75px",
+              "width": "19.5312px",
               "minWidth": "auto",
               "maxWidth": "none",
               "paddingTop": "0px",
@@ -6400,6 +6684,8 @@
               "fontWeight": "500",
               "lineHeight": "18px",
               "opacity": "1",
+              "letterSpacing": "-0.12px",
+              "fontFamily": "PretendardHarness",
               "marginTop": "0px",
               "marginRight": "0px",
               "marginBottom": "0px",
@@ -6409,7 +6695,7 @@
               "justifyContent": "normal",
               "flexDirection": "row",
               "display": "block",
-              "$width": 21.75,
+              "$width": 19.53,
               "$height": 22
             },
             "children": []
@@ -6422,7 +6708,7 @@
             "values": {
               "height": "22px",
               "minHeight": "auto",
-              "width": "54.3594px",
+              "width": "47.8281px",
               "minWidth": "auto",
               "maxWidth": "none",
               "paddingTop": "0px",
@@ -6443,6 +6729,8 @@
               "fontWeight": "500",
               "lineHeight": "18px",
               "opacity": "1",
+              "letterSpacing": "-0.12px",
+              "fontFamily": "PretendardHarness",
               "marginTop": "0px",
               "marginRight": "0px",
               "marginBottom": "0px",
@@ -6452,7 +6740,7 @@
               "justifyContent": "normal",
               "flexDirection": "row",
               "display": "block",
-              "$width": 54.36,
+              "$width": 47.83,
               "$height": 22
             },
             "children": []
@@ -6495,6 +6783,8 @@
           "fontWeight": "400",
           "lineHeight": "24px",
           "opacity": "1",
+          "letterSpacing": "-0.16px",
+          "fontFamily": "PretendardHarness",
           "marginTop": "0px",
           "marginRight": "0px",
           "marginBottom": "0px",
@@ -6537,6 +6827,8 @@
               "fontWeight": "400",
               "lineHeight": "24px",
               "opacity": "1",
+              "letterSpacing": "-0.16px",
+              "fontFamily": "PretendardHarness",
               "marginTop": "0px",
               "marginRight": "0px",
               "marginBottom": "0px",
@@ -6558,7 +6850,7 @@
                 "values": {
                   "height": "21px",
                   "minHeight": "auto",
-                  "width": "100.297px",
+                  "width": "87px",
                   "minWidth": "0px",
                   "maxWidth": "none",
                   "paddingTop": "0px",
@@ -6579,6 +6871,8 @@
                   "fontWeight": "500",
                   "lineHeight": "21px",
                   "opacity": "1",
+                  "letterSpacing": "-0.14px",
+                  "fontFamily": "PretendardHarness",
                   "marginTop": "0px",
                   "marginRight": "0px",
                   "marginBottom": "0px",
@@ -6588,7 +6882,7 @@
                   "justifyContent": "normal",
                   "flexDirection": "row",
                   "display": "block",
-                  "$width": 100.3,
+                  "$width": 87,
                   "$height": 21
                 },
                 "children": []
@@ -6601,7 +6895,7 @@
                 "values": {
                   "height": "18px",
                   "minHeight": "auto",
-                  "width": "55.5625px",
+                  "width": "61.2031px",
                   "minWidth": "auto",
                   "maxWidth": "none",
                   "paddingTop": "0px",
@@ -6622,6 +6916,8 @@
                   "fontWeight": "400",
                   "lineHeight": "18px",
                   "opacity": "1",
+                  "letterSpacing": "-0.12px",
+                  "fontFamily": "PretendardHarness",
                   "marginTop": "0px",
                   "marginRight": "0px",
                   "marginBottom": "0px",
@@ -6631,7 +6927,7 @@
                   "justifyContent": "normal",
                   "flexDirection": "row",
                   "display": "block",
-                  "$width": 55.56,
+                  "$width": 61.2,
                   "$height": 18
                 },
                 "children": []
@@ -6667,6 +6963,8 @@
               "fontWeight": "400",
               "lineHeight": "24px",
               "opacity": "1",
+              "letterSpacing": "-0.16px",
+              "fontFamily": "PretendardHarness",
               "marginTop": "0px",
               "marginRight": "0px",
               "marginBottom": "0px",
@@ -6688,7 +6986,7 @@
                 "values": {
                   "height": "21px",
                   "minHeight": "auto",
-                  "width": "25.1094px",
+                  "width": "32.5781px",
                   "minWidth": "auto",
                   "maxWidth": "none",
                   "paddingTop": "0px",
@@ -6709,6 +7007,8 @@
                   "fontWeight": "600",
                   "lineHeight": "21px",
                   "opacity": "1",
+                  "letterSpacing": "-0.14px",
+                  "fontFamily": "PretendardHarness",
                   "marginTop": "0px",
                   "marginRight": "0px",
                   "marginBottom": "0px",
@@ -6718,7 +7018,7 @@
                   "justifyContent": "normal",
                   "flexDirection": "row",
                   "display": "block",
-                  "$width": 25.11,
+                  "$width": 32.58,
                   "$height": 21
                 },
                 "children": []
@@ -6731,7 +7031,7 @@
                 "values": {
                   "height": "18px",
                   "minHeight": "auto",
-                  "width": "53.0312px",
+                  "width": "52.0938px",
                   "minWidth": "auto",
                   "maxWidth": "none",
                   "paddingTop": "0px",
@@ -6752,6 +7052,8 @@
                   "fontWeight": "400",
                   "lineHeight": "18px",
                   "opacity": "1",
+                  "letterSpacing": "-0.12px",
+                  "fontFamily": "PretendardHarness",
                   "marginTop": "0px",
                   "marginRight": "0px",
                   "marginBottom": "0px",
@@ -6761,7 +7063,7 @@
                   "justifyContent": "normal",
                   "flexDirection": "row",
                   "display": "block",
-                  "$width": 53.03,
+                  "$width": 52.09,
                   "$height": 18
                 },
                 "children": []
@@ -6774,7 +7076,7 @@
                 "values": {
                   "height": "24px",
                   "minHeight": "auto",
-                  "width": "68.3594px",
+                  "width": "61.8281px",
                   "minWidth": "auto",
                   "maxWidth": "none",
                   "paddingTop": "2px",
@@ -6795,6 +7097,8 @@
                   "fontWeight": "500",
                   "lineHeight": "18px",
                   "opacity": "1",
+                  "letterSpacing": "-0.12px",
+                  "fontFamily": "PretendardHarness",
                   "marginTop": "0px",
                   "marginRight": "0px",
                   "marginBottom": "0px",
@@ -6804,7 +7108,7 @@
                   "justifyContent": "normal",
                   "flexDirection": "row",
                   "display": "block",
-                  "$width": 68.36,
+                  "$width": 61.83,
                   "$height": 24
                 },
                 "children": []
@@ -6849,6 +7153,8 @@
           "fontWeight": "400",
           "lineHeight": "24px",
           "opacity": "1",
+          "letterSpacing": "normal",
+          "fontFamily": "PretendardHarness",
           "marginTop": "0px",
           "marginRight": "0px",
           "marginBottom": "0px",
@@ -6891,6 +7197,8 @@
               "fontWeight": "400",
               "lineHeight": "24px",
               "opacity": "1",
+              "letterSpacing": "normal",
+              "fontFamily": "PretendardHarness",
               "marginTop": "0px",
               "marginRight": "0px",
               "marginBottom": "0px",
@@ -6933,6 +7241,8 @@
                   "fontWeight": "400",
                   "lineHeight": "24px",
                   "opacity": "1",
+                  "letterSpacing": "normal",
+                  "fontFamily": "PretendardHarness",
                   "marginTop": "0px",
                   "marginRight": "0px",
                   "marginBottom": "0px",
@@ -6978,6 +7288,8 @@
               "fontWeight": "400",
               "lineHeight": "24px",
               "opacity": "1",
+              "letterSpacing": "normal",
+              "fontFamily": "PretendardHarness",
               "marginTop": "0px",
               "marginRight": "0px",
               "marginBottom": "0px",
@@ -7020,6 +7332,8 @@
                   "fontWeight": "500",
                   "lineHeight": "21px",
                   "opacity": "1",
+                  "letterSpacing": "-0.14px",
+                  "fontFamily": "PretendardHarness",
                   "marginTop": "0px",
                   "marginRight": "0px",
                   "marginBottom": "0px",
@@ -7063,6 +7377,8 @@
                   "fontWeight": "400",
                   "lineHeight": "18px",
                   "opacity": "1",
+                  "letterSpacing": "-0.12px",
+                  "fontFamily": "PretendardHarness",
                   "marginTop": "0px",
                   "marginRight": "0px",
                   "marginBottom": "0px",
@@ -7094,7 +7410,7 @@
         "line": 146,
         "text": "",
         "values": {
-          "height": "92px",
+          "height": "110px",
           "minHeight": "0px",
           "width": "372px",
           "minWidth": "0px",
@@ -7117,6 +7433,8 @@
           "fontWeight": "400",
           "lineHeight": "24px",
           "opacity": "1",
+          "letterSpacing": "-0.16px",
+          "fontFamily": "PretendardHarness",
           "marginTop": "0px",
           "marginRight": "0px",
           "marginBottom": "0px",
@@ -7127,7 +7445,7 @@
           "flexDirection": "row",
           "display": "flex",
           "$width": 372,
-          "$height": 92
+          "$height": 110
         },
         "children": [
           {
@@ -7138,7 +7456,7 @@
             "values": {
               "height": "28px",
               "minHeight": "auto",
-              "width": "164px",
+              "width": "175px",
               "minWidth": "auto",
               "maxWidth": "none",
               "paddingTop": "0px",
@@ -7159,6 +7477,8 @@
               "fontWeight": "400",
               "lineHeight": "24px",
               "opacity": "1",
+              "letterSpacing": "normal",
+              "fontFamily": "PretendardHarness",
               "marginTop": "3px",
               "marginRight": "0px",
               "marginBottom": "0px",
@@ -7168,7 +7488,7 @@
               "justifyContent": "normal",
               "flexDirection": "row",
               "display": "block",
-              "$width": 164,
+              "$width": 175,
               "$height": 28
             },
             "children": []
@@ -7202,6 +7522,8 @@
               "fontWeight": "400",
               "lineHeight": "24px",
               "opacity": "1",
+              "letterSpacing": "-0.16px",
+              "fontFamily": "PretendardHarness",
               "marginTop": "0px",
               "marginRight": "0px",
               "marginBottom": "0px",
@@ -7244,6 +7566,8 @@
                   "fontWeight": "400",
                   "lineHeight": "24px",
                   "opacity": "1",
+                  "letterSpacing": "-0.16px",
+                  "fontFamily": "PretendardHarness",
                   "marginTop": "0px",
                   "marginRight": "0px",
                   "marginBottom": "0px",
@@ -7266,9 +7590,9 @@
             "line": 137,
             "text": "",
             "values": {
-              "height": "80px",
+              "height": "98px",
               "minHeight": "auto",
-              "width": "80px",
+              "width": "69px",
               "minWidth": "0px",
               "maxWidth": "none",
               "paddingTop": "0px",
@@ -7289,6 +7613,8 @@
               "fontWeight": "400",
               "lineHeight": "24px",
               "opacity": "1",
+              "letterSpacing": "-0.16px",
+              "fontFamily": "PretendardHarness",
               "marginTop": "0px",
               "marginRight": "0px",
               "marginBottom": "0px",
@@ -7298,8 +7624,8 @@
               "justifyContent": "normal",
               "flexDirection": "column",
               "display": "flex",
-              "$width": 80,
-              "$height": 80
+              "$width": 69,
+              "$height": 98
             },
             "children": [
               {
@@ -7310,7 +7636,7 @@
                 "values": {
                   "height": "42px",
                   "minHeight": "auto",
-                  "width": "80px",
+                  "width": "69px",
                   "minWidth": "auto",
                   "maxWidth": "none",
                   "paddingTop": "0px",
@@ -7331,6 +7657,8 @@
                   "fontWeight": "500",
                   "lineHeight": "21px",
                   "opacity": "1",
+                  "letterSpacing": "-0.14px",
+                  "fontFamily": "PretendardHarness",
                   "marginTop": "0px",
                   "marginRight": "0px",
                   "marginBottom": "0px",
@@ -7340,7 +7668,7 @@
                   "justifyContent": "normal",
                   "flexDirection": "row",
                   "display": "flow-root",
-                  "$width": 80,
+                  "$width": 69,
                   "$height": 42
                 },
                 "children": []
@@ -7351,9 +7679,9 @@
                 "line": 175,
                 "text": "00:12 – 00:27 · 점수 92",
                 "values": {
-                  "height": "36px",
+                  "height": "54px",
                   "minHeight": "auto",
-                  "width": "80px",
+                  "width": "69px",
                   "minWidth": "auto",
                   "maxWidth": "none",
                   "paddingTop": "0px",
@@ -7374,6 +7702,8 @@
                   "fontWeight": "400",
                   "lineHeight": "18px",
                   "opacity": "1",
+                  "letterSpacing": "-0.12px",
+                  "fontFamily": "PretendardHarness",
                   "marginTop": "0px",
                   "marginRight": "0px",
                   "marginBottom": "0px",
@@ -7383,8 +7713,8 @@
                   "justifyContent": "normal",
                   "flexDirection": "row",
                   "display": "block",
-                  "$width": 80,
-                  "$height": 36
+                  "$width": 69,
+                  "$height": 54
                 },
                 "children": []
               }
@@ -7428,6 +7758,8 @@
           "fontWeight": "400",
           "lineHeight": "24px",
           "opacity": "1",
+          "letterSpacing": "-0.16px",
+          "fontFamily": "PretendardHarness",
           "marginTop": "0px",
           "marginRight": "0px",
           "marginBottom": "0px",
@@ -7470,6 +7802,8 @@
               "fontWeight": "400",
               "lineHeight": "24px",
               "opacity": "1",
+              "letterSpacing": "-0.16px",
+              "fontFamily": "PretendardHarness",
               "marginTop": "0px",
               "marginRight": "0px",
               "marginBottom": "12px",
@@ -7512,6 +7846,8 @@
                   "fontWeight": "400",
                   "lineHeight": "24px",
                   "opacity": "1",
+                  "letterSpacing": "-0.16px",
+                  "fontFamily": "PretendardHarness",
                   "marginTop": "0px",
                   "marginRight": "0px",
                   "marginBottom": "0px",
@@ -7554,6 +7890,8 @@
                       "fontWeight": "400",
                       "lineHeight": "24px",
                       "opacity": "1",
+                      "letterSpacing": "-0.16px",
+                      "fontFamily": "PretendardHarness",
                       "marginTop": "0px",
                       "marginRight": "0px",
                       "marginBottom": "0px",
@@ -7596,6 +7934,8 @@
                           "fontWeight": "400",
                           "lineHeight": "24px",
                           "opacity": "1",
+                          "letterSpacing": "-0.16px",
+                          "fontFamily": "PretendardHarness",
                           "marginTop": "0px",
                           "marginRight": "0px",
                           "marginBottom": "0px",
@@ -7639,6 +7979,8 @@
                           "fontWeight": "400",
                           "lineHeight": "24px",
                           "opacity": "1",
+                          "letterSpacing": "-0.16px",
+                          "fontFamily": "PretendardHarness",
                           "marginTop": "0px",
                           "marginRight": "0px",
                           "marginBottom": "0px",
@@ -7681,6 +8023,8 @@
                               "fontWeight": "400",
                               "lineHeight": "24px",
                               "opacity": "1",
+                              "letterSpacing": "-0.16px",
+                              "fontFamily": "PretendardHarness",
                               "marginTop": "0px",
                               "marginRight": "0px",
                               "marginBottom": "0px",
@@ -7728,6 +8072,8 @@
                       "fontWeight": "400",
                       "lineHeight": "24px",
                       "opacity": "1",
+                      "letterSpacing": "-0.16px",
+                      "fontFamily": "PretendardHarness",
                       "marginTop": "0px",
                       "marginRight": "0px",
                       "marginBottom": "0px",
@@ -7770,6 +8116,8 @@
                           "fontWeight": "400",
                           "lineHeight": "24px",
                           "opacity": "1",
+                          "letterSpacing": "-0.16px",
+                          "fontFamily": "PretendardHarness",
                           "marginTop": "0px",
                           "marginRight": "0px",
                           "marginBottom": "0px",
@@ -7813,6 +8161,8 @@
                           "fontWeight": "400",
                           "lineHeight": "24px",
                           "opacity": "1",
+                          "letterSpacing": "-0.16px",
+                          "fontFamily": "PretendardHarness",
                           "marginTop": "0px",
                           "marginRight": "0px",
                           "marginBottom": "0px",
@@ -7856,6 +8206,8 @@
                           "fontWeight": "400",
                           "lineHeight": "24px",
                           "opacity": "1",
+                          "letterSpacing": "-0.16px",
+                          "fontFamily": "PretendardHarness",
                           "marginTop": "0px",
                           "marginRight": "0px",
                           "marginBottom": "0px",
@@ -7901,6 +8253,8 @@
                       "fontWeight": "400",
                       "lineHeight": "24px",
                       "opacity": "1",
+                      "letterSpacing": "-0.16px",
+                      "fontFamily": "PretendardHarness",
                       "marginTop": "0px",
                       "marginRight": "0px",
                       "marginBottom": "0px",
@@ -7943,6 +8297,8 @@
                           "fontWeight": "400",
                           "lineHeight": "24px",
                           "opacity": "1",
+                          "letterSpacing": "-0.16px",
+                          "fontFamily": "PretendardHarness",
                           "marginTop": "0px",
                           "marginRight": "0px",
                           "marginBottom": "0px",
@@ -7985,6 +8341,8 @@
                               "fontWeight": "400",
                               "lineHeight": "24px",
                               "opacity": "1",
+                              "letterSpacing": "-0.16px",
+                              "fontFamily": "PretendardHarness",
                               "marginTop": "0px",
                               "marginRight": "0px",
                               "marginBottom": "0px",
@@ -8028,6 +8386,8 @@
                               "fontWeight": "400",
                               "lineHeight": "24px",
                               "opacity": "1",
+                              "letterSpacing": "-0.16px",
+                              "fontFamily": "PretendardHarness",
                               "marginTop": "0px",
                               "marginRight": "0px",
                               "marginBottom": "0px",
@@ -8073,6 +8433,8 @@
                           "fontWeight": "400",
                           "lineHeight": "24px",
                           "opacity": "1",
+                          "letterSpacing": "-0.16px",
+                          "fontFamily": "PretendardHarness",
                           "marginTop": "0px",
                           "marginRight": "0px",
                           "marginBottom": "0px",
@@ -8115,6 +8477,8 @@
                               "fontWeight": "400",
                               "lineHeight": "24px",
                               "opacity": "1",
+                              "letterSpacing": "-0.16px",
+                              "fontFamily": "PretendardHarness",
                               "marginTop": "0px",
                               "marginRight": "0px",
                               "marginBottom": "0px",
@@ -8158,6 +8522,8 @@
                               "fontWeight": "400",
                               "lineHeight": "24px",
                               "opacity": "1",
+                              "letterSpacing": "-0.16px",
+                              "fontFamily": "PretendardHarness",
                               "marginTop": "0px",
                               "marginRight": "0px",
                               "marginBottom": "0px",
@@ -8218,6 +8584,8 @@
           "fontWeight": "400",
           "lineHeight": "24px",
           "opacity": "1",
+          "letterSpacing": "-0.16px",
+          "fontFamily": "PretendardHarness",
           "marginTop": "0px",
           "marginRight": "0px",
           "marginBottom": "0px",
@@ -8260,6 +8628,8 @@
               "fontWeight": "400",
               "lineHeight": "24px",
               "opacity": "1",
+              "letterSpacing": "-0.16px",
+              "fontFamily": "PretendardHarness",
               "marginTop": "0px",
               "marginRight": "0px",
               "marginBottom": "0px",
@@ -8303,6 +8673,8 @@
               "fontWeight": "400",
               "lineHeight": "24px",
               "opacity": "1",
+              "letterSpacing": "-0.16px",
+              "fontFamily": "PretendardHarness",
               "marginTop": "0px",
               "marginRight": "0px",
               "marginBottom": "0px",
@@ -8345,6 +8717,8 @@
                   "fontWeight": "400",
                   "lineHeight": "24px",
                   "opacity": "1",
+                  "letterSpacing": "-0.16px",
+                  "fontFamily": "PretendardHarness",
                   "marginTop": "0px",
                   "marginRight": "0px",
                   "marginBottom": "0px",
@@ -8388,6 +8762,8 @@
                   "fontWeight": "400",
                   "lineHeight": "24px",
                   "opacity": "1",
+                  "letterSpacing": "-0.16px",
+                  "fontFamily": "PretendardHarness",
                   "marginTop": "0px",
                   "marginRight": "0px",
                   "marginBottom": "0px",
@@ -8442,6 +8818,8 @@
           "fontWeight": "400",
           "lineHeight": "24px",
           "opacity": "1",
+          "letterSpacing": "-0.16px",
+          "fontFamily": "PretendardHarness",
           "marginTop": "0px",
           "marginRight": "0px",
           "marginBottom": "0px",
@@ -8484,6 +8862,8 @@
               "fontWeight": "400",
               "lineHeight": "24px",
               "opacity": "1",
+              "letterSpacing": "-0.16px",
+              "fontFamily": "PretendardHarness",
               "marginTop": "0px",
               "marginRight": "0px",
               "marginBottom": "0px",
@@ -8527,6 +8907,8 @@
               "fontWeight": "400",
               "lineHeight": "24px",
               "opacity": "1",
+              "letterSpacing": "-0.16px",
+              "fontFamily": "PretendardHarness",
               "marginTop": "0px",
               "marginRight": "0px",
               "marginBottom": "0px",
@@ -8569,6 +8951,8 @@
                   "fontWeight": "400",
                   "lineHeight": "24px",
                   "opacity": "1",
+                  "letterSpacing": "-0.16px",
+                  "fontFamily": "PretendardHarness",
                   "marginTop": "0px",
                   "marginRight": "0px",
                   "marginBottom": "0px",
@@ -8612,6 +8996,8 @@
                   "fontWeight": "400",
                   "lineHeight": "24px",
                   "opacity": "1",
+                  "letterSpacing": "-0.16px",
+                  "fontFamily": "PretendardHarness",
                   "marginTop": "0px",
                   "marginRight": "0px",
                   "marginBottom": "0px",
@@ -8655,6 +9041,8 @@
                   "fontWeight": "400",
                   "lineHeight": "24px",
                   "opacity": "1",
+                  "letterSpacing": "-0.16px",
+                  "fontFamily": "PretendardHarness",
                   "marginTop": "0px",
                   "marginRight": "0px",
                   "marginBottom": "0px",
@@ -8709,6 +9097,8 @@
           "fontWeight": "400",
           "lineHeight": "24px",
           "opacity": "1",
+          "letterSpacing": "normal",
+          "fontFamily": "PretendardHarness",
           "marginTop": "0px",
           "marginRight": "0px",
           "marginBottom": "0px",
@@ -8759,6 +9149,8 @@
           "fontWeight": "400",
           "lineHeight": "24px",
           "opacity": "1",
+          "letterSpacing": "-0.16px",
+          "fontFamily": "PretendardHarness",
           "marginTop": "0px",
           "marginRight": "0px",
           "marginBottom": "0px",
@@ -8801,6 +9193,8 @@
               "fontWeight": "400",
               "lineHeight": "24px",
               "opacity": "1",
+              "letterSpacing": "-0.16px",
+              "fontFamily": "PretendardHarness",
               "marginTop": "0px",
               "marginRight": "0px",
               "marginBottom": "0px",
@@ -8843,6 +9237,8 @@
                   "fontWeight": "400",
                   "lineHeight": "24px",
                   "opacity": "1",
+                  "letterSpacing": "-0.16px",
+                  "fontFamily": "PretendardHarness",
                   "marginTop": "0px",
                   "marginRight": "0px",
                   "marginBottom": "0px",
@@ -8885,6 +9281,8 @@
                       "fontWeight": "400",
                       "lineHeight": "24px",
                       "opacity": "1",
+                      "letterSpacing": "-0.16px",
+                      "fontFamily": "PretendardHarness",
                       "marginTop": "-7px",
                       "marginRight": "0px",
                       "marginBottom": "0px",
@@ -8930,6 +9328,8 @@
                   "fontWeight": "400",
                   "lineHeight": "24px",
                   "opacity": "1",
+                  "letterSpacing": "-0.16px",
+                  "fontFamily": "PretendardHarness",
                   "marginTop": "0px",
                   "marginRight": "0px",
                   "marginBottom": "0px",
@@ -8972,6 +9372,8 @@
                       "fontWeight": "400",
                       "lineHeight": "24px",
                       "opacity": "1",
+                      "letterSpacing": "-0.16px",
+                      "fontFamily": "PretendardHarness",
                       "marginTop": "-7px",
                       "marginRight": "0px",
                       "marginBottom": "0px",
@@ -9028,6 +9430,8 @@
           "fontWeight": "400",
           "lineHeight": "24px",
           "opacity": "1",
+          "letterSpacing": "-0.16px",
+          "fontFamily": "PretendardHarness",
           "marginTop": "0px",
           "marginRight": "0px",
           "marginBottom": "0px",
@@ -9070,6 +9474,8 @@
               "fontWeight": "400",
               "lineHeight": "24px",
               "opacity": "1",
+              "letterSpacing": "normal",
+              "fontFamily": "PretendardHarness",
               "marginTop": "0px",
               "marginRight": "0px",
               "marginBottom": "0px",
@@ -9122,6 +9528,8 @@
           "fontWeight": "400",
           "lineHeight": "24px",
           "opacity": "1",
+          "letterSpacing": "normal",
+          "fontFamily": "PretendardHarness",
           "marginTop": "0px",
           "marginRight": "0px",
           "marginBottom": "0px",
@@ -9172,6 +9580,8 @@
           "fontWeight": "400",
           "lineHeight": "24px",
           "opacity": "1",
+          "letterSpacing": "-0.16px",
+          "fontFamily": "PretendardHarness",
           "marginTop": "0px",
           "marginRight": "0px",
           "marginBottom": "0px",
@@ -9222,6 +9632,8 @@
           "fontWeight": "400",
           "lineHeight": "24px",
           "opacity": "1",
+          "letterSpacing": "-0.16px",
+          "fontFamily": "PretendardHarness",
           "marginTop": "0px",
           "marginRight": "0px",
           "marginBottom": "0px",
@@ -9264,6 +9676,8 @@
               "fontWeight": "400",
               "lineHeight": "24px",
               "opacity": "1",
+              "letterSpacing": "-0.16px",
+              "fontFamily": "PretendardHarness",
               "marginTop": "0px",
               "marginRight": "0px",
               "marginBottom": "0px",
@@ -9316,6 +9730,8 @@
           "fontWeight": "400",
           "lineHeight": "24px",
           "opacity": "1",
+          "letterSpacing": "-0.16px",
+          "fontFamily": "PretendardHarness",
           "marginTop": "0px",
           "marginRight": "0px",
           "marginBottom": "0px",
@@ -9366,6 +9782,8 @@
           "fontWeight": "400",
           "lineHeight": "24px",
           "opacity": "1",
+          "letterSpacing": "-0.16px",
+          "fontFamily": "PretendardHarness",
           "marginTop": "0px",
           "marginRight": "0px",
           "marginBottom": "0px",
@@ -9416,6 +9834,8 @@
           "fontWeight": "400",
           "lineHeight": "24px",
           "opacity": "1",
+          "letterSpacing": "-0.16px",
+          "fontFamily": "PretendardHarness",
           "marginTop": "0px",
           "marginRight": "0px",
           "marginBottom": "0px",
@@ -9458,6 +9878,8 @@
               "fontWeight": "400",
               "lineHeight": "18px",
               "opacity": "1",
+              "letterSpacing": "-0.12px",
+              "fontFamily": "PretendardHarness",
               "marginTop": "0px",
               "marginRight": "0px",
               "marginBottom": "0px",
@@ -9480,7 +9902,7 @@
             "values": {
               "height": "18px",
               "minHeight": "auto",
-              "width": "11.875px",
+              "width": "10.2656px",
               "minWidth": "auto",
               "maxWidth": "none",
               "paddingTop": "0px",
@@ -9501,6 +9923,8 @@
               "fontWeight": "400",
               "lineHeight": "18px",
               "opacity": "1",
+              "letterSpacing": "-0.12px",
+              "fontFamily": "PretendardHarness",
               "marginTop": "0px",
               "marginRight": "0px",
               "marginBottom": "0px",
@@ -9510,7 +9934,7 @@
               "justifyContent": "normal",
               "flexDirection": "row",
               "display": "block",
-              "$width": 11.88,
+              "$width": 10.27,
               "$height": 18
             },
             "children": []
@@ -9544,6 +9968,8 @@
               "fontWeight": "400",
               "lineHeight": "18px",
               "opacity": "1",
+              "letterSpacing": "-0.12px",
+              "fontFamily": "PretendardHarness",
               "marginTop": "0px",
               "marginRight": "0px",
               "marginBottom": "0px",
@@ -9566,7 +9992,7 @@
             "values": {
               "height": "18px",
               "minHeight": "auto",
-              "width": "35.6094px",
+              "width": "30.7656px",
               "minWidth": "auto",
               "maxWidth": "none",
               "paddingTop": "0px",
@@ -9587,6 +10013,8 @@
               "fontWeight": "400",
               "lineHeight": "18px",
               "opacity": "1",
+              "letterSpacing": "-0.12px",
+              "fontFamily": "PretendardHarness",
               "marginTop": "0px",
               "marginRight": "0px",
               "marginBottom": "0px",
@@ -9596,7 +10024,7 @@
               "justifyContent": "normal",
               "flexDirection": "row",
               "display": "block",
-              "$width": 35.61,
+              "$width": 30.77,
               "$height": 18
             },
             "children": []
@@ -9618,7 +10046,7 @@
         "values": {
           "height": "39px",
           "minHeight": "0px",
-          "width": "164px",
+          "width": "176px",
           "minWidth": "0px",
           "maxWidth": "none",
           "paddingTop": "8px",
@@ -9639,6 +10067,8 @@
           "fontWeight": "400",
           "lineHeight": "21px",
           "opacity": "1",
+          "letterSpacing": "-0.14px",
+          "fontFamily": "PretendardHarness",
           "marginTop": "0px",
           "marginRight": "0px",
           "marginBottom": "0px",
@@ -9648,7 +10078,7 @@
           "justifyContent": "normal",
           "flexDirection": "row",
           "display": "inline-block",
-          "$width": 164,
+          "$width": 176,
           "$height": 39
         },
         "children": []
@@ -9668,7 +10098,7 @@
         "values": {
           "height": "34px",
           "minHeight": "34px",
-          "width": "162px",
+          "width": "174px",
           "minWidth": "0px",
           "maxWidth": "none",
           "paddingTop": "0px",
@@ -9689,6 +10119,8 @@
           "fontWeight": "400",
           "lineHeight": "21px",
           "opacity": "1",
+          "letterSpacing": "-0.14px",
+          "fontFamily": "PretendardHarness",
           "marginTop": "0px",
           "marginRight": "0px",
           "marginBottom": "0px",
@@ -9698,7 +10130,7 @@
           "justifyContent": "normal",
           "flexDirection": "row",
           "display": "inline-block",
-          "$width": 162,
+          "$width": 174,
           "$height": 34
         },
         "children": []
@@ -9718,7 +10150,7 @@
         "values": {
           "height": "48px",
           "minHeight": "0px",
-          "width": "119.125px",
+          "width": "108.344px",
           "minWidth": "0px",
           "maxWidth": "none",
           "paddingTop": "12px",
@@ -9739,6 +10171,8 @@
           "fontWeight": "400",
           "lineHeight": "24px",
           "opacity": "1",
+          "letterSpacing": "-0.16px",
+          "fontFamily": "PretendardHarness",
           "marginTop": "0px",
           "marginRight": "0px",
           "marginBottom": "0px",
@@ -9748,7 +10182,7 @@
           "justifyContent": "normal",
           "flexDirection": "row",
           "display": "block",
-          "$width": 119.13,
+          "$width": 108.34,
           "$height": 48
         },
         "children": [
@@ -9781,6 +10215,8 @@
               "fontWeight": "400",
               "lineHeight": "24px",
               "opacity": "1",
+              "letterSpacing": "-0.16px",
+              "fontFamily": "PretendardHarness",
               "marginTop": "0px",
               "marginRight": "0px",
               "marginBottom": "0px",
@@ -9790,8 +10226,8 @@
               "justifyContent": "normal",
               "flexDirection": "row",
               "display": "inline",
-              "$width": 79.13,
-              "$height": 18
+              "$width": 68.34,
+              "$height": 19
             },
             "children": []
           }
@@ -9812,7 +10248,7 @@
         "values": {
           "height": "50px",
           "minHeight": "0px",
-          "width": "129.125px",
+          "width": "118.344px",
           "minWidth": "0px",
           "maxWidth": "none",
           "paddingTop": "12px",
@@ -9833,6 +10269,8 @@
           "fontWeight": "400",
           "lineHeight": "24px",
           "opacity": "1",
+          "letterSpacing": "-0.16px",
+          "fontFamily": "PretendardHarness",
           "marginTop": "0px",
           "marginRight": "0px",
           "marginBottom": "0px",
@@ -9842,7 +10280,7 @@
           "justifyContent": "normal",
           "flexDirection": "row",
           "display": "block",
-          "$width": 129.13,
+          "$width": 118.34,
           "$height": 50
         },
         "children": []
@@ -9862,7 +10300,7 @@
         "values": {
           "height": "32px",
           "minHeight": "32px",
-          "width": "80.7812px",
+          "width": "81.6406px",
           "minWidth": "0px",
           "maxWidth": "none",
           "paddingTop": "4px",
@@ -9883,6 +10321,8 @@
           "fontWeight": "400",
           "lineHeight": "18px",
           "opacity": "1",
+          "letterSpacing": "-0.12px",
+          "fontFamily": "PretendardHarness",
           "marginTop": "0px",
           "marginRight": "0px",
           "marginBottom": "0px",
@@ -9892,7 +10332,7 @@
           "justifyContent": "normal",
           "flexDirection": "row",
           "display": "flex",
-          "$width": 80.78,
+          "$width": 81.64,
           "$height": 32
         },
         "children": []
@@ -9912,7 +10352,7 @@
         "values": {
           "height": "28px",
           "minHeight": "0px",
-          "width": "118.719px",
+          "width": "105.797px",
           "minWidth": "0px",
           "maxWidth": "320px",
           "paddingTop": "0px",
@@ -9933,6 +10373,8 @@
           "fontWeight": "400",
           "lineHeight": "24px",
           "opacity": "1",
+          "letterSpacing": "-0.16px",
+          "fontFamily": "PretendardHarness",
           "marginTop": "0px",
           "marginRight": "0px",
           "marginBottom": "0px",
@@ -9942,7 +10384,7 @@
           "justifyContent": "normal",
           "flexDirection": "row",
           "display": "block",
-          "$width": 118.72,
+          "$width": 105.8,
           "$height": 28
         },
         "children": [
@@ -9954,7 +10396,7 @@
             "values": {
               "height": "28px",
               "minHeight": "0px",
-              "width": "118.719px",
+              "width": "105.797px",
               "minWidth": "0px",
               "maxWidth": "none",
               "paddingTop": "0px",
@@ -9975,6 +10417,8 @@
               "fontWeight": "400",
               "lineHeight": "24px",
               "opacity": "1",
+              "letterSpacing": "-0.16px",
+              "fontFamily": "PretendardHarness",
               "marginTop": "0px",
               "marginRight": "0px",
               "marginBottom": "0px",
@@ -9984,7 +10428,7 @@
               "justifyContent": "normal",
               "flexDirection": "row",
               "display": "block",
-              "$width": 118.72,
+              "$width": 105.8,
               "$height": 28
             },
             "children": [
@@ -9996,7 +10440,7 @@
                 "values": {
                   "height": "28px",
                   "minHeight": "0px",
-                  "width": "118.719px",
+                  "width": "105.797px",
                   "minWidth": "0px",
                   "maxWidth": "100%",
                   "paddingTop": "4px",
@@ -10017,6 +10461,8 @@
                   "fontWeight": "400",
                   "lineHeight": "18px",
                   "opacity": "1",
+                  "letterSpacing": "-0.12px",
+                  "fontFamily": "PretendardHarness",
                   "marginTop": "0px",
                   "marginRight": "0px",
                   "marginBottom": "0px",
@@ -10026,7 +10472,7 @@
                   "justifyContent": "normal",
                   "flexDirection": "row",
                   "display": "block",
-                  "$width": 118.72,
+                  "$width": 105.8,
                   "$height": 28
                 },
                 "children": []
@@ -10050,7 +10496,7 @@
         "values": {
           "height": "28px",
           "minHeight": "0px",
-          "width": "130.578px",
+          "width": "116.047px",
           "minWidth": "0px",
           "maxWidth": "none",
           "paddingTop": "4px",
@@ -10071,6 +10517,8 @@
           "fontWeight": "400",
           "lineHeight": "18px",
           "opacity": "0",
+          "letterSpacing": "-0.12px",
+          "fontFamily": "PretendardHarness",
           "marginTop": "0px",
           "marginRight": "0px",
           "marginBottom": "0px",
@@ -10080,7 +10528,7 @@
           "justifyContent": "normal",
           "flexDirection": "row",
           "display": "block",
-          "$width": 126.66,
+          "$width": 112.57,
           "$height": 27.16
         },
         "children": []
@@ -10121,6 +10569,8 @@
           "fontWeight": "400",
           "lineHeight": "18px",
           "opacity": "0",
+          "letterSpacing": "-0.12px",
+          "fontFamily": "PretendardHarness",
           "marginTop": "0px",
           "marginRight": "0px",
           "marginBottom": "0px",
@@ -10149,7 +10599,7 @@
           "values": {
             "height": "48px",
             "minHeight": "0px",
-            "width": "119.125px",
+            "width": "108.344px",
             "minWidth": "0px",
             "maxWidth": "none",
             "paddingTop": "12px",
@@ -10169,7 +10619,9 @@
             "fontSize": "16px",
             "fontWeight": "400",
             "lineHeight": "24px",
-            "opacity": "1"
+            "opacity": "1",
+            "letterSpacing": "-0.16px",
+            "fontFamily": "PretendardHarness"
           },
           "sources": [
             {
@@ -10195,7 +10647,7 @@
           "values": {
             "height": "50px",
             "minHeight": "0px",
-            "width": "129.125px",
+            "width": "118.344px",
             "minWidth": "0px",
             "maxWidth": "none",
             "paddingTop": "12px",
@@ -10215,7 +10667,9 @@
             "fontSize": "16px",
             "fontWeight": "400",
             "lineHeight": "24px",
-            "opacity": "1"
+            "opacity": "1",
+            "letterSpacing": "-0.16px",
+            "fontFamily": "PretendardHarness"
           },
           "sources": [
             {
@@ -10234,7 +10688,7 @@
           "values": {
             "height": "48px",
             "minHeight": "0px",
-            "width": "119.125px",
+            "width": "108.344px",
             "minWidth": "0px",
             "maxWidth": "none",
             "paddingTop": "12px",
@@ -10254,7 +10708,9 @@
             "fontSize": "16px",
             "fontWeight": "400",
             "lineHeight": "24px",
-            "opacity": "1"
+            "opacity": "1",
+            "letterSpacing": "-0.16px",
+            "fontFamily": "PretendardHarness"
           },
           "sources": [
             {
@@ -10299,7 +10755,9 @@
             "fontSize": "16px",
             "fontWeight": "400",
             "lineHeight": "24px",
-            "opacity": "1"
+            "opacity": "1",
+            "letterSpacing": "-0.16px",
+            "fontFamily": "PretendardHarness"
           },
           "sources": [
             {
@@ -10338,7 +10796,9 @@
             "fontSize": "16px",
             "fontWeight": "400",
             "lineHeight": "24px",
-            "opacity": "1"
+            "opacity": "1",
+            "letterSpacing": "-0.16px",
+            "fontFamily": "PretendardHarness"
           },
           "sources": [
             {
@@ -10383,7 +10843,9 @@
             "fontSize": "16px",
             "fontWeight": "400",
             "lineHeight": "24px",
-            "opacity": "1"
+            "opacity": "1",
+            "letterSpacing": "normal",
+            "fontFamily": "PretendardHarness"
           },
           "sources": [
             {
@@ -10422,7 +10884,9 @@
             "fontSize": "16px",
             "fontWeight": "400",
             "lineHeight": "24px",
-            "opacity": "0"
+            "opacity": "0",
+            "letterSpacing": "normal",
+            "fontFamily": "PretendardHarness"
           },
           "sources": [
             {
@@ -10468,7 +10932,9 @@
             "fontSize": "16px",
             "fontWeight": "400",
             "lineHeight": "24px",
-            "opacity": "1"
+            "opacity": "1",
+            "letterSpacing": "normal",
+            "fontFamily": "PretendardHarness"
           },
           "sources": [
             {
@@ -10507,7 +10973,9 @@
             "fontSize": "16px",
             "fontWeight": "400",
             "lineHeight": "24px",
-            "opacity": "1"
+            "opacity": "1",
+            "letterSpacing": "normal",
+            "fontFamily": "PretendardHarness"
           },
           "sources": [
             {
@@ -10546,7 +11014,9 @@
             "fontSize": "16px",
             "fontWeight": "400",
             "lineHeight": "24px",
-            "opacity": "1"
+            "opacity": "1",
+            "letterSpacing": "normal",
+            "fontFamily": "PretendardHarness"
           },
           "sources": [
             {
@@ -10591,7 +11061,9 @@
             "fontSize": "16px",
             "fontWeight": "400",
             "lineHeight": "24px",
-            "opacity": "1"
+            "opacity": "1",
+            "letterSpacing": "-0.16px",
+            "fontFamily": "PretendardHarness"
           },
           "sources": [
             {
@@ -10630,7 +11102,9 @@
             "fontSize": "16px",
             "fontWeight": "400",
             "lineHeight": "24px",
-            "opacity": "1"
+            "opacity": "1",
+            "letterSpacing": "-0.16px",
+            "fontFamily": "PretendardHarness"
           },
           "sources": [
             {
@@ -10683,7 +11157,9 @@
             "fontSize": "16px",
             "fontWeight": "400",
             "lineHeight": "24px",
-            "opacity": "1"
+            "opacity": "1",
+            "letterSpacing": "-0.16px",
+            "fontFamily": "PretendardHarness"
           },
           "sources": [
             {
@@ -10722,7 +11198,9 @@
             "fontSize": "16px",
             "fontWeight": "400",
             "lineHeight": "24px",
-            "opacity": "1"
+            "opacity": "1",
+            "letterSpacing": "-0.16px",
+            "fontFamily": "PretendardHarness"
           },
           "sources": [
             {
@@ -10768,7 +11246,9 @@
             "fontSize": "16px",
             "fontWeight": "400",
             "lineHeight": "24px",
-            "opacity": "1"
+            "opacity": "1",
+            "letterSpacing": "-0.16px",
+            "fontFamily": "PretendardHarness"
           },
           "sources": [
             {
@@ -10807,7 +11287,9 @@
             "fontSize": "16px",
             "fontWeight": "400",
             "lineHeight": "24px",
-            "opacity": "1"
+            "opacity": "1",
+            "letterSpacing": "-0.16px",
+            "fontFamily": "PretendardHarness"
           },
           "sources": [
             {
@@ -10846,7 +11328,9 @@
             "fontSize": "16px",
             "fontWeight": "400",
             "lineHeight": "24px",
-            "opacity": "1"
+            "opacity": "1",
+            "letterSpacing": "-0.16px",
+            "fontFamily": "PretendardHarness"
           },
           "sources": [
             {
@@ -10885,7 +11369,9 @@
             "fontSize": "16px",
             "fontWeight": "400",
             "lineHeight": "19.2px",
-            "opacity": "1"
+            "opacity": "1",
+            "letterSpacing": "-0.16px",
+            "fontFamily": "PretendardHarness"
           },
           "sources": [
             {
@@ -10924,7 +11410,9 @@
             "fontSize": "16px",
             "fontWeight": "400",
             "lineHeight": "24px",
-            "opacity": "1"
+            "opacity": "1",
+            "letterSpacing": "-0.16px",
+            "fontFamily": "PretendardHarness"
           },
           "sources": [
             {
@@ -10963,7 +11451,9 @@
             "fontSize": "16px",
             "fontWeight": "400",
             "lineHeight": "24px",
-            "opacity": "1"
+            "opacity": "1",
+            "letterSpacing": "-0.16px",
+            "fontFamily": "PretendardHarness"
           },
           "sources": [
             {
@@ -11008,7 +11498,9 @@
             "fontSize": "16px",
             "fontWeight": "400",
             "lineHeight": "24px",
-            "opacity": "1"
+            "opacity": "1",
+            "letterSpacing": "-0.16px",
+            "fontFamily": "PretendardHarness"
           },
           "sources": [
             {
@@ -11054,7 +11546,9 @@
             "fontSize": "16px",
             "fontWeight": "400",
             "lineHeight": "24px",
-            "opacity": "1"
+            "opacity": "1",
+            "letterSpacing": "-0.16px",
+            "fontFamily": "PretendardHarness"
           },
           "sources": [
             {
@@ -11100,7 +11594,9 @@
             "fontSize": "16px",
             "fontWeight": "400",
             "lineHeight": "24px",
-            "opacity": "1"
+            "opacity": "1",
+            "letterSpacing": "-0.16px",
+            "fontFamily": "PretendardHarness"
           },
           "sources": [
             {
@@ -11139,7 +11635,9 @@
             "fontSize": "16px",
             "fontWeight": "400",
             "lineHeight": "24px",
-            "opacity": "1"
+            "opacity": "1",
+            "letterSpacing": "-0.16px",
+            "fontFamily": "PretendardHarness"
           },
           "sources": [
             {
@@ -11178,7 +11676,9 @@
             "fontSize": "16px",
             "fontWeight": "400",
             "lineHeight": "24px",
-            "opacity": "1"
+            "opacity": "1",
+            "letterSpacing": "-0.16px",
+            "fontFamily": "PretendardHarness"
           },
           "sources": [
             {
@@ -11217,7 +11717,9 @@
             "fontSize": "16px",
             "fontWeight": "400",
             "lineHeight": "24px",
-            "opacity": "1"
+            "opacity": "1",
+            "letterSpacing": "-0.16px",
+            "fontFamily": "PretendardHarness"
           },
           "sources": [
             {
@@ -11256,7 +11758,9 @@
             "fontSize": "16px",
             "fontWeight": "400",
             "lineHeight": "24px",
-            "opacity": "1"
+            "opacity": "1",
+            "letterSpacing": "-0.16px",
+            "fontFamily": "PretendardHarness"
           },
           "sources": [
             {
@@ -11295,7 +11799,9 @@
             "fontSize": "16px",
             "fontWeight": "400",
             "lineHeight": "24px",
-            "opacity": "1"
+            "opacity": "1",
+            "letterSpacing": "-0.16px",
+            "fontFamily": "PretendardHarness"
           },
           "sources": [
             {
@@ -11334,7 +11840,9 @@
             "fontSize": "16px",
             "fontWeight": "400",
             "lineHeight": "24px",
-            "opacity": "1"
+            "opacity": "1",
+            "letterSpacing": "-0.16px",
+            "fontFamily": "PretendardHarness"
           },
           "sources": [
             {
@@ -11373,7 +11881,9 @@
             "fontSize": "16px",
             "fontWeight": "400",
             "lineHeight": "24px",
-            "opacity": "1"
+            "opacity": "1",
+            "letterSpacing": "-0.16px",
+            "fontFamily": "PretendardHarness"
           },
           "sources": [
             {
@@ -11412,7 +11922,9 @@
             "fontSize": "16px",
             "fontWeight": "400",
             "lineHeight": "24px",
-            "opacity": "1"
+            "opacity": "1",
+            "letterSpacing": "-0.16px",
+            "fontFamily": "PretendardHarness"
           },
           "sources": [
             {
@@ -11451,7 +11963,9 @@
             "fontSize": "16px",
             "fontWeight": "400",
             "lineHeight": "24px",
-            "opacity": "1"
+            "opacity": "1",
+            "letterSpacing": "-0.16px",
+            "fontFamily": "PretendardHarness"
           },
           "sources": [
             {
@@ -11490,7 +12004,9 @@
             "fontSize": "16px",
             "fontWeight": "400",
             "lineHeight": "24px",
-            "opacity": "1"
+            "opacity": "1",
+            "letterSpacing": "-0.16px",
+            "fontFamily": "PretendardHarness"
           },
           "sources": [
             {
@@ -11529,7 +12045,9 @@
             "fontSize": "16px",
             "fontWeight": "400",
             "lineHeight": "24px",
-            "opacity": "1"
+            "opacity": "1",
+            "letterSpacing": "-0.16px",
+            "fontFamily": "PretendardHarness"
           },
           "sources": [
             {
@@ -11568,7 +12086,9 @@
             "fontSize": "16px",
             "fontWeight": "400",
             "lineHeight": "24px",
-            "opacity": "1"
+            "opacity": "1",
+            "letterSpacing": "-0.16px",
+            "fontFamily": "PretendardHarness"
           },
           "sources": [
             {
@@ -11607,7 +12127,9 @@
             "fontSize": "16px",
             "fontWeight": "400",
             "lineHeight": "24px",
-            "opacity": "1"
+            "opacity": "1",
+            "letterSpacing": "-0.16px",
+            "fontFamily": "PretendardHarness"
           },
           "sources": [
             {
@@ -11646,7 +12168,9 @@
             "fontSize": "16px",
             "fontWeight": "400",
             "lineHeight": "24px",
-            "opacity": "1"
+            "opacity": "1",
+            "letterSpacing": "-0.16px",
+            "fontFamily": "PretendardHarness"
           },
           "sources": [
             {
@@ -11685,7 +12209,9 @@
             "fontSize": "16px",
             "fontWeight": "400",
             "lineHeight": "24px",
-            "opacity": "1"
+            "opacity": "1",
+            "letterSpacing": "-0.16px",
+            "fontFamily": "PretendardHarness"
           },
           "sources": [
             {
@@ -11730,7 +12256,9 @@
             "fontSize": "16px",
             "fontWeight": "400",
             "lineHeight": "24px",
-            "opacity": "1"
+            "opacity": "1",
+            "letterSpacing": "normal",
+            "fontFamily": "PretendardHarness"
           },
           "sources": [
             {
@@ -11769,7 +12297,9 @@
             "fontSize": "14px",
             "fontWeight": "400",
             "lineHeight": "21px",
-            "opacity": "1"
+            "opacity": "1",
+            "letterSpacing": "-0.14px",
+            "fontFamily": "PretendardHarness"
           },
           "sources": [
             {
@@ -11808,7 +12338,9 @@
             "fontSize": "16px",
             "fontWeight": "400",
             "lineHeight": "24px",
-            "opacity": "1"
+            "opacity": "1",
+            "letterSpacing": "normal",
+            "fontFamily": "PretendardHarness"
           },
           "sources": [
             {
@@ -11847,7 +12379,9 @@
             "fontSize": "16px",
             "fontWeight": "400",
             "lineHeight": "24px",
-            "opacity": "1"
+            "opacity": "1",
+            "letterSpacing": "normal",
+            "fontFamily": "PretendardHarness"
           },
           "sources": [
             {
@@ -11886,7 +12420,9 @@
             "fontSize": "16px",
             "fontWeight": "400",
             "lineHeight": "24px",
-            "opacity": "1"
+            "opacity": "1",
+            "letterSpacing": "normal",
+            "fontFamily": "PretendardHarness"
           },
           "sources": [
             {
@@ -11912,7 +12448,7 @@
           "values": {
             "height": "48px",
             "minHeight": "48px",
-            "width": "59.9688px",
+            "width": "55.6562px",
             "minWidth": "0px",
             "maxWidth": "none",
             "paddingTop": "8px",
@@ -11932,7 +12468,9 @@
             "fontSize": "16px",
             "fontWeight": "400",
             "lineHeight": "24px",
-            "opacity": "1"
+            "opacity": "1",
+            "letterSpacing": "normal",
+            "fontFamily": "PretendardHarness"
           },
           "sources": [
             {
@@ -11977,7 +12515,9 @@
             "fontSize": "16px",
             "fontWeight": "400",
             "lineHeight": "24px",
-            "opacity": "1"
+            "opacity": "1",
+            "letterSpacing": "-0.16px",
+            "fontFamily": "PretendardHarness"
           },
           "sources": [
             {
@@ -11996,7 +12536,7 @@
           "values": {
             "height": "24px",
             "minHeight": "0px",
-            "width": "43.6562px",
+            "width": "39.3438px",
             "minWidth": "0px",
             "maxWidth": "none",
             "paddingTop": "2px",
@@ -12016,7 +12556,9 @@
             "fontSize": "16px",
             "fontWeight": "400",
             "lineHeight": "20px",
-            "opacity": "1"
+            "opacity": "1",
+            "letterSpacing": "-0.16px",
+            "fontFamily": "PretendardHarness"
           },
           "sources": [
             {
@@ -12035,7 +12577,7 @@
           "values": {
             "height": "30px",
             "minHeight": "0px",
-            "width": "51.6562px",
+            "width": "47.3438px",
             "minWidth": "0px",
             "maxWidth": "none",
             "paddingTop": "3px",
@@ -12055,7 +12597,9 @@
             "fontSize": "16px",
             "fontWeight": "400",
             "lineHeight": "24px",
-            "opacity": "1"
+            "opacity": "1",
+            "letterSpacing": "-0.16px",
+            "fontFamily": "PretendardHarness"
           },
           "sources": [
             {
@@ -12074,7 +12618,7 @@
           "values": {
             "height": "18px",
             "minHeight": "0px",
-            "width": "41.6562px",
+            "width": "37.3438px",
             "minWidth": "18px",
             "maxWidth": "none",
             "paddingTop": "0px",
@@ -12094,7 +12638,9 @@
             "fontSize": "16px",
             "fontWeight": "400",
             "lineHeight": "24px",
-            "opacity": "1"
+            "opacity": "1",
+            "letterSpacing": "-0.16px",
+            "fontFamily": "PretendardHarness"
           },
           "sources": [
             {
@@ -12133,7 +12679,9 @@
             "fontSize": "12px",
             "fontWeight": "600",
             "lineHeight": "18px",
-            "opacity": "1"
+            "opacity": "1",
+            "letterSpacing": "-0.16px",
+            "fontFamily": "PretendardHarness"
           },
           "sources": [
             {
@@ -12152,7 +12700,7 @@
           "values": {
             "height": "26px",
             "minHeight": "0px",
-            "width": "43.6562px",
+            "width": "39.3438px",
             "minWidth": "0px",
             "maxWidth": "100%",
             "paddingTop": "1px",
@@ -12172,7 +12720,9 @@
             "fontSize": "16px",
             "fontWeight": "400",
             "lineHeight": "24px",
-            "opacity": "1"
+            "opacity": "1",
+            "letterSpacing": "-0.16px",
+            "fontFamily": "PretendardHarness"
           },
           "sources": [
             {
@@ -12191,7 +12741,7 @@
           "values": {
             "height": "26px",
             "minHeight": "0px",
-            "width": "53.6562px",
+            "width": "49.3438px",
             "minWidth": "0px",
             "maxWidth": "180px",
             "paddingTop": "0px",
@@ -12211,7 +12761,9 @@
             "fontSize": "16px",
             "fontWeight": "400",
             "lineHeight": "24px",
-            "opacity": "1"
+            "opacity": "1",
+            "letterSpacing": "-0.16px",
+            "fontFamily": "PretendardHarness"
           },
           "sources": [
             {
@@ -12250,7 +12802,9 @@
             "fontSize": "16px",
             "fontWeight": "400",
             "lineHeight": "24px",
-            "opacity": "1"
+            "opacity": "1",
+            "letterSpacing": "-0.16px",
+            "fontFamily": "PretendardHarness"
           },
           "sources": [
             {
@@ -12269,7 +12823,7 @@
           "values": {
             "height": "26px",
             "minHeight": "20px",
-            "width": "45.6562px",
+            "width": "41.3438px",
             "minWidth": "0px",
             "maxWidth": "none",
             "paddingTop": "0px",
@@ -12289,7 +12843,9 @@
             "fontSize": "16px",
             "fontWeight": "400",
             "lineHeight": "24px",
-            "opacity": "1"
+            "opacity": "1",
+            "letterSpacing": "-0.16px",
+            "fontFamily": "PretendardHarness"
           },
           "sources": [
             {
@@ -12328,7 +12884,9 @@
             "fontSize": "16px",
             "fontWeight": "400",
             "lineHeight": "24px",
-            "opacity": "1"
+            "opacity": "1",
+            "letterSpacing": "-0.16px",
+            "fontFamily": "PretendardHarness"
           },
           "sources": [
             {
@@ -12367,7 +12925,9 @@
             "fontSize": "16px",
             "fontWeight": "400",
             "lineHeight": "24px",
-            "opacity": "1"
+            "opacity": "1",
+            "letterSpacing": "-0.16px",
+            "fontFamily": "PretendardHarness"
           },
           "sources": [
             {
@@ -12406,7 +12966,9 @@
             "fontSize": "16px",
             "fontWeight": "400",
             "lineHeight": "24px",
-            "opacity": "1"
+            "opacity": "1",
+            "letterSpacing": "-0.16px",
+            "fontFamily": "PretendardHarness"
           },
           "sources": [
             {
@@ -12425,7 +12987,7 @@
           "values": {
             "height": "24px",
             "minHeight": "0px",
-            "width": "31.6562px",
+            "width": "27.3438px",
             "minWidth": "0px",
             "maxWidth": "none",
             "paddingTop": "0px",
@@ -12445,7 +13007,9 @@
             "fontSize": "16px",
             "fontWeight": "400",
             "lineHeight": "24px",
-            "opacity": "1"
+            "opacity": "1",
+            "letterSpacing": "-0.16px",
+            "fontFamily": "PretendardHarness"
           },
           "sources": [
             {

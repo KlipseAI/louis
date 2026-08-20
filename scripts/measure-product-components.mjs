@@ -7,6 +7,7 @@ import { fileURLToPath } from "node:url";
 import { chromium } from "playwright";
 import { atomicWriteBatch } from "./lib/atomic-output.mjs";
 import { resolveProductRef } from "./lib/product-ref.mjs";
+import { productFontFace } from "./lib/product-font.mjs";
 
 // **제품 컴포넌트를 실제로 렌더해서 잰다.**
 //
@@ -968,6 +969,9 @@ try {
   }
 
   const baseCss = [
+    // 제품 글꼴을 싣지 않으면 브라우저 기본 글꼴로 떨어져
+    // 글자가 폭을 정하는 축이 전부 틀린 값으로 잡힌다. scripts/lib/product-font.mjs에 사유가 있다.
+    productFontFace(productRoot, commit),
     normalize(git(["show", commit + ":apps/web/app/tailwind.css"])),
     git(["show", commit + ":apps/web/app/globals.css"]),
   ].join("\n\n");
@@ -1021,21 +1025,14 @@ try {
       // **계측 장치의 값이 제품 근거인 척 기록에 남는다.** 애니메이션 객체를 직접 세우면
       // 계산된 CSS 값은 제품이 선언한 그대로 읽히고 기하만 결정적이 된다.
       // 의사요소(`::after`)의 애니메이션도 `document.getAnimations()`에 들어온다.
-      await page.evaluate(() => {
-        for (const animation of document.getAnimations()) {
-          // 끝나는 애니메이션은 **끝으로** 보낸다. 시작에 세우면 결정적이긴 해도 틀린 상태다 —
-          // 토스트의 `from`은 `translateY(10px)`이고 쉬는 자리는 `translateY(0)`이다
-          // (`apps/web/app/keyframes.css:510` appHomeToastIn). `finish()`는 무한 애니메이션에서
-          // 던지므로 그것으로 두 경우를 가른다 — 끝나지 않는 것(skeleton 반짝임)은 0s에 세운다.
-          try {
-            animation.finish();
-          } catch {
-            animation.currentTime = 0;
-            animation.pause();
-          }
-        }
-      });
       const group_ = await page.evaluate((probes) => {
+        // **읽기 직전에 얼린다.** 별도 호출로 얼리면 CSS 애니메이션이 스타일 재계산 때
+        // API로 건 pause를 되돌려 다시 흐른다(실측 확인: 300ms 뒤 -360 → -355.348).
+        // 같은 evaluate 안에서 시각을 0으로 놓고 바로 읽으면 그 틈이 없고,
+        // `animation-duration`과 `animation-play-state`는 제품 선언 그대로 남는다.
+        for (const a of document.getAnimations()) {
+          try { a.finish(); } catch { a.currentTime = 0; }
+        }
         // **hover 전용 선언은 getComputedStyle로 읽히지 않는다.** 마우스를 움직이거나 CDP로
         // 상태를 강제하는 대신, 스타일시트에서 이 요소를 겨누는 `:hover` 규칙을 모아
         // 특이도·소스 순서대로 복제본에 얹고 계산값을 읽는다. 값이 시트에서 오므로

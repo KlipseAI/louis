@@ -4,6 +4,210 @@
   "$whyThisExists": "인벤토리 첫 판에서 모달을 그릴 때 카드만 재고 제목·설명·액션은 상상해서 그렸다. 실제 제품은 액션 행이 `margin: -8px`로 카드 밖으로 삐져나와 버튼 쪽 여백이 8이고 글자 쪽이 16인데, 그림은 둘 다 16이었다. owner가 그 차이를 알아봤다. 잰 것 옆에 안 잰 것을 그려 넣으면 그림 전체가 거짓말이 된다.",
   "specimens": [
     {
+      "id": "avatar/adminUser",
+      "kind": "avatar",
+      "label": "관리자 사용자 머리글자 아바타",
+      "jsx": "apps/web/app/admin/AdminClient.tsx:1719-1719",
+      "jsxQuote": "                        <div className={AVATAR}>{initial}</div>",
+      "file": "apps/web/app/admin/AdminClient.tsx",
+      "node": {
+        "part": "AVATAR",
+        "tag": "div",
+        "text": "K"
+      }
+    },
+    {
+      "id": "avatar/instagramChannel",
+      "kind": "avatar",
+      "label": "인스타그램 대시보드 채널 아바타 — 유튜브와 같은 정의를 한 벌 더 갖는다",
+      "jsx": "apps/web/components/scenes/InstagramAnalyticsScene.tsx:1781-1794",
+      "jsxQuote": "                  <div className={CHANNEL_AVATAR} aria-hidden=\"true\">",
+      "file": "apps/web/components/scenes/InstagramAnalyticsScene.tsx",
+      "node": {
+        "part": "CHANNEL_AVATAR",
+        "tag": "div",
+        "children": [
+          {
+            "part": "CHANNEL_AVATAR_PLACEHOLDER",
+            "tag": "div"
+          }
+        ]
+      }
+    },
+    {
+      "id": "avatar/settingsProfile",
+      "kind": "avatar",
+      "label": "설정 프로필 사진",
+      "jsx": "apps/web/components/scenes/SettingsScene.tsx:990-1006",
+      "jsxQuote": "                <div className={styles.settingsAvatarFigure}>",
+      "file": "apps/web/components/scenes/myPageSceneStyles.ts",
+      "node": {
+        "part": "settingsAvatarFigure",
+        "tag": "div",
+        "children": [
+          {
+            "part": "settingsAvatarFigureImage",
+            "tag": "img"
+          }
+        ]
+      }
+    },
+    {
+      "id": "avatar/youtubeChannel",
+      "kind": "avatar",
+      "label": "유튜브 대시보드 채널 아바타",
+      "jsx": "apps/web/components/scenes/YoutubeAnalyticsScene.tsx:1981-2000",
+      "jsxQuote": "                    className={CHANNEL_AVATAR}",
+      "file": "apps/web/components/scenes/YoutubeAnalyticsScene.tsx",
+      "node": {
+        "part": "CHANNEL_AVATAR",
+        "tag": "div",
+        "children": [
+          {
+            "part": "CHANNEL_AVATAR_PLACEHOLDER",
+            "tag": "div"
+          }
+        ]
+      }
+    },
+    {
+      "id": "badge/customSidebarBadge",
+      "kind": "badge",
+      "label": "사이드바 개수 배지",
+      "jsx": "apps/web/components/navigation/Gnb.tsx:4540-4548",
+      "file": "apps/web/components/navigation/Gnb.tsx",
+      "node": {
+        "part": "customSidebarBadge",
+        "tag": "span",
+        "typography": "type-caption-12-medium",
+        "text": "3"
+      }
+    },
+    {
+      "id": "badge/exploreSoonChip",
+      "kind": "badge",
+      "label": "사이드바 예정 칩",
+      "jsx": "apps/web/components/navigation/Gnb.tsx:4795-4800",
+      "file": "apps/web/components/navigation/Gnb.tsx",
+      "node": {
+        "part": "exploreSoonChip",
+        "tag": "span",
+        "typography": "type-caption-12-medium",
+        "text": "업데이트 예정"
+      }
+    },
+    {
+      "id": "badge/previewZoomBadge",
+      "kind": "badge",
+      "label": "미리보기 확대 배지",
+      "jsx": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx:17823-17829",
+      "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx",
+      "node": {
+        "part": "previewZoomBadge",
+        "tag": "div",
+        "typography": "type-caption-12-medium",
+        "text": "120%"
+      }
+    },
+    {
+      "id": "badge/profileMenuItemBadge",
+      "kind": "badge",
+      "label": "프로필 메뉴 플랜 배지 — 글자를 자식이 갖는다",
+      "jsx": "apps/web/components/navigation/Gnb.tsx:3153-3157",
+      "file": "apps/web/components/navigation/Gnb.tsx",
+      "node": {
+        "part": "profileMenuItemBadge",
+        "tag": "span",
+        "children": [
+          {
+            "part": "profileMenuItemBadgeText",
+            "tag": "span",
+            "text": "프로"
+          }
+        ]
+      }
+    },
+    {
+      "id": "checkbox/awsSignupLegal",
+      "kind": "checkbox",
+      "label": "AWS 가입 약관 동의 체크박스 — 구조는 같고 색 상수만 다른 두 번째 벌",
+      "jsx": "apps/web/app/aws/signup/page.tsx:607-620",
+      "jsxQuote": "                <label className={LEGAL_AGREEMENT_LABEL}>",
+      "file": "apps/web/app/aws/signup/page.tsx",
+      "node": {
+        "part": "LEGAL_AGREEMENT_LABEL",
+        "tag": "label",
+        "children": [
+          {
+            "part": "LEGAL_CHECKBOX_OUTER",
+            "tag": "span",
+            "children": [
+              {
+                "part": "LEGAL_CHECKBOX_INPUT",
+                "tag": "input"
+              },
+              {
+                "part": "LEGAL_CHECKBOX_FACE",
+                "tag": "span"
+              }
+            ]
+          },
+          {
+            "part": "LEGAL_AGREEMENT_TEXT",
+            "tag": "span",
+            "typography": "type-body-16-regular",
+            "text": "개인정보 처리방침에 동의합니다"
+          }
+        ]
+      }
+    },
+    {
+      "id": "checkbox/signupLegal",
+      "kind": "checkbox",
+      "label": "가입 약관 동의 체크박스",
+      "jsx": "apps/web/app/signup/page.tsx:632-655",
+      "jsxQuote": "                <label className={LEGAL_AGREEMENT_LABEL}>",
+      "file": "apps/web/app/signup/page.tsx",
+      "node": {
+        "part": "LEGAL_AGREEMENT_LABEL",
+        "tag": "label",
+        "children": [
+          {
+            "part": "LEGAL_CHECKBOX_OUTER",
+            "tag": "span",
+            "children": [
+              {
+                "part": "LEGAL_CHECKBOX_INPUT",
+                "tag": "input"
+              },
+              {
+                "part": "LEGAL_CHECKBOX_FACE",
+                "tag": "span"
+              }
+            ]
+          },
+          {
+            "part": "LEGAL_AGREEMENT_TEXT",
+            "tag": "span",
+            "typography": "type-body-16-regular",
+            "text": "개인정보 처리방침에 동의합니다"
+          }
+        ]
+      }
+    },
+    {
+      "id": "checkbox/videoEditSourceRow",
+      "kind": "checkbox",
+      "label": "영상 편집 소스 고르기 체크박스 — 네이티브 입력 자신",
+      "jsx": "apps/web/components/scenes/VideoEditProjectPicker.tsx:499-505",
+      "jsxQuote": "                    className={SOURCE_ROW_CHECK}",
+      "file": "apps/web/components/scenes/VideoEditProjectPicker.tsx",
+      "node": {
+        "part": "SOURCE_ROW_CHECK",
+        "tag": "input"
+      }
+    },
+    {
       "id": "dialog/appHome",
       "kind": "dialog",
       "label": "삭제 확인 모달",
@@ -90,6 +294,1256 @@
       }
     },
     {
+      "id": "empty-state/analyticsStatePanel",
+      "kind": "empty-state",
+      "label": "분석 대시보드 상태 패널 — 제목 + 본문",
+      "jsx": "apps/web/components/scenes/analytics/shared.tsx:555-568",
+      "jsxQuote": "          : STATE_PANEL",
+      "file": "apps/web/components/scenes/analytics/shared.tsx",
+      "node": {
+        "part": "STATE_PANEL",
+        "tag": "div",
+        "children": [
+          {
+            "part": "STATE_PANEL_TITLE",
+            "tag": "span",
+            "typography": "type-body-16-semibold",
+            "text": "개요"
+          },
+          {
+            "part": "STATE_PANEL_BODY",
+            "tag": "span",
+            "typography": "type-body-14-regular",
+            "text": "이 기간에 표시할 데이터가 없어요."
+          }
+        ]
+      }
+    },
+    {
+      "id": "empty-state/appHomeArchive",
+      "kind": "empty-state",
+      "label": "앱 홈 아카이브 빈 상태 — 제목 + 설명",
+      "jsx": "apps/web/components/scenes/AppHomeScene.tsx:1003-1010",
+      "jsxQuote": "            <section className={styles.emptyState}>",
+      "file": "apps/web/components/scenes/appHomeSceneStyles.ts",
+      "node": {
+        "part": "emptyState",
+        "tag": "section",
+        "children": [
+          {
+            "part": "emptyTitle",
+            "tag": "h2",
+            "typography": "type-body-20-semibold",
+            "text": "아직 프로젝트가 없어요"
+          },
+          {
+            "part": "emptyDescription",
+            "tag": "p",
+            "typography": "type-body-16-regular",
+            "text": "첫 영상을 만들어 보세요."
+          }
+        ]
+      }
+    },
+    {
+      "id": "empty-state/projectVideosPopover",
+      "kind": "empty-state",
+      "label": "프로젝트 영상 팝오버 빈 상태 — 타이포 클래스를 안 얹는다",
+      "jsx": "apps/web/components/scenes/create/node-canvas-v2/components/ProjectVideosPopover.tsx:258-262",
+      "jsxQuote": "        <div className={EMPTY_STATE}>",
+      "file": "apps/web/components/scenes/create/node-canvas-v2/components/ProjectVideosPopover.tsx",
+      "node": {
+        "part": "EMPTY_STATE",
+        "tag": "div",
+        "children": [
+          {
+            "part": "EMPTY_TEXT",
+            "tag": "p",
+            "text": "저장된 영상이 없어요"
+          }
+        ]
+      }
+    },
+    {
+      "id": "empty-state/videoEditInspector",
+      "kind": "empty-state",
+      "label": "비디오 편집 인스펙터 빈 상태",
+      "jsx": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx:22662-22668",
+      "jsxQuote": "                              <div className={VEM_CLASS.inspectorEmptyState}>",
+      "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx",
+      "node": {
+        "part": "inspectorEmptyState",
+        "tag": "div",
+        "children": [
+          {
+            "part": "inspectorEmptyStateText",
+            "tag": "span",
+            "typography": "type-body-14-regular",
+            "text": "아직 선택된 항목이 없습니다"
+          }
+        ]
+      }
+    },
+    {
+      "id": "icon-button/archiveMore",
+      "kind": "icon-button",
+      "label": "앱 홈 카드 더보기 버튼",
+      "jsx": "apps/web/components/scenes/AppHomeScene.tsx:1259-1296",
+      "jsxQuote": "                            className={styles.archiveMoreButton}",
+      "file": "apps/web/components/scenes/appHomeSceneStyles.ts",
+      "node": {
+        "part": "archiveMoreButton",
+        "tag": "button"
+      }
+    },
+    {
+      "id": "icon-button/gnbProjectOptions",
+      "kind": "icon-button",
+      "label": "GNB 프로젝트 헤더 옵션 버튼",
+      "jsx": "apps/web/components/navigation/Gnb.tsx:4253-4280",
+      "jsxQuote": "                      className={gnbStyles.iconButton}",
+      "file": "apps/web/components/navigation/Gnb.tsx",
+      "node": {
+        "part": "iconButton",
+        "tag": "button"
+      }
+    },
+    {
+      "id": "icon-button/historyMore",
+      "kind": "icon-button",
+      "label": "하이라이트 기록 카드 더보기 버튼",
+      "jsx": "apps/web/components/scenes/HighlightScene.tsx:1379-1420",
+      "jsxQuote": "                                      className={styles.historyMoreButton}",
+      "file": "apps/web/components/scenes/highlightSceneStyles.ts",
+      "node": {
+        "part": "historyMoreButton",
+        "tag": "button"
+      }
+    },
+    {
+      "id": "icon-button/overlayDelete",
+      "kind": "icon-button",
+      "label": "오버레이 삭제 버튼 — 글리프를 자식이 갖는다",
+      "jsx": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx:19788-19802",
+      "jsxQuote": "                                    className={`${VEM_CLASS.overlayDeleteBtn} ${VEM_CLASS.overlayDeleteBtnIcon}`}",
+      "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx",
+      "node": {
+        "part": "overlayDeleteBtn",
+        "tag": "button",
+        "children": [
+          {
+            "part": "overlayDeleteBtnGlyph",
+            "tag": "svg"
+          }
+        ]
+      }
+    },
+    {
+      "id": "menu-popover/homeCreateNew",
+      "kind": "menu-popover",
+      "label": "앱 홈 새로 만들기 드롭다운",
+      "jsx": "apps/web/components/scenes/HomeCreateNewMenu.tsx:141-167",
+      "jsxQuote": "        <div className={MENU} role=\"menu\">",
+      "file": "apps/web/components/scenes/HomeCreateNewMenu.tsx",
+      "node": {
+        "part": "MENU",
+        "tag": "div",
+        "children": [
+          {
+            "part": "ITEM",
+            "tag": "button",
+            "typography": "type-body-14-medium",
+            "text": "새 캔버스",
+            "children": [
+              {
+                "part": "ITEM_ICON",
+                "tag": "span"
+              }
+            ]
+          },
+          {
+            "part": "ITEM",
+            "tag": "button",
+            "typography": "type-body-14-medium",
+            "text": "영상 편집",
+            "children": [
+              {
+                "part": "ITEM_ICON",
+                "tag": "span"
+              }
+            ]
+          },
+          {
+            "part": "ITEM",
+            "tag": "button",
+            "typography": "type-body-14-medium",
+            "text": "하이라이트",
+            "children": [
+              {
+                "part": "ITEM_ICON",
+                "tag": "span"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "menu-popover/paneContextMenu",
+      "kind": "menu-popover",
+      "label": "캔버스 빈 곳 우클릭 메뉴",
+      "jsx": "apps/web/components/scenes/create/node-canvas-v2/components/PaneContextMenu.tsx:253-316",
+      "jsxQuote": "          className={MENU_WRAP}",
+      "file": "apps/web/components/scenes/create/node-canvas-v2/components/PaneContextMenu.tsx",
+      "node": {
+        "part": "MENU_WRAP",
+        "tag": "div",
+        "children": [
+          {
+            "part": "MENU_ITEM",
+            "tag": "button",
+            "children": [
+              {
+                "part": "ITEM_MAIN",
+                "tag": "span",
+                "children": [
+                  {
+                    "part": "ITEM_ICON",
+                    "tag": "span"
+                  },
+                  {
+                    "part": "ITEM_LABEL",
+                    "tag": "span",
+                    "text": "텍스트 추가"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "part": "MENU_ITEM",
+            "tag": "button",
+            "children": [
+              {
+                "part": "ITEM_MAIN",
+                "tag": "span",
+                "children": [
+                  {
+                    "part": "ITEM_ICON",
+                    "tag": "span"
+                  },
+                  {
+                    "part": "ITEM_LABEL",
+                    "tag": "span",
+                    "text": "이미지 만들기"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "part": "DIVIDER",
+            "tag": "div"
+          },
+          {
+            "part": "MENU_ITEM",
+            "tag": "button",
+            "children": [
+              {
+                "part": "ITEM_MAIN",
+                "tag": "span",
+                "children": [
+                  {
+                    "part": "ITEM_ICON",
+                    "tag": "span"
+                  },
+                  {
+                    "part": "ITEM_LABEL",
+                    "tag": "span",
+                    "text": "영상 추가"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "menu-popover/projectVideos",
+      "kind": "menu-popover",
+      "label": "프로젝트 영상 팝오버 — 헤더와 목록을 가진 벌",
+      "jsx": "apps/web/components/scenes/create/node-canvas-v2/components/ProjectVideosPopover.tsx:237-305",
+      "jsxQuote": "      className={POPOVER}",
+      "file": "apps/web/components/scenes/create/node-canvas-v2/components/ProjectVideosPopover.tsx",
+      "node": {
+        "part": "POPOVER",
+        "tag": "div",
+        "children": [
+          {
+            "part": "HEADER",
+            "tag": "div",
+            "children": [
+              {
+                "part": "HEADER_TITLE",
+                "tag": "span",
+                "text": "이 프로젝트의 영상"
+              },
+              {
+                "part": "HEADER_COUNT",
+                "tag": "span",
+                "text": "2"
+              }
+            ]
+          },
+          {
+            "part": "LIST",
+            "tag": "ul",
+            "children": [
+              {
+                "part": "LIST_ITEM",
+                "tag": "li",
+                "children": [
+                  {
+                    "part": "ITEM_BUTTON",
+                    "tag": "button",
+                    "children": [
+                      {
+                        "part": "THUMBNAIL",
+                        "tag": "span",
+                        "children": [
+                          {
+                            "part": "THUMBNAIL_MEDIA",
+                            "tag": "video"
+                          }
+                        ]
+                      },
+                      {
+                        "part": "ITEM_BODY",
+                        "tag": "span",
+                        "children": [
+                          {
+                            "part": "ITEM_NAME",
+                            "tag": "span",
+                            "text": "바닷가 오프닝 컷"
+                          },
+                          {
+                            "part": "ITEM_META",
+                            "tag": "span",
+                            "text": "생성됨 · 16:9 · 8s"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "part": "LIST_ITEM",
+                "tag": "li",
+                "children": [
+                  {
+                    "part": "ITEM_BUTTON",
+                    "tag": "button",
+                    "children": [
+                      {
+                        "part": "THUMBNAIL",
+                        "tag": "span",
+                        "children": [
+                          {
+                            "part": "THUMBNAIL_MEDIA",
+                            "tag": "video"
+                          }
+                        ]
+                      },
+                      {
+                        "part": "ITEM_BODY",
+                        "tag": "span",
+                        "children": [
+                          {
+                            "part": "ITEM_NAME",
+                            "tag": "span",
+                            "text": "인터뷰 편집본"
+                          },
+                          {
+                            "part": "ITEM_META",
+                            "tag": "span",
+                            "text": "편집됨 · 9:16 · 24s"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "progress-bar/compositeSegmentPreview",
+      "kind": "progress-bar",
+      "label": "합본 미리보기 재생 진행바 — 트랙·게이지·핸들",
+      "jsx": "apps/web/components/scenes/HighlightProjectScene.tsx:446-457",
+      "jsxQuote": "          <div className={styles.compositeProgressBar} onClick={handleBarClick}>",
+      "file": "apps/web/components/scenes/highlightSceneStyles.ts",
+      "node": {
+        "part": "compositeProgressBar",
+        "tag": "div",
+        "children": [
+          {
+            "part": "compositeProgressTrack",
+            "tag": "div",
+            "children": [
+              {
+                "part": "compositeProgressFill",
+                "tag": "div"
+              }
+            ]
+          },
+          {
+            "part": "compositeProgressThumb",
+            "tag": "div"
+          }
+        ]
+      }
+    },
+    {
+      "id": "progress-bar/editNodeProcessing",
+      "kind": "progress-bar",
+      "label": "편집 노드 처리 진행바 — 퍼센트 글자를 옆에 갖는다",
+      "jsx": "apps/web/components/scenes/create/node-canvas-v2/nodes/EditNode.tsx:622-640",
+      "jsxQuote": "        className={PROCESSING_PROGRESS}",
+      "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/EditNode.tsx",
+      "node": {
+        "part": "PROCESSING_PROGRESS",
+        "tag": "div",
+        "children": [
+          {
+            "part": "PROCESSING_PROGRESS_TRACK",
+            "tag": "span",
+            "children": [
+              {
+                "part": "PROCESSING_PROGRESS_FILL",
+                "tag": "span"
+              }
+            ]
+          },
+          {
+            "part": "PROCESSING_PROGRESS_PERCENT",
+            "tag": "span",
+            "typography": "type-caption-12-medium",
+            "text": "62%"
+          }
+        ]
+      }
+    },
+    {
+      "id": "progress-bar/highlightUpload",
+      "kind": "progress-bar",
+      "label": "하이라이트 업로드 진행바",
+      "jsx": "apps/web/components/scenes/HighlightProjectScene.tsx:2652-2657",
+      "jsxQuote": "                  <div className={styles.progressBarTrack}>",
+      "file": "apps/web/components/scenes/highlightSceneStyles.ts",
+      "node": {
+        "part": "progressBarTrack",
+        "tag": "div",
+        "children": [
+          {
+            "part": "progressBarFill",
+            "tag": "div"
+          }
+        ]
+      }
+    },
+    {
+      "id": "project-card/appHome",
+      "kind": "project-card",
+      "label": "앱 홈 · 프로젝트 카드",
+      "jsx": "apps/web/components/scenes/AppHomeScene.tsx:1061-1352",
+      "jsxQuote": "                      className={`${styles.archiveCard} ${",
+      "file": "apps/web/components/scenes/appHomeSceneStyles.ts",
+      "node": {
+        "part": "archiveCard",
+        "tag": "div",
+        "children": [
+          {
+            "part": "archivePreview",
+            "tag": "div",
+            "children": [
+              {
+                "part": "archivePreviewClip",
+                "tag": "div",
+                "children": [
+                  {
+                    "part": "archivePreviewPlaceholder",
+                    "tag": "div",
+                    "children": [
+                      {
+                        "part": "cardDraftThumbnail",
+                        "tag": "div"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "part": "archivePreviewTitleOverlay",
+                "tag": "div",
+                "children": [
+                  {
+                    "part": "archivePreviewTitleOverlayInner",
+                    "tag": "div",
+                    "children": [
+                      {
+                        "part": "archivePreviewEyebrow",
+                        "tag": "span",
+                        "typography": "type-body-14-regular",
+                        "text": "노드 캔버스"
+                      },
+                      {
+                        "part": "archivePreviewTitleOverlayText",
+                        "tag": "span",
+                        "typography": "type-body-16-medium",
+                        "text": "여름 캠페인 키비주얼"
+                      },
+                      {
+                        "part": "archivePreviewLastEdited",
+                        "tag": "span",
+                        "typography": "type-body-14-regular",
+                        "text": "3일 전 편집"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "part": "archiveMenuAnchorInThumbnail",
+                "tag": "div",
+                "children": [
+                  {
+                    "part": "archiveMoreButton",
+                    "tag": "button"
+                  },
+                  {
+                    "part": "archiveDropdown",
+                    "tag": "div",
+                    "children": [
+                      {
+                        "part": "archiveDropdownItem",
+                        "tag": "button",
+                        "typography": "type-body-14-regular",
+                        "text": "새 탭에서 열기"
+                      },
+                      {
+                        "part": "archiveDropdownItem",
+                        "tag": "button",
+                        "typography": "type-body-14-regular",
+                        "text": "이름 바꾸기"
+                      },
+                      {
+                        "part": "archiveDropdownItem",
+                        "tag": "button",
+                        "typography": "type-body-14-regular",
+                        "text": "삭제"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "project-card/nodeCanvasHome",
+      "kind": "project-card",
+      "label": "노드캔버스 홈 · 프로젝트 카드 — 아이브로우가 없다",
+      "jsx": "apps/web/components/scenes/NodeCanvasHomeScene.tsx:1361-1601",
+      "jsxQuote": "                  className={`${ARCHIVE_CARD} ${",
+      "file": "apps/web/components/scenes/NodeCanvasHomeScene.tsx",
+      "node": {
+        "part": "ARCHIVE_CARD",
+        "tag": "div",
+        "children": [
+          {
+            "part": "ARCHIVE_PREVIEW",
+            "tag": "div",
+            "children": [
+              {
+                "part": "ARCHIVE_PREVIEW_CLIP",
+                "tag": "div",
+                "children": [
+                  {
+                    "part": "ARCHIVE_PREVIEW_PLACEHOLDER",
+                    "tag": "div",
+                    "children": [
+                      {
+                        "part": "CARD_DRAFT_WORDMARK_CANVAS",
+                        "tag": "div"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "part": "ARCHIVE_PREVIEW_TITLE_OVERLAY",
+                "tag": "div",
+                "children": [
+                  {
+                    "part": "ARCHIVE_PREVIEW_TITLE_OVERLAY_INNER",
+                    "tag": "div",
+                    "children": [
+                      {
+                        "part": "ARCHIVE_PREVIEW_TITLE_OVERLAY_TEXT",
+                        "tag": "span",
+                        "typography": "type-body-16-medium",
+                        "text": "여름 캠페인 키비주얼"
+                      },
+                      {
+                        "part": "ARCHIVE_PREVIEW_LAST_EDITED",
+                        "tag": "span",
+                        "typography": "type-body-14-regular",
+                        "text": "3일 전 편집"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "part": "ARCHIVE_MENU_ANCHOR_IN_THUMBNAIL",
+                "tag": "div",
+                "children": [
+                  {
+                    "part": "ARCHIVE_MORE_BUTTON",
+                    "tag": "button"
+                  },
+                  {
+                    "part": "ARCHIVE_DROPDOWN",
+                    "tag": "div",
+                    "children": [
+                      {
+                        "part": "ARCHIVE_DROPDOWN_ITEM_BASE",
+                        "tag": "button",
+                        "typography": "type-body-14-regular",
+                        "text": "새 탭에서 열기"
+                      },
+                      {
+                        "part": "ARCHIVE_DROPDOWN_ITEM_BASE",
+                        "tag": "button",
+                        "typography": "type-body-14-regular",
+                        "text": "이름 바꾸기"
+                      },
+                      {
+                        "part": "ARCHIVE_DROPDOWN_ITEM_BASE",
+                        "tag": "button",
+                        "typography": "type-body-14-regular",
+                        "text": "삭제"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "segmented-control/instagramAnalytics",
+      "kind": "segmented-control",
+      "label": "인스타그램 분석 · 기간 선택기 (3구간)",
+      "jsx": "apps/web/components/scenes/InstagramAnalyticsScene.tsx:1825-1846",
+      "jsxQuote": "            <div ref={periodThumb.containerRef} className={PERIOD_SELECTOR}>",
+      "file": "apps/web/components/scenes/InstagramAnalyticsScene.tsx",
+      "node": {
+        "part": "PERIOD_SELECTOR",
+        "tag": "div",
+        "children": [
+          {
+            "part": "PERIOD_SELECTOR_THUMB",
+            "tag": "span"
+          },
+          {
+            "part": "PERIOD_BTN",
+            "tag": "button",
+            "typography": "type-caption-12-medium",
+            "text": "7일"
+          },
+          {
+            "part": "PERIOD_BTN_ACTIVE",
+            "tag": "button",
+            "typography": "type-caption-12-medium",
+            "text": "1개월"
+          },
+          {
+            "part": "PERIOD_BTN",
+            "tag": "button",
+            "typography": "type-caption-12-medium",
+            "text": "3개월"
+          }
+        ]
+      }
+    },
+    {
+      "id": "segmented-control/youtubeAnalytics",
+      "kind": "segmented-control",
+      "label": "유튜브 분석 · 기간 선택기 (5구간)",
+      "jsx": "apps/web/components/scenes/YoutubeAnalyticsScene.tsx:2090-2117",
+      "jsxQuote": "                className={PERIOD_SELECTOR}",
+      "file": "apps/web/components/scenes/YoutubeAnalyticsScene.tsx",
+      "node": {
+        "part": "PERIOD_SELECTOR",
+        "tag": "div",
+        "children": [
+          {
+            "part": "PERIOD_SELECTOR_THUMB",
+            "tag": "span"
+          },
+          {
+            "part": "PERIOD_BTN",
+            "tag": "button",
+            "typography": "type-caption-12-medium",
+            "text": "7일"
+          },
+          {
+            "part": "PERIOD_BTN_ACTIVE",
+            "tag": "button",
+            "typography": "type-caption-12-medium",
+            "text": "1개월"
+          },
+          {
+            "part": "PERIOD_BTN",
+            "tag": "button",
+            "typography": "type-caption-12-medium",
+            "text": "3개월"
+          },
+          {
+            "part": "PERIOD_BTN",
+            "tag": "button",
+            "typography": "type-caption-12-medium",
+            "text": "1년"
+          },
+          {
+            "part": "PERIOD_BTN",
+            "tag": "button",
+            "typography": "type-caption-12-medium",
+            "text": "전체 기간"
+          }
+        ]
+      }
+    },
+    {
+      "id": "selectable-list-row/creditHistoryEntry",
+      "kind": "selectable-list-row",
+      "label": "크레딧 내역 행 — 링크가 있을 때만 눌리는 행",
+      "jsx": "apps/web/components/scenes/SubscriptionScene.tsx:1071-1153",
+      "jsxQuote": "                            className={`${styles.creditHistoryListItem} ${",
+      "file": "apps/web/components/scenes/myPageSceneStyles.ts",
+      "node": {
+        "part": "creditHistoryListItem",
+        "tag": "div",
+        "children": [
+          {
+            "part": "creditHistoryListMain",
+            "tag": "div",
+            "children": [
+              {
+                "part": "creditHistoryListTitle",
+                "tag": "span",
+                "typography": "type-body-14-medium",
+                "text": "하이라이트 생성"
+              },
+              {
+                "part": "creditHistoryListMeta",
+                "tag": "span",
+                "typography": "type-caption-12-regular",
+                "text": "2026. 8. 12."
+              }
+            ]
+          },
+          {
+            "part": "creditHistoryListValue",
+            "tag": "div",
+            "children": [
+              {
+                "part": "creditHistoryListDelta",
+                "tag": "span",
+                "typography": "type-body-14-semibold",
+                "text": "-120"
+              },
+              {
+                "part": "creditHistoryListBalance",
+                "tag": "span",
+                "typography": "type-caption-12-regular",
+                "text": "잔액 1,880"
+              },
+              {
+                "part": "withdrawalButton",
+                "tag": "button",
+                "typography": "type-caption-12-medium",
+                "text": "환불 요청"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "selectable-list-row/highlightDetailClip",
+      "kind": "selectable-list-row",
+      "label": "하이라이트 상세 클립 행 — 행 자체가 버튼인 단일 선택 행",
+      "jsx": "apps/web/components/scenes/HighlightProjectScene.tsx:3208-3246",
+      "jsxQuote": "                                className={`${styles.clipDetailListItem}${isActive ? ` ${styles.clipDetailListItemActive}` : \"\"}`}",
+      "file": "apps/web/components/scenes/highlightSceneStyles.ts",
+      "node": {
+        "part": "clipDetailListItem",
+        "tag": "button",
+        "children": [
+          {
+            "part": "clipDetailListThumb",
+            "tag": "div",
+            "children": [
+              {
+                "part": "clipVideo",
+                "tag": "video"
+              }
+            ]
+          },
+          {
+            "part": "clipDetailListInfo",
+            "tag": "div",
+            "children": [
+              {
+                "part": "clipDetailListTitle",
+                "tag": "p",
+                "typography": "type-body-14-medium",
+                "text": "전반 하이라이트 모음"
+              },
+              {
+                "part": "clipDetailListMeta",
+                "tag": "span",
+                "typography": "type-caption-12-regular",
+                "text": "00:00 – 00:15 · 15s"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "selectable-list-row/highlightReviewClip",
+      "kind": "selectable-list-row",
+      "label": "하이라이트 검수 클립 행 — 체크박스가 있는 다중 선택 행",
+      "jsx": "apps/web/components/scenes/HighlightProjectScene.tsx:2924-2963",
+      "jsxQuote": "                                  className={`${styles.clipDetailListItem}${isActive ? ` ${styles.clipDetailListItemActive}` : \"\"}`}",
+      "file": "apps/web/components/scenes/highlightSceneStyles.ts",
+      "node": {
+        "part": "clipDetailListItem",
+        "tag": "div",
+        "children": [
+          {
+            "part": "segmentCheckbox",
+            "tag": "input"
+          },
+          {
+            "part": "clipDetailListThumb",
+            "tag": "div",
+            "children": [
+              {
+                "part": "clipVideo",
+                "tag": "video"
+              }
+            ]
+          },
+          {
+            "part": "clipDetailListInfo",
+            "tag": "div",
+            "children": [
+              {
+                "part": "clipDetailListTitle",
+                "tag": "p",
+                "typography": "type-body-14-medium",
+                "text": "결승 3점슛이 들어간 순간"
+              },
+              {
+                "part": "clipDetailListMeta",
+                "tag": "span",
+                "typography": "type-caption-12-regular",
+                "text": "00:12 – 00:27 · 점수 92"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "skeleton/analysisModalIg",
+      "kind": "skeleton",
+      "label": "노드 캔버스 분석 모달 · 인스타그램 로딩 뼈대",
+      "jsx": "apps/web/components/scenes/create/node-canvas-v2/NodeCanvasAnalysisModal.tsx:616-670",
+      "jsxQuote": "                className={IG_SKELETON_ROOT}",
+      "file": "apps/web/components/scenes/create/node-canvas-v2/NodeCanvasAnalysisModal.tsx",
+      "node": {
+        "part": "IG_SKELETON_ROOT",
+        "tag": "div",
+        "children": [
+          {
+            "part": "IG_SKELETON_WRAPPER",
+            "tag": "div",
+            "children": [
+              {
+                "part": "IG_SKELETON_SECTION",
+                "tag": "div",
+                "children": [
+                  {
+                    "part": "IG_SKELETON_HEADER",
+                    "tag": "div",
+                    "children": [
+                      {
+                        "part": "SKELETON_IG_ICON",
+                        "tag": "span"
+                      },
+                      {
+                        "part": "SKELETON_HEADER_TEXT",
+                        "tag": "div",
+                        "children": [
+                          {
+                            "part": "SKELETON_LINE_TITLE",
+                            "tag": "span"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "part": "IG_SKELETON_META",
+                    "tag": "div",
+                    "children": [
+                      {
+                        "part": "SKELETON_LINE_TITLE",
+                        "tag": "span"
+                      },
+                      {
+                        "part": "SKELETON_LINE_WIDE",
+                        "tag": "span"
+                      },
+                      {
+                        "part": "SKELETON_LINE_WIDE",
+                        "tag": "span"
+                      }
+                    ]
+                  },
+                  {
+                    "part": "IG_SKELETON_UPLOADED_ROW",
+                    "tag": "div",
+                    "children": [
+                      {
+                        "part": "SKELETON_DATE_GROUP",
+                        "tag": "div",
+                        "children": [
+                          {
+                            "part": "SKELETON_LINE_SHORT",
+                            "tag": "span"
+                          },
+                          {
+                            "part": "SKELETON_LINE_VALUE",
+                            "tag": "span"
+                          }
+                        ]
+                      },
+                      {
+                        "part": "SKELETON_DATE_GROUP",
+                        "tag": "div",
+                        "children": [
+                          {
+                            "part": "SKELETON_LINE_SHORT",
+                            "tag": "span"
+                          },
+                          {
+                            "part": "SKELETON_LINE_VALUE",
+                            "tag": "span"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "skeleton/instagramTopBar",
+      "kind": "skeleton",
+      "label": "인스타그램 분석 상단바 로딩 뼈대 — 같은 상수 이름의 두 번째 벌",
+      "jsx": "apps/web/components/scenes/InstagramAnalyticsScene.tsx:1770-1778",
+      "jsxQuote": "            <div className={DASHBOARD_TOP_BAR_LEFT}>",
+      "file": "apps/web/components/scenes/InstagramAnalyticsScene.tsx",
+      "node": {
+        "part": "DASHBOARD_TOP_BAR_LEFT",
+        "tag": "div",
+        "children": [
+          {
+            "part": "CHANNEL_AVATAR_SKELETON",
+            "tag": "div"
+          },
+          {
+            "part": "CHANNEL_INFO_SKELETON",
+            "tag": "div",
+            "children": [
+              {
+                "part": "SKELETON_CHANNEL_TITLE",
+                "tag": "div"
+              },
+              {
+                "part": "SKELETON_CHANNEL_DESC",
+                "tag": "div"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "skeleton/youtubeTopBar",
+      "kind": "skeleton",
+      "label": "유튜브 분석 상단바 로딩 뼈대 — 아바타 원 + 줄 셋",
+      "jsx": "apps/web/components/scenes/YoutubeAnalyticsScene.tsx:1960-1978",
+      "jsxQuote": "            <div className={DASHBOARD_TOP_BAR_LEFT}>",
+      "file": "apps/web/components/scenes/YoutubeAnalyticsScene.tsx",
+      "node": {
+        "part": "DASHBOARD_TOP_BAR_LEFT",
+        "tag": "div",
+        "children": [
+          {
+            "part": "CHANNEL_AVATAR_SKELETON",
+            "tag": "div"
+          },
+          {
+            "part": "CHANNEL_INFO_SKELETON",
+            "tag": "div",
+            "children": [
+              {
+                "part": "SKELETON_CHANNEL_TITLE",
+                "tag": "div"
+              },
+              {
+                "part": "SKELETON_CHANNEL_DESC",
+                "tag": "div"
+              },
+              {
+                "part": "SKELETON_CHANNEL_DESC_SHORT",
+                "tag": "div"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "slider/bgmNode",
+      "kind": "slider",
+      "label": "BGM 노드 range 슬라이더 (길이·볼륨·강도 공용)",
+      "jsx": "apps/web/components/scenes/create/node-canvas-v2/nodes/BgmNode.tsx:1429-1446",
+      "jsxQuote": "                                className={RANGE_SLIDER}",
+      "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/BgmNode.tsx",
+      "node": {
+        "part": "RANGE_SLIDER",
+        "tag": "input"
+      }
+    },
+    {
+      "id": "slider/colorPopover",
+      "kind": "slider",
+      "label": "컬러 팝오버 색상·투명도 슬라이더 행",
+      "jsx": "apps/web/components/scenes/create/node-canvas-v2/nodes/ColorPopover.tsx:675-719",
+      "jsxQuote": "      <div className={SLIDER_ROW}>",
+      "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/ColorPopover.tsx",
+      "node": {
+        "part": "SLIDER_ROW",
+        "tag": "div",
+        "children": [
+          {
+            "part": "SLIDER_COLUMN",
+            "tag": "div",
+            "children": [
+              {
+                "part": "HUE_SLIDER",
+                "tag": "div",
+                "children": [
+                  {
+                    "part": "SLIDER_HANDLE",
+                    "tag": "span"
+                  }
+                ]
+              },
+              {
+                "part": "ALPHA_SLIDER",
+                "tag": "div",
+                "children": [
+                  {
+                    "part": "SLIDER_HANDLE",
+                    "tag": "span"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "slider/highlightRefineOpacity",
+      "kind": "slider",
+      "label": "하이라이트 다듬기 위젯 불투명도 슬라이더",
+      "jsx": "apps/web/components/scenes/HighlightProjectScene.tsx:3572-3606",
+      "jsxQuote": "                <label className={styles.refinementExpandShellOpacity}>",
+      "file": "apps/web/components/scenes/highlightSceneStyles.ts",
+      "node": {
+        "part": "refinementExpandShellOpacity",
+        "tag": "label",
+        "children": [
+          {
+            "part": "refinementExpandShellOpacitySlider",
+            "tag": "input"
+          }
+        ]
+      }
+    },
+    {
+      "id": "slider/ttsNode",
+      "kind": "slider",
+      "label": "TTS 노드 range 슬라이더 (속도·볼륨 공용)",
+      "jsx": "apps/web/components/scenes/create/node-canvas-v2/nodes/TtsNode.tsx:1349-1366",
+      "jsxQuote": "                        className={RANGE_SLIDER}",
+      "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/TtsNode.tsx",
+      "node": {
+        "part": "RANGE_SLIDER",
+        "tag": "input"
+      }
+    },
+    {
+      "id": "spinner/editNodeProcess",
+      "kind": "spinner",
+      "label": "편집 노드 처리 중 스피너",
+      "jsx": "apps/web/components/scenes/create/node-canvas-v2/nodes/EditNode.tsx:1074-1074",
+      "jsxQuote": "                  <span className={PROCESS_BUTTON_SPINNER} aria-hidden />",
+      "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/EditNode.tsx",
+      "node": {
+        "part": "PROCESS_BUTTON_SPINNER",
+        "tag": "span"
+      }
+    },
+    {
+      "id": "spinner/gnbBackButton",
+      "kind": "spinner",
+      "label": "GNB 뒤로가기 스피너 — 슬롯이 링을 감싼다",
+      "jsx": "apps/web/components/navigation/Gnb.tsx:4118-4123",
+      "jsxQuote": "                      className={gnbStyles.backButtonLoading}",
+      "file": "apps/web/components/navigation/Gnb.tsx",
+      "node": {
+        "part": "backButtonLoading",
+        "tag": "span",
+        "children": [
+          {
+            "part": "projectSaveSpinner",
+            "tag": "span"
+          }
+        ]
+      }
+    },
+    {
+      "id": "spinner/highlightScene",
+      "kind": "spinner",
+      "label": "하이라이트 히스토리 로딩 스피너",
+      "jsx": "apps/web/components/scenes/HighlightScene.tsx:116-118",
+      "jsxQuote": "  return <span className={styles.spinner} aria-hidden />;",
+      "file": "apps/web/components/scenes/highlightSceneStyles.ts",
+      "node": {
+        "part": "spinner",
+        "tag": "span"
+      }
+    },
+    {
+      "id": "spinner/highlightShorts",
+      "kind": "spinner",
+      "label": "숏폼 편집 로딩 스피너 — 같은 링을 옮겨 적은 둘째 벌",
+      "jsx": "apps/web/app/highlight/[projectId]/shorts/[shortId]/page.tsx:1055-1055",
+      "jsxQuote": "                <span className={SPINNER} aria-hidden />",
+      "file": "apps/web/app/highlight/[projectId]/shorts/[shortId]/page.tsx",
+      "node": {
+        "part": "SPINNER",
+        "tag": "span"
+      }
+    },
+    {
+      "id": "text-field/inspectorFramedInput",
+      "kind": "text-field",
+      "label": "인스펙터 초·프레임 입력 행 — 숫자 입력 둘과 단위 둘",
+      "jsx": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx:22545-22593",
+      "jsxQuote": "                                              VEM_CLASS.inspectorFramedInputRow",
+      "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx",
+      "node": {
+        "part": "inspectorFramedInputRow",
+        "tag": "div",
+        "children": [
+          {
+            "part": "inspectorNumInput",
+            "tag": "input",
+            "typography": "type-caption-12-regular"
+          },
+          {
+            "part": "inspectorFramedInputUnit",
+            "tag": "span",
+            "typography": "type-caption-12-regular",
+            "text": "초"
+          },
+          {
+            "part": "inspectorNumInput",
+            "tag": "input",
+            "typography": "type-caption-12-regular"
+          },
+          {
+            "part": "inspectorFramedInputUnit",
+            "tag": "span",
+            "typography": "type-caption-12-regular",
+            "text": "프레임"
+          }
+        ]
+      }
+    },
+    {
+      "id": "text-field/refinementInput",
+      "kind": "text-field",
+      "label": "하이라이트 다듬기 입력 — 테두리 있는 사각 입력",
+      "jsx": "apps/web/components/scenes/HighlightProjectScene.tsx:666-677",
+      "jsxQuote": "        className={`type-body-14-regular ${styles.refinementInput}`}",
+      "file": "apps/web/components/scenes/highlightSceneStyles.ts",
+      "node": {
+        "part": "refinementInput",
+        "tag": "input",
+        "typography": "type-body-14-regular"
+      }
+    },
+    {
+      "id": "text-field/settingsRowName",
+      "kind": "text-field",
+      "label": "설정 이름 편집 입력 — 테두리 없이 알약 배경만",
+      "jsx": "apps/web/components/scenes/SettingsScene.tsx:1095-1111",
+      "jsxQuote": "                      className={`type-body-14-regular ${styles.settingsRowNameInput}`}",
+      "file": "apps/web/components/scenes/myPageSceneStyles.ts",
+      "node": {
+        "part": "settingsRowNameInput",
+        "tag": "input",
+        "typography": "type-body-14-regular"
+      }
+    },
+    {
       "id": "toast/appHome",
       "kind": "toast",
       "label": "앱 홈 · 하이라이트 토스트",
@@ -126,60 +1580,68 @@
       }
     },
     {
-      "id": "badge/exploreSoonChip",
-      "kind": "badge",
-      "label": "사이드바 예정 칩",
-      "jsx": "apps/web/components/navigation/Gnb.tsx:4795-4800",
-      "file": "apps/web/components/navigation/Gnb.tsx",
+      "id": "tooltip/analyticsBar",
+      "kind": "tooltip",
+      "label": "애널리틱스 막대 툴팁 — 포인터를 따라간다",
+      "jsx": "apps/web/components/scenes/analytics/useAnalyticsBarTooltip.tsx:169-177",
+      "jsxQuote": "            className={`${TOOLTIP_BASE} ${tooltip.closing ? TOOLTIP_EXIT : TOOLTIP_ENTER}`}",
+      "file": "apps/web/components/scenes/analytics/useAnalyticsBarTooltip.tsx",
       "node": {
-        "part": "exploreSoonChip",
-        "tag": "span",
-        "typography": "type-caption-12-medium",
-        "text": "업데이트 예정"
+        "part": "TOOLTIP_BASE",
+        "tag": "div",
+        "text": "여성 · 42.3%"
       }
     },
     {
-      "id": "badge/customSidebarBadge",
-      "kind": "badge",
-      "label": "사이드바 개수 배지",
-      "jsx": "apps/web/components/navigation/Gnb.tsx:4540-4548",
-      "file": "apps/web/components/navigation/Gnb.tsx",
+      "id": "tooltip/chromeTooltip",
+      "kind": "tooltip",
+      "label": "공용 크롬 툴팁 — body로 포털되는 버블(사이드바·노드 캔버스)",
+      "jsx": "apps/web/components/scenes/create/node-canvas-v2/components/ChromeTooltip.tsx:293-304",
+      "jsxQuote": "            className={`${PORTAL_ANCHOR} ${anchorClass}`}",
+      "file": "apps/web/components/scenes/create/node-canvas-v2/components/ChromeTooltip.tsx",
       "node": {
-        "part": "customSidebarBadge",
-        "tag": "span",
-        "typography": "type-caption-12-medium",
-        "text": "3"
-      }
-    },
-    {
-      "id": "badge/profileMenuItemBadge",
-      "kind": "badge",
-      "label": "프로필 메뉴 플랜 배지 — 글자를 자식이 갖는다",
-      "jsx": "apps/web/components/navigation/Gnb.tsx:3153-3157",
-      "file": "apps/web/components/navigation/Gnb.tsx",
-      "node": {
-        "part": "profileMenuItemBadge",
-        "tag": "span",
+        "part": "PORTAL_ANCHOR",
+        "tag": "div",
         "children": [
           {
-            "part": "profileMenuItemBadgeText",
-            "tag": "span",
-            "text": "프로"
+            "part": "BUBBLE",
+            "tag": "div",
+            "children": [
+              {
+                "part": "BUBBLE_INNER",
+                "tag": "span",
+                "text": "전체 화면으로 보기"
+              }
+            ]
           }
         ]
       }
     },
     {
-      "id": "badge/previewZoomBadge",
-      "kind": "badge",
-      "label": "미리보기 확대 배지",
-      "jsx": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx:17823-17829",
-      "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx",
+      "id": "tooltip/composerShotMode",
+      "kind": "tooltip",
+      "label": "컴포저 모드 힌트 툴팁 — 부모 hover로만 열린다",
+      "jsx": "apps/web/components/scenes/create/ComposerBar.tsx:408-410",
+      "jsxQuote": "              <span className={SHOT_MODE_TOOLTIP}>",
+      "file": "apps/web/components/scenes/create/ComposerBar.tsx",
       "node": {
-        "part": "previewZoomBadge",
-        "tag": "div",
-        "typography": "type-caption-12-medium",
-        "text": "120%"
+        "part": "SHOT_MODE_TOOLTIP",
+        "tag": "span",
+        "text": "한 장면으로 만들어요"
+      }
+    },
+    {
+      "id": "tooltip/upgradeTierFeature",
+      "kind": "tooltip",
+      "label": "업그레이드 요금제 기능 툴팁",
+      "jsx": "apps/web/app/mypage/upgrade/page.tsx:623",
+      "jsxQuote": "                            {detail && <span className={`app-tooltip-chrome ${TIER_FEATURE_TIP}`}>{detail}</span>}",
+      "file": "apps/web/app/mypage/upgrade/page.tsx",
+      "node": {
+        "part": "TIER_FEATURE_TIP",
+        "tag": "span",
+        "typography": "app-tooltip-chrome",
+        "text": "매달 크레딧 1,200개가 충전됩니다"
       }
     }
   ],

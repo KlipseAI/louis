@@ -282,9 +282,14 @@ const mkTxt=n=>{const t=figma.createText();t.name=n.p;t.fontName=F(n.fw);t.chara
  t.lineHeight={unit:"PERCENT",value:n.lp||150};if(n.ls)t.letterSpacing={unit:"PIXELS",value:n.ls};
  t.fills=paint(n.fg);t.textAutoResize="WIDTH_AND_HEIGHT";
  t.textAlignHorizontal="CENTER";t.textAlignVertical="CENTER";return t;};
+// FILL은 부모가 폭을 가질 때만 성립한다. 판에서는 무대가 hug라 표본 루트의 FILL이
+// 실패한다 — 그때는 **실측 폭으로 고정**한다. 실측이 곧 제품 부모가 준 값이다.
+// 조용히 실패하면 내용 크기로 접힌다(빈 상태 372→225, 슬라이더 행 256→14가 그랬다).
 const place=(parent,spec)=>{const node=build(spec);parent.appendChild(node);
- try{if(spec.wx==="FILL")node.layoutSizingHorizontal="FILL";}catch(e){}
- try{if(spec.hx==="FILL")node.layoutSizingVertical="FILL";}catch(e){}
+ if(spec.wx==="FILL"){try{node.layoutSizingHorizontal="FILL";}
+  catch(e){try{node.layoutSizingHorizontal="FIXED";node.resize(Math.max(1,spec.w),node.height);}catch(e2){}}}
+ if(spec.hx==="FILL"){try{node.layoutSizingVertical="FILL";}
+  catch(e){try{node.layoutSizingVertical="FIXED";node.resize(node.width,Math.max(1,spec.h));}catch(e2){}}}
  return node;};
 // 간격이 제각각이면 큰 간격에서 잘라 중첩 오토레이아웃으로 묶는다. spacer는 쓰지 않는다.
 // 음수 마진으로 바깥 여백이 깎였으면(ins) 묶음이 그만큼 안쪽 여백을 갖는다.
@@ -347,7 +352,7 @@ for(const sec of PLAN){
    stage.appendChild(T("실측 "+sp.t.w+"×"+sp.t.h+" — 하네스에서 내용(썸네일·비디오)이 없어 접혔다. 아직 그릴 수 없다.",12,"r",0.55,cardW-96));
    skipped.push(sp.i);
   } else {
-   const built=build(sp.t);stage.appendChild(built);
+   const built=place(stage,sp.t);
    check.push({i:sp.i,m:sp.t.w+"×"+sp.t.h,f:Math.round(built.width*100)/100+"×"+Math.round(built.height*100)/100});
   }
   const head=figma.createAutoLayout("VERTICAL",{name:"head",itemSpacing:3});

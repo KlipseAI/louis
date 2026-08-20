@@ -113,11 +113,46 @@ function extractAll(source) {
     }
     const body = source.slice(index, cursor + 1);
     if (!/\]\s*\.join\(/.test(source.slice(cursor, cursor + 40))) continue;
-    const parts = body.match(/"(?:[^"\\]|\\.)*"/g) ?? [];
+    // 배열 원소를 순서대로 읽는다. 문자열 리터럴과 **식별자 참조** 둘 다다.
+    // 그전에는 리터럴만 뽑아 `PERIOD_BTN_COMMON` 같은 합성 참조의 클래스(안쪽 여백 포함)를
+    // 통째로 버렸다 — 세그먼트 버튼이 여백 0으로 측정된 원인이다.
+    const elements = [];
+    {
+      let d = 0, q = null, start = index + 1;
+      for (let i = index; i <= cursor; i += 1) {
+        const ch = body[i - index];
+        if (q) { if (ch === "\\") i += 1; else if (ch === q) q = null; continue; }
+        if (ch === '"' || ch === "'" || ch === "`") q = ch;
+        else if (ch === "[") d += 1;
+        else if (ch === "]") { d -= 1; if (d === 0) { elements.push(source.slice(start, i).trim()); break; } }
+        else if (ch === "," && d === 1) { elements.push(source.slice(start, i).trim()); start = i + 1; }
+      }
+    }
+    const parts = [];
+    for (const el of elements) {
+      if (/^"(?:[^"\\]|\\.)*"$/.test(el)) parts.push({ literal: JSON.parse(el) });
+      else if (/^[A-Za-z_][A-Za-z0-9_]*$/.test(el)) parts.push({ ref: el });
+      // 그 밖(조건식·템플릿)은 정적으로 풀 수 없어 버린다 — 값이 아니라 구조만 잃는다.
+    }
     if (parts.length === 0) continue;
     const line = source.slice(0, index).split("\n").length;
-    found.push({ name, line, classes: parts.map((part) => JSON.parse(part)).join(" ") });
+    found.push({ name, line, parts });
   }
+  // 참조를 해석한다. 같은 파일 안의 상수만 본다. 순환은 끊고 못 찾은 참조는 버린다.
+  const byName = new Map(found.map((e) => [e.name, e]));
+  const resolve = (entry, seen) => {
+    if (entry.classes !== undefined) return entry.classes;
+    if (seen.has(entry.name)) return "";
+    seen.add(entry.name);
+    const out = [];
+    for (const part of entry.parts) {
+      if (part.literal !== undefined) out.push(part.literal);
+      else if (byName.has(part.ref)) out.push(resolve(byName.get(part.ref), seen));
+    }
+    entry.classes = out.filter(Boolean).join(" ");
+    return entry.classes;
+  };
+  for (const entry of found) resolve(entry, new Set());
   return found;
 }
 

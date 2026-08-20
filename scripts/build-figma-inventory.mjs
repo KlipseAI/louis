@@ -335,6 +335,9 @@ const T=(s,sz,w,a,wd)=>{const t=figma.createText();t.fontName=w==="b"?bold:reg;t
  if(wd){t.textAutoResize="NONE";t.resize(wd,10);t.textAutoResize="HEIGHT";}return t;};
 const created=[],check=[],skipped=[];
 for(const sec of PLAN){
+ // 같은 섹션이 이미 있으면 지우고 다시 그린다 — draw 파일 하나만 재실행해도 중복이 없다.
+ const prev=root.children.find(x=>x.name==="sec:"+sec.k);
+ if(prev)prev.remove();
  const s=figma.createAutoLayout("VERTICAL",{name:"sec:"+sec.k,itemSpacing:24});
  s.fills=[];root.appendChild(s);
  s.appendChild(T(sec.L+" — 제품 표본 "+sec.sp.length+"종",24,"b",1));

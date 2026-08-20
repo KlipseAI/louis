@@ -197,7 +197,8 @@
                 "minW": 0,
                 "minH": 0,
                 "maxW": 0,
-                "children": []
+                "children": [],
+                "ci": 0
               }
             ]
           }
@@ -319,7 +320,8 @@
                 "minW": 0,
                 "minH": 0,
                 "maxW": 0,
-                "children": []
+                "children": [],
+                "ci": 0
               }
             ]
           }
@@ -441,7 +443,8 @@
                 "minW": 0,
                 "minH": 0,
                 "maxW": 0,
-                "children": []
+                "children": [],
+                "ci": 0
               }
             ]
           }
@@ -762,7 +765,8 @@
                 "minW": 0,
                 "minH": 0,
                 "maxW": 0,
-                "children": []
+                "children": [],
+                "ci": 0
               }
             ]
           }
@@ -891,7 +895,8 @@
                 "minW": 0,
                 "minH": 0,
                 "maxW": 0,
-                "children": []
+                "children": [],
+                "ci": 0
               },
               {
                 "part": "STATE_PANEL_BODY",
@@ -948,7 +953,8 @@
                 "minW": 0,
                 "minH": 0,
                 "maxW": 0,
-                "children": []
+                "children": [],
+                "ci": 0
               }
             ]
           }
@@ -1070,7 +1076,8 @@
                 "minW": 0,
                 "minH": 0,
                 "maxW": 0,
-                "children": []
+                "children": [],
+                "ci": 0
               },
               {
                 "part": "emptyDescription",
@@ -1127,7 +1134,8 @@
                 "minW": 0,
                 "minH": 0,
                 "maxW": 0,
-                "children": []
+                "children": [],
+                "ci": 0
               }
             ]
           }
@@ -1249,7 +1257,8 @@
                 "minW": 0,
                 "minH": 0,
                 "maxW": 0,
-                "children": []
+                "children": [],
+                "ci": 0
               }
             ]
           }
@@ -1371,7 +1380,8 @@
                 "minW": 0,
                 "minH": 0,
                 "maxW": 0,
-                "children": []
+                "children": [],
+                "ci": 0
               }
             ]
           }
@@ -1692,7 +1702,8 @@
                 "minW": 0,
                 "minH": 0,
                 "maxW": 0,
-                "children": []
+                "children": [],
+                "ci": 0
               }
             ]
           }
@@ -1880,7 +1891,7 @@
                 "letterSpacing": -0.16,
                 "isText": false,
                 "textFill": false,
-                "wx": "HUG",
+                "wx": "FILL",
                 "hx": "HUG",
                 "minW": 0,
                 "minH": 0,
@@ -2009,7 +2020,8 @@
                         "maxW": 0,
                         "children": []
                       }
-                    ]
+                    ],
+                    "ci": 0
                   },
                   {
                     "part": "ALPHA_SLIDER",
@@ -2134,9 +2146,11 @@
                         "maxW": 0,
                         "children": []
                       }
-                    ]
+                    ],
+                    "ci": 0
                   }
-                ]
+                ],
+                "ci": 0
               }
             ]
           }
@@ -2258,7 +2272,8 @@
                 "minW": 0,
                 "minH": 0,
                 "maxW": 0,
-                "children": []
+                "children": [],
+                "ci": 0
               }
             ]
           }
@@ -2515,7 +2530,8 @@
                 "minW": 0,
                 "minH": 0,
                 "maxW": 0,
-                "children": []
+                "children": [],
+                "ci": 0
               }
             ]
           }
@@ -2912,9 +2928,11 @@
                     "minW": 0,
                     "minH": 0,
                     "maxW": 0,
-                    "children": []
+                    "children": [],
+                    "ci": 0
                   }
-                ]
+                ],
+                "ci": 0
               }
             ]
           }
@@ -3306,7 +3324,8 @@
                     "maxW": 0,
                     "children": []
                   }
-                ]
+                ],
+                "ci": 1
               },
               {
                 "part": "LEGAL_AGREEMENT_TEXT",
@@ -3363,7 +3382,8 @@
                 "minW": 0,
                 "minH": 0,
                 "maxW": 0,
-                "children": []
+                "children": [],
+                "ci": 0
               }
             ]
           }
@@ -3600,7 +3620,8 @@
                     "maxW": 0,
                     "children": []
                   }
-                ]
+                ],
+                "ci": 1
               },
               {
                 "part": "LEGAL_AGREEMENT_TEXT",
@@ -3657,7 +3678,8 @@
                 "minW": 0,
                 "minH": 0,
                 "maxW": 0,
-                "children": []
+                "children": [],
+                "ci": 0
               }
             ]
           }
@@ -3906,9 +3928,11 @@
                     "minW": 0,
                     "minH": 0,
                     "maxW": 0,
-                    "children": []
+                    "children": [],
+                    "ci": 0
                   }
-                ]
+                ],
+                "ci": 0
               },
               {
                 "part": "ITEM",
@@ -4021,9 +4045,11 @@
                     "minW": 0,
                     "minH": 0,
                     "maxW": 0,
-                    "children": []
+                    "children": [],
+                    "ci": 0
                   }
-                ]
+                ],
+                "ci": 0
               },
               {
                 "part": "ITEM",
@@ -4136,9 +4162,11 @@
                     "minW": 0,
                     "minH": 0,
                     "maxW": 0,
-                    "children": []
+                    "children": [],
+                    "ci": 0
                   }
-                ]
+                ],
+                "ci": 0
               }
             ]
           }
@@ -4386,7 +4414,8 @@
                         "minW": 0,
                         "minH": 0,
                         "maxW": 0,
-                        "children": []
+                        "children": [],
+                        "ci": 0
                       },
                       {
                         "part": "ITEM_LABEL",
@@ -4443,11 +4472,14 @@
                         "minW": 0,
                         "minH": 0,
                         "maxW": 0,
-                        "children": []
+                        "children": [],
+                        "ci": 0
                       }
-                    ]
+                    ],
+                    "ci": 0
                   }
-                ]
+                ],
+                "ci": 0
               },
               {
                 "part": "MENU_ITEM",
@@ -4616,7 +4648,8 @@
                         "minW": 0,
                         "minH": 0,
                         "maxW": 0,
-                        "children": []
+                        "children": [],
+                        "ci": 0
                       },
                       {
                         "part": "ITEM_LABEL",
@@ -4673,11 +4706,14 @@
                         "minW": 0,
                         "minH": 0,
                         "maxW": 0,
-                        "children": []
+                        "children": [],
+                        "ci": 0
                       }
-                    ]
+                    ],
+                    "ci": 0
                   }
-                ]
+                ],
+                "ci": 0
               },
               {
                 "part": "DIVIDER",
@@ -4734,7 +4770,8 @@
                 "minW": 0,
                 "minH": 0,
                 "maxW": 0,
-                "children": []
+                "children": [],
+                "ci": 6
               },
               {
                 "part": "MENU_ITEM",
@@ -4903,7 +4940,8 @@
                         "minW": 0,
                         "minH": 0,
                         "maxW": 0,
-                        "children": []
+                        "children": [],
+                        "ci": 0
                       },
                       {
                         "part": "ITEM_LABEL",
@@ -4960,11 +4998,14 @@
                         "minW": 0,
                         "minH": 0,
                         "maxW": 0,
-                        "children": []
+                        "children": [],
+                        "ci": 0
                       }
-                    ]
+                    ],
+                    "ci": 0
                   }
-                ]
+                ],
+                "ci": 0
               }
             ]
           }
@@ -5152,7 +5193,8 @@
                     "minW": 0,
                     "minH": 0,
                     "maxW": 0,
-                    "children": []
+                    "children": [],
+                    "ci": 0
                   },
                   {
                     "part": "HEADER_COUNT",
@@ -5209,9 +5251,11 @@
                     "minW": 22,
                     "minH": 0,
                     "maxW": 0,
-                    "children": []
+                    "children": [],
+                    "ci": 0
                   }
-                ]
+                ],
+                "ci": 0
               },
               {
                 "part": "LIST",
@@ -5492,9 +5536,11 @@
                                 "minW": 0,
                                 "minH": 0,
                                 "maxW": 0,
-                                "children": []
+                                "children": [],
+                                "ci": 0
                               }
-                            ]
+                            ],
+                            "ci": 0
                           },
                           {
                             "part": "ITEM_BODY",
@@ -5607,7 +5653,8 @@
                                 "minW": 0,
                                 "minH": 0,
                                 "maxW": 0,
-                                "children": []
+                                "children": [],
+                                "ci": 0
                               },
                               {
                                 "part": "ITEM_META",
@@ -5664,13 +5711,17 @@
                                 "minW": 0,
                                 "minH": 0,
                                 "maxW": 0,
-                                "children": []
+                                "children": [],
+                                "ci": 0
                               }
-                            ]
+                            ],
+                            "ci": 0
                           }
-                        ]
+                        ],
+                        "ci": 0
                       }
-                    ]
+                    ],
+                    "ci": 0
                   },
                   {
                     "part": "LIST_ITEM",
@@ -5895,9 +5946,11 @@
                                 "minW": 0,
                                 "minH": 0,
                                 "maxW": 0,
-                                "children": []
+                                "children": [],
+                                "ci": 0
                               }
-                            ]
+                            ],
+                            "ci": 0
                           },
                           {
                             "part": "ITEM_BODY",
@@ -6010,7 +6063,8 @@
                                 "minW": 0,
                                 "minH": 0,
                                 "maxW": 0,
-                                "children": []
+                                "children": [],
+                                "ci": 0
                               },
                               {
                                 "part": "ITEM_META",
@@ -6067,15 +6121,20 @@
                                 "minW": 0,
                                 "minH": 0,
                                 "maxW": 0,
-                                "children": []
+                                "children": [],
+                                "ci": 0
                               }
-                            ]
+                            ],
+                            "ci": 0
                           }
-                        ]
+                        ],
+                        "ci": 0
                       }
-                    ]
+                    ],
+                    "ci": 0
                   }
-                ]
+                ],
+                "ci": 0
               }
             ]
           }
@@ -6143,7 +6202,7 @@
             "letterSpacing": -0.16,
             "isText": false,
             "textFill": false,
-            "wx": "FIX",
+            "wx": "FILL",
             "hx": "FIX",
             "minW": 0,
             "minH": 0,
@@ -6255,7 +6314,8 @@
                     "minW": 0,
                     "minH": 0,
                     "maxW": 0,
-                    "children": []
+                    "children": [],
+                    "ci": 0
                   }
                 ]
               },
@@ -6492,9 +6552,11 @@
                     "minW": 0,
                     "minH": 0,
                     "maxW": 0,
-                    "children": []
+                    "children": [],
+                    "ci": 0
                   }
-                ]
+                ],
+                "ci": 0
               },
               {
                 "part": "PROCESSING_PROGRESS_PERCENT",
@@ -6551,7 +6613,8 @@
                 "minW": 30,
                 "minH": 0,
                 "maxW": 0,
-                "children": []
+                "children": [],
+                "ci": 0
               }
             ]
           }
@@ -6673,7 +6736,8 @@
                 "minW": 0,
                 "minH": 0,
                 "maxW": 0,
-                "children": []
+                "children": [],
+                "ci": 0
               }
             ]
           }
@@ -6858,7 +6922,8 @@
                     "minW": 0,
                     "minH": 0,
                     "maxW": 0,
-                    "children": []
+                    "children": [],
+                    "ci": 0
                   },
                   {
                     "part": "creditHistoryListMeta",
@@ -6915,9 +6980,11 @@
                     "minW": 0,
                     "minH": 0,
                     "maxW": 0,
-                    "children": []
+                    "children": [],
+                    "ci": 0
                   }
-                ]
+                ],
+                "ci": 0
               },
               {
                 "part": "creditHistoryListValue",
@@ -7030,7 +7097,8 @@
                     "minW": 0,
                     "minH": 0,
                     "maxW": 0,
-                    "children": []
+                    "children": [],
+                    "ci": 0
                   },
                   {
                     "part": "creditHistoryListBalance",
@@ -7087,7 +7155,8 @@
                     "minW": 0,
                     "minH": 0,
                     "maxW": 0,
-                    "children": []
+                    "children": [],
+                    "ci": 0
                   },
                   {
                     "part": "withdrawalButton",
@@ -7144,9 +7213,11 @@
                     "minW": 0,
                     "minH": 0,
                     "maxW": 0,
-                    "children": []
+                    "children": [],
+                    "ci": 0
                   }
-                ]
+                ],
+                "ci": 0
               }
             ]
           }
@@ -7324,9 +7395,11 @@
                     "minW": 0,
                     "minH": 0,
                     "maxW": 0,
-                    "children": []
+                    "children": [],
+                    "ci": 0
                   }
-                ]
+                ],
+                "ci": 0
               },
               {
                 "part": "clipDetailListInfo",
@@ -7378,7 +7451,7 @@
                 "letterSpacing": 0,
                 "isText": false,
                 "textFill": false,
-                "wx": "HUG",
+                "wx": "FILL",
                 "hx": "HUG",
                 "minW": 0,
                 "minH": 0,
@@ -7439,7 +7512,8 @@
                     "minW": 0,
                     "minH": 0,
                     "maxW": 0,
-                    "children": []
+                    "children": [],
+                    "ci": 0
                   },
                   {
                     "part": "clipDetailListMeta",
@@ -7496,9 +7570,11 @@
                     "minW": 0,
                     "minH": 0,
                     "maxW": 0,
-                    "children": []
+                    "children": [],
+                    "ci": 0
                   }
-                ]
+                ],
+                "ci": 0
               }
             ]
           }
@@ -7620,7 +7696,8 @@
                 "minW": 0,
                 "minH": 0,
                 "maxW": 0,
-                "children": []
+                "children": [],
+                "ci": 3
               },
               {
                 "part": "clipDetailListThumb",
@@ -7733,9 +7810,11 @@
                     "minW": 0,
                     "minH": 0,
                     "maxW": 0,
-                    "children": []
+                    "children": [],
+                    "ci": 0
                   }
-                ]
+                ],
+                "ci": 0
               },
               {
                 "part": "clipDetailListInfo",
@@ -7787,7 +7866,7 @@
                 "letterSpacing": -0.16,
                 "isText": false,
                 "textFill": false,
-                "wx": "HUG",
+                "wx": "FILL",
                 "hx": "HUG",
                 "minW": 0,
                 "minH": 0,
@@ -7848,7 +7927,8 @@
                     "minW": 0,
                     "minH": 0,
                     "maxW": 0,
-                    "children": []
+                    "children": [],
+                    "ci": 0
                   },
                   {
                     "part": "clipDetailListMeta",
@@ -7905,9 +7985,11 @@
                     "minW": 0,
                     "minH": 0,
                     "maxW": 0,
-                    "children": []
+                    "children": [],
+                    "ci": 0
                   }
-                ]
+                ],
+                "ci": 0
               }
             ]
           }
@@ -8204,7 +8286,8 @@
                             "minW": 0,
                             "minH": 0,
                             "maxW": 0,
-                            "children": []
+                            "children": [],
+                            "ci": 0
                           },
                           {
                             "part": "SKELETON_HEADER_TEXT",
@@ -8317,11 +8400,14 @@
                                 "minW": 0,
                                 "minH": 0,
                                 "maxW": 0,
-                                "children": []
+                                "children": [],
+                                "ci": 0
                               }
-                            ]
+                            ],
+                            "ci": 0
                           }
-                        ]
+                        ],
+                        "ci": 0
                       },
                       {
                         "part": "IG_SKELETON_META",
@@ -8434,7 +8520,8 @@
                             "minW": 0,
                             "minH": 0,
                             "maxW": 0,
-                            "children": []
+                            "children": [],
+                            "ci": 0
                           },
                           {
                             "part": "SKELETON_LINE_WIDE",
@@ -8491,7 +8578,8 @@
                             "minW": 0,
                             "minH": 0,
                             "maxW": 0,
-                            "children": []
+                            "children": [],
+                            "ci": 0
                           },
                           {
                             "part": "SKELETON_LINE_WIDE",
@@ -8548,9 +8636,11 @@
                             "minW": 0,
                             "minH": 0,
                             "maxW": 0,
-                            "children": []
+                            "children": [],
+                            "ci": 0
                           }
-                        ]
+                        ],
+                        "ci": 0
                       },
                       {
                         "part": "IG_SKELETON_UPLOADED_ROW",
@@ -8719,7 +8809,8 @@
                                 "minW": 0,
                                 "minH": 0,
                                 "maxW": 0,
-                                "children": []
+                                "children": [],
+                                "ci": 0
                               },
                               {
                                 "part": "SKELETON_LINE_VALUE",
@@ -8776,9 +8867,11 @@
                                 "minW": 0,
                                 "minH": 0,
                                 "maxW": 0,
-                                "children": []
+                                "children": [],
+                                "ci": 0
                               }
-                            ]
+                            ],
+                            "ci": 0
                           },
                           {
                             "part": "SKELETON_DATE_GROUP",
@@ -8891,7 +8984,8 @@
                                 "minW": 0,
                                 "minH": 0,
                                 "maxW": 0,
-                                "children": []
+                                "children": [],
+                                "ci": 0
                               },
                               {
                                 "part": "SKELETON_LINE_VALUE",
@@ -8948,15 +9042,20 @@
                                 "minW": 0,
                                 "minH": 0,
                                 "maxW": 0,
-                                "children": []
+                                "children": [],
+                                "ci": 0
                               }
-                            ]
+                            ],
+                            "ci": 0
                           }
-                        ]
+                        ],
+                        "ci": 0
                       }
-                    ]
+                    ],
+                    "ci": 0
                   }
-                ]
+                ],
+                "ci": 0
               }
             ]
           }
@@ -9078,7 +9177,8 @@
                 "minW": 0,
                 "minH": 0,
                 "maxW": 0,
-                "children": []
+                "children": [],
+                "ci": 0
               },
               {
                 "part": "CHANNEL_INFO_SKELETON",
@@ -9191,7 +9291,8 @@
                     "minW": 0,
                     "minH": 0,
                     "maxW": 0,
-                    "children": []
+                    "children": [],
+                    "ci": 0
                   },
                   {
                     "part": "SKELETON_CHANNEL_DESC",
@@ -9248,9 +9349,11 @@
                     "minW": 0,
                     "minH": 0,
                     "maxW": 0,
-                    "children": []
+                    "children": [],
+                    "ci": 0
                   }
-                ]
+                ],
+                "ci": 0
               }
             ]
           }
@@ -9372,7 +9475,8 @@
                 "minW": 0,
                 "minH": 0,
                 "maxW": 0,
-                "children": []
+                "children": [],
+                "ci": 0
               },
               {
                 "part": "CHANNEL_INFO_SKELETON",
@@ -9485,7 +9589,8 @@
                     "minW": 0,
                     "minH": 0,
                     "maxW": 0,
-                    "children": []
+                    "children": [],
+                    "ci": 0
                   },
                   {
                     "part": "SKELETON_CHANNEL_DESC",
@@ -9542,7 +9647,8 @@
                     "minW": 0,
                     "minH": 0,
                     "maxW": 0,
-                    "children": []
+                    "children": [],
+                    "ci": 0
                   },
                   {
                     "part": "SKELETON_CHANNEL_DESC_SHORT",
@@ -9599,9 +9705,11 @@
                     "minW": 0,
                     "minH": 0,
                     "maxW": 0,
-                    "children": []
+                    "children": [],
+                    "ci": 0
                   }
-                ]
+                ],
+                "ci": 0
               }
             ]
           }
@@ -9730,7 +9838,8 @@
                 "minW": 0,
                 "minH": 0,
                 "maxW": 0,
-                "children": []
+                "children": [],
+                "ci": 0
               },
               {
                 "part": "inspectorFramedInputUnit",
@@ -9787,7 +9896,8 @@
                 "minW": 0,
                 "minH": 0,
                 "maxW": 0,
-                "children": []
+                "children": [],
+                "ci": 0
               },
               {
                 "part": "inspectorNumInput",
@@ -9844,7 +9954,8 @@
                 "minW": 0,
                 "minH": 0,
                 "maxW": 0,
-                "children": []
+                "children": [],
+                "ci": 0
               },
               {
                 "part": "inspectorFramedInputUnit",
@@ -9901,7 +10012,8 @@
                 "minW": 0,
                 "minH": 0,
                 "maxW": 0,
-                "children": []
+                "children": [],
+                "ci": 0
               }
             ]
           }
@@ -9962,7 +10074,7 @@
             "letterSpacing": -0.14,
             "isText": false,
             "textFill": true,
-            "wx": "FIX",
+            "wx": "FILL",
             "hx": "FIX",
             "minW": 0,
             "minH": 0,
@@ -10026,7 +10138,7 @@
             "letterSpacing": -0.14,
             "isText": false,
             "textFill": true,
-            "wx": "FIX",
+            "wx": "FILL",
             "hx": "FIX",
             "minW": 0,
             "minH": 34,
@@ -10057,13 +10169,13 @@
             "y": 0,
             "pad": [
               16,
-              16,
+              8,
               8,
               8
             ],
             "inset": [
               0,
-              0,
+              8,
               8,
               8
             ],
@@ -10171,7 +10283,8 @@
                 "minW": 0,
                 "minH": 0,
                 "maxW": 0,
-                "children": []
+                "children": [],
+                "ci": 8
               },
               {
                 "part": "modalDescription",
@@ -10228,7 +10341,8 @@
                 "minW": 0,
                 "minH": 0,
                 "maxW": 0,
-                "children": []
+                "children": [],
+                "ci": 8
               },
               {
                 "part": "modalActions",
@@ -10336,12 +10450,13 @@
                     "letterSpacing": -0.16,
                     "isText": false,
                     "textFill": true,
-                    "wx": "HUG",
+                    "wx": "FILL",
                     "hx": "FIX",
                     "minW": 0,
                     "minH": 0,
                     "maxW": 0,
-                    "children": []
+                    "children": [],
+                    "ci": 0
                   },
                   {
                     "part": "modalConfirm",
@@ -10393,14 +10508,16 @@
                     "letterSpacing": -0.16,
                     "isText": false,
                     "textFill": true,
-                    "wx": "HUG",
+                    "wx": "FILL",
                     "hx": "FIX",
                     "minW": 0,
                     "minH": 0,
                     "maxW": 0,
-                    "children": []
+                    "children": [],
+                    "ci": 0
                   }
-                ]
+                ],
+                "ci": 0
               }
             ]
           }
@@ -10421,13 +10538,13 @@
             "y": 0,
             "pad": [
               16,
-              16,
+              8,
               8,
               8
             ],
             "inset": [
               0,
-              0,
+              8,
               8,
               8
             ],
@@ -10535,7 +10652,8 @@
                 "minW": 0,
                 "minH": 0,
                 "maxW": 0,
-                "children": []
+                "children": [],
+                "ci": 8
               },
               {
                 "part": "modalDescription",
@@ -10592,7 +10710,8 @@
                 "minW": 0,
                 "minH": 0,
                 "maxW": 0,
-                "children": []
+                "children": [],
+                "ci": 8
               },
               {
                 "part": "modalActions",
@@ -10715,7 +10834,8 @@
                     "minW": 0,
                     "minH": 0,
                     "maxW": 0,
-                    "children": []
+                    "children": [],
+                    "ci": 0
                   },
                   {
                     "part": "modalConfirm",
@@ -10767,14 +10887,16 @@
                     "letterSpacing": -0.14,
                     "isText": false,
                     "textFill": true,
-                    "wx": "HUG",
+                    "wx": "FILL",
                     "hx": "FIX",
                     "minW": 0,
                     "minH": 0,
                     "maxW": 0,
-                    "children": []
+                    "children": [],
+                    "ci": 0
                   }
-                ]
+                ],
+                "ci": 0
               }
             ]
           }
@@ -11098,13 +11220,13 @@
                     "pad": [
                       16,
                       16,
-                      16,
+                      0,
                       16
                     ],
                     "inset": [
                       0,
                       0,
-                      0,
+                      16,
                       0
                     ],
                     "gap": 0,
@@ -11254,7 +11376,8 @@
                             "minW": 0,
                             "minH": 0,
                             "maxW": 0,
-                            "children": []
+                            "children": [],
+                            "ci": 0
                           },
                           {
                             "part": "archivePreviewTitleOverlayText",
@@ -11311,7 +11434,8 @@
                             "minW": 0,
                             "minH": 0,
                             "maxW": 0,
-                            "children": []
+                            "children": [],
+                            "ci": 0
                           },
                           {
                             "part": "archivePreviewLastEdited",
@@ -11368,9 +11492,11 @@
                             "minW": 0,
                             "minH": 0,
                             "maxW": 0,
-                            "children": []
+                            "children": [],
+                            "ci": 0
                           }
-                        ]
+                        ],
+                        "ci": 0
                       }
                     ]
                   },
@@ -11485,7 +11611,8 @@
                         "minW": 0,
                         "minH": 0,
                         "maxW": 0,
-                        "children": []
+                        "children": [],
+                        "ci": 0
                       },
                       {
                         "part": "archiveDropdown",
@@ -11497,13 +11624,13 @@
                         "y": 47,
                         "pad": [
                           6,
-                          6,
+                          5.04,
                           4.72,
                           6
                         ],
                         "inset": [
                           0,
-                          0,
+                          0.96,
                           1.28,
                           0
                         ],
@@ -11608,7 +11735,8 @@
                             "minW": 0,
                             "minH": 0,
                             "maxW": 0,
-                            "children": []
+                            "children": [],
+                            "ci": 0
                           },
                           {
                             "part": "archiveDropdownItem",
@@ -11665,7 +11793,8 @@
                             "minW": 0,
                             "minH": 0,
                             "maxW": 0,
-                            "children": []
+                            "children": [],
+                            "ci": 0
                           },
                           {
                             "part": "archiveDropdownItem",
@@ -11722,13 +11851,15 @@
                             "minW": 0,
                             "minH": 0,
                             "maxW": 0,
-                            "children": []
+                            "children": [],
+                            "ci": 0
                           }
                         ]
                       }
                     ]
                   }
-                ]
+                ],
+                "ci": 0
               }
             ]
           }
@@ -12045,13 +12176,13 @@
                     "pad": [
                       16,
                       16,
-                      16,
+                      0,
                       16
                     ],
                     "inset": [
                       0,
                       0,
-                      0,
+                      16,
                       0
                     ],
                     "gap": 0,
@@ -12201,7 +12332,8 @@
                             "minW": 0,
                             "minH": 0,
                             "maxW": 0,
-                            "children": []
+                            "children": [],
+                            "ci": 0
                           },
                           {
                             "part": "ARCHIVE_PREVIEW_LAST_EDITED",
@@ -12258,9 +12390,11 @@
                             "minW": 0,
                             "minH": 0,
                             "maxW": 0,
-                            "children": []
+                            "children": [],
+                            "ci": 0
                           }
-                        ]
+                        ],
+                        "ci": 0
                       }
                     ]
                   },
@@ -12375,7 +12509,8 @@
                         "minW": 0,
                         "minH": 0,
                         "maxW": 0,
-                        "children": []
+                        "children": [],
+                        "ci": 0
                       },
                       {
                         "part": "ARCHIVE_DROPDOWN",
@@ -12498,7 +12633,8 @@
                             "minW": 0,
                             "minH": 0,
                             "maxW": 0,
-                            "children": []
+                            "children": [],
+                            "ci": 0
                           },
                           {
                             "part": "ARCHIVE_DROPDOWN_ITEM_BASE",
@@ -12555,7 +12691,8 @@
                             "minW": 0,
                             "minH": 0,
                             "maxW": 0,
-                            "children": []
+                            "children": [],
+                            "ci": 0
                           },
                           {
                             "part": "ARCHIVE_DROPDOWN_ITEM_BASE",
@@ -12612,13 +12749,15 @@
                             "minW": 0,
                             "minH": 0,
                             "maxW": 0,
-                            "children": []
+                            "children": [],
+                            "ci": 0
                           }
                         ]
                       }
                     ]
                   }
-                ]
+                ],
+                "ci": 0
               }
             ]
           }
@@ -12824,7 +12963,8 @@
                 "minW": 0,
                 "minH": 0,
                 "maxW": 0,
-                "children": []
+                "children": [],
+                "ci": 0
               },
               {
                 "part": "PERIOD_BTN_ACTIVE",
@@ -12881,7 +13021,8 @@
                 "minW": 0,
                 "minH": 0,
                 "maxW": 0,
-                "children": []
+                "children": [],
+                "ci": 0
               },
               {
                 "part": "PERIOD_BTN",
@@ -12938,7 +13079,8 @@
                 "minW": 0,
                 "minH": 0,
                 "maxW": 0,
-                "children": []
+                "children": [],
+                "ci": 0
               }
             ]
           }
@@ -13137,7 +13279,8 @@
                 "minW": 0,
                 "minH": 0,
                 "maxW": 0,
-                "children": []
+                "children": [],
+                "ci": 0
               },
               {
                 "part": "PERIOD_BTN_ACTIVE",
@@ -13194,7 +13337,8 @@
                 "minW": 0,
                 "minH": 0,
                 "maxW": 0,
-                "children": []
+                "children": [],
+                "ci": 0
               },
               {
                 "part": "PERIOD_BTN",
@@ -13251,7 +13395,8 @@
                 "minW": 0,
                 "minH": 0,
                 "maxW": 0,
-                "children": []
+                "children": [],
+                "ci": 0
               },
               {
                 "part": "PERIOD_BTN",
@@ -13308,7 +13453,8 @@
                 "minW": 0,
                 "minH": 0,
                 "maxW": 0,
-                "children": []
+                "children": [],
+                "ci": 0
               },
               {
                 "part": "PERIOD_BTN",
@@ -13365,7 +13511,8 @@
                 "minW": 0,
                 "minH": 0,
                 "maxW": 0,
-                "children": []
+                "children": [],
+                "ci": 0
               }
             ]
           }
@@ -13504,7 +13651,8 @@
                 "minW": 0,
                 "minH": 0,
                 "maxW": 0,
-                "children": []
+                "children": [],
+                "ci": 0
               }
             ]
           }

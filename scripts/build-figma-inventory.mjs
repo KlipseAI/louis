@@ -65,7 +65,9 @@ const declarationOf = (file, part) => {
   const decl = {
     // 숫자 유틸리티(`w-22`)도 선언이다. 이 저장소는 spacing 1단위가 2px이라 w-22 = 44px이다.
     wFixed: has(/\[width:\s*(?:\d|min\(|calc\(|var\()/) || has(/\bw-\[(?:\d|min\(|calc\()/) || has(/\bw-\d+\b/),
-    wFill: has(/\bw-full\b/) || has(/\[width:\s*100%\]/),
+    // `[flex:1]`·`flex-1`·`grow`도 부모가 폭을 주는 선언이다 — 모달 버튼이 이렇게 행을
+    // 나눠 갖는데 이걸 몰라 HUG로 판정했고, 버튼이 글자만 감싸는 알약으로 그려졌다.
+    wFill: has(/\bw-full\b/) || has(/\[width:\s*100%\]/) || has(/\[flex:\s*1/) || has(/\bflex-1\b/) || has(/\bgrow\b/),
     hFixed: has(/\[height:\s*(?:\d|min\(|calc\(|var\()/) || has(/\bh-\[(?:\d|min\(|calc\()/) || has(/\bh-\d+\b/),
     hFill: has(/\bh-full\b/) || has(/\[height:\s*100%\]/),
     maxW: Number((/\[max-width:\s*(\d+(?:\.\d+)?)px\]/.exec(text) || [])[1] || 0),
@@ -143,11 +145,18 @@ const layout = (node, file, specimenId, parentCtx) => {
     const mainIdx = row ? 3 : 0;
     if (leadCross < cssPad[crossIdx] - 0.02) pad[crossIdx] = Math.max(0, round3(leadCross));
     if (leadMain < cssPad[mainIdx] - 0.02) pad[mainIdx] = Math.max(0, round3(leadMain));
+    // 교차축 **끝** 여백도 같은 논리다. 이걸 빼먹어 모달 오른쪽만 16으로 남아 비대칭이 됐다.
+    const tailCross = (row ? height - Math.max(...flow.map((c) => c.y + c.h)) : width - Math.max(...flow.map((c) => c.x + c.w)));
+    const tailCrossIdx = row ? 2 : 1;
+    if (tailCross < cssPad[tailCrossIdx] - 0.02) pad[tailCrossIdx] = Math.max(0, round3(tailCross));
     const tailMain = (row ? width - Math.max(...flow.map((c) => c.x + c.w)) : height - Math.max(...flow.map((c) => c.y + c.h)));
     const tailIdx = row ? 1 : 2;
     if (tailMain < cssPad[tailIdx] - 0.02) pad[tailIdx] = Math.max(0, round3(tailMain));
   }
   const inset = cssPad.map((c, i) => Math.max(0, round3(c - pad[i])));
+  // 자식마다 교차축 들여쓰기가 다르다 — 제목(마진 0)은 pad보다 8 안쪽, 액션(마진 -8)은 pad 그대로.
+  // 일괄 inset을 쓰면 액션 행까지 들여써진다. 자식별 ci를 렌더러가 쓴다.
+  for (const c of flow) c.ci = Math.max(0, round3((row ? c.y : c.x) - pad[row ? 0 : 3]));
 
   // ④ 이웃 사이 빈틈. 모두 같으면 itemSpacing 하나, 아니면 큰 간격에서 잘라 중첩한다.
   const gaps = [];
@@ -220,6 +229,10 @@ const KIND_LABEL = {
   "empty-state": "빈 상태", "segmented-control": "세그먼트 컨트롤",
   "selectable-list-row": "선택 가능한 목록 행", skeleton: "스켈레톤",
   "menu-popover": "메뉴 팝오버", "project-card": "프로젝트 카드",
+  button: "버튼", "input-form": "폼 입력(플로팅 라벨)", "gnb-sidebar": "GNB 사이드바",
+  "banner-carousel": "배너 캐러셀", "top-bar": "상단 바", admin: "관리자 요소",
+  "insight-card": "분석 카드", "canvas-node": "캔버스 노드",
+  "skeleton-block": "스켈레톤 블록", "progress-ring": "프로필 링",
 };
 
 const byKind = new Map();
@@ -305,24 +318,25 @@ const place=(parent,spec)=>{const node=build(spec);parent.appendChild(node);
  return node;};
 // 간격이 제각각이면 큰 간격에서 잘라 중첩 오토레이아웃으로 묶는다. spacer는 쓰지 않는다.
 // 음수 마진으로 바깥 여백이 깎였으면(ins) 묶음이 그만큼 안쪽 여백을 갖는다.
+// 묶음의 안쪽 여백은 일괄값이 아니라 **그 묶음 첫 자식의 ci**다 — 음수 마진이 없는
+// 자식(제목·설명)만 안쪽으로 들어가고, 음수 마진 자식(액션 행)은 pad 자리에서 시작한다.
+const wrapSeg=(f,n,seg,inner)=>{
+ const ci=P(seg[0]&&seg[0].ci);
+ if(!ci&&seg.length===1){place(f,seg[0]);return;}
+ const grp=figma.createAutoLayout(n.H?"HORIZONTAL":"VERTICAL",{name:"묶음",itemSpacing:seg.length>1?inner:0});
+ grp.fills=[];
+ if(n.H){grp.paddingTop=ci;grp.paddingBottom=ci;}else{grp.paddingLeft=ci;grp.paddingRight=ci;}
+ f.appendChild(grp);for(const k of seg)place(grp,k);
+ grp.layoutSizingHorizontal=n.H?"HUG":"FILL";grp.layoutSizingVertical=n.H?"FILL":"HUG";};
 const addKids=(f,n)=>{const kids=n.c||[];
- const ins=n.ins||[0,0,0,0];
  if(!n.gs||!n.gs.length){
-  if(ins[0]||ins[1]||ins[2]||ins[3]){
-   const grp=figma.createAutoLayout(n.H?"HORIZONTAL":"VERTICAL",{name:"묶음",itemSpacing:P(n.gap)});
-   grp.fills=[];grp.paddingTop=P(ins[0]);grp.paddingRight=P(ins[1]);grp.paddingBottom=P(ins[2]);grp.paddingLeft=P(ins[3]);
-   f.appendChild(grp);for(const k of kids)place(grp,k);
-   grp.layoutSizingHorizontal=n.H?"HUG":"FILL";grp.layoutSizingVertical=n.H?"FILL":"HUG";return;}
+  if(kids.some(k=>P(k.ci))){wrapSeg(f,n,kids,P(n.gap));return;}
   for(const k of kids)place(f,k);return;}
  const big=Math.max.apply(null,n.gs);let inner=0;
  for(const g of n.gs){if(Math.abs(g-big)>=0.02){inner=g;break;}}
  f.itemSpacing=big;const segs=[[kids[0]]];
  n.gs.forEach((g,i)=>{if(Math.abs(g-big)<0.02)segs.push([kids[i+1]]);else segs[segs.length-1].push(kids[i+1]);});
- for(const seg of segs){
-  const grp=figma.createAutoLayout(n.H?"HORIZONTAL":"VERTICAL",{name:"묶음",itemSpacing:seg.length>1?inner:0});
-  grp.fills=[];grp.paddingRight=P(ins[1]);grp.paddingLeft=P(ins[3]);
-  f.appendChild(grp);for(const k of seg)place(grp,k);
-  grp.layoutSizingHorizontal=n.H?"HUG":"FILL";grp.layoutSizingVertical=n.H?"FILL":"HUG";}};
+ for(const seg of segs)wrapSeg(f,n,seg,inner);};
 const build=n=>{
  if(n.T&&!(n.c||[]).length)return mkTxt(n);
  const f=figma.createAutoLayout(n.H?"HORIZONTAL":"VERTICAL",{name:n.p,itemSpacing:P(n.gap)});
@@ -396,6 +410,7 @@ const compact = (n) => {
   const o = n.abs
     ? { p: n.part, w: n.w, h: n.h, wx: "FIX", hx: "FIX", abs: 1, x: n.x, y: n.y }
     : { p: n.part, w: n.w, h: n.h, wx: n.wx, hx: n.hx };
+  if (n.ci) o.ci = n.ci;
   if (!zero(n.pad)) o.pad = n.pad;
   if (!zero(n.inset)) o.ins = n.inset;
   if (n.gap) o.gap = n.gap;

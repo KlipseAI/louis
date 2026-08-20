@@ -3,6 +3,7 @@ import { existsSync, readFileSync, mkdtempSync, writeFileSync, rmSync } from "no
 import { tmpdir } from "node:os";
 import { dirname, resolve, join } from "node:path";
 import { fileURLToPath } from "node:url";
+import { resolveProductRef } from "./lib/product-ref.mjs";
 
 // 제품(klipse-web)은 Tailwind 4의 `@theme`에서 네 namespace를 통째로 지운다 —
 // `--color-*` · `--radius-*` · `--text-*` · `--font-*`. DS의 theme.css도 그 네 namespace를 쓴다.
@@ -15,7 +16,9 @@ import { fileURLToPath } from "node:url";
 // 그리고 interop을 재는 데는 제품이 실제로 쓰는 버전이 정본이다.
 const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const productRoot = process.env.KLIPSE_PRODUCT_REPO ?? "/Users/sejunki/klipse-web";
-const productRef = process.env.KLIPSE_PRODUCT_REF ?? "origin/main";
+// 측정 대상은 근거 lock이 고정한 커밋이다 — `origin/main`을 따라가면 같은 명령이
+// 어제와 다른 값을 낸다. scripts/lib/product-ref.mjs에 사유가 있다.
+const { ref: productRef, source: productRefSource } = resolveProductRef();
 const themePath = resolve(repoRoot, "packages/css/generated/theme.css");
 
 // 제품의 reset이 지우는 namespace에서 하나씩 뽑는다. 전부 DS theme.css가 발행하는 이름이다.

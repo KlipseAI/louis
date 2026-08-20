@@ -4,6 +4,7 @@ import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { chromium } from "playwright";
 import { atomicWriteBatch } from "./lib/atomic-output.mjs";
+import { resolveProductRef } from "./lib/product-ref.mjs";
 
 // product.measured.json의 축들은 제품 소스의 **줄**을 인용한다. 줄 읽기는 cascade를 모른다 —
 // 이 저장소는 이미 그 함정을 한 번 밟았다(제품의 `.app-native-checkbox`가 cascade layer 밖이라
@@ -14,7 +15,9 @@ const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const measuredPath = resolve(repoRoot, "migration/product.measured.json");
 const outputPath = resolve(repoRoot, "migration/product.rendered.json");
 const productRoot = process.env.KLIPSE_PRODUCT_REPO ?? "/Users/sejunki/klipse-web";
-const productRef = process.env.KLIPSE_PRODUCT_REF ?? "origin/main";
+// 측정 대상은 근거 lock이 고정한 커밋이다 — `origin/main`을 따라가면 같은 명령이
+// 어제와 다른 값을 낸다. scripts/lib/product-ref.mjs에 사유가 있다.
+const { ref: productRef, source: productRefSource } = resolveProductRef();
 // 제품이 app/layout.tsx에서 싣는 순서 그대로다 — tailwind.css가 먼저이고 그 안에서
 // keyframes.css를 @import한 뒤 globals.css가 온다. 순서를 바꾸면 cascade가 달라진다.
 const STYLESHEETS = [

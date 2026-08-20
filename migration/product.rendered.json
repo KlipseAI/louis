@@ -2,7 +2,7 @@
   "$comment": "생성물. scripts/measure-product-render.mjs가 배포본 CSS를 실브라우저에 올려 뽑는다. 직접 수정하지 않는다.",
   "$whyThisExists": "product.measured.json의 축들은 제품 소스의 줄을 인용한다. 줄 읽기는 cascade와 media query를 모른다. 여기 값은 브라우저가 실제로 푼 값이며, 문맥이 갈리면 문맥마다 다르게 기록된다.",
   "$method": "제품 서버를 띄우지 않는다. 배포본의 정적 stylesheet만 git show로 읽어 빈 문서에 올리고 :root의 계산값을 읽는다.",
-  "productRef": "origin/main",
+  "productRef": "7e9c3b6946a71431479aef69d16baac5c53128b2",
   "productCommit": "7e9c3b6946a71431479aef69d16baac5c53128b2",
   "stylesheets": [
     "apps/web/app/tailwind.css",

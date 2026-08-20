@@ -15,12 +15,15 @@ import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { chromium } from "playwright";
 import { atomicWriteBatch } from "./lib/atomic-output.mjs";
+import { resolveProductRef } from "./lib/product-ref.mjs";
 
 const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const outputPath = resolve(repoRoot, "migration/product.variants.json");
 const specimenPath = resolve(repoRoot, "figma/product-specimens.json");
 const productRoot = process.env.KLIPSE_PRODUCT_REPO ?? "/Users/sejunki/klipse-web";
-const productRef = process.env.KLIPSE_PRODUCT_REF ?? "origin/main";
+// 측정 대상은 근거 lock이 고정한 커밋이다 — `origin/main`을 따라가면 같은 명령이
+// 어제와 다른 값을 낸다. scripts/lib/product-ref.mjs에 사유가 있다.
+const { ref: productRef, source: productRefSource } = resolveProductRef();
 const checkOnly = process.argv.includes("--check");
 
 

@@ -14,7 +14,13 @@
         "part": "AVATAR",
         "tag": "div",
         "text": "K"
-      }
+      },
+      "host": [
+        {
+          "file": "apps/web/app/admin/AdminClient.tsx",
+          "part": "USER_HEADER"
+        }
+      ]
     },
     {
       "id": "avatar/instagramChannel",
@@ -32,7 +38,13 @@
             "tag": "div"
           }
         ]
-      }
+      },
+      "host": [
+        {
+          "file": "apps/web/components/scenes/InstagramAnalyticsScene.tsx",
+          "part": "DASHBOARD_TOP_BAR_LEFT"
+        }
+      ]
     },
     {
       "id": "avatar/settingsProfile",
@@ -50,7 +62,13 @@
             "tag": "img"
           }
         ]
-      }
+      },
+      "host": [
+        {
+          "file": "apps/web/components/scenes/myPageSceneStyles.ts",
+          "part": "settingsAvatarMain"
+        }
+      ]
     },
     {
       "id": "avatar/youtubeChannel",
@@ -68,7 +86,13 @@
             "tag": "div"
           }
         ]
-      }
+      },
+      "host": [
+        {
+          "file": "apps/web/components/scenes/YoutubeAnalyticsScene.tsx",
+          "part": "DASHBOARD_TOP_BAR_LEFT"
+        }
+      ]
     },
     {
       "id": "badge/customSidebarBadge",
@@ -81,7 +105,13 @@
         "tag": "span",
         "typography": "type-caption-12-medium",
         "text": "3"
-      }
+      },
+      "host": [
+        {
+          "file": "apps/web/components/navigation/Gnb.tsx",
+          "part": "menuLinkInner"
+        }
+      ]
     },
     {
       "id": "badge/exploreSoonChip",
@@ -93,8 +123,14 @@
         "part": "exploreSoonChip",
         "tag": "span",
         "typography": "type-caption-12-medium",
-        "text": "업데이트 예정"
-      }
+        "text": "BETA"
+      },
+      "host": [
+        {
+          "file": "apps/web/components/navigation/Gnb.tsx",
+          "part": "menuLinkInner"
+        }
+      ]
     },
     {
       "id": "badge/previewZoomBadge",
@@ -107,7 +143,13 @@
         "tag": "div",
         "typography": "type-caption-12-medium",
         "text": "120%"
-      }
+      },
+      "host": [
+        {
+          "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx",
+          "part": "previewArea"
+        }
+      ]
     },
     {
       "id": "badge/profileMenuItemBadge",
@@ -125,7 +167,13 @@
             "text": "프로"
           }
         ]
-      }
+      },
+      "host": [
+        {
+          "file": "apps/web/components/navigation/Gnb.tsx",
+          "part": "profileMenuCreditsHead"
+        }
+      ]
     },
     {
       "id": "checkbox/awsSignupLegal",
@@ -159,7 +207,13 @@
             "text": "개인정보 처리방침에 동의합니다"
           }
         ]
-      }
+      },
+      "host": [
+        {
+          "file": "apps/web/app/aws/signup/page.tsx",
+          "part": "LEGAL_AGREEMENT_ROW"
+        }
+      ]
     },
     {
       "id": "checkbox/signupLegal",
@@ -193,7 +247,13 @@
             "text": "개인정보 처리방침에 동의합니다"
           }
         ]
-      }
+      },
+      "host": [
+        {
+          "file": "apps/web/app/signup/page.tsx",
+          "part": "LEGAL_AGREEMENT_ROW"
+        }
+      ]
     },
     {
       "id": "checkbox/videoEditSourceRow",
@@ -205,7 +265,13 @@
       "node": {
         "part": "SOURCE_ROW_CHECK",
         "tag": "input"
-      }
+      },
+      "host": [
+        {
+          "file": "apps/web/components/scenes/VideoEditProjectPicker.tsx",
+          "part": "SOURCE_ROW"
+        }
+      ]
     },
     {
       "id": "dialog/appHome",
@@ -248,7 +314,13 @@
             ]
           }
         ]
-      }
+      },
+      "host": [
+        {
+          "file": "apps/web/components/scenes/appHomeSceneStyles.ts",
+          "part": "modalOverlay"
+        }
+      ]
     },
     {
       "id": "dialog/myPage",
@@ -291,7 +363,13 @@
             ]
           }
         ]
-      }
+      },
+      "host": [
+        {
+          "file": "apps/web/components/scenes/appHomeSceneStyles.ts",
+          "part": "modalOverlay"
+        }
+      ]
     },
     {
       "id": "empty-state/analyticsStatePanel",
@@ -317,7 +395,13 @@
             "text": "이 기간에 표시할 데이터가 없어요."
           }
         ]
-      }
+      },
+      "host": [
+        {
+          "file": "apps/web/components/scenes/analytics/OverviewTab.tsx",
+          "part": "OVERVIEW_SECTION"
+        }
+      ]
     },
     {
       "id": "empty-state/appHomeArchive",
@@ -343,7 +427,13 @@
             "text": "첫 영상을 만들어 보세요."
           }
         ]
-      }
+      },
+      "host": [
+        {
+          "file": "apps/web/components/scenes/appHomeSceneStyles.ts",
+          "part": "updateBanner"
+        }
+      ]
     },
     {
       "id": "empty-state/projectVideosPopover",
@@ -362,7 +452,13 @@
             "text": "저장된 영상이 없어요"
           }
         ]
-      }
+      },
+      "host": [
+        {
+          "file": "apps/web/components/scenes/create/node-canvas-v2/components/ProjectVideosPopover.tsx",
+          "part": "POPOVER"
+        }
+      ]
     },
     {
       "id": "empty-state/videoEditInspector",
@@ -382,7 +478,13 @@
             "text": "아직 선택된 항목이 없습니다"
           }
         ]
-      }
+      },
+      "host": [
+        {
+          "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx",
+          "part": "propertiesPanelInner"
+        }
+      ]
     },
     {
       "id": "icon-button/archiveMore",
@@ -394,7 +496,13 @@
       "node": {
         "part": "archiveMoreButton",
         "tag": "button"
-      }
+      },
+      "host": [
+        {
+          "file": "apps/web/components/scenes/appHomeSceneStyles.ts",
+          "part": "archiveMenuAnchorInThumbnail"
+        }
+      ]
     },
     {
       "id": "icon-button/gnbProjectOptions",
@@ -406,7 +514,13 @@
       "node": {
         "part": "iconButton",
         "tag": "button"
-      }
+      },
+      "host": [
+        {
+          "file": "apps/web/components/navigation/Gnb.tsx",
+          "part": "projectHeader"
+        }
+      ]
     },
     {
       "id": "icon-button/historyMore",
@@ -418,7 +532,13 @@
       "node": {
         "part": "historyMoreButton",
         "tag": "button"
-      }
+      },
+      "host": [
+        {
+          "file": "apps/web/components/scenes/highlightSceneStyles.ts",
+          "part": "historyMenuAnchorInThumbnail"
+        }
+      ]
     },
     {
       "id": "icon-button/overlayDelete",
@@ -436,7 +556,13 @@
             "tag": "svg"
           }
         ]
-      }
+      },
+      "host": [
+        {
+          "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx",
+          "part": "propertiesPanelHeaderRow"
+        }
+      ]
     },
     {
       "id": "menu-popover/homeCreateNew",
@@ -486,7 +612,13 @@
             ]
           }
         ]
-      }
+      },
+      "host": [
+        {
+          "file": "apps/web/components/scenes/HomeCreateNewMenu.tsx",
+          "part": "WRAP"
+        }
+      ]
     },
     {
       "id": "menu-popover/paneContextMenu",
@@ -567,7 +699,9 @@
             ]
           }
         ]
-      }
+      },
+      "host": [],
+      "hostNone": "부모를 못 찾은 게 아니라 '크기를 바꾸는 부모가 없음'을 확인했다. (1) PaneContextMenu.tsx 221~295행의 return 은 Fragment `<>` 라 컴포넌트 안에 DOM 부모가 없다. 표본 루트 MENU_WRAP div(253~260행)는 Fragment 의 직접 자식이다. (2) 호출부를 따라갔다 — git grep 결과 유일한 사용처가 node-canvas-v2/index.tsx:11188 `<P"
     },
     {
       "id": "menu-popover/projectVideos",
@@ -679,7 +813,9 @@
             ]
           }
         ]
-      }
+      },
+      "host": [],
+      "hostNone": "why 의 '부모 없음'이 맞다는 것을 확인했다. ProjectVideosPopover.tsx 308행이 `return createPortal(node, document.body);` 라 표본 루트(238~305행 `<div className={POPOVER} style={{left, top, width: POPOVER_WIDTH_PX}}>`)의 DOM 부모는 <body> 다 — 클래스 상수로 된 부모가 존재하지 않는다. 게다"
     },
     {
       "id": "progress-bar/compositeSegmentPreview",
@@ -707,7 +843,13 @@
             "tag": "div"
           }
         ]
-      }
+      },
+      "host": [
+        {
+          "file": "apps/web/components/scenes/highlightSceneStyles.ts",
+          "part": "compositeBottomPill"
+        }
+      ]
     },
     {
       "id": "progress-bar/editNodeProcessing",
@@ -737,7 +879,13 @@
             "text": "62%"
           }
         ]
-      }
+      },
+      "host": [
+        {
+          "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/EditNode.tsx",
+          "part": "SHIMMER_ROOT"
+        }
+      ]
     },
     {
       "id": "progress-bar/highlightUpload",
@@ -755,7 +903,13 @@
             "tag": "div"
           }
         ]
-      }
+      },
+      "host": [
+        {
+          "file": "apps/web/components/scenes/highlightSceneStyles.ts",
+          "part": "statusCard"
+        }
+      ]
     },
     {
       "id": "project-card/appHome",
@@ -855,7 +1009,13 @@
             ]
           }
         ]
-      }
+      },
+      "host": [
+        {
+          "file": "apps/web/components/scenes/appHomeSceneStyles.ts",
+          "part": "archiveGrid"
+        }
+      ]
     },
     {
       "id": "project-card/nodeCanvasHome",
@@ -949,7 +1109,13 @@
             ]
           }
         ]
-      }
+      },
+      "host": [
+        {
+          "file": "apps/web/components/scenes/NodeCanvasHomeScene.tsx",
+          "part": "ARCHIVE_GRID"
+        }
+      ]
     },
     {
       "id": "segmented-control/instagramAnalytics",
@@ -985,7 +1151,13 @@
             "text": "3개월"
           }
         ]
-      }
+      },
+      "host": [
+        {
+          "file": "apps/web/components/scenes/InstagramAnalyticsScene.tsx",
+          "part": "DASHBOARD_NAV_BAR"
+        }
+      ]
     },
     {
       "id": "segmented-control/youtubeAnalytics",
@@ -1033,7 +1205,13 @@
             "text": "전체 기간"
           }
         ]
-      }
+      },
+      "host": [
+        {
+          "file": "apps/web/components/scenes/YoutubeAnalyticsScene.tsx",
+          "part": "DASHBOARD_NAV_BAR_CARD"
+        }
+      ]
     },
     {
       "id": "selectable-list-row/creditHistoryEntry",
@@ -1089,7 +1267,13 @@
             ]
           }
         ]
-      }
+      },
+      "host": [
+        {
+          "file": "apps/web/components/scenes/myPageSceneStyles.ts",
+          "part": "creditHistoryEmpty"
+        }
+      ]
     },
     {
       "id": "selectable-list-row/highlightDetailClip",
@@ -1131,7 +1315,13 @@
             ]
           }
         ]
-      }
+      },
+      "host": [
+        {
+          "file": "apps/web/components/scenes/highlightSceneStyles.ts",
+          "part": "clipDetailList"
+        }
+      ]
     },
     {
       "id": "selectable-list-row/highlightReviewClip",
@@ -1177,7 +1367,13 @@
             ]
           }
         ]
-      }
+      },
+      "host": [
+        {
+          "file": "apps/web/components/scenes/highlightSceneStyles.ts",
+          "part": "clipDetailList"
+        }
+      ]
     },
     {
       "id": "skeleton/analysisModalIg",
@@ -1275,7 +1471,9 @@
             ]
           }
         ]
-      }
+      },
+      "host": [],
+      "hostNone": "IG_SCROLL 에 display 선언이 없다 — flex/inline-flex/grid 중 어느 것도 아니고 기본 block 이다. \"[flex:1_1_auto]\" 는 자기 자신이 CARD(54)의 flex 자식일 때 적용되는 항목 속성이지 컨테이너를 만드는 선언이 아니다. 레이아웃을 만드는 조상은 CARD(54, \"flex flex-col items-stretch min-h-0\")이고 IG_SCROLL 은 그 사이의 스크"
     },
     {
       "id": "skeleton/instagramTopBar",
@@ -1307,7 +1505,13 @@
             ]
           }
         ]
-      }
+      },
+      "host": [
+        {
+          "file": "apps/web/components/scenes/InstagramAnalyticsScene.tsx",
+          "part": "DASHBOARD_TOP_BAR"
+        }
+      ]
     },
     {
       "id": "skeleton/youtubeTopBar",
@@ -1343,7 +1547,13 @@
             ]
           }
         ]
-      }
+      },
+      "host": [
+        {
+          "file": "apps/web/components/scenes/YoutubeAnalyticsScene.tsx",
+          "part": "DASHBOARD_TOP_BAR_CARD"
+        }
+      ]
     },
     {
       "id": "slider/bgmNode",
@@ -1355,7 +1565,13 @@
       "node": {
         "part": "RANGE_SLIDER",
         "tag": "input"
-      }
+      },
+      "host": [
+        {
+          "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/BgmNode.tsx",
+          "part": "SLIDER_DROPDOWN"
+        }
+      ]
     },
     {
       "id": "slider/colorPopover",
@@ -1395,7 +1611,13 @@
             ]
           }
         ]
-      }
+      },
+      "host": [
+        {
+          "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/ColorPopover.tsx",
+          "part": "POPOVER"
+        }
+      ]
     },
     {
       "id": "slider/highlightRefineOpacity",
@@ -1413,7 +1635,13 @@
             "tag": "input"
           }
         ]
-      }
+      },
+      "host": [
+        {
+          "file": "apps/web/components/scenes/highlightSceneStyles.ts",
+          "part": "refinementExpandShellControls"
+        }
+      ]
     },
     {
       "id": "slider/ttsNode",
@@ -1425,7 +1653,13 @@
       "node": {
         "part": "RANGE_SLIDER",
         "tag": "input"
-      }
+      },
+      "host": [
+        {
+          "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/TtsNode.tsx",
+          "part": "SLIDER_DROPDOWN"
+        }
+      ]
     },
     {
       "id": "spinner/editNodeProcess",
@@ -1437,7 +1671,13 @@
       "node": {
         "part": "PROCESS_BUTTON_SPINNER",
         "tag": "span"
-      }
+      },
+      "host": [
+        {
+          "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/EditNode.tsx",
+          "part": "PROCESS_BUTTON"
+        }
+      ]
     },
     {
       "id": "spinner/gnbBackButton",
@@ -1455,7 +1695,13 @@
             "tag": "span"
           }
         ]
-      }
+      },
+      "host": [
+        {
+          "file": "apps/web/components/navigation/Gnb.tsx",
+          "part": "iconButton"
+        }
+      ]
     },
     {
       "id": "spinner/highlightScene",
@@ -1467,7 +1713,13 @@
       "node": {
         "part": "spinner",
         "tag": "span"
-      }
+      },
+      "host": [
+        {
+          "file": "apps/web/components/scenes/highlightSceneStyles.ts",
+          "part": "historyLoading"
+        }
+      ]
     },
     {
       "id": "spinner/highlightShorts",
@@ -1479,7 +1731,13 @@
       "node": {
         "part": "SPINNER",
         "tag": "span"
-      }
+      },
+      "host": [
+        {
+          "file": "apps/web/app/highlight/[projectId]/shorts/[shortId]/page.tsx",
+          "part": "STATUS_CARD"
+        }
+      ]
     },
     {
       "id": "text-field/inspectorFramedInput",
@@ -1515,7 +1773,13 @@
             "text": "프레임"
           }
         ]
-      }
+      },
+      "host": [
+        {
+          "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx",
+          "part": "inspectorField"
+        }
+      ]
     },
     {
       "id": "text-field/refinementInput",
@@ -1528,7 +1792,13 @@
         "part": "refinementInput",
         "tag": "input",
         "typography": "type-body-14-regular"
-      }
+      },
+      "host": [
+        {
+          "file": "apps/web/components/scenes/highlightSceneStyles.ts",
+          "part": "refinementInputRow"
+        }
+      ]
     },
     {
       "id": "text-field/settingsRowName",
@@ -1541,7 +1811,13 @@
         "part": "settingsRowNameInput",
         "tag": "input",
         "typography": "type-body-14-regular"
-      }
+      },
+      "host": [
+        {
+          "file": "apps/web/components/scenes/myPageSceneStyles.ts",
+          "part": "settingsRowEditGroup"
+        }
+      ]
     },
     {
       "id": "toast/appHome",
@@ -1564,7 +1840,9 @@
           "file": "apps/web/components/scenes/AppHomeScene.tsx",
           "name": "floatingCtaBlurStyle"
         }
-      }
+      },
+      "host": [],
+      "hostNone": "부모가 표본의 레이아웃을 만들지 못한다. 표본 자신이 position:fixed 라서 flex 컨테이너의 자식 항목(flex item)이 아니다 — display:flex·flex-direction:column·align-items:stretch 가 표본 크기 계산에 전혀 관여하지 않는다. 즉 이 부모 문맥을 넣어도 잰 값이 안 바뀐다."
     },
     {
       "id": "toast/myPage",
@@ -1577,7 +1855,9 @@
         "tag": "div",
         "typography": "type-body-16-regular",
         "text": "저장했어요"
-      }
+      },
+      "host": [],
+      "hostNone": "부모가 표본의 레이아웃을 전혀 만들지 못한다. 표본이 position:fixed 인데 부모 page 는 position:relative 뿐이고 transform·filter·backdrop-filter·contain 이 하나도 없어서 fixed 의 containing block 조차 되지 못한다 — containing block 은 뷰포트다. display:flex·flex-direction:column 이 표본에 닿는 경로가"
     },
     {
       "id": "tooltip/analyticsBar",
@@ -1590,7 +1870,9 @@
         "part": "TOOLTIP_BASE",
         "tag": "div",
         "text": "여성 · 42.3%"
-      }
+      },
+      "host": [],
+      "hostNone": "부모가 레이아웃을 만들지 않는다. document.body 는 display:block 이고 flex·inline-flex·grid 중 어느 것도 없다 — 근거 서술 자체가 '레이아웃 부모 없음' 이라고 인정한다. 순수 포털 대상이라 문맥을 넣어도 값이 안 바뀐다."
     },
     {
       "id": "tooltip/chromeTooltip",
@@ -1615,7 +1897,9 @@
             ]
           }
         ]
-      }
+      },
+      "host": [],
+      "hostNone": "ChromeTooltip.tsx 279-308행이 전부다. 표본(PORTAL_ANCHOR div, 293-296행)은 292행 `createPortal(` 의 첫 인자이고 두 번째 인자가 305행 ` document.body,` 다 — 즉 DOM 부모는 <body> 직속이다. React 트리상 조상인 HOST span(280-287행, `className={`${HOST}${hostClassName ? ` ${hostClass"
     },
     {
       "id": "tooltip/composerShotMode",
@@ -1628,7 +1912,9 @@
         "part": "SHOT_MODE_TOOLTIP",
         "tag": "span",
         "text": "한 장면으로 만들어요"
-      }
+      },
+      "host": [],
+      "hostNone": "부모 button에 display:flex/inline-flex/grid가 없다. SHOT_MODE_TEXT_BASE는 relative(+padding/border/bg/cursor)뿐이고 동반 클래스 type-body-14-regular도 globals.css에서 타이포 프로퍼티만 선언한다. 레이아웃을 만들지 않는 순수 래퍼를 부모로 잡았으므로, 이 문맥으로 표본을 감싸도 크기 계산이 바뀌지 않는다."
     },
     {
       "id": "tooltip/upgradeTierFeature",
@@ -1642,9 +1928,16 @@
         "tag": "span",
         "typography": "app-tooltip-chrome",
         "text": "매달 크레딧 1,200개가 충전됩니다"
-      }
+      },
+      "host": [
+        {
+          "file": "apps/web/app/mypage/upgrade/page.tsx",
+          "part": "TIER_FEATURE_WITH_TIP"
+        }
+      ]
     }
   ],
   "$correctionLog": "첫 판에서 넷을 상상했다 — ① 모달 카드에 typography 클래스가 있다고 적었다(없다) ② 마이페이지 토스트에 toastText 자식이 있다고 적었다(없다. 토스트 자신이 글자를 갖는다) ③ 토스트 글자를 body-14-medium이라고 적었다(body-16-regular다) ④ 마이페이지 모달의 버튼 글자를 body-16이라고 적었다(그 소비처는 body-14다). 스크립트가 없는 상수를 만나면 죽는다 — ②가 그렇게 잡혔다. 나머지 셋은 JSX를 읽어 고쳤다.",
-  "$inlineRule": "소비처가 인라인 style로 얹는 선언은 클래스를 이긴다. 그 값을 여기 적지 않고 **상수 이름만** 가리킨다(`inlineFrom`) — 값은 스크립트가 소스에서 꺼낸다."
+  "$inlineRule": "소비처가 인라인 style로 얹는 선언은 클래스를 이긴다. 그 값을 여기 적지 않고 **상수 이름만** 가리킨다(`inlineFrom`) — 값은 스크립트가 소스에서 꺼낸다.",
+  "$hostRule": "`host`는 제품에서 이 표본을 감싸는, **크기 계산을 바꾸는** 부모다. 표본을 부모 없이 재면 flex 문맥이 빠져 높이가 `여백+인라인상자`로 잡힌다 — 제품에서는 blockify되어 `여백+행간상자`다. 문맥 없이 잰 값은 실측이 아니다. 크기를 바꾸는 부모가 없는 것(position:fixed로 body에 포털되는 토스트·툴팁 등)은 `host: []`와 함께 `hostNone`에 **확인한 사유**를 적는다 — 비어 있는 것과 확인해서 없는 것은 다르다."
 }

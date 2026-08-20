@@ -242,6 +242,24 @@ const specimenTrees = specimenFile.specimens.map((specimen) => ({
   ...specimen,
   tree: buildSpecimen(specimen, specimen.node, specimen.node.part),
 }));
+// **표본을 부모 문맥 안에서 잰다.**
+//
+// 그전에는 표본을 빈 block div에 홀로 담아 쟀다. 그런데 제품에서 이 부품들은 flex 행 안에
+// 들어 있고, flex 자식이 되면 inline 요소가 blockify되어 높이가 `여백 + 인라인상자`에서
+// `여백 + 행간상자`로 바뀐다. 문맥 없이 재면 그만큼 작게 나온다 —
+// 2026-08-20에 owner가 제품에서 직접 재서 잡았다. 배지가 22인데 18로, 칩이 24인데 20으로
+// 기록돼 있었고, 나는 그 값을 "실측"이라고 불렀다. 재지 않은 것을 잰 것처럼 말한 셈이다.
+//
+// `host`에 제품의 실제 부모 클래스를 바깥부터 적으면 그 문맥 안에서 잰다.
+const hostOpen = (specimen) => (specimen.host ?? [])
+  .map((h) => {
+    // 부모가 다른 파일에 정의돼 있을 수 있다. {file, part}로 적으면 그 파일에서 읽는다.
+    const file = typeof h === "string" ? specimen.file : h.file;
+    const part = typeof h === "string" ? h : h.part;
+    return '<div class="' + classesOf(file, part).classes.replace(/"/g, "&quot;") + '">';
+  })
+  .join("");
+const hostClose = (specimen) => (specimen.host ?? []).map(() => "</div>").join("");
 const renderSpecimen = (node) =>
   "<" + node.tag + ' data-sp="' + node.index + '" class="' + node.classes.replace(/"/g, "&quot;") + '"' +
   (node.inline ? ' style="' + node.inline.replace(/"/g, "&quot;") + '"' : "") + ">" +
@@ -300,7 +318,7 @@ try {
           .map(
             (specimen) =>
               '<div class="kds-specimen-host" style="position:relative;width:420px;padding:24px">' +
-              renderSpecimen(specimen.tree) + "</div>",
+              hostOpen(specimen) + renderSpecimen(specimen.tree) + hostClose(specimen) + "</div>",
           )
           .join("") +
         "</body></html>",

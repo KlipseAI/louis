@@ -282,14 +282,11 @@ const mkTxt=n=>{const t=figma.createText();t.name=n.p;t.fontName=F(n.fw);t.chara
  t.lineHeight={unit:"PERCENT",value:n.lp||150};if(n.ls)t.letterSpacing={unit:"PIXELS",value:n.ls};
  t.fills=paint(n.fg);t.textAutoResize="WIDTH_AND_HEIGHT";
  t.textAlignHorizontal="CENTER";t.textAlignVertical="CENTER";return t;};
-// FILL은 부모가 폭을 가질 때만 성립한다. 판에서는 무대가 hug라 표본 루트의 FILL이
-// 실패한다 — 그때는 **실측 폭으로 고정**한다. 실측이 곧 제품 부모가 준 값이다.
-// 조용히 실패하면 내용 크기로 접힌다(빈 상태 372→225, 슬라이더 행 256→14가 그랬다).
+// FILL은 FILL로 남긴다. FILL이 성립하려면 부모가 폭을 가져야 하므로,
+// hug 부모가 FILL 자식을 가지면 build()가 그 부모를 실측폭으로 고정한다.
 const place=(parent,spec)=>{const node=build(spec);parent.appendChild(node);
- if(spec.wx==="FILL"){try{node.layoutSizingHorizontal="FILL";}
-  catch(e){try{node.layoutSizingHorizontal="FIXED";node.resize(Math.max(1,spec.w),node.height);}catch(e2){}}}
- if(spec.hx==="FILL"){try{node.layoutSizingVertical="FILL";}
-  catch(e){try{node.layoutSizingVertical="FIXED";node.resize(node.width,Math.max(1,spec.h));}catch(e2){}}}
+ try{if(spec.wx==="FILL")node.layoutSizingHorizontal="FILL";}catch(e){}
+ try{if(spec.hx==="FILL")node.layoutSizingVertical="FILL";}catch(e){}
  return node;};
 // 간격이 제각각이면 큰 간격에서 잘라 중첩 오토레이아웃으로 묶는다. spacer는 쓰지 않는다.
 // 음수 마진으로 바깥 여백이 깎였으면(ins) 묶음이 그만큼 안쪽 여백을 갖는다.
@@ -324,8 +321,13 @@ const build=n=>{
  f.primaryAxisAlignItems="CENTER";f.counterAxisAlignItems="CENTER";f.clipsContent=false;
  if(n.t)f.appendChild(mkTxt(n));
  addKids(f,n);
- if(n.wx==="FIX"){f.layoutSizingHorizontal="FIXED";f.resize(Math.max(1,n.w),f.height);}
- if(n.hx==="FIX"){f.layoutSizingVertical="FIXED";f.resize(f.width,Math.max(1,n.h));}
+ // hug 부모가 FILL 자식을 가지면 FILL이 성립하지 않는다. 그때 부모를 실측 크기로
+ // 고정한다 — 자식의 FILL은 그대로 남아, 조립할 때 부모 고정만 풀면 된다.
+ const kidsAll=n.c||[];
+ const wxEff=(n.wx==="HUG"&&kidsAll.some(k=>k.wx==="FILL"))?"FIX":n.wx;
+ const hxEff=(n.hx==="HUG"&&kidsAll.some(k=>k.hx==="FILL"))?"FIX":n.hx;
+ if(wxEff==="FIX"){f.layoutSizingHorizontal="FIXED";f.resize(Math.max(1,n.w),f.height);}
+ if(hxEff==="FIX"){f.layoutSizingVertical="FIXED";f.resize(f.width,Math.max(1,n.h));}
  if(n.mw)f.minWidth=n.mw;if(n.mh)f.minHeight=n.mh;if(n.xw)f.maxWidth=n.xw;
  return f;};
 const T=(s,sz,w,a,wd)=>{const t=figma.createText();t.fontName=w==="b"?bold:reg;t.characters=s;t.fontSize=sz;
@@ -352,11 +354,10 @@ for(const sec of PLAN){
    stage.appendChild(T("실측 "+sp.t.w+"×"+sp.t.h+" — 하네스에서 내용(썸네일·비디오)이 없어 접혔다. 아직 그릴 수 없다.",12,"r",0.55,cardW-96));
    skipped.push(sp.i);
   } else {
-   // 표본 루트의 FILL은 무대 폭이 아니라 **실측 폭**으로 고정한다.
-   // 무대는 제품 부모가 아니다 — 실측이 곧 제품 부모가 준 값이다.
-   const built=build(sp.t);stage.appendChild(built);
-   if(sp.t.wx==="FILL"){built.layoutSizingHorizontal="FIXED";built.resize(Math.max(1,sp.t.w),built.height);}
-   if(sp.t.hx==="FILL"){built.layoutSizingVertical="FIXED";built.resize(built.width,Math.max(1,sp.t.h));}
+   // FILL은 FILL로 남긴다 — 나중에 조립할 때 그대로 쓰기 위해서다.
+   // 대신 **무대를 실측폭+여백으로 고정**해 FILL이 정확히 실측폭을 받게 한다.
+   if(sp.t.wx==="FILL"){stage.layoutSizingHorizontal="FIXED";stage.resize(Math.ceil(sp.t.w)+56,stage.height);}
+   const built=place(stage,sp.t);
    check.push({i:sp.i,m:sp.t.w+"×"+sp.t.h,f:Math.round(built.width*100)/100+"×"+Math.round(built.height*100)/100});
   }
   const head=figma.createAutoLayout("VERTICAL",{name:"head",itemSpacing:3});

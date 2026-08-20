@@ -297,6 +297,20 @@ try {
         "</body></html>",
       { waitUntil: "load" },
     );
+    // 위의 1ms는 **끝나는 애니메이션**만 끝으로 보낸다. 무한 loop에는 끝이 없어서 1ms 주기
+    // 안의 아무 지점이나 잡히고, 그래서 이 게이트가 실행마다 흔들렸다(3회 중 1회, 4회 중 2회 실패).
+    // `finish()`는 무한 애니메이션에서 던지므로 그것으로 두 경우를 가른다 — 끝나는 것은 끝으로,
+    // 끝나지 않는 것은 0s에 세운다. 어느 쪽이든 결정적이다.
+    await page.evaluate(() => {
+      for (const animation of document.getAnimations()) {
+        try {
+          animation.finish();
+        } catch {
+          animation.currentTime = 0;
+          animation.pause();
+        }
+      }
+    });
     rendered = await page.evaluate(
       ({ count, axes }) => {
         const out = [];

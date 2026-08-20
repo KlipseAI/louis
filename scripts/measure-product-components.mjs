@@ -1007,6 +1007,31 @@ try {
           "</body></html>",
         { waitUntil: "load" },
       );
+      // **애니메이션 중간을 재지 않는다.** 그러지 않으면 이 게이트가 실행할 때마다 다른 값을
+      // 낸다 — 토스트 셋은 등장 애니메이션 도중에(transform Y가 10 대신 9.8369), skeleton은 무한
+      // 반짝임 도중에(::after transform X가 -360 대신 -359.944) 잡혔다. 값을 판정하는 것이
+      // 브라우저인데 그 브라우저가 동전을 던지면, 빨간 게이트를 고치는 가장 쉬운 방법이 그때 본
+      // 잡음을 기록에 붙여 넣는 것이 된다 — 이 저장소가 뒤집으려던 바로 그 방향이다.
+      //
+      // CSS로 세우지 **않는다.** `animation-play-state`도 `animation-duration`도 제품이 선언하는
+      // property라(전자는 기록에 있고 후자는 `skeleton ::after`의 대조 축이다) `!important`로 덮으면
+      // **계측 장치의 값이 제품 근거인 척 기록에 남는다.** 애니메이션 객체를 직접 세우면
+      // 계산된 CSS 값은 제품이 선언한 그대로 읽히고 기하만 결정적이 된다.
+      // 의사요소(`::after`)의 애니메이션도 `document.getAnimations()`에 들어온다.
+      await page.evaluate(() => {
+        for (const animation of document.getAnimations()) {
+          // 끝나는 애니메이션은 **끝으로** 보낸다. 시작에 세우면 결정적이긴 해도 틀린 상태다 —
+          // 토스트의 `from`은 `translateY(10px)`이고 쉬는 자리는 `translateY(0)`이다
+          // (`apps/web/app/keyframes.css:510` appHomeToastIn). `finish()`는 무한 애니메이션에서
+          // 던지므로 그것으로 두 경우를 가른다 — 끝나지 않는 것(skeleton 반짝임)은 0s에 세운다.
+          try {
+            animation.finish();
+          } catch {
+            animation.currentTime = 0;
+            animation.pause();
+          }
+        }
+      });
       const group_ = await page.evaluate((probes) => {
         // **hover 전용 선언은 getComputedStyle로 읽히지 않는다.** 마우스를 움직이거나 CDP로
         // 상태를 강제하는 대신, 스타일시트에서 이 요소를 겨누는 `:hover` 규칙을 모아

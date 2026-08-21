@@ -1075,6 +1075,40 @@ coverage가 끝나지 않았다면 P3 core release라고 명시한다. published
 Button은 쌍으로 써서 성립하지만 Menu의 danger item은 이 공백을 그대로 밟는다 —
 [Menu / Popover](../components/menu-popover.md)의 Known deviations에 실측이 있다.
 
+**모든 토큰 확장 단위가 같은 곳에 막혀 있다 (2026-08-21).**
+
+단위 2와 단위 3을 각각 실제로 넣어 보고 확인했다. **토큰을 더하는 단위는 예외 없이
+`verify-figma-parity`에서 막힌다** — proposal에 변수가 늘면 snapshot에 없어서 하드 실패한다.
+
+    verify-token-gates   OK      토큰 자체는 문제 없다
+    check-token-diff     OK      additive 라 breaking 도 아니다
+    verify-figma-parity  FAIL    변수가 snapshot에 없습니다: …
+
+10개 단위 중 1(결정)과 5(타이포 재편)는 끝났고, **남은 8개는 전부 토큰을 더하는 단위다.**
+따라서 8개가 모두 같은 선행 조건에 걸려 있다.
+
+**선행 조건은 Figma 라이브러리 이전을 끝내는 것이다.** 새 파일(`OlYKERKOkgbxBEEoXGZW2c`)에
+변수 258개는 들어갔지만 style 23 · component 26 · icon 31 · template이 남아 있어 `readback.json`을
+새 파일에서 뜰 수 없다. 그래서 snapshot이 이전 파일에 묶여 있고, 이전 파일에는 새 토큰이 없다.
+
+**순서가 정해진다 — Figma 이전을 먼저 끝낸다.** 그러면 단위 2·3·4·6·7·8·9·10이 한꺼번에 열린다.
+개별 단위를 하나씩 뚫으려 하면 매번 같은 벽을 만난다.
+
+각 자산은 변수와 같은 방식이 필요하다 — 생성기(`build-figma-*.mjs`)와 적용 코드
+(`figma/apply-*.js`)를 만들고, **돌리기 전에 스냅샷과 전수 대조**한다. 변수에서 그 대조가
+`motion-*` 23개 누락과 빈 폰트 스택을 실제로 잡았다.
+
+**단위 2 — 실측 결과 (2026-08-21):**
+
+없는 계단을 실사용 근거로 세면 **정확히 26개**다. ADR이 추정한 「알파 축 26개」와 일치한다.
+
+    ink-alpha    +9   4 · 16 · 25 · 30 · 40 · 50 · 60 · 70 · 80
+    paper-alpha  +10  4 · 6 · 12 · 25 · 30 · 40 · 50 · 60 · 70 · 80
+    red-alpha    +7   6 · 8 · 16 · 20 · 25 · 60 · 80
+
+실제로 넣고 `build-tokens`를 돌려 `verify-token-gates`와 `check-token-diff`가 통과하는 것을
+확인한 뒤 되돌렸다. **코드는 준비됐고 Figma 이전만 남았다.**
+
 **단위 3 — 코드 쪽은 준비됐고 Figma 쓰기에 막힌다 (2026-08-21 실측):**
 
 제품의 accent 램프를 배포본에서 셌다. **램프 11종 · 정의 67단 · 참조되는 단계 67단** —

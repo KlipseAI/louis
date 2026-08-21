@@ -100,6 +100,27 @@ for (const [from, e] of [...byStop.entries()].sort((a, b) => a[0] - b[0])) {
   mapping.push({ from, to, delta, relative, uses: e.uses, visible });
 }
 
+// 잉크 × 접힌 계단 교차표 — 단위 2가 **어느 램프에 어느 계단을 세워야 하는지**의 근거다.
+// 램프마다 사다리 14단을 다 채우면 47개 신설이 되는데, 그것은 원칙 1(실사용을 승격)에 어긋난다.
+const inkStops = new Map();
+for (const [from, e] of byStop.entries()) {
+  if (from === 0 || from >= OPAQUE) continue;
+  const to = KEEP.includes(from) ? from : snap(from);
+  for (const site of e.sites) {
+    const key = site.ink;
+    const m = inkStops.get(key) ?? new Map();
+    m.set(to, (m.get(to) ?? 0) + 1);
+    inkStops.set(key, m);
+  }
+}
+const inkLadder = [...inkStops.entries()]
+  .map(([ink, m]) => ({
+    ink,
+    uses: [...m.values()].reduce((a, b) => a + b, 0),
+    stops: [...m.entries()].sort((a, b) => a[0] - b[0]).map(([stop, uses]) => ({ stop, uses })),
+  }))
+  .sort((a, b) => b.uses - a.uses);
+
 const output = {
   $comment: "생성물. scripts/build-alpha-consolidation.mjs가 만든다. 직접 수정하지 않는다.",
   $whyThisExists:
@@ -119,6 +140,7 @@ const output = {
     visibleUses,
     reviewSites: review.reduce((n, r) => n + r.sites.length, 0),
   },
+  inkLadder,
   mapping,
   review,
 };

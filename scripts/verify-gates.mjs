@@ -233,6 +233,35 @@ withCanary(
   "--check",
 );
 
+// 인용 좌표가 낡는 것은 조용하다 — 사실은 맞는데 줄만 밀린다. 이식번들에서 124건이 그랬다.
+// 세 가지가 실제로 잡히는지 증명한다: 모호한 이름 · 파일 길이를 넘는 줄 · 락에 없는 파일.
+withCanary(
+  "design/patterns/app-shell.md",
+  (source) => source.replace("`Gnb.tsx:2015`", "`Gnb.tsx:999999`"),
+  "citation line out of range",
+  "scripts/verify-citations.mjs",
+  "인용합니다",
+);
+
+withCanary(
+  "migration/citation-aliases.json",
+  (source) => source.replace(
+    '"Gnb.tsx": "apps/web/components/navigation/Gnb.tsx"',
+    '"Gnb.tsx": "apps/web/components/navigation/GnbGone.tsx"',
+  ),
+  "citation alias target missing",
+  "scripts/verify-citations.mjs",
+  "배포본",
+);
+
+withCanary(
+  "migration/product-evidence.lock.json",
+  (source) => source.replace(/\n\s*"apps\/web\/app\/tailwind\.css": "[0-9a-f]+",/, ""),
+  "cited file not locked",
+  "scripts/verify-citations.mjs",
+  "evidence lock에 없습니다",
+);
+
 // 내비 라벨을 경로에서 유추해 네 곳이 틀렸다(2026-08-21 「보관함」 → 「홈」). 표를 생성물로
 // 바꿨으니 손으로 고치면 잡혀야 한다.
 withCanary(

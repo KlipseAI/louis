@@ -1,0 +1,11 @@
+{
+  "$comment": "design 문서가 짧은 파일명으로 제품을 인용할 때 어느 파일인지 고정한다. scripts/verify-citations.mjs가 읽는다.",
+  "$whyThisExists": "제품에 같은 이름의 파일이 여럿이면 짧은 인용은 모호하다. `Gnb.tsx`는 배포본에 둘이다 — 앱 셸용(5,570줄)과 랜딩용(1,010줄). 2026-08-21에 랜딩 쪽을 열고 「그 파일이 없다」고 판단한 적이 실제로 있다. 규범 문서는 `apps/web/...` 경로를 본문에 쓸 수 없으므로(build-design-docs의 저장소 경계 규칙) 대응을 여기 둔다.",
+  "$howToRead": "키는 문서에 적히는 짧은 이름, 값은 배포본의 유일한 경로다. 게이트가 (1) 그 이름이 정말 모호한지 (2) 값이 배포본에 실재하는지를 함께 확인하므로, 모호하지 않게 된 별칭은 실패로 드러난다.",
+  "aliases": {
+    "Gnb.tsx": "apps/web/components/navigation/Gnb.tsx"
+  },
+  "$evidence": {
+    "Gnb.tsx": "인용 17건을 내용으로 대조했다 — :191 `iconButton: [` · :427 `[background:var(--app-page-bg)]` · :511 `menuLinkActive: [` · :909 mint 16% 베이스 · :1886~2016 (랜딩 Gnb는 1,010줄이라 존재할 수 없다). 전부 앱 셸 Gnb다."
+  }
+}

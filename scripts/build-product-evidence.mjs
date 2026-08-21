@@ -3,6 +3,7 @@ import { existsSync, readFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { atomicWriteBatch } from "./lib/atomic-output.mjs";
+import { collectDocCitations, resolveCitation } from "./lib/doc-citations.mjs";
 
 // product.measured.json이 인용한 제품 파일의 blob 해시를 배포본에서 뽑아 고정한다.
 // 대조는 scripts/verify-product-evidence.mjs가 한다.
@@ -22,6 +23,23 @@ const cited = new Set();
 collect(measured.components);
 
 const commit = git(["rev-parse", productRef]);
+
+// **산문이 인용한 파일도 고정한다.** 2026-08-21까지 이 락은 `product.measured.json`이 인용한
+// 파일만 봤고, design 문서가 본문에서 인용한 제품 파일은 **아무도 지키지 않았다** — 제품이
+// 그 파일을 바꾸면 문서의 좌표가 조용히 낡는다. 이식번들의 인용 124건이 그렇게 낡았다.
+const treeSet = new Set(
+  git(["ls-tree", "-r", "--name-only", commit]).split("\n").filter(Boolean),
+);
+const aliasFile = JSON.parse(
+  readFileSync(resolve(repoRoot, "migration/citation-aliases.json"), "utf8"),
+);
+const aliases = new Map(Object.entries(aliasFile.aliases ?? {}));
+for (const citation of collectDocCitations(repoRoot)) {
+  const alias = aliases.get(citation.file);
+  const resolved = alias ? { path: alias } : resolveCitation(citation.file, treeSet);
+  // 해결 못 하는 인용은 여기서 조용히 넘긴다 — 그것을 실패로 만드는 것은 verify-citations의 일이다.
+  if (resolved.path) cited.add(resolved.path);
+}
 const evidence = {};
 for (const file of [...cited].sort()) {
   const line = git(["ls-tree", commit, "--", file]);

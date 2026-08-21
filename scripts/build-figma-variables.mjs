@@ -19,6 +19,12 @@ const proposal = JSON.parse(
   readFileSync(resolve(repoRoot, "packages/tokens/generated/figma.tokens.json"), "utf8"),
 );
 const check = process.argv.includes("--check");
+// `--delta` — 현재 snapshot에 **없는** 변수만 낸다. 토큰을 더한 직후 라이브러리를 따라잡힐 때
+// 전량을 다시 밀 필요가 없다. idempotent라 전량을 밀어도 결과는 같지만 호출 수가 몇 배가 된다.
+const delta = process.argv.includes("--delta");
+const known = delta
+  ? new Set(Object.keys(JSON.parse(readFileSync(resolve(repoRoot, "figma/snapshot.json"), "utf8")).variables ?? {}))
+  : null;
 
 const plan = [];
 let skipped = 0;
@@ -75,6 +81,7 @@ for (const [collectionName, collection] of Object.entries(proposal.collections))
       }
     }
     if (Object.keys(vals).length === 0) continue;
+    if (delta && known.has(id)) continue;
     vars.push({
       i: id,
       n: v.figmaName,
@@ -153,6 +160,7 @@ return {collection:COL.c,collectionsCreated:report.collectionsCreated,modesAdded
 // 컬렉션을 조각으로 나눈다. 조각마다 그 조각이 실제로 참조하는 별칭 이름만 싣는다.
 const chunks = [];
 for (const col of plan) {
+  if (col.vars.length === 0) continue;
   for (let start = 0; start < col.vars.length; start += CHUNK) {
     const vars = col.vars.slice(start, start + CHUNK);
     const names = {};
@@ -165,7 +173,7 @@ for (const col of plan) {
 }
 
 const files = chunks.map((ch, i) => ({
-  absolute: resolve(repoRoot, `figma/apply-variables.${i + 1}.js`),
+  absolute: resolve(repoRoot, delta ? `figma/apply-variables.delta.${i + 1}.js` : `figma/apply-variables.${i + 1}.js`),
   expected:
     `// 생성물. scripts/build-figma-variables.mjs가 만든다. 직접 수정하지 않는다.\n` +
     `// use_figma에 그대로 넘긴다. ${i + 1}/${chunks.length} — ${ch.col.c} ${ch.part}/${ch.parts} (변수 ${ch.col.vars.length}개).\n` +

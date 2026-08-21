@@ -19,8 +19,9 @@ Figma에는 역할이 다른 두 파일이 있다. 둘을 섞지 않는다.
 | 제품 미러 reference | `CNORJOONt4z0a4Bl22Kjuu` — "Klipse 3.0" | 제품/디자인 작업자 | **금지.** 읽기 전용 evidence ([KP-FIGMA-001](../../migration/product-baseline.md)) |
 
 **이전 중이다(2026-08-21).** 새 라이브러리 파일 `OlYKERKOkgbxBEEoXGZW2c`를 `SEJUNKI` 팀에 만들고
-`figma/apply-variables.*.js`로 **변수 258개를 적용했다** — 되읽기로 3컬렉션·258변수·별칭 105건을
-확인했다. 다만 **style 23 · component 26 · icon 31 · template은 아직 옮기지 않았다.**
+`figma/apply-variables.*.js`로 **변수 258개**를, `figma/apply-styles.js`로 **style 23개**(text 15 ·
+effect 8)를 적용했다 — 되읽기로 확인했고 변수 바인딩 누락은 0이다. 다만 **component 26 ·
+icon 31 · template은 아직 옮기지 않았다.**
 그것들을 옮기기 전에 `readback.json`을 새 파일에서 다시 뜨면 snapshot이 그만큼 비어 parity가
 하드 실패한다. **그래서 `readback.json`·`snapshot.json`은 이전 파일을 계속 가리킨다.**
 이전이 끝나야 운영 파일을 바꾼다.
@@ -49,7 +50,13 @@ publish 이후에만 검토한다 — publish 전에는 파일 간 변수·compo
    `use_figma`에 그대로 넘기고 손대지 않는다. 즉석 코드를 쓰지 않는 이유는 `inventory-draw.*.js`와
    같다 — 쓰는 코드가 대화에만 있으면 무엇을 적용했는지가 남지 않는다.
    생성 시점에 현재 라이브러리 스냅샷과 **변수 258개·값 318건을 전수 대조해 불일치 0**을 확인했다.
-   즉 지금 실행하면 아무것도 바꾸지 않는다.
+   style도 같다 — `figma/apply-styles.js`는 `scripts/build-figma-styles.mjs`가 만들고
+   `verify-figma-styles`가 지키며, **값 140건을 전수 대조해 불일치 0**을 확인한 뒤 적용했다.
+
+   **effect style에는 모드가 없다.** DTCG shadow는 테마별로 값이 갈리는데 Figma effect style은
+   단일 값이라 **Light를 명시적으로 고른다.** 고르지 않고 첫 모드를 쓰면 Dark가 잡혀
+   `elevation/menu`의 헤어라인이 어두운 값으로 들어간다 — 라이트 화면에 검은 테두리가 생긴다.
+   다크 그림자는 Figma가 표현하지 못한다.
 5. Figma 쪽 수동 편집과 충돌하면 덮어쓰지 않고 diff를 보고한다.
 6. **되읽기는 페이지를 명시적으로 전환한 뒤 수행한다.** `figma.currentPage`는 매 호출 첫 페이지로
    초기화되므로, `await figma.setCurrentPageAsync(page)` 없이 세면 component가 조용히 0개로 나온다.

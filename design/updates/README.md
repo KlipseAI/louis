@@ -8,6 +8,48 @@ authority: normative
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
 
+## 2026-08-21 (67) — style 23개를 새 라이브러리로 옮겼습니다
+
+`scripts/build-figma-styles.mjs` → `figma/apply-styles.js`. 변수와 같은 방식입니다 — 생성기가
+token proposal에서 뽑고, 게이트(`verify-figma-styles`)가 드리프트를 잡습니다.
+`pnpm verify` 20 → **21단계**.
+
+| 종류 | 수 | 결과 |
+| --- | ---: | --- |
+| text style | 15 | created 15 · **변수 바인딩 누락 0** |
+| effect style | 8 | created 8 |
+
+text style은 `fontSize`·`fontWeight`를 변수에 바인딩합니다. 이름은 `typography-{size}-{weight}`에서
+갈라 냅니다 — 마지막 조각이 weight, 나머지가 size입니다(DS-D-0010 §2의 명명 규칙 그대로).
+
+### effect style에는 모드가 없습니다
+
+DTCG shadow는 테마별로 값이 갈리는데 **Figma effect style은 단일 값**입니다. 그래서 **Light를
+명시적으로 골랐습니다.**
+
+고르지 않고 첫 모드를 쓰면 Dark가 잡혀 `elevation/menu`의 헤어라인이 `neutral-700`(어두움)으로
+들어갑니다 — **라이트 화면에 검은 테두리가 생깁니다.** 스냅샷이 `neutral-300`을 담고 있어
+대조에서 드러났습니다.
+
+**다크 그림자는 Figma가 표현하지 못합니다.** 재현 불가로 남깁니다.
+
+### 돌리기 전에 대조했습니다
+
+스냅샷과 **값 140건을 전수 대조해 불일치 0**을 확인한 뒤 적용했습니다. 변수 때와 같은 규율이고,
+그 대조가 여기서도 Light/Dark 판단이 맞았는지를 증명했습니다.
+
+되읽기도 통과했습니다 — 15 + 8, 바인딩 누락 0, `elevation/upgrade`의 `INNER_SHADOW`와
+`DROP_SHADOW` 구분도 정확합니다.
+
+### 남은 것
+
+**component 26 · icon 31 · template 1.** 그것까지 옮겨야 `readback.json`을 새 파일에서 뜰 수 있고,
+그래야 (66)에서 확인한 **토큰 단위 8개가 한꺼번에 열립니다.**
+
+### Migration
+
+없습니다. 생성기와 게이트가 늘었고 token source·package는 그대로입니다.
+
 ## 2026-08-21 (66) — 토큰 단위 8개가 전부 같은 곳에 막혀 있습니다
 
 단위 2(알파 26개)와 단위 3(램프 39개)을 각각 **실제로 넣어 보고** 확인했습니다. 토큰을 더하는

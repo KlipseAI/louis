@@ -26,9 +26,13 @@ authority: normative
 | `menu-popover.css` spinner | 같음 |
 | 두 keyframe | `rotate: 360deg`를 애니메이션하는데 `rotate`는 허용 property가 아니다 |
 
-제품도 같은 상태다 — 회전 정의 22벌, 회전 keyframe 이름 18개인데 본문은 전부
-`to { transform: rotate(360deg) }` 한 종류다. 주기는 700ms가 우세하고(10회) DS의 `1s`는 제품 어디와도
-일치하지 않는다.
+제품도 같은 상태다 — 회전 keyframe **14개**(전부 `app/keyframes.css`)를 **18건**의 `animation`
+선언이 참조하는데 본문은 전부 `to { transform: rotate(360deg) }` 한 종류다. 주기는 **700ms가
+우세하고(11회 / 18건)** DS의 `1s`는 제품 어디와도 일치하지 않는다(실사용은 700·800·640·880ms).
+
+> **수치 정정(2026-08-21).** 원래 「회전 정의 22벌, keyframe 이름 18개, 700ms 10회」라고 적었다.
+> 다시 세니 **이름 14개 · 선언 18건 · 700ms 11회**다 — 두 범주(이름과 선언)가 뒤바뀌어 있었다.
+> **결론은 그대로다.** 700ms가 우세하고 DS의 `1s`는 어디와도 안 맞는다.
 
 Spinner 컴포넌트를 세우려면 이 셋이 먼저 풀려야 한다.
 

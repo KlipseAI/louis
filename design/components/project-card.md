@@ -216,7 +216,8 @@ Figma가 같은 원천을 본다.
   카드는 테마 색을 그대로 쓴다. DS도 같다. 해소하려면 썸네일의 평균 광도를 읽어야 하며 그것은
   런타임 계약이라 이 컴포넌트가 소유할 수 없다.
 - **줄 높이 1.2가 리터럴이다.** tight 축의 typography 토큰이 소스에 없다. 제품도 같은 이유로
-  `--project-card-overlay-line-height`를 따로 두며, 그 변수는 카드 4벌에서만 쓰인다(15곳) — 타입
+  `--project-card-overlay-line-height`를 따로 두며, 그 변수는 카드 4벌에서만 쓰인다(**14곳**,
+  2026-08-21 재실측 — 원래 15곳이라 적었는데 `globals.css`의 정의 1곳을 사용처로 셌다) — 타입
   스케일의 축이 아니라 카드의 값이다. **Figma에서는 이것이 text style을 못 쓰게 만든다** — Figma
   text style은 all-or-nothing이라 줄 간격만 덮으면 style 연결이 끊긴다. 그래서 세 줄은 style에
   묶이지 않고 parity 게이트가 `fontSize`와 `lineHeightPercent`를 직접 대조한다.

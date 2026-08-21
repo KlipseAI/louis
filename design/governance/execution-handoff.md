@@ -334,8 +334,9 @@ Decision으로 이 판정을 뒤집고 다시 연다.
 
 **~~(1d) `select`가 계획에 없다 — 판정이 필요하다.~~** manifest에 `not-ready`로 남아 있는 유일한
 component인데 **gap registry 우선순위 1~15 어디에도 없다.** 실측 이유가 있다 — 제품은 네이티브
-`<select>`를 3파일에서만 쓰고, 고르는 일은 대부분 트리거 + 메뉴 패널로 한다(`CustomDropdown`·
-`VideoModelMenu` 계열 9파일). DS에는 이미 `ActionMenu`와 `CompositePopover`가 있다.
+`<select>`를 **5파일**에서만 쓰고(2026-08-21 재실측 — 원래 3파일이라 적었다. 5파일 전부
+admin·운영 화면이다), 고르는 일은 대부분 트리거 + 메뉴 패널로 한다(`CustomDropdown`·
+`VideoModelMenu` 계열 9파일 — 이 수는 재실측에서 확인됐다). DS에는 이미 `ActionMenu`와 `CompositePopover`가 있다.
 
 셋 중 하나를 골라야 한다 — (a) Select를 세운다, (b) "고르기는 Menu가 소유한다"로 정하고 manifest
 항목을 `not-planned`로 바꾼다, (c) 남겨 둔다. 지금처럼 계획 없이 `not-ready`로 두면 카탈로그가
@@ -501,14 +502,19 @@ census를 [gap registry](../../migration/figma-gap-registry.md)에 남겼다(359
   (`elevation-popover`·`elevation-focus-ring`·`blur-panel`)은 그대로다
 
 **13순위 SegmentedControl이 섰다(2026-08-18).** 등록부의 "3 파일"은 틀렸고 실제 **11벌 ·
-6레시피 · 8파일**이다. Slider와 다른 점이 있다 — **공용 구현이 둘인데 서로 아무것도 공유하지
+6레시피 · 8파일**이다.
+
+> **재실측(2026-08-21).** 벌 수 11은 그대로인데 **파일은 10개**다(빠뜨린 것 중 하나가
+> `CropModal.tsx:471`의 `ASPECT_TOOLBAR`). 「레시피」는 묶는 기준에 판단이 들어가 기계로 셀 수
+> 없다 — 그 수는 이 문서의 판정이지 실측이 아니다. Slider와 다른 점이 있다 — **공용 구현이 둘인데 서로 아무것도 공유하지
 않는다.** `SegmentedToggle` 컴포넌트(3벌, 파일 주석이 스스로 SSOT라고 적어 두었다)와
 `useSegmentedControlThumb` 훅(4벌, 훅만 공유하고 스타일은 복붙 — Youtube·Instagram의 5상수가
 바이트 동일). 전자를 정본으로 잡고 반경·padding 3축에 기계 대조를 붙였다.
 
 다음 사람이 알아야 할 것 셋.
 
-- **`role="tablist"` 14곳 중 5곳은 패널을 바꾸는 탭이고 3곳은 카루셀 점이다.** 세그먼트 컨트롤은
+- **`role="tablist"` 15곳 중 5곳은 패널을 바꾸는 탭이고 3곳은 카루셀 점이다.**
+  (2026-08-21 재실측 — 원래 14곳이라 적었다.) 세그먼트 컨트롤은
   값을 고르고 자리를 옮기지 않는다. 갈라 두지 않으면 **Tabs를 만들 때 같은 것을 두 번 만든다.**
   Tabs는 아직 카탈로그에 없고 제품에 5자리가 있다
 - **(1c)의 면 충돌이 실제로 컴포넌트를 막는다.** 다크에서 `background-inset`·`surface`·`menu`·
@@ -1033,7 +1039,8 @@ coverage가 끝나지 않았다면 P3 core release라고 명시한다. published
 - 게이트는 positive 6 + 변조 canary 20종이다. 그중 셋은 여기서 실제로 잡은 결함이다 —
   작은따옴표 속성을 파서가 조용히 흘려 **게이트를 통과하면서 출력에서 사라지던** 버그, 혼합
   라이선스를 하나로 뭉개 `ISC AND MIT`를 감추던 고지문, 최상위 부수효과.
-- 남은 owner 판정: `eye-slash` 은유 변경(제품 17곳), `x-circle` Fill→regular, `magic-wand` 처리,
+- 남은 owner 판정: `eye-slash` 은유 변경(제품 **12곳**, 2026-08-21 재실측 — 원래 17곳이라 적었다.
+  비밀번호 입력 필드 12개와 토글 12개가 1:1로 대응한다), `x-circle` Fill→regular, `magic-wand` 처리,
   Wave B 4개.
 
 **의존성:** DS-P3-009a

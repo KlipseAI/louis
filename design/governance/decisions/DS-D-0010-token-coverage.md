@@ -23,6 +23,16 @@ weight 600인데, 배포 화면의 heading은 전량 medium 500이다(semibold·
 `.type-heading-28-semibold` 클래스가 *정의*돼 있어 [token mapping](../../../migration/token-mapping.md)이
 그 클래스를 매핑했지만, 실사용은 medium뿐이었다. 정의된 값과 사용되는 값을 구분하지 않은 결과다.
 
+> **낡음 표시(2026-08-21).** 위 「semibold 사용 0회」는 **이 결정이 쓰인 2026-08-15에는 맞았다.**
+> 지금은 `.type-heading-28-semibold`가 **5곳** 쓰인다 — `CreativeMediaAdminClient.tsx:149`와
+> `CreativeMediaClient.tsx:353·441·559·609`. 전부 `creative-media`(부스 체험)이고, 그 기능은
+> **나흘 뒤인 2026-08-19**에 들어왔다(`750f0fc8`). `regular 사용 0회`는 지금도 맞고,
+> `type-heading-36-semibold`·`-48-semibold`도 여전히 정의만 있고 사용은 0이다.
+>
+> **판정 원칙은 그대로다** — 오히려 이 사례가 원칙을 강화한다. 「정의가 아니라 실사용을
+> 승격한다」면 실사용은 **계속 다시 재야 한다.** 한 번 재고 문서에 적어 두면 제품이 그 밑에서
+> 움직인다.
+
 이 결정은 무엇을 승격하고 무엇을 승격하지 않을지의 **판정 원칙**을 고정한다. 개별 토큰 추가는 이
 원칙에 따른 후속 변경 단위가 수행한다.
 

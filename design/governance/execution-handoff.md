@@ -1087,12 +1087,23 @@ Button은 쌍으로 써서 성립하지만 Menu의 danger item은 이 공백을 
 10개 단위 중 1(결정)과 5(타이포 재편)는 끝났고, **남은 8개는 전부 토큰을 더하는 단위다.**
 따라서 8개가 모두 같은 선행 조건에 걸려 있다.
 
-**선행 조건은 Figma 라이브러리 이전을 끝내는 것이다.** 새 파일(`OlYKERKOkgbxBEEoXGZW2c`)에
-변수 258개는 들어갔지만 style 23 · component 26 · icon 31 · template이 남아 있어 `readback.json`을
-새 파일에서 뜰 수 없다. 그래서 snapshot이 이전 파일에 묶여 있고, 이전 파일에는 새 토큰이 없다.
+**선행 조건은 「이전 완료」가 아니라 「parity 원천에 새 토큰이 있는 것」이다(2026-08-21 정정).**
 
-**순서가 정해진다 — Figma 이전을 먼저 끝낸다.** 그러면 단위 2·3·4·6·7·8·9·10이 한꺼번에 열린다.
-개별 단위를 하나씩 뚫으려 하면 매번 같은 벽을 만난다.
+처음에는 Figma 이전을 끝내야 열린다고 적었으나 그것은 틀렸다. `verify-figma-parity`가 보는 것은
+`figma/snapshot.json`이고, 그것은 `figma/readback.json`의 투영이며, readback은 **이전 라이브러리**
+(`bxGEp0km5zluMJGulaTvFW`)를 가리킨다. 따라서 필요한 것은 다음 둘뿐이다.
+
+1. 이전 라이브러리에 새 토큰을 적용한다 — `figma/apply-variables.*.js`가 그 경로다.
+2. readback의 **변수 구간만** 다시 뜬다. style·component·icon은 그 파일에서 바뀌지 않았으므로
+   전면 재덤프가 필요 없다. 절차는 `build-figma-snapshot.mjs` 헤더 (1)에 코드까지 있다.
+
+**component·icon 이전은 별개 트랙이다.** 그것을 기다릴 이유가 없다.
+
+**component는 스냅샷으로 재구성할 수 없다.** 스냅샷의 component 항목은 `variantCount` ·
+property 이름 · 바인딩 **개수** · 기하 요약뿐이고 노드 트리가 없다 — **검증용 투영이지 빌드
+사양이 아니다.** 변수·style은 token proposal에서 파생되지만 component의 원천은 Figma 파일 자체다.
+그래서 새 파일에 component를 세우는 것은 기계적 이전이 아니라 `figma-generate-library` 계열의
+저작 작업이며, 토큰 단위와 묶으면 안 된다.
 
 각 자산은 변수와 같은 방식이 필요하다 — 생성기(`build-figma-*.mjs`)와 적용 코드
 (`figma/apply-*.js`)를 만들고, **돌리기 전에 스냅샷과 전수 대조**한다. 변수에서 그 대조가

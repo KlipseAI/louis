@@ -8,6 +8,48 @@ authority: normative
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
 
+## 2026-08-21 (68) — (66)의 진단이 틀렸습니다. 벽이 훨씬 얕습니다
+
+(66)에서 「Figma 이전을 끝내야 토큰 단위 8개가 열린다」고 적었습니다. **틀렸습니다.**
+
+`verify-figma-parity`가 보는 것은 `figma/snapshot.json`이고, 그것은 `figma/readback.json`의
+투영이며, readback은 **이전 라이브러리**를 가리킵니다. 그러니 필요한 것은 둘뿐입니다.
+
+1. **이전 라이브러리에 새 토큰을 적용한다** — `figma/apply-variables.*.js`가 이미 그 경로입니다.
+2. **readback의 변수 구간만 다시 뜬다** — style·component·icon은 그 파일에서 바뀌지 않았으므로
+   전면 재덤프가 필요 없습니다. 절차는 `build-figma-snapshot.mjs` 헤더 (1)에 코드까지 있습니다.
+
+**component·icon 이전은 별개 트랙이고 기다릴 이유가 없습니다.**
+
+### component는 스냅샷으로 재구성할 수 없습니다
+
+새 파일로 component를 옮기려고 스냅샷을 열었더니 담긴 것이 이렇습니다.
+
+```
+variantCount · property 이름/종류 · 바인딩 개수 · 기하 요약(높이·여백 배열)
+```
+
+**노드 트리가 없습니다.** 검증용 투영이지 빌드 사양이 아닙니다. 변수와 style은 token proposal에서
+파생되지만 **component의 원천은 Figma 파일 자체**입니다.
+
+그래서 새 파일에 component를 세우는 것은 기계적 이전이 아니라 저작 작업입니다
+(`figma-generate-library` 계열). 토큰 단위와 묶으면 안 되고, 묶었던 것이 (66)의 오진이었습니다.
+
+### 지금 상태
+
+| | 이전 라이브러리 | 새 파일 |
+| --- | --- | --- |
+| 변수 258 | ✓ (parity 원천) | ✓ |
+| style 23 | ✓ | ✓ |
+| component 26 · icon 31 · template 1 | ✓ | 아직 |
+
+토큰 단위를 열려면 **이전 라이브러리에 쓰는 판단**이 필요합니다 — 이전 중인 파일에 값을 더하는
+것이라 사람이 정할 일입니다. 새 파일로 parity 원천을 옮기려면 component·icon 저작이 선행됩니다.
+
+### Migration
+
+없습니다. 잘못된 진단을 고쳤습니다.
+
 ## 2026-08-21 (67) — style 23개를 새 라이브러리로 옮겼습니다
 
 `scripts/build-figma-styles.mjs` → `figma/apply-styles.js`. 변수와 같은 방식입니다 — 생성기가

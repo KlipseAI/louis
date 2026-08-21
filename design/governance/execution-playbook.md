@@ -199,10 +199,12 @@ Figma 트랙 DS-F-000 → 001 → 002 → (003 ∥ 004 1단계) → 004 2단계 
    근거와 판단은 [실행 인계서](execution-handoff.md)의 DS-P3-014 절에 있다. **DS-P3-014 단위 10의
    대기 사유가 없어졌다.**
 
-9. **Figma 라이브러리 이전 미완** — 새 파일에 변수 258개는 들어갔으나 style·component·icon·
-   template이 남아 `readback.json`을 새 파일에서 뜰 수 없다. snapshot이 이전 파일에 묶이고, 그
-   파일에는 새 토큰이 없다. **DS-P3-014의 남은 8개 단위가 전부 여기 막혀 있다** — 토큰을 더하는
-   단위는 예외 없이 `verify-figma-parity`에서 실패한다. 이전을 끝내면 8개가 한꺼번에 열린다.
+9. **parity 원천에 새 토큰이 없다** — `verify-figma-parity`는 `snapshot.json`(=`readback.json`의
+   투영)을 보고, readback은 **이전 라이브러리**를 가리킨다. 그래서 토큰을 더하는 단위가 전부
+   여기서 실패한다(DS-P3-014의 남은 8개). **여는 방법은 이전 완료가 아니라** ① 이전 라이브러리에
+   `figma/apply-variables.*.js`를 적용하고 ② readback의 **변수 구간만** 다시 뜨는 것이다.
+   component·icon 이전은 별개 트랙이며 기다릴 이유가 없다. 절차는
+   `build-figma-snapshot.mjs` 헤더 (1)에 있다.
 
 ## 6. 작업별 플레이북
 

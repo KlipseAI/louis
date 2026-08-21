@@ -37,6 +37,12 @@ publish 이후에만 검토한다 — publish 전에는 파일 간 변수·compo
 3. **library publish는 어떤 방법으로도 자동화하지 않는다.** publish API가 존재하지 않으며 항상
    사람이 Figma UI에서 수행한다. publish 여부를 추측해 상태를 올리지 않는다.
 4. 쓰기 스크립트는 idempotent해야 하고, 실행 전후 상태를 대조해 무엇이 바뀌었는지 보고한다.
+   **변수 적용은 `figma/apply-variables.js`가 유일한 경로다** — `scripts/build-figma-variables.mjs`가
+   token proposal에서 생성하며 `verify-figma-variables`가 드리프트를 잡는다. 그 파일 내용을
+   `use_figma`에 그대로 넘기고 손대지 않는다. 즉석 코드를 쓰지 않는 이유는 `inventory-draw.*.js`와
+   같다 — 쓰는 코드가 대화에만 있으면 무엇을 적용했는지가 남지 않는다.
+   생성 시점에 현재 라이브러리 스냅샷과 **변수 258개·값 318건을 전수 대조해 불일치 0**을 확인했다.
+   즉 지금 실행하면 아무것도 바꾸지 않는다.
 5. Figma 쪽 수동 편집과 충돌하면 덮어쓰지 않고 diff를 보고한다.
 6. **되읽기는 페이지를 명시적으로 전환한 뒤 수행한다.** `figma.currentPage`는 매 호출 첫 페이지로
    초기화되므로, `await figma.setCurrentPageAsync(page)` 없이 세면 component가 조용히 0개로 나온다.

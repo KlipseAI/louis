@@ -381,6 +381,13 @@ Figma에는 역할이 다른 두 파일이 있다. 둘을 섞지 않는다.
 | 디자인 시스템 라이브러리 (정본 projection) | `bxGEp0km5zluMJGulaTvFW` — "Klipse Design System — Library" | 이 저장소 | 허용. Foundations / Components / Templates 3개 페이지 |
 | 제품 미러 reference | `CNORJOONt4z0a4Bl22Kjuu` — "Klipse 3.0" | 제품/디자인 작업자 | **금지.** 읽기 전용 evidence ([KP-FIGMA-001](../../migration/product-baseline.md)) |
 
+**이전 중이다(2026-08-21).** 새 라이브러리 파일 `OlYKERKOkgbxBEEoXGZW2c`를 `SEJUNKI` 팀에 만들고
+`figma/apply-variables.*.js`로 **변수 258개를 적용했다** — 되읽기로 3컬렉션·258변수·별칭 105건을
+확인했다. 다만 **style 23 · component 26 · icon 31 · template은 아직 옮기지 않았다.**
+그것들을 옮기기 전에 `readback.json`을 새 파일에서 다시 뜨면 snapshot이 그만큼 비어 parity가
+하드 실패한다. **그래서 `readback.json`·`snapshot.json`은 이전 파일을 계속 가리킨다.**
+이전이 끝나야 운영 파일을 바꾼다.
+
 라이브러리 파일은 2026-08-14에 `SEJUNKI` 팀(pro tier, Full seat) drafts에 생성됐다. 파일 분리는
 publish 이후에만 검토한다 — publish 전에는 파일 간 변수·component 소비가 불가능하므로 단일 파일
 3-페이지 구조를 유지한다.
@@ -5613,6 +5620,48 @@ Figma에서는 1.5, 코드에서는 1.25로 그려지고 있었다 — 같은 �
 ### Updates
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
+
+#### 2026-08-21 (64) — 새 라이브러리 파일에 변수 258개를 적용했습니다
+
+`SEJUNKI` 팀에 새 라이브러리 파일(`OlYKERKOkgbxBEEoXGZW2c`)을 만들고 (62)에서 생성한
+`figma/apply-variables.*.js`로 변수를 적용했습니다. **쓰는 코드를 생성물로 만든 첫 실사용입니다.**
+
+| 컬렉션 | 변수 | 모드 |
+| --- | ---: | --- |
+| Klipse Primitive | 123 | Base |
+| Klipse Semantic | 75 | Global |
+| Klipse Semantic Color | 60 | Light · Dark |
+| | **258** | 별칭 105건 해결 |
+
+되읽어 확인했습니다 — `color/action-danger → color/red/500`,
+`layout/app-shell-sidebar-width → spacing/280`,
+`motion/shell-collapse → 320ms cubic-bezier(0.4, 0, 0.2, 1) delay 0ms`,
+그리고 **`font-family/sans`가 빈 문자열이 아닌 전체 스택**입니다. (62)에서 잡았던 배열 처리
+버그가 실제로 막혔다는 뜻입니다.
+
+##### 적용 중에 결함 하나를 더 잡았습니다
+
+첫 실행에서 이미 넣은 24개 중 **FLOAT 5개만 `unchanged`이고 색 19개가 `updated`로** 나왔습니다.
+Figma는 색을 전정밀도로 저장하는데 생성 값은 6자리 반올림이라 **엄격 비교가 매번 다르게** 나온
+것입니다. 그대로 두면 idempotent 실행이 항상 `updated`로 보고돼 무엇이 실제로 바뀌었는지 알 수
+없습니다. 비교를 엡실론(1e-5)으로 바꿨고, 이후 조각은 전부 `updated 0`으로 나옵니다.
+
+(62)에서 「지금 실행하면 아무것도 바꾸지 않는다」고 적었는데 **보고 기준으로는 그렇지 않았습니다.**
+값은 같게 유지됐지만 매번 다시 썼습니다. 지금은 보고도 정확합니다.
+
+##### 아직 옮기지 않은 것
+
+**style 23 · component 26 · icon 31 · template**입니다. 그것들을 옮기기 전에 `readback.json`을
+새 파일에서 다시 뜨면 snapshot이 그만큼 비어 parity가 하드 실패합니다. **그래서
+`readback.json`·`snapshot.json`은 이전 파일을 계속 가리킵니다.** 이전이 끝나야 운영 파일을
+바꿉니다.
+
+각 자산도 변수와 같은 방식이 필요합니다 — 생성기와 적용 코드를 만들고, 돌리기 전에 스냅샷과
+전수 대조합니다.
+
+##### Migration
+
+없습니다. 저장소는 문서와 생성기만 바뀌었고 token source·package는 그대로입니다.
 
 #### 2026-08-21 (63) — 앱 셸 램프 값을 확정했습니다. 단위 10의 대기 사유가 없어졌습니다
 

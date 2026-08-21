@@ -18,6 +18,13 @@ Figma에는 역할이 다른 두 파일이 있다. 둘을 섞지 않는다.
 | 디자인 시스템 라이브러리 (정본 projection) | `bxGEp0km5zluMJGulaTvFW` — "Klipse Design System — Library" | 이 저장소 | 허용. Foundations / Components / Templates 3개 페이지 |
 | 제품 미러 reference | `CNORJOONt4z0a4Bl22Kjuu` — "Klipse 3.0" | 제품/디자인 작업자 | **금지.** 읽기 전용 evidence ([KP-FIGMA-001](../../migration/product-baseline.md)) |
 
+**이전 중이다(2026-08-21).** 새 라이브러리 파일 `OlYKERKOkgbxBEEoXGZW2c`를 `SEJUNKI` 팀에 만들고
+`figma/apply-variables.*.js`로 **변수 258개를 적용했다** — 되읽기로 3컬렉션·258변수·별칭 105건을
+확인했다. 다만 **style 23 · component 26 · icon 31 · template은 아직 옮기지 않았다.**
+그것들을 옮기기 전에 `readback.json`을 새 파일에서 다시 뜨면 snapshot이 그만큼 비어 parity가
+하드 실패한다. **그래서 `readback.json`·`snapshot.json`은 이전 파일을 계속 가리킨다.**
+이전이 끝나야 운영 파일을 바꾼다.
+
 라이브러리 파일은 2026-08-14에 `SEJUNKI` 팀(pro tier, Full seat) drafts에 생성됐다. 파일 분리는
 publish 이후에만 검토한다 — publish 전에는 파일 간 변수·component 소비가 불가능하므로 단일 파일
 3-페이지 구조를 유지한다.

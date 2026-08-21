@@ -89,71 +89,105 @@ for (const [collectionName, collection] of Object.entries(proposal.collections))
 
 const total = plan.reduce((n, c) => n + c.vars.length, 0);
 
-const body = `// 생성물. scripts/build-figma-variables.mjs가 만든다. 직접 수정하지 않는다.
-// use_figma에 이 파일 내용을 그대로 넘긴다. idempotent하다 — 있으면 값만 맞추고 없으면 만든다.
-// 이름으로 찾으므로 변수 ID가 유지되고 기존 바인딩이 끊기지 않는다.
-const PLAN=${JSON.stringify(plan)};
-const report={created:[],updated:[],unchanged:0,modesAdded:[],collectionsCreated:[]};
-const cols=await figma.variables.getLocalVariableCollectionsAsync();
-const byName=new Map(cols.map(c=>[c.name,c]));
-const idMap=new Map();
-const eq=(a,b)=>JSON.stringify(a)===JSON.stringify(b);
-// 1차 — 컬렉션·모드·변수 자체를 맞춘다. 별칭은 2차에서 건다(대상이 먼저 있어야 한다).
-for(const col of PLAN){
-  let c=byName.get(col.c);
-  if(!c){c=figma.variables.createVariableCollection(col.c);report.collectionsCreated.push(col.c);}
-  const modeName=new Map(c.modes.map(m=>[m.name,m.modeId]));
-  if(c.modes.length===1&&modeName.has(c.modes[0].name)&&!modeName.has(col.d)){
-    c.renameMode(c.modes[0].modeId,col.d);modeName.clear();modeName.set(col.d,c.modes[0].modeId);
-  }
-  for(const m of col.m){ if(!modeName.has(m)){modeName.set(m,c.addMode(m));report.modesAdded.push(col.c+"/"+m);} }
-  const existing=await figma.variables.getLocalVariablesAsync();
-  const inCol=new Map(existing.filter(v=>v.variableCollectionId===c.id).map(v=>[v.name,v]));
-  for(const spec of col.vars){
-    let v=inCol.get(spec.n);
-    if(!v){v=figma.variables.createVariable(spec.n,c,spec.t);report.created.push(spec.i);}
-    v.hiddenFromPublishing=spec.h;
-    if(spec.sc.length) v.scopes=spec.sc;
-    idMap.set(spec.i,v);
-  }
+// 별칭 대상을 이름으로 찾을 수 있도록 id → figmaName 표를 함께 싣는다.
+// 컬렉션마다 파일을 나눠도(=따로 실행해도) 별칭이 끊기지 않는다.
+const nameById = {};
+for (const col of plan) for (const v of col.vars) nameById[v.i] = v.n;
+
+// 조각 크기 — use_figma 한도(50,000자)보다 훨씬 작게 잡는다. 붙여넣기와 검토가 가능해야 한다.
+const CHUNK = 64;
+
+const RUNNER = `
+const report={created:[],updated:[],unchanged:0,modesAdded:[],collectionsCreated:[],missingAlias:[]};
+const near=(a,b)=>Math.abs((a??1)-(b??1))<1e-5;
+// 색은 Figma가 전정밀도로 저장하고 여기 값은 6자리 반올림이라 **엄격 비교하면 매번 달라 보인다.**
+// 그러면 idempotent 실행이 항상 updated로 보고돼 무엇이 실제로 바뀌었는지 알 수 없다.
+const eq=(a,b)=>(a&&b&&typeof a==="object"&&typeof b==="object"&&"r" in a&&"r" in b)
+  ?(near(a.r,b.r)&&near(a.g,b.g)&&near(a.b,b.b)&&near(a.a,b.a))
+  :JSON.stringify(a)===JSON.stringify(b);
+let cols=await figma.variables.getLocalVariableCollectionsAsync();
+let c=cols.find(x=>x.name===COL.c);
+if(!c){c=figma.variables.createVariableCollection(COL.c);report.collectionsCreated.push(COL.c);}
+let modeName=new Map(c.modes.map(m=>[m.name,m.modeId]));
+if(c.modes.length===1&&!modeName.has(COL.d)){
+  c.renameMode(c.modes[0].modeId,COL.d);modeName=new Map([[COL.d,c.modes[0].modeId]]);
 }
-// 2차 — 값을 넣는다.
-for(const col of PLAN){
-  const c=byName.get(col.c)??(await figma.variables.getLocalVariableCollectionsAsync()).find(x=>x.name===col.c);
-  const modeName=new Map(c.modes.map(m=>[m.name,m.modeId]));
-  for(const spec of col.vars){
-    const v=idMap.get(spec.i); if(!v) continue;
-    let touched=false;
-    for(const [mode,val] of Object.entries(spec.v)){
-      const modeId=modeName.get(mode); if(!modeId) continue;
-      let next;
-      if(val.a!==undefined){const t=idMap.get(val.a); if(!t) continue; next=figma.variables.createVariableAlias(t);}
-      else if(val.c) next={r:val.c[0],g:val.c[1],b:val.c[2],a:val.c[3]};
-      else if(val.n!==undefined) next=val.n;
-      else next=val.s;
-      const cur=v.valuesByMode[modeId];
-      if(!eq(cur,next)){v.setValueForMode(modeId,next);touched=true;}
+for(const m of COL.m){ if(!modeName.has(m)){modeName.set(m,c.addMode(m));report.modesAdded.push(COL.c+"/"+m);} }
+// 1차 — 변수 자체를 맞춘다.
+let all=await figma.variables.getLocalVariablesAsync();
+const inCol=new Map(all.filter(v=>v.variableCollectionId===c.id).map(v=>[v.name,v]));
+for(const spec of COL.vars){
+  let v=inCol.get(spec.n);
+  if(!v){v=figma.variables.createVariable(spec.n,c,spec.t);report.created.push(spec.i);inCol.set(spec.n,v);}
+  v.hiddenFromPublishing=spec.h;
+  if(spec.sc.length) v.scopes=spec.sc;
+}
+// 2차 — 값을 넣는다. 별칭은 **이름으로** 파일 전체에서 찾는다.
+all=await figma.variables.getLocalVariablesAsync();
+const byName=new Map(all.map(v=>[v.name,v]));
+for(const spec of COL.vars){
+  const v=inCol.get(spec.n); if(!v) continue;
+  let touched=false;
+  for(const [mode,val] of Object.entries(spec.v)){
+    const modeId=modeName.get(mode); if(!modeId) continue;
+    let next;
+    if(val.a!==undefined){
+      const t=byName.get(NAME[val.a]);
+      if(!t){report.missingAlias.push(spec.i+"→"+val.a);continue;}
+      next=figma.variables.createVariableAlias(t);
     }
-    if(touched&&!report.created.includes(spec.i)) report.updated.push(spec.i);
-    if(!touched&&!report.created.includes(spec.i)) report.unchanged+=1;
+    else if(val.c) next={r:val.c[0],g:val.c[1],b:val.c[2],a:val.c[3]};
+    else if(val.n!==undefined) next=val.n;
+    else next=val.s;
+    if(!eq(v.valuesByMode[modeId],next)){v.setValueForMode(modeId,next);touched=true;}
   }
+  const isNew=report.created.includes(spec.i);
+  if(touched&&!isNew) report.updated.push(spec.i);
+  if(!touched&&!isNew) report.unchanged+=1;
 }
-JSON.stringify({collectionsCreated:report.collectionsCreated,modesAdded:report.modesAdded,
-  created:report.created.length,createdIds:report.created.slice(0,60),
-  updated:report.updated.length,updatedIds:report.updated.slice(0,60),unchanged:report.unchanged});
+return {collection:COL.c,collectionsCreated:report.collectionsCreated,modesAdded:report.modesAdded,
+  created:report.created.length,updated:report.updated.length,unchanged:report.unchanged,
+  missingAlias:report.missingAlias};
 `;
 
-const outPath = resolve(repoRoot, "figma/apply-variables.js");
-if (check) {
-  const current = readFileSync(outPath, "utf8");
-  if (current !== body) {
-    console.error("[figma-variables] 적용 코드가 최신이 아닙니다. 다시 생성하세요.");
-    process.exit(1);
+// 컬렉션을 조각으로 나눈다. 조각마다 그 조각이 실제로 참조하는 별칭 이름만 싣는다.
+const chunks = [];
+for (const col of plan) {
+  for (let start = 0; start < col.vars.length; start += CHUNK) {
+    const vars = col.vars.slice(start, start + CHUNK);
+    const names = {};
+    for (const v of vars)
+      for (const val of Object.values(v.v))
+        if (val.a !== undefined) names[val.a] = nameById[val.a];
+    chunks.push({ col: { ...col, vars }, names, part: Math.floor(start / CHUNK) + 1,
+      parts: Math.ceil(col.vars.length / CHUNK) });
   }
-  console.log(`[figma-variables] checked: 변수 ${total}개 · 컬렉션 ${plan.length}개`);
+}
+
+const files = chunks.map((ch, i) => ({
+  absolute: resolve(repoRoot, `figma/apply-variables.${i + 1}.js`),
+  expected:
+    `// 생성물. scripts/build-figma-variables.mjs가 만든다. 직접 수정하지 않는다.\n` +
+    `// use_figma에 그대로 넘긴다. ${i + 1}/${chunks.length} — ${ch.col.c} ${ch.part}/${ch.parts} (변수 ${ch.col.vars.length}개).\n` +
+    `// **번호 순서대로 실행한다.** 별칭이 대상 변수를 이름으로 찾으므로 대상이 먼저 있어야 한다.\n` +
+    `// idempotent — 있으면 값만 맞추고 없으면 만든다. 이름으로 찾으므로 변수 ID가 유지된다.\n` +
+    `const NAME=${JSON.stringify(ch.names)};\nconst COL=${JSON.stringify(ch.col)};\n` +
+    RUNNER,
+}));
+
+if (check) {
+  for (const f of files) {
+    const current = readFileSync(f.absolute, "utf8");
+    if (current !== f.expected) {
+      console.error("[figma-variables] 적용 코드가 최신이 아닙니다: " + f.absolute);
+      process.exit(1);
+    }
+  }
+  console.log(`[figma-variables] checked: 변수 ${total}개 · 조각 ${files.length}개`);
 } else {
-  atomicWriteBatch([{ absolute: outPath, expected: body }]);
+  atomicWriteBatch(files);
+  const max = Math.max(...files.map((f) => f.expected.length));
   console.log(
-    `[figma-variables] built: 변수 ${total}개 · 컬렉션 ${plan.length}개 · 변수로 표현 안 되는 항목 ${skipped}개 제외`,
+    `[figma-variables] built: 변수 ${total}개 · 조각 ${files.length}개 · 최대 ${max}자 · 변수로 표현 안 되는 항목 ${skipped}개 제외`,
   );
 }

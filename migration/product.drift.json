@@ -153,6 +153,60 @@
       ]
     },
     {
+      "id": "spacing",
+      "label": "간격",
+      "unit": "px",
+      "productStops": 43,
+      "dsStops": 23,
+      "uses": 1023,
+      "coveragePct": 76.1,
+      "topValue": 8,
+      "topUses": 196,
+      "topHasToken": true,
+      "missingTop": [
+        {
+          "value": 3,
+          "uses": 62,
+          "files": 23
+        },
+        {
+          "value": 5,
+          "uses": 42,
+          "files": 29
+        },
+        {
+          "value": 7,
+          "uses": 32,
+          "files": 13
+        },
+        {
+          "value": 1,
+          "uses": 27,
+          "files": 17
+        },
+        {
+          "value": 9,
+          "uses": 26,
+          "files": 12
+        },
+        {
+          "value": 112,
+          "uses": 9,
+          "files": 9
+        },
+        {
+          "value": 11,
+          "uses": 8,
+          "files": 7
+        },
+        {
+          "value": 160,
+          "uses": 7,
+          "files": 4
+        }
+      ]
+    },
+    {
       "id": "duration",
       "label": "모션 길이",
       "unit": "ms",

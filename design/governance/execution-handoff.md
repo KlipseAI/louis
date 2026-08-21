@@ -1065,7 +1065,7 @@ coverage가 끝나지 않았다면 P3 core release라고 명시한다. published
 | 7 | elevation / border-width / radius 16개 | `partial` — 실측 결과 아래 |
 | 8 | layer / motion 10개 — layerOrder 배열 변경 | `partial` — 실측 결과 아래 |
 | 9 | sky / editor / danger action 14개 | `partial` — danger foreground 해소 (2026-08-21) |
-| 10 | space / surface 보강 13개 | `blocked` — 아래 1·2번 |
+| 10 | space / surface 보강 13개 | `partial` — blocked 해제, 실측 결과 아래 |
 
 **단위 9 — danger foreground 공백은 해소됐다 (2026-08-21).**
 
@@ -1129,6 +1129,25 @@ property 이름 · 바인딩 **개수** · 기하 요약뿐이고 노드 트리�
 
 실제로 넣고 `build-tokens`를 돌려 `verify-token-gates`와 `check-token-diff`가 통과하는 것을
 확인한 뒤 되돌렸다. **코드는 준비됐고 Figma 이전만 남았다.**
+
+**단위 10 — blocked가 풀렸고, spacing도 같은 드리프트다 (2026-08-21):**
+
+`blocked` 사유였던 제품 확인 2건은 (59)와 (63)에서 닫혔다 — 미커밋 `--surface-*` 9개는 어느
+저장소에도 없었고, 앱 셸 램프는 `palette-gray-200`의 G를 238로 확정했다. **surface 보강은 대상이
+존재하지 않으므로 미채택으로 닫는다.**
+
+space 쪽은 실측했다. **제품 43단 1,023회 중 DS의 23단이 76.1%를 덮는다.**
+
+| 결손 | 3px | 5px | 7px | 1px | 9px | 11px | 합 |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| 사용 | 62 | 42 | 32 | 27 | 26 | 8 | **197** |
+
+**radius와 똑같이 짝수 스케일 사이의 홀수다.** DS의 짝수 계단(0·2·4·6·8·10·12·14·16·18·20·24…)이
+이미 촘촘하므로 **승격이 아니라 축소 대상**이며, 접는 것은 제품 변경이라 여기서 하지 않는다.
+`112px`(9회)·`160px`(7회) 같은 큰 값은 레이아웃 상수로 보이며 별도 판단이 필요하다.
+
+**이 축은 `measure-product-drift.mjs`가 잡았다.** 알파·radius·border-width·duration에 이어
+**다섯 번째**이고, 한 축씩 찾던 방식이었다면 놓쳤을 것이다. 계기를 세운 것이 값을 했다.
 
 **단위 8 — layer는 차 있고 motion에 구멍이 있다 (2026-08-21 실측):**
 

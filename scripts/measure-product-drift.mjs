@@ -48,6 +48,11 @@ const AXES = [
     rx: [/border(?:-width)?:\s*(\d+(?:\.\d+)?)px/g, /border-\[(\d+(?:\.\d+)?)px\]/g,
          /\[border-width:(\d+(?:\.\d+)?)px\]/g],
     dsStops: () => numeric("border-width-") },
+  { id: "spacing", label: "간격", unit: "px",
+    rx: [/(?:gap|padding|margin)(?:-(?:inline|block|top|right|bottom|left|x|y))?:\s*(\d+(?:\.\d+)?)px/g,
+         /\[(?:gap|padding|margin)[a-z-]*:(\d+(?:\.\d+)?)px\]/g,
+         /(?:p|m|gap)[xytrbl]?-\[(\d+(?:\.\d+)?)px\]/g],
+    dsStops: () => numeric("space-") },
   { id: "duration", label: "모션 길이", unit: "ms",
     rx: [/(?<![0-9.])(\d{1,4})ms/g],
     dsStops: () => {

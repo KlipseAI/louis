@@ -1,5 +1,5 @@
 // 생성물. scripts/build-figma-variables.mjs가 만든다. 직접 수정하지 않는다.
-// use_figma에 그대로 넘긴다. 3/6 — Klipse Primitive 3/3 (변수 60개).
+// use_figma에 그대로 넘긴다. 3/7 — Klipse Primitive 3/3 (변수 60개).
 // **번호 순서대로 실행한다.** 별칭이 대상 변수를 이름으로 찾으므로 대상이 먼저 있어야 한다.
 // idempotent — 있으면 값만 맞추고 없으면 만든다. 이름으로 찾으므로 변수 ID가 유지된다.
 const NAME={};

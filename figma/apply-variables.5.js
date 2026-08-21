@@ -1,5 +1,5 @@
 // 생성물. scripts/build-figma-variables.mjs가 만든다. 직접 수정하지 않는다.
-// use_figma에 그대로 넘긴다. 5/6 — Klipse Semantic 2/2 (변수 11개).
+// use_figma에 그대로 넘긴다. 5/7 — Klipse Semantic 2/2 (변수 11개).
 // **번호 순서대로 실행한다.** 별칭이 대상 변수를 이름으로 찾으므로 대상이 먼저 있어야 한다.
 // idempotent — 있으면 값만 맞추고 없으면 만든다. 이름으로 찾으므로 변수 ID가 유지된다.
 const NAME={"space-4":"spacing/4","space-16":"spacing/16","space-24":"spacing/24","space-20":"spacing/20","space-6":"spacing/6","space-2":"spacing/2","space-12":"spacing/12"};

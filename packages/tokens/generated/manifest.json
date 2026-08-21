@@ -2,23 +2,23 @@
   "artifacts": [
     {
       "path": "packages/tokens/generated/figma.tokens.json",
-      "sha256": "e1b632091f2b9387ca0069184299eaccf259bc4ddade285e23ed3a1d0780984f"
+      "sha256": "c090078581d2d704ee72440b6f48a188eb452fb8f520bbf22f8816bb15d0514b"
     },
     {
       "path": "packages/tokens/generated/index.d.ts",
-      "sha256": "abe518c40d2cc3c8c721f20e0b17afac6c959b205978e6de006cfd689f7ae3c8"
+      "sha256": "ae91ce2059fd32c9dddf65861f56a66002b6388181f0e8dc18147559200b861a"
     },
     {
       "path": "packages/tokens/generated/index.js",
-      "sha256": "9968de916b2c09c59925bc970d9be3d7aa87d74d3f60e2b6ee4c0ac8e8834c24"
+      "sha256": "318c45c5915e0230fec8339972e25883fa1873159849e52b78751a6b6572148d"
     },
     {
       "path": "packages/tokens/generated/tokens.css",
-      "sha256": "05cc2cf2975fc247f95c0bc956e1b1e196172a15c0c0dd540506ccd3590ac676"
+      "sha256": "7b9046ad4efc971fc26cb00bd24ef5336a5600d537fa361eedc1908f06c5bb3e"
     },
     {
       "path": "packages/tokens/generated/tokens.json",
-      "sha256": "b8797a7eb0ef52e71736dd4b1e713d2a5dd60c3a4167422b97bc0035be613922"
+      "sha256": "3f7de8bd55fd65b97b3c8b11d707d90c3e216fa1ad2ccf15da89bfa330100f1d"
     }
   ],
   "contrastPairs": [
@@ -388,13 +388,13 @@
   },
   "source": {
     "path": "packages/tokens/src/klipse.tokens.json",
-    "sha256": "a9f90a9f0d0132b7eb11bef15be1e0560d7e9a448878e018e818d72114dd5364"
+    "sha256": "32cf7d6c56f83acbf0f08578130dccb7c2ec05c5368bfaa1287f6d2dcb448f70"
   },
   "themes": [
     "light",
     "dark"
   ],
-  "tokenCount": 462,
+  "tokenCount": 500,
   "tokens": [
     {
       "aliasTarget": null,
@@ -5245,6 +5245,994 @@
       },
       "sourcePath": "primitive.color.neutral.900",
       "tier": "primitive",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-pink-500",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-color-node-audio-accent": "color(srgb 1 0.301961 0.533333 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-node-audio-accent",
+      "mode": "light",
+      "rawValue": "{primitive.color.pink.500}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.301961,
+          0.533333
+        ]
+      },
+      "sourcePath": "semantic.light.color.node-audio-accent",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-pink-500",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-color-node-audio-accent": "color(srgb 1 0.301961 0.533333 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-node-audio-accent",
+      "mode": "dark",
+      "rawValue": "{primitive.color.pink.500}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.301961,
+          0.533333
+        ]
+      },
+      "sourcePath": "semantic.dark.color.node-audio-accent",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-pink-500",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-color-node-audio-icon": "color(srgb 1 0.301961 0.533333 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-node-audio-icon",
+      "mode": "light",
+      "rawValue": "{primitive.color.pink.500}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.301961,
+          0.533333
+        ]
+      },
+      "sourcePath": "semantic.light.color.node-audio-icon",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-pink-500",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-color-node-audio-icon": "color(srgb 1 0.301961 0.533333 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-node-audio-icon",
+      "mode": "dark",
+      "rawValue": "{primitive.color.pink.500}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.301961,
+          0.533333
+        ]
+      },
+      "sourcePath": "semantic.dark.color.node-audio-icon",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-pink-200",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-color-node-audio-surface": "color(srgb 1 0.756863 0.839216 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-node-audio-surface",
+      "mode": "light",
+      "rawValue": "{primitive.color.pink.200}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.756863,
+          0.839216
+        ]
+      },
+      "sourcePath": "semantic.light.color.node-audio-surface",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-pink-800",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-color-node-audio-surface": "color(srgb 0.517647 0.101961 0.247059 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-node-audio-surface",
+      "mode": "dark",
+      "rawValue": "{primitive.color.pink.800}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0.517647,
+          0.101961,
+          0.247059
+        ]
+      },
+      "sourcePath": "semantic.dark.color.node-audio-surface",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-violet-500",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-color-node-edit-accent": "color(srgb 0.376471 0.333333 1 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-node-edit-accent",
+      "mode": "light",
+      "rawValue": "{primitive.color.violet.500}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0.376471,
+          0.333333,
+          1
+        ]
+      },
+      "sourcePath": "semantic.light.color.node-edit-accent",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-violet-500",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-color-node-edit-accent": "color(srgb 0.376471 0.333333 1 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-node-edit-accent",
+      "mode": "dark",
+      "rawValue": "{primitive.color.violet.500}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0.376471,
+          0.333333,
+          1
+        ]
+      },
+      "sourcePath": "semantic.dark.color.node-edit-accent",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-violet-500",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-color-node-edit-icon": "color(srgb 0.376471 0.333333 1 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-node-edit-icon",
+      "mode": "light",
+      "rawValue": "{primitive.color.violet.500}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0.376471,
+          0.333333,
+          1
+        ]
+      },
+      "sourcePath": "semantic.light.color.node-edit-icon",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-violet-500",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-color-node-edit-icon": "color(srgb 0.376471 0.333333 1 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-node-edit-icon",
+      "mode": "dark",
+      "rawValue": "{primitive.color.violet.500}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0.376471,
+          0.333333,
+          1
+        ]
+      },
+      "sourcePath": "semantic.dark.color.node-edit-icon",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-violet-200",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-color-node-edit-surface": "color(srgb 0.788235 0.760784 1 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-node-edit-surface",
+      "mode": "light",
+      "rawValue": "{primitive.color.violet.200}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0.788235,
+          0.760784,
+          1
+        ]
+      },
+      "sourcePath": "semantic.light.color.node-edit-surface",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-violet-800",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-color-node-edit-surface": "color(srgb 0.133333 0.101961 0.501961 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-node-edit-surface",
+      "mode": "dark",
+      "rawValue": "{primitive.color.violet.800}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0.133333,
+          0.101961,
+          0.501961
+        ]
+      },
+      "sourcePath": "semantic.dark.color.node-edit-surface",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-mint-500",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-color-node-image-accent": "color(srgb 0 0.776471 0.556863 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-node-image-accent",
+      "mode": "light",
+      "rawValue": "{primitive.color.mint.500}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0,
+          0.776471,
+          0.556863
+        ]
+      },
+      "sourcePath": "semantic.light.color.node-image-accent",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-mint-500",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-color-node-image-accent": "color(srgb 0 0.776471 0.556863 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-node-image-accent",
+      "mode": "dark",
+      "rawValue": "{primitive.color.mint.500}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0,
+          0.776471,
+          0.556863
+        ]
+      },
+      "sourcePath": "semantic.dark.color.node-image-accent",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-mint-500",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-color-node-image-icon": "color(srgb 0 0.776471 0.556863 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-node-image-icon",
+      "mode": "light",
+      "rawValue": "{primitive.color.mint.500}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0,
+          0.776471,
+          0.556863
+        ]
+      },
+      "sourcePath": "semantic.light.color.node-image-icon",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-mint-500",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-color-node-image-icon": "color(srgb 0 0.776471 0.556863 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-node-image-icon",
+      "mode": "dark",
+      "rawValue": "{primitive.color.mint.500}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0,
+          0.776471,
+          0.556863
+        ]
+      },
+      "sourcePath": "semantic.dark.color.node-image-icon",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-mint-200",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-color-node-image-surface": "color(srgb 0.721569 0.972549 0.898039 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-node-image-surface",
+      "mode": "light",
+      "rawValue": "{primitive.color.mint.200}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0.721569,
+          0.972549,
+          0.898039
+        ]
+      },
+      "sourcePath": "semantic.light.color.node-image-surface",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-mint-800",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-color-node-image-surface": "color(srgb 0 0.431373 0.317647 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-node-image-surface",
+      "mode": "dark",
+      "rawValue": "{primitive.color.mint.800}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0,
+          0.431373,
+          0.317647
+        ]
+      },
+      "sourcePath": "semantic.dark.color.node-image-surface",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-red-500",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-color-node-instagram-accent": "color(srgb 1 0.294118 0.34902 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-node-instagram-accent",
+      "mode": "light",
+      "rawValue": "{primitive.color.red.500}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.294118,
+          0.34902
+        ]
+      },
+      "sourcePath": "semantic.light.color.node-instagram-accent",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-red-500",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-color-node-instagram-accent": "color(srgb 1 0.294118 0.34902 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-node-instagram-accent",
+      "mode": "dark",
+      "rawValue": "{primitive.color.red.500}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.294118,
+          0.34902
+        ]
+      },
+      "sourcePath": "semantic.dark.color.node-instagram-accent",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-red-500",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-color-node-instagram-icon": "color(srgb 1 0.294118 0.34902 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-node-instagram-icon",
+      "mode": "light",
+      "rawValue": "{primitive.color.red.500}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.294118,
+          0.34902
+        ]
+      },
+      "sourcePath": "semantic.light.color.node-instagram-icon",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-red-500",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-color-node-instagram-icon": "color(srgb 1 0.294118 0.34902 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-node-instagram-icon",
+      "mode": "dark",
+      "rawValue": "{primitive.color.red.500}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.294118,
+          0.34902
+        ]
+      },
+      "sourcePath": "semantic.dark.color.node-instagram-icon",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-red-200",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-color-node-instagram-surface": "color(srgb 1 0.768627 0.792157 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-node-instagram-surface",
+      "mode": "light",
+      "rawValue": "{primitive.color.red.200}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.768627,
+          0.792157
+        ]
+      },
+      "sourcePath": "semantic.light.color.node-instagram-surface",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-red-800",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-color-node-instagram-surface": "color(srgb 0.517647 0.101961 0.141176 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-node-instagram-surface",
+      "mode": "dark",
+      "rawValue": "{primitive.color.red.800}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0.517647,
+          0.101961,
+          0.141176
+        ]
+      },
+      "sourcePath": "semantic.dark.color.node-instagram-surface",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-yellow-500",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-color-node-text-accent": "color(srgb 1 0.698039 0 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-node-text-accent",
+      "mode": "light",
+      "rawValue": "{primitive.color.yellow.500}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.698039,
+          0
+        ]
+      },
+      "sourcePath": "semantic.light.color.node-text-accent",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-yellow-500",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-color-node-text-accent": "color(srgb 1 0.698039 0 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-node-text-accent",
+      "mode": "dark",
+      "rawValue": "{primitive.color.yellow.500}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.698039,
+          0
+        ]
+      },
+      "sourcePath": "semantic.dark.color.node-text-accent",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-yellow-500",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-color-node-text-icon": "color(srgb 1 0.698039 0 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-node-text-icon",
+      "mode": "light",
+      "rawValue": "{primitive.color.yellow.500}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.698039,
+          0
+        ]
+      },
+      "sourcePath": "semantic.light.color.node-text-icon",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-yellow-500",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-color-node-text-icon": "color(srgb 1 0.698039 0 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-node-text-icon",
+      "mode": "dark",
+      "rawValue": "{primitive.color.yellow.500}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.698039,
+          0
+        ]
+      },
+      "sourcePath": "semantic.dark.color.node-text-icon",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-yellow-200",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-color-node-text-surface": "color(srgb 1 0.909804 0.639216 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-node-text-surface",
+      "mode": "light",
+      "rawValue": "{primitive.color.yellow.200}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.909804,
+          0.639216
+        ]
+      },
+      "sourcePath": "semantic.light.color.node-text-surface",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-yellow-800",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-color-node-text-surface": "color(srgb 0.478431 0.321569 0 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-node-text-surface",
+      "mode": "dark",
+      "rawValue": "{primitive.color.yellow.800}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0.478431,
+          0.321569,
+          0
+        ]
+      },
+      "sourcePath": "semantic.dark.color.node-text-surface",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-blue-500",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-color-node-video-accent": "color(srgb 0 0.533333 1 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-node-video-accent",
+      "mode": "light",
+      "rawValue": "{primitive.color.blue.500}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0,
+          0.533333,
+          1
+        ]
+      },
+      "sourcePath": "semantic.light.color.node-video-accent",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-blue-500",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-color-node-video-accent": "color(srgb 0 0.533333 1 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-node-video-accent",
+      "mode": "dark",
+      "rawValue": "{primitive.color.blue.500}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0,
+          0.533333,
+          1
+        ]
+      },
+      "sourcePath": "semantic.dark.color.node-video-accent",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-red-500",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-color-node-youtube-accent": "color(srgb 1 0.294118 0.34902 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-node-youtube-accent",
+      "mode": "light",
+      "rawValue": "{primitive.color.red.500}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.294118,
+          0.34902
+        ]
+      },
+      "sourcePath": "semantic.light.color.node-youtube-accent",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-red-500",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-color-node-youtube-accent": "color(srgb 1 0.294118 0.34902 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-node-youtube-accent",
+      "mode": "dark",
+      "rawValue": "{primitive.color.red.500}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.294118,
+          0.34902
+        ]
+      },
+      "sourcePath": "semantic.dark.color.node-youtube-accent",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-red-500",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-color-node-youtube-icon": "color(srgb 1 0.294118 0.34902 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-node-youtube-icon",
+      "mode": "light",
+      "rawValue": "{primitive.color.red.500}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.294118,
+          0.34902
+        ]
+      },
+      "sourcePath": "semantic.light.color.node-youtube-icon",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-red-500",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-color-node-youtube-icon": "color(srgb 1 0.294118 0.34902 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-node-youtube-icon",
+      "mode": "dark",
+      "rawValue": "{primitive.color.red.500}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.294118,
+          0.34902
+        ]
+      },
+      "sourcePath": "semantic.dark.color.node-youtube-icon",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-red-200",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-color-node-youtube-surface": "color(srgb 1 0.768627 0.792157 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-node-youtube-surface",
+      "mode": "light",
+      "rawValue": "{primitive.color.red.200}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.768627,
+          0.792157
+        ]
+      },
+      "sourcePath": "semantic.light.color.node-youtube-surface",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-red-800",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-color-node-youtube-surface": "color(srgb 0.517647 0.101961 0.141176 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-node-youtube-surface",
+      "mode": "dark",
+      "rawValue": "{primitive.color.red.800}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0.517647,
+          0.101961,
+          0.141176
+        ]
+      },
+      "sourcePath": "semantic.dark.color.node-youtube-surface",
+      "tier": "semantic",
       "type": "color"
     },
     {

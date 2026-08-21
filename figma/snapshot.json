@@ -6,12 +6,12 @@
     "capturedAt": "2026-08-21",
     "capturedBy": "figma-mcp-plugin-api",
     "published": false,
-    "tokenSourceSha256": "a9f90a9f0d0132b7eb11bef15be1e0560d7e9a448878e018e818d72114dd5364",
-    "proposalSha256": "e1b632091f2b9387ca0069184299eaccf259bc4ddade285e23ed3a1d0780984f",
+    "tokenSourceSha256": "32cf7d6c56f83acbf0f08578130dccb7c2ec05c5368bfaa1287f6d2dcb448f70",
+    "proposalSha256": "c090078581d2d704ee72440b6f48a188eb452fb8f520bbf22f8816bb15d0514b",
     "readback": {
-      "tokens": 323,
-      "canonicalLength": 27409,
-      "fnv1a32": "f0690552",
+      "tokens": 342,
+      "canonicalLength": 29954,
+      "fnv1a32": "c366e271",
       "note": "변수는 readback.json의 되읽기 행을 tokenId 공간으로 옮긴 것이고, style과 component는 같은 되읽기의 style/component 절이다. canonical 해시는 컬렉션·이름·타입·mode 값을 정렬해 이은 문자열의 FNV-1a다.",
       "styles": {
         "text": 15,
@@ -46,7 +46,7 @@
         "Dark"
       ],
       "defaultMode": "Light",
-      "variableCount": 60
+      "variableCount": 79
     }
   },
   "variables": {
@@ -1651,6 +1651,234 @@
             0.133333,
             1
           ]
+        }
+      }
+    },
+    "color-node-audio-accent": {
+      "figmaName": "color/node-audio-accent",
+      "resolvedType": "COLOR",
+      "valuesByMode": {
+        "Light": {
+          "alias": "color-pink-500"
+        },
+        "Dark": {
+          "alias": "color-pink-500"
+        }
+      }
+    },
+    "color-node-audio-icon": {
+      "figmaName": "color/node-audio-icon",
+      "resolvedType": "COLOR",
+      "valuesByMode": {
+        "Light": {
+          "alias": "color-pink-500"
+        },
+        "Dark": {
+          "alias": "color-pink-500"
+        }
+      }
+    },
+    "color-node-audio-surface": {
+      "figmaName": "color/node-audio-surface",
+      "resolvedType": "COLOR",
+      "valuesByMode": {
+        "Light": {
+          "alias": "color-pink-200"
+        },
+        "Dark": {
+          "alias": "color-pink-800"
+        }
+      }
+    },
+    "color-node-edit-accent": {
+      "figmaName": "color/node-edit-accent",
+      "resolvedType": "COLOR",
+      "valuesByMode": {
+        "Light": {
+          "alias": "color-violet-500"
+        },
+        "Dark": {
+          "alias": "color-violet-500"
+        }
+      }
+    },
+    "color-node-edit-icon": {
+      "figmaName": "color/node-edit-icon",
+      "resolvedType": "COLOR",
+      "valuesByMode": {
+        "Light": {
+          "alias": "color-violet-500"
+        },
+        "Dark": {
+          "alias": "color-violet-500"
+        }
+      }
+    },
+    "color-node-edit-surface": {
+      "figmaName": "color/node-edit-surface",
+      "resolvedType": "COLOR",
+      "valuesByMode": {
+        "Light": {
+          "alias": "color-violet-200"
+        },
+        "Dark": {
+          "alias": "color-violet-800"
+        }
+      }
+    },
+    "color-node-image-accent": {
+      "figmaName": "color/node-image-accent",
+      "resolvedType": "COLOR",
+      "valuesByMode": {
+        "Light": {
+          "alias": "color-mint-500"
+        },
+        "Dark": {
+          "alias": "color-mint-500"
+        }
+      }
+    },
+    "color-node-image-icon": {
+      "figmaName": "color/node-image-icon",
+      "resolvedType": "COLOR",
+      "valuesByMode": {
+        "Light": {
+          "alias": "color-mint-500"
+        },
+        "Dark": {
+          "alias": "color-mint-500"
+        }
+      }
+    },
+    "color-node-image-surface": {
+      "figmaName": "color/node-image-surface",
+      "resolvedType": "COLOR",
+      "valuesByMode": {
+        "Light": {
+          "alias": "color-mint-200"
+        },
+        "Dark": {
+          "alias": "color-mint-800"
+        }
+      }
+    },
+    "color-node-instagram-accent": {
+      "figmaName": "color/node-instagram-accent",
+      "resolvedType": "COLOR",
+      "valuesByMode": {
+        "Light": {
+          "alias": "color-red-500"
+        },
+        "Dark": {
+          "alias": "color-red-500"
+        }
+      }
+    },
+    "color-node-instagram-icon": {
+      "figmaName": "color/node-instagram-icon",
+      "resolvedType": "COLOR",
+      "valuesByMode": {
+        "Light": {
+          "alias": "color-red-500"
+        },
+        "Dark": {
+          "alias": "color-red-500"
+        }
+      }
+    },
+    "color-node-instagram-surface": {
+      "figmaName": "color/node-instagram-surface",
+      "resolvedType": "COLOR",
+      "valuesByMode": {
+        "Light": {
+          "alias": "color-red-200"
+        },
+        "Dark": {
+          "alias": "color-red-800"
+        }
+      }
+    },
+    "color-node-text-accent": {
+      "figmaName": "color/node-text-accent",
+      "resolvedType": "COLOR",
+      "valuesByMode": {
+        "Light": {
+          "alias": "color-yellow-500"
+        },
+        "Dark": {
+          "alias": "color-yellow-500"
+        }
+      }
+    },
+    "color-node-text-icon": {
+      "figmaName": "color/node-text-icon",
+      "resolvedType": "COLOR",
+      "valuesByMode": {
+        "Light": {
+          "alias": "color-yellow-500"
+        },
+        "Dark": {
+          "alias": "color-yellow-500"
+        }
+      }
+    },
+    "color-node-text-surface": {
+      "figmaName": "color/node-text-surface",
+      "resolvedType": "COLOR",
+      "valuesByMode": {
+        "Light": {
+          "alias": "color-yellow-200"
+        },
+        "Dark": {
+          "alias": "color-yellow-800"
+        }
+      }
+    },
+    "color-node-video-accent": {
+      "figmaName": "color/node-video-accent",
+      "resolvedType": "COLOR",
+      "valuesByMode": {
+        "Light": {
+          "alias": "color-blue-500"
+        },
+        "Dark": {
+          "alias": "color-blue-500"
+        }
+      }
+    },
+    "color-node-youtube-accent": {
+      "figmaName": "color/node-youtube-accent",
+      "resolvedType": "COLOR",
+      "valuesByMode": {
+        "Light": {
+          "alias": "color-red-500"
+        },
+        "Dark": {
+          "alias": "color-red-500"
+        }
+      }
+    },
+    "color-node-youtube-icon": {
+      "figmaName": "color/node-youtube-icon",
+      "resolvedType": "COLOR",
+      "valuesByMode": {
+        "Light": {
+          "alias": "color-red-500"
+        },
+        "Dark": {
+          "alias": "color-red-500"
+        }
+      }
+    },
+    "color-node-youtube-surface": {
+      "figmaName": "color/node-youtube-surface",
+      "resolvedType": "COLOR",
+      "valuesByMode": {
+        "Light": {
+          "alias": "color-red-200"
+        },
+        "Dark": {
+          "alias": "color-red-800"
         }
       }
     },

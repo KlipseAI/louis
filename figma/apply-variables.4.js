@@ -1,5 +1,5 @@
 // 생성물. scripts/build-figma-variables.mjs가 만든다. 직접 수정하지 않는다.
-// use_figma에 그대로 넘긴다. 4/6 — Klipse Semantic 1/2 (변수 64개).
+// use_figma에 그대로 넘긴다. 4/7 — Klipse Semantic 1/2 (변수 64개).
 // **번호 순서대로 실행한다.** 별칭이 대상 변수를 이름으로 찾으므로 대상이 먼저 있어야 한다.
 // idempotent — 있으면 값만 맞추고 없으면 만든다. 이름으로 찾으므로 변수 ID가 유지된다.
 const NAME={"blur-12":"blur/12","blur-10":"blur/10","blur-16":"blur/16","border-width-hairline-base":"border-width/hairline","border-width-ring-base":"border-width/ring","space-24":"spacing/24","space-20":"spacing/20","space-16":"spacing/16","space-64":"spacing/64","layer-base-content":"layer/content","layer-base-critical":"layer/critical","layer-base-modal":"layer/modal","layer-base-popover":"layer/popover","layer-base-sticky":"layer/sticky","space-28":"spacing/28","space-120":"spacing/120","space-12":"spacing/12","space-56":"spacing/56","space-280":"spacing/280","space-40":"spacing/40","space-32":"spacing/32","space-44":"spacing/44","space-48":"spacing/48","space-6":"spacing/6","space-320":"spacing/320","space-240":"spacing/240","radius-16":"radius/16","radius-20":"radius/20","radius-12":"radius/12","radius-8":"radius/8","radius-10":"radius/10","radius-24":"radius/24","radius-full":"radius/full","space-8":"spacing/8"};

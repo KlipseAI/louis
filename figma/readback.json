@@ -4758,6 +4758,329 @@
           ]
         ],
         [
+          "color/node-audio-accent",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
+          [
+            [
+              "Light",
+              "Klipse Primitive::color/pink/500",
+              null
+            ],
+            [
+              "Dark",
+              "Klipse Primitive::color/pink/500",
+              null
+            ]
+          ]
+        ],
+        [
+          "color/node-audio-icon",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
+          [
+            [
+              "Light",
+              "Klipse Primitive::color/pink/500",
+              null
+            ],
+            [
+              "Dark",
+              "Klipse Primitive::color/pink/500",
+              null
+            ]
+          ]
+        ],
+        [
+          "color/node-audio-surface",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
+          [
+            [
+              "Light",
+              "Klipse Primitive::color/pink/200",
+              null
+            ],
+            [
+              "Dark",
+              "Klipse Primitive::color/pink/800",
+              null
+            ]
+          ]
+        ],
+        [
+          "color/node-edit-accent",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
+          [
+            [
+              "Light",
+              "Klipse Primitive::color/violet/500",
+              null
+            ],
+            [
+              "Dark",
+              "Klipse Primitive::color/violet/500",
+              null
+            ]
+          ]
+        ],
+        [
+          "color/node-edit-icon",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
+          [
+            [
+              "Light",
+              "Klipse Primitive::color/violet/500",
+              null
+            ],
+            [
+              "Dark",
+              "Klipse Primitive::color/violet/500",
+              null
+            ]
+          ]
+        ],
+        [
+          "color/node-edit-surface",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
+          [
+            [
+              "Light",
+              "Klipse Primitive::color/violet/200",
+              null
+            ],
+            [
+              "Dark",
+              "Klipse Primitive::color/violet/800",
+              null
+            ]
+          ]
+        ],
+        [
+          "color/node-image-accent",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
+          [
+            [
+              "Light",
+              "Klipse Primitive::color/mint/500",
+              null
+            ],
+            [
+              "Dark",
+              "Klipse Primitive::color/mint/500",
+              null
+            ]
+          ]
+        ],
+        [
+          "color/node-image-icon",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
+          [
+            [
+              "Light",
+              "Klipse Primitive::color/mint/500",
+              null
+            ],
+            [
+              "Dark",
+              "Klipse Primitive::color/mint/500",
+              null
+            ]
+          ]
+        ],
+        [
+          "color/node-image-surface",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
+          [
+            [
+              "Light",
+              "Klipse Primitive::color/mint/200",
+              null
+            ],
+            [
+              "Dark",
+              "Klipse Primitive::color/mint/800",
+              null
+            ]
+          ]
+        ],
+        [
+          "color/node-instagram-accent",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
+          [
+            [
+              "Light",
+              "Klipse Primitive::color/red/500",
+              null
+            ],
+            [
+              "Dark",
+              "Klipse Primitive::color/red/500",
+              null
+            ]
+          ]
+        ],
+        [
+          "color/node-instagram-icon",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
+          [
+            [
+              "Light",
+              "Klipse Primitive::color/red/500",
+              null
+            ],
+            [
+              "Dark",
+              "Klipse Primitive::color/red/500",
+              null
+            ]
+          ]
+        ],
+        [
+          "color/node-instagram-surface",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
+          [
+            [
+              "Light",
+              "Klipse Primitive::color/red/200",
+              null
+            ],
+            [
+              "Dark",
+              "Klipse Primitive::color/red/800",
+              null
+            ]
+          ]
+        ],
+        [
+          "color/node-text-accent",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
+          [
+            [
+              "Light",
+              "Klipse Primitive::color/yellow/500",
+              null
+            ],
+            [
+              "Dark",
+              "Klipse Primitive::color/yellow/500",
+              null
+            ]
+          ]
+        ],
+        [
+          "color/node-text-icon",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
+          [
+            [
+              "Light",
+              "Klipse Primitive::color/yellow/500",
+              null
+            ],
+            [
+              "Dark",
+              "Klipse Primitive::color/yellow/500",
+              null
+            ]
+          ]
+        ],
+        [
+          "color/node-text-surface",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
+          [
+            [
+              "Light",
+              "Klipse Primitive::color/yellow/200",
+              null
+            ],
+            [
+              "Dark",
+              "Klipse Primitive::color/yellow/800",
+              null
+            ]
+          ]
+        ],
+        [
+          "color/node-video-accent",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
+          [
+            [
+              "Light",
+              "Klipse Primitive::color/blue/500",
+              null
+            ],
+            [
+              "Dark",
+              "Klipse Primitive::color/blue/500",
+              null
+            ]
+          ]
+        ],
+        [
+          "color/node-youtube-accent",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
+          [
+            [
+              "Light",
+              "Klipse Primitive::color/red/500",
+              null
+            ],
+            [
+              "Dark",
+              "Klipse Primitive::color/red/500",
+              null
+            ]
+          ]
+        ],
+        [
+          "color/node-youtube-icon",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
+          [
+            [
+              "Light",
+              "Klipse Primitive::color/red/500",
+              null
+            ],
+            [
+              "Dark",
+              "Klipse Primitive::color/red/500",
+              null
+            ]
+          ]
+        ],
+        [
+          "color/node-youtube-surface",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
+          [
+            [
+              "Light",
+              "Klipse Primitive::color/red/200",
+              null
+            ],
+            [
+              "Dark",
+              "Klipse Primitive::color/red/800",
+              null
+            ]
+          ]
+        ],
+        [
           "color/progress-fill",
           "COLOR",
           "STROKE_COLOR",

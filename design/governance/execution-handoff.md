@@ -1057,9 +1057,9 @@ coverage가 끝나지 않았다면 P3 core release라고 명시한다. published
 | 단위 | 내용 | 상태 |
 | --- | --- | --- |
 | 1 | 판정 원칙 Decision | `done` |
-| 2 | 알파 축 26개 (색 사용의 70%) | `pending` — **사다리 재검토 필요, 아래 4번** |
-| 3 | 채널 팔레트 primitive 40개 (mint/yellow/pink/violet/red 보강) | `pending` — **코드는 준비됨, Figma 쓰기에 막힘. 아래 5번** |
-| 4 | 채널 semantic 24개 (노드 타입 식별자) | `pending` |
+| 2 | 알파 축 26개 (색 사용의 70%) | `done` (2026-08-21) |
+| 3 | 채널 팔레트 primitive 40개 (mint/yellow/pink/violet/red 보강) | `done` — 실측 39개 (2026-08-21) |
+| 4 | 채널 semantic 24개 (노드 타입 식별자) | `partial` — 19종 `done`, disabled 12종은 Open question 3 대기 |
 | 5 | 타이포 15종 재편 — **breaking** | `done` |
 | 6 | contrastPairs 7 → 19 | `pending` |
 | 7 | elevation / border-width / radius 16개 | `pending` |

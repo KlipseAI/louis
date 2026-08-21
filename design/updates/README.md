@@ -8,6 +8,47 @@ authority: normative
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
 
+## 2026-08-21 (70) — 단위 4. 노드 채널 색이 semantic이 됐고, 라이트 결함을 찾았습니다
+
+노드 캔버스의 채널 색을 semantic으로 승격했습니다. **342 변수.**
+
+| 축 | 종수 | 값 |
+| --- | ---: | --- |
+| `color-node-{ch}-surface` | 6 | 다크 `{ramp}-800` · 라이트 `{ramp}-200` |
+| `color-node-{ch}-icon` | 6 | 두 테마 `{ramp}-500` |
+| `color-node-{ch}-accent` | 7 | 선택 테두리. video 포함 |
+
+채널 → 램프는 배포본에서 읽은 그대로입니다 — video `blue` · image `mint` · text `yellow` ·
+youtube·instagram `red` · audio `pink` · edit `violet`.
+
+### 미결 질문 3을 실측했고, 결과가 나쁩니다
+
+「채널 disabled의 light 값이 없다」가 무슨 뜻인지 재봤습니다. 라이트 오버라이드가 재정의하는 것은
+**`--node-handle-bg-{channel}` 하나뿐**이고 나머지 넷은 **다크 값을 그대로 물려받습니다.**
+
+| 축 | 다크 | 라이트 | 판정 |
+| --- | --- | --- | --- |
+| `handle-bg` | `{ramp}-800` | `{ramp}-200` | 재정의됨 |
+| `handle-icon` | `{ramp}-500` | 상속 | 면이 200이라 대비가 성립합니다 |
+| **`handle-bg-disabled`** | `{ramp}-900` | **상속** | **라이트 페이지에 거의 검정 면** |
+| `handle-icon-disabled` | `{ramp}-700` | 상속 | 그 면 위라서 보이기는 합니다 |
+
+**라이트에서 활성 핸들은 연한 면(200)인데 비활성만 거의 검정(900)이 됩니다.** 비활성이 활성보다
+훨씬 눈에 띄는 상태이며 의도로 보기 어렵습니다.
+
+**그래서 절반만 올렸습니다.** 두 테마에 값이 정의된 19종만 승격하고 disabled 12종은 남겼습니다 —
+**상속된 값을 정본으로 굳히면 이 결함이 DS 계약이 됩니다.** 제품이 라이트 값을 정하면 올립니다.
+
+### 계층 오염을 기록합니다
+
+`node-*`는 도메인 전용인데 tier가 `primitive`/`semantic` 2단뿐이라 semantic에 들어갑니다.
+[DS-D-0010 §3](../governance/decisions/DS-D-0010-token-coverage.md)이 이미 정한 대로이고,
+component tier 도입은 컴포넌트 패키지 착수 시 재검토합니다.
+
+### Migration
+
+`@klipse-design/tokens`에 semantic 19종이 순증했습니다. 기존 토큰은 그대로입니다.
+
 ## 2026-08-21 (69) — 단위 2와 단위 3이 닫혔습니다. 변수 323개
 
 `DS-P3-014`의 알파 축과 채널 팔레트를 세웠습니다. **258 → 323 변수.**

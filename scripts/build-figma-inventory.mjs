@@ -55,20 +55,41 @@ const source = (path) => {
   return sourceCache.get(path);
 };
 const declCache = new Map();
+// 상수 본문을 읽되 **참조 합성을 푼다.** `MODAL_CANCEL = [MODAL_BUTTON_BASE, "..."]`처럼
+// 다른 상수를 참조하면 그 안의 선언(`flex:1` 등)이 본문에 안 보인다 — 이걸 놓쳐
+// 관리자 모달 버튼이 HUG으로 판정돼 364 대신 25로 그려졌다.
+const bodyCache = new Map();
+const constantBody = (file, part, seen) => {
+  const key = file + "|" + part;
+  if (bodyCache.has(key)) return bodyCache.get(key);
+  if (seen.has(key)) return "";
+  seen.add(key);
+  const body = source(file);
+  const found = new RegExp("^\\s*(?:const\\s+)?" + part + "\\s*[:=]\\s*(\\[[\\s\\S]*?\\]\\.join|\"[^\"]*\")", "m").exec(body);
+  let text = found ? found[1] : "";
+  // 배열 원소 중 식별자는 같은 파일의 상수를 가리킨다. 펼쳐서 이어 붙인다.
+  for (const m of text.matchAll(/(?:^|[[,]\s*)([A-Z_][A-Z0-9_]*|[a-z][A-Za-z0-9]*)\s*(?=[,\]])/g)) {
+    const ref = m[1];
+    if (ref === part) continue;
+    text += " " + constantBody(file, ref, seen);
+  }
+  bodyCache.set(key, text);
+  return text;
+};
 const declarationOf = (file, part) => {
   const key = file + "|" + part;
   if (declCache.has(key)) return declCache.get(key);
-  const body = source(file);
-  const found = new RegExp("^\\s*(?:const\\s+)?" + part + "\\s*[:=]\\s*(\\[[\\s\\S]*?\\]\\.join|\"[^\"]*\")", "m").exec(body);
-  const text = found ? found[1] : "";
+  const text = constantBody(file, part, new Set());
   const has = (re) => re.test(text);
   const decl = {
     // 숫자 유틸리티(`w-22`)도 선언이다. 이 저장소는 spacing 1단위가 2px이라 w-22 = 44px이다.
-    wFixed: has(/\[width:\s*(?:\d|min\(|calc\(|var\()/) || has(/\bw-\[(?:\d|min\(|calc\()/) || has(/\bw-\d+\b/),
+    wFixed: has(/\[width:\s*(?:\d|min\(|calc\(|var\()/) || has(/\bw-\[(?:\d|min\(|calc\(|var\()/) || has(/\bw-\d+\b/),
     // `[flex:1]`·`flex-1`·`grow`도 부모가 폭을 주는 선언이다 — 모달 버튼이 이렇게 행을
     // 나눠 갖는데 이걸 몰라 HUG로 판정했고, 버튼이 글자만 감싸는 알약으로 그려졌다.
     wFill: has(/\bw-full\b/) || has(/\[width:\s*100%\]/) || has(/\[flex:\s*1/) || has(/\bflex-1\b/) || has(/\bgrow\b/),
-    hFixed: has(/\[height:\s*(?:\d|min\(|calc\(|var\()/) || has(/\bh-\[(?:\d|min\(|calc\()/) || has(/\bh-\d+\b/),
+    // `h-[var(--button-height)]`도 고정 선언이다. `var(`를 빠뜨려 공용 버튼이 전부
+    // HUG으로 판정됐고 40px 버튼이 글자 높이 21로 그려졌다.
+    hFixed: has(/\[height:\s*(?:\d|min\(|calc\(|var\()/) || has(/\bh-\[(?:\d|min\(|calc\(|var\()/) || has(/\bh-\d+\b/),
     hFill: has(/\bh-full\b/) || has(/\[height:\s*100%\]/),
     maxW: Number((/\[max-width:\s*(\d+(?:\.\d+)?)px\]/.exec(text) || [])[1] || 0),
     minW: Number((/\[min-width:\s*(\d+(?:\.\d+)?)px\]/.exec(text) || [])[1] || 0),
@@ -199,7 +220,15 @@ const layout = (node, file, specimenId, parentCtx) => {
   }
   const uniform = gaps.length === 0 || gaps.every((g) => Math.abs(g - gaps[0]) < 0.02);
 
-  const decl = declarationOf(file, node.part);
+  // 렌더 시점 합성이면 **합친 목록 전체**에서 선언을 찾는다 — 공용 버튼의 높이는
+  // VARIANT가 아니라 SIZE_MD(`h-[var(--button-height)]`)에 있다.
+  const decl = (node.parts ?? [node.part])
+    .map((name) => declarationOf(file, name))
+    .reduce((a, b) => ({
+      wFixed: a.wFixed || b.wFixed, wFill: a.wFill || b.wFill,
+      hFixed: a.hFixed || b.hFixed, hFill: a.hFill || b.hFill,
+      maxW: a.maxW || b.maxW, minW: a.minW || b.minW,
+    }));
   const empty = flow.length === 0 && !node.text;
   const isAbs = V.position === "absolute" || V.position === "fixed";
   const lineHeight = px(V.lineHeight);

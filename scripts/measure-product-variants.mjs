@@ -279,6 +279,8 @@ const buildSpecimen = (specimen, node, path) => {
     specimen: specimen.id,
     path,
     part: node.part,
+    // 소비처가 렌더 시점에 합친 상수 목록. 크기 선언이 이 안에 흩어져 있다.
+    parts: node.parts ?? null,
     tag: node.tag,
     line: constant.line,
     text: node.text ?? "",
@@ -512,6 +514,7 @@ const payload =
         tree: (function attach(node) {
           return {
             part: node.part,
+            parts: node.parts ?? null,
             tag: node.tag,
             line: node.line,
             text: node.text,

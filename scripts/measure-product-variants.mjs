@@ -433,10 +433,13 @@ try {
         const rect = element.getBoundingClientRect();
         values.$width = Math.round(rect.width * 100) / 100;
         values.$height = Math.round(rect.height * 100) / 100;
-        // absolute 자식은 flow에 없어 좌표를 부모에게서 직접 받아야 그릴 수 있다.
-        // 프로젝트 카드의 썸네일(inset:0)·타이틀 오버레이·드롭다운이 전부 그렇다.
-        if (values.position === "absolute" || values.position === "fixed") {
-          const host = element.offsetParent ?? element.parentElement;
+        // **모든 자식의 좌표를 부모 기준으로 잰다.** 그전에는 absolute만 재고 flow 자식은
+        // 여백·마진·간격으로 위치를 시뮬레이션했는데, 가운데 정렬을 못 봐서 40px 버튼의
+        // 아래 여백이 19로 튀었다. 재는 편이 언제나 맞다.
+        const host = (values.position === "absolute" || values.position === "fixed")
+          ? (element.offsetParent ?? element.parentElement)
+          : element.parentElement;
+        if (host) {
           const hostRect = host.getBoundingClientRect();
           values.$x = Math.round((rect.left - hostRect.left) * 100) / 100;
           values.$y = Math.round((rect.top - hostRect.top) * 100) / 100;

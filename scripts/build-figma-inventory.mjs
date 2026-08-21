@@ -177,20 +177,12 @@ const layout = (node, file, specimenId, parentCtx) => {
   // 프로젝트 카드가 그렇다: 썸네일(inset:0)·타이틀 오버레이·메뉴 앵커·드롭다운 전부 absolute다.
   const flow = children.filter((c) => !c.abs);
 
-  // 자식 좌표: 여백 → 마진 → 크기 → 간격 순으로 쌓는다.
-  let cursor = row ? cssPad[3] : cssPad[0];
-  flow.forEach((child, i) => {
+  // 자식 좌표는 **실측**이다. 시뮬레이션하지 않는다 — 가운데 정렬·baseline·stretch를
+  // 여백 계산으로 재현하려다 40px 버튼의 아래 여백이 19로 튀었다.
+  flow.forEach((child) => {
     const raw = (node.children[children.indexOf(child)].values ?? {});
-    const m = [px(raw.marginTop), px(raw.marginRight), px(raw.marginBottom), px(raw.marginLeft)];
-    if (row) {
-      cursor += m[3];
-      child.x = round3(cursor); child.y = round3(cssPad[0] + m[0]);
-      cursor += child.w + m[1] + (i < flow.length - 1 ? gap : 0);
-    } else {
-      cursor += m[0];
-      child.x = round3(cssPad[3] + m[3]); child.y = round3(cursor);
-      cursor += child.h + m[2] + (i < flow.length - 1 ? gap : 0);
-    }
+    child.x = raw.$x ?? 0;
+    child.y = raw.$y ?? 0;
   });
 
   // ⑤ 음수 마진: 실제 바깥 여백은 첫 자식의 자리다. 나머지는 그만큼 안쪽으로 들어간다.
@@ -200,15 +192,15 @@ const layout = (node, file, specimenId, parentCtx) => {
     const leadMain = Math.min(...flow.map((c) => (row ? c.x : c.y)));
     const crossIdx = row ? 0 : 3;
     const mainIdx = row ? 3 : 0;
-    if (leadCross < cssPad[crossIdx] - 0.02) pad[crossIdx] = Math.max(0, round3(leadCross));
-    if (leadMain < cssPad[mainIdx] - 0.02) pad[mainIdx] = Math.max(0, round3(leadMain));
-    // 교차축 **끝** 여백도 같은 논리다. 이걸 빼먹어 모달 오른쪽만 16으로 남아 비대칭이 됐다.
+    // **유효 여백은 상자 모서리와 자식 사이의 실제 거리다.** CSS padding이 아니라.
+    // 음수 마진이면 줄고(모달 액션 행) 양수 마진이면 는다(입력 상자의 `margin-top: 8px`).
+    // 전에는 줄어드는 쪽만 반영해 폼 입력 7종이 8px씩 모자랐다.
     const tailCross = (row ? height - Math.max(...flow.map((c) => c.y + c.h)) : width - Math.max(...flow.map((c) => c.x + c.w)));
-    const tailCrossIdx = row ? 2 : 1;
-    if (tailCross < cssPad[tailCrossIdx] - 0.02) pad[tailCrossIdx] = Math.max(0, round3(tailCross));
     const tailMain = (row ? width - Math.max(...flow.map((c) => c.x + c.w)) : height - Math.max(...flow.map((c) => c.y + c.h)));
-    const tailIdx = row ? 1 : 2;
-    if (tailMain < cssPad[tailIdx] - 0.02) pad[tailIdx] = Math.max(0, round3(tailMain));
+    pad[crossIdx] = Math.max(0, round3(leadCross));
+    pad[mainIdx] = Math.max(0, round3(leadMain));
+    pad[row ? 2 : 1] = Math.max(0, round3(tailCross));
+    pad[row ? 1 : 2] = Math.max(0, round3(tailMain));
   }
   const inset = cssPad.map((c, i) => Math.max(0, round3(c - pad[i])));
   // 자식마다 교차축 들여쓰기가 다르다 — 제목(마진 0)은 pad보다 8 안쪽, 액션(마진 -8)은 pad 그대로.
@@ -503,8 +495,10 @@ for(const sec of PLAN){
   head.fills=[];card.appendChild(head);head.layoutSizingHorizontal="FILL";
   head.appendChild(T(sp.l,14,"b",1,cardW-40));
   head.appendChild(T(sp.j,11,"r",0.42,cardW-40));
-  head.appendChild(T(sp.t.p+" · "+sp.t.w+"×"+sp.t.h+" · 폭 "+(sp.t.wx==="FIX"?"선언":sp.t.wx==="FILL"?"부모가 줌":"내용이 정함")+
-   " · 높이 "+(sp.t.hx==="FIX"?"선언":sp.t.hx==="FILL"?"부모가 줌":"내용이 정함"),11,"r",0.62,cardW-40));
+  // 크기 정책과 **그 근거**를 함께 적는다 — 조립할 때 무엇을 믿어도 되는지 알려면 필요하다.
+  const SZ={FIX:"고정",FILL:"채움",HUG:"허그"};
+  head.appendChild(T(sp.t.p+" · "+sp.t.w+"×"+sp.t.h,11,"r",0.62,cardW-40));
+  head.appendChild(T("폭 "+SZ[sp.t.wx]+"("+sp.t.wy+")  ·  높이 "+SZ[sp.t.hx]+"("+sp.t.hy+")",11,"r",0.45,cardW-40));
   created.push(card.id);}}
 const drift=check.filter(c=>c.m!==c.f);
 return {count:created.length,어긋난것:drift.length,drift:drift.slice(0,12),그릴수없음:skipped};

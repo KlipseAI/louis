@@ -217,6 +217,7 @@
 
   /* Tailwind 4에 대응 namespace가 없다. 변수로만 내보내며 유틸리티는 생기지 않는다 —
    * `[z-index:var(--kds-layer-modal)]` 같은 임의값으로 쓴다. */
+  --kds-border-width-default: var(--kds-border-width-default);
   --kds-border-width-hairline: var(--kds-border-width-hairline);
   --kds-border-width-ring: var(--kds-border-width-ring);
   --kds-layer-content: var(--kds-layer-content);

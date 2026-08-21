@@ -61,6 +61,18 @@
           ]
         ],
         [
+          "border-width/default",
+          "FLOAT",
+          "WIDTH_HEIGHT",
+          [
+            [
+              "Base",
+              null,
+              1
+            ]
+          ]
+        ],
+        [
           "border-width/hairline",
           "FLOAT",
           "STROKE_FLOAT",
@@ -2945,6 +2957,18 @@
             [
               "Global",
               "Klipse Primitive::blur/16",
+              null
+            ]
+          ]
+        ],
+        [
+          "border-width/default",
+          "FLOAT",
+          "WIDTH_HEIGHT",
+          [
+            [
+              "Global",
+              "Klipse Primitive::border-width/default",
               null
             ]
           ]

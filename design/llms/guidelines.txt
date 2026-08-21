@@ -1761,7 +1761,7 @@ coverage가 끝나지 않았다면 P3 core release라고 명시한다. published
 | 4 | 채널 semantic 24개 (노드 타입 식별자) | `partial` — 19종 `done`, disabled 12종은 Open question 3 대기 |
 | 5 | 타이포 15종 재편 — **breaking** | `done` |
 | 6 | contrastPairs 7 → 19 | `pending` |
-| 7 | elevation / border-width / radius 16개 | `pending` |
+| 7 | elevation / border-width / radius 16개 | `partial` — 실측 결과 아래 |
 | 8 | layer / motion 10개 — layerOrder 배열 변경 | `pending` |
 | 9 | sky / editor / danger action 14개 | `pending` — 아래 3번 |
 | 10 | space / surface 보강 13개 | `blocked` — 아래 1·2번 |
@@ -1818,6 +1818,35 @@ property 이름 · 바인딩 **개수** · 기하 요약뿐이고 노드 트리�
 
 실제로 넣고 `build-tokens`를 돌려 `verify-token-gates`와 `check-token-diff`가 통과하는 것을
 확인한 뒤 되돌렸다. **코드는 준비됐고 Figma 이전만 남았다.**
+
+**단위 7 — 실측 결과 「16개」가 아니라 1개 + 드리프트 기록이다 (2026-08-21):**
+
+배포본에서 세어 보니 세 축의 상태가 서로 다르다.
+
+**elevation — 결손 없다.** semantic 8종(`focus-ring`·`modal`·`popover`·`surface`·`toast`·
+`menu`·`tooltip`·`upgrade`)과 primitive 11종이 이미 있고, 제품의 그림자 토큰
+(`app-tooltip-shadow`·`dropdown-ambient-shadow`·`node-meta-dropdown-shadow` 등)이 그 안에 든다.
+추가할 것이 없다.
+
+**border-width — 최다 사용값에 토큰이 없었다.** 실사용은 `1px` **111회** · `0.5px` 18 · `2px` 12 ·
+`1.5px` 6인데 KDS에는 `hairline`(0.5)과 `ring`(2)뿐이었다. **가장 많이 쓰이는 1px이 빠져 있었다.**
+`border-width-default`(1px)를 primitive·semantic 양쪽에 세웠다. `1.5px`(6회)은 올리지 않는다 —
+`hairline`과 `default` 사이의 드리프트로 보이며 근거가 6곳뿐이다.
+
+**radius — 알파와 같은 드리프트가 있다.** KDS의 짝수 스케일(0·2·4·6·8·10·12·16·20·24·full)이
+실사용 320회 중 275회를 덮고, 나머지 45회가 **홀수 계단 다섯**에 흩어져 있다.
+
+| 결손 | 1px | 3px | 5px | 7px | 9px | 합 |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| 사용 | 6 | 10 | 12 | 11 | 6 | **45 (14%)** |
+
+**다섯 모두 이웃 계단과 1px 차이다.** 반경에서 1px은 화면에서 구분되지 않으므로 접는 것이 안전하고,
+알파(73단)와 달리 사람이 확인할 자리가 없다. **다만 접는 것은 제품 변경이므로 여기서 하지 않는다** —
+`migration/alpha-consolidation.json`과 같은 형태의 매핑이 필요하면 그때 만든다.
+
+**즉 단위 7에서 DS가 세울 것은 `border-width-default` 하나였고, 나머지는 제품 정리 대상이다.**
+「16개」라는 추정은 실측 전 수치이며, 실제로는 elevation이 이미 차 있고 radius는 승격이 아니라
+축소가 필요한 상태였다.
 
 **단위 3 — 코드 쪽은 준비됐고 Figma 쓰기에 막힌다 (2026-08-21 실측):**
 
@@ -5725,6 +5754,55 @@ Figma에서는 1.5, 코드에서는 1.25로 그려지고 있었다 — 같은 �
 ### Updates
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
+
+#### 2026-08-21 (71) — 단위 7. 「16개」가 아니라 1개였고, 세 번째 드리프트를 찾았습니다
+
+실측해 보니 세 축의 상태가 서로 달랐습니다. **344 변수.**
+
+##### elevation — 결손이 없습니다
+
+semantic 8종(`focus-ring`·`modal`·`popover`·`surface`·`toast`·`menu`·`tooltip`·`upgrade`)과
+primitive 11종이 이미 있고, 제품의 그림자 토큰이 그 안에 다 듭니다. 추가할 것이 없습니다.
+
+##### border-width — 최다 사용값에 토큰이 없었습니다
+
+| 실사용 | 횟수 | KDS |
+| --- | ---: | --- |
+| **1px** | **111** | **없었습니다** |
+| 0.5px | 18 | `hairline` |
+| 2px | 12 | `ring` |
+| 1.5px | 6 | 없음 |
+
+`border-width-default`(1px)를 primitive·semantic 양쪽에 세웠습니다. `1.5px`(6회)은 `hairline`과
+`default` 사이의 드리프트로 보이고 근거가 6곳뿐이라 올리지 않았습니다.
+
+##### radius — 알파와 같은 드리프트입니다
+
+KDS의 짝수 스케일(0·2·4·6·8·10·12·16·20·24·full)이 실사용 320회 중 275회를 덮고, **나머지 45회가
+홀수 계단 다섯에 흩어져** 있습니다.
+
+| 결손 | 1px | 3px | 5px | 7px | 9px | 합 |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| 사용 | 6 | 10 | 12 | 11 | 6 | **45 (14%)** |
+
+**다섯 모두 이웃 계단과 1px 차이입니다.** 반경에서 1px은 화면에서 구분되지 않으므로 접는 것이
+안전하고, 알파(73단)와 달리 사람이 확인할 자리가 없습니다. 다만 **접는 것은 제품 변경이라
+여기서 하지 않았습니다.**
+
+##### 같은 자국이 세 축에서 나왔습니다
+
+| 축 | 필요한 스케일 | 실제 |
+| --- | --- | --- |
+| 알파 | 14단 | **73단** |
+| radius | 짝수 11단 | 짝수 + **홀수 5단 45회** |
+| border-width | 3단 | 3단 + 1.5·3·4·10px 산발 |
+
+**값을 직접 쓸 수 있는 축마다 같은 방식으로 번져 있습니다.** 알파만의 문제가 아니었습니다.
+토큰으로 막지 않으면 축이 늘 때마다 반복됩니다.
+
+##### Migration
+
+`border-width-default`가 순증했습니다. 기존 토큰은 그대로입니다.
 
 #### 2026-08-21 (70) — 단위 4. 노드 채널 색이 semantic이 됐고, 라이트 결함을 찾았습니다
 

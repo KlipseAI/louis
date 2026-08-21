@@ -471,6 +471,34 @@
             }
           }
         },
+        "border-width-default-base": {
+          "$type": "dimension",
+          "fields": [],
+          "figmaName": "border-width/default",
+          "hiddenFromPublishing": true,
+          "losses": [
+            "Figma FLOAT는 DTCG 단위 의미를 직접 보존하지 않으므로 source metadata를 함께 검토해야 합니다."
+          ],
+          "nativeVariableType": "FLOAT",
+          "representation": "variable",
+          "scopes": [
+            "WIDTH_HEIGHT"
+          ],
+          "valuesByMode": {
+            "Base": {
+              "$value": {
+                "unit": "px",
+                "value": 1
+              },
+              "aliasTarget": null,
+              "resolvedValue": {
+                "unit": "px",
+                "value": 1
+              },
+              "sourcePath": "primitive.border-width.default"
+            }
+          }
+        },
         "border-width-hairline-base": {
           "$type": "dimension",
           "fields": [],
@@ -10586,6 +10614,34 @@
                 "value": 16
               },
               "sourcePath": "semantic.global.blur.toast"
+            }
+          }
+        },
+        "border-width-default": {
+          "$type": "dimension",
+          "fields": [],
+          "figmaName": "border-width/default",
+          "hiddenFromPublishing": false,
+          "losses": [
+            "Figma FLOAT는 DTCG 단위 의미를 직접 보존하지 않으므로 source metadata를 함께 검토해야 합니다."
+          ],
+          "nativeVariableType": "FLOAT",
+          "representation": "variable",
+          "scopes": [
+            "WIDTH_HEIGHT"
+          ],
+          "valuesByMode": {
+            "Global": {
+              "$value": "{primitive.border-width.default}",
+              "aliasTarget": {
+                "id": "border-width-default-base",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "unit": "px",
+                "value": 1
+              },
+              "sourcePath": "semantic.global.border-width.default"
             }
           }
         },

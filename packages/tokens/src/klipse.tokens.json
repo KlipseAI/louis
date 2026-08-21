@@ -4914,6 +4914,18 @@
           }
         }
       },
+      "default": {
+        "$value": {
+          "value": 1,
+          "unit": "px"
+        },
+        "$extensions": {
+          "com.klipse-design": {
+            "id": "border-width-default-base",
+            "tier": "primitive"
+          }
+        }
+      },
       "ring": {
         "$value": {
           "value": 2,
@@ -5894,6 +5906,16 @@
           "$extensions": {
             "com.klipse-design": {
               "id": "border-width-hairline",
+              "tier": "semantic",
+              "mode": "global"
+            }
+          }
+        },
+        "default": {
+          "$value": "{primitive.border-width.default}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "border-width-default",
               "tier": "semantic",
               "mode": "global"
             }

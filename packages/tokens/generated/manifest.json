@@ -2,23 +2,23 @@
   "artifacts": [
     {
       "path": "packages/tokens/generated/figma.tokens.json",
-      "sha256": "c090078581d2d704ee72440b6f48a188eb452fb8f520bbf22f8816bb15d0514b"
+      "sha256": "e93c80e248d17b118195ca88267cb8c06e70f29abb1976e9d339b62a7ede0d28"
     },
     {
       "path": "packages/tokens/generated/index.d.ts",
-      "sha256": "ae91ce2059fd32c9dddf65861f56a66002b6388181f0e8dc18147559200b861a"
+      "sha256": "c81d675d69c98ec932d8c3af4da714ef839adc8c3ae1f0015dc54f3819071bbf"
     },
     {
       "path": "packages/tokens/generated/index.js",
-      "sha256": "318c45c5915e0230fec8339972e25883fa1873159849e52b78751a6b6572148d"
+      "sha256": "cec7761dcaf11592a47db7244dd96f2d5cc94ea6ca719e1b1c512f945844676c"
     },
     {
       "path": "packages/tokens/generated/tokens.css",
-      "sha256": "7b9046ad4efc971fc26cb00bd24ef5336a5600d537fa361eedc1908f06c5bb3e"
+      "sha256": "ef6c52914a4d9331b21b95e74389d42d259867c48f4fe87b4dbc7ee7cf737164"
     },
     {
       "path": "packages/tokens/generated/tokens.json",
-      "sha256": "3f7de8bd55fd65b97b3c8b11d707d90c3e216fa1ad2ccf15da89bfa330100f1d"
+      "sha256": "57b153bb1da67cf56568bb65d2a0451d7d39dd1cd322628dbdc73df3e171f3c0"
     }
   ],
   "contrastPairs": [
@@ -388,13 +388,13 @@
   },
   "source": {
     "path": "packages/tokens/src/klipse.tokens.json",
-    "sha256": "32cf7d6c56f83acbf0f08578130dccb7c2ec05c5368bfaa1287f6d2dcb448f70"
+    "sha256": "ec4c7f89b2576837780df92be6ee2b8a9ba9e9898cc764f84e05cbdc78cc0ab7"
   },
   "themes": [
     "light",
     "dark"
   ],
-  "tokenCount": 500,
+  "tokenCount": 502,
   "tokens": [
     {
       "aliasTarget": null,
@@ -514,6 +514,46 @@
       },
       "sourcePath": "semantic.global.blur.toast",
       "tier": "semantic",
+      "type": "dimension"
+    },
+    {
+      "aliasTarget": {
+        "id": "border-width-default-base",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-border-width-default": "1px"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "border-width-default",
+      "mode": "global",
+      "rawValue": "{primitive.border-width.default}",
+      "resolvedValue": {
+        "unit": "px",
+        "value": 1
+      },
+      "sourcePath": "semantic.global.border-width.default",
+      "tier": "semantic",
+      "type": "dimension"
+    },
+    {
+      "aliasTarget": null,
+      "cssProperties": {},
+      "deprecated": null,
+      "description": null,
+      "id": "border-width-default-base",
+      "mode": "base",
+      "rawValue": {
+        "unit": "px",
+        "value": 1
+      },
+      "resolvedValue": {
+        "unit": "px",
+        "value": 1
+      },
+      "sourcePath": "primitive.border-width.default",
+      "tier": "primitive",
       "type": "dimension"
     },
     {

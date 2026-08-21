@@ -424,6 +424,25 @@ export const primitives = {
       "unit": "px"
     }
   },
+  "border-width-default-base": {
+    "aliasTarget": null,
+    "cssProperties": {},
+    "deprecated": null,
+    "description": null,
+    "id": "border-width-default-base",
+    "mode": "base",
+    "rawValue": {
+      "value": 1,
+      "unit": "px"
+    },
+    "sourcePath": "primitive.border-width.default",
+    "tier": "primitive",
+    "type": "dimension",
+    "value": {
+      "value": 1,
+      "unit": "px"
+    }
+  },
   "border-width-hairline-base": {
     "aliasTarget": null,
     "cssProperties": {},
@@ -8109,6 +8128,27 @@ export const tokens = {
       "type": "dimension",
       "value": {
         "value": 16,
+        "unit": "px"
+      }
+    },
+    "border-width-default": {
+      "aliasTarget": {
+        "id": "border-width-default-base",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-border-width-default": "1px"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "border-width-default",
+      "mode": "global",
+      "rawValue": "{primitive.border-width.default}",
+      "sourcePath": "semantic.global.border-width.default",
+      "tier": "semantic",
+      "type": "dimension",
+      "value": {
+        "value": 1,
         "unit": "px"
       }
     },

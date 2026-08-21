@@ -1,0 +1,899 @@
+{
+  "$comment": "생성물. scripts/measure-product-alpha.mjs가 배포본에서 센다. 직접 수정하지 않는다.",
+  "$whyThisExists": "DS-D-0010 원칙 1은 「정의가 아니라 실사용을 승격한다. 승격 근거에는 사용 화면과 빈도를 남긴다」인데, 알파 축을 10단으로 정규화하기로 한 그 10단이 실사용 빈도에서 나온 것인지 확인할 데이터가 없었다. 여기 수치가 그 근거다.",
+  "$method": "`rgb(var(--*-rgb) / N%)`과 Tailwind 임의 값 `_/_` 형태를 센다. rgba 리터럴은 토큰이 아니므로 따로 센다. (highlight-standalone)은 DS-D-0010 §5에 따라 제외한다.",
+  "productRef": "ada1b939364242a4c8b39cfa8d84a1fd669dda5b",
+  "productCommit": "ada1b939364242a4c8b39cfa8d84a1fd669dda5b",
+  "totals": {
+    "tokenAlphaUses": 3532,
+    "distinctStops": 73,
+    "opaqueOrNearOpaqueUses": 800,
+    "literalUses": 296
+  },
+  "stops": [
+    {
+      "key": 0,
+      "uses": 50,
+      "files": 22
+    },
+    {
+      "key": 1,
+      "uses": 1,
+      "files": 1
+    },
+    {
+      "key": 1.5,
+      "uses": 1,
+      "files": 1
+    },
+    {
+      "key": 2.5,
+      "uses": 1,
+      "files": 1
+    },
+    {
+      "key": 3,
+      "uses": 21,
+      "files": 18
+    },
+    {
+      "key": 3.5,
+      "uses": 2,
+      "files": 2
+    },
+    {
+      "key": 4,
+      "uses": 57,
+      "files": 34
+    },
+    {
+      "key": 5,
+      "uses": 55,
+      "files": 24
+    },
+    {
+      "key": 6,
+      "uses": 123,
+      "files": 63
+    },
+    {
+      "key": 7,
+      "uses": 28,
+      "files": 15
+    },
+    {
+      "key": 8,
+      "uses": 215,
+      "files": 80
+    },
+    {
+      "key": 9,
+      "uses": 10,
+      "files": 8
+    },
+    {
+      "key": 10,
+      "uses": 239,
+      "files": 82
+    },
+    {
+      "key": 12,
+      "uses": 203,
+      "files": 80
+    },
+    {
+      "key": 13,
+      "uses": 2,
+      "files": 2
+    },
+    {
+      "key": 14,
+      "uses": 88,
+      "files": 42
+    },
+    {
+      "key": 15,
+      "uses": 19,
+      "files": 8
+    },
+    {
+      "key": 16,
+      "uses": 68,
+      "files": 39
+    },
+    {
+      "key": 17,
+      "uses": 3,
+      "files": 2
+    },
+    {
+      "key": 18,
+      "uses": 54,
+      "files": 31
+    },
+    {
+      "key": 19,
+      "uses": 8,
+      "files": 4
+    },
+    {
+      "key": 20,
+      "uses": 110,
+      "files": 48
+    },
+    {
+      "key": 22,
+      "uses": 77,
+      "files": 41
+    },
+    {
+      "key": 24,
+      "uses": 36,
+      "files": 23
+    },
+    {
+      "key": 25,
+      "uses": 208,
+      "files": 38
+    },
+    {
+      "key": 26,
+      "uses": 12,
+      "files": 5
+    },
+    {
+      "key": 28,
+      "uses": 60,
+      "files": 30
+    },
+    {
+      "key": 30,
+      "uses": 25,
+      "files": 19
+    },
+    {
+      "key": 31,
+      "uses": 3,
+      "files": 2
+    },
+    {
+      "key": 32,
+      "uses": 20,
+      "files": 14
+    },
+    {
+      "key": 34,
+      "uses": 39,
+      "files": 19
+    },
+    {
+      "key": 35,
+      "uses": 30,
+      "files": 18
+    },
+    {
+      "key": 36,
+      "uses": 14,
+      "files": 10
+    },
+    {
+      "key": 38,
+      "uses": 13,
+      "files": 10
+    },
+    {
+      "key": 40,
+      "uses": 82,
+      "files": 31
+    },
+    {
+      "key": 42,
+      "uses": 27,
+      "files": 21
+    },
+    {
+      "key": 44,
+      "uses": 7,
+      "files": 6
+    },
+    {
+      "key": 45,
+      "uses": 33,
+      "files": 22
+    },
+    {
+      "key": 46,
+      "uses": 13,
+      "files": 8
+    },
+    {
+      "key": 48,
+      "uses": 30,
+      "files": 22
+    },
+    {
+      "key": 50,
+      "uses": 74,
+      "files": 35
+    },
+    {
+      "key": 52,
+      "uses": 15,
+      "files": 11
+    },
+    {
+      "key": 53,
+      "uses": 8,
+      "files": 4
+    },
+    {
+      "key": 54,
+      "uses": 5,
+      "files": 5
+    },
+    {
+      "key": 55,
+      "uses": 45,
+      "files": 27
+    },
+    {
+      "key": 56,
+      "uses": 36,
+      "files": 24
+    },
+    {
+      "key": 58,
+      "uses": 22,
+      "files": 18
+    },
+    {
+      "key": 60,
+      "uses": 83,
+      "files": 44
+    },
+    {
+      "key": 62,
+      "uses": 14,
+      "files": 11
+    },
+    {
+      "key": 64,
+      "uses": 5,
+      "files": 3
+    },
+    {
+      "key": 65,
+      "uses": 10,
+      "files": 10
+    },
+    {
+      "key": 68,
+      "uses": 7,
+      "files": 6
+    },
+    {
+      "key": 69,
+      "uses": 3,
+      "files": 2
+    },
+    {
+      "key": 70,
+      "uses": 71,
+      "files": 35
+    },
+    {
+      "key": 72,
+      "uses": 44,
+      "files": 32
+    },
+    {
+      "key": 74,
+      "uses": 19,
+      "files": 12
+    },
+    {
+      "key": 75,
+      "uses": 1,
+      "files": 1
+    },
+    {
+      "key": 76,
+      "uses": 11,
+      "files": 8
+    },
+    {
+      "key": 78,
+      "uses": 40,
+      "files": 24
+    },
+    {
+      "key": 80,
+      "uses": 70,
+      "files": 28
+    },
+    {
+      "key": 82,
+      "uses": 22,
+      "files": 19
+    },
+    {
+      "key": 84,
+      "uses": 11,
+      "files": 10
+    },
+    {
+      "key": 85,
+      "uses": 8,
+      "files": 7
+    },
+    {
+      "key": 86,
+      "uses": 21,
+      "files": 14
+    },
+    {
+      "key": 88,
+      "uses": 96,
+      "files": 46
+    },
+    {
+      "key": 90,
+      "uses": 77,
+      "files": 43
+    },
+    {
+      "key": 92,
+      "uses": 87,
+      "files": 42
+    },
+    {
+      "key": 94,
+      "uses": 28,
+      "files": 16
+    },
+    {
+      "key": 95,
+      "uses": 17,
+      "files": 8
+    },
+    {
+      "key": 96,
+      "uses": 66,
+      "files": 26
+    },
+    {
+      "key": 97,
+      "uses": 1,
+      "files": 1
+    },
+    {
+      "key": 98,
+      "uses": 9,
+      "files": 5
+    },
+    {
+      "key": 100,
+      "uses": 419,
+      "files": 59
+    }
+  ],
+  "ink": [
+    {
+      "key": "--gray-000-rgb",
+      "uses": 1355,
+      "files": 111
+    },
+    {
+      "key": "--palette-gray-000-rgb",
+      "uses": 623,
+      "files": 62
+    },
+    {
+      "key": "--palette-gray-900-rgb",
+      "uses": 354,
+      "files": 63
+    },
+    {
+      "key": "--glass-inner-shadow-rgb",
+      "uses": 226,
+      "files": 32
+    },
+    {
+      "key": "--palette-gray-100-rgb",
+      "uses": 92,
+      "files": 39
+    },
+    {
+      "key": "--palette-gray-800-rgb",
+      "uses": 92,
+      "files": 37
+    },
+    {
+      "key": "--gray-900-rgb",
+      "uses": 82,
+      "files": 21
+    },
+    {
+      "key": "--accent-red-500-rgb",
+      "uses": 69,
+      "files": 31
+    },
+    {
+      "key": "--gray-800-rgb",
+      "uses": 52,
+      "files": 25
+    },
+    {
+      "key": "--palette-gray-700-rgb",
+      "uses": 48,
+      "files": 14
+    },
+    {
+      "key": "--gray-500-rgb",
+      "uses": 45,
+      "files": 16
+    },
+    {
+      "key": "--gray-100-rgb",
+      "uses": 43,
+      "files": 15
+    },
+    {
+      "key": "--palette-gray-1000-rgb",
+      "uses": 39,
+      "files": 13
+    },
+    {
+      "key": "--gray-1000-rgb",
+      "uses": 38,
+      "files": 23
+    },
+    {
+      "key": "--gray-700-rgb",
+      "uses": 29,
+      "files": 18
+    },
+    {
+      "key": "--accent-mint-500-rgb",
+      "uses": 27,
+      "files": 11
+    },
+    {
+      "key": "--accent-sky-500-rgb",
+      "uses": 27,
+      "files": 6
+    },
+    {
+      "key": "--primary-500-rgb",
+      "uses": 22,
+      "files": 12
+    },
+    {
+      "key": "--gray-300-rgb",
+      "uses": 21,
+      "files": 8
+    },
+    {
+      "key": "--palette-gray-500-rgb",
+      "uses": 21,
+      "files": 12
+    },
+    {
+      "key": "--palette-gray-200-rgb",
+      "uses": 20,
+      "files": 13
+    },
+    {
+      "key": "--palette-gray-600-rgb",
+      "uses": 20,
+      "files": 12
+    },
+    {
+      "key": "--accent-yellow-500-rgb",
+      "uses": 17,
+      "files": 11
+    },
+    {
+      "key": "--accent-pink-500-rgb",
+      "uses": 16,
+      "files": 4
+    },
+    {
+      "key": "--accent-red-600-rgb",
+      "uses": 14,
+      "files": 6
+    },
+    {
+      "key": "--gray-600-rgb",
+      "uses": 13,
+      "files": 6
+    },
+    {
+      "key": "--char-count-overlay-rgb",
+      "uses": 12,
+      "files": 2
+    },
+    {
+      "key": "--gray-200-rgb",
+      "uses": 11,
+      "files": 5
+    },
+    {
+      "key": "--palette-gray-400-rgb",
+      "uses": 11,
+      "files": 3
+    },
+    {
+      "key": "--gray-400-rgb",
+      "uses": 10,
+      "files": 4
+    },
+    {
+      "key": "--palette-gray-300-rgb",
+      "uses": 10,
+      "files": 4
+    },
+    {
+      "key": "--accent-sky-400-rgb",
+      "uses": 8,
+      "files": 5
+    },
+    {
+      "key": "--accent-red-400-rgb",
+      "uses": 7,
+      "files": 4
+    },
+    {
+      "key": "--primary-300-rgb",
+      "uses": 7,
+      "files": 2
+    },
+    {
+      "key": "--banner-scrim-rgb",
+      "uses": 6,
+      "files": 2
+    },
+    {
+      "key": "--accent-yellow-600-rgb",
+      "uses": 4,
+      "files": 2
+    },
+    {
+      "key": "--node-selection-accent-rgb",
+      "uses": 4,
+      "files": 1
+    },
+    {
+      "key": "--player-glass-tint-rgb",
+      "uses": 4,
+      "files": 2
+    },
+    {
+      "key": "--accent-red-300-rgb",
+      "uses": 3,
+      "files": 2
+    },
+    {
+      "key": "--accent-violet-500-rgb",
+      "uses": 3,
+      "files": 1
+    },
+    {
+      "key": "--primary-rgb",
+      "uses": 3,
+      "files": 1
+    },
+    {
+      "key": "--accent-amber-500-rgb",
+      "uses": 2,
+      "files": 2
+    },
+    {
+      "key": "--accent-pink-400-rgb",
+      "uses": 2,
+      "files": 2
+    },
+    {
+      "key": "--banner-text-rgb",
+      "uses": 2,
+      "files": 2
+    },
+    {
+      "key": "--demo-primary-rgb",
+      "uses": 2,
+      "files": 1
+    },
+    {
+      "key": "--primary-400-rgb",
+      "uses": 2,
+      "files": 1
+    },
+    {
+      "key": "--red-500-rgb",
+      "uses": 2,
+      "files": 1
+    },
+    {
+      "key": "--theme-shadow-rgb",
+      "uses": 2,
+      "files": 1
+    },
+    {
+      "key": "--accent-amber-300-rgb",
+      "uses": 1,
+      "files": 1
+    },
+    {
+      "key": "--accent-amber-400-rgb",
+      "uses": 1,
+      "files": 1
+    },
+    {
+      "key": "--accent-green-500-rgb",
+      "uses": 1,
+      "files": 1
+    },
+    {
+      "key": "--accent-mint-300-rgb",
+      "uses": 1,
+      "files": 1
+    },
+    {
+      "key": "--accent-mint-400-rgb",
+      "uses": 1,
+      "files": 1
+    },
+    {
+      "key": "--accent-pink-300-rgb",
+      "uses": 1,
+      "files": 1
+    },
+    {
+      "key": "--accent-red-200-rgb",
+      "uses": 1,
+      "files": 1
+    },
+    {
+      "key": "--accent-ultra-400-rgb",
+      "uses": 1,
+      "files": 1
+    },
+    {
+      "key": "--accent-violet-400-rgb",
+      "uses": 1,
+      "files": 1
+    },
+    {
+      "key": "--x-rgb",
+      "uses": 1,
+      "files": 1
+    }
+  ],
+  "literalStops": [
+    {
+      "key": 0,
+      "uses": 35,
+      "files": 6
+    },
+    {
+      "key": 4,
+      "uses": 2,
+      "files": 2
+    },
+    {
+      "key": 4.5,
+      "uses": 1,
+      "files": 1
+    },
+    {
+      "key": 5,
+      "uses": 2,
+      "files": 2
+    },
+    {
+      "key": 6,
+      "uses": 8,
+      "files": 3
+    },
+    {
+      "key": 7,
+      "uses": 9,
+      "files": 3
+    },
+    {
+      "key": 8,
+      "uses": 8,
+      "files": 4
+    },
+    {
+      "key": 9,
+      "uses": 1,
+      "files": 1
+    },
+    {
+      "key": 10,
+      "uses": 19,
+      "files": 11
+    },
+    {
+      "key": 12,
+      "uses": 16,
+      "files": 10
+    },
+    {
+      "key": 14,
+      "uses": 4,
+      "files": 3
+    },
+    {
+      "key": 15,
+      "uses": 3,
+      "files": 3
+    },
+    {
+      "key": 16,
+      "uses": 15,
+      "files": 2
+    },
+    {
+      "key": 18,
+      "uses": 6,
+      "files": 5
+    },
+    {
+      "key": 20,
+      "uses": 7,
+      "files": 7
+    },
+    {
+      "key": 24,
+      "uses": 2,
+      "files": 1
+    },
+    {
+      "key": 25,
+      "uses": 3,
+      "files": 2
+    },
+    {
+      "key": 28,
+      "uses": 7,
+      "files": 5
+    },
+    {
+      "key": 30,
+      "uses": 14,
+      "files": 7
+    },
+    {
+      "key": 32,
+      "uses": 2,
+      "files": 2
+    },
+    {
+      "key": 34,
+      "uses": 2,
+      "files": 1
+    },
+    {
+      "key": 36,
+      "uses": 3,
+      "files": 3
+    },
+    {
+      "key": 40,
+      "uses": 13,
+      "files": 5
+    },
+    {
+      "key": 45,
+      "uses": 3,
+      "files": 2
+    },
+    {
+      "key": 46,
+      "uses": 1,
+      "files": 1
+    },
+    {
+      "key": 48,
+      "uses": 3,
+      "files": 2
+    },
+    {
+      "key": 50,
+      "uses": 15,
+      "files": 4
+    },
+    {
+      "key": 52,
+      "uses": 4,
+      "files": 3
+    },
+    {
+      "key": 55,
+      "uses": 7,
+      "files": 4
+    },
+    {
+      "key": 60,
+      "uses": 3,
+      "files": 3
+    },
+    {
+      "key": 62,
+      "uses": 1,
+      "files": 1
+    },
+    {
+      "key": 70,
+      "uses": 2,
+      "files": 2
+    },
+    {
+      "key": 72,
+      "uses": 3,
+      "files": 1
+    },
+    {
+      "key": 74,
+      "uses": 2,
+      "files": 2
+    },
+    {
+      "key": 78,
+      "uses": 1,
+      "files": 1
+    },
+    {
+      "key": 80,
+      "uses": 11,
+      "files": 5
+    },
+    {
+      "key": 82,
+      "uses": 2,
+      "files": 1
+    },
+    {
+      "key": 84,
+      "uses": 5,
+      "files": 2
+    },
+    {
+      "key": 85,
+      "uses": 1,
+      "files": 1
+    },
+    {
+      "key": 86,
+      "uses": 1,
+      "files": 1
+    },
+    {
+      "key": 88,
+      "uses": 1,
+      "files": 1
+    },
+    {
+      "key": 92,
+      "uses": 9,
+      "files": 3
+    },
+    {
+      "key": 95,
+      "uses": 1,
+      "files": 1
+    },
+    {
+      "key": 96,
+      "uses": 1,
+      "files": 1
+    },
+    {
+      "key": 100,
+      "uses": 37,
+      "files": 6
+    }
+  ]
+}

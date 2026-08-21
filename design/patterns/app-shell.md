@@ -80,6 +80,8 @@ Shell의 geometry를 바꾸는 기능 요구는 feature 내부 CSS 예외가 아
 - sticky top chrome은 primary scroll root와 같은 surface 안에 있어야 한다.
 - main content와 top chrome은 동일한 좌우 inset 원천을 읽는다.
 
+  - **예외** — 패널 안에 든 상단 크롬(`mainChromeTopBarInPanel`)은 `--mainchrome-bleed-left/right`로 감싼 요소의 좌우 패딩을 음수 margin으로 상쇄해 카드 전폭으로 번진다. 값과 폴백 트랩은 「아직 토큰이 없는 축」에 있다.
+
 공용 App Shell composition은 하나만 제공하고 page scroll과 workspace host를 명시적인 variant로 둔다.
 `<main>`과 시각 panel의 소유권을 variant마다 바꾸지 않는다.
 
@@ -152,14 +154,73 @@ main inset이 우연히 어긋나지 않게** 관계 테스트를 유지한다. 
 | 드로어 면 (다크) | — | `--app-page-bg` | `Gnb.tsx:2016` |
 | 드로어 전환 | — | `transform 320ms cubic-bezier(0.4, 0, 0.2, 1)` | `Gnb.tsx:2008` |
 
+| 드로어 스크림 면 | — | `rgba(0, 0, 0, 0.44)` — 테마 불변 | `Gnb.tsx:1849` |
+| 드로어 스크림 등장 | — | `mobileMenuFadeIn 200ms ease forwards` (opacity 0 → 1), `motion-reduce`는 `animation: none` | `Gnb.tsx:1851-1852` · `keyframes.css:958-966` |
+| 드로어 패널 두 끝 | — | 닫힘 `translateX(-100%)` → 열림 `translateX(0)`, 열린 상태 `box-shadow: none` | `Gnb.tsx:2007` · `2013-2014` |
+| 셸 높이 (뷰포트) | `var(--app-shell-vh, 100dvh)` — 토큰이 아니라 런타임 주입 | 동일 | `AppHomeScene.tsx:246` · 소비 `appHomeSceneStyles.ts:904-905` · `AdminClient.tsx:40` |
+| `--mainchrome-bleed-left` / `-right` | 선언하는 요소가 **자기 좌우 패딩과 같은 값**으로 정한다 — 형태 B `<main>`은 `16px` / `12px`, 결제 결과 카드는 `24px` / `24px` | 형태 B `<main>`은 `16px` / `16px`, 결제 결과 카드는 `0px` / `0px` | `myPageSceneStyles.ts:58-59` → `64-65` · `billing-success/page.tsx:56` → `57`·`58` |
+| Create 노드 뷰 헤더 상하 인셋 | `8px` — `py-4` 리터럴, safe-area 참조 없음 | 동일 | `CreateScene.tsx:146-147` |
+| Create 노드 뷰 헤더 좌우 인셋 | `12px` — `px-6` 리터럴 | 동일 | `CreateScene.tsx:146-147` |
+
 **`outer-gap`은 부분만 대응한다.** 제품에는 12px 관계가 셋(상·우·하) 있고 셋이 서로 다른 변수를
 갖는다. compact에서 상단만 유지되고 우측은 16으로, 하단은 0으로 갈라지므로 **하나의 토큰으로
 셋을 덮을 수 없다.** DS-D-0018이 이 토큰을 「부분」으로 판정한 이유다.
+
+**≤719px에서 바깥 여백은 토큰 값과 무관하게 0이다(2026-08-21 실측).** 위 표의 `12px → 16px` ·
+`12px → 0px`는 **토큰 값**이고, 그 값을 읽던 **씬 루트가 compact에서 상·우·하 padding을 하드 `0`으로
+덮는다.** 좌 padding은 데스크톱에서도 `0`이다.
+
+| 씬 루트 | 데스크톱 | ≤719px | 근거 |
+| --- | --- | --- | --- |
+| 형태 A — AppHome | 상 `--app-gnb-safe-top` · 좌 `0` · 우 `--app-gnb-main-inline-padding-end` · 하 `--app-gnb-rail-padding-bottom` | 상·우·하 **모두 `0`** | `appHomeSceneStyles.ts:919-922` → `924-926` |
+| 형태 A — Admin | 동일 | 상·우·하 **모두 `0`** | `AdminClient.tsx:42-43` → `44-46` |
+| 형태 A — NodeCanvasHome | 동일 | 상·우·하 **모두 `0`** | `NodeCanvasHomeScene.tsx:94-95` → `103` |
+| 형태 A — 분석 2씬 | 동일 | 상·우·하 **모두 `0`** | `InstagramAnalyticsScene.tsx:277-278` → `285-287` · `YoutubeAnalyticsScene.tsx:742-743` → `750-752` |
+| 형태 B — 페이지 루트 | 상 `--app-gnb-safe-top` · 하 `--app-gnb-rail-padding-bottom`, 좌우 padding 없음 (패널이 `margin`으로 벌린다) | 상·하 `0`, 패널 `margin-right: 0` | `myPageSceneStyles.ts:561-562` → `566-567` · `74` → `90` |
+
+**그래서 compact의 16px은 카드 바깥이 아니라 카드 안쪽으로 간다.** compact에서
+`--app-gnb-main-inline-padding-end`를 읽는 자리는 전부 카드 안쪽이다 — 카드와 `<main>`의 안쪽
+패딩(`appHomeSceneStyles.ts:810` · `myPageSceneStyles.ts:66` · `NodeCanvasHomeScene.tsx:128` ·
+`AdminClient.tsx:80`), 카드 안 본문 컬럼(`InstagramAnalyticsScene.tsx:320`), 패널 안 상단
+바(`Gnb.tsx:435`)다. **모바일 시안에 카드 바깥 여백을 그리면 틀린다 — 카드가 화면 폭 전체다.**
 
 **드로어의 면은 페이지 배경이 아니다(2026-08-21 실측).** compact에서 드로어는 먼저
 `--app-page-bg`를 깔지만 곧바로 테마별 규칙이 덮는데, **라이트만 `--palette-gray-200`으로
 갈라진다.** 앱 셸 라이트에서 `--app-page-bg`는 `--palette-gray-100`(`#f8f8f9`)이고 드로어는
 `#eeeef1`이므로 **페이지 배경색으로 드로어를 그리면 한 단계 밝게 나온다.** 다크는 둘이 같다.
+
+**드로어 스크림은 dialog scrim과 다른 값이다.** 드로어 스크림은 `rgba(0, 0, 0, 0.44)`로 테마와
+무관하게 고정이고, [Dialog](../components/dialog.md)의 `color-scrim-modal`(라이트 56% · 다크 72%)과
+갈린다. **56%/72%로 대신 그리면 뒤 화면이 한 단계 어둡게 나온다.** 적층도 DS 사다리 밖이다 —
+드로어 `z-index: 1400` · 스크림 `1399`(`Gnb.tsx:2001` · `1845`)로 프로필 popover(1100)보다 위이며,
+그 이탈은 [App Shell Parts](../components/app-shell-parts.md)의 Known deviations가 기록한다.
+
+**셸 높이는 토큰이 아니라 런타임 주입이다.** `--app-shell-vh`는 CSS 어디에도 정의가 없다.
+`AppHomeScene`이 마운트될 때 `Math.round(visualViewport.height ?? innerHeight)`를 px로
+`documentElement`에 쓰고 언마운트에서 지운다 — `resize`와 `visualViewport.resize` 두 이벤트로
+갱신한다(`AppHomeScene.tsx:242-256`, 주입 `246` · 정리 `254`). 존재 이유는 iOS Safari 등에서
+`100dvh`가 실제 가시 높이와 어긋나 고정 높이 셸 아래에 흰 여백이 생기는 것을 막는 것이다. CSS는
+언제나 `var(--app-shell-vh, 100dvh)`로 읽으므로 **JS 미실행·하이드레이션 전에는 `100dvh`가 남는다.**
+**모바일 프레임 높이를 `100dvh` 상수로 굳히면 제품과 어긋나고, 그 어긋남을 잡아 주는 장치가 없다** —
+프레임은 브라우저 크롬을 뺀 실제 가시 높이로 잡고 `100dvh`는 폴백으로만 적는다.
+
+**bleed 두 개는 패널 안 상단 크롬을 카드 패딩 밖으로 되돌린다.** 크롬 바는
+`width: calc(100% + 좌 + 우)`와 좌우 `calc(-1 * 같은 값)` margin으로 감싼 요소의 좌우 패딩을 정확히
+상쇄해 **카드 전체 폭으로 번진다**(`Gnb.tsx:422-424`). 그래서 값은 언제나 **감싼 요소의 좌우 패딩과
+같게** 선언된다 — 형태 B의 `<main>`은 `16px`/`12px`(`myPageSceneStyles.ts:58-59`, 그 패딩 `60`),
+결제 결과 카드는 `24px`/`24px`(`billing-success/page.tsx:56`, 그 패딩 `63`)이다. ≤719px에서 형태 B는
+`16px`/`16px`로 함께 바뀌고(`myPageSceneStyles.ts:64-65`, 그 패딩 `66`), 결제 결과 카드는 둘 다 `0`이
+되어 크롬 바가 본문과 같은 폭이 된다(`billing-success/page.tsx:57`·`58`). **선언하지 않음이 「번짐
+없음」이 아니다** — 세 선언의 폴백이 모두 `--app-gnb-main-inline-padding`(16px)이라, 선언을 빼면
+우측도 12px(`-end`)이 아니라 16px로 번진다.
+
+**Create 노드 뷰 상단 헤더는 이 인셋 규약 밖이다.** 이 헤더는 `fixed top-0 left-0 right-0`에
+`py-4 px-6` 리터럴을 쓰고 `env(safe-area-inset-*)`도 `--app-gnb-main-inline-padding-end`도 참조하지
+않는다(`CreateScene.tsx:146-147`, 소비 `662`). `--spacing`이 `2px`이므로 상하 **8px** · 좌우
+**12px**이고, 이 헤더에는 719px 분기가 없어 compact에서도 12px 그대로다. **위 표의
+`--app-gnb-safe-top`을 따라 상하 12px + safe-area로 그리면 실제 8px과 어긋난다.** 좌우 12px은 우연이
+아니다 — 배포본 주석이 「좌우 12px 은 레이어 패널·툴바·줌과 같은 시작선, 상하는 8px」이라고 직접
+적는다(`CreateScene.tsx:145`).
 
 ### 메인 카드 표면 — 값은 있고 계약이 없다
 
@@ -174,6 +235,8 @@ main inset이 우연히 어긋나지 않게** 관계 테스트를 유지한다. 
 | 프레임 | `var(--glass-dropdown-frame)` — **5겹**이다. 단일 헤어라인이 아니다 | `globals.css:1372` · `63-68` |
 | 면 (라이트) | `--palette-gray-100` | `globals.css:1391-1393` · `1423-1425` |
 | 면 (다크) | `--palette-gray-800` | `globals.css:1395-1397` · `1427-1429` |
+
+| 스크롤 헤더 슬롯 | `position: sticky; top: 0; z-index: 5` — 페이드(10)·베벨 링(11)보다 **아래**다 | `appHomeSceneStyles.ts:787-795` · `InstagramAnalyticsScene.tsx:336` |
 | 하단 페이드 | `::before` `z-index: 10` — `linear-gradient(to top, 면색 100% 0%, 53% 50%, 19% 80%, 0% 100%) bottom / 100% 20px no-repeat` | `globals.css:1431-1460` |
 | 베벨 링 | `::after` `z-index: 11` — 상하 `inset 0 ±1px 1px` 25% + 좌우 `inset ±1px 0 1px` 18% | `globals.css:1375-1389` |
 | 클리핑 | `overflow: hidden` | `globals.css:1369` · `1402` |
@@ -183,6 +246,63 @@ main inset이 우연히 어긋나지 않게** 관계 테스트를 유지한다. 
 
 **`--glass-dropdown-frame`을 단일 링으로 옮기면 틀린다.** 5겹이고 라이트에서 알파가 뒤집힌다 —
 [읽기 함정](../foundations/product-reading-traps.md) §2가 이 토큰을 예로 든다.
+
+**카드 안쪽은 3층이다 — 헤더 슬롯(5) < 하단 페이드(10) < 베벨 링(11).** sticky 헤더를 페이드·링
+**위**로 올려 그리면 틀린다. 배포본은 베벨 링이 헤더의 상단 모서리를 덮는다.
+
+#### 프레임 해결값 — `--glass-dropdown-frame` 5겹
+
+| # | 종류 | x | y | blur | spread | 색 (다크·기본) | 색 (라이트) |
+| ---: | --- | ---: | ---: | ---: | ---: | --- | --- |
+| 1 | 외곽 링 | `0` | `0` | `0` | `0.5px` | `rgba(0,0,0,0.5)` | `rgba(0,0,0,0.15)` |
+| 2 | 우측 엣지 | `1.25px` | `0` | `0` | `-0.75px` | `rgba(0,0,0,0.8)` | `rgba(0,0,0,0.25)` |
+| 3 | 좌측 엣지 | `-1.25px` | `0` | `0` | `-0.75px` | `rgba(0,0,0,0.8)` | `rgba(0,0,0,0.25)` |
+| 4 | 상단 흰 림 (`inset`) | `0` | `1px` | `1px` | `-0.5px` | `rgba(255,255,255,0.5)` | `rgba(255,255,255,1)` |
+| 5 | 하단 흰 림 (`inset`) | `0` | `-1px` | `1px` | `-0.5px` | `rgba(255,255,255,0.5)` | `rgba(255,255,255,1)` |
+
+근거는 `globals.css:63-68`(다크·기본)과 `592-599`(라이트 오버라이드)다.
+
+**기하는 테마와 무관하게 같고 갈리는 것은 알파뿐이다** — 링 50 → 15%, 좌우 엣지 80 → 25%, 흰 림
+50 → 100%. 1·2·3은 blur가 `0`이라 드롭섀도우가 아니라 **선**이다. 2·3의 음수 spread(`-0.75px`)가
+링을 좌우로만 `1.25 − 0.75 = 0.5px` 내밀어 세로 엣지를 만든다.
+
+**베벨 링의 잉크는 순백이 아니라 `250 250 250`이다.** 네 겹 모두 `--glass-inner-shadow-rgb` =
+`--palette-gray-000-rgb` = `250 250 250`이고 **라이트에서 재정의되지 않는다**(`globals.css:53` · `39`).
+offset·blur는 `--glass-bevel-offset: 1px` · `--glass-bevel-blur: 1px`(`globals.css:55-56`)이다. 형태
+A(`globals.css:1407-1421`)와 형태 B(`1375-1389`)의 네 겹은 값이 동일하다.
+
+**Figma에서는 9겹을 두 노드로 나눠 그린다** — 카드 노드에 프레임 5겹, 그 위 오버레이 노드에 베벨 링
+4겹. 생성 토큰의 `elevation-*` 8종 중 이 프레임과 일치하는 것은 **없다.** 가장 가까운
+`elevation-menu`도 2겹이라 대용할 수 없다.
+
+**≤719px에서는 프레임과 베벨 링이 통째로 사라진다.** `border-radius: 0` · `box-shadow: none` ·
+`overflow: visible`이 되고 `::before`/`::after`가 `display: none`이다(`globals.css:1462-1474`). 형태 B의
+`::before`는 전역이 아니라 씬이 끈다(`myPageSceneStyles.ts:94`). **모바일 시안에 카드 프레임을 그리면
+틀린다.**
+
+#### 하단 페이드의 출처가 형태마다 다르다
+
+형태 A는 전역 `.appMainCardChrome::before`(`globals.css:1431-1460`)가 준다. 형태 B에는 **그 전역
+`::before`가 없고** 씬이 자기 `::before`에 상단·하단 두 배경 레이어를 함께 선언한다 —
+`myPageSceneStyles.ts:88`(라이트) · `89`(다크). 결과 값은 같지만 **형태 B를 「전역 클래스만 붙이면
+된다」로 읽으면 페이드가 통째로 빠진다.**
+
+#### 형태 B 전용 상단 페이드 — 값은 적되 켜진 상태로 그리지 않는다
+
+배포본에서 이 페이드가 켜지는 화면은 0개다. 원인은 [제품 확인 사항](../governance/product-confirmations.md)
+§7과 [App Shell Parts](../components/app-shell-parts.md)가 기록한다. 값을 남기는 이유는 제품이 고쳤을
+때 지어내지 않기 위해서다.
+
+| 축 | 값 |
+| --- | --- |
+| 방향 | `linear-gradient(to bottom, …)` |
+| 스톱 (면색 알파@위치) | `100%@0%` · `98%@30%` · `92%@50%` · `78%@64%` · `55%@76%` · `28%@87%` · `8%@95%` · `0%@100%` |
+| 잉크 | 라이트 `--palette-gray-100-rgb` / 다크 `--palette-gray-800-rgb` — 하단 페이드와 같은 면색 |
+| 배치·크기 | `top / 100% calc(72px * min(1, var(--header-progress, 0) * 1000)) no-repeat` |
+| 실효 높이 | **`0px`** — `--header-progress`가 패널까지 올라오지 않아 언제나 폴백 `0` |
+
+**`min(1, x * 1000)`은 페이드가 아니라 스위치다** — progress가 0을 조금이라도 넘으면 즉시 72px 전체가
+켜진다. 제품이 고쳐 켜지는 날이 오면 높이는 상수 `72px`이다.
 
 ## 미결정 — 셸 형태 A / B
 
@@ -202,10 +322,19 @@ main inset이 우연히 어긋나지 않게** 관계 테스트를 유지한다. 
 | `<main>` 안쪽 패딩 (≤719px) | `0 16px` | `0 16px` |
 | 스크롤 루트 | `<main>` 바깥의 뷰포트 div | `<main>` 자신 |
 
+| `<main>` 안쪽 패딩 — 분석 2씬 예외 | `0` — 카드는 패딩 0이고 인셋을 자식이 갖는다 (`InstagramAnalyticsScene.tsx:300` · `YoutubeAnalyticsScene.tsx:773`, 본문 컬럼 좌우 `--app-gnb-main-inline-padding` `319`·`320`) | 해당 없음 |
+| `<main>` 하단 패딩 (≤780px) | `160px` — 형태 A는 `0 16px 160px 16px`이지 `0 16px`이 아니다 (`NodeCanvasHomeScene.tsx:127` · `AdminClient.tsx:81` · `appHomeSceneStyles.ts:783`) | 해당 없음 |
+
 **형태 B의 아래쪽 20px은 `pb-10`이다.** 제품이 Tailwind의 `--spacing`을 `2px`로 재정의했기
 때문에(`tailwind.css:164`) `pb-10` = 20px이지 40px이 아니다. **Tailwind 기본값(4px 격자)으로
 환산하면 두 배로 나온다.** 실측값: `--app-gnb-main-inline-padding` 16px ·
 `--app-gnb-main-inline-padding-end` 12px(≤719px는 16px) — `globals.css:128`·`130`·`416`·`417`.
+
+**≤780px의 160px은 소스 순서가 이긴 결과다.** `.main`의 `padding-bottom: 160px`이
+`.mainWithAppSidebar`의 padding 단축보다 소스 뒤에 있어 이긴다 — 배포본이 그 승자를 그대로 옮겼다고
+주석에 적는다(`NodeCanvasHomeScene.tsx:121-122`). **분석 2씬에는 이 160px이 없다** — `p-0`만 있고
+≤780px 하단 선언이 없다. 같은 형태 A인데 카드 하단 여백이 갈리므로 **한 씬을 재어 형태 A 전체에
+적용하면 틀린다.**
 
 전환 곡선은 양쪽 모두 `320ms cubic-bezier(0.4, 0, 0.2, 1)`로 같다 — 위 표의
 `motion-shell-collapse`와 일치한다. **갈리는 것은 곡선이 아니라 무엇이 움직이는가다.**
@@ -317,6 +446,9 @@ collapse/restore다. 복제된 Scene shell, 전역 최소폭, raw z-index는 새
   integration은 아직 없다.~~ composition은 섰다(2026-08-18). **제품 integration은 여전히 없다.**
 - drawer의 `inert` 테스트는 섰다. **focus trap 자체와 scroll lock은 아직 없다** — 뒤를 죽이는 것과 초점을 가두는 것은 다른 일이다.
 - safe-area와 viewport-height 전략이 package로 정의되지 않았다.
+
+  제품의 현행 해는 「아직 토큰이 없는 축」 표의 `--app-shell-vh` 런타임 주입이다. package 계약이
+  서면 그것을 흡수하거나 대체한다.
 - semantic overlay layer와 profile menu interaction test가 없다.
 
 ## Acceptance tests

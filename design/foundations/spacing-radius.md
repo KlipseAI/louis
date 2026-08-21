@@ -37,6 +37,39 @@ Dimension primitive, semantic spacing/radius와 responsive profile은 단일 DTC
 - 음수 값으로 Shell ownership 오류를 보정하지 않는다.
 - 제품별 scene 좌표나 일회성 media crop 값은 공용 token으로 승격하지 않는다.
 
+- semantic spacing은 고정 dimension이 원칙이다. **유일한 예외는 표면 전체를 세로로 채우는 패널의 세로
+  padding**이며, 이때만 `clamp(min, <n>svh, max)`를 허용한다.
+- **가로 padding은 예외를 받지 않는다.** 세로만 반응하고 가로는 고정 primitive를 유지하는 것이 이
+  관용구의 요점이다. 가로까지 clamp로 바꾸면 틀린다.
+- viewport 단위는 `vh`나 `dvh`가 아니라 `svh`로 고정한다. [Responsive Layout](responsive-layout.md)의
+  Viewport height and safe area가 이미 높이 원천을 단일화했으므로 spacing도 같은 단위 축을 쓴다.
+- clamp의 min과 max는 기존 spacing primitive에서 집는다. clamp를 쓴다는 이유로 자유 리터럴을 새로
+  만들지 않는다.
+- **viewport-relative padding은 높이 제약의 1차 답이 아니다.** 1차 답은 여전히 보조 영역을 접거나 자체
+  scroll로 전환하는 것이고, 이 clamp는 그 위에 얹히는 보조 수단이다. 제품도 같은 요소에
+  `overflow-y: auto`를 함께 건다 — 둘 중 하나만 옮기면 세로가 짧은 viewport에서 완료 액션이 잘린다.
+- `{value, unit}` 스칼라 모델은 3항 `clamp()`를 담지 못한다. token으로 승격하려면 새 shape가 필요하고,
+  그렇지 않으면 소비처 리터럴로 격리한다. 둘 중 무엇인지 정하지 않은 채 token ID만 붙이면 validator가
+  거부한다.
+
+제품 정본에서 이 예외를 쓰는 곳은 Auth 폼 패널 하나이며, auth 라우트 4개가 같은 값을 공유한다.
+
+| 축           | ≥720px                        | ≤719px |
+| ------------ | ----------------------------- | ------ |
+| 세로 padding | `clamp(32px, 6svh, 72px)`     | 미적용 |
+| 가로 padding | `32px` 고정                   | 미적용 |
+
+근거는 `components/auth/AuthStatusCard.tsx:57`, `app/signup/page.tsx:62`,
+`app/aws/signup/page.tsx:119`다. `/login`만 같은 값을 `py-[clamp(32px,6svh,72px)]`와 `px-16` 두
+유틸리티로 나눠 적지만 계산값은 같다(`app/login/page.tsx:75-76`). 이 clamp는 뷰포트 높이 533px
+이하에서 32px로 붙고 1200px에서 72px로 포화한다. 719px 이하에서 미적용인 이유는 폼 패널이
+`display: contents`로 녹아 상자 자체가 사라지기 때문이다(`components/auth/AuthStatusCard.tsx:54`) —
+모바일 프레임에 이 padding을 그리면 틀린다.
+
+**Figma 고정 프레임에는 1080 높이 기준 단일 값 65px를 쓴다.** 뷰포트형 프레임 높이를 1080으로 통일한
+결과이므로, 기준 높이를 바꾸면 이 숫자도 함께 바뀐다. 기준 높이를 적지 않고 65px만 옮기면 다음 사람이
+다른 프레임에서 같은 값을 재사용해 틀린다.
+
 ## Radius model
 
 - radius는 control, surface, overlay, overlay-item처럼 계층과 사용 목적을 표현한다.

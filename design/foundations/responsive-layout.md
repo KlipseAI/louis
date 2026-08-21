@@ -48,6 +48,42 @@ Container query를 쓰는지 ResizeObserver를 쓰는지는 구현 선택이다.
 compact 구조 또는 명시적인 지원 범위 안내로 전환한다. 문서 전체에 `min-width`를 걸어 우연히 충돌을
 피하는 방식은 목표 계약이 아니다.
 
+#### 축약 시 래퍼 처리 — 소거와 용해를 구분한다
+
+2열이 1열로 축약될 때 **남는 열의 래퍼를 어떻게 처리하는지가 결과를 가른다.** 제품은 두 가지를
+구분해 쓴다 — 사라지는 쪽은 `display: none`, 남는 쪽의 래퍼는 `display: contents`다.
+
+- 배경·테두리·패딩을 가진 실제 표면이면 `display: none`으로 소거한다.
+- 남는 열의 래퍼가 배경도 테두리도 없는 순수 레이아웃 상자면 `display: contents`로 **그리드에서
+  녹인다**. 자식이 페이지 그리드의 직접 자식이 되어 부모의 `place-items: center`를 그대로 받는다.
+- 래퍼가 `role`·`aria-*`·랜드마크를 가지면 `display: contents`를 쓰지 않는다. 브라우저·보조기술
+  조합에 따라 그 의미가 접근성 트리에서 누락된 이력이 있어, 의미를 지고 있는 래퍼는 용해가
+  안전하지 않다. 아래 절 3의 「숨긴 영역은 … 접근성 트리에서도 제거한다」와 같은 축이지만,
+  여기서는 **의도하지 않은 제거**가 문제다.
+- `display: contents` 호스트는 `getBoundingClientRect()`가 0을 반환한다. 계측할 때는 호스트가
+  아니라 첫 자식을 잰다.
+
+래퍼를 `display: none`으로 지우고 카드를 다른 컨테이너에 옮겨 붙이면 DOM 순서가 바뀌어 「DOM
+순서와 compact에서 보이는 순서가 일치해야 한다」를 깬다. 반대로 래퍼를 살린 채 1열로 만들면
+중첩 그리드가 하나 더 생겨 `place-items`가 두 번 적용되고 카드가 이중으로 중앙 정렬된다.
+**둘 다 틀린다.**
+
+인증 표면 3벌(로그인·회원가입·상태 카드)이 720px 경계에서 이 규칙을 그대로 쓴다.
+
+| 요소          | `≤719px`                                                                         | `≥720px`                                                                                               |
+| ------------- | -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- |
+| 페이지 그리드 | 1열 `grid` · `place-items: center` · 패딩 16px(로그인·회원가입) / 20px(상태 카드) | `grid-template-columns: minmax(0,1fr) minmax(0,1fr)` · `place-items: stretch` · `gap: 20px` · 패딩 20px |
+| 브랜드 패널   | `display: none`                                                                    | `display: flex`                                                                                            |
+| 폼 패널(래퍼) | **`display: contents`**                                                            | `display: grid` · `place-items: center` · `min-width: 0` · `overflow-y: auto`                            |
+
+근거: `AuthStatusCard.tsx:18-21`·`:26`·`:54-56` · `login/page.tsx:22-27`·`:33`·`:70-74` ·
+`app/signup/page.tsx:22-26`·`:31`·`:59-61`. 폼 패널 래퍼가 `role`도 `aria-*`도 없는 평범한 `<div>`라
+용해해도 안전하다 — `AuthStatusCard.tsx:120`.
+
+작성 형태는 두 가지가 병존한다. 기본값을 `contents`로 두고 `min-width: 720px` 한 분기만 얹는
+형태와, `max-width: 719px` / `min-width: 720px` 상호배타 두 분기로 가르는 형태다. 계산 결과가
+같으므로 이 규범은 **결과만 고정하고 표기는 열어 둔다.**
+
 ### 3. 레이아웃 안전 규칙
 
 - 가변 grid/flex 자식은 `min-width: 0`과 필요한 경우 `min-height: 0`을 가져야 한다.
@@ -86,6 +122,40 @@ container 기반이어야 하지만 기준 viewport와 기본 shell 상태에서
 이 호환 기준의 비규범 provenance는
 [`KP-LAYOUT-001`](../../migration/product-baseline.md)과
 [`KP-GRID-001`](../../migration/product-baseline.md)에 있다.
+
+### Auth 표면(로그인 전) 경계 행동
+
+위 표는 App Shell 안쪽, 즉 **로그인 후** 제품 화면의 결과다. 인증 표면은 셸 밖에 있어 같은
+경계값에서 다른 일을 한다 — 719/720은 셸의 compact 경계가 아니라 **자기 자신의 2열↔1열
+경계**이고, 1200은 그리드 열 수와 무관하게 **슬로건 타입스케일 한 단계 승급**만 뜻한다.
+경계값이 같으니 행동도 같다고 읽으면 틀린다.
+
+| 기준 viewport 구간 | Auth surface outcome                                                                                                                                       |
+| ------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `≤719px`           | 브랜드 패널 `display: none` · 폼 패널 `display: contents` · 페이지 1열 `place-items: center` · 페이지 패딩 16px(로그인·회원가입) / 20px(상태 카드) · 카드 안 로고 링크 노출 |
+| `720–959px`        | 브랜드/폼 2열 `minmax(0,1fr) minmax(0,1fr)` · `gap: 20px` · `place-items: stretch` · 페이지 패딩 20px · 카드 안 로고 링크 숨김                            |
+| `960–1199px`       | `720–959px`와 같다. 셸이 persistent navigation으로 바뀌는 것과 무관하다                                                                                    |
+| `1200–1799px`      | 2열 유지. 슬로건이 `heading-36-medium` → `heading-48`로 승급한다 — 선언 중 실제로 달라지는 값은 size뿐이다                                                |
+| `≥1800px`          | `1200–1799px`와 같다. grid profile 5열에 대응하는 auth 변화는 없다                                                                                         |
+
+카드 안 로고 링크는 `≥720px`에서 브랜드 패널이 로고를 대신 들기 때문에 숨긴다. 이 대체 관계를
+모르고 로고를 항상 노출하면 데스크톱에서 브랜드 마크가 두 번 나온다. 1200 경계를 그리드 열
+수만의 경계로 읽으면 슬로건이 `heading-36`에 고정되어 넓은 화면에서 브랜드 패널이 비어 보인다.
+
+승급은 `font-size`·`line-height`·`letter-spacing` 세 선언을 함께 다시 내보내지만, 두 단계의
+line-height(`1.35`)와 letter-spacing(`-0.02em`)이 같은 값이라 **선언값이 실제로 달라지는 것은
+size(36px → 48px)뿐이다.** 나머지 둘은 상대 단위라 계산된 px만 size를 따라 커진다. 「셋 다
+바뀐다」로 읽고 line-height·letter-spacing을 별도 토큰 변화로 취급하면 안 된다. 타입스케일 토큰
+`globals.css:350-352`(heading-48) · `:354-356`(heading-36), 단일 유틸리티가 세 프로퍼티를 함께
+내보내는 근거는 `tailwind.css:187-189`.
+
+근거(배포본 a9ead58b): 2열 분할 `AuthStatusCard.tsx:19` · `login/page.tsx:25` ·
+`app/signup/page.tsx:24`. 브랜드 패널 소거 `AuthStatusCard.tsx:26` · `login/page.tsx:33` ·
+`app/signup/page.tsx:31`. 1열 축약 `AuthStatusCard.tsx:54` · `login/page.tsx:70` ·
+`app/signup/page.tsx:59`. 기본 슬로건 스케일 `AuthStatusCard.tsx:115`, 1200 승급
+`AuthStatusCard.tsx:47-49` · `app/signup/page.tsx:52-54` · `login/page.tsx:65`. 페이지 패딩
+`login/page.tsx:22,24` · `app/signup/page.tsx:22,23,25`. 로고 링크 숨김 `AuthStatusCard.tsx:67` ·
+`login/page.tsx:86` · `app/signup/page.tsx:71`.
 
 ## Viewport height and safe area
 

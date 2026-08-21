@@ -56,6 +56,39 @@ summary: 앱 셸을 이루는 사이드바 행과 상단 바입니다.
 **SidebarNavItem** — Icon · Label · Trailing.
 **AppTopBar** — Leading · Title · Trailing.
 
+**SidebarSectionLabel** — 레일은 평평한 목록이 아니다. 「분석」 아래로 항목을 묶는 **비대화형 구획 라벨
+행**이 하나 있다. 이 행을 모르면 YouTube 분석이 하이라이트 바로 아래 붙어 구획이 사라진다.
+
+행(`<li>`)
+
+| 축 | 값 | 비고 |
+| --- | --- | --- |
+| 요소·시맨틱 | `<li role="presentation">` | 목록 항목으로 세지 않는다 |
+| `list-style` | `none` | |
+| `margin` | `0` | |
+| `padding` | `12px 0 4px` | **상하 비대칭.** 위 12로 앞 구획과 떼고 아래 4로 자기 항목에 붙인다 |
+| `width` | `100%` | |
+| 접힘 | `display: none` | 아이콘만 남는 레일에서 글자 구획은 의미가 없다 |
+| 접힘 + `≤719px` 드로어 | `display: block` | 드로어는 폭이 있으므로 되살린다 |
+
+라벨(`<span>`)
+
+| 축 | 값 |
+| --- | --- |
+| 타이포 | `type-caption-12-medium`(12px / 1.5 = 18px) |
+| `display` | `block` |
+| `padding-left` | `main-inline-padding − sidebar-padding-x` = 16 − 12 = **4px** — 아이콘·로고와 같은 시작선 |
+| 색 (light) | `--palette-gray-600` → 앱 셸 램프에서 `#9aa0ab` |
+| 색 (dark) | `--palette-gray-400` = `#bcc0c9` |
+| 문구 | 「분석」 / "Analytics" |
+
+**4px을 따로 지어내지 않는다.** Specification의 행 좌우 여백 4px과 **같은 식에서 나온 같은 값**이다.
+두 자리가 한 식을 공유하므로 한쪽만 8로 두면 구획 라벨이 아이콘 시작선에서 밀려난다.
+
+근거: `Gnb.tsx:737-742`(라벨) · `Gnb.tsx:744-751`(행) · `Gnb.tsx:4601-4612`(마크업) ·
+`globals.css:126`·`:128`(두 인셋 변수) · `globals.css:374-375`(caption-12) ·
+`Gnb.tsx:1978`(앱 셸 라이트 램프) · `globals.css:31`.
+
 ## Properties
 
 | 컴포넌트 | prop | 값 | 기본 | 뜻 |
@@ -80,6 +113,22 @@ variant 축이 없다. rail 안의 행은 전부 같은 무게이며, 강조는 
 | Hover | `color-action-ghost-hover`, `color-foreground-primary` |
 | Current | `color-background-inset`, `color-foreground-primary` |
 | Focus visible | 공유 focus ring |
+
+**행 아이콘은 라벨보다 옅다.** 아이콘 슬롯은 20×20에 `background-color: currentColor` + 마스크이고,
+비활성 행에서 `opacity: 0.92`, 활성 행에서만 `1`이 된다. 라벨은 어느 상태에서도 100%다 — **같은 행
+안에서 아이콘과 글자의 농도가 다르다.** 둘을 같은 농도로 그리면 Default 행이 배포본보다 진해지고,
+Current로 넘어갈 때 일어나는 변화가 하나 사라진다.
+
+| state | 아이콘 농도 | 라벨 농도 |
+| --- | ---: | ---: |
+| Default · Hover · Focus visible | 92% | 100% |
+| Current | 100% | 100% |
+
+농도는 전경색을 바꾸는 것이 아니라 마스크 슬롯의 `opacity`다. 색을 한 단계 옅은 토큰으로 바꿔 흉내내면
+hover에서 전경이 바뀔 때 값이 어긋난다.
+
+근거: `Gnb.tsx:567-568`(20×20) · `:570`(`currentColor`) · `:571`(`opacity:0.92`) ·
+`:580`(활성에서 `1`) · 라벨 `Gnb.tsx:597-616`에 `opacity` 선언 0건.
 
 AppTopBar는 상태 축이 **없다.** 대화형이 아니고 안의 슬롯이 자기 상태를 갖는다.
 
@@ -113,6 +162,48 @@ AppTopBar는 상태 축이 **없다.** 대화형이 아니고 안의 슬롯이 �
 사이드바 바닥 자리는 하나이고 **홈**과 **업그레이드**가 나눠 쓴다.
 <!-- GENERATED:app-nav-labels END -->
 
+### 레일 항목 인벤토리
+
+위 표는 **라벨 대응표일 뿐이다.** 레일에 서는 순서와 존재 여부는 이 표가 소유한다(배포본 `a9ead58b`).
+
+| # | 행 | 라우트 | 아이콘 자산 | 선택 축 | 비고 |
+| ---: | --- | --- | --- | --- | --- |
+| 1 | 검색 | — | `/icons/MagnifyingGlass.svg` | **밖** | 커맨드 팔레트를 연다. `href`가 없다 |
+| 2 | 홈 | `/archive` | `/icons/House.svg` | 안 | |
+| 3 | 노드 캔버스 | `/nodecanvas` | `/icons/Graph.svg` | 안 | 복합 행(「+」) |
+| 4 | 비디오 에디터 | `/videoeditor` | `/icons/MagicWand.svg` | 안 | 복합 행(「+」) |
+| 5 | 하이라이트 | `/highlight` | `/highlight_symbol.svg` | 안 | trailing 베타 칩 |
+| 6 | 「분석」 구획 라벨 | — | — | 밖 | `<li role="presentation">` |
+| 7 | YouTube 분석 | `/analytics/youtube` | `/icons/youtube.svg` | 안 | |
+
+**`/analytics/instagram`은 레일에 서지 않는다.** 라우트도 아이콘(`/icons/InstagramLogo.svg`)도 라벨도
+코드에 있지만 `INSTAGRAM_ANALYTICS_HIDDEN = true`가 그 행을 렌더 직전에 걷어낸다. 위 라벨 표에 한 줄로
+올라 있다고 그리면 배포본에 없는 행이 하나 더 선다. 같은 플래그를 미들웨어가 라우트 차단에도 쓰므로
+켜면 메뉴와 라우트가 함께 열린다.
+
+**검색 행은 선택 축 밖에 있다.** 레일 첫 항목은 내비가 아니라 커맨드 팔레트를 여는 버튼이고, 유일하게
+행 배열 밖에 하드코딩되어 목록 위에 선다.
+
+| 축 | 값 |
+| --- | --- |
+| 위치 | 사이드바 `<ul>`의 **첫 `<li>`**. 「홈」보다 위 |
+| 요소 | `<button type="button">` — `href`가 없다 |
+| 시맨틱 | `aria-haspopup="dialog"` |
+| 선택 | `aria-current`를 **절대 받지 않는다.** 활성 인디케이터(형제 절대배치 span)의 추종 대상도 아니다 |
+| 아이콘 | `/icons/MagnifyingGlass.svg` — 다른 행과 같은 마스크 경로 |
+| 라벨 | 「검색」 / "Search" |
+| 접근 이름 | 펼침에서는 라벨 `<span>`이 소유한다. 접힘에서 라벨이 `aria-hidden`이 되고 버튼에 `aria-label`이 붙는다 |
+| 골격 | 나머지 행과 **완전히 같다** |
+
+골격이 같으므로 `SidebarNavItem`을 그대로 쓰되 `href`와 `current`를 주지 않고 `aria-haspopup="dialog"`를
+얹는 것이 옳다. Hierarchy의 「rail 안의 행은 전부 같은 무게다」는 **시각 무게에 대해서만** 참이다 —
+선택 축에 속하는지는 별개 축이고, 검색 행과 구획 라벨 행은 그 축 밖이다. 이 둘을 내비 항목으로 그리면
+활성 인디케이터가 갈 수 있는 자리가 둘 늘어난다.
+
+근거: `Gnb.tsx:2069-2090`(아이콘 대응과 행 배열) · `Gnb.tsx:2282-2283`·`Gnb.tsx:4596-4598`(숨김 필터) ·
+`Gnb.tsx:4557-4595`(검색 행. 주석이 「내비 항목이 아니므로 인디케이터 대상 아님」이라 적는다) ·
+`Gnb.tsx:4565-4573` · `app-paths.ts:6`·`:32-37` · `middleware.ts:183` · 라벨 `ko.ts:1228`·`en.ts:1241`.
+
 ## 복합 내비 행
 
 배포본에는 내비 항목 하나와 「+」 생성 버튼이 한 줄을 나눠 쓰는 형태가 있다(하이라이트 허브 ·
@@ -128,6 +219,50 @@ AppTopBar는 상태 축이 **없다.** 대화형이 아니고 안의 슬롯이 �
 **접히면 액션이 사라진다.** 아이콘 하나가 들어가는 32px 자리에 둘을 넣을 수 없다. 배포본도
 접힘에서 `display: none`으로 지운다.
 
+**복합 행은 「노드 캔버스」와 「비디오 에디터」 두 줄이다.** 위 문단의 「하이라이트 허브 ·
+비디오에디터 허브」는 오기다 — **하이라이트 행에는 「+」가 없고** 그 자리에 베타 칩이 온다(trailing).
+
+**두 「+」의 동작이 서로 다르다.** 한 문장으로 뭉뚱그리면 한쪽을 반드시 잘못 그린다.
+
+| 행 | 「+」 동작 | 화면 결과 |
+| --- | --- | --- |
+| 노드 캔버스 | `stopPropagation()` 후 트리거 요소를 넘겨 생성 모달을 연다 | **모달이 뜬다.** 복귀 포커스가 그 버튼이다 |
+| 비디오 에디터 | `stopPropagation()` 후 프로젝트를 만들고 `/videoeditor/{id}`로 이동한다 | **모달 없이 즉시 생성 후 이동.** 중간 화면이 없다 |
+
+두 행이 `stopPropagation()`을 쓰는 이유는 같다 — 액션이 행의 내비 절반을 함께 발화시키면 안 된다.
+접근 이름도 갈린다: "New project (open canvas)" 대 "New project (video edit)".
+
+**액션 슬롯(「+」 버튼)의 기하.** 32px 행 안에 들어가는 24px 버튼이며 행 높이와 같지 않다.
+
+| 축 | 값 |
+| --- | ---: |
+| 크기 | 24 × 24 (행 32보다 8 작다) |
+| 반경 | 6px |
+| 테두리 | `0` |
+| 여백 | `margin: 0` · `padding: 0` — 글리프가 flex 가운데 정렬 |
+| `flex-shrink` | `0` — 라벨이 길어도 줄지 않는다 |
+| 전환 | `background 160ms ease` |
+| 접힘 | `display: none` |
+
+| 상태 | light | dark |
+| --- | --- | --- |
+| rest | `--palette-gray-200` = `#eeeef1` | `--palette-gray-700` = `#575d68` |
+| hover | `--palette-gray-300` = `#e4e5e9` | `--palette-gray-600` = `#777d89` |
+
+글자색은 `inherit`으로 행의 전경을 그대로 받는다. **면은 행 배경 위에서 한 단계 올라온 중립이지
+강조색이 아니다** — 브랜드 파랑이나 accent로 그리면 배포본과 다르다. 행 자체는 `display: flex` ·
+`gap: 4px`이다.
+
+**글리프는 앱 내비 아이콘과 같은 규격이다** — 표시 20 × 20, `viewBox="0 0 32 32"`, 두 path
+(`M16 9V23`, `M9 16H23`), `stroke="currentColor"`, `stroke-width="2.4"`, `stroke-linecap="round"`,
+`fill="none"`. 텍스트 「+」 글자가 아니므로 폰트를 바꿔도 두께가 따라오지 않는다(버튼에 남아 있는
+`font-size`·`font-weight` 선언은 사문이다).
+
+근거: `Gnb.tsx:683-707`(액션 버튼) · `Gnb.tsx:708-715`(행) · `Gnb.tsx:2126-2151`(글리프) ·
+`Gnb.tsx:1974-1975`(앱 셸 라이트 램프) · `globals.css:33-34`(다크) ·
+`Gnb.tsx:2079-2090`(행 배열) · `Gnb.tsx:4673-4688`(노드 캔버스 모달) ·
+`Gnb.tsx:2631-2645`(비디오 에디터 즉시 생성) · `Gnb.tsx:4762-4804`(하이라이트 = 일반 행 + 베타 칩).
+
 ## Sidebar brand와 CTA
 
 사이드바는 내비 항목만으로 성립하지 않는다. 배포본은 **맨 위에 브랜드 행**, **맨 아래에 업그레이드
@@ -140,6 +275,31 @@ CTA**를 갖는다. 바닥 자리는 하나이고 화면에 따라 "홈"이 되�
 | `SidebarBrand` | 행 최소 높이 `layout-app-shell-top-bar-height`(40) · 마크 레일 `layout-app-shell-brand-mark-height`(28) · 워드마크 최대 폭 240 |
 | `SidebarNavRow` | `gap` `space-control-xs` · 항목이 남는 자리를 먹고 액션은 옆에 선다 |
 | `SidebarCta` | `margin-block-start: auto`로 바닥에 붙는다 · 버튼 최소 높이 `layout-control-height-md` · **아이콘 슬롯이 없다** |
+
+**브랜드 워드마크의 렌더 폭은 96px이다 — 위 표의 「최대 폭 240」은 실제의 2.5배다.**
+
+| 상태 | 폭 | 산출 |
+| --- | ---: | --- |
+| 펼침 | **96px** | `round(28 × 291 / 85)` = 95.859 → 96 |
+| 접힘(크롭) | **23.7176px** | `calc(28px × 72 / 85)` |
+
+마크 높이 28px은 `--app-gnb-sidebar-logo-h`와 동기이고, 로고 자산의 viewBox는 **291 × 85**, 그 안의 좌측
+결합 마크(큐브) 영역은 **72 × 72**다. 96px은 그 비례에서 나와 렌더에 직접 들어가며
+`--app-gnb-sidebar-logo-wordmark-w: 96px`가 같은 값을 리터럴로 고정한다.
+
+**접힘은 워드마크를 0으로 줄이는 것이 아니라 크롭이다.** 감싼 상자의 `width`가
+`--app-gnb-sidebar-logo-cube-px`(= `calc(28px * 72 / 85)` = 23.7176px)로 좁아지고 `overflow: hidden`이
+걸린다 — 이미지 자체는 96px 폭 그대로 남고 보이는 창만 줄어 좌측 큐브 심볼이 남는다. 아래 「접힘은
+폭이다」가 말하는 `max-inline-size` 0 기법은 CTA 라벨 쪽 서술이고, 브랜드는 이 크롭을 쓴다. 폭 전환은
+`width 320ms cubic-bezier(0.4, 0, 0.2, 1)`로 `motion-shell-collapse`와 같은 값이다.
+
+**히트·정렬 폭은 크롭 폭과 다르다.** 접힌 레일에서 브랜드 자리의 정렬 폭은
+`--app-gnb-sidebar-logo-symbol-w: 28px`이고 제품 주석이 「큐브 그림체보다 넓을 수 있음」을 명시한다.
+23.72(그림) ≠ 28(자리)을 구분해 그린다 — 한 값으로 뭉치면 접힌 레일에서 로고가 아이콘 열과 어긋난다.
+
+근거: `Gnb.tsx:2250`(`SIDEBAR_LOGO_H = 28`) · `Gnb.tsx:2251`·`brandLogoMetrics.ts:1-4`·`:10-12`(폭 산출) ·
+`Gnb.tsx:2442`·`Gnb.tsx:4390`(렌더) · `globals.css:136`·`:138`·`:139`·`:140-141` ·
+`Gnb.tsx:1835`(접힘 정렬 폭 소비) · `Gnb.tsx:1755-1769`(크롭, 특히 `:1763`·`:1766`·`:1767`).
 
 **CTA에는 아이콘이 없고 색은 반전 solid pill이다.** 처음에는 plus 글리프와 브랜드 파랑, 다음에는
 mint 16%로 고쳤는데 셋 다 배포본에 없는 것이었다. 마크업은 라벨 `<span>` 하나뿐이고, 면과 글자는
@@ -219,6 +379,76 @@ fixed 변종 36px, 사이드바 헤더 행 `min-height: 40px`. `globals.css`의 
 `layout-control-height-md`가 같은 40px이지만 쓰지 않는다. 값이 같은 것과 의미가 같은 것은 별개이며,
 버튼 높이를 바꾸는 날 상단 바가 같이 움직이면 안 된다.
 
+**하이라이트 행의 trailing은 Badge가 아니다.** API 예시의 `trailing={<Badge>3</Badge>}`는 슬롯 자리를
+보여 줄 뿐이고, 배포본이 그 자리에 다는 것은 「베타」/"BETA" 칩 하나다. 칩을 다는 행은 `/highlight`
+**하나뿐**이다.
+
+| 축 | 이 칩 | Badge |
+| --- | ---: | ---: |
+| 높이 | **24px**(3+18+3) | 26px(4+18+4) |
+| 상하 여백 | **3px** | 4px |
+| 좌우 여백 | 8px | 8px |
+| 반경 | **6px** | 8px `radius-control-sm` |
+| 타이포 | `type-caption-12-medium`(12/1.5) | 12/1.5 · **regular** |
+
+Badge를 그대로 넣으면 32px 행 안에서 2px 높고 반경이 어긋나며 글자 굵기도 한 단계 얇아진다.
+badge.md가 적은 제품 높이 분포(19·22·26)에 24가 없다는 것이 이 칩이 Badge 무리가 **아니라는** 증거다.
+
+**두 테마가 서로 다른 축으로 면을 만든다.**
+
+| | 글자 | 면 |
+| --- | --- | --- |
+| light | `--palette-gray-600`(앱 셸 램프 `#9aa0ab`) | `rgb(var(--palette-gray-500-rgb) / 14%)` = `rgb(188 192 201 / 14%)` |
+| dark | `--palette-gray-400`(`#bcc0c9`) | `rgb(var(--gray-000-rgb) / 14%)` |
+
+라이트는 **면 램프 500의 14%**, 다크는 **잉크의 14%**다. 한쪽 축으로 통일하면 다른 쪽이 사라지거나 뜬다.
+라이트 값이 앱 셸 램프에서 나오므로 Known deviations의 `body:has(&)` 재매핑을 함께 읽어야 값이 맞는다.
+배치는 `flex-shrink: 0` · 사이드바 안에서 `margin-left: auto`로 행 끝에 붙고 · 접힘에서 `display: none`과
+`aria-hidden`이다.
+
+근거: `Gnb.tsx:178-190`(칩) · `Gnb.tsx:4793-4801`(하이라이트 행에서만 렌더) · `globals.css:374-375` ·
+`Gnb.tsx:1978`·`:1984` · `globals.css:31` · 문구 `ko.ts:1212`·`en.ts:1225`.
+
+**상단 바 좌우 여백 16px은 카드 안 변종에 맞지 않는다.** 본문 카드 안에 놓이는 상단 바는 카드 안쪽
+인셋을 음수 좌우 마진으로 상쇄해 **카드 모서리까지 풀블리드**하고, 자기 좌우 패딩은
+`--mainchrome-pad-x: 8px`을 쓴다.
+
+| 속성 | 값 |
+| --- | --- |
+| `--mainchrome-pad-x` | `8px` |
+| `width` | `calc(100% + var(--mainchrome-bleed-left, var(--app-gnb-main-inline-padding)) + var(--mainchrome-bleed-right, var(--app-gnb-main-inline-padding)))` |
+| `margin-left` / `margin-right` | 각 bleed 변수의 음수 |
+| `padding` | `8px var(--mainchrome-pad-x)` → **8px 8px** |
+| `border-bottom` | 풀블리드 폭 전체를 가로지른다 |
+
+bleed 폴백은 좌우 모두 `--app-gnb-main-inline-padding`(16px)이고 짝 토큰
+`--app-gnb-main-inline-padding-end`는 12px이다. 앱 셸 본문 카드 두 곳은 자기 카드의 좌우 패딩과 **같은
+값**을 넣어 상쇄가 정확하다 — 앱 홈은 주입 없이 폴백 16/16으로 좌우 16 패딩을 상쇄하고, 마이페이지는
+좌 16 · 우 12를 명시로 주입해 좌 16 · 우 12 패딩을 상쇄한다. **다만 상쇄가 언제나 정확하지는 않다** —
+결제 상태 페이지들은 bleed를 24px로 주입해 두고 `≤900px`에서 카드 패딩만 16/12로 바꾸므로 그 구간에서는
+bleed가 패딩보다 크다. 그 화면들은 이 문서의 범위 밖이다.
+
+**그래서 데스크톱(≥720px)에서 바 콘텐츠와 본문이 좌측에서 8px 어긋난다.**
+
+- 바의 배경·구분선은 **카드 폭 전체**를 가로지른다.
+- 바 안 콘텐츠(선행 아이콘 · 제목 · 후행 슬롯)의 시작선 = 카드 가장자리 **+8px**.
+- 같은 카드의 본문 시작선 = **+16px**(마이페이지 우측만 12px).
+- Figma에서 헤더를 16px 인셋으로 그리면 배포본과 8px 틀리고, 구분선도 좌우로 각각 16px(마이페이지 우
+  12px)씩 짧아진다.
+
+**≤719px에서만 어긋남이 사라진다.** 이 폭에서 `--mainchrome-pad-x`가 `--app-gnb-main-inline-padding`으로
+갈아타고 두 인셋 토큰이 **둘 다 16px**로 재정의되어 바 콘텐츠 시작선 = 본문 시작선 = 16px이 된다.
+bleed와 음수 마진 자체는 이 폭에서도 계속 걸려 있으므로 배경·구분선은 여전히 풀블리드다. **세로
+패딩은 폭과 무관하게 8px 고정**이고, 이것이 DS-D-0018이 적은 portal 변종 52px = 8+36+8의 그 8이다.
+
+**16px 하나로 본문과 상단 바 두 자리를 겸하게 두지 않는다.** 위 표의
+`layout-app-shell-content-inset`은 본문 인셋이고 카드 안 상단 바의 8px은 다른 축이다 — 이 편차를 계약
+으로 승격하려면 별도 semantic token이 필요하다.
+
+근거: `Gnb.tsx:417`·`:421`-`:424`·`:426`·`:428`·`:434`·`:435` ·
+`globals.css:128`·`:130`·`:413-418` · `appHomeSceneStyles.ts:799`·`:805` ·
+`myPageSceneStyles.ts:58`·`:59`·`:60` · 반례 `mypage/topup/success/page.tsx:56-58`·`:63`·`:64`·`:66`.
+
 ## Effects
 
 | 부품 | 값 | 토큰 |
@@ -250,6 +480,22 @@ fixed 변종 36px, 사이드바 헤더 행 `min-height: 40px`. `globals.css`의 
 
   **12px에서 경계선이 완전히 나타난다.** 0에서만 0이고 그 위는 즉시 램프에 올라탄다 —
   「스크롤이 있으면 선이 있다」에 가깝지 페이드가 길지 않다.
+
+  **`--mainchrome-divider-progress`의 폴백은 「없음」이 아니라 `1`이다(위 표 정정).** 소비처가
+  `var(--mainchrome-divider-progress, 1)`로 읽으므로 **진행값을 주입하지 않는 화면은 스크롤 0에서도
+  경계선이 100%로 그려진다.** 진행값을 주입하는 것은 훅을 부르는 세 화면뿐이다
+  (`AppHomeScene.tsx:155` · `HighlightScene.tsx:185` · `NodeCanvasHomeScene.tsx:644`).
+
+  그래서 Properties의 `divider` 기본 `false`와 Acceptance test 8은 **제품 기본과 반대다.** Figma로
+  옮길 때 그 세 화면 밖의 기본 프레임은 **경계선 있음**으로 그린다 — `divider`를 끈 상태를 기본으로
+  그리면 대부분의 화면이 배포본과 다르다.
+
+  | AppTopBar 경계선 | 값 | 근거 |
+  | --- | --- | --- |
+  | 주입 있음 · `scrollTop = 0` | 경계선 없음(알파 0%) | `useMainChromeHeaderScrollProgress.ts:34-37` |
+  | 주입 있음 · `scrollTop ≥ 12px` | 100% — 라이트 `--palette-gray-200`, 그 밖 `rgb(var(--gray-000-rgb) / 8%)`를 `color-mix`로 보간 | `Gnb.tsx:428` · `:432` |
+  | 주입 **없음**(그 밖의 화면) | 정지 상태에서도 100% | 폴백 `1` |
+  | 전환 | `border-bottom-color 120ms ease` | `Gnb.tsx:429` |
 
   **`--header-progress`는 지금 아무 화면도 켜지 않는다(주의).** 상수 이름과 JSDoc은 「워드마크 축소
   등 헤더 collapse」라고 말하지만 **그런 소비처가 배포본에 없다.** 실제 소비처는 형태 B 패널의

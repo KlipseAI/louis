@@ -4,7 +4,7 @@
 
 - System maturity: experimental
 - Coverage: exhaustive
-- Documents: 11
+- Documents: 12
 - Purpose: 토큰, 접근성, 반응형 기반 계약
 
 ## Sources
@@ -15,6 +15,7 @@
 - design/foundations/typography.md
 - design/foundations/spacing-radius.md
 - design/foundations/elevation-layer.md
+- design/foundations/scroll-surface.md
 - design/foundations/motion.md
 - design/foundations/iconography.md
 - design/foundations/interaction-states.md
@@ -126,6 +127,36 @@ Raw color와 semantic color는 단일 DTCG source 안의 논리적 계층이다.
 제품 코드는 semantic color만 소비한다. primitive 이름을 화면 의미로 사용하거나 기존 CSS 변수 이름을
 새 정본으로 승격하지 않는다.
 
+##### 예외 — 면이 테마를 따르지 않으면 그 위 전경도 따르지 않는다
+
+면 색이 mode와 무관하게 고정된 자리(브랜드 면, 사진, 항상 어두운 오버레이, 리터럴 hex 배경)에서는 그
+서브트리의 전경색·테두리도 **두 mode에서 같은 값**이어야 한다. 판정 기준은 하나다 — 면이 semantic
+token이 아니라 리터럴·이미지·mode 불변 값으로 칠해졌으면 그 위 전경도 mode 불변이다.
+
+표현 방식은 primitive 직접 소비가 **아니다.** CSS 게이트가 그 경로를 막는다. banner-carousel이 이미 쓰는
+방식대로 **light/dark에 같은 primitive를 alias한 semantic token**을 세운다 — 값이 우연히 같은 것이 아니라
+같아야 한다는 계약이다. 다만 기존 `color-media-*` 계열은 이름이 사진에 묶여 있어 사진이 아닌 고정 면
+(브랜드 블루)을 덮지 못한다. **이 계열의 일반화, 또는 `color-on-fixed-surface-*` 신설이 현재 결손이다.**
+
+| 이름 | light | dark |
+| --- | --- | --- |
+| `--gray-000` (semantic) | `#000000` | `#fafafa` |
+| `--palette-gray-000` (primitive) | `#fafafa` | `#fafafa` |
+
+제품 정본 — auth 브랜드 패널의 면은 `#0093ff` 리터럴에 `/footer-logo-bg.svg`를 얹고 테마 분기가 없다
+(`AuthStatusCard.tsx:31-34` · `login/page.tsx:43-47` · `app/signup/page.tsx:36-39`). 그 위 슬로건 전경은
+`text-palette-gray-000`, 즉 두 mode 모두 `#fafafa`다(`AuthStatusCard.tsx:46` · `login/page.tsx:64` ·
+`app/signup/page.tsx:51`). 같은 부류로 노드 캔버스 카드 외곽선도 semantic이 아니라 `--palette-gray-600-rgb` /
+`--palette-gray-000-rgb`을 쓴다(`components/scenes/create/node-canvas-v2/index.tsx:352-353`). 브랜드 면 색
+`#0093ff` 자체는 토큰화 대상이 아니다 — 리터럴로 남긴다.
+
+**규칙은 「항상 고정을 써라」가 아니다.** 같은 카드 안에서 축이 갈린다 — 면이 테마를 따르는 폼 패널의
+제목은 시맨틱 `text-gray-000`이 맞다(`AuthStatusCard.tsx:81`). 면이 고정이면 전경도 고정, 면이 테마를
+따르면 전경도 따른다.
+
+**이걸 모르면 틀린다.** 슬로건 색을 이름만 보고 `--gray-000`에 매핑하면 라이트 테마에서 파란 면 위 글자가
+검정으로 뒤집혀 읽히지 않는다. 반대로 폼 제목을 고정값으로 옮기면 라이트에서 흰 글자가 흰 면에 깔린다.
+
 #### Theme modes
 
 - `light`와 `dark`를 필수 mode로 둔다.
@@ -139,6 +170,32 @@ Raw color와 semantic color는 단일 DTCG source 안의 논리적 계층이다.
 - forced-colors/high-contrast 환경은 별도 색 mode로 가장하지 않고 system color와 focus visibility
   대체 규칙을 문서화한다.
 
+##### 소비 스코프가 mode를 다시 적용하는 자리
+
+DS-D-0010은 `[data-page-root]` 같은 DOM 상태 스코프를 토큰 축이 아니라고 못 박고 해결 책임을 소비 계층에
+넘겼다. 제품은 그 재적용을 **요소 자신의 선언**으로 한다 — 여기가 그 값이다.
+
+- 랜딩·마케팅 트리 루트 `[data-page-root]`는 `--gray-000`부터 `--gray-1000`까지 11개와 대응 `-rgb` 11개를
+  전부 팔레트 원시값으로 되돌린다. `--theme-shadow-rgb`·`--theme-scrim-rgb`도 함께 고정한다
+  (`globals.css:1627-1663`).
+- `html[data-theme]`는 조상에, 이 블록은 요소 자신에 있다. **자기 선언이 상속을 이기므로 앱 테마 반전이 이
+  트리 안에서 무효가 된다.** 블록을 `@layer` 밖 파일 끝에 두는 이유는 `globals.css:1619-1624`에 적혀 있다.
+- 파생 값도 같이 고정된다 — `--page-bg: var(--gray-1000)`(검정), `--panel` 6%, `--panel-strong` 10%,
+  `--line` 14%, `--text-soft` 74%, `--text-muted` 56%가 모두 `--gray-000-rgb` 알파다. 요소 자신은
+  `background: var(--page-bg); color: var(--gray-000)`을 갖는다(`globals.css:1652-1662`).
+
+| 토큰 | 앱 light | 앱 dark | `[data-page-root]` 안 |
+| --- | --- | --- | --- |
+| `--gray-000` | `#000000` | `#fafafa` | **`#fafafa` — mode 불변** |
+| `--gray-900` | `#f1f1f3` | `#171b22` | **`#171b22` — mode 불변** |
+
+되돌리는 예외는 둘뿐이다. `[data-page-root] [data-reveal]`은 진입 애니메이션을 무력화하고
+(`globals.css:1707-1711`), `[data-page-root] #pricing-faq`는 `--gray-000`·`--gray-000-rgb`·`--text-soft`를
+검정 램프로 복구한다(`globals.css:1717-1721`) — 가격 페이지 FAQ가 흰 카드 위에 서기 때문이다.
+
+**이걸 모르면 틀린다.** 랜딩·가격 화면을 라이트 모드 변형으로 그리면 전부 틀린다. 제품은 라이트 테마를 켠
+사용자에게도 검정 배경·흰 글자를 보여준다. 랜딩에는 테마 축이 없다.
+
 #### Alias and naming rules
 
 - alias는 같은 type만 가리키며 cycle과 dangling reference를 허용하지 않는다.
@@ -147,12 +204,56 @@ Raw color와 semantic color는 단일 DTCG source 안의 논리적 계층이다.
 - 플랫폼 이름 변환 충돌은 build error다.
 - alpha가 있는 색은 실제 배경과 함께 contrast pair를 선언한다.
 
+#### 노드 생성 중 placeholder의 매체별 accent
+
+노드가 생성 중일 때 카드 안 아이콘과 캡션은 매체별 accent 램프를 쓴다. 아이콘은 500 셰이드로 두 mode
+공통이고 캡션만 mode로 갈린다 — 밝은 100 셰이드는 라이트의 밝은 카드 면에서 대비가 무너지므로 700으로
+낮춘다.
+
+| 매체 | 아이콘 (두 mode 공통) | 캡션 dark | 캡션 light | 근거 |
+| --- | --- | --- | --- | --- |
+| Image | `--accent-mint-500` `#00c68e` | `#e5fff7` | `#008f67` | `ImageNode.tsx:326` · `ImageNode.tsx:345-346` |
+| Video | `--accent-sky-500` `#0ea5e9` | `#e0f5ff` | `#0369a1` | `VideoNode.tsx:240` · `VideoNode.tsx:261-262` |
+| Text | `--accent-yellow-500` `#ffb200` | `#fff5d6` | `#b87600` | `TextNode.tsx:332` · `TextNode.tsx:346-347` |
+| Edit | `--accent-violet-500` `#6055ff` | `#ebe8ff` | `#3528b8` | `EditNode.tsx:400` · `EditNode.tsx:416-417` |
+
+- **캡션은 색을 두 곳에 같은 값으로 선언한다.** `color`와 `--caption-tone` 둘 다다. 쉬머가
+  `background-clip: text` + `-webkit-text-fill-color: transparent`로 그려져 `color`가 무효화되므로
+  (`ImageNode.tsx:349-351`), `color`만 고치면 화면이 바뀌지 않는다. 감속 모션 분기는
+  `-webkit-text-fill-color`를 `--caption-tone`에서 되돌린다(`ImageNode.tsx:353`). 네 노드가 같은 패턴이다.
+- Tts/Bgm(audio) 노드에는 이 생성 중 아이콘·캡션 accent가 없다. audio는 영역 차오름으로 진행을 표시한다.
+
+**토큰 결손 두 건.** KDS에 `color-sky-*` 램프가 없다 — `color-blue-500`(`#0088ff`)은 제품 sky-500
+`#0ea5e9`와 다른 색이므로 Video를 blue로 매핑하면 틀린다. 그리고
+`color-node-video-icon`·`color-node-video-surface`가 없다 — video는 `color-node-video-accent` 하나뿐이고
+나머지 매체는 icon·surface·accent 세 벌을 갖는다. Video 노드를 그리려면 sky 램프를 먼저 세운다.
+
 #### Accessibility
 
 - 일반 텍스트 foreground/background pair는 4.5:1 이상을 목표로 한다.
 - 큰 텍스트와 의미 있는 비텍스트 그래픽·control boundary는 3:1 이상을 목표로 한다.
 - success, warning, danger, selected 상태는 색 외의 텍스트·아이콘·형태 신호를 함께 제공한다.
 - contrast 검사는 임의의 모든 색 조합이 아니라 source에 선언한 허용 pair를 대상으로 한다.
+
+##### 인라인 danger 알림 — 알파 쌍과 색 외 신호 결손
+
+제품의 인라인 오류 박스는 danger 색 하나를 **알파 두 칸으로** 쓴다. 면 8%, 테두리 16%로 정확히 1:2다.
+두 알파 모두 DS-D-0010이 정규화한 10단 알파 사다리 위 칸이므로 새 값이 아니다.
+
+| 부위 | 제품 값 | KDS 소유자 |
+| --- | --- | --- |
+| 면 | `rgb(var(--accent-red-500-rgb) / 8%)` | 없음 — `color-background-danger`는 불투명 틴트다 |
+| 테두리 | `1px solid rgb(var(--accent-red-500-rgb) / 16%)` | 없음 — `color-border-danger`는 불투명 `#ff4b59`다 |
+| 전경 | `var(--accent-red-500)` `#ff4b59` | `color-action-danger` |
+
+기하는 반경 12px · 패딩 12px 16px · 타이포 body-14(14px / 1.5) · `margin: 0`이고 세로 간격은 부모 컬럼이
+준다(`billing-success/page.tsx:108-113`). 한 화면에 같은 상수로 두 박스가 연달아 설 수 있다
+(`billing-success/page.tsx:432-438`).
+
+**이걸 모르면 틀리는 것 둘.** 첫째, 면을 `color-background-danger`로 매핑하면 안 된다 — 그 토큰은 light
+`#ffe5e8` · dark `#541119`로 뒤집히는 불투명 값이고, 제품 값은 뒤 배경이 비치는 red-500 8% 알파다.
+둘째, 이 알림에는 아이콘도 접두 문구도 없다 — 색이 유일한 신호다. 위 「색 외의 텍스트·아이콘·형태 신호」
+규칙을 정면으로 어기므로, 소유자 컴포넌트를 세울 때 함께 고친다.
 
 #### Acceptance tests
 
@@ -291,6 +392,39 @@ Dimension primitive, semantic spacing/radius와 responsive profile은 단일 DTC
 - 음수 값으로 Shell ownership 오류를 보정하지 않는다.
 - 제품별 scene 좌표나 일회성 media crop 값은 공용 token으로 승격하지 않는다.
 
+- semantic spacing은 고정 dimension이 원칙이다. **유일한 예외는 표면 전체를 세로로 채우는 패널의 세로
+  padding**이며, 이때만 `clamp(min, <n>svh, max)`를 허용한다.
+- **가로 padding은 예외를 받지 않는다.** 세로만 반응하고 가로는 고정 primitive를 유지하는 것이 이
+  관용구의 요점이다. 가로까지 clamp로 바꾸면 틀린다.
+- viewport 단위는 `vh`나 `dvh`가 아니라 `svh`로 고정한다. [Responsive Layout](../foundations/responsive-layout.md)의
+  Viewport height and safe area가 이미 높이 원천을 단일화했으므로 spacing도 같은 단위 축을 쓴다.
+- clamp의 min과 max는 기존 spacing primitive에서 집는다. clamp를 쓴다는 이유로 자유 리터럴을 새로
+  만들지 않는다.
+- **viewport-relative padding은 높이 제약의 1차 답이 아니다.** 1차 답은 여전히 보조 영역을 접거나 자체
+  scroll로 전환하는 것이고, 이 clamp는 그 위에 얹히는 보조 수단이다. 제품도 같은 요소에
+  `overflow-y: auto`를 함께 건다 — 둘 중 하나만 옮기면 세로가 짧은 viewport에서 완료 액션이 잘린다.
+- `{value, unit}` 스칼라 모델은 3항 `clamp()`를 담지 못한다. token으로 승격하려면 새 shape가 필요하고,
+  그렇지 않으면 소비처 리터럴로 격리한다. 둘 중 무엇인지 정하지 않은 채 token ID만 붙이면 validator가
+  거부한다.
+
+제품 정본에서 이 예외를 쓰는 곳은 Auth 폼 패널 하나이며, auth 라우트 4개가 같은 값을 공유한다.
+
+| 축           | ≥720px                        | ≤719px |
+| ------------ | ----------------------------- | ------ |
+| 세로 padding | `clamp(32px, 6svh, 72px)`     | 미적용 |
+| 가로 padding | `32px` 고정                   | 미적용 |
+
+근거는 `components/auth/AuthStatusCard.tsx:57`, `app/signup/page.tsx:62`,
+`app/aws/signup/page.tsx:119`다. `/login`만 같은 값을 `py-[clamp(32px,6svh,72px)]`와 `px-16` 두
+유틸리티로 나눠 적지만 계산값은 같다(`app/login/page.tsx:75-76`). 이 clamp는 뷰포트 높이 533px
+이하에서 32px로 붙고 1200px에서 72px로 포화한다. 719px 이하에서 미적용인 이유는 폼 패널이
+`display: contents`로 녹아 상자 자체가 사라지기 때문이다(`components/auth/AuthStatusCard.tsx:54`) —
+모바일 프레임에 이 padding을 그리면 틀린다.
+
+**Figma 고정 프레임에는 1080 높이 기준 단일 값 65px를 쓴다.** 뷰포트형 프레임 높이를 1080으로 통일한
+결과이므로, 기준 높이를 바꾸면 이 숫자도 함께 바뀐다. 기준 높이를 적지 않고 65px만 옮기면 다음 사람이
+다른 프레임에서 같은 값을 재사용해 틀린다.
+
 #### Radius model
 
 - radius는 control, surface, overlay, overlay-item처럼 계층과 사용 목적을 표현한다.
@@ -381,6 +515,59 @@ Elevation primitive, semantic elevation과 semantic layer는 단일 DTCG source 
   primitive `shadow-*`는 미표현으로 분류하고 loss metadata를 남긴다
   ([DS-D-0007](../governance/decisions/DS-D-0007-figma-library-structure.md)).
 
+#### 글래스 베벨
+
+제품은 글래스 표면의 안쪽 테두리를 elevation shadow와 **별도의 토큰 계열**로 소유한다. 정의는
+`:root` 한 곳뿐이다.
+
+이 계열은 아직 DTCG source에 없는 제품 전역 CSS다. **계약이 아니라 실측값**이며, Figma로 옮길 때
+지어내지 않도록 적어 둔다.
+
+| 토큰                       | 값                                                              | 좌표               |
+| -------------------------- | --------------------------------------------------------------- | ------------------ |
+| `--glass-bevel-offset`     | `1px`                                                             | `globals.css:55`   |
+| `--glass-bevel-blur`       | `1px`                                                             | `globals.css:56`   |
+| `--glass-bevel-highlight`  | `inset 0 var(--glass-bevel-offset) var(--glass-bevel-blur)`       | `globals.css:57`   |
+| `--glass-bevel-shade`      | `inset 0 calc(-1 * var(--glass-bevel-offset)) var(--glass-bevel-blur)` | `globals.css:58` |
+| `--glass-inner-shadow-rgb` | `var(--palette-gray-000-rgb)`                                     | `globals.css:53`   |
+| `--palette-gray-000-rgb`   | `250 250 250`                                                     | `globals.css:40`   |
+
+해상 결과는 하이라이트 `inset 0 1px 1px`, 쉐이드 `inset 0 -1px 1px`이고 색은 언제나
+`rgb(250 250 250 / <알파>)`다.
+
+##### 토큰은 기하만 담고 색을 담지 않는다
+
+**`--glass-bevel-highlight`와 `--glass-bevel-shade`는 `inset <x> <y> <blur>`까지만 담는다.**
+box-shadow 문법에서 색이 생략되면 `currentColor`로 떨어지므로, 소비처가 반드시 색을 뒤에 이어 붙인다.
+
+```
+box-shadow:
+  var(--glass-bevel-highlight) rgb(var(--glass-inner-shadow-rgb) / 25%),
+  var(--glass-bevel-shade)     rgb(var(--glass-inner-shadow-rgb) / 25%);
+```
+
+근거는 `globals.css:1383-1384`와 `mypage/upgrade/checkout/page.tsx:81`이다.
+
+**토큰 값만 보고 Figma effect를 만들면 색 없는 그림자가 나온다** — 알파는 토큰이 아니라 소비처가
+정한다. 앱 메인 카드는 상하 25% · 좌우 18%를 쓴다([App Shell](../patterns/app-shell.md)
+§메인 카드 표면 표의 「베벨 링」 행 참조).
+
+##### 라이트에서도 베벨은 흰색이다
+
+배포본 a9ead58b 전수 확인 결과 위 여섯 토큰은 모두 정의가 **한 곳뿐**이며
+`html[data-theme="light"]`을 포함해 어떤 선택자도 재정의하지 않는다. 라이트에서도 색은
+`250 250 250` 그대로다. **라이트 화면을 옮기면서 흰 베벨을 「다크 잔재」로 보고 지우면 안쪽
+테두리 두 겹이 통째로 빠진다.**
+
+베벨은 `--glass-dropdown-frame`(`globals.css:63-68`)의 4·5번째 겹과 **별개의 추가 층**이다.
+프레임은 요소 본체에 걸리고 베벨은 대개 `::after`에 걸린다. 둘을 같은 것으로 보고 하나만 그리면
+안쪽 테두리가 절반만 남는다.
+
+##### 주석이 아니라 값이 정본이다
+
+`globals.css:54` 주석은 「하이라이트(↓ Y+2) + 쉐이딩(↑ Y-2)」라고 적혀 있으나 실제 offset은
+`1px`이다. **주석을 읽고 2px로 옮기면 틀린다.**
+
 #### Layer model
 
 공용 상대 순서는 다음과 같다.
@@ -419,6 +606,89 @@ P2 local RC는 아래의 구조·생성 검사를 자동화한다.
 - profile popover, editor local floating UI와 modal을 함께 열어 상대 순서와 hit-test를 검증한다.
 - closing layer가 action을 재실행하거나 뒤 control로 pointer event를 통과시키지 않는다.
 
+## Scroll Surface
+
+- Source: design/foundations/scroll-surface.md
+- Maturity: experimental
+
+### Scroll Surface
+
+스크롤 막대는 **표면의 일부**다. 제품은 `html`·`body`의 막대를 숨기고, 그 밖의 **모든** 스크롤
+영역에 같은 커스텀 막대를 깐다. 카드 안 레일·드롭다운 목록·커맨드 팔레트가 전부 이것을 쓰므로,
+이 계약을 모르고 조립하면 브라우저 기본 막대가 그려지고 페이지에는 없어야 할 막대가 생긴다.
+
+이 파운데이션은 **막대의 형태와 톤**만 소유한다. 무엇이 스크롤하는가(스크롤 루트의 배치)는
+App Shell 패턴이 소유한다.
+
+#### Source and artifacts
+
+| 구분 | 계약 경로 | 현재 상태 |
+| --- | --- | --- |
+| 제품 정본 | `globals.css`의 전역 `*` 규칙 | 제품 소유 |
+| DTCG source | 아직 없음 | **미승격** |
+| CSS | 아직 없음 | **미승격** |
+
+**아직 토큰이 없다.** 값을 아래에 적어 두는 것은 승격 전까지 지어내지 않게 하기 위해서다.
+
+#### Scroll bar model
+
+두 갈래뿐이다.
+
+| 대상 | 규칙 |
+| --- | --- |
+| `html` · `body` | **숨긴다.** `scrollbar-width: none` · `-ms-overflow-style: none` · `::-webkit-scrollbar { width: 0; height: 0; display: none }` |
+| 그 밖의 모든 스크롤 영역 | 아래 커스텀 막대 |
+
+**페이지 자체에는 스크롤 막대가 보이지 않는다.** 화면 가장자리에 막대를 그리면 틀린다.
+
+#### Specification
+
+배포본 실측(`globals.css`). 값은 제품이 소유하며 DS 토큰이 아직 없다.
+
+| 축 | 값 |
+| --- | --- |
+| 트랙 두께 | `--scrollbar-size` = **10px** (가로·세로 동일) |
+| 트랙 면 | `transparent` |
+| thumb 곡률 | `999px` |
+| thumb 테두리 | `2px solid transparent` + `background-clip: padding-box` |
+| **보이는 thumb 폭** | **6px** — 10px 트랙에서 투명 테두리 2px씩이 깎인다 |
+| thumb 면 (다크) | `rgb(var(--palette-gray-000-rgb) / 26%)` · hover **42%** |
+| thumb 면 (라이트) | `rgb(0 0 0 / 22%)` · hover **36%** |
+| corner | `transparent` |
+| Firefox 계열 | `scrollbar-width: thin` · `scrollbar-color: <thumb> transparent` |
+
+**10px으로 그리면 두껍다.** 트랙은 10px이지만 눈에 보이는 알약은 **6px**이다 — 투명 테두리가
+`padding-box` 클리핑으로 깎아 낸다. Figma에는 클리핑이 없으므로 **6px 알약을 10px 자리 가운데에**
+놓는 것이 실제 렌더와 같다.
+
+**라이트와 다크가 같은 잉크가 아니다.** 다크는 흰 잉크(`palette-gray-000`)의 알파이고 라이트는
+**검은 리터럴**(`rgb(0 0 0 / …)`)이다. 라이트에서 흰 잉크를 반전해 쓰면 값이 어긋난다.
+
+#### Platform mapping
+
+| 플랫폼 | 표현 |
+| --- | --- |
+| WebKit · Blink | `::-webkit-scrollbar` 계열 의사 요소 |
+| Firefox | `scrollbar-width` · `scrollbar-color` — **두께를 px로 못 준다**(`thin`) |
+| Figma | 자동 스크롤바가 없다. 필요하면 6px 알약을 도형으로 그린다 |
+
+**두 엔진의 표현력이 다르다.** Firefox에서는 `thin`만 줄 수 있어 10px 트랙과 정확히 같지 않다.
+제품은 이 차이를 그대로 두고 있다.
+
+#### Acceptance tests
+
+1. `html`과 `body`에 스크롤 막대가 그려지지 않는다 — 두 엔진 모두.
+2. 스크롤 컨테이너의 트랙이 10px이고 보이는 thumb이 6px이다.
+3. thumb의 면이 테마에 따라 갈린다 — 다크는 흰 잉크 26%, 라이트는 검정 22%.
+4. hover에서 thumb만 진해진다(42% / 36%). 트랙은 변하지 않는다.
+5. 스크롤 컨테이너에 별도 막대 스타일이 있으면 그것이 이긴다 — 이 규칙은 기본값이다.
+
+#### 승격 조건
+
+- `--scrollbar-size`와 두 thumb 톤을 semantic token으로 세운다. 톤이 테마마다 **다른 잉크**를
+  쓰므로 단일 알파 토큰으로는 표현되지 않는다 — 색 토큰 두 개가 필요하다.
+- 그 전까지 이 문서의 값은 **제품 인용**이며 DS 계약이 아니다.
+
 ## Motion
 
 - Source: design/foundations/motion.md
@@ -455,6 +725,23 @@ Motion primitive와 semantic recipe는 단일 DTCG source 안의 논리적 계�
 - lifecycle은 셋이다 — `enter`, `exit`, **`loop`**. 항목에 `lifecycle`이 없으면 enter/exit로 본다.
 - unmount timer와 interaction lock은 시각 transition과 같은 resolved recipe를 읽는다.
 - loading처럼 지속 시간이 작업 완료에 달린 상태를 고정 animation duration으로 가장하지 않는다.
+
+#### Easing 원본
+
+primitive의 `timingFunction`은 제품이 선언한 커브 둘에서 왔다. Figma로 옮기는 사람이 커브를 새로
+고르지 않도록 원본을 여기 적는다(`globals.css:15-18`).
+
+| 제품 변수 | 값 | 이 커브를 받는 primitive |
+| --- | --- | --- |
+| `--ease-out-strong` | `cubic-bezier(0.32, 0.72, 0, 1)` | `overlay-enter` · `menu-enter` · `modal-enter` |
+| `--ease-in-out-strong` | `cubic-bezier(0.77, 0, 0.175, 1)` | 없다. 제품은 화면 안 이동(슬라이드·모프)에만 쓴다 |
+
+- **enter 커브를 뒤집어 exit를 만들지 않는다.** exit primitive는 감속이 아니라 가속이다 —
+  `overlay-exit`와 `modal-exit`는 `cubic-bezier(0.4, 0, 1, 1)`, `menu-exit`는
+  `cubic-bezier(0.42, 0, 1, 1)`이다. Figma에서 exit를 enter의 역재생으로 그리면 KDS와 갈린다.
+- **enter와 exit는 duration도 대칭이 아니다.** `menu-enter` 260ms ↔ `menu-exit` 130ms,
+  `overlay-enter` 200ms ↔ `overlay-exit` 120ms, `modal-enter` 320ms ↔ `modal-exit` 200ms이다.
+  한 lifecycle을 하나의 duration으로 접으면 닫힘이 느려져 화면이 굼떠 보인다.
 
 #### Loop
 
@@ -497,6 +784,44 @@ Motion primitive와 semantic recipe는 단일 DTCG source 안의 논리적 계�
   primitive `transition-*`와 easing은 미표현으로 둔다
   ([DS-D-0007](../governance/decisions/DS-D-0007-figma-library-structure.md)).
 - duration 또는 easing 변경은 사용자 동작·lifecycle에 영향을 주면 behavior change로 분류한다.
+
+#### Known deviations
+
+배포본 a9ead58b의 제품 구현이 위 규범과 갈리는 자리다. 채택했다는 뜻이 아니다 — 채택 여부는
+`migration/product.measured.json`이 소유한다.
+
+- **제품은 팝오버 닫힘 커브가 표면마다 다르다.** 노드 메타 드롭다운과 애널리틱스 더보기 메뉴는
+  닫힘도 열림과 같은 `--ease-out-strong`으로 통일하고 주석에 「ease-in 금지」를 명시한다
+  (`MetaDropdownPanel.tsx:41-57`, `AnalyticsAccountMoreMenu.tsx:35-51`). 아카이브 드롭다운만
+  닫힘을 `130ms ease-in`으로 둔다(`appHomeSceneStyles.ts:78`). **한 표면을 보고 「제품은 이렇다」로
+  일반화하면 다른 표면에서 틀린다.**
+- **아카이브 드롭다운은 열림에서 opacity 전이가 사라진다.** 열림 규칙이 transition shorthand를
+  `transform 260ms`로 통째 교체해 opacity가 즉시 불투명해진다(`appHomeSceneStyles.ts:119`). 다른 두
+  표면은 `opacity 200ms` + `transform 260ms`로 채널을 나눈다. 셋을 한 recipe로 그리면 하나는 틀린다.
+- **제품 모달은 한 recipe가 아니라 채널 셋이다.** `GlassConfirmModal`은 카드에
+  `transform 320ms cubic-bezier(0.22, 1, 0.36, 1)` · `opacity 220ms ease` · `filter 320ms ease`를 따로
+  걸고(`GlassConfirmModal.tsx:61-65`), 스크림은 `background 260ms cubic-bezier(0.22, 1, 0.36, 1)`으로
+  palette gray-900 알파 `0%` → `50%`를 덮는다(`:42-49`). 카드 시작값은
+  `translate3d(0, 16px, 0) scale(0.96, 0.96)` · `saturate(88%) blur(1px)`, 끝값은
+  `translate3d(0, 0, 0) scale(1)` · `saturate(100%) blur(0)`이다(`:67-77`). **`modal-enter` 하나로
+  접으면 카드가 균질하게 떠올라 제품과 갈린다** — 세 채널이 서로 다른 시각에 끝나는 것이 이 모션의
+  성격이다.
+- **오프셋과 scale은 클래스가 아니라 인라인 변수가 정한다.** 실제 값은 `translate-y 16px` ·
+  `scale 0.96 / 0.96`이며(`GlassConfirmModal.tsx:122-127`) 클래스에 적힌 fallback `0.24` · `0.16`
+  (`:69`)은 항상 덮여 닿지 않는다. **클래스만 읽고 0.24로 그리면 틀린다.**
+- **`filter`는 어떤 recipe의 허용 property에도 없고, 스크림의 `background`도 modal recipe에는 없다.**
+  `modal-enter`·`modal-exit`가 허용하는 property는 `opacity`·`translate`·`scale` 셋뿐이다
+  (`background-color`는 `layout-change`와 `control-hover`만 갖는다). 위 Token model이 선언되지 않은
+  property를 component가 임의로 animation하지 않는다고 못박으므로, 제품 모달의 saturate·blur 전이와
+  스크림 배경 전이는 현재 token model이 재현 대상으로 삼지 않는 채널이다. Figma proposal로도
+  넘어가지 않는다.
+- **제품 모달의 unmount timer가 시각 transition보다 짧다.** `CLOSE_MS = 280`인데 카드의 최장 전환은
+  320ms다(`GlassConfirmModal.tsx:32`, `:63`, `:188-191`) — 퇴장의 마지막 40ms가 잘린다. 위 Token
+  model의 「unmount timer와 interaction lock은 시각 transition과 같은 resolved recipe를 읽는다」가
+  금지하는 형태 그대로다.
+- reduced motion은 양쪽 다 제품이 선언한다. 팝오버는 `transform:none` + `transition: opacity 120ms ease`
+  (`MetaDropdownPanel.tsx:36-39`), 모달은 스크림·카드 모두 `transition:none`
+  (`GlassConfirmModal.tsx:45`, `:64`)이다.
 
 #### Acceptance tests
 
@@ -737,6 +1062,37 @@ breaking이므로**(DS-D-0006) 글리프 이름과 심볼은 이제 공개 계�
 
 값이 boolean이 아닌 축(`variant`, `size`)은 이 규칙 밖이며 `data-*`를 쓴다 (DS-D-0004).
 
+#### 제품 실측 — 확인 모달 액션
+
+**KDS는 상태 어휘만 갖고 값이 없다.** Figma로 옮길 때 지어내지 않도록 제품이 실제로 쓰는 값을
+한 자리 적어 둔다(배포본 실측). 이것은 **DS 계약이 아니라 제품 인용**이다.
+
+| 상태 | 취소 | 확인 (primary) | 확인 (danger) |
+| --- | --- | --- | --- |
+| hover | `filter: brightness(125%)` | `brightness(92%)` | `brightness(0.92)` |
+| active | `transform: scale(0.97)` | 같음 | 같음 |
+| disabled | `opacity: .6` · `cursor: default` | 같음 | 같음 |
+
+`active`와 `disabled`는 **세 벌이 공유하는 base**에서 온다. hover만 벌마다 다르다.
+
+전환은 셋 다 `transform 180ms ease, filter 180ms ease, opacity 180ms ease`다 — **세 프로퍼티가
+같은 길이**다.
+
+**밝기로 상태를 만든다.** 면 색을 바꾸는 것이 아니라 `filter: brightness()`를 얹으므로, 같은
+장치가 어떤 면 위에서도 동작한다. 그래서 danger 버튼에 따로 hover 색을 정의하지 않는다.
+`brightness(0.92)`와 `brightness(92%)`는 표기만 다르고 계산값이 같다.
+
+##### 셀렉터 함정 — 터치에서도 hover가 발동한다
+
+호버가 `hover:`가 아니라 `[&:hover:not(:disabled)]:`로 저작돼 있어 **`@media (hover: hover)`
+가드가 없다.** 포인터가 없는 기기에서도 탭이 hover를 남긴다.
+
+원본 모듈 CSS의 맨 `:hover`를 그대로 보존한 결과이며 그 파일이 이유를 주석으로 갖고 있다.
+**의도된 것인지 잔재인지는 제품이 판정해야 한다** — 그 전까지 이 값을 「호버 전용」으로 읽지
+않는다.
+
+근거: `GlassConfirmModal.tsx:96-98`(base) · `:105`(취소) · `:111`(primary) · `:119`(danger).
+
 #### Figma에서의 표현
 
 Figma에는 CSS 상태가 없다. 그래서 일시적 상태도 variant property로 만들어야 하고, 그 property는
@@ -892,6 +1248,42 @@ Container query를 쓰는지 ResizeObserver를 쓰는지는 구현 선택이다.
 compact 구조 또는 명시적인 지원 범위 안내로 전환한다. 문서 전체에 `min-width`를 걸어 우연히 충돌을
 피하는 방식은 목표 계약이 아니다.
 
+###### 축약 시 래퍼 처리 — 소거와 용해를 구분한다
+
+2열이 1열로 축약될 때 **남는 열의 래퍼를 어떻게 처리하는지가 결과를 가른다.** 제품은 두 가지를
+구분해 쓴다 — 사라지는 쪽은 `display: none`, 남는 쪽의 래퍼는 `display: contents`다.
+
+- 배경·테두리·패딩을 가진 실제 표면이면 `display: none`으로 소거한다.
+- 남는 열의 래퍼가 배경도 테두리도 없는 순수 레이아웃 상자면 `display: contents`로 **그리드에서
+  녹인다**. 자식이 페이지 그리드의 직접 자식이 되어 부모의 `place-items: center`를 그대로 받는다.
+- 래퍼가 `role`·`aria-*`·랜드마크를 가지면 `display: contents`를 쓰지 않는다. 브라우저·보조기술
+  조합에 따라 그 의미가 접근성 트리에서 누락된 이력이 있어, 의미를 지고 있는 래퍼는 용해가
+  안전하지 않다. 아래 절 3의 「숨긴 영역은 … 접근성 트리에서도 제거한다」와 같은 축이지만,
+  여기서는 **의도하지 않은 제거**가 문제다.
+- `display: contents` 호스트는 `getBoundingClientRect()`가 0을 반환한다. 계측할 때는 호스트가
+  아니라 첫 자식을 잰다.
+
+래퍼를 `display: none`으로 지우고 카드를 다른 컨테이너에 옮겨 붙이면 DOM 순서가 바뀌어 「DOM
+순서와 compact에서 보이는 순서가 일치해야 한다」를 깬다. 반대로 래퍼를 살린 채 1열로 만들면
+중첩 그리드가 하나 더 생겨 `place-items`가 두 번 적용되고 카드가 이중으로 중앙 정렬된다.
+**둘 다 틀린다.**
+
+인증 표면 3벌(로그인·회원가입·상태 카드)이 720px 경계에서 이 규칙을 그대로 쓴다.
+
+| 요소          | `≤719px`                                                                         | `≥720px`                                                                                               |
+| ------------- | -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- |
+| 페이지 그리드 | 1열 `grid` · `place-items: center` · 패딩 16px(로그인·회원가입) / 20px(상태 카드) | `grid-template-columns: minmax(0,1fr) minmax(0,1fr)` · `place-items: stretch` · `gap: 20px` · 패딩 20px |
+| 브랜드 패널   | `display: none`                                                                    | `display: flex`                                                                                            |
+| 폼 패널(래퍼) | **`display: contents`**                                                            | `display: grid` · `place-items: center` · `min-width: 0` · `overflow-y: auto`                            |
+
+근거: `AuthStatusCard.tsx:18-21`·`:26`·`:54-56` · `login/page.tsx:22-27`·`:33`·`:70-74` ·
+`app/signup/page.tsx:22-26`·`:31`·`:59-61`. 폼 패널 래퍼가 `role`도 `aria-*`도 없는 평범한 `<div>`라
+용해해도 안전하다 — `AuthStatusCard.tsx:120`.
+
+작성 형태는 두 가지가 병존한다. 기본값을 `contents`로 두고 `min-width: 720px` 한 분기만 얹는
+형태와, `max-width: 719px` / `min-width: 720px` 상호배타 두 분기로 가르는 형태다. 계산 결과가
+같으므로 이 규범은 **결과만 고정하고 표기는 열어 둔다.**
+
 ##### 3. 레이아웃 안전 규칙
 
 - 가변 grid/flex 자식은 `min-width: 0`과 필요한 경우 `min-height: 0`을 가져야 한다.
@@ -930,6 +1322,40 @@ container 기반이어야 하지만 기준 viewport와 기본 shell 상태에서
 이 호환 기준의 비규범 provenance는
 [`KP-LAYOUT-001`](../../migration/product-baseline.md)과
 [`KP-GRID-001`](../../migration/product-baseline.md)에 있다.
+
+##### Auth 표면(로그인 전) 경계 행동
+
+위 표는 App Shell 안쪽, 즉 **로그인 후** 제품 화면의 결과다. 인증 표면은 셸 밖에 있어 같은
+경계값에서 다른 일을 한다 — 719/720은 셸의 compact 경계가 아니라 **자기 자신의 2열↔1열
+경계**이고, 1200은 그리드 열 수와 무관하게 **슬로건 타입스케일 한 단계 승급**만 뜻한다.
+경계값이 같으니 행동도 같다고 읽으면 틀린다.
+
+| 기준 viewport 구간 | Auth surface outcome                                                                                                                                       |
+| ------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `≤719px`           | 브랜드 패널 `display: none` · 폼 패널 `display: contents` · 페이지 1열 `place-items: center` · 페이지 패딩 16px(로그인·회원가입) / 20px(상태 카드) · 카드 안 로고 링크 노출 |
+| `720–959px`        | 브랜드/폼 2열 `minmax(0,1fr) minmax(0,1fr)` · `gap: 20px` · `place-items: stretch` · 페이지 패딩 20px · 카드 안 로고 링크 숨김                            |
+| `960–1199px`       | `720–959px`와 같다. 셸이 persistent navigation으로 바뀌는 것과 무관하다                                                                                    |
+| `1200–1799px`      | 2열 유지. 슬로건이 `heading-36-medium` → `heading-48`로 승급한다 — 선언 중 실제로 달라지는 값은 size뿐이다                                                |
+| `≥1800px`          | `1200–1799px`와 같다. grid profile 5열에 대응하는 auth 변화는 없다                                                                                         |
+
+카드 안 로고 링크는 `≥720px`에서 브랜드 패널이 로고를 대신 들기 때문에 숨긴다. 이 대체 관계를
+모르고 로고를 항상 노출하면 데스크톱에서 브랜드 마크가 두 번 나온다. 1200 경계를 그리드 열
+수만의 경계로 읽으면 슬로건이 `heading-36`에 고정되어 넓은 화면에서 브랜드 패널이 비어 보인다.
+
+승급은 `font-size`·`line-height`·`letter-spacing` 세 선언을 함께 다시 내보내지만, 두 단계의
+line-height(`1.35`)와 letter-spacing(`-0.02em`)이 같은 값이라 **선언값이 실제로 달라지는 것은
+size(36px → 48px)뿐이다.** 나머지 둘은 상대 단위라 계산된 px만 size를 따라 커진다. 「셋 다
+바뀐다」로 읽고 line-height·letter-spacing을 별도 토큰 변화로 취급하면 안 된다. 타입스케일 토큰
+`globals.css:350-352`(heading-48) · `:354-356`(heading-36), 단일 유틸리티가 세 프로퍼티를 함께
+내보내는 근거는 `tailwind.css:187-189`.
+
+근거(배포본 a9ead58b): 2열 분할 `AuthStatusCard.tsx:19` · `login/page.tsx:25` ·
+`app/signup/page.tsx:24`. 브랜드 패널 소거 `AuthStatusCard.tsx:26` · `login/page.tsx:33` ·
+`app/signup/page.tsx:31`. 1열 축약 `AuthStatusCard.tsx:54` · `login/page.tsx:70` ·
+`app/signup/page.tsx:59`. 기본 슬로건 스케일 `AuthStatusCard.tsx:115`, 1200 승급
+`AuthStatusCard.tsx:47-49` · `app/signup/page.tsx:52-54` · `login/page.tsx:65`. 페이지 패딩
+`login/page.tsx:22,24` · `app/signup/page.tsx:22,23,25`. 로고 링크 숨김 `AuthStatusCard.tsx:67` ·
+`login/page.tsx:86` · `app/signup/page.tsx:71`.
 
 #### Viewport height and safe area
 
@@ -1080,6 +1506,25 @@ Tailwind는 소스 스캔으로 CSS를 내보낸다. 그래서 **어떤 배리�
   (`globals.css:1462-1468`) 카드가 페이지에 완전히 녹는다. 좁은 폭 화면에 카드 테두리를 그리면
   틀린다.
 
+**다크는 ≥720px 에서만 갈린다.** 이 절의 다크 서술(「다크는 씬 루트에 데스크톱 규칙이 없어
+`--app-page-bg`가 남고 카드는 `#313640`이라 원래부터 다르다」)은 데스크톱 폭에서만 맞다. 씬
+루트가 다크 데스크톱 규칙을 두지 않아 `--app-page-bg`(`#171b22`)가 남는 것은 ≥720px 이고,
+**719px 이하로 내려가면 다크도 페이지 배경이 카드 면색으로 이동해 라이트와 똑같이 같은 색이
+된다.**
+
+| 앱 셸 · 다크 | 페이지 바닥 | 카드 면 | 관계 |
+| --- | --- | --- | --- |
+| ≥720px | `--app-page-bg` = `#171b22` | `--palette-gray-800` = `#313640` | 다르다 |
+| ≤719px | `--palette-gray-800` = `#313640` | `#313640` | **같다** |
+
+근거: `appHomeSceneStyles.ts:910` · `myPageSceneStyles.ts:569` · `NodeCanvasHomeScene.tsx:106`
+— 세 씬이 같은 규칙을 쓴다. 카드 면 `globals.css:1427-1429`, 팔레트 `globals.css:36`.
+
+**그래서 ≤719px 에서 경계가 사라지는 것은 반경·그림자 때문만이 아니다.** 배경이 카드 면색으로
+함께 이동하므로 **면 색으로도 카드를 찾을 수 없다.** 다크 모바일 프레임을 데스크톱
+페이지색(`#171b22`)으로 칠하면 카드(`#313640`)와의 이음매가 그대로 드러나 — 이 절이 말한
+「카드가 페이지에 완전히 녹는다」와 **반대 결과**가 나온다.
+
 #### 4. 어느 브랜치를 읽고 있는지가 값을 바꾼다
 
 제품 저장소의 체크아웃이 `origin/main`이라는 보장이 없다. 로컬 클론이 기능 브랜치에 있으면
@@ -1093,6 +1538,81 @@ Tailwind는 소스 스캔으로 CSS를 내보낸다. 그래서 **어떤 배리�
 읽은 뒤에는 `git rev-parse origin/main:<path>`의 blob 해시를
 [product-evidence.lock.json](../../migration/product-evidence.lock.json)과 대조한다. 어긋나면 그
 파일을 인용하는 축을 다시 재고 lock을 갱신한다 — `verify-product-evidence`가 같은 일을 한다.
+
+#### 5. 라이트 정의에 부정 게이트가 붙어 있다
+
+**라이트 값이 `html[data-theme="light"]` 블록에 있다고 가정하면 틀린다.** 프레임 계열의 라이트
+정의는 `html[data-theme="light"]:not(:has([data-landing-walkthrough-dark])), [data-landing-walkthrough-light]`
+라는 **부정 게이트가 붙은 별도 규칙**이 소유한다(`globals.css:592-593`). 문서 안에
+`data-landing-walkthrough-dark` 요소가 **하나라도** 있으면 문서 전체가 라이트여도 이 블록이
+통째로 꺼지고 `:root` 다크 값(`globals.css:63-68` — 링 검정 50% · 좌우 80% · 흰 림 50%)으로
+되돌아간다.
+
+오염 범위는 토큰 하나가 아니다. 같은 셀렉터가 `@custom-variant light` 정의에도 들어 있어
+(`tailwind.css:252`) **모든 `light:` 유틸리티가 함께 꺼진다** — 툴바·줌 컨트롤·노드 카드의
+라이트 값이 전부 다크로 측정된다.
+
+| 축 | 라이트 셀렉터 | 게이트 | 근거 |
+| --- | --- | --- | --- |
+| 프레임 토큰 — `--glass-dropdown-frame` · `--dropdown-surface-bg` | `html[data-theme="light"]:not(:has(…)), [data-landing-walkthrough-light]` | **있다** | `globals.css:592-593` |
+| 모든 `light:` 유틸리티 | 같은 셀렉터 | **있다** | `tailwind.css:252` |
+| 패널 면의 라이트 분기 | `html[data-theme=light] &` | **없다** | `GlassConfirmModal.tsx:55` |
+
+**두 축의 폭이 달라서 한쪽만 뒤집힌다.** 게이트가 풀린 라이트 문서에서 패널 면은 라이트
+(`--palette-gray-100`)로 가고 프레임은 다크에 남는다 — **밝은 면 위에 다크 링**이라는, 어느
+테마에도 없는 조합이 나온다. 3번이 다루는 「한 계단 밀림」은 두 면이 함께 이동하는 전면
+이동이지만, 여기서는 한 축만 움직이는 **부분 반전**이다.
+
+같은 프레임 토큰을 되읽어 함께 뒤집히는 표면: 드롭다운·팝오버
+(`globals.css:560`·`608`·`739`·`784`·`828` — `--node-meta-dropdown-shadow`가 다섯 스코프에서
+같은 합성을 다시 선언한다), 앱 카드(`globals.css:1372`·`1404`), 결제 완료 메인 패널
+(`billing-success/page.tsx:54`).
+
+**이 함정만 이 문서의 우산 규칙에 걸리지 않는다.** 렌더된 값을 재도 소용이 없다 — 워크스루
+데모가 켜진 문서에서는 **렌더된 값 자체가 다크로 나오기** 때문이다.
+
+**대응.** 라이트를 재기 전에 `document.querySelector('[data-landing-walkthrough-dark]')`가
+`null`인지 확인한다. null이 아니면 그 스냅샷에서 잰 라이트 값은 전부 버린다. 이 문자열은 여러
+파일에 흩어져 있지만 **속성을 실제로 다는 곳은 한 곳**이다 — `StaticCreateDemo.tsx:541`
+(`data-landing-walkthrough-dark={darkWalkthrough ? "" : undefined}`). 나머지 히트는 주석과
+Tailwind 임의 변형 셀렉터 문자열이다. 짝인 `-light`는 같은 파일 `:540`과
+`NodeMockupCard.tsx:528`.
+
+**제품 주석을 근거로 삼지 않는다.** `WalkthroughGenerateCursor.tsx:24`는 그 속성을 다는 곳이
+`GettingStartedPanel`이라고 적어 두었지만 실제 대입처는 `StaticCreateDemo.tsx:541`이다. 주석이
+낡았고, 그 주석을 믿으면 게이트가 풀리는 조건을 잘못 짚는다.
+
+#### 6. portal은 스코프를 반만 벗어난다
+
+`document.body`로 portal된 표면은 **DOM 스코프(클래스·부모 변수)에서는 벗어나지만 `html`에
+정의된 테마 변수는 계속 상속받는다.** 그래서 **표면색과 프레임이 서로 다른 테마를 따를 수
+있다.** 버그가 아니라 의도다 — 맞춰서 고치지 않는다.
+
+랜딩 커뮤니티 드롭다운이 그 형태다. 패널은 `createPortal(…, document.body)`로
+`[data-page-root]` 밖에 놓인다(`landing/navigation/Gnb.tsx:782`·`867`). **1번이 인용하는
+`Gnb.tsx`와는 다른 파일이다** — 이쪽은 랜딩 GNB다.
+
+- **표면은 클래스가 소유한다.** `[background:var(--dropdown-surface-bg)]` 위에
+  `html[data-theme=dark] &`가 `rgb(241 241 243)`으로 **라이트를 못박는다**
+  (`landing/navigation/Gnb.tsx:189-196`, 다크 오버라이드는 `:195`).
+- **프레임은 `html`에서 상속된다.** `--glass-dropdown-frame`의 다크 값은 `html[data-theme]`이
+  아니라 **`:root` 기본값**(`globals.css:63-68`)이고, 라이트만 5번의 좁은 게이트가 덮는다
+  (`globals.css:592-599`). 이 토큰의 정의는 문서 전체에 그 둘뿐이다.
+
+**결과.** 다크 테마에서 이 드롭다운은 `#f1f1f3` 밝은 면 위에 **다크용 프레임**(링 50% ·
+좌우 80% · 흰 림 50%)을 얹는다. 랜딩은 항상 밝은 브랜드 페이지라 표면을 라이트로 고정하는데
+프레임은 앱 테마를 따라가기 때문이다.
+
+| 토큰 | 다크 (`:root`) | 라이트 (좁은 게이트) | 근거 |
+| --- | --- | --- | --- |
+| `--dropdown-surface-bg` | `rgb(var(--palette-gray-800-rgb))` | `rgb(var(--palette-gray-100-rgb))` | `globals.css:101` · `globals.css:600` |
+| `--glass-dropdown-frame` | 링 .5 · 좌우 .8 · 흰 림 .5 | 링 .15 · 좌우 .25 · 흰 림 1 | `globals.css:63-68` · `globals.css:594-599` |
+| `--dropdown-ambient-shadow` | `0px 8px 15px 0px rgba(0,0,0,0.04)` | 같다 — 테마 무관 | `globals.css:81` |
+| `--dropdown-radius` · `--dropdown-padding` · `--dropdown-item-radius` | 16px · 6px · 10px | 같다 — 테마 무관 | `globals.css:84-86` |
+
+**판정 절차.** portal된 표면을 그릴 때는 (a) 클래스가 직접 칠하는 값과 (b) `html`에서
+상속되는 변수를 **따로** 해석한다. 둘이 다른 테마를 가리키는 것이 정상일 수 있다. 표면
+하나가 한 테마를 통째로 따른다고 가정하면 프레임이 통째로 틀린다.
 
 #### Acceptance tests
 

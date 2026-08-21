@@ -167,6 +167,15 @@
       "generated": false
     },
     {
+      "id": "foundation-scroll-surface",
+      "path": "design/foundations/scroll-surface.md",
+      "title": "Scroll Surface",
+      "section": "foundations",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
+    },
+    {
       "id": "foundation-motion",
       "path": "design/foundations/motion.md",
       "title": "Motion",
@@ -440,6 +449,33 @@
       "id": "pattern-app-shell",
       "path": "design/patterns/app-shell.md",
       "title": "App Shell",
+      "section": "patterns",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
+    },
+    {
+      "id": "pattern-landing-shell",
+      "path": "design/patterns/landing-shell.md",
+      "title": "Landing Shell",
+      "section": "patterns",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
+    },
+    {
+      "id": "pattern-auth-two-panel",
+      "path": "design/patterns/auth-two-panel.md",
+      "title": "Auth Two Panel",
+      "section": "patterns",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
+    },
+    {
+      "id": "pattern-status-result",
+      "path": "design/patterns/status-result.md",
+      "title": "Status Result",
       "section": "patterns",
       "authority": "normative",
       "maturity": "experimental",
@@ -838,6 +874,7 @@
         "design/foundations/typography.md",
         "design/foundations/spacing-radius.md",
         "design/foundations/elevation-layer.md",
+        "design/foundations/scroll-surface.md",
         "design/foundations/motion.md",
         "design/foundations/iconography.md",
         "design/foundations/interaction-states.md",
@@ -898,6 +935,9 @@
         "design/patterns/README.md",
         "design/patterns/loading.md",
         "design/patterns/app-shell.md",
+        "design/patterns/landing-shell.md",
+        "design/patterns/auth-two-panel.md",
+        "design/patterns/status-result.md",
         "design/patterns/project-grid.md",
         "design/patterns/editor-workspace.md"
       ]
@@ -1219,6 +1259,36 @@
       "docs": "done",
       "doc": "design/patterns/app-shell.md",
       "note": "공용 composition `AppShell`이 섰다(2026-08-18). 레일과 본문이 **같은 상태 원천**으로 자리를 예약해 어떤 접힘 상태에서도 겹치지 않고, primary scroll root가 하나이며 상단 크롬이 그 안에 sticky로 있다. page·workspace variant를 한 composition에 둔다. 실브라우저 acceptance test 8건. Figma 표현과 제품 소비 증거는 없다. compact drawer의 focus trap은 inert로 뒤를 죽이는 데까지이며 trap 자체는 아직 없다"
+    },
+    {
+      "id": "landing-shell",
+      "name": "Landing Shell",
+      "maturity": "experimental",
+      "figma": "not-ready",
+      "web": "not-ready",
+      "docs": "done",
+      "doc": "design/patterns/landing-shell.md",
+      "note": "로그인 전 마케팅 화면의 껍데기. **App Shell과 정반대 모델이다** — 레일이 자리를 예약하지 않고 헤더가 콘텐츠 위에 뜬다. 가독성은 헤더가 아니라 **120px 고정 blur plate**가 만든다. 톤 반전은 다섯 부품이 한 덩어리로 뒤집히고 판정은 뷰포트 상단 3~4% 띠만 본다. 값은 전부 제품 인용이며 DS 계약이 아니다 — 음수 오버레이 관용구 · blur 축 · 톤 반전을 mode로 볼지 세 blocker가 열려 있다"
+    },
+    {
+      "id": "auth-two-panel",
+      "name": "Auth Two Panel",
+      "maturity": "experimental",
+      "figma": "not-ready",
+      "web": "not-ready",
+      "docs": "done",
+      "doc": "design/patterns/auth-two-panel.md",
+      "note": "인증 화면 8개가 쓰는 2열 셸. **경로가 둘이다** — 5개는 공용 `AuthStatusCard`를 쓰고 3개는 같은 셸을 자기 파일에 복제한다. 전환점은 720px 하나이고 좁은 폭에서 폼 패널이 `display: contents`로 사라져 카드가 페이지 그리드의 정렬을 직접 받는다. 브랜드 면은 `#0093ff` 리터럴이라 테마 분기가 없다"
+    },
+    {
+      "id": "status-result",
+      "name": "Status Result",
+      "maturity": "experimental",
+      "figma": "not-ready",
+      "web": "not-ready",
+      "docs": "done",
+      "doc": "design/patterns/status-result.md",
+      "note": "결제·구독 결과 7화면의 콘텐츠 컬럼. **셸이 아니라 App Shell 카드 안이다.** 세로 리듬이 24px 하나뿐이고 처리 중에는 위에서 밀지 않고 카드 안 세로 중앙에 온다. 액션 버튼이 전폭이라 세로로 쌓인다. 900px 분기는 셸 경계가 아니라 이 화면 계열 전용이며 승인 여부가 blocker다"
     },
     {
       "id": "project-grid",

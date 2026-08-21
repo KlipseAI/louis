@@ -9,7 +9,7 @@ summary: 켜짐과 꺼짐을 독립적으로 고릅니다.
 
 독립적인 켜짐/꺼짐을 고른다. 여럿을 동시에 고를 수 있다.
 
-**제품에 공용 정본이 있는데 21벌 중 2벌만 쓴다.** `globals.css:990`의 `.app-native-checkbox`
+**제품에 공용 정본이 있는데 21벌 중 2벌만 쓴다.** `globals.css:1013`의 `.app-native-checkbox`
 (20×20 · `accent-color`)이고, 이유를 제품이 스스로 적어 두었다 — 그 클래스가 **cascade layer
 밖**이라 `@layer utilities` 안의 어떤 유틸리티도 이길 수 없어서, 색 하나를 바꾸려는 소비처가
 클래스를 떼고 선언을 통째로 베껴야 했다. 갈라지는 축은
@@ -72,8 +72,35 @@ summary: 켜짐과 꺼짐을 독립적으로 고릅니다.
 
 나머지는 `<input>`의 네이티브 속성을 그대로 받는다.
 
-**크기 축이 없다.** 제품 정본이 20px이고 나머지 값(14px · 브라우저 기본)은 서로 합의하지 않으며
-두 번째 소비처도 없다. 필요해지면 그때 추가한다.
+**크기 축이 없다.** 제품 정본이 20px이고 나머지 값(14px · 브라우저 기본)은 서로 합의하지 않는다.
+필요해지면 그때 추가한다.
+
+> **사실 정정(2026-08-21).** 원래 이 자리에 「두 번째 소비처도 없다」고 적었는데 **틀렸다.**
+> 14px 변형은 **두 모듈이 한 정의를 공유한다** — `CreditConfirmModal.tsx:46`·`:53`이
+> `SKIP_LABEL_CLASS`·`SKIP_CHECKBOX_CLASS`를 `export`하고 `NodeDeleteConfirmModal.tsx:7`이 그것을
+> `import`한다. 값이 우연히 같은 것이 아니라 **단일 정의**다.
+>
+> 「크기 축을 세우지 않는다」는 판단은 유지하되, 그 판단의 전제였던 사실이 틀렸다는 것은
+> 남긴다. 뒤집을지는 별개 결정이다.
+
+## 제품 변형
+
+배포본에 크기가 다른 두 벌이 있다. 둘 다 **네이티브 `<input type="checkbox">`**이고 `accent-color`로
+색을 준다 — 커스텀 박스를 그리지 않는다.
+
+| 변형 | 상자 | 라벨 행 | 소비처 |
+| --- | --- | --- | --- |
+| 공용 정본 `.app-native-checkbox` | `20 × 20` · `margin: 0` · `cursor: pointer` · `accent-color: --palette-gray-900` · `flex-shrink: 0` | — | 21벌 중 2벌 |
+| 확인 모달 「이 세션에서 다시 보지 않기」 | **`14 × 14`** · `margin: 0` · `cursor: pointer` · `accent-color: --gray-000` | `flex` · `align-items: center` · `gap: 8px` · `margin: 16px 0 20px` · 색 `rgb(var(--gray-000-rgb) / 60%)` · `cursor: pointer` · `user-select: none` · `body-14-regular` | **2곳** — 크레딧 차감 확인 · 노드 삭제 확인 |
+
+**두 벌의 `accent-color` 성격이 다르다.** 공용 정본은 팔레트(`--palette-gray-900`)라 테마에서
+고정이고, 14px 변형은 시맨틱(`--gray-000`)이라 **테마에서 반전된다.** 한쪽으로 통일하면 한
+테마에서 체크 표시가 배경에 묻힌다.
+
+라벨 행의 위 여백 16px은 제목–설명 간격(8px)의 **두 배**다 — 코드가 그 의도를 주석으로 갖고 있다.
+
+근거: `globals.css:1013-1020` · `CreditConfirmModal.tsx:46-53`·`:121-129` ·
+`NodeDeleteConfirmModal.tsx:72-80`·`:84-92`.
 
 ## Hierarchy와 variants
 

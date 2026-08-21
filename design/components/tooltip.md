@@ -62,6 +62,8 @@ import { IconTrashSimple } from "@klipse-design/react/icons";
 | `side`         | `top`, `bottom`, `left`, `right`          | `top`   | 선호 방향. 공간이 없으면 뒤집힌다             |
 | `openDelay`    | number (ms)                               | `300`   | 포인터 진입 후 열리기까지. 제품 값             |
 | `disabled`     | boolean                                   | `false` | tooltip을 띄우지 않는다. trigger는 그대로다   |
+| `suppress`     | boolean                                   | `false` | 떠 있는 tooltip을 exit 모션 없이 즉시 걷어낸다 |
+
 | `children`     | ReactElement                              | **필수**| 상호작용 가능한 요소 하나                     |
 
 ## Hierarchy와 variants
@@ -75,6 +77,10 @@ variant가 없다. Tooltip은 강조 축을 갖지 않는다 — 위계를 표�
 | closed   | 렌더되지 않는다                       | DOM에도 없다                                      |
 | open     | `role="tooltip"`, `aria-describedby`  | 지연 후 열린다                                    |
 | disabled | 아무것도 열리지 않는다                | trigger의 동작은 영향받지 않는다                  |
+
+| suppressed | 즉시 사라진다 — exit 전환이 돌지 않는다 | 같은 trigger에서 Menu·Popover가 열릴 때           |
+
+- **`suppress`와 `disabled`는 다른 축이다.** `disabled`는 애초에 열리지 않게 하고, `suppress`는 **이미 떠 있는 것을 걷어낸다.** 두 축을 하나로 묶으면 드롭다운이 펼쳐지는 동안 tooltip 잔상이 버튼 옆에 남는다 — exit 전환을 태우지 않고 같은 커밋에서 내리는 이유다(`ChromeTooltip.tsx:187-198`). 제품 호출부는 사이드바 펼침·메뉴 열림·빈 프롬프트에서 이 prop을 세운다.
 
 - **닫힘은 지연 없이 즉시**다. 열 때만 지연이 있다. 포인터가 떠났는데 설명이 남으면 어느 컨트롤의
   설명인지 알 수 없다.
@@ -127,6 +133,23 @@ variant가 없다. Tooltip은 강조 축을 갖지 않는다 — 위계를 표�
 | 닫힘        | 즉시                                                    |
 | 열림 모션   | `motion-tooltip-enter` 140ms, scale 0.97 → 1            |
 
+| 닫힘 모션   | 120ms, `cubic-bezier(0.19, 1, 0.22, 1)`, scale 1 → 0.97 |
+| 확대 기준점 | anchor — `side`를 따라간다. `top` → `bottom center`, `left` → `right center`, `right` → `left center` |
+
+**「닫힘: 즉시」는 지연이 없다는 뜻이지 전환이 0이라는 뜻이 아니다.** 제품은 exit를 별도 duration·easing으로 돌린다 — enter는 `cubic-bezier(0.23, 1, 0.32, 1)` 140ms로 감속하고, exit는 `cubic-bezier(0.19, 1, 0.22, 1)` 120ms로 가속한다. **비대칭이다.** 열림 곡선을 닫힘에 그대로 재사용하면 tooltip이 끝에서 늘어져 잔상처럼 남는다. 전환 property는 `opacity`와 `transform` 둘뿐이고 열림·닫힘이 같은 두 축을 다툰다. 값의 출처는 제품 `globals.css:389-394`의 tooltip 모션 SSOT 토큰 5종 — rest scale·enter duration·exit duration·enter ease·exit ease다.
+
+**확대 기준점을 center로 두면 방향감이 사라진다.** 제품 버블은 항상 trigger 쪽 모서리에서 자란다 — `top`이면 아래 모서리, `left`면 오른쪽 모서리, `right`면 왼쪽 모서리다(`ChromeTooltip.tsx:71-73`). Figma에서 scale 0.97 → 1을 center 기준으로 그리면 버블이 trigger에서 뻗어 나오는 것이 아니라 제자리에서 부푸는 것처럼 보인다. `bottom`은 제품에 근거가 없다 — 제품 placement는 `top`·`left`·`right` 셋뿐이고(`ChromeTooltip.tsx:14`), `bottom`의 `top center`는 DS 판정이다.
+
+**reduced motion은 컴포넌트가 아니라 토큰 층에서 끈다.** 제품은 `@media (prefers-reduced-motion: reduce)` 안에서 `:root`의 세 토큰을 덮어써 enter·exit·rest 세 변형에 한 번에 적용한다(`globals.css:1559-1564`). 변형마다 따로 끄지 않는다.
+
+| 토큰           |  기본 | reduce |
+| -------------- | ----: | -----: |
+| enter duration | 140ms |    1ms |
+| exit duration  | 120ms |    1ms |
+| rest scale     |  0.97 |      1 |
+
+**`0ms`가 아니라 `1ms`다.** 버블의 언마운트가 `transitionend`에 걸려 있어 duration을 0으로 두면 이벤트가 발화하지 않고 180ms 폴백 타이머가 대신 걷어낸다. `1ms`는 정상 경로를 살려 둔다. rest scale을 1로 되돌리면 크기 이동만 사라지고 페이드는 1ms 안에 끝난다.
+
 `radius-control-sm`(8px)은 이 컴포넌트가 첫 소비자다. 제품 실측에서 8px이 가장 많이 쓰이는
 radius인데 semantic 이름이 없었다.
 
@@ -155,6 +178,9 @@ tooltip 면과 정확히 같았다.
 | 그룹 지연 건너뛰기 | 없음 | 하나가 열린 뒤 인접 trigger로 옮길 때 지연을 건너뛰는 동작. 제품도 Radix Provider에 의존하며, 공유 상태 설계가 필요해 분리했다 |
 | arrow | 없음 | 제품은 10×5 arrow를 쓴다. 표면 경계와 방향 표시의 값을 아직 판정하지 못했다 |
 | 열림 모션 | `overlay-enter` 채택 | 제품은 140ms에 `cubic-bezier(0.23, 1, 0.32, 1)`이고 DS는 200ms다. 제품 값을 그대로 들이려면 motion 토큰 추가가 선행이라 DS 값을 썼다 |
+
+| 닫힘 모션 | 없음 | 제품은 exit를 120ms `cubic-bezier(0.19, 1, 0.22, 1)`로 따로 돌리지만 `kds-tooltip`에는 exit keyframe이 없다. exit motion 토큰 추가가 선행이다 |
+| 확대 기준점 | 미배선 | overlay 표면은 `--kds-overlay-transform-origin`으로 anchor 원점을 이미 갖고 있고 규범도 menu-popover 문서에 `origin=anchor`로 서 있다. 그런데 `kds-tooltip` 표면이 `kds-overlay-panel`을 얹지 않아 지금은 center에서 자란다 |
 
 ## Acceptance tests
 

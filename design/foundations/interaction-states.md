@@ -57,6 +57,37 @@ authority: normative
 
 값이 boolean이 아닌 축(`variant`, `size`)은 이 규칙 밖이며 `data-*`를 쓴다 (DS-D-0004).
 
+## 제품 실측 — 확인 모달 액션
+
+**KDS는 상태 어휘만 갖고 값이 없다.** Figma로 옮길 때 지어내지 않도록 제품이 실제로 쓰는 값을
+한 자리 적어 둔다(배포본 실측). 이것은 **DS 계약이 아니라 제품 인용**이다.
+
+| 상태 | 취소 | 확인 (primary) | 확인 (danger) |
+| --- | --- | --- | --- |
+| hover | `filter: brightness(125%)` | `brightness(92%)` | `brightness(0.92)` |
+| active | `transform: scale(0.97)` | 같음 | 같음 |
+| disabled | `opacity: .6` · `cursor: default` | 같음 | 같음 |
+
+`active`와 `disabled`는 **세 벌이 공유하는 base**에서 온다. hover만 벌마다 다르다.
+
+전환은 셋 다 `transform 180ms ease, filter 180ms ease, opacity 180ms ease`다 — **세 프로퍼티가
+같은 길이**다.
+
+**밝기로 상태를 만든다.** 면 색을 바꾸는 것이 아니라 `filter: brightness()`를 얹으므로, 같은
+장치가 어떤 면 위에서도 동작한다. 그래서 danger 버튼에 따로 hover 색을 정의하지 않는다.
+`brightness(0.92)`와 `brightness(92%)`는 표기만 다르고 계산값이 같다.
+
+### 셀렉터 함정 — 터치에서도 hover가 발동한다
+
+호버가 `hover:`가 아니라 `[&:hover:not(:disabled)]:`로 저작돼 있어 **`@media (hover: hover)`
+가드가 없다.** 포인터가 없는 기기에서도 탭이 hover를 남긴다.
+
+원본 모듈 CSS의 맨 `:hover`를 그대로 보존한 결과이며 그 파일이 이유를 주석으로 갖고 있다.
+**의도된 것인지 잔재인지는 제품이 판정해야 한다** — 그 전까지 이 값을 「호버 전용」으로 읽지
+않는다.
+
+근거: `GlassConfirmModal.tsx:96-98`(base) · `:105`(취소) · `:111`(primary) · `:119`(danger).
+
 ## Figma에서의 표현
 
 Figma에는 CSS 상태가 없다. 그래서 일시적 상태도 variant property로 만들어야 하고, 그 property는

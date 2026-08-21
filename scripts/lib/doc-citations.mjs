@@ -59,6 +59,13 @@ export function resolveCitation(file, tree) {
   if (tree.has(file)) return { path: file };
   const prefixed = "apps/web/" + file;
   if (tree.has(prefixed)) return { path: prefixed };
+  // **부분 경로를 먼저 본다.** 문서는 `login/page.tsx`처럼 앞을 줄여 인용한다 —
+  // 그것으로 유일하게 좁혀지면 파일명만으로 다시 넓히지 않는다. (`page.tsx`는 제품에 49개다.)
+  if (file.includes("/")) {
+    const bySuffix = [...tree].filter((p) => p.endsWith("/" + file));
+    if (bySuffix.length === 1) return { path: bySuffix[0] };
+    if (bySuffix.length > 1) return { error: "이름이 모호함", candidates: bySuffix };
+  }
   const base = file.split("/").pop();
   const candidates = [...tree].filter((p) => p.endsWith("/" + base) || p === base);
   if (candidates.length === 1) return { path: candidates[0] };

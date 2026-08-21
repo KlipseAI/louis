@@ -36,6 +36,23 @@ Motion primitive와 semantic recipe는 단일 DTCG source 안의 논리적 계�
 - unmount timer와 interaction lock은 시각 transition과 같은 resolved recipe를 읽는다.
 - loading처럼 지속 시간이 작업 완료에 달린 상태를 고정 animation duration으로 가장하지 않는다.
 
+## Easing 원본
+
+primitive의 `timingFunction`은 제품이 선언한 커브 둘에서 왔다. Figma로 옮기는 사람이 커브를 새로
+고르지 않도록 원본을 여기 적는다(`globals.css:15-18`).
+
+| 제품 변수 | 값 | 이 커브를 받는 primitive |
+| --- | --- | --- |
+| `--ease-out-strong` | `cubic-bezier(0.32, 0.72, 0, 1)` | `overlay-enter` · `menu-enter` · `modal-enter` |
+| `--ease-in-out-strong` | `cubic-bezier(0.77, 0, 0.175, 1)` | 없다. 제품은 화면 안 이동(슬라이드·모프)에만 쓴다 |
+
+- **enter 커브를 뒤집어 exit를 만들지 않는다.** exit primitive는 감속이 아니라 가속이다 —
+  `overlay-exit`와 `modal-exit`는 `cubic-bezier(0.4, 0, 1, 1)`, `menu-exit`는
+  `cubic-bezier(0.42, 0, 1, 1)`이다. Figma에서 exit를 enter의 역재생으로 그리면 KDS와 갈린다.
+- **enter와 exit는 duration도 대칭이 아니다.** `menu-enter` 260ms ↔ `menu-exit` 130ms,
+  `overlay-enter` 200ms ↔ `overlay-exit` 120ms, `modal-enter` 320ms ↔ `modal-exit` 200ms이다.
+  한 lifecycle을 하나의 duration으로 접으면 닫힘이 느려져 화면이 굼떠 보인다.
+
 ## Loop
 
 무한히 반복하는 motion이다. spinner의 회전, shimmer의 쓸림이 여기 속한다.
@@ -77,6 +94,44 @@ Motion primitive와 semantic recipe는 단일 DTCG source 안의 논리적 계�
   primitive `transition-*`와 easing은 미표현으로 둔다
   ([DS-D-0007](../governance/decisions/DS-D-0007-figma-library-structure.md)).
 - duration 또는 easing 변경은 사용자 동작·lifecycle에 영향을 주면 behavior change로 분류한다.
+
+## Known deviations
+
+배포본 a9ead58b의 제품 구현이 위 규범과 갈리는 자리다. 채택했다는 뜻이 아니다 — 채택 여부는
+`migration/product.measured.json`이 소유한다.
+
+- **제품은 팝오버 닫힘 커브가 표면마다 다르다.** 노드 메타 드롭다운과 애널리틱스 더보기 메뉴는
+  닫힘도 열림과 같은 `--ease-out-strong`으로 통일하고 주석에 「ease-in 금지」를 명시한다
+  (`MetaDropdownPanel.tsx:41-57`, `AnalyticsAccountMoreMenu.tsx:35-51`). 아카이브 드롭다운만
+  닫힘을 `130ms ease-in`으로 둔다(`appHomeSceneStyles.ts:78`). **한 표면을 보고 「제품은 이렇다」로
+  일반화하면 다른 표면에서 틀린다.**
+- **아카이브 드롭다운은 열림에서 opacity 전이가 사라진다.** 열림 규칙이 transition shorthand를
+  `transform 260ms`로 통째 교체해 opacity가 즉시 불투명해진다(`appHomeSceneStyles.ts:119`). 다른 두
+  표면은 `opacity 200ms` + `transform 260ms`로 채널을 나눈다. 셋을 한 recipe로 그리면 하나는 틀린다.
+- **제품 모달은 한 recipe가 아니라 채널 셋이다.** `GlassConfirmModal`은 카드에
+  `transform 320ms cubic-bezier(0.22, 1, 0.36, 1)` · `opacity 220ms ease` · `filter 320ms ease`를 따로
+  걸고(`GlassConfirmModal.tsx:61-65`), 스크림은 `background 260ms cubic-bezier(0.22, 1, 0.36, 1)`으로
+  palette gray-900 알파 `0%` → `50%`를 덮는다(`:42-49`). 카드 시작값은
+  `translate3d(0, 16px, 0) scale(0.96, 0.96)` · `saturate(88%) blur(1px)`, 끝값은
+  `translate3d(0, 0, 0) scale(1)` · `saturate(100%) blur(0)`이다(`:67-77`). **`modal-enter` 하나로
+  접으면 카드가 균질하게 떠올라 제품과 갈린다** — 세 채널이 서로 다른 시각에 끝나는 것이 이 모션의
+  성격이다.
+- **오프셋과 scale은 클래스가 아니라 인라인 변수가 정한다.** 실제 값은 `translate-y 16px` ·
+  `scale 0.96 / 0.96`이며(`GlassConfirmModal.tsx:122-127`) 클래스에 적힌 fallback `0.24` · `0.16`
+  (`:69`)은 항상 덮여 닿지 않는다. **클래스만 읽고 0.24로 그리면 틀린다.**
+- **`filter`는 어떤 recipe의 허용 property에도 없고, 스크림의 `background`도 modal recipe에는 없다.**
+  `modal-enter`·`modal-exit`가 허용하는 property는 `opacity`·`translate`·`scale` 셋뿐이다
+  (`background-color`는 `layout-change`와 `control-hover`만 갖는다). 위 Token model이 선언되지 않은
+  property를 component가 임의로 animation하지 않는다고 못박으므로, 제품 모달의 saturate·blur 전이와
+  스크림 배경 전이는 현재 token model이 재현 대상으로 삼지 않는 채널이다. Figma proposal로도
+  넘어가지 않는다.
+- **제품 모달의 unmount timer가 시각 transition보다 짧다.** `CLOSE_MS = 280`인데 카드의 최장 전환은
+  320ms다(`GlassConfirmModal.tsx:32`, `:63`, `:188-191`) — 퇴장의 마지막 40ms가 잘린다. 위 Token
+  model의 「unmount timer와 interaction lock은 시각 transition과 같은 resolved recipe를 읽는다」가
+  금지하는 형태 그대로다.
+- reduced motion은 양쪽 다 제품이 선언한다. 팝오버는 `transform:none` + `transition: opacity 120ms ease`
+  (`MetaDropdownPanel.tsx:36-39`), 모달은 스크림·카드 모두 `transition:none`
+  (`GlassConfirmModal.tsx:45`, `:64`)이다.
 
 ## Acceptance tests
 

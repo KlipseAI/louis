@@ -936,3 +936,58 @@ owner의 지적이 맞았다 — **"제품에 정본이 없다"가 산문이었�
 
 이름 있는 스타일 상수만 센다. JSX에 인라인으로 적힌 `className`은 이름이 없어 묶을 수 없다.
 이름 패턴도 함께 기록하므로(생성물의 `pattern`) 놓친 것이 있으면 규칙을 감사할 수 있다.
+
+---
+
+## 미등록 부품 둘의 실측값 (2026-08-21)
+
+**「없다」만 적어 두면 Figma 작업자는 그릴 수 없다.** 등록부에 이미 올라 있던 둘을 배포본
+`a9ead58b`에서 재고 값을 붙인다. **DS 컴포넌트를 세울지는 로드맵 결정**이라 여기서 하지 않는다 —
+`design/components/`에 문서를 만드는 것은 「KDS가 이것을 만든다」는 뜻이기 때문이다.
+
+### 하단 캔버스 툴바 (`Toolbar.tsx`의 `TOOLBAR_WRAP`)
+
+**알약이 아니다.** 곡률 16px이고 실측 높이 40px이라 `999px`이 되려면 20px이어야 한다.
+[legacy-design-system](legacy-design-system.md)의 버튼 곡률 규약이 이것을 이미 짚어 두었다.
+
+| 축 | 값 |
+| --- | --- |
+| 곡률 | `16px` — `--radius-16` 리터럴(spacing 파생이 아니다) |
+| 패딩 · 아이템 간격 | `4px` · `4px` (`p-2` · `gap-2`, `--spacing: 2px`) |
+| 테두리 | `none` |
+| 면 (다크) | `rgb(var(--gray-800-rgb) / 70%)` = `#313640` 70% |
+| 면 (라이트) | `rgb(var(--palette-gray-100-rgb) / 70%)` = `#f1f1f3` 70% |
+| 뒤 흐림 | `backdrop-filter: blur(4px)` + `transform: translateZ(0)` |
+| 그림자 | `var(--glass-dropdown-frame)` **5겹 그대로** — 앰비언트 섀도우는 안 붙는다 |
+| 버튼 | `32×32` · 곡률 `var(--button-radius)` = 12px |
+| 버튼 전환 | `background/color 0.12s ease` · `transform 120ms cubic-bezier(0.23, 1, 0.32, 1)` |
+| 버튼 `:active` | `scale(0.95)` |
+
+**시맨틱 `--gray-800`을 쓰면 라이트에서 틀린다.** 라이트에서 `--gray-800-rgb`는
+`palette-gray-200`(`#e3e4e8`)으로 뒤집힌다. 제품은 라이트에서 **팔레트 쪽**을 직접 읽는다.
+
+**선행 조건:** DS의 blur primitive는 10px·12px뿐이라 **4px이 없다.**
+
+### 노드 인라인 오류 배너
+
+**노드 다섯 종(Image · Video · Edit · Tts · Bgm)이 바이트 동일한 클래스 문자열을 쓴다** —
+제품에 정본이 있는 드문 자리다. 라이트·다크 **공통값이고 테마 분기가 없다.**
+
+| 축 | 값 |
+| --- | --- |
+| 배치 | `flex items-center` · 간격 `8px` · `width: 100%` |
+| 최소 높이 | `28px` |
+| 패딩 | `8px` (상하좌우) |
+| 곡률 | `12px` |
+| 면 | `rgb(var(--accent-red-500-rgb) / 10%)` |
+| 테두리 | `0.5px solid rgb(var(--accent-red-500-rgb) / 20%)` |
+| 글자 | `var(--accent-red-500)` = `#ff4b59` · `type-body-14-regular` |
+| 줄 수 | **최대 3줄 클램프**, 넘치면 말줄임하고 전문은 `title` 속성 |
+| 역할 | `role="alert"` |
+
+**면 10% / 테두리 20% / 글자 100%** — 셋 다 같은 `--accent-red-500`이고 알파만 다르다.
+
+**한 배너가 두 메시지를 나눠 쓴다** — 생성 실패와 크레딧 부족이며 동시에 뜨지 않는다.
+우선순위는 실패가 먼저다.
+
+**TextNode는 이 정본에 없다.** 별도의 밝은 붉은 글자를 쓴다. 합류시킬지는 제품 판단이다.

@@ -18,9 +18,51 @@ authority: normative
 | 구조가 정해진 카드·목록의 첫 로드    | Skeleton                             | 나타날 콘텐츠 구조를 미리 전달                 |
 | 업로드·다운로드·렌더처럼 진행률을 앎 | Determinate progress                 | 남은 정도를 설명할 수 있음                     |
 | 장시간 백그라운드 작업               | 지속 상태 + 진행/취소/다른 작업 허용 | 사용자를 화면에 묶어 두지 않음                 |
+| 진행률을 **모르는 장시간 생성**       | 생성 중 셸 (아이콘 breathe 루프)      | 미디어 생성처럼 수십 초가 걸리고 자리 모양도 진행률도 모르는 곳 |
 
 시머 텍스트는 기존 목록 화면의 관측 패턴이다. 신규 패턴으로 확장하기 전에 Skeleton 또는 Spinner로
 같은 목적을 더 명확히 해결할 수 있는지 먼저 검토한다.
+
+## 생성 중 셸 — 제품 실측
+
+**미디어 생성은 위 다섯 중 어디에도 안 맞는다.** 수십 초가 걸리는데 진행률을 모르고, 나타날
+콘텐츠의 구조도 모른다 — Skeleton도 Determinate도 쓸 수 없다. 제품은 **매체 아이콘 하나를
+호흡시키는** 여섯 번째 표현을 쓴다.
+
+| 축 | 값 |
+| --- | --- |
+| 아이콘 박스 | `64px` |
+| 아이콘 색 | 매체별 accent — Image `--accent-mint-500` · Video `--accent-sky-500` · Text `--accent-yellow-500` · Edit `--accent-violet-500` |
+| 셸 | `flex column` · 가운데 정렬 · `gap: 4px` · `width/height: 100%` · `min-height: 120px` |
+| 셸 기타 | `overflow: hidden` · `pointer-events: none` |
+| 시맨틱 | **`role="status"` · `aria-live="polite"`** |
+
+모션은 **2단이고 이어 붙는다.**
+
+| 단계 | 값 |
+| --- | --- |
+| 등장 | `media-icon-grow-in 320ms cubic-bezier(0.22, 1, 0.36, 1) both` — `scale(0.8)` + `opacity 0` → `scale(1)` + `opacity 1` |
+| 호흡 | `media-icon-breathe 1000ms cubic-bezier(0.34, 1.56, 0.64, 1) 320ms infinite` — `0%·100% scale(1)` / `50% scale(1.14)` |
+
+**딜레이 320ms가 등장 길이와 같고, 호흡의 `0%`가 등장의 종료값과 같다.** 그래서 이어질 때 튀지
+않는다. **두 값을 따로 정하면 반드시 튄다.**
+
+`prefers-reduced-motion`에서 `animation: none`이라 **두 단계가 함께 사라지고 `scale(1)`에서
+멈춘다.** 아이콘은 그대로 보인다.
+
+### Motion 계약과 어긋나는 두 가지
+
+**[Motion](../foundations/motion.md)의 loop 계약이 이 표현을 담지 못한다.**
+
+1. 허용 property에 `transform`/`scale`이 없다 — 현재 셋(`opacity` · `rotate` ·
+   `background-position`)뿐이다.
+2. loop recipe 둘(등속 회전 · standard 시머) 어느 쪽도 **overshoot 곡선**
+   (`cubic-bezier(0.34, 1.56, 0.64, 1)`)이 아니다. 이 곡선은 1을 넘었다 돌아온다.
+
+**판정이 필요하다.** loop에 `transform` 축과 overshoot recipe를 추가할지, 이 표현을 제품 전용으로
+둘지. 정하지 않으면 화면을 조립할 때마다 곡선을 지어내게 된다.
+
+근거: `nodes/ImageNode.tsx:324-330` · `keyframes.css:410`·`:422`.
 
 ## 시간과 피드백
 
@@ -110,6 +152,87 @@ Spinner와 Skeleton은 스스로 읽히지 않는다. 스켈레톤이 여덟 개
 
 Spinner와 Skeleton 모두 반복이 **1회로 끝난다**(DS-D-0016 — loop는 짧아지는 것이 아니라
 사라진다). 로딩 중이라는 뜻은 `aria-busy`와 면이 유지하며 움직임이 그 뜻을 만드는 것이 아니다.
+
+### 시머 텍스트 — 관측 기준선
+
+위 「선택 기준」은 시머 텍스트를 관측 패턴으로만 언급한다. 그 관측의 실제 값이 아래다. **규범이
+아니라 기준선이다** — 규범으로 올리려면 아래 두 판정(흐름 값 · reduced-motion 잔상)을 먼저 내려야
+한다.
+
+**제품은 본문이 완전히 같은 스윕 keyframe을 네 벌, 이름만 바꿔 쓴다.**
+
+| keyframe | 좌표 | 소비처 |
+| --- | --- | --- |
+| `archiveLoadingSweep` | `keyframes.css:497-500` | `NodeCanvasHomeScene.tsx:161` · `VideoEditScene.tsx:166` · `EditorProjectWorkspace.tsx:145` · `appHomeSceneStyles.ts:154` |
+| `archiveLoadingMoreShimmer` | `keyframes.css:503-506` | `NodeCanvasHomeScene.tsx:224` (더 불러오기) |
+| `projectLoadingSweep` | `keyframes.css:661-664` | `components/scenes/CreateScene.tsx:141` |
+| `statusLoadingSweep` | `keyframes.css:772-779` | `mypage/upgrade/billing-success/page.tsx:91` · `mypage/upgrade/billing-change-success/page.tsx:89` · `mypage/topup/success/page.tsx:91` |
+
+네 벌의 본문은 `from { background-position: 0% 50% }` → `to { background-position: -100% 50% }` 로
+같다. **네 이름을 네 개의 다른 흐름으로 보고 Figma에 각각 만들면 틀린다. 하나다.**
+
+**레시피.** 목록 첫 로딩(`components/scenes/NodeCanvasHomeScene.tsx:152-163`) 기준이며 나머지
+소비처가 같은 값을 복제한다.
+
+| 축 | 값 | 근거 |
+| --- | --- | --- |
+| 컨테이너 최소 높이 | **480px** | `NodeCanvasHomeScene.tsx:153` |
+| 컨테이너 패딩 | **80px 0** (`py-40 px-0`, `--spacing: 2px`) | 같은 줄 |
+| 컨테이너 정렬 | `flex items-center justify-center` | 같은 줄 |
+| 라벨 타이포 | **`type-heading-28-medium`** | `NodeCanvasHomeScene.tsx:1287` |
+| 라벨 표시 | `inline-block` · `color: transparent` | `NodeCanvasHomeScene.tsx:156` |
+| 배경 크기 · 시작 위치 | `200% 100%` · `0% 50%` | `NodeCanvasHomeScene.tsx:158` |
+| 클립 | `background-clip: text` + `-webkit-background-clip: text` | `NodeCanvasHomeScene.tsx:159` |
+| 흐름 | **`2.2s` · `linear` · `infinite`** | `NodeCanvasHomeScene.tsx:161` |
+
+그라디언트는 9정지점이고 **전부 한 색의 알파 변주다** — 면 색을 고르지 않는다는 Skeleton의 판정과
+같은 자리다(`NodeCanvasHomeScene.tsx:157`).
+
+```
+linear-gradient(90deg,
+  rgb(var(--gray-000-rgb)/20%) 0%,   rgb(var(--gray-000-rgb)/28%) 12%,
+  rgb(var(--gray-000-rgb)/88%) 24%,  rgb(var(--gray-000-rgb)/34%) 36%,
+  rgb(var(--gray-000-rgb)/20%) 50%,  rgb(var(--gray-000-rgb)/28%) 62%,
+  rgb(var(--gray-000-rgb)/88%) 74%,  rgb(var(--gray-000-rgb)/34%) 86%,
+  rgb(var(--gray-000-rgb)/20%) 100%)
+```
+
+88% 봉우리가 두 번 있는 대칭 파형이고 `background-size: 200% 100%` 와 맞물린다. **2.2s를 봉우리
+한 번의 쓸림으로 읽으면 틀린다.**
+
+**색 축은 자리마다 하나만 다르다.** 첫 로딩 시머는 다크 표면을 전제로 `--gray-000-rgb` 하나만 쓴다.
+「더 불러오기」 시머만 라이트에서 `--palette-gray-900-rgb` 를 쓰고 `html[data-theme=dark]` 에서
+`--palette-gray-000-rgb` 로 갈아끼운다(`NodeCanvasHomeScene.tsx:220`, `NodeCanvasHomeScene.tsx:225`).
+둘을 한 색으로 합치면 라이트 테마에서 더 불러오기 문구가 배경에 묻힌다.
+
+**reduced-motion에서 그라디언트가 남는다.** 제품은 애니메이션만 끄고 그라디언트는 그대로 둔다 —
+`NodeCanvasHomeScene.tsx:162` 와 `VideoEditScene.tsx:167` 은 미디어 쿼리로, 결제 상태 화면은
+`motion-reduce:animate-none` 으로 같은 결과를 낸다(`mypage/upgrade/billing-success/page.tsx:91`).
+글자가 계속 `color: transparent` 이므로 정지한 그라디언트가 글자를 그린다. 위 「reduced-motion」의
+**1회로 끝난다**와 다르다 — 시머 텍스트는 1회를 돌지 않고 **0프레임에서 멈추고**, 그 자리에서 글자가
+20%~88% 알파로 얼룩진 채 남는다. 규범화할 때 이 얼룩을 허용할지 균일 알파로 떨어뜨릴지 판정이
+필요하다.
+
+**자리표시가 읽힌다.** `<section aria-live="polite">` 안의 `<span role="status" aria-label={…}>`
+구조다(`NodeCanvasHomeScene.tsx:1285-1289`). 영역 구조는 위 「누가 로딩을 알리는가」와 같지만
+**자리표시가 `aria-hidden` 이 아니라 읽히는 텍스트**라는 점이 Skeleton과 다르다. 시머 텍스트에
+「자리표시는 장식이다」를 그대로 적용하면 로딩 문구가 통째로 사라진다. 결제 상태 화면은 더 나아가
+**로딩 동안 제목·설명·오류·메타·액션을 렌더하지 않고 이 단어 하나만 남긴다**
+(`mypage/upgrade/billing-success/page.tsx:419-427`) — 카드 안의 장식이 아니라 화면 전체의 상태다.
+
+**흐름 값이 정본과 다르다.**
+
+| 출처 | 주기 | easing |
+| --- | ---: | --- |
+| `motion-shimmer` — [motion](../foundations/motion.md) | 1.6s | `easing-standard`(가감속) |
+| 제품의 시머 텍스트 아홉 곳 | 2.2s | `linear`(등속) |
+
+[DS-D-0017](../governance/decisions/DS-D-0017-keyframe-contract.md)이 loop에 `background-position` 을
+허용하므로 **기법 자체는 게이트를 통과한다. 걸리는 것은 값이다.** motion은 「자리표시의 쓸림에는
+가감속이 맞으며 제품도 그렇게 쓴다」고 적지만 그것은 **면** 자리표시의 인구조사이고, **텍스트 시머는
+아홉 곳이 전부 등속이다.** 1.6s·가감속으로 끌어오든 2.2s·등속을 정본으로 세우든 하나를 골라야 한다.
+고르지 않으면 같은 화면에서 [Skeleton](../components/skeleton.md)과 시머 텍스트가 서로 다른 속도로
+돈다.
 
 ### Acceptance tests
 

@@ -54,6 +54,10 @@ summary: 트리거 옆에서 액션 목록이나 설정을 펼쳐 보여 줍니�
 4. **Panel** — 표면, 접근성 역할, 충돌 보정, 스크롤 경계를 소유한다.
 5. **Group label / separator** — 액션 묶음의 의미를 보조한다. 빈 장식 행을 menuitem으로 만들지 않는다.
 6. **Item / control** — 전체 행이 하나의 히트 영역이고, 상태와 accessible name을 가진다.
+
+   - **Item leading icon slot** — 라벨 앞에 서는 고정 치수 칩이다. 아이콘 자체가 아니라 아이콘을 담는
+     면이며, 행이 좁아져도 줄지 않는다. 치수·곡률·면은 §Specification의 「Item leading icon slot」 표가
+     소유한다. 이 슬롯을 아이콘 크기로만 정의하면 칩 면이 사라져 행이 밋밋해진다.
 7. **Nested overlay** — submenu, Listbox, color picker 등이다. 부모와 같은 overlay branch에 등록한다.
 
 ## Properties
@@ -274,6 +278,61 @@ body로 떨어진다. 따라서 exit 모션 동안 화면에는 패널이 보이
 - 위치 계산 전에는 보이지 않아야 한다. CSS의 임시 `top/right`를 한 프레임 노출하지 않는다.
 - Tooltip은 포인터를 막지 않는다. 장식 pseudo-element도 항상 `pointer-events:none`이다.
 
+- **Portal host 선택이 테마 램프 상속을 바꾼다.** 제품의 프로필 팝오버는 전용 overlay root가 아니라
+  `document.body`로 포털된다(`Gnb.tsx:4011`, `Gnb.tsx:4037`, `Gnb.tsx:5347`, `Gnb.tsx:5373`). 앱 셸 라이트
+  램프가 바로 그 `body`에 얹히므로(`Gnb.tsx:1972-2000`, 선택자
+  `html[data-theme=light] body:has(.gnb-wrapperSidebar)`) 패널이 램프를 **상속한다.** 이 문서가 규범으로
+  요구하는 별도 overlay root로 옮기면 패널은 램프 밖으로 나가고 라이트 표면과 구분선 색이 함께 바뀐다.
+  **host를 먼저 정하지 않고 색부터 옮기면 라이트가 한 계단 어긋난다.**
+
+| 라이트 상태 | Panel surface | 내부 구분선 |
+| --- | --- | --- |
+| 사이드바 있음(램프 안) | **`#f8f8f9`** — 패널은 `--dropdown-surface-bg`를 소비하고(`Gnb.tsx:1273`), 램프가 `--palette-gray-100`을 재매핑하면서 `--dropdown-surface-bg`도 직접 재선언한다(`Gnb.tsx:1972`, `Gnb.tsx:1979`, `Gnb.tsx:2000`) | **`#eeeef1`** — `--profile-line-color: var(--palette-gray-200)`(`Gnb.tsx:1293`) 위에 램프 재매핑이 얹힌다(`Gnb.tsx:1974`, `Gnb.tsx:1981`) |
+| 사이드바 없음(램프 밖) | **`#f1f1f3`** — `--dropdown-surface-bg: rgb(var(--palette-gray-100-rgb))`(`globals.css:600`, `globals.css:24`) | **`#e3e4e8`** — `--palette-gray-200`(`Gnb.tsx:1293`, `globals.css:28`) |
+| 다크(램프 없음) | **`#313640`** — `--palette-gray-800`(`globals.css:101`) | **`#575d68`** — `--palette-gray-700`(`Gnb.tsx:1286`, `globals.css:34`) |
+
+Specification 표의 `Panel surface` 행은 라이트 값을 하나만 담는다. 램프를 상속하는 한 라이트는 두 값으로
+갈리므로, 한 값으로 그린 Figma 표면은 사이드바가 있는 화면과 없는 화면 중 하나에서 반드시 틀린다.
+
+### 세로 배치와 flip
+
+**기본 세로 배치는 트리거 위쪽이다.** 제품의 노드 캔버스 계열 패널은 앵커에서 `bottom: calc(100% + gap)`으로
+서고(`BgmNode.tsx:244`, `Toolbar.tsx:110`), 위쪽 여유가 모자랄 때만 아래로 flip해 `top: calc(100% + gap)`으로
+간다(`metaDropdownViewport.ts:4-5`, `MetaDropdownPanel.tsx:314-322`). Properties 표의 `placement` 기본값
+`bottom`은 이 계열과 **정반대**다. 기본값을 그대로 그리면 패널이 트리거 아래로 뒤집혀 캔버스 노드를 덮는다.
+
+**flip 판정 순서는 고정이다.** `need = 패널 높이 + gap`, `aboveAvail = 트리거 top − 8`,
+`belowAvail = viewport 안쪽 높이 − 8 − 트리거 bottom`으로 두고 ① 위에 들어가면 위(flip 없음) → ② 아니고
+아래에 들어가면 아래 → ③ 둘 다 안 들어가면 여유가 더 넓은 쪽이다(`metaDropdownViewport.ts:26-45`).
+여기 8px은 뷰포트 여백이다(`META_DROPDOWN_VIEWPORT_PAD_PX`, `metaDropdownViewport.ts:2`). 「자리가 좁으면
+뒤집는다」로만 옮기면 ③이 빠져 좁은 화면에서 방향이 갈린다.
+
+**flip해도 뷰포트 클램프를 걸지 않는다.** flip 뒤에도 가장자리에서 잘리면 그냥 잘린 채 노출된다
+(`MetaDropdownPanel.tsx:84-88`). 이 절이 말하는 「flip/shift」의 shift는 **이 패널에** 없다 — nudge 계산
+유틸은 `metaDropdownViewport.ts:7`에 살아 있지만 `MetaDropdownPanel`이 호출하지 않는다. 같은 유틸을 실제로
+부르는 `PageMetaDropdownPanel.tsx:134`과 여기서 갈리므로, 「제품에는 shift가 없다」로 일반화하지 않는다.
+
+**닫히는 동안 flip 상태를 유지한다**(`MetaDropdownPanel.tsx:204-206`). 즉시 리셋하면 아래로 열렸던 패널이
+페이드 도중 위로 튄다.
+
+**flip하면 `transform-origin`도 반대편으로 함께 갈아탄다.** 원점을 고정한 채 flip하면 패널이 트리거 반대
+방향에서 자라 나온다. 원점 클래스와 앵커 인라인 스타일이 같은 값으로 함께 바뀐다
+(`MetaDropdownPanel.tsx:304-312`, `MetaDropdownPanel.tsx:314-322`).
+
+| `motionOrigin` | 기본 원점 | 아래로 flip한 뒤 |
+| --- | --- | --- |
+| `bottom-center` | `bottom center` | **`top center`** |
+| `bottom-left` | `bottom left` | **`left top`** |
+| `top-center` | `top center` | flip 대상 아님 |
+| `top-left` / `left-top` | `left top` — 두 이름이 같은 값이다 | flip 대상 아님 |
+| `left-center` / `right-center` | `left center` / `right center` | flip 대상 아님 |
+| `right-top` | `right top` | flip 대상 아님 |
+
+**자동 flip은 `bottom-*`에서만 켜진다.** 별도 지정이 없으면 원점이 `bottom-center` 또는 `bottom-left`일 때만
+활성이고, 측면 서브메뉴(`left-center`·`right-center`·`left-top`·`right-top`)와 `top-*`는 대상이 아니다
+(`MetaDropdownPanel.tsx:155-157`). 서브메뉴에 세로 flip을 붙이면 제품에 없는 동작을 만든다. 원점 상수 8종은
+`MetaDropdownPanel.tsx:61-68`이 소유한다.
+
 ## Responsive behavior
 
 - 320px viewport와 200% 확대에서 panel 폭은 `min(preferred, viewport - 2 * collisionPadding)`을 넘지 않는다.
@@ -347,6 +406,69 @@ body로 떨어진다. 따라서 exit 모션 동안 화면에는 패널이 보이
 둘 다 WCAG 계약이라 제품에 맞춰 낮추지 않았다. **`danger` 전경을 제품 값으로 바꾼 것이 문서가
 이미 인정하던 대비 결함을 해소한다** — 이전 `color-foreground-danger`는 중립 표면 위에서
 무너졌다.
+
+### 제품 계열 분기와 파생 규칙
+
+**제품의 메뉴 표면은 두 계열이다.** A계열은 지역 변수 `--menu-pad`로 패딩을 선언하고 아이템 곡률을 거기서
+파생시킨다. B계열은 전역 `--dropdown-*`을 그대로 쓴다. 위 표의 한 줄짜리 값은 B계열만 담고 있다.
+
+| Part | A계열(사이드 메뉴 표면) | B계열(노드 더보기) | 근거 |
+| --- | --- | --- | --- |
+| Panel padding | **4px** — `--menu-pad: 4px` 선언 후 `padding: var(--menu-pad)` | **6px** — `var(--dropdown-padding)` | `EditNode.tsx:330`, `Toolbar.tsx:124`, `AnalyticsAccountMoreMenu.tsx:66` / `NodeMoreMenu.tsx:55`, `globals.css:85` |
+| Item radius | **12px** — 리터럴이 아니라 파생값 `calc(var(--dropdown-radius) - var(--menu-pad, 4px))` = 16 − 4 | **10px** — `var(--dropdown-item-radius)` | `EditNode.tsx:342`, `Toolbar.tsx:136` / `NodeMoreMenu.tsx:65`, `globals.css:86` |
+| Panel radius | 16px — `var(--dropdown-radius)` | 같다 | `EditNode.tsx:329`, `NodeMoreMenu.tsx:55`, `globals.css:84` |
+| Panel 최소 폭 | **160px** — `min-w-80`, `--spacing: 2px` | **140px** — `min-w-70` | `EditNode.tsx:333`, `Toolbar.tsx:127`, `AnalyticsAccountMoreMenu.tsx:69`, `tailwind.css:164` / `NodeMoreMenu.tsx:54` |
+
+**A계열의 아이템 곡률은 패널 패딩에 연동된 파생값이다.** 12px를 리터럴로 박으면 패딩을 6px로 바꿨을 때
+안쪽 모서리가 어긋난다. 값보다 먼저 `item radius = panel radius − panel padding` 규칙을 옮긴다 — 토큰
+모델이 이 파생을 표현하지 못하면 A계열은 재현되지 않는다. A계열은 여러 파일이 같은 두 줄을 복제한다
+(`EditNode.tsx:330`·`342`, `Toolbar.tsx:124`·`136`, `AnalyticsAccountMoreMenu.tsx:66`·`79`, `CanvasZoomControl.tsx:70`,
+`NodeSideButtons.tsx:253`, `TextNode.tsx:180`).
+
+Known deviations의 「panel padding이 6px이 아니라 4px이다」는 **DS 구현측 대체 사유**이고, 제품의 4px +
+파생 12px 계열은 그와 별개로 존재한다. 둘을 같은 사실로 합치면 아이템 곡률이 10px로 굳어 A계열이 사라진다.
+
+계열에 속하지 않는 폭 예외 둘이 더 있다. 160px 하나로 통일해 그리면 노드 더보기 메뉴가 20px 넓어지고,
+Responsive behavior의 「기본 200px 권장」은 제품 어느 계열과도 맞지 않는다.
+
+| 사용처 | Panel 최소 폭 | 근거 |
+| --- | ---: | --- |
+| 캔버스 툴바 메뉴 앵커 | `max(100%, 172px)` — 트리거 폭과 172px 중 큰 쪽 | `Toolbar.tsx:110` |
+| 캔버스 줌 컨트롤 | 180px — `min-w-90` | `CanvasZoomControl.tsx:52` |
+
+### Item leading icon slot
+
+Anatomy 6번 안의 선행 아이콘 칩이다. 위 표에는 행이 없다.
+
+| 속성 | 값 | 근거 |
+| --- | --- | --- |
+| 치수 | **20×20px** — `w-10 h-10`, `--spacing: 2px` | `EditNode.tsx:358`, `Toolbar.tsx:152`, `tailwind.css:164` |
+| 정렬·수축 | flex 중앙 정렬(`items-center justify-center`) + `shrink-0` | `EditNode.tsx:358-359`, `Toolbar.tsx:152-153` |
+| 곡률 | **5px 리터럴** — `rounded-[5px]`. radius 스케일(2·4·6·8·10·12·14·16·20·24)에 없다 | `EditNode.tsx:358`, `Toolbar.tsx:152`, `tailwind.css:169-180` |
+| 면(다크) | `rgb(var(--gray-700-rgb)/100%)` = **#575d68** | `EditNode.tsx:359`, `Toolbar.tsx:153`, `globals.css:49`, `globals.css:684` |
+| 면(라이트) | 의미 토큰이 아니라 `rgb(var(--palette-gray-200-rgb)/100%)`를 직접 지정한다. 해석값은 램프 밖 **#e3e4e8**, 사이드바 램프 안 **#eeeef1** — §Portal and layer rules의 램프 표와 같은 갈림이다 | `EditNode.tsx:360`, `Toolbar.tsx:154`, `globals.css:44`, `Gnb.tsx:1981` |
+| 내부 아이콘 | 15px | `Toolbar.tsx:161`, `Toolbar.tsx:364`, `Toolbar.tsx:380` |
+
+**라이트에서 의미 토큰을 쓰면 칩이 한 계단 어두워진다.** 라이트에서 `--gray-700-rgb`는
+`--palette-gray-300-rgb`(#d5d7dd)로 뒤집혀 있다(`globals.css:727`, `globals.css:817`). 그래서 제품은 라이트
+면만 팔레트를 직접 지정한다 — 다크 값을 의미 토큰으로 그대로 옮기면 칩이 라벨보다 무거워진다.
+
+5px 곡률은 governance/product-confirmations.md의 「모서리 반경 — 토큰 없는 값 상위」 표가 이미 15회·11파일로
+세어 둔 그 값이다. 같은 문서가 「radius와 spacing의 홀수 계단은 전부 이웃과 1px 차라 화면에서 구분되지
+않으므로 확인할 자리가 없다」로 판정을 미뤄 두었으나, 이 슬롯이 그 5px이 실제로 서는 자리다. primitive 추가와
+리터럴 허용 중 하나를 골라야 하며, 그 판정 문장도 함께 정정한다.
+
+### 위 표에서 어긋나는 행
+
+- **`Item 내부 gap` 6px은 제품과 2px 다르다.** 제품의 아이콘↔라벨 간격은 `gap-4` = **8px**다
+  (`EditNode.tsx:341`). 6px로 그리면 20px 칩이 라벨에 붙는다.
+- **`Anchor offset`은 8px 단일값이 아니다.** 노드 메타 드롭다운은 **4px**
+  (`META_DROPDOWN_DEFAULT_VERTICAL_GAP_PX`, `metaDropdownViewport.ts:5`; 앵커 `BgmNode.tsx:244`,
+  `ImageNode.tsx:583`, `TtsNode.tsx:404`, `VideoNode.tsx:463`, `YoutubeNode.tsx:497`), 캔버스 툴바와 줌
+  컨트롤은 **8px**이다(`Toolbar.tsx:353`, `Toolbar.tsx:417`, `Toolbar.tsx:511`, `CanvasZoomControl.tsx:167`,
+  `Toolbar.tsx:110`, `CanvasZoomControl.tsx:52`). 8px 하나로 그리면 노드 메타 드롭다운이 트리거에서 4px
+  떠서 붙는다.
+- **`Panel width` 최소 160px은 A계열에서만 맞다.** B계열은 140px이다.
 
 ## Implementation
 

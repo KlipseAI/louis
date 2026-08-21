@@ -138,6 +138,142 @@ compact recipe가 assets 진입점을 생략하면 문서 순서나 숨은 impli
 compact 호환 경계는 [Responsive Layout](../foundations/responsive-layout.md)에 기록한다. container 기반
 전환은 위 기능 결과를 우선한다.
 
+## Canvas node side controls
+
+캔버스 노드 카드는 좌·우 **바깥**에 28px 정사각 컨트롤 레일을 세운다. 제품은 이 레일을 카드 안이 아니라
+카드 패딩 박스 바깥에서 계산하고, 값은 전역 변수 한 벌에서만 가져온다. **컨트롤 자리를 카드 폭에
+포함시켜 계산하면 카드와 레일이 함께 어긋난다.**
+
+| CSS variable | 해결값 | 지배하는 자리 |
+| --- | --- | --- |
+| `--node-side-handle-size` | `28px` | 사이드 버튼·핸들 한 변 — `globals.css:521` |
+| `--node-side-handle-radius` | `8px` | 그 크롬의 모서리 — `globals.css:522` |
+| `--node-side-gap` | `10px` | 카드 패딩 박스 ↔ 컨트롤 열 **수평** 간격 — `globals.css:532` |
+| `--node-side-stack-gap` | `8px` | 같은 열 컨트롤끼리 **세로** 간격 — `globals.css:534` |
+| `--node-side-ctrl` | `var(--node-side-handle-size, 28px)` | 레일 계산이 참조하는 한 변 — `globals.css:535` |
+| `--node-side-leading-offset` | `calc(gap + ctrl)` = **38px** | 카드 왼쪽 테두리 ↔ 좌 레일 바깥선 — `globals.css:536` |
+| `--node-handle-outbound-slot` | `calc(100% + gap)` | 우 출력 `left:`·좌 레일 `right:` 공통식 — `globals.css:537` |
+
+규범 주석은 `globals.css:526-531`에 있다. 캔버스 셸이 같은 이름으로 덮어쓸 수 있게 열어 두었으나 현재
+재정의하는 곳은 없다.
+
+### 레일 배치
+
+- 좌 레일은 `left: calc(-1 * var(--node-side-leading-offset))`에 선다.
+  `right: var(--node-handle-outbound-slot)`은 같은 자리의 다른 표기다.
+- 우 출력 핸들은 `left: var(--node-handle-outbound-slot)`에 선다.
+- 둘 다 `top: 50%` + `translateY(-50%)`로 카드 세로 중앙에 건다. 레일 컨테이너는 `z-[5]`다.
+- 한 열에 컨트롤이 여럿이면 세로 간격은 gap(10px)이 아니라 stack-gap(8px)이다.
+  **n개 스택의 총높이 = n × 28 + (n − 1) × 8** — 4개면 136px.
+
+수평 간격과 세로 간격을 한 값으로 합치면 레일 길이가 스택 개수마다 틀린다. 코드에서 `38px`을 직접
+적는 것도 틀린다 — 그것은 `gap + ctrl`의 현재 해이고, gap이 바뀌면 좌 레일만 밀린다. Figma처럼 변수를
+바인딩할 수 없는 도구로 옮길 때만 해결값 38px을 쓰고 파생 관계를 함께 적는다.
+
+### Outset은 전역이 아니다
+
+`--node-side-outset`은 전역 변수가 아니다. 노드 컴포넌트가 각자 로컬로 `0px`을 선언한다 —
+`VideoNode.tsx` · `ImageNode.tsx` · `TextNode.tsx` · `TtsNode.tsx` · `BgmNode.tsx` 다섯이고, 그 밖의
+노드(`EditNode.tsx` · `YoutubeNode.tsx` · `InstagramNode.tsx`)는 선언 없이 `var(--node-side-outset, 0px)`
+폴백만 읽는다.
+
+값이 `--node-side-leading-offset`(38px)으로 올라가는 것은 `[data-node-canvas-marketing]` 스코프
+안에서뿐이고, **그 override를 가진 노드는 `VideoNode.tsx` · `ImageNode.tsx` · `TextNode.tsx` 셋뿐이다.**
+`TtsNode.tsx` · `BgmNode.tsx`는 마케팅 스코프에서도 `0px`로 남는다. override가 걸린 노드에서는 같은
+자리에서 정렬도 `center`에서 `stretch`로 바뀐다 — 마케팅 임베드는 좌우 크롬을 노드 박스 안에 포함하기
+때문이다. 그래서 노드 바깥 박스 폭이 문맥마다 갈린다.
+
+| 문맥 | outset | 카드 폭 | 바깥 박스 폭 |
+| --- | ---: | ---: | ---: |
+| 앱 에디터 캔버스 | `0px` | 400px | **400px** |
+| 랜딩·마케팅 임베드 (video · image · text 노드) | `38px` | 400px | **476px** |
+
+바깥 박스 폭 = `카드 폭 + 2 × outset`이다. 랜딩 쇼케이스 문서에서 노드의 `position.x`는 카드가 아니라
+이 바깥 박스의 왼쪽을 가리킨다. 앱 값 400px로 랜딩 간격을 계산하면 노드마다 76px씩 밀린다.
+
+**`--node-side-outset`을 전역 SSOT로 승격하지 않는다.** 올리는 순간 앱 캔버스가 랜딩 폭을 상속하고
+카드가 컨트롤 자리만큼 안으로 밀린다.
+
+### 카드 외곽선의 SSOT는 카드가 아니라 셸이다
+
+**노드 모듈은 자기 border를 선언하지 않는다.** 캔버스 셸이 후손 셀렉터로
+`[data-node-chrome="wrap"]`에 두께와 색을 **일괄 공급**한다. 카드가 자기 border를 다시 선언하면
+회귀다.
+
+| 상태 | 값 |
+| --- | --- |
+| 비선택 · 다크 | `2px solid rgb(var(--palette-gray-600-rgb) / 100%)` = `#777d89` |
+| 비선택 · 라이트 | `2px solid rgb(var(--palette-gray-000-rgb) / 100%)` = `#fafafa` |
+| 선택 (양 테마) | `2px solid rgb(var(--node-selection-accent-rgb) / 86%)` |
+
+**시맨틱이 아니라 팔레트를 직접 읽는다.** `--gray-600`이 아니라 `--palette-gray-600-rgb`다 —
+시맨틱으로 옮기면 테마에서 뒤집혀 두 상태가 같은 색이 된다.
+
+계약 넷이 코드 주석에 적혀 있다.
+
+1. **두께는 셸이 공급한다.**
+2. **선택은 색 전환만이다** — 성능을 위해 `box-shadow`를 더하지 않는다.
+3. **선택 규칙은 정렬에 맡기지 않고 `!`로 승자를 고정한다** — 원본에서 라이트 규칙보다 뒤에 있었다.
+4. **선택 시 타이틀 줄도 같은 액센트를 100%로 받는다.** 미디어 오버레이 헤더는 제외인데
+   **현재 그 표식을 붙이는 곳이 없다** — 배선 전이다.
+
+**반경도 셸이 준다.** `--node-outer-radius: 24px`이고 안쪽은 `--node-inner-radius: 22px`다 —
+**외곽에서 border 2px를 뺀 값**이다. 두 값을 따로 정하면 border 안쪽 콘텐츠가 모서리에서 어긋난다.
+내부 입력 상자는 `--node-input-radius: 16px`로 또 다르다.
+
+### 면에는 SSOT가 없다
+
+**선은 셸이 한 곳에서 주는데 면은 그렇지 않다.** 노드 **여덟이 각자** 같은 두 줄을 자기
+`NODE_WRAP` 상수에 인라인 복제한다.
+
+| 테마 | 면 |
+| --- | --- |
+| 다크 | `rgb(var(--gray-800-rgb) / 100%)` |
+| 라이트 | `rgb(var(--palette-gray-100-rgb) / 100%)` — 사이드바 램프 아래에서는 `#f8f8f9` |
+
+**같은 카드에서 선은 팔레트를 읽고 면은 시맨틱(다크)과 팔레트(라이트)를 섞어 읽는다.** 셋을 한
+규칙으로 통일하면 어느 한 테마가 틀린다.
+
+**한쪽만 고치면 여덟 중 일곱이 남는다.** 면을 셸로 올리는 것은 제품 변경이므로 여기서 정하지
+않고, 옮길 때는 **여덟이 같은 값이라는 사실**만 계약으로 쓴다.
+
+선택 액센트는 채널마다 다르다. 일곱 채널의 값은
+[DS-D-0010](../governance/decisions/DS-D-0010-token-coverage.md)의 선택 액센트 절이 소유한다.
+**한 색으로 옮기면 일곱 중 여섯이 틀린다.**
+
+근거: `components/scenes/create/node-canvas-v2/index.tsx:347-359` ·
+`globals.css:33`·`:48`(다크 기준색) · `:20`·`:40`(라이트 기준색).
+
+### 같은 숫자가 CSS 밖에 두 벌 더 있다
+
+기하 값이 CSS 변수 한 벌로 끝나지 않는다. **TypeScript 상수가 같은 숫자를 다시 적고, 세 번째 벌이
+썸네일 레이아웃에 또 있다.** 셋은 **수기 동기화 계약**이라 한쪽만 고치면 화면이 어긋난다.
+
+| 상수 | 값 | CSS 대응 |
+| --- | ---: | --- |
+| `NODE_SIDE_GAP_PX` | 10 | `--node-side-gap` |
+| `NODE_SIDE_STACK_GAP_PX` | 8 | `--node-side-stack-gap` |
+| `NODE_SIDE_CONTROL_PX` | 28 | `--node-side-handle-size` |
+| `NODE_SIDE_OUTSET_PX` | 38 | `--node-side-leading-offset` |
+| `NODE_FLOW_OUTER_WIDTH_PX` | 476 | 카드 400 + 2 × 38 |
+
+근거는 `components/scenes/create/node-canvas-v2/constants.ts:23-32`이고, 세 번째 벌은
+`node-canvas-v2/lib/archiveThumbnail/layout.ts:41-42`가 **토큰 참조 없이 자기 리터럴로** 다시 적는다.
+
+**Figma로 옮길 때 `28 · 10 · 8 · 38 · 476`을 한 세트로 옮긴다.** 하나만 바꾸면 랜딩 쇼케이스 배치와
+썸네일 렌더가 앱 화면과 갈린다.
+
+### 알려진 어긋남
+
+`--node-handle-chrome-transition`(= `background 0.13s ease, color 0.13s ease, transform 0.1s ease`,
+`globals.css:523-524`)은 이름과 달리 사이드 컨트롤 shell이 소비하지 않는다. shell은 `filter` · `color` ·
+`border-color`를 각각 `0.13s ease`로 직접 선언한다. 두 목록이 겹치는 것은 `color 0.13s ease` 하나뿐이고,
+토큰의 `background`·`transform`은 shell에 없으며 shell의 `filter`·`border-color`는 토큰에 없다.
+**이 토큰에서 사이드 컨트롤의 전환 사양을 읽으면 틀린다.** 승격 전에 둘 중 어느 쪽이 계약인지 정한다.
+
+핸들 shell/facet 2층 골격을 포함한 비규범 근거는
+[`legacy-design-system.md` §6.9](../../migration/legacy-design-system.md)에 있다.
+
 ## Overlay and portal contract
 
 ### Local overlays

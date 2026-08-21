@@ -87,6 +87,32 @@ workspace wrapper는 분리한다.
 7. **Footer** — 안전한 취소와 primary/danger action.
 8. **Nested overlay host** — Select, Popover, Tooltip을 같은 modal branch에 연결한다.
 
+**Body는 슬롯이다.** 배포본 확인 모달 셸은 설명 `<p>`와 액션 행 **사이**에 children을 그대로
+끼운다(`GlassConfirmModal.tsx:294`). 소비처가 넣는 것은 설명 아래·액션 위에 앉고, 설명과 액션
+사이의 간격은 children이 있는 순간 children의 마진이 결정한다 — 셸은 그 간격을 소유하지 않는다.
+**셸에 고정 간격이 있다고 가정하고 Figma에 그리면 내용이 든 벌에서 어긋난다.**
+
+크레딧 확인 모달이 그 슬롯의 실사용례다. 값을 지어내지 않도록 실측을 적어 둔다
+(`CreditConfirmModal.tsx:23-48`).
+
+| 축 | 값 |
+| --- | --- |
+| 내역 박스 | `flex-direction: column` · gap 8px · margin `4px 0 16px` · padding `12px 14px` · radius 12px |
+| 내역 박스 면 | `rgb(var(--gray-000-rgb) / 6%)` + `background-clip: border-box`. 테두리 없음 |
+| 행 | `flex` · `align-items: center` · `justify-content: space-between` · gap 12px |
+| 행 라벨 | body-14-regular · 전경 60% |
+| 행 값 | body-14-semibold · 전경 100% |
+| 구분선 | `border-top: 1px solid rgb(var(--gray-000-rgb) / 12%)` · 나머지 세 변 `none` · margin `2px 0` |
+| 행 순서 | 보유 → 사용(`-cost`) → 구분선 → 잔여 |
+| 잔여 | `max(0, 보유 − 사용)`. 보유를 모르면 `-` |
+| 뒤따르는 스킵 체크박스 줄 | margin `16px 0 20px` |
+
+구분선의 세 변이 `none`인 것은 장식이 아니다. `<hr>`은 UA 기본으로 사방 1px inset 테두리를 갖기
+때문에 위 한 변만 세우고 나머지를 지우지 않으면 **박스 안에 얇은 사각형이 하나 더 생긴다.**
+
+**내역 박스의 면은 고른 색이 아니라 전경색을 6%로 깐 것이다.** `--gray-000`은 테마마다 뒤집히므로
+라이트에서는 검정 6%, 다크에서는 흰색 6%다. Figma에 한 색을 고정하면 한쪽 테마가 통째로 틀린다.
+
 ## Properties
 
 목표 public API는 Dialog의 의미를 바꾸지 않는다. Workspace host를 받는 `portalContainer`는 이 API에
@@ -225,6 +251,31 @@ Dialog는 modal behavior만 소유한다. route가 주 작업을 소유하면
 - async action은 `저장 중`, `삭제 중`처럼 상태를 표시하되 말줄임표를 쓰지 않는다.
 - 오류 후 Dialog를 닫지 말고 사용자가 복구할 방법을 제공한다.
 
+### 배포본 확인 모달의 문안 타이포
+
+제품은 제목·설명·액션 라벨을 **한 크기(16px)에 굵기로만** 갈라 놓았다. DS의 위계와 다르므로
+Figma에서 제품 화면을 그릴 때는 아래를 쓴다.
+
+| 층 | 클래스 | 크기/굵기/행간/자간 | 색 |
+| --- | --- | --- | --- |
+| 제목 `<h3>` | `type-body-16-semibold` | 16 / 600 / 1.5 / -0.01em | `--gray-000` (시맨틱 — 라이트 `#000000`, 다크 `#fafafa`) |
+| 설명 `<p>` | `type-body-16-regular` | 16 / 400 / 1.5 / -0.01em | `rgb(var(--gray-000-rgb) / 60%)` |
+| 액션 라벨 | `type-body-16-medium` | 16 / 500 / 1.5 / -0.01em | 버튼 variant가 소유 |
+| 부속(내역 행·체크박스 라벨) | `type-body-14-*` | 14 / 400·600 / 1.5 / -0.01em | 라벨 60% · 값 100% |
+
+근거는 `GlassConfirmModal.tsx:286` · `:290` · `:300` · `:308`이고 제목 색 상수는 `:79`다.
+제목→설명 간격은 8px이다(`:84`) — 카드 여백 16px의 절반이라 제목과 설명이 한 덩어리로 읽힌다.
+
+**뷰포트 450px 이하에서 위 표의 16px이 전부 14px로 내려간다.** 제품이 `--type-body-16-size`를
+`--type-body-14-size`로 재정의하기 때문이다(`globals.css:838-842`). `line-height`와
+`letter-spacing`은 따라 내려가지 않는다. 결과는 모바일 폭에서 **제목·설명·액션 라벨·부속이 전부
+14px**이 되어 위계가 굵기에만 남는 것이다. 450은 [Responsive Layout](../foundations/responsive-layout.md)의
+다섯 단계에 없는 별도 경계다 — **다섯 단계만 보고 그리면 이 층이 통째로 빠진다.**
+
+**DS는 이 램프를 옮기지 않는다.** 같은 이름의 토큰 값을 뷰포트에 따라 바꾸면 컴포넌트의 의미가
+화면 크기를 타게 되고, 그것은 Variants가 금지한 "폭을 보고 계약을 바꾸는 것"과 같은 실수다.
+필요하면 fixed style과 분리한 별도 responsive typography recipe로 만든다.
+
 ## Footer
 
 확인 대화상자는 **Footer와 액션 둘**로 성립한다. Footer는 `padding-block-start`가
@@ -233,6 +284,18 @@ Dialog는 modal behavior만 소유한다. route가 주 작업을 소유하면
 Figma 세트에 이것이 없어서 디자이너가 확인 대화상자를 만들 수 없었다(2026-08-18 실무 감사).
 지금은 세 Size variant 전부에 있고 parity가 `footerPaddingTop` · `actionsGap` · `actionCount`를
 대조한다.
+
+**제품의 액션 행은 오른쪽 정렬이 아니다.** 배포본 확인 모달은 액션 행에 `justify-*`를 두지 않고
+버튼 둘에 각각 `flex: 1`을 줘 **1:1로 균등 분할**한다. 취소·확인·danger 셋이 같은 기반 클래스를
+공유하므로 세 벌 전부 같은 폭이다(`GlassConfirmModal.tsx:89` · `:94`). 360px 카드에서 각 버튼은
+(360 − 16 − 8) ÷ 2 ≈ 168px이다 — 카드 패딩이 좌우 16이어도 액션 행이 `-8px`로 되밀어 실효
+인셋이 8+8이기 때문이다. 버튼 곡률은 카드 24에서 인셋 8을 뺀 16이라 카드와 동심이다(`:95`).
+
+`flex-wrap`이 없어 **긴 라벨에서도, 200% 확대에서도 세로로 접히지 않는다.** DS는 반대로 접는다
+(Known deviations의 세로 전환 임계값 항목). 순서는 양쪽 다 취소 먼저·확인 나중으로 같다.
+
+**Figma에서 제품 화면을 그릴 때 버튼을 글자 폭(hug)으로 두면 틀린다.** 두 칸 균등이 제품의
+배치이고, 라벨 길이가 달라도 폭은 움직이지 않는다.
 
 ## Accessibility
 
@@ -320,6 +383,17 @@ host의 두 번째 직속 자식이 되고, primitive의 중첩 격리가 자기
   Specification 표가 대는 이름의 토큰이 없고 실제 값은 두 테마에서 다르다.
 - **surface에 hairline border가 있다.** Specification 표에는 없지만 dark에서 `elevation-modal` 그림자만으로
   표면 경계가 서지 않는다. Menu 패널과 같은 판단이다.
+
+  **제품은 반대다.** 배포본 확인 모달은 `border` 선언이 아예 없고 경계를
+  `box-shadow: var(--glass-dropdown-frame)` **5겹 하나로만** 만든다(`GlassConfirmModal.tsx:57`).
+  드롭다운이 함께 쓰는 `--dropdown-ambient-shadow`는 붙이지 않으므로 **드롭 섀도우가 한 겹도 없다.**
+  이름이 `Glass*`인데도 `backdrop-filter: none`과 `-webkit-backdrop-filter: none`을 명시해 흐림까지 끈다
+  (`GlassConfirmModal.tsx:56`). **이름을 믿고 Figma에 블러를 넣으면 틀린다.**
+- **제품 모달의 면은 시맨틱이 아니라 palette 직접 참조 두 벌이다.** 다크 `--palette-gray-800` `#313640`,
+  라이트 `--palette-gray-100` `#f1f1f3`이고 둘 다 불투명 100%다(`GlassConfirmModal.tsx:54-55`).
+  `--gray-*`는 테마마다 뒤집히지만 `--palette-*`는 뒤집히지 않아, 제품은 라이트 분기
+  (`html[data-theme=light]`)를 한 줄 더 써서 두 값을 손으로 갈라 적는다. **면을 시맨틱 토큰 하나로
+  옮기면 그 토큰의 반전 방향이 이 두 값과 맞지 않아 한쪽 테마가 통째로 틀린다.**
 - **Anatomy 3번 Positioner가 별도 DOM 노드가 아니다.** Dialog는 anchored가 아니라 positioner를 쓰지
   않는다. 그 역할은 overlay root가 grid 정렬과 padding으로 직접 소유한다.
 - **dialog surface가 자손 `position: fixed`의 containing block이다.** enter transform과

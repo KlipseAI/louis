@@ -344,11 +344,14 @@ mint를 두 번째로 틀린 이유가 중요하다. `sidebarUpgradeButton`은 �
 | 축 | 값 | 토큰 |
 | --- | ---: | --- |
 | 행 높이 | 32px | `layout-control-height-sm` |
+| 아이콘–라벨 간격 | 10px | 없음 — 제품 실측 (2026-08-21 조립 검증) |
+| 브랜드 행 → 목록 시작 | 32px | 없음 — 제품 `rail-below-chrome-gap` = (16−12)+20+8 |
+| 활성 인디케이터 면 | 라이트 `#e4e5e9`(시프트 후) · 다크 `#313640` · 반경 10px | 없음 — 제품 실측 |
 | 행 좌우 여백 | 4px | `space-control-xs` |
 | 행 간격 | 8px | `space-control-sm` — 배포본은 10이다(아래 편차) |
 | 행 반경 | 10px | `radius-overlay-item` |
 | 아이콘 | 20px | `icon-size-md` |
-| 상단 바 높이 | 40px | `layout-app-shell-top-bar-height` |
+| 상단 바 높이 | 40px — **아래 각주** | `layout-app-shell-top-bar-height` |
 | 상단 바 좌우 여백 | 16px | `layout-app-shell-content-inset` |
 | 상단 바 선행 슬롯 | 32px | `IconButton` sm이 들어가는 자리 |
 | 상단 바 후행 슬롯 | 36px | `ProgressRing`이 아바타를 감싼 크기 |
@@ -356,6 +359,14 @@ mint를 두 번째로 틀린 이유가 중요하다. `sidebarUpgradeButton`은 �
 | CTA 좌우 여백 | 14px → 접힘 10px | 제품 실측 |
 | CTA 반경 | 12px | `radius-control` |
 | CTA 면 · 글자 | 반전 solid | `background-upgrade` · `foreground-upgrade` |
+
+**상단 바 40px은 DS 계약이지 제품 실측이 아니다(2026-08-21 조립 검증).** 제품의 카드 안(in-panel)
+바는 세로 패딩 8px에 가장 큰 자식이 프로필 링(36px)이라 **실효 높이 52px**이다. 토큰 40의 선정
+근거(제품에 52/36/40 셋이 있고 정렬 주석이 40을 전제)는 유효하지만, **`/archive`를 40으로
+조립하면 12px 어긋난다.** 제품 화면을 그릴 때는 52를 쓰고, DS 컴포넌트를 새로 세울 때 40을 쓴다.
+
+위 「없음」 세 행은 **§10.1을 실제로 Figma에 조립하면서 이 문서만으로 부족했던 값**이다. 셋 다
+`migration/`에는 있었지만 규범에 없어서 조립자가 제품 코드를 열어야 했다.
 | CTA 현재 위치 | 한 단계 더 반전 | `background-upgrade-current` · `foreground-upgrade-current` |
 | CTA 접힘 라벨 | 54px 말줄임 · 12px | 제품 실측 |
 | 브랜드 좌측 여백 | 4px → 접힘 0 | `space-control-xs` |

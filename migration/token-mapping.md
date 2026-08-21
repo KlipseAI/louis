@@ -122,7 +122,7 @@ light/dark, contrast, focus와 visual regression을 통과한 뒤 확정 표로 
 | `--node-*`, editor handle/channel/chrome geometry         | Editor product extension이 소유한다. core token source에 복사하지 않는다.                       |
 | Highlight standalone의 neutral 재정의와 `#ffdd00`         | `highlight.brand.*` extension 또는 삭제 예정 legacy로 유지한다. core blue action을 덮지 않는다. |
 | YouTube/Instagram/AWS brand, color-picker spectrum        | 외부 brand/content namespace 또는 제품 코드에 둔다. status color로 치환하지 않는다.             |
-| `html { font-size: 10px }`                                | 두 개의 4.5rem 호환용 환산 기준이다. typography token이 아니며 사용 제거 후 삭제한다.           |
+| `html { font-size: var(--type-caption-12-size) }` (=12px) | 두 개의 4.5rem 호환용 환산 기준이다(`1rem = 12px`). typography token이 아니며 사용 제거 후 삭제한다. |
 | `keyframes.css`의 117개 product animation                 | component/pattern 소유권이 생긴 일부만 semantic motion을 소비하고 나머지는 제품에 남긴다.       |
 | 제품 `design/tokens.yaml`과 broad `component_tokens` 분류 | reference snapshot으로만 보존하며 DTCG source로 merge하지 않는다.                               |
 

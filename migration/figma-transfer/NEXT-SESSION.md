@@ -130,7 +130,9 @@ cd ~/klipse/apps/web && node ./scripts/verify-gates.mjs
 
 ## 알아 둘 것
 
-- **`1rem = 10px`** (`globals.css` 의 `html { font-size: 10px }`). `4.5rem` = 45px.
+- **`1rem = 12px`** (`globals.css` 의 `html { font-size: var(--type-caption-12-size) }`).
+  `4.5rem` = **54px**. **2026-08-21 정정** — 이 줄은 원래 `1rem = 10px` · `4.5rem = 45px`였고
+  틀렸다. 배포본에서 브라우저로 실측해 확정했다.
 - **기본 로케일은 `en`** (`locale.ts:3`). 쿠키 없는 첫 방문 화면은 영어다.
 - `app/(highlight-standalone)/` (hl-*) 7개 라우트는 **범위 밖**이다. 삭제 예정이라 Figma 에 옮기지 않는다.
   이름이 비슷한 `/highlight` 제품 화면은 **범위 안**이다.

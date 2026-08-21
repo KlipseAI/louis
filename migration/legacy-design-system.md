@@ -125,12 +125,16 @@ _라우트 53개 — 전체 30 · 셸까지 16 · 토큰만 0 · 범위 밖 7 ·
 - letter-spacing 등은 필요 시 `em` 유지 가능
 - 기준:
   - `landing`: `html { font-size: 62.5%; }` (레거시; 신규 스타일은 px)
-  - `app` (`apps/web`): **`html { font-size: 10px }`** — 즉 **`1rem = 10px`** (`globals.css:972-973`).
-    `4.5rem` = **45px**. 환산은 `×10`.
-    > ⚠ **타입 스케일 토큰으로 바꾸지 말 것.** 한 번 `var(--type-caption-12-size)`(=12px)로
-    > 바뀐 적이 있는데(커밋 `9f2326a8`, 2026-07-31), 그 커밋은 폰트 크기만 바꾸고 **rem 값은
-    > 하나도 조정하지 않았다.** 2026-08-08 에 10px 로 되돌렸다.
-    > 이 값은 타입 스케일과 무관한 **환산 기준**이다.
+  - `app` (`apps/web`): **`html { font-size: var(--type-caption-12-size) }` = 12px** — 즉
+    **`1rem = 12px`** (`globals.css:942-943`, 변수는 `:374`). `4.5rem` = **54px**. 환산은 `×12`.
+    > **수치 정정(2026-08-21).** 이 절은 원래 `1rem = 10px` · `4.5rem = 45px`라고 적고, 토큰으로
+    > 바뀐 것은 「2026-08-08에 10px로 되돌렸다」고 적었다. **그런 커밋은 어느 저장소에도 없다.**
+    > `klipse-web`과 구 `klipse` 양쪽에서 이 줄의 이력을 뽑으면 변경이 둘뿐이다 —
+    > `0f47a2cb`가 `10px`를 세우고 `9f2326a8`(2026-07-31)이 토큰으로 바꿨다. **되돌림은 없었다.**
+    > 즉 **2026-07-31 이래 루트는 12px다.**
+    >
+    > 브라우저로 확정했다 — 4개 문맥 전부에서 `root=12px · 1rem=12px · 4.5rem=54px`
+    > ([product.rendered.json](product.rendered.json)의 `rootMetrics`, `verify-product-render`가 매번 잰다).
     >
     > **영향 범위는 작다.** 코드에서 `rem` 단위를 실제로 쓰는 곳은 **두 군데**뿐이다 —
     > `Gnb.tsx:1918`(접힘 사이드바 라벨 `max-width:4.5rem`)와
@@ -1395,7 +1399,7 @@ isLandingDemo ? true : normalizeUpgradePlanCode(billing?.current_plan_code) !== 
 | 버튼 `sidebarUpgradeButton` | `position:relative` · `inline-flex` 중앙정렬 · `gap:8px` · `width:100%` · `box-sizing:border-box` · **`min-height:40px`** · **`padding:10px 14px`** · `border:0` · **`border-radius:12px`** · `text-align:center` · `cursor:pointer` · `font-family:inherit` · `font-weight:var(--type-weight-medium)` | `Gnb.tsx:1854-1875` |
 | 전환 | `width` · `min-width` · `max-width` · `min-height` · `height` · `padding` · `gap` = 320ms `cubic-bezier(0.4,0,0.2,1)`, `background`·`color` = 160ms ease | `Gnb.tsx:1875` |
 | 접힘 버튼 | `width:fit-content` · `min-height/height:32px` · `padding:0 10px` · `gap:0` · `justify-content:center` | `Gnb.tsx:1876-1885` |
-| 접힘 라벨 | `max-width:4.5rem` = **45px**(§3 `1rem = 10px`) · `margin/padding:0` · `text-overflow:ellipsis` · caption-12 토큰 3종 | `Gnb.tsx:1911-1925` |
+| 접힘 라벨 | `max-width:4.5rem` = **54px**(§3 `1rem = 12px`, 브라우저 실측) · `margin/padding:0` · `text-overflow:ellipsis` · caption-12 토큰 3종 | `Gnb.tsx:1911-1925` |
 
 문구는 `messages.appNav.upgrade` — ko 「업그레이드」 / en "Upgrade". 목적지 `/mypage/upgrade`.
 `resolvedPath.startsWith("/mypage/upgrade")` 일 때만 `gnb-sidebarUpgradeButtonActive` 와

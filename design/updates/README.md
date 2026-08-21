@@ -8,6 +8,64 @@ authority: normative
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
 
+## 2026-08-21 (79) — `1rem`은 10px가 아니라 **12px**다. 여섯 문서가 틀렸다
+
+§6 감사 중 반증자 하나가 「루트 폰트 크기가 10px가 아니라 12px」이라고 했다. **그 반증자가 맞았다.**
+
+### 배포본 실제
+
+```
+globals.css:374   --type-caption-12-size: 12px;
+globals.css:942   html {
+globals.css:943     font-size: var(--type-caption-12-size);
+```
+
+`html`의 `font-size` 선언은 **저 하나뿐**이고 `--type-caption-12-size`도 **재정의가 없다.**
+브라우저로 4개 문맥 전부 확인했다 — `root=12px · 1rem=12px · 4.5rem=54px`.
+
+### 문서가 일어나지 않은 되돌림을 적었다
+
+[legacy-design-system](../../migration/legacy-design-system.md)은 이렇게 적고 있었다 —
+토큰으로 바뀐 것은 실수였고 「**2026-08-08에 10px로 되돌렸다**」.
+
+**그런 커밋이 어느 저장소에도 없다.** 이 줄의 이력은 두 줄뿐이다.
+
+| 커밋 | 날짜 | 변화 |
+| --- | --- | --- |
+| `0f47a2cb` | — | `font-size: 10px` |
+| `9f2326a8` | **2026-07-31** | → `var(--type-caption-12-size)` |
+
+`klipse-web`과 구 `klipse` **양쪽 다 같다.** 되돌림은 없었고 **2026-07-31 이래 12px다.**
+
+### 파급 — 한 곳
+
+제품에서 `rem`을 쓰는 곳은 **3곳뿐**이다.
+
+| 자리 | 영향 |
+| --- | --- |
+| `Gnb.tsx:1918` 접힘 사이드바 라벨 `max-width:4.5rem` | **45px → 54px** |
+| `StaticCreateDemo.tsx:151` `min-height:4.5rem` | 같은 요소의 `[min-height:3lh]!`가 이겨 **영향 없음** |
+| `@media (min-width: 48rem)` | 미디어쿼리의 `rem`은 초기값 16px 기준이라 **768px 그대로** |
+
+문서 **여섯 곳**을 고쳤다 — `legacy-design-system.md` 2곳 · `token-mapping.md` ·
+`figma-transfer/RESUME.md` · `figma-transfer/NEXT-SESSION.md` · `product-screens/10.7.md`.
+`10.7.md`는 「이 상한에 먼저 걸려 발화하지 않는다」는 **결론이 그대로**이고 수치만 틀렸다.
+
+### 조치
+
+`measure-product-render.mjs`가 브라우저에 4.5rem 탐침을 넣어 **환산 기준을 매번 잰다.**
+문맥마다 갈리면 실패한다. 게이트 줄에 `**1rem = 12px** (4.5rem = 54px)`가 찍힌다.
+
+### 제품 확인 필요
+
+원래 의도가 10px였다면 이건 **제품 회귀**다. 문서가 「타입 스케일 토큰으로 바꾸지 말 것」이라고
+경고까지 남겼는데 제품은 그 상태다. 판단은 제품 팀이 한다 —
+[product-confirmations](../governance/product-confirmations.md)에 올렸다.
+
+### Migration
+
+없다. 수치 정정과 계기 추가다.
+
 ## 2026-08-21 (78) — §6 감사가 KDS의 실제 오류를 찾았다: `/archive`의 라벨은 「보관함」이 아니다
 
 이식번들 `patterns.txt` §6의 화면 조립 층을 배포본 실측으로 검증했다(에이전트 112개 · 주장 611건).

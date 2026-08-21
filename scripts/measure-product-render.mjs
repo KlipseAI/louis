@@ -83,6 +83,7 @@ function normalize(source) {
 const names = [...variables].sort();
 const browser = await chromium.launch();
 const rendered = {};
+const rootMetrics = {};
 try {
   for (const context of CONTEXTS) {
     const browserContext = await browser.newContext({
@@ -105,6 +106,23 @@ try {
       for (const name of list) out[name] = style.getPropertyValue(name).trim();
       return out;
     }, names);
+    // **rem 환산 기준은 브라우저에게 물어야 한다.** 두 저장소가 네 곳에서 `1rem = 10px`라고
+    // 적고 있었는데 배포본의 `html`은 `font-size: var(--type-caption-12-size)` = 12px다
+    // (globals.css의 「html 10px」 주석 자체가 제품에서 낡았다). 그 결과 `4.5rem`을 45px로
+    // 환산했지만 실제는 54px다 — 접힌 사이드바 라벨 폭이 20% 어긋난다.
+    rootMetrics[context.id] = await page.evaluate(() => {
+      const probe = document.createElement("div");
+      probe.style.width = "4.5rem";
+      probe.style.position = "absolute";
+      document.body.appendChild(probe);
+      const remPx = probe.getBoundingClientRect().width / 4.5;
+      probe.remove();
+      return {
+        rootFontSize: getComputedStyle(document.documentElement).fontSize,
+        remPx,
+        "4.5rem": remPx * 4.5,
+      };
+    });
     await browserContext.close();
   }
 } finally {
@@ -126,6 +144,9 @@ const payload =
       contexts: CONTEXTS,
       variables: names,
       rendered,
+      $rootMetricsNote:
+        "rem 환산 기준. 두 저장소가 네 곳에서 `1rem = 10px`라고 적고 있었으나 배포본의 html은 12px다. 브라우저가 실제 폭을 재서 확정한다.",
+      rootMetrics,
       numericExpectations,
     },
     null,
@@ -198,6 +219,17 @@ if (mismatches.length > 0) {
   process.exit(1);
 }
 
+// rem 환산 기준이 문맥마다 갈리면 「4.5rem = N px」라고 한 줄로 적을 수 없다. 갈리면 실패시킨다.
+const remBases = new Set(CONTEXTS.map((context) => rootMetrics[context.id].remPx));
+if (remBases.size !== 1) {
+  console.error(
+    "[product-render] rem 환산 기준이 문맥마다 다릅니다: " +
+      CONTEXTS.map((c) => c.id + "=" + rootMetrics[c.id].remPx + "px").join(", "),
+  );
+  process.exit(1);
+}
+const remPx = [...remBases][0];
+
 const varying = names.filter((name) => {
   const values = new Set(CONTEXTS.map((context) => rendered[context.id][name]));
   return values.size > 1;
@@ -210,6 +242,7 @@ console.log(
     " @ " +
     commit.slice(0, 8) +
     " · 기록된 수 " + (numericExpectations.length - scoped.length) + "건을 브라우저가 확인" +
+    " · **1rem = " + remPx + "px** (4.5rem = " + remPx * 4.5 + "px)" +
     (scoped.length > 0 ? " · :root 밖 스코프 " + scoped.length + "건(" + scoped.join(", ") + ")" : "") +
     (varying.length > 0 ? " · 문맥에 따라 갈리는 변수 " + varying.length + "개: " + varying.join(" ") : ""),
 );

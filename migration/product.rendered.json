@@ -216,6 +216,29 @@
       "--type-body-16-size": "16px"
     }
   },
+  "$rootMetricsNote": "rem 환산 기준. 두 저장소가 네 곳에서 `1rem = 10px`라고 적고 있었으나 배포본의 html은 12px다. 브라우저가 실제 폭을 재서 확정한다.",
+  "rootMetrics": {
+    "dark-desktop": {
+      "rootFontSize": "12px",
+      "remPx": 12,
+      "4.5rem": 54
+    },
+    "light-desktop": {
+      "rootFontSize": "12px",
+      "remPx": 12,
+      "4.5rem": 54
+    },
+    "dark-mobile": {
+      "rootFontSize": "12px",
+      "remPx": 12,
+      "4.5rem": 54
+    },
+    "dark-reduced-motion": {
+      "rootFontSize": "12px",
+      "remPx": 12,
+      "4.5rem": 54
+    }
+  },
   "numericExpectations": [
     {
       "componentId": "button",

@@ -5492,6 +5492,48 @@ Figma에서는 1.5, 코드에서는 1.25로 그려지고 있었다 — 같은 �
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
 
+#### 2026-08-21 (56) — App Shell 패턴이 해결된 치수를 갖습니다
+
+##### 값은 있었는데 문서에 닿지 않았습니다
+
+`layout-app-shell-*` 여덟과 `motion-shell-collapse`는 P2에서 이미 섰습니다. 그런데
+[App Shell](../patterns/app-shell.md)에는 **px 수치가 0개**였고, 그래서 `llms/patterns.txt`에도
+0개였습니다. 그 파일이 AI 클라이언트가 화면을 조립할 때 읽는 것입니다.
+
+**계약을 관계로 쓰는 것과, 옮기는 사람에게 값을 안 주는 것은 다른 일입니다.** 코드 소비자는
+변수를 참조하면 되지만 Figma는 변수를 바인딩할 수 없습니다. 값이 없으면 눈대중으로 재거나
+지어내고, 그것을 잡아 주는 장치는 없습니다.
+
+`design/patterns/app-shell.md` 200줄 · px 0개 → **257줄 · px 22개**.
+
+##### 표는 생성됩니다
+
+`packages/tokens/generated/tokens.json`에서 뽑아 `<!-- GENERATED:app-shell-geometry -->` 구역에
+씁니다. 손으로 적지 않으므로 토큰이 바뀌면 따라오고, 어긋나면 `check-design-docs`가 실패합니다.
+`design/README.md`·`patterns/README.md`의 진행판과 같은 장치입니다.
+
+값의 **의미**는 생성하지 않습니다 — 토큰에 description이 없어서, 각 값이 지배하는 자리는
+산문 표로 따로 적고 제품 근거를 함께 답니다.
+
+##### 없는 것을 없다고 적었습니다
+
+Figma로 옮길 때 KDS가 값을 주지 못하는 축 다섯을 표로 명시했습니다 — `--app-gnb-safe-top` ·
+`--app-gnb-main-inline-padding-end` · `--app-gnb-rail-padding-bottom` · `--app-shell-min-width` ·
+compact 레일 폭. **지어내지 말고 제품을 인용하라**고 적었고 데스크톱/≤719px 값과 근거 줄을
+함께 실었습니다.
+
+**`outer-gap`이 왜 부분 대응인지도 적었습니다.** 제품에 12px 관계가 상·우·하 셋 있는데
+compact에서 상단만 유지되고 우측은 16, 하단은 0으로 갈라집니다. 하나의 토큰으로 셋을 덮을 수
+없다는 [DS-D-0018](../governance/decisions/DS-D-0018-app-shell-geometry.md)의 「부분」 판정이
+그 뜻입니다.
+
+카드 표면(반경 · 글래스 링 · 하단 페이드 20px)은 제품의 레이어 밖 전역 클래스가 소유하며
+아직 DS 계약이 없다는 것도 적었습니다.
+
+##### Migration
+
+없습니다. 문서와 생성기만 바뀌었고 package API·토큰·CSS는 그대로입니다.
+
 #### 2026-08-21 (55) — 제품을 읽을 때 틀리는 자리를 규범으로 올렸습니다
 
 ##### 새로 안 것이 아니라, 읽는 자리로 옮긴 것입니다

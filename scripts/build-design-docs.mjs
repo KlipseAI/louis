@@ -707,6 +707,47 @@ const catalogBody = [
   "| Package release | " + tick + tokenPackage.packageRelease + tick + " |",
 ].join("\n");
 
+function renderAppShellGeometry() {
+  const absolute = requireFile(
+    "packages/tokens/generated/tokens.json",
+    "app shell geometry token json",
+  );
+  if (!absolute) return "";
+  const tokens = readJson(absolute, "app shell geometry token json");
+  const globalMode = tokens && tokens.modes && tokens.modes.global;
+  if (!globalMode) {
+    errors.push("token json에 modes.global이 없습니다.");
+    return "";
+  }
+  const ids = Object.keys(globalMode)
+    .filter(
+      (id) =>
+        id.startsWith("layout-app-shell-") || id === "motion-shell-collapse",
+    )
+    .sort();
+  if (ids.length === 0) {
+    errors.push("app shell geometry token을 찾을 수 없습니다.");
+    return "";
+  }
+  const rows = [];
+  for (const id of ids) {
+    const cssProperties = (globalMode[id] || {}).cssProperties;
+    const names = cssProperties ? Object.keys(cssProperties).sort() : [];
+    if (names.length === 0) {
+      errors.push(id + "에 cssProperties가 없어 치수를 적을 수 없습니다.");
+      continue;
+    }
+    for (const name of names) {
+      rows.push(
+        "| `" + id + "` | `" + name + "` | `" + cssProperties[name] + "` |",
+      );
+    }
+  }
+  return ["| Token | CSS variable | 해결값 |", "| --- | --- | --- |", ...rows].join(
+    "\n",
+  );
+}
+
 const generatedUpdates = new Map([
   [
     "design/README.md",
@@ -726,6 +767,14 @@ const generatedUpdates = new Map([
       "design/patterns/README.md",
       "pattern-progress",
       renderProgress(patterns, "patterns", "Pattern"),
+    ),
+  ],
+  [
+    "design/patterns/app-shell.md",
+    replaceGeneratedRegion(
+      "design/patterns/app-shell.md",
+      "app-shell-geometry",
+      renderAppShellGeometry(),
     ),
   ],
 ]);

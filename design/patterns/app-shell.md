@@ -93,9 +93,66 @@ Shell의 geometry를 바꾸는 기능 요구는 feature 내부 CSS 예외가 아
 4. main surface의 top/right/bottom outer gap
 5. collapsed icon hit area의 optical center
 
-P2에서 각 관계에 semantic token을 부여한다. 이름과 값이 바뀌어도 **sidebar 내부 padding 변경으로
+위 관계 대부분에 semantic token이 붙었다(아래 표). 이름과 값이 바뀌어도 **sidebar 내부 padding 변경으로
 main inset이 우연히 어긋나지 않게** 관계 테스트를 유지한다. 추출 근거는
 [`KP-LAYOUT-001`](../../migration/product-baseline.md)에 있다.
+
+### 해결된 치수
+
+아래 표는 `packages/tokens/generated/tokens.json`에서 **생성된다.** 손으로 고치지 않는다.
+
+계약은 관계이고 값은 그 관계의 현재 해다 — 코드에서는 값을 복사하지 말고 변수를 참조한다.
+**다만 Figma처럼 변수를 바인딩할 수 없는 도구로 옮길 때는 여기 해결값을 쓴다.** 그 자리에서
+값을 지어내거나 제품을 눈대중으로 재면 코드와 갈리고, 갈린 것을 잡아 주는 장치가 없다.
+
+<!-- GENERATED:app-shell-geometry START -->
+| Token | CSS variable | 해결값 |
+| --- | --- | --- |
+| `layout-app-shell-brand-mark-height` | `--kds-layout-app-shell-brand-mark-height` | `28px` |
+| `layout-app-shell-content-inset` | `--kds-layout-app-shell-content-inset` | `16px` |
+| `layout-app-shell-content-reserve` | `--kds-layout-app-shell-content-reserve` | `120px` |
+| `layout-app-shell-outer-gap` | `--kds-layout-app-shell-outer-gap` | `12px` |
+| `layout-app-shell-sidebar-collapsed` | `--kds-layout-app-shell-sidebar-collapsed` | `56px` |
+| `layout-app-shell-sidebar-padding` | `--kds-layout-app-shell-sidebar-padding` | `12px` |
+| `layout-app-shell-sidebar-width` | `--kds-layout-app-shell-sidebar-width` | `280px` |
+| `layout-app-shell-top-bar-height` | `--kds-layout-app-shell-top-bar-height` | `40px` |
+| `motion-shell-collapse` | `--kds-motion-shell-collapse-delay` | `0ms` |
+| `motion-shell-collapse` | `--kds-motion-shell-collapse-duration` | `320ms` |
+| `motion-shell-collapse` | `--kds-motion-shell-collapse-timing-function` | `cubic-bezier(0.4, 0, 0.2, 1)` |
+<!-- GENERATED:app-shell-geometry END -->
+
+각 값이 지배하는 자리는 이렇다.
+
+| Token | 지배하는 자리 | 근거 |
+| --- | --- | --- |
+| `layout-app-shell-sidebar-width` | 펼침 레일 폭 | `globals.css:143` — `min(280px, calc(100vw - 120px))`이고 최소폭이 960px이라 데스크톱에서는 상수 280 |
+| `layout-app-shell-sidebar-collapsed` | 접힘 레일 폭 | `globals.css:408-410` — `2 × 레일 패딩 + 메뉴 히트 폭` |
+| `layout-app-shell-content-reserve` | 본문에 **남겨 두는** 최소 공간 | `globals.css:143`의 빼는 값. **레일 폭이 아니다** — 이름 함정의 전말은 [DS-D-0018](../governance/decisions/DS-D-0018-app-shell-geometry.md) |
+| `layout-app-shell-content-inset` | 본문 좌우 안쪽 여백 | `globals.css:128` |
+| `layout-app-shell-sidebar-padding` | 레일 좌우 패딩 | `globals.css:126` |
+| `layout-app-shell-outer-gap` | 카드 바깥 여백 | 아래 「부분만 대응한다」 참조 |
+| `layout-app-shell-top-bar-height` | 상단 크롬 행 높이 | 세 후보 중 이것을 고른 근거는 [App Shell Parts](../components/app-shell-parts.md) |
+| `layout-app-shell-brand-mark-height` | 브랜드 마크 레일 | 같은 문서 |
+| `motion-shell-collapse` | 접힘 전환 — offset과 폭이 **하나를 공유한다** | 따로 지연시키면 겹치는 프레임이 생긴다 |
+
+### 아직 토큰이 없는 축
+
+아래는 KDS가 값을 주지 못한다. 옮기는 쪽에서 **지어내지 말고 제품을 인용한다.**
+
+| 제품 변수 | 데스크톱 | ≤719px | 근거 |
+| --- | --- | --- | --- |
+| `--app-gnb-safe-top` | `max(12px, env(safe-area-inset-top, 0px))` | 동일 | `globals.css:108` |
+| `--app-gnb-main-inline-padding-end` | `12px` | `16px` | `globals.css:130` · `417` |
+| `--app-gnb-rail-padding-bottom` | `12px` | `0px` | `globals.css:122` · `418` |
+| `--app-shell-min-width` | `960px` | 미적용 | `globals.css:148` · `434` |
+| 레일 폭 (compact) | — | `0px` | `globals.css:426` |
+
+**`outer-gap`은 부분만 대응한다.** 제품에는 12px 관계가 셋(상·우·하) 있고 셋이 서로 다른 변수를
+갖는다. compact에서 상단만 유지되고 우측은 16으로, 하단은 0으로 갈라지므로 **하나의 토큰으로
+셋을 덮을 수 없다.** DS-D-0018이 이 토큰을 「부분」으로 판정한 이유다.
+
+카드 표면 자체(반경 · 글래스 링 · 하단 페이드 20px)는 이 패턴이 아니라 제품의 레이어 밖 전역
+클래스가 소유하며, 아직 DS 계약이 없다.
 
 ## Editor route behavior
 

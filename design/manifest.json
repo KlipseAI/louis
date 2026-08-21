@@ -779,6 +779,15 @@
       "generated": false
     },
     {
+      "id": "governance-product-confirmations",
+      "path": "design/governance/product-confirmations.md",
+      "title": "제품 확인 대기 목록",
+      "section": "governance",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
+    },
+    {
       "id": "updates-overview",
       "path": "design/updates/README.md",
       "title": "Updates",
@@ -941,6 +950,7 @@
         "design/governance/decisions/DS-D-0020-tailwind-load-order.md",
         "design/governance/decisions/DS-D-0021-icon-size-axis.md",
         "design/governance/decisions/DS-D-0022-determinate-progress-a11y.md",
+        "design/governance/product-confirmations.md",
         "design/updates/README.md"
       ]
     }

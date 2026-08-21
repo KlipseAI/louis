@@ -20,6 +20,7 @@ authority: normative
 | [Landing Shell](landing-shell.md) | `experimental` | `not-ready` | `not-ready` | `done` | 로그인 전 마케팅 화면의 껍데기. **App Shell과 정반대 모델이다** — 레일이 자리를 예약하지 않고 헤더가 콘텐츠 위에 뜬다. 가독성은 헤더가 아니라 **120px 고정 blur plate**가 만든다. 톤 반전은 다섯 부품이 한 덩어리로 뒤집히고 판정은 뷰포트 상단 3~4% 띠만 본다. 값은 전부 제품 인용이며 DS 계약이 아니다 — 음수 오버레이 관용구 · blur 축 · 톤 반전을 mode로 볼지 세 blocker가 열려 있다 |
 | [Auth Two Panel](auth-two-panel.md) | `experimental` | `not-ready` | `not-ready` | `done` | 인증 화면 8개가 쓰는 2열 셸. **경로가 둘이다** — 5개는 공용 `AuthStatusCard`를 쓰고 3개는 같은 셸을 자기 파일에 복제한다. 전환점은 720px 하나이고 좁은 폭에서 폼 패널이 `display: contents`로 사라져 카드가 페이지 그리드의 정렬을 직접 받는다. 브랜드 면은 `#0093ff` 리터럴이라 테마 분기가 없다 |
 | [Status Result](status-result.md) | `experimental` | `not-ready` | `not-ready` | `done` | 결제·구독 결과 7화면의 콘텐츠 컬럼. **셸이 아니라 App Shell 카드 안이다.** 세로 리듬이 24px 하나뿐이고 처리 중에는 위에서 밀지 않고 카드 안 세로 중앙에 온다. 액션 버튼이 전폭이라 세로로 쌓인다. 900px 분기는 셸 경계가 아니라 이 화면 계열 전용이며 승인 여부가 blocker다 |
+| [Route Boundary](route-boundary.md) | `experimental` | `not-ready` | `not-ready` | `done` | 404 · 오류 · 최후 경계 셋. **셋 중 하나는 디자인 시스템을 쓸 수 없다** — 최후 경계는 루트 레이아웃이 실패한 뒤라 토큰도 i18n도 전역 CSS도 없고, 토큰을 참조하도록 「고치면」 그 화면이 막으려던 실패에 함께 휩쓸린다. 앞의 둘은 같은 뼈대를 공용 컴포넌트가 아니라 복제로 쓴다. 값은 전부 제품 인용이며 DS 계약이 아니다 |
 | [Project Grid](project-grid.md) | `experimental` | `not-ready` | `partial` | `done` | — |
 | [Editor Workspace](editor-workspace.md) | `experimental` | `not-ready` | `not-ready` | `done` | — |
 <!-- GENERATED:pattern-progress END -->

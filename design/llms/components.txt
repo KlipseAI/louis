@@ -3827,6 +3827,43 @@ reduced-motion에서 loop는 짧아지는 것이 아니라 **사라진다.** 자
 `aria-busy` 또는 live region의 일이다 — 스켈레톤마다 읽히면 소음이 된다. [Loading](../patterns/loading.md)
 패턴이 그 경계를 소유한다.
 
+#### 제품 실측 — 차트 스켈레톤
+
+**이 컴포넌트의 Anatomy는 단일 프리미티브다.** 제품의 분석 대시보드는 그것으로 안 되는 자리를
+갖는다 — **차트 모양을 미리 보여 주는 스켈레톤**이다. 값을 지어내지 않도록 적어 둔다.
+
+| 층 | 값 |
+| --- | --- |
+| 판 | `position: absolute` · `inset: 12px 0` · 곡률 `8px` · 면 `var(--skeleton-surface)` |
+| 영역 | `position: absolute` · `inset: 0` · 곡률 `12px` · `overflow: hidden` |
+| 영역 배경 1 | 세로 그라디언트 `180deg` — `--skeleton-grad-top` → `--skeleton-grad-bot`, 크기 `100% 100%` |
+| 영역 배경 2 | **점 격자** — radial-gradient, 크기 `20px 20px`, 위치 가운데 |
+| 영역 모션 | `dashboardSkeletonFade 2s ease-in-out infinite` |
+| 파형 (`::after`) | 높이 `62%` · 곡률 `12px 12px 8px 8px` · `--skeleton-wave-peak` → `transparent` |
+| 파형 모양 | **`clip-path: polygon(…)`** — 7점 꺾은선이 차트 실루엣을 만든다 |
+
+**파형은 그림이 아니라 `clip-path`다.** 그라디언트 사각형을 꺾은선으로 잘라 낸다 — Figma로 옮길
+때는 같은 좌표의 다각형 마스크로 그려야 하고, 이미지를 넣으면 색이 테마를 안 따라간다.
+
+**단일 프리미티브와 모션이 다르다.** 프리미티브는 `dashboardSkeletonPulse 1.6s
+cubic-bezier(0.4, 0, 0.2, 1) infinite`이고 차트 영역은 `2s ease-in-out`이다. 두 리듬이 한 화면에서
+같이 돈다.
+
+근거: `components/scenes/analytics/shared.tsx:163-169`(프리미티브) · `:249`(판) ·
+`:252-262`(영역과 파형).
+
+##### 이 자리에 감소-모션 분기가 없다
+
+**분석 대시보드 파일 전체에 `motion-reduce`가 0건인데 애니메이션 선언은 5개이고 그중 셋이
+무한 반복이다.** 프리미티브 스켈레톤(`skeleton.css`)이 갖는 감소-모션 계약이 여기에는 없다.
+
+**옮길 때 이 상태를 그대로 재현하지 마라.** [Motion](../foundations/motion.md)의 감소-모션 계약이
+DS 쪽 정본이고, 제품의 이 자리는 **결함으로 기록한다.**
+
+같은 파일에서 하나 더 나왔다 — `dashboardAreaBreathe`(3.6s ease-in-out infinite)는 **`@keyframes`
+정의가 없다.** 선언은 있는데 재생되지 않는다. 없는 애니메이션을 Figma에 그리면 배포본에 없는
+움직임이 생긴다.
+
 #### Known deviations
 
 - **알파 값이 제품 안에서도 한 값이 아니다.** 실측한 자리는 8%/9%였고 다른 자리는 다를 수 있다.

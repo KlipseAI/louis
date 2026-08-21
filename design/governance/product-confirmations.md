@@ -237,3 +237,43 @@ Tailwind v4 기본은 rem 기반인데 이 제품은 「실측 결과 2px 격자
 **DS 쪽 조치는 이미 했다.** [app-shell-parts](../components/app-shell-parts.md)에 「상단 페이드를
 켜진 상태로 그리지 마라」를 적었다. 제품이 고치면 그 주의를 지운다.
 
+## 8 — 분석 대시보드에 감소-모션 분기가 없다
+
+**증상.** `components/scenes/analytics/shared.tsx` 전체에 `motion-reduce`가 **0건**인데 애니메이션
+선언은 **5개**이고 그중 **셋이 무한 반복**이다.
+
+| 선언 | 종류 |
+| --- | --- |
+| `dashboardSkeletonPulse 1.6s … infinite` | 무한 |
+| `dashboardSkeletonFade 2s … infinite` | 무한 |
+| `dashboardAreaBreathe 3.6s … infinite` | 무한 — **아래 참조** |
+| `dashboardAreaReveal 720ms … both` | 1회 |
+| `dashboardLineReveal 900ms … forwards` | 1회 |
+
+같은 제품의 다른 자리(노드 생성 중 셸 · 프리미티브 스켈레톤)는 `motion-reduce` 분기를 갖는다 —
+**이 파일만 빠져 있다.**
+
+**정해야 할 것.** 의도인가 누락인가. 누락이면 무한 셋에 감소-모션 분기를 붙인다.
+DS 쪽 정본은 [Motion](../foundations/motion.md)의 감소-모션 계약이고, KDS는 이 자리를
+**결함으로 기록**해 두었다([skeleton](../components/skeleton.md)).
+
+## 9 — `dashboardAreaBreathe`는 재생되지 않는다
+
+**증상.** `shared.tsx:52`가 `dashboardAreaBreathe 3.6s ease-in-out infinite 900ms`를 선언하는데
+**`@keyframes dashboardAreaBreathe` 정의가 배포본에 없다.** 같은 파일의 다른 넷은 전부 정의가 있다.
+
+    dashboardSkeletonPulse   @keyframes 정의 1
+    dashboardSkeletonFade    @keyframes 정의 1
+    dashboardAreaBreathe     @keyframes 정의 0   ← 이것
+    dashboardAreaReveal      @keyframes 정의 1
+    dashboardLineReveal      @keyframes 정의 1
+
+**선언은 있고 움직임은 없다.** CSS는 없는 이름을 조용히 무시한다.
+
+**정해야 할 것.** keyframe을 세울 것인가 선언을 지울 것인가.
+
+- **세운다면** 차트 영역이 계속 호흡하게 되므로 위 항목(감소-모션)과 함께 봐야 한다.
+- **지운다면** 지금 화면은 그대로다 — 사문을 없애는 것뿐이다.
+
+**어느 쪽이든 Figma에는 지금 이 움직임을 그리면 안 된다.** 배포본에 없는 움직임이다.
+

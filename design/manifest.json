@@ -482,6 +482,15 @@
       "generated": false
     },
     {
+      "id": "pattern-route-boundary",
+      "path": "design/patterns/route-boundary.md",
+      "title": "Route Boundary",
+      "section": "patterns",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
+    },
+    {
       "id": "pattern-project-grid",
       "path": "design/patterns/project-grid.md",
       "title": "Project Grid",
@@ -938,6 +947,7 @@
         "design/patterns/landing-shell.md",
         "design/patterns/auth-two-panel.md",
         "design/patterns/status-result.md",
+        "design/patterns/route-boundary.md",
         "design/patterns/project-grid.md",
         "design/patterns/editor-workspace.md"
       ]
@@ -1289,6 +1299,16 @@
       "docs": "done",
       "doc": "design/patterns/status-result.md",
       "note": "결제·구독 결과 7화면의 콘텐츠 컬럼. **셸이 아니라 App Shell 카드 안이다.** 세로 리듬이 24px 하나뿐이고 처리 중에는 위에서 밀지 않고 카드 안 세로 중앙에 온다. 액션 버튼이 전폭이라 세로로 쌓인다. 900px 분기는 셸 경계가 아니라 이 화면 계열 전용이며 승인 여부가 blocker다"
+    },
+    {
+      "id": "route-boundary",
+      "name": "Route Boundary",
+      "maturity": "experimental",
+      "figma": "not-ready",
+      "web": "not-ready",
+      "docs": "done",
+      "doc": "design/patterns/route-boundary.md",
+      "note": "404 · 오류 · 최후 경계 셋. **셋 중 하나는 디자인 시스템을 쓸 수 없다** — 최후 경계는 루트 레이아웃이 실패한 뒤라 토큰도 i18n도 전역 CSS도 없고, 토큰을 참조하도록 「고치면」 그 화면이 막으려던 실패에 함께 휩쓸린다. 앞의 둘은 같은 뼈대를 공용 컴포넌트가 아니라 복제로 쓴다. 값은 전부 제품 인용이며 DS 계약이 아니다"
     },
     {
       "id": "project-grid",

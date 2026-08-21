@@ -1,0 +1,1783 @@
+{
+  "meta": {
+    "file": "Klipse 3.0",
+    "fileKey": "CNORJOONt4z0a4Bl22Kjuu",
+    "page": "Klipse Design System",
+    "dumpedAt": "2026-08-07",
+    "note": "Figma MCP 로 뽑은 덤프 + 손으로 등록한 신규 컴포넌트입니다. Figma 를 고쳤으면 다시 뽑아 커밋하세요. Highlight standalone(hl-*) 은 별도 브랜드 자산(highlight-wordmark · highlight-symbol-gradient)을 쓰고 앱 컴포넌트를 공유하지 않아 이 시스템 범위 밖입니다."
+  },
+  "components": [
+    {
+      "name": "AiPrompt",
+      "id": "3026:2937",
+      "type": "COMPONENT",
+      "size": [
+        400,
+        450
+      ],
+      "group": "node-canvas",
+      "description": [
+        "AI 프롬프트 노드 본문.",
+        "프롬프트 본문 Type/Body/14/Regular + 글자수 Type/Caption/12/Regular.",
+        "프롬프트 박스 면은 surface/input."
+      ]
+    },
+    {
+      "name": "AudioPlayer",
+      "id": "3026:2739",
+      "type": "COMPONENT",
+      "size": [
+        384,
+        48
+      ],
+      "group": "node-canvas",
+      "description": [
+        "오디오 노드 재생 바.",
+        "코드: components/scenes/create/node-canvas-v2/nodes/BgmNode.tsx · TtsNode.tsx"
+      ]
+    },
+    {
+      "name": "Button/Primary",
+      "id": "3019:2063",
+      "type": "COMPONENT_SET",
+      "size": [
+        219,
+        156
+      ],
+      "group": "node-canvas",
+      "variants": [
+        {
+          "name": "Content",
+          "values": [
+            "Icon",
+            "Label",
+            "Icon+Label"
+          ]
+        },
+        {
+          "name": "State",
+          "values": [
+            "Default",
+            "Hover",
+            "Pressed"
+          ]
+        }
+      ],
+      "description": [
+        "생성 실행 버튼."
+      ]
+    },
+    {
+      "name": "Composer",
+      "id": "3051:3038",
+      "type": "COMPONENT_SET",
+      "size": [
+        440,
+        240
+      ],
+      "group": "node-canvas",
+      "variants": [
+        {
+          "name": "Type",
+          "values": [
+            "Prompt"
+          ]
+        }
+      ],
+      "properties": [
+        {
+          "name": "Show Input",
+          "type": "BOOLEAN",
+          "default": true
+        },
+        {
+          "name": "Show Error",
+          "type": "BOOLEAN",
+          "default": true
+        },
+        {
+          "name": "Show Model",
+          "type": "BOOLEAN",
+          "default": true
+        },
+        {
+          "name": "Show Duration",
+          "type": "BOOLEAN",
+          "default": true
+        },
+        {
+          "name": "Show Ratio",
+          "type": "BOOLEAN",
+          "default": true
+        },
+        {
+          "name": "Show Resolution",
+          "type": "BOOLEAN",
+          "default": true
+        },
+        {
+          "name": "Show Toolbar",
+          "type": "BOOLEAN",
+          "default": true
+        },
+        {
+          "name": "Show Media",
+          "type": "BOOLEAN",
+          "default": false
+        }
+      ],
+      "description": [
+        "프롬프트 컴포저.",
+        "PromptContent + SelectChip + Button/Primary + Field Message 조합.",
+        "코드: components/scenes/create/node-canvas-v2/nodes/EditNode.tsx",
+        "입력 영역 면은 surface/input — 다크에서 palette-gray-700 로 카드(800)보다 한 단계 밝다."
+      ]
+    },
+    {
+      "name": "Icon/Action",
+      "id": "3002:2061",
+      "type": "COMPONENT_SET",
+      "size": [
+        84,
+        56
+      ],
+      "group": "node-canvas",
+      "variants": [
+        {
+          "name": "Type",
+          "values": [
+            "Download",
+            "Delete"
+          ]
+        }
+      ],
+      "description": [
+        "노드 행 우측 액션 아이콘."
+      ]
+    },
+    {
+      "name": "Icon/Button",
+      "id": "3002:2006",
+      "type": "COMPONENT_SET",
+      "size": [
+        114,
+        196
+      ],
+      "group": "node-canvas",
+      "variants": [
+        {
+          "name": "State",
+          "values": [
+            "Default",
+            "Hover",
+            "Pressed",
+            "Disabled"
+          ]
+        },
+        {
+          "name": "Tone",
+          "values": [
+            "Neutral",
+            "Danger"
+          ]
+        }
+      ],
+      "properties": [
+        {
+          "name": "인스턴스",
+          "type": "INSTANCE_SWAP"
+        }
+      ],
+      "description": [
+        "아이콘 전용 버튼."
+      ]
+    },
+    {
+      "name": "Icon/Node",
+      "id": "1556:7326",
+      "type": "COMPONENT_SET",
+      "size": [
+        318,
+        56
+      ],
+      "group": "node-canvas",
+      "variants": [
+        {
+          "name": "Type",
+          "values": [
+            "Text",
+            "Image",
+            "Video",
+            "Bgm",
+            "Voice",
+            "VideoEditor",
+            "Youtube",
+            "StartFrame",
+            "EndFrame",
+            "Section"
+          ]
+        }
+      ],
+      "description": [
+        "노드 종류 아이콘 세트.",
+        "Type=Voice 는 TTS 용, Type=Bgm 은 음악/효과음 공용이다(효과음 전용 아이콘 없음).",
+        "Node Header · NodePortButton 이 이 세트를 인스턴스로 물고 있다."
+      ]
+    },
+    {
+      "name": "Node Header",
+      "id": "1556:7282",
+      "type": "COMPONENT_SET",
+      "size": [
+        440,
+        450
+      ],
+      "group": "node-canvas",
+      "variants": [
+        {
+          "name": "Type",
+          "values": [
+            "Text",
+            "AiPrompt",
+            "Image",
+            "Video",
+            "Bgm",
+            "Sfx",
+            "Tts",
+            "VideoEditor",
+            "Youtube",
+            "Section"
+          ]
+        }
+      ],
+      "properties": [
+        {
+          "name": "Show Download",
+          "type": "BOOLEAN",
+          "default": true
+        },
+        {
+          "name": "Show Delete",
+          "type": "BOOLEAN",
+          "default": true
+        }
+      ],
+      "description": [
+        "노드 카드 상단 헤더.",
+        "Type 배리언트가 노드 종류를 결정하고, 안의 Icon/Node 인스턴스와 라벨이 함께 바뀐다.",
+        "코드: components/scenes/create/node-canvas-v2/nodes/*Node.tsx",
+        "라벨 타이포는 Type/Body/14/Medium 고정."
+      ]
+    },
+    {
+      "name": "NodePortButton",
+      "id": "3016:2570",
+      "type": "COMPONENT_SET",
+      "size": [
+        68,
+        320
+      ],
+      "group": "node-canvas",
+      "variants": [
+        {
+          "name": "Type",
+          "values": [
+            "Text",
+            "Image",
+            "Video",
+            "Audio",
+            "StartFrame",
+            "EndFrame",
+            "VideoEditor",
+            "Youtube"
+          ]
+        },
+        {
+          "name": "State",
+          "values": [
+            "Default"
+          ]
+        }
+      ],
+      "description": [
+        "노드 좌우 포트 핸들.",
+        "Type 은 연결 가능한 데이터 종류, State 는 현재 Default 뿐이며 Hover/Connected 확장 자리다.",
+        "28px 컨테이너 안에 20px 글리프."
+      ]
+    },
+    {
+      "name": "NodeSideButton",
+      "id": "3016:2427",
+      "type": "COMPONENT",
+      "size": [
+        28,
+        316
+      ],
+      "group": "node-canvas",
+      "properties": [
+        {
+          "name": "Show StartFrame",
+          "type": "BOOLEAN",
+          "default": true
+        },
+        {
+          "name": "Show EndFrame",
+          "type": "BOOLEAN",
+          "default": true
+        },
+        {
+          "name": "Show Image",
+          "type": "BOOLEAN",
+          "default": true
+        },
+        {
+          "name": "Show Text",
+          "type": "BOOLEAN",
+          "default": true
+        },
+        {
+          "name": "Show Audio",
+          "type": "BOOLEAN",
+          "default": true
+        },
+        {
+          "name": "Show Video",
+          "type": "BOOLEAN",
+          "default": true
+        },
+        {
+          "name": "Show VideoEditor",
+          "type": "BOOLEAN",
+          "default": true
+        },
+        {
+          "name": "Show Youtube",
+          "type": "BOOLEAN",
+          "default": true
+        }
+      ],
+      "description": [
+        "노드 우측에 세로로 붙는 사이드 버튼 스택.",
+        "코드: components/scenes/create/node-canvas-v2/nodes/NodeSideButtons.tsx"
+      ]
+    },
+    {
+      "name": "PromptContent",
+      "id": "3019:1948",
+      "type": "COMPONENT_SET",
+      "size": [
+        408,
+        170
+      ],
+      "group": "node-canvas",
+      "variants": [
+        {
+          "name": "Source",
+          "values": [
+            "Connected",
+            "Manual"
+          ]
+        }
+      ],
+      "description": [
+        "프롬프트 표시 영역.",
+        "Source=Connected 는 AI 프롬프트 노드에서 연결된 상태, Manual 은 직접 입력."
+      ]
+    },
+    {
+      "name": "SectionSurface",
+      "id": "3027:3565",
+      "type": "COMPONENT",
+      "size": [
+        300,
+        300
+      ],
+      "group": "node-canvas",
+      "description": [
+        "섹션 노드 배경 면.",
+        "코드: components/scenes/create/node-canvas-v2/nodes/SectionNode.tsx"
+      ]
+    },
+    {
+      "name": "SelectChip",
+      "id": "3019:1891",
+      "type": "COMPONENT_SET",
+      "size": [
+        127,
+        280
+      ],
+      "group": "node-canvas",
+      "variants": [
+        {
+          "name": "State",
+          "values": [
+            "Default",
+            "Hover",
+            "Pressed",
+            "Open",
+            "Disabled"
+          ]
+        }
+      ],
+      "properties": [
+        {
+          "name": "Label",
+          "type": "TEXT",
+          "default": "Label"
+        }
+      ],
+      "description": [
+        "모델·길이·비율 등 선택 칩.",
+        "라벨은 Type/Caption/12/Regular.",
+        "면은 surface/inset(칩 전용), 호버·누름은 surface/inset-hover · -pressed. 입력 박스의 surface/input 과 다른 역할이다."
+      ]
+    },
+    {
+      "name": "SelectChip/Field Message",
+      "id": "3019:1867",
+      "type": "COMPONENT",
+      "size": [
+        368,
+        29
+      ],
+      "group": "node-canvas",
+      "description": [
+        "칩 하단 필드 메시지(에러). accent-red 계열 배경 위 Type/Body/14/Regular."
+      ]
+    },
+    {
+      "name": "Node/Text",
+      "id": "3020:2029",
+      "type": "COMPONENT",
+      "size": [
+        472,
+        159
+      ],
+      "group": "node",
+      "description": [
+        "텍스트 노드 카드. Node Header(Type=Text) + PromptContent + Composer 로 구성된 가장 단순한 노드.",
+        "코드: components/scenes/create/node-canvas-v2/nodes/TextNode.tsx"
+      ]
+    },
+    {
+      "name": "Node/ImageGenerator",
+      "id": "3026:2706",
+      "type": "COMPONENT",
+      "size": [
+        472,
+        405
+      ],
+      "group": "node",
+      "description": [
+        "이미지 생성 노드. Composer 에 SelectChip(모델·비율·해상도)과 Button/Primary(생성)가 붙는다.",
+        "코드: components/scenes/create/node-canvas-v2/nodes/ImageNode.tsx"
+      ]
+    },
+    {
+      "name": "Node/VideoGenerator",
+      "id": "3026:2707",
+      "type": "COMPONENT",
+      "size": [
+        472,
+        445
+      ],
+      "group": "node",
+      "description": [
+        "비디오 생성 노드. ImageGenerator 와 같은 구성이고 길이·비율 칩이 추가된다.",
+        "코드: components/scenes/create/node-canvas-v2/nodes/VideoNode.tsx"
+      ]
+    },
+    {
+      "name": "Node/TTS",
+      "id": "3026:2761",
+      "type": "COMPONENT",
+      "size": [
+        472,
+        255
+      ],
+      "group": "node",
+      "description": [
+        "음성 합성 노드. 결과가 AudioPlayer 로 재생된다. Node Header 는 Type=Tts, 아이콘은 Icon/Node Type=Voice.",
+        "코드: components/scenes/create/node-canvas-v2/nodes/TtsNode.tsx"
+      ]
+    },
+    {
+      "name": "Node/Music",
+      "id": "3026:2916",
+      "type": "COMPONENT",
+      "size": [
+        472,
+        255
+      ],
+      "group": "node",
+      "description": [
+        "음악 생성 노드. TTS 와 같은 구성이며 Node Header 는 Type=Bgm.",
+        "코드: components/scenes/create/node-canvas-v2/nodes/BgmNode.tsx"
+      ]
+    },
+    {
+      "name": "Node/SoundEffects",
+      "id": "3060:3273",
+      "type": "COMPONENT",
+      "size": [
+        472,
+        255
+      ],
+      "group": "node",
+      "description": [
+        "효과음 생성 노드. Node Header 는 Type=Sfx. 전용 아이콘이 없어 Icon/Node Type=Bgm 을 공유한다."
+      ]
+    },
+    {
+      "name": "Node/AIPromptGenerator",
+      "id": "3026:3234",
+      "type": "COMPONENT",
+      "size": [
+        472,
+        649
+      ],
+      "group": "node",
+      "description": [
+        "AI 프롬프트 생성 노드. AiPrompt(요청 버블 + 답변 버블)를 품는 유일한 노드.",
+        "답변 면은 surface/answer, 외곽선은 두지 않는다."
+      ]
+    },
+    {
+      "name": "Node/VideoEditor",
+      "id": "3026:3403",
+      "type": "COMPONENT",
+      "size": [
+        472,
+        346
+      ],
+      "group": "node",
+      "description": [
+        "비디오 에디터 진입 노드. PromptContent·SelectChip 없이 Node Header + Composer + 포트만 갖는다.",
+        "코드: components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx"
+      ]
+    },
+    {
+      "name": "Node/Section",
+      "id": "3027:4217",
+      "type": "COMPONENT",
+      "size": [
+        400,
+        436
+      ],
+      "group": "node",
+      "description": [
+        "섹션 노드. SectionSurface 를 면으로 쓰고 다른 노드를 담는 그룹 역할. 포트·사이드 버튼이 없다.",
+        "코드: components/scenes/create/node-canvas-v2/nodes/SectionNode.tsx"
+      ]
+    },
+    {
+      "name": "Input",
+      "type": "COMPONENT_SET",
+      "group": "primitive",
+      "size": [
+        320,
+        40
+      ],
+      "variants": [
+        {
+          "name": "State",
+          "values": [
+            "Idle",
+            "Focused",
+            "Error",
+            "Disabled"
+          ]
+        }
+      ],
+      "properties": [
+        {
+          "name": "Value",
+          "type": "TEXT"
+        }
+      ],
+      "description": [
+        "단일 줄 입력. 높이 40(--button-height) · radius 12(--button-radius) · 좌우 패딩 16.",
+        "면 surface/input · 값 content/primary · 플레이스홀더 content/tertiary.",
+        "코드: app/login/page.tsx 의 INPUT_BOX / INPUT_BOX_FOCUSED"
+      ]
+    },
+    {
+      "name": "Textarea",
+      "type": "COMPONENT",
+      "group": "primitive",
+      "size": [
+        320,
+        96
+      ],
+      "properties": [
+        {
+          "name": "Value",
+          "type": "TEXT"
+        }
+      ],
+      "description": [
+        "여러 줄 입력. Input 과 같은 면·선·반경, 높이만 다르다."
+      ]
+    },
+    {
+      "name": "Select",
+      "type": "COMPONENT",
+      "group": "primitive",
+      "size": [
+        320,
+        40
+      ],
+      "properties": [
+        {
+          "name": "Value",
+          "type": "TEXT"
+        }
+      ],
+      "description": [
+        "드롭다운 트리거. Input 규격 + 우측 캐럿. 열린 목록은 Dropdown 패턴을 쓴다."
+      ]
+    },
+    {
+      "name": "Checkbox",
+      "type": "COMPONENT_SET",
+      "group": "primitive",
+      "size": [
+        20,
+        20
+      ],
+      "variants": [
+        {
+          "name": "State",
+          "values": [
+            "Unchecked",
+            "Checked",
+            "Disabled"
+          ]
+        }
+      ],
+      "description": [
+        "20×20. 코드는 네이티브 input[type=checkbox] + .app-native-checkbox.",
+        "accent-color 라이트 palette-gray-900 · 다크 palette-gray-000."
+      ]
+    },
+    {
+      "name": "Switch",
+      "type": "COMPONENT_SET",
+      "group": "primitive",
+      "size": [
+        36,
+        20
+      ],
+      "variants": [
+        {
+          "name": "State",
+          "values": [
+            "Off",
+            "On"
+          ]
+        }
+      ],
+      "description": [
+        "36×20 트랙 + 16 노브. On=brand/primary · Off=surface/inset. 노브는 테마 무관 흰색."
+      ]
+    },
+    {
+      "name": "Badge",
+      "type": "COMPONENT_SET",
+      "group": "primitive",
+      "variants": [
+        {
+          "name": "Tone",
+          "values": [
+            "Neutral",
+            "Info",
+            "Success",
+            "Warning",
+            "Danger"
+          ]
+        }
+      ],
+      "properties": [
+        {
+          "name": "Label",
+          "type": "TEXT"
+        }
+      ],
+      "description": [
+        "상태·분류 칩. pill(999) · caption-12-medium · 패딩 2/8. Tone 은 status 역할과 짝."
+      ]
+    },
+    {
+      "name": "Avatar",
+      "type": "COMPONENT_SET",
+      "group": "primitive",
+      "variants": [
+        {
+          "name": "Size",
+          "values": [
+            "24",
+            "28",
+            "32"
+          ]
+        }
+      ],
+      "description": [
+        "원형 프로필. 24=에디터 헤더 · 28=앱 상단바·사이드바 · 32."
+      ]
+    },
+    {
+      "name": "Spinner",
+      "type": "COMPONENT_SET",
+      "group": "primitive",
+      "variants": [
+        {
+          "name": "Size",
+          "values": [
+            "16",
+            "20",
+            "24"
+          ]
+        }
+      ],
+      "description": [
+        "로딩 표시. 트랙 border/default + 호 brand/primary. 회전은 코드에서."
+      ]
+    },
+    {
+      "name": "Tooltip",
+      "type": "COMPONENT",
+      "group": "primitive",
+      "properties": [
+        {
+          "name": "Label",
+          "type": "TEXT"
+        }
+      ],
+      "description": [
+        "radius 8 · 패딩 4/8 · caption-12 · 면 surface/inverse.",
+        "코드 토큰: --app-tooltip-* (모션 enter 140ms · exit 120ms)."
+      ]
+    },
+    {
+      "name": "Toast",
+      "type": "COMPONENT_SET",
+      "group": "primitive",
+      "variants": [
+        {
+          "name": "Tone",
+          "values": [
+            "Info",
+            "Success",
+            "Error"
+          ]
+        }
+      ],
+      "properties": [
+        {
+          "name": "Message",
+          "type": "TEXT"
+        }
+      ],
+      "description": [
+        "일시 알림. radius 12 · surface/overlay · 0.5px 테두리 · 그림자.",
+        "문구는 messages 에 KOR/ENG/JPN 세 언어로 넣는다."
+      ]
+    },
+    {
+      "name": "Skeleton",
+      "type": "COMPONENT_SET",
+      "group": "primitive",
+      "variants": [
+        {
+          "name": "Shape",
+          "values": [
+            "Line",
+            "Block",
+            "Circle"
+          ]
+        }
+      ],
+      "description": [
+        "로딩 자리표시. 면 surface/inset. 폭은 인스턴스에서 조정, 펄스는 코드에서."
+      ]
+    },
+    {
+      "name": "EmptyState",
+      "type": "COMPONENT",
+      "group": "primitive",
+      "size": [
+        360,
+        0
+      ],
+      "properties": [
+        {
+          "name": "Title",
+          "type": "TEXT"
+        },
+        {
+          "name": "Description",
+          "type": "TEXT"
+        },
+        {
+          "name": "Action",
+          "type": "TEXT"
+        }
+      ],
+      "description": [
+        "목록이 비었을 때. 아이콘 48 + 제목 + 설명 + 액션 버튼(radius 12).",
+        "문구는 messages 에 3개 언어로 넣는다."
+      ]
+    },
+    {
+      "name": "Modal",
+      "type": "COMPONENT_SET",
+      "group": "primitive",
+      "size": [
+        400,
+        0
+      ],
+      "variants": [
+        {
+          "name": "Tone",
+          "values": [
+            "Default",
+            "Danger"
+          ]
+        }
+      ],
+      "properties": [
+        {
+          "name": "Title",
+          "type": "TEXT"
+        },
+        {
+          "name": "Body",
+          "type": "TEXT"
+        },
+        {
+          "name": "Confirm",
+          "type": "TEXT"
+        }
+      ],
+      "description": [
+        "확인 다이얼로그 기준. 400 폭 · radius 16 · surface/overlay · 0.5px 테두리 · 그림자.",
+        "Tone=Danger 는 확인 버튼이 status/danger. 버튼 곡률 12px.",
+        "코드에 모달이 17종 흩어져 있다 — 이 기준으로 수렴시키는 것이 목표."
+      ]
+    },
+    {
+      "name": "Tab",
+      "type": "COMPONENT_SET",
+      "group": "data-display",
+      "variants": [
+        {
+          "name": "State",
+          "values": [
+            "Default",
+            "Active"
+          ]
+        }
+      ],
+      "properties": [
+        {
+          "name": "Label",
+          "type": "TEXT"
+        }
+      ],
+      "description": [
+        "대시보드·설정 탭. Active=body-14-semibold + content/primary + 2px 인디케이터."
+      ]
+    },
+    {
+      "name": "TableHeader",
+      "type": "COMPONENT",
+      "group": "data-display",
+      "description": [
+        "표 머리 행. 면 surface/raised · radius 4 · 셀 패딩 8/12 · caption-12-medium.",
+        "코드: components/scenes/analytics/ContentTable.tsx (--dashboard-table-bg = gray-800)"
+      ]
+    },
+    {
+      "name": "TableRow",
+      "type": "COMPONENT",
+      "group": "data-display",
+      "description": [
+        "표 본문 행. 셀 패딩 10/12 · body-14 · 하단 1px 구분선(border/default).",
+        "구분선은 박스 스트로크가 아니므로 0.5 규칙이 아닌 1px 를 쓴다."
+      ]
+    },
+    {
+      "name": "Table",
+      "type": "COMPONENT",
+      "group": "data-display",
+      "description": [
+        "TableHeader 1 + TableRow n. 가로 스크롤은 컨테이너가 담당한다."
+      ]
+    },
+    {
+      "name": "Pagination",
+      "type": "COMPONENT",
+      "group": "data-display",
+      "description": [
+        "32×32 버튼 · radius 8. 현재 페이지만 surface/inset 면 + semibold."
+      ]
+    },
+    {
+      "name": "StatTile",
+      "type": "COMPONENT",
+      "group": "data-display",
+      "size": [
+        220,
+        0
+      ],
+      "properties": [
+        {
+          "name": "Label",
+          "type": "TEXT"
+        },
+        {
+          "name": "Value",
+          "type": "TEXT"
+        },
+        {
+          "name": "Delta",
+          "type": "TEXT"
+        }
+      ],
+      "description": [
+        "지표 카드. 라벨 caption-12 + 값 heading-28-semibold + 증감 caption-12.",
+        "증감은 상승 status/success · 하락 status/danger. 숫자는 크기가 아니라 굵기로 강조."
+      ]
+    },
+    {
+      "name": "PlanFeatureRow",
+      "type": "COMPONENT",
+      "group": "commerce",
+      "size": [
+        280,
+        24
+      ],
+      "properties": [
+        {
+          "name": "Label",
+          "type": "TEXT"
+        }
+      ],
+      "description": [
+        "요금제 기능 한 줄. 체크(status/success 1.25px) + body-14.",
+        "미포함 항목은 체크를 content/disabled 로 낮춘다."
+      ]
+    },
+    {
+      "name": "PriceCard",
+      "type": "COMPONENT_SET",
+      "group": "commerce",
+      "size": [
+        300,
+        560
+      ],
+      "variants": [
+        {
+          "name": "State",
+          "values": [
+            "Default",
+            "Current",
+            "Featured"
+          ]
+        }
+      ],
+      "properties": [
+        {
+          "name": "Name",
+          "type": "TEXT"
+        },
+        {
+          "name": "Description",
+          "type": "TEXT"
+        },
+        {
+          "name": "Price",
+          "type": "TEXT"
+        },
+        {
+          "name": "Credits",
+          "type": "TEXT"
+        }
+      ],
+      "description": [
+        "요금제 카드. 300×560 · radius 24 · 패딩 16 · 글래스 프레임 그림자.",
+        "State=Current 는 accent-ultra-400 2px 외곽선(코드는 42% 알파라 옅다) + 아웃라인 버튼.",
+        "Featured 는 brand/primary 외곽선.",
+        "이름 body-20-medium · 설명 body-16 · 가격 heading-36-medium · 크레딧 body-20-medium.",
+        "≤719px radius 16 · 패딩 12, ≤479px 가격만 heading-28.",
+        "코드: app/mypage/upgrade/page.tsx 의 TIER_CARD"
+      ]
+    },
+    {
+      "name": "StatusScreen",
+      "type": "COMPONENT_SET",
+      "group": "commerce",
+      "size": [
+        480,
+        0
+      ],
+      "variants": [
+        {
+          "name": "Tone",
+          "values": [
+            "Success",
+            "Fail",
+            "Loading"
+          ]
+        }
+      ],
+      "properties": [
+        {
+          "name": "Title",
+          "type": "TEXT"
+        },
+        {
+          "name": "Description",
+          "type": "TEXT"
+        },
+        {
+          "name": "Action",
+          "type": "TEXT"
+        }
+      ],
+      "description": [
+        "결제·인증 결과 화면. 480 폭 · radius 16 · surface/raised · 글래스 프레임.",
+        "제목 heading-36-medium. Tone 은 표식 색만 바꾼다 — Success=mint · Fail=red · Loading=중립.",
+        "문구는 Tone 과 무관한 공유 속성이다. messages 에 3개 언어로 넣는다.",
+        "Loading 은 코드에서 제목에 스윕 애니메이션(statusLoadingSweep 2.2s)을 건다.",
+        "결제 결과 6개 + 인증 상태 4개 화면에서 반복된다.",
+        "코드: app/mypage/upgrade/billing-success/page.tsx 의 STATUS_MAIN · STATUS_TITLE"
+      ]
+    },
+    {
+      "name": "Auth/FormField",
+      "type": "COMPONENT",
+      "group": "auth",
+      "size": [
+        360,
+        0
+      ],
+      "properties": [
+        {
+          "name": "Label",
+          "type": "TEXT"
+        },
+        {
+          "name": "Error",
+          "type": "TEXT"
+        },
+        {
+          "name": "Show Error",
+          "type": "BOOLEAN"
+        }
+      ],
+      "description": [
+        "라벨 + Input + 오류 문구. 폭 360.",
+        "Show Error 로 오류 줄을 켠다. 오류 색은 status/danger.",
+        "Input 은 Primitives 의 Input 인스턴스라 State 를 Focused·Error 로 바꿀 수 있다."
+      ]
+    },
+    {
+      "name": "Auth/LegalRow",
+      "type": "COMPONENT",
+      "group": "auth",
+      "size": [
+        360,
+        0
+      ],
+      "properties": [
+        {
+          "name": "Label",
+          "type": "TEXT"
+        }
+      ],
+      "description": [
+        "약관 동의 한 줄. Checkbox + 문구 + '보기' 버튼(radius 12 · 패딩 2/6).",
+        "코드: app/signup/page.tsx 의 LEGAL_AGREEMENT_ROW · LEGAL_VIEW_BUTTON"
+      ]
+    },
+    {
+      "name": "Auth/BrandPanel",
+      "type": "COMPONENT",
+      "group": "auth",
+      "size": [
+        690,
+        770
+      ],
+      "properties": [
+        {
+          "name": "Slogan",
+          "type": "TEXT"
+        }
+      ],
+      "description": [
+        "인증 화면 좌측 패널. #0093FF(brand/auth-panel) + footer-logo-bg.svg 배경.",
+        "radius 12 · 패딩 20 · 심볼 좌상단 36 · 슬로건 좌하단 heading-36-medium.",
+        "슬로건은 messages 의 footer.tagline. ≥1200px 에서 heading-48 로 올린다.",
+        "심볼은 BrandSymbolMark(currentColor 평면) — 큐브 그라디언트는 쓰지 않는다.",
+        "<720px 에서 숨긴다."
+      ]
+    },
+    {
+      "name": "Auth/Shell",
+      "type": "COMPONENT",
+      "group": "auth",
+      "size": [
+        1440,
+        810
+      ],
+      "description": [
+        "인증 2컬럼 레이아웃. 1440×810(16:9) · grid 1fr 1fr · 패딩 20 · gap 20 · 면 surface/page.",
+        "우측 formPanel 은 place-items center · 패딩 clamp(32,6svh,72) / 32.",
+        "<720px 에서 brandPanel 을 숨기고 단일 컬럼이 된다.",
+        "/login · /signup · /recover · /reset-password/new · /signup/check-email|verified|expired 가 공유.",
+        "버튼 곡률은 전부 12px (과거 pill 패턴 제거)."
+      ]
+    },
+    {
+      "name": "Marketing/Gnb",
+      "type": "COMPONENT_SET",
+      "group": "marketing",
+      "size": [
+        1440,
+        60
+      ],
+      "variants": [
+        {
+          "name": "Theme",
+          "values": [
+            "Light",
+            "Black"
+          ]
+        }
+      ],
+      "description": [
+        "랜딩 상단 내비. wrapper 패딩 16/20 · 로고 24 · 메뉴 버튼 28 · pill CTA.",
+        "Theme=Black 은 html[data-theme] 과 무관하다 — 스크롤 위치(pricing · final-cta) 에서만 켜진다.",
+        "Theme 에 따라 로고 자산이 스왑된다 (klipse-light.svg ↔ klipse-dark.svg).",
+        "상단에 8-step 블러 그라디언트(h 120 · blur 12 · mask 40%→0%)가 따로 깔린다.",
+        "코드: components/landing/navigation/Gnb.tsx 의 NAV · NAV_LIGHT · HEADER_BLUR"
+      ]
+    },
+    {
+      "name": "Marketing/Hero",
+      "type": "COMPONENT",
+      "group": "marketing",
+      "size": [
+        1440,
+        0
+      ],
+      "properties": [
+        {
+          "name": "Headline",
+          "type": "TEXT"
+        },
+        {
+          "name": "Subhead",
+          "type": "TEXT"
+        },
+        {
+          "name": "CTA",
+          "type": "TEXT"
+        }
+      ],
+      "description": [
+        "랜딩 히어로. 헤드라인 heading-48-semibold · 서브 body-20 · CTA 높이 48 · radius 12.",
+        "반응형 램프가 [data-page-root] 스코프에서 작동 — heading-48 은 ≤1023 36 · ≤767 32 · ≤479 28.",
+        "배경은 public/intro.mp4 · images/hero/*."
+      ]
+    },
+    {
+      "name": "Marketing/BlogCard",
+      "type": "COMPONENT",
+      "group": "marketing",
+      "size": [
+        360,
+        0
+      ],
+      "properties": [
+        {
+          "name": "Category",
+          "type": "TEXT"
+        },
+        {
+          "name": "Title",
+          "type": "TEXT"
+        },
+        {
+          "name": "Date",
+          "type": "TEXT"
+        }
+      ],
+      "description": [
+        "블로그·템플릿 목록 카드. 360 폭 · radius 16 · 썸네일 200.",
+        "분류 caption-12-medium(brand/primary) · 제목 body-16-semibold · 날짜 caption-12.",
+        "/blog · /templates 목록에서 쓴다."
+      ]
+    },
+    {
+      "name": "Marketing/Footer",
+      "type": "COMPONENT",
+      "group": "marketing",
+      "size": [
+        1440,
+        0
+      ],
+      "description": [
+        "랜딩 푸터. 로고 + 태그라인 + 법적 링크 + 저작권.",
+        "문구는 messages 의 footer.tagline · footer.copyright · footer.privacyPolicy.",
+        "배경 이미지는 public/footer-logo-bg.svg."
+      ]
+    },
+    {
+      "name": "Docs/NavLink",
+      "type": "COMPONENT_SET",
+      "group": "marketing",
+      "variants": [
+        {
+          "name": "State",
+          "values": [
+            "Default",
+            "Active"
+          ]
+        }
+      ],
+      "properties": [
+        {
+          "name": "Label",
+          "type": "TEXT"
+        }
+      ],
+      "description": [
+        "문서 사이드바 링크. body-14 · 패딩 8/12 · radius 8.",
+        "globals.css 의 a { color: inherit; text-decoration: none } 을 이겨야 해 코드에서는 ! 를 붙인다.",
+        "코드: app/docs/DocsSidebar.tsx 의 NAV_LINK_BASE_CLASS"
+      ]
+    },
+    {
+      "name": "Docs/Sidebar",
+      "type": "COMPONENT",
+      "group": "marketing",
+      "size": [
+        240,
+        640
+      ],
+      "description": [
+        "문서 좌측 내비. 폭 240(w-120) · sticky top 120 · 면 palette-gray-100 · 우측 패딩 12.",
+        "그룹 제목 caption-12-semibold · palette-gray-500 · 하단 여백 10.",
+        "코드는 그룹 제목에 uppercase 를 건다 — 한글에는 영향이 없고 영문 제목에서만 대문자가 된다.",
+        "코드: app/docs/DocsSidebar.tsx"
+      ]
+    },
+    {
+      "name": "Docs/Layout",
+      "type": "COMPONENT",
+      "group": "marketing",
+      "size": [
+        1440,
+        810
+      ],
+      "description": [
+        "문서 2컬럼. 1440×810 · 사이드바 240 + 본문. 면 surface/page.",
+        "본문 제목 heading-36-semibold · 리드 body-20 · 본문 body-16.",
+        "/docs · /docs/nodecanvas · /docs/videoeditor · /docs/highlight 가 공유한다.",
+        "코드: app/docs/layout.tsx · DocsSidebar.tsx · DocArticle.tsx"
+      ]
+    },
+    {
+      "name": "Button",
+      "type": "COMPONENT_SET",
+      "group": "primitive",
+      "variants": [
+        {
+          "name": "Tone",
+          "values": [
+            "Primary",
+            "Secondary",
+            "Ghost",
+            "Danger"
+          ]
+        },
+        {
+          "name": "Size",
+          "values": [
+            "Default",
+            "Small"
+          ]
+        }
+      ],
+      "properties": [
+        {
+          "name": "Label",
+          "type": "TEXT"
+        }
+      ],
+      "description": [
+        "범용 액션 버튼. 코드 토큰을 그대로 쓴다:",
+        "높이 --button-height 40 / --button-height-sm 32 · radius --button-radius 12 ·",
+        "좌우 --button-padding-inline 16 / -sm 12 · 최소 폭 --button-min-width-sm 48.",
+        "Tone=Primary 는 단색이 아니라 --node-prompt-generate-gradient 다 — linear-gradient(90deg, #1491ff 0%, #0088ff 50%, #1491ff 100%). 노드 생성 FAB 과 같은 SSOT.",
+        "이너섀도우 3겹: 글래스 베벨 inset 0 ±1px 1px 흰 25% 두 겹 + ::before 이너 글로우 inset 0 0 8px 흰 100%(mix-blend-overlay).",
+        "단색 파랑으로 그리면 틀린다 — 그라디언트와 이너 글로우가 이 버튼의 정체다.",
+        "호버는 어두워지지 않고 밝아진다(filter: brightness(1.06)).",
+        "Tone=Secondary(0.5px 아웃라인) · Ghost(면·선 없음) · Danger(status/danger).",
+        "pill(999)은 글래스 칩·툴바 알약 전용 — 액션 버튼은 항상 12px."
+      ]
+    },
+    {
+      "name": "SettingsRow",
+      "type": "COMPONENT_SET",
+      "group": "primitive",
+      "size": [
+        720,
+        0
+      ],
+      "variants": [
+        {
+          "name": "Control",
+          "values": [
+            "Switch",
+            "Select",
+            "Button",
+            "None"
+          ]
+        }
+      ],
+      "properties": [
+        {
+          "name": "Label",
+          "type": "TEXT"
+        },
+        {
+          "name": "Description",
+          "type": "TEXT"
+        },
+        {
+          "name": "Danger",
+          "type": "BOOLEAN"
+        }
+      ],
+      "description": [
+        "설정 목록의 한 줄. 라벨(body-16-medium) + 설명(body-14 · content/tertiary) + 우측 컨트롤.",
+        "Control 로 우측 컨트롤을 고른다 — Switch · Select · Button · None.",
+        "하단 1px 구분선(border/subtle). 마지막 행은 인스턴스에서 선을 끈다.",
+        "/settings · /mypage · /subscription 에서 반복된다."
+      ]
+    },
+    {
+      "name": "Deck/SlideHeader",
+      "type": "COMPONENT",
+      "group": "deck",
+      "size": [
+        1720,
+        280
+      ],
+      "properties": [
+        {
+          "name": "Eyebrow",
+          "type": "TEXT"
+        },
+        {
+          "name": "Title",
+          "type": "TEXT"
+        },
+        {
+          "name": "Lead",
+          "type": "TEXT"
+        },
+        {
+          "name": "Show Eyebrow",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "Show Lead",
+          "type": "BOOLEAN"
+        }
+      ],
+      "description": [
+        "장표 상단 고정 영역. 모든 본문 장표의 (100, 100) 에 놓는다.",
+        "위치는 서비스 소개서 93장 실측에서 나왔다 — 아이브로우 y=100 · 제목 y=146 · 리드 y=292.",
+        "자식이 절대 위치라 제목이 한 줄이든 두 줄이든 리드는 292 에 그대로 있다.",
+        "본문 콘텐츠는 y=380 부터 높이 600. 박스 사이 간격은 10.",
+        "슬라이드 프레임에 오토레이아웃을 걸면 이 고정 위치가 무시된다."
+      ]
+    },
+    {
+      "name": "App/HomeBanner",
+      "type": "COMPONENT",
+      "group": "app",
+      "size": [
+        1132,
+        360
+      ],
+      "properties": [
+        {
+          "name": "Title",
+          "type": "TEXT"
+        },
+        {
+          "name": "Description",
+          "type": "TEXT"
+        }
+      ],
+      "description": [
+        "로그인 후 홈(/archive) 최상단 업데이트 배너 캐러셀.",
+        "폭은 본문 컬럼 전체, 높이 360, radius 16.",
+        "배너는 슬라이드 이미지 위에 얹히므로 전경이 테마를 따르지 않는다 — 흰색 고정, 설명은 86%.",
+        "제목 heading-36-medium · 설명 body-16(최대 폭 480) · CTA 는 Button Tone=Primary.",
+        "우하단 컨트롤은 알약(radius 999, palette-gray/1000 28% + blur): 화살표 28 · 도트 7, 활성 도트 폭 20.",
+        "다크에서 면이 palette-gray/900 이라 페이지 배경과 같다 — 이미지 없이는 경계가 보이지 않는다.",
+        "코드 대응: components/scenes/appHomeSceneStyles.ts 의 updateBanner · bannerControls · bannerDots."
+      ]
+    },
+    {
+      "name": "App/MainChromeBar",
+      "type": "COMPONENT",
+      "group": "app",
+      "size": [
+        1148,
+        48
+      ],
+      "properties": [
+        {
+          "name": "Section",
+          "type": "TEXT"
+        },
+        {
+          "name": "Page",
+          "type": "TEXT"
+        }
+      ],
+      "description": [
+        "앱 콘텐츠 카드 안 상단 크롬 바. /archive 등 앱 화면의 실제 상단이다(App/TopBar 가 아니다).",
+        "Gnb 가 mainChromeSlot 으로 portal 하며, 카드 안쪽 패딩 16 을 음수 마진으로 상쇄해 카드 폭 전체로 번진다.",
+        "따라서 카드는 패딩 0 이고, 본문만 좌우 16 패딩을 갖는다.",
+        "높이 48(패딩 8) · 항목 gap 8 · 사이드바 토글 32 radius 12(--button-radius).",
+        "왼쪽부터 토글 · 브레드크럼 · 신축 여백 · 프로필 클러스터(우측 끝, gap 8).",
+        "브레드크럼은 body-16-medium 이며 세 단계로 갈린다 — 부모 content/primary 52% · 구분자 36% · 현재 78%.",
+        "프로필은 아바타 28 + 링 지름 36(간격 2 + 두께 2). 링 트랙 content/primary 20%, 진행 채움 accent-mint-500(토큰 잔량 게이지).",
+        "면은 surface/page — 라이트에서 카드와 같은 색이라 아래 1px 헤어라인(content/primary 8%)으로만 갈린다.",
+        "다크에서는 카드(palette-gray/800)보다 어둡다(palette-gray/900).",
+        "헤어라인은 스크롤 진행도에 따라 0→100% 로 나타난다. 정지 상태를 어느 진행도로 그릴지는 미정이다.",
+        "코드 대응: Gnb.tsx 의 mainChromeTopBar · mainChromeTopBarInPanel · mainChromeLeadingCluster · mainChromeSidebarToggle · mainChromeProfileCluster · profileTrigger."
+      ]
+    },
+    {
+      "name": "App/Sidebar",
+      "type": "COMPONENT",
+      "group": "app",
+      "size": [
+        280,
+        1080
+      ],
+      "properties": [
+        {
+          "name": "Show Workflow",
+          "type": "BOOLEAN"
+        }
+      ],
+      "description": [
+        "앱 좌측 사이드바. 폭 280(--app-gnb-sidebar-width: min(280px, 100vw - 120px)), 좌우 패딩 12.",
+        "로고 높이 28(--app-gnb-sidebar-logo-h), 워드마크 96.",
+        "메뉴 목록 gap 4. 그룹 사이는 아이브로우 행(위 12 / 아래 4)으로 나눈다.",
+        "구분 아이브로우는 caption-12-medium, 라이트 palette-gray/600 · 다크 palette-gray/400.",
+        "하단 업그레이드 CTA: 높이 40 · radius 12 · 패딩 10/14 · gap 8.",
+        "면은 surface/cta-inverse, 글자는 content/on-cta-inverse (라이트 검정 배경 + 흰 글자, 다크 반대).",
+        "주의 — 정의부의 민트(accent-mint-500 16%)는 /mypage/upgrade 에 있을 때만 나온다. 기본은 위 값이다.",
+        "코드 대응: Gnb.tsx 의 menuSidebar · menuSidebarEyebrow(Row) · sidebarUpgradeButton(+Active)."
+      ]
+    },
+    {
+      "name": "App/SidebarItem",
+      "type": "COMPONENT_SET",
+      "group": "app",
+      "size": [
+        256,
+        32
+      ],
+      "variants": [
+        {
+          "name": "State",
+          "values": [
+            "Default",
+            "Active"
+          ]
+        }
+      ],
+      "properties": [
+        {
+          "name": "Label",
+          "type": "TEXT"
+        },
+        {
+          "name": "Icon",
+          "type": "INSTANCE_SWAP"
+        },
+        {
+          "name": "State",
+          "type": "VARIANT"
+        }
+      ],
+      "description": [
+        "사이드바 메뉴 한 줄. 폭 256(280 - 12x2) · 높이 32 · radius 10.",
+        "좌우 패딩 4(= --app-gnb-main-inline-padding 16 - --app-gnb-sidebar-padding-x 12) · 아이콘 20 · 아이콘-라벨 gap 4.",
+        "라벨 body-14-medium. 기본 content/secondary · 선택 content/primary.",
+        "선택 면은 surface/selected — 라이트 palette-gray/300 · 다크 palette-gray/800.",
+        "surface/inset(라이트 100 · 다크 600)과 다르다. 혼동하면 다크에서 너무 밝아진다.",
+        "코드에서 선택 표시는 링크 배경이 아니라 뒤에서 미끄러지는 인디케이터(menuSidebarActiveIndicator)가 그린다.",
+        "Figma 는 정지 상태만 표현하므로 행에 면을 준다 — 색은 같다."
+      ]
+    },
+    {
+      "name": "App/MediaCard",
+      "type": "COMPONENT",
+      "group": "app",
+      "size": [
+        316,
+        316
+      ],
+      "description": [
+        "아카이브 카드. 정사각(1:1), radius 16.",
+        "썸네일 위 하단 30% 에 오버레이 — 배경은 palette-gray/000 의 0%, 즉 완전 투명이다.",
+        "보이는 효과는 backdrop-filter blur(10px) 를 to-top 그라디언트로 마스크한 프로그레시브 블러다.",
+        "어두운 색 스크림이 아니다. 그라디언트 면을 깔면 틀린 것이다.",
+        "전경은 content/on-media — 라이트 palette-gray/900(검정) · 다크 palette-gray/100.",
+        "썸네일 위지만 앱 테마를 따른다. 고정 흰색이 아니다.",
+        "아이브로우 body-14(라이트 62% · 다크 72%) · 제목 body-16-medium · 시각 body-14. 줄간 1.2, 내부 gap 4, 패딩 16.",
+        "Figma 는 그라디언트 마스크 백드롭 블러를 표현하지 못해 균일 블러로 근사했다.",
+        "코드 대응: appHomeSceneStyles.ts 의 archiveCard · archivePreviewTitleOverlay(+Inner/Text) · archivePreviewEyebrow."
+      ]
+    },
+    {
+      "name": "Brand/Logo (dark surface)",
+      "type": "COMPONENT",
+      "group": "brand",
+      "size": [
+        96,
+        28
+      ],
+      "description": [
+        "Klipse 로고 락업 — 어두운 면 위(흰 글자). 출처 /klipse-dark.svg 를 Figma 에 반입.",
+        "심볼과 글자가 한 파일이다. 높이 28 → 폭 96 = round(28 * 291 / 85).",
+        "인증 브랜드 패널(§10.6)이 이 파일을 96x28 로 쓴다.",
+        "⚠ 심볼 부분은 벡터가 아니라 파일 안에 박힌 72x72 base64 PNG 다 — 크게 키우면 깨진다."
+      ]
+    },
+    {
+      "name": "Brand/Logo (light surface)",
+      "type": "COMPONENT",
+      "group": "brand",
+      "size": [
+        96,
+        28
+      ],
+      "description": [
+        "Klipse 로고 락업 — 밝은 면 위(검은 글자). 출처 /klipse-light.svg.",
+        "규격은 dark 판과 동일. 높이 28 → 폭 96. ⚠ 심볼은 박힌 PNG."
+      ]
+    },
+    {
+      "name": "Brand/Symbol",
+      "type": "COMPONENT",
+      "group": "brand",
+      "size": [
+        28,
+        28
+      ],
+      "description": [
+        "Klipse 심볼. 출처 /symbol.png — **벡터 원본이 저장소에 없다.**",
+        "락업이 필요하면 Brand/Logo 를 쓴다. 이건 심볼 단독이 필요할 때만."
+      ]
+    },
+    {
+      "name": "Brand/Wordmark",
+      "type": "COMPONENT",
+      "group": "brand",
+      "size": [
+        71,
+        28
+      ],
+      "description": [
+        "Klipse 글자 워드마크(심볼 제외). 출처 /klipse-wordmark-text-dark.svg — 벡터.",
+        "원본 fill 은 흰색 고정이지만 content/primary 에 물려 테마를 따르게 했다.",
+        "락업 폭 96 은 이 자산 폭과 다르다(viewBox 여백이 다름) — 락업은 Brand/Logo 를 쓸 것."
+      ]
+    },
+    {
+      "name": "Brand/PanelBackground",
+      "type": "COMPONENT",
+      "group": "brand",
+      "size": [
+        800,
+        800
+      ],
+      "description": [
+        "인증 브랜드 패널 배경. 출처 /footer-logo-bg.svg (800x800, preserveAspectRatio=none).",
+        "코드는 background-size: 100% 100% 로 늘려 쓴다 — 비율을 유지하지 않는다. 면 #0093ff 위, 콘텐츠 아래.",
+        "⚠ 원본은 feMorphology + feGaussianBlur 로 만든 inset glow 다. Figma 가 BACKGROUND_BLUR/LAYER_BLUR 로 근사했으므로 픽셀 동일이 아니다."
+      ]
+    },
+    {
+      "name": "App/SidebarIcon",
+      "type": "COMPONENT_SET",
+      "group": "app",
+      "size": [
+        20,
+        20
+      ],
+      "variants": [
+        {
+          "name": "Type",
+          "values": [
+            "Search",
+            "Home",
+            "NodeCanvas",
+            "VideoEditor",
+            "YoutubeAnalytics",
+            "Highlight"
+          ]
+        }
+      ],
+      "properties": [
+        {
+          "name": "Type",
+          "type": "VARIANT"
+        }
+      ],
+      "description": [
+        "사이드바 메뉴 아이콘. 원본 SVG 를 반입했다 — 32x32 viewBox 를 20px 로 축소해 stroke 2.4 → 1.5.",
+        "출처: /icons/MagnifyingGlass.svg · House.svg · Graph.svg · MagicWand.svg · youtube.svg · /highlight_symbol.svg",
+        "코드에서는 mask-image 로 쓰이므로 SVG 자체 색은 무의미하다 — 색은 행(App/SidebarItem)의 상태를 따른다.",
+        "Instagram 분석 아이콘은 없다: INSTAGRAM_ANALYTICS_HIDDEN = true 라 그 행 자체가 렌더되지 않는다(§10.1)."
+      ]
+    },
+    {
+      "name": "Icon/CheckCircle",
+      "type": "COMPONENT",
+      "group": "brand",
+      "size": [
+        18,
+        18
+      ],
+      "description": [
+        "출처 /icons/CheckCircle.svg — viewBox 32, stroke-width 2. 18px 렌더 시 선 두께 1.125.",
+        "코드에서 mask-image 로 쓰이므로 파일의 stroke=black 은 무의미하다 — 소비처 색을 따른다.",
+        "요금제 기능 목록에서는 accent-mint-500 #00c68e 로 칠한다. 이 화면에서 민트가 쓰이는 유일한 자리다."
+      ]
+    },
+    {
+      "name": "Icon/Globe",
+      "type": "COMPONENT",
+      "group": "brand",
+      "size": [
+        16,
+        16
+      ],
+      "description": [
+        "언어 셀렉터 글리프. 코드 인라인 SVG(viewBox 24, stroke-width 1.5) — 원 + 가로선 + 타원 3요소.",
+        "16x16 으로 렌더한다. /aws/signup 우상단 고정 크롬에서 쓴다."
+      ]
+    },
+    {
+      "name": "Brand/AwsWordmark",
+      "type": "COMPONENT",
+      "group": "brand",
+      "size": [
+        47,
+        28
+      ],
+      "description": [
+        "출처 /icons/aws-logo-dark.svg. /aws/signup 헤더에서 height 28(=47x28)로 쓴다.",
+        "themeMode=dark 고정이라 라이트 테마에서도 같은 색이다."
+      ]
+    }
+  ],
+  "colorRoles": {
+    "note": "Semantic 컬렉션. Light / Dark 두 모드이며 값은 Primitives 팔레트의 별칭이다. 노드 안 톤 사다리 (palette-gray 스톱, 라이트/다크): 카드 raised 100/800 → 입력 박스 input 50/700 → 입력 외곽선 border-input 000/600 → AI 답변 버블 answer 150/600(외곽선 없음) → 메타 버튼 inset 100/600 → 메타 버튼 외곽선 border-control 150/500. 다크는 카드에서 한 톤씩 밝아지고, 라이트는 입력 박스만 카드보다 밝고 나머지는 어두워진다. surface/selected 는 사이드바 등에서 현재 선택된 항목의 면 — 라이트 palette-gray/300 · 다크 palette-gray/800 이며, Gnb.tsx 의 menuSidebarActiveIndicator 와 같은 값이다. surface/inset(라이트 100 · 다크 600)과 혼동하지 말 것. surface/cta-inverse·content/on-cta-inverse 는 사이드바 업그레이드 CTA (라이트 900/100 · 다크 100/900); 기본 상태는 mint 가 아니라 이 값이다 — mint 는 /mypage/upgrade 에서만 나온다. content/on-media 는 카드 썸네일 위 오버레이 전경(라이트 palette-gray/900 · 다크 100)으로, 썸네일 위지만 앱 테마를 따른다.",
+    "surface": [
+      "page",
+      "raised",
+      "input",
+      "answer",
+      "overlay",
+      "selected",
+      "inset",
+      "inset-hover",
+      "inset-pressed",
+      "inverse",
+      "brand",
+      "cta-inverse"
+    ],
+    "content": [
+      "primary",
+      "secondary",
+      "tertiary",
+      "disabled",
+      "on-brand",
+      "on-inverse",
+      "on-light",
+      "on-cta-inverse",
+      "on-media"
+    ],
+    "border": [
+      "default",
+      "subtle",
+      "strong",
+      "input",
+      "control",
+      "node",
+      "focus"
+    ],
+    "interaction": [
+      "hover",
+      "pressed",
+      "strong",
+      "selected"
+    ],
+    "status": [
+      "success",
+      "warning",
+      "danger",
+      "info",
+      "danger-content"
+    ],
+    "brand": [
+      "primary",
+      "auth-panel"
+    ]
+  },
+  "textStyles": {
+    "note": "Type/<Group>/<Size>/<Weight>. Heading·Body·Caption 은 코드의 type-* 유틸과 1:1 대응한다. Display/64 는 장표(1920 폭) 전용 파생 단계로 Figma 에만 있다 — heading-48 × 4/3, 코드에는 없다. 코드에 대응이 없는 나머지는 Legacy/* 로 격리했다.",
+    "groups": {
+      "Display": [
+        64
+      ],
+      "Heading": [
+        48,
+        36,
+        28
+      ],
+      "Body": [
+        20,
+        16,
+        14
+      ],
+      "Caption": [
+        12
+      ]
+    },
+    "weights": [
+      "Regular",
+      "Medium",
+      "Semibold"
+    ],
+    "legacy": [
+      "Legacy/Body/28/*"
+    ]
+  }
+}

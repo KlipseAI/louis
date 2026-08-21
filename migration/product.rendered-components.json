@@ -2,8 +2,8 @@
   "$comment": "생성물. scripts/measure-product-components.mjs가 제품 클래스를 제품 Tailwind로 컴파일해 실브라우저에서 잰다. 직접 수정하지 않는다.",
   "$whyThisExists": "그전까지 제품 값은 전부 소스 읽기였다. product.measured.json의 187축 중 기계 대조는 12축뿐이고 나머지는 사람이 코드를 읽고 옮긴 값이다. 여기 값은 브라우저가 실제로 계산한 것이다.",
   "$method": "제품 서버를 띄우지 않는다. 클래스 문자열은 손으로 옮기지 않고 제품 소스의 상수 이름을 가리켜 커밋에서 직접 꺼낸다. 그것을 제품 Tailwind로 컴파일하고 제품 CSS와 함께 빈 문서에 올려 계산값을 읽는다.",
-  "productRef": "6337ad541dcf6bd80880248e5b5e0d5b376dcc24",
-  "productCommit": "6337ad541dcf6bd80880248e5b5e0d5b376dcc24",
+  "productRef": "ada1b939364242a4c8b39cfa8d84a1fd669dda5b",
+  "productCommit": "ada1b939364242a4c8b39cfa8d84a1fd669dda5b",
   "probes": [
     {
       "id": "button-md",

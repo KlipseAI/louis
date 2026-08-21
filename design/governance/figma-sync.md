@@ -46,6 +46,29 @@ publish 이후에만 검토한다 — publish 전에는 파일 간 변수·compo
    때문이며, 대신 요소 분해 보존(코드 `elementCount` ↔ Figma `vectors`)을 대조한다. 도형이
    병합되거나 사라지는 사고는 좌표를 보지 않아도 이것으로 드러난다.
 
+## Figma로 그대로 옮길 수 없는 것
+
+**근사치를 지어내지 않는다.** 아래는 CSS에서만 성립한다. 재현하지 말고 `재현 불가`로 표시한 뒤
+코드를 원천으로 두고, 무엇을 포기하고 무엇으로 대체할지는 이 문서가 정해질 때까지 비워 둔다.
+숫자는 배포본 `KlipseAI/klipse-web` 기준이다.
+
+| 항목 | 규모 | 왜 안 되나 |
+| --- | --- | --- |
+| `backdrop-filter` (뒤 배경 블러) | **65개 파일** | 뒤에 실제로 무엇이 있느냐에 따라 결과가 달라진다. 단색 채우기로 대체하면 다른 화면이 된다 |
+| 그라디언트 마스크 | **23개 파일** | 블러·이펙트에 알파 그라디언트를 씌우는 형태다. 레이어 마스크로는 강도가 점진적으로 변하는 구간이 재현되지 않는다 |
+| 테마를 따라가지 않는 그림자 | `--dropdown-ambient-shadow` | `:root`에만 정의되고 다크 재정의가 없다 — **다크에서도 같은 값이다**(`globals.css:81`). 다크용 변형을 새로 만들면 코드와 갈린다. 이름이 비슷한 `--glass-dropdown-frame`은 정의가 둘이라 여기 해당하지 않는다 |
+| `@layer` 밖 규칙의 우선순위 | — | 명시도와 무관하게 유틸리티를 이긴다. 옮길 때 `!`가 필요한 자리는 스타일 결정이 아니라 이 우선순위 때문이며, Figma에 대응 개념이 없다 |
+
+사용처 표본 — `backdrop-filter`: `app/admin/AdminClient.tsx` · `app/admin/BannerManagement.tsx` ·
+`app/admin/JobMonitor.tsx`. 마스크: `app/HomePageClient.tsx` ·
+`components/banners/TabBannerCarousel.tsx` · `app/mypage/upgrade/page.tsx`.
+
+막힌 자리는 근사치로 메우지 말고 기록한다 — 무엇이 없어서 raw로 그렸는지는
+[figma-gap-registry](../../migration/figma-gap-registry.md)가 소유한다.
+
+제품 값을 읽어 Figma에 옮길 때의 함정은
+[제품을 읽을 때 틀리는 자리](../foundations/product-reading-traps.md)가 소유한다. **그리기 전에 읽는다.**
+
 ## 현재 상태
 
 - published Klipse Design library: `not-ready`

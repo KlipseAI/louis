@@ -110,7 +110,7 @@ Figma library는 아직 `not-ready`다. 시스템 전체 maturity도 `experiment
 | 항목 | 현재 값 |
 | --- | --- |
 | System maturity | `experimental` |
-| Normative documents | 75 |
+| Normative documents | 76 |
 | Generated documents | 5 |
 | Components | 21 |
 | Patterns | 4 |
@@ -408,6 +408,29 @@ publish 이후에만 검토한다 — publish 전에는 파일 간 변수·compo
    바인딩 수를 담는다. **좌표는 담지 않는다** — Figma vector 왕복 손실을 아직 실측하지 않았기
    때문이며, 대신 요소 분해 보존(코드 `elementCount` ↔ Figma `vectors`)을 대조한다. 도형이
    병합되거나 사라지는 사고는 좌표를 보지 않아도 이것으로 드러난다.
+
+#### Figma로 그대로 옮길 수 없는 것
+
+**근사치를 지어내지 않는다.** 아래는 CSS에서만 성립한다. 재현하지 말고 `재현 불가`로 표시한 뒤
+코드를 원천으로 두고, 무엇을 포기하고 무엇으로 대체할지는 이 문서가 정해질 때까지 비워 둔다.
+숫자는 배포본 `KlipseAI/klipse-web` 기준이다.
+
+| 항목 | 규모 | 왜 안 되나 |
+| --- | --- | --- |
+| `backdrop-filter` (뒤 배경 블러) | **65개 파일** | 뒤에 실제로 무엇이 있느냐에 따라 결과가 달라진다. 단색 채우기로 대체하면 다른 화면이 된다 |
+| 그라디언트 마스크 | **23개 파일** | 블러·이펙트에 알파 그라디언트를 씌우는 형태다. 레이어 마스크로는 강도가 점진적으로 변하는 구간이 재현되지 않는다 |
+| 테마를 따라가지 않는 그림자 | `--dropdown-ambient-shadow` | `:root`에만 정의되고 다크 재정의가 없다 — **다크에서도 같은 값이다**(`globals.css:81`). 다크용 변형을 새로 만들면 코드와 갈린다. 이름이 비슷한 `--glass-dropdown-frame`은 정의가 둘이라 여기 해당하지 않는다 |
+| `@layer` 밖 규칙의 우선순위 | — | 명시도와 무관하게 유틸리티를 이긴다. 옮길 때 `!`가 필요한 자리는 스타일 결정이 아니라 이 우선순위 때문이며, Figma에 대응 개념이 없다 |
+
+사용처 표본 — `backdrop-filter`: `app/admin/AdminClient.tsx` · `app/admin/BannerManagement.tsx` ·
+`app/admin/JobMonitor.tsx`. 마스크: `app/HomePageClient.tsx` ·
+`components/banners/TabBannerCarousel.tsx` · `app/mypage/upgrade/page.tsx`.
+
+막힌 자리는 근사치로 메우지 말고 기록한다 — 무엇이 없어서 raw로 그렸는지는
+[figma-gap-registry](../../migration/figma-gap-registry.md)가 소유한다.
+
+제품 값을 읽어 Figma에 옮길 때의 함정은
+[제품을 읽을 때 틀리는 자리](../foundations/product-reading-traps.md)가 소유한다. **그리기 전에 읽는다.**
 
 #### 현재 상태
 
@@ -5468,6 +5491,59 @@ Figma에서는 1.5, 코드에서는 1.25로 그려지고 있었다 — 같은 �
 ### Updates
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
+
+#### 2026-08-21 (55) — 제품을 읽을 때 틀리는 자리를 규범으로 올렸습니다
+
+##### 새로 안 것이 아니라, 읽는 자리로 옮긴 것입니다
+
+아래 셋은 이미 겪은 것입니다. ①은 (54)에서 탐침을 고치며 찾았고, ③의 램프 재매핑도 같은 날
+들어왔습니다. 문제는 **그 기록이 겪은 컴포넌트 문서와 이 변경기록 안에만 있었다**는 것입니다.
+다른 컴포넌트를 그리는 사람은 그것을 읽을 자리가 없었습니다.
+
+[제품을 읽을 때 틀리는 자리](../foundations/product-reading-traps.md)가 이제 일반 규칙으로
+소유합니다. `foundations` 섹션이라 `llms/foundations.txt`로 나가며, AI 클라이언트가 가장 먼저
+읽는 파일입니다.
+
+**규칙은 하나입니다 — 선언이 아니라 렌더된 값을 값으로 삼습니다.**
+
+| 항목 | 무엇이 틀리나 |
+| --- | --- |
+| ① 다른 클래스를 덮는 규칙이 실제 기본값 | Tailwind가 소스 스캔으로 내보내므로 배리언트 상수의 `:not(&)` 규칙이 **항상 존재**합니다. 업그레이드 버튼의 정의는 mint인데 배포 화면은 검정/흰색입니다 |
+| ② 토큰 이름이 종류를 뜻하지 않음 | `--glass-dropdown-frame`은 드롭섀도우가 아닙니다. **5겹이고 그중 둘이 `inset` 베벨**입니다. 한 겹으로 읽으면 안쪽 베벨이 통째로 빠집니다 |
+| ③ 두 면이 같은 색일 때 경계는 색이 아님 | 라이트에서 페이지 바닥과 앱 카드 면이 **둘 다 `#f1f1f3`**입니다. 면 색으로 카드를 찾으면 카드가 통째로 빠집니다 |
+| ④ 어느 브랜치를 읽는지가 값을 바꿈 | **새로 찾았습니다.** 아래 참조 |
+
+##### ④ — 이 문서를 쓰다가 제가 빠진 함정입니다
+
+제품 저장소의 로컬 체크아웃이 `origin/main`이라는 보장이 없습니다. 기능 브랜치에 있으면 같은
+파일이 다른 내용이고, **줄 번호와 토큰 이름이 함께 어긋납니다.**
+
+실측: `globals.css`가 `origin/main`과 `origin/design`에서 토큰 **358개 대 354개**로 다르고,
+`--glass-dropdown-frame`·`--glass-bevel-*`의 존재 여부가 갈립니다. `Gnb.tsx`는 인용 좌표가
+8~10줄씩 밀립니다.
+
+작업 트리를 읽지 말고 `git show origin/main:<path>`로 읽습니다. 읽은 뒤 blob 해시를
+[product-evidence.lock.json](../../migration/product-evidence.lock.json)과 대조합니다 —
+`verify-product-evidence`가 같은 일을 합니다.
+
+##### 재대조에서 정정된 것
+
+옮기기 전에 네 항목을 전부 `origin/main`에 다시 댔고, 두 가지가 틀린 채 들어올 뻔했습니다.
+
+- **`--surface-page` 등 역할 토큰 9개는 배포본에 없습니다.** 어느 제품 저장소에도 커밋된 적이
+  없는 값이었습니다. ③의 면 사다리에서 해당 행을 뺐습니다.
+- **`--glass-dropdown-frame`은 "헤어라인 링"이 아닙니다.** 5겹 중 셋이 blur 0의 링·좌우 림,
+  둘이 `inset` 베벨입니다. 원본 기록보다 정확해졌습니다.
+
+##### Figma로 그대로 옮길 수 없는 것
+
+[Figma Sync Governance](../governance/figma-sync.md)에 절을 추가했습니다. `backdrop-filter`
+**65개 파일** · 그라디언트 마스크 **23개 파일** · 테마를 따라가지 않는 `--dropdown-ambient-shadow` ·
+`@layer` 밖 규칙의 우선순위. **근사치를 지어내지 말고 `재현 불가`로 표시합니다.**
+
+##### Migration
+
+없습니다. 문서와 카탈로그만 바뀌었고 package API·토큰·CSS는 그대로입니다.
 
 #### 2026-08-19 (54) — 진행률이 섰습니다. 그리고 대조가 세 번 더 깊어졌습니다
 

@@ -212,6 +212,15 @@
       "generated": false
     },
     {
+      "id": "foundation-product-reading-traps",
+      "path": "design/foundations/product-reading-traps.md",
+      "title": "제품을 읽을 때 틀리는 자리",
+      "section": "foundations",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
+    },
+    {
       "id": "components-overview",
       "path": "design/components/README.md",
       "title": "Components & Progress Board",
@@ -824,7 +833,8 @@
         "design/foundations/iconography.md",
         "design/foundations/interaction-states.md",
         "design/foundations/inclusive-design.md",
-        "design/foundations/responsive-layout.md"
+        "design/foundations/responsive-layout.md",
+        "design/foundations/product-reading-traps.md"
       ]
     },
     {

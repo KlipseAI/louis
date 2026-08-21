@@ -233,6 +233,26 @@ withCanary(
   "--check",
 );
 
+// 내비 라벨을 경로에서 유추해 네 곳이 틀렸다(2026-08-21 「보관함」 → 「홈」). 표를 생성물로
+// 바꿨으니 손으로 고치면 잡혀야 한다.
+withCanary(
+  "design/components/app-shell-parts.md",
+  (source) => {
+    const next = source.replace(
+      "| `/archive` | 홈 |",
+      "| `/archive` | 보관함 |",
+    );
+    if (next === source) {
+      errors.push("app-nav-labels 표 canary가 대상 행을 찾지 못했습니다.");
+    }
+    return next;
+  },
+  "generated app nav label table",
+  "scripts/build-design-docs.mjs",
+  "generated region이 최신이 아닙니다",
+  "--check",
+);
+
 // 드리프트 분포표를 손으로 세다 두 번 틀렸다(2026-08-21 border-width·radius). 표를 생성물로
 // 바꿨으니, **손으로 숫자를 고치면 반드시 잡혀야** 그 조치가 값을 한다. 그것을 여기서 증명한다.
 withCanary(

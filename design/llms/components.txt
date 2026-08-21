@@ -3662,7 +3662,7 @@ Spinner의 16/12px과 같은 판정이다.
 
 ```tsx
 <SidebarNavItem href="/archive" icon={<IconHouse />} current>
-  보관함
+  홈
 </SidebarNavItem>
 
 <SidebarNavItem href="/highlight" icon={<IconGraph />} trailing={<Badge>3</Badge>} collapsed>
@@ -3671,7 +3671,7 @@ Spinner의 16/12px과 같은 판정이다.
 
 <AppTopBar
   leading={<IconButton label="사이드바 접기" onClick={toggle}><IconSidebar /></IconButton>}
-  title="보관함"
+  title="홈"
   trailing={profileTrigger}
 />
 ```
@@ -3716,9 +3716,27 @@ AppTopBar는 상태 축이 **없다.** 대화형이 아니고 안의 슬롯이 �
 
 #### Content
 
-- 라벨은 **화면의 이름**이다. "보관함"이지 "보관함으로 이동"이 아니다.
+- 라벨은 **화면의 이름**이다. "홈"이지 "홈으로 이동"이 아니다.
+- **라우트 이름을 라벨로 쓰지 않는다.** `/archive`의 라벨은 「보관함」이 아니라 **「홈」**이다
+  (`appNav.archive`). 경로에서 라벨을 유추하면 배포본에 없는 이름이 나간다 — 실제로 이 문서가
+  네 곳에서 「보관함」이라고 적고 있었다(2026-08-21 정정).
 - TopBar의 제목은 현재 위치를 말한다. 브레드크럼이 필요하면 `title` 자리에 넣는다 — 이 컴포넌트가
   브레드크럼 구조를 소유하지 않는다.
+
+<!-- GENERATED:app-nav-labels START -->
+배포본 `a9ead58b` 기준. **이 표는 생성물이다** — 경로 대응은 제품이 `appNavItemLabels`로 직접 선언한다.
+
+| 라우트 | 한국어 | English | 경로로 유추 |
+| --- | --- | --- | --- |
+| `/archive` | 홈 | Home | **불가** |
+| `/nodecanvas` | 노드 캔버스 | NodeCanvas | 가능 |
+| `/videoeditor` | 비디오 에디터 | VideoEditor | 가능 |
+| `/highlight` | 하이라이트 | Highlight | 가능 |
+| `/analytics/youtube` | YouTube 분석 | YouTube analytics | **불가** |
+| `/analytics/instagram` | Instagram 분석 | Instagram analytics | **불가** |
+
+사이드바 바닥 자리는 하나이고 **홈**과 **업그레이드**가 나눠 쓴다.
+<!-- GENERATED:app-nav-labels END -->
 
 #### 복합 내비 행
 
@@ -3738,7 +3756,7 @@ AppTopBar는 상태 축이 **없다.** 대화형이 아니고 안의 슬롯이 �
 #### Sidebar brand와 CTA
 
 사이드바는 내비 항목만으로 성립하지 않는다. 배포본은 **맨 위에 브랜드 행**, **맨 아래에 업그레이드
-CTA**를 갖는다. 바닥 자리는 하나이고 화면에 따라 "보관함"이 되기도 한다 — 배포본이 같은 클래스를
+CTA**를 갖는다. 바닥 자리는 하나이고 화면에 따라 "홈"이 되기도 한다 — 배포본이 같은 클래스를
 쓰므로 `SidebarCta` 하나가 둘을 덮는다. 이름이 CTA인 것은 그 자리의 첫 쓰임 때문이지 계약이
 업그레이드에 매여 있다는 뜻이 아니다. 그 둘이 없어서 한 번 조립한 홈 템플릿을 내렸다(2026-08-18).
 

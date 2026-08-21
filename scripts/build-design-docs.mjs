@@ -707,6 +707,57 @@ const catalogBody = [
   "| Package release | " + tick + tokenPackage.packageRelease + tick + " |",
 ].join("\n");
 
+// 앱 내비 라벨. **라우트 이름에서 라벨을 유추하면 틀린다** — `/archive`는 「보관함」이 아니라
+// 「홈」이다. 이 문서가 네 곳에서 유추한 이름을 적고 있었다(2026-08-21). 제품이 소유한 값이므로
+// measure-app-nav-labels.mjs가 배포본에서 뽑고 여기서 표로 만든다.
+function renderAppNavLabels() {
+  const absolute = requireFile(
+    "migration/app-nav-labels.json",
+    "app nav label measurement",
+  );
+  if (!absolute) return "";
+  const data = readJson(absolute, "app nav label measurement");
+  const labels = data && data.labels;
+  if (!Array.isArray(labels) || labels.length === 0) {
+    errors.push("app-nav-labels.json에 labels가 없습니다.");
+    return "";
+  }
+  const lines = [
+    "배포본 `" + String(data.productCommit).slice(0, 8) + "` 기준. **이 표는 생성물이다** — " +
+      "경로 대응은 제품이 `appNavItemLabels`로 직접 선언한다.",
+    "",
+    "| 라우트 | 한국어 | English | 경로로 유추 |",
+    "| --- | --- | --- | --- |",
+  ];
+  for (const row of labels) {
+    lines.push(
+      "| `" + escapeCell(row.route) + "` | " + escapeCell(row.ko) + " | " +
+        escapeCell(row.en) + " | " + (row.inferable ? "가능" : "**불가**") + " |",
+    );
+  }
+  const cta = data.sidebarCtaLabels || [];
+  if (cta.length > 0) {
+    // 「홈와」가 나왔다. 한국어 조사는 앞말의 받침을 봐야 고를 수 있다.
+    const hasFinalConsonant = (word) => {
+      const last = word.codePointAt(word.length - 1);
+      if (last < 0xac00 || last > 0xd7a3) return false;
+      return (last - 0xac00) % 28 !== 0;
+    };
+    const joined = cta.reduce((text, entry, index) => {
+      const label = "**" + escapeCell(entry.ko) + "**";
+      if (index === 0) return label;
+      return text + (hasFinalConsonant(cta[index - 1].ko) ? "과 " : "와 ") + label;
+    }, "");
+    const last = cta[cta.length - 1].ko;
+    lines.push(
+      "",
+      "사이드바 바닥 자리는 하나이고 " + joined +
+        (hasFinalConsonant(last) ? "이" : "") + "가 나눠 쓴다.",
+    );
+  }
+  return lines.join("\n");
+}
+
 // 제품 자유값 축의 분포표. 손으로 세다 두 번 틀려서(2026-08-21 border-width·radius)
 // 계기가 직접 표를 만들게 했다. 원천은 measure-product-drift.mjs가 배포본에서 잰 값이다.
 function renderProductDrift() {
@@ -820,6 +871,14 @@ const generatedUpdates = new Map([
       "design/patterns/README.md",
       "pattern-progress",
       renderProgress(patterns, "patterns", "Pattern"),
+    ),
+  ],
+  [
+    "design/components/app-shell-parts.md",
+    replaceGeneratedRegion(
+      "design/components/app-shell-parts.md",
+      "app-nav-labels",
+      renderAppNavLabels(),
     ),
   ],
   [

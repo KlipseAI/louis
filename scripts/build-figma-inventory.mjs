@@ -88,6 +88,39 @@ const colorOf = (v) => {
   if (!m) return null;
   return [round3(+m[1] / 255), round3(+m[2] / 255), round3(+m[3] / 255), m[4] === undefined ? 1 : round3(+m[4])];
 };
+// **그라디언트는 `background-color`가 아니라 `background-image`에 있다.**
+// 공용 Button의 primary가 그렇다 — backgroundColor는 rgba(0,0,0,0)으로 나와서
+// 이걸 안 읽으면 채움 버튼이 투명한 테두리 조각으로 그려진다.
+// CSS 각도(0deg=위, 시계방향)를 Figma gradientTransform으로 옮긴다.
+const gradientOf = (v) => {
+  if (!v || v === "none" || !v.startsWith("linear-gradient(")) return null;
+  const body = v.slice("linear-gradient(".length, v.lastIndexOf(")"));
+  const parts = body.split(/,(?![^(]*\))/).map((x) => x.trim());
+  let angle = 180; // CSS 기본은 to bottom
+  if (/^(-?[\d.]+)deg$/.test(parts[0])) angle = parseFloat(parts.shift());
+  else if (/^to\s/.test(parts[0])) {
+    const dir = parts.shift().replace(/^to\s+/, "");
+    const map = { top: 0, right: 90, bottom: 180, left: 270 };
+    angle = map[dir] ?? 180;
+  }
+  const stops = [];
+  for (const part of parts) {
+    const m = /^(rgba?\([^)]*\)|#[0-9a-fA-F]{3,8})\s*([\d.]+)%?$/.exec(part);
+    if (!m) continue;
+    const c = colorOf(m[1]);
+    if (!c) continue;
+    stops.push([round3(parseFloat(m[2]) / 100), c]);
+  }
+  if (stops.length < 2) return null;
+  // Figma는 항등 변환에서 왼→오른쪽으로 흐른다. CSS 90deg(to right)가 그 자리다.
+  const rad = ((angle - 90) * Math.PI) / 180;
+  const cos = Math.cos(rad), sin = Math.sin(rad);
+  const t = [
+    [round3(cos), round3(-sin), round3(0.5 - 0.5 * cos + 0.5 * sin)],
+    [round3(sin), round3(cos), round3(0.5 - 0.5 * sin - 0.5 * cos)],
+  ];
+  return { t, s: stops };
+};
 const firstOuterShadow = (v) => {
   if (!v || v === "none") return null;
   const seg = v.split(/,(?![^(]*\))/).map((s) => s.trim()).find((s) => !s.includes("inset"));
@@ -184,6 +217,7 @@ const layout = (node, file, specimenId, parentCtx) => {
     gaps: uniform ? [] : gaps,
     dir: row ? "H" : "V",
     bg: colorOf(V.backgroundColor),
+    gradient: gradientOf(V.backgroundImage),
     fg: colorOf(V.color),
     radius: px(V.borderTopLeftRadius) || (V.borderTopLeftRadius === "50%" ? -1 : 0),
     borderWidth: px(V.borderTopWidth),
@@ -301,6 +335,11 @@ for(const w of Object.keys(WT)) await figma.loadFontAsync(F(+w));
 const bold=F(700),reg=F(400);
 const P=v=>Math.max(0,Number(v)||0);
 const paint=c=>(!c||c[3]===0?[]:[{type:"SOLID",color:{r:c[0],g:c[1],b:c[2]},opacity:c[3]}]);
+// 그라디언트는 background-image에서 온다. 이걸 안 쓰면 채움 버튼이 투명해진다.
+const fillOf=n=>{
+ if(n.gr) return [{type:"GRADIENT_LINEAR",gradientTransform:n.gr.t,
+   gradientStops:n.gr.s.map(st=>({position:st[0],color:{r:st[1][0],g:st[1][1],b:st[1][2],a:st[1][3]}}))}];
+ return paint(n.bg);};
 const mkTxt=n=>{const t=figma.createText();t.name=n.p;t.fontName=F(n.fw);t.characters=n.t;t.fontSize=n.fs||14;
  t.lineHeight={unit:"PERCENT",value:n.lp||150};if(n.ls)t.letterSpacing={unit:"PIXELS",value:n.ls};
  t.fills=paint(n.fg);t.textAutoResize="WIDTH_AND_HEIGHT";
@@ -342,7 +381,7 @@ const build=n=>{
  const f=figma.createAutoLayout(n.H?"HORIZONTAL":"VERTICAL",{name:n.p,itemSpacing:P(n.gap)});
  const pad=n.pad||[0,0,0,0];
  f.paddingTop=P(pad[0]);f.paddingRight=P(pad[1]);f.paddingBottom=P(pad[2]);f.paddingLeft=P(pad[3]);
- f.fills=paint(n.bg);
+ f.fills=fillOf(n);
  f.cornerRadius=n.r===-1?Math.max(1,Math.min(n.w,n.h))/2:Math.min(P(n.r),Math.max(1,Math.min(n.w,n.h))/2);
  if(n.bw>0&&n.bc){f.strokes=paint(n.bc);f.strokeWeight=n.bw;f.strokeAlign="INSIDE";}
  if(n.sh)f.effects=[{type:"DROP_SHADOW",visible:true,blendMode:"NORMAL",
@@ -417,6 +456,7 @@ const compact = (n) => {
   if (n.gaps.length) o.gs = n.gaps;
   if (n.dir === "H") o.H = 1;
   if (n.bg && n.bg[3]) o.bg = n.bg;
+  if (n.gradient) o.gr = n.gradient;
   if (n.radius) o.r = n.radius;
   if (n.borderWidth > 0) { o.bw = n.borderWidth; o.bc = n.borderColor; }
   if (n.shadow && n.shadow.blur > 0) o.sh = [n.shadow.color, n.shadow.x, n.shadow.y, n.shadow.blur];

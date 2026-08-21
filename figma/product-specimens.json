@@ -4,6 +4,23 @@
   "$whyThisExists": "인벤토리 첫 판에서 모달을 그릴 때 카드만 재고 제목·설명·액션은 상상해서 그렸다. 실제 제품은 액션 행이 `margin: -8px`로 카드 밖으로 삐져나와 버튼 쪽 여백이 8이고 글자 쪽이 16인데, 그림은 둘 다 16이었다. owner가 그 차이를 알아봤다. 잰 것 옆에 안 잰 것을 그려 넣으면 그림 전체가 거짓말이 된다.",
   "specimens": [
     {
+      "id": "admin/headerSlot",
+      "kind": "admin",
+      "label": "관리자 콘텐츠 헤더 슬롯 — GNB 상단 크롬 바가 portal 되는 자리, 비어 있으면 숨는다",
+      "jsx": "apps/web/app/admin/AdminClient.tsx:1233-1233",
+      "file": "apps/web/app/admin/AdminClient.tsx",
+      "node": {
+        "part": "HEADER_SLOT",
+        "tag": "div"
+      },
+      "host": [
+        {
+          "file": "apps/web/app/admin/AdminClient.tsx",
+          "part": "CONTENT_PANEL"
+        }
+      ]
+    },
+    {
       "id": "avatar/adminUser",
       "kind": "avatar",
       "label": "관리자 사용자 머리글자 아바타",
@@ -174,6 +191,536 @@
           "part": "profileMenuCreditsHead"
         }
       ]
+    },
+    {
+      "id": "banner-carousel/appHome",
+      "kind": "banner-carousel",
+      "label": "앱 홈 배너 캐러셀 — 슬라이드 + 우하단 컨트롤(화살표·점)",
+      "jsx": "apps/web/components/scenes/AppHomeScene.tsx:857-989",
+      "file": "apps/web/components/scenes/appHomeSceneStyles.ts",
+      "node": {
+        "part": "updateBanner",
+        "tag": "section",
+        "children": [
+          {
+            "part": "bannerTrack",
+            "tag": "div",
+            "children": [
+              {
+                "part": "bannerSlide",
+                "tag": "article",
+                "children": [
+                  {
+                    "part": "bannerContent",
+                    "tag": "div",
+                    "children": [
+                      {
+                        "part": "bannerTitle",
+                        "tag": "h1",
+                        "typography": "type-heading-36-medium",
+                        "text": "영상 제작을 더 빠르게"
+                      },
+                      {
+                        "part": "bannerDescription",
+                        "tag": "p",
+                        "typography": "type-body-16-regular",
+                        "text": "AI 워크플로로 아이디어를 완성작까지 이어 보세요."
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "part": "bannerControls",
+            "tag": "div",
+            "children": [
+              {
+                "part": "bannerArrowButton",
+                "tag": "button"
+              },
+              {
+                "part": "bannerDots",
+                "tag": "div",
+                "children": [
+                  {
+                    "part": "bannerDot",
+                    "tag": "button"
+                  },
+                  {
+                    "part": "bannerDot",
+                    "tag": "button"
+                  },
+                  {
+                    "part": "bannerDot",
+                    "tag": "button"
+                  }
+                ]
+              },
+              {
+                "part": "bannerArrowButton",
+                "tag": "button"
+              }
+            ]
+          }
+        ]
+      },
+      "host": [
+        {
+          "file": "apps/web/components/scenes/appHomeSceneStyles.ts",
+          "part": "archiveRailScrollStack"
+        }
+      ]
+    },
+    {
+      "id": "banner-carousel/appHomeControls",
+      "kind": "banner-carousel",
+      "label": "앱 홈 배너 컨트롤 — 화살표 둘과 점 셋의 글래스 필",
+      "jsx": "apps/web/components/scenes/AppHomeScene.tsx:926-988",
+      "file": "apps/web/components/scenes/appHomeSceneStyles.ts",
+      "node": {
+        "part": "bannerControls",
+        "tag": "div",
+        "children": [
+          {
+            "part": "bannerArrowButton",
+            "tag": "button"
+          },
+          {
+            "part": "bannerDots",
+            "tag": "div",
+            "children": [
+              {
+                "part": "bannerDot",
+                "tag": "button"
+              },
+              {
+                "part": "bannerDot",
+                "tag": "button"
+              },
+              {
+                "part": "bannerDot",
+                "tag": "button"
+              }
+            ]
+          },
+          {
+            "part": "bannerArrowButton",
+            "tag": "button"
+          }
+        ]
+      },
+      "host": [
+        {
+          "file": "apps/web/components/scenes/appHomeSceneStyles.ts",
+          "part": "updateBanner"
+        }
+      ]
+    },
+    {
+      "id": "banner-carousel/appHomeFrame",
+      "kind": "banner-carousel",
+      "label": "앱 홈 배너 캐러셀 프레임 — 슬라이드 트랙을 담는 틀",
+      "jsx": "apps/web/components/scenes/AppHomeScene.tsx:857-989",
+      "file": "apps/web/components/scenes/appHomeSceneStyles.ts",
+      "node": {
+        "part": "updateBanner",
+        "tag": "section",
+        "children": [
+          {
+            "part": "bannerTrack",
+            "tag": "div"
+          }
+        ]
+      },
+      "host": [
+        {
+          "file": "apps/web/components/scenes/appHomeSceneStyles.ts",
+          "part": "archiveRailScrollStack"
+        }
+      ]
+    },
+    {
+      "id": "banner-carousel/highlightTab",
+      "kind": "banner-carousel",
+      "label": "탭 배너 캐러셀(boxed) — 하이라이트 탭 소비처",
+      "jsx": "apps/web/components/banners/TabBannerCarousel.tsx:295-357",
+      "file": "apps/web/components/banners/TabBannerCarousel.tsx",
+      "node": {
+        "part": "CAROUSEL",
+        "tag": "section",
+        "children": [
+          {
+            "part": "TRACK",
+            "tag": "div",
+            "children": [
+              {
+                "part": "SLIDE",
+                "tag": "article",
+                "children": [
+                  {
+                    "part": "CONTENT",
+                    "tag": "div",
+                    "children": [
+                      {
+                        "part": "TEXT_GROUP",
+                        "tag": "div",
+                        "children": [
+                          {
+                            "part": "TITLE",
+                            "tag": "h2",
+                            "text": "하이라이트 베타 오픈"
+                          },
+                          {
+                            "part": "DESCRIPTION",
+                            "tag": "p",
+                            "text": "경기 영상에서 명장면을 자동으로 찾아 드려요."
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "part": "CONTROLS",
+            "tag": "div",
+            "children": [
+              {
+                "part": "ARROW_BUTTON",
+                "tag": "button"
+              },
+              {
+                "part": "DOTS",
+                "tag": "div",
+                "children": [
+                  {
+                    "part": "DOT",
+                    "tag": "button"
+                  },
+                  {
+                    "part": "DOT",
+                    "tag": "button"
+                  },
+                  {
+                    "part": "DOT",
+                    "tag": "button"
+                  }
+                ]
+              },
+              {
+                "part": "ARROW_BUTTON",
+                "tag": "button"
+              }
+            ]
+          }
+        ]
+      },
+      "host": [
+        {
+          "file": "apps/web/components/scenes/myPageSceneStyles.ts",
+          "part": "appSidebarMainLenisContent"
+        }
+      ]
+    },
+    {
+      "id": "banner-carousel/tabCarouselControls",
+      "kind": "banner-carousel",
+      "label": "공용 탭 배너 캐러셀 컨트롤 — 화살표·점 글래스 필",
+      "jsx": "apps/web/components/banners/TabBannerCarousel.tsx:321-355",
+      "file": "apps/web/components/banners/TabBannerCarousel.tsx",
+      "node": {
+        "part": "CONTROLS",
+        "tag": "div",
+        "children": [
+          {
+            "part": "ARROW_BUTTON",
+            "tag": "button"
+          },
+          {
+            "part": "DOTS",
+            "tag": "div"
+          },
+          {
+            "part": "ARROW_BUTTON",
+            "tag": "button"
+          }
+        ]
+      },
+      "host": [
+        {
+          "file": "apps/web/components/banners/TabBannerCarousel.tsx",
+          "part": "CAROUSEL"
+        }
+      ]
+    },
+    {
+      "id": "button/adminModalCancel",
+      "kind": "button",
+      "label": "관리자 모달 취소 버튼 — MODAL_BUTTON_BASE 참조 합성",
+      "jsx": "apps/web/app/admin/AdminClient.tsx:2139-2144",
+      "file": "apps/web/app/admin/AdminClient.tsx",
+      "node": {
+        "part": "MODAL_CANCEL",
+        "tag": "button",
+        "text": "취소"
+      },
+      "host": [
+        {
+          "file": "apps/web/app/admin/AdminClient.tsx",
+          "part": "MODAL_CARD"
+        },
+        {
+          "file": "apps/web/app/admin/AdminClient.tsx",
+          "part": "MODAL_ACTIONS"
+        }
+      ]
+    },
+    {
+      "id": "button/adminModalConfirm",
+      "kind": "button",
+      "label": "관리자 모달 확인 버튼 — MODAL_BUTTON_BASE 참조 합성",
+      "jsx": "apps/web/app/admin/AdminClient.tsx:2145-2150",
+      "file": "apps/web/app/admin/AdminClient.tsx",
+      "node": {
+        "part": "MODAL_CONFIRM",
+        "tag": "button",
+        "text": "지급"
+      },
+      "host": [
+        {
+          "file": "apps/web/app/admin/AdminClient.tsx",
+          "part": "MODAL_CARD"
+        },
+        {
+          "file": "apps/web/app/admin/AdminClient.tsx",
+          "part": "MODAL_ACTIONS"
+        }
+      ]
+    },
+    {
+      "id": "button/gnbSidebarCta",
+      "kind": "button",
+      "label": "GNB 사이드바 CTA 버튼 — 라벨 스팬을 자식으로 갖는 민트 알약",
+      "jsx": "apps/web/components/navigation/Gnb.tsx:5015-5029",
+      "file": "apps/web/components/navigation/Gnb.tsx",
+      "node": {
+        "part": "sidebarUpgradeButton",
+        "tag": "button",
+        "typography": "type-body-14-medium",
+        "children": [
+          {
+            "part": "sidebarUpgradeLabel",
+            "tag": "span",
+            "text": "보관함"
+          }
+        ]
+      },
+      "host": [
+        {
+          "file": "apps/web/components/navigation/Gnb.tsx",
+          "part": "sidebarUpgradeWrap"
+        },
+        {
+          "file": "apps/web/components/navigation/Gnb.tsx",
+          "part": "sidebarUpgradeTooltipHost"
+        }
+      ]
+    },
+    {
+      "id": "button/highlightStartOver",
+      "kind": "button",
+      "label": "공용 버튼 secondary(md) — 하이라이트 실패 화면 처음부터 버튼",
+      "jsx": "apps/web/components/scenes/HighlightProjectScene.tsx:2773-2775",
+      "file": "apps/web/components/ui/Button.tsx",
+      "node": {
+        "part": "SECONDARY",
+        "tag": "button",
+        "typography": "type-body-14-medium",
+        "children": [
+          {
+            "part": "LABEL",
+            "tag": "span",
+            "text": "처음부터 다시"
+          }
+        ],
+        "parts": [
+          "ROOT",
+          "SIZE_MD",
+          "BORDER_SECONDARY",
+          "SECONDARY"
+        ]
+      },
+      "host": [
+        {
+          "file": "apps/web/components/scenes/highlightSceneStyles.ts",
+          "part": "reviewActions"
+        }
+      ]
+    },
+    {
+      "id": "button/nodeCanvasHomeNew",
+      "kind": "button",
+      "label": "공용 버튼 primary sm — 노드캔버스 홈 새 캔버스(왼쪽 아이콘)",
+      "jsx": "apps/web/components/scenes/NodeCanvasHomeScene.tsx:1325-1332",
+      "file": "apps/web/components/ui/Button.tsx",
+      "node": {
+        "part": "PRIMARY",
+        "tag": "button",
+        "typography": "type-body-14-medium",
+        "children": [
+          {
+            "part": "ICON",
+            "tag": "span"
+          },
+          {
+            "part": "LABEL",
+            "tag": "span",
+            "text": "새 캔버스"
+          }
+        ],
+        "parts": [
+          "ROOT",
+          "SIZE_SM",
+          "BORDER_NONE",
+          "PRIMARY",
+          "PRIMARY_HOOK",
+          "LEFT_ICON_SM"
+        ]
+      },
+      "host": [
+        {
+          "file": "apps/web/components/scenes/NodeCanvasHomeScene.tsx",
+          "part": "ARCHIVE_SECTION_HEADER"
+        }
+      ]
+    },
+    {
+      "id": "button/shortsResultDownload",
+      "kind": "button",
+      "label": "공용 버튼 ghost(md) — 숏폼 결과 다운로드. 소비처가 전폭·소프트 배경 상수를 덧입힌다(jsxQuote 참조)",
+      "jsx": "apps/web/app/highlight/[projectId]/shorts/[shortId]/page.tsx:1334-1343",
+      "file": "apps/web/components/ui/Button.tsx",
+      "node": {
+        "part": "GHOST",
+        "tag": "button",
+        "typography": "type-body-14-medium",
+        "children": [
+          {
+            "part": "LABEL",
+            "tag": "span",
+            "text": "다운로드"
+          }
+        ],
+        "parts": [
+          "ROOT",
+          "SIZE_MD",
+          "BORDER_NONE",
+          "GHOST"
+        ]
+      },
+      "host": [
+        {
+          "file": "apps/web/app/highlight/[projectId]/shorts/[shortId]/page.tsx",
+          "part": "SHORT_RESULT_CARD"
+        },
+        {
+          "file": "apps/web/app/highlight/[projectId]/shorts/[shortId]/page.tsx",
+          "part": "SHORT_RESULT_ACTIONS"
+        }
+      ]
+    },
+    {
+      "id": "button/youtubeConnect",
+      "kind": "button",
+      "label": "공용 버튼 primary(md) — 유튜브 업로드 모달 연결 CTA",
+      "jsx": "apps/web/components/youtube/YoutubeUploadModal.tsx:1042-1048",
+      "file": "apps/web/components/ui/Button.tsx",
+      "node": {
+        "part": "PRIMARY",
+        "tag": "button",
+        "typography": "type-body-14-medium",
+        "children": [
+          {
+            "part": "LABEL",
+            "tag": "span",
+            "text": "연결하기"
+          }
+        ],
+        "parts": [
+          "ROOT",
+          "SIZE_MD",
+          "BORDER_NONE",
+          "PRIMARY",
+          "PRIMARY_HOOK"
+        ]
+      },
+      "host": [
+        {
+          "file": "apps/web/components/youtube/YoutubeUploadModal.tsx",
+          "part": "CONNECT_BOX"
+        }
+      ]
+    },
+    {
+      "id": "canvas-node/bgmShell",
+      "kind": "canvas-node",
+      "label": "캔버스 노드 셸 (BGM 노드) — 카드 위 헤더 + 카드",
+      "jsx": "apps/web/components/scenes/create/node-canvas-v2/nodes/BgmNode.tsx:1035-1063",
+      "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/BgmNode.tsx",
+      "node": {
+        "part": "NODE_CONTAINER",
+        "tag": "div",
+        "children": [
+          {
+            "part": "NODE_HEADER_ABOVE",
+            "tag": "div",
+            "children": [
+              {
+                "part": "NODE_TITLE_WRAP",
+                "tag": "div",
+                "children": [
+                  {
+                    "part": "NODE_TITLE_LEFT",
+                    "tag": "div",
+                    "children": [
+                      {
+                        "part": "NODE_TITLE_ICON",
+                        "tag": "span"
+                      },
+                      {
+                        "part": "NODE_TITLE_LABEL",
+                        "tag": "span",
+                        "typography": "type-body-14-medium",
+                        "text": "사운드"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "part": "NODE_HEADER_ABOVE_ACTIONS",
+                "tag": "div"
+              }
+            ]
+          },
+          {
+            "part": "NODE_MAIN",
+            "tag": "div",
+            "children": [
+              {
+                "part": "NODE_WRAP",
+                "tag": "div"
+              }
+            ]
+          }
+        ]
+      },
+      "hostNone": "부모를 못 찾은 게 아니라 '크기를 바꾸는 부모가 없음'을 확인했다. (1) BgmNode.tsx의 return 루트가 표본 루트다(1035행 `<div className={NODE_CONTAINER} data-node-accent=\"audio\">`) — 컴포넌트 안에 DOM 부모가 없다. (2) 호출부를 따라갔다 — 유일한 소비처는 node-canvas-v2/index.tsx:834 `bgm: memo(BgmNode)`로 NODE_TYPES에 등록되고 index.tsx:10845 `nodeTypes={NODE_TYPES}`로 React Flow(@xyflow/react)에 넘겨지는 것뿐이다. React Flow는 노드를 라이브러리 소유 `.react-flow__node` 래퍼(absolute + translate transform)로 캔버스 팬에 배치하므로 제품 클래스 상수로 된 부모가 존재하지 않는다. (3) 제품 CSS에도 `.react-flow__node`의 크기·레이아웃 선언이 없다 — git grep 결과 globals.css:1267의 `:has([data-meta-dropdown-anchor])` 규칙 하나뿐이고 레이아웃과 무관하다. 래퍼가 absolute라 표본 루트는 어떤 flex/grid 항목도 아니고 shrink-to-fit 문맥에 놓인다 — 폭 선언이 없는 NODE_CONTAINER(flex flex-col items-center)는 고정폭 자식(카드 폭 변수)으로 수축한다.",
+      "host": []
     },
     {
       "id": "checkbox/awsSignupLegal",
@@ -487,6 +1034,225 @@
       ]
     },
     {
+      "id": "gnb-sidebar/brandRow",
+      "kind": "gnb-sidebar",
+      "label": "사이드바 브랜드 행 — 로고 히트 영역",
+      "jsx": "apps/web/components/navigation/Gnb.tsx:4378-4424",
+      "file": "apps/web/components/navigation/Gnb.tsx",
+      "node": {
+        "part": "sidebarHeaderRow",
+        "tag": "div",
+        "children": [
+          {
+            "part": "sidebarLogoHit",
+            "tag": "a",
+            "children": [
+              {
+                "part": "sidebarLogoRail",
+                "tag": "div",
+                "children": [
+                  {
+                    "part": "sidebarBrandCrop",
+                    "tag": "div",
+                    "children": [
+                      {
+                        "part": "logo",
+                        "tag": "img"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "host": [
+        {
+          "file": "apps/web/components/navigation/Gnb.tsx",
+          "part": "wrapperSidebar"
+        },
+        {
+          "file": "apps/web/components/navigation/Gnb.tsx",
+          "part": "navSidebar"
+        }
+      ]
+    },
+    {
+      "id": "gnb-sidebar/createCompoundRow",
+      "kind": "gnb-sidebar",
+      "label": "사이드바 만들기 복합 항목 — 메뉴 줄 + 새 프로젝트 추가 버튼",
+      "jsx": "apps/web/components/navigation/Gnb.tsx:4643-4691",
+      "file": "apps/web/components/navigation/Gnb.tsx",
+      "node": {
+        "part": "menuLink",
+        "tag": "div",
+        "children": [
+          {
+            "part": "menuSidebarCreateNavPart",
+            "tag": "button",
+            "children": [
+              {
+                "part": "menuLinkInner",
+                "tag": "span",
+                "children": [
+                  {
+                    "part": "menuLinkIconMask",
+                    "tag": "span"
+                  },
+                  {
+                    "part": "menuLinkLabel",
+                    "tag": "span",
+                    "text": "노드 캔버스"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "part": "menuSidebarCreateAddonInset",
+            "tag": "button"
+          }
+        ]
+      },
+      "host": [
+        {
+          "file": "apps/web/components/navigation/Gnb.tsx",
+          "part": "wrapperSidebar"
+        },
+        {
+          "file": "apps/web/components/navigation/Gnb.tsx",
+          "part": "navSidebar"
+        },
+        {
+          "file": "apps/web/components/navigation/Gnb.tsx",
+          "part": "menuSidebarOuter"
+        },
+        {
+          "file": "apps/web/components/navigation/Gnb.tsx",
+          "part": "menuSidebar"
+        },
+        {
+          "file": "apps/web/components/navigation/Gnb.tsx",
+          "part": "menuSidebarNavTooltipHost"
+        }
+      ]
+    },
+    {
+      "id": "gnb-sidebar/menuLinkRow",
+      "kind": "gnb-sidebar",
+      "label": "사이드바 메뉴 항목 한 줄 — 아이콘·라벨 (쉬는 상태)",
+      "jsx": "apps/web/components/navigation/Gnb.tsx:4808-4844",
+      "file": "apps/web/components/navigation/Gnb.tsx",
+      "node": {
+        "part": "menuLink",
+        "tag": "a",
+        "children": [
+          {
+            "part": "menuLinkInner",
+            "tag": "span",
+            "children": [
+              {
+                "part": "menuLinkIconMask",
+                "tag": "span"
+              },
+              {
+                "part": "menuLinkLabel",
+                "tag": "span",
+                "text": "홈"
+              }
+            ]
+          }
+        ]
+      },
+      "host": [
+        {
+          "file": "apps/web/components/navigation/Gnb.tsx",
+          "part": "wrapperSidebar"
+        },
+        {
+          "file": "apps/web/components/navigation/Gnb.tsx",
+          "part": "navSidebar"
+        },
+        {
+          "file": "apps/web/components/navigation/Gnb.tsx",
+          "part": "menuSidebarOuter"
+        },
+        {
+          "file": "apps/web/components/navigation/Gnb.tsx",
+          "part": "menuSidebar"
+        },
+        {
+          "file": "apps/web/components/navigation/Gnb.tsx",
+          "part": "menuSidebarNavTooltipHost"
+        }
+      ]
+    },
+    {
+      "id": "gnb-sidebar/profileTrigger",
+      "kind": "gnb-sidebar",
+      "label": "프로필 트리거 — 크레딧 링을 두른 아바타 버튼",
+      "jsx": "apps/web/components/navigation/Gnb.tsx:5312-5337",
+      "file": "apps/web/components/navigation/Gnb.tsx",
+      "node": {
+        "part": "profileTrigger",
+        "tag": "button",
+        "children": [
+          {
+            "part": "profileImage",
+            "tag": "img"
+          }
+        ]
+      },
+      "host": [
+        {
+          "file": "apps/web/components/navigation/Gnb.tsx",
+          "part": "mainChromeProfileCluster"
+        }
+      ]
+    },
+    {
+      "id": "gnb-sidebar/rail",
+      "kind": "gnb-sidebar",
+      "label": "GNB 사이드바 레일 — 메뉴 기둥과 분석 아이브로우",
+      "jsx": "apps/web/components/navigation/Gnb.tsx:4466-4852",
+      "file": "apps/web/components/navigation/Gnb.tsx",
+      "node": {
+        "part": "menuSidebarOuter",
+        "tag": "div",
+        "children": [
+          {
+            "part": "menuSidebar",
+            "tag": "ul",
+            "children": [
+              {
+                "part": "menuSidebarEyebrowRow",
+                "tag": "li",
+                "children": [
+                  {
+                    "part": "menuSidebarEyebrow",
+                    "tag": "span",
+                    "typography": "type-caption-12-medium",
+                    "text": "분석"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "host": [
+        {
+          "file": "apps/web/components/navigation/Gnb.tsx",
+          "part": "wrapperSidebar"
+        },
+        {
+          "file": "apps/web/components/navigation/Gnb.tsx",
+          "part": "navSidebar"
+        }
+      ]
+    },
+    {
       "id": "icon-button/archiveMore",
       "kind": "icon-button",
       "label": "앱 홈 카드 더보기 버튼",
@@ -541,6 +1307,52 @@
       ]
     },
     {
+      "id": "icon-button/nodeHeaderDelete",
+      "kind": "icon-button",
+      "label": "캔버스 노드 헤더 삭제 버튼 — NodeHeaderActions의 danger 액션(쉬는 상태는 중립과 같고 호버 틴트만 다르다)",
+      "jsx": "apps/web/components/scenes/create/node-canvas-v2/components/NodeHeaderActions.tsx:136-144",
+      "file": "apps/web/components/scenes/create/node-canvas-v2/components/NodeHeaderActions.tsx",
+      "node": {
+        "part": "BUTTON_DANGER",
+        "tag": "button",
+        "children": [
+          {
+            "part": "GLYPH",
+            "tag": "svg"
+          }
+        ]
+      },
+      "host": [
+        {
+          "file": "apps/web/components/scenes/create/node-canvas-v2/components/NodeHeaderActions.tsx",
+          "part": "ACTIONS"
+        }
+      ]
+    },
+    {
+      "id": "icon-button/nodeHeaderDownload",
+      "kind": "icon-button",
+      "label": "캔버스 노드 헤더 다운로드 버튼 — 8개 노드가 공유하는 NodeHeaderActions의 중립 액션",
+      "jsx": "apps/web/components/scenes/create/node-canvas-v2/components/NodeHeaderActions.tsx:115-123",
+      "file": "apps/web/components/scenes/create/node-canvas-v2/components/NodeHeaderActions.tsx",
+      "node": {
+        "part": "BUTTON_NEUTRAL",
+        "tag": "button",
+        "children": [
+          {
+            "part": "GLYPH",
+            "tag": "svg"
+          }
+        ]
+      },
+      "host": [
+        {
+          "file": "apps/web/components/scenes/create/node-canvas-v2/components/NodeHeaderActions.tsx",
+          "part": "ACTIONS"
+        }
+      ]
+    },
+    {
       "id": "icon-button/overlayDelete",
       "kind": "icon-button",
       "label": "오버레이 삭제 버튼 — 글리프를 자식이 갖는다",
@@ -561,6 +1373,529 @@
         {
           "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts",
           "part": "propertiesPanelHeaderRow"
+        }
+      ]
+    },
+    {
+      "id": "input-form/awsSignupNameResting",
+      "kind": "input-form",
+      "label": "AWS 가입 이름 입력 — 색 상수만 다른 넷째 벌 (navy 고정 다크)",
+      "jsx": "apps/web/app/aws/signup/page.tsx:482-501",
+      "file": "apps/web/app/aws/signup/page.tsx",
+      "node": {
+        "part": "INPUT_BOX",
+        "tag": "div",
+        "children": [
+          {
+            "part": "INPUT",
+            "tag": "input",
+            "typography": "type-body-16-medium"
+          },
+          {
+            "part": "FLOATING_LABEL_RESTING",
+            "tag": "span",
+            "text": "이름"
+          }
+        ]
+      },
+      "host": [
+        {
+          "file": "apps/web/app/aws/signup/page.tsx",
+          "part": "FORM"
+        }
+      ]
+    },
+    {
+      "id": "input-form/loginEmailResting",
+      "kind": "input-form",
+      "label": "로그인 이메일 입력 — 라벨 쉬는 상태 (그룹 상단 상자, 둘째 벌)",
+      "jsx": "apps/web/app/login/page.tsx:423-487",
+      "file": "apps/web/app/login/page.tsx",
+      "node": {
+        "part": "INPUT_BOX",
+        "tag": "div",
+        "children": [
+          {
+            "part": "INPUT",
+            "tag": "input",
+            "typography": "type-body-16-regular"
+          },
+          {
+            "part": "FLOATING_LABEL_REST",
+            "tag": "span",
+            "text": "이메일"
+          }
+        ]
+      },
+      "host": [
+        {
+          "file": "apps/web/app/login/page.tsx",
+          "part": "FORM"
+        }
+      ]
+    },
+    {
+      "id": "input-form/loginPasswordFloated",
+      "kind": "input-form",
+      "label": "로그인 비밀번호 입력 — 라벨 뜬 상태 + 지우기·보기 토글 두 개 (그룹 하단 상자)",
+      "jsx": "apps/web/app/login/page.tsx:489-578",
+      "file": "apps/web/app/login/page.tsx",
+      "node": {
+        "part": "INPUT_BOX",
+        "tag": "div",
+        "children": [
+          {
+            "part": "INPUT",
+            "tag": "input",
+            "typography": "type-body-16-regular"
+          },
+          {
+            "part": "PASSWORD_TOGGLE",
+            "tag": "button",
+            "children": [
+              {
+                "part": "PASSWORD_TOGGLE_ICON",
+                "tag": "img"
+              }
+            ]
+          },
+          {
+            "part": "PASSWORD_TOGGLE",
+            "tag": "button",
+            "children": [
+              {
+                "part": "PASSWORD_TOGGLE_ICON",
+                "tag": "img"
+              }
+            ]
+          },
+          {
+            "part": "FLOATING_LABEL_FLOATED",
+            "tag": "span",
+            "text": "비밀번호"
+          }
+        ]
+      },
+      "host": [
+        {
+          "file": "apps/web/app/login/page.tsx",
+          "part": "FORM"
+        }
+      ]
+    },
+    {
+      "id": "input-form/recoverEmailResting",
+      "kind": "input-form",
+      "label": "계정 복구 이메일 입력 — 라벨 쉬는 상태 (같은 구조의 셋째 벌, 타이포가 INPUT 상수 안에 있다)",
+      "jsx": "apps/web/app/recover/page.tsx:214-276",
+      "file": "apps/web/app/recover/page.tsx",
+      "node": {
+        "part": "INPUT_BOX",
+        "tag": "div",
+        "children": [
+          {
+            "part": "INPUT",
+            "tag": "input"
+          },
+          {
+            "part": "FLOATING_LABEL_RESTING",
+            "tag": "span",
+            "text": "이메일"
+          }
+        ]
+      },
+      "host": [
+        {
+          "file": "apps/web/app/recover/page.tsx",
+          "part": "FORM"
+        }
+      ]
+    },
+    {
+      "id": "input-form/resetPasswordEmailResting",
+      "kind": "input-form",
+      "label": "비밀번호 재설정 이메일 입력 — 반경을 제 몸에 갖는 벌",
+      "jsx": "apps/web/app/reset-password/page.tsx:196-224",
+      "file": "apps/web/app/reset-password/page.tsx",
+      "node": {
+        "part": "INPUT_BOX",
+        "tag": "div",
+        "children": [
+          {
+            "part": "INPUT",
+            "tag": "input",
+            "typography": "type-body-16-medium"
+          },
+          {
+            "part": "FLOATING_LABEL_RESTING",
+            "tag": "span",
+            "text": "이메일"
+          }
+        ]
+      },
+      "host": [
+        {
+          "file": "apps/web/app/reset-password/page.tsx",
+          "part": "FORM"
+        }
+      ]
+    },
+    {
+      "id": "input-form/signupNameResting",
+      "kind": "input-form",
+      "label": "회원가입 이름 입력 — 라벨 쉬는 상태 (단일 라운드 상자)",
+      "jsx": "apps/web/app/signup/page.tsx:424-456",
+      "file": "apps/web/app/signup/page.tsx",
+      "node": {
+        "part": "INPUT_BOX",
+        "tag": "div",
+        "children": [
+          {
+            "part": "INPUT",
+            "tag": "input",
+            "typography": "type-body-16-medium"
+          },
+          {
+            "part": "FLOATING_LABEL_RESTING",
+            "tag": "span",
+            "text": "이름"
+          }
+        ]
+      },
+      "host": [
+        {
+          "file": "apps/web/app/signup/page.tsx",
+          "part": "FORM"
+        }
+      ]
+    },
+    {
+      "id": "input-form/signupPasswordFloated",
+      "kind": "input-form",
+      "label": "회원가입 비밀번호 입력 — 라벨 뜬 상태 + 비밀번호 보기 토글 (그룹 상단 상자)",
+      "jsx": "apps/web/app/signup/page.tsx:492-548",
+      "file": "apps/web/app/signup/page.tsx",
+      "node": {
+        "part": "INPUT_BOX",
+        "tag": "div",
+        "children": [
+          {
+            "part": "INPUT",
+            "tag": "input",
+            "typography": "type-body-16-medium"
+          },
+          {
+            "part": "PASSWORD_TOGGLE",
+            "tag": "button",
+            "children": [
+              {
+                "part": "PASSWORD_TOGGLE_ICON",
+                "tag": "img"
+              }
+            ]
+          },
+          {
+            "part": "FLOATING_LABEL_FLOATED",
+            "tag": "span",
+            "text": "비밀번호"
+          }
+        ]
+      },
+      "host": [
+        {
+          "file": "apps/web/app/signup/page.tsx",
+          "part": "FORM"
+        }
+      ]
+    },
+    {
+      "id": "insight-card/audienceDeviceTypes",
+      "kind": "insight-card",
+      "label": "시청자 탭 · 기기 유형 카드 (기기 목록 변형)",
+      "jsx": "apps/web/components/scenes/analytics/AudienceTab.tsx:1116-1166",
+      "file": "apps/web/components/scenes/analytics/AudienceTab.tsx",
+      "node": {
+        "part": "INSIGHT_CARD",
+        "tag": "div",
+        "children": [
+          {
+            "part": "INSIGHT_TITLE",
+            "tag": "h2",
+            "typography": "type-body-14-medium",
+            "text": "기기 유형"
+          },
+          {
+            "part": "GEO_LIST_DEVICE",
+            "tag": "div",
+            "children": [
+              {
+                "part": "GEO_ROW",
+                "tag": "div",
+                "children": [
+                  {
+                    "part": "GEO_LABEL_ROW",
+                    "tag": "div",
+                    "children": [
+                      {
+                        "part": "GEO_COUNTRY_DEVICE",
+                        "tag": "span",
+                        "typography": "type-caption-12-regular",
+                        "text": "모바일"
+                      },
+                      {
+                        "part": "GEO_PCT_DEVICE",
+                        "tag": "span",
+                        "typography": "type-caption-12-medium",
+                        "text": "78.4%"
+                      }
+                    ]
+                  },
+                  {
+                    "part": "GEO_BAR",
+                    "tag": "div",
+                    "children": [
+                      {
+                        "part": "GEO_BAR_FILL",
+                        "tag": "div"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "part": "GEO_ROW",
+                "tag": "div",
+                "children": [
+                  {
+                    "part": "GEO_LABEL_ROW",
+                    "tag": "div",
+                    "children": [
+                      {
+                        "part": "GEO_COUNTRY_DEVICE",
+                        "tag": "span",
+                        "typography": "type-caption-12-regular",
+                        "text": "데스크톱"
+                      },
+                      {
+                        "part": "GEO_PCT_DEVICE",
+                        "tag": "span",
+                        "typography": "type-caption-12-medium",
+                        "text": "21.6%"
+                      }
+                    ]
+                  },
+                  {
+                    "part": "GEO_BAR",
+                    "tag": "div",
+                    "children": [
+                      {
+                        "part": "GEO_BAR_FILL",
+                        "tag": "div"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "host": [
+        {
+          "file": "apps/web/components/scenes/analytics/AudienceTab.tsx",
+          "part": "AUDIENCE_INSIGHTS_ROW"
+        }
+      ]
+    },
+    {
+      "id": "insight-card/audienceTopCountries",
+      "kind": "insight-card",
+      "label": "시청자 탭 · 주요 국가 카드 (직계 제목 + 막대 목록 변형)",
+      "jsx": "apps/web/components/scenes/analytics/AudienceTab.tsx:1062-1112",
+      "file": "apps/web/components/scenes/analytics/AudienceTab.tsx",
+      "node": {
+        "part": "INSIGHT_CARD",
+        "tag": "div",
+        "children": [
+          {
+            "part": "INSIGHT_TITLE",
+            "tag": "h2",
+            "typography": "type-body-14-medium",
+            "text": "주요 국가"
+          },
+          {
+            "part": "GEO_LIST",
+            "tag": "div",
+            "children": [
+              {
+                "part": "GEO_ROW",
+                "tag": "div",
+                "children": [
+                  {
+                    "part": "GEO_LABEL_ROW",
+                    "tag": "div",
+                    "children": [
+                      {
+                        "part": "GEO_COUNTRY",
+                        "tag": "span",
+                        "typography": "type-caption-12-regular",
+                        "text": "대한민국"
+                      },
+                      {
+                        "part": "GEO_PCT",
+                        "tag": "span",
+                        "typography": "type-caption-12-medium",
+                        "text": "42.7%"
+                      }
+                    ]
+                  },
+                  {
+                    "part": "GEO_BAR",
+                    "tag": "div",
+                    "children": [
+                      {
+                        "part": "GEO_BAR_FILL",
+                        "tag": "div"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "part": "GEO_ROW",
+                "tag": "div",
+                "children": [
+                  {
+                    "part": "GEO_LABEL_ROW",
+                    "tag": "div",
+                    "children": [
+                      {
+                        "part": "GEO_COUNTRY",
+                        "tag": "span",
+                        "typography": "type-caption-12-regular",
+                        "text": "미국"
+                      },
+                      {
+                        "part": "GEO_PCT",
+                        "tag": "span",
+                        "typography": "type-caption-12-medium",
+                        "text": "23.5%"
+                      }
+                    ]
+                  },
+                  {
+                    "part": "GEO_BAR",
+                    "tag": "div",
+                    "children": [
+                      {
+                        "part": "GEO_BAR_FILL",
+                        "tag": "div"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "part": "GEO_ROW",
+                "tag": "div",
+                "children": [
+                  {
+                    "part": "GEO_LABEL_ROW",
+                    "tag": "div",
+                    "children": [
+                      {
+                        "part": "GEO_COUNTRY",
+                        "tag": "span",
+                        "typography": "type-caption-12-regular",
+                        "text": "일본"
+                      },
+                      {
+                        "part": "GEO_PCT",
+                        "tag": "span",
+                        "typography": "type-caption-12-medium",
+                        "text": "11.2%"
+                      }
+                    ]
+                  },
+                  {
+                    "part": "GEO_BAR",
+                    "tag": "div",
+                    "children": [
+                      {
+                        "part": "GEO_BAR_FILL",
+                        "tag": "div"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "host": [
+        {
+          "file": "apps/web/components/scenes/analytics/AudienceTab.tsx",
+          "part": "AUDIENCE_INSIGHTS_ROW"
+        }
+      ]
+    },
+    {
+      "id": "insight-card/igOverviewKpi",
+      "kind": "insight-card",
+      "label": "인스타그램 개요 · KPI 카드",
+      "jsx": "apps/web/components/scenes/InstagramAnalyticsScene.tsx:1233-1265",
+      "file": "apps/web/components/scenes/InstagramAnalyticsScene.tsx",
+      "node": {
+        "part": "REPORT_KPI_CARD",
+        "tag": "div",
+        "children": [
+          {
+            "part": "KPI_CARD_HEADER",
+            "tag": "div",
+            "children": [
+              {
+                "part": "CONTENT_TITLE",
+                "tag": "span",
+                "typography": "type-body-14-medium",
+                "text": "조회수"
+              }
+            ]
+          },
+          {
+            "part": "KPI_CARD_INNER",
+            "tag": "div",
+            "children": [
+              {
+                "part": "KPI_CARD_INNER_TEXT",
+                "tag": "div",
+                "children": [
+                  {
+                    "part": "REPORT_KPI_CARD_VALUE",
+                    "tag": "span",
+                    "typography": "type-heading-36-medium",
+                    "text": "12.4만"
+                  },
+                  {
+                    "part": "reportChangePill",
+                    "tag": "span",
+                    "typography": "type-caption-12-medium",
+                    "text": "+12.5%"
+                  }
+                ]
+              },
+              {
+                "part": "KPI_CARD_SPARK",
+                "tag": "div"
+              }
+            ]
+          }
+        ]
+      },
+      "host": [
+        {
+          "file": "apps/web/components/scenes/InstagramAnalyticsScene.tsx",
+          "part": "REPORT_KPI_ROW"
         }
       ]
     },
@@ -908,6 +2243,52 @@
         {
           "file": "apps/web/components/scenes/highlightSceneStyles.ts",
           "part": "statusCard"
+        }
+      ]
+    },
+    {
+      "id": "progress-ring/gnbTopBar",
+      "kind": "progress-ring",
+      "label": "GNB 상단 바 프로필 크레딧 링 — 버튼의 ::after가 링을 그린다",
+      "jsx": "apps/web/components/navigation/Gnb.tsx:5312-5337",
+      "file": "apps/web/components/navigation/Gnb.tsx",
+      "node": {
+        "part": "profileTrigger",
+        "tag": "button",
+        "children": [
+          {
+            "part": "profileImage",
+            "tag": "img"
+          }
+        ]
+      },
+      "host": [
+        {
+          "file": "apps/web/components/navigation/Gnb.tsx",
+          "part": "mainChromeProfileCluster"
+        }
+      ]
+    },
+    {
+      "id": "progress-ring/projectHeaderSlot",
+      "kind": "progress-ring",
+      "label": "프로젝트 헤더 프로필 링 — 슬롯 훅이 아바타를 줄인다",
+      "jsx": "apps/web/components/navigation/Gnb.tsx:3984-4009",
+      "file": "apps/web/components/navigation/Gnb.tsx",
+      "node": {
+        "part": "profileTrigger",
+        "tag": "button",
+        "children": [
+          {
+            "part": "profileImage",
+            "tag": "img"
+          }
+        ]
+      },
+      "host": [
+        {
+          "file": "apps/web/components/scenes/create/ProjectHeader.tsx",
+          "part": "PROFILE_SLOT"
         }
       ]
     },
@@ -1478,6 +2859,50 @@
       "hostNone": "IG_SCROLL 에 display 선언이 없다 — flex/inline-flex/grid 중 어느 것도 아니고 기본 block 이다. \"[flex:1_1_auto]\" 는 자기 자신이 CARD(54)의 flex 자식일 때 적용되는 항목 속성이지 컨테이너를 만드는 선언이 아니다. 레이아웃을 만드는 조상은 CARD(54, \"flex flex-col items-stretch min-h-0\")이고 IG_SCROLL 은 그 사이의 스크"
     },
     {
+      "id": "skeleton/channelAvatarIg",
+      "kind": "skeleton",
+      "label": "인스타그램 대시보드 채널 아바타 로딩 뼈대",
+      "jsx": "apps/web/components/scenes/InstagramAnalyticsScene.tsx:1773-1773",
+      "file": "apps/web/components/scenes/InstagramAnalyticsScene.tsx",
+      "node": {
+        "part": "CHANNEL_AVATAR_SKELETON",
+        "tag": "div"
+      },
+      "host": [
+        {
+          "file": "apps/web/components/scenes/InstagramAnalyticsScene.tsx",
+          "part": "DASHBOARD_TOP_BAR_LEFT"
+        }
+      ]
+    },
+    {
+      "id": "skeleton/channelInfoIg",
+      "kind": "skeleton",
+      "label": "인스타그램 대시보드 채널 정보 로딩 뼈대 — SKELETON_BLOCK 막대 두 줄",
+      "jsx": "apps/web/components/scenes/InstagramAnalyticsScene.tsx:1774-1777",
+      "file": "apps/web/components/scenes/InstagramAnalyticsScene.tsx",
+      "node": {
+        "part": "CHANNEL_INFO_SKELETON",
+        "tag": "div",
+        "children": [
+          {
+            "part": "SKELETON_CHANNEL_TITLE",
+            "tag": "div"
+          },
+          {
+            "part": "SKELETON_CHANNEL_DESC",
+            "tag": "div"
+          }
+        ]
+      },
+      "host": [
+        {
+          "file": "apps/web/components/scenes/InstagramAnalyticsScene.tsx",
+          "part": "DASHBOARD_TOP_BAR_LEFT"
+        }
+      ]
+    },
+    {
       "id": "skeleton/instagramTopBar",
       "kind": "skeleton",
       "label": "인스타그램 분석 상단바 로딩 뼈대 — 같은 상수 이름의 두 번째 벌",
@@ -1742,6 +3167,27 @@
       ]
     },
     {
+      "id": "text-field/adminSearch",
+      "kind": "text-field",
+      "label": "관리자 검색 입력 — 알약형 유리 입력(FIELD_CONTROL), 이메일·이름 검색",
+      "jsx": "apps/web/app/admin/AdminClient.tsx:1389-1404",
+      "file": "apps/web/app/admin/AdminClient.tsx",
+      "node": {
+        "part": "FIELD_CONTROL",
+        "tag": "input"
+      },
+      "host": [
+        {
+          "file": "apps/web/app/admin/AdminClient.tsx",
+          "part": "SEARCH_ROW"
+        },
+        {
+          "file": "apps/web/app/admin/AdminClient.tsx",
+          "part": "SEARCH_INPUT_WRAPPER"
+        }
+      ]
+    },
+    {
       "id": "text-field/inspectorFramedInput",
       "kind": "text-field",
       "label": "인스펙터 초·프레임 입력 행 — 숫자 입력 둘과 단위 둘",
@@ -1818,6 +3264,44 @@
         {
           "file": "apps/web/components/scenes/myPageSceneStyles.ts",
           "part": "settingsRowEditGroup"
+        }
+      ]
+    },
+    {
+      "id": "toast/adminError",
+      "kind": "toast",
+      "label": "관리자 토스트 · 오류 스킨 — TOAST_ERROR 색 상수가 JSX에서 합성된다",
+      "jsx": "apps/web/app/admin/AdminClient.tsx:1551-1555",
+      "file": "apps/web/app/admin/AdminClient.tsx",
+      "node": {
+        "part": "TOAST",
+        "tag": "div",
+        "typography": "type-body-14-medium",
+        "text": "사용자 목록을 불러오지 못했습니다"
+      },
+      "host": [
+        {
+          "file": "apps/web/app/admin/AdminClient.tsx",
+          "part": "CONTENT_PANEL"
+        }
+      ]
+    },
+    {
+      "id": "toast/adminSuccess",
+      "kind": "toast",
+      "label": "관리자 토스트 · 성공 스킨 — TOAST_SUCCESS 색 상수가 JSX에서 합성된다",
+      "jsx": "apps/web/app/admin/AdminClient.tsx:1441-1449",
+      "file": "apps/web/app/admin/AdminClient.tsx",
+      "node": {
+        "part": "TOAST",
+        "tag": "div",
+        "typography": "type-body-14-medium",
+        "text": "지급이 완료되었습니다"
+      },
+      "host": [
+        {
+          "file": "apps/web/app/admin/AdminClient.tsx",
+          "part": "CONTENT_PANEL"
         }
       ]
     },
@@ -1935,6 +3419,164 @@
         {
           "file": "apps/web/app/mypage/upgrade/page.tsx",
           "part": "TIER_FEATURE_WITH_TIP"
+        }
+      ]
+    },
+    {
+      "id": "top-bar/gnbProjectHeader",
+      "kind": "top-bar",
+      "label": "GNB 프로젝트 헤더 상단 바",
+      "jsx": "apps/web/components/navigation/Gnb.tsx:4101-4376",
+      "file": "apps/web/components/navigation/Gnb.tsx",
+      "node": {
+        "part": "projectHeader",
+        "tag": "div",
+        "children": [
+          {
+            "part": "iconButton",
+            "tag": "button"
+          },
+          {
+            "part": "projectTitle",
+            "tag": "span",
+            "typography": "type-body-16-regular",
+            "text": "프로젝트 이름"
+          },
+          {
+            "part": "projectActions",
+            "tag": "div",
+            "children": [
+              {
+                "part": "projectHeaderActionsShell",
+                "tag": "div",
+                "children": [
+                  {
+                    "part": "projectMenuAnchor",
+                    "tag": "div",
+                    "children": [
+                      {
+                        "part": "iconButton",
+                        "tag": "button"
+                      }
+                    ]
+                  },
+                  {
+                    "part": "iconButton",
+                    "tag": "button"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "host": [
+        {
+          "file": "apps/web/components/navigation/Gnb.tsx",
+          "part": "nav"
+        }
+      ]
+    },
+    {
+      "id": "top-bar/instagramAnalytics",
+      "kind": "top-bar",
+      "label": "인스타그램 분석 채널 배너 상단 바",
+      "jsx": "apps/web/components/scenes/InstagramAnalyticsScene.tsx:1769-1803",
+      "file": "apps/web/components/scenes/InstagramAnalyticsScene.tsx",
+      "node": {
+        "part": "DASHBOARD_TOP_BAR",
+        "tag": "header",
+        "children": [
+          {
+            "part": "DASHBOARD_TOP_BAR_LEFT",
+            "tag": "div",
+            "children": [
+              {
+                "part": "CHANNEL_AVATAR",
+                "tag": "div",
+                "children": [
+                  {
+                    "part": "CHANNEL_AVATAR_PLACEHOLDER",
+                    "tag": "div"
+                  }
+                ]
+              },
+              {
+                "part": "CHANNEL_INFO",
+                "tag": "div",
+                "children": [
+                  {
+                    "part": "CHANNEL_NAME",
+                    "tag": "span",
+                    "typography": "type-heading-48-medium",
+                    "text": "@instagram"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "host": [
+        {
+          "file": "apps/web/components/scenes/analytics/AnalyticsMainScrollRegion.tsx",
+          "part": "ANALYTICS_SCROLL_STACK"
+        }
+      ]
+    },
+    {
+      "id": "top-bar/youtubeAnalytics",
+      "kind": "top-bar",
+      "label": "유튜브 분석 채널 배너 상단 바",
+      "jsx": "apps/web/components/scenes/YoutubeAnalyticsScene.tsx:1937-2060",
+      "file": "apps/web/components/scenes/YoutubeAnalyticsScene.tsx",
+      "node": {
+        "part": "DASHBOARD_TOP_BAR_CARD",
+        "tag": "header",
+        "children": [
+          {
+            "part": "DASHBOARD_TOP_BAR_OVERLAY",
+            "tag": "div"
+          },
+          {
+            "part": "DASHBOARD_TOP_BAR_LEFT",
+            "tag": "div",
+            "children": [
+              {
+                "part": "CHANNEL_AVATAR",
+                "tag": "div",
+                "children": [
+                  {
+                    "part": "CHANNEL_AVATAR_PLACEHOLDER",
+                    "tag": "div"
+                  }
+                ]
+              },
+              {
+                "part": "CHANNEL_INFO",
+                "tag": "div",
+                "children": [
+                  {
+                    "part": "CHANNEL_NAME",
+                    "tag": "span",
+                    "typography": "type-heading-48-medium",
+                    "text": "채널 이름"
+                  },
+                  {
+                    "part": "CHANNEL_DESC_BUTTON",
+                    "tag": "button",
+                    "text": "채널 소개 문구가 여기에 표시됩니다."
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "host": [
+        {
+          "file": "apps/web/components/scenes/analytics/AnalyticsMainScrollRegion.tsx",
+          "part": "ANALYTICS_SCROLL_STACK"
         }
       ]
     }

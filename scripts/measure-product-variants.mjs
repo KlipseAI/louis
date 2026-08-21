@@ -282,7 +282,13 @@ const buildSpecimen = (specimen, node, path) => {
     tag: node.tag,
     line: constant.line,
     text: node.text ?? "",
-    classes: [node.typography, constant.classes].filter(Boolean).join(" "),
+    // 소비처가 **렌더 시점에** 여러 상수를 합성하면 그 목록을 그대로 적는다(`parts`).
+    // 공용 Button이 그렇다 — `[ROOT, SIZE_MD, BORDER_NONE, PRIMARY].join(" ")`.
+    // 한 상수만 가리키면 높이·여백·배경이 통째로 빠져 25px짜리 테두리 조각이 된다.
+    classes: [
+      node.typography,
+      ...(node.parts ?? [node.part]).map((name) => classesOf(specimen.file, name).classes),
+    ].filter(Boolean).join(" "),
     inline: node.inlineFrom
       ? inlineStyleOf(node.inlineFrom.file, node.inlineFrom.name)
       : (node.inlineAt ? inlineAtOf(node.inlineAt) : ""),

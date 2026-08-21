@@ -707,6 +707,59 @@ const catalogBody = [
   "| Package release | " + tick + tokenPackage.packageRelease + tick + " |",
 ].join("\n");
 
+// 제품 자유값 축의 분포표. 손으로 세다 두 번 틀려서(2026-08-21 border-width·radius)
+// 계기가 직접 표를 만들게 했다. 원천은 measure-product-drift.mjs가 배포본에서 잰 값이다.
+function renderProductDrift() {
+  const absolute = requireFile(
+    "migration/product.drift.json",
+    "product drift measurement",
+  );
+  if (!absolute) return "";
+  const drift = readJson(absolute, "product drift measurement");
+  const axes = drift && drift.axes;
+  if (!Array.isArray(axes) || axes.length === 0) {
+    errors.push("product.drift.json에 axes가 없습니다.");
+    return "";
+  }
+  const lines = [];
+  lines.push(
+    "배포본 `" + String(drift.productCommit).slice(0, 8) + "` 기준. **이 표는 생성물이다** — " +
+      "`scripts/measure-product-drift.mjs`가 매 `verify`마다 다시 잰다.",
+    "",
+    "| 축 | 제품 | DS가 덮는 비율 | 최다값 | 결손 최다 |",
+    "| --- | ---: | ---: | --- | --- |",
+  );
+  for (const axis of axes) {
+    const miss = (axis.missingTop || [])[0];
+    lines.push(
+      "| " + escapeCell(axis.id) +
+        " | " + axis.productStops + "단 " + axis.uses + "회" +
+        " | " + axis.coveragePct + "%" +
+        " | `" + axis.topValue + axis.unit + "` " + axis.topUses + "회" +
+        (axis.topHasToken === false ? " **토큰 없음**" : "") +
+        " | " + (miss ? "`" + miss.value + axis.unit + "` " + miss.uses + "회 / " + miss.files + "파일" : "없음") +
+        " |",
+    );
+  }
+  for (const axis of axes) {
+    const missing = axis.missingTop || [];
+    if (missing.length === 0) continue;
+    lines.push(
+      "",
+      "**" + escapeCell(axis.label) + " (`" + escapeCell(axis.id) + "`) — 토큰 없는 값 상위**",
+      "",
+      "| 값 | 사용 | 파일 |",
+      "| --- | ---: | ---: |",
+    );
+    for (const row of missing) {
+      lines.push(
+        "| `" + row.value + axis.unit + "` | " + row.uses + " | " + row.files + " |",
+      );
+    }
+  }
+  return lines.join("\n");
+}
+
 function renderAppShellGeometry() {
   const absolute = requireFile(
     "packages/tokens/generated/tokens.json",
@@ -767,6 +820,14 @@ const generatedUpdates = new Map([
       "design/patterns/README.md",
       "pattern-progress",
       renderProgress(patterns, "patterns", "Pattern"),
+    ),
+  ],
+  [
+    "design/governance/product-confirmations.md",
+    replaceGeneratedRegion(
+      "design/governance/product-confirmations.md",
+      "product-drift",
+      renderProductDrift(),
     ),
   ],
   [

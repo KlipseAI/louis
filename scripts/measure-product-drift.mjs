@@ -100,6 +100,11 @@ const axes = AXES.map((axis) => {
     topHasToken: top ? ds.has(top[0]) : null,
     missingTop: rows.filter(([v]) => !ds.has(v)).slice(0, 8)
       .map(([v, e]) => ({ value: v, uses: e.uses, files: e.files.size })),
+    // 산문이 표를 손으로 세다 틀린 적이 있다(2026-08-21, border-width·radius).
+    // 덮인 값까지 계기가 내놓아야 표 전체를 생성물로 만들 수 있다.
+    topUsed: rows.slice(0, 10).map(([v, e]) => ({
+      value: v, uses: e.uses, files: e.files.size, hasToken: ds.has(v),
+    })),
   };
 });
 
@@ -108,7 +113,7 @@ const output = {
   $whyThisExists:
     "값을 직접 쓸 수 있는 축마다 드리프트가 번진다. 2026-08-21에 네 축에서 같은 자국이 **따로따로** 발견됐다 — 알파·radius·border-width·duration. 한 축씩 발견하는 방식으로는 다섯 번째를 놓친다. 전 축을 한 번에 재서 드러낸다.",
   $howToRead:
-    "coverage가 낮으면 DS 스케일이 좁거나 제품이 흩어진 것이다. topHasToken이 false면 **가장 흔한 값을 토큰으로 쓸 수 없다는 뜻**이며, 그 자체로 결함이다.",
+    "coverage가 낮으면 DS 스케일이 좁거나 제품이 흩어진 것이다. topHasToken이 false면 **가장 흔한 값을 토큰으로 쓸 수 없다는 뜻**이며, 그 자체로 결함이다. topUsed/missingTop이 문서의 분포표를 생성한다 — 표를 손으로 세지 않는다.",
   productRef: ref, productCommit: commit,
   axes,
 };

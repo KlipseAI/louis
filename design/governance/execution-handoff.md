@@ -1061,11 +1061,21 @@ coverage가 끝나지 않았다면 P3 core release라고 명시한다. published
 | 3 | 채널 팔레트 primitive 40개 (mint/yellow/pink/violet/red 보강) | `done` — 실측 39개 (2026-08-21) |
 | 4 | 채널 semantic 24개 (노드 타입 식별자) | `partial` — 19종 `done`, disabled 12종은 Open question 3 대기 |
 | 5 | 타이포 15종 재편 — **breaking** | `done` |
-| 6 | contrastPairs 7 → 19 | `pending` |
+| 6 | contrastPairs 7 → 19 | `partial` — 12 → 14쌍 (2026-08-21) |
 | 7 | elevation / border-width / radius 16개 | `partial` — 실측 결과 아래 |
 | 8 | layer / motion 10개 — layerOrder 배열 변경 | `partial` — 실측 결과 아래 |
-| 9 | sky / editor / danger action 14개 | `pending` — 아래 3번 |
+| 9 | sky / editor / danger action 14개 | `partial` — danger foreground 해소 (2026-08-21) |
 | 10 | space / surface 보강 13개 | `blocked` — 아래 1·2번 |
+
+**단위 9 — danger foreground 공백은 해소됐다 (2026-08-21).**
+
+`color-foreground-danger-on-surface`를 세웠다. light `red.700`(표면 6.08 · 메뉴 5.62 · 본문색과
+2.72) · dark `red.400`(4.51 · 4.51 · 2.57)이며 **두 표면 모두 4.5를 넘으면서 본문색과도 구분되는
+유일한 조합**이다. `red-600`(light 4.15)·`red-500`(dark 3.70)은 미달이고, `red-800`은 대비는
+높지만 본문색과 1.77이라 「빨강」으로 읽히지 않는다. contrastPairs 두 쌍(`background-surface` ·
+`background-menu`)을 함께 올려 게이트가 매번 실제 WCAG 계산으로 확인한다.
+
+**남은 sky/editor 계열은 아직이다.** 아래 원래 기록을 남긴다.
 
 **단위 9가 반드시 포함해야 하는 것 (2026-08-14 워크샵 실측):**
 

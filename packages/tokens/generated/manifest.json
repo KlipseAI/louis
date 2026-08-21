@@ -2,23 +2,23 @@
   "artifacts": [
     {
       "path": "packages/tokens/generated/figma.tokens.json",
-      "sha256": "e93c80e248d17b118195ca88267cb8c06e70f29abb1976e9d339b62a7ede0d28"
+      "sha256": "e44cc036886d719211f17489f5bd944eaf3fb2c048abb927d2584e1c45ce4de9"
     },
     {
       "path": "packages/tokens/generated/index.d.ts",
-      "sha256": "c81d675d69c98ec932d8c3af4da714ef839adc8c3ae1f0015dc54f3819071bbf"
+      "sha256": "8a1b7ae4c09af5f6938fceb090a84533fb47ecd042aba2a55c196508d473c86a"
     },
     {
       "path": "packages/tokens/generated/index.js",
-      "sha256": "cec7761dcaf11592a47db7244dd96f2d5cc94ea6ca719e1b1c512f945844676c"
+      "sha256": "1a9799f8501a11a61449341deb96d0707ab0ac75ba04c1be838d200cc92515c5"
     },
     {
       "path": "packages/tokens/generated/tokens.css",
-      "sha256": "ef6c52914a4d9331b21b95e74389d42d259867c48f4fe87b4dbc7ee7cf737164"
+      "sha256": "4595eaed27f7d4fd4f5a0fc079a00e35a87816c1e87cfdc20f5e70b8b6850795"
     },
     {
       "path": "packages/tokens/generated/tokens.json",
-      "sha256": "57b153bb1da67cf56568bb65d2a0451d7d39dd1cd322628dbdc73df3e171f3c0"
+      "sha256": "9fe2fd51757ca49917fc7266b65874c004f974ba02796eaf72ec3bcaebbcccca"
     }
   ],
   "contrastPairs": [
@@ -86,6 +86,16 @@
       "foreground": "color-action-secondary-foreground",
       "minimum": 3.5,
       "note": "제품의 secondary·ghost 전경은 gray-600 #777d89이고 흰 배경 대비 4.13, DS canvas 대비 3.67로 WCAG AA 4.5에 미달한다. 제품 값을 정본으로 채택한 결과다. 한 단계 진한 neutral.700을 쓰면 6.35로 통과하지만 제품과 달라진다. 다크 모드는 제품이 알파(paper-alpha 72)를 쓰는데 알파 전경은 배경에 따라 대비가 달라져 게이트가 잴 수 없으므로 가장 가까운 불투명 단계 neutral.400을 쓴다."
+    },
+    {
+      "background": "color-background-surface",
+      "foreground": "color-foreground-danger-on-surface",
+      "minimum": 4.5
+    },
+    {
+      "background": "color-background-menu",
+      "foreground": "color-foreground-danger-on-surface",
+      "minimum": 4.5
     }
   ],
   "description": "Klipse Design의 DTCG 2025.10 기반 토큰 정본",
@@ -388,13 +398,13 @@
   },
   "source": {
     "path": "packages/tokens/src/klipse.tokens.json",
-    "sha256": "ec4c7f89b2576837780df92be6ee2b8a9ba9e9898cc764f84e05cbdc78cc0ab7"
+    "sha256": "62401968da6421cde408eabb66f1f286b1fe4a59322ae4fed648ead00440c8cd"
   },
   "themes": [
     "light",
     "dark"
   ],
-  "tokenCount": 502,
+  "tokenCount": 504,
   "tokens": [
     {
       "aliasTarget": null,
@@ -2793,6 +2803,58 @@
         ]
       },
       "sourcePath": "semantic.dark.color.foreground-danger",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-red-700",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-color-foreground-danger-on-surface": "color(srgb 0.717647 0.141176 0.192157 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-foreground-danger-on-surface",
+      "mode": "light",
+      "rawValue": "{primitive.color.red.700}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0.717647,
+          0.141176,
+          0.192157
+        ]
+      },
+      "sourcePath": "semantic.light.color.foreground-danger-on-surface",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-red-400",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-color-foreground-danger-on-surface": "color(srgb 1 0.435294 0.486275 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-foreground-danger-on-surface",
+      "mode": "dark",
+      "rawValue": "{primitive.color.red.400}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.435294,
+          0.486275
+        ]
+      },
+      "sourcePath": "semantic.dark.color.foreground-danger-on-surface",
       "tier": "semantic",
       "type": "color"
     },

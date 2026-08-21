@@ -6,12 +6,12 @@
     "capturedAt": "2026-08-21",
     "capturedBy": "figma-mcp-plugin-api",
     "published": false,
-    "tokenSourceSha256": "ec4c7f89b2576837780df92be6ee2b8a9ba9e9898cc764f84e05cbdc78cc0ab7",
-    "proposalSha256": "e93c80e248d17b118195ca88267cb8c06e70f29abb1976e9d339b62a7ede0d28",
+    "tokenSourceSha256": "62401968da6421cde408eabb66f1f286b1fe4a59322ae4fed648ead00440c8cd",
+    "proposalSha256": "e44cc036886d719211f17489f5bd944eaf3fb2c048abb927d2584e1c45ce4de9",
     "readback": {
-      "tokens": 344,
-      "canonicalLength": 30098,
-      "fnv1a32": "5a597aca",
+      "tokens": 345,
+      "canonicalLength": 30240,
+      "fnv1a32": "0265dca5",
       "note": "변수는 readback.json의 되읽기 행을 tokenId 공간으로 옮긴 것이고, style과 component는 같은 되읽기의 style/component 절이다. canonical 해시는 컬렉션·이름·타입·mode 값을 정렬해 이은 문자열의 FNV-1a다.",
       "styles": {
         "text": 15,
@@ -46,7 +46,7 @@
         "Dark"
       ],
       "defaultMode": "Light",
-      "variableCount": 79
+      "variableCount": 80
     }
   },
   "variables": {
@@ -777,6 +777,18 @@
         },
         "Dark": {
           "alias": "color-red-100"
+        }
+      }
+    },
+    "color-foreground-danger-on-surface": {
+      "figmaName": "color/foreground-danger-on-surface",
+      "resolvedType": "COLOR",
+      "valuesByMode": {
+        "Light": {
+          "alias": "color-red-700"
+        },
+        "Dark": {
+          "alias": "color-red-400"
         }
       }
     },

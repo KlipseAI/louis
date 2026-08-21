@@ -67,6 +67,16 @@ export const metadata = Object.freeze({
       "foreground": "color-action-secondary-foreground",
       "minimum": 3.5,
       "note": "제품의 secondary·ghost 전경은 gray-600 #777d89이고 흰 배경 대비 4.13, DS canvas 대비 3.67로 WCAG AA 4.5에 미달한다. 제품 값을 정본으로 채택한 결과다. 한 단계 진한 neutral.700을 쓰면 6.35로 통과하지만 제품과 달라진다. 다크 모드는 제품이 알파(paper-alpha 72)를 쓰는데 알파 전경은 배경에 따라 대비가 달라져 게이트가 잴 수 없으므로 가장 가까운 불투명 단계 neutral.400을 쓴다."
+    },
+    {
+      "foreground": "color-foreground-danger-on-surface",
+      "background": "color-background-surface",
+      "minimum": 4.5
+    },
+    {
+      "foreground": "color-foreground-danger-on-surface",
+      "background": "color-background-menu",
+      "minimum": 4.5
     }
   ],
   "description": "Klipse Design의 DTCG 2025.10 기반 토큰 정본",
@@ -11662,6 +11672,32 @@ export const tokens = {
         "alpha": 1
       }
     },
+    "color-foreground-danger-on-surface": {
+      "aliasTarget": {
+        "id": "color-red-700",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-color-foreground-danger-on-surface": "color(srgb 0.717647 0.141176 0.192157 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-foreground-danger-on-surface",
+      "mode": "light",
+      "rawValue": "{primitive.color.red.700}",
+      "sourcePath": "semantic.light.color.foreground-danger-on-surface",
+      "tier": "semantic",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.717647,
+          0.141176,
+          0.192157
+        ],
+        "alpha": 1
+      }
+    },
     "color-foreground-disabled": {
       "aliasTarget": {
         "id": "color-neutral-500",
@@ -13909,6 +13945,32 @@ export const tokens = {
           1,
           0.898039,
           0.909804
+        ],
+        "alpha": 1
+      }
+    },
+    "color-foreground-danger-on-surface": {
+      "aliasTarget": {
+        "id": "color-red-400",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-color-foreground-danger-on-surface": "color(srgb 1 0.435294 0.486275 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-foreground-danger-on-surface",
+      "mode": "dark",
+      "rawValue": "{primitive.color.red.400}",
+      "sourcePath": "semantic.dark.color.foreground-danger-on-surface",
+      "tier": "semantic",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.435294,
+          0.486275
         ],
         "alpha": 1
       }

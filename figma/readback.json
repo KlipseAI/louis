@@ -4391,6 +4391,23 @@
           ]
         ],
         [
+          "color/foreground-danger-on-surface",
+          "COLOR",
+          "TEXT_FILL",
+          [
+            [
+              "Light",
+              "Klipse Primitive::color/red/700",
+              null
+            ],
+            [
+              "Dark",
+              "Klipse Primitive::color/red/400",
+              null
+            ]
+          ]
+        ],
+        [
           "color/foreground-disabled",
           "COLOR",
           "TEXT_FILL",

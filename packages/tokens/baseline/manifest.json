@@ -2,23 +2,23 @@
   "artifacts": [
     {
       "path": "packages/tokens/generated/figma.tokens.json",
-      "sha256": "575a81f456cacdbab71df27502745254c5a8a1098c4eff5b2e9e2da41f9bbfbb"
+      "sha256": "e44cc036886d719211f17489f5bd944eaf3fb2c048abb927d2584e1c45ce4de9"
     },
     {
       "path": "packages/tokens/generated/index.d.ts",
-      "sha256": "8abe0b01c2485f1bafc1605106fd069b079921bc0d51cd50d9a8b87551c09bf1"
+      "sha256": "8a1b7ae4c09af5f6938fceb090a84533fb47ecd042aba2a55c196508d473c86a"
     },
     {
       "path": "packages/tokens/generated/index.js",
-      "sha256": "2a9b24f60294ad8472e36b872b6b71522e9128cb708785701dae172d6a03d813"
+      "sha256": "1a9799f8501a11a61449341deb96d0707ab0ac75ba04c1be838d200cc92515c5"
     },
     {
       "path": "packages/tokens/generated/tokens.css",
-      "sha256": "5b2105fceb6225116781564459c1d278a78416463142649ab042d3efb7873a60"
+      "sha256": "4595eaed27f7d4fd4f5a0fc079a00e35a87816c1e87cfdc20f5e70b8b6850795"
     },
     {
       "path": "packages/tokens/generated/tokens.json",
-      "sha256": "69c5491b5b8ac4c857780ab843c4bad6730b0c8beeb61f61862fecd1ab48ff70"
+      "sha256": "9fe2fd51757ca49917fc7266b65874c004f974ba02796eaf72ec3bcaebbcccca"
     }
   ],
   "contrastPairs": [
@@ -86,6 +86,16 @@
       "foreground": "color-action-secondary-foreground",
       "minimum": 3.5,
       "note": "제품의 secondary·ghost 전경은 gray-600 #777d89이고 흰 배경 대비 4.13, DS canvas 대비 3.67로 WCAG AA 4.5에 미달한다. 제품 값을 정본으로 채택한 결과다. 한 단계 진한 neutral.700을 쓰면 6.35로 통과하지만 제품과 달라진다. 다크 모드는 제품이 알파(paper-alpha 72)를 쓰는데 알파 전경은 배경에 따라 대비가 달라져 게이트가 잴 수 없으므로 가장 가까운 불투명 단계 neutral.400을 쓴다."
+    },
+    {
+      "background": "color-background-surface",
+      "foreground": "color-foreground-danger-on-surface",
+      "minimum": 4.5
+    },
+    {
+      "background": "color-background-menu",
+      "foreground": "color-foreground-danger-on-surface",
+      "minimum": 4.5
     }
   ],
   "description": "Klipse Design의 DTCG 2025.10 기반 토큰 정본",
@@ -388,13 +398,13 @@
   },
   "source": {
     "path": "packages/tokens/src/klipse.tokens.json",
-    "sha256": "0d7af3075dceabd451b824ae307b7dc5b1dd27e8e86d2108ee8609d10fc11317"
+    "sha256": "62401968da6421cde408eabb66f1f286b1fe4a59322ae4fed648ead00440c8cd"
   },
   "themes": [
     "light",
     "dark"
   ],
-  "tokenCount": 360,
+  "tokenCount": 504,
   "tokens": [
     {
       "aliasTarget": null,
@@ -431,6 +441,25 @@
         "value": 12
       },
       "sourcePath": "primitive.blur.12",
+      "tier": "primitive",
+      "type": "dimension"
+    },
+    {
+      "aliasTarget": null,
+      "cssProperties": {},
+      "deprecated": null,
+      "description": null,
+      "id": "blur-16",
+      "mode": "base",
+      "rawValue": {
+        "unit": "px",
+        "value": 16
+      },
+      "resolvedValue": {
+        "unit": "px",
+        "value": 16
+      },
+      "sourcePath": "primitive.blur.16",
       "tier": "primitive",
       "type": "dimension"
     },
@@ -474,6 +503,67 @@
       },
       "sourcePath": "semantic.global.blur.surface",
       "tier": "semantic",
+      "type": "dimension"
+    },
+    {
+      "aliasTarget": {
+        "id": "blur-16",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-blur-toast": "16px"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "blur-toast",
+      "mode": "global",
+      "rawValue": "{primitive.blur.16}",
+      "resolvedValue": {
+        "unit": "px",
+        "value": 16
+      },
+      "sourcePath": "semantic.global.blur.toast",
+      "tier": "semantic",
+      "type": "dimension"
+    },
+    {
+      "aliasTarget": {
+        "id": "border-width-default-base",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-border-width-default": "1px"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "border-width-default",
+      "mode": "global",
+      "rawValue": "{primitive.border-width.default}",
+      "resolvedValue": {
+        "unit": "px",
+        "value": 1
+      },
+      "sourcePath": "semantic.global.border-width.default",
+      "tier": "semantic",
+      "type": "dimension"
+    },
+    {
+      "aliasTarget": null,
+      "cssProperties": {},
+      "deprecated": null,
+      "description": null,
+      "id": "border-width-default-base",
+      "mode": "base",
+      "rawValue": {
+        "unit": "px",
+        "value": 1
+      },
+      "resolvedValue": {
+        "unit": "px",
+        "value": 1
+      },
+      "sourcePath": "primitive.border-width.default",
+      "tier": "primitive",
       "type": "dimension"
     },
     {
@@ -1714,6 +1804,162 @@
     },
     {
       "aliasTarget": {
+        "id": "color-neutral-900",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-color-background-upgrade": "color(srgb 0.090196 0.105882 0.133333 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-background-upgrade",
+      "mode": "light",
+      "rawValue": "{primitive.color.neutral.900}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0.090196,
+          0.105882,
+          0.133333
+        ]
+      },
+      "sourcePath": "semantic.light.color.background-upgrade",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-neutral-100",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-color-background-upgrade": "color(srgb 0.945098 0.945098 0.952941 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-background-upgrade",
+      "mode": "dark",
+      "rawValue": "{primitive.color.neutral.100}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0.945098,
+          0.945098,
+          0.952941
+        ]
+      },
+      "sourcePath": "semantic.dark.color.background-upgrade",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-neutral-50",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-color-background-upgrade-current": "color(srgb 0.972549 0.972549 0.976471 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-background-upgrade-current",
+      "mode": "light",
+      "rawValue": "{primitive.color.neutral.50}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0.972549,
+          0.972549,
+          0.976471
+        ]
+      },
+      "sourcePath": "semantic.light.color.background-upgrade-current",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-neutral-800",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-color-background-upgrade-current": "color(srgb 0.192157 0.211765 0.25098 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-background-upgrade-current",
+      "mode": "dark",
+      "rawValue": "{primitive.color.neutral.800}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0.192157,
+          0.211765,
+          0.25098
+        ]
+      },
+      "sourcePath": "semantic.dark.color.background-upgrade-current",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-neutral-800",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-color-background-upgrade-hover": "color(srgb 0.192157 0.211765 0.25098 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-background-upgrade-hover",
+      "mode": "light",
+      "rawValue": "{primitive.color.neutral.800}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0.192157,
+          0.211765,
+          0.25098
+        ]
+      },
+      "sourcePath": "semantic.light.color.background-upgrade-hover",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-neutral-200",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-color-background-upgrade-hover": "color(srgb 0.890196 0.894118 0.909804 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-background-upgrade-hover",
+      "mode": "dark",
+      "rawValue": "{primitive.color.neutral.200}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0.890196,
+          0.894118,
+          0.909804
+        ]
+      },
+      "sourcePath": "semantic.dark.color.background-upgrade-hover",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
         "id": "color-amber-100",
         "mode": "base"
       },
@@ -2562,6 +2808,58 @@
     },
     {
       "aliasTarget": {
+        "id": "color-red-700",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-color-foreground-danger-on-surface": "color(srgb 0.717647 0.141176 0.192157 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-foreground-danger-on-surface",
+      "mode": "light",
+      "rawValue": "{primitive.color.red.700}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0.717647,
+          0.141176,
+          0.192157
+        ]
+      },
+      "sourcePath": "semantic.light.color.foreground-danger-on-surface",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-red-400",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-color-foreground-danger-on-surface": "color(srgb 1 0.435294 0.486275 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-foreground-danger-on-surface",
+      "mode": "dark",
+      "rawValue": "{primitive.color.red.400}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.435294,
+          0.486275
+        ]
+      },
+      "sourcePath": "semantic.dark.color.foreground-danger-on-surface",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
         "id": "color-neutral-500",
         "mode": "base"
       },
@@ -3082,6 +3380,162 @@
     },
     {
       "aliasTarget": {
+        "id": "color-neutral-50",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-color-foreground-upgrade": "color(srgb 0.972549 0.972549 0.976471 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-foreground-upgrade",
+      "mode": "light",
+      "rawValue": "{primitive.color.neutral.50}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0.972549,
+          0.972549,
+          0.976471
+        ]
+      },
+      "sourcePath": "semantic.light.color.foreground-upgrade",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-neutral-900",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-color-foreground-upgrade": "color(srgb 0.090196 0.105882 0.133333 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-foreground-upgrade",
+      "mode": "dark",
+      "rawValue": "{primitive.color.neutral.900}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0.090196,
+          0.105882,
+          0.133333
+        ]
+      },
+      "sourcePath": "semantic.dark.color.foreground-upgrade",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-neutral-1000",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-color-foreground-upgrade-current": "color(srgb 0 0 0 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-foreground-upgrade-current",
+      "mode": "light",
+      "rawValue": "{primitive.color.neutral.1000}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0,
+          0,
+          0
+        ]
+      },
+      "sourcePath": "semantic.light.color.foreground-upgrade-current",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-neutral-0",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-color-foreground-upgrade-current": "color(srgb 0.980392 0.980392 0.980392 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-foreground-upgrade-current",
+      "mode": "dark",
+      "rawValue": "{primitive.color.neutral.0}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0.980392,
+          0.980392,
+          0.980392
+        ]
+      },
+      "sourcePath": "semantic.dark.color.foreground-upgrade-current",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-neutral-50",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-color-foreground-upgrade-hover": "color(srgb 0.972549 0.972549 0.976471 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-foreground-upgrade-hover",
+      "mode": "light",
+      "rawValue": "{primitive.color.neutral.50}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0.972549,
+          0.972549,
+          0.976471
+        ]
+      },
+      "sourcePath": "semantic.light.color.foreground-upgrade-hover",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-neutral-900",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-color-foreground-upgrade-hover": "color(srgb 0.090196 0.105882 0.133333 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-foreground-upgrade-hover",
+      "mode": "dark",
+      "rawValue": "{primitive.color.neutral.900}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0.090196,
+          0.105882,
+          0.133333
+        ]
+      },
+      "sourcePath": "semantic.dark.color.foreground-upgrade-hover",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
         "id": "color-amber-900",
         "mode": "base"
       },
@@ -3253,6 +3707,36 @@
       "cssProperties": {},
       "deprecated": null,
       "description": null,
+      "id": "color-ink-alpha-10",
+      "mode": "base",
+      "rawValue": {
+        "alpha": 0.1,
+        "colorSpace": "srgb",
+        "components": [
+          0.090196,
+          0.105882,
+          0.133333
+        ],
+        "hex": "#171b22"
+      },
+      "resolvedValue": {
+        "alpha": 0.1,
+        "colorSpace": "srgb",
+        "components": [
+          0.090196,
+          0.105882,
+          0.133333
+        ]
+      },
+      "sourcePath": "primitive.color.ink-alpha.10",
+      "tier": "primitive",
+      "type": "color"
+    },
+    {
+      "aliasTarget": null,
+      "cssProperties": {},
+      "deprecated": null,
+      "description": null,
       "id": "color-ink-alpha-12",
       "mode": "base",
       "rawValue": {
@@ -3275,6 +3759,186 @@
         ]
       },
       "sourcePath": "primitive.color.ink-alpha.12",
+      "tier": "primitive",
+      "type": "color"
+    },
+    {
+      "aliasTarget": null,
+      "cssProperties": {},
+      "deprecated": null,
+      "description": null,
+      "id": "color-ink-alpha-16",
+      "mode": "base",
+      "rawValue": {
+        "alpha": 0.16,
+        "colorSpace": "srgb",
+        "components": [
+          0.090196,
+          0.105882,
+          0.133333
+        ],
+        "hex": "#171b22"
+      },
+      "resolvedValue": {
+        "alpha": 0.16,
+        "colorSpace": "srgb",
+        "components": [
+          0.090196,
+          0.105882,
+          0.133333
+        ]
+      },
+      "sourcePath": "primitive.color.ink-alpha.16",
+      "tier": "primitive",
+      "type": "color"
+    },
+    {
+      "aliasTarget": null,
+      "cssProperties": {},
+      "deprecated": null,
+      "description": null,
+      "id": "color-ink-alpha-20",
+      "mode": "base",
+      "rawValue": {
+        "alpha": 0.2,
+        "colorSpace": "srgb",
+        "components": [
+          0.090196,
+          0.105882,
+          0.133333
+        ],
+        "hex": "#171b22"
+      },
+      "resolvedValue": {
+        "alpha": 0.2,
+        "colorSpace": "srgb",
+        "components": [
+          0.090196,
+          0.105882,
+          0.133333
+        ]
+      },
+      "sourcePath": "primitive.color.ink-alpha.20",
+      "tier": "primitive",
+      "type": "color"
+    },
+    {
+      "aliasTarget": null,
+      "cssProperties": {},
+      "deprecated": null,
+      "description": null,
+      "id": "color-ink-alpha-25",
+      "mode": "base",
+      "rawValue": {
+        "alpha": 0.25,
+        "colorSpace": "srgb",
+        "components": [
+          0.090196,
+          0.105882,
+          0.133333
+        ],
+        "hex": "#171b22"
+      },
+      "resolvedValue": {
+        "alpha": 0.25,
+        "colorSpace": "srgb",
+        "components": [
+          0.090196,
+          0.105882,
+          0.133333
+        ]
+      },
+      "sourcePath": "primitive.color.ink-alpha.25",
+      "tier": "primitive",
+      "type": "color"
+    },
+    {
+      "aliasTarget": null,
+      "cssProperties": {},
+      "deprecated": null,
+      "description": null,
+      "id": "color-ink-alpha-30",
+      "mode": "base",
+      "rawValue": {
+        "alpha": 0.3,
+        "colorSpace": "srgb",
+        "components": [
+          0.090196,
+          0.105882,
+          0.133333
+        ],
+        "hex": "#171b22"
+      },
+      "resolvedValue": {
+        "alpha": 0.3,
+        "colorSpace": "srgb",
+        "components": [
+          0.090196,
+          0.105882,
+          0.133333
+        ]
+      },
+      "sourcePath": "primitive.color.ink-alpha.30",
+      "tier": "primitive",
+      "type": "color"
+    },
+    {
+      "aliasTarget": null,
+      "cssProperties": {},
+      "deprecated": null,
+      "description": null,
+      "id": "color-ink-alpha-4",
+      "mode": "base",
+      "rawValue": {
+        "alpha": 0.04,
+        "colorSpace": "srgb",
+        "components": [
+          0.090196,
+          0.105882,
+          0.133333
+        ],
+        "hex": "#171b22"
+      },
+      "resolvedValue": {
+        "alpha": 0.04,
+        "colorSpace": "srgb",
+        "components": [
+          0.090196,
+          0.105882,
+          0.133333
+        ]
+      },
+      "sourcePath": "primitive.color.ink-alpha.4",
+      "tier": "primitive",
+      "type": "color"
+    },
+    {
+      "aliasTarget": null,
+      "cssProperties": {},
+      "deprecated": null,
+      "description": null,
+      "id": "color-ink-alpha-40",
+      "mode": "base",
+      "rawValue": {
+        "alpha": 0.4,
+        "colorSpace": "srgb",
+        "components": [
+          0.090196,
+          0.105882,
+          0.133333
+        ],
+        "hex": "#171b22"
+      },
+      "resolvedValue": {
+        "alpha": 0.4,
+        "colorSpace": "srgb",
+        "components": [
+          0.090196,
+          0.105882,
+          0.133333
+        ]
+      },
+      "sourcePath": "primitive.color.ink-alpha.40",
       "tier": "primitive",
       "type": "color"
     },
@@ -3313,6 +3977,36 @@
       "cssProperties": {},
       "deprecated": null,
       "description": null,
+      "id": "color-ink-alpha-50",
+      "mode": "base",
+      "rawValue": {
+        "alpha": 0.5,
+        "colorSpace": "srgb",
+        "components": [
+          0.090196,
+          0.105882,
+          0.133333
+        ],
+        "hex": "#171b22"
+      },
+      "resolvedValue": {
+        "alpha": 0.5,
+        "colorSpace": "srgb",
+        "components": [
+          0.090196,
+          0.105882,
+          0.133333
+        ]
+      },
+      "sourcePath": "primitive.color.ink-alpha.50",
+      "tier": "primitive",
+      "type": "color"
+    },
+    {
+      "aliasTarget": null,
+      "cssProperties": {},
+      "deprecated": null,
+      "description": null,
       "id": "color-ink-alpha-6",
       "mode": "base",
       "rawValue": {
@@ -3343,6 +4037,66 @@
       "cssProperties": {},
       "deprecated": null,
       "description": null,
+      "id": "color-ink-alpha-60",
+      "mode": "base",
+      "rawValue": {
+        "alpha": 0.6,
+        "colorSpace": "srgb",
+        "components": [
+          0.090196,
+          0.105882,
+          0.133333
+        ],
+        "hex": "#171b22"
+      },
+      "resolvedValue": {
+        "alpha": 0.6,
+        "colorSpace": "srgb",
+        "components": [
+          0.090196,
+          0.105882,
+          0.133333
+        ]
+      },
+      "sourcePath": "primitive.color.ink-alpha.60",
+      "tier": "primitive",
+      "type": "color"
+    },
+    {
+      "aliasTarget": null,
+      "cssProperties": {},
+      "deprecated": null,
+      "description": null,
+      "id": "color-ink-alpha-70",
+      "mode": "base",
+      "rawValue": {
+        "alpha": 0.7,
+        "colorSpace": "srgb",
+        "components": [
+          0.090196,
+          0.105882,
+          0.133333
+        ],
+        "hex": "#171b22"
+      },
+      "resolvedValue": {
+        "alpha": 0.7,
+        "colorSpace": "srgb",
+        "components": [
+          0.090196,
+          0.105882,
+          0.133333
+        ]
+      },
+      "sourcePath": "primitive.color.ink-alpha.70",
+      "tier": "primitive",
+      "type": "color"
+    },
+    {
+      "aliasTarget": null,
+      "cssProperties": {},
+      "deprecated": null,
+      "description": null,
       "id": "color-ink-alpha-8",
       "mode": "base",
       "rawValue": {
@@ -3365,6 +4119,36 @@
         ]
       },
       "sourcePath": "primitive.color.ink-alpha.8",
+      "tier": "primitive",
+      "type": "color"
+    },
+    {
+      "aliasTarget": null,
+      "cssProperties": {},
+      "deprecated": null,
+      "description": null,
+      "id": "color-ink-alpha-80",
+      "mode": "base",
+      "rawValue": {
+        "alpha": 0.8,
+        "colorSpace": "srgb",
+        "components": [
+          0.090196,
+          0.105882,
+          0.133333
+        ],
+        "hex": "#171b22"
+      },
+      "resolvedValue": {
+        "alpha": 0.8,
+        "colorSpace": "srgb",
+        "components": [
+          0.090196,
+          0.105882,
+          0.133333
+        ]
+      },
+      "sourcePath": "primitive.color.ink-alpha.80",
       "tier": "primitive",
       "type": "color"
     },
@@ -3931,6 +4715,268 @@
       "cssProperties": {},
       "deprecated": null,
       "description": null,
+      "id": "color-mint-100",
+      "mode": "base",
+      "rawValue": {
+        "colorSpace": "srgb",
+        "components": [
+          0.898039,
+          1,
+          0.968627
+        ],
+        "hex": "#e5fff7"
+      },
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0.898039,
+          1,
+          0.968627
+        ]
+      },
+      "sourcePath": "primitive.color.mint.100",
+      "tier": "primitive",
+      "type": "color"
+    },
+    {
+      "aliasTarget": null,
+      "cssProperties": {},
+      "deprecated": null,
+      "description": null,
+      "id": "color-mint-200",
+      "mode": "base",
+      "rawValue": {
+        "colorSpace": "srgb",
+        "components": [
+          0.721569,
+          0.972549,
+          0.898039
+        ],
+        "hex": "#b8f8e5"
+      },
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0.721569,
+          0.972549,
+          0.898039
+        ]
+      },
+      "sourcePath": "primitive.color.mint.200",
+      "tier": "primitive",
+      "type": "color"
+    },
+    {
+      "aliasTarget": null,
+      "cssProperties": {},
+      "deprecated": null,
+      "description": null,
+      "id": "color-mint-300",
+      "mode": "base",
+      "rawValue": {
+        "colorSpace": "srgb",
+        "components": [
+          0.47451,
+          0.92549,
+          0.8
+        ],
+        "hex": "#79eccc"
+      },
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0.47451,
+          0.92549,
+          0.8
+        ]
+      },
+      "sourcePath": "primitive.color.mint.300",
+      "tier": "primitive",
+      "type": "color"
+    },
+    {
+      "aliasTarget": null,
+      "cssProperties": {},
+      "deprecated": null,
+      "description": null,
+      "id": "color-mint-400",
+      "mode": "base",
+      "rawValue": {
+        "colorSpace": "srgb",
+        "components": [
+          0.156863,
+          0.85098,
+          0.647059
+        ],
+        "hex": "#28d9a5"
+      },
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0.156863,
+          0.85098,
+          0.647059
+        ]
+      },
+      "sourcePath": "primitive.color.mint.400",
+      "tier": "primitive",
+      "type": "color"
+    },
+    {
+      "aliasTarget": null,
+      "cssProperties": {},
+      "deprecated": null,
+      "description": null,
+      "id": "color-mint-500",
+      "mode": "base",
+      "rawValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0,
+          0.776471,
+          0.556863
+        ],
+        "hex": "#00c68e"
+      },
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0,
+          0.776471,
+          0.556863
+        ]
+      },
+      "sourcePath": "primitive.color.mint.500",
+      "tier": "primitive",
+      "type": "color"
+    },
+    {
+      "aliasTarget": null,
+      "cssProperties": {},
+      "deprecated": null,
+      "description": null,
+      "id": "color-mint-600",
+      "mode": "base",
+      "rawValue": {
+        "colorSpace": "srgb",
+        "components": [
+          0,
+          0.701961,
+          0.498039
+        ],
+        "hex": "#00b37f"
+      },
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0,
+          0.701961,
+          0.498039
+        ]
+      },
+      "sourcePath": "primitive.color.mint.600",
+      "tier": "primitive",
+      "type": "color"
+    },
+    {
+      "aliasTarget": null,
+      "cssProperties": {},
+      "deprecated": null,
+      "description": null,
+      "id": "color-mint-700",
+      "mode": "base",
+      "rawValue": {
+        "colorSpace": "srgb",
+        "components": [
+          0,
+          0.560784,
+          0.403922
+        ],
+        "hex": "#008f67"
+      },
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0,
+          0.560784,
+          0.403922
+        ]
+      },
+      "sourcePath": "primitive.color.mint.700",
+      "tier": "primitive",
+      "type": "color"
+    },
+    {
+      "aliasTarget": null,
+      "cssProperties": {},
+      "deprecated": null,
+      "description": null,
+      "id": "color-mint-800",
+      "mode": "base",
+      "rawValue": {
+        "colorSpace": "srgb",
+        "components": [
+          0,
+          0.431373,
+          0.317647
+        ],
+        "hex": "#006e51"
+      },
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0,
+          0.431373,
+          0.317647
+        ]
+      },
+      "sourcePath": "primitive.color.mint.800",
+      "tier": "primitive",
+      "type": "color"
+    },
+    {
+      "aliasTarget": null,
+      "cssProperties": {},
+      "deprecated": null,
+      "description": null,
+      "id": "color-mint-900",
+      "mode": "base",
+      "rawValue": {
+        "colorSpace": "srgb",
+        "components": [
+          0,
+          0.298039,
+          0.223529
+        ],
+        "hex": "#004c39"
+      },
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0,
+          0.298039,
+          0.223529
+        ]
+      },
+      "sourcePath": "primitive.color.mint.900",
+      "tier": "primitive",
+      "type": "color"
+    },
+    {
+      "aliasTarget": null,
+      "cssProperties": {},
+      "deprecated": null,
+      "description": null,
       "id": "color-neutral-0",
       "mode": "base",
       "rawValue": {
@@ -4304,6 +5350,994 @@
       "type": "color"
     },
     {
+      "aliasTarget": {
+        "id": "color-pink-500",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-color-node-audio-accent": "color(srgb 1 0.301961 0.533333 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-node-audio-accent",
+      "mode": "light",
+      "rawValue": "{primitive.color.pink.500}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.301961,
+          0.533333
+        ]
+      },
+      "sourcePath": "semantic.light.color.node-audio-accent",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-pink-500",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-color-node-audio-accent": "color(srgb 1 0.301961 0.533333 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-node-audio-accent",
+      "mode": "dark",
+      "rawValue": "{primitive.color.pink.500}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.301961,
+          0.533333
+        ]
+      },
+      "sourcePath": "semantic.dark.color.node-audio-accent",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-pink-500",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-color-node-audio-icon": "color(srgb 1 0.301961 0.533333 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-node-audio-icon",
+      "mode": "light",
+      "rawValue": "{primitive.color.pink.500}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.301961,
+          0.533333
+        ]
+      },
+      "sourcePath": "semantic.light.color.node-audio-icon",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-pink-500",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-color-node-audio-icon": "color(srgb 1 0.301961 0.533333 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-node-audio-icon",
+      "mode": "dark",
+      "rawValue": "{primitive.color.pink.500}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.301961,
+          0.533333
+        ]
+      },
+      "sourcePath": "semantic.dark.color.node-audio-icon",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-pink-200",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-color-node-audio-surface": "color(srgb 1 0.756863 0.839216 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-node-audio-surface",
+      "mode": "light",
+      "rawValue": "{primitive.color.pink.200}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.756863,
+          0.839216
+        ]
+      },
+      "sourcePath": "semantic.light.color.node-audio-surface",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-pink-800",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-color-node-audio-surface": "color(srgb 0.517647 0.101961 0.247059 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-node-audio-surface",
+      "mode": "dark",
+      "rawValue": "{primitive.color.pink.800}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0.517647,
+          0.101961,
+          0.247059
+        ]
+      },
+      "sourcePath": "semantic.dark.color.node-audio-surface",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-violet-500",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-color-node-edit-accent": "color(srgb 0.376471 0.333333 1 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-node-edit-accent",
+      "mode": "light",
+      "rawValue": "{primitive.color.violet.500}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0.376471,
+          0.333333,
+          1
+        ]
+      },
+      "sourcePath": "semantic.light.color.node-edit-accent",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-violet-500",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-color-node-edit-accent": "color(srgb 0.376471 0.333333 1 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-node-edit-accent",
+      "mode": "dark",
+      "rawValue": "{primitive.color.violet.500}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0.376471,
+          0.333333,
+          1
+        ]
+      },
+      "sourcePath": "semantic.dark.color.node-edit-accent",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-violet-500",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-color-node-edit-icon": "color(srgb 0.376471 0.333333 1 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-node-edit-icon",
+      "mode": "light",
+      "rawValue": "{primitive.color.violet.500}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0.376471,
+          0.333333,
+          1
+        ]
+      },
+      "sourcePath": "semantic.light.color.node-edit-icon",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-violet-500",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-color-node-edit-icon": "color(srgb 0.376471 0.333333 1 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-node-edit-icon",
+      "mode": "dark",
+      "rawValue": "{primitive.color.violet.500}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0.376471,
+          0.333333,
+          1
+        ]
+      },
+      "sourcePath": "semantic.dark.color.node-edit-icon",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-violet-200",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-color-node-edit-surface": "color(srgb 0.788235 0.760784 1 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-node-edit-surface",
+      "mode": "light",
+      "rawValue": "{primitive.color.violet.200}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0.788235,
+          0.760784,
+          1
+        ]
+      },
+      "sourcePath": "semantic.light.color.node-edit-surface",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-violet-800",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-color-node-edit-surface": "color(srgb 0.133333 0.101961 0.501961 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-node-edit-surface",
+      "mode": "dark",
+      "rawValue": "{primitive.color.violet.800}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0.133333,
+          0.101961,
+          0.501961
+        ]
+      },
+      "sourcePath": "semantic.dark.color.node-edit-surface",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-mint-500",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-color-node-image-accent": "color(srgb 0 0.776471 0.556863 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-node-image-accent",
+      "mode": "light",
+      "rawValue": "{primitive.color.mint.500}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0,
+          0.776471,
+          0.556863
+        ]
+      },
+      "sourcePath": "semantic.light.color.node-image-accent",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-mint-500",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-color-node-image-accent": "color(srgb 0 0.776471 0.556863 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-node-image-accent",
+      "mode": "dark",
+      "rawValue": "{primitive.color.mint.500}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0,
+          0.776471,
+          0.556863
+        ]
+      },
+      "sourcePath": "semantic.dark.color.node-image-accent",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-mint-500",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-color-node-image-icon": "color(srgb 0 0.776471 0.556863 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-node-image-icon",
+      "mode": "light",
+      "rawValue": "{primitive.color.mint.500}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0,
+          0.776471,
+          0.556863
+        ]
+      },
+      "sourcePath": "semantic.light.color.node-image-icon",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-mint-500",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-color-node-image-icon": "color(srgb 0 0.776471 0.556863 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-node-image-icon",
+      "mode": "dark",
+      "rawValue": "{primitive.color.mint.500}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0,
+          0.776471,
+          0.556863
+        ]
+      },
+      "sourcePath": "semantic.dark.color.node-image-icon",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-mint-200",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-color-node-image-surface": "color(srgb 0.721569 0.972549 0.898039 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-node-image-surface",
+      "mode": "light",
+      "rawValue": "{primitive.color.mint.200}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0.721569,
+          0.972549,
+          0.898039
+        ]
+      },
+      "sourcePath": "semantic.light.color.node-image-surface",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-mint-800",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-color-node-image-surface": "color(srgb 0 0.431373 0.317647 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-node-image-surface",
+      "mode": "dark",
+      "rawValue": "{primitive.color.mint.800}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0,
+          0.431373,
+          0.317647
+        ]
+      },
+      "sourcePath": "semantic.dark.color.node-image-surface",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-red-500",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-color-node-instagram-accent": "color(srgb 1 0.294118 0.34902 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-node-instagram-accent",
+      "mode": "light",
+      "rawValue": "{primitive.color.red.500}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.294118,
+          0.34902
+        ]
+      },
+      "sourcePath": "semantic.light.color.node-instagram-accent",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-red-500",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-color-node-instagram-accent": "color(srgb 1 0.294118 0.34902 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-node-instagram-accent",
+      "mode": "dark",
+      "rawValue": "{primitive.color.red.500}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.294118,
+          0.34902
+        ]
+      },
+      "sourcePath": "semantic.dark.color.node-instagram-accent",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-red-500",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-color-node-instagram-icon": "color(srgb 1 0.294118 0.34902 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-node-instagram-icon",
+      "mode": "light",
+      "rawValue": "{primitive.color.red.500}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.294118,
+          0.34902
+        ]
+      },
+      "sourcePath": "semantic.light.color.node-instagram-icon",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-red-500",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-color-node-instagram-icon": "color(srgb 1 0.294118 0.34902 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-node-instagram-icon",
+      "mode": "dark",
+      "rawValue": "{primitive.color.red.500}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.294118,
+          0.34902
+        ]
+      },
+      "sourcePath": "semantic.dark.color.node-instagram-icon",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-red-200",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-color-node-instagram-surface": "color(srgb 1 0.768627 0.792157 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-node-instagram-surface",
+      "mode": "light",
+      "rawValue": "{primitive.color.red.200}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.768627,
+          0.792157
+        ]
+      },
+      "sourcePath": "semantic.light.color.node-instagram-surface",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-red-800",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-color-node-instagram-surface": "color(srgb 0.517647 0.101961 0.141176 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-node-instagram-surface",
+      "mode": "dark",
+      "rawValue": "{primitive.color.red.800}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0.517647,
+          0.101961,
+          0.141176
+        ]
+      },
+      "sourcePath": "semantic.dark.color.node-instagram-surface",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-yellow-500",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-color-node-text-accent": "color(srgb 1 0.698039 0 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-node-text-accent",
+      "mode": "light",
+      "rawValue": "{primitive.color.yellow.500}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.698039,
+          0
+        ]
+      },
+      "sourcePath": "semantic.light.color.node-text-accent",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-yellow-500",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-color-node-text-accent": "color(srgb 1 0.698039 0 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-node-text-accent",
+      "mode": "dark",
+      "rawValue": "{primitive.color.yellow.500}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.698039,
+          0
+        ]
+      },
+      "sourcePath": "semantic.dark.color.node-text-accent",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-yellow-500",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-color-node-text-icon": "color(srgb 1 0.698039 0 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-node-text-icon",
+      "mode": "light",
+      "rawValue": "{primitive.color.yellow.500}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.698039,
+          0
+        ]
+      },
+      "sourcePath": "semantic.light.color.node-text-icon",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-yellow-500",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-color-node-text-icon": "color(srgb 1 0.698039 0 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-node-text-icon",
+      "mode": "dark",
+      "rawValue": "{primitive.color.yellow.500}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.698039,
+          0
+        ]
+      },
+      "sourcePath": "semantic.dark.color.node-text-icon",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-yellow-200",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-color-node-text-surface": "color(srgb 1 0.909804 0.639216 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-node-text-surface",
+      "mode": "light",
+      "rawValue": "{primitive.color.yellow.200}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.909804,
+          0.639216
+        ]
+      },
+      "sourcePath": "semantic.light.color.node-text-surface",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-yellow-800",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-color-node-text-surface": "color(srgb 0.478431 0.321569 0 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-node-text-surface",
+      "mode": "dark",
+      "rawValue": "{primitive.color.yellow.800}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0.478431,
+          0.321569,
+          0
+        ]
+      },
+      "sourcePath": "semantic.dark.color.node-text-surface",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-blue-500",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-color-node-video-accent": "color(srgb 0 0.533333 1 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-node-video-accent",
+      "mode": "light",
+      "rawValue": "{primitive.color.blue.500}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0,
+          0.533333,
+          1
+        ]
+      },
+      "sourcePath": "semantic.light.color.node-video-accent",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-blue-500",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-color-node-video-accent": "color(srgb 0 0.533333 1 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-node-video-accent",
+      "mode": "dark",
+      "rawValue": "{primitive.color.blue.500}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0,
+          0.533333,
+          1
+        ]
+      },
+      "sourcePath": "semantic.dark.color.node-video-accent",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-red-500",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-color-node-youtube-accent": "color(srgb 1 0.294118 0.34902 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-node-youtube-accent",
+      "mode": "light",
+      "rawValue": "{primitive.color.red.500}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.294118,
+          0.34902
+        ]
+      },
+      "sourcePath": "semantic.light.color.node-youtube-accent",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-red-500",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-color-node-youtube-accent": "color(srgb 1 0.294118 0.34902 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-node-youtube-accent",
+      "mode": "dark",
+      "rawValue": "{primitive.color.red.500}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.294118,
+          0.34902
+        ]
+      },
+      "sourcePath": "semantic.dark.color.node-youtube-accent",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-red-500",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-color-node-youtube-icon": "color(srgb 1 0.294118 0.34902 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-node-youtube-icon",
+      "mode": "light",
+      "rawValue": "{primitive.color.red.500}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.294118,
+          0.34902
+        ]
+      },
+      "sourcePath": "semantic.light.color.node-youtube-icon",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-red-500",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-color-node-youtube-icon": "color(srgb 1 0.294118 0.34902 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-node-youtube-icon",
+      "mode": "dark",
+      "rawValue": "{primitive.color.red.500}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.294118,
+          0.34902
+        ]
+      },
+      "sourcePath": "semantic.dark.color.node-youtube-icon",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-red-200",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-color-node-youtube-surface": "color(srgb 1 0.768627 0.792157 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-node-youtube-surface",
+      "mode": "light",
+      "rawValue": "{primitive.color.red.200}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.768627,
+          0.792157
+        ]
+      },
+      "sourcePath": "semantic.light.color.node-youtube-surface",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-red-800",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-color-node-youtube-surface": "color(srgb 0.517647 0.101961 0.141176 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-node-youtube-surface",
+      "mode": "dark",
+      "rawValue": "{primitive.color.red.800}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0.517647,
+          0.101961,
+          0.141176
+        ]
+      },
+      "sourcePath": "semantic.dark.color.node-youtube-surface",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
       "aliasTarget": null,
       "cssProperties": {},
       "deprecated": null,
@@ -4330,6 +6364,36 @@
         ]
       },
       "sourcePath": "primitive.color.paper-alpha.10",
+      "tier": "primitive",
+      "type": "color"
+    },
+    {
+      "aliasTarget": null,
+      "cssProperties": {},
+      "deprecated": null,
+      "description": null,
+      "id": "color-paper-alpha-12",
+      "mode": "base",
+      "rawValue": {
+        "alpha": 0.12,
+        "colorSpace": "srgb",
+        "components": [
+          0.980392,
+          0.980392,
+          0.980392
+        ],
+        "hex": "#fafafa"
+      },
+      "resolvedValue": {
+        "alpha": 0.12,
+        "colorSpace": "srgb",
+        "components": [
+          0.980392,
+          0.980392,
+          0.980392
+        ]
+      },
+      "sourcePath": "primitive.color.paper-alpha.12",
       "tier": "primitive",
       "type": "color"
     },
@@ -4398,6 +6462,156 @@
       "cssProperties": {},
       "deprecated": null,
       "description": null,
+      "id": "color-paper-alpha-20",
+      "mode": "base",
+      "rawValue": {
+        "alpha": 0.2,
+        "colorSpace": "srgb",
+        "components": [
+          0.980392,
+          0.980392,
+          0.980392
+        ],
+        "hex": "#fafafa"
+      },
+      "resolvedValue": {
+        "alpha": 0.2,
+        "colorSpace": "srgb",
+        "components": [
+          0.980392,
+          0.980392,
+          0.980392
+        ]
+      },
+      "sourcePath": "primitive.color.paper-alpha.20",
+      "tier": "primitive",
+      "type": "color"
+    },
+    {
+      "aliasTarget": null,
+      "cssProperties": {},
+      "deprecated": null,
+      "description": null,
+      "id": "color-paper-alpha-25",
+      "mode": "base",
+      "rawValue": {
+        "alpha": 0.25,
+        "colorSpace": "srgb",
+        "components": [
+          0.980392,
+          0.980392,
+          0.980392
+        ],
+        "hex": "#fafafa"
+      },
+      "resolvedValue": {
+        "alpha": 0.25,
+        "colorSpace": "srgb",
+        "components": [
+          0.980392,
+          0.980392,
+          0.980392
+        ]
+      },
+      "sourcePath": "primitive.color.paper-alpha.25",
+      "tier": "primitive",
+      "type": "color"
+    },
+    {
+      "aliasTarget": null,
+      "cssProperties": {},
+      "deprecated": null,
+      "description": null,
+      "id": "color-paper-alpha-30",
+      "mode": "base",
+      "rawValue": {
+        "alpha": 0.3,
+        "colorSpace": "srgb",
+        "components": [
+          0.980392,
+          0.980392,
+          0.980392
+        ],
+        "hex": "#fafafa"
+      },
+      "resolvedValue": {
+        "alpha": 0.3,
+        "colorSpace": "srgb",
+        "components": [
+          0.980392,
+          0.980392,
+          0.980392
+        ]
+      },
+      "sourcePath": "primitive.color.paper-alpha.30",
+      "tier": "primitive",
+      "type": "color"
+    },
+    {
+      "aliasTarget": null,
+      "cssProperties": {},
+      "deprecated": null,
+      "description": null,
+      "id": "color-paper-alpha-4",
+      "mode": "base",
+      "rawValue": {
+        "alpha": 0.04,
+        "colorSpace": "srgb",
+        "components": [
+          0.980392,
+          0.980392,
+          0.980392
+        ],
+        "hex": "#fafafa"
+      },
+      "resolvedValue": {
+        "alpha": 0.04,
+        "colorSpace": "srgb",
+        "components": [
+          0.980392,
+          0.980392,
+          0.980392
+        ]
+      },
+      "sourcePath": "primitive.color.paper-alpha.4",
+      "tier": "primitive",
+      "type": "color"
+    },
+    {
+      "aliasTarget": null,
+      "cssProperties": {},
+      "deprecated": null,
+      "description": null,
+      "id": "color-paper-alpha-40",
+      "mode": "base",
+      "rawValue": {
+        "alpha": 0.4,
+        "colorSpace": "srgb",
+        "components": [
+          0.980392,
+          0.980392,
+          0.980392
+        ],
+        "hex": "#fafafa"
+      },
+      "resolvedValue": {
+        "alpha": 0.4,
+        "colorSpace": "srgb",
+        "components": [
+          0.980392,
+          0.980392,
+          0.980392
+        ]
+      },
+      "sourcePath": "primitive.color.paper-alpha.40",
+      "tier": "primitive",
+      "type": "color"
+    },
+    {
+      "aliasTarget": null,
+      "cssProperties": {},
+      "deprecated": null,
+      "description": null,
       "id": "color-paper-alpha-45",
       "mode": "base",
       "rawValue": {
@@ -4420,6 +6634,126 @@
         ]
       },
       "sourcePath": "primitive.color.paper-alpha.45",
+      "tier": "primitive",
+      "type": "color"
+    },
+    {
+      "aliasTarget": null,
+      "cssProperties": {},
+      "deprecated": null,
+      "description": null,
+      "id": "color-paper-alpha-50",
+      "mode": "base",
+      "rawValue": {
+        "alpha": 0.5,
+        "colorSpace": "srgb",
+        "components": [
+          0.980392,
+          0.980392,
+          0.980392
+        ],
+        "hex": "#fafafa"
+      },
+      "resolvedValue": {
+        "alpha": 0.5,
+        "colorSpace": "srgb",
+        "components": [
+          0.980392,
+          0.980392,
+          0.980392
+        ]
+      },
+      "sourcePath": "primitive.color.paper-alpha.50",
+      "tier": "primitive",
+      "type": "color"
+    },
+    {
+      "aliasTarget": null,
+      "cssProperties": {},
+      "deprecated": null,
+      "description": null,
+      "id": "color-paper-alpha-6",
+      "mode": "base",
+      "rawValue": {
+        "alpha": 0.06,
+        "colorSpace": "srgb",
+        "components": [
+          0.980392,
+          0.980392,
+          0.980392
+        ],
+        "hex": "#fafafa"
+      },
+      "resolvedValue": {
+        "alpha": 0.06,
+        "colorSpace": "srgb",
+        "components": [
+          0.980392,
+          0.980392,
+          0.980392
+        ]
+      },
+      "sourcePath": "primitive.color.paper-alpha.6",
+      "tier": "primitive",
+      "type": "color"
+    },
+    {
+      "aliasTarget": null,
+      "cssProperties": {},
+      "deprecated": null,
+      "description": null,
+      "id": "color-paper-alpha-60",
+      "mode": "base",
+      "rawValue": {
+        "alpha": 0.6,
+        "colorSpace": "srgb",
+        "components": [
+          0.980392,
+          0.980392,
+          0.980392
+        ],
+        "hex": "#fafafa"
+      },
+      "resolvedValue": {
+        "alpha": 0.6,
+        "colorSpace": "srgb",
+        "components": [
+          0.980392,
+          0.980392,
+          0.980392
+        ]
+      },
+      "sourcePath": "primitive.color.paper-alpha.60",
+      "tier": "primitive",
+      "type": "color"
+    },
+    {
+      "aliasTarget": null,
+      "cssProperties": {},
+      "deprecated": null,
+      "description": null,
+      "id": "color-paper-alpha-70",
+      "mode": "base",
+      "rawValue": {
+        "alpha": 0.7,
+        "colorSpace": "srgb",
+        "components": [
+          0.980392,
+          0.980392,
+          0.980392
+        ],
+        "hex": "#fafafa"
+      },
+      "resolvedValue": {
+        "alpha": 0.7,
+        "colorSpace": "srgb",
+        "components": [
+          0.980392,
+          0.980392,
+          0.980392
+        ]
+      },
+      "sourcePath": "primitive.color.paper-alpha.70",
       "tier": "primitive",
       "type": "color"
     },
@@ -4488,6 +6822,36 @@
       "cssProperties": {},
       "deprecated": null,
       "description": null,
+      "id": "color-paper-alpha-80",
+      "mode": "base",
+      "rawValue": {
+        "alpha": 0.8,
+        "colorSpace": "srgb",
+        "components": [
+          0.980392,
+          0.980392,
+          0.980392
+        ],
+        "hex": "#fafafa"
+      },
+      "resolvedValue": {
+        "alpha": 0.8,
+        "colorSpace": "srgb",
+        "components": [
+          0.980392,
+          0.980392,
+          0.980392
+        ]
+      },
+      "sourcePath": "primitive.color.paper-alpha.80",
+      "tier": "primitive",
+      "type": "color"
+    },
+    {
+      "aliasTarget": null,
+      "cssProperties": {},
+      "deprecated": null,
+      "description": null,
       "id": "color-paper-alpha-86",
       "mode": "base",
       "rawValue": {
@@ -4548,6 +6912,475 @@
       "cssProperties": {},
       "deprecated": null,
       "description": null,
+      "id": "color-pink-100",
+      "mode": "base",
+      "rawValue": {
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.898039,
+          0.929412
+        ],
+        "hex": "#ffe5ed"
+      },
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.898039,
+          0.929412
+        ]
+      },
+      "sourcePath": "primitive.color.pink.100",
+      "tier": "primitive",
+      "type": "color"
+    },
+    {
+      "aliasTarget": null,
+      "cssProperties": {},
+      "deprecated": null,
+      "description": null,
+      "id": "color-pink-200",
+      "mode": "base",
+      "rawValue": {
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.756863,
+          0.839216
+        ],
+        "hex": "#ffc1d6"
+      },
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.756863,
+          0.839216
+        ]
+      },
+      "sourcePath": "primitive.color.pink.200",
+      "tier": "primitive",
+      "type": "color"
+    },
+    {
+      "aliasTarget": null,
+      "cssProperties": {},
+      "deprecated": null,
+      "description": null,
+      "id": "color-pink-300",
+      "mode": "base",
+      "rawValue": {
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.607843,
+          0.745098
+        ],
+        "hex": "#ff9bbe"
+      },
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.607843,
+          0.745098
+        ]
+      },
+      "sourcePath": "primitive.color.pink.300",
+      "tier": "primitive",
+      "type": "color"
+    },
+    {
+      "aliasTarget": null,
+      "cssProperties": {},
+      "deprecated": null,
+      "description": null,
+      "id": "color-pink-400",
+      "mode": "base",
+      "rawValue": {
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.427451,
+          0.615686
+        ],
+        "hex": "#ff6d9d"
+      },
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.427451,
+          0.615686
+        ]
+      },
+      "sourcePath": "primitive.color.pink.400",
+      "tier": "primitive",
+      "type": "color"
+    },
+    {
+      "aliasTarget": null,
+      "cssProperties": {},
+      "deprecated": null,
+      "description": null,
+      "id": "color-pink-500",
+      "mode": "base",
+      "rawValue": {
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.301961,
+          0.533333
+        ],
+        "hex": "#ff4d88"
+      },
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.301961,
+          0.533333
+        ]
+      },
+      "sourcePath": "primitive.color.pink.500",
+      "tier": "primitive",
+      "type": "color"
+    },
+    {
+      "aliasTarget": null,
+      "cssProperties": {},
+      "deprecated": null,
+      "description": null,
+      "id": "color-pink-600",
+      "mode": "base",
+      "rawValue": {
+        "colorSpace": "srgb",
+        "components": [
+          0.886275,
+          0.211765,
+          0.443137
+        ],
+        "hex": "#e23671"
+      },
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0.886275,
+          0.211765,
+          0.443137
+        ]
+      },
+      "sourcePath": "primitive.color.pink.600",
+      "tier": "primitive",
+      "type": "color"
+    },
+    {
+      "aliasTarget": null,
+      "cssProperties": {},
+      "deprecated": null,
+      "description": null,
+      "id": "color-pink-700",
+      "mode": "base",
+      "rawValue": {
+        "colorSpace": "srgb",
+        "components": [
+          0.717647,
+          0.141176,
+          0.345098
+        ],
+        "hex": "#b72458"
+      },
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0.717647,
+          0.141176,
+          0.345098
+        ]
+      },
+      "sourcePath": "primitive.color.pink.700",
+      "tier": "primitive",
+      "type": "color"
+    },
+    {
+      "aliasTarget": null,
+      "cssProperties": {},
+      "deprecated": null,
+      "description": null,
+      "id": "color-pink-800",
+      "mode": "base",
+      "rawValue": {
+        "colorSpace": "srgb",
+        "components": [
+          0.517647,
+          0.101961,
+          0.247059
+        ],
+        "hex": "#841a3f"
+      },
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0.517647,
+          0.101961,
+          0.247059
+        ]
+      },
+      "sourcePath": "primitive.color.pink.800",
+      "tier": "primitive",
+      "type": "color"
+    },
+    {
+      "aliasTarget": null,
+      "cssProperties": {},
+      "deprecated": null,
+      "description": null,
+      "id": "color-pink-900",
+      "mode": "base",
+      "rawValue": {
+        "colorSpace": "srgb",
+        "components": [
+          0.329412,
+          0.066667,
+          0.164706
+        ],
+        "hex": "#54112a"
+      },
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0.329412,
+          0.066667,
+          0.164706
+        ]
+      },
+      "sourcePath": "primitive.color.pink.900",
+      "tier": "primitive",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-blue-500",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-color-progress-fill": "color(srgb 0 0.533333 1 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-progress-fill",
+      "mode": "light",
+      "rawValue": "{primitive.color.blue.500}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0,
+          0.533333,
+          1
+        ]
+      },
+      "sourcePath": "semantic.light.color.progress-fill",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-blue-500",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-color-progress-fill": "color(srgb 0 0.533333 1 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-progress-fill",
+      "mode": "dark",
+      "rawValue": "{primitive.color.blue.500}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0,
+          0.533333,
+          1
+        ]
+      },
+      "sourcePath": "semantic.dark.color.progress-fill",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-mint-500",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-color-progress-ring-fill": "color(srgb 0 0.776471 0.556863 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-progress-ring-fill",
+      "mode": "light",
+      "rawValue": "{primitive.color.mint.500}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0,
+          0.776471,
+          0.556863
+        ]
+      },
+      "sourcePath": "semantic.light.color.progress-ring-fill",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-mint-500",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-color-progress-ring-fill": "color(srgb 0 0.776471 0.556863 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-progress-ring-fill",
+      "mode": "dark",
+      "rawValue": "{primitive.color.mint.500}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0,
+          0.776471,
+          0.556863
+        ]
+      },
+      "sourcePath": "semantic.dark.color.progress-ring-fill",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-ink-alpha-20",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-color-progress-ring-track": "color(srgb 0.090196 0.105882 0.133333 / 0.2)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-progress-ring-track",
+      "mode": "light",
+      "rawValue": "{primitive.color.ink-alpha.20}",
+      "resolvedValue": {
+        "alpha": 0.2,
+        "colorSpace": "srgb",
+        "components": [
+          0.090196,
+          0.105882,
+          0.133333
+        ]
+      },
+      "sourcePath": "semantic.light.color.progress-ring-track",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-paper-alpha-20",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-color-progress-ring-track": "color(srgb 0.980392 0.980392 0.980392 / 0.2)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-progress-ring-track",
+      "mode": "dark",
+      "rawValue": "{primitive.color.paper-alpha.20}",
+      "resolvedValue": {
+        "alpha": 0.2,
+        "colorSpace": "srgb",
+        "components": [
+          0.980392,
+          0.980392,
+          0.980392
+        ]
+      },
+      "sourcePath": "semantic.dark.color.progress-ring-track",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-ink-alpha-10",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-color-progress-track": "color(srgb 0.090196 0.105882 0.133333 / 0.1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-progress-track",
+      "mode": "light",
+      "rawValue": "{primitive.color.ink-alpha.10}",
+      "resolvedValue": {
+        "alpha": 0.1,
+        "colorSpace": "srgb",
+        "components": [
+          0.090196,
+          0.105882,
+          0.133333
+        ]
+      },
+      "sourcePath": "semantic.light.color.progress-track",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-paper-alpha-10",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-color-progress-track": "color(srgb 0.980392 0.980392 0.980392 / 0.1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-progress-track",
+      "mode": "dark",
+      "rawValue": "{primitive.color.paper-alpha.10}",
+      "resolvedValue": {
+        "alpha": 0.1,
+        "colorSpace": "srgb",
+        "components": [
+          0.980392,
+          0.980392,
+          0.980392
+        ]
+      },
+      "sourcePath": "semantic.dark.color.progress-track",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": null,
+      "cssProperties": {},
+      "deprecated": null,
+      "description": null,
       "id": "color-red-100",
       "mode": "base",
       "rawValue": {
@@ -4569,6 +7402,93 @@
         ]
       },
       "sourcePath": "primitive.color.red.100",
+      "tier": "primitive",
+      "type": "color"
+    },
+    {
+      "aliasTarget": null,
+      "cssProperties": {},
+      "deprecated": null,
+      "description": null,
+      "id": "color-red-200",
+      "mode": "base",
+      "rawValue": {
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.768627,
+          0.792157
+        ],
+        "hex": "#ffc4ca"
+      },
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.768627,
+          0.792157
+        ]
+      },
+      "sourcePath": "primitive.color.red.200",
+      "tier": "primitive",
+      "type": "color"
+    },
+    {
+      "aliasTarget": null,
+      "cssProperties": {},
+      "deprecated": null,
+      "description": null,
+      "id": "color-red-300",
+      "mode": "base",
+      "rawValue": {
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.603922,
+          0.643137
+        ],
+        "hex": "#ff9aa4"
+      },
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.603922,
+          0.643137
+        ]
+      },
+      "sourcePath": "primitive.color.red.300",
+      "tier": "primitive",
+      "type": "color"
+    },
+    {
+      "aliasTarget": null,
+      "cssProperties": {},
+      "deprecated": null,
+      "description": null,
+      "id": "color-red-400",
+      "mode": "base",
+      "rawValue": {
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.435294,
+          0.486275
+        ],
+        "hex": "#ff6f7c"
+      },
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.435294,
+          0.486275
+        ]
+      },
+      "sourcePath": "primitive.color.red.400",
       "tier": "primitive",
       "type": "color"
     },
@@ -4664,6 +7584,35 @@
       "cssProperties": {},
       "deprecated": null,
       "description": null,
+      "id": "color-red-800",
+      "mode": "base",
+      "rawValue": {
+        "colorSpace": "srgb",
+        "components": [
+          0.517647,
+          0.101961,
+          0.141176
+        ],
+        "hex": "#841a24"
+      },
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0.517647,
+          0.101961,
+          0.141176
+        ]
+      },
+      "sourcePath": "primitive.color.red.800",
+      "tier": "primitive",
+      "type": "color"
+    },
+    {
+      "aliasTarget": null,
+      "cssProperties": {},
+      "deprecated": null,
+      "description": null,
       "id": "color-red-900",
       "mode": "base",
       "rawValue": {
@@ -4749,6 +7698,216 @@
       "type": "color"
     },
     {
+      "aliasTarget": null,
+      "cssProperties": {},
+      "deprecated": null,
+      "description": null,
+      "id": "color-red-alpha-16",
+      "mode": "base",
+      "rawValue": {
+        "alpha": 0.16,
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.294118,
+          0.34902
+        ],
+        "hex": "#ff4b59"
+      },
+      "resolvedValue": {
+        "alpha": 0.16,
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.294118,
+          0.34902
+        ]
+      },
+      "sourcePath": "primitive.color.red-alpha.16",
+      "tier": "primitive",
+      "type": "color"
+    },
+    {
+      "aliasTarget": null,
+      "cssProperties": {},
+      "deprecated": null,
+      "description": null,
+      "id": "color-red-alpha-20",
+      "mode": "base",
+      "rawValue": {
+        "alpha": 0.2,
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.294118,
+          0.34902
+        ],
+        "hex": "#ff4b59"
+      },
+      "resolvedValue": {
+        "alpha": 0.2,
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.294118,
+          0.34902
+        ]
+      },
+      "sourcePath": "primitive.color.red-alpha.20",
+      "tier": "primitive",
+      "type": "color"
+    },
+    {
+      "aliasTarget": null,
+      "cssProperties": {},
+      "deprecated": null,
+      "description": null,
+      "id": "color-red-alpha-25",
+      "mode": "base",
+      "rawValue": {
+        "alpha": 0.25,
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.294118,
+          0.34902
+        ],
+        "hex": "#ff4b59"
+      },
+      "resolvedValue": {
+        "alpha": 0.25,
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.294118,
+          0.34902
+        ]
+      },
+      "sourcePath": "primitive.color.red-alpha.25",
+      "tier": "primitive",
+      "type": "color"
+    },
+    {
+      "aliasTarget": null,
+      "cssProperties": {},
+      "deprecated": null,
+      "description": null,
+      "id": "color-red-alpha-6",
+      "mode": "base",
+      "rawValue": {
+        "alpha": 0.06,
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.294118,
+          0.34902
+        ],
+        "hex": "#ff4b59"
+      },
+      "resolvedValue": {
+        "alpha": 0.06,
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.294118,
+          0.34902
+        ]
+      },
+      "sourcePath": "primitive.color.red-alpha.6",
+      "tier": "primitive",
+      "type": "color"
+    },
+    {
+      "aliasTarget": null,
+      "cssProperties": {},
+      "deprecated": null,
+      "description": null,
+      "id": "color-red-alpha-60",
+      "mode": "base",
+      "rawValue": {
+        "alpha": 0.6,
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.294118,
+          0.34902
+        ],
+        "hex": "#ff4b59"
+      },
+      "resolvedValue": {
+        "alpha": 0.6,
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.294118,
+          0.34902
+        ]
+      },
+      "sourcePath": "primitive.color.red-alpha.60",
+      "tier": "primitive",
+      "type": "color"
+    },
+    {
+      "aliasTarget": null,
+      "cssProperties": {},
+      "deprecated": null,
+      "description": null,
+      "id": "color-red-alpha-8",
+      "mode": "base",
+      "rawValue": {
+        "alpha": 0.08,
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.294118,
+          0.34902
+        ],
+        "hex": "#ff4b59"
+      },
+      "resolvedValue": {
+        "alpha": 0.08,
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.294118,
+          0.34902
+        ]
+      },
+      "sourcePath": "primitive.color.red-alpha.8",
+      "tier": "primitive",
+      "type": "color"
+    },
+    {
+      "aliasTarget": null,
+      "cssProperties": {},
+      "deprecated": null,
+      "description": null,
+      "id": "color-red-alpha-80",
+      "mode": "base",
+      "rawValue": {
+        "alpha": 0.8,
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.294118,
+          0.34902
+        ],
+        "hex": "#ff4b59"
+      },
+      "resolvedValue": {
+        "alpha": 0.8,
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.294118,
+          0.34902
+        ]
+      },
+      "sourcePath": "primitive.color.red-alpha.80",
+      "tier": "primitive",
+      "type": "color"
+    },
+    {
       "aliasTarget": {
         "id": "color-black-alpha-56",
         "mode": "base"
@@ -4798,6 +7957,528 @@
       },
       "sourcePath": "semantic.dark.color.scrim-modal",
       "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": null,
+      "cssProperties": {},
+      "deprecated": null,
+      "description": null,
+      "id": "color-violet-100",
+      "mode": "base",
+      "rawValue": {
+        "colorSpace": "srgb",
+        "components": [
+          0.921569,
+          0.909804,
+          1
+        ],
+        "hex": "#ebe8ff"
+      },
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0.921569,
+          0.909804,
+          1
+        ]
+      },
+      "sourcePath": "primitive.color.violet.100",
+      "tier": "primitive",
+      "type": "color"
+    },
+    {
+      "aliasTarget": null,
+      "cssProperties": {},
+      "deprecated": null,
+      "description": null,
+      "id": "color-violet-200",
+      "mode": "base",
+      "rawValue": {
+        "colorSpace": "srgb",
+        "components": [
+          0.788235,
+          0.760784,
+          1
+        ],
+        "hex": "#c9c2ff"
+      },
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0.788235,
+          0.760784,
+          1
+        ]
+      },
+      "sourcePath": "primitive.color.violet.200",
+      "tier": "primitive",
+      "type": "color"
+    },
+    {
+      "aliasTarget": null,
+      "cssProperties": {},
+      "deprecated": null,
+      "description": null,
+      "id": "color-violet-300",
+      "mode": "base",
+      "rawValue": {
+        "colorSpace": "srgb",
+        "components": [
+          0.615686,
+          0.568627,
+          1
+        ],
+        "hex": "#9d91ff"
+      },
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0.615686,
+          0.568627,
+          1
+        ]
+      },
+      "sourcePath": "primitive.color.violet.300",
+      "tier": "primitive",
+      "type": "color"
+    },
+    {
+      "aliasTarget": null,
+      "cssProperties": {},
+      "deprecated": null,
+      "description": null,
+      "id": "color-violet-400",
+      "mode": "base",
+      "rawValue": {
+        "colorSpace": "srgb",
+        "components": [
+          0.517647,
+          0.470588,
+          1
+        ],
+        "hex": "#8478ff"
+      },
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0.517647,
+          0.470588,
+          1
+        ]
+      },
+      "sourcePath": "primitive.color.violet.400",
+      "tier": "primitive",
+      "type": "color"
+    },
+    {
+      "aliasTarget": null,
+      "cssProperties": {},
+      "deprecated": null,
+      "description": null,
+      "id": "color-violet-500",
+      "mode": "base",
+      "rawValue": {
+        "colorSpace": "srgb",
+        "components": [
+          0.376471,
+          0.333333,
+          1
+        ],
+        "hex": "#6055ff"
+      },
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0.376471,
+          0.333333,
+          1
+        ]
+      },
+      "sourcePath": "primitive.color.violet.500",
+      "tier": "primitive",
+      "type": "color"
+    },
+    {
+      "aliasTarget": null,
+      "cssProperties": {},
+      "deprecated": null,
+      "description": null,
+      "id": "color-violet-600",
+      "mode": "base",
+      "rawValue": {
+        "colorSpace": "srgb",
+        "components": [
+          0.309804,
+          0.270588,
+          0.890196
+        ],
+        "hex": "#4f45e3"
+      },
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0.309804,
+          0.270588,
+          0.890196
+        ]
+      },
+      "sourcePath": "primitive.color.violet.600",
+      "tier": "primitive",
+      "type": "color"
+    },
+    {
+      "aliasTarget": null,
+      "cssProperties": {},
+      "deprecated": null,
+      "description": null,
+      "id": "color-violet-700",
+      "mode": "base",
+      "rawValue": {
+        "colorSpace": "srgb",
+        "components": [
+          0.207843,
+          0.156863,
+          0.721569
+        ],
+        "hex": "#3528b8"
+      },
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0.207843,
+          0.156863,
+          0.721569
+        ]
+      },
+      "sourcePath": "primitive.color.violet.700",
+      "tier": "primitive",
+      "type": "color"
+    },
+    {
+      "aliasTarget": null,
+      "cssProperties": {},
+      "deprecated": null,
+      "description": null,
+      "id": "color-violet-800",
+      "mode": "base",
+      "rawValue": {
+        "colorSpace": "srgb",
+        "components": [
+          0.133333,
+          0.101961,
+          0.501961
+        ],
+        "hex": "#221a80"
+      },
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0.133333,
+          0.101961,
+          0.501961
+        ]
+      },
+      "sourcePath": "primitive.color.violet.800",
+      "tier": "primitive",
+      "type": "color"
+    },
+    {
+      "aliasTarget": null,
+      "cssProperties": {},
+      "deprecated": null,
+      "description": null,
+      "id": "color-violet-900",
+      "mode": "base",
+      "rawValue": {
+        "colorSpace": "srgb",
+        "components": [
+          0.082353,
+          0.062745,
+          0.301961
+        ],
+        "hex": "#15104d"
+      },
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0.082353,
+          0.062745,
+          0.301961
+        ]
+      },
+      "sourcePath": "primitive.color.violet.900",
+      "tier": "primitive",
+      "type": "color"
+    },
+    {
+      "aliasTarget": null,
+      "cssProperties": {},
+      "deprecated": null,
+      "description": null,
+      "id": "color-yellow-100",
+      "mode": "base",
+      "rawValue": {
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.960784,
+          0.839216
+        ],
+        "hex": "#fff5d6"
+      },
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.960784,
+          0.839216
+        ]
+      },
+      "sourcePath": "primitive.color.yellow.100",
+      "tier": "primitive",
+      "type": "color"
+    },
+    {
+      "aliasTarget": null,
+      "cssProperties": {},
+      "deprecated": null,
+      "description": null,
+      "id": "color-yellow-200",
+      "mode": "base",
+      "rawValue": {
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.909804,
+          0.639216
+        ],
+        "hex": "#ffe8a3"
+      },
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.909804,
+          0.639216
+        ]
+      },
+      "sourcePath": "primitive.color.yellow.200",
+      "tier": "primitive",
+      "type": "color"
+    },
+    {
+      "aliasTarget": null,
+      "cssProperties": {},
+      "deprecated": null,
+      "description": null,
+      "id": "color-yellow-300",
+      "mode": "base",
+      "rawValue": {
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.85098,
+          0.501961
+        ],
+        "hex": "#ffd980"
+      },
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.85098,
+          0.501961
+        ]
+      },
+      "sourcePath": "primitive.color.yellow.300",
+      "tier": "primitive",
+      "type": "color"
+    },
+    {
+      "aliasTarget": null,
+      "cssProperties": {},
+      "deprecated": null,
+      "description": null,
+      "id": "color-yellow-400",
+      "mode": "base",
+      "rawValue": {
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.760784,
+          0.2
+        ],
+        "hex": "#ffc233"
+      },
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.760784,
+          0.2
+        ]
+      },
+      "sourcePath": "primitive.color.yellow.400",
+      "tier": "primitive",
+      "type": "color"
+    },
+    {
+      "aliasTarget": null,
+      "cssProperties": {},
+      "deprecated": null,
+      "description": null,
+      "id": "color-yellow-500",
+      "mode": "base",
+      "rawValue": {
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.698039,
+          0
+        ],
+        "hex": "#ffb200"
+      },
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.698039,
+          0
+        ]
+      },
+      "sourcePath": "primitive.color.yellow.500",
+      "tier": "primitive",
+      "type": "color"
+    },
+    {
+      "aliasTarget": null,
+      "cssProperties": {},
+      "deprecated": null,
+      "description": null,
+      "id": "color-yellow-600",
+      "mode": "base",
+      "rawValue": {
+        "colorSpace": "srgb",
+        "components": [
+          0.894118,
+          0.603922,
+          0
+        ],
+        "hex": "#e49a00"
+      },
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0.894118,
+          0.603922,
+          0
+        ]
+      },
+      "sourcePath": "primitive.color.yellow.600",
+      "tier": "primitive",
+      "type": "color"
+    },
+    {
+      "aliasTarget": null,
+      "cssProperties": {},
+      "deprecated": null,
+      "description": null,
+      "id": "color-yellow-700",
+      "mode": "base",
+      "rawValue": {
+        "colorSpace": "srgb",
+        "components": [
+          0.721569,
+          0.462745,
+          0
+        ],
+        "hex": "#b87600"
+      },
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0.721569,
+          0.462745,
+          0
+        ]
+      },
+      "sourcePath": "primitive.color.yellow.700",
+      "tier": "primitive",
+      "type": "color"
+    },
+    {
+      "aliasTarget": null,
+      "cssProperties": {},
+      "deprecated": null,
+      "description": null,
+      "id": "color-yellow-800",
+      "mode": "base",
+      "rawValue": {
+        "colorSpace": "srgb",
+        "components": [
+          0.478431,
+          0.321569,
+          0
+        ],
+        "hex": "#7a5200"
+      },
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0.478431,
+          0.321569,
+          0
+        ]
+      },
+      "sourcePath": "primitive.color.yellow.800",
+      "tier": "primitive",
+      "type": "color"
+    },
+    {
+      "aliasTarget": null,
+      "cssProperties": {},
+      "deprecated": null,
+      "description": null,
+      "id": "color-yellow-900",
+      "mode": "base",
+      "rawValue": {
+        "colorSpace": "srgb",
+        "components": [
+          0.298039,
+          0.2,
+          0
+        ],
+        "hex": "#4c3300"
+      },
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0.298039,
+          0.2,
+          0
+        ]
+      },
+      "sourcePath": "primitive.color.yellow.900",
+      "tier": "primitive",
       "type": "color"
     },
     {
@@ -5436,6 +9117,156 @@
       "type": "shadow"
     },
     {
+      "aliasTarget": {
+        "id": "shadow-upgrade-light",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-elevation-upgrade": "inset 0px 0px 0px 1px color(srgb 0.980392 0.980392 0.980392 / 0.08), 0px 1px 2px 0px color(srgb 0 0 0 / 0.06)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "elevation-upgrade",
+      "mode": "light",
+      "rawValue": "{primitive.shadow.upgrade-light}",
+      "resolvedValue": [
+        {
+          "blur": {
+            "unit": "px",
+            "value": 0
+          },
+          "color": {
+            "alpha": 0.08,
+            "colorSpace": "srgb",
+            "components": [
+              0.980392,
+              0.980392,
+              0.980392
+            ]
+          },
+          "inset": true,
+          "offsetX": {
+            "unit": "px",
+            "value": 0
+          },
+          "offsetY": {
+            "unit": "px",
+            "value": 0
+          },
+          "spread": {
+            "unit": "px",
+            "value": 1
+          }
+        },
+        {
+          "blur": {
+            "unit": "px",
+            "value": 2
+          },
+          "color": {
+            "alpha": 0.06,
+            "colorSpace": "srgb",
+            "components": [
+              0,
+              0,
+              0
+            ]
+          },
+          "inset": false,
+          "offsetX": {
+            "unit": "px",
+            "value": 0
+          },
+          "offsetY": {
+            "unit": "px",
+            "value": 1
+          },
+          "spread": {
+            "unit": "px",
+            "value": 0
+          }
+        }
+      ],
+      "sourcePath": "semantic.light.elevation.upgrade",
+      "tier": "semantic",
+      "type": "shadow"
+    },
+    {
+      "aliasTarget": {
+        "id": "shadow-upgrade-dark",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-elevation-upgrade": "inset 0px 0px 0px 1px color(srgb 0 0 0 / 0.08), 0px 1px 2px 0px color(srgb 0 0 0 / 0.12)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "elevation-upgrade",
+      "mode": "dark",
+      "rawValue": "{primitive.shadow.upgrade-dark}",
+      "resolvedValue": [
+        {
+          "blur": {
+            "unit": "px",
+            "value": 0
+          },
+          "color": {
+            "alpha": 0.08,
+            "colorSpace": "srgb",
+            "components": [
+              0,
+              0,
+              0
+            ]
+          },
+          "inset": true,
+          "offsetX": {
+            "unit": "px",
+            "value": 0
+          },
+          "offsetY": {
+            "unit": "px",
+            "value": 0
+          },
+          "spread": {
+            "unit": "px",
+            "value": 1
+          }
+        },
+        {
+          "blur": {
+            "unit": "px",
+            "value": 2
+          },
+          "color": {
+            "alpha": 0.12,
+            "colorSpace": "srgb",
+            "components": [
+              0,
+              0,
+              0
+            ]
+          },
+          "inset": false,
+          "offsetX": {
+            "unit": "px",
+            "value": 0
+          },
+          "offsetY": {
+            "unit": "px",
+            "value": 1
+          },
+          "spread": {
+            "unit": "px",
+            "value": 0
+          }
+        }
+      ],
+      "sourcePath": "semantic.dark.elevation.upgrade",
+      "tier": "semantic",
+      "type": "shadow"
+    },
+    {
       "aliasTarget": null,
       "cssProperties": {},
       "deprecated": null,
@@ -5900,6 +9731,27 @@
     },
     {
       "aliasTarget": {
+        "id": "space-28",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-layout-app-shell-brand-mark-height": "28px"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "layout-app-shell-brand-mark-height",
+      "mode": "global",
+      "rawValue": "{primitive.spacing.28}",
+      "resolvedValue": {
+        "unit": "px",
+        "value": 28
+      },
+      "sourcePath": "semantic.global.layout.app-shell-brand-mark-height",
+      "tier": "semantic",
+      "type": "dimension"
+    },
+    {
+      "aliasTarget": {
         "id": "space-16",
         "mode": "base"
       },
@@ -6126,6 +9978,48 @@
         "value": 48
       },
       "sourcePath": "semantic.global.layout.control-minimum-width-sm",
+      "tier": "semantic",
+      "type": "dimension"
+    },
+    {
+      "aliasTarget": {
+        "id": "space-6",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-layout-progress-bar-height": "6px"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "layout-progress-bar-height",
+      "mode": "global",
+      "rawValue": "{primitive.spacing.6}",
+      "resolvedValue": {
+        "unit": "px",
+        "value": 6
+      },
+      "sourcePath": "semantic.global.layout.progress-bar-height",
+      "tier": "semantic",
+      "type": "dimension"
+    },
+    {
+      "aliasTarget": {
+        "id": "space-320",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-layout-progress-bar-max-inline-size": "320px"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "layout-progress-bar-max-inline-size",
+      "mode": "global",
+      "rawValue": "{primitive.spacing.320}",
+      "resolvedValue": {
+        "unit": "px",
+        "value": 320
+      },
+      "sourcePath": "semantic.global.layout.progress-bar-max-inline-size",
       "tier": "semantic",
       "type": "dimension"
     },
@@ -7352,6 +11246,27 @@
     },
     {
       "aliasTarget": {
+        "id": "radius-24",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-radius-overlay-lg": "24px"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "radius-overlay-lg",
+      "mode": "global",
+      "rawValue": "{primitive.radius.24}",
+      "resolvedValue": {
+        "unit": "px",
+        "value": 24
+      },
+      "sourcePath": "semantic.global.radius.overlay-lg",
+      "tier": "semantic",
+      "type": "dimension"
+    },
+    {
+      "aliasTarget": {
         "id": "radius-full",
         "mode": "base"
       },
@@ -8103,6 +12018,262 @@
       "cssProperties": {},
       "deprecated": null,
       "description": null,
+      "id": "shadow-upgrade-dark",
+      "mode": "base",
+      "rawValue": [
+        {
+          "blur": {
+            "unit": "px",
+            "value": 0
+          },
+          "color": {
+            "alpha": 0.08,
+            "colorSpace": "srgb",
+            "components": [
+              0,
+              0,
+              0
+            ],
+            "hex": "#000000"
+          },
+          "inset": true,
+          "offsetX": {
+            "unit": "px",
+            "value": 0
+          },
+          "offsetY": {
+            "unit": "px",
+            "value": 0
+          },
+          "spread": {
+            "unit": "px",
+            "value": 1
+          }
+        },
+        {
+          "blur": {
+            "unit": "px",
+            "value": 2
+          },
+          "color": {
+            "alpha": 0.12,
+            "colorSpace": "srgb",
+            "components": [
+              0,
+              0,
+              0
+            ],
+            "hex": "#000000"
+          },
+          "offsetX": {
+            "unit": "px",
+            "value": 0
+          },
+          "offsetY": {
+            "unit": "px",
+            "value": 1
+          },
+          "spread": {
+            "unit": "px",
+            "value": 0
+          }
+        }
+      ],
+      "resolvedValue": [
+        {
+          "blur": {
+            "unit": "px",
+            "value": 0
+          },
+          "color": {
+            "alpha": 0.08,
+            "colorSpace": "srgb",
+            "components": [
+              0,
+              0,
+              0
+            ]
+          },
+          "inset": true,
+          "offsetX": {
+            "unit": "px",
+            "value": 0
+          },
+          "offsetY": {
+            "unit": "px",
+            "value": 0
+          },
+          "spread": {
+            "unit": "px",
+            "value": 1
+          }
+        },
+        {
+          "blur": {
+            "unit": "px",
+            "value": 2
+          },
+          "color": {
+            "alpha": 0.12,
+            "colorSpace": "srgb",
+            "components": [
+              0,
+              0,
+              0
+            ]
+          },
+          "inset": false,
+          "offsetX": {
+            "unit": "px",
+            "value": 0
+          },
+          "offsetY": {
+            "unit": "px",
+            "value": 1
+          },
+          "spread": {
+            "unit": "px",
+            "value": 0
+          }
+        }
+      ],
+      "sourcePath": "primitive.shadow.upgrade-dark",
+      "tier": "primitive",
+      "type": "shadow"
+    },
+    {
+      "aliasTarget": null,
+      "cssProperties": {},
+      "deprecated": null,
+      "description": null,
+      "id": "shadow-upgrade-light",
+      "mode": "base",
+      "rawValue": [
+        {
+          "blur": {
+            "unit": "px",
+            "value": 0
+          },
+          "color": {
+            "alpha": 0.08,
+            "colorSpace": "srgb",
+            "components": [
+              0.980392,
+              0.980392,
+              0.980392
+            ],
+            "hex": "#fafafa"
+          },
+          "inset": true,
+          "offsetX": {
+            "unit": "px",
+            "value": 0
+          },
+          "offsetY": {
+            "unit": "px",
+            "value": 0
+          },
+          "spread": {
+            "unit": "px",
+            "value": 1
+          }
+        },
+        {
+          "blur": {
+            "unit": "px",
+            "value": 2
+          },
+          "color": {
+            "alpha": 0.06,
+            "colorSpace": "srgb",
+            "components": [
+              0,
+              0,
+              0
+            ],
+            "hex": "#000000"
+          },
+          "offsetX": {
+            "unit": "px",
+            "value": 0
+          },
+          "offsetY": {
+            "unit": "px",
+            "value": 1
+          },
+          "spread": {
+            "unit": "px",
+            "value": 0
+          }
+        }
+      ],
+      "resolvedValue": [
+        {
+          "blur": {
+            "unit": "px",
+            "value": 0
+          },
+          "color": {
+            "alpha": 0.08,
+            "colorSpace": "srgb",
+            "components": [
+              0.980392,
+              0.980392,
+              0.980392
+            ]
+          },
+          "inset": true,
+          "offsetX": {
+            "unit": "px",
+            "value": 0
+          },
+          "offsetY": {
+            "unit": "px",
+            "value": 0
+          },
+          "spread": {
+            "unit": "px",
+            "value": 1
+          }
+        },
+        {
+          "blur": {
+            "unit": "px",
+            "value": 2
+          },
+          "color": {
+            "alpha": 0.06,
+            "colorSpace": "srgb",
+            "components": [
+              0,
+              0,
+              0
+            ]
+          },
+          "inset": false,
+          "offsetX": {
+            "unit": "px",
+            "value": 0
+          },
+          "offsetY": {
+            "unit": "px",
+            "value": 1
+          },
+          "spread": {
+            "unit": "px",
+            "value": 0
+          }
+        }
+      ],
+      "sourcePath": "primitive.shadow.upgrade-light",
+      "tier": "primitive",
+      "type": "shadow"
+    },
+    {
+      "aliasTarget": null,
+      "cssProperties": {},
+      "deprecated": null,
+      "description": null,
       "id": "space-0",
       "mode": "base",
       "rawValue": {
@@ -8312,6 +12483,25 @@
       "cssProperties": {},
       "deprecated": null,
       "description": null,
+      "id": "space-28",
+      "mode": "base",
+      "rawValue": {
+        "unit": "px",
+        "value": 28
+      },
+      "resolvedValue": {
+        "unit": "px",
+        "value": 28
+      },
+      "sourcePath": "primitive.spacing.28",
+      "tier": "primitive",
+      "type": "dimension"
+    },
+    {
+      "aliasTarget": null,
+      "cssProperties": {},
+      "deprecated": null,
+      "description": null,
       "id": "space-280",
       "mode": "base",
       "rawValue": {
@@ -8342,6 +12532,25 @@
         "value": 32
       },
       "sourcePath": "primitive.spacing.32",
+      "tier": "primitive",
+      "type": "dimension"
+    },
+    {
+      "aliasTarget": null,
+      "cssProperties": {},
+      "deprecated": null,
+      "description": null,
+      "id": "space-320",
+      "mode": "base",
+      "rawValue": {
+        "unit": "px",
+        "value": 320
+      },
+      "resolvedValue": {
+        "unit": "px",
+        "value": 320
+      },
+      "sourcePath": "primitive.spacing.320",
       "tier": "primitive",
       "type": "dimension"
     },
@@ -8704,6 +12913,27 @@
         "value": 2
       },
       "sourcePath": "semantic.global.spacing.overlay-item-gap",
+      "tier": "semantic",
+      "type": "dimension"
+    },
+    {
+      "aliasTarget": {
+        "id": "space-2",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-space-progress-ring-gap": "2px"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "space-progress-ring-gap",
+      "mode": "global",
+      "rawValue": "{primitive.spacing.2}",
+      "resolvedValue": {
+        "unit": "px",
+        "value": 2
+      },
+      "sourcePath": "semantic.global.spacing.progress-ring-gap",
       "tier": "semantic",
       "type": "dimension"
     },

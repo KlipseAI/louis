@@ -8,6 +8,53 @@ authority: normative
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
 
+## 2026-08-21 (73) — 단위 9·6. 중립 표면 위의 danger 텍스트가 생겼습니다
+
+### 없던 것
+
+`color-foreground-danger`는 `color-background-danger`와 **쌍으로** 쓰도록 만들어졌고 두 테마에서
+값이 서로 뒤바뀝니다. 그래서 **텍스트 색으로만 쓰면 본문색과 구분되지 않습니다** — light 1.21 ·
+dark 1.14. Button은 쌍으로 써서 성립하지만 Menu의 danger item이 이 공백을 그대로 밟고 있었습니다.
+
+### 계산해서 골랐습니다
+
+| 테마 | 후보 | 표면 대비 | 메뉴 대비 | 본문색과 차 |
+| --- | --- | ---: | ---: | ---: |
+| light | *현재 red-900* | 13.68 | 12.65 | **1.21** |
+| light | **red-700** | **6.08** | **5.62** | **2.72** |
+| dark | *현재 red-100* | 10.17 | — | 1.14 |
+| dark | **red-400** | **4.51** | **4.51** | **2.57** |
+
+`red-600`(light 4.15)과 `red-500`(dark 3.70)은 4.5에 미달하고, `red-800`(light)은 대비는 높지만
+본문색과의 차가 1.77로 「빨강」으로 읽히지 않습니다. **두 표면 모두 4.5를 넘으면서 본문색과도
+구분되는 것은 red-700 / red-400뿐**입니다.
+
+`color-foreground-danger-on-surface`를 세웠고 **contrastPairs 두 쌍을 함께 올렸습니다**
+(`background-surface`·`background-menu`, 각 4.5). 게이트가 매번 실제 WCAG 계산으로 확인합니다.
+
+### 게이트가 규칙을 하나 가르쳐 줬습니다
+
+처음에 두 쌍에 근거를 `note`로 달았더니 스키마가 거부했습니다 — **`note`는 `minimum`이 4.5 미만인
+예외에만 허용되고, 그때는 필수**입니다. 좋은 규칙입니다. 통과하는 쌍에 설명을 달기 시작하면
+미달 쌍의 `note`가 가진 무게가 사라집니다. 근거는 이 문서에 남깁니다.
+
+### baseline을 갱신했습니다
+
+`contrastPairs` 변경은 breaking으로 분류되므로 [Releases](../governance/releases.md)의
+「의도적 breaking과 baseline 갱신」 절차를 따랐습니다.
+
+```
+additive 144 · removal 0 · type 0 · value 0 · aliasTarget 0 · mode 0
+contrastPairs 1   ← 의도한 항목
+```
+
+**의도하지 않은 breaking이 섞이지 않았습니다.** 기존 12쌍은 손대지 않았고 2쌍이 순증했습니다.
+
+### Migration
+
+`color-foreground-danger-on-surface`가 순증했습니다. 기존 `color-foreground-danger`는 그대로이며
+**쌍으로 쓰는 자리에서는 계속 그것을 씁니다.** 중립 표면 위 텍스트에만 새 토큰을 씁니다.
+
 ## 2026-08-21 (72) — 단위 8. 축마다 찾는 대신 전 축을 재는 계기를 세웠습니다
 
 ### layer는 차 있습니다

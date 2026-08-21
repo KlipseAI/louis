@@ -1063,7 +1063,7 @@ coverage가 끝나지 않았다면 P3 core release라고 명시한다. published
 | 5 | 타이포 15종 재편 — **breaking** | `done` |
 | 6 | contrastPairs 7 → 19 | `pending` |
 | 7 | elevation / border-width / radius 16개 | `partial` — 실측 결과 아래 |
-| 8 | layer / motion 10개 — layerOrder 배열 변경 | `pending` |
+| 8 | layer / motion 10개 — layerOrder 배열 변경 | `partial` — 실측 결과 아래 |
 | 9 | sky / editor / danger action 14개 | `pending` — 아래 3번 |
 | 10 | space / surface 보강 13개 | `blocked` — 아래 1·2번 |
 
@@ -1119,6 +1119,34 @@ property 이름 · 바인딩 **개수** · 기하 요약뿐이고 노드 트리�
 
 실제로 넣고 `build-tokens`를 돌려 `verify-token-gates`와 `check-token-diff`가 통과하는 것을
 확인한 뒤 되돌렸다. **코드는 준비됐고 Figma 이전만 남았다.**
+
+**단위 8 — layer는 차 있고 motion에 구멍이 있다 (2026-08-21 실측):**
+
+**layer — 추가할 것이 없다.** primitive 5 · semantic 5가 이미 있고 `layerOrder` 배열
+(`content → sticky → popover → modal → critical`)도 서 있다. 제품의 z-index는 `9999`·`1400`·`1200`
+같은 값이 섞인 상태지만 **그것을 가져오지 않는 것이 계약이다**
+([App Shell](../patterns/app-shell.md)의 Overlay contract). 배열 변경이 필요 없다.
+
+**motion — 최다 사용값에 대응하는 모션이 없다.** 배포본의 `ms` 값을 세니 **58단 1,342회**이고
+DS의 duration·motion이 덮는 것은 **56.9%**다.
+
+| ms | 사용 | 파일 | DS |
+| ---: | ---: | ---: | --- |
+| **180** | **240** | 55 | **없다** |
+| 120 | 144 | 51 | `duration-fast` |
+| 140 | 139 | 44 | `motion-tooltip-enter` |
+| 160 | 109 | 36 | `motion-control-hover` |
+| 320 | 84 | 35 | `duration-slow` |
+| 150 | 68 | 18 | **없다** |
+| 280 | 44 | 22 | **없다** |
+
+**180ms가 240회로 최다인데 어떤 DS 모션도 그 길이를 쓰지 않는다.** 55개 파일에 퍼져 있어
+한 자리의 예외가 아니다. 다만 **180ms가 어느 역할인지는 무엇이 움직이는지를 봐야 정해진다** —
+길이만 보고 `motion-*` 이름을 붙이면 그것이야말로 근거 없는 토큰이 된다. 제품 확인이 필요하다.
+
+**네 축에서 같은 자국이 나왔고, 이제 한 번에 잰다.** `scripts/measure-product-drift.mjs`가
+alpha·radius·border-width·duration을 함께 재고 `verify-product-drift`가 게이트다. 한 축씩
+발견하는 방식으로는 다섯 번째를 놓친다.
 
 **단위 7 — 실측 결과 「16개」가 아니라 1개 + 드리프트 기록이다 (2026-08-21):**
 

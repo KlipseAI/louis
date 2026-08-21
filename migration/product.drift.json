@@ -1,0 +1,210 @@
+{
+  "$comment": "생성물. scripts/measure-product-drift.mjs가 배포본에서 잰다. 직접 수정하지 않는다.",
+  "$whyThisExists": "값을 직접 쓸 수 있는 축마다 드리프트가 번진다. 2026-08-21에 네 축에서 같은 자국이 **따로따로** 발견됐다 — 알파·radius·border-width·duration. 한 축씩 발견하는 방식으로는 다섯 번째를 놓친다. 전 축을 한 번에 재서 드러낸다.",
+  "$howToRead": "coverage가 낮으면 DS 스케일이 좁거나 제품이 흩어진 것이다. topHasToken이 false면 **가장 흔한 값을 토큰으로 쓸 수 없다는 뜻**이며, 그 자체로 결함이다.",
+  "productRef": "ada1b939364242a4c8b39cfa8d84a1fd669dda5b",
+  "productCommit": "ada1b939364242a4c8b39cfa8d84a1fd669dda5b",
+  "axes": [
+    {
+      "id": "alpha",
+      "label": "투명도 %",
+      "unit": "%",
+      "productStops": 73,
+      "dsStops": 14,
+      "uses": 3532,
+      "coveragePct": 46.1,
+      "topValue": 100,
+      "topUses": 419,
+      "topHasToken": false,
+      "missingTop": [
+        {
+          "value": 100,
+          "uses": 419,
+          "files": 59
+        },
+        {
+          "value": 88,
+          "uses": 96,
+          "files": 46
+        },
+        {
+          "value": 14,
+          "uses": 88,
+          "files": 42
+        },
+        {
+          "value": 92,
+          "uses": 87,
+          "files": 42
+        },
+        {
+          "value": 90,
+          "uses": 77,
+          "files": 43
+        },
+        {
+          "value": 22,
+          "uses": 77,
+          "files": 41
+        },
+        {
+          "value": 96,
+          "uses": 66,
+          "files": 26
+        },
+        {
+          "value": 28,
+          "uses": 60,
+          "files": 30
+        }
+      ]
+    },
+    {
+      "id": "radius",
+      "label": "모서리 반경",
+      "unit": "px",
+      "productStops": 24,
+      "dsStops": 11,
+      "uses": 587,
+      "coveragePct": 83.5,
+      "topValue": 999,
+      "topUses": 151,
+      "topHasToken": true,
+      "missingTop": [
+        {
+          "value": 7,
+          "uses": 21,
+          "files": 2
+        },
+        {
+          "value": 3,
+          "uses": 18,
+          "files": 7
+        },
+        {
+          "value": 5,
+          "uses": 15,
+          "files": 11
+        },
+        {
+          "value": 1,
+          "uses": 12,
+          "files": 1
+        },
+        {
+          "value": 9,
+          "uses": 7,
+          "files": 2
+        },
+        {
+          "value": 14,
+          "uses": 6,
+          "files": 2
+        },
+        {
+          "value": 18,
+          "uses": 5,
+          "files": 4
+        },
+        {
+          "value": 1.5,
+          "uses": 4,
+          "files": 2
+        }
+      ]
+    },
+    {
+      "id": "border-width",
+      "label": "테두리 두께",
+      "unit": "px",
+      "productStops": 8,
+      "dsStops": 3,
+      "uses": 203,
+      "coveragePct": 92.1,
+      "topValue": 1,
+      "topUses": 142,
+      "topHasToken": true,
+      "missingTop": [
+        {
+          "value": 1.5,
+          "uses": 10,
+          "files": 5
+        },
+        {
+          "value": 3,
+          "uses": 3,
+          "files": 2
+        },
+        {
+          "value": 4,
+          "uses": 1,
+          "files": 1
+        },
+        {
+          "value": 0.1,
+          "uses": 1,
+          "files": 1
+        },
+        {
+          "value": 10,
+          "uses": 1,
+          "files": 1
+        }
+      ]
+    },
+    {
+      "id": "duration",
+      "label": "모션 길이",
+      "unit": "ms",
+      "productStops": 58,
+      "dsStops": 16,
+      "uses": 1342,
+      "coveragePct": 56.9,
+      "topValue": 180,
+      "topUses": 240,
+      "topHasToken": false,
+      "missingTop": [
+        {
+          "value": 180,
+          "uses": 240,
+          "files": 55
+        },
+        {
+          "value": 150,
+          "uses": 68,
+          "files": 18
+        },
+        {
+          "value": 280,
+          "uses": 44,
+          "files": 22
+        },
+        {
+          "value": 100,
+          "uses": 18,
+          "files": 10
+        },
+        {
+          "value": 240,
+          "uses": 16,
+          "files": 9
+        },
+        {
+          "value": 40,
+          "uses": 15,
+          "files": 10
+        },
+        {
+          "value": 400,
+          "uses": 12,
+          "files": 6
+        },
+        {
+          "value": 80,
+          "uses": 12,
+          "files": 10
+        }
+      ]
+    }
+  ]
+}

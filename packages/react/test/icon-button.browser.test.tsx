@@ -183,4 +183,6 @@ test("토글이 켜진 상태를 hover가 덮지 않는다", async () => {
   await userEvent.hover(node);
   expect(getComputedStyle(node).backgroundColor, "hover가 pressed 면을 바꿨습니다").toBe(resting);
   expect(node.getAttribute("aria-pressed")).toBe("true");
+  // 포인터를 치운다. 얹은 채로 두면 뒤에 같은 좌표에 렌더되는 요소가 :hover를 받는다.
+  await userEvent.unhover(node);
 });

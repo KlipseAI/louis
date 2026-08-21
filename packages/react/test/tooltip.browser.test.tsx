@@ -44,6 +44,8 @@ test("포인터 진입 후 지연이 지나면 열린다", async () => {
     expect(surface()).not.toBeNull();
   });
   expect(surface()?.textContent).toBe("삭제 (⌫)");
+  // 포인터를 치운다. 얹은 채로 두면 뒤에 같은 좌표에 렌더되는 요소가 :hover를 받는다.
+  await userEvent.unhover(triggerEl());
 });
 
 test("지연 전에 포인터가 떠나면 열리지 않는다", async () => {
@@ -135,6 +137,7 @@ test("disabled면 열리지 않는다", async () => {
   expect(surface()).toBeNull();
   // trigger 자체는 그대로 동작한다.
   expect(trigger.disabled).toBe(false);
+  await userEvent.unhover(trigger);
 });
 
 test("trigger의 accessible name이 tooltip 내용으로 바뀌지 않는다", async () => {
@@ -185,6 +188,7 @@ test("호출부의 포인터 핸들러를 덮어쓰지 않는다", async () => {
   await vi.waitFor(() => {
     expect(surface()).not.toBeNull();
   });
+  await userEvent.unhover(triggerEl());
 });
 
 test("anchor와의 간격이 overlay 표면 CSS 값과 같다", async () => {

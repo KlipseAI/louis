@@ -56,46 +56,51 @@ beforeAll(async () => {
 // 40회 반복에서 2건이 실패했고 둘 다 「기대한 색 대신 hover 색」이었다. 토큰 값이 정확히
 // 일치해서 추측이 아니다.
 //
-//   sidebar CTA   기대 `--kds-color-background-upgrade`      #171b22
+//   sidebar CTA   기대 `--kds-color-background-upgrade`       #171b22
 //                 실제 `--kds-color-background-upgrade-hover` #313640
 //   segmented     기대 Default = `color-foreground-secondary` #575d68
 //                 실제 Hover   = `color-foreground-primary`   #171b22
 //
 // `userEvent.hover()`는 **진짜 마우스를 움직인다.** 얹은 채로 테스트가 끝나면 다음 테스트에서
-// 같은 좌표에 렌더된 요소가 `:hover`를 받는다. 렌더 위치와 실행 순서에 따라 갈리므로 드물게
-// 나고, 값이 「그럴듯한 다른 색」이라 원인이 안 보인다.
+// 같은 좌표에 렌더된 요소가 `:hover`를 받는다.
 //
-// `segmented-control.browser.test.tsx:151`이 이미 같은 위험을 주석으로 적고 개별 `unhover`를
-// 넣어 두었는데, **단언이 먼저 실패하면 그 줄에 도달하지 못한다.** 그래서 여기서 무조건 치운다.
+// **매 테스트마다 포인터를 치우면 안 된다.** 그렇게 해 봤더니 suite가 멈췄다 — playwright의
+// hover는 대상이 실제로 이벤트를 받을 때까지 기다리는데, 앞 테스트가 남긴 오버레이가 덮고
+// 있으면 그 대기가 끝나지 않는다. 포인터를 쓰는 파일이 27개라 비용도 크다.
 //
-// 화면 우하단 1px 자리에 최상위 요소를 잠깐 만들어 그리로 포인터를 옮기고 지운다. 지운 뒤
-// 포인터는 그 좌표의 배경 위에 남는다 — 어떤 fixture 위도 아니다.
-// 매 테스트마다 포인터를 옮기면 playwright 왕복이 756번 생겨 suite가 10배 느려진다.
-// **hover가 실제로 일어난 테스트에서만** 치운다 — `mouseover`가 한 번이라도 떴는지로 판별한다.
-let pointerMoved = false;
-const markPointerMoved = () => {
-  pointerMoved = true;
-};
-
-beforeEach(() => {
-  pointerMoved = false;
-  document.addEventListener("mouseover", markPointerMoved, { capture: true });
+// **실패한 테스트 뒤에만 치운다.** 통과한 테스트는 자기 `unhover`가 이미 돌았고, 실패한
+// 테스트는 그 줄에 도달하지 못한 바로 그 경우다 — 즉 **첫 실패가 둘째·셋째를 만드는 연쇄만**
+// 끊으면 된다. 정상 경로에는 왕복이 하나도 추가되지 않는다.
+//
+// `unhover`는 vitest가 내부적으로 `html > body`를 hover하는 것이라 대상 요소를 따로 만들지
+// 않는다.
+// **읽기 전에 치운다 — 뒤가 아니라 앞이다.**
+//
+// 뒤에서 치우는 판을 먼저 만들었는데 두 가지가 틀렸다.
+//
+// 1. **suite가 멈췄다.** afterEach 시점에는 그 테스트의 fixture가 아직 DOM에 있어서, playwright의
+//    hover가 「대상이 이벤트를 받을 때까지」 기다리다 끝나지 않는다.
+// 2. **연쇄만 끊어서는 부족했다.** 남기는 것은 `hover`만이 아니다 — `click`도 마우스를 그 자리에
+//    두고, vitest는 파일을 **병렬로** 돌리며 같은 마우스를 공유한다. 그래서 이 파일이 아무것도
+//    안 눌러도 **다른 파일이 남긴 포인터** 위에 자기 요소가 렌더될 수 있다.
+//
+// beforeEach 시점에는 아직 아무것도 렌더되지 않았다. 그래서 `html > body`가 비어 있고 대기가
+// 걸리지 않는다. `unhover`는 vitest가 내부적으로 `html > body`를 hover하는 것이라 대상 요소를
+// 따로 만들 필요도 없다.
+beforeEach(async () => {
+  try {
+    await userEvent.unhover(document.body);
+  } catch {
+    // 포인터를 못 옮기는 것을 테스트 실패로 만들지 않는다. 이 훅은 보호막이지 단언이 아니다.
+  }
 });
 
-afterEach(async () => {
-  document.removeEventListener("mouseover", markPointerMoved, { capture: true });
+afterEach(async (context) => {
   document.documentElement.removeAttribute("data-theme");
-  if (!pointerMoved) return;
-
-  const park = document.createElement("div");
-  park.setAttribute("data-kds-pointer-park", "");
-  park.style.cssText =
-    "position:fixed;right:0;bottom:0;width:1px;height:1px;z-index:2147483647;background:transparent";
-  document.body.append(park);
+  if (context.task.result?.state !== "fail") return;
   try {
-    await userEvent.hover(park);
+    await userEvent.unhover(document.body);
   } catch {
-    // 포인터를 못 옮기는 것은 테스트 실패로 만들지 않는다. 이 훅은 보호막이지 단언이 아니다.
+    // 포인터를 못 옮기는 것을 테스트 실패로 만들지 않는다. 이 훅은 보호막이지 단언이 아니다.
   }
-  park.remove();
 });

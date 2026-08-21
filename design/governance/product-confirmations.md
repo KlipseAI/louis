@@ -199,3 +199,31 @@ Tailwind v4 기본은 rem 기반인데 이 제품은 「실측 결과 2px 격자
 **제품만 답할 수 있는 이유.** 루트 폰트 크기는 접근성 설정(브라우저 기본 글자 크기)과 얽혀 있고,
 `rem`을 앞으로 쓸 것인지에 대한 방침이 있어야 정해진다. 현재 제품은 `rem`을 **3곳**에서만 쓴다.
 
+## 7 — 형태 B 상단 페이드가 어디서도 켜지지 않는다
+
+**증상.** 앱 셸 형태 B(카드가 별도 패널 div)의 패널은 `::before`로 **상단 72px 페이드**를 그리도록
+선언돼 있는데, 높이가 `calc(72px * min(1, var(--header-progress, 0) * 1000))`이다.
+**배포본에서 이 값이 0을 벗어나는 화면이 없다.**
+
+**왜.** `useMainChromeHeaderScrollProgress`가 `--header-progress`를 두 곳에 쓴다 —
+`headerSlot`과 `wrapper.closest("main")`. 그런데 형태 B에서 페이드를 가진 패널 div는
+**`<main>`의 부모**다(`VideoEditScene.tsx:701-702` 구조). CSS 커스텀 프로퍼티는 **위로 상속되지
+않으므로** 패널의 `::before`는 언제나 폴백 `0`을 읽는다.
+
+게다가 페이드를 선언한 3파일(`myPageSceneStyles.ts` · `VideoEditScene.tsx` · `InquiryClient.tsx`)
+중 **훅을 호출하는 것은 하나도 없다.** 훅 호출처는 `AppHomeScene`(형태 A) ·
+`NodeCanvasHomeScene`(형태 A) · `HighlightScene` 셋뿐이다.
+
+**같은 훅의 다른 변수는 정상이다.** `--mainchrome-divider-progress`는 `headerSlot`에 쓰이고
+경계선이 그 슬롯 안에서 읽으므로 동작한다.
+
+**정해야 할 것.** 상단 페이드가 의도된 기능인가.
+
+- **의도라면** 훅이 패널까지 변수를 올려 주거나(예: `closest` 대상을 패널로), 페이드를 `<main>`
+  쪽으로 옮겨야 한다. 지금은 선언만 있고 그려지지 않는다.
+- **폐기라면** 세 파일의 상단 그라디언트와 `HEADER_COLLAPSE_SCROLL_PX`를 함께 지운다. 상수의
+  JSDoc이 「워드마크 축소 등 헤더 collapse」라고 말하는데 **그런 소비처도 배포본에 없다.**
+
+**DS 쪽 조치는 이미 했다.** [app-shell-parts](../components/app-shell-parts.md)에 「상단 페이드를
+켜진 상태로 그리지 마라」를 적었다. 제품이 고치면 그 주의를 지운다.
+

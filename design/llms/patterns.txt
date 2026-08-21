@@ -318,13 +318,43 @@ main inset이 우연히 어긋나지 않게** 관계 테스트를 유지한다. 
 | `--app-gnb-rail-padding-bottom` | `12px` | `0px` | `globals.css:122` · `418` |
 | `--app-shell-min-width` | `960px` | 미적용 | `globals.css:148` · `434` |
 | 레일 폭 (compact) | — | `0px` | `globals.css:426` |
+| 드로어 폭 | — | `min(280px, 100vw - 40px)` | `Gnb.tsx:2002-2003` |
+| 드로어 좌우 패딩 | — | `--app-gnb-sidebar-padding-x` = `12px` | `Gnb.tsx:2004-2005` · `globals.css:126` |
+| 드로어 면 (라이트) | — | `--palette-gray-200` (앱 셸 재매핑 후 `#eeeef1`) | `Gnb.tsx:2015` |
+| 드로어 면 (다크) | — | `--app-page-bg` | `Gnb.tsx:2016` |
+| 드로어 전환 | — | `transform 320ms cubic-bezier(0.4, 0, 0.2, 1)` | `Gnb.tsx:2008` |
 
 **`outer-gap`은 부분만 대응한다.** 제품에는 12px 관계가 셋(상·우·하) 있고 셋이 서로 다른 변수를
 갖는다. compact에서 상단만 유지되고 우측은 16으로, 하단은 0으로 갈라지므로 **하나의 토큰으로
 셋을 덮을 수 없다.** DS-D-0018이 이 토큰을 「부분」으로 판정한 이유다.
 
-카드 표면 자체(반경 · 글래스 링 · 하단 페이드 20px)는 이 패턴이 아니라 제품의 레이어 밖 전역
-클래스가 소유하며, 아직 DS 계약이 없다.
+**드로어의 면은 페이지 배경이 아니다(2026-08-21 실측).** compact에서 드로어는 먼저
+`--app-page-bg`를 깔지만 곧바로 테마별 규칙이 덮는데, **라이트만 `--palette-gray-200`으로
+갈라진다.** 앱 셸 라이트에서 `--app-page-bg`는 `--palette-gray-100`(`#f8f8f9`)이고 드로어는
+`#eeeef1`이므로 **페이지 배경색으로 드로어를 그리면 한 단계 밝게 나온다.** 다크는 둘이 같다.
+
+##### 메인 카드 표면 — 값은 있고 계약이 없다
+
+카드 표면 자체는 이 패턴이 아니라 제품의 레이어 밖 전역 클래스(`appMainCardChrome` /
+`appMainCardChromeSurface`)가 소유하며, **아직 DS 계약이 없다.** 다만 「계약이 없다」가
+「값을 모른다」는 뜻은 아니어서, Figma로 옮길 때 지어내지 않도록 실측값을 적어 둔다
+(2026-08-21, `globals.css:1367-1460`).
+
+| 축 | 값 | 근거 |
+| --- | --- | --- |
+| 반경 | `16px` | `globals.css:1370` · `1403` |
+| 프레임 | `var(--glass-dropdown-frame)` — **5겹**이다. 단일 헤어라인이 아니다 | `globals.css:1372` · `63-68` |
+| 면 (라이트) | `--palette-gray-100` | `globals.css:1391-1393` · `1423-1425` |
+| 면 (다크) | `--palette-gray-800` | `globals.css:1395-1397` · `1427-1429` |
+| 하단 페이드 | `::before` `z-index: 10` — `linear-gradient(to top, 면색 100% 0%, 53% 50%, 19% 80%, 0% 100%) bottom / 100% 20px no-repeat` | `globals.css:1431-1460` |
+| 베벨 링 | `::after` `z-index: 11` — 상하 `inset 0 ±1px 1px` 25% + 좌우 `inset ±1px 0 1px` 18% | `globals.css:1375-1389` |
+| 클리핑 | `overflow: hidden` | `globals.css:1369` · `1402` |
+
+**페이드와 링은 카드가 만든 stacking context 안에서 순서가 정해진다** — 페이드(10)가 아래,
+링(11)이 위다. 둘 다 `pointer-events: none`이고 `border-radius: inherit`을 받는다.
+
+**`--glass-dropdown-frame`을 단일 링으로 옮기면 틀린다.** 5겹이고 라이트에서 알파가 뒤집힌다 —
+[읽기 함정](../foundations/product-reading-traps.md) §2가 이 토큰을 예로 든다.
 
 #### 미결정 — 셸 형태 A / B
 
@@ -340,6 +370,14 @@ main inset이 우연히 어긋나지 않게** 관계 테스트를 유지한다. 
 | 사이드바 자리를 비우는 요소 | 씬 루트 (`appHomeSceneStyles.ts:916`) | 패널 div 자신 |
 | 접힘 전환 대상 | `margin-left` **와** `width` (`appHomeSceneStyles.ts:923`) | `margin-left` **만** (`myPageSceneStyles.ts:76`) |
 | 카드 자체의 margin | 네 방향 0 | 좌·우만 값이 있고 상·하 0 |
+| `<main>` 안쪽 패딩 (≥720px) | `0 16px` | `0 12px 20px 16px` |
+| `<main>` 안쪽 패딩 (≤719px) | `0 16px` | `0 16px` |
+| 스크롤 루트 | `<main>` 바깥의 뷰포트 div | `<main>` 자신 |
+
+**형태 B의 아래쪽 20px은 `pb-10`이다.** 제품이 Tailwind의 `--spacing`을 `2px`로 재정의했기
+때문에(`tailwind.css:164`) `pb-10` = 20px이지 40px이 아니다. **Tailwind 기본값(4px 격자)으로
+환산하면 두 배로 나온다.** 실측값: `--app-gnb-main-inline-padding` 16px ·
+`--app-gnb-main-inline-padding-end` 12px(≤719px는 16px) — `globals.css:128`·`130`·`416`·`417`.
 
 전환 곡선은 양쪽 모두 `320ms cubic-bezier(0.4, 0, 0.2, 1)`로 같다 — 위 표의
 `motion-shell-collapse`와 일치한다. **갈리는 것은 곡선이 아니라 무엇이 움직이는가다.**

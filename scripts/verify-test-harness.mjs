@@ -82,14 +82,34 @@ for (const canary of canaries) {
 }
 
 // canary 제거 후 실제 suite가 통과하는지 확인한다.
+let browserOutput = "";
 try {
   runVitest("node");
-  runVitest("browser*");
+  browserOutput = runVitest("browser*");
   positives.push("post-canary suite");
 } catch (error) {
+  browserOutput = String(error.stdout ?? "") + String(error.stderr ?? "");
+  errors.push(`canary 제거 후 실제 suite가 실패했습니다:\n${browserOutput}`);
+}
+
+// **초록인데 조용히 깨져 있던 자리다.** vitest.config.ts의 `optimizeDeps.include`가 맨 패키지
+// 이름을 적고 있었는데 pnpm 배치상 저장소 루트에서 해석되지 않아, 매 실행이
+// `Failed to resolve dependency: …, present in client 'optimizeDeps.include'`를 찍으면서
+// **사전 번들링이 통째로 걸리지 않았다.** 그러면 Vite가 런타임에 의존성을 발견해 페이지를
+// 리로드하고, 그 리로드가 진행 중이던 테스트를 엉뚱한 DOM 위에서 실패시킨다 — 브라우저
+// 테스트가 약 5% 확률로 흔들린 원인이다. 로그 한 줄이라 아무도 읽지 않았으므로 게이트로 만든다.
+const unresolved = [
+  ...browserOutput.matchAll(/Failed to resolve dependency: ([^,]+), present in client/g),
+].map((match) => match[1].trim());
+if (unresolved.length > 0) {
   errors.push(
-    `canary 제거 후 실제 suite가 실패했습니다:\n${String(error.stdout ?? "") + String(error.stderr ?? "")}`,
+    "optimizeDeps.include가 해석되지 않습니다: " +
+      [...new Set(unresolved)].join(", ") +
+      "\n사전 번들링이 걸리지 않아 실행 중 페이지 리로드가 나고 테스트가 흔들립니다." +
+      "\npnpm 배치에서는 부모 패키지를 앞에 적어야 합니다 — 예: `@klipse-design/react > @radix-ui/react-portal`.",
   );
+} else {
+  positives.push("optimizeDeps 해석");
 }
 
 if (errors.length > 0) {

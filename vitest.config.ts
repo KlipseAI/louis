@@ -11,11 +11,18 @@ const browserInclude = ["packages/*/test/**/*.browser.test.{ts,tsx}"];
 // fixture가 dist를 거쳐 하부 유틸을 끌어오므로, 첫 실행에서 Vite가 이들을 "새 의존성"으로
 // 발견하고 페이지를 리로드한다. 그 리로드는 진행 중이던 테스트를 통째로 실패시킨다.
 // 미리 지정해 두면 발견 단계가 사라져 첫 실행부터 결정적으로 돈다.
+//
+// **`>` 문법이 필수다.** 2026-08-21까지 이 목록이 맨 이름("@radix-ui/react-portal")이었는데,
+// 그 이름들은 pnpm 배치상 **저장소 루트에서 해석되지 않는다**(`packages/react`에서만 된다).
+// Vite optimizer는 루트에서 도므로 매 실행이 `Failed to resolve dependency: …, present in
+// client 'optimizeDeps.include'` 를 찍고 **사전 번들링이 통째로 걸리지 않았다.** 즉 이 배열이
+// 막으려던 리로드가 그대로 일어나고 있었다 — 브라우저 테스트가 약 5% 확률로 엉뚱한 DOM을
+// 읽고 실패한 원인이다. 부모 패키지를 앞에 적어 그 경로로 해석하게 한다.
 const overlayDeps = [
-  "@radix-ui/react-dismissable-layer",
-  "@radix-ui/react-focus-scope",
-  "@radix-ui/react-popper",
-  "@radix-ui/react-portal",
+  "@klipse-design/react > @radix-ui/react-dismissable-layer",
+  "@klipse-design/react > @radix-ui/react-focus-scope",
+  "@klipse-design/react > @radix-ui/react-popper",
+  "@klipse-design/react > @radix-ui/react-portal",
 ];
 
 export default defineConfig({
@@ -37,6 +44,7 @@ export default defineConfig({
         test: {
           name: "browser",
           include: browserInclude,
+          setupFiles: ["./test/setup-styles.ts"],
           browser: {
             enabled: true,
             provider: playwright(),
@@ -51,6 +59,7 @@ export default defineConfig({
         test: {
           name: "browser-reduced-motion",
           include: browserInclude,
+          setupFiles: ["./test/setup-styles.ts"],
           browser: {
             enabled: true,
             // motion.md: reduced-motion에서도 focus 이동·scroll lock·unmount 순서는 같다.

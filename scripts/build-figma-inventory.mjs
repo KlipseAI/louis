@@ -168,7 +168,10 @@ const layout = (node, file, specimenId, parentCtx) => {
     : (V.columnGap && V.columnGap !== "normal" ? px(V.columnGap) : 0);
   const selfIsFlex = (V.display ?? "").includes("flex") || (V.display ?? "").includes("grid");
   const selfCtx = selfIsFlex ? { flex: true, row: V.flexDirection === "row" } : { flex: false, row: false };
-  const children = (node.children ?? []).map((c) => layout(c, file, specimenId, selfCtx));
+  const innerW = round3(width - cssPad[1] - cssPad[3]);
+  const innerH = round3(height - cssPad[0] - cssPad[2]);
+  const children = (node.children ?? []).map((c) =>
+    layout(c, file, specimenId, { ...selfCtx, innerW, innerH, boxW: width, boxH: height }));
 
   // absolute 자식은 flow에 없다 — 좌표는 측정에서 그대로 받고, 간격·여백 추론에서 뺀다.
   // 프로젝트 카드가 그렇다: 썸네일(inset:0)·타이틀 오버레이·메뉴 앵커·드롭다운 전부 absolute다.
@@ -235,8 +238,30 @@ const layout = (node, file, specimenId, parentCtx) => {
   const fontSize = px(V.fontSize);
   const plain = !colorOf(V.backgroundColor)?.[3] && px(V.borderTopWidth) === 0 && px(V.borderTopLeftRadius) === 0;
 
+  // **빈 잎의 크기는 추측하지 않고 잰다.** 자식도 글자도 없으면 hug가 0이 되므로 FIX로
+  // 굳히기 쉬운데, 그러면 조립할 때 부모를 늘려도 안 따라온다. 실제로 `INPUT`(372-32=340),
+  // 카드 썸네일(inset:0), 진행 막대 채움이 전부 그렇게 굳어 있었다.
+  // 판정 근거는 측정값이다 — 부모 안쪽 상자와 같으면 부모가 준 것이다.
+  // 안쪽 상자와 같으면 부모가 준 것이고, **바깥 상자와 같으면** 음수 마진으로 걸친 것이다
+  // (메뉴 구분선이 그렇다). 둘 다 부모가 폭을 정한다.
+  const fillsParentW = empty && parentCtx &&
+    (Math.abs(width - (parentCtx.innerW ?? -1)) < 0.5 || Math.abs(width - (parentCtx.boxW ?? -1)) < 0.5);
+  const fillsParentH = empty && parentCtx &&
+    (Math.abs(height - (parentCtx.innerH ?? -1)) < 0.5 || Math.abs(height - (parentCtx.boxH ?? -1)) < 0.5);
+  // **0으로 잰 축은 내용 슬롯이다.** 아이콘·점·썸 같은 자리는 제품에서 SVG나 React 자식이
+  // 채우는데 하네스에는 클래스만 있어 0이 된다. 0을 FIX로 굳히면 조립할 때 내용을 넣어도
+  // 안 자란다 — hug로 두어 내용이 정하게 한다. 크기를 지어내지 않는다.
+  const slotW = empty && width < 0.5;
+  const slotH = empty && height < 0.5;
+  const isAbs2 = V.position === "absolute" || V.position === "fixed";
+  // absolute + inset:0(부모 상자를 그대로 덮음)은 두 축 모두 부모가 준다.
+  const coversParent = isAbs2 && parentCtx &&
+    Math.abs((V.$x ?? 1) - 0) < 0.5 && Math.abs((V.$y ?? 1) - 0) < 0.5 &&
+    Math.abs(width - (parentCtx.boxW ?? -1)) < 0.5 && Math.abs(height - (parentCtx.boxH ?? -1)) < 0.5;
+
   return {
     part: node.part,
+    slot: slotW || slotH,
     text: node.text ?? "",
     w: width, h: height,
     // absolute면 측정된 오프셋을 그대로 갖는다. flow면 위 커서 계산이 채운다.
@@ -274,10 +299,20 @@ const layout = (node, file, specimenId, parentCtx) => {
     //   inline 계열 → 내용이 정한다(HUG).
     // 이 구분을 놓쳐 빈 상태 패널이 372에서 225로 줄고 배지가 반대로 늘어났었다.
     wx: decl.wFixed ? "FIX"
-      : (decl.wFill ? "FILL"
-        : (empty ? "FIX"
+      : (decl.wFill || coversParent ? "FILL"
+        : (empty ? (fillsParentW ? "FILL" : (slotW ? "HUG" : "FIX"))
           : ((parentCtx && parentCtx.flex && parentCtx.row) || (V.display ?? "").startsWith("inline") ? "HUG" : "FILL"))),
-    hx: decl.hFixed ? "FIX" : (decl.hFill ? "FILL" : (empty ? "FIX" : "HUG")),
+    // **왜 그 정책인가.** 선언에서 온 것과 폴백으로 굳은 것을 구분해야 조립할 때 믿을 수 있다.
+    //   선언   제품이 명시했다 — 그대로 고정해도 된다
+    //   빈칸   자식도 글자도 없어 hug가 0이 된다 — 실측으로 굳혔을 뿐, 선언이 아니다
+    //   주축   flex 행의 자식이라 내용이 정한다
+    //   교차축 flex 열/블록이라 부모가 준다
+    wy: decl.wFixed ? "선언" : (decl.wFill ? "선언(채움)" : (coversParent ? "덮음" : (empty ? (fillsParentW ? "부모폭" : (slotW ? "슬롯" : "빈칸")) :
+      ((parentCtx && parentCtx.flex && parentCtx.row) || (V.display ?? "").startsWith("inline") ? "주축" : "교차축")))),
+    hy: decl.hFixed ? "선언" : (decl.hFill ? "선언(채움)" : (coversParent ? "덮음" : (empty ? (fillsParentH ? "부모높이" : (slotH ? "슬롯" : "빈칸")) : "내용"))),
+    hx: decl.hFixed ? "FIX"
+      : (decl.hFill || coversParent ? "FILL"
+        : (empty ? (fillsParentH ? "FILL" : (slotH ? "HUG" : "FIX")) : "HUG")),
     minW: decl.minW || px(V.minWidth) || 0,
     minH: px(V.minHeight) || 0,
     maxW: decl.maxW || 0,
@@ -413,6 +448,10 @@ const build=n=>{
  f.fills=fillOf(n);
  f.cornerRadius=n.r===-1?Math.max(1,Math.min(n.w,n.h))/2:Math.min(P(n.r),Math.max(1,Math.min(n.w,n.h))/2);
  if(n.bw>0&&n.bc){f.strokes=paint(n.bc);f.strokeWeight=n.bw;f.strokeAlign="INSIDE";}
+ // 내용 슬롯: 제품에서 SVG·자식이 채우는 자리라 하네스가 0으로 쟀다. 크기를 지어내지 않고
+ // 점선으로 자리만 보여 준다 — 조립할 때 여기에 아이콘을 넣으면 hug로 자란다.
+ if(n.slot){f.name="슬롯: "+n.p;f.strokes=[{type:"SOLID",color:INK,opacity:0.25}];
+  f.strokeWeight=1;f.strokeAlign="INSIDE";f.dashPattern=[3,3];f.minWidth=8;f.minHeight=8;}
  if(n.sh)f.effects=[{type:"DROP_SHADOW",visible:true,blendMode:"NORMAL",
    color:{r:n.sh[0][0],g:n.sh[0][1],b:n.sh[0][2],a:n.sh[0][3]},offset:{x:n.sh[1],y:n.sh[2]},radius:n.sh[3],spread:0}];
  f.primaryAxisAlignItems="CENTER";f.counterAxisAlignItems="CENTER";f.clipsContent=false;
@@ -475,10 +514,15 @@ return {count:created.length,어긋난것:drift.length,drift:drift.slice(0,12),�
 const zero = (a) => a.every((x) => !x);
 const compact = (n) => {
   // absolute는 부모 flow 밖이라 FILL이 성립하지 않는다 — 측정 크기로 고정하고 좌표를 갖는다.
-  const o = n.abs
+  // 부모를 그대로 덮는 absolute는 좌표가 아니라 **채움**으로 옮긴다 — 그래야 조립할 때
+  // 부모를 늘리면 따라온다. 그 밖의 absolute만 측정 좌표를 갖는다.
+  const covers = n.abs && n.wx === "FILL" && n.hx === "FILL";
+  const o = n.abs && !covers
     ? { p: n.part, w: n.w, h: n.h, wx: "FIX", hx: "FIX", abs: 1, x: n.x, y: n.y }
     : { p: n.part, w: n.w, h: n.h, wx: n.wx, hx: n.hx };
   if (n.ci) o.ci = n.ci;
+  if (n.slot) o.slot = 1;
+  o.wy = n.wy; o.hy = n.hy;
   if (!zero(n.pad)) o.pad = n.pad;
   if (!zero(n.inset)) o.ins = n.inset;
   if (n.gap) o.gap = n.gap;

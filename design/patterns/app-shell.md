@@ -154,6 +154,46 @@ main inset이 우연히 어긋나지 않게** 관계 테스트를 유지한다. 
 카드 표면 자체(반경 · 글래스 링 · 하단 페이드 20px)는 이 패턴이 아니라 제품의 레이어 밖 전역
 클래스가 소유하며, 아직 DS 계약이 없다.
 
+## 미결정 — 셸 형태 A / B
+
+**제품에 카드를 거는 방식이 둘이고, 어느 쪽이 정본인지 정해지지 않았다.** 이 문서는 그 사실을
+기록만 하며 한쪽을 고르지 않는다. 두 계열은 실제로 공존하고 소비처 수도 비슷하다 —
+**한쪽만 그리면 나머지 절반이 시스템 밖이 된다.**
+
+| | 형태 A | 형태 B |
+| --- | --- | --- |
+| 크롬 클래스 | `appMainCardChrome` | `appMainCardChromeSurface` |
+| 정의 | `appHomeSceneStyles.ts:799` (`mainWithAppSidebar`) | `myPageSceneStyles.ts:69` (`contentWithAppSidebarPanel`) |
+| 카드가 걸리는 요소 | `<main>` 자신 | `<main>` 바깥의 패널 div |
+| 사이드바 자리를 비우는 요소 | 씬 루트 (`appHomeSceneStyles.ts:916`) | 패널 div 자신 |
+| 접힘 전환 대상 | `margin-left` **와** `width` (`appHomeSceneStyles.ts:923`) | `margin-left` **만** (`myPageSceneStyles.ts:76`) |
+| 카드 자체의 margin | 네 방향 0 | 좌·우만 값이 있고 상·하 0 |
+
+전환 곡선은 양쪽 모두 `320ms cubic-bezier(0.4, 0, 0.2, 1)`로 같다 — 위 표의
+`motion-shell-collapse`와 일치한다. **갈리는 것은 곡선이 아니라 무엇이 움직이는가다.**
+
+소비처는 이렇다(배포본 `origin/main` 기준).
+
+| 계열 | 소비처 |
+| --- | --- |
+| A — 직접 | `appHomeSceneStyles.ts` · `NodeCanvasHomeScene.tsx` · `YoutubeAnalyticsScene.tsx` · `InstagramAnalyticsScene.tsx` · `AdminClient.tsx` |
+| B — 직접 | `myPageSceneStyles.ts` · `VideoEditScene.tsx` · `EditorProjectWorkspace.tsx` · `InquiryClient.tsx` · 숏폼 클립 편집 라우트 |
+| B — 모듈 경유 | `ExploreScene.tsx` · `HighlightScene.tsx` · `HighlightProjectScene.tsx` · `SettingsScene.tsx` · `SubscriptionScene.tsx` |
+
+**마지막 줄이 함정이다.** 이 다섯은 `myPageSceneStyles`(카드)와 `appHomeSceneStyles`(그 밖의 부품)를
+**둘 다** import한다. 그래서 import 목록만 보면 어느 계열인지 판정되지 않는다 — 카드가 어디서
+오는지를 따라가야 한다.
+
+### 이 문서가 지금 정하지 않는 것
+
+공용 `AppShell` composition의 `variant`(`page` · `workspace`)는 위 A/B와 **같은 축이 아니다.**
+`variant`는 스크롤을 누가 소유하는지를 가르고, A/B는 카드가 어느 요소에 걸리는지를 가른다.
+둘을 같은 것으로 읽고 매핑하면 한쪽 계열이 조용히 사라진다.
+
+**Figma를 포함해 옮기는 쪽은 한쪽을 골라 굳히지 않는다.** 그리려는 화면이 어느 계열인지 위
+표에서 확인하고, 표에 없는 화면이면 「판정 불가」로 보고한다. 결정이 서면 이 절을 결정 기록으로
+바꾸고 [DS-D](../governance/decisions/README.md)에 남긴다.
+
 ## Editor route behavior
 
 - immersive editor route에 진입하면 regular mode sidebar를 임시 collapsed로

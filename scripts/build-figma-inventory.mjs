@@ -192,15 +192,22 @@ const layout = (node, file, specimenId, parentCtx) => {
     const leadMain = Math.min(...flow.map((c) => (row ? c.x : c.y)));
     const crossIdx = row ? 0 : 3;
     const mainIdx = row ? 3 : 0;
-    // **유효 여백은 상자 모서리와 자식 사이의 실제 거리다.** CSS padding이 아니라.
-    // 음수 마진이면 줄고(모달 액션 행) 양수 마진이면 는다(입력 상자의 `margin-top: 8px`).
-    // 전에는 줄어드는 쪽만 반영해 폼 입력 7종이 8px씩 모자랐다.
-    const tailCross = (row ? height - Math.max(...flow.map((c) => c.y + c.h)) : width - Math.max(...flow.map((c) => c.x + c.w)));
-    const tailMain = (row ? width - Math.max(...flow.map((c) => c.x + c.w)) : height - Math.max(...flow.map((c) => c.y + c.h)));
-    pad[crossIdx] = Math.max(0, round3(leadCross));
-    pad[mainIdx] = Math.max(0, round3(leadMain));
-    pad[row ? 2 : 1] = Math.max(0, round3(tailCross));
-    pad[row ? 1 : 2] = Math.max(0, round3(tailMain));
+    // **여백은 CSS 여백 + 마진이다. 정렬로 생긴 빈틈은 여백이 아니다.**
+    // 실측 거리를 그대로 쓰면 가운데 정렬한 버튼의 좌우가 168로 굳어 — 글자가 바뀌어도
+    // 안 따라온다. 가운데 맞춤은 여백이 아니라 **정렬**로 옮긴다(아래 primary/counter Align).
+    // 마진만 여백에 더한다: 입력 상자의 `margin-top: 8px`(20 = 12+8),
+    // 모달 액션 행의 `margin-bottom: -8px`(8 = 16-8).
+    const marginOf = (child) => {
+      const raw = (node.children[children.indexOf(child)].values ?? {});
+      return [px(raw.marginTop), px(raw.marginRight), px(raw.marginBottom), px(raw.marginLeft)];
+    };
+    const first = marginOf(flow[0]);
+    const last = marginOf(flow[flow.length - 1]);
+    const crossMargins = flow.map(marginOf);
+    pad[mainIdx] = Math.max(0, round3(cssPad[mainIdx] + first[mainIdx]));
+    pad[row ? 1 : 2] = Math.max(0, round3(cssPad[row ? 1 : 2] + last[row ? 1 : 2]));
+    pad[crossIdx] = Math.max(0, round3(cssPad[crossIdx] + Math.min(...crossMargins.map((m) => m[crossIdx]))));
+    pad[row ? 2 : 1] = Math.max(0, round3(cssPad[row ? 2 : 1] + Math.min(...crossMargins.map((m) => m[row ? 2 : 1]))));
   }
   const inset = cssPad.map((c, i) => Math.max(0, round3(c - pad[i])));
   // 자식마다 교차축 들여쓰기가 다르다 — 제목(마진 0)은 pad보다 8 안쪽, 액션(마진 -8)은 pad 그대로.
@@ -262,6 +269,10 @@ const layout = (node, file, specimenId, parentCtx) => {
     gap: uniform ? (gaps[0] ?? 0) : 0,
     gaps: uniform ? [] : gaps,
     dir: row ? "H" : "V",
+    // 정렬을 실측한다. 가운데 맞춤·양끝 배치는 여백이 아니라 정렬로 재현해야
+    // 조립할 때 내용이 바뀌어도 따라온다.
+    justify: V.justifyContent ?? "flex-start",
+    align: V.alignItems ?? "stretch",
     bg: colorOf(V.backgroundColor),
     gradient: gradientOf(V.backgroundImage),
     fg: colorOf(V.color),
@@ -446,7 +457,12 @@ const build=n=>{
   f.strokeWeight=1;f.strokeAlign="INSIDE";f.dashPattern=[3,3];f.minWidth=8;f.minHeight=8;}
  if(n.sh)f.effects=[{type:"DROP_SHADOW",visible:true,blendMode:"NORMAL",
    color:{r:n.sh[0][0],g:n.sh[0][1],b:n.sh[0][2],a:n.sh[0][3]},offset:{x:n.sh[1],y:n.sh[2]},radius:n.sh[3],spread:0}];
- f.primaryAxisAlignItems="CENTER";f.counterAxisAlignItems="CENTER";f.clipsContent=false;
+ // CSS 정렬을 그대로 옮긴다. 하드코딩한 CENTER는 양끝 배치·왼쪽 정렬을 뭉갠다.
+ const JM={"center":"CENTER","flex-end":"MAX","space-between":"SPACE_BETWEEN","flex-start":"MIN","normal":"MIN"};
+ const AM={"center":"CENTER","flex-end":"MAX","flex-start":"MIN","baseline":"BASELINE","stretch":"MIN","normal":"MIN"};
+ f.primaryAxisAlignItems=JM[n.J||"flex-start"]||"MIN";
+ f.counterAxisAlignItems=AM[n.A||"stretch"]||"MIN";
+ f.clipsContent=false;
  if(n.t)f.appendChild(mkTxt(n));
  addKids(f,n);
  // hug 부모가 FILL 자식을 가지면 FILL이 성립하지 않는다. 그때 부모를 실측 크기로
@@ -522,6 +538,8 @@ const compact = (n) => {
   if (n.gap) o.gap = n.gap;
   if (n.gaps.length) o.gs = n.gaps;
   if (n.dir === "H") o.H = 1;
+  if (n.justify && n.justify !== "flex-start") o.J = n.justify;
+  if (n.align && n.align !== "stretch") o.A = n.align;
   if (n.bg && n.bg[3]) o.bg = n.bg;
   if (n.gradient) o.gr = n.gradient;
   if (n.radius) o.r = n.radius;

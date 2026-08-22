@@ -81,5 +81,5 @@ pnpm verify
 ```
 
 `verify`는 정상 입력 검사뿐 아니라 고의로 오류를 주입해 게이트가 실제로 실패하는지도 확인한다.
-제품 저장소가 있는 곳에서만 전량이 돈다. 없는 곳(hosted CI)에서는 `pnpm verify:ci`가 20단계를 돌고,
-남은 6단계와 인용 좌표 카나리아 3개는 `pnpm verify:product`로 여기서만 증명된다.
+제품 저장소가 있는 곳에서만 전량이 돈다. 없는 곳(hosted CI)에서는 `pnpm verify:ci`가 13단계를 돌고,
+남은 13단계와 인용 좌표 카나리아 3개는 `pnpm verify:product`로 여기서만 증명된다.

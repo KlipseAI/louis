@@ -343,6 +343,20 @@ withHardlinkCanary(
   "hard link일 수 없습니다",
 );
 
+// **제품 의존 게이트가 verify:ci 에 들어오면 잡혀야 한다.** 2026-08-22 에 정확히 그
+// 상태였다 — 게이트 7개가 verify:ci 에 있으면서 러너에서 `SKIPPED` 를 찍고 exit 0 했다.
+// 종료코드가 0 이라 아무도 못 봤고, 초록 CI 가 게이트 20개가 아니라 13개를 뜻했다.
+// verify:ci 소속 스크립트에 제품 경로 표지를 심어 놓고 배분 게이트가 잡는지 본다.
+withCanary(
+  "scripts/verify-token-gates.mjs",
+  // 표지를 이어 붙여 만든다. 한 줄로 쓰면 **이 파일 자신이** 표지를 갖게 되고,
+  // 배분 게이트가 verify-gates 를 제품 의존으로 잡는다(실제로 그렇게 걸렸다).
+  (source) => source + "\n// canary: 제품 저장소 /Users/sejunki/klipse" + "-web 를 아는 척한다.\n",
+  "product-aware gate smuggled into verify:ci",
+  "scripts/verify-gate-split.mjs",
+  "제품 저장소를 압니다",
+);
+
 // **배분 게이트 자신도 실패할 수 있어야 한다.** verify-gate-split 이 지키는 것 중 가장
 // 되돌아가기 쉬운 것은 4번 — 워크플로가 다시 `pnpm verify` 를 부르는 것이다. 2026-08-19의
 // 사고가 정확히 그 상태였다. 워크플로를 그 상태로 되돌려 놓고 게이트가 잡는지 본다.

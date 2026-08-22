@@ -132,8 +132,8 @@ pnpm verify
 ```
 
 `verify`는 정상 입력 검사뿐 아니라 고의로 오류를 주입해 게이트가 실제로 실패하는지도 확인한다.
-제품 저장소가 있는 곳에서만 전량이 돈다. 없는 곳(hosted CI)에서는 `pnpm verify:ci`가 20단계를 돌고,
-남은 6단계와 인용 좌표 카나리아 3개는 `pnpm verify:product`로 여기서만 증명된다.
+제품 저장소가 있는 곳에서만 전량이 돈다. 없는 곳(hosted CI)에서는 `pnpm verify:ci`가 13단계를 돌고,
+남은 13단계와 인용 좌표 카나리아 3개는 `pnpm verify:product`로 여기서만 증명된다.
 
 ## Develop
 
@@ -6616,6 +6616,79 @@ DS 쪽 정본은 [Motion](../foundations/motion.md)의 감소-모션 계약이�
 > ([읽기 함정](../foundations/product-reading-traps.md) 참조).
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
+
+#### 2026-08-22 (95) — 초록이던 CI는 게이트 20개가 아니라 **13개**를 돌고 있었다
+
+(94)에서 CI를 초록으로 만들고 「11단계 전량 통과」라고 적었다. 그 다음 러너와 노트북의
+나머지 차이 축을 훑다가, 내가 (93)에서 내린 판정이 **반대로 틀렸다**는 것이 나왔다.
+
+##### 오탐이라고 지운 7건이 오탐이 아니었다
+
+(93)에서 정적 표지 검사(`klipse-web`·`KLIPSE_PRODUCT_REPO`)가 오탐 7건을 낸다고 보고
+그 검사를 지웠다. 근거는 「돌려 보니 통과하더라」였다. **종료코드만 봤다.**
+
+그 7개는 이렇게 생겼다.
+
+```js
+const productRoot = process.env.KLIPSE_PRODUCT_REPO ?? "/Users/sejunki/klipse-web";
+if (!existsSync(resolve(productRoot, ".git"))) {
+  console.log("[tailwind-interop] SKIPPED (제품 저장소 없음: " + productRoot + ").");
+  process.exit(0);          // ← 여기
+}
+```
+
+제품 저장소가 없으면 **스스로를 끄고 exit 0** 한다. 종료코드로 판정하는 실측은 이것을
+「자립한다」로 셀 수밖에 없다. 원리상 못 잡는다.
+
+러너 로그가 확정한다. 초록이던 실행(32558504349)에 이 일곱 줄이 그대로 찍혀 있다.
+
+```
+[product-evidence] SKIPPED (제품 저장소 없음: /Users/sejunki/klipse-web). 근거 파일 83개…
+[product-render] SKIPPED (/Users/sejunki/klipse-web). 렌더 실측은 로컬에서 확인해야…
+[product-components] SKIPPED (/Users/sejunki/klipse-web).
+[product-variants] SKIPPED (/Users/sejunki/klipse-web). 인벤토리는 로컬에서 만든다.
+[specimen-context] SKIPPED (제품 저장소 없음: /Users/sejunki/klipse-web).
+[figma-inventory] SKIPPED (제품 저장소 없음: /Users/sejunki/klipse-web).
+[tailwind-interop] SKIPPED (제품 저장소 없음: /Users/sejunki/klipse-web). 불러오기 순서…
+```
+
+**초록 CI는 게이트 20개가 아니라 13개를 돌고 있었다.** 근거 lock 83개 blob 해시 대조,
+플랜 배지 문맥 검사, Figma 인벤토리 드리프트, Tailwind reset 상호운용 — 전부 러너에서
+0회 실행이다.
+
+##### 정적 표지가 동작과 정확히 일치했다
+
+전수 대조했다. 표지를 가진 7개 = 러너에서 `SKIPPED` 를 찍던 7개. 표지가 없는 13개 =
+실제로 검증을 수행하던 13개. **오탐 0 · 미탐 0.** 내 grep은 처음부터 맞았고, 그것을
+뒤집은 「실측」이 틀렸다.
+
+| | (93)의 판정 | 실제 |
+| --- | --- | --- |
+| 정적 표지 grep | 오탐 7건이라 폐기 | **정확** — 표지 = 자기비활성 |
+| 종료코드 실측 | 「18 자립」 | 자기비활성 7개를 자립으로 오집계 |
+
+##### 조용한 exit 0 은 빨간 것보다 나쁘다
+
+빨간 게이트는 누군가 본다. `SKIPPED` 후 exit 0 은 초록에 섞여서 **아무도 안 본다.**
+(93)에서 `verify-gates --no-product`의 건너뛴 카나리아를 이름으로 찍게 만든 이유가
+정확히 이것인데, 같은 저장소의 다른 게이트 7개가 이미 그러고 있는 것을 확인하지 않았다.
+
+##### 조치
+
+- **7개를 `verify:product`로 옮겼다.** `verify:ci` 13단계는 이제 전부 실제로 검증을
+  수행한다. `verify:product` 는 6 → 13단계.
+- **정적 표지 검사를 복원했다.** 동작과 일치함을 확인했으므로 이번엔 근거가 있다.
+  자기 자신은 검사 대상에서 뺀다(표지 문자열을 검사어로 들고 있다).
+- **`--empirical` 이 SKIP 출력을 실패로 센다.** 종료코드만 보던 판정을 고쳤다.
+- **카나리아를 하나 더 붙였다**(26번째). `verify:ci` 소속 스크립트에 제품 경로 표지를
+  심어 놓고 배분 게이트가 잡는지 본다. 이 카나리아는 제품을 타지 않으므로 CI에서도 돈다.
+- 워크플로 주석 · `README.md` · `design/README.md` · `CLAUDE.md` · `AGENTS.md` 의
+  숫자를 전부 13/13으로 고쳤다.
+
+##### Migration
+
+`pnpm verify:ci` 가 20 → 13단계로 줄었다. **줄어든 것이 아니라, 원래 안 돌던 7개가
+안 돈다고 이제 말할 뿐이다.** 검증 범위는 그대로다. 로컬 `pnpm verify` 26단계도 그대로다.
 
 #### 2026-08-22 (94) — 첫 결손을 고치니 두 번째가 나왔다. **짐작을 그만두고 러너를 재현했다**
 

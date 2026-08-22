@@ -27,10 +27,11 @@ Klipse Design을 SEED Design처럼 제품 저장소와 분리된, 버전이 지�
 
 - `execution-handoff.md`의 작업 큐에서 의존성이 충족된 가장 앞의 항목을 선택한다.
 - 원격 저장소와 hosted CI는 2026-08-18에 생겼다(`.github/workflows/ci.yml`, push·PR 트리거).
-  **CI가 도는 것은 `pnpm verify:ci` 이지 `pnpm verify` 가 아니다** — 게이트 24개 중 6개는 제품
-  저장소를 열기 때문에 러너에서 돌 수 없다. 배분은 `scripts/verify-gate-split.mjs` 가 지킨다.
-  그러므로 **CI 초록은 전량 통과가 아니다.** 근거 좌표(`verify-citations`)를 비롯한 6개는
-  제품 저장소가 있는 로컬에서 `pnpm verify` 로만 증명된다. 푸시 전에 로컬 `pnpm verify` 를 돈다.
+  **CI가 도는 것은 `pnpm verify:ci` 이지 `pnpm verify` 가 아니다** — 게이트 26개 중 **13개**는
+  제품 저장소를 읽어야 해서 러너에서 돌 수 없다. 배분은 `scripts/verify-gate-split.mjs` 가
+  지킨다. 그러므로 **CI 초록은 게이트 13개가 통과했다는 뜻이지 전량 통과가 아니다.**
+  나머지 13개는 제품 저장소가 있는 로컬에서 `pnpm verify` 로만 증명된다.
+  푸시 전에 로컬 `pnpm verify` 와 `pnpm clean-room` 을 돈다.
 - 외부 권한이 필요한 publish와 Figma library 공개는 `not-ready`로 남기고 다음 독립 작업을 진행한다.
 - 구현 상태는 추측하지 않는다. 실제 상태는 항상 manifest와 검증 근거로 판정한다.
 

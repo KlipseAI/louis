@@ -69,5 +69,16 @@ machine judges the value; here the machine judges whether the value was ever loo
 
 - Update the manifest, normative document, implementation, tests, and release note together.
 - Run `pnpm build`, `pnpm check`, and `pnpm verify` before handoff.
+- Run `pnpm clean-room` before pushing. A green `pnpm verify` only proves this machine passes:
+  it reuses the existing `node_modules`, sees uncommitted files, and finds the product
+  repository at its default path. CI has none of those. Both of the failures that kept CI red
+  for nine runs (2026-08-19 to 08-22) were invisible to a local `pnpm verify` — see Updates (93)
+  and (94). `pnpm clean-room` clones the committed HEAD, installs from the lockfile, and pins the
+  product repository to a path that does not exist.
+- CI runs `pnpm verify:ci`, not `pnpm verify`. Thirteen of the twenty-six gates read the product
+  repository and cannot run on the runner, so **a green CI means thirteen gates passed**, not all
+  of them. Seven of those thirteen used to sit in `verify:ci` and printed `SKIPPED` with exit 0,
+  which made a green run look like full coverage — see Updates (95). A gate that disables itself
+  silently is worse than a red one.
 - Do not mark Web or Figma as done without a shipped artifact and verification evidence.
 - Do not copy product-repository debt into the normative catalog.

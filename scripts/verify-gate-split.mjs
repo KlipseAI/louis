@@ -5,10 +5,14 @@
 // 의 `git -C <제품 저장소>` — 러너에는 제품 저장소가 없다. 로컬에서는 초록이라 8회를
 // 지나도록 아무도 못 봤다. **로컬 초록과 CI 초록이 다른 것이 진짜 결함이었다.**
 //
-// 그래서 이 게이트는 **배분의 배선**을 지킨다 — verify 가 두 갈래의 합인지, 두 갈래가
-// 겹치지 않는지, 워크플로가 옳은 쪽을 부르는지, 제품 게이트가 흘러 사라지지 않았는지.
-// 「자립하는가」 자체는 여기서 정적으로 판정하지 않는다 — 4b 에 이유가 있다.
-// 그 최종 증명은 제품 저장소가 아예 없는 러너에서 CI 가 초록인 것이다.
+// 이 게이트는 배분의 배선과 **verify:ci 단계의 자립성**을 함께 지킨다.
+//
+// 자립성 판정을 한 번 뒤집었다. 2026-08-22 오전에 정적 표지 검사가 오탐 7건을 낸다고 보고
+// 지웠는데, **그 7건이 오탐이 아니었다.** 그 스크립트들은 제품 저장소가 없으면 `SKIPPED` 를
+// 찍고 `exit 0` 한다. 종료코드만 보던 실측이 「통과」로 셌을 뿐이다. 러너 로그로 확인했다 —
+// 초록이던 CI 는 게이트 20개가 아니라 **13개**를 돌고 있었다.
+//
+// 조용한 exit 0 은 게이트가 죽는 가장 나쁜 방식이다. 빨간 것보다 나쁘다 — 아무도 안 본다.
 import { execSync } from "node:child_process";
 import { readFileSync } from "node:fs";
 import { resolve, dirname } from "node:path";
@@ -92,49 +96,88 @@ if (!workflow.includes("pnpm verify:ci")) {
   errors.push(".github/workflows/ci.yml 에서 `pnpm verify:ci` 단계를 찾지 못했습니다.");
 }
 
-// ── 4b. 실측 모드(`--empirical`) ──────────────────────────────────────────
-// **표지 문자열로는 자립 여부를 못 가린다.** 실제로 확인했다: verify-tailwind-interop
-// 등 7개 스크립트는 `KLIPSE_PRODUCT_REPO` 를 선언만 하고 `--check` 경로에서는 커밋된
-// 측정 JSON 만 읽는다. 반대로 verify-gates 는 표지가 하나도 없는데 카나리아가
-// verify-citations 를 불러 제품을 탄다. grep 은 양쪽으로 다 틀린다.
+// ── 5. **verify:ci 단계는 제품 저장소를 알지 못한다** ──────────────────────
+// 이 검사의 판정이 실제 동작과 정확히 일치함을 확인했다(2026-08-22): 표지를 가진
+// 스크립트 7개가 곧 러너에서 `SKIPPED` 를 찍던 7개였고, 표지가 없는 13개가 곧 실제로
+// 검증을 수행하던 13개였다. 오탐 0 · 미탐 0.
 //
-// 그래서 판정은 **돌려보는 것**으로만 한다. 로컬에서 미리 보고 싶으면 이 모드를 쓴다.
-//
-// **다만 이 모드도 약하다.** 지금 작업 트리에서, 지금 node_modules 로, 「제품 저장소」
-// 한 축만 없는 척하고 돈다. 2026-08-22 에 이것으로 「실측했다」고 적었다가 다음 푸시에서
-// 다른 축(낡은 `node_modules/.bin/esbuild` 심볼릭 링크)에 걸려 CI 가 9회째 빨갰다.
-// 축이 여럿인데 한 축만 껐던 것이다.
-//
-// 푸시 전 판정은 `pnpm clean-room` 을 써라 — 커밋된 것만 clone 하고 새로 설치한다.
-// 상시 증명은 hosted CI 자신이다.
-if (process.argv.includes("--empirical")) {
-  const bogus = "/nonexistent-product-repo";
-  const dependent = [];
-  for (const step of ciSteps) {
-    const command = scripts[step];
-    if (step === "verify-gate-split") continue; // 자기 자신
-    try {
-      execSync("pnpm run " + step, {
-        cwd: repoRoot,
-        env: { ...process.env, KLIPSE_PRODUCT_REPO: bogus },
-        stdio: "pipe",
-      });
-    } catch {
-      dependent.push(step + "  (" + command + ")");
-    }
+// 단계가 실행하는 스크립트 자신과, 그 스크립트가 문자열로 부르는 다른 게이트 스크립트까지
+// 본다 — verify-gates 는 표지가 없지만 카나리아가 verify-citations 를 자식 프로세스로 부른다.
+const PRODUCT_MARKERS = ["klipse-web", "KLIPSE_PRODUCT_REPO"];
+const scriptFileOf = (step) =>
+  scripts[step]?.match(/\.\/(scripts\/[\w.-]+\.mjs)/)?.[1] ?? null;
+
+for (const step of ciSteps) {
+  const file = scriptFileOf(step);
+  if (!file) {
+    errors.push(`${step} 이 어떤 스크립트를 도는지 읽지 못했습니다: \`${scripts[step]}\``);
+    continue;
   }
-  if (dependent.length > 0) {
+  const skipsProduct = scripts[step].includes("--no-product");
+  const reachable = new Set([file]);
+  for (const m of read(file).matchAll(/"(scripts\/[\w.-]+\.mjs)"/g)) {
+    // --no-product 로 건너뛴다고 선언했고 그 사실을 이름으로 찍는 것은 허용한다.
+    if (skipsProduct && skippableGates.has(m[1])) continue;
+    reachable.add(m[1]);
+  }
+  // 이 파일 자신은 검사 대상에서 뺀다 — 표지 문자열을 **검사어로** 들고 있기 때문이다.
+  // verify-gates 의 카나리아가 이 파일을 부르므로 전이 스캔에도 걸린다.
+  reachable.delete("scripts/verify-gate-split.mjs");
+  for (const target of reachable) {
+    const hit = PRODUCT_MARKERS.filter((marker) => read(target).includes(marker));
+    if (hit.length === 0) continue;
     errors.push(
-      "제품 저장소 없이 실패한 verify:ci 단계가 있습니다 — CI 에서도 빨갛게 됩니다:\n      " +
-        dependent.join("\n      "),
+      `verify:ci 단계 \`${step}\` 이 제품 저장소를 압니다 — ${target} 에 ${hit.join("·")} 이(가) 있습니다. ` +
+        "러너에는 제품 저장소가 없습니다. 이 게이트는 거기서 실패하거나, 더 나쁘게는 " +
+        "`SKIPPED` 를 찍고 조용히 통과합니다. verify:product 로 옮기세요.",
     );
-  } else {
-    console.log(`실측: verify:ci ${ciSteps.length - 1}단계 모두 제품 저장소 없이 통과.`);
   }
 }
 
-// ── 5. 제품이 필요한 게이트가 verify:product 에서 빠지지 않았다 ───────────
-// 4번은 「CI 에 잘못 든 것」을 잡고, 5번은 「분류하다 통째로 흘린 것」을 잡는다.
+// ── 5b. 실측 모드(`--empirical`) ──────────────────────────────────────────
+// **종료코드만 보면 안 된다.** 이 모드는 원래 exit 0 을 「통과」로 셌고, 그래서 자기를
+// 끄는 게이트 7개를 「자립한다」고 보고했다. 이제 출력에 SKIP 이 있으면 실패로 센다.
+if (process.argv.includes("--empirical")) {
+  const bogus = "/nonexistent-product-repo";
+  const problems = [];
+  for (const step of ciSteps) {
+    if (step === "verify-gate-split") continue; // 자기 자신
+    let out = "";
+    try {
+      out = execSync("pnpm run " + step, {
+        cwd: repoRoot,
+        env: { ...process.env, KLIPSE_PRODUCT_REPO: bogus },
+        encoding: "utf8",
+        stdio: "pipe",
+      });
+    } catch (error) {
+      problems.push(`${step} — 제품 저장소 없이 실패했습니다(러너에서도 빨갛습니다)`);
+      continue;
+    }
+    // `verify-gates:ci` 는 건너뛴 카나리아를 이름으로 찍으므로 그 문구는 제외한다.
+    const skipped = out
+      .split("\n")
+      .filter((l) => /SKIP/i.test(l) && !l.includes("건너뜁니다") && !l.includes("- citation"));
+    if (skipped.length > 0) {
+      problems.push(
+        `${step} — 제품 저장소가 없자 조용히 자기를 껐습니다(exit 0): ${skipped[0].trim().slice(0, 90)}`,
+      );
+    }
+  }
+  if (problems.length > 0) {
+    errors.push(
+      "verify:ci 안에 러너에서 실제로는 검증하지 않는 단계가 있습니다:\n      " +
+        problems.join("\n      "),
+    );
+  } else {
+    console.log(
+      `실측: verify:ci ${ciSteps.length - 1}단계가 제품 저장소 없이 **실제로 검증을 수행**했다.`,
+    );
+  }
+}
+
+// ── 6. 제품이 필요한 게이트가 verify:product 에서 빠지지 않았다 ───────────
+// 5번은 「CI 에 잘못 든 것」을 잡고, 6번은 「분류하다 통째로 흘린 것」을 잡는다.
 const KNOWN_PRODUCT_STEPS = [
   "verify-gates",
   "verify-citations",
@@ -142,6 +185,15 @@ const KNOWN_PRODUCT_STEPS = [
   "verify-alpha-consolidation",
   "verify-product-drift",
   "verify-app-nav-labels",
+  // 2026-08-22 에 옮긴 7개. 원래 verify:ci 에 있었고 러너에서 `SKIPPED` 를 찍으며
+  // exit 0 했다 — CI 초록이 게이트 20개가 아니라 13개를 뜻하고 있었다.
+  "verify-product-evidence",
+  "verify-product-render",
+  "verify-product-components",
+  "verify-product-variants",
+  "verify-specimen-context",
+  "check-figma-inventory",
+  "verify-tailwind-interop",
 ];
 // verify-gates 가 --no-product 로 건너뛰겠다고 선언한 카나리아는, 제품이 있는 곳에서
 // 반드시 다시 돌아야 한다. 선언만 하고 verify:product 에 전체 verify-gates 가 없으면
@@ -168,5 +220,5 @@ if (errors.length > 0) {
 }
 
 console.log(
-  `verify 분리 확인: CI ${ciSteps.length}단계(제품 없이 돎) · 로컬 전용 ${productSteps.length}단계(제품 필요).`,
+  `verify 분리 확인: CI ${ciSteps.length}단계(제품 저장소를 알지 못함) · 로컬 전용 ${productSteps.length}단계(제품 필요).`,
 );

@@ -16,7 +16,7 @@ description: Klipse 제품 화면을 Figma 보드로 옮기거나 고칠 때 쓴
 | 필요한 것 | 없으면 | 갖추는 법 |
 | --- | --- | --- |
 | 제품 저장소 `klipse-web` | 제품을 읽을 수 없다 = 값을 지어내게 된다 | clone 한 뒤 `export KLIPSE_PRODUCT_REPO=<경로>`. **`design` 브랜치를 fetch 했는지 확인한다** — 기본 브랜치는 `dev` 다 |
-| Figma 파일 접근 권한 | 조립도 검증도 못 한다 | 라이브러리 파일 `OlYKERKOkgbxBEEoXGZW2c` 는 쓰기, 제품 미러 파일은 읽기 전용이다. 계정에 권한을 받는다 |
+| Figma 파일 접근 권한 | 조립도 검증도 못 한다 | **파일이 셋이고 역할이 다르다.** 제품 화면 이식 보드 `OlYKERKOkgbxBEEoXGZW2c`(이 스킬의 대상, 쓰기) · DS 정본 라이브러리 `bxGEp0km5zluMJGulaTvFW`(변수·style·component, `verify-figma-parity` 대상) · 제품 미러 `CNORJOONt4z0a4Bl22Kjuu`(**읽기 전용**). 보드와 라이브러리는 collection 이름 체계가 달라 섞으면 안 된다 — `design/governance/figma-sync.md` 「운영 파일」 참조 |
 | `klipse-docs` 저장소 | `/docs` 화면을 `klipse-web` 기준으로 그리게 된다(틀린다) | `/docs` 를 건드릴 때만 필요하다 |
 | Node 22 + pnpm 10 | 게이트를 못 돌린다 | `corepack enable` → `pnpm install --frozen-lockfile` → `pnpm exec playwright install --with-deps chromium`. **브라우저 바이너리는 lockfile 에 없다** — 빠뜨리면 `verify-test-harness` 가 죽는다(`.github/workflows/ci.yml:34-39`) |
 

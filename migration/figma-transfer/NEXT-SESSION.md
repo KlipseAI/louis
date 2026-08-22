@@ -1,4 +1,20 @@
-# Figma 담당 세션 요청문 (이 파일 전체를 붙여넣으면 된다)
+> ## ⚠ 이 문서는 2026-08-08 시점의 **기록**이다 — 지시로 쓰지 마라
+>
+> 현행 인계는 [계정 이전 인계서](../../design/governance/handoff-2026-08-22-account-transfer.md)와
+> [실행 인계서](../../design/governance/execution-handoff.md)가 소유한다. 아래 내용 중
+> **따라 하면 틀린 결과물이 나오는 것**이 확인된 것만 적어 둔다(2026-08-22 감사).
+>
+> - **「커밋하지 마라」(원문 :150)는 무효다.** AWS 이사는 2026-08-22 에 끝났고 이 저장소는 커밋 중이다. 그대로 따르면 작업을 통째로 잃는다.
+> - **「`--glass-dropdown-frame` 은 5겹」은 무효다.** 제품이 글래스를 걷어냈다 — `git show design:apps/web/app/globals.css | grep -c glass` = **0**. 지금은 `--dropdown-frame` 0.5px 헤어라인 한 겹이고 정본은 `design/foundations/elevation-layer.md` 다.
+> - **「게이트 10개 + 카나리아 4종」은 무효다.** 지금은 게이트 26개(`verify:ci` 13 + `verify:product` 13) · 카나리아 27종이다.
+> - **「앱 화면에는 변수를 바인딩하지 말고 해결값을 직접 입력하라」는 무효다.** 컬렉션 구조는 `DS-D-0007` 이 확정했고 앱 셸 램프 대기 사유는 `DS-D-0010` Open questions #2 에서 닫혔다.
+> - **「쿠키 없는 첫 방문은 영어」는 부정확하다.** 쿠키가 없으면 Accept-Language 협상(ko/ja/en)을 하고, 지원 언어가 없을 때만 `en` 이다.
+> - 그릴 대상 Figma 파일이 이 문서에 없다. 라이브러리 파일은 `OlYKERKOkgbxBEEoXGZW2c` 이고 **이미 8페이지·95프레임이 채워져 있다** — 백지에서 시작하지 않는다.
+>
+> 나머지 경로(`~/klipse`, `~/klipse-design-transplant`, `apps/web/…`, `design/pages/…`)도
+> 이 저장소에 없다. 값이 필요하면 `migration/product-screens/10.*.md` 와 `design/**` 를 본다.
+
+# Figma 담당 세션 요청문 — 2026-08-08 기록 (붙여넣지 마라, 위 경고를 먼저 읽어라)
 
 ---
 

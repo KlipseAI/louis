@@ -1,3 +1,15 @@
+> ## ⚠ 이 문서는 2026-08-21 시점의 **기록**이다 — 지시로 쓰지 마라
+>
+> 현행 인계는 [계정 이전 인계서](../../design/governance/handoff-2026-08-22-account-transfer.md)와
+> [실행 인계서](../../design/governance/execution-handoff.md)가 소유한다. 아래 내용 중
+> **따라 하면 틀린 결과물이 나오는 것**이 확인된 것만 적어 둔다(2026-08-22 감사).
+>
+> - Figma 세션의 **되먹임 기록**이다. 여기서 나온 결론은 규범 문서로 이미 승격됐다 — 값이 필요하면 `design/governance/figma-screen-assembly.md` 와 `design/foundations/product-reading-traps.md` 를 본다.
+> - 이 문서가 참조하는 번들 경로(`~/klipse-design-transplant/…`)는 이 저장소에 없다. 보존본은 `migration/figma-transfer/bundle-2026-08-07/` 다.
+>
+> 나머지 경로(`~/klipse`, `~/klipse-design-transplant`, `apps/web/…`, `design/pages/…`)도
+> 이 저장소에 없다. 값이 필요하면 `migration/product-screens/10.*.md` 와 `design/**` 를 본다.
+
 # Figma 세션 되먹임 — 실제로 그리다 막힌 자리
 
 작성: 2026-08-08 · Figma 담당 세션

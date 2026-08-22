@@ -1,0 +1,1177 @@
+# Klipse Design System — Foundations
+
+컬러 · 타이포그래피 · 간격 · 라운드 · 아이콘의 값 목록. 값을 지어내지 말고 여기 있는 것만 쓰세요.
+
+원천: apps/web/app/globals.css · apps/web/app/tailwind.css · Figma "Klipse 3.0"
+생성: pnpm --filter web build-llms-docs — 이 파일을 직접 고치지 마세요.
+
+## Color — palette (테마 무관 고정)
+
+palette-gray-000 = #fafafa
+palette-gray-50 = #f8f8f9
+palette-gray-100 = #f1f1f3
+palette-gray-150 = #eaebee
+palette-gray-200 = #e3e4e8
+palette-gray-300 = #d5d7dd
+palette-gray-400 = #bcc0c9
+palette-gray-500 = #9aa0ab
+palette-gray-600 = #777d89
+palette-gray-700 = #575d68
+palette-gray-800 = #313640
+palette-gray-900 = #171b22
+palette-gray-1000 = #000000
+primary-50 = #f0f7ff
+primary-100 = #d6ebff
+primary-200 = #a3d5ff
+primary-300 = #70bfff
+primary-350 = #54b1ff
+primary-400 = #38a4ff
+primary-420 = #299aff
+primary-450 = #1491ff
+primary-500 = #0088ff
+primary-550 = #007ee8
+primary-580 = #0076d9
+primary-600 = #0075db
+primary-620 = #006ec4
+primary-700 = #005fb3
+primary-800 = #00498a
+primary-900 = #003461
+accent-mint-100 = #e5fff7
+accent-mint-200 = #b8f8e5
+accent-mint-300 = #79eccc
+accent-mint-400 = #28d9a5
+accent-mint-500 = #00c68e
+accent-mint-600 = #00b37f
+accent-mint-700 = #008f67
+accent-mint-800 = #006e51
+accent-mint-900 = #004c39
+accent-yellow-100 = #fff5d6
+accent-yellow-200 = #ffe8a3
+accent-yellow-300 = #ffd980
+accent-yellow-400 = #ffc233
+accent-yellow-500 = #ffb200
+accent-yellow-600 = #e49a00
+accent-yellow-700 = #b87600
+accent-yellow-800 = #7a5200
+accent-yellow-900 = #4c3300
+accent-red-100 = #ffe5e8
+accent-red-200 = #ffc4ca
+accent-red-300 = #ff9aa4
+accent-red-400 = #ff6f7c
+accent-red-500 = #ff4b59
+accent-red-600 = #e23645
+accent-red-700 = #b72431
+accent-red-800 = #841a24
+accent-red-900 = #541119
+accent-amber-100 = #fff5d6
+accent-amber-200 = #ffe5a3
+accent-amber-300 = #ffd66b
+accent-amber-400 = #ffc847
+accent-amber-500 = #ffbd2e
+accent-amber-600 = #e89e00
+accent-amber-700 = #b87a00
+accent-amber-800 = #885a00
+accent-amber-900 = #5c3d00
+accent-green-500 = #28c840
+accent-pink-100 = #ffe5ed
+accent-pink-200 = #ffc1d6
+accent-pink-300 = #ff9bbe
+accent-pink-400 = #ff6d9d
+accent-pink-500 = #ff4d88
+accent-pink-600 = #e23671
+accent-pink-700 = #b72458
+accent-pink-800 = #841a3f
+accent-pink-900 = #54112a
+accent-sky-100 = #e0f5ff
+accent-sky-200 = #bae8ff
+accent-sky-300 = #7dd3fc
+accent-sky-400 = #38bdf8
+accent-sky-500 = #0ea5e9
+accent-sky-600 = #0284c7
+accent-sky-700 = #0369a1
+accent-sky-800 = #075985
+accent-sky-900 = #0c2f4a
+accent-violet-100 = #ebe8ff
+accent-violet-200 = #c9c2ff
+accent-violet-300 = #9d91ff
+accent-violet-400 = #8478ff
+accent-violet-500 = #6055ff
+accent-violet-600 = #4f45e3
+accent-violet-700 = #3528b8
+accent-violet-800 = #221a80
+accent-violet-900 = #15104d
+accent-youtube-500 = #ff4b59
+accent-instagram-500 = var(--accent-red-500)
+accent-ultra-400 = #b9e1f7
+
+## Color — semantic gray (테마별 해석)
+
+주의: 라이트에서 스케일이 반전된다. gray-000 은 흰 면이 아니라 잉크다.
+gray-000: light=var(--palette-gray-1000) → #000000 dark=var(--palette-gray-000) → #fafafa
+gray-100: light=var(--palette-gray-900) → #171b22 dark=var(--palette-gray-100) → #f1f1f3
+gray-200: light=var(--palette-gray-800) → #313640 dark=var(--palette-gray-200) → #e3e4e8
+gray-300: light=var(--palette-gray-700) → #575d68 dark=var(--palette-gray-300) → #d5d7dd
+gray-400: light=var(--palette-gray-600) → #777d89 dark=var(--palette-gray-400) → #bcc0c9
+gray-500: light=var(--palette-gray-500) → #9aa0ab dark=var(--palette-gray-500) → #9aa0ab
+gray-600: light=var(--palette-gray-400) → #bcc0c9 dark=var(--palette-gray-600) → #777d89
+gray-700: light=var(--palette-gray-300) → #d5d7dd dark=var(--palette-gray-700) → #575d68
+gray-800: light=var(--palette-gray-200) → #e3e4e8 dark=var(--palette-gray-800) → #313640
+gray-900: light=var(--palette-gray-100) → #f1f1f3 dark=var(--palette-gray-900) → #171b22
+gray-1000: light=var(--palette-gray-000) → #fafafa dark=var(--palette-gray-1000) → #000000
+
+## Color — 역할 토큰 (코드 · 테마 블록)
+
+별칭 → 해결된 최종값. **토큰 이름만 옮기면 안 된다** — 다른 도구에는 최종값이 필요하다.
+
+surface-page: light=var(--palette-gray-100) → #f1f1f3 dark=var(--palette-gray-900) → #171b22
+surface-raised: light=var(--palette-gray-100) → #f1f1f3 dark=var(--palette-gray-800) → #313640
+surface-input: light=var(--palette-gray-50) → #f8f8f9 dark=var(--palette-gray-700) → #575d68
+surface-answer: light=var(--palette-gray-150) → #eaebee dark=var(--palette-gray-600) → #777d89
+surface-inset: light=var(--palette-gray-100) → #f1f1f3 dark=var(--palette-gray-600) → #777d89
+surface-inset-hover: light=var(--palette-gray-150) → #eaebee dark=var(--palette-gray-500) → #9aa0ab
+surface-inset-pressed: light=var(--palette-gray-200) → #e3e4e8 dark=var(--palette-gray-400) → #bcc0c9
+border-input: light=var(--palette-gray-000) → #fafafa dark=var(--palette-gray-600) → #777d89
+border-control: light=var(--palette-gray-150) → #eaebee dark=var(--palette-gray-500) → #9aa0ab
+
+## Color — roles (Figma Semantic 컬렉션)
+
+Semantic 컬렉션. Light / Dark 두 모드이며 값은 Primitives 팔레트의 별칭이다. 노드 안 톤 사다리 (palette-gray 스톱, 라이트/다크): 카드 raised 100/800 → 입력 박스 input 50/700 → 입력 외곽선 border-input 000/600 → AI 답변 버블 answer 150/600(외곽선 없음) → 메타 버튼 inset 100/600 → 메타 버튼 외곽선 border-control 150/500. 다크는 카드에서 한 톤씩 밝아지고, 라이트는 입력 박스만 카드보다 밝고 나머지는 어두워진다. surface/selected 는 사이드바 등에서 현재 선택된 항목의 면 — 라이트 palette-gray/300 · 다크 palette-gray/800 이며, Gnb.tsx 의 menuSidebarActiveIndicator 와 같은 값이다. surface/inset(라이트 100 · 다크 600)과 혼동하지 말 것. surface/cta-inverse·content/on-cta-inverse 는 사이드바 업그레이드 CTA (라이트 900/100 · 다크 100/900); 기본 상태는 mint 가 아니라 이 값이다 — mint 는 /mypage/upgrade 에서만 나온다. content/on-media 는 카드 썸네일 위 오버레이 전경(라이트 palette-gray/900 · 다크 100)으로, 썸네일 위지만 앱 테마를 따른다.
+
+**이 목록은 Figma 의 계획이고 코드의 현재가 아니다.** 이름 뒤 표시를 반드시 확인할 것.
+  [코드]      — globals.css 에 CSS 변수로 존재한다. 다만 현재 소비처는 0 이다(§7.5 참조).
+  [Figma 전용] — CSS 변수가 없다. **이 이름으로 코드를 쓸 수 없다.**
+
+surface/: page[코드] · raised[코드] · input[코드] · answer[코드] · overlay[Figma 전용] · selected[Figma 전용] · inset[코드] · inset-hover[코드] · inset-pressed[코드] · inverse[Figma 전용] · brand[Figma 전용] · cta-inverse[Figma 전용]
+content/: primary[Figma 전용] · secondary[Figma 전용] · tertiary[Figma 전용] · disabled[Figma 전용] · on-brand[Figma 전용] · on-inverse[Figma 전용] · on-light[Figma 전용] · on-cta-inverse[Figma 전용] · on-media[Figma 전용]
+border/: default[Figma 전용] · subtle[Figma 전용] · strong[Figma 전용] · input[코드] · control[코드] · node[Figma 전용] · focus[Figma 전용]
+interaction/: hover[Figma 전용] · pressed[Figma 전용] · strong[Figma 전용] · selected[Figma 전용]
+status/: success[Figma 전용] · warning[Figma 전용] · danger[Figma 전용] · info[Figma 전용] · danger-content[Figma 전용]
+brand/: primary[Figma 전용] · auth-panel[Figma 전용]
+
+구현 현황: 39개 중 9개만 CSS 변수로 존재한다.
+코드를 쓸 때는 [코드] 표시가 없는 이름을 참조하지 말고, 실제 토큰(semantic gray · 팔레트 · 컴포넌트 토큰)을 쓴다.
+역할 층을 실제로 착지시킬지는 미결정이다 — DESIGN_SYSTEM.md §7.5 참조.
+
+## 테마 토큰 — 그 외 (light/dark 로 갈리는 나머지)
+
+툴팁·페이지 배경·scrim·스크롤바 등. 위 gray/역할 표에 안 나오는 테마 토큰 전량이다.
+모든 --gray-N 에는 --gray-N-rgb 미러가 있다(rgb(var(--x-rgb) / N%) 용). 값은 같으므로 따로 싣지 않는다.
+
+background: light=var(--gray-900) → #f1f1f3 dark=var(--gray-900) → #171b22
+foreground: light=var(--gray-000) → #000000 dark=var(--gray-000) → #fafafa
+app-page-bg: light=var(--gray-900) → #f1f1f3 dark=var(--gray-900) → #171b22
+app-page-backdrop-blur: light=none dark=none
+theme-shadow-rgb: light=var(--palette-gray-900-rgb) → 23 27 34 dark=var(--palette-gray-1000-rgb) → 0 0 0
+theme-scrim-rgb: light=var(--palette-gray-1000-rgb) → 0 0 0 dark=var(--palette-gray-1000-rgb) → 0 0 0
+app-tooltip-radius: light=8px dark=8px
+app-tooltip-bg: light=var(--palette-gray-800) → #313640 dark=var(--palette-gray-200) → #e3e4e8
+app-tooltip-text: light=var(--palette-gray-000) → #fafafa dark=var(--palette-gray-900) → #171b22
+app-tooltip-text-subtle: light=rgb(var(--palette-gray-000-rgb) / 72%) → rgb(250 250 250 / 72%) dark=rgb(var(--palette-gray-700-rgb) / 72%) → rgb(87 93 104 / 72%)
+app-tooltip-border: light=rgb(var(--palette-gray-000-rgb) / 14%) → rgb(250 250 250 / 14%) dark=rgb(var(--palette-gray-900-rgb) / 12%) → rgb(23 27 34 / 12%)
+app-tooltip-shadow: light=0 12px 24px rgb(var(--palette-gray-600-rgb) / 12%) → 0 12px 24px rgb(119 125 137 / 12%) dark=0 12px 24px rgb(var(--palette-gray-900-rgb) / 12%) → 0 12px 24px rgb(23 27 34 / 12%)
+glass-dropdown-frame: light=0 0 0 0.5px var(--palette-gray-300) → 0 0 0 0.5px #d5d7dd dark=—
+dropdown-surface-bg: light=rgb(var(--palette-gray-100-rgb)) → rgb(241 241 243) dark=—
+scrollbar-thumb: light=rgb(0 0 0 / 22%) dark=—
+scrollbar-thumb-hover: light=rgb(0 0 0 / 36%) dark=—
+
+## Color — 노드 채널 (핸들·선택 테두리)
+
+노드 종류마다 채널 색이 다르다. 핸들 원반 색 = 거기 꽂힌 엣지 색이고, 한 전선의 두 끝은 같은 톤이다.
+비디오 채널은 의도적으로 없다 — 비디오가 오가는 이음새는 edit 채널이다(lib/edgeTone.ts).
+video 행의 핸들 열이 비는 것은 정상이며, 선택 테두리에만 쓰인다.
+
+채널: 핸들bg(다크) / 핸들bg(라이트) / 아이콘 / 비활성bg / 비활성아이콘 / 선택테두리
+video: — / — / — / — / — / primary-500-rgb(0 136 255)
+image: accent-mint-800(#006e51) / accent-mint-200(#b8f8e5) / accent-mint-500(#00c68e) / accent-mint-900(#004c39) / accent-mint-700(#008f67) / accent-mint-500-rgb(0 198 142)
+text: accent-yellow-800(#7a5200) / accent-yellow-200(#ffe8a3) / accent-yellow-500(#ffb200) / accent-yellow-900(#4c3300) / accent-yellow-700(#b87600) / accent-yellow-500-rgb(255 178 0)
+youtube: accent-red-800(#841a24) / accent-red-200(#ffc4ca) / accent-red-500(#ff4b59) / accent-red-900(#541119) / accent-red-700(#b72431) / accent-red-500-rgb(255 75 89)
+instagram: accent-red-800(#841a24) / accent-red-200(#ffc4ca) / accent-red-500(#ff4b59) / accent-red-900(#541119) / accent-red-700(#b72431) / accent-red-500-rgb(255 75 89)
+audio: accent-pink-800(#841a3f) / accent-pink-200(#ffc1d6) / accent-pink-500(#ff4d88) / accent-pink-900(#54112a) / accent-pink-700(#b72458) / accent-pink-500-rgb(255 77 136)
+edit: accent-violet-800(#221a80) / accent-violet-200(#c9c2ff) / accent-violet-500(#6055ff) / accent-violet-900(#15104d) / accent-violet-700(#3528b8) / accent-violet-500-rgb(96 85 255)
+
+## Color — 스코프 (토큰을 재정의하는 셀렉터 전량)
+
+라이트/다크 둘뿐이 아니다. 아래 셀렉터가 각각 토큰을 덮어쓴다 — 값을 고르기 전에 어느 스코프인지 먼저 확인한다.
+특히 [data-page-root] 는 마케팅 페이지를 테마 토글과 무관하게 고정 램프에 묶고,
+워크스루 스코프([data-landing-walkthrough-*])는 테마보다 우선한다.
+
+
+### :root
+선언 274개
+  ease-out-strong = cubic-bezier(0.32, 0.72, 0, 1)
+  ease-in-out-strong = cubic-bezier(0.77, 0, 0.175, 1)
+  palette-gray-000 = #fafafa
+  palette-gray-50 = #f8f8f9
+  palette-gray-100 = #f1f1f3
+  palette-gray-150 = #eaebee
+  palette-gray-200 = #e3e4e8
+  palette-gray-300 = #d5d7dd
+  palette-gray-400 = #bcc0c9
+  palette-gray-500 = #9aa0ab
+  palette-gray-600 = #777d89
+  palette-gray-700 = #575d68
+  palette-gray-800 = #313640
+  palette-gray-900 = #171b22
+  palette-gray-1000 = #000000
+  palette-gray-000-rgb = 250 250 250
+  palette-gray-50-rgb = 248 248 249
+  palette-gray-100-rgb = 241 241 243
+  palette-gray-150-rgb = 234 235 238
+  palette-gray-200-rgb = 227 228 232
+  palette-gray-300-rgb = 213 215 221
+  palette-gray-400-rgb = 188 192 201
+  palette-gray-500-rgb = 154 160 171
+  palette-gray-600-rgb = 119 125 137
+  palette-gray-700-rgb = 87 93 104
+  palette-gray-800-rgb = 49 54 64
+  palette-gray-900-rgb = 23 27 34
+  palette-gray-1000-rgb = 0 0 0
+  glass-inner-shadow-rgb = var(--palette-gray-000-rgb) → 250 250 250
+  glass-bevel-offset = 1px
+  glass-bevel-blur = 1px
+  glass-bevel-highlight = inset 0 var(--glass-bevel-offset) var(--glass-bevel-blur) → inset 0 1px 1px
+  glass-bevel-shade = inset 0 calc(-1 * var(--glass-bevel-offset)) var(--glass-bevel-blur) → inset 0 calc(-1 * 1px) 1px
+  glass-dropdown-frame = 0 0 0 0.5px var(--palette-gray-700) → 0 0 0 0.5px #575d68
+  glass-dropdown-frame-on-dark = 0 0 0 0.5px var(--palette-gray-700) → 0 0 0 0.5px #575d68
+  dropdown-ambient-shadow = 0px 8px 15px 0px rgba(0, 0, 0, 0.04)
+  dropdown-radius = 16px
+  dropdown-padding = 6px
+  dropdown-item-radius = 10px
+  button-radius = 12px
+  button-padding-inline = 16px
+  button-height = 40px
+  button-height-sm = 32px
+  button-padding-inline-sm = 12px
+  button-min-width-sm = 48px
+  scrollbar-size = 10px
+  scrollbar-thumb = rgb(var(--palette-gray-000-rgb) / 26%) → rgb(250 250 250 / 26%)
+  scrollbar-thumb-hover = rgb(var(--palette-gray-000-rgb) / 42%) → rgb(250 250 250 / 42%)
+  dropdown-surface-bg = rgb(var(--palette-gray-800-rgb)) → rgb(49 54 64)
+  project-card-overlay-stack-gap = 4px
+  project-card-overlay-line-height = 1.2
+  app-gnb-safe-top = max(12px, env(safe-area-inset-top, 0px))
+  app-gnb-sidebar-align-main-margin-top = calc( var(--app-gnb-safe-top) + 40px ) → calc( max(12px, env(safe-area-inset-top, 0px)) + 40px )
+  app-gnb-rail-below-chrome-gap = 12px
+  app-gnb-rail-padding-bottom = 12px
+  app-gnb-main-card-padding-block-start = 0px
+  app-gnb-sidebar-padding-x = 12px
+  app-gnb-main-inline-padding = 16px
+  app-gnb-main-inline-padding-end = 12px
+  app-gnb-sidebar-menu-hit-w = calc( (var(--app-gnb-main-inline-padding) - var(--app-gnb-sidebar-padding-x)) + 20px + 8px ) → calc( (16px - 12px) + 20px + 8px )
+  app-gnb-sidebar-logo-h = 28px
+  app-gnb-sidebar-logo-cube-px = calc(var(--app-gnb-sidebar-logo-h) * 72 / 85) → calc(28px * 72 / 85)
+  app-gnb-sidebar-logo-wordmark-w = 96px
+  app-gnb-sidebar-logo-symbol-w = 28px
+  app-gnb-sidebar-width = min(280px, calc(100vw - 120px))
+  app-shell-min-width = 960px
+  primary-50 = #f0f7ff
+  primary-100 = #d6ebff
+  primary-200 = #a3d5ff
+  primary-300 = #70bfff
+  primary-400 = #38a4ff
+  primary-500 = #0088ff
+  primary-600 = #0075db
+  primary-700 = #005fb3
+  primary-800 = #00498a
+  primary-900 = #003461
+  primary-50-rgb = 240 247 255
+  primary-100-rgb = 214 235 255
+  primary-200-rgb = 163 213 255
+  primary-300-rgb = 112 191 255
+  primary-400-rgb = 56 164 255
+  primary-500-rgb = 0 136 255
+  primary-600-rgb = 0 117 219
+  primary-700-rgb = 0 95 179
+  primary-800-rgb = 0 73 138
+  primary-900-rgb = 0 52 97
+  primary-350 = #54b1ff
+  primary-420 = #299aff
+  primary-450 = #1491ff
+  primary-550 = #007ee8
+  primary-580 = #0076d9
+  primary-620 = #006ec4
+  primary-350-rgb = 84 177 255
+  primary-450-rgb = 20 145 255
+  primary = var(--primary-500) → #0088ff
+  primary-rgb = var(--primary-500-rgb) → 0 136 255
+  primary-on = var(--gray-000)
+  primary-on-rgb = var(--gray-000-rgb)
+  accent-mint-100 = #e5fff7
+  accent-mint-200 = #b8f8e5
+  accent-mint-300 = #79eccc
+  accent-mint-400 = #28d9a5
+  accent-mint-500 = #00c68e
+  accent-mint-600 = #00b37f
+  accent-mint-700 = #008f67
+  accent-mint-800 = #006e51
+  accent-mint-900 = #004c39
+  accent-mint-100-rgb = 229 255 247
+  accent-mint-200-rgb = 184 248 229
+  accent-mint-300-rgb = 121 236 204
+  accent-mint-400-rgb = 40 217 165
+  accent-mint-500-rgb = 0 198 142
+  accent-mint-600-rgb = 0 179 127
+  accent-mint-700-rgb = 0 143 103
+  accent-mint-800-rgb = 0 110 81
+  accent-mint-900-rgb = 0 76 57
+  accent-yellow-100 = #fff5d6
+  accent-yellow-200 = #ffe8a3
+  accent-yellow-300 = #ffd980
+  accent-yellow-400 = #ffc233
+  accent-yellow-500 = #ffb200
+  accent-yellow-600 = #e49a00
+  accent-yellow-700 = #b87600
+  accent-yellow-800 = #7a5200
+  accent-yellow-900 = #4c3300
+  accent-yellow-ink = #3d2b00
+  accent-yellow-deep = #6b4700
+  accent-yellow-100-rgb = 255 245 214
+  accent-yellow-200-rgb = 255 232 163
+  accent-yellow-300-rgb = 255 217 128
+  accent-yellow-400-rgb = 255 194 51
+  accent-yellow-500-rgb = 255 178 0
+  accent-yellow-600-rgb = 228 154 0
+  accent-yellow-700-rgb = 184 118 0
+  accent-yellow-800-rgb = 122 82 0
+  accent-yellow-900-rgb = 76 51 0
+  accent-red-100 = #ffe5e8
+  accent-red-200 = #ffc4ca
+  accent-red-300 = #ff9aa4
+  accent-red-400 = #ff6f7c
+  accent-red-500 = #ff4b59
+  accent-red-600 = #e23645
+  accent-red-700 = #b72431
+  accent-red-800 = #841a24
+  accent-red-900 = #541119
+  accent-red-100-rgb = 255 229 232
+  accent-red-200-rgb = 255 196 202
+  accent-red-300-rgb = 255 154 164
+  accent-red-400-rgb = 255 111 124
+  accent-red-500-rgb = 255 75 89
+  accent-red-600-rgb = 226 54 69
+  accent-red-700-rgb = 183 36 49
+  accent-red-800-rgb = 132 26 36
+  accent-red-900-rgb = 84 17 25
+  red-500-rgb = var(--accent-red-500-rgb) → 255 75 89
+  red-600-rgb = var(--accent-red-600-rgb) → 226 54 69
+  accent-amber-100 = #fff5d6
+  accent-amber-100-rgb = 255 245 214
+  accent-amber-200 = #ffe5a3
+  accent-amber-200-rgb = 255 229 163
+  accent-amber-300 = #ffd66b
+  accent-amber-300-rgb = 255 214 107
+  accent-amber-400 = #ffc847
+  accent-amber-400-rgb = 255 200 71
+  accent-amber-500 = #ffbd2e
+  accent-amber-500-rgb = 255 189 46
+  accent-amber-600 = #e89e00
+  accent-amber-600-rgb = 232 158 0
+  accent-amber-700 = #b87a00
+  accent-amber-700-rgb = 184 122 0
+  accent-amber-800 = #885a00
+  accent-amber-800-rgb = 136 90 0
+  accent-amber-900 = #5c3d00
+  accent-amber-900-rgb = 92 61 0
+  accent-green-500 = #28c840
+  accent-green-500-rgb = 40 200 64
+  accent-pink-100 = #ffe5ed
+  accent-pink-100-rgb = 255 229 237
+  accent-pink-200 = #ffc1d6
+  accent-pink-200-rgb = 255 193 214
+  accent-pink-300 = #ff9bbe
+  accent-pink-300-rgb = 255 155 190
+  accent-pink-400 = #ff6d9d
+  accent-pink-400-rgb = 255 109 157
+  accent-pink-500 = #ff4d88
+  accent-pink-500-rgb = 255 77 136
+  accent-pink-600 = #e23671
+  accent-pink-600-rgb = 226 54 113
+  accent-pink-700 = #b72458
+  accent-pink-700-rgb = 183 36 88
+  accent-pink-800 = #841a3f
+  accent-pink-800-rgb = 132 26 63
+  accent-pink-900 = #54112a
+  accent-pink-900-rgb = 84 17 42
+  accent-sky-100 = #e0f5ff
+  accent-sky-200 = #bae8ff
+  accent-sky-300 = #7dd3fc
+  accent-sky-400 = #38bdf8
+  accent-sky-500 = #0ea5e9
+  accent-sky-600 = #0284c7
+  accent-sky-700 = #0369a1
+  accent-sky-800 = #075985
+  accent-sky-900 = #0c2f4a
+  accent-sky-100-rgb = 224 245 255
+  accent-sky-200-rgb = 186 232 255
+  accent-sky-300-rgb = 125 211 252
+  accent-sky-400-rgb = 56 189 248
+  accent-sky-500-rgb = 14 165 233
+  accent-sky-600-rgb = 2 132 199
+  accent-sky-700-rgb = 3 105 161
+  accent-sky-800-rgb = 7 89 133
+  accent-sky-900-rgb = 12 47 74
+  accent-violet-100 = #ebe8ff
+  accent-violet-100-rgb = 235 232 255
+  accent-violet-200 = #c9c2ff
+  accent-violet-200-rgb = 201 194 255
+  accent-violet-300 = #9d91ff
+  accent-violet-300-rgb = 157 145 255
+  accent-violet-400 = #8478ff
+  accent-violet-400-rgb = 132 120 255
+  accent-violet-500 = #6055ff
+  accent-violet-500-rgb = 96 85 255
+  accent-violet-600 = #4f45e3
+  accent-violet-600-rgb = 79 69 227
+  accent-violet-700 = #3528b8
+  accent-violet-700-rgb = 53 40 184
+  accent-violet-800 = #221a80
+  accent-violet-800-rgb = 34 26 128
+  accent-violet-900 = #15104d
+  accent-violet-900-rgb = 21 16 77
+  accent-youtube-500 = #ff4b59
+  accent-instagram-500 = var(--accent-red-500) → #ff4b59
+  accent-ultra-400 = #b9e1f7
+  accent-yellow-ink-rgb = 61 43 0
+  accent-yellow-deep-rgb = 107 71 0
+  type-font-family = var(--font-pretendard)
+  type-feature-settings = "ss07" 1
+  type-weight-regular = 400
+  type-weight-medium = 500
+  type-weight-semibold = 600
+  type-heading-48-size = 48px
+  type-heading-48-line-height = 1.35
+  type-heading-48-letter-spacing = -0.02em
+  type-heading-36-size = 36px
+  type-heading-36-line-height = 1.35
+  type-heading-36-letter-spacing = -0.02em
+  type-heading-28-size = 28px
+  type-heading-28-line-height = 1.35
+  type-heading-28-letter-spacing = -0.02em
+  type-body-20-size = 20px
+  type-body-20-line-height = 1.5
+  type-body-20-letter-spacing = -0.01em
+  type-body-16-size = 16px
+  type-body-16-line-height = 1.5
+  type-body-16-letter-spacing = -0.01em
+  type-body-14-size = 14px
+  type-body-14-line-height = 1.5
+  type-body-14-letter-spacing = -0.01em
+  type-caption-12-size = 12px
+  type-caption-12-line-height = 1.5
+  type-caption-12-letter-spacing = -0.01em
+  app-tooltip-font-size = var(--type-caption-12-size) → 12px
+  app-tooltip-line-height = var(--type-caption-12-line-height) → 1.5
+  app-tooltip-letter-spacing = var(--type-caption-12-letter-spacing) → -0.01em
+  app-tooltip-font-weight = var(--type-weight-regular) → 400
+  app-tooltip-padding-block = 4px
+  app-tooltip-padding-inline = 8px
+  app-tooltip-padding = var(--app-tooltip-padding-block) var(--app-tooltip-padding-inline) → 4px 8px
+  app-tooltip-motion-scale-rest = 0.97
+  app-tooltip-motion-duration-enter = 140ms
+  app-tooltip-motion-duration-exit = 120ms
+  app-tooltip-motion-ease-enter = cubic-bezier(0.23, 1, 0.32, 1)
+  app-tooltip-motion-ease-exit = cubic-bezier(0.19, 1, 0.22, 1)
+  app-tooltip-kbd-bg = rgb(var(--palette-gray-900-rgb) / 8%) → rgb(23 27 34 / 8%)
+
+### html[lang="ja"]
+선언 1개
+  type-font-family = var(--font-pretendard-jp), var(--font-pretendard)
+
+### html[data-app-gnb-sidebar-collapsed="true"]
+선언 1개
+  app-gnb-sidebar-width = calc( 2 * var(--app-gnb-sidebar-padding-x) + var(--app-gnb-sidebar-menu-hit-w) ) → calc( 2 * 12px + calc( (16px - 12px) + 20px + 8px ) )
+
+### @media (max-width: 719px)
+선언 4개
+  app-gnb-main-inline-padding = 16px
+  app-gnb-main-inline-padding-end = 16px
+  app-gnb-rail-padding-bottom = 0px
+  app-gnb-sidebar-width = 0px
+
+### :root
+선언 41개
+  node-handle-bg-youtube = var(--accent-red-800) → #841a24
+  node-handle-icon-youtube = var(--accent-red-500) → #ff4b59
+  node-handle-bg-instagram = var(--accent-red-800) → #841a24
+  node-handle-icon-instagram = var(--accent-red-500) → #ff4b59
+  node-handle-bg-edit = var(--accent-violet-800) → #221a80
+  node-handle-icon-edit = var(--accent-violet-500) → #6055ff
+  node-handle-bg-image = var(--accent-mint-800) → #006e51
+  node-handle-icon-image = var(--accent-mint-500) → #00c68e
+  node-handle-bg-text = var(--accent-yellow-800) → #7a5200
+  node-handle-icon-text = var(--accent-yellow-500) → #ffb200
+  node-handle-bg-audio = var(--accent-pink-800) → #841a3f
+  node-handle-icon-audio = var(--accent-pink-500) → #ff4d88
+  node-prompt-generate-gradient = linear-gradient( 90deg, var(--primary-450) 0%, var(--primary-500) 50%, var(--primary-450) 100% ) → linear-gradient( 90deg, #1491ff 0%, #0088ff 50%, #1491ff 100% )
+  node-side-handle-size = 28px
+  node-side-handle-radius = 8px
+  node-handle-chrome-transition = background 0.13s ease, color 0.13s ease, transform 0.1s ease
+  node-side-gap = 10px
+  node-side-stack-gap = 8px
+  node-side-ctrl = var(--node-side-handle-size, 28px) → 28px
+  node-side-leading-offset = calc(var(--node-side-gap) + var(--node-side-ctrl)) → calc(10px + 28px)
+  node-handle-outbound-slot = calc(100% + var(--node-side-gap)) → calc(100% + 10px)
+  node-handle-bg-disabled-image = var(--accent-mint-900) → #004c39
+  node-handle-bg-disabled-text = var(--accent-yellow-900) → #4c3300
+  node-handle-bg-disabled-youtube = var(--accent-red-900) → #541119
+  node-handle-bg-disabled-instagram = var(--accent-red-900) → #541119
+  node-handle-bg-disabled-edit = var(--accent-violet-900) → #15104d
+  node-handle-bg-disabled-audio = var(--accent-pink-900) → #54112a
+  node-handle-icon-disabled-image = var(--accent-mint-700) → #008f67
+  node-handle-icon-disabled-text = var(--accent-yellow-700) → #b87600
+  node-handle-icon-disabled-youtube = var(--accent-red-700) → #b72431
+  node-handle-icon-disabled-instagram = var(--accent-red-700) → #b72431
+  node-handle-icon-disabled-edit = var(--accent-violet-700) → #3528b8
+  node-handle-icon-disabled-audio = var(--accent-pink-700) → #b72458
+  node-meta-dropdown-shadow = var(--dropdown-ambient-shadow), var(--glass-dropdown-frame) → 0px 8px 15px 0px rgba(0, 0, 0, 0.04), 0 0 0 0.5px #575d68
+  node-chrome-btn-h = 32px
+  node-chrome-btn-padding-x = 10px
+  node-chrome-btn-radius = 12px
+  node-chrome-btn-gap = 4px
+  node-chrome-btn-bg = var(--palette-gray-600) → #777d89
+  node-chrome-btn-border = 0.5px solid var(--palette-gray-700) → 0.5px solid #575d68
+  node-chrome-btn-bg-hover = color-mix( in srgb, var(--palette-gray-000) 8%, var(--node-chrome-btn-bg) ) → color-mix( in srgb, #fafafa 8%, #777d89 )
+
+### html[data-theme="light"]:not(:has([data-landing-walkthrough-dark])), [data-landing-walkthrough-light]
+선언 12개
+  glass-dropdown-frame = 0 0 0 0.5px var(--palette-gray-300) → 0 0 0 0.5px #d5d7dd
+  dropdown-surface-bg = rgb(var(--palette-gray-100-rgb)) → rgb(241 241 243)
+  node-handle-bg-youtube = var(--accent-red-200) → #ffc4ca
+  node-handle-bg-instagram = var(--accent-red-200) → #ffc4ca
+  node-handle-bg-edit = var(--accent-violet-200) → #c9c2ff
+  node-handle-bg-image = var(--accent-mint-200) → #b8f8e5
+  node-handle-bg-text = var(--accent-yellow-200) → #ffe8a3
+  node-handle-bg-audio = var(--accent-pink-200) → #ffc1d6
+  node-meta-dropdown-shadow = var(--dropdown-ambient-shadow), var(--glass-dropdown-frame) → 0px 8px 15px 0px rgba(0, 0, 0, 0.04), 0 0 0 0.5px #575d68
+  node-chrome-btn-bg = var(--palette-gray-100) → #f1f1f3
+  node-chrome-btn-border = 0.5px solid var(--palette-gray-150) → 0.5px solid #eaebee
+  node-chrome-btn-bg-hover = color-mix( in srgb, var(--palette-gray-1000) 5%, var(--node-chrome-btn-bg) ) → color-mix( in srgb, #000000 5%, #777d89 )
+
+### html[data-theme="dark"]
+선언 43개 (그중 22개는 --gray-* 램프 재정의 — 위 semantic gray 표 참조)
+  surface-page = var(--palette-gray-900) → #171b22
+  surface-raised = var(--palette-gray-800) → #313640
+  surface-input = var(--palette-gray-700) → #575d68
+  surface-answer = var(--palette-gray-600) → #777d89
+  surface-inset = var(--palette-gray-600) → #777d89
+  surface-inset-hover = var(--palette-gray-500) → #9aa0ab
+  surface-inset-pressed = var(--palette-gray-400) → #bcc0c9
+  border-input = var(--palette-gray-600) → #777d89
+  border-control = var(--palette-gray-500) → #9aa0ab
+  background = var(--gray-900)
+  foreground = var(--gray-000)
+  app-page-bg = var(--gray-900)
+  app-page-backdrop-blur = none
+  theme-shadow-rgb = var(--palette-gray-1000-rgb) → 0 0 0
+  theme-scrim-rgb = var(--palette-gray-1000-rgb) → 0 0 0
+  app-tooltip-radius = 8px
+  app-tooltip-bg = var(--palette-gray-200) → #e3e4e8
+  app-tooltip-text = var(--palette-gray-900) → #171b22
+  app-tooltip-text-subtle = rgb(var(--palette-gray-700-rgb) / 72%) → rgb(87 93 104 / 72%)
+  app-tooltip-border = rgb(var(--palette-gray-900-rgb) / 12%) → rgb(23 27 34 / 12%)
+  app-tooltip-shadow = 0 12px 24px rgb(var(--palette-gray-900-rgb) / 12%) → 0 12px 24px rgb(23 27 34 / 12%)
+
+### html[data-theme="light"]
+선언 46개 (그중 22개는 --gray-* 램프 재정의 — 위 semantic gray 표 참조)
+  scrollbar-thumb = rgb(0 0 0 / 22%)
+  scrollbar-thumb-hover = rgb(0 0 0 / 36%)
+  surface-page = var(--palette-gray-100) → #f1f1f3
+  surface-raised = var(--palette-gray-100) → #f1f1f3
+  surface-input = var(--palette-gray-50) → #f8f8f9
+  surface-answer = var(--palette-gray-150) → #eaebee
+  surface-inset = var(--palette-gray-100) → #f1f1f3
+  surface-inset-hover = var(--palette-gray-150) → #eaebee
+  surface-inset-pressed = var(--palette-gray-200) → #e3e4e8
+  border-input = var(--palette-gray-000) → #fafafa
+  border-control = var(--palette-gray-150) → #eaebee
+  background = var(--gray-900)
+  foreground = var(--gray-000)
+  app-page-bg = var(--gray-900)
+  app-page-backdrop-blur = none
+  theme-shadow-rgb = var(--palette-gray-900-rgb) → 23 27 34
+  theme-scrim-rgb = var(--palette-gray-1000-rgb) → 0 0 0
+  node-meta-dropdown-shadow = var(--dropdown-ambient-shadow), var(--glass-dropdown-frame) → 0px 8px 15px 0px rgba(0, 0, 0, 0.04), 0 0 0 0.5px #575d68
+  app-tooltip-radius = 8px
+  app-tooltip-bg = var(--palette-gray-800) → #313640
+  app-tooltip-text = var(--palette-gray-000) → #fafafa
+  app-tooltip-text-subtle = rgb(var(--palette-gray-000-rgb) / 72%) → rgb(250 250 250 / 72%)
+  app-tooltip-border = rgb(var(--palette-gray-000-rgb) / 14%) → rgb(250 250 250 / 14%)
+  app-tooltip-shadow = 0 12px 24px rgb(var(--palette-gray-600-rgb) / 12%) → 0 12px 24px rgb(119 125 137 / 12%)
+
+### [data-landing-walkthrough-dark]
+선언 35개 (그중 22개는 --gray-* 램프 재정의 — 위 semantic gray 표 참조)
+  background = var(--gray-900)
+  foreground = var(--gray-000)
+  app-page-bg = var(--gray-900)
+  app-page-backdrop-blur = none
+  theme-shadow-rgb = var(--palette-gray-1000-rgb) → 0 0 0
+  theme-scrim-rgb = var(--palette-gray-1000-rgb) → 0 0 0
+  node-meta-dropdown-shadow = var(--dropdown-ambient-shadow), var(--glass-dropdown-frame) → 0px 8px 15px 0px rgba(0, 0, 0, 0.04), 0 0 0 0.5px #575d68
+  app-tooltip-radius = 8px
+  app-tooltip-bg = var(--palette-gray-200) → #e3e4e8
+  app-tooltip-text = var(--palette-gray-900) → #171b22
+  app-tooltip-text-subtle = rgb(var(--palette-gray-700-rgb) / 72%) → rgb(87 93 104 / 72%)
+  app-tooltip-border = rgb(var(--palette-gray-900-rgb) / 12%) → rgb(23 27 34 / 12%)
+  app-tooltip-shadow = 0 12px 24px rgb(var(--palette-gray-900-rgb) / 12%) → 0 12px 24px rgb(23 27 34 / 12%)
+
+### [data-landing-walkthrough-light]
+선언 35개 (그중 22개는 --gray-* 램프 재정의 — 위 semantic gray 표 참조)
+  background = var(--gray-900)
+  foreground = var(--gray-000)
+  app-page-bg = var(--gray-900)
+  app-page-backdrop-blur = none
+  theme-shadow-rgb = var(--palette-gray-900-rgb) → 23 27 34
+  theme-scrim-rgb = var(--palette-gray-1000-rgb) → 0 0 0
+  node-meta-dropdown-shadow = var(--dropdown-ambient-shadow), var(--glass-dropdown-frame) → 0px 8px 15px 0px rgba(0, 0, 0, 0.04), 0 0 0 0.5px #575d68
+  app-tooltip-radius = 8px
+  app-tooltip-bg = var(--palette-gray-800) → #313640
+  app-tooltip-text = var(--palette-gray-000) → #fafafa
+  app-tooltip-text-subtle = rgb(var(--palette-gray-000-rgb) / 72%) → rgb(250 250 250 / 72%)
+  app-tooltip-border = rgb(var(--palette-gray-000-rgb) / 14%) → rgb(250 250 250 / 14%)
+  app-tooltip-shadow = 0 12px 24px rgb(var(--palette-gray-600-rgb) / 12%) → 0 12px 24px rgb(119 125 137 / 12%)
+
+### @media (max-width: 450px)
+선언 1개
+  type-body-16-size = var(--type-body-14-size) → 14px
+
+### @media (max-width: 1023px)
+선언 9개
+  type-heading-48-size = 36px
+  type-heading-48-letter-spacing = -0.02em
+  type-heading-36-size = 32px
+  type-heading-36-letter-spacing = -0.02em
+  type-heading-28-size = var(--type-body-20-size) → 20px
+  type-heading-28-letter-spacing = var(--type-body-20-letter-spacing) → -0.01em
+  type-body-20-size = 18px
+  type-body-20-line-height = 1.5
+  type-body-20-letter-spacing = -0.01em
+
+### @media (max-width: 767px)
+선언 9개
+  type-heading-48-size = 32px
+  type-heading-48-letter-spacing = -0.02em
+  type-heading-36-size = 28px
+  type-heading-36-letter-spacing = -0.02em
+  type-heading-28-size = 18px
+  type-heading-28-letter-spacing = -0.01em
+  type-body-20-size = 16px
+  type-body-20-line-height = 1.5
+  type-body-20-letter-spacing = -0.01em
+
+### @media (max-width: 479px)
+선언 4개
+  type-heading-48-size = 28px
+  type-heading-48-letter-spacing = -0.02em
+  type-heading-36-size = 20px
+  type-heading-36-letter-spacing = -0.01em
+
+### @media (prefers-reduced-motion: reduce)
+선언 3개
+  app-tooltip-motion-duration-enter = 1ms
+  app-tooltip-motion-duration-exit = 1ms
+  app-tooltip-motion-scale-rest = 1
+
+### [data-page-root]
+선언 32개 (그중 22개는 --gray-* 램프 재정의 — 위 semantic gray 표 참조)
+  theme-shadow-rgb = var(--palette-gray-1000-rgb) → 0 0 0
+  theme-scrim-rgb = var(--palette-gray-1000-rgb) → 0 0 0
+  page-bg = var(--gray-1000)
+  panel = rgb(var(--gray-000-rgb) / 6%)
+  panel-strong = rgb(var(--gray-000-rgb) / 10%)
+  line = rgb(var(--gray-000-rgb) / 14%)
+  text-soft = rgb(var(--gray-000-rgb) / 74%)
+  text-muted = rgb(var(--gray-000-rgb) / 56%)
+  footer-safe-bottom = env(safe-area-inset-bottom)
+  footer-reveal-height = 0px
+
+### [data-page-root] #pricing-faq
+선언 3개 (그중 2개는 --gray-* 램프 재정의 — 위 semantic gray 표 참조)
+  text-soft = rgb(var(--palette-gray-1000-rgb) / 0.74) → rgb(0 0 0 / 0.74)
+
+## Typography
+
+type-weight-regular = 400
+type-weight-medium = 500
+type-weight-semibold = 600
+heading-48: size=48px line-height=1.35 letter-spacing=-0.02em
+heading-36: size=36px line-height=1.35 letter-spacing=-0.02em
+heading-28: size=28px line-height=1.35 letter-spacing=-0.02em
+body-20: size=20px line-height=1.5 letter-spacing=-0.01em
+body-16: size=16px line-height=1.5 letter-spacing=-0.01em
+body-14: size=14px line-height=1.5 letter-spacing=-0.01em
+caption-12: size=12px line-height=1.5 letter-spacing=-0.01em
+
+이 표에 없는 크기는 존재하지 않는다. pnpm check-typography 가 정의되지 않은 토큰 참조를 실패시킨다.
+bold(700) 변형 없음 — 강조는 semibold(600).
+
+### 반응형 램프 ([data-page-root] 스코프에만 적용)
+
+heading-48: base=48px <=1023px:36px <=767px:32px <=479px:28px
+heading-36: base=36px <=1023px:32px <=767px:28px <=479px:20px
+heading-28: base=28px <=1023px:var(--type-body-20-size) <=767px:18px
+body-20: base=20px <=1023px:18px <=767px:16px
+
+### 유틸 클래스
+
+.type-heading-48-{regular|medium|semibold}
+.type-heading-36-{regular|medium|semibold}
+.type-heading-28-{regular|medium|semibold}
+.type-body-20-{regular|medium|semibold}
+.type-body-16-{regular|medium|semibold}
+.type-body-14-{regular|medium|semibold}
+.type-caption-12-{regular|medium|semibold}
+
+## Shape & Space
+
+--spacing = 2px — Tailwind 유틸 숫자는 2배가 아니라 절반이다. p-4 는 8px, w-14 는 28px.
+radius 는 px 스케일: rounded-2 4 6 8 10 12 14 16 20 24, rounded-full=999px.
+Tailwind 기본 이름(rounded-lg, text-sm 등)은 제거되어 존재하지 않는다.
+박스 스트로크는 0.5px. 노드 카드 최외곽만 2px.
+
+## Elevation & Glass
+
+elevation 단계 스케일은 없다 — 용도별 그림자 토큰만 있다. 새 단계를 만들지 말고 아래에서 고른다.
+glass-inner-shadow-rgb = var(--palette-gray-000-rgb) → 250 250 250
+glass-bevel-offset = 1px
+glass-bevel-blur = 1px
+glass-bevel-highlight = inset 0 var(--glass-bevel-offset) var(--glass-bevel-blur) → inset 0 1px 1px
+glass-bevel-shade = inset 0 calc(-1 * var(--glass-bevel-offset)) var(--glass-bevel-blur) → inset 0 calc(-1 * 1px) 1px
+glass-dropdown-frame = 0 0 0 0.5px var(--palette-gray-700) → 0 0 0 0.5px #575d68
+glass-dropdown-frame-on-dark = 0 0 0 0.5px var(--palette-gray-700) → 0 0 0 0.5px #575d68
+dropdown-ambient-shadow = 0px 8px 15px 0px rgba(0, 0, 0, 0.04)
+node-meta-dropdown-shadow = var(--dropdown-ambient-shadow), var(--glass-dropdown-frame) → 0px 8px 15px 0px rgba(0, 0, 0, 0.04), 0 0 0 0.5px #575d68
+
+## Motion
+
+ease-out-strong = cubic-bezier(0.32, 0.72, 0, 1)
+ease-in-out-strong = cubic-bezier(0.77, 0, 0.175, 1)
+
+duration 토큰은 없다. 코드가 리터럴 ms 를 직접 쓴다 — 새 값을 만들기 전에 기존 값을 찾아 쓴다.
+위 ease 토큰 밖의 cubic-bezier 를 새로 쓰지 않는다. 정본 커브가 정해지지 않은 상태이므로,
+필요하면 사용자에게 묻고 결정된 값을 토큰으로 올린다(미결정 항목).
+
+## Animations (전역 @keyframes)
+
+apps/web/app/keyframes.css 에 117개. 전역이므로 이름이 곧 계약이다 —
+새 애니메이션을 만들기 전에 아래에서 같은 동작이 있는지 먼저 찾는다.
+Tailwind 에서는 animate-[이름_130ms_ease-out_forwards] 로 참조한다.
+
+adminFadeIn
+adminScaleIn
+adminSuggestIn
+adminToastIn
+agreementShake
+analyticsSkeletonFade
+analyticsSkeletonShimmer
+appHomeToastIn
+appHomeToastOut
+archiveCardEnter
+archiveLoadingMoreShimmer
+archiveLoadingSweep
+audioAreaGeneratingFill
+bgImgZoomOut
+bgZoomOut
+bgmAudioAreaGeneratingFill
+bulkDownloadPillIn
+bulkDownloadSpin
+cardProgressSpin
+clipSlideUp
+cmdLabelMarquee
+cmdSubmenuPopIn
+connectHintHandlePulse
+createMenuPopIn
+createToastIn
+createToastOut
+dashboardAreaReveal
+dashboardBarGlow
+dashboardBarReveal
+dashboardBarSheen
+dashboardLineReveal
+dashboardSkeletonFade
+dashboardSkeletonPulse
+descMarquee
+detailPanelFadeIn
+drillSlideBack
+drillSlideFwd
+editProcessSpin
+expandModalPanelIn
+expandModalPanelOut
+expandModalRootIn
+expandModalRootOut
+firstNodeHintEnter
+gnbProjectSaveSpin
+highlightLoadingShimmer
+highlightModalFadeIn
+highlightModalPopIn
+highlightSpin
+highlightToastIn
+highlightToastOut
+hintRise
+inlineLoadingSpin
+inquiryFadeUp
+inquiryToastIn
+inquiryToastOut
+inspectorAuraFloat
+inspectorPreviewSheen
+layersBodyClose
+layersBodyOpen
+loginButtonSpin
+media-caption-fade-in
+media-caption-shimmer-sweep
+media-icon-breathe
+media-icon-grow-in
+menuPopIn
+mobileMenuFadeIn
+mobileMenuPanelIn
+myPageFadeIn
+myPageScaleIn
+myPageSkeletonShimmer
+myPageToastIn
+myPageToastOut
+myPageTopupPackReveal
+nodeOutputSpinnerSpin
+nodePromptGenerateSpin
+overviewBgReveal
+overviewChipConverge
+overviewSymbolEmerge
+overviewSymbolGlint
+overviewWordmarkIn
+pickerShimmer
+platformAnalysisSpin
+popoverOpen
+probingSpin
+profileMenuItemBadgeShimmer
+projectLoadingSweep
+projectSaveCloudUploadNudge
+pvCircleOpen
+pvFadePulse
+pvSlideDown
+pvSlideLeft
+pvSlideRight
+pvSlideUp
+pvWipeDown
+pvWipeLeft
+pvWipeRight
+pvWipeUp
+refineChipIn
+refineThinkingIn
+refinementWidgetClose
+refinementWidgetOpen
+sparkle-pulse
+sportFlyoutIn
+statusLoadingSweep
+timelineClipLoadingSpin
+toolbarGuideBadgePulse
+videoEditModalToastIn
+videoInputUploadSpin
+viewEnter
+walkthrough-upload-check-pop
+walkthrough-upload-complete-in
+walkthroughCaptionBlend
+walkthroughStepFadeIn
+windowFadeIn
+yt-upload-spin
+zoomInExpand
+zoomOverlayFade
+
+## TSX 임의 속성으로 정의된 상수
+
+Tailwind 전환으로 모듈 CSS 가 사라지면서 노드 폭·내부 패딩·모서리 같은 값이
+className="[--node-card-width:400px]" 형태로 TSX 안으로 이주했다. CSS 만 보면 안 보인다.
+값이 0px/0ms/1 인 것은 런타임에 덮어쓰이는 선언 기본값이다.
+
+app-gnb-main-card-padding-block-start = 20px  — app/admin/AdminClient.tsx 외 4곳
+app-tooltip-handle-transform-origin = right center  — components/scenes/create/node-canvas-v2/nodes/BgmNode.tsx 외 1곳
+archive-card-index = 0  — components/scenes/NodeCanvasHomeScene.tsx 외 1곳
+aws-navy = #232f3e  — app/aws/signup/page.tsx
+aws-navy-input = #2f3f53  — app/aws/signup/page.tsx
+aws-navy-input-border = #3f5369  — app/aws/signup/page.tsx
+aws-navy-input-focus = #5a718a  — app/aws/signup/page.tsx
+bar-anim-delay = 0ms  — components/landing/demo-snapshots/StaticAnalyticsDemo.tsx 외 4곳
+button-height = 32px  — components/landing/navigation/Gnb.tsx
+button-padding-inline = 12px  — components/landing/navigation/Gnb.tsx
+canvas-bg = transparent  — components/scenes/create/node-canvas-v2/index.tsx
+cx = 0px  — app/HomePageClient.tsx
+cy = 0px  — app/HomePageClient.tsx
+dashboard-badge-border = transparent  — components/landing/demo-snapshots/StaticAnalyticsDemo.tsx 외 2곳
+delay = 0ms  — app/HomePageClient.tsx
+demo-pad = 16px  — components/landing/demo-snapshots/EmptyProjectDemoPad.tsx 외 1곳
+embedded-scene-scale = 0.7  — components/landing/sections/AppHomeLiveDemo.tsx
+guide-modal-content-max = 1080px  — components/scenes/create/NodeCanvasGuideModal.tsx
+layers-duration = 440ms  — components/scenes/create/node-canvas-v2/components/NodeLayersPanel.tsx
+layers-panel-bottom-gap = 12px  — components/scenes/create/node-canvas-v2/components/NodeLayersPanel.tsx
+layers-panel-top = 48px  — components/scenes/create/node-canvas-v2/components/NodeLayersPanel.tsx
+lockup-shift = 56px  — app/HomePageClient.tsx
+mainchrome-bleed-left = 0px  — app/highlight/[projectId]/shorts/[shortId]/page.tsx 외 9곳
+mainchrome-bleed-right = 0px  — app/highlight/[projectId]/shorts/[shortId]/page.tsx 외 9곳
+mainchrome-pad-x = 8px  — components/navigation/Gnb.tsx
+menu-pad = 4px  — components/scenes/analytics/AnalyticsAccountMoreMenu.tsx 외 5곳
+node-canvas-zoom = 1  — components/scenes/create/node-canvas-v2/index.tsx
+node-card-width = 400px  — components/scenes/create/node-canvas-v2/nodes/BgmNode.tsx 외 7곳
+node-header-band-pad = 16px  — components/scenes/create/node-canvas-v2/index.tsx
+node-header-inner-h = 24px  — components/scenes/create/node-canvas-v2/index.tsx
+node-inner-padding = 8px  — components/scenes/create/node-canvas-v2/index.tsx
+node-inner-radius = 22px  — components/scenes/create/node-canvas-v2/index.tsx
+node-input-radius = 16px  — components/scenes/create/node-canvas-v2/index.tsx
+node-outer-radius = 24px  — components/scenes/create/node-canvas-v2/index.tsx
+node-preview-opacity = 1  — components/landing/sections/NodeCanvasConnectedPairCard.tsx 외 2곳
+node-preview-x = 0px  — components/landing/sections/NodeCanvasConnectedPairCard.tsx 외 2곳
+node-preview-y = 0px  — components/landing/sections/NodeCanvasConnectedPairCard.tsx 외 2곳
+node-preview-zoom = 1  — components/landing/sections/NodeCanvasConnectedPairCard.tsx 외 2곳
+node-prompt-gen-btn-w = 48px  — components/scenes/create/node-canvas-v2/nodes/BgmNode.tsx 외 4곳
+node-side-outset = 0px  — components/scenes/create/node-canvas-v2/nodes/BgmNode.tsx 외 4곳
+palette-gray-100 = #f8f8f9  — components/navigation/Gnb.tsx
+palette-gray-150 = #f1f1f3  — components/navigation/Gnb.tsx
+palette-gray-200 = #eeeef1  — components/navigation/Gnb.tsx
+palette-gray-300 = #e4e5e9  — components/navigation/Gnb.tsx
+palette-gray-400 = #d5d7dd  — components/navigation/Gnb.tsx
+palette-gray-500 = #bcc0c9  — components/navigation/Gnb.tsx
+palette-gray-600 = #9aa0ab  — components/navigation/Gnb.tsx
+profile-avatar-size = 28px  — components/landing/demo-snapshots/StaticGnb.tsx 외 2곳
+profile-language-trigger-width = 88px  — components/navigation/Gnb.tsx
+profile-ring-gap = 2px  — components/landing/demo-snapshots/StaticGnb.tsx 외 1곳
+profile-ring-progress = 0%  — components/landing/demo-snapshots/StaticGnb.tsx 외 1곳
+profile-ring-width = 2px  — components/landing/demo-snapshots/StaticGnb.tsx 외 1곳
+refinement-duration = 440ms  — components/scenes/highlightSceneStyles.ts
+refinement-gutter = 14px  — components/scenes/highlightSceneStyles.ts
+refinement-shell-padding = 8px  — components/scenes/highlightSceneStyles.ts
+refinement-shell-radius = 22px  — components/scenes/highlightSceneStyles.ts
+scene-scale = 0.7  — components/landing/demo-snapshots/EmptyProjectDemoPad.tsx
+segment-gap = 3px  — components/scenes/create/ComposerBar.tsx
+segment-padding = 3px  — components/scenes/create/ComposerBar.tsx
+stage-demo-pad-x = 18px  — components/landing/sections/CapabilitiesShowcaseParts.tsx
+stage-demo-pad-y = 18px  — components/landing/sections/CapabilitiesShowcaseParts.tsx
+timeline-clip-stroke-width = 1px  — components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx
+timeline-lane-h = 40px  — components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx
+timeline-result-lane-h = 40px  — components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx
+toggle-btn-w = 26px  — components/navigation/Gnb.tsx
+toggle-gap = 2px  — components/navigation/Gnb.tsx
+vp-object-fit = contain  — components/ui/VideoPlayer.tsx
+walkthrough-dot-active-shadow = none  — components/landing/demo-snapshots/StaticCreateDemo.tsx
+xy-selection-background-color-props = transparent  — components/scenes/create/node-canvas-v2/index.tsx
+
+## Iconography
+
+소스: public/icons/*.svg (Phosphor 원본) 를 icons/*Icon.tsx 래퍼로 감싸 쓴다.
+액션 글리프는 lib/nodeToolbarGlyphs.tsx 가 별도 레지스트리 — 노드 타입 아이콘은 icons/, 액션은 nodeToolbarGlyphs.
+lucide-react 가 의존성에 있으나 import 는 0건이다. 일부 글리프가 lucide 실루엣을 손으로 옮긴 것이라 주석에만 이름이 남아 있다.
+public/icons/lucide/ 에는 volume-2 · volume-x 두 개만 실제 파일로 있다.
+선 두께 = 글리프 크기 ÷ 16 (16px 글리프 = 1px). 20→1.25 · 24→1.5 · 32→2.
+예외: 14 는 비례값 0.875 가 아니라 디자인 확정값 0.88 (icons/iconScreenStroke.ts nodeIconStrokeScreenPx).
+컨테이너와 글리프를 구분한다 — 노드 포트 버튼은 28px 컨테이너 안에 20px 글리프.
+아이콘 색은 content/* 역할을 쓴다. 아이콘 래퍼 프레임에 흰색 배경을 두지 않는다.
+
+## Component tokens (globals.css `:root`)
+
+이름 앞 접두사가 그룹이다. 값이 var() 면 그 토큰을 따라가면 된다.
+
+### ease
+
+ease-out-strong = cubic-bezier(0.32, 0.72, 0, 1)
+ease-in-out-strong = cubic-bezier(0.77, 0, 0.175, 1)
+
+### glass
+
+glass-inner-shadow-rgb = var(--palette-gray-000-rgb) → 250 250 250
+glass-bevel-offset = 1px
+glass-bevel-blur = 1px
+glass-bevel-highlight = inset 0 var(--glass-bevel-offset) var(--glass-bevel-blur) → inset 0 1px 1px
+glass-bevel-shade = inset 0 calc(-1 * var(--glass-bevel-offset)) var(--glass-bevel-blur) → inset 0 calc(-1 * 1px) 1px
+glass-dropdown-frame = 0 0 0 0.5px var(--palette-gray-700) → 0 0 0 0.5px #575d68
+glass-dropdown-frame-on-dark = 0 0 0 0.5px var(--palette-gray-700) → 0 0 0 0.5px #575d68
+
+### dropdown
+
+dropdown-ambient-shadow = 0px 8px 15px 0px rgba(0, 0, 0, 0.04)
+dropdown-radius = 16px
+dropdown-padding = 6px
+dropdown-item-radius = 10px
+dropdown-surface-bg = rgb(var(--palette-gray-800-rgb)) → rgb(49 54 64)
+
+### button
+
+button-radius = 12px
+button-padding-inline = 16px
+button-height = 40px
+button-height-sm = 32px
+button-padding-inline-sm = 12px
+button-min-width-sm = 48px
+
+### scrollbar
+
+scrollbar-size = 10px
+scrollbar-thumb = rgb(var(--palette-gray-000-rgb) / 26%) → rgb(250 250 250 / 26%)
+scrollbar-thumb-hover = rgb(var(--palette-gray-000-rgb) / 42%) → rgb(250 250 250 / 42%)
+
+### project
+
+project-card-overlay-stack-gap = 4px
+project-card-overlay-line-height = 1.2
+
+### app
+
+app-gnb-safe-top = max(12px, env(safe-area-inset-top, 0px))
+app-gnb-sidebar-align-main-margin-top = calc( var(--app-gnb-safe-top) + 40px ) → calc( max(12px, env(safe-area-inset-top, 0px)) + 40px )
+app-gnb-rail-below-chrome-gap = 12px
+app-gnb-rail-padding-bottom = 12px
+app-gnb-main-card-padding-block-start = 0px
+app-gnb-sidebar-padding-x = 12px
+app-gnb-main-inline-padding = 16px
+app-gnb-main-inline-padding-end = 12px
+app-gnb-sidebar-menu-hit-w = calc( (var(--app-gnb-main-inline-padding) - var(--app-gnb-sidebar-padding-x)) + 20px + 8px ) → calc( (16px - 12px) + 20px + 8px )
+app-gnb-sidebar-logo-h = 28px
+app-gnb-sidebar-logo-cube-px = calc(var(--app-gnb-sidebar-logo-h) * 72 / 85) → calc(28px * 72 / 85)
+app-gnb-sidebar-logo-wordmark-w = 96px
+app-gnb-sidebar-logo-symbol-w = 28px
+app-gnb-sidebar-width = min(280px, calc(100vw - 120px))
+app-shell-min-width = 960px
+app-tooltip-font-size = var(--type-caption-12-size) → 12px
+app-tooltip-line-height = var(--type-caption-12-line-height) → 1.5
+app-tooltip-letter-spacing = var(--type-caption-12-letter-spacing) → -0.01em
+app-tooltip-font-weight = var(--type-weight-regular) → 400
+app-tooltip-padding-block = 4px
+app-tooltip-padding-inline = 8px
+app-tooltip-padding = var(--app-tooltip-padding-block) var(--app-tooltip-padding-inline) → 4px 8px
+app-tooltip-motion-scale-rest = 0.97
+app-tooltip-motion-duration-enter = 140ms
+app-tooltip-motion-duration-exit = 120ms
+app-tooltip-motion-ease-enter = cubic-bezier(0.23, 1, 0.32, 1)
+app-tooltip-motion-ease-exit = cubic-bezier(0.19, 1, 0.22, 1)
+app-tooltip-kbd-bg = rgb(var(--palette-gray-900-rgb) / 8%) → rgb(23 27 34 / 8%)
+
+### primary
+
+primary = var(--primary-500) → #0088ff
+
+### red
+
+red-500-rgb = var(--accent-red-500-rgb) → 255 75 89
+red-600-rgb = var(--accent-red-600-rgb) → 226 54 69
+
+### node
+
+node-handle-bg-youtube = var(--accent-red-800) → #841a24
+node-handle-icon-youtube = var(--accent-red-500) → #ff4b59
+node-handle-bg-instagram = var(--accent-red-800) → #841a24
+node-handle-icon-instagram = var(--accent-red-500) → #ff4b59
+node-handle-bg-edit = var(--accent-violet-800) → #221a80
+node-handle-icon-edit = var(--accent-violet-500) → #6055ff
+node-handle-bg-image = var(--accent-mint-800) → #006e51
+node-handle-icon-image = var(--accent-mint-500) → #00c68e
+node-handle-bg-text = var(--accent-yellow-800) → #7a5200
+node-handle-icon-text = var(--accent-yellow-500) → #ffb200
+node-handle-bg-audio = var(--accent-pink-800) → #841a3f
+node-handle-icon-audio = var(--accent-pink-500) → #ff4d88
+node-prompt-generate-gradient = linear-gradient( 90deg, var(--primary-450) 0%, var(--primary-500) 50%, var(--primary-450) 100% ) → linear-gradient( 90deg, #1491ff 0%, #0088ff 50%, #1491ff 100% )
+node-side-handle-size = 28px
+node-side-handle-radius = 8px
+node-handle-chrome-transition = background 0.13s ease, color 0.13s ease, transform 0.1s ease
+node-side-gap = 10px
+node-side-stack-gap = 8px
+node-side-ctrl = var(--node-side-handle-size, 28px) → 28px
+node-side-leading-offset = calc(var(--node-side-gap) + var(--node-side-ctrl)) → calc(10px + 28px)
+node-handle-outbound-slot = calc(100% + var(--node-side-gap)) → calc(100% + 10px)
+node-handle-bg-disabled-image = var(--accent-mint-900) → #004c39
+node-handle-bg-disabled-text = var(--accent-yellow-900) → #4c3300
+node-handle-bg-disabled-youtube = var(--accent-red-900) → #541119
+node-handle-bg-disabled-instagram = var(--accent-red-900) → #541119
+node-handle-bg-disabled-edit = var(--accent-violet-900) → #15104d
+node-handle-bg-disabled-audio = var(--accent-pink-900) → #54112a
+node-handle-icon-disabled-image = var(--accent-mint-700) → #008f67
+node-handle-icon-disabled-text = var(--accent-yellow-700) → #b87600
+node-handle-icon-disabled-youtube = var(--accent-red-700) → #b72431
+node-handle-icon-disabled-instagram = var(--accent-red-700) → #b72431
+node-handle-icon-disabled-edit = var(--accent-violet-700) → #3528b8
+node-handle-icon-disabled-audio = var(--accent-pink-700) → #b72458
+node-meta-dropdown-shadow = var(--dropdown-ambient-shadow), var(--glass-dropdown-frame) → 0px 8px 15px 0px rgba(0, 0, 0, 0.04), 0 0 0 0.5px #575d68
+node-chrome-btn-h = 32px
+node-chrome-btn-padding-x = 10px
+node-chrome-btn-radius = 12px
+node-chrome-btn-gap = 4px
+node-chrome-btn-bg = var(--palette-gray-600) → #777d89
+node-chrome-btn-border = 0.5px solid var(--palette-gray-700) → 0.5px solid #575d68
+node-chrome-btn-bg-hover = color-mix( in srgb, var(--palette-gray-000) 8%, var(--node-chrome-btn-bg) ) → color-mix( in srgb, #fafafa 8%, #777d89 )
+
+## 화면 레이어 사다리 — 면끼리의 관계
+
+**각 면을 따로 보면 안 된다.** 같은 테마 안에서 어느 면이 더 밝은지, 어디가 같은 색인지가
+화면의 구조를 만든다. 아래는 해결된 최종값과 상대 휘도(L)다.
+
+### light
+  페이지 바닥: #f1f1f3 (L=0.881)
+  카드 면 (.appMainCardChromeSurface): #f1f1f3 (L=0.881)
+  입력 면 (surface-input): #f8f8f9 (L=0.939)
+  인셋 면 (surface-inset): #f1f1f3 (L=0.881)
+  ⚠ **카드 면 (.appMainCardChromeSurface) 과 페이지 바닥 이 같은 색이다 (#f1f1f3).**
+     경계는 색이 아니라 다른 수단(테두리·그림자·여백)으로 난다. 카드를 빠뜨리지 말 것.
+  ⚠ **인셋 면 (surface-inset) 과 페이지 바닥 이 같은 색이다 (#f1f1f3).**
+     경계는 색이 아니라 다른 수단(테두리·그림자·여백)으로 난다. 카드를 빠뜨리지 말 것.
+
+### dark
+  페이지 바닥: #171b22 (L=0.011)
+  카드 면 (.appMainCardChromeSurface): #313640 (L=0.037)
+  입력 면 (surface-input): #575d68 (L=0.109)
+  인셋 면 (surface-inset): #777d89 (L=0.204)
+
+
+## ⚠ 토큰 이름이 종류를 뜻하지 않는다
+
+`shadow` / `frame` 이 들어 있다고 드롭섀도우가 아니다. 아래 `종류` 는 **이름이 아니라
+해결된 값에서 뽑은 것**이다 — 각 레이어의 blur·spread·inset 을 보고 판정한다.
+
+glass-bevel-highlight
+  종류: 안쪽 베벨(하이라이트/음영)
+glass-bevel-shade
+  종류: 안쪽 베벨(하이라이트/음영)
+dropdown-ambient-shadow
+  종류: 드롭섀도우 (blur 15px)
+node-meta-dropdown-shadow
+  종류: 드롭섀도우 (blur 15px) + 헤어라인 링 (blur 0, spread 0px)
+
+## ⚠ 오버라이드된 기본값 — 정의를 읽으면 틀리는 자리
+
+아래 규칙들은 **자기 자신이 아니라 다른 클래스**를 덮는다. Tailwind 는 소스 스캔으로
+CSS 를 내보내므로 이 규칙은 그 배리언트가 화면에 붙었는지와 상관없이 **항상 존재**하고,
+선택자가 길어 베이스보다 명시도가 높다. 결과적으로 **덮인 값이 실제 기본값**이다.
+
+**베이스 정의만 보고 옮기면 안 된다.** 아래 대상 클래스는 여기 적힌 값이 배포 화면의 값이다.
+
+### .gnb-menuLink  (components/navigation/Gnb.tsx)
+  베이스 정의(이 값이 화면에 안 나온다):
+    background: transparent  light→ transparent  dark→ transparent
+    color: var(--gray-000)  light→ #000000  dark→ #fafafa
+  ↓ 아래 규칙이 이를 덮는다 — **아래가 실제 기본값이다.**
+  테마무관 · 기본 — color: rgb(var(--gray-000-rgb) / 62%)  light→ rgb(0 0 0 / 62%)  dark→ rgb(250 250 250 / 62%)
+  테마무관 · 기본 — color: var(--gray-300)  light→ #575d68  dark→ #d5d7dd
+
+### .gnb-sidebarUpgradeButton  (components/navigation/Gnb.tsx)
+  베이스 정의(이 값이 화면에 안 나온다):
+    background: rgb(var(--accent-mint-500-rgb) / 16%)  light→ rgb(0 198 142 / 16%)  dark→ rgb(0 198 142 / 16%)
+    color: var(--accent-mint-700)  light→ #008f67  dark→ #008f67
+  ↓ 아래 규칙이 이를 덮는다 — **아래가 실제 기본값이다.**
+  light · 기본 — background: var(--palette-gray-900)  → #171b22
+  light · 기본 — color: var(--palette-gray-100)  → #f1f1f3
+  light · hover — background: var(--palette-gray-800)  → #313640
+  light · hover — color: var(--palette-gray-100)  → #f1f1f3
+  dark · 기본 — background: var(--palette-gray-100)  → #f1f1f3
+  dark · 기본 — color: var(--palette-gray-900)  → #171b22
+  dark · hover — background: var(--palette-gray-200)  → #e3e4e8
+  dark · hover — color: var(--palette-gray-900)  → #171b22
+
+
+## Figma 등 다른 도구로 그대로 옮길 수 없는 것
+
+**근사치를 지어내지 말 것.** 아래는 CSS 에서만 성립한다. 옮기는 쪽에서는 재현이 아니라
+`재현 불가` 로 표시하고 코드를 원천으로 두어야 한다.
+
+- **backdrop-filter (뒤 배경 블러) — 66개 파일.** 뒤에 실제로 무엇이 있느냐에
+  따라 결과가 달라진다. 단색 채우기로 대체하면 다른 화면이 된다.
+  사용처: app/admin/AdminClient.tsx · app/admin/BannerManagement.tsx · app/admin/BlogManagement.tsx · app/admin/InquiryManagement.tsx · app/admin/JobMonitor.tsx · app/admin/ProductMetricsDashboard.tsx …
+- **그라디언트 마스크 — 23개 파일.** 블러/이펙트에 알파 그라디언트를 씌우는 형태로,
+  Figma 의 레이어 마스크로는 블러 강도가 점진적으로 변하는 부분이 재현되지 않는다.
+  사용처: app/HomePageClient.tsx · app/admin/BannerManagement.tsx · app/admin/TemplateManagement.tsx · app/mypage/upgrade/page.tsx · components/banners/TabBannerCarousel.tsx · components/landing/demo-snapshots/StaticGnb.tsx …
+- **테마를 따라가지 않는 값.** 위 그림자 토큰들은 `:root` 에만 있고 다크 재정의가 없다 —
+  즉 **다크에서도 같은 값**이다. 다크용 변형을 새로 만들면 코드와 갈린다.
+- **`@layer` 밖 규칙이 유틸리티를 이긴다.** 명시도와 무관하다. 옮길 때 `!` 가 필요한 자리는
+  스타일 결정이 아니라 이 우선순위 때문이며, 다른 도구에는 대응 개념이 없다.
+

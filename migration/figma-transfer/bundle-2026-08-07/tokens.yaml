@@ -1,0 +1,364 @@
+# 생성 파일 — 직접 고치지 마세요.
+# 원천: apps/web/app/globals.css · apps/web/app/tailwind.css
+# 생성: pnpm --filter web build-design-tokens
+
+meta:
+  generator: "apps/web/scripts/build-design-tokens.mjs"
+  sources: "apps/web/app/globals.css · apps/web/app/tailwind.css"
+  note: "생성 파일입니다. 값을 바꾸려면 CSS 를 고치고 다시 생성하세요."
+color:
+  palette:
+    gray:
+      gray-000: "#fafafa"
+      gray-50: "#f8f8f9"
+      gray-100: "#f1f1f3"
+      gray-150: "#eaebee"
+      gray-200: "#e3e4e8"
+      gray-300: "#d5d7dd"
+      gray-400: "#bcc0c9"
+      gray-500: "#9aa0ab"
+      gray-600: "#777d89"
+      gray-700: "#575d68"
+      gray-800: "#313640"
+      gray-900: "#171b22"
+      gray-1000: "#000000"
+    primary:
+      primary-50: "#f0f7ff"
+      primary-100: "#d6ebff"
+      primary-200: "#a3d5ff"
+      primary-300: "#70bfff"
+      primary-350: "#54b1ff"
+      primary-400: "#38a4ff"
+      primary-420: "#299aff"
+      primary-450: "#1491ff"
+      primary-500: "#0088ff"
+      primary-550: "#007ee8"
+      primary-580: "#0076d9"
+      primary-600: "#0075db"
+      primary-620: "#006ec4"
+      primary-700: "#005fb3"
+      primary-800: "#00498a"
+      primary-900: "#003461"
+    accent:
+      mint:
+        mint-100: "#e5fff7"
+        mint-200: "#b8f8e5"
+        mint-300: "#79eccc"
+        mint-400: "#28d9a5"
+        mint-500: "#00c68e"
+        mint-600: "#00b37f"
+        mint-700: "#008f67"
+        mint-800: "#006e51"
+        mint-900: "#004c39"
+      yellow:
+        yellow-100: "#fff5d6"
+        yellow-200: "#ffe8a3"
+        yellow-300: "#ffd980"
+        yellow-400: "#ffc233"
+        yellow-500: "#ffb200"
+        yellow-600: "#e49a00"
+        yellow-700: "#b87600"
+        yellow-800: "#7a5200"
+        yellow-900: "#4c3300"
+      red:
+        red-100: "#ffe5e8"
+        red-200: "#ffc4ca"
+        red-300: "#ff9aa4"
+        red-400: "#ff6f7c"
+        red-500: "#ff4b59"
+        red-600: "#e23645"
+        red-700: "#b72431"
+        red-800: "#841a24"
+        red-900: "#541119"
+      amber:
+        amber-100: "#fff5d6"
+        amber-200: "#ffe5a3"
+        amber-300: "#ffd66b"
+        amber-400: "#ffc847"
+        amber-500: "#ffbd2e"
+        amber-600: "#e89e00"
+        amber-700: "#b87a00"
+        amber-800: "#885a00"
+        amber-900: "#5c3d00"
+      green:
+        green-500: "#28c840"
+      pink:
+        pink-100: "#ffe5ed"
+        pink-200: "#ffc1d6"
+        pink-300: "#ff9bbe"
+        pink-400: "#ff6d9d"
+        pink-500: "#ff4d88"
+        pink-600: "#e23671"
+        pink-700: "#b72458"
+        pink-800: "#841a3f"
+        pink-900: "#54112a"
+      sky:
+        sky-100: "#e0f5ff"
+        sky-200: "#bae8ff"
+        sky-300: "#7dd3fc"
+        sky-400: "#38bdf8"
+        sky-500: "#0ea5e9"
+        sky-600: "#0284c7"
+        sky-700: "#0369a1"
+        sky-800: "#075985"
+        sky-900: "#0c2f4a"
+      violet:
+        violet-100: "#ebe8ff"
+        violet-200: "#c9c2ff"
+        violet-300: "#9d91ff"
+        violet-400: "#8478ff"
+        violet-500: "#6055ff"
+        violet-600: "#4f45e3"
+        violet-700: "#3528b8"
+        violet-800: "#221a80"
+        violet-900: "#15104d"
+      youtube:
+        youtube-500: "#ff4b59"
+      instagram:
+        instagram-500: "var(--accent-red-500)"
+      ultra:
+        ultra-400: "#b9e1f7"
+  semantic:
+    note: "라이트에서 스케일이 반전된다 — gray-000 은 흰 면이 아니라 잉크다."
+    gray:
+      gray-000:
+        light: "var(--palette-gray-1000)"
+        dark: "var(--palette-gray-000)"
+      gray-100:
+        light: "var(--palette-gray-900)"
+        dark: "var(--palette-gray-100)"
+      gray-200:
+        light: "var(--palette-gray-800)"
+        dark: "var(--palette-gray-200)"
+      gray-300:
+        light: "var(--palette-gray-700)"
+        dark: "var(--palette-gray-300)"
+      gray-400:
+        light: "var(--palette-gray-600)"
+        dark: "var(--palette-gray-400)"
+      gray-500:
+        light: "var(--palette-gray-500)"
+        dark: "var(--palette-gray-500)"
+      gray-600:
+        light: "var(--palette-gray-400)"
+        dark: "var(--palette-gray-600)"
+      gray-700:
+        light: "var(--palette-gray-300)"
+        dark: "var(--palette-gray-700)"
+      gray-800:
+        light: "var(--palette-gray-200)"
+        dark: "var(--palette-gray-800)"
+      gray-900:
+        light: "var(--palette-gray-100)"
+        dark: "var(--palette-gray-900)"
+      gray-1000:
+        light: "var(--palette-gray-000)"
+        dark: "var(--palette-gray-1000)"
+    roles:
+      surface-page:
+        light: "var(--palette-gray-100)"
+        dark: "var(--palette-gray-900)"
+      surface-raised:
+        light: "var(--palette-gray-100)"
+        dark: "var(--palette-gray-800)"
+      surface-input:
+        light: "var(--palette-gray-50)"
+        dark: "var(--palette-gray-700)"
+      surface-answer:
+        light: "var(--palette-gray-150)"
+        dark: "var(--palette-gray-600)"
+      surface-inset:
+        light: "var(--palette-gray-100)"
+        dark: "var(--palette-gray-600)"
+      surface-inset-hover:
+        light: "var(--palette-gray-150)"
+        dark: "var(--palette-gray-500)"
+      surface-inset-pressed:
+        light: "var(--palette-gray-200)"
+        dark: "var(--palette-gray-400)"
+      border-input:
+        light: "var(--palette-gray-000)"
+        dark: "var(--palette-gray-600)"
+      border-control:
+        light: "var(--palette-gray-150)"
+        dark: "var(--palette-gray-500)"
+typography:
+  weight:
+    regular: "400"
+    medium: "500"
+    semibold: "600"
+  scale:
+    heading-48:
+      size: "48px"
+      line_height: "1.35"
+      letter_spacing: "-0.02em"
+    heading-36:
+      size: "36px"
+      line_height: "1.35"
+      letter_spacing: "-0.02em"
+    heading-28:
+      size: "28px"
+      line_height: "1.35"
+      letter_spacing: "-0.02em"
+    body-20:
+      size: "20px"
+      line_height: "1.5"
+      letter_spacing: "-0.01em"
+    body-16:
+      size: "16px"
+      line_height: "1.5"
+      letter_spacing: "-0.01em"
+    body-14:
+      size: "14px"
+      line_height: "1.5"
+      letter_spacing: "-0.01em"
+    caption-12:
+      size: "12px"
+      line_height: "1.5"
+      letter_spacing: "-0.01em"
+  responsive:
+    heading-48:
+      max-1023: "36px"
+      max-767: "32px"
+      max-479: "28px"
+    heading-36:
+      max-1023: "32px"
+      max-767: "28px"
+      max-479: "20px"
+    heading-28:
+      max-1023: "var(--type-body-20-size)"
+      max-767: "18px"
+    body-20:
+      max-1023: "18px"
+      max-767: "16px"
+  utility_classes:
+    - ".type-heading-48-{regular|medium|semibold}"
+    - ".type-heading-36-{regular|medium|semibold}"
+    - ".type-heading-28-{regular|medium|semibold}"
+    - ".type-body-20-{regular|medium|semibold}"
+    - ".type-body-16-{regular|medium|semibold}"
+    - ".type-body-14-{regular|medium|semibold}"
+    - ".type-caption-12-{regular|medium|semibold}"
+shape:
+  radius:
+    "2": "2px"
+    "4": "4px"
+    "6": "6px"
+    "8": "8px"
+    "10": "10px"
+    "12": "12px"
+    "14": "14px"
+    "16": "16px"
+    "20": "20px"
+    "24": "24px"
+    full: "999px"
+space:
+  base: "2px"
+component_tokens:
+  ease:
+    ease-out-strong: "cubic-bezier(0.32, 0.72, 0, 1)"
+    ease-in-out-strong: "cubic-bezier(0.77, 0, 0.175, 1)"
+  glass:
+    glass-inner-shadow-rgb: "var(--palette-gray-000-rgb)"
+    glass-bevel-offset: "1px"
+    glass-bevel-blur: "1px"
+    glass-bevel-highlight: "inset 0 var(--glass-bevel-offset) var(--glass-bevel-blur)"
+    glass-bevel-shade: "inset 0 calc(-1 * var(--glass-bevel-offset)) var(--glass-bevel-blur)"
+    glass-dropdown-frame: "0 0 0 0.5px var(--palette-gray-700)"
+    glass-dropdown-frame-on-dark: "0 0 0 0.5px var(--palette-gray-700)"
+  dropdown:
+    dropdown-ambient-shadow: "0px 8px 15px 0px rgba(0, 0, 0, 0.04)"
+    dropdown-radius: "16px"
+    dropdown-padding: "6px"
+    dropdown-item-radius: "10px"
+    dropdown-surface-bg: "rgb(var(--palette-gray-800-rgb))"
+  button:
+    button-radius: "12px"
+    button-padding-inline: "16px"
+    button-height: "40px"
+    button-height-sm: "32px"
+    button-padding-inline-sm: "12px"
+    button-min-width-sm: "48px"
+  scrollbar:
+    scrollbar-size: "10px"
+    scrollbar-thumb: "rgb(var(--palette-gray-000-rgb) / 26%)"
+    scrollbar-thumb-hover: "rgb(var(--palette-gray-000-rgb) / 42%)"
+  project:
+    project-card-overlay-stack-gap: "4px"
+    project-card-overlay-line-height: "1.2"
+  app:
+    app-gnb-safe-top: "max(12px, env(safe-area-inset-top, 0px))"
+    app-gnb-sidebar-align-main-margin-top: "calc( var(--app-gnb-safe-top) + 40px )"
+    app-gnb-rail-below-chrome-gap: "12px"
+    app-gnb-rail-padding-bottom: "12px"
+    app-gnb-main-card-padding-block-start: "0px"
+    app-gnb-sidebar-padding-x: "12px"
+    app-gnb-main-inline-padding: "16px"
+    app-gnb-main-inline-padding-end: "12px"
+    app-gnb-sidebar-menu-hit-w: "calc( (var(--app-gnb-main-inline-padding) - var(--app-gnb-sidebar-padding-x)) + 20px + 8px )"
+    app-gnb-sidebar-logo-h: "28px"
+    app-gnb-sidebar-logo-cube-px: "calc(var(--app-gnb-sidebar-logo-h) * 72 / 85)"
+    app-gnb-sidebar-logo-wordmark-w: "96px"
+    app-gnb-sidebar-logo-symbol-w: "28px"
+    app-gnb-sidebar-width: "min(280px, calc(100vw - 120px))"
+    app-shell-min-width: "960px"
+    app-tooltip-font-size: "var(--type-caption-12-size)"
+    app-tooltip-line-height: "var(--type-caption-12-line-height)"
+    app-tooltip-letter-spacing: "var(--type-caption-12-letter-spacing)"
+    app-tooltip-font-weight: "var(--type-weight-regular)"
+    app-tooltip-padding-block: "4px"
+    app-tooltip-padding-inline: "8px"
+    app-tooltip-padding: "var(--app-tooltip-padding-block) var(--app-tooltip-padding-inline)"
+    app-tooltip-motion-scale-rest: "0.97"
+    app-tooltip-motion-duration-enter: "140ms"
+    app-tooltip-motion-duration-exit: "120ms"
+    app-tooltip-motion-ease-enter: "cubic-bezier(0.23, 1, 0.32, 1)"
+    app-tooltip-motion-ease-exit: "cubic-bezier(0.19, 1, 0.22, 1)"
+    app-tooltip-kbd-bg: "rgb(var(--palette-gray-900-rgb) / 8%)"
+  primary:
+    primary: "var(--primary-500)"
+  red:
+    red-500-rgb: "var(--accent-red-500-rgb)"
+    red-600-rgb: "var(--accent-red-600-rgb)"
+  node:
+    node-handle-bg-youtube: "var(--accent-red-800)"
+    node-handle-icon-youtube: "var(--accent-red-500)"
+    node-handle-bg-instagram: "var(--accent-red-800)"
+    node-handle-icon-instagram: "var(--accent-red-500)"
+    node-handle-bg-edit: "var(--accent-violet-800)"
+    node-handle-icon-edit: "var(--accent-violet-500)"
+    node-handle-bg-image: "var(--accent-mint-800)"
+    node-handle-icon-image: "var(--accent-mint-500)"
+    node-handle-bg-text: "var(--accent-yellow-800)"
+    node-handle-icon-text: "var(--accent-yellow-500)"
+    node-handle-bg-audio: "var(--accent-pink-800)"
+    node-handle-icon-audio: "var(--accent-pink-500)"
+    node-prompt-generate-gradient: "linear-gradient( 90deg, var(--primary-450) 0%, var(--primary-500) 50%, var(--primary-450) 100% )"
+    node-side-handle-size: "28px"
+    node-side-handle-radius: "8px"
+    node-handle-chrome-transition: "background 0.13s ease, color 0.13s ease, transform 0.1s ease"
+    node-side-gap: "10px"
+    node-side-stack-gap: "8px"
+    node-side-ctrl: "var(--node-side-handle-size, 28px)"
+    node-side-leading-offset: "calc(var(--node-side-gap) + var(--node-side-ctrl))"
+    node-handle-outbound-slot: "calc(100% + var(--node-side-gap))"
+    node-handle-bg-disabled-image: "var(--accent-mint-900)"
+    node-handle-bg-disabled-text: "var(--accent-yellow-900)"
+    node-handle-bg-disabled-youtube: "var(--accent-red-900)"
+    node-handle-bg-disabled-instagram: "var(--accent-red-900)"
+    node-handle-bg-disabled-edit: "var(--accent-violet-900)"
+    node-handle-bg-disabled-audio: "var(--accent-pink-900)"
+    node-handle-icon-disabled-image: "var(--accent-mint-700)"
+    node-handle-icon-disabled-text: "var(--accent-yellow-700)"
+    node-handle-icon-disabled-youtube: "var(--accent-red-700)"
+    node-handle-icon-disabled-instagram: "var(--accent-red-700)"
+    node-handle-icon-disabled-edit: "var(--accent-violet-700)"
+    node-handle-icon-disabled-audio: "var(--accent-pink-700)"
+    node-meta-dropdown-shadow: "var(--dropdown-ambient-shadow), var(--glass-dropdown-frame)"
+    node-chrome-btn-h: "32px"
+    node-chrome-btn-padding-x: "10px"
+    node-chrome-btn-radius: "12px"
+    node-chrome-btn-gap: "4px"
+    node-chrome-btn-bg: "var(--palette-gray-600)"
+    node-chrome-btn-border: "0.5px solid var(--palette-gray-700)"
+    node-chrome-btn-bg-hover: "color-mix( in srgb, var(--palette-gray-000) 8%, var(--node-chrome-btn-bg) )"

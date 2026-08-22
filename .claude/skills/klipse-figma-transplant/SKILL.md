@@ -8,6 +8,33 @@ description: Klipse 제품 화면을 Figma 보드로 옮기거나 고칠 때 쓴
 제품 화면을 Figma 보드로 옮기는 일이다. **그림을 잘 그리는 일이 아니라, 제품과 어긋나지 않게
 옮기고 그것을 증명하는 일이다.** 값이 맞아도 조립이 틀리면 화면은 틀린다.
 
+## 0-. 다른 계정·다른 컴퓨터에서 시작한다면
+
+이 스킬은 저장소 안에 있으므로 `git clone git@github.com:KlipseAI/louis.git` 하면 따라온다.
+따라오지 **않는** 것이 넷이다. 넷 다 없으면 이 스킬대로 못 한다.
+
+| 필요한 것 | 없으면 | 갖추는 법 |
+| --- | --- | --- |
+| 제품 저장소 `klipse-web` | 제품을 읽을 수 없다 = 값을 지어내게 된다 | clone 한 뒤 `export KLIPSE_PRODUCT_REPO=<경로>`. **`design` 브랜치를 fetch 했는지 확인한다** — 기본 브랜치는 `dev` 다 |
+| Figma 파일 접근 권한 | 조립도 검증도 못 한다 | 라이브러리 파일 `OlYKERKOkgbxBEEoXGZW2c` 는 쓰기, 제품 미러 파일은 읽기 전용이다. 계정에 권한을 받는다 |
+| `klipse-docs` 저장소 | `/docs` 화면을 `klipse-web` 기준으로 그리게 된다(틀린다) | `/docs` 를 건드릴 때만 필요하다 |
+| Node 22 + pnpm 10 | 게이트를 못 돌린다 | `corepack enable` 후 `pnpm install --frozen-lockfile` |
+
+**경로를 절대경로로 박지 마라.** 이 저장소의 스크립트는 제품 저장소를
+`process.env.KLIPSE_PRODUCT_REPO ?? "/Users/sejunki/klipse-web"` 로 찾는다. 그 기본값은
+원저자의 맥에만 있다. 환경변수를 세우지 않으면 게이트 13개가 `SKIPPED` 를 찍고 **exit 0**
+한다 — 실패가 아니라 조용한 통과라서 못 만든 것을 만든 것으로 착각하게 된다.
+
+```bash
+export KLIPSE_PRODUCT_REPO=~/klipse-web
+pnpm verify            # 26단계 전량. 위 환경변수가 없으면 13개가 조용히 꺼진다
+pnpm verify:ci         # 13단계. 제품 저장소 없이 도는 것만 (hosted CI 가 이걸 돈다)
+pnpm clean-room        # 러너 재현: 커밋된 HEAD 만 clone + 새 설치
+```
+
+**`pnpm verify` 출력에 `SKIPPED` 가 있으면 그 게이트는 안 돈 것이다.** 초록을 전량 통과로
+읽지 마라. 배분과 그 근거는 `scripts/verify-gate-split.mjs` 헤더에 있다.
+
 ## 0. 시작 전에 반드시 읽는다
 
 순서대로 읽는다. 건너뛰면 같은 실수를 반복한다.

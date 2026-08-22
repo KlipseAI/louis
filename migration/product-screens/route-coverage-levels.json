@@ -1,0 +1,223 @@
+{
+  "note": "라우트별 문서화 수준. 올릴 때는 근거 절을 함께 적는다. **레벨 3 은 「문서만 보고 재구현」 검증을 최근 2라운드 연속 통과한 그룹에만 준다** — 1회 통과는 판정 흔들림과 구분되지 않는다(실제로 10.2·10.8·10.11·10.12 가 통과→불통과로 뒤집혔다).",
+  "levels": {
+    "0": "범위 밖",
+    "1": "토큰만",
+    "2": "셸까지",
+    "3": "전체"
+  },
+  "routes": {
+    "/": {
+      "level": 2,
+      "where": "§10.2 (재구현 검증 3~9차 XXOXOOX, 연속 통과 아님)"
+    },
+    "/(highlight-standalone)/hl": {
+      "level": 0,
+      "where": "§1 적용 범위 — 삭제 예정, 자체 브랜드·브레이크포인트"
+    },
+    "/(highlight-standalone)/hl-landing": {
+      "level": 0,
+      "where": "§1 적용 범위 — 삭제 예정, 자체 브랜드·브레이크포인트"
+    },
+    "/(highlight-standalone)/hl-login": {
+      "level": 0,
+      "where": "§1 적용 범위 — 삭제 예정, 자체 브랜드·브레이크포인트"
+    },
+    "/(highlight-standalone)/hl-signup": {
+      "level": 0,
+      "where": "§1 적용 범위 — 삭제 예정, 자체 브랜드·브레이크포인트"
+    },
+    "/(highlight-standalone)/hl-signup/check-email": {
+      "level": 0,
+      "where": "§1 적용 범위 — 삭제 예정, 자체 브랜드·브레이크포인트"
+    },
+    "/(highlight-standalone)/hl/[projectId]": {
+      "level": 0,
+      "where": "§1 적용 범위 — 삭제 예정, 자체 브랜드·브레이크포인트"
+    },
+    "/(highlight-standalone)/hl/youtube-result": {
+      "level": 0,
+      "where": "§1 적용 범위 — 삭제 예정, 자체 브랜드·브레이크포인트"
+    },
+    "/admin": {
+      "level": 3,
+      "where": "§10.12 (재구현 검증 3~9차 XXOXXOO, 연속 통과)"
+    },
+    "/analytics/instagram": {
+      "level": 3,
+      "where": "§10.12 (재구현 검증 3~9차 XXOXXOO, 연속 통과)"
+    },
+    "/analytics/youtube": {
+      "level": 3,
+      "where": "§10.12 (재구현 검증 3~9차 XXOXXOO, 연속 통과)"
+    },
+    "/archive": {
+      "level": 3,
+      "where": "§10.1 (재구현 검증 3~9차 OOOOOOO, 연속 통과)"
+    },
+    "/aws/signup": {
+      "level": 3,
+      "where": "§10.6 (재구현 검증 3~9차 OOOOOOO, 연속 통과)"
+    },
+    "/blog": {
+      "level": 3,
+      "where": "§10.4 (재구현 검증 3~9차 OOOOOOO, 연속 통과)"
+    },
+    "/blog/[slug]": {
+      "level": 3,
+      "where": "§10.4 (재구현 검증 3~9차 OOOOOOO, 연속 통과)"
+    },
+    "/data-deletion-status": {
+      "level": 2,
+      "where": "§10.5 (재구현 검증 3~9차 XXXOOXO, 연속 통과 아님)"
+    },
+    "/docs": {
+      "level": 3,
+      "where": "§10.4 (재구현 검증 3~9차 OOOOOOO, 연속 통과)"
+    },
+    "/docs/highlight": {
+      "level": 3,
+      "where": "§10.4 (재구현 검증 3~9차 OOOOOOO, 연속 통과)"
+    },
+    "/docs/nodecanvas": {
+      "level": 3,
+      "where": "§10.4 (재구현 검증 3~9차 OOOOOOO, 연속 통과)"
+    },
+    "/docs/videoeditor": {
+      "level": 3,
+      "where": "§10.4 (재구현 검증 3~9차 OOOOOOO, 연속 통과)"
+    },
+    "/explore": {
+      "level": 2,
+      "where": "§10.2 (재구현 검증 3~9차 XXOXOOX, 연속 통과 아님)"
+    },
+    "/highlight": {
+      "level": 2,
+      "where": "§10.11 (재구현 검증 3~9차 XXOXXXX, 연속 통과 아님)"
+    },
+    "/highlight/[projectId]": {
+      "level": 2,
+      "where": "§10.11 (재구현 검증 3~9차 XXOXXXX, 연속 통과 아님)"
+    },
+    "/highlight/[projectId]/shorts/[shortId]": {
+      "level": 2,
+      "where": "§10.11 (재구현 검증 3~9차 XXOXXXX, 연속 통과 아님)"
+    },
+    "/inquiry": {
+      "level": 2,
+      "where": "§10.5 (재구현 검증 3~9차 XXXOOXO, 연속 통과 아님)"
+    },
+    "/login": {
+      "level": 3,
+      "where": "§10.6 (재구현 검증 3~9차 OOOOOOO, 연속 통과)"
+    },
+    "/mypage": {
+      "level": 2,
+      "where": "§10.7 (재구현 검증 3~9차 XXXXOXO, 연속 통과 아님)"
+    },
+    "/mypage/topup/fail": {
+      "level": 3,
+      "where": "§10.8 (재구현 검증 3~9차 OOOXOOO, 연속 통과)"
+    },
+    "/mypage/topup/success": {
+      "level": 3,
+      "where": "§10.8 (재구현 검증 3~9차 OOOXOOO, 연속 통과)"
+    },
+    "/mypage/upgrade": {
+      "level": 3,
+      "where": "§10.8 (재구현 검증 3~9차 OOOXOOO, 연속 통과)"
+    },
+    "/mypage/upgrade/billing-change-fail": {
+      "level": 3,
+      "where": "§10.8 (재구현 검증 3~9차 OOOXOOO, 연속 통과)"
+    },
+    "/mypage/upgrade/billing-change-success": {
+      "level": 3,
+      "where": "§10.8 (재구현 검증 3~9차 OOOXOOO, 연속 통과)"
+    },
+    "/mypage/upgrade/billing-fail": {
+      "level": 3,
+      "where": "§10.8 (재구현 검증 3~9차 OOOXOOO, 연속 통과)"
+    },
+    "/mypage/upgrade/billing-success": {
+      "level": 3,
+      "where": "§10.8 (재구현 검증 3~9차 OOOXOOO, 연속 통과)"
+    },
+    "/mypage/upgrade/checkout": {
+      "level": 3,
+      "where": "§10.8 (재구현 검증 3~9차 OOOXOOO, 연속 통과)"
+    },
+    "/mypage/upgrade/fail": {
+      "level": 3,
+      "where": "§10.8 (재구현 검증 3~9차 OOOXOOO, 연속 통과)"
+    },
+    "/nodecanvas": {
+      "level": 2,
+      "where": "§10.9 (재구현 검증 3~9차 XXXXXXO, 연속 통과 아님)"
+    },
+    "/pricing": {
+      "level": 2,
+      "where": "§10.2 (재구현 검증 3~9차 XXOXOOX, 연속 통과 아님)"
+    },
+    "/privacy": {
+      "level": 2,
+      "where": "§10.5 (재구현 검증 3~9차 XXXOOXO, 연속 통과 아님)"
+    },
+    "/recover": {
+      "level": 3,
+      "where": "§10.6 (재구현 검증 3~9차 OOOOOOO, 연속 통과)"
+    },
+    "/reset-password": {
+      "level": 3,
+      "where": "§10.6 (재구현 검증 3~9차 OOOOOOO, 연속 통과)"
+    },
+    "/reset-password/new": {
+      "level": 3,
+      "where": "§10.6 (재구현 검증 3~9차 OOOOOOO, 연속 통과)"
+    },
+    "/settings": {
+      "level": 2,
+      "where": "§10.7 (재구현 검증 3~9차 XXXXOXO, 연속 통과 아님)"
+    },
+    "/signup": {
+      "level": 3,
+      "where": "§10.6 (재구현 검증 3~9차 OOOOOOO, 연속 통과)"
+    },
+    "/signup/check-email": {
+      "level": 3,
+      "where": "§10.6 (재구현 검증 3~9차 OOOOOOO, 연속 통과)"
+    },
+    "/signup/expired": {
+      "level": 3,
+      "where": "§10.6 (재구현 검증 3~9차 OOOOOOO, 연속 통과)"
+    },
+    "/signup/verified": {
+      "level": 3,
+      "where": "§10.6 (재구현 검증 3~9차 OOOOOOO, 연속 통과)"
+    },
+    "/subscription": {
+      "level": 2,
+      "where": "§10.7 (재구현 검증 3~9차 XXXXOXO, 연속 통과 아님)"
+    },
+    "/templates": {
+      "level": 3,
+      "where": "§10.3 (재구현 검증 3~9차 OOOOOOO, 연속 통과)"
+    },
+    "/templates/[slug]": {
+      "level": 3,
+      "where": "§10.3 (재구현 검증 3~9차 OOOOOOO, 연속 통과)"
+    },
+    "/terms": {
+      "level": 2,
+      "where": "§10.5 (재구현 검증 3~9차 XXXOOXO, 연속 통과 아님)"
+    },
+    "/videoeditor": {
+      "level": 2,
+      "where": "§10.10 (재구현 검증 3~9차 XXXXXXX, 연속 통과 아님)"
+    },
+    "/videoeditor/[projectId]": {
+      "level": 2,
+      "where": "§10.10 (재구현 검증 3~9차 XXXXXXX, 연속 통과 아님)"
+    }
+  }
+}

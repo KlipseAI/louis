@@ -32,6 +32,10 @@ pnpm verify
 
 현재 스크립트는 Node 표준 라이브러리만 사용하므로 의존성 설치 없이도 실행된다.
 
+`pnpm verify`는 게이트 26단계 전량이고, 그중 6단계는 제품 저장소(`klipse-web`)를 읽는다.
+제품 저장소가 없는 환경에서는 `pnpm verify:ci`(20단계)만 돈다 — hosted CI가 그렇게 돈다.
+**따라서 CI 초록은 전량 통과가 아니다.** 배분은 `scripts/verify-gate-split.mjs`가 지킨다.
+
 ## 운영 원칙
 
 - 제품은 이 저장소의 버전이 지정된 패키지를 소비한다.

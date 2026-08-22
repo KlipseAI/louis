@@ -132,6 +132,8 @@ pnpm verify
 ```
 
 `verify`는 정상 입력 검사뿐 아니라 고의로 오류를 주입해 게이트가 실제로 실패하는지도 확인한다.
+제품 저장소가 있는 곳에서만 전량이 돈다. 없는 곳(hosted CI)에서는 `pnpm verify:ci`가 20단계를 돌고,
+남은 6단계와 인용 좌표 카나리아 3개는 `pnpm verify:product`로 여기서만 증명된다.
 
 ## Develop
 
@@ -6614,6 +6616,91 @@ DS 쪽 정본은 [Motion](../foundations/motion.md)의 감소-모션 계약이�
 > ([읽기 함정](../foundations/product-reading-traps.md) 참조).
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
+
+#### 2026-08-22 (93) — hosted CI가 8회 연속 빨갰다. 원인은 게이트가 아니라 **게이트가 도는 곳**이었다
+
+2026-08-19 푸시부터 GitHub Actions가 **여덟 번 연속 실패**했다. 실패 단계는 늘 같았다.
+
+```
+Error: Command failed: git -C /Users/sejunki/klipse-web ls-tree -r --name-only a3ed8e03…
+    at git (scripts/verify-citations.mjs:27:3)
+```
+
+러너에는 제품 저장소가 없다. 내 노트북에는 있다. **로컬 초록과 CI 초록이 서로 다른 것을
+증명하고 있었는데**, 여덟 번을 지나도록 아무도 그 차이를 보지 않았다. 이게 진짜 결함이다 —
+게이트를 가진 이유는 사람이 안 보는 것을 기계가 보게 하려는 것인데, 기계가 보내는 신호를
+사람이 다시 안 봤다.
+
+##### 자립 여부는 grep으로 못 가린다
+
+먼저 `klipse-web`·`KLIPSE_PRODUCT_REPO`·`product-ref` 문자열로 24개 게이트를 갈랐다. 11 자립 /
+13 제품필요가 나왔다. **틀렸다.** 각 게이트를 `KLIPSE_PRODUCT_REPO=/nonexistent-product-repo`로
+실제로 돌려 보니 **18 자립 / 6 제품필요**다. 양방향으로 다 틀렸다.
+
+| 정적 판정 | 실제 | 왜 |
+| --- | --- | --- |
+| `verify-tailwind-interop` 등 7개 = 제품필요 | **자립** | `--check` 경로는 커밋된 측정 JSON만 읽는다. 제품 경로를 상수로 선언만 하고 안 연다 |
+| `verify-gates` = 자립 | **제품필요** | 표지 문자열이 하나도 없다. 카나리아가 `verify-citations.mjs`를 자식 프로세스로 부른다 |
+
+**교훈: 자립성은 선언이 아니라 관측 대상이다.** 돌려 보지 않고 판정한 것이 이 사고의 2차 원인이다.
+
+##### 배분
+
+`pnpm verify`를 `verify:ci`(20단계)와 `verify:product`(6단계)로 갈랐다. `verify`는 이제 정확히
+둘의 합이다.
+
+- **CI에서 도는 20단계** — 제품 저장소 없이 전부 통과함을 실측했다.
+- **여기서만 도는 6단계** — `verify-gates`, `verify-citations`, `verify-product-alpha`,
+  `verify-alpha-consolidation`, `verify-product-drift`, `verify-app-nav-labels`.
+
+`verify-gates`는 통째로 빼지 않았다. 카나리아 25개 중 제품을 타는 건 인용 좌표 3개뿐이라,
+`--no-product` 플래그가 **그 셋만** 건너뛰고 나머지 22개는 CI에서도 돈다. 그래서 로컬
+`pnpm verify`에서는 `verify-gates`가 두 번 돈다(CI 경로 한 번, 전량 한 번) — 알고 한 선택이다.
+건너뛰기 로직 자체가 회귀할 수 있는 자리라 두 경로를 다 밟는다.
+
+**건너뛴 것은 이름으로 찍는다.** 요약이 24 → 21로 조용히 줄면 그건 「전량 통과」로 읽히고,
+그 오독이 게이트를 무력화한다. 그래서 이렇게 나온다.
+
+```
+[verify] --no-product: 제품 저장소가 필요한 카나리아 3개를 건너뜁니다.
+[verify]   - citation line out of range (scripts/verify-citations.mjs)
+[verify]   - citation alias target missing (scripts/verify-citations.mjs)
+[verify]   - cited file not locked (scripts/verify-citations.mjs)
+[verify] passed: 4 positive checks, 22 failure canaries (+ 건너뛴 3개는 위에 열거), …
+```
+
+##### 배분 자체를 지키는 게이트
+
+`scripts/verify-gate-split.mjs`가 `verify:ci` 1단계로 붙었다. 지키는 것은 넷이다.
+
+1. `verify`는 정확히 `verify:ci && verify:product`다 — 여기에 단계를 직접 붙이면 분류를 우회한다.
+2. 두 갈래는 겹치지 않는다.
+3. CI 워크플로가 `pnpm verify`가 아니라 `pnpm verify:ci`를 돈다 — 갈라 놓고 옛 이름을 계속
+   부르면 아무것도 달라지지 않는다.
+4. 제품이 필요한 6개가 `verify:product`에서 빠지지 않았다 — CI에서 안 도는 것이 여기서도
+   빠지면 **아무 데서도 안 돈다**.
+
+**정적 표지 검사는 넣지 않았다.** 위에서 그게 양방향으로 틀린다는 걸 확인했기 때문이다.
+판정이 필요하면 `--empirical`로 실제로 돌린다. 상시 증명은 hosted CI 자신이다 — 러너에
+제품 저장소가 없으므로, 자립하지 않는 단계가 `verify:ci`에 들어오면 그 푸시가 빨갛게 된다.
+
+배분 게이트 자신에게도 카나리아를 붙였다(25번째). 워크플로를 다시 `pnpm verify`로 되돌려
+놓고 게이트가 잡는지 본다 — 2026-08-19의 사고가 정확히 그 상태였다. 이 카나리아는 제품을
+타지 않으므로 CI에서도 돈다.
+
+##### CI 초록은 전량 통과가 아니다
+
+근거 좌표가 제품 코드와 맞는지는 **CI에서 증명되지 않는다.** 워크플로 주석, `README.md`,
+`design/README.md`, `CLAUDE.md`에 이 한계를 박았다. 푸시 전 로컬 `pnpm verify`가 여전히 필요하다.
+
+`CLAUDE.md`의 「원격 저장소나 hosted CI가 아직 없다」는 줄도 고쳤다 — 2026-08-18부터 있었다.
+그 줄이 낡은 채로 남아 있어서 CI가 있다는 사실 자체를 잘못 판단한 적이 있다.
+
+##### Migration
+
+`pnpm verify`는 그대로 전량이다. CI 환경이나 제품 저장소가 없는 곳에서는 `pnpm verify:ci`를
+쓴다. 게이트를 새로 추가할 때는 `verify:ci`나 `verify:product` 중 한쪽에 넣는다 —
+`verify`에 직접 붙이면 1번 규칙에 걸린다.
 
 #### 2026-08-21 (92) — §10.1을 Figma에 실제로 조립했다. 문서만으로 안 되는 곳이 넷 나왔다
 

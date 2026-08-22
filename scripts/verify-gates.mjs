@@ -11,6 +11,17 @@ import {
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
+// **CI 에는 제품 저장소가 없다.** 카나리아 대부분은 이 저장소 안에서 끝나지만, 인용 좌표
+// 카나리아 셋은 `verify-citations.mjs` 를 부르고 그 스크립트가 `git -C <제품 저장소>` 를 한다.
+// 2026-08-19 부터 hosted CI 가 8회 연속 빨갰던 원인이 이것이다 — 로컬은 캐시된 제품 저장소가
+// 있어 통과하고, 러너에서만 실패했다.
+//
+// `--no-product` 를 주면 그 셋만 건너뛴다. **건너뛴 것은 반드시 이름으로 찍는다** — 조용히
+// 줄어든 카나리아 수는 「통과」로 읽히고, 그게 게이트를 가진 이유를 없앤다.
+const PRODUCT_DEPENDENT_GATES = new Set(["scripts/verify-citations.mjs"]);
+const skipProduct = process.argv.includes("--no-product");
+const skippedCanaries = [];
+
 const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const errors = [];
 let canaryCount = 0;
@@ -332,6 +343,24 @@ withHardlinkCanary(
   "hard link일 수 없습니다",
 );
 
+// **배분 게이트 자신도 실패할 수 있어야 한다.** verify-gate-split 이 지키는 것 중 가장
+// 되돌아가기 쉬운 것은 4번 — 워크플로가 다시 `pnpm verify` 를 부르는 것이다. 2026-08-19의
+// 사고가 정확히 그 상태였다. 워크플로를 그 상태로 되돌려 놓고 게이트가 잡는지 본다.
+// 이 카나리아는 제품 저장소를 타지 않으므로 CI 에서도 돈다.
+withCanary(
+  ".github/workflows/ci.yml",
+  (source) => {
+    const next = source.replace("run: pnpm verify:ci", "run: pnpm verify");
+    if (next === source) {
+      errors.push("verify-gate-split canary 가 워크플로에서 대상 줄을 찾지 못했습니다.");
+    }
+    return next;
+  },
+  "CI workflow runs the product-free gate split",
+  "scripts/verify-gate-split.mjs",
+  "아직 `pnpm verify` 를 돕니다",
+);
+
 runPass(
   "post-canary catalog check",
   "scripts/build-design-docs.mjs",
@@ -344,10 +373,27 @@ if (errors.length > 0) {
   process.exit(1);
 }
 
+// 건너뛴 카나리아는 **반드시** 이름으로 남긴다. 숫자만 줄어든 요약은 「전량 통과」로
+// 읽히고, 그 오독이 게이트를 무력화한다.
+if (skippedCanaries.length > 0) {
+  console.log(
+    "[verify] --no-product: 제품 저장소가 필요한 카나리아 " +
+      skippedCanaries.length +
+      "개를 건너뜁니다. 이 " +
+      skippedCanaries.length +
+      "개는 `pnpm verify:product` 에서만 증명됩니다:",
+  );
+  for (const label of skippedCanaries) console.log("[verify]   - " + label);
+}
+
 console.log(
   "[verify] passed: 4 positive checks, " +
     canaryCount +
-    " failure canaries, byte-for-byte restoration",
+    " failure canaries" +
+    (skippedCanaries.length > 0
+      ? " (+ 건너뛴 " + skippedCanaries.length + "개는 위에 열거)"
+      : "") +
+    ", byte-for-byte restoration",
 );
 
 function runPass(label, script, ...args) {
@@ -364,6 +410,10 @@ function runPass(label, script, ...args) {
 }
 
 function withCanary(path, mutate, label, script, expectedDiagnostic, ...args) {
+  if (skipProduct && PRODUCT_DEPENDENT_GATES.has(script)) {
+    skippedCanaries.push(label + " (" + script + ")");
+    return;
+  }
   const absolute = resolve(repoRoot, path);
   const before = readFileSync(absolute, "utf8");
   const mutated = mutate(before);

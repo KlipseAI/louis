@@ -46,7 +46,10 @@
     "check:catalog": "pnpm run check-design-docs && pnpm run check-figma-summaries",
     "check:llms": "pnpm run check-llms-docs",
     "check": "pnpm run check:tokens && pnpm run check:icons && pnpm run check:css && pnpm run check:catalog && pnpm run check:llms && pnpm run typecheck",
-    "verify": "pnpm run verify-gates && pnpm run verify-token-gates && pnpm run verify-css-gates && pnpm run verify-icon-gates && pnpm run check-token-diff && pnpm run check-figma-snapshot && pnpm run verify-figma-parity && pnpm run verify-figma-variables && pnpm run verify-figma-styles && pnpm run verify-product-parity && pnpm run verify-product-evidence && pnpm run verify-citations && pnpm run verify-product-alpha && pnpm run verify-alpha-consolidation && pnpm run verify-product-drift && pnpm verify-app-nav-labels && pnpm run verify-product-render && pnpm run verify-product-components && pnpm run verify-product-variants && pnpm run verify-specimen-context && pnpm run check-figma-inventory && pnpm run verify-tailwind-interop && pnpm run verify-consumer && pnpm run verify-test-harness",
+    "verify": "pnpm run verify:ci && pnpm run verify:product",
+    "verify:ci": "pnpm run verify-gate-split && pnpm run verify-gates:ci && pnpm run verify-token-gates && pnpm run verify-css-gates && pnpm run verify-icon-gates && pnpm run check-token-diff && pnpm run check-figma-snapshot && pnpm run verify-figma-parity && pnpm run verify-figma-variables && pnpm run verify-figma-styles && pnpm run verify-consumer && pnpm run verify-test-harness && pnpm run verify-product-parity && pnpm run verify-product-evidence && pnpm run verify-product-render && pnpm run verify-product-components && pnpm run verify-product-variants && pnpm run verify-specimen-context && pnpm run check-figma-inventory && pnpm run verify-tailwind-interop",
+    "verify:product": "pnpm run verify-gates && pnpm run verify-citations && pnpm run verify-product-alpha && pnpm run verify-alpha-consolidation && pnpm run verify-product-drift && pnpm run verify-app-nav-labels",
+    "verify-gate-split": "node ./scripts/verify-gate-split.mjs",
     "verify-product-parity": "node ./scripts/verify-product-parity.mjs",
     "build-tailwind-theme": "node ./scripts/build-tailwind-theme.mjs",
     "check-tailwind-theme": "node ./scripts/build-tailwind-theme.mjs --check",
@@ -71,7 +74,8 @@
     "verify-product-variants": "node ./scripts/measure-product-variants.mjs --check",
     "verify-specimen-context": "node ./scripts/verify-specimen-context.mjs",
     "build-figma-inventory": "node ./scripts/build-figma-inventory.mjs",
-    "check-figma-inventory": "node ./scripts/build-figma-inventory.mjs --check"
+    "check-figma-inventory": "node ./scripts/build-figma-inventory.mjs --check",
+    "verify-gates:ci": "node ./scripts/verify-gates.mjs --no-product"
   },
   "engines": {
     "node": ">=22"

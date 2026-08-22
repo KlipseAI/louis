@@ -98,9 +98,15 @@ if (!workflow.includes("pnpm verify:ci")) {
 // 측정 JSON 만 읽는다. 반대로 verify-gates 는 표지가 하나도 없는데 카나리아가
 // verify-citations 를 불러 제품을 탄다. grep 은 양쪽으로 다 틀린다.
 //
-// 그래서 판정은 **돌려보는 것**으로만 한다. 상시 증명은 hosted CI 자신이다 —
-// 러너에 제품 저장소가 아예 없으니, 자립하지 않는 단계가 verify:ci 에 들어오면
-// 그 푸시가 빨갛게 된다. 로컬에서 미리 보고 싶으면 이 모드를 쓴다.
+// 그래서 판정은 **돌려보는 것**으로만 한다. 로컬에서 미리 보고 싶으면 이 모드를 쓴다.
+//
+// **다만 이 모드도 약하다.** 지금 작업 트리에서, 지금 node_modules 로, 「제품 저장소」
+// 한 축만 없는 척하고 돈다. 2026-08-22 에 이것으로 「실측했다」고 적었다가 다음 푸시에서
+// 다른 축(낡은 `node_modules/.bin/esbuild` 심볼릭 링크)에 걸려 CI 가 9회째 빨갰다.
+// 축이 여럿인데 한 축만 껐던 것이다.
+//
+// 푸시 전 판정은 `pnpm clean-room` 을 써라 — 커밋된 것만 clone 하고 새로 설치한다.
+// 상시 증명은 hosted CI 자신이다.
 if (process.argv.includes("--empirical")) {
   const bogus = "/nonexistent-product-repo";
   const dependent = [];

@@ -16,6 +16,70 @@ authority: normative
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
 
+## 2026-08-22 (94) — 첫 결손을 고치니 두 번째가 나왔다. **짐작을 그만두고 러너를 재현했다**
+
+(93)에서 제품 저장소를 갈라내고 푸시했더니 CI가 **9회째** 빨갰다. 이번엔 다른 곳이다.
+
+```
+Error: esbuild 없음
+    at scripts/verify-consumer.mjs:149:11
+```
+
+원인은 이 주석이었다.
+
+```js
+// esbuild는 vitest가 이미 가져온 의존성이다. 새로 넣지 않고 워크스페이스의 bin을 쓴다.
+```
+
+**pnpm은 전이 의존성의 bin을 루트 `.bin`으로 호이스트하지 않는다.** 내 노트북에서 통과한
+이유는 8/18 설치 때 남은 **낡은 심볼릭 링크** 때문이었다 — `node_modules/.bin/esbuild`는
+있는데 `node_modules/esbuild` 패키지는 애초에 없었다. 의존성 한 줄을 아끼는 대신 재현성을
+잃은 거래였고, clean checkout에서만 드러났다. esbuild를 명시적 devDependency로 넣었다
+(0.28.2 — vite가 이미 해석하던 그 버전이라 버전은 하나 그대로다).
+
+### 이게 (93)의 결함을 드러냈다
+
+(93)에서 나는 「실측했다」고 적었다. **실측한 것은 축 하나뿐이었다** — `KLIPSE_PRODUCT_REPO`만
+없는 척했지, 낡은 `node_modules`도 그대로였고 커밋 안 된 파일도 그대로였다. 환경 차이는 축이
+여럿인데 한 축만 끄고 「자립을 증명했다」고 쓴 것이다.
+
+그 방식의 대가는 명확하다. **결손을 하나 막을 때마다 러너를 한 바퀴 돌려야 다음 결손이
+드러난다.** 이미 두 번 그랬다.
+
+### `pnpm clean-room`
+
+`scripts/verify-clean-room.mjs`를 넣었다. 짐작 대신 환경을 재현한다.
+
+| 러너의 조건 | 재현 방법 |
+| --- | --- |
+| 추적된 파일만 있다 | 커밋된 HEAD만 `git clone` |
+| `node_modules`가 없다 | `pnpm install --frozen-lockfile`로 새로 설치 |
+| 제품 저장소가 없다 | `KLIPSE_PRODUCT_REPO`를 없는 경로로 못 박는다 (기본값이 이 노트북에는 실재한다) |
+| 단계 순서 | `.github/workflows/ci.yml` 그대로 |
+
+`--with-test`를 주면 브라우저 바이너리 설치와 실브라우저 회귀까지 포함해 **워크플로 7단계
+전량**을 돈다.
+
+**이것도 완전하지 않다.** 여기는 darwin/arm64, 러너는 ubuntu/x64다. 대소문자 구분
+파일시스템 · GNU/BSD 도구 차이 · UTC/KST는 여전히 안 잡힌다. 그건 러너만이 증명한다.
+스크립트 헤더에 이 한계를 적었고, `verify-gate-split --empirical`의 주석에도 「이 모드는
+약하다, 푸시 전엔 clean-room을 써라」를 박았다.
+
+### 결과
+
+`pnpm clean-room --with-test` 7단계 통과 → 푸시 → **CI 11단계 전량 초록.** 8/19 이후 첫 초록이다.
+러너 로그에 건너뛴 카나리아 3개가 이름으로 찍히는 것도 확인했다.
+
+```
+[verify] --no-product: 제품 저장소가 필요한 카나리아 3개를 건너뜁니다. …
+[verify] passed: 4 positive checks, 22 failure canaries (+ 건너뛴 3개는 위에 열거), …
+```
+
+### Migration
+
+푸시 전 절차가 하나 늘었다: `pnpm clean-room`. 로컬 `pnpm verify`가 초록이어도 그것은
+「이 노트북에서 통과한다」는 뜻이지 「러너에서 통과한다」는 뜻이 아니다.
+
 ## 2026-08-22 (93) — hosted CI가 8회 연속 빨갰다. 원인은 게이트가 아니라 **게이트가 도는 곳**이었다
 
 2026-08-19 푸시부터 GitHub Actions가 **여덟 번 연속 실패**했다. 실패 단계는 늘 같았다.

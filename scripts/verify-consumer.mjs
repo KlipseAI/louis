@@ -141,8 +141,12 @@ process.stdout.write(html);
     failures.push(`SSR 소비가 실패했습니다: ${String(error.stderr ?? error.message).slice(0, 400)}`);
   }
 
-  // tree-shaking. esbuild는 vitest가 이미 가져온 의존성이라 새로 넣지 않는다.
-  // esbuild는 vitest가 이미 가져온 의존성이다. 새로 넣지 않고 워크스페이스의 bin을 쓴다.
+  // tree-shaking. **esbuild는 명시적 devDependency다.**
+  // 원래는 「vitest가 이미 가져온 의존성이니 새로 넣지 않는다」였다. 틀렸다 — pnpm은 전이
+  // 의존성의 bin을 루트 `.bin`으로 호이스트하지 않는다. 내 노트북에서 통과한 건 8/18 설치
+  // 때 남은 낡은 심볼릭 링크 때문이었고(`node_modules/esbuild` 패키지는 없었다), clean
+  // checkout인 CI에서는 2026-08-22에 여기서 죽었다. 의존성 한 줄을 아끼는 대신 재현성을
+  // 잃은 거래였다.
   const esbuild = join(process.cwd(), "node_modules", ".bin", "esbuild");
   if (!existsSync(esbuild)) {
     failures.push("esbuild bin을 찾지 못했습니다. tree-shaking 검사를 건너뛰지 않고 실패로 둔다.");

@@ -75,7 +75,8 @@
     "verify-specimen-context": "node ./scripts/verify-specimen-context.mjs",
     "build-figma-inventory": "node ./scripts/build-figma-inventory.mjs",
     "check-figma-inventory": "node ./scripts/build-figma-inventory.mjs --check",
-    "verify-gates:ci": "node ./scripts/verify-gates.mjs --no-product"
+    "verify-gates:ci": "node ./scripts/verify-gates.mjs --no-product",
+    "clean-room": "node ./scripts/verify-clean-room.mjs"
   },
   "engines": {
     "node": ">=22"
@@ -93,6 +94,7 @@
     "@types/react-dom": "^19.2.4",
     "@vitest/browser-playwright": "^4.1.10",
     "axe-core": "^4.13.0",
+    "esbuild": "0.28.2",
     "playwright": "^1.62.1",
     "react": "^19.2.8",
     "react-dom": "^19.2.8",

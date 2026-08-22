@@ -6,9 +6,9 @@ authority: normative
 
 # Claude Code 실행 인계서
 
-> **2026-08-22 — 계정이 바뀌었다면 [계정 이전 인계서](handoff-2026-08-22-account-transfer.md)를
-> 가장 먼저 읽는다.** 제품 저장소·Figma 권한·이식 번들이 저장소를 따라오지 않고, 그것이
-> 없으면 게이트 13개가 조용히 꺼진 채로 초록이 뜬다.
+> **2026-08-22 — 새 Claude Code 세션이라면 [계정 이전 인계서](handoff-2026-08-22-account-transfer.md)를
+> 가장 먼저 읽는다.** 대화 맥락은 0에서 시작하고, `KLIPSE_PRODUCT_REPO` 를 세우지 않으면
+> `pnpm verify` 가 `verify:product` 첫 게이트에서 exit 1 로 죽는다.
 >
 > **2026-08-19 — 이어받는 사람은 [제품 실측 대조 인계서](handoff-2026-08-19-product-parity.md)를
 > 먼저 읽는다.** 아래 큐보다 그것이 앞선다. DS 값 359건이 제품을 확인하지 않고 정해져 있고,

@@ -26,11 +26,16 @@ Figma library는 아직 `not-ready`다. 실제 상태는 [`design/manifest.json`
 
 ```sh
 corepack enable
+pnpm install --frozen-lockfile
+pnpm exec playwright install --with-deps chromium
 pnpm build
+pnpm check
 pnpm verify
 ```
 
-현재 스크립트는 Node 표준 라이브러리만 사용하므로 의존성 설치 없이도 실행된다.
+P3부터 devDependencies가 생겼다 — `pnpm install` 없이는 `pnpm build`가 `tsc: command not found`로
+죽고, 브라우저 바이너리 없이는 `verify-test-harness`가 죽는다. 브라우저 바이너리는 lockfile에
+없으므로 별도로 받아야 한다.
 
 `pnpm verify`는 게이트 26단계 전량이고, 그중 **13단계**는 제품 저장소(`klipse-web`)를 읽는다.
 제품 저장소가 없는 환경에서는 `pnpm verify:ci`(13단계)만 돈다 — hosted CI가 그렇게 돈다.

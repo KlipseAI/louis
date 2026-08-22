@@ -16,6 +16,70 @@ authority: normative
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
 
+## 2026-08-22 (97) — 인계서가 틀렸다. **「조용한 초록」이라고 썼는데 실제로는 빨간 크래시였다**
+
+계정 이전 인계서를 쓰고, 그 안의 사실 주장을 실제로 실행해 검증했다. **넷이 틀렸다.**
+
+### ① 「제품 저장소가 없으면 조용히 초록」은 거짓이다
+
+인계서·스킬·실행 인계서에 이렇게 썼다.
+
+> 제품 저장소가 없으면 게이트 13개가 `SKIPPED` 를 찍고 **exit 0** 한다. 실패가 아니라 조용한
+> 통과라서, 검증하지 않은 것을 검증했다고 착각한다.
+
+돌려 보니 아니다.
+
+```
+$ KLIPSE_PRODUCT_REPO=/private/tmp/no-such-repo-zzz pnpm verify
+exit=1 · SKIPPED 0줄
+```
+
+제품을 읽는 게이트 13개 중 **6개는 `fatal: cannot change to …` 로 죽고**(verify-gates ·
+verify-citations · verify-product-alpha · verify-alpha-consolidation · verify-product-drift ·
+verify-app-nav-labels), 7개만 `SKIPPED`+exit 0 이다. 그런데 죽는 6개가 `verify:product` 의
+**앞쪽**에 있어서, 전체를 돌리면 첫 게이트에서 멈추고 SKIP 은 한 줄도 안 나온다.
+
+**(95)에서 「조용한 exit 0 은 빨간 것보다 나쁘다」를 쓰면서, 그 서술을 확인하지 않고 다른
+문서로 복사해 옮긴 것이 원인이다.** 7개에 대해 참인 문장을 13개에 대해 참인 것처럼 옮겼다.
+
+피해가 큰 자리는 스킬이다. 새 작업자가 「조용한 초록」을 경계하다가 실제로는 빨간 크래시를
+만나면, 스킬이 틀렸다고 판단하고 그 절 전체를 안 믿게 된다.
+
+### ② 연속 실패는 9회가 아니라 **46회**다
+
+`gh run list --limit 200` 으로 다시 셌다. 마지막 초록은 2026-08-18T03:56 이고, 그 뒤
+08-18T04:12 부터 08-22T06:55 까지 **46회 연속** 실패다. (93)~(96)에 적은 8·9 는 최근 목록
+몇 개만 보고 센 값이다. 스크립트 주석·워크플로 주석·인계서를 46 으로 고쳤다. Updates 의 과거
+항목은 그 시점의 기록이므로 고치지 않고, 인계서에 「그 수는 틀렸다」를 명시했다.
+
+### ③ 처음 30분에 브라우저 바이너리 설치가 빠졌다
+
+```
+$ PLAYWRIGHT_BROWSERS_PATH=<빈 경로> pnpm run verify-test-harness
+exit=1 · Executable doesn't exist at …/chrome-headless-shell
+```
+
+브라우저 바이너리는 lockfile에 없다. 워크플로는 이미 별도 단계로 받고 있었고(`ci.yml:34-39`,
+2026-08-18의 첫 hosted CI 실패가 정확히 이것이었다) 그 교훈이 인계서로 옮겨오지 않았다.
+`pnpm exec playwright install --with-deps chromium` 을 인계서와 스킬에 넣었다.
+
+### ④ README 의 「의존성 설치 없이도 실행된다」가 낡았다
+
+P3부터 devDependencies가 생겼다. 새 clone에서 `pnpm install` 없이 `pnpm build` 를 돌리면
+`tsc: command not found` 로 죽는다. 시작하기 블록을 실제로 도는 순서로 고쳤다.
+
+### 이 검증이 말해 주는 것
+
+문서에 쓴 값은 **문서를 다시 읽어서는 확인되지 않는다.** 넷 다 문장으로는 그럴듯했고, 넷 다
+명령 한 줄로 반증됐다. 인계서처럼 「다음 사람이 그대로 따를」 문서일수록 문장이 아니라
+실행으로 검증해야 한다.
+
+### Migration
+
+`pnpm verify` 가 exit 1 이면 제품 저장소부터 의심한다. `SKIPPED` 를 눈으로 보려면 개별
+게이트(`verify-product-render` 등 7개)를 직접 돌려야 한다 — `verify:product` 전체는 첫
+게이트에서 죽어 거기까지 가지 않는다.
+
 ## 2026-08-22 (96) — 주석을 고치다 `- name:` 을 지웠다. **작업이 하나도 돌지 않았다**
 
 (95)를 푸시했더니 CI가 `failure` 인데 실패 로그가 없었다.

@@ -6,9 +6,28 @@ authority: reference
 
 # 계정 이전 인계서 (2026-08-22)
 
-작업이 **다른 계정·다른 컴퓨터로 넘어간다.** 이 문서는 그 경계에서 사라지는 것과, 사라지기
+작업이 **다른 Claude Code 계정으로 넘어간다.** 이 문서는 그 경계에서 사라지는 것과, 사라지기
 전에 저장소로 옮겨 둔 것을 적는다. 큐와 임무는 [실행 인계서](execution-handoff.md)가,
 본류 작업은 [제품 실측 대조 인계서](handoff-2026-08-19-product-parity.md)가 소유한다.
+
+## 0. 계정만 바뀌는가, 컴퓨터도 바뀌는가
+
+두 경우의 손실이 다르다. **어느 쪽이든 대화 맥락은 0에서 시작한다** — 이 저장소가 유일한
+전달 통로다.
+
+| | 같은 맥 · 다른 Claude Code 계정 | 다른 컴퓨터 |
+| --- | --- | --- |
+| 대화 맥락 | **사라진다** | **사라진다** |
+| 자동 메모(`~/.claude/projects/…/memory/`) | 작업 디렉터리별로 갈린다 — 아래 참조 | 사라진다 |
+| 제품 저장소 `klipse-web` | 남는다 | 다시 clone 해야 한다 |
+| `~/klipse-design-transplant` 번들 | 남는다 | 사라진다 — **이미 저장소로 옮겼다**(2절) |
+| `.claude/settings.local.json` | 남는다(git 제외 대상이다) | 새로 만들어야 한다 |
+
+**메모는 작업 디렉터리로 이름이 갈린다.** 이 작업의 규칙 11건은 원래
+`-Users-sejunki-klipse-design-transplant` 이름 아래 쌓여 있었는데, 실제 작업은 이 저장소에서
+한다. 2026-08-22 에 `-Users-sejunki-klipse-design-system` 쪽으로 복사해 두었다. 그래도
+**메모에 의존하지 마라** — 규칙의 정본은 저장소 문서다. 메모에만 있고 문서에 없는 규칙이
+있으면 그것은 문서의 결손이니 문서로 올려라.
 
 ## 1. 저장소를 따라오지 않는 것 넷
 
@@ -16,7 +35,7 @@ authority: reference
 
 | 없는 것 | 없으면 벌어지는 일 | 갖추는 법 |
 | --- | --- | --- |
-| 제품 저장소 `klipse-web` | **게이트 13개가 `SKIPPED` 를 찍고 exit 0 한다.** 실패가 아니라 조용한 통과라서, 검증하지 않은 것을 검증했다고 착각한다 | clone 후 `export KLIPSE_PRODUCT_REPO=<경로>`. **`design` 브랜치를 fetch 했는지 확인한다** — 저장소 기본 브랜치는 `dev` 이고 `origin/main` 은 두 세대 낡았다 |
+| 제품 저장소 `klipse-web` | **`pnpm verify` 가 `verify:product` 첫 게이트에서 exit 1 로 죽는다** (`fatal: cannot change to …`). 제품을 읽는 게이트 13개 중 6개가 그렇게 죽고, 7개는 `SKIPPED` 를 찍고 exit 0 하는데 **앞의 6개가 먼저 죽어 거기까지 가지도 못한다** | clone 후 `export KLIPSE_PRODUCT_REPO=<경로>`. **`design` 브랜치를 fetch 했는지 확인한다** — 저장소 기본 브랜치는 `dev` 이고 `origin/main` 은 두 세대 낡았다 |
 | Figma 파일 권한 | 조립도 검증도 못 한다 | 라이브러리 파일 `OlYKERKOkgbxBEEoXGZW2c` 쓰기 권한. 제품 미러 파일은 읽기 전용이다 |
 | `klipse-docs` 저장소 | `/docs` 화면을 `klipse-web` 기준으로 그리게 된다 — 틀린다 | `/docs` 를 건드릴 때만 필요하다 |
 | 원저자 맥의 `~/klipse-design-transplant` | 아래 2절 참조 | **이미 옮겼다.** 다시 만들 필요 없다 |
@@ -43,7 +62,9 @@ authority: reference
 
 ## 3. 「초록」이 무엇을 뜻하는지가 바뀌었다
 
-2026-08-19~22 에 hosted CI 가 9회 연속 빨갰고, 고치는 과정에서 결함 넷이 나왔다.
+2026-08-18T04:12 부터 08-22T06:55 까지 hosted CI 가 **46회 연속** 빨갰고, 고치는 과정에서
+결함 넷이 나왔다. (Updates (93)~(96) 은 이 수를 8·9 로 적었다 — 최근 목록만 보고 센 값이라
+틀렸다. `gh run list --limit 200` 으로 다시 세면 46 이다.)
 Updates (93)~(96) 에 각각의 전말이 있다.
 
 | 결함 | 성격 |
@@ -63,7 +84,10 @@ pnpm clean-room    # 러너 재현: 커밋된 HEAD 만 clone + --frozen-lockfile
 ```
 
 - **CI 초록은 게이트 13개가 통과했다는 뜻이다.** 전량이 아니다.
-- **`pnpm verify` 출력에 `SKIPPED` 가 있으면 그 게이트는 안 돈 것이다.** 환경변수를 확인하라.
+- **`pnpm verify` 는 exit 0 이어야 한다.** 제품 저장소가 없으면 exit 1 로 그 자리에서 멈춘다 —
+  「조용히 초록」이 되지는 않는다. 실측으로 확인했다: 없는 경로를 주면 exit 1 · `SKIPPED` **0줄**.
+- `SKIPPED` 를 눈으로 보려면 개별 게이트를 직접 돌려야 한다(`verify-product-render` 등 7개).
+  `verify:product` 전체는 첫 게이트에서 죽어 거기까지 가지 않는다.
 - 푸시 전 절차: `pnpm build` → `pnpm check` → `pnpm verify` → `pnpm clean-room`.
 - 배분은 `scripts/verify-gate-split.mjs` 가 지킨다. 게이트를 추가하면 `verify:ci` 나
   `verify:product` 중 한쪽에 넣는다 — `verify` 에 직접 붙이면 막힌다.
@@ -100,8 +124,9 @@ pnpm clean-room    # 러너 재현: 커밋된 HEAD 만 clone + --frozen-lockfile
 ```bash
 git clone git@github.com:KlipseAI/louis.git && cd louis
 corepack enable && pnpm install --frozen-lockfile
+pnpm exec playwright install --with-deps chromium   # 없으면 verify-test-harness 가 죽는다
 export KLIPSE_PRODUCT_REPO=~/klipse-web        # 없으면 게이트 13개가 조용히 꺼진다
-pnpm build && pnpm check && pnpm verify        # 26단계가 다 돌았는지 SKIPPED 로 확인
+pnpm build && pnpm check && pnpm verify        # exit 0 이면 26단계 전량 통과. exit 1 이면 그 자리에서 멈춘 것이다
 ```
 
 그다음 읽는 순서는 `CLAUDE.md` → [실행 인계서](execution-handoff.md) →

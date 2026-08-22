@@ -89,6 +89,30 @@ pnpm clean-room    # 러너 재현: 커밋된 HEAD 만 clone + --frozen-lockfile
 - `SKIPPED` 를 눈으로 보려면 개별 게이트를 직접 돌려야 한다(`verify-product-render` 등 7개).
   `verify:product` 전체는 첫 게이트에서 죽어 거기까지 가지 않는다.
 - 푸시 전 절차: `pnpm build` → `pnpm check` → `pnpm verify` → `pnpm clean-room`.
+### CI 가 빨갛다면 — 먼저 결제를 의심하라
+
+2026-08-22 기준 **hosted CI 는 GitHub 결제 문제로 멈춰 있다.** 마지막 러너 검증은 `bc6a8b47`
+초록이고, 그 뒤 `01b767b9` · `524bc986` 두 커밋은 러너가 **작업을 시작조차 하지 않았다.**
+
+```
+$ gh api repos/KlipseAI/louis/check-runs/<job-id>/annotations -q '.[0].message'
+The job was not started because recent account payments have failed or your spending
+limit needs to be increased. Please check the 'Billing & plans' section in your settings
+```
+
+이 실패는 목록에서 게이트 실패와 **똑같이 `failure` 로 보인다.** 실패 로그도 없다. 코드를
+고치려 들기 전에 이렇게 구별하라.
+
+```bash
+rid=$(gh run list --limit 1 --json databaseId -q '.[0].databaseId')
+gh api repos/KlipseAI/louis/actions/runs/$rid/jobs -q '.total_count'   # 0 이면 워크플로가 거부됨
+gh api repos/KlipseAI/louis/check-runs/<job-id>/annotations -q '.[0].message'
+```
+
+`total_count` 가 0 이면 워크플로 파일이 거부된 것이고(Updates (96)), annotation 이 결제를
+말하면 저장소 문제가 아니다. **결제가 풀릴 때까지 로컬 `pnpm verify` + `pnpm clean-room` 이
+유일한 검증 통로다.** 밀린 커밋은 결제 복구 후 러너에서 한 번 확인해야 한다.
+
 - 배분은 `scripts/verify-gate-split.mjs` 가 지킨다. 게이트를 추가하면 `verify:ci` 나
   `verify:product` 중 한쪽에 넣는다 — `verify` 에 직접 붙이면 막힌다.
 

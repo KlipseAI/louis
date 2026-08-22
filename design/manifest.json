@@ -554,6 +554,15 @@
       "generated": false
     },
     {
+      "id": "governance-figma-screen-assembly",
+      "path": "design/governance/figma-screen-assembly.md",
+      "title": "Figma Screen Assembly",
+      "section": "governance",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
+    },
+    {
       "id": "governance-product-adoption",
       "path": "design/governance/migration.md",
       "title": "Product Adoption",
@@ -971,6 +980,7 @@
         "design/governance/contributing.md",
         "design/governance/operating-model.md",
         "design/governance/figma-sync.md",
+        "design/governance/figma-screen-assembly.md",
         "design/governance/migration.md",
         "design/governance/roadmap.md",
         "design/governance/execution-handoff.md",

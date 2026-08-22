@@ -2,8 +2,8 @@
   "$comment": "생성물. scripts/measure-product-drift.mjs가 배포본에서 잰다. 직접 수정하지 않는다.",
   "$whyThisExists": "값을 직접 쓸 수 있는 축마다 드리프트가 번진다. 2026-08-21에 네 축에서 같은 자국이 **따로따로** 발견됐다 — 알파·radius·border-width·duration. 한 축씩 발견하는 방식으로는 다섯 번째를 놓친다. 전 축을 한 번에 재서 드러낸다.",
   "$howToRead": "coverage가 낮으면 DS 스케일이 좁거나 제품이 흩어진 것이다. topHasToken이 false면 **가장 흔한 값을 토큰으로 쓸 수 없다는 뜻**이며, 그 자체로 결함이다. topUsed/missingTop이 문서의 분포표를 생성한다 — 표를 손으로 세지 않는다.",
-  "productRef": "a9ead58be81ac544a459b45ccaf25f33d2d0eb32",
-  "productCommit": "a9ead58be81ac544a459b45ccaf25f33d2d0eb32",
+  "productRef": "a3ed8e031214f67ac319c5ceaa7ad2808cf0d3a4",
+  "productCommit": "a3ed8e031214f67ac319c5ceaa7ad2808cf0d3a4",
   "axes": [
     {
       "id": "alpha",
@@ -11,16 +11,16 @@
       "unit": "%",
       "productStops": 73,
       "dsStops": 14,
-      "uses": 3532,
-      "coveragePct": 46.1,
+      "uses": 3318,
+      "coveragePct": 43.3,
       "topValue": 100,
-      "topUses": 419,
+      "topUses": 414,
       "topHasToken": false,
       "missingTop": [
         {
           "value": 100,
-          "uses": 419,
-          "files": 59
+          "uses": 414,
+          "files": 56
         },
         {
           "value": 88,
@@ -28,23 +28,23 @@
           "files": 46
         },
         {
-          "value": 14,
-          "uses": 88,
-          "files": 42
+          "value": 92,
+          "uses": 89,
+          "files": 43
         },
         {
-          "value": 92,
-          "uses": 87,
+          "value": 14,
+          "uses": 86,
           "files": 42
         },
         {
           "value": 90,
-          "uses": 77,
+          "uses": 78,
           "files": 43
         },
         {
           "value": 22,
-          "uses": 77,
+          "uses": 71,
           "files": 41
         },
         {
@@ -54,38 +54,32 @@
         },
         {
           "value": 28,
-          "uses": 60,
+          "uses": 58,
           "files": 30
         }
       ],
       "topUsed": [
         {
           "value": 100,
-          "uses": 419,
-          "files": 59,
+          "uses": 414,
+          "files": 56,
           "hasToken": false
         },
         {
           "value": 10,
           "uses": 239,
-          "files": 82,
+          "files": 83,
           "hasToken": true
         },
         {
           "value": 8,
-          "uses": 215,
+          "uses": 214,
           "files": 80,
           "hasToken": true
         },
         {
-          "value": 25,
-          "uses": 208,
-          "files": 38,
-          "hasToken": true
-        },
-        {
           "value": 12,
-          "uses": 203,
+          "uses": 200,
           "files": 80,
           "hasToken": true
         },
@@ -97,7 +91,7 @@
         },
         {
           "value": 20,
-          "uses": 110,
+          "uses": 106,
           "files": 48,
           "hasToken": true
         },
@@ -108,16 +102,22 @@
           "hasToken": false
         },
         {
+          "value": 92,
+          "uses": 89,
+          "files": 43,
+          "hasToken": false
+        },
+        {
           "value": 14,
-          "uses": 88,
+          "uses": 86,
           "files": 42,
           "hasToken": false
         },
         {
-          "value": 92,
-          "uses": 87,
-          "files": 42,
-          "hasToken": false
+          "value": 60,
+          "uses": 82,
+          "files": 43,
+          "hasToken": true
         }
       ]
     },
@@ -332,10 +332,10 @@
       "unit": "px",
       "productStops": 43,
       "dsStops": 23,
-      "uses": 1023,
-      "coveragePct": 76.1,
+      "uses": 1021,
+      "coveragePct": 76.2,
       "topValue": 8,
-      "topUses": 196,
+      "topUses": 194,
       "topHasToken": true,
       "missingTop": [
         {
@@ -375,20 +375,20 @@
         },
         {
           "value": 160,
-          "uses": 7,
-          "files": 4
+          "uses": 5,
+          "files": 3
         }
       ],
       "topUsed": [
         {
           "value": 8,
-          "uses": 196,
+          "uses": 194,
           "files": 23,
           "hasToken": true
         },
         {
           "value": 12,
-          "uses": 102,
+          "uses": 103,
           "files": 19,
           "hasToken": true
         },
@@ -406,7 +406,7 @@
         },
         {
           "value": 2,
-          "uses": 73,
+          "uses": 74,
           "files": 14,
           "hasToken": true
         },
@@ -448,15 +448,15 @@
       "unit": "ms",
       "productStops": 58,
       "dsStops": 16,
-      "uses": 1342,
+      "uses": 1340,
       "coveragePct": 56.9,
       "topValue": 180,
-      "topUses": 240,
+      "topUses": 236,
       "topHasToken": false,
       "missingTop": [
         {
           "value": 180,
-          "uses": 240,
+          "uses": 236,
           "files": 55
         },
         {
@@ -498,7 +498,7 @@
       "topUsed": [
         {
           "value": 180,
-          "uses": 240,
+          "uses": 236,
           "files": 55,
           "hasToken": false
         },

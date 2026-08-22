@@ -1,5 +1,5 @@
 import { execFileSync } from "node:child_process";
-import { existsSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { createRequire } from "node:module";
 import { tmpdir } from "node:os";
 import { dirname, join, resolve } from "node:path";
@@ -8,6 +8,7 @@ import { chromium } from "playwright";
 import { atomicWriteBatch } from "./lib/atomic-output.mjs";
 import { resolveProductRef } from "./lib/product-ref.mjs";
 import { productFontFace } from "./lib/product-font.mjs";
+import { materializeDsPackage } from "./lib/ds-package-shim.mjs";
 
 // **제품 컴포넌트를 실제로 렌더해서 잰다.**
 //
@@ -890,11 +891,14 @@ const workspace = mkdtempSync(join(tmpdir(), "kds-product-components-"));
 let rendered;
 let declaredByProbe;
 let sources;
+let dsPin = "HEAD";
 try {
   // 제품의 진입 CSS는 ./keyframes.css를 @import한다. 컴파일러가 찾을 수 있게 함께 꺼내 둔다.
   const tailwindEntry = git(["show", commit + ":apps/web/app/tailwind.css"]);
   writeFileSync(join(workspace, "entry.css"), tailwindEntry);
   writeFileSync(join(workspace, "keyframes.css"), git(["show", commit + ":apps/web/app/keyframes.css"]));
+
+  dsPin = materializeDsPackage({ workspace, git, commit, tag: "product-components" });
 
   sources = Object.fromEntries(
     Object.entries(FILES).map(([alias, path]) => [alias, git(["show", commit + ":" + path])]),
@@ -1707,7 +1711,7 @@ if (checkOnly) {
 console.log(
   "[product-components] " +
     (checkOnly ? "checked" : "built") +
-    ": 탐침 " + PROBES.length + "종 @ " + commit.slice(0, 8) +
+    ": 탐침 " + PROBES.length + "종 @ " + commit.slice(0, 8) + " · DS " + dsPin +
     " · **브라우저가 잰 제품 값과 DS를 " + compared.length + "축 대조** (일치 " +
     (compared.length - deviations.length) + " · 기록된 편차 " + deviations.length +
     ") · 컴포넌트 " + new Set(EXPECT.map(([, , path]) => path[0])).size + "/" +

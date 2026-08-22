@@ -11,14 +11,14 @@ import { fileURLToPath } from "node:url";
 //
 // 그래서 역할을 나눈다.
 //
-//   build-product-evidence.mjs   기준선을 **옮기는** 쪽 → `origin/main`을 본다
-//   verify-product-evidence.mjs  기준선이 낡았다고 **알리는** 쪽 → `origin/main`을 본다
+//   build-product-evidence.mjs   기준선을 **옮기는** 쪽 → `design`을 본다
+//   verify-product-evidence.mjs  기준선이 낡았다고 **알리는** 쪽 → `design`을 본다
 //   측정 스크립트들               기준선을 **재는** 쪽 → 여기서 lock의 커밋을 받는다
 //
 // 이렇게 하면 기준선 이동이 **의도한 행위**가 된다. lock을 갱신해야만 측정 대상이 움직이고,
 // 갱신하지 않으면 제품이 아무리 앞서 나가도 어제와 같은 값이 나온다.
 //
-// 우선순위: `KLIPSE_PRODUCT_REF` 환경변수 > lock의 `productCommit` > `origin/main`.
+// 우선순위: `KLIPSE_PRODUCT_REF` 환경변수 > lock의 `productCommit` > `design`.
 // 환경변수를 맨 앞에 두는 것은 재기준선 작업 중에 후보 커밋으로 시험 측정을 하기 위해서다.
 
 const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), "../..");
@@ -40,7 +40,7 @@ export function resolveProductRef() {
   }
 
   // lock이 없거나 읽을 수 없을 때만. 이 경로로 잰 값은 재현이 보장되지 않는다.
-  return { ref: "origin/main", source: "fallback(origin/main) — 재현 보장 없음" };
+  return { ref: "design", source: "fallback(design) — 재현 보장 없음" };
 }
 
 export const productRef = resolveProductRef().ref;

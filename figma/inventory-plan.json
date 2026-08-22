@@ -8,8 +8,8 @@
     "간격이 제각각이면 중첩 오토레이아웃으로 묶는다. spacer 프레임은 쓰지 않는다.",
     "음수 마진은 여백을 바깥·안쪽으로 나눠 만든다."
   ],
-  "productRef": "a9ead58be81ac544a459b45ccaf25f33d2d0eb32",
-  "productCommit": "a9ead58be81ac544a459b45ccaf25f33d2d0eb32",
+  "productRef": "a3ed8e031214f67ac319c5ceaa7ad2808cf0d3a4",
+  "productCommit": "a3ed8e031214f67ac319c5ceaa7ad2808cf0d3a4",
   "sections": [
     {
       "kind": "button",
@@ -89,7 +89,7 @@
         {
           "id": "button/adminModalConfirm",
           "label": "관리자 모달 확인 버튼 — MODAL_BUTTON_BASE 참조 합성",
-          "jsx": "AdminClient.tsx:2145-2150",
+          "jsx": "AdminClient.tsx:2145-2152",
           "hosted": true,
           "hostNone": "",
           "tree": {
@@ -159,7 +159,7 @@
         {
           "id": "button/gnbSidebarCta",
           "label": "GNB 사이드바 CTA 버튼 — 라벨 스팬을 자식으로 갖는 민트 알약",
-          "jsx": "Gnb.tsx:5015-5029",
+          "jsx": "Gnb.tsx:5005-5019",
           "hosted": true,
           "hostNone": "",
           "tree": {
@@ -304,7 +304,7 @@
         {
           "id": "button/highlightStartOver",
           "label": "공용 버튼 secondary(md) — 하이라이트 실패 화면 처음부터 버튼",
-          "jsx": "HighlightProjectScene.tsx:2773-2775",
+          "jsx": "HighlightProjectScene.tsx:2771-2773",
           "hosted": true,
           "hostNone": "",
           "tree": {
@@ -439,7 +439,7 @@
         {
           "id": "button/nodeCanvasHomeNew",
           "label": "공용 버튼 primary sm — 노드캔버스 홈 새 캔버스(왼쪽 아이콘)",
-          "jsx": "NodeCanvasHomeScene.tsx:1325-1332",
+          "jsx": "NodeCanvasHomeScene.tsx:1319-1326",
           "hosted": true,
           "hostNone": "",
           "tree": {
@@ -680,7 +680,7 @@
         {
           "id": "button/shortsResultDownload",
           "label": "공용 버튼 ghost(md) — 숏폼 결과 다운로드. 소비처가 전폭·소프트 배경 상수를 덧입힌다(jsxQuote 참조)",
-          "jsx": "page.tsx:1334-1343",
+          "jsx": "page.tsx:1334-1341",
           "hosted": true,
           "hostNone": "",
           "tree": {
@@ -2853,7 +2853,7 @@
         {
           "id": "icon-button/gnbProjectOptions",
           "label": "GNB 프로젝트 헤더 옵션 버튼",
-          "jsx": "Gnb.tsx:4253-4280",
+          "jsx": "Gnb.tsx:4243-4270",
           "hosted": true,
           "hostNone": "",
           "tree": {
@@ -6048,7 +6048,7 @@
         {
           "id": "gnb-sidebar/brandRow",
           "label": "사이드바 브랜드 행 — 로고 히트 영역",
-          "jsx": "Gnb.tsx:4378-4424",
+          "jsx": "Gnb.tsx:4368-4414",
           "hosted": true,
           "hostNone": "",
           "tree": {
@@ -6378,7 +6378,7 @@
         {
           "id": "gnb-sidebar/createCompoundRow",
           "label": "사이드바 만들기 복합 항목 — 메뉴 줄 + 새 프로젝트 추가 버튼",
-          "jsx": "Gnb.tsx:4643-4691",
+          "jsx": "Gnb.tsx:4633-4691",
           "hosted": true,
           "hostNone": "",
           "tree": {
@@ -6771,7 +6771,7 @@
         {
           "id": "gnb-sidebar/menuLinkRow",
           "label": "사이드바 메뉴 항목 한 줄 — 아이콘·라벨 (쉬는 상태)",
-          "jsx": "Gnb.tsx:4808-4844",
+          "jsx": "Gnb.tsx:4798-4834",
           "hosted": true,
           "hostNone": "",
           "tree": {
@@ -7035,7 +7035,7 @@
         {
           "id": "gnb-sidebar/profileTrigger",
           "label": "프로필 트리거 — 크레딧 링을 두른 아바타 버튼",
-          "jsx": "Gnb.tsx:5312-5337",
+          "jsx": "Gnb.tsx:5302-5327",
           "hosted": true,
           "hostNone": "",
           "tree": {
@@ -7170,7 +7170,7 @@
         {
           "id": "gnb-sidebar/rail",
           "label": "GNB 사이드바 레일 — 메뉴 기둥과 분석 아이브로우",
-          "jsx": "Gnb.tsx:4466-4852",
+          "jsx": "Gnb.tsx:4456-4842",
           "hosted": true,
           "hostNone": "",
           "tree": {
@@ -8609,7 +8609,7 @@
         {
           "id": "skeleton/channelAvatarIg",
           "label": "인스타그램 대시보드 채널 아바타 로딩 뼈대",
-          "jsx": "InstagramAnalyticsScene.tsx:1773-1773",
+          "jsx": "InstagramAnalyticsScene.tsx:1772-1772",
           "hosted": true,
           "hostNone": "",
           "tree": {
@@ -8679,7 +8679,7 @@
         {
           "id": "skeleton/channelInfoIg",
           "label": "인스타그램 대시보드 채널 정보 로딩 뼈대 — SKELETON_BLOCK 막대 두 줄",
-          "jsx": "InstagramAnalyticsScene.tsx:1774-1777",
+          "jsx": "InstagramAnalyticsScene.tsx:1773-1776",
           "hosted": true,
           "hostNone": "",
           "tree": {
@@ -8878,7 +8878,7 @@
         {
           "id": "skeleton/instagramTopBar",
           "label": "인스타그램 분석 상단바 로딩 뼈대 — 같은 상수 이름의 두 번째 벌",
-          "jsx": "InstagramAnalyticsScene.tsx:1770-1778",
+          "jsx": "InstagramAnalyticsScene.tsx:1769-1776",
           "hosted": true,
           "hostNone": "",
           "tree": {
@@ -9206,7 +9206,7 @@
         {
           "id": "skeleton/youtubeTopBar",
           "label": "유튜브 분석 상단바 로딩 뼈대 — 아바타 원 + 줄 셋",
-          "jsx": "YoutubeAnalyticsScene.tsx:1960-1978",
+          "jsx": "YoutubeAnalyticsScene.tsx:1959-1977",
           "hosted": true,
           "hostNone": "",
           "tree": {
@@ -9605,7 +9605,7 @@
         {
           "id": "avatar/adminUser",
           "label": "관리자 사용자 머리글자 아바타",
-          "jsx": "AdminClient.tsx:1719-1719",
+          "jsx": "AdminClient.tsx:1721-1721",
           "hosted": true,
           "hostNone": "",
           "tree": {
@@ -9675,7 +9675,7 @@
         {
           "id": "avatar/instagramChannel",
           "label": "인스타그램 대시보드 채널 아바타 — 유튜브와 같은 정의를 한 벌 더 갖는다",
-          "jsx": "InstagramAnalyticsScene.tsx:1781-1794",
+          "jsx": "InstagramAnalyticsScene.tsx:1780-1793",
           "hosted": true,
           "hostNone": "",
           "tree": {
@@ -9945,7 +9945,7 @@
         {
           "id": "avatar/youtubeChannel",
           "label": "유튜브 대시보드 채널 아바타",
-          "jsx": "YoutubeAnalyticsScene.tsx:1981-2000",
+          "jsx": "YoutubeAnalyticsScene.tsx:1980-1999",
           "hosted": true,
           "hostNone": "",
           "tree": {
@@ -10087,7 +10087,7 @@
         {
           "id": "badge/customSidebarBadge",
           "label": "사이드바 개수 배지",
-          "jsx": "Gnb.tsx:4540-4548",
+          "jsx": "Gnb.tsx:4530-4538",
           "hosted": true,
           "hostNone": "",
           "tree": {
@@ -10297,7 +10297,7 @@
         {
           "id": "badge/profileMenuItemBadge",
           "label": "프로필 메뉴 플랜 배지 — 글자를 자식이 갖는다",
-          "jsx": "Gnb.tsx:3153-3157",
+          "jsx": "Gnb.tsx:3143-3147",
           "hosted": true,
           "hostNone": "",
           "tree": {
@@ -11716,7 +11716,7 @@
         {
           "id": "slider/highlightRefineOpacity",
           "label": "하이라이트 다듬기 위젯 불투명도 슬라이더",
-          "jsx": "HighlightProjectScene.tsx:3572-3606",
+          "jsx": "HighlightProjectScene.tsx:3570-3604",
           "hosted": true,
           "hostNone": "",
           "tree": {
@@ -11998,7 +11998,7 @@
         {
           "id": "spinner/gnbBackButton",
           "label": "GNB 뒤로가기 스피너 — 슬롯이 링을 감싼다",
-          "jsx": "Gnb.tsx:4118-4123",
+          "jsx": "Gnb.tsx:4108-4113",
           "hosted": true,
           "hostNone": "",
           "tree": {
@@ -12203,7 +12203,7 @@
         {
           "id": "spinner/highlightShorts",
           "label": "숏폼 편집 로딩 스피너 — 같은 링을 옮겨 적은 둘째 벌",
-          "jsx": "page.tsx:1055-1055",
+          "jsx": "page.tsx:1053-1053",
           "hosted": true,
           "hostNone": "",
           "tree": {
@@ -12280,7 +12280,7 @@
         {
           "id": "text-field/adminSearch",
           "label": "관리자 검색 입력 — 알약형 유리 입력(FIELD_CONTROL), 이메일·이름 검색",
-          "jsx": "AdminClient.tsx:1389-1404",
+          "jsx": "AdminClient.tsx:1391-1406",
           "hosted": true,
           "hostNone": "",
           "tree": {
@@ -12677,7 +12677,7 @@
         {
           "id": "text-field/refinementInput",
           "label": "하이라이트 다듬기 입력 — 테두리 있는 사각 입력",
-          "jsx": "HighlightProjectScene.tsx:666-677",
+          "jsx": "HighlightProjectScene.tsx:664-675",
           "hosted": true,
           "hostNone": "",
           "tree": {
@@ -12824,7 +12824,7 @@
         {
           "id": "toast/adminError",
           "label": "관리자 토스트 · 오류 스킨 — TOAST_ERROR 색 상수가 JSX에서 합성된다",
-          "jsx": "AdminClient.tsx:1551-1555",
+          "jsx": "AdminClient.tsx:1553-1557",
           "hosted": true,
           "hostNone": "",
           "tree": {
@@ -12894,7 +12894,7 @@
         {
           "id": "toast/adminSuccess",
           "label": "관리자 토스트 · 성공 스킨 — TOAST_SUCCESS 색 상수가 JSX에서 합성된다",
-          "jsx": "AdminClient.tsx:1441-1449",
+          "jsx": "AdminClient.tsx:1443-1451",
           "hosted": true,
           "hostNone": "",
           "tree": {
@@ -13476,7 +13476,7 @@
         {
           "id": "tooltip/composerShotMode",
           "label": "컴포저 모드 힌트 툴팁 — 부모 hover로만 열린다",
-          "jsx": "ComposerBar.tsx:408-410",
+          "jsx": "ComposerBar.tsx:407-409",
           "hosted": false,
           "hostNone": "부모 button에 display:flex/inline-flex/grid가 없다. SHOT_MODE_TEXT_BASE는 relative(+padding/border/bg/cursor)뿐이고 동반 클래스 type-body-14-regular도 globals.css에서 타이포 프로퍼티만 선언한다. 레이아웃을 만들지 않는 순수 래퍼를 부모로 잡았으므로, 이 문맥으로 표본을 감싸도 크기 계산이 바뀌지 않는다.",
           "tree": {
@@ -13556,7 +13556,7 @@
         {
           "id": "tooltip/upgradeTierFeature",
           "label": "업그레이드 요금제 기능 툴팁",
-          "jsx": "page.tsx:623",
+          "jsx": "page.tsx:619",
           "hosted": true,
           "hostNone": "",
           "tree": {
@@ -14424,10 +14424,10 @@
             ],
             "shadow": {
               "color": [
-                0,
-                0,
-                0,
-                0.5
+                0.09,
+                0.106,
+                0.133,
+                0.12
               ],
               "x": 0,
               "y": 0,
@@ -14560,10 +14560,10 @@
                 ],
                 "shadow": {
                   "color": [
-                    0,
-                    0,
-                    0,
-                    0.5
+                    0.09,
+                    0.106,
+                    0.133,
+                    0.12
                   ],
                   "x": 0,
                   "y": 0,
@@ -15504,10 +15504,10 @@
             ],
             "shadow": {
               "color": [
-                0,
-                0,
-                0,
-                0.5
+                0.09,
+                0.106,
+                0.133,
+                0.12
               ],
               "x": 0,
               "y": 0,
@@ -15640,10 +15640,10 @@
                 ],
                 "shadow": {
                   "color": [
-                    0,
-                    0,
-                    0,
-                    0.5
+                    0.09,
+                    0.106,
+                    0.133,
+                    0.12
                   ],
                   "x": 0,
                   "y": 0,
@@ -16962,7 +16962,7 @@
         {
           "id": "insight-card/igOverviewKpi",
           "label": "인스타그램 개요 · KPI 카드",
-          "jsx": "InstagramAnalyticsScene.tsx:1233-1265",
+          "jsx": "InstagramAnalyticsScene.tsx:1232-1264",
           "hosted": true,
           "hostNone": "",
           "tree": {
@@ -17014,10 +17014,10 @@
             ],
             "shadow": {
               "color": [
-                0,
-                0,
-                0,
-                0.5
+                0.09,
+                0.106,
+                0.133,
+                0.12
               ],
               "x": 0,
               "y": 0,
@@ -17215,10 +17215,10 @@
                 ],
                 "shadow": {
                   "color": [
-                    0,
-                    0,
-                    0,
-                    0.5
+                    0.09,
+                    0.106,
+                    0.133,
+                    0.12
                   ],
                   "x": 0,
                   "y": 0,
@@ -20142,7 +20142,7 @@
         {
           "id": "progress-bar/compositeSegmentPreview",
           "label": "합본 미리보기 재생 진행바 — 트랙·게이지·핸들",
-          "jsx": "HighlightProjectScene.tsx:446-457",
+          "jsx": "HighlightProjectScene.tsx:444-455",
           "hosted": true,
           "hostNone": "",
           "tree": {
@@ -20663,7 +20663,7 @@
         {
           "id": "progress-bar/highlightUpload",
           "label": "하이라이트 업로드 진행바",
-          "jsx": "HighlightProjectScene.tsx:2652-2657",
+          "jsx": "HighlightProjectScene.tsx:2650-2655",
           "hosted": true,
           "hostNone": "",
           "tree": {
@@ -21326,7 +21326,7 @@
         {
           "id": "selectable-list-row/highlightDetailClip",
           "label": "하이라이트 상세 클립 행 — 행 자체가 버튼인 단일 선택 행",
-          "jsx": "HighlightProjectScene.tsx:3208-3246",
+          "jsx": "HighlightProjectScene.tsx:3206-3244",
           "hosted": true,
           "hostNone": "",
           "tree": {
@@ -21719,7 +21719,7 @@
         {
           "id": "selectable-list-row/highlightReviewClip",
           "label": "하이라이트 검수 클립 행 — 체크박스가 있는 다중 선택 행",
-          "jsx": "HighlightProjectScene.tsx:2924-2963",
+          "jsx": "HighlightProjectScene.tsx:2922-2961",
           "hosted": true,
           "hostNone": "",
           "tree": {
@@ -22183,7 +22183,7 @@
         {
           "id": "top-bar/gnbProjectHeader",
           "label": "GNB 프로젝트 헤더 상단 바",
-          "jsx": "Gnb.tsx:4101-4376",
+          "jsx": "Gnb.tsx:4091-4366",
           "hosted": true,
           "hostNone": "",
           "tree": {
@@ -22708,7 +22708,7 @@
         {
           "id": "top-bar/instagramAnalytics",
           "label": "인스타그램 분석 채널 배너 상단 바",
-          "jsx": "InstagramAnalyticsScene.tsx:1769-1803",
+          "jsx": "InstagramAnalyticsScene.tsx:1768-1802",
           "hosted": true,
           "hostNone": "",
           "tree": {
@@ -23102,7 +23102,7 @@
         {
           "id": "top-bar/youtubeAnalytics",
           "label": "유튜브 분석 채널 배너 상단 바",
-          "jsx": "YoutubeAnalyticsScene.tsx:1937-2060",
+          "jsx": "YoutubeAnalyticsScene.tsx:1936-2059",
           "hosted": true,
           "hostNone": "",
           "tree": {
@@ -23799,10 +23799,10 @@
             ],
             "shadow": {
               "color": [
-                0,
-                0,
-                0,
-                0.5
+                0.09,
+                0.106,
+                0.133,
+                0.12
               ],
               "x": 0,
               "y": 0,
@@ -24204,10 +24204,10 @@
             ],
             "shadow": {
               "color": [
-                0,
-                0,
-                0,
-                0.5
+                0.09,
+                0.106,
+                0.133,
+                0.12
               ],
               "x": 0,
               "y": 0,
@@ -24466,10 +24466,10 @@
                     ],
                     "shadow": {
                       "color": [
-                        0,
-                        0,
-                        0,
-                        0.5
+                        0.09,
+                        0.106,
+                        0.133,
+                        0.12
                       ],
                       "x": 0,
                       "y": 0,
@@ -24571,7 +24571,7 @@
         {
           "id": "progress-ring/gnbTopBar",
           "label": "GNB 상단 바 프로필 크레딧 링 — 버튼의 ::after가 링을 그린다",
-          "jsx": "Gnb.tsx:5312-5337",
+          "jsx": "Gnb.tsx:5302-5327",
           "hosted": true,
           "hostNone": "",
           "tree": {
@@ -24706,7 +24706,7 @@
         {
           "id": "progress-ring/projectHeaderSlot",
           "label": "프로젝트 헤더 프로필 링 — 슬롯 훅이 아바타를 줄인다",
-          "jsx": "Gnb.tsx:3984-4009",
+          "jsx": "Gnb.tsx:3974-3999",
           "hosted": true,
           "hostNone": "",
           "tree": {
@@ -24900,10 +24900,10 @@
             ],
             "shadow": {
               "color": [
-                0,
-                0,
-                0,
-                0.5
+                0.09,
+                0.106,
+                0.133,
+                0.12
               ],
               "x": 0,
               "y": 0,
@@ -25900,7 +25900,7 @@
         {
           "id": "project-card/nodeCanvasHome",
           "label": "노드캔버스 홈 · 프로젝트 카드 — 아이브로우가 없다",
-          "jsx": "NodeCanvasHomeScene.tsx:1361-1601",
+          "jsx": "NodeCanvasHomeScene.tsx:1355-1595",
           "hosted": true,
           "hostNone": "",
           "tree": {
@@ -25952,10 +25952,10 @@
             ],
             "shadow": {
               "color": [
-                0,
-                0,
-                0,
-                0.5
+                0.09,
+                0.106,
+                0.133,
+                0.12
               ],
               "x": 0,
               "y": 0,
@@ -26895,7 +26895,7 @@
         {
           "id": "segmented-control/instagramAnalytics",
           "label": "인스타그램 분석 · 기간 선택기 (3구간)",
-          "jsx": "InstagramAnalyticsScene.tsx:1825-1846",
+          "jsx": "InstagramAnalyticsScene.tsx:1824-1845",
           "hosted": true,
           "hostNone": "",
           "tree": {
@@ -26947,10 +26947,10 @@
             ],
             "shadow": {
               "color": [
-                0,
-                0,
-                0,
-                0.5
+                0.09,
+                0.106,
+                0.133,
+                0.12
               ],
               "x": 0,
               "y": 0,
@@ -27019,10 +27019,10 @@
                 ],
                 "shadow": {
                   "color": [
-                    0,
-                    0,
-                    0,
-                    0.5
+                    0.09,
+                    0.106,
+                    0.133,
+                    0.12
                   ],
                   "x": 0,
                   "y": 0,
@@ -27241,7 +27241,7 @@
         {
           "id": "segmented-control/youtubeAnalytics",
           "label": "유튜브 분석 · 기간 선택기 (5구간)",
-          "jsx": "YoutubeAnalyticsScene.tsx:2090-2117",
+          "jsx": "YoutubeAnalyticsScene.tsx:2089-2116",
           "hosted": true,
           "hostNone": "",
           "tree": {
@@ -27293,10 +27293,10 @@
             ],
             "shadow": {
               "color": [
-                0,
-                0,
-                0,
-                0.5
+                0.09,
+                0.106,
+                0.133,
+                0.12
               ],
               "x": 0,
               "y": 0,
@@ -27365,10 +27365,10 @@
                 ],
                 "shadow": {
                   "color": [
-                    0,
-                    0,
-                    0,
-                    0.5
+                    0.09,
+                    0.106,
+                    0.133,
+                    0.12
                   ],
                   "x": 0,
                   "y": 0,
@@ -27722,7 +27722,7 @@
         {
           "id": "admin/headerSlot",
           "label": "관리자 콘텐츠 헤더 슬롯 — GNB 상단 크롬 바가 portal 되는 자리, 비어 있으면 숨는다",
-          "jsx": "AdminClient.tsx:1233-1233",
+          "jsx": "AdminClient.tsx:1235-1235",
           "hosted": true,
           "hostNone": "",
           "tree": {

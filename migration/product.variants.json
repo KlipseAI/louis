@@ -2,8 +2,8 @@
   "$comment": "생성물. scripts/measure-product-variants.mjs가 제품의 경쟁 정의를 이름 패턴으로 찾아 실제로 렌더하고 값이 같은 것끼리 묶는다. 직접 수정하지 않는다.",
   "$whyThisExists": "\"제품에 정본이 없다\"가 산문이었다 — 한 벌만 재고 나머지는 세지 않은 채 그렇게 적었다. 여기서는 몇 벌이 몇 묶음으로 갈리는지가 수로 남고, Figma의 Inventory 페이지가 그것을 나란히 그린다. 정본을 고르는 일은 눈으로 비교하는 일이어야 한다.",
   "$howToRead": "groups는 사용 횟수가 많은 순이다. rank 1이 가장 널리 쓰이는 벌이며 정본 후보다. members가 여럿이면 그 벌들이 값까지 동일하다는 뜻이다.",
-  "productRef": "a9ead58be81ac544a459b45ccaf25f33d2d0eb32",
-  "productCommit": "a9ead58be81ac544a459b45ccaf25f33d2d0eb32",
+  "productRef": "a3ed8e031214f67ac319c5ceaa7ad2808cf0d3a4",
+  "productCommit": "a3ed8e031214f67ac319c5ceaa7ad2808cf0d3a4",
   "axes": [
     "height",
     "minHeight",
@@ -38,13 +38,13 @@
       "id": "admin/headerSlot",
       "kind": "admin",
       "label": "관리자 콘텐츠 헤더 슬롯 — GNB 상단 크롬 바가 portal 되는 자리, 비어 있으면 숨는다",
-      "jsx": "apps/web/app/admin/AdminClient.tsx:1233-1233",
+      "jsx": "apps/web/app/admin/AdminClient.tsx:1235-1235",
       "file": "apps/web/app/admin/AdminClient.tsx",
       "tree": {
         "part": "HEADER_SLOT",
         "parts": null,
         "tag": "div",
-        "line": 108,
+        "line": 110,
         "text": "",
         "values": {
           "height": "auto",
@@ -94,13 +94,13 @@
       "id": "avatar/adminUser",
       "kind": "avatar",
       "label": "관리자 사용자 머리글자 아바타",
-      "jsx": "apps/web/app/admin/AdminClient.tsx:1719-1719",
+      "jsx": "apps/web/app/admin/AdminClient.tsx:1721-1721",
       "file": "apps/web/app/admin/AdminClient.tsx",
       "tree": {
         "part": "AVATAR",
         "parts": null,
         "tag": "div",
-        "line": 335,
+        "line": 337,
         "text": "K",
         "values": {
           "height": "44px",
@@ -150,7 +150,7 @@
       "id": "avatar/instagramChannel",
       "kind": "avatar",
       "label": "인스타그램 대시보드 채널 아바타 — 유튜브와 같은 정의를 한 벌 더 갖는다",
-      "jsx": "apps/web/components/scenes/InstagramAnalyticsScene.tsx:1781-1794",
+      "jsx": "apps/web/components/scenes/InstagramAnalyticsScene.tsx:1780-1793",
       "file": "apps/web/components/scenes/InstagramAnalyticsScene.tsx",
       "tree": {
         "part": "CHANNEL_AVATAR",
@@ -262,7 +262,7 @@
         "part": "settingsAvatarFigure",
         "parts": null,
         "tag": "div",
-        "line": 856,
+        "line": 854,
         "text": "",
         "values": {
           "height": "40px",
@@ -310,7 +310,7 @@
             "part": "settingsAvatarFigureImage",
             "parts": null,
             "tag": "img",
-            "line": 883,
+            "line": 881,
             "text": "",
             "values": {
               "height": "40px",
@@ -362,7 +362,7 @@
       "id": "avatar/youtubeChannel",
       "kind": "avatar",
       "label": "유튜브 대시보드 채널 아바타",
-      "jsx": "apps/web/components/scenes/YoutubeAnalyticsScene.tsx:1981-2000",
+      "jsx": "apps/web/components/scenes/YoutubeAnalyticsScene.tsx:1980-1999",
       "file": "apps/web/components/scenes/YoutubeAnalyticsScene.tsx",
       "tree": {
         "part": "CHANNEL_AVATAR",
@@ -468,7 +468,7 @@
       "id": "badge/customSidebarBadge",
       "kind": "badge",
       "label": "사이드바 개수 배지",
-      "jsx": "apps/web/components/navigation/Gnb.tsx:4540-4548",
+      "jsx": "apps/web/components/navigation/Gnb.tsx:4530-4538",
       "file": "apps/web/components/navigation/Gnb.tsx",
       "tree": {
         "part": "customSidebarBadge",
@@ -586,7 +586,7 @@
         "part": "previewZoomBadge",
         "parts": null,
         "tag": "div",
-        "line": 2527,
+        "line": 2519,
         "text": "120%",
         "values": {
           "height": "24px",
@@ -636,13 +636,13 @@
       "id": "badge/profileMenuItemBadge",
       "kind": "badge",
       "label": "프로필 메뉴 플랜 배지 — 글자를 자식이 갖는다",
-      "jsx": "apps/web/components/navigation/Gnb.tsx:3153-3157",
+      "jsx": "apps/web/components/navigation/Gnb.tsx:3143-3147",
       "file": "apps/web/components/navigation/Gnb.tsx",
       "tree": {
         "part": "profileMenuItemBadge",
         "parts": null,
         "tag": "span",
-        "line": 1060,
+        "line": 1056,
         "text": "",
         "values": {
           "height": "22px",
@@ -690,7 +690,7 @@
             "part": "profileMenuItemBadgeText",
             "parts": null,
             "tag": "span",
-            "line": 1086,
+            "line": 1082,
             "text": "프로",
             "values": {
               "height": "auto",
@@ -748,7 +748,7 @@
         "part": "updateBanner",
         "parts": null,
         "tag": "section",
-        "line": 964,
+        "line": 952,
         "text": "",
         "values": {
           "height": "360px",
@@ -796,7 +796,7 @@
             "part": "bannerTrack",
             "parts": null,
             "tag": "div",
-            "line": 598,
+            "line": 587,
             "text": "",
             "values": {
               "height": "360px",
@@ -844,7 +844,7 @@
                 "part": "bannerSlide",
                 "parts": null,
                 "tag": "article",
-                "line": 497,
+                "line": 486,
                 "text": "",
                 "values": {
                   "height": "360px",
@@ -892,7 +892,7 @@
                     "part": "bannerContent",
                     "parts": null,
                     "tag": "div",
-                    "line": 427,
+                    "line": 416,
                     "text": "",
                     "values": {
                       "height": "360px",
@@ -940,7 +940,7 @@
                         "part": "bannerTitle",
                         "parts": null,
                         "tag": "h1",
-                        "line": 591,
+                        "line": 580,
                         "text": "영상 제작을 더 빠르게",
                         "values": {
                           "height": "48.5938px",
@@ -989,7 +989,7 @@
                         "part": "bannerDescription",
                         "parts": null,
                         "tag": "p",
-                        "line": 463,
+                        "line": 452,
                         "text": "AI 워크플로로 아이디어를 완성작까지 이어 보세요.",
                         "values": {
                           "height": "24px",
@@ -1044,7 +1044,7 @@
             "part": "bannerControls",
             "parts": null,
             "tag": "div",
-            "line": 442,
+            "line": 431,
             "text": "",
             "values": {
               "height": "36px",
@@ -1092,7 +1092,7 @@
                 "part": "bannerArrowButton",
                 "parts": null,
                 "tag": "button",
-                "line": 409,
+                "line": 398,
                 "text": "",
                 "values": {
                   "height": "28px",
@@ -1141,7 +1141,7 @@
                 "part": "bannerDots",
                 "parts": null,
                 "tag": "div",
-                "line": 490,
+                "line": 479,
                 "text": "",
                 "values": {
                   "height": "7px",
@@ -1189,7 +1189,7 @@
                     "part": "bannerDot",
                     "parts": null,
                     "tag": "button",
-                    "line": 471,
+                    "line": 460,
                     "text": "",
                     "values": {
                       "height": "7px",
@@ -1238,7 +1238,7 @@
                     "part": "bannerDot",
                     "parts": null,
                     "tag": "button",
-                    "line": 471,
+                    "line": 460,
                     "text": "",
                     "values": {
                       "height": "7px",
@@ -1287,7 +1287,7 @@
                     "part": "bannerDot",
                     "parts": null,
                     "tag": "button",
-                    "line": 471,
+                    "line": 460,
                     "text": "",
                     "values": {
                       "height": "7px",
@@ -1338,7 +1338,7 @@
                 "part": "bannerArrowButton",
                 "parts": null,
                 "tag": "button",
-                "line": 409,
+                "line": 398,
                 "text": "",
                 "values": {
                   "height": "28px",
@@ -1398,7 +1398,7 @@
         "part": "bannerControls",
         "parts": null,
         "tag": "div",
-        "line": 442,
+        "line": 431,
         "text": "",
         "values": {
           "height": "36px",
@@ -1446,7 +1446,7 @@
             "part": "bannerArrowButton",
             "parts": null,
             "tag": "button",
-            "line": 409,
+            "line": 398,
             "text": "",
             "values": {
               "height": "28px",
@@ -1495,7 +1495,7 @@
             "part": "bannerDots",
             "parts": null,
             "tag": "div",
-            "line": 490,
+            "line": 479,
             "text": "",
             "values": {
               "height": "7px",
@@ -1543,7 +1543,7 @@
                 "part": "bannerDot",
                 "parts": null,
                 "tag": "button",
-                "line": 471,
+                "line": 460,
                 "text": "",
                 "values": {
                   "height": "7px",
@@ -1592,7 +1592,7 @@
                 "part": "bannerDot",
                 "parts": null,
                 "tag": "button",
-                "line": 471,
+                "line": 460,
                 "text": "",
                 "values": {
                   "height": "7px",
@@ -1641,7 +1641,7 @@
                 "part": "bannerDot",
                 "parts": null,
                 "tag": "button",
-                "line": 471,
+                "line": 460,
                 "text": "",
                 "values": {
                   "height": "7px",
@@ -1692,7 +1692,7 @@
             "part": "bannerArrowButton",
             "parts": null,
             "tag": "button",
-            "line": 409,
+            "line": 398,
             "text": "",
             "values": {
               "height": "28px",
@@ -1750,7 +1750,7 @@
         "part": "updateBanner",
         "parts": null,
         "tag": "section",
-        "line": 964,
+        "line": 952,
         "text": "",
         "values": {
           "height": "360px",
@@ -1798,7 +1798,7 @@
             "part": "bannerTrack",
             "parts": null,
             "tag": "div",
-            "line": 598,
+            "line": 587,
             "text": "",
             "values": {
               "height": "360px",
@@ -2760,7 +2760,7 @@
         "part": "MODAL_CANCEL",
         "parts": null,
         "tag": "button",
-        "line": 450,
+        "line": 452,
         "text": "취소",
         "values": {
           "height": "42px",
@@ -2810,13 +2810,13 @@
       "id": "button/adminModalConfirm",
       "kind": "button",
       "label": "관리자 모달 확인 버튼 — MODAL_BUTTON_BASE 참조 합성",
-      "jsx": "apps/web/app/admin/AdminClient.tsx:2145-2150",
+      "jsx": "apps/web/app/admin/AdminClient.tsx:2145-2152",
       "file": "apps/web/app/admin/AdminClient.tsx",
       "tree": {
         "part": "MODAL_CONFIRM",
         "parts": null,
         "tag": "button",
-        "line": 460,
+        "line": 462,
         "text": "지급",
         "values": {
           "height": "42px",
@@ -2866,13 +2866,13 @@
       "id": "button/gnbSidebarCta",
       "kind": "button",
       "label": "GNB 사이드바 CTA 버튼 — 라벨 스팬을 자식으로 갖는 민트 알약",
-      "jsx": "apps/web/components/navigation/Gnb.tsx:5015-5029",
+      "jsx": "apps/web/components/navigation/Gnb.tsx:5005-5019",
       "file": "apps/web/components/navigation/Gnb.tsx",
       "tree": {
         "part": "sidebarUpgradeButton",
         "parts": null,
         "tag": "button",
-        "line": 1854,
+        "line": 1847,
         "text": "",
         "values": {
           "height": "41px",
@@ -2920,7 +2920,7 @@
             "part": "sidebarUpgradeLabel",
             "parts": null,
             "tag": "span",
-            "line": 1911,
+            "line": 1901,
             "text": "보관함",
             "values": {
               "height": "21px",
@@ -2972,7 +2972,7 @@
       "id": "button/highlightStartOver",
       "kind": "button",
       "label": "공용 버튼 secondary(md) — 하이라이트 실패 화면 처음부터 버튼",
-      "jsx": "apps/web/components/scenes/HighlightProjectScene.tsx:2773-2775",
+      "jsx": "apps/web/components/scenes/HighlightProjectScene.tsx:2771-2773",
       "file": "apps/web/components/ui/Button.tsx",
       "tree": {
         "part": "SECONDARY",
@@ -2983,7 +2983,7 @@
           "SECONDARY"
         ],
         "tag": "button",
-        "line": 102,
+        "line": 98,
         "text": "",
         "values": {
           "height": "40px",
@@ -3031,7 +3031,7 @@
             "part": "LABEL",
             "parts": null,
             "tag": "span",
-            "line": 139,
+            "line": 134,
             "text": "처음부터 다시",
             "values": {
               "height": "21px",
@@ -3083,7 +3083,7 @@
       "id": "button/nodeCanvasHomeNew",
       "kind": "button",
       "label": "공용 버튼 primary sm — 노드캔버스 홈 새 캔버스(왼쪽 아이콘)",
-      "jsx": "apps/web/components/scenes/NodeCanvasHomeScene.tsx:1325-1332",
+      "jsx": "apps/web/components/scenes/NodeCanvasHomeScene.tsx:1319-1326",
       "file": "apps/web/components/ui/Button.tsx",
       "tree": {
         "part": "PRIMARY",
@@ -3095,7 +3095,7 @@
           "LEFT_ICON_SM"
         ],
         "tag": "button",
-        "line": 88,
+        "line": 90,
         "text": "",
         "values": {
           "height": "32px",
@@ -3114,7 +3114,7 @@
           "backgroundColor": "rgba(0, 0, 0, 0)",
           "backgroundImage": "linear-gradient(90deg, rgb(20, 145, 255) 0%, rgb(0, 136, 255) 50%, rgb(20, 145, 255) 100%)",
           "color": "rgb(250, 250, 250)",
-          "boxShadow": "rgba(250, 250, 250, 0.25) 0px 1px 1px 0px inset, rgba(250, 250, 250, 0.25) 0px -1px 1px 0px inset",
+          "boxShadow": "none",
           "backdropFilter": "none",
           "columnGap": "4px",
           "fontSize": "14px",
@@ -3143,7 +3143,7 @@
             "part": "ICON",
             "parts": null,
             "tag": "span",
-            "line": 140,
+            "line": 135,
             "text": "",
             "values": {
               "height": "0px",
@@ -3192,7 +3192,7 @@
             "part": "LABEL",
             "parts": null,
             "tag": "span",
-            "line": 139,
+            "line": 134,
             "text": "새 캔버스",
             "values": {
               "height": "21px",
@@ -3244,7 +3244,7 @@
       "id": "button/shortsResultDownload",
       "kind": "button",
       "label": "공용 버튼 ghost(md) — 숏폼 결과 다운로드. 소비처가 전폭·소프트 배경 상수를 덧입힌다(jsxQuote 참조)",
-      "jsx": "apps/web/app/highlight/[projectId]/shorts/[shortId]/page.tsx:1334-1343",
+      "jsx": "apps/web/app/highlight/[projectId]/shorts/[shortId]/page.tsx:1334-1341",
       "file": "apps/web/components/ui/Button.tsx",
       "tree": {
         "part": "GHOST",
@@ -3255,7 +3255,7 @@
           "GHOST"
         ],
         "tag": "button",
-        "line": 113,
+        "line": 109,
         "text": "",
         "values": {
           "height": "40px",
@@ -3303,7 +3303,7 @@
             "part": "LABEL",
             "parts": null,
             "tag": "span",
-            "line": 139,
+            "line": 134,
             "text": "다운로드",
             "values": {
               "height": "21px",
@@ -3366,7 +3366,7 @@
           "PRIMARY"
         ],
         "tag": "button",
-        "line": 88,
+        "line": 90,
         "text": "",
         "values": {
           "height": "40px",
@@ -3385,7 +3385,7 @@
           "backgroundColor": "rgba(0, 0, 0, 0)",
           "backgroundImage": "linear-gradient(90deg, rgb(20, 145, 255) 0%, rgb(0, 136, 255) 50%, rgb(20, 145, 255) 100%)",
           "color": "rgb(250, 250, 250)",
-          "boxShadow": "rgba(250, 250, 250, 0.25) 0px 1px 1px 0px inset, rgba(250, 250, 250, 0.25) 0px -1px 1px 0px inset",
+          "boxShadow": "none",
           "backdropFilter": "none",
           "columnGap": "8px",
           "fontSize": "14px",
@@ -3414,7 +3414,7 @@
             "part": "LABEL",
             "parts": null,
             "tag": "span",
-            "line": 139,
+            "line": 134,
             "text": "연결하기",
             "values": {
               "height": "21px",
@@ -4489,7 +4489,7 @@
         "part": "modalCard",
         "parts": null,
         "tag": "div",
-        "line": 842,
+        "line": 830,
         "text": "",
         "values": {
           "height": "148px",
@@ -4508,7 +4508,7 @@
           "backgroundColor": "rgb(49, 54, 64)",
           "backgroundImage": "none",
           "color": "rgb(250, 250, 250)",
-          "boxShadow": "rgba(0, 0, 0, 0.5) 0px 0px 0px 0.5px, rgba(0, 0, 0, 0.8) 1.25px 0px 0px -0.75px, rgba(0, 0, 0, 0.8) -1.25px 0px 0px -0.75px, rgba(255, 255, 255, 0.5) 0px 1px 1px -0.5px inset, rgba(255, 255, 255, 0.5) 0px -1px 1px -0.5px inset",
+          "boxShadow": "rgba(23, 27, 34, 0.12) 0px 0px 0px 0.5px",
           "backdropFilter": "none",
           "columnGap": "normal",
           "fontSize": "16px",
@@ -4537,7 +4537,7 @@
             "part": "modalTitle",
             "parts": null,
             "tag": "h3",
-            "line": 882,
+            "line": 870,
             "text": "프로젝트를 삭제할까요?",
             "values": {
               "height": "24px",
@@ -4586,7 +4586,7 @@
             "part": "modalDescription",
             "parts": null,
             "tag": "p",
-            "line": 866,
+            "line": 854,
             "text": "삭제하면 되돌릴 수 없습니다.",
             "values": {
               "height": "24px",
@@ -4635,7 +4635,7 @@
             "part": "modalActions",
             "parts": null,
             "tag": "div",
-            "line": 817,
+            "line": 806,
             "text": "",
             "values": {
               "height": "44px",
@@ -4683,7 +4683,7 @@
                 "part": "modalCancel",
                 "parts": null,
                 "tag": "button",
-                "line": 827,
+                "line": 816,
                 "text": "취소",
                 "values": {
                   "height": "44px",
@@ -4702,7 +4702,7 @@
                   "backgroundColor": "rgba(250, 250, 250, 0.1)",
                   "backgroundImage": "none",
                   "color": "rgb(250, 250, 250)",
-                  "boxShadow": "rgba(250, 250, 250, 0.25) 0px 1px 1px 0px inset, rgba(250, 250, 250, 0.25) 0px -1px 1px 0px inset",
+                  "boxShadow": "none",
                   "backdropFilter": "none",
                   "columnGap": "normal",
                   "fontSize": "16px",
@@ -4732,7 +4732,7 @@
                 "part": "modalConfirm",
                 "parts": null,
                 "tag": "button",
-                "line": 852,
+                "line": 840,
                 "text": "삭제",
                 "values": {
                   "height": "44px",
@@ -4792,7 +4792,7 @@
         "part": "modalCard",
         "parts": null,
         "tag": "div",
-        "line": 476,
+        "line": 475,
         "text": "",
         "values": {
           "height": "169px",
@@ -4811,7 +4811,7 @@
           "backgroundColor": "rgb(49, 54, 64)",
           "backgroundImage": "none",
           "color": "rgb(250, 250, 250)",
-          "boxShadow": "rgba(0, 0, 0, 0.5) 0px 0px 0px 0.5px, rgba(0, 0, 0, 0.8) 1.25px 0px 0px -0.75px, rgba(0, 0, 0, 0.8) -1.25px 0px 0px -0.75px, rgba(255, 255, 255, 0.5) 0px 1px 1px -0.5px inset, rgba(255, 255, 255, 0.5) 0px -1px 1px -0.5px inset",
+          "boxShadow": "rgba(23, 27, 34, 0.12) 0px 0px 0px 0.5px",
           "backdropFilter": "none",
           "columnGap": "16px",
           "fontSize": "16px",
@@ -4840,7 +4840,7 @@
             "part": "modalTitle",
             "parts": null,
             "tag": "h3",
-            "line": 548,
+            "line": 547,
             "text": "프로젝트를 삭제할까요?",
             "values": {
               "height": "24px",
@@ -4889,7 +4889,7 @@
             "part": "modalDescription",
             "parts": null,
             "tag": "p",
-            "line": 523,
+            "line": 522,
             "text": "삭제하면 되돌릴 수 없습니다.",
             "values": {
               "height": "21px",
@@ -4938,7 +4938,7 @@
             "part": "modalActions",
             "parts": null,
             "tag": "div",
-            "line": 343,
+            "line": 342,
             "text": "",
             "values": {
               "height": "44px",
@@ -4986,7 +4986,7 @@
                 "part": "modalCancel",
                 "parts": null,
                 "tag": "button",
-                "line": 458,
+                "line": 457,
                 "text": "취소",
                 "values": {
                   "height": "44px",
@@ -5005,7 +5005,7 @@
                   "backgroundColor": "rgba(250, 250, 250, 0.1)",
                   "backgroundImage": "none",
                   "color": "rgb(250, 250, 250)",
-                  "boxShadow": "rgba(0, 0, 0, 0.5) 0px 0px 0px 0.5px, rgba(0, 0, 0, 0.8) 1.25px 0px 0px -0.75px, rgba(0, 0, 0, 0.8) -1.25px 0px 0px -0.75px, rgba(255, 255, 255, 0.5) 0px 1px 1px -0.5px inset, rgba(255, 255, 255, 0.5) 0px -1px 1px -0.5px inset",
+                  "boxShadow": "rgba(23, 27, 34, 0.12) 0px 0px 0px 0.5px",
                   "backdropFilter": "none",
                   "columnGap": "normal",
                   "fontSize": "14px",
@@ -5035,7 +5035,7 @@
                 "part": "modalConfirm",
                 "parts": null,
                 "tag": "button",
-                "line": 490,
+                "line": 489,
                 "text": "삭제",
                 "values": {
                   "height": "44px",
@@ -5250,7 +5250,7 @@
         "part": "emptyState",
         "parts": null,
         "tag": "section",
-        "line": 697,
+        "line": 686,
         "text": "",
         "values": {
           "height": "360px",
@@ -5298,7 +5298,7 @@
             "part": "emptyTitle",
             "parts": null,
             "tag": "h2",
-            "line": 709,
+            "line": 698,
             "text": "아직 프로젝트가 없어요",
             "values": {
               "height": "30px",
@@ -5347,7 +5347,7 @@
             "part": "emptyDescription",
             "parts": null,
             "tag": "p",
-            "line": 690,
+            "line": 679,
             "text": "첫 영상을 만들어 보세요.",
             "values": {
               "height": "24px",
@@ -5511,7 +5511,7 @@
         "part": "inspectorEmptyState",
         "parts": null,
         "tag": "div",
-        "line": 876,
+        "line": 873,
         "text": "",
         "values": {
           "height": "200px",
@@ -5559,7 +5559,7 @@
             "part": "inspectorEmptyStateText",
             "parts": null,
             "tag": "span",
-            "line": 885,
+            "line": 882,
             "text": "아직 선택된 항목이 없습니다",
             "values": {
               "height": "21px",
@@ -5611,13 +5611,13 @@
       "id": "gnb-sidebar/brandRow",
       "kind": "gnb-sidebar",
       "label": "사이드바 브랜드 행 — 로고 히트 영역",
-      "jsx": "apps/web/components/navigation/Gnb.tsx:4378-4424",
+      "jsx": "apps/web/components/navigation/Gnb.tsx:4368-4414",
       "file": "apps/web/components/navigation/Gnb.tsx",
       "tree": {
         "part": "sidebarHeaderRow",
         "parts": null,
         "tag": "div",
-        "line": 1770,
+        "line": 1763,
         "text": "",
         "values": {
           "height": "40px",
@@ -5665,7 +5665,7 @@
             "part": "sidebarLogoHit",
             "parts": null,
             "tag": "a",
-            "line": 1787,
+            "line": 1780,
             "text": "",
             "values": {
               "height": "40px",
@@ -5713,7 +5713,7 @@
                 "part": "sidebarLogoRail",
                 "parts": null,
                 "tag": "div",
-                "line": 1819,
+                "line": 1812,
                 "text": "",
                 "values": {
                   "height": "28px",
@@ -5761,7 +5761,7 @@
                     "part": "sidebarBrandCrop",
                     "parts": null,
                     "tag": "div",
-                    "line": 1755,
+                    "line": 1748,
                     "text": "",
                     "values": {
                       "height": "28px",
@@ -5809,7 +5809,7 @@
                         "part": "logo",
                         "parts": null,
                         "tag": "img",
-                        "line": 262,
+                        "line": 261,
                         "text": "",
                         "values": {
                           "height": "28px",
@@ -5867,13 +5867,13 @@
       "id": "gnb-sidebar/createCompoundRow",
       "kind": "gnb-sidebar",
       "label": "사이드바 만들기 복합 항목 — 메뉴 줄 + 새 프로젝트 추가 버튼",
-      "jsx": "apps/web/components/navigation/Gnb.tsx:4643-4691",
+      "jsx": "apps/web/components/navigation/Gnb.tsx:4633-4691",
       "file": "apps/web/components/navigation/Gnb.tsx",
       "tree": {
         "part": "menuLink",
         "parts": null,
         "tag": "div",
-        "line": 456,
+        "line": 453,
         "text": "",
         "values": {
           "height": "32px",
@@ -5921,7 +5921,7 @@
             "part": "menuSidebarCreateNavPart",
             "parts": null,
             "tag": "button",
-            "line": 717,
+            "line": 714,
             "text": "",
             "values": {
               "height": "32px",
@@ -5969,7 +5969,7 @@
                 "part": "menuLinkInner",
                 "parts": null,
                 "tag": "span",
-                "line": 582,
+                "line": 579,
                 "text": "",
                 "values": {
                   "height": "21px",
@@ -6017,7 +6017,7 @@
                     "part": "menuLinkIconMask",
                     "parts": null,
                     "tag": "span",
-                    "line": 564,
+                    "line": 561,
                     "text": "",
                     "values": {
                       "height": "20px",
@@ -6066,7 +6066,7 @@
                     "part": "menuLinkLabel",
                     "parts": null,
                     "tag": "span",
-                    "line": 597,
+                    "line": 594,
                     "text": "노드 캔버스",
                     "values": {
                       "height": "21px",
@@ -6119,7 +6119,7 @@
             "part": "menuSidebarCreateAddonInset",
             "parts": null,
             "tag": "button",
-            "line": 683,
+            "line": 680,
             "text": "",
             "values": {
               "height": "24px",
@@ -6171,13 +6171,13 @@
       "id": "gnb-sidebar/menuLinkRow",
       "kind": "gnb-sidebar",
       "label": "사이드바 메뉴 항목 한 줄 — 아이콘·라벨 (쉬는 상태)",
-      "jsx": "apps/web/components/navigation/Gnb.tsx:4808-4844",
+      "jsx": "apps/web/components/navigation/Gnb.tsx:4798-4834",
       "file": "apps/web/components/navigation/Gnb.tsx",
       "tree": {
         "part": "menuLink",
         "parts": null,
         "tag": "a",
-        "line": 456,
+        "line": 453,
         "text": "",
         "values": {
           "height": "32px",
@@ -6225,7 +6225,7 @@
             "part": "menuLinkInner",
             "parts": null,
             "tag": "span",
-            "line": 582,
+            "line": 579,
             "text": "",
             "values": {
               "height": "21px",
@@ -6273,7 +6273,7 @@
                 "part": "menuLinkIconMask",
                 "parts": null,
                 "tag": "span",
-                "line": 564,
+                "line": 561,
                 "text": "",
                 "values": {
                   "height": "20px",
@@ -6322,7 +6322,7 @@
                 "part": "menuLinkLabel",
                 "parts": null,
                 "tag": "span",
-                "line": 597,
+                "line": 594,
                 "text": "홈",
                 "values": {
                   "height": "21px",
@@ -6376,13 +6376,13 @@
       "id": "gnb-sidebar/profileTrigger",
       "kind": "gnb-sidebar",
       "label": "프로필 트리거 — 크레딧 링을 두른 아바타 버튼",
-      "jsx": "apps/web/components/navigation/Gnb.tsx:5312-5337",
+      "jsx": "apps/web/components/navigation/Gnb.tsx:5302-5327",
       "file": "apps/web/components/navigation/Gnb.tsx",
       "tree": {
         "part": "profileTrigger",
         "parts": null,
         "tag": "button",
-        "line": 1362,
+        "line": 1356,
         "text": "",
         "values": {
           "height": "36px",
@@ -6430,7 +6430,7 @@
             "part": "profileImage",
             "parts": null,
             "tag": "img",
-            "line": 963,
+            "line": 959,
             "text": "",
             "values": {
               "height": "28px",
@@ -6482,13 +6482,13 @@
       "id": "gnb-sidebar/rail",
       "kind": "gnb-sidebar",
       "label": "GNB 사이드바 레일 — 메뉴 기둥과 분석 아이브로우",
-      "jsx": "apps/web/components/navigation/Gnb.tsx:4466-4852",
+      "jsx": "apps/web/components/navigation/Gnb.tsx:4456-4842",
       "file": "apps/web/components/navigation/Gnb.tsx",
       "tree": {
         "part": "menuSidebarOuter",
         "parts": null,
         "tag": "div",
-        "line": 764,
+        "line": 761,
         "text": "",
         "values": {
           "height": "34px",
@@ -6536,7 +6536,7 @@
             "part": "menuSidebar",
             "parts": null,
             "tag": "ul",
-            "line": 633,
+            "line": 630,
             "text": "",
             "values": {
               "height": "34px",
@@ -6584,7 +6584,7 @@
                 "part": "menuSidebarEyebrowRow",
                 "parts": null,
                 "tag": "li",
-                "line": 744,
+                "line": 741,
                 "text": "",
                 "values": {
                   "height": "34px",
@@ -6632,7 +6632,7 @@
                     "part": "menuSidebarEyebrow",
                     "parts": null,
                     "tag": "span",
-                    "line": 737,
+                    "line": 734,
                     "text": "분석",
                     "values": {
                       "height": "18px",
@@ -6694,7 +6694,7 @@
         "part": "archiveMoreButton",
         "parts": null,
         "tag": "button",
-        "line": 167,
+        "line": 159,
         "text": "",
         "values": {
           "height": "32px",
@@ -6744,7 +6744,7 @@
       "id": "icon-button/gnbProjectOptions",
       "kind": "icon-button",
       "label": "GNB 프로젝트 헤더 옵션 버튼",
-      "jsx": "apps/web/components/navigation/Gnb.tsx:4253-4280",
+      "jsx": "apps/web/components/navigation/Gnb.tsx:4243-4270",
       "file": "apps/web/components/navigation/Gnb.tsx",
       "tree": {
         "part": "iconButton",
@@ -6769,7 +6769,7 @@
           "backgroundColor": "rgba(250, 250, 250, 0.1)",
           "backgroundImage": "none",
           "color": "rgba(250, 250, 250, 0.82)",
-          "boxShadow": "rgba(250, 250, 250, 0.25) 0px 1px 1px 0px inset, rgba(250, 250, 250, 0.25) 0px -1px 1px 0px inset",
+          "boxShadow": "none",
           "backdropFilter": "blur(10px)",
           "columnGap": "normal",
           "fontSize": "16px",
@@ -6806,7 +6806,7 @@
         "part": "historyMoreButton",
         "parts": null,
         "tag": "button",
-        "line": 916,
+        "line": 906,
         "text": "",
         "values": {
           "height": "32px",
@@ -7074,7 +7074,7 @@
         "part": "overlayDeleteBtn",
         "parts": null,
         "tag": "button",
-        "line": 1526,
+        "line": 1519,
         "text": "",
         "values": {
           "height": "28px",
@@ -7122,7 +7122,7 @@
             "part": "overlayDeleteBtnGlyph",
             "parts": null,
             "tag": "svg",
-            "line": 1554,
+            "line": 1547,
             "text": "",
             "values": {
               "height": "14px",
@@ -8581,7 +8581,7 @@
           "backgroundColor": "rgba(0, 0, 0, 0)",
           "backgroundImage": "none",
           "color": "rgb(250, 250, 250)",
-          "boxShadow": "rgba(0, 0, 0, 0.5) 0px 0px 0px 0.5px, rgba(0, 0, 0, 0.8) 1.25px 0px 0px -0.75px, rgba(0, 0, 0, 0.8) -1.25px 0px 0px -0.75px, rgba(255, 255, 255, 0.5) 0px 1px 1px -0.5px inset, rgba(255, 255, 255, 0.5) 0px -1px 1px -0.5px inset",
+          "boxShadow": "rgba(23, 27, 34, 0.12) 0px 0px 0px 0.5px",
           "backdropFilter": "none",
           "columnGap": "6px",
           "fontSize": "16px",
@@ -8678,7 +8678,7 @@
               "backgroundColor": "rgba(0, 0, 0, 0)",
               "backgroundImage": "none",
               "color": "rgb(250, 250, 250)",
-              "boxShadow": "rgba(0, 0, 0, 0.5) 0px 0px 0px 0.5px, rgba(0, 0, 0, 0.8) 1.25px 0px 0px -0.75px, rgba(0, 0, 0, 0.8) -1.25px 0px 0px -0.75px, rgba(255, 255, 255, 0.5) 0px 1px 1px -0.5px inset, rgba(255, 255, 255, 0.5) 0px -1px 1px -0.5px inset",
+              "boxShadow": "rgba(23, 27, 34, 0.12) 0px 0px 0px 0.5px",
               "backdropFilter": "none",
               "columnGap": "8px",
               "fontSize": "16px",
@@ -9331,7 +9331,7 @@
           "backgroundColor": "rgba(0, 0, 0, 0)",
           "backgroundImage": "none",
           "color": "rgb(250, 250, 250)",
-          "boxShadow": "rgba(0, 0, 0, 0.5) 0px 0px 0px 0.5px, rgba(0, 0, 0, 0.8) 1.25px 0px 0px -0.75px, rgba(0, 0, 0, 0.8) -1.25px 0px 0px -0.75px, rgba(255, 255, 255, 0.5) 0px 1px 1px -0.5px inset, rgba(255, 255, 255, 0.5) 0px -1px 1px -0.5px inset",
+          "boxShadow": "rgba(23, 27, 34, 0.12) 0px 0px 0px 0.5px",
           "backdropFilter": "none",
           "columnGap": "6px",
           "fontSize": "16px",
@@ -9428,7 +9428,7 @@
               "backgroundColor": "rgba(0, 0, 0, 0)",
               "backgroundImage": "none",
               "color": "rgb(250, 250, 250)",
-              "boxShadow": "rgba(0, 0, 0, 0.5) 0px 0px 0px 0.5px, rgba(0, 0, 0, 0.8) 1.25px 0px 0px -0.75px, rgba(0, 0, 0, 0.8) -1.25px 0px 0px -0.75px, rgba(255, 255, 255, 0.5) 0px 1px 1px -0.5px inset, rgba(255, 255, 255, 0.5) 0px -1px 1px -0.5px inset",
+              "boxShadow": "rgba(23, 27, 34, 0.12) 0px 0px 0px 0.5px",
               "backdropFilter": "none",
               "columnGap": "12px",
               "fontSize": "16px",
@@ -10353,13 +10353,13 @@
       "id": "insight-card/igOverviewKpi",
       "kind": "insight-card",
       "label": "인스타그램 개요 · KPI 카드",
-      "jsx": "apps/web/components/scenes/InstagramAnalyticsScene.tsx:1233-1265",
+      "jsx": "apps/web/components/scenes/InstagramAnalyticsScene.tsx:1232-1264",
       "file": "apps/web/components/scenes/InstagramAnalyticsScene.tsx",
       "tree": {
         "part": "REPORT_KPI_CARD",
         "parts": null,
         "tag": "div",
-        "line": 491,
+        "line": 490,
         "text": "",
         "values": {
           "height": "150.594px",
@@ -10378,7 +10378,7 @@
           "backgroundColor": "rgba(0, 0, 0, 0)",
           "backgroundImage": "none",
           "color": "rgb(250, 250, 250)",
-          "boxShadow": "rgba(0, 0, 0, 0.5) 0px 0px 0px 0.5px, rgba(0, 0, 0, 0.8) 1.25px 0px 0px -0.75px, rgba(0, 0, 0, 0.8) -1.25px 0px 0px -0.75px, rgba(255, 255, 255, 0.5) 0px 1px 1px -0.5px inset, rgba(255, 255, 255, 0.5) 0px -1px 1px -0.5px inset",
+          "boxShadow": "rgba(23, 27, 34, 0.12) 0px 0px 0px 0.5px",
           "backdropFilter": "none",
           "columnGap": "8px",
           "fontSize": "16px",
@@ -10407,7 +10407,7 @@
             "part": "KPI_CARD_HEADER",
             "parts": null,
             "tag": "div",
-            "line": 497,
+            "line": 496,
             "text": "",
             "values": {
               "height": "29px",
@@ -10455,7 +10455,7 @@
                 "part": "CONTENT_TITLE",
                 "parts": null,
                 "tag": "span",
-                "line": 506,
+                "line": 505,
                 "text": "조회수",
                 "values": {
                   "height": "21px",
@@ -10506,7 +10506,7 @@
             "part": "KPI_CARD_INNER",
             "parts": null,
             "tag": "div",
-            "line": 498,
+            "line": 497,
             "text": "",
             "values": {
               "height": "101.594px",
@@ -10525,7 +10525,7 @@
               "backgroundColor": "rgba(0, 0, 0, 0)",
               "backgroundImage": "none",
               "color": "rgb(250, 250, 250)",
-              "boxShadow": "rgba(0, 0, 0, 0.5) 0px 0px 0px 0.5px, rgba(0, 0, 0, 0.8) 1.25px 0px 0px -0.75px, rgba(0, 0, 0, 0.8) -1.25px 0px 0px -0.75px, rgba(255, 255, 255, 0.5) 0px 1px 1px -0.5px inset, rgba(255, 255, 255, 0.5) 0px -1px 1px -0.5px inset",
+              "boxShadow": "rgba(23, 27, 34, 0.12) 0px 0px 0px 0.5px",
               "backdropFilter": "none",
               "columnGap": "12px",
               "fontSize": "16px",
@@ -10554,7 +10554,7 @@
                 "part": "KPI_CARD_INNER_TEXT",
                 "parts": null,
                 "tag": "div",
-                "line": 503,
+                "line": 502,
                 "text": "",
                 "values": {
                   "height": "73.5938px",
@@ -10602,7 +10602,7 @@
                     "part": "REPORT_KPI_CARD_VALUE",
                     "parts": null,
                     "tag": "span",
-                    "line": 505,
+                    "line": 504,
                     "text": "12.4만",
                     "values": {
                       "height": "48.5938px",
@@ -10651,7 +10651,7 @@
                     "part": "reportChangePill",
                     "parts": null,
                     "tag": "span",
-                    "line": 515,
+                    "line": 514,
                     "text": "+12.5%",
                     "values": {
                       "height": "19px",
@@ -10702,7 +10702,7 @@
                 "part": "KPI_CARD_SPARK",
                 "parts": null,
                 "tag": "div",
-                "line": 504,
+                "line": 503,
                 "text": "",
                 "values": {
                   "height": "46px",
@@ -11135,7 +11135,7 @@
           "backgroundColor": "rgba(23, 27, 34, 0.88)",
           "backgroundImage": "none",
           "color": "rgb(250, 250, 250)",
-          "boxShadow": "rgba(0, 0, 0, 0.04) 0px 8px 15px 0px, rgba(0, 0, 0, 0.5) 0px 0px 0px 0.5px, rgba(0, 0, 0, 0.8) 1.25px 0px 0px -0.75px, rgba(0, 0, 0, 0.8) -1.25px 0px 0px -0.75px, rgba(255, 255, 255, 0.5) 0px 1px 1px -0.5px inset, rgba(255, 255, 255, 0.5) 0px -1px 1px -0.5px inset",
+          "boxShadow": "rgba(0, 0, 0, 0.04) 0px 8px 15px 0px, rgba(23, 27, 34, 0.12) 0px 0px 0px 0.5px",
           "backdropFilter": "blur(20px) saturate(1.5)",
           "columnGap": "2px",
           "fontSize": "16px",
@@ -11835,7 +11835,7 @@
           "backgroundColor": "rgb(49, 54, 64)",
           "backgroundImage": "none",
           "color": "rgba(250, 250, 250, 0.96)",
-          "boxShadow": "rgba(0, 0, 0, 0.22) 0px 4px 12px 0px, rgba(0, 0, 0, 0.5) 0px 0px 0px 0.5px, rgba(0, 0, 0, 0.8) 1.25px 0px 0px -0.75px, rgba(0, 0, 0, 0.8) -1.25px 0px 0px -0.75px, rgba(255, 255, 255, 0.5) 0px 1px 1px -0.5px inset, rgba(255, 255, 255, 0.5) 0px -1px 1px -0.5px inset",
+          "boxShadow": "rgba(0, 0, 0, 0.22) 0px 4px 12px 0px, rgba(23, 27, 34, 0.12) 0px 0px 0px 0.5px",
           "backdropFilter": "none",
           "columnGap": "normal",
           "fontSize": "16px",
@@ -12759,13 +12759,13 @@
       "id": "progress-bar/compositeSegmentPreview",
       "kind": "progress-bar",
       "label": "합본 미리보기 재생 진행바 — 트랙·게이지·핸들",
-      "jsx": "apps/web/components/scenes/HighlightProjectScene.tsx:446-457",
+      "jsx": "apps/web/components/scenes/HighlightProjectScene.tsx:444-455",
       "file": "apps/web/components/scenes/highlightSceneStyles.ts",
       "tree": {
         "part": "compositeProgressBar",
         "parts": null,
         "tag": "div",
-        "line": 527,
+        "line": 525,
         "text": "",
         "values": {
           "height": "20px",
@@ -12813,7 +12813,7 @@
             "part": "compositeProgressTrack",
             "parts": null,
             "tag": "div",
-            "line": 560,
+            "line": 558,
             "text": "",
             "values": {
               "height": "3px",
@@ -12861,7 +12861,7 @@
                 "part": "compositeProgressFill",
                 "parts": null,
                 "tag": "div",
-                "line": 538,
+                "line": 536,
                 "text": "",
                 "values": {
                   "height": "3px",
@@ -12912,7 +12912,7 @@
             "part": "compositeProgressThumb",
             "parts": null,
             "tag": "div",
-            "line": 546,
+            "line": 544,
             "text": "",
             "values": {
               "height": "12px",
@@ -13169,13 +13169,13 @@
       "id": "progress-bar/highlightUpload",
       "kind": "progress-bar",
       "label": "하이라이트 업로드 진행바",
-      "jsx": "apps/web/components/scenes/HighlightProjectScene.tsx:2652-2657",
+      "jsx": "apps/web/components/scenes/HighlightProjectScene.tsx:2650-2655",
       "file": "apps/web/components/scenes/highlightSceneStyles.ts",
       "tree": {
         "part": "progressBarTrack",
         "parts": null,
         "tag": "div",
-        "line": 1185,
+        "line": 1174,
         "text": "",
         "values": {
           "height": "6px",
@@ -13223,7 +13223,7 @@
             "part": "progressBarFill",
             "parts": null,
             "tag": "div",
-            "line": 1177,
+            "line": 1166,
             "text": "",
             "values": {
               "height": "6px",
@@ -13275,13 +13275,13 @@
       "id": "progress-ring/gnbTopBar",
       "kind": "progress-ring",
       "label": "GNB 상단 바 프로필 크레딧 링 — 버튼의 ::after가 링을 그린다",
-      "jsx": "apps/web/components/navigation/Gnb.tsx:5312-5337",
+      "jsx": "apps/web/components/navigation/Gnb.tsx:5302-5327",
       "file": "apps/web/components/navigation/Gnb.tsx",
       "tree": {
         "part": "profileTrigger",
         "parts": null,
         "tag": "button",
-        "line": 1362,
+        "line": 1356,
         "text": "",
         "values": {
           "height": "36px",
@@ -13329,7 +13329,7 @@
             "part": "profileImage",
             "parts": null,
             "tag": "img",
-            "line": 963,
+            "line": 959,
             "text": "",
             "values": {
               "height": "28px",
@@ -13381,13 +13381,13 @@
       "id": "progress-ring/projectHeaderSlot",
       "kind": "progress-ring",
       "label": "프로젝트 헤더 프로필 링 — 슬롯 훅이 아바타를 줄인다",
-      "jsx": "apps/web/components/navigation/Gnb.tsx:3984-4009",
+      "jsx": "apps/web/components/navigation/Gnb.tsx:3974-3999",
       "file": "apps/web/components/navigation/Gnb.tsx",
       "tree": {
         "part": "profileTrigger",
         "parts": null,
         "tag": "button",
-        "line": 1362,
+        "line": 1356,
         "text": "",
         "values": {
           "height": "32px",
@@ -13435,7 +13435,7 @@
             "part": "profileImage",
             "parts": null,
             "tag": "img",
-            "line": 963,
+            "line": 959,
             "text": "",
             "values": {
               "height": "24px",
@@ -13512,7 +13512,7 @@
           "backgroundColor": "rgba(0, 0, 0, 0)",
           "backgroundImage": "none",
           "color": "rgb(250, 250, 250)",
-          "boxShadow": "rgba(0, 0, 0, 0.5) 0px 0px 0px 0.5px, rgba(0, 0, 0, 0.8) 1.25px 0px 0px -0.75px, rgba(0, 0, 0, 0.8) -1.25px 0px 0px -0.75px, rgba(255, 255, 255, 0.5) 0px 1px 1px -0.5px inset, rgba(255, 255, 255, 0.5) 0px -1px 1px -0.5px inset",
+          "boxShadow": "rgba(23, 27, 34, 0.12) 0px 0px 0px 0.5px",
           "backdropFilter": "none",
           "columnGap": "12px",
           "fontSize": "16px",
@@ -13541,7 +13541,7 @@
             "part": "archivePreview",
             "parts": null,
             "tag": "div",
-            "line": 188,
+            "line": 179,
             "text": "",
             "values": {
               "height": "84px",
@@ -13560,7 +13560,7 @@
               "backgroundColor": "rgb(23, 27, 34)",
               "backgroundImage": "none",
               "color": "rgb(250, 250, 250)",
-              "boxShadow": "rgba(250, 250, 250, 0.25) 0px 1px 1px 0px inset, rgba(250, 250, 250, 0.25) 0px -1px 1px 0px inset",
+              "boxShadow": "none",
               "backdropFilter": "none",
               "columnGap": "normal",
               "fontSize": "16px",
@@ -13589,7 +13589,7 @@
                 "part": "archivePreviewClip",
                 "parts": null,
                 "tag": "div",
-                "line": 205,
+                "line": 194,
                 "text": "",
                 "values": {
                   "height": "84px",
@@ -13637,7 +13637,7 @@
                     "part": "archivePreviewPlaceholder",
                     "parts": null,
                     "tag": "div",
-                    "line": 260,
+                    "line": 249,
                     "text": "",
                     "values": {
                       "height": "84px",
@@ -13685,7 +13685,7 @@
                         "part": "cardDraftThumbnail",
                         "parts": null,
                         "tag": "div",
-                        "line": 612,
+                        "line": 601,
                         "text": "",
                         "values": {
                           "height": "84px",
@@ -13738,7 +13738,7 @@
                 "part": "archivePreviewTitleOverlay",
                 "parts": null,
                 "tag": "div",
-                "line": 301,
+                "line": 290,
                 "text": "",
                 "values": {
                   "height": "32px",
@@ -13786,7 +13786,7 @@
                     "part": "archivePreviewTitleOverlayInner",
                     "parts": null,
                     "tag": "div",
-                    "line": 325,
+                    "line": 314,
                     "text": "",
                     "values": {
                       "height": "60.7812px",
@@ -13834,7 +13834,7 @@
                         "part": "archivePreviewEyebrow",
                         "parts": null,
                         "tag": "span",
-                        "line": 214,
+                        "line": 203,
                         "text": "노드 캔버스",
                         "values": {
                           "height": "16.7969px",
@@ -13883,7 +13883,7 @@
                         "part": "archivePreviewTitleOverlayText",
                         "parts": null,
                         "tag": "span",
-                        "line": 335,
+                        "line": 324,
                         "text": "여름 캠페인 키비주얼",
                         "values": {
                           "height": "19.1875px",
@@ -13932,7 +13932,7 @@
                         "part": "archivePreviewLastEdited",
                         "parts": null,
                         "tag": "span",
-                        "line": 240,
+                        "line": 229,
                         "text": "3일 전 편집",
                         "values": {
                           "height": "16.7969px",
@@ -13985,7 +13985,7 @@
                 "part": "archiveMenuAnchorInThumbnail",
                 "parts": null,
                 "tag": "div",
-                "line": 159,
+                "line": 151,
                 "text": "",
                 "values": {
                   "height": "39px",
@@ -14033,7 +14033,7 @@
                     "part": "archiveMoreButton",
                     "parts": null,
                     "tag": "button",
-                    "line": 167,
+                    "line": 159,
                     "text": "",
                     "values": {
                       "height": "32px",
@@ -14082,7 +14082,7 @@
                     "part": "archiveDropdown",
                     "parts": null,
                     "tag": "div",
-                    "line": 57,
+                    "line": 49,
                     "text": "",
                     "values": {
                       "height": "127px",
@@ -14101,7 +14101,7 @@
                       "backgroundColor": "rgb(49, 54, 64)",
                       "backgroundImage": "none",
                       "color": "rgb(250, 250, 250)",
-                      "boxShadow": "rgba(0, 0, 0, 0.04) 0px 8px 15px 0px, rgba(0, 0, 0, 0.5) 0px 0px 0px 0.5px, rgba(0, 0, 0, 0.8) 1.25px 0px 0px -0.75px, rgba(0, 0, 0, 0.8) -1.25px 0px 0px -0.75px, rgba(255, 255, 255, 0.5) 0px 1px 1px -0.5px inset, rgba(255, 255, 255, 0.5) 0px -1px 1px -0.5px inset",
+                      "boxShadow": "rgba(0, 0, 0, 0.04) 0px 8px 15px 0px, rgba(23, 27, 34, 0.12) 0px 0px 0px 0.5px",
                       "backdropFilter": "none",
                       "columnGap": "2px",
                       "fontSize": "16px",
@@ -14130,7 +14130,7 @@
                         "part": "archiveDropdownItem",
                         "parts": null,
                         "tag": "button",
-                        "line": 86,
+                        "line": 78,
                         "text": "새 탭에서 열기",
                         "values": {
                           "height": "37px",
@@ -14179,7 +14179,7 @@
                         "part": "archiveDropdownItem",
                         "parts": null,
                         "tag": "button",
-                        "line": 86,
+                        "line": 78,
                         "text": "이름 바꾸기",
                         "values": {
                           "height": "37px",
@@ -14228,7 +14228,7 @@
                         "part": "archiveDropdownItem",
                         "parts": null,
                         "tag": "button",
-                        "line": 86,
+                        "line": 78,
                         "text": "삭제",
                         "values": {
                           "height": "37px",
@@ -14286,13 +14286,13 @@
       "id": "project-card/nodeCanvasHome",
       "kind": "project-card",
       "label": "노드캔버스 홈 · 프로젝트 카드 — 아이브로우가 없다",
-      "jsx": "apps/web/components/scenes/NodeCanvasHomeScene.tsx:1361-1601",
+      "jsx": "apps/web/components/scenes/NodeCanvasHomeScene.tsx:1355-1595",
       "file": "apps/web/components/scenes/NodeCanvasHomeScene.tsx",
       "tree": {
         "part": "ARCHIVE_CARD",
         "parts": null,
         "tag": "div",
-        "line": 237,
+        "line": 239,
         "text": "",
         "values": {
           "height": "84px",
@@ -14311,7 +14311,7 @@
           "backgroundColor": "rgba(0, 0, 0, 0)",
           "backgroundImage": "none",
           "color": "rgb(250, 250, 250)",
-          "boxShadow": "rgba(0, 0, 0, 0.5) 0px 0px 0px 0.5px, rgba(0, 0, 0, 0.8) 1.25px 0px 0px -0.75px, rgba(0, 0, 0, 0.8) -1.25px 0px 0px -0.75px, rgba(255, 255, 255, 0.5) 0px 1px 1px -0.5px inset, rgba(255, 255, 255, 0.5) 0px -1px 1px -0.5px inset",
+          "boxShadow": "rgba(23, 27, 34, 0.12) 0px 0px 0px 0.5px",
           "backdropFilter": "none",
           "columnGap": "12px",
           "fontSize": "16px",
@@ -14340,7 +14340,7 @@
             "part": "ARCHIVE_PREVIEW",
             "parts": null,
             "tag": "div",
-            "line": 269,
+            "line": 267,
             "text": "",
             "values": {
               "height": "84px",
@@ -14359,7 +14359,7 @@
               "backgroundColor": "rgb(23, 27, 34)",
               "backgroundImage": "none",
               "color": "rgb(250, 250, 250)",
-              "boxShadow": "rgba(250, 250, 250, 0.25) 0px 1px 1px 0px inset, rgba(250, 250, 250, 0.25) 0px -1px 1px 0px inset",
+              "boxShadow": "none",
               "backdropFilter": "none",
               "columnGap": "normal",
               "fontSize": "16px",
@@ -14388,7 +14388,7 @@
                 "part": "ARCHIVE_PREVIEW_CLIP",
                 "parts": null,
                 "tag": "div",
-                "line": 284,
+                "line": 280,
                 "text": "",
                 "values": {
                   "height": "84px",
@@ -14436,7 +14436,7 @@
                     "part": "ARCHIVE_PREVIEW_PLACEHOLDER",
                     "parts": null,
                     "tag": "div",
-                    "line": 292,
+                    "line": 288,
                     "text": "",
                     "values": {
                       "height": "84px",
@@ -14484,7 +14484,7 @@
                         "part": "CARD_DRAFT_WORDMARK_CANVAS",
                         "parts": null,
                         "tag": "div",
-                        "line": 309,
+                        "line": 305,
                         "text": "",
                         "values": {
                           "height": "84px",
@@ -14537,7 +14537,7 @@
                 "part": "ARCHIVE_PREVIEW_TITLE_OVERLAY",
                 "parts": null,
                 "tag": "div",
-                "line": 330,
+                "line": 326,
                 "text": "",
                 "values": {
                   "height": "32px",
@@ -14585,7 +14585,7 @@
                     "part": "ARCHIVE_PREVIEW_TITLE_OVERLAY_INNER",
                     "parts": null,
                     "tag": "div",
-                    "line": 341,
+                    "line": 337,
                     "text": "",
                     "values": {
                       "height": "39.9844px",
@@ -14633,7 +14633,7 @@
                         "part": "ARCHIVE_PREVIEW_TITLE_OVERLAY_TEXT",
                         "parts": null,
                         "tag": "span",
-                        "line": 348,
+                        "line": 344,
                         "text": "여름 캠페인 키비주얼",
                         "values": {
                           "height": "19.1875px",
@@ -14682,7 +14682,7 @@
                         "part": "ARCHIVE_PREVIEW_LAST_EDITED",
                         "parts": null,
                         "tag": "span",
-                        "line": 365,
+                        "line": 361,
                         "text": "3일 전 편집",
                         "values": {
                           "height": "16.7969px",
@@ -14735,7 +14735,7 @@
                 "part": "ARCHIVE_MENU_ANCHOR_IN_THUMBNAIL",
                 "parts": null,
                 "tag": "div",
-                "line": 375,
+                "line": 371,
                 "text": "",
                 "values": {
                   "height": "39px",
@@ -14783,7 +14783,7 @@
                     "part": "ARCHIVE_MORE_BUTTON",
                     "parts": null,
                     "tag": "button",
-                    "line": 379,
+                    "line": 375,
                     "text": "",
                     "values": {
                       "height": "32px",
@@ -14832,7 +14832,7 @@
                     "part": "ARCHIVE_DROPDOWN",
                     "parts": null,
                     "tag": "div",
-                    "line": 393,
+                    "line": 388,
                     "text": "",
                     "values": {
                       "height": "127px",
@@ -14851,7 +14851,7 @@
                       "backgroundColor": "rgb(49, 54, 64)",
                       "backgroundImage": "none",
                       "color": "rgb(250, 250, 250)",
-                      "boxShadow": "rgba(0, 0, 0, 0.04) 0px 8px 15px 0px, rgba(0, 0, 0, 0.5) 0px 0px 0px 0.5px, rgba(0, 0, 0, 0.8) 1.25px 0px 0px -0.75px, rgba(0, 0, 0, 0.8) -1.25px 0px 0px -0.75px, rgba(255, 255, 255, 0.5) 0px 1px 1px -0.5px inset, rgba(255, 255, 255, 0.5) 0px -1px 1px -0.5px inset",
+                      "boxShadow": "rgba(0, 0, 0, 0.04) 0px 8px 15px 0px, rgba(23, 27, 34, 0.12) 0px 0px 0px 0.5px",
                       "backdropFilter": "none",
                       "columnGap": "2px",
                       "fontSize": "16px",
@@ -14880,7 +14880,7 @@
                         "part": "ARCHIVE_DROPDOWN_ITEM_BASE",
                         "parts": null,
                         "tag": "button",
-                        "line": 419,
+                        "line": 414,
                         "text": "새 탭에서 열기",
                         "values": {
                           "height": "37px",
@@ -14929,7 +14929,7 @@
                         "part": "ARCHIVE_DROPDOWN_ITEM_BASE",
                         "parts": null,
                         "tag": "button",
-                        "line": 419,
+                        "line": 414,
                         "text": "이름 바꾸기",
                         "values": {
                           "height": "37px",
@@ -14978,7 +14978,7 @@
                         "part": "ARCHIVE_DROPDOWN_ITEM_BASE",
                         "parts": null,
                         "tag": "button",
-                        "line": 419,
+                        "line": 414,
                         "text": "삭제",
                         "values": {
                           "height": "37px",
@@ -15036,7 +15036,7 @@
       "id": "segmented-control/instagramAnalytics",
       "kind": "segmented-control",
       "label": "인스타그램 분석 · 기간 선택기 (3구간)",
-      "jsx": "apps/web/components/scenes/InstagramAnalyticsScene.tsx:1825-1846",
+      "jsx": "apps/web/components/scenes/InstagramAnalyticsScene.tsx:1824-1845",
       "file": "apps/web/components/scenes/InstagramAnalyticsScene.tsx",
       "tree": {
         "part": "PERIOD_SELECTOR",
@@ -15061,7 +15061,7 @@
           "backgroundColor": "rgba(0, 0, 0, 0)",
           "backgroundImage": "none",
           "color": "rgb(250, 250, 250)",
-          "boxShadow": "rgba(0, 0, 0, 0.5) 0px 0px 0px 0.5px, rgba(0, 0, 0, 0.8) 1.25px 0px 0px -0.75px, rgba(0, 0, 0, 0.8) -1.25px 0px 0px -0.75px, rgba(255, 255, 255, 0.5) 0px 1px 1px -0.5px inset, rgba(255, 255, 255, 0.5) 0px -1px 1px -0.5px inset",
+          "boxShadow": "rgba(23, 27, 34, 0.12) 0px 0px 0px 0.5px",
           "backdropFilter": "none",
           "columnGap": "2px",
           "fontSize": "16px",
@@ -15109,7 +15109,7 @@
               "backgroundColor": "rgba(0, 0, 0, 0)",
               "backgroundImage": "none",
               "color": "rgb(250, 250, 250)",
-              "boxShadow": "rgba(0, 0, 0, 0.5) 0px 0px 0px 0.5px, rgba(0, 0, 0, 0.8) 1.25px 0px 0px -0.75px, rgba(0, 0, 0, 0.8) -1.25px 0px 0px -0.75px, rgba(255, 255, 255, 0.5) 0px 1px 1px -0.5px inset, rgba(255, 255, 255, 0.5) 0px -1px 1px -0.5px inset",
+              "boxShadow": "rgba(23, 27, 34, 0.12) 0px 0px 0px 0.5px",
               "backdropFilter": "none",
               "columnGap": "normal",
               "fontSize": "16px",
@@ -15289,7 +15289,7 @@
       "id": "segmented-control/youtubeAnalytics",
       "kind": "segmented-control",
       "label": "유튜브 분석 · 기간 선택기 (5구간)",
-      "jsx": "apps/web/components/scenes/YoutubeAnalyticsScene.tsx:2090-2117",
+      "jsx": "apps/web/components/scenes/YoutubeAnalyticsScene.tsx:2089-2116",
       "file": "apps/web/components/scenes/YoutubeAnalyticsScene.tsx",
       "tree": {
         "part": "PERIOD_SELECTOR",
@@ -15314,7 +15314,7 @@
           "backgroundColor": "rgba(0, 0, 0, 0)",
           "backgroundImage": "none",
           "color": "rgb(250, 250, 250)",
-          "boxShadow": "rgba(0, 0, 0, 0.5) 0px 0px 0px 0.5px, rgba(0, 0, 0, 0.8) 1.25px 0px 0px -0.75px, rgba(0, 0, 0, 0.8) -1.25px 0px 0px -0.75px, rgba(255, 255, 255, 0.5) 0px 1px 1px -0.5px inset, rgba(255, 255, 255, 0.5) 0px -1px 1px -0.5px inset",
+          "boxShadow": "rgba(23, 27, 34, 0.12) 0px 0px 0px 0.5px",
           "backdropFilter": "none",
           "columnGap": "2px",
           "fontSize": "16px",
@@ -15362,7 +15362,7 @@
               "backgroundColor": "rgba(0, 0, 0, 0)",
               "backgroundImage": "none",
               "color": "rgb(250, 250, 250)",
-              "boxShadow": "rgba(0, 0, 0, 0.5) 0px 0px 0px 0.5px, rgba(0, 0, 0, 0.8) 1.25px 0px 0px -0.75px, rgba(0, 0, 0, 0.8) -1.25px 0px 0px -0.75px, rgba(255, 255, 255, 0.5) 0px 1px 1px -0.5px inset, rgba(255, 255, 255, 0.5) 0px -1px 1px -0.5px inset",
+              "boxShadow": "rgba(23, 27, 34, 0.12) 0px 0px 0px 0.5px",
               "backdropFilter": "none",
               "columnGap": "normal",
               "fontSize": "16px",
@@ -15988,7 +15988,7 @@
                 "part": "withdrawalButton",
                 "parts": null,
                 "tag": "button",
-                "line": 1377,
+                "line": 1373,
                 "text": "환불 요청",
                 "values": {
                   "height": "24px",
@@ -16042,13 +16042,13 @@
       "id": "selectable-list-row/highlightDetailClip",
       "kind": "selectable-list-row",
       "label": "하이라이트 상세 클립 행 — 행 자체가 버튼인 단일 선택 행",
-      "jsx": "apps/web/components/scenes/HighlightProjectScene.tsx:3208-3246",
+      "jsx": "apps/web/components/scenes/HighlightProjectScene.tsx:3206-3244",
       "file": "apps/web/components/scenes/highlightSceneStyles.ts",
       "tree": {
         "part": "clipDetailListItem",
         "parts": null,
         "tag": "button",
-        "line": 146,
+        "line": 144,
         "text": "",
         "values": {
           "height": "66px",
@@ -16096,7 +16096,7 @@
             "part": "clipDetailListThumb",
             "parts": null,
             "tag": "div",
-            "line": 179,
+            "line": 177,
             "text": "",
             "values": {
               "height": "54px",
@@ -16144,7 +16144,7 @@
                 "part": "clipVideo",
                 "parts": null,
                 "tag": "video",
-                "line": 436,
+                "line": 434,
                 "text": "",
                 "values": {
                   "height": "54px",
@@ -16195,7 +16195,7 @@
             "part": "clipDetailListInfo",
             "parts": null,
             "tag": "div",
-            "line": 137,
+            "line": 135,
             "text": "",
             "values": {
               "height": "41px",
@@ -16243,7 +16243,7 @@
                 "part": "clipDetailListTitle",
                 "parts": null,
                 "tag": "p",
-                "line": 192,
+                "line": 190,
                 "text": "전반 하이라이트 모음",
                 "values": {
                   "height": "21px",
@@ -16292,7 +16292,7 @@
                 "part": "clipDetailListMeta",
                 "parts": null,
                 "tag": "span",
-                "line": 175,
+                "line": 173,
                 "text": "00:00 – 00:15 · 15s",
                 "values": {
                   "height": "18px",
@@ -16346,13 +16346,13 @@
       "id": "selectable-list-row/highlightReviewClip",
       "kind": "selectable-list-row",
       "label": "하이라이트 검수 클립 행 — 체크박스가 있는 다중 선택 행",
-      "jsx": "apps/web/components/scenes/HighlightProjectScene.tsx:2924-2963",
+      "jsx": "apps/web/components/scenes/HighlightProjectScene.tsx:2922-2961",
       "file": "apps/web/components/scenes/highlightSceneStyles.ts",
       "tree": {
         "part": "clipDetailListItem",
         "parts": null,
         "tag": "div",
-        "line": 146,
+        "line": 144,
         "text": "",
         "values": {
           "height": "110px",
@@ -16400,7 +16400,7 @@
             "part": "segmentCheckbox",
             "parts": null,
             "tag": "input",
-            "line": 1970,
+            "line": 1958,
             "text": "",
             "values": {
               "height": "28px",
@@ -16449,7 +16449,7 @@
             "part": "clipDetailListThumb",
             "parts": null,
             "tag": "div",
-            "line": 179,
+            "line": 177,
             "text": "",
             "values": {
               "height": "54px",
@@ -16497,7 +16497,7 @@
                 "part": "clipVideo",
                 "parts": null,
                 "tag": "video",
-                "line": 436,
+                "line": 434,
                 "text": "",
                 "values": {
                   "height": "54px",
@@ -16548,7 +16548,7 @@
             "part": "clipDetailListInfo",
             "parts": null,
             "tag": "div",
-            "line": 137,
+            "line": 135,
             "text": "",
             "values": {
               "height": "98px",
@@ -16596,7 +16596,7 @@
                 "part": "clipDetailListTitle",
                 "parts": null,
                 "tag": "p",
-                "line": 192,
+                "line": 190,
                 "text": "결승 3점슛이 들어간 순간",
                 "values": {
                   "height": "42px",
@@ -16645,7 +16645,7 @@
                 "part": "clipDetailListMeta",
                 "parts": null,
                 "tag": "span",
-                "line": 175,
+                "line": 173,
                 "text": "00:12 – 00:27 · 점수 92",
                 "values": {
                   "height": "54px",
@@ -17597,7 +17597,7 @@
       "id": "skeleton/channelAvatarIg",
       "kind": "skeleton",
       "label": "인스타그램 대시보드 채널 아바타 로딩 뼈대",
-      "jsx": "apps/web/components/scenes/InstagramAnalyticsScene.tsx:1773-1773",
+      "jsx": "apps/web/components/scenes/InstagramAnalyticsScene.tsx:1772-1772",
       "file": "apps/web/components/scenes/InstagramAnalyticsScene.tsx",
       "tree": {
         "part": "CHANNEL_AVATAR_SKELETON",
@@ -17653,7 +17653,7 @@
       "id": "skeleton/channelInfoIg",
       "kind": "skeleton",
       "label": "인스타그램 대시보드 채널 정보 로딩 뼈대 — SKELETON_BLOCK 막대 두 줄",
-      "jsx": "apps/web/components/scenes/InstagramAnalyticsScene.tsx:1774-1777",
+      "jsx": "apps/web/components/scenes/InstagramAnalyticsScene.tsx:1773-1776",
       "file": "apps/web/components/scenes/InstagramAnalyticsScene.tsx",
       "tree": {
         "part": "CHANNEL_INFO_SKELETON",
@@ -17808,7 +17808,7 @@
       "id": "skeleton/instagramTopBar",
       "kind": "skeleton",
       "label": "인스타그램 분석 상단바 로딩 뼈대 — 같은 상수 이름의 두 번째 벌",
-      "jsx": "apps/web/components/scenes/InstagramAnalyticsScene.tsx:1770-1778",
+      "jsx": "apps/web/components/scenes/InstagramAnalyticsScene.tsx:1769-1776",
       "file": "apps/web/components/scenes/InstagramAnalyticsScene.tsx",
       "tree": {
         "part": "DASHBOARD_TOP_BAR_LEFT",
@@ -18062,7 +18062,7 @@
       "id": "skeleton/youtubeTopBar",
       "kind": "skeleton",
       "label": "유튜브 분석 상단바 로딩 뼈대 — 아바타 원 + 줄 셋",
-      "jsx": "apps/web/components/scenes/YoutubeAnalyticsScene.tsx:1960-1978",
+      "jsx": "apps/web/components/scenes/YoutubeAnalyticsScene.tsx:1959-1977",
       "file": "apps/web/components/scenes/YoutubeAnalyticsScene.tsx",
       "tree": {
         "part": "DASHBOARD_TOP_BAR_LEFT",
@@ -18726,13 +18726,13 @@
       "id": "slider/highlightRefineOpacity",
       "kind": "slider",
       "label": "하이라이트 다듬기 위젯 불투명도 슬라이더",
-      "jsx": "apps/web/components/scenes/HighlightProjectScene.tsx:3572-3606",
+      "jsx": "apps/web/components/scenes/HighlightProjectScene.tsx:3570-3604",
       "file": "apps/web/components/scenes/highlightSceneStyles.ts",
       "tree": {
         "part": "refinementExpandShellOpacity",
         "parts": null,
         "tag": "label",
-        "line": 1600,
+        "line": 1588,
         "text": "",
         "values": {
           "height": "12px",
@@ -18780,7 +18780,7 @@
             "part": "refinementExpandShellOpacitySlider",
             "parts": null,
             "tag": "input",
-            "line": 1606,
+            "line": 1594,
             "text": "",
             "values": {
               "height": "12px",
@@ -18944,7 +18944,7 @@
       "id": "spinner/gnbBackButton",
       "kind": "spinner",
       "label": "GNB 뒤로가기 스피너 — 슬롯이 링을 감싼다",
-      "jsx": "apps/web/components/navigation/Gnb.tsx:4118-4123",
+      "jsx": "apps/web/components/navigation/Gnb.tsx:4108-4113",
       "file": "apps/web/components/navigation/Gnb.tsx",
       "tree": {
         "part": "backButtonLoading",
@@ -18998,7 +18998,7 @@
             "part": "projectSaveSpinner",
             "parts": null,
             "tag": "span",
-            "line": 1694,
+            "line": 1688,
             "text": "",
             "values": {
               "height": "16px",
@@ -19056,7 +19056,7 @@
         "part": "spinner",
         "parts": null,
         "tag": "span",
-        "line": 1981,
+        "line": 1969,
         "text": "",
         "values": {
           "height": "36px",
@@ -19106,7 +19106,7 @@
       "id": "spinner/highlightShorts",
       "kind": "spinner",
       "label": "숏폼 편집 로딩 스피너 — 같은 링을 옮겨 적은 둘째 벌",
-      "jsx": "apps/web/app/highlight/[projectId]/shorts/[shortId]/page.tsx:1055-1055",
+      "jsx": "apps/web/app/highlight/[projectId]/shorts/[shortId]/page.tsx:1053-1053",
       "file": "apps/web/app/highlight/[projectId]/shorts/[shortId]/page.tsx",
       "tree": {
         "part": "SPINNER",
@@ -19162,13 +19162,13 @@
       "id": "text-field/adminSearch",
       "kind": "text-field",
       "label": "관리자 검색 입력 — 알약형 유리 입력(FIELD_CONTROL), 이메일·이름 검색",
-      "jsx": "apps/web/app/admin/AdminClient.tsx:1389-1404",
+      "jsx": "apps/web/app/admin/AdminClient.tsx:1391-1406",
       "file": "apps/web/app/admin/AdminClient.tsx",
       "tree": {
         "part": "FIELD_CONTROL",
         "parts": null,
         "tag": "input",
-        "line": 294,
+        "line": 296,
         "text": "",
         "values": {
           "height": "38px",
@@ -19224,7 +19224,7 @@
         "part": "inspectorFramedInputRow",
         "parts": null,
         "tag": "div",
-        "line": 940,
+        "line": 937,
         "text": "",
         "values": {
           "height": "28px",
@@ -19272,7 +19272,7 @@
             "part": "inspectorNumInput",
             "parts": null,
             "tag": "input",
-            "line": 1004,
+            "line": 1001,
             "text": "",
             "values": {
               "height": "28px",
@@ -19321,7 +19321,7 @@
             "part": "inspectorFramedInputUnit",
             "parts": null,
             "tag": "span",
-            "line": 954,
+            "line": 951,
             "text": "초",
             "values": {
               "height": "18px",
@@ -19370,7 +19370,7 @@
             "part": "inspectorNumInput",
             "parts": null,
             "tag": "input",
-            "line": 1004,
+            "line": 1001,
             "text": "",
             "values": {
               "height": "28px",
@@ -19419,7 +19419,7 @@
             "part": "inspectorFramedInputUnit",
             "parts": null,
             "tag": "span",
-            "line": 954,
+            "line": 951,
             "text": "프레임",
             "values": {
               "height": "18px",
@@ -19471,13 +19471,13 @@
       "id": "text-field/refinementInput",
       "kind": "text-field",
       "label": "하이라이트 다듬기 입력 — 테두리 있는 사각 입력",
-      "jsx": "apps/web/components/scenes/HighlightProjectScene.tsx:666-677",
+      "jsx": "apps/web/components/scenes/HighlightProjectScene.tsx:664-675",
       "file": "apps/web/components/scenes/highlightSceneStyles.ts",
       "tree": {
         "part": "refinementInput",
         "parts": null,
         "tag": "input",
-        "line": 1731,
+        "line": 1719,
         "text": "",
         "values": {
           "height": "39px",
@@ -19533,7 +19533,7 @@
         "part": "settingsRowNameInput",
         "parts": null,
         "tag": "input",
-        "line": 1021,
+        "line": 1019,
         "text": "",
         "values": {
           "height": "34px",
@@ -19552,7 +19552,7 @@
           "backgroundColor": "rgba(250, 250, 250, 0.1)",
           "backgroundImage": "none",
           "color": "rgb(250, 250, 250)",
-          "boxShadow": "rgba(250, 250, 250, 0.25) 0px 1px 1px 0px inset, rgba(250, 250, 250, 0.25) 0px -1px 1px 0px inset",
+          "boxShadow": "none",
           "backdropFilter": "blur(10px)",
           "columnGap": "normal",
           "fontSize": "14px",
@@ -19583,13 +19583,13 @@
       "id": "toast/adminError",
       "kind": "toast",
       "label": "관리자 토스트 · 오류 스킨 — TOAST_ERROR 색 상수가 JSX에서 합성된다",
-      "jsx": "apps/web/app/admin/AdminClient.tsx:1551-1555",
+      "jsx": "apps/web/app/admin/AdminClient.tsx:1553-1557",
       "file": "apps/web/app/admin/AdminClient.tsx",
       "tree": {
         "part": "TOAST",
         "parts": null,
         "tag": "div",
-        "line": 151,
+        "line": 153,
         "text": "사용자 목록을 불러오지 못했습니다",
         "values": {
           "height": "45px",
@@ -19639,13 +19639,13 @@
       "id": "toast/adminSuccess",
       "kind": "toast",
       "label": "관리자 토스트 · 성공 스킨 — TOAST_SUCCESS 색 상수가 JSX에서 합성된다",
-      "jsx": "apps/web/app/admin/AdminClient.tsx:1441-1449",
+      "jsx": "apps/web/app/admin/AdminClient.tsx:1443-1451",
       "file": "apps/web/app/admin/AdminClient.tsx",
       "tree": {
         "part": "TOAST",
         "parts": null,
         "tag": "div",
-        "line": 151,
+        "line": 153,
         "text": "지급이 완료되었습니다",
         "values": {
           "height": "45px",
@@ -19701,7 +19701,7 @@
         "part": "toast",
         "parts": null,
         "tag": "div",
-        "line": 936,
+        "line": 924,
         "text": "",
         "values": {
           "height": "48px",
@@ -19720,7 +19720,7 @@
           "backgroundColor": "rgba(227, 228, 232, 0.7)",
           "backgroundImage": "none",
           "color": "rgb(250, 250, 250)",
-          "boxShadow": "rgba(0, 0, 0, 0.16) 0px 8px 20px 0px, rgba(250, 250, 250, 0.25) 0px 1px 1px 0px inset, rgba(250, 250, 250, 0.25) 0px -1px 1px 0px inset",
+          "boxShadow": "rgba(0, 0, 0, 0.16) 0px 8px 20px 0px",
           "backdropFilter": "blur(16px) saturate(1.3)",
           "columnGap": "normal",
           "fontSize": "16px",
@@ -19749,7 +19749,7 @@
             "part": "toastText",
             "parts": null,
             "tag": "span",
-            "line": 957,
+            "line": 945,
             "text": "저장했어요",
             "values": {
               "height": "auto",
@@ -19807,7 +19807,7 @@
         "part": "toast",
         "parts": null,
         "tag": "div",
-        "line": 1285,
+        "line": 1282,
         "text": "저장했어요",
         "values": {
           "height": "50px",
@@ -20069,7 +20069,7 @@
       "id": "tooltip/composerShotMode",
       "kind": "tooltip",
       "label": "컴포저 모드 힌트 툴팁 — 부모 hover로만 열린다",
-      "jsx": "apps/web/components/scenes/create/ComposerBar.tsx:408-410",
+      "jsx": "apps/web/components/scenes/create/ComposerBar.tsx:407-409",
       "file": "apps/web/components/scenes/create/ComposerBar.tsx",
       "tree": {
         "part": "SHOT_MODE_TOOLTIP",
@@ -20125,13 +20125,13 @@
       "id": "tooltip/upgradeTierFeature",
       "kind": "tooltip",
       "label": "업그레이드 요금제 기능 툴팁",
-      "jsx": "apps/web/app/mypage/upgrade/page.tsx:623",
+      "jsx": "apps/web/app/mypage/upgrade/page.tsx:619",
       "file": "apps/web/app/mypage/upgrade/page.tsx",
       "tree": {
         "part": "TIER_FEATURE_TIP",
         "parts": null,
         "tag": "span",
-        "line": 267,
+        "line": 265,
         "text": "매달 크레딧 1,200개가 충전됩니다",
         "values": {
           "height": "28px",
@@ -20181,13 +20181,13 @@
       "id": "top-bar/gnbProjectHeader",
       "kind": "top-bar",
       "label": "GNB 프로젝트 헤더 상단 바",
-      "jsx": "apps/web/components/navigation/Gnb.tsx:4101-4376",
+      "jsx": "apps/web/components/navigation/Gnb.tsx:4091-4366",
       "file": "apps/web/components/navigation/Gnb.tsx",
       "tree": {
         "part": "projectHeader",
         "parts": null,
         "tag": "div",
-        "line": 1561,
+        "line": 1555,
         "text": "",
         "values": {
           "height": "72px",
@@ -20254,7 +20254,7 @@
               "backgroundColor": "rgba(250, 250, 250, 0.1)",
               "backgroundImage": "none",
               "color": "rgba(250, 250, 250, 0.82)",
-              "boxShadow": "rgba(250, 250, 250, 0.25) 0px 1px 1px 0px inset, rgba(250, 250, 250, 0.25) 0px -1px 1px 0px inset",
+              "boxShadow": "none",
               "backdropFilter": "blur(10px)",
               "columnGap": "normal",
               "fontSize": "16px",
@@ -20284,7 +20284,7 @@
             "part": "projectTitle",
             "parts": null,
             "tag": "span",
-            "line": 1703,
+            "line": 1697,
             "text": "프로젝트 이름",
             "values": {
               "height": "24px",
@@ -20333,7 +20333,7 @@
             "part": "projectActions",
             "parts": null,
             "tag": "div",
-            "line": 1403,
+            "line": 1397,
             "text": "",
             "values": {
               "height": "32px",
@@ -20381,7 +20381,7 @@
                 "part": "projectHeaderActionsShell",
                 "parts": null,
                 "tag": "div",
-                "line": 1575,
+                "line": 1569,
                 "text": "",
                 "values": {
                   "height": "32px",
@@ -20429,7 +20429,7 @@
                     "part": "projectMenuAnchor",
                     "parts": null,
                     "tag": "div",
-                    "line": 1621,
+                    "line": 1615,
                     "text": "",
                     "values": {
                       "height": "32px",
@@ -20496,7 +20496,7 @@
                           "backgroundColor": "rgba(250, 250, 250, 0.1)",
                           "backgroundImage": "none",
                           "color": "rgba(250, 250, 250, 0.82)",
-                          "boxShadow": "rgba(250, 250, 250, 0.25) 0px 1px 1px 0px inset, rgba(250, 250, 250, 0.25) 0px -1px 1px 0px inset",
+                          "boxShadow": "none",
                           "backdropFilter": "blur(10px)",
                           "columnGap": "normal",
                           "fontSize": "16px",
@@ -20547,7 +20547,7 @@
                       "backgroundColor": "rgba(250, 250, 250, 0.1)",
                       "backgroundImage": "none",
                       "color": "rgba(250, 250, 250, 0.82)",
-                      "boxShadow": "rgba(250, 250, 250, 0.25) 0px 1px 1px 0px inset, rgba(250, 250, 250, 0.25) 0px -1px 1px 0px inset",
+                      "boxShadow": "none",
                       "backdropFilter": "blur(10px)",
                       "columnGap": "normal",
                       "fontSize": "16px",
@@ -20584,7 +20584,7 @@
       "id": "top-bar/instagramAnalytics",
       "kind": "top-bar",
       "label": "인스타그램 분석 채널 배너 상단 바",
-      "jsx": "apps/web/components/scenes/InstagramAnalyticsScene.tsx:1769-1803",
+      "jsx": "apps/web/components/scenes/InstagramAnalyticsScene.tsx:1768-1802",
       "file": "apps/web/components/scenes/InstagramAnalyticsScene.tsx",
       "tree": {
         "part": "DASHBOARD_TOP_BAR",
@@ -20889,7 +20889,7 @@
       "id": "top-bar/youtubeAnalytics",
       "kind": "top-bar",
       "label": "유튜브 분석 채널 배너 상단 바",
-      "jsx": "apps/web/components/scenes/YoutubeAnalyticsScene.tsx:1937-2060",
+      "jsx": "apps/web/components/scenes/YoutubeAnalyticsScene.tsx:1936-2059",
       "file": "apps/web/components/scenes/YoutubeAnalyticsScene.tsx",
       "tree": {
         "part": "DASHBOARD_TOP_BAR_CARD",
@@ -21315,7 +21315,7 @@
             "backgroundColor": "rgba(227, 228, 232, 0.7)",
             "backgroundImage": "none",
             "color": "rgb(250, 250, 250)",
-            "boxShadow": "rgba(0, 0, 0, 0.16) 0px 8px 20px 0px, rgba(250, 250, 250, 0.25) 0px 1px 1px 0px inset, rgba(250, 250, 250, 0.25) 0px -1px 1px 0px inset",
+            "boxShadow": "rgba(0, 0, 0, 0.16) 0px 8px 20px 0px",
             "backdropFilter": "blur(10px)",
             "columnGap": "normal",
             "fontSize": "16px",
@@ -21329,14 +21329,14 @@
             {
               "id": "toast/apps/web/components/scenes/appHomeSceneStyles.ts.toast",
               "file": "apps/web/components/scenes/appHomeSceneStyles.ts",
-              "line": 936,
+              "line": 924,
               "name": "toast",
               "uses": 86
             },
             {
               "id": "toast/apps/web/components/scenes/highlightSceneStyles.ts.toast",
               "file": "apps/web/components/scenes/highlightSceneStyles.ts",
-              "line": 2213,
+              "line": 2205,
               "name": "toast",
               "uses": 86
             }
@@ -21377,7 +21377,7 @@
             {
               "id": "toast/apps/web/components/scenes/myPageSceneStyles.ts.toast",
               "file": "apps/web/components/scenes/myPageSceneStyles.ts",
-              "line": 1285,
+              "line": 1282,
               "name": "toast",
               "uses": 86
             }
@@ -21418,7 +21418,7 @@
             {
               "id": "toast/apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts.editorToast",
               "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts",
-              "line": 672,
+              "line": 670,
               "name": "editorToast",
               "uses": 0
             }
@@ -21451,7 +21451,7 @@
             "backgroundColor": "rgb(49, 54, 64)",
             "backgroundImage": "none",
             "color": "rgb(250, 250, 250)",
-            "boxShadow": "rgba(0, 0, 0, 0.5) 0px 0px 0px 0.5px, rgba(0, 0, 0, 0.8) 1.25px 0px 0px -0.75px, rgba(0, 0, 0, 0.8) -1.25px 0px 0px -0.75px, rgba(255, 255, 255, 0.5) 0px 1px 1px -0.5px inset, rgba(255, 255, 255, 0.5) 0px -1px 1px -0.5px inset",
+            "boxShadow": "rgba(23, 27, 34, 0.12) 0px 0px 0px 0.5px",
             "backdropFilter": "none",
             "columnGap": "normal",
             "fontSize": "16px",
@@ -21465,7 +21465,7 @@
             {
               "id": "dialog/apps/web/components/scenes/appHomeSceneStyles.ts.modalCard",
               "file": "apps/web/components/scenes/appHomeSceneStyles.ts",
-              "line": 842,
+              "line": 830,
               "name": "modalCard",
               "uses": 17
             }
@@ -21492,7 +21492,7 @@
             "backgroundColor": "rgb(49, 54, 64)",
             "backgroundImage": "none",
             "color": "rgb(250, 250, 250)",
-            "boxShadow": "rgba(0, 0, 0, 0.5) 0px 0px 0px 0.5px, rgba(0, 0, 0, 0.8) 1.25px 0px 0px -0.75px, rgba(0, 0, 0, 0.8) -1.25px 0px 0px -0.75px, rgba(255, 255, 255, 0.5) 0px 1px 1px -0.5px inset, rgba(255, 255, 255, 0.5) 0px -1px 1px -0.5px inset",
+            "boxShadow": "rgba(23, 27, 34, 0.12) 0px 0px 0px 0.5px",
             "backdropFilter": "none",
             "columnGap": "16px",
             "fontSize": "16px",
@@ -21506,7 +21506,7 @@
             {
               "id": "dialog/apps/web/components/scenes/myPageSceneStyles.ts.modalCard",
               "file": "apps/web/components/scenes/myPageSceneStyles.ts",
-              "line": 476,
+              "line": 475,
               "name": "modalCard",
               "uses": 17
             }
@@ -21539,7 +21539,7 @@
             "backgroundColor": "rgba(250, 250, 250, 0.1)",
             "backgroundImage": "none",
             "color": "rgba(250, 250, 250, 0.82)",
-            "boxShadow": "rgba(250, 250, 250, 0.25) 0px 1px 1px 0px inset, rgba(250, 250, 250, 0.25) 0px -1px 1px 0px inset",
+            "boxShadow": "none",
             "backdropFilter": "blur(10px)",
             "columnGap": "normal",
             "fontSize": "16px",
@@ -21594,14 +21594,14 @@
             {
               "id": "icon-button/apps/web/components/scenes/appHomeSceneStyles.ts.archiveMoreButton",
               "file": "apps/web/components/scenes/appHomeSceneStyles.ts",
-              "line": 167,
+              "line": 159,
               "name": "archiveMoreButton",
               "uses": 1
             },
             {
               "id": "icon-button/apps/web/components/scenes/highlightSceneStyles.ts.historyMoreButton",
               "file": "apps/web/components/scenes/highlightSceneStyles.ts",
-              "line": 916,
+              "line": 906,
               "name": "historyMoreButton",
               "uses": 1
             }
@@ -21642,7 +21642,7 @@
             {
               "id": "icon-button/apps/web/components/navigation/Gnb.tsx.mobileMenuCloseButton",
               "file": "apps/web/components/navigation/Gnb.tsx",
-              "line": 797,
+              "line": 794,
               "name": "mobileMenuCloseButton",
               "uses": 2
             }
@@ -21683,7 +21683,7 @@
             {
               "id": "icon-button/apps/web/components/scenes/highlightSceneStyles.ts.viewToggleButton",
               "file": "apps/web/components/scenes/highlightSceneStyles.ts",
-              "line": 2461,
+              "line": 2473,
               "name": "viewToggleButton",
               "uses": 2
             }
@@ -21724,7 +21724,7 @@
             {
               "id": "icon-button/apps/web/components/scenes/appHomeSceneStyles.ts.bannerArrowButton",
               "file": "apps/web/components/scenes/appHomeSceneStyles.ts",
-              "line": 409,
+              "line": 398,
               "name": "bannerArrowButton",
               "uses": 0
             }
@@ -21771,7 +21771,7 @@
             {
               "id": "text-field/apps/web/components/navigation/Gnb.tsx.projectInlineRenameInput",
               "file": "apps/web/components/navigation/Gnb.tsx",
-              "line": 1603,
+              "line": 1597,
               "name": "projectInlineRenameInput",
               "uses": 3
             }
@@ -21812,21 +21812,21 @@
             {
               "id": "text-field/apps/web/components/navigation/Gnb.tsx.projectGnbTitleInput",
               "file": "apps/web/components/navigation/Gnb.tsx",
-              "line": 1467,
+              "line": 1461,
               "name": "projectGnbTitleInput",
               "uses": 2
             },
             {
               "id": "text-field/apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts.modalHeaderTitleInput",
               "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts",
-              "line": 1379,
+              "line": 1374,
               "name": "modalHeaderTitleInput",
               "uses": 0
             },
             {
               "id": "text-field/apps/web/components/scenes/myPageSceneStyles.ts.modalAuthInput",
               "file": "apps/web/components/scenes/myPageSceneStyles.ts",
-              "line": 381,
+              "line": 380,
               "name": "modalAuthInput",
               "uses": 0
             }
@@ -21867,7 +21867,7 @@
             {
               "id": "text-field/apps/web/components/scenes/highlightSceneStyles.ts.hiddenFileInput",
               "file": "apps/web/components/scenes/highlightSceneStyles.ts",
-              "line": 739,
+              "line": 737,
               "name": "hiddenFileInput",
               "uses": 2
             },
@@ -21915,7 +21915,7 @@
             {
               "id": "text-field/apps/web/components/scenes/highlightSceneStyles.ts.refinementInput",
               "file": "apps/web/components/scenes/highlightSceneStyles.ts",
-              "line": 1731,
+              "line": 1719,
               "name": "refinementInput",
               "uses": 1
             }
@@ -21956,7 +21956,7 @@
             {
               "id": "text-field/apps/web/components/scenes/appHomeSceneStyles.ts.archivePreviewTitleRenameInput",
               "file": "apps/web/components/scenes/appHomeSceneStyles.ts",
-              "line": 351,
+              "line": 340,
               "name": "archivePreviewTitleRenameInput",
               "uses": 0
             }
@@ -21997,7 +21997,7 @@
             {
               "id": "text-field/apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts.inspectorNumInput",
               "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts",
-              "line": 1004,
+              "line": 1001,
               "name": "inspectorNumInput",
               "uses": 0
             }
@@ -22038,7 +22038,7 @@
             {
               "id": "text-field/apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts.propertiesValueNumInput",
               "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts",
-              "line": 3056,
+              "line": 3048,
               "name": "propertiesValueNumInput",
               "uses": 0
             }
@@ -22079,7 +22079,7 @@
             {
               "id": "text-field/apps/web/components/scenes/highlightSceneStyles.ts.historyRenameInput",
               "file": "apps/web/components/scenes/highlightSceneStyles.ts",
-              "line": 1088,
+              "line": 1077,
               "name": "historyRenameInput",
               "uses": 0
             }
@@ -22120,7 +22120,7 @@
             {
               "id": "text-field/apps/web/components/scenes/myPageSceneStyles.ts.modalAuthInputBox",
               "file": "apps/web/components/scenes/myPageSceneStyles.ts",
-              "line": 395,
+              "line": 394,
               "name": "modalAuthInputBox",
               "uses": 0
             }
@@ -22147,7 +22147,7 @@
             "backgroundColor": "rgba(250, 250, 250, 0.1)",
             "backgroundImage": "none",
             "color": "rgb(250, 250, 250)",
-            "boxShadow": "rgba(250, 250, 250, 0.25) 0px 1px 1px 0px inset, rgba(250, 250, 250, 0.25) 0px -1px 1px 0px inset",
+            "boxShadow": "none",
             "backdropFilter": "blur(10px)",
             "columnGap": "normal",
             "fontSize": "16px",
@@ -22161,7 +22161,7 @@
             {
               "id": "text-field/apps/web/components/scenes/myPageSceneStyles.ts.settingsRowNameInput",
               "file": "apps/web/components/scenes/myPageSceneStyles.ts",
-              "line": 1021,
+              "line": 1019,
               "name": "settingsRowNameInput",
               "uses": 0
             }
@@ -22666,7 +22666,7 @@
             {
               "id": "slider/apps/web/components/scenes/highlightSceneStyles.ts.refinementExpandShellOpacitySlider",
               "file": "apps/web/components/scenes/highlightSceneStyles.ts",
-              "line": 1606,
+              "line": 1594,
               "name": "refinementExpandShellOpacitySlider",
               "uses": 1
             }
@@ -22748,14 +22748,14 @@
             {
               "id": "slider/apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts.overlayRadixRange",
               "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts",
-              "line": 1730,
+              "line": 1723,
               "name": "overlayRadixRange",
               "uses": 0
             },
             {
               "id": "slider/apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts.overlayRadixThumb",
               "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts",
-              "line": 1787,
+              "line": 1780,
               "name": "overlayRadixThumb",
               "uses": 0
             }
@@ -22796,7 +22796,7 @@
             {
               "id": "slider/apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts.overlayRadixRootFull",
               "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts",
-              "line": 1754,
+              "line": 1747,
               "name": "overlayRadixRootFull",
               "uses": 0
             }
@@ -22837,7 +22837,7 @@
             {
               "id": "slider/apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts.timelineZoomRadixRange",
               "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts",
-              "line": 4089,
+              "line": 4083,
               "name": "timelineZoomRadixRange",
               "uses": 0
             }
@@ -22878,7 +22878,7 @@
             {
               "id": "slider/apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts.timelineZoomRadixRoot",
               "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts",
-              "line": 4103,
+              "line": 4097,
               "name": "timelineZoomRadixRoot",
               "uses": 0
             }
@@ -22919,7 +22919,7 @@
             {
               "id": "slider/apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts.timelineZoomRadixThumb",
               "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts",
-              "line": 4116,
+              "line": 4110,
               "name": "timelineZoomRadixThumb",
               "uses": 0
             }
@@ -22966,7 +22966,7 @@
             {
               "id": "selectable-list-row/apps/web/components/navigation/Gnb.tsx.projectDropdownItem",
               "file": "apps/web/components/navigation/Gnb.tsx",
-              "line": 1441,
+              "line": 1435,
               "name": "projectDropdownItem",
               "uses": 12
             }
@@ -23007,7 +23007,7 @@
             {
               "id": "selectable-list-row/apps/web/components/navigation/Gnb.tsx.profileMenuItem",
               "file": "apps/web/components/navigation/Gnb.tsx",
-              "line": 1039,
+              "line": 1035,
               "name": "profileMenuItem",
               "uses": 9
             }
@@ -23048,7 +23048,7 @@
             {
               "id": "selectable-list-row/apps/web/components/scenes/highlightSceneStyles.ts.clipDetailListItem",
               "file": "apps/web/components/scenes/highlightSceneStyles.ts",
-              "line": 146,
+              "line": 144,
               "name": "clipDetailListItem",
               "uses": 2
             }
@@ -23089,14 +23089,14 @@
             {
               "id": "selectable-list-row/apps/web/components/scenes/appHomeSceneStyles.ts.archiveDropdownItem",
               "file": "apps/web/components/scenes/appHomeSceneStyles.ts",
-              "line": 86,
+              "line": 78,
               "name": "archiveDropdownItem",
               "uses": 1
             },
             {
               "id": "selectable-list-row/apps/web/components/scenes/highlightSceneStyles.ts.historyDropdownItem",
               "file": "apps/web/components/scenes/highlightSceneStyles.ts",
-              "line": 839,
+              "line": 829,
               "name": "historyDropdownItem",
               "uses": 0
             }
@@ -23178,7 +23178,7 @@
             {
               "id": "selectable-list-row/apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts.transitionMenuItem",
               "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts",
-              "line": 4311,
+              "line": 4305,
               "name": "transitionMenuItem",
               "uses": 0
             }
@@ -23266,7 +23266,7 @@
             {
               "id": "badge/apps/web/components/scenes/InstagramAnalyticsScene.tsx.reportChangePill",
               "file": "apps/web/components/scenes/InstagramAnalyticsScene.tsx",
-              "line": 515,
+              "line": 514,
               "name": "reportChangePill",
               "uses": 8
             }
@@ -23348,7 +23348,7 @@
             {
               "id": "badge/apps/web/components/navigation/Gnb.tsx.profileMenuItemBadge",
               "file": "apps/web/components/navigation/Gnb.tsx",
-              "line": 1060,
+              "line": 1056,
               "name": "profileMenuItemBadge",
               "uses": 2
             }
@@ -23430,7 +23430,7 @@
             {
               "id": "badge/apps/web/components/scenes/highlightSceneStyles.ts.compositeBottomPill",
               "file": "apps/web/components/scenes/highlightSceneStyles.ts",
-              "line": 459,
+              "line": 457,
               "name": "compositeBottomPill",
               "uses": 1
             }
@@ -23471,7 +23471,7 @@
             {
               "id": "badge/apps/web/components/scenes/highlightSceneStyles.ts.refinementChip",
               "file": "apps/web/components/scenes/highlightSceneStyles.ts",
-              "line": 1345,
+              "line": 1334,
               "name": "refinementChip",
               "uses": 1
             }
@@ -23512,7 +23512,7 @@
             {
               "id": "badge/apps/web/components/scenes/highlightSceneStyles.ts.themeChip",
               "file": "apps/web/components/scenes/highlightSceneStyles.ts",
-              "line": 2047,
+              "line": 2035,
               "name": "themeChip",
               "uses": 1
             }
@@ -23553,7 +23553,7 @@
             {
               "id": "badge/apps/web/components/scenes/myPageSceneStyles.ts.planTabExpiringCreditsBadge",
               "file": "apps/web/components/scenes/myPageSceneStyles.ts",
-              "line": 687,
+              "line": 686,
               "name": "planTabExpiringCreditsBadge",
               "uses": 1
             }
@@ -23594,7 +23594,7 @@
             {
               "id": "badge/apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts.assetDragChip",
               "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts",
-              "line": 75,
+              "line": 73,
               "name": "assetDragChip",
               "uses": 0
             }
@@ -23635,7 +23635,7 @@
             {
               "id": "badge/apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts.clipEffectBadge",
               "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts",
-              "line": 401,
+              "line": 399,
               "name": "clipEffectBadge",
               "uses": 0
             }
@@ -23676,7 +23676,7 @@
             {
               "id": "badge/apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts.previewZoomBadge",
               "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts",
-              "line": 2527,
+              "line": 2519,
               "name": "previewZoomBadge",
               "uses": 0
             }
@@ -23717,7 +23717,7 @@
             {
               "id": "badge/apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts.transitionDurationChip",
               "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts",
-              "line": 4203,
+              "line": 4197,
               "name": "transitionDurationChip",
               "uses": 0
             }

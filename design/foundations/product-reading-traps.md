@@ -52,19 +52,21 @@ Tailwind는 소스 스캔으로 CSS를 내보낸다. 그래서 **어떤 배리�
 
 | 토큰 | 실제 종류 | 근거 |
 | --- | --- | --- |
-| `--glass-dropdown-frame` | **드롭섀도우가 아니다.** 5겹이고 그중 셋은 blur 0의 링·좌우 림, 둘은 `inset` 안쪽 베벨이다 | `globals.css:63-68` |
-| `--dropdown-ambient-shadow` | 드롭섀도우 (`0px 8px 15px 0px rgba(0,0,0,0.04)`) | `globals.css:81` |
-| `--node-meta-dropdown-shadow` | **한 이름에 두 종류** — 위 둘의 합이다 | `globals.css:559-560` |
+| `--dropdown-frame` | **드롭섀도우가 아니다.** blur가 `0`인 spread 0.5px **선**이다 | `globals.css:57` |
+| `--dropdown-ambient-shadow` | 드롭섀도우 (`0px 8px 15px 0px rgba(0,0,0,0.04)`) | `globals.css:63` |
+| `--node-meta-dropdown-shadow` | **한 이름에 두 종류** — 위 둘의 합이다 | `globals.css:542-543` |
 
-`--glass-dropdown-frame`을 드롭섀도우 한 겹으로 읽으면 면이 뜨고 안쪽 베벨이 통째로 빠진다.
-이름에 `frame`이 있지만 바깥 테두리만 있는 것도 아니다.
+`--dropdown-frame`을 보통의 드롭섀도우로 읽고 blur를 주면 선이 번져 사라진다. blur `0` · spread
+`0.5px`이라 **테두리를 그리는 그림자**다.
 
-`--glass-dropdown-frame-on-dark`(`globals.css:72`)가 따로 있는 이유도 이름으로는 안 보인다 —
-원본이 라이트에서 흰 림 24%→100%로 뒤집혀, 테마와 무관하게 늘 어두운 표면에는 쓸 수 없기
-때문이다. 코드 주석이 그 이유를 갖고 있다(`globals.css:69-71`).
+`--dropdown-frame-on-dark`(`globals.css:59`)가 따로 있는 이유는 이름으로는 안 보인다 — 잉크가
+흰색(`palette-gray-000` 16%)이라 라이트 카드 위에 쓰면 흰 테두리가 뜬다. 앱 테마와 무관하게 **늘
+어두운 표면** 위의 칩에만 쓴다. 소비처는 셋뿐이다(`VideoPlayer` · `CanvasOnboardingHints` ·
+`CreativeMediaClient`).
 
-**이름은 브랜치마다 다를 수 있다.** 미배포 `origin/design`에는 이 토큰이 `--dropdown-frame`으로
-개명돼 있고 `--glass-bevel-*`도 없다. **`origin/main`에 그 이름이 실재하는지 먼저 확인한다.**
+**옛 이름을 되살리지 마라.** 이 자리에는 `--glass-dropdown-frame`(5겹)과 `--glass-bevel-*` 계열이
+있었고 제품이 그것을 **걷어냈다**. `origin/main`에는 아직 남아 있으므로 그쪽을 읽으면 폐지된 개념이
+문서로 되살아난다 — 아래 「정본은 `design` 브랜치다」를 먼저 읽는다.
 
 ## 3. 두 면이 같은 색일 때 경계는 색이 아니다
 
@@ -76,11 +78,11 @@ Tailwind는 소스 스캔으로 CSS를 내보낸다. 그래서 **어떤 배리�
 | dark | `--app-page-bg` → `--gray-900` → `--palette-gray-900` = `#171b22` | `--palette-gray-800` = `#313640` | 다르다 |
 
 근거: 라이트 `globals.css:717`·`734`, 다크 `globals.css:674`·`691`, 팔레트 `globals.css:24`·`36`·`37`,
-카드 면 `globals.css:1391-1396`.
+카드 면 `globals.css:1354-1360`.
 
-라이트에서 카드의 경계는 색이 아니라 **`box-shadow: var(--glass-dropdown-frame)`와
-`border-radius: 16px`**로만 난다(`globals.css:1367-1372`). 면 색으로 카드를 찾으면 **카드가 통째로
-빠진다.**
+라이트에서 카드의 경계는 색이 아니라 **`box-shadow: var(--dropdown-frame)`와
+`border-radius: 16px`**로만 난다(`globals.css:1345-1350`). 면 색으로 카드를 찾으면 **카드가 통째로
+빠진다.** 그 선은 0.5px `rgba(23, 27, 34, .12)` 한 겹이라 더 잘 놓친다.
 
 두 파생 규칙이 따라온다.
 
@@ -127,15 +129,20 @@ Tailwind는 소스 스캔으로 CSS를 내보낸다. 그래서 **어떤 배리�
 
 ## 4. 어느 브랜치를 읽고 있는지가 값을 바꾼다
 
-제품 저장소의 체크아웃이 `origin/main`이라는 보장이 없다. 로컬 클론이 기능 브랜치에 있으면
-**같은 파일이 다른 내용**이고, 줄 번호와 토큰 이름이 함께 어긋난다.
+**정본은 `design` 브랜치다. `origin/main`이 아니다** (2026-08-21 확정). 저장소 기본 브랜치도
+`main`이 아니라 **`dev`**다(`origin/HEAD -> origin/dev`). 셋 중 아무거나 읽으면 같은 파일이 다른
+내용이고, 줄 번호와 토큰 이름이 함께 어긋난다.
 
-실측(2026-08-21): `globals.css`가 `origin/main`과 `origin/design`에서 토큰 358개 대
-354개로 다르고, `--glass-dropdown-frame`·`--glass-bevel-*`의 존재 여부가 갈린다.
-`Gnb.tsx`는 인용 좌표가 8~10줄씩 밀린다.
+실측(2026-08-21): `design`(`a3ed8e03`)과 `origin/main`(`e52dab79`)은 21 앞 / 18 뒤이고 웹 앱 트리에서
+**87개 파일**이 다르다. `globals.css`는 1669줄 대 1721줄, 토큰 540개 대 544개이며 그 차이의 본체가
+**글래스 섀도우 폐지**다 — `--glass-dropdown-frame`(5겹) · `--glass-bevel-*` · `--glass-inner-shadow-rgb`가
+`design`에는 없고 `--dropdown-frame`(0.5px 한 겹)이 그 자리를 받는다. `origin/main`은 그 폐지 이전이라
+**읽으면 죽은 개념을 문서로 되살린다.**
 
-**대응.** 제품 파일을 읽을 때 작업 트리를 읽지 말고 `git show origin/main:<path>`로 읽는다.
-읽은 뒤에는 `git rev-parse origin/main:<path>`의 blob 해시를
+정적 자산(`public/**`)은 두 브랜치가 동일하므로 로고·아이콘은 어느 쪽에서 뽑아도 같다.
+
+**대응.** 제품 파일을 읽을 때 작업 트리를 읽지 말고 `git show design:<path>`로 읽는다.
+읽은 뒤에는 `git rev-parse design:<path>`의 blob 해시를
 [product-evidence.lock.json](../../migration/product-evidence.lock.json)과 대조한다. 어긋나면 그
 파일을 인용하는 축을 다시 재고 lock을 갱신한다 — `verify-product-evidence`가 같은 일을 한다.
 
@@ -154,8 +161,8 @@ Tailwind는 소스 스캔으로 CSS를 내보낸다. 그래서 **어떤 배리�
 
 | 축 | 라이트 셀렉터 | 게이트 | 근거 |
 | --- | --- | --- | --- |
-| 프레임 토큰 — `--glass-dropdown-frame` · `--dropdown-surface-bg` | `html[data-theme="light"]:not(:has(…)), [data-landing-walkthrough-light]` | **있다** | `globals.css:592-593` |
-| 모든 `light:` 유틸리티 | 같은 셀렉터 | **있다** | `tailwind.css:252` |
+| 프레임 토큰 — `--dropdown-frame` · `--dropdown-surface-bg` | `html[data-theme="light"]:not(:has(…)), [data-landing-walkthrough-light]` | **있다** | `globals.css:575-578` |
+| 모든 `light:` 유틸리티 | 같은 셀렉터 | **있다** | `tailwind.css:278` |
 | 패널 면의 라이트 분기 | `html[data-theme=light] &` | **없다** | `GlassConfirmModal.tsx:55` |
 
 **두 축의 폭이 달라서 한쪽만 뒤집힌다.** 게이트가 풀린 라이트 문서에서 패널 면은 라이트
@@ -195,24 +202,62 @@ Tailwind 임의 변형 셀렉터 문자열이다. 짝인 `-light`는 같은 파�
 - **표면은 클래스가 소유한다.** `[background:var(--dropdown-surface-bg)]` 위에
   `html[data-theme=dark] &`가 `rgb(241 241 243)`으로 **라이트를 못박는다**
   (`landing/navigation/Gnb.tsx:189-196`, 다크 오버라이드는 `:195`).
-- **프레임은 `html`에서 상속된다.** `--glass-dropdown-frame`의 다크 값은 `html[data-theme]`이
-  아니라 **`:root` 기본값**(`globals.css:63-68`)이고, 라이트만 5번의 좁은 게이트가 덮는다
-  (`globals.css:592-599`). 이 토큰의 정의는 문서 전체에 그 둘뿐이다.
+- **프레임은 `html`에서 상속되지만 두 값이 같다.** `--dropdown-frame`은 `:root`(`globals.css:57`)와
+  라이트 게이트(`globals.css:577`)에 각각 선언되는데 **바이트 동일**하다. 정의는 그 둘뿐이다.
 
-**결과.** 다크 테마에서 이 드롭다운은 `#f1f1f3` 밝은 면 위에 **다크용 프레임**(링 50% ·
-좌우 80% · 흰 림 50%)을 얹는다. 랜딩은 항상 밝은 브랜드 페이지라 표면을 라이트로 고정하는데
-프레임은 앱 테마를 따라가기 때문이다.
+**결과.** 이 드롭다운은 표면만 테마로 갈리고 **프레임은 갈리지 않는다.** 이전 판이 적었던
+「다크용 프레임이 밝은 면 위에 얹힌다」는 폐지된 글래스 토큰의 성질이었다 — 지금은 어느 테마에서도
+같은 0.5px 선이다. 표면과 프레임이 서로 다른 축을 따르던 함정 자체가 사라졌다.
 
 | 토큰 | 다크 (`:root`) | 라이트 (좁은 게이트) | 근거 |
 | --- | --- | --- | --- |
-| `--dropdown-surface-bg` | `rgb(var(--palette-gray-800-rgb))` | `rgb(var(--palette-gray-100-rgb))` | `globals.css:101` · `globals.css:600` |
-| `--glass-dropdown-frame` | 링 .5 · 좌우 .8 · 흰 림 .5 | 링 .15 · 좌우 .25 · 흰 림 1 | `globals.css:63-68` · `globals.css:594-599` |
-| `--dropdown-ambient-shadow` | `0px 8px 15px 0px rgba(0,0,0,0.04)` | 같다 — 테마 무관 | `globals.css:81` |
-| `--dropdown-radius` · `--dropdown-padding` · `--dropdown-item-radius` | 16px · 6px · 10px | 같다 — 테마 무관 | `globals.css:84-86` |
+| `--dropdown-surface-bg` | `rgb(var(--palette-gray-800-rgb))` | `rgb(var(--palette-gray-100-rgb))` | `globals.css:83` · `globals.css:578` |
+| `--dropdown-frame` | `0 0 0 0.5px rgb(23 27 34 / 12%)` | **같다 — 테마 무관** | `globals.css:57` · `globals.css:577` |
+| `--dropdown-ambient-shadow` | `0px 8px 15px 0px rgba(0,0,0,0.04)` | 같다 — 테마 무관 | `globals.css:63` |
+| `--dropdown-radius` · `--dropdown-padding` · `--dropdown-item-radius` | 16px · 6px · 10px | 같다 — 테마 무관 | `globals.css:66-68` |
 
 **판정 절차.** portal된 표면을 그릴 때는 (a) 클래스가 직접 칠하는 값과 (b) `html`에서
 상속되는 변수를 **따로** 해석한다. 둘이 다른 테마를 가리키는 것이 정상일 수 있다. 표면
 하나가 한 테마를 통째로 따른다고 가정하면 프레임이 통째로 틀린다.
+
+## 7. 아이콘 파일은 렌더되는 그림이 아니다
+
+정적 자산의 아이콘 SVG를 열어 그 도형과 그 색을 그대로 옮기면 **모양도 색도 두께도** 틀린다.
+세 층이 각각 파일을 덮는다.
+
+**(a) 도형이 대체돼 있을 수 있다.** 노드 캔버스는 일부 공개 SVG를 인라인 React 글리프로 갈아탔다.
+`components/scenes/create/node-canvas-v2/lib/nodeToolbarGlyphs.tsx`의 `ToolbarIconTrashSimple`은
+lucide `trash-2`(viewBox 24 · 뚜껑 + 손잡이 + 안쪽 세로 두 줄)이고, 공개 자산의 `TrashSimple.svg`
+(viewBox 32 · 안쪽 줄 없음)를 **대체한다**고 주석에 명시돼 있다. `ToolbarIconDownload`도 같은 방식으로
+lucide `download`(열린 트레이)가 각진 트레이를 대체한다. 같은 디렉터리의 `icons/*Icon.tsx`는 도형이
+공개 자산과 같고 stroke만 `currentColor`로 바꾼 것이라 구분해야 한다.
+
+**(b) 색은 파일의 `fill`/`stroke`가 아니다.** 실제로 화면에 나오는 색은 네 가지 기제 중 하나가 정한다.
+
+| 기제 | 쓰이는 곳 | 실제 색 |
+| --- | --- | --- |
+| `background-color: currentColor` + `mask-image` | 사이드바 내비, 노드 캔버스 툴바 | 둘레의 `color`. 내비는 `opacity .92`(활성 행 1), 툴바는 비활성 `--gray-200` · 활성 `--gray-000` |
+| `filter` | 입력칸 글리프 | `brightness(0) invert(1)` + `opacity .6`(어두운 면) / `brightness(0)` + `.42`(밝은 면) |
+| 에셋 교체 | 브랜드 로고 | 어두운 면 `klipse-dark.svg`(흰색) / 밝은 면 `klipse-light.svg`(검정). 단 인증 브랜드 패널은 `themeMode="dark"` 고정이라 항상 흰색 |
+| `mask` + 팔레트 알파 | 프로젝트 카드 워드마크 | `--palette-gray-000`(어두운 면) / `--palette-gray-1000`(밝은 면)을 **22%**로 |
+
+인라인 SVG의 `fill="currentColor"`도 마찬가지다. 기본 아바타는 `text-palette-gray-400`(밝은 면) /
+`dark:text-palette-gray-600`(어두운 면)이라, 파일만 보면 색을 알 수 없다.
+
+**(c) 두께는 크기에 비례하지 않는다.** 노드 캔버스는 `iconScreenStroke.ts`의
+`nodeIconStrokeScreenPx(size)`로 **화면 두께를 크기별로 고정**한다 — 14px→**0.88**(비례값 0.875가 아니라
+디자인 확정값), 16px→1, 그 밖은 `size / 16`(20px→1.25 = `NODE_CHROME_STROKE_SCREEN_PX`, 32px→2).
+user-space 두께는 `screenPx × viewBox / size`로 역산한 값이라, 파일에 적힌 `stroke-width`를 그대로
+읽으면 틀린다.
+
+**판정 절차.** 아이콘을 옮길 때는 자산 파일이 아니라 **그 아이콘을 쓰는 컴포넌트**를 먼저 읽는다.
+(1) 그 이름의 인라인 글리프가 있는지, (2) 색을 정하는 기제가 무엇인지, (3) 노드 캔버스 안이면
+화면 두께가 얼마인지 — 셋을 확인한 뒤에 그린다.
+
+**Figma로 옮길 때.** Figma에서 아이콘 프레임을 `resize()`로 줄이면 **획 두께는 따라 줄지 않는다.**
+32 격자에 획 2.4인 글리프를 20px 자리에 놓으면 제품의 실효 1.5px 대신 2.4px이 남는다. `rescale()`을
+쓰거나 배치 뒤 `strokeWeight × (표시 크기 / 원본 viewBox)`로 다시 계산한다. 노드 캔버스 안이면
+비례식이 아니라 위의 고정 두께표를 쓴다.
 
 ## Acceptance tests
 
@@ -223,5 +268,8 @@ Tailwind 임의 변형 셀렉터 문자열이다. 짝인 `-light`는 같은 파�
   잡지 못한다. 재조립 template의 카드 유무는 `verify-figma-parity`의 template 축에 의존한다.
 - 4는 `verify-product-evidence`가 blob 해시로 잡는다. 다만 **인용 좌표가 아니라 파일 단위**라,
   같은 파일 안에서 줄이 밀린 것은 잡히지 않는다.
+- 7은 게이트가 없다. 아이콘 도형·기제·두께는 모두 컴포넌트 쪽 선언이라 렌더된 값을 재는 축에
+  걸리지 않는다. 옮긴 아이콘마다 (표시 크기 · 원본 viewBox · 획) 세 값을 함께 적어 두는 것이
+  현재로선 유일한 방어다.
 - 새 컴포넌트의 값을 정할 때 이 문서의 항목을 확인했다는 근거는 EXPECT의 제품 대조 행이며,
   문장으로 대신하지 않는다.

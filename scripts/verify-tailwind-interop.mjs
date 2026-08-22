@@ -4,6 +4,7 @@ import { tmpdir } from "node:os";
 import { dirname, resolve, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { resolveProductRef } from "./lib/product-ref.mjs";
+import { materializeDsPackage } from "./lib/ds-package-shim.mjs";
 
 // 제품(klipse-web)은 Tailwind 4의 `@theme`에서 네 namespace를 통째로 지운다 —
 // `--color-*` · `--radius-*` · `--text-*` · `--font-*`. DS의 theme.css도 그 네 namespace를 쓴다.
@@ -54,11 +55,33 @@ const productTheme = execFileSync("git", ["show", productRef + ":apps/web/app/ta
   cwd: productRoot,
   encoding: "utf8",
   maxBuffer: 64 * 1024 * 1024,
-}).replace(/@import\s+"\.\/keyframes\.css";/g, "");
+})
+  .replace(/@import\s+"\.\/keyframes\.css";/g, "")
+  // **제품이 자기 진입 CSS 안에서 DS theme을 이미 불러온다.** 그것을 그대로 두면 이 실험이
+  // 변수를 격리하지 못한다 — `ds-first` 에서도 제품 파일이 뒤에서 DS를 다시 불러 유틸리티가
+  // 되살아나고, 내장 canary가 「순서 계약이 사라졌다」고 잘못 알린다.
+  //
+  // 계약 자체는 살아 있다. 다만 **강제 지점이 옮겨졌다** — 예전에는 소비자가 부르는 순서였고,
+  // 지금은 제품 진입 CSS 안에서 DS import가 자기 `@theme inline` 블록 **뒤에** 놓이는 위치다.
+  // 제품 주석이 그 실측을 그대로 적는다(앞에 두면 `--color-*: initial`이 DS 색을 지워
+  // `bg-action-primary`·`rounded-control`이 생성되지 않는다).
+  //
+  // 그래서 실험에서는 제품이 스스로 부르는 DS theme을 걷어내고, 우리가 두 순서로 직접 붙인다.
+  // 이렇게 해야 이 게이트가 재려던 것(제품 reset이 DS를 지우는가)을 계속 잰다.
+  .replace(/@import\s+"@klipse-design\/css\/theme\.css"[^;]*;/g, "");
 
 const workspace = mkdtempSync(join(tmpdir(), "kds-tailwind-interop-"));
 const failures = [];
 try {
+  // 제품 진입 CSS가 이 저장소의 패키지를 @import 한다 — 그 파일을 작업공간에 놓아 준다.
+  // 제품이 고정한 커밋의 생성물을 쓴다(사유는 lib/ds-package-shim.mjs 헤더).
+  materializeDsPackage({
+    workspace,
+    git: (args) =>
+      execFileSync("git", args, { cwd: productRoot, encoding: "utf8", maxBuffer: 64 * 1024 * 1024 }),
+    commit: productRef,
+    tag: "tailwind-interop",
+  });
   writeFileSync(join(workspace, "product.css"), productTheme);
   writeFileSync(join(workspace, "ds.css"), readFileSync(themePath, "utf8"));
   writeFileSync(join(workspace, "ds-first.css"), '@import "./ds.css";\n@import "./product.css";\n');

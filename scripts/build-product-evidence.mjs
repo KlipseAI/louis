@@ -11,7 +11,10 @@ const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const measuredPath = resolve(repoRoot, "migration/product.measured.json");
 const outputPath = resolve(repoRoot, "migration/product-evidence.lock.json");
 const productRoot = process.env.KLIPSE_PRODUCT_REPO ?? "/Users/sejunki/klipse-web";
-const productRef = process.env.KLIPSE_PRODUCT_REF ?? "origin/main";
+// 정본은 `design` 브랜치다. `origin/main`이 아니다 — 2026-08-21 확정.
+// `origin/main`에는 이미 폐지된 개념(글래스 섀도우 5겹)이 남아 있어 그것을 읽으면
+// 문서가 죽은 토큰을 가르친다. 저장소 기본 브랜치도 `main`이 아니라 `dev`다.
+const productRef = process.env.KLIPSE_PRODUCT_REF ?? "design";
 
 if (!existsSync(resolve(productRoot, ".git"))) {
   console.error("[product-evidence] 제품 저장소가 없습니다: " + productRoot);

@@ -385,10 +385,10 @@ host의 두 번째 직속 자식이 되고, primitive의 중첩 격리가 자기
   표면 경계가 서지 않는다. Menu 패널과 같은 판단이다.
 
   **제품은 반대다.** 배포본 확인 모달은 `border` 선언이 아예 없고 경계를
-  `box-shadow: var(--glass-dropdown-frame)` **5겹 하나로만** 만든다(`GlassConfirmModal.tsx:57`).
+  `box-shadow: var(--dropdown-frame)` **0.5px 헤어라인 한 겹으로만** 만든다(`GlassConfirmModal.tsx:56`).
   드롭다운이 함께 쓰는 `--dropdown-ambient-shadow`는 붙이지 않으므로 **드롭 섀도우가 한 겹도 없다.**
   이름이 `Glass*`인데도 `backdrop-filter: none`과 `-webkit-backdrop-filter: none`을 명시해 흐림까지 끈다
-  (`GlassConfirmModal.tsx:56`). **이름을 믿고 Figma에 블러를 넣으면 틀린다.**
+  (`GlassConfirmModal.tsx:55`). **이름을 믿고 Figma에 블러를 넣으면 틀린다** — 이름의 `Glass`는 이미 제품이 걷어낸 개념의 잔재다.
 - **제품 모달의 면은 시맨틱이 아니라 palette 직접 참조 두 벌이다.** 다크 `--palette-gray-800` `#313640`,
   라이트 `--palette-gray-100` `#f1f1f3`이고 둘 다 불투명 100%다(`GlassConfirmModal.tsx:54-55`).
   `--gray-*`는 테마마다 뒤집히지만 `--palette-*`는 뒤집히지 않아, 제품은 라이트 분기

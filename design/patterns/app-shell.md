@@ -231,48 +231,32 @@ main inset이 우연히 어긋나지 않게** 관계 테스트를 유지한다. 
 
 | 축 | 값 | 근거 |
 | --- | --- | --- |
-| 반경 | `16px` | `globals.css:1370` · `1403` |
-| 프레임 | `var(--glass-dropdown-frame)` — **5겹**이다. 단일 헤어라인이 아니다 | `globals.css:1372` · `63-68` |
-| 면 (라이트) | `--palette-gray-100` | `globals.css:1391-1393` · `1423-1425` |
-| 면 (다크) | `--palette-gray-800` | `globals.css:1395-1397` · `1427-1429` |
+| 반경 | `16px` | `globals.css:1349` · `1366` |
+| 프레임 | `var(--dropdown-frame)` — **0.5px 헤어라인 한 겹**. 글래스 5겹은 폐지됐다 | `globals.css:1350` · `1367` · `57` |
+| 면 (라이트) | `--palette-gray-100` | `globals.css:1354-1356` |
+| 면 (다크) | `--palette-gray-800` | `globals.css:1358-1360` |
+| 스크롤 헤더 슬롯 | `position: sticky; top: 0; z-index: 5` — 하단 페이드(10)보다 **아래**다 | `appHomeSceneStyles.ts:787-795` · `InstagramAnalyticsScene.tsx:336` |
+| 하단 페이드 | `::before` `z-index: 10` — `linear-gradient(to top, 면색 100% 0%, 53% 50%, 19% 80%, 0% 100%) bottom / 100% 20px no-repeat` | `globals.css:1379-1408` |
+| 클리핑 | `overflow: hidden` | `globals.css:1348` · `1365` |
 
-| 스크롤 헤더 슬롯 | `position: sticky; top: 0; z-index: 5` — 페이드(10)·베벨 링(11)보다 **아래**다 | `appHomeSceneStyles.ts:787-795` · `InstagramAnalyticsScene.tsx:336` |
-| 하단 페이드 | `::before` `z-index: 10` — `linear-gradient(to top, 면색 100% 0%, 53% 50%, 19% 80%, 0% 100%) bottom / 100% 20px no-repeat` | `globals.css:1431-1460` |
-| 베벨 링 | `::after` `z-index: 11` — 상하 `inset 0 ±1px 1px` 25% + 좌우 `inset ±1px 0 1px` 18% | `globals.css:1375-1389` |
-| 클리핑 | `overflow: hidden` | `globals.css:1369` · `1402` |
+**베벨 링(`::after`)은 제품에서 제거됐다.** 이전 판은 이 카드가 프레임 5겹 + 베벨 링 4겹 = 9겹을
+갖는다고 적었다. 지금은 **프레임 한 겹뿐**이고, 남은 `::after` 선언은 `≤719px`에서 그 층을
+`display: none` 시키던 블록 하나다. 카드 안쪽은 3층이 아니라 **2층이다 — 헤더 슬롯(5) < 하단 페이드(10).**
 
-**페이드와 링은 카드가 만든 stacking context 안에서 순서가 정해진다** — 페이드(10)가 아래,
-링(11)이 위다. 둘 다 `pointer-events: none`이고 `border-radius: inherit`을 받는다.
+페이드는 카드가 만든 stacking context 안에 있고 `pointer-events: none` · `border-radius: inherit`을 받는다.
 
-**`--glass-dropdown-frame`을 단일 링으로 옮기면 틀린다.** 5겹이고 라이트에서 알파가 뒤집힌다 —
-[읽기 함정](../foundations/product-reading-traps.md) §2가 이 토큰을 예로 든다.
+#### 프레임 해결값 — `--dropdown-frame`
 
-**카드 안쪽은 3층이다 — 헤더 슬롯(5) < 하단 페이드(10) < 베벨 링(11).** sticky 헤더를 페이드·링
-**위**로 올려 그리면 틀린다. 배포본은 베벨 링이 헤더의 상단 모서리를 덮는다.
+| # | 종류 | x | y | blur | spread | 색 |
+| ---: | --- | ---: | ---: | ---: | ---: | --- |
+| 1 | 외곽 헤어라인 | `0` | `0` | `0` | `0.5px` | `rgb(var(--palette-gray-900-rgb) / 12%)` = `rgba(23, 27, 34, .12)` |
 
-#### 프레임 해결값 — `--glass-dropdown-frame` 5겹
+**라이트에서도 같은 값이다.** 라이트 스코프가 이 토큰을 재선언하지만 `:root`와 **바이트 동일**하다
+(`globals.css:57` · `577`). 이전 판이 적었던 「라이트에서 알파가 뒤집힌다」는 폐지된 글래스 토큰의
+성질이었고 지금은 해당하지 않는다. blur가 `0`이라 드롭섀도우가 아니라 **선**이다.
 
-| # | 종류 | x | y | blur | spread | 색 (다크·기본) | 색 (라이트) |
-| ---: | --- | ---: | ---: | ---: | ---: | --- | --- |
-| 1 | 외곽 링 | `0` | `0` | `0` | `0.5px` | `rgba(0,0,0,0.5)` | `rgba(0,0,0,0.15)` |
-| 2 | 우측 엣지 | `1.25px` | `0` | `0` | `-0.75px` | `rgba(0,0,0,0.8)` | `rgba(0,0,0,0.25)` |
-| 3 | 좌측 엣지 | `-1.25px` | `0` | `0` | `-0.75px` | `rgba(0,0,0,0.8)` | `rgba(0,0,0,0.25)` |
-| 4 | 상단 흰 림 (`inset`) | `0` | `1px` | `1px` | `-0.5px` | `rgba(255,255,255,0.5)` | `rgba(255,255,255,1)` |
-| 5 | 하단 흰 림 (`inset`) | `0` | `-1px` | `1px` | `-0.5px` | `rgba(255,255,255,0.5)` | `rgba(255,255,255,1)` |
-
-근거는 `globals.css:63-68`(다크·기본)과 `592-599`(라이트 오버라이드)다.
-
-**기하는 테마와 무관하게 같고 갈리는 것은 알파뿐이다** — 링 50 → 15%, 좌우 엣지 80 → 25%, 흰 림
-50 → 100%. 1·2·3은 blur가 `0`이라 드롭섀도우가 아니라 **선**이다. 2·3의 음수 spread(`-0.75px`)가
-링을 좌우로만 `1.25 − 0.75 = 0.5px` 내밀어 세로 엣지를 만든다.
-
-**베벨 링의 잉크는 순백이 아니라 `250 250 250`이다.** 네 겹 모두 `--glass-inner-shadow-rgb` =
-`--palette-gray-000-rgb` = `250 250 250`이고 **라이트에서 재정의되지 않는다**(`globals.css:53` · `39`).
-offset·blur는 `--glass-bevel-offset: 1px` · `--glass-bevel-blur: 1px`(`globals.css:55-56`)이다. 형태
-A(`globals.css:1407-1421`)와 형태 B(`1375-1389`)의 네 겹은 값이 동일하다.
-
-**Figma에서는 9겹을 두 노드로 나눠 그린다** — 카드 노드에 프레임 5겹, 그 위 오버레이 노드에 베벨 링
-4겹. 생성 토큰의 `elevation-*` 8종 중 이 프레임과 일치하는 것은 **없다.** 가장 가까운
+**Figma에서는 한 노드에 한 겹으로 그린다** — 카드 노드에 spread 0.5px 드롭섀도우 하나. 오버레이 노드도,
+안쪽 베벨도 없다. 생성 토큰의 `elevation-*` 8종 중 이 프레임과 일치하는 것은 **없다.** 가장 가까운
 `elevation-menu`도 2겹이라 대용할 수 없다.
 
 **≤719px에서는 프레임과 베벨 링이 통째로 사라진다.** `border-radius: 0` · `box-shadow: none` ·

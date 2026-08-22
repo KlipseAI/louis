@@ -17,6 +17,7 @@ import { chromium } from "playwright";
 import { atomicWriteBatch } from "./lib/atomic-output.mjs";
 import { resolveProductRef } from "./lib/product-ref.mjs";
 import { productFontFace } from "./lib/product-font.mjs";
+import { materializeDsPackage } from "./lib/ds-package-shim.mjs";
 
 const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const outputPath = resolve(repoRoot, "migration/product.variants.json");
@@ -330,12 +331,14 @@ const renderSpecimen = (node) =>
   "</" + node.tag + ">";
 
 const workspace = mkdtempSync(join(tmpdir(), "kds-product-variants-"));
+let dsPin = "HEAD";
 let rendered;
 let specimenMeasured;
 try {
   const tailwindEntry = git(["show", commit + ":apps/web/app/tailwind.css"]);
   writeFileSync(join(workspace, "entry.css"), tailwindEntry);
   writeFileSync(join(workspace, "keyframes.css"), git(["show", commit + ":apps/web/app/keyframes.css"]));
+  dsPin = materializeDsPackage({ workspace, git, commit, tag: "product-variants" });
   const compiled = await compile(tailwindEntry, {
     base: workspace,
     loadStylesheet: async (id, base) => {

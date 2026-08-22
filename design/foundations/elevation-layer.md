@@ -36,58 +36,58 @@ Elevation primitive, semantic elevation과 semantic layer는 단일 DTCG source 
   primitive `shadow-*`는 미표현으로 분류하고 loss metadata를 남긴다
   ([DS-D-0007](../governance/decisions/DS-D-0007-figma-library-structure.md)).
 
-## 글래스 베벨
+## 프레임 — 글래스는 폐지됐다
 
-제품은 글래스 표면의 안쪽 테두리를 elevation shadow와 **별도의 토큰 계열**로 소유한다. 정의는
-`:root` 한 곳뿐이다.
+제품은 드롭다운·카드·팝오버의 외곽을 **하나의 토큰**으로 소유한다. 정의는 `:root` 한 곳뿐이고
+**0.5px 헤어라인 한 겹**이다.
 
-이 계열은 아직 DTCG source에 없는 제품 전역 CSS다. **계약이 아니라 실측값**이며, Figma로 옮길 때
-지어내지 않도록 적어 둔다.
+| 토큰 | 값 | 좌표 |
+| --- | --- | --- |
+| `--dropdown-frame` | `0px 0px 0px 0.5px rgb(var(--palette-gray-900-rgb) / 12%)` | `globals.css:57` |
+| `--dropdown-frame-on-dark` | `0px 0px 0px 0.5px rgb(var(--palette-gray-000-rgb) / 16%)` | `globals.css:59` |
+| `--dropdown-ambient-shadow` | `0px 8px 15px 0px rgba(0, 0, 0, 0.04)` | `globals.css:63` |
 
-| 토큰                       | 값                                                              | 좌표               |
-| -------------------------- | --------------------------------------------------------------- | ------------------ |
-| `--glass-bevel-offset`     | `1px`                                                             | `globals.css:55`   |
-| `--glass-bevel-blur`       | `1px`                                                             | `globals.css:56`   |
-| `--glass-bevel-highlight`  | `inset 0 var(--glass-bevel-offset) var(--glass-bevel-blur)`       | `globals.css:57`   |
-| `--glass-bevel-shade`      | `inset 0 calc(-1 * var(--glass-bevel-offset)) var(--glass-bevel-blur)` | `globals.css:58` |
-| `--glass-inner-shadow-rgb` | `var(--palette-gray-000-rgb)`                                     | `globals.css:53`   |
-| `--palette-gray-000-rgb`   | `250 250 250`                                                     | `globals.css:40`   |
+**라이트에서도 값이 같다.** 라이트 스코프가 `--dropdown-frame`을 재선언하지만 `:root`와 **바이트 동일**하다
+(`globals.css:577`). 테마로 뒤집히는 축이 아니다.
 
-해상 결과는 하이라이트 `inset 0 1px 1px`, 쉐이드 `inset 0 -1px 1px`이고 색은 언제나
-`rgb(250 250 250 / <알파>)`다.
+`--dropdown-frame-on-dark`는 앱 테마와 무관하게 **늘 어두운 표면** 위에 얹는 칩 전용이다 — 잉크가 흰색이라
+라이트 카드 위에 쓰면 흰 테두리가 뜬다. 소비처는 셋뿐이다(`VideoPlayer` · `CanvasOnboardingHints` ·
+`CreativeMediaClient`).
 
-### 토큰은 기하만 담고 색을 담지 않는다
+앰비언트 그림자는 **프레임 토큰에 넣지 않는다.** 프레임은 카드·패널·버튼까지 83곳이 공유하므로 그림자를
+섞으면 전부에 번진다. 필요한 표면에서만 앞에 조합한다 — `box-shadow: var(--dropdown-ambient-shadow), var(--dropdown-frame)`.
 
-**`--glass-bevel-highlight`와 `--glass-bevel-shade`는 `inset <x> <y> <blur>`까지만 담는다.**
-box-shadow 문법에서 색이 생략되면 `currentColor`로 떨어지므로, 소비처가 반드시 색을 뒤에 이어 붙인다.
+### 글래스 5겹과 베벨은 제품에서 제거됐다
 
-```
-box-shadow:
-  var(--glass-bevel-highlight) rgb(var(--glass-inner-shadow-rgb) / 25%),
-  var(--glass-bevel-shade)     rgb(var(--glass-inner-shadow-rgb) / 25%);
-```
+이전 판은 `--glass-dropdown-frame`(검정 외곽 링 + 좌우 검정 엣지 ±1.25px + 상하 흰 림 inset = **5겹**)과
+`--glass-bevel-highlight`/`-shade`/`--glass-inner-shadow-rgb` 계열을 문서화했다. **그 토큰들은 지금 제품에
+하나도 없다** — `git grep glass` 가 0건이다. `globals.css` 주석이 직접 적는다:
 
-근거는 `globals.css:1383-1384`와 `mypage/upgrade/checkout/page.tsx:81`이다.
+> 글래스(검정 링 + 좌우 엣지 + 흰 림 5겹)를 걷어냈다 — **디자인 시스템이 글래스 섀도우 개념을 두지 않는다.**
 
-**토큰 값만 보고 Figma effect를 만들면 색 없는 그림자가 나온다** — 알파는 토큰이 아니라 소비처가
-정한다. 앱 메인 카드는 상하 25% · 좌우 18%를 쓴다([App Shell](../patterns/app-shell.md)
-§메인 카드 표면 표의 「베벨 링」 행 참조).
+함께 사라진 것:
 
-### 라이트에서도 베벨은 흰색이다
+- 공용 `Button`의 `primary`·`danger`가 갖던 베벨 2겹, `::before` 오버레이 이너섀도우, 그 층을 얹으려고
+  있던 `translateZ(0)` 스태킹 컨텍스트 (`components/ui/Button.tsx:83-96`)
+- 앱 메인 카드의 `::after` 베벨 링. 카드는 이제 `border-radius: 16px` + `--dropdown-frame`뿐이다
+  (`globals.css:1345-1351`)
+- 비디오 에디터의 헤더 버튼·타임라인 표면이 쓰던 베벨 (`videoEditParts/vemClass.ts`)
 
-배포본 a9ead58b 전수 확인 결과 위 여섯 토큰은 모두 정의가 **한 곳뿐**이며
-`html[data-theme="light"]`을 포함해 어떤 선택자도 재정의하지 않는다. 라이트에서도 색은
-`250 250 250` 그대로다. **라이트 화면을 옮기면서 흰 베벨을 「다크 잔재」로 보고 지우면 안쪽
-테두리 두 겹이 통째로 빠진다.**
+**이 자리를 5겹으로 되돌리지 마라.** 옛 문서나 `origin/main`을 근거로 다시 그리면 폐지된 개념이 살아난다 —
+[제품을 읽을 때 틀리는 자리](product-reading-traps.md)의 「정본은 `design` 브랜치다」 항목을 먼저 읽는다.
 
-베벨은 `--glass-dropdown-frame`(`globals.css:63-68`)의 4·5번째 겹과 **별개의 추가 층**이다.
-프레임은 요소 본체에 걸리고 베벨은 대개 `::after`에 걸린다. 둘을 같은 것으로 보고 하나만 그리면
-안쪽 테두리가 절반만 남는다.
+### 이너섀도우가 남은 자리는 둘뿐이다
 
-### 주석이 아니라 값이 정본이다
+전면 제거가 아니다. 두 곳은 의도적으로 남았고, 둘 다 `inset 0 0 8px 0 rgb(250 250 250 / 100%)` +
+`mix-blend-mode: overlay` 조합이다.
 
-`globals.css:54` 주석은 「하이라이트(↓ Y+2) + 쉐이딩(↑ Y-2)」라고 적혀 있으나 실제 offset은
-`1px`이다. **주석을 읽고 2px로 옮기면 틀린다.**
+| 소비처 | 좌표 |
+| --- | --- |
+| 노드 사이드 버튼 | `node-canvas-v2/nodes/NodeSideButtons.tsx:146-148` |
+| 비디오 에디터 `confirmBtn`(내보내기) | `videoEditParts/vemClass.ts` |
+
+Button 주석이 「이너섀도우는 **노드 사이드 버튼에만** 남는다」고 적지만 `confirmBtn`이 같은 층을 자기
+클래스에 직접 들고 있다 — **주석보다 값이 정본이다.**
 
 ## Layer model
 

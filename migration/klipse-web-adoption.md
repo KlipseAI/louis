@@ -39,6 +39,34 @@ klipse-design-system                    klipse-web
 
 DS 토큰 하나를 바꾸면 CSS 변수와 Tailwind 유틸리티가 함께 바뀌고, 제품은 그것을 소비만 한다.
 
+## 지금 상태 — 채택이 실제로 켜졌다 (2026-08-21 실측)
+
+**이 문서의 아래 「단계」는 복사본(vendoring) 시절 기록이다. 제품은 그 단계를 지나 git dependency로
+넘어갔고, 지금은 이 저장소를 커밋 SHA로 고정해 받는다.**
+
+klipse-web `design` 브랜치(`a3ed8e03`) 실측:
+
+| 축 | 값 |
+| --- | --- |
+| 의존성 선언 | `"@klipse-design/css": "github:KlipseAI/louis#bf62eba7…&path:/packages/css"` |
+| 고정된 DS 커밋 | `bf62eba7` — 「Checkbox를 세운다」 |
+| 진입 CSS가 부르는 것 | `@klipse-design/css/tokens.css`(레이어 밖) · `@klipse-design/css/theme.css`(`layer(theme)`) |
+| 순서 | theme import가 제품 자신의 `@theme inline` 블록 **뒤**에 온다 — 앞에 두면 `--color-*: initial`이 DS 색을 지운다(아래 실측과 같은 함정) |
+| 이름 충돌 | 0건 (제품 144 · DS 154) |
+
+이 두 줄은 `origin/main`에 **없다.** 그래서 제품 값을 읽을 때 정본이 `design`이다 —
+[읽기 함정](../design/foundations/product-reading-traps.md)의 「정본은 `design` 브랜치다」 참조.
+
+### 핀이 낡는다는 사실을 게이트가 안다
+
+이 저장소 HEAD는 그 핀보다 **147커밋 앞서** 있고 `packages/css`가 4,000줄 넘게 달라졌다.
+그래서 `measure-product-components.mjs`는 제품 CSS를 컴파일할 때 **HEAD가 아니라 제품이 고정한
+커밋의 생성물**을 꺼내 쓴다. HEAD를 쓰면 제품에 없는 DS로 재게 되고, 그것이 바로 이 저장소가
+`product-ref.mjs`에서 경계하는 「게이트가 초록인 채로 값이 낡는」 실패다. 게이트 로그가 매번
+`DS <sha>`를 함께 찍는다.
+
+**핀을 올리는 것은 의도한 행위여야 한다** — 제품 `package.json`의 SHA를 바꾸는 것이 그 신호다.
+
 ## 단계
 
 ### 1단계 — 연결 — **완료** (2026-08-15)

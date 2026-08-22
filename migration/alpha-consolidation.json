@@ -20,13 +20,13 @@
   ],
   "visibleThresholdRelative": 0.15,
   "keep": [],
-  "productRef": "a9ead58be81ac544a459b45ccaf25f33d2d0eb32",
-  "productCommit": "a9ead58be81ac544a459b45ccaf25f33d2d0eb32",
+  "productRef": "a3ed8e031214f67ac319c5ceaa7ad2808cf0d3a4",
+  "productCommit": "a3ed8e031214f67ac319c5ceaa7ad2808cf0d3a4",
   "totals": {
     "stops": 73,
     "trueAlphaStops": 63,
-    "trueAlphaUses": 2682,
-    "movedUses": 1054,
+    "trueAlphaUses": 2470,
+    "movedUses": 1034,
     "visibleUses": 79,
     "reviewSites": 79
   },
@@ -95,7 +95,7 @@
     },
     {
       "ink": "--palette-gray-000-rgb",
-      "uses": 407,
+      "uses": 410,
       "stops": [
         {
           "stop": 4,
@@ -103,7 +103,7 @@
         },
         {
           "stop": 6,
-          "uses": 17
+          "uses": 18
         },
         {
           "stop": 8,
@@ -115,15 +115,15 @@
         },
         {
           "stop": 12,
-          "uses": 43
+          "uses": 41
         },
         {
           "stop": 16,
-          "uses": 29
+          "uses": 30
         },
         {
           "stop": 20,
-          "uses": 43
+          "uses": 44
         },
         {
           "stop": 25,
@@ -135,19 +135,19 @@
         },
         {
           "stop": 40,
-          "uses": 24
+          "uses": 25
         },
         {
           "stop": 50,
-          "uses": 12
+          "uses": 13
         },
         {
           "stop": 60,
-          "uses": 23
+          "uses": 22
         },
         {
           "stop": 70,
-          "uses": 34
+          "uses": 35
         },
         {
           "stop": 80,
@@ -157,7 +157,7 @@
     },
     {
       "ink": "--palette-gray-900-rgb",
-      "uses": 279,
+      "uses": 286,
       "stops": [
         {
           "stop": 4,
@@ -165,7 +165,7 @@
         },
         {
           "stop": 6,
-          "uses": 21
+          "uses": 22
         },
         {
           "stop": 8,
@@ -173,11 +173,11 @@
         },
         {
           "stop": 10,
-          "uses": 19
+          "uses": 20
         },
         {
           "stop": 12,
-          "uses": 36
+          "uses": 38
         },
         {
           "stop": 16,
@@ -209,49 +209,11 @@
         },
         {
           "stop": 70,
-          "uses": 13
-        },
-        {
-          "stop": 80,
-          "uses": 31
-        }
-      ]
-    },
-    {
-      "ink": "--glass-inner-shadow-rgb",
-      "uses": 224,
-      "stops": [
-        {
-          "stop": 10,
-          "uses": 1
-        },
-        {
-          "stop": 12,
-          "uses": 5
-        },
-        {
-          "stop": 16,
           "uses": 14
         },
         {
-          "stop": 20,
-          "uses": 12
-        },
-        {
-          "stop": 25,
-          "uses": 184
-        },
-        {
-          "stop": 30,
-          "uses": 6
-        },
-        {
-          "stop": 40,
-          "uses": 1
-        },
-        {
-          "stop": 60,
-          "uses": 1
+          "stop": 80,
+          "uses": 33
         }
       ]
     },
@@ -361,7 +323,7 @@
     },
     {
       "ink": "--gray-100-rgb",
-      "uses": 41,
+      "uses": 42,
       "stops": [
         {
           "stop": 4,
@@ -385,7 +347,7 @@
         },
         {
           "stop": 20,
-          "uses": 1
+          "uses": 2
         },
         {
           "stop": 50,
@@ -407,7 +369,7 @@
     },
     {
       "ink": "--palette-gray-1000-rgb",
-      "uses": 39,
+      "uses": 38,
       "stops": [
         {
           "stop": 6,
@@ -415,7 +377,7 @@
         },
         {
           "stop": 8,
-          "uses": 3
+          "uses": 2
         },
         {
           "stop": 10,
@@ -766,6 +728,28 @@
       ]
     },
     {
+      "ink": "--palette-gray-700-rgb",
+      "uses": 16,
+      "stops": [
+        {
+          "stop": 40,
+          "uses": 1
+        },
+        {
+          "stop": 50,
+          "uses": 1
+        },
+        {
+          "stop": 70,
+          "uses": 2
+        },
+        {
+          "stop": 80,
+          "uses": 12
+        }
+      ]
+    },
+    {
       "ink": "--gray-300-rgb",
       "uses": 16,
       "stops": [
@@ -818,28 +802,6 @@
         {
           "stop": 50,
           "uses": 1
-        }
-      ]
-    },
-    {
-      "ink": "--palette-gray-700-rgb",
-      "uses": 14,
-      "stops": [
-        {
-          "stop": 40,
-          "uses": 1
-        },
-        {
-          "stop": 50,
-          "uses": 1
-        },
-        {
-          "stop": 70,
-          "uses": 2
-        },
-        {
-          "stop": 80,
-          "uses": 10
         }
       ]
     },
@@ -1478,7 +1440,7 @@
       "to": 6,
       "delta": 1,
       "relative": 0.143,
-      "uses": 28,
+      "uses": 30,
       "visible": false
     },
     {
@@ -1486,7 +1448,7 @@
       "to": 8,
       "delta": 0,
       "relative": 0,
-      "uses": 215,
+      "uses": 214,
       "visible": false
     },
     {
@@ -1510,7 +1472,7 @@
       "to": 12,
       "delta": 0,
       "relative": 0,
-      "uses": 203,
+      "uses": 200,
       "visible": false
     },
     {
@@ -1526,7 +1488,7 @@
       "to": 12,
       "delta": 2,
       "relative": 0.143,
-      "uses": 88,
+      "uses": 86,
       "visible": false
     },
     {
@@ -1534,7 +1496,7 @@
       "to": 16,
       "delta": 1,
       "relative": 0.067,
-      "uses": 19,
+      "uses": 17,
       "visible": false
     },
     {
@@ -1542,7 +1504,7 @@
       "to": 16,
       "delta": 0,
       "relative": 0,
-      "uses": 68,
+      "uses": 63,
       "visible": false
     },
     {
@@ -1558,7 +1520,7 @@
       "to": 16,
       "delta": 2,
       "relative": 0.111,
-      "uses": 54,
+      "uses": 48,
       "visible": false
     },
     {
@@ -1574,7 +1536,7 @@
       "to": 20,
       "delta": 0,
       "relative": 0,
-      "uses": 110,
+      "uses": 106,
       "visible": false
     },
     {
@@ -1582,7 +1544,7 @@
       "to": 20,
       "delta": 2,
       "relative": 0.091,
-      "uses": 77,
+      "uses": 71,
       "visible": false
     },
     {
@@ -1590,7 +1552,7 @@
       "to": 25,
       "delta": 1,
       "relative": 0.042,
-      "uses": 36,
+      "uses": 32,
       "visible": false
     },
     {
@@ -1598,7 +1560,7 @@
       "to": 25,
       "delta": 0,
       "relative": 0,
-      "uses": 208,
+      "uses": 28,
       "visible": false
     },
     {
@@ -1614,7 +1576,7 @@
       "to": 30,
       "delta": 2,
       "relative": 0.071,
-      "uses": 60,
+      "uses": 58,
       "visible": false
     },
     {
@@ -1638,7 +1600,7 @@
       "to": 30,
       "delta": 2,
       "relative": 0.063,
-      "uses": 20,
+      "uses": 18,
       "visible": false
     },
     {
@@ -1654,7 +1616,7 @@
       "to": 30,
       "delta": 5,
       "relative": 0.143,
-      "uses": 30,
+      "uses": 28,
       "visible": false
     },
     {
@@ -1686,7 +1648,7 @@
       "to": 40,
       "delta": 2,
       "relative": 0.048,
-      "uses": 27,
+      "uses": 26,
       "visible": false
     },
     {
@@ -1702,7 +1664,7 @@
       "to": 40,
       "delta": 5,
       "relative": 0.111,
-      "uses": 33,
+      "uses": 34,
       "visible": false
     },
     {
@@ -1758,7 +1720,7 @@
       "to": 50,
       "delta": 5,
       "relative": 0.091,
-      "uses": 45,
+      "uses": 46,
       "visible": false
     },
     {
@@ -1774,7 +1736,7 @@
       "to": 60,
       "delta": 2,
       "relative": 0.034,
-      "uses": 22,
+      "uses": 21,
       "visible": false
     },
     {
@@ -1782,7 +1744,7 @@
       "to": 60,
       "delta": 0,
       "relative": 0,
-      "uses": 83,
+      "uses": 82,
       "visible": false
     },
     {
@@ -1830,7 +1792,7 @@
       "to": 70,
       "delta": 0,
       "relative": 0,
-      "uses": 71,
+      "uses": 73,
       "visible": false
     },
     {
@@ -1894,7 +1856,7 @@
       "to": 80,
       "delta": 4,
       "relative": 0.048,
-      "uses": 11,
+      "uses": 15,
       "visible": false
     },
     {
@@ -1922,13 +1884,13 @@
     {
       "from": 90,
       "to": null,
-      "uses": 77,
+      "uses": 78,
       "note": "불투명 잉크로 흡수 — solid role이 받는다."
     },
     {
       "from": 92,
       "to": null,
-      "uses": 87,
+      "uses": 89,
       "note": "불투명 잉크로 흡수 — solid role이 받는다."
     },
     {
@@ -1964,7 +1926,7 @@
     {
       "from": 100,
       "to": null,
-      "uses": 419,
+      "uses": 414,
       "note": "불투명 잉크로 흡수 — solid role이 받는다."
     }
   ],
@@ -1978,7 +1940,7 @@
       "sites": [
         {
           "file": "components/scenes/appHomeSceneStyles.ts",
-          "line": 730,
+          "line": 719,
           "ink": "--gray-000-rgb"
         }
       ]
@@ -2020,7 +1982,7 @@
       "sites": [
         {
           "file": "app/admin/AdminClient.tsx",
-          "line": 188,
+          "line": 190,
           "ink": "--palette-gray-900-rgb"
         },
         {
@@ -2065,17 +2027,17 @@
         },
         {
           "file": "components/scenes/archive/YoutubeVideoAnalyticsView.tsx",
-          "line": 174,
+          "line": 173,
           "ink": "--gray-000-rgb"
         },
         {
           "file": "components/scenes/create/PhotoGrid.tsx",
-          "line": 91,
+          "line": 89,
           "ink": "--gray-000-rgb"
         },
         {
           "file": "components/scenes/create/ShotCarousel.tsx",
-          "line": 123,
+          "line": 121,
           "ink": "--gray-000-rgb"
         },
         {
@@ -2110,17 +2072,17 @@
         },
         {
           "file": "components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts",
-          "line": 2971,
+          "line": 2963,
           "ink": "--gray-000-rgb"
         },
         {
           "file": "components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts",
-          "line": 3620,
+          "line": 3614,
           "ink": "--gray-000-rgb"
         },
         {
           "file": "components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts",
-          "line": 3688,
+          "line": 3682,
           "ink": "--gray-000-rgb"
         }
       ]
@@ -2219,22 +2181,22 @@
         },
         {
           "file": "components/scenes/archive/YoutubeVideoAnalyticsView.tsx",
-          "line": 98,
+          "line": 97,
           "ink": "--gray-000-rgb"
         },
         {
           "file": "components/scenes/archive/YoutubeVideoAnalyticsView.tsx",
-          "line": 103,
+          "line": 102,
           "ink": "--gray-000-rgb"
         },
         {
           "file": "components/scenes/archive/YoutubeVideoAnalyticsView.tsx",
-          "line": 412,
+          "line": 411,
           "ink": "--gray-000-rgb"
         },
         {
           "file": "components/scenes/archive/YoutubeVideoAnalyticsView.tsx",
-          "line": 434,
+          "line": 433,
           "ink": "--gray-000-rgb"
         },
         {
@@ -2244,12 +2206,12 @@
         },
         {
           "file": "components/scenes/create/PhotoGrid.tsx",
-          "line": 95,
+          "line": 93,
           "ink": "--gray-000-rgb"
         },
         {
           "file": "components/scenes/create/PhotoGrid.tsx",
-          "line": 136,
+          "line": 134,
           "ink": "--gray-000-rgb"
         },
         {
@@ -2319,92 +2281,92 @@
         },
         {
           "file": "components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts",
-          "line": 819,
+          "line": 816,
           "ink": "--gray-000-rgb"
         },
         {
           "file": "components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts",
-          "line": 973,
+          "line": 970,
           "ink": "--gray-000-rgb"
         },
         {
           "file": "components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts",
-          "line": 1578,
+          "line": 1571,
           "ink": "--gray-000-rgb"
         },
         {
           "file": "components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts",
-          "line": 1886,
+          "line": 1879,
           "ink": "--gray-000-rgb"
         },
         {
           "file": "components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts",
-          "line": 2025,
+          "line": 2018,
           "ink": "--gray-000-rgb"
         },
         {
           "file": "components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts",
-          "line": 2041,
+          "line": 2034,
           "ink": "--gray-000-rgb"
         },
         {
           "file": "components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts",
-          "line": 2117,
+          "line": 2110,
           "ink": "--palette-gray-000-rgb"
         },
         {
           "file": "components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts",
-          "line": 2831,
+          "line": 2823,
           "ink": "--gray-000-rgb"
         },
         {
           "file": "components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts",
-          "line": 2871,
+          "line": 2863,
           "ink": "--gray-000-rgb"
         },
         {
           "file": "components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts",
-          "line": 2923,
+          "line": 2915,
           "ink": "--gray-000-rgb"
         },
         {
           "file": "components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts",
-          "line": 3070,
+          "line": 3062,
           "ink": "--gray-000-rgb"
         },
         {
           "file": "components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts",
-          "line": 3620,
+          "line": 3614,
           "ink": "--gray-000-rgb"
         },
         {
           "file": "components/scenes/highlightSceneStyles.ts",
-          "line": 159,
+          "line": 157,
           "ink": "--palette-gray-900-rgb"
         },
         {
           "file": "components/scenes/highlightSceneStyles.ts",
-          "line": 1378,
+          "line": 1367,
           "ink": "--palette-gray-900-rgb"
         },
         {
           "file": "components/scenes/highlightSceneStyles.ts",
-          "line": 1406,
+          "line": 1395,
           "ink": "--palette-gray-900-rgb"
         },
         {
           "file": "components/scenes/highlightSceneStyles.ts",
-          "line": 2091,
+          "line": 2079,
           "ink": "--palette-gray-900-rgb"
         },
         {
           "file": "components/scenes/highlightSceneStyles.ts",
-          "line": 2169,
+          "line": 2161,
           "ink": "--palette-gray-900-rgb"
         },
         {
           "file": "components/ui/Button.tsx",
-          "line": 105,
+          "line": 101,
           "ink": "--palette-gray-900-rgb"
         }
       ]

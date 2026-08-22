@@ -99,8 +99,8 @@ DS-D-0010은 `[data-page-root]` 같은 DOM 상태 스코프를 토큰 축이 아
 | `--gray-900` | `#f1f1f3` | `#171b22` | **`#171b22` — mode 불변** |
 
 되돌리는 예외는 둘뿐이다. `[data-page-root] [data-reveal]`은 진입 애니메이션을 무력화하고
-(`globals.css:1707-1711`), `[data-page-root] #pricing-faq`는 `--gray-000`·`--gray-000-rgb`·`--text-soft`를
-검정 램프로 복구한다(`globals.css:1717-1721`) — 가격 페이지 FAQ가 흰 카드 위에 서기 때문이다.
+(`globals.css:1655-1659`), `[data-page-root] #pricing-faq`는 `--gray-000`·`--gray-000-rgb`·`--text-soft`를
+검정 램프로 복구한다(`globals.css:1665-1669`) — 가격 페이지 FAQ가 흰 카드 위에 서기 때문이다.
 
 **이걸 모르면 틀린다.** 랜딩·가격 화면을 라이트 모드 변형으로 그리면 전부 틀린다. 제품은 라이트 테마를 켠
 사용자에게도 검정 배경·흰 글자를 보여준다. 랜딩에는 테마 축이 없다.

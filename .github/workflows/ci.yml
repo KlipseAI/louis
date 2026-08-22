@@ -60,6 +60,7 @@ jobs:
       # 찍고 **exit 0** 했기 때문에 초록에 섞여 보이지 않았다. 조용한 exit 0 은 게이트가
       # 죽는 가장 나쁜 방식이라 verify:product 로 옮겼다. 배분은
       # scripts/verify-gate-split.mjs 가 지킨다.
+      - name: Prove validation gates (제품 저장소 없이 도는 것만)
         run: pnpm verify:ci
 
       # manifest에 등록됐지만 git에 추적되지 않은 파일을 잡는다.

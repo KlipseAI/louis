@@ -96,6 +96,26 @@ if (!workflow.includes("pnpm verify:ci")) {
   errors.push(".github/workflows/ci.yml 에서 `pnpm verify:ci` 단계를 찾지 못했습니다.");
 }
 
+// **워크플로가 파싱되는지도 본다.** 2026-08-22 에 이 단계의 주석을 고치다 `- name:` 줄을
+// 같이 지웠다. `run:` 만 남아 목록 항목이 아니게 됐고, GitHub 은 워크플로를 통째로 거부해
+// **작업이 하나도 돌지 않았다**(jobs total_count 0). 빨간 것보다 나쁘다 — 실패 로그조차
+// 없어서 무엇이 문제인지 보이지 않는다. 그때 이 게이트는 통과했다. 「`pnpm verify:ci`
+// 라는 글자가 있는가」만 봤기 때문이다.
+//
+// 전체 YAML 파서를 들이지 않고, 그 사고를 잡는 최소 구조 검사를 한다: 단계 하나에는
+// `run:` 이나 `uses:` 가 하나씩이다. 고아가 생기면 개수가 어긋난다.
+const stepNames = workflow.match(/^ {6}- name:/gm)?.length ?? 0;
+const stepBodies = workflow.match(/^ {8}(run|uses):/gm)?.length ?? 0;
+if (stepNames === 0) {
+  errors.push(".github/workflows/ci.yml 에서 단계(`- name:`)를 하나도 찾지 못했습니다.");
+} else if (stepBodies !== stepNames) {
+  errors.push(
+    `.github/workflows/ci.yml 의 구조가 깨졌습니다 — 단계 ${stepNames}개인데 ` +
+      `\`run:\`/\`uses:\` 는 ${stepBodies}개입니다. \`- name:\` 없이 남은 \`run:\` 이 있으면 ` +
+      "GitHub 은 워크플로를 통째로 거부하고 **작업이 하나도 돌지 않습니다**(실패 로그도 없습니다).",
+  );
+}
+
 // ── 5. **verify:ci 단계는 제품 저장소를 알지 못한다** ──────────────────────
 // 이 검사의 판정이 실제 동작과 정확히 일치함을 확인했다(2026-08-22): 표지를 가진
 // 스크립트 7개가 곧 러너에서 `SKIPPED` 를 찍던 7개였고, 표지가 없는 13개가 곧 실제로

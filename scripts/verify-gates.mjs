@@ -343,6 +343,23 @@ withHardlinkCanary(
   "hard link일 수 없습니다",
 );
 
+// **워크플로가 파싱 불가가 되면 잡혀야 한다.** 2026-08-22 에 주석을 고치다 `- name:` 줄을
+// 같이 지웠고, GitHub 은 워크플로를 거부해 작업이 하나도 돌지 않았다(실패 로그도 없다).
+// 단계 이름 한 줄을 지워 놓고 배분 게이트가 잡는지 본다.
+withCanary(
+  ".github/workflows/ci.yml",
+  (source) => {
+    const next = source.replace("      - name: Enable pnpm\n", "");
+    if (next === source) {
+      errors.push("workflow 구조 canary 가 대상 줄을 찾지 못했습니다.");
+    }
+    return next;
+  },
+  "CI workflow stays parseable",
+  "scripts/verify-gate-split.mjs",
+  "구조가 깨졌습니다",
+);
+
 // **제품 의존 게이트가 verify:ci 에 들어오면 잡혀야 한다.** 2026-08-22 에 정확히 그
 // 상태였다 — 게이트 7개가 verify:ci 에 있으면서 러너에서 `SKIPPED` 를 찍고 exit 0 했다.
 // 종료코드가 0 이라 아무도 못 봤고, 초록 CI 가 게이트 20개가 아니라 13개를 뜻했다.

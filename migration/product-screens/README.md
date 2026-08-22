@@ -76,6 +76,34 @@
 정리될 예정이고 사본이 없어 여기로 옮겼다 — 바이트 그대로다. `10.N.md` 문서들과 짝이라 같은
 디렉터리에 둔다.
 
+### ⚠ 한계 — 이 등급은 klipse-web 기준이 아니다
+
+**등급을 매긴 대상은 구 저장소의 2026-08-08 코드다.** 정본인 `klipse-web` `design` 브랜치와
+대조하면 두 방향으로 어긋난다.
+
+| 어긋남 | 내용 |
+| --- | --- |
+| 낡음 7개 | `(highlight-standalone)/hl*` 7개를 `level 0`(범위 밖)으로 싣고 있는데, `klipse-web` 에는 그 경로가 **0건**이다 — 삭제됐다. 「범위 밖」이 아니라 「없음」이다 |
+| 미등재 3개 | `/admin/coupons/[id]/print` · `/creative-media` · `/creative-media-admin` 은 `klipse-web` 에 실재하는데 등급이 없다 |
+
+그래서 `L3`/`L2` 는 **「구 코드 기준으로 문서가 얼마나 두꺼웠나」의 기록**이지 `klipse-web` 현재
+상태의 보증이 아니다. 재측정 전까지 참고값으로만 쓴다. 등급을 손으로 고치지 않는다 — 고칠
+것은 이 파일이 아니라 **`klipse-web` 기준으로 다시 돌린 측정 결과**다.
+
+### klipse-web 대조 (2026-08-22)
+
+`git ls-tree design` 로 센 실제 화면은 **52개**다 — `page.tsx` 49 + `not-found`·`error`·`global-error` 3.
+Figma 이식 보드의 항목 48개와의 차이는 아래가 전부다.
+
+```
+52 − /explore · /mypage                              (redirect 한 줄 · 렌더 DOM 0)   −2
+   − /docs/{nodecanvas,videoeditor,highlight}        (정본이 klipse-docs 레포)       −3
+   + /nodecanvas?project=                            (라우트가 아니라 에디터 상태)     +1
+ = 48
+```
+
+즉 **보드는 `klipse-web` 에서 화면을 그리는 라우트를 하나도 빠뜨리지 않았다.**
+
 Figma 이식 보드(`OlYKERKOkgbxBEEoXGZW2c`)의 섹션 이름이 이 등급을 인용한다. 등급이 바뀌면
 보드를 손으로 고치는 것이 아니라 이 파일에서 다시 찍는다.
 

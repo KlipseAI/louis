@@ -106,13 +106,28 @@ limit needs to be increased. Please check the 'Billing & plans' section in your 
 
 ```bash
 rid=$(gh run list --limit 1 --json databaseId -q '.[0].databaseId')
-gh api repos/KlipseAI/louis/actions/runs/$rid/jobs -q '.total_count'   # 0 이면 워크플로가 거부됨
-gh api repos/KlipseAI/louis/check-runs/<job-id>/annotations -q '.[0].message'
+jid=$(gh api repos/KlipseAI/louis/actions/runs/$rid/jobs -q '.jobs[0].id')
+gh api repos/KlipseAI/louis/actions/runs/$rid/jobs -q '.total_count'    # 0 이면 워크플로 파일이 거부됨
+gh api repos/KlipseAI/louis/check-runs/$jid/annotations -q '.[].message'  # ← 판정은 여기서 한다
+gh api repos/KlipseAI/louis/actions/runs/$rid/jobs \
+  -q '.jobs[0].steps[] | select(.conclusion=="failure") | .name'        # 비면 단계가 하나도 안 돌았다
 ```
 
-`total_count` 가 0 이면 워크플로 파일이 거부된 것이고(Updates (96)), annotation 이 결제를
-말하면 저장소 문제가 아니다. **결제가 풀릴 때까지 로컬 `pnpm verify` + `pnpm clean-room` 이
-유일한 검증 통로다.** 밀린 커밋은 결제 복구 후 러너에서 한 번 확인해야 한다.
+**`total_count` 만으로는 못 가른다 — 2026-08-23 에 실측으로 드러났다.** `cc11fac0` 의 런은
+`total_count` 가 **1** 인데도 결제 차단이었다. job 레코드는 만들어지고 **단계가 하나도
+실행되지 않는다.** 즉 `total_count: 0` 은 워크플로 파일 거부(Updates (96))를 뜻하지만, 그
+역은 성립하지 않는다.
+
+판정 순서는 이렇다.
+
+| 신호 | 뜻 |
+| --- | --- |
+| `total_count` 가 0 | 워크플로 파일이 파싱되지 않았다 — 저장소 문제다 |
+| annotation 이 결제를 말한다 | 저장소 문제가 아니다. **실패한 단계는 0개다** |
+| 실패한 단계 이름이 나온다 | 진짜 게이트 실패다. 그때 코드를 본다 |
+
+**결제가 풀릴 때까지 로컬 `pnpm verify` + `pnpm test` + `pnpm clean-room` 이 유일한 검증
+통로다.** 밀린 커밋은 결제 복구 후 러너에서 한 번 확인해야 한다.
 
 - 배분은 `scripts/verify-gate-split.mjs` 가 지킨다. 게이트를 추가하면 `verify:ci` 나
   `verify:product` 중 한쪽에 넣는다 — `verify` 에 직접 붙이면 막힌다.

@@ -374,14 +374,30 @@ const PROBES = [
     text: "업그레이드",
     read: ["backgroundColor", "color", "boxShadow"],
   },
-  // sidebar-cta의 Hover 두 축은 EXPECT에 넣지 못한다 — **값이 아니라 장치의 문제다.**
-  // 제품 hover 규칙이 `html[data-theme=X] .gnb-sidebarUpgradeButton:not(.…Active):hover` 라
-  // 하네스의 hover 인라인이 이 형태를 잡지 못하고 Default를 재 온다(2026-08-23 실측:
-  // 라이트가 gray-900, 다크가 gray-100 — 둘 다 Default 값이다).
-  // DS 값 자체는 제품과 맞는 것을 확인했다 — 제품 hover는 라이트 gray-800 · 다크 gray-200 이고
-  // `--kds-color-background-upgrade-hover`가 정확히 그 값이다.
-  // **foreground 두 축은 Default와 Hover 색이 우연히 같아 틀린 상태를 재고도 통과했다.**
-  // 그래서 넷 다 뺐다 — 통과하는 거짓 증거가 실패보다 나쁘다.
+  {
+    id: "sidebar-cta-hover",
+    // **Active 클래스를 붙이면 안 된다** — hover 색을 정하는 규칙이 형제 상수
+    // sidebarUpgradeButtonActive 의 `:not(&):hover` 라, 붙이면 매칭되지 않고
+    // sidebarUpgradeButton 자신의 mint `[&:hover]` 가 잡힌다.
+    source: "Gnb.tsx sidebarUpgradeButton (hover, 다크)",
+    from: ["gnb", "sidebarUpgradeButton"],
+    tag: "button",
+    doc: "hover",
+    hover: true,
+    text: "업그레이드",
+    read: ["backgroundColor", "color"],
+  },
+  {
+    id: "sidebar-cta-hover-light",
+    // Default 가 sidebar-cta / sidebar-cta-light 두 벌인 것과 같은 이유로 Hover 도 두 벌이다.
+    source: "Gnb.tsx sidebarUpgradeButton (hover, 라이트)",
+    from: ["gnb", "sidebarUpgradeButton"],
+    tag: "button",
+    doc: "hover-light",
+    hover: true,
+    text: "업그레이드",
+    read: ["backgroundColor", "color"],
+  },
   {
     id: "sidebar-cta-current",
     source: "Gnb.tsx sidebarUpgradeButton + sidebarUpgradeButtonActive (현재 위치)",
@@ -877,6 +893,10 @@ const EXPECT = [
   ["sidebar-logo-rail-collapsed", "minHeight", ["sidebar-brand", "sizes", "true", "markSize"], "same"],
 
   ["spinner-sm", "height", ["spinner", "sizes", "sm", "height"], "same"],
+  ["sidebar-cta-hover", "backgroundColor", ["sidebar-cta", "states", "base", "Hover", "background"], "same"],
+  ["sidebar-cta-hover", "color", ["sidebar-cta", "states", "base", "Hover", "foreground"], "same"],
+  ["sidebar-cta-hover-light", "backgroundColor", ["sidebar-cta", "states", "base", "Hover", "background"], "same"],
+  ["sidebar-cta-hover-light", "color", ["sidebar-cta", "states", "base", "Hover", "foreground"], "same"],
 ];
 
 // **대조하기로 한 축은 반드시 읽는다.** EXPECT에 행을 넣고 probe의 read에 넣는 것을 잊으면
@@ -1227,13 +1247,22 @@ try {
             const clone = element.cloneNode(true);
             element.parentElement.append(clone);
             for (const { rule } of hoverDeclarations(element)) {
-              for (const property of rule.style) {
-                clone.style.setProperty(
-                  property,
-                  rule.style.getPropertyValue(property),
-                  rule.style.getPropertyPriority(property),
-                );
-              }
+              // **longhand 순회가 아니라 cssText 를 얹는다.**
+              //
+              // 그전까지 `for (const property of rule.style)` 로 longhand 를 하나씩 옮겼는데,
+              // **`var()` 가 든 단축 속성은 그렇게 옮길 수 없다.** CSSOM 은 그런 단축을 pending
+              // substitution 으로 두어 longhand 값이 빈 문자열로 나오고, 결국 아무것도 안 얹혀
+              // 요소가 Default 를 그대로 유지한다.
+              //
+              // 2026-08-23 실측: 제품의 `html[data-theme=dark] .gnb-sidebarUpgradeButton:not(&):hover`
+              // 는 `background: var(--palette-gray-200)` 라 이 경로로 통째로 사라졌다. 규칙은
+              // 정확히 매칭됐는데도 측정값이 Default(gray-100)로 나왔고, **hover 축이 조용히
+              // 틀린 상태를 재고 있었다.** `nav-item-hover` 가 멀쩡했던 것은 그쪽이
+              // `background-color` longhand 였기 때문이지 장치가 옳아서가 아니다.
+              //
+              // cssText 를 이어 붙이면 단축이 단축인 채로 인라인에 들어가 var() 가 살아남는다.
+              // 인라인은 어떤 스타일시트 규칙보다 세므로 순위는 여전히 rank 순서가 결정한다.
+              clone.style.cssText += ";" + rule.style.cssText;
             }
             element = clone;
           }

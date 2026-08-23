@@ -229,11 +229,10 @@ ref**를 따라가는데, 근거 lock은 **커밋을 고정**한다. 둘이 갈�
 
 남은 것 — **Figma Product inventory에 합치기 비교판 그리기**:
 
-- 뼈대는 이미 서 있다. 페이지 `Product inventory`, 루트 노드 **`254:2`**,
-  `x=1445 y=0`(기존 프레임과 400 띄움). 종류별 빈 섹션 7개가 `placeholder = true`로 있다
-- 섹션 노드 id — badge `254:6`/rows `254:8` · slider `254:9`/`254:11` ·
-  text-field `254:12`/`254:14` · selectable-list-row `254:15`/`254:17` ·
-  icon-button `254:18`/`254:20` · toast `254:21`/`254:23` · dialog `254:24`/`254:26`
+- 대상은 `Product inventory` 페이지다. **노드 id 와 좌표를 이 문서에 적지 않는다** —
+  한때 루트 `254:2` 와 섹션 id 14개가 여기 박혀 있었으나 어느 것도 지금 재현되지 않는다.
+  좌표의 정본은 생성물 [`figma/inventory-plan.json`](../../figma/inventory-plan.json)이고,
+  그리기 코드는 페이지 이름과 섹션 키로 노드를 찾지 id 로 찾지 않는다
 - 폰트는 파일 기존값 **Pretendard Medium**(+Bold 있음)을 따른다. 새 규칙을 만들지 않는다
 - 그릴 데이터는 `migration/product.variants.json`의 `kinds`에서 결정적으로 만든다 —
   묶음을 `uses` 내림차순으로 놓고, 묶음끼리 값이 갈리는 축만 `다른 축`으로 표기한다
@@ -330,18 +329,22 @@ DS 캐스케이드에 대한 참인 진술이지 **제품을 확인한 진술이
   secondary·ghost만 덮는다) Default의 `background-danger`가 그대로 남는다. 제품
   `overlayDeleteBtn`은 **반대다** — 평소 `background:transparent` · `color:gray-400 92%`이고
   hover에서만 `accent-red-600 88%`를 채우고 전경을 `palette-gray-000 95%`로 뒤집는다
-  (`apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx:1806-1832`,
-  `klipse-web` `origin/main`). 극성이 반대이므로 어느 쪽을 정본으로 삼을지 판정이 필요하다.
+  (`apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts:1519`,
+  `klipse-web` `origin/design`). 극성이 반대이므로 어느 쪽을 정본으로 삼을지 판정이 필요하다.
 - `icon-button.states.secondary.Hover.foreground` — 확인했다. 제품 `backButton`은 hover에서
   전경을 올린다(`[&:hover]:[color:var(--palette-gray-900)]`, 다크는
   `[html[data-theme=dark]_&:hover]:[color:var(--palette-gray-000)]`,
   `apps/web/components/scenes/highlightSceneStyles.ts:9-38`). DS는 hover에서 면만 바꾼다.
 - `icon-button.states.ghost.Hover.foreground` — 사유에 상수가 빠져 있어 찾아 뒀다.
-  `projectImportBackBtn`이다(`apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx:2844-2853`).
+  `projectImportBackBtn`이다(`apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts:2556`).
   평소 `background:transparent` · `color:gray-000 78%`이고 hover에서 전경을 `100%`로 올리면서
   면도 `gray-000 8%`로 함께 얹는다 — DS는 hover에서 면만 바꾸고 전경을 그대로 둔다.
-  (같은 파일의 `alignButton`:284과 `assetRailBtnActive`:425도 hover 전경을 100%로 올리지만 둘 다
-  평소 면이 채워져 있어 ghost가 아니다. ghost 대응물은 `projectImportBackBtn` 하나다.)
+  (같은 파일의 `alignButton`(4행)과 `assetRailBtnActive`(143행)도 hover 전경을 100%로 올리지만
+  둘 다 평소 면이 채워져 있어 ghost가 아니다. ghost 대응물은 `projectImportBackBtn` 하나다.)
+
+  > **좌표 주의.** 위 넷은 한때 `VideoEditModal.tsx` 에 있었고 제품이 `videoEditParts/` 로
+  > 쪼개면서 옮겨갔다. 그 파일에서 찾으면 0건이 나오고 「제품에 없다」로 잘못 기각하게 된다.
+  > **값은 그대로이고 좌표만 죽었던 것이다.**
 - `banner-carousel.sizes.{boxed,full}.controlsWidth` — 사유 자체가 DS가 제품보다 36px 넓다고
   적고 있다(정지 버튼 유무). 해소가 아니라 `deviates` 사유이거나 DS 수정 대상이다.
 - `skeleton.sizes.text.height` — **사유가 자기를 반증한다.** 기록된 16px이 사유에 적힌 식에서
@@ -397,8 +400,9 @@ Figma **Product inventory** 페이지는 지금 표본 8종(모달 2 · 토스�
 
 ### (C) 이미 끝난 감사에서 나온 확인된 어긋남
 
-`인벤토리 구성 감사`(101 에이전트, 반증까지 완료)가 확인한 것들이 남아 있다. 출력은
-세션 tasks 디렉터리의 `wg8ze6ct7.output`이다. 토스트에서만 셋이 확인됐다:
+`인벤토리 구성 감사`(101 에이전트, 반증까지 완료)의 **원본 출력은 소실됐다.** 세션 tasks
+디렉터리에 있었고 저장소에 사본이 없었다 — 그 경로는 git 밖이라 계정·컴퓨터가 바뀌면 사라진다.
+**아래 요약 셋이 남은 전부이며, 나머지 여섯 종류는 다시 감사해야 한다.** 토스트 셋은 이렇다:
 
 1. **면과 글자가 테마로 반전된다.** 라이트는 어두운 면에 밝은 글자, 다크는 그 반대다.
    실측을 한 테마에서만 하면 반대 테마에서 뒤집힌 그림이 된다.
@@ -406,7 +410,8 @@ Figma **Product inventory** 페이지는 지금 표본 8종(모달 2 · 토스�
 3. **12/20+반경16과 12/24+반경999는 대안이 아니라 성질이 다른 두 계열이다.**
    앞은 반투명·흐림·그림자, 뒤는 불투명·테두리·흐림 없음이다.
 
-나머지 여섯 종류의 결과는 아직 읽지 않았다.
+나머지 여섯 종류는 **읽지 않은 것이 아니라 되찾을 수 없는 것**이다. 「이미 확인됨」으로
+처리하지 말고 필요하면 다시 감사한다.
 
 ### (D) 손대지 않은 것
 

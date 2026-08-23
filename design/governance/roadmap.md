@@ -72,11 +72,15 @@ P2 로컬 RC와 향후 완료 모두 public registry 배포, 제품 adoption 또
 
 ## P3 — Components and Figma library
 
-**상태:** `planned`
+**상태:** 진행 중. **단계 상태는 surface 상태와 다른 축이다** — 이 값은 「P3 가 시작됐는가」를
+말하고 개별 component 의 `web`/`figma` 는 [`manifest.json`](../manifest.json)이 소유한다. 한때
+여기가 `planned` 이었는데 그 사이 component 대부분이 `partial` 로 섰다.
 
 - core local RC, catalog coverage와 P3 complete를 서로 다른 gate로 판정
 - Button → Menu/Popover → Dialog 순으로 public implementation
-- 이후 Input, Select, Tooltip, Toast, Empty State와 공용 pattern fixture를 독립적으로 확장
+- 이후 Input, Tooltip, Toast, Empty State와 공용 pattern fixture를 독립적으로 확장.
+  **`select` 는 빠진다** — 「고르기는 Menu 가 소유한다」로 판정이 끝났고 manifest 가
+  `not-planned` 다. 재개하려면 Decision 으로 그 판정을 뒤집어야 한다
 - keyboard/focus/accessibility tests
 - CSS/React package API와 compatibility policy
 - 배포 화면 인벤토리와 아이콘 트랙
@@ -85,6 +89,11 @@ Figma 작업은 코드 트랙과 병렬인 **Figma 트랙(DS-F-000~008)**이 소
 → multi-collection proposal → variables/styles 구축 → snapshot parity gate → component library →
 배포 화면 재조립 검증 → 수동 publish 운영. Variables 구축은 React 구현을 기다리지 않으며, component
 parity만 코드 구현과 짝을 이룬다.
+
+**앞 단계(운영 전제 ~ component library)는 닫혔다. 살아 있는 것은 배포 화면 재조립(`DS-F-007`)과
+수동 publish(`DS-F-008`) 둘이다.** 조립 규칙은 [figma-screen-assembly](figma-screen-assembly.md)가,
+실행 절차는 `.claude/skills/klipse-figma-transplant/SKILL.md` 가 소유한다 — 이 문서와 플레이북은
+그 둘을 대체하지 않는다.
 
 Core local RC는 P3 전체 완료가 아니다. 세부 의존성, surface별 승격 근거와 작업 큐는
 [Claude Code 실행 인계서](execution-handoff.md)를, 작업별 상세 절차와 완성 판정표는

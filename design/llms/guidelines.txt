@@ -1099,11 +1099,15 @@ P2 로컬 RC와 향후 완료 모두 public registry 배포, 제품 adoption 또
 
 #### P3 — Components and Figma library
 
-**상태:** `planned`
+**상태:** 진행 중. **단계 상태는 surface 상태와 다른 축이다** — 이 값은 「P3 가 시작됐는가」를
+말하고 개별 component 의 `web`/`figma` 는 [`manifest.json`](../manifest.json)이 소유한다. 한때
+여기가 `planned` 이었는데 그 사이 component 대부분이 `partial` 로 섰다.
 
 - core local RC, catalog coverage와 P3 complete를 서로 다른 gate로 판정
 - Button → Menu/Popover → Dialog 순으로 public implementation
-- 이후 Input, Select, Tooltip, Toast, Empty State와 공용 pattern fixture를 독립적으로 확장
+- 이후 Input, Tooltip, Toast, Empty State와 공용 pattern fixture를 독립적으로 확장.
+  **`select` 는 빠진다** — 「고르기는 Menu 가 소유한다」로 판정이 끝났고 manifest 가
+  `not-planned` 다. 재개하려면 Decision 으로 그 판정을 뒤집어야 한다
 - keyboard/focus/accessibility tests
 - CSS/React package API와 compatibility policy
 - 배포 화면 인벤토리와 아이콘 트랙
@@ -1112,6 +1116,11 @@ Figma 작업은 코드 트랙과 병렬인 **Figma 트랙(DS-F-000~008)**이 소
 → multi-collection proposal → variables/styles 구축 → snapshot parity gate → component library →
 배포 화면 재조립 검증 → 수동 publish 운영. Variables 구축은 React 구현을 기다리지 않으며, component
 parity만 코드 구현과 짝을 이룬다.
+
+**앞 단계(운영 전제 ~ component library)는 닫혔다. 살아 있는 것은 배포 화면 재조립(`DS-F-007`)과
+수동 publish(`DS-F-008`) 둘이다.** 조립 규칙은 [figma-screen-assembly](../governance/figma-screen-assembly.md)가,
+실행 절차는 `.claude/skills/klipse-figma-transplant/SKILL.md` 가 소유한다 — 이 문서와 플레이북은
+그 둘을 대체하지 않는다.
 
 Core local RC는 P3 전체 완료가 아니다. 세부 의존성, surface별 승격 근거와 작업 큐는
 [Claude Code 실행 인계서](../governance/execution-handoff.md)를, 작업별 상세 절차와 완성 판정표는
@@ -1334,8 +1343,9 @@ example이 보인다는 사실만으로 Web `done`이 되지 않는다.
 P3는 다음 세 경계로 나눈다.
 
 - **P3 core local RC:** CSS/React package와 Button, Menu/Popover, Dialog의 local consumer fixture 통과
-- **P3 catalog coverage:** manifest의 Input, Select, Tooltip, Toast, Empty State와 Loading까지 각 규범과
-  필요한 구현 상태를 정직하게 제공
+- **P3 catalog coverage:** manifest의 Input, Tooltip, Toast, Empty State와 Loading까지 각 규범과
+  필요한 구현 상태를 정직하게 제공. **`select` 는 범위 밖이다** — 「고르기는 Menu 가 소유한다」로
+  판정이 끝났고 manifest 가 `not-planned` 다(아래 (1d))
 - **P3 complete:** public release, hosted CI, published Figma variable/component, 호환성·접근성 증거와 owner
   승인
 
@@ -1378,7 +1388,7 @@ Icon Button 의 정본으로 지목됐던 제품의 공유 UI 패키지는 Turbo
 
 | 축 | 상태 |
 | --- | --- |
-| GOV 트랙 | `DS-GOV-000`이 `partial` — **원격·hosted CI done**, owner 승인과 publish 권한 남음 |
+| GOV 트랙 | `DS-GOV-000`이 `partial` — 원격 done. **hosted CI 는 `verify:ci` 13개만 돌고 2026-08-22 부터 결제로 정지.** owner 승인과 publish 권한 남음 |
 | `DS-F-000`~`DS-F-005` | `done` |
 | `DS-P3-002a` · `002`(1단계) · `003` · `009a` · `013` | `done` |
 | `DS-P3-001` | `in-progress`. Decision 6종을 다 썼고 owner 확인만 남았다 |
@@ -1445,8 +1455,9 @@ Icon Button 의 정본으로 지목됐던 제품의 공유 UI 패키지는 Turbo
 
 **(1c) Spinner(10순위) — `done`(2026-08-17).** 남은 것은 같은 순위 안의 세 갈래다.
 
-- **determinate 진행률** — 제품 2벌이 두께·색·전환이 셋 다 다르다. `role="progressbar"`는 저장소
-  전체에 1곳, `<progress>`는 0곳이다. 접근성 계약부터 정해야 한다
+- ~~**determinate 진행률**~~ — **해소됐다.** 접근성 계약은
+  [DS-D-0022](../governance/decisions/DS-D-0022-determinate-progress-a11y.md)가 소유하고 `progress` 는 manifest 에서
+  web·figma 모두 `partial` 이다. 「계약부터 정해야 한다」를 읽고 다시 조사하지 마라
 - **스켈레톤과 텍스트 쉬머** — 재실측(2026-08-17)으로 수가 늘었다. 자리표시 정의 **32벌**
   (면 계열 19 + 텍스트 쉬머 13), 로딩용 keyframe **12종**, 기법 **5갈래**. 앞선 조사의
   "15벌 · 4종 · 3기법"은 전부 과소집계였다. 우세 기법은 면 그라디언트 `background-position`
@@ -1600,14 +1611,15 @@ Badge의 `Label`). **모든 fill이 변수 바인딩이고 raw 값이 0이다.**
 파일에 인라인이다. **화면 gap의 수(72·130·144)는 갱신하지 않았다** — 그것은 Figma에서 Home을
 실제로 다시 조립해야 나오고 아직 하지 않았다. 배너 캐러셀의 선행 조건이던 아이콘
 `caret-left`·`caret-right`·`caret-down` 셋은 **2026-08-18에 섰다**(글리프 26 → 29개, Figma
-component 26 → 29개). **Avatar가 섰다(2026-08-18) — 남은 것은 `BannerCarousel` 하나이고 그것은 지금 착수할 수 없다.**
-census를 [gap registry](../../migration/figma-gap-registry.md)에 남겼다(359줄 · 4벌 · 2파일).
-**막는 것 넷이 전부 이 컴포넌트 바깥의 미결이다** — 톤이 `useBannerImageTone`으로 이미지에서
-**런타임 샘플링**된다 · progressive blur의 표현 방법 없음 · stagger((1a)의 `motion-*-delay`
-8종이 전부 0ms이고 CSS가 delay를 생략한다) · 점의 폭 전환(`layout-change` 토큰 부재).
+component 도 함께 늘었다). **Avatar 와 BannerCarousel 이 둘 다 섰다** — manifest 에서 web·figma
+모두 `partial` 이고 `figma/snapshot.json` 에 `BannerCarousel` 이 있다. census 는
+[gap registry](../../migration/figma-gap-registry.md)에 있다.
 
-지금 지으면 **네 미결이 전부 이 컴포넌트의 API와 Figma 계약으로 새어 들어온다.** 정지 상태만
-먼저 세우는 대안이 있으나 그것을 gap 0으로 셀지는 owner 판정이다.
+한때 이 자리에 「`BannerCarousel` 은 지금 착수할 수 없다 — 막는 것 넷」이 적혀 있었다.
+**그중 하나(점의 폭 전환)는 `layout-change` 토큰이 서면서 반증된다** — 생성 CSS 가 이미
+`var(--kds-motion-layout-change-duration)` 을 쓴다. **그대로 읽으면 존재하는 컴포넌트를 처음부터
+다시 설계하게 된다.** 남은 표현 한계(런타임 톤 샘플링 · progressive blur · stagger)는 그
+컴포넌트의 Known deviations 가 소유한다.
 
 **`Avatar`의 census는 2026-08-18에 끝냈다** — [gap registry](../../migration/figma-gap-registry.md)의
 "Avatar 실측" 절에 있다. 공용 구현이 **부분만**(기본 아바타 SVG 하나) 있고 본체는 셸 파일에
@@ -1636,13 +1648,15 @@ census를 [gap registry](../../migration/figma-gap-registry.md)에 남겼다(359
 게이트의 `sizeKey: "base"` 계약이 그 이름으로 readback을 찾는다(Badge·EmptyState와 같다).
 이 상태에서 Checkbox와 SelectableListRow는 **build → snapshot 재덤프 → 계약 추가 → parity**
 순서로 바로 진행할 수 있다
-2. **owner 판정 — 둘이 닫혔다.** ~~(1a) `color-border-strong`~~(소비처가 생겨 폐기 후보에서
-   빠졌다) · ~~(1d) `select`~~(`not-planned`). 남은 셋은 전부 **새 값이나 새 토큰이 필요해
-   token source를 바꾸고 Figma 재적용이 따라온다** — (1c) Skeleton 면 색 · (2b) 컨트롤
-   테두리(셋 다 3:1 미달) · `layout-change` motion lifecycle
-3. **`DS-P3-010` 공용 Pattern fixture** — **Project Grid는 섰다**(2026-08-18, `.kds-project-grid`,
-   Web `partial`). 남은 둘은 `Loading`(Skeleton에 막힘 — (1c) 면 색 판정)과 `App Shell`
-   (rail·drawer·scroll root·safe area, compact 드로어의 layer 자리도 사다리에 없다)이다
+2. **owner 판정 — 넷이 닫혔다.** ~~(1a) `color-border-strong`~~(소비처가 생겨 폐기 후보에서
+   빠졌다) · ~~(1d) `select`~~(`not-planned`) · ~~(1c) Skeleton 면 색~~(제품이 테마별 면을 고른
+   적이 없어 고를 면 자체가 없었다) · ~~`layout-change` motion lifecycle~~(DS-D-0019).
+   **남은 것은 (2b) 컨트롤 테두리 하나다**(셋 다 3:1 미달) — 새 값이 필요해 token source 를
+   바꾸고 Figma 재적용이 따라온다
+3. **`DS-P3-010` 공용 Pattern fixture** — Project Grid · Loading · App Shell 이 **전부 Web
+   `partial` 로 섰다.** 한때 여기에 「남은 둘은 Loading(Skeleton에 막힘)과 App Shell」이 적혀
+   있었으나 셋 다 manifest 가 `partial` 로 싣는다. **「아직 없다」를 읽고 App Shell 을 새로 지으면
+   `.kds-app-shell` 계열을 두 번 만들게 된다.** 남은 것은 이 셋의 Figma 쪽이다(`not-ready`)
 
 **14순위 Checkbox가 섰다(2026-08-18).** 등록부의 "4 파일"에 대해 실제는 **21벌 · 5레시피 ·
 14파일**이다. 앞의 셋과 달리 **제품에 정본이 있었는데 21벌 중 2벌만 쓴다.** 이유를 제품이 스스로
@@ -1680,11 +1694,9 @@ census를 [gap registry](../../migration/figma-gap-registry.md)에 남겼다(359
   `overlay` 넷이 같은 색이고 라이트에서 `raised`·`overlay`·`surface` 셋이 같아, 트랙/선택 면으로
   쓸 수 있는 조합이 `inset` ↔ `raised` **하나뿐이다.** 다음에 면 두 겹이 필요한 컴포넌트도 같은
   벽을 만나며, owner 판정 전까지는 이 짝 말고 선택지가 없다
-- **`layout-change` motion 토큰이 없다.** [motion.md](../foundations/motion.md)가 semantic recipe로
-  이름만 예약해 두고 실제 토큰이 없으며 lifecycle도 셋뿐이다. 제품 여섯 중 넷이 220~240ms
-  슬라이딩 썸을 갖는데 그것을 옮기지 못했다 — 이름이 맞지 않는 기존 motion 토큰을 빌려 쓰면
-  `radius-card` 함정이 된다. 넷째 lifecycle을 세우는 것은 DS-D-0016과 같은 크기이고 token source가
-  바뀌므로 **Figma 변수·style 재적용이 따라온다**
+- ~~**`layout-change` motion 토큰이 없다.**~~ — **해소됐다.**
+  [DS-D-0019](../governance/decisions/DS-D-0019-layout-change-motion.md)가 넷째 lifecycle 을 세웠고
+  `motion-layout-change` 가 token source · 생성 CSS · Figma snapshot 셋 다에 실재한다
 
 **12순위 Slider가 섰다(2026-08-18).** 등록부의 "에디터 `Slider.Root` 9"는 네 배 틀렸고 —
 실제 **37벌 · 7레시피**, 그중 네이티브 `input[type=range]` 15벌은 등록부에 아예 없었다 —
@@ -1747,7 +1759,8 @@ self-reference로 해석돼 바깥 소비를 증명하지 못했고, 워크스�
 `DS-D-0006`이 `proposed`인 동안 의존성을 넣는 것은 플레이북의 spike 규칙("의존성 도입은 Decision
 승인 뒤")에 어긋나고, `private`를 푸는 것은 릴리스 흐름이 서기 전에 **실수로 publish될 수 있는
 문을 여는 일**이다. owner가 DS-D-0006을 `accepted`로 옮기면 셋을 한 변경 단위로 한다. `DS-P3-009`
-카탈로그도 열려 있고, 남은 것은 Input·Select·Empty State와 gap registry 6순위 이하다.
+카탈로그도 열려 있고, 남은 것은 Input·Empty State와 gap registry 6순위 이하다. **`select` 는 빠진다** —
+`not-planned` 판정이 끝났다.
 
 **큐 순서를 바꾼 사실을 명시한다.** `DS-P3-009`는 문서상 `DS-P3-008` 의존이지만, Icon Button·Tooltip·
 Toast는 DS-P3-008보다 먼저 구현했다. 이유는 DS-P3-009a 인벤토리와 Home 재조립이 만든 gap registry가
@@ -1786,10 +1799,13 @@ gap registry 1순위로 추가됐다.
 
 - ~~원격 Git 저장소 연결~~ — **done.** `git@github.com:KlipseAI/louis.git` (private, 기본 브랜치
   `main`). 로컬 `main`이 `origin/main`보다 앞서 있을 수 있으므로 세션 시작 때 `git fetch`로 확인한다
-- ~~clean-checkout hosted CI~~ — **done (2026-08-18).** 초록 실행:
-  `https://github.com/KlipseAI/louis/actions/runs/32094705359` (커밋 `d7f3910`). clean checkout에서
-  install → 브라우저 설치 → build → check → verify → `--require-tracked` → **실브라우저 632건**이
-  전부 통과했다. 초록에 이르기까지 네 번 실패했고 그 넷이 전부 로컬에서 보이지 않던 것이었다
+- ~~clean-checkout hosted CI~~ — **선다는 것은 증명됐다(2026-08-18).** clean checkout에서
+  install → 브라우저 설치 → build → check → verify → `--require-tracked` → 실브라우저 회귀가
+  전부 통과한 초록 실행이 있다. 초록에 이르기까지 네 번 실패했고 그 넷이 전부 로컬에서
+  보이지 않던 것이었다.
+  **다만 「hosted CI done」은 두 가지를 오해하게 한다.** ① 러너가 도는 것은 `verify:ci` 13개이지
+  전량이 아니다(나머지 14개는 제품 저장소가 필요하다). ② **2026-08-22 기준 러너는 GitHub 결제
+  문제로 멈춰 있다** — 판별법은 [계정 이전 인계서 3절](../governance/handoff-2026-08-22-account-transfer.md)
 - repository owner 승인 — 미해소
 - registry, docs hosting과 Figma publish 권한 — 미해소
 
@@ -2138,7 +2154,7 @@ Home/Highlight/Editor가 각각 단일 route가 아니라는 사실과 카탈로
 | 13 | SegmentedControl | `done` — Web `partial`. Figma는 `DS-F-006-segmented-control`이 소유한다 |
 | 14 | Checkbox | `done` — Web `partial`. Figma는 `DS-F-006-checkbox`가 소유한다 |
 | 15 | SelectableListRow | `done` — Web `partial`. Figma는 `DS-F-006-selectable-list-row`가 소유한다 |
-| — | Select | `pending`. gap registry 상위 15에 들지 않았다 |
+| — | Select | **`not-planned`** — 「고르기는 Menu 가 소유한다」로 판정이 끝났다(아래 (1d)). manifest 가 정본이다 |
 
 4·5순위(Menu/Popover, Dialog)는 코드가 이미 서 있어 이 항목이 아니라 DS-F-006이 남은 몫이다.
 

@@ -326,8 +326,7 @@
       "border-bottom-left-radius": "원이다. 반경 대조가 의미를 갖지 않는다.",
       "border-bottom-right-radius": "원이다. 반경 대조가 의미를 갖지 않는다.",
       "border-top-left-radius": "위와 같다.",
-      "border-top-right-radius": "원이다. 반경 대조가 의미를 갖지 않는다.",
-      "height": "크기는 width가 대표한다 — 정사각이며 EXPECT가 폭을 본다."
+      "border-top-right-radius": "원이다. 반경 대조가 의미를 갖지 않는다."
     },
     "toast": {
       "backdrop-filter": "흐림 반경은 EXPECT가 보지 않고 components.measured.json의 backdropBlur가 값을 고정한다. Figma는 BACKGROUND_BLUR effect로 같은 값을 갖는다."
@@ -342,6 +341,18 @@
     "dialog-card-mypage": {
       "column-gap": "이 벌만 카드가 직접 flex 간격을 갖는다. 앱 홈 벌은 자식들이 margin으로 띄우고, DS는 body가 gap을 갖는다 — 같은 결과를 만드는 다른 기법이라 값이 대응하지 않는다.",
       "row-gap": "위와 같다."
+    },
+    "carousel-controls-filled": {
+      "border-bottom-left-radius": "이 탐침은 높이 합만 세우려고 둔 CONTROLS의 짝이다. 기하는 carousel-controls가 대조한다.",
+      "border-bottom-right-radius": "이 탐침은 높이 합만 세우려고 둔 CONTROLS의 짝이다. 기하는 carousel-controls가 대조한다.",
+      "border-top-left-radius": "이 탐침은 높이 합만 세우려고 둔 CONTROLS의 짝이다. 기하는 carousel-controls가 대조한다.",
+      "border-top-right-radius": "이 탐침은 높이 합만 세우려고 둔 CONTROLS의 짝이다. 기하는 carousel-controls가 대조한다.",
+      "column-gap": "이 탐침은 높이 합만 세우려고 둔 CONTROLS의 짝이다. 기하는 carousel-controls가 대조한다.",
+      "row-gap": "이 탐침은 높이 합만 세우려고 둔 CONTROLS의 짝이다. 기하는 carousel-controls가 대조한다.",
+      "padding-bottom": "이 탐침은 높이 합만 세우려고 둔 CONTROLS의 짝이다. 기하는 carousel-controls가 대조한다.",
+      "padding-left": "이 탐침은 높이 합만 세우려고 둔 CONTROLS의 짝이다. 기하는 carousel-controls가 대조한다.",
+      "padding-right": "이 탐침은 높이 합만 세우려고 둔 CONTROLS의 짝이다. 기하는 carousel-controls가 대조한다.",
+      "padding-top": "이 탐침은 높이 합만 세우려고 둔 CONTROLS의 짝이다. 기하는 carousel-controls가 대조한다."
     }
   }
 }

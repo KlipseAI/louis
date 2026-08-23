@@ -359,6 +359,15 @@
       "html": "<div class=\"gnb-sidebarLogoRail [min-width:0] [min-height:var(--app-gnb-sidebar-logo-h,_28px)] [display:flex] [align-items:center] [justify-content:flex-start] [box-sizing:border-box] [overflow:hidden] [flex-shrink:0] [width:100%] [max-width:100%] [transform:translateX(0)] [transition:width_320ms_cubic-bezier(0.4,_0,_0.2,_1),_transform_320ms_cubic-bezier(0.4,_0,_0.2,_1)] [html:not([data-app-gnb-sidebar-collapsed=true])_&]:[width:100%] [html:not([data-app-gnb-sidebar-collapsed=true])_&]:[transform:translateX(0)] [html[data-app-gnb-sidebar-collapsed=true]_&]:[width:var(--app-gnb-sidebar-logo-symbol-w)] [html[data-app-gnb-sidebar-collapsed=true]_&]:[justify-content:center] [html[data-app-gnb-sidebar-collapsed=true]_&]:[transform:translateX(_calc(_(_var(--app-gnb-sidebar-menu-hit-w)_-_var(--app-gnb-sidebar-logo-symbol-w)_)_/_2_)_)] [html[data-app-gnb-sidebar-collapsed=true]_&]:[overflow:visible] [@media(prefers-reduced-motion:reduce)]:[transition-duration:0.01ms]!\"></div>"
     },
     {
+      "id": "sidebar-logo-rail-collapsed",
+      "source": "Gnb.tsx sidebarLogoRail (접힘)",
+      "hover": false,
+      "from": "apps/web/components/navigation/Gnb.tsx → sidebarLogoRail",
+      "doc": "collapsed",
+      "wrapper": null,
+      "html": "<div class=\"gnb-sidebarLogoRail [min-width:0] [min-height:var(--app-gnb-sidebar-logo-h,_28px)] [display:flex] [align-items:center] [justify-content:flex-start] [box-sizing:border-box] [overflow:hidden] [flex-shrink:0] [width:100%] [max-width:100%] [transform:translateX(0)] [transition:width_320ms_cubic-bezier(0.4,_0,_0.2,_1),_transform_320ms_cubic-bezier(0.4,_0,_0.2,_1)] [html:not([data-app-gnb-sidebar-collapsed=true])_&]:[width:100%] [html:not([data-app-gnb-sidebar-collapsed=true])_&]:[transform:translateX(0)] [html[data-app-gnb-sidebar-collapsed=true]_&]:[width:var(--app-gnb-sidebar-logo-symbol-w)] [html[data-app-gnb-sidebar-collapsed=true]_&]:[justify-content:center] [html[data-app-gnb-sidebar-collapsed=true]_&]:[transform:translateX(_calc(_(_var(--app-gnb-sidebar-menu-hit-w)_-_var(--app-gnb-sidebar-logo-symbol-w)_)_/_2_)_)] [html[data-app-gnb-sidebar-collapsed=true]_&]:[overflow:visible] [@media(prefers-reduced-motion:reduce)]:[transition-duration:0.01ms]!\"></div>"
+    },
+    {
       "id": "sidebar-cta",
       "source": "Gnb.tsx sidebarUpgradeButton",
       "hover": false,
@@ -578,6 +587,15 @@
       "html": "<div class=\"relative max-w-none h-180 overflow-hidden flex isolate bg-palette-gray-800 dark:bg-palette-gray-900 w-full rounded-16\"></div>"
     },
     {
+      "id": "carousel-full-bleed",
+      "source": "TabBannerCarousel.tsx CAROUSEL + CAROUSEL_FULL_BLEED",
+      "hover": false,
+      "from": "apps/web/components/banners/TabBannerCarousel.tsx → CAROUSEL + CAROUSEL_FULL_BLEED",
+      "doc": "default",
+      "wrapper": null,
+      "html": "<div class=\"relative max-w-none h-180 overflow-hidden flex isolate bg-palette-gray-800 dark:bg-palette-gray-900 w-auto rounded-none ml-[calc(-1_*_var(--banner-bleed-left,var(--app-gnb-main-inline-padding)))] mr-[calc(-1_*_var(--banner-bleed-right,var(--app-gnb-main-inline-padding)))] mt-[calc(-1_*_var(--banner-bleed-top,20px))]\"></div>"
+    },
+    {
       "id": "carousel-content",
       "source": "TabBannerCarousel.tsx CONTENT",
       "hover": false,
@@ -594,6 +612,15 @@
       "doc": "default",
       "wrapper": null,
       "html": "<div class=\"absolute right-8 bottom-8 z-3 inline-flex items-center gap-4 p-2 rounded-full bg-[rgb(var(--palette-gray-1000-rgb)/28%)] [backdrop-filter:blur(12px)_saturate(130%)] [-webkit-backdrop-filter:blur(12px)_saturate(130%)]\"></div>"
+    },
+    {
+      "id": "carousel-controls-filled",
+      "source": "TabBannerCarousel.tsx CONTROLS + 자식 ARROW_BUTTON 하나 — 높이 합",
+      "hover": false,
+      "from": null,
+      "doc": "default",
+      "wrapper": null,
+      "html": "<div class=\"absolute right-8 bottom-8 z-3 inline-flex items-center gap-4 p-2 rounded-full bg-[rgb(var(--palette-gray-1000-rgb)/28%)] [backdrop-filter:blur(12px)_saturate(130%)] [-webkit-backdrop-filter:blur(12px)_saturate(130%)]\"><button class=\"w-14 h-14 p-0 [border:0] rounded-full inline-flex items-center justify-center text-[rgb(var(--palette-gray-000-rgb)/88%)] bg-transparent cursor-pointer [transition:background_160ms_ease,transform_160ms_ease] [&:hover]:bg-[rgb(var(--palette-gray-000-rgb)/14%)] active:[transform:scale(0.94)]\"></button></div>"
     },
     {
       "id": "carousel-arrow",
@@ -923,6 +950,10 @@
       "height": "360px",
       "borderTopLeftRadius": "16px"
     },
+    "carousel-full-bleed": {
+      "height": "360px",
+      "borderTopLeftRadius": "0px"
+    },
     "carousel-content": {
       "width": "540px",
       "paddingTop": "24px",
@@ -935,6 +966,9 @@
       "right": "16px",
       "bottom": "16px",
       "borderTopLeftRadius": "999px"
+    },
+    "carousel-controls-filled": {
+      "height": "36px"
     },
     "carousel-arrow": {
       "width": "28px",
@@ -964,7 +998,11 @@
     },
     "sidebar-header-row-collapsed": {
       "paddingLeft": "0px",
-      "gap": "8px"
+      "gap": "8px",
+      "minHeight": "40px"
+    },
+    "sidebar-logo-rail-collapsed": {
+      "minHeight": "28px"
     },
     "sidebar-cta-collapsed": {
       "minHeight": "32px",
@@ -2700,6 +2738,22 @@
       "position": "relative",
       "width": "960px"
     },
+    "carousel-full-bleed": {
+      "background-color": "rgb(23, 27, 34)",
+      "border-bottom-left-radius": "0px",
+      "border-bottom-right-radius": "0px",
+      "border-top-left-radius": "0px",
+      "border-top-right-radius": "0px",
+      "display": "flex",
+      "height": "360px",
+      "isolation": "isolate",
+      "margin-top": "-20px",
+      "max-width": "none",
+      "overflow-x": "hidden",
+      "overflow-y": "hidden",
+      "position": "relative",
+      "width": "992px"
+    },
     "carousel-content": {
       "align-items": "flex-start",
       "display": "flex",
@@ -2715,6 +2769,26 @@
       "z-index": "2"
     },
     "carousel-controls": {
+      "align-items": "center",
+      "backdrop-filter": "blur(12px) saturate(1.3)",
+      "background-color": "rgba(0, 0, 0, 0.28)",
+      "border-bottom-left-radius": "999px",
+      "border-bottom-right-radius": "999px",
+      "border-top-left-radius": "999px",
+      "border-top-right-radius": "999px",
+      "bottom": "16px",
+      "column-gap": "8px",
+      "display": "flex",
+      "padding-bottom": "4px",
+      "padding-left": "4px",
+      "padding-right": "4px",
+      "padding-top": "4px",
+      "position": "absolute",
+      "right": "16px",
+      "row-gap": "8px",
+      "z-index": "3"
+    },
+    "carousel-controls-filled": {
       "align-items": "center",
       "backdrop-filter": "blur(12px) saturate(1.3)",
       "background-color": "rgba(0, 0, 0, 0.28)",
@@ -2907,6 +2981,20 @@
       "transition-property": "padding-left",
       "transition-timing-function": "cubic-bezier(0.4, 0, 0.2, 1)",
       "width": "360px"
+    },
+    "sidebar-logo-rail-collapsed": {
+      "align-items": "center",
+      "box-sizing": "border-box",
+      "display": "flex",
+      "flex-shrink": "0",
+      "justify-content": "center",
+      "max-width": "100%",
+      "min-height": "28px",
+      "min-width": "0px",
+      "overflow-x": "visible",
+      "overflow-y": "visible",
+      "transform": "matrix(1, 0, 0, 1, 2, 0)",
+      "width": "28px"
     },
     "sidebar-cta-collapsed": {
       ":state background-attachment": "scroll",

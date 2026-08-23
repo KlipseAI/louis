@@ -319,6 +319,15 @@ const PROBES = [
     read: ["minHeight"],
   },
   {
+    id: "sidebar-logo-rail-collapsed",
+    // 접힘에서 sidebarLogoRail은 규칙 넷(width · justify-content · transform · overflow)을 새로
+    // 받는다. 「펼침에서 잰 값이 접힘에서도 같다」는 추정이지 실측이 아니다.
+    source: "Gnb.tsx sidebarLogoRail (접힘)",
+    from: ["gnb", "sidebarLogoRail"],
+    doc: "collapsed",
+    read: ["minHeight"],
+  },
+  {
     id: "sidebar-cta",
     source: "Gnb.tsx sidebarUpgradeButton",
     from: ["gnb", "sidebarUpgradeButton"],
@@ -377,6 +386,14 @@ const PROBES = [
     text: "업그레이드",
     read: ["backgroundColor", "color", "boxShadow"],
   },
+  // sidebar-cta의 Hover 두 축은 EXPECT에 넣지 못한다 — **값이 아니라 장치의 문제다.**
+  // 제품 hover 규칙이 `html[data-theme=X] .gnb-sidebarUpgradeButton:not(.…Active):hover` 라
+  // 하네스의 hover 인라인이 이 형태를 잡지 못하고 Default를 재 온다(2026-08-23 실측:
+  // 라이트가 gray-900, 다크가 gray-100 — 둘 다 Default 값이다).
+  // DS 값 자체는 제품과 맞는 것을 확인했다 — 제품 hover는 라이트 gray-800 · 다크 gray-200 이고
+  // `--kds-color-background-upgrade-hover`가 정확히 그 값이다.
+  // **foreground 두 축은 Default와 Hover 색이 우연히 같아 틀린 상태를 재고도 통과했다.**
+  // 그래서 넷 다 뺐다 — 통과하는 거짓 증거가 실패보다 나쁘다.
   {
     id: "sidebar-cta-current",
     source: "Gnb.tsx sidebarUpgradeButton + sidebarUpgradeButtonActive (현재 위치)",
@@ -500,6 +517,16 @@ const PROBES = [
     read: ["height", "borderTopLeftRadius"],
   },
   {
+    id: "carousel-full-bleed",
+    // 기존 `carousel`은 CAROUSEL_BOXED(`rounded-16`)를 달아 반경이 16이다. full 열의 radius는
+    // 0이라 boxed 탐침으로는 낼 수 없다. height는 두 벌이 공유하지만 같은 렌더에서 함께 읽어야
+    // 두 축이 같은 증거가 된다.
+    source: "TabBannerCarousel.tsx CAROUSEL + CAROUSEL_FULL_BLEED",
+    from: ["carousel", "CAROUSEL", "CAROUSEL_FULL_BLEED"],
+    hostWidth: 960,
+    read: ["height", "borderTopLeftRadius"],
+  },
+  {
     id: "carousel-content",
     source: "TabBannerCarousel.tsx CONTENT",
     from: ["carousel", "CONTENT"],
@@ -512,6 +539,22 @@ const PROBES = [
     from: ["carousel", "CONTROLS"],
     hostWidth: 960,
     read: ["paddingTop", "columnGap", "right", "bottom"],
+  },
+  {
+    id: "carousel-controls-filled",
+    // `controlsHeight`는 CONTROLS에 높이 선언이 **없는** 파생 축이다 — `p-2`(4px) 위아래 +
+    // 자식 최대 높이(ARROW_BUTTON `h-14`)로만 결정된다. 자식이 없는 `carousel-controls`로는
+    // 낼 수 없고, `from` 조립은 한 겹만 만들어 자식을 세우지 못한다. 그래서 이 축만 두 겹을
+    // html로 세운다. 아래 두 클래스 문자열은 락 커밋의 CONTROLS와 ARROW_BUTTON을 그대로 이어
+    // 붙인 것이고 **수치는 한 글자도 적지 않았다.**
+    //
+    // 드리프트 주의: 캐러셀 탐침 중 이것만 클래스가 고정 문자열이다. 제품이 ARROW_BUTTON을
+    // 상수에서 빼 호출부로 인라인하면 안쪽 버튼이 무스타일로 렌더돼 **빨개지는 대신 값이 조용히
+    // 틀린다.**
+    source: "TabBannerCarousel.tsx CONTROLS + 자식 ARROW_BUTTON 하나 — 높이 합",
+    html: `<div class="absolute right-8 bottom-8 z-3 inline-flex items-center gap-4 p-2 rounded-full bg-[rgb(var(--palette-gray-1000-rgb)/28%)] [backdrop-filter:blur(12px)_saturate(130%)] [-webkit-backdrop-filter:blur(12px)_saturate(130%)]"><button class="w-14 h-14 p-0 [border:0] rounded-full inline-flex items-center justify-center text-[rgb(var(--palette-gray-000-rgb)/88%)] bg-transparent cursor-pointer [transition:background_160ms_ease,transform_160ms_ease] [&:hover]:bg-[rgb(var(--palette-gray-000-rgb)/14%)] active:[transform:scale(0.94)]"></button></div>`,
+    hostWidth: 960,
+    read: ["height"],
   },
   {
     id: "carousel-arrow",
@@ -817,6 +860,35 @@ const EXPECT = [
   ["carousel-dot-active", "width", ["banner-carousel", "sizes", "boxed", "dotActiveWidth"], "same"],
   ["carousel-dot-rest", "width", ["banner-carousel", "sizes", "boxed", "dotRestWidth"], "same"],
   ["carousel-dot-rest", "height", ["banner-carousel", "sizes", "boxed", "dotHeight"], "same"],
+  // ── (A3) 첫 배치 — banner-carousel full 열 · 접힘 브랜드 · CTA hover · spinner sm ────
+  // 반증(migration/product-has-refutation.json)이 인용을 확인한 축에 탐침을 붙여
+  // **브라우저가 판정하게** 한 것이다. 반증 결과는 판정이 아니라 탐침 주소였다.
+  // 제품에는 bleed로 갈리는 상수가 CAROUSEL_BOXED/CAROUSEL_FULL_BLEED 둘뿐이고
+  // CONTENT·CONTROLS·ARROW_BUTTON·DOTS·DOT는 한 벌씩이라 boxed를 재던 요소가 곧 full의 요소다.
+  ["carousel-full-bleed", "height", ["banner-carousel", "sizes", "full", "height"], "same"],
+  ["carousel-full-bleed", "borderTopLeftRadius", ["banner-carousel", "sizes", "full", "radius"], "same"],
+  ["carousel-controls-filled", "height", ["banner-carousel", "sizes", "boxed", "controlsHeight"], "same"],
+  ["carousel-controls-filled", "height", ["banner-carousel", "sizes", "full", "controlsHeight"], "same"],
+  ["carousel-content", "width", ["banner-carousel", "sizes", "full", "contentInline"], "same"],
+  ["carousel-content", "paddingTop", ["banner-carousel", "sizes", "full", "contentBlockPadding"], "same"],
+  ["carousel-content", "paddingLeft", ["banner-carousel", "sizes", "full", "contentInlinePadding"], "same"],
+  ["carousel-controls", "paddingTop", ["banner-carousel", "sizes", "full", "controlsPadding"], "same"],
+  ["carousel-controls", "columnGap", ["banner-carousel", "sizes", "full", "controlsGap"], "same"],
+  ["carousel-controls", "borderTopLeftRadius", ["banner-carousel", "sizes", "full", "controlsRadius"], "same"],
+  ["carousel-arrow", "width", ["banner-carousel", "sizes", "full", "arrowSize"], "same"],
+  ["carousel-arrow", "height", ["banner-carousel", "sizes", "full", "arrowSize"], "same"],
+  ["carousel-arrow", "borderTopLeftRadius", ["banner-carousel", "sizes", "full", "arrowRadius"], "same"],
+  ["carousel-dots", "columnGap", ["banner-carousel", "sizes", "full", "dotsGap"], "same"],
+  ["carousel-dot-active", "width", ["banner-carousel", "sizes", "full", "dotActiveWidth"], "same"],
+  ["carousel-dot-active", "height", ["banner-carousel", "sizes", "full", "dotHeight"], "same"],
+  ["carousel-dot-active", "borderTopLeftRadius", ["banner-carousel", "sizes", "full", "dotRadius"], "same"],
+  ["carousel-dot-rest", "width", ["banner-carousel", "sizes", "full", "dotRestWidth"], "same"],
+  ["carousel-dot-rest", "height", ["banner-carousel", "sizes", "full", "dotHeight"], "same"],
+
+  ["sidebar-header-row-collapsed", "minHeight", ["sidebar-brand", "sizes", "true", "height"], "same"],
+  ["sidebar-logo-rail-collapsed", "minHeight", ["sidebar-brand", "sizes", "true", "markSize"], "same"],
+
+  ["spinner-sm", "height", ["spinner", "sizes", "sm", "height"], "same"],
 ];
 
 // **대조하기로 한 축은 반드시 읽는다.** EXPECT에 행을 넣고 probe의 read에 넣는 것을 잊으면

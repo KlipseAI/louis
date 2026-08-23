@@ -129,6 +129,36 @@ gh api repos/KlipseAI/louis/actions/runs/$rid/jobs \
 **결제가 풀릴 때까지 로컬 `pnpm verify` + `pnpm test` + `pnpm clean-room` 이 유일한 검증
 통로다.** 밀린 커밋은 결제 복구 후 러너에서 한 번 확인해야 한다.
 
+### 결제수단 실패가 아니라 **무료 분 소진**이다 (2026-08-23 실측)
+
+annotation 문구가 「결제 실패 **또는** spending limit」으로 둘을 합쳐 말해서 구별이 안 된다.
+그런데 **초록이던 적이 있으므로 결제수단이 죽은 것이 아니다.** 실행 기록에서 직접 셌다.
+
+    조직 플랜        gh api orgs/KlipseAI -q .plan.name  →  "free"  (private 저장소 월 2,000분)
+
+    8월 소모(벽시계, 런의 created→updated 합)
+      klipse-web   261런  1,514.6분      klipse-cut    7런    347.3분
+      klipse       66런    311.2분       louis        68런    183.8분
+      ────────────────────────────────────────────────────────
+      합계        402런  2,356.9분   ← 2,000분 초과
+
+    2,000분을 넘은 지점   2026-08-21T05:47Z  klipse-web run 32451836246 (누적 1,995 → 2,001)
+
+차단이 시작된 자리도 보인다 — 성공 런은 5~6분씩 돌고 차단된 런은 **0.1분**이다(잡 미시작).
+
+    07:58Z  louis       success  5.6분   ← 마지막 초록
+    08:15Z  klipse-web  failure  0.1분   ← 여기부터 전부
+    09:05Z  louis       failure  0.1분
+
+8-21에 선을 넘었는데 8-22 오전까지 돈 것은 GitHub 의 사용량 정산이 실시간이 아니어서다(약 26시간).
+
+**이 수치는 추정이다** — `admin:org` 권한이 없어 billing API 를 못 읽고 벽시계로 쟀다. GitHub 이
+청구하는 분과는 다르다(큐 대기는 청구 안 되고 병렬 잡은 배로 계산된다). `klipse-cut` 의
+262.5분짜리 매달린 런 하나를 빼도 2,094분으로 여전히 초과다.
+
+**푸는 방법은 셋이고 전부 owner 만 할 수 있다** — ① spending limit 상향(Linux 분당 약 $0.008)
+② 다음 청구 주기까지 대기 ③ 소모 감축. 주범은 `klipse-web` 이고 이 저장소는 8% 다.
+
 - 배분은 `scripts/verify-gate-split.mjs` 가 지킨다. 게이트를 추가하면 `verify:ci` 나
   `verify:product` 중 한쪽에 넣는다 — `verify` 에 직접 붙이면 막힌다.
 

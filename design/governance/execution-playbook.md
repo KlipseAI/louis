@@ -191,8 +191,10 @@ Figma 트랙 DS-F-000 → 001 → 002 → (003 ∥ 004 1단계) → 004 2단계 
 5. **Figma library publish** — DS-F-008에서 owner가 Figma UI에서 직접 수행. 자동화 불가. 미해소.
 6. ~~**브라우저 테스트 바이너리 다운로드 승인**~~ — 해소됨 (2026-08-14). Chromium headless shell을
    받아 Vitest 실브라우저 harness가 동작한다.
-7. **Decision `accepted` 전환** — 자율 세션은 `proposed`까지만 쓴다. 현재 DS-D-0002~0007, 0009, 0010이
-   owner 확인 대기다. 대기 중에도 후속 구현은 진행할 수 있다.
+7. **Decision `accepted` 전환** — 자율 세션은 `proposed`까지만 쓴다. 대기 목록의 정본은
+   `grep -l '^- Status: proposed' design/governance/decisions/DS-D-*.md` 다 — 손으로 유지되는
+   ID 목록은 반드시 낡는다(한때 8건이 적혀 있었고 그 사이 Decision 이 더 늘었다).
+   대기 중에도 후속 구현은 진행할 수 있다.
 8. ~~**제품 저장소 확인 2건**~~ — **둘 다 해소됐다(2026-08-21).** 미커밋 `--surface-*` 사다리는
    배포본에 존재한 적이 없어 역이관할 대상이 없고, 앱 셸 라이트 램프는 `palette-gray-200`의
    **G를 238로 확정**했다(hex `#eeeef1`이 정본, `-rgb` 미러 `238 239 241`은 제품 결함으로 남긴다).
@@ -449,7 +451,7 @@ Templates 3개 페이지를 구성했고, 제품 미러 파일 `CNORJOONt4z0a4Bl
 Figma에서 mode는 collection의 **모든** 변수에 적용되므로 이 구조는 성립하지 않는다. primitive 110개가
 light/dark 값을 강제로 갖게 되기 때문이다. `DS-D-0007` Decision으로 다음을 확정한다.
 
-1. **Collection 분리 (기본안):** 토큰 200개(고유 ID 174)는 Figma에서 표현 형태가 셋으로 갈린다 —
+1. **Collection 분리 (기본안):** 토큰은 Figma에서 표현 형태가 셋으로 갈린다 —
    네이티브 변수, style, STRING 격하. 변수 개수는 토큰 개수와 다르다는 사실을 Decision에 명시한다.
    - `Klipse Primitive` — mode 1개(base). 네이티브 변수 약 92개(COLOR 38, FLOAT 52, STRING 2).
      composite인 typography 6·shadow 4는 변수가 아니라 style로, transition 5·cubicBezier 3은 STRING
@@ -508,7 +510,7 @@ light/dark 값을 강제로 갖게 되기 때문이다. `DS-D-0007` Decision으�
    깨뜨리므로 금지한다.
 3. primitive → semantic alias는 Figma 변수 alias로 연결한다. 같은 collection 안에서만 mode가
    분기되는지 확인한다.
-4. 실행 후 전체를 다시 읽어 대조한다. 기준은 개수 일치가 아니라 **완전 분류다**: 토큰 200개 각각이
+4. 실행 후 전체를 다시 읽어 대조한다. 기준은 개수 일치가 아니라 **완전 분류다**: 토큰 각각이
    variable / style(DS-F-005) / STRING 격하 / 의도적 미표현 중 정확히 하나로 매핑되고 미분류 0,
    그리고 variable로 분류된 항목의 이름·값·mode·alias 불일치 0.
 5. publish하지 않는다. manifest의 Figma 상태는 `not-ready`를 유지한다. DS-F-004 통과와 schema

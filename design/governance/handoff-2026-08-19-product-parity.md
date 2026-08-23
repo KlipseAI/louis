@@ -38,12 +38,14 @@ Figma  ←── figma/components.measured.json ──→  브라우저 테스�
 | 게이트 | 무엇을 막나 |
 | --- | --- |
 | `scripts/measure-product-components.mjs` | 제품 클래스를 제품 Tailwind로 컴파일해 실브라우저에서 재고 DS와 대조한다. **210축**. 축마다 `same`(같아야) 또는 `deviates`(달라야 하고 사유가 있어야) |
-| 같은 파일 · 열거 | 제품이 그 요소에 대해 **선언한 property를 전부 열거**하고 분류되지 않은 것이 있으면 실패. 기본·hover·의사요소 **2,089건 전부 분류** |
+| 같은 파일 · 열거 | 제품이 그 요소에 대해 **선언한 property를 전부 열거**하고 분류되지 않은 것이 있으면 실패. 기본·hover·의사요소가 **빠짐없이 분류**돼야 한다 — 건수는 `pnpm verify-product-components` 출력이 낸다 |
 | 같은 파일 · 빚 명부 | `figma/unverified-values.json`. 제품 대조도 사유도 없는 DS 값 **359건**. 명부에 없는 새 값도, 해소됐는데 명부에 남은 값도 실패 — **줄기만 한다** |
 | `scripts/measure-product-variants.mjs` | 제품의 경쟁 정의를 이름 패턴으로 전부 찾아 렌더하고 값이 같은 것끼리 묶는다. 표본 트리는 **모든 노드**를 잰다 |
 | `scripts/verify-figma-parity.mjs` | Figma ↔ 기록. 변조 canary 34종 |
 
-`pnpm verify`는 14단계다. 현재 전부 초록, 테스트 774.
+`pnpm verify`는 27단계다(`verify:ci` 13 + `verify:product` 14). hosted CI 는 `verify:ci` 13개만
+돌므로 **CI 초록은 전량 통과가 아니다.** 나머지 14개는 제품 저장소가 있는 로컬에서만 증명된다.
+테스트는 774건.
 
 ## 흔들리던 게이트 둘을 고쳤다 (2026-08-19)
 
@@ -362,7 +364,7 @@ DS 캐스케이드에 대한 참인 진술이지 **제품을 확인한 진술이
 
 | 주장의 종류 | 증명하는 기계 | 지금 상태 |
 | --- | --- | --- |
-| **탐침이 가리키는 그 요소**가 그 property를 선언하지 않는다 | `measure-product-components.mjs`의 선언 열거(2,089건 전부 분류, 탐침 47종) | **이미 강제되고 있다.** 제품이 그 property를 선언했다면 미분류로 걸렸을 것이다 — 사유를 `figma/product-coverage.json`에 옮기면 기계가 지킨다 |
+| **탐침이 가리키는 그 요소**가 그 property를 선언하지 않는다 | `measure-product-components.mjs`의 선언 열거(제품 선언이 빠짐없이 분류된다 — 건수와 탐침 수는 게이트 출력이 낸다) | **이미 강제되고 있다.** 제품이 그 property를 선언했다면 미분류로 걸렸을 것이다 — 사유를 `figma/product-coverage.json`에 옮기면 기계가 지킨다 |
 | **제품 정의 전체**에 그런 것이 하나도 없다("29벌을 훑었을 때 강조 채움이 하나도 없다") | `measure-product-variants.mjs`가 이름 패턴으로 경쟁 정의를 전부 찾아 렌더한다 | **아직 이 주장에 연결되지 않았다.** 지금 근거는 에이전트가 한 번 훑은 문장뿐이고, 제품이 30벌째를 더하면 조용히 낡는다 |
 
 그러므로 (A4)에서 `product-none`을 `$키` 주석으로 넘기기 전에, 그 주장이 위 표의 어느 줄인지

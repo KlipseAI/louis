@@ -50,7 +50,8 @@ jobs:
       # 2026-08-18T04:12~08-22T06:55 에 46회 연속 빨갰다(`verify-citations.mjs:27`).
       #
       # **이 CI 가 초록인 것은 게이트 13개가 통과했다는 뜻이다.** 27개가 아니다.
-      # 여기서 돌지 않는 13개: verify-gates(인용 좌표 카나리아 3개) · verify-citations ·
+      # 여기서 돌지 않는 14개: verify-gates(인용 좌표 카나리아 3개) · verify-citations ·
+      # verify-refutation-quotes ·
       # verify-product-alpha · verify-alpha-consolidation · verify-product-drift ·
       # verify-app-nav-labels · verify-product-evidence · verify-product-render ·
       # verify-product-components · verify-product-variants · verify-specimen-context ·

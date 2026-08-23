@@ -211,20 +211,25 @@ Core RC는 P3 전체 완료가 아니다.
 구현을 기다리지 않는다. DS-F-006 component parity만 해당 컴포넌트의 코드 구현과 짝을 이룬다.
 
 **DS↔제품 게이트가 생겼다 (2026-08-15).** `scripts/verify-product-parity.mjs`가 `pnpm verify`에
-들어 있다. 제품 공용 구현을 정본으로 삼아 205축을 실측했고 격차 143건을 전부 판정했다 — 채택 45,
-사유를 적은 의도적 편차 46, 제품에 공용 정본이 없어 대조 대상이 아닌 것 52. 근거는
+들어 있다. 제품 공용 구현을 정본으로 삼아 축마다 판정하며 셋 중 하나로 갈린다 — **채택** ·
+사유를 적은 **의도적 편차** · 제품에 공용 정본이 없어 대조 대상이 아닌 것. **현재 수는
+`pnpm verify-product-parity` 출력이 낸다**(한때 여기 적혀 있던 205축·143건은 낡았다). 근거는
 [`migration/product.measured.json`](../../migration/product.measured.json)과
 [`migration/component-parity.md`](../../migration/component-parity.md)에 있다.
 
 이 게이트가 없던 동안 DS의 다른 게이트는 **전부 DS 내부 일관성만** 봤다(코드↔Figma, 토큰↔생성물).
-그래서 DS가 제품과 143축이 다른데도 전부 초록이었다. 앞으로 제품과의 차이는 고쳐지거나 사유가
+그래서 DS가 제품과 백여 축이 다른데도 전부 초록이었다. 앞으로 제품과의 차이는 고쳐지거나 사유가
 적힌 편차로 선언되거나 둘 중 하나여야 한다.
 
-**제품에 공용 정본이 있는 컴포넌트는 셋뿐이다** — Button(공용 컴포넌트 + `--button-*` 토큰),
-Tooltip(`.app-tooltip-chrome` + `--app-tooltip-*`), Menu(`--dropdown-*`). Icon Button·Dialog·Toast는
-제품에 공용 구현이 없다. 조사자가 Icon Button의 정본으로 지목한 제품의 공유 UI 패키지는 Turborepo
-스타터 보일러플레이트였고 어떤 컴포넌트도 쓰지 않는다. 경로와 판정 근거는 비규범 기록인
-[`migration/product.measured.json`](../../migration/product.measured.json)에 있다.
+**제품에 공용 정본이 있는지 없는지는 컴포넌트마다 다르다.** 정본은
+[`migration/product.measured.json`](../../migration/product.measured.json)의 각 컴포넌트
+`canon.kind` 이며 `shared-component` · `shared-tokens` · `shared-css` · `none` 중 하나다.
+한때 이 자리에 「셋뿐이다」가 적혀 있었으나 `canon.kind !== "none"` 을 세면 그보다 많다 —
+**그 문장은 제품에 정본이 있는데도 DS가 값을 임의로 정하게 만드는 지시로 읽힌다.** 값을 정하기
+전에 그 필드를 먼저 열어라.
+
+Icon Button 의 정본으로 지목됐던 제품의 공유 UI 패키지는 Turborepo 스타터 보일러플레이트였고
+어떤 컴포넌트도 쓰지 않는다 — 그 기각 근거도 같은 파일에 있다.
 
 **현재 다음 포인터 (2026-08-18 갱신).**
 
@@ -236,11 +241,15 @@ Tooltip(`.app-tooltip-chrome` + `--app-tooltip-*`), Menu(`--dropdown-*`). Icon B
 | `DS-F-000`~`DS-F-005` | `done` |
 | `DS-P3-002a` · `002`(1단계) · `003` · `009a` · `013` | `done` |
 | `DS-P3-001` | `in-progress`. Decision 6종을 다 썼고 owner 확인만 남았다 |
-| Decision | **18종** (`DS-D-0001`~`DS-D-0018`) |
-| 카탈로그 | **15/15 + Avatar.** 1~11순위가 Web·Figma 모두 `partial`, 12~15순위는 Web만 `partial` |
-| manifest component | **18개.** 17개 `partial`, `select` `not-planned`(아래 1d). `not-ready`는 0개다 |
-| Figma | component **19개** · 아이콘 29개 · 변수 210개 · style 22개 |
-| 검증 | 브라우저 632건(두 motion context) · 토큰 게이트 canary 42종 · CSS canary 12종 · parity canary **34종** |
+| Decision | `ls design/governance/decisions/DS-D-*.md \| wc -l` · 대기는 `grep -l '^- Status: proposed' …` |
+| 카탈로그 | gap registry 합산 우선순위 15종이 닫혔다. **화면별 세부 부품은 그 목록에 처음부터 없었다**(아래 정정 참조) |
+| manifest component | [`manifest.json`](../manifest.json)이 정본이다 — `select` 만 `not-planned` 이고 `not-ready` 는 없다 |
+| Figma | `pnpm verify-figma-parity` 출력이 변수·collection·style·component 수를 낸다 |
+| 검증 | `pnpm test` 가 브라우저 회귀 수를, 각 `verify-*` 게이트가 자기 canary 수를 출력한다 |
+
+**이 표에 수를 다시 박지 마라.** 한때 여기에 Decision 18종 · component 18개 · Figma 19/29/210/22 ·
+브라우저 632건이 적혀 있었고 **여섯 개가 전부 낡았다.** 손으로 유지되는 수는 「무엇이 남았는가」의
+판단을 직접 틀리게 한다. 수가 필요하면 위 명령을 그 자리에서 돌린다.
 
 **"카탈로그가 닫혔다"는 틀린 요약이었다(2026-08-18 정정).** 닫힌 것은 gap registry의 **합산
 우선순위 15종**이다 — 여러 화면에 걸치는 공용 부품 목록. **화면별 세부 부품은 그 목록에 처음부터
@@ -589,8 +598,9 @@ IconButton secondary는 `color-border-default`(불투명)를 쓴다. TextField�
 **production 번들 tree-shaking**(canary 포함)을 매 실행 확인한다. **그 전까지 테스트는 package
 self-reference로 해석돼 바깥 소비를 증명하지 못했고, 워크스페이스 패키지는 루트에 링크조차 돼
 있지 않았다.** **release dry-run과 공개 API 표면도 붙었다** — `npm pack --dry-run`으로 세 패키지의 배포 목록을
-계약과 대조하고(담길 것·금지 경로 양방향), `packages/react/api-surface.json`이 심볼 56 · 타입 89를
-고정해 사라짐은 breaking, 새로 생김은 additive로 각각 잡는다. 검출력은 실측으로 증명했다.
+계약과 대조하고(담길 것·금지 경로 양방향), `packages/react/api-surface.json`이 공개 심볼과 타입을
+고정해 사라짐은 breaking, 새로 생김은 additive로 각각 잡는다. **수는 그 파일이 소유한다** —
+컴포넌트가 늘 때마다 바뀌므로 문서에 적지 않는다. 검출력은 실측으로 증명했다.
 
 **남은 것은 changesets 도입 · `private: true` 해제 · 버전 정책 셋이고, 지금 하지 않는다.**
 `DS-D-0006`이 `proposed`인 동안 의존성을 넣는 것은 플레이북의 spike 규칙("의존성 도입은 Decision
@@ -1040,12 +1050,13 @@ coverage가 끝나지 않았다면 P3 core release라고 명시한다. published
 #### DS-P3-013 — 아이콘 트랙 — `done`
 
 **상태:** `done` (2026-08-15). 정본은 저장소 SVG이고
-[DS-D-0008](decisions/DS-D-0008-icon-source.md)이 그 경계를 소유한다. 글리프 26개가 React·Figma
+[DS-D-0008](decisions/DS-D-0008-icon-source.md)이 그 경계를 소유한다. 글리프가 React·Figma
 양쪽에 서 있으며 provenance와 라이선스 원문이 글리프마다 붙는다.
 
-- 정본 `packages/react/src/icons/svg/*.svg` 26개, generated React component와 manifest, Figma
-  component 26개. `figma/snapshot.json`의 icon 수가 그 증거다.
-- 게이트는 positive 6 + 변조 canary 20종이다. 그중 셋은 여기서 실제로 잡은 결함이다 —
+- 정본은 `packages/react/src/icons/svg/*.svg` 이고 generated React component·manifest·Figma
+  component 가 그 투영이다. **수는 `pnpm verify-icon-gates` 출력과 `figma/snapshot.json` 의
+  `icons` 가 낸다** — 한때 세 자리에 26 이 박혀 있었고 셋 다 낡았다.
+- 게이트는 positive 검사와 변조 canary 다. 수는 같은 출력이 낸다. 그중 셋은 여기서 실제로 잡은 결함이다 —
   작은따옴표 속성을 파서가 조용히 흘려 **게이트를 통과하면서 출력에서 사라지던** 버그, 혼합
   라이선스를 하나로 뭉개 `ISC AND MIT`를 감추던 고지문, 최상위 부수효과.
 - 남은 owner 판정: `eye-slash` 은유 변경(제품 **12곳**, 2026-08-21 재실측 — 원래 17곳이라 적었다.
@@ -1493,25 +1504,21 @@ description에 기록했다. parity 게이트가 style 10종까지 검증하므�
 
 #### DS-F-006-{component} — Component library
 
-**상태:** `DS-F-006-button` `done` (2026-08-14). Figma `partial`로 올렸고 publish는 DS-F-008이다.
-**나머지 다섯은 `ready`이며 이것이 현재 다음 포인터다** (2026-08-15).
+**상태:** `done` — 이 절의 하위 작업이 전부 닫혔다. publish 는 DS-F-008 이 소유한다.
 
-| 하위 작업 | 코드 | Figma | gap registry 순위 |
-| --- | --- | --- | --- |
-| `DS-F-006-button` | `partial` | `partial` | — |
-| `DS-F-006-icon-button` | `partial` | `partial` | 1 |
-| `DS-F-006-tooltip` | `partial` | `not-ready` | 2 |
-| `DS-F-006-toast` | `partial` | `not-ready` | 3 |
-| `DS-F-006-menu-popover` | `partial` | `not-ready` | 4 |
-| `DS-F-006-dialog` | `partial` | `not-ready` | 5 |
-| `DS-F-006-slider` | `partial` | **`partial`** | 12 |
-| `DS-F-006-segmented-control` | `partial` | **`partial`** | 13 |
-| `DS-F-006-checkbox` | `partial` | **`partial`** | 14 |
-| `DS-F-006-avatar` | `partial` | **`partial`** | — |
-| `DS-F-006-selectable-list-row` | `partial` | **`partial`** | 15 |
+**여기에 상태 표를 다시 만들지 마라.** 한때 이 자리에 하위 작업 11행 표와 「나머지 다섯은
+`ready` 이며 이것이 현재 다음 포인터다」가 있었는데, 표의 `not-ready` 넷(Tooltip · Toast ·
+Menu/Popover · Dialog)이 전부 낡았고 같은 문서 위쪽은 이미 「넷이 전부 섰다. `DS-F-006` 이
+닫혔다」로 적고 있었다 — **한 문서가 자기를 반박했다.**
 
-여섯 중 다섯이 코드만 서 있고 Figma에 없다. DS-F-007-home 실측이 이 격차를 숫자로 확인했다 —
-재조립이 요구한 자산 대부분이 Figma에 존재하지 않아 gap 72건이 나왔다. 목표 B의 병목은 여기다.
+상태의 정본은 둘이다.
+
+- 코드·Figma 상태 → [`manifest.json`](../manifest.json)의 각 component `web`/`figma`
+- Figma 에 실제로 무엇이 있는가 → `figma/snapshot.json` 의 `components`,
+  그리고 그것을 코드와 대조하는 `pnpm verify-figma-parity`
+
+DS-F-007-home 실측이 이 절이 열려 있던 시절의 격차를 숫자로 확인했다 — 재조립이 요구한 자산
+대부분이 Figma 에 없어 gap 이 크게 나왔다. **그 수는 그 시점의 기록이며 지금 값이 아니다.**
 
 - `Button` component set 40 variant (Variant 4 × Size 2 × State 5). fill 72·stroke 18이 전부 변수
   바인딩이고 텍스트 40개가 전부 text style이다 — **raw 값 0**.

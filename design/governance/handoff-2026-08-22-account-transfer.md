@@ -35,7 +35,7 @@ authority: reference
 
 | 없는 것 | 없으면 벌어지는 일 | 갖추는 법 |
 | --- | --- | --- |
-| 제품 저장소 `klipse-web` | **`pnpm verify` 가 `verify:product` 첫 게이트에서 exit 1 로 죽는다** (`fatal: cannot change to …`). 제품을 읽는 게이트 13개 중 6개가 그렇게 죽고, 7개는 `SKIPPED` 를 찍고 exit 0 하는데 **앞의 6개가 먼저 죽어 거기까지 가지도 못한다** | clone 후 `export KLIPSE_PRODUCT_REPO=<경로>`. **`design` 브랜치를 fetch 했는지 확인한다** — 저장소 기본 브랜치는 `dev` 이고 `origin/main` 은 두 세대 낡았다 |
+| 제품 저장소 `klipse-web` | **`pnpm verify` 가 `verify:product` 첫 게이트에서 exit 1 로 죽는다** (`fatal: cannot change to …`). 제품을 읽는 게이트 14개 중 6개가 그렇게 죽고, 8개는 `SKIPPED` 를 찍고 exit 0 하는데 **앞의 6개가 먼저 죽어 거기까지 가지도 못한다**(2026-08-23 실측) | clone 후 `export KLIPSE_PRODUCT_REPO=<경로>`. **`design` 브랜치를 fetch 했는지 확인한다** — 저장소 기본 브랜치는 `dev` 이고 `origin/main` 은 두 세대 낡았다 |
 | Figma 파일 권한 | 조립도 검증도 못 한다 | **파일이 둘이고 역할이 다르다.** DS 정본 라이브러리 `bxGEp0km5zluMJGulaTvFW`(변수·style·component, `verify-figma-parity` 대상)와 제품 화면 이식 보드 `OlYKERKOkgbxBEEoXGZW2c`. 둘 다 쓰기 권한이 필요하다. 제품 미러 `CNORJOONt4z0a4Bl22Kjuu` 는 **읽기 전용**이다 |
 | `klipse-docs` 저장소 | `/docs` 화면을 `klipse-web` 기준으로 그리게 된다 — 틀린다 | `/docs` 를 건드릴 때만 필요하다 |
 | 원저자 맥의 `~/klipse-design-transplant` | 아래 2절 참조 | **이미 옮겼다.** 다시 만들 필요 없다 |
@@ -87,7 +87,7 @@ pnpm clean-room    # 러너 재현: 커밋된 HEAD 만 clone + --frozen-lockfile
 - **CI 초록은 게이트 13개가 통과했다는 뜻이다.** 전량이 아니다.
 - **`pnpm verify` 는 exit 0 이어야 한다.** 제품 저장소가 없으면 exit 1 로 그 자리에서 멈춘다 —
   「조용히 초록」이 되지는 않는다. 실측으로 확인했다: 없는 경로를 주면 exit 1 · `SKIPPED` **0줄**.
-- `SKIPPED` 를 눈으로 보려면 개별 게이트를 직접 돌려야 한다(`verify-product-render` 등 7개).
+- `SKIPPED` 를 눈으로 보려면 개별 게이트를 직접 돌려야 한다(`verify-product-render` 등 8개).
   `verify:product` 전체는 첫 게이트에서 죽어 거기까지 가지 않는다.
 - 푸시 전 절차: `pnpm build` → `pnpm check` → `pnpm verify` → `pnpm clean-room`.
 ### CI 가 빨갛다면 — 먼저 결제를 의심하라

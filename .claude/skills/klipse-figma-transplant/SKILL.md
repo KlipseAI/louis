@@ -23,8 +23,8 @@ description: Klipse 제품 화면을 Figma 보드로 옮기거나 고칠 때 쓴
 **경로를 절대경로로 박지 마라.** 이 저장소의 스크립트는 제품 저장소를
 `process.env.KLIPSE_PRODUCT_REPO ?? "/Users/sejunki/klipse-web"` 로 찾는다. 그 기본값은
 원저자의 맥에만 있다. 환경변수를 세우지 않으면 **`pnpm verify` 가 `verify:product` 첫 게이트에서
-exit 1 로 죽는다**(`fatal: cannot change to …`). 제품을 읽는 게이트 13개 중 6개가 그렇게 죽고,
-7개는 `SKIPPED` 를 찍고 exit 0 하지만 앞의 6개가 먼저 죽어 거기까지 가지 않는다.
+exit 1 로 죽는다**(`fatal: cannot change to …`). 제품을 읽는 게이트 14개 중 6개가 그렇게 죽고,
+8개는 `SKIPPED` 를 찍고 exit 0 하지만 앞의 6개가 먼저 죽어 거기까지 가지 않는다.
 
 ```bash
 export KLIPSE_PRODUCT_REPO=~/klipse-web

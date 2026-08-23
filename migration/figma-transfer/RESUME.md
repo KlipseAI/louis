@@ -6,7 +6,7 @@
 >
 > - **「커밋하지 않는다」(원문 :132·:159)는 무효다.** 그대로 따르면 작업을 잃는다.
 > - **「Figma 담당 세션은 정상 계정이라 제약을 받지 않는다」는 보장되지 않는다.** 파일 권한은 계정을 따라오지 않는다.
-> - **게이트 이름과 수가 낡았다.** `check-doc-identifiers`·`check-doc-colors`·`check-route-coverage` 는 이 저장소에 없다. 현행은 `pnpm verify` 26단계다.
+> - **게이트 이름과 수가 낡았다.** `check-doc-identifiers`·`check-doc-colors`·`check-route-coverage` 는 이 저장소에 없다. 현행은 `pnpm verify` 27단계다.
 > - **파일 위치 표 6행이 전부 죽은 경로다.** `verification-runs/*.json` 은 이관 대상에서 제외돼 **영구 소실**됐다(계정 이전 인계서 §2).
 > - 커버리지 등급 수치는 **구 저장소 2026-08-08 코드 기준**이라 현재 상태의 보증이 아니다.
 >

@@ -37,7 +37,7 @@ P3부터 devDependencies가 생겼다 — `pnpm install` 없이는 `pnpm build`�
 죽고, 브라우저 바이너리 없이는 `verify-test-harness`가 죽는다. 브라우저 바이너리는 lockfile에
 없으므로 별도로 받아야 한다.
 
-`pnpm verify`는 게이트 26단계 전량이고, 그중 **13단계**는 제품 저장소(`klipse-web`)를 읽는다.
+`pnpm verify`는 게이트 27단계 전량이고, 그중 **14단계**는 제품 저장소(`klipse-web`)를 읽는다.
 제품 저장소가 없는 환경에서는 `pnpm verify:ci`(13단계)만 돈다 — hosted CI가 그렇게 돈다.
 **따라서 CI 초록은 게이트 13개가 통과했다는 뜻이다.** 배분은 `scripts/verify-gate-split.mjs`가
 지키고, 푸시 전 러너 재현은 `pnpm clean-room`으로 한다.

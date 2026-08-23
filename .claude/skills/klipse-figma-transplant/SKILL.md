@@ -28,7 +28,7 @@ exit 1 로 죽는다**(`fatal: cannot change to …`). 제품을 읽는 게이�
 
 ```bash
 export KLIPSE_PRODUCT_REPO=~/klipse-web
-pnpm verify            # 26단계 전량. 위 환경변수가 없으면 13개가 조용히 꺼진다
+pnpm verify            # 27단계 전량. 위 환경변수가 없으면 첫 게이트에서 exit 1 로 죽는다
 pnpm verify:ci         # 13단계. 제품 저장소 없이 도는 것만 (hosted CI 가 이걸 돈다)
 pnpm clean-room        # 러너 재현: 커밋된 HEAD 만 clone + 새 설치
 ```

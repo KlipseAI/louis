@@ -313,7 +313,7 @@
 
 **근거** — `package.json` 실측: `verify` = `verify:ci && verify:product`, `verify:ci` 는 13개(`verify-gate-split`·`verify-gates:ci`·`verify-token-gates`·`verify-css-gates`·`verify-icon-gates`·`check-token-diff`·`check-figma-snapshot`·`verify-figma-parity`·`verify-figma-variables`·`verify-figma-styles`·`verify-consumer`·`verify-test-harness`·`verify-product-parity`), `verify:product` 도 13개. 합 26. `scripts/verify-gate-split.mjs` 가 배분을 강제한다. 테스트는 맞다 — `pnpm test` 실행 결과 `Test Files 80 passed (80) · Tests 774 passed (774)`.
 
-**고침** — 「26단계(= `verify:ci` 13 + `verify:product` 13). hosted CI 는 `verify:ci` 13개만 돈다」로 고친다. 「전부 초록」은 제품 저장소·`KLIPSE_PRODUCT_REPO` 유무에 따라 뜻이 달라지므로 조건을 붙인다. 774 는 그대로 둔다.
+**고침** — 「27단계(= `verify:ci` 13 + `verify:product` 14). hosted CI 는 `verify:ci` 13개만 돈다」로 고친다. 「전부 초록」은 제품 저장소·`KLIPSE_PRODUCT_REPO` 유무에 따라 뜻이 달라지므로 조건을 붙인다. 774 는 그대로 둔다.
 
 
 ## confusing
@@ -356,7 +356,7 @@
 
 **근거** — 프론트매터 4줄을 직접 확인 — `id/status/authority` 뿐이고 배너가 없다. 교차 참조도 확인: `handoff-2026-08-22-account-transfer.md:11` 「본류 작업은 [제품 실측 대조 인계서]가 소유한다」, 같은 파일 L138 표의 「**본류**」, L157 「그다음 읽는 순서 … [08-19 인계서]」, `design/governance/execution-handoff.md:13-15` 「이어받는 사람은 [제품 실측 대조 인계서]를 먼저 읽는다. 아래 큐보다 그것이 앞선다」, `design/manifest.json:592-599` 는 `authority: reference · maturity: beta` 만 싣는다. 위에서 확인한 13건 중 최소 4건(L155-185 절 · L262 draw 파일 · L418 Figma 좌표 · L415 origin/main)은 그대로 따르면 틀린 결과물이 나온다.
 
-**고침** — 문서를 폐기하지 않는다 — (A1)~(A5) 절차와 (A2')·(A2") 함정 분석은 다른 어디에도 없는 자산이고 359·210·181·29·774 는 지금도 맞다. 최상단에 「2026-08-22 검증: 제품 정본이 `design`@lock-productCommit 으로, 게이트가 26개로 바뀌었고 Figma 보드가 이전 중이다. 아래 『제품이 움직였다』 절 · 인벤토리 Figma 좌표 · (A2) 재개 경로 · 「인계 전 검증」 줄은 무효다」 배너를 붙인다.
+**고침** — 문서를 폐기하지 않는다 — (A1)~(A5) 절차와 (A2')·(A2") 함정 분석은 다른 어디에도 없는 자산이고 359·210·181·29·774 는 지금도 맞다. 최상단에 「2026-08-22 검증: 제품 정본이 `design`@lock-productCommit 으로, 게이트가 27개로 바뀌었고 Figma 보드가 이전 중이다. 아래 『제품이 움직였다』 절 · 인벤토리 Figma 좌표 · (A2) 재개 경로 · 「인계 전 검증」 줄은 무효다」 배너를 붙인다.
 
 ### `design/governance/handoff-2026-08-19-product-parity.md:217`
 

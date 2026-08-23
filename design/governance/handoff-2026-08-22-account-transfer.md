@@ -78,8 +78,9 @@ Updates (93)~(96) 에 각각의 전말이 있다.
 
 ```bash
 export KLIPSE_PRODUCT_REPO=~/klipse-web
-pnpm verify        # 26단계 전량 — 제품 저장소가 있어야 한다
+pnpm verify        # 27단계 전량 — 제품 저장소가 있어야 한다
 pnpm verify:ci     # 13단계 — 제품 저장소 없이 도는 것만. hosted CI 가 이걸 돈다
+                   # 나머지 14단계는 verify:product 다
 pnpm clean-room    # 러너 재현: 커밋된 HEAD 만 clone + --frozen-lockfile 새 설치
 ```
 
@@ -147,7 +148,10 @@ gh api repos/KlipseAI/louis/check-runs/<job-id>/annotations -q '.[0].message'
 
 | 항목 | 상태 |
 | --- | --- |
-| DS 값 359건이 제품 대조 없이 정해져 있음 | [08-19 인계서](handoff-2026-08-19-product-parity.md)가 소유하는 **본류** |
+| **제품 커밋 `a3ed8e03` 이 원격에 없다** | 락은 2026-08-22에 `origin/design` `a89fc0d5` 로 내렸으므로 **더는 이 커밋에 의존하지 않는다**. 다만 커밋 자체는 여전히 이 맥의 로컬 `design` 브랜치에만 있다(`origin/design` +1). 푸시는 owner 결정이다 — Updates (98) |
+| **제품 워킹트리에 미커밋 12줄** | `apps/web/app/globals.css` 가 `html[data-theme="dark"]` 와 `[data-landing-walkthrough-dark]` 에서 `--dropdown-frame` 을 `palette-gray-000-rgb / 16%` 로 뒤집는다 — 곧 **다크에서 `--dropdown-frame` 이 `--dropdown-frame-on-dark`(`globals.css:59`)와 같은 값이 된다.** 제품 주석이 그렇게 적는다. **DS 규범 셋은 그 반대를 적는다** — [elevation-layer](../foundations/elevation-layer.md) 46행(단일 값) · [product-reading-traps](../foundations/product-reading-traps.md) 215행(「같다 — 테마 무관」) · [Updates](../updates/README.md) 배너. 측정은 `git show <commit>:<path>` 로 읽으므로 지금은 게이트가 못 본다. **커밋되는 순간** `verify-product-evidence` 가 빨개지고 규범 셋을 같은 변경 단위에서 고쳐야 한다. 커밋 전에는 규범을 고치지 마라 — 인용할 커밋이 없다 |
+| **락 신선도를 보는 게이트가 없다** | 근거 락이 인용 집합과 어긋나도 통과한다 — 실제로 근거 하나(`mypage/upgrade/checkout/page.tsx`)가 아무도 인용하지 않는 채 남아 있었다. 새로 인용된 파일이 빠지는 쪽이 더 위험하다. Updates (98) ④ |
+| DS 값 359건이 제품 대조 없이 정해져 있음 | [08-19 인계서](handoff-2026-08-19-product-parity.md)가 소유하는 **본류**. (A2) 반증 285축은 2026-08-22에 [`migration/product-has-refutation.json`](../../migration/product-has-refutation.json) 으로 건져 냈고 `verify-refutation-quotes` 가 지킨다 — 확인 231 · 인용 무효로 기각 15 |
 | `.authored/` 컴포넌트 13종(34회 사용)에 제품 출처 없음 | 미해결 |
 | P3 `packages/{css,react}` 가 `private: true` · `0.0.0` | 발행 미결정 |
 | P4 `apps/docs` 가 placeholder | 검색·접근성·버전 표시·예제 격리·AI 문서 URL 계약을 먼저 승인해야 프레임워크를 고른다 |
@@ -162,8 +166,8 @@ gh api repos/KlipseAI/louis/check-runs/<job-id>/annotations -q '.[0].message'
 git clone git@github.com:KlipseAI/louis.git && cd louis
 corepack enable && pnpm install --frozen-lockfile
 pnpm exec playwright install --with-deps chromium   # 없으면 verify-test-harness 가 죽는다
-export KLIPSE_PRODUCT_REPO=~/klipse-web        # 없으면 게이트 13개가 조용히 꺼진다
-pnpm build && pnpm check && pnpm verify        # exit 0 이면 26단계 전량 통과. exit 1 이면 그 자리에서 멈춘 것이다
+export KLIPSE_PRODUCT_REPO=~/klipse-web        # 없으면 verify:product 첫 게이트에서 exit 1 로 죽는다
+pnpm build && pnpm check && pnpm verify        # exit 0 이면 27단계 전량 통과. exit 1 이면 그 자리에서 멈춘 것이다
 ```
 
 그다음 읽는 순서는 `CLAUDE.md` → [실행 인계서](execution-handoff.md) →

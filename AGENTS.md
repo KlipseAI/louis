@@ -75,7 +75,7 @@ machine judges the value; here the machine judges whether the value was ever loo
   for nine runs (2026-08-19 to 08-22) were invisible to a local `pnpm verify` — see Updates (93)
   and (94). `pnpm clean-room` clones the committed HEAD, installs from the lockfile, and pins the
   product repository to a path that does not exist.
-- CI runs `pnpm verify:ci`, not `pnpm verify`. Thirteen of the twenty-six gates read the product
+- CI runs `pnpm verify:ci`, not `pnpm verify`. Fourteen of the twenty-seven gates read the product
   repository and cannot run on the runner, so **a green CI means thirteen gates passed**, not all
   of them. Seven of those thirteen used to sit in `verify:ci` and printed `SKIPPED` with exit 0,
   which made a green run look like full coverage — see Updates (95). A gate that disables itself

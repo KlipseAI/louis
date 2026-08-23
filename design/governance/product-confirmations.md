@@ -48,14 +48,14 @@ DS의 duration·motion이 제품의 58단 중 56.9%만 덮는다.
 [product.drift.json](../../migration/product.drift.json)이 매 `verify`마다 다섯 축을 잰다.
 
 <!-- GENERATED:product-drift START -->
-배포본 `a3ed8e03` 기준. **이 표는 생성물이다** — `scripts/measure-product-drift.mjs`가 매 `verify`마다 다시 잰다.
+배포본 `a89fc0d5` 기준. **이 표는 생성물이다** — `scripts/measure-product-drift.mjs`가 매 `verify`마다 다시 잰다.
 
 | 축 | 제품 | DS가 덮는 비율 | 최다값 | 결손 최다 |
 | --- | ---: | ---: | --- | --- |
 | alpha | 73단 3318회 | 43.3% | `100%` 414회 **토큰 없음** | `100%` 414회 / 56파일 |
 | radius | 24단 587회 | 83.5% | `999px` 151회 | `7px` 21회 / 2파일 |
 | border-width | 8단 203회 | 92.1% | `1px` 142회 | `1.5px` 10회 / 5파일 |
-| spacing | 43단 1021회 | 76.2% | `8px` 194회 | `3px` 62회 / 23파일 |
+| spacing | 43단 1021회 | 76.2% | `8px` 196회 | `3px` 62회 / 23파일 |
 | duration | 58단 1340회 | 56.9% | `180ms` 236회 **토큰 없음** | `180ms` 236회 / 55파일 |
 
 **투명도 % (`alpha`) — 토큰 없는 값 상위**

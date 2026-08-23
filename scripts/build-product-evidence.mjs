@@ -27,6 +27,31 @@ collect(measured.components);
 
 const commit = git(["rev-parse", productRef]);
 
+// **원격에 없는 커밋은 기준선이 될 수 없다.** 2026-08-22까지 이 락은 `a3ed8e03`을 고정하고
+// 있었는데 그 커밋은 원저자 맥의 로컬 `design` 브랜치에만 있었다 — 원격 어디에도 없다.
+// 다른 맥에서 제품을 clone 하면 `git show <commit>:<path>`가 전부 실패하므로 근거 83건이
+// 통째로 검증 불가가 되고 `verify:product` 13게이트가 죽는다. 그런데 hosted CI도
+// `pnpm clean-room`도 제품 저장소를 읽지 않으므로 **이 결함에 대해서는 영원히 초록이다.**
+// 사람이 눈치챌 자리가 없으므로 기준선을 박는 이 자리에서 막는다.
+if (git(["branch", "-r", "--contains", commit]) === "") {
+  console.error(
+    "[product-evidence] 원격에 없는 커밋을 기준선으로 박을 수 없습니다: " +
+      commit.slice(0, 8) +
+      " (" +
+      productRef +
+      ")",
+  );
+  console.error(
+    "[product-evidence] 이 커밋은 " +
+      productRoot +
+      " 에만 있습니다. 다른 맥에서는 근거 대조가 불가능합니다.",
+  );
+  console.error(
+    "[product-evidence] 먼저 push 하거나, KLIPSE_PRODUCT_REF=origin/<branch> 로 원격 커밋을 기준선으로 쓰세요.",
+  );
+  process.exit(1);
+}
+
 // **산문이 인용한 파일도 고정한다.** 2026-08-21까지 이 락은 `product.measured.json`이 인용한
 // 파일만 봤고, design 문서가 본문에서 인용한 제품 파일은 **아무도 지키지 않았다** — 제품이
 // 그 파일을 바꾸면 문서의 좌표가 조용히 낡는다. 이식번들의 인용 124건이 그렇게 낡았다.

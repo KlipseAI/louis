@@ -188,27 +188,35 @@ ref**를 따라가는데, 근거 lock은 **커밋을 고정**한다. 둘이 갈�
 
 사용 한도 때문에 두 갈래를 도중에 멈췄다. **둘 다 되돌릴 필요 없이 이어받을 수 있다.**
 
-### (A2) 반증 — 일시정지, 결과 98건 캐시됨
+### (A2) 반증 — **끝났다. 결과는 저장소에 있다 (2026-08-22)**
 
-에이전트 106명 중 98명이 결과를 냈고 저널에 남아 있다(1.7MB). 처음부터 다시 돌리지 않는다.
+> **아래 「워크플로를 resume 하라」는 지시는 무효다.** 285축 전부가
+> [`migration/product-has-refutation.json`](../../migration/product-has-refutation.json) 에 있고
+> `verify-refutation-quotes` 게이트가 매 `pnpm verify` 마다 인용을 다시 연다. 캐시를 찾지 마라 —
+> 그 세션 디렉터리는 계정이 바뀌면 사라진다. 전말은 Updates (98) ⑤.
 
-```
-Workflow({
-  scriptPath: "~/.claude/projects/-Users-sejunki-klipse-design-system/<세션>/workflows/scripts/a2-refute-quoted-wf_af8ccc6c-5d1.js",
-  resumeFromRunId: "wf_af8ccc6c-5d1",
-  args: [ ...57갈래 라벨... ]
-})
-```
+에이전트 106명 중 98명의 결과 285축이 세션 워크플로 캐시(34MB)에만 있었고 저장소에는 사본이
+없었다. 2026-08-22에 저장소로 옮기고 기계로 대조했다.
 
-끝난 에이전트는 캐시에서 즉시 반환되고 안 끝난 것만 새로 돈다. 갈래 목록은 스크립트 파일 옆의
-`chunks.json` 생성 로직으로 다시 만들 수 있다 — `migration/unverified-value-map.json`에서
-`decision === "product-has" || route === "제품-주장" || route === "DS-내부만"`인 285축을
-컴포넌트별로 6개 이하씩 쪼갠 것이다.
+| 판정 | 수 |
+| --- | ---: |
+| 확인 — 인용이 기준선의 그 파일 그 줄에 그대로 | **231** |
+| 기각 — 원래 반증에서 기각 | 39 |
+| 기각 — **인용을 파일 어디에서도 못 찾음** | **15** |
+
+좌표만 낡은 161건은 기계가 찾은 줄로 정정했다. **인용문은 한 글자도 고치지 않았다** — 인용이
+증거이고 줄 번호는 좌표일 뿐이다.
+
+인용 무효 15건은 `dialog`·`project-card`·`segmented-control` 의 테두리와 `icon-button`·`slider`
+의 `VideoEditModal` 인용이다. **인용을 못 찾은 확인은 약한 확인이 아니라 기각이다**(`AGENTS.md`).
+이 15축은 (A3)에서 브라우저가 처음부터 다시 판정한다.
 
 **결과를 쓸 때의 원칙:** 에이전트 문장을 진실로 취급하지 않는다. "이 축은 제품의 어느 요소를
-재면 되는가"라는 **탐침 주소로만** 쓰고 판정은 (A3)에서 브라우저가 한다. 살아남은 확인은
-`migration/product-has-refutation.json`에 쓰고 `scripts/verify-refutation-quotes.mjs`로 인용을
-기계 대조한다 — 인용을 못 찾은 확인은 무효다.
+재면 되는가"라는 **탐침 주소로만** 쓰고 판정은 (A3)에서 브라우저가 한다. 게이트가 보는 것도
+「인용이 실재하는가」이지 「값이 맞는가」가 아니다.
+
+갈래 목록의 정의는 남겨 둔다 — `migration/unverified-value-map.json` 에서
+`decision === "product-has" || route === "제품-주장" || route === "DS-내부만"` 인 285축이다.
 
 ### (B) 인벤토리 — 측정까지 끝, Figma 그리기만 남음
 

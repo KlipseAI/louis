@@ -291,12 +291,14 @@ const PROBES = [
     id: "sidebar-header-row",
     source: "Gnb.tsx sidebarHeaderRow",
     from: ["gnb", "sidebarHeaderRow"],
+    wrapperFrom: [["gnb", "wrapperSidebar"]],
     read: ["minHeight", "columnGap", "paddingLeft"],
   },
   {
     id: "sidebar-header-row-collapsed",
     source: "Gnb.tsx sidebarHeaderRow (접힘)",
     from: ["gnb", "sidebarHeaderRow"],
+    wrapperFrom: [["gnb", "wrapperSidebar"]],
     doc: "collapsed",
     read: ["paddingLeft"],
   },
@@ -319,6 +321,7 @@ const PROBES = [
     id: "sidebar-cta",
     source: "Gnb.tsx sidebarUpgradeButton",
     from: ["gnb", "sidebarUpgradeButton"],
+    wrapperFrom: [["gnb", "wrapperSidebar"]],
     tag: "button",
     text: "업그레이드",
     read: ["minHeight", "paddingTop", "paddingLeft", "columnGap", "borderTopLeftRadius", "backgroundColor", "color", "boxShadow"],
@@ -327,6 +330,7 @@ const PROBES = [
     id: "sidebar-cta-collapsed",
     source: "Gnb.tsx sidebarUpgradeButton (접힘)",
     from: ["gnb", "sidebarUpgradeButton"],
+    wrapperFrom: [["gnb", "wrapperSidebar"]],
     tag: "button",
     doc: "collapsed",
     text: "업그레이드",
@@ -897,6 +901,13 @@ const EXPECT = [
   ["sidebar-cta-hover", "color", ["sidebar-cta", "states", "base", "Hover", "foreground"], "same"],
   ["sidebar-cta-hover-light", "backgroundColor", ["sidebar-cta", "states", "base", "Hover", "background"], "same"],
   ["sidebar-cta-hover-light", "color", ["sidebar-cta", "states", "base", "Hover", "foreground"], "same"],
+  // 폭 축은 레일이 서야 재진다 — `wrapperFrom` 이 제품 `wrapperSidebar` 를 조상으로 세운다.
+  // 부품은 제품·DS 양쪽에서 폭을 선언하지 않고 100%로 받는다(제품 `[width:100%]`,
+  // DS `inline-size: 100%`). 기록의 256/32 는 레일 폭에서 좌우 여백을 뺀 값이다.
+  ["sidebar-header-row", "width", ["sidebar-brand", "sizes", "false", "width"], "same"],
+  ["sidebar-header-row-collapsed", "width", ["sidebar-brand", "sizes", "true", "width"], "same"],
+  ["sidebar-cta", "width", ["sidebar-cta", "sizes", "false", "width"], "same"],
+  ["sidebar-cta-collapsed", "width", ["sidebar-cta", "sizes", "true", "width"], "same"],
 ];
 
 // **대조하기로 한 축은 반드시 읽는다.** EXPECT에 행을 넣고 probe의 read에 넣는 것을 잊으면
@@ -1015,6 +1026,17 @@ try {
       .map((key) => extractClassList(sources[alias], key, FILES[alias]))
       .join(" ");
     const inline = probe.inlineFrom ? inlineStyleOf(probe.inlineFrom[0], probe.inlineFrom[1]) : "";
+    // **조상도 제품 상수에서 가져온다.** `wrapper`는 클래스 이름을 문자열로 받는데, 그것으로는
+    // 「조상 선택자를 만족시킨다」까지만 되고 **조상이 실제로 만드는 기하**(레일 폭 280px 등)는
+    // 서지 않는다. 그래서 폭 축들이 host 폭을 재 왔다.
+    //
+    // 문자열로 옮겨 적는 것은 답이 아니다 — `wrapperSidebar`의 클래스는 4천 자가 넘고, 옮겨
+    // 적는 순간 제품이 바뀌어도 초록으로 남는다. 여기서 `from`과 같은 경로로 뽑는다.
+    if (probe.wrapperFrom) {
+      probe.wrapper = probe.wrapperFrom.map(([alias, ...keys]) =>
+        keys.map((key) => extractClassList(sources[alias], key, FILES[alias])).join(" "),
+      );
+    }
     const tag = probe.tag ?? "div";
     probe.html =
       "<" + tag + ' class="' + probe.classes + '"' + (inline ? ' style="' + inline + '"' : "") + ">" +

@@ -173,7 +173,7 @@ gh api repos/KlipseAI/louis/actions/runs/$rid/jobs \
 | P4 `apps/docs` 가 placeholder | 검색·접근성·버전 표시·예제 격리·AI 문서 URL 계약을 먼저 승인해야 프레임워크를 고른다 |
 | ActionMenu 트리거의 중첩 `<button>` | 브라우저 테스트 2곳에서 하이드레이션 경고. `AnchoredTrigger` 에 `asChild` 가 없어 소비자에게 대안이 없다 |
 | `/mypage/upgrade` 비교표 대비 1.42:1 | **제품 결함이다.** 보드에서 고치지 마라 |
-| **낡은 지시 43건** | [정리 목록](../../migration/stale-doc-worklist.md)에 있다. `execution-handoff`(16) · `execution-playbook`(11) · [08-19 인계서](handoff-2026-08-19-product-parity.md)(13) · `roadmap`(3). **이 넷은 지금도 작업 계약으로 읽히므로 배너로 못 덮는다** — 항목별로 고쳐야 한다. 기록 성격 문서 6종은 경고 배너로 처리 완료 |
+| ~~낡은 지시 43건~~ | **2026-08-23에 커밋 여섯으로 소진했고 별도 레인이 적대적으로 감사했다.** 감사가 61건을 더 찾았고(고침이 불완전했다) 그중 blocker 계열을 처리했다. 재발 방지로 `verify-doc-paths` 게이트가 섰다 — 문서의 저장소 경로 인용을 매 `verify:ci` 마다 확인한다. 남은 것은 [정리 목록](../../migration/stale-doc-worklist.md) 상단 배너가 소유한다 |
 | 구 저장소 `~/klipse` | `design/audits/` · `design/legacy/highlight-standalone.md` · `design/figma/` · DS 스크립트 8개 · `DESIGN_SYSTEM.md`(4,412줄)를 단독 보유. 지우기 전에 대조가 필요하다 |
 
 ## 6. 처음 30분

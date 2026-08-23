@@ -477,8 +477,8 @@ Badge의 `Label`). **모든 fill이 변수 바인딩이고 raw 값이 0이다.**
 `Avatar`와 `BannerCarousel`/`HomeBannerSlide`.** 배너 캐러셀은 허브 3곳이 공유하고 아바타는 셸
 파일에 인라인이다. **화면 gap의 수(72·130·144)는 갱신하지 않았다** — 그것은 Figma에서 Home을
 실제로 다시 조립해야 나오고 아직 하지 않았다. 배너 캐러셀의 선행 조건이던 아이콘
-`caret-left`·`caret-right`·`caret-down` 셋은 **2026-08-18에 섰다**(글리프 26 → 29개, Figma
-component 도 함께 늘었다). **Avatar 와 BannerCarousel 이 둘 다 섰다** — manifest 에서 web·figma
+`caret-left`·`caret-right`·`caret-down` 셋은 **2026-08-18에 섰다**(글리프와 Figma component 가
+함께 늘었다 — 현재 수는 `figma/snapshot.json` 이 낸다). **Avatar 와 BannerCarousel 이 둘 다 섰다** — manifest 에서 web·figma
 모두 `partial` 이고 `figma/snapshot.json` 에 `BannerCarousel` 이 있다. census 는
 [gap registry](../../migration/figma-gap-registry.md)에 있다.
 
@@ -686,8 +686,10 @@ gap registry 1순위로 추가됐다.
 둔 캐시가 있어 **로컬에서만 통과하고 clean checkout에서만 실패하는** 상태였다.
 
 `pnpm exec playwright install --with-deps chromium` 단계를 넣었고, 같은 김에 **실브라우저 회귀
-전량(`pnpm test`)을 CI에 붙였다** — `verify`의 test-harness는 러너가 실패를 전파하는지만 증명하고
-suite 자체를 돌리지 않아, 컴포넌트 acceptance test 632건이 hosted CI에서 한 번도 돈 적이 없다.
+전량(`pnpm test`)을 CI에 붙였다** — 그때는 「`verify`의 test-harness가 suite 를 돌리지 않는다」로
+판단했으나 **그 판단은 틀렸다**(2026-08-23 코드 확인: `scripts/verify-test-harness.mjs` 가 canary
+제거 후 node·browser suite 를 실제로 돌린다). CI 단계를 따로 둔 것은 여전히 유용하다 — 실패
+지점이 게이트가 아니라 회귀 자체임이 로그에서 바로 보인다.
 로컬에서 두 번 관측된 간헐 실패도 이 단계가 반복 실행으로 드러낼 자리다.
 
 **이것이 hosted CI의 값이다.** 로컬 게이트는 스무 번 초록이었고 clean checkout이 한 번에 잡았다.
@@ -1272,7 +1274,7 @@ alpha·radius·border-width·duration을 함께 재고 `verify-product-drift`가
 「16개」라는 추정은 실측 전 수치이며, 실제로는 elevation이 이미 차 있고 radius는 승격이 아니라
 축소가 필요한 상태였다.
 
-**단위 3 — 코드 쪽은 준비됐고 Figma 쓰기에 막힌다 (2026-08-21 실측):**
+**단위 3 — accent 램프 (2026-08-21 실측, 2026-08-23 완료):**
 
 제품의 accent 램프를 배포본에서 셌다. **램프 11종 · 정의 67단 · 참조되는 단계 67단** —
 미참조 단계가 **0개**다. 원칙 6의 「램프 일부 단계가 미참조여도 허용한다」를 적용할 일이 없다.
@@ -1290,13 +1292,13 @@ alpha·radius·border-width·duration을 함께 재고 `verify-product-drift`가
 확인이며, 추가분도 같은 원천에서 그대로 가져오면 된다. 값은 리터럴 hex라 정규화 판단이 없다 —
 단위 2와 성격이 다르다.
 
-실제로 `primitive.color`에 39개를 넣고 `build-tokens`를 돌려 보았다. `verify-token-gates`와
-`check-token-diff`(additive)는 **통과**한다. 막히는 곳은 Figma다.
+**이 단위는 끝났다(2026-08-23 확인).** 램프 토큰이 `packages/tokens/src/klipse.tokens.json` ·
+`figma/readback.json` · `figma/snapshot.json` 셋 다에 실재하고 `pnpm verify-figma-parity` 가
+통과한다.
 
-    [figma-parity] 변수가 snapshot에 없습니다: color-yellow-600 …
-
-**완료에 필요한 것:** 라이브러리 파일(`bxGEp0km5zluMJGulaTvFW`)에 변수 39개를 적용 →
-`readback.json` 재생성 → `build-figma-snapshot`. 첫 단계가 사람의 Figma 파일에 대한 쓰기다.
+> 한때 이 자리에 「막히는 곳은 Figma다」와 실패 출력 리터럴이 적혀 있었다. **그 리터럴을 지운
+> 이유는 grep 으로 만난 사람이 없는 실패를 재현하려 들기 때문이다.** 위 표는 그 시점의 실측
+> 기록으로 남긴다.
 
 **적용 경로는 `figma/apply-variables.*.js` 다.** `scripts/build-figma-variables.mjs` 가 token
 proposal 에서 생성하고 `verify-figma-variables` 가 드리프트를 잡으며, [figma-sync](figma-sync.md)
@@ -1532,7 +1534,8 @@ description에 기록했다. parity 게이트가 style 10종까지 검증하므�
 
 **의존성:** DS-F-003
 
-- typography 6종을 text style, shadow 4종을 effect style로 생성하고 내부 속성을 변수에 바인딩한다.
+- typography 를 text style, shadow 를 effect style 로 생성하고 내부 속성을 변수에 바인딩한다.
+  **수를 여기에 적지 않는다** — `figma/snapshot.json` 의 `styles.text`·`styles.effect` 가 정본이다.
 - 표현 불가 필드는 loss metadata를 style description에 기록한다.
 
 **완료 근거:** snapshot에 style이 포함되고 composite parity 대조를 통과한다.
@@ -1592,17 +1595,20 @@ parity 게이트가 이제 mode 순서와 기본 모드를 검증한다. token g
   소비처가 dialog sheet인데 제품의 실제 카드는 전부 16px이고, `layout-project-card-minimum`은
   CSS 소비자가 0이며 제품이 쓰지 않는 `minmax` 알고리즘을 서술한다. 둘 다 owner 판정 대기다.
 
-**세 화면 모두 gap 0이 될 때까지 이 항목은 `done`이 아니다.**
+**대상 화면이 전부 gap 0이 될 때까지 이 항목은 `done`이 아니다.** **대상 범위와 등급 체계는
+[`migration/product-screens/`](../../migration/product-screens/) 가 소유한다** — 한때 여기가
+「Home·Highlight·Editor 3개」였고 그 인벤토리가 서기 전의 기준이다.
 
-**의존성:** DS-F-005, 해당 화면에 필요한 DS-F-006 component, DS-P3-009a. 화면(Home, Highlight,
-Editor)별로 하위 작업 단위다.
+**의존성:** DS-F-005, 해당 화면에 필요한 DS-F-006 component, DS-P3-009a. 화면별로 하위 작업 단위다.
 
-- Templates 페이지에서 component instance·변수·style만으로 배포 화면(첫 화면은 Home 권장)을
-  재조립한다 (publish 전에는 같은 파일 안에서).
+- component instance·변수·style만으로 배포 화면을 재조립한다 (publish 전에는 같은 파일 안에서).
+  **조립 규칙은 [figma-screen-assembly](figma-screen-assembly.md)가, 실행 절차는
+  `.claude/skills/klipse-figma-transplant/SKILL.md` 가 소유한다** — 이 절만 따르면 2026-08-21
+  조립 실패에서 나온 규칙을 통째로 놓친다. **어느 Figma 파일에 쓰는지는
+  [figma-sync](figma-sync.md) 「운영 파일」 절이 소유한다.**
 - detach, raw override, 카탈로그 부재 요소를 gap registry로 기록하고 카탈로그/아이콘 우선순위에
   반영한다.
-- Home, Highlight, Editor 3개 화면이 카탈로그 gap과 parity 결함 없이 재조립되면 목표 B의 검증
-  기준을 충족한다.
+- 대상 화면이 카탈로그 gap과 parity 결함 없이 재조립되면 목표 B의 검증 기준을 충족한다.
 
 **완료 근거:** 재조립된 template, 배포 화면과의 대조 기록, gap registry.
 

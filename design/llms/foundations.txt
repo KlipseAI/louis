@@ -45,7 +45,7 @@
 | [Motion](../foundations/motion.md)                       | `experimental` | local RC      | component unmount와 실제 `prefers-reduced-motion`                   |
 | [Responsive Layout](../foundations/responsive-layout.md) | `beta`         | 규범 준비     | container 기반 수용 조건을 제품 통합 테스트에 연결                  |
 | [Inclusive Design](../foundations/inclusive-design.md)   | `beta`         | 규범 준비     | WCAG 2.2 AA, keyboard, focus, contrast gate 연결                    |
-| [Iconography](../foundations/iconography.md)             | `experimental` | local RC      | 글리프 26개. 서브패스 개방, Figma component, 출처 미확정 글리프 처분 |
+| [Iconography](../foundations/iconography.md)             | `experimental` | local RC      | 서브패스 개방, Figma component, 출처 미확정 글리프 처분. 글리프 수는 `figma/snapshot.json` 의 `icons` 가 낸다 |
 
 #### 토큰 정본
 
@@ -916,7 +916,8 @@ upstream 글리프를 채택하면 그 라이선스 원문이 저장소에 함�
 
 #### 왜 낱개 component인가
 
-Figma에서 아이콘 26개는 **각각 독립 component**다. component set으로 묶지 않는다.
+Figma에서 아이콘은 **각각 독립 component**다. component set으로 묶지 않는다. 수는
+`figma/snapshot.json` 의 `icons` 가 낸다 — 문서에 적지 않는다.
 
 variant 축은 **값이 2개 이상일 때만** 만든다. Klipse 아이콘은 두께가 `1.5` 하나뿐이라 묶을 축이
 없다 — 축이 하나뿐인 set은 드롭다운에 값이 하나만 있는 빈 껍데기가 된다. 나중에 Fill 두께를

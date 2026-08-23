@@ -323,7 +323,7 @@ main inset이 우연히 어긋나지 않게** 관계 테스트를 유지한다. 
 전환 곡선은 양쪽 모두 `320ms cubic-bezier(0.4, 0, 0.2, 1)`로 같다 — 위 표의
 `motion-shell-collapse`와 일치한다. **갈리는 것은 곡선이 아니라 무엇이 움직이는가다.**
 
-소비처는 이렇다(배포본 `origin/main` 기준).
+소비처는 이렇다(제품 정본 기준 — 커밋은 `migration/product-evidence.lock.json` 의 `productCommit`).
 
 | 계열 | 소비처 |
 | --- | --- |

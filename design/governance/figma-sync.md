@@ -11,12 +11,16 @@ token과 component parity를 검토하며, 자동 sync가 구현되기 전까지
 
 ## 운영 파일
 
-Figma에는 역할이 다른 두 파일이 있다. 둘을 섞지 않는다.
+Figma에는 역할이 다른 **파일 셋**이 있다. 섞지 않는다. **쓰기 전에 이 표를 확인한다.**
 
 | 역할 | File key | 소유 | 쓰기 |
 | --- | --- | --- | --- |
-| 디자인 시스템 라이브러리 (정본 projection) | `bxGEp0km5zluMJGulaTvFW` — "Klipse Design System — Library" | 이 저장소 | 허용. Foundations / Components / Templates 3개 페이지 |
+| 디자인 시스템 라이브러리 (정본 projection) | `bxGEp0km5zluMJGulaTvFW` — "Klipse Design System — Library" | 이 저장소 | 허용. `verify-figma-parity` · `readback.json` · `snapshot.json` 이 이 파일을 가리킨다 |
+| 제품 화면 이식 보드 | `OlYKERKOkgbxBEEoXGZW2c` | 이 저장소 | 허용. **게이트 밖이다.** 조립 규칙은 [figma-screen-assembly](figma-screen-assembly.md), 실행 절차는 `.claude/skills/klipse-figma-transplant/SKILL.md` |
 | 제품 미러 reference | `CNORJOONt4z0a4Bl22Kjuu` — "Klipse 3.0" | 제품/디자인 작업자 | **금지.** 읽기 전용 evidence ([KP-FIGMA-001](../../migration/product-baseline.md)) |
+
+**두 쓰기 대상은 collection 이름 체계가 다르다** — 아래 「이전은 끝나지 않았다」 절 참조.
+DS 변수·style·component 를 쓸 곳은 라이브러리이고, 제품 화면을 조립할 곳은 이식 보드다.
 
 **이전은 끝나지 않았고, 두 파일은 지금 서로 다른 것이 됐다(2026-08-22 실측).**
 
@@ -123,7 +127,7 @@ publish 이후에만 검토한다 — publish 전에는 파일 간 변수·compo
 - **파일 구조(2026-08-18): Cover → Foundations → Components → Templates.** Foundations는 그 전까지
   **최상위 노드가 0개**였다 — 변수 210개와 style 22개가 파일에 있는데 **보이는 것이 하나도
   없었다.** 색(semantic 41 × Light·Dark 두 열, `setExplicitVariableModeForCollection`으로 한 화면),
-  타이포(text style 15), 간격·반경(막대 길이와 모서리가 변수 값 그대로), 그림자(effect style 7)를
+  타이포(text style), 간격·반경(막대 길이와 모서리가 변수 값 그대로), 그림자(effect style)를
   세웠고 **전부 변수·style 바인딩이라 값이 바뀌면 문서가 따라온다.**
 - **게이트가 검사하는 것만 잘돼 있었다.** parity는 raw 값 0·변수 바인딩·기하를 34종 canary로
   지키지만 "사람이 열었을 때 쓸 수 있는가"는 아무도 검사하지 않는다. 그 부분만 비어 있었다.
@@ -141,7 +145,8 @@ publish 이후에만 검토한다 — publish 전에는 파일 간 변수·compo
   안 보였고**(나머지 6개는 흰색), Components 페이지 배경만 **순검정**이라 다른 세 페이지와 달랐다.
   둘 다 형제에서 값을 읽어 맞췄다. 섹션은 자식을 붙여도 스스로 커지지 않아 흰 면이 내용 밖에서
   끊겼다 — 자식 경계로 다시 크기를 잡았다
-- component library: component set 19개 · 아이콘 29개, publish 전. 최신은 SegmentedControl 2 variant(Size)이며
+- component library: publish 전. component·아이콘 수는 `pnpm verify-figma-parity` 출력과
+  `figma/snapshot.json` 이 낸다. 최신은 SegmentedControl 2 variant(Size)이며
   선택/비선택은 variant 축이 아니라 한 variant 안의 두 자손이다 — 색만 다르고 기하가 같다
 - component parity checker: `done` — Figma variant 옵션을 코드 타입 선언과 대조하고, 선언되지 않은
   property와 raw 값 사용을 실패로 처리한다

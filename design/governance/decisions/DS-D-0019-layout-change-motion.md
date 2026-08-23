@@ -21,7 +21,7 @@ authority: normative
 그래서 다음 둘이 막혔다.
 
 1. **SegmentedControl** — 선택 표식이 세그먼트 폭을 따라간다. 미결로 남겼다.
-2. **BannerCarousel** — 배포본(`KlipseAI/klipse-web` `origin/main` 7e9c3b69)의 점이 비활성 **7px**에서
+2. **BannerCarousel** — 제품(`KlipseAI/klipse-web`, 당시 `origin/main` 7e9c3b69 — **정본은 그 뒤 `design` 계열로 옮겼다**)의 점이 비활성 **7px**에서
    활성 **20px**로 늘어난다(`TabBannerCarousel.tsx`의 `DOT_REST`/`DOT_ACTIVE`, `w-10` × `--spacing: 2px`).
    전환은 `width 220ms cubic-bezier(0.4, 0, 0.2, 1)`이고 배경은 `160ms ease`다.
 

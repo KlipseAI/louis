@@ -460,7 +460,10 @@ Templates 3개 페이지를 구성했고, 제품 미러 파일 `CNORJOONt4z0a4Bl
 Figma에서 mode는 collection의 **모든** 변수에 적용되므로 이 구조는 성립하지 않는다. primitive 110개가
 light/dark 값을 강제로 갖게 되기 때문이다. `DS-D-0007` Decision으로 다음을 확정한다.
 
-1. **Collection 분리 (기본안):** 토큰은 Figma에서 표현 형태가 셋으로 갈린다 —
+1. **Collection 분리 (기본안):** 토큰은 Figma에서 표현 형태가 셋으로 갈린다. **아래 개수는
+   2026-08-14 DS-D-0007 시점의 추정이며 지금 값이 아니다** — collection 별 실제 변수 수는
+   `packages/tokens/generated/figma.tokens.json` 이, Figma 에 실제로 선 수는
+   `pnpm verify-figma-parity` 출력이 낸다 —
    네이티브 변수, style, STRING 격하. 변수 개수는 토큰 개수와 다르다는 사실을 Decision에 명시한다.
    - `Klipse Primitive` — mode 1개(base). 네이티브 변수 약 92개(COLOR 38, FLOAT 52, STRING 2).
      composite인 typography 6·shadow 4는 변수가 아니라 style로, transition 5·cubicBezier 3은 STRING
@@ -473,7 +476,8 @@ light/dark 값을 강제로 갖게 되기 때문이다. `DS-D-0007` Decision으�
    소비하려면 원본 파일이 **library로 publish되어 있어야 한다.** publish는 DS-F-008의 수동 단계이므로,
    DS-F-003~007은 **한 파일 안**에서 작업한다. **어느 파일인지와 그 파일의 페이지 구성은
    [figma-sync](figma-sync.md) 「운영 파일」 절이 소유한다** — 이 문서에 파일 키나 페이지
-   목록을 적지 않는다. **Figma 파일이 둘이고 역할이 다르므로 쓰기 전에 반드시 확인한다.**
+   목록을 적지 않는다. **Figma 파일이 셋이고 역할이 다르며 그중 하나(`CNORJOONt4z0a4Bl22Kjuu`,
+   제품 미러)는 읽기 전용이다 — 쓰기 전에 반드시 확인한다.**
    SEED식 3-파일 분리는 publish 이후의 후속 작업(DS-F-009)으로 두고, 파일 분리 전환은 Figma 파일
    재작성이 필요한 breaking임을 rollback 절에 기록한다.
 3. **이름 변환:** 안정 token ID(`color-action-primary`) → Figma 변수 경로(`color/action/primary` 등)
@@ -563,8 +567,9 @@ Updates 항목.
 
 **의존성:** DS-F-003, DS-F-000의 폰트 가용성 확인
 
-1. DS-D-0007의 composite 정책대로 **semantic tier 이름**으로 생성한다: `typography-*` 6종 → text
-   style, `elevation-*` 4종 → effect style, Foundations 페이지에. style 내부의 색·숫자 속성은
+1. DS-D-0007의 composite 정책대로 **semantic tier 이름**으로 생성한다: `typography-*` → text
+   style, `elevation-*` → effect style, Foundations 페이지에. **수는 여기에 적지 않는다** —
+   `figma/snapshot.json` 의 `styles.text`·`styles.effect` 가 정본이다. style 내부의 색·숫자 속성은
    DS-F-003의 변수에 바인딩한다. primitive `type-style-*`/`shadow-*`는 만들지 않고 loss registry에
    기록한다.
 2. Figma가 표현하지 못하는 필드(fallback 배열, easing, tier alias 관계)는 proposal의 loss metadata
@@ -595,7 +600,7 @@ Updates 항목.
 #### DS-F-007-{screen} — 배포 화면 재조립 검증
 
 **의존성:** DS-F-005, DS-F-006 중 해당 화면에 필요한 component, DS-P3-009a 인벤토리. 화면
-하나(Home, Highlight, Editor)가 각각 하위 작업 단위다.
+하나가 각각 하위 작업 단위이며 **대상 범위는 `migration/product-screens/` 가 소유한다.**
 
 목표 B를 처음으로 실측하는 작업이다. 첫 화면은 Home을 권장한다.
 
@@ -661,7 +666,7 @@ Updates 항목.
   검증한다.
 - 각 route 전환(DS-P5-003/004/005) 완료 시 대응하는 DS-F-007 화면 재조립을 같은 release 주기에서
   재검증한다. 코드 화면과 Figma template이 같은 版의 시스템을 가리켜야 목표 B가 유지된다.
-- P5 complete와 DS-F-007 3개 화면 완료가 모두 충족되면 1절의 최종 판정표를 실측해 결과를 Updates에
+- P5 complete와 DS-F-007 대상 화면 완료가 모두 충족되면 1절의 최종 판정표를 실측해 결과를 Updates에
   기록한다.
 
 ## 7. 이 계획이 의도적으로 하지 않는 것

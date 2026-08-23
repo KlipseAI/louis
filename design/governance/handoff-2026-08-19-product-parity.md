@@ -442,7 +442,7 @@ myPage modalCard의 `opacity`가 `0 → 1`로 바뀌었다(위 「흔들리던 �
 - **측정 기준은 `migration/product-evidence.lock.json` 의 `productRef`/`productCommit` 이다.**
   여기에 SHA 를 적지 않는다 — 락이 움직이면 이 문서만 낡는다. `origin/main` 은 정본이 아니다
   (폐지된 글래스 섀도우가 거기에만 남아 있다).
-- Figma: 파일이 둘이고 역할이 다르다. 어느 파일에 쓰는지는 `figma-sync.md` 「운영 파일」 절이
+- Figma: 파일이 셋이고 역할이 다르며 제품 미러는 읽기 전용이다. 어느 파일에 쓰는지는 `figma-sync.md` 「운영 파일」 절이
   소유한다 — 여기에 페이지 목록을 적지 않는다.
 - Node/pnpm이 `~/.local`에 있다. PATH를 잡고 실행한다.
 - 인계 전 검증: [계정 이전 인계서 3절](handoff-2026-08-22-account-transfer.md)이 소유한다.

@@ -1,7 +1,7 @@
 {
   "$comment": "재조립 template이 만족해야 하는 **제품 실측값**. 이 파일만 손으로 쓴다 — figma/readback.json과 snapshot.json은 되읽기와 생성으로만 바뀐다. 각 값에는 제품 저장소의 근거 위치를 붙인다. 근거 없는 수치를 넣지 않는다.",
   "productRepo": "/Users/sejunki/klipse-web",
-  "productBranch": "origin/main (7e9c3b69)",
+  "productBranch": "제품 정본은 migration/product-evidence.lock.json 의 productRef/productCommit 이다. origin/main 이 아니다 — 폐지된 글래스 섀도우가 거기에만 남아 있다.",
   "measuredAt": "2026-08-19",
   "$status": "2026-08-19: 앱 홈 템플릿을 **다시 세웠다.** 2026-08-18에 내린 이유였던 부품 넷(브랜드 워드마크 · 하단 CTA · 복합 내비 행 · 사용량 링)이 전부 섰고 아이콘도 카탈로그에 있다. 이번에는 지어낸 부품이 없다 — 사이드바 다섯 행이 배포본의 다섯 행과 같고 라벨·아이콘이 전부 다르다.",
   "templates": {

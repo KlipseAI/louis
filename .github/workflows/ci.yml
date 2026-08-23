@@ -68,8 +68,9 @@ jobs:
       - name: Check tracked catalog inputs
         run: node scripts/build-design-docs.mjs --check --require-tracked
 
-      # **실브라우저 회귀 전량.** `pnpm verify`의 test-harness는 러너가 실패를 전파하는지만
-      # 증명하고 suite 자체를 돌리지 않는다. 컴포넌트 acceptance test가 실제로 도는 자리는
-      # 여기다 — 로컬에서 두 번 관측된 간헐 실패도 이 단계가 반복 실행으로 드러낼 자리다.
+      # **실브라우저 회귀 전량.** `pnpm verify`의 test-harness 도 canary 제거 뒤 같은 suite 를
+      # 돌린다(scripts/verify-test-harness.mjs). 이 단계를 따로 두는 이유는 커버리지가 아니라
+      # **실패 지점이 게이트가 아니라 회귀 자체임을 로그에서 바로 보기 위해서**다 —
+      # 로컬에서 두 번 관측된 간헐 실패도 이 단계가 반복 실행으로 드러낼 자리다.
       - name: Run browser regression suite
         run: pnpm test

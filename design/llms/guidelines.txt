@@ -378,12 +378,16 @@ token과 component parity를 검토하며, 자동 sync가 구현되기 전까지
 
 #### 운영 파일
 
-Figma에는 역할이 다른 두 파일이 있다. 둘을 섞지 않는다.
+Figma에는 역할이 다른 **파일 셋**이 있다. 섞지 않는다. **쓰기 전에 이 표를 확인한다.**
 
 | 역할 | File key | 소유 | 쓰기 |
 | --- | --- | --- | --- |
-| 디자인 시스템 라이브러리 (정본 projection) | `bxGEp0km5zluMJGulaTvFW` — "Klipse Design System — Library" | 이 저장소 | 허용. Foundations / Components / Templates 3개 페이지 |
+| 디자인 시스템 라이브러리 (정본 projection) | `bxGEp0km5zluMJGulaTvFW` — "Klipse Design System — Library" | 이 저장소 | 허용. `verify-figma-parity` · `readback.json` · `snapshot.json` 이 이 파일을 가리킨다 |
+| 제품 화면 이식 보드 | `OlYKERKOkgbxBEEoXGZW2c` | 이 저장소 | 허용. **게이트 밖이다.** 조립 규칙은 [figma-screen-assembly](../governance/figma-screen-assembly.md), 실행 절차는 `.claude/skills/klipse-figma-transplant/SKILL.md` |
 | 제품 미러 reference | `CNORJOONt4z0a4Bl22Kjuu` — "Klipse 3.0" | 제품/디자인 작업자 | **금지.** 읽기 전용 evidence ([KP-FIGMA-001](../../migration/product-baseline.md)) |
+
+**두 쓰기 대상은 collection 이름 체계가 다르다** — 아래 「이전은 끝나지 않았다」 절 참조.
+DS 변수·style·component 를 쓸 곳은 라이브러리이고, 제품 화면을 조립할 곳은 이식 보드다.
 
 **이전은 끝나지 않았고, 두 파일은 지금 서로 다른 것이 됐다(2026-08-22 실측).**
 
@@ -490,7 +494,7 @@ publish 이후에만 검토한다 — publish 전에는 파일 간 변수·compo
 - **파일 구조(2026-08-18): Cover → Foundations → Components → Templates.** Foundations는 그 전까지
   **최상위 노드가 0개**였다 — 변수 210개와 style 22개가 파일에 있는데 **보이는 것이 하나도
   없었다.** 색(semantic 41 × Light·Dark 두 열, `setExplicitVariableModeForCollection`으로 한 화면),
-  타이포(text style 15), 간격·반경(막대 길이와 모서리가 변수 값 그대로), 그림자(effect style 7)를
+  타이포(text style), 간격·반경(막대 길이와 모서리가 변수 값 그대로), 그림자(effect style)를
   세웠고 **전부 변수·style 바인딩이라 값이 바뀌면 문서가 따라온다.**
 - **게이트가 검사하는 것만 잘돼 있었다.** parity는 raw 값 0·변수 바인딩·기하를 34종 canary로
   지키지만 "사람이 열었을 때 쓸 수 있는가"는 아무도 검사하지 않는다. 그 부분만 비어 있었다.
@@ -508,7 +512,8 @@ publish 이후에만 검토한다 — publish 전에는 파일 간 변수·compo
   안 보였고**(나머지 6개는 흰색), Components 페이지 배경만 **순검정**이라 다른 세 페이지와 달랐다.
   둘 다 형제에서 값을 읽어 맞췄다. 섹션은 자식을 붙여도 스스로 커지지 않아 흰 면이 내용 밖에서
   끊겼다 — 자식 경계로 다시 크기를 잡았다
-- component library: component set 19개 · 아이콘 29개, publish 전. 최신은 SegmentedControl 2 variant(Size)이며
+- component library: publish 전. component·아이콘 수는 `pnpm verify-figma-parity` 출력과
+  `figma/snapshot.json` 이 낸다. 최신은 SegmentedControl 2 variant(Size)이며
   선택/비선택은 variant 축이 아니라 한 variant 안의 두 자손이다 — 색만 다르고 기하가 같다
 - component parity checker: `done` — Figma variant 옵션을 코드 타입 선언과 대조하고, 선언되지 않은
   property와 raw 값 사용을 실패로 처리한다
@@ -1627,8 +1632,8 @@ Badge의 `Label`). **모든 fill이 변수 바인딩이고 raw 값이 0이다.**
 `Avatar`와 `BannerCarousel`/`HomeBannerSlide`.** 배너 캐러셀은 허브 3곳이 공유하고 아바타는 셸
 파일에 인라인이다. **화면 gap의 수(72·130·144)는 갱신하지 않았다** — 그것은 Figma에서 Home을
 실제로 다시 조립해야 나오고 아직 하지 않았다. 배너 캐러셀의 선행 조건이던 아이콘
-`caret-left`·`caret-right`·`caret-down` 셋은 **2026-08-18에 섰다**(글리프 26 → 29개, Figma
-component 도 함께 늘었다). **Avatar 와 BannerCarousel 이 둘 다 섰다** — manifest 에서 web·figma
+`caret-left`·`caret-right`·`caret-down` 셋은 **2026-08-18에 섰다**(글리프와 Figma component 가
+함께 늘었다 — 현재 수는 `figma/snapshot.json` 이 낸다). **Avatar 와 BannerCarousel 이 둘 다 섰다** — manifest 에서 web·figma
 모두 `partial` 이고 `figma/snapshot.json` 에 `BannerCarousel` 이 있다. census 는
 [gap registry](../../migration/figma-gap-registry.md)에 있다.
 
@@ -1836,8 +1841,10 @@ gap registry 1순위로 추가됐다.
 둔 캐시가 있어 **로컬에서만 통과하고 clean checkout에서만 실패하는** 상태였다.
 
 `pnpm exec playwright install --with-deps chromium` 단계를 넣었고, 같은 김에 **실브라우저 회귀
-전량(`pnpm test`)을 CI에 붙였다** — `verify`의 test-harness는 러너가 실패를 전파하는지만 증명하고
-suite 자체를 돌리지 않아, 컴포넌트 acceptance test 632건이 hosted CI에서 한 번도 돈 적이 없다.
+전량(`pnpm test`)을 CI에 붙였다** — 그때는 「`verify`의 test-harness가 suite 를 돌리지 않는다」로
+판단했으나 **그 판단은 틀렸다**(2026-08-23 코드 확인: `scripts/verify-test-harness.mjs` 가 canary
+제거 후 node·browser suite 를 실제로 돌린다). CI 단계를 따로 둔 것은 여전히 유용하다 — 실패
+지점이 게이트가 아니라 회귀 자체임이 로그에서 바로 보인다.
 로컬에서 두 번 관측된 간헐 실패도 이 단계가 반복 실행으로 드러낼 자리다.
 
 **이것이 hosted CI의 값이다.** 로컬 게이트는 스무 번 초록이었고 clean checkout이 한 번에 잡았다.
@@ -2422,7 +2429,7 @@ alpha·radius·border-width·duration을 함께 재고 `verify-product-drift`가
 「16개」라는 추정은 실측 전 수치이며, 실제로는 elevation이 이미 차 있고 radius는 승격이 아니라
 축소가 필요한 상태였다.
 
-**단위 3 — 코드 쪽은 준비됐고 Figma 쓰기에 막힌다 (2026-08-21 실측):**
+**단위 3 — accent 램프 (2026-08-21 실측, 2026-08-23 완료):**
 
 제품의 accent 램프를 배포본에서 셌다. **램프 11종 · 정의 67단 · 참조되는 단계 67단** —
 미참조 단계가 **0개**다. 원칙 6의 「램프 일부 단계가 미참조여도 허용한다」를 적용할 일이 없다.
@@ -2440,13 +2447,13 @@ alpha·radius·border-width·duration을 함께 재고 `verify-product-drift`가
 확인이며, 추가분도 같은 원천에서 그대로 가져오면 된다. 값은 리터럴 hex라 정규화 판단이 없다 —
 단위 2와 성격이 다르다.
 
-실제로 `primitive.color`에 39개를 넣고 `build-tokens`를 돌려 보았다. `verify-token-gates`와
-`check-token-diff`(additive)는 **통과**한다. 막히는 곳은 Figma다.
+**이 단위는 끝났다(2026-08-23 확인).** 램프 토큰이 `packages/tokens/src/klipse.tokens.json` ·
+`figma/readback.json` · `figma/snapshot.json` 셋 다에 실재하고 `pnpm verify-figma-parity` 가
+통과한다.
 
-    [figma-parity] 변수가 snapshot에 없습니다: color-yellow-600 …
-
-**완료에 필요한 것:** 라이브러리 파일(`bxGEp0km5zluMJGulaTvFW`)에 변수 39개를 적용 →
-`readback.json` 재생성 → `build-figma-snapshot`. 첫 단계가 사람의 Figma 파일에 대한 쓰기다.
+> 한때 이 자리에 「막히는 곳은 Figma다」와 실패 출력 리터럴이 적혀 있었다. **그 리터럴을 지운
+> 이유는 grep 으로 만난 사람이 없는 실패를 재현하려 들기 때문이다.** 위 표는 그 시점의 실측
+> 기록으로 남긴다.
 
 **적용 경로는 `figma/apply-variables.*.js` 다.** `scripts/build-figma-variables.mjs` 가 token
 proposal 에서 생성하고 `verify-figma-variables` 가 드리프트를 잡으며, [figma-sync](../governance/figma-sync.md)
@@ -2682,7 +2689,8 @@ description에 기록했다. parity 게이트가 style 10종까지 검증하므�
 
 **의존성:** DS-F-003
 
-- typography 6종을 text style, shadow 4종을 effect style로 생성하고 내부 속성을 변수에 바인딩한다.
+- typography 를 text style, shadow 를 effect style 로 생성하고 내부 속성을 변수에 바인딩한다.
+  **수를 여기에 적지 않는다** — `figma/snapshot.json` 의 `styles.text`·`styles.effect` 가 정본이다.
 - 표현 불가 필드는 loss metadata를 style description에 기록한다.
 
 **완료 근거:** snapshot에 style이 포함되고 composite parity 대조를 통과한다.
@@ -2742,17 +2750,20 @@ parity 게이트가 이제 mode 순서와 기본 모드를 검증한다. token g
   소비처가 dialog sheet인데 제품의 실제 카드는 전부 16px이고, `layout-project-card-minimum`은
   CSS 소비자가 0이며 제품이 쓰지 않는 `minmax` 알고리즘을 서술한다. 둘 다 owner 판정 대기다.
 
-**세 화면 모두 gap 0이 될 때까지 이 항목은 `done`이 아니다.**
+**대상 화면이 전부 gap 0이 될 때까지 이 항목은 `done`이 아니다.** **대상 범위와 등급 체계는
+[`migration/product-screens/`](../../migration/product-screens) 가 소유한다** — 한때 여기가
+「Home·Highlight·Editor 3개」였고 그 인벤토리가 서기 전의 기준이다.
 
-**의존성:** DS-F-005, 해당 화면에 필요한 DS-F-006 component, DS-P3-009a. 화면(Home, Highlight,
-Editor)별로 하위 작업 단위다.
+**의존성:** DS-F-005, 해당 화면에 필요한 DS-F-006 component, DS-P3-009a. 화면별로 하위 작업 단위다.
 
-- Templates 페이지에서 component instance·변수·style만으로 배포 화면(첫 화면은 Home 권장)을
-  재조립한다 (publish 전에는 같은 파일 안에서).
+- component instance·변수·style만으로 배포 화면을 재조립한다 (publish 전에는 같은 파일 안에서).
+  **조립 규칙은 [figma-screen-assembly](../governance/figma-screen-assembly.md)가, 실행 절차는
+  `.claude/skills/klipse-figma-transplant/SKILL.md` 가 소유한다** — 이 절만 따르면 2026-08-21
+  조립 실패에서 나온 규칙을 통째로 놓친다. **어느 Figma 파일에 쓰는지는
+  [figma-sync](../governance/figma-sync.md) 「운영 파일」 절이 소유한다.**
 - detach, raw override, 카탈로그 부재 요소를 gap registry로 기록하고 카탈로그/아이콘 우선순위에
   반영한다.
-- Home, Highlight, Editor 3개 화면이 카탈로그 gap과 parity 결함 없이 재조립되면 목표 B의 검증
-  기준을 충족한다.
+- 대상 화면이 카탈로그 gap과 parity 결함 없이 재조립되면 목표 B의 검증 기준을 충족한다.
 
 **완료 근거:** 재조립된 template, 배포 화면과의 대조 기록, gap registry.
 
@@ -3432,7 +3443,10 @@ Templates 3개 페이지를 구성했고, 제품 미러 파일 `CNORJOONt4z0a4Bl
 Figma에서 mode는 collection의 **모든** 변수에 적용되므로 이 구조는 성립하지 않는다. primitive 110개가
 light/dark 값을 강제로 갖게 되기 때문이다. `DS-D-0007` Decision으로 다음을 확정한다.
 
-1. **Collection 분리 (기본안):** 토큰은 Figma에서 표현 형태가 셋으로 갈린다 —
+1. **Collection 분리 (기본안):** 토큰은 Figma에서 표현 형태가 셋으로 갈린다. **아래 개수는
+   2026-08-14 DS-D-0007 시점의 추정이며 지금 값이 아니다** — collection 별 실제 변수 수는
+   `packages/tokens/generated/figma.tokens.json` 이, Figma 에 실제로 선 수는
+   `pnpm verify-figma-parity` 출력이 낸다 —
    네이티브 변수, style, STRING 격하. 변수 개수는 토큰 개수와 다르다는 사실을 Decision에 명시한다.
    - `Klipse Primitive` — mode 1개(base). 네이티브 변수 약 92개(COLOR 38, FLOAT 52, STRING 2).
      composite인 typography 6·shadow 4는 변수가 아니라 style로, transition 5·cubicBezier 3은 STRING
@@ -3445,7 +3459,8 @@ light/dark 값을 강제로 갖게 되기 때문이다. `DS-D-0007` Decision으�
    소비하려면 원본 파일이 **library로 publish되어 있어야 한다.** publish는 DS-F-008의 수동 단계이므로,
    DS-F-003~007은 **한 파일 안**에서 작업한다. **어느 파일인지와 그 파일의 페이지 구성은
    [figma-sync](../governance/figma-sync.md) 「운영 파일」 절이 소유한다** — 이 문서에 파일 키나 페이지
-   목록을 적지 않는다. **Figma 파일이 둘이고 역할이 다르므로 쓰기 전에 반드시 확인한다.**
+   목록을 적지 않는다. **Figma 파일이 셋이고 역할이 다르며 그중 하나(`CNORJOONt4z0a4Bl22Kjuu`,
+   제품 미러)는 읽기 전용이다 — 쓰기 전에 반드시 확인한다.**
    SEED식 3-파일 분리는 publish 이후의 후속 작업(DS-F-009)으로 두고, 파일 분리 전환은 Figma 파일
    재작성이 필요한 breaking임을 rollback 절에 기록한다.
 3. **이름 변환:** 안정 token ID(`color-action-primary`) → Figma 변수 경로(`color/action/primary` 등)
@@ -3535,8 +3550,9 @@ Updates 항목.
 
 **의존성:** DS-F-003, DS-F-000의 폰트 가용성 확인
 
-1. DS-D-0007의 composite 정책대로 **semantic tier 이름**으로 생성한다: `typography-*` 6종 → text
-   style, `elevation-*` 4종 → effect style, Foundations 페이지에. style 내부의 색·숫자 속성은
+1. DS-D-0007의 composite 정책대로 **semantic tier 이름**으로 생성한다: `typography-*` → text
+   style, `elevation-*` → effect style, Foundations 페이지에. **수는 여기에 적지 않는다** —
+   `figma/snapshot.json` 의 `styles.text`·`styles.effect` 가 정본이다. style 내부의 색·숫자 속성은
    DS-F-003의 변수에 바인딩한다. primitive `type-style-*`/`shadow-*`는 만들지 않고 loss registry에
    기록한다.
 2. Figma가 표현하지 못하는 필드(fallback 배열, easing, tier alias 관계)는 proposal의 loss metadata
@@ -3567,7 +3583,7 @@ Updates 항목.
 ###### DS-F-007-{screen} — 배포 화면 재조립 검증
 
 **의존성:** DS-F-005, DS-F-006 중 해당 화면에 필요한 component, DS-P3-009a 인벤토리. 화면
-하나(Home, Highlight, Editor)가 각각 하위 작업 단위다.
+하나가 각각 하위 작업 단위이며 **대상 범위는 `migration/product-screens/` 가 소유한다.**
 
 목표 B를 처음으로 실측하는 작업이다. 첫 화면은 Home을 권장한다.
 
@@ -3633,7 +3649,7 @@ Updates 항목.
   검증한다.
 - 각 route 전환(DS-P5-003/004/005) 완료 시 대응하는 DS-F-007 화면 재조립을 같은 release 주기에서
   재검증한다. 코드 화면과 Figma template이 같은 版의 시스템을 가리켜야 목표 B가 유지된다.
-- P5 complete와 DS-F-007 3개 화면 완료가 모두 충족되면 1절의 최종 판정표를 실측해 결과를 Updates에
+- P5 complete와 DS-F-007 대상 화면 완료가 모두 충족되면 1절의 최종 판정표를 실측해 결과를 Updates에
   기록한다.
 
 #### 7. 이 계획이 의도적으로 하지 않는 것
@@ -5229,11 +5245,16 @@ baseline도 함께 되돌린다. Figma는 이전 proposal로 재적용하면 되
 | 2 | 앱 셸 라이트 램프를 어떻게 처리할 것인가 | `html[data-theme=light] body:has(...)` 런타임 DOM 조건이라 light/dark 축으로 표현되지 않는다. 값 불일치는 **한 단계 한 채널로 좁혀졌다** — 아래 참조 |
 | 3 | 채널 disabled의 light 값 | 제품 라이트 오버라이드에 정의가 없다. **실측으로 결과를 확인했다 — 아래 참조** |
 
-**1 — 미채택으로 닫는다.** 그 9개는 배포본 `origin/main`에 **존재하지 않는다.** 구 제품 저장소의
+**1 — 미채택으로 닫는다.** 그 9개는 제품에 **존재하지 않는다** (2026-08-23 재확인: 정본 `design` 계열에서도 `--surface-*` 0건 · `--border-*` 0건. 당시 확인 대상은 `origin/main` 이었고 정본은 그 뒤 옮겨졌다). 구 제품 저장소의
 추적되지 않는 작업 트리에만 있었고 그것도 이관 번들 자신의 패치가 만든 것이다(커밋 HEAD 0건,
 작업 트리 2곳). 어느 저장소에도 커밋된 적이 없으므로 「정본으로 볼 것인가」가 성립하지 않는다.
-같은 대조에서 구 저장소의 `globals.css` HEAD가 배포본과 **바이트 단위로 동일**함도 확인됐다
-(토큰 358 대 358, diff 0줄) — 두 저장소가 갈렸다는 전제 자체가 성립하지 않는다.
+~~같은 대조에서 구 저장소의 `globals.css` HEAD가 배포본과 **바이트 단위로 동일**함도 확인됐다
+(토큰 358 대 358, diff 0줄) — 두 저장소가 갈렸다는 전제 자체가 성립하지 않는다.~~
+
+> **2026-08-23 정정.** 이 문장은 더 이상 성립하지 않는다. 그때의 비교 대상은 `origin/main` 이었고
+> 그 뒤 정본이 `design` 계열로 옮겨졌다. 두 브랜치는 실제로 갈렸다 — `globals.css` 만
+> `glass-` 30건 대 **0건**이다. **미채택 판정 자체는 유지된다**(위 재확인 참조) — 근거로 든
+> 「바이트 동일」만 무효다. `origin/main` 으로 재실측하면 폐지된 글래스 섀도우를 다시 읽게 된다.
 
 **2 — 남은 질문은 하나다.** 앱 셸 램프 네 단계를 전부 쟀고 어긋나는 곳은 `palette-gray-200`
 하나다. hex `#eeeef1`은 238 238 241인데 rgb mirror는 `238 239 241`이라 **G 채널만 1 차이**이며,
@@ -6155,7 +6176,7 @@ popover에 가린다. **이 결정은 드로어를 다루지 않는다** — 드
 그래서 다음 둘이 막혔다.
 
 1. **SegmentedControl** — 선택 표식이 세그먼트 폭을 따라간다. 미결로 남겼다.
-2. **BannerCarousel** — 배포본(`KlipseAI/klipse-web` `origin/main` 7e9c3b69)의 점이 비활성 **7px**에서
+2. **BannerCarousel** — 제품(`KlipseAI/klipse-web`, 당시 `origin/main` 7e9c3b69 — **정본은 그 뒤 `design` 계열로 옮겼다**)의 점이 비활성 **7px**에서
    활성 **20px**로 늘어난다(`TabBannerCarousel.tsx`의 `DOT_REST`/`DOT_ACTIVE`, `w-10` × `--spacing: 2px`).
    전환은 `width 220ms cubic-bezier(0.4, 0, 0.2, 1)`이고 배경은 `160ms ease`다.
 

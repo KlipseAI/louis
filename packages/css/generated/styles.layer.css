@@ -788,7 +788,7 @@
 @layer kds.component {
   /* Banner Carousel — 허브 화면 최상단의 사진 배너.
    *
-   * 값은 전부 배포본 KlipseAI/klipse-web `origin/main` 7e9c3b69의
+   * 값은 전부 제품 정본(migration/product-evidence.lock.json 의 productCommit)의
    * `apps/web/components/banners/TabBannerCarousel.tsx` 실측이다.
    *
    * **면이 사진이다.** 그래서 색이 `color-media-*`다 — 테마를 따라 뒤집히는 semantic 색을 쓰면

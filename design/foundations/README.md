@@ -20,7 +20,7 @@ authority: normative
 | [Motion](motion.md)                       | `experimental` | local RC      | component unmount와 실제 `prefers-reduced-motion`                   |
 | [Responsive Layout](responsive-layout.md) | `beta`         | 규범 준비     | container 기반 수용 조건을 제품 통합 테스트에 연결                  |
 | [Inclusive Design](inclusive-design.md)   | `beta`         | 규범 준비     | WCAG 2.2 AA, keyboard, focus, contrast gate 연결                    |
-| [Iconography](iconography.md)             | `experimental` | local RC      | 글리프 26개. 서브패스 개방, Figma component, 출처 미확정 글리프 처분 |
+| [Iconography](iconography.md)             | `experimental` | local RC      | 서브패스 개방, Figma component, 출처 미확정 글리프 처분. 글리프 수는 `figma/snapshot.json` 의 `icons` 가 낸다 |
 
 ## 토큰 정본
 

@@ -1310,19 +1310,36 @@ consumer가 독립 headless API를 요구하기 전에는 별도 public headless
 
 ##### 세션 종료
 
+**커밋 전**에 이 다섯을 돌린다.
+
 ```sh
+export KLIPSE_PRODUCT_REPO=<klipse-web 경로>
 pnpm build
 pnpm check
 pnpm verify
-node scripts/build-design-docs.mjs --check --require-tracked
+pnpm test
 git diff --check
 ```
 
-네 번째 명령은 manifest에 등록됐지만 git에 추적되지 않은 파일을 잡는다 — hosted CI는 `CI=true`로
-같은 검사를 강제하므로 로컬에서 미리 확인한다. 신규 파일은 커밋 전에 `git add`로 추적 상태에 둔다.
-P3 test commands가 추가되면 root `check` 또는 `verify`에 연결해 위 명령만으로 누락을 찾을 수 있게
-한다. 실패한 표준 검증을 생략하고 완료라고 말하지 않는다. 최종 보고에는 변경 파일, 달라진 public contract,
-검증 결과, 남은 위험과 다음 작업 ID를 쓴다.
+**커밋 뒤, 푸시 전**에 하나 더 돌린다.
+
+```sh
+pnpm clean-room
+```
+
+- `KLIPSE_PRODUCT_REPO` — 세우지 않으면 `verify:product` 첫 게이트가 죽는다. 이 저장소의 스크립트
+  다수가 원저자 맥 경로를 기본값으로 갖고 있어 **그 맥에서만 우연히 통과한다.**
+- `pnpm test` 는 `verify` 안에 없다. `verify` 의 test-harness 는 러너가 실패를 전파하는지와
+  suite 가 도는지를 보지만, 컴포넌트 acceptance 회귀 전량은 `pnpm test` 가 돈다.
+- **`pnpm clean-room` 은 워킹트리가 더러우면 거부한다** — 커밋 *뒤* 단계다. 커밋 전 목록에 넣으면
+  항상 실패한다. 이것이 커밋된 HEAD 만 clone 해 러너를 재현하며, 추적되지 않은 파일과 낡은
+  `node_modules` 를 잡는다.
+- `build-design-docs --check --require-tracked` 는 `clean-room` 과 hosted CI 안에서 돈다 —
+  따로 부를 필요는 없지만, manifest 에 등록됐는데 `git add` 안 된 파일을 잡는 것이 그것이다.
+
+실패한 표준 검증을 생략하고 완료라고 말하지 않는다. **외부 상태를 바꾼 뒤에는(푸시 · 제품 저장소
+조작) 검증을 다시 돌린다** — 그 전에 돈 초록은 바뀐 상태를 보지 않았다. 최종 보고에는 변경 파일,
+달라진 public contract, 검증 결과, 남은 위험과 다음 작업 ID를 쓴다.
 
 #### 7. 상태 승격 규칙
 
@@ -2982,10 +2999,10 @@ Figma library에 token, icon, component와 화면 template을 함께 제공하�
 | --- | --- | --- |
 | 1 | 공개 registry에서 `@klipse-design/tokens`, `css`, `react` 설치 가능 | registry artifact, 신규 consumer 설치 검증 |
 | 2 | clean-checkout hosted CI에서 build/check/verify 통과 | hosted CI run 링크 |
-| 3 | 카탈로그 8 component + 4 pattern의 Web 상태가 실제 구현·테스트 근거를 가짐 | manifest + 테스트 결과 |
+| 3 | manifest 의 `not-planned` 아닌 모든 component·pattern 의 Web 상태가 실제 구현·테스트 근거를 가짐 | manifest + 테스트 결과 |
 | 4 | 검색 가능한 공개 docs site와 stable llms.txt URL | hosted docs URL |
 | 5 | published Figma library의 variables/styles/components가 코드와 parity 검증됨 | library key/version, parity report |
-| 6 | Home, Highlight, Editor 3개 배포 화면이 library instance만으로 Figma에서 재조립됨 | template 파일, gap 0 또는 승인된 gap 목록 |
+| 6 | 인스코프 배포 화면이 library instance만으로 Figma에서 재조립됨 — 대상과 등급은 `migration/product-screens/` 가 소유한다 | template 파일, gap 0 또는 승인된 gap 목록 |
 | 7 | Klipse 제품의 핵심 route가 versioned package를 소비하고 legacy 신규 참조 0 | 제품 integration PR, rollback 검증 |
 | 8 | breaking change에 changelog, migration, deprecation window 운영 | Updates, deprecation 대장 |
 
@@ -2994,30 +3011,33 @@ Figma library에 token, icon, component와 화면 template을 함께 제공하�
 세션을 시작하면 작업 선택 전에 다음을 확인한다.
 
 ```sh
-command -v node && node --version
-command -v pnpm && pnpm --version
+node --version && pnpm --version          # Node 22 이상 · pnpm
+pnpm install --frozen-lockfile            # devDependencies 가 실재한다 — 건너뛸 수 없다
+pnpm exec playwright install --with-deps chromium   # 브라우저 바이너리는 lockfile 에 없다
+export KLIPSE_PRODUCT_REPO=<klipse-web 경로>        # 없으면 verify:product 첫 게이트가 죽는다
 git status --short --branch
 ```
 
-- Node 22 이상과 pnpm이 있으면 표준 명령(`pnpm build`, `pnpm check`, `pnpm verify`)을 그대로 쓴다.
-- **pnpm만 없으면** 아래 등가 체인으로 검증한다. 루트 package.json의 모든 스크립트는 Node 표준
-  라이브러리만 사용하는 `node ./scripts/*.mjs` 호출이므로 pnpm은 순서 실행기일 뿐이다.
+**넷 다 갖춰져야 표준 명령(`pnpm build`·`check`·`verify`·`test`)이 성립한다.** 하나라도 빠지면
+초록이 초록을 뜻하지 않는다.
 
-```sh
-node scripts/build-tokens.mjs && node scripts/build-design-docs.mjs && node scripts/build-llms-docs.mjs
-node scripts/build-tokens.mjs --check && node scripts/build-design-docs.mjs --check && node scripts/build-llms-docs.mjs --check
-node scripts/verify-gates.mjs && node scripts/verify-token-gates.mjs && node scripts/diff-tokens.mjs --fail-on-breaking
-```
-
-- **Node 자체가 없으면 generated 산출물이 바뀌는 작업을 시작하지 않는다.** 큐의 모든 작업은 Updates
-  기록을 요구하고 Updates는 AI projection의 source이므로, Node 없이는 어떤 작업도 완료할 수 없다.
-  조사와 초안만 scratchpad에 남기고 "환경 blocker: Node 없음, Node 22 LTS 설치 필요"를 보고한다.
-  검증을 실행한 척하지 않는다.
-- 다른 응용프로그램에 번들된 Node 바이너리는 **사용자가 명시적으로 승인한 경우에만** 임시로
-  사용하고, 사용 사실·경로·버전을 보고에 명시한다. 승인 없이 제3자 앱의 바이너리로 정본 artifact를
-  재생성하지 않는다.
-- P3에서 devDependencies가 생기기 전까지 `pnpm install`은 필요 없다. 의존성이 생긴 뒤에는
-  DS-P3-002a가 CI와 로컬 절차를 함께 갱신한다.
+- **`pnpm install` 은 항상 필요하다.** 「P3에서 devDependencies 가 생기기 전까지는 필요 없다」는
+  전제가 깨졌다 — 루트에 devDependencies 가 있고 `typecheck`(tsc)와 `test`(vitest)가 그것을 쓴다.
+  `--frozen-lockfile` 로 lockfile 을 고정한다.
+- **브라우저 바이너리는 lockfile 에 없다.** 빠뜨리면 `verify-test-harness` 가
+  `Executable doesn't exist at …chrome-headless-shell` 로 죽는다. hosted CI 의 첫 실행이 정확히
+  그렇게 실패했다.
+- **`KLIPSE_PRODUCT_REPO` 가 가장 조용한 함정이다.** 이 변수를 읽는 스크립트가 17개이고 그중
+  **15개가 원저자 맥의 절대 경로를 기본값으로 갖는다.** 그 맥에서는 변수를 안 세워도 우연히
+  통과하고, 다른 맥에서는 `verify:product` 첫 게이트가 `fatal: cannot change to …` 로 죽는다.
+- **pnpm 없이 검증하는 등가 경로는 존재하지 않는다.** 한때 이 자리에 `node scripts/*.mjs` 세 줄
+  체인이 「pnpm 은 순서 실행기일 뿐」이라는 근거와 함께 적혀 있었으나 셋 다 성립하지 않는다 —
+  스크립트가 Node 표준 라이브러리 밖(vitest·tsc·playwright)을 쓰고, `build` 는 5단계인데 체인은
+  3개뿐이며, `verify` 는 그 체인이 아는 것보다 훨씬 많다.
+- **Node 자체가 없으면 generated 산출물이 바뀌는 작업을 시작하지 않는다.** 조사와 초안만
+  scratchpad 에 남기고 "환경 blocker: Node 없음"을 보고한다. **검증을 실행한 척하지 않는다.**
+  다른 응용프로그램에 번들된 Node 바이너리는 사용자가 명시적으로 승인한 경우에만 임시로 쓰고,
+  사용 사실·경로·버전을 보고에 명시한다.
 
 #### 3. 공통 실행 규칙
 
@@ -3135,8 +3155,15 @@ Figma 트랙 DS-F-000 → 001 → 002 → (003 ∥ 004 1단계) → 004 2단계 
 
 1. ~~**Node 22 LTS 설치**~~ — 해소됨 (2026-08-14, `~/.local/node22`, pnpm 10.30.2).
 2. ~~**Figma 요금제 확인과 파일 지정**~~ — 해소됨 (2026-08-14, DS-F-000).
-3. ~~**제품 저장소 절대 경로**~~ — 해소됨 (2026-08-14, `/Users/sejunki/klipse`, branch `louis`).
-4. **원격 Git/hosted CI/npm 배포 권한** — DS-GOV-000, DS-P3-012 시점에 필요. 미해소.
+3. ~~**제품 저장소 절대 경로**~~ — 해소됨. 정본은 `KlipseAI/klipse-web` 의 **`design` 계열**이고
+   정확한 커밋은 `migration/product-evidence.lock.json` 의 `productCommit` 이 소유한다.
+   **구 저장소 `~/klipse` 를 열지 마라** — 경로가 아직 살아 있어서 오류 없이 *조용히* 다른
+   조직의 낡은 저장소를 제품으로 읽게 된다. 그 정정은 `migration/product-baseline.md` 에 있다.
+4. **npm 배포 권한과 owner 승인** — DS-P3-012 시점에 필요. 미해소. 원격 Git 과 hosted CI 는
+   섰다(`git@github.com:KlipseAI/louis.git`).
+   - **hosted CI 가 빨갛다면 게이트를 고치기 전에 먼저 결제를 의심하라.** 결제 거부는 목록에서
+     게이트 실패와 똑같이 `failure` 로 보이고 실패 로그도 없다. 판별법은
+     [계정 이전 인계서 3절](../governance/handoff-2026-08-22-account-transfer.md)이 소유한다.
 5. **Figma library publish** — DS-F-008에서 owner가 Figma UI에서 직접 수행. 자동화 불가. 미해소.
 6. ~~**브라우저 테스트 바이너리 다운로드 승인**~~ — 해소됨 (2026-08-14). Chromium headless shell을
    받아 Vitest 실브라우저 harness가 동작한다.
@@ -3150,12 +3177,10 @@ Figma 트랙 DS-F-000 → 001 → 002 → (003 ∥ 004 1단계) → 004 2단계 
    근거와 판단은 [실행 인계서](../governance/execution-handoff.md)의 DS-P3-014 절에 있다. **DS-P3-014 단위 10의
    대기 사유가 없어졌다.**
 
-9. **parity 원천에 새 토큰이 없다** — `verify-figma-parity`는 `snapshot.json`(=`readback.json`의
-   투영)을 보고, readback은 **이전 라이브러리**를 가리킨다. 그래서 토큰을 더하는 단위가 전부
-   여기서 실패한다(DS-P3-014의 남은 8개). **여는 방법은 이전 완료가 아니라** ① 이전 라이브러리에
-   `figma/apply-variables.*.js`를 적용하고 ② readback의 **변수 구간만** 다시 뜨는 것이다.
-   component·icon 이전은 별개 트랙이며 기다릴 이유가 없다. 절차는
-   `build-figma-snapshot.mjs` 헤더 (1)에 있다.
+9. ~~**parity 원천에 새 토큰이 없다**~~ — **해소됐다.** 토큰을 더하는 단위가 여기서 막히지
+   않는다. 여는 방법은 ① 라이브러리에 `figma/apply-variables.*.js` 를 적용하고 ② readback 의
+   **변수 구간만** 다시 뜨는 것이며 절차는 `build-figma-snapshot.mjs` 헤더 (1)에 있다.
+   현재 통과 여부는 `pnpm verify-figma-parity` 출력이 낸다.
 
 #### 6. 작업별 플레이북
 
@@ -3252,7 +3277,8 @@ manifest schema 확장안, Updates 항목.
    남긴다.
 2. DS-P3-001의 확장안대로 `design/manifest.schema.json`과 manifest에 CSS/React package 상태 필드를
    추가한다. `tokenPackage.packageRelease`의 `const: "not-ready"` 고정도 이때
-   `implementationStatus` enum + evidence 요구로 완화한다 (실제 승격은 DS-P3-012 이후).
+   `implementationStatus` enum + evidence 요구로 완화했다 — **완화는 끝났고 schema 에 그 고정이
+   남아 있지 않다.** (실제 승격은 DS-P3-012 이후.)
 3. `.github/workflows/ci.yml`에 `pnpm install --frozen-lockfile`과 필요한 build 단계를 추가한다.
    의존성 0 전제가 깨지는 시점이 바로 이 작업이다.
 4. 문서(develop, package README)와 게이트, manifest가 서로 모순되지 않는지 재생성·검증한다.
@@ -3411,7 +3437,9 @@ light/dark 값을 강제로 갖게 되기 때문이다. `DS-D-0007` Decision으�
      변수 alias.
 2. **파일 구조 — publish 전에는 단일 파일이 강제다:** Figma에서 다른 파일의 변수·style·component를
    소비하려면 원본 파일이 **library로 publish되어 있어야 한다.** publish는 DS-F-008의 수동 단계이므로,
-   DS-F-003~007은 **한 파일 안의 Foundations / Components / Templates 3개 페이지**로 작업한다.
+   DS-F-003~007은 **한 파일 안**에서 작업한다. **어느 파일인지와 그 파일의 페이지 구성은
+   [figma-sync](../governance/figma-sync.md) 「운영 파일」 절이 소유한다** — 이 문서에 파일 키나 페이지
+   목록을 적지 않는다. **Figma 파일이 둘이고 역할이 다르므로 쓰기 전에 반드시 확인한다.**
    SEED식 3-파일 분리는 publish 이후의 후속 작업(DS-F-009)으로 두고, 파일 분리 전환은 Figma 파일
    재작성이 필요한 breaking임을 rollback 절에 기록한다.
 3. **이름 변환:** 안정 token ID(`color-action-primary`) → Figma 변수 경로(`color/action/primary` 등)
@@ -3440,9 +3468,10 @@ light/dark 값을 강제로 갖게 되기 때문이다. `DS-D-0007` Decision으�
    검사, figmaCollection breaking canary를 새 구조에 맞게 갱신.
 5. `packages/tokens/generated/index.d.ts` 공개 타입이 바뀌므로 이 역시 breaking으로 분류해
    DS-GOV-001의 baseline 갱신 절차를 최초로 적용한다. published 소비자가 없음을 Updates에 명시한다.
-6. `design/manifest.schema.json`의 `tokenPackage.figmaLibrary`가 `const: "not-ready"`로 고정되어
-   있어 이후 상태 승격이 불가능하다. 이 필드를 `implementationStatus` enum으로 완화하고 `not-ready`
-   이외 값에는 evidence를 요구하도록 schema를 함께 확장한다 (승격 자체는 DS-F-008 이후).
+6. ~~`design/manifest.schema.json`의 `tokenPackage.figmaLibrary`가 `const: "not-ready"`로 고정되어
+   있어 이후 상태 승격이 불가능하다.~~ **끝났다** — 그 필드는 `implementationStatus` enum 이고
+   `not-ready` 이외 값에는 evidence 를 요구한다. 그 고정은 schema 어디에도 남아 있지 않다
+   (승격 자체는 DS-F-008 이후).
 
 **산출물:** 갱신된 generator/validator/게이트/schema, 재생성된 artifact 6종, 갱신된 baseline, Updates
 항목.
@@ -3537,18 +3566,22 @@ Updates 항목.
 목표 B를 처음으로 실측하는 작업이다. 첫 화면은 Home을 권장한다.
 
 1. DS-P3-009a의 인벤토리에서 대상 화면의 구성 요소 목록을 가져온다.
-2. 지정 파일의 Templates 페이지에서 **component instance, 변수, style만으로** 화면을 재조립한다
-   (publish 전에는 같은 파일의 것을, publish 후에는 published library의 것을 소비한다). detach,
-   raw 값 override, 카탈로그에 없는 요소가 필요해지는 지점을 전부 기록한다.
+2. **component instance, 변수, style만으로** 화면을 재조립한다 (publish 전에는 같은 파일의 것을,
+   publish 후에는 published library의 것을 소비한다). detach, raw 값 override, 카탈로그에 없는
+   요소가 필요해지는 지점을 전부 기록한다.
+   **조립 규칙은 이 문서가 소유하지 않는다** — [figma-screen-assembly](../governance/figma-screen-assembly.md)
+   가 규범이고 실행 절차는 `.claude/skills/klipse-figma-transplant/SKILL.md` 다. 2026-08-21 조립
+   실패에서 나온 규칙들이 거기 있으며 이 절차만 따르면 그것을 전부 놓친다.
 3. 결과를 배포 화면 스크린샷과 나란히 대조하고, 차이를 세 종류로 분류한다: (a) 카탈로그 gap(새
    component/token 필요), (b) 제품 전용 스타일(시스템 범위 아님), (c) parity 결함(코드/Figma
    불일치).
 4. gap registry를 `migration/screen-inventory.md`에 통합해 DS-P3-009와 DS-P3-013의 우선순위를
    갱신한다.
-5. 화면 하나가 (a)와 (c) 없이 재조립되면 그 화면을 검증 완료로 기록한다. Home, Highlight, Editor
-   3개 화면이 기준이다.
+5. 화면 하나가 (a)와 (c) 없이 재조립되면 그 화면을 검증 완료로 기록한다. **대상 화면의 범위와
+   등급 체계는 `migration/product-screens/` 가 소유한다** — 「Home·Highlight·Editor 3개」는
+   그 인벤토리가 서기 전의 기준이었다.
 
-**산출물:** Templates 파일의 재조립 화면, gap registry, 대조 기록.
+**산출물:** 재조립 화면, gap registry, 대조 기록.
 
 ###### DS-F-008 — Publish 운영 절차
 

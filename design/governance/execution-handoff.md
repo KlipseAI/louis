@@ -160,19 +160,36 @@ consumer가 독립 headless API를 요구하기 전에는 별도 public headless
 
 ### 세션 종료
 
+**커밋 전**에 이 다섯을 돌린다.
+
 ```sh
+export KLIPSE_PRODUCT_REPO=<klipse-web 경로>
 pnpm build
 pnpm check
 pnpm verify
-node scripts/build-design-docs.mjs --check --require-tracked
+pnpm test
 git diff --check
 ```
 
-네 번째 명령은 manifest에 등록됐지만 git에 추적되지 않은 파일을 잡는다 — hosted CI는 `CI=true`로
-같은 검사를 강제하므로 로컬에서 미리 확인한다. 신규 파일은 커밋 전에 `git add`로 추적 상태에 둔다.
-P3 test commands가 추가되면 root `check` 또는 `verify`에 연결해 위 명령만으로 누락을 찾을 수 있게
-한다. 실패한 표준 검증을 생략하고 완료라고 말하지 않는다. 최종 보고에는 변경 파일, 달라진 public contract,
-검증 결과, 남은 위험과 다음 작업 ID를 쓴다.
+**커밋 뒤, 푸시 전**에 하나 더 돌린다.
+
+```sh
+pnpm clean-room
+```
+
+- `KLIPSE_PRODUCT_REPO` — 세우지 않으면 `verify:product` 첫 게이트가 죽는다. 이 저장소의 스크립트
+  다수가 원저자 맥 경로를 기본값으로 갖고 있어 **그 맥에서만 우연히 통과한다.**
+- `pnpm test` 는 `verify` 안에 없다. `verify` 의 test-harness 는 러너가 실패를 전파하는지와
+  suite 가 도는지를 보지만, 컴포넌트 acceptance 회귀 전량은 `pnpm test` 가 돈다.
+- **`pnpm clean-room` 은 워킹트리가 더러우면 거부한다** — 커밋 *뒤* 단계다. 커밋 전 목록에 넣으면
+  항상 실패한다. 이것이 커밋된 HEAD 만 clone 해 러너를 재현하며, 추적되지 않은 파일과 낡은
+  `node_modules` 를 잡는다.
+- `build-design-docs --check --require-tracked` 는 `clean-room` 과 hosted CI 안에서 돈다 —
+  따로 부를 필요는 없지만, manifest 에 등록됐는데 `git add` 안 된 파일을 잡는 것이 그것이다.
+
+실패한 표준 검증을 생략하고 완료라고 말하지 않는다. **외부 상태를 바꾼 뒤에는(푸시 · 제품 저장소
+조작) 검증을 다시 돌린다** — 그 전에 돈 초록은 바뀐 상태를 보지 않았다. 최종 보고에는 변경 파일,
+달라진 public contract, 검증 결과, 남은 위험과 다음 작업 ID를 쓴다.
 
 ## 7. 상태 승격 규칙
 

@@ -1,3 +1,4 @@
+import { execFileSync } from "node:child_process";
 import { existsSync, readFileSync, readdirSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -17,7 +18,12 @@ import { fileURLToPath } from "node:url";
 // **따라 하면 파괴적인 것**이 섞인다.
 //
 // 판정: 백틱 안의 문자열이 이 저장소의 디렉터리 접두사로 시작하고 확장자나 `/`로 끝나면 경로로
-// 보고 존재를 확인한다. glob(`*`)은 하나라도 맞으면 통과한다.
+// 보고 **git 추적 목록**에 있는지 확인한다. glob(`*`)은 하나라도 맞으면 통과한다.
+//
+// **파일시스템이 아니라 git 을 보는 이유.** 처음에는 `existsSync`로 썼고 로컬에서 통과했는데
+// `pnpm clean-room`이 잡았다 — `.claude/settings.local.json`은 git 제외 대상이라 이 맥에는 있고
+// clean checkout에는 없다. 로컬에서만 참인 판정은 이 저장소가 계속 싸워 온 결함이다.
+// 추적 여부로 보면 로컬과 러너가 같은 답을 낸다.
 //
 // 면제는 `migration/doc-path-exemptions.json`이 소유하며 **이유를 반드시 적는다.**
 // 명부에 없는 새 미존재 경로도, 해소됐는데 명부에 남은 항목도 실패다 — 빚은 줄기만 한다.
@@ -58,26 +64,33 @@ for (const dir of SCAN_DIRS) if (existsSync(join(repoRoot, dir))) walk(dir);
 for (const file of SCAN_ROOT_FILES) if (existsSync(join(repoRoot, file))) files.push(file);
 files.sort();
 
+// git이 추적하는 경로 전체. 디렉터리 인용(`design/audits/`)도 받도록 접두사를 함께 담는다.
+const trackedFiles = execFileSync("git", ["ls-files", "-z"], {
+  cwd: repoRoot,
+  encoding: "utf8",
+  maxBuffer: 64 * 1024 * 1024,
+})
+  .split("\0")
+  .filter(Boolean);
+const tracked = new Set(trackedFiles);
+const trackedDirs = new Set();
+for (const file of trackedFiles) {
+  const parts = file.split("/");
+  for (let i = 1; i < parts.length; i += 1) trackedDirs.add(parts.slice(0, i).join("/") + "/");
+}
+const isTracked = (candidate) =>
+  candidate.endsWith("/") ? trackedDirs.has(candidate) : tracked.has(candidate);
+
 const globMatches = (pattern) => {
   const star = pattern.indexOf("*");
   const cut = pattern.lastIndexOf("/", star);
   if (cut < 0) return false;
   const dir = pattern.slice(0, cut);
-  if (!existsSync(resolve(repoRoot, dir))) return false;
+  if (!trackedDirs.has(dir + "/")) return false;
   const rx = new RegExp(
     "^" + pattern.replace(/[.+^${}()|[\]\\]/g, "\\$&").replace(/\*/g, "[^/]*") + "$",
   );
-  const found = [];
-  const collect = (rel, depth) => {
-    if (depth > 6) return;
-    for (const entry of readdirSync(join(repoRoot, rel), { withFileTypes: true })) {
-      const child = rel + "/" + entry.name;
-      if (entry.isDirectory()) collect(child, depth + 1);
-      else found.push(child);
-    }
-  };
-  collect(dir, 0);
-  return found.some((f) => rx.test(f));
+  return trackedFiles.some((f) => rx.test(f));
 };
 
 // 백틱 안에서 경로 후보를 뽑는다. `path:12` · `path:12-34` 형태의 좌표 접미사는 떼고 본다.
@@ -92,9 +105,7 @@ const scan = (source) => {
         if (candidate.includes(" ")) continue;
         if (/[{}<>~]/.test(candidate)) continue; // 자리표시 표기는 경로가 아니다
         if (!/\.[a-z0-9]{2,5}$/i.test(candidate) && !candidate.endsWith("/")) continue;
-        const ok = candidate.includes("*")
-          ? globMatches(candidate)
-          : existsSync(resolve(repoRoot, candidate));
+        const ok = candidate.includes("*") ? globMatches(candidate) : isTracked(candidate);
         if (!ok) missing.push({ path: candidate, at: `${file}:${index + 1}` });
       }
     });
@@ -113,7 +124,7 @@ for (const item of missing) {
   seen.add(item.path);
   if (exemptPaths.has(item.path)) continue;
   failures.push(
-    `실재하지 않는 경로를 인용합니다: \`${item.path}\` (${item.at}). ` +
+    `git이 추적하지 않는 경로를 인용합니다: \`${item.path}\` (${item.at}). ` +
       `경로를 고치거나, 고칠 수 없는 이유를 migration/doc-path-exemptions.json 에 적으세요.`,
   );
 }
@@ -166,6 +177,6 @@ if (failures.length > 0) {
 }
 
 console.log(
-  "[doc-paths] OK (문서 " + files.length + "개에서 저장소 경로 인용을 확인 · 면제 " +
+  "[doc-paths] OK (문서 " + files.length + "개에서 저장소 경로 인용을 git 추적 목록과 대조 · 면제 " +
     exemptions.paths.length + "건 · 변조 canary " + canaries.length + "종)",
 );

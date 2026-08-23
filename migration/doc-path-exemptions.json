@@ -1,23 +1,56 @@
 {
-  "$comment": "문서가 인용하지만 이 저장소에 실재하지 않는 경로의 명부다. **빚이지 계약이 아니다.**",
-  "$whyThisExists": "`scripts/verify-doc-paths.mjs`가 백틱 안의 저장소 경로를 전부 확인한다. 그런데 정당하게 실재하지 않는 것이 있다 — 구 저장소나 제품 저장소의 경로를 기록으로 인용하는 자리다. 그것을 통째로 면제하면 게이트가 무력해지므로 경로마다 이유를 적어 명부로 남긴다.",
+  "$comment": "문서가 인용하지만 **git이 추적하지 않는** 경로의 명부다. **빚이지 계약이 아니다.**",
+  "$whyThisExists": "`scripts/verify-doc-paths.mjs`가 백틱 안의 저장소 경로를 git 추적 목록과 대조한다. 그런데 정당하게 추적되지 않는 것이 있다 — 구 저장소나 제품 저장소의 경로를 기록으로 인용하는 자리, 그리고 git 제외 대상 자체를 설명하는 자리다. 통째로 면제하면 게이트가 무력해지므로 경로마다 이유를 적어 명부로 남긴다.",
   "$rule": "명부에 없는 새 미존재 경로는 실패다. 인용이 사라졌는데 명부에 남아 있어도 실패다. **빚은 줄기만 하고 늘지 않는다.** 새 항목을 넣기 전에 먼저 경로를 고칠 수 없는지 확인하라 — 대부분은 고칠 수 있다.",
   "paths": [
     {
       "path": "design/pages/10.1.md",
       "why": "구 저장소 `~/klipse`의 경로. `migration/legacy-design-system.md`가 그 문서군의 계보를 기록한다"
     },
-    { "path": "design/pages/10.2.md", "why": "위와 같다" },
-    { "path": "design/pages/10.3.md", "why": "위와 같다" },
-    { "path": "design/pages/10.4.md", "why": "위와 같다" },
-    { "path": "design/pages/10.5.md", "why": "위와 같다" },
-    { "path": "design/pages/10.6.md", "why": "위와 같다" },
-    { "path": "design/pages/10.7.md", "why": "위와 같다" },
-    { "path": "design/pages/10.8.md", "why": "위와 같다" },
-    { "path": "design/pages/10.9.md", "why": "위와 같다" },
-    { "path": "design/pages/10.10.md", "why": "위와 같다" },
-    { "path": "design/pages/10.11.md", "why": "위와 같다" },
-    { "path": "design/pages/10.12.md", "why": "위와 같다" },
+    {
+      "path": "design/pages/10.2.md",
+      "why": "위와 같다"
+    },
+    {
+      "path": "design/pages/10.3.md",
+      "why": "위와 같다"
+    },
+    {
+      "path": "design/pages/10.4.md",
+      "why": "위와 같다"
+    },
+    {
+      "path": "design/pages/10.5.md",
+      "why": "위와 같다"
+    },
+    {
+      "path": "design/pages/10.6.md",
+      "why": "위와 같다"
+    },
+    {
+      "path": "design/pages/10.7.md",
+      "why": "위와 같다"
+    },
+    {
+      "path": "design/pages/10.8.md",
+      "why": "위와 같다"
+    },
+    {
+      "path": "design/pages/10.9.md",
+      "why": "위와 같다"
+    },
+    {
+      "path": "design/pages/10.10.md",
+      "why": "위와 같다"
+    },
+    {
+      "path": "design/pages/10.11.md",
+      "why": "위와 같다"
+    },
+    {
+      "path": "design/pages/10.12.md",
+      "why": "위와 같다"
+    },
     {
       "path": "design/tokens.yaml",
       "why": "구 저장소 `~/klipse`의 토큰 원본. 이 저장소의 정본은 packages/tokens/src/klipse.tokens.json 이다"
@@ -26,13 +59,29 @@
       "path": "design/audits/",
       "why": "구 저장소 `~/klipse`가 단독 보유한 디렉터리. 계정 이전 인계서가 「지우기 전에 대조가 필요하다」로 기록한다"
     },
-    { "path": "design/audits/debt.json", "why": "위와 같다" },
-    { "path": "design/figma/", "why": "위와 같다" },
-    { "path": "design/figma/components.json", "why": "위와 같다" },
-    { "path": "design/legacy/highlight-standalone.md", "why": "위와 같다" },
+    {
+      "path": "design/audits/debt.json",
+      "why": "위와 같다"
+    },
+    {
+      "path": "design/figma/",
+      "why": "위와 같다"
+    },
+    {
+      "path": "design/figma/components.json",
+      "why": "위와 같다"
+    },
+    {
+      "path": "design/legacy/highlight-standalone.md",
+      "why": "위와 같다"
+    },
     {
       "path": "packages/ui/src/",
       "why": "제품 저장소의 공유 UI 패키지. Icon Button 정본 후보로 지목됐다가 Turborepo 스타터 보일러플레이트로 판명돼 기각된 기록이다"
+    },
+    {
+      "path": ".claude/settings.local.json",
+      "why": "git 제외 대상이라 추적되지 않는다. 계정 이전 인계서가 「남는다(git 제외 대상이다) / 새로 만들어야 한다」로 그 사실 자체를 설명하는 자리이므로 경로를 지울 수 없다"
     }
   ]
 }

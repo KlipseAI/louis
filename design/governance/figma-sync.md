@@ -59,7 +59,7 @@ publish 이후에만 검토한다 — publish 전에는 파일 간 변수·compo
 3. **library publish는 어떤 방법으로도 자동화하지 않는다.** publish API가 존재하지 않으며 항상
    사람이 Figma UI에서 수행한다. publish 여부를 추측해 상태를 올리지 않는다.
 4. 쓰기 스크립트는 idempotent해야 하고, 실행 전후 상태를 대조해 무엇이 바뀌었는지 보고한다.
-   **변수 적용은 `figma/apply-variables.js`가 유일한 경로다** — `scripts/build-figma-variables.mjs`가
+   **변수 적용은 `figma/apply-variables.*.js`가 유일한 경로이며 번호순으로 전부 실행한다** — `scripts/build-figma-variables.mjs`가
    token proposal에서 생성하며 `verify-figma-variables`가 드리프트를 잡는다. 그 파일 내용을
    `use_figma`에 그대로 넘기고 손대지 않는다. 즉석 코드를 쓰지 않는 이유는 `inventory-draw.*.js`와
    같다 — 쓰는 코드가 대화에만 있으면 무엇을 적용했는지가 남지 않는다.

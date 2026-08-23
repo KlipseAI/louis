@@ -271,9 +271,14 @@ Figma **Product inventory** 페이지에 표본이 그려져 있다. 값은 전�
 같은 페이지를 두고 「17종 54표본이 전부」와 「지금 8종만」을 동시에 적고 있었다.
 
 **규칙과 실행 코드가 전부 저장소에 있다.** `scripts/build-figma-inventory.mjs`가
-`figma/inventory-plan.json`(계획)과 `figma/inventory-draw.1~3.js`(실행 코드)를 생성하고
+`figma/inventory-plan.json`(계획)과 `figma/inventory-draw.*.js`(실행 코드)를 생성하고
 `pnpm verify`가 실측과의 어긋남을 잡는다. 다시 그릴 때는 draw 파일을 use_figma에 그대로
-넘긴다 — 1번(RESET) → 2번 → 3번 순서다.
+넘긴다 — **번호순으로 하나도 빠짐없이 전부** 넘긴다.
+
+> **1번이 RESET 이다.** `figma/inventory-draw.1.js` 가 페이지의 기존 섹션을 지우고 시작하므로,
+> 일부만 넘기면 **보드를 비운 채 그 일부만 복구된 상태로 끝난다.** 파일 수는 표본이 늘 때마다
+> 늘어나므로 본문에 적지 않는다 — `pnpm check-figma-inventory` 출력의 「그리기 코드 N개」가 정본이다.
+> (한때 이 자리가 「1~3.js … 1번 → 2번 → 3번」이라 적혀 있었고 실제 파일은 그보다 많았다.)
 
 크기 정책: 제품이 **선언한 것만** 고정(FIX), `w-full`은 부모가 줌(FILL), 선언 없으면 부모
 축으로 가른다(flex 행 자식=HUG, flex 열 자식·block=FILL). **FILL은 FILL로 남긴다** — 성립하지

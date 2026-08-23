@@ -3092,7 +3092,9 @@ button의 md·sm을 모두 18로 기록한다. 제품 Button에는 loading prop�
   사용량이라 뜻이 다르다.** 흡수하면 목록·댓글·멘션의 모든 아바타가 쓰지 않을 progress API를
   갖고, 링을 아바타 밖에서 쓸 수 없게 되며, 무엇보다 실행 인계서 (1c)의 미결 판정(determinate
   진행률의 접근성 계약 — 제품 전체에 `role="progressbar"`가 1곳뿐이다)이 이 컴포넌트의 API로
-  새어 들어온다. 링은 그 판정이 풀린 뒤 아바타를 **감싸는** 별개 컴포넌트로 세운다.
+  새어 들어온다. **링은 이미 별개 컴포넌트로 섰다** — `Progress` 의 `ProgressRing` 이고 접근성
+  계약은 [DS-D-0022](../governance/decisions/DS-D-0022-determinate-progress-a11y.md)가 소유한다.
+  Avatar 는 링을 감싸지 않는다.
 - **폴백 글리프가 제품과 같은 그림이 아니다.** 제품 SVG를 그대로 옮기지 않고 같은 뜻의 글리프를
   저장소에서 그렸다 — 아이콘 세트의 `origin: original`과 같은 판단이다.
 - **이니셜 폴백이 없다.** 제품에 0벌이라 이번 범위가 아니다.

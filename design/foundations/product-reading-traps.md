@@ -13,9 +13,10 @@ authority: normative
 문서 안에만 있었고, 그래서 다른 컴포넌트를 그리는 사람에게는 닿지 않았다. **이 문서가 일반
 규칙으로 소유한다.** 컴포넌트나 화면을 그리기 전에 읽는다.
 
-**기준은 `KlipseAI/klipse-web`의 `origin/main`이다** —
-[product-evidence.lock.json](../../migration/product-evidence.lock.json)의 `productRef`가 그것이고,
-아래 줄 번호는 전부 그 ref에서 확인했다. 다른 브랜치를 읽으면 좌표도 값도 달라진다(4번 항목).
+**기준은 `KlipseAI/klipse-web` 의 `design` 계열이다** —
+[product-evidence.lock.json](../../migration/product-evidence.lock.json)의 `productRef`·
+`productCommit` 이 정본이고 아래 줄 번호는 그 커밋에서 확인했다. **`origin/main` 이 아니다**
+(4번 항목) — 거기에는 폐지된 글래스 섀도우가 남아 있어 값도 좌표도 달라진다.
 
 ## 1. 다른 클래스를 덮는 규칙이 실제 기본값이다
 
@@ -27,13 +28,13 @@ Tailwind는 소스 스캔으로 CSS를 내보낸다. 그래서 **어떤 배리�
 
 | 무엇 | 값 | 근거 |
 | --- | --- | --- |
-| 베이스 정의 — 화면에 안 나온다 | `background: rgb(var(--accent-mint-500-rgb) / 16%)` · `color: var(--accent-mint-700)` | `Gnb.tsx:909-910` |
-| light 실제 | `background: var(--palette-gray-900)` · `color: var(--palette-gray-100)` | `Gnb.tsx:1888-1889` |
-| light hover | `background: var(--palette-gray-800)` | `Gnb.tsx:1891` |
-| dark 실제 | `background: var(--palette-gray-100)` · `color: var(--palette-gray-900)` | `Gnb.tsx:1893-1894` |
-| dark hover | `background: var(--palette-gray-200)` | `Gnb.tsx:1896` |
+| 베이스 정의 — 화면에 안 나온다 | `background: rgb(var(--accent-mint-500-rgb) / 16%)` · `color: var(--accent-mint-700)` | `Gnb.tsx:906-907` |
+| light 실제 | `background: var(--palette-gray-900)` · `color: var(--palette-gray-100)` | `Gnb.tsx:1880-1881` |
+| light hover | `background: var(--palette-gray-800)` | `Gnb.tsx:1883` |
+| dark 실제 | `background: var(--palette-gray-100)` · `color: var(--palette-gray-900)` | `Gnb.tsx:1885-1886` |
+| dark hover | `background: var(--palette-gray-200)` | `Gnb.tsx:1888` |
 
-덮는 쪽은 `sidebarUpgradeButtonActive`(`Gnb.tsx:1886`)이고, 그 목록의 규칙들이
+덮는 쪽은 `sidebarUpgradeButtonActive`(`Gnb.tsx:1878`)이고, 그 목록의 규칙들이
 `html[data-theme=*] .gnb-sidebarUpgradeButton:not(&)` — **자기 자신이 아니라 비활성 형제**를
 겨눈다. **정의는 민트인데 배포 화면은 검정/흰색이다.** 정의만 읽고 옮기면 존재한 적 없는 민트
 버튼을 그린다.

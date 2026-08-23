@@ -426,7 +426,7 @@ publish 이후에만 검토한다 — publish 전에는 파일 간 변수·compo
 3. **library publish는 어떤 방법으로도 자동화하지 않는다.** publish API가 존재하지 않으며 항상
    사람이 Figma UI에서 수행한다. publish 여부를 추측해 상태를 올리지 않는다.
 4. 쓰기 스크립트는 idempotent해야 하고, 실행 전후 상태를 대조해 무엇이 바뀌었는지 보고한다.
-   **변수 적용은 `figma/apply-variables.js`가 유일한 경로다** — `scripts/build-figma-variables.mjs`가
+   **변수 적용은 `figma/apply-variables.*.js`가 유일한 경로이며 번호순으로 전부 실행한다** — `scripts/build-figma-variables.mjs`가
    token proposal에서 생성하며 `verify-figma-variables`가 드리프트를 잡는다. 그 파일 내용을
    `use_figma`에 그대로 넘기고 손대지 않는다. 즉석 코드를 쓰지 않는 이유는 `inventory-draw.*.js`와
    같다 — 쓰는 코드가 대화에만 있으면 무엇을 적용했는지가 남지 않는다.
@@ -818,7 +818,7 @@ GNB · 상단 블러 판 · 토스트처럼 `position: fixed` 이고 z-index 가
 <§10.N.n> · <라우트 글롭> · <한국어 이름>
 ```
 
-페이지는 사람이 찾기 좋은 **여정 순 묶음**이고, 섹션은 사양 문서 `migration/product-screens/10.N.md`
+페이지는 사람이 찾기 좋은 **여정 순 묶음**이고, 섹션은 사양 문서 `migration/product-screens/10.*.md`
 (46 인스코프 라우트)에 **1:1 로 붙는 키**다. 페이지가 한 §10.N 을 둘로 쪼개면(애널리틱스와 어드민이
 둘 다 §10.12) 양쪽 섹션이 같은 키를 달고 뒤에 무엇을 담았는지 적는다.
 
@@ -1746,9 +1746,12 @@ component 도 함께 늘었다). **Avatar 와 BannerCarousel 이 둘 다 섰다*
    manifest 등록 → Figma component → parity 계약 + 되읽기 → 등록부·Updates·인계서.
 6. `surface-states.browser.test.tsx`의 `covered` 목록에 새 id를 넣는다. 잊으면 가드가 잡는다.
 
-**셸 composition은 아직 없다.** 부품 둘은 섰지만 rail·drawer·scroll root·safe area는
-[패턴](../patterns/app-shell.md)이 기술만 하고 구현이 없다. compact 드로어의 layer 자리도
-사다리에 없다 — 제품의 드로어(1400)는 popover(1100)보다 위인데 DS는 `sticky < popover`다.
+**셸 composition 은 섰다** — `app-shell` 이 Web `partial` 이고 rail·drawer·scrim·scroll root·
+`env(safe-area-inset-*)` 가 `.kds-app-shell*` 에 있으며 `AppShell` 이 public export 다. 상태의
+정본은 [`manifest.json`](../manifest.json)이다.
+
+남은 것은 Figma(`figma: not-ready`)와 **compact 드로어의 layer 자리**다 — 제품의 드로어(1400)는
+popover(1100)보다 위인데 DS 사다리는 `sticky < popover` 라 그 조합이 없다.
 
 **(2b) 컨트롤 테두리의 정본이 정해지지 않았다.** Button secondary는 `color-border-control`(반투명),
 IconButton secondary는 `color-border-default`(불투명)를 쓴다. TextField는 Button을 따랐다. 셋 중
@@ -2030,8 +2033,8 @@ published Figma component(DS-F-006), 제품 사용처 2곳.
   테스트의 dist 상대 import 예외, reduced-motion duration, Tab 이탈 reason.
 - `packages/react/src/overlay/` 13개 모듈. `packages/react`의 **public 표면과 게이트는 변하지 않았다**
   (`declaredPackageSurfaces` diff 0, `exports` diff 0).
-- fixture 2종 — `test/fixtures/anchored-overlay.tsx`(non-modal, portal된 submenu·React 트리 밖
-  Listbox·내부 스크롤·pointer capture), `test/fixtures/modal-overlay.tsx`(modal, backdrop, 중첩 modal,
+- fixture 2종 — `packages/react/test/fixtures/anchored-overlay.tsx`(non-modal, portal된 submenu·React
+  트리 밖 Listbox·내부 스크롤·pointer capture), `packages/react/test/fixtures/modal-overlay.tsx`(modal, backdrop, 중첩 modal,
   modal 안 popover, 긴 배경 문서).
 - 실브라우저 회귀 45건이 `browser`와 `browser-reduced-motion` 두 컨텍스트에서 각각 돈다. node 단위
   14건이 비교자와 registry를 DOM 없이 검증한다.
@@ -2445,11 +2448,14 @@ alpha·radius·border-width·duration을 함께 재고 `verify-product-drift`가
 **완료에 필요한 것:** 라이브러리 파일(`bxGEp0km5zluMJGulaTvFW`)에 변수 39개를 적용 →
 `readback.json` 재생성 → `build-figma-snapshot`. 첫 단계가 사람의 Figma 파일에 대한 쓰기다.
 
-**그리고 그 「적용 스크립트」가 저장소에 없다.** 이 문서가 「적용 스크립트는 idempotent하며」라고
-적고 있지만 `scripts/`에 Figma 쓰기 스크립트는 존재하지 않는다 — 지금까지 MCP로 매번 즉석 코드를
-실행해 왔다. **재현 절차가 없다는 뜻이고, `build-figma-snapshot.mjs`가 되읽기 절차를 헤더에 적어
-둔 것과 대비된다.** 단위 3을 실행하기 전에 적용 경로를 스크립트로 세우는 편이 낫다. 그러지 않으면
-같은 즉석 코드를 매 단위마다 다시 쓰게 되고, 무엇을 썼는지가 기록에 남지 않는다.
+**적용 경로는 `figma/apply-variables.*.js` 다.** `scripts/build-figma-variables.mjs` 가 token
+proposal 에서 생성하고 `verify-figma-variables` 가 드리프트를 잡으며, [figma-sync](../governance/figma-sync.md)
+쓰기 정책 4항이 「그것이 유일한 경로다」를 소유한다. 번호순으로 전부 실행한다.
+
+> 한때 이 자리에 「그 적용 스크립트가 저장소에 없다 — 지금까지 MCP 로 즉석 코드를 실행해 왔다」가
+> 적혀 있었다. **그대로 읽으면 이미 있는 경로를 다시 만들거나, 더 나쁘게는 「즉석 코드를 써도
+> 된다」로 읽혀 쓰기 정책을 깬다.** 즉석 코드를 쓰지 않는 이유는 무엇을 적용했는지가 기록에
+> 남지 않기 때문이다.
 
 **단위 2 — 제안된 10단 사다리가 실사용 최다값을 빠뜨린다 (2026-08-21 실측):**
 

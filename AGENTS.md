@@ -72,7 +72,7 @@ machine judges the value; here the machine judges whether the value was ever loo
 - Run `pnpm clean-room` before pushing. A green `pnpm verify` only proves this machine passes:
   it reuses the existing `node_modules`, sees uncommitted files, and finds the product
   repository at its default path. CI has none of those. Both of the failures that kept CI red
-  for nine runs (2026-08-19 to 08-22) were invisible to a local `pnpm verify` — see Updates (93)
+  for 46 consecutive runs (2026-08-18 to 08-22) were invisible to a local `pnpm verify` — see Updates (93)
   and (94). `pnpm clean-room` clones the committed HEAD, installs from the lockfile, and pins the
   product repository to a path that does not exist.
 - CI runs `pnpm verify:ci`, not `pnpm verify`. Fourteen of the twenty-seven gates read the product

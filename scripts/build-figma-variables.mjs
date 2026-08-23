@@ -10,7 +10,7 @@ import { atomicWriteBatch } from "./lib/atomic-output.mjs";
 // 적용했는지가 기록에 남지 않는다. `figma/inventory-draw.*.js`가 그리는 코드를 생성물로 만든 것과
 // 같은 이유다 — 「손으로 쓰지 않는 경로가 실제로 존재해야 한다」를 쓰기 쪽에도 적용한다.
 //
-// 산출물 `figma/apply-variables.js`를 `use_figma`에 그대로 넘긴다. 손대지 않는다.
+// 산출물 `figma/apply-variables.*.js`를 `use_figma`에 그대로 넘긴다. 손대지 않는다.
 // 코드는 idempotent하다 — 있으면 값만 맞추고 없으면 만들며, 실행 후 created/updated/unchanged를
 // 보고한다. 이름으로 찾으므로 변수 ID가 유지되어 바인딩이 끊기지 않는다.
 

@@ -1,0 +1,2145 @@
+{
+  "fileKey": "OlYKERKOkgbxBEEoXGZW2c",
+  "name": "제목 없음",
+  "lastModified": "2026-08-23T11:03:49Z",
+  "version": "2390876511227301595",
+  "fetchedAt": "2026-08-23T12:16:47.152Z",
+  "pages": [
+    {
+      "id": "246:3446",
+      "name": "00 · START HERE — 보드 규약 · 라우트 색인",
+      "sections": []
+    },
+    {
+      "id": "246:3447",
+      "name": "01 · 획득 — 랜딩 · 마케팅 · 법무 (§10.2 · 10.3 · 10.4 · 10.5)",
+      "sections": [
+        {
+          "id": "255:1830",
+          "name": "10.2.1 · / · 홈 (랜딩)  ·  L2",
+          "items": []
+        },
+        {
+          "id": "255:1832",
+          "name": "10.2.2 · /pricing · 가격  ·  L2",
+          "items": []
+        },
+        {
+          "id": "255:1834",
+          "name": "10.3.1 · /templates{,/[slug]} · 템플릿 목록 · 상세  ·  L3",
+          "items": []
+        },
+        {
+          "id": "255:1836",
+          "name": "10.4.1 · /blog{,/[slug]} · 블로그 목록 · 상세  ·  L3",
+          "items": []
+        },
+        {
+          "id": "255:1838",
+          "name": "10.5.1 · /{privacy,terms,data-deletion-status} · 법적고지  ·  L2",
+          "items": []
+        },
+        {
+          "id": "255:1840",
+          "name": "10.5.2 · /inquiry · 문의  ·  L2",
+          "items": []
+        }
+      ]
+    },
+    {
+      "id": "246:3448",
+      "name": "02 · 가입 — 인증 (§10.6)",
+      "sections": [
+        {
+          "id": "255:1842",
+          "name": "10.6.1 · /{login,signup,aws/signup} · 로그인 · 가입  ·  L3",
+          "items": []
+        },
+        {
+          "id": "255:1844",
+          "name": "10.6.2 · /signup/{check-email,expired,verified} · 가입 확인  ·  L3",
+          "items": []
+        },
+        {
+          "id": "255:1846",
+          "name": "10.6.3 · /{reset-password{,/new},recover} · 비밀번호 · 계정 복구  ·  L3",
+          "items": []
+        }
+      ]
+    },
+    {
+      "id": "246:3449",
+      "name": "03 · 제작 — 앱 셸 (§10.1 · 10.7 · 10.9 · 10.10 · 10.11 · 10.12)",
+      "sections": [
+        {
+          "id": "255:1848",
+          "name": "10.1.1 · /archive · 홈 · 아카이브  ·  L3",
+          "items": []
+        },
+        {
+          "id": "255:1850",
+          "name": "10.7.1 · /{settings,subscription} · 계정 · 설정 · 구독  ·  L2",
+          "items": []
+        },
+        {
+          "id": "255:1852",
+          "name": "10.9.1 · /nodecanvas{,?project=} · 노드 캔버스 허브 · 에디터  ·  L2",
+          "items": []
+        },
+        {
+          "id": "255:1854",
+          "name": "10.10.1 · /videoeditor{,/[projectId]} · 비디오 에디터   ⚠ 9라운드 전부 미통과 — 이 저장소에서 가장 얇은 사양  ·  L2",
+          "items": []
+        },
+        {
+          "id": "255:1856",
+          "name": "10.11.1 · /highlight{,/[projectId]{,/shorts/[shortId]}} · 하이라이트 3단  ·  L2",
+          "items": []
+        },
+        {
+          "id": "255:1858",
+          "name": "10.12.1 · /analytics/{youtube,instagram} · 애널리틱스  ·  L3",
+          "items": []
+        }
+      ]
+    },
+    {
+      "id": "246:3450",
+      "name": "04 · 결제 — 과금 (§10.8)",
+      "sections": [
+        {
+          "id": "255:1860",
+          "name": "10.8.1 · /mypage/upgrade{,/checkout} · 플랜 선택 · 결제 진행  ·  L3",
+          "items": []
+        },
+        {
+          "id": "255:1862",
+          "name": "10.8.2 · /mypage/{upgrade/*,topup/*} · 결제 결과 7종  ·  L3",
+          "items": []
+        }
+      ]
+    },
+    {
+      "id": "246:3451",
+      "name": "05 · 운영 — 어드민 · 라우트 경계 (§10.12 · 결번 · 미등록)",
+      "sections": [
+        {
+          "id": "255:1864",
+          "name": "10.12.2 · /admin{,/coupons/[id]/print} · 어드민  ·  L3",
+          "items": []
+        },
+        {
+          "id": "255:1866",
+          "name": "⚠ 결번 · 404 · error · global-error · 라우트 경계 — 대응 §10.N 문서 없음 (10.4.md 가 「이 절의 범위 밖」이라 명시)  ·  등급 없음",
+          "items": []
+        },
+        {
+          "id": "255:1868",
+          "name": "⚠ 미등록 · /creative-media{,-admin} · 부스 체험 — 대응 §10.N 문서 없음 · 커버리지 등급 없음 (등급을 지어내지 말 것)  ·  등급 없음",
+          "items": []
+        }
+      ]
+    },
+    {
+      "id": "240:3529",
+      "name": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "sections": [
+        {
+          "id": "261:2",
+          "name": "A · logo/  ·  브랜드 자산 (색 고정)  ·  19개",
+          "items": []
+        },
+        {
+          "id": "261:4",
+          "name": "B · tile/  ·  앱 타일 (다색)  ·  6개",
+          "items": []
+        },
+        {
+          "id": "261:6",
+          "name": "C · icon/  ·  public/icons 원본  ·  61개",
+          "items": []
+        },
+        {
+          "id": "261:8",
+          "name": "D · root/  ·  public 루트 원본  ·  3개",
+          "items": []
+        },
+        {
+          "id": "261:10",
+          "name": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+          "items": []
+        },
+        {
+          "id": "261:12",
+          "name": "F · .authored/  ·  ⚠ 출처 없음 — 값을 재지 말 것  ·  13개",
+          "items": []
+        },
+        {
+          "id": "261:14",
+          "name": "G · 대형 자산 (원본 크기 유지)  ·  8개",
+          "items": []
+        },
+        {
+          "id": "305:2",
+          "name": "H · 제품 장면 · 측정 생성본 · 1개 세트",
+          "items": []
+        }
+      ]
+    },
+    {
+      "id": "246:3452",
+      "name": "99 · 보류 — 범위 밖",
+      "sections": [
+        {
+          "id": "255:1828",
+          "name": "⚠ 권위 충돌 · /docs · 범위 밖 — §10.4 는 /docs 를 소유한다고 적지만 화면 정본은 klipse-docs 레포다  ·  L3",
+          "items": []
+        }
+      ]
+    }
+  ],
+  "components": {
+    "173:652": {
+      "id": "173:652",
+      "name": "logo/InquiryClient-1",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "A · logo/  ·  브랜드 자산 (색 고정)  ·  19개"
+    },
+    "173:684": {
+      "id": "173:684",
+      "name": "logo/PlatformSection-1",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "A · logo/  ·  브랜드 자산 (색 고정)  ·  19개"
+    },
+    "171:591": {
+      "id": "171:591",
+      "name": "logo/YouTube (브랜드 자산 · 색 고정)",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "A · logo/  ·  브랜드 자산 (색 고정)  ·  19개"
+    },
+    "173:766": {
+      "id": "173:766",
+      "name": "logo/YoutubeUploadModal-3",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "A · logo/  ·  브랜드 자산 (색 고정)  ·  19개"
+    },
+    "171:595": {
+      "id": "171:595",
+      "name": "logo/gemini (브랜드 자산 · 색 고정)",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "A · logo/  ·  브랜드 자산 (색 고정)  ·  19개"
+    },
+    "171:600": {
+      "id": "171:600",
+      "name": "logo/google (브랜드 자산 · 색 고정)",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "A · logo/  ·  브랜드 자산 (색 고정)  ·  19개"
+    },
+    "171:601": {
+      "id": "171:601",
+      "name": "logo/highlight-symbol-gradient (브랜드 자산 · 색 고정)",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "A · logo/  ·  브랜드 자산 (색 고정)  ·  19개"
+    },
+    "171:602": {
+      "id": "171:602",
+      "name": "logo/highlight-wordmark (브랜드 자산 · 색 고정)",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "A · logo/  ·  브랜드 자산 (색 고정)  ·  19개"
+    },
+    "171:592": {
+      "id": "171:592",
+      "name": "logo/highlight-wordmark-dark (브랜드 자산 · 색 고정)",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "A · logo/  ·  브랜드 자산 (색 고정)  ·  19개"
+    },
+    "171:597": {
+      "id": "171:597",
+      "name": "logo/highlight-wordmark-gradient (브랜드 자산 · 색 고정)",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "A · logo/  ·  브랜드 자산 (색 고정)  ·  19개"
+    },
+    "171:603": {
+      "id": "171:603",
+      "name": "logo/instagram (브랜드 자산 · 색 고정)",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "A · logo/  ·  브랜드 자산 (색 고정)  ·  19개"
+    },
+    "171:606": {
+      "id": "171:606",
+      "name": "logo/kling (브랜드 자산 · 색 고정)",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "A · logo/  ·  브랜드 자산 (색 고정)  ·  19개"
+    },
+    "171:604": {
+      "id": "171:604",
+      "name": "logo/klipse-admin-wordmark-black (브랜드 자산 · 색 고정)",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "A · logo/  ·  브랜드 자산 (색 고정)  ·  19개"
+    },
+    "57:11": {
+      "id": "57:11",
+      "name": "logo/klipse-dark (291×85 · 다크 서피스용 · 워드마크 white)",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "A · logo/  ·  브랜드 자산 (색 고정)  ·  19개"
+    },
+    "208:1887": {
+      "id": "208:1887",
+      "name": "logo/klipse-footer-wordmark (브랜드 자산 · 색 고정)",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "A · logo/  ·  브랜드 자산 (색 고정)  ·  19개"
+    },
+    "57:10": {
+      "id": "57:10",
+      "name": "logo/klipse-light (291×85 · 라이트 서피스용 · 워드마크 black)",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "A · logo/  ·  브랜드 자산 (색 고정)  ·  19개"
+    },
+    "57:12": {
+      "id": "57:12",
+      "name": "logo/klipse-symbol (72×72 · object-contain)",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "A · logo/  ·  브랜드 자산 (색 고정)  ·  19개"
+    },
+    "171:605": {
+      "id": "171:605",
+      "name": "logo/klipse_Admin_black (브랜드 자산 · 색 고정)",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "A · logo/  ·  브랜드 자산 (색 고정)  ·  19개"
+    },
+    "173:778": {
+      "id": "173:778",
+      "name": "logo/page-2",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "A · logo/  ·  브랜드 자산 (색 고정)  ·  19개"
+    },
+    "205:1896": {
+      "id": "205:1896",
+      "name": "tile/Audio",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "B · tile/  ·  앱 타일 (다색)  ·  6개"
+    },
+    "205:1897": {
+      "id": "205:1897",
+      "name": "tile/Image",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "B · tile/  ·  앱 타일 (다색)  ·  6개"
+    },
+    "205:1895": {
+      "id": "205:1895",
+      "name": "tile/Text",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "B · tile/  ·  앱 타일 (다색)  ·  6개"
+    },
+    "205:1893": {
+      "id": "205:1893",
+      "name": "tile/Video",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "B · tile/  ·  앱 타일 (다색)  ·  6개"
+    },
+    "205:1894": {
+      "id": "205:1894",
+      "name": "tile/VideoEditor",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "B · tile/  ·  앱 타일 (다색)  ·  6개"
+    },
+    "205:1898": {
+      "id": "205:1898",
+      "name": "tile/YouTube",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "B · tile/  ·  앱 타일 (다색)  ·  6개"
+    },
+    "61:381": {
+      "id": "61:381",
+      "name": "icon/Adjustment",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "C · icon/  ·  public/icons 원본  ·  61개"
+    },
+    "61:382": {
+      "id": "61:382",
+      "name": "icon/AlignLeftSimple",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "C · icon/  ·  public/icons 원본  ·  61개"
+    },
+    "61:383": {
+      "id": "61:383",
+      "name": "icon/AlignRightSimple",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "C · icon/  ·  public/icons 원본  ·  61개"
+    },
+    "61:384": {
+      "id": "61:384",
+      "name": "icon/ArrowUp",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "C · icon/  ·  public/icons 원본  ·  61개"
+    },
+    "61:385": {
+      "id": "61:385",
+      "name": "icon/ArrowsLeftRight",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "C · icon/  ·  public/icons 원본  ·  61개"
+    },
+    "61:386": {
+      "id": "61:386",
+      "name": "icon/CaretDoubleRight",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "C · icon/  ·  public/icons 원본  ·  61개"
+    },
+    "61:387": {
+      "id": "61:387",
+      "name": "icon/ChatCircle",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "C · icon/  ·  public/icons 원본  ·  61개"
+    },
+    "61:388": {
+      "id": "61:388",
+      "name": "icon/CheckCircle",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "C · icon/  ·  public/icons 원본  ·  61개"
+    },
+    "61:389": {
+      "id": "61:389",
+      "name": "icon/CheckCircle2",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "C · icon/  ·  public/icons 원본  ·  61개"
+    },
+    "61:390": {
+      "id": "61:390",
+      "name": "icon/CircleHalf",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "C · icon/  ·  public/icons 원본  ·  61개"
+    },
+    "61:391": {
+      "id": "61:391",
+      "name": "icon/Copy",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "C · icon/  ·  public/icons 원본  ·  61개"
+    },
+    "61:392": {
+      "id": "61:392",
+      "name": "icon/CreditCard",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "C · icon/  ·  public/icons 원본  ·  61개"
+    },
+    "61:393": {
+      "id": "61:393",
+      "name": "icon/Diamond",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "C · icon/  ·  public/icons 원본  ·  61개"
+    },
+    "61:394": {
+      "id": "61:394",
+      "name": "icon/DotsSixVertical",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "C · icon/  ·  public/icons 원본  ·  61개"
+    },
+    "61:395": {
+      "id": "61:395",
+      "name": "icon/DotsThreeVertical",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "C · icon/  ·  public/icons 원본  ·  61개"
+    },
+    "61:396": {
+      "id": "61:396",
+      "name": "icon/DownloadSimple",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "C · icon/  ·  public/icons 원본  ·  61개"
+    },
+    "61:397": {
+      "id": "61:397",
+      "name": "icon/Explore",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "C · icon/  ·  public/icons 원본  ·  61개"
+    },
+    "61:398": {
+      "id": "61:398",
+      "name": "icon/FileZip",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "C · icon/  ·  public/icons 원본  ·  61개"
+    },
+    "61:399": {
+      "id": "61:399",
+      "name": "icon/Folder",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "C · icon/  ·  public/icons 원본  ·  61개"
+    },
+    "61:400": {
+      "id": "61:400",
+      "name": "icon/Gear",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "C · icon/  ·  public/icons 원본  ·  61개"
+    },
+    "61:401": {
+      "id": "61:401",
+      "name": "icon/Graph",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "C · icon/  ·  public/icons 원본  ·  61개"
+    },
+    "61:402": {
+      "id": "61:402",
+      "name": "icon/Hand",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "C · icon/  ·  public/icons 원본  ·  61개"
+    },
+    "61:403": {
+      "id": "61:403",
+      "name": "icon/House",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "C · icon/  ·  public/icons 원본  ·  61개"
+    },
+    "61:404": {
+      "id": "61:404",
+      "name": "icon/Image",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "C · icon/  ·  public/icons 원본  ·  61개"
+    },
+    "61:405": {
+      "id": "61:405",
+      "name": "icon/Info",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "C · icon/  ·  public/icons 원본  ·  61개"
+    },
+    "61:406": {
+      "id": "61:406",
+      "name": "icon/InstagramLogo",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "C · icon/  ·  public/icons 원본  ·  61개"
+    },
+    "61:407": {
+      "id": "61:407",
+      "name": "icon/Lightbulb",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "C · icon/  ·  public/icons 원본  ·  61개"
+    },
+    "61:408": {
+      "id": "61:408",
+      "name": "icon/MagicWand",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "C · icon/  ·  public/icons 원본  ·  61개"
+    },
+    "61:409": {
+      "id": "61:409",
+      "name": "icon/MagnifyingGlass",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "C · icon/  ·  public/icons 원본  ·  61개"
+    },
+    "61:410": {
+      "id": "61:410",
+      "name": "icon/Monitor",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "C · icon/  ·  public/icons 원본  ·  61개"
+    },
+    "61:411": {
+      "id": "61:411",
+      "name": "icon/MonitorArrowUp",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "C · icon/  ·  public/icons 원본  ·  61개"
+    },
+    "61:412": {
+      "id": "61:412",
+      "name": "icon/Moon",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "C · icon/  ·  public/icons 원본  ·  61개"
+    },
+    "61:413": {
+      "id": "61:413",
+      "name": "icon/MusicNotesSimple",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "C · icon/  ·  public/icons 원본  ·  61개"
+    },
+    "61:414": {
+      "id": "61:414",
+      "name": "icon/PaintRoller",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "C · icon/  ·  public/icons 원본  ·  61개"
+    },
+    "61:415": {
+      "id": "61:415",
+      "name": "icon/Plus",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "C · icon/  ·  public/icons 원본  ·  61개"
+    },
+    "61:416": {
+      "id": "61:416",
+      "name": "icon/SignOut",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "C · icon/  ·  public/icons 원본  ·  61개"
+    },
+    "61:417": {
+      "id": "61:417",
+      "name": "icon/Sparkle",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "C · icon/  ·  public/icons 원본  ·  61개"
+    },
+    "61:418": {
+      "id": "61:418",
+      "name": "icon/SpeakerHigh",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "C · icon/  ·  public/icons 원본  ·  61개"
+    },
+    "61:419": {
+      "id": "61:419",
+      "name": "icon/SpeakerX",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "C · icon/  ·  public/icons 원본  ·  61개"
+    },
+    "61:420": {
+      "id": "61:420",
+      "name": "icon/Sun",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "C · icon/  ·  public/icons 원본  ·  61개"
+    },
+    "61:421": {
+      "id": "61:421",
+      "name": "icon/Template",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "C · icon/  ·  public/icons 원본  ·  61개"
+    },
+    "61:422": {
+      "id": "61:422",
+      "name": "icon/Translate",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "C · icon/  ·  public/icons 원본  ·  61개"
+    },
+    "61:423": {
+      "id": "61:423",
+      "name": "icon/TrashSimple",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "C · icon/  ·  public/icons 원본  ·  61개"
+    },
+    "61:424": {
+      "id": "61:424",
+      "name": "icon/UserSound",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "C · icon/  ·  public/icons 원본  ·  61개"
+    },
+    "61:425": {
+      "id": "61:425",
+      "name": "icon/VideoEditor",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "C · icon/  ·  public/icons 원본  ·  61개"
+    },
+    "61:426": {
+      "id": "61:426",
+      "name": "icon/Waveform",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "C · icon/  ·  public/icons 원본  ·  61개"
+    },
+    "61:427": {
+      "id": "61:427",
+      "name": "icon/X",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "C · icon/  ·  public/icons 원본  ·  61개"
+    },
+    "61:428": {
+      "id": "61:428",
+      "name": "icon/XCircle",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "C · icon/  ·  public/icons 원본  ·  61개"
+    },
+    "61:429": {
+      "id": "61:429",
+      "name": "icon/XCircle2",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "C · icon/  ·  public/icons 원본  ·  61개"
+    },
+    "61:431": {
+      "id": "61:431",
+      "name": "icon/aws-logo",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "C · icon/  ·  public/icons 원본  ·  61개"
+    },
+    "61:430": {
+      "id": "61:430",
+      "name": "icon/aws-logo-dark",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "C · icon/  ·  public/icons 원본  ·  61개"
+    },
+    "61:432": {
+      "id": "61:432",
+      "name": "icon/copy-check",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "C · icon/  ·  public/icons 원본  ·  61개"
+    },
+    "61:433": {
+      "id": "61:433",
+      "name": "icon/eye",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "C · icon/  ·  public/icons 원본  ·  61개"
+    },
+    "61:434": {
+      "id": "61:434",
+      "name": "icon/eyeslash",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "C · icon/  ·  public/icons 원본  ·  61개"
+    },
+    "61:435": {
+      "id": "61:435",
+      "name": "icon/iconamoon_cursor-fill",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "C · icon/  ·  public/icons 원본  ·  61개"
+    },
+    "61:436": {
+      "id": "61:436",
+      "name": "icon/text",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "C · icon/  ·  public/icons 원본  ·  61개"
+    },
+    "61:437": {
+      "id": "61:437",
+      "name": "icon/user-default-profile",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "C · icon/  ·  public/icons 원본  ·  61개"
+    },
+    "61:438": {
+      "id": "61:438",
+      "name": "icon/video",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "C · icon/  ·  public/icons 원본  ·  61개"
+    },
+    "61:439": {
+      "id": "61:439",
+      "name": "icon/volume-2",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "C · icon/  ·  public/icons 원본  ·  61개"
+    },
+    "61:440": {
+      "id": "61:440",
+      "name": "icon/volume-x",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "C · icon/  ·  public/icons 원본  ·  61개"
+    },
+    "61:441": {
+      "id": "61:441",
+      "name": "icon/youtube",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "C · icon/  ·  public/icons 원본  ·  61개"
+    },
+    "171:590": {
+      "id": "171:590",
+      "name": "root/file-text",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "D · root/  ·  public 루트 원본  ·  3개"
+    },
+    "171:599": {
+      "id": "171:599",
+      "name": "root/globe",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "D · root/  ·  public 루트 원본  ·  3개"
+    },
+    "66:386": {
+      "id": "66:386",
+      "name": "root/highlight_symbol",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "D · root/  ·  public 루트 원본  ·  3개"
+    },
+    "173:609": {
+      "id": "173:609",
+      "name": ".glyph/ActionButton-1",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:597": {
+      "id": "173:597",
+      "name": ".glyph/AlignLeftSimpleIcon",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:591": {
+      "id": "173:591",
+      "name": ".glyph/AlignRightSimpleIcon",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:603": {
+      "id": "173:603",
+      "name": ".glyph/AppHomeScene-2",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "194:1616": {
+      "id": "194:1616",
+      "name": ".glyph/ArrowLeftLong",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:594": {
+      "id": "173:594",
+      "name": ".glyph/ArrowUpSimpleIcon",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:596": {
+      "id": "173:596",
+      "name": ".glyph/AssetPanel-3",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:602": {
+      "id": "173:602",
+      "name": ".glyph/AssetPanel-4",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:604": {
+      "id": "173:604",
+      "name": ".glyph/AssetPanel-5",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:608": {
+      "id": "173:608",
+      "name": ".glyph/CapabilitiesShowcase-1",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:601": {
+      "id": "173:601",
+      "name": ".glyph/CheckCircleIcon",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "195:2694": {
+      "id": "195:2694",
+      "name": ".glyph/CheckSimple",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:606": {
+      "id": "173:606",
+      "name": ".glyph/ChevronGlyph",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:592": {
+      "id": "173:592",
+      "name": ".glyph/ChevronLeftIcon",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:708": {
+      "id": "173:708",
+      "name": ".glyph/ChevronRightGlyph-10",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:600": {
+      "id": "173:600",
+      "name": ".glyph/ChevronRightIcon",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:590": {
+      "id": "173:590",
+      "name": ".glyph/ClipCropModal-2",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:599": {
+      "id": "173:599",
+      "name": ".glyph/ClipCropModal-3",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:593": {
+      "id": "173:593",
+      "name": ".glyph/ClipCropModal-5",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:595": {
+      "id": "173:595",
+      "name": ".glyph/ClipCropModal-6",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:598": {
+      "id": "173:598",
+      "name": ".glyph/ClipCropModal-7",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:607": {
+      "id": "173:607",
+      "name": ".glyph/ClipCropModal-8",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:605": {
+      "id": "173:605",
+      "name": ".glyph/CloseGlyph",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:610": {
+      "id": "173:610",
+      "name": ".glyph/CloseIcon",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:612": {
+      "id": "173:612",
+      "name": ".glyph/CloudArrowUpSvg",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "63:240": {
+      "id": "63:240",
+      "name": ".glyph/CloudCheck",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:611": {
+      "id": "173:611",
+      "name": ".glyph/CloudCheckSvg",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:616": {
+      "id": "173:616",
+      "name": ".glyph/CloudWarningSvg",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:614": {
+      "id": "173:614",
+      "name": ".glyph/ContentTable-4",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:615": {
+      "id": "173:615",
+      "name": ".glyph/CropModal-1",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:617": {
+      "id": "173:617",
+      "name": ".glyph/DeletableEdge-1",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:620": {
+      "id": "173:620",
+      "name": ".glyph/EditNode-1",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:618": {
+      "id": "173:618",
+      "name": ".glyph/EditNode-2",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:622": {
+      "id": "173:622",
+      "name": ".glyph/EyedropperIcon",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:619": {
+      "id": "173:619",
+      "name": ".glyph/FinderChevronRightGlyph",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:626": {
+      "id": "173:626",
+      "name": ".glyph/FinderFolderGlyph",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:623": {
+      "id": "173:623",
+      "name": ".glyph/Footer-2",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "227:3471": {
+      "id": "227:3471",
+      "name": ".glyph/FullscreenGlyph",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:621": {
+      "id": "173:621",
+      "name": ".glyph/GenerateSparkleGlyph",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:628": {
+      "id": "173:628",
+      "name": ".glyph/GettingStartedPanel-1",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:627": {
+      "id": "173:627",
+      "name": ".glyph/GlobeIcon",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:638": {
+      "id": "173:638",
+      "name": ".glyph/GnbArrowRight",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:637": {
+      "id": "173:637",
+      "name": ".glyph/GnbChatCircle",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:634": {
+      "id": "173:634",
+      "name": ".glyph/GnbDiamond",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:631": {
+      "id": "173:631",
+      "name": ".glyph/GnbFileText",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:636": {
+      "id": "173:636",
+      "name": ".glyph/GnbGear",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:629": {
+      "id": "173:629",
+      "name": ".glyph/GnbGlobe",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:643": {
+      "id": "173:643",
+      "name": ".glyph/GnbMonitor",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:630": {
+      "id": "173:630",
+      "name": ".glyph/GnbMoon",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:639": {
+      "id": "173:639",
+      "name": ".glyph/GnbPaintRoller",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:641": {
+      "id": "173:641",
+      "name": ".glyph/GnbShield",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:633": {
+      "id": "173:633",
+      "name": ".glyph/GnbSidebarPanel",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:632": {
+      "id": "173:632",
+      "name": ".glyph/GnbSignOut",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:635": {
+      "id": "173:635",
+      "name": ".glyph/GnbSun",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:625": {
+      "id": "173:625",
+      "name": ".glyph/GridFourGlyph",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:645": {
+      "id": "173:645",
+      "name": ".glyph/HighlightCreateModal-1",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:640": {
+      "id": "173:640",
+      "name": ".glyph/HighlightProjectScene-1",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:649": {
+      "id": "173:649",
+      "name": ".glyph/HighlightProjectScene-2",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:648": {
+      "id": "173:648",
+      "name": ".glyph/HomeCreateNewMenu-1",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:646": {
+      "id": "173:646",
+      "name": ".glyph/ImageIcon",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:647": {
+      "id": "173:647",
+      "name": ".glyph/ImageLightbox-1",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:644": {
+      "id": "173:644",
+      "name": ".glyph/ImageNode-1",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:642": {
+      "id": "173:642",
+      "name": ".glyph/InfoCircleIcon",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:651": {
+      "id": "173:651",
+      "name": ".glyph/InquiryClient-2",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:658": {
+      "id": "173:658",
+      "name": ".glyph/InquiryClient-3",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:650": {
+      "id": "173:650",
+      "name": ".glyph/InquiryManagement-1",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:653": {
+      "id": "173:653",
+      "name": ".glyph/InquiryManagement-2",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:656": {
+      "id": "173:656",
+      "name": ".glyph/InquiryManagement-3",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:654": {
+      "id": "173:654",
+      "name": ".glyph/InstagramAnalyticsScene-1",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "174:610": {
+      "id": "174:610",
+      "name": ".glyph/InstagramIcon",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "174:611": {
+      "id": "174:611",
+      "name": ".glyph/KeyArrowGlyph",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:657": {
+      "id": "173:657",
+      "name": ".glyph/KeyEnterGlyph",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:655": {
+      "id": "173:655",
+      "name": ".glyph/LegalDocumentBackButton-1",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:659": {
+      "id": "173:659",
+      "name": ".glyph/LightbulbIcon",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "211:2297": {
+      "id": "211:2297",
+      "name": ".glyph/LightningFill",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:624": {
+      "id": "173:624",
+      "name": ".glyph/ListRowsGlyph",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:660": {
+      "id": "173:660",
+      "name": ".glyph/LoopIcon",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:661": {
+      "id": "173:661",
+      "name": ".glyph/MagicWandIcon",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:666": {
+      "id": "173:666",
+      "name": ".glyph/MagnifyingGlassIcon",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:662": {
+      "id": "173:662",
+      "name": ".glyph/MenuIcon",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:664": {
+      "id": "173:664",
+      "name": ".glyph/MicIcon",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:665": {
+      "id": "173:665",
+      "name": ".glyph/MinusIcon",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:663": {
+      "id": "173:663",
+      "name": ".glyph/ModeEyebrowIcon",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:667": {
+      "id": "173:667",
+      "name": ".glyph/MonitorArrowUpIcon",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:669": {
+      "id": "173:669",
+      "name": ".glyph/MusicNotesSimpleIcon",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "180:636": {
+      "id": "180:636",
+      "name": ".glyph/NavPlusGlyph",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:671": {
+      "id": "173:671",
+      "name": ".glyph/OutputEyebrowIcon",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:674": {
+      "id": "173:674",
+      "name": ".glyph/OverlayInspector-1",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:670": {
+      "id": "173:670",
+      "name": ".glyph/OverlayInspector-2",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:672": {
+      "id": "173:672",
+      "name": ".glyph/OverlayInspector-3",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:673": {
+      "id": "173:673",
+      "name": ".glyph/OverlayInspector-4",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:677": {
+      "id": "173:677",
+      "name": ".glyph/PauseIcon",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:679": {
+      "id": "173:679",
+      "name": ".glyph/PhotoIcon",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:676": {
+      "id": "173:676",
+      "name": ".glyph/PlatformSection-2",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:682": {
+      "id": "173:682",
+      "name": ".glyph/PlatformSection-3",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:680": {
+      "id": "173:680",
+      "name": ".glyph/PlatformSection-4",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:675": {
+      "id": "173:675",
+      "name": ".glyph/PlatformSection-5",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:678": {
+      "id": "173:678",
+      "name": ".glyph/PlatformSection-6",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:683": {
+      "id": "173:683",
+      "name": ".glyph/PlatformSection-8",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:686": {
+      "id": "173:686",
+      "name": ".glyph/PlatformSection-9",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "227:3464": {
+      "id": "227:3464",
+      "name": ".glyph/PlayGlyph",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:681": {
+      "id": "173:681",
+      "name": ".glyph/PlayIcon",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:668": {
+      "id": "173:668",
+      "name": ".glyph/PlusGlyph-32",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:685": {
+      "id": "173:685",
+      "name": ".glyph/PlusIcon",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:687": {
+      "id": "173:687",
+      "name": ".glyph/PricingSection-1",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:688": {
+      "id": "173:688",
+      "name": ".glyph/ProjectVideosIcon",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:689": {
+      "id": "173:689",
+      "name": ".glyph/PromptEyebrowIcon",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:696": {
+      "id": "173:696",
+      "name": ".glyph/PromptTitleIcon",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:695": {
+      "id": "173:695",
+      "name": ".glyph/ReferencesEyebrowIcon",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:693": {
+      "id": "173:693",
+      "name": ".glyph/SearchGlyph",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:691": {
+      "id": "173:691",
+      "name": ".glyph/SettingsEyebrowIcon",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:698": {
+      "id": "173:698",
+      "name": ".glyph/ShotEyebrowIcon",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "63:244": {
+      "id": "63:244",
+      "name": ".glyph/SidebarToggle",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:700": {
+      "id": "173:700",
+      "name": ".glyph/SidebarToggleIcon",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:690": {
+      "id": "173:690",
+      "name": ".glyph/SourceEyebrowIcon",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:694": {
+      "id": "173:694",
+      "name": ".glyph/SparkleIcon",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:709": {
+      "id": "173:709",
+      "name": ".glyph/StaticArchiveDemo-1",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:706": {
+      "id": "173:706",
+      "name": ".glyph/StaticHighlightDemo-1",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:705": {
+      "id": "173:705",
+      "name": ".glyph/TabBannerCarousel-1",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:704": {
+      "id": "173:704",
+      "name": ".glyph/TabBannerCarousel-2",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:703": {
+      "id": "173:703",
+      "name": ".glyph/TemplateIcon",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:702": {
+      "id": "173:702",
+      "name": ".glyph/TextIcon",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "227:3457": {
+      "id": "227:3457",
+      "name": ".glyph/ThemeDarkGlyph",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "227:3434": {
+      "id": "227:3434",
+      "name": ".glyph/ThemeLightGlyph",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "227:3413": {
+      "id": "227:3413",
+      "name": ".glyph/ThemeSystemGlyph",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:697": {
+      "id": "173:697",
+      "name": ".glyph/ThumbGenerateIcon",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:692": {
+      "id": "173:692",
+      "name": ".glyph/ToolCursor",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:701": {
+      "id": "173:701",
+      "name": ".glyph/ToolHand",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:699": {
+      "id": "173:699",
+      "name": ".glyph/ToolZoomIn",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "63:247": {
+      "id": "63:247",
+      "name": ".glyph/ToolbarChevronDown",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "180:667": {
+      "id": "180:667",
+      "name": ".glyph/UploadGlyph",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:707": {
+      "id": "173:707",
+      "name": ".glyph/UploadSimpleIcon",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:710": {
+      "id": "173:710",
+      "name": ".glyph/UserCircleDefaultAvatar",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:711": {
+      "id": "173:711",
+      "name": ".glyph/UserSoundIcon",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:713": {
+      "id": "173:713",
+      "name": ".glyph/VideoCameraIcon",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:721": {
+      "id": "173:721",
+      "name": ".glyph/VideoEditModal-1",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:712": {
+      "id": "173:712",
+      "name": ".glyph/VideoEditModal-10",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:714": {
+      "id": "173:714",
+      "name": ".glyph/VideoEditModal-11",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:716": {
+      "id": "173:716",
+      "name": ".glyph/VideoEditModal-12",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:715": {
+      "id": "173:715",
+      "name": ".glyph/VideoEditModal-13",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "174:606": {
+      "id": "174:606",
+      "name": ".glyph/VideoEditModal-14",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:720": {
+      "id": "173:720",
+      "name": ".glyph/VideoEditModal-15",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:719": {
+      "id": "173:719",
+      "name": ".glyph/VideoEditModal-16",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:723": {
+      "id": "173:723",
+      "name": ".glyph/VideoEditModal-17",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:717": {
+      "id": "173:717",
+      "name": ".glyph/VideoEditModal-18",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:722": {
+      "id": "173:722",
+      "name": ".glyph/VideoEditModal-19",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:732": {
+      "id": "173:732",
+      "name": ".glyph/VideoEditModal-2",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:718": {
+      "id": "173:718",
+      "name": ".glyph/VideoEditModal-20",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:726": {
+      "id": "173:726",
+      "name": ".glyph/VideoEditModal-21",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:724": {
+      "id": "173:724",
+      "name": ".glyph/VideoEditModal-24",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:727": {
+      "id": "173:727",
+      "name": ".glyph/VideoEditModal-25",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:725": {
+      "id": "173:725",
+      "name": ".glyph/VideoEditModal-26",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:728": {
+      "id": "173:728",
+      "name": ".glyph/VideoEditModal-27",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:738": {
+      "id": "173:738",
+      "name": ".glyph/VideoEditModal-3",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:744": {
+      "id": "173:744",
+      "name": ".glyph/VideoEditModal-4",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:730": {
+      "id": "173:730",
+      "name": ".glyph/VideoEditModal-5",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:729": {
+      "id": "173:729",
+      "name": ".glyph/VideoEditModal-6",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:737": {
+      "id": "173:737",
+      "name": ".glyph/VideoEditModal-7",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:736": {
+      "id": "173:736",
+      "name": ".glyph/VideoEditModal-8",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:734": {
+      "id": "173:734",
+      "name": ".glyph/VideoEditModal-9",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:733": {
+      "id": "173:733",
+      "name": ".glyph/VideoNode-1",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:731": {
+      "id": "173:731",
+      "name": ".glyph/VideoNode-2",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:740": {
+      "id": "173:740",
+      "name": ".glyph/VideoPlayer-1",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:739": {
+      "id": "173:739",
+      "name": ".glyph/VideoPlayer-10",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:735": {
+      "id": "173:735",
+      "name": ".glyph/VideoPlayer-11",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:741": {
+      "id": "173:741",
+      "name": ".glyph/VideoPlayer-2",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:743": {
+      "id": "173:743",
+      "name": ".glyph/VideoPlayer-3",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:742": {
+      "id": "173:742",
+      "name": ".glyph/VideoPlayer-6",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:745": {
+      "id": "173:745",
+      "name": ".glyph/VideoPlayer-7",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:746": {
+      "id": "173:746",
+      "name": ".glyph/VideoPlayer-8",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:748": {
+      "id": "173:748",
+      "name": ".glyph/VideoPlayer-9",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:747": {
+      "id": "173:747",
+      "name": ".glyph/VisibilityPrivate",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:749": {
+      "id": "173:749",
+      "name": ".glyph/VisibilityPublic",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:750": {
+      "id": "173:750",
+      "name": ".glyph/VisibilityUnlisted",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:761": {
+      "id": "173:761",
+      "name": ".glyph/VolumeOffIcon",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:755": {
+      "id": "173:755",
+      "name": ".glyph/VolumeOnIcon",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:759": {
+      "id": "173:759",
+      "name": ".glyph/WalkthroughImageToVideoPromptConnect",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:765": {
+      "id": "173:765",
+      "name": ".glyph/WalkthroughVideoToYoutubeButtonPress",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:753": {
+      "id": "173:753",
+      "name": ".glyph/WaveformIcon",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:751": {
+      "id": "173:751",
+      "name": ".glyph/XIcon",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:756": {
+      "id": "173:756",
+      "name": ".glyph/YoutubeGlyph",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:754": {
+      "id": "173:754",
+      "name": ".glyph/YoutubeIcon",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "174:607": {
+      "id": "174:607",
+      "name": ".glyph/YoutubePlayTriangle",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:760": {
+      "id": "173:760",
+      "name": ".glyph/YoutubeUploadModal-11",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:752": {
+      "id": "173:752",
+      "name": ".glyph/YoutubeUploadModal-12",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:763": {
+      "id": "173:763",
+      "name": ".glyph/YoutubeUploadModal-13",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:757": {
+      "id": "173:757",
+      "name": ".glyph/YoutubeUploadModal-14",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:758": {
+      "id": "173:758",
+      "name": ".glyph/YoutubeUploadModal-15",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:762": {
+      "id": "173:762",
+      "name": ".glyph/YoutubeUploadModal-16",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:764": {
+      "id": "173:764",
+      "name": ".glyph/YoutubeUploadModal-17",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:767": {
+      "id": "173:767",
+      "name": ".glyph/YoutubeUploadModal-4",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:768": {
+      "id": "173:768",
+      "name": ".glyph/YoutubeUploadModal-6",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:769": {
+      "id": "173:769",
+      "name": ".glyph/YoutubeUploadModal-7",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:772": {
+      "id": "173:772",
+      "name": ".glyph/YoutubeUploadModal-8",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:773": {
+      "id": "173:773",
+      "name": ".glyph/YoutubeVideoAnalyticsView-3",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:771": {
+      "id": "173:771",
+      "name": ".glyph/nodeToolbarGlyphs-1",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:776": {
+      "id": "173:776",
+      "name": ".glyph/nodeToolbarGlyphs-10",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:775": {
+      "id": "173:775",
+      "name": ".glyph/nodeToolbarGlyphs-11",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:770": {
+      "id": "173:770",
+      "name": ".glyph/nodeToolbarGlyphs-12",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:774": {
+      "id": "173:774",
+      "name": ".glyph/nodeToolbarGlyphs-13",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "174:609": {
+      "id": "174:609",
+      "name": ".glyph/nodeToolbarGlyphs-14",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:783": {
+      "id": "173:783",
+      "name": ".glyph/nodeToolbarGlyphs-2",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:784": {
+      "id": "173:784",
+      "name": ".glyph/nodeToolbarGlyphs-3",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:777": {
+      "id": "173:777",
+      "name": ".glyph/nodeToolbarGlyphs-5",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:780": {
+      "id": "173:780",
+      "name": ".glyph/nodeToolbarGlyphs-6",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:782": {
+      "id": "173:782",
+      "name": ".glyph/nodeToolbarGlyphs-7",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:781": {
+      "id": "173:781",
+      "name": ".glyph/nodeToolbarGlyphs-9",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:779": {
+      "id": "173:779",
+      "name": ".glyph/page-1",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "173:785": {
+      "id": "173:785",
+      "name": ".glyph/shared-1",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+    },
+    "180:829": {
+      "id": "180:829",
+      "name": ".authored/alignL",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "F · .authored/  ·  ⚠ 출처 없음 — 값을 재지 말 것  ·  13개"
+    },
+    "180:839": {
+      "id": "180:839",
+      "name": ".authored/alignR",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "F · .authored/  ·  ⚠ 출처 없음 — 값을 재지 말 것  ·  13개"
+    },
+    "180:786": {
+      "id": "180:786",
+      "name": ".authored/crop",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "F · .authored/  ·  ⚠ 출처 없음 — 값을 재지 말 것  ·  13개"
+    },
+    "180:888": {
+      "id": "180:888",
+      "name": ".authored/guides",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "F · .authored/  ·  ⚠ 출처 없음 — 값을 재지 말 것  ·  13개"
+    },
+    "180:860": {
+      "id": "180:860",
+      "name": ".authored/kbd",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "F · .authored/  ·  ⚠ 출처 없음 — 값을 재지 말 것  ·  13개"
+    },
+    "180:705": {
+      "id": "180:705",
+      "name": ".authored/lucide download",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "F · .authored/  ·  ⚠ 출처 없음 — 값을 재지 말 것  ·  13개"
+    },
+    "180:736": {
+      "id": "180:736",
+      "name": ".authored/lucide trash-2",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "F · .authored/  ·  ⚠ 출처 없음 — 값을 재지 말 것  ·  13개"
+    },
+    "180:878": {
+      "id": "180:878",
+      "name": ".authored/magnet",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "F · .authored/  ·  ⚠ 출처 없음 — 값을 재지 말 것  ·  13개"
+    },
+    "180:806": {
+      "id": "180:806",
+      "name": ".authored/redo",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "F · .authored/  ·  ⚠ 출처 없음 — 값을 재지 말 것  ·  13개"
+    },
+    "180:817": {
+      "id": "180:817",
+      "name": ".authored/split",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "F · .authored/  ·  ⚠ 출처 없음 — 값을 재지 말 것  ·  13개"
+    },
+    "180:898": {
+      "id": "180:898",
+      "name": ".authored/tlToggle",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "F · .authored/  ·  ⚠ 출처 없음 — 값을 재지 말 것  ·  13개"
+    },
+    "180:848": {
+      "id": "180:848",
+      "name": ".authored/trash",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "F · .authored/  ·  ⚠ 출처 없음 — 값을 재지 말 것  ·  13개"
+    },
+    "180:796": {
+      "id": "180:796",
+      "name": ".authored/undo",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "F · .authored/  ·  ⚠ 출처 없음 — 값을 재지 말 것  ·  13개"
+    },
+    "171:596": {
+      "id": "171:596",
+      "name": "logo/aws-footer-logo-bg (브랜드 자산 · 색 고정)",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "G · 대형 자산 (원본 크기 유지)  ·  8개"
+    },
+    "208:1888": {
+      "id": "208:1888",
+      "name": "logo/footer-logo-bg (브랜드 자산 · 색 고정)",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "G · 대형 자산 (원본 크기 유지)  ·  8개"
+    },
+    "171:607": {
+      "id": "171:607",
+      "name": "logo/klipse-wordmark-overview-dark (브랜드 자산 · 색 고정)",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "G · 대형 자산 (원본 크기 유지)  ·  8개"
+    },
+    "171:609": {
+      "id": "171:609",
+      "name": "logo/node-canvas (브랜드 자산 · 색 고정)",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "G · 대형 자산 (원본 크기 유지)  ·  8개"
+    },
+    "171:612": {
+      "id": "171:612",
+      "name": "logo/node-canvas-dark (브랜드 자산 · 색 고정)",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "G · 대형 자산 (원본 크기 유지)  ·  8개"
+    },
+    "171:608": {
+      "id": "171:608",
+      "name": "logo/openai (브랜드 자산 · 색 고정)",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "G · 대형 자산 (원본 크기 유지)  ·  8개"
+    },
+    "66:387": {
+      "id": "66:387",
+      "name": "root/node-canvas-wordmark",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "G · 대형 자산 (원본 크기 유지)  ·  8개"
+    },
+    "66:388": {
+      "id": "66:388",
+      "name": "root/node-canvas-wordmark-dark",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "G · 대형 자산 (원본 크기 유지)  ·  8개"
+    },
+    "332:22": {
+      "id": "332:22",
+      "name": "Viewport=Desktop",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": null
+    },
+    "332:138": {
+      "id": "332:138",
+      "name": "Viewport=Mobile",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": null
+    }
+  },
+  "componentSets": {
+    "310:3502": {
+      "id": "310:3502",
+      "name": "scene/StaticHighlightDemo",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": "H · 제품 장면 · 측정 생성본 · 1개 세트",
+      "variantsCount": 0
+    },
+    "332:187": {
+      "id": "332:187",
+      "name": "product/VideoEditorLandingCapture",
+      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "section": null,
+      "variantsCount": 2
+    }
+  }
+}

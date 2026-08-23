@@ -154,37 +154,22 @@ Figma **Product inventory**의 토스트 표본은 그 값으로 그려져 있�
 **그 파일은 검증되지 않았다.** 반증 단계를 떼어 냈기 때문이다. 파일 안에도 경고로 적어 두었다 —
 **적힌 값을 그대로 DS에 옮기지 않는다.** 아래 (A2)와 (A3)이 그 일이다.
 
-## 제품이 움직였다 (2026-08-20) — 다음 세션의 첫 번째 일
+## 제품이 움직였다 (2026-08-20) — **해소됐다**
 
-**배포본 `origin/main`이 `7e9c3b69` → `6337ad54`로 넘어갔다.** 이 저장소의 모든 실측은
-`7e9c3b69` 기준이고 `migration/product-evidence.lock.json`도 그 커밋을 고정하고 있다.
+당시 배포본이 앞서 나가 `pnpm verify` 가 빨갰고, 그 원인이 **측정 스크립트는 움직이는 ref 를
+따라가는데 근거 락은 커밋을 고정한다**는 구조적 어긋남이었다. 둘이 갈리면 같은 명령이 어제와
+다른 값을 냈다.
 
-그래서 **지금 `pnpm verify`는 빨갛다.** 커밋한 작업 때문이 아니라 제품이 앞서 나갔기 때문이고,
-게이트는 정확히 제 일을 하고 있다.
+**두 갈래를 모두 실행해 닫았다.**
 
-```
-verify-product-evidence    근거 파일이 배포본에서 바뀌었습니다: AppHomeScene.tsx
-                           (고정 8b3cc174 ≠ 현재 a7919f51)
-verify-product-render      배포본의 렌더 값이 기록과 다릅니다 (기록 7e9c3b69 → 현재 6337ad54)
-verify-product-components  같은 사유
-```
+- 측정 ref 를 락의 `productCommit` 에 묶었다 — [`scripts/lib/product-ref.mjs`](../../scripts/lib/product-ref.mjs)
+  가 `KLIPSE_PRODUCT_REF` > 락의 `productCommit` > `design` 순으로 고른다. `origin/main` 경로는
+  없다. 이제 **기준선 이동이 의도한 행위**가 된다 — 락을 갱신해야만 기준이 움직인다.
+- 기준선을 정본 `design` 계열로 재기준선했다. 정본은 `origin/main` 이 아니다.
 
-**드러난 구조적 문제:** 측정 스크립트는 `KLIPSE_PRODUCT_REF ?? "origin/main"` 으로 **움직이는
-ref**를 따라가는데, 근거 lock은 **커밋을 고정**한다. 둘이 갈리면 같은 명령이 어제와 다른 값을
-낸다. 실제로 `previewZoomBadge` 상수가 새 커밋에서 사라져 표본 측정이 하드 실패했다.
-
-이번에는 `KLIPSE_PRODUCT_REF=7e9c3b69…`로 고정해 재측정했고, 그래서
-`migration/product.variants.json`의 `productRef`가 `"origin/main"`이 아니라 **SHA로 박혀 있다.**
-어디서 돌려도 같은 값이 나온다.
-
-다음 세션이 정할 것 — 둘 중 하나다.
-
-1. **재기준선.** `6337ad54`로 lock을 갱신하고 전부 다시 잰다. 바뀐 값은 (A3)과 같은 방식으로
-   판정한다. 제품을 따라가는 정공법이지만 양이 크다.
-2. **측정 스크립트의 기본 ref를 lock의 `productCommit`으로 바꾼다.** 그러면 재기준선이
-   **의도한 행위**가 된다 — lock을 갱신해야만 기준이 움직인다. 지금처럼 조용히 어긋나지 않는다.
-
-**2를 먼저 하고 1을 하는 것을 권한다.** 그러지 않으면 재기준선 도중에 제품이 또 움직여도 모른다.
+여기에 SHA 를 적지 않는다. 현재 기준선은 언제나 `migration/product-evidence.lock.json` 이
+소유하며, 제품이 다시 앞서 나가면 `verify-product-evidence` 가 그 사실을 알린다 —
+**그 빨강은 결함이 아니라 알림이다.** 대응은 재기준선이고 절차는 Updates (98)에 있다.
 
 ## 중단 지점 (2026-08-20) — 여기서 이어받는다
 
@@ -264,8 +249,10 @@ collection을 실패로 잡는다(허용: Klipse Primitive 123 · Semantic 75 ·
 
 ## 합치기 비교판이 서 있다 (2026-08-20)
 
-Figma **Product inventory** 페이지에 17종 54표본이 전부 그려져 있다. 값은 전부 배포본
-`7e9c3b69`를 부모 문맥 안에서 브라우저로 잰 것이다.
+Figma **Product inventory** 페이지에 표본이 그려져 있다. 값은 전부 락이 고정한 커밋을 부모
+문맥 안에서 브라우저로 잰 것이다. **계획의 현재 수는 `pnpm check-figma-inventory` 출력이
+정본이고, Figma 에 실제로 그려진 수는 보드 이전이 끝나기 전까지 미정이다** — 한때 이 문서가
+같은 페이지를 두고 「17종 54표본이 전부」와 「지금 8종만」을 동시에 적고 있었다.
 
 **규칙과 실행 코드가 전부 저장소에 있다.** `scripts/build-figma-inventory.mjs`가
 `figma/inventory-plan.json`(계획)과 `figma/inventory-draw.1~3.js`(실행 코드)를 생성하고
@@ -427,13 +414,17 @@ Figma **Product inventory** 페이지는 지금 표본 8종(모달 2 · 토스�
 ## 환경
 
 - 저장소: `/Users/sejunki/klipse-design-system`
-- 배포본: `/Users/sejunki/klipse-web`, `origin/main` `7e9c3b69` — **dev 서버를 띄우지 않는다**
+- 배포본: `/Users/sejunki/klipse-web` — **dev 서버를 띄우지 않는다**
   (`.env.local`이 실제 서비스에 붙는다). 제품 값은 `git show`로 읽고 클래스를 제품 Tailwind로
   컴파일해 Playwright에서 잰다.
-- Figma draft: `bxGEp0km5zluMJGulaTvFW`. 페이지 6개 —
-  Cover · Foundations · Components · Patterns · Templates · Product inventory
+- **측정 기준은 `migration/product-evidence.lock.json` 의 `productRef`/`productCommit` 이다.**
+  여기에 SHA 를 적지 않는다 — 락이 움직이면 이 문서만 낡는다. `origin/main` 은 정본이 아니다
+  (폐지된 글래스 섀도우가 거기에만 남아 있다).
+- Figma: 파일이 둘이고 역할이 다르다. 어느 파일에 쓰는지는 `figma-sync.md` 「운영 파일」 절이
+  소유한다 — 여기에 페이지 목록을 적지 않는다.
 - Node/pnpm이 `~/.local`에 있다. PATH를 잡고 실행한다.
-- 인계 전 검증: `pnpm build && pnpm check && pnpm verify && pnpm test && git diff --check`
+- 인계 전 검증: [계정 이전 인계서 3절](handoff-2026-08-22-account-transfer.md)이 소유한다.
+  `KLIPSE_PRODUCT_REPO` 를 세우지 않으면 첫 게이트에서 멈추고, `pnpm clean-room` 은 커밋 뒤에 돈다.
 
 ## 오늘 커밋 29개
 

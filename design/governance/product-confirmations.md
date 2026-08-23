@@ -9,8 +9,11 @@ authority: normative
 **이 저장소가 단독으로 정할 수 없는 것들**을 한 곳에 모은다. 각 항목은 실측 근거와 「무엇을 정해야
 하는가」를 함께 갖는다. 흩어져 있으면 제품 쪽에서 무엇을 봐야 하는지 보이지 않는다.
 
-기준은 배포본 `KlipseAI/klipse-web`의 `origin/main`이다. 값이 바뀌면
-[product-evidence.lock.json](../../migration/product-evidence.lock.json)이 잡는다.
+기준은 `KlipseAI/klipse-web` 의 **`design` 계열**이며 정확한 커밋은
+[product-evidence.lock.json](../../migration/product-evidence.lock.json)의 `productCommit` 이
+소유한다. **`origin/main` 이 아니다** — 폐지된 글래스 섀도우가 거기에만 남아 있어 그것으로
+재실측하면 죽은 값을 올리게 된다. 제품이 앞서 나가면 같은 락 파일을 보는
+`verify-product-evidence` 가 잡는다.
 
 ## 1 — 노드 비활성 핸들의 라이트 값
 

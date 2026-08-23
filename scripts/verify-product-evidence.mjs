@@ -3,6 +3,7 @@ import { existsSync, readFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { collectDocCitations, resolveCitation } from "./lib/doc-citations.mjs";
+import { PRODUCT_FILES } from "./lib/product-files.mjs";
 
 // migration/product.measured.json의 187축은 제품 파일을 인용한다. 그 파일이 제품에서 바뀌어도
 // 이 저장소는 알 방법이 없었다 — 모든 게이트가 초록인 채로 실측이 낡는다.
@@ -81,6 +82,7 @@ if (actual) {
 if (actual) {
   const cited = new Set();
   collectMeasuredCitations(measured.components, cited);
+  for (const file of Object.values(PRODUCT_FILES)) cited.add(file);
   const treeNames = new Set(actual.keys());
   const aliases = new Map(Object.entries(aliasFile.aliases ?? {}));
   for (const citation of collectDocCitations(repoRoot)) {

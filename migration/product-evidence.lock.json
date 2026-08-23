@@ -21,6 +21,7 @@
     "apps/web/app/tailwind.css": "4f3c7188833825db45ab0ff1f58978a1cb85cdd5",
     "apps/web/app/videoeditor/[projectId]/EditorProjectWorkspace.tsx": "cf43d7d5c20befe80e5c3c36168697782afe9bb5",
     "apps/web/components/auth/AuthStatusCard.tsx": "3f8cd3536cfc1d99408cce9754e1dfd75f065a8b",
+    "apps/web/components/banners/TabBannerCarousel.tsx": "5eeaa37df29ff5b50897fc7d689724005cfbfaf7",
     "apps/web/components/blog/BlogComments.tsx": "cf1938dc043ee52a01a257b213c4bf6045686a55",
     "apps/web/components/creative-media/CreativeMediaAdminClient.tsx": "e83e6d7f32632cf0799fbc2d0270687ff9870cfd",
     "apps/web/components/creative-media/CreativeMediaClient.tsx": "eec8f522e71d6af95596be8b37b1723cf3b228d6",
@@ -50,6 +51,7 @@
     "apps/web/components/scenes/create/PricingModal.tsx": "6b3dd5b3be0c39cf3ab12c97490586a5b6f553e2",
     "apps/web/components/scenes/create/PublishFlow.tsx": "11f7d0999dcba77920966220bf1674a4c094eefe",
     "apps/web/components/scenes/create/ShotCarousel.tsx": "22f88cc62d4d3c0893be95260f4c517a5925bf2c",
+    "apps/web/components/scenes/create/node-canvas-v2/components/CanvasEmptyState.tsx": "6135d960407d2e1890fa494b8212530962600069",
     "apps/web/components/scenes/create/node-canvas-v2/components/CanvasZoomControl.tsx": "a3424bce533515488f884582a2ec5de9c1384841",
     "apps/web/components/scenes/create/node-canvas-v2/components/ChromeTooltip.tsx": "890646b089918136e6f8806d727d20755914228d",
     "apps/web/components/scenes/create/node-canvas-v2/components/CreditConfirmModal.tsx": "0c317886322dae8a694a796eefd51ece5df88f6a",
@@ -84,6 +86,7 @@
     "apps/web/components/scenes/useMainChromeHeaderScrollProgress.ts": "243fb97866206d03a57b1a938c8b7de5f92e7b38",
     "apps/web/components/ui/Button.tsx": "d2a739221a9cb0e33b71fb1f1f8b4f410057e4d6",
     "apps/web/components/ui/InlineLoadingLabel.tsx": "7604563240f5db3c470fc2c1348d6735ad5e1ab8",
+    "apps/web/components/ui/LoadingSpinner.tsx": "bb8e23919c3853e251f2a39078e8ae50ae5bfc16",
     "apps/web/components/ui/brandLogoMetrics.ts": "6575920918923750563d2ad2e8d88f67e22618ce",
     "apps/web/lib/app-paths.ts": "0d9b97819cc1df7a722aa3ad254337396d52c8a0",
     "apps/web/middleware.ts": "0da1f36ccd906d4308b581dff9c14e35bf268810"

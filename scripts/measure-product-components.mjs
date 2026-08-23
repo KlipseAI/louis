@@ -7,6 +7,7 @@ import { fileURLToPath } from "node:url";
 import { chromium } from "playwright";
 import { atomicWriteBatch } from "./lib/atomic-output.mjs";
 import { resolveProductRef } from "./lib/product-ref.mjs";
+import { PRODUCT_FILES } from "./lib/product-files.mjs";
 import { productFontFace } from "./lib/product-font.mjs";
 import { materializeDsPackage } from "./lib/ds-package-shim.mjs";
 
@@ -30,20 +31,7 @@ const productRoot = process.env.KLIPSE_PRODUCT_REPO ?? "/Users/sejunki/klipse-we
 const { ref: productRef, source: productRefSource } = resolveProductRef();
 const checkOnly = process.argv.includes("--check");
 
-const FILES = {
-  gnb: "apps/web/components/navigation/Gnb.tsx",
-  appHome: "apps/web/components/scenes/appHomeSceneStyles.ts",
-  appHomeScene: "apps/web/components/scenes/AppHomeScene.tsx",
-  highlight: "apps/web/components/scenes/highlightSceneStyles.ts",
-  myPage: "apps/web/components/scenes/myPageSceneStyles.ts",
-  carousel: "apps/web/components/banners/TabBannerCarousel.tsx",
-  avatar: "apps/web/components/navigation/UserCircleDefaultAvatar.tsx",
-  spinner: "apps/web/components/ui/LoadingSpinner.tsx",
-  canvasEmpty: "apps/web/components/scenes/create/node-canvas-v2/components/CanvasEmptyState.tsx",
-  // 6337ad54 재기준선: VEM_CLASS가 VideoEditModal.tsx에서 분리됐다(66d48071 리팩토링).
-  vem: "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts",
-  crop: "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/ClipCropModal.tsx",
-};
+const FILES = PRODUCT_FILES;
 
 // 재는 대상. `from`은 제품 소스의 상수를 가리키고, `html`은 제품에 공용 상수가 없어
 // 클래스를 직접 적어야 하는 경우에만 쓴다(그 사유를 source에 적는다).

@@ -4,6 +4,7 @@ import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { atomicWriteBatch } from "./lib/atomic-output.mjs";
 import { collectDocCitations, resolveCitation } from "./lib/doc-citations.mjs";
+import { PRODUCT_FILES } from "./lib/product-files.mjs";
 
 // product.measured.json이 인용한 제품 파일의 blob 해시를 배포본에서 뽑아 고정한다.
 // 대조는 scripts/verify-product-evidence.mjs가 한다.
@@ -68,6 +69,12 @@ for (const citation of collectDocCitations(repoRoot)) {
   // 해결 못 하는 인용은 여기서 조용히 넘긴다 — 그것을 실패로 만드는 것은 verify-citations의 일이다.
   if (resolved.path) cited.add(resolved.path);
 }
+// **탐침이 읽는 파일도 고정한다.** 그전까지 lock은 `product.measured.json`과 문서가 인용한
+// 파일만 걷었다. 탐침은 `from` 그룹으로 제품 상수를 참조하므로 그 경로가 인용문에 나타나지
+// 않고, 그래서 캐러셀·스피너·캔버스 빈 상태 셋이 lock 밖에 있었다 — 17축을 매달아 두고
+// 제품이 그 파일을 바꿔도 아무도 알려 주지 않는 상태였다.
+for (const file of Object.values(PRODUCT_FILES)) cited.add(file);
+
 const evidence = {};
 for (const file of [...cited].sort()) {
   const line = git(["ls-tree", commit, "--", file]);

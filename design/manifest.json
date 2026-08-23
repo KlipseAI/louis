@@ -1297,7 +1297,7 @@
       "web": "not-ready",
       "docs": "done",
       "doc": "design/patterns/landing-shell.md",
-      "note": "로그인 전 마케팅 화면의 껍데기. **App Shell과 정반대 모델이다** — 레일이 자리를 예약하지 않고 헤더가 콘텐츠 위에 뜬다. 가독성은 헤더가 아니라 **120px 고정 blur plate**가 만든다. 톤 반전은 다섯 부품이 한 덩어리로 뒤집히고 판정은 뷰포트 상단 3~4% 띠만 본다. 값은 전부 제품 인용이며 DS 계약이 아니다 — 음수 오버레이 관용구 · blur 축 · 톤 반전을 mode로 볼지 세 blocker가 열려 있다"
+      "note": "로그인 전 마케팅 화면의 껍데기. **App Shell과 정반대 모델이다** — 레일이 자리를 예약하지 않고 헤더가 콘텐츠 위에 뜬다. 가독성은 헤더가 아니라 **120px 고정 blur plate**가 만든다. 톤 반전은 다섯 부품이 한 덩어리로 뒤집히고 판정은 뷰포트 상단 3~4% 띠만 본다. 값은 전부 제품 인용이며 DS 계약이 아니다 — 음수 오버레이 관용구 · blur 축 · 톤 반전을 mode로 볼지 세 blocker가 열려 있다. StaticHighlightDemo의 고정 빌드 실측 입력은 준비됐지만 Figma 조립·되읽기 대조가 끝나지 않아 `figma: not-ready`를 유지한다"
     },
     {
       "id": "auth-two-panel",
@@ -1402,6 +1402,26 @@
     {
       "path": "migration/klipse-web-adoption.md",
       "purpose": "klipse-web이 이 디자인 시스템을 따라가게 만드는 단계와 각 단계의 측정된 영향 범위. 1px 테두리 147곳, 글래스 토큰 80파일 등 실측 숫자가 판단의 입력이다",
+      "authority": "reference"
+    },
+    {
+      "path": "migration/product-screens/10.2.md",
+      "purpose": "랜딩·마케팅 화면의 제품 인용 기반 비규범 사양. StaticHighlightDemo의 고정 빌드 측정 계약과 Figma 조립 미완료 상태를 함께 기록한다",
+      "authority": "reference"
+    },
+    {
+      "path": "figma/product-specimens.json",
+      "purpose": "제품 표본의 구조 전용 카탈로그. liveOnly 장면에도 간격·크기·색·반경을 저작하지 않고 측정기 소유권만 선언한다",
+      "authority": "reference"
+    },
+    {
+      "path": "migration/product.scenes.json",
+      "purpose": "고정 제품 빌드에서 생성한 합성 장면 측정 기록. Figma 수치·색·자산 입력이며 Figma 구현 완료의 증거는 아니다",
+      "authority": "reference"
+    },
+    {
+      "path": "scripts/measure-product-scenes.mjs",
+      "purpose": "제품 장면 측정 생성기이자 check 게이트. 고정 clean build의 실제 렌더와 기록이 다르거나 전제조건이 없으면 실패한다",
       "authority": "reference"
     },
     {

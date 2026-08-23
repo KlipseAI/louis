@@ -18,6 +18,7 @@ import { atomicWriteBatch } from "./lib/atomic-output.mjs";
 import { resolveProductRef } from "./lib/product-ref.mjs";
 import { productFontFace } from "./lib/product-font.mjs";
 import { materializeDsPackage } from "./lib/ds-package-shim.mjs";
+import { assertLiveProductSceneCoverage } from "./lib/product-scene-contract.mjs";
 
 const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const outputPath = resolve(repoRoot, "migration/product.variants.json");
@@ -27,6 +28,11 @@ const productRoot = process.env.KLIPSE_PRODUCT_REPO ?? "/Users/sejunki/klipse-we
 // 어제와 다른 값을 낸다. scripts/lib/product-ref.mjs에 사유가 있다.
 const { ref: productRef, source: productRefSource } = resolveProductRef();
 const checkOnly = process.argv.includes("--check");
+const specimenFile = JSON.parse(readFileSync(specimenPath, "utf8"));
+
+// 제품 저장소가 없는 CI에서도 구조 카탈로그의 liveOnly 표본이 측정기에서 빠지는 것은 잡는다.
+// 제품 렌더 자체는 verify:product의 measure-product-scenes.mjs가 담당한다.
+assertLiveProductSceneCoverage(specimenFile.specimens);
 
 
 // 컴포넌트마다 **이름 패턴**으로 후보를 찾는다. 패턴을 함께 적는 이유는 놓친 것이 있으면
@@ -215,7 +221,6 @@ for (const [alias, source] of Object.entries(sources)) {
 //
 // 그래서 표본 파일에는 **구조만** 적는다 — 어떤 상수가 어떤 상수를 감싸는가. 여백·크기·색은
 // 한 줄도 없다. 여기서 그 트리를 그대로 렌더하고 **모든 노드를 잰다.**
-const specimenFile = JSON.parse(readFileSync(specimenPath, "utf8"));
 const constantsByFile = {};
 const classesOf = (file, part) => {
   if (!constantsByFile[file]) {
@@ -302,7 +307,11 @@ const buildSpecimen = (specimen, node, path) => {
   specimenNodes.push(record);
   return record;
 };
-const specimenTrees = specimenFile.specimens.map((specimen) => ({
+// `liveOnly` 표본은 완성된 제품 페이지의 React/Next 런타임에서만 성립한다. 정적 클래스
+// 하네스에 억지로 옮기면 Image의 intrinsic ratio, 중첩 컴포넌트, viewport 계산을 잃는다.
+// 이 파일은 정적 표본만 재고, liveOnly 표본은 measure-product-scenes.mjs가 고정 커밋의
+// 프로덕션 빌드에서 직접 잰다. 둘은 같은 구조 카탈로그를 읽되 측정 방법만 다르다.
+const specimenTrees = specimenFile.specimens.filter((specimen) => !specimen.liveOnly).map((specimen) => ({
   ...specimen,
   tree: buildSpecimen(specimen, specimen.node, specimen.node.part),
 }));

@@ -24,3 +24,7 @@ __screenshots__/
 
 # Claude Code 로컬 설정 — 머신별 허용목록이라 공유하지 않는다
 .claude/settings.local.json
+
+# pnpm store
+.pnpm-store/
+

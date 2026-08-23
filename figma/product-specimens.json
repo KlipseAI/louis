@@ -3577,6 +3577,213 @@
           "part": "ANALYTICS_SCROLL_STACK"
         }
       ]
+    },
+    {
+      "id": "scene/staticHighlightDemo",
+      "kind": "scene",
+      "label": "랜딩 하이라이트 빈 상태 — 데모 패드·창 셸·StaticHighlightDemo 전체 합성",
+      "jsx": "apps/web/components/landing/demo-snapshots/EmptyProjectDemoPad.tsx:107-136; apps/web/components/landing/demo-snapshots/StaticHighlightDemo.tsx:27-99",
+      "file": "apps/web/components/landing/demo-snapshots/EmptyProjectDemoPad.tsx",
+      "liveOnly": true,
+      "node": {
+        "part": "PAD",
+        "tag": "div",
+        "children": [
+          {
+            "part": "SR_ONLY",
+            "tag": "p",
+            "text": "Klipse 하이라이트 화면 데모 — 아직 프로젝트가 없는 첫 화면을 보여줍니다."
+          },
+          {
+            "part": "WINDOW",
+            "tag": "div",
+            "children": [
+              {
+                "part": "TITLEBAR",
+                "tag": "div",
+                "children": [
+                  {
+                    "part": "DOTS",
+                    "tag": "span",
+                    "children": [
+                      {
+                        "part": "TITLEBAR_DOT_1",
+                        "tag": "span"
+                      },
+                      {
+                        "part": "TITLEBAR_DOT_2",
+                        "tag": "span"
+                      },
+                      {
+                        "part": "TITLEBAR_DOT_3",
+                        "tag": "span"
+                      }
+                    ]
+                  },
+                  {
+                    "part": "WINDOW_TITLE",
+                    "tag": "span",
+                    "typography": "type-caption-12-medium",
+                    "text": "Klipse — 하이라이트"
+                  }
+                ]
+              },
+              {
+                "part": "WINDOW_BODY",
+                "tag": "div",
+                "children": [
+                  {
+                    "part": "SCENE_HOST",
+                    "tag": "div",
+                    "children": [
+                      {
+                        "part": "SCENE_FIT",
+                        "tag": "div",
+                        "children": [
+                          {
+                            "file": "apps/web/components/landing/demo-snapshots/StaticHighlightDemo.tsx",
+                            "part": "STAGE",
+                            "tag": "div",
+                            "children": [
+                              {
+                                "file": "apps/web/components/scenes/highlightSceneStyles.ts",
+                                "part": "emptyHero",
+                                "tag": "div",
+                                "children": [
+                                  {
+                                    "part": "emptyHeroWordmark",
+                                    "tag": "img"
+                                  },
+                                  {
+                                    "part": "emptyHeroTagline",
+                                    "tag": "p",
+                                    "typography": "type-body-14-regular",
+                                    "text": "롱폼 영상에서 핵심 장면만 골라 짧은 클립을 자동으로 생성하고,\n원하는 클립 수까지 한 번에 골라 만들어 드립니다."
+                                  }
+                                ]
+                              },
+                              {
+                                "file": "apps/web/components/scenes/highlightSceneStyles.ts",
+                                "part": "uploadCard",
+                                "parts": [
+                                  "uploadCard",
+                                  "uploadCardEmpty"
+                                ],
+                                "tag": "section",
+                                "children": [
+                                  {
+                                    "part": "uploadDropZone",
+                                    "tag": "span",
+                                    "children": [
+                                      {
+                                        "part": "uploadGlyphMask",
+                                        "tag": "span"
+                                      },
+                                      {
+                                        "part": "uploadPrompt",
+                                        "tag": "span",
+                                        "typography": "type-body-16-regular",
+                                        "text": "롱폼 영상을 업로드해 주세요."
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "part": "uploadCardActions",
+                                    "tag": "div",
+                                    "children": [
+                                      {
+                                        "part": "themeRow",
+                                        "tag": "div",
+                                        "children": [
+                                          {
+                                            "part": "themeDropdownTrigger",
+                                            "tag": "span",
+                                            "typography": "type-caption-12-regular",
+                                            "children": [
+                                              {
+                                                "part": "themeDropdownLabel",
+                                                "tag": "span",
+                                                "text": "주제"
+                                              },
+                                              {
+                                                "part": "themeDropdownChevron",
+                                                "tag": "svg",
+                                                "children": [
+                                                  {
+                                                    "part": "themeDropdownChevronPath",
+                                                    "tag": "path"
+                                                  }
+                                                ]
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "part": "generateCol",
+                                        "tag": "div",
+                                        "children": [
+                                          {
+                                            "file": "apps/web/components/scenes/create/node-canvas-v2/components/NodePromptGenerateButton.tsx",
+                                            "part": "ROOT",
+                                            "tag": "button",
+                                            "consumerClasses": [
+                                              {
+                                                "file": "apps/web/components/scenes/highlightSceneStyles.ts",
+                                                "part": "generateBtnHost"
+                                              }
+                                            ],
+                                            "children": [
+                                              {
+                                                "part": "OVERLAY_STROKE",
+                                                "tag": "span"
+                                              },
+                                              {
+                                                "part": "CONTENT",
+                                                "tag": "span",
+                                                "children": [
+                                                  {
+                                                    "part": "ICON",
+                                                    "tag": "svg",
+                                                    "children": [
+                                                      {
+                                                        "part": "ICON_PATH",
+                                                        "tag": "path"
+                                                      }
+                                                    ]
+                                                  }
+                                                ]
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "host": [
+        {
+          "file": "apps/web/app/HomePageClient.tsx",
+          "part": "MEDIA_INTRO_SECTION"
+        },
+        {
+          "file": "apps/web/app/HomePageClient.tsx",
+          "part": "CONTAINER_WIDE"
+        }
+      ]
     }
   ],
   "$correctionLog": "첫 판에서 넷을 상상했다 — ① 모달 카드에 typography 클래스가 있다고 적었다(없다) ② 마이페이지 토스트에 toastText 자식이 있다고 적었다(없다. 토스트 자신이 글자를 갖는다) ③ 토스트 글자를 body-14-medium이라고 적었다(body-16-regular다) ④ 마이페이지 모달의 버튼 글자를 body-16이라고 적었다(그 소비처는 body-14다). 스크립트가 없는 상수를 만나면 죽는다 — ②가 그렇게 잡혔다. 나머지 셋은 JSX를 읽어 고쳤다. 2026-08-21 재기준선(6337ad54 → ada1b939)에서 하나를 더 뺐다 — 배포본이 `Button.tsx`의 `PRIMARY_HOOK`을 지웠다. hl-* 라우트의 CSS 모듈 훅이라 스타일을 정의한 적이 없고, 그 라우트가 삭제 예정이라 함께 사라졌다. 표본 둘의 parts에서 뺐고 값 변화는 없다.",

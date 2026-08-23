@@ -16,6 +16,41 @@ authority: normative
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
 
+## 2026-08-23 (99) — StaticHighlightDemo를 추정값이 아니라 고정 빌드에서 잰다
+
+랜딩의 합성 장면은 클래스 문자열 하나만 정적 하네스에 올리면 재현되지 않는다. 이미지 intrinsic
+ratio, 뷰포트 높이, 중첩 컴포넌트, 축소 캔버스가 함께 최종 지오메트리를 만든다. 그동안 §10.2는
+소스 선언을 읽어 치수를 적으면서 같은 파일 끝에는 「그 px 값은 확인하지 않았다」는 주석도 남겨
+두었다. 문서가 자신을 반박하고 있었다.
+
+### 고정 빌드 렌더를 계약으로 만든다
+
+- `figma/product-specimens.json`의 `liveOnly` 표본은 태그·부모자식·표본 텍스트만 선언한다.
+- `scripts/measure-product-scenes.mjs`는 고정 커밋의 clean standalone build를 직접 띄운다. checkout
+  HEAD, 두 빌드 영수증, BUILD_ID, 장면 구성 sourcemap이 모두 같은 커밋인지 먼저 확인한다.
+- `migration/product.scenes.json`은 1920×1080·402×874 두 문맥, 선언 노드 32개, 계산 스타일 85축,
+  자산 해시와 라이브 SVG geometry를 기록한다. 생성물이므로 손으로 고치지 않는다.
+- `verify-product-scenes`는 `verify:product`에 배선됐다. 제품/빌드가 없거나 dirty·커밋 불일치·생성물
+  drift면 exit 1이며, `SKIPPED`+exit 0은 허용하지 않는다.
+
+게이트에는 세 회귀가 함께 들어갔다. 새 측정 단계를 `verify:product`에서 빼는 변조, 측정기가
+소유하지 않는 `liveOnly` 표본을 추가하는 변조, 제품/빌드가 없는 직접 호출을 각각 실패시킨다.
+별도 테스트 파일을 더 만들지 않은 이유는 이 세 canary가 실제 배선·소유권·실패 의미를 직접
+검증하기 때문이다.
+
+### 상태는 올리지 않는다
+
+측정 입력이 생긴 것과 Figma 구현이 끝난 것은 다르다. StaticHighlightDemo 컴포넌트 조립과 되읽기
+대조는 진행 중이므로 manifest의 Landing Shell은 `figma: not-ready`를 유지한다. 수치 근거와 제품
+선언의 exact command·verbatim line·line number는 [§10.2](../../migration/product-screens/10.2.md)에
+기록했다.
+
+### Migration
+
+패키지 소비자 변경은 없다. 측정 기록을 갱신할 때는 고정 커밋의 clean production build를 준비하고
+`KLIPSE_PRODUCT_BUILD_ROOT=<path> pnpm run measure-product-scenes`를 실행한다. Figma 조립자는 생성물에
+없는 수치·색·자산을 보충해 그리지 않는다.
+
 ## 2026-08-22 (98) — 측정 기준선이 **원격에 없는 커밋**이었다. 한 맥에만 있던 것 둘을 옮긴다
 
 계정 이전을 앞두고 「저장소를 따라오지 않는 것」을 다시 셌다. (97)이 넷을 셌는데 **둘이

@@ -15,7 +15,7 @@
 // 초록이던 CI 는 게이트 20개가 아니라 **13개**를 돌고 있었다.
 //
 // 조용한 exit 0 은 게이트가 죽는 가장 나쁜 방식이다. 빨간 것보다 나쁘다 — 아무도 안 본다.
-import { execSync } from "node:child_process";
+import { execSync, spawnSync } from "node:child_process";
 import { readFileSync } from "node:fs";
 import { resolve, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -72,6 +72,36 @@ function leaves(name, seen = new Set()) {
 
 const ciSteps = leaves("verify:ci");
 const productSteps = leaves("verify:product");
+
+// 제품 장면 게이트는 로컬 전용이지만, 직접 호출됐을 때 전제조건이 없으면 반드시 빨개야 한다.
+// `SKIPPED`+exit 0으로 돌아가면 verify:product가 실제 측정을 하지 않고도 초록이 된다.
+const unavailableScene = spawnSync(
+  process.execPath,
+  ["scripts/measure-product-" + "scenes.mjs", "--check"],
+  {
+    cwd: repoRoot,
+    env: {
+      ...process.env,
+      KLIPSE_PRODUCT_REPO: "/nonexistent-product-scenes-repo",
+      KLIPSE_PRODUCT_BUILD_ROOT: "/nonexistent-product-scenes-build",
+    },
+    encoding: "utf8",
+  },
+);
+const unavailableSceneOutput =
+  String(unavailableScene.stdout ?? "") + String(unavailableScene.stderr ?? "");
+if (unavailableScene.status === 0) {
+  errors.push("verify-product-scenes가 제품/빌드 없이 exit 0 했습니다. 로컬 게이트는 조용히 꺼질 수 없습니다.");
+}
+if (/SKIP/i.test(unavailableSceneOutput)) {
+  errors.push("verify-product-scenes가 제품/빌드 없이 SKIP을 출력했습니다. 검증 불가는 실패여야 합니다.");
+}
+if (!unavailableSceneOutput.includes("제품 저장소가 없습니다")) {
+  errors.push(
+    "verify-product-scenes의 전제조건 실패 진단을 확인하지 못했습니다: " +
+      unavailableSceneOutput.trim().slice(0, 240),
+  );
+}
 
 // ── 3. 두 갈래는 겹치지 않는다 ────────────────────────────────────────────
 // `verify-gates:ci`(--no-product) 와 `verify-gates`(전량) 는 **다른 단계로 센다.** 로컬
@@ -216,6 +246,8 @@ const KNOWN_PRODUCT_STEPS = [
   "verify-specimen-context",
   "check-figma-inventory",
   "verify-tailwind-interop",
+  // 완성된 제품 페이지에서만 성립하는 liveOnly 합성 장면 측정기.
+  "verify-product-scenes",
 ];
 // verify-gates 가 --no-product 로 건너뛰겠다고 선언한 카나리아는, 제품이 있는 곳에서
 // 반드시 다시 돌아야 한다. 선언만 하고 verify:product 에 전체 verify-gates 가 없으면

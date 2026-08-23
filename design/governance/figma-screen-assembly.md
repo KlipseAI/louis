@@ -388,6 +388,25 @@ rowTop(r+1)  = rowTop(r) + ceil100( 그 행 프레임 높이의 최댓값 ) + 60
 것」이고, 이 컴포넌트로 값을 재면 **존재하지 않는 제품 사실을 재는 것**이다. 소스를 찾는 즉시
 `file:line` 을 설명에 적고 `.glyph/` 로 옮긴다. 이 묶음이 비는 것이 목표다.
 
+## 24. 합성 제품 장면은 고정 빌드에서 직접 잰다
+
+완성된 제품 장면은 클래스 문자열 하나의 합이 아니다. 이미지의 intrinsic ratio, 뷰포트에 따른
+컨테이너 높이, 중첩 컴포넌트, 축소 캔버스가 함께 최종 지오메트리를 만든다. 이 중 하나라도 있는
+장면을 정적 클래스 하네스에서 재구성해 잰 값은 Figma 입력으로 쓸 수 없다.
+
+- 구조 카탈로그에는 태그·부모자식·표본 텍스트만 둔다. 간격·크기·색·반경은 넣지 않는다.
+- 수치와 색은 고정 커밋의 clean production build를 실제 목표 뷰포트에서 렌더한 생성물만 쓴다.
+- 생성물은 제품 커밋, 빌드 영수증, 측정 뷰포트, 모든 선언 노드의 rect·계산 스타일, 자산 해시와
+  인라인 SVG geometry를 함께 기록한다. 사람이 고치지 않는다.
+- 제품 저장소나 빌드가 없거나, checkout이 dirty이거나, 빌드 커밋·영수증·sourcemap이 고정
+  커밋과 다르면 **검증 불가가 아니라 실패**다. `SKIPPED`와 exit 0은 허용하지 않는다.
+- 측정 생성물이 초록이어도 Figma 구현 완료를 뜻하지 않는다. 대상 컴포넌트 조립과 되읽기 대조가
+  모두 끝나기 전까지 manifest의 Figma 상태를 올리지 않는다.
+
+현재 구조 원천은 [`figma/product-specimens.json`](../../figma/product-specimens.json), 측정 생성물은
+[`migration/product.scenes.json`](../../migration/product.scenes.json), 생성·검사는
+[`scripts/measure-product-scenes.mjs`](../../scripts/measure-product-scenes.mjs)가 소유한다.
+
 ## Acceptance tests
 
 - 1·2·5번은 게이트가 없다. 조립 스크립트가 규칙을 지켰는지는 **작업 직후 11번 표를 세는 것**이
@@ -416,6 +435,9 @@ rowTop(r+1)  = rowTop(r) + ceil100( 그 행 프레임 높이의 최댓값 ) + 60
   (b)는 0 을 향해 줄어들어야 하는 부채 지표다 — 늘어나면 출처 없이 그린 것이 늘었다는 뜻이다.
 - 23번은 프레임 이름을 `<viewport> <W>×<H> — <route> (<상태>)` 로 파싱해 (a) 파싱 실패 0,
   (b) 이름의 W×H 와 실제 크기 불일치 0, (c) 상태 판정 빈칸 0 을 센다.
+- 24번은 `pnpm run verify-product-scenes`가 고정 빌드와 생성물을 byte-for-byte 대조한다. 전제조건
+  누락·dirty build·커밋/영수증/sourcemap 불일치·미소유 `liveOnly` 표본·생성물 drift 중 하나라도
+  있으면 exit 1이어야 한다. 이 게이트는 제품 측정만 판정하며 Figma 되읽기 완료를 대신하지 않는다.
 - 20번의 조인 키는 (a) 섹션 키 중복 0, (b) 검산식 성립, (c) `⚠` 표기가 붙은 섹션이 전부
   `00.4` 대조표에 근거를 갖는지로 확인한다. 키 없는 섹션이 하나라도 있으면 보드가 제3의 분류를
   만들기 시작한 것이다.

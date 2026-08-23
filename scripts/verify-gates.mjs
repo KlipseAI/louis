@@ -374,6 +374,37 @@ withCanary(
   "제품 저장소를 압니다",
 );
 
+// verify-product-scenes를 이름만 선언하고 verify:product에서 빼면 실제 측정은 영원히 안 돈다.
+// 제품 게이트의 소유 목록이 그 배선 누락을 잡는지 고정한다.
+withCanary(
+  "package.json",
+  (source) => source.replace(" && pnpm run verify-product-scenes", ""),
+  "product scene measurement remains wired",
+  "scripts/verify-gate-split.mjs",
+  "verify-product-scenes",
+);
+
+// variants는 liveOnly를 정적 하네스에서 제외한다. 새 liveOnly가 장면 측정기의 소유 목록에
+// 등록되지 않은 채 추가되면 두 측정기 모두에서 사라지므로, 카탈로그 단계에서 실패해야 한다.
+withCanary(
+  "figma/product-specimens.json",
+  (source) => {
+    const catalog = JSON.parse(source);
+    const template = catalog.specimens.find((specimen) => specimen.id === "scene/staticHighlightDemo");
+    if (!template) return source;
+    catalog.specimens.push({
+      ...template,
+      id: "scene/unownedLiveOnlyCanary",
+      label: "unowned liveOnly canary",
+    });
+    return JSON.stringify(catalog, null, 2) + "\n";
+  },
+  "every liveOnly specimen has a scene measurer",
+  "scripts/measure-product-" + "variants.mjs",
+  "liveOnly 커버리지가 다릅니다",
+  "--check",
+);
+
 // **배분 게이트 자신도 실패할 수 있어야 한다.** verify-gate-split 이 지키는 것 중 가장
 // 되돌아가기 쉬운 것은 4번 — 워크플로가 다시 `pnpm verify` 를 부르는 것이다. 2026-08-19의
 // 사고가 정확히 그 상태였다. 워크플로를 그 상태로 되돌려 놓고 게이트가 잡는지 본다.

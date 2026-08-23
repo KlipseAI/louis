@@ -3,7 +3,7 @@
   "$whyThisExists": "migration/product.measured.json의 축들은 제품 파일을 인용한다. 그 파일이 제품에서 바뀌어도 이 저장소는 알 방법이 없었다 — 모든 게이트가 초록인 채로 실측이 낡는다. 여기에 인용 파일의 blob 해시를 고정해, 제품 저장소가 있을 때 어긋남을 실패로 만든다.",
   "productRemote": "git@github.com:KlipseAI/klipse-web.git",
   "productRef": "origin/design",
-  "productCommit": "a89fc0d518a150d8941d72c97b6881df952810ff",
+  "productCommit": "a3ed8e031214f67ac319c5ceaa7ad2808cf0d3a4",
   "evidence": {
     "apps/web/app/admin/AdminClient.tsx": "d4521f1fdbe37e5a31e3833bd703408b2346920d",
     "apps/web/app/admin/BlogManagement.tsx": "09cae503f4dff72b61affa4d4d5be789cf8d0909",
@@ -79,7 +79,7 @@
     "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/ClipCropModal.tsx": "f03efd2d57db3c6b761fbf075a39d2080243ef9b",
     "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/inspectorPrimitives.tsx": "b5aabc6fc80315ab74df553982406f4581e3637a",
     "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts": "6601c577a9a62efbe053bcac8023657bf2569531",
-    "apps/web/components/scenes/highlightSceneStyles.ts": "e2c7934c1b053718635618f5c63f98a45c9e04df",
+    "apps/web/components/scenes/highlightSceneStyles.ts": "cfb593200253148498dd573dabfc734bfa856f39",
     "apps/web/components/scenes/myPageSceneStyles.ts": "34d25052df300aac91540e01e12cb98de3bf3d75",
     "apps/web/components/scenes/useMainChromeHeaderScrollProgress.ts": "243fb97866206d03a57b1a938c8b7de5f92e7b38",
     "apps/web/components/ui/Button.tsx": "d2a739221a9cb0e33b71fb1f1f8b4f410057e4d6",

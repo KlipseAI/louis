@@ -82,6 +82,50 @@ const CONTEXTS = [
   { id: "desktop-1920x1080", width: 1920, height: 1080 },
   { id: "mobile-402x874", width: 402, height: 874 },
 ];
+const PAGE_ROUTES = ["/", "/pricing", "/privacy", "/terms"];
+const GENERIC_PAGE_ROUTES = [
+  "/docs", "/docs/highlight", "/docs/nodecanvas", "/docs/videoeditor",
+  "/blog", "/templates", "/templates/filter", "/inquiry", "/data-deletion-status",
+  "/login", "/signup", "/signup/check-email", "/signup/expired", "/signup/verified",
+  "/recover", "/reset-password", "/reset-password/new", "/aws/signup",
+];
+const MEASURED_ROUTES = [...PAGE_ROUTES, ...GENERIC_PAGE_ROUTES];
+const pageInventoryCommand =
+  "git ls-tree -r --name-only " + commit + " -- apps/web/app";
+const productPageFiles = gitAt(productRoot, [
+  "ls-tree", "-r", "--name-only", commit, "--", "apps/web/app",
+])
+  .split("\n")
+  .filter((path) => path.endsWith("/page.tsx"));
+const routePatternFromPageFile = (path) => {
+  const segments = path
+    .replace(/^apps\/web\/app\/?/, "")
+    .replace(/(?:^|\/)page\.tsx$/, "")
+    .split("/")
+    .filter((segment) => segment && !(segment.startsWith("(") && segment.endsWith(")")));
+  return "/" + segments.join("/");
+};
+const routePatternRegExp = (pattern) => new RegExp(
+  "^" + pattern
+    .replace(/[.*+?^${}()|[\]\\]/g, "\\$&")
+    .replace(/\\\[\\\.\\\.\\\.[^\\\]]+\\\]/g, ".+")
+    .replace(/\\\[[^\\\]]+\\\]/g, "[^/]+") + "$",
+);
+const routeInventory = productPageFiles.map((path) => {
+  const routePattern = routePatternFromPageFile(path);
+  const concreteMeasurements = MEASURED_ROUTES.filter((route) =>
+    routePatternRegExp(routePattern).test(route));
+  return {
+    path,
+    routePattern,
+    dynamic: routePattern.includes("["),
+    concreteMeasurements,
+    measuredContexts: concreteMeasurements.length > 0 ? CONTEXTS.map((context) => context.id) : [],
+  };
+});
+const GUEST_OUTCOME_ROUTES = routeInventory
+  .filter((page) => !page.dynamic && page.concreteMeasurements.length === 0)
+  .map((page) => page.routePattern);
 const STYLE_AXES = [
   "display", "position", "top", "right", "bottom", "left", "zIndex",
   "boxSizing", "width", "height", "minWidth", "minHeight", "maxWidth", "maxHeight",
@@ -104,6 +148,12 @@ const STYLE_AXES = [
   "fontFamily", "fontSize", "fontWeight", "lineHeight", "letterSpacing", "textAlign",
   "whiteSpace",
 ];
+const PRICING_STYLE_AXES = [...new Set([
+  ...STYLE_AXES,
+  "flexWrap", "gridTemplateColumns", "gridTemplateRows", "gridAutoFlow",
+  "outlineWidth", "outlineStyle", "outlineColor", "outlineOffset",
+  "strokeDasharray", "strokeDashoffset", "textDecorationLine", "textTransform",
+])];
 const source = (path) => gitAt(productRoot, ["show", commit + ":" + path]);
 const sourceLine = (path, line) => source(path).split("\n")[line - 1] ?? "";
 const hashProductAsset = (path) => {
@@ -286,6 +336,8 @@ const startPinnedProductServer = async () => {
 const pinnedServer = await startPinnedProductServer();
 let browser = null;
 const rendered = {};
+const pageScreens = {};
+const guestOutcomes = {};
 try {
   browser = await chromium.launch({ headless: true });
   for (const contextSpec of CONTEXTS) {
@@ -301,20 +353,50 @@ try {
       if (new URL(page.url()).origin !== pinnedServer.url) {
         throw new Error("[product-scenes] 고정 standalone 서버 밖으로 리다이렉트됐습니다: " + page.url());
       }
+      await page.waitForFunction(() =>
+        document.documentElement.dataset.theme === "dark" &&
+        document.documentElement.lang.toLowerCase().startsWith("ko"),
+      );
+      await page.evaluate(() => new Promise((resolveFrame) =>
+        requestAnimationFrame(() => requestAnimationFrame(resolveFrame)),
+      ));
       await page.waitForSelector('#highlight section[aria-label="하이라이트"]');
+      await page.evaluate(() => {
+        let node = document.querySelector('#highlight section[aria-label="하이라이트"]');
+        for (let depth = 0; depth < 6; depth += 1) node = node?.parentElement ?? null;
+        node?.scrollIntoView({ block: "center" });
+      });
+      await delay(100);
+      await page.waitForFunction(() => {
+        const card = document.querySelector('#highlight section[aria-label="하이라이트"]');
+        let shell = card;
+        for (let depth = 0; depth < 6; depth += 1) shell = shell?.parentElement ?? null;
+        return card?.children.length >= 2 && document.querySelector("#highlight")?.contains(shell);
+      }, undefined, { timeout: 15_000 });
       await page.evaluate(async () => {
         await document.fonts.ready;
         const images = [...document.querySelectorAll("#highlight img")];
         await Promise.all(images.map(async (image) => {
           if (!image.complete) {
             await new Promise((resolveImage) => {
-              image.addEventListener("load", resolveImage, { once: true });
-              image.addEventListener("error", resolveImage, { once: true });
+              const timeout = window.setTimeout(resolveImage, 5_000);
+              const done = () => {
+                window.clearTimeout(timeout);
+                resolveImage();
+              };
+              image.addEventListener("load", done, { once: true });
+              image.addEventListener("error", done, { once: true });
             });
           }
-          if (typeof image.decode === "function") await image.decode().catch(() => {});
+          if (typeof image.decode === "function") {
+            await Promise.race([
+              image.decode().catch(() => {}),
+              new Promise((resolveDecode) => window.setTimeout(resolveDecode, 5_000)),
+            ]);
+          }
         }));
       });
+      await page.waitForSelector('#highlight section[aria-label="하이라이트"]');
       const result = await page.evaluate(
         ({ declared, axes }) => {
         for (const animation of document.getAnimations()) {
@@ -439,17 +521,19 @@ try {
             if (typeof value === "string") value = value.replaceAll(location.origin, "");
             values[axis] = value;
           }
+          for (const side of ["Top", "Right", "Bottom", "Left"]) {
+            if (values["border" + side + "Width"] === "0px" || values["border" + side + "Style"] === "none") {
+              values["border" + side + "Color"] = "rgba(0, 0, 0, 0)";
+            }
+          }
+          if (element instanceof HTMLImageElement) {
+            values.color = "rgba(0, 0, 0, 0)";
+          }
           const inScene = element === stage || stage.contains(element);
           nodes[part] = {
             tag: element.tagName.toLowerCase(),
             parentPart: declarationByPart[part].parent,
             text: normalizedText(element),
-            viewportRect: {
-              x: Math.round(rect.x * 10000) / 10000,
-              y: Math.round(rect.y * 10000) / 10000,
-              width: Math.round(rect.width * 10000) / 10000,
-              height: Math.round(rect.height * 10000) / 10000,
-            },
             parentRect: parentRect
               ? {
                   x: Math.round((rect.x - parentRect.x) * 10000) / 10000,
@@ -490,7 +574,6 @@ try {
         }
         return {
           viewport: { width: innerWidth, height: innerHeight },
-          pageHeight: document.documentElement.scrollHeight,
           locale: document.documentElement.lang,
           theme: document.documentElement.dataset.theme,
           sceneScale: Math.round(sceneScale * 10000) / 10000,
@@ -521,6 +604,706 @@ try {
       // 결정적이며, 두 context 사이에는 상태 공유도 없다.
     }
   }
+
+  for (const contextSpec of CONTEXTS) {
+    const context = await browser.newContext({
+      viewport: { width: contextSpec.width, height: contextSpec.height },
+      colorScheme: "light",
+      locale: "en-US",
+      extraHTTPHeaders: { "Accept-Language": "en-US,en;q=0.9" },
+    });
+    const page = await context.newPage();
+    pageScreens[contextSpec.id] = {};
+    guestOutcomes[contextSpec.id] = {};
+
+    const openPinnedRoute = async (route) => {
+      await page.goto(pinnedServer.url + route, { waitUntil: "domcontentloaded" });
+      if (new URL(page.url()).origin !== pinnedServer.url) {
+        throw new Error(
+          "[product-scenes] 고정 standalone 서버 밖으로 리다이렉트됐습니다: " + page.url(),
+        );
+      }
+      await page.waitForFunction(() =>
+        document.documentElement.dataset.theme === "light" &&
+        document.documentElement.lang.toLowerCase().startsWith("en"),
+      );
+      await page.evaluate(() => new Promise((resolveFrame) =>
+        requestAnimationFrame(() => requestAnimationFrame(resolveFrame)),
+      ));
+      await page.evaluate(async () => {
+        await document.fonts.ready;
+      });
+    };
+
+    const measureLanding = async () => {
+      await openPinnedRoute("/");
+      await page.waitForSelector("#capabilities article");
+      if (contextSpec.width >= 720) {
+        await page.evaluate(() => {
+          const article = document.querySelector("#capabilities article");
+          if (!article) throw new Error("NodeCanvas article이 없습니다.");
+          const rect = article.getBoundingClientRect();
+          window.scrollTo(0, rect.top + window.scrollY - 92);
+        });
+        await page.waitForFunction(() => {
+          const article = document.querySelector("#capabilities article");
+          return article && article.querySelectorAll("*").length > 100 &&
+            article.getBoundingClientRect().height > 700;
+        }, undefined, { timeout: 15_000 });
+      }
+
+      let stableHeight = null;
+      let stableCount = 0;
+      for (let attempt = 0; attempt < 24 && stableCount < 3; attempt += 1) {
+        const nextHeight = await page.evaluate(() => document.documentElement.scrollHeight);
+        if (nextHeight === stableHeight) stableCount += 1;
+        else {
+          stableHeight = nextHeight;
+          stableCount = 0;
+        }
+        await delay(100);
+      }
+      if (stableCount < 3) {
+        throw new Error("[product-scenes] 랜딩 페이지 높이가 안정화되지 않았습니다.");
+      }
+
+      return page.evaluate(() => {
+        const round = (value) => Math.round(value * 10000) / 10000;
+        const rect = (element, relativeTo = null) => {
+          if (!(element instanceof Element)) throw new Error("측정할 랜딩 노드가 없습니다.");
+          const bounds = element.getBoundingClientRect();
+          const base = relativeTo?.getBoundingClientRect();
+          return {
+            x: round(bounds.x - (base?.x ?? 0)),
+            y: round(bounds.y - (base?.y ?? 0) + (base ? 0 : window.scrollY)),
+            width: round(bounds.width),
+            height: round(bounds.height),
+          };
+        };
+        const main = document.querySelector("main[data-page-root]");
+        if (!(main instanceof HTMLElement)) throw new Error("랜딩 main이 없습니다.");
+        const content = [...main.children].find((element) =>
+          element instanceof HTMLDivElement && element.classList.contains("z-2"));
+        if (!(content instanceof HTMLDivElement)) throw new Error("랜딩 content layer가 없습니다.");
+        const sections = [...content.children];
+        if (sections.length !== 8) {
+          throw new Error("랜딩 상위 섹션 수가 8이 아닙니다: " + sections.length);
+        }
+        const wordmarkLabel = [...main.querySelectorAll("span")].find((element) =>
+          element.textContent === "Klipse" && element.getBoundingClientRect().width === 1);
+        const wordmark = wordmarkLabel?.parentElement;
+        const wordmarkSurface = wordmark?.firstElementChild;
+        const nodeCanvasArticle = main.querySelector("#capabilities article");
+        const footer = main.querySelector(":scope > footer");
+        if (!wordmark || !wordmarkSurface || !nodeCanvasArticle || !footer) {
+          throw new Error("랜딩 핵심 노드가 없습니다.");
+        }
+        const surfaceStyle = getComputedStyle(wordmarkSurface);
+        return {
+          route: "/",
+          viewport: { width: innerWidth, height: innerHeight },
+          locale: document.documentElement.lang,
+          theme: document.documentElement.dataset.theme,
+          documentHeight: round(document.documentElement.scrollHeight),
+          main: rect(main),
+          content: rect(content),
+          sections: sections.map((section, index) => ({
+            index,
+            id: section.id || null,
+            ...rect(section, content),
+          })),
+          heroWordmark: {
+            ...rect(wordmark),
+            maskImage: surfaceStyle.maskImage.replaceAll(location.origin, ""),
+            webkitMaskImage: surfaceStyle.webkitMaskImage.replaceAll(location.origin, ""),
+            backgroundColor: surfaceStyle.backgroundColor,
+          },
+          nodeCanvasArticle: {
+            ...rect(nodeCanvasArticle),
+          },
+          footer: rect(footer),
+        };
+      });
+    };
+
+    const measureLegal = async (route) => {
+      await openPinnedRoute(route);
+      await page.waitForSelector("h1");
+      return page.evaluate((measuredRoute) => {
+        const round = (value) => Math.round(value * 10000) / 10000;
+        const rect = (element, relativeTo = null) => {
+          if (!(element instanceof Element)) throw new Error("측정할 법적고지 노드가 없습니다.");
+          const bounds = element.getBoundingClientRect();
+          const base = relativeTo?.getBoundingClientRect();
+          return {
+            x: round(bounds.x - (base?.x ?? 0)),
+            y: round(bounds.y - (base?.y ?? 0) + (base ? 0 : window.scrollY)),
+            width: round(bounds.width),
+            height: round(bounds.height),
+          };
+        };
+        const heading = document.querySelector("h1");
+        const inner = heading?.parentElement;
+        const root = inner?.parentElement;
+        const backButton = inner?.querySelector("button");
+        const logo = inner?.querySelector('a[href="/"]');
+        if (!heading || !inner || !root || !backButton || !logo) {
+          throw new Error("법적고지 핵심 노드가 없습니다: " + measuredRoute);
+        }
+        return {
+          route: measuredRoute,
+          viewport: { width: innerWidth, height: innerHeight },
+          locale: document.documentElement.lang,
+          theme: document.documentElement.dataset.theme,
+          documentHeight: round(document.documentElement.scrollHeight),
+          root: rect(root),
+          inner: rect(inner, root),
+          backButton: rect(backButton, root),
+          logo: rect(logo, root),
+          heading: { text: heading.textContent, ...rect(heading, root) },
+        };
+      }, route);
+    };
+
+    const measurePricing = async () => {
+      await openPinnedRoute("/pricing");
+      await page.waitForSelector("#pricing article");
+      await page.waitForSelector('nav[aria-label="Global navigation"]');
+      await page.waitForSelector("#pricing-faq");
+      await page.waitForSelector("footer");
+      await page.locator("footer").scrollIntoViewIfNeeded();
+      let stableHeight = null;
+      let stableCount = 0;
+      for (let attempt = 0; attempt < 24 && stableCount < 3; attempt += 1) {
+        const nextHeight = await page.evaluate(() => document.documentElement.scrollHeight);
+        if (nextHeight === stableHeight) stableCount += 1;
+        else {
+          stableHeight = nextHeight;
+          stableCount = 0;
+        }
+        await delay(100);
+      }
+      if (stableCount < 3) {
+        throw new Error("[product-scenes] 가격 페이지 높이가 안정화되지 않았습니다.");
+      }
+      await page.evaluate(() => window.scrollTo(0, 0));
+      await page.evaluate(() => new Promise((resolveFrame) =>
+        requestAnimationFrame(() => requestAnimationFrame(resolveFrame)),
+      ));
+
+      return page.evaluate((axes) => {
+        const round = (value) => Math.round(value * 10000) / 10000;
+        const rect = (element, relativeTo = null) => {
+          if (!(element instanceof Element)) throw new Error("측정할 가격 페이지 노드가 없습니다.");
+          const bounds = element.getBoundingClientRect();
+          const base = relativeTo?.getBoundingClientRect();
+          return {
+            x: round(bounds.x - (base?.x ?? 0)),
+            y: round(bounds.y - (base?.y ?? 0) + (base ? 0 : window.scrollY)),
+            width: round(bounds.width),
+            height: round(bounds.height),
+          };
+        };
+        const ownText = (element) => [...element.childNodes]
+          .filter((node) => node.nodeType === Node.TEXT_NODE)
+          .map((node) => node.textContent ?? "")
+          .join(" ")
+          .replace(/\s+/g, " ")
+          .trim();
+        const normalizeAssetUrl = (value) => {
+          if (!value) return null;
+          try {
+            const url = new URL(value, location.origin);
+            return url.origin === location.origin ? url.pathname + url.search : url.href;
+          } catch {
+            return value;
+          }
+        };
+        const vectorAttributes = (element) => {
+          if (!(element instanceof SVGElement)) return null;
+          const attributes = {};
+          for (const name of [
+            "viewBox", "d", "points", "x", "y", "x1", "y1", "x2", "y2",
+            "cx", "cy", "r", "rx", "ry", "fill", "stroke", "stroke-width",
+            "stroke-linecap", "stroke-linejoin", "transform",
+          ]) {
+            const value = element.getAttribute(name);
+            if (value !== null) attributes[name] = value;
+          }
+          return Object.keys(attributes).length > 0 ? attributes : null;
+        };
+        const ownTextLines = (element) => {
+          const lines = [];
+          const textNodes = [...element.childNodes].filter((node) =>
+            node.nodeType === Node.TEXT_NODE && (node.textContent ?? "").trim());
+          for (const textNode of textNodes) {
+            const source = textNode.textContent ?? "";
+            let active = null;
+            for (let index = 0; index < source.length; index += 1) {
+              const range = document.createRange();
+              range.setStart(textNode, index);
+              range.setEnd(textNode, index + 1);
+              const bounds = range.getBoundingClientRect();
+              range.detach();
+              if (!bounds.width && !bounds.height) continue;
+              const top = round(bounds.top + window.scrollY);
+              const bottom = round(bounds.bottom + window.scrollY);
+              if (!active || Math.abs(active.top - top) > 0.5) {
+                active = {
+                  text: source[index],
+                  x: round(bounds.left + window.scrollX),
+                  y: top,
+                  width: round(bounds.width),
+                  height: round(bounds.height),
+                  top,
+                  right: round(bounds.right + window.scrollX),
+                  bottom,
+                };
+                lines.push(active);
+              } else {
+                active.text += source[index];
+                active.x = Math.min(active.x, round(bounds.left + window.scrollX));
+                active.right = Math.max(active.right, round(bounds.right + window.scrollX));
+                active.bottom = Math.max(active.bottom, bottom);
+                active.width = round(active.right - active.x);
+                active.height = round(active.bottom - active.y);
+              }
+            }
+          }
+          return lines.map(({ top: _top, right: _right, bottom: _bottom, ...line }) => ({
+            ...line,
+            text: line.text.replace(/\s+/g, " ").trim(),
+          })).filter((line) => line.text);
+        };
+        const snapshot = (element, path) => {
+          const computed = getComputedStyle(element);
+          const style = {};
+          for (const axis of axes) {
+            let value = computed[axis];
+            if (typeof value === "string") value = value.replaceAll(location.origin, "");
+            style[axis] = value;
+          }
+          if (style.transformOrigin) {
+            style.transformOrigin = style.transformOrigin.replace(/\s+/g, " ").trim();
+          }
+          for (const side of ["Top", "Right", "Bottom", "Left"]) {
+            if (style["border" + side + "Width"] === "0px" || style["border" + side + "Style"] === "none") {
+              style["border" + side + "Color"] = "rgba(0, 0, 0, 0)";
+            }
+          }
+          if (element instanceof HTMLImageElement) style.color = "rgba(0, 0, 0, 0)";
+          return {
+            path,
+            tag: element.tagName.toLowerCase(),
+            id: element.id || null,
+            role: element.getAttribute("role"),
+            ariaLabel: element.getAttribute("aria-label"),
+            ownText: ownText(element),
+            ownTextLines: ownTextLines(element),
+            href: element instanceof HTMLAnchorElement ? normalizeAssetUrl(element.href) : null,
+            src: element instanceof HTMLImageElement ? normalizeAssetUrl(element.src) : null,
+            alt: element instanceof HTMLImageElement ? element.alt : null,
+            vector: vectorAttributes(element),
+            rect: rect(element),
+            style,
+          };
+        };
+        const subtreeSnapshots = (root) => {
+          const nodes = [];
+          const visit = (element, path) => {
+            nodes.push(snapshot(element, path));
+            [...element.children].forEach((child, index) => visit(child, path + "." + index));
+          };
+          visit(root, "main");
+          return nodes;
+        };
+        const main = document.querySelector("main[data-page-root]");
+        const navigation = document.querySelector('nav[aria-label="Global navigation"]');
+        const pricing = main?.querySelector("#pricing");
+        const faq = main?.querySelector("#pricing-faq");
+        const surface = pricing?.parentElement;
+        const heading = pricing?.querySelector("h2");
+        const footer = main?.querySelector(":scope > footer");
+        const tierCards = pricing ? [...pricing.querySelectorAll("article")] : [];
+        if (!main || !navigation || !surface || !pricing || !faq || !heading || !footer) {
+          throw new Error(
+            "가격 페이지 핵심 노드가 없습니다: " +
+              JSON.stringify({
+                main: Boolean(main), navigation: Boolean(navigation), surface: Boolean(surface),
+                pricing: Boolean(pricing), faq: Boolean(faq), heading: Boolean(heading),
+                footer: Boolean(footer),
+              }),
+          );
+        }
+        if (tierCards.length !== 4) {
+          throw new Error("가격 페이지 요금제 카드 수가 4가 아닙니다: " + tierCards.length);
+        }
+        const tree = subtreeSnapshots(main);
+        if (tree.length > 2_000) throw new Error("가격 페이지 측정 노드가 2,000개를 넘었습니다: " + tree.length);
+        return {
+          route: "/pricing",
+          viewport: { width: innerWidth, height: innerHeight },
+          locale: document.documentElement.lang,
+          theme: document.documentElement.dataset.theme,
+          documentHeight: round(document.documentElement.scrollHeight),
+          main: rect(main),
+          navigation: rect(navigation, main),
+          surface: rect(surface, main),
+          pricing: rect(pricing, main),
+          faq: rect(faq, main),
+          heading: { text: heading.textContent, ...rect(heading, main) },
+          tierCards: tierCards.map((card) => ({
+            name: card.querySelector("h3")?.textContent ?? null,
+            ...rect(card, main),
+          })),
+          footer: rect(footer, main),
+          tree,
+        };
+      }, PRICING_STYLE_AXES);
+    };
+
+    const measureGenericPage = async (route) => {
+      await openPinnedRoute(route);
+      await page.waitForSelector("body");
+      await page.evaluate(() => window.scrollTo(0, document.documentElement.scrollHeight));
+      let stableHeight = null;
+      let stableCount = 0;
+      for (let attempt = 0; attempt < 24 && stableCount < 3; attempt += 1) {
+        const nextHeight = await page.evaluate(() => document.documentElement.scrollHeight);
+        if (nextHeight === stableHeight) stableCount += 1;
+        else {
+          stableHeight = nextHeight;
+          stableCount = 0;
+        }
+        await delay(100);
+      }
+      if (stableCount < 3) {
+        throw new Error("[product-scenes] 페이지 높이가 안정화되지 않았습니다: " + route);
+      }
+      await page.evaluate(() => window.scrollTo(0, 0));
+      await page.evaluate(() => new Promise((resolveFrame) =>
+        requestAnimationFrame(() => requestAnimationFrame(resolveFrame)),
+      ));
+
+      return page.evaluate(({ requestedRoute, axes }) => {
+        const round = (value) => Math.round(value * 10000) / 10000;
+        const rect = (element) => {
+          if (!(element instanceof Element)) return null;
+          const bounds = element.getBoundingClientRect();
+          return {
+            x: round(bounds.x + window.scrollX),
+            y: round(bounds.y + window.scrollY),
+            width: round(bounds.width),
+            height: round(bounds.height),
+          };
+        };
+        const visibleBodyChildren = [...document.body.children].filter((element) => {
+          const bounds = element.getBoundingClientRect();
+          return bounds.width >= innerWidth * 0.5 && bounds.height > 0;
+        });
+        const main = document.querySelector("main");
+        const root = main ?? visibleBodyChildren[0] ?? null;
+        const landmark = (selector) => [...document.querySelectorAll(selector)].map((element) => ({
+          tag: element.tagName.toLowerCase(),
+          ariaLabel: element.getAttribute("aria-label"),
+          ...rect(element),
+        }));
+        const normalizeAssetUrl = (value) => {
+          try {
+            const url = new URL(value, location.origin);
+            return url.origin === location.origin ? url.pathname + url.search : url.href;
+          } catch {
+            return value;
+          }
+        };
+        const ownText = (element) => [...element.childNodes]
+          .filter((node) => node.nodeType === Node.TEXT_NODE)
+          .map((node) => node.textContent ?? "")
+          .join(" ")
+          .replace(/\s+/g, " ")
+          .trim();
+        const snapshot = (element) => {
+          if (!(element instanceof Element)) return null;
+          const computed = getComputedStyle(element);
+          const style = {};
+          for (const axis of axes) {
+            let value = computed[axis];
+            if (typeof value === "string") value = value.replaceAll(location.origin, "");
+            style[axis] = value;
+          }
+          for (const side of ["Top", "Right", "Bottom", "Left"]) {
+            if (style["border" + side + "Width"] === "0px" || style["border" + side + "Style"] === "none") {
+              style["border" + side + "Color"] = "rgba(0, 0, 0, 0)";
+            }
+          }
+          if (element instanceof HTMLImageElement) style.color = "rgba(0, 0, 0, 0)";
+          return {
+            tag: element.tagName.toLowerCase(),
+            ownText: ownText(element),
+            ariaLabel: element.getAttribute("aria-label"),
+            rect: rect(element),
+            style,
+          };
+        };
+        const snapshots = (elements) => [...elements].map(snapshot).filter(Boolean);
+        const subtreeSnapshots = (subtreeRoot) => {
+          if (!(subtreeRoot instanceof Element)) return [];
+          const pathFromRoot = (element) => {
+            if (element === subtreeRoot) return ".";
+            const path = [];
+            let current = element;
+            while (current && current !== subtreeRoot) {
+              const parent = current.parentElement;
+              if (!parent) break;
+              path.unshift(String([...parent.children].indexOf(current)));
+              current = parent;
+            }
+            return path.join(".");
+          };
+          return [subtreeRoot, ...subtreeRoot.querySelectorAll("*")].map((element) => ({
+            path: pathFromRoot(element),
+            ...snapshot(element),
+          }));
+        };
+        const directChildContaining = (element, selector) => [...(element?.children ?? [])]
+          .find((child) => child.matches(selector) || child.querySelector(selector));
+        const docsRoot = requestedRoute.startsWith("/docs")
+          ? document.querySelector("main[data-page-root]")
+          : null;
+        const docsShell = docsRoot
+          ? [...docsRoot.children].find((child) =>
+              getComputedStyle(child).display === "grid" && child.querySelector("aside") && child.querySelector("h1"))
+          : null;
+        const docsSidebar = docsShell?.querySelector(":scope > aside") ?? null;
+        const docsContent = directChildContaining(docsShell, "article,h1");
+        const docsArticle = docsContent?.querySelector("article") ?? null;
+        const docsArticleMain = docsArticle?.querySelector(":scope > div") ?? null;
+        const docsArticleAside = docsArticle?.querySelector(":scope > aside") ?? null;
+
+        const authStatusRoutes = new Set([
+          "/signup/check-email", "/signup/expired", "/signup/verified",
+          "/reset-password", "/reset-password/new",
+        ]);
+        const findTwoPanelRoot = (anchor) => {
+          let candidate = anchor?.parentElement ?? null;
+          while (candidate && candidate !== document.body) {
+            if (candidate.querySelector(":scope > aside") && directChildContaining(candidate, "h1")) {
+              return candidate;
+            }
+            candidate = candidate.parentElement;
+          }
+          return null;
+        };
+        const authStatusRoot = authStatusRoutes.has(requestedRoute)
+          ? findTwoPanelRoot(document.querySelector("h1"))
+          : null;
+        const authBrandPanel = authStatusRoot?.querySelector(":scope > aside") ?? null;
+        const authFormPanel = authStatusRoot ? directChildContaining(authStatusRoot, "h1") : null;
+        const authCard = authFormPanel ? directChildContaining(authFormPanel, "h1") : null;
+
+        const authFormRoutes = new Set(["/login", "/signup", "/aws/signup"]);
+        const authFormRoot = authFormRoutes.has(requestedRoute)
+          ? findTwoPanelRoot(document.querySelector("h1"))
+          : null;
+        const authFormBrandPanel = authFormRoot?.querySelector(":scope > aside") ?? null;
+        const authFormPagePanel = authFormRoot ? directChildContaining(authFormRoot, "h1") : null;
+        const authFormCard = authFormPagePanel ? directChildContaining(authFormPagePanel, "h1") : null;
+
+        let recoverRoot = null;
+        const recoverForm = requestedRoute === "/recover" ? document.querySelector("form") : null;
+        if (requestedRoute === "/recover") {
+          let candidate = recoverForm?.parentElement ?? null;
+          while (candidate?.parentElement && candidate.parentElement !== document.body) {
+            candidate = candidate.parentElement;
+          }
+          recoverRoot = candidate;
+        }
+        const deletionRoot = requestedRoute === "/data-deletion-status"
+          ? document.querySelector("main")
+          : null;
+
+        const marketingRoot = ["/blog", "/templates", "/templates/filter", "/inquiry"]
+          .includes(requestedRoute)
+          ? document.querySelector("main[data-page-root]")
+          : null;
+        const marketingSurface = marketingRoot
+          ? [...marketingRoot.children].find((child) => child.querySelector("h1") && child.tagName !== "FOOTER")
+          : null;
+
+        const componentProbe = docsRoot
+          ? {
+              kind: "docs-shell",
+              root: snapshot(docsRoot),
+              shell: snapshot(docsShell),
+              sidebar: snapshot(docsSidebar),
+              content: snapshot(docsContent),
+              article: snapshot(docsArticle),
+              articleMain: snapshot(docsArticleMain),
+              articleAside: snapshot(docsArticleAside),
+              sidebarGroups: docsSidebar ? snapshots(docsSidebar.querySelectorAll(":scope nav > div")) : [],
+              sidebarLinks: docsSidebar ? snapshots(docsSidebar.querySelectorAll("a")) : [],
+              summary: snapshot(docsArticleMain?.querySelector('section[aria-label]')),
+              summaryCards: docsArticleMain
+                ? snapshots(docsArticleMain.querySelectorAll('section[aria-label] > div'))
+                : [],
+              articleSections: docsArticleMain
+                ? snapshots(docsArticleMain.querySelectorAll(":scope > section"))
+                : [],
+              controls: docsRoot ? snapshots(docsRoot.querySelectorAll("a,button,input,summary")) : [],
+            }
+          : authStatusRoot
+            ? {
+                kind: "auth-status-card",
+                root: snapshot(authStatusRoot),
+                brandPanel: snapshot(authBrandPanel),
+                formPanel: snapshot(authFormPanel),
+                card: snapshot(authCard),
+                heading: snapshot(authCard?.querySelector("h1")),
+                form: snapshot(authCard?.querySelector("form")),
+                controls: authCard ? snapshots(authCard.querySelectorAll("a,button,input")) : [],
+                tree: subtreeSnapshots(authStatusRoot),
+              }
+            : authFormRoot
+              ? {
+                  kind: "auth-form-page",
+                  root: snapshot(authFormRoot),
+                  brandPanel: snapshot(authFormBrandPanel),
+                  formPanel: snapshot(authFormPagePanel),
+                  card: snapshot(authFormCard),
+                  heading: snapshot(authFormCard?.querySelector("h1")),
+                  form: snapshot(authFormCard?.querySelector("form")),
+                  controls: authFormCard
+                    ? snapshots(authFormCard.querySelectorAll("a,button,input,label"))
+                    : [],
+                  tree: subtreeSnapshots(authFormRoot),
+                }
+              : recoverRoot
+                ? {
+                    kind: "recover-form-page",
+                    root: snapshot(recoverRoot),
+                    card: snapshot(recoverForm?.parentElement),
+                    form: snapshot(recoverForm),
+                    controls: snapshots(recoverRoot.querySelectorAll("a,button,input,label")),
+                    tree: subtreeSnapshots(recoverForm?.parentElement),
+                  }
+                : deletionRoot
+                  ? {
+                      kind: "data-deletion-status",
+                      root: snapshot(deletionRoot),
+                      heading: snapshot(deletionRoot.querySelector("h1")),
+                      paragraphs: snapshots(deletionRoot.querySelectorAll("p")),
+                      terms: snapshots(deletionRoot.querySelectorAll("dt,dd")),
+                      tree: subtreeSnapshots(deletionRoot),
+                    }
+            : marketingRoot
+              ? {
+                  kind: "marketing-shell",
+                  root: snapshot(marketingRoot),
+                  surface: snapshot(marketingSurface),
+                  footer: snapshot(marketingRoot.querySelector(":scope > footer")),
+                  controls: snapshots(marketingRoot.querySelectorAll("a,button,input,textarea")),
+                }
+              : null;
+        return {
+          route: requestedRoute,
+          finalPath: location.pathname,
+          redirected: location.pathname !== requestedRoute,
+          viewport: { width: innerWidth, height: innerHeight },
+          locale: document.documentElement.lang,
+          theme: document.documentElement.dataset.theme,
+          documentHeight: round(document.documentElement.scrollHeight),
+          body: rect(document.body),
+          root: rect(root),
+          landmarks: {
+            header: landmark("header"),
+            navigation: landmark("nav"),
+            main: landmark("main"),
+            aside: landmark("aside"),
+            form: landmark("form"),
+            footer: landmark("footer"),
+          },
+          headings: [...document.querySelectorAll("h1,h2")].map((heading) => ({
+            level: Number(heading.tagName.slice(1)),
+            text: heading.textContent?.trim() ?? "",
+            ...rect(heading),
+          })),
+          images: [...document.querySelectorAll("img")].map((image) => ({
+            src: normalizeAssetUrl(image.currentSrc || image.src),
+            alt: image.alt,
+            ...rect(image),
+          })),
+          componentProbe,
+        };
+      }, { requestedRoute: route, axes: STYLE_AXES });
+    };
+
+    const measureGuestOutcome = async (route) => {
+      await page.goto(pinnedServer.url + route, { waitUntil: "domcontentloaded" });
+      if (new URL(page.url()).origin !== pinnedServer.url) {
+        throw new Error(
+          "[product-scenes] guest route가 고정 standalone 서버 밖으로 이동했습니다: " + page.url(),
+        );
+      }
+      await delay(1_500);
+      let previous = null;
+      let stableCount = 0;
+      for (let attempt = 0; attempt < 30 && stableCount < 5; attempt += 1) {
+        const fingerprint = await page.evaluate(() => JSON.stringify({
+          path: location.pathname,
+          locale: document.documentElement.lang,
+          theme: document.documentElement.dataset.theme,
+          height: document.documentElement.scrollHeight,
+          textLength: document.body.textContent?.length ?? 0,
+        }));
+        if (fingerprint === previous) stableCount += 1;
+        else {
+          previous = fingerprint;
+          stableCount = 0;
+        }
+        await delay(100);
+      }
+      if (stableCount < 5) {
+        throw new Error("[product-scenes] guest route 결과가 안정화되지 않았습니다: " + route);
+      }
+      await page.evaluate(async () => {
+        await document.fonts.ready;
+      });
+      return page.evaluate((requestedRoute) => ({
+        route: requestedRoute,
+        finalPath: location.pathname,
+        redirected: location.pathname !== requestedRoute,
+        viewport: { width: innerWidth, height: innerHeight },
+        locale: document.documentElement.lang,
+        theme: document.documentElement.dataset.theme,
+        documentHeight: Math.round(document.documentElement.scrollHeight * 10000) / 10000,
+        headings: [...document.querySelectorAll("h1,h2")].map((heading) => ({
+          level: Number(heading.tagName.slice(1)),
+          text: heading.textContent?.trim() ?? "",
+        })),
+      }), route);
+    };
+
+    pageScreens[contextSpec.id]["/"] = await measureLanding();
+    pageScreens[contextSpec.id]["/pricing"] = await measurePricing();
+    for (const route of PAGE_ROUTES.slice(2)) {
+      pageScreens[contextSpec.id][route] = await measureLegal(route);
+    }
+    for (const route of GENERIC_PAGE_ROUTES) {
+      pageScreens[contextSpec.id][route] = await measureGenericPage(route);
+    }
+    for (const route of GUEST_OUTCOME_ROUTES) {
+      guestOutcomes[contextSpec.id][route] = await measureGuestOutcome(route);
+    }
+    for (const route of MEASURED_ROUTES) {
+      const result = pageScreens[contextSpec.id][route];
+      if (result.theme !== "light" || !result.locale.toLowerCase().startsWith("en")) {
+        throw new Error(
+          "[product-scenes] 페이지 렌더 문맥이 light/en이 아닙니다: route=" + route +
+            " theme=" + result.theme + " locale=" + result.locale,
+        );
+      }
+    }
+  }
 } finally {
   if (browser) await browser.close();
   await pinnedServer.stop();
@@ -538,19 +1321,31 @@ const payload =
   JSON.stringify(
     {
       $comment:
-        "생성물. scripts/measure-product-scenes.mjs가 고정 커밋의 프로덕션 빌드를 1920×1080·402×874에서 직접 렌더해 잰다. 직접 수정하지 않는다.",
+        "생성물. scripts/measure-product-scenes.mjs가 고정 커밋의 49개 page.tsx route pattern을 전수 inventory하고, 프로덕션 빌드를 1920×1080·402×874에서 직접 렌더해 합성 장면과 공개·문서·법무·인증 22개 concrete route를 잰다. 직접 수정하지 않는다.",
       $whyThisExists:
-        "합성 랜딩 장면은 클래스 하나만 정적 하네스에 올리면 Next Image intrinsic ratio, viewport 높이, 중첩 컴포넌트, scene-scale을 잃는다. Figma는 이 파일에 없는 수치나 색을 그릴 수 없다.",
+        "합성 랜딩 장면과 완성 페이지는 클래스 하나만 정적 하네스에 올리면 Next Image intrinsic ratio, viewport 높이, 지연 hydration, 중첩 컴포넌트, scene-scale, content-visibility 활성화 결과를 잃는다. Figma는 이 파일에 없는 수치나 색을 그릴 수 없다.",
       $method:
-        "KLIPSE_PRODUCT_BUILD_ROOT가 clean checkout이고 HEAD·standalone release 영수증·BUILD_ID가 productCommit의 빌드임을 확인한다. 측정기가 그 standalone server를 임시 localhost 포트에 직접 띄운 뒤 Playwright dark/ko-KR context에서 열고, fonts·이미지 준비와 애니메이션 정지 뒤 liveOnly 구조의 모든 노드를 측정한다.",
+        "KLIPSE_PRODUCT_BUILD_ROOT가 clean checkout이고 HEAD·standalone release 영수증·BUILD_ID가 productCommit의 빌드임을 확인한다. 측정기가 그 standalone server를 임시 localhost 포트에 직접 띄운 뒤 Playwright로 장면은 dark/ko-KR, 페이지는 light/en-US 문맥에서 연다. fonts·이미지·지연 hydration을 기다리고 일반 페이지는 끝까지 스크롤해 content-visibility 구간과 문서 높이가 안정된 뒤 노드를 측정한다. 아직 정밀 측정하지 않은 static route는 guest 문맥의 최종 path·redirect·theme·locale·heading·height가 안정될 때까지 기다려 별도 guestOutcomes에 기록한다.",
       productRef,
       productCommit: commit,
       buildEvidence,
       specimen: specimen.id,
       structure: declaredNodes,
       contexts: CONTEXTS,
+      routeInventory: {
+        command: pageInventoryCommand,
+        pageFileCount: routeInventory.length,
+        measuredConcreteRouteCount: MEASURED_ROUTES.length,
+        guestOutcomeRouteCount: GUEST_OUTCOME_ROUTES.length,
+        pendingDynamicPatternCount: routeInventory.filter((page) =>
+          page.dynamic && page.concreteMeasurements.length === 0).length,
+        pages: routeInventory,
+      },
+      guestOutcomes,
       styleAxes: STYLE_AXES,
+      pricingStyleAxes: PRICING_STYLE_AXES,
       assets: {
+        heroWordmark: hashProductAsset("apps/web/public/klipse-wordmark-text-dark.svg"),
         demoBackground: hashProductAsset("apps/web/public/images/hero/demo-bg-01.jpg"),
         highlightWordmark: hashProductAsset("apps/web/public/highlight-wordmark.svg"),
         monitorArrowUp: hashProductAsset("apps/web/public/icons/MonitorArrowUp.svg"),
@@ -564,6 +1359,14 @@ const payload =
         },
       },
       sourceQuotes: [
+        {
+          command:
+            "git show " + commit +
+            ":apps/web/components/landing/sections/Hero.tsx",
+          path: "apps/web/components/landing/sections/Hero.tsx",
+          line: 54,
+          quote: sourceLine("apps/web/components/landing/sections/Hero.tsx", 54),
+        },
         {
           command:
             "git show " + commit +
@@ -602,6 +1405,7 @@ const payload =
       scenes: {
         StaticHighlightDemo: rendered,
       },
+      pages: pageScreens,
     },
     null,
     2,
@@ -612,8 +1416,34 @@ if (checkOnly) {
     console.error("[product-scenes] 생성물이 없습니다: migration/product.scenes.json");
     process.exit(1);
   }
-  if (readFileSync(outputPath, "utf8") !== payload) {
-    console.error("[product-scenes] 제품 장면 렌더가 기록과 다릅니다. 다시 측정하세요.");
+  const recordedPayload = readFileSync(outputPath, "utf8");
+  if (recordedPayload !== payload) {
+    const findFirstDifference = (recorded, measured, path = "$") => {
+      if (Object.is(recorded, measured)) return null;
+      if (
+        recorded === null || measured === null ||
+        typeof recorded !== "object" || typeof measured !== "object"
+      ) {
+        return { path, recorded, measured };
+      }
+      const keys = [...new Set([...Object.keys(recorded), ...Object.keys(measured)])].sort();
+      for (const key of keys) {
+        if (!Object.hasOwn(recorded, key) || !Object.hasOwn(measured, key)) {
+          return { path: path + "." + key, recorded: recorded[key], measured: measured[key] };
+        }
+        const difference = findFirstDifference(recorded[key], measured[key], path + "." + key);
+        if (difference) return difference;
+      }
+      return null;
+    };
+    const difference = findFirstDifference(JSON.parse(recordedPayload), JSON.parse(payload));
+    console.error(
+      "[product-scenes] 제품 장면 렌더가 기록과 다릅니다: " +
+        (difference
+          ? difference.path + " recorded=" + JSON.stringify(difference.recorded) +
+            " measured=" + JSON.stringify(difference.measured)
+          : "JSON 직렬화 차이"),
+    );
     process.exit(1);
   }
 } else {

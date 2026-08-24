@@ -384,6 +384,65 @@ withCanary(
   "verify-product-scenes",
 );
 
+// development-only auth fixture도 CI에서는 돌지 않으므로 verify:product 배선이 유일한 실행 경로다.
+withCanary(
+  "package.json",
+  (source) => source.replace(" && pnpm run verify-product-auth-fixture", ""),
+  "development auth fixture measurement remains wired",
+  "scripts/verify-gate-split.mjs",
+  "verify-product-auth-fixture",
+);
+
+// 실측 fixture에서 생성한 Figma component plan/renderer도 제품 저장소가 있는 verify:product에서만
+// 검증된다. 생성기 자체가 있어도 package 배선이 빠지면 바이트 드리프트가 영원히 통과하므로 고정한다.
+withCanary(
+  "package.json",
+  (source) => source.replace(" && pnpm run check-figma-product-components", ""),
+  "measured Figma product component generation remains wired",
+  "scripts/verify-gate-split.mjs",
+  "check-figma-product-components",
+);
+
+withCanary(
+  "package.json",
+  (source) => source.replace(" && pnpm run check-figma-product-app-shell", ""),
+  "measured Figma product app-shell generation remains wired",
+  "scripts/verify-gate-split.mjs",
+  "check-figma-product-app-shell",
+);
+
+withCanary(
+  "package.json",
+  (source) => source.replace(" && pnpm run check-figma-product-payment-scenes", ""),
+  "measured Figma product payment-scene composition remains wired",
+  "scripts/verify-gate-split.mjs",
+  "check-figma-product-payment-scenes",
+);
+
+withCanary(
+  "package.json",
+  (source) => source.replace(" && pnpm run check-figma-product-checkout-status", ""),
+  "measured Figma product checkout-status generation remains wired",
+  "scripts/verify-gate-split.mjs",
+  "check-figma-product-checkout-status",
+);
+
+withCanary(
+  "package.json",
+  (source) => source.replace(" && pnpm run check-figma-product-upgrade-scene", ""),
+  "measured Figma product upgrade-scene generation remains wired",
+  "scripts/verify-gate-split.mjs",
+  "check-figma-product-upgrade-scene",
+);
+
+withCanary(
+  "package.json",
+  (source) => source.replace(" && pnpm run check-figma-product-pricing-page", ""),
+  "measured Figma product pricing-page generation remains wired",
+  "scripts/verify-gate-split.mjs",
+  "check-figma-product-pricing-page",
+);
+
 // variants는 liveOnly를 정적 하네스에서 제외한다. 새 liveOnly가 장면 측정기의 소유 목록에
 // 등록되지 않은 채 추가되면 두 측정기 모두에서 사라지므로, 카탈로그 단계에서 실패해야 한다.
 withCanary(

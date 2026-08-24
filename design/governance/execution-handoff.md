@@ -6,6 +6,19 @@ authority: normative
 
 # Claude Code 실행 인계서
 
+> **2026-08-23 — 제품 전 페이지 Figma 이식 작업은
+> [현재 인계서](handoff-2026-08-23-figma-product-pages.md)에서 이어간다.** `/`, `/privacy`,
+> `/terms` 6프레임이 권위 프레임이고 `/pricing`은 측정 완료·Figma 캡처 전 상태다. 공개·문서·법무·인증
+> 22개 route의 desktop/mobile 측정도 완료됐다. pinned commit의 page file은 49개이며 27개 route
+> pattern 중 16개 static route는 제품이 선언한 development-only auth fixture의 실패/빈 기본 상태까지
+> desktop/mobile로 측정했다. 운영 인증·API 성공·dynamic data parity는 아직 남았다.
+
+> **2026-08-24 — 공통 desktop GNB/top bar, 결제 실패 4장면, VideoEditor project grid,
+> Analytics 기본 상태와 Highlight 5열 Auto Layout의 최신 node ID·생성기 상태는 위 현재 인계서의
+> `2026-08-24 한도 인계` 절이 소유한다.** collapsed Upgrade CTA는 라이브 Figma 수정은 끝났지만
+> typography 재측정과 sidebar-state renderer 반영이 남았으므로, generated runner를 재실행하기 전에
+> 반드시 그 절의 첫 3단계를 완료한다.
+
 > **2026-08-22 — 새 Claude Code 세션이라면 [계정 이전 인계서](handoff-2026-08-22-account-transfer.md)를
 > 가장 먼저 읽는다.** 대화 맥락은 0에서 시작하고, `KLIPSE_PRODUCT_REPO` 를 세우지 않으면
 > `pnpm verify` 가 `verify:product` 첫 게이트에서 exit 1 로 죽는다.

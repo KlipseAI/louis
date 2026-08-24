@@ -103,6 +103,38 @@ if (!unavailableSceneOutput.includes("제품 저장소가 없습니다")) {
   );
 }
 
+const unavailableAuthFixture = spawnSync(
+  process.execPath,
+  ["scripts/measure-product-auth-" + "fixture.mjs", "--check"],
+  {
+    cwd: repoRoot,
+    env: {
+      ...process.env,
+      KLIPSE_PRODUCT_REPO: "/nonexistent-product-auth-fixture-repo",
+      KLIPSE_PRODUCT_FIXTURE_ROOT: "/nonexistent-product-auth-fixture-root",
+    },
+    encoding: "utf8",
+  },
+);
+const unavailableAuthFixtureOutput =
+  String(unavailableAuthFixture.stdout ?? "") + String(unavailableAuthFixture.stderr ?? "");
+if (unavailableAuthFixture.status === 0) {
+  errors.push(
+    "verify-product-auth-fixture가 제품/fixture 없이 exit 0 했습니다. 로컬 게이트는 조용히 꺼질 수 없습니다.",
+  );
+}
+if (/SKIP/i.test(unavailableAuthFixtureOutput)) {
+  errors.push(
+    "verify-product-auth-fixture가 제품/fixture 없이 SKIP을 출력했습니다. 검증 불가는 실패여야 합니다.",
+  );
+}
+if (!unavailableAuthFixtureOutput.includes("제품 저장소가 없습니다")) {
+  errors.push(
+    "verify-product-auth-fixture의 전제조건 실패 진단을 확인하지 못했습니다: " +
+      unavailableAuthFixtureOutput.trim().slice(0, 240),
+  );
+}
+
 // ── 3. 두 갈래는 겹치지 않는다 ────────────────────────────────────────────
 // `verify-gates:ci`(--no-product) 와 `verify-gates`(전량) 는 **다른 단계로 센다.** 로컬
 // `pnpm verify` 에서 verify-gates 가 두 번 도는 것은 알고 한 선택이다 — CI 경로와 전량
@@ -248,6 +280,20 @@ const KNOWN_PRODUCT_STEPS = [
   "verify-tailwind-interop",
   // 완성된 제품 페이지에서만 성립하는 liveOnly 합성 장면 측정기.
   "verify-product-scenes",
+  // 제품이 명시한 development-only auth bypass로 보호 route의 실패/빈 기본 상태를 재는 측정기.
+  "verify-product-auth-fixture",
+  // 보호 route 실측에서 Figma product-only component plan/renderer를 생성하는 드리프트 게이트.
+  "check-figma-product-components",
+  // 같은 fixture에서 모바일 앱 셸 상단 바의 측정 variant plan/renderer를 생성하는 드리프트 게이트.
+  "check-figma-product-app-shell",
+  // 측정된 Gnb/top bar/result component를 전체 결제 결과 scene으로 합성하는 생성 드리프트 게이트.
+  "check-figma-product-payment-scenes",
+  // 결제 승인 지연·실패 3경로의 desktop/mobile content와 전체 scene을 측정값으로 생성하는 게이트.
+  "check-figma-product-checkout-status",
+  // upgrade 4개 plan card와 canonical/checkout-redirect desktop scene을 측정값으로 생성하는 게이트.
+  "check-figma-product-upgrade-scene",
+  // public /pricing 전체 페이지의 측정 component set과 desktop/mobile full-page scene 생성 게이트.
+  "check-figma-product-pricing-page",
 ];
 // verify-gates 가 --no-product 로 건너뛰겠다고 선언한 카나리아는, 제품이 있는 곳에서
 // 반드시 다시 돌아야 한다. 선언만 하고 verify:product 에 전체 verify-gates 가 없으면

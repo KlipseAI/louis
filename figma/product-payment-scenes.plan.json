@@ -1,0 +1,503 @@
+{
+  "$comment": "Generated from migration/product.auth-fixture.json. Do not edit by hand.",
+  "$evidenceClass": "product-only measured Figma composition; not a normative design-system contract",
+  "productCommit": "a3ed8e031214f67ac319c5ceaa7ad2808cf0d3a4",
+  "context": "desktop-1920x1080",
+  "sourceCandidates": [
+    {
+      "id": "subtree-52d9ec85500e",
+      "nodeCount": 86,
+      "roots": [
+        {
+          "route": "/mypage/upgrade/billing-change-fail",
+          "path": "body.1",
+          "tag": "div",
+          "rect": {
+            "x": 0,
+            "y": 0,
+            "width": 1920,
+            "height": 1080
+          }
+        },
+        {
+          "route": "/mypage/topup/fail",
+          "path": "body.1",
+          "tag": "div",
+          "rect": {
+            "x": 0,
+            "y": 0,
+            "width": 1920,
+            "height": 1080
+          }
+        }
+      ],
+      "routeCount": 2,
+      "occurrenceCount": 2,
+      "score": 172
+    },
+    {
+      "id": "subtree-5aa2dd10161d",
+      "nodeCount": 82,
+      "roots": [
+        {
+          "route": "/mypage/upgrade/billing-change-success",
+          "path": "body.1",
+          "tag": "div",
+          "rect": {
+            "x": 0,
+            "y": 0,
+            "width": 1920,
+            "height": 1080
+          }
+        },
+        {
+          "route": "/mypage/topup/success",
+          "path": "body.1",
+          "tag": "div",
+          "rect": {
+            "x": 0,
+            "y": 0,
+            "width": 1920,
+            "height": 1080
+          }
+        }
+      ],
+      "routeCount": 2,
+      "occurrenceCount": 2,
+      "score": 164
+    },
+    {
+      "id": "subtree-201c9e9375a9",
+      "nodeCount": 24,
+      "roots": [
+        {
+          "route": "/mypage/upgrade/billing-change-fail",
+          "path": "body.1.0.0.1",
+          "tag": "main",
+          "rect": {
+            "x": 280,
+            "y": 12,
+            "width": 1628,
+            "height": 1004
+          }
+        },
+        {
+          "route": "/mypage/topup/fail",
+          "path": "body.1.0.0.1",
+          "tag": "main",
+          "rect": {
+            "x": 280,
+            "y": 12,
+            "width": 1628,
+            "height": 1004
+          }
+        }
+      ],
+      "routeCount": 2,
+      "occurrenceCount": 2,
+      "score": 48
+    },
+    {
+      "id": "subtree-7bba430c44a0",
+      "nodeCount": 20,
+      "roots": [
+        {
+          "route": "/mypage/upgrade/billing-change-success",
+          "path": "body.1.0.0.1",
+          "tag": "main",
+          "rect": {
+            "x": 280,
+            "y": 12,
+            "width": 1628,
+            "height": 1004
+          }
+        },
+        {
+          "route": "/mypage/topup/success",
+          "path": "body.1.0.0.1",
+          "tag": "main",
+          "rect": {
+            "x": 280,
+            "y": 12,
+            "width": 1628,
+            "height": 1004
+          }
+        }
+      ],
+      "routeCount": 2,
+      "occurrenceCount": 2,
+      "score": 40
+    }
+  ],
+  "component": {
+    "id": "product/desktop-payment-result-scenes",
+    "pageId": "240:3529",
+    "pageName": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+    "sectionName": "M · product/Desktop payment result scenes · measured composition",
+    "mainSetName": "Product/Desktop Payment Result Main Surface",
+    "sceneSetName": "Product/Desktop Payment Result Scene",
+    "dependencies": {
+      "gnbSet": "Product/Gnb Desktop Shell",
+      "gnbVariant": "Current=Default",
+      "topBarSet": "Product/Desktop App Top Bar",
+      "topBarVariant": "Content=MyPage, Breadcrumb=Single, Back=False, Divider=On",
+      "mobileTopBarSet": "Product/Mobile App Top Bar",
+      "mobileTopBarVariant": "Width=Inset, Breadcrumb=Single, Back=False, Divider=On",
+      "resultSet": "Product/Payment Result Content"
+    },
+    "page": {
+      "rect": {
+        "width": 1920,
+        "height": 1080
+      },
+      "background": [
+        0.9333333333333333,
+        0.9333333333333333,
+        0.9450980392156862,
+        1
+      ]
+    },
+    "main": {
+      "rect": {
+        "width": 1628,
+        "height": 1004
+      },
+      "background": [
+        0.9725490196078431,
+        0.9725490196078431,
+        0.9764705882352941,
+        1
+      ],
+      "radius": 16,
+      "padding": {
+        "top": 0,
+        "right": 24,
+        "bottom": 56,
+        "left": 24
+      }
+    },
+    "variants": [
+      {
+        "outcome": "Failure",
+        "route": "/mypage/upgrade/billing-change-fail",
+        "mainRect": {
+          "x": 280,
+          "y": 12,
+          "width": 1628,
+          "height": 1004
+        },
+        "topBarRect": {
+          "x": 0,
+          "y": 0,
+          "width": 1628,
+          "height": 53
+        },
+        "contentRect": {
+          "x": 554,
+          "y": 161,
+          "width": 520,
+          "height": 237.5938
+        }
+      },
+      {
+        "outcome": "PlanDelayed",
+        "route": "/mypage/upgrade/billing-change-success",
+        "mainRect": {
+          "x": 280,
+          "y": 12,
+          "width": 1628,
+          "height": 1004
+        },
+        "topBarRect": {
+          "x": 0,
+          "y": 0,
+          "width": 1628,
+          "height": 53
+        },
+        "contentRect": {
+          "x": 554,
+          "y": 161,
+          "width": 520,
+          "height": 217.1875
+        }
+      },
+      {
+        "outcome": "TopupDelayed",
+        "route": "/mypage/topup/success",
+        "mainRect": {
+          "x": 280,
+          "y": 12,
+          "width": 1628,
+          "height": 1004
+        },
+        "topBarRect": {
+          "x": 0,
+          "y": 0,
+          "width": 1628,
+          "height": 53
+        },
+        "contentRect": {
+          "x": 554,
+          "y": 161,
+          "width": 520,
+          "height": 217.1875
+        }
+      }
+    ],
+    "mobile": {
+      "mainSetName": "Product/Mobile Payment Result Main Surface",
+      "sceneSetName": "Product/Mobile Payment Result Scene",
+      "sourceCandidates": [
+        {
+          "id": "subtree-73a30a28794e",
+          "nodeCount": 27,
+          "roots": [
+            {
+              "route": "/mypage/upgrade/billing-change-fail",
+              "path": "body.1",
+              "tag": "div",
+              "rect": {
+                "x": 0,
+                "y": 0,
+                "width": 402,
+                "height": 874
+              }
+            },
+            {
+              "route": "/mypage/topup/fail",
+              "path": "body.1",
+              "tag": "div",
+              "rect": {
+                "x": 0,
+                "y": 0,
+                "width": 402,
+                "height": 874
+              }
+            }
+          ],
+          "routeCount": 2,
+          "occurrenceCount": 2,
+          "score": 54
+        },
+        {
+          "id": "subtree-d79fa46213b4",
+          "nodeCount": 26,
+          "roots": [
+            {
+              "route": "/mypage/upgrade/billing-change-fail",
+              "path": "body.1.0",
+              "tag": "div",
+              "rect": {
+                "x": 0,
+                "y": 0,
+                "width": 402,
+                "height": 874
+              }
+            },
+            {
+              "route": "/mypage/topup/fail",
+              "path": "body.1.0",
+              "tag": "div",
+              "rect": {
+                "x": 0,
+                "y": 0,
+                "width": 402,
+                "height": 874
+              }
+            }
+          ],
+          "routeCount": 2,
+          "occurrenceCount": 2,
+          "score": 52
+        },
+        {
+          "id": "subtree-70ba76fddd21",
+          "nodeCount": 25,
+          "roots": [
+            {
+              "route": "/mypage/upgrade/billing-change-fail",
+              "path": "body.1.0.0",
+              "tag": "div",
+              "rect": {
+                "x": 0,
+                "y": 0,
+                "width": 402,
+                "height": 874
+              }
+            },
+            {
+              "route": "/mypage/topup/fail",
+              "path": "body.1.0.0",
+              "tag": "div",
+              "rect": {
+                "x": 0,
+                "y": 0,
+                "width": 402,
+                "height": 874
+              }
+            }
+          ],
+          "routeCount": 2,
+          "occurrenceCount": 2,
+          "score": 50
+        },
+        {
+          "id": "subtree-9be5ba2fce8c",
+          "nodeCount": 24,
+          "roots": [
+            {
+              "route": "/mypage/upgrade/billing-change-fail",
+              "path": "body.1.0.0.1",
+              "tag": "main",
+              "rect": {
+                "x": 0,
+                "y": 0,
+                "width": 402,
+                "height": 810
+              }
+            },
+            {
+              "route": "/mypage/topup/fail",
+              "path": "body.1.0.0.1",
+              "tag": "main",
+              "rect": {
+                "x": 0,
+                "y": 0,
+                "width": 402,
+                "height": 810
+              }
+            }
+          ],
+          "routeCount": 2,
+          "occurrenceCount": 2,
+          "score": 48
+        }
+      ],
+      "page": {
+        "rect": {
+          "width": 402,
+          "height": 874
+        },
+        "background": [
+          0.9333333333333333,
+          0.9333333333333333,
+          0.9450980392156862,
+          1
+        ]
+      },
+      "main": {
+        "rect": {
+          "width": 402,
+          "height": 810
+        },
+        "background": [
+          0.9725490196078431,
+          0.9725490196078431,
+          0.9764705882352941,
+          1
+        ],
+        "radius": 16,
+        "padding": {
+          "top": 0,
+          "right": 16,
+          "bottom": 40,
+          "left": 16
+        }
+      },
+      "variants": [
+        {
+          "outcome": "Failure",
+          "route": "/mypage/upgrade/billing-change-fail",
+          "mainRect": {
+            "x": 0,
+            "y": 0,
+            "width": 402,
+            "height": 810
+          },
+          "topBarRect": {
+            "x": 16,
+            "y": 0,
+            "width": 370,
+            "height": 53
+          },
+          "contentRect": {
+            "x": 16,
+            "y": 109,
+            "width": 370,
+            "height": 320.1875
+          }
+        },
+        {
+          "outcome": "PlanDelayed",
+          "route": "/mypage/upgrade/billing-change-success",
+          "mainRect": {
+            "x": 0,
+            "y": 0,
+            "width": 402,
+            "height": 810
+          },
+          "topBarRect": {
+            "x": 16,
+            "y": 0,
+            "width": 370,
+            "height": 53
+          },
+          "contentRect": {
+            "x": 16,
+            "y": 109,
+            "width": 370,
+            "height": 283.7813
+          }
+        },
+        {
+          "outcome": "TopupDelayed",
+          "route": "/mypage/topup/success",
+          "mainRect": {
+            "x": 0,
+            "y": 0,
+            "width": 402,
+            "height": 810
+          },
+          "topBarRect": {
+            "x": 16,
+            "y": 0,
+            "width": 370,
+            "height": 53
+          },
+          "contentRect": {
+            "x": 16,
+            "y": 109,
+            "width": 370,
+            "height": 262.7813
+          }
+        }
+      ]
+    },
+    "bindings": {
+      "paletteCollection": "1 · Palette",
+      "paletteMode": "sidebar",
+      "semanticCollection": "2 · Semantic",
+      "semanticMode": "light-sidebar",
+      "appBackground": {
+        "collection": "1 · Palette",
+        "name": "palette/gray-200"
+      },
+      "surface": {
+        "collection": "1 · Palette",
+        "name": "palette/gray-100"
+      },
+      "current": {
+        "collection": "2 · Semantic",
+        "name": "gray/000 · a78"
+      },
+      "parent": {
+        "collection": "2 · Semantic",
+        "name": "gray/000 · a52"
+      },
+      "radius16": {
+        "collection": "Klipse Primitive",
+        "name": "radius/16"
+      }
+    }
+  }
+}

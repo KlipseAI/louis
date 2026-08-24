@@ -121,7 +121,7 @@ variant가 없다. Tooltip은 강조 축을 갖지 않는다 — 위계를 표�
 | 타이포      | `typography-caption-regular` (12px)                     |
 | padding     | `space-control-xs` 4px / `space-control-sm` 8px         |
 | radius      | `radius-control-sm` 8px                                 |
-| 테두리      | 1px `color-border-tooltip`                              |
+| 헤어라인    | inset (`--kds-hairline-inset`) 0.5px `color-border-hairline` — tooltip elevation 뒤에 조합. 이전 1px `color-border-tooltip` border가 없어지며 높이도 28 → 26px로 줄었다([DS-D-0023](../governance/decisions/DS-D-0023-hairline-inset.md)) |
 | 배경        | `color-background-inverse` — **페이지와 반전된다**       |
 | 전경        | `color-foreground-on-inverse`                           |
 | 그림자      | `elevation-tooltip` (테마마다 색이 다르다)              |

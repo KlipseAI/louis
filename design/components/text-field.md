@@ -51,7 +51,7 @@ summary: 한 줄 텍스트를 입력받습니다.
 
 1. **Stack** — 라벨·박스·메시지를 세로로 담는다.
 2. **Label** — 시각 라벨. `htmlFor`로 입력에 연결된다.
-3. **Box** — **시각적 필드.** 높이·여백·테두리·반경·배경을 소유하고 포커스 링을 받는다.
+3. **Box** — **시각적 필드.** 높이·여백·헤어라인(inset)·반경·배경을 소유하고 포커스 링을 받는다.
 4. **Prefix / Suffix** — 박스 안의 슬롯. 아이콘과 버튼이 들어간다.
 5. **Control** — 실제 `<input>`. 박스가 시각을 소유하므로 여기는 비어 있다.
 6. **Message** — 도움말 또는 오류. 한 자리를 나눠 쓴다.
@@ -81,11 +81,11 @@ variant 축이 없다. 필드는 강조 단계를 갖지 않는다 — 한 폼 �
 
 | state | 표현 |
 | --- | --- |
-| Default | `color-border-control` 테두리 |
+| Default | generic 헤어라인(inset, `color-border-hairline`) |
 | Hover | **바뀌지 않는다** |
 | Focus | 박스가 `:focus-within`으로 공유 링을 받는다 |
-| Invalid | `color-border-danger` 테두리 **+ 오류 문구 + `aria-invalid`** |
-| Disabled | `color-border-subtle` 테두리, 전경 `color-foreground-disabled` |
+| Invalid | generic 헤어라인 유지 — 색 축 대신 **오류 문구 + `aria-invalid` + `role="alert"`**가 전달한다 |
+| Disabled | generic 헤어라인 유지, 전경 `color-foreground-disabled`이 상태를 전달한다 |
 
 **hover에서 아무것도 바꾸지 않는다.** 필드의 어포던스는 보이는 테두리와 텍스트 커서가 맡는다.
 제품의 필드들도 대부분 hover 상태를 갖지 않는다.
@@ -128,7 +128,7 @@ variant 축이 없다. 필드는 강조 단계를 갖지 않는다 — 한 폼 �
 | 슬롯 간격 | 8px | 8px | `space-control-sm` |
 | stack 간격 | 4px | 4px | `space-control-xs` |
 | 반경 | 12px | 12px | `radius-control` |
-| 테두리 | 0.5px | 0.5px | `border-width-hairline` |
+| 헤어라인 (inset) | 0.5px | 0.5px | `border-width-hairline` + `color-border-hairline` |
 | 값 타이포 | 14/1.5 | 14/1.5 | `typography-body-sm-regular` |
 | 라벨 타이포 | 14/1.5 | 14/1.5 | `typography-body-sm-medium` |
 | 메시지 타이포 | 12 | 12 | `typography-caption-regular` |
@@ -157,9 +157,10 @@ variant 축이 없다. 필드는 강조 단계를 갖지 않는다 — 한 폼 �
   나가는 사각형 stroke로 표현한다. 두께는 같고(`border-width-ring` 2px) 모서리 반경만 근사다.
 - **Textarea가 없다.** 제품에는 여러 줄 입력이 최소 5벌 있다(노드 캔버스 프롬프트 계열). 같은
   박스 구조로 확장할 수 있으나 이번 범위가 아니다.
-- **`color-border-control`을 쓴다.** 그런데 IconButton은 같은 자리에 `color-border-default`를
-  쓴다 — 컨트롤 테두리의 정본이 저장소 안에서 아직 정해지지 않았다. 값도 다르다(전자는 반투명,
-  후자는 불투명). 이 불일치는 이 컴포넌트가 만든 것이 아니라 드러낸 것이다.
+- **컨트롤 테두리 정본은 이제 닫혔다.** 이전엔 `color-border-control`을 썼는데 IconButton은 같은
+  자리에 `color-border-default`를 써서 저장소 안 정본이 정해지지 않은 채였다. [DS-D-0023](../governance/decisions/DS-D-0023-hairline-inset.md)이
+  모든 일반 0.5px stroke를 단일 `color-border-hairline` generic 헤어라인으로 통일해 (2b)를 닫았다 —
+  Button·IconButton·TextField가 이제 같은 색·두께를 쓴다.
 
 ## Acceptance tests
 

@@ -14,7 +14,10 @@
   justify-content: center;
   inline-size: var(--kds-layout-control-height-md);
   block-size: var(--kds-layout-control-height-md);
-  border: var(--kds-border-width-hairline) solid transparent;
+  /* base에는 stroke가 없다 — 네이티브 button의 UA 테두리를 지운다(reset은 opt-in이다). secondary만
+   * 가시 헤어라인을 inset box-shadow로 그린다 (DS-D-0023). 정사각 계약은 inline/block-size가
+   * 고정하고 box-shadow는 레이아웃을 건드리지 않는다. */
+  border: 0;
   border-radius: var(--kds-radius-control);
   cursor: pointer;
   /* motion.md: 허용 property는 opacity와 transform뿐이다.
@@ -39,7 +42,9 @@
 
 .kds-icon-button[data-variant="secondary"] {
   background: var(--kds-color-background-surface);
-  border-color: var(--kds-color-border-default);
+  /* generic 10% inset 헤어라인 (DS-D-0023). 이전엔 color-border-default(불투명) border였고 Button
+   * secondary의 color-border-control과 값이 갈렸다 — 단일 헤어라인으로 통일했다. */
+  box-shadow: var(--kds-hairline-inset);
   color: var(--kds-color-foreground-primary);
 }
 
@@ -107,10 +112,8 @@
   background: var(--kds-color-background-inset);
 }
 
-.kds-icon-button:disabled:where([data-variant="secondary"]),
-.kds-icon-button[aria-disabled="true"]:where([data-variant="secondary"]) {
-  border-color: var(--kds-color-border-subtle);
-}
+/* disabled secondary는 별도 테두리 색을 두지 않는다 — enabled의 generic 헤어라인을 유지하고
+ * 상태는 foreground 색이 전달한다 (DS-D-0023, 이전엔 color-border-subtle border였다). */
 
 /* 글리프는 컨테이너와 독립이다. 두 size에서 같은 20px을 쓴다 (iconography.md Size model). */
 .kds-icon-button__glyph {
@@ -120,4 +123,13 @@
   justify-content: center;
   inline-size: var(--kds-icon-size-md);
   block-size: var(--kds-icon-size-md);
+}
+
+/* forced-colors: box-shadow 헤어라인은 강제 색 모드에서 사라지므로 시스템 색 실선으로 경계를
+ * 되살린다. 이전 base 투명 border가 강제 색에서 얻던 경계를 이어받는다 (DS-D-0023). */
+@media (forced-colors: active) {
+  .kds-icon-button {
+    box-shadow: none;
+    border: var(--kds-border-width-default) solid currentColor;
+  }
 }

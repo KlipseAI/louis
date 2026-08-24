@@ -66,7 +66,7 @@ Klipse 화면을 이루는 재사용 가능한 UI 단위다. 컴포넌트가 코
 | [Avatar](../components/avatar.md) | `experimental` | `partial` | `partial` | `done` | public export와 실브라우저 acceptance test 9건이 두 motion context에서 각각 돈다. 제품에 공용 구현이 **부분만** 있다 — 기본 아바타 SVG 하나만 분리돼 있고 본체는 셸 파일에 인라인이다. 크기 28/24는 제품의 --profile-avatar-size 두 값을 그대로 옮겼고 control 계단을 따르지 않는다(아바타는 컨트롤이 아니라 표식이다). **진행률 링을 소유하지 않는다** — 흡수하면 인계서 (1c)의 미결 판정이 API로 새어 들어온다. 테스트가 테두리·그림자·::after 층이 0인지 확인한다. Figma component set 2 variant(Size)가 섰고 parity 게이트가 Fallback을 자손으로 대조한다 — raw fill 0. **계약이 stroke·effect 0을 요구하므로 링이 새어 들어오면 게이트가 잡는다.** publish는 DS-F-008이다 |
 | [Checkbox](../components/checkbox.md) | `experimental` | `partial` | `partial` | `done` | public export와 실브라우저 acceptance test 14건이 두 motion context에서 각각 돈다. **제품에 정본이 있는데 21벌 중 2벌만 쓴다** — 그 전역 클래스가 cascade layer 밖이라 소비처가 이길 수 없었다. 크기 20px은 채택하고 accent-color는 채택하지 않았다(면 색 하나만 주고 표시·링·부분선택 막대를 브라우저가 정한다). indeterminate는 DOM 프로퍼티라 ref로 맞추고 aria-checked=mixed를 함께 준다. **선택 안 한 테두리 대비가 SC 1.4.11(3:1)에 미달하며 테두리 토큰 셋 중 어느 것도 라이트에서 넘지 못한다** — 실측을 규범에 적었고 인계서 (2b) 판정의 입력이다. color-border-strong의 첫 소비처다. Figma component set 4 variant(State)가 섰고 parity 게이트가 Box·Check·Dash·Label을 자손으로 대조한다 — raw fill·stroke 0. 체크는 CSS와 같은 구조(5×9 사각형의 두 변 + 45° 회전)라 계약값이 그대로 남는다. publish는 DS-F-008이다 |
 | [Selectable List Row](../components/selectable-list-row.md) | `experimental` | `partial` | `partial` | `done` | public export와 실브라우저 acceptance test 12건이 두 motion context에서 각각 돈다. master-detail의 좌측 열이며 제품 3벌 중 2벌(행의 면이 선택을 갖는 쪽)을 덮는다 — 나머지 1벌은 선택을 체크박스가 가지므로 Checkbox + 행 레이아웃이다. 선택은 aria-current가 소유하고 **면 하나에 기대지 않는다**: 다크에서 background-inset이 surface와 같은 색이라 표면 위 목록에서 선택 면이 사라지므로 3px 선행 표식을 함께 그린다. 같은 위험이 SidebarNavItem에 남아 있다(사이드바가 캔버스 위라서 성립). listbox가 아니며 Tab이 목록을 훑는다. Figma component set 3 variant(State)가 섰고 parity 게이트가 Marker·Text·Title·Meta·Media·Trailing을 자손으로 대조한다 — raw fill 0. Marker의 폭이 계약이라 선택 표식이 사라지면 게이트가 잡는다. publish는 DS-F-008이다 |
-| [Segmented Control](../components/segmented-control.md) | `experimental` | `partial` | `partial` | `done` | public export와 실브라우저 acceptance test 14건이 두 motion context에서 각각 돈다. **제품에 공용 구현이 둘인데 서로 아무것도 공유하지 않는다** — SegmentedToggle 컴포넌트(3벌)와 useSegmentedControlThumb 훅(4벌, 스타일은 복붙). 정본을 전자로 잡고 높이만 control 계단을 따랐다. 네이티브 radio 그룹이며 fieldset/legend가 그룹 이름을 소유한다. 트랙 inset ↔ 선택 raised는 두 테마 모두에서 죽지 않는 유일한 면 조합이다. 선택 면의 슬라이딩 전환은 layout-change motion 토큰이 없어 미구현이다. Figma component set 2 variant(Size)가 섰고 parity 게이트가 Track·Segment·Segment-Selected·Label을 자손으로 대조한다 — raw fill·stroke 0. 헤어라인은 CSS의 spread-only box-shadow에 대응하는 OUTSIDE stroke다. publish는 DS-F-008이다 |
+| [Segmented Control](../components/segmented-control.md) | `experimental` | `partial` | `partial` | `done` | public export와 실브라우저 acceptance test 14건이 두 motion context에서 각각 돈다. **제품에 공용 구현이 둘인데 서로 아무것도 공유하지 않는다** — SegmentedToggle 컴포넌트(3벌)와 useSegmentedControlThumb 훅(4벌, 스타일은 복붙). 정본을 전자로 잡고 높이만 control 계단을 따랐다. 네이티브 radio 그룹이며 fieldset/legend가 그룹 이름을 소유한다. 트랙 inset ↔ 선택 raised는 두 테마 모두에서 죽지 않는 유일한 면 조합이다. 선택 면의 슬라이딩 전환은 layout-change motion 토큰이 없어 미구현이다. Figma component set 2 variant(Size)가 섰고 parity 게이트가 Track·Segment·Segment-Selected·Label을 자손으로 대조한다 — raw fill·stroke 0. 헤어라인은 CSS의 inset box-shadow에 대응하는 INNER_SHADOW effect다 (DS-D-0023, 이전엔 spread-only box-shadow → OUTSIDE stroke였다). publish는 DS-F-008이다 |
 | [Skeleton](../components/skeleton.md) | `experimental` | `partial` | `partial` | `done` | public export와 실브라우저 acceptance test 5건이 두 motion context에서 각각 돈다. **면 색을 고르지 않는다** — 제품 실측(면 8% · 하이라이트 9%, 전경색 기준)대로 currentColor를 낮은 알파로 깐다. 인계서 (1c)의 "면 색 판정"은 solid 토큰이 필요하다는 전제 위에 있었고 실측이 그것을 부정했다. 흐름은 background-position이며 loop 허용 property(DS-D-0016)와 제품 우세 기법이 같은 곳을 가리킨다. 크기는 호출부가 정한다 |
 | [Slider](../components/slider.md) | `experimental` | `partial` | `partial` | `done` | public export와 실브라우저 acceptance test 16건이 두 motion context에서 각각 돈다. **제품에 공용 구현이 없다** — 정의 37벌이 일곱 레시피로 갈리고 합의하는 축이 하나도 없어 값은 DS가 정했다. 네이티브 <input type="range">이며 track 변형이 제품 인스펙터의 채움 막대를 흡수한다(제품은 그 자리에서 썸을 지웠고 DS는 표식을 곧 썸으로 만든다). 레일·썸의 렌더 결과는 섀도우 pseudo-element라 계산값을 읽을 수 없어 CSSOM 선언을 대조한다. Figma component set 4 variant(Size×Variant)가 섰고 **복합 키 `{size}/{variant}`를 쓰는 유일한 컴포넌트**다 — Variant 축이 레일 두께 4↔28과 썸 16↔2×14를 바꾼다. parity 게이트가 Rail·Fill·Thumb·Control·Label을 그룹별로 대조하고 변조 canary가 한 variant만 어긋난 경우를 잡는다. publish는 DS-F-008이다 |
 | [Sidebar Nav Item · App Top Bar](../components/app-shell-parts.md) | `experimental` | `partial` | `partial` | `done` | public export 2종, Figma component 둘(SidebarNavItem 6 variant · AppTopBar), parity 게이트가 Icon을 자손으로 대조한다. 실브라우저 acceptance test 10건. 셸의 레이아웃 계약은 app-shell 패턴이 소유하고 여기는 그 안의 부품 둘이다. 제품 실측에서 사이드바 항목에 포커스 표시가 아예 없다는 것을 찾았다 — 전역 리셋이 항목의 링 선언을 특이도와 무관하게 이긴다. 셸 composition과 compact 드로어는 아직 없다 2026-08-19: SidebarNavRow가 서고 AppTopBar에 leading·trailing 슬롯이 생겼다 — 코드 API에는 처음부터 있었는데 Figma에는 제목 하나뿐이라 조립하면 화면이 비어 보였다. 표현하지 못하는 API는 없는 것과 같다. |
@@ -293,11 +293,15 @@ focus-visible 링은 브라우저가 그리므로 Figma variant로 두지 않는
 | 최소 폭     | 없음                                | `layout-control-minimum-width-sm` 48px |
 | padding     | 0 / `space-control-lg` 16px         | 0 / `space-control-md` 12px         |
 | gap         | `space-control-sm` 8px              | `space-control-xs` 4px              |
-| border      | `border-width-hairline` 0.5px       | `border-width-hairline` 0.5px       |
+| 헤어라인 (secondary만, inset) | `border-width-hairline` 0.5px | `border-width-hairline` 0.5px |
 | radius      | `radius-control` 12px               | `radius-control` 12px               |
 | 타이포      | `body-sm-medium` 14px / 21px        | `body-sm-medium` 14px / 21px        |
 | spinner     | 18px (`1em` + border 2)             | 18px (`1em` + border 2)             |
 | 아이콘 슬롯 | `icon-size-md` 20px                 | `icon-size-sm` 16px                 |
+
+**base에는 stroke가 없다.** 위 헤어라인 행은 `secondary` variant에만 적용된다 — `border-width-hairline`
+0.5px 두께의 `color-border-hairline` 색을 CSS `border`가 아니라 inset box-shadow로 그린다
+([DS-D-0023](../governance/decisions/DS-D-0023-hairline-inset.md)).
 
 **이 값들은 제품 배포 코드에서 채택한 것이다.** 근거와 채택/편차 판정은
 [`migration/product.measured.json`](../../migration/product.measured.json)에 있고 게이트가 매 실행
@@ -996,7 +1000,7 @@ Specification 표의 `Panel surface` 행은 라이트 값을 하나만 담는다
 | Panel surface  | `color-background-menu` — 라이트 neutral-100 / 다크 neutral-800 | light/dark/high contrast   |
 | Panel radius   | `radius-overlay` = 16px                                | visual regression          |
 | Panel padding  | `space-overlay-inset` = 6px                            | item hit area 유지         |
-| Panel border   | 없음. 헤어라인은 `elevation-menu`의 0.5px 스프레드     | 레이아웃 박스 불변         |
+| Panel border   | 없음. 헤어라인은 패널이 조합하는 inset(`--kds-hairline-inset`) | 레이아웃 박스 불변 |
 | Item radius    | `radius-overlay-item` = 10px                           | hover/focus/selected state |
 | Item 사이 간격 | `space-overlay-item-gap` = 2px                         | 행이 붙지 않는다           |
 | Item 내부 gap  | `space-overlay-item-content-gap` = 6px                 | 아이콘·라벨 간격           |
@@ -1007,7 +1011,7 @@ Specification 표의 `Panel surface` 행은 라이트 값을 하나만 담는다
 | Danger hover   | `color-action-menu-danger-hover` — red 알파            | light/dark                 |
 | Anchor offset  | 8px                                                    | collision/flip             |
 | Panel width    | 최소 160px, composite 240px reference                  | 긴 locale 문구와 200% zoom |
-| Elevation      | `elevation-menu` — ambient + 0.5px 헤어라인 2겹        | overlay hierarchy          |
+| Elevation      | `elevation-menu` — ambient drop shadow만. 헤어라인은 패널이 뒤에 조합하는 inset | overlay hierarchy |
 | Open motion    | opacity + scale, `motion-overlay-enter`; origin=anchor | reduced-motion 대체        |
 | Reduced motion | transform 제거, 짧은 opacity 또는 즉시 전환            | motion preference          |
 | Layer          | `layer-popover`, 숫자 리터럴 금지                      | nested overlay stack       |
@@ -1136,8 +1140,9 @@ submenu의 방향키가 부모 핸들러까지 실행해 focus가 부모로 튀�
   소스에 없다. DS-P3-014가 이름을 정리하면 갱신한다.
 - **panel padding이 6px이 아니라 4px이다.** `space-overlay-inset`이 없어 `space-control-xs`로
   대체했다. DS-P3-014가 토큰을 추가하면 변수 한 줄만 바꾼다.
-- **panel에 hairline border가 있다.** Specification 표에는 없지만 dark에서 `elevation-popover`
-  그림자만으로는 표면 경계가 서지 않는다.
+- **panel 경계는 border가 아니라 inset 헤어라인이다.** Specification 표에는 없지만 dark에서
+  `elevation-popover` 그림자만으로는 표면 경계가 서지 않아, elevation 뒤에 조합한 inset
+  box-shadow(`--kds-hairline-inset`)를 한 겹 더 쓴다([DS-D-0023](../governance/decisions/DS-D-0023-hairline-inset.md)).
 - **item에 `.kds-hit-target`을 쓰지 않는다.** 그 유틸의 44px `::after`는 항목 중앙에 겹쳐 놓이므로
   간격 없이 쌓이는 행에서 인접 항목의 hit 영역을 2px씩 가로챈다. 행 자체를 44px로 만든다.
 - **`offset`과 `collisionPadding`을 인스턴스별로 바꿀 수 없다.** 값은 overlay 표면 CSS 한 블록이
@@ -1388,7 +1393,7 @@ variant가 없다. Tooltip은 강조 축을 갖지 않는다 — 위계를 표�
 | 타이포      | `typography-caption-regular` (12px)                     |
 | padding     | `space-control-xs` 4px / `space-control-sm` 8px         |
 | radius      | `radius-control-sm` 8px                                 |
-| 테두리      | 1px `color-border-tooltip`                              |
+| 헤어라인    | inset (`--kds-hairline-inset`) 0.5px `color-border-hairline` — tooltip elevation 뒤에 조합. 이전 1px `color-border-tooltip` border가 없어지며 높이도 28 → 26px로 줄었다([DS-D-0023](../governance/decisions/DS-D-0023-hairline-inset.md)) |
 | 배경        | `color-background-inverse` — **페이지와 반전된다**       |
 | 전경        | `color-foreground-on-inverse`                           |
 | 그림자      | `elevation-tooltip` (테마마다 색이 다르다)              |
@@ -1730,7 +1735,7 @@ Klipse의 홈과 허브 화면은 전부 이 카드의 격자다. 제품에는 �
 **자식 순서가 계약이다** — Media → Action → Adornment. 숫자 z-index를 쓰지 않으므로 칠 순서가 곧
 DOM 순서이고, 슬롯이 Action 앞에 오면 슬롯 안의 컨트롤이 클릭 타깃에 덮여 눌리지 않는다.
 
-1. **Card** — 프레임. 반경과 헤어라인 테두리를 소유하며 대화형이 아니다.
+1. **Card** — 프레임. 반경과 inset 헤어라인을 소유하며 대화형이 아니다.
 2. **Media** — 비율이 고정된 면. 썸네일·자리표시·오버레이의 좌표계다.
 3. **Thumbnail** — 썸네일 자리. `<img>`나 `<video>`를 그대로 담는다.
 4. **Overlay** — 미디어 하단의 제목 띠. 흐림 층을 소유한다.
@@ -1761,7 +1766,7 @@ variant 축이 없다. 카드의 강조는 카드가 아니라 **썸네일**이 
 
 | state | 표현 |
 | --- | --- |
-| Default | 헤어라인 테두리, 변형 없음 |
+| Default | 헤어라인 inset, 변형 없음 |
 | Hover | 카드 자신은 바뀌지 않는다. 슬롯 안의 컨트롤이 드러난다 |
 | Active | `scale(0.975)`. `:has(.kds-project-card-action:active)`로 **클릭 타깃만** 본다 — 프레임에 직접 걸면 슬롯의 버튼을 눌러도 카드가 줄어든다 |
 | Focus visible | 링은 프레임에 그린다. 투명한 클릭 타깃에만 링이 뜨면 무엇이 선택됐는지 모른다 |
@@ -1833,7 +1838,7 @@ variant 축이 없다. 카드의 강조는 카드가 아니라 **썸네일**이 
 | --- | ---: | --- |
 | 반경 | 16px | `radius-card` |
 | 오버레이 높이 하한 | 미디어의 30% | — |
-| 테두리 | 0.5px | `border-width-hairline` + `color-border-subtle` |
+| 헤어라인 (inset) | 0.5px | `border-width-hairline` + `color-border-hairline` |
 | 미디어 배경 | — | `color-background-canvas` |
 | 오버레이 여백 | 16px | `space-layout-gutter` |
 | 줄 간격 | 4px | `space-stack-xs` |
@@ -1842,6 +1847,9 @@ variant 축이 없다. 카드의 강조는 카드가 아니라 **썸네일**이 
 | 제목 | body-md-medium | `typography-body-md-medium` |
 | Eyebrow·Meta | body-sm-regular | `typography-body-sm-regular` |
 | 누름 | `scale(0.975)` | — |
+
+`overflow: hidden` 카드에서 inset 헤어라인은 제품 `5103ffeb`과 같은 결과다 — full-bleed 썸네일이
+그 가장자리를 덮을 수 있다([DS-D-0023](../governance/decisions/DS-D-0023-hairline-inset.md)).
 
 #### Effects
 
@@ -2118,7 +2126,7 @@ hover·focus·disabled 상태가 없다. **진행률은 누를 수 없는 것이
 
 1. **Stack** — 라벨·박스·메시지를 세로로 담는다.
 2. **Label** — 시각 라벨. `htmlFor`로 입력에 연결된다.
-3. **Box** — **시각적 필드.** 높이·여백·테두리·반경·배경을 소유하고 포커스 링을 받는다.
+3. **Box** — **시각적 필드.** 높이·여백·헤어라인(inset)·반경·배경을 소유하고 포커스 링을 받는다.
 4. **Prefix / Suffix** — 박스 안의 슬롯. 아이콘과 버튼이 들어간다.
 5. **Control** — 실제 `<input>`. 박스가 시각을 소유하므로 여기는 비어 있다.
 6. **Message** — 도움말 또는 오류. 한 자리를 나눠 쓴다.
@@ -2148,11 +2156,11 @@ variant 축이 없다. 필드는 강조 단계를 갖지 않는다 — 한 폼 �
 
 | state | 표현 |
 | --- | --- |
-| Default | `color-border-control` 테두리 |
+| Default | generic 헤어라인(inset, `color-border-hairline`) |
 | Hover | **바뀌지 않는다** |
 | Focus | 박스가 `:focus-within`으로 공유 링을 받는다 |
-| Invalid | `color-border-danger` 테두리 **+ 오류 문구 + `aria-invalid`** |
-| Disabled | `color-border-subtle` 테두리, 전경 `color-foreground-disabled` |
+| Invalid | generic 헤어라인 유지 — 색 축 대신 **오류 문구 + `aria-invalid` + `role="alert"`**가 전달한다 |
+| Disabled | generic 헤어라인 유지, 전경 `color-foreground-disabled`이 상태를 전달한다 |
 
 **hover에서 아무것도 바꾸지 않는다.** 필드의 어포던스는 보이는 테두리와 텍스트 커서가 맡는다.
 제품의 필드들도 대부분 hover 상태를 갖지 않는다.
@@ -2195,7 +2203,7 @@ variant 축이 없다. 필드는 강조 단계를 갖지 않는다 — 한 폼 �
 | 슬롯 간격 | 8px | 8px | `space-control-sm` |
 | stack 간격 | 4px | 4px | `space-control-xs` |
 | 반경 | 12px | 12px | `radius-control` |
-| 테두리 | 0.5px | 0.5px | `border-width-hairline` |
+| 헤어라인 (inset) | 0.5px | 0.5px | `border-width-hairline` + `color-border-hairline` |
 | 값 타이포 | 14/1.5 | 14/1.5 | `typography-body-sm-regular` |
 | 라벨 타이포 | 14/1.5 | 14/1.5 | `typography-body-sm-medium` |
 | 메시지 타이포 | 12 | 12 | `typography-caption-regular` |
@@ -2224,9 +2232,10 @@ variant 축이 없다. 필드는 강조 단계를 갖지 않는다 — 한 폼 �
   나가는 사각형 stroke로 표현한다. 두께는 같고(`border-width-ring` 2px) 모서리 반경만 근사다.
 - **Textarea가 없다.** 제품에는 여러 줄 입력이 최소 5벌 있다(노드 캔버스 프롬프트 계열). 같은
   박스 구조로 확장할 수 있으나 이번 범위가 아니다.
-- **`color-border-control`을 쓴다.** 그런데 IconButton은 같은 자리에 `color-border-default`를
-  쓴다 — 컨트롤 테두리의 정본이 저장소 안에서 아직 정해지지 않았다. 값도 다르다(전자는 반투명,
-  후자는 불투명). 이 불일치는 이 컴포넌트가 만든 것이 아니라 드러낸 것이다.
+- **컨트롤 테두리 정본은 이제 닫혔다.** 이전엔 `color-border-control`을 썼는데 IconButton은 같은
+  자리에 `color-border-default`를 써서 저장소 안 정본이 정해지지 않은 채였다. [DS-D-0023](../governance/decisions/DS-D-0023-hairline-inset.md)이
+  모든 일반 0.5px stroke를 단일 `color-border-hairline` generic 헤어라인으로 통일해 (2b)를 닫았다 —
+  Button·IconButton·TextField가 이제 같은 색·두께를 쓴다.
 
 #### Acceptance tests
 
@@ -3221,17 +3230,17 @@ variant 축이 없다. 체크박스는 강조 단계를 갖지 않는다.
 
 | state | 표현 |
 | --- | --- |
-| Default | 면 `color-background-surface`, 테두리 `color-border-strong`, 표시 없음 |
-| Checked | 면·테두리 `color-action-primary`, 체크 표시 `color-foreground-inverse` |
-| Indeterminate | 면·테두리 `color-action-primary`, **가로 막대** `color-foreground-inverse` |
-| Disabled | 면 `color-background-inset`, 테두리 `color-border-subtle`, 표시 `color-foreground-disabled` |
+| Default | 면 `color-background-surface`, generic 헤어라인(inset, `color-border-hairline`), 표시 없음 |
+| Checked | 면 `color-action-primary`이 채운다, 체크 표시 `color-foreground-inverse` — 헤어라인은 남지만 상태는 면이 전달한다 |
+| Indeterminate | 면 `color-action-primary`이 채운다, **가로 막대** `color-foreground-inverse` — Checked와 같은 판단이다 |
+| Disabled | 면 `color-background-inset`, generic 헤어라인 유지, 표시 `color-foreground-disabled` — 상태는 면·전경이 전달한다 |
 | Focus | 컨트롤이 공유 링을 받는다 |
 
 **Indeterminate가 Checked를 이긴다.** 네이티브에서 두 상태는 동시에 참일 수 있고, 그때 화면은
 "일부"를 보여야 한다 — 부분 선택은 선택이 아니다. 두 규칙이 소스 순서로 갈리므로 CSS가 그 승패를
 명시적으로 고정한다.
 
-**hover에서 아무것도 바꾸지 않는다.** 상자가 이미 테두리로 자기를 알리고, 라벨이 커서를 바꾼다.
+**hover에서 아무것도 바꾸지 않는다.** 상자가 이미 헤어라인으로 자기를 알리고, 라벨이 커서를 바꾼다.
 
 #### Interaction and responsive behavior
 
@@ -3263,7 +3272,7 @@ variant 축이 없다. 체크박스는 강조 단계를 갖지 않는다.
 | 축 | 값 | 토큰 |
 | --- | ---: | --- |
 | 상자 | 20×20px | 리터럴 — 제품 정본 채택 |
-| 테두리 | 0.5px | `border-width-hairline` |
+| 헤어라인 (inset) | 0.5px | `border-width-hairline` + `color-border-hairline` |
 | 반경 | 8px | `radius-control-sm` |
 | 상자–라벨 간격 | 8px | `space-control-sm` |
 | 체크 표시 | 5×9px, 2px 획 | 리터럴 |
@@ -3289,11 +3298,13 @@ variant 축이 없다. 체크박스는 강조 단계를 갖지 않는다.
 
 #### Known deviations
 
-- **선택하지 않은 상자의 테두리 대비가 WCAG 2.2 SC 1.4.11(3:1)에 미달한다.** 상자 면 대비 실측은
-  `color-border-control` 1.27/1.63 · `color-border-default` 1.38/2.93 ·
-  **`color-border-strong` 2.52/4.61**(라이트/다크)이고, **테두리 토큰 셋 중 어느 것도 라이트에서
-  3:1을 넘지 못한다.** 가장 가까운 `border-strong`을 골랐고 라이트의 2.52는 남는다. 이 실측은
-  인계서 (2b) 컨트롤 테두리 정본 판정의 입력이며, 해소하려면 새 값이 필요하므로 owner 판정이다.
+- **선택하지 않은 상자의 헤어라인 대비가 WCAG 2.2 SC 1.4.11(3:1)에 미달하고, 이전보다 더 낮아졌다.**
+  상자 면 대비 실측은 `color-border-control` 1.27/1.63 · `color-border-default` 1.38/2.93 ·
+  `color-border-strong` 2.52/4.61(라이트/다크)이고, **테두리 토큰 셋 중 어느 것도 라이트에서 3:1을
+  넘지 못했다.** 이전엔 가장 가까운 `border-strong`을 썼지만, 제품 owner가 모든 일반 0.5px stroke를
+  단일 `color-border-hairline`(black/paper 10%)으로 통일하는 결정을 내렸고([DS-D-0023](../governance/decisions/DS-D-0023-hairline-inset.md)),
+  10%는 라이트 대비를 `strong`의 2.52보다 더 낮춘다. 이 접근성 편차는 제품 `5103ffeb` 배포 계약과
+  일치시키기 위한 것이며 owner 판정이다 — **인계서 (2b) 컨트롤 테두리 정본을 DS-D-0023이 닫았다.**
   선택된 상태의 면은 3.12/4.90으로 통과한다.
 - **`color-border-strong`의 첫 소비처가 여기다.** 인계서 (1a)가 "소비처 0이고 이름이 가리키는 것이
   그 이름을 안 쓴다"고 분류한 넷 중 하나인데, 이제 이름이 뜻과 맞는 소비처가 생겼다 — 경계가
@@ -3555,7 +3566,7 @@ master-detail의 좌측 열에서 하나를 고른다.
 
 #### Anatomy
 
-1. **Track** — `<fieldset>`. 면·반경·헤어라인과 padding을 소유한다.
+1. **Track** — `<fieldset>`. 면·반경·헤어라인(inset)과 padding을 소유한다.
 2. **Legend** — 그룹 이름. 시각적으로 숨기고 보조기술에 남긴다.
 3. **Segment** — `<label>`. 시각을 소유한다.
 4. **Input** — 숨겨진 `<input type="radio">`. 선택 상태와 키보드를 소유한다.
@@ -3636,7 +3647,7 @@ variant 축이 없다. 세그먼트 컨트롤은 강조 단계를 갖지 않는�
 | 트랙 높이 | 40px | 32px | `layout-control-height-md` / `-sm` |
 | 트랙 padding | 4px | 4px | `space-control-xs` |
 | 트랙 반경 | 12px | 12px | `radius-control` |
-| 트랙 헤어라인 | 0.5px | 0.5px | `border-width-hairline` |
+| 트랙 헤어라인 (inset) | 0.5px | 0.5px | `border-width-hairline` + `color-border-hairline` |
 | 세그먼트 높이 | 32px | 24px | 트랙 − 2×padding |
 | 세그먼트 반경 | 8px | 8px | `radius-control-sm` |
 | 세그먼트 좌우 여백 | 12px | 8px | `space-control-md` / `-sm` |
@@ -3673,10 +3684,12 @@ variant 축이 없다. 세그먼트 컨트롤은 강조 단계를 갖지 않는�
 
 #### Effects
 
-**트랙의 헤어라인은 테두리가 아니라 spread-only box-shadow다.** `border`를 쓰면 border-box
+**트랙의 헤어라인은 테두리가 아니라 generic 10% inset box-shadow다.** `border`를 쓰면 border-box
 안쪽이 줄어 세그먼트 높이가 40 − 8 − 2×테두리가 되는데, 브라우저가 DPR 1에서 0.5px을 1px로
-올리므로 그 값이 화면마다 달라진다. 그림자는 레이아웃을 건드리지 않아 세그먼트가 정확히 32로
-남는다. 제품 A의 `box-shadow: var(--dropdown-frame)`가 같은 기법이며 그 축은 채택했다.
+올리므로 그 값이 화면마다 달라진다. inset box-shadow도 레이아웃을 건드리지 않아 세그먼트가 정확히
+32로 남는다. 이전엔 spread-only 바깥 그림자였고 색도 `color-border-subtle`이었다 — 다른 표면과 같은
+generic 10% `color-border-hairline` inset으로 통일했다([DS-D-0023](../governance/decisions/DS-D-0023-hairline-inset.md)).
+Figma는 INNER_SHADOW로 대응한다 — 이전 OUTSIDE stroke에서 바뀐 것이다.
 
 선택 면에 그림자를 두지 않는다. 제품 A는 헤어라인 프레임을 얹지만, 면 색이 이미 트랙과 다르므로
 경계가 그것으로 읽힌다.
@@ -4522,7 +4535,7 @@ badge.md가 적은 제품 높이 분포(19·22·26)에 24가 없다는 것이 �
 | `width` | `calc(100% + var(--mainchrome-bleed-left, var(--app-gnb-main-inline-padding)) + var(--mainchrome-bleed-right, var(--app-gnb-main-inline-padding)))` |
 | `margin-left` / `margin-right` | 각 bleed 변수의 음수 |
 | `padding` | `8px var(--mainchrome-pad-x)` → **8px 8px** |
-| `border-bottom` | 풀블리드 폭 전체를 가로지른다 |
+| divider box-shadow | 켜지면 방향성 inset 헤어라인(`--kds-hairline-inset-block-end`)이 풀블리드 폭 전체를 가로지른다. border가 아니므로 레이아웃 높이를 늘리지 않는다([DS-D-0023](../governance/decisions/DS-D-0023-hairline-inset.md)) |
 
 bleed 폴백은 좌우 모두 `--app-gnb-main-inline-padding`(16px)이고 짝 토큰
 `--app-gnb-main-inline-padding-end`는 12px이다. 앱 셸 본문 카드 두 곳은 자기 카드의 좌우 패딩과 **같은
@@ -4599,6 +4612,12 @@ bleed와 음수 마진 자체는 이 폭에서도 계속 걸려 있으므로 배
   | 주입 있음 · `scrollTop ≥ 12px` | 100% — 라이트 `--palette-gray-200`, 그 밖 `rgb(var(--gray-000-rgb) / 8%)`를 `color-mix`로 보간 | `Gnb.tsx:428` · `:432` |
   | 주입 **없음**(그 밖의 화면) | 정지 상태에서도 100% | 폴백 `1` |
   | 전환 | `border-bottom-color 120ms ease` | `Gnb.tsx:429` |
+
+  **이 표는 `Gnb.tsx`가 소유한 스크롤 진행률 구현을 그대로 인용한 것이라 KDS 소스가 손댈 수 없다.**
+  KDS 자체 `data-divider` 레시피는 이제 `border-bottom`이 아니라 방향성 inset 헤어라인
+  (`--kds-hairline-inset-block-end`)이고 전환도 없다 — 위 `border-bottom-color` 전환은 여전히
+  제품의 별도 런타임 계약을 가리키며, `Gnb.tsx`가 같은 box-shadow/색 전환으로 옮겨가면 이 표도
+  다시 실측해야 한다([DS-D-0023](../governance/decisions/DS-D-0023-hairline-inset.md)).
 
   **`--header-progress`는 지금 아무 화면도 켜지 않는다(주의).** 상수 이름과 JSDoc은 「워드마크 축소
   등 헤더 collapse」라고 말하지만 **그런 소비처가 배포본에 없다.** 실제 소비처는 형태 B 패널의
@@ -5028,12 +5047,16 @@ host의 두 번째 직속 자식이 되고, primitive의 중첩 격리가 자기
   컨트롤 **내부** 스케일이라 표면 여백에 쓰지 않는다.
 - **`surface-scrim-modal` 대신 `color-scrim-modal`을 쓰고 값이 50%가 아니라 56%(light)/72%(dark)다.**
   Specification 표가 대는 이름의 토큰이 없고 실제 값은 두 테마에서 다르다.
-- **surface에 hairline border가 있다.** Specification 표에는 없지만 dark에서 `elevation-modal` 그림자만으로
-  표면 경계가 서지 않는다. Menu 패널과 같은 판단이다.
+- **surface 경계는 border가 아니라 inset 헤어라인이다.** Specification 표에는 없지만 dark에서
+  `elevation-modal` 그림자만으로 표면 경계가 서지 않아, modal elevation 뒤에 조합한 inset
+  box-shadow(`--kds-hairline-inset`)를 한 겹 더 쓴다([DS-D-0023](../governance/decisions/DS-D-0023-hairline-inset.md)).
+  Menu 패널과 같은 판단이다.
 
-  **제품은 반대다.** 배포본 확인 모달은 `border` 선언이 아예 없고 경계를
+  **이제 제품과 같은 계약이다 — border가 아니라 box-shadow 헤어라인이다.** 다만 구성은 다르다.
+  배포본 확인 모달은 `border` 선언이 아예 없고 경계를
   `box-shadow: var(--dropdown-frame)` **0.5px 헤어라인 한 겹으로만** 만든다(`GlassConfirmModal.tsx:56`).
-  드롭다운이 함께 쓰는 `--dropdown-ambient-shadow`는 붙이지 않으므로 **드롭 섀도우가 한 겹도 없다.**
+  드롭다운이 함께 쓰는 `--dropdown-ambient-shadow`는 붙이지 않으므로 **드롭 섀도우가 한 겹도 없다** —
+  DS는 `elevation-modal` 뒤에 헤어라인을 조합해 앰비언트와 헤어라인을 함께 갖는다는 점이 다르다.
   이름이 `Glass*`인데도 `backdrop-filter: none`과 `-webkit-backdrop-filter: none`을 명시해 흐림까지 끈다
   (`GlassConfirmModal.tsx:55`). **이름을 믿고 Figma에 블러를 넣으면 틀린다** — 이름의 `Glass`는 이미 제품이 걷어낸 개념의 잔재다.
 - **제품 모달의 면은 시맨틱이 아니라 palette 직접 참조 두 벌이다.** 다크 `--palette-gray-800` `#313640`,

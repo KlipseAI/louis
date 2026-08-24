@@ -65,7 +65,16 @@ function assertPaint(node: Element, expected: Paint, label: string): void {
   expect(style.backgroundColor, `${label} background`).toBe(wantBackground);
   expect(style.color, `${label} foreground`).toBe(tokenValue(expected.foreground, "color"));
   if (expected.border !== undefined) {
-    expect(style.borderTopColor, `${label} border`).toBe(tokenValue(expected.border, "color"));
+    if (expected.border === "color-border-hairline") {
+      // DS-D-0023: 일반 stroke는 border가 아니라 generic 헤어라인 inset이다.
+      expect(style.borderTopWidth, `${label} border 제거`).toBe("0px");
+      expect(style.boxShadow, `${label} 헤어라인`).toContain("inset");
+      expect(style.boxShadow, `${label} 헤어라인 색`).toContain(
+        tokenValue("color-border-hairline", "color"),
+      );
+    } else {
+      expect(style.borderTopColor, `${label} border`).toBe(tokenValue(expected.border, "color"));
+    }
   }
 }
 
@@ -212,8 +221,11 @@ test("ProjectCard의 states 표가 코드와 같다", async () => {
   const card = find(".kds-project-card");
   const cardStyle = getComputedStyle(card);
   expect(cardStyle.backgroundColor, "card background").toBe(TRANSPARENT);
-  expect(cardStyle.borderTopColor, "card border").toBe(
-    tokenValue(stateOf(spec, "Default").border as string, "color"),
+  // DS-D-0023: 프레임 경계는 border가 아니라 generic 헤어라인 inset이다.
+  expect(cardStyle.borderTopWidth, "card border 제거").toBe("0px");
+  expect(cardStyle.boxShadow, "card 헤어라인").toContain("inset");
+  expect(cardStyle.boxShadow, "card 헤어라인 색").toContain(
+    tokenValue("color-border-hairline", "color"),
   );
   expect(getComputedStyle(find(".kds-project-card-title")).color, "title foreground").toBe(
     tokenValue(stateOf(spec, "Default").foreground, "color"),

@@ -110,17 +110,17 @@ variant 축이 없다. 체크박스는 강조 단계를 갖지 않는다.
 
 | state | 표현 |
 | --- | --- |
-| Default | 면 `color-background-surface`, 테두리 `color-border-strong`, 표시 없음 |
-| Checked | 면·테두리 `color-action-primary`, 체크 표시 `color-foreground-inverse` |
-| Indeterminate | 면·테두리 `color-action-primary`, **가로 막대** `color-foreground-inverse` |
-| Disabled | 면 `color-background-inset`, 테두리 `color-border-subtle`, 표시 `color-foreground-disabled` |
+| Default | 면 `color-background-surface`, generic 헤어라인(inset, `color-border-hairline`), 표시 없음 |
+| Checked | 면 `color-action-primary`이 채운다, 체크 표시 `color-foreground-inverse` — 헤어라인은 남지만 상태는 면이 전달한다 |
+| Indeterminate | 면 `color-action-primary`이 채운다, **가로 막대** `color-foreground-inverse` — Checked와 같은 판단이다 |
+| Disabled | 면 `color-background-inset`, generic 헤어라인 유지, 표시 `color-foreground-disabled` — 상태는 면·전경이 전달한다 |
 | Focus | 컨트롤이 공유 링을 받는다 |
 
 **Indeterminate가 Checked를 이긴다.** 네이티브에서 두 상태는 동시에 참일 수 있고, 그때 화면은
 "일부"를 보여야 한다 — 부분 선택은 선택이 아니다. 두 규칙이 소스 순서로 갈리므로 CSS가 그 승패를
 명시적으로 고정한다.
 
-**hover에서 아무것도 바꾸지 않는다.** 상자가 이미 테두리로 자기를 알리고, 라벨이 커서를 바꾼다.
+**hover에서 아무것도 바꾸지 않는다.** 상자가 이미 헤어라인으로 자기를 알리고, 라벨이 커서를 바꾼다.
 
 ## Interaction and responsive behavior
 
@@ -152,7 +152,7 @@ variant 축이 없다. 체크박스는 강조 단계를 갖지 않는다.
 | 축 | 값 | 토큰 |
 | --- | ---: | --- |
 | 상자 | 20×20px | 리터럴 — 제품 정본 채택 |
-| 테두리 | 0.5px | `border-width-hairline` |
+| 헤어라인 (inset) | 0.5px | `border-width-hairline` + `color-border-hairline` |
 | 반경 | 8px | `radius-control-sm` |
 | 상자–라벨 간격 | 8px | `space-control-sm` |
 | 체크 표시 | 5×9px, 2px 획 | 리터럴 |
@@ -178,11 +178,13 @@ variant 축이 없다. 체크박스는 강조 단계를 갖지 않는다.
 
 ## Known deviations
 
-- **선택하지 않은 상자의 테두리 대비가 WCAG 2.2 SC 1.4.11(3:1)에 미달한다.** 상자 면 대비 실측은
-  `color-border-control` 1.27/1.63 · `color-border-default` 1.38/2.93 ·
-  **`color-border-strong` 2.52/4.61**(라이트/다크)이고, **테두리 토큰 셋 중 어느 것도 라이트에서
-  3:1을 넘지 못한다.** 가장 가까운 `border-strong`을 골랐고 라이트의 2.52는 남는다. 이 실측은
-  인계서 (2b) 컨트롤 테두리 정본 판정의 입력이며, 해소하려면 새 값이 필요하므로 owner 판정이다.
+- **선택하지 않은 상자의 헤어라인 대비가 WCAG 2.2 SC 1.4.11(3:1)에 미달하고, 이전보다 더 낮아졌다.**
+  상자 면 대비 실측은 `color-border-control` 1.27/1.63 · `color-border-default` 1.38/2.93 ·
+  `color-border-strong` 2.52/4.61(라이트/다크)이고, **테두리 토큰 셋 중 어느 것도 라이트에서 3:1을
+  넘지 못했다.** 이전엔 가장 가까운 `border-strong`을 썼지만, 제품 owner가 모든 일반 0.5px stroke를
+  단일 `color-border-hairline`(black/paper 10%)으로 통일하는 결정을 내렸고([DS-D-0023](../governance/decisions/DS-D-0023-hairline-inset.md)),
+  10%는 라이트 대비를 `strong`의 2.52보다 더 낮춘다. 이 접근성 편차는 제품 `5103ffeb` 배포 계약과
+  일치시키기 위한 것이며 owner 판정이다 — **인계서 (2b) 컨트롤 테두리 정본을 DS-D-0023이 닫았다.**
   선택된 상태의 면은 3.12/4.90으로 통과한다.
 - **`color-border-strong`의 첫 소비처가 여기다.** 인계서 (1a)가 "소비처 0이고 이름이 가리키는 것이
   그 이름을 안 쓴다"고 분류한 넷 중 하나인데, 이제 이름이 뜻과 맞는 소비처가 생겼다 — 경계가

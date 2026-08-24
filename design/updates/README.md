@@ -16,6 +16,57 @@ authority: normative
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
 
+## 2026-08-24 (100) — 일반 0.5px stroke를 border에서 inset 헤어라인으로 통일한다 (DS-D-0023)
+
+제품 저장소가 `5103ffeb`에서 제각각이던 0.5px stroke를 하나의 recipe로 통일했다 — CSS `border`나
+바깥 spread shadow가 아니라 `inset 0 0 0 0.5px <헤어라인 색>` 한 겹이다. KDS source는 그때까지
+컴포넌트마다 CSS `border`, 바깥 spread shadow, 서로 다른 border color를 써서 KDS를 직접 보는 다음
+구현자가 낡은 방식을 다시 쓸 수 있었다. 그 임시 계약을 제품 `@layer kds.override`가 덮어 성립시키고
+있었는데, 이제 KDS가 정본으로 소유한다 —
+[DS-D-0023](../governance/decisions/DS-D-0023-hairline-inset.md).
+
+### Added
+
+- primitive `color-black-alpha-10`(순수 black 10%). 제품 실측 헤어라인이 라이트에서 `rgba(0, 0, 0, 0.1)`
+  이고 `ink-alpha.10`(#171b22)이 아니므로 순수 black 단계가 필요했다.
+- semantic `color-border-hairline` — light `black-alpha.10` · dark `paper-alpha.10`.
+- CSS foundation recipe `--kds-hairline-inset` / `-block-start` / `-block-end`
+  (`packages/css/src/base.css`, `:root` 한 곳).
+
+### Changed
+
+- 컴포넌트 CSS 10종이 base border·바깥 ring을 지우고 inset 헤어라인을 쓴다 — Button·IconButton은
+  secondary만, Checkbox 상자·TextField 박스·Dialog surface·Tooltip·ProjectCard·SegmentedControl 트랙·
+  Menu 패널은 표면, AppTopBar divider·Menu separator는 방향성 inset.
+- `shadow-menu-light/dark`가 바깥 0.5px 프레임 layer를 잃고 ambient drop shadow만 소유한다. 헤어라인은
+  `.kds-popover`가 뒤에 조합한다 — ambient와 프레임 책임이 분리돼 두 겹 frame이 없다.
+- Figma parity: SegmentedControl은 OUTSIDE stroke → INNER_SHADOW, Menu 패널의 둘째 그림자 layer는
+  DROP_SHADOW → INNER_SHADOW. 나머지 bordered 표면은 시각이 같은 INSIDE stroke를 유지하고 borderWidth
+  토큰은 0.5로 남는다.
+- Tooltip 높이가 28 → 26. 0.5px border가 DPR 1에서 1px씩 올라 높이에 더해지던 것이 사라졌다.
+- 인계서 (2b) 컨트롤 테두리 정본을 DS-D-0023이 닫았다 — Button/IconButton/TextField/Checkbox가 같은
+  generic 10% 헤어라인을 쓴다.
+
+### Current impact
+
+- **Checkbox 대비가 더 낮아진다.** 선택하지 않은 상자가 라이트에서 black 10%(≈1.1)로, 이전 `strong`
+  2.52보다 낮다. 이미 SC 1.4.11 미달이던 known deviation을 더 깊게 만드는 것이며 제품 배포 계약과
+  일치시키기 위한 것이다 — checkbox.md Known deviations와 DS-D-0023에 기록했다.
+- TextField invalid는 stroke 색 축을 잃고 메시지 + `aria-invalid` + `role="alert"`가 오류를 전달한다.
+- ProjectCard 헤어라인이 inset이라 full-bleed 썸네일이 가장자리를 덮을 수 있다(제품 5103ffeb과 동일).
+- forced-colors에서는 각 컴포넌트가 `border-width-default`(1px) 시스템 색 실선/outline으로 경계를
+  되살린다.
+
+### Migration
+
+- 패키지 소비자는 새 KDS 커밋을 소비한 뒤 제품 로컬 `kds.override` 헤어라인 블록과 `--app-hairline-*`
+  정본을 지우고 `--kds-hairline-inset`을 직접 쓴다. 컴포넌트 계산값이 같은지 확인한 뒤에만 제거한다.
+  KDS 헤어라인 색은 `color(srgb 0 0 0 / 0.1)`로 직렬화되므로 제품 `check-rendering`의 `rgba(...)` 단언을
+  그 표기로 갱신해야 한다.
+- Figma는 재생성한 `figma/apply-variables.*.js` · `figma/apply-styles.js`를 "Klipse Design System —
+  Library"에 적용하고 되읽어(`figma:fetch`) `figma/snapshot.json`을 갱신해야 parity가 초록이 된다.
+  적용 전까지 `verify-figma-parity` · `check-figma-snapshot`은 새 변수 2개와 바뀐 effect를 반영하지 못한다.
+
 ## 2026-08-23 (99) — StaticHighlightDemo를 추정값이 아니라 고정 빌드에서 잰다
 
 랜딩의 합성 장면은 클래스 문자열 하나만 정적 하네스에 올리면 재현되지 않는다. 이미지 intrinsic

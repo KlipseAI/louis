@@ -93,9 +93,14 @@ for (const size of SIZES) {
     expect(track.offsetHeight, "trackHeight").toBe(spec.trackHeight);
     expect(px(trackStyle.paddingTop), "trackPadding").toBe(spec.trackPadding);
     expect(px(trackStyle.borderTopLeftRadius), "trackRadius").toBe(spec.trackRadius);
-    // 헤어라인은 border가 아니라 spread-only box-shadow다 — border를 쓰면 세그먼트 높이가
-    // DPR에 따라 달라진다. 선언 토큰을 본다.
-    expect(trackStyle.boxShadow, "트랙 테두리는 spread-only 그림자다").toContain("0px 0px 0px");
+    // 헤어라인은 border가 아니라 inset box-shadow다 (DS-D-0023) — border를 쓰면 세그먼트 높이가
+    // DPR에 따라 달라진다. 이전엔 spread-only 바깥 그림자였고 이제 다른 표면과 같은 generic
+    // 10% inset 헤어라인이다. 두께 토큰은 여전히 0.5이며 그 값은 선언 토큰으로 본다.
+    expect(trackStyle.borderTopWidth, "border 제거").toBe("0px");
+    expect(trackStyle.boxShadow, "inset 헤어라인").toContain("inset");
+    expect(trackStyle.boxShadow, "헤어라인 색").toContain(
+      tokenValue("color-border-hairline", "color"),
+    );
     expect(tokenPx("border-width-hairline"), "borderWidth").toBe(spec.borderWidth);
 
     const segment = find(".kds-segmented-control__segment");

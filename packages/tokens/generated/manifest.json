@@ -2,23 +2,23 @@
   "artifacts": [
     {
       "path": "packages/tokens/generated/figma.tokens.json",
-      "sha256": "e44cc036886d719211f17489f5bd944eaf3fb2c048abb927d2584e1c45ce4de9"
+      "sha256": "958321084151a7c7e5df64477dcd83bde5b8d63eb1d7d98af922cde98dc40077"
     },
     {
       "path": "packages/tokens/generated/index.d.ts",
-      "sha256": "8a1b7ae4c09af5f6938fceb090a84533fb47ecd042aba2a55c196508d473c86a"
+      "sha256": "d88e07bab7596eb18da01dd9802ca086ea7bfc9391745e40285cbafaeec3e6fd"
     },
     {
       "path": "packages/tokens/generated/index.js",
-      "sha256": "1a9799f8501a11a61449341deb96d0707ab0ac75ba04c1be838d200cc92515c5"
+      "sha256": "bed68d52cbfeef74ef251465e027c3829330f754d24c40867a16fcc7fbe8c8d8"
     },
     {
       "path": "packages/tokens/generated/tokens.css",
-      "sha256": "4595eaed27f7d4fd4f5a0fc079a00e35a87816c1e87cfdc20f5e70b8b6850795"
+      "sha256": "84b37cd9bba3bc22617ba71fe12ac48a0eeb8f4a7bc62cd8e9e06908cb716bc3"
     },
     {
       "path": "packages/tokens/generated/tokens.json",
-      "sha256": "9fe2fd51757ca49917fc7266b65874c004f974ba02796eaf72ec3bcaebbcccca"
+      "sha256": "48263b6c437536ade078e6526899249970cd0f6b55a1e8727cf07b3680242d5b"
     }
   ],
   "contrastPairs": [
@@ -398,13 +398,13 @@
   },
   "source": {
     "path": "packages/tokens/src/klipse.tokens.json",
-    "sha256": "62401968da6421cde408eabb66f1f286b1fe4a59322ae4fed648ead00440c8cd"
+    "sha256": "9bd3d8cc7bca218aaa3d3d4ea46e070ec51adac004979bdd8b5d5fb67e2999a4"
   },
   "themes": [
     "light",
     "dark"
   ],
-  "tokenCount": 504,
+  "tokenCount": 507,
   "tokens": [
     {
       "aliasTarget": null,
@@ -2015,6 +2015,36 @@
       "cssProperties": {},
       "deprecated": null,
       "description": null,
+      "id": "color-black-alpha-10",
+      "mode": "base",
+      "rawValue": {
+        "alpha": 0.1,
+        "colorSpace": "srgb",
+        "components": [
+          0,
+          0,
+          0
+        ],
+        "hex": "#000000"
+      },
+      "resolvedValue": {
+        "alpha": 0.1,
+        "colorSpace": "srgb",
+        "components": [
+          0,
+          0,
+          0
+        ]
+      },
+      "sourcePath": "primitive.color.black-alpha.10",
+      "tier": "primitive",
+      "type": "color"
+    },
+    {
+      "aliasTarget": null,
+      "cssProperties": {},
+      "deprecated": null,
+      "description": null,
       "id": "color-black-alpha-28",
       "mode": "base",
       "rawValue": {
@@ -2595,6 +2625,58 @@
         ]
       },
       "sourcePath": "semantic.dark.color.border-focus",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-black-alpha-10",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-color-border-hairline": "color(srgb 0 0 0 / 0.1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-border-hairline",
+      "mode": "light",
+      "rawValue": "{primitive.color.black-alpha.10}",
+      "resolvedValue": {
+        "alpha": 0.1,
+        "colorSpace": "srgb",
+        "components": [
+          0,
+          0,
+          0
+        ]
+      },
+      "sourcePath": "semantic.light.color.border-hairline",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-paper-alpha-10",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-color-border-hairline": "color(srgb 0.980392 0.980392 0.980392 / 0.1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-border-hairline",
+      "mode": "dark",
+      "rawValue": "{primitive.color.paper-alpha.10}",
+      "resolvedValue": {
+        "alpha": 0.1,
+        "colorSpace": "srgb",
+        "components": [
+          0.980392,
+          0.980392,
+          0.980392
+        ]
+      },
+      "sourcePath": "semantic.dark.color.border-hairline",
       "tier": "semantic",
       "type": "color"
     },
@@ -8700,7 +8782,7 @@
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-elevation-menu": "0px 8px 15px 0px color(srgb 0 0 0 / 0.04), 0px 0px 0px 0.5px color(srgb 0.835294 0.843137 0.866667 / 1)"
+        "--kds-elevation-menu": "0px 8px 15px 0px color(srgb 0 0 0 / 0.04)"
       },
       "deprecated": null,
       "description": null,
@@ -8735,34 +8817,6 @@
             "unit": "px",
             "value": 0
           }
-        },
-        {
-          "blur": {
-            "unit": "px",
-            "value": 0
-          },
-          "color": {
-            "alpha": 1,
-            "colorSpace": "srgb",
-            "components": [
-              0.835294,
-              0.843137,
-              0.866667
-            ]
-          },
-          "inset": false,
-          "offsetX": {
-            "unit": "px",
-            "value": 0
-          },
-          "offsetY": {
-            "unit": "px",
-            "value": 0
-          },
-          "spread": {
-            "unit": "px",
-            "value": 0.5
-          }
         }
       ],
       "sourcePath": "semantic.light.elevation.menu",
@@ -8775,7 +8829,7 @@
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-elevation-menu": "0px 8px 15px 0px color(srgb 0 0 0 / 0.04), 0px 0px 0px 0.5px color(srgb 0.341176 0.364706 0.407843 / 1)"
+        "--kds-elevation-menu": "0px 8px 15px 0px color(srgb 0 0 0 / 0.04)"
       },
       "deprecated": null,
       "description": null,
@@ -8809,34 +8863,6 @@
           "spread": {
             "unit": "px",
             "value": 0
-          }
-        },
-        {
-          "blur": {
-            "unit": "px",
-            "value": 0
-          },
-          "color": {
-            "alpha": 1,
-            "colorSpace": "srgb",
-            "components": [
-              0.341176,
-              0.364706,
-              0.407843
-            ]
-          },
-          "inset": false,
-          "offsetX": {
-            "unit": "px",
-            "value": 0
-          },
-          "offsetY": {
-            "unit": "px",
-            "value": 0
-          },
-          "spread": {
-            "unit": "px",
-            "value": 0.5
           }
         }
       ],
@@ -11388,34 +11414,6 @@
             "unit": "px",
             "value": 0
           }
-        },
-        {
-          "blur": {
-            "unit": "px",
-            "value": 0
-          },
-          "color": {
-            "alpha": 1,
-            "colorSpace": "srgb",
-            "components": [
-              0.341176,
-              0.364706,
-              0.407843
-            ],
-            "hex": "#575d68"
-          },
-          "offsetX": {
-            "unit": "px",
-            "value": 0
-          },
-          "offsetY": {
-            "unit": "px",
-            "value": 0
-          },
-          "spread": {
-            "unit": "px",
-            "value": 0.5
-          }
         }
       ],
       "resolvedValue": [
@@ -11445,34 +11443,6 @@
           "spread": {
             "unit": "px",
             "value": 0
-          }
-        },
-        {
-          "blur": {
-            "unit": "px",
-            "value": 0
-          },
-          "color": {
-            "alpha": 1,
-            "colorSpace": "srgb",
-            "components": [
-              0.341176,
-              0.364706,
-              0.407843
-            ]
-          },
-          "inset": false,
-          "offsetX": {
-            "unit": "px",
-            "value": 0
-          },
-          "offsetY": {
-            "unit": "px",
-            "value": 0
-          },
-          "spread": {
-            "unit": "px",
-            "value": 0.5
           }
         }
       ],
@@ -11515,34 +11485,6 @@
             "unit": "px",
             "value": 0
           }
-        },
-        {
-          "blur": {
-            "unit": "px",
-            "value": 0
-          },
-          "color": {
-            "alpha": 1,
-            "colorSpace": "srgb",
-            "components": [
-              0.835294,
-              0.843137,
-              0.866667
-            ],
-            "hex": "#d5d7dd"
-          },
-          "offsetX": {
-            "unit": "px",
-            "value": 0
-          },
-          "offsetY": {
-            "unit": "px",
-            "value": 0
-          },
-          "spread": {
-            "unit": "px",
-            "value": 0.5
-          }
         }
       ],
       "resolvedValue": [
@@ -11572,34 +11514,6 @@
           "spread": {
             "unit": "px",
             "value": 0
-          }
-        },
-        {
-          "blur": {
-            "unit": "px",
-            "value": 0
-          },
-          "color": {
-            "alpha": 1,
-            "colorSpace": "srgb",
-            "components": [
-              0.835294,
-              0.843137,
-              0.866667
-            ]
-          },
-          "inset": false,
-          "offsetX": {
-            "unit": "px",
-            "value": 0
-          },
-          "offsetY": {
-            "unit": "px",
-            "value": 0
-          },
-          "spread": {
-            "unit": "px",
-            "value": 0.5
           }
         }
       ],

@@ -79,9 +79,10 @@
   );
   overflow: hidden;
   background: var(--kds-color-background-overlay);
-  border: var(--kds-border-width-hairline) solid var(--kds-color-border-subtle);
   border-radius: var(--kds-dialog-surface-radius);
-  box-shadow: var(--kds-elevation-modal);
+  /* 경계는 border가 아니라 modal elevation 뒤에 조합한 inset 헤어라인이다 (DS-D-0023). dark에서
+   * elevation-modal 그림자만으로는 표면 경계가 서지 않아 generic 10% 헤어라인 한 겹을 남긴다. */
+  box-shadow: var(--kds-elevation-modal), var(--kds-hairline-inset);
   color: var(--kds-color-foreground-primary);
 
   /* enter/exit transform의 절반. duration/timing을 **inherit**로 받는 것이 이 블록의 핵심이다.
@@ -234,7 +235,8 @@
   inline-size: 100%;
   block-size: 100%;
   max-block-size: 100dvh;
-  border: 0;
+  /* 화면을 꽉 채우므로 가장자리 헤어라인을 지운다 — modal elevation만 남긴다 (DS-D-0023). */
+  box-shadow: var(--kds-elevation-modal);
 }
 
 /* fullscreen에서는 root padding이 0이므로 safe area를 내부가 진다. */
@@ -260,8 +262,10 @@
 }
 
 @media (forced-colors: active) {
+  /* box-shadow(elevation + 헤어라인)는 강제 색에서 사라지므로 시스템 색 경계를 되살린다 (DS-D-0023). */
   .kds-dialog__surface {
-    border-color: currentColor;
+    box-shadow: none;
+    border: var(--kds-border-width-default) solid currentColor;
   }
 }
 

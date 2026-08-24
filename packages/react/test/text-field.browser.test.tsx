@@ -52,7 +52,15 @@ for (const size of SIZES) {
     expect(px(boxStyle.paddingInlineStart), "paddingInline").toBe(spec.paddingInline);
     expect(px(boxStyle.columnGap), "gap").toBe(spec.gap);
     expect(px(boxStyle.borderTopLeftRadius), "radius").toBe(spec.radius);
+    // 헤어라인 두께 토큰은 여전히 0.5다 (measured와 parity).
     expect(declaredBorderWidth(), "borderWidth").toBe(spec.borderWidth);
+    // **실제로 border가 아니라 inset 헤어라인으로 그려진다 (DS-D-0023).** border는 제거됐고
+    // 경계는 generic 헤어라인 색의 inset box-shadow다.
+    expect(boxStyle.borderTopWidth, "border 제거").toBe("0px");
+    expect(boxStyle.boxShadow, "inset 헤어라인").toContain("inset");
+    expect(boxStyle.boxShadow, "헤어라인 색").toContain(
+      tokenValue("color-border-hairline", "color"),
+    );
 
     const control = find(".kds-text-field__control");
     const controlStyle = getComputedStyle(control);
@@ -69,7 +77,10 @@ for (const size of SIZES) {
   });
 }
 
-test("TextField의 states 표가 코드와 같다", async () => {
+test("states 표가 코드와 같다 — 모든 상태가 generic 헤어라인이다", async () => {
+  // DS-D-0023: invalid/disabled의 stroke 색 축을 없앴다. 세 상태가 같은 generic 헤어라인 inset을
+  // 쓰고, 상태는 면(background) · foreground · 메시지 · aria가 전달한다. invalid의 danger는 아래
+  // "오류를 색만으로 알리지 않는다" 테스트가 메시지 + aria-invalid + role=alert로 확인한다.
   const spec = measured.components.input.states.base;
   await render(
     <div>
@@ -89,21 +100,21 @@ test("TextField의 states 표가 코드와 같다", async () => {
     throw new Error("control을 찾지 못했습니다");
   }
 
+  // 세 상태 모두 border 없이 같은 generic 헤어라인 inset을 쓴다.
+  const hairline = tokenValue("color-border-hairline", "color");
+  for (const box of [defaultBox, invalidBox, disabledBox]) {
+    const style = getComputedStyle(box);
+    expect(style.borderTopWidth, "border 제거").toBe("0px");
+    expect(style.boxShadow, "inset 헤어라인").toContain("inset");
+    expect(style.boxShadow, "헤어라인 색").toContain(hairline);
+  }
+
+  // 면과 전경은 상태를 유지한다.
   expect(getComputedStyle(defaultBox).backgroundColor, "Default background").toBe(
     tokenValue(spec.Default.background, "background-color"),
   );
-  expect(getComputedStyle(defaultBox).borderTopColor, "Default border").toBe(
-    tokenValue(spec.Default.border, "color"),
-  );
   expect(getComputedStyle(defaultControl).color, "Default foreground").toBe(
     tokenValue(spec.Default.foreground, "color"),
-  );
-
-  expect(getComputedStyle(invalidBox).borderTopColor, "Invalid border").toBe(
-    tokenValue(spec.Invalid.border, "color"),
-  );
-  expect(getComputedStyle(disabledBox).borderTopColor, "Disabled border").toBe(
-    tokenValue(spec.Disabled.border, "color"),
   );
   expect(getComputedStyle(disabledControl).color, "Disabled foreground").toBe(
     tokenValue(spec.Disabled.foreground, "color"),

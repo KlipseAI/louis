@@ -430,7 +430,7 @@ badge.md가 적은 제품 높이 분포(19·22·26)에 24가 없다는 것이 �
 | `width` | `calc(100% + var(--mainchrome-bleed-left, var(--app-gnb-main-inline-padding)) + var(--mainchrome-bleed-right, var(--app-gnb-main-inline-padding)))` |
 | `margin-left` / `margin-right` | 각 bleed 변수의 음수 |
 | `padding` | `8px var(--mainchrome-pad-x)` → **8px 8px** |
-| `border-bottom` | 풀블리드 폭 전체를 가로지른다 |
+| divider box-shadow | 켜지면 방향성 inset 헤어라인(`--kds-hairline-inset-block-end`)이 풀블리드 폭 전체를 가로지른다. border가 아니므로 레이아웃 높이를 늘리지 않는다([DS-D-0023](../governance/decisions/DS-D-0023-hairline-inset.md)) |
 
 bleed 폴백은 좌우 모두 `--app-gnb-main-inline-padding`(16px)이고 짝 토큰
 `--app-gnb-main-inline-padding-end`는 12px이다. 앱 셸 본문 카드 두 곳은 자기 카드의 좌우 패딩과 **같은
@@ -507,6 +507,12 @@ bleed와 음수 마진 자체는 이 폭에서도 계속 걸려 있으므로 배
   | 주입 있음 · `scrollTop ≥ 12px` | 100% — 라이트 `--palette-gray-200`, 그 밖 `rgb(var(--gray-000-rgb) / 8%)`를 `color-mix`로 보간 | `Gnb.tsx:428` · `:432` |
   | 주입 **없음**(그 밖의 화면) | 정지 상태에서도 100% | 폴백 `1` |
   | 전환 | `border-bottom-color 120ms ease` | `Gnb.tsx:429` |
+
+  **이 표는 `Gnb.tsx`가 소유한 스크롤 진행률 구현을 그대로 인용한 것이라 KDS 소스가 손댈 수 없다.**
+  KDS 자체 `data-divider` 레시피는 이제 `border-bottom`이 아니라 방향성 inset 헤어라인
+  (`--kds-hairline-inset-block-end`)이고 전환도 없다 — 위 `border-bottom-color` 전환은 여전히
+  제품의 별도 런타임 계약을 가리키며, `Gnb.tsx`가 같은 box-shadow/색 전환으로 옮겨가면 이 표도
+  다시 실측해야 한다([DS-D-0023](../governance/decisions/DS-D-0023-hairline-inset.md)).
 
   **`--header-progress`는 지금 아무 화면도 켜지 않는다(주의).** 상수 이름과 JSDoc은 「워드마크 축소
   등 헤더 collapse」라고 말하지만 **그런 소비처가 배포본에 없다.** 실제 소비처는 형태 B 패널의

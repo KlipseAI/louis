@@ -41,11 +41,12 @@
   border: 0;
   border-radius: var(--kds-radius-control);
   background: var(--kds-color-background-inset);
-  /* **테두리가 아니라 spread-only box-shadow다.** border를 쓰면 border-box 안쪽이 줄어
-   * 세그먼트 높이가 40 − 8 − 2×테두리가 되는데, 브라우저가 DPR 1에서 0.5px을 1px로 올리므로
-   * 그 값이 화면마다 달라진다. 그림자는 레이아웃을 건드리지 않아 세그먼트가 정확히 32로
-   * 남는다. 제품 A의 `box-shadow: var(--dropdown-frame)`가 같은 기법이며 그 축은 채택했다. */
-  box-shadow: 0 0 0 var(--kds-border-width-hairline) var(--kds-color-border-subtle);
+  /* **테두리가 아니라 box-shadow다.** border를 쓰면 border-box 안쪽이 줄어 세그먼트 높이가
+   * 40 − 8 − 2×테두리가 되는데, 브라우저가 DPR 1에서 0.5px을 1px로 올리므로 그 값이 화면마다
+   * 달라진다. box-shadow는 레이아웃을 건드리지 않아 세그먼트가 정확히 32로 남는다. 이전엔
+   * spread-only 바깥 그림자였고 색도 color-border-subtle이었다 — 다른 표면과 같은 generic 10%
+   * inset 헤어라인으로 통일했다 (DS-D-0023). inset도 레이아웃을 건드리지 않는다. */
+  box-shadow: var(--kds-hairline-inset);
 }
 
 .kds-segmented-control[data-size="sm"] {
@@ -117,6 +118,12 @@
 }
 
 @media (forced-colors: active) {
+  /* box-shadow 헤어라인은 강제 색에서 사라지므로 트랙 경계를 시스템 색 실선으로 되살린다 (DS-D-0023). */
+  .kds-segmented-control {
+    box-shadow: none;
+    border: var(--kds-border-width-default) solid currentColor;
+  }
+
   .kds-segmented-control__segment:has(.kds-segmented-control__input:focus-visible) {
     outline-color: Highlight;
   }

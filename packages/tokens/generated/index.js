@@ -607,6 +607,36 @@ export const primitives = {
       "alpha": 1
     }
   },
+  "color-black-alpha-10": {
+    "aliasTarget": null,
+    "cssProperties": {},
+    "deprecated": null,
+    "description": null,
+    "id": "color-black-alpha-10",
+    "mode": "base",
+    "rawValue": {
+      "colorSpace": "srgb",
+      "components": [
+        0,
+        0,
+        0
+      ],
+      "alpha": 0.1,
+      "hex": "#000000"
+    },
+    "sourcePath": "primitive.color.black-alpha.10",
+    "tier": "primitive",
+    "type": "color",
+    "value": {
+      "colorSpace": "srgb",
+      "components": [
+        0,
+        0,
+        0
+      ],
+      "alpha": 0.1
+    }
+  },
   "color-black-alpha-28": {
     "aliasTarget": null,
     "cssProperties": {},
@@ -4973,34 +5003,6 @@ export const primitives = {
           "value": 0,
           "unit": "px"
         }
-      },
-      {
-        "color": {
-          "colorSpace": "srgb",
-          "components": [
-            0.341176,
-            0.364706,
-            0.407843
-          ],
-          "alpha": 1,
-          "hex": "#575d68"
-        },
-        "offsetX": {
-          "value": 0,
-          "unit": "px"
-        },
-        "offsetY": {
-          "value": 0,
-          "unit": "px"
-        },
-        "blur": {
-          "value": 0,
-          "unit": "px"
-        },
-        "spread": {
-          "value": 0.5,
-          "unit": "px"
-        }
       }
     ],
     "sourcePath": "primitive.shadow.menu-dark",
@@ -5031,34 +5033,6 @@ export const primitives = {
         },
         "spread": {
           "value": 0,
-          "unit": "px"
-        },
-        "inset": false
-      },
-      {
-        "color": {
-          "colorSpace": "srgb",
-          "components": [
-            0.341176,
-            0.364706,
-            0.407843
-          ],
-          "alpha": 1
-        },
-        "offsetX": {
-          "value": 0,
-          "unit": "px"
-        },
-        "offsetY": {
-          "value": 0,
-          "unit": "px"
-        },
-        "blur": {
-          "value": 0,
-          "unit": "px"
-        },
-        "spread": {
-          "value": 0.5,
           "unit": "px"
         },
         "inset": false
@@ -5100,34 +5074,6 @@ export const primitives = {
           "value": 0,
           "unit": "px"
         }
-      },
-      {
-        "color": {
-          "colorSpace": "srgb",
-          "components": [
-            0.835294,
-            0.843137,
-            0.866667
-          ],
-          "alpha": 1,
-          "hex": "#d5d7dd"
-        },
-        "offsetX": {
-          "value": 0,
-          "unit": "px"
-        },
-        "offsetY": {
-          "value": 0,
-          "unit": "px"
-        },
-        "blur": {
-          "value": 0,
-          "unit": "px"
-        },
-        "spread": {
-          "value": 0.5,
-          "unit": "px"
-        }
       }
     ],
     "sourcePath": "primitive.shadow.menu-light",
@@ -5158,34 +5104,6 @@ export const primitives = {
         },
         "spread": {
           "value": 0,
-          "unit": "px"
-        },
-        "inset": false
-      },
-      {
-        "color": {
-          "colorSpace": "srgb",
-          "components": [
-            0.835294,
-            0.843137,
-            0.866667
-          ],
-          "alpha": 1
-        },
-        "offsetX": {
-          "value": 0,
-          "unit": "px"
-        },
-        "offsetY": {
-          "value": 0,
-          "unit": "px"
-        },
-        "blur": {
-          "value": 0,
-          "unit": "px"
-        },
-        "spread": {
-          "value": 0.5,
           "unit": "px"
         },
         "inset": false
@@ -11568,6 +11486,32 @@ export const tokens = {
         "alpha": 1
       }
     },
+    "color-border-hairline": {
+      "aliasTarget": {
+        "id": "color-black-alpha-10",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-color-border-hairline": "color(srgb 0 0 0 / 0.1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-border-hairline",
+      "mode": "light",
+      "rawValue": "{primitive.color.black-alpha.10}",
+      "sourcePath": "semantic.light.color.border-hairline",
+      "tier": "semantic",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          0,
+          0,
+          0
+        ],
+        "alpha": 0.1
+      }
+    },
     "color-border-strong": {
       "aliasTarget": {
         "id": "color-neutral-500",
@@ -12926,7 +12870,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-elevation-menu": "0px 8px 15px 0px color(srgb 0 0 0 / 0.04), 0px 0px 0px 0.5px color(srgb 0.835294 0.843137 0.866667 / 1)"
+        "--kds-elevation-menu": "0px 8px 15px 0px color(srgb 0 0 0 / 0.04)"
       },
       "deprecated": null,
       "description": null,
@@ -12961,34 +12905,6 @@ export const tokens = {
           },
           "spread": {
             "value": 0,
-            "unit": "px"
-          },
-          "inset": false
-        },
-        {
-          "color": {
-            "colorSpace": "srgb",
-            "components": [
-              0.835294,
-              0.843137,
-              0.866667
-            ],
-            "alpha": 1
-          },
-          "offsetX": {
-            "value": 0,
-            "unit": "px"
-          },
-          "offsetY": {
-            "value": 0,
-            "unit": "px"
-          },
-          "blur": {
-            "value": 0,
-            "unit": "px"
-          },
-          "spread": {
-            "value": 0.5,
             "unit": "px"
           },
           "inset": false
@@ -13843,6 +13759,32 @@ export const tokens = {
           1
         ],
         "alpha": 1
+      }
+    },
+    "color-border-hairline": {
+      "aliasTarget": {
+        "id": "color-paper-alpha-10",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--kds-color-border-hairline": "color(srgb 0.980392 0.980392 0.980392 / 0.1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-border-hairline",
+      "mode": "dark",
+      "rawValue": "{primitive.color.paper-alpha.10}",
+      "sourcePath": "semantic.dark.color.border-hairline",
+      "tier": "semantic",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.980392,
+          0.980392,
+          0.980392
+        ],
+        "alpha": 0.1
       }
     },
     "color-border-strong": {
@@ -15203,7 +15145,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-elevation-menu": "0px 8px 15px 0px color(srgb 0 0 0 / 0.04), 0px 0px 0px 0.5px color(srgb 0.341176 0.364706 0.407843 / 1)"
+        "--kds-elevation-menu": "0px 8px 15px 0px color(srgb 0 0 0 / 0.04)"
       },
       "deprecated": null,
       "description": null,
@@ -15238,34 +15180,6 @@ export const tokens = {
           },
           "spread": {
             "value": 0,
-            "unit": "px"
-          },
-          "inset": false
-        },
-        {
-          "color": {
-            "colorSpace": "srgb",
-            "components": [
-              0.341176,
-              0.364706,
-              0.407843
-            ],
-            "alpha": 1
-          },
-          "offsetX": {
-            "value": 0,
-            "unit": "px"
-          },
-          "offsetY": {
-            "value": 0,
-            "unit": "px"
-          },
-          "blur": {
-            "value": 0,
-            "unit": "px"
-          },
-          "spread": {
-            "value": 0.5,
             "unit": "px"
           },
           "inset": false

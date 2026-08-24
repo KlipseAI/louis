@@ -302,7 +302,10 @@ const COMPONENT_CONTRACTS = [
     // 패널은 variant 축이 없다. 항목을 붙이고 빼서 조립하며 auto-layout이 크기를 정한다.
     variantProperties: {},
     strokes: {},
-    effects: { self: "DROP_SHADOW:8:15:0 + DROP_SHADOW:0:0:0.5" },
+    // 헤어라인이 바깥 프레임(DROP_SHADOW)에서 inset(INNER_SHADOW)으로 옮겨졌다 (DS-D-0023).
+    // elevation-menu 토큰은 이제 ambient drop shadow만 소유하고, 헤어라인은 패널이 조합하는
+    // inset이다 — ambient와 프레임 책임이 분리돼 두 겹 frame이 없다.
+    effects: { self: "DROP_SHADOW:8:15:0 + INNER_SHADOW:0:0:0.5" },
     geometry: {
       measuredId: "menu-popover",
       sizeKey: "panel",
@@ -465,11 +468,12 @@ const COMPONENT_CONTRACTS = [
     propProperties: { Label1: "children", Label2: "children", Label3: "children" },
     declaration: "packages/react/dist/segmented-control/segmented-control.d.ts",
     variantProperties: { Size: "SegmentedControlSize" },
-    // **헤어라인은 OUTSIDE stroke다.** CSS는 spread-only box-shadow로 그리는데, Figma에서
-    // 레이아웃을 건드리지 않는 등가물이 OUTSIDE stroke다. INSIDE로 바꾸면 안쪽 콘텐츠 박스가
-    // 줄어 세그먼트 높이가 32에서 31이 된다 — 그 순간 아래 parts가 실패한다.
-    strokes: { self: { weight: "borderWidth", align: "OUTSIDE" } },
-    effects: {},
+    // **헤어라인은 INNER_SHADOW effect다 (DS-D-0023).** CSS가 inset box-shadow로 그리므로 Figma
+    // 등가물은 inner shadow다. stroke로 두지 않는 이유는 둘이다 — inset은 개념상 inner shadow이고,
+    // INSIDE stroke는 안쪽 콘텐츠 박스를 줄여 세그먼트 높이가 32에서 31이 되어 아래 parts가
+    // 실패한다. effect는 auto-layout 크기를 건드리지 않는다.
+    strokes: {},
+    effects: { self: "INNER_SHADOW:0:0:0.5" },
     geometry: {
       measuredId: "segmented-control",
       fields: {

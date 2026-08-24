@@ -194,11 +194,15 @@ focus-visible 링은 브라우저가 그리므로 Figma variant로 두지 않는
 | 최소 폭     | 없음                                | `layout-control-minimum-width-sm` 48px |
 | padding     | 0 / `space-control-lg` 16px         | 0 / `space-control-md` 12px         |
 | gap         | `space-control-sm` 8px              | `space-control-xs` 4px              |
-| border      | `border-width-hairline` 0.5px       | `border-width-hairline` 0.5px       |
+| 헤어라인 (secondary만, inset) | `border-width-hairline` 0.5px | `border-width-hairline` 0.5px |
 | radius      | `radius-control` 12px               | `radius-control` 12px               |
 | 타이포      | `body-sm-medium` 14px / 21px        | `body-sm-medium` 14px / 21px        |
 | spinner     | 18px (`1em` + border 2)             | 18px (`1em` + border 2)             |
 | 아이콘 슬롯 | `icon-size-md` 20px                 | `icon-size-sm` 16px                 |
+
+**base에는 stroke가 없다.** 위 헤어라인 행은 `secondary` variant에만 적용된다 — `border-width-hairline`
+0.5px 두께의 `color-border-hairline` 색을 CSS `border`가 아니라 inset box-shadow로 그린다
+([DS-D-0023](../governance/decisions/DS-D-0023-hairline-inset.md)).
 
 **이 값들은 제품 배포 코드에서 채택한 것이다.** 근거와 채택/편차 판정은
 [`migration/product.measured.json`](../../migration/product.measured.json)에 있고 게이트가 매 실행

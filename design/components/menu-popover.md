@@ -382,7 +382,7 @@ Specification 표의 `Panel surface` 행은 라이트 값을 하나만 담는다
 | Panel surface  | `color-background-menu` — 라이트 neutral-100 / 다크 neutral-800 | light/dark/high contrast   |
 | Panel radius   | `radius-overlay` = 16px                                | visual regression          |
 | Panel padding  | `space-overlay-inset` = 6px                            | item hit area 유지         |
-| Panel border   | 없음. 헤어라인은 `elevation-menu`의 0.5px 스프레드     | 레이아웃 박스 불변         |
+| Panel border   | 없음. 헤어라인은 패널이 조합하는 inset(`--kds-hairline-inset`) | 레이아웃 박스 불변 |
 | Item radius    | `radius-overlay-item` = 10px                           | hover/focus/selected state |
 | Item 사이 간격 | `space-overlay-item-gap` = 2px                         | 행이 붙지 않는다           |
 | Item 내부 gap  | `space-overlay-item-content-gap` = 6px                 | 아이콘·라벨 간격           |
@@ -393,7 +393,7 @@ Specification 표의 `Panel surface` 행은 라이트 값을 하나만 담는다
 | Danger hover   | `color-action-menu-danger-hover` — red 알파            | light/dark                 |
 | Anchor offset  | 8px                                                    | collision/flip             |
 | Panel width    | 최소 160px, composite 240px reference                  | 긴 locale 문구와 200% zoom |
-| Elevation      | `elevation-menu` — ambient + 0.5px 헤어라인 2겹        | overlay hierarchy          |
+| Elevation      | `elevation-menu` — ambient drop shadow만. 헤어라인은 패널이 뒤에 조합하는 inset | overlay hierarchy |
 | Open motion    | opacity + scale, `motion-overlay-enter`; origin=anchor | reduced-motion 대체        |
 | Reduced motion | transform 제거, 짧은 opacity 또는 즉시 전환            | motion preference          |
 | Layer          | `layer-popover`, 숫자 리터럴 금지                      | nested overlay stack       |
@@ -522,8 +522,9 @@ submenu의 방향키가 부모 핸들러까지 실행해 focus가 부모로 튀�
   소스에 없다. DS-P3-014가 이름을 정리하면 갱신한다.
 - **panel padding이 6px이 아니라 4px이다.** `space-overlay-inset`이 없어 `space-control-xs`로
   대체했다. DS-P3-014가 토큰을 추가하면 변수 한 줄만 바꾼다.
-- **panel에 hairline border가 있다.** Specification 표에는 없지만 dark에서 `elevation-popover`
-  그림자만으로는 표면 경계가 서지 않는다.
+- **panel 경계는 border가 아니라 inset 헤어라인이다.** Specification 표에는 없지만 dark에서
+  `elevation-popover` 그림자만으로는 표면 경계가 서지 않아, elevation 뒤에 조합한 inset
+  box-shadow(`--kds-hairline-inset`)를 한 겹 더 쓴다([DS-D-0023](../governance/decisions/DS-D-0023-hairline-inset.md)).
 - **item에 `.kds-hit-target`을 쓰지 않는다.** 그 유틸의 44px `::after`는 항목 중앙에 겹쳐 놓이므로
   간격 없이 쌓이는 행에서 인접 항목의 hit 영역을 2px씩 가로챈다. 행 자체를 44px로 만든다.
 - **`offset`과 `collisionPadding`을 인스턴스별로 바꿀 수 없다.** 값은 overlay 표면 CSS 한 블록이

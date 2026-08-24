@@ -51,7 +51,7 @@ summary: 한 줄에 놓인 두셋 중 하나를 고릅니다.
 
 ## Anatomy
 
-1. **Track** — `<fieldset>`. 면·반경·헤어라인과 padding을 소유한다.
+1. **Track** — `<fieldset>`. 면·반경·헤어라인(inset)과 padding을 소유한다.
 2. **Legend** — 그룹 이름. 시각적으로 숨기고 보조기술에 남긴다.
 3. **Segment** — `<label>`. 시각을 소유한다.
 4. **Input** — 숨겨진 `<input type="radio">`. 선택 상태와 키보드를 소유한다.
@@ -132,7 +132,7 @@ variant 축이 없다. 세그먼트 컨트롤은 강조 단계를 갖지 않는�
 | 트랙 높이 | 40px | 32px | `layout-control-height-md` / `-sm` |
 | 트랙 padding | 4px | 4px | `space-control-xs` |
 | 트랙 반경 | 12px | 12px | `radius-control` |
-| 트랙 헤어라인 | 0.5px | 0.5px | `border-width-hairline` |
+| 트랙 헤어라인 (inset) | 0.5px | 0.5px | `border-width-hairline` + `color-border-hairline` |
 | 세그먼트 높이 | 32px | 24px | 트랙 − 2×padding |
 | 세그먼트 반경 | 8px | 8px | `radius-control-sm` |
 | 세그먼트 좌우 여백 | 12px | 8px | `space-control-md` / `-sm` |
@@ -169,10 +169,12 @@ variant 축이 없다. 세그먼트 컨트롤은 강조 단계를 갖지 않는�
 
 ## Effects
 
-**트랙의 헤어라인은 테두리가 아니라 spread-only box-shadow다.** `border`를 쓰면 border-box
+**트랙의 헤어라인은 테두리가 아니라 generic 10% inset box-shadow다.** `border`를 쓰면 border-box
 안쪽이 줄어 세그먼트 높이가 40 − 8 − 2×테두리가 되는데, 브라우저가 DPR 1에서 0.5px을 1px로
-올리므로 그 값이 화면마다 달라진다. 그림자는 레이아웃을 건드리지 않아 세그먼트가 정확히 32로
-남는다. 제품 A의 `box-shadow: var(--dropdown-frame)`가 같은 기법이며 그 축은 채택했다.
+올리므로 그 값이 화면마다 달라진다. inset box-shadow도 레이아웃을 건드리지 않아 세그먼트가 정확히
+32로 남는다. 이전엔 spread-only 바깥 그림자였고 색도 `color-border-subtle`이었다 — 다른 표면과 같은
+generic 10% `color-border-hairline` inset으로 통일했다([DS-D-0023](../governance/decisions/DS-D-0023-hairline-inset.md)).
+Figma는 INNER_SHADOW로 대응한다 — 이전 OUTSIDE stroke에서 바뀐 것이다.
 
 선택 면에 그림자를 두지 않는다. 제품 A는 헤어라인 프레임을 얹지만, 면 색이 이미 트랙과 다르므로
 경계가 그것으로 읽힌다.

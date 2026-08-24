@@ -56,6 +56,10 @@ test("구조값이 components.measured.json과 같다", async () => {
   expect(input.offsetHeight, "boxSize").toBe(spec.boxSize);
   expect(px(style.borderTopLeftRadius), "radius").toBe(spec.radius);
   expect(tokenPx("border-width-hairline"), "borderWidth").toBe(spec.borderWidth);
+  // 실제로 border가 아니라 inset 헤어라인이다 (DS-D-0023).
+  expect(style.borderTopWidth, "border 제거").toBe("0px");
+  expect(style.boxShadow, "inset 헤어라인").toContain("inset");
+  expect(style.boxShadow, "헤어라인 색").toContain(tokenValue("color-border-hairline", "color"));
   expect(px(getComputedStyle(find(".kds-checkbox")).columnGap), "gap").toBe(spec.gap);
 
   const labelStyle = getComputedStyle(find(".kds-checkbox__label"));
@@ -113,31 +117,33 @@ test("states 표가 코드와 같다", async () => {
   expect(read().backgroundColor, "Default background").toBe(
     tokenValue(states.Default.background, "background-color"),
   );
-  expect(read().borderTopColor, "Default border").toBe(
-    tokenValue(states.Default.border, "color"),
+  // 선택하지 않은 상자는 border 없이 generic 헤어라인 inset을 쓴다 (DS-D-0023). 이 경계가
+  // 어포던스의 전부이며, 10% 대비는 checkbox.md Known deviations에 기록된 편차다.
+  expect(read().borderTopWidth, "Default border 제거").toBe("0px");
+  expect(read().boxShadow, "Default 헤어라인").toContain("inset");
+  expect(read().boxShadow, "Default 헤어라인 색").toContain(
+    tokenValue("color-border-hairline", "color"),
   );
   expect(getComputedStyle(find(".kds-checkbox__label")).color, "Default foreground").toBe(
     tokenValue(states.Default.foreground, "color"),
   );
 
   await userEvent.click(input);
+  // 선택은 solid 면이 채운다 — 테두리 색 축은 두지 않는다 (DS-D-0023).
   expect(read().backgroundColor, "Checked background").toBe(
     tokenValue(states.Checked.background, "background-color"),
   );
-  expect(read().borderTopColor, "Checked border").toBe(
-    tokenValue(states.Checked.border, "color"),
-  );
+  expect(read().borderTopWidth, "Checked border 제거").toBe("0px");
 });
 
-test("disabled의 면·테두리·라벨이 states 표와 같다", async () => {
+test("disabled의 면·라벨이 states 표와 같다", async () => {
   await render(<Checkbox label="비활성" disabled />);
   const input = control();
   expect(getComputedStyle(input).backgroundColor, "Disabled background").toBe(
     tokenValue(states.Disabled.background, "background-color"),
   );
-  expect(getComputedStyle(input).borderTopColor, "Disabled border").toBe(
-    tokenValue(states.Disabled.border, "color"),
-  );
+  // 상태는 면(background-inset)과 라벨 색이 전달한다 — border 없이 generic 헤어라인 (DS-D-0023).
+  expect(getComputedStyle(input).borderTopWidth, "Disabled border 제거").toBe("0px");
   expect(getComputedStyle(find(".kds-checkbox__label")).color, "Disabled foreground").toBe(
     tokenValue(states.Disabled.foreground, "color"),
   );

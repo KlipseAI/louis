@@ -63,7 +63,7 @@ Klipse의 홈과 허브 화면은 전부 이 카드의 격자다. 제품에는 �
 **자식 순서가 계약이다** — Media → Action → Adornment. 숫자 z-index를 쓰지 않으므로 칠 순서가 곧
 DOM 순서이고, 슬롯이 Action 앞에 오면 슬롯 안의 컨트롤이 클릭 타깃에 덮여 눌리지 않는다.
 
-1. **Card** — 프레임. 반경과 헤어라인 테두리를 소유하며 대화형이 아니다.
+1. **Card** — 프레임. 반경과 inset 헤어라인을 소유하며 대화형이 아니다.
 2. **Media** — 비율이 고정된 면. 썸네일·자리표시·오버레이의 좌표계다.
 3. **Thumbnail** — 썸네일 자리. `<img>`나 `<video>`를 그대로 담는다.
 4. **Overlay** — 미디어 하단의 제목 띠. 흐림 층을 소유한다.
@@ -94,7 +94,7 @@ variant 축이 없다. 카드의 강조는 카드가 아니라 **썸네일**이 
 
 | state | 표현 |
 | --- | --- |
-| Default | 헤어라인 테두리, 변형 없음 |
+| Default | 헤어라인 inset, 변형 없음 |
 | Hover | 카드 자신은 바뀌지 않는다. 슬롯 안의 컨트롤이 드러난다 |
 | Active | `scale(0.975)`. `:has(.kds-project-card-action:active)`로 **클릭 타깃만** 본다 — 프레임에 직접 걸면 슬롯의 버튼을 눌러도 카드가 줄어든다 |
 | Focus visible | 링은 프레임에 그린다. 투명한 클릭 타깃에만 링이 뜨면 무엇이 선택됐는지 모른다 |
@@ -166,7 +166,7 @@ variant 축이 없다. 카드의 강조는 카드가 아니라 **썸네일**이 
 | --- | ---: | --- |
 | 반경 | 16px | `radius-card` |
 | 오버레이 높이 하한 | 미디어의 30% | — |
-| 테두리 | 0.5px | `border-width-hairline` + `color-border-subtle` |
+| 헤어라인 (inset) | 0.5px | `border-width-hairline` + `color-border-hairline` |
 | 미디어 배경 | — | `color-background-canvas` |
 | 오버레이 여백 | 16px | `space-layout-gutter` |
 | 줄 간격 | 4px | `space-stack-xs` |
@@ -175,6 +175,9 @@ variant 축이 없다. 카드의 강조는 카드가 아니라 **썸네일**이 
 | 제목 | body-md-medium | `typography-body-md-medium` |
 | Eyebrow·Meta | body-sm-regular | `typography-body-sm-regular` |
 | 누름 | `scale(0.975)` | — |
+
+`overflow: hidden` 카드에서 inset 헤어라인은 제품 `5103ffeb`과 같은 결과다 — full-bleed 썸네일이
+그 가장자리를 덮을 수 있다([DS-D-0023](../governance/decisions/DS-D-0023-hairline-inset.md)).
 
 ## Effects
 

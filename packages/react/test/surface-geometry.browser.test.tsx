@@ -54,6 +54,16 @@ function find(selector: string): HTMLElement {
   return node as HTMLElement;
 }
 
+/** 헤어라인 색의 계산 직렬화(라이트 `color(srgb 0 0 0 / 0.1)`). box-shadow 안의 색과 대조한다. */
+const hairlineColor = (): string => {
+  const probe = document.createElement("div");
+  probe.style.setProperty("color", "var(--kds-color-border-hairline)");
+  document.body.append(probe);
+  const value = getComputedStyle(probe).color;
+  probe.remove();
+  return value;
+};
+
 // measured가 값을 가진 size만 돈다. DialogSize에는 measured에 없는 것도 있어 그 타입으로 색인하면
 // 계약이 없는 size를 조용히 넘기게 된다.
 const DIALOG_SIZES = ["compact", "medium", "large"] as const;
@@ -91,6 +101,10 @@ for (const size of DIALOG_SIZES) {
     expect(surface.offsetWidth, "width").toBe(spec.width);
     expect(px(style.borderTopLeftRadius), "radius").toBe(spec.radius);
     expect(declaredBorderWidth(), "borderWidth").toBe(spec.borderWidth);
+    // **실제로 border가 아니라 modal elevation 뒤에 조합한 inset 헤어라인이다 (DS-D-0023).**
+    expect(style.borderTopWidth, "border 제거").toBe("0px");
+    expect(style.boxShadow, "inset 헤어라인").toContain("inset");
+    expect(style.boxShadow, "헤어라인 색").toContain(hairlineColor());
 
     // measured의 padding 20은 **surface가 아니라 dialog root의 여백**이다(measured $note).
     // 그 값을 읽지 않으면 세 size 중 하나만 어긋나도 아무도 모른다.
@@ -139,6 +153,10 @@ test("Tooltip의 구조값이 components.measured.json과 같다", async () => {
   expect(px(style.fontSize), "fontSize").toBe(spec.fontSize);
   expect(round(px(style.lineHeight)), "lineHeight").toBe(spec.lineHeight);
   expect(declaredBorderWidth(), "borderWidth").toBe(spec.borderWidth);
+  // **실제로 border가 아니라 tooltip elevation 뒤에 조합한 inset 헤어라인이다 (DS-D-0023).**
+  expect(style.borderTopWidth, "border 제거").toBe("0px");
+  expect(style.boxShadow, "inset 헤어라인").toContain("inset");
+  expect(style.boxShadow, "헤어라인 색").toContain(hairlineColor());
   // 포인터를 치운다. 얹은 채로 두면 뒤에 같은 좌표에 렌더되는 요소가 :hover를 받는다.
   await userEvent.unhover(find("button.kds-button"));
 });
@@ -193,6 +211,11 @@ test("Menu 패널과 항목의 구조값이 components.measured.json과 같다",
   expect(px(panelStyle.paddingInlineStart), "panel paddingInline").toBe(spec.paddingInline);
   expect(px(panelStyle.rowGap), "panel gap").toBe(spec.gap);
   expect(px(panelStyle.borderTopLeftRadius), "panel radius").toBe(spec.radius);
+  // 패널 경계는 border가 아니라 ambient elevation 뒤에 조합한 inset 헤어라인이다 (DS-D-0023).
+  // elevation-menu는 이제 ambient만 소유하고 두 겹 frame이 없다.
+  expect(panelStyle.borderTopWidth, "panel border 없음").toBe("0px");
+  expect(panelStyle.boxShadow, "panel inset 헤어라인").toContain("inset");
+  expect(panelStyle.boxShadow, "panel 헤어라인 색").toContain(hairlineColor());
   // **offsetWidth를 쓴다.** 패널의 enter 애니메이션이 scale 0.96을 걸고 있어 rect는 변환 후
   // 크기를 돌려준다 — 160이 153.6으로 읽힌다. transition-property에 scale을 넣기 전에는 scale이
   // 즉시 1로 튀어서 이 함정이 보이지 않았다.
@@ -257,6 +280,11 @@ test("ProjectCard의 구조값이 components.measured.json과 같다", async () 
   expect(round(rect(card).height), "height").toBe(spec.height);
   expect(px(cardStyle.borderTopLeftRadius), "radius").toBe(spec.radius);
   expect(declaredBorderWidth(), "borderWidth").toBe(spec.borderWidth);
+  // **실제로 border가 아니라 inset 헤어라인이다 (DS-D-0023).** border를 지워도 aspect-ratio 폭·높이
+  // 계약이 유지된다.
+  expect(cardStyle.borderTopWidth, "border 제거").toBe("0px");
+  expect(cardStyle.boxShadow, "inset 헤어라인").toContain("inset");
+  expect(cardStyle.boxShadow, "헤어라인 색").toContain(hairlineColor());
 
   const media = find(".kds-project-card-media");
   const overlay = find(".kds-project-card-overlay");

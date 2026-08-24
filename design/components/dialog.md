@@ -381,12 +381,16 @@ host의 두 번째 직속 자식이 되고, primitive의 중첩 격리가 자기
   컨트롤 **내부** 스케일이라 표면 여백에 쓰지 않는다.
 - **`surface-scrim-modal` 대신 `color-scrim-modal`을 쓰고 값이 50%가 아니라 56%(light)/72%(dark)다.**
   Specification 표가 대는 이름의 토큰이 없고 실제 값은 두 테마에서 다르다.
-- **surface에 hairline border가 있다.** Specification 표에는 없지만 dark에서 `elevation-modal` 그림자만으로
-  표면 경계가 서지 않는다. Menu 패널과 같은 판단이다.
+- **surface 경계는 border가 아니라 inset 헤어라인이다.** Specification 표에는 없지만 dark에서
+  `elevation-modal` 그림자만으로 표면 경계가 서지 않아, modal elevation 뒤에 조합한 inset
+  box-shadow(`--kds-hairline-inset`)를 한 겹 더 쓴다([DS-D-0023](../governance/decisions/DS-D-0023-hairline-inset.md)).
+  Menu 패널과 같은 판단이다.
 
-  **제품은 반대다.** 배포본 확인 모달은 `border` 선언이 아예 없고 경계를
+  **이제 제품과 같은 계약이다 — border가 아니라 box-shadow 헤어라인이다.** 다만 구성은 다르다.
+  배포본 확인 모달은 `border` 선언이 아예 없고 경계를
   `box-shadow: var(--dropdown-frame)` **0.5px 헤어라인 한 겹으로만** 만든다(`GlassConfirmModal.tsx:56`).
-  드롭다운이 함께 쓰는 `--dropdown-ambient-shadow`는 붙이지 않으므로 **드롭 섀도우가 한 겹도 없다.**
+  드롭다운이 함께 쓰는 `--dropdown-ambient-shadow`는 붙이지 않으므로 **드롭 섀도우가 한 겹도 없다** —
+  DS는 `elevation-modal` 뒤에 헤어라인을 조합해 앰비언트와 헤어라인을 함께 갖는다는 점이 다르다.
   이름이 `Glass*`인데도 `backdrop-filter: none`과 `-webkit-backdrop-filter: none`을 명시해 흐림까지 끈다
   (`GlassConfirmModal.tsx:55`). **이름을 믿고 Figma에 블러를 넣으면 틀린다** — 이름의 `Glass`는 이미 제품이 걷어낸 개념의 잔재다.
 - **제품 모달의 면은 시맨틱이 아니라 palette 직접 참조 두 벌이다.** 다크 `--palette-gray-800` `#313640`,

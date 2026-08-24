@@ -23,10 +23,11 @@
   inline-size: 100%;
   min-inline-size: 0;
   padding: 0;
-  /* 제품은 spread-only box-shadow로 링을 바깥에 둔다. 여기서는 border다 — `overflow: hidden`과
-   * 만나면 border가 썸네일 **위에** 그려져, 제품이 dark에서 ::before 층을 하나 더 얹어 얻던
-   * 결과를 선언 하나로 얻는다. 0.5px에서 안팎 차이는 보이지 않는다. */
-  border: var(--kds-border-width-hairline) solid var(--kds-color-border-subtle);
+  /* 경계는 border가 아니라 generic 10% inset 헤어라인이다 (DS-D-0023). 이전엔
+   * color-border-subtle border였고, `overflow: hidden`과 만나 썸네일 위 가장자리에 그려졌다.
+   * inset 헤어라인은 레이아웃을 건드리지 않으며 제품 5103ffeb과 같은 표현이다 — full-bleed
+   * 썸네일이 있는 카드에서는 미디어가 그 가장자리를 덮을 수 있다(제품과 동일한 결과). */
+  box-shadow: var(--kds-hairline-inset);
   border-radius: var(--kds-radius-card);
   background: none;
   overflow: hidden;
@@ -75,6 +76,13 @@
 }
 
 @media (forced-colors: active) {
+  /* box-shadow 헤어라인은 강제 색에서 사라지므로 프레임 경계를 시스템 색 실선으로 되살린다
+   * (DS-D-0023). overflow:hidden은 자손만 자르고 border는 남는다. */
+  .kds-project-card {
+    box-shadow: none;
+    border: var(--kds-border-width-default) solid currentColor;
+  }
+
   .kds-project-card:has(.kds-project-card-action:focus-visible) {
     outline-color: Highlight;
   }

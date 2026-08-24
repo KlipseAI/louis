@@ -227,8 +227,13 @@ test("divider는 켤 때만 그려진다", async () => {
       <AppTopBar title="켜짐" divider data-testid="on" />
     </div>,
   );
-  expect(px(getComputedStyle(find('[data-testid="off"]')).borderBottomWidth)).toBe(0);
-  expect(px(getComputedStyle(find('[data-testid="on"]')).borderBottomWidth)).toBeGreaterThan(0);
+  // divider는 방향성 inset box-shadow다 (DS-D-0023) — border-block-end가 아니다.
+  const off = getComputedStyle(find('[data-testid="off"]'));
+  const on = getComputedStyle(find('[data-testid="on"]'));
+  expect(px(off.borderBottomWidth), "꺼짐: border 없음").toBe(0);
+  expect(off.boxShadow, "꺼짐: divider 없음").toBe("none");
+  expect(px(on.borderBottomWidth), "켜짐: border 아님").toBe(0);
+  expect(on.boxShadow, "켜짐: inset divider").toContain("inset");
 });
 
 test("layer-sticky 유틸리티가 토큰에서 온다", async () => {

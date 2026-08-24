@@ -3,6 +3,29 @@
  * DS-D-0004: 전역 선택자를 쓰지 않는다. 값은 --kds-* 변수로만 참조하고 숫자 z-index를 쓰지 않는다.
  */
 
+/* 헤어라인 — 0.5px inset stroke recipe (DS-D-0023).
+ *
+ * 일반 0.5px stroke는 CSS `border`가 아니라 inset box-shadow로 그린다. border는 box-sizing:
+ * border-box 안쪽을 0.5px 줄이고 브라우저가 DPR 1에서 사용값을 1px로 올리므로 레이아웃이
+ * 화면마다 달라지지만, inset shadow는 레이아웃 박스를 건드리지 않는다. 색은 단일 semantic
+ * 토큰 `color-border-hairline`(light black 10% · dark paper 10%)이고 두께는
+ * `border-width-hairline`(0.5px)이다. divider처럼 한 면만 필요하면 방향성 변형을 쓴다.
+ *
+ * **컴포넌트마다 shadow 문자열을 복사하지 않는다.** 한 곳에서 선언하고 var()로 참조한다.
+ * elevation이 있는 표면은 `box-shadow: var(--kds-elevation-*), var(--kds-hairline-inset)`처럼
+ * ambient/drop shadow 뒤에 조합한다. forced-colors에서는 box-shadow가 사라지므로 각 컴포넌트가
+ * 시스템 색 border/outline로 되살린다.
+ *
+ * 곱셈(`*`) 기호는 저작 게이트의 전역 선택자 패턴에 걸리므로 block-end는 `calc(0px - …)`로 뺀다. */
+:root {
+  --kds-hairline-inset:
+    inset 0 0 0 var(--kds-border-width-hairline) var(--kds-color-border-hairline);
+  --kds-hairline-inset-block-start:
+    inset 0 var(--kds-border-width-hairline) 0 var(--kds-color-border-hairline);
+  --kds-hairline-inset-block-end:
+    inset 0 calc(0px - var(--kds-border-width-hairline)) 0 var(--kds-color-border-hairline);
+}
+
 /* 시각적으로 숨기되 accessibility tree에는 남긴다.
  * dialog.md의 accessible description, button.md의 icon-only accessible name이 이 유틸을 쓴다. */
 .kds-visually-hidden {

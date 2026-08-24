@@ -43,7 +43,16 @@ function assertPaint(node: Element, expected: Paint, label: string): void {
   expect(style.backgroundColor, `${label} background`).toBe(wantBackground);
   expect(style.color, `${label} foreground`).toBe(tokenValue(expected.foreground, "color"));
   if (expected.border !== undefined) {
-    expect(style.borderTopColor, `${label} border`).toBe(tokenValue(expected.border, "color"));
+    if (expected.border === "color-border-hairline") {
+      // DS-D-0023: 일반 stroke는 border가 아니라 generic 헤어라인 inset이다.
+      expect(style.borderTopWidth, `${label} border 제거`).toBe("0px");
+      expect(style.boxShadow, `${label} 헤어라인`).toContain("inset");
+      expect(style.boxShadow, `${label} 헤어라인 색`).toContain(
+        tokenValue("color-border-hairline", "color"),
+      );
+    } else {
+      expect(style.borderTopColor, `${label} border`).toBe(tokenValue(expected.border, "color"));
+    }
   }
 }
 

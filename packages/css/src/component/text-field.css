@@ -39,7 +39,9 @@
   min-inline-size: 0;
   min-block-size: var(--kds-layout-control-height-md);
   padding-inline: var(--kds-space-control-lg);
-  border: var(--kds-border-width-hairline) solid var(--kds-color-border-control);
+  /* 경계는 border가 아니라 generic 10% inset 헤어라인이다 (DS-D-0023). 이전엔 color-border-control
+   * 이었다. invalid/disabled 상태 축은 아래에서 별도로 다룬다. */
+  box-shadow: var(--kds-hairline-inset);
   border-radius: var(--kds-radius-control);
   background: var(--kds-color-background-surface);
   /* 텍스트 커서는 박스 어디를 눌러도 나와야 한다. 클릭은 React가 input으로 넘긴다. */
@@ -59,19 +61,24 @@
 }
 
 @media (forced-colors: active) {
+  /* box-shadow 헤어라인은 강제 색에서 사라지므로 상자 경계를 시스템 색 실선으로 되살린다 (DS-D-0023). */
+  .kds-text-field__box {
+    box-shadow: none;
+    border: var(--kds-border-width-default) solid currentColor;
+  }
+
   .kds-text-field__box:focus-within {
     outline-color: Highlight;
   }
 }
 
-/* invalid — **색만으로 전달하지 않는다.** 테두리 색과 함께 메시지가 뜨고 aria-invalid가 붙는다.
- * 색 하나로만 알리면 색각 이상에서 오류가 전달되지 않는다. */
-.kds-text-field[data-invalid="true"] .kds-text-field__box {
-  border-color: var(--kds-color-border-danger);
-}
+/* invalid — **색 축을 두지 않는다.** 모든 상태가 generic 헤어라인으로 통일됐고(DS-D-0023, 이전엔
+ * color-border-danger border), 오류는 메시지(color-foreground-danger) + aria-invalid + role="alert"가
+ * 전달한다. 색 하나로만 알리지 않는 규범은 유지된다 — 색이 사라진 자리를 텍스트와 ARIA가 잇는다. */
 
 .kds-text-field:has(.kds-text-field__control:disabled) .kds-text-field__box {
-  border-color: var(--kds-color-border-subtle);
+  /* disabled도 generic 헤어라인을 유지하고 상태는 foreground 색이 전달한다 (DS-D-0023,
+   * 이전엔 color-border-subtle border). */
   cursor: not-allowed;
 }
 

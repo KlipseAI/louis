@@ -86,40 +86,40 @@
             "$background": "투명 배경",
             "foreground": "color-action-secondary-foreground",
             "$foreground": "action secondary foreground 토큰",
-            "border": "color-border-control",
-            "$border": "control border 토큰"
+            "border": "color-border-hairline",
+            "$border": "generic 헤어라인 (color-border-hairline, DS-D-0023)"
           },
           "Hover": {
             "background": "color-action-secondary-hover",
             "$background": "secondary hover 배경 토큰",
             "foreground": "color-action-secondary-foreground",
             "$foreground": "action secondary foreground 토큰",
-            "border": "color-border-control",
-            "$border": "control border 토큰"
+            "border": "color-border-hairline",
+            "$border": "generic 헤어라인 (color-border-hairline, DS-D-0023)"
           },
           "Active": {
             "background": "color-action-secondary-hover",
             "$background": "secondary active 배경 토큰",
             "foreground": "color-action-secondary-foreground",
             "$foreground": "action secondary foreground 토큰",
-            "border": "color-border-control",
-            "$border": "control border 토큰"
+            "border": "color-border-hairline",
+            "$border": "generic 헤어라인 (color-border-hairline, DS-D-0023)"
           },
           "Disabled": {
             "background": null,
             "$background": "투명 배경",
             "foreground": "color-foreground-disabled",
             "$foreground": "disabled 전경 토큰",
-            "border": "color-border-subtle",
-            "$border": "subtle border 토큰"
+            "border": "color-border-hairline",
+            "$border": "generic 헤어라인 (color-border-hairline, DS-D-0023)"
           },
           "Loading": {
             "background": null,
             "$background": "투명 배경",
             "foreground": "color-foreground-disabled",
             "$foreground": "disabled 전경 토큰",
-            "border": "color-border-subtle",
-            "$border": "subtle border 토큰"
+            "border": "color-border-hairline",
+            "$border": "generic 헤어라인 (color-border-hairline, DS-D-0023)"
           }
         },
         "ghost": {
@@ -258,40 +258,40 @@
             "$background": "표면 배경 color-background-surface",
             "foreground": "color-foreground-primary",
             "$foreground": "foreground primary 토큰",
-            "border": "color-border-default",
-            "$border": "default border 토큰"
+            "border": "color-border-hairline",
+            "$border": "generic 헤어라인 (color-border-hairline, DS-D-0023)"
           },
           "Hover": {
             "background": "color-background-inset",
             "$background": "inset 배경 토큰",
             "foreground": "color-foreground-primary",
             "$foreground": "foreground primary 토큰",
-            "border": "color-border-default",
-            "$border": "default border 토큰"
+            "border": "color-border-hairline",
+            "$border": "generic 헤어라인 (color-border-hairline, DS-D-0023)"
           },
           "Active": {
             "background": "color-background-inset",
             "$background": "inset 배경 토큰",
             "foreground": "color-foreground-primary",
             "$foreground": "foreground primary 토큰",
-            "border": "color-border-default",
-            "$border": "default border 토큰"
+            "border": "color-border-hairline",
+            "$border": "generic 헤어라인 (color-border-hairline, DS-D-0023)"
           },
           "Pressed": {
             "background": "color-background-inset",
             "$background": "inset 배경 토큰",
             "foreground": "color-foreground-primary",
             "$foreground": "foreground primary 토큰",
-            "border": "color-border-default",
-            "$border": "default border 토큰"
+            "border": "color-border-hairline",
+            "$border": "generic 헤어라인 (color-border-hairline, DS-D-0023)"
           },
           "Disabled": {
             "background": "color-background-surface",
             "$background": "표면 배경 color-background-surface",
             "foreground": "color-foreground-disabled",
             "$foreground": "disabled 전경 토큰",
-            "border": "color-border-subtle",
-            "$border": "subtle border 토큰"
+            "border": "color-border-hairline",
+            "$border": "generic 헤어라인 (color-border-hairline, DS-D-0023)"
           }
         },
         "ghost": {
@@ -367,7 +367,7 @@
       "$note": "variant 축이 없다. Figma의 Side는 배치를 위한 축이며 표면 시각은 네 방향이 같다.",
       "sizes": {
         "base": {
-          "height": 28,
+          "height": 26,
           "paddingBlock": 4,
           "paddingInline": 8,
           "gap": 0,
@@ -376,7 +376,7 @@
           "radius": 8,
           "fontSize": 12,
           "lineHeight": 18,
-          "$height": "padding 4+4 + line-height 18 + border 1+1 = 28",
+          "$height": "padding 4+4 + line-height 18 = 26. 헤어라인이 inset box-shadow라 높이에 더해지지 않는다 (DS-D-0023). 이전엔 0.5px border가 DPR 1에서 1px씩 올라 28이었다",
           "arrowWidth": 12,
           "$arrowWidth": "12px 화살표 폭",
           "arrowHeight": 6,
@@ -390,8 +390,8 @@
             "$background": "반전 배경 color-background-inverse",
             "foreground": "color-foreground-on-inverse",
             "$foreground": "반전 위 전경 color-foreground-on-inverse",
-            "border": "color-border-tooltip",
-            "$border": "툴팁 테두리 color-border-tooltip"
+            "border": "color-border-hairline",
+            "$border": "generic 헤어라인 (color-border-hairline, DS-D-0023)"
           }
         }
       },
@@ -600,8 +600,8 @@
             "$background": "대화상자 표면 배경 color-background-surface",
             "foreground": "color-foreground-primary",
             "$foreground": "기본 텍스트 전경 color-foreground-primary",
-            "border": "color-border-subtle",
-            "$border": "외곽 테두리 color-border-subtle"
+            "border": "color-border-hairline",
+            "$border": "generic 헤어라인 (color-border-hairline, DS-D-0023)"
           }
         }
       },
@@ -679,8 +679,8 @@
             "$background": "투명 배경",
             "foreground": "color-foreground-primary",
             "$foreground": "카드 전경 color-foreground-primary",
-            "border": "color-border-subtle",
-            "$border": "카드 테두리 color-border-subtle"
+            "border": "color-border-hairline",
+            "$border": "generic 헤어라인 (color-border-hairline, DS-D-0023)"
           }
         }
       }
@@ -901,24 +901,24 @@
             "$background": "표면 배경 color-background-surface",
             "foreground": "color-foreground-primary",
             "$foreground": "입력 텍스트 전경 color-foreground-primary",
-            "border": "color-border-control",
-            "$border": "기본 테두리 color-border-control"
+            "border": "color-border-hairline",
+            "$border": "generic 헤어라인 (color-border-hairline, DS-D-0023)"
           },
           "Invalid": {
             "background": "color-background-surface",
             "$background": "표면 배경 color-background-surface",
             "foreground": "color-foreground-primary",
             "$foreground": "입력 텍스트 전경 color-foreground-primary",
-            "border": "color-border-danger",
-            "$border": "에러 테두리 color-border-danger"
+            "border": "color-border-hairline",
+            "$border": "generic 헤어라인 (color-border-hairline). 오류는 메시지+aria-invalid가 전달한다 (DS-D-0023)"
           },
           "Disabled": {
             "background": "color-background-surface",
             "$background": "표면 배경 color-background-surface",
             "foreground": "color-foreground-disabled",
             "$foreground": "비활성 전경 color-foreground-disabled",
-            "border": "color-border-subtle",
-            "$border": "비활성 테두리 color-border-subtle"
+            "border": "color-border-hairline",
+            "$border": "generic 헤어라인 (color-border-hairline, DS-D-0023)"
           }
         }
       },
@@ -1050,36 +1050,36 @@
             "$background": "표면 배경 color-background-surface",
             "foreground": "color-foreground-primary",
             "$foreground": "라벨 텍스트 전경 color-foreground-primary",
-            "border": "color-border-strong",
-            "$border": "경계 강한 테두리 color-border-strong"
+            "border": "color-border-hairline",
+            "$border": "generic 헤어라인 (color-border-hairline). 이전 border-strong 대비 저하는 checkbox Known deviations 참조 (DS-D-0023)"
           },
           "Checked": {
             "background": "color-action-primary",
             "$background": "선택 채움 배경 color-action-primary",
             "foreground": "color-foreground-primary",
             "$foreground": "라벨 텍스트 전경 color-foreground-primary",
-            "border": "color-action-primary",
-            "$border": "선택 테두리 color-action-primary"
+            "border": "color-border-hairline",
+            "$border": "선택은 면(color-action-primary)이 채우고 base 헤어라인이 남는다 (DS-D-0023)"
           },
           "Indeterminate": {
             "background": "color-action-primary",
             "$background": "부분 선택 배경 color-action-primary",
             "foreground": "color-foreground-primary",
             "$foreground": "라벨 텍스트 전경 color-foreground-primary",
-            "border": "color-action-primary",
-            "$border": "부분 선택 테두리 color-action-primary"
+            "border": "color-border-hairline",
+            "$border": "부분 선택도 면(color-action-primary)이 채우고 base 헤어라인이 남는다 (DS-D-0023)"
           },
           "Disabled": {
             "background": "color-background-inset",
             "$background": "비활성 배경 color-background-inset",
             "foreground": "color-foreground-disabled",
             "$foreground": "비활성 라벨 전경 color-foreground-disabled",
-            "border": "color-border-subtle",
-            "$border": "비활성 테두리 color-border-subtle"
+            "border": "color-border-hairline",
+            "$border": "generic 헤어라인 (color-border-hairline, DS-D-0023)"
           }
         }
       },
-      "$borderNote": "**border-control이 아니라 border-strong이다.** 선택하지 않은 체크박스는 테두리가 어포던스의 전부라 SC 1.4.11(3:1)이 그 선에 걸린다. 상자 면 대비 실측 — control 1.27/1.63 · default 1.38/2.93 · strong 2.52/4.61(라이트/다크). **셋 다 라이트에서 3:1 미달**이고 가장 가까운 것을 골랐다. 이 실측은 인계서 (2b) 컨트롤 테두리 정본 판정과 (1a) color-border-strong 처분의 입력이다 — 그 토큰은 여기가 첫 소비처다.",
+      "$borderNote": "**generic 헤어라인(color-border-hairline)이다 (DS-D-0023).** 선택하지 않은 체크박스는 테두리가 어포던스의 전부라 SC 1.4.11(3:1)이 그 선에 걸린다. 상자 면 대비 실측 — control 1.27/1.63 · default 1.38/2.93 · strong 2.52/4.61 · black 10% ≈ 1.1(라이트/다크). 이전엔 가장 가까운 strong을 썼지만, 제품 owner가 모든 0.5px stroke를 10%로 통일하는 결정(인계서 (2b) 해소, DS-D-0023)을 내려 라이트 대비가 strong보다 더 낮아졌다 — checkbox.md Known deviations에 기록했다.",
       "$statesNote": "foreground는 라벨의 색이다. 표시(체크 · 막대)의 색은 면 위에 얹히므로 color-foreground-inverse이며 states 표가 아니라 아래 규범이 갖는다 — states 표의 세 값은 면·전경·테두리로 고정돼 있다."
     },
     "selectable-list-row": {

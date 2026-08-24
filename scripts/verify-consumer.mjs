@@ -64,10 +64,21 @@ try {
   // 규범이 styles.css import를 안내하면서 tokens.css를 빼먹은 적이 있다(2026-08-18).
   {
     const stylesCss = readFileSync(join(process.cwd(), "packages/css/generated/styles.css"), "utf8");
-    if (/:root\s*\{/.test(stylesCss)) {
-      failures.push(
-        "styles.css에 :root 블록이 생겼습니다. 이 검사의 전제(토큰은 tokens.css에만 있다)가 깨졌으니 게이트를 다시 쓰세요.",
-      );
+    // styles.css는 토큰을 정의하지 않는다. 유일한 예외는 base.css의 헤어라인 recipe
+    // (--kds-hairline-*)이며, 이는 토큰이 아니라 토큰을 조합하는 foundation custom property다
+    // (DS-D-0023). :root 블록이 있으면 그 안의 --kds-* 선언이 recipe allowlist에 드는지 본다 —
+    // 색·간격·반경 같은 토큰이 새어들면 tokens.css 없이 styles.css만 import한 소비자에게 조용히
+    // 무효가 되므로 실패시킨다.
+    const ROOT_RECIPE_ALLOW = /^--kds-hairline-inset(-block-(start|end))?$/;
+    for (const block of stylesCss.match(/:root\s*\{[^}]*\}/g) ?? []) {
+      const leaked = [...block.matchAll(/(--kds-[a-z0-9-]+)\s*:/g)]
+        .map((match) => match[1])
+        .filter((name) => !ROOT_RECIPE_ALLOW.test(name));
+      if (leaked.length > 0) {
+        failures.push(
+          `styles.css :root에 토큰이 정의됐습니다: ${leaked.join(", ")}. 토큰은 tokens.css에만 두고 :root에는 헤어라인 recipe(--kds-hairline-*)만 허용된다.`,
+        );
+      }
     }
     const guides = [
       "packages/css/README.md",

@@ -75,6 +75,23 @@ publish 이후에만 검토한다 — publish 전에는 파일 간 변수·compo
    단일 값이라 **Light를 명시적으로 고른다.** 고르지 않고 첫 모드를 쓰면 Dark가 잡혀
    `elevation/menu`의 헤어라인이 어두운 값으로 들어간다 — 라이트 화면에 검은 테두리가 생긴다.
    다크 그림자는 Figma가 표현하지 못한다.
+
+   **rename·remove는 apply-variables가 표현하지 못한다.** apply-variables는 변수를 **이름으로**
+   찾으므로 이름이 바뀐 토큰은 rename이 아니라 "새 이름 없음 → 새 변수 생성"으로 보이고, 옛 변수는
+   orphan으로 남아 컴포넌트 바인딩이 끊기고 `verify-figma-parity`가 실패한다. 이름 이전이 필요할
+   때만 쓰는 **1회성 마이그레이션 도구 두 개**가 이 간극을 메운다. 둘 다 손으로 쓴 커밋된 파일이며
+   즉석 코드가 아니다(무엇을 적용했는지가 저장소에 남는다):
+   - `figma/rename-variables.js` — **apply-variables보다 먼저** 한 번. 접두 규칙으로 변수를
+     **ID를 보존한 채** in-place rename해 바인딩·alias를 살린다. idempotent, 대상 이름이 이미
+     있으면 conflict로 보고하고 덮지 않는다.
+     `apply-variables`가 그 뒤 새 이름으로 값을 맞추고 진짜 신규 변수만 만든다.
+   - `figma/remove-variables.js` — **apply-variables를 모두 실행한 뒤** 마지막에 한 번. 아키텍처에서
+     제거된 primitive(현재 `inverse-alpha` 2계열)를 지운다. apply가 alias를 새 primitive로
+     재지정한 뒤라야 안전하다. idempotent.
+
+     이 두 도구는 규칙 기반이라 특정 스냅샷에 묶이지 않는다 — token proposal에서 생성하지 않으므로
+     드리프트 게이트가 없고, 대신 실행 후 `verify-figma-parity`가 전수 대조로 결과를 지킨다.
+     이름 이전이 끝나 라이브가 새 이름으로 정착하면 두 도구는 no-op이 된다.
 5. Figma 쪽 수동 편집과 충돌하면 덮어쓰지 않고 diff를 보고한다.
 6. **되읽기는 페이지를 명시적으로 전환한 뒤 수행한다.** `figma.currentPage`는 매 호출 첫 페이지로
    초기화되므로, `await figma.setCurrentPageAsync(page)` 없이 세면 component가 조용히 0개로 나온다.

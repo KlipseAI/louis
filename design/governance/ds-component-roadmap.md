@@ -48,9 +48,24 @@ StaticAnalyticsDemo 차트, skeleton)가 공개 route에서 측정 가능** → 
 - `foreground-success-on-surface` 부재(danger-on-surface는 있음) — surface 위 success 전경 토큰 갭. 필요 시 추가.
 - neutral pill bg는 전용 subtle 토큰이 없어 `color/bg-surface`로 임시 바인딩 — subtle bg 토큰 신설 후보.
 
-## ChangePill 제작 기록 (component 1)
+## 제작 완료 — organism 갭 7종 전부 (Figma, 스크린샷 검증)
 
-- DS 라이브러리 Content 섹션, set `342:123` "ChangePill". variants Tone=Positive/Negative/Neutral.
-- padding 4/12 · radius 999 · Pretendard Medium 12/125%. 근거 `analytics/OverviewTab.tsx`(108–120행 CHANGE_PILL_CLASSES).
-- 바인딩: Positive→bg-success/fg-success · Negative→bg-danger/fg-danger · Neutral→bg-surface/fg-secondary.
-- 스크린샷 검증 완료. **아직 코드/readback 미반영** — 다음 배치.
+DS 라이브러리 `bxGEp0` Components 페이지에 7개 신규 컴포넌트를 시맨틱 토큰 바인딩으로 제작.
+
+| # | 컴포넌트 | set/id | 섹션 | 구성 | 근거 |
+|---|---|---|---|---|---|
+| 1 | **ChangePill** | `342:123` | Content | Tone=Positive/Negative/Neutral · padding 4/12 · radius 999 · caption-12-medium | OverviewTab CHANGE_PILL_CLASSES; badge.css "별도 물건" |
+| 2 | **Chart** (AreaChart) | `343:131` | Content | Accent=Positive(success)/Negative(danger) · stroke 2 round · 그라디언트 0.18→0 · 그리드 · 끝점 dot | analytics shared AreaChart viewBox 800×200 |
+| 3 | **KPI Card** | `346:117` | Content | Label+Value+ChangePill 인스턴스+미니 sparkline (composition) | reportKpiCard.kpiCardV2 |
+| 4 | **Data Table** | `348:124` | Content | header + rows · cell media/text/numeric/badge(instance) · 행 구분선 | analytics ContentTable |
+| 5 | **Node Card** | `349:124` | Shell | header(type Badge + title + more) + body slot + 좌우 handle | node-canvas-v2 NODE_CONTAINER |
+| 6 | **Editor Grid** | `350:127` | Shell | assets(236)/preview(flex)/properties(324) + timeline(400) 레이아웃 | vemClass.ts grid-template |
+| 7 | **CaptionPanel** | `351:127` | Forms | 색 swatch + 크기 slider (highlight shorts) | CaptionColorPanel |
+
+바인딩: bg-surface · fg-primary · fg-secondary · stroke-default · accent-primary · fg/bg-success · fg/bg-danger.
+값·곡선·행은 placeholder(인스턴스가 data 교체). Pricing/Payment는 composition으로 판정되어 신규 컴포넌트 아님.
+
+**아직 안 한 것 (다음 phase):**
+- **거버넌스** — 이 7개를 코드 정본(packages/css·react) + readback.json/snapshot.json 재생성 + 토큰/manifest +
+  parity 게이트(26→33)에 반영. Figma-only 상태다.
+- **어돕션** — DS 라이브러리 publish/연결 후 제품 보드 95 화면을 bespoke→DS 인스턴스 조립으로 재구성(0%→).

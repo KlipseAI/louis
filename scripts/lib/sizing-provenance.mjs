@@ -1,0 +1,246 @@
+// **"왜 그 크기인가"를 되살린다.** 측정된 픽셀이 아니라 *선언된 의도*를 복원해
+// Figma Auto Layout(FILL / HUG / FIXED / ABSOLUTE)으로 옮기기 위한 판정 계층이다.
+//
+// ## 왜 필요한가
+//
+// `getComputedStyle`은 **해결된(used) 값**을 준다. `width:100%`와 `width:1920px`가 둘 다 `"1920px"`로
+// 보이므로, 측정 단계에서 이미 의도가 소실된다. 픽셀만 Figma에 박으면 프레임을 리사이즈했을 때 제품처럼
+// 반응하지 않는다 — 실제로 highlight project 프레임의 메인 카드가 `1852`로 굳어 1920 프레임을 212px
+// 넘쳤던 사고가 이것이다(정답은 고정폭이 아니라 `ml=사이드바폭 + mr=12`라는 **관계**였다).
+//
+// ## 어떻게 되살리는가 — 브라우저에게 직접 묻는다
+//
+// Tailwind를 재구현하거나 캐스케이드를 오프라인 재구성하지 않는다. 둘 다 틀리기 쉽다(유틸리티 정렬 순서,
+// `@layer`, 미디어/자손 셀렉터, `--spacing` 같은 테마 변수까지 흉내내야 한다). 대신 **CDP
+// `CSS.getMatchedStylesForNode`** 로 그 노드에 실제로 매칭된 규칙과 인라인 선언을 캐스케이드 순서대로
+// 받는다. 검증 결과 이 경로는 `width:50%`를 **`"50%"` 원본 그대로** 돌려준다.
+//
+// ## 판정에 쓰는 신호 (우선순위)
+//
+// 1. **선언된 width/height** (CDP): `%`·`auto`·`px`·`calc()`·`var()`·`fit-content` 등 원문
+// 2. **flex 축**: `flexGrow`/`flexBasis`는 computed에서도 해결되지 않아 그대로 살아남는다
+// 3. **CSS 기본 규칙**: 선언이 없는 block 요소는 `width:auto` = **inline축을 채운다**(FILL).
+//    `/pricing` 883노드 중 flexGrow가 0이 아닌 노드는 **하나도 없고** 46%가 부모 폭과 정확히 일치한다 —
+//    이들은 "선언 누락"이 아니라 **CSS 기본 동작**이며 규칙으로 처리해야 한다.
+// 4. **min/max**: computed에서도 `%`가 살아남는 축이라 그대로 Figma min/max로 옮긴다.
+//
+// 판정 불가는 **조용히 기본값으로 떨어뜨리지 않고** `UNRESOLVED`로 표시한다. 그 수가 게이트다.
+//
+// ## 실측 성적 (`/pricing` 883노드 × 2 뷰포트, declared 없이 기본 규칙만으로)
+//
+// | | desktop | mobile |
+// |---|---|---|
+// | 가로 FILL/HUG/FIXED/UNRESOLVED | 304 / 571 / 6 / 2 | 308 / 567 / 6 / 2 |
+// | FILL 판정이 실제 부모 content 폭과 일치 | **92.8%** | **94.7%** |
+//
+// 남은 불일치는 오판이 아니라 **표현이 덜 된 것**으로 확인됐다:
+//   - `max-width`가 FILL을 제한하는 경우(`main.2.0.0` w=1300 · maxW=1300px) → FILL + maxWidth로 정확해진다.
+//   - grid 아이템이 **부모 폭이 아니라 트랙 폭**을 채우는 경우(`main.2.0.0.1.*` article w=316) → FILL이 맞다.
+// 폭 0인 노드(접힌 모바일 메뉴 등)는 렌더 대상이 아니므로 검증에서 제외한다.
+//
+// UNRESOLVED 2건은 둘 다 치환 요소(img/svg)이며, 이들은 고유 비율을 가지므로 별도 취급한다.
+
+/** Figma 축 판정값. */
+export const AXIS = Object.freeze({
+  FILL: "FILL",         // 부모가 크기를 결정 → layoutSizing*="FILL" / layoutGrow=1
+  HUG: "HUG",           // 콘텐츠가 결정 → primary/counterAxisSizingMode="AUTO"
+  FIXED: "FIXED",       // 진짜 고정값 → resize()
+  UNRESOLVED: "UNRESOLVED", // 판정 실패. 조용히 넘기지 않는다.
+});
+
+/** 뷰포트 단위 상수 (owner 확정): 100vh = desktop 1080 / mobile 874. */
+export const VIEWPORT = Object.freeze({
+  "desktop-1920x1080": { width: 1920, height: 1080 },
+  "mobile-402x874": { width: 402, height: 874 },
+});
+
+const LENGTH = /^(-?[\d.]+)px$/;
+const PERCENT = /^(-?[\d.]+)%$/;
+
+/** `"12px"` → 12. 아니면 null. */
+export function px(value) {
+  const match = LENGTH.exec(String(value ?? "").trim());
+  return match ? Number(match[1]) : null;
+}
+
+/** `"100%"` → 100. 아니면 null. */
+export function percent(value) {
+  const match = PERCENT.exec(String(value ?? "").trim());
+  return match ? Number(match[1]) : null;
+}
+
+/**
+ * vh/vw/dvh/svh/lvh 를 뷰포트 상수로 치환한다. owner 규칙: 100vh = 1080/874, 100vw = 1920/402.
+ * `calc()` 안에 있어도 치환되며, 원문은 호출자가 근거로 남긴다.
+ */
+export function substituteViewportUnits(declaration, contextId) {
+  const vp = VIEWPORT[contextId];
+  if (!vp || typeof declaration !== "string") return declaration;
+  return declaration.replace(/(-?[\d.]+)(dvh|svh|lvh|vh|dvw|svw|lvw|vw)\b/g, (_, n, unit) => {
+    const base = unit.endsWith("h") ? vp.height : vp.width;
+    return `${(Number(n) / 100) * base}px`;
+  });
+}
+
+/**
+ * 한 축(가로/세로)의 판정.
+ *
+ * @param {object} input
+ * @param {string|null} input.declared     CDP가 준 **선언된** width/height 원문 (`"100%"`, `"auto"`, `"320px"`, `calc(...)`)
+ * @param {object} input.computed          computed style 객체 (해결된 값)
+ * @param {"horizontal"|"vertical"} input.axis
+ * @param {object|null} input.parentComputed 부모의 computed style (기본 동작 판정용)
+ * @param {boolean} input.isReplaced       img/svg/video 등 치환 요소인가
+ * @returns {{verdict:string, reason:string, source:string|null, value:number|null}}
+ */
+export function decideAxis({ declared, computed, axis, parentComputed = null, isReplaced = false }) {
+  const horizontal = axis === "horizontal";
+  const position = computed?.position;
+
+  // 0. 절대 배치는 축 판정이 아니라 배치 문제다. 호출자가 ABSOLUTE로 처리한다.
+  if (position === "absolute" || position === "fixed") {
+    return { verdict: AXIS.FIXED, reason: `position:${position} — 절대 배치이므로 축이 아니라 좌표/제약으로 다룬다`, source: `position:${position}`, value: null };
+  }
+
+  const parentDisplay = parentComputed?.display ?? "";
+  const inFlexRow = /flex/.test(parentDisplay) && (parentComputed?.flexDirection ?? "row").startsWith("row");
+  const inFlexColumn = /flex/.test(parentDisplay) && (parentComputed?.flexDirection ?? "").startsWith("column");
+  const mainAxisOfParent = horizontal ? inFlexRow : inFlexColumn;
+
+  // 1. flex 주축: grow/basis 가 해결되지 않고 살아남는 유일한 신호다.
+  if (mainAxisOfParent) {
+    const grow = Number(computed?.flexGrow ?? 0);
+    const basis = computed?.flexBasis;
+    if (grow > 0) {
+      return { verdict: AXIS.FILL, reason: `부모가 flex이고 flex-grow:${grow} — 남는 공간을 채운다`, source: `flex-grow:${grow}`, value: null };
+    }
+    if (basis && basis !== "auto" && percent(basis) === 100) {
+      return { verdict: AXIS.FILL, reason: "flex-basis:100% — 부모 주축을 채운다", source: `flex-basis:${basis}`, value: null };
+    }
+    if (grow === 0 && (declared === "auto" || declared == null)) {
+      return { verdict: AXIS.HUG, reason: "부모가 flex, grow:0, 크기 선언 없음 — 콘텐츠가 결정한다", source: "flex-grow:0 · width:auto", value: null };
+    }
+  }
+
+  // 2. 선언된 값이 있으면 그것이 정답이다 (CDP가 준 원문).
+  if (declared != null && declared !== "") {
+    const pct = percent(declared);
+    if (pct === 100) {
+      return { verdict: AXIS.FILL, reason: `${axis} 100% 선언 — 부모를 채운다`, source: `${horizontal ? "width" : "height"}:${declared}`, value: null };
+    }
+    if (pct != null) {
+      // 100%가 아닌 퍼센트는 Figma에 대응이 없다. FILL로 두면 과대, FIXED로 두면 반응성을 잃는다.
+      return { verdict: AXIS.UNRESOLVED, reason: `${pct}% 선언 — Figma에 부분 퍼센트 대응이 없다`, source: `${horizontal ? "width" : "height"}:${declared}`, value: null };
+    }
+    if (/^fit-content|^min-content|^max-content|^auto$/.test(declared)) {
+      if (declared === "auto") {
+        // block 요소의 auto는 inline축을 채우는 것이 CSS 기본이다.
+        const isBlockish = /^(block|flow-root|list-item|table)$/.test(computed?.display ?? "");
+        if (horizontal && isBlockish && !isReplaced) {
+          return { verdict: AXIS.FILL, reason: "block 요소 + width:auto — CSS 기본으로 inline축을 채운다", source: "width:auto (기본)", value: null };
+        }
+        return { verdict: AXIS.HUG, reason: `${axis} auto — 콘텐츠가 결정한다`, source: `${horizontal ? "width" : "height"}:auto`, value: null };
+      }
+      return { verdict: AXIS.HUG, reason: `${declared} — 콘텐츠가 결정한다`, source: `${horizontal ? "width" : "height"}:${declared}`, value: null };
+    }
+    const fixed = px(declared);
+    if (fixed != null) {
+      return { verdict: AXIS.FIXED, reason: `${declared} 고정 선언`, source: `${horizontal ? "width" : "height"}:${declared}`, value: fixed };
+    }
+    // calc()/var() 등은 호출자가 뷰포트 치환 후 다시 넣어준다. 여기까지 왔다면 해석 실패.
+    return { verdict: AXIS.UNRESOLVED, reason: `해석하지 못한 선언: ${declared}`, source: `${horizontal ? "width" : "height"}:${declared}`, value: null };
+  }
+
+  // 3. 선언이 아예 없는 경우 — CSS 기본 동작으로 판정한다.
+  //    /pricing 883노드의 46%가 여기 해당하며 "누락"이 아니라 정상이다.
+  const display = computed?.display ?? "";
+
+  // **flex/grid 자식에는 block 기본 규칙이 적용되지 않는다.** 실측으로 확인: 이 규칙을 빼면
+  // /pricing 오판 394건 중 390건(99%)이 여기서 나온다 — grid 부모 안의 flex 아이템(`main.1.0.0`,
+  // 폭 82px)을 "block이니 부모 1888을 채운다"고 잘못 판정한다. flex/grid 아이템의 교차축 기본은
+  // stretch지만 주축 기본은 콘텐츠(auto)다.
+  const parentIsFlexOrGrid = /flex|grid/.test(parentDisplay);
+  if (parentIsFlexOrGrid) {
+    const crossAxisOfParent = !mainAxisOfParent;
+    const alignSelf = computed?.alignSelf ?? "auto";
+    const parentAlignItems = parentComputed?.alignItems ?? "normal";
+    const effectiveAlign = alignSelf !== "auto" ? alignSelf : parentAlignItems;
+    if (crossAxisOfParent && /^(normal|stretch)$/.test(effectiveAlign) && !isReplaced) {
+      return { verdict: AXIS.FILL, reason: `부모 ${parentDisplay}의 교차축 + align:${effectiveAlign} — 교차축을 채운다`, source: `align-items:${effectiveAlign}`, value: null };
+    }
+    return { verdict: AXIS.HUG, reason: `부모 ${parentDisplay}의 아이템, 크기 선언 없음 — 콘텐츠가 결정한다`, source: `기본(${parentDisplay} item)`, value: null };
+  }
+
+  if (horizontal) {
+    if (/^(block|flow-root|list-item|table)$/.test(display) && !isReplaced) {
+      return { verdict: AXIS.FILL, reason: "선언 없음 + block — CSS 기본으로 inline축을 채운다", source: "기본(block)", value: null };
+    }
+    if (/^(inline|inline-block|inline-flex|flex|grid|inline-grid)$/.test(display)) {
+      // flex/grid 컨테이너 자체가 block-level이면 여전히 채운다.
+      if (/^(flex|grid)$/.test(display) && !isReplaced) {
+        return { verdict: AXIS.FILL, reason: "선언 없음 + block-level flex/grid — inline축을 채운다", source: "기본(block-level)", value: null };
+      }
+      return { verdict: AXIS.HUG, reason: `선언 없음 + ${display} — 콘텐츠가 결정한다`, source: `기본(${display})`, value: null };
+    }
+  } else {
+    // 세로축의 기본은 콘텐츠다.
+    return { verdict: AXIS.HUG, reason: "선언 없음 — 세로는 콘텐츠가 결정한다", source: "기본(height:auto)", value: null };
+  }
+
+  return { verdict: AXIS.UNRESOLVED, reason: `판정 규칙에 걸리지 않음 (display:${display})`, source: null, value: null };
+}
+
+/**
+ * 노드 하나의 크기 출처를 판정한다.
+ * @returns {{h:object, v:object, absolute:boolean, minMax:object}}
+ */
+export function decideNode({ declared = {}, computed = {}, parentComputed = null, tag = "", contextId = null }) {
+  const isReplaced = /^(img|svg|video|canvas|iframe|input|textarea|select)$/.test(tag);
+  const sub = (value) => (contextId ? substituteViewportUnits(value, contextId) : value);
+  const h = decideAxis({ declared: sub(declared.width), computed, axis: "horizontal", parentComputed, isReplaced });
+  const v = decideAxis({ declared: sub(declared.height), computed, axis: "vertical", parentComputed, isReplaced });
+  return {
+    h,
+    v,
+    absolute: computed.position === "absolute" || computed.position === "fixed",
+    // min/max 는 computed에서도 %가 살아남는 축이라 그대로 Figma로 옮긴다.
+    minMax: {
+      minWidth: px(computed.minWidth),
+      maxWidth: px(computed.maxWidth),
+      minHeight: px(computed.minHeight),
+      maxHeight: px(computed.maxHeight),
+    },
+  };
+}
+
+/**
+ * 판정 결과를 Figma Plugin API 속성으로 옮긴다.
+ * **호출 순서 주의:** FILL/HUG(`layoutSizing*`)는 노드가 auto-layout 부모의 자식이 된 *뒤에만* 유효하고,
+ * `resize()`는 `primaryAxisSizingMode`를 FIXED로 덮어쓴다. 그래서 resize를 먼저, sizing을 나중에 건다.
+ */
+export function toFigmaSizing(decision) {
+  const map = (verdict) => (verdict === AXIS.FILL ? "FILL" : verdict === AXIS.HUG ? "HUG" : "FIXED");
+  return {
+    layoutSizingHorizontal: map(decision.h.verdict),
+    layoutSizingVertical: map(decision.v.verdict),
+    layoutPositioning: decision.absolute ? "ABSOLUTE" : "AUTO",
+    minWidth: decision.minMax.minWidth,
+    maxWidth: decision.minMax.maxWidth,
+    minHeight: decision.minMax.minHeight,
+    maxHeight: decision.minMax.maxHeight,
+    unresolved: [
+      decision.h.verdict === AXIS.UNRESOLVED ? `h: ${decision.h.reason}` : null,
+      decision.v.verdict === AXIS.UNRESOLVED ? `v: ${decision.v.reason}` : null,
+    ].filter(Boolean),
+  };
+}
+
+/** CSS display → Figma layoutMode. Figma는 GRID도 지원한다(layoutMode:'GRID'). */
+export function toLayoutMode(computed) {
+  const display = computed?.display ?? "";
+  if (/grid/.test(display)) return "GRID";
+  if (/flex/.test(display)) {
+    return (computed.flexDirection ?? "row").startsWith("column") ? "VERTICAL" : "HORIZONTAL";
+  }
+  return "NONE";
+}

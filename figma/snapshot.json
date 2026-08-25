@@ -4886,17 +4886,17 @@
         "md": {
           "slots": {
             "LeftIcon": [
-              "20x20"
+              "16x16"
             ],
             "RightIcon": [
-              "20x20"
+              "16x16"
             ],
             "Spinner": [
               "18x18"
             ]
           },
           "height": [
-            40
+            32
           ],
           "width": [
             68,
@@ -4909,13 +4909,13 @@
             0.5
           ],
           "paddingInline": [
-            16.5
+            12.5
           ],
           "paddingInlineEnd": [
-            16.5
+            12.5
           ],
           "itemSpacing": [
-            8
+            4
           ],
           "cornerRadius": [
             12
@@ -4924,7 +4924,7 @@
             "HORIZONTAL"
           ],
           "minWidth": [
-            null
+            48
           ],
           "strokeWeight": [
             2,

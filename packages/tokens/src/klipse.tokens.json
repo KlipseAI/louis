@@ -5134,6 +5134,16 @@
               "mode": "global"
             }
           }
+        },
+        "table-header": {
+          "$value": "{primitive.radius.4}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "radius-table-header",
+              "tier": "semantic",
+              "mode": "global"
+            }
+          }
         }
       },
       "typography": {
@@ -6953,6 +6963,36 @@
               "mode": "light"
             }
           }
+        },
+        "table-header-surface": {
+          "$value": "{primitive.color.gray.100}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-table-header-surface",
+              "tier": "semantic",
+              "mode": "light"
+            }
+          }
+        },
+        "table-row-hover": {
+          "$value": "{primitive.color.gray.50}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-table-row-hover",
+              "tier": "semantic",
+              "mode": "light"
+            }
+          }
+        },
+        "table-row-line": {
+          "$value": "{primitive.color.gray.150}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-table-row-line",
+              "tier": "semantic",
+              "mode": "light"
+            }
+          }
         }
       },
       "elevation": {
@@ -7977,6 +8017,36 @@
           "$extensions": {
             "com.klipse-design": {
               "id": "color-switch-thumb",
+              "tier": "semantic",
+              "mode": "dark"
+            }
+          }
+        },
+        "table-header-surface": {
+          "$value": "{primitive.color.gray.800}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-table-header-surface",
+              "tier": "semantic",
+              "mode": "dark"
+            }
+          }
+        },
+        "table-row-hover": {
+          "$value": "{primitive.color.gray.800}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-table-row-hover",
+              "tier": "semantic",
+              "mode": "dark"
+            }
+          }
+        },
+        "table-row-line": {
+          "$value": "{primitive.color.gray.700}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-table-row-line",
               "tier": "semantic",
               "mode": "dark"
             }

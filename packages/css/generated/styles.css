@@ -3961,6 +3961,112 @@
   }
 }
 
+/* Table — 데이터 표
+ *
+ * 제품 정본은 analytics 대시보드의 콘텐츠 표(`ContentTable.tsx`)다: 헤더 셀 8/12 · 본문 셀
+ * 10/12 · 헤더 행에 0.5px inset 헤어라인 + 반경 4 · 행 사이 1px 구분선 · 숫자 열은 우측 정렬 +
+ * tabular-nums · `table-layout: fixed`. 그 사양을 그대로 채택했다 — 제품 외형 수렴 결정.
+ *
+ * **가로 스크롤은 소비처가 소유한다.** 표를 감싸는 래퍼에 `overflow-x: auto`를 주는 쪽이
+ * 제품이고(모바일에서 표가 화면을 넘긴다), 그 래퍼는 열 너비 정책과 함께 화면마다 다르다.
+ * 여기서 스크롤을 만들면 sticky 헤더나 카드 안쪽 여백과 충돌한다.
+ *
+ * 열 너비도 DS가 정하지 않는다 — 어떤 열이 넓어야 하는지는 데이터의 문제다. 소비처가
+ * `<col>` 이나 caller 유틸리티로 준다.
+ */
+
+.louis-table {
+  inline-size: 100%;
+  /* 헤더 행의 inset 헤어라인과 셀 반경이 살아 있으려면 collapse가 아니어야 한다. */
+  border-collapse: separate;
+  border-spacing: 0;
+  table-layout: fixed;
+  font-family: var(--louis-typography-body-sm-regular-font-family);
+  font-size: var(--louis-typography-body-sm-regular-font-size);
+  font-weight: var(--louis-typography-body-sm-regular-font-weight);
+  line-height: var(--louis-typography-body-sm-regular-line-height);
+  letter-spacing: var(--louis-typography-body-sm-regular-letter-spacing);
+}
+
+/* 헤더 행 — 면과 헤어라인을 행 단위로 두른다(셀마다 두르면 열 경계마다 선이 겹친다). */
+/* 헤어라인이 본문 첫 행의 구분선 위에 오도록 stacking 문맥만 만든다. 숫자 z-index 대신
+ * `isolation`을 쓰는 이유는 layer 토큰 체계 밖의 숫자를 도입하지 않기 위해서다
+ * (elevation-layer.md). */
+.louis-table > thead > tr {
+  position: relative;
+  isolation: isolate;
+  border-radius: var(--louis-radius-table-header);
+  box-shadow: var(--louis-hairline-inset);
+}
+
+.louis-table > thead > tr > th {
+  box-sizing: border-box;
+  padding-block: var(--louis-space-control-xs);
+  padding-inline: var(--louis-space-control-sm);
+  border-block-end: 0;
+  background: var(--louis-color-table-header-surface);
+  color: var(--louis-color-fg-secondary);
+  text-align: start;
+  /* 헤더 라벨이 접히면 열 폭 계산이 흔들린다. */
+  white-space: nowrap;
+  font-family: var(--louis-typography-caption-medium-font-family);
+  font-size: var(--louis-typography-caption-medium-font-size);
+  font-weight: var(--louis-typography-caption-medium-font-weight);
+  line-height: var(--louis-typography-caption-medium-line-height);
+  letter-spacing: var(--louis-typography-caption-medium-letter-spacing);
+}
+
+/* 행 반경은 첫/마지막 셀이 만든다 — 행 자체의 border-radius는 셀 배경을 자르지 못한다. */
+.louis-table > thead > tr > th:first-child {
+  border-start-start-radius: var(--louis-radius-table-header);
+  border-end-start-radius: var(--louis-radius-table-header);
+}
+
+.louis-table > thead > tr > th:last-child {
+  border-start-end-radius: var(--louis-radius-table-header);
+  border-end-end-radius: var(--louis-radius-table-header);
+}
+
+.louis-table > tbody > tr > td {
+  box-sizing: border-box;
+  padding-block: var(--louis-space-control-sm);
+  padding-inline: var(--louis-space-control-sm);
+  border-block-end: var(--louis-border-width-default) solid var(--louis-color-table-row-line);
+  color: var(--louis-color-fg-primary);
+  vertical-align: middle;
+}
+
+/* 마지막 행 아래 선은 표를 감싼 카드의 경계와 겹친다. */
+.louis-table > tbody > tr:last-child > td {
+  border-block-end: 0;
+}
+
+/* 숫자 열 — 자릿수가 흔들리지 않게 tabular, 비교하기 쉽게 우측 정렬. th/td 모두에 붙인다. */
+.louis-table [data-align="end"] {
+  text-align: end;
+  font-variant-numeric: tabular-nums;
+}
+
+.louis-table [data-align="center"] {
+  text-align: center;
+}
+
+/* 행을 눌러 상세로 가는 표에서만 커서와 호버 면을 준다 — 정적 표는 hover 반응이 없다. */
+.louis-table > tbody > tr[data-interactive="true"] {
+  cursor: pointer;
+}
+
+.louis-table > tbody > tr[data-interactive="true"]:hover > td {
+  background: var(--louis-color-table-row-hover);
+}
+
+@media (forced-colors: active) {
+  .louis-table > thead > tr {
+    box-shadow: none;
+    border: var(--louis-border-width-default) solid currentColor;
+  }
+}
+
 /* Tabs — 같은 화면 안에서 뷰를 바꾸는 탭 바
  *
  * 제품 정본은 analytics 대시보드의 `DASHBOARD_TAB*`이다. YouTube·Instagram 두 씬이 같은 값을

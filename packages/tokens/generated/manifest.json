@@ -2,23 +2,23 @@
   "artifacts": [
     {
       "path": "packages/tokens/generated/figma.tokens.json",
-      "sha256": "a1b6851dc19a6ab38145eff13417415620155909a9e78582fd5b0df2e072df6d"
+      "sha256": "74d0ae654d289acfd4e7ba3651c54481aac81cf536f191432f1fde9bd053c9b9"
     },
     {
       "path": "packages/tokens/generated/index.d.ts",
-      "sha256": "def4496c0b35c4b5e571bbce85311f71431083b7a0c63ba470ac107cd1a2c817"
+      "sha256": "8dbfc658a89d49162c67853b029cef79d91613e3198f29d743b64ae0e8d12e48"
     },
     {
       "path": "packages/tokens/generated/index.js",
-      "sha256": "1cd4e4abbcc5bf2df17226c2bdb88ace76149c822ca8fff6d76309e138cac08a"
+      "sha256": "063d96adc24291856e1fef4ce0f93379788668546c7b9f8c1613d074b4f411ef"
     },
     {
       "path": "packages/tokens/generated/tokens.css",
-      "sha256": "80611a35f9640ae7d47692731d5b68fdc061a299f8dd954f086fda222f7a5800"
+      "sha256": "530dfa3ce2f9ff691a95b0911e91cc82697e79d59bcfe795140bb1e96d870073"
     },
     {
       "path": "packages/tokens/generated/tokens.json",
-      "sha256": "be673255377e64222bf6f1d2911805ee0555f1a002a9e6386dcd01d36d941a11"
+      "sha256": "829e5d4555fa7d3382df43799d3d82c4cb933c806745a09d3c19c235438a00cb"
     }
   ],
   "contrastPairs": [
@@ -398,13 +398,13 @@
   },
   "source": {
     "path": "packages/tokens/src/klipse.tokens.json",
-    "sha256": "7be3d1dbf707ccfb2eddce03f8d302bf11c0b7e9c38294c84b5e007f10c24ff4"
+    "sha256": "ac67df73025246f68640c91b7fc3bd4b8e633f94d5a37a880ff90fc25c8a1619"
   },
   "themes": [
     "light",
     "dark"
   ],
-  "tokenCount": 549,
+  "tokenCount": 556,
   "tokens": [
     {
       "aliasTarget": null,
@@ -9224,6 +9224,162 @@
       "type": "color"
     },
     {
+      "aliasTarget": {
+        "id": "color-gray-100",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-table-header-surface": "color(srgb 0.945098 0.945098 0.952941 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-table-header-surface",
+      "mode": "light",
+      "rawValue": "{primitive.color.gray.100}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0.945098,
+          0.945098,
+          0.952941
+        ]
+      },
+      "sourcePath": "semantic.light.color.table-header-surface",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-gray-800",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-table-header-surface": "color(srgb 0.192157 0.211765 0.25098 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-table-header-surface",
+      "mode": "dark",
+      "rawValue": "{primitive.color.gray.800}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0.192157,
+          0.211765,
+          0.25098
+        ]
+      },
+      "sourcePath": "semantic.dark.color.table-header-surface",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-gray-50",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-table-row-hover": "color(srgb 0.972549 0.972549 0.976471 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-table-row-hover",
+      "mode": "light",
+      "rawValue": "{primitive.color.gray.50}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0.972549,
+          0.972549,
+          0.976471
+        ]
+      },
+      "sourcePath": "semantic.light.color.table-row-hover",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-gray-800",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-table-row-hover": "color(srgb 0.192157 0.211765 0.25098 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-table-row-hover",
+      "mode": "dark",
+      "rawValue": "{primitive.color.gray.800}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0.192157,
+          0.211765,
+          0.25098
+        ]
+      },
+      "sourcePath": "semantic.dark.color.table-row-hover",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-gray-150",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-table-row-line": "color(srgb 0.917647 0.921569 0.933333 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-table-row-line",
+      "mode": "light",
+      "rawValue": "{primitive.color.gray.150}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0.917647,
+          0.921569,
+          0.933333
+        ]
+      },
+      "sourcePath": "semantic.light.color.table-row-line",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-gray-700",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-table-row-line": "color(srgb 0.341176 0.364706 0.407843 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-table-row-line",
+      "mode": "dark",
+      "rawValue": "{primitive.color.gray.700}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0.341176,
+          0.364706,
+          0.407843
+        ]
+      },
+      "sourcePath": "semantic.dark.color.table-row-line",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
       "aliasTarget": null,
       "cssProperties": {
         "--louis-color-violet-100": "color(srgb 0.921569 0.909804 1 / 1)",
@@ -12716,6 +12872,27 @@
         "value": 999
       },
       "sourcePath": "semantic.global.radius.pill",
+      "tier": "semantic",
+      "type": "dimension"
+    },
+    {
+      "aliasTarget": {
+        "id": "radius-4",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-radius-table-header": "4px"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "radius-table-header",
+      "mode": "global",
+      "rawValue": "{primitive.radius.4}",
+      "resolvedValue": {
+        "unit": "px",
+        "value": 4
+      },
+      "sourcePath": "semantic.global.radius.table-header",
       "tier": "semantic",
       "type": "dimension"
     },

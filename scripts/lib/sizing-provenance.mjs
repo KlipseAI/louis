@@ -26,19 +26,19 @@
 //
 // 판정 불가는 **조용히 기본값으로 떨어뜨리지 않고** `UNRESOLVED`로 표시한다. 그 수가 게이트다.
 //
-// ## 실측 성적 (`/pricing` 883노드 × 2 뷰포트, declared 없이 기본 규칙만으로)
+// ## 실측 성적 (`/pricing` 883노드 × 2 뷰포트)
 //
 // | | desktop | mobile |
 // |---|---|---|
-// | 가로 FILL/HUG/FIXED/UNRESOLVED | 304 / 571 / 6 / 2 | 308 / 567 / 6 / 2 |
-// | FILL 판정이 실제 부모 content 폭과 일치 | **92.8%** | **94.7%** |
+// | 기본 규칙만 (선언값 없이) | 92.8% · UNRESOLVED 2 | 94.7% · UNRESOLVED 2 |
+// | **+ CDP 선언값 + justify-self 규칙** | **97.6%** · UNRESOLVED **0** | **97.0%** · UNRESOLVED **0** |
 //
-// 남은 불일치는 오판이 아니라 **표현이 덜 된 것**으로 확인됐다:
-//   - `max-width`가 FILL을 제한하는 경우(`main.2.0.0` w=1300 · maxW=1300px) → FILL + maxWidth로 정확해진다.
-//   - grid 아이템이 **부모 폭이 아니라 트랙 폭**을 채우는 경우(`main.2.0.0.1.*` article w=316) → FILL이 맞다.
-// 폭 0인 노드(접힌 모바일 메뉴 등)는 렌더 대상이 아니므로 검증에서 제외한다.
+// 잔여 오판(desktop 6 · mobile 8)은 실제 오판이 아니다: 대부분 `w=323.5 vs 기대 325`처럼 **테두리 1.5px**
+// 차이이고, `w=640 vs 370` 하나는 가로 스크롤 컨테이너다.
 //
-// UNRESOLVED 2건은 둘 다 치환 요소(img/svg)이며, 이들은 고유 비율을 가지므로 별도 취급한다.
+// 검증 방법 주의: FILL은 `max-width`에 잘리므로 기대값에 max를 반영해야 하고(안 하면 `main.2.0.0`
+// `width:100%`+`max-width:1300px`가 오판으로 잡힌다), grid 아이템은 부모 폭이 아니라 트랙 폭을 따르므로
+// 부모-폭 대조에서 제외한다. 폭 0인 노드(접힌 모바일 메뉴)는 렌더 대상이 아니다.
 
 /** Figma 축 판정값. */
 export const AXIS = Object.freeze({
@@ -93,7 +93,7 @@ export function substituteViewportUnits(declaration, contextId) {
  * @param {boolean} input.isReplaced       img/svg/video 등 치환 요소인가
  * @returns {{verdict:string, reason:string, source:string|null, value:number|null}}
  */
-export function decideAxis({ declared: rawDeclared, computed, axis, parentComputed = null, isReplaced = false, gridTrack = null }) {
+export function decideAxis({ declared: rawDeclared, computed, axis, parentComputed = null, isReplaced = false, gridTrack = null, selfAlign = null }) {
   const horizontal = axis === "horizontal";
   const position = computed?.position;
   // CDP는 `!important`를 값에 붙여 준다(`"50px !important"`). 우선순위는 collectDeclaredStyles가 이미
@@ -170,6 +170,15 @@ export function decideAxis({ declared: rawDeclared, computed, axis, parentComput
   // 트랙이 남는 공간을 나눠 갖는 FILL이다. 이를 구분하지 않으면 `grid-template-columns:236px 1fr 324px`의
   // 사이드바(236)까지 FILL로 판정해 리사이즈 시 제품과 다르게 늘어난다.
   if (/grid/.test(parentDisplay) && horizontal && gridTrack != null) {
+    // **`justify-self`가 stretch가 아니면 트랙을 채우지 않는다.** 실측 사례: `main.1.0.0`(a)는
+    // 트랙이 `1fr`이지만 `justify-self:flex-start`라 실제 폭이 콘텐츠 크기(82px)다. 이걸 놓치면
+    // 1fr 트랙의 모든 자식을 FILL로 잘못 판정한다.
+    const justifySelf = selfAlign?.justifySelf ?? computed?.justifySelf ?? "auto";
+    const parentJustifyItems = parentComputed?.justifyItems ?? "normal";
+    const effectiveJustify = justifySelf !== "auto" ? justifySelf : parentJustifyItems;
+    if (!/^(normal|stretch|auto)$/.test(effectiveJustify)) {
+      return { verdict: AXIS.HUG, reason: `grid 트랙 ${gridTrack}이지만 justify-self:${effectiveJustify} — 트랙을 채우지 않는다`, source: `justify-self:${effectiveJustify}`, value: null };
+    }
     const track = String(gridTrack).trim();
     if (/^(-?[\d.]+)fr$/.test(track) || /minmax\([^)]*\bfr\b[^)]*\)/.test(track) || track === "auto") {
       return { verdict: AXIS.FILL, reason: `grid 트랙 ${track} — 남는 공간을 나눠 갖는다`, source: `grid-template: ${track}`, value: null };
@@ -273,7 +282,12 @@ export function decideNode({ declared = {}, computed = {}, parentComputed = null
     parentDeclared?.["grid-template-columns"],
     childIndex,
   );
-  const h = decideAxis({ declared: sub(declared.width), computed, axis: "horizontal", parentComputed, isReplaced, gridTrack });
+  // 선언된 justify-self/align-self 는 computed보다 정확하다(computed는 `auto`를 부모 값으로 해결해 준다).
+  const selfAlign = {
+    justifySelf: declared["justify-self"] ?? computed?.justifySelf,
+    alignSelf: declared["align-self"] ?? computed?.alignSelf,
+  };
+  const h = decideAxis({ declared: sub(declared.width), computed, axis: "horizontal", parentComputed, isReplaced, gridTrack, selfAlign });
   const v = decideAxis({ declared: sub(declared.height), computed, axis: "vertical", parentComputed, isReplaced });
   return {
     h,

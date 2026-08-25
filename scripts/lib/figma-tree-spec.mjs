@@ -134,6 +134,16 @@ export function toFigmaTreeSpec(tree, options = {}) {
       // rect는 FIXED 축 크기와 검증용이다. FILL/HUG 축은 Figma가 계산한다.
       rect: node.rect,
       sizing,
+      // **절대 배치는 spec에 반드시 남긴다.** 안 남기면 Figma에서 일반 auto-layout 자식이 되어
+      // 흐름에 끼어든다. 실측 사고: `/settings` 사이드바는 `position:fixed`라 흐름에서 빠지고 메인이
+      // x=280부터 시작하는데, 이 정보를 잃자 부모가 column이라는 이유로 사이드바 아래에 메인이
+      // 세로로 쌓였다(사이드바 y=0, 메인 y=540). 제품은 가로로 나란하다.
+      positioning: decision.absolute ? "ABSOLUTE" : "AUTO",
+      // ABSOLUTE 노드는 부모 기준 좌표와 제약이 필요하다.
+      offset: decision.absolute && parent
+        ? { x: node.rect.x - parent.rect.x, y: node.rect.y - parent.rect.y }
+        : null,
+      constraints: decision.absolute ? constraintsFor(node.declared ?? {}) : null,
       why: { horizontal: decision.h, vertical: decision.v },
       layout: layoutMode === "NONE" ? null : {
         layoutMode,
@@ -159,6 +169,21 @@ export function toFigmaTreeSpec(tree, options = {}) {
   const root = byPath.get(rootPath);
   if (!root) throw new Error(`[figma-tree-spec] 루트 경로를 찾지 못했습니다: ${rootPath}`);
   return { spec: convert(root, null), stats };
+}
+
+/**
+ * 절대 배치 노드의 Figma 제약을 CSS `left/right/top/bottom` 선언에서 정한다.
+ * 양쪽이 다 있으면 늘어나고(STRETCH), 한쪽만 있으면 그쪽에 붙는다.
+ * 제품 사이드바처럼 `left`만 있는 fixed 요소는 MIN(왼쪽 고정)이 정답이다.
+ */
+export function constraintsFor(declared) {
+  const has = (value) => value != null && value !== "auto" && value !== "";
+  return {
+    horizontal: has(declared.left) && has(declared.right) ? "STRETCH"
+      : has(declared.right) ? "MAX" : "MIN",
+    vertical: has(declared.top) && has(declared.bottom) ? "STRETCH"
+      : has(declared.bottom) ? "MAX" : "MIN",
+  };
 }
 
 /** CSS `align-items` → Figma `counterAxisAlignItems`. */

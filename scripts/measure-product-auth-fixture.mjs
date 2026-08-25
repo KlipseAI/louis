@@ -584,21 +584,31 @@ try {
         // 트리 루트는 런타임에 정해지므로(viewport와 가장 크게 겹치는 body 자식) `rootPath`의 인덱스를
         // 그대로 써서 CDP 쪽 루트를 찾는다. 경로 스킴이 같아 path로 그대로 붙는다.
         const rootBodyIndex = Number(measured.rootPath.slice("body.".length));
-        const { declared, nodeCount: declaredNodeCount } = await captureDeclaredStyles(
+        const { declared } = await captureDeclaredStyles(
           context,
           page,
           (node, attributes, bodyIndex) => bodyIndex === rootBodyIndex,
           { rootPath: measured.rootPath },
         );
-        if (declaredNodeCount !== measured.tree.length) {
-          throw new Error(
-            "[product-auth-fixture] 선언 스타일 노드 수가 측정 트리와 다릅니다: " +
-              declaredNodeCount + " != " + measured.tree.length + " (" + route + ")",
-          );
-        }
+        // **개수는 일치하지 않는 것이 정상이다.** 측정기의 `describe()`는 보이지 않는 노드를 트리에서
+        // 빼지만(`if (!visible) return []`) CDP는 DOM 전체를 걷는다(실측: /archive 에서 CDP 127 vs 트리 102).
+        // 그래서 개수가 아니라 **경로 교집합**으로 붙이고, 트리 쪽에 붙지 못한 노드가 있으면 그때 실패시킨다
+        // — 그것은 경로 스킴이 어긋났다는 뜻이라 조용히 넘기면 엉뚱한 노드에 선언이 붙는다.
+        let attached = 0;
+        const missing = [];
         for (const node of measured.tree) {
           const entry = declared.get(node.path);
-          if (entry && Object.keys(entry).length > 0) node.declared = entry;
+          if (!entry) { missing.push(node.path); continue; }
+          if (Object.keys(entry).length > 0) { node.declared = entry; attached += 1; }
+        }
+        if (missing.length > 0) {
+          throw new Error(
+            "[product-auth-fixture] 선언 스타일이 없는 측정 노드가 있습니다(경로 스킴 불일치 의심): " +
+              missing.length + "개, 예: " + missing.slice(0, 3).join(", ") + " (" + route + ")",
+          );
+        }
+        if (attached === 0) {
+          throw new Error("[product-auth-fixture] 선언 스타일이 하나도 붙지 않았습니다 (" + route + ")");
         }
 
         const uniqueRecords = (records) => [...new Map(records

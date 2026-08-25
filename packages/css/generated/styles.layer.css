@@ -663,10 +663,15 @@
     outline-offset: 2px;
   }
 
+  /* 높이는 `--app-shell-viewport-height`를 먼저 보고 없을 때만 100dvh로 떨어진다.
+   * iOS Safari는 주소창이 접힐 때 100dvh가 실제 가시 높이와 어긋나 셸 바닥이 잘린다 — 제품이
+   * JS로 실측값을 이 변수에 주입해 해결하고 있었고(`--app-shell-vh`), 그 해법을 채택했다.
+   * 변수를 주입하지 않는 소비처는 100dvh 동작 그대로다. */
   .louis-app-shell {
     position: relative;
     display: block;
-    block-size: 100dvh;
+    block-size: var(--app-shell-viewport-height, 100dvh);
+    max-block-size: var(--app-shell-viewport-height, 100dvh);
     overflow: hidden;
     background-color: var(--louis-color-bg-canvas);
   }

@@ -6912,6 +6912,87 @@
             }
           }
         },
+        "shadow-switch-thumb": {
+          "$type": "shadow",
+          "fields": [
+            "blur",
+            "color",
+            "inset",
+            "offsetX",
+            "offsetY",
+            "spread"
+          ],
+          "figmaName": "shadow/switch-thumb",
+          "hiddenFromPublishing": true,
+          "losses": [
+            "primitive shadow은 Figma에 만들지 않습니다. Figma에는 style→style alias가 없어 semantic→primitive tier 관계를 보존할 수 없습니다 (DS-D-0007)."
+          ],
+          "nativeVariableType": null,
+          "representation": "unrepresented",
+          "scopes": [],
+          "valuesByMode": {
+            "Base": {
+              "$value": {
+                "blur": {
+                  "unit": "px",
+                  "value": 3
+                },
+                "color": {
+                  "alpha": 0.2,
+                  "colorSpace": "srgb",
+                  "components": [
+                    0,
+                    0,
+                    0
+                  ],
+                  "hex": "#000000"
+                },
+                "offsetX": {
+                  "unit": "px",
+                  "value": 0
+                },
+                "offsetY": {
+                  "unit": "px",
+                  "value": 1
+                },
+                "spread": {
+                  "unit": "px",
+                  "value": 0
+                }
+              },
+              "aliasTarget": null,
+              "resolvedValue": {
+                "blur": {
+                  "unit": "px",
+                  "value": 3
+                },
+                "color": {
+                  "alpha": 0.2,
+                  "colorSpace": "srgb",
+                  "components": [
+                    0,
+                    0,
+                    0
+                  ]
+                },
+                "inset": false,
+                "offsetX": {
+                  "unit": "px",
+                  "value": 0
+                },
+                "offsetY": {
+                  "unit": "px",
+                  "value": 1
+                },
+                "spread": {
+                  "unit": "px",
+                  "value": 0
+                }
+              },
+              "sourcePath": "primitive.shadow.switch-thumb"
+            }
+          }
+        },
         "shadow-toast": {
           "$type": "shadow",
           "fields": [
@@ -10744,6 +10825,63 @@
                 }
               },
               "sourcePath": "semantic.global.elevation.surface"
+            }
+          }
+        },
+        "elevation-switch-thumb": {
+          "$type": "shadow",
+          "fields": [
+            "blur",
+            "color",
+            "inset",
+            "offsetX",
+            "offsetY",
+            "spread"
+          ],
+          "figmaName": "elevation/switch-thumb",
+          "hiddenFromPublishing": false,
+          "losses": [
+            "DTCG shadow composite는 단일 native variable로 표현되지 않아 effect-style로 만들고 내부 속성을 변수에 바인딩합니다."
+          ],
+          "nativeVariableType": null,
+          "representation": "effect-style",
+          "scopes": [],
+          "valuesByMode": {
+            "Global": {
+              "$value": "{primitive.shadow.switch-thumb}",
+              "aliasTarget": {
+                "id": "shadow-switch-thumb",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "blur": {
+                  "unit": "px",
+                  "value": 3
+                },
+                "color": {
+                  "alpha": 0.2,
+                  "colorSpace": "srgb",
+                  "components": [
+                    0,
+                    0,
+                    0
+                  ]
+                },
+                "inset": false,
+                "offsetX": {
+                  "unit": "px",
+                  "value": 0
+                },
+                "offsetY": {
+                  "unit": "px",
+                  "value": 1
+                },
+                "spread": {
+                  "unit": "px",
+                  "value": 0
+                }
+              },
+              "sourcePath": "semantic.global.elevation.switch-thumb"
             }
           }
         },
@@ -17940,6 +18078,159 @@
                 ]
               },
               "sourcePath": "semantic.light.color.stroke-tooltip"
+            }
+          }
+        },
+        "color-switch-off-track": {
+          "$type": "color",
+          "fields": [],
+          "figmaName": "color/switch-off-track",
+          "hiddenFromPublishing": false,
+          "losses": [],
+          "nativeVariableType": "COLOR",
+          "representation": "variable",
+          "scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL",
+            "STROKE_COLOR",
+            "TEXT_FILL"
+          ],
+          "valuesByMode": {
+            "Dark": {
+              "$value": "{primitive.color.static-white-alpha.16}",
+              "aliasTarget": {
+                "id": "color-static-white-alpha-16",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 0.16,
+                "colorSpace": "srgb",
+                "components": [
+                  1,
+                  1,
+                  1
+                ]
+              },
+              "sourcePath": "semantic.dark.color.switch-off-track"
+            },
+            "Light": {
+              "$value": "{primitive.color.static-white-alpha.16}",
+              "aliasTarget": {
+                "id": "color-static-white-alpha-16",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 0.16,
+                "colorSpace": "srgb",
+                "components": [
+                  1,
+                  1,
+                  1
+                ]
+              },
+              "sourcePath": "semantic.light.color.switch-off-track"
+            }
+          }
+        },
+        "color-switch-on-track": {
+          "$type": "color",
+          "fields": [],
+          "figmaName": "color/switch-on-track",
+          "hiddenFromPublishing": false,
+          "losses": [],
+          "nativeVariableType": "COLOR",
+          "representation": "variable",
+          "scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL",
+            "STROKE_COLOR",
+            "TEXT_FILL"
+          ],
+          "valuesByMode": {
+            "Dark": {
+              "$value": "{primitive.color.mint.500}",
+              "aliasTarget": {
+                "id": "color-mint-500",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 1,
+                "colorSpace": "srgb",
+                "components": [
+                  0,
+                  0.776471,
+                  0.556863
+                ]
+              },
+              "sourcePath": "semantic.dark.color.switch-on-track"
+            },
+            "Light": {
+              "$value": "{primitive.color.mint.500}",
+              "aliasTarget": {
+                "id": "color-mint-500",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 1,
+                "colorSpace": "srgb",
+                "components": [
+                  0,
+                  0.776471,
+                  0.556863
+                ]
+              },
+              "sourcePath": "semantic.light.color.switch-on-track"
+            }
+          }
+        },
+        "color-switch-thumb": {
+          "$type": "color",
+          "fields": [],
+          "figmaName": "color/switch-thumb",
+          "hiddenFromPublishing": false,
+          "losses": [],
+          "nativeVariableType": "COLOR",
+          "representation": "variable",
+          "scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL",
+            "STROKE_COLOR",
+            "TEXT_FILL"
+          ],
+          "valuesByMode": {
+            "Dark": {
+              "$value": "{primitive.color.gray.0}",
+              "aliasTarget": {
+                "id": "color-gray-0",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 1,
+                "colorSpace": "srgb",
+                "components": [
+                  0.980392,
+                  0.980392,
+                  0.980392
+                ]
+              },
+              "sourcePath": "semantic.dark.color.switch-thumb"
+            },
+            "Light": {
+              "$value": "{primitive.color.gray.0}",
+              "aliasTarget": {
+                "id": "color-gray-0",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 1,
+                "colorSpace": "srgb",
+                "components": [
+                  0.980392,
+                  0.980392,
+                  0.980392
+                ]
+              },
+              "sourcePath": "semantic.light.color.switch-thumb"
             }
           }
         },

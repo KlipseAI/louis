@@ -98,6 +98,9 @@
   --color-stroke-strong: var(--louis-color-stroke-strong);
   --color-stroke-subtle: var(--louis-color-stroke-subtle);
   --color-stroke-tooltip: var(--louis-color-stroke-tooltip);
+  --color-switch-off-track: var(--louis-color-switch-off-track);
+  --color-switch-on-track: var(--louis-color-switch-on-track);
+  --color-switch-thumb: var(--louis-color-switch-thumb);
 
   /* 곡률 — rounded-* 유틸리티가 된다 */
   --radius-card: var(--louis-radius-card);
@@ -115,6 +118,7 @@
   --shadow-modal: var(--louis-elevation-modal);
   --shadow-popover: var(--louis-elevation-popover);
   --shadow-surface: var(--louis-elevation-surface);
+  --shadow-switch-thumb: var(--louis-elevation-switch-thumb);
   --shadow-toast: var(--louis-elevation-toast);
   --shadow-tooltip: var(--louis-elevation-tooltip);
   --shadow-upgrade: var(--louis-elevation-upgrade);

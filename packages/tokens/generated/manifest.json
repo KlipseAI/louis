@@ -2,23 +2,23 @@
   "artifacts": [
     {
       "path": "packages/tokens/generated/figma.tokens.json",
-      "sha256": "a30efbd161a63e1270068f9e0f9cf682071e7f57c6583dbd928937b659f4ab66"
+      "sha256": "fea8c93eee20adb103dc4b598cc96feb048c807d5a29217869685ea7aee01e32"
     },
     {
       "path": "packages/tokens/generated/index.d.ts",
-      "sha256": "83ef664ad9f77e2a3bd8b79ddb5a77ff98118cdeb2bdd10f923cad3e4efed323"
+      "sha256": "7d1b9e2c823155d0d2879770034c671115eaaf3b79dab834313d6eff2f3b77ed"
     },
     {
       "path": "packages/tokens/generated/index.js",
-      "sha256": "3bda01f3ec3be8ee454f4db2db4dbed3772037426be1ff5ced75da3336dca8f2"
+      "sha256": "70225dc7b29bc578ff50ed271fbda03c0588df72dff78367d9b360da042ca7b6"
     },
     {
       "path": "packages/tokens/generated/tokens.css",
-      "sha256": "dc761cc299dfe9b3702f7c9796db8995df4653ac576b83d21252606469016b8f"
+      "sha256": "94f42bc2ead0b88b8c9458eeda90d6040ee4eab3b13ab91a4d2d0c075554f5ec"
     },
     {
       "path": "packages/tokens/generated/tokens.json",
-      "sha256": "86f08018b4e8a3b86924cdae3d9e4671e05ad0dd1389ef599afe1977fa112b2c"
+      "sha256": "d0cc0af2a89e0a066d55dc755a1b254a09c6746550ce82f962ce584af1bc3899"
     }
   ],
   "contrastPairs": [
@@ -398,13 +398,13 @@
   },
   "source": {
     "path": "packages/tokens/src/klipse.tokens.json",
-    "sha256": "3d26000c962823da5cff5947065a2fb1f7250188e9a6ef31c81f247f8b1a5d3b"
+    "sha256": "92010b2a7bce70953d45c59a51340a232b9f0597b7e1fc48a6bf6510ad80b6ee"
   },
   "themes": [
     "light",
     "dark"
   ],
-  "tokenCount": 504,
+  "tokenCount": 512,
   "tokens": [
     {
       "aliasTarget": null,
@@ -8267,6 +8267,162 @@
       "type": "color"
     },
     {
+      "aliasTarget": {
+        "id": "color-static-white-alpha-16",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-switch-off-track": "color(srgb 1 1 1 / 0.16)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-switch-off-track",
+      "mode": "light",
+      "rawValue": "{primitive.color.static-white-alpha.16}",
+      "resolvedValue": {
+        "alpha": 0.16,
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          1,
+          1
+        ]
+      },
+      "sourcePath": "semantic.light.color.switch-off-track",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-static-white-alpha-16",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-switch-off-track": "color(srgb 1 1 1 / 0.16)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-switch-off-track",
+      "mode": "dark",
+      "rawValue": "{primitive.color.static-white-alpha.16}",
+      "resolvedValue": {
+        "alpha": 0.16,
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          1,
+          1
+        ]
+      },
+      "sourcePath": "semantic.dark.color.switch-off-track",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-mint-500",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-switch-on-track": "color(srgb 0 0.776471 0.556863 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-switch-on-track",
+      "mode": "light",
+      "rawValue": "{primitive.color.mint.500}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0,
+          0.776471,
+          0.556863
+        ]
+      },
+      "sourcePath": "semantic.light.color.switch-on-track",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-mint-500",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-switch-on-track": "color(srgb 0 0.776471 0.556863 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-switch-on-track",
+      "mode": "dark",
+      "rawValue": "{primitive.color.mint.500}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0,
+          0.776471,
+          0.556863
+        ]
+      },
+      "sourcePath": "semantic.dark.color.switch-on-track",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-gray-0",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-switch-thumb": "color(srgb 0.980392 0.980392 0.980392 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-switch-thumb",
+      "mode": "light",
+      "rawValue": "{primitive.color.gray.0}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0.980392,
+          0.980392,
+          0.980392
+        ]
+      },
+      "sourcePath": "semantic.light.color.switch-thumb",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-gray-0",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-switch-thumb": "color(srgb 0.980392 0.980392 0.980392 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-switch-thumb",
+      "mode": "dark",
+      "rawValue": "{primitive.color.gray.0}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0.980392,
+          0.980392,
+          0.980392
+        ]
+      },
+      "sourcePath": "semantic.dark.color.switch-thumb",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
       "aliasTarget": null,
       "cssProperties": {
         "--louis-color-violet-100": "color(srgb 0.921569 0.909804 1 / 1)",
@@ -9281,6 +9437,51 @@
         }
       },
       "sourcePath": "semantic.global.elevation.surface",
+      "tier": "semantic",
+      "type": "shadow"
+    },
+    {
+      "aliasTarget": {
+        "id": "shadow-switch-thumb",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-elevation-switch-thumb": "0px 1px 3px 0px color(srgb 0 0 0 / 0.2)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "elevation-switch-thumb",
+      "mode": "global",
+      "rawValue": "{primitive.shadow.switch-thumb}",
+      "resolvedValue": {
+        "blur": {
+          "unit": "px",
+          "value": 3
+        },
+        "color": {
+          "alpha": 0.2,
+          "colorSpace": "srgb",
+          "components": [
+            0,
+            0,
+            0
+          ]
+        },
+        "inset": false,
+        "offsetX": {
+          "unit": "px",
+          "value": 0
+        },
+        "offsetY": {
+          "unit": "px",
+          "value": 1
+        },
+        "spread": {
+          "unit": "px",
+          "value": 0
+        }
+      },
+      "sourcePath": "semantic.global.elevation.switch-thumb",
       "tier": "semantic",
       "type": "shadow"
     },
@@ -11998,6 +12199,73 @@
         }
       },
       "sourcePath": "primitive.shadow.surface",
+      "tier": "primitive",
+      "type": "shadow"
+    },
+    {
+      "aliasTarget": null,
+      "cssProperties": {},
+      "deprecated": null,
+      "description": null,
+      "id": "shadow-switch-thumb",
+      "mode": "base",
+      "rawValue": {
+        "blur": {
+          "unit": "px",
+          "value": 3
+        },
+        "color": {
+          "alpha": 0.2,
+          "colorSpace": "srgb",
+          "components": [
+            0,
+            0,
+            0
+          ],
+          "hex": "#000000"
+        },
+        "offsetX": {
+          "unit": "px",
+          "value": 0
+        },
+        "offsetY": {
+          "unit": "px",
+          "value": 1
+        },
+        "spread": {
+          "unit": "px",
+          "value": 0
+        }
+      },
+      "resolvedValue": {
+        "blur": {
+          "unit": "px",
+          "value": 3
+        },
+        "color": {
+          "alpha": 0.2,
+          "colorSpace": "srgb",
+          "components": [
+            0,
+            0,
+            0
+          ]
+        },
+        "inset": false,
+        "offsetX": {
+          "unit": "px",
+          "value": 0
+        },
+        "offsetY": {
+          "unit": "px",
+          "value": 1
+        },
+        "spread": {
+          "unit": "px",
+          "value": 0
+        }
+      },
+      "sourcePath": "primitive.shadow.switch-thumb",
       "tier": "primitive",
       "type": "shadow"
     },

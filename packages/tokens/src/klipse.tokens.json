@@ -3814,6 +3814,42 @@
           }
         }
       },
+      "switch-thumb": {
+        "$value": {
+          "color": {
+            "colorSpace": "srgb",
+            "components": [
+              0,
+              0,
+              0
+            ],
+            "alpha": 0.2,
+            "hex": "#000000"
+          },
+          "offsetX": {
+            "value": 0,
+            "unit": "px"
+          },
+          "offsetY": {
+            "value": 1,
+            "unit": "px"
+          },
+          "blur": {
+            "value": 3,
+            "unit": "px"
+          },
+          "spread": {
+            "value": 0,
+            "unit": "px"
+          }
+        },
+        "$extensions": {
+          "com.klipse-design": {
+            "id": "shadow-switch-thumb",
+            "tier": "primitive"
+          }
+        }
+      },
       "toast": {
         "$value": [
           {
@@ -5234,22 +5270,11 @@
         }
       },
       "elevation": {
-        "$type": "shadow",
-        "surface": {
-          "$value": "{primitive.shadow.surface}",
+        "focus-ring": {
+          "$value": "{primitive.shadow.focus-ring}",
           "$extensions": {
             "com.klipse-design": {
-              "id": "elevation-surface",
-              "tier": "semantic",
-              "mode": "global"
-            }
-          }
-        },
-        "popover": {
-          "$value": "{primitive.shadow.popover}",
-          "$extensions": {
-            "com.klipse-design": {
-              "id": "elevation-popover",
+              "id": "elevation-focus-ring",
               "tier": "semantic",
               "mode": "global"
             }
@@ -5265,11 +5290,31 @@
             }
           }
         },
-        "focus-ring": {
-          "$value": "{primitive.shadow.focus-ring}",
+        "popover": {
+          "$value": "{primitive.shadow.popover}",
           "$extensions": {
             "com.klipse-design": {
-              "id": "elevation-focus-ring",
+              "id": "elevation-popover",
+              "tier": "semantic",
+              "mode": "global"
+            }
+          }
+        },
+        "surface": {
+          "$value": "{primitive.shadow.surface}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "elevation-surface",
+              "tier": "semantic",
+              "mode": "global"
+            }
+          }
+        },
+        "switch-thumb": {
+          "$value": "{primitive.shadow.switch-thumb}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "elevation-switch-thumb",
               "tier": "semantic",
               "mode": "global"
             }
@@ -5284,7 +5329,8 @@
               "mode": "global"
             }
           }
-        }
+        },
+        "$type": "shadow"
       },
       "layer": {
         "$type": "number",
@@ -6088,81 +6134,11 @@
             }
           }
         },
-        "stroke-control": {
-          "$value": "{primitive.color.static-black-alpha.12}",
+        "dim-modal": {
+          "$value": "{primitive.color.static-black-alpha.56}",
           "$extensions": {
             "com.klipse-design": {
-              "id": "color-stroke-control",
-              "tier": "semantic",
-              "mode": "light"
-            }
-          }
-        },
-        "stroke-danger": {
-          "$value": "{primitive.color.red.500}",
-          "$extensions": {
-            "com.klipse-design": {
-              "id": "color-stroke-danger",
-              "tier": "semantic",
-              "mode": "light"
-            }
-          }
-        },
-        "stroke-default": {
-          "$value": "{primitive.color.gray.300}",
-          "$extensions": {
-            "com.klipse-design": {
-              "id": "color-stroke-default",
-              "tier": "semantic",
-              "mode": "light"
-            }
-          }
-        },
-        "stroke-focus": {
-          "$value": "{primitive.color.blue.500}",
-          "$extensions": {
-            "com.klipse-design": {
-              "id": "color-stroke-focus",
-              "tier": "semantic",
-              "mode": "light"
-            }
-          }
-        },
-        "stroke-hairline": {
-          "$value": "{primitive.color.static-black-alpha.10}",
-          "$extensions": {
-            "com.klipse-design": {
-              "id": "color-stroke-hairline",
-              "tier": "semantic",
-              "mode": "light"
-            }
-          }
-        },
-        "stroke-strong": {
-          "$value": "{primitive.color.gray.500}",
-          "$extensions": {
-            "com.klipse-design": {
-              "id": "color-stroke-strong",
-              "tier": "semantic",
-              "mode": "light"
-            }
-          }
-        },
-        "stroke-subtle": {
-          "$value": "{primitive.color.gray.200}",
-          "$extensions": {
-            "com.klipse-design": {
-              "id": "color-stroke-subtle",
-              "tier": "semantic",
-              "mode": "light"
-            }
-          }
-        },
-        "stroke-tooltip": {
-          "$value": "{primitive.color.static-white-alpha.14}",
-          "$extensions": {
-            "com.klipse-design": {
-              "id": "color-stroke-tooltip",
+              "id": "color-dim-modal",
               "tier": "semantic",
               "mode": "light"
             }
@@ -6648,11 +6624,111 @@
             }
           }
         },
-        "dim-modal": {
-          "$value": "{primitive.color.static-black-alpha.56}",
+        "stroke-control": {
+          "$value": "{primitive.color.static-black-alpha.12}",
           "$extensions": {
             "com.klipse-design": {
-              "id": "color-dim-modal",
+              "id": "color-stroke-control",
+              "tier": "semantic",
+              "mode": "light"
+            }
+          }
+        },
+        "stroke-danger": {
+          "$value": "{primitive.color.red.500}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-stroke-danger",
+              "tier": "semantic",
+              "mode": "light"
+            }
+          }
+        },
+        "stroke-default": {
+          "$value": "{primitive.color.gray.300}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-stroke-default",
+              "tier": "semantic",
+              "mode": "light"
+            }
+          }
+        },
+        "stroke-focus": {
+          "$value": "{primitive.color.blue.500}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-stroke-focus",
+              "tier": "semantic",
+              "mode": "light"
+            }
+          }
+        },
+        "stroke-hairline": {
+          "$value": "{primitive.color.static-black-alpha.10}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-stroke-hairline",
+              "tier": "semantic",
+              "mode": "light"
+            }
+          }
+        },
+        "stroke-strong": {
+          "$value": "{primitive.color.gray.500}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-stroke-strong",
+              "tier": "semantic",
+              "mode": "light"
+            }
+          }
+        },
+        "stroke-subtle": {
+          "$value": "{primitive.color.gray.200}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-stroke-subtle",
+              "tier": "semantic",
+              "mode": "light"
+            }
+          }
+        },
+        "stroke-tooltip": {
+          "$value": "{primitive.color.static-white-alpha.14}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-stroke-tooltip",
+              "tier": "semantic",
+              "mode": "light"
+            }
+          }
+        },
+        "switch-off-track": {
+          "$value": "{primitive.color.static-white-alpha.16}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-switch-off-track",
+              "tier": "semantic",
+              "mode": "light"
+            }
+          }
+        },
+        "switch-on-track": {
+          "$value": "{primitive.color.mint.500}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-switch-on-track",
+              "tier": "semantic",
+              "mode": "light"
+            }
+          }
+        },
+        "switch-thumb": {
+          "$value": "{primitive.color.gray.0}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-switch-thumb",
               "tier": "semantic",
               "mode": "light"
             }
@@ -6936,81 +7012,11 @@
             }
           }
         },
-        "stroke-control": {
-          "$value": "{primitive.color.static-white-alpha.16}",
+        "dim-modal": {
+          "$value": "{primitive.color.static-black-alpha.72}",
           "$extensions": {
             "com.klipse-design": {
-              "id": "color-stroke-control",
-              "tier": "semantic",
-              "mode": "dark"
-            }
-          }
-        },
-        "stroke-danger": {
-          "$value": "{primitive.color.red.500}",
-          "$extensions": {
-            "com.klipse-design": {
-              "id": "color-stroke-danger",
-              "tier": "semantic",
-              "mode": "dark"
-            }
-          }
-        },
-        "stroke-default": {
-          "$value": "{primitive.color.gray.600}",
-          "$extensions": {
-            "com.klipse-design": {
-              "id": "color-stroke-default",
-              "tier": "semantic",
-              "mode": "dark"
-            }
-          }
-        },
-        "stroke-focus": {
-          "$value": "{primitive.color.blue.400}",
-          "$extensions": {
-            "com.klipse-design": {
-              "id": "color-stroke-focus",
-              "tier": "semantic",
-              "mode": "dark"
-            }
-          }
-        },
-        "stroke-hairline": {
-          "$value": "{primitive.color.static-white-alpha.10}",
-          "$extensions": {
-            "com.klipse-design": {
-              "id": "color-stroke-hairline",
-              "tier": "semantic",
-              "mode": "dark"
-            }
-          }
-        },
-        "stroke-strong": {
-          "$value": "{primitive.color.gray.500}",
-          "$extensions": {
-            "com.klipse-design": {
-              "id": "color-stroke-strong",
-              "tier": "semantic",
-              "mode": "dark"
-            }
-          }
-        },
-        "stroke-subtle": {
-          "$value": "{primitive.color.gray.700}",
-          "$extensions": {
-            "com.klipse-design": {
-              "id": "color-stroke-subtle",
-              "tier": "semantic",
-              "mode": "dark"
-            }
-          }
-        },
-        "stroke-tooltip": {
-          "$value": "{primitive.color.static-black-alpha.12}",
-          "$extensions": {
-            "com.klipse-design": {
-              "id": "color-stroke-tooltip",
+              "id": "color-dim-modal",
               "tier": "semantic",
               "mode": "dark"
             }
@@ -7496,11 +7502,111 @@
             }
           }
         },
-        "dim-modal": {
-          "$value": "{primitive.color.static-black-alpha.72}",
+        "stroke-control": {
+          "$value": "{primitive.color.static-white-alpha.16}",
           "$extensions": {
             "com.klipse-design": {
-              "id": "color-dim-modal",
+              "id": "color-stroke-control",
+              "tier": "semantic",
+              "mode": "dark"
+            }
+          }
+        },
+        "stroke-danger": {
+          "$value": "{primitive.color.red.500}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-stroke-danger",
+              "tier": "semantic",
+              "mode": "dark"
+            }
+          }
+        },
+        "stroke-default": {
+          "$value": "{primitive.color.gray.600}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-stroke-default",
+              "tier": "semantic",
+              "mode": "dark"
+            }
+          }
+        },
+        "stroke-focus": {
+          "$value": "{primitive.color.blue.400}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-stroke-focus",
+              "tier": "semantic",
+              "mode": "dark"
+            }
+          }
+        },
+        "stroke-hairline": {
+          "$value": "{primitive.color.static-white-alpha.10}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-stroke-hairline",
+              "tier": "semantic",
+              "mode": "dark"
+            }
+          }
+        },
+        "stroke-strong": {
+          "$value": "{primitive.color.gray.500}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-stroke-strong",
+              "tier": "semantic",
+              "mode": "dark"
+            }
+          }
+        },
+        "stroke-subtle": {
+          "$value": "{primitive.color.gray.700}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-stroke-subtle",
+              "tier": "semantic",
+              "mode": "dark"
+            }
+          }
+        },
+        "stroke-tooltip": {
+          "$value": "{primitive.color.static-black-alpha.12}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-stroke-tooltip",
+              "tier": "semantic",
+              "mode": "dark"
+            }
+          }
+        },
+        "switch-off-track": {
+          "$value": "{primitive.color.static-white-alpha.16}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-switch-off-track",
+              "tier": "semantic",
+              "mode": "dark"
+            }
+          }
+        },
+        "switch-on-track": {
+          "$value": "{primitive.color.mint.500}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-switch-on-track",
+              "tier": "semantic",
+              "mode": "dark"
+            }
+          }
+        },
+        "switch-thumb": {
+          "$value": "{primitive.color.gray.0}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-switch-thumb",
               "tier": "semantic",
               "mode": "dark"
             }

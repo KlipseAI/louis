@@ -3649,6 +3649,98 @@
   }
 }
 
+/* Switch — 즉시 적용되는 on/off 토글
+ *
+ * 제품 정본은 `PublishFlow.tsx`의 예약 업로드 토글이다(트랙 44×24 · 썸 20 · 이동 20 · 220ms,
+ * 꺼짐 white 15% · 켜짐 mint-500 · 썸 white + 그림자). 그 치수와 색을 그대로 채택했다 —
+ * 제품 외형 수렴 결정. 유일한 편차는 꺼짐 트랙 알파로, 제품 15%에 가장 가까운 램프 값인
+ * `static-white-alpha.16`(16%)을 쓴다. 램프 밖 값을 새로 만들지 않기 위한 1%p 차이다.
+ *
+ * **checkbox와 다른 컴포넌트다.** checkbox는 폼 제출에 실려 나가는 값이고, switch는 즉시
+ * 적용되는 설정이다. 그래서 `role="switch"` + `aria-checked`를 쓰는 `<button>`으로 그린다 —
+ * 제품도 그렇게 하고 있고, 네이티브 체크박스처럼 폼 값으로 오해되지 않는다.
+ *
+ * 트랙 크기는 `--louis-layout-control-height-*`를 쓰지 않는다. 스위치는 텍스트 컨트롤과
+ * 나란히 정렬되는 44px 폭 · 24px 높이의 고유 기하이고, control-height(32/40)와는 축이 다르다.
+ */
+
+.louis-switch {
+  box-sizing: border-box;
+  position: relative;
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  inline-size: 44px;
+  block-size: 24px;
+  padding: 2px;
+  border: 0;
+  border-radius: var(--louis-radius-pill);
+  background: var(--louis-color-switch-off-track);
+  cursor: pointer;
+  /* 면 전환만 트랜지션한다. 썸의 이동은 아래 __thumb이 소유한다. */
+  transition-property: background;
+  transition-duration: var(--louis-motion-layout-change-duration);
+  transition-timing-function: var(--louis-motion-layout-change-timing-function);
+}
+
+.louis-switch[aria-checked="true"] {
+  background: var(--louis-color-switch-on-track);
+}
+
+.louis-switch:disabled,
+.louis-switch[aria-disabled="true"] {
+  cursor: not-allowed;
+  opacity: 0.45;
+}
+
+/* 썸 — 트랙 안쪽 패딩(2px)을 뺀 20px 원. 이동 거리는 트랙 44 − 패딩 4 − 썸 20 = 20px. */
+.louis-switch__thumb {
+  display: block;
+  inline-size: 20px;
+  block-size: 20px;
+  border-radius: var(--louis-radius-pill);
+  background: var(--louis-color-switch-thumb);
+  /* 켜짐(mint)·꺼짐(반투명) 어느 면 위에서도 썸이 떠 보이게 하는 얕은 그림자다. */
+  box-shadow: var(--louis-elevation-switch-thumb);
+  transition-property: translate;
+  transition-duration: var(--louis-motion-layout-change-duration);
+  transition-timing-function: var(--louis-motion-layout-change-timing-function);
+}
+
+/* `translate` 프로퍼티를 쓴다 — `transform`으로 적으면 소비처가 얹는 transform 유틸리티와
+ * 같은 프로퍼티를 다투고, 그 순간 이동이 통째로 사라진다. */
+.louis-switch[aria-checked="true"] .louis-switch__thumb {
+  translate: 20px 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .louis-switch,
+  .louis-switch__thumb {
+    transition-duration: var(--louis-motion-reduced-duration);
+  }
+}
+
+/* forced-colors — 면 색이 강제 치환되면 on/off가 같아 보인다. 상태를 테두리로 되살린다.
+ * 켜짐만 Highlight로 채워 두 상태가 구분되게 한다. */
+@media (forced-colors: active) {
+  .louis-switch {
+    border: var(--louis-border-width-default) solid currentColor;
+  }
+
+  .louis-switch[aria-checked="true"] {
+    background: Highlight;
+  }
+
+  .louis-switch__thumb {
+    background: currentColor;
+    box-shadow: none;
+  }
+
+  .louis-switch[aria-checked="true"] .louis-switch__thumb {
+    background: HighlightText;
+  }
+}
+
 /* Text Field — design/components/text-field.md
  *
  * 제품에 **공용 구현이 없다.** 텍스트 입력 정의가 약 40벌이고 다섯 계열로 갈리며 계열 사이에

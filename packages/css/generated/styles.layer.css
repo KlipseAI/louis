@@ -1921,8 +1921,10 @@
     flex: none;
     align-items: center;
     justify-content: center;
-    inline-size: var(--louis-layout-control-height-md);
-    block-size: var(--louis-layout-control-height-md);
+    /* 아이콘 버튼도 32(control-height-sm) 단일이다 — Button과 같은 owner 결정으로 md(40)를
+     * 폐지했다(2025-08-25). 정사각이므로 inline/block 둘 다 같은 토큰을 쓴다. */
+    inline-size: var(--louis-layout-control-height-sm);
+    block-size: var(--louis-layout-control-height-sm);
     /* base에는 stroke가 없다 — 네이티브 button의 UA 테두리를 지운다(reset은 opt-in이다). secondary만
      * 가시 헤어라인을 inset box-shadow로 그린다 (DS-D-0023). 정사각 계약은 inline/block-size가
      * 고정하고 box-shadow는 레이아웃을 건드리지 않는다. */
@@ -1938,6 +1940,8 @@
     transition-timing-function: var(--louis-motion-overlay-exit-timing-function);
   }
 
+  /* sm은 base와 같은 32다 — md 폐지 후 두 크기가 같은 사양이 됐다. 축 자체는 API 호환을 위해
+   * 남기고, 크기가 갈라지면 이 자리에서 다시 나뉜다. */
   .louis-icon-button[data-size="sm"] {
     inline-size: var(--louis-layout-control-height-sm);
     block-size: var(--louis-layout-control-height-sm);
@@ -2030,8 +2034,9 @@
     flex: none;
     align-items: center;
     justify-content: center;
-    inline-size: var(--louis-icon-size-md);
-    block-size: var(--louis-icon-size-md);
+    /* 32 버튼 안의 글리프는 16(icon-size-sm)이다 — Button의 __icon과 같은 값. */
+    inline-size: var(--louis-icon-size-sm);
+    block-size: var(--louis-icon-size-sm);
   }
 
   /* forced-colors: box-shadow 헤어라인은 강제 색 모드에서 사라지므로 시스템 색 실선으로 경계를

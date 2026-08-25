@@ -14,7 +14,7 @@ function iconButtonIn(root: ParentNode = document): HTMLButtonElement {
   return found as HTMLButtonElement;
 }
 
-test("md가 40×40, sm이 32×32 정사각이다", async () => {
+test("md·sm 모두 32×32 정사각이다 (md 40 폐지)", async () => {
   await render(
     <div>
       <IconButton label="삭제" data-testid="md">
@@ -26,7 +26,7 @@ test("md가 40×40, sm이 32×32 정사각이다", async () => {
     </div>,
   );
   for (const [testId, side] of [
-    ["md", 40],
+    ["md", 32],
     ["sm", 32],
   ] as [string, number][]) {
     const node = document.querySelector(`[data-testid="${testId}"]`);
@@ -130,7 +130,7 @@ test("부모 color 변경이 글리프에 반영된다", async () => {
   expect(getComputedStyle(path).stroke).toBe("rgb(0, 136, 255)");
 });
 
-test("두 size의 글리프 계산 박스가 모두 20px다", async () => {
+test("두 size의 글리프 계산 박스가 모두 16px다", async () => {
   await render(
     <div>
       <IconButton label="a" data-testid="md">
@@ -147,8 +147,8 @@ test("두 size의 글리프 계산 박스가 모두 20px다", async () => {
       ?.querySelector(".louis-icon-button__glyph");
     if (!glyph) throw new Error(`${testId} 글리프를 찾지 못했습니다`);
     const box = glyph.getBoundingClientRect();
-    expect(box.width, `${testId} glyph width`).toBe(20);
-    expect(box.height, `${testId} glyph height`).toBe(20);
+    expect(box.width, `${testId} glyph width`).toBe(16);
+    expect(box.height, `${testId} glyph height`).toBe(16);
   }
 });
 

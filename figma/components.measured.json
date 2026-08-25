@@ -197,16 +197,16 @@
       "$square": "Button과 달리 한 변의 길이가 계약이다. 높이와 폭이 같아야 하며 라벨이 없으므로 폭도 구조값이다",
       "sizes": {
         "md": {
-          "height": 40,
-          "$height": "layout-control-height-md 40",
-          "width": 40,
-          "$width": "40. 정사각형 버튼",
+          "height": 32,
+          "$height": "32. Button과 같이 md(40) 폐지하고 32 단일로 통일(owner 결정)",
+          "width": 32,
+          "$width": "32. 정사각형 버튼",
           "borderWidth": 0.5,
           "$borderWidth": "0.5px. hairline 선언 토큰",
           "radius": 12,
           "$radius": "radius-control-md 12",
-          "glyph": 20,
-          "$glyph": "icon-size-md 20"
+          "glyph": 16,
+          "$glyph": "icon-size-sm 16. 32 버튼 안의 글리프"
         },
         "sm": {
           "height": 32,
@@ -217,8 +217,8 @@
           "$borderWidth": "0.5px. hairline 선언 토큰",
           "radius": 12,
           "$radius": "radius-control-md 12",
-          "glyph": 20,
-          "$glyph": "icon-size-md 20"
+          "glyph": 16,
+          "$glyph": "icon-size-sm 16. 32 버튼 안의 글리프"
         }
       },
       "states": {

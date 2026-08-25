@@ -127,6 +127,7 @@
   --radius-card-lg: var(--louis-radius-card-lg);
   --radius-control: var(--louis-radius-control);
   --radius-control-sm: var(--louis-radius-control-sm);
+  --radius-inspector-control: var(--louis-radius-inspector-control);
   --radius-node-chip: var(--louis-radius-node-chip);
   --radius-overlay: var(--louis-radius-overlay);
   --radius-overlay-item: var(--louis-radius-overlay-item);
@@ -163,6 +164,7 @@
   --spacing-layout-control-height-sm: var(--louis-layout-control-height-sm);
   --spacing-layout-control-hit-target-minimum: var(--louis-layout-control-hit-target-minimum);
   --spacing-layout-control-minimum-width-sm: var(--louis-layout-control-minimum-width-sm);
+  --spacing-layout-inspector-control-height: var(--louis-layout-inspector-control-height);
   --spacing-layout-node-chip-height: var(--louis-layout-node-chip-height);
   --spacing-layout-node-chip-inset: var(--louis-layout-node-chip-inset);
   --spacing-layout-progress-bar-height: var(--louis-layout-progress-bar-height);

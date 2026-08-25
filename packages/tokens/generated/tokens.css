@@ -392,6 +392,7 @@
   --louis-layout-control-height-sm: 32px;
   --louis-layout-control-hit-target-minimum: 44px;
   --louis-layout-control-minimum-width-sm: 48px;
+  --louis-layout-inspector-control-height: 28px;
   --louis-layout-node-chip-height: 32px;
   --louis-layout-node-chip-inset: 10px;
   --louis-layout-progress-bar-height: 6px;
@@ -476,6 +477,7 @@
   --louis-radius-card-lg: 20px;
   --louis-radius-control: 12px;
   --louis-radius-control-sm: 8px;
+  --louis-radius-inspector-control: 10px;
   --louis-radius-node-chip: 12px;
   --louis-radius-overlay: 16px;
   --louis-radius-overlay-item: 10px;

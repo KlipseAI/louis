@@ -5119,6 +5119,16 @@
             }
           }
         },
+        "inspector-control": {
+          "$value": "{primitive.radius.10}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "radius-inspector-control",
+              "tier": "semantic",
+              "mode": "global"
+            }
+          }
+        },
         "node-chip": {
           "$value": "{primitive.radius.12}",
           "$extensions": {
@@ -5819,6 +5829,16 @@
           "$extensions": {
             "com.klipse-design": {
               "id": "layout-control-minimum-width-sm",
+              "tier": "semantic",
+              "mode": "global"
+            }
+          }
+        },
+        "inspector-control-height": {
+          "$value": "{primitive.spacing.28}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "layout-inspector-control-height",
               "tier": "semantic",
               "mode": "global"
             }

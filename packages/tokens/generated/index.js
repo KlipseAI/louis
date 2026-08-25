@@ -9261,6 +9261,27 @@ export const tokens = {
         "unit": "px"
       }
     },
+    "layout-inspector-control-height": {
+      "aliasTarget": {
+        "id": "space-28",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-layout-inspector-control-height": "28px"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "layout-inspector-control-height",
+      "mode": "global",
+      "rawValue": "{primitive.spacing.28}",
+      "sourcePath": "semantic.global.layout.inspector-control-height",
+      "tier": "semantic",
+      "type": "dimension",
+      "value": {
+        "value": 28,
+        "unit": "px"
+      }
+    },
     "layout-node-chip-height": {
       "aliasTarget": {
         "id": "space-32",
@@ -10350,6 +10371,27 @@ export const tokens = {
       "type": "dimension",
       "value": {
         "value": 8,
+        "unit": "px"
+      }
+    },
+    "radius-inspector-control": {
+      "aliasTarget": {
+        "id": "radius-10",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-radius-inspector-control": "10px"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "radius-inspector-control",
+      "mode": "global",
+      "rawValue": "{primitive.radius.10}",
+      "sourcePath": "semantic.global.radius.inspector-control",
+      "tier": "semantic",
+      "type": "dimension",
+      "value": {
+        "value": 10,
         "unit": "px"
       }
     },

@@ -11617,6 +11617,34 @@
             }
           }
         },
+        "layout-inspector-control-height": {
+          "$type": "dimension",
+          "fields": [],
+          "figmaName": "layout/inspector-control-height",
+          "hiddenFromPublishing": false,
+          "losses": [
+            "Figma FLOAT는 DTCG 단위 의미를 직접 보존하지 않으므로 source metadata를 함께 검토해야 합니다."
+          ],
+          "nativeVariableType": "FLOAT",
+          "representation": "variable",
+          "scopes": [
+            "WIDTH_HEIGHT"
+          ],
+          "valuesByMode": {
+            "Global": {
+              "$value": "{primitive.spacing.28}",
+              "aliasTarget": {
+                "id": "space-28",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "unit": "px",
+                "value": 28
+              },
+              "sourcePath": "semantic.global.layout.inspector-control-height"
+            }
+          }
+        },
         "layout-node-chip-height": {
           "$type": "dimension",
           "fields": [],
@@ -12958,6 +12986,34 @@
                 "value": 8
               },
               "sourcePath": "semantic.global.radius.control-sm"
+            }
+          }
+        },
+        "radius-inspector-control": {
+          "$type": "dimension",
+          "fields": [],
+          "figmaName": "radius/inspector-control",
+          "hiddenFromPublishing": false,
+          "losses": [
+            "Figma FLOAT는 DTCG 단위 의미를 직접 보존하지 않으므로 source metadata를 함께 검토해야 합니다."
+          ],
+          "nativeVariableType": "FLOAT",
+          "representation": "variable",
+          "scopes": [
+            "CORNER_RADIUS"
+          ],
+          "valuesByMode": {
+            "Global": {
+              "$value": "{primitive.radius.10}",
+              "aliasTarget": {
+                "id": "radius-10",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "unit": "px",
+                "value": 10
+              },
+              "sourcePath": "semantic.global.radius.inspector-control"
             }
           }
         },

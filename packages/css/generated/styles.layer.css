@@ -3258,6 +3258,16 @@
     block-size: var(--louis-layout-control-height-sm);
   }
 
+  /* xs — 비디오 에디터 인스펙터의 조밀한 속성 행에서 쓴다. 제품 정본(vemClass inspectorToggle*)이
+   * 트랙 28 · 패딩 3 · 반경 10 · 세그먼트 22를 쓴다. 트랙 패딩 3px은 DS 간격 계단(4·8·12)에 없는
+   * 값이라 반경 계산(10 − 3 = 7)도 계단 밖이 된다 — 인스펙터 한 곳의 밀도를 위해 계단을 늘리지
+   * 않고, 이 축에서만 리터럴로 고정하고 사유를 남긴다. */
+  .louis-segmented-control[data-size="xs"] {
+    block-size: var(--louis-layout-inspector-control-height);
+    padding: 3px;
+    border-radius: var(--louis-radius-inspector-control);
+  }
+
   /* 세그먼트 사이에 간격을 두지 않는다. 제품 둘은 2px을 두지만 그 값에 semantic 토큰이 없고,
    * 선택 면이 자기 반경을 가지므로 간격 없이도 경계가 읽힌다. */
   .louis-segmented-control__segment {
@@ -3282,6 +3292,17 @@
     font-weight: var(--louis-typography-body-sm-medium-font-weight);
     line-height: var(--louis-typography-body-sm-medium-line-height);
     letter-spacing: var(--louis-typography-body-sm-medium-letter-spacing);
+  }
+
+  .louis-segmented-control[data-size="xs"] .louis-segmented-control__segment {
+    padding-inline: var(--louis-space-control-sm);
+    /* 트랙 반경 10에서 패딩 3을 뺀 7. 중첩 모서리가 어긋나지 않는다. */
+    border-radius: 7px;
+    font-family: var(--louis-typography-caption-medium-font-family);
+    font-size: var(--louis-typography-caption-medium-font-size);
+    font-weight: var(--louis-typography-caption-medium-font-weight);
+    line-height: var(--louis-typography-caption-medium-line-height);
+    letter-spacing: var(--louis-typography-caption-medium-letter-spacing);
   }
 
   .louis-segmented-control[data-size="sm"] .louis-segmented-control__segment {

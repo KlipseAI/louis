@@ -2,23 +2,23 @@
   "artifacts": [
     {
       "path": "packages/tokens/generated/figma.tokens.json",
-      "sha256": "ed31a287c3b75e398abc239fc79f55c65d124984926ccda19caafb8e7dddd9d4"
+      "sha256": "2a8f1e3f7e8358cad07675012ac0bbb5a046838ab2f278b0282614421e96d273"
     },
     {
       "path": "packages/tokens/generated/index.d.ts",
-      "sha256": "cffd538f59a675e953301fbfb7f627592117265ab71953f3b855ff3688feb7b7"
+      "sha256": "66b249d09215fc4de603709374ec32c19785af4de38f1513273a510932d83665"
     },
     {
       "path": "packages/tokens/generated/index.js",
-      "sha256": "ce29390ccf84834afeb2f93a054575ab9fcd63751816edd21c68dde7ab35529e"
+      "sha256": "f4204cbc759939ce5a955414ec6052bd424a05d84c9823709cf098a3fd209a2c"
     },
     {
       "path": "packages/tokens/generated/tokens.css",
-      "sha256": "53328fafe24f13c48d61cb0e9797ca04f0b740bf9bccf1fa2eb8acfedd8f1441"
+      "sha256": "3fdb00e1fb56ef649b54ed9c4dc362c453c96537926f80660dee8b54923ec783"
     },
     {
       "path": "packages/tokens/generated/tokens.json",
-      "sha256": "3445afb348fb2941f8f9fa7c6c51262b2da68e68312e333d2e17027ae645596c"
+      "sha256": "2c931b71a406d433cd615206033656183b30729d0f8829818c71922fdd2910f0"
     }
   ],
   "contrastPairs": [
@@ -408,13 +408,13 @@
   },
   "source": {
     "path": "packages/tokens/src/klipse.tokens.json",
-    "sha256": "17e763253fff2d81be7b2107ea86402c62b9c729710ccbe28a43999cb0713dc5"
+    "sha256": "ddc38f8ee2fb144a07379e85b853c6471051ff13a385fe0a93c4751cb10b3862"
   },
   "themes": [
     "light",
     "dark"
   ],
-  "tokenCount": 558,
+  "tokenCount": 560,
   "tokens": [
     {
       "aliasTarget": null,
@@ -11477,6 +11477,27 @@
     },
     {
       "aliasTarget": {
+        "id": "space-28",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-layout-inspector-control-height": "28px"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "layout-inspector-control-height",
+      "mode": "global",
+      "rawValue": "{primitive.spacing.28}",
+      "resolvedValue": {
+        "unit": "px",
+        "value": 28
+      },
+      "sourcePath": "semantic.global.layout.inspector-control-height",
+      "tier": "semantic",
+      "type": "dimension"
+    },
+    {
+      "aliasTarget": {
         "id": "space-32",
         "mode": "base"
       },
@@ -12813,6 +12834,27 @@
       },
       "sourcePath": "primitive.radius.full",
       "tier": "primitive",
+      "type": "dimension"
+    },
+    {
+      "aliasTarget": {
+        "id": "radius-10",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-radius-inspector-control": "10px"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "radius-inspector-control",
+      "mode": "global",
+      "rawValue": "{primitive.radius.10}",
+      "resolvedValue": {
+        "unit": "px",
+        "value": 10
+      },
+      "sourcePath": "semantic.global.radius.inspector-control",
+      "tier": "semantic",
       "type": "dimension"
     },
     {

@@ -153,7 +153,7 @@ focus scope의 branch 처리, positioning의 collision/flip, portal은 이미 �
 | FocusScope의 unmount 복원이 비동기다 | mount/unmount autofocus를 둘 다 취소하고 우리가 unmount 전에 동기로 옮긴다 |
 
 반대로 **기하 계산은 그대로 채택했다.** flip·shift·size·autoUpdate를 재작성할 이득이 없고, 결과는
-`--kds-overlay-*` 한 블록으로만 새어 나온다.
+`--louis-overlay-*` 한 블록으로만 새어 나온다.
 
 `deferPointerDownOutside`와 `useDismissableLayerSurface()`는 **쓰지 않았다.** 우리 정책이 이미 지연을
 소유하므로 둘을 켜면 같은 일을 두 곳이 하게 된다.

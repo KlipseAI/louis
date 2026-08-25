@@ -82,7 +82,7 @@ function Harness({
       >
         <DialogSurface data-testid="dialog">
           <DialogHeader>
-            <div className="kds-dialog__heading">
+            <div className="louis-dialog__heading">
               <DialogTitle data-testid="title">프로젝트를 삭제할까요?</DialogTitle>
               {withDescription ? (
                 <DialogDescription data-testid="description">
@@ -277,7 +277,7 @@ test("closeOnBackdrop이면 backdrop 클릭이 닫고 surface 클릭은 닫지 �
   await userEvent.click(screen.getByTestId("title"));
   await expect.element(screen.getByTestId("dialog")).toBeInTheDocument();
 
-  const backdrop = document.querySelector(".kds-dialog__backdrop") as HTMLElement;
+  const backdrop = document.querySelector(".louis-dialog__backdrop") as HTMLElement;
   backdrop.click();
   await gone();
   expect(
@@ -291,7 +291,7 @@ test("task는 backdrop 클릭으로 닫히지 않는다", async () => {
   await userEvent.click(screen.getByTestId("trigger"));
   await expect.element(screen.getByTestId("dialog")).toBeInTheDocument();
 
-  (document.querySelector(".kds-dialog__backdrop") as HTMLElement).click();
+  (document.querySelector(".louis-dialog__backdrop") as HTMLElement).click();
 
   // 데이터 입력 중 오클릭이 입력을 지우면 안 된다.
   await expect.element(screen.getByTestId("dialog")).toBeInTheDocument();
@@ -342,7 +342,7 @@ test("body만 스크롤하고 header와 footer는 도달 가능하다", async ()
   await userEvent.click(screen.getByTestId("trigger"));
   await expect.element(screen.getByTestId("dialog")).toBeInTheDocument();
 
-  const root = document.querySelector(".kds-dialog") as HTMLElement;
+  const root = document.querySelector(".louis-dialog") as HTMLElement;
   const body = screen.getByTestId("body").element() as HTMLElement;
   // root가 scroll 컨테이너가 되면 중앙 정렬과 겹쳐 surface 상단이 도달 불가가 된다.
   expect(getComputedStyle(root).overflow).toBe("hidden");

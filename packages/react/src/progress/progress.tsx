@@ -17,7 +17,7 @@ function clampPercent(value: number): number {
 function warnMissingName(label: string | undefined, labelledBy: string | undefined): void {
   if (label !== undefined || labelledBy !== undefined) return;
   console.warn(
-    "[kds] Progress에 접근 가능한 이름이 없습니다. aria-label 또는 aria-labelledby를 주세요 (DS-D-0022).",
+    "[louis] Progress에 접근 가능한 이름이 없습니다. aria-label 또는 aria-labelledby를 주세요 (DS-D-0022).",
   );
 }
 
@@ -65,10 +65,10 @@ export function ProgressBar({
       aria-valuenow={indeterminate ? undefined : percent}
       aria-valuetext={valueText}
       data-indeterminate={indeterminate ? "true" : undefined}
-      className={["kds-progress-bar", className].filter(Boolean).join(" ")}
-      style={{ ...style, "--kds-progress-value": percent } as CSSProperties}
+      className={["louis-progress-bar", className].filter(Boolean).join(" ")}
+      style={{ ...style, "--louis-progress-value": percent } as CSSProperties}
     >
-      <div className="kds-progress-bar__fill" aria-hidden />
+      <div className="louis-progress-bar__fill" aria-hidden />
     </div>
   );
 }
@@ -107,8 +107,8 @@ export function ProgressRing({
       aria-valuenow={indeterminate ? undefined : percent}
       aria-valuetext={valueText}
       data-indeterminate={indeterminate ? "true" : undefined}
-      className={["kds-progress-ring", className].filter(Boolean).join(" ")}
-      style={{ ...style, "--kds-progress-value": percent } as CSSProperties}
+      className={["louis-progress-ring", className].filter(Boolean).join(" ")}
+      style={{ ...style, "--louis-progress-value": percent } as CSSProperties}
     >
       {children}
     </div>

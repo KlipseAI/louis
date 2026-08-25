@@ -78,7 +78,7 @@ interface OverlaySurfaceInstance {
  * 패널 subtree 전체가 재마운트됐다. 결과는 세 가지였다.
  *
  * 1. `opening → open`에서 패널이 **새 노드로 삽입**되므로 base.css의
- *    `[data-kds-state="opening"] { visibility: hidden }` 가드를 거치지 않는다. 규범이 "임시
+ *    `[data-louis-state="opening"] { visibility: hidden }` 가드를 거치지 않는다. 규범이 "임시
  *    위치를 한 프레임도 노출하지 않는다"고 금지한 상태가 그대로 만들어진다.
  * 2. enter transition의 시작 프레임이 사라져 open motion이 성립하지 않는다.
  * 3. 패널 안의 모든 상태(roving index, typeahead 버퍼, 입력값, 스크롤 위치)가 초기화된다.
@@ -97,7 +97,7 @@ function createOverlaySurface(
       if (typeof consumerRef === "function") consumerRef(node);
       else if (consumerRef !== null && consumerRef !== undefined) consumerRef.current = node;
     };
-    const classes = ["kds-overlay-panel", `kds-layer-${current.layer}`, className]
+    const classes = ["louis-overlay-panel", `louis-layer-${current.layer}`, className]
       .filter(Boolean)
       .join(" ");
     const surface = (
@@ -115,9 +115,9 @@ function createOverlaySurface(
           ref={attachRoot}
           id={current.panelId}
           className={classes}
-          data-kds-state={current.state}
-          data-kds-overlay-branch={current.branchId}
-          data-kds-overlay-mode={current.mode}
+          data-louis-state={current.state}
+          data-louis-overlay-branch={current.branchId}
+          data-louis-overlay-mode={current.mode}
         >
           {children}
         </OverlayDismissRegion>
@@ -241,7 +241,7 @@ export function useOverlay(options: UseOverlayOptions): UseOverlayResult {
   const parentBranch = useParentBranch();
   const parentBranchId = parentBranch?.branchId ?? null;
   const instanceId = useId();
-  const branchId = `kds-branch-${instanceId}`;
+  const branchId = `louis-branch-${instanceId}`;
   const ids = useOverlayIds();
 
   // 자손 branch는 부모보다 위여야 한다. 그 규칙을 비교자에만 두면 z-index에서 뒤집혀
@@ -309,7 +309,7 @@ export function useOverlay(options: UseOverlayOptions): UseOverlayResult {
         parentBranchId === null
           ? null
           : document.querySelector<HTMLElement>(
-              `[data-kds-overlay-branch="${parentBranchId}"]`,
+              `[data-louis-overlay-branch="${parentBranchId}"]`,
             );
       const target = resolveReturnFocus(
         reason,
@@ -458,8 +458,8 @@ export function useOverlay(options: UseOverlayOptions): UseOverlayResult {
     const active = document.activeElement;
     const activeBranch =
       active instanceof Element
-        ? (active.closest("[data-kds-overlay-branch]")?.getAttribute(
-            "data-kds-overlay-branch",
+        ? (active.closest("[data-louis-overlay-branch]")?.getAttribute(
+            "data-louis-overlay-branch",
           ) ?? null)
         : null;
     const insideOwnPanel = active !== null && root.contains(active);

@@ -254,7 +254,7 @@ DS의 semantic 색 41개는 **전부 테마를 따라 뒤집힌다.** 그리고 
 
 | 부위 | 값 |
 | --- | --- |
-| 컨테이너 | `boxed` radius 16px(= `--kds-radius-card`) · `fullBleed` 0. overflow hidden |
+| 컨테이너 | `boxed` radius 16px(= `--louis-radius-card`) · `fullBleed` 0. overflow hidden |
 | 슬라이드 | absolute inset 0. 활성 `opacity 1 / scale(1)`, 비활성 `opacity 0 / scale(1.012)` + `pointer-events: none` |
 | 슬라이드 전환 | opacity 420ms `ease` · transform 680ms `cubic-bezier(.22,1,.36,1)` |
 | 배경 | `background-position: 68% center`, cover |
@@ -434,7 +434,7 @@ Home을 실제로 다시 조립해야 나오는 숫자이고, 여기서는 근�
 | T-2 범주형 색 팔레트 | 미해소 | `color-status-*` 넷뿐. 에디터가 쓰는 sky·pink·red·mint·amber·yellow 없음 |
 | T-3 컨트롤 높이 토큰 | **부분** | `layout-control-height-md`(40) `-sm`(32) 생김. 제품은 여덟 단계이므로 나머지는 그대로 |
 | T-4 `radius-card` 20↔16 | **해소** | [DS-D-0014](../design/governance/decisions/DS-D-0014-card-radius.md)로 16px. Dialog는 `radius-card-lg`로 옮겼다 |
-| T-5 `layout-project-card-minimum` 소비처 | **해소**(2026-08-18) | Project Grid 패턴이 섰고 `.kds-project-grid`가 **첫 CSS 소비처**다. 추측이 맞았다 — 이 토큰은 카드가 아니라 그리드의 것이었다. 다만 제품이 쓰지 않는 `minmax` 알고리즘이라는 지적은 그대로다: DS는 container 기반 `auto-fill`로 가고 제품은 breakpoint 고정이며, 그 둘이 같은 결과를 내는지는 브라우저 테스트가 환산해 대조한다 |
+| T-5 `layout-project-card-minimum` 소비처 | **해소**(2026-08-18) | Project Grid 패턴이 섰고 `.louis-project-grid`가 **첫 CSS 소비처**다. 추측이 맞았다 — 이 토큰은 카드가 아니라 그리드의 것이었다. 다만 제품이 쓰지 않는 `minmax` 알고리즘이라는 지적은 그대로다: DS는 container 기반 `auto-fill`로 가고 제품은 breakpoint 고정이며, 그 둘이 같은 결과를 내는지는 브라우저 테스트가 환산해 대조한다 |
 | T-6 라이트 팔레트 앱 셸 재정의 | 미해소 | 제품 쪽. `apps/web/components/navigation/Gnb.tsx:1962`가 `--palette-gray-100`을 `#f8f8f9`로 덮는다 |
 | T-7 0.5px hairline과 glass bevel | **부분** | 제품에서 글래스를 걷어내 베벨은 사라졌다. DS에는 여전히 spread-only 전용 elevation 토큰이 없다 — `elevation-menu`가 drop 겹과 함께 갖고 있을 뿐이다 |
 
@@ -833,7 +833,7 @@ CTA가 **같은 클래스 세 개**(`sidebarUpgradeWrap` · `sidebarUpgradeButto
 ### 조립하다가 드러난 것 둘
 
 **① `AppTopBar`에 슬롯이 없었다.** 코드 API에는 `leading`·`trailing`이 처음부터 있고 CSS에도
-`.kds-app-top-bar__leading` / `__trailing`이 있는데, Figma 컴포넌트에는 제목 하나뿐이었다.
+`.louis-app-top-bar__leading` / `__trailing`이 있는데, Figma 컴포넌트에는 제목 하나뿐이었다.
 그래서 조립하면 상단 바가 텅 비어 보였다. **표현하지 못하는 API는 없는 것과 같다** — 슬롯 둘을
 INSTANCE_SWAP으로 열고 계약에 넣었다.
 
@@ -943,7 +943,7 @@ owner의 지적이 맞았다 — **"제품에 정본이 없다"가 산문이었�
 
 **「없다」만 적어 두면 Figma 작업자는 그릴 수 없다.** 등록부에 이미 올라 있던 둘을 배포본
 `a9ead58b`에서 재고 값을 붙인다. **DS 컴포넌트를 세울지는 로드맵 결정**이라 여기서 하지 않는다 —
-`design/components/`에 문서를 만드는 것은 「KDS가 이것을 만든다」는 뜻이기 때문이다.
+`design/components/`에 문서를 만드는 것은 「LOUIS가 이것을 만든다」는 뜻이기 때문이다.
 
 ### 하단 캔버스 툴바 (`Toolbar.tsx`의 `TOOLBAR_WRAP`)
 

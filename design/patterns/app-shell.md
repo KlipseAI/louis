@@ -110,17 +110,17 @@ main inset이 우연히 어긋나지 않게** 관계 테스트를 유지한다. 
 <!-- GENERATED:app-shell-geometry START -->
 | Token | CSS variable | 해결값 |
 | --- | --- | --- |
-| `layout-app-shell-brand-mark-height` | `--kds-layout-app-shell-brand-mark-height` | `28px` |
-| `layout-app-shell-content-inset` | `--kds-layout-app-shell-content-inset` | `16px` |
-| `layout-app-shell-content-reserve` | `--kds-layout-app-shell-content-reserve` | `120px` |
-| `layout-app-shell-outer-gap` | `--kds-layout-app-shell-outer-gap` | `12px` |
-| `layout-app-shell-sidebar-collapsed` | `--kds-layout-app-shell-sidebar-collapsed` | `56px` |
-| `layout-app-shell-sidebar-padding` | `--kds-layout-app-shell-sidebar-padding` | `12px` |
-| `layout-app-shell-sidebar-width` | `--kds-layout-app-shell-sidebar-width` | `280px` |
-| `layout-app-shell-top-bar-height` | `--kds-layout-app-shell-top-bar-height` | `40px` |
-| `motion-shell-collapse` | `--kds-motion-shell-collapse-delay` | `0ms` |
-| `motion-shell-collapse` | `--kds-motion-shell-collapse-duration` | `320ms` |
-| `motion-shell-collapse` | `--kds-motion-shell-collapse-timing-function` | `cubic-bezier(0.4, 0, 0.2, 1)` |
+| `layout-app-shell-brand-mark-height` | `--louis-layout-app-shell-brand-mark-height` | `28px` |
+| `layout-app-shell-content-inset` | `--louis-layout-app-shell-content-inset` | `16px` |
+| `layout-app-shell-content-reserve` | `--louis-layout-app-shell-content-reserve` | `120px` |
+| `layout-app-shell-outer-gap` | `--louis-layout-app-shell-outer-gap` | `12px` |
+| `layout-app-shell-sidebar-collapsed` | `--louis-layout-app-shell-sidebar-collapsed` | `56px` |
+| `layout-app-shell-sidebar-padding` | `--louis-layout-app-shell-sidebar-padding` | `12px` |
+| `layout-app-shell-sidebar-width` | `--louis-layout-app-shell-sidebar-width` | `280px` |
+| `layout-app-shell-top-bar-height` | `--louis-layout-app-shell-top-bar-height` | `40px` |
+| `motion-shell-collapse` | `--louis-motion-shell-collapse-delay` | `0ms` |
+| `motion-shell-collapse` | `--louis-motion-shell-collapse-duration` | `320ms` |
+| `motion-shell-collapse` | `--louis-motion-shell-collapse-timing-function` | `cubic-bezier(0.4, 0, 0.2, 1)` |
 <!-- GENERATED:app-shell-geometry END -->
 
 각 값이 지배하는 자리는 이렇다.
@@ -139,7 +139,7 @@ main inset이 우연히 어긋나지 않게** 관계 테스트를 유지한다. 
 
 ### 아직 토큰이 없는 축
 
-아래는 KDS가 값을 주지 못한다. 옮기는 쪽에서 **지어내지 말고 제품을 인용한다.**
+아래는 LOUIS가 값을 주지 못한다. 옮기는 쪽에서 **지어내지 말고 제품을 인용한다.**
 
 | 제품 변수 | 데스크톱 | ≤719px | 근거 |
 | --- | --- | --- | --- |
@@ -417,7 +417,7 @@ collapse/restore다. 복제된 Scene shell, 전역 최소폭, raw z-index는 새
 | --- | --- |
 | 자리 예약 | 레일이 `absolute`여도 본문이 **같은 상태 원천**으로 `padding-inline-start`를 잡는다 |
 | 전환 | offset과 폭이 `motion-shell-collapse` 하나를 쓴다 — 따로 지연시키면 겹치는 프레임이 생긴다 |
-| scroll root | `.kds-app-shell__content` 하나. 셸은 `overflow: hidden` |
+| scroll root | `.louis-app-shell__content` 하나. 셸은 `overflow: hidden` |
 | 상단 크롬 | scroll root **안에** sticky. 본문과 같은 좌우 inset 원천을 읽는다 |
 | compact | 예약 0 · 레일이 drawer · scrim · 뒤 콘텐츠 `inert` |
 | 건너뛰기 링크 | anatomy의 첫 항목. 초점을 받으면 나타난다 |

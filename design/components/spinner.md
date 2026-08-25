@@ -182,7 +182,7 @@ button의 md·sm을 모두 18로 기록한다. 제품 Button에는 loading prop�
 
 ## Implementation
 
-- 회전 keyframe은 `base.css`의 **공용 `kds-spin` 하나**다. Button·Menu·Spinner가 같은 것을
+- 회전 keyframe은 `base.css`의 **공용 `louis-spin` 하나**다. Button·Menu·Spinner가 같은 것을
   가리킨다. 제품이 이름 18개에 본문 1종을 가진 것과 같은 중복이 이 저장소에도 둘 있었고,
   이 컴포넌트를 세우면서 합쳤다.
 - `transform: rotate()`가 아니라 개별 속성 `rotate`다. motion.md의 Loop 절이 그것을 허용
@@ -213,7 +213,7 @@ button의 md·sm을 모두 18로 기록한다. 제품 Button에는 loading prop�
 3. 트랙 색이 진행 색과 다르다(같은 색의 흐린 것이다).
 4. 색을 물려받는다 — 부모의 `color`가 진행 색이 된다.
 5. `animation-duration`·`timing-function`이 `motion-loop`에서 오고 `animation-name`이 공용
-   `kds-spin`이다.
+   `louis-spin`이다.
 6. reduced-motion에서 `animation-iteration-count`가 `1`이고, 그때도 `role="status"`와
    `aria-busy="true"`가 그대로다.
 7. `label`이 없으면 `aria-hidden="true"`이고 role·live·busy가 모두 없다.

@@ -30,7 +30,7 @@ function Fixture({
 }
 
 const triggerEl = (): HTMLButtonElement => {
-  const found = document.querySelector("button.kds-icon-button");
+  const found = document.querySelector("button.louis-icon-button");
   if (found === null) throw new Error("trigger를 찾지 못했습니다");
   return found as HTMLButtonElement;
 };
@@ -201,17 +201,17 @@ test("anchor와의 간격이 overlay 표면 CSS 값과 같다", async () => {
   });
   const node = surface();
   if (node === null) throw new Error("표면이 없습니다");
-  // Provider가 재는 것과 같은 방식으로 읽는다 — 값은 .kds-overlay-panel이 소유한다.
+  // Provider가 재는 것과 같은 방식으로 읽는다 — 값은 .louis-overlay-panel이 소유한다.
   const probe = document.createElement("div");
-  probe.className = "kds-overlay-panel";
+  probe.className = "louis-overlay-panel";
   document.body.append(probe);
   const expected = Number.parseFloat(
-    getComputedStyle(probe).getPropertyValue("--kds-overlay-offset"),
+    getComputedStyle(probe).getPropertyValue("--louis-overlay-offset"),
   );
   probe.remove();
   expect(expected).toBeGreaterThan(0);
   // 공간이 없으면 방향이 뒤집힌다. 어느 쪽에 붙었든 간격은 같아야 하므로 실제 방향을 읽는다.
-  const positioner = node.closest(".kds-tooltip-positioner") as HTMLElement | null;
+  const positioner = node.closest(".louis-tooltip-positioner") as HTMLElement | null;
   const side = positioner?.getAttribute("data-side") ?? "top";
   const tip = node.getBoundingClientRect();
   const anchor = trigger.getBoundingClientRect();

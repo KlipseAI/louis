@@ -22,24 +22,24 @@ const SLIDES: readonly BannerCarouselSlide[] = [
 ];
 
 function scope(): ParentNode {
-  const fixtures = document.querySelectorAll("[data-kds-fixture]");
+  const fixtures = document.querySelectorAll("[data-louis-fixture]");
   return fixtures.length > 0 ? fixtures[fixtures.length - 1]! : document;
 }
 
 async function mount(node: JSX.Element): Promise<void> {
   // `render`는 비동기로 커밋한다. await 없이 질의하면 컨테이너가 비어 있다.
-  await render(<div data-kds-fixture style={{ inlineSize: "960px" }}>{node}</div>);
+  await render(<div data-louis-fixture style={{ inlineSize: "960px" }}>{node}</div>);
   // **높이는 소비처가 정한다.** 슬라이드가 전부 absolute라 높이를 주지 않으면 섹션이 0으로
   // 접히고, `overflow: hidden`이 컨트롤을 잘라 클릭조차 되지 않는다. 제품도 호출부가 높이를
   // 준다. 테스트가 그 계약을 대신 지킨다.
-  const root = scope().querySelector<HTMLElement>(".kds-banner-carousel")!;
+  const root = scope().querySelector<HTMLElement>(".louis-banner-carousel")!;
   root.style.blockSize = "240px";
 }
 
 const dots = (): HTMLElement[] =>
-  [...scope().querySelectorAll<HTMLElement>(".kds-banner-carousel__dot")];
+  [...scope().querySelectorAll<HTMLElement>(".louis-banner-carousel__dot")];
 const slides = (): HTMLElement[] =>
-  [...scope().querySelectorAll<HTMLElement>(".kds-banner-carousel__slide")];
+  [...scope().querySelectorAll<HTMLElement>(".louis-banner-carousel__slide")];
 
 test("스크림이 글자 위에 칠해지지 않는다 — 사진과 같은 층에 있다", async () => {
   await mount(<BannerCarousel label="배너" slides={SLIDES} />);
@@ -100,7 +100,7 @@ test("비활성 슬라이드는 남아 있되 보조기술에서 지워지고 �
 test("톤은 테마가 아니다 — 라이트와 다크에서 같은 색이 나온다", async () => {
   await mount(<BannerCarousel slides={SLIDES} label="홈 배너" autoAdvanceMs={0} />);
   const title = (): HTMLElement =>
-    scope().querySelector<HTMLElement>(".kds-banner-carousel__title")!;
+    scope().querySelector<HTMLElement>(".louis-banner-carousel__title")!;
   const root = document.documentElement;
   const original = root.getAttribute("data-theme");
 
@@ -120,7 +120,7 @@ test("톤은 테마가 아니다 — 라이트와 다크에서 같은 색이 나
 test("화살표와 점이 슬라이드를 바꾼다", async () => {
   await mount(<BannerCarousel slides={SLIDES} label="홈 배너" autoAdvanceMs={0} />);
   // autoAdvanceMs=0이라 정지 버튼이 없다. [0]=이전, [1]=다음.
-  const next = scope().querySelectorAll<HTMLElement>(".kds-banner-carousel__arrow")[1]!;
+  const next = scope().querySelectorAll<HTMLElement>(".louis-banner-carousel__arrow")[1]!;
   await userEvent.click(next);
   expect(dots()[1]!.getAttribute("aria-selected")).toBe("true");
   await userEvent.click(dots()[2]!);
@@ -131,7 +131,7 @@ test("화살표와 점이 슬라이드를 바꾼다", async () => {
 
 test("자동 넘김을 멈출 수 있다 — WCAG 2.2.2", async () => {
   await mount(<BannerCarousel slides={SLIDES} label="홈 배너" autoAdvanceMs={5000} />);
-  const buttons = [...scope().querySelectorAll<HTMLElement>(".kds-banner-carousel__arrow")];
+  const buttons = [...scope().querySelectorAll<HTMLElement>(".louis-banner-carousel__arrow")];
   // 화살표 둘 + 정지 하나.
   expect(buttons).toHaveLength(3);
   const toggle = buttons.find((b) => b.getAttribute("aria-pressed") !== null)!;
@@ -145,18 +145,18 @@ test("자동 넘김을 멈출 수 있다 — WCAG 2.2.2", async () => {
 
 test("자동 넘김을 끄면 정지 버튼도 그리지 않는다", async () => {
   await mount(<BannerCarousel slides={SLIDES} label="홈 배너" autoAdvanceMs={0} />);
-  const buttons = scope().querySelectorAll(".kds-banner-carousel__arrow");
+  const buttons = scope().querySelectorAll(".louis-banner-carousel__arrow");
   expect(buttons).toHaveLength(2);
 });
 
 test("슬라이드가 하나면 컨트롤을 그리지 않는다", async () => {
   await mount(<BannerCarousel slides={[SLIDES[0]!]} label="홈 배너" autoAdvanceMs={0} />);
-  expect(scope().querySelector(".kds-banner-carousel__controls")).toBeNull();
+  expect(scope().querySelector(".louis-banner-carousel__controls")).toBeNull();
 });
 
 test("bleed=full이면 반경이 0이다", async () => {
   await mount(<BannerCarousel slides={SLIDES} label="홈 배너" bleed="full" autoAdvanceMs={0} />);
-  const root = scope().querySelector<HTMLElement>(".kds-banner-carousel")!;
+  const root = scope().querySelector<HTMLElement>(".louis-banner-carousel")!;
   expect(px(getComputedStyle(root).borderStartStartRadius)).toBe(0);
 });
 

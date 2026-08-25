@@ -16,9 +16,9 @@ import "@klipse-design/css/layers.css";
 import "@klipse-design/css/tokens.css";
 import "@klipse-design/css/styles.css";
 
-const toasts = (): HTMLElement[] => [...document.querySelectorAll(".kds-toast")] as HTMLElement[];
+const toasts = (): HTMLElement[] => [...document.querySelectorAll(".louis-toast")] as HTMLElement[];
 const region = (role: "status" | "alert"): HTMLElement | null =>
-  document.querySelector(`.kds-toast-region[role="${role}"]`);
+  document.querySelector(`.louis-toast-region[role="${role}"]`);
 
 function Emitter({ inputs }: { inputs: readonly (ToastInput | string)[] }): JSX.Element {
   const { toast } = useToast();
@@ -45,7 +45,7 @@ function Emitter({ inputs }: { inputs: readonly (ToastInput | string)[] }): JSX.
 }
 
 const fire = async (): Promise<void> => {
-  const button = [...document.querySelectorAll("button.kds-button")][0] as HTMLButtonElement;
+  const button = [...document.querySelectorAll("button.louis-button")][0] as HTMLButtonElement;
   await userEvent.click(button);
 };
 
@@ -126,7 +126,7 @@ test("포인터를 얹으면 타이머가 멈추고 떠나면 다시 흐른다",
   if (node === undefined) throw new Error("toast가 없습니다");
 
   await userEvent.hover(node);
-  expect(node.getAttribute("data-kds-paused")).toBe("true");
+  expect(node.getAttribute("data-louis-paused")).toBe("true");
   // duration을 훌쩍 넘겨도 얹혀 있는 동안에는 사라지지 않는다.
   await new Promise((resolve) => setTimeout(resolve, 1200));
   expect(toasts()).toHaveLength(1);
@@ -205,7 +205,7 @@ test("toast가 focus를 가져가지 않는다", async () => {
       <Emitter inputs={[{ message: "알림", duration: 0 }]} />
     </ToastProvider>,
   );
-  const trigger = [...document.querySelectorAll("button.kds-button")][0] as HTMLButtonElement;
+  const trigger = [...document.querySelectorAll("button.louis-button")][0] as HTMLButtonElement;
   await userEvent.click(trigger);
   await vi.waitFor(() => {
     expect(toasts()).toHaveLength(1);
@@ -238,7 +238,7 @@ test("빈 viewport가 아래 컨트롤의 포인터를 가로채지 않는다", 
       <Emitter inputs={["x"]} />
     </ToastProvider>,
   );
-  const viewport = document.querySelector(".kds-toast-viewport");
+  const viewport = document.querySelector(".louis-toast-viewport");
   if (viewport === null) throw new Error("viewport가 없습니다");
   expect(getComputedStyle(viewport).pointerEvents).toBe("none");
 });
@@ -276,9 +276,9 @@ test("Specification 표의 값이 실제 계산값과 같다", async () => {
   });
 
   const root = getComputedStyle(document.documentElement);
-  const token = (name: string): string => root.getPropertyValue(`--kds-${name}`).trim();
+  const token = (name: string): string => root.getPropertyValue(`--louis-${name}`).trim();
 
-  const viewport = document.querySelector(".kds-toast-viewport") as HTMLElement;
+  const viewport = document.querySelector(".louis-toast-viewport") as HTMLElement;
   const viewportStyle = getComputedStyle(viewport);
   expect(viewportStyle.position).toBe("fixed");
   expect(viewportStyle.bottom).toBe(token("space-layout-section"));
@@ -296,8 +296,8 @@ test("Specification 표의 값이 실제 계산값과 같다", async () => {
 
   // 색은 토큰이 소유한다. 같은 var를 다른 요소에서 계산해 비교하면 리터럴을 적어 넣을 필요가 없다.
   const probe = document.createElement("div");
-  probe.style.background = "var(--kds-color-bg-inverse-translucent)";
-  probe.style.color = "var(--kds-color-fg-on-inverse)";
+  probe.style.background = "var(--louis-color-bg-inverse-translucent)";
+  probe.style.color = "var(--louis-color-fg-on-inverse)";
   document.body.append(probe);
   const expected = getComputedStyle(probe);
   const wantBackground = expected.backgroundColor;
@@ -326,8 +326,8 @@ test("danger tone이 status-danger 토큰을 쓴다", async () => {
   const node = toasts()[0];
   if (node === undefined) throw new Error("toast가 없습니다");
   const probe = document.createElement("div");
-  probe.style.background = "var(--kds-color-bg-danger)";
-  probe.style.color = "var(--kds-color-fg-danger)";
+  probe.style.background = "var(--louis-color-bg-danger)";
+  probe.style.color = "var(--louis-color-fg-danger)";
   document.body.append(probe);
   const expected = getComputedStyle(probe);
   const wantBackground = expected.backgroundColor;

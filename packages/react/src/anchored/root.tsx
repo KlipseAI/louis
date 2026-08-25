@@ -83,7 +83,7 @@ export function AnchoredRoot({
   const panelRef = useRef<HTMLDivElement | null>(null);
   const triggerRef = useRef<HTMLElement | null>(null);
   const openIntentRef = useRef<AnchoredOpenIntent>("first");
-  const triggerId = `kds-anchored-${useId()}-trigger`;
+  const triggerId = `louis-anchored-${useId()}-trigger`;
 
   const onOpenChangeRef = useRef(onOpenChange);
   onOpenChangeRef.current = onOpenChange;

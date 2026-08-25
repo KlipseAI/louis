@@ -9,8 +9,8 @@ import "@klipse-design/css/tokens.css";
 import "@klipse-design/css/styles.css";
 
 function iconButtonIn(root: ParentNode = document): HTMLButtonElement {
-  const found = root.querySelector("button.kds-icon-button");
-  if (found === null) throw new Error("kds-icon-button을 찾지 못했습니다");
+  const found = root.querySelector("button.louis-icon-button");
+  if (found === null) throw new Error("louis-icon-button을 찾지 못했습니다");
   return found as HTMLButtonElement;
 }
 
@@ -38,7 +38,7 @@ test("md가 40×40, sm이 32×32 정사각이다", async () => {
 });
 
 test("시각 크기와 무관하게 히트 영역이 44×44 이상이다", async () => {
-  // .kds-hit-target이 중앙에 보이지 않는 의사 요소를 깐다. 시각 32px이어도 히트는 44px다.
+  // .louis-hit-target이 중앙에 보이지 않는 의사 요소를 깐다. 시각 32px이어도 히트는 44px다.
   await render(
     <IconButton label="닫기" size="sm">
       <IconX />
@@ -68,9 +68,9 @@ test("내부 아이콘이 accessibility tree에 노출되지 않는다", async (
       <IconTrashSimple />
     </IconButton>,
   );
-  const glyph = iconButtonIn().querySelector(".kds-icon-button__glyph");
+  const glyph = iconButtonIn().querySelector(".louis-icon-button__glyph");
   expect(glyph?.getAttribute("aria-hidden")).toBe("true");
-  const icon = iconButtonIn().querySelector("svg.kds-icon");
+  const icon = iconButtonIn().querySelector("svg.louis-icon");
   expect(icon?.getAttribute("aria-label")).toBeNull();
   expect(icon?.getAttribute("role")).toBeNull();
 });
@@ -144,7 +144,7 @@ test("두 size의 글리프 계산 박스가 모두 20px다", async () => {
   for (const testId of ["md", "sm"]) {
     const glyph = document
       .querySelector(`[data-testid="${testId}"]`)
-      ?.querySelector(".kds-icon-button__glyph");
+      ?.querySelector(".louis-icon-button__glyph");
     if (!glyph) throw new Error(`${testId} 글리프를 찾지 못했습니다`);
     const box = glyph.getBoundingClientRect();
     expect(box.width, `${testId} glyph width`).toBe(20);
@@ -160,8 +160,8 @@ test("Button을 아이콘 전용으로 쓰면 정사각이 되지 않는다 — 
       {null}
     </Button>,
   );
-  const button = document.querySelector("button.kds-button");
-  if (button === null) throw new Error("kds-button을 찾지 못했습니다");
+  const button = document.querySelector("button.louis-button");
+  if (button === null) throw new Error("louis-button을 찾지 못했습니다");
   const box = button.getBoundingClientRect();
   expect(box.width).not.toBe(box.height);
   expect(box.width).toBeGreaterThan(box.height);
@@ -177,7 +177,7 @@ test("토글이 켜진 상태를 hover가 덮지 않는다", async () => {
       <IconTrashSimple />
     </IconButton>,
   );
-  const node = document.querySelector("button.kds-icon-button");
+  const node = document.querySelector("button.louis-icon-button");
   if (node === null) throw new Error("IconButton을 찾지 못했습니다");
   const resting = getComputedStyle(node).backgroundColor;
   await userEvent.hover(node);

@@ -177,7 +177,7 @@ export function ActionMenuContent({
       childList: true,
       subtree: true,
       // style을 넣지 않는다 — positioner의 매 위치 갱신이 observer를 깨운다.
-      attributeFilter: ["disabled", "aria-disabled", "hidden", "data-kds-menu-skip"],
+      attributeFilter: ["disabled", "aria-disabled", "hidden", "data-louis-menu-skip"],
     });
 
     // opening 동안 목록은 visibility:hidden 때문에 비어 있었다. open 진입에서 반드시 다시 돈다.
@@ -199,7 +199,7 @@ export function ActionMenuContent({
   if (!overlay.mounted) return null;
 
   const label = resolvePanelLabel(panelLabel, overlay.ids, triggerId);
-  const classes = ["kds-popover", "kds-menu", className].filter(Boolean).join(" ");
+  const classes = ["louis-popover", "louis-menu", className].filter(Boolean).join(" ");
 
   return (
     <Surface

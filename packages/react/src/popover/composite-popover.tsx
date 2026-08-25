@@ -88,7 +88,7 @@ export function CompositePopoverContent({
   if (!overlay.mounted) return null;
 
   const label = resolvePanelLabel(panelLabel, ids, triggerId);
-  const classes = ["kds-popover", className].filter(Boolean).join(" ");
+  const classes = ["louis-popover", className].filter(Boolean).join(" ");
 
   return (
     <Surface
@@ -123,7 +123,7 @@ export function CompositePopoverTitle({
       {...rest}
       ref={ref}
       id={overlay.ids.title}
-      className={["kds-popover__title", className].filter(Boolean).join(" ")}
+      className={["louis-popover__title", className].filter(Boolean).join(" ")}
     >
       {children}
     </Tag>

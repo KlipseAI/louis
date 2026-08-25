@@ -1,6 +1,6 @@
 /* base — 컴포넌트가 공유하는 최소 유틸리티.
  *
- * DS-D-0004: 전역 선택자를 쓰지 않는다. 값은 --kds-* 변수로만 참조하고 숫자 z-index를 쓰지 않는다.
+ * DS-D-0004: 전역 선택자를 쓰지 않는다. 값은 --louis-* 변수로만 참조하고 숫자 z-index를 쓰지 않는다.
  */
 
 /* 헤어라인 — 0.5px inset stroke recipe (DS-D-0023).
@@ -12,23 +12,23 @@
  * `border-width-hairline`(0.5px)이다. divider처럼 한 면만 필요하면 방향성 변형을 쓴다.
  *
  * **컴포넌트마다 shadow 문자열을 복사하지 않는다.** 한 곳에서 선언하고 var()로 참조한다.
- * elevation이 있는 표면은 `box-shadow: var(--kds-elevation-*), var(--kds-hairline-inset)`처럼
+ * elevation이 있는 표면은 `box-shadow: var(--louis-elevation-*), var(--louis-hairline-inset)`처럼
  * ambient/drop shadow 뒤에 조합한다. forced-colors에서는 box-shadow가 사라지므로 각 컴포넌트가
  * 시스템 색 border/outline로 되살린다.
  *
  * 곱셈(`*`) 기호는 저작 게이트의 전역 선택자 패턴에 걸리므로 block-end는 `calc(0px - …)`로 뺀다. */
 :root {
-  --kds-hairline-inset:
-    inset 0 0 0 var(--kds-border-width-hairline) var(--kds-color-stroke-hairline);
-  --kds-hairline-inset-block-start:
-    inset 0 var(--kds-border-width-hairline) 0 var(--kds-color-stroke-hairline);
-  --kds-hairline-inset-block-end:
-    inset 0 calc(0px - var(--kds-border-width-hairline)) 0 var(--kds-color-stroke-hairline);
+  --louis-hairline-inset:
+    inset 0 0 0 var(--louis-border-width-hairline) var(--louis-color-stroke-hairline);
+  --louis-hairline-inset-block-start:
+    inset 0 var(--louis-border-width-hairline) 0 var(--louis-color-stroke-hairline);
+  --louis-hairline-inset-block-end:
+    inset 0 calc(0px - var(--louis-border-width-hairline)) 0 var(--louis-color-stroke-hairline);
 }
 
 /* 시각적으로 숨기되 accessibility tree에는 남긴다.
  * dialog.md의 accessible description, button.md의 icon-only accessible name이 이 유틸을 쓴다. */
-.kds-visually-hidden {
+.louis-visually-hidden {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -47,75 +47,75 @@
  * (0 0 0 3px 파랑 42%) 소비처가 하나도 없다. 링을 outline으로 그리는 이유는 셋이다 —
  * overflow에 잘리지 않고, border-radius를 따라가며, forced-colors에서 시스템 색으로 바뀐다.
  * 토큰의 처리는 owner 결정이 필요하다(Figma effect style로도 발행돼 있다). */
-.kds-focus-ring:focus-visible {
-  outline: var(--kds-border-width-ring) solid var(--kds-color-stroke-focus);
+.louis-focus-ring:focus-visible {
+  outline: var(--louis-border-width-ring) solid var(--louis-color-stroke-focus);
   /* 링과 요소 사이의 틈. 2px 간격 토큰이 spacing 축에 없어 리터럴을 한 줄에 격리한다. */
   outline-offset: 2px;
 }
 
 /* forced-colors에서는 시스템 색이 이기도록 비운다. 링 자체는 남긴다. */
 @media (forced-colors: active) {
-  .kds-focus-ring:focus-visible {
+  .louis-focus-ring:focus-visible {
     outline-color: Highlight;
   }
 }
 
 /* 최소 hit target — button.md의 44px 내부 기준(WCAG 2.2 AA는 24px, 44px는 AAA).
  * 시각 크기는 그대로 두고 타깃만 넓힌다. */
-.kds-hit-target {
+.louis-hit-target {
   position: relative;
 }
 
-.kds-hit-target::after {
+.louis-hit-target::after {
   content: "";
   position: absolute;
   top: 50%;
   left: 50%;
   translate: -50% -50%;
-  width: max(100%, var(--kds-layout-control-hit-target-minimum));
-  height: max(100%, var(--kds-layout-control-hit-target-minimum));
+  width: max(100%, var(--louis-layout-control-hit-target-minimum));
+  height: max(100%, var(--louis-layout-control-hit-target-minimum));
 }
 
 /* overlay가 놓이는 stacking 문맥. 숫자 z-index 대신 layer 토큰만 쓴다. */
 /* sticky 층 — 앱 셸의 navigation rail과 top chrome이 쓴다. 토큰만 있고 쓸 클래스가 없어
  * 셸을 짓는 사람이 숫자를 쓰게 되어 있었다 (DS-D-0018). */
-.kds-layer-sticky {
-  z-index: var(--kds-layer-sticky);
+.louis-layer-sticky {
+  z-index: var(--louis-layer-sticky);
 }
-.kds-layer-popover {
-  z-index: var(--kds-layer-popover);
-}
-
-.kds-layer-modal {
-  z-index: var(--kds-layer-modal);
+.louis-layer-popover {
+  z-index: var(--louis-layer-popover);
 }
 
-.kds-layer-critical {
-  z-index: var(--kds-layer-critical);
+.louis-layer-modal {
+  z-index: var(--louis-layer-modal);
+}
+
+.louis-layer-critical {
+  z-index: var(--louis-layer-critical);
 }
 
 /* 위치가 확정되기 전에는 보이지도 hit-test되지도 않는다.
  * menu-popover.md: 임시 top/right 위치를 한 프레임도 노출하지 않는다.
  * visibility를 쓰는 이유는 display:none이면 enter transition의 시작 프레임이 사라지기 때문이다. */
-[data-kds-state="opening"] {
+[data-louis-state="opening"] {
   visibility: hidden;
   pointer-events: none;
 }
 
 /* closing 중인 layer는 아래 control의 hit test를 막지 않는다.
  * elevation-layer.md: 투명하거나 closing 중인 layer가 pointer/focus를 가로채면 실패다. */
-[data-kds-state="closing"] {
+[data-louis-state="closing"] {
   pointer-events: none;
 }
 
-[data-kds-state="closed"] {
+[data-louis-state="closed"] {
   display: none;
 }
 
 /* modal이 scroll owner를 잠근다. 잠금 대상은 body 고정이 아니라 overlay layer가 지정한 요소다.
  * dialog.md: 기존 inline style을 보존하고 닫힌 뒤 복원한다 — 복원은 JS가 하고 여기서는 잠금만
  * 표현한다. 속성 선택자라 잠금 여부가 DOM에서 그대로 읽히고 테스트가 상태를 직접 볼 수 있다. */
-[data-kds-scroll-locked="true"] {
+[data-louis-scroll-locked="true"] {
   overflow: hidden;
 }
 
@@ -127,7 +127,7 @@
  *
  * `transform: rotate()`가 아니라 개별 속성 `rotate`인 이유는 motion.md의 loop 절이 그것을
  * 허용 property로 선언했기 때문이다 — `scale`·`translate`와 합성된다. */
-@keyframes kds-spin {
+@keyframes louis-spin {
   to {
     rotate: 360deg;
   }

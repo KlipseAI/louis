@@ -1200,7 +1200,7 @@
       "figma": "partial",
       "web": "partial",
       "docs": "done",
-      "note": "public export, Figma component set 2 variant(Size), parity 게이트가 Track·Arc를 자손으로 대조한다. 실브라우저 acceptance test 8건이 두 motion context에서 각각 돈다. 제품의 로딩 표현은 약 62벌이지만 공용 LoadingSpinner가 정본이고 그 recipe(700ms · linear)가 motion-loop와 정확히 같다. 회전 keyframe은 base.css의 공용 kds-spin 하나이며 Button·Menu도 그것을 가리킨다. determinate 진행률·스켈레톤·텍스트 쉬머는 별도 컴포넌트이며 아직 없다",
+      "note": "public export, Figma component set 2 variant(Size), parity 게이트가 Track·Arc를 자손으로 대조한다. 실브라우저 acceptance test 8건이 두 motion context에서 각각 돈다. 제품의 로딩 표현은 약 62벌이지만 공용 LoadingSpinner가 정본이고 그 recipe(700ms · linear)가 motion-loop와 정확히 같다. 회전 keyframe은 base.css의 공용 louis-spin 하나이며 Button·Menu도 그것을 가리킨다. determinate 진행률·스켈레톤·텍스트 쉬머는 별도 컴포넌트이며 아직 없다",
       "doc": "design/components/spinner.md",
       "figmaName": "Spinner"
     },

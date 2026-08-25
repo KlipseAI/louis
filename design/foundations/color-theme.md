@@ -132,7 +132,7 @@ DS-D-0010은 `[data-page-root]` 같은 DOM 상태 스코프를 토큰 축이 아
   `-webkit-text-fill-color`를 `--caption-tone`에서 되돌린다(`ImageNode.tsx:353`). 네 노드가 같은 패턴이다.
 - Tts/Bgm(audio) 노드에는 이 생성 중 아이콘·캡션 accent가 없다. audio는 영역 차오름으로 진행을 표시한다.
 
-**토큰 결손 두 건.** KDS에 `color-sky-*` 램프가 없다 — `color-blue-500`(`#0088ff`)은 제품 sky-500
+**토큰 결손 두 건.** LOUIS에 `color-sky-*` 램프가 없다 — `color-blue-500`(`#0088ff`)은 제품 sky-500
 `#0ea5e9`와 다른 색이므로 Video를 blue로 매핑하면 틀린다. 그리고
 `color-node-video-icon`·`color-node-video-surface`가 없다 — video는 `color-node-video-accent` 하나뿐이고
 나머지 매체는 icon·surface·accent 세 벌을 갖는다. Video 노드를 그리려면 sky 램프를 먼저 세운다.
@@ -149,7 +149,7 @@ DS-D-0010은 `[data-page-root]` 같은 DOM 상태 스코프를 토큰 축이 아
 제품의 인라인 오류 박스는 danger 색 하나를 **알파 두 칸으로** 쓴다. 면 8%, 테두리 16%로 정확히 1:2다.
 두 알파 모두 DS-D-0010이 정규화한 10단 알파 사다리 위 칸이므로 새 값이 아니다.
 
-| 부위 | 제품 값 | KDS 소유자 |
+| 부위 | 제품 값 | LOUIS 소유자 |
 | --- | --- | --- |
 | 면 | `rgb(var(--accent-red-500-rgb) / 8%)` | 없음 — `color-bg-danger`는 불투명 틴트다 |
 | 테두리 | `1px solid rgb(var(--accent-red-500-rgb) / 16%)` | 없음 — `color-stroke-danger`는 불투명 `#ff4b59`다 |

@@ -50,7 +50,7 @@ function Demo({
       >
         <DialogSurface>
           <DialogHeader>
-            <div className="kds-dialog__heading">
+            <div className="louis-dialog__heading">
               <DialogTitle>프로젝트를 삭제할까요?</DialogTitle>
               <DialogDescription>
                 삭제하면 되돌릴 수 없습니다. 함께 업로드한 원본도 사라집니다.
@@ -97,7 +97,7 @@ export const Task: Story = {
         <Dialog open={open} variant="task" onOpenChange={setOpen}>
           <DialogSurface>
             <DialogHeader>
-              <div className="kds-dialog__heading">
+              <div className="louis-dialog__heading">
                 <DialogTitle>프로젝트 이름</DialogTitle>
               </div>
               <DialogClose label="닫기" />

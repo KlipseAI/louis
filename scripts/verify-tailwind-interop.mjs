@@ -70,7 +70,7 @@ const productTheme = execFileSync("git", ["show", productRef + ":apps/web/app/ta
   // 이렇게 해야 이 게이트가 재려던 것(제품 reset이 DS를 지우는가)을 계속 잰다.
   .replace(/@import\s+"@klipse-design\/css\/theme\.css"[^;]*;/g, "");
 
-const workspace = mkdtempSync(join(tmpdir(), "kds-tailwind-interop-"));
+const workspace = mkdtempSync(join(tmpdir(), "louis-tailwind-interop-"));
 const failures = [];
 try {
   // 제품 진입 CSS가 이 저장소의 패키지를 @import 한다 — 그 파일을 작업공간에 놓아 준다.

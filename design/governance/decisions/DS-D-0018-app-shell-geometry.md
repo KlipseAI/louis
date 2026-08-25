@@ -9,7 +9,7 @@ authority: normative
 - Status: proposed
 - Date: 2026-08-17
 - Owners: repository owner, token maintainer
-- Affects: `layout-app-shell-sidebar-minimum`(breaking rename), 앱 셸 토큰 3종(additive), `.kds-layer-sticky`, SidebarNavItem·AppTopBar
+- Affects: `layout-app-shell-sidebar-minimum`(breaking rename), 앱 셸 토큰 3종(additive), `.louis-layer-sticky`, SidebarNavItem·AppTopBar
 
 ## Context
 
@@ -29,7 +29,7 @@ authority: normative
 
 `migration/token-mapping.md`에 이 토큰의 매핑 행이 **없다** — 출처 없이 생긴 토큰이다.
 `radius-card`·`elevation-focus-ring`과 같은 종류이며, 다음 사람이
-`inline-size: max(var(--kds-layout-app-shell-sidebar-minimum), …)`이라고 쓰면 제품에 존재한 적 없는
+`inline-size: max(var(--louis-layout-app-shell-sidebar-minimum), …)`이라고 쓰면 제품에 존재한 적 없는
 120px 사이드바가 생긴다.
 
 **정작 필요한 값이 없다.** 사이드바 펼침 280 · 접힘 56 · 상단 크롬 행 40 셋이 토큰에 없어
@@ -42,7 +42,7 @@ SidebarNavItem과 AppTopBar를 지을 수 없다.
 2. **`layout-app-shell-sidebar-width` 280px** 신설. 사이드바 펼침 폭.
 3. **`layout-app-shell-sidebar-collapsed` 56px** 신설. 접힘 폭.
 4. **`layout-app-shell-top-bar-height` 40px** 신설. 상단 크롬 행 높이.
-5. **`.kds-layer-sticky` 유틸리티**를 `base.css`에 추가한다. 토큰은 있는데 쓸 클래스가 없어
+5. **`.louis-layer-sticky` 유틸리티**를 `base.css`에 추가한다. 토큰은 있는데 쓸 클래스가 없어
    셸을 짓는 사람이 숫자를 쓰게 되어 있었다.
 
 280과 56은 primitive spacing에 없으므로 함께 세운다(`spacing.280`, `spacing.56`).
@@ -81,12 +81,12 @@ popover에 가린다. **이 결정은 드로어를 다루지 않는다** — 드
 ## Rollback
 
 세 토큰과 두 primitive를 지우고 `content-reserve`를 `sidebar-minimum`으로 되돌린다.
-`.kds-layer-sticky` 규칙 세 줄을 뺀다.
+`.louis-layer-sticky` 규칙 세 줄을 뺀다.
 
 ## Acceptance tests
 
 1. `layout-app-shell-sidebar-width` 280px, `-sidebar-collapsed` 56px, `-top-bar-height` 40px가
    생성된다.
 2. `layout-app-shell-sidebar-minimum`이 더 이상 생성되지 않고 `-content-reserve`가 그 자리를 갖는다.
-3. `.kds-layer-sticky`의 `z-index`가 `layer-sticky` 토큰에서 온다.
+3. `.louis-layer-sticky`의 `z-index`가 `layer-sticky` 토큰에서 온다.
 4. `diff-tokens.mjs`가 removal 1 · additive 5로 분류하고 baseline 갱신 후 통과한다.

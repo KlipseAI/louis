@@ -94,7 +94,7 @@ Icon Button은 `active`(누르는 중)와 `pressed`(토글 켜짐)를 **둘 다*
 
 ## Interaction and responsive behavior
 
-- **시각 크기와 hit area를 분리한다.** 컴포넌트가 `.kds-hit-target`을 직접 붙이므로, sm이 32×32로
+- **시각 크기와 hit area를 분리한다.** 컴포넌트가 `.louis-hit-target`을 직접 붙이므로, sm이 32×32로
   보여도 실제 히트 영역은 44×44다 — 보이지 않는 의사 요소가 중앙에 깔린다
   ([Inclusive Design](../foundations/inclusive-design.md)). 호출부가 따로 감쌀 필요가 없다.
 - 뷰포트로 크기를 자동 전환하지 않는다. 밀집도는 화면 폭이 아니라 **그 자리의 역할**이 정한다.
@@ -111,7 +111,7 @@ Icon Button은 `active`(누르는 중)와 `pressed`(토글 켜짐)를 **둘 다*
 - 아이콘은 항상 `aria-hidden`이다. Icon Button이 감싸는 span이 그것을 보장한다.
 - `pressed`를 준 경우에만 `aria-pressed`가 붙는다. 주지 않으면 속성 자체가 없다 — `false`를 늘
   붙이면 일반 버튼이 토글로 노출된다.
-- focus ring은 `.kds-focus-ring`이 소유한다.
+- focus ring은 `.louis-focus-ring`이 소유한다.
 
 ## Specification
 
@@ -128,7 +128,7 @@ Icon Button은 `active`(누르는 중)와 `pressed`(토글 켜짐)를 **둘 다*
 
 - `packages/react/src/icon-button/icon-button.tsx`
 - `packages/css/src/component/icon-button.css`
-- variant/state 시각은 `.kds-button`의 규칙을 재사용하지 않고 자체 선택자를 갖는다. 공유하면
+- variant/state 시각은 `.louis-button`의 규칙을 재사용하지 않고 자체 선택자를 갖는다. 공유하면
   Button의 padding 계약이 정사각 계약과 충돌한다.
 
 ## Known deviations

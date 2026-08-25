@@ -24,7 +24,7 @@ const TRANSPARENT = "rgba(0, 0, 0, 0)";
 /** 토큰의 계산값을 얻는다. 이름이 아니라 값으로 비교하기 위한 것이다. */
 function tokenValue(id: string, property: "background-color" | "color"): string {
   const probe = document.createElement("div");
-  probe.style.setProperty(property, `var(--kds-${id})`);
+  probe.style.setProperty(property, `var(--louis-${id})`);
   document.body.append(probe);
   const value =
     property === "color"
@@ -81,7 +81,7 @@ for (const variant of VARIANTS) {
           </IconButton>,
           { container: host },
         );
-        const node = host.querySelector("button.kds-icon-button");
+        const node = host.querySelector("button.louis-icon-button");
         if (node === null) throw new Error("IconButton을 찾지 못했습니다");
         const expected = spec[state];
         if (expected === undefined) throw new Error(`states 표에 ${state}가 없습니다`);
@@ -101,7 +101,7 @@ for (const variant of VARIANTS) {
         </IconButton>,
         { container: host },
       );
-      const node = host.querySelector("button.kds-icon-button");
+      const node = host.querySelector("button.louis-icon-button");
       if (node === null) throw new Error("IconButton을 찾지 못했습니다");
       await userEvent.hover(node);
       const expected = spec.Hover;
@@ -134,7 +134,7 @@ for (const variant of VARIANTS) {
           </Button>,
           { container: host },
         );
-        const node = host.querySelector("button.kds-button");
+        const node = host.querySelector("button.louis-button");
         if (node === null) throw new Error("Button을 찾지 못했습니다");
         const expected = spec[state];
         if (expected === undefined) throw new Error(`states 표에 ${state}가 없습니다`);
@@ -148,7 +148,7 @@ for (const variant of VARIANTS) {
     document.body.append(host);
     try {
       await render(<Button variant={variant}>저장</Button>, { container: host });
-      const node = host.querySelector("button.kds-button");
+      const node = host.querySelector("button.louis-button");
       if (node === null) throw new Error("Button을 찾지 못했습니다");
       await userEvent.hover(node);
       const expected = spec.Hover;

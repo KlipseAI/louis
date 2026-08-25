@@ -56,7 +56,7 @@ export function Checkbox({
   });
 
   return (
-    <label className={join("kds-checkbox", className)}>
+    <label className={join("louis-checkbox", className)}>
       <input
         {...rest}
         ref={(node) => {
@@ -65,7 +65,7 @@ export function Checkbox({
           else if (ref !== null && ref !== undefined) ref.current = node;
         }}
         type="checkbox"
-        className="kds-checkbox__control"
+        className="louis-checkbox__control"
         checked={checked}
         defaultChecked={defaultChecked}
         disabled={disabled}
@@ -76,7 +76,7 @@ export function Checkbox({
         }}
       />
       {label === undefined ? null : (
-        <span className="kds-checkbox__label">{label}</span>
+        <span className="louis-checkbox__label">{label}</span>
       )}
     </label>
   );

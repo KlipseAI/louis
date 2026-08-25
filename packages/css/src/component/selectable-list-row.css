@@ -17,131 +17,131 @@
  * 색 하나로 상태를 전달하지 않는 것은 그 자체로도 맞다.
  */
 
-.kds-selectable-list-row {
+.louis-selectable-list-row {
   position: relative;
   box-sizing: border-box;
   display: flex;
   align-items: center;
-  gap: var(--kds-space-control-sm);
+  gap: var(--louis-space-control-sm);
   inline-size: 100%;
   min-inline-size: 0;
   margin: 0;
-  padding: var(--kds-space-control-sm);
+  padding: var(--louis-space-control-sm);
   border: 0;
-  border-radius: var(--kds-radius-overlay-item);
+  border-radius: var(--louis-radius-overlay-item);
   background: none;
-  color: var(--kds-color-fg-secondary);
+  color: var(--louis-color-fg-secondary);
   text-align: start;
   cursor: pointer;
-  font-family: var(--kds-typography-body-sm-medium-font-family);
-  font-size: var(--kds-typography-body-sm-medium-font-size);
-  font-weight: var(--kds-typography-body-sm-medium-font-weight);
-  line-height: var(--kds-typography-body-sm-medium-line-height);
-  letter-spacing: var(--kds-typography-body-sm-medium-letter-spacing);
+  font-family: var(--louis-typography-body-sm-medium-font-family);
+  font-size: var(--louis-typography-body-sm-medium-font-size);
+  font-weight: var(--louis-typography-body-sm-medium-font-weight);
+  line-height: var(--louis-typography-body-sm-medium-line-height);
+  letter-spacing: var(--louis-typography-body-sm-medium-letter-spacing);
 }
 
-.kds-selectable-list-row:hover {
-  background: var(--kds-color-accent-ghost-hover);
-  color: var(--kds-color-fg-primary);
+.louis-selectable-list-row:hover {
+  background: var(--louis-color-accent-ghost-hover);
+  color: var(--louis-color-fg-primary);
 }
 
 /* **`aria-current`가 선택을 소유한다.** SidebarNavItem과 같은 판정이다 — 시각 전용 속성을 두면
  * 화면에는 선택으로 보이는데 보조기술에는 아무것도 전달되지 않는 상태를 만들 수 있다. */
-.kds-selectable-list-row[aria-current="true"] {
-  background: var(--kds-color-bg-inset);
-  color: var(--kds-color-fg-primary);
+.louis-selectable-list-row[aria-current="true"] {
+  background: var(--louis-color-bg-inset);
+  color: var(--louis-color-fg-primary);
 }
 
 /* 선행 표식. 면이 배경과 같아지는 테마에서도 선택이 남고, 색 하나에 기대지 않게 한다. */
-.kds-selectable-list-row[aria-current="true"]::before {
+.louis-selectable-list-row[aria-current="true"]::before {
   content: "";
   position: absolute;
   inset-inline-start: 0;
-  inset-block: var(--kds-space-control-sm);
+  inset-block: var(--louis-space-control-sm);
   inline-size: 3px;
-  border-radius: var(--kds-radius-pill);
-  background: var(--kds-color-accent-primary);
+  border-radius: var(--louis-radius-pill);
+  background: var(--louis-color-accent-primary);
 }
 
 @media (forced-colors: active) {
   /* forced-colors에서 면과 표식이 모두 시스템 색으로 치환된다. 테두리로 다시 세운다. */
-  .kds-selectable-list-row[aria-current="true"] {
-    outline: var(--kds-border-width-hairline) solid CanvasText;
+  .louis-selectable-list-row[aria-current="true"] {
+    outline: var(--louis-border-width-hairline) solid CanvasText;
   }
 }
 
-.kds-selectable-list-row:focus-visible {
-  outline: var(--kds-border-width-ring) solid var(--kds-color-stroke-focus);
+.louis-selectable-list-row:focus-visible {
+  outline: var(--louis-border-width-ring) solid var(--louis-color-stroke-focus);
   outline-offset: 2px;
 }
 
 @media (forced-colors: active) {
-  .kds-selectable-list-row:focus-visible {
+  .louis-selectable-list-row:focus-visible {
     outline-color: Highlight;
   }
 }
 
-.kds-selectable-list-row:disabled {
-  color: var(--kds-color-fg-disabled);
+.louis-selectable-list-row:disabled {
+  color: var(--louis-color-fg-disabled);
   cursor: not-allowed;
 }
 
-.kds-selectable-list-row:disabled:hover {
+.louis-selectable-list-row:disabled:hover {
   background: none;
-  color: var(--kds-color-fg-disabled);
+  color: var(--louis-color-fg-disabled);
 }
 
 /* 선행 슬롯. 썸네일이 들어가며 크기는 호출부가 정한다 — 96px(하이라이트)처럼 화면마다 다르다. */
-.kds-selectable-list-row__media {
+.louis-selectable-list-row__media {
   display: inline-flex;
   flex: none;
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  border-radius: var(--kds-radius-control-sm);
+  border-radius: var(--louis-radius-control-sm);
 }
 
 /* 글자 묶음. 줄바꿈이 아니라 말줄임으로 줄어든다 — 행 높이가 항목마다 달라지면 목록이 튄다. */
-.kds-selectable-list-row__text {
+.louis-selectable-list-row__text {
   display: flex;
   flex: 1 1 auto;
   flex-direction: column;
-  gap: var(--kds-space-stack-xs);
+  gap: var(--louis-space-stack-xs);
   min-inline-size: 0;
   overflow: hidden;
 }
 
-.kds-selectable-list-row__title {
+.louis-selectable-list-row__title {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
-.kds-selectable-list-row__meta {
+.louis-selectable-list-row__meta {
   overflow: hidden;
-  color: var(--kds-color-fg-secondary);
+  color: var(--louis-color-fg-secondary);
   text-overflow: ellipsis;
   white-space: nowrap;
-  font-family: var(--kds-typography-caption-regular-font-family);
-  font-size: var(--kds-typography-caption-regular-font-size);
-  font-weight: var(--kds-typography-caption-regular-font-weight);
-  line-height: var(--kds-typography-caption-regular-line-height);
-  letter-spacing: var(--kds-typography-caption-regular-letter-spacing);
+  font-family: var(--louis-typography-caption-regular-font-family);
+  font-size: var(--louis-typography-caption-regular-font-size);
+  font-weight: var(--louis-typography-caption-regular-font-weight);
+  line-height: var(--louis-typography-caption-regular-line-height);
+  letter-spacing: var(--louis-typography-caption-regular-letter-spacing);
 }
 
 /* 선택된 행에서도 보조 문구는 한 단계 낮게 남는다. 둘 다 primary가 되면 위계가 사라진다. */
-.kds-selectable-list-row[aria-current="true"] .kds-selectable-list-row__meta {
-  color: var(--kds-color-fg-secondary);
+.louis-selectable-list-row[aria-current="true"] .louis-selectable-list-row__meta {
+  color: var(--louis-color-fg-secondary);
 }
 
-.kds-selectable-list-row:disabled .kds-selectable-list-row__meta {
-  color: var(--kds-color-fg-disabled);
+.louis-selectable-list-row:disabled .louis-selectable-list-row__meta {
+  color: var(--louis-color-fg-disabled);
 }
 
 /* 후행 슬롯. 시간·개수 같은 짧은 값이 들어간다. 버튼은 넣지 않는다 — 행 자체가 버튼이다. */
-.kds-selectable-list-row__trailing {
+.louis-selectable-list-row__trailing {
   display: inline-flex;
   flex: none;
   align-items: center;
-  color: var(--kds-color-fg-secondary);
+  color: var(--louis-color-fg-secondary);
 }

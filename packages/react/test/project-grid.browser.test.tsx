@@ -13,11 +13,11 @@ import "@klipse-design/css/styles.css";
 const px = (value: string): number => Number.parseFloat(value);
 
 function scope(): ParentNode {
-  const groups = document.querySelectorAll("[data-kds-fixture]");
+  const groups = document.querySelectorAll("[data-louis-fixture]");
   return groups.length > 0 ? groups[groups.length - 1]! : document;
 }
 const grid = (): HTMLElement => {
-  const node = scope().querySelector(".kds-project-grid");
+  const node = scope().querySelector(".louis-project-grid");
   if (node === null) throw new Error("grid를 찾지 못했습니다");
   return node as HTMLElement;
 };
@@ -25,12 +25,12 @@ const columns = (): number =>
   getComputedStyle(grid()).gridTemplateColumns.split(" ").filter(Boolean).length;
 
 const token = (id: string): number =>
-  px(getComputedStyle(document.documentElement).getPropertyValue(`--kds-${id}`));
+  px(getComputedStyle(document.documentElement).getPropertyValue(`--louis-${id}`));
 
 async function mount(width: number, count = 12): Promise<void> {
   await render(
-    <div data-kds-fixture style={{ inlineSize: `${width}px` }}>
-      <div className="kds-project-grid">
+    <div data-louis-fixture style={{ inlineSize: `${width}px` }}>
+      <div className="louis-project-grid">
         {Array.from({ length: count }, (_, i) => (
           <div key={i} data-card style={{ blockSize: "40px", background: "#ddd" }} />
         ))}

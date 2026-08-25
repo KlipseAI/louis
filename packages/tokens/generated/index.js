@@ -7912,7 +7912,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-blur-panel": "12px"
+        "--louis-blur-panel": "12px"
       },
       "deprecated": null,
       "description": null,
@@ -7933,7 +7933,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-blur-surface": "10px"
+        "--louis-blur-surface": "10px"
       },
       "deprecated": null,
       "description": null,
@@ -7954,7 +7954,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-blur-toast": "16px"
+        "--louis-blur-toast": "16px"
       },
       "deprecated": null,
       "description": null,
@@ -7975,7 +7975,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-border-width-default": "1px"
+        "--louis-border-width-default": "1px"
       },
       "deprecated": null,
       "description": null,
@@ -7996,7 +7996,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-border-width-hairline": "0.5px"
+        "--louis-border-width-hairline": "0.5px"
       },
       "deprecated": null,
       "description": null,
@@ -8017,7 +8017,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-border-width-ring": "2px"
+        "--louis-border-width-ring": "2px"
       },
       "deprecated": null,
       "description": null,
@@ -8038,7 +8038,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-elevation-focus-ring": "0px 0px 0px 3px color(srgb 0 0.533333 1 / 0.42)"
+        "--louis-elevation-focus-ring": "0px 0px 0px 3px color(srgb 0 0.533333 1 / 0.42)"
       },
       "deprecated": null,
       "description": null,
@@ -8083,7 +8083,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-elevation-modal": "0px 16px 48px -8px color(srgb 0 0 0 / 0.22)"
+        "--louis-elevation-modal": "0px 16px 48px -8px color(srgb 0 0 0 / 0.22)"
       },
       "deprecated": null,
       "description": null,
@@ -8128,7 +8128,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-elevation-popover": "0px 8px 24px -4px color(srgb 0 0 0 / 0.14)"
+        "--louis-elevation-popover": "0px 8px 24px -4px color(srgb 0 0 0 / 0.14)"
       },
       "deprecated": null,
       "description": null,
@@ -8173,7 +8173,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-elevation-surface": "0px 2px 8px 0px color(srgb 0 0 0 / 0.06)"
+        "--louis-elevation-surface": "0px 2px 8px 0px color(srgb 0 0 0 / 0.06)"
       },
       "deprecated": null,
       "description": null,
@@ -8218,7 +8218,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-elevation-toast": "0px 8px 20px 0px color(srgb 0 0 0 / 0.16)"
+        "--louis-elevation-toast": "0px 8px 20px 0px color(srgb 0 0 0 / 0.16)"
       },
       "deprecated": null,
       "description": null,
@@ -8265,7 +8265,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-icon-size-lg": "24px"
+        "--louis-icon-size-lg": "24px"
       },
       "deprecated": null,
       "description": null,
@@ -8286,7 +8286,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-icon-size-md": "20px"
+        "--louis-icon-size-md": "20px"
       },
       "deprecated": null,
       "description": null,
@@ -8307,7 +8307,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-icon-size-sm": "16px"
+        "--louis-icon-size-sm": "16px"
       },
       "deprecated": null,
       "description": null,
@@ -8328,7 +8328,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-icon-size-xl": "64px"
+        "--louis-icon-size-xl": "64px"
       },
       "deprecated": null,
       "description": null,
@@ -8349,7 +8349,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-layer-content": "0"
+        "--louis-layer-content": "0"
       },
       "deprecated": null,
       "description": null,
@@ -8367,7 +8367,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-layer-critical": "400"
+        "--louis-layer-critical": "400"
       },
       "deprecated": null,
       "description": null,
@@ -8385,7 +8385,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-layer-modal": "300"
+        "--louis-layer-modal": "300"
       },
       "deprecated": null,
       "description": null,
@@ -8403,7 +8403,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-layer-popover": "200"
+        "--louis-layer-popover": "200"
       },
       "deprecated": null,
       "description": null,
@@ -8421,7 +8421,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-layer-sticky": "100"
+        "--louis-layer-sticky": "100"
       },
       "deprecated": null,
       "description": null,
@@ -8439,7 +8439,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-layout-app-shell-brand-mark-height": "28px"
+        "--louis-layout-app-shell-brand-mark-height": "28px"
       },
       "deprecated": null,
       "description": null,
@@ -8460,7 +8460,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-layout-app-shell-content-inset": "16px"
+        "--louis-layout-app-shell-content-inset": "16px"
       },
       "deprecated": null,
       "description": null,
@@ -8481,7 +8481,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-layout-app-shell-content-reserve": "120px"
+        "--louis-layout-app-shell-content-reserve": "120px"
       },
       "deprecated": null,
       "description": null,
@@ -8502,7 +8502,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-layout-app-shell-outer-gap": "12px"
+        "--louis-layout-app-shell-outer-gap": "12px"
       },
       "deprecated": null,
       "description": null,
@@ -8523,7 +8523,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-layout-app-shell-sidebar-collapsed": "56px"
+        "--louis-layout-app-shell-sidebar-collapsed": "56px"
       },
       "deprecated": null,
       "description": null,
@@ -8544,7 +8544,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-layout-app-shell-sidebar-padding": "12px"
+        "--louis-layout-app-shell-sidebar-padding": "12px"
       },
       "deprecated": null,
       "description": null,
@@ -8565,7 +8565,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-layout-app-shell-sidebar-width": "280px"
+        "--louis-layout-app-shell-sidebar-width": "280px"
       },
       "deprecated": null,
       "description": null,
@@ -8586,7 +8586,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-layout-app-shell-top-bar-height": "40px"
+        "--louis-layout-app-shell-top-bar-height": "40px"
       },
       "deprecated": null,
       "description": null,
@@ -8607,7 +8607,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-layout-control-height-md": "40px"
+        "--louis-layout-control-height-md": "40px"
       },
       "deprecated": null,
       "description": null,
@@ -8628,7 +8628,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-layout-control-height-sm": "32px"
+        "--louis-layout-control-height-sm": "32px"
       },
       "deprecated": null,
       "description": null,
@@ -8649,7 +8649,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-layout-control-hit-target-minimum": "44px"
+        "--louis-layout-control-hit-target-minimum": "44px"
       },
       "deprecated": null,
       "description": null,
@@ -8670,7 +8670,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-layout-control-minimum-width-sm": "48px"
+        "--louis-layout-control-minimum-width-sm": "48px"
       },
       "deprecated": null,
       "description": null,
@@ -8691,7 +8691,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-layout-progress-bar-height": "6px"
+        "--louis-layout-progress-bar-height": "6px"
       },
       "deprecated": null,
       "description": null,
@@ -8712,7 +8712,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-layout-progress-bar-max-inline-size": "320px"
+        "--louis-layout-progress-bar-max-inline-size": "320px"
       },
       "deprecated": null,
       "description": null,
@@ -8733,7 +8733,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-layout-project-card-minimum": "240px"
+        "--louis-layout-project-card-minimum": "240px"
       },
       "deprecated": null,
       "description": null,
@@ -8754,7 +8754,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-layout-project-grid-gap": "12px"
+        "--louis-layout-project-grid-gap": "12px"
       },
       "deprecated": null,
       "description": null,
@@ -8775,9 +8775,9 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-motion-content-fade-duration": "300ms",
-        "--kds-motion-content-fade-delay": "0ms",
-        "--kds-motion-content-fade-timing-function": "cubic-bezier(0.25, 0.1, 0.25, 1)"
+        "--louis-motion-content-fade-duration": "300ms",
+        "--louis-motion-content-fade-delay": "0ms",
+        "--louis-motion-content-fade-timing-function": "cubic-bezier(0.25, 0.1, 0.25, 1)"
       },
       "deprecated": null,
       "description": null,
@@ -8810,9 +8810,9 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-motion-content-rise-duration": "360ms",
-        "--kds-motion-content-rise-delay": "0ms",
-        "--kds-motion-content-rise-timing-function": "cubic-bezier(0.22, 1, 0.36, 1)"
+        "--louis-motion-content-rise-duration": "360ms",
+        "--louis-motion-content-rise-delay": "0ms",
+        "--louis-motion-content-rise-timing-function": "cubic-bezier(0.22, 1, 0.36, 1)"
       },
       "deprecated": null,
       "description": null,
@@ -8845,9 +8845,9 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-motion-control-hover-duration": "160ms",
-        "--kds-motion-control-hover-delay": "0ms",
-        "--kds-motion-control-hover-timing-function": "cubic-bezier(0.25, 0.1, 0.25, 1)"
+        "--louis-motion-control-hover-duration": "160ms",
+        "--louis-motion-control-hover-delay": "0ms",
+        "--louis-motion-control-hover-timing-function": "cubic-bezier(0.25, 0.1, 0.25, 1)"
       },
       "deprecated": null,
       "description": null,
@@ -8880,9 +8880,9 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-motion-crossfade-enter-duration": "420ms",
-        "--kds-motion-crossfade-enter-delay": "0ms",
-        "--kds-motion-crossfade-enter-timing-function": "cubic-bezier(0.25, 0.1, 0.25, 1)"
+        "--louis-motion-crossfade-enter-duration": "420ms",
+        "--louis-motion-crossfade-enter-delay": "0ms",
+        "--louis-motion-crossfade-enter-timing-function": "cubic-bezier(0.25, 0.1, 0.25, 1)"
       },
       "deprecated": null,
       "description": null,
@@ -8915,9 +8915,9 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-motion-layout-change-duration": "220ms",
-        "--kds-motion-layout-change-delay": "0ms",
-        "--kds-motion-layout-change-timing-function": "cubic-bezier(0.4, 0, 0.2, 1)"
+        "--louis-motion-layout-change-duration": "220ms",
+        "--louis-motion-layout-change-delay": "0ms",
+        "--louis-motion-layout-change-timing-function": "cubic-bezier(0.4, 0, 0.2, 1)"
       },
       "deprecated": null,
       "description": null,
@@ -8950,9 +8950,9 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-motion-list-enter-duration": "560ms",
-        "--kds-motion-list-enter-delay": "0ms",
-        "--kds-motion-list-enter-timing-function": "cubic-bezier(0.23, 1, 0.32, 1)"
+        "--louis-motion-list-enter-duration": "560ms",
+        "--louis-motion-list-enter-delay": "0ms",
+        "--louis-motion-list-enter-timing-function": "cubic-bezier(0.23, 1, 0.32, 1)"
       },
       "deprecated": null,
       "description": null,
@@ -8985,9 +8985,9 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-motion-list-stagger-step-duration": "560ms",
-        "--kds-motion-list-stagger-step-delay": "36ms",
-        "--kds-motion-list-stagger-step-timing-function": "cubic-bezier(0.23, 1, 0.32, 1)"
+        "--louis-motion-list-stagger-step-duration": "560ms",
+        "--louis-motion-list-stagger-step-delay": "36ms",
+        "--louis-motion-list-stagger-step-timing-function": "cubic-bezier(0.23, 1, 0.32, 1)"
       },
       "deprecated": null,
       "description": null,
@@ -9020,9 +9020,9 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-motion-menu-enter-duration": "260ms",
-        "--kds-motion-menu-enter-delay": "0ms",
-        "--kds-motion-menu-enter-timing-function": "cubic-bezier(0.32, 0.72, 0, 1)"
+        "--louis-motion-menu-enter-duration": "260ms",
+        "--louis-motion-menu-enter-delay": "0ms",
+        "--louis-motion-menu-enter-timing-function": "cubic-bezier(0.32, 0.72, 0, 1)"
       },
       "deprecated": null,
       "description": null,
@@ -9055,9 +9055,9 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-motion-menu-exit-duration": "130ms",
-        "--kds-motion-menu-exit-delay": "0ms",
-        "--kds-motion-menu-exit-timing-function": "cubic-bezier(0.42, 0, 1, 1)"
+        "--louis-motion-menu-exit-duration": "130ms",
+        "--louis-motion-menu-exit-delay": "0ms",
+        "--louis-motion-menu-exit-timing-function": "cubic-bezier(0.42, 0, 1, 1)"
       },
       "deprecated": null,
       "description": null,
@@ -9090,9 +9090,9 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-motion-modal-enter-duration": "320ms",
-        "--kds-motion-modal-enter-delay": "0ms",
-        "--kds-motion-modal-enter-timing-function": "cubic-bezier(0.32, 0.72, 0, 1)"
+        "--louis-motion-modal-enter-duration": "320ms",
+        "--louis-motion-modal-enter-delay": "0ms",
+        "--louis-motion-modal-enter-timing-function": "cubic-bezier(0.32, 0.72, 0, 1)"
       },
       "deprecated": null,
       "description": null,
@@ -9125,9 +9125,9 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-motion-modal-exit-duration": "200ms",
-        "--kds-motion-modal-exit-delay": "0ms",
-        "--kds-motion-modal-exit-timing-function": "cubic-bezier(0.4, 0, 1, 1)"
+        "--louis-motion-modal-exit-duration": "200ms",
+        "--louis-motion-modal-exit-delay": "0ms",
+        "--louis-motion-modal-exit-timing-function": "cubic-bezier(0.4, 0, 1, 1)"
       },
       "deprecated": null,
       "description": null,
@@ -9160,9 +9160,9 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-motion-overlay-enter-duration": "200ms",
-        "--kds-motion-overlay-enter-delay": "0ms",
-        "--kds-motion-overlay-enter-timing-function": "cubic-bezier(0.32, 0.72, 0, 1)"
+        "--louis-motion-overlay-enter-duration": "200ms",
+        "--louis-motion-overlay-enter-delay": "0ms",
+        "--louis-motion-overlay-enter-timing-function": "cubic-bezier(0.32, 0.72, 0, 1)"
       },
       "deprecated": null,
       "description": null,
@@ -9195,9 +9195,9 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-motion-overlay-exit-duration": "120ms",
-        "--kds-motion-overlay-exit-delay": "0ms",
-        "--kds-motion-overlay-exit-timing-function": "cubic-bezier(0.4, 0, 1, 1)"
+        "--louis-motion-overlay-exit-duration": "120ms",
+        "--louis-motion-overlay-exit-delay": "0ms",
+        "--louis-motion-overlay-exit-timing-function": "cubic-bezier(0.4, 0, 1, 1)"
       },
       "deprecated": null,
       "description": null,
@@ -9230,9 +9230,9 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-motion-reduced-duration": "0ms",
-        "--kds-motion-reduced-delay": "0ms",
-        "--kds-motion-reduced-timing-function": "cubic-bezier(0.2, 0, 0, 1)"
+        "--louis-motion-reduced-duration": "0ms",
+        "--louis-motion-reduced-delay": "0ms",
+        "--louis-motion-reduced-timing-function": "cubic-bezier(0.2, 0, 0, 1)"
       },
       "deprecated": null,
       "description": null,
@@ -9265,9 +9265,9 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-motion-shell-collapse-duration": "320ms",
-        "--kds-motion-shell-collapse-delay": "0ms",
-        "--kds-motion-shell-collapse-timing-function": "cubic-bezier(0.4, 0, 0.2, 1)"
+        "--louis-motion-shell-collapse-duration": "320ms",
+        "--louis-motion-shell-collapse-delay": "0ms",
+        "--louis-motion-shell-collapse-timing-function": "cubic-bezier(0.4, 0, 0.2, 1)"
       },
       "deprecated": null,
       "description": null,
@@ -9300,9 +9300,9 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-motion-shimmer-duration": "1600ms",
-        "--kds-motion-shimmer-delay": "0ms",
-        "--kds-motion-shimmer-timing-function": "cubic-bezier(0.2, 0, 0, 1)"
+        "--louis-motion-shimmer-duration": "1600ms",
+        "--louis-motion-shimmer-delay": "0ms",
+        "--louis-motion-shimmer-timing-function": "cubic-bezier(0.2, 0, 0, 1)"
       },
       "deprecated": null,
       "description": null,
@@ -9335,9 +9335,9 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-motion-spin-duration": "700ms",
-        "--kds-motion-spin-delay": "0ms",
-        "--kds-motion-spin-timing-function": "cubic-bezier(0, 0, 1, 1)"
+        "--louis-motion-spin-duration": "700ms",
+        "--louis-motion-spin-delay": "0ms",
+        "--louis-motion-spin-timing-function": "cubic-bezier(0, 0, 1, 1)"
       },
       "deprecated": null,
       "description": null,
@@ -9370,9 +9370,9 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-motion-stagger-1-duration": "360ms",
-        "--kds-motion-stagger-1-delay": "40ms",
-        "--kds-motion-stagger-1-timing-function": "cubic-bezier(0.22, 1, 0.36, 1)"
+        "--louis-motion-stagger-1-duration": "360ms",
+        "--louis-motion-stagger-1-delay": "40ms",
+        "--louis-motion-stagger-1-timing-function": "cubic-bezier(0.22, 1, 0.36, 1)"
       },
       "deprecated": null,
       "description": null,
@@ -9405,9 +9405,9 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-motion-stagger-2-duration": "360ms",
-        "--kds-motion-stagger-2-delay": "80ms",
-        "--kds-motion-stagger-2-timing-function": "cubic-bezier(0.22, 1, 0.36, 1)"
+        "--louis-motion-stagger-2-duration": "360ms",
+        "--louis-motion-stagger-2-delay": "80ms",
+        "--louis-motion-stagger-2-timing-function": "cubic-bezier(0.22, 1, 0.36, 1)"
       },
       "deprecated": null,
       "description": null,
@@ -9440,9 +9440,9 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-motion-stagger-3-duration": "360ms",
-        "--kds-motion-stagger-3-delay": "150ms",
-        "--kds-motion-stagger-3-timing-function": "cubic-bezier(0.22, 1, 0.36, 1)"
+        "--louis-motion-stagger-3-duration": "360ms",
+        "--louis-motion-stagger-3-delay": "150ms",
+        "--louis-motion-stagger-3-timing-function": "cubic-bezier(0.22, 1, 0.36, 1)"
       },
       "deprecated": null,
       "description": null,
@@ -9475,9 +9475,9 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-motion-tooltip-enter-duration": "140ms",
-        "--kds-motion-tooltip-enter-delay": "0ms",
-        "--kds-motion-tooltip-enter-timing-function": "cubic-bezier(0.23, 1, 0.32, 1)"
+        "--louis-motion-tooltip-enter-duration": "140ms",
+        "--louis-motion-tooltip-enter-delay": "0ms",
+        "--louis-motion-tooltip-enter-timing-function": "cubic-bezier(0.23, 1, 0.32, 1)"
       },
       "deprecated": null,
       "description": null,
@@ -9510,9 +9510,9 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-motion-tooltip-exit-duration": "120ms",
-        "--kds-motion-tooltip-exit-delay": "0ms",
-        "--kds-motion-tooltip-exit-timing-function": "cubic-bezier(0.19, 1, 0.22, 1)"
+        "--louis-motion-tooltip-exit-duration": "120ms",
+        "--louis-motion-tooltip-exit-delay": "0ms",
+        "--louis-motion-tooltip-exit-timing-function": "cubic-bezier(0.19, 1, 0.22, 1)"
       },
       "deprecated": null,
       "description": null,
@@ -9545,9 +9545,9 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-motion-zoom-settle-duration": "680ms",
-        "--kds-motion-zoom-settle-delay": "0ms",
-        "--kds-motion-zoom-settle-timing-function": "cubic-bezier(0.22, 1, 0.36, 1)"
+        "--louis-motion-zoom-settle-duration": "680ms",
+        "--louis-motion-zoom-settle-delay": "0ms",
+        "--louis-motion-zoom-settle-timing-function": "cubic-bezier(0.22, 1, 0.36, 1)"
       },
       "deprecated": null,
       "description": null,
@@ -9580,7 +9580,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-radius-card": "16px"
+        "--louis-radius-card": "16px"
       },
       "deprecated": null,
       "description": null,
@@ -9601,7 +9601,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-radius-card-lg": "20px"
+        "--louis-radius-card-lg": "20px"
       },
       "deprecated": null,
       "description": null,
@@ -9622,7 +9622,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-radius-control": "12px"
+        "--louis-radius-control": "12px"
       },
       "deprecated": null,
       "description": null,
@@ -9643,7 +9643,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-radius-control-sm": "8px"
+        "--louis-radius-control-sm": "8px"
       },
       "deprecated": null,
       "description": null,
@@ -9664,7 +9664,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-radius-overlay": "16px"
+        "--louis-radius-overlay": "16px"
       },
       "deprecated": null,
       "description": null,
@@ -9685,7 +9685,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-radius-overlay-item": "10px"
+        "--louis-radius-overlay-item": "10px"
       },
       "deprecated": null,
       "description": null,
@@ -9706,7 +9706,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-radius-overlay-lg": "24px"
+        "--louis-radius-overlay-lg": "24px"
       },
       "deprecated": null,
       "description": null,
@@ -9727,7 +9727,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-radius-pill": "999px"
+        "--louis-radius-pill": "999px"
       },
       "deprecated": null,
       "description": null,
@@ -9748,7 +9748,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-space-control-lg": "16px"
+        "--louis-space-control-lg": "16px"
       },
       "deprecated": null,
       "description": null,
@@ -9769,7 +9769,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-space-control-md": "12px"
+        "--louis-space-control-md": "12px"
       },
       "deprecated": null,
       "description": null,
@@ -9790,7 +9790,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-space-control-sm": "8px"
+        "--louis-space-control-sm": "8px"
       },
       "deprecated": null,
       "description": null,
@@ -9811,7 +9811,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-space-control-xs": "4px"
+        "--louis-space-control-xs": "4px"
       },
       "deprecated": null,
       "description": null,
@@ -9832,7 +9832,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-space-layout-gutter": "16px"
+        "--louis-space-layout-gutter": "16px"
       },
       "deprecated": null,
       "description": null,
@@ -9853,7 +9853,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-space-layout-section": "24px"
+        "--louis-space-layout-section": "24px"
       },
       "deprecated": null,
       "description": null,
@@ -9874,7 +9874,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-space-media-inset": "20px"
+        "--louis-space-media-inset": "20px"
       },
       "deprecated": null,
       "description": null,
@@ -9895,7 +9895,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-space-overlay-inset": "6px"
+        "--louis-space-overlay-inset": "6px"
       },
       "deprecated": null,
       "description": null,
@@ -9916,7 +9916,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-space-overlay-item-content-gap": "6px"
+        "--louis-space-overlay-item-content-gap": "6px"
       },
       "deprecated": null,
       "description": null,
@@ -9937,7 +9937,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-space-overlay-item-gap": "2px"
+        "--louis-space-overlay-item-gap": "2px"
       },
       "deprecated": null,
       "description": null,
@@ -9958,7 +9958,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-space-progress-ring-gap": "2px"
+        "--louis-space-progress-ring-gap": "2px"
       },
       "deprecated": null,
       "description": null,
@@ -9979,7 +9979,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-space-stack-md": "12px"
+        "--louis-space-stack-md": "12px"
       },
       "deprecated": null,
       "description": null,
@@ -10000,7 +10000,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-space-stack-xs": "4px"
+        "--louis-space-stack-xs": "4px"
       },
       "deprecated": null,
       "description": null,
@@ -10021,7 +10021,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-space-toast-inline": "20px"
+        "--louis-space-toast-inline": "20px"
       },
       "deprecated": null,
       "description": null,
@@ -10042,11 +10042,11 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-typography-body-lg-medium-font-family": "\"Pretendard Variable\", \"Pretendard\", \"Inter\", \"Noto Sans KR\", \"Noto Sans JP\", system-ui, sans-serif",
-        "--kds-typography-body-lg-medium-font-size": "20px",
-        "--kds-typography-body-lg-medium-font-weight": "500",
-        "--kds-typography-body-lg-medium-letter-spacing": "-0.2px",
-        "--kds-typography-body-lg-medium-line-height": "1.5"
+        "--louis-typography-body-lg-medium-font-family": "\"Pretendard Variable\", \"Pretendard\", \"Inter\", \"Noto Sans KR\", \"Noto Sans JP\", system-ui, sans-serif",
+        "--louis-typography-body-lg-medium-font-size": "20px",
+        "--louis-typography-body-lg-medium-font-weight": "500",
+        "--louis-typography-body-lg-medium-letter-spacing": "-0.2px",
+        "--louis-typography-body-lg-medium-line-height": "1.5"
       },
       "deprecated": null,
       "description": null,
@@ -10084,11 +10084,11 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-typography-body-lg-regular-font-family": "\"Pretendard Variable\", \"Pretendard\", \"Inter\", \"Noto Sans KR\", \"Noto Sans JP\", system-ui, sans-serif",
-        "--kds-typography-body-lg-regular-font-size": "20px",
-        "--kds-typography-body-lg-regular-font-weight": "400",
-        "--kds-typography-body-lg-regular-letter-spacing": "-0.2px",
-        "--kds-typography-body-lg-regular-line-height": "1.5"
+        "--louis-typography-body-lg-regular-font-family": "\"Pretendard Variable\", \"Pretendard\", \"Inter\", \"Noto Sans KR\", \"Noto Sans JP\", system-ui, sans-serif",
+        "--louis-typography-body-lg-regular-font-size": "20px",
+        "--louis-typography-body-lg-regular-font-weight": "400",
+        "--louis-typography-body-lg-regular-letter-spacing": "-0.2px",
+        "--louis-typography-body-lg-regular-line-height": "1.5"
       },
       "deprecated": null,
       "description": null,
@@ -10126,11 +10126,11 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-typography-body-lg-semibold-font-family": "\"Pretendard Variable\", \"Pretendard\", \"Inter\", \"Noto Sans KR\", \"Noto Sans JP\", system-ui, sans-serif",
-        "--kds-typography-body-lg-semibold-font-size": "20px",
-        "--kds-typography-body-lg-semibold-font-weight": "600",
-        "--kds-typography-body-lg-semibold-letter-spacing": "-0.2px",
-        "--kds-typography-body-lg-semibold-line-height": "1.5"
+        "--louis-typography-body-lg-semibold-font-family": "\"Pretendard Variable\", \"Pretendard\", \"Inter\", \"Noto Sans KR\", \"Noto Sans JP\", system-ui, sans-serif",
+        "--louis-typography-body-lg-semibold-font-size": "20px",
+        "--louis-typography-body-lg-semibold-font-weight": "600",
+        "--louis-typography-body-lg-semibold-letter-spacing": "-0.2px",
+        "--louis-typography-body-lg-semibold-line-height": "1.5"
       },
       "deprecated": null,
       "description": null,
@@ -10168,11 +10168,11 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-typography-body-md-medium-font-family": "\"Pretendard Variable\", \"Pretendard\", \"Inter\", \"Noto Sans KR\", \"Noto Sans JP\", system-ui, sans-serif",
-        "--kds-typography-body-md-medium-font-size": "16px",
-        "--kds-typography-body-md-medium-font-weight": "500",
-        "--kds-typography-body-md-medium-letter-spacing": "-0.16px",
-        "--kds-typography-body-md-medium-line-height": "1.5"
+        "--louis-typography-body-md-medium-font-family": "\"Pretendard Variable\", \"Pretendard\", \"Inter\", \"Noto Sans KR\", \"Noto Sans JP\", system-ui, sans-serif",
+        "--louis-typography-body-md-medium-font-size": "16px",
+        "--louis-typography-body-md-medium-font-weight": "500",
+        "--louis-typography-body-md-medium-letter-spacing": "-0.16px",
+        "--louis-typography-body-md-medium-line-height": "1.5"
       },
       "deprecated": null,
       "description": null,
@@ -10210,11 +10210,11 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-typography-body-md-regular-font-family": "\"Pretendard Variable\", \"Pretendard\", \"Inter\", \"Noto Sans KR\", \"Noto Sans JP\", system-ui, sans-serif",
-        "--kds-typography-body-md-regular-font-size": "16px",
-        "--kds-typography-body-md-regular-font-weight": "400",
-        "--kds-typography-body-md-regular-letter-spacing": "-0.16px",
-        "--kds-typography-body-md-regular-line-height": "1.5"
+        "--louis-typography-body-md-regular-font-family": "\"Pretendard Variable\", \"Pretendard\", \"Inter\", \"Noto Sans KR\", \"Noto Sans JP\", system-ui, sans-serif",
+        "--louis-typography-body-md-regular-font-size": "16px",
+        "--louis-typography-body-md-regular-font-weight": "400",
+        "--louis-typography-body-md-regular-letter-spacing": "-0.16px",
+        "--louis-typography-body-md-regular-line-height": "1.5"
       },
       "deprecated": null,
       "description": null,
@@ -10252,11 +10252,11 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-typography-body-md-semibold-font-family": "\"Pretendard Variable\", \"Pretendard\", \"Inter\", \"Noto Sans KR\", \"Noto Sans JP\", system-ui, sans-serif",
-        "--kds-typography-body-md-semibold-font-size": "16px",
-        "--kds-typography-body-md-semibold-font-weight": "600",
-        "--kds-typography-body-md-semibold-letter-spacing": "-0.16px",
-        "--kds-typography-body-md-semibold-line-height": "1.5"
+        "--louis-typography-body-md-semibold-font-family": "\"Pretendard Variable\", \"Pretendard\", \"Inter\", \"Noto Sans KR\", \"Noto Sans JP\", system-ui, sans-serif",
+        "--louis-typography-body-md-semibold-font-size": "16px",
+        "--louis-typography-body-md-semibold-font-weight": "600",
+        "--louis-typography-body-md-semibold-letter-spacing": "-0.16px",
+        "--louis-typography-body-md-semibold-line-height": "1.5"
       },
       "deprecated": null,
       "description": null,
@@ -10294,11 +10294,11 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-typography-body-sm-medium-font-family": "\"Pretendard Variable\", \"Pretendard\", \"Inter\", \"Noto Sans KR\", \"Noto Sans JP\", system-ui, sans-serif",
-        "--kds-typography-body-sm-medium-font-size": "14px",
-        "--kds-typography-body-sm-medium-font-weight": "500",
-        "--kds-typography-body-sm-medium-letter-spacing": "-0.14px",
-        "--kds-typography-body-sm-medium-line-height": "1.5"
+        "--louis-typography-body-sm-medium-font-family": "\"Pretendard Variable\", \"Pretendard\", \"Inter\", \"Noto Sans KR\", \"Noto Sans JP\", system-ui, sans-serif",
+        "--louis-typography-body-sm-medium-font-size": "14px",
+        "--louis-typography-body-sm-medium-font-weight": "500",
+        "--louis-typography-body-sm-medium-letter-spacing": "-0.14px",
+        "--louis-typography-body-sm-medium-line-height": "1.5"
       },
       "deprecated": null,
       "description": null,
@@ -10336,11 +10336,11 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-typography-body-sm-regular-font-family": "\"Pretendard Variable\", \"Pretendard\", \"Inter\", \"Noto Sans KR\", \"Noto Sans JP\", system-ui, sans-serif",
-        "--kds-typography-body-sm-regular-font-size": "14px",
-        "--kds-typography-body-sm-regular-font-weight": "400",
-        "--kds-typography-body-sm-regular-letter-spacing": "-0.14px",
-        "--kds-typography-body-sm-regular-line-height": "1.5"
+        "--louis-typography-body-sm-regular-font-family": "\"Pretendard Variable\", \"Pretendard\", \"Inter\", \"Noto Sans KR\", \"Noto Sans JP\", system-ui, sans-serif",
+        "--louis-typography-body-sm-regular-font-size": "14px",
+        "--louis-typography-body-sm-regular-font-weight": "400",
+        "--louis-typography-body-sm-regular-letter-spacing": "-0.14px",
+        "--louis-typography-body-sm-regular-line-height": "1.5"
       },
       "deprecated": null,
       "description": null,
@@ -10378,11 +10378,11 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-typography-body-sm-semibold-font-family": "\"Pretendard Variable\", \"Pretendard\", \"Inter\", \"Noto Sans KR\", \"Noto Sans JP\", system-ui, sans-serif",
-        "--kds-typography-body-sm-semibold-font-size": "14px",
-        "--kds-typography-body-sm-semibold-font-weight": "600",
-        "--kds-typography-body-sm-semibold-letter-spacing": "-0.14px",
-        "--kds-typography-body-sm-semibold-line-height": "1.5"
+        "--louis-typography-body-sm-semibold-font-family": "\"Pretendard Variable\", \"Pretendard\", \"Inter\", \"Noto Sans KR\", \"Noto Sans JP\", system-ui, sans-serif",
+        "--louis-typography-body-sm-semibold-font-size": "14px",
+        "--louis-typography-body-sm-semibold-font-weight": "600",
+        "--louis-typography-body-sm-semibold-letter-spacing": "-0.14px",
+        "--louis-typography-body-sm-semibold-line-height": "1.5"
       },
       "deprecated": null,
       "description": null,
@@ -10420,11 +10420,11 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-typography-caption-medium-font-family": "\"Pretendard Variable\", \"Pretendard\", \"Inter\", \"Noto Sans KR\", \"Noto Sans JP\", system-ui, sans-serif",
-        "--kds-typography-caption-medium-font-size": "12px",
-        "--kds-typography-caption-medium-font-weight": "500",
-        "--kds-typography-caption-medium-letter-spacing": "-0.12px",
-        "--kds-typography-caption-medium-line-height": "1.5"
+        "--louis-typography-caption-medium-font-family": "\"Pretendard Variable\", \"Pretendard\", \"Inter\", \"Noto Sans KR\", \"Noto Sans JP\", system-ui, sans-serif",
+        "--louis-typography-caption-medium-font-size": "12px",
+        "--louis-typography-caption-medium-font-weight": "500",
+        "--louis-typography-caption-medium-letter-spacing": "-0.12px",
+        "--louis-typography-caption-medium-line-height": "1.5"
       },
       "deprecated": null,
       "description": null,
@@ -10462,11 +10462,11 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-typography-caption-regular-font-family": "\"Pretendard Variable\", \"Pretendard\", \"Inter\", \"Noto Sans KR\", \"Noto Sans JP\", system-ui, sans-serif",
-        "--kds-typography-caption-regular-font-size": "12px",
-        "--kds-typography-caption-regular-font-weight": "400",
-        "--kds-typography-caption-regular-letter-spacing": "-0.12px",
-        "--kds-typography-caption-regular-line-height": "1.5"
+        "--louis-typography-caption-regular-font-family": "\"Pretendard Variable\", \"Pretendard\", \"Inter\", \"Noto Sans KR\", \"Noto Sans JP\", system-ui, sans-serif",
+        "--louis-typography-caption-regular-font-size": "12px",
+        "--louis-typography-caption-regular-font-weight": "400",
+        "--louis-typography-caption-regular-letter-spacing": "-0.12px",
+        "--louis-typography-caption-regular-line-height": "1.5"
       },
       "deprecated": null,
       "description": null,
@@ -10504,11 +10504,11 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-typography-caption-semibold-font-family": "\"Pretendard Variable\", \"Pretendard\", \"Inter\", \"Noto Sans KR\", \"Noto Sans JP\", system-ui, sans-serif",
-        "--kds-typography-caption-semibold-font-size": "12px",
-        "--kds-typography-caption-semibold-font-weight": "600",
-        "--kds-typography-caption-semibold-letter-spacing": "-0.12px",
-        "--kds-typography-caption-semibold-line-height": "1.5"
+        "--louis-typography-caption-semibold-font-family": "\"Pretendard Variable\", \"Pretendard\", \"Inter\", \"Noto Sans KR\", \"Noto Sans JP\", system-ui, sans-serif",
+        "--louis-typography-caption-semibold-font-size": "12px",
+        "--louis-typography-caption-semibold-font-weight": "600",
+        "--louis-typography-caption-semibold-letter-spacing": "-0.12px",
+        "--louis-typography-caption-semibold-line-height": "1.5"
       },
       "deprecated": null,
       "description": null,
@@ -10546,11 +10546,11 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-typography-heading-lg-medium-font-family": "\"Pretendard Variable\", \"Pretendard\", \"Inter\", \"Noto Sans KR\", \"Noto Sans JP\", system-ui, sans-serif",
-        "--kds-typography-heading-lg-medium-font-size": "48px",
-        "--kds-typography-heading-lg-medium-font-weight": "500",
-        "--kds-typography-heading-lg-medium-letter-spacing": "-0.96px",
-        "--kds-typography-heading-lg-medium-line-height": "1.35"
+        "--louis-typography-heading-lg-medium-font-family": "\"Pretendard Variable\", \"Pretendard\", \"Inter\", \"Noto Sans KR\", \"Noto Sans JP\", system-ui, sans-serif",
+        "--louis-typography-heading-lg-medium-font-size": "48px",
+        "--louis-typography-heading-lg-medium-font-weight": "500",
+        "--louis-typography-heading-lg-medium-letter-spacing": "-0.96px",
+        "--louis-typography-heading-lg-medium-line-height": "1.35"
       },
       "deprecated": null,
       "description": null,
@@ -10588,11 +10588,11 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-typography-heading-md-medium-font-family": "\"Pretendard Variable\", \"Pretendard\", \"Inter\", \"Noto Sans KR\", \"Noto Sans JP\", system-ui, sans-serif",
-        "--kds-typography-heading-md-medium-font-size": "36px",
-        "--kds-typography-heading-md-medium-font-weight": "500",
-        "--kds-typography-heading-md-medium-letter-spacing": "-0.72px",
-        "--kds-typography-heading-md-medium-line-height": "1.35"
+        "--louis-typography-heading-md-medium-font-family": "\"Pretendard Variable\", \"Pretendard\", \"Inter\", \"Noto Sans KR\", \"Noto Sans JP\", system-ui, sans-serif",
+        "--louis-typography-heading-md-medium-font-size": "36px",
+        "--louis-typography-heading-md-medium-font-weight": "500",
+        "--louis-typography-heading-md-medium-letter-spacing": "-0.72px",
+        "--louis-typography-heading-md-medium-line-height": "1.35"
       },
       "deprecated": null,
       "description": null,
@@ -10630,11 +10630,11 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-typography-heading-sm-medium-font-family": "\"Pretendard Variable\", \"Pretendard\", \"Inter\", \"Noto Sans KR\", \"Noto Sans JP\", system-ui, sans-serif",
-        "--kds-typography-heading-sm-medium-font-size": "28px",
-        "--kds-typography-heading-sm-medium-font-weight": "500",
-        "--kds-typography-heading-sm-medium-letter-spacing": "-0.56px",
-        "--kds-typography-heading-sm-medium-line-height": "1.35"
+        "--louis-typography-heading-sm-medium-font-family": "\"Pretendard Variable\", \"Pretendard\", \"Inter\", \"Noto Sans KR\", \"Noto Sans JP\", system-ui, sans-serif",
+        "--louis-typography-heading-sm-medium-font-size": "28px",
+        "--louis-typography-heading-sm-medium-font-weight": "500",
+        "--louis-typography-heading-sm-medium-letter-spacing": "-0.56px",
+        "--louis-typography-heading-sm-medium-line-height": "1.35"
       },
       "deprecated": null,
       "description": null,
@@ -10674,7 +10674,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-accent-danger": "color(srgb 1 0.294118 0.34902 / 1)"
+        "--louis-color-accent-danger": "color(srgb 1 0.294118 0.34902 / 1)"
       },
       "deprecated": null,
       "description": null,
@@ -10700,7 +10700,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-accent-ghost-hover": "color(srgb 0 0 0 / 0.08)"
+        "--louis-color-accent-ghost-hover": "color(srgb 0 0 0 / 0.08)"
       },
       "deprecated": null,
       "description": null,
@@ -10726,7 +10726,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-accent-menu-danger-hover": "color(srgb 1 0.294118 0.34902 / 0.1)"
+        "--louis-color-accent-menu-danger-hover": "color(srgb 1 0.294118 0.34902 / 0.1)"
       },
       "deprecated": null,
       "description": null,
@@ -10752,7 +10752,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-accent-menu-item-hover": "color(srgb 0 0 0 / 0.06)"
+        "--louis-color-accent-menu-item-hover": "color(srgb 0 0 0 / 0.06)"
       },
       "deprecated": null,
       "description": null,
@@ -10778,7 +10778,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-accent-primary": "color(srgb 0 0.533333 1 / 1)"
+        "--louis-color-accent-primary": "color(srgb 0 0.533333 1 / 1)"
       },
       "deprecated": null,
       "description": null,
@@ -10804,7 +10804,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-accent-primary-active": "color(srgb 0 0.458824 0.858824 / 1)"
+        "--louis-color-accent-primary-active": "color(srgb 0 0.458824 0.858824 / 1)"
       },
       "deprecated": null,
       "description": null,
@@ -10830,7 +10830,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-accent-primary-hover": "color(srgb 0.219608 0.643137 1 / 1)"
+        "--louis-color-accent-primary-hover": "color(srgb 0.219608 0.643137 1 / 1)"
       },
       "deprecated": null,
       "description": null,
@@ -10856,7 +10856,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-accent-secondary-foreground": "color(srgb 0.466667 0.490196 0.537255 / 1)"
+        "--louis-color-accent-secondary-foreground": "color(srgb 0.466667 0.490196 0.537255 / 1)"
       },
       "deprecated": null,
       "description": null,
@@ -10882,7 +10882,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-accent-secondary-hover": "color(srgb 0 0 0 / 0.05)"
+        "--louis-color-accent-secondary-hover": "color(srgb 0 0 0 / 0.05)"
       },
       "deprecated": null,
       "description": null,
@@ -10908,7 +10908,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-bg-canvas": "color(srgb 0.945098 0.945098 0.952941 / 1)"
+        "--louis-color-bg-canvas": "color(srgb 0.945098 0.945098 0.952941 / 1)"
       },
       "deprecated": null,
       "description": null,
@@ -10934,7 +10934,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-bg-danger": "color(srgb 1 0.898039 0.909804 / 1)"
+        "--louis-color-bg-danger": "color(srgb 1 0.898039 0.909804 / 1)"
       },
       "deprecated": null,
       "description": null,
@@ -10960,7 +10960,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-bg-info": "color(srgb 0.941176 0.968627 1 / 1)"
+        "--louis-color-bg-info": "color(srgb 0.941176 0.968627 1 / 1)"
       },
       "deprecated": null,
       "description": null,
@@ -10986,7 +10986,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-bg-inset": "color(srgb 0.917647 0.921569 0.933333 / 1)"
+        "--louis-color-bg-inset": "color(srgb 0.917647 0.921569 0.933333 / 1)"
       },
       "deprecated": null,
       "description": null,
@@ -11012,7 +11012,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-bg-inverse": "color(srgb 0.192157 0.211765 0.25098 / 1)"
+        "--louis-color-bg-inverse": "color(srgb 0.192157 0.211765 0.25098 / 1)"
       },
       "deprecated": null,
       "description": null,
@@ -11038,7 +11038,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-bg-inverse-translucent": "color(srgb 0 0 0 / 0.7)"
+        "--louis-color-bg-inverse-translucent": "color(srgb 0 0 0 / 0.7)"
       },
       "deprecated": null,
       "description": null,
@@ -11064,7 +11064,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-bg-menu": "color(srgb 0.945098 0.945098 0.952941 / 1)"
+        "--louis-color-bg-menu": "color(srgb 0.945098 0.945098 0.952941 / 1)"
       },
       "deprecated": null,
       "description": null,
@@ -11090,7 +11090,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-bg-overlay": "color(srgb 0.980392 0.980392 0.980392 / 1)"
+        "--louis-color-bg-overlay": "color(srgb 0.980392 0.980392 0.980392 / 1)"
       },
       "deprecated": null,
       "description": null,
@@ -11116,7 +11116,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-bg-raised": "color(srgb 0.980392 0.980392 0.980392 / 1)"
+        "--louis-color-bg-raised": "color(srgb 0.980392 0.980392 0.980392 / 1)"
       },
       "deprecated": null,
       "description": null,
@@ -11142,7 +11142,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-bg-success": "color(srgb 0.894118 0.972549 0.917647 / 1)"
+        "--louis-color-bg-success": "color(srgb 0.894118 0.972549 0.917647 / 1)"
       },
       "deprecated": null,
       "description": null,
@@ -11168,7 +11168,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-bg-surface": "color(srgb 0.980392 0.980392 0.980392 / 1)"
+        "--louis-color-bg-surface": "color(srgb 0.980392 0.980392 0.980392 / 1)"
       },
       "deprecated": null,
       "description": null,
@@ -11194,7 +11194,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-bg-upgrade": "color(srgb 0.090196 0.105882 0.133333 / 1)"
+        "--louis-color-bg-upgrade": "color(srgb 0.090196 0.105882 0.133333 / 1)"
       },
       "deprecated": null,
       "description": null,
@@ -11220,7 +11220,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-bg-upgrade-current": "color(srgb 0.972549 0.972549 0.976471 / 1)"
+        "--louis-color-bg-upgrade-current": "color(srgb 0.972549 0.972549 0.976471 / 1)"
       },
       "deprecated": null,
       "description": null,
@@ -11246,7 +11246,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-bg-upgrade-hover": "color(srgb 0.192157 0.211765 0.25098 / 1)"
+        "--louis-color-bg-upgrade-hover": "color(srgb 0.192157 0.211765 0.25098 / 1)"
       },
       "deprecated": null,
       "description": null,
@@ -11272,7 +11272,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-bg-warning": "color(srgb 1 0.960784 0.839216 / 1)"
+        "--louis-color-bg-warning": "color(srgb 1 0.960784 0.839216 / 1)"
       },
       "deprecated": null,
       "description": null,
@@ -11298,7 +11298,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-dim-modal": "color(srgb 0 0 0 / 0.56)"
+        "--louis-color-dim-modal": "color(srgb 0 0 0 / 0.56)"
       },
       "deprecated": null,
       "description": null,
@@ -11324,7 +11324,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-fg-danger": "color(srgb 0.329412 0.066667 0.098039 / 1)"
+        "--louis-color-fg-danger": "color(srgb 0.329412 0.066667 0.098039 / 1)"
       },
       "deprecated": null,
       "description": null,
@@ -11350,7 +11350,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-fg-danger-on-surface": "color(srgb 0.717647 0.141176 0.192157 / 1)"
+        "--louis-color-fg-danger-on-surface": "color(srgb 0.717647 0.141176 0.192157 / 1)"
       },
       "deprecated": null,
       "description": null,
@@ -11376,7 +11376,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-fg-disabled": "color(srgb 0.603922 0.627451 0.670588 / 1)"
+        "--louis-color-fg-disabled": "color(srgb 0.603922 0.627451 0.670588 / 1)"
       },
       "deprecated": null,
       "description": null,
@@ -11402,7 +11402,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-fg-info": "color(srgb 0 0.203922 0.380392 / 1)"
+        "--louis-color-fg-info": "color(srgb 0 0.203922 0.380392 / 1)"
       },
       "deprecated": null,
       "description": null,
@@ -11428,7 +11428,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-fg-inverse": "color(srgb 0.980392 0.980392 0.980392 / 1)"
+        "--louis-color-fg-inverse": "color(srgb 0.980392 0.980392 0.980392 / 1)"
       },
       "deprecated": null,
       "description": null,
@@ -11454,7 +11454,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-fg-menu-item": "color(srgb 0 0 0 / 0.86)"
+        "--louis-color-fg-menu-item": "color(srgb 0 0 0 / 0.86)"
       },
       "deprecated": null,
       "description": null,
@@ -11480,7 +11480,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-fg-on-danger": "color(srgb 0.980392 0.980392 0.980392 / 1)"
+        "--louis-color-fg-on-danger": "color(srgb 0.980392 0.980392 0.980392 / 1)"
       },
       "deprecated": null,
       "description": null,
@@ -11506,7 +11506,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-fg-on-inverse": "color(srgb 0.980392 0.980392 0.980392 / 1)"
+        "--louis-color-fg-on-inverse": "color(srgb 0.980392 0.980392 0.980392 / 1)"
       },
       "deprecated": null,
       "description": null,
@@ -11532,7 +11532,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-fg-primary": "color(srgb 0.090196 0.105882 0.133333 / 1)"
+        "--louis-color-fg-primary": "color(srgb 0.090196 0.105882 0.133333 / 1)"
       },
       "deprecated": null,
       "description": null,
@@ -11558,7 +11558,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-fg-secondary": "color(srgb 0.341176 0.364706 0.407843 / 1)"
+        "--louis-color-fg-secondary": "color(srgb 0.341176 0.364706 0.407843 / 1)"
       },
       "deprecated": null,
       "description": null,
@@ -11584,7 +11584,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-fg-success": "color(srgb 0.043137 0.239216 0.094118 / 1)"
+        "--louis-color-fg-success": "color(srgb 0.043137 0.239216 0.094118 / 1)"
       },
       "deprecated": null,
       "description": null,
@@ -11610,7 +11610,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-fg-tertiary": "color(srgb 0.466667 0.490196 0.537255 / 1)"
+        "--louis-color-fg-tertiary": "color(srgb 0.466667 0.490196 0.537255 / 1)"
       },
       "deprecated": null,
       "description": null,
@@ -11636,7 +11636,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-fg-upgrade": "color(srgb 0.972549 0.972549 0.976471 / 1)"
+        "--louis-color-fg-upgrade": "color(srgb 0.972549 0.972549 0.976471 / 1)"
       },
       "deprecated": null,
       "description": null,
@@ -11662,7 +11662,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-fg-upgrade-current": "color(srgb 0 0 0 / 1)"
+        "--louis-color-fg-upgrade-current": "color(srgb 0 0 0 / 1)"
       },
       "deprecated": null,
       "description": null,
@@ -11688,7 +11688,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-fg-upgrade-hover": "color(srgb 0.972549 0.972549 0.976471 / 1)"
+        "--louis-color-fg-upgrade-hover": "color(srgb 0.972549 0.972549 0.976471 / 1)"
       },
       "deprecated": null,
       "description": null,
@@ -11714,7 +11714,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-fg-warning": "color(srgb 0.360784 0.239216 0 / 1)"
+        "--louis-color-fg-warning": "color(srgb 0.360784 0.239216 0 / 1)"
       },
       "deprecated": null,
       "description": null,
@@ -11740,7 +11740,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-media-control-foreground": "color(srgb 1 1 1 / 0.88)"
+        "--louis-color-media-control-foreground": "color(srgb 1 1 1 / 0.88)"
       },
       "deprecated": null,
       "description": null,
@@ -11766,7 +11766,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-media-control-hover": "color(srgb 1 1 1 / 0.14)"
+        "--louis-color-media-control-hover": "color(srgb 1 1 1 / 0.14)"
       },
       "deprecated": null,
       "description": null,
@@ -11792,7 +11792,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-media-control-surface": "color(srgb 0 0 0 / 0.28)"
+        "--louis-color-media-control-surface": "color(srgb 0 0 0 / 0.28)"
       },
       "deprecated": null,
       "description": null,
@@ -11818,7 +11818,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-media-foreground-bright": "color(srgb 0.090196 0.105882 0.133333 / 1)"
+        "--louis-color-media-foreground-bright": "color(srgb 0.090196 0.105882 0.133333 / 1)"
       },
       "deprecated": null,
       "description": null,
@@ -11844,7 +11844,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-media-foreground-dark": "color(srgb 0.980392 0.980392 0.980392 / 1)"
+        "--louis-color-media-foreground-dark": "color(srgb 0.980392 0.980392 0.980392 / 1)"
       },
       "deprecated": null,
       "description": null,
@@ -11870,7 +11870,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-media-indicator-active": "color(srgb 0.980392 0.980392 0.980392 / 1)"
+        "--louis-color-media-indicator-active": "color(srgb 0.980392 0.980392 0.980392 / 1)"
       },
       "deprecated": null,
       "description": null,
@@ -11896,7 +11896,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-media-indicator-rest": "color(srgb 1 1 1 / 0.45)"
+        "--louis-color-media-indicator-rest": "color(srgb 1 1 1 / 0.45)"
       },
       "deprecated": null,
       "description": null,
@@ -11922,7 +11922,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-media-scrim-bright": "color(srgb 0.980392 0.980392 0.980392 / 1)"
+        "--louis-color-media-scrim-bright": "color(srgb 0.980392 0.980392 0.980392 / 1)"
       },
       "deprecated": null,
       "description": null,
@@ -11948,7 +11948,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-media-scrim-dark": "color(srgb 0 0 0 / 1)"
+        "--louis-color-media-scrim-dark": "color(srgb 0 0 0 / 1)"
       },
       "deprecated": null,
       "description": null,
@@ -11974,7 +11974,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-node-audio-accent": "color(srgb 1 0.301961 0.533333 / 1)"
+        "--louis-color-node-audio-accent": "color(srgb 1 0.301961 0.533333 / 1)"
       },
       "deprecated": null,
       "description": null,
@@ -12000,7 +12000,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-node-audio-icon": "color(srgb 1 0.301961 0.533333 / 1)"
+        "--louis-color-node-audio-icon": "color(srgb 1 0.301961 0.533333 / 1)"
       },
       "deprecated": null,
       "description": null,
@@ -12026,7 +12026,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-node-audio-surface": "color(srgb 1 0.756863 0.839216 / 1)"
+        "--louis-color-node-audio-surface": "color(srgb 1 0.756863 0.839216 / 1)"
       },
       "deprecated": null,
       "description": null,
@@ -12052,7 +12052,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-node-edit-accent": "color(srgb 0.376471 0.333333 1 / 1)"
+        "--louis-color-node-edit-accent": "color(srgb 0.376471 0.333333 1 / 1)"
       },
       "deprecated": null,
       "description": null,
@@ -12078,7 +12078,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-node-edit-icon": "color(srgb 0.376471 0.333333 1 / 1)"
+        "--louis-color-node-edit-icon": "color(srgb 0.376471 0.333333 1 / 1)"
       },
       "deprecated": null,
       "description": null,
@@ -12104,7 +12104,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-node-edit-surface": "color(srgb 0.788235 0.760784 1 / 1)"
+        "--louis-color-node-edit-surface": "color(srgb 0.788235 0.760784 1 / 1)"
       },
       "deprecated": null,
       "description": null,
@@ -12130,7 +12130,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-node-image-accent": "color(srgb 0 0.776471 0.556863 / 1)"
+        "--louis-color-node-image-accent": "color(srgb 0 0.776471 0.556863 / 1)"
       },
       "deprecated": null,
       "description": null,
@@ -12156,7 +12156,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-node-image-icon": "color(srgb 0 0.776471 0.556863 / 1)"
+        "--louis-color-node-image-icon": "color(srgb 0 0.776471 0.556863 / 1)"
       },
       "deprecated": null,
       "description": null,
@@ -12182,7 +12182,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-node-image-surface": "color(srgb 0.721569 0.972549 0.898039 / 1)"
+        "--louis-color-node-image-surface": "color(srgb 0.721569 0.972549 0.898039 / 1)"
       },
       "deprecated": null,
       "description": null,
@@ -12208,7 +12208,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-node-instagram-accent": "color(srgb 1 0.294118 0.34902 / 1)"
+        "--louis-color-node-instagram-accent": "color(srgb 1 0.294118 0.34902 / 1)"
       },
       "deprecated": null,
       "description": null,
@@ -12234,7 +12234,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-node-instagram-icon": "color(srgb 1 0.294118 0.34902 / 1)"
+        "--louis-color-node-instagram-icon": "color(srgb 1 0.294118 0.34902 / 1)"
       },
       "deprecated": null,
       "description": null,
@@ -12260,7 +12260,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-node-instagram-surface": "color(srgb 1 0.768627 0.792157 / 1)"
+        "--louis-color-node-instagram-surface": "color(srgb 1 0.768627 0.792157 / 1)"
       },
       "deprecated": null,
       "description": null,
@@ -12286,7 +12286,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-node-text-accent": "color(srgb 1 0.698039 0 / 1)"
+        "--louis-color-node-text-accent": "color(srgb 1 0.698039 0 / 1)"
       },
       "deprecated": null,
       "description": null,
@@ -12312,7 +12312,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-node-text-icon": "color(srgb 1 0.698039 0 / 1)"
+        "--louis-color-node-text-icon": "color(srgb 1 0.698039 0 / 1)"
       },
       "deprecated": null,
       "description": null,
@@ -12338,7 +12338,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-node-text-surface": "color(srgb 1 0.909804 0.639216 / 1)"
+        "--louis-color-node-text-surface": "color(srgb 1 0.909804 0.639216 / 1)"
       },
       "deprecated": null,
       "description": null,
@@ -12364,7 +12364,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-node-video-accent": "color(srgb 0 0.533333 1 / 1)"
+        "--louis-color-node-video-accent": "color(srgb 0 0.533333 1 / 1)"
       },
       "deprecated": null,
       "description": null,
@@ -12390,7 +12390,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-node-youtube-accent": "color(srgb 1 0.294118 0.34902 / 1)"
+        "--louis-color-node-youtube-accent": "color(srgb 1 0.294118 0.34902 / 1)"
       },
       "deprecated": null,
       "description": null,
@@ -12416,7 +12416,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-node-youtube-icon": "color(srgb 1 0.294118 0.34902 / 1)"
+        "--louis-color-node-youtube-icon": "color(srgb 1 0.294118 0.34902 / 1)"
       },
       "deprecated": null,
       "description": null,
@@ -12442,7 +12442,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-node-youtube-surface": "color(srgb 1 0.768627 0.792157 / 1)"
+        "--louis-color-node-youtube-surface": "color(srgb 1 0.768627 0.792157 / 1)"
       },
       "deprecated": null,
       "description": null,
@@ -12468,7 +12468,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-progress-fill": "color(srgb 0 0.533333 1 / 1)"
+        "--louis-color-progress-fill": "color(srgb 0 0.533333 1 / 1)"
       },
       "deprecated": null,
       "description": null,
@@ -12494,7 +12494,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-progress-ring-fill": "color(srgb 0 0.776471 0.556863 / 1)"
+        "--louis-color-progress-ring-fill": "color(srgb 0 0.776471 0.556863 / 1)"
       },
       "deprecated": null,
       "description": null,
@@ -12520,7 +12520,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-progress-ring-track": "color(srgb 0 0 0 / 0.2)"
+        "--louis-color-progress-ring-track": "color(srgb 0 0 0 / 0.2)"
       },
       "deprecated": null,
       "description": null,
@@ -12546,7 +12546,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-progress-track": "color(srgb 0 0 0 / 0.1)"
+        "--louis-color-progress-track": "color(srgb 0 0 0 / 0.1)"
       },
       "deprecated": null,
       "description": null,
@@ -12572,7 +12572,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-stroke-control": "color(srgb 0 0 0 / 0.12)"
+        "--louis-color-stroke-control": "color(srgb 0 0 0 / 0.12)"
       },
       "deprecated": null,
       "description": null,
@@ -12598,7 +12598,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-stroke-danger": "color(srgb 1 0.294118 0.34902 / 1)"
+        "--louis-color-stroke-danger": "color(srgb 1 0.294118 0.34902 / 1)"
       },
       "deprecated": null,
       "description": null,
@@ -12624,7 +12624,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-stroke-default": "color(srgb 0.835294 0.843137 0.866667 / 1)"
+        "--louis-color-stroke-default": "color(srgb 0.835294 0.843137 0.866667 / 1)"
       },
       "deprecated": null,
       "description": null,
@@ -12650,7 +12650,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-stroke-focus": "color(srgb 0 0.533333 1 / 1)"
+        "--louis-color-stroke-focus": "color(srgb 0 0.533333 1 / 1)"
       },
       "deprecated": null,
       "description": null,
@@ -12676,7 +12676,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-stroke-hairline": "color(srgb 0 0 0 / 0.1)"
+        "--louis-color-stroke-hairline": "color(srgb 0 0 0 / 0.1)"
       },
       "deprecated": null,
       "description": null,
@@ -12702,7 +12702,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-stroke-strong": "color(srgb 0.603922 0.627451 0.670588 / 1)"
+        "--louis-color-stroke-strong": "color(srgb 0.603922 0.627451 0.670588 / 1)"
       },
       "deprecated": null,
       "description": null,
@@ -12728,7 +12728,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-stroke-subtle": "color(srgb 0.890196 0.894118 0.909804 / 1)"
+        "--louis-color-stroke-subtle": "color(srgb 0.890196 0.894118 0.909804 / 1)"
       },
       "deprecated": null,
       "description": null,
@@ -12754,7 +12754,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-stroke-tooltip": "color(srgb 1 1 1 / 0.14)"
+        "--louis-color-stroke-tooltip": "color(srgb 1 1 1 / 0.14)"
       },
       "deprecated": null,
       "description": null,
@@ -12780,7 +12780,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-elevation-menu": "0px 8px 15px 0px color(srgb 0 0 0 / 0.04)"
+        "--louis-elevation-menu": "0px 8px 15px 0px color(srgb 0 0 0 / 0.04)"
       },
       "deprecated": null,
       "description": null,
@@ -12827,7 +12827,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-elevation-tooltip": "0px 12px 24px 0px color(srgb 0.466667 0.490196 0.537255 / 0.12)"
+        "--louis-elevation-tooltip": "0px 12px 24px 0px color(srgb 0.466667 0.490196 0.537255 / 0.12)"
       },
       "deprecated": null,
       "description": null,
@@ -12872,7 +12872,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-elevation-upgrade": "inset 0px 0px 0px 1px color(srgb 0.980392 0.980392 0.980392 / 0.08), 0px 1px 2px 0px color(srgb 0 0 0 / 0.06)"
+        "--louis-elevation-upgrade": "inset 0px 0px 0px 1px color(srgb 0.980392 0.980392 0.980392 / 0.08), 0px 1px 2px 0px color(srgb 0 0 0 / 0.06)"
       },
       "deprecated": null,
       "description": null,
@@ -12949,7 +12949,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-accent-danger": "color(srgb 1 0.294118 0.34902 / 1)"
+        "--louis-color-accent-danger": "color(srgb 1 0.294118 0.34902 / 1)"
       },
       "deprecated": null,
       "description": null,
@@ -12975,7 +12975,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-accent-ghost-hover": "color(srgb 1 1 1 / 0.1)"
+        "--louis-color-accent-ghost-hover": "color(srgb 1 1 1 / 0.1)"
       },
       "deprecated": null,
       "description": null,
@@ -13001,7 +13001,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-accent-menu-danger-hover": "color(srgb 1 0.294118 0.34902 / 0.12)"
+        "--louis-color-accent-menu-danger-hover": "color(srgb 1 0.294118 0.34902 / 0.12)"
       },
       "deprecated": null,
       "description": null,
@@ -13027,7 +13027,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-accent-menu-item-hover": "color(srgb 1 1 1 / 0.1)"
+        "--louis-color-accent-menu-item-hover": "color(srgb 1 1 1 / 0.1)"
       },
       "deprecated": null,
       "description": null,
@@ -13053,7 +13053,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-accent-primary": "color(srgb 0 0.533333 1 / 1)"
+        "--louis-color-accent-primary": "color(srgb 0 0.533333 1 / 1)"
       },
       "deprecated": null,
       "description": null,
@@ -13079,7 +13079,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-accent-primary-active": "color(srgb 0 0.458824 0.858824 / 1)"
+        "--louis-color-accent-primary-active": "color(srgb 0 0.458824 0.858824 / 1)"
       },
       "deprecated": null,
       "description": null,
@@ -13105,7 +13105,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-accent-primary-hover": "color(srgb 0.219608 0.643137 1 / 1)"
+        "--louis-color-accent-primary-hover": "color(srgb 0.219608 0.643137 1 / 1)"
       },
       "deprecated": null,
       "description": null,
@@ -13131,7 +13131,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-accent-secondary-foreground": "color(srgb 0.737255 0.752941 0.788235 / 1)"
+        "--louis-color-accent-secondary-foreground": "color(srgb 0.737255 0.752941 0.788235 / 1)"
       },
       "deprecated": null,
       "description": null,
@@ -13157,7 +13157,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-accent-secondary-hover": "color(srgb 1 1 1 / 0.08)"
+        "--louis-color-accent-secondary-hover": "color(srgb 1 1 1 / 0.08)"
       },
       "deprecated": null,
       "description": null,
@@ -13183,7 +13183,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-bg-canvas": "color(srgb 0.090196 0.105882 0.133333 / 1)"
+        "--louis-color-bg-canvas": "color(srgb 0.090196 0.105882 0.133333 / 1)"
       },
       "deprecated": null,
       "description": null,
@@ -13209,7 +13209,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-bg-danger": "color(srgb 0.329412 0.066667 0.098039 / 1)"
+        "--louis-color-bg-danger": "color(srgb 0.329412 0.066667 0.098039 / 1)"
       },
       "deprecated": null,
       "description": null,
@@ -13235,7 +13235,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-bg-info": "color(srgb 0 0.203922 0.380392 / 1)"
+        "--louis-color-bg-info": "color(srgb 0 0.203922 0.380392 / 1)"
       },
       "deprecated": null,
       "description": null,
@@ -13261,7 +13261,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-bg-inset": "color(srgb 0.192157 0.211765 0.25098 / 1)"
+        "--louis-color-bg-inset": "color(srgb 0.192157 0.211765 0.25098 / 1)"
       },
       "deprecated": null,
       "description": null,
@@ -13287,7 +13287,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-bg-inverse": "color(srgb 0.890196 0.894118 0.909804 / 1)"
+        "--louis-color-bg-inverse": "color(srgb 0.890196 0.894118 0.909804 / 1)"
       },
       "deprecated": null,
       "description": null,
@@ -13313,7 +13313,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-bg-inverse-translucent": "color(srgb 1 1 1 / 0.7)"
+        "--louis-color-bg-inverse-translucent": "color(srgb 1 1 1 / 0.7)"
       },
       "deprecated": null,
       "description": null,
@@ -13339,7 +13339,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-bg-menu": "color(srgb 0.192157 0.211765 0.25098 / 1)"
+        "--louis-color-bg-menu": "color(srgb 0.192157 0.211765 0.25098 / 1)"
       },
       "deprecated": null,
       "description": null,
@@ -13365,7 +13365,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-bg-overlay": "color(srgb 0.192157 0.211765 0.25098 / 1)"
+        "--louis-color-bg-overlay": "color(srgb 0.192157 0.211765 0.25098 / 1)"
       },
       "deprecated": null,
       "description": null,
@@ -13391,7 +13391,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-bg-raised": "color(srgb 0.341176 0.364706 0.407843 / 1)"
+        "--louis-color-bg-raised": "color(srgb 0.341176 0.364706 0.407843 / 1)"
       },
       "deprecated": null,
       "description": null,
@@ -13417,7 +13417,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-bg-success": "color(srgb 0.043137 0.239216 0.094118 / 1)"
+        "--louis-color-bg-success": "color(srgb 0.043137 0.239216 0.094118 / 1)"
       },
       "deprecated": null,
       "description": null,
@@ -13443,7 +13443,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-bg-surface": "color(srgb 0.192157 0.211765 0.25098 / 1)"
+        "--louis-color-bg-surface": "color(srgb 0.192157 0.211765 0.25098 / 1)"
       },
       "deprecated": null,
       "description": null,
@@ -13469,7 +13469,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-bg-upgrade": "color(srgb 0.945098 0.945098 0.952941 / 1)"
+        "--louis-color-bg-upgrade": "color(srgb 0.945098 0.945098 0.952941 / 1)"
       },
       "deprecated": null,
       "description": null,
@@ -13495,7 +13495,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-bg-upgrade-current": "color(srgb 0.192157 0.211765 0.25098 / 1)"
+        "--louis-color-bg-upgrade-current": "color(srgb 0.192157 0.211765 0.25098 / 1)"
       },
       "deprecated": null,
       "description": null,
@@ -13521,7 +13521,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-bg-upgrade-hover": "color(srgb 0.890196 0.894118 0.909804 / 1)"
+        "--louis-color-bg-upgrade-hover": "color(srgb 0.890196 0.894118 0.909804 / 1)"
       },
       "deprecated": null,
       "description": null,
@@ -13547,7 +13547,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-bg-warning": "color(srgb 0.360784 0.239216 0 / 1)"
+        "--louis-color-bg-warning": "color(srgb 0.360784 0.239216 0 / 1)"
       },
       "deprecated": null,
       "description": null,
@@ -13573,7 +13573,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-dim-modal": "color(srgb 0 0 0 / 0.72)"
+        "--louis-color-dim-modal": "color(srgb 0 0 0 / 0.72)"
       },
       "deprecated": null,
       "description": null,
@@ -13599,7 +13599,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-fg-danger": "color(srgb 1 0.898039 0.909804 / 1)"
+        "--louis-color-fg-danger": "color(srgb 1 0.898039 0.909804 / 1)"
       },
       "deprecated": null,
       "description": null,
@@ -13625,7 +13625,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-fg-danger-on-surface": "color(srgb 1 0.435294 0.486275 / 1)"
+        "--louis-color-fg-danger-on-surface": "color(srgb 1 0.435294 0.486275 / 1)"
       },
       "deprecated": null,
       "description": null,
@@ -13651,7 +13651,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-fg-disabled": "color(srgb 0.466667 0.490196 0.537255 / 1)"
+        "--louis-color-fg-disabled": "color(srgb 0.466667 0.490196 0.537255 / 1)"
       },
       "deprecated": null,
       "description": null,
@@ -13677,7 +13677,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-fg-info": "color(srgb 0.941176 0.968627 1 / 1)"
+        "--louis-color-fg-info": "color(srgb 0.941176 0.968627 1 / 1)"
       },
       "deprecated": null,
       "description": null,
@@ -13703,7 +13703,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-fg-inverse": "color(srgb 0.980392 0.980392 0.980392 / 1)"
+        "--louis-color-fg-inverse": "color(srgb 0.980392 0.980392 0.980392 / 1)"
       },
       "deprecated": null,
       "description": null,
@@ -13729,7 +13729,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-fg-menu-item": "color(srgb 1 1 1 / 0.86)"
+        "--louis-color-fg-menu-item": "color(srgb 1 1 1 / 0.86)"
       },
       "deprecated": null,
       "description": null,
@@ -13755,7 +13755,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-fg-on-danger": "color(srgb 0.980392 0.980392 0.980392 / 1)"
+        "--louis-color-fg-on-danger": "color(srgb 0.980392 0.980392 0.980392 / 1)"
       },
       "deprecated": null,
       "description": null,
@@ -13781,7 +13781,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-fg-on-inverse": "color(srgb 0.090196 0.105882 0.133333 / 1)"
+        "--louis-color-fg-on-inverse": "color(srgb 0.090196 0.105882 0.133333 / 1)"
       },
       "deprecated": null,
       "description": null,
@@ -13807,7 +13807,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-fg-primary": "color(srgb 0.980392 0.980392 0.980392 / 1)"
+        "--louis-color-fg-primary": "color(srgb 0.980392 0.980392 0.980392 / 1)"
       },
       "deprecated": null,
       "description": null,
@@ -13833,7 +13833,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-fg-secondary": "color(srgb 0.835294 0.843137 0.866667 / 1)"
+        "--louis-color-fg-secondary": "color(srgb 0.835294 0.843137 0.866667 / 1)"
       },
       "deprecated": null,
       "description": null,
@@ -13859,7 +13859,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-fg-success": "color(srgb 0.894118 0.972549 0.917647 / 1)"
+        "--louis-color-fg-success": "color(srgb 0.894118 0.972549 0.917647 / 1)"
       },
       "deprecated": null,
       "description": null,
@@ -13885,7 +13885,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-fg-tertiary": "color(srgb 0.737255 0.752941 0.788235 / 1)"
+        "--louis-color-fg-tertiary": "color(srgb 0.737255 0.752941 0.788235 / 1)"
       },
       "deprecated": null,
       "description": null,
@@ -13911,7 +13911,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-fg-upgrade": "color(srgb 0.090196 0.105882 0.133333 / 1)"
+        "--louis-color-fg-upgrade": "color(srgb 0.090196 0.105882 0.133333 / 1)"
       },
       "deprecated": null,
       "description": null,
@@ -13937,7 +13937,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-fg-upgrade-current": "color(srgb 0.980392 0.980392 0.980392 / 1)"
+        "--louis-color-fg-upgrade-current": "color(srgb 0.980392 0.980392 0.980392 / 1)"
       },
       "deprecated": null,
       "description": null,
@@ -13963,7 +13963,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-fg-upgrade-hover": "color(srgb 0.090196 0.105882 0.133333 / 1)"
+        "--louis-color-fg-upgrade-hover": "color(srgb 0.090196 0.105882 0.133333 / 1)"
       },
       "deprecated": null,
       "description": null,
@@ -13989,7 +13989,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-fg-warning": "color(srgb 1 0.960784 0.839216 / 1)"
+        "--louis-color-fg-warning": "color(srgb 1 0.960784 0.839216 / 1)"
       },
       "deprecated": null,
       "description": null,
@@ -14015,7 +14015,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-media-control-foreground": "color(srgb 1 1 1 / 0.88)"
+        "--louis-color-media-control-foreground": "color(srgb 1 1 1 / 0.88)"
       },
       "deprecated": null,
       "description": null,
@@ -14041,7 +14041,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-media-control-hover": "color(srgb 1 1 1 / 0.14)"
+        "--louis-color-media-control-hover": "color(srgb 1 1 1 / 0.14)"
       },
       "deprecated": null,
       "description": null,
@@ -14067,7 +14067,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-media-control-surface": "color(srgb 0 0 0 / 0.28)"
+        "--louis-color-media-control-surface": "color(srgb 0 0 0 / 0.28)"
       },
       "deprecated": null,
       "description": null,
@@ -14093,7 +14093,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-media-foreground-bright": "color(srgb 0.090196 0.105882 0.133333 / 1)"
+        "--louis-color-media-foreground-bright": "color(srgb 0.090196 0.105882 0.133333 / 1)"
       },
       "deprecated": null,
       "description": null,
@@ -14119,7 +14119,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-media-foreground-dark": "color(srgb 0.980392 0.980392 0.980392 / 1)"
+        "--louis-color-media-foreground-dark": "color(srgb 0.980392 0.980392 0.980392 / 1)"
       },
       "deprecated": null,
       "description": null,
@@ -14145,7 +14145,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-media-indicator-active": "color(srgb 0.980392 0.980392 0.980392 / 1)"
+        "--louis-color-media-indicator-active": "color(srgb 0.980392 0.980392 0.980392 / 1)"
       },
       "deprecated": null,
       "description": null,
@@ -14171,7 +14171,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-media-indicator-rest": "color(srgb 1 1 1 / 0.45)"
+        "--louis-color-media-indicator-rest": "color(srgb 1 1 1 / 0.45)"
       },
       "deprecated": null,
       "description": null,
@@ -14197,7 +14197,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-media-scrim-bright": "color(srgb 0.980392 0.980392 0.980392 / 1)"
+        "--louis-color-media-scrim-bright": "color(srgb 0.980392 0.980392 0.980392 / 1)"
       },
       "deprecated": null,
       "description": null,
@@ -14223,7 +14223,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-media-scrim-dark": "color(srgb 0 0 0 / 1)"
+        "--louis-color-media-scrim-dark": "color(srgb 0 0 0 / 1)"
       },
       "deprecated": null,
       "description": null,
@@ -14249,7 +14249,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-node-audio-accent": "color(srgb 1 0.301961 0.533333 / 1)"
+        "--louis-color-node-audio-accent": "color(srgb 1 0.301961 0.533333 / 1)"
       },
       "deprecated": null,
       "description": null,
@@ -14275,7 +14275,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-node-audio-icon": "color(srgb 1 0.301961 0.533333 / 1)"
+        "--louis-color-node-audio-icon": "color(srgb 1 0.301961 0.533333 / 1)"
       },
       "deprecated": null,
       "description": null,
@@ -14301,7 +14301,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-node-audio-surface": "color(srgb 0.517647 0.101961 0.247059 / 1)"
+        "--louis-color-node-audio-surface": "color(srgb 0.517647 0.101961 0.247059 / 1)"
       },
       "deprecated": null,
       "description": null,
@@ -14327,7 +14327,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-node-edit-accent": "color(srgb 0.376471 0.333333 1 / 1)"
+        "--louis-color-node-edit-accent": "color(srgb 0.376471 0.333333 1 / 1)"
       },
       "deprecated": null,
       "description": null,
@@ -14353,7 +14353,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-node-edit-icon": "color(srgb 0.376471 0.333333 1 / 1)"
+        "--louis-color-node-edit-icon": "color(srgb 0.376471 0.333333 1 / 1)"
       },
       "deprecated": null,
       "description": null,
@@ -14379,7 +14379,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-node-edit-surface": "color(srgb 0.133333 0.101961 0.501961 / 1)"
+        "--louis-color-node-edit-surface": "color(srgb 0.133333 0.101961 0.501961 / 1)"
       },
       "deprecated": null,
       "description": null,
@@ -14405,7 +14405,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-node-image-accent": "color(srgb 0 0.776471 0.556863 / 1)"
+        "--louis-color-node-image-accent": "color(srgb 0 0.776471 0.556863 / 1)"
       },
       "deprecated": null,
       "description": null,
@@ -14431,7 +14431,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-node-image-icon": "color(srgb 0 0.776471 0.556863 / 1)"
+        "--louis-color-node-image-icon": "color(srgb 0 0.776471 0.556863 / 1)"
       },
       "deprecated": null,
       "description": null,
@@ -14457,7 +14457,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-node-image-surface": "color(srgb 0 0.431373 0.317647 / 1)"
+        "--louis-color-node-image-surface": "color(srgb 0 0.431373 0.317647 / 1)"
       },
       "deprecated": null,
       "description": null,
@@ -14483,7 +14483,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-node-instagram-accent": "color(srgb 1 0.294118 0.34902 / 1)"
+        "--louis-color-node-instagram-accent": "color(srgb 1 0.294118 0.34902 / 1)"
       },
       "deprecated": null,
       "description": null,
@@ -14509,7 +14509,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-node-instagram-icon": "color(srgb 1 0.294118 0.34902 / 1)"
+        "--louis-color-node-instagram-icon": "color(srgb 1 0.294118 0.34902 / 1)"
       },
       "deprecated": null,
       "description": null,
@@ -14535,7 +14535,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-node-instagram-surface": "color(srgb 0.517647 0.101961 0.141176 / 1)"
+        "--louis-color-node-instagram-surface": "color(srgb 0.517647 0.101961 0.141176 / 1)"
       },
       "deprecated": null,
       "description": null,
@@ -14561,7 +14561,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-node-text-accent": "color(srgb 1 0.698039 0 / 1)"
+        "--louis-color-node-text-accent": "color(srgb 1 0.698039 0 / 1)"
       },
       "deprecated": null,
       "description": null,
@@ -14587,7 +14587,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-node-text-icon": "color(srgb 1 0.698039 0 / 1)"
+        "--louis-color-node-text-icon": "color(srgb 1 0.698039 0 / 1)"
       },
       "deprecated": null,
       "description": null,
@@ -14613,7 +14613,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-node-text-surface": "color(srgb 0.478431 0.321569 0 / 1)"
+        "--louis-color-node-text-surface": "color(srgb 0.478431 0.321569 0 / 1)"
       },
       "deprecated": null,
       "description": null,
@@ -14639,7 +14639,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-node-video-accent": "color(srgb 0 0.533333 1 / 1)"
+        "--louis-color-node-video-accent": "color(srgb 0 0.533333 1 / 1)"
       },
       "deprecated": null,
       "description": null,
@@ -14665,7 +14665,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-node-youtube-accent": "color(srgb 1 0.294118 0.34902 / 1)"
+        "--louis-color-node-youtube-accent": "color(srgb 1 0.294118 0.34902 / 1)"
       },
       "deprecated": null,
       "description": null,
@@ -14691,7 +14691,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-node-youtube-icon": "color(srgb 1 0.294118 0.34902 / 1)"
+        "--louis-color-node-youtube-icon": "color(srgb 1 0.294118 0.34902 / 1)"
       },
       "deprecated": null,
       "description": null,
@@ -14717,7 +14717,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-node-youtube-surface": "color(srgb 0.517647 0.101961 0.141176 / 1)"
+        "--louis-color-node-youtube-surface": "color(srgb 0.517647 0.101961 0.141176 / 1)"
       },
       "deprecated": null,
       "description": null,
@@ -14743,7 +14743,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-progress-fill": "color(srgb 0 0.533333 1 / 1)"
+        "--louis-color-progress-fill": "color(srgb 0 0.533333 1 / 1)"
       },
       "deprecated": null,
       "description": null,
@@ -14769,7 +14769,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-progress-ring-fill": "color(srgb 0 0.776471 0.556863 / 1)"
+        "--louis-color-progress-ring-fill": "color(srgb 0 0.776471 0.556863 / 1)"
       },
       "deprecated": null,
       "description": null,
@@ -14795,7 +14795,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-progress-ring-track": "color(srgb 1 1 1 / 0.2)"
+        "--louis-color-progress-ring-track": "color(srgb 1 1 1 / 0.2)"
       },
       "deprecated": null,
       "description": null,
@@ -14821,7 +14821,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-progress-track": "color(srgb 1 1 1 / 0.1)"
+        "--louis-color-progress-track": "color(srgb 1 1 1 / 0.1)"
       },
       "deprecated": null,
       "description": null,
@@ -14847,7 +14847,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-stroke-control": "color(srgb 1 1 1 / 0.16)"
+        "--louis-color-stroke-control": "color(srgb 1 1 1 / 0.16)"
       },
       "deprecated": null,
       "description": null,
@@ -14873,7 +14873,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-stroke-danger": "color(srgb 1 0.294118 0.34902 / 1)"
+        "--louis-color-stroke-danger": "color(srgb 1 0.294118 0.34902 / 1)"
       },
       "deprecated": null,
       "description": null,
@@ -14899,7 +14899,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-stroke-default": "color(srgb 0.466667 0.490196 0.537255 / 1)"
+        "--louis-color-stroke-default": "color(srgb 0.466667 0.490196 0.537255 / 1)"
       },
       "deprecated": null,
       "description": null,
@@ -14925,7 +14925,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-stroke-focus": "color(srgb 0.219608 0.643137 1 / 1)"
+        "--louis-color-stroke-focus": "color(srgb 0.219608 0.643137 1 / 1)"
       },
       "deprecated": null,
       "description": null,
@@ -14951,7 +14951,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-stroke-hairline": "color(srgb 1 1 1 / 0.1)"
+        "--louis-color-stroke-hairline": "color(srgb 1 1 1 / 0.1)"
       },
       "deprecated": null,
       "description": null,
@@ -14977,7 +14977,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-stroke-strong": "color(srgb 0.603922 0.627451 0.670588 / 1)"
+        "--louis-color-stroke-strong": "color(srgb 0.603922 0.627451 0.670588 / 1)"
       },
       "deprecated": null,
       "description": null,
@@ -15003,7 +15003,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-stroke-subtle": "color(srgb 0.341176 0.364706 0.407843 / 1)"
+        "--louis-color-stroke-subtle": "color(srgb 0.341176 0.364706 0.407843 / 1)"
       },
       "deprecated": null,
       "description": null,
@@ -15029,7 +15029,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-color-stroke-tooltip": "color(srgb 0 0 0 / 0.12)"
+        "--louis-color-stroke-tooltip": "color(srgb 0 0 0 / 0.12)"
       },
       "deprecated": null,
       "description": null,
@@ -15055,7 +15055,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-elevation-menu": "0px 8px 15px 0px color(srgb 0 0 0 / 0.04)"
+        "--louis-elevation-menu": "0px 8px 15px 0px color(srgb 0 0 0 / 0.04)"
       },
       "deprecated": null,
       "description": null,
@@ -15102,7 +15102,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-elevation-tooltip": "0px 12px 24px 0px color(srgb 0.090196 0.105882 0.133333 / 0.12)"
+        "--louis-elevation-tooltip": "0px 12px 24px 0px color(srgb 0.090196 0.105882 0.133333 / 0.12)"
       },
       "deprecated": null,
       "description": null,
@@ -15147,7 +15147,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--kds-elevation-upgrade": "inset 0px 0px 0px 1px color(srgb 0 0 0 / 0.08), 0px 1px 2px 0px color(srgb 0 0 0 / 0.12)"
+        "--louis-elevation-upgrade": "inset 0px 0px 0px 1px color(srgb 0 0 0 / 0.08), 0px 1px 2px 0px color(srgb 0 0 0 / 0.12)"
       },
       "deprecated": null,
       "description": null,

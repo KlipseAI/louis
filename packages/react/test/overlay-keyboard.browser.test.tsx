@@ -200,7 +200,7 @@ test("두 인스턴스를 함께 렌더해도 panel id가 겹치지 않는다", 
   expect(ids.every((id) => id.length > 0)).toBe(true);
   expect(new Set(ids).size).toBe(2);
   // branch id도 분리돼야 stacking과 outside 판정이 인스턴스별로 성립한다.
-  const branches = panels.map((panel) => panel.getAttribute("data-kds-overlay-branch"));
+  const branches = panels.map((panel) => panel.getAttribute("data-louis-overlay-branch"));
   expect(new Set(branches).size).toBe(2);
 });
 

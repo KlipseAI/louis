@@ -8,7 +8,7 @@ import type { RefObject } from "react";
  * 사라진 항목을 가리킨다. DOM이 이미 정답을 들고 있으므로 그것을 읽는다.
  */
 
-const ITEM_SELECTOR = "[data-kds-menu-item]";
+const ITEM_SELECTOR = "[data-louis-menu-item]";
 
 /**
  * `role="menu"`가 접근성 소유 경계다. group 중첩은 통과한다.
@@ -23,7 +23,7 @@ function ownsItem(panel: HTMLElement, element: HTMLElement): boolean {
 /**
  * primitive의 focusable 판정과 최소한 같은 엄격함을 갖는다.
  *
- * 주의: `base.css`가 `[data-kds-state="opening"]`에 `visibility: hidden`을 주므로 **opening
+ * 주의: `base.css`가 `[data-louis-state="opening"]`에 `visibility: hidden`을 주므로 **opening
  * 동안 이 함수는 항상 false다.** 그래서 목록은 opening에서 빈 배열이고, `open`에 진입할 때
  * 동기화를 반드시 다시 돌려야 한다.
  */
@@ -47,12 +47,12 @@ export function menuItems(panel: HTMLElement): HTMLElement[] {
 /**
  * `skip` 전략은 탐색에서 뺀다.
  *
- * `data-kds-menu-skip`을 함께 보는 이유는 `<a>`에 네이티브 `disabled`가 없기 때문이다.
+ * `data-louis-menu-skip`을 함께 보는 이유는 `<a>`에 네이티브 `disabled`가 없기 때문이다.
  * 속성 하나만 보면 링크 item의 `skip`이 조용히 무력화된다.
  */
 export function isNavigable(element: HTMLElement): boolean {
   return (
-    !element.hasAttribute("disabled") && !element.hasAttribute("data-kds-menu-skip")
+    !element.hasAttribute("disabled") && !element.hasAttribute("data-louis-menu-skip")
   );
 }
 
@@ -68,7 +68,7 @@ export function isEnabled(element: HTMLElement): boolean {
 export function itemLabel(element: HTMLElement): string {
   const aria = element.getAttribute("aria-label");
   if (aria !== null && aria !== "") return aria.trim();
-  const node = element.querySelector<HTMLElement>("[data-kds-menu-item-label]");
+  const node = element.querySelector<HTMLElement>("[data-louis-menu-item-label]");
   return (node ?? element).textContent?.trim() ?? "";
 }
 

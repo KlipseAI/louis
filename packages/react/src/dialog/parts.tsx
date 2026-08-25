@@ -30,7 +30,7 @@ export function DialogHeader({
   return (
     <div
       {...rest}
-      className={["kds-dialog__header", className].filter(Boolean).join(" ")}
+      className={["louis-dialog__header", className].filter(Boolean).join(" ")}
     >
       {children}
     </div>
@@ -50,7 +50,7 @@ export function DialogTitle({
       {...rest}
       ref={ref}
       id={overlay.ids.title}
-      className={["kds-dialog__title", className].filter(Boolean).join(" ")}
+      className={["louis-dialog__title", className].filter(Boolean).join(" ")}
     >
       {children}
     </Tag>
@@ -76,7 +76,7 @@ export function DialogDescription({
       {...rest}
       ref={ref}
       id={overlay.ids.description}
-      className={["kds-dialog__description", className].filter(Boolean).join(" ")}
+      className={["louis-dialog__description", className].filter(Boolean).join(" ")}
     >
       {children}
     </p>
@@ -92,7 +92,7 @@ export function DialogBody({
   return (
     <div
       {...rest}
-      className={["kds-dialog__body", className].filter(Boolean).join(" ")}
+      className={["louis-dialog__body", className].filter(Boolean).join(" ")}
     >
       {children}
     </div>
@@ -107,7 +107,7 @@ export function DialogFooter({
   return (
     <div
       {...rest}
-      className={["kds-dialog__footer", className].filter(Boolean).join(" ")}
+      className={["louis-dialog__footer", className].filter(Boolean).join(" ")}
     >
       {children}
     </div>
@@ -123,7 +123,7 @@ export function DialogActions({
   return (
     <div
       {...rest}
-      className={["kds-dialog__actions", className].filter(Boolean).join(" ")}
+      className={["louis-dialog__actions", className].filter(Boolean).join(" ")}
     >
       {children}
     </div>
@@ -134,9 +134,9 @@ export function DialogActions({
  * icon-only 닫기. `dismissible=false`면 아예 렌더하지 않는다 — 눌러도 안 되는 어포던스를
  * 남기지 않는다.
  *
- * `.kds-focus-ring`을 직접 붙인다. 그 유틸은 opt-in이라 붙이지 않으면 링이 조용히 사라진다.
+ * `.louis-focus-ring`을 직접 붙인다. 그 유틸은 opt-in이라 붙이지 않으면 링이 조용히 사라진다.
  *
- * `data-kds-safe-action`을 **달지 않는다.** header에 있어 footer의 취소보다 DOM에서 앞서므로,
+ * `data-louis-safe-action`을 **달지 않는다.** header에 있어 footer의 취소보다 DOM에서 앞서므로,
  * 달면 `danger-confirm`의 초기 포커스가 명시적인 "취소"가 아니라 아이콘 X로 간다. 취소 버튼이
  * 없는 `sheet`에서는 표식 없이도 첫 focusable로 자연히 선택된다.
  */
@@ -156,7 +156,7 @@ export function DialogClose({
       {...rest}
       ref={ref}
       type="button"
-      className={["kds-dialog__close", "kds-focus-ring", className]
+      className={["louis-dialog__close", "louis-focus-ring", className]
         .filter(Boolean)
         .join(" ")}
       aria-label={label}
@@ -178,7 +178,7 @@ export function DialogClose({
 }
 
 /**
- * 취소. `data-kds-safe-action`을 **자동으로** 찍는다.
+ * 취소. `data-louis-safe-action`을 **자동으로** 찍는다.
  *
  * 소비자에게 맡기면 `danger-confirm`에서 footer 순서가 `[삭제][취소]`일 때 초기 포커스가
  * 조용히 삭제 버튼으로 간다 — primitive의 safe-action은 표식이 없으면 첫 focusable로 강등한다.
@@ -197,7 +197,7 @@ export function DialogCancel({
       {...(ref === undefined ? {} : { ref })}
       type="button"
       variant="secondary"
-      data-kds-safe-action="true"
+      data-louis-safe-action="true"
       onClick={(event) => {
         onClick?.(event);
         if (event.defaultPrevented || !closeOnActivate) return;

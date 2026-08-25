@@ -71,7 +71,7 @@ function useItemState(
   disabledReason: string | undefined,
 ): SharedItemState {
   const { disabledItems } = useAnchoredContext("ActionMenuItem");
-  const reasonId = `kds-menu-reason-${useId()}`;
+  const reasonId = `louis-menu-reason-${useId()}`;
   const skip = disabled && disabledItems === "skip";
   const announce = disabled && disabledItems === "announce";
   const showReason = announce && disabledReason !== undefined;
@@ -79,7 +79,7 @@ function useItemState(
     blocked: disabled || busy,
     describedBy: showReason ? reasonId : undefined,
     reasonNode: showReason ? (
-      <span id={reasonId} className="kds-visually-hidden">
+      <span id={reasonId} className="louis-visually-hidden">
         {disabledReason}
       </span>
     ) : null,
@@ -112,8 +112,8 @@ export function ActionMenuItem({
       ref={ref}
       type="button"
       role={role}
-      data-kds-menu-item=""
-      className={["kds-menu__item", "kds-focus-ring", className].filter(Boolean).join(" ")}
+      data-louis-menu-item=""
+      className={["louis-menu__item", "louis-focus-ring", className].filter(Boolean).join(" ")}
       {...(danger ? { "data-tone": "danger" } : {})}
       {...(state.skip ? { disabled: true } : {})}
       {...(state.announce || busy ? { "aria-disabled": true } : {})}
@@ -137,12 +137,12 @@ export function ActionMenuItem({
       }}
     >
       {checked === undefined ? null : (
-        <span className="kds-menu__item-indicator" aria-hidden="true">
+        <span className="louis-menu__item-indicator" aria-hidden="true">
           ✓
         </span>
       )}
-      {busy ? <span className="kds-menu__spinner" aria-hidden="true" /> : null}
-      <span className="kds-menu__item-label" data-kds-menu-item-label="">
+      {busy ? <span className="louis-menu__spinner" aria-hidden="true" /> : null}
+      <span className="louis-menu__item-label" data-louis-menu-item-label="">
         {children}
       </span>
       {state.reasonNode}
@@ -182,7 +182,7 @@ export function ActionMenuLinkItem({
 
   // `<a>`에는 네이티브 disabled가 없다. skip 전략에서 탐색 제외를 표현할 수단이 data 속성뿐이다.
   const skipProps = state.skip
-    ? { "data-kds-menu-skip": "", "aria-disabled": true as const }
+    ? { "data-louis-menu-skip": "", "aria-disabled": true as const }
     : {};
 
   return (
@@ -191,8 +191,8 @@ export function ActionMenuLinkItem({
       {...skipProps}
       ref={ref}
       role="menuitem"
-      data-kds-menu-item=""
-      className={["kds-menu__item", "kds-focus-ring", className].filter(Boolean).join(" ")}
+      data-louis-menu-item=""
+      className={["louis-menu__item", "louis-focus-ring", className].filter(Boolean).join(" ")}
       {...(state.skip ? {} : { href })}
       {...(danger ? { "data-tone": "danger" } : {})}
       {...(state.announce ? { "aria-disabled": true } : {})}
@@ -220,7 +220,7 @@ export function ActionMenuLinkItem({
         event.currentTarget.click();
       }}
     >
-      <span className="kds-menu__item-label" data-kds-menu-item-label="">
+      <span className="louis-menu__item-label" data-louis-menu-item-label="">
         {children}
       </span>
       {state.reasonNode}

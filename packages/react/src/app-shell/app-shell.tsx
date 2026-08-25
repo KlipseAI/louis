@@ -56,19 +56,19 @@ export function AppShell({
     <div
       {...rest}
       ref={ref}
-      className={["kds-app-shell", className].filter(Boolean).join(" ")}
+      className={["louis-app-shell", className].filter(Boolean).join(" ")}
       data-variant={variant}
       data-collapsed={collapsed ? "true" : "false"}
       data-drawer={drawerOpen ? "open" : "closed"}
     >
       {/* 건너뛰기 링크가 anatomy의 첫 항목이다. 내비를 지나 본문으로 가는 유일한 키보드 경로다. */}
-      <a className="kds-app-shell__skip" href={`#${contentId}`}>
+      <a className="louis-app-shell__skip" href={`#${contentId}`}>
         본문으로 건너뛰기
       </a>
 
       <nav
         ref={railRef}
-        className="kds-app-shell__rail"
+        className="louis-app-shell__rail"
         aria-label="주 메뉴"
         tabIndex={-1}
       >
@@ -77,21 +77,21 @@ export function AppShell({
 
       {/* scrim은 compact에서만 보인다. 눌러서 닫는 것이 규범이다. */}
       <div
-        className="kds-app-shell__scrim"
+        className="louis-app-shell__scrim"
         onClick={onDrawerClose}
         aria-hidden="true"
-        data-testid="kds-app-shell-scrim"
+        data-testid="louis-app-shell-scrim"
       />
 
       <div
-        className="kds-app-shell__main"
+        className="louis-app-shell__main"
         // drawer가 열리면 뒤 콘텐츠는 pointer와 focus 양쪽에서 비활성화된다.
         inert={drawerOpen ? true : undefined}
       >
         {chrome === undefined ? null : (
-          <div className="kds-app-shell__chrome">{chrome}</div>
+          <div className="louis-app-shell__chrome">{chrome}</div>
         )}
-        <main id={contentId} className="kds-app-shell__content">
+        <main id={contentId} className="louis-app-shell__content">
           {children}
         </main>
       </div>

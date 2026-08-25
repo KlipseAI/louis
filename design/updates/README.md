@@ -22,7 +22,7 @@ authority: normative
 메커니즘. SEED(scale→semantic, static-black/white-alpha)를 기준으로 단순화했다 —
 [DS-D-0024](../governance/decisions/DS-D-0024-color-architecture.md).
 
-### Changed (Phase 1 — KDS 토큰 기반)
+### Changed (Phase 1 — LOUIS 토큰 기반)
 
 - primitive `neutral` → `gray`. 알파 5계열 → 2(+danger): `ink-alpha`+`black-alpha` →
   `static-black-alpha`(순수 #000), `paper-alpha`+`inverse-alpha` → `static-white-alpha`(순수 #fff),
@@ -35,23 +35,23 @@ authority: normative
 ### Current impact
 
 - 오버레이/호버/헤어라인 색이 순수 흑/백 알파로 미세하게 바뀐다(#171b22/#fafafa 틴트 제거, 의도).
-- KDS `pnpm check` + `pnpm test`(776) 통과. `verify`(figma-parity·product-parity)와 Figma 라이브
+- LOUIS `pnpm check` + `pnpm test`(776) 통과. `verify`(figma-parity·product-parity)와 Figma 라이브
   컬렉션은 아직 이전 이름 — 후속 Phase에서 재정합.
 
 ### Migration (남은 Phase)
 
-- **P2 (제품)**: `--kds-color-*` 소비처 183파일 rename + `globals.css`의 `palette-gray↔gray` 반전
-  제거(KDS 세만틱 직접 소비) + 게이트 9종.
+- **P2 (제품)**: `--louis-color-*` 소비처 183파일 rename + `globals.css`의 `palette-gray↔gray` 반전
+  제거(LOUIS 세만틱 직접 소비) + 게이트 9종.
 - **P3 (Figma)**: `Klipse Primitive`/`Semantic`/`Semantic Color` 3컬렉션 재구성 + parity 재정합
   (라이브 공유 파일, 수동 편집 + publish).
 
 ## 2026-08-24 (100) — 일반 0.5px stroke를 border에서 inset 헤어라인으로 통일한다 (DS-D-0023)
 
 제품 저장소가 `5103ffeb`에서 제각각이던 0.5px stroke를 하나의 recipe로 통일했다 — CSS `border`나
-바깥 spread shadow가 아니라 `inset 0 0 0 0.5px <헤어라인 색>` 한 겹이다. KDS source는 그때까지
-컴포넌트마다 CSS `border`, 바깥 spread shadow, 서로 다른 border color를 써서 KDS를 직접 보는 다음
-구현자가 낡은 방식을 다시 쓸 수 있었다. 그 임시 계약을 제품 `@layer kds.override`가 덮어 성립시키고
-있었는데, 이제 KDS가 정본으로 소유한다 —
+바깥 spread shadow가 아니라 `inset 0 0 0 0.5px <헤어라인 색>` 한 겹이다. LOUIS source는 그때까지
+컴포넌트마다 CSS `border`, 바깥 spread shadow, 서로 다른 border color를 써서 LOUIS를 직접 보는 다음
+구현자가 낡은 방식을 다시 쓸 수 있었다. 그 임시 계약을 제품 `@layer louis.override`가 덮어 성립시키고
+있었는데, 이제 LOUIS가 정본으로 소유한다 —
 [DS-D-0023](../governance/decisions/DS-D-0023-hairline-inset.md).
 
 ### Added
@@ -59,7 +59,7 @@ authority: normative
 - primitive `color-static-black-alpha-10`(순수 black 10%). 제품 실측 헤어라인이 라이트에서 `rgba(0, 0, 0, 0.1)`
   이고 `ink-alpha.10`(#171b22)이 아니므로 순수 black 단계가 필요했다.
 - semantic `color-stroke-hairline` — light `black-alpha.10` · dark `paper-alpha.10`.
-- CSS foundation recipe `--kds-hairline-inset` / `-block-start` / `-block-end`
+- CSS foundation recipe `--louis-hairline-inset` / `-block-start` / `-block-end`
   (`packages/css/src/base.css`, `:root` 한 곳).
 
 ### Changed
@@ -68,7 +68,7 @@ authority: normative
   secondary만, Checkbox 상자·TextField 박스·Dialog surface·Tooltip·ProjectCard·SegmentedControl 트랙·
   Menu 패널은 표면, AppTopBar divider·Menu separator는 방향성 inset.
 - `shadow-menu-light/dark`가 바깥 0.5px 프레임 layer를 잃고 ambient drop shadow만 소유한다. 헤어라인은
-  `.kds-popover`가 뒤에 조합한다 — ambient와 프레임 책임이 분리돼 두 겹 frame이 없다.
+  `.louis-popover`가 뒤에 조합한다 — ambient와 프레임 책임이 분리돼 두 겹 frame이 없다.
 - Figma parity: SegmentedControl은 OUTSIDE stroke → INNER_SHADOW, Menu 패널의 둘째 그림자 layer는
   DROP_SHADOW → INNER_SHADOW. 나머지 bordered 표면은 시각이 같은 INSIDE stroke를 유지하고 borderWidth
   토큰은 0.5로 남는다.
@@ -88,9 +88,9 @@ authority: normative
 
 ### Migration
 
-- 패키지 소비자는 새 KDS 커밋을 소비한 뒤 제품 로컬 `kds.override` 헤어라인 블록과 `--app-hairline-*`
-  정본을 지우고 `--kds-hairline-inset`을 직접 쓴다. 컴포넌트 계산값이 같은지 확인한 뒤에만 제거한다.
-  KDS 헤어라인 색은 `color(srgb 0 0 0 / 0.1)`로 직렬화되므로 제품 `check-rendering`의 `rgba(...)` 단언을
+- 패키지 소비자는 새 LOUIS 커밋을 소비한 뒤 제품 로컬 `louis.override` 헤어라인 블록과 `--app-hairline-*`
+  정본을 지우고 `--louis-hairline-inset`을 직접 쓴다. 컴포넌트 계산값이 같은지 확인한 뒤에만 제거한다.
+  LOUIS 헤어라인 색은 `color(srgb 0 0 0 / 0.1)`로 직렬화되므로 제품 `check-rendering`의 `rgba(...)` 단언을
   그 표기로 갱신해야 한다.
 - Figma는 재생성한 `figma/apply-variables.*.js` · `figma/apply-styles.js`를 "Klipse Design System —
   Library"에 적용하고 되읽어(`figma:fetch`) `figma/snapshot.json`을 갱신해야 parity가 초록이 된다.
@@ -650,13 +650,13 @@ Error: Command failed: git -C /Users/sejunki/klipse-web ls-tree -r --name-only a
 
 ## 2026-08-21 (91) — `migration/`에만 있던 관측을 승격했다. **오류·404 화면이 처음으로 문서를 갖는다**
 
-(85)의 판정에서 「이미 KDS에 있음」으로 뒤집힌 25건 중 **셋은 `migration/`에만** 있었다.
+(85)의 판정에서 「이미 LOUIS에 있음」으로 뒤집힌 25건 중 **셋은 `migration/`에만** 있었다.
 `migration/`은 제품 관측이고 규범이 아니므로, Figma 세션이 `design/`만 읽으면 없는 것과 같다.
 셋을 확인해 둘을 승격하고 하나는 승격하지 않았다.
 
 ### 승격하지 않은 하나
 
-`transform-origin: top right` · `scale(0.92)`는 **의도적 편차**다. KDS는 anchor에서 원점을
+`transform-origin: top right` · `scale(0.92)`는 **의도적 편차**다. LOUIS는 anchor에서 원점을
 계산하고, 제품의 하드코딩은 「배치가 flip돼도 원점이 안 따라간다」로 **결함으로 기록**돼 있다.
 승격하면 결정을 뒤집는 일이다.
 
@@ -798,7 +798,7 @@ verify를 중간에 죽이지 않는 편이 낫고, 죽였으면 다음 실행 �
 ### 남은 것
 
 - **컴포넌트 문서 신설 판정** — 툴바 · 인라인 오류 배너. 값은 등록부에 있고, 문서를 세우는 것은
-  「KDS가 만든다」는 로드맵 결정이다.
+  「LOUIS가 만든다」는 로드맵 결정이다.
 - **제품 확인 7건** — 루트 폰트 크기 · 죽은 상단 페이드 · 180ms의 역할 등.
 - **`migration/`에만 있는 관측의 승격** — 판정에서 3건이 그 상태였다.
 
@@ -817,7 +817,7 @@ verify를 중간에 죽이지 않는 편이 낫고, 죽였으면 다음 실행 �
 
 | 실패 | 기대 | 실제 |
 | --- | --- | --- |
-| sidebar CTA | `--kds-color-bg-upgrade` `#171b22` | `--kds-color-bg-upgrade-hover` **`#313640`** |
+| sidebar CTA | `--louis-color-bg-upgrade` `#171b22` | `--louis-color-bg-upgrade-hover` **`#313640`** |
 | segmented | Default = `color-fg-secondary` `#575d68` | Hover = `color-fg-primary` **`#171b22`** |
 
 `userEvent.hover()`는 **진짜 마우스를 움직인다.** 얹은 채로 테스트가 끝나면 다음 테스트에서 같은
@@ -885,7 +885,7 @@ beforeEach(async () => {
 ## 2026-08-21 (87) — 셸 패턴 셋을 세웠다. 랜딩·인증·결과 화면이 처음으로 문서를 갖는다
 
 (86)에서 「`landing-shell` · `auth-two-panel` · `status-result`는 아직 안 만들었다」고 적었다.
-셋을 세웠다. **KDS에 로그인 전 화면의 규범이 하나도 없었다** — 제품의 절반이다.
+셋을 세웠다. **LOUIS에 로그인 전 화면의 규범이 하나도 없었다** — 제품의 절반이다.
 
 | 문서 | 덮는 화면 |
 | --- | --- |
@@ -893,7 +893,7 @@ beforeEach(async () => {
 | [Auth Two Panel](../patterns/auth-two-panel.md) | 로그인 · 회원가입 · 비밀번호 재설정 · 이메일 인증 등 **8화면** |
 | [Status Result](../patterns/status-result.md) | 결제·구독 결과 **7화면** |
 
-**컴포넌트 문서는 만들지 않았다.** `design/components/`에 문서를 만드는 것은 「KDS가 이것을
+**컴포넌트 문서는 만들지 않았다.** `design/components/`에 문서를 만드는 것은 「LOUIS가 이것을
 만든다」는 **로드맵 결정**이라 문서 작업으로 처리할 일이 아니다. 셸·화면 패턴은
 [app-shell](../patterns/app-shell.md)이 「제품 현실 + 선언된 결손」 형태의 선례를 이미 만들어
 두었으므로 `patterns/`가 맞다.
@@ -957,7 +957,7 @@ beforeEach(async () => {
 ## 2026-08-21 (86) — 검증된 결손 80건을 문서로 옮겼다. 1,455줄
 
 (85)에서 판정한 실제 결손 80건 중 **49개 블록을 18개 문서에 넣었다.** 이관은 「번들 문장을
-복사」가 아니라 **배포본에서 다시 잰 값을 KDS 문체로 다시 쓰는 것**이었다.
+복사」가 아니라 **배포본에서 다시 잰 값을 LOUIS 문체로 다시 쓰는 것**이었다.
 
 | | |
 | --- | ---: |
@@ -1002,7 +1002,7 @@ beforeEach(async () => {
 
 ### 넣지 않은 것
 
-- **컴포넌트 문서 신설은 하지 않았다.** `design/components/`에 문서를 만드는 것은 「KDS가 이것을
+- **컴포넌트 문서 신설은 하지 않았다.** `design/components/`에 문서를 만드는 것은 「LOUIS가 이것을
   만든다」는 **로드맵 결정**이다. 하단 캔버스 툴바와 노드 인라인 오류 배너의 실측값은
   [gap registry](../../migration/figma-gap-registry.md)에 값을 붙여 두었다 — 「없다」만 적혀
   있으면 Figma 작업자가 그릴 수 없기 때문이다.
@@ -1020,40 +1020,40 @@ beforeEach(async () => {
 
 없다. 문서 이관이다.
 
-## 2026-08-21 (85) — 「KDS에 없다」 141건을 판정했다. 실제 결손은 80건이고, 25건은 이미 있었다
+## 2026-08-21 (85) — 「LOUIS에 없다」 141건을 판정했다. 실제 결손은 80건이고, 25건은 이미 있었다
 
-(80)·(82)의 감사가 「KDS에 이 사실이 없어서 화면을 못 그린다」고 지목한 141건을 **제품과 KDS
-양쪽에서** 다시 봤다. 세 가지를 따로 물었다 — 사실이 맞는가 · KDS에 정말 없는가 · 그리는 데
+(80)·(82)의 감사가 「LOUIS에 이 사실이 없어서 화면을 못 그린다」고 지목한 141건을 **제품과 LOUIS
+양쪽에서** 다시 봤다. 세 가지를 따로 물었다 — 사실이 맞는가 · LOUIS에 정말 없는가 · 그리는 데
 필요한가.
 
 | 판정 | 건수 |
 | --- | ---: |
 | **실제 결손** | **80** (이 중 BLOCKING **61**) |
-| 이미 KDS에 있음 | **25** |
+| 이미 LOUIS에 있음 | **25** |
 | 사실이 틀리거나 부분적으로 틀림 | **40** |
 
-### 지목한 쪽이 KDS의 구조를 몰랐다
+### 지목한 쪽이 LOUIS의 구조를 몰랐다
 
 25건이 「이미 있음」으로 뒤집힌 이유가 거의 같다 — **감사자가 `design/`만 보고 「없다」고
-결론냈다.** KDS는 제품 관측을 `migration/`에 소유한다.
+결론냈다.** LOUIS는 제품 관측을 `migration/`에 소유한다.
 
-예를 들어 「노드 캔버스 하단 ComposerBar의 반응형 폭이 KDS에 없다」는 지목은,
+예를 들어 「노드 캔버스 하단 ComposerBar의 반응형 폭이 LOUIS에 없다」는 지목은,
 `migration/legacy-design-system.md` §6.6이 **요청한 각주를 문자 그대로 갖고 있었다.**
 「프로필 팝오버 로컬 변수 5행」도 같은 파일에 다크/라이트/근거줄까지 **더 정확하게** 있었다.
 
-`design/`은 규범이고 `migration/`은 제품 관측이다. **둘을 함께 보지 않으면 KDS를 과소평가한다.**
+`design/`은 규범이고 `migration/`은 제품 관측이다. **둘을 함께 보지 않으면 LOUIS를 과소평가한다.**
 
 ### 결손이 아니라 「이미 내린 결정」인 것
 
 둘은 메우면 안 된다. **`accepted-deviation`을 뒤집는 일**이기 때문이다.
 
-- **팝오버 열림 260ms / scale 0.92.** KDS는 `overlay-enter` 200ms · scale 0.96을 Menu·Dialog·
+- **팝오버 열림 260ms / scale 0.92.** LOUIS는 `overlay-enter` 200ms · scale 0.96을 Menu·Dialog·
   Popover가 공유한다. `product.measured.json`에 사유가 적혀 있다 — 「표면마다 열림 속도가
   다르면 같은 제스처가 다른 반응을 준다」.
 - **`transform-origin: top right` 하드코딩.** 제품은 배치가 flip돼도 원점이 안 따라간다.
-  KDS는 anchor에서 계산한다. 제품 쪽을 **결함으로 기록**해 둔 자리다.
+  LOUIS는 anchor에서 계산한다. 제품 쪽을 **결함으로 기록**해 둔 자리다.
 
-**「제품이 이렇게 한다」가 곧 「KDS가 이렇게 해야 한다」는 아니다.**
+**「제품이 이렇게 한다」가 곧 「LOUIS가 이렇게 해야 한다」는 아니다.**
 
 ### 딸려 나온 수치 정정 40건
 
@@ -1081,7 +1081,7 @@ beforeEach(async () => {
 ## 2026-08-21 (84) — 인용 좌표를 게이트가 지킨다. 락이 산문 인용을 안 보고 있었다
 
 (80)에서 이식번들의 인용 좌표 **124건이 낡았다**고 적었다 — 사실은 맞는데 제품이 움직여 줄이
-밀렸다. **KDS도 같은 구멍을 갖고 있었다.**
+밀렸다. **LOUIS도 같은 구멍을 갖고 있었다.**
 
 ### 구멍
 
@@ -1089,11 +1089,11 @@ beforeEach(async () => {
 `product.measured.json`이 인용한 파일만 봤고, **design 문서가 본문에서 인용한 제품 파일은
 아무도 지키지 않았다.** 제품이 그 파일을 바꾸면 문서의 좌표가 조용히 낡는다.
 
-실측: KDS 문서의 제품 인용 **68건 · 파일 16개**. 그중 **7개가 락 밖**이었다.
+실측: LOUIS 문서의 제품 인용 **68건 · 파일 16개**. 그중 **7개가 락 밖**이었다.
 
 ### 그리고 인용이 모호했다
 
-`Gnb.tsx`는 배포본에 **둘**이다 — 앱 셸용(5,570줄)과 랜딩용(1,010줄). KDS가 짧은 이름으로
+`Gnb.tsx`는 배포본에 **둘**이다 — 앱 셸용(5,570줄)과 랜딩용(1,010줄). LOUIS가 짧은 이름으로
 **17번** 인용하고 있었다. 오늘 랜딩 쪽을 열고 「그 파일이 없다」고 판단한 적이 실제로 있다.
 
 17건을 **내용으로 대조**했다 — `:191` `iconButton: [` · `:427` `[background:var(--app-page-bg)]` ·
@@ -1162,7 +1162,7 @@ pnpm 배치라 `packages/react`에서만 해석된다. optimizer는 루트에서
 | segmented 기본 전경 | 기본 세그먼트 색 | **선택된 세그먼트 색** |
 
 **둘 다 「엉뚱한 요소를 읽었다」이고, 값이 그럴듯한 다른 색이라 단언이 조용히 어긋난다.**
-`[data-kds-fixture]` 조회가 앞 테스트의 fixture를 집는 것으로 보인다.
+`[data-louis-fixture]` 조회가 앞 테스트의 fixture를 집는 것으로 보인다.
 
 **고치려다 되돌렸다.** `afterEach`에서 fixture를 걷어 봤더니 **84개 테스트가 깨졌다** — 한 번
 렌더하고 여러 `test()`에서 조회하는 파일들이 있다. 그 접근은 틀렸다.
@@ -1200,7 +1200,7 @@ pnpm 배치라 `packages/react`에서만 해석된다. optimizer는 루트에서
 | 헤더 슬롯과 스크롤 뷰포트는 형제 | 슬롯은 뷰포트의 **자손**이다. 같은 절 2695행이 「슬롯이 스크롤 콘텐츠의 직계여야 sticky가 먹는다」고 적어 **스스로를 반박한다** |
 | 형태 B는 상단 72px 페이드를 켠다 | `--header-progress`가 패널까지 닿지 않는다(훅이 `<main>`에만 쓰는데 패널은 그 **부모**다). **실제로 켜지는 화면이 0개다** |
 | `--header-progress`는 워드마크 축소용 | 소비처는 형태 B 상단 페이드 **하나뿐**이다. 워드마크를 줄이는 규칙이 배포본에 없다 |
-| 형태 B 씬은 `components/scenes/` 7개 | 라우트 폴더 안에 3곳 더 있다 — **KDS `app-shell.md`는 이 3곳을 이미 담고 있다. 번들이 뒤처졌다** |
+| 형태 B 씬은 `components/scenes/` 7개 | 라우트 폴더 안에 3곳 더 있다 — **LOUIS `app-shell.md`는 이 3곳을 이미 담고 있다. 번들이 뒤처졌다** |
 
 마지막 행이 중요하다. **이관이 한 방향이 아니다.**
 
@@ -1233,7 +1233,7 @@ pnpm 배치라 `packages/react`에서만 해석된다. optimizer는 루트에서
 **면 색으로 카드를 찾을 수 있고**, 반대로 랜딩의 「같은 색」 규칙을 앱 셸에 적용하면 페이지
 바닥이 한 계단 밝게 나온다.
 
-### 확인한 것을 KDS에 넣었다
+### 확인한 것을 LOUIS에 넣었다
 
 **메인 카드 표면.** `app-shell.md:154`가 「카드 표면은 제품이 소유하며 아직 DS 계약이 없다」고
 스스로 선언해 두었는데, **「계약이 없다」가 「값을 모른다」는 뜻은 아니다.** 실측표를 넣었다 —
@@ -1370,7 +1370,7 @@ medium 500이다(**semibold·regular 사용 0회**)」라고 적었다. 지금�
 
 ### 이게 뜻하는 것
 
-**이식번들은 KDS보다 구체적이지만 더 정확하지는 않다.** 화면을 그리려면 둘 다 필요하다 —
+**이식번들은 LOUIS보다 구체적이지만 더 정확하지는 않다.** 화면을 그리려면 둘 다 필요하다 —
 구체성이 있어야 숫자가 나오고, 정확성이 있어야 **맞는** 숫자가 나온다. 이관은 번들의 구체성을
 가져오되 **값은 배포본에서 다시 재는** 방식이어야 한다. 좌표는 아예 가져오지 않는다.
 
@@ -1442,10 +1442,10 @@ globals.css:943     font-size: var(--type-caption-12-size);
 
 없다. 수치 정정과 계기 추가다.
 
-## 2026-08-21 (78) — §6 감사가 KDS의 실제 오류를 찾았다: `/archive`의 라벨은 「보관함」이 아니다
+## 2026-08-21 (78) — §6 감사가 LOUIS의 실제 오류를 찾았다: `/archive`의 라벨은 「보관함」이 아니다
 
 이식번들 `patterns.txt` §6의 화면 조립 층을 배포본 실측으로 검증했다(에이전트 112개 · 주장 611건).
-결과는 아래 (79)에 정리하고, 여기서는 **KDS를 직접 고쳐야 하는 것 하나**를 닫는다.
+결과는 아래 (79)에 정리하고, 여기서는 **LOUIS를 직접 고쳐야 하는 것 하나**를 닫는다.
 
 ### 증상
 
@@ -1762,7 +1762,7 @@ primitive 11종이 이미 있고, 제품의 그림자 토큰이 그 안에 다 �
 
 ### border-width — 최다 사용값에 토큰이 없었습니다
 
-| 실사용 | 횟수 | KDS |
+| 실사용 | 횟수 | LOUIS |
 | --- | ---: | --- |
 | **1px** | **142** | **없었습니다** |
 | 2px | 25 | `ring` |
@@ -1779,7 +1779,7 @@ primitive 11종이 이미 있고, 제품의 그림자 토큰이 그 안에 다 �
 
 ### radius — 알파와 같은 드리프트입니다
 
-KDS의 짝수 스케일(0·2·4·6·8·10·12·16·20·24·full)이 실사용 **587회 중 83.5%**를 덮고 나머지 **약
+LOUIS의 짝수 스케일(0·2·4·6·8·10·12·16·20·24·full)이 실사용 **587회 중 83.5%**를 덮고 나머지 **약
 97회**가 결손입니다.
 
 | 결손 | 7px | 3px | 5px | 1px | 9px | 14px | 18px | 1.5px |
@@ -2195,7 +2195,7 @@ Figma는 색을 전정밀도로 저장하는데 생성 값은 6자리 반올림�
 제품 accent 램프 **11종 · 정의 67단 · 참조되는 단계 67단**. 미참조 단계가 **0개**라
 원칙 6의 「일부 단계가 미참조여도 허용한다」를 적용할 일이 없습니다.
 
-| 램프 | 제품 | KDS | 추가 |
+| 램프 | 제품 | LOUIS | 추가 |
 | --- | ---: | ---: | ---: |
 | mint | 9 | 1 | 8 |
 | yellow | 9 | 0 | 9 |
@@ -2424,7 +2424,7 @@ Figma는 색을 전정밀도로 저장하는데 생성 값은 6자리 반올림�
 
 ### 없는 것을 없다고 적었습니다
 
-Figma로 옮길 때 KDS가 값을 주지 못하는 축 다섯을 표로 명시했습니다 — `--app-gnb-safe-top` ·
+Figma로 옮길 때 LOUIS가 값을 주지 못하는 축 다섯을 표로 명시했습니다 — `--app-gnb-safe-top` ·
 `--app-gnb-main-inline-padding-end` · `--app-gnb-rail-padding-bottom` · `--app-shell-min-width` ·
 compact 레일 폭. **지어내지 말고 제품을 인용하라**고 적었고 데스크톱/≤719px 값과 근거 줄을
 함께 실었습니다.
@@ -2553,7 +2553,7 @@ compact에서 상단만 유지되고 우측은 16, 하단은 0으로 갈라집�
 - `SidebarCta`에 `current`가 생겼습니다. 기본값 `false`라 기존 호출부는 그대로 둡니다.
 - `SidebarCta`의 접힘 라벨이 더 이상 사라지지 않습니다. 접힌 레일 폭을 계산하는 호출부는
   라벨이 최대 54px을 차지한다는 것을 감안하세요.
-- `BannerCarousel`의 사진은 이제 `--kds-banner-image`로 들어갑니다. `backgroundImage`를 직접
+- `BannerCarousel`의 사진은 이제 `--louis-banner-image`로 들어갑니다. `backgroundImage`를 직접
   인라인으로 넣던 호출부가 있다면 스크림 레이어를 덮게 되므로 바꿔야 합니다.
 - mint 토큰이 사라졌다가 링의 색으로 다시 섰습니다. `color-bg-upgrade` 계열을 직접 읽던
   호출부는 값이 바뀐 것을 확인하세요.
@@ -3011,7 +3011,7 @@ Light·Dark 스와치를 만들고 라벨을 붙입니다. 다음에 이름이 �
 
 `button.md`가 컴포넌트 문서 중 유일하게 import를 안내하는데 **`tokens.css`를 빠뜨렸습니다.**
 그대로 따르면 색·간격·반경이 전부 무효값이 되고 **오류는 나지 않습니다** — `styles.css`에는
-semantic 토큰 정의가 없고 `var(--kds-*)` 참조만 있으며 생성물끼리 `@import`하지 않습니다.
+semantic 토큰 정의가 없고 `var(--louis-*)` 참조만 있으며 생성물끼리 `@import`하지 않습니다.
 
 `DS-D-0004`는 한술 더 떠 *"소비자 부담은 `layers.css` import 한 줄이다"*라고 적어 두어 누락을
 굳혔습니다. 세 곳(button.md · css/README.md · DS-D-0004)을 고쳤습니다.
@@ -3498,7 +3498,7 @@ Figma component set. `figma: not-ready`이며 그것이 서야 parity가 이 컴
 ## 2026-08-18 (30) — Tailwind 다리를 실제로 건너 본다
 
 owner 질문: **"디자인시스템은 테일윈드가 아니야?"** 아니다 — DS는 Tailwind에 의존하지 않고
-`.kds-*` plain CSS로 저작한다(DS-D-0004). 다만 토큰을 `@theme inline`으로 **발행**한다(DS-D-0013).
+`.louis-*` plain CSS로 저작한다(DS-D-0004). 다만 토큰을 `@theme inline`으로 **발행**한다(DS-D-0013).
 쓰는 건 plain CSS, 주는 건 Tailwind 테마다.
 
 그 다리를 아직 아무도 건너지 않았다는 것이 문제였다. 건너 봤다.
@@ -3990,7 +3990,7 @@ reduced-motion에서 흐름은 짧아지는 것이 아니라 사라지고, 테�
 
 ## 2026-08-18 (19) — Project Grid · `layout-project-card-minimum`이 소비처를 얻었다
 
-`DS-P3-010`의 세 패턴 중 하나가 섰다. 공용 recipe `.kds-project-grid` 하나이고 pattern의 Web
+`DS-P3-010`의 세 패턴 중 하나가 섰다. 공용 recipe `.louis-project-grid` 하나이고 pattern의 Web
 상태가 `not-ready` → `partial`이다.
 
 ### viewport가 아니라 container다
@@ -4638,7 +4638,7 @@ pseudo-element가 아니라 호스트 input의 값을 돌려준다** — 실측�
 - **Figma component set이 없다.** `figma: not-ready`이며 `DS-F-006-slider`가 소유한다
 - **Firefox 경로가 미검증이다.** `::-moz-range-*` 규칙을 나란히 적었으나 harness가 Chromium 단독이다
 - **컨트롤 높이 40px이 `hit-target-minimum` 44px에 미달한다.** range input은 `::before`/`::after`가
-  트랙·썸에 배정돼 `.kds-hit-target`을 쓸 수 없다. Text Field도 같은 40px이다
+  트랙·썸에 배정돼 `.louis-hit-target`을 쓸 수 없다. Text Field도 같은 40px이다
 - **범위(두 손잡이) 선택이 없다.** 제품에 0벌이다
 
 ## 2026-08-18 — Sidebar Nav Item · App Top Bar
@@ -4682,7 +4682,7 @@ pseudo-element가 아니라 호스트 input의 값을 돌려준다** — 실측�
 
 - `sidebar-minimum` → **`content-reserve`**. 값은 그대로
 - **`sidebar-width` 280** · **`sidebar-collapsed` 56** · **`top-bar-height` 40** 신설
-- **`.kds-layer-sticky` 유틸리티** 추가 — 토큰은 있는데 쓸 클래스가 없어 숫자를 쓰게 되어 있었다
+- **`.louis-layer-sticky` 유틸리티** 추가 — 토큰은 있는데 쓸 클래스가 없어 숫자를 쓰게 되어 있었다
 
 상단 바 높이가 40인 근거는 제품에 52/36/40 셋이 있고 `globals.css`의 주석이 **정렬을 40 전제로
 계산**하기 때문이다. `layout-control-height-md`가 같은 40이지만 쓰지 않는다 — 버튼 높이를 바꾸는
@@ -4758,7 +4758,7 @@ keyframe, loop에서의 `transform` 거부.
 ### keyframe 중복을 합쳤다
 
 제품이 회전 keyframe 이름 18개에 본문 1종을 가진 것과 **같은 중복이 이 저장소에도 둘 있었다** —
-`kds-button-spin`과 `kds-menu-spin`. `base.css`의 공용 `kds-spin` 하나로 합쳤다. 같은 것을 두 번
+`louis-button-spin`과 `louis-menu-spin`. `base.css`의 공용 `louis-spin` 하나로 합쳤다. 같은 것을 두 번
 적으면 한쪽만 고쳐지는 날이 온다.
 
 ### 라벨에 기본값을 두지 않는다
@@ -5108,7 +5108,7 @@ DS는 Tailwind 의존성이 **0개**였고 [DS-D-0004](../governance/decisions/D
 `@theme inline` 레이어로 발행하고 컴포넌트 CSS는 authored plain CSS로 남긴다.
 
 - `@klipse-design/css/theme.css` 신설. 유틸리티 토큰 93개 + 변수 전용 16개
-- 값이 리터럴이 아니라 `var(--kds-*)`를 가리킨다. `@theme`가 아니라 **`@theme inline`**인 이유가
+- 값이 리터럴이 아니라 `var(--louis-*)`를 가리킨다. `@theme`가 아니라 **`@theme inline`**인 이유가
   이것이다 — semantic 색이 런타임에 바뀌므로 inline이 아니면 빌드 시점 값이 구워져 테마 전환을
   따라가지 않는다
 - Tailwind에 대응 namespace가 없는 범주(`layer`, `border-width`, `motion`)도 변수로 내보낸다
@@ -5322,7 +5322,7 @@ parity 게이트가 **variant 이름과 "paint가 변수에 바인딩됐는가"�
 
 ### 여기서 찾은 코드 결함
 
-`.kds-button__icon`에 크기가 없어 **호출부가 넘긴 아이콘 크기가 그대로 버튼 높이가 됐다.** sm
+`.louis-button__icon`에 크기가 없어 **호출부가 넘긴 아이콘 크기가 그대로 버튼 높이가 됐다.** sm
 버튼에 기본(20px) 아이콘을 넣으면 높이가 28이 아니라 **30**이 되고, 같은 줄의 버튼들이 아이콘
 유무로 어긋난다. 높이가 호출부에 따라 달라지는 것은 컨트롤이 아니므로 슬롯을 md 20 / sm 16으로
 Button이 소유하게 하고 글리프를 슬롯에 맞췄다. Iconography의 "글리프 크기는 아이콘이 소유한다"에
@@ -5398,7 +5398,7 @@ gap registry 3순위다. 세 화면 실측에서 **20개 파일이 toast를 쓰�
 
 - [Toast](../components/toast.md) 규범과 `ToastProvider` / `useToast` public export
 - `packages/css/src/component/toast.css`
-- `--kds-color-bg-inverse`와 `--kds-color-fg-on-inverse`. Toast가 첫 소비자이며
+- `--louis-color-bg-inverse`와 `--louis-color-fg-on-inverse`. Toast가 첫 소비자이며
   contrast pair로 등록해 두 모드 모두 게이트가 잰다(light 11.61, dark 13.59). Figma 변수로도
   함께 만들었다.
 - Storybook `Components/Toast` story 5종
@@ -5460,7 +5460,7 @@ gap registry 2순위다. 세 화면 실측에서 **22개 파일이 tooltip을 �
 
 - [Tooltip](../components/tooltip.md) 규범과 `Tooltip` public export
 - `packages/css/src/component/tooltip.css`
-- `--kds-radius-control-sm`(8px). gap registry가 지적한 **"가장 많이 쓰이는 radius에 semantic 이름이
+- `--louis-radius-control-sm`(8px). gap registry가 지적한 **"가장 많이 쓰이는 radius에 semantic 이름이
   없다"**의 해소이며 Tooltip이 첫 소비자다. Figma 변수로도 함께 만들었다.
 - Storybook `Components/Tooltip` story 5종
 
@@ -5514,7 +5514,7 @@ gap registry 1순위를 구현했다. 세 화면 실측에서 raw `<button>` 108
 
 - [Icon Button](../components/icon-button.md) 규범과 `IconButton` public export
 - `packages/css/src/component/icon-button.css`
-- 컨트롤 높이 토큰 — `--kds-layout-control-height-md`(40) · `--kds-layout-control-height-sm`(32).
+- 컨트롤 높이 토큰 — `--louis-layout-control-height-md`(40) · `--louis-layout-control-height-sm`(32).
   gap registry가 지적한 "컨트롤 높이 토큰 없음"의 첫 해소이며, Figma 변수로도 함께 만들었다.
 - Storybook `Components/Icon Button` story 5종. `WhyNotButton`은 두 컴포넌트를 나란히 두어
   정사각 차이를 눈으로 보게 한다.
@@ -5523,7 +5523,7 @@ gap registry 1순위를 구현했다. 세 화면 실측에서 raw `<button>` 108
 
 - **크기를 padding이 아니라 한 변의 길이로 정한다.** Button은 고정 높이가 없어 라벨·번역·확대에
   따라 자라지만, Icon Button은 정사각이 계약이므로 높이를 직접 소유한다.
-- **히트 영역은 시각 크기와 분리된다.** 컴포넌트가 `.kds-hit-target`을 직접 붙여, sm이 32×32로
+- **히트 영역은 시각 크기와 분리된다.** 컴포넌트가 `.louis-hit-target`을 직접 붙여, sm이 32×32로
   보여도 실제 히트는 44×44다. 호출부가 감쌀 필요가 없다.
 - **`pressed`는 토글에만.** 주지 않으면 `aria-pressed` 속성 자체가 붙지 않는다 — `false`를 늘
   붙이면 토글이 아닌 버튼이 보조 기술에 토글로 노출된다. 실브라우저에서 확인했다: Matrix story의
@@ -5634,7 +5634,7 @@ primary 버튼이 3-stop 그라디언트이며, z-index 체계가 DS layer 토�
 
 - [Iconography](../foundations/iconography.md) foundation과
   [DS-D-0008](../governance/decisions/DS-D-0008-icon-source.md) — 아이콘 정본 구조 결정
-- 크기 토큰 `--kds-icon-size-{sm,md,lg}` = 16 / 20 / 24px, `packages/css/src/component/icon.css`
+- 크기 토큰 `--louis-icon-size-{sm,md,lg}` = 16 / 20 / 24px, `packages/css/src/component/icon.css`
 - `scripts/build-icons.mjs`와 `scripts/verify-icon-gates.mjs`(변조 canary 11종)
 - 정본 글리프 **26개** — Phosphor 21 · Iconoir 3 · Lucide 2
 - `packages/react/THIRD-PARTY-NOTICES.md` — upstream 라이선스 원문을 생성으로 동봉한다
@@ -5871,7 +5871,7 @@ stacking과 inert 경계가 달라진다.
 - **키보드 리스너를 native로 붙인다.** React 이벤트는 React 트리로 전파되는데 submenu의 Content는
   부모의 React 서브트리 안이라, React 핸들러를 쓰면 submenu의 방향키가 부모까지 실행해 focus가 튀고
   그 focusout이 submenu를 닫는다. 두 panel은 DOM에서 형제라 native에는 그 문제가 없다.
-- **item에 `.kds-hit-target`을 쓰지 않는다.** 44px `::after`가 항목 중앙에 겹쳐 놓여, 간격 없이 쌓이는
+- **item에 `.louis-hit-target`을 쓰지 않는다.** 44px `::after`가 항목 중앙에 겹쳐 놓여, 간격 없이 쌓이는
   행에서 인접 항목의 hit 영역을 2px씩 가로챈다. "삭제"가 "설정" 아래에 있으면 그대로 사고다.
 
 ### Known deviations
@@ -5892,10 +5892,10 @@ Button만 쓰는 앱에는 영향이 없다.
 - `packages/react/src/overlay/` — Menu와 Dialog가 공유할 순서·정책 계층. portal host 해석, presence
   FSM, branch registry, layer stack, dismiss 정책, focus 정책, inert, scroll lock, activation guard,
   id 발급, anchor 배치를 각각 독립 모듈로 분리했다.
-- `packages/css/src/component/overlay.css` — 하부 positioning 유틸의 변수를 `--kds-overlay-*`로
+- `packages/css/src/component/overlay.css` — 하부 positioning 유틸의 변수를 `--louis-overlay-*`로
   재발행하는 **단일 seam**. 유틸을 교체하면 이 블록 5줄만 바뀐다.
-- `base.css`에 두 규칙 — `[data-kds-state="opening"]`(비가시·비 hit-test)와
-  `[data-kds-scroll-locked="true"]`.
+- `base.css`에 두 규칙 — `[data-louis-state="opening"]`(비가시·비 hit-test)와
+  `[data-louis-scroll-locked="true"]`.
 - fixture 2종과 실브라우저 회귀 45건, node 단위 14건.
 
 ### 이 계층이 필요한 이유
@@ -5908,7 +5908,7 @@ Button만 쓰는 앱에는 영향이 없다.
 
 - **소비자에게 달라지는 것은 없다.** `@klipse-design/react`의 public 표면은 그대로 `Button`
   하나이며 `exports`와 패키지 게이트도 변하지 않았다. overlay는 recipe의 구현 세부다.
-- `@klipse-design/css`의 `styles.css`에 overlay recipe가 추가됐다. `.kds-overlay-panel`을 쓰지 않는
+- `@klipse-design/css`의 `styles.css`에 overlay recipe가 추가됐다. `.louis-overlay-panel`을 쓰지 않는
   앱에는 영향이 없다.
 - `menu-popover.md`와 `dialog.md`의 pre-implementation blocker 중 primitive 부재 항목이 해소됐다.
   두 컴포넌트의 `Web` 상태는 **`not-ready` 그대로다** — primitive는 카탈로그 컴포넌트가 아니다.
@@ -6005,7 +6005,7 @@ import { Button } from "@klipse-design/react";
 ### Known deviations
 
 - `danger` variant가 tonal이다. solid를 표현할 `color-accent-danger*` 토큰이 없다.
-- 고정 높이 토큰이 없어 높이를 padding과 line-height로 결정하고 44px 타깃은 `kds-hit-target`이
+- 고정 높이 토큰이 없어 높이를 padding과 line-height로 결정하고 44px 타깃은 `louis-hit-target`이
   보장한다.
 
 둘 다 DS-P3-014가 해소한다.
@@ -6034,8 +6034,8 @@ Figma는 여전히 publish되지 않았고 Button의 Figma 상태도 `not-ready`
 두 벌 배포는 Tailwind 소비자가 유틸리티로 라이브러리 스타일을 이길 수 있게 하기 위한 것이다.
 `styles.css`와 `styles.layer.css`를 동시에 import하지 않는다.
 
-base 유틸리티는 `kds-visually-hidden`, `kds-focus-ring`, `kds-hit-target`, `kds-layer-*`,
-그리고 `[data-kds-state]`의 closing/closed 계약이다.
+base 유틸리티는 `louis-visually-hidden`, `louis-focus-ring`, `louis-hit-target`, `louis-layer-*`,
+그리고 `[data-louis-state]`의 closing/closed 계약이다.
 
 ### 게이트
 
@@ -6133,8 +6133,8 @@ CSS·React 패키지는 여전히 소스가 없고 상태는 `not-ready`다. Web
 
 ### 발견한 결함
 
-`--kds-font-family-sans` primitive가 CSS로 방출되지 않고, 동일한 폰트 스택 리터럴이
-`--kds-typography-*-font-family`에 **15번 중복 인라인**된다. 소비자가 폰트를 교체하려면 15개를 전부
+`--louis-font-family-sans` primitive가 CSS로 방출되지 않고, 동일한 폰트 스택 리터럴이
+`--louis-typography-*-font-family`에 **15번 중복 인라인**된다. 소비자가 폰트를 교체하려면 15개를 전부
 덮어야 한다. 또한 폴백 스택의 `Inter`·`Noto Sans KR`·`Noto Sans JP`는 시스템 설치 폰트가 아니라
 no-op이어서 **실제 OS 한글 폰트가 스택에 하나도 없다**. DS-D-0009가 두 결함의 해소 방향을 정했고
 구현은 DS-P3-003과 DS-P3-014가 수행한다.

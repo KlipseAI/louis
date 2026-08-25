@@ -13,14 +13,14 @@
  * 높이는 소비처가 정한다. 슬라이드가 absolute라 컨테이너에 `block-size`가 없으면 접힌다.
  */
 
-.kds-banner-carousel {
+.louis-banner-carousel {
   position: relative;
   display: block;
   overflow: hidden;
-  border-radius: var(--kds-radius-card);
+  border-radius: var(--louis-radius-card);
 }
 
-.kds-banner-carousel[data-bleed="full"] {
+.louis-banner-carousel[data-bleed="full"] {
   border-radius: 0;
 }
 
@@ -29,10 +29,10 @@
  * `pointer-events: none`으로 죽여 밑장이 클릭을 훔치지 않게 한다. 보조기술에서는
  * 소비처가 `aria-hidden`을 건다. */
 
-.kds-banner-carousel__slide {
+.louis-banner-carousel__slide {
   /* 사진은 소비처가 인라인으로 넣는다. 여기서 기본값을 선언해 두면 사진이 없는 슬라이드에서도
    * 스크림 레이어가 온전히 성립한다. */
-  --kds-banner-image: none;
+  --louis-banner-image: none;
   position: absolute;
   inset: 0;
   display: flex;
@@ -46,11 +46,11 @@
    * 두어 구조적으로 그 상태가 될 수 없게 한다. 숫자 z-index를 새로 들이지 않고 같은 결과를 얻는다. */
   background-image: linear-gradient(
       to right,
-      color-mix(in srgb, var(--kds-banner-scrim) 78%, transparent) 0%,
-      color-mix(in srgb, var(--kds-banner-scrim) 46%, transparent) 30%,
+      color-mix(in srgb, var(--louis-banner-scrim) 78%, transparent) 0%,
+      color-mix(in srgb, var(--louis-banner-scrim) 46%, transparent) 30%,
       transparent 60%
     ),
-    var(--kds-banner-image, none);
+    var(--louis-banner-image, none);
   background-repeat: no-repeat;
   background-size: cover;
   background-position: 68% center;
@@ -58,30 +58,30 @@
   scale: 1.012;
   pointer-events: none;
   transition:
-    opacity var(--kds-motion-crossfade-enter-duration)
-      var(--kds-motion-crossfade-enter-timing-function),
-    scale var(--kds-motion-zoom-settle-duration) var(--kds-motion-zoom-settle-timing-function);
+    opacity var(--louis-motion-crossfade-enter-duration)
+      var(--louis-motion-crossfade-enter-timing-function),
+    scale var(--louis-motion-zoom-settle-duration) var(--louis-motion-zoom-settle-timing-function);
 }
 
-.kds-banner-carousel__slide[data-active="true"] {
+.louis-banner-carousel__slide[data-active="true"] {
   opacity: 1;
   scale: 1;
   pointer-events: auto;
 }
 
 /* 스크림은 글자 쪽(좌)에서 사진 쪽(우)으로 걷힌다. 톤의 **반대 극**이라 글자와 항상 대비된다. */
-.kds-banner-carousel__slide[data-tone="bright"] {
-  --kds-banner-text: var(--kds-color-media-foreground-bright);
-  --kds-banner-scrim: var(--kds-color-media-scrim-bright);
+.louis-banner-carousel__slide[data-tone="bright"] {
+  --louis-banner-text: var(--louis-color-media-foreground-bright);
+  --louis-banner-scrim: var(--louis-color-media-scrim-bright);
 }
 
-.kds-banner-carousel__slide[data-tone="dark"] {
-  --kds-banner-text: var(--kds-color-media-foreground-dark);
-  --kds-banner-scrim: var(--kds-color-media-scrim-dark);
+.louis-banner-carousel__slide[data-tone="dark"] {
+  --louis-banner-text: var(--louis-color-media-foreground-dark);
+  --louis-banner-scrim: var(--louis-color-media-scrim-dark);
 }
 
 /* progressive blur — 글자 쪽만 흐리고 사진 쪽으로 갈수록 걷힌다. */
-.kds-banner-carousel__slide::before {
+.louis-banner-carousel__slide::before {
   content: "";
   position: absolute;
   inset: 0;
@@ -101,7 +101,7 @@
 
 /* ── 콘텐츠 ─────────────────────────────────────────────────────────────── */
 
-.kds-banner-carousel__content {
+.louis-banner-carousel__content {
   position: relative;
   display: flex;
   flex-direction: column;
@@ -109,157 +109,157 @@
   justify-content: flex-start;
   inline-size: min(540px, 100%);
   block-size: 100%;
-  padding-block: var(--kds-space-layout-section);
-  padding-inline: var(--kds-space-media-inset);
+  padding-block: var(--louis-space-layout-section);
+  padding-inline: var(--louis-space-media-inset);
 }
 
-.kds-banner-carousel__wordmark {
-  block-size: var(--kds-space-control-lg);
+.louis-banner-carousel__wordmark {
+  block-size: var(--louis-space-control-lg);
   inline-size: auto;
   object-fit: contain;
   opacity: 0.85;
 }
 
-.kds-banner-carousel__text {
+.louis-banner-carousel__text {
   margin-block: auto;
   display: flex;
   flex-direction: column;
-  gap: var(--kds-space-overlay-inset);
+  gap: var(--louis-space-overlay-inset);
 }
 
-.kds-banner-carousel__title {
+.louis-banner-carousel__title {
   margin: 0;
-  font-family: var(--kds-typography-heading-md-medium-font-family);
-  font-size: var(--kds-typography-heading-md-medium-font-size);
-  font-weight: var(--kds-typography-heading-md-medium-font-weight);
-  letter-spacing: var(--kds-typography-heading-md-medium-letter-spacing);
-  line-height: var(--kds-typography-heading-md-medium-line-height);
-  color: var(--kds-banner-text);
+  font-family: var(--louis-typography-heading-md-medium-font-family);
+  font-size: var(--louis-typography-heading-md-medium-font-size);
+  font-weight: var(--louis-typography-heading-md-medium-font-weight);
+  letter-spacing: var(--louis-typography-heading-md-medium-letter-spacing);
+  line-height: var(--louis-typography-heading-md-medium-line-height);
+  color: var(--louis-banner-text);
 }
 
-.kds-banner-carousel__description {
+.louis-banner-carousel__description {
   margin: 0;
-  margin-block-start: var(--kds-space-overlay-inset);
+  margin-block-start: var(--louis-space-overlay-inset);
   max-inline-size: 480px;
-  font-family: var(--kds-typography-body-md-regular-font-family);
-  font-size: var(--kds-typography-body-md-regular-font-size);
-  font-weight: var(--kds-typography-body-md-regular-font-weight);
-  letter-spacing: var(--kds-typography-body-md-regular-letter-spacing);
-  line-height: var(--kds-typography-body-md-regular-line-height);
-  color: color-mix(in srgb, var(--kds-banner-text) 72%, transparent);
+  font-family: var(--louis-typography-body-md-regular-font-family);
+  font-size: var(--louis-typography-body-md-regular-font-size);
+  font-weight: var(--louis-typography-body-md-regular-font-weight);
+  letter-spacing: var(--louis-typography-body-md-regular-letter-spacing);
+  line-height: var(--louis-typography-body-md-regular-line-height);
+  color: color-mix(in srgb, var(--louis-banner-text) 72%, transparent);
 }
 
 /* ── stagger ────────────────────────────────────────────────────────────────
  * 지연을 세 단으로 걸어 워드마크 → 제목 → 설명 순으로 올린다. **나갈 때는 지연 0**이다 —
  * 슬라이드가 물러나는 동안 stagger가 다시 걸리면 잔상이 어긋난다. */
 
-.kds-banner-carousel__stagger {
+.louis-banner-carousel__stagger {
   opacity: 0;
   translate: 0 10px;
   transition:
-    opacity var(--kds-motion-content-fade-duration)
-      var(--kds-motion-content-fade-timing-function),
-    translate var(--kds-motion-content-rise-duration)
-      var(--kds-motion-content-rise-timing-function);
+    opacity var(--louis-motion-content-fade-duration)
+      var(--louis-motion-content-fade-timing-function),
+    translate var(--louis-motion-content-rise-duration)
+      var(--louis-motion-content-rise-timing-function);
 }
 
-.kds-banner-carousel__slide[data-active="true"] .kds-banner-carousel__stagger {
+.louis-banner-carousel__slide[data-active="true"] .louis-banner-carousel__stagger {
   opacity: 1;
   translate: 0 0;
 }
 
-.kds-banner-carousel__slide[data-active="true"] .kds-banner-carousel__wordmark {
-  transition-delay: var(--kds-motion-stagger-1-delay);
+.louis-banner-carousel__slide[data-active="true"] .louis-banner-carousel__wordmark {
+  transition-delay: var(--louis-motion-stagger-1-delay);
 }
 
-.kds-banner-carousel__slide[data-active="true"] .kds-banner-carousel__title {
-  transition-delay: var(--kds-motion-stagger-2-delay);
+.louis-banner-carousel__slide[data-active="true"] .louis-banner-carousel__title {
+  transition-delay: var(--louis-motion-stagger-2-delay);
 }
 
-.kds-banner-carousel__slide[data-active="true"] .kds-banner-carousel__description {
-  transition-delay: var(--kds-motion-stagger-3-delay);
+.louis-banner-carousel__slide[data-active="true"] .louis-banner-carousel__description {
+  transition-delay: var(--louis-motion-stagger-3-delay);
 }
 
 /* ── 컨트롤 ──────────────────────────────────────────────────────────────────
  * 숫자 z-index를 쓰지 않는다. 슬라이드보다 뒤에 오는 DOM 순서가 곧 칠 순서다. */
 
-.kds-banner-carousel__controls {
+.louis-banner-carousel__controls {
   position: absolute;
-  inset-inline-end: var(--kds-space-control-lg);
-  inset-block-end: var(--kds-space-control-lg);
+  inset-inline-end: var(--louis-space-control-lg);
+  inset-block-end: var(--louis-space-control-lg);
   display: inline-flex;
   align-items: center;
-  gap: var(--kds-space-control-sm);
-  padding: var(--kds-space-control-xs);
-  border-radius: var(--kds-radius-pill);
-  background-color: var(--kds-color-media-control-surface);
-  backdrop-filter: blur(var(--kds-blur-panel)) saturate(130%);
+  gap: var(--louis-space-control-sm);
+  padding: var(--louis-space-control-xs);
+  border-radius: var(--louis-radius-pill);
+  background-color: var(--louis-color-media-control-surface);
+  backdrop-filter: blur(var(--louis-blur-panel)) saturate(130%);
 }
 
-.kds-banner-carousel__arrow {
+.louis-banner-carousel__arrow {
   inline-size: 28px;
   block-size: 28px;
   padding: 0;
   border: 0;
-  border-radius: var(--kds-radius-pill);
+  border-radius: var(--louis-radius-pill);
   display: inline-flex;
   align-items: center;
   justify-content: center;
   background-color: transparent;
-  color: var(--kds-color-media-control-foreground);
+  color: var(--louis-color-media-control-foreground);
   cursor: pointer;
   transition:
-    background-color var(--kds-motion-control-hover-duration)
-      var(--kds-motion-control-hover-timing-function),
-    scale var(--kds-motion-control-hover-duration)
-      var(--kds-motion-control-hover-timing-function);
+    background-color var(--louis-motion-control-hover-duration)
+      var(--louis-motion-control-hover-timing-function),
+    scale var(--louis-motion-control-hover-duration)
+      var(--louis-motion-control-hover-timing-function);
 }
 
 @media (hover: hover) {
-  .kds-banner-carousel__arrow:hover {
-    background-color: var(--kds-color-media-control-hover);
+  .louis-banner-carousel__arrow:hover {
+    background-color: var(--louis-color-media-control-hover);
   }
 }
 
-.kds-banner-carousel__arrow:active {
+.louis-banner-carousel__arrow:active {
   scale: 0.94;
 }
 
-.kds-banner-carousel__arrow:focus-visible {
-  outline: var(--kds-border-width-ring) solid var(--kds-color-stroke-focus);
+.louis-banner-carousel__arrow:focus-visible {
+  outline: var(--louis-border-width-ring) solid var(--louis-color-stroke-focus);
   outline-offset: 2px;
 }
 
-.kds-banner-carousel__dots {
+.louis-banner-carousel__dots {
   display: inline-flex;
   align-items: center;
-  gap: var(--kds-space-overlay-inset);
+  gap: var(--louis-space-overlay-inset);
 }
 
 /* **폭이 상태다.** 점에는 라벨이 없어 폭 말고 현재 위치를 말하는 것이 없다(DS-D-0019).
  * `scale`로 늘리면 두께와 반경까지 함께 늘어나 7px 알약이 20px 자리에서 찌그러진다. */
-.kds-banner-carousel__dot {
+.louis-banner-carousel__dot {
   inline-size: 7px;
   block-size: 7px;
   padding: 0;
   border: 0;
-  border-radius: var(--kds-radius-pill);
-  background-color: var(--kds-color-media-indicator-rest);
+  border-radius: var(--louis-radius-pill);
+  background-color: var(--louis-color-media-indicator-rest);
   cursor: pointer;
   transition:
-    inline-size var(--kds-motion-layout-change-duration)
-      var(--kds-motion-layout-change-timing-function),
-    background-color var(--kds-motion-control-hover-duration)
-      var(--kds-motion-control-hover-timing-function);
+    inline-size var(--louis-motion-layout-change-duration)
+      var(--louis-motion-layout-change-timing-function),
+    background-color var(--louis-motion-control-hover-duration)
+      var(--louis-motion-control-hover-timing-function);
 }
 
-.kds-banner-carousel__dot[aria-current="true"] {
+.louis-banner-carousel__dot[aria-current="true"] {
   inline-size: 20px;
-  background-color: var(--kds-color-media-indicator-active);
+  background-color: var(--louis-color-media-indicator-active);
 }
 
-.kds-banner-carousel__dot:focus-visible {
-  outline: var(--kds-border-width-ring) solid var(--kds-color-stroke-focus);
+.louis-banner-carousel__dot:focus-visible {
+  outline: var(--louis-border-width-ring) solid var(--louis-color-stroke-focus);
   outline-offset: 2px;
 }
 
@@ -268,21 +268,21 @@
  * 지운다 — 흐림 자체가 합성 부담이고, 제품이 `motion-reduce`에서 지우는 것과 맞춘다. */
 
 @media (prefers-reduced-motion: reduce) {
-  .kds-banner-carousel__slide,
-  .kds-banner-carousel__stagger,
-  .kds-banner-carousel__arrow,
-  .kds-banner-carousel__dot {
-    transition-duration: var(--kds-motion-reduced-duration);
-    transition-delay: var(--kds-motion-reduced-delay);
+  .louis-banner-carousel__slide,
+  .louis-banner-carousel__stagger,
+  .louis-banner-carousel__arrow,
+  .louis-banner-carousel__dot {
+    transition-duration: var(--louis-motion-reduced-duration);
+    transition-delay: var(--louis-motion-reduced-delay);
   }
 
-  .kds-banner-carousel__slide[data-active="true"] .kds-banner-carousel__wordmark,
-  .kds-banner-carousel__slide[data-active="true"] .kds-banner-carousel__title,
-  .kds-banner-carousel__slide[data-active="true"] .kds-banner-carousel__description {
-    transition-delay: var(--kds-motion-reduced-delay);
+  .louis-banner-carousel__slide[data-active="true"] .louis-banner-carousel__wordmark,
+  .louis-banner-carousel__slide[data-active="true"] .louis-banner-carousel__title,
+  .louis-banner-carousel__slide[data-active="true"] .louis-banner-carousel__description {
+    transition-delay: var(--louis-motion-reduced-delay);
   }
 
-  .kds-banner-carousel__slide::before {
+  .louis-banner-carousel__slide::before {
     backdrop-filter: none;
     mask-image: none;
   }

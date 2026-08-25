@@ -392,7 +392,7 @@ describe("Escape 라우팅", () => {
     host.dispatch({ isComposing: false, keyCode: 229 });
     expect(panel.closed).toEqual([]);
 
-    const owner = { matches: (selector: string) => selector === "[data-kds-escape-owner]" };
+    const owner = { matches: (selector: string) => selector === "[data-louis-escape-owner]" };
     host.dispatch({ composedPath: () => [owner] as unknown as EventTarget[] });
     expect(panel.closed).toEqual([]);
 

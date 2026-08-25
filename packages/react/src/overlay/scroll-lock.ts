@@ -6,7 +6,7 @@
  * 그 값을 되돌려야 하고, 갖고 있지 않았다면 속성 자체가 없던 상태로 돌아가야 한다. 두 경우를
  * 구분하지 않으면 "복원"이 조용히 값을 지우는 동작이 된다.
  *
- * 잠금 자체는 CSS가 표현한다(base.css의 `[data-kds-scroll-locked="true"]`). JS는 속성과
+ * 잠금 자체는 CSS가 표현한다(base.css의 `[data-louis-scroll-locked="true"]`). JS는 속성과
  * 복원만 소유한다 — 잠금 여부가 DOM에서 그대로 읽히므로 테스트가 상태를 직접 볼 수 있다.
  */
 
@@ -26,8 +26,8 @@ interface LockEntry {
   readonly previousScrollTop: number;
 }
 
-const SCROLL_LOCK_ATTRIBUTE = "data-kds-scroll-locked";
-const GUTTER_PROPERTY = "--kds-overlay-scrollbar-gutter";
+const SCROLL_LOCK_ATTRIBUTE = "data-louis-scroll-locked";
+const GUTTER_PROPERTY = "--louis-overlay-scrollbar-gutter";
 
 /**
  * 스크롤 **위치**를 들고 있는 요소.

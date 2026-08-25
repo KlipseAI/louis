@@ -174,7 +174,7 @@ test("closing 중인 패널은 그 좌표의 아래 control 클릭을 가로채�
   const panel = screen.getByTestId("panel").element() as HTMLElement;
 
   // closing 진입은 React commit을 기다리지 않는다. 속성이 즉시 붙고 CSS가 pointer를 놓는다.
-  panel.setAttribute("data-kds-state", "closing");
+  panel.setAttribute("data-louis-state", "closing");
   expect(getComputedStyle(panel).pointerEvents).toBe("none");
 });
 
@@ -183,7 +183,7 @@ test("검출력 — closing 중에도 pointer를 붙들면 아래 control이 막
 
   await userEvent.click(screen.getByTestId("trigger"));
   const panel = screen.getByTestId("panel").element() as HTMLElement;
-  panel.setAttribute("data-kds-state", "closing");
+  panel.setAttribute("data-louis-state", "closing");
 
   // 인라인 style이 CSS를 이긴다. 위 테스트의 단언이 실제로 계산값을 보고 있다는 증거다.
   expect(getComputedStyle(panel).pointerEvents).toBe("auto");
@@ -213,9 +213,9 @@ test("overlay는 Provider가 만든 host 안에만 마운트된다", async () =>
   await userEvent.click(screen.getByTestId("trigger"));
 
   const panel = screen.getByTestId("panel").element();
-  const host = panel.closest("[data-kds-overlay-root]");
+  const host = panel.closest("[data-louis-overlay-root]");
   expect(host).not.toBeNull();
-  expect(host?.getAttribute("data-kds-overlay-root")).toBe("non-modal");
+  expect(host?.getAttribute("data-louis-overlay-root")).toBe("non-modal");
   // host를 벗어나면 inert 경계와 stacking 기준에서 동시에 벗어난다.
   // host가 falsy일 때 조용히 body로 폴백하는 경로를 여기서 막는다.
   expect(host?.parentElement).toBe(document.body);

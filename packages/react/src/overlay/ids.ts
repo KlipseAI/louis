@@ -19,9 +19,9 @@ export function useOverlayIds(): OverlayIds {
   const id = useId();
   return useMemo(
     () => ({
-      panel: `kds-overlay-${id}-panel`,
-      title: `kds-overlay-${id}-title`,
-      description: `kds-overlay-${id}-description`,
+      panel: `louis-overlay-${id}-panel`,
+      title: `louis-overlay-${id}-title`,
+      description: `louis-overlay-${id}-description`,
     }),
     [id],
   );

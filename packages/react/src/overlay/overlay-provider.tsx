@@ -66,7 +66,7 @@ export interface OverlayProviderProps {
 
 function createHost(kind: OverlayHostKind): HTMLElement {
   const host = document.createElement("div");
-  host.setAttribute("data-kds-overlay-root", kind);
+  host.setAttribute("data-louis-overlay-root", kind);
   return host;
 }
 

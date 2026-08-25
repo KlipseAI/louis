@@ -12,8 +12,8 @@ import "@klipse-design/css/tokens.css";
 import "@klipse-design/css/styles.css";
 
 function iconIn(root: ParentNode = document): SVGSVGElement {
-  const found = root.querySelector("svg.kds-icon");
-  if (found === null) throw new Error("kds-icon을 찾지 못했습니다");
+  const found = root.querySelector("svg.louis-icon");
+  if (found === null) throw new Error("louis-icon을 찾지 못했습니다");
   return found as SVGSVGElement;
 }
 
@@ -65,8 +65,8 @@ test("아이콘 전용 버튼의 accessible name은 버튼의 것 하나다", as
       {null}
     </Button>,
   );
-  const button = document.querySelector("button.kds-button");
-  if (button === null) throw new Error("kds-button을 찾지 못했습니다");
+  const button = document.querySelector("button.louis-button");
+  if (button === null) throw new Error("louis-button을 찾지 못했습니다");
   expect(button.getAttribute("aria-label")).toBe("항목 삭제");
   // 아이콘이 스스로 이름을 내지 않아야 버튼 이름이 한 겹으로 유지된다.
   expect(iconIn(button).getAttribute("aria-label")).toBeNull();
@@ -91,7 +91,7 @@ test("같은 아이콘을 둘 렌더해도 id 충돌이 없다", async () => {
       <IconCheckCircle />
     </div>,
   );
-  const icons = document.querySelectorAll("svg.kds-icon");
+  const icons = document.querySelectorAll("svg.louis-icon");
   expect(icons.length).toBe(2);
   // 정본에 id가 없으므로 인라인 SVG가 문서 전역에서 서로 먹지 않는다.
   for (const icon of icons) {
@@ -100,10 +100,10 @@ test("같은 아이콘을 둘 렌더해도 id 충돌이 없다", async () => {
   }
 });
 
-test("소비자 className이 kds-icon을 대체하지 않고 더해진다", async () => {
+test("소비자 className이 louis-icon을 대체하지 않고 더해진다", async () => {
   await render(<IconEye className="custom" />);
   const icon = iconIn();
-  expect(icon.classList.contains("kds-icon")).toBe(true);
+  expect(icon.classList.contains("louis-icon")).toBe(true);
   expect(icon.classList.contains("custom")).toBe(true);
 });
 
@@ -116,8 +116,8 @@ test("글리프마다 서로 다른 지오메트리를 그린다", async () => {
       <IconText />
     </div>,
   );
-  const icons = [...document.querySelectorAll("svg.kds-icon")] as SVGSVGElement[];
-  const names = icons.map((icon) => icon.getAttribute("data-kds-icon"));
+  const icons = [...document.querySelectorAll("svg.louis-icon")] as SVGSVGElement[];
+  const names = icons.map((icon) => icon.getAttribute("data-louis-icon"));
   expect(names).toEqual(["check-circle", "eye", "text"]);
   const shapes = icons.map((icon) => icon.innerHTML);
   expect(new Set(shapes).size).toBe(3);

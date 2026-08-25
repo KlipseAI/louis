@@ -20,7 +20,7 @@ __screenshots__/
 
 # verify-consumer.mjs가 저장소 안에 만드는 임시 소비자 작업 폴더.
 # 밖에 두면 node_modules resolve가 되지 않아 소비자 관점이 재현되지 않는다.
-.kds-consumer-*/
+.louis-consumer-*/
 
 # Claude Code 로컬 설정 — 머신별 허용목록이라 공유하지 않는다
 .claude/settings.local.json

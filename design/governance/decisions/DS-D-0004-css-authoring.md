@@ -27,22 +27,22 @@ P3는 `@klipse-design/css`를 처음 만든다. 소비 제품은 Next.js App Rou
 컴포넌트별 **authored plain CSS**로 저작하고, 빌드 시 `@layer`로 감싼 정적 `.css` 두 벌을 배포한다.
 런타임 스타일 라이브러리를 도입하지 않고 recipe 생성기도 만들지 않는다.
 
-1. **상태는 `data-*` 속성, 값은 `--kds-*` 변수.** React state를 className 문자열로 조합하지 않는다.
+1. **상태는 `data-*` 속성, 값은 `--louis-*` 변수.** React state를 className 문자열로 조합하지 않는다.
    런타임 variant 라이브러리가 불필요해지고 SSR/hydration 불일치 표면이 줄어든다.
 2. **패키지 구성**
 
    | 파일 | 내용 |
    | --- | --- |
-   | `layers.css` | layer 순서 선언만 (`kds.reset, kds.tokens, kds.base, kds.component, kds.override`) |
+   | `layers.css` | layer 순서 선언만 (`louis.reset, louis.tokens, louis.base, louis.component, louis.override`) |
    | `tokens.css` | `@klipse-design/tokens/css` 재export |
    | `styles.css` | 전체 컴포넌트, 언레이어드 |
-   | `styles.layer.css` | 전체 컴포넌트, `@layer kds.component` 래핑 |
-   | `reset.css` | opt-in, `:where()` 기반, `@layer kds.reset` |
+   | `styles.layer.css` | 전체 컴포넌트, `@layer louis.component` 래핑 |
+   | `reset.css` | opt-in, `:where()` 기반, `@layer louis.reset` |
    | `component/<name>.css` | 컴포넌트 단위 저작 원본 |
 
 3. **저작 규칙 7개**
    - `!important` 전면 금지. 레이어 우선순위가 역전돼 소비자가 이길 수 없게 된다.
-   - 요소·ID 선택자 금지. 상태는 `data-*`, 값은 `--kds-*`로만 표현한다.
+   - 요소·ID 선택자 금지. 상태는 `data-*`, 값은 `--louis-*`로만 표현한다.
    - 컴포넌트 루트 클래스 1개 + `:where()`로 내부 특이도 0.
    - 전역 선택자(`html`/`body`/`*`)는 `reset.css` 안에서만 쓴다.
    - 소비자는 `layers.css`를 root layout 최상단에서 **최초로** import한다.
@@ -53,8 +53,8 @@ P3는 `@klipse-design/css`를 처음 만든다. 소비 제품은 Next.js App Rou
    opt-in이며 `:where()`로 특이도 0, 최하위 레이어에 둔다.
 5. **theme scope:** [Color & Theme](../../foundations/color-theme.md)의 `[data-theme]` 계약을 그대로
    소비한다. CSS package가 별도 selector 정책을 만들지 않는다.
-6. **동적 위치값**은 인라인 custom property(`--kds-popover-available-height`,
-   `--kds-popover-anchor-width`)로 전달하고 정적 CSS가 소비한다.
+6. **동적 위치값**은 인라인 custom property(`--louis-popover-available-height`,
+   `--louis-popover-anchor-width`)로 전달하고 정적 CSS가 소비한다.
 
 ## Alternatives
 
@@ -100,7 +100,7 @@ CSS가 끼면 원인 격리가 느려진다.
   가로채면 실패"는 `[data-state="closed"] { display:none }`과 `[data-state="closing"] { pointer-events:none }`을
   CSS 계약으로 못박아 충족한다.
 - **"raw z-index 대신 layer 의미 토큰"**은 숫자 리터럴 z-index를 정적 검사로 금지하고
-  `var(--kds-layer-*)`만 허용해 충족한다.
+  `var(--louis-layer-*)`만 허용해 충족한다.
 - **[Motion](../../foundations/motion.md)의 "reduced-motion에서도 focus 이동, scroll lock, inert와
   unmount 순서는 동일하다"**는 `prefers-reduced-motion` 미디어 쿼리가 시각 transform만 제거하고
   lifecycle은 건드리지 않는 구조로 충족한다.
@@ -113,7 +113,7 @@ CSS가 끼면 원인 격리가 느려진다.
 반대 방향이 비싸므로 이 순서가 맞다.
 
 되돌림 비용을 0으로 유지하는 장치: 컴포넌트 CSS를 `component/<name>.css` 단위로 물리 분리하고
-클래스·속성 이름을 기계적으로 유지한다(`.kds-button`, `[data-variant]`, `[data-size]`). CSS를 나중에
+클래스·속성 이름을 기계적으로 유지한다(`.louis-button`, `[data-variant]`, `[data-size]`). CSS를 나중에
 생성물로 바꿔도 소비자 계약이 깨지지 않는다. 두 벌 배포에서 한 벌로 줄이는 것은 minor다.
 
 ## Rollout and verification

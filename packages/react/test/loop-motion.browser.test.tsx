@@ -11,7 +11,7 @@ import "@klipse-design/css/layers.css";
 import "@klipse-design/css/tokens.css";
 import "@klipse-design/css/styles.css";
 
-declare const __KDS_REDUCED_MOTION__: boolean;
+declare const __LOUIS_REDUCED_MOTION__: boolean;
 
 function find(selector: string): HTMLElement {
   const node = document.querySelector(selector);
@@ -20,7 +20,7 @@ function find(selector: string): HTMLElement {
 }
 
 const tokenValue = (id: string): string =>
-  getComputedStyle(document.documentElement).getPropertyValue(`--kds-${id}`).trim();
+  getComputedStyle(document.documentElement).getPropertyValue(`--louis-${id}`).trim();
 
 /**
  * 시간 값을 ms로 접는다.
@@ -41,11 +41,11 @@ test("spinner의 loop recipe가 토큰에서 온다", async () => {
       저장
     </Button>,
   );
-  const spinner = find(".kds-button__spinner");
+  const spinner = find(".louis-button__spinner");
   const style = getComputedStyle(spinner);
 
   // 리터럴이던 자리다. 토큰을 바꾸면 여기가 따라와야 한다.
-  const duration = __KDS_REDUCED_MOTION__ ? "motion-reduced-duration" : "motion-spin-duration";
+  const duration = __LOUIS_REDUCED_MOTION__ ? "motion-reduced-duration" : "motion-spin-duration";
   expect(ms(style.animationDuration), "duration이 토큰에서 온다").toBe(ms(tokenValue(duration)));
 
   // easing은 reduced에서도 loop 것을 유지한다 — 멈추는 것은 iteration이지 곡선이 아니다.
@@ -62,17 +62,17 @@ test("reduced-motion에서 회전이 멈추고 진행은 aria가 남긴다", asy
       저장
     </Button>,
   );
-  const spinner = find(".kds-button__spinner");
+  const spinner = find(".louis-button__spinner");
   const iteration = getComputedStyle(spinner).animationIterationCount;
 
-  if (__KDS_REDUCED_MOTION__) {
+  if (__LOUIS_REDUCED_MOTION__) {
     expect(iteration, "reduce에서 한 바퀴만 돈다").toBe("1");
   } else {
     expect(iteration, "평시에는 무한이다").toBe("infinite");
   }
 
   // 회전이 멈추든 아니든 "진행 중"이라는 사실은 남아야 한다.
-  const button = find("button.kds-button");
+  const button = find("button.louis-button");
   expect(
     button.getAttribute("aria-busy") ?? button.getAttribute("aria-disabled"),
     "진행 중이라는 의미가 aria로 남는다",

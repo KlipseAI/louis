@@ -25,7 +25,7 @@ function find(selector: string): HTMLElement {
 
 function tokenValue(id: string, property: "background-color" | "color"): string {
   const probe = document.createElement("div");
-  probe.style.setProperty(property, `var(--kds-${id})`);
+  probe.style.setProperty(property, `var(--louis-${id})`);
   document.body.append(probe);
   const value =
     property === "color" ? getComputedStyle(probe).color : getComputedStyle(probe).backgroundColor;
@@ -39,7 +39,7 @@ test("Badge의 구조값이 components.measured.json과 같다", async () => {
   const spec = measured.components.badge.sizes.base;
   await render(<Badge>완료</Badge>);
 
-  const node = find("span.kds-badge");
+  const node = find("span.louis-badge");
   const style = getComputedStyle(node);
   expect(round(node.getBoundingClientRect().height), "height").toBe(spec.height);
   expect(px(style.paddingBlockStart), "paddingBlock").toBe(spec.paddingBlock);
@@ -91,7 +91,7 @@ test("다섯 tone이 states 표와 같고 서로 다른 색을 만든다", async
 test("대화형이 아니다", async () => {
   // 누를 수 있는 배지가 필요하면 그것은 Button이거나 Chip이며 다른 컴포넌트다.
   await render(<Badge tone="success">완료</Badge>);
-  const node = find(".kds-badge");
+  const node = find(".louis-badge");
   expect(node.tagName, "span이다").toBe("SPAN");
   expect(node.getAttribute("tabindex"), "포커스를 받지 않는다").toBeNull();
   expect(node.getAttribute("role"), "role이 없다").toBeNull();
@@ -111,14 +111,14 @@ test("아이콘과 점이 보조기술에서 숨고 크기가 글자를 따라�
     </div>,
   );
 
-  const icon = find(".kds-badge__icon");
+  const icon = find(".louis-badge__icon");
   expect(icon.getAttribute("aria-hidden"), "아이콘은 장식이다").toBe("true");
   // 1em이라 12px 아이콘 토큰을 새로 만들지 않는다.
   expect(round(icon.getBoundingClientRect().width), "아이콘이 글자 크기를 따라간다").toBe(
     spec.fontSize,
   );
 
-  const dot = find(".kds-badge__dot");
+  const dot = find(".louis-badge__dot");
   expect(dot.getAttribute("aria-hidden"), "점도 장식이다").toBe("true");
   expect(round(dot.getBoundingClientRect().width), "점은 0.5em").toBe(spec.fontSize / 2);
   expect(getComputedStyle(dot).backgroundColor, "점 색이 글자를 따라간다").toBe(
@@ -133,8 +133,8 @@ test("아이콘과 점을 함께 두면 점이 나오지 않는다", async () =>
       완료
     </Badge>,
   );
-  expect(document.querySelector(".kds-badge__icon"), "아이콘은 있다").not.toBeNull();
-  expect(document.querySelector(".kds-badge__dot"), "점은 없다").toBeNull();
+  expect(document.querySelector(".louis-badge__icon"), "아이콘은 있다").not.toBeNull();
+  expect(document.querySelector(".louis-badge__dot"), "점은 없다").toBeNull();
 });
 
 test("라벨이 길어도 한 줄로 잘린다", async () => {
@@ -145,7 +145,7 @@ test("라벨이 길어도 한 줄로 잘린다", async () => {
       <Badge>아주 긴 상태 라벨이 들어온 경우</Badge>
     </div>,
   );
-  const node = find(".kds-badge");
+  const node = find(".louis-badge");
   const style = getComputedStyle(node);
   expect(style.whiteSpace, "줄바꿈하지 않는다").toBe("nowrap");
   expect(style.textOverflow, "말줄임").toBe("ellipsis");
@@ -156,7 +156,7 @@ test("테두리를 쓰지 않는다", async () => {
   // tone은 면과 글자로만 전달된다. 테두리 축을 열면 tone마다 border 토큰이 필요한데 danger에만
   // 있고 나머지 셋에는 없다.
   await render(<Badge tone="danger">실패</Badge>);
-  const style = getComputedStyle(find(".kds-badge"));
+  const style = getComputedStyle(find(".louis-badge"));
   expect(px(style.borderTopWidth), "테두리 두께 0").toBe(0);
   expect(style.borderTopStyle === "none" || style.borderTopColor === TRANSPARENT).toBe(true);
 });

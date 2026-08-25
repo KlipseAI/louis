@@ -133,7 +133,7 @@ export function BannerCarousel({
         if (typeof ref === "function") ref(node);
         else if (ref) (ref as { current: HTMLElement | null }).current = node;
       }}
-      className={["kds-banner-carousel", className].filter(Boolean).join(" ")}
+      className={["louis-banner-carousel", className].filter(Boolean).join(" ")}
       data-bleed={bleed}
       aria-roledescription="carousel"
       aria-label={label}
@@ -143,7 +143,7 @@ export function BannerCarousel({
         return (
           <div
             key={slide.id}
-            className="kds-banner-carousel__slide"
+            className="louis-banner-carousel__slide"
             data-active={active ? "true" : "false"}
             data-tone={slide.tone}
             // 비활성 슬라이드는 DOM에 남아야 전환이 그려진다. 대신 보조기술에서 지운다 —
@@ -156,24 +156,24 @@ export function BannerCarousel({
             // 커스텀 프로퍼티를 경유해 스크림 아래 칸에만 들어가게 한다.
             style={
               slide.imageUrl
-                ? ({ "--kds-banner-image": `url(${slide.imageUrl})` } as CSSProperties)
+                ? ({ "--louis-banner-image": `url(${slide.imageUrl})` } as CSSProperties)
                 : undefined
             }
           >
-            <div className="kds-banner-carousel__content">
+            <div className="louis-banner-carousel__content">
               {slide.wordmark ? (
                 <img
-                  className="kds-banner-carousel__wordmark kds-banner-carousel__stagger"
+                  className="louis-banner-carousel__wordmark louis-banner-carousel__stagger"
                   src={slide.wordmark.src}
                   alt={slide.wordmark.alt}
                 />
               ) : null}
-              <div className="kds-banner-carousel__text">
-                <h2 className="kds-banner-carousel__title kds-banner-carousel__stagger">
+              <div className="louis-banner-carousel__text">
+                <h2 className="louis-banner-carousel__title louis-banner-carousel__stagger">
                   {slide.title}
                 </h2>
                 {slide.description ? (
-                  <p className="kds-banner-carousel__description kds-banner-carousel__stagger">
+                  <p className="louis-banner-carousel__description louis-banner-carousel__stagger">
                     {slide.description}
                   </p>
                 ) : null}
@@ -184,10 +184,10 @@ export function BannerCarousel({
       })}
 
       {count > 1 ? (
-        <div className="kds-banner-carousel__controls">
+        <div className="louis-banner-carousel__controls">
           <button
             type="button"
-            className="kds-banner-carousel__arrow"
+            className="louis-banner-carousel__arrow"
             onClick={() => step(-1)}
             aria-label="이전 배너"
           >
@@ -196,7 +196,7 @@ export function BannerCarousel({
           {autoAdvanceMs > 0 ? (
             <button
               type="button"
-              className="kds-banner-carousel__arrow"
+              className="louis-banner-carousel__arrow"
               // 정지 상태는 버튼이 소유한다. hover/focus 일시정지는 **의도가 아니라 부수효과**라
               // 그것으로 aria-pressed를 흔들면 스크린 리더가 커서 움직임마다 상태를 읽는다.
               aria-pressed={stopped}
@@ -206,14 +206,14 @@ export function BannerCarousel({
               <PlaybackGlyph stopped={stopped} />
             </button>
           ) : null}
-          <div className="kds-banner-carousel__dots" role="tablist" aria-label={label}>
+          <div className="louis-banner-carousel__dots" role="tablist" aria-label={label}>
             {slides.map((slide, slideIndex) => (
               <button
                 key={slide.id}
                 type="button"
                 role="tab"
                 id={`${generatedId}-dot-${slideIndex}`}
-                className="kds-banner-carousel__dot"
+                className="louis-banner-carousel__dot"
                 // 폭이 상태다(DS-D-0019). 그런데 폭은 보조기술이 읽지 않으므로 `aria-selected`가
                 // 함께 상태를 갖는다 — 시각과 의미가 각자 자기 축으로 말한다.
                 aria-selected={slideIndex === activeIndex}
@@ -225,7 +225,7 @@ export function BannerCarousel({
           </div>
           <button
             type="button"
-            className="kds-banner-carousel__arrow"
+            className="louis-banner-carousel__arrow"
             onClick={() => step(1)}
             aria-label="다음 배너"
           >

@@ -2303,7 +2303,7 @@ function figmaLossesForToken(type, representation) {
 }
 
 function cssPropertiesForToken(id, type, value) {
-  const base = `--kds-${id.replaceAll(".", "-")}`;
+  const base = `--louis-${id.replaceAll(".", "-")}`;
   if (type === "typography") {
     return {
       [`${base}-font-family`]: cssFontFamily(value.fontFamily),

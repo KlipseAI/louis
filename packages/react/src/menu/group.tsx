@@ -15,7 +15,7 @@ export function ActionMenuGroup({
   ref,
   ...rest
 }: ActionMenuGroupProps): JSX.Element {
-  const labelId = `kds-menu-group-${useId()}`;
+  const labelId = `louis-menu-group-${useId()}`;
   const hasLabel = label !== undefined && label !== null;
   return (
     <div
@@ -25,7 +25,7 @@ export function ActionMenuGroup({
       {...(hasLabel ? { "aria-labelledby": labelId } : {})}
     >
       {hasLabel ? (
-        <div id={labelId} className="kds-menu__group-label">
+        <div id={labelId} className="louis-menu__group-label">
           {label}
         </div>
       ) : null}
@@ -50,7 +50,7 @@ export function ActionMenuSeparator({
       ref={ref}
       role="separator"
       aria-orientation="horizontal"
-      className={["kds-menu__separator", className].filter(Boolean).join(" ")}
+      className={["louis-menu__separator", className].filter(Boolean).join(" ")}
     />
   );
 }

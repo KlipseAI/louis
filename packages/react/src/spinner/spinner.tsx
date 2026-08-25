@@ -43,7 +43,7 @@ export function Spinner({
   return (
     <span
       {...rest}
-      className={join("kds-spinner", className)}
+      className={join("louis-spinner", className)}
       data-size={size}
       role={announced ? "status" : undefined}
       aria-live={announced ? "polite" : undefined}
@@ -52,7 +52,7 @@ export function Spinner({
       aria-hidden={announced ? undefined : true}
     >
       {/* 링은 별도 요소다. root가 회전하면 그 안에 넣은 텍스트나 슬롯이 함께 돈다. */}
-      <span className="kds-spinner__ring" />
+      <span className="louis-spinner__ring" />
     </span>
   );
 }

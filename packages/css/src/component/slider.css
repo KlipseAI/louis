@@ -21,40 +21,40 @@
  * ## 채움에 인라인 커스텀 속성이 필요한 이유
  *
  * `::-webkit-slider-runnable-track`은 진행 구간을 따로 갖지 않아 그라디언트 정지점으로 그린다.
- * 그 비율은 값에서만 나오므로 컴포넌트가 `--kds-slider-fill`을 인라인으로 준다. Firefox는
+ * 그 비율은 값에서만 나오므로 컴포넌트가 `--louis-slider-fill`을 인라인으로 준다. Firefox는
  * `::-moz-range-progress`가 있어 비율이 필요 없다. 제품의 두 네이티브 레시피도 같은 구조다.
  */
 
-.kds-slider {
+.louis-slider {
   display: flex;
   flex-direction: column;
-  gap: var(--kds-space-control-xs);
+  gap: var(--louis-space-control-xs);
   min-inline-size: 0;
 }
 
-.kds-slider__label {
-  color: var(--kds-color-fg-primary);
-  font-family: var(--kds-typography-body-sm-medium-font-family);
-  font-size: var(--kds-typography-body-sm-medium-font-size);
-  font-weight: var(--kds-typography-body-sm-medium-font-weight);
-  line-height: var(--kds-typography-body-sm-medium-line-height);
-  letter-spacing: var(--kds-typography-body-sm-medium-letter-spacing);
+.louis-slider__label {
+  color: var(--louis-color-fg-primary);
+  font-family: var(--louis-typography-body-sm-medium-font-family);
+  font-size: var(--louis-typography-body-sm-medium-font-size);
+  font-weight: var(--louis-typography-body-sm-medium-font-weight);
+  line-height: var(--louis-typography-body-sm-medium-line-height);
+  letter-spacing: var(--louis-typography-body-sm-medium-letter-spacing);
 }
 
 /* 실제 컨트롤. 높이는 TextField·Button과 같은 계단이다 — 인스펙터에서 나란히 서는 컨트롤이
  * 서로 다른 높이를 가지면 줄이 어긋난다. */
-.kds-slider__control {
+.louis-slider__control {
   /* 채움 비율. **토큰이 아니라 이 컴포넌트의 지역 변수다.** 값에서만 나오는 수라 CSS가 알 수
    * 없고 컴포넌트가 인라인으로 덮어쓴다. 기본값을 여기 두는 이유는 CSS만 로드한 소비자(정적
    * 마크업, Figma 캡처용 fixture)에서도 레일이 깨지지 않게 하려는 것이다. */
-  --kds-slider-fill: 0%;
+  --louis-slider-fill: 0%;
   appearance: none;
   -webkit-appearance: none;
   box-sizing: border-box;
   display: block;
   inline-size: 100%;
   min-inline-size: 0;
-  block-size: var(--kds-layout-control-height-md);
+  block-size: var(--louis-layout-control-height-md);
   margin: 0;
   padding: 0;
   border: 0;
@@ -64,26 +64,26 @@
   touch-action: none;
 }
 
-.kds-slider[data-size="sm"] .kds-slider__control {
-  block-size: var(--kds-layout-control-height-sm);
+.louis-slider[data-size="sm"] .louis-slider__control {
+  block-size: var(--louis-layout-control-height-sm);
 }
 
 /* 포커스 링은 **컨트롤 전체**가 받는다. 네이티브 range는 input 자신이 포커스 대상이라 링이
  * 레일을 두른다. 제품의 세 레시피가 `outline: none`으로 이 링을 지웠고 그것이 사용의 다수인데,
  * 키보드 사용자가 지금 어디에 있는지 알 수 없는 상태를 옮기지 않는다. */
-.kds-slider__control:focus-visible {
-  outline: var(--kds-border-width-ring) solid var(--kds-color-stroke-focus);
+.louis-slider__control:focus-visible {
+  outline: var(--louis-border-width-ring) solid var(--louis-color-stroke-focus);
   outline-offset: 2px;
-  border-radius: var(--kds-radius-control-sm);
+  border-radius: var(--louis-radius-control-sm);
 }
 
 @media (forced-colors: active) {
-  .kds-slider__control:focus-visible {
+  .louis-slider__control:focus-visible {
     outline-color: Highlight;
   }
 }
 
-.kds-slider__control:disabled {
+.louis-slider__control:disabled {
   cursor: not-allowed;
 }
 
@@ -99,28 +99,28 @@
  * 전체가 버려진다.
  */
 
-.kds-slider__control::-webkit-slider-runnable-track {
+.louis-slider__control::-webkit-slider-runnable-track {
   block-size: 4px;
-  border-radius: var(--kds-radius-pill);
+  border-radius: var(--louis-radius-pill);
   background: linear-gradient(
     to right,
-    var(--kds-color-accent-primary) 0,
-    var(--kds-color-accent-primary) var(--kds-slider-fill),
-    var(--kds-color-stroke-default) var(--kds-slider-fill),
-    var(--kds-color-stroke-default) 100%
+    var(--louis-color-accent-primary) 0,
+    var(--louis-color-accent-primary) var(--louis-slider-fill),
+    var(--louis-color-stroke-default) var(--louis-slider-fill),
+    var(--louis-color-stroke-default) 100%
   );
 }
 
-.kds-slider__control::-moz-range-track {
+.louis-slider__control::-moz-range-track {
   block-size: 4px;
-  border-radius: var(--kds-radius-pill);
-  background: var(--kds-color-stroke-default);
+  border-radius: var(--louis-radius-pill);
+  background: var(--louis-color-stroke-default);
 }
 
-.kds-slider__control::-moz-range-progress {
+.louis-slider__control::-moz-range-progress {
   block-size: 4px;
-  border-radius: var(--kds-radius-pill);
-  background: var(--kds-color-accent-primary);
+  border-radius: var(--louis-radius-pill);
+  background: var(--louis-color-accent-primary);
 }
 
 /* ── 썸 ──────────────────────────────────────────────────────────────────
@@ -133,56 +133,56 @@
  * `margin-block-start`가 필요한 이유: WebKit은 썸을 트랙 박스의 **위쪽 가장자리**에 붙인다.
  * 트랙과 썸의 차이의 절반만큼 올려야 가운데에 온다. Firefox는 자동으로 가운데 정렬한다.
  */
-.kds-slider__control::-webkit-slider-thumb {
+.louis-slider__control::-webkit-slider-thumb {
   appearance: none;
   -webkit-appearance: none;
   box-sizing: border-box;
   inline-size: 16px;
   block-size: 16px;
   margin-block-start: calc((4px - 16px) / 2);
-  border: var(--kds-border-width-ring) solid var(--kds-color-bg-surface);
-  border-radius: var(--kds-radius-pill);
-  background: var(--kds-color-accent-primary);
+  border: var(--louis-border-width-ring) solid var(--louis-color-bg-surface);
+  border-radius: var(--louis-radius-pill);
+  background: var(--louis-color-accent-primary);
 }
 
-.kds-slider__control::-moz-range-thumb {
+.louis-slider__control::-moz-range-thumb {
   box-sizing: border-box;
   inline-size: 16px;
   block-size: 16px;
-  border: var(--kds-border-width-ring) solid var(--kds-color-bg-surface);
-  border-radius: var(--kds-radius-pill);
-  background: var(--kds-color-accent-primary);
+  border: var(--louis-border-width-ring) solid var(--louis-color-bg-surface);
+  border-radius: var(--louis-radius-pill);
+  background: var(--louis-color-accent-primary);
 }
 
-.kds-slider[data-size="sm"] .kds-slider__control::-webkit-slider-thumb {
+.louis-slider[data-size="sm"] .louis-slider__control::-webkit-slider-thumb {
   inline-size: 12px;
   block-size: 12px;
   margin-block-start: calc((4px - 12px) / 2);
 }
 
-.kds-slider[data-size="sm"] .kds-slider__control::-moz-range-thumb {
+.louis-slider[data-size="sm"] .louis-slider__control::-moz-range-thumb {
   inline-size: 12px;
   block-size: 12px;
 }
 
-.kds-slider__control:disabled::-webkit-slider-runnable-track {
-  background: var(--kds-color-stroke-subtle);
+.louis-slider__control:disabled::-webkit-slider-runnable-track {
+  background: var(--louis-color-stroke-subtle);
 }
 
-.kds-slider__control:disabled::-moz-range-track {
-  background: var(--kds-color-stroke-subtle);
+.louis-slider__control:disabled::-moz-range-track {
+  background: var(--louis-color-stroke-subtle);
 }
 
-.kds-slider__control:disabled::-moz-range-progress {
-  background: var(--kds-color-stroke-subtle);
+.louis-slider__control:disabled::-moz-range-progress {
+  background: var(--louis-color-stroke-subtle);
 }
 
-.kds-slider__control:disabled::-webkit-slider-thumb {
-  background: var(--kds-color-fg-disabled);
+.louis-slider__control:disabled::-webkit-slider-thumb {
+  background: var(--louis-color-fg-disabled);
 }
 
-.kds-slider__control:disabled::-moz-range-thumb {
-  background: var(--kds-color-fg-disabled);
+.louis-slider__control:disabled::-moz-range-thumb {
+  background: var(--louis-color-fg-disabled);
 }
 
 /* ── track 변형 ───────────────────────────────────────────────────────────
@@ -199,45 +199,45 @@
  * 변한다. 워크샵에서 눈으로 보고 찾았다 — 두 테마 모두 흰색인 전자가 action-primary의
  * 문서화된 대비 짝이다.
  */
-.kds-slider[data-variant="track"] .kds-slider__control::-webkit-slider-runnable-track {
+.louis-slider[data-variant="track"] .louis-slider__control::-webkit-slider-runnable-track {
   block-size: 28px;
-  border-radius: var(--kds-radius-control-sm);
+  border-radius: var(--louis-radius-control-sm);
 }
 
-.kds-slider[data-variant="track"] .kds-slider__control::-moz-range-track,
-.kds-slider[data-variant="track"] .kds-slider__control::-moz-range-progress {
+.louis-slider[data-variant="track"] .louis-slider__control::-moz-range-track,
+.louis-slider[data-variant="track"] .louis-slider__control::-moz-range-progress {
   block-size: 28px;
-  border-radius: var(--kds-radius-control-sm);
+  border-radius: var(--louis-radius-control-sm);
 }
 
-.kds-slider[data-variant="track"][data-size="sm"] .kds-slider__control::-webkit-slider-runnable-track {
+.louis-slider[data-variant="track"][data-size="sm"] .louis-slider__control::-webkit-slider-runnable-track {
   block-size: 20px;
 }
 
-.kds-slider[data-variant="track"][data-size="sm"] .kds-slider__control::-moz-range-track,
-.kds-slider[data-variant="track"][data-size="sm"] .kds-slider__control::-moz-range-progress {
+.louis-slider[data-variant="track"][data-size="sm"] .louis-slider__control::-moz-range-track,
+.louis-slider[data-variant="track"][data-size="sm"] .louis-slider__control::-moz-range-progress {
   block-size: 20px;
 }
 
-.kds-slider[data-variant="track"] .kds-slider__control::-webkit-slider-thumb {
+.louis-slider[data-variant="track"] .louis-slider__control::-webkit-slider-thumb {
   inline-size: 2px;
   block-size: 14px;
   margin-block-start: calc((28px - 14px) / 2);
   border: 0;
   /* 끝이 둥글다. 각진 2×14 막대로 두고 있었는데 배포본의 표식은 알약이다 — 2px 폭에서 이 차이가
    * 눈에 띈다. 열거 게이트가 `::after`의 반경을 세면서 드러났다. */
-  border-radius: var(--kds-radius-pill);
-  background: var(--kds-color-fg-inverse);
+  border-radius: var(--louis-radius-pill);
+  background: var(--louis-color-fg-inverse);
 }
 
-.kds-slider[data-variant="track"] .kds-slider__control::-moz-range-thumb {
+.louis-slider[data-variant="track"] .louis-slider__control::-moz-range-thumb {
   inline-size: 2px;
   block-size: 14px;
   border: 0;
-  border-radius: var(--kds-radius-pill);
-  background: var(--kds-color-fg-inverse);
+  border-radius: var(--louis-radius-pill);
+  background: var(--louis-color-fg-inverse);
 }
 
-.kds-slider[data-variant="track"][data-size="sm"] .kds-slider__control::-webkit-slider-thumb {
+.louis-slider[data-variant="track"][data-size="sm"] .louis-slider__control::-webkit-slider-thumb {
   margin-block-start: calc((20px - 14px) / 2);
 }

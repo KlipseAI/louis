@@ -147,10 +147,10 @@ Storybook이 유지보수 문제를 일으키면 최소 정적 프리뷰로 후�
 | 좁은 flex 컨테이너에서 Button 라벨이 글자 단위로 쪼개졌다("primary" → "pri/ma/ry"). `overflow-wrap: anywhere`가 min-content를 74px → 38px로 낮춰 flex가 버튼을 한 글자 폭까지 줄인 것이다 | 고침 + 회귀 테스트 + canary |
 | Menu Trigger가 시각 표현을 소유하지 않아 기본값이 브라우저 네이티브 버튼이다. `asChild`가 의도된 경로임이 스토리에서 드러났다 | 스토리와 규범에 반영 |
 | danger item의 톤이 일반 item과 대비 light 1.21 / dark 1.14로 사실상 구분되지 않는다 | 토큰 공백 — DS-P3-014 단위 9로 이관 |
-| composite popover에 내용이 다 보이는데 스크롤바가 생겼다. `.kds-hit-target`의 44px 타겟이 28px 컨트롤에서 시각 박스 밖으로 8px씩 나가고, 패널이 스크롤 컨테이너라 그것이 스크롤 가능한 overflow가 된다(실측 157 → 153) | 고침 + 회귀 테스트 + canary |
+| composite popover에 내용이 다 보이는데 스크롤바가 생겼다. `.louis-hit-target`의 44px 타겟이 28px 컨트롤에서 시각 박스 밖으로 8px씩 나가고, 패널이 스크롤 컨테이너라 그것이 스크롤 가능한 overflow가 된다(실측 157 → 153) | 고침 + 회귀 테스트 + canary |
 
 네 번째 발견의 회귀 테스트는 **두 번 고쳐야 재현됐다.** 처음에는 fixture가 raw `<button>`을 써서
-`.kds-hit-target`이 없었고, 그 다음에는 그 Button이 마지막 자식이 아니라 gap이 초과분을 흡수했다.
+`.louis-hit-target`이 없었고, 그 다음에는 그 Button이 마지막 자식이 아니라 gap이 초과분을 흡수했다.
 canary가 없었으면 "통과하지만 아무것도 보지 않는" 테스트가 그대로 남았을 것이다.
 
 셋 다 계산값 단언으로는 통과하던 상태였다. 첫 번째는 `scrollWidth <= clientWidth`를, 세 번째는

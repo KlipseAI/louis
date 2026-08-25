@@ -81,7 +81,7 @@ export function handleMenuKeyDown(
       return;
 
     case "ArrowRight": {
-      if (active === null || !active.hasAttribute("data-kds-menu-subtrigger")) return;
+      if (active === null || !active.hasAttribute("data-louis-menu-subtrigger")) return;
       if (active.getAttribute("aria-disabled") === "true") return;
       event.preventDefault();
       context.pendingEntryRef.current = active.id;

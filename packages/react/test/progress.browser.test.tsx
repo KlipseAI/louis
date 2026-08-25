@@ -12,7 +12,7 @@ import "@klipse-design/css/styles.css";
 const px = (value: string): number => Number.parseFloat(value);
 
 function scope(): ParentNode {
-  const fixtures = document.querySelectorAll("[data-kds-fixture]");
+  const fixtures = document.querySelectorAll("[data-louis-fixture]");
   return fixtures.length > 0 ? fixtures[fixtures.length - 1]! : document;
 }
 
@@ -22,7 +22,7 @@ const ringSpec = measured.components["progress-ring"].sizes.base;
 /** 토큰 이름을 브라우저가 계산한 값으로 바꾼다. 리터럴을 적으면 토큰이 움직여도 통과한다. */
 function tokenValue(token: string): string {
   const probe = document.createElement("div");
-  probe.style.color = `var(--kds-${token})`;
+  probe.style.color = `var(--louis-${token})`;
   document.body.append(probe);
   const value = getComputedStyle(probe).color;
   probe.remove();
@@ -31,12 +31,12 @@ function tokenValue(token: string): string {
 
 test("트랙이 값을 갖는다 — 채움은 장식이다", async () => {
   await render(
-    <div data-kds-fixture>
+    <div data-louis-fixture>
       <ProgressBar aria-label="업로드" value={42} />
     </div>,
   );
-  const track = scope().querySelector<HTMLElement>(".kds-progress-bar")!;
-  const fill = scope().querySelector<HTMLElement>(".kds-progress-bar__fill")!;
+  const track = scope().querySelector<HTMLElement>(".louis-progress-bar")!;
+  const fill = scope().querySelector<HTMLElement>(".louis-progress-bar__fill")!;
   expect(track.getAttribute("role")).toBe("progressbar");
   expect(track.getAttribute("aria-valuenow")).toBe("42");
   expect(track.getAttribute("aria-valuemin")).toBe("0");
@@ -48,11 +48,11 @@ test("트랙이 값을 갖는다 — 채움은 장식이다", async () => {
 
 test("indeterminate는 aria-valuenow를 아예 넣지 않는다", async () => {
   await render(
-    <div data-kds-fixture>
+    <div data-louis-fixture>
       <ProgressBar aria-label="분석 중" indeterminate />
     </div>,
   );
-  const track = scope().querySelector<HTMLElement>(".kds-progress-bar")!;
+  const track = scope().querySelector<HTMLElement>(".louis-progress-bar")!;
   // 0을 넣으면 "0% 완료"로 읽히고 그것은 "얼마나 걸릴지 모른다"와 다른 말이다.
   expect(track.getAttribute("aria-valuenow")).toBeNull();
   expect(track.getAttribute("aria-valuemin")).toBeNull();
@@ -62,15 +62,15 @@ test("indeterminate는 aria-valuenow를 아예 넣지 않는다", async () => {
 
 test("범위를 벗어난 값은 화면과 보조기술이 갈리지 않게 조인다", async () => {
   await render(
-    <div data-kds-fixture>
+    <div data-louis-fixture>
       <ProgressBar aria-label="업로드" value={180} />
       <ProgressBar aria-label="내려받기" value={-40} />
     </div>,
   );
-  const tracks = [...scope().querySelectorAll<HTMLElement>(".kds-progress-bar")];
+  const tracks = [...scope().querySelectorAll<HTMLElement>(".louis-progress-bar")];
   expect(tracks[0]!.getAttribute("aria-valuenow")).toBe("100");
   expect(tracks[1]!.getAttribute("aria-valuenow")).toBe("0");
-  const fills = [...scope().querySelectorAll<HTMLElement>(".kds-progress-bar__fill")];
+  const fills = [...scope().querySelectorAll<HTMLElement>(".louis-progress-bar__fill")];
   expect(px(getComputedStyle(fills[0]!).inlineSize)).toBe(
     px(getComputedStyle(tracks[0]!).inlineSize),
   );
@@ -79,19 +79,19 @@ test("범위를 벗어난 값은 화면과 보조기술이 갈리지 않게 조�
 
 test("valueText가 숫자를 대신 읽힌다", async () => {
   await render(
-    <div data-kds-fixture>
+    <div data-louis-fixture>
       <ProgressBar aria-label="렌더링" value={58} valueText="3분 남음" />
     </div>,
   );
   expect(
-    scope().querySelector<HTMLElement>(".kds-progress-bar")!.getAttribute("aria-valuetext"),
+    scope().querySelector<HTMLElement>(".louis-progress-bar")!.getAttribute("aria-valuetext"),
   ).toBe("3분 남음");
 });
 
 test("이름이 없으면 개발 중에 경고한다", async () => {
   const warn = vi.spyOn(console, "warn").mockImplementation(() => {});
   await render(
-    <div data-kds-fixture>
+    <div data-louis-fixture>
       <ProgressBar value={10} />
     </div>,
   );
@@ -102,11 +102,11 @@ test("이름이 없으면 개발 중에 경고한다", async () => {
 
 test("바의 기하가 components.measured.json과 같다", async () => {
   await render(
-    <div data-kds-fixture style={{ inlineSize: "480px" }}>
+    <div data-louis-fixture style={{ inlineSize: "480px" }}>
       <ProgressBar aria-label="업로드" value={50} />
     </div>,
   );
-  const track = scope().querySelector<HTMLElement>(".kds-progress-bar")!;
+  const track = scope().querySelector<HTMLElement>(".louis-progress-bar")!;
   const style = getComputedStyle(track);
   expect(px(style.blockSize), "height").toBe(barSpec.height);
   // 제품 두 벌이 합의하는 유일한 폭 계약이다.
@@ -119,15 +119,15 @@ test("바의 기하가 components.measured.json과 같다", async () => {
 
 test("면과 채움 색이 states 표와 같다", async () => {
   await render(
-    <div data-kds-fixture>
+    <div data-louis-fixture>
       <ProgressBar aria-label="업로드" value={50} />
       <ProgressRing aria-label="사용량" value={50}>
         <span style={{ inlineSize: "28px", blockSize: "28px", display: "block" }} />
       </ProgressRing>
     </div>,
   );
-  const track = scope().querySelector<HTMLElement>(".kds-progress-bar")!;
-  const fill = scope().querySelector<HTMLElement>(".kds-progress-bar__fill")!;
+  const track = scope().querySelector<HTMLElement>(".louis-progress-bar")!;
+  const fill = scope().querySelector<HTMLElement>(".louis-progress-bar__fill")!;
   const states = {
     bar: measured.components["progress-bar"].states.base,
     ring: measured.components["progress-ring"].states.base,
@@ -136,7 +136,7 @@ test("면과 채움 색이 states 표와 같다", async () => {
   expect(getComputedStyle(fill).backgroundColor).toBe(tokenValue(states.bar.Default.foreground));
   // 링은 conic-gradient라 배경색이 아니라 이미지다. 두 색이 모두 그 안에 들어가는지 본다.
   const ringImage = getComputedStyle(
-    scope().querySelector<HTMLElement>(".kds-progress-ring")!,
+    scope().querySelector<HTMLElement>(".louis-progress-ring")!,
     "::after",
   ).backgroundImage;
   expect(ringImage).toContain("conic-gradient");
@@ -146,7 +146,7 @@ test("면과 채움 색이 states 표와 같다", async () => {
 
 test("링은 지름을 내용에서 얻는다 — 소비처가 크기를 두 번 적지 않는다", async () => {
   await render(
-    <div data-kds-fixture>
+    <div data-louis-fixture>
       <ProgressRing aria-label="사용량" value={30}>
         <span
           data-avatar
@@ -155,7 +155,7 @@ test("링은 지름을 내용에서 얻는다 — 소비처가 크기를 두 번
       </ProgressRing>
     </div>,
   );
-  const ring = scope().querySelector<HTMLElement>(".kds-progress-ring")!;
+  const ring = scope().querySelector<HTMLElement>(".louis-progress-ring")!;
   // 제품 식: avatar + (gap + width) × 2 = 28 + (2 + 2) × 2 = 36
   expect(Math.round(ring.getBoundingClientRect().width)).toBe(ringSpec.size);
   expect(ring.getAttribute("role")).toBe("progressbar");

@@ -165,7 +165,7 @@
         },
         "border 색 secondary": {
           "product": "rgb(23 27 34 / 12%) = #171B22 12% (다크: rgb(250 250 250 / 16%))",
-          "ds": "#D5D7DD (--kds-color-stroke-default, 불투명. tokens.css:15)",
+          "ds": "#D5D7DD (--louis-color-stroke-default, 불투명. tokens.css:15)",
           "match": "different",
           "evidence": "apps/web/components/ui/Button.tsx:80",
           "status": "adopted",
@@ -173,7 +173,7 @@
         },
         "배경 secondary": {
           "product": "transparent",
-          "ds": "#FAFAFA (--kds-color-bg-surface, tokens.css:14) — 면이 있다",
+          "ds": "#FAFAFA (--louis-color-bg-surface, tokens.css:14) — 면이 있다",
           "match": "different",
           "evidence": "apps/web/components/ui/Button.tsx:106",
           "status": "adopted",
@@ -181,7 +181,7 @@
         },
         "배경 danger": {
           "product": "#ff4b59 단색 (--accent-red-500) — solid",
-          "ds": "#FFE5E8 (--kds-color-bg-danger, tokens.css:26) — tonal",
+          "ds": "#FFE5E8 (--louis-color-bg-danger, tokens.css:26) — tonal",
           "match": "different",
           "evidence": "apps/web/app/globals.css:226",
           "status": "adopted",
@@ -189,7 +189,7 @@
         },
         "전경 secondary": {
           "product": "#777d89 (--palette-gray-600). 다크는 rgb(250 250 250 / 72%)",
-          "ds": "#171B22 (--kds-color-fg-primary, tokens.css:22)",
+          "ds": "#171B22 (--louis-color-fg-primary, tokens.css:22)",
           "match": "different",
           "evidence": "apps/web/app/globals.css:33",
           "status": "adopted",
@@ -197,7 +197,7 @@
         },
         "전경 ghost": {
           "product": "#777d89 (--palette-gray-600) — secondary와 동일",
-          "ds": "#575D68 (--kds-color-fg-secondary, tokens.css:23) — secondary와 다른 단계",
+          "ds": "#575D68 (--louis-color-fg-secondary, tokens.css:23) — secondary와 다른 단계",
           "match": "different",
           "evidence": "apps/web/components/ui/Button.tsx:118",
           "status": "adopted",
@@ -205,7 +205,7 @@
         },
         "전경 danger": {
           "product": "#fafafa (--palette-gray-000)",
-          "ds": "#541119 (--kds-color-fg-danger, tokens.css:27)",
+          "ds": "#541119 (--louis-color-fg-danger, tokens.css:27)",
           "match": "different",
           "evidence": "apps/web/components/ui/Button.tsx:128",
           "status": "adopted",
@@ -213,7 +213,7 @@
         },
         "hover secondary": {
           "product": "background: rgb(23 27 34 / 5%) 오버레이 (다크 rgb(250 250 250 / 8%))",
-          "ds": "background → #EAEBEE (--kds-color-bg-inset, tokens.css:10) 불투명",
+          "ds": "background → #EAEBEE (--louis-color-bg-inset, tokens.css:10) 불투명",
           "match": "different",
           "evidence": "apps/web/components/ui/Button.tsx:108",
           "status": "adopted",
@@ -291,7 +291,7 @@
           "match": "different",
           "evidence": "apps/web/app/globals.css:333",
           "status": "accepted-deviation",
-          "reason": "DS-D-0009가 결정한 계약이다. DS는 폰트 바이너리를 동봉하지 않고 --kds-font-family-sans로 교체 지점을 단일화하며 폴백 스택을 교정한다. 제품의 inherit는 소비자마다 결과가 달라진다"
+          "reason": "DS-D-0009가 결정한 계약이다. DS는 폰트 바이너리를 동봉하지 않고 --louis-font-family-sans로 교체 지점을 단일화하며 폴백 스택을 교정한다. 제품의 inherit는 소비자마다 결과가 달라진다"
         },
         "줄바꿈/오버플로": {
           "product": "white-space: nowrap — 긴 라벨이 잘리거나 넘친다 (랜딩 셸에서는 전역 text-wrap:balance가 이겨 뒤집힌다)",
@@ -319,7 +319,7 @@
         },
         "focus-visible": {
           "product": "outline: none — 전역이 button:focus-visible의 outline을 명시적으로 제거한다. 버튼에 포커스 표시가 없다",
-          "ds": "outline: 2px solid #0088FF, outline-offset: 2px (.kds-focus-ring, base.css:22-25 + tokens.css:16)",
+          "ds": "outline: 2px solid #0088FF, outline-offset: 2px (.louis-focus-ring, base.css:22-25 + tokens.css:16)",
           "match": "different",
           "evidence": "apps/web/app/globals.css:1013",
           "status": "accepted-deviation",
@@ -327,7 +327,7 @@
         },
         "hit target (최소 터치 영역)": {
           "product": "없음 — 실측 박스가 전부. md 40×라벨폭, sm 32×48. 44px 미달",
-          "ds": "::after로 max(100%, 44px) 정사각 보장 (.kds-hit-target, base.css:36-48 + tokens.css:52)",
+          "ds": "::after로 max(100%, 44px) 정사각 보장 (.louis-hit-target, base.css:36-48 + tokens.css:52)",
           "match": "product-missing",
           "evidence": "apps/web/components/ui/Button.tsx:57",
           "status": "accepted-deviation",
@@ -343,7 +343,7 @@
         },
         "loading / progress indicator": {
           "product": "없음 — loading prop도 spinner 요소도 ButtonProps(157-166)에 존재하지 않는다",
-          "ds": "data-loading=true + .kds-button__spinner (1em 정사각, border 2px currentColor, radius 999px, 1s linear infinite), label opacity 0.6, aria-busy (button.css:125-127,159-182)",
+          "ds": "data-loading=true + .louis-button__spinner (1em 정사각, border 2px currentColor, radius 999px, 1s linear infinite), label opacity 0.6, aria-busy (button.css:125-127,159-182)",
           "match": "product-missing",
           "evidence": "apps/web/components/ui/Button.tsx:157",
           "status": "accepted-deviation",
@@ -384,7 +384,7 @@
       "axes": {
         "크기(한 변)": {
           "product": "32×32px 고정. width/min-width/max-width/height/min-height/max-height 6개 + flex:0 0 32px로 못박음",
-          "ds": "md 40×40px, sm 32×32px (inline-size/block-size = --kds-layout-control-height-md 40px / -sm 32px)",
+          "ds": "md 40×40px, sm 32×32px (inline-size/block-size = --louis-layout-control-height-md 40px / -sm 32px)",
           "match": "different",
           "evidence": "apps/web/components/navigation/Gnb.tsx:198",
           "status": "no-canon"
@@ -398,28 +398,28 @@
         },
         "border (두께·색)": {
           "product": "border: 0. 두께도 색도 없다",
-          "ds": "1px solid transparent가 기본. secondary만 border-color를 --kds-color-stroke-default (light #D5D7DD / dark #777D89)로 채운다. disabled secondary는 --kds-color-stroke-subtle (light #E3E4E8 / dark #575D68)",
+          "ds": "1px solid transparent가 기본. secondary만 border-color를 --louis-color-stroke-default (light #D5D7DD / dark #777D89)로 채운다. disabled secondary는 --louis-color-stroke-subtle (light #E3E4E8 / dark #575D68)",
           "match": "different",
           "evidence": "apps/web/components/navigation/Gnb.tsx:206",
           "status": "no-canon"
         },
         "전경(글리프 색)": {
           "product": "dark: rgb(250 250 250 / 82%), light: rgb(0 0 0 / 82%). 알파로 위계를 만든다",
-          "ds": "ghost는 --kds-color-fg-secondary (light #575D68 / dark #D5D7DD). 불투명 토큰 색이고 알파를 쓰지 않는다. primary는 --kds-color-fg-inverse #FAFAFA",
+          "ds": "ghost는 --louis-color-fg-secondary (light #575D68 / dark #D5D7DD). 불투명 토큰 색이고 알파를 쓰지 않는다. primary는 --louis-color-fg-inverse #FAFAFA",
           "match": "different",
           "evidence": "apps/web/components/navigation/Gnb.tsx:211",
           "status": "no-canon"
         },
         "pressed (토글 켜짐)": {
           "product": "gnb-iconButton 자체에는 축이 없다. 켜짐이 필요한 자리는 호출부에서 별도 클래스(gnb-projectGuideButtonActive)를 문자열로 덧붙여 만든다 — active(누르는 중)와 pressed(켜짐)가 컴포넌트 계약으로 분리돼 있지 않다",
-          "ds": "[aria-pressed=\"true\"] → background --kds-color-bg-inset (light #EAEBEE), color --kds-color-fg-primary (light #171B22 / dark #FAFAFA). active와 명시적으로 다른 축",
+          "ds": "[aria-pressed=\"true\"] → background --louis-color-bg-inset (light #EAEBEE), color --louis-color-fg-primary (light #171B22 / dark #FAFAFA). active와 명시적으로 다른 축",
           "match": "product-missing",
           "evidence": "apps/web/components/navigation/Gnb.tsx:4360",
           "status": "no-canon"
         },
         "disabled": {
           "product": "opacity: 0.56, cursor: default. 전경/배경 토큰은 그대로 두고 요소 전체를 반투명하게 만든다",
-          "ds": "opacity를 쓰지 않는다. cursor: not-allowed, color → --kds-color-fg-disabled (light #9AA0AB / dark #777D89). primary/danger는 background → --kds-color-bg-inset #EAEBEE, secondary는 border-color → --kds-color-stroke-subtle #E3E4E8",
+          "ds": "opacity를 쓰지 않는다. cursor: not-allowed, color → --louis-color-fg-disabled (light #9AA0AB / dark #777D89). primary/danger는 background → --louis-color-bg-inset #EAEBEE, secondary는 border-color → --louis-color-stroke-subtle #E3E4E8",
           "match": "different",
           "evidence": "apps/web/components/navigation/Gnb.tsx:220",
           "status": "no-canon"
@@ -440,35 +440,35 @@
         },
         "글리프 크기": {
           "product": "컨테이너가 소유하지 않는다. 호출부 SVG의 width/height 하드코딩이 최종값이고 **16px과 20px이 섞인다** — 뒤로가기 16×16, 프로젝트 옵션 20×20. projectHeaderActionsShell 문맥에서만 `& > svg`로 20px을 강제한다(Gnb.tsx:241-242)",
-          "ds": "20px 고정. .kds-icon-button__glyph의 inline-size/block-size = --kds-icon-size-md 20px. md/sm 두 크기에서 동일",
+          "ds": "20px 고정. .louis-icon-button__glyph의 inline-size/block-size = --louis-icon-size-md 20px. md/sm 두 크기에서 동일",
           "match": "different",
           "evidence": "apps/web/components/navigation/Gnb.tsx:4126",
           "status": "no-canon"
         },
         "애니메이션 (시간·이징·대상)": {
           "product": "transform 180ms ease, filter 180ms ease. filter를 전이 대상으로 쓴다",
-          "ds": "opacity, transform만 120ms cubic-bezier(0.4, 0, 1, 1) (--kds-motion-overlay-exit-duration / -timing-function). motion.md가 허용 property를 opacity·transform으로 못박아 색·filter 전이를 금지한다",
+          "ds": "opacity, transform만 120ms cubic-bezier(0.4, 0, 1, 1) (--louis-motion-overlay-exit-duration / -timing-function). motion.md가 허용 property를 opacity·transform으로 못박아 색·filter 전이를 금지한다",
           "match": "different",
           "evidence": "apps/web/components/navigation/Gnb.tsx:216",
           "status": "no-canon"
         },
         "prefers-reduced-motion": {
           "product": "gnb-iconButton 정의(191-262)에 분기가 없다. 같은 파일 다른 요소에는 19곳 있지만 이 버튼은 감속 없이 180ms transform·filter를 그대로 실행한다",
-          "ds": "@media (prefers-reduced-motion: reduce)에서 transition-duration → --kds-motion-reduced-duration 0ms, active의 scale → 1",
+          "ds": "@media (prefers-reduced-motion: reduce)에서 transition-duration → --louis-motion-reduced-duration 0ms, active의 scale → 1",
           "match": "product-missing",
           "evidence": "apps/web/components/navigation/Gnb.tsx:216",
           "status": "no-canon"
         },
         "focus ring": {
           "product": "**없다.** 레이어 밖 전역 `button:focus, button:focus-visible, button:active { outline: none }`이 모든 버튼의 아웃라인을 끄고, gnb-iconButton은 대체 표현을 두지 않는다. 키보드 초점이 시각적으로 사라진다",
-          "ds": ".kds-focus-ring:focus-visible → outline 2px solid --kds-color-stroke-focus (light #0088FF / dark #38A4FF), outline-offset 2px. forced-colors에서는 Highlight로 교체",
+          "ds": ".louis-focus-ring:focus-visible → outline 2px solid --louis-color-stroke-focus (light #0088FF / dark #38A4FF), outline-offset 2px. forced-colors에서는 Highlight로 교체",
           "match": "product-missing",
           "evidence": "apps/web/app/globals.css:1022",
           "status": "no-canon"
         },
         "hit area (터치 타깃)": {
           "product": "확장 없음. 시각 박스 32×32가 곧 타깃이다. 제품 전체에 hit-target/hit-area 확장 유틸이 존재하지 않는다",
-          "ds": "44×44 보장. .kds-hit-target::after가 max(100%, --kds-layout-control-hit-target-minimum 44px)로 시각 박스와 무관하게 타깃만 넓힌다",
+          "ds": "44×44 보장. .louis-hit-target::after가 max(100%, --louis-layout-control-hit-target-minimum 44px)로 시각 박스와 무관하게 타깃만 넓힌다",
           "match": "product-missing",
           "evidence": "apps/web/components/navigation/Gnb.tsx:198",
           "status": "no-canon"
@@ -516,7 +516,7 @@
         },
         "패널 폭 상한 / 뷰포트 대응": {
           "product": "선언 없음 (max-width 없음)",
-          "ds": "max-width: var(--kds-overlay-available-width, 100vw)",
+          "ds": "max-width: var(--louis-overlay-available-width, 100vw)",
           "match": "product-missing",
           "evidence": "apps/web/components/scenes/appHomeSceneStyles.ts:57-84",
           "status": "accepted-deviation",
@@ -524,7 +524,7 @@
         },
         "패널 최대 높이 / 내부 스크롤": {
           "product": "선언 없음. overflow 선언도 없고 overscroll-behavior:none만 있다",
-          "ds": "max-height: var(--kds-overlay-available-height, 100vh); overflow: auto; overscroll-behavior: contain",
+          "ds": "max-height: var(--louis-overlay-available-height, 100vh); overflow: auto; overscroll-behavior: contain",
           "match": "product-missing",
           "evidence": "apps/web/components/scenes/appHomeSceneStyles.ts:71",
           "status": "accepted-deviation",
@@ -532,7 +532,7 @@
         },
         "패널 padding (inset)": {
           "product": "6px — var(--dropdown-padding)",
-          "ds": "4px (action-menu, --kds-space-control-xs) / 8px (composite-popover, --kds-space-control-sm)",
+          "ds": "4px (action-menu, --louis-space-control-xs) / 8px (composite-popover, --louis-space-control-sm)",
           "match": "different",
           "evidence": "apps/web/components/scenes/appHomeSceneStyles.ts:66 → apps/web/app/globals.css:77",
           "status": "adopted",
@@ -548,7 +548,7 @@
         },
         "패널 border (두께·색)": {
           "product": "5겹 글래스 프레임 — 0 0 0 0.5px rgba(0,0,0,0.5) + 좌우 엣지 ±1.25px rgba(0,0,0,0.8) + inset 상하 흰 림 rgba(255,255,255,0.5). border는 여전히 none이다",
-          "ds": "border: 1px solid var(--kds-color-stroke-subtle) → light #E3E4E8 / dark #575D68 (실제 border, 레이아웃 차지)",
+          "ds": "border: 1px solid var(--louis-color-stroke-subtle) → light #E3E4E8 / dark #575D68 (실제 border, 레이아웃 차지)",
           "match": "different",
           "evidence": "apps/web/app/globals.css:63-68",
           "status": "accepted-deviation",
@@ -556,7 +556,7 @@
         },
         "패널 배경": {
           "product": "dark #313640 (rgb(49 54 64), 불투명) / light #f1f1f3 (rgb(241 241 243), 불투명)",
-          "ds": "dark #313640 / light #FAFAFA — var(--kds-color-bg-overlay)",
+          "ds": "dark #313640 / light #FAFAFA — var(--louis-color-bg-overlay)",
           "match": "different",
           "evidence": "apps/web/components/scenes/appHomeSceneStyles.ts:69 → apps/web/app/globals.css:93,587,50,42",
           "status": "adopted",
@@ -564,7 +564,7 @@
         },
         "패널 그림자 (elevation)": {
           "product": "0px 8px 15px 0px rgba(0,0,0,0.04) + 0 0 0 0.5px 헤어라인",
-          "ds": "0px 8px 24px -4px rgba(0,0,0,0.14) — var(--kds-elevation-popover)",
+          "ds": "0px 8px 24px -4px rgba(0,0,0,0.14) — var(--louis-elevation-popover)",
           "match": "different",
           "evidence": "apps/web/components/scenes/appHomeSceneStyles.ts:70 → apps/web/app/globals.css:73",
           "status": "adopted",
@@ -572,7 +572,7 @@
         },
         "충돌 여백 (collision padding)": {
           "product": "선언 없음. flip/shift 로직 자체가 없다",
-          "ds": "8px — --kds-overlay-collision-padding, positioner가 읽어 flip/shift",
+          "ds": "8px — --louis-overlay-collision-padding, positioner가 읽어 flip/shift",
           "match": "product-missing",
           "evidence": "apps/web/components/scenes/appHomeSceneStyles.ts:57-84",
           "status": "accepted-deviation",
@@ -580,7 +580,7 @@
         },
         "z-index / 레이어": {
           "product": "1100 (숫자 리터럴). 프로필 nested 언어 메뉴는 1200, HomeCreateNewMenu는 40, LanguageSelector는 2000",
-          "ds": "200 — .kds-layer-popover { z-index: var(--kds-layer-popover) }, 리터럴 금지",
+          "ds": "200 — .louis-layer-popover { z-index: var(--louis-layer-popover) }, 리터럴 금지",
           "match": "different",
           "evidence": "apps/web/components/scenes/appHomeSceneStyles.ts:73",
           "status": "accepted-deviation",
@@ -588,7 +588,7 @@
         },
         "포털 / 스태킹 컨텍스트": {
           "product": "포털 없음. 카드 subtree 안 position:absolute",
-          "ds": "overlay root로 portal + layer 토큰 (positioner.tsx, use-overlay.tsx가 kds-overlay-panel + kds-layer-* 부여)",
+          "ds": "overlay root로 portal + layer 토큰 (positioner.tsx, use-overlay.tsx가 louis-overlay-panel + louis-layer-* 부여)",
           "match": "different",
           "evidence": "apps/web/components/scenes/appHomeSceneStyles.ts:59",
           "status": "accepted-deviation",
@@ -596,7 +596,7 @@
         },
         "항목 높이": {
           "product": "37px (계산값: padding-block 8+8 + line-height 21px). min-height 선언 없음",
-          "ds": "min-block-size: 44px — var(--kds-layout-control-hit-target-minimum)",
+          "ds": "min-block-size: 44px — var(--louis-layout-control-hit-target-minimum)",
           "match": "different",
           "evidence": "apps/web/components/scenes/appHomeSceneStyles.ts:92 → apps/web/app/globals.css:1175,1176,362,363",
           "status": "accepted-deviation",
@@ -604,7 +604,7 @@
         },
         "항목 gap": {
           "product": "6px",
-          "ds": "8px — var(--kds-space-control-sm)",
+          "ds": "8px — var(--louis-space-control-sm)",
           "match": "different",
           "evidence": "apps/web/components/scenes/appHomeSceneStyles.ts:90",
           "status": "adopted",
@@ -612,7 +612,7 @@
         },
         "항목 전경 (기본)": {
           "product": "dark rgb(250 250 250 / 86%) / light rgb(23 27 34 / 86%) — 알파 86%",
-          "ds": "dark #FAFAFA / light #171B22 — 알파 100% (color: inherit ← 패널의 --kds-color-fg-primary)",
+          "ds": "dark #FAFAFA / light #171B22 — 알파 100% (color: inherit ← 패널의 --louis-color-fg-primary)",
           "match": "different",
           "evidence": "apps/web/components/scenes/appHomeSceneStyles.ts:96,102 → apps/web/app/globals.css:664,40,51",
           "status": "adopted",
@@ -620,7 +620,7 @@
         },
         "항목 hover 배경": {
           "product": "dark rgb(250 250 250 / 10%) / light rgb(23 27 34 / 6%) — 반투명 오버레이",
-          "ds": "var(--kds-color-bg-inset) → light #EAEBEE / dark #313640 — 불투명 면",
+          "ds": "var(--louis-color-bg-inset) → light #EAEBEE / dark #313640 — 불투명 면",
           "match": "different",
           "evidence": "apps/web/components/scenes/appHomeSceneStyles.ts:101,103",
           "status": "adopted",
@@ -644,7 +644,7 @@
         },
         "항목 disabled": {
           "product": "선언 없음. cursor·색 변화 없음",
-          "ds": "cursor: not-allowed + color light #9AA0AB / dark #777D89 (--kds-color-fg-disabled). :disabled와 [aria-disabled=\"true\"] 둘 다",
+          "ds": "cursor: not-allowed + color light #9AA0AB / dark #777D89 (--louis-color-fg-disabled). :disabled와 [aria-disabled=\"true\"] 둘 다",
           "match": "product-missing",
           "evidence": "apps/web/components/scenes/appHomeSceneStyles.ts:86-105",
           "status": "accepted-deviation",
@@ -652,7 +652,7 @@
         },
         "항목 focus-visible ring": {
           "product": "선언 없음 (카드 메뉴·프로필 메뉴 항목 모두)",
-          "ds": ".kds-focus-ring — outline 2px solid light #0088FF / dark #38A4FF, outline-offset 2px",
+          "ds": ".louis-focus-ring — outline 2px solid light #0088FF / dark #38A4FF, outline-offset 2px",
           "match": "product-missing",
           "evidence": "apps/web/components/scenes/appHomeSceneStyles.ts:86-105",
           "status": "accepted-deviation",
@@ -660,7 +660,7 @@
         },
         "danger 항목 전경": {
           "product": "#ff4b59 (양 테마 동일) — var(--accent-red-500)",
-          "ds": "light #541119 / dark #FFE5E8 — var(--kds-color-fg-danger). 문서가 인정한 대비 결함(light 1.21, dark 1.14)",
+          "ds": "light #541119 / dark #FFE5E8 — var(--louis-color-fg-danger). 문서가 인정한 대비 결함(light 1.21, dark 1.14)",
           "match": "different",
           "evidence": "apps/web/components/scenes/appHomeSceneStyles.ts:109 → apps/web/app/globals.css:226",
           "status": "adopted",
@@ -668,7 +668,7 @@
         },
         "danger 항목 hover 배경": {
           "product": "dark rgb(255 75 89 / 12%) / light rgb(255 75 89 / 10%)",
-          "ds": "var(--kds-color-bg-danger) → light #FFE5E8 / dark #541119 (불투명 면)",
+          "ds": "var(--louis-color-bg-danger) → light #FFE5E8 / dark #541119 (불투명 면)",
           "match": "different",
           "evidence": "apps/web/components/scenes/appHomeSceneStyles.ts:110,111 → apps/web/app/globals.css:235",
           "status": "adopted",
@@ -676,7 +676,7 @@
         },
         "구분선 (separator)": {
           "product": "카드 메뉴에는 없음. 프로필 팝오버만 height 1px, margin 4px 10px, background dark #575d68 / light #e3e4e8",
-          "ds": "border-block-start 1px solid var(--kds-color-stroke-subtle) (dark #575D68 / light #E3E4E8), margin-block 4px, margin-inline 0",
+          "ds": "border-block-start 1px solid var(--louis-color-stroke-subtle) (dark #575D68 / light #E3E4E8), margin-block 4px, margin-inline 0",
           "match": "different",
           "evidence": "apps/web/components/navigation/Gnb.tsx:1033,1034,1035,1036,1037,1286,1293",
           "status": "accepted-deviation",
@@ -684,7 +684,7 @@
         },
         "group label": {
           "product": "선언 없음",
-          "ds": ".kds-menu__group-label — padding 4px 12px, 12px/500/1.5/-0.12px, color foreground-secondary (light #575D68 / dark #D5D7DD)",
+          "ds": ".louis-menu__group-label — padding 4px 12px, 12px/500/1.5/-0.12px, color foreground-secondary (light #575D68 / dark #D5D7DD)",
           "match": "product-missing",
           "evidence": "apps/web/components/scenes/appHomeSceneStyles.ts:57-122",
           "status": "accepted-deviation",
@@ -692,7 +692,7 @@
         },
         "항목 아이콘 크기": {
           "product": "카드 메뉴에는 아이콘 없음. HomeCreateNewMenu 20×20 마스크(opacity 0.92), 프로필 항목 20×20(opacity 0.7)",
-          "ds": ".kds-menu__item-icon — 크기 미지정, flex:none으로 내용 크기를 따른다",
+          "ds": ".louis-menu__item-icon — 크기 미지정, flex:none으로 내용 크기를 따른다",
           "match": "different",
           "evidence": "apps/web/components/scenes/HomeCreateNewMenu.tsx:60",
           "status": "accepted-deviation",
@@ -700,7 +700,7 @@
         },
         "단축키/보조 텍스트 (trailing)": {
           "product": "선언 없음",
-          "ds": ".kds-menu__item-trailing — 12px/400/1.5, color foreground-secondary, disabled 시 inherit",
+          "ds": ".louis-menu__item-trailing — 12px/400/1.5, color foreground-secondary, disabled 시 inherit",
           "match": "product-missing",
           "evidence": "apps/web/components/scenes/appHomeSceneStyles.ts:86-105",
           "status": "accepted-deviation",
@@ -708,7 +708,7 @@
         },
         "busy(진행 중) 항목": {
           "product": "선언 없음",
-          "ds": ".kds-menu__spinner 1em 원형 + [aria-busy=\"true\"] 라벨 opacity 0.6",
+          "ds": ".louis-menu__spinner 1em 원형 + [aria-busy=\"true\"] 라벨 opacity 0.6",
           "match": "product-missing",
           "evidence": "apps/web/components/scenes/appHomeSceneStyles.ts:86-105",
           "status": "accepted-deviation",
@@ -716,7 +716,7 @@
         },
         "열림 애니메이션 (시간·이징)": {
           "product": "transform 260ms cubic-bezier(0.32,0.72,0,1). 단축 교체로 opacity 전이는 제거된다(즉시 불투명)",
-          "ds": "opacity + scale, 200ms cubic-bezier(0.32,0.72,0,1) — --kds-motion-overlay-enter-*",
+          "ds": "opacity + scale, 200ms cubic-bezier(0.32,0.72,0,1) — --louis-motion-overlay-enter-*",
           "match": "different",
           "evidence": "apps/web/components/scenes/appHomeSceneStyles.ts:119",
           "status": "accepted-deviation",
@@ -724,7 +724,7 @@
         },
         "닫힘 애니메이션 (시간·이징)": {
           "product": "opacity 130ms ease-in, transform 130ms ease-in",
-          "ds": "opacity 120ms cubic-bezier(0.4,0,1,1) — --kds-motion-overlay-exit-*",
+          "ds": "opacity 120ms cubic-bezier(0.4,0,1,1) — --louis-motion-overlay-exit-*",
           "match": "different",
           "evidence": "apps/web/components/scenes/appHomeSceneStyles.ts:78",
           "status": "accepted-deviation",
@@ -740,7 +740,7 @@
         },
         "transform-origin (확장 원점)": {
           "product": "top right 하드코딩 (배치가 flip돼도 원점이 안 따라간다)",
-          "ds": "var(--kds-overlay-transform-origin) — anchor·placement에서 계산",
+          "ds": "var(--louis-overlay-transform-origin) — anchor·placement에서 계산",
           "match": "different",
           "evidence": "apps/web/components/scenes/appHomeSceneStyles.ts:77",
           "status": "accepted-deviation",
@@ -748,7 +748,7 @@
         },
         "reduced-motion": {
           "product": "transform: none + transition: opacity 120ms ease (여전히 120ms 페이드)",
-          "ds": "transition-duration 0ms(--kds-motion-reduced-duration) + opening scale 1. exit 타이머도 같은 선언을 읽어 함께 0",
+          "ds": "transition-duration 0ms(--louis-motion-reduced-duration) + opening scale 1. exit 타이머도 같은 선언을 읽어 함께 0",
           "match": "different",
           "evidence": "apps/web/components/scenes/appHomeSceneStyles.ts:82,83,120,121",
           "status": "accepted-deviation",
@@ -772,7 +772,7 @@
         },
         "장식 pseudo-element pointer 차단": {
           "product": "선언 없음 (프로필 배지 ::after만 개별적으로 pointer-events:none)",
-          "ds": ".kds-popover/.kds-menu__item/.kds-menu__group-label의 ::before/::after 전부 pointer-events: none",
+          "ds": ".louis-popover/.louis-menu__item/.louis-menu__group-label의 ::before/::after 전부 pointer-events: none",
           "match": "product-missing",
           "evidence": "apps/web/components/navigation/Gnb.tsx:1076",
           "status": "accepted-deviation",
@@ -789,7 +789,7 @@
       "axes": {
         "z-index / 레이어": {
           "product": "10200 (숫자 리터럴). 벌마다 다름: 9999(CropModal·VideoEditModal·PricingModal·NodeCanvasGuideModal), 1300(YoutubeUploadModal), 1200(ConfirmModal), 1010(ImageCropModal), 200(HighlightCreateModal), 80(ClipCropModal)",
-          "ds": "300 = var(--kds-layer-modal). .kds-layer-modal 클래스로만 부여하고 숫자 리터럴을 금지",
+          "ds": "300 = var(--louis-layer-modal). .louis-layer-modal 클래스로만 부여하고 숫자 리터럴을 금지",
           "match": "different",
           "evidence": "apps/web/components/scenes/create/node-canvas-v2/components/GlassConfirmModal.tsx:38",
           "status": "no-canon"
@@ -810,49 +810,49 @@
         },
         "radius — 표면": {
           "product": "24px (rounded-24). 다른 벌: 16px(CropModal·HighlightCreateModal --dropdown-radius), 10px(ImageCropModal), 24px(VideoEditModal docked), 0(NodeCanvasGuideModal fullscreen)",
-          "ds": "16px = var(--kds-radius-overlay) 기본, compact 20px = var(--kds-radius-card), fullscreen 0",
+          "ds": "16px = var(--louis-radius-overlay) 기본, compact 20px = var(--louis-radius-card), fullscreen 0",
           "match": "different",
           "evidence": "apps/web/components/scenes/create/node-canvas-v2/components/GlassConfirmModal.tsx:52",
           "status": "no-canon"
         },
         "border — 표면 (두께·색)": {
           "product": "border 선언 없음. 대신 spread-only box-shadow 헤어라인 var(--glass-dropdown-frame) = 0 0 0 0.5px #575d68 (다크) / 0 0 0 0.5px #d5d7dd (라이트)",
-          "ds": "1px solid var(--kds-color-stroke-subtle) = #E3E4E8 (light) / #575D68 (dark). forced-colors에서 currentColor",
+          "ds": "1px solid var(--louis-color-stroke-subtle) = #E3E4E8 (light) / #575D68 (dark). forced-colors에서 currentColor",
           "match": "different",
           "evidence": "apps/web/components/scenes/create/node-canvas-v2/components/GlassConfirmModal.tsx:57",
           "status": "no-canon"
         },
         "배경 — 표면": {
           "product": "rgb(49 54 64 / 100%) = #313640 (기본·다크). 라이트 rgb(241 241 243) = #F1F1F3. palette 직접 참조라 테마 시맨틱 토큰을 우회",
-          "ds": "var(--kds-color-bg-overlay) = #FAFAFA (light) / #313640 (dark)",
+          "ds": "var(--louis-color-bg-overlay) = #FAFAFA (light) / #313640 (dark)",
           "match": "different",
           "evidence": "apps/web/components/scenes/create/node-canvas-v2/components/GlassConfirmModal.tsx:54",
           "status": "no-canon"
         },
         "scrim — 색·알파": {
           "product": "rgb(23 27 34 / 50%) (palette-gray-900 @50%). 라이트/다크 분기 없음. 0% → 50% background 전이. 다른 벌: rgb(0 0 0 / 55%)·라이트 32%(HighlightCreateModal), 55% + blur 8px(YoutubeUploadModal), 40%/62% + blur 2px(ClipCropModal), 50% + blur 16px saturate 130%(ConfirmModal)",
-          "ds": "var(--kds-color-dim-modal) = rgb(0 0 0 / 56%) (light) / rgb(0 0 0 / 72%) (dark). blur 없음. 알파 고정, opacity는 root가 페이드",
+          "ds": "var(--louis-color-dim-modal) = rgb(0 0 0 / 56%) (light) / rgb(0 0 0 / 72%) (dark). blur 없음. 알파 고정, opacity는 root가 페이드",
           "match": "different",
           "evidence": "apps/web/components/scenes/create/node-canvas-v2/components/GlassConfirmModal.tsx:49",
           "status": "no-canon"
         },
         "그림자 — elevation": {
           "product": "var(--glass-dropdown-frame) = 0 0 0 0.5px #575d68 (다크) / 0 0 0 0.5px #d5d7dd (라이트). 드롭 섀도우 없음(헤어라인 한 겹뿐)",
-          "ds": "var(--kds-elevation-modal) = 0px 16px 48px -8px rgb(0 0 0 / 22%) + 별도 1px border",
+          "ds": "var(--louis-elevation-modal) = 0px 16px 48px -8px rgb(0 0 0 / 22%) + 별도 1px border",
           "match": "different",
           "evidence": "apps/web/components/scenes/create/node-canvas-v2/components/GlassConfirmModal.tsx:57",
           "status": "no-canon"
         },
         "전경 — 제목 색": {
           "product": "var(--gray-000) = #fafafa (다크) / #000000 (라이트)",
-          "ds": "var(--kds-color-fg-primary) = #171B22 (light) / #FAFAFA (dark)",
+          "ds": "var(--louis-color-fg-primary) = #171B22 (light) / #FAFAFA (dark)",
           "match": "different",
           "evidence": "apps/web/components/scenes/create/node-canvas-v2/components/GlassConfirmModal.tsx:79",
           "status": "no-canon"
         },
         "전경 — 설명 색": {
           "product": "rgb(250 250 250 / 60%) (다크) / rgb(0 0 0 / 60%) (라이트). 알파 합성",
-          "ds": "var(--kds-color-fg-secondary) = #575D68 (light) / #D5D7DD (dark). 불투명 색",
+          "ds": "var(--louis-color-fg-secondary) = #575D68 (light) / #D5D7DD (dark). 불투명 색",
           "match": "different",
           "evidence": "apps/web/components/scenes/create/node-canvas-v2/components/GlassConfirmModal.tsx:84",
           "status": "no-canon"
@@ -873,7 +873,7 @@
         },
         "닫기 버튼 — 한 변·radius·색": {
           "product": "확인 모달 계열(GlassConfirmModal·ConfirmModal·CreateProjectModal)에는 닫기 버튼이 아예 없다. 있는 벌: 20×20px radius 4px color rgb(gray-000/60%) (PricingModal, ImageCropModal), 28×28px radius 50% color rgb(gray-000/44%) (CropModal), 28×28px radius 12px color #d5d7dd (HighlightCreateModal)",
-          "ds": "16×16px (var(--kds-space-control-lg)), padding 0, border 0, radius 12px = var(--kds-radius-control), background transparent, color foreground-secondary, .kds-focus-ring 부착",
+          "ds": "16×16px (var(--louis-space-control-lg)), padding 0, border 0, radius 12px = var(--louis-radius-control), background transparent, color foreground-secondary, .louis-focus-ring 부착",
           "match": "different",
           "evidence": "apps/web/components/scenes/create/PricingModal.tsx:52",
           "status": "no-canon"
@@ -894,7 +894,7 @@
         },
         "reduced motion": {
           "product": "motion-reduce:[transition:none] 두 곳. 단 CLOSE_MS 280ms는 그대로라 unmount가 280ms 지연된다. ConfirmModal에는 reduced-motion 분기 자체가 없다",
-          "ds": "duration 0ms = var(--kds-motion-reduced-duration), timing cubic-bezier(0.2,0,0,1), 비필수 transform(translate/scale) 제거. timer도 같은 선언을 읽어 함께 0ms",
+          "ds": "duration 0ms = var(--louis-motion-reduced-duration), timing cubic-bezier(0.2,0,0,1), 비필수 transform(translate/scale) 제거. timer도 같은 선언을 읽어 함께 0ms",
           "match": "different",
           "evidence": "apps/web/components/scenes/create/node-canvas-v2/components/GlassConfirmModal.tsx:64",
           "status": "no-canon"
@@ -960,7 +960,7 @@
           "match": "different",
           "evidence": "apps/web/components/scenes/create/node-canvas-v2/components/ChromeTooltip.tsx:36",
           "status": "adopted",
-          "reason": "제품 min(320px, calc(100vw - 20px))을 채택했다. 뷰포트 여유는 overlay primitive가 잰 --kds-overlay-available-width를 쓴다. 이전 DS는 288px 고정이었다"
+          "reason": "제품 min(320px, calc(100vw - 20px))을 채택했다. 뷰포트 여유는 overlay primitive가 잰 --louis-overlay-available-width를 쓴다. 이전 DS는 288px 고정이었다"
         },
         "border — 두께": {
           "product": "1px solid",
@@ -980,7 +980,7 @@
         },
         "배경 (light theme)": {
           "product": "#313640 (--palette-gray-800) — 어두운 면. 페이지와 반전",
-          "ds": "#EAEBEE (--kds-color-bg-inset, srgb 0.917647 0.921569 0.933333) — 밝은 면. 페이지와 같은 극성",
+          "ds": "#EAEBEE (--louis-color-bg-inset, srgb 0.917647 0.921569 0.933333) — 밝은 면. 페이지와 같은 극성",
           "match": "different",
           "evidence": "apps/web/app/globals.css:1500 → 751 → 36",
           "status": "adopted",
@@ -988,7 +988,7 @@
         },
         "배경 (dark theme)": {
           "product": "#E3E4E8 (--palette-gray-200) — 밝은 면. 페이지와 반전",
-          "ds": "#313640 (--kds-color-bg-inset, srgb 0.192157 0.211765 0.250980) — 어두운 면. 페이지와 같은 극성",
+          "ds": "#313640 (--louis-color-bg-inset, srgb 0.192157 0.211765 0.250980) — 어두운 면. 페이지와 같은 극성",
           "match": "different",
           "evidence": "apps/web/app/globals.css:1500 → 695 → 28",
           "status": "adopted",
@@ -996,7 +996,7 @@
         },
         "전경 (light theme)": {
           "product": "#FAFAFA (--palette-gray-000)",
-          "ds": "#171B22 (--kds-color-fg-primary, srgb 0.090196 0.105882 0.133333)",
+          "ds": "#171B22 (--louis-color-fg-primary, srgb 0.090196 0.105882 0.133333)",
           "match": "different",
           "evidence": "apps/web/app/globals.css:1502 → 752 → 20",
           "status": "adopted",
@@ -1004,7 +1004,7 @@
         },
         "전경 (dark theme)": {
           "product": "#171B22 (--palette-gray-900)",
-          "ds": "#FAFAFA (--kds-color-fg-primary, srgb 0.980392 0.980392 0.980392)",
+          "ds": "#FAFAFA (--louis-color-fg-primary, srgb 0.980392 0.980392 0.980392)",
           "match": "different",
           "evidence": "apps/web/app/globals.css:1502 → 696 → 37",
           "status": "adopted",
@@ -1020,7 +1020,7 @@
         },
         "그림자 (dark theme)": {
           "product": "0 12px 24px rgba(23, 27, 34, 0.12) — rgb(--palette-gray-900-rgb / 12%)",
-          "ds": "0px 8px 24px -4px rgba(0, 0, 0, 0.14) — 라이트와 동일 (--kds-elevation-popover는 dark 스코프에서 재정의되지 않는다)",
+          "ds": "0px 8px 24px -4px rgba(0, 0, 0, 0.14) — 라이트와 동일 (--louis-elevation-popover는 dark 스코프에서 재정의되지 않는다)",
           "match": "different",
           "evidence": "apps/web/app/globals.css:1501 → 699 → 51",
           "status": "adopted",
@@ -1036,7 +1036,7 @@
         },
         "애니메이션 — 열림 시간·이징": {
           "product": "140ms cubic-bezier(0.23, 1, 0.32, 1). opacity 0→1 + scale 0.97→1",
-          "ds": "200ms cubic-bezier(0.32, 0.72, 0, 1) (--kds-motion-overlay-enter-*)",
+          "ds": "200ms cubic-bezier(0.32, 0.72, 0, 1) (--louis-motion-overlay-enter-*)",
           "match": "different",
           "evidence": "apps/web/app/globals.css:383,385; apps/web/components/scenes/create/node-canvas-v2/components/ChromeTooltip.tsx:62-66",
           "status": "adopted",
@@ -1044,7 +1044,7 @@
         },
         "애니메이션 — 닫힘 시간·이징": {
           "product": "120ms cubic-bezier(0.19, 1, 0.22, 1) — 별도의 exit 커브를 갖는다. 언마운트 fallback 180ms",
-          "ds": "없음 — 닫힘은 즉시(모션 없음). [data-kds-state=\"opening\"]에만 애니메이션이 걸린다",
+          "ds": "없음 — 닫힘은 즉시(모션 없음). [data-louis-state=\"opening\"]에만 애니메이션이 걸린다",
           "match": "different",
           "evidence": "apps/web/app/globals.css:384,386; apps/web/components/scenes/create/node-canvas-v2/components/ChromeTooltip.tsx:55-59,227",
           "status": "accepted-deviation",
@@ -1060,7 +1060,7 @@
         },
         "애니메이션 — prefers-reduced-motion": {
           "product": "enter/exit 1ms, scale-rest 1 (모션 사실상 제거)",
-          "ds": "animation-duration 0ms (--kds-motion-reduced-duration)",
+          "ds": "animation-duration 0ms (--louis-motion-reduced-duration)",
           "match": "different",
           "evidence": "apps/web/app/globals.css:1577-1583",
           "status": "accepted-deviation",
@@ -1068,7 +1068,7 @@
         },
         "z-index / 레이어": {
           "product": "10400 (ChromeTooltip 포털 앵커). 구현마다 갈린다 — 10300(radix), 10002(VideoEditModal), 1200(analytics bar), 100(node handle ::after), 10(TIER_FEATURE_TIP), 2(chart)",
-          "ds": "200 (--kds-layer-popover), positioner에 1회 선언",
+          "ds": "200 (--louis-layer-popover), positioner에 1회 선언",
           "match": "different",
           "evidence": "apps/web/components/scenes/create/node-canvas-v2/components/ChromeTooltip.tsx:35",
           "status": "accepted-deviation",
@@ -1092,7 +1092,7 @@
         },
         "anchor 간격": {
           "product": "top 5px / left·right 8px — 방향마다 값이 다르다. 다른 구현은 또 다르다: 9px(node handle), 6px(radix sideOffset, ComposerBar, TIER_FEATURE_TIP), 10px(myPage)",
-          "ds": "8px 전 방향 동일 (--kds-overlay-offset, Menu·Dialog와 공유)",
+          "ds": "8px 전 방향 동일 (--louis-overlay-offset, Menu·Dialog와 공유)",
           "match": "different",
           "evidence": "apps/web/components/scenes/create/node-canvas-v2/components/ChromeTooltip.tsx:17,18",
           "status": "accepted-deviation",
@@ -1100,7 +1100,7 @@
         },
         "collision padding": {
           "product": "명시적 collision padding 없음. max-width의 calc(100vw - 20px)로 좌우 20px 여유를 간접 확보. 방향 뒤집기(flip) 없음 — placement가 고정",
-          "ds": "8px (--kds-overlay-collision-padding). 공간이 없으면 방향이 뒤집힌다",
+          "ds": "8px (--louis-overlay-collision-padding). 공간이 없으면 방향이 뒤집힌다",
           "match": "different",
           "evidence": "apps/web/components/scenes/create/node-canvas-v2/components/ChromeTooltip.tsx:36,265-270",
           "status": "accepted-deviation",
@@ -1141,7 +1141,7 @@
       "axes": {
         "위치 (고정 지점)": {
           "product": "position:fixed; bottom:32px; left:50%; transform:translateX(-50%) — 하단 중앙, 아래 여백 32px. 요소 자신이 중앙 정렬을 transform으로 만든다",
-          "ds": "position:fixed; inset-block-end:24px(--kds-space-layout-section); inset-inline:0; flex column + align-items:center — viewport가 중앙 정렬을 담당",
+          "ds": "position:fixed; inset-block-end:24px(--louis-space-layout-section); inset-inline:0; flex column + align-items:center — viewport가 중앙 정렬을 담당",
           "match": "different",
           "evidence": "apps/web/components/scenes/appHomeSceneStyles.ts:938-941",
           "status": "no-canon"
@@ -1162,7 +1162,7 @@
         },
         "gap (스택 간격)": {
           "product": "해당 없음. 스택이 없다 — showToast가 setToast(message)로 이전 toast를 즉시 덮는 단일 슬롯",
-          "ds": "8px (--kds-space-control-sm), viewport flex column gap",
+          "ds": "8px (--louis-space-control-sm), viewport flex column gap",
           "match": "different",
           "evidence": "apps/web/components/scenes/AppHomeScene.tsx:538-543",
           "status": "no-canon"
@@ -1183,14 +1183,14 @@
         },
         "hover": {
           "product": "없음. hover 스타일도 포인터 핸들러도 없다 → 읽는 중에도 타이머가 계속 돈다",
-          "ds": "시각 변화 없음. 대신 pointer-events:auto + data-kds-paused=\"true\"로 자동 소멸 타이머를 멈추고, 떠나면 남은 시간부터 재개",
+          "ds": "시각 변화 없음. 대신 pointer-events:auto + data-louis-paused=\"true\"로 자동 소멸 타이머를 멈추고, 떠나면 남은 시간부터 재개",
           "match": "different",
           "evidence": "apps/web/components/scenes/AppHomeScene.tsx:1417-1430",
           "status": "no-canon"
         },
         "타이포 — 크기": {
           "product": "16px (type-body-16-regular → --type-body-16-size: 16px). ≤450px 뷰포트에서는 14px로 내려간다",
-          "ds": "14px (--kds-typography-body-sm-regular-font-size). 브레이크포인트 변동 없음",
+          "ds": "14px (--louis-typography-body-sm-regular-font-size). 브레이크포인트 변동 없음",
           "match": "different",
           "evidence": "apps/web/components/scenes/AppHomeScene.tsx:1426 → apps/web/app/globals.css:1154,358,849",
           "status": "no-canon"
@@ -1204,7 +1204,7 @@
         },
         "애니메이션 — 진입": {
           "product": "appHomeToastIn 280ms ease. opacity 0→1, transform translateX(-50%) translateY(10px)→translateY(0)",
-          "ds": "kds-toast-enter 200ms cubic-bezier(0.32, 0.72, 0, 1). opacity 0→1, translate 0 8px→0 0",
+          "ds": "louis-toast-enter 200ms cubic-bezier(0.32, 0.72, 0, 1). opacity 0→1, translate 0 8px→0 0",
           "match": "different",
           "evidence": "apps/web/components/scenes/appHomeSceneStyles.ts:947 → apps/web/app/keyframes.css:510-519",
           "status": "no-canon"
@@ -1218,14 +1218,14 @@
         },
         "애니메이션 — reduced motion": {
           "product": "없음. globals.css의 prefers-reduced-motion 블록은 tooltip 변수 3개만 다루고 toast는 그대로 280ms 슬라이드한다",
-          "ds": "@media (prefers-reduced-motion: reduce)에서 animation-duration: 0ms (--kds-motion-reduced-duration)",
+          "ds": "@media (prefers-reduced-motion: reduce)에서 animation-duration: 0ms (--louis-motion-reduced-duration)",
           "match": "product-missing",
           "evidence": "apps/web/app/globals.css:1577-1583",
           "status": "no-canon"
         },
         "viewport / pointer-events": {
           "product": "viewport 없음. toast div 자체가 fixed이고 toast가 없으면 DOM에서 사라진다. pointer-events 미선언(auto)",
-          "ds": "항상 렌더되는 .kds-toast-viewport(pointer-events:none) + .kds-toast만 pointer-events:auto",
+          "ds": "항상 렌더되는 .louis-toast-viewport(pointer-events:none) + .louis-toast만 pointer-events:auto",
           "match": "different",
           "evidence": "apps/web/components/scenes/AppHomeScene.tsx:1417-1418",
           "status": "no-canon"
@@ -1277,7 +1277,7 @@
         },
         "포커스 표현": {
           "product": "통일돼 있지 않다. 인증 계열은 outline 없이 wrapper border-color 변경 + box-shadow inset 0 0 0 1px. `outline: 2px solid rgb(var(--gray-000-rgb)/22%)` + offset 1px을 문자 단위로 같이 갖는 것이 5벌. outline:none만 두고 배경색으로만 표현하는 것이 다수. 포커스 표시를 의도적으로 없앤 것도 있다",
-          "ds": "공유 .kds-focus-ring — outline: var(--kds-border-width-ring) solid var(--kds-color-stroke-focus), offset 2px",
+          "ds": "공유 .louis-focus-ring — outline: var(--louis-border-width-ring) solid var(--louis-color-stroke-focus), offset 2px",
           "match": "different",
           "evidence": "apps/web/app/login/page.tsx:133 · apps/web/components/scenes/create/node-canvas-v2/components/NodeLayersPanel.tsx:178",
           "status": "accepted-deviation",
@@ -1378,7 +1378,7 @@
         },
         "트랙 헤어라인 기법": {
           "product": "box-shadow: var(--dropdown-frame) — spread-only 0.5px(A, B). C·E는 테두리가 없다",
-          "ds": "box-shadow: 0 0 0 var(--kds-border-width-hairline) var(--kds-color-stroke-subtle)",
+          "ds": "box-shadow: 0 0 0 var(--louis-border-width-hairline) var(--louis-color-stroke-subtle)",
           "match": "same",
           "evidence": "apps/web/components/scenes/myPageSceneStyles.ts:1103",
           "status": "adopted",
@@ -1452,7 +1452,7 @@
         },
         "포커스 표시": {
           "product": "**37벌 중 25벌(68%)이 포커스 표시를 명시적으로 지운다.** overlayRadix 썸은 `width:0;height:0;opacity:0;pointer-events:none` + `focus-visible:outline:none!`(17벌), DURATION_SLIDER_THUMB은 `[&:focus-visible]:[outline:none]`(2벌), RANGE_SLIDER는 `[&:focus]:[outline:none] [&:focus-visible]:[outline:none]`(6벌). 링이 있는 것은 crop 2벌(sky-500 offset 3)과 timelineZoom 1벌(sky-500 offset 2)뿐이다",
-          "ds": "공유 링 하나 — outline: var(--kds-border-width-ring) solid var(--kds-color-stroke-focus), offset 2px. 컨트롤 전체가 받는다",
+          "ds": "공유 링 하나 — outline: var(--louis-border-width-ring) solid var(--louis-color-stroke-focus), offset 2px. 컨트롤 전체가 받는다",
           "match": "different",
           "evidence": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx:2060-2072 · apps/web/components/scenes/create/node-canvas-v2/nodes/VideoNode.tsx:592 · apps/web/components/scenes/create/node-canvas-v2/nodes/TtsNode.tsx:516",
           "status": "accepted-deviation",

@@ -40,7 +40,7 @@ export function Avatar({
     <span
       {...rest}
       ref={ref}
-      className={join("kds-avatar", className)}
+      className={join("louis-avatar", className)}
       data-size={size}
       // 이름이 없으면 장식이다. 있으면 이미지가 없어도 이름은 남아야 한다.
       role={decorative ? undefined : "img"}
@@ -50,7 +50,7 @@ export function Avatar({
       {src === undefined ? (
         // 폴백 글리프. 바깥이 접근성 이름을 소유하므로 여기는 항상 장식이다.
         <svg
-          className="kds-avatar__fallback"
+          className="louis-avatar__fallback"
           viewBox="0 0 20 20"
           xmlns="http://www.w3.org/2000/svg"
           focusable="false"
@@ -63,7 +63,7 @@ export function Avatar({
         </svg>
       ) : (
         // alt를 비운다 — 바깥 span이 role="img"과 이름을 갖는다. 둘 다 이름을 가지면 두 번 읽힌다.
-        <img className="kds-avatar__image" src={src} alt="" />
+        <img className="louis-avatar__image" src={src} alt="" />
       )}
     </span>
   );

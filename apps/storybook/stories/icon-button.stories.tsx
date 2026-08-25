@@ -110,8 +110,8 @@ export const InToolbar: Story = {
         gap: 4,
         alignItems: "center",
         padding: 8,
-        borderRadius: "var(--kds-radius-control)",
-        background: "var(--kds-color-bg-inset)",
+        borderRadius: "var(--louis-radius-control)",
+        background: "var(--louis-color-bg-inset)",
       }}
     >
       <IconButton label="검색" size="sm">

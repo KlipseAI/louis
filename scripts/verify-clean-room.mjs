@@ -45,7 +45,7 @@ if (dirty) {
 }
 
 const head = execSync("git rev-parse HEAD", { cwd: repoRoot, encoding: "utf8" }).trim();
-const work = mkdtempSync(join(tmpdir(), "kds-clean-room-"));
+const work = mkdtempSync(join(tmpdir(), "louis-clean-room-"));
 const clone = join(work, "louis");
 const noProduct = join(work, "no-product-repo");
 

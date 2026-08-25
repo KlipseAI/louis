@@ -83,7 +83,7 @@ toast가 떴다는 사실 자체가 이미 "그 일이 일어났다"이므로 �
 | -------- | ------------------------------------------ | ---------------------------------------- |
 | entering | CSS `animation` (마운트 시 1회)            | 아래에서 올라오며 나타난다. 상태 속성을 두지 않는다 — 마운트가 곧 신호다 |
 | visible  | 상태 속성 없음                             | 타이머가 돈다                            |
-| paused   | `data-kds-paused="true"`                   | 포인터가 얹혀 있거나 안에 focus가 있다   |
+| paused   | `data-louis-paused="true"`                   | 포인터가 얹혀 있거나 안에 focus가 있다   |
 
 - **포인터가 얹히거나 안에 focus가 들어오면 타이머가 멈춘다.** 읽는 중에 사라지면 알림이 아니다.
   떠나면 남은 시간부터 다시 흐른다 — 처음부터 다시 세지 않는다.
@@ -130,7 +130,7 @@ toast가 떴다는 사실 자체가 이미 "그 일이 일어났다"이므로 �
 | padding     | `space-control-md` 12px / `space-toast-inline` 20px      |
 | radius      | `radius-overlay` 16px                                    |
 | 배경        | `color-bg-inverse-translucent` — **70% 반투명**   |
-| 배경 흐림   | `backdrop-filter: blur(--kds-blur-surface)` 10px         |
+| 배경 흐림   | `backdrop-filter: blur(--louis-blur-surface)` 10px         |
 | 전경        | `color-fg-on-inverse`                            |
 | danger 배경 | `color-bg-danger`                         |
 | danger 전경 | `color-fg-danger`                         |

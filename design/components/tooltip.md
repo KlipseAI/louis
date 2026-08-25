@@ -121,14 +121,14 @@ variant가 없다. Tooltip은 강조 축을 갖지 않는다 — 위계를 표�
 | 타이포      | `typography-caption-regular` (12px)                     |
 | padding     | `space-control-xs` 4px / `space-control-sm` 8px         |
 | radius      | `radius-control-sm` 8px                                 |
-| 헤어라인    | inset (`--kds-hairline-inset`) 0.5px `color-stroke-hairline` — tooltip elevation 뒤에 조합. 이전 1px `color-stroke-tooltip` border가 없어지며 높이도 28 → 26px로 줄었다([DS-D-0023](../governance/decisions/DS-D-0023-hairline-inset.md)) |
+| 헤어라인    | inset (`--louis-hairline-inset`) 0.5px `color-stroke-hairline` — tooltip elevation 뒤에 조합. 이전 1px `color-stroke-tooltip` border가 없어지며 높이도 28 → 26px로 줄었다([DS-D-0023](../governance/decisions/DS-D-0023-hairline-inset.md)) |
 | 배경        | `color-bg-inverse` — **페이지와 반전된다**       |
 | 전경        | `color-fg-on-inverse`                           |
 | 그림자      | `elevation-tooltip` (테마마다 색이 다르다)              |
 | layer       | `layer-popover`                                         |
 | 최대 폭     | min(320px, 사용 가능 폭)                                |
-| anchor 간격 | `--kds-overlay-offset` 8px — Menu·Dialog와 같은 값       |
-| collision   | `--kds-overlay-collision-padding` 8px                    |
+| anchor 간격 | `--louis-overlay-offset` 8px — Menu·Dialog와 같은 값       |
+| collision   | `--louis-overlay-collision-padding` 8px                    |
 | 열림 지연   | 300ms                                                   |
 | 닫힘        | 즉시                                                    |
 | 열림 모션   | `motion-tooltip-enter` 140ms, scale 0.97 → 1            |
@@ -179,8 +179,8 @@ tooltip 면과 정확히 같았다.
 | arrow | 없음 | 제품은 10×5 arrow를 쓴다. 표면 경계와 방향 표시의 값을 아직 판정하지 못했다 |
 | 열림 모션 | `overlay-enter` 채택 | 제품은 140ms에 `cubic-bezier(0.23, 1, 0.32, 1)`이고 DS는 200ms다. 제품 값을 그대로 들이려면 motion 토큰 추가가 선행이라 DS 값을 썼다 |
 
-| 닫힘 모션 | 없음 | 제품은 exit를 120ms `cubic-bezier(0.19, 1, 0.22, 1)`로 따로 돌리지만 `kds-tooltip`에는 exit keyframe이 없다. exit motion 토큰 추가가 선행이다 |
-| 확대 기준점 | 미배선 | overlay 표면은 `--kds-overlay-transform-origin`으로 anchor 원점을 이미 갖고 있고 규범도 menu-popover 문서에 `origin=anchor`로 서 있다. 그런데 `kds-tooltip` 표면이 `kds-overlay-panel`을 얹지 않아 지금은 center에서 자란다 |
+| 닫힘 모션 | 없음 | 제품은 exit를 120ms `cubic-bezier(0.19, 1, 0.22, 1)`로 따로 돌리지만 `louis-tooltip`에는 exit keyframe이 없다. exit motion 토큰 추가가 선행이다 |
+| 확대 기준점 | 미배선 | overlay 표면은 `--louis-overlay-transform-origin`으로 anchor 원점을 이미 갖고 있고 규범도 menu-popover 문서에 `origin=anchor`로 서 있다. 그런데 `louis-tooltip` 표면이 `louis-overlay-panel`을 얹지 않아 지금은 center에서 자란다 |
 
 ## Acceptance tests
 

@@ -41,7 +41,7 @@ authority: normative
 | 설명 전경 (라이트) | `rgb(var(--gray-000-rgb) / 58%)` |
 | CTA 여백 | `margin-top: 12px` |
 
-**`--background` / `--foreground`는 KDS에 이름이 없다.** 제품에서 `--gray-900` / `--gray-000`의
+**`--background` / `--foreground`는 LOUIS에 이름이 없다.** 제품에서 `--gray-900` / `--gray-000`의
 별칭이며, 셸 계열이 쓰는 `--app-page-bg`와 **다른 변수**다. 라우트 경계는 셸 밖이므로 셸 배경을
 쓰지 않는다.
 
@@ -101,8 +101,8 @@ authority: normative
   합치는 것은 제품 변경이다.
 - **최후 경계의 해결값을 앞의 둘과 맞출 것인가.** 폭 420 → 440, 제목 24px → heading-36의 해결값
   등. 인라인이라도 값은 맞출 수 있다.
-- **`--background` / `--foreground`를 KDS 이름으로 세울 것인가.** 셸의 `--app-page-bg`와 다른
-  축이고 현재 KDS에 대응이 없다.
+- **`--background` / `--foreground`를 LOUIS 이름으로 세울 것인가.** 셸의 `--app-page-bg`와 다른
+  축이고 현재 LOUIS에 대응이 없다.
 
 ## 승격 조건
 

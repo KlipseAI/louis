@@ -50,7 +50,7 @@ export function IconButton({
   ref,
   ...rest
 }: IconButtonProps): JSX.Element {
-  const classes = ["kds-icon-button", "kds-focus-ring", "kds-hit-target", className]
+  const classes = ["louis-icon-button", "louis-focus-ring", "louis-hit-target", className]
     .filter(Boolean)
     .join(" ");
   return (
@@ -64,7 +64,7 @@ export function IconButton({
       aria-label={label}
       {...(pressed === undefined ? {} : { "aria-pressed": pressed })}
     >
-      <span className="kds-icon-button__glyph" aria-hidden="true">
+      <span className="louis-icon-button__glyph" aria-hidden="true">
         {children}
       </span>
     </button>

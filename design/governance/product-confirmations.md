@@ -257,7 +257,7 @@ Tailwind v4 기본은 rem 기반인데 이 제품은 「실측 결과 2px 격자
 **이 파일만 빠져 있다.**
 
 **정해야 할 것.** 의도인가 누락인가. 누락이면 무한 셋에 감소-모션 분기를 붙인다.
-DS 쪽 정본은 [Motion](../foundations/motion.md)의 감소-모션 계약이고, KDS는 이 자리를
+DS 쪽 정본은 [Motion](../foundations/motion.md)의 감소-모션 계약이고, LOUIS는 이 자리를
 **결함으로 기록**해 두었다([skeleton](../components/skeleton.md)).
 
 ## 9 — `dashboardAreaBreathe`는 재생되지 않는다

@@ -51,18 +51,18 @@ export function EmptyState({
   const Heading = `h${headingLevel}` as const;
 
   return (
-    <div {...rest} className={join("kds-empty-state", className)}>
+    <div {...rest} className={join("louis-empty-state", className)}>
       {graphic === undefined ? null : (
         // 그래픽은 제목이 말하는 것을 반복할 뿐이라 보조기술에서 숨긴다.
-        <div className="kds-empty-state__graphic" aria-hidden="true">
+        <div className="louis-empty-state__graphic" aria-hidden="true">
           {graphic}
         </div>
       )}
-      <Heading className="kds-empty-state__title">{title}</Heading>
+      <Heading className="louis-empty-state__title">{title}</Heading>
       {description === undefined ? null : (
-        <p className="kds-empty-state__description">{description}</p>
+        <p className="louis-empty-state__description">{description}</p>
       )}
-      {action === undefined ? null : <div className="kds-empty-state__action">{action}</div>}
+      {action === undefined ? null : <div className="louis-empty-state__action">{action}</div>}
     </div>
   );
 }

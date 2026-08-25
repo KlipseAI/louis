@@ -22,9 +22,9 @@ animation하지 않는다**"를 규범으로 두었다. **그것을 검사하는
 
 | keyframe | 실제 애니메이션 | 선언된 property |
 | --- | --- | --- |
-| `kds-toast-enter` | `opacity`, **`translate`** | `opacity`, `transform` |
-| `kds-tooltip-enter` | `opacity`, **`scale`** | `opacity`, `transform` |
-| `kds-spin` | `rotate` | (연결이 없어 검사 대상이 아니었다) |
+| `louis-toast-enter` | `opacity`, **`translate`** | `opacity`, `transform` |
+| `louis-tooltip-enter` | `opacity`, **`scale`** | `opacity`, `transform` |
+| `louis-spin` | `rotate` | (연결이 없어 검사 대상이 아니었다) |
 
 `translate`·`scale`은 `transform`의 **개별 속성**이며 CSS에서 별개 property다. 선언과 실제가 처음부터
 달랐고 아무도 몰랐다.
@@ -53,7 +53,7 @@ motion.md의 "**easing은 등속이다**"도 근거가 "가감속이 붙으면 �
 
 저작 CSS의 모든 `@keyframes`를 파싱해 애니메이션되는 property를 모으고, 그 keyframe을 참조하는
 규칙이 쓰는 `motion-*` 토큰의 선언 집합 안에 있는지 대조한다. 파일이 달라도 따라간다 —
-`kds-spin`은 `base.css`에 있고 소비처는 컴포넌트 셋이다.
+`louis-spin`은 `base.css`에 있고 소비처는 컴포넌트 셋이다.
 
 **motion 토큰과 연결되지 않은 keyframe도 실패다.** 그것이 `1s linear` 리터럴이 게이트 밖에 있던
 방식이다.
@@ -84,7 +84,7 @@ motion.md의 "**easing은 등속이다**"도 근거가 "가감속이 붙으면 �
 - `motion-loop`가 사라지므로 **breaking**이다. DS-GOV-001 절차를 적용한다. 소비처는 Button·Menu·
   Spinner 셋과 Figma 변수 하나뿐이다.
 - 새 게이트가 셋을 즉시 잡는다 — Toast·Tooltip의 선언 불일치와, motion 토큰에 연결되지 않은
-  keyframe. 앞의 둘은 허용 property를 넓혀 해소되고, `kds-spin`은 이미 `motion-spin`을 가리킨다.
+  keyframe. 앞의 둘은 허용 property를 넓혀 해소되고, `louis-spin`은 이미 `motion-spin`을 가리킨다.
 - Skeleton이 제품의 우세 기법을 그대로 쓸 수 있게 된다.
 - 앞으로 keyframe을 추가할 때 motion 토큰과의 연결이 강제된다.
 
@@ -97,7 +97,7 @@ motion.md의 "**easing은 등속이다**"도 근거가 "가감속이 붙으면 �
 
 1. `@keyframes`가 선언되지 않은 property를 애니메이션하면 게이트가 실패한다(canary).
 2. motion 토큰에 연결되지 않은 `@keyframes`가 있으면 게이트가 실패한다(canary).
-3. 파일이 다른 keyframe과 소비처를 게이트가 이어서 본다 — `kds-spin`이 통과한다.
+3. 파일이 다른 keyframe과 소비처를 게이트가 이어서 본다 — `louis-spin`이 통과한다.
 4. `motion-spin`이 700ms·linear, `motion-shimmer`가 1600ms·`easing-standard`로 생성된다.
 5. `motion-loop`가 더 이상 생성되지 않는다.
 6. loop lifecycle에서 `background-position`이 허용되고 `transform`은 여전히 거부된다.

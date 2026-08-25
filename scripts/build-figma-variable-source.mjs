@@ -133,7 +133,7 @@ const rawCss = ["apps/web/app/tailwind.css", "apps/web/app/keyframes.css", "apps
   .join("\n");
 const names = [...new Set([...rawCss.matchAll(/(--[a-zA-Z0-9-]+)\s*:/g)].map((m) => m[1]))].sort();
 
-const workspace = mkdtempSync(join(tmpdir(), "kds-figma-variable-source-"));
+const workspace = mkdtempSync(join(tmpdir(), "louis-figma-variable-source-"));
 let modes;
 let dsPin = "HEAD";
 try {

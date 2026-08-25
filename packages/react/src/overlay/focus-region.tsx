@@ -86,7 +86,7 @@ export function resolveInitialFocus(
   }
   // safe-action — 파괴적이지 않은 액션. 호출부가 data 속성으로 지목한다.
   return (
-    candidates.find((element) => element.dataset["kdsSafeAction"] === "true") ??
+    candidates.find((element) => element.dataset["louisSafeAction"] === "true") ??
     candidates[0] ??
     root
   );

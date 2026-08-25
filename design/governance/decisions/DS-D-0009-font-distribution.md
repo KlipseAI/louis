@@ -20,8 +20,8 @@ system-ui, sans-serif` 스택이고 KO/EN/JA를 다룬다. 컴포넌트 규범 �
 
 현재 생성물에 두 가지 결함이 있다.
 
-1. **`--kds-font-family-sans` primitive가 CSS로 방출되지 않는다.** 대신 동일한 스택 리터럴이
-   `--kds-typography-*-font-family`에 **15번 중복 인라인**된다. 소비자가 폰트를 교체하려면 15개를 전부
+1. **`--louis-font-family-sans` primitive가 CSS로 방출되지 않는다.** 대신 동일한 스택 리터럴이
+   `--louis-typography-*-font-family`에 **15번 중복 인라인**된다. 소비자가 폰트를 교체하려면 15개를 전부
    덮어야 한다.
 2. **폴백 스택에 실제 시스템 한글 폰트가 하나도 없다.** `Inter`, `Noto Sans KR`, `Noto Sans JP`는
    시스템 설치 폰트가 아니므로 소비자가 별도로 로드하지 않으면 셋 다 no-op이고 폴백은 곧장
@@ -33,8 +33,8 @@ system-ui, sans-serif` 스택이고 KO/EN/JA를 다룬다. 컴포넌트 규범 �
 **디자인 시스템 패키지는 폰트 바이너리를 동봉하지 않는다.** 폰트 소유권은 소비자에게 두되, 교체
 지점을 하나로 만든다.
 
-1. **`--kds-font-family-sans`를 CSS로 방출**하고 typography composite가 `var()`로 참조하게 생성기를
-   바꾼다. 소비 제품은 `--kds-font-family-sans: var(--font-pretendard), <stack>` **한 줄**로 자기 폰트
+1. **`--louis-font-family-sans`를 CSS로 방출**하고 typography composite가 `var()`로 참조하게 생성기를
+   바꾼다. 소비 제품은 `--louis-font-family-sans: var(--font-pretendard), <stack>` **한 줄**로 자기 폰트
    로더와 결합한다. DTCG 소스는 그대로 두고 **생성 단계만** 바꾸므로 게이트가 늘지 않는다.
 2. **폴백 스택을 교정**해 실제 OS 한글 폰트를 포함시킨다. 이는 토큰 소스 변경이므로
    [DS-P3-014](DS-D-0010-token-coverage.md)의 변경 단위와 함께 처리한다.
@@ -80,7 +80,7 @@ SEED의 CSS 패키지에는 폰트 파일도 `@font-face`도 `font-family` 토�
 - 폴백 스택 값 변경은 토큰 소스 변경이라 diff에 잡힌다. 분류를 먼저 확인하고 breaking이면
   [DS-GOV-001 절차](../releases.md)를 적용한다.
 - 소비자 부담은 폰트 로더 설정 한 번이다.
-- `--kds-font-family-sans` 방출은 **추가**이므로 되돌림이 breaking이 된다. 문서에서 이 변수를 공개
+- `--louis-font-family-sans` 방출은 **추가**이므로 되돌림이 breaking이 된다. 문서에서 이 변수를 공개
   override 지점으로 명시하고 이름을 바꾸지 않는다.
 
 ### 규범 충족 근거
@@ -100,7 +100,7 @@ acceptance test의 재현성 조건**이다. Menu의 "item height 40px 이상", 
 
 ## Rollout and verification
 
-1. 생성기가 `--kds-font-family-sans`를 방출하고 composite가 `var()`로 참조하는지 확인한다.
+1. 생성기가 `--louis-font-family-sans`를 방출하고 composite가 `var()`로 참조하는지 확인한다.
 2. 폴백 스택 교정 후 `node scripts/diff-tokens.mjs`로 분류를 확인하고 breaking이면 baseline 절차를
    적용한다.
 3. JA 토큰 분리 후 mode completeness와 CSS parity 게이트를 통과시킨다.

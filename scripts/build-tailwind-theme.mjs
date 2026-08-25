@@ -34,7 +34,7 @@ const MANIFEST_PATH = "packages/tokens/generated/manifest.json";
  * DS 토큰 접두사 → Tailwind 4 theme namespace.
  *
  * `null`은 "Tailwind에 대응 namespace가 없다"는 뜻이다. 그 토큰도 변수로는 내보내되 유틸리티는
- * 생기지 않는다 — `[z-index:var(--kds-layer-modal)]` 같은 임의값으로 쓴다. 빼지 않는 이유는
+ * 생기지 않는다 — `[z-index:var(--louis-layer-modal)]` 같은 임의값으로 쓴다. 빼지 않는 이유는
  * 소비하는 쪽이 DS 변수를 한 곳에서 찾을 수 있어야 하기 때문이다.
  */
 const NAMESPACE = {
@@ -113,20 +113,20 @@ for (const [prefix, entries] of [...grouped].sort(([a], [b]) => (a < b ? -1 : 1)
   for (const [themeName, id, type] of entries) {
     if (prefix === "--text-" && type === "typography") {
       // Tailwind 4는 `--text-<name>--line-height` 형태의 보조 키를 함께 읽는다.
-      lines.push(`  ${themeName}: var(--kds-${id}-font-size);`);
-      lines.push(`  ${themeName}--line-height: var(--kds-${id}-line-height);`);
-      lines.push(`  ${themeName}--letter-spacing: var(--kds-${id}-letter-spacing);`);
-      lines.push(`  ${themeName}--font-weight: var(--kds-${id}-font-weight);`);
+      lines.push(`  ${themeName}: var(--louis-${id}-font-size);`);
+      lines.push(`  ${themeName}--line-height: var(--louis-${id}-line-height);`);
+      lines.push(`  ${themeName}--letter-spacing: var(--louis-${id}-letter-spacing);`);
+      lines.push(`  ${themeName}--font-weight: var(--louis-${id}-font-weight);`);
       continue;
     }
-    lines.push(`  ${themeName}: var(--kds-${id});`);
+    lines.push(`  ${themeName}: var(--louis-${id});`);
   }
   lines.push("");
 }
 if (unmapped.length > 0) {
   lines.push("  /* Tailwind 4에 대응 namespace가 없다. 변수로만 내보내며 유틸리티는 생기지 않는다 —");
-  lines.push("   * `[z-index:var(--kds-layer-modal)]` 같은 임의값으로 쓴다. */");
-  for (const [id] of unmapped) lines.push(`  --kds-${id}: var(--kds-${id});`);
+  lines.push("   * `[z-index:var(--louis-layer-modal)]` 같은 임의값으로 쓴다. */");
+  for (const [id] of unmapped) lines.push(`  --louis-${id}: var(--louis-${id});`);
   lines.push("");
 }
 while (lines.at(-1) === "") lines.pop();
@@ -139,7 +139,7 @@ const header = [
   " * 원천: packages/tokens/src/klipse.tokens.json",
   " * 결정: design/governance/decisions/DS-D-0013-tailwind-interop.md",
   " *",
-  " * 이 파일만 import해도 유틸리티는 동작하지 않는다. 값이 `var(--kds-*)`를 가리키므로",
+  " * 이 파일만 import해도 유틸리티는 동작하지 않는다. 값이 `var(--louis-*)`를 가리키므로",
   " * `@klipse-design/css/tokens.css`를 함께 불러야 한다.",
   " *",
   " * `inline`인 이유: semantic 색이 `:root`와 `[data-theme=\"dark\"]`에서 각각 정의되어 런타임에",

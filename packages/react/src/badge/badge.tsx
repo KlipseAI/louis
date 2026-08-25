@@ -44,14 +44,14 @@ export function Badge({
   ...rest
 }: BadgeProps): JSX.Element {
   return (
-    <span {...rest} className={join("kds-badge", className)} data-tone={tone}>
+    <span {...rest} className={join("louis-badge", className)} data-tone={tone}>
       {icon === undefined ? null : (
         // 아이콘은 라벨이 말하는 것을 반복하는 장식이다.
-        <span className="kds-badge__icon" aria-hidden="true">
+        <span className="louis-badge__icon" aria-hidden="true">
           {icon}
         </span>
       )}
-      {icon === undefined && dot ? <span className="kds-badge__dot" aria-hidden="true" /> : null}
+      {icon === undefined && dot ? <span className="louis-badge__dot" aria-hidden="true" /> : null}
       {children}
     </span>
   );

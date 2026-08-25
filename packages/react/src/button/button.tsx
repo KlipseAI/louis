@@ -44,7 +44,7 @@ export function Button({
   const blocked =
     loading === true || ariaDisabled === true || ariaDisabled === "true";
 
-  const classes = ["kds-button", "kds-focus-ring", "kds-hit-target", className]
+  const classes = ["louis-button", "louis-focus-ring", "louis-hit-target", className]
     .filter(Boolean)
     .join(" ");
 
@@ -74,15 +74,15 @@ export function Button({
         onClick?.(event);
       }}
     >
-      {loading ? <span className="kds-button__spinner" aria-hidden="true" /> : null}
+      {loading ? <span className="louis-button__spinner" aria-hidden="true" /> : null}
       {leftIcon !== undefined && !loading ? (
-        <span className="kds-button__icon" aria-hidden="true">
+        <span className="louis-button__icon" aria-hidden="true">
           {leftIcon}
         </span>
       ) : null}
-      <span className="kds-button__label">{children}</span>
+      <span className="louis-button__label">{children}</span>
       {rightIcon !== undefined ? (
-        <span className="kds-button__icon" aria-hidden="true">
+        <span className="louis-button__icon" aria-hidden="true">
           {rightIcon}
         </span>
       ) : null}

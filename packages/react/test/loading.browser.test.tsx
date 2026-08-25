@@ -14,7 +14,7 @@ import "@klipse-design/css/tokens.css";
 import "@klipse-design/css/styles.css";
 
 function scope(): ParentNode {
-  const g = document.querySelectorAll("[data-kds-fixture]");
+  const g = document.querySelectorAll("[data-louis-fixture]");
   return g.length > 0 ? g[g.length - 1]! : document;
 }
 const find = (s: string): HTMLElement => {
@@ -26,7 +26,7 @@ const find = (s: string): HTMLElement => {
 /** 규범이 말하는 합성 — 영역이 aria-busy를 갖고 자리표시는 장식이다. */
 function Region({ busy, children }: { busy: boolean; children: JSX.Element }): JSX.Element {
   return (
-    <section data-kds-fixture aria-busy={busy} aria-label="프로젝트 목록">
+    <section data-louis-fixture aria-busy={busy} aria-label="프로젝트 목록">
       {children}
     </section>
   );
@@ -42,7 +42,7 @@ test("로딩을 알리는 것은 자리표시가 아니라 영역이다", async 
     </Region>,
   );
   // 스켈레톤마다 읽히면 소음이 된다. 영역이 한 번 말한다.
-  for (const node of Array.from(scope().querySelectorAll(".kds-skeleton"))) {
+  for (const node of Array.from(scope().querySelectorAll(".louis-skeleton"))) {
     expect(node.getAttribute("aria-hidden"), "자리표시는 장식이다").toBe("true");
   }
   expect((scope() as HTMLElement).getAttribute("aria-busy"), "영역이 알린다").toBe("true");
@@ -70,7 +70,7 @@ test("끝나면 aria-busy가 내려가고 내용이 그 자리를 대신한다",
   expect((scope() as HTMLElement).getAttribute("aria-busy")).toBe("true");
   await userEvent.click(document.querySelector("button") as HTMLElement);
   expect((scope() as HTMLElement).getAttribute("aria-busy"), "내려간다").toBe("false");
-  expect(scope().querySelector(".kds-skeleton"), "자리표시가 사라진다").toBeNull();
+  expect(scope().querySelector(".louis-skeleton"), "자리표시가 사라진다").toBeNull();
 });
 
 test("모양을 아는 자리와 모르는 자리가 서로 다른 것을 쓴다", async () => {
@@ -83,10 +83,10 @@ test("모양을 아는 자리와 모르는 자리가 서로 다른 것을 쓴다
       </div>
     </Region>,
   );
-  expect(find(".kds-skeleton"), "모양을 아는 자리").toBeTruthy();
-  expect(find(".kds-spinner"), "모양을 모르는 자리").toBeTruthy();
+  expect(find(".louis-skeleton"), "모양을 아는 자리").toBeTruthy();
+  expect(find(".louis-spinner"), "모양을 모르는 자리").toBeTruthy();
   // 둘 다 스스로 읽히지 않는다. 영역이 소유한다.
-  expect(find(".kds-skeleton").getAttribute("aria-hidden")).toBe("true");
+  expect(find(".louis-skeleton").getAttribute("aria-hidden")).toBe("true");
 });
 
 test("reduced-motion에서 둘 다 반복을 멈춘다", async () => {
@@ -100,9 +100,9 @@ test("reduced-motion에서 둘 다 반복을 멈춘다", async () => {
   );
   const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
   const want = reduced ? "1" : "infinite";
-  expect(getComputedStyle(find(".kds-skeleton")).animationIterationCount, "skeleton").toBe(want);
+  expect(getComputedStyle(find(".louis-skeleton")).animationIterationCount, "skeleton").toBe(want);
   expect(
-    getComputedStyle(find(".kds-spinner__ring")).animationIterationCount, "spinner",
+    getComputedStyle(find(".louis-spinner__ring")).animationIterationCount, "spinner",
   ).toBe(want);
 });
 

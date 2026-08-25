@@ -11,8 +11,8 @@ import "@klipse-design/css/tokens.css";
 import "@klipse-design/css/styles.css";
 
 function buttonIn(root: ParentNode = document): HTMLButtonElement {
-  const found = root.querySelector("button.kds-button");
-  if (found === null) throw new Error("kds-button을 찾지 못했습니다");
+  const found = root.querySelector("button.louis-button");
+  if (found === null) throw new Error("louis-button을 찾지 못했습니다");
   return found as HTMLButtonElement;
 }
 
@@ -112,7 +112,7 @@ test("loading 시작·완료 시 accessible name과 focus가 예측 가능하다
 test("아이콘 전용 버튼은 accessible name을 유지한다", async () => {
   await render(
     <Button aria-label="닫기" leftIcon={<svg viewBox="0 0 16 16" />}>
-      <span className="kds-visually-hidden">닫기</span>
+      <span className="louis-visually-hidden">닫기</span>
     </Button>,
   );
   await expect.element(page.getByRole("button")).toHaveAccessibleName("닫기");
@@ -245,11 +245,11 @@ test("좁은 flex 컨테이너에서 라벨이 글자 단위로 쪼개지지 않
     </div>,
   );
 
-  const buttons = Array.from(document.querySelectorAll<HTMLElement>("button.kds-button"));
+  const buttons = Array.from(document.querySelectorAll<HTMLElement>("button.louis-button"));
   expect(buttons).toHaveLength(3);
 
   for (const button of buttons) {
-    const label = button.querySelector<HTMLElement>(".kds-button__label");
+    const label = button.querySelector<HTMLElement>(".louis-button__label");
     if (label === null) throw new Error("label을 찾지 못했습니다");
     const lineHeight = Number.parseFloat(getComputedStyle(label).lineHeight);
     const lines = Math.round(label.getBoundingClientRect().height / lineHeight);

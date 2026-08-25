@@ -7,50 +7,50 @@
  * 높이 6 · 반경(알약) · 최대 폭 320 셋뿐이다. 그 셋은 그대로 옮기고 색은 DS가 고른다.
  */
 
-.kds-progress-bar {
+.louis-progress-bar {
   /* 소비처가 값을 인라인으로 준다. 0~100 사이의 수이며 % 단위는 여기서 붙인다. */
-  --kds-progress-value: 0;
+  --louis-progress-value: 0;
   box-sizing: border-box;
   inline-size: 100%;
   /* 제품 두 벌이 합의하는 유일한 폭 계약이다. 소비처가 더 좁게 쓸 수 있다. */
-  max-inline-size: var(--kds-layout-progress-bar-max-inline-size);
-  block-size: var(--kds-layout-progress-bar-height);
-  border-radius: var(--kds-radius-pill);
-  background-color: var(--kds-color-progress-track);
+  max-inline-size: var(--louis-layout-progress-bar-max-inline-size);
+  block-size: var(--louis-layout-progress-bar-height);
+  border-radius: var(--louis-radius-pill);
+  background-color: var(--louis-color-progress-track);
   overflow: hidden;
 }
 
-.kds-progress-bar__fill {
+.louis-progress-bar__fill {
   block-size: 100%;
-  inline-size: calc(var(--kds-progress-value)*1%);
+  inline-size: calc(var(--louis-progress-value)*1%);
   border-radius: inherit;
-  background-color: var(--kds-color-progress-fill);
-  transition: inline-size var(--kds-motion-layout-change-duration)
-    var(--kds-motion-layout-change-timing-function);
+  background-color: var(--louis-color-progress-fill);
+  transition: inline-size var(--louis-motion-layout-change-duration)
+    var(--louis-motion-layout-change-timing-function);
 }
 
 /* **indeterminate는 폭을 옮기지 않는다.** loop lifecycle이 허용하는 property는
  * opacity·rotate·background-position 셋이고(DS-D-0016) transform은 그 안에 없다. 면 그라디언트를
  * 흘려 같은 뜻을 만든다 — Skeleton과 같은 기법이라 층을 하나 덜 만든다. */
-.kds-progress-bar[data-indeterminate="true"] .kds-progress-bar__fill {
+.louis-progress-bar[data-indeterminate="true"] .louis-progress-bar__fill {
   inline-size: 100%;
   background-image: linear-gradient(
     to right,
     transparent 0%,
-    var(--kds-color-progress-fill) 40%,
-    var(--kds-color-progress-fill) 60%,
+    var(--louis-color-progress-fill) 40%,
+    var(--louis-color-progress-fill) 60%,
     transparent 100%
   );
   background-color: transparent;
   background-size: 250% 100%;
-  animation-name: kds-progress-slide;
-  animation-duration: var(--kds-motion-shimmer-duration);
-  animation-timing-function: var(--kds-motion-shimmer-timing-function);
+  animation-name: louis-progress-slide;
+  animation-duration: var(--louis-motion-shimmer-duration);
+  animation-timing-function: var(--louis-motion-shimmer-timing-function);
   animation-iteration-count: infinite;
   transition: none;
 }
 
-@keyframes kds-progress-slide {
+@keyframes louis-progress-slide {
   from {
     background-position: 150% 0;
   }
@@ -67,19 +67,19 @@
  * 제품은 지름을 `avatar + (gap + width) × 2`로 직접 계산한다. 여기서는 padding으로 같은 값을
  * 만든다 — 안에 무엇이 들어가든 지름이 따라오므로 소비처가 크기를 두 번 적지 않는다.
  */
-.kds-progress-ring {
-  --kds-progress-value: 0;
-  --kds-progress-ring-width: var(--kds-border-width-ring);
-  --kds-progress-ring-gap: var(--kds-space-progress-ring-gap);
+.louis-progress-ring {
+  --louis-progress-value: 0;
+  --louis-progress-ring-width: var(--louis-border-width-ring);
+  --louis-progress-ring-gap: var(--louis-space-progress-ring-gap);
   position: relative;
   display: inline-grid;
   place-items: center;
   box-sizing: content-box;
-  padding: calc(var(--kds-progress-ring-width) + var(--kds-progress-ring-gap));
-  border-radius: var(--kds-radius-pill);
+  padding: calc(var(--louis-progress-ring-width) + var(--louis-progress-ring-gap));
+  border-radius: var(--louis-radius-pill);
 }
 
-.kds-progress-ring::after {
+.louis-progress-ring::after {
   content: "";
   position: absolute;
   inset: 0;
@@ -87,27 +87,27 @@
   pointer-events: none;
   background-image: conic-gradient(
     from 0deg,
-    var(--kds-color-progress-ring-fill) 0 calc(var(--kds-progress-value)*1%),
-    var(--kds-color-progress-ring-track) calc(var(--kds-progress-value)*1%) 100%
+    var(--louis-color-progress-ring-fill) 0 calc(var(--louis-progress-value)*1%),
+    var(--louis-color-progress-ring-track) calc(var(--louis-progress-value)*1%) 100%
   );
   /* 가운데를 뚫어 링만 남긴다. mask는 색이 아니라 알파만 쓰므로 `currentcolor`를 넣는다 —
    * 어떤 색을 넣어도 결과가 같고 raw 리터럴을 두지 않는다. */
   mask-image: radial-gradient(
     farthest-side,
-    transparent calc(100% - var(--kds-progress-ring-width)),
-    currentcolor calc(100% - var(--kds-progress-ring-width))
+    transparent calc(100% - var(--louis-progress-ring-width)),
+    currentcolor calc(100% - var(--louis-progress-ring-width))
   );
-  transition: background-image var(--kds-motion-layout-change-duration)
-    var(--kds-motion-layout-change-timing-function);
+  transition: background-image var(--louis-motion-layout-change-duration)
+    var(--louis-motion-layout-change-timing-function);
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .kds-progress-bar__fill,
-  .kds-progress-ring::after {
-    transition-duration: var(--kds-motion-reduced-duration);
+  .louis-progress-bar__fill,
+  .louis-progress-ring::after {
+    transition-duration: var(--louis-motion-reduced-duration);
   }
 
-  .kds-progress-bar[data-indeterminate="true"] .kds-progress-bar__fill {
+  .louis-progress-bar[data-indeterminate="true"] .louis-progress-bar__fill {
     animation-iteration-count: 1;
   }
 }

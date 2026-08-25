@@ -46,7 +46,7 @@ const round = (value: number): number => Math.round(value * 1000) / 1000;
 
 /** 선언된 헤어라인 두께. 브라우저가 DPR 1에서 0.5px을 1px로 올리므로 계산값을 쓰지 않는다. */
 const declaredBorderWidth = (): number =>
-  px(getComputedStyle(document.documentElement).getPropertyValue("--kds-border-width-hairline"));
+  px(getComputedStyle(document.documentElement).getPropertyValue("--louis-border-width-hairline"));
 
 function find(selector: string): HTMLElement {
   const node = document.querySelector(selector);
@@ -57,7 +57,7 @@ function find(selector: string): HTMLElement {
 /** 헤어라인 색의 계산 직렬화(라이트 `color(srgb 0 0 0 / 0.1)`). box-shadow 안의 색과 대조한다. */
 const hairlineColor = (): string => {
   const probe = document.createElement("div");
-  probe.style.setProperty("color", "var(--kds-color-stroke-hairline)");
+  probe.style.setProperty("color", "var(--louis-color-stroke-hairline)");
   document.body.append(probe);
   const value = getComputedStyle(probe).color;
   probe.remove();
@@ -93,7 +93,7 @@ for (const size of DIALOG_SIZES) {
       </OverlayProvider>,
     );
 
-    const surface = find(".kds-dialog__surface");
+    const surface = find(".louis-dialog__surface");
     const style = getComputedStyle(surface);
 
     // **offsetWidth를 쓴다.** 여는 애니메이션이 scale 0.98을 걸고 있어 getBoundingClientRect는
@@ -108,7 +108,7 @@ for (const size of DIALOG_SIZES) {
 
     // measured의 padding 20은 **surface가 아니라 dialog root의 여백**이다(measured $note).
     // 그 값을 읽지 않으면 세 size 중 하나만 어긋나도 아무도 모른다.
-    const root = find(".kds-dialog");
+    const root = find(".louis-dialog");
     const rootStyle = getComputedStyle(root);
     expect(px(rootStyle.paddingBlockStart), "paddingBlock").toBe(spec.paddingBlock);
     // **surface 안쪽 여백을 따로 본다.** 한 이름(`paddingBlock`)으로 뷰포트 여백과 surface
@@ -116,17 +116,17 @@ for (const size of DIALOG_SIZES) {
     // 그 축을 보는 테스트가 없어 둘이 갈린 채로 통과했다.
     // **액션은 글자보다 가장자리에 가깝다.** 배포본이 액션 행에 `margin: -8px`을 걸어 만드는
     // 결과이며, 그 축을 보는 테스트가 없어 DS가 16에 두고도 통과하고 있었다.
-    const footer = find(".kds-dialog__footer");
+    const footer = find(".louis-dialog__footer");
     expect(px(getComputedStyle(footer).paddingInlineStart), "footerInset").toBe(spec.footerInset);
     expect(px(getComputedStyle(footer).paddingBlockEnd), "footerInset").toBe(spec.footerInset);
     expect(px(getComputedStyle(footer).paddingBlockStart), "footerPaddingTop").toBe(spec.footerPaddingTop);
 
-    const header = find(".kds-dialog__header");
+    const header = find(".louis-dialog__header");
     expect(px(getComputedStyle(header).paddingBlockStart), "surfaceInset").toBe(spec.surfaceInset);
     expect(px(getComputedStyle(header).paddingInlineStart), "surfaceInset").toBe(spec.surfaceInset);
     expect(px(rootStyle.paddingInlineStart), "paddingInline").toBe(spec.paddingInline);
     // measured의 gap 8은 header와 action이 함께 쓰는 space-control-sm이다(dialog.md "Action gap 8px").
-    expect(px(getComputedStyle(find(".kds-dialog__header")).columnGap), "gap").toBe(spec.gap);
+    expect(px(getComputedStyle(find(".louis-dialog__header")).columnGap), "gap").toBe(spec.gap);
   });
 }
 
@@ -139,10 +139,10 @@ test("Tooltip의 구조값이 components.measured.json과 같다", async () => {
       </Tooltip>
     </OverlayProvider>,
   );
-  await userEvent.hover(find("button.kds-button"));
-  await expect.poll(() => document.querySelector(".kds-tooltip")).not.toBeNull();
+  await userEvent.hover(find("button.louis-button"));
+  await expect.poll(() => document.querySelector(".louis-tooltip")).not.toBeNull();
 
-  const panel = find(".kds-tooltip");
+  const panel = find(".louis-tooltip");
   const style = getComputedStyle(panel);
 
   // 여는 애니메이션의 변환에 영향받지 않도록 레이아웃 값을 쓴다.
@@ -158,7 +158,7 @@ test("Tooltip의 구조값이 components.measured.json과 같다", async () => {
   expect(style.boxShadow, "inset 헤어라인").toContain("inset");
   expect(style.boxShadow, "헤어라인 색").toContain(hairlineColor());
   // 포인터를 치운다. 얹은 채로 두면 뒤에 같은 좌표에 렌더되는 요소가 :hover를 받는다.
-  await userEvent.unhover(find("button.kds-button"));
+  await userEvent.unhover(find("button.louis-button"));
 });
 
 test("Toast의 구조값이 components.measured.json과 같다", async () => {
@@ -172,10 +172,10 @@ test("Toast의 구조값이 components.measured.json과 같다", async () => {
       <Emitter />
     </ToastProvider>,
   );
-  await userEvent.click(find("button.kds-button"));
-  await expect.poll(() => document.querySelector(".kds-toast")).not.toBeNull();
+  await userEvent.click(find("button.louis-button"));
+  await expect.poll(() => document.querySelector(".louis-toast")).not.toBeNull();
 
-  const toastNode = find(".kds-toast");
+  const toastNode = find(".louis-toast");
   const style = getComputedStyle(toastNode);
   expect(toastNode.offsetHeight, "height").toBe(spec.height);
   expect(px(style.paddingBlockStart), "paddingBlock").toBe(spec.paddingBlock);
@@ -202,10 +202,10 @@ test("Menu 패널과 항목의 구조값이 components.measured.json과 같다",
       </ActionMenu>
     </OverlayProvider>,
   );
-  await userEvent.click(find("button.kds-button"));
-  await expect.poll(() => document.querySelector('.kds-popover[data-kind="action-menu"]')).not.toBeNull();
+  await userEvent.click(find("button.louis-button"));
+  await expect.poll(() => document.querySelector('.louis-popover[data-kind="action-menu"]')).not.toBeNull();
 
-  const panel = find('.kds-popover[data-kind="action-menu"]');
+  const panel = find('.louis-popover[data-kind="action-menu"]');
   const panelStyle = getComputedStyle(panel);
   expect(px(panelStyle.paddingBlockStart), "panel paddingBlock").toBe(spec.paddingBlock);
   expect(px(panelStyle.paddingInlineStart), "panel paddingInline").toBe(spec.paddingInline);
@@ -221,7 +221,7 @@ test("Menu 패널과 항목의 구조값이 components.measured.json과 같다",
   // 즉시 1로 튀어서 이 함정이 보이지 않았다.
   expect(panel.offsetWidth, "panel minWidth").toBeGreaterThanOrEqual(spec.minWidth);
 
-  const item = find(".kds-menu__item");
+  const item = find(".louis-menu__item");
   const itemStyle = getComputedStyle(item);
   expect(item.offsetHeight, "item height").toBe(spec.itemHeight);
   expect(px(itemStyle.paddingBlockStart), "item paddingBlock").toBe(spec.itemPaddingBlock);
@@ -273,7 +273,7 @@ test("ProjectCard의 구조값이 components.measured.json과 같다", async () 
   const spec = measured.components["project-card"].sizes.base;
   await render(<CardHarness />);
 
-  const card = find("div.kds-project-card");
+  const card = find("div.louis-project-card");
   const cardStyle = getComputedStyle(card);
   expect(round(rect(card).width), "width").toBe(spec.width);
   // aspect-ratio 1이라 폭과 높이가 같아야 한다. 다르면 그리드에서 줄이 튄다.
@@ -286,8 +286,8 @@ test("ProjectCard의 구조값이 components.measured.json과 같다", async () 
   expect(cardStyle.boxShadow, "inset 헤어라인").toContain("inset");
   expect(cardStyle.boxShadow, "헤어라인 색").toContain(hairlineColor());
 
-  const media = find(".kds-project-card-media");
-  const overlay = find(".kds-project-card-overlay");
+  const media = find(".louis-project-card-media");
+  const overlay = find(".louis-project-card-overlay");
   const overlayStyle = getComputedStyle(overlay);
   expect(
     round(rect(overlay).height / rect(media).height),
@@ -296,10 +296,10 @@ test("ProjectCard의 구조값이 components.measured.json과 같다", async () 
   expect(px(overlayStyle.paddingBlockStart), "overlayPadding").toBe(spec.overlayPadding);
   expect(px(overlayStyle.paddingInlineStart), "overlayPadding").toBe(spec.overlayPadding);
 
-  const content = find(".kds-project-card-overlay-content");
+  const content = find(".louis-project-card-overlay-content");
   expect(px(getComputedStyle(content).rowGap), "overlayTextGap").toBe(spec.overlayTextGap);
 
-  const title = find(".kds-project-card-title");
+  const title = find(".louis-project-card-title");
   const titleStyle = getComputedStyle(title);
   // line-height는 1.2배수라 계산값이 font-size에 비례한다. 비율로 되돌려 본다.
   expect(round(px(titleStyle.lineHeight) / px(titleStyle.fontSize)), "overlayLineHeight").toBe(
@@ -334,9 +334,9 @@ test("ProjectCard의 제목 띠는 최소 트랙에서 내용보다 작아지지
   const spec = measured.components["project-card"].sizes.base;
   await render(<CardHarness width={spec.minimumTrack} />);
 
-  const overlay = find(".kds-project-card-overlay");
-  const content = find(".kds-project-card-overlay-content");
-  const media = find(".kds-project-card-media");
+  const overlay = find(".louis-project-card-overlay");
+  const content = find(".louis-project-card-overlay-content");
+  const media = find(".louis-project-card-media");
 
   expect(rect(content).top, "내용이 띠 위로 넘치지 않는다").toBeGreaterThanOrEqual(
     rect(overlay).top - 0.5,
@@ -363,7 +363,7 @@ test("ProjectCard의 슬롯은 클릭 타깃 위에 있어 실제로 눌린다",
       }
     />,
   );
-  const action = find(".kds-project-card-action");
+  const action = find(".louis-project-card-action");
   action.addEventListener("click", () => clicks.push("card"));
 
   const more = find('[data-testid="more"]');
@@ -377,8 +377,8 @@ test("ProjectCard의 슬롯은 클릭 타깃 위에 있어 실제로 눌린다",
 
 test("ProjectCard의 클릭 타깃은 카드 전체를 덮고 대화형 자손을 갖지 않는다", async () => {
   await render(<CardHarness href="/highlight/1" />);
-  const card = find("div.kds-project-card");
-  const action = find("a.kds-project-card-action");
+  const card = find("div.louis-project-card");
+  const action = find("a.louis-project-card-action");
 
   // 카드 전체가 클릭 타깃이다. `inset: 0`은 **padding box** 기준이므로 테두리 안쪽을 덮는다 —
   // 비교 대상도 padding box(clientWidth)여야 한다. border-box와 재면 테두리 두께만큼 어긋난다.
@@ -393,7 +393,7 @@ test("ProjectCard의 클릭 타깃은 카드 전체를 덮고 대화형 자손�
   ).toBe(0);
 
   // 이름은 제목에서 온다.
-  const title = find(".kds-project-card-title");
+  const title = find(".louis-project-card-title");
   expect(action.getAttribute("aria-labelledby"), "이름은 제목에서 온다").toBe(title.id);
   expect(title.id.length, "제목 id가 인스턴스마다 발급된다").toBeGreaterThan(0);
 });
@@ -407,7 +407,7 @@ test("ProjectCardAction은 href가 있으면 링크, 없으면 버튼이다", as
       <CardHarness />
     </div>,
   );
-  const actions = [...document.querySelectorAll(".kds-project-card-action")];
+  const actions = [...document.querySelectorAll(".louis-project-card-action")];
   expect(actions.map((node) => node.tagName)).toEqual(["A", "BUTTON"]);
   expect(actions[0]?.getAttribute("href")).toBe("/highlight/1");
   expect(actions[1]?.getAttribute("type")).toBe("button");
@@ -440,7 +440,7 @@ test("누름 전환이 실제로 걸린다 — scale은 transform과 별개 prop
       <Button>버튼</Button>
     </div>,
   );
-  for (const selector of [".kds-project-card", ".kds-button"]) {
+  for (const selector of [".louis-project-card", ".louis-button"]) {
     const node = find(selector);
     expect(getComputedStyle(node).transitionProperty, `${selector} transitionProperty`).toContain(
       "scale",

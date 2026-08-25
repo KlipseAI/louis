@@ -24,11 +24,11 @@
  * 0이었고 gap registry가 "존재하지 않는 알고리즘을 기술하는 토큰"으로 적어 두었다.
  */
 
-.kds-project-grid {
+.louis-project-grid {
   display: grid;
-  gap: var(--kds-layout-project-grid-gap);
+  gap: var(--louis-layout-project-grid-gap);
   grid-template-columns: repeat(
     auto-fill,
-    minmax(min(var(--kds-layout-project-card-minimum), 100%), 1fr)
+    minmax(min(var(--louis-layout-project-card-minimum), 100%), 1fr)
   );
 }

@@ -13,7 +13,7 @@
  * 선언된 적도 없었다.
  */
 
-.kds-spinner {
+.louis-spinner {
   display: inline-flex;
   flex: none;
   align-items: center;
@@ -24,51 +24,51 @@
   line-height: 0;
 }
 
-.kds-spinner__ring {
+.louis-spinner__ring {
   position: relative;
   display: block;
   /* md. sm은 아래에서 덮는다. 두 값이 한 컴포넌트에만 있어 토큰으로 승격하지 않았다 —
    * spacing-radius.md가 "두 개 이상의 사용처"를 조건으로 둔다. */
   inline-size: 16px;
   block-size: 16px;
-  border-radius: var(--kds-radius-pill);
-  animation-name: kds-spin;
-  animation-duration: var(--kds-motion-spin-duration);
-  animation-timing-function: var(--kds-motion-spin-timing-function);
+  border-radius: var(--louis-radius-pill);
+  animation-name: louis-spin;
+  animation-duration: var(--louis-motion-spin-duration);
+  animation-timing-function: var(--louis-motion-spin-timing-function);
   animation-iteration-count: infinite;
 }
 
-.kds-spinner[data-size="sm"] .kds-spinner__ring {
+.louis-spinner[data-size="sm"] .louis-spinner__ring {
   inline-size: 12px;
   block-size: 12px;
 }
 
-.kds-spinner__ring::before,
-.kds-spinner__ring::after {
+.louis-spinner__ring::before,
+.louis-spinner__ring::after {
   content: "";
   position: absolute;
   inset: 0;
   box-sizing: border-box;
   border-radius: inherit;
   border-style: solid;
-  border-width: var(--kds-border-width-ring);
+  border-width: var(--louis-border-width-ring);
 }
 
 /* sm의 링은 md의 절반이다. 12px 원에 2px 링을 두르면 가운데가 거의 남지 않는다.
  * 리터럴 1px 대신 관계로 적어 두면 `border-width-ring`이 움직일 때 함께 따라온다. */
-.kds-spinner[data-size="sm"] .kds-spinner__ring::before,
-.kds-spinner[data-size="sm"] .kds-spinner__ring::after {
-  border-width: calc(var(--kds-border-width-ring) / 2);
+.louis-spinner[data-size="sm"] .louis-spinner__ring::before,
+.louis-spinner[data-size="sm"] .louis-spinner__ring::after {
+  border-width: calc(var(--louis-border-width-ring) / 2);
 }
 
 /* 트랙. **색이 아니라 현재 색의 흐린 것**이라 semantic 토큰으로 표현되지 않는다 —
  * `currentColor`에 달려 있고 그것은 놓이는 자리마다 다르다. 제품의 opacity 0.22와 같은 값이다. */
-.kds-spinner__ring::before {
+.louis-spinner__ring::before {
   border-color: color-mix(in srgb, currentcolor 22%, transparent);
 }
 
 /* 진행. 한 조각만 칠해 회전이 보이게 한다. */
-.kds-spinner__ring::after {
+.louis-spinner__ring::after {
   border-color: transparent;
   border-block-start-color: currentcolor;
 }
@@ -76,8 +76,8 @@
 /* reduced-motion에서 loop는 짧아지는 것이 아니라 **사라진다**(DS-D-0016). 회전을 멈추더라도
  * 진행 중이라는 의미는 role/aria-busy가 유지한다. */
 @media (prefers-reduced-motion: reduce) {
-  .kds-spinner__ring {
-    animation-duration: var(--kds-motion-reduced-duration);
+  .louis-spinner__ring {
+    animation-duration: var(--louis-motion-reduced-duration);
     animation-iteration-count: 1;
   }
 }

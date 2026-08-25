@@ -146,9 +146,9 @@ export function Tooltip({
             align={align}
             sideOffset={metrics.offset}
             collisionPadding={metrics.collisionPadding}
-            className="kds-tooltip-positioner"
+            className="louis-tooltip-positioner"
           >
-            <div id={surfaceId} role="tooltip" className="kds-tooltip">
+            <div id={surfaceId} role="tooltip" className="louis-tooltip">
               {content}
             </div>
           </OverlayPositioned>

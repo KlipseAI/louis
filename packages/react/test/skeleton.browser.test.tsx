@@ -16,11 +16,11 @@ const spec = measured.components.skeleton.sizes.base;
 const motion = measured.components.skeleton.motion;
 
 function scope(): ParentNode {
-  const g = document.querySelectorAll("[data-kds-fixture]");
+  const g = document.querySelectorAll("[data-louis-fixture]");
   return g.length > 0 ? g[g.length - 1]! : document;
 }
 const skeleton = (): HTMLElement => {
-  const n = scope().querySelector(".kds-skeleton");
+  const n = scope().querySelector(".louis-skeleton");
   if (n === null) throw new Error("찾지 못했습니다");
   return n as HTMLElement;
 };
@@ -29,7 +29,7 @@ test("면이 놓이는 자리의 글자색을 문다 — 고른 면 토큰이 �
   // 부모의 color를 두 값으로 바꿔 가며 잰다. 면이 토큰이었다면 둘이 같게 나온다.
   const read = async (color: string): Promise<string> => {
     await render(
-      <div data-kds-fixture style={{ color }}>
+      <div data-louis-fixture style={{ color }}>
         <Skeleton style={{ inlineSize: "120px", blockSize: "20px" }} />
       </div>,
     );
@@ -45,7 +45,7 @@ test("면이 놓이는 자리의 글자색을 문다 — 고른 면 토큰이 �
 
 test("두 테마 모두에서 면이 보인다", async () => {
   await render(
-    <div data-kds-fixture style={{ background: "var(--kds-color-bg-surface)" }}>
+    <div data-louis-fixture style={{ background: "var(--louis-color-bg-surface)" }}>
       <Skeleton style={{ inlineSize: "120px", blockSize: "20px" }} />
     </div>,
   );
@@ -62,12 +62,12 @@ test("두 테마 모두에서 면이 보인다", async () => {
 
 test("흐름이 background-position이고 motion 토큰을 쓴다", async () => {
   await render(
-    <div data-kds-fixture>
+    <div data-louis-fixture>
       <Skeleton style={{ inlineSize: "120px", blockSize: "20px" }} />
     </div>,
   );
   const style = getComputedStyle(skeleton());
-  expect(style.animationName, "공용 keyframe").toBe("kds-shimmer");
+  expect(style.animationName, "공용 keyframe").toBe("louis-shimmer");
 
   // **두 motion context를 갈라서 잰다.** reduced-motion에서 loop는 짧아지는 것이 아니라
   // 사라진다(DS-D-0016) — 그래서 duration이 reduced 토큰이 되고 반복이 1회가 된다.
@@ -75,7 +75,7 @@ test("흐름이 background-position이고 motion 토큰을 쓴다", async () => 
   // 하면 reduced-motion 계약이 검사되지 않는다.
   const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
   const reducedDuration = px(
-    getComputedStyle(document.documentElement).getPropertyValue("--kds-motion-reduced-duration"),
+    getComputedStyle(document.documentElement).getPropertyValue("--louis-motion-reduced-duration"),
   );
   if (reduced) {
     expect(px(style.animationDuration) * 1000, "reduced duration").toBe(reducedDuration);
@@ -92,7 +92,7 @@ test("흐름이 background-position이고 motion 토큰을 쓴다", async () => 
 test("모양 셋의 반경이 계약과 같다", async () => {
   for (const shape of ["block", "text", "circle"] as const) {
     await render(
-      <div data-kds-fixture>
+      <div data-louis-fixture>
         <Skeleton shape={shape} style={{ inlineSize: "40px", blockSize: "40px" }} />
       </div>,
     );
@@ -105,7 +105,7 @@ test("모양 셋의 반경이 계약과 같다", async () => {
 test("읽히지 않는다", async () => {
   // 로딩을 알리는 것은 감싸는 영역의 일이다. 스켈레톤마다 읽히면 소음이 된다.
   await render(
-    <div data-kds-fixture>
+    <div data-louis-fixture>
       <Skeleton />
     </div>,
   );

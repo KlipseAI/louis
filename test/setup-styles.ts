@@ -13,18 +13,18 @@ import "@klipse-design/css/layers.css";
 import "@klipse-design/css/tokens.css";
 import "@klipse-design/css/styles.css";
 
-const TOKEN = "--kds-color-bg-upgrade";
+const TOKEN = "--louis-color-bg-upgrade";
 const TIMEOUT_MS = 5000;
 
 function tokensReady(): boolean {
   return getComputedStyle(document.documentElement).getPropertyValue(TOKEN).trim() !== "";
 }
 
-// 컴포넌트 규칙이 실제로 매칭되는지 본다. `.kds-segmented-control`은 styles.css가 소유하고
+// 컴포넌트 규칙이 실제로 매칭되는지 본다. `.louis-segmented-control`은 styles.css가 소유하고
 // `display: inline-flex`를 준다 — 규칙이 없으면 div의 기본값 `block`이 나온다.
 function componentStylesReady(): boolean {
   const probe = document.createElement("div");
-  probe.className = "kds-segmented-control";
+  probe.className = "louis-segmented-control";
   document.body.append(probe);
   const display = getComputedStyle(probe).display;
   probe.remove();
@@ -56,8 +56,8 @@ beforeAll(async () => {
 // 40회 반복에서 2건이 실패했고 둘 다 「기대한 색 대신 hover 색」이었다. 토큰 값이 정확히
 // 일치해서 추측이 아니다.
 //
-//   sidebar CTA   기대 `--kds-color-bg-upgrade`       #171b22
-//                 실제 `--kds-color-bg-upgrade-hover` #313640
+//   sidebar CTA   기대 `--louis-color-bg-upgrade`       #171b22
+//                 실제 `--louis-color-bg-upgrade-hover` #313640
 //   segmented     기대 Default = `color-fg-secondary` #575d68
 //                 실제 Hover   = `color-fg-primary`   #171b22
 //

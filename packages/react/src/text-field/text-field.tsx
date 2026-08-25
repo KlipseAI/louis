@@ -63,40 +63,40 @@ export function TextField({
 
   return (
     <div
-      className={join("kds-text-field", className)}
+      className={join("louis-text-field", className)}
       data-size={size}
       data-invalid={invalid ? "true" : undefined}
     >
       {label === undefined ? null : (
-        <label className="kds-text-field__label" htmlFor={controlId}>
+        <label className="louis-text-field__label" htmlFor={controlId}>
           {label}
         </label>
       )}
 
       {/* 박스를 눌러도 커서가 들어가야 한다. label이 아니라 div인 이유는 슬롯 안의 버튼이
           label 안에 들어가면 그 버튼을 눌러도 input이 포커스를 가져가기 때문이다. */}
-      <div className="kds-text-field__box">
+      <div className="louis-text-field__box">
         {prefix === undefined ? null : (
-          <span className="kds-text-field__adornment">{prefix}</span>
+          <span className="louis-text-field__adornment">{prefix}</span>
         )}
         <input
           {...rest}
           id={controlId}
           type={type}
           disabled={disabled}
-          className="kds-text-field__control"
+          className="louis-text-field__control"
           aria-invalid={invalid ? "true" : undefined}
           aria-describedby={describedBy}
         />
         {suffix === undefined ? null : (
-          <span className="kds-text-field__adornment">{suffix}</span>
+          <span className="louis-text-field__adornment">{suffix}</span>
         )}
       </div>
 
       {description === undefined ? null : (
         <p
           id={messageId}
-          className="kds-text-field__message"
+          className="louis-text-field__message"
           // 오류는 뜨는 즉시 읽혀야 한다. 도움말은 그렇지 않다 — 포커스할 때 함께 읽힌다.
           role={invalid ? "alert" : undefined}
         >

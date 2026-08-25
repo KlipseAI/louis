@@ -62,7 +62,7 @@ Klipse 화면을 이루는 재사용 가능한 UI 단위다. 컴포넌트가 코
 | [Progress](../components/progress.md) | `experimental` | `partial` | `partial` | `done` | determinate 진행률. **제품에 정본이 없어 접근성 계약부터 DS가 정했다**(DS-D-0022) — 배포본에 role="progressbar"가 1곳, <progress>가 0곳이다. 값을 갖는 것은 트랙이고 채움은 장식이다. 기하는 제품 셋이 합의하는 축(높이 6 · 알약 · 최대 폭 320)만 옮기고 색은 DS가 골랐다. 링은 제품 정본이 하나뿐이라 두께·간격·지름 식을 그대로 옮겼고, 지름을 계산하는 대신 padding으로 만들어 내용이 커지면 따라온다. indeterminate는 폭이 아니라 면 그라디언트를 흘린다 — loop 허용 property가 그렇다 |
 | [Banner Carousel](../components/banner-carousel.md) | `experimental` | `partial` | `partial` | `done` | public export와 실브라우저 acceptance test 10건. Figma component set 4 variant(Tone × Bleed)에 기하 계약이 붙었고 parity가 매 실행 대조한다. 값은 전부 배포본 실측이며 모션 9종·미디어 색 9종·space-media-inset이 이 컴포넌트를 위해 섰다. **정지 버튼은 제품에 없다** — WCAG 2.2.2를 위해 의도적으로 더한 것이고 그만큼 컨트롤 폭이 제품보다 36px 넓다. 제품 소비 증거가 없다 |
 | [Badge](../components/badge.md) | `experimental` | `partial` | `partial` | `done` | public export, Figma component set 5 variant(Tone), parity 게이트가 Label을 자손으로 대조한다. 실브라우저 acceptance test 7건. 제품에 정의가 65벌이고 공용 구현은 0이다. gap registry의 '톤 4 + 상태 5'는 둘 다 틀렸다 — 네 톤 클래스의 선언이 바이트 단위로 같고, 앱 홈 4변형의 색이 전부 같은 변수를 가리킨다. 새 토큰 없이 기존 토큰에 맞는 기하를 골랐다. 알약(999px) 증감·개수 칩은 별도 컴포넌트이며 아직 없다 |
-| [Spinner](../components/spinner.md) | `experimental` | `partial` | `partial` | `done` | public export, Figma component set 2 variant(Size), parity 게이트가 Track·Arc를 자손으로 대조한다. 실브라우저 acceptance test 8건이 두 motion context에서 각각 돈다. 제품의 로딩 표현은 약 62벌이지만 공용 LoadingSpinner가 정본이고 그 recipe(700ms · linear)가 motion-loop와 정확히 같다. 회전 keyframe은 base.css의 공용 kds-spin 하나이며 Button·Menu도 그것을 가리킨다. determinate 진행률·스켈레톤·텍스트 쉬머는 별도 컴포넌트이며 아직 없다 |
+| [Spinner](../components/spinner.md) | `experimental` | `partial` | `partial` | `done` | public export, Figma component set 2 variant(Size), parity 게이트가 Track·Arc를 자손으로 대조한다. 실브라우저 acceptance test 8건이 두 motion context에서 각각 돈다. 제품의 로딩 표현은 약 62벌이지만 공용 LoadingSpinner가 정본이고 그 recipe(700ms · linear)가 motion-loop와 정확히 같다. 회전 keyframe은 base.css의 공용 louis-spin 하나이며 Button·Menu도 그것을 가리킨다. determinate 진행률·스켈레톤·텍스트 쉬머는 별도 컴포넌트이며 아직 없다 |
 | [Avatar](../components/avatar.md) | `experimental` | `partial` | `partial` | `done` | public export와 실브라우저 acceptance test 9건이 두 motion context에서 각각 돈다. 제품에 공용 구현이 **부분만** 있다 — 기본 아바타 SVG 하나만 분리돼 있고 본체는 셸 파일에 인라인이다. 크기 28/24는 제품의 --profile-avatar-size 두 값을 그대로 옮겼고 control 계단을 따르지 않는다(아바타는 컨트롤이 아니라 표식이다). **진행률 링을 소유하지 않는다** — 흡수하면 인계서 (1c)의 미결 판정이 API로 새어 들어온다. 테스트가 테두리·그림자·::after 층이 0인지 확인한다. Figma component set 2 variant(Size)가 섰고 parity 게이트가 Fallback을 자손으로 대조한다 — raw fill 0. **계약이 stroke·effect 0을 요구하므로 링이 새어 들어오면 게이트가 잡는다.** publish는 DS-F-008이다 |
 | [Checkbox](../components/checkbox.md) | `experimental` | `partial` | `partial` | `done` | public export와 실브라우저 acceptance test 14건이 두 motion context에서 각각 돈다. **제품에 정본이 있는데 21벌 중 2벌만 쓴다** — 그 전역 클래스가 cascade layer 밖이라 소비처가 이길 수 없었다. 크기 20px은 채택하고 accent-color는 채택하지 않았다(면 색 하나만 주고 표시·링·부분선택 막대를 브라우저가 정한다). indeterminate는 DOM 프로퍼티라 ref로 맞추고 aria-checked=mixed를 함께 준다. **선택 안 한 테두리 대비가 SC 1.4.11(3:1)에 미달하며 테두리 토큰 셋 중 어느 것도 라이트에서 넘지 못한다** — 실측을 규범에 적었고 인계서 (2b) 판정의 입력이다. color-stroke-strong의 첫 소비처다. Figma component set 4 variant(State)가 섰고 parity 게이트가 Box·Check·Dash·Label을 자손으로 대조한다 — raw fill·stroke 0. 체크는 CSS와 같은 구조(5×9 사각형의 두 변 + 45° 회전)라 계약값이 그대로 남는다. publish는 DS-F-008이다 |
 | [Selectable List Row](../components/selectable-list-row.md) | `experimental` | `partial` | `partial` | `done` | public export와 실브라우저 acceptance test 12건이 두 motion context에서 각각 돈다. master-detail의 좌측 열이며 제품 3벌 중 2벌(행의 면이 선택을 갖는 쪽)을 덮는다 — 나머지 1벌은 선택을 체크박스가 가지므로 Checkbox + 행 레이아웃이다. 선택은 aria-current가 소유하고 **면 하나에 기대지 않는다**: 다크에서 background-inset이 surface와 같은 색이라 표면 위 목록에서 선택 면이 사라지므로 3px 선행 표식을 함께 그린다. 같은 위험이 SidebarNavItem에 남아 있다(사이드바가 캔버스 위라서 성립). listbox가 아니며 Tab이 목록을 훑는다. Figma component set 3 variant(State)가 섰고 parity 게이트가 Marker·Text·Title·Meta·Media·Trailing을 자손으로 대조한다 — raw fill 0. Marker의 폭이 계약이라 선택 표식이 사라지면 게이트가 잡는다. publish는 DS-F-008이다 |
@@ -138,8 +138,8 @@ import "@klipse-design/css/tokens.css";
 import "@klipse-design/css/styles.css";
 ```
 
-**`tokens.css`를 빼면 오류 없이 색·간격·반경이 전부 무효값이 된다.** `styles.css`에는 `--kds-*`
-정의가 없고 `var(--kds-*)` 참조만 있으며, 생성물끼리 `@import`하지 않는다.
+**`tokens.css`를 빼면 오류 없이 색·간격·반경이 전부 무효값이 된다.** `styles.css`에는 `--louis-*`
+정의가 없고 `var(--louis-*)` 참조만 있으며, 생성물끼리 `@import`하지 않는다.
 
 링크 이동이 목적이면 클릭으로 navigation을 흉내 내지 말고 Link primitive를 사용한다.
 
@@ -324,7 +324,7 @@ focus-visible 링은 브라우저가 그리므로 Figma variant로 두지 않는
   `color-bg-danger`·`color-fg-danger`로 대체했다. `DS-P3-014` 단위 9가 토큰을 추가하면 갱신한다.
   Button은 foreground와 background를 **쌍으로** 쓰므로 대비가 성립한다. 같은 토큰을 텍스트 색으로만
   쓰면 중립 표면에서 무너지는데, 그 실측은 [Menu / Popover](../components/menu-popover.md)의 Known deviations에 있다.
-- **고정 높이가 없다.** 높이를 padding과 line-height로 결정하고 44px 타깃은 `kds-hit-target`이
+- **고정 높이가 없다.** 높이를 padding과 line-height로 결정하고 44px 타깃은 `louis-hit-target`이
   보장한다. 제품과 픽셀 단위로 맞추려면 control height 토큰이 필요하다(DS-P3-014).
 - **네 variant 전부 WCAG AA에 미달한다.** owner가 제품의 공용 Button을 정본으로 채택했고,
   그 제품 Button이 네 variant 모두 4.5에 못 미친다. axe 실측값이다.
@@ -380,10 +380,10 @@ focus-visible 링은 브라우저가 그리므로 Figma variant로 두지 않는
   라벨이 사실상 보이지 않는다** — 제품은 `#fafafa` 라벨에 0.35를 그대로 곱한다. 판정은
   [`migration/product.measured.json`](../../migration/product.measured.json)의 「disabled 표현」 축에
   accepted-deviation으로 있다.
-- **노드 캔버스 중립 버튼의 면 색이 KDS에 없다.** 제품은 노드 카드에 붙는 보조 버튼용으로 별도 SSOT
+- **노드 캔버스 중립 버튼의 면 색이 LOUIS에 없다.** 제품은 노드 카드에 붙는 보조 버튼용으로 별도 SSOT
   토큰군 `--node-chrome-btn-*`를 둔다(`globals.css:562-589`).
 
-  | 토큰 | 값 | KDS `sm` 대비 |
+  | 토큰 | 값 | LOUIS `sm` 대비 |
   | --- | --- | --- |
   | `--node-chrome-btn-h` | `32px` (`globals.css:576`) | 같다 (`layout-control-height-sm`) |
   | `--node-chrome-btn-padding-x` | `10px` (`:577`) | 텍스트-only `sm` 12px와 다르고 **아이콘 동반 `sm` 10px와 같다**. 제품은 아이콘 유무와 무관하게 10 고정 |
@@ -398,12 +398,12 @@ focus-visible 링은 브라우저가 그리므로 Figma variant로 두지 않는
   `uploadPillButton`)과 세그먼트 컨트롤은 비대상이고 각자 고유 크롬을 갖는다(`:567-568`).
   **토큰군 전부를 쓰는 소비처는 없다**(`:570-571`) — 헤더 액션은 치수만 쓰고 면은 투명 + hover
   틴트이며(`NodeHeaderActions.tsx:36-37`), 아이콘 전용 버튼은 정사각이라 `-padding-x`를 쓰지 않는다.
-  면과 테두리를 전부 쓰는 대표 소비처는 메타 툴바 알약이다(`ImageNode.tsx:646-653`). 치수 축은 KDS
-  `sm`으로 그대로 재현되지만 **면 색 두 쌍이 없어 노드 카드 내부 버튼을 KDS만으로 칠할 수 없다.**
+  면과 테두리를 전부 쓰는 대표 소비처는 메타 툴바 알약이다(`ImageNode.tsx:646-653`). 치수 축은 LOUIS
+  `sm`으로 그대로 재현되지만 **면 색 두 쌍이 없어 노드 카드 내부 버튼을 LOUIS만으로 칠할 수 없다.**
 - **제품의 결과 화면 액션은 전폭 앵커다.** 결제 결과 화면의 두 액션(`billing-success/page.tsx:136-146`
   primary · `:148-158` secondary)은 높이 40px과 radius 12px까지 `md`와 같고 네 축이 다르다.
 
-  | 축 | KDS `md` | 제품 결과 화면 액션 |
+  | 축 | LOUIS `md` | 제품 결과 화면 액션 |
   | --- | --- | --- |
   | 폭 | 내용 폭 (고정 폭 없음) | `width: 100%` (`:137`·`:149`) |
   | padding | `0 / space-control-lg` 16px | `0 / 20px` (`:137`·`:149`) |
@@ -423,7 +423,7 @@ focus-visible 링은 브라우저가 그리므로 Figma variant로 두지 않는
   `components/ui/Button.tsx`를 import 하지 않는다. 로컬 제출 버튼은 전폭 **48px 고정**(`h-24`) ·
   `rounded-12` · 면 `--gray-000` / 글자 `--gray-1000`(반전 잉크)이고(`login/page.tsx:206-211`), 상태 카드
   버튼은 전폭 **48px 최소**(`min-h-24`) · 패딩 `0 18px` · `rounded-12`다. **고정과 최소를 같은 것으로
-  읽으면 틀린다.** 라벨은 두 곳 모두 `type-body-16-medium` **16px**으로 KDS의 `body-sm-medium`
+  읽으면 틀린다.** 라벨은 두 곳 모두 `type-body-16-medium` **16px**으로 LOUIS의 `body-sm-medium`
   14px/21px와 다르다(`login/page.tsx:594-596` · `reset-password/page.tsx:252-256`; 상태 카드 정의
   `reset-password/page.tsx:59-67` primary · `:71-76` secondary).
 
@@ -447,7 +447,7 @@ focus-visible 링은 브라우저가 그리므로 Figma variant로 두지 않는
   **이 44px을 컨트롤 계단의 새 단으로 읽으면 틀린다.** 계단은 여전히 40/32px이고, 이것은 한 화면이
   높이 축 하나만 덮은 예외다. 같은 폼 안의 이메일 인풋은 `min-h-[44px]`(`:314`)로 **고정이 아니라
   최소**라 두 값이 우연히 같을 뿐 성질이 다르다 — 인증 화면의 48px 고정 대 최소와 같은 함정이다.
-  KDS는 소비처가 컨트롤 높이를 덮는 경로를 갖고 있지 않다. 이 자리를 옮기려면 높이를 노출하는
+  LOUIS는 소비처가 컨트롤 높이를 덮는 경로를 갖고 있지 않다. 이 자리를 옮기려면 높이를 노출하는
   API를 세우거나 예외로 남기는 판정이 필요하다.
 
 #### 승격 조건
@@ -554,7 +554,7 @@ Icon Button은 `active`(누르는 중)와 `pressed`(토글 켜짐)를 **둘 다*
 
 #### Interaction and responsive behavior
 
-- **시각 크기와 hit area를 분리한다.** 컴포넌트가 `.kds-hit-target`을 직접 붙이므로, sm이 32×32로
+- **시각 크기와 hit area를 분리한다.** 컴포넌트가 `.louis-hit-target`을 직접 붙이므로, sm이 32×32로
   보여도 실제 히트 영역은 44×44다 — 보이지 않는 의사 요소가 중앙에 깔린다
   ([Inclusive Design](../foundations/inclusive-design.md)). 호출부가 따로 감쌀 필요가 없다.
 - 뷰포트로 크기를 자동 전환하지 않는다. 밀집도는 화면 폭이 아니라 **그 자리의 역할**이 정한다.
@@ -571,7 +571,7 @@ Icon Button은 `active`(누르는 중)와 `pressed`(토글 켜짐)를 **둘 다*
 - 아이콘은 항상 `aria-hidden`이다. Icon Button이 감싸는 span이 그것을 보장한다.
 - `pressed`를 준 경우에만 `aria-pressed`가 붙는다. 주지 않으면 속성 자체가 없다 — `false`를 늘
   붙이면 일반 버튼이 토글로 노출된다.
-- focus ring은 `.kds-focus-ring`이 소유한다.
+- focus ring은 `.louis-focus-ring`이 소유한다.
 
 #### Specification
 
@@ -588,7 +588,7 @@ Icon Button은 `active`(누르는 중)와 `pressed`(토글 켜짐)를 **둘 다*
 
 - `packages/react/src/icon-button/icon-button.tsx`
 - `packages/css/src/component/icon-button.css`
-- variant/state 시각은 `.kds-button`의 규칙을 재사용하지 않고 자체 선택자를 갖는다. 공유하면
+- variant/state 시각은 `.louis-button`의 규칙을 재사용하지 않고 자체 선택자를 갖는다. 공유하면
   Button의 padding 계약이 정사각 계약과 충돌한다.
 
 #### Known deviations
@@ -693,8 +693,8 @@ Icon Button은 `active`(누르는 중)와 `pressed`(토글 켜짐)를 **둘 다*
 | `panelLabel`       | 문자열 또는 id 참조                      | 필수                           | panel의 accessible name                                   |
 | `placement`        | `top`, `bottom`, `left`, `right`         | `bottom`                       | 선호 방향이며 충돌 시 flip 가능                           |
 | `align`            | `start`, `center`, `end`                 | `start`                        | anchor와 panel 정렬                                       |
-| `offset`           | `--kds-overlay-offset`                   | 8px                            | **prop이 아니다.** overlay 표면 CSS가 소유한다            |
-| `collisionPadding` | `--kds-overlay-collision-padding`        | 8px                            | **prop이 아니다.** 위와 같다                              |
+| `offset`           | `--louis-overlay-offset`                   | 8px                            | **prop이 아니다.** overlay 표면 CSS가 소유한다            |
+| `collisionPadding` | `--louis-overlay-collision-padding`        | 8px                            | **prop이 아니다.** 위와 같다                              |
 | `portalHost`       | app overlay root                         | Provider가 소유                | 컴포넌트가 host를 고르지 않는다. 앱에서 한 번 정한다      |
 | `branchId`         | opaque overlay branch id                 | 자동 생성                      | **입력받지 않는다.** 중첩 등록은 별도 수단이 제공한다     |
 | `initialFocus`     | `first-enabled`, `last-enabled`, `surface`, ref, `none` | variant 고정 (§Focus) | 기본값을 임의로 바꾸지 않는다                |
@@ -1000,7 +1000,7 @@ Specification 표의 `Panel surface` 행은 라이트 값을 하나만 담는다
 | Panel surface  | `color-bg-menu` — 라이트 neutral-100 / 다크 neutral-800 | light/dark/high contrast   |
 | Panel radius   | `radius-overlay` = 16px                                | visual regression          |
 | Panel padding  | `space-overlay-inset` = 6px                            | item hit area 유지         |
-| Panel border   | 없음. 헤어라인은 패널이 조합하는 inset(`--kds-hairline-inset`) | 레이아웃 박스 불변 |
+| Panel border   | 없음. 헤어라인은 패널이 조합하는 inset(`--louis-hairline-inset`) | 레이아웃 박스 불변 |
 | Item radius    | `radius-overlay-item` = 10px                           | hover/focus/selected state |
 | Item 사이 간격 | `space-overlay-item-gap` = 2px                         | 행이 붙지 않는다           |
 | Item 내부 gap  | `space-overlay-item-content-gap` = 6px                 | 아이콘·라벨 간격           |
@@ -1142,8 +1142,8 @@ submenu의 방향키가 부모 핸들러까지 실행해 focus가 부모로 튀�
   대체했다. DS-P3-014가 토큰을 추가하면 변수 한 줄만 바꾼다.
 - **panel 경계는 border가 아니라 inset 헤어라인이다.** Specification 표에는 없지만 dark에서
   `elevation-popover` 그림자만으로는 표면 경계가 서지 않아, elevation 뒤에 조합한 inset
-  box-shadow(`--kds-hairline-inset`)를 한 겹 더 쓴다([DS-D-0023](../governance/decisions/DS-D-0023-hairline-inset.md)).
-- **item에 `.kds-hit-target`을 쓰지 않는다.** 그 유틸의 44px `::after`는 항목 중앙에 겹쳐 놓이므로
+  box-shadow(`--louis-hairline-inset`)를 한 겹 더 쓴다([DS-D-0023](../governance/decisions/DS-D-0023-hairline-inset.md)).
+- **item에 `.louis-hit-target`을 쓰지 않는다.** 그 유틸의 44px `::after`는 항목 중앙에 겹쳐 놓이므로
   간격 없이 쌓이는 행에서 인접 항목의 hit 영역을 2px씩 가로챈다. 행 자체를 44px로 만든다.
 - **`offset`과 `collisionPadding`을 인스턴스별로 바꿀 수 없다.** 값은 overlay 표면 CSS 한 블록이
   소유하고 Provider가 1회 측정한다.
@@ -1152,7 +1152,7 @@ submenu의 방향키가 부모 핸들러까지 실행해 focus가 부모로 튀�
   음절로 오지 않는다. 구현은 조합 중 오작동만 막고 매칭은 `compositionend`가 도착하는 환경에서만
   시도한다. macOS·Windows 실기 측정이 `stable` 승격 전 조건이다.
 - **`ArrowRight`/`ArrowLeft`가 RTL에서 반전되지 않는다.**
-- **composite popover의 inset이 action menu보다 크다(8px vs 4px).** `.kds-hit-target`을 쓰는 컨트롤은
+- **composite popover의 inset이 action menu보다 크다(8px vs 4px).** `.louis-hit-target`을 쓰는 컨트롤은
   44px 타겟을 시각 박스 밖으로 확장하는데, 패널이 스크롤 컨테이너라 그 초과분이 유령 스크롤바가 된다.
   action menu는 행 자체를 44px로 만들어 그 유틸을 쓰지 않으므로 4px을 유지한다 — 거기서 8px을 쓰면
   안쪽 곡률이 item radius보다 작아져 모서리가 뚫린다. 두 값이 다른 것은 실수가 아니다.
@@ -1201,7 +1201,7 @@ primitive는 public 표면이 아니다 — 경계와 그 이유는
 | Escape는 최상위 한 단계만 | `overlay/overlay-store.ts` | `overlay-keyboard.browser.test.tsx` |
 | 위치 확정 전 비가시·비 hit-test | `overlay/presence.ts` + `base.css` | `overlay-presence.browser.test.tsx` |
 | exit 완료와 unmount가 같은 source | `overlay/presence.ts`의 `readExitDuration` | `overlay-presence.browser.test.tsx` |
-| anchor 기준 배치와 `--kds-overlay-*` seam | `overlay/positioner.tsx`, `component/overlay.css` | `overlay-presence.browser.test.tsx` |
+| anchor 기준 배치와 `--louis-overlay-*` seam | `overlay/positioner.tsx`, `component/overlay.css` | `overlay-presence.browser.test.tsx` |
 
 non-modal에서 Tab으로 focus가 빠져나가 닫히는 경로의 reason은 **`outside`** 다. 새 reason을 만들지
 않은 이유는 focus 정책이 `outside`와 같기 때문이다 — 둘 다 포커스를 옮기지 않는다(DS-D-0011 결정 4).
@@ -1211,7 +1211,7 @@ non-modal에서 Tab으로 focus가 빠져나가 닫히는 경로의 reason은 **
 - ~~공유 positioning, dismiss layer, overlay branch primitive가 없다.~~ **해소(DS-P3-005).** 위
   Overlay behavior layer 참조.
 - ~~semantic layer token의 컴포넌트 소비와 nested portal 소유권 구현이 없다.~~ **해소(DS-P3-005).**
-  `.kds-layer-*` 유틸을 primitive가 붙이고, 자손 branch는 부모 layer를 물려받는다.
+  `.louis-layer-*` 유틸을 primitive가 붙이고, 자손 branch는 부모 layer를 물려받는다.
 - ~~action menu 방향키, Home/End, typeahead, roving focus test가 없다.~~ **해소(DS-P3-006).**
 - ~~composite popover의 initial/return focus와 Tab 정책이 구현되지 않았다.~~ **해소(DS-P3-006).**
   위 §Focus가 variant별 매핑과 reason별 return focus를 소유한다.
@@ -1393,14 +1393,14 @@ variant가 없다. Tooltip은 강조 축을 갖지 않는다 — 위계를 표�
 | 타이포      | `typography-caption-regular` (12px)                     |
 | padding     | `space-control-xs` 4px / `space-control-sm` 8px         |
 | radius      | `radius-control-sm` 8px                                 |
-| 헤어라인    | inset (`--kds-hairline-inset`) 0.5px `color-stroke-hairline` — tooltip elevation 뒤에 조합. 이전 1px `color-stroke-tooltip` border가 없어지며 높이도 28 → 26px로 줄었다([DS-D-0023](../governance/decisions/DS-D-0023-hairline-inset.md)) |
+| 헤어라인    | inset (`--louis-hairline-inset`) 0.5px `color-stroke-hairline` — tooltip elevation 뒤에 조합. 이전 1px `color-stroke-tooltip` border가 없어지며 높이도 28 → 26px로 줄었다([DS-D-0023](../governance/decisions/DS-D-0023-hairline-inset.md)) |
 | 배경        | `color-bg-inverse` — **페이지와 반전된다**       |
 | 전경        | `color-fg-on-inverse`                           |
 | 그림자      | `elevation-tooltip` (테마마다 색이 다르다)              |
 | layer       | `layer-popover`                                         |
 | 최대 폭     | min(320px, 사용 가능 폭)                                |
-| anchor 간격 | `--kds-overlay-offset` 8px — Menu·Dialog와 같은 값       |
-| collision   | `--kds-overlay-collision-padding` 8px                    |
+| anchor 간격 | `--louis-overlay-offset` 8px — Menu·Dialog와 같은 값       |
+| collision   | `--louis-overlay-collision-padding` 8px                    |
 | 열림 지연   | 300ms                                                   |
 | 닫힘        | 즉시                                                    |
 | 열림 모션   | `motion-tooltip-enter` 140ms, scale 0.97 → 1            |
@@ -1451,8 +1451,8 @@ tooltip 면과 정확히 같았다.
 | arrow | 없음 | 제품은 10×5 arrow를 쓴다. 표면 경계와 방향 표시의 값을 아직 판정하지 못했다 |
 | 열림 모션 | `overlay-enter` 채택 | 제품은 140ms에 `cubic-bezier(0.23, 1, 0.32, 1)`이고 DS는 200ms다. 제품 값을 그대로 들이려면 motion 토큰 추가가 선행이라 DS 값을 썼다 |
 
-| 닫힘 모션 | 없음 | 제품은 exit를 120ms `cubic-bezier(0.19, 1, 0.22, 1)`로 따로 돌리지만 `kds-tooltip`에는 exit keyframe이 없다. exit motion 토큰 추가가 선행이다 |
-| 확대 기준점 | 미배선 | overlay 표면은 `--kds-overlay-transform-origin`으로 anchor 원점을 이미 갖고 있고 규범도 menu-popover 문서에 `origin=anchor`로 서 있다. 그런데 `kds-tooltip` 표면이 `kds-overlay-panel`을 얹지 않아 지금은 center에서 자란다 |
+| 닫힘 모션 | 없음 | 제품은 exit를 120ms `cubic-bezier(0.19, 1, 0.22, 1)`로 따로 돌리지만 `louis-tooltip`에는 exit keyframe이 없다. exit motion 토큰 추가가 선행이다 |
+| 확대 기준점 | 미배선 | overlay 표면은 `--louis-overlay-transform-origin`으로 anchor 원점을 이미 갖고 있고 규범도 menu-popover 문서에 `origin=anchor`로 서 있다. 그런데 `louis-tooltip` 표면이 `louis-overlay-panel`을 얹지 않아 지금은 center에서 자란다 |
 
 #### Acceptance tests
 
@@ -1556,7 +1556,7 @@ toast가 떴다는 사실 자체가 이미 "그 일이 일어났다"이므로 �
 | -------- | ------------------------------------------ | ---------------------------------------- |
 | entering | CSS `animation` (마운트 시 1회)            | 아래에서 올라오며 나타난다. 상태 속성을 두지 않는다 — 마운트가 곧 신호다 |
 | visible  | 상태 속성 없음                             | 타이머가 돈다                            |
-| paused   | `data-kds-paused="true"`                   | 포인터가 얹혀 있거나 안에 focus가 있다   |
+| paused   | `data-louis-paused="true"`                   | 포인터가 얹혀 있거나 안에 focus가 있다   |
 
 - **포인터가 얹히거나 안에 focus가 들어오면 타이머가 멈춘다.** 읽는 중에 사라지면 알림이 아니다.
   떠나면 남은 시간부터 다시 흐른다 — 처음부터 다시 세지 않는다.
@@ -1603,7 +1603,7 @@ toast가 떴다는 사실 자체가 이미 "그 일이 일어났다"이므로 �
 | padding     | `space-control-md` 12px / `space-toast-inline` 20px      |
 | radius      | `radius-overlay` 16px                                    |
 | 배경        | `color-bg-inverse-translucent` — **70% 반투명**   |
-| 배경 흐림   | `backdrop-filter: blur(--kds-blur-surface)` 10px         |
+| 배경 흐림   | `backdrop-filter: blur(--louis-blur-surface)` 10px         |
 | 전경        | `color-fg-on-inverse`                            |
 | danger 배경 | `color-bg-danger`                         |
 | danger 전경 | `color-fg-danger`                         |
@@ -1768,7 +1768,7 @@ variant 축이 없다. 카드의 강조는 카드가 아니라 **썸네일**이 
 | --- | --- |
 | Default | 헤어라인 inset, 변형 없음 |
 | Hover | 카드 자신은 바뀌지 않는다. 슬롯 안의 컨트롤이 드러난다 |
-| Active | `scale(0.975)`. `:has(.kds-project-card-action:active)`로 **클릭 타깃만** 본다 — 프레임에 직접 걸면 슬롯의 버튼을 눌러도 카드가 줄어든다 |
+| Active | `scale(0.975)`. `:has(.louis-project-card-action:active)`로 **클릭 타깃만** 본다 — 프레임에 직접 걸면 슬롯의 버튼을 눌러도 카드가 줄어든다 |
 | Focus visible | 링은 프레임에 그린다. 투명한 클릭 타깃에만 링이 뜨면 무엇이 선택됐는지 모른다 |
 
 **hover에서 카드 면을 바꾸지 않는다.** 카드의 대부분은 썸네일이고 그 위에 어떤 강조를 얹어도
@@ -1872,14 +1872,14 @@ Figma가 같은 원천을 본다.
 
 #### Implementation
 
-- `.kds-project-card`는 격자 트랙을 채운다(`inline-size: 100%`). 프레임이 내용에 맞춰 줄어들면
+- `.louis-project-card`는 격자 트랙을 채운다(`inline-size: 100%`). 프레임이 내용에 맞춰 줄어들면
   미디어 폭이 `100%`라 서로를 참조해 0으로 접힌다 — 240px 트랙에서 2px(테두리만)로 쟀다.
 - `box-sizing`을 카드와 오버레이에 **명시한다.** 소비자의 reset에 기대면 결과가 달라지고, 오버레이가
   content-box면 30% 띠에 여백 32px이 더해져 39%가 된다.
 - 숫자 z-index를 쓰지 않는다. 칠 순서는 곧 DOM 순서다 — 흐림 층은 `::before`라 트리 순서에서 앞이고
   텍스트 wrapper가 `position: relative`로 그 위에 온다. 카드 수준에서는 **Media → Action →
   Adornment**가 그 계약이다.
-- 썸네일은 `ProjectCardThumbnail`이 자리를 잡는다. CSS가 `.kds-project-card-media > img`를 직접
+- 썸네일은 `ProjectCardThumbnail`이 자리를 잡는다. CSS가 `.louis-project-card-media > img`를 직접
   잡으면 Next.js `Image`처럼 래퍼를 하나 더 만드는 컴포넌트를 넣는 순간 선택자가 빗나간다.
 - 누름 전환은 `transition-property`에 **`scale`**을 적는다. `scale`은 `transform`과 별개 property라
   `transform`만 적으면 선언이 아무것도 전이하지 않는다 — 이 저장소의 네 컴포넌트가 그 상태였다.
@@ -2944,7 +2944,7 @@ button의 md·sm을 모두 18로 기록한다. 제품 Button에는 loading prop�
 
 #### Implementation
 
-- 회전 keyframe은 `base.css`의 **공용 `kds-spin` 하나**다. Button·Menu·Spinner가 같은 것을
+- 회전 keyframe은 `base.css`의 **공용 `louis-spin` 하나**다. Button·Menu·Spinner가 같은 것을
   가리킨다. 제품이 이름 18개에 본문 1종을 가진 것과 같은 중복이 이 저장소에도 둘 있었고,
   이 컴포넌트를 세우면서 합쳤다.
 - `transform: rotate()`가 아니라 개별 속성 `rotate`다. motion.md의 Loop 절이 그것을 허용
@@ -2975,7 +2975,7 @@ button의 md·sm을 모두 18로 기록한다. 제품 Button에는 loading prop�
 3. 트랙 색이 진행 색과 다르다(같은 색의 흐린 것이다).
 4. 색을 물려받는다 — 부모의 `color`가 진행 색이 된다.
 5. `animation-duration`·`timing-function`이 `motion-loop`에서 오고 `animation-name`이 공용
-   `kds-spin`이다.
+   `louis-spin`이다.
 6. reduced-motion에서 `animation-iteration-count`가 `1`이고, 그때도 `role="status"`와
    `aria-busy="true"`가 그대로다.
 7. `label`이 없으면 `aria-hidden="true"`이고 role·live·busy가 모두 없다.
@@ -3905,7 +3905,7 @@ DS 쪽 정본이고, 제품의 이 자리는 **결함으로 기록한다.**
 1. 면이 **놓이는 자리의 글자색을 따라간다** — 부모 `color`를 바꾸면 면 색이 바뀐다.
 2. 면이 반투명하다(알파 < 0.5).
 3. **light·dark 두 테마 모두에서** 면이 배경과 다르고 투명하지 않다.
-4. 흐름이 공용 `kds-shimmer` keyframe이고 `motion-shimmer` 토큰을 쓰며 **`transform`을 쓰지 않는다.**
+4. 흐름이 공용 `louis-shimmer` keyframe이고 `motion-shimmer` 토큰을 쓰며 **`transform`을 쓰지 않는다.**
 5. reduced-motion에서 duration이 reduced 토큰이 되고 반복이 1회가 된다.
 6. 모양 셋의 반경이 계약과 같다.
 7. `aria-hidden`이다.
@@ -4062,7 +4062,7 @@ Spinner의 16/12px과 같은 판정이다.
 
 #### Implementation
 
-- 채움 비율은 컴포넌트가 `--kds-slider-fill`로 내려보낸다. `::-webkit-slider-runnable-track`은
+- 채움 비율은 컴포넌트가 `--louis-slider-fill`로 내려보낸다. `::-webkit-slider-runnable-track`은
   진행 구간을 따로 갖지 않아 그라디언트 정지점으로 그려야 하고, 그 비율은 값에서만 나온다.
   Firefox는 `::-moz-range-progress`가 있어 비율이 필요 없다.
 - 그래서 **비제어일 때도 컴포넌트가 값을 안다.** 그 상태가 채움의 유일한 출처다. controlled면
@@ -4082,7 +4082,7 @@ Spinner의 16/12px과 같은 판정이다.
 - **Firefox 경로가 미검증이다.** `::-moz-range-*` 규칙을 나란히 적었으나 test harness가
   Chromium 단독이라 실행된 적이 없다.
 - **컨트롤 높이 40px은 `layout-control-hit-target-minimum` 44px에 미달한다.** Button은
-  `.kds-hit-target`의 `::after`로 44를 채우지만 range input은 `::before`/`::after`가 트랙·썸에
+  `.louis-hit-target`의 `::after`로 44를 채우지만 range input은 `::before`/`::after`가 트랙·썸에
   배정돼 그 유틸리티를 쓸 수 없다. Text Field도 같은 40px이며, 레일이 가로 전체를 차지해 실제
   타깃 면적은 크다.
 - **제품과 거의 모든 축이 다르다.** 정본이 없으므로 "다르다"가 결함이 아니다. 각 축의 판정은
@@ -4095,7 +4095,7 @@ Spinner의 16/12px과 같은 판정이다.
 2. md/sm의 레일 두께·썸 지름·썸 테두리 토큰 선언이 `components.measured.json`과 같다.
 3. `track` 변형의 막대 높이와 표식 크기 선언이 `components.measured.json`과 같다.
 4. `track` 변형의 썸이 `width:0`·`height:0`·`opacity`·`pointer-events`로 지워지지 않는다.
-5. `--kds-slider-fill`이 값을 따라가고 min에서 `0%`, max에서 `100%`다.
+5. `--louis-slider-fill`이 값을 따라가고 min에서 `0%`, max에서 `100%`다.
 6. 방향키가 `step`만큼 움직이고 `min`·`max`를 넘지 않는다.
 7. controlled일 때 호출부의 값이 이기고, 갱신하지 않으면 값이 튀지 않는다.
 8. 라벨의 `for`가 컨트롤을 가리키고, 라벨을 누르면 컨트롤이 포커스를 받는다.
@@ -4535,7 +4535,7 @@ badge.md가 적은 제품 높이 분포(19·22·26)에 24가 없다는 것이 �
 | `width` | `calc(100% + var(--mainchrome-bleed-left, var(--app-gnb-main-inline-padding)) + var(--mainchrome-bleed-right, var(--app-gnb-main-inline-padding)))` |
 | `margin-left` / `margin-right` | 각 bleed 변수의 음수 |
 | `padding` | `8px var(--mainchrome-pad-x)` → **8px 8px** |
-| divider box-shadow | 켜지면 방향성 inset 헤어라인(`--kds-hairline-inset-block-end`)이 풀블리드 폭 전체를 가로지른다. border가 아니므로 레이아웃 높이를 늘리지 않는다([DS-D-0023](../governance/decisions/DS-D-0023-hairline-inset.md)) |
+| divider box-shadow | 켜지면 방향성 inset 헤어라인(`--louis-hairline-inset-block-end`)이 풀블리드 폭 전체를 가로지른다. border가 아니므로 레이아웃 높이를 늘리지 않는다([DS-D-0023](../governance/decisions/DS-D-0023-hairline-inset.md)) |
 
 bleed 폴백은 좌우 모두 `--app-gnb-main-inline-padding`(16px)이고 짝 토큰
 `--app-gnb-main-inline-padding-end`는 12px이다. 앱 셸 본문 카드 두 곳은 자기 카드의 좌우 패딩과 **같은
@@ -4613,9 +4613,9 @@ bleed와 음수 마진 자체는 이 폭에서도 계속 걸려 있으므로 배
   | 주입 **없음**(그 밖의 화면) | 정지 상태에서도 100% | 폴백 `1` |
   | 전환 | `border-bottom-color 120ms ease` | `Gnb.tsx:429` |
 
-  **이 표는 `Gnb.tsx`가 소유한 스크롤 진행률 구현을 그대로 인용한 것이라 KDS 소스가 손댈 수 없다.**
-  KDS 자체 `data-divider` 레시피는 이제 `border-bottom`이 아니라 방향성 inset 헤어라인
-  (`--kds-hairline-inset-block-end`)이고 전환도 없다 — 위 `border-bottom-color` 전환은 여전히
+  **이 표는 `Gnb.tsx`가 소유한 스크롤 진행률 구현을 그대로 인용한 것이라 LOUIS 소스가 손댈 수 없다.**
+  LOUIS 자체 `data-divider` 레시피는 이제 `border-bottom`이 아니라 방향성 inset 헤어라인
+  (`--louis-hairline-inset-block-end`)이고 전환도 없다 — 위 `border-bottom-color` 전환은 여전히
   제품의 별도 런타임 계약을 가리키며, `Gnb.tsx`가 같은 box-shadow/색 전환으로 옮겨가면 이 표도
   다시 실측해야 한다([DS-D-0023](../governance/decisions/DS-D-0023-hairline-inset.md)).
 
@@ -4664,7 +4664,7 @@ bleed와 음수 마진 자체는 이 폭에서도 계속 걸려 있으므로 배
 6. 아이콘이 `aria-hidden="true"`다.
 7. TopBar의 제목이 남는 자리를 먹고 한 줄로 잘린다.
 8. `divider`는 켤 때만 그려진다.
-9. `.kds-layer-sticky`의 `z-index`가 `layer-sticky` 토큰에서 온다.
+9. `.louis-layer-sticky`의 `z-index`가 `layer-sticky` 토큰에서 온다.
 
 ## Dialog
 
@@ -5049,7 +5049,7 @@ host의 두 번째 직속 자식이 되고, primitive의 중첩 격리가 자기
   Specification 표가 대는 이름의 토큰이 없고 실제 값은 두 테마에서 다르다.
 - **surface 경계는 border가 아니라 inset 헤어라인이다.** Specification 표에는 없지만 dark에서
   `elevation-modal` 그림자만으로 표면 경계가 서지 않아, modal elevation 뒤에 조합한 inset
-  box-shadow(`--kds-hairline-inset`)를 한 겹 더 쓴다([DS-D-0023](../governance/decisions/DS-D-0023-hairline-inset.md)).
+  box-shadow(`--louis-hairline-inset`)를 한 겹 더 쓴다([DS-D-0023](../governance/decisions/DS-D-0023-hairline-inset.md)).
   Menu 패널과 같은 판단이다.
 
   **이제 제품과 같은 계약이다 — border가 아니라 box-shadow 헤어라인이다.** 다만 구성은 다르다.

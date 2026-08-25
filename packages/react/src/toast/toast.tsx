@@ -87,7 +87,7 @@ export function ToastProvider({
       const normalized: ToastInput =
         typeof input === "string" ? { message: input } : input;
       sequence.current += 1;
-      const id = `kds-toast-${sequence.current}`;
+      const id = `louis-toast-${sequence.current}`;
       const record: ToastRecord = {
         id,
         message: normalized.message,
@@ -116,7 +116,7 @@ export function ToastProvider({
   return (
     <ToastContext.Provider value={value}>
       {children}
-      <div className="kds-toast-viewport" data-kds-toast-viewport="">
+      <div className="louis-toast-viewport" data-louis-toast-viewport="">
         <ToastRegion role="status" items={polite} onDismiss={dismiss} />
         <ToastRegion role="alert" items={assertive} onDismiss={dismiss} />
       </div>
@@ -139,7 +139,7 @@ function ToastRegion({
       // status는 polite, alert는 assertive가 암묵 기본이지만 명시한다 — 일부 보조 기술이
       // role만으로는 live 속성을 유추하지 않는다.
       aria-live={role === "alert" ? "assertive" : "polite"}
-      className="kds-toast-region"
+      className="louis-toast-region"
     >
       {items.map((item) => (
         <ToastItem key={item.id} record={item} onDismiss={onDismiss} />
@@ -183,9 +183,9 @@ function ToastItem({
 
   return (
     <div
-      className="kds-toast"
+      className="louis-toast"
       data-tone={record.tone}
-      {...(paused ? { "data-kds-paused": "true" } : {})}
+      {...(paused ? { "data-louis-paused": "true" } : {})}
       // 읽는 중에 사라지면 알림이 아니다. 포인터와 focus 둘 다 멈춤 신호다.
       onPointerEnter={() => setPaused(true)}
       onPointerLeave={() => setPaused(false)}

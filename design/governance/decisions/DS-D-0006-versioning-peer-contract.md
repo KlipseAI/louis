@@ -54,7 +54,7 @@ SEED가 independent인 이유는 패키지가 40개 이상이고 per-component �
 
 ### CSS를 react의 dependencies로
 
-소비자가 CSS를 두 벌 설치할 수 있고, 그 경우 `--kds-*`가 중복 정의되고 레이어가 중복 선언된다.
+소비자가 CSS를 두 벌 설치할 수 있고, 그 경우 `--louis-*`가 중복 정의되고 레이어가 중복 선언된다.
 
 ### CSS를 optional peer로
 

@@ -33,10 +33,10 @@ export function IconRoot({
   return (
     <svg
       {...rest}
-      className={className === undefined ? "kds-icon" : `kds-icon ${className}`}
+      className={className === undefined ? "louis-icon" : `louis-icon ${className}`}
       viewBox="0 0 24 24"
       fill="none"
-      data-kds-icon={name}
+      data-louis-icon={name}
       data-size={size}
       {...(decorative ? { "aria-hidden": true } : { role: "img", "aria-label": label })}
     >

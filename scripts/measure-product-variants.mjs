@@ -339,7 +339,7 @@ const renderSpecimen = (node) =>
   (node.children.length > 0 ? node.children.map(renderSpecimen).join("") : node.text) +
   "</" + node.tag + ">";
 
-const workspace = mkdtempSync(join(tmpdir(), "kds-product-variants-"));
+const workspace = mkdtempSync(join(tmpdir(), "louis-product-variants-"));
 let dsPin = "HEAD";
 let rendered;
 let specimenMeasured;
@@ -392,7 +392,7 @@ try {
         specimenTrees
           .map(
             (specimen) =>
-              '<div class="kds-specimen-host" style="position:relative;width:420px;padding:24px">' +
+              '<div class="louis-specimen-host" style="position:relative;width:420px;padding:24px">' +
               hostOpen(specimen) + renderSpecimen(specimen.tree) + hostClose(specimen) + "</div>",
           )
           .join("") +

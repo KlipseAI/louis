@@ -63,7 +63,7 @@ const LAYER_RANK: Record<OverlayLayer, number> = {
 };
 
 /** Escape를 한 번 양보받는 네이티브·복합 위젯의 표식. */
-const ESCAPE_OWNER_SELECTOR = "[data-kds-escape-owner]";
+const ESCAPE_OWNER_SELECTOR = "[data-louis-escape-owner]";
 
 interface MatchesLike {
   matches?: (selector: string) => boolean;

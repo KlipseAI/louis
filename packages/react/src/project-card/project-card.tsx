@@ -57,14 +57,14 @@ export function ProjectCard({
     <ProjectCardContext.Provider value={titleId}>
       <div
         {...rest}
-        className={join("kds-project-card", className)}
+        className={join("louis-project-card", className)}
         // 진입 순서는 **소비처가 준다.** 카드가 자기 순서를 알 방법이 없고, 알아도 그리드가
         // 다시 정렬되면 틀린다.
         data-enter={enterIndex === undefined ? undefined : "true"}
         style={
           enterIndex === undefined
             ? style
-            : ({ ...style, "--kds-project-card-index": enterIndex } as CSSProperties)
+            : ({ ...style, "--louis-project-card-index": enterIndex } as CSSProperties)
         }
       >
         {children}
@@ -106,7 +106,7 @@ export function ProjectCardAction(props: ProjectCardActionProps): JSX.Element {
       <a
         {...rest}
         {...labelled}
-        className={join("kds-project-card-action", className)}
+        className={join("louis-project-card-action", className)}
       />
     );
   }
@@ -117,7 +117,7 @@ export function ProjectCardAction(props: ProjectCardActionProps): JSX.Element {
       {...rest}
       {...labelled}
       type="button"
-      className={join("kds-project-card-action", className)}
+      className={join("louis-project-card-action", className)}
     />
   );
 }
@@ -145,10 +145,10 @@ export function ProjectCardMedia({
   return (
     <div
       {...rest}
-      className={join("kds-project-card-media", className)}
+      className={join("louis-project-card-media", className)}
       style={
         usable
-          ? { ...style, ["--kds-project-card-aspect-ratio" as string]: `${aspectRatio}` }
+          ? { ...style, ["--louis-project-card-aspect-ratio" as string]: `${aspectRatio}` }
           : style
       }
     />
@@ -164,7 +164,7 @@ export function ProjectCardPlaceholder({
   className,
   ...rest
 }: ProjectCardPlaceholderProps): JSX.Element {
-  return <div {...rest} className={join("kds-project-card-placeholder", className)} />;
+  return <div {...rest} className={join("louis-project-card-placeholder", className)} />;
 }
 
 export interface ProjectCardThumbnailProps extends HTMLAttributes<HTMLDivElement> {
@@ -174,14 +174,14 @@ export interface ProjectCardThumbnailProps extends HTMLAttributes<HTMLDivElement
 /**
  * 썸네일 자리. `<img>`나 `<video>`를 그대로 자식으로 둔다.
  *
- * CSS가 `.kds-project-card-media > img`를 직접 잡으면 Next.js `Image`처럼 **래퍼를 하나 더 만드는
+ * CSS가 `.louis-project-card-media > img`를 직접 잡으면 Next.js `Image`처럼 **래퍼를 하나 더 만드는
  * 컴포넌트**를 넣는 순간 선택자가 빗나가 썸네일이 면을 못 채운다. 그 자리를 이 요소가 대신 잡는다.
  */
 export function ProjectCardThumbnail({
   className,
   ...rest
 }: ProjectCardThumbnailProps): JSX.Element {
-  return <div {...rest} className={join("kds-project-card-thumbnail", className)} />;
+  return <div {...rest} className={join("louis-project-card-thumbnail", className)} />;
 }
 
 export interface ProjectCardOverlayProps extends HTMLAttributes<HTMLDivElement> {
@@ -200,8 +200,8 @@ export function ProjectCardOverlay({
   ...rest
 }: ProjectCardOverlayProps): JSX.Element {
   return (
-    <div {...rest} className={join("kds-project-card-overlay", className)}>
-      <div className="kds-project-card-overlay-content">{children}</div>
+    <div {...rest} className={join("louis-project-card-overlay", className)}>
+      <div className="louis-project-card-overlay-content">{children}</div>
     </div>
   );
 }
@@ -215,7 +215,7 @@ export function ProjectCardEyebrow({
   className,
   ...rest
 }: ProjectCardTextProps): JSX.Element {
-  return <span {...rest} className={join("kds-project-card-eyebrow", className)} />;
+  return <span {...rest} className={join("louis-project-card-eyebrow", className)} />;
 }
 
 /** 제목. 클릭 타깃의 접근 가능한 이름이 여기서 온다. */
@@ -229,7 +229,7 @@ export function ProjectCardTitle({
     <span
       {...rest}
       id={id ?? titleId ?? undefined}
-      className={join("kds-project-card-title", className)}
+      className={join("louis-project-card-title", className)}
     />
   );
 }
@@ -239,7 +239,7 @@ export function ProjectCardMeta({
   className,
   ...rest
 }: ProjectCardTextProps): JSX.Element {
-  return <span {...rest} className={join("kds-project-card-meta", className)} />;
+  return <span {...rest} className={join("louis-project-card-meta", className)} />;
 }
 
 export interface ProjectCardAdornmentProps extends HTMLAttributes<HTMLDivElement> {
@@ -261,7 +261,7 @@ export function ProjectCardAdornment({
   return (
     <div
       {...rest}
-      className={join("kds-project-card-adornment", className)}
+      className={join("louis-project-card-adornment", className)}
       data-placement={placement}
     />
   );
@@ -292,7 +292,7 @@ export function ProjectCardMore({
       {...rest}
       ref={ref}
       type="button"
-      className={join("kds-project-card-more", className)}
+      className={join("louis-project-card-more", className)}
       aria-label={label}
     >
       {children}
@@ -323,7 +323,7 @@ export function ProjectCardRename({
       {...rest}
       ref={ref}
       type="text"
-      className={join("kds-project-card-rename", className)}
+      className={join("louis-project-card-rename", className)}
       aria-label={label}
     />
   );

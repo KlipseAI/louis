@@ -1,7 +1,7 @@
 // design 문서가 인용하는 **제품 좌표**(`<파일>:<줄>`)를 한 곳에서 파싱한다.
 //
 // **왜 필요한가.** 2026-08-21 감사에서 이식번들의 인용 좌표 124건이 낡은 것으로 드러났다 —
-// 사실은 맞는데 제품이 움직여 줄이 밀렸다. KDS도 같은 위험을 안고 있는데, 락이
+// 사실은 맞는데 제품이 움직여 줄이 밀렸다. LOUIS도 같은 위험을 안고 있는데, 락이
 // `product.measured.json`이 인용한 파일만 고정하고 **산문이 인용한 파일은 안 보고 있었다.**
 //
 // 세 가지를 계약으로 만든다.
@@ -15,7 +15,7 @@ import { join, relative } from "node:path";
 // 인용 형태: `globals.css:63`, `Gnb.tsx:1911-1925`, `apps/web/app/globals.css:104`
 const CITATION = /`?([A-Za-z0-9_.\-/]+\.(?:tsx?|jsx?|css|mjs))`?\s*:\s*(\d+)(?:\s*[-–]\s*(\d+))?/g;
 
-// KDS 자신의 파일은 제품 인용이 아니다.
+// LOUIS 자신의 파일은 제품 인용이 아니다.
 const OWN_PREFIXES = ["scripts/", "packages/", "figma/", "test/"];
 
 export function collectDocCitations(repoRoot, { includeUpdates = false } = {}) {

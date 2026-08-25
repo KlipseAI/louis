@@ -66,7 +66,7 @@ invariant(
 invariant(cssUrl.endsWith("/generated/tokens.css"), "CSS export mismatch");
 const css = readFileSync(new URL(cssUrl), "utf8");
 invariant(
-  css.includes("--kds-color-bg-canvas") &&
+  css.includes("--louis-color-bg-canvas") &&
     css.includes("color-scheme: dark"),
   "CSS artifact content mismatch",
 );

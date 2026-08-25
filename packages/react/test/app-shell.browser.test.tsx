@@ -12,21 +12,21 @@ import "@klipse-design/css/tokens.css";
 import "@klipse-design/css/styles.css";
 
 function scope(): ParentNode {
-  const fixtures = document.querySelectorAll("[data-kds-fixture]");
+  const fixtures = document.querySelectorAll("[data-louis-fixture]");
   return fixtures.length > 0 ? fixtures[fixtures.length - 1]! : document;
 }
 
-const shell = (): HTMLElement => scope().querySelector<HTMLElement>(".kds-app-shell")!;
-const rail = (): HTMLElement => scope().querySelector<HTMLElement>(".kds-app-shell__rail")!;
-const main = (): HTMLElement => scope().querySelector<HTMLElement>(".kds-app-shell__main")!;
-const content = (): HTMLElement => scope().querySelector<HTMLElement>(".kds-app-shell__content")!;
+const shell = (): HTMLElement => scope().querySelector<HTMLElement>(".louis-app-shell")!;
+const rail = (): HTMLElement => scope().querySelector<HTMLElement>(".louis-app-shell__rail")!;
+const main = (): HTMLElement => scope().querySelector<HTMLElement>(".louis-app-shell__main")!;
+const content = (): HTMLElement => scope().querySelector<HTMLElement>(".louis-app-shell__content")!;
 
 const overlaps = (a: DOMRect, b: DOMRect): boolean =>
   a.left < b.right && b.left < a.right && a.top < b.bottom && b.top < a.bottom;
 
 async function mount(node: JSX.Element): Promise<void> {
   await render(
-    <div data-kds-fixture style={{ inlineSize: "1200px", blockSize: "600px" }}>
+    <div data-louis-fixture style={{ inlineSize: "1200px", blockSize: "600px" }}>
       {node}
     </div>,
   );
@@ -98,7 +98,7 @@ test("상단 크롬은 스크롤 루트 안에 sticky로 있다", async () => {
       <p>본문</p>
     </AppShell>,
   );
-  const chrome = scope().querySelector<HTMLElement>(".kds-app-shell__chrome")!;
+  const chrome = scope().querySelector<HTMLElement>(".louis-app-shell__chrome")!;
   expect(getComputedStyle(chrome).position).toBe("sticky");
   // 크롬과 본문이 같은 좌우 inset 원천을 읽는다. 다르면 줄이 어긋난다.
   expect(getComputedStyle(chrome).paddingInlineStart).toBe(
@@ -132,7 +132,7 @@ test("건너뛰기 링크가 본문을 가리킨다", async () => {
       <p>본문</p>
     </AppShell>,
   );
-  const skip = scope().querySelector<HTMLAnchorElement>(".kds-app-shell__skip")!;
+  const skip = scope().querySelector<HTMLAnchorElement>(".louis-app-shell__skip")!;
   const target = skip.getAttribute("href")!.slice(1);
   expect(content().id).toBe(target);
   // 평소에는 화면 밖에 있다.

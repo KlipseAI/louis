@@ -64,7 +64,7 @@ function clampRatio(ratio: number): number {
  * 것이다. Button이 활성화를 네이티브 `<button>`에 맡긴 것과 같은 이유로 여기도 직접 만들지
  * 않는다.
  *
- * 채움 비율을 `--kds-slider-fill`로 내려보내는 이유는 CSS에 있다 —
+ * 채움 비율을 `--louis-slider-fill`로 내려보내는 이유는 CSS에 있다 —
  * `::-webkit-slider-runnable-track`은 진행 구간을 따로 갖지 않아 그라디언트 정지점으로 그리고,
  * 그 비율은 값에서만 나온다. 그래서 비제어일 때도 컴포넌트가 값을 알아야 한다.
  */
@@ -95,12 +95,12 @@ export function Slider({
 
   return (
     <div
-      className={join("kds-slider", className)}
+      className={join("louis-slider", className)}
       data-size={size}
       data-variant={variant}
     >
       {label === undefined ? null : (
-        <label className="kds-slider__label" htmlFor={controlId}>
+        <label className="louis-slider__label" htmlFor={controlId}>
           {label}
         </label>
       )}
@@ -108,7 +108,7 @@ export function Slider({
         {...rest}
         id={controlId}
         type="range"
-        className="kds-slider__control"
+        className="louis-slider__control"
         min={min}
         max={max}
         step={step}
@@ -122,7 +122,7 @@ export function Slider({
         style={
           {
             ...style,
-            "--kds-slider-fill": `${fillRatio * 100}%`,
+            "--louis-slider-fill": `${fillRatio * 100}%`,
           } as CSSProperties
         }
         onChange={(event) => {

@@ -52,7 +52,7 @@
       "path": "button.sizes.md.spinner",
       "decision": "derived",
       "route": "제품-없음",
-      "reason": "spinner 18px은 독립 값이 아니라 .kds-button__spinner의 1em(=font-size 14px) 정사각에 border-width-ring 2px가 양쪽으로 붙어 나오는 값이며(14+2+2, content-box — reset.css는 opt-in이라 기본 배포에 포함되지 않는다), 제품 공용 Button에는 loading도 spinner도 없어 따로 잴 대상이 없다."
+      "reason": "spinner 18px은 독립 값이 아니라 .louis-button__spinner의 1em(=font-size 14px) 정사각에 border-width-ring 2px가 양쪽으로 붙어 나오는 값이며(14+2+2, content-box — reset.css는 opt-in이라 기본 배포에 포함되지 않는다), 제품 공용 Button에는 loading도 spinner도 없어 따로 잴 대상이 없다."
     },
     {
       "component": "button",
@@ -62,7 +62,7 @@
       "productFile": "apps/web/components/ui/Button.tsx",
       "productLine": 80,
       "productSelector": "variant=secondary (primary·ghost·danger는 BORDER_NONE = [border:none], Button.tsx:81)",
-      "productValue": "1px solid rgb(23 27 34 / 12%) (--palette-gray-900-rgb, globals.css:51). 제품에서 테두리는 size 축이 아니라 variant 축이라 md·sm이 같다. DS도 --kds-border-width-hairline 0.5px를 .kds-button에 한 번만 선언하고 size로 나누지 않는다(button.css:14) — md.borderWidth와 같은 값이며 판정 근거는 product.measured.json의 'border 두께' 축에 이미 있다"
+      "productValue": "1px solid rgb(23 27 34 / 12%) (--palette-gray-900-rgb, globals.css:51). 제품에서 테두리는 size 축이 아니라 variant 축이라 md·sm이 같다. DS도 --louis-border-width-hairline 0.5px를 .louis-button에 한 번만 선언하고 size로 나누지 않는다(button.css:14) — md.borderWidth와 같은 값이며 판정 근거는 product.measured.json의 'border 두께' 축에 이미 있다"
     },
     {
       "component": "button",
@@ -78,7 +78,7 @@
       "path": "button.sizes.sm.spinner",
       "decision": "derived",
       "route": "제품-없음",
-      "reason": "sm의 spinner도 md와 같은 계산 결과다 — .kds-button__spinner는 size로 나뉘지 않고 1em(=font-size 14px, sm도 14px)에 border-width-ring 2px가 양쪽으로 붙어 18px이 되며, 제품 공용 Button에는 loading도 spinner도 없어 따로 잴 대상이 없다."
+      "reason": "sm의 spinner도 md와 같은 계산 결과다 — .louis-button__spinner는 size로 나뉘지 않고 1em(=font-size 14px, sm도 14px)에 border-width-ring 2px가 양쪽으로 붙어 18px이 되며, 제품 공용 Button에는 loading도 spinner도 없어 따로 잴 대상이 없다."
     },
     {
       "component": "button",
@@ -1325,7 +1325,7 @@
       "productFile": "apps/web/components/scenes/SegmentedToggle.tsx",
       "productLine": 63,
       "productValue": "4px (DS는 8px)",
-      "reason": "이 축은 세그먼트 **안쪽** 슬롯 간격이다 — DS CSS는 `.kds-segmented-control__segment`에 `gap`을 걸고 테스트도 `segmentStyle.columnGap`을 읽는다(packages/react/test/segmented-control.browser.test.tsx:108). 기존 md 대조 행(scripts/measure-product-components.mjs:649)은 제품 **트랙**의 `columnGap`(2px, 세그먼트 사이 간격)을 재고 있어 다른 축을 가리킨다 — sm을 닫기 전에 md 행부터 다시 봐야 한다. `sm`에는 별도 선언이 없어 md와 같은 `space-control-sm` 하나를 쓴다."
+      "reason": "이 축은 세그먼트 **안쪽** 슬롯 간격이다 — DS CSS는 `.louis-segmented-control__segment`에 `gap`을 걸고 테스트도 `segmentStyle.columnGap`을 읽는다(packages/react/test/segmented-control.browser.test.tsx:108). 기존 md 대조 행(scripts/measure-product-components.mjs:649)은 제품 **트랙**의 `columnGap`(2px, 세그먼트 사이 간격)을 재고 있어 다른 축을 가리킨다 — sm을 닫기 전에 md 행부터 다시 봐야 한다. `sm`에는 별도 선언이 없어 md와 같은 `space-control-sm` 하나를 쓴다."
     },
     {
       "component": "segmented-control",
@@ -1904,7 +1904,7 @@
       "path": "skeleton.sizes.text.height",
       "decision": "derived",
       "route": "충돌-기록됨",
-      "reason": "글자 줄을 대신하므로 대신할 글자의 행간이 곧 높이다 — skeleton.css가 `block-size: var(--kds-typography-body-sm-regular-line-height)`로 typography 축을 그대로 받으며 따로 세운 값이 아니다. (다만 기록된 16px은 그 식에서 나오지 않는다: 생성된 토큰이 단위 없는 `1.5`라 `block-size`가 무효 선언으로 버려지고, 14px × 1.5 = 21px과도 맞지 않는다 — 이 어긋남은 사람이 판정해야 한다.)"
+      "reason": "글자 줄을 대신하므로 대신할 글자의 행간이 곧 높이다 — skeleton.css가 `block-size: var(--louis-typography-body-sm-regular-line-height)`로 typography 축을 그대로 받으며 따로 세운 값이 아니다. (다만 기록된 16px은 그 식에서 나오지 않는다: 생성된 토큰이 단위 없는 `1.5`라 `block-size`가 무효 선언으로 버려지고, 14px × 1.5 = 21px과도 맞지 않는다 — 이 어긋남은 사람이 판정해야 한다.)"
     },
     {
       "component": "skeleton",
@@ -2906,7 +2906,7 @@
       "productLine": 337,
       "productValue": "#f1f1f3 (다크, :337) · #171b22 (라이트, :345)",
       "productSelector": "",
-      "reason": "DS의 이 축은 제목 줄의 색이다(surface-states.browser.test.tsx:218이 `.kds-project-card-title`의 color로 확인한다). 제품 제목 색은 앱 홈·노드캔버스 홈이 위 두 값이고(NodeCanvasHomeScene.tsx:349·352 동일), 라이트값 #171b22는 DS `color-fg-primary`의 라이트값과 정확히 같지만 다크는 제품 #f1f1f3 대 DS #fafafa로 다르다. 하이라이트 허브와 비디오 에디터 허브는 썸네일 dominant color 광도로 뒤집는 `--card-text-color`가 이 색을 덮는다(appHomeSceneStyles.ts:346·348 조건 `.tw-ah-017` = dominantColor가 있는 하이라이트 카드, highlightSceneStyles.ts:1071, VideoEditScene.tsx:395-400) — 그 런타임 계약은 DS가 옮기지 않았다."
+      "reason": "DS의 이 축은 제목 줄의 색이다(surface-states.browser.test.tsx:218이 `.louis-project-card-title`의 color로 확인한다). 제품 제목 색은 앱 홈·노드캔버스 홈이 위 두 값이고(NodeCanvasHomeScene.tsx:349·352 동일), 라이트값 #171b22는 DS `color-fg-primary`의 라이트값과 정확히 같지만 다크는 제품 #f1f1f3 대 DS #fafafa로 다르다. 하이라이트 허브와 비디오 에디터 허브는 썸네일 dominant color 광도로 뒤집는 `--card-text-color`가 이 색을 덮는다(appHomeSceneStyles.ts:346·348 조건 `.tw-ah-017` = dominantColor가 있는 하이라이트 카드, highlightSceneStyles.ts:1071, VideoEditScene.tsx:395-400) — 그 런타임 계약은 DS가 옮기지 않았다."
     },
     {
       "component": "app-shell-parts",
@@ -3003,7 +3003,7 @@
       "path": "sidebar-brand.sizes.false.width",
       "decision": "derived",
       "route": "제품-주장",
-      "reason": "브랜드 행은 폭을 스스로 선언하지 않고 레일을 가득 채운다(`.kds-sidebar-brand { inline-size: 100% }`) — 펼침 폭 256 = `layout-app-shell-sidebar-width`(280) − 2 × `layout-app-shell-sidebar-padding`(12)이며, 배포본도 `--app-gnb-sidebar-width: min(280px, calc(100vw - 120px))`(apps/web/app/globals.css:143)에서 `gnb-wrapperSidebar`의 좌우 `--app-gnb-sidebar-padding-x: 12px`(같은 파일 126)를 빼는 같은 식이다."
+      "reason": "브랜드 행은 폭을 스스로 선언하지 않고 레일을 가득 채운다(`.louis-sidebar-brand { inline-size: 100% }`) — 펼침 폭 256 = `layout-app-shell-sidebar-width`(280) − 2 × `layout-app-shell-sidebar-padding`(12)이며, 배포본도 `--app-gnb-sidebar-width: min(280px, calc(100vw - 120px))`(apps/web/app/globals.css:143)에서 `gnb-wrapperSidebar`의 좌우 `--app-gnb-sidebar-padding-x: 12px`(같은 파일 126)를 빼는 같은 식이다."
     },
     {
       "component": "sidebar-brand",

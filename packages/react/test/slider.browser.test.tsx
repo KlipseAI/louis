@@ -30,10 +30,10 @@ function find(selector: string): HTMLElement {
 }
 
 const control = (): HTMLInputElement =>
-  find("input.kds-slider__control") as HTMLInputElement;
+  find("input.louis-slider__control") as HTMLInputElement;
 
 const tokenPx = (id: string): number =>
-  px(getComputedStyle(document.documentElement).getPropertyValue(`--kds-${id}`));
+  px(getComputedStyle(document.documentElement).getPropertyValue(`--louis-${id}`));
 
 /**
  * 배포 CSS가 이 선택자에 이 속성을 **선언했는지** 읽는다.
@@ -65,7 +65,7 @@ function declared(selector: string, property: string): string {
 
 const SIZES: readonly SliderSize[] = ["md", "sm"];
 const sizeScope = (size: SliderSize): string =>
-  size === "md" ? ".kds-slider__control" : '.kds-slider[data-size="sm"] .kds-slider__control';
+  size === "md" ? ".louis-slider__control" : '.louis-slider[data-size="sm"] .louis-slider__control';
 
 // **measured의 키가 `{size}/{variant}` 복합이다.** Variant 축이 레일 두께와 썸 크기를 바꾸므로
 // size 하나로 묶으면 두 값이 한 항목에 섞여 어느 쪽이 어느 변형의 것인지 사라진다.
@@ -83,8 +83,8 @@ for (const size of SIZES) {
     );
 
     expect(control().offsetHeight, "height").toBe(spec.height);
-    expect(px(getComputedStyle(find(".kds-slider")).rowGap), "stackGap").toBe(spec.stackGap);
-    expect(px(getComputedStyle(find(".kds-slider__label")).fontSize), "labelFontSize").toBe(
+    expect(px(getComputedStyle(find(".louis-slider")).rowGap), "stackGap").toBe(spec.stackGap);
+    expect(px(getComputedStyle(find(".louis-slider__label")).fontSize), "labelFontSize").toBe(
       spec.labelFontSize,
     );
   });
@@ -94,7 +94,7 @@ for (const size of SIZES) {
 
     // 레일 두께는 크기 축을 갖지 않는다 — 두 크기가 같은 4px이고 CSS에 sm 재정의가 없다.
     // 그래서 두 크기 모두 기본 선언을 읽는다. 썸만 크기별 규칙이 있다.
-    const rail = ".kds-slider__control::-webkit-slider-runnable-track";
+    const rail = ".louis-slider__control::-webkit-slider-runnable-track";
     const thumb = `${sizeScope(size)}::-webkit-slider-thumb`;
     expect(px(declared(rail, "block-size")), "railHeight").toBe(spec.railHeight);
     expect(px(declared(thumb, "inline-size")), "thumbInline").toBe(spec.thumbInline);
@@ -104,9 +104,9 @@ for (const size of SIZES) {
     // 계약값으로 계산되는지를 따로 본다 — 둘 중 하나만 보면 조용히 갈라진다.
     // 테두리도 크기 축을 갖지 않는다. sm 규칙은 크기만 덮으므로 선언은 기본 규칙에 있다.
     expect(
-      declared(".kds-slider__control::-webkit-slider-thumb", "border"),
+      declared(".louis-slider__control::-webkit-slider-thumb", "border"),
       "thumb border는 링 토큰을 쓴다",
-    ).toContain("var(--kds-border-width-ring)");
+    ).toContain("var(--louis-border-width-ring)");
     expect(tokenPx("border-width-ring"), "thumbBorderWidth").toBe(spec.thumbBorderWidth);
   });
 
@@ -118,12 +118,12 @@ for (const size of SIZES) {
     // 계약에서도 같은 이름을 쓴다.
     const barSelector =
       size === "md"
-        ? '.kds-slider[data-variant="track"] .kds-slider__control::-webkit-slider-runnable-track'
-        : '.kds-slider[data-variant="track"][data-size="sm"] .kds-slider__control::-webkit-slider-runnable-track';
+        ? '.louis-slider[data-variant="track"] .louis-slider__control::-webkit-slider-runnable-track'
+        : '.louis-slider[data-variant="track"][data-size="sm"] .louis-slider__control::-webkit-slider-runnable-track';
     expect(px(declared(barSelector, "block-size")), "railHeight").toBe(trackSpec.railHeight);
 
     const grip =
-      '.kds-slider[data-variant="track"] .kds-slider__control::-webkit-slider-thumb';
+      '.louis-slider[data-variant="track"] .louis-slider__control::-webkit-slider-thumb';
     expect(px(declared(grip, "inline-size")), "thumbInline").toBe(trackSpec.thumbInline);
     expect(px(declared(grip, "block-size")), "thumbBlock").toBe(trackSpec.thumbBlock);
     // track의 표식은 테두리를 갖지 않는다. 계약이 0을 요구하고 선언이 border: 0이어야 한다.
@@ -135,7 +135,7 @@ for (const size of SIZES) {
 test("track 변형의 썸이 지워지지 않는다 — 제품이 지운 바로 그 자리다", async () => {
   const trackSpec = specOf("md", "track");
   await render(<Slider label="투명도" variant="track" />);
-  const grip = '.kds-slider[data-variant="track"] .kds-slider__control::-webkit-slider-thumb';
+  const grip = '.louis-slider[data-variant="track"] .louis-slider__control::-webkit-slider-thumb';
 
   // 제품 인스펙터 17벌은 `width:0; height:0; opacity:0; pointer-events:none`으로 썸을 지운다.
   // 그 넷 중 하나라도 여기 들어오면 키보드 사용자가 손잡이를 잃는다.
@@ -155,15 +155,15 @@ test("track 변형의 썸이 지워지지 않는다 — 제품이 지운 바로 
 test("채움 비율이 값을 따라간다", async () => {
   await render(<Slider label="투명도" min={0} max={200} defaultValue={50} />);
   const input = control();
-  expect(input.style.getPropertyValue("--kds-slider-fill"), "초기 채움").toBe("25%");
+  expect(input.style.getPropertyValue("--louis-slider-fill"), "초기 채움").toBe("25%");
 
   input.focus();
   await userEvent.keyboard("{End}");
   expect(input.value, "End가 max로 간다").toBe("200");
-  expect(input.style.getPropertyValue("--kds-slider-fill"), "max 채움").toBe("100%");
+  expect(input.style.getPropertyValue("--louis-slider-fill"), "max 채움").toBe("100%");
 
   await userEvent.keyboard("{Home}");
-  expect(input.style.getPropertyValue("--kds-slider-fill"), "min 채움").toBe("0%");
+  expect(input.style.getPropertyValue("--louis-slider-fill"), "min 채움").toBe("0%");
 });
 
 test("방향키가 step만큼 움직이고 min·max를 넘지 않는다", async () => {
@@ -212,7 +212,7 @@ test("controlled일 때 호출부가 값을 소유한다", async () => {
 
   await userEvent.click(find("button"));
   expect(input.value, "바깥에서 바꾼 값이 반영된다").toBe("80");
-  expect(input.style.getPropertyValue("--kds-slider-fill"), "채움도 따라간다").toBe("80%");
+  expect(input.style.getPropertyValue("--louis-slider-fill"), "채움도 따라간다").toBe("80%");
 });
 
 test("값이 갱신되지 않는 controlled에서 값이 튀지 않는다", async () => {
@@ -223,7 +223,7 @@ test("값이 갱신되지 않는 controlled에서 값이 튀지 않는다", asyn
   input.focus();
   await userEvent.keyboard("{ArrowRight}");
   expect(input.value, "controlled 값이 이긴다").toBe("30");
-  expect(input.style.getPropertyValue("--kds-slider-fill"), "채움도 그대로다").toBe("30%");
+  expect(input.style.getPropertyValue("--louis-slider-fill"), "채움도 그대로다").toBe("30%");
 });
 
 test("라벨이 컨트롤에 연결되고, 필드가 둘이면 id가 다르다", async () => {
@@ -234,10 +234,10 @@ test("라벨이 컨트롤에 연결되고, 필드가 둘이면 id가 다르다",
     </>,
   );
   const inputs = Array.from(
-    document.querySelectorAll("input.kds-slider__control"),
+    document.querySelectorAll("input.louis-slider__control"),
   ) as HTMLInputElement[];
   const labels = Array.from(
-    document.querySelectorAll("label.kds-slider__label"),
+    document.querySelectorAll("label.louis-slider__label"),
   ) as HTMLLabelElement[];
 
   expect(inputs).toHaveLength(2);
@@ -297,7 +297,7 @@ test("formatValue를 준 값만 aria-valuetext를 갖는다", async () => {
     </>,
   );
   const inputs = Array.from(
-    document.querySelectorAll("input.kds-slider__control"),
+    document.querySelectorAll("input.louis-slider__control"),
   ) as HTMLInputElement[];
 
   expect(inputs[0]!.getAttribute("aria-valuetext"), "뜻이 있는 표현을 준다").toBe("1.5배");

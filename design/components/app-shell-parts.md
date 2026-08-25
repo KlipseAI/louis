@@ -430,7 +430,7 @@ badge.md가 적은 제품 높이 분포(19·22·26)에 24가 없다는 것이 �
 | `width` | `calc(100% + var(--mainchrome-bleed-left, var(--app-gnb-main-inline-padding)) + var(--mainchrome-bleed-right, var(--app-gnb-main-inline-padding)))` |
 | `margin-left` / `margin-right` | 각 bleed 변수의 음수 |
 | `padding` | `8px var(--mainchrome-pad-x)` → **8px 8px** |
-| divider box-shadow | 켜지면 방향성 inset 헤어라인(`--kds-hairline-inset-block-end`)이 풀블리드 폭 전체를 가로지른다. border가 아니므로 레이아웃 높이를 늘리지 않는다([DS-D-0023](../governance/decisions/DS-D-0023-hairline-inset.md)) |
+| divider box-shadow | 켜지면 방향성 inset 헤어라인(`--louis-hairline-inset-block-end`)이 풀블리드 폭 전체를 가로지른다. border가 아니므로 레이아웃 높이를 늘리지 않는다([DS-D-0023](../governance/decisions/DS-D-0023-hairline-inset.md)) |
 
 bleed 폴백은 좌우 모두 `--app-gnb-main-inline-padding`(16px)이고 짝 토큰
 `--app-gnb-main-inline-padding-end`는 12px이다. 앱 셸 본문 카드 두 곳은 자기 카드의 좌우 패딩과 **같은
@@ -508,9 +508,9 @@ bleed와 음수 마진 자체는 이 폭에서도 계속 걸려 있으므로 배
   | 주입 **없음**(그 밖의 화면) | 정지 상태에서도 100% | 폴백 `1` |
   | 전환 | `border-bottom-color 120ms ease` | `Gnb.tsx:429` |
 
-  **이 표는 `Gnb.tsx`가 소유한 스크롤 진행률 구현을 그대로 인용한 것이라 KDS 소스가 손댈 수 없다.**
-  KDS 자체 `data-divider` 레시피는 이제 `border-bottom`이 아니라 방향성 inset 헤어라인
-  (`--kds-hairline-inset-block-end`)이고 전환도 없다 — 위 `border-bottom-color` 전환은 여전히
+  **이 표는 `Gnb.tsx`가 소유한 스크롤 진행률 구현을 그대로 인용한 것이라 LOUIS 소스가 손댈 수 없다.**
+  LOUIS 자체 `data-divider` 레시피는 이제 `border-bottom`이 아니라 방향성 inset 헤어라인
+  (`--louis-hairline-inset-block-end`)이고 전환도 없다 — 위 `border-bottom-color` 전환은 여전히
   제품의 별도 런타임 계약을 가리키며, `Gnb.tsx`가 같은 box-shadow/색 전환으로 옮겨가면 이 표도
   다시 실측해야 한다([DS-D-0023](../governance/decisions/DS-D-0023-hairline-inset.md)).
 
@@ -559,4 +559,4 @@ bleed와 음수 마진 자체는 이 폭에서도 계속 걸려 있으므로 배
 6. 아이콘이 `aria-hidden="true"`다.
 7. TopBar의 제목이 남는 자리를 먹고 한 줄로 잘린다.
 8. `divider`는 켤 때만 그려진다.
-9. `.kds-layer-sticky`의 `z-index`가 `layer-sticky` 토큰에서 온다.
+9. `.louis-layer-sticky`의 `z-index`가 `layer-sticky` 토큰에서 온다.

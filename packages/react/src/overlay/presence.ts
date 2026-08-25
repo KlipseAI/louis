@@ -101,7 +101,7 @@ export function useOverlayPresence(
 
       // React commit을 기다리지 않고 즉시 표시한다. base.css가 이 속성에서 pointer를 놓으므로,
       // 투명해지는 root가 같은 tick에 그 좌표의 아래 control을 가로챌 수 없다.
-      nodeRef.current?.setAttribute("data-kds-state", "closing");
+      nodeRef.current?.setAttribute("data-louis-state", "closing");
       callbacks.current.onClosingSync(reason);
       move("closing");
     },

@@ -118,7 +118,7 @@ export interface DialogCloseProps extends DialogButtonBase {
   readonly ref?: Ref<HTMLButtonElement>;
 }
 
-/** `data-kds-safe-action="true"`를 자동으로 찍는다 → primitive safe-action이 이것을 고른다. */
+/** `data-louis-safe-action="true"`를 자동으로 찍는다 → primitive safe-action이 이것을 고른다. */
 export interface DialogCancelProps extends DialogButtonBase {
   readonly closeOnActivate?: boolean;
   readonly ref?: Ref<HTMLButtonElement>;

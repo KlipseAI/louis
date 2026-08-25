@@ -25,14 +25,14 @@ export function DialogSurface({
 
   return (
     <Surface
-      className={["kds-dialog", className].filter(Boolean).join(" ")}
+      className={["louis-dialog", className].filter(Boolean).join(" ")}
       data-size={policy.size}
       data-variant={variant}
     >
       {/* 핸들러가 backdrop 자신에게 붙는다. surface에서 시작해 backdrop에서 끝난 드래그의
           click target은 두 요소의 공통 조상(=root)이므로 여기 도달할 수 없다. */}
       <div
-        className="kds-dialog__backdrop"
+        className="louis-dialog__backdrop"
         aria-hidden="true"
         onMouseDown={(event: MouseEvent<HTMLDivElement>) => {
           // 🔴 preventDefault를 pointerdown이 아니라 mousedown에 건다.
@@ -52,7 +52,7 @@ export function DialogSurface({
       <div
         {...rest}
         ref={cardRef}
-        className="kds-dialog__surface"
+        className="louis-dialog__surface"
         role="dialog"
         aria-modal="true"
         aria-labelledby={ids.title}

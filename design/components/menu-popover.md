@@ -75,8 +75,8 @@ summary: 트리거 옆에서 액션 목록이나 설정을 펼쳐 보여 줍니�
 | `panelLabel`       | 문자열 또는 id 참조                      | 필수                           | panel의 accessible name                                   |
 | `placement`        | `top`, `bottom`, `left`, `right`         | `bottom`                       | 선호 방향이며 충돌 시 flip 가능                           |
 | `align`            | `start`, `center`, `end`                 | `start`                        | anchor와 panel 정렬                                       |
-| `offset`           | `--kds-overlay-offset`                   | 8px                            | **prop이 아니다.** overlay 표면 CSS가 소유한다            |
-| `collisionPadding` | `--kds-overlay-collision-padding`        | 8px                            | **prop이 아니다.** 위와 같다                              |
+| `offset`           | `--louis-overlay-offset`                   | 8px                            | **prop이 아니다.** overlay 표면 CSS가 소유한다            |
+| `collisionPadding` | `--louis-overlay-collision-padding`        | 8px                            | **prop이 아니다.** 위와 같다                              |
 | `portalHost`       | app overlay root                         | Provider가 소유                | 컴포넌트가 host를 고르지 않는다. 앱에서 한 번 정한다      |
 | `branchId`         | opaque overlay branch id                 | 자동 생성                      | **입력받지 않는다.** 중첩 등록은 별도 수단이 제공한다     |
 | `initialFocus`     | `first-enabled`, `last-enabled`, `surface`, ref, `none` | variant 고정 (§Focus) | 기본값을 임의로 바꾸지 않는다                |
@@ -382,7 +382,7 @@ Specification 표의 `Panel surface` 행은 라이트 값을 하나만 담는다
 | Panel surface  | `color-bg-menu` — 라이트 neutral-100 / 다크 neutral-800 | light/dark/high contrast   |
 | Panel radius   | `radius-overlay` = 16px                                | visual regression          |
 | Panel padding  | `space-overlay-inset` = 6px                            | item hit area 유지         |
-| Panel border   | 없음. 헤어라인은 패널이 조합하는 inset(`--kds-hairline-inset`) | 레이아웃 박스 불변 |
+| Panel border   | 없음. 헤어라인은 패널이 조합하는 inset(`--louis-hairline-inset`) | 레이아웃 박스 불변 |
 | Item radius    | `radius-overlay-item` = 10px                           | hover/focus/selected state |
 | Item 사이 간격 | `space-overlay-item-gap` = 2px                         | 행이 붙지 않는다           |
 | Item 내부 gap  | `space-overlay-item-content-gap` = 6px                 | 아이콘·라벨 간격           |
@@ -524,8 +524,8 @@ submenu의 방향키가 부모 핸들러까지 실행해 focus가 부모로 튀�
   대체했다. DS-P3-014가 토큰을 추가하면 변수 한 줄만 바꾼다.
 - **panel 경계는 border가 아니라 inset 헤어라인이다.** Specification 표에는 없지만 dark에서
   `elevation-popover` 그림자만으로는 표면 경계가 서지 않아, elevation 뒤에 조합한 inset
-  box-shadow(`--kds-hairline-inset`)를 한 겹 더 쓴다([DS-D-0023](../governance/decisions/DS-D-0023-hairline-inset.md)).
-- **item에 `.kds-hit-target`을 쓰지 않는다.** 그 유틸의 44px `::after`는 항목 중앙에 겹쳐 놓이므로
+  box-shadow(`--louis-hairline-inset`)를 한 겹 더 쓴다([DS-D-0023](../governance/decisions/DS-D-0023-hairline-inset.md)).
+- **item에 `.louis-hit-target`을 쓰지 않는다.** 그 유틸의 44px `::after`는 항목 중앙에 겹쳐 놓이므로
   간격 없이 쌓이는 행에서 인접 항목의 hit 영역을 2px씩 가로챈다. 행 자체를 44px로 만든다.
 - **`offset`과 `collisionPadding`을 인스턴스별로 바꿀 수 없다.** 값은 overlay 표면 CSS 한 블록이
   소유하고 Provider가 1회 측정한다.
@@ -534,7 +534,7 @@ submenu의 방향키가 부모 핸들러까지 실행해 focus가 부모로 튀�
   음절로 오지 않는다. 구현은 조합 중 오작동만 막고 매칭은 `compositionend`가 도착하는 환경에서만
   시도한다. macOS·Windows 실기 측정이 `stable` 승격 전 조건이다.
 - **`ArrowRight`/`ArrowLeft`가 RTL에서 반전되지 않는다.**
-- **composite popover의 inset이 action menu보다 크다(8px vs 4px).** `.kds-hit-target`을 쓰는 컨트롤은
+- **composite popover의 inset이 action menu보다 크다(8px vs 4px).** `.louis-hit-target`을 쓰는 컨트롤은
   44px 타겟을 시각 박스 밖으로 확장하는데, 패널이 스크롤 컨테이너라 그 초과분이 유령 스크롤바가 된다.
   action menu는 행 자체를 44px로 만들어 그 유틸을 쓰지 않으므로 4px을 유지한다 — 거기서 8px을 쓰면
   안쪽 곡률이 item radius보다 작아져 모서리가 뚫린다. 두 값이 다른 것은 실수가 아니다.
@@ -583,7 +583,7 @@ primitive는 public 표면이 아니다 — 경계와 그 이유는
 | Escape는 최상위 한 단계만 | `overlay/overlay-store.ts` | `overlay-keyboard.browser.test.tsx` |
 | 위치 확정 전 비가시·비 hit-test | `overlay/presence.ts` + `base.css` | `overlay-presence.browser.test.tsx` |
 | exit 완료와 unmount가 같은 source | `overlay/presence.ts`의 `readExitDuration` | `overlay-presence.browser.test.tsx` |
-| anchor 기준 배치와 `--kds-overlay-*` seam | `overlay/positioner.tsx`, `component/overlay.css` | `overlay-presence.browser.test.tsx` |
+| anchor 기준 배치와 `--louis-overlay-*` seam | `overlay/positioner.tsx`, `component/overlay.css` | `overlay-presence.browser.test.tsx` |
 
 non-modal에서 Tab으로 focus가 빠져나가 닫히는 경로의 reason은 **`outside`** 다. 새 reason을 만들지
 않은 이유는 focus 정책이 `outside`와 같기 때문이다 — 둘 다 포커스를 옮기지 않는다(DS-D-0011 결정 4).
@@ -593,7 +593,7 @@ non-modal에서 Tab으로 focus가 빠져나가 닫히는 경로의 reason은 **
 - ~~공유 positioning, dismiss layer, overlay branch primitive가 없다.~~ **해소(DS-P3-005).** 위
   Overlay behavior layer 참조.
 - ~~semantic layer token의 컴포넌트 소비와 nested portal 소유권 구현이 없다.~~ **해소(DS-P3-005).**
-  `.kds-layer-*` 유틸을 primitive가 붙이고, 자손 branch는 부모 layer를 물려받는다.
+  `.louis-layer-*` 유틸을 primitive가 붙이고, 자손 branch는 부모 layer를 물려받는다.
 - ~~action menu 방향키, Home/End, typeahead, roving focus test가 없다.~~ **해소(DS-P3-006).**
 - ~~composite popover의 initial/return focus와 Tab 정책이 구현되지 않았다.~~ **해소(DS-P3-006).**
   위 §Focus가 variant별 매핑과 reason별 return focus를 소유한다.

@@ -1,22 +1,22 @@
 /* Button — design/components/button.md
  *
  * 상태는 data-* 속성으로만 표현한다. React state를 className 문자열로 조합하지 않는다 (DS-D-0004).
- * 높이는 padding과 line-height로 자연스럽게 결정되고, 44px 타깃은 .kds-hit-target이 보장한다.
+ * 높이는 padding과 line-height로 자연스럽게 결정되고, 44px 타깃은 .louis-hit-target이 보장한다.
  * 번역과 200% 확대에서 잘리지 않도록 고정 높이를 쓰지 않는다.
  */
 
-.kds-button {
+.louis-button {
   position: relative;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: var(--kds-space-control-sm);
+  gap: var(--louis-space-control-sm);
   /* base에는 stroke가 없다 — 네이티브 button의 UA 테두리를 지운다(reset은 opt-in이라 여기서
    * 스스로 지운다). secondary만 가시 헤어라인을 레이아웃을 건드리지 않는 inset box-shadow로
    * 그린다 (DS-D-0023). 이전 base 투명 border가 forced-colors에서 얻던 경계는 아래 forced-colors
    * 블록이 이어받는다. */
   border: 0;
-  border-radius: var(--kds-radius-control);
+  border-radius: var(--louis-radius-control);
   cursor: pointer;
   text-decoration: none;
   /* 긴 KO/EN/JA 라벨이 잘리지 않고 줄바꿈되게 한다.
@@ -32,84 +32,84 @@
    * 쓰는 이유는 하나뿐이다 — 일반 라벨에서는 제품과 **정확히 같은 40/32**가 나오고, KO/EN/JA 긴
    * 라벨이나 200% 확대에서는 잘리는 대신 자란다. 제품은 nowrap이라 그 경우 라벨이 넘친다.
    * 이 차이는 migration/product.measured.json에 사유와 함께 선언돼 있다. */
-  min-block-size: var(--kds-layout-control-height-md);
+  min-block-size: var(--louis-layout-control-height-md);
   /* **타이포는 size 축이 아니다.** 제품은 md·sm 모두 14px/500이며 size가 글자 크기를 바꾸지
    * 않는다(Button.tsx:56-67). 이전 DS는 sm에서 caption 12px로 줄여 제품과 달랐다. */
-  font-family: var(--kds-typography-body-sm-medium-font-family);
-  font-size: var(--kds-typography-body-sm-medium-font-size);
-  font-weight: var(--kds-typography-body-sm-medium-font-weight);
-  line-height: var(--kds-typography-body-sm-medium-line-height);
-  letter-spacing: var(--kds-typography-body-sm-medium-letter-spacing);
+  font-family: var(--louis-typography-body-sm-medium-font-family);
+  font-size: var(--louis-typography-body-sm-medium-font-size);
+  font-weight: var(--louis-typography-body-sm-medium-font-weight);
+  line-height: var(--louis-typography-body-sm-medium-line-height);
+  letter-spacing: var(--louis-typography-body-sm-medium-letter-spacing);
   /* motion.md: 허용 property는 opacity와 transform뿐이다.
    * **`scale`은 `transform`과 별개 property다.** `transform`만 적으면 이 선언은 아무것도 전이하지
    * 않는다 — 실측하면 transitionProperty가 "opacity, transform"인데 움직이는 것은 scale뿐이라
    * 누름이 즉시 튄다. dialog.css는 처음부터 `translate, scale`로 적고 있었다. */
   transition-property: opacity, scale;
-  transition-duration: var(--kds-motion-overlay-exit-duration);
-  transition-timing-function: var(--kds-motion-overlay-exit-timing-function);
+  transition-duration: var(--louis-motion-overlay-exit-duration);
+  transition-timing-function: var(--louis-motion-overlay-exit-timing-function);
 }
 
-/* size — 시각 크기만 바꾼다. hit area 계약은 .kds-hit-target이 별도로 유지한다. */
-.kds-button[data-size="md"] {
+/* size — 시각 크기만 바꾼다. hit area 계약은 .louis-hit-target이 별도로 유지한다. */
+.louis-button[data-size="md"] {
   /* 제품: py-0 · px-16 · gap-8 (globals.css:81, Button.tsx:58,66) */
   padding-block: 0;
-  padding-inline: var(--kds-space-control-lg);
+  padding-inline: var(--louis-space-control-lg);
 }
 
 /* 제품: h-32 · px-12 · gap-4 · min-w-48. **타이포는 md와 같다** — size가 글자 크기를 바꾸지
  * 않는다(globals.css:85-87, Button.tsx:62-67). 이전 DS는 sm에서 12px로 줄여 제품과 달랐다. */
-.kds-button[data-size="sm"] {
-  min-block-size: var(--kds-layout-control-height-sm);
-  min-inline-size: var(--kds-layout-control-minimum-width-sm);
+.louis-button[data-size="sm"] {
+  min-block-size: var(--louis-layout-control-height-sm);
+  min-inline-size: var(--louis-layout-control-minimum-width-sm);
   padding-block: 0;
-  padding-inline: var(--kds-space-control-md);
-  column-gap: var(--kds-space-control-xs);
+  padding-inline: var(--louis-space-control-md);
+  column-gap: var(--louis-space-control-xs);
 }
 
 /* 아이콘이 붙은 쪽만 2px 줄여 광학 균형을 맞춘다 (제품 Button.tsx:73-77). 아이콘의 자체 시각
  * 여백 때문에 텍스트-only 대비 그 쪽 padding이 넓어 보인다. */
-.kds-button[data-size="md"][data-left-icon="true"] {
-  padding-inline-start: calc(var(--kds-space-control-lg) - 2px);
+.louis-button[data-size="md"][data-left-icon="true"] {
+  padding-inline-start: calc(var(--louis-space-control-lg) - 2px);
 }
 
-.kds-button[data-size="md"][data-right-icon="true"] {
-  padding-inline-end: calc(var(--kds-space-control-lg) - 2px);
+.louis-button[data-size="md"][data-right-icon="true"] {
+  padding-inline-end: calc(var(--louis-space-control-lg) - 2px);
 }
 
-.kds-button[data-size="sm"][data-left-icon="true"] {
-  padding-inline-start: calc(var(--kds-space-control-md) - 2px);
+.louis-button[data-size="sm"][data-left-icon="true"] {
+  padding-inline-start: calc(var(--louis-space-control-md) - 2px);
 }
 
-.kds-button[data-size="sm"][data-right-icon="true"] {
-  padding-inline-end: calc(var(--kds-space-control-md) - 2px);
+.louis-button[data-size="sm"][data-right-icon="true"] {
+  padding-inline-end: calc(var(--louis-space-control-md) - 2px);
 }
 
 /* variant — 값은 제품 배포 코드에서 채택했다. 채택/편차 판정은
  * migration/product.measured.json에 근거와 함께 있고 게이트가 매 실행 확인한다. */
-.kds-button[data-variant="primary"] {
-  background: var(--kds-color-accent-primary);
-  color: var(--kds-color-fg-inverse);
+.louis-button[data-variant="primary"] {
+  background: var(--louis-color-accent-primary);
+  color: var(--louis-color-fg-inverse);
 }
 
 /* 제품의 secondary·ghost는 **면이 없다.** 이전 DS는 secondary에 surface 면과 불투명 테두리를
  * 두어 제품과 달랐다 (Button.tsx:106,117). */
-.kds-button[data-variant="secondary"] {
+.louis-button[data-variant="secondary"] {
   background: transparent;
   /* generic 10% inset 헤어라인 (DS-D-0023). 이전엔 color-stroke-control(반투명 12%) border였다 —
    * 모든 일반 0.5px stroke를 단일 색·두께로 통일했다. */
-  box-shadow: var(--kds-hairline-inset);
-  color: var(--kds-color-accent-secondary-foreground);
+  box-shadow: var(--louis-hairline-inset);
+  color: var(--louis-color-accent-secondary-foreground);
 }
 
-.kds-button[data-variant="ghost"] {
+.louis-button[data-variant="ghost"] {
   background: transparent;
-  color: var(--kds-color-accent-secondary-foreground);
+  color: var(--louis-color-accent-secondary-foreground);
 }
 
 /* 제품의 danger는 solid다 (#ff4b59 + 흰 글자). 이전 DS는 tonal이었다. */
-.kds-button[data-variant="danger"] {
-  background: var(--kds-color-accent-danger);
-  color: var(--kds-color-fg-on-danger);
+.louis-button[data-variant="danger"] {
+  background: var(--louis-color-accent-danger);
+  color: var(--louis-color-fg-on-danger);
 }
 
 /* hover — hover에서만 기능을 드러내지 않는다. 면 강조만 바꾼다.
@@ -117,65 +117,65 @@
  * 제품은 secondary·ghost의 hover를 **알파 오버레이**로 준다(5% / 8%). 면 위에 얹히므로 배경이
  * 무엇이든 같은 정도로 어두워진다. 이전 DS는 둘 다 불투명 background-inset이라 배경이 다른
  * 자리에서 면이 튀었고 secondary와 ghost가 구분되지 않았다. */
-.kds-button:where(:not([aria-disabled="true"]):not(:disabled)):hover[data-variant="primary"] {
-  background: var(--kds-color-accent-primary-hover);
+.louis-button:where(:not([aria-disabled="true"]):not(:disabled)):hover[data-variant="primary"] {
+  background: var(--louis-color-accent-primary-hover);
 }
 
-.kds-button:where(:not([aria-disabled="true"]):not(:disabled)):hover[data-variant="secondary"] {
-  background: var(--kds-color-accent-secondary-hover);
+.louis-button:where(:not([aria-disabled="true"]):not(:disabled)):hover[data-variant="secondary"] {
+  background: var(--louis-color-accent-secondary-hover);
 }
 
-.kds-button:where(:not([aria-disabled="true"]):not(:disabled)):hover[data-variant="ghost"] {
-  background: var(--kds-color-accent-ghost-hover);
+.louis-button:where(:not([aria-disabled="true"]):not(:disabled)):hover[data-variant="ghost"] {
+  background: var(--louis-color-accent-ghost-hover);
 }
 
 /* 제품은 danger hover를 opacity 0.85로 준다 (Button.tsx:130). 색 토큰을 새로 만들지 않고
  * 같은 방식을 쓴다 — motion 규범이 허용하는 property이기도 하다. */
-.kds-button:where(:not([aria-disabled="true"]):not(:disabled)):hover[data-variant="danger"] {
+.louis-button:where(:not([aria-disabled="true"]):not(:disabled)):hover[data-variant="danger"] {
   opacity: 0.85;
 }
 
 /* pressed — reduced-motion에서는 scale 이동을 제거하되 의미는 유지한다. */
-.kds-button:where(:not([aria-disabled="true"]):not(:disabled)):active[data-variant="primary"] {
-  background: var(--kds-color-accent-primary-active);
+.louis-button:where(:not([aria-disabled="true"]):not(:disabled)):active[data-variant="primary"] {
+  background: var(--louis-color-accent-primary-active);
 }
 
-.kds-button:where(:not([aria-disabled="true"]):not(:disabled)):active {
+.louis-button:where(:not([aria-disabled="true"]):not(:disabled)):active {
   scale: 0.98;
 }
 
 /* 제품은 ghost만 0.97로 더 눌린다 (Button.tsx:85-86). 면이 없어 눌림이 덜 읽히기 때문이다. */
-.kds-button:where(:not([aria-disabled="true"]):not(:disabled)):active[data-variant="ghost"] {
+.louis-button:where(:not([aria-disabled="true"]):not(:disabled)):active[data-variant="ghost"] {
   scale: 0.97;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .kds-button {
-    transition-duration: var(--kds-motion-reduced-duration);
+  .louis-button {
+    transition-duration: var(--louis-motion-reduced-duration);
   }
 
-  .kds-button:where(:not([aria-disabled="true"]):not(:disabled)):active {
+  .louis-button:where(:not([aria-disabled="true"]):not(:disabled)):active {
     scale: 1;
   }
 }
 
 /* disabled와 loading — 둘 다 실행되지 않고, 그렇게 보인다. */
-.kds-button:disabled,
-.kds-button[aria-disabled="true"] {
+.louis-button:disabled,
+.louis-button[aria-disabled="true"] {
   cursor: not-allowed;
-  color: var(--kds-color-fg-disabled);
+  color: var(--louis-color-fg-disabled);
 }
 
-.kds-button:disabled:where([data-variant="primary"], [data-variant="danger"]),
-.kds-button[aria-disabled="true"]:where([data-variant="primary"], [data-variant="danger"]) {
-  background: var(--kds-color-bg-inset);
+.louis-button:disabled:where([data-variant="primary"], [data-variant="danger"]),
+.louis-button[aria-disabled="true"]:where([data-variant="primary"], [data-variant="danger"]) {
+  background: var(--louis-color-bg-inset);
 }
 
 /* disabled secondary는 별도 테두리 색을 두지 않는다 — enabled의 generic 헤어라인을 유지하고
  * 상태는 foreground 색이 전달한다 (DS-D-0023, 이전엔 color-stroke-subtle border였다). */
 
 /* loading — label 의미를 유지한 채 progress indicator를 함께 보인다. */
-.kds-button[data-loading="true"] .kds-button__label {
+.louis-button[data-loading="true"] .louis-button__label {
   opacity: 0.6;
 }
 
@@ -188,46 +188,46 @@
  * Iconography의 "글리프 크기는 아이콘이 소유한다"에 대한 의도적 예외이며 사유는
  * design/components/button.md의 Known deviations에 있다. 컨테이너 크기를 컨트롤이 소유한다는
  * 같은 문서의 규칙과는 어긋나지 않는다. */
-.kds-button__icon {
+.louis-button__icon {
   display: inline-flex;
   flex: none;
   align-items: center;
   justify-content: center;
-  inline-size: var(--kds-icon-size-md);
-  block-size: var(--kds-icon-size-md);
+  inline-size: var(--louis-icon-size-md);
+  block-size: var(--louis-icon-size-md);
 }
 
-.kds-button[data-size="sm"] .kds-button__icon {
-  inline-size: var(--kds-icon-size-sm);
-  block-size: var(--kds-icon-size-sm);
+.louis-button[data-size="sm"] .louis-button__icon {
+  inline-size: var(--louis-icon-size-sm);
+  block-size: var(--louis-icon-size-sm);
 }
 
 /* 글리프를 슬롯에 맞춘다. 맞추지 않으면 20px 아이콘이 16px 슬롯 밖으로 삐져나온다.
- * .kds-icon[data-size=...]와 같은 우선순위로는 로드 순서에 결과가 달려 있으므로 한 단계 높인다. */
-.kds-button .kds-button__icon > .kds-icon {
+ * .louis-icon[data-size=...]와 같은 우선순위로는 로드 순서에 결과가 달려 있으므로 한 단계 높인다. */
+.louis-button .louis-button__icon > .louis-icon {
   inline-size: 100%;
   block-size: 100%;
 }
 
-.kds-button__spinner {
+.louis-button__spinner {
   display: inline-flex;
   flex: none;
   width: 1em;
   height: 1em;
-  border: var(--kds-border-width-ring) solid currentColor;
+  border: var(--louis-border-width-ring) solid currentColor;
   border-block-start-color: transparent;
-  border-radius: var(--kds-radius-pill);
+  border-radius: var(--louis-radius-pill);
   /* DS-D-0016 — loop lifecycle. 700ms는 제품의 우세값이고 linear는 제품 22벌이 전수
    일치하는 유일한 축이다. 가감속이 붙으면 회전이 맥박처럼 뛴다. */
-  animation-name: kds-spin;
-  animation-duration: var(--kds-motion-spin-duration);
-  animation-timing-function: var(--kds-motion-spin-timing-function);
+  animation-name: louis-spin;
+  animation-duration: var(--louis-motion-spin-duration);
+  animation-timing-function: var(--louis-motion-spin-timing-function);
   animation-iteration-count: infinite;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .kds-button__spinner {
-    animation-duration: var(--kds-motion-reduced-duration);
+  .louis-button__spinner {
+    animation-duration: var(--louis-motion-reduced-duration);
     /* 회전을 멈추더라도 진행 중이라는 의미는 aria-busy가 유지한다. */
     animation-iteration-count: 1;
   }
@@ -239,8 +239,8 @@
  * 색으로 치환돼 배경과 구분되지 않으므로 모든 variant에 경계를 남긴다 — base 투명 border가
  * 하던 일을 이어받는다 (DS-D-0023). */
 @media (forced-colors: active) {
-  .kds-button {
+  .louis-button {
     box-shadow: none;
-    border: var(--kds-border-width-default) solid currentColor;
+    border: var(--louis-border-width-default) solid currentColor;
   }
 }

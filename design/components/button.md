@@ -39,8 +39,8 @@ import "@klipse-design/css/tokens.css";
 import "@klipse-design/css/styles.css";
 ```
 
-**`tokens.css`를 빼면 오류 없이 색·간격·반경이 전부 무효값이 된다.** `styles.css`에는 `--kds-*`
-정의가 없고 `var(--kds-*)` 참조만 있으며, 생성물끼리 `@import`하지 않는다.
+**`tokens.css`를 빼면 오류 없이 색·간격·반경이 전부 무효값이 된다.** `styles.css`에는 `--louis-*`
+정의가 없고 `var(--louis-*)` 참조만 있으며, 생성물끼리 `@import`하지 않는다.
 
 링크 이동이 목적이면 클릭으로 navigation을 흉내 내지 말고 Link primitive를 사용한다.
 
@@ -225,7 +225,7 @@ focus-visible 링은 브라우저가 그리므로 Figma variant로 두지 않는
   `color-bg-danger`·`color-fg-danger`로 대체했다. `DS-P3-014` 단위 9가 토큰을 추가하면 갱신한다.
   Button은 foreground와 background를 **쌍으로** 쓰므로 대비가 성립한다. 같은 토큰을 텍스트 색으로만
   쓰면 중립 표면에서 무너지는데, 그 실측은 [Menu / Popover](menu-popover.md)의 Known deviations에 있다.
-- **고정 높이가 없다.** 높이를 padding과 line-height로 결정하고 44px 타깃은 `kds-hit-target`이
+- **고정 높이가 없다.** 높이를 padding과 line-height로 결정하고 44px 타깃은 `louis-hit-target`이
   보장한다. 제품과 픽셀 단위로 맞추려면 control height 토큰이 필요하다(DS-P3-014).
 - **네 variant 전부 WCAG AA에 미달한다.** owner가 제품의 공용 Button을 정본으로 채택했고,
   그 제품 Button이 네 variant 모두 4.5에 못 미친다. axe 실측값이다.
@@ -281,10 +281,10 @@ focus-visible 링은 브라우저가 그리므로 Figma variant로 두지 않는
   라벨이 사실상 보이지 않는다** — 제품은 `#fafafa` 라벨에 0.35를 그대로 곱한다. 판정은
   [`migration/product.measured.json`](../../migration/product.measured.json)의 「disabled 표현」 축에
   accepted-deviation으로 있다.
-- **노드 캔버스 중립 버튼의 면 색이 KDS에 없다.** 제품은 노드 카드에 붙는 보조 버튼용으로 별도 SSOT
+- **노드 캔버스 중립 버튼의 면 색이 LOUIS에 없다.** 제품은 노드 카드에 붙는 보조 버튼용으로 별도 SSOT
   토큰군 `--node-chrome-btn-*`를 둔다(`globals.css:562-589`).
 
-  | 토큰 | 값 | KDS `sm` 대비 |
+  | 토큰 | 값 | LOUIS `sm` 대비 |
   | --- | --- | --- |
   | `--node-chrome-btn-h` | `32px` (`globals.css:576`) | 같다 (`layout-control-height-sm`) |
   | `--node-chrome-btn-padding-x` | `10px` (`:577`) | 텍스트-only `sm` 12px와 다르고 **아이콘 동반 `sm` 10px와 같다**. 제품은 아이콘 유무와 무관하게 10 고정 |
@@ -299,12 +299,12 @@ focus-visible 링은 브라우저가 그리므로 Figma variant로 두지 않는
   `uploadPillButton`)과 세그먼트 컨트롤은 비대상이고 각자 고유 크롬을 갖는다(`:567-568`).
   **토큰군 전부를 쓰는 소비처는 없다**(`:570-571`) — 헤더 액션은 치수만 쓰고 면은 투명 + hover
   틴트이며(`NodeHeaderActions.tsx:36-37`), 아이콘 전용 버튼은 정사각이라 `-padding-x`를 쓰지 않는다.
-  면과 테두리를 전부 쓰는 대표 소비처는 메타 툴바 알약이다(`ImageNode.tsx:646-653`). 치수 축은 KDS
-  `sm`으로 그대로 재현되지만 **면 색 두 쌍이 없어 노드 카드 내부 버튼을 KDS만으로 칠할 수 없다.**
+  면과 테두리를 전부 쓰는 대표 소비처는 메타 툴바 알약이다(`ImageNode.tsx:646-653`). 치수 축은 LOUIS
+  `sm`으로 그대로 재현되지만 **면 색 두 쌍이 없어 노드 카드 내부 버튼을 LOUIS만으로 칠할 수 없다.**
 - **제품의 결과 화면 액션은 전폭 앵커다.** 결제 결과 화면의 두 액션(`billing-success/page.tsx:136-146`
   primary · `:148-158` secondary)은 높이 40px과 radius 12px까지 `md`와 같고 네 축이 다르다.
 
-  | 축 | KDS `md` | 제품 결과 화면 액션 |
+  | 축 | LOUIS `md` | 제품 결과 화면 액션 |
   | --- | --- | --- |
   | 폭 | 내용 폭 (고정 폭 없음) | `width: 100%` (`:137`·`:149`) |
   | padding | `0 / space-control-lg` 16px | `0 / 20px` (`:137`·`:149`) |
@@ -324,7 +324,7 @@ focus-visible 링은 브라우저가 그리므로 Figma variant로 두지 않는
   `components/ui/Button.tsx`를 import 하지 않는다. 로컬 제출 버튼은 전폭 **48px 고정**(`h-24`) ·
   `rounded-12` · 면 `--gray-000` / 글자 `--gray-1000`(반전 잉크)이고(`login/page.tsx:206-211`), 상태 카드
   버튼은 전폭 **48px 최소**(`min-h-24`) · 패딩 `0 18px` · `rounded-12`다. **고정과 최소를 같은 것으로
-  읽으면 틀린다.** 라벨은 두 곳 모두 `type-body-16-medium` **16px**으로 KDS의 `body-sm-medium`
+  읽으면 틀린다.** 라벨은 두 곳 모두 `type-body-16-medium` **16px**으로 LOUIS의 `body-sm-medium`
   14px/21px와 다르다(`login/page.tsx:594-596` · `reset-password/page.tsx:252-256`; 상태 카드 정의
   `reset-password/page.tsx:59-67` primary · `:71-76` secondary).
 
@@ -348,7 +348,7 @@ focus-visible 링은 브라우저가 그리므로 Figma variant로 두지 않는
   **이 44px을 컨트롤 계단의 새 단으로 읽으면 틀린다.** 계단은 여전히 40/32px이고, 이것은 한 화면이
   높이 축 하나만 덮은 예외다. 같은 폼 안의 이메일 인풋은 `min-h-[44px]`(`:314`)로 **고정이 아니라
   최소**라 두 값이 우연히 같을 뿐 성질이 다르다 — 인증 화면의 48px 고정 대 최소와 같은 함정이다.
-  KDS는 소비처가 컨트롤 높이를 덮는 경로를 갖고 있지 않다. 이 자리를 옮기려면 높이를 노출하는
+  LOUIS는 소비처가 컨트롤 높이를 덮는 경로를 갖고 있지 않다. 이 자리를 옮기려면 높이를 노출하는
   API를 세우거나 예외로 남기는 판정이 필요하다.
 
 ## 승격 조건

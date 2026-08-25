@@ -1,7 +1,7 @@
 /* GENERATED FILE — packages/css/src의 저작 원본을 고치고 pnpm build:css를 실행한다. */
 /* base — 컴포넌트가 공유하는 최소 유틸리티.
  *
- * DS-D-0004: 전역 선택자를 쓰지 않는다. 값은 --kds-* 변수로만 참조하고 숫자 z-index를 쓰지 않는다.
+ * DS-D-0004: 전역 선택자를 쓰지 않는다. 값은 --louis-* 변수로만 참조하고 숫자 z-index를 쓰지 않는다.
  */
 
 /* 헤어라인 — 0.5px inset stroke recipe (DS-D-0023).
@@ -13,23 +13,23 @@
  * `border-width-hairline`(0.5px)이다. divider처럼 한 면만 필요하면 방향성 변형을 쓴다.
  *
  * **컴포넌트마다 shadow 문자열을 복사하지 않는다.** 한 곳에서 선언하고 var()로 참조한다.
- * elevation이 있는 표면은 `box-shadow: var(--kds-elevation-*), var(--kds-hairline-inset)`처럼
+ * elevation이 있는 표면은 `box-shadow: var(--louis-elevation-*), var(--louis-hairline-inset)`처럼
  * ambient/drop shadow 뒤에 조합한다. forced-colors에서는 box-shadow가 사라지므로 각 컴포넌트가
  * 시스템 색 border/outline로 되살린다.
  *
  * 곱셈(`*`) 기호는 저작 게이트의 전역 선택자 패턴에 걸리므로 block-end는 `calc(0px - …)`로 뺀다. */
 :root {
-  --kds-hairline-inset:
-    inset 0 0 0 var(--kds-border-width-hairline) var(--kds-color-stroke-hairline);
-  --kds-hairline-inset-block-start:
-    inset 0 var(--kds-border-width-hairline) 0 var(--kds-color-stroke-hairline);
-  --kds-hairline-inset-block-end:
-    inset 0 calc(0px - var(--kds-border-width-hairline)) 0 var(--kds-color-stroke-hairline);
+  --louis-hairline-inset:
+    inset 0 0 0 var(--louis-border-width-hairline) var(--louis-color-stroke-hairline);
+  --louis-hairline-inset-block-start:
+    inset 0 var(--louis-border-width-hairline) 0 var(--louis-color-stroke-hairline);
+  --louis-hairline-inset-block-end:
+    inset 0 calc(0px - var(--louis-border-width-hairline)) 0 var(--louis-color-stroke-hairline);
 }
 
 /* 시각적으로 숨기되 accessibility tree에는 남긴다.
  * dialog.md의 accessible description, button.md의 icon-only accessible name이 이 유틸을 쓴다. */
-.kds-visually-hidden {
+.louis-visually-hidden {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -48,75 +48,75 @@
  * (0 0 0 3px 파랑 42%) 소비처가 하나도 없다. 링을 outline으로 그리는 이유는 셋이다 —
  * overflow에 잘리지 않고, border-radius를 따라가며, forced-colors에서 시스템 색으로 바뀐다.
  * 토큰의 처리는 owner 결정이 필요하다(Figma effect style로도 발행돼 있다). */
-.kds-focus-ring:focus-visible {
-  outline: var(--kds-border-width-ring) solid var(--kds-color-stroke-focus);
+.louis-focus-ring:focus-visible {
+  outline: var(--louis-border-width-ring) solid var(--louis-color-stroke-focus);
   /* 링과 요소 사이의 틈. 2px 간격 토큰이 spacing 축에 없어 리터럴을 한 줄에 격리한다. */
   outline-offset: 2px;
 }
 
 /* forced-colors에서는 시스템 색이 이기도록 비운다. 링 자체는 남긴다. */
 @media (forced-colors: active) {
-  .kds-focus-ring:focus-visible {
+  .louis-focus-ring:focus-visible {
     outline-color: Highlight;
   }
 }
 
 /* 최소 hit target — button.md의 44px 내부 기준(WCAG 2.2 AA는 24px, 44px는 AAA).
  * 시각 크기는 그대로 두고 타깃만 넓힌다. */
-.kds-hit-target {
+.louis-hit-target {
   position: relative;
 }
 
-.kds-hit-target::after {
+.louis-hit-target::after {
   content: "";
   position: absolute;
   top: 50%;
   left: 50%;
   translate: -50% -50%;
-  width: max(100%, var(--kds-layout-control-hit-target-minimum));
-  height: max(100%, var(--kds-layout-control-hit-target-minimum));
+  width: max(100%, var(--louis-layout-control-hit-target-minimum));
+  height: max(100%, var(--louis-layout-control-hit-target-minimum));
 }
 
 /* overlay가 놓이는 stacking 문맥. 숫자 z-index 대신 layer 토큰만 쓴다. */
 /* sticky 층 — 앱 셸의 navigation rail과 top chrome이 쓴다. 토큰만 있고 쓸 클래스가 없어
  * 셸을 짓는 사람이 숫자를 쓰게 되어 있었다 (DS-D-0018). */
-.kds-layer-sticky {
-  z-index: var(--kds-layer-sticky);
+.louis-layer-sticky {
+  z-index: var(--louis-layer-sticky);
 }
-.kds-layer-popover {
-  z-index: var(--kds-layer-popover);
-}
-
-.kds-layer-modal {
-  z-index: var(--kds-layer-modal);
+.louis-layer-popover {
+  z-index: var(--louis-layer-popover);
 }
 
-.kds-layer-critical {
-  z-index: var(--kds-layer-critical);
+.louis-layer-modal {
+  z-index: var(--louis-layer-modal);
+}
+
+.louis-layer-critical {
+  z-index: var(--louis-layer-critical);
 }
 
 /* 위치가 확정되기 전에는 보이지도 hit-test되지도 않는다.
  * menu-popover.md: 임시 top/right 위치를 한 프레임도 노출하지 않는다.
  * visibility를 쓰는 이유는 display:none이면 enter transition의 시작 프레임이 사라지기 때문이다. */
-[data-kds-state="opening"] {
+[data-louis-state="opening"] {
   visibility: hidden;
   pointer-events: none;
 }
 
 /* closing 중인 layer는 아래 control의 hit test를 막지 않는다.
  * elevation-layer.md: 투명하거나 closing 중인 layer가 pointer/focus를 가로채면 실패다. */
-[data-kds-state="closing"] {
+[data-louis-state="closing"] {
   pointer-events: none;
 }
 
-[data-kds-state="closed"] {
+[data-louis-state="closed"] {
   display: none;
 }
 
 /* modal이 scroll owner를 잠근다. 잠금 대상은 body 고정이 아니라 overlay layer가 지정한 요소다.
  * dialog.md: 기존 inline style을 보존하고 닫힌 뒤 복원한다 — 복원은 JS가 하고 여기서는 잠금만
  * 표현한다. 속성 선택자라 잠금 여부가 DOM에서 그대로 읽히고 테스트가 상태를 직접 볼 수 있다. */
-[data-kds-scroll-locked="true"] {
+[data-louis-scroll-locked="true"] {
   overflow: hidden;
 }
 
@@ -128,7 +128,7 @@
  *
  * `transform: rotate()`가 아니라 개별 속성 `rotate`인 이유는 motion.md의 loop 절이 그것을
  * 허용 property로 선언했기 때문이다 — `scale`·`translate`와 합성된다. */
-@keyframes kds-spin {
+@keyframes louis-spin {
   to {
     rotate: 360deg;
   }
@@ -155,67 +155,67 @@
  * 놓을 수 없고, 이동 애니메이션은 rail composition이 원할 때 얹을 수 있다.
  */
 
-.kds-sidebar-nav-item {
+.louis-sidebar-nav-item {
   box-sizing: border-box;
   display: flex;
   align-items: center;
   /* 배포본은 8이 아니라 10이다(`gnb-menuLinkInner`의 `gap:10px`). 10은 DS 간격 계단(4·8·12·16)에
    * 없는 값이라 SelectableListRow와 같은 판단을 한다 — 한 컴포넌트를 위해 계단을 늘리지 않는다.
    * 이 편차는 게이트가 사유와 함께 기록한다. */
-  gap: var(--kds-space-control-sm);
+  gap: var(--louis-space-control-sm);
   inline-size: 100%;
   min-inline-size: 0;
-  min-block-size: var(--kds-layout-control-height-sm);
+  min-block-size: var(--louis-layout-control-height-sm);
   /* 4px이다. 배포본의 사이드바 항목은 `main-inline-padding − sidebar-padding-x` = 16 − 12 = 4를
    * 좌우에 쓴다. 행 혼자 보면 좁지만 **행과 레일의 합이 계약이다** — 레일 12 + 행 4 = 16이 본문
    * 좌측선과 맞는다. 여기를 8로 두면 아이콘이 본문보다 4px 안으로 들어간다. */
-  padding-inline: var(--kds-space-control-xs);
+  padding-inline: var(--louis-space-control-xs);
   border: 0;
-  border-radius: var(--kds-radius-overlay-item);
+  border-radius: var(--louis-radius-overlay-item);
   background: none;
-  color: var(--kds-color-fg-secondary);
+  color: var(--louis-color-fg-secondary);
   text-align: start;
   text-decoration: none;
   cursor: pointer;
-  font-family: var(--kds-typography-body-sm-medium-font-family);
-  font-size: var(--kds-typography-body-sm-medium-font-size);
-  font-weight: var(--kds-typography-body-sm-medium-font-weight);
-  line-height: var(--kds-typography-body-sm-medium-line-height);
-  letter-spacing: var(--kds-typography-body-sm-medium-letter-spacing);
+  font-family: var(--louis-typography-body-sm-medium-font-family);
+  font-size: var(--louis-typography-body-sm-medium-font-size);
+  font-weight: var(--louis-typography-body-sm-medium-font-weight);
+  line-height: var(--louis-typography-body-sm-medium-line-height);
+  letter-spacing: var(--louis-typography-body-sm-medium-letter-spacing);
 }
 
-.kds-sidebar-nav-item:where(:not([aria-disabled="true"])):hover {
-  background: var(--kds-color-accent-ghost-hover);
-  color: var(--kds-color-fg-primary);
+.louis-sidebar-nav-item:where(:not([aria-disabled="true"])):hover {
+  background: var(--louis-color-accent-ghost-hover);
+  color: var(--louis-color-fg-primary);
 }
 
 /* **`aria-current`가 선택을 소유한다.** `data-selected` 같은 시각 전용 속성을 두면 화면에는
  * 선택으로 보이는데 보조기술에는 아무것도 전달되지 않는 상태를 만들 수 있다. */
-.kds-sidebar-nav-item[aria-current="page"] {
-  background: var(--kds-color-bg-inset);
-  color: var(--kds-color-fg-primary);
+.louis-sidebar-nav-item[aria-current="page"] {
+  background: var(--louis-color-bg-inset);
+  color: var(--louis-color-fg-primary);
 }
 
 /* 접힘. 라벨이 사라지고 아이콘만 남으며 정사각에 가까워진다. */
-.kds-sidebar-nav-item[data-collapsed="true"] {
+.louis-sidebar-nav-item[data-collapsed="true"] {
   justify-content: center;
   padding-inline: 0;
 }
 
-.kds-sidebar-nav-item__icon {
+.louis-sidebar-nav-item__icon {
   display: inline-flex;
   flex: 0 0 auto;
-  inline-size: var(--kds-icon-size-md);
-  block-size: var(--kds-icon-size-md);
+  inline-size: var(--louis-icon-size-md);
+  block-size: var(--louis-icon-size-md);
 }
 
-.kds-sidebar-nav-item__icon > :where(svg) {
+.louis-sidebar-nav-item__icon > :where(svg) {
   inline-size: 100%;
   block-size: 100%;
 }
 
 /* 라벨은 한 줄로 자른다. rail 폭이 고정이라 줄바꿈하면 행 높이가 흔들린다. */
-.kds-sidebar-nav-item__label {
+.louis-sidebar-nav-item__label {
   min-inline-size: 0;
   overflow: hidden;
   white-space: nowrap;
@@ -224,7 +224,7 @@
 
 /* 접힘에서 라벨은 **DOM에서 사라지지 않는다.** 지우면 접기/펴기마다 접근성 이름이 사라졌다
  * 나타나고, 스크린 리더 사용자에게는 접힘이 보이지 않는 상태 변화다. 시각에서만 숨긴다. */
-.kds-sidebar-nav-item[data-collapsed="true"] .kds-sidebar-nav-item__label {
+.louis-sidebar-nav-item[data-collapsed="true"] .louis-sidebar-nav-item__label {
   position: absolute;
   inline-size: 1px;
   block-size: 1px;
@@ -235,77 +235,77 @@
 }
 
 /* 행 끝의 배지나 개수. 접힘에서는 함께 사라진다. */
-.kds-sidebar-nav-item__trailing {
+.louis-sidebar-nav-item__trailing {
   display: inline-flex;
   flex: 0 0 auto;
   align-items: center;
   margin-inline-start: auto;
 }
 
-.kds-sidebar-nav-item[data-collapsed="true"] .kds-sidebar-nav-item__trailing {
+.louis-sidebar-nav-item[data-collapsed="true"] .louis-sidebar-nav-item__trailing {
   display: none;
 }
 
 /* ── Top bar ─────────────────────────────────────────────────────────────────── */
 
-.kds-app-top-bar {
+.louis-app-top-bar {
   box-sizing: border-box;
   display: flex;
   align-items: center;
-  gap: var(--kds-space-control-sm);
+  gap: var(--louis-space-control-sm);
   inline-size: 100%;
-  min-block-size: var(--kds-layout-app-shell-top-bar-height);
-  padding-inline: var(--kds-layout-app-shell-content-inset);
+  min-block-size: var(--louis-layout-app-shell-top-bar-height);
+  padding-inline: var(--louis-layout-app-shell-content-inset);
 }
 
 /* 가운데 슬롯이 남는 자리를 먹는다 — 양옆 슬롯이 자기 크기를 갖고 제목이 나머지를 쓴다. */
-.kds-app-top-bar__title {
+.louis-app-top-bar__title {
   flex: 1 1 auto;
   min-inline-size: 0;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
-  color: var(--kds-color-fg-primary);
+  color: var(--louis-color-fg-primary);
   /* 제목은 body-md 16이다. body-sm 14로 두고 있었는데 배포본 `mainChromePageNavTitle`이
    * `--type-body-16-*`(16/24/500)를 쓴다 — 상단 바 제목은 현재 위치를 말하는 문장이라
    * 사이드바 항목보다 한 단계 크다. */
-  font-family: var(--kds-typography-body-md-medium-font-family);
-  font-size: var(--kds-typography-body-md-medium-font-size);
-  font-weight: var(--kds-typography-body-md-medium-font-weight);
-  line-height: var(--kds-typography-body-md-medium-line-height);
-  letter-spacing: var(--kds-typography-body-md-medium-letter-spacing);
+  font-family: var(--louis-typography-body-md-medium-font-family);
+  font-size: var(--louis-typography-body-md-medium-font-size);
+  font-weight: var(--louis-typography-body-md-medium-font-weight);
+  line-height: var(--louis-typography-body-md-medium-line-height);
+  letter-spacing: var(--louis-typography-body-md-medium-letter-spacing);
 }
 
-.kds-app-top-bar__leading,
-.kds-app-top-bar__trailing {
+.louis-app-top-bar__leading,
+.louis-app-top-bar__trailing {
   display: inline-flex;
   flex: 0 0 auto;
   align-items: center;
-  gap: var(--kds-space-control-sm);
+  gap: var(--louis-space-control-sm);
 }
 
 /* **선행 슬롯만 4다.** 배포본의 leading cluster는 `gap: 4px`이고 바 자신의 8과 다르다 —
  * 뒤로가기·구분자·제목이 한 덩어리로 붙어 하나의 위치 표시로 읽혀야 하기 때문이다.
  * 후행 슬롯은 서로 무관한 액션들이라 8로 떨어져 있다. */
-.kds-app-top-bar__leading {
-  gap: var(--kds-space-control-xs);
+.louis-app-top-bar__leading {
+  gap: var(--louis-space-control-xs);
 }
 
 /* **경계선을 기본으로 두지 않는다.** 제품의 상단 바는 스크롤 진행률에 따라 색이 연속으로 변하는
  * 경계선을 갖는데, 그것은 rAF로 매 프레임 값을 쓰는 런타임 계약이라 컴포넌트가 소유할 수 없다.
  * 필요한 소비처가 `data-divider="true"`로 켠다. */
-.kds-app-top-bar[data-divider="true"] {
+.louis-app-top-bar[data-divider="true"] {
   /* 한 면 divider — 방향성 inset 헤어라인 (DS-D-0023). border-block-end는 레이아웃 높이를
    * 0.5px 늘리지만 inset box-shadow는 건드리지 않는다. */
-  box-shadow: var(--kds-hairline-inset-block-end);
+  box-shadow: var(--louis-hairline-inset-block-end);
 }
 
 /* forced-colors: box-shadow divider는 강제 색 모드에서 사라지므로 시스템 색 실선으로 한 면을
  * 되살린다 (DS-D-0023). */
 @media (forced-colors: active) {
-  .kds-app-top-bar[data-divider="true"] {
+  .louis-app-top-bar[data-divider="true"] {
     box-shadow: none;
-    border-block-end: var(--kds-border-width-default) solid CanvasText;
+    border-block-end: var(--louis-border-width-default) solid CanvasText;
   }
 }
 
@@ -315,22 +315,22 @@
  * **행이 버튼이 아니다.** 버튼 안에 버튼을 넣으면 HTML이 깨지고 키보드 순회가 무너진다.
  * 배포본도 같은 이유로 행을 `<div>`로 두고 내비와 액션을 형제로 놓는다.
  */
-.kds-sidebar-nav-row {
+.louis-sidebar-nav-row {
   display: flex;
   align-items: center;
-  gap: var(--kds-space-control-xs);
+  gap: var(--louis-space-control-xs);
   inline-size: 100%;
   min-inline-size: 0;
 }
 
 /* 항목이 남는 자리를 먹는다. 행의 면·반경은 항목이 그대로 갖는다 — 선택 표시가 항목의 것이기
  * 때문이다. 액션은 그 위에 얹히지 않고 옆에 선다. */
-.kds-sidebar-nav-row > .kds-sidebar-nav-item {
+.louis-sidebar-nav-row > .louis-sidebar-nav-item {
   flex: 1 1 auto;
   min-inline-size: 0;
 }
 
-.kds-sidebar-nav-row__action {
+.louis-sidebar-nav-row__action {
   display: inline-flex;
   flex: none;
   align-items: center;
@@ -346,51 +346,51 @@
  * 하나로 뭉치지 않고 셸 값을 따로 쓴다.
  */
 
-.kds-sidebar-brand {
+.louis-sidebar-brand {
   display: flex;
   align-items: center;
   justify-content: flex-start;
   inline-size: 100%;
   flex: none;
-  gap: var(--kds-space-control-sm);
+  gap: var(--louis-space-control-sm);
   /* 배포본의 브랜드 행은 사이드바 헤더 행과 같은 40이고, 그 안의 로고 레일이 28이다.
    * 처음에는 행 자체를 24로 두었는데 그것은 아이콘 슬롯 크기이지 행 높이가 아니었다. */
-  min-block-size: var(--kds-layout-app-shell-top-bar-height);
+  min-block-size: var(--louis-layout-app-shell-top-bar-height);
   /* 내비 항목과 같은 4다. 레일 12 + 4 = 16으로 로고와 항목 아이콘이 같은 좌측선에 선다.
    * 접히면 0이 되어 레일 가운데로 모인다 — 배포본 `sidebarHeaderRow`가 그렇다. */
-  padding-inline-start: var(--kds-space-control-xs);
+  padding-inline-start: var(--louis-space-control-xs);
 }
 
-.kds-sidebar-brand[data-collapsed="true"] {
+.louis-sidebar-brand[data-collapsed="true"] {
   padding-inline-start: 0;
 }
 
-.kds-sidebar-brand__mark {
+.louis-sidebar-brand__mark {
   display: flex;
   align-items: center;
   flex: none;
   min-inline-size: 0;
-  min-block-size: var(--kds-layout-app-shell-brand-mark-height);
+  min-block-size: var(--louis-layout-app-shell-brand-mark-height);
   line-height: 0;
 }
 
-.kds-sidebar-brand__wordmark {
+.louis-sidebar-brand__wordmark {
   min-inline-size: 0;
   overflow: hidden;
   white-space: nowrap;
-  color: var(--kds-color-fg-primary);
-  font-family: var(--kds-typography-body-md-semibold-font-family);
-  font-size: var(--kds-typography-body-md-semibold-font-size);
-  font-weight: var(--kds-typography-body-md-semibold-font-weight);
-  letter-spacing: var(--kds-typography-body-md-semibold-letter-spacing);
-  line-height: var(--kds-typography-body-md-semibold-line-height);
+  color: var(--louis-color-fg-primary);
+  font-family: var(--louis-typography-body-md-semibold-font-family);
+  font-size: var(--louis-typography-body-md-semibold-font-size);
+  font-weight: var(--louis-typography-body-md-semibold-font-weight);
+  letter-spacing: var(--louis-typography-body-md-semibold-letter-spacing);
+  line-height: var(--louis-typography-body-md-semibold-line-height);
   transition:
-    max-inline-size var(--kds-motion-shell-collapse-duration)
-      var(--kds-motion-shell-collapse-timing-function);
+    max-inline-size var(--louis-motion-shell-collapse-duration)
+      var(--louis-motion-shell-collapse-timing-function);
   max-inline-size: 240px;
 }
 
-.kds-sidebar-brand[data-collapsed="true"] .kds-sidebar-brand__wordmark {
+.louis-sidebar-brand[data-collapsed="true"] .louis-sidebar-brand__wordmark {
   max-inline-size: 0;
 }
 
@@ -399,7 +399,7 @@
  * 내비 항목이 몇 개든 CTA는 바닥에 남는다.
  */
 
-.kds-sidebar-cta {
+.louis-sidebar-cta {
   margin-block-start: auto;
   inline-size: 100%;
   flex: none;
@@ -420,105 +420,105 @@
  * `aria-current="page"`면 한 단계 더 뒤집힌다 — 라이트 #f1f1f3 위 near-black, 다크 #313640 위
  * #fafafa. 그 상태가 곧 이 버튼의 목적지에 이미 와 있다는 뜻이다.
  */
-.kds-sidebar-cta__button {
+.louis-sidebar-cta__button {
   position: relative;
   box-sizing: border-box;
   inline-size: 100%;
-  min-block-size: var(--kds-layout-control-height-md);
+  min-block-size: var(--louis-layout-control-height-md);
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: var(--kds-space-control-sm);
+  gap: var(--louis-space-control-sm);
   padding-block: 10px;
   padding-inline: 14px;
   border: 0;
-  border-radius: var(--kds-radius-control);
-  background-color: var(--kds-color-bg-upgrade);
-  color: var(--kds-color-fg-upgrade);
+  border-radius: var(--louis-radius-control);
+  background-color: var(--louis-color-bg-upgrade);
+  color: var(--louis-color-fg-upgrade);
   /* 안쪽 1px 링과 아주 얕은 드롭. 배포본에 실제로 그려지는데 DS에는 아예 없었고, 규범 문서의
    * "Effects: 없다"는 사유가 아니라 누락의 결과 서술이었다. 반전 pill이 사이드바 면에서
    * 떨어져 보이게 하는 것이 이 그림자의 일이다. */
-  box-shadow: var(--kds-elevation-upgrade);
+  box-shadow: var(--louis-elevation-upgrade);
   text-align: center;
   cursor: pointer;
-  font-family: var(--kds-typography-body-sm-medium-font-family);
-  font-size: var(--kds-typography-body-sm-medium-font-size);
-  font-weight: var(--kds-typography-body-sm-medium-font-weight);
-  letter-spacing: var(--kds-typography-body-sm-medium-letter-spacing);
-  line-height: var(--kds-typography-body-sm-medium-line-height);
+  font-family: var(--louis-typography-body-sm-medium-font-family);
+  font-size: var(--louis-typography-body-sm-medium-font-size);
+  font-weight: var(--louis-typography-body-sm-medium-font-weight);
+  letter-spacing: var(--louis-typography-body-sm-medium-letter-spacing);
+  line-height: var(--louis-typography-body-sm-medium-line-height);
   transition:
-    min-block-size var(--kds-motion-shell-collapse-duration)
-      var(--kds-motion-shell-collapse-timing-function),
-    padding var(--kds-motion-shell-collapse-duration)
-      var(--kds-motion-shell-collapse-timing-function),
-    gap var(--kds-motion-shell-collapse-duration)
-      var(--kds-motion-shell-collapse-timing-function),
-    background-color var(--kds-motion-control-hover-duration)
-      var(--kds-motion-control-hover-timing-function),
-    color var(--kds-motion-control-hover-duration)
-      var(--kds-motion-control-hover-timing-function);
+    min-block-size var(--louis-motion-shell-collapse-duration)
+      var(--louis-motion-shell-collapse-timing-function),
+    padding var(--louis-motion-shell-collapse-duration)
+      var(--louis-motion-shell-collapse-timing-function),
+    gap var(--louis-motion-shell-collapse-duration)
+      var(--louis-motion-shell-collapse-timing-function),
+    background-color var(--louis-motion-control-hover-duration)
+      var(--louis-motion-control-hover-timing-function),
+    color var(--louis-motion-control-hover-duration)
+      var(--louis-motion-control-hover-timing-function);
 }
 
 @media (hover: hover) {
-  .kds-sidebar-cta__button:hover {
-    background-color: var(--kds-color-bg-upgrade-hover);
-    color: var(--kds-color-fg-upgrade-hover);
+  .louis-sidebar-cta__button:hover {
+    background-color: var(--louis-color-bg-upgrade-hover);
+    color: var(--louis-color-fg-upgrade-hover);
   }
 }
 
-.kds-sidebar-cta__button:focus-visible {
-  outline: var(--kds-border-width-ring) solid var(--kds-color-stroke-focus);
+.louis-sidebar-cta__button:focus-visible {
+  outline: var(--louis-border-width-ring) solid var(--louis-color-stroke-focus);
   outline-offset: 2px;
 }
 
 /* **현재 위치면 한 단계 더 뒤집힌다.** 선택을 `aria-current`가 소유하는 것은 SidebarNavItem과
  * 같은 규칙이다 — 시각 전용 속성을 따로 두지 않는다. */
-.kds-sidebar-cta__button[aria-current="page"] {
-  background-color: var(--kds-color-bg-upgrade-current);
-  color: var(--kds-color-fg-upgrade-current);
+.louis-sidebar-cta__button[aria-current="page"] {
+  background-color: var(--louis-color-bg-upgrade-current);
+  color: var(--louis-color-fg-upgrade-current);
 }
 
 @media (hover: hover) {
-  .kds-sidebar-cta__button[aria-current="page"]:hover {
-    background-color: var(--kds-color-bg-upgrade-current);
-    color: var(--kds-color-fg-upgrade-current);
+  .louis-sidebar-cta__button[aria-current="page"]:hover {
+    background-color: var(--louis-color-bg-upgrade-current);
+    color: var(--louis-color-fg-upgrade-current);
   }
 }
 
 /* 접히면 높이와 여백이 함께 줄어든다. 제품 실측 32 · `0 10`. */
-.kds-sidebar-cta[data-collapsed="true"] .kds-sidebar-cta__button {
-  min-block-size: var(--kds-layout-control-height-sm);
+.louis-sidebar-cta[data-collapsed="true"] .louis-sidebar-cta__button {
+  min-block-size: var(--louis-layout-control-height-sm);
   padding-block: 0;
   padding-inline: 10px;
   gap: 0;
 }
 
-.kds-sidebar-cta__label {
+.louis-sidebar-cta__label {
   min-inline-size: 0;
   overflow: hidden;
   white-space: nowrap;
   max-inline-size: 240px;
   transition:
-    max-inline-size var(--kds-motion-shell-collapse-duration)
-      var(--kds-motion-shell-collapse-timing-function);
+    max-inline-size var(--louis-motion-shell-collapse-duration)
+      var(--louis-motion-shell-collapse-timing-function);
 }
 
 /* **접혀도 라벨이 보인다.** 폭을 0으로 만들어 완전히 지우고 있었는데 배포본은 54px까지 남기고
  * 말줄임한다 — 접힌 레일에서도 "업그레…"가 읽힌다. 아이콘이 없는 버튼이라 라벨을 지우면 그 자리에
  * 아무 단서도 남지 않는다. 글자도 caption으로 한 단계 줄어든다. */
-.kds-sidebar-cta[data-collapsed="true"] .kds-sidebar-cta__label {
+.louis-sidebar-cta[data-collapsed="true"] .louis-sidebar-cta__label {
   max-inline-size: 54px;
   text-overflow: ellipsis;
-  font-size: var(--kds-typography-caption-regular-font-size);
-  line-height: var(--kds-typography-caption-regular-line-height);
-  letter-spacing: var(--kds-typography-caption-regular-letter-spacing);
+  font-size: var(--louis-typography-caption-regular-font-size);
+  line-height: var(--louis-typography-caption-regular-line-height);
+  letter-spacing: var(--louis-typography-caption-regular-letter-spacing);
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .kds-sidebar-brand__wordmark,
-  .kds-sidebar-cta__label,
-  .kds-sidebar-cta__button {
-    transition-duration: var(--kds-motion-reduced-duration);
+  .louis-sidebar-brand__wordmark,
+  .louis-sidebar-cta__label,
+  .louis-sidebar-cta__button {
+    transition-duration: var(--louis-motion-reduced-duration);
   }
 }
 
@@ -535,88 +535,88 @@
 
 /* 건너뛰기 링크는 평소 숨어 있다가 **초점을 받으면 나타난다.** 화면 밖으로만 밀어 두면
  * 키보드 사용자가 그것이 있는지 알 수 없다. */
-.kds-app-shell__skip {
+.louis-app-shell__skip {
   position: absolute;
-  inset-inline-start: var(--kds-space-control-md);
-  inset-block-start: var(--kds-space-control-md);
-  z-index: var(--kds-layer-critical);
-  padding: var(--kds-space-control-sm) var(--kds-space-control-md);
-  border-radius: var(--kds-radius-control);
-  background-color: var(--kds-color-bg-surface);
-  color: var(--kds-color-fg-primary);
+  inset-inline-start: var(--louis-space-control-md);
+  inset-block-start: var(--louis-space-control-md);
+  z-index: var(--louis-layer-critical);
+  padding: var(--louis-space-control-sm) var(--louis-space-control-md);
+  border-radius: var(--louis-radius-control);
+  background-color: var(--louis-color-bg-surface);
+  color: var(--louis-color-fg-primary);
   translate: 0 -200%;
 }
 
-.kds-app-shell__skip:focus-visible {
+.louis-app-shell__skip:focus-visible {
   translate: 0 0;
-  outline: var(--kds-border-width-ring) solid var(--kds-color-stroke-focus);
+  outline: var(--louis-border-width-ring) solid var(--louis-color-stroke-focus);
   outline-offset: 2px;
 }
 
-.kds-app-shell {
+.louis-app-shell {
   position: relative;
   display: block;
   block-size: 100dvh;
   overflow: hidden;
-  background-color: var(--kds-color-bg-canvas);
+  background-color: var(--louis-color-bg-canvas);
 }
 
-.kds-app-shell__rail {
+.louis-app-shell__rail {
   position: absolute;
   inset-block: 0;
   inset-inline-start: 0;
-  inline-size: var(--kds-layout-app-shell-sidebar-width);
+  inline-size: var(--louis-layout-app-shell-sidebar-width);
   display: flex;
   flex-direction: column;
-  gap: var(--kds-space-overlay-item-gap);
-  padding: var(--kds-space-control-md);
-  background-color: var(--kds-color-bg-surface);
+  gap: var(--louis-space-overlay-item-gap);
+  padding: var(--louis-space-control-md);
+  background-color: var(--louis-color-bg-surface);
   overflow: hidden;
   transition:
-    inline-size var(--kds-motion-shell-collapse-duration)
-      var(--kds-motion-shell-collapse-timing-function);
+    inline-size var(--louis-motion-shell-collapse-duration)
+      var(--louis-motion-shell-collapse-timing-function);
 }
 
-.kds-app-shell[data-collapsed="true"] .kds-app-shell__rail {
-  inline-size: var(--kds-layout-app-shell-sidebar-collapsed);
+.louis-app-shell[data-collapsed="true"] .louis-app-shell__rail {
+  inline-size: var(--louis-layout-app-shell-sidebar-collapsed);
 }
 
 /* main이 레일과 **같은 상태 원천**으로 자리를 예약한다. 레일이 absolute라도 겹치지 않는 이유다. */
-.kds-app-shell__main {
+.louis-app-shell__main {
   block-size: 100%;
-  padding-inline-start: var(--kds-layout-app-shell-sidebar-width);
+  padding-inline-start: var(--louis-layout-app-shell-sidebar-width);
   display: flex;
   flex-direction: column;
   min-inline-size: 0;
   transition:
-    padding-inline-start var(--kds-motion-shell-collapse-duration)
-      var(--kds-motion-shell-collapse-timing-function);
+    padding-inline-start var(--louis-motion-shell-collapse-duration)
+      var(--louis-motion-shell-collapse-timing-function);
 }
 
-.kds-app-shell[data-collapsed="true"] .kds-app-shell__main {
-  padding-inline-start: var(--kds-layout-app-shell-sidebar-collapsed);
+.louis-app-shell[data-collapsed="true"] .louis-app-shell__main {
+  padding-inline-start: var(--louis-layout-app-shell-sidebar-collapsed);
 }
 
 /* 상단 크롬은 scroll root **안에** 있고 sticky다. 밖에 두면 좌우 inset 원천이 갈린다. */
-.kds-app-shell__chrome {
+.louis-app-shell__chrome {
   position: sticky;
   inset-block-start: 0;
-  z-index: var(--kds-layer-sticky);
+  z-index: var(--louis-layer-sticky);
   flex: none;
-  min-block-size: var(--kds-layout-app-shell-top-bar-height);
-  padding-inline: var(--kds-layout-app-shell-content-inset);
-  background-color: var(--kds-color-bg-canvas);
+  min-block-size: var(--louis-layout-app-shell-top-bar-height);
+  padding-inline: var(--louis-layout-app-shell-content-inset);
+  background-color: var(--louis-color-bg-canvas);
 }
 
 /* **유일한 primary scroll root.** page variant만 구르고 workspace는 고정 host다. */
-.kds-app-shell__content {
+.louis-app-shell__content {
   flex: 1 1 auto;
   min-block-size: 0;
-  padding-inline: var(--kds-layout-app-shell-content-inset);
+  padding-inline: var(--louis-layout-app-shell-content-inset);
   overflow-y: auto;
 }
 
-.kds-app-shell[data-variant="workspace"] .kds-app-shell__content {
+.louis-app-shell[data-variant="workspace"] .louis-app-shell__content {
   overflow-y: hidden;
 }
 
@@ -625,47 +625,47 @@
  */
 
 @media (max-width: 719px) {
-  .kds-app-shell__main,
-  .kds-app-shell[data-collapsed="true"] .kds-app-shell__main {
+  .louis-app-shell__main,
+  .louis-app-shell[data-collapsed="true"] .louis-app-shell__main {
     padding-inline-start: 0;
   }
 
-  .kds-app-shell__rail,
-  .kds-app-shell[data-collapsed="true"] .kds-app-shell__rail {
-    inline-size: var(--kds-layout-app-shell-sidebar-width);
-    max-inline-size: calc(100vw - var(--kds-layout-app-shell-content-reserve));
+  .louis-app-shell__rail,
+  .louis-app-shell[data-collapsed="true"] .louis-app-shell__rail {
+    inline-size: var(--louis-layout-app-shell-sidebar-width);
+    max-inline-size: calc(100vw - var(--louis-layout-app-shell-content-reserve));
     translate: -100% 0;
     transition:
-      translate var(--kds-motion-shell-collapse-duration)
-        var(--kds-motion-shell-collapse-timing-function);
+      translate var(--louis-motion-shell-collapse-duration)
+        var(--louis-motion-shell-collapse-timing-function);
   }
 
-  .kds-app-shell[data-drawer="open"] .kds-app-shell__rail {
+  .louis-app-shell[data-drawer="open"] .louis-app-shell__rail {
     translate: 0 0;
   }
 
-  .kds-app-shell__scrim {
+  .louis-app-shell__scrim {
     position: absolute;
     inset: 0;
-    background-color: var(--kds-color-dim-modal);
+    background-color: var(--louis-color-dim-modal);
     opacity: 0;
     pointer-events: none;
     transition:
-      opacity var(--kds-motion-overlay-enter-duration)
-        var(--kds-motion-overlay-enter-timing-function);
+      opacity var(--louis-motion-overlay-enter-duration)
+        var(--louis-motion-overlay-enter-timing-function);
   }
 
-  .kds-app-shell[data-drawer="open"] .kds-app-shell__scrim {
+  .louis-app-shell[data-drawer="open"] .louis-app-shell__scrim {
     opacity: 1;
     pointer-events: auto;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .kds-app-shell__rail,
-  .kds-app-shell__main,
-  .kds-app-shell__scrim {
-    transition-duration: var(--kds-motion-reduced-duration);
+  .louis-app-shell__rail,
+  .louis-app-shell__main,
+  .louis-app-shell__scrim {
+    transition-duration: var(--louis-motion-reduced-duration);
   }
 }
 
@@ -689,7 +689,7 @@
  * 나란히 서도 줄이 어긋나지 않는다 — 계단을 따를 이유가 없어 제품 값을 그대로 옮겼다.
  */
 
-.kds-avatar {
+.louis-avatar {
   display: inline-flex;
   flex: none;
   align-items: center;
@@ -697,19 +697,19 @@
   overflow: hidden;
   inline-size: 28px;
   block-size: 28px;
-  border-radius: var(--kds-radius-pill);
-  background: var(--kds-color-bg-inset);
+  border-radius: var(--louis-radius-pill);
+  background: var(--louis-color-bg-inset);
   /* 폴백 글리프가 currentColor를 문다. 제품의 기본 아바타와 같은 구조다. */
-  color: var(--kds-color-fg-tertiary);
+  color: var(--louis-color-fg-tertiary);
 }
 
-.kds-avatar[data-size="sm"] {
+.louis-avatar[data-size="sm"] {
   inline-size: 24px;
   block-size: 24px;
 }
 
 /* 이미지. 비율이 맞지 않아도 원을 채운다 — 여백이 생기면 원이 깨져 보인다. */
-.kds-avatar__image {
+.louis-avatar__image {
   inline-size: 100%;
   block-size: 100%;
   object-fit: cover;
@@ -717,7 +717,7 @@
   background: none;
 }
 
-.kds-avatar__fallback {
+.louis-avatar__fallback {
   display: block;
   inline-size: 100%;
   block-size: 100%;
@@ -744,70 +744,70 @@
  * 색각 이상에서 글자색 하나에 기대지 않고, 두 값이 게이트에 대비 쌍으로 묶여 있다.
  */
 
-.kds-badge {
+.louis-badge {
   box-sizing: border-box;
   display: inline-flex;
   align-items: center;
-  gap: var(--kds-space-control-xs);
+  gap: var(--louis-space-control-xs);
   max-inline-size: 100%;
-  padding-block: var(--kds-space-control-xs);
-  padding-inline: var(--kds-space-control-sm);
-  border-radius: var(--kds-radius-control-sm);
+  padding-block: var(--louis-space-control-xs);
+  padding-inline: var(--louis-space-control-sm);
+  border-radius: var(--louis-radius-control-sm);
   /* 기본은 중립이다. 상태가 없는 배지가 다수이고(분류·개수 라벨), 색을 기본값으로 두면 아무 뜻도
    * 없는 곳에 의미가 붙는다. */
-  background: var(--kds-color-bg-inset);
-  color: var(--kds-color-fg-secondary);
-  font-family: var(--kds-typography-caption-regular-font-family);
-  font-size: var(--kds-typography-caption-regular-font-size);
-  font-weight: var(--kds-typography-caption-regular-font-weight);
-  line-height: var(--kds-typography-caption-regular-line-height);
-  letter-spacing: var(--kds-typography-caption-regular-letter-spacing);
+  background: var(--louis-color-bg-inset);
+  color: var(--louis-color-fg-secondary);
+  font-family: var(--louis-typography-caption-regular-font-family);
+  font-size: var(--louis-typography-caption-regular-font-size);
+  font-weight: var(--louis-typography-caption-regular-font-weight);
+  line-height: var(--louis-typography-caption-regular-line-height);
+  letter-spacing: var(--louis-typography-caption-regular-letter-spacing);
   /* 라벨은 한 줄이다. 배지가 두 줄이 되면 그것이 놓인 행의 높이가 흔들린다. */
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-.kds-badge[data-tone="success"] {
-  background: var(--kds-color-bg-success);
-  color: var(--kds-color-fg-success);
+.louis-badge[data-tone="success"] {
+  background: var(--louis-color-bg-success);
+  color: var(--louis-color-fg-success);
 }
 
-.kds-badge[data-tone="warning"] {
-  background: var(--kds-color-bg-warning);
-  color: var(--kds-color-fg-warning);
+.louis-badge[data-tone="warning"] {
+  background: var(--louis-color-bg-warning);
+  color: var(--louis-color-fg-warning);
 }
 
-.kds-badge[data-tone="danger"] {
-  background: var(--kds-color-bg-danger);
-  color: var(--kds-color-fg-danger);
+.louis-badge[data-tone="danger"] {
+  background: var(--louis-color-bg-danger);
+  color: var(--louis-color-fg-danger);
 }
 
-.kds-badge[data-tone="info"] {
-  background: var(--kds-color-bg-info);
-  color: var(--kds-color-fg-info);
+.louis-badge[data-tone="info"] {
+  background: var(--louis-color-bg-info);
+  color: var(--louis-color-fg-info);
 }
 
 /* 아이콘 슬롯. **크기가 글자를 따라간다** — `1em`이라 12px 아이콘 토큰을 새로 만들지 않아도 되고,
  * iconography.md가 4px 격자 밖이라며 거부해 둔 12px을 다시 열 이유도 없다. */
-.kds-badge__icon {
+.louis-badge__icon {
   display: inline-flex;
   flex: 0 0 auto;
   inline-size: 1em;
   block-size: 1em;
 }
 
-.kds-badge__icon > :where(svg) {
+.louis-badge__icon > :where(svg) {
   inline-size: 100%;
   block-size: 100%;
 }
 
 /* 점. 아이콘보다 약한 신호이며 색은 글자를 따라간다. */
-.kds-badge__dot {
+.louis-badge__dot {
   flex: 0 0 auto;
   inline-size: 0.5em;
   block-size: 0.5em;
-  border-radius: var(--kds-radius-pill);
+  border-radius: var(--louis-radius-pill);
   background: currentcolor;
 }
 
@@ -826,14 +826,14 @@
  * 높이는 소비처가 정한다. 슬라이드가 absolute라 컨테이너에 `block-size`가 없으면 접힌다.
  */
 
-.kds-banner-carousel {
+.louis-banner-carousel {
   position: relative;
   display: block;
   overflow: hidden;
-  border-radius: var(--kds-radius-card);
+  border-radius: var(--louis-radius-card);
 }
 
-.kds-banner-carousel[data-bleed="full"] {
+.louis-banner-carousel[data-bleed="full"] {
   border-radius: 0;
 }
 
@@ -842,10 +842,10 @@
  * `pointer-events: none`으로 죽여 밑장이 클릭을 훔치지 않게 한다. 보조기술에서는
  * 소비처가 `aria-hidden`을 건다. */
 
-.kds-banner-carousel__slide {
+.louis-banner-carousel__slide {
   /* 사진은 소비처가 인라인으로 넣는다. 여기서 기본값을 선언해 두면 사진이 없는 슬라이드에서도
    * 스크림 레이어가 온전히 성립한다. */
-  --kds-banner-image: none;
+  --louis-banner-image: none;
   position: absolute;
   inset: 0;
   display: flex;
@@ -859,11 +859,11 @@
    * 두어 구조적으로 그 상태가 될 수 없게 한다. 숫자 z-index를 새로 들이지 않고 같은 결과를 얻는다. */
   background-image: linear-gradient(
       to right,
-      color-mix(in srgb, var(--kds-banner-scrim) 78%, transparent) 0%,
-      color-mix(in srgb, var(--kds-banner-scrim) 46%, transparent) 30%,
+      color-mix(in srgb, var(--louis-banner-scrim) 78%, transparent) 0%,
+      color-mix(in srgb, var(--louis-banner-scrim) 46%, transparent) 30%,
       transparent 60%
     ),
-    var(--kds-banner-image, none);
+    var(--louis-banner-image, none);
   background-repeat: no-repeat;
   background-size: cover;
   background-position: 68% center;
@@ -871,30 +871,30 @@
   scale: 1.012;
   pointer-events: none;
   transition:
-    opacity var(--kds-motion-crossfade-enter-duration)
-      var(--kds-motion-crossfade-enter-timing-function),
-    scale var(--kds-motion-zoom-settle-duration) var(--kds-motion-zoom-settle-timing-function);
+    opacity var(--louis-motion-crossfade-enter-duration)
+      var(--louis-motion-crossfade-enter-timing-function),
+    scale var(--louis-motion-zoom-settle-duration) var(--louis-motion-zoom-settle-timing-function);
 }
 
-.kds-banner-carousel__slide[data-active="true"] {
+.louis-banner-carousel__slide[data-active="true"] {
   opacity: 1;
   scale: 1;
   pointer-events: auto;
 }
 
 /* 스크림은 글자 쪽(좌)에서 사진 쪽(우)으로 걷힌다. 톤의 **반대 극**이라 글자와 항상 대비된다. */
-.kds-banner-carousel__slide[data-tone="bright"] {
-  --kds-banner-text: var(--kds-color-media-foreground-bright);
-  --kds-banner-scrim: var(--kds-color-media-scrim-bright);
+.louis-banner-carousel__slide[data-tone="bright"] {
+  --louis-banner-text: var(--louis-color-media-foreground-bright);
+  --louis-banner-scrim: var(--louis-color-media-scrim-bright);
 }
 
-.kds-banner-carousel__slide[data-tone="dark"] {
-  --kds-banner-text: var(--kds-color-media-foreground-dark);
-  --kds-banner-scrim: var(--kds-color-media-scrim-dark);
+.louis-banner-carousel__slide[data-tone="dark"] {
+  --louis-banner-text: var(--louis-color-media-foreground-dark);
+  --louis-banner-scrim: var(--louis-color-media-scrim-dark);
 }
 
 /* progressive blur — 글자 쪽만 흐리고 사진 쪽으로 갈수록 걷힌다. */
-.kds-banner-carousel__slide::before {
+.louis-banner-carousel__slide::before {
   content: "";
   position: absolute;
   inset: 0;
@@ -914,7 +914,7 @@
 
 /* ── 콘텐츠 ─────────────────────────────────────────────────────────────── */
 
-.kds-banner-carousel__content {
+.louis-banner-carousel__content {
   position: relative;
   display: flex;
   flex-direction: column;
@@ -922,157 +922,157 @@
   justify-content: flex-start;
   inline-size: min(540px, 100%);
   block-size: 100%;
-  padding-block: var(--kds-space-layout-section);
-  padding-inline: var(--kds-space-media-inset);
+  padding-block: var(--louis-space-layout-section);
+  padding-inline: var(--louis-space-media-inset);
 }
 
-.kds-banner-carousel__wordmark {
-  block-size: var(--kds-space-control-lg);
+.louis-banner-carousel__wordmark {
+  block-size: var(--louis-space-control-lg);
   inline-size: auto;
   object-fit: contain;
   opacity: 0.85;
 }
 
-.kds-banner-carousel__text {
+.louis-banner-carousel__text {
   margin-block: auto;
   display: flex;
   flex-direction: column;
-  gap: var(--kds-space-overlay-inset);
+  gap: var(--louis-space-overlay-inset);
 }
 
-.kds-banner-carousel__title {
+.louis-banner-carousel__title {
   margin: 0;
-  font-family: var(--kds-typography-heading-md-medium-font-family);
-  font-size: var(--kds-typography-heading-md-medium-font-size);
-  font-weight: var(--kds-typography-heading-md-medium-font-weight);
-  letter-spacing: var(--kds-typography-heading-md-medium-letter-spacing);
-  line-height: var(--kds-typography-heading-md-medium-line-height);
-  color: var(--kds-banner-text);
+  font-family: var(--louis-typography-heading-md-medium-font-family);
+  font-size: var(--louis-typography-heading-md-medium-font-size);
+  font-weight: var(--louis-typography-heading-md-medium-font-weight);
+  letter-spacing: var(--louis-typography-heading-md-medium-letter-spacing);
+  line-height: var(--louis-typography-heading-md-medium-line-height);
+  color: var(--louis-banner-text);
 }
 
-.kds-banner-carousel__description {
+.louis-banner-carousel__description {
   margin: 0;
-  margin-block-start: var(--kds-space-overlay-inset);
+  margin-block-start: var(--louis-space-overlay-inset);
   max-inline-size: 480px;
-  font-family: var(--kds-typography-body-md-regular-font-family);
-  font-size: var(--kds-typography-body-md-regular-font-size);
-  font-weight: var(--kds-typography-body-md-regular-font-weight);
-  letter-spacing: var(--kds-typography-body-md-regular-letter-spacing);
-  line-height: var(--kds-typography-body-md-regular-line-height);
-  color: color-mix(in srgb, var(--kds-banner-text) 72%, transparent);
+  font-family: var(--louis-typography-body-md-regular-font-family);
+  font-size: var(--louis-typography-body-md-regular-font-size);
+  font-weight: var(--louis-typography-body-md-regular-font-weight);
+  letter-spacing: var(--louis-typography-body-md-regular-letter-spacing);
+  line-height: var(--louis-typography-body-md-regular-line-height);
+  color: color-mix(in srgb, var(--louis-banner-text) 72%, transparent);
 }
 
 /* ── stagger ────────────────────────────────────────────────────────────────
  * 지연을 세 단으로 걸어 워드마크 → 제목 → 설명 순으로 올린다. **나갈 때는 지연 0**이다 —
  * 슬라이드가 물러나는 동안 stagger가 다시 걸리면 잔상이 어긋난다. */
 
-.kds-banner-carousel__stagger {
+.louis-banner-carousel__stagger {
   opacity: 0;
   translate: 0 10px;
   transition:
-    opacity var(--kds-motion-content-fade-duration)
-      var(--kds-motion-content-fade-timing-function),
-    translate var(--kds-motion-content-rise-duration)
-      var(--kds-motion-content-rise-timing-function);
+    opacity var(--louis-motion-content-fade-duration)
+      var(--louis-motion-content-fade-timing-function),
+    translate var(--louis-motion-content-rise-duration)
+      var(--louis-motion-content-rise-timing-function);
 }
 
-.kds-banner-carousel__slide[data-active="true"] .kds-banner-carousel__stagger {
+.louis-banner-carousel__slide[data-active="true"] .louis-banner-carousel__stagger {
   opacity: 1;
   translate: 0 0;
 }
 
-.kds-banner-carousel__slide[data-active="true"] .kds-banner-carousel__wordmark {
-  transition-delay: var(--kds-motion-stagger-1-delay);
+.louis-banner-carousel__slide[data-active="true"] .louis-banner-carousel__wordmark {
+  transition-delay: var(--louis-motion-stagger-1-delay);
 }
 
-.kds-banner-carousel__slide[data-active="true"] .kds-banner-carousel__title {
-  transition-delay: var(--kds-motion-stagger-2-delay);
+.louis-banner-carousel__slide[data-active="true"] .louis-banner-carousel__title {
+  transition-delay: var(--louis-motion-stagger-2-delay);
 }
 
-.kds-banner-carousel__slide[data-active="true"] .kds-banner-carousel__description {
-  transition-delay: var(--kds-motion-stagger-3-delay);
+.louis-banner-carousel__slide[data-active="true"] .louis-banner-carousel__description {
+  transition-delay: var(--louis-motion-stagger-3-delay);
 }
 
 /* ── 컨트롤 ──────────────────────────────────────────────────────────────────
  * 숫자 z-index를 쓰지 않는다. 슬라이드보다 뒤에 오는 DOM 순서가 곧 칠 순서다. */
 
-.kds-banner-carousel__controls {
+.louis-banner-carousel__controls {
   position: absolute;
-  inset-inline-end: var(--kds-space-control-lg);
-  inset-block-end: var(--kds-space-control-lg);
+  inset-inline-end: var(--louis-space-control-lg);
+  inset-block-end: var(--louis-space-control-lg);
   display: inline-flex;
   align-items: center;
-  gap: var(--kds-space-control-sm);
-  padding: var(--kds-space-control-xs);
-  border-radius: var(--kds-radius-pill);
-  background-color: var(--kds-color-media-control-surface);
-  backdrop-filter: blur(var(--kds-blur-panel)) saturate(130%);
+  gap: var(--louis-space-control-sm);
+  padding: var(--louis-space-control-xs);
+  border-radius: var(--louis-radius-pill);
+  background-color: var(--louis-color-media-control-surface);
+  backdrop-filter: blur(var(--louis-blur-panel)) saturate(130%);
 }
 
-.kds-banner-carousel__arrow {
+.louis-banner-carousel__arrow {
   inline-size: 28px;
   block-size: 28px;
   padding: 0;
   border: 0;
-  border-radius: var(--kds-radius-pill);
+  border-radius: var(--louis-radius-pill);
   display: inline-flex;
   align-items: center;
   justify-content: center;
   background-color: transparent;
-  color: var(--kds-color-media-control-foreground);
+  color: var(--louis-color-media-control-foreground);
   cursor: pointer;
   transition:
-    background-color var(--kds-motion-control-hover-duration)
-      var(--kds-motion-control-hover-timing-function),
-    scale var(--kds-motion-control-hover-duration)
-      var(--kds-motion-control-hover-timing-function);
+    background-color var(--louis-motion-control-hover-duration)
+      var(--louis-motion-control-hover-timing-function),
+    scale var(--louis-motion-control-hover-duration)
+      var(--louis-motion-control-hover-timing-function);
 }
 
 @media (hover: hover) {
-  .kds-banner-carousel__arrow:hover {
-    background-color: var(--kds-color-media-control-hover);
+  .louis-banner-carousel__arrow:hover {
+    background-color: var(--louis-color-media-control-hover);
   }
 }
 
-.kds-banner-carousel__arrow:active {
+.louis-banner-carousel__arrow:active {
   scale: 0.94;
 }
 
-.kds-banner-carousel__arrow:focus-visible {
-  outline: var(--kds-border-width-ring) solid var(--kds-color-stroke-focus);
+.louis-banner-carousel__arrow:focus-visible {
+  outline: var(--louis-border-width-ring) solid var(--louis-color-stroke-focus);
   outline-offset: 2px;
 }
 
-.kds-banner-carousel__dots {
+.louis-banner-carousel__dots {
   display: inline-flex;
   align-items: center;
-  gap: var(--kds-space-overlay-inset);
+  gap: var(--louis-space-overlay-inset);
 }
 
 /* **폭이 상태다.** 점에는 라벨이 없어 폭 말고 현재 위치를 말하는 것이 없다(DS-D-0019).
  * `scale`로 늘리면 두께와 반경까지 함께 늘어나 7px 알약이 20px 자리에서 찌그러진다. */
-.kds-banner-carousel__dot {
+.louis-banner-carousel__dot {
   inline-size: 7px;
   block-size: 7px;
   padding: 0;
   border: 0;
-  border-radius: var(--kds-radius-pill);
-  background-color: var(--kds-color-media-indicator-rest);
+  border-radius: var(--louis-radius-pill);
+  background-color: var(--louis-color-media-indicator-rest);
   cursor: pointer;
   transition:
-    inline-size var(--kds-motion-layout-change-duration)
-      var(--kds-motion-layout-change-timing-function),
-    background-color var(--kds-motion-control-hover-duration)
-      var(--kds-motion-control-hover-timing-function);
+    inline-size var(--louis-motion-layout-change-duration)
+      var(--louis-motion-layout-change-timing-function),
+    background-color var(--louis-motion-control-hover-duration)
+      var(--louis-motion-control-hover-timing-function);
 }
 
-.kds-banner-carousel__dot[aria-current="true"] {
+.louis-banner-carousel__dot[aria-current="true"] {
   inline-size: 20px;
-  background-color: var(--kds-color-media-indicator-active);
+  background-color: var(--louis-color-media-indicator-active);
 }
 
-.kds-banner-carousel__dot:focus-visible {
-  outline: var(--kds-border-width-ring) solid var(--kds-color-stroke-focus);
+.louis-banner-carousel__dot:focus-visible {
+  outline: var(--louis-border-width-ring) solid var(--louis-color-stroke-focus);
   outline-offset: 2px;
 }
 
@@ -1081,21 +1081,21 @@
  * 지운다 — 흐림 자체가 합성 부담이고, 제품이 `motion-reduce`에서 지우는 것과 맞춘다. */
 
 @media (prefers-reduced-motion: reduce) {
-  .kds-banner-carousel__slide,
-  .kds-banner-carousel__stagger,
-  .kds-banner-carousel__arrow,
-  .kds-banner-carousel__dot {
-    transition-duration: var(--kds-motion-reduced-duration);
-    transition-delay: var(--kds-motion-reduced-delay);
+  .louis-banner-carousel__slide,
+  .louis-banner-carousel__stagger,
+  .louis-banner-carousel__arrow,
+  .louis-banner-carousel__dot {
+    transition-duration: var(--louis-motion-reduced-duration);
+    transition-delay: var(--louis-motion-reduced-delay);
   }
 
-  .kds-banner-carousel__slide[data-active="true"] .kds-banner-carousel__wordmark,
-  .kds-banner-carousel__slide[data-active="true"] .kds-banner-carousel__title,
-  .kds-banner-carousel__slide[data-active="true"] .kds-banner-carousel__description {
-    transition-delay: var(--kds-motion-reduced-delay);
+  .louis-banner-carousel__slide[data-active="true"] .louis-banner-carousel__wordmark,
+  .louis-banner-carousel__slide[data-active="true"] .louis-banner-carousel__title,
+  .louis-banner-carousel__slide[data-active="true"] .louis-banner-carousel__description {
+    transition-delay: var(--louis-motion-reduced-delay);
   }
 
-  .kds-banner-carousel__slide::before {
+  .louis-banner-carousel__slide::before {
     backdrop-filter: none;
     mask-image: none;
   }
@@ -1104,22 +1104,22 @@
 /* Button — design/components/button.md
  *
  * 상태는 data-* 속성으로만 표현한다. React state를 className 문자열로 조합하지 않는다 (DS-D-0004).
- * 높이는 padding과 line-height로 자연스럽게 결정되고, 44px 타깃은 .kds-hit-target이 보장한다.
+ * 높이는 padding과 line-height로 자연스럽게 결정되고, 44px 타깃은 .louis-hit-target이 보장한다.
  * 번역과 200% 확대에서 잘리지 않도록 고정 높이를 쓰지 않는다.
  */
 
-.kds-button {
+.louis-button {
   position: relative;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: var(--kds-space-control-sm);
+  gap: var(--louis-space-control-sm);
   /* base에는 stroke가 없다 — 네이티브 button의 UA 테두리를 지운다(reset은 opt-in이라 여기서
    * 스스로 지운다). secondary만 가시 헤어라인을 레이아웃을 건드리지 않는 inset box-shadow로
    * 그린다 (DS-D-0023). 이전 base 투명 border가 forced-colors에서 얻던 경계는 아래 forced-colors
    * 블록이 이어받는다. */
   border: 0;
-  border-radius: var(--kds-radius-control);
+  border-radius: var(--louis-radius-control);
   cursor: pointer;
   text-decoration: none;
   /* 긴 KO/EN/JA 라벨이 잘리지 않고 줄바꿈되게 한다.
@@ -1135,84 +1135,84 @@
    * 쓰는 이유는 하나뿐이다 — 일반 라벨에서는 제품과 **정확히 같은 40/32**가 나오고, KO/EN/JA 긴
    * 라벨이나 200% 확대에서는 잘리는 대신 자란다. 제품은 nowrap이라 그 경우 라벨이 넘친다.
    * 이 차이는 migration/product.measured.json에 사유와 함께 선언돼 있다. */
-  min-block-size: var(--kds-layout-control-height-md);
+  min-block-size: var(--louis-layout-control-height-md);
   /* **타이포는 size 축이 아니다.** 제품은 md·sm 모두 14px/500이며 size가 글자 크기를 바꾸지
    * 않는다(Button.tsx:56-67). 이전 DS는 sm에서 caption 12px로 줄여 제품과 달랐다. */
-  font-family: var(--kds-typography-body-sm-medium-font-family);
-  font-size: var(--kds-typography-body-sm-medium-font-size);
-  font-weight: var(--kds-typography-body-sm-medium-font-weight);
-  line-height: var(--kds-typography-body-sm-medium-line-height);
-  letter-spacing: var(--kds-typography-body-sm-medium-letter-spacing);
+  font-family: var(--louis-typography-body-sm-medium-font-family);
+  font-size: var(--louis-typography-body-sm-medium-font-size);
+  font-weight: var(--louis-typography-body-sm-medium-font-weight);
+  line-height: var(--louis-typography-body-sm-medium-line-height);
+  letter-spacing: var(--louis-typography-body-sm-medium-letter-spacing);
   /* motion.md: 허용 property는 opacity와 transform뿐이다.
    * **`scale`은 `transform`과 별개 property다.** `transform`만 적으면 이 선언은 아무것도 전이하지
    * 않는다 — 실측하면 transitionProperty가 "opacity, transform"인데 움직이는 것은 scale뿐이라
    * 누름이 즉시 튄다. dialog.css는 처음부터 `translate, scale`로 적고 있었다. */
   transition-property: opacity, scale;
-  transition-duration: var(--kds-motion-overlay-exit-duration);
-  transition-timing-function: var(--kds-motion-overlay-exit-timing-function);
+  transition-duration: var(--louis-motion-overlay-exit-duration);
+  transition-timing-function: var(--louis-motion-overlay-exit-timing-function);
 }
 
-/* size — 시각 크기만 바꾼다. hit area 계약은 .kds-hit-target이 별도로 유지한다. */
-.kds-button[data-size="md"] {
+/* size — 시각 크기만 바꾼다. hit area 계약은 .louis-hit-target이 별도로 유지한다. */
+.louis-button[data-size="md"] {
   /* 제품: py-0 · px-16 · gap-8 (globals.css:81, Button.tsx:58,66) */
   padding-block: 0;
-  padding-inline: var(--kds-space-control-lg);
+  padding-inline: var(--louis-space-control-lg);
 }
 
 /* 제품: h-32 · px-12 · gap-4 · min-w-48. **타이포는 md와 같다** — size가 글자 크기를 바꾸지
  * 않는다(globals.css:85-87, Button.tsx:62-67). 이전 DS는 sm에서 12px로 줄여 제품과 달랐다. */
-.kds-button[data-size="sm"] {
-  min-block-size: var(--kds-layout-control-height-sm);
-  min-inline-size: var(--kds-layout-control-minimum-width-sm);
+.louis-button[data-size="sm"] {
+  min-block-size: var(--louis-layout-control-height-sm);
+  min-inline-size: var(--louis-layout-control-minimum-width-sm);
   padding-block: 0;
-  padding-inline: var(--kds-space-control-md);
-  column-gap: var(--kds-space-control-xs);
+  padding-inline: var(--louis-space-control-md);
+  column-gap: var(--louis-space-control-xs);
 }
 
 /* 아이콘이 붙은 쪽만 2px 줄여 광학 균형을 맞춘다 (제품 Button.tsx:73-77). 아이콘의 자체 시각
  * 여백 때문에 텍스트-only 대비 그 쪽 padding이 넓어 보인다. */
-.kds-button[data-size="md"][data-left-icon="true"] {
-  padding-inline-start: calc(var(--kds-space-control-lg) - 2px);
+.louis-button[data-size="md"][data-left-icon="true"] {
+  padding-inline-start: calc(var(--louis-space-control-lg) - 2px);
 }
 
-.kds-button[data-size="md"][data-right-icon="true"] {
-  padding-inline-end: calc(var(--kds-space-control-lg) - 2px);
+.louis-button[data-size="md"][data-right-icon="true"] {
+  padding-inline-end: calc(var(--louis-space-control-lg) - 2px);
 }
 
-.kds-button[data-size="sm"][data-left-icon="true"] {
-  padding-inline-start: calc(var(--kds-space-control-md) - 2px);
+.louis-button[data-size="sm"][data-left-icon="true"] {
+  padding-inline-start: calc(var(--louis-space-control-md) - 2px);
 }
 
-.kds-button[data-size="sm"][data-right-icon="true"] {
-  padding-inline-end: calc(var(--kds-space-control-md) - 2px);
+.louis-button[data-size="sm"][data-right-icon="true"] {
+  padding-inline-end: calc(var(--louis-space-control-md) - 2px);
 }
 
 /* variant — 값은 제품 배포 코드에서 채택했다. 채택/편차 판정은
  * migration/product.measured.json에 근거와 함께 있고 게이트가 매 실행 확인한다. */
-.kds-button[data-variant="primary"] {
-  background: var(--kds-color-accent-primary);
-  color: var(--kds-color-fg-inverse);
+.louis-button[data-variant="primary"] {
+  background: var(--louis-color-accent-primary);
+  color: var(--louis-color-fg-inverse);
 }
 
 /* 제품의 secondary·ghost는 **면이 없다.** 이전 DS는 secondary에 surface 면과 불투명 테두리를
  * 두어 제품과 달랐다 (Button.tsx:106,117). */
-.kds-button[data-variant="secondary"] {
+.louis-button[data-variant="secondary"] {
   background: transparent;
   /* generic 10% inset 헤어라인 (DS-D-0023). 이전엔 color-stroke-control(반투명 12%) border였다 —
    * 모든 일반 0.5px stroke를 단일 색·두께로 통일했다. */
-  box-shadow: var(--kds-hairline-inset);
-  color: var(--kds-color-accent-secondary-foreground);
+  box-shadow: var(--louis-hairline-inset);
+  color: var(--louis-color-accent-secondary-foreground);
 }
 
-.kds-button[data-variant="ghost"] {
+.louis-button[data-variant="ghost"] {
   background: transparent;
-  color: var(--kds-color-accent-secondary-foreground);
+  color: var(--louis-color-accent-secondary-foreground);
 }
 
 /* 제품의 danger는 solid다 (#ff4b59 + 흰 글자). 이전 DS는 tonal이었다. */
-.kds-button[data-variant="danger"] {
-  background: var(--kds-color-accent-danger);
-  color: var(--kds-color-fg-on-danger);
+.louis-button[data-variant="danger"] {
+  background: var(--louis-color-accent-danger);
+  color: var(--louis-color-fg-on-danger);
 }
 
 /* hover — hover에서만 기능을 드러내지 않는다. 면 강조만 바꾼다.
@@ -1220,65 +1220,65 @@
  * 제품은 secondary·ghost의 hover를 **알파 오버레이**로 준다(5% / 8%). 면 위에 얹히므로 배경이
  * 무엇이든 같은 정도로 어두워진다. 이전 DS는 둘 다 불투명 background-inset이라 배경이 다른
  * 자리에서 면이 튀었고 secondary와 ghost가 구분되지 않았다. */
-.kds-button:where(:not([aria-disabled="true"]):not(:disabled)):hover[data-variant="primary"] {
-  background: var(--kds-color-accent-primary-hover);
+.louis-button:where(:not([aria-disabled="true"]):not(:disabled)):hover[data-variant="primary"] {
+  background: var(--louis-color-accent-primary-hover);
 }
 
-.kds-button:where(:not([aria-disabled="true"]):not(:disabled)):hover[data-variant="secondary"] {
-  background: var(--kds-color-accent-secondary-hover);
+.louis-button:where(:not([aria-disabled="true"]):not(:disabled)):hover[data-variant="secondary"] {
+  background: var(--louis-color-accent-secondary-hover);
 }
 
-.kds-button:where(:not([aria-disabled="true"]):not(:disabled)):hover[data-variant="ghost"] {
-  background: var(--kds-color-accent-ghost-hover);
+.louis-button:where(:not([aria-disabled="true"]):not(:disabled)):hover[data-variant="ghost"] {
+  background: var(--louis-color-accent-ghost-hover);
 }
 
 /* 제품은 danger hover를 opacity 0.85로 준다 (Button.tsx:130). 색 토큰을 새로 만들지 않고
  * 같은 방식을 쓴다 — motion 규범이 허용하는 property이기도 하다. */
-.kds-button:where(:not([aria-disabled="true"]):not(:disabled)):hover[data-variant="danger"] {
+.louis-button:where(:not([aria-disabled="true"]):not(:disabled)):hover[data-variant="danger"] {
   opacity: 0.85;
 }
 
 /* pressed — reduced-motion에서는 scale 이동을 제거하되 의미는 유지한다. */
-.kds-button:where(:not([aria-disabled="true"]):not(:disabled)):active[data-variant="primary"] {
-  background: var(--kds-color-accent-primary-active);
+.louis-button:where(:not([aria-disabled="true"]):not(:disabled)):active[data-variant="primary"] {
+  background: var(--louis-color-accent-primary-active);
 }
 
-.kds-button:where(:not([aria-disabled="true"]):not(:disabled)):active {
+.louis-button:where(:not([aria-disabled="true"]):not(:disabled)):active {
   scale: 0.98;
 }
 
 /* 제품은 ghost만 0.97로 더 눌린다 (Button.tsx:85-86). 면이 없어 눌림이 덜 읽히기 때문이다. */
-.kds-button:where(:not([aria-disabled="true"]):not(:disabled)):active[data-variant="ghost"] {
+.louis-button:where(:not([aria-disabled="true"]):not(:disabled)):active[data-variant="ghost"] {
   scale: 0.97;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .kds-button {
-    transition-duration: var(--kds-motion-reduced-duration);
+  .louis-button {
+    transition-duration: var(--louis-motion-reduced-duration);
   }
 
-  .kds-button:where(:not([aria-disabled="true"]):not(:disabled)):active {
+  .louis-button:where(:not([aria-disabled="true"]):not(:disabled)):active {
     scale: 1;
   }
 }
 
 /* disabled와 loading — 둘 다 실행되지 않고, 그렇게 보인다. */
-.kds-button:disabled,
-.kds-button[aria-disabled="true"] {
+.louis-button:disabled,
+.louis-button[aria-disabled="true"] {
   cursor: not-allowed;
-  color: var(--kds-color-fg-disabled);
+  color: var(--louis-color-fg-disabled);
 }
 
-.kds-button:disabled:where([data-variant="primary"], [data-variant="danger"]),
-.kds-button[aria-disabled="true"]:where([data-variant="primary"], [data-variant="danger"]) {
-  background: var(--kds-color-bg-inset);
+.louis-button:disabled:where([data-variant="primary"], [data-variant="danger"]),
+.louis-button[aria-disabled="true"]:where([data-variant="primary"], [data-variant="danger"]) {
+  background: var(--louis-color-bg-inset);
 }
 
 /* disabled secondary는 별도 테두리 색을 두지 않는다 — enabled의 generic 헤어라인을 유지하고
  * 상태는 foreground 색이 전달한다 (DS-D-0023, 이전엔 color-stroke-subtle border였다). */
 
 /* loading — label 의미를 유지한 채 progress indicator를 함께 보인다. */
-.kds-button[data-loading="true"] .kds-button__label {
+.louis-button[data-loading="true"] .louis-button__label {
   opacity: 0.6;
 }
 
@@ -1291,46 +1291,46 @@
  * Iconography의 "글리프 크기는 아이콘이 소유한다"에 대한 의도적 예외이며 사유는
  * design/components/button.md의 Known deviations에 있다. 컨테이너 크기를 컨트롤이 소유한다는
  * 같은 문서의 규칙과는 어긋나지 않는다. */
-.kds-button__icon {
+.louis-button__icon {
   display: inline-flex;
   flex: none;
   align-items: center;
   justify-content: center;
-  inline-size: var(--kds-icon-size-md);
-  block-size: var(--kds-icon-size-md);
+  inline-size: var(--louis-icon-size-md);
+  block-size: var(--louis-icon-size-md);
 }
 
-.kds-button[data-size="sm"] .kds-button__icon {
-  inline-size: var(--kds-icon-size-sm);
-  block-size: var(--kds-icon-size-sm);
+.louis-button[data-size="sm"] .louis-button__icon {
+  inline-size: var(--louis-icon-size-sm);
+  block-size: var(--louis-icon-size-sm);
 }
 
 /* 글리프를 슬롯에 맞춘다. 맞추지 않으면 20px 아이콘이 16px 슬롯 밖으로 삐져나온다.
- * .kds-icon[data-size=...]와 같은 우선순위로는 로드 순서에 결과가 달려 있으므로 한 단계 높인다. */
-.kds-button .kds-button__icon > .kds-icon {
+ * .louis-icon[data-size=...]와 같은 우선순위로는 로드 순서에 결과가 달려 있으므로 한 단계 높인다. */
+.louis-button .louis-button__icon > .louis-icon {
   inline-size: 100%;
   block-size: 100%;
 }
 
-.kds-button__spinner {
+.louis-button__spinner {
   display: inline-flex;
   flex: none;
   width: 1em;
   height: 1em;
-  border: var(--kds-border-width-ring) solid currentColor;
+  border: var(--louis-border-width-ring) solid currentColor;
   border-block-start-color: transparent;
-  border-radius: var(--kds-radius-pill);
+  border-radius: var(--louis-radius-pill);
   /* DS-D-0016 — loop lifecycle. 700ms는 제품의 우세값이고 linear는 제품 22벌이 전수
    일치하는 유일한 축이다. 가감속이 붙으면 회전이 맥박처럼 뛴다. */
-  animation-name: kds-spin;
-  animation-duration: var(--kds-motion-spin-duration);
-  animation-timing-function: var(--kds-motion-spin-timing-function);
+  animation-name: louis-spin;
+  animation-duration: var(--louis-motion-spin-duration);
+  animation-timing-function: var(--louis-motion-spin-timing-function);
   animation-iteration-count: infinite;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .kds-button__spinner {
-    animation-duration: var(--kds-motion-reduced-duration);
+  .louis-button__spinner {
+    animation-duration: var(--louis-motion-reduced-duration);
     /* 회전을 멈추더라도 진행 중이라는 의미는 aria-busy가 유지한다. */
     animation-iteration-count: 1;
   }
@@ -1342,9 +1342,9 @@
  * 색으로 치환돼 배경과 구분되지 않으므로 모든 variant에 경계를 남긴다 — base 투명 border가
  * 하던 일을 이어받는다 (DS-D-0023). */
 @media (forced-colors: active) {
-  .kds-button {
+  .louis-button {
     box-shadow: none;
-    border: var(--kds-border-width-default) solid currentColor;
+    border: var(--louis-border-width-default) solid currentColor;
   }
 }
 
@@ -1373,15 +1373,15 @@
  * 곳으로 갈라진다. 키보드(Space), `:indeterminate`, 폼 제출은 네이티브의 것이다.
  */
 
-.kds-checkbox {
+.louis-checkbox {
   display: inline-flex;
   align-items: flex-start;
-  gap: var(--kds-space-control-sm);
+  gap: var(--louis-space-control-sm);
   min-inline-size: 0;
   cursor: pointer;
 }
 
-.kds-checkbox__control {
+.louis-checkbox__control {
   appearance: none;
   -webkit-appearance: none;
   box-sizing: border-box;
@@ -1399,33 +1399,33 @@
    * 모든 일반 0.5px stroke를 10% 헤어라인으로 통일하는 결정을 내렸고(인계서 (2b) 해소) 10%는
    * 라이트에서 대비를 strong보다 더 낮춘다. 이 접근성 편차는 Known deviations와 DS-D-0023에
    * 수치와 함께 기록했고, 되돌리려면 두 저장소를 함께 예외로 두어야 한다. */
-  box-shadow: var(--kds-hairline-inset);
-  border-radius: var(--kds-radius-control-sm);
-  background: var(--kds-color-bg-surface);
+  box-shadow: var(--louis-hairline-inset);
+  border-radius: var(--louis-radius-control-sm);
+  background: var(--louis-color-bg-surface);
   cursor: pointer;
 }
 
 /* 라벨과 첫 줄을 맞춘다. 라벨이 여러 줄이면 상자는 첫 줄 옆에 남아야 한다. */
-.kds-checkbox__label {
+.louis-checkbox__label {
   min-inline-size: 0;
-  color: var(--kds-color-fg-primary);
-  font-family: var(--kds-typography-body-sm-regular-font-family);
-  font-size: var(--kds-typography-body-sm-regular-font-size);
-  font-weight: var(--kds-typography-body-sm-regular-font-weight);
-  line-height: var(--kds-typography-body-sm-regular-line-height);
-  letter-spacing: var(--kds-typography-body-sm-regular-letter-spacing);
+  color: var(--louis-color-fg-primary);
+  font-family: var(--louis-typography-body-sm-regular-font-family);
+  font-size: var(--louis-typography-body-sm-regular-font-size);
+  font-weight: var(--louis-typography-body-sm-regular-font-weight);
+  line-height: var(--louis-typography-body-sm-regular-line-height);
+  letter-spacing: var(--louis-typography-body-sm-regular-letter-spacing);
 }
 
-.kds-checkbox__control:checked,
-.kds-checkbox__control:indeterminate {
+.louis-checkbox__control:checked,
+.louis-checkbox__control:indeterminate {
   /* 선택 상태는 solid 면이 채운다. base의 generic 헤어라인은 남고 상태는 면과 체크 표시가
    * 전달한다 (DS-D-0023, 이전엔 border-color: action-primary였다). */
-  background: var(--kds-color-accent-primary);
+  background: var(--louis-color-accent-primary);
 }
 
 /* 표시는 `::before` 하나가 두 상태를 나눠 쓴다. 회전한 테두리로 그리는 이유는 아이콘 자산을
  * CSS package가 소비하지 않기 때문이다 — 아이콘은 React package가 소유한다(DS-D-0008). */
-.kds-checkbox__control::before {
+.louis-checkbox__control::before {
   content: "";
   position: absolute;
   display: block;
@@ -1433,110 +1433,110 @@
 }
 
 /* 체크 — 왼쪽 아래 두 변만 남긴 사각형을 45도 돌린다. */
-.kds-checkbox__control:checked::before {
+.louis-checkbox__control:checked::before {
   inset-inline-start: 50%;
   inset-block-start: 46%;
   inline-size: 5px;
   block-size: 9px;
-  border: solid var(--kds-color-fg-inverse);
+  border: solid var(--louis-color-fg-inverse);
   border-width: 0 2px 2px 0;
   transform: translate(-50%, -50%) rotate(45deg);
   opacity: 1;
 }
 
 /* Indeterminate — 가로 막대 하나. **부분 선택은 선택이 아니다**는 것을 모양이 말해야 한다. */
-.kds-checkbox__control:indeterminate::before {
+.louis-checkbox__control:indeterminate::before {
   inset-inline-start: 50%;
   inset-block-start: 50%;
   inline-size: 10px;
   block-size: 2px;
-  border-radius: var(--kds-radius-pill);
-  background: var(--kds-color-fg-inverse);
+  border-radius: var(--louis-radius-pill);
+  background: var(--louis-color-fg-inverse);
   transform: translate(-50%, -50%);
   opacity: 1;
 }
 
 /* indeterminate가 checked를 이긴다. 네이티브에서 두 상태는 동시에 참일 수 있고, 그때 화면은
  * "일부"를 보여야 한다 — 위 두 규칙은 소스 순서로 갈리므로 여기서 명시적으로 되돌린다. */
-.kds-checkbox__control:indeterminate:checked::before {
+.louis-checkbox__control:indeterminate:checked::before {
   inline-size: 10px;
   block-size: 2px;
   border: 0;
-  border-radius: var(--kds-radius-pill);
-  background: var(--kds-color-fg-inverse);
+  border-radius: var(--louis-radius-pill);
+  background: var(--louis-color-fg-inverse);
   transform: translate(-50%, -50%);
 }
 
-.kds-checkbox__control:focus-visible {
-  outline: var(--kds-border-width-ring) solid var(--kds-color-stroke-focus);
+.louis-checkbox__control:focus-visible {
+  outline: var(--louis-border-width-ring) solid var(--louis-color-stroke-focus);
   outline-offset: 2px;
 }
 
 @media (forced-colors: active) {
   /* box-shadow 헤어라인은 강제 색에서 사라지므로 상자 경계를 시스템 색 실선으로 되살린다 —
    * 선택하지 않은 상자는 이 경계가 어포던스의 전부다 (DS-D-0023). */
-  .kds-checkbox__control {
+  .louis-checkbox__control {
     box-shadow: none;
-    border: var(--kds-border-width-default) solid currentColor;
+    border: var(--louis-border-width-default) solid currentColor;
   }
 
-  .kds-checkbox__control:focus-visible {
+  .louis-checkbox__control:focus-visible {
     outline-color: Highlight;
   }
 
   /* forced-colors에서 면 색이 치환돼 체크 표시가 배경과 같아진다. 시스템 전경으로 되돌린다. */
-  .kds-checkbox__control:checked::before,
-  .kds-checkbox__control:indeterminate::before {
+  .louis-checkbox__control:checked::before,
+  .louis-checkbox__control:indeterminate::before {
     border-color: CanvasText;
     background: CanvasText;
   }
 }
 
-.kds-checkbox__control:disabled {
+.louis-checkbox__control:disabled {
   /* 상태는 면(background-inset)과 foreground 색이 전달한다 — generic 헤어라인을 유지한다
    * (DS-D-0023, 이전엔 border-color: subtle). */
-  background: var(--kds-color-bg-inset);
+  background: var(--louis-color-bg-inset);
   cursor: not-allowed;
 }
 
-.kds-checkbox__control:disabled:checked,
-.kds-checkbox__control:disabled:indeterminate {
-  background: var(--kds-color-bg-inset);
+.louis-checkbox__control:disabled:checked,
+.louis-checkbox__control:disabled:indeterminate {
+  background: var(--louis-color-bg-inset);
 }
 
-.kds-checkbox__control:disabled:checked::before {
-  border-color: var(--kds-color-fg-disabled);
+.louis-checkbox__control:disabled:checked::before {
+  border-color: var(--louis-color-fg-disabled);
 }
 
-.kds-checkbox__control:disabled:indeterminate::before {
-  background: var(--kds-color-fg-disabled);
+.louis-checkbox__control:disabled:indeterminate::before {
+  background: var(--louis-color-fg-disabled);
 }
 
-.kds-checkbox:has(.kds-checkbox__control:disabled) {
+.louis-checkbox:has(.louis-checkbox__control:disabled) {
   cursor: not-allowed;
 }
 
-.kds-checkbox:has(.kds-checkbox__control:disabled) .kds-checkbox__label {
-  color: var(--kds-color-fg-disabled);
+.louis-checkbox:has(.louis-checkbox__control:disabled) .louis-checkbox__label {
+  color: var(--louis-color-fg-disabled);
 }
 
 /* Dialog / Modal — design/components/dialog.md
  *
- * root의 모션 lifecycle(duration/timing/opacity)과 --kds-overlay-* seam은 overlay.css가
+ * root의 모션 lifecycle(duration/timing/opacity)과 --louis-overlay-* seam은 overlay.css가
  * 소유한다. 여기서 다시 선언하지 않는다.
  *
  * 이 파일은 파일명 정렬상 overlay.css보다 **먼저** 방출된다(build-css.mjs의 readdirSync().sort()).
- * 그래서 overlay.css의 anchored 전용 선언을 덮어야 하는 곳에서는 `.kds-overlay-panel.kds-dialog`로
- * 명시도를 한 칸 올린다 — 같은 요소에 두 클래스가 모두 붙으므로(use-overlay가 kds-overlay-panel을
+ * 그래서 overlay.css의 anchored 전용 선언을 덮어야 하는 곳에서는 `.louis-overlay-panel.louis-dialog`로
+ * 명시도를 한 칸 올린다 — 같은 요소에 두 클래스가 모두 붙으므로(use-overlay가 louis-overlay-panel을
  * 항상 조합한다) 순서에 의존하지 않고 이긴다. overlay.css는 수정하지 않는다.
  */
 
-.kds-dialog {
+.louis-dialog {
   /* DS-P3-014 대기 — semantic 토큰이 생기면 이 네 줄만 갈아끼운다. */
-  --kds-dialog-viewport-gutter: 20px;
-  --kds-dialog-inline-size: 480px;
-  --kds-dialog-surface-inset: var(--kds-space-layout-section);
-  --kds-dialog-surface-radius: var(--kds-radius-overlay);
+  --louis-dialog-viewport-gutter: 20px;
+  --louis-dialog-inline-size: 480px;
+  --louis-dialog-surface-inset: var(--louis-space-layout-section);
+  --louis-dialog-surface-radius: var(--louis-radius-overlay);
 
   position: fixed;
   inset: 0;
@@ -1544,10 +1544,10 @@
   /* safe 정렬 — surface가 넘칠 때 상단이 잘려 도달 불가가 되는 것을 막는다. */
   align-items: safe center;
   justify-items: center;
-  padding-block: max(var(--kds-dialog-viewport-gutter), env(safe-area-inset-top))
-    max(var(--kds-dialog-viewport-gutter), env(safe-area-inset-bottom));
-  padding-inline: max(var(--kds-dialog-viewport-gutter), env(safe-area-inset-left))
-    max(var(--kds-dialog-viewport-gutter), env(safe-area-inset-right));
+  padding-block: max(var(--louis-dialog-viewport-gutter), env(safe-area-inset-top))
+    max(var(--louis-dialog-viewport-gutter), env(safe-area-inset-bottom));
+  padding-inline: max(var(--louis-dialog-viewport-gutter), env(safe-area-inset-left))
+    max(var(--louis-dialog-viewport-gutter), env(safe-area-inset-right));
 }
 
 /* overlay.css의 anchored 전용 geometry를 modal에서 되돌린다.
@@ -1555,7 +1555,7 @@
  * 중앙 정렬 컨테이너 + overflow의 고전 버그로 surface 상단이 스크롤 불가 영역에 갇힌다.
  * 상한은 physical 속성명 그대로 쓴다 — logical로 쓰면 논리·물리 매핑의 cascade 규칙에
  * 기대게 되고 리뷰어가 읽고 판정할 수 없는 코드가 된다. */
-.kds-overlay-panel.kds-dialog {
+.louis-overlay-panel.louis-dialog {
   max-width: none;
   max-height: none;
   overflow: hidden;
@@ -1563,20 +1563,20 @@
 
 /* scale은 anchor 확장의 표현이다. modal에서는 (a) scrim이 함께 줄어 뷰포트 가장자리가 비치고
  * (b) root에 transform이 생기는 순간 자손의 position: fixed 기준이 root로 바뀐다. */
-.kds-overlay-panel.kds-dialog[data-kds-state="opening"] {
+.louis-overlay-panel.louis-dialog[data-louis-state="opening"] {
   scale: 1;
 }
 
 /* scrim. absolute인 이유는 root에 transform이 생겨도 기준이 흔들리지 않게 하기 위해서다.
  * grid 배치를 명시하지 않은 absolute 자식의 containing block은 grid 컨테이너의 padding box이며,
  * out-of-flow라 grid item이 되지 않는다 — surface의 중앙 정렬을 방해하지 않는다. */
-.kds-dialog__backdrop {
+.louis-dialog__backdrop {
   position: absolute;
   inset: 0;
-  background: var(--kds-color-dim-modal);
+  background: var(--louis-color-dim-modal);
 }
 
-.kds-dialog__surface {
+.louis-dialog__surface {
   /* backdrop 위로 올리는 유일한 수단. positioned 자손은 in-flow 콘텐츠보다 위에 칠해지므로
    * static인 채로 두면 surface가 scrim 밑으로 들어간다. 숫자 z-index를 쓰지 않는다. */
   position: relative;
@@ -1589,23 +1589,23 @@
   /* minmax(0, 1fr)이 핵심이다. 1fr만 쓰면 grid item의 자동 최소 크기가 콘텐츠라
    * body가 줄지 않고 surface가 넘쳐 footer가 화면 밖으로 나간다. */
   grid-template-rows: auto minmax(0, 1fr) auto;
-  inline-size: min(var(--kds-dialog-inline-size), 100%);
+  inline-size: min(var(--louis-dialog-inline-size), 100%);
   /* 여백 산수를 반복하지 않는다. 좌우는 root padding이 소유하고 surface는 상한만 말한다.
    * 곱셈 대신 두 번 빼는 이유는 저작 게이트의 전역 선택자 패턴이 공백으로 둘러싼 `*`를
    * 선택자로 오인하기 때문이다 — menu-popover.css와 같은 회피다. */
   max-block-size: min(
     100%,
     calc(
-      100dvh - var(--kds-dialog-viewport-gutter) - var(--kds-dialog-viewport-gutter)
+      100dvh - var(--louis-dialog-viewport-gutter) - var(--louis-dialog-viewport-gutter)
     )
   );
   overflow: hidden;
-  background: var(--kds-color-bg-overlay);
-  border-radius: var(--kds-dialog-surface-radius);
+  background: var(--louis-color-bg-overlay);
+  border-radius: var(--louis-dialog-surface-radius);
   /* 경계는 border가 아니라 modal elevation 뒤에 조합한 inset 헤어라인이다 (DS-D-0023). dark에서
    * elevation-modal 그림자만으로는 표면 경계가 서지 않아 generic 10% 헤어라인 한 겹을 남긴다. */
-  box-shadow: var(--kds-elevation-modal), var(--kds-hairline-inset);
-  color: var(--kds-color-fg-primary);
+  box-shadow: var(--louis-elevation-modal), var(--louis-hairline-inset);
+  color: var(--louis-color-fg-primary);
 
   /* enter/exit transform의 절반. duration/timing을 **inherit**로 받는 것이 이 블록의 핵심이다.
    * presence의 readExitDuration은 root의 computed transition-duration을 읽는데, inherit는
@@ -1617,12 +1617,12 @@
   transition-timing-function: inherit;
 }
 
-.kds-dialog[data-kds-state="opening"] .kds-dialog__surface {
+.louis-dialog[data-louis-state="opening"] .louis-dialog__surface {
   translate: 0 8px;
   scale: 0.98;
 }
 
-.kds-dialog[data-kds-state="open"] .kds-dialog__surface {
+.louis-dialog[data-louis-state="open"] .louis-dialog__surface {
   translate: 0 0;
   scale: 1;
 }
@@ -1630,154 +1630,154 @@
 @media (prefers-reduced-motion: reduce) {
   /* Specification의 Reduced motion = 비필수 transform 제거. opacity 순서는 root가 계속 진다.
    * 위 opening 규칙과 같은 (0,2,0) 형태이므로 뒤에 와서 이긴다. */
-  .kds-dialog[data-kds-state="opening"] .kds-dialog__surface {
+  .louis-dialog[data-louis-state="opening"] .louis-dialog__surface {
     translate: 0 0;
     scale: 1;
   }
 }
 
-.kds-dialog__header {
+.louis-dialog__header {
   display: flex;
   align-items: flex-start;
-  gap: var(--kds-space-control-sm);
-  padding: var(--kds-dialog-surface-inset);
-  padding-block-end: var(--kds-space-control-sm);
+  gap: var(--louis-space-control-sm);
+  padding: var(--louis-dialog-surface-inset);
+  padding-block-end: var(--louis-space-control-sm);
 }
 
-.kds-dialog__heading {
+.louis-dialog__heading {
   flex: 1 1 auto;
   min-inline-size: 0;
 }
 
-.kds-dialog__title {
+.louis-dialog__title {
   margin: 0;
-  color: var(--kds-color-fg-primary);
+  color: var(--louis-color-fg-primary);
   overflow-wrap: break-word;
   word-break: keep-all;
-  font-family: var(--kds-typography-heading-md-medium-font-family);
-  font-size: var(--kds-typography-heading-md-medium-font-size);
-  font-weight: var(--kds-typography-heading-md-medium-font-weight);
-  line-height: var(--kds-typography-heading-md-medium-line-height);
-  letter-spacing: var(--kds-typography-heading-md-medium-letter-spacing);
+  font-family: var(--louis-typography-heading-md-medium-font-family);
+  font-size: var(--louis-typography-heading-md-medium-font-size);
+  font-weight: var(--louis-typography-heading-md-medium-font-weight);
+  line-height: var(--louis-typography-heading-md-medium-line-height);
+  letter-spacing: var(--louis-typography-heading-md-medium-letter-spacing);
 }
 
-.kds-dialog__description {
+.louis-dialog__description {
   margin: 0;
-  margin-block-start: var(--kds-space-control-xs);
-  color: var(--kds-color-fg-secondary);
+  margin-block-start: var(--louis-space-control-xs);
+  color: var(--louis-color-fg-secondary);
   overflow-wrap: break-word;
   word-break: keep-all;
-  font-family: var(--kds-typography-body-sm-regular-font-family);
-  font-size: var(--kds-typography-body-sm-regular-font-size);
-  font-weight: var(--kds-typography-body-sm-regular-font-weight);
-  line-height: var(--kds-typography-body-sm-regular-line-height);
-  letter-spacing: var(--kds-typography-body-sm-regular-letter-spacing);
+  font-family: var(--louis-typography-body-sm-regular-font-family);
+  font-size: var(--louis-typography-body-sm-regular-font-size);
+  font-weight: var(--louis-typography-body-sm-regular-font-weight);
+  line-height: var(--louis-typography-body-sm-regular-line-height);
+  letter-spacing: var(--louis-typography-body-sm-regular-letter-spacing);
 }
 
-.kds-dialog__close {
+.louis-dialog__close {
   flex: none;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  inline-size: var(--kds-space-control-lg);
-  block-size: var(--kds-space-control-lg);
+  inline-size: var(--louis-space-control-lg);
+  block-size: var(--louis-space-control-lg);
   padding: 0;
   border: 0;
-  border-radius: var(--kds-radius-control);
+  border-radius: var(--louis-radius-control);
   background: transparent;
-  color: var(--kds-color-fg-secondary);
+  color: var(--louis-color-fg-secondary);
   cursor: pointer;
 }
 
-.kds-dialog__close[aria-disabled="true"] {
+.louis-dialog__close[aria-disabled="true"] {
   cursor: not-allowed;
-  color: var(--kds-color-fg-disabled);
+  color: var(--louis-color-fg-disabled);
 }
 
 /* 스크롤은 이 요소 하나만 한다. */
-.kds-dialog__body {
+.louis-dialog__body {
   min-block-size: 0;
   overflow: auto;
   overscroll-behavior: contain;
-  padding-inline: var(--kds-dialog-surface-inset);
-  padding-block: var(--kds-space-control-sm);
+  padding-inline: var(--louis-dialog-surface-inset);
+  padding-block: var(--louis-space-control-sm);
   /* focus ring(offset 2 + width 2 = 4px)이 scrollport 경계에서 잘리지 않게 한다. */
-  scroll-padding-block: var(--kds-space-control-sm);
+  scroll-padding-block: var(--louis-space-control-sm);
 }
 
 /* **액션은 글자보다 가장자리에 가깝다.** 배포본의 모달 두 벌이 액션 행에 `margin: -8px`을 걸어
  * 카드의 16 여백 밖으로 8만큼 되밀어 낸다 — 결과가 좌우·아래 8이고, 제목과 설명은 16에 남는다.
  * 음수 마진 대신 여백을 직접 적어 같은 결과를 만든다. 그 위 간격도 8이 아니라 24다(`margin-top: 24`).
  * 실측은 migration/product.variants.json의 dialog 표본에 있다. */
-.kds-dialog__footer {
-  padding: var(--kds-space-control-sm);
-  padding-block-start: var(--kds-space-layout-section);
+.louis-dialog__footer {
+  padding: var(--louis-space-control-sm);
+  padding-block-start: var(--louis-space-layout-section);
 }
 
-.kds-dialog__actions {
+.louis-dialog__actions {
   display: flex;
   /* 긴 KO/EN/JA 라벨이 한 행에 안 들어가면 각자 행으로 내려간다(콘텐츠 구동 경로). */
   flex-wrap: wrap;
   justify-content: flex-end;
-  /* 8px. Button의 .kds-hit-target ::after가 44px 타깃을 시각 박스 밖으로 3px씩 확장하므로
+  /* 8px. Button의 .louis-hit-target ::after가 44px 타깃을 시각 박스 밖으로 3px씩 확장하므로
    * 3 + 3 = 6 < 8로 간신히 겹치지 않는다. space-control-xs(4px)로 줄이면 즉시 인접 액션의
    * hit 영역을 침범한다 — Menu가 "삭제가 설정 바로 아래"에서 겪은 것과 같은 형태다. */
-  gap: var(--kds-space-control-sm);
+  gap: var(--louis-space-control-sm);
 }
 
 /* 좁은 폭 / 200% 확대 경로. viewport media query가 아니라 container query를 쓰는 이유는
  * compact(280px)와 large(720px)가 같은 뷰포트에서 서로 다른 판정을 받아야 하기 때문이다.
  * 200% 확대는 CSS px 뷰포트를 절반으로 만들므로 같은 query가 발화한다. */
 @container (max-width: 320px) {
-  .kds-dialog__actions {
+  .louis-dialog__actions {
     flex-direction: column;
     align-items: stretch;
   }
 }
 
-.kds-dialog[data-size="compact"] {
-  --kds-dialog-inline-size: 360px;
-  --kds-dialog-surface-inset: var(--kds-space-layout-gutter);
+.louis-dialog[data-size="compact"] {
+  --louis-dialog-inline-size: 360px;
+  --louis-dialog-surface-inset: var(--louis-space-layout-gutter);
   /* **24다.** 토큰이 없다는 이유로 20(`radius-card-lg`)을 빌려 쓰고 있었는데, 그것은 값을 제품이
    * 아니라 토큰 계단이 정하게 둔 것이다. 배포본의 모달 두 벌(앱 홈 · 마이페이지)이 **전수 24로
    * 일치**하므로 계단에 `radius-overlay-lg`를 세우고 그 값을 쓴다. */
-  --kds-dialog-surface-radius: var(--kds-radius-overlay-lg);
+  --louis-dialog-surface-radius: var(--louis-radius-overlay-lg);
 }
 
-.kds-dialog[data-size="large"] {
-  --kds-dialog-inline-size: 720px;
+.louis-dialog[data-size="large"] {
+  --louis-dialog-inline-size: 720px;
 }
 
-.kds-dialog[data-size="fullscreen"] {
-  --kds-dialog-surface-radius: 0;
+.louis-dialog[data-size="fullscreen"] {
+  --louis-dialog-surface-radius: 0;
   padding: 0;
 }
 
-.kds-dialog[data-size="fullscreen"] .kds-dialog__surface {
+.louis-dialog[data-size="fullscreen"] .louis-dialog__surface {
   inline-size: 100%;
   block-size: 100%;
   max-block-size: 100dvh;
   /* 화면을 꽉 채우므로 가장자리 헤어라인을 지운다 — modal elevation만 남긴다 (DS-D-0023). */
-  box-shadow: var(--kds-elevation-modal);
+  box-shadow: var(--louis-elevation-modal);
 }
 
 /* fullscreen에서는 root padding이 0이므로 safe area를 내부가 진다. */
-.kds-dialog[data-size="fullscreen"] .kds-dialog__header {
-  padding-block-start: max(var(--kds-dialog-surface-inset), env(safe-area-inset-top));
+.louis-dialog[data-size="fullscreen"] .louis-dialog__header {
+  padding-block-start: max(var(--louis-dialog-surface-inset), env(safe-area-inset-top));
 }
 
-.kds-dialog[data-size="fullscreen"] .kds-dialog__footer {
-  padding-block-end: max(var(--kds-dialog-surface-inset), env(safe-area-inset-bottom));
+.louis-dialog[data-size="fullscreen"] .louis-dialog__footer {
+  padding-block-end: max(var(--louis-dialog-surface-inset), env(safe-area-inset-bottom));
 }
 
 /* sheet은 하단 정착이다. data-size의 폭 상한을 의도적으로 무시한다. */
-.kds-dialog[data-variant="sheet"] {
+.louis-dialog[data-variant="sheet"] {
   align-items: safe end;
   padding-inline: 0;
   padding-block-end: 0;
 }
 
-.kds-dialog[data-variant="sheet"] .kds-dialog__surface {
+.louis-dialog[data-variant="sheet"] .louis-dialog__surface {
   inline-size: 100%;
   border-end-start-radius: 0;
   border-end-end-radius: 0;
@@ -1785,17 +1785,17 @@
 
 @media (forced-colors: active) {
   /* box-shadow(elevation + 헤어라인)는 강제 색에서 사라지므로 시스템 색 경계를 되살린다 (DS-D-0023). */
-  .kds-dialog__surface {
+  .louis-dialog__surface {
     box-shadow: none;
-    border: var(--kds-border-width-default) solid currentColor;
+    border: var(--louis-border-width-default) solid currentColor;
   }
 }
 
 /* 장식 pseudo-element는 절대 pointer를 막지 않는다. */
-.kds-dialog::before,
-.kds-dialog::after,
-.kds-dialog__surface::before,
-.kds-dialog__surface::after {
+.louis-dialog::before,
+.louis-dialog::after,
+.louis-dialog__surface::before,
+.louis-dialog__surface::after {
   pointer-events: none;
 }
 
@@ -1810,68 +1810,68 @@
  * 제목 20/600 + 설명 16/400)을 정본으로 골랐다 — 근거가 가장 두껍다.
  */
 
-.kds-empty-state {
+.louis-empty-state {
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: var(--kds-space-control-md);
+  gap: var(--louis-space-control-md);
   /* 세로 여백 80px. 두 홈이 합의한 값이며 **소비처가 여기 하나뿐이라 토큰으로 만들지 않는다** —
    * spacing 축은 두 곳 이상에서 쓰일 때 이름을 준다. 리터럴을 이 한 줄에 격리한다. */
   padding-block: 80px;
-  padding-inline: var(--kds-space-layout-gutter);
+  padding-inline: var(--louis-space-layout-gutter);
   inline-size: 100%;
   text-align: center;
 }
 
 /* 그래픽 슬롯. **선택이다** — 제품의 페이지 빈 상태는 아이콘을 넣지 않고 캔버스 빈 상태만 넣는다. */
-.kds-empty-state__graphic {
+.louis-empty-state__graphic {
   display: flex;
   align-items: center;
   justify-content: center;
-  inline-size: var(--kds-icon-size-xl);
-  block-size: var(--kds-icon-size-xl);
-  color: var(--kds-color-fg-tertiary);
+  inline-size: var(--louis-icon-size-xl);
+  block-size: var(--louis-icon-size-xl);
+  color: var(--louis-color-fg-tertiary);
 }
 
 /* 슬롯 안의 아이콘이 자기 크기를 갖고 오더라도 64px 자리를 채우게 한다. */
-.kds-empty-state__graphic > :where(svg, img) {
+.louis-empty-state__graphic > :where(svg, img) {
   inline-size: 100%;
   block-size: 100%;
 }
 
-.kds-empty-state__title {
+.louis-empty-state__title {
   margin: 0;
-  color: var(--kds-color-fg-primary);
-  font-family: var(--kds-typography-body-lg-semibold-font-family);
-  font-size: var(--kds-typography-body-lg-semibold-font-size);
-  font-weight: var(--kds-typography-body-lg-semibold-font-weight);
-  line-height: var(--kds-typography-body-lg-semibold-line-height);
-  letter-spacing: var(--kds-typography-body-lg-semibold-letter-spacing);
+  color: var(--louis-color-fg-primary);
+  font-family: var(--louis-typography-body-lg-semibold-font-family);
+  font-size: var(--louis-typography-body-lg-semibold-font-size);
+  font-weight: var(--louis-typography-body-lg-semibold-font-weight);
+  line-height: var(--louis-typography-body-lg-semibold-line-height);
+  letter-spacing: var(--louis-typography-body-lg-semibold-letter-spacing);
 }
 
-.kds-empty-state__description {
+.louis-empty-state__description {
   margin: 0;
   /* 폭을 제한한다. 빈 상태는 넓은 화면 가운데 놓이는데 설명이 한 줄로 늘어나면 눈이 되돌아오지
    * 못한다. `ch`는 글꼴 크기를 따라가므로 확대해도 줄당 글자 수가 유지된다. */
   max-inline-size: 44ch;
-  color: var(--kds-color-fg-secondary);
-  font-family: var(--kds-typography-body-md-regular-font-family);
-  font-size: var(--kds-typography-body-md-regular-font-size);
-  font-weight: var(--kds-typography-body-md-regular-font-weight);
-  line-height: var(--kds-typography-body-md-regular-line-height);
-  letter-spacing: var(--kds-typography-body-md-regular-letter-spacing);
+  color: var(--louis-color-fg-secondary);
+  font-family: var(--louis-typography-body-md-regular-font-family);
+  font-size: var(--louis-typography-body-md-regular-font-size);
+  font-weight: var(--louis-typography-body-md-regular-font-weight);
+  line-height: var(--louis-typography-body-md-regular-line-height);
+  letter-spacing: var(--louis-typography-body-md-regular-letter-spacing);
 }
 
 /* 행동 유도 슬롯. 제목·설명과 12px이 아니라 한 단계 더 떨어진다 — 읽는 것과 누르는 것 사이의 경계다. */
-.kds-empty-state__action {
+.louis-empty-state__action {
   display: flex;
   align-items: center;
   /* 12다. 8로 두고 있었는데 제품에서 액션이 둘 이상인 빈 상태는 CanvasEmptyState 한 벌뿐이고
    * 그것이 `gap-6` = 12px이다. 정본이 하나뿐인 축에서는 "제품이 갈린다"는 면책이 성립하지 않는다. */
-  gap: var(--kds-space-stack-md);
-  margin-block-start: var(--kds-space-control-xs);
+  gap: var(--louis-space-stack-md);
+  margin-block-start: var(--louis-space-control-xs);
 }
 
 /* Icon Button — design/components/icon-button.md
@@ -1883,57 +1883,57 @@
  * 상태는 data-* 속성으로만 표현한다 (DS-D-0004).
  */
 
-.kds-icon-button {
+.louis-icon-button {
   display: inline-flex;
   flex: none;
   align-items: center;
   justify-content: center;
-  inline-size: var(--kds-layout-control-height-md);
-  block-size: var(--kds-layout-control-height-md);
+  inline-size: var(--louis-layout-control-height-md);
+  block-size: var(--louis-layout-control-height-md);
   /* base에는 stroke가 없다 — 네이티브 button의 UA 테두리를 지운다(reset은 opt-in이다). secondary만
    * 가시 헤어라인을 inset box-shadow로 그린다 (DS-D-0023). 정사각 계약은 inline/block-size가
    * 고정하고 box-shadow는 레이아웃을 건드리지 않는다. */
   border: 0;
-  border-radius: var(--kds-radius-control);
+  border-radius: var(--louis-radius-control);
   cursor: pointer;
   /* motion.md: 허용 property는 opacity와 transform뿐이다.
    * **`scale`은 `transform`과 별개 property다.** `transform`만 적으면 이 선언은 아무것도 전이하지
    * 않는다 — 실측하면 transitionProperty가 "opacity, transform"인데 움직이는 것은 scale뿐이라
    * 누름이 즉시 튄다. dialog.css는 처음부터 `translate, scale`로 적고 있었다. */
   transition-property: opacity, scale;
-  transition-duration: var(--kds-motion-overlay-exit-duration);
-  transition-timing-function: var(--kds-motion-overlay-exit-timing-function);
+  transition-duration: var(--louis-motion-overlay-exit-duration);
+  transition-timing-function: var(--louis-motion-overlay-exit-timing-function);
 }
 
-.kds-icon-button[data-size="sm"] {
-  inline-size: var(--kds-layout-control-height-sm);
-  block-size: var(--kds-layout-control-height-sm);
+.louis-icon-button[data-size="sm"] {
+  inline-size: var(--louis-layout-control-height-sm);
+  block-size: var(--louis-layout-control-height-sm);
 }
 
 /* variant — Button과 같은 네 축. 새 시각 언어를 만들지 않는다. */
-.kds-icon-button[data-variant="primary"] {
-  background: var(--kds-color-accent-primary);
-  color: var(--kds-color-fg-inverse);
+.louis-icon-button[data-variant="primary"] {
+  background: var(--louis-color-accent-primary);
+  color: var(--louis-color-fg-inverse);
 }
 
-.kds-icon-button[data-variant="secondary"] {
-  background: var(--kds-color-bg-surface);
+.louis-icon-button[data-variant="secondary"] {
+  background: var(--louis-color-bg-surface);
   /* generic 10% inset 헤어라인 (DS-D-0023). 이전엔 color-stroke-default(불투명) border였고 Button
    * secondary의 color-stroke-control과 값이 갈렸다 — 단일 헤어라인으로 통일했다. */
-  box-shadow: var(--kds-hairline-inset);
-  color: var(--kds-color-fg-primary);
+  box-shadow: var(--louis-hairline-inset);
+  color: var(--louis-color-fg-primary);
 }
 
-.kds-icon-button[data-variant="ghost"] {
+.louis-icon-button[data-variant="ghost"] {
   background: transparent;
-  color: var(--kds-color-fg-secondary);
+  color: var(--louis-color-fg-secondary);
 }
 
 /* Known deviation: solid danger를 표현할 action 토큰이 아직 없어 tonal로 둔다.
  * Button과 같은 사유이며 color-accent-danger*가 생기면 함께 갱신한다. */
-.kds-icon-button[data-variant="danger"] {
-  background: var(--kds-color-bg-danger);
-  color: var(--kds-color-fg-danger);
+.louis-icon-button[data-variant="danger"] {
+  background: var(--louis-color-bg-danger);
+  color: var(--louis-color-fg-danger);
 }
 
 /* hover와 active는 **pressed를 덮지 않는다.**
@@ -1942,201 +1942,201 @@
  * 글자만 pressed 색으로 남는다. 켜짐 상태가 시야에서 사라지는 것이고, 실측으로 확인했다 —
  * pressed primary에 hover하면 bg가 #38a4ff, fg가 foreground-primary가 됐다.
  * 지속 상태를 일시적 상태가 덮으면 안 된다 (design/foundations/interaction-states.md). */
-.kds-icon-button:where(:not([aria-disabled="true"]):not(:disabled)):not([aria-pressed="true"]):hover[data-variant="primary"] {
-  background: var(--kds-color-accent-primary-hover);
+.louis-icon-button:where(:not([aria-disabled="true"]):not(:disabled)):not([aria-pressed="true"]):hover[data-variant="primary"] {
+  background: var(--louis-color-accent-primary-hover);
 }
 
-.kds-icon-button:where(:not([aria-disabled="true"]):not(:disabled)):not([aria-pressed="true"]):hover:where(
+.louis-icon-button:where(:not([aria-disabled="true"]):not(:disabled)):not([aria-pressed="true"]):hover:where(
     [data-variant="secondary"],
     [data-variant="ghost"]
   ) {
-  background: var(--kds-color-bg-inset);
+  background: var(--louis-color-bg-inset);
 }
 
 /* pressed — 토글의 켜짐 상태. :active(누르는 중)와 다른 축이다. */
-.kds-icon-button[aria-pressed="true"] {
-  background: var(--kds-color-bg-inset);
-  color: var(--kds-color-fg-primary);
+.louis-icon-button[aria-pressed="true"] {
+  background: var(--louis-color-bg-inset);
+  color: var(--louis-color-fg-primary);
 }
 
-.kds-icon-button:where(:not([aria-disabled="true"]):not(:disabled)):not([aria-pressed="true"]):active[data-variant="primary"] {
-  background: var(--kds-color-accent-primary-active);
+.louis-icon-button:where(:not([aria-disabled="true"]):not(:disabled)):not([aria-pressed="true"]):active[data-variant="primary"] {
+  background: var(--louis-color-accent-primary-active);
 }
 
-.kds-icon-button:where(:not([aria-disabled="true"]):not(:disabled)):active {
+.louis-icon-button:where(:not([aria-disabled="true"]):not(:disabled)):active {
   scale: 0.98;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .kds-icon-button {
-    transition-duration: var(--kds-motion-reduced-duration);
+  .louis-icon-button {
+    transition-duration: var(--louis-motion-reduced-duration);
   }
 
-  .kds-icon-button:where(:not([aria-disabled="true"]):not(:disabled)):active {
+  .louis-icon-button:where(:not([aria-disabled="true"]):not(:disabled)):active {
     scale: 1;
   }
 }
 
-.kds-icon-button:disabled,
-.kds-icon-button[aria-disabled="true"] {
+.louis-icon-button:disabled,
+.louis-icon-button[aria-disabled="true"] {
   cursor: not-allowed;
-  color: var(--kds-color-fg-disabled);
+  color: var(--louis-color-fg-disabled);
 }
 
-.kds-icon-button:disabled:where([data-variant="primary"], [data-variant="danger"]),
-.kds-icon-button[aria-disabled="true"]:where([data-variant="primary"], [data-variant="danger"]) {
-  background: var(--kds-color-bg-inset);
+.louis-icon-button:disabled:where([data-variant="primary"], [data-variant="danger"]),
+.louis-icon-button[aria-disabled="true"]:where([data-variant="primary"], [data-variant="danger"]) {
+  background: var(--louis-color-bg-inset);
 }
 
 /* disabled secondary는 별도 테두리 색을 두지 않는다 — enabled의 generic 헤어라인을 유지하고
  * 상태는 foreground 색이 전달한다 (DS-D-0023, 이전엔 color-stroke-subtle border였다). */
 
 /* 글리프는 컨테이너와 독립이다. 두 size에서 같은 20px을 쓴다 (iconography.md Size model). */
-.kds-icon-button__glyph {
+.louis-icon-button__glyph {
   display: inline-flex;
   flex: none;
   align-items: center;
   justify-content: center;
-  inline-size: var(--kds-icon-size-md);
-  block-size: var(--kds-icon-size-md);
+  inline-size: var(--louis-icon-size-md);
+  block-size: var(--louis-icon-size-md);
 }
 
 /* forced-colors: box-shadow 헤어라인은 강제 색 모드에서 사라지므로 시스템 색 실선으로 경계를
  * 되살린다. 이전 base 투명 border가 강제 색에서 얻던 경계를 이어받는다 (DS-D-0023). */
 @media (forced-colors: active) {
-  .kds-icon-button {
+  .louis-icon-button {
     box-shadow: none;
-    border: var(--kds-border-width-default) solid currentColor;
+    border: var(--louis-border-width-default) solid currentColor;
   }
 }
 
 /* 아이콘 표면 — 크기는 토큰이, 색은 부모의 color가 소유한다 (iconography.md). */
-.kds-icon {
+.louis-icon {
   display: inline-block;
   flex: none;
-  inline-size: var(--kds-icon-size-md);
-  block-size: var(--kds-icon-size-md);
+  inline-size: var(--louis-icon-size-md);
+  block-size: var(--louis-icon-size-md);
   color: inherit;
 }
 
-.kds-icon[data-size="sm"] {
-  inline-size: var(--kds-icon-size-sm);
-  block-size: var(--kds-icon-size-sm);
+.louis-icon[data-size="sm"] {
+  inline-size: var(--louis-icon-size-sm);
+  block-size: var(--louis-icon-size-sm);
 }
 
-.kds-icon[data-size="lg"] {
-  inline-size: var(--kds-icon-size-lg);
-  block-size: var(--kds-icon-size-lg);
+.louis-icon[data-size="lg"] {
+  inline-size: var(--louis-icon-size-lg);
+  block-size: var(--louis-icon-size-lg);
 }
 
 /* Menu / Popover — design/components/menu-popover.md
  *
- * 패널 **표면**은 두 variant가 공유하므로 `.kds-popover`가 소유하고, action-menu 내부만
- * `.kds-menu__*`를 쓴다. `role="dialog"`인 프로필 패널에 `.kds-menu`가 붙으면 DOM을 읽는
+ * 패널 **표면**은 두 variant가 공유하므로 `.louis-popover`가 소유하고, action-menu 내부만
+ * `.louis-menu__*`를 쓴다. `role="dialog"`인 프로필 패널에 `.louis-menu`가 붙으면 DOM을 읽는
  * 사람에게 거짓 신호가 되기 때문이다 — 두 variant가 공유하는 것은 표면이지 menu가 아니다.
  *
  * `max-width` / `max-height` / `overflow` / `transition` / `transform-origin`은
  * `overlay.css`가 소유한다. 여기서 다시 선언하지 않고 하한과 스크롤 경계만 얹는다.
  */
 
-.kds-popover {
+.louis-popover {
   /* 제품 --dropdown-padding: 6px. 이전 DS는 action-menu 4 / composite 8로 갈려 있었다. */
-  --kds-popover-inset: var(--kds-space-overlay-inset);
+  --louis-popover-inset: var(--louis-space-overlay-inset);
   /* 제품 min-width 160px. */
-  --kds-popover-preferred-inline-size: 160px;
-  --kds-popover-anchor-floor: 0px;
+  --louis-popover-preferred-inline-size: 160px;
+  --louis-popover-anchor-floor: 0px;
   /* 상한 폴백. 곱셈 대신 두 번 빼는 이유는 저작 게이트의 전역 선택자 패턴이 공백으로 둘러싼
    * `*`를 선택자로 오인하기 때문이다. 값이 같고 읽기도 명확하므로 게이트를 건드리지 않는다. */
-  --kds-popover-available-inline-size: var(
-    --kds-overlay-available-width,
+  --louis-popover-available-inline-size: var(
+    --louis-overlay-available-width,
     calc(
-      100vw - var(--kds-overlay-collision-padding) -
-        var(--kds-overlay-collision-padding)
+      100vw - var(--louis-overlay-collision-padding) -
+        var(--louis-overlay-collision-padding)
     )
   );
 
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  padding: var(--kds-popover-inset);
-  background: var(--kds-color-bg-menu);
+  padding: var(--louis-popover-inset);
+  background: var(--louis-color-bg-menu);
   /* 경계는 border가 아니라 inset 헤어라인이다 (DS-D-0023). elevation-menu는 ambient drop shadow만
    * 소유하고, 여기서 generic 10% inset 헤어라인을 뒤에 조합한다 — ambient와 프레임 책임을 분리해
    * 두 겹 frame이 생기지 않게 한다. 레이아웃 박스는 건드리지 않는다. */
   border: 0;
-  border-radius: var(--kds-radius-overlay);
-  box-shadow: var(--kds-elevation-menu), var(--kds-hairline-inset);
-  color: var(--kds-color-fg-menu-item);
+  border-radius: var(--louis-radius-overlay);
+  box-shadow: var(--louis-elevation-menu), var(--louis-hairline-inset);
+  color: var(--louis-color-fg-menu-item);
 
   /* 상한은 overlay.css가 소유한다. min()으로 감싸지 않으면 min-inline-size가 max-width를
    * 이겨서, 320px 화면 200% 확대(가용 폭 144px)에서 패널이 화면을 넘는다. */
   min-inline-size: min(
-    max(var(--kds-popover-preferred-inline-size), var(--kds-popover-anchor-floor)),
-    var(--kds-popover-available-inline-size)
+    max(var(--louis-popover-preferred-inline-size), var(--louis-popover-anchor-floor)),
+    var(--louis-popover-available-inline-size)
   );
 
   /* 제품은 항목 사이를 2px 띄운다. 이전 DS는 gap이 없어 행이 붙어 있었다. */
-  gap: var(--kds-space-overlay-item-gap);
+  gap: var(--louis-space-overlay-item-gap);
 
   /* focus ring(offset 2 + width 2 = 4px)이 scrollport 경계에서 잘리지 않게 한다. */
-  scroll-padding-block: var(--kds-space-control-sm);
+  scroll-padding-block: var(--louis-space-control-sm);
   overscroll-behavior: contain;
 }
 
 /* action menu는 최소 trigger 폭 이상을 권장한다. anchor 폭은 positioner가 발행한다. */
-.kds-popover[data-kind="action-menu"] {
-  --kds-popover-anchor-floor: var(--kds-overlay-anchor-width, 0px);
+.louis-popover[data-kind="action-menu"] {
+  --louis-popover-anchor-floor: var(--louis-overlay-anchor-width, 0px);
 }
 
-.kds-popover[data-kind="composite-popover"] {
-  --kds-popover-preferred-inline-size: 240px;
+.louis-popover[data-kind="composite-popover"] {
+  --louis-popover-preferred-inline-size: 240px;
   /* action menu와 달리 inset이 8px이다.
    *
-   * composite popover는 임의의 컨트롤을 담고, `.kds-hit-target`을 쓰는 컨트롤은 44px 타겟을
+   * composite popover는 임의의 컨트롤을 담고, `.louis-hit-target`을 쓰는 컨트롤은 44px 타겟을
    * 시각 박스 **바깥으로** 확장한다. sm 버튼(28px)이면 위아래로 8px씩 넘치고, 패널이
    * 스크롤 컨테이너(overlay.css의 `overflow: auto`)이므로 그 8px이 그대로 **유령 스크롤바**가
    * 된다 — 내용이 다 보이는데 스크롤이 생긴다. 실측으로 분리했다(scrollHeight 157 → 153).
    *
    * action menu는 행 자체를 44px로 만들어 그 유틸을 쓰지 않으므로 4px을 유지한다.
    * 거기서 8px을 쓰면 안쪽 곡률(16 - 8 = 8px)이 item radius(10px)보다 작아져 모서리가 뚫린다. */
-  --kds-popover-inset: var(--kds-space-control-sm);
+  --louis-popover-inset: var(--louis-space-control-sm);
 
   /* 임의의 컨트롤을 담으므로 행 간격이 메뉴 항목보다 넓다. */
-  gap: var(--kds-space-control-sm);
+  gap: var(--louis-space-control-sm);
 }
 
-.kds-popover__title {
+.louis-popover__title {
   margin: 0;
-  padding-block: var(--kds-space-control-xs);
-  padding-inline: var(--kds-space-control-md);
-  color: var(--kds-color-fg-primary);
-  font-family: var(--kds-typography-heading-sm-medium-font-family);
-  font-size: var(--kds-typography-heading-sm-medium-font-size);
-  font-weight: var(--kds-typography-heading-sm-medium-font-weight);
-  line-height: var(--kds-typography-heading-sm-medium-line-height);
-  letter-spacing: var(--kds-typography-heading-sm-medium-letter-spacing);
+  padding-block: var(--louis-space-control-xs);
+  padding-inline: var(--louis-space-control-md);
+  color: var(--louis-color-fg-primary);
+  font-family: var(--louis-typography-heading-sm-medium-font-family);
+  font-size: var(--louis-typography-heading-sm-medium-font-size);
+  font-weight: var(--louis-typography-heading-sm-medium-font-weight);
+  line-height: var(--louis-typography-heading-sm-medium-line-height);
+  letter-spacing: var(--louis-typography-heading-sm-medium-letter-spacing);
 }
 
-/* item — `.kds-hit-target`을 쓰지 않는다.
+/* item — `.louis-hit-target`을 쓰지 않는다.
  *
  * 그 유틸의 ::after는 44px 사각형을 항목 **중앙에 겹쳐** 놓는다. 간격 없이 쌓이는 메뉴 행에서
  * 시각 높이가 40px이면 위아래로 2px씩 삐져나오고, 겹친 구간은 tree order상 뒤 형제가 이긴다.
  * "삭제"가 "설정" 바로 아래에 있으면 그 2px이 그대로 사고다. 대신 행 자체를 44px로 만든다. */
-.kds-menu__item {
+.louis-menu__item {
   box-sizing: border-box;
   position: relative;
   display: flex;
   flex: none;
   align-items: center;
   /* 제품 6px. 아이콘과 라벨 사이다. */
-  gap: var(--kds-space-overlay-item-content-gap);
+  gap: var(--louis-space-overlay-item-content-gap);
   inline-size: 100%;
   min-inline-size: 0;
-  min-block-size: var(--kds-layout-control-hit-target-minimum);
-  padding-block: var(--kds-space-control-sm);
-  padding-inline: var(--kds-space-control-md);
+  min-block-size: var(--louis-layout-control-hit-target-minimum);
+  padding-block: var(--louis-space-control-sm);
+  padding-inline: var(--louis-space-control-md);
   border: 0;
-  border-radius: var(--kds-radius-overlay-item);
+  border-radius: var(--louis-radius-overlay-item);
   background: transparent;
   color: inherit;
   text-align: start;
@@ -2145,103 +2145,103 @@
   /* KO 어절은 보존하고 넘치는 단어만 끊는다. */
   overflow-wrap: break-word;
   word-break: keep-all;
-  font-family: var(--kds-typography-body-sm-regular-font-family);
-  font-size: var(--kds-typography-body-sm-regular-font-size);
-  font-weight: var(--kds-typography-body-sm-regular-font-weight);
-  line-height: var(--kds-typography-body-sm-regular-line-height);
-  letter-spacing: var(--kds-typography-body-sm-regular-letter-spacing);
+  font-family: var(--louis-typography-body-sm-regular-font-family);
+  font-size: var(--louis-typography-body-sm-regular-font-size);
+  font-weight: var(--louis-typography-body-sm-regular-font-weight);
+  line-height: var(--louis-typography-body-sm-regular-line-height);
+  letter-spacing: var(--louis-typography-body-sm-regular-letter-spacing);
 }
 
 /* hover와 roving 하이라이트는 같은 표현이다. pointer로 열고 방향키로 이동하는 경로에서
  * `:focus-visible`만으로는 표시가 비는 프레임이 생기므로 data 속성이 함께 필요하다. */
-.kds-menu__item:where(:not([aria-disabled="true"]):not(:disabled)):hover,
-.kds-menu__item:where(:not([aria-disabled="true"]):not(:disabled))[data-highlighted="true"] {
-  background: var(--kds-color-accent-menu-item-hover);
+.louis-menu__item:where(:not([aria-disabled="true"]):not(:disabled)):hover,
+.louis-menu__item:where(:not([aria-disabled="true"]):not(:disabled))[data-highlighted="true"] {
+  background: var(--louis-color-accent-menu-item-hover);
 }
 
-.kds-menu__item[data-tone="danger"] {
-  color: var(--kds-color-accent-danger);
+.louis-menu__item[data-tone="danger"] {
+  color: var(--louis-color-accent-danger);
 }
 
-.kds-menu__item[data-tone="danger"]:where(:not([aria-disabled="true"]):not(:disabled)):hover,
-.kds-menu__item[data-tone="danger"]:where(:not([aria-disabled="true"]):not(:disabled))[data-highlighted="true"] {
-  background: var(--kds-color-accent-menu-danger-hover);
+.louis-menu__item[data-tone="danger"]:where(:not([aria-disabled="true"]):not(:disabled)):hover,
+.louis-menu__item[data-tone="danger"]:where(:not([aria-disabled="true"]):not(:disabled))[data-highlighted="true"] {
+  background: var(--louis-color-accent-menu-danger-hover);
 }
 
-.kds-menu__item:disabled,
-.kds-menu__item[aria-disabled="true"] {
+.louis-menu__item:disabled,
+.louis-menu__item[aria-disabled="true"] {
   cursor: not-allowed;
-  color: var(--kds-color-fg-disabled);
+  color: var(--louis-color-fg-disabled);
 }
 
 /* 선택은 면 강조가 아니라 글리프가 표현한다. 이 저장소의 semantic 면 토큰 중 overlay 위에서
  * 실제로 구분되는 것은 background-inset 하나뿐이라, 그것을 hover와 선택에 함께 쓰면 두 상태가
  * 같아 보인다. 부수 효과로 forced-colors에서 선택 표시가 살아남는다 — 글리프는 내용이라
  * 색 치환 대상이 아니다. */
-.kds-menu__item-indicator {
+.louis-menu__item-indicator {
   flex: none;
   inline-size: 1em;
   block-size: 1em;
   visibility: hidden;
 }
 
-.kds-menu__item[aria-checked="true"] .kds-menu__item-indicator {
+.louis-menu__item[aria-checked="true"] .louis-menu__item-indicator {
   visibility: visible;
 }
 
-.kds-menu__item-icon {
+.louis-menu__item-icon {
   display: inline-flex;
   flex: none;
   align-items: center;
   justify-content: center;
 }
 
-.kds-menu__item-label {
+.louis-menu__item-label {
   flex: 1 1 auto;
   min-inline-size: 0;
 }
 
-.kds-menu__item-trailing {
+.louis-menu__item-trailing {
   flex: none;
-  color: var(--kds-color-fg-secondary);
-  font-family: var(--kds-typography-caption-regular-font-family);
-  font-size: var(--kds-typography-caption-regular-font-size);
-  font-weight: var(--kds-typography-caption-regular-font-weight);
-  line-height: var(--kds-typography-caption-regular-line-height);
-  letter-spacing: var(--kds-typography-caption-regular-letter-spacing);
+  color: var(--louis-color-fg-secondary);
+  font-family: var(--louis-typography-caption-regular-font-family);
+  font-size: var(--louis-typography-caption-regular-font-size);
+  font-weight: var(--louis-typography-caption-regular-font-weight);
+  line-height: var(--louis-typography-caption-regular-line-height);
+  letter-spacing: var(--louis-typography-caption-regular-letter-spacing);
 }
 
 /* disabled 항목 안에서 단축키만 정상 대비로 남으면 상태가 갈려 보인다. */
-.kds-menu__item:disabled .kds-menu__item-trailing,
-.kds-menu__item[aria-disabled="true"] .kds-menu__item-trailing {
+.louis-menu__item:disabled .louis-menu__item-trailing,
+.louis-menu__item[aria-disabled="true"] .louis-menu__item-trailing {
   color: inherit;
 }
 
-.kds-menu__item[aria-busy="true"] .kds-menu__item-label {
+.louis-menu__item[aria-busy="true"] .louis-menu__item-label {
   opacity: 0.6;
 }
 
 /* States 표가 busy item에 spinner를 요구한다. button.css의 것과 선언이 겹치므로 두 번째
  * 소비자가 생긴 지금이 base.css의 공용 유틸로 승격할 시점이지만, 그러면 button.css를 같은
  * 변경 단위에서 함께 고쳐야 한다. 여기서는 중복을 남기고 승격은 후속으로 둔다. */
-.kds-menu__spinner {
+.louis-menu__spinner {
   display: inline-flex;
   flex: none;
   inline-size: 1em;
   block-size: 1em;
-  border: var(--kds-border-width-ring) solid currentColor;
+  border: var(--louis-border-width-ring) solid currentColor;
   border-block-start-color: transparent;
-  border-radius: var(--kds-radius-pill);
+  border-radius: var(--louis-radius-pill);
   /* DS-D-0016 — loop lifecycle. button spinner와 같은 recipe다. */
-  animation-name: kds-spin;
-  animation-duration: var(--kds-motion-spin-duration);
-  animation-timing-function: var(--kds-motion-spin-timing-function);
+  animation-name: louis-spin;
+  animation-duration: var(--louis-motion-spin-duration);
+  animation-timing-function: var(--louis-motion-spin-timing-function);
   animation-iteration-count: infinite;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .kds-menu__spinner {
-    animation-duration: var(--kds-motion-reduced-duration);
+  .louis-menu__spinner {
+    animation-duration: var(--louis-motion-reduced-duration);
     /* 회전을 멈추더라도 진행 중이라는 의미는 aria-busy가 유지한다. */
     animation-iteration-count: 1;
   }
@@ -2249,39 +2249,39 @@
 
 
 /* group label과 separator는 menuitem이 아니고 focusable하지 않다. */
-.kds-menu__group-label {
-  padding-block: var(--kds-space-control-xs);
-  padding-inline: var(--kds-space-control-md);
-  color: var(--kds-color-fg-secondary);
-  font-family: var(--kds-typography-caption-medium-font-family);
-  font-size: var(--kds-typography-caption-medium-font-size);
-  font-weight: var(--kds-typography-caption-medium-font-weight);
-  line-height: var(--kds-typography-caption-medium-line-height);
-  letter-spacing: var(--kds-typography-caption-medium-letter-spacing);
+.louis-menu__group-label {
+  padding-block: var(--louis-space-control-xs);
+  padding-inline: var(--louis-space-control-md);
+  color: var(--louis-color-fg-secondary);
+  font-family: var(--louis-typography-caption-medium-font-family);
+  font-size: var(--louis-typography-caption-medium-font-size);
+  font-weight: var(--louis-typography-caption-medium-font-weight);
+  line-height: var(--louis-typography-caption-medium-line-height);
+  letter-spacing: var(--louis-typography-caption-medium-letter-spacing);
 }
 
 /* 음수 margin으로 패널 padding까지 선을 늘리지 않는다. 패널이 스크롤 컨테이너라
  * inline-start 방향 overflow는 스크롤 가능 영역에 들어가지 않고 잘리며, LTR/RTL에서
  * 비대칭 클리핑이 된다. */
-.kds-menu__separator {
+.louis-menu__separator {
   flex: none;
   border: 0;
   /* 한 면 divider — 방향성 inset 헤어라인 (DS-D-0023). box-shadow가 그려질 박스가 있어야 하므로
    * 선 두께만큼 block-size를 준다. 이전엔 border-block-start가 선이자 높이였고 색은
    * color-stroke-subtle이었다 — generic 10% 헤어라인으로 통일했다. */
-  block-size: var(--kds-border-width-hairline);
-  box-shadow: var(--kds-hairline-inset-block-start);
-  margin-block: var(--kds-space-control-xs);
+  block-size: var(--louis-border-width-hairline);
+  box-shadow: var(--louis-hairline-inset-block-start);
+  margin-block: var(--louis-space-control-xs);
   margin-inline: 0;
 }
 
 /* 장식 pseudo-element는 절대 pointer를 막지 않는다. */
-.kds-popover::before,
-.kds-popover::after,
-.kds-menu__item::before,
-.kds-menu__item::after,
-.kds-menu__group-label::before,
-.kds-menu__group-label::after {
+.louis-popover::before,
+.louis-popover::after,
+.louis-menu__item::before,
+.louis-menu__item::after,
+.louis-menu__group-label::before,
+.louis-menu__group-label::after {
   pointer-events: none;
 }
 
@@ -2295,43 +2295,43 @@
 @media (forced-colors: active) {
   /* box-shadow(ambient + 헤어라인)는 강제 색에서 사라지므로 패널 경계를 시스템 색 실선으로
    * 되살린다 (DS-D-0023). 이전 border-color: currentColor는 border:0이라 무효였다. */
-  .kds-popover {
+  .louis-popover {
     box-shadow: none;
-    border: var(--kds-border-width-default) solid currentColor;
+    border: var(--louis-border-width-default) solid currentColor;
   }
 
-  .kds-menu__separator {
+  .louis-menu__separator {
     box-shadow: none;
-    border-block-start: var(--kds-border-width-default) solid currentColor;
+    border-block-start: var(--louis-border-width-default) solid currentColor;
   }
 
-  .kds-menu__item:where(:not([aria-disabled="true"]):not(:disabled)):hover,
-  .kds-menu__item:where(:not([aria-disabled="true"]):not(:disabled))[data-highlighted="true"] {
+  .louis-menu__item:where(:not([aria-disabled="true"]):not(:disabled)):hover,
+  .louis-menu__item:where(:not([aria-disabled="true"]):not(:disabled))[data-highlighted="true"] {
     background: Highlight;
     color: HighlightText;
   }
 
-  .kds-menu__item[data-tone="danger"]:where(:not([aria-disabled="true"]):not(:disabled)):hover,
-  .kds-menu__item[data-tone="danger"]:where(:not([aria-disabled="true"]):not(:disabled))[data-highlighted="true"] {
+  .louis-menu__item[data-tone="danger"]:where(:not([aria-disabled="true"]):not(:disabled)):hover,
+  .louis-menu__item[data-tone="danger"]:where(:not([aria-disabled="true"]):not(:disabled))[data-highlighted="true"] {
     background: Highlight;
     color: HighlightText;
   }
 
   /* 자체 color를 선언한 조각은 부모의 HighlightText를 상속받지 못한다. 어두운 Highlight 위
    * CanvasText가 되어 단축키와 표시자가 사라진다. */
-  .kds-menu__item-trailing,
-  .kds-menu__item-icon,
-  .kds-menu__item-indicator {
+  .louis-menu__item-trailing,
+  .louis-menu__item-icon,
+  .louis-menu__item-indicator {
     color: inherit;
   }
 
-  .kds-menu__item:disabled,
-  .kds-menu__item[aria-disabled="true"] {
+  .louis-menu__item:disabled,
+  .louis-menu__item[aria-disabled="true"] {
     color: GrayText;
   }
 
   /* 고대비 모드가 보장한 대비를 opacity로 깎지 않는다. 진행 상태는 spinner와 통지가 표현한다. */
-  .kds-menu__item[aria-busy="true"] .kds-menu__item-label {
+  .louis-menu__item[aria-busy="true"] .louis-menu__item-label {
     opacity: 1;
   }
 }
@@ -2339,27 +2339,27 @@
 /* Overlay panel — design/components/menu-popover.md, dialog.md, foundations/motion.md
  *
  * 이 파일은 **단일 seam**이다. 하부 positioning 유틸이 발행하는 변수 이름이 나머지 CSS로
- * 새어 나가지 않게 여기서 한 번만 --kds-* 로 재발행한다. DS-D-0003이 "branchId와 portal host
+ * 새어 나가지 않게 여기서 한 번만 --louis-* 로 재발행한다. DS-D-0003이 "branchId와 portal host
  * 계약을 라이브러리 중립으로 설계해 하부 유틸을 교체해도 public API가 바뀌지 않게 한다"고
  * 규정했고, CSS 쪽의 그 계약이 이 블록이다. 유틸을 교체하면 여기 5줄만 바뀐다.
  *
  * --radix-popper-* 는 positioning 래퍼에만 붙으므로 상속으로 받는다.
  */
 
-.kds-overlay-panel {
-  --kds-overlay-available-width: var(--radix-popper-available-width);
-  --kds-overlay-available-height: var(--radix-popper-available-height);
-  --kds-overlay-anchor-width: var(--radix-popper-anchor-width);
-  --kds-overlay-anchor-height: var(--radix-popper-anchor-height);
-  --kds-overlay-transform-origin: var(--radix-popper-transform-origin);
+.louis-overlay-panel {
+  --louis-overlay-available-width: var(--radix-popper-available-width);
+  --louis-overlay-available-height: var(--radix-popper-available-height);
+  --louis-overlay-anchor-width: var(--radix-popper-anchor-width);
+  --louis-overlay-anchor-height: var(--radix-popper-anchor-height);
+  --louis-overlay-transform-origin: var(--radix-popper-transform-origin);
 
   /* menu-popover.md: 확장 원점은 anchor다. */
-  transform-origin: var(--kds-overlay-transform-origin);
+  transform-origin: var(--louis-overlay-transform-origin);
   /* viewport를 넘기면 자르지 않고 패널 안에서 스크롤한다.
    * fallback이 필요한 이유: positioner 없이 렌더되면 하부 변수가 guaranteed-invalid가 되고,
    * 그러면 max-*가 초기값 none으로 무너져 패널이 화면 밖으로 자란다. */
-  max-width: var(--kds-overlay-available-width, 100vw);
-  max-height: var(--kds-overlay-available-height, 100vh);
+  max-width: var(--louis-overlay-available-width, 100vw);
+  max-height: var(--louis-overlay-available-height, 100vh);
   overflow: auto;
   /* motion.md: 허용 property는 opacity와 transform뿐이다.
    * **`scale`은 `transform`과 별개 property다.** `transform`만 적으면 이 선언은 아무것도 전이하지
@@ -2370,75 +2370,75 @@
 
 /* positioning이 JS에서 CSS로 읽어가는 값. 상수로 하드코딩하지 않는 이유는
  * DS-P3-014가 semantic spacing 토큰을 추가할 때 API 변경 없이 값만 갈아끼우기 위해서다. */
-.kds-overlay-panel {
-  --kds-overlay-offset: 8px;
-  --kds-overlay-collision-padding: 8px;
+.louis-overlay-panel {
+  --louis-overlay-offset: 8px;
+  --louis-overlay-collision-padding: 8px;
 }
 
-.kds-overlay-panel[data-kds-state="opening"],
-.kds-overlay-panel[data-kds-state="open"] {
-  transition-duration: var(--kds-motion-overlay-enter-duration);
-  transition-timing-function: var(--kds-motion-overlay-enter-timing-function);
+.louis-overlay-panel[data-louis-state="opening"],
+.louis-overlay-panel[data-louis-state="open"] {
+  transition-duration: var(--louis-motion-overlay-enter-duration);
+  transition-timing-function: var(--louis-motion-overlay-enter-timing-function);
 }
 
 /* enter motion의 실제 값. transition-property만 있고 전이할 값 선언이 없으면 아무 일도
  * 일어나지 않는다 — menu-popover.md Specification의 "opacity + scale, origin=anchor"가
  * 성립하려면 두 상태의 값이 모두 있어야 한다. transform-origin은 위에서 anchor로 맞춰 둔다. */
-.kds-overlay-panel[data-kds-state="opening"] {
+.louis-overlay-panel[data-louis-state="opening"] {
   opacity: 0;
   scale: 0.96;
 }
 
-.kds-overlay-panel[data-kds-state="open"] {
+.louis-overlay-panel[data-louis-state="open"] {
   opacity: 1;
   scale: 1;
 }
 
 /* readExitDuration()이 getComputedStyle로 읽는 값이 바로 이것이다.
  * JS에 토큰 이름을 하드코딩하지 않으므로 시각 transition과 unmount timer의 source가 하나다. */
-.kds-overlay-panel[data-kds-state="closing"] {
+.louis-overlay-panel[data-louis-state="closing"] {
   opacity: 0;
-  transition-duration: var(--kds-motion-overlay-exit-duration);
-  transition-timing-function: var(--kds-motion-overlay-exit-timing-function);
+  transition-duration: var(--louis-motion-overlay-exit-duration);
+  transition-timing-function: var(--louis-motion-overlay-exit-timing-function);
 }
 
 /* modal은 다른 recipe를 읽는다. Dialog가 mode 속성을 붙인다. */
-.kds-overlay-panel[data-kds-overlay-mode="modal"][data-kds-state="opening"],
-.kds-overlay-panel[data-kds-overlay-mode="modal"][data-kds-state="open"] {
-  transition-duration: var(--kds-motion-modal-enter-duration);
-  transition-timing-function: var(--kds-motion-modal-enter-timing-function);
+.louis-overlay-panel[data-louis-overlay-mode="modal"][data-louis-state="opening"],
+.louis-overlay-panel[data-louis-overlay-mode="modal"][data-louis-state="open"] {
+  transition-duration: var(--louis-motion-modal-enter-duration);
+  transition-timing-function: var(--louis-motion-modal-enter-timing-function);
 }
 
-.kds-overlay-panel[data-kds-overlay-mode="modal"][data-kds-state="closing"] {
-  transition-duration: var(--kds-motion-modal-exit-duration);
-  transition-timing-function: var(--kds-motion-modal-exit-timing-function);
+.louis-overlay-panel[data-louis-overlay-mode="modal"][data-louis-state="closing"] {
+  transition-duration: var(--louis-motion-modal-exit-duration);
+  transition-timing-function: var(--louis-motion-modal-exit-timing-function);
 }
 
 /* DS-D-0011 결정 3: duration을 0으로 붕괴시키되 순서는 바꾸지 않는다.
  * timer가 같은 선언을 읽으므로 unmount도 함께 0이 된다 — 두 값이 어긋날 수 없다.
  *
- * media query는 specificity를 더하지 않는다. 위 state 규칙이 [data-kds-overlay-mode]까지
+ * media query는 specificity를 더하지 않는다. 위 state 규칙이 [data-louis-overlay-mode]까지
  * 포함해 (0,3,0)이므로 여기서 같은 형태를 다시 적으며 이긴다 — 클래스 하나만 적으면
  * (0,1,0)이라 조용히 무시되고, reduced-motion에서 exit가 200ms 그대로 남는다. */
 @media (prefers-reduced-motion: reduce) {
-  .kds-overlay-panel,
-  .kds-overlay-panel[data-kds-state],
-  .kds-overlay-panel[data-kds-overlay-mode][data-kds-state] {
-    transition-duration: var(--kds-motion-reduced-duration);
-    transition-timing-function: var(--kds-motion-reduced-timing-function);
+  .louis-overlay-panel,
+  .louis-overlay-panel[data-louis-state],
+  .louis-overlay-panel[data-louis-overlay-mode][data-louis-state] {
+    transition-duration: var(--louis-motion-reduced-duration);
+    transition-timing-function: var(--louis-motion-reduced-timing-function);
   }
 
   /* Specification의 Reduced motion = "transform 제거". opacity는 남긴다.
    * 위 opening 규칙과 같은 (0,2,0) 형태라 뒤에 와서 이긴다. */
-  .kds-overlay-panel[data-kds-state="opening"] {
+  .louis-overlay-panel[data-louis-state="opening"] {
     scale: 1;
   }
 }
 
 /* 장식 pseudo-element는 절대 pointer를 막지 않는다.
  * elevation-layer.md: 보이지 않는 layer가 보이는 control의 pointer를 가로채면 실패다. */
-.kds-overlay-panel::before,
-.kds-overlay-panel::after {
+.louis-overlay-panel::before,
+.louis-overlay-panel::after {
   pointer-events: none;
 }
 
@@ -2451,50 +2451,50 @@
  * 높이 6 · 반경(알약) · 최대 폭 320 셋뿐이다. 그 셋은 그대로 옮기고 색은 DS가 고른다.
  */
 
-.kds-progress-bar {
+.louis-progress-bar {
   /* 소비처가 값을 인라인으로 준다. 0~100 사이의 수이며 % 단위는 여기서 붙인다. */
-  --kds-progress-value: 0;
+  --louis-progress-value: 0;
   box-sizing: border-box;
   inline-size: 100%;
   /* 제품 두 벌이 합의하는 유일한 폭 계약이다. 소비처가 더 좁게 쓸 수 있다. */
-  max-inline-size: var(--kds-layout-progress-bar-max-inline-size);
-  block-size: var(--kds-layout-progress-bar-height);
-  border-radius: var(--kds-radius-pill);
-  background-color: var(--kds-color-progress-track);
+  max-inline-size: var(--louis-layout-progress-bar-max-inline-size);
+  block-size: var(--louis-layout-progress-bar-height);
+  border-radius: var(--louis-radius-pill);
+  background-color: var(--louis-color-progress-track);
   overflow: hidden;
 }
 
-.kds-progress-bar__fill {
+.louis-progress-bar__fill {
   block-size: 100%;
-  inline-size: calc(var(--kds-progress-value)*1%);
+  inline-size: calc(var(--louis-progress-value)*1%);
   border-radius: inherit;
-  background-color: var(--kds-color-progress-fill);
-  transition: inline-size var(--kds-motion-layout-change-duration)
-    var(--kds-motion-layout-change-timing-function);
+  background-color: var(--louis-color-progress-fill);
+  transition: inline-size var(--louis-motion-layout-change-duration)
+    var(--louis-motion-layout-change-timing-function);
 }
 
 /* **indeterminate는 폭을 옮기지 않는다.** loop lifecycle이 허용하는 property는
  * opacity·rotate·background-position 셋이고(DS-D-0016) transform은 그 안에 없다. 면 그라디언트를
  * 흘려 같은 뜻을 만든다 — Skeleton과 같은 기법이라 층을 하나 덜 만든다. */
-.kds-progress-bar[data-indeterminate="true"] .kds-progress-bar__fill {
+.louis-progress-bar[data-indeterminate="true"] .louis-progress-bar__fill {
   inline-size: 100%;
   background-image: linear-gradient(
     to right,
     transparent 0%,
-    var(--kds-color-progress-fill) 40%,
-    var(--kds-color-progress-fill) 60%,
+    var(--louis-color-progress-fill) 40%,
+    var(--louis-color-progress-fill) 60%,
     transparent 100%
   );
   background-color: transparent;
   background-size: 250% 100%;
-  animation-name: kds-progress-slide;
-  animation-duration: var(--kds-motion-shimmer-duration);
-  animation-timing-function: var(--kds-motion-shimmer-timing-function);
+  animation-name: louis-progress-slide;
+  animation-duration: var(--louis-motion-shimmer-duration);
+  animation-timing-function: var(--louis-motion-shimmer-timing-function);
   animation-iteration-count: infinite;
   transition: none;
 }
 
-@keyframes kds-progress-slide {
+@keyframes louis-progress-slide {
   from {
     background-position: 150% 0;
   }
@@ -2511,19 +2511,19 @@
  * 제품은 지름을 `avatar + (gap + width) × 2`로 직접 계산한다. 여기서는 padding으로 같은 값을
  * 만든다 — 안에 무엇이 들어가든 지름이 따라오므로 소비처가 크기를 두 번 적지 않는다.
  */
-.kds-progress-ring {
-  --kds-progress-value: 0;
-  --kds-progress-ring-width: var(--kds-border-width-ring);
-  --kds-progress-ring-gap: var(--kds-space-progress-ring-gap);
+.louis-progress-ring {
+  --louis-progress-value: 0;
+  --louis-progress-ring-width: var(--louis-border-width-ring);
+  --louis-progress-ring-gap: var(--louis-space-progress-ring-gap);
   position: relative;
   display: inline-grid;
   place-items: center;
   box-sizing: content-box;
-  padding: calc(var(--kds-progress-ring-width) + var(--kds-progress-ring-gap));
-  border-radius: var(--kds-radius-pill);
+  padding: calc(var(--louis-progress-ring-width) + var(--louis-progress-ring-gap));
+  border-radius: var(--louis-radius-pill);
 }
 
-.kds-progress-ring::after {
+.louis-progress-ring::after {
   content: "";
   position: absolute;
   inset: 0;
@@ -2531,27 +2531,27 @@
   pointer-events: none;
   background-image: conic-gradient(
     from 0deg,
-    var(--kds-color-progress-ring-fill) 0 calc(var(--kds-progress-value)*1%),
-    var(--kds-color-progress-ring-track) calc(var(--kds-progress-value)*1%) 100%
+    var(--louis-color-progress-ring-fill) 0 calc(var(--louis-progress-value)*1%),
+    var(--louis-color-progress-ring-track) calc(var(--louis-progress-value)*1%) 100%
   );
   /* 가운데를 뚫어 링만 남긴다. mask는 색이 아니라 알파만 쓰므로 `currentcolor`를 넣는다 —
    * 어떤 색을 넣어도 결과가 같고 raw 리터럴을 두지 않는다. */
   mask-image: radial-gradient(
     farthest-side,
-    transparent calc(100% - var(--kds-progress-ring-width)),
-    currentcolor calc(100% - var(--kds-progress-ring-width))
+    transparent calc(100% - var(--louis-progress-ring-width)),
+    currentcolor calc(100% - var(--louis-progress-ring-width))
   );
-  transition: background-image var(--kds-motion-layout-change-duration)
-    var(--kds-motion-layout-change-timing-function);
+  transition: background-image var(--louis-motion-layout-change-duration)
+    var(--louis-motion-layout-change-timing-function);
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .kds-progress-bar__fill,
-  .kds-progress-ring::after {
-    transition-duration: var(--kds-motion-reduced-duration);
+  .louis-progress-bar__fill,
+  .louis-progress-ring::after {
+    transition-duration: var(--louis-motion-reduced-duration);
   }
 
-  .kds-progress-bar[data-indeterminate="true"] .kds-progress-bar__fill {
+  .louis-progress-bar[data-indeterminate="true"] .louis-progress-bar__fill {
     animation-iteration-count: 1;
   }
 }
@@ -2571,7 +2571,7 @@
  * **한 선언에 묶어 둔다** — dialog의 20px 리터럴과 같은 판단이다.
  */
 
-.kds-project-card {
+.louis-project-card {
   /* 소비자의 reset에 기대지 않는다. */
   box-sizing: border-box;
   position: relative;
@@ -2585,8 +2585,8 @@
    * color-stroke-subtle border였고, `overflow: hidden`과 만나 썸네일 위 가장자리에 그려졌다.
    * inset 헤어라인은 레이아웃을 건드리지 않으며 제품 5103ffeb과 같은 표현이다 — full-bleed
    * 썸네일이 있는 카드에서는 미디어가 그 가장자리를 덮을 수 있다(제품과 동일한 결과). */
-  box-shadow: var(--kds-hairline-inset);
-  border-radius: var(--kds-radius-card);
+  box-shadow: var(--louis-hairline-inset);
+  border-radius: var(--louis-radius-card);
   background: none;
   overflow: hidden;
   text-align: start;
@@ -2595,8 +2595,8 @@
    * 않는다 — 실측하면 transitionProperty가 "opacity, transform"인데 움직이는 것은 scale뿐이라
    * 누름이 즉시 튄다. dialog.css는 처음부터 `translate, scale`로 적고 있었다. */
   transition-property: opacity, scale;
-  transition-duration: var(--kds-motion-overlay-exit-duration);
-  transition-timing-function: var(--kds-motion-overlay-exit-timing-function);
+  transition-duration: var(--louis-motion-overlay-exit-duration);
+  transition-timing-function: var(--louis-motion-overlay-exit-timing-function);
 }
 
 /* 카드 전체를 덮는 클릭 타깃. **프레임의 형제이지 조상이 아니다.**
@@ -2604,7 +2604,7 @@
  * root를 `<a>`로 두면 안에 있는 더보기 버튼이 `<a>` 안의 대화형 자손이 되어 HTML이 무효가 되고
  * 보조기술에서 동작이 정의되지 않는다. 규범 문서가 바로 그 사용(슬롯 안의 메뉴)을 예시로 들고
  * 있었다. 그래서 링크를 카드 전체에 늘려 깔고, 슬롯은 그 **위**에 형제로 둔다. */
-.kds-project-card-action {
+.louis-project-card-action {
   position: absolute;
   inset: 0;
   display: block;
@@ -2621,13 +2621,13 @@
  *
  * **`:has()`로 액션만 본다.** 프레임에 `:active`를 직접 걸면 슬롯 안의 더보기 버튼을 눌렀을 때도
  * 카드가 눌린 것처럼 줄어든다 — `:active`는 조상에도 붙기 때문이다. */
-.kds-project-card:has(.kds-project-card-action:active) {
+.louis-project-card:has(.louis-project-card-action:active) {
   scale: 0.975;
 }
 
 /* focus ring도 액션이 받되 링은 프레임에 그린다. 투명한 층에 링만 뜨면 무엇이 선택됐는지 모른다. */
-.kds-project-card:has(.kds-project-card-action:focus-visible) {
-  outline: var(--kds-border-width-ring) solid var(--kds-color-stroke-focus);
+.louis-project-card:has(.louis-project-card-action:focus-visible) {
+  outline: var(--louis-border-width-ring) solid var(--louis-color-stroke-focus);
   /* base.css의 공유 링과 같은 틈이다. `space-card-text-gap`(4px)을 쓰면 그 토큰이 텍스트 간격과
    * 링 간격 두 자리를 한 값으로 묶어 버린다 — 하나를 고치면 다른 하나가 따라 움직인다. */
   outline-offset: 2px;
@@ -2636,12 +2636,12 @@
 @media (forced-colors: active) {
   /* box-shadow 헤어라인은 강제 색에서 사라지므로 프레임 경계를 시스템 색 실선으로 되살린다
    * (DS-D-0023). overflow:hidden은 자손만 자르고 border는 남는다. */
-  .kds-project-card {
+  .louis-project-card {
     box-shadow: none;
-    border: var(--kds-border-width-default) solid currentColor;
+    border: var(--louis-border-width-default) solid currentColor;
   }
 
-  .kds-project-card:has(.kds-project-card-action:focus-visible) {
+  .louis-project-card:has(.louis-project-card-action:focus-visible) {
     outline-color: Highlight;
   }
 }
@@ -2650,47 +2650,47 @@
  *
  * 배경은 **빈 썸네일과 레터박스의 색**이다. 제품은 이 자리에 노드 캔버스와 같은 색을 쓴다고
  * 명시하고 있어 canvas 토큰을 쓴다. */
-.kds-project-card-media {
+.louis-project-card-media {
   /* 호출부가 인라인으로 덮는다. 기본값을 여기 두어야 토큰 참조가 실재하고, 덮지 않은 카드도
    * 제품 홈과 같은 정사각이 된다. */
-  --kds-project-card-aspect-ratio: 1;
+  --louis-project-card-aspect-ratio: 1;
 
   position: relative;
   inline-size: 100%;
   min-inline-size: 0;
-  aspect-ratio: var(--kds-project-card-aspect-ratio);
-  background: var(--kds-color-bg-canvas);
+  aspect-ratio: var(--louis-project-card-aspect-ratio);
+  background: var(--louis-color-bg-canvas);
   overflow: hidden;
   /* 미디어 면 안에서 칠 순서를 닫는다. 카드 밖 요소가 오버레이 사이로 끼어들지 못한다. */
   isolation: isolate;
 }
 
-/* 썸네일 자리. `.kds-project-card-media > img`를 직접 잡으면 Next.js `Image`처럼 래퍼를 하나 더
+/* 썸네일 자리. `.louis-project-card-media > img`를 직접 잡으면 Next.js `Image`처럼 래퍼를 하나 더
  * 만드는 컴포넌트를 넣는 순간 선택자가 빗나가 썸네일이 면을 못 채운다. 자리를 잡는 것은 이 요소이고
  * 안에 무엇이 들어와도 채운다. */
-.kds-project-card-thumbnail {
+.louis-project-card-thumbnail {
   position: absolute;
   inset: 0;
 }
 
-.kds-project-card-thumbnail,
-.kds-project-card-thumbnail :where(img, video) {
+.louis-project-card-thumbnail,
+.louis-project-card-thumbnail :where(img, video) {
   inline-size: 100%;
   block-size: 100%;
   object-fit: cover;
 }
 
 /* 썸네일이 없을 때. 면과 같은 색이라 빈 면으로 보이고 자리표시 그래픽은 자식이 넣는다. */
-.kds-project-card-placeholder {
+.louis-project-card-placeholder {
   position: absolute;
   inset: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--kds-color-fg-tertiary);
+  color: var(--louis-color-fg-tertiary);
 }
 
-.kds-project-card-overlay {
+.louis-project-card-overlay {
   /* 30%는 **띠 전체**의 높이다. content-box로 두면 padding 32px이 위에 더해져 띠가 39%가 된다 —
    * 소비자가 reset을 켰는지에 따라 결과가 달라지는 자리라 여기서 못을 박는다. */
   box-sizing: border-box;
@@ -2707,12 +2707,12 @@
   min-block-size: 30%;
   display: flex;
   align-items: flex-end;
-  padding: var(--kds-space-layout-gutter);
+  padding: var(--louis-space-layout-gutter);
   /* **아래 두 모서리를 직접 깎는다.** 카드의 `overflow: hidden`에만 기대고 있었는데, 아래 흐림 층은
    * `backdrop-filter`라 합성 레이어로 올라가 조상의 클립을 받지 않는다 — 모서리에서 흐림이 샌다.
    * 배포본 4벌이 전수 `0 0 16px 16px`을 직접 적는 이유가 그것이다. */
-  border-end-start-radius: var(--kds-radius-card);
-  border-end-end-radius: var(--kds-radius-card);
+  border-end-start-radius: var(--louis-radius-card);
+  border-end-end-radius: var(--louis-radius-card);
 }
 
 /* **프로그레시브 블러.** 흐림을 칠하는 층이다.
@@ -2720,14 +2720,14 @@
  * mask의 정지점은 **색이 아니라 알파 램프**다 — 흐림이 얼마나 남는지만 정한다. 그래서 semantic
  * 색 토큰이 아니라 `color-mix`로 검정의 불투명도를 직접 적는다. 여기에 색 토큰을 넣으면 테마에
  * 따라 흐림의 세기가 달라진다. */
-.kds-project-card-overlay::before {
+.louis-project-card-overlay::before {
   content: "";
   position: absolute;
   inset: 0;
   pointer-events: none;
   /* 반경을 물려받는다. 이 층이 사각형이면 위에서 깎은 모서리가 다시 채워진다. */
   border-radius: inherit;
-  backdrop-filter: blur(var(--kds-blur-surface));
+  backdrop-filter: blur(var(--louis-blur-surface));
   mask-image: linear-gradient(
     to top,
     black 0%,
@@ -2738,11 +2738,11 @@
   );
 }
 
-.kds-project-card-overlay-content {
+.louis-project-card-overlay-content {
   /* 세 줄이 미디어 높이의 30% 안에 들어가야 한다. typography 토큰의 1.5로는 넘친다. 제품도 같은
    * 이유로 `--project-card-overlay-line-height: 1.2`를 따로 둔다. tight 축의 토큰이 소스에
    * 없어 리터럴을 이 한 줄에 격리한다. */
-  --kds-project-card-line-height: 1.2;
+  --louis-project-card-line-height: 1.2;
 
   /* 흐림 층(`::before`)보다 위에 칠해지는 유일한 수단. 둘 다 positioned이고 z-index가 auto라
    * 트리 순서로 칠해지는데, `::before`가 먼저다. 숫자 z-index를 쓰지 않는다(dialog surface와
@@ -2752,71 +2752,71 @@
   flex-direction: column;
   align-items: flex-start;
   justify-content: flex-end;
-  gap: var(--kds-space-stack-xs);
+  gap: var(--louis-space-stack-xs);
   inline-size: 100%;
   min-inline-size: 0;
 }
 
 /* 세 줄 모두 한 줄로 자른다. 카드 폭은 그리드가 정하므로 줄바꿈을 허용하면 카드마다 높이가 다르다. */
-.kds-project-card-eyebrow,
-.kds-project-card-title,
-.kds-project-card-meta {
+.louis-project-card-eyebrow,
+.louis-project-card-title,
+.louis-project-card-meta {
   display: block;
   max-inline-size: 100%;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
-  line-height: var(--kds-project-card-line-height);
+  line-height: var(--louis-project-card-line-height);
 }
 
 /* 위계를 **토큰**으로 만든다. 제품은 같은 색에 opacity 0.72/0.7을 곱하는데, 그러면 결과가 뒤에
  * 놓인 썸네일에 따라 달라진다. 토큰은 달라지지 않는다. */
-.kds-project-card-eyebrow,
-.kds-project-card-meta {
-  color: var(--kds-color-fg-secondary);
-  font-family: var(--kds-typography-body-sm-regular-font-family);
-  font-size: var(--kds-typography-body-sm-regular-font-size);
-  font-weight: var(--kds-typography-body-sm-regular-font-weight);
-  letter-spacing: var(--kds-typography-body-sm-regular-letter-spacing);
+.louis-project-card-eyebrow,
+.louis-project-card-meta {
+  color: var(--louis-color-fg-secondary);
+  font-family: var(--louis-typography-body-sm-regular-font-family);
+  font-size: var(--louis-typography-body-sm-regular-font-size);
+  font-weight: var(--louis-typography-body-sm-regular-font-weight);
+  letter-spacing: var(--louis-typography-body-sm-regular-letter-spacing);
 }
 
-.kds-project-card-title {
-  color: var(--kds-color-fg-primary);
-  font-family: var(--kds-typography-body-md-medium-font-family);
-  font-size: var(--kds-typography-body-md-medium-font-size);
-  font-weight: var(--kds-typography-body-md-medium-font-weight);
-  letter-spacing: var(--kds-typography-body-md-medium-letter-spacing);
+.louis-project-card-title {
+  color: var(--louis-color-fg-primary);
+  font-family: var(--louis-typography-body-md-medium-font-family);
+  font-size: var(--louis-typography-body-md-medium-font-size);
+  font-weight: var(--louis-typography-body-md-medium-font-weight);
+  letter-spacing: var(--louis-typography-body-md-medium-letter-spacing);
 }
 
 /* 카드 모서리에 붙는 슬롯 — 상태 칩과 더보기 메뉴가 여기 들어간다.
  *
- * **`.kds-project-card-action` 뒤에 둔다.** 숫자 z-index를 쓰지 않으므로 칠 순서는 DOM 순서이고,
+ * **`.louis-project-card-action` 뒤에 둔다.** 숫자 z-index를 쓰지 않으므로 칠 순서는 DOM 순서이고,
  * 앞에 두면 카드 전체를 덮은 클릭 타깃이 위에 깔려 이 안의 컨트롤이 눌리지 않는다. 계약이므로
  * 문서와 테스트가 함께 고정한다. */
-.kds-project-card-adornment {
+.louis-project-card-adornment {
   position: absolute;
   display: inline-flex;
   align-items: center;
   /* 프레임이 `<a>`가 아니게 됐지만, 슬롯 안에 링크를 넣는 소비자가 UA 색을 물려받지 않게 한다. */
-  color: var(--kds-color-fg-primary);
+  color: var(--louis-color-fg-primary);
 }
 
-.kds-project-card-adornment[data-placement="top-start"] {
-  inset-block-start: var(--kds-space-layout-gutter);
-  inset-inline-start: var(--kds-space-layout-gutter);
+.louis-project-card-adornment[data-placement="top-start"] {
+  inset-block-start: var(--louis-space-layout-gutter);
+  inset-inline-start: var(--louis-space-layout-gutter);
 }
 
-.kds-project-card-adornment[data-placement="top-end"] {
-  inset-block-start: var(--kds-space-layout-gutter);
-  inset-inline-end: var(--kds-space-layout-gutter);
+.louis-project-card-adornment[data-placement="top-end"] {
+  inset-block-start: var(--louis-space-layout-gutter);
+  inset-inline-end: var(--louis-space-layout-gutter);
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .kds-project-card {
-    transition-duration: var(--kds-motion-reduced-duration);
+  .louis-project-card {
+    transition-duration: var(--louis-motion-reduced-duration);
   }
 
-  .kds-project-card:active {
+  .louis-project-card:active {
     scale: 1;
   }
 }
@@ -2832,10 +2832,10 @@
  * `:has(:active)`의 눌림 0.975를 이겨 버린다.
  *
  * **index는 소비처가 준다.** 카드가 자기 순서를 알 방법이 없고, 알아도 그리드가 다시 정렬되면
- * 틀린다. `--kds-project-card-index`를 인라인으로 받는다.
+ * 틀린다. `--louis-project-card-index`를 인라인으로 받는다.
  */
 
-@keyframes kds-project-card-enter {
+@keyframes louis-project-card-enter {
   from {
     opacity: 0;
     translate: 0 18px;
@@ -2846,14 +2846,14 @@
   }
 }
 
-.kds-project-card[data-enter="true"] {
-  --kds-project-card-index: 0;
-  animation-name: kds-project-card-enter;
-  animation-duration: var(--kds-motion-list-enter-duration);
-  animation-timing-function: var(--kds-motion-list-enter-timing-function);
+.louis-project-card[data-enter="true"] {
+  --louis-project-card-index: 0;
+  animation-name: louis-project-card-enter;
+  animation-duration: var(--louis-motion-list-enter-duration);
+  animation-timing-function: var(--louis-motion-list-enter-timing-function);
   /* 곱셈 기호 앞뒤에 공백을 두지 않는다 — 저작 게이트의 전역 선택자 패턴(`\s*\s`)에 걸린다.
    * CSS는 둘 다 같게 읽는다. */
-  animation-delay: calc(var(--kds-project-card-index, 0)*36ms);
+  animation-delay: calc(var(--louis-project-card-index, 0)*36ms);
   animation-fill-mode: both;
 }
 
@@ -2862,47 +2862,47 @@
  * 평소에는 숨어 있고 hover나 초점에서 드러난다. **초점을 빼면 키보드로 닿을 수 없다.**
  */
 
-.kds-project-card-more {
+.louis-project-card-more {
   position: absolute;
-  inset-block-start: var(--kds-space-control-sm);
-  inset-inline-end: var(--kds-space-control-sm);
-  inline-size: var(--kds-layout-control-height-sm);
-  block-size: var(--kds-layout-control-height-sm);
+  inset-block-start: var(--louis-space-control-sm);
+  inset-inline-end: var(--louis-space-control-sm);
+  inline-size: var(--louis-layout-control-height-sm);
+  block-size: var(--louis-layout-control-height-sm);
   display: inline-flex;
   align-items: center;
   justify-content: center;
   padding: 0;
   border: 0;
-  border-radius: var(--kds-radius-control);
-  background-color: var(--kds-color-media-control-surface);
-  color: var(--kds-color-media-control-foreground);
+  border-radius: var(--louis-radius-control);
+  background-color: var(--louis-color-media-control-surface);
+  color: var(--louis-color-media-control-foreground);
   cursor: pointer;
   opacity: 0;
   transition:
-    opacity var(--kds-motion-control-hover-duration)
-      var(--kds-motion-control-hover-timing-function),
-    background-color var(--kds-motion-control-hover-duration)
-      var(--kds-motion-control-hover-timing-function);
+    opacity var(--louis-motion-control-hover-duration)
+      var(--louis-motion-control-hover-timing-function),
+    background-color var(--louis-motion-control-hover-duration)
+      var(--louis-motion-control-hover-timing-function);
 }
 
 @media (hover: hover) {
-  .kds-project-card:hover .kds-project-card-more {
+  .louis-project-card:hover .louis-project-card-more {
     opacity: 1;
   }
 
-  .kds-project-card-more:hover {
-    background-color: var(--kds-color-media-control-hover);
+  .louis-project-card-more:hover {
+    background-color: var(--louis-color-media-control-hover);
   }
 }
 
 /* **초점이 카드 안 어디든 들어오면 드러난다.** `:focus-visible`에만 걸면 브라우저의 heuristic에
  * 따라 키보드로 닿았는데도 안 보이는 경우가 생긴다 — 숨은 컨트롤에서 그것은 닿을 수 없다는 뜻이다. */
-.kds-project-card:focus-within .kds-project-card-more {
+.louis-project-card:focus-within .louis-project-card-more {
   opacity: 1;
 }
 
-.kds-project-card-more:focus-visible {
-  outline: var(--kds-border-width-ring) solid var(--kds-color-stroke-focus);
+.louis-project-card-more:focus-visible {
+  outline: var(--louis-border-width-ring) solid var(--louis-color-stroke-focus);
   outline-offset: 2px;
 }
 
@@ -2911,7 +2911,7 @@
  * 글자가 밀려 "다른 곳으로 갔다"처럼 보인다.
  */
 
-.kds-project-card-rename {
+.louis-project-card-rename {
   inline-size: 100%;
   padding: 0;
   margin: 0;
@@ -2919,21 +2919,21 @@
   background-color: transparent;
   color: inherit;
   font: inherit;
-  border-radius: var(--kds-radius-control-sm);
+  border-radius: var(--louis-radius-control-sm);
 }
 
-.kds-project-card-rename:focus-visible {
-  outline: var(--kds-border-width-hairline) solid var(--kds-color-stroke-focus);
+.louis-project-card-rename:focus-visible {
+  outline: var(--louis-border-width-hairline) solid var(--louis-color-stroke-focus);
   outline-offset: 2px;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .kds-project-card[data-enter="true"] {
+  .louis-project-card[data-enter="true"] {
     animation-name: none;
   }
 
-  .kds-project-card-more {
-    transition-duration: var(--kds-motion-reduced-duration);
+  .louis-project-card-more {
+    transition-duration: var(--louis-motion-reduced-duration);
     /* 움직임을 줄여 달라고 한 사람에게 hover로만 드러나는 컨트롤은 찾기 어렵다. 항상 보인다. */
     opacity: 1;
   }
@@ -2953,7 +2953,7 @@
  * radio를 쓰면 방향키 roving·Home/End·그룹 안내("3 중 1")·폼 제출·forced-colors가 전부 브라우저의
  * 것이 된다. Button이 활성화를, Slider가 범위를 네이티브에 맡긴 것과 같은 이유다.
  *
- * radio는 `.kds-visually-hidden`으로 숨기고 라벨이 시각을 소유한다. 포커스 링은 라벨이
+ * radio는 `.louis-visually-hidden`으로 숨기고 라벨이 시각을 소유한다. 포커스 링은 라벨이
  * `:has(:focus-visible)`로 받는다 — 숨긴 입력에 링을 걸면 화면 밖에 그려진다.
  *
  * ## 면 두 색이 한 테마에서 죽지 않는 유일한 짝이다
@@ -2967,7 +2967,7 @@
  * 일을 하고 있어 그 축은 채택했다.
  */
 
-.kds-segmented-control {
+.louis-segmented-control {
   box-sizing: border-box;
   display: inline-flex;
   align-items: stretch;
@@ -2977,26 +2977,26 @@
   max-inline-size: 100%;
   /* fieldset의 기본 여백·테두리를 지운다. reset은 opt-in이라 여기서 스스로 지워야 한다. */
   margin: 0;
-  padding: var(--kds-space-control-xs);
-  block-size: var(--kds-layout-control-height-md);
+  padding: var(--louis-space-control-xs);
+  block-size: var(--louis-layout-control-height-md);
   border: 0;
-  border-radius: var(--kds-radius-control);
-  background: var(--kds-color-bg-inset);
+  border-radius: var(--louis-radius-control);
+  background: var(--louis-color-bg-inset);
   /* **테두리가 아니라 box-shadow다.** border를 쓰면 border-box 안쪽이 줄어 세그먼트 높이가
    * 40 − 8 − 2×테두리가 되는데, 브라우저가 DPR 1에서 0.5px을 1px로 올리므로 그 값이 화면마다
    * 달라진다. box-shadow는 레이아웃을 건드리지 않아 세그먼트가 정확히 32로 남는다. 이전엔
    * spread-only 바깥 그림자였고 색도 color-stroke-subtle이었다 — 다른 표면과 같은 generic 10%
    * inset 헤어라인으로 통일했다 (DS-D-0023). inset도 레이아웃을 건드리지 않는다. */
-  box-shadow: var(--kds-hairline-inset);
+  box-shadow: var(--louis-hairline-inset);
 }
 
-.kds-segmented-control[data-size="sm"] {
-  block-size: var(--kds-layout-control-height-sm);
+.louis-segmented-control[data-size="sm"] {
+  block-size: var(--louis-layout-control-height-sm);
 }
 
 /* 세그먼트 사이에 간격을 두지 않는다. 제품 둘은 2px을 두지만 그 값에 semantic 토큰이 없고,
  * 선택 면이 자기 반경을 가지므로 간격 없이도 경계가 읽힌다. */
-.kds-segmented-control__segment {
+.louis-segmented-control__segment {
   position: relative;
   box-sizing: border-box;
   display: inline-flex;
@@ -3006,33 +3006,33 @@
   flex: 1 1 auto;
   align-items: center;
   justify-content: center;
-  gap: var(--kds-space-control-sm);
+  gap: var(--louis-space-control-sm);
   min-inline-size: 0;
-  padding-inline: var(--kds-space-control-md);
+  padding-inline: var(--louis-space-control-md);
   /* 반경은 바깥에서 padding을 뺀 값이다 — 12 − 4 = 8. 중첩한 모서리가 어긋나지 않는다. */
-  border-radius: var(--kds-radius-control-sm);
-  color: var(--kds-color-fg-secondary);
+  border-radius: var(--louis-radius-control-sm);
+  color: var(--louis-color-fg-secondary);
   cursor: pointer;
-  font-family: var(--kds-typography-body-sm-medium-font-family);
-  font-size: var(--kds-typography-body-sm-medium-font-size);
-  font-weight: var(--kds-typography-body-sm-medium-font-weight);
-  line-height: var(--kds-typography-body-sm-medium-line-height);
-  letter-spacing: var(--kds-typography-body-sm-medium-letter-spacing);
+  font-family: var(--louis-typography-body-sm-medium-font-family);
+  font-size: var(--louis-typography-body-sm-medium-font-size);
+  font-weight: var(--louis-typography-body-sm-medium-font-weight);
+  line-height: var(--louis-typography-body-sm-medium-line-height);
+  letter-spacing: var(--louis-typography-body-sm-medium-letter-spacing);
 }
 
-.kds-segmented-control[data-size="sm"] .kds-segmented-control__segment {
-  padding-inline: var(--kds-space-control-sm);
-  font-family: var(--kds-typography-caption-medium-font-family);
-  font-size: var(--kds-typography-caption-medium-font-size);
-  font-weight: var(--kds-typography-caption-medium-font-weight);
-  line-height: var(--kds-typography-caption-medium-line-height);
-  letter-spacing: var(--kds-typography-caption-medium-letter-spacing);
+.louis-segmented-control[data-size="sm"] .louis-segmented-control__segment {
+  padding-inline: var(--louis-space-control-sm);
+  font-family: var(--louis-typography-caption-medium-font-family);
+  font-size: var(--louis-typography-caption-medium-font-size);
+  font-weight: var(--louis-typography-caption-medium-font-weight);
+  line-height: var(--louis-typography-caption-medium-line-height);
+  letter-spacing: var(--louis-typography-caption-medium-letter-spacing);
 }
 
 /* 라벨. 줄바꿈 대신 잘라낸다 — 세그먼트가 줄바꿈하면 트랙 높이가 변해 옆에 선 컨트롤과
  * 어긋나고, 넘치게 두면 트랙이 컨테이너를 뚫는다. 잘린 라벨의 전체 문구는 호출부가 title이나
  * Tooltip으로 줄 수 있다. */
-.kds-segmented-control__label {
+.louis-segmented-control__label {
   min-inline-size: 0;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -3041,54 +3041,54 @@
 
 /* hover는 글자만 바꾼다. 면까지 바꾸면 선택된 것과 얹은 것이 같은 표현이 되어 어느 쪽이
  * 현재 값인지 순간 읽히지 않는다. */
-.kds-segmented-control__segment:hover {
-  color: var(--kds-color-fg-primary);
+.louis-segmented-control__segment:hover {
+  color: var(--louis-color-fg-primary);
 }
 
 /* 선택. **면과 글자를 함께 바꾼다** — 제품 B는 색 하나로만 전달하고 aria도 없어서, 색각 이상과
  * 스크린 리더 양쪽에서 현재 값이 사라진다. */
-.kds-segmented-control__segment[data-selected="true"] {
-  background: var(--kds-color-bg-raised);
-  color: var(--kds-color-fg-primary);
+.louis-segmented-control__segment[data-selected="true"] {
+  background: var(--louis-color-bg-raised);
+  color: var(--louis-color-fg-primary);
 }
 
 /* 링은 라벨이 받는다. radio는 숨겨져 있어 거기 걸면 화면 밖에 그려진다. */
-.kds-segmented-control__segment:has(.kds-segmented-control__input:focus-visible) {
-  outline: var(--kds-border-width-ring) solid var(--kds-color-stroke-focus);
+.louis-segmented-control__segment:has(.louis-segmented-control__input:focus-visible) {
+  outline: var(--louis-border-width-ring) solid var(--louis-color-stroke-focus);
   outline-offset: 2px;
 }
 
 @media (forced-colors: active) {
   /* box-shadow 헤어라인은 강제 색에서 사라지므로 트랙 경계를 시스템 색 실선으로 되살린다 (DS-D-0023). */
-  .kds-segmented-control {
+  .louis-segmented-control {
     box-shadow: none;
-    border: var(--kds-border-width-default) solid currentColor;
+    border: var(--louis-border-width-default) solid currentColor;
   }
 
-  .kds-segmented-control__segment:has(.kds-segmented-control__input:focus-visible) {
+  .louis-segmented-control__segment:has(.louis-segmented-control__input:focus-visible) {
     outline-color: Highlight;
   }
 
   /* forced-colors에서는 면 색이 시스템 색으로 치환돼 선택이 사라진다. 테두리로 다시 세운다. */
-  .kds-segmented-control__segment[data-selected="true"] {
-    outline: var(--kds-border-width-hairline) solid CanvasText;
+  .louis-segmented-control__segment[data-selected="true"] {
+    outline: var(--louis-border-width-hairline) solid CanvasText;
   }
 }
 
-.kds-segmented-control__segment:has(.kds-segmented-control__input:disabled) {
-  color: var(--kds-color-fg-disabled);
+.louis-segmented-control__segment:has(.louis-segmented-control__input:disabled) {
+  color: var(--louis-color-fg-disabled);
   cursor: not-allowed;
 }
 
-.kds-segmented-control__segment[data-selected="true"]:has(
-    .kds-segmented-control__input:disabled
+.louis-segmented-control__segment[data-selected="true"]:has(
+    .louis-segmented-control__input:disabled
   ) {
-  color: var(--kds-color-fg-disabled);
+  color: var(--louis-color-fg-disabled);
 }
 
 /* 그룹 이름. 시각적으로는 숨기고 보조기술에는 남긴다 — fieldset의 legend가 그룹 이름이 되는
  * 유일한 네이티브 경로다. */
-.kds-segmented-control__legend {
+.louis-segmented-control__legend {
   padding: 0;
 }
 
@@ -3111,133 +3111,133 @@
  * 색 하나로 상태를 전달하지 않는 것은 그 자체로도 맞다.
  */
 
-.kds-selectable-list-row {
+.louis-selectable-list-row {
   position: relative;
   box-sizing: border-box;
   display: flex;
   align-items: center;
-  gap: var(--kds-space-control-sm);
+  gap: var(--louis-space-control-sm);
   inline-size: 100%;
   min-inline-size: 0;
   margin: 0;
-  padding: var(--kds-space-control-sm);
+  padding: var(--louis-space-control-sm);
   border: 0;
-  border-radius: var(--kds-radius-overlay-item);
+  border-radius: var(--louis-radius-overlay-item);
   background: none;
-  color: var(--kds-color-fg-secondary);
+  color: var(--louis-color-fg-secondary);
   text-align: start;
   cursor: pointer;
-  font-family: var(--kds-typography-body-sm-medium-font-family);
-  font-size: var(--kds-typography-body-sm-medium-font-size);
-  font-weight: var(--kds-typography-body-sm-medium-font-weight);
-  line-height: var(--kds-typography-body-sm-medium-line-height);
-  letter-spacing: var(--kds-typography-body-sm-medium-letter-spacing);
+  font-family: var(--louis-typography-body-sm-medium-font-family);
+  font-size: var(--louis-typography-body-sm-medium-font-size);
+  font-weight: var(--louis-typography-body-sm-medium-font-weight);
+  line-height: var(--louis-typography-body-sm-medium-line-height);
+  letter-spacing: var(--louis-typography-body-sm-medium-letter-spacing);
 }
 
-.kds-selectable-list-row:hover {
-  background: var(--kds-color-accent-ghost-hover);
-  color: var(--kds-color-fg-primary);
+.louis-selectable-list-row:hover {
+  background: var(--louis-color-accent-ghost-hover);
+  color: var(--louis-color-fg-primary);
 }
 
 /* **`aria-current`가 선택을 소유한다.** SidebarNavItem과 같은 판정이다 — 시각 전용 속성을 두면
  * 화면에는 선택으로 보이는데 보조기술에는 아무것도 전달되지 않는 상태를 만들 수 있다. */
-.kds-selectable-list-row[aria-current="true"] {
-  background: var(--kds-color-bg-inset);
-  color: var(--kds-color-fg-primary);
+.louis-selectable-list-row[aria-current="true"] {
+  background: var(--louis-color-bg-inset);
+  color: var(--louis-color-fg-primary);
 }
 
 /* 선행 표식. 면이 배경과 같아지는 테마에서도 선택이 남고, 색 하나에 기대지 않게 한다. */
-.kds-selectable-list-row[aria-current="true"]::before {
+.louis-selectable-list-row[aria-current="true"]::before {
   content: "";
   position: absolute;
   inset-inline-start: 0;
-  inset-block: var(--kds-space-control-sm);
+  inset-block: var(--louis-space-control-sm);
   inline-size: 3px;
-  border-radius: var(--kds-radius-pill);
-  background: var(--kds-color-accent-primary);
+  border-radius: var(--louis-radius-pill);
+  background: var(--louis-color-accent-primary);
 }
 
 @media (forced-colors: active) {
   /* forced-colors에서 면과 표식이 모두 시스템 색으로 치환된다. 테두리로 다시 세운다. */
-  .kds-selectable-list-row[aria-current="true"] {
-    outline: var(--kds-border-width-hairline) solid CanvasText;
+  .louis-selectable-list-row[aria-current="true"] {
+    outline: var(--louis-border-width-hairline) solid CanvasText;
   }
 }
 
-.kds-selectable-list-row:focus-visible {
-  outline: var(--kds-border-width-ring) solid var(--kds-color-stroke-focus);
+.louis-selectable-list-row:focus-visible {
+  outline: var(--louis-border-width-ring) solid var(--louis-color-stroke-focus);
   outline-offset: 2px;
 }
 
 @media (forced-colors: active) {
-  .kds-selectable-list-row:focus-visible {
+  .louis-selectable-list-row:focus-visible {
     outline-color: Highlight;
   }
 }
 
-.kds-selectable-list-row:disabled {
-  color: var(--kds-color-fg-disabled);
+.louis-selectable-list-row:disabled {
+  color: var(--louis-color-fg-disabled);
   cursor: not-allowed;
 }
 
-.kds-selectable-list-row:disabled:hover {
+.louis-selectable-list-row:disabled:hover {
   background: none;
-  color: var(--kds-color-fg-disabled);
+  color: var(--louis-color-fg-disabled);
 }
 
 /* 선행 슬롯. 썸네일이 들어가며 크기는 호출부가 정한다 — 96px(하이라이트)처럼 화면마다 다르다. */
-.kds-selectable-list-row__media {
+.louis-selectable-list-row__media {
   display: inline-flex;
   flex: none;
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  border-radius: var(--kds-radius-control-sm);
+  border-radius: var(--louis-radius-control-sm);
 }
 
 /* 글자 묶음. 줄바꿈이 아니라 말줄임으로 줄어든다 — 행 높이가 항목마다 달라지면 목록이 튄다. */
-.kds-selectable-list-row__text {
+.louis-selectable-list-row__text {
   display: flex;
   flex: 1 1 auto;
   flex-direction: column;
-  gap: var(--kds-space-stack-xs);
+  gap: var(--louis-space-stack-xs);
   min-inline-size: 0;
   overflow: hidden;
 }
 
-.kds-selectable-list-row__title {
+.louis-selectable-list-row__title {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
-.kds-selectable-list-row__meta {
+.louis-selectable-list-row__meta {
   overflow: hidden;
-  color: var(--kds-color-fg-secondary);
+  color: var(--louis-color-fg-secondary);
   text-overflow: ellipsis;
   white-space: nowrap;
-  font-family: var(--kds-typography-caption-regular-font-family);
-  font-size: var(--kds-typography-caption-regular-font-size);
-  font-weight: var(--kds-typography-caption-regular-font-weight);
-  line-height: var(--kds-typography-caption-regular-line-height);
-  letter-spacing: var(--kds-typography-caption-regular-letter-spacing);
+  font-family: var(--louis-typography-caption-regular-font-family);
+  font-size: var(--louis-typography-caption-regular-font-size);
+  font-weight: var(--louis-typography-caption-regular-font-weight);
+  line-height: var(--louis-typography-caption-regular-line-height);
+  letter-spacing: var(--louis-typography-caption-regular-letter-spacing);
 }
 
 /* 선택된 행에서도 보조 문구는 한 단계 낮게 남는다. 둘 다 primary가 되면 위계가 사라진다. */
-.kds-selectable-list-row[aria-current="true"] .kds-selectable-list-row__meta {
-  color: var(--kds-color-fg-secondary);
+.louis-selectable-list-row[aria-current="true"] .louis-selectable-list-row__meta {
+  color: var(--louis-color-fg-secondary);
 }
 
-.kds-selectable-list-row:disabled .kds-selectable-list-row__meta {
-  color: var(--kds-color-fg-disabled);
+.louis-selectable-list-row:disabled .louis-selectable-list-row__meta {
+  color: var(--louis-color-fg-disabled);
 }
 
 /* 후행 슬롯. 시간·개수 같은 짧은 값이 들어간다. 버튼은 넣지 않는다 — 행 자체가 버튼이다. */
-.kds-selectable-list-row__trailing {
+.louis-selectable-list-row__trailing {
   display: inline-flex;
   flex: none;
   align-items: center;
-  color: var(--kds-color-fg-secondary);
+  color: var(--louis-color-fg-secondary);
 }
 
 /* Skeleton — design/components/skeleton.md
@@ -3263,9 +3263,9 @@
  * `background-position` 이동이라 둘이 같은 곳을 가리킨다 — 층을 하나 덜 만든다.
  */
 
-.kds-skeleton {
+.louis-skeleton {
   display: block;
-  border-radius: var(--kds-radius-control-sm);
+  border-radius: var(--louis-radius-control-sm);
   /* 면. 놓이는 자리의 글자색을 물어 어느 배경 위에서도 성립한다. */
   background-color: color-mix(in srgb, currentcolor 8%, transparent);
   background-image: linear-gradient(
@@ -3278,24 +3278,24 @@
   /* 그라디언트를 화면 밖에서 시작해 가로질러 보낸다. */
   background-size: 200% 100%;
   background-position: 200% 0;
-  animation-name: kds-shimmer;
-  animation-duration: var(--kds-motion-shimmer-duration);
-  animation-timing-function: var(--kds-motion-shimmer-timing-function);
+  animation-name: louis-shimmer;
+  animation-duration: var(--louis-motion-shimmer-duration);
+  animation-timing-function: var(--louis-motion-shimmer-timing-function);
   animation-iteration-count: infinite;
 }
 
 /* 원 모양. 아바타·아이콘 자리를 대신할 때 쓴다. */
-.kds-skeleton[data-shape="circle"] {
-  border-radius: var(--kds-radius-pill);
+.louis-skeleton[data-shape="circle"] {
+  border-radius: var(--louis-radius-pill);
 }
 
 /* 글자 줄. 마지막 줄이 짧은 것은 호출부가 inline-size로 정한다 — 문단마다 다르다. */
-.kds-skeleton[data-shape="text"] {
-  border-radius: var(--kds-radius-control-sm);
-  block-size: var(--kds-typography-body-sm-regular-line-height);
+.louis-skeleton[data-shape="text"] {
+  border-radius: var(--louis-radius-control-sm);
+  block-size: var(--louis-typography-body-sm-regular-line-height);
 }
 
-@keyframes kds-shimmer {
+@keyframes louis-shimmer {
   from {
     background-position: 200% 0;
   }
@@ -3307,8 +3307,8 @@
 /* reduced-motion에서 loop는 짧아지는 것이 아니라 **사라진다**(DS-D-0016). 자리표시라는 뜻은
  * 면과 aria-hidden이 유지한다 — 움직임이 그 뜻을 만드는 것이 아니다. */
 @media (prefers-reduced-motion: reduce) {
-  .kds-skeleton {
-    animation-duration: var(--kds-motion-reduced-duration);
+  .louis-skeleton {
+    animation-duration: var(--louis-motion-reduced-duration);
     animation-iteration-count: 1;
   }
 }
@@ -3336,40 +3336,40 @@
  * ## 채움에 인라인 커스텀 속성이 필요한 이유
  *
  * `::-webkit-slider-runnable-track`은 진행 구간을 따로 갖지 않아 그라디언트 정지점으로 그린다.
- * 그 비율은 값에서만 나오므로 컴포넌트가 `--kds-slider-fill`을 인라인으로 준다. Firefox는
+ * 그 비율은 값에서만 나오므로 컴포넌트가 `--louis-slider-fill`을 인라인으로 준다. Firefox는
  * `::-moz-range-progress`가 있어 비율이 필요 없다. 제품의 두 네이티브 레시피도 같은 구조다.
  */
 
-.kds-slider {
+.louis-slider {
   display: flex;
   flex-direction: column;
-  gap: var(--kds-space-control-xs);
+  gap: var(--louis-space-control-xs);
   min-inline-size: 0;
 }
 
-.kds-slider__label {
-  color: var(--kds-color-fg-primary);
-  font-family: var(--kds-typography-body-sm-medium-font-family);
-  font-size: var(--kds-typography-body-sm-medium-font-size);
-  font-weight: var(--kds-typography-body-sm-medium-font-weight);
-  line-height: var(--kds-typography-body-sm-medium-line-height);
-  letter-spacing: var(--kds-typography-body-sm-medium-letter-spacing);
+.louis-slider__label {
+  color: var(--louis-color-fg-primary);
+  font-family: var(--louis-typography-body-sm-medium-font-family);
+  font-size: var(--louis-typography-body-sm-medium-font-size);
+  font-weight: var(--louis-typography-body-sm-medium-font-weight);
+  line-height: var(--louis-typography-body-sm-medium-line-height);
+  letter-spacing: var(--louis-typography-body-sm-medium-letter-spacing);
 }
 
 /* 실제 컨트롤. 높이는 TextField·Button과 같은 계단이다 — 인스펙터에서 나란히 서는 컨트롤이
  * 서로 다른 높이를 가지면 줄이 어긋난다. */
-.kds-slider__control {
+.louis-slider__control {
   /* 채움 비율. **토큰이 아니라 이 컴포넌트의 지역 변수다.** 값에서만 나오는 수라 CSS가 알 수
    * 없고 컴포넌트가 인라인으로 덮어쓴다. 기본값을 여기 두는 이유는 CSS만 로드한 소비자(정적
    * 마크업, Figma 캡처용 fixture)에서도 레일이 깨지지 않게 하려는 것이다. */
-  --kds-slider-fill: 0%;
+  --louis-slider-fill: 0%;
   appearance: none;
   -webkit-appearance: none;
   box-sizing: border-box;
   display: block;
   inline-size: 100%;
   min-inline-size: 0;
-  block-size: var(--kds-layout-control-height-md);
+  block-size: var(--louis-layout-control-height-md);
   margin: 0;
   padding: 0;
   border: 0;
@@ -3379,26 +3379,26 @@
   touch-action: none;
 }
 
-.kds-slider[data-size="sm"] .kds-slider__control {
-  block-size: var(--kds-layout-control-height-sm);
+.louis-slider[data-size="sm"] .louis-slider__control {
+  block-size: var(--louis-layout-control-height-sm);
 }
 
 /* 포커스 링은 **컨트롤 전체**가 받는다. 네이티브 range는 input 자신이 포커스 대상이라 링이
  * 레일을 두른다. 제품의 세 레시피가 `outline: none`으로 이 링을 지웠고 그것이 사용의 다수인데,
  * 키보드 사용자가 지금 어디에 있는지 알 수 없는 상태를 옮기지 않는다. */
-.kds-slider__control:focus-visible {
-  outline: var(--kds-border-width-ring) solid var(--kds-color-stroke-focus);
+.louis-slider__control:focus-visible {
+  outline: var(--louis-border-width-ring) solid var(--louis-color-stroke-focus);
   outline-offset: 2px;
-  border-radius: var(--kds-radius-control-sm);
+  border-radius: var(--louis-radius-control-sm);
 }
 
 @media (forced-colors: active) {
-  .kds-slider__control:focus-visible {
+  .louis-slider__control:focus-visible {
     outline-color: Highlight;
   }
 }
 
-.kds-slider__control:disabled {
+.louis-slider__control:disabled {
   cursor: not-allowed;
 }
 
@@ -3414,28 +3414,28 @@
  * 전체가 버려진다.
  */
 
-.kds-slider__control::-webkit-slider-runnable-track {
+.louis-slider__control::-webkit-slider-runnable-track {
   block-size: 4px;
-  border-radius: var(--kds-radius-pill);
+  border-radius: var(--louis-radius-pill);
   background: linear-gradient(
     to right,
-    var(--kds-color-accent-primary) 0,
-    var(--kds-color-accent-primary) var(--kds-slider-fill),
-    var(--kds-color-stroke-default) var(--kds-slider-fill),
-    var(--kds-color-stroke-default) 100%
+    var(--louis-color-accent-primary) 0,
+    var(--louis-color-accent-primary) var(--louis-slider-fill),
+    var(--louis-color-stroke-default) var(--louis-slider-fill),
+    var(--louis-color-stroke-default) 100%
   );
 }
 
-.kds-slider__control::-moz-range-track {
+.louis-slider__control::-moz-range-track {
   block-size: 4px;
-  border-radius: var(--kds-radius-pill);
-  background: var(--kds-color-stroke-default);
+  border-radius: var(--louis-radius-pill);
+  background: var(--louis-color-stroke-default);
 }
 
-.kds-slider__control::-moz-range-progress {
+.louis-slider__control::-moz-range-progress {
   block-size: 4px;
-  border-radius: var(--kds-radius-pill);
-  background: var(--kds-color-accent-primary);
+  border-radius: var(--louis-radius-pill);
+  background: var(--louis-color-accent-primary);
 }
 
 /* ── 썸 ──────────────────────────────────────────────────────────────────
@@ -3448,56 +3448,56 @@
  * `margin-block-start`가 필요한 이유: WebKit은 썸을 트랙 박스의 **위쪽 가장자리**에 붙인다.
  * 트랙과 썸의 차이의 절반만큼 올려야 가운데에 온다. Firefox는 자동으로 가운데 정렬한다.
  */
-.kds-slider__control::-webkit-slider-thumb {
+.louis-slider__control::-webkit-slider-thumb {
   appearance: none;
   -webkit-appearance: none;
   box-sizing: border-box;
   inline-size: 16px;
   block-size: 16px;
   margin-block-start: calc((4px - 16px) / 2);
-  border: var(--kds-border-width-ring) solid var(--kds-color-bg-surface);
-  border-radius: var(--kds-radius-pill);
-  background: var(--kds-color-accent-primary);
+  border: var(--louis-border-width-ring) solid var(--louis-color-bg-surface);
+  border-radius: var(--louis-radius-pill);
+  background: var(--louis-color-accent-primary);
 }
 
-.kds-slider__control::-moz-range-thumb {
+.louis-slider__control::-moz-range-thumb {
   box-sizing: border-box;
   inline-size: 16px;
   block-size: 16px;
-  border: var(--kds-border-width-ring) solid var(--kds-color-bg-surface);
-  border-radius: var(--kds-radius-pill);
-  background: var(--kds-color-accent-primary);
+  border: var(--louis-border-width-ring) solid var(--louis-color-bg-surface);
+  border-radius: var(--louis-radius-pill);
+  background: var(--louis-color-accent-primary);
 }
 
-.kds-slider[data-size="sm"] .kds-slider__control::-webkit-slider-thumb {
+.louis-slider[data-size="sm"] .louis-slider__control::-webkit-slider-thumb {
   inline-size: 12px;
   block-size: 12px;
   margin-block-start: calc((4px - 12px) / 2);
 }
 
-.kds-slider[data-size="sm"] .kds-slider__control::-moz-range-thumb {
+.louis-slider[data-size="sm"] .louis-slider__control::-moz-range-thumb {
   inline-size: 12px;
   block-size: 12px;
 }
 
-.kds-slider__control:disabled::-webkit-slider-runnable-track {
-  background: var(--kds-color-stroke-subtle);
+.louis-slider__control:disabled::-webkit-slider-runnable-track {
+  background: var(--louis-color-stroke-subtle);
 }
 
-.kds-slider__control:disabled::-moz-range-track {
-  background: var(--kds-color-stroke-subtle);
+.louis-slider__control:disabled::-moz-range-track {
+  background: var(--louis-color-stroke-subtle);
 }
 
-.kds-slider__control:disabled::-moz-range-progress {
-  background: var(--kds-color-stroke-subtle);
+.louis-slider__control:disabled::-moz-range-progress {
+  background: var(--louis-color-stroke-subtle);
 }
 
-.kds-slider__control:disabled::-webkit-slider-thumb {
-  background: var(--kds-color-fg-disabled);
+.louis-slider__control:disabled::-webkit-slider-thumb {
+  background: var(--louis-color-fg-disabled);
 }
 
-.kds-slider__control:disabled::-moz-range-thumb {
-  background: var(--kds-color-fg-disabled);
+.louis-slider__control:disabled::-moz-range-thumb {
+  background: var(--louis-color-fg-disabled);
 }
 
 /* ── track 변형 ───────────────────────────────────────────────────────────
@@ -3514,46 +3514,46 @@
  * 변한다. 워크샵에서 눈으로 보고 찾았다 — 두 테마 모두 흰색인 전자가 action-primary의
  * 문서화된 대비 짝이다.
  */
-.kds-slider[data-variant="track"] .kds-slider__control::-webkit-slider-runnable-track {
+.louis-slider[data-variant="track"] .louis-slider__control::-webkit-slider-runnable-track {
   block-size: 28px;
-  border-radius: var(--kds-radius-control-sm);
+  border-radius: var(--louis-radius-control-sm);
 }
 
-.kds-slider[data-variant="track"] .kds-slider__control::-moz-range-track,
-.kds-slider[data-variant="track"] .kds-slider__control::-moz-range-progress {
+.louis-slider[data-variant="track"] .louis-slider__control::-moz-range-track,
+.louis-slider[data-variant="track"] .louis-slider__control::-moz-range-progress {
   block-size: 28px;
-  border-radius: var(--kds-radius-control-sm);
+  border-radius: var(--louis-radius-control-sm);
 }
 
-.kds-slider[data-variant="track"][data-size="sm"] .kds-slider__control::-webkit-slider-runnable-track {
+.louis-slider[data-variant="track"][data-size="sm"] .louis-slider__control::-webkit-slider-runnable-track {
   block-size: 20px;
 }
 
-.kds-slider[data-variant="track"][data-size="sm"] .kds-slider__control::-moz-range-track,
-.kds-slider[data-variant="track"][data-size="sm"] .kds-slider__control::-moz-range-progress {
+.louis-slider[data-variant="track"][data-size="sm"] .louis-slider__control::-moz-range-track,
+.louis-slider[data-variant="track"][data-size="sm"] .louis-slider__control::-moz-range-progress {
   block-size: 20px;
 }
 
-.kds-slider[data-variant="track"] .kds-slider__control::-webkit-slider-thumb {
+.louis-slider[data-variant="track"] .louis-slider__control::-webkit-slider-thumb {
   inline-size: 2px;
   block-size: 14px;
   margin-block-start: calc((28px - 14px) / 2);
   border: 0;
   /* 끝이 둥글다. 각진 2×14 막대로 두고 있었는데 배포본의 표식은 알약이다 — 2px 폭에서 이 차이가
    * 눈에 띈다. 열거 게이트가 `::after`의 반경을 세면서 드러났다. */
-  border-radius: var(--kds-radius-pill);
-  background: var(--kds-color-fg-inverse);
+  border-radius: var(--louis-radius-pill);
+  background: var(--louis-color-fg-inverse);
 }
 
-.kds-slider[data-variant="track"] .kds-slider__control::-moz-range-thumb {
+.louis-slider[data-variant="track"] .louis-slider__control::-moz-range-thumb {
   inline-size: 2px;
   block-size: 14px;
   border: 0;
-  border-radius: var(--kds-radius-pill);
-  background: var(--kds-color-fg-inverse);
+  border-radius: var(--louis-radius-pill);
+  background: var(--louis-color-fg-inverse);
 }
 
-.kds-slider[data-variant="track"][data-size="sm"] .kds-slider__control::-webkit-slider-thumb {
+.louis-slider[data-variant="track"][data-size="sm"] .louis-slider__control::-webkit-slider-thumb {
   margin-block-start: calc((20px - 14px) / 2);
 }
 
@@ -3572,7 +3572,7 @@
  * 선언된 적도 없었다.
  */
 
-.kds-spinner {
+.louis-spinner {
   display: inline-flex;
   flex: none;
   align-items: center;
@@ -3583,51 +3583,51 @@
   line-height: 0;
 }
 
-.kds-spinner__ring {
+.louis-spinner__ring {
   position: relative;
   display: block;
   /* md. sm은 아래에서 덮는다. 두 값이 한 컴포넌트에만 있어 토큰으로 승격하지 않았다 —
    * spacing-radius.md가 "두 개 이상의 사용처"를 조건으로 둔다. */
   inline-size: 16px;
   block-size: 16px;
-  border-radius: var(--kds-radius-pill);
-  animation-name: kds-spin;
-  animation-duration: var(--kds-motion-spin-duration);
-  animation-timing-function: var(--kds-motion-spin-timing-function);
+  border-radius: var(--louis-radius-pill);
+  animation-name: louis-spin;
+  animation-duration: var(--louis-motion-spin-duration);
+  animation-timing-function: var(--louis-motion-spin-timing-function);
   animation-iteration-count: infinite;
 }
 
-.kds-spinner[data-size="sm"] .kds-spinner__ring {
+.louis-spinner[data-size="sm"] .louis-spinner__ring {
   inline-size: 12px;
   block-size: 12px;
 }
 
-.kds-spinner__ring::before,
-.kds-spinner__ring::after {
+.louis-spinner__ring::before,
+.louis-spinner__ring::after {
   content: "";
   position: absolute;
   inset: 0;
   box-sizing: border-box;
   border-radius: inherit;
   border-style: solid;
-  border-width: var(--kds-border-width-ring);
+  border-width: var(--louis-border-width-ring);
 }
 
 /* sm의 링은 md의 절반이다. 12px 원에 2px 링을 두르면 가운데가 거의 남지 않는다.
  * 리터럴 1px 대신 관계로 적어 두면 `border-width-ring`이 움직일 때 함께 따라온다. */
-.kds-spinner[data-size="sm"] .kds-spinner__ring::before,
-.kds-spinner[data-size="sm"] .kds-spinner__ring::after {
-  border-width: calc(var(--kds-border-width-ring) / 2);
+.louis-spinner[data-size="sm"] .louis-spinner__ring::before,
+.louis-spinner[data-size="sm"] .louis-spinner__ring::after {
+  border-width: calc(var(--louis-border-width-ring) / 2);
 }
 
 /* 트랙. **색이 아니라 현재 색의 흐린 것**이라 semantic 토큰으로 표현되지 않는다 —
  * `currentColor`에 달려 있고 그것은 놓이는 자리마다 다르다. 제품의 opacity 0.22와 같은 값이다. */
-.kds-spinner__ring::before {
+.louis-spinner__ring::before {
   border-color: color-mix(in srgb, currentcolor 22%, transparent);
 }
 
 /* 진행. 한 조각만 칠해 회전이 보이게 한다. */
-.kds-spinner__ring::after {
+.louis-spinner__ring::after {
   border-color: transparent;
   border-block-start-color: currentcolor;
 }
@@ -3635,8 +3635,8 @@
 /* reduced-motion에서 loop는 짧아지는 것이 아니라 **사라진다**(DS-D-0016). 회전을 멈추더라도
  * 진행 중이라는 의미는 role/aria-busy가 유지한다. */
 @media (prefers-reduced-motion: reduce) {
-  .kds-spinner__ring {
-    animation-duration: var(--kds-motion-reduced-duration);
+  .louis-spinner__ring {
+    animation-duration: var(--louis-motion-reduced-duration);
     animation-iteration-count: 1;
   }
 }
@@ -3657,60 +3657,60 @@
  * 밖에 남는다.
  */
 
-.kds-text-field {
+.louis-text-field {
   display: flex;
   flex-direction: column;
-  gap: var(--kds-space-control-xs);
+  gap: var(--louis-space-control-xs);
   min-inline-size: 0;
 }
 
-.kds-text-field__label {
-  color: var(--kds-color-fg-primary);
-  font-family: var(--kds-typography-body-sm-medium-font-family);
-  font-size: var(--kds-typography-body-sm-medium-font-size);
-  font-weight: var(--kds-typography-body-sm-medium-font-weight);
-  line-height: var(--kds-typography-body-sm-medium-line-height);
-  letter-spacing: var(--kds-typography-body-sm-medium-letter-spacing);
+.louis-text-field__label {
+  color: var(--louis-color-fg-primary);
+  font-family: var(--louis-typography-body-sm-medium-font-family);
+  font-size: var(--louis-typography-body-sm-medium-font-size);
+  font-weight: var(--louis-typography-body-sm-medium-font-weight);
+  line-height: var(--louis-typography-body-sm-medium-line-height);
+  letter-spacing: var(--louis-typography-body-sm-medium-letter-spacing);
 }
 
 /* 시각적 필드. 높이·여백·테두리·반경을 여기가 소유한다. */
-.kds-text-field__box {
+.louis-text-field__box {
   box-sizing: border-box;
   display: flex;
   align-items: center;
-  gap: var(--kds-space-control-sm);
+  gap: var(--louis-space-control-sm);
   min-inline-size: 0;
-  min-block-size: var(--kds-layout-control-height-md);
-  padding-inline: var(--kds-space-control-lg);
+  min-block-size: var(--louis-layout-control-height-md);
+  padding-inline: var(--louis-space-control-lg);
   /* 경계는 border가 아니라 generic 10% inset 헤어라인이다 (DS-D-0023). 이전엔 color-stroke-control
    * 이었다. invalid/disabled 상태 축은 아래에서 별도로 다룬다. */
-  box-shadow: var(--kds-hairline-inset);
-  border-radius: var(--kds-radius-control);
-  background: var(--kds-color-bg-surface);
+  box-shadow: var(--louis-hairline-inset);
+  border-radius: var(--louis-radius-control);
+  background: var(--louis-color-bg-surface);
   /* 텍스트 커서는 박스 어디를 눌러도 나와야 한다. 클릭은 React가 input으로 넘긴다. */
   cursor: text;
 }
 
-.kds-text-field[data-size="sm"] .kds-text-field__box {
-  min-block-size: var(--kds-layout-control-height-sm);
-  padding-inline: var(--kds-space-control-md);
+.louis-text-field[data-size="sm"] .louis-text-field__box {
+  min-block-size: var(--louis-layout-control-height-sm);
+  padding-inline: var(--louis-space-control-md);
 }
 
 /* **`:focus-within`이 받는다.** `<input>`에 걸면 링이 글자 주위에만 뜨고 슬롯이 밖에 남는다.
  * 링의 모양은 base.css의 공유 링과 같다 — 컴포넌트마다 다른 링을 만들지 않는다. */
-.kds-text-field__box:focus-within {
-  outline: var(--kds-border-width-ring) solid var(--kds-color-stroke-focus);
+.louis-text-field__box:focus-within {
+  outline: var(--louis-border-width-ring) solid var(--louis-color-stroke-focus);
   outline-offset: 2px;
 }
 
 @media (forced-colors: active) {
   /* box-shadow 헤어라인은 강제 색에서 사라지므로 상자 경계를 시스템 색 실선으로 되살린다 (DS-D-0023). */
-  .kds-text-field__box {
+  .louis-text-field__box {
     box-shadow: none;
-    border: var(--kds-border-width-default) solid currentColor;
+    border: var(--louis-border-width-default) solid currentColor;
   }
 
-  .kds-text-field__box:focus-within {
+  .louis-text-field__box:focus-within {
     outline-color: Highlight;
   }
 }
@@ -3719,25 +3719,25 @@
  * color-stroke-danger border), 오류는 메시지(color-fg-danger) + aria-invalid + role="alert"가
  * 전달한다. 색 하나로만 알리지 않는 규범은 유지된다 — 색이 사라진 자리를 텍스트와 ARIA가 잇는다. */
 
-.kds-text-field:has(.kds-text-field__control:disabled) .kds-text-field__box {
+.louis-text-field:has(.louis-text-field__control:disabled) .louis-text-field__box {
   /* disabled도 generic 헤어라인을 유지하고 상태는 foreground 색이 전달한다 (DS-D-0023,
    * 이전엔 color-stroke-subtle border). */
   cursor: not-allowed;
 }
 
 /* 실제 입력 요소. 박스가 시각을 소유하므로 여기는 전부 비운다. */
-.kds-text-field__control {
+.louis-text-field__control {
   flex: 1 1 auto;
   min-inline-size: 0;
   padding: 0;
   border: 0;
   background: none;
-  color: var(--kds-color-fg-primary);
-  font-family: var(--kds-typography-body-sm-regular-font-family);
-  font-size: var(--kds-typography-body-sm-regular-font-size);
-  font-weight: var(--kds-typography-body-sm-regular-font-weight);
-  line-height: var(--kds-typography-body-sm-regular-line-height);
-  letter-spacing: var(--kds-typography-body-sm-regular-letter-spacing);
+  color: var(--louis-color-fg-primary);
+  font-family: var(--louis-typography-body-sm-regular-font-family);
+  font-size: var(--louis-typography-body-sm-regular-font-size);
+  font-weight: var(--louis-typography-body-sm-regular-font-weight);
+  line-height: var(--louis-typography-body-sm-regular-line-height);
+  letter-spacing: var(--louis-typography-body-sm-regular-letter-spacing);
   /* 링은 박스가 그린다. 여기 링이 또 뜨면 두 겹이 된다. */
   outline: none;
 }
@@ -3745,43 +3745,43 @@
 /* **caret 색을 선언하지 않는다.** 브라우저 기본은 `currentColor`이고 값 텍스트가
  * `foreground-primary`이므로 자동으로 따라간다. 전용 토큰을 만들면 값과 캐럿이 따로 놀 수 있다. */
 
-.kds-text-field__control::placeholder {
+.louis-text-field__control::placeholder {
   /* **tertiary가 아니라 secondary다.** tertiary는 light에서 배경 대비 3.96:1로 4.5:1에 미달한다.
    * 값과의 구분은 색 단계가 아니라 primary/secondary 위계가 맡는다. */
-  color: var(--kds-color-fg-secondary);
+  color: var(--louis-color-fg-secondary);
   /* Firefox가 기본으로 낮춘다. 대비를 계산해 놓고 브라우저가 다시 흐리게 만들면 의미가 없다. */
   opacity: 1;
 }
 
-.kds-text-field__control:disabled {
-  color: var(--kds-color-fg-disabled);
+.louis-text-field__control:disabled {
+  color: var(--louis-color-fg-disabled);
   cursor: not-allowed;
 }
 
-.kds-text-field__control:disabled::placeholder {
-  color: var(--kds-color-fg-disabled);
+.louis-text-field__control:disabled::placeholder {
+  color: var(--louis-color-fg-disabled);
 }
 
 /* 접두·접미 슬롯. 아이콘과 버튼이 들어간다. */
-.kds-text-field__adornment {
+.louis-text-field__adornment {
   display: inline-flex;
   align-items: center;
   flex: 0 0 auto;
-  color: var(--kds-color-fg-secondary);
+  color: var(--louis-color-fg-secondary);
 }
 
 /* 도움말과 오류가 같은 자리를 쓴다. 둘이 동시에 뜨면 어느 것을 읽어야 하는지 모른다. */
-.kds-text-field__message {
-  color: var(--kds-color-fg-secondary);
-  font-family: var(--kds-typography-caption-regular-font-family);
-  font-size: var(--kds-typography-caption-regular-font-size);
-  font-weight: var(--kds-typography-caption-regular-font-weight);
-  line-height: var(--kds-typography-caption-regular-line-height);
-  letter-spacing: var(--kds-typography-caption-regular-letter-spacing);
+.louis-text-field__message {
+  color: var(--louis-color-fg-secondary);
+  font-family: var(--louis-typography-caption-regular-font-family);
+  font-size: var(--louis-typography-caption-regular-font-size);
+  font-weight: var(--louis-typography-caption-regular-font-weight);
+  line-height: var(--louis-typography-caption-regular-line-height);
+  letter-spacing: var(--louis-typography-caption-regular-letter-spacing);
 }
 
-.kds-text-field[data-invalid="true"] .kds-text-field__message {
-  color: var(--kds-color-fg-danger);
+.louis-text-field[data-invalid="true"] .louis-text-field__message {
+  color: var(--louis-color-fg-danger);
 }
 
 /* Toast — design/components/toast.md
@@ -3790,62 +3790,62 @@
  * 화면 하단 전체를 덮는 투명한 판이 되면 그 아래 컨트롤이 눌리지 않는다.
  */
 
-.kds-toast-viewport {
+.louis-toast-viewport {
   position: fixed;
-  inset-block-end: var(--kds-space-layout-section);
+  inset-block-end: var(--louis-space-layout-section);
   inset-inline: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--kds-space-control-sm);
-  z-index: var(--kds-layer-critical);
+  gap: var(--louis-space-control-sm);
+  z-index: var(--louis-layer-critical);
   pointer-events: none;
 }
 
 /* region 둘은 항상 있고 비어 있을 수 있다. 빈 region이 간격을 만들지 않도록 display를 접는다. */
-.kds-toast-region {
+.louis-toast-region {
   display: contents;
 }
 
-.kds-toast {
+.louis-toast {
   max-inline-size: 420px;
-  padding-block: var(--kds-space-control-md);
+  padding-block: var(--louis-space-control-md);
   /* 제품은 좌우 20px이다. space 축에 20이 없어 layout-gutter(16)가 아니라 layout-section(24)도
    * 아닌 값이라, 제품 실측값을 그대로 갖는 space-toast-inline을 세웠다. */
-  padding-inline: var(--kds-space-toast-inline);
-  border-radius: var(--kds-radius-overlay);
+  padding-inline: var(--louis-space-toast-inline);
+  border-radius: var(--louis-radius-overlay);
   /* **반투명 + 배경 흐림.** 제품과 같다. 불투명 면으로 대체하면 뒤 콘텐츠가 사라져 toast가
    * 화면에서 떠 있는 물체가 아니라 판이 된다. */
-  background: var(--kds-color-bg-inverse-translucent);
-  color: var(--kds-color-fg-on-inverse);
-  box-shadow: var(--kds-elevation-toast);
+  background: var(--louis-color-bg-inverse-translucent);
+  color: var(--louis-color-fg-on-inverse);
+  box-shadow: var(--louis-elevation-toast);
   /* **16이다.** 10으로 두고 있었는데 그것은 클래스 선언만 보고 정한 값이었다 — 배포본의 앱 홈과
    * 노드캔버스 홈이 인라인 style로 `blur(16px) saturate(130%)`를 얹어 클래스를 이긴다. 화면에
    * 보이는 것은 그쪽이다. saturate는 흐림 뒤로 비치는 색이 죽지 않게 되살린다.
    * 1.3은 제품 실측값이며 이 자리 하나에만 쓰여 토큰을 세우지 않았다. */
-  backdrop-filter: blur(var(--kds-blur-toast)) saturate(1.3);
+  backdrop-filter: blur(var(--louis-blur-toast)) saturate(1.3);
   /* 읽는 동안 멈추려면 얹을 수 있어야 한다. viewport가 none이므로 여기서 되살린다. */
   pointer-events: auto;
   overflow-wrap: break-word;
-  font-family: var(--kds-typography-body-sm-regular-font-family);
-  font-size: var(--kds-typography-body-sm-regular-font-size);
-  font-weight: var(--kds-typography-body-sm-regular-font-weight);
-  line-height: var(--kds-typography-body-sm-regular-line-height);
-  letter-spacing: var(--kds-typography-body-sm-regular-letter-spacing);
-  animation-name: kds-toast-enter;
-  animation-duration: var(--kds-motion-overlay-enter-duration);
-  animation-timing-function: var(--kds-motion-overlay-enter-timing-function);
+  font-family: var(--louis-typography-body-sm-regular-font-family);
+  font-size: var(--louis-typography-body-sm-regular-font-size);
+  font-weight: var(--louis-typography-body-sm-regular-font-weight);
+  line-height: var(--louis-typography-body-sm-regular-line-height);
+  letter-spacing: var(--louis-typography-body-sm-regular-letter-spacing);
+  animation-name: louis-toast-enter;
+  animation-duration: var(--louis-motion-overlay-enter-duration);
+  animation-timing-function: var(--louis-motion-overlay-enter-timing-function);
 }
 
-.kds-toast[data-tone="danger"] {
-  background: var(--kds-color-bg-danger);
-  color: var(--kds-color-fg-danger);
+.louis-toast[data-tone="danger"] {
+  background: var(--louis-color-bg-danger);
+  color: var(--louis-color-fg-danger);
 }
 
-@keyframes kds-toast-enter {
+@keyframes louis-toast-enter {
   from {
     opacity: 0;
-    translate: 0 var(--kds-space-control-sm);
+    translate: 0 var(--louis-space-control-sm);
   }
 
   to {
@@ -3855,8 +3855,8 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .kds-toast {
-    animation-duration: var(--kds-motion-reduced-duration);
+  .louis-toast {
+    animation-duration: var(--louis-motion-reduced-duration);
   }
 }
 
@@ -3869,38 +3869,38 @@
  * 판정은 migration/product.measured.json에 근거와 함께 있다.
  */
 
-.kds-tooltip-positioner {
-  z-index: var(--kds-layer-popover);
+.louis-tooltip-positioner {
+  z-index: var(--louis-layer-popover);
   /* 위치 계산 래퍼도 포인터를 받지 않는다. 표면만 막으면 래퍼의 여백이 남는다. */
   pointer-events: none;
 }
 
-.kds-tooltip {
+.louis-tooltip {
   /* 제품: min(320px, calc(100vw - 20px)). 뷰포트 여유는 overlay primitive가 잰 값을 쓴다. */
-  max-inline-size: min(320px, var(--kds-overlay-available-width, 100vw));
-  padding-block: var(--kds-space-control-xs);
-  padding-inline: var(--kds-space-control-sm);
+  max-inline-size: min(320px, var(--louis-overlay-available-width, 100vw));
+  padding-block: var(--louis-space-control-xs);
+  padding-inline: var(--louis-space-control-sm);
   /* **표면이 페이지와 반전된다.** 라이트에서 어두운 면, 다크에서 밝은 면이다. 이전 DS는
    * background-inset이라 페이지와 같은 극성이었고 제품과 정반대였다. */
-  border-radius: var(--kds-radius-control-sm);
-  background: var(--kds-color-bg-inverse);
-  color: var(--kds-color-fg-on-inverse);
+  border-radius: var(--louis-radius-control-sm);
+  background: var(--louis-color-bg-inverse);
+  color: var(--louis-color-fg-on-inverse);
   /* 경계는 tooltip elevation 뒤에 조합한 inset 헤어라인이다 (DS-D-0023). 이전엔 color-stroke-tooltip
    * border였고, 이제 다른 표면과 같은 generic 10% 헤어라인으로 통일됐다. */
-  box-shadow: var(--kds-elevation-tooltip), var(--kds-hairline-inset);
+  box-shadow: var(--louis-elevation-tooltip), var(--louis-hairline-inset);
   pointer-events: none;
   /* 한 줄이 기본이고 길면 줄바꿈한다. 잘라내지 않는다 — 잘린 설명은 설명이 아니다. */
   overflow-wrap: break-word;
-  font-family: var(--kds-typography-caption-regular-font-family);
-  font-size: var(--kds-typography-caption-regular-font-size);
-  font-weight: var(--kds-typography-caption-regular-font-weight);
-  line-height: var(--kds-typography-caption-regular-line-height);
-  letter-spacing: var(--kds-typography-caption-regular-letter-spacing);
+  font-family: var(--louis-typography-caption-regular-font-family);
+  font-size: var(--louis-typography-caption-regular-font-size);
+  font-weight: var(--louis-typography-caption-regular-font-weight);
+  line-height: var(--louis-typography-caption-regular-line-height);
+  letter-spacing: var(--louis-typography-caption-regular-letter-spacing);
 }
 
 /* 이전에는 animation-duration과 timing-function만 있고 **animation-name이 없었다** — 모션이
  * 아예 걸리지 않았다. 값만 적어 두고 실제로 도는지 확인하지 않은 결과다. */
-@keyframes kds-tooltip-enter {
+@keyframes louis-tooltip-enter {
   from {
     opacity: 0;
     scale: 0.97;
@@ -3912,15 +3912,15 @@
   }
 }
 
-.kds-tooltip[data-kds-state="opening"] {
-  animation-name: kds-tooltip-enter;
-  animation-duration: var(--kds-motion-tooltip-enter-duration);
-  animation-timing-function: var(--kds-motion-tooltip-enter-timing-function);
+.louis-tooltip[data-louis-state="opening"] {
+  animation-name: louis-tooltip-enter;
+  animation-duration: var(--louis-motion-tooltip-enter-duration);
+  animation-timing-function: var(--louis-motion-tooltip-enter-timing-function);
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .kds-tooltip[data-kds-state="opening"] {
-    animation-duration: var(--kds-motion-reduced-duration);
+  .louis-tooltip[data-louis-state="opening"] {
+    animation-duration: var(--louis-motion-reduced-duration);
     /* 크기 이동을 제거한다. 나타남 자체는 유지된다. */
     animation-name: none;
   }
@@ -3928,9 +3928,9 @@
 
 /* forced-colors: elevation과 box-shadow 헤어라인이 사라지므로 시스템 색 경계를 되살린다 (DS-D-0023). */
 @media (forced-colors: active) {
-  .kds-tooltip {
+  .louis-tooltip {
     box-shadow: none;
-    border: var(--kds-border-width-default) solid currentColor;
+    border: var(--louis-border-width-default) solid currentColor;
   }
 }
 
@@ -3960,11 +3960,11 @@
  * 0이었고 gap registry가 "존재하지 않는 알고리즘을 기술하는 토큰"으로 적어 두었다.
  */
 
-.kds-project-grid {
+.louis-project-grid {
   display: grid;
-  gap: var(--kds-layout-project-grid-gap);
+  gap: var(--louis-layout-project-grid-gap);
   grid-template-columns: repeat(
     auto-fill,
-    minmax(min(var(--kds-layout-project-card-minimum), 100%), 1fr)
+    minmax(min(var(--louis-layout-project-card-minimum), 100%), 1fr)
   );
 }

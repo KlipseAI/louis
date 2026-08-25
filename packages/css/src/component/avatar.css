@@ -18,7 +18,7 @@
  * 나란히 서도 줄이 어긋나지 않는다 — 계단을 따를 이유가 없어 제품 값을 그대로 옮겼다.
  */
 
-.kds-avatar {
+.louis-avatar {
   display: inline-flex;
   flex: none;
   align-items: center;
@@ -26,19 +26,19 @@
   overflow: hidden;
   inline-size: 28px;
   block-size: 28px;
-  border-radius: var(--kds-radius-pill);
-  background: var(--kds-color-bg-inset);
+  border-radius: var(--louis-radius-pill);
+  background: var(--louis-color-bg-inset);
   /* 폴백 글리프가 currentColor를 문다. 제품의 기본 아바타와 같은 구조다. */
-  color: var(--kds-color-fg-tertiary);
+  color: var(--louis-color-fg-tertiary);
 }
 
-.kds-avatar[data-size="sm"] {
+.louis-avatar[data-size="sm"] {
   inline-size: 24px;
   block-size: 24px;
 }
 
 /* 이미지. 비율이 맞지 않아도 원을 채운다 — 여백이 생기면 원이 깨져 보인다. */
-.kds-avatar__image {
+.louis-avatar__image {
   inline-size: 100%;
   block-size: 100%;
   object-fit: cover;
@@ -46,7 +46,7 @@
   background: none;
 }
 
-.kds-avatar__fallback {
+.louis-avatar__fallback {
   display: block;
   inline-size: 100%;
   block-size: 100%;

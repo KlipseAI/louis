@@ -23,15 +23,15 @@
  * 곳으로 갈라진다. 키보드(Space), `:indeterminate`, 폼 제출은 네이티브의 것이다.
  */
 
-.kds-checkbox {
+.louis-checkbox {
   display: inline-flex;
   align-items: flex-start;
-  gap: var(--kds-space-control-sm);
+  gap: var(--louis-space-control-sm);
   min-inline-size: 0;
   cursor: pointer;
 }
 
-.kds-checkbox__control {
+.louis-checkbox__control {
   appearance: none;
   -webkit-appearance: none;
   box-sizing: border-box;
@@ -49,33 +49,33 @@
    * 모든 일반 0.5px stroke를 10% 헤어라인으로 통일하는 결정을 내렸고(인계서 (2b) 해소) 10%는
    * 라이트에서 대비를 strong보다 더 낮춘다. 이 접근성 편차는 Known deviations와 DS-D-0023에
    * 수치와 함께 기록했고, 되돌리려면 두 저장소를 함께 예외로 두어야 한다. */
-  box-shadow: var(--kds-hairline-inset);
-  border-radius: var(--kds-radius-control-sm);
-  background: var(--kds-color-bg-surface);
+  box-shadow: var(--louis-hairline-inset);
+  border-radius: var(--louis-radius-control-sm);
+  background: var(--louis-color-bg-surface);
   cursor: pointer;
 }
 
 /* 라벨과 첫 줄을 맞춘다. 라벨이 여러 줄이면 상자는 첫 줄 옆에 남아야 한다. */
-.kds-checkbox__label {
+.louis-checkbox__label {
   min-inline-size: 0;
-  color: var(--kds-color-fg-primary);
-  font-family: var(--kds-typography-body-sm-regular-font-family);
-  font-size: var(--kds-typography-body-sm-regular-font-size);
-  font-weight: var(--kds-typography-body-sm-regular-font-weight);
-  line-height: var(--kds-typography-body-sm-regular-line-height);
-  letter-spacing: var(--kds-typography-body-sm-regular-letter-spacing);
+  color: var(--louis-color-fg-primary);
+  font-family: var(--louis-typography-body-sm-regular-font-family);
+  font-size: var(--louis-typography-body-sm-regular-font-size);
+  font-weight: var(--louis-typography-body-sm-regular-font-weight);
+  line-height: var(--louis-typography-body-sm-regular-line-height);
+  letter-spacing: var(--louis-typography-body-sm-regular-letter-spacing);
 }
 
-.kds-checkbox__control:checked,
-.kds-checkbox__control:indeterminate {
+.louis-checkbox__control:checked,
+.louis-checkbox__control:indeterminate {
   /* 선택 상태는 solid 면이 채운다. base의 generic 헤어라인은 남고 상태는 면과 체크 표시가
    * 전달한다 (DS-D-0023, 이전엔 border-color: action-primary였다). */
-  background: var(--kds-color-accent-primary);
+  background: var(--louis-color-accent-primary);
 }
 
 /* 표시는 `::before` 하나가 두 상태를 나눠 쓴다. 회전한 테두리로 그리는 이유는 아이콘 자산을
  * CSS package가 소비하지 않기 때문이다 — 아이콘은 React package가 소유한다(DS-D-0008). */
-.kds-checkbox__control::before {
+.louis-checkbox__control::before {
   content: "";
   position: absolute;
   display: block;
@@ -83,89 +83,89 @@
 }
 
 /* 체크 — 왼쪽 아래 두 변만 남긴 사각형을 45도 돌린다. */
-.kds-checkbox__control:checked::before {
+.louis-checkbox__control:checked::before {
   inset-inline-start: 50%;
   inset-block-start: 46%;
   inline-size: 5px;
   block-size: 9px;
-  border: solid var(--kds-color-fg-inverse);
+  border: solid var(--louis-color-fg-inverse);
   border-width: 0 2px 2px 0;
   transform: translate(-50%, -50%) rotate(45deg);
   opacity: 1;
 }
 
 /* Indeterminate — 가로 막대 하나. **부분 선택은 선택이 아니다**는 것을 모양이 말해야 한다. */
-.kds-checkbox__control:indeterminate::before {
+.louis-checkbox__control:indeterminate::before {
   inset-inline-start: 50%;
   inset-block-start: 50%;
   inline-size: 10px;
   block-size: 2px;
-  border-radius: var(--kds-radius-pill);
-  background: var(--kds-color-fg-inverse);
+  border-radius: var(--louis-radius-pill);
+  background: var(--louis-color-fg-inverse);
   transform: translate(-50%, -50%);
   opacity: 1;
 }
 
 /* indeterminate가 checked를 이긴다. 네이티브에서 두 상태는 동시에 참일 수 있고, 그때 화면은
  * "일부"를 보여야 한다 — 위 두 규칙은 소스 순서로 갈리므로 여기서 명시적으로 되돌린다. */
-.kds-checkbox__control:indeterminate:checked::before {
+.louis-checkbox__control:indeterminate:checked::before {
   inline-size: 10px;
   block-size: 2px;
   border: 0;
-  border-radius: var(--kds-radius-pill);
-  background: var(--kds-color-fg-inverse);
+  border-radius: var(--louis-radius-pill);
+  background: var(--louis-color-fg-inverse);
   transform: translate(-50%, -50%);
 }
 
-.kds-checkbox__control:focus-visible {
-  outline: var(--kds-border-width-ring) solid var(--kds-color-stroke-focus);
+.louis-checkbox__control:focus-visible {
+  outline: var(--louis-border-width-ring) solid var(--louis-color-stroke-focus);
   outline-offset: 2px;
 }
 
 @media (forced-colors: active) {
   /* box-shadow 헤어라인은 강제 색에서 사라지므로 상자 경계를 시스템 색 실선으로 되살린다 —
    * 선택하지 않은 상자는 이 경계가 어포던스의 전부다 (DS-D-0023). */
-  .kds-checkbox__control {
+  .louis-checkbox__control {
     box-shadow: none;
-    border: var(--kds-border-width-default) solid currentColor;
+    border: var(--louis-border-width-default) solid currentColor;
   }
 
-  .kds-checkbox__control:focus-visible {
+  .louis-checkbox__control:focus-visible {
     outline-color: Highlight;
   }
 
   /* forced-colors에서 면 색이 치환돼 체크 표시가 배경과 같아진다. 시스템 전경으로 되돌린다. */
-  .kds-checkbox__control:checked::before,
-  .kds-checkbox__control:indeterminate::before {
+  .louis-checkbox__control:checked::before,
+  .louis-checkbox__control:indeterminate::before {
     border-color: CanvasText;
     background: CanvasText;
   }
 }
 
-.kds-checkbox__control:disabled {
+.louis-checkbox__control:disabled {
   /* 상태는 면(background-inset)과 foreground 색이 전달한다 — generic 헤어라인을 유지한다
    * (DS-D-0023, 이전엔 border-color: subtle). */
-  background: var(--kds-color-bg-inset);
+  background: var(--louis-color-bg-inset);
   cursor: not-allowed;
 }
 
-.kds-checkbox__control:disabled:checked,
-.kds-checkbox__control:disabled:indeterminate {
-  background: var(--kds-color-bg-inset);
+.louis-checkbox__control:disabled:checked,
+.louis-checkbox__control:disabled:indeterminate {
+  background: var(--louis-color-bg-inset);
 }
 
-.kds-checkbox__control:disabled:checked::before {
-  border-color: var(--kds-color-fg-disabled);
+.louis-checkbox__control:disabled:checked::before {
+  border-color: var(--louis-color-fg-disabled);
 }
 
-.kds-checkbox__control:disabled:indeterminate::before {
-  background: var(--kds-color-fg-disabled);
+.louis-checkbox__control:disabled:indeterminate::before {
+  background: var(--louis-color-fg-disabled);
 }
 
-.kds-checkbox:has(.kds-checkbox__control:disabled) {
+.louis-checkbox:has(.louis-checkbox__control:disabled) {
   cursor: not-allowed;
 }
 
-.kds-checkbox:has(.kds-checkbox__control:disabled) .kds-checkbox__label {
-  color: var(--kds-color-fg-disabled);
+.louis-checkbox:has(.louis-checkbox__control:disabled) .louis-checkbox__label {
+  color: var(--louis-color-fg-disabled);
 }

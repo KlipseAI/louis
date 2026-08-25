@@ -26,7 +26,7 @@ const round = (value: number): number => Math.round(value * 1000) / 1000;
  * getComputedStyle은 언제나 1px을 돌려준다. 레티나에서는 half-pixel로 그려진다.
  */
 const declaredBorderWidth = (): number =>
-  px(getComputedStyle(document.documentElement).getPropertyValue("--kds-border-width-hairline"));
+  px(getComputedStyle(document.documentElement).getPropertyValue("--louis-border-width-hairline"));
 
 /**
  * 각 컨트롤을 자기 블록에 담아 렌더한다.
@@ -61,7 +61,7 @@ for (const size of SIZES) {
         </Isolated>
       </div>,
     );
-    const buttons = [...document.querySelectorAll("button.kds-button")];
+    const buttons = [...document.querySelectorAll("button.louis-button")];
     const [plain, loading, withIcon] = buttons;
     if (plain === undefined || loading === undefined || withIcon === undefined) {
       throw new Error("버튼 셋을 찾지 못했습니다");
@@ -80,8 +80,8 @@ for (const size of SIZES) {
     expect(px(style.fontSize), "fontSize").toBe(spec.fontSize);
     expect(px(style.lineHeight), "lineHeight").toBe(spec.lineHeight);
 
-    const spinner = loading.querySelector(".kds-button__spinner");
-    const slot = withIcon.querySelector(".kds-button__icon");
+    const spinner = loading.querySelector(".louis-button__spinner");
+    const slot = withIcon.querySelector(".louis-button__icon");
     if (spinner === null || slot === null) throw new Error("spinner/icon 슬롯이 없습니다");
     expect(round(rect(spinner).width), "spinner").toBe(spec.spinner);
     expect(round(rect(spinner).height), "spinner height").toBe(spec.spinner);
@@ -105,7 +105,7 @@ for (const size of SIZES) {
         </IconButton>
       </Isolated>,
     );
-    const node = document.querySelector("button.kds-icon-button");
+    const node = document.querySelector("button.louis-icon-button");
     if (node === null) throw new Error("IconButton을 찾지 못했습니다");
     const style = getComputedStyle(node);
     const box = rect(node);
@@ -120,7 +120,7 @@ for (const size of SIZES) {
     expect(px(style.borderTopWidth), "base border 제거").toBe(0);
     expect(px(style.borderTopLeftRadius), "radius").toBe(spec.radius);
 
-    const glyph = node.querySelector(".kds-icon-button__glyph");
+    const glyph = node.querySelector(".louis-icon-button__glyph");
     if (glyph === null) throw new Error("glyph 슬롯이 없습니다");
     expect(round(rect(glyph).width), "glyph").toBe(spec.glyph);
     expect(round(rect(glyph).height), "glyph height").toBe(spec.glyph);
@@ -163,18 +163,18 @@ test("헤어라인은 secondary variant에만 있다 — primary/ghost/danger에
 
   // secondary만 inset 헤어라인을 갖는다.
   for (const selector of [
-    '.kds-button[data-variant="secondary"]',
-    '.kds-icon-button[data-variant="secondary"]',
+    '.louis-button[data-variant="secondary"]',
+    '.louis-icon-button[data-variant="secondary"]',
   ]) {
     expect(getComputedStyle(node(selector)).boxShadow, `${selector} 헤어라인`).toContain("inset");
   }
 
   // primary/ghost/danger에는 frame이 없고 border도 없다.
   for (const selector of [
-    '.kds-button[data-variant="primary"]',
-    '.kds-button[data-variant="ghost"]',
-    '.kds-button[data-variant="danger"]',
-    '.kds-icon-button[data-variant="ghost"]',
+    '.louis-button[data-variant="primary"]',
+    '.louis-button[data-variant="ghost"]',
+    '.louis-button[data-variant="danger"]',
+    '.louis-icon-button[data-variant="ghost"]',
   ]) {
     const style = getComputedStyle(node(selector));
     expect(style.boxShadow, `${selector} frame 없음`).toBe("none");

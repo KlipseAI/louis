@@ -16,7 +16,7 @@ const px = (value: string): number => Number.parseFloat(value);
 const round = (value: number): number => Math.round(value * 1000) / 1000;
 
 const declaredBorderWidth = (): number =>
-  px(getComputedStyle(document.documentElement).getPropertyValue("--kds-border-width-hairline"));
+  px(getComputedStyle(document.documentElement).getPropertyValue("--louis-border-width-hairline"));
 
 function find(selector: string): HTMLElement {
   const node = document.querySelector(selector);
@@ -26,7 +26,7 @@ function find(selector: string): HTMLElement {
 
 function tokenValue(id: string, property: "background-color" | "color"): string {
   const probe = document.createElement("div");
-  probe.style.setProperty(property, `var(--kds-${id})`);
+  probe.style.setProperty(property, `var(--louis-${id})`);
   document.body.append(probe);
   const value =
     property === "color" ? getComputedStyle(probe).color : getComputedStyle(probe).backgroundColor;
@@ -46,7 +46,7 @@ for (const size of SIZES) {
       </div>,
     );
 
-    const box = find(".kds-text-field__box");
+    const box = find(".louis-text-field__box");
     const boxStyle = getComputedStyle(box);
     expect(box.offsetHeight, "height").toBe(spec.height);
     expect(px(boxStyle.paddingInlineStart), "paddingInline").toBe(spec.paddingInline);
@@ -62,18 +62,18 @@ for (const size of SIZES) {
       tokenValue("color-stroke-hairline", "color"),
     );
 
-    const control = find(".kds-text-field__control");
+    const control = find(".louis-text-field__control");
     const controlStyle = getComputedStyle(control);
     expect(px(controlStyle.fontSize), "fontSize").toBe(spec.fontSize);
     expect(round(px(controlStyle.lineHeight)), "lineHeight").toBe(spec.lineHeight);
 
-    expect(px(getComputedStyle(find(".kds-text-field__label")).fontSize), "labelFontSize").toBe(
+    expect(px(getComputedStyle(find(".louis-text-field__label")).fontSize), "labelFontSize").toBe(
       spec.labelFontSize,
     );
-    expect(px(getComputedStyle(find(".kds-text-field__message")).fontSize), "messageFontSize").toBe(
+    expect(px(getComputedStyle(find(".louis-text-field__message")).fontSize), "messageFontSize").toBe(
       spec.messageFontSize,
     );
-    expect(px(getComputedStyle(find(".kds-text-field")).rowGap), "stackGap").toBe(spec.stackGap);
+    expect(px(getComputedStyle(find(".louis-text-field")).rowGap), "stackGap").toBe(spec.stackGap);
   });
 }
 
@@ -89,8 +89,8 @@ test("states 표가 코드와 같다 — 모든 상태가 generic 헤어라인�
       <TextField label="잠김" disabled data-testid="disabled" />
     </div>,
   );
-  const boxes = [...document.querySelectorAll(".kds-text-field__box")] as HTMLElement[];
-  const controls = [...document.querySelectorAll(".kds-text-field__control")] as HTMLElement[];
+  const boxes = [...document.querySelectorAll(".louis-text-field__box")] as HTMLElement[];
+  const controls = [...document.querySelectorAll(".louis-text-field__control")] as HTMLElement[];
   const [defaultBox, invalidBox, disabledBox] = boxes;
   const [defaultControl, , disabledControl] = controls;
   if (defaultBox === undefined || invalidBox === undefined || disabledBox === undefined) {
@@ -133,8 +133,8 @@ test("포커스 링을 박스가 받는다 — 슬롯까지 함께 둘린다", a
       }
     />,
   );
-  const control = find(".kds-text-field__control");
-  const box = find(".kds-text-field__box");
+  const control = find(".louis-text-field__control");
+  const box = find(".louis-text-field__box");
 
   await userEvent.click(control);
   expect(document.activeElement, "입력에 포커스가 간다").toBe(control);
@@ -142,7 +142,7 @@ test("포커스 링을 박스가 받는다 — 슬롯까지 함께 둘린다", a
   const boxStyle = getComputedStyle(box);
   expect(boxStyle.outlineStyle, "박스에 링이 뜬다").toBe("solid");
   expect(px(boxStyle.outlineWidth), "링 두께").toBe(
-    px(getComputedStyle(document.documentElement).getPropertyValue("--kds-border-width-ring")),
+    px(getComputedStyle(document.documentElement).getPropertyValue("--louis-border-width-ring")),
   );
   expect(boxStyle.outlineColor, "링 색").toBe(tokenValue("color-stroke-focus", "color"));
 
@@ -158,7 +158,7 @@ test("placeholder가 값과 구분되면서 대비를 지킨다", async () => {
   // 제품의 알파 placeholder는 light에서 4.5:1에 미달한다. tertiary도 3.96:1로 미달해 secondary를
   // 쓰고, 값과의 구분은 색 단계가 아니라 primary/secondary 위계가 맡는다.
   await render(<TextField label="이름" placeholder="예: 여름 여행" />);
-  const control = find(".kds-text-field__control");
+  const control = find(".louis-text-field__control");
   const placeholder = getComputedStyle(control, "::placeholder");
 
   expect(placeholder.color, "placeholder 색").toBe(
@@ -179,8 +179,8 @@ test("라벨이 입력에 연결되고 id는 인스턴스마다 다르다", asyn
       <TextField label="둘째" />
     </div>,
   );
-  const labels = [...document.querySelectorAll("label.kds-text-field__label")] as HTMLLabelElement[];
-  const controls = [...document.querySelectorAll(".kds-text-field__control")] as HTMLInputElement[];
+  const labels = [...document.querySelectorAll("label.louis-text-field__label")] as HTMLLabelElement[];
+  const controls = [...document.querySelectorAll(".louis-text-field__control")] as HTMLInputElement[];
   expect(labels.length, "라벨 둘").toBe(2);
 
   for (const [index, label] of labels.entries()) {
@@ -198,8 +198,8 @@ test("라벨이 입력에 연결되고 id는 인스턴스마다 다르다", asyn
 test("오류를 색만으로 알리지 않는다", async () => {
   // 색 하나로만 알리면 색각 이상에서 오류가 전달되지 않는다.
   await render(<TextField label="이름" invalid description="이미 쓰는 이름입니다" />);
-  const control = find(".kds-text-field__control");
-  const message = find(".kds-text-field__message");
+  const control = find(".louis-text-field__control");
+  const message = find(".louis-text-field__message");
 
   expect(control.getAttribute("aria-invalid"), "aria-invalid").toBe("true");
   expect(control.getAttribute("aria-describedby"), "메시지와 연결된다").toBe(message.id);
@@ -210,9 +210,9 @@ test("오류를 색만으로 알리지 않는다", async () => {
 test("도움말은 alert가 아니다", async () => {
   // 오류가 아닌 도움말까지 alert로 읽으면 화면을 여는 것만으로 스크린 리더가 시끄러워진다.
   await render(<TextField label="이름" description="공백 없이 입력합니다" />);
-  const message = find(".kds-text-field__message");
+  const message = find(".louis-text-field__message");
   expect(message.getAttribute("role"), "도움말은 alert가 아니다").toBeNull();
-  expect(find(".kds-text-field__control").getAttribute("aria-invalid")).toBeNull();
+  expect(find(".louis-text-field__control").getAttribute("aria-invalid")).toBeNull();
 });
 
 export type _EnsureTsx = JSX.Element;

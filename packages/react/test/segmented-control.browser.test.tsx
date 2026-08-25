@@ -34,14 +34,14 @@ function all(selector: string): HTMLElement[] {
 }
 
 const radios = (): HTMLInputElement[] =>
-  all(".kds-segmented-control__input") as HTMLInputElement[];
+  all(".louis-segmented-control__input") as HTMLInputElement[];
 
 const tokenPx = (id: string): number =>
-  px(getComputedStyle(document.documentElement).getPropertyValue(`--kds-${id}`));
+  px(getComputedStyle(document.documentElement).getPropertyValue(`--louis-${id}`));
 
 function tokenValue(id: string, property: "background-color" | "color"): string {
   const probe = document.createElement("div");
-  probe.style.setProperty(property, `var(--kds-${id})`);
+  probe.style.setProperty(property, `var(--louis-${id})`);
   document.body.append(probe);
   const value =
     property === "color"
@@ -88,7 +88,7 @@ for (const size of SIZES) {
   test(`SegmentedControl ${size}의 구조값이 components.measured.json과 같다`, async () => {
     await render(<Fixture size={size} />);
 
-    const track = find(".kds-segmented-control");
+    const track = find(".louis-segmented-control");
     const trackStyle = getComputedStyle(track);
     expect(track.offsetHeight, "trackHeight").toBe(spec.trackHeight);
     expect(px(trackStyle.paddingTop), "trackPadding").toBe(spec.trackPadding);
@@ -103,7 +103,7 @@ for (const size of SIZES) {
     );
     expect(tokenPx("border-width-hairline"), "borderWidth").toBe(spec.borderWidth);
 
-    const segment = find(".kds-segmented-control__segment");
+    const segment = find(".louis-segmented-control__segment");
     const segmentStyle = getComputedStyle(segment);
     expect(segment.offsetHeight, "segmentHeight").toBe(spec.segmentHeight);
     expect(px(segmentStyle.borderTopLeftRadius), "segmentRadius").toBe(spec.segmentRadius);
@@ -120,8 +120,8 @@ test("세그먼트 반경이 바깥 반경에서 padding을 뺀 값이다", asyn
   // 중첩한 모서리가 어긋나지 않으려면 안쪽 = 바깥 − padding이어야 한다. 두 값이 따로 움직이면
   // 선택 면의 모서리가 트랙 모서리를 뚫거나 안쪽으로 밀린다.
   await render(<Fixture />);
-  const track = getComputedStyle(find(".kds-segmented-control"));
-  const segment = getComputedStyle(find(".kds-segmented-control__segment"));
+  const track = getComputedStyle(find(".louis-segmented-control"));
+  const segment = getComputedStyle(find(".louis-segmented-control__segment"));
   expect(px(segment.borderTopLeftRadius)).toBe(
     px(track.borderTopLeftRadius) - px(track.paddingTop),
   );
@@ -130,7 +130,7 @@ test("세그먼트 반경이 바깥 반경에서 padding을 뺀 값이다", asyn
 test("states 표가 코드와 같다", async () => {
   const spec = measured.components["segmented-control"].states.base;
   await render(<Fixture />);
-  const segments = all(".kds-segmented-control__segment");
+  const segments = all(".louis-segmented-control__segment");
   const [system, light] = segments;
 
   // 비선택은 트랙 색을 그대로 보인다 — 자기 면을 칠하지 않는다.
@@ -163,9 +163,9 @@ test("트랙 면과 선택 면이 두 테마 모두에서 서로 다르다", asy
   await render(<Fixture />);
   for (const theme of ["light", "dark"] as const) {
     document.documentElement.setAttribute("data-theme", theme);
-    const track = getComputedStyle(find(".kds-segmented-control")).backgroundColor;
+    const track = getComputedStyle(find(".louis-segmented-control")).backgroundColor;
     const selected = getComputedStyle(
-      find('.kds-segmented-control__segment[data-selected="true"]'),
+      find('.louis-segmented-control__segment[data-selected="true"]'),
     ).backgroundColor;
     expect(selected, `${theme}에서 선택 면이 트랙 면과 같습니다`).not.toBe(track);
   }
@@ -185,7 +185,7 @@ test("선택이 색이 아니라 radio 상태로 전달된다", async () => {
 
 test("그룹 이름이 legend이고 화면에서는 숨겨진다", async () => {
   await render(<Fixture />);
-  const legend = find(".kds-segmented-control__legend");
+  const legend = find(".louis-segmented-control__legend");
   expect(legend.tagName, "legend 요소다").toBe("LEGEND");
   expect(legend.textContent, "그룹 이름").toBe("테마");
   // 숨겨졌지만 지워지지는 않았다. 지우면 스크린 리더가 "3 중 1"만 읽고 무엇을 고르는지 모른다.
@@ -225,7 +225,7 @@ test("컨트롤이 둘이면 radio 그룹이 섞이지 않는다", async () => {
 
 test("클릭이 값을 바꾸고 이전 선택이 풀린다", async () => {
   await render(<Fixture />);
-  const segments = all(".kds-segmented-control__segment");
+  const segments = all(".louis-segmented-control__segment");
   await userEvent.click(segments[2]!);
 
   expect(radios()[2]!.checked, "누른 것이 선택된다").toBe(true);
@@ -240,7 +240,7 @@ test("포커스 링을 라벨이 받고 키보드에서만 나타난다", async 
       <Fixture />
     </>,
   );
-  const segments = all(".kds-segmented-control__segment");
+  const segments = all(".louis-segmented-control__segment");
   const selected = segments[1]!;
 
   await userEvent.click(selected);
@@ -259,7 +259,7 @@ test("포커스 링을 라벨이 받고 키보드에서만 나타난다", async 
 
 test("그룹 disabled가 항목 전부를 막는다", async () => {
   await render(<Fixture disabled />);
-  const segments = all(".kds-segmented-control__segment");
+  const segments = all(".louis-segmented-control__segment");
   // **`input.disabled`가 아니라 `:disabled`를 본다.** IDL 속성은 콘텐츠 속성만 반영하므로
   // fieldset이 끈 상태에서도 false다. 실제로 꺼졌는지는 의사 클래스만 안다 — CSS도 그것을 쓴다.
   expect(

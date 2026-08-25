@@ -26,7 +26,7 @@ function find(selector: string): HTMLElement {
 
 function tokenValue(id: string, property: "background-color" | "color"): string {
   const probe = document.createElement("div");
-  probe.style.setProperty(property, `var(--kds-${id})`);
+  probe.style.setProperty(property, `var(--louis-${id})`);
   document.body.append(probe);
   const value =
     property === "color" ? getComputedStyle(probe).color : getComputedStyle(probe).backgroundColor;
@@ -43,14 +43,14 @@ test("SidebarNavItem의 구조값이 components.measured.json과 같다", async 
       </SidebarNavItem>
     </div>,
   );
-  const item = find(".kds-sidebar-nav-item");
+  const item = find(".louis-sidebar-nav-item");
   const style = getComputedStyle(item);
 
   expect(round(item.getBoundingClientRect().height), "height").toBe(spec.height);
   expect(px(style.paddingInlineStart), "paddingInline").toBe(spec.paddingInline);
   expect(px(style.columnGap), "gap").toBe(spec.gap);
   expect(px(style.borderTopLeftRadius), "radius").toBe(spec.radius);
-  expect(round(find(".kds-sidebar-nav-item__icon").getBoundingClientRect().width), "icon").toBe(
+  expect(round(find(".louis-sidebar-nav-item__icon").getBoundingClientRect().width), "icon").toBe(
     spec.icon,
   );
 });
@@ -62,14 +62,14 @@ test("포커스 링이 실제로 그려진다", async () => {
       보관함
     </SidebarNavItem>,
   );
-  const item = find(".kds-sidebar-nav-item");
+  const item = find(".louis-sidebar-nav-item");
   item.focus();
 
   const style = getComputedStyle(item);
   expect(document.activeElement, "포커스를 받는다").toBe(item);
   expect(style.outlineStyle, "링이 그려진다").toBe("solid");
   expect(px(style.outlineWidth), "링 두께").toBe(
-    px(getComputedStyle(document.documentElement).getPropertyValue("--kds-border-width-ring")),
+    px(getComputedStyle(document.documentElement).getPropertyValue("--louis-border-width-ring")),
   );
   expect(style.outlineColor, "링 색").toBe(tokenValue("color-stroke-focus", "color"));
 });
@@ -114,8 +114,8 @@ test("접혀도 라벨이 DOM에 남는다", async () => {
       보관함
     </SidebarNavItem>,
   );
-  const item = find(".kds-sidebar-nav-item");
-  const label = find(".kds-sidebar-nav-item__label");
+  const item = find(".louis-sidebar-nav-item");
+  const label = find(".louis-sidebar-nav-item__label");
 
   expect(item.dataset.collapsed, "접힘 표시").toBe("true");
   expect(label.textContent, "라벨이 DOM에 있다").toBe("보관함");
@@ -126,7 +126,7 @@ test("접혀도 라벨이 DOM에 남는다", async () => {
 
   expect(px(getComputedStyle(item).paddingInlineStart), "좌우 여백 0").toBe(spec.paddingInline);
   // trailing은 접힘에서 사라진다 — 자리가 없다.
-  expect(getComputedStyle(find(".kds-sidebar-nav-item__trailing")).display).toBe("none");
+  expect(getComputedStyle(find(".louis-sidebar-nav-item__trailing")).display).toBe("none");
 });
 
 test("목적지가 있으면 링크, 없으면 버튼이다", async () => {
@@ -137,7 +137,7 @@ test("목적지가 있으면 링크, 없으면 버튼이다", async () => {
       <SidebarNavItem onClick={() => {}}>버튼</SidebarNavItem>
     </div>,
   );
-  const items = [...document.querySelectorAll(".kds-sidebar-nav-item")];
+  const items = [...document.querySelectorAll(".louis-sidebar-nav-item")];
   expect(items.map((node) => node.tagName)).toEqual(["A", "BUTTON"]);
   expect(items[0]?.getAttribute("href")).toBe("/archive");
   expect(items[1]?.getAttribute("type")).toBe("button");
@@ -149,18 +149,18 @@ test("아이콘은 보조기술에서 숨는다", async () => {
       보관함
     </SidebarNavItem>,
   );
-  expect(find(".kds-sidebar-nav-item__icon").getAttribute("aria-hidden")).toBe("true");
+  expect(find(".louis-sidebar-nav-item__icon").getAttribute("aria-hidden")).toBe("true");
 });
 
 test("복합 행은 버튼 안에 버튼을 넣지 않는다", async () => {
   await render(
-    <div data-kds-fixture style={{ inlineSize: "280px" }}>
+    <div data-louis-fixture style={{ inlineSize: "280px" }}>
       <SidebarNavRow action={<IconButton size="sm" variant="ghost" label="새로 만들기"><span /></IconButton>}>
         <SidebarNavItem href="/highlight">하이라이트</SidebarNavItem>
       </SidebarNavRow>
     </div>,
   );
-  const row = find(".kds-sidebar-nav-row");
+  const row = find(".louis-sidebar-nav-row");
   // 배포본도 같은 이유로 행을 div로 두고 내비와 액션을 형제로 놓는다.
   expect(row.tagName).toBe("DIV");
   expect(row.querySelectorAll("button button")).toHaveLength(0);
@@ -172,7 +172,7 @@ test("복합 행은 버튼 안에 버튼을 넣지 않는다", async () => {
 
 test("접히면 보조 액션이 사라진다 — 아이콘 하나 자리에 둘이 들어갈 수 없다", async () => {
   await render(
-    <div data-kds-fixture style={{ inlineSize: "72px" }}>
+    <div data-louis-fixture style={{ inlineSize: "72px" }}>
       <SidebarNavRow collapsed action={<IconButton size="sm" variant="ghost" label="새로 만들기"><span /></IconButton>}>
         <SidebarNavItem href="/highlight" collapsed>
           하이라이트
@@ -180,15 +180,15 @@ test("접히면 보조 액션이 사라진다 — 아이콘 하나 자리에 둘
       </SidebarNavRow>
     </div>,
   );
-  const row = find(".kds-sidebar-nav-row");
-  expect(row.querySelector(".kds-sidebar-nav-row__action")).toBeNull();
-  expect(row.querySelector(".kds-sidebar-nav-item")).not.toBeNull();
+  const row = find(".louis-sidebar-nav-row");
+  expect(row.querySelector(".louis-sidebar-nav-row__action")).toBeNull();
+  expect(row.querySelector(".louis-sidebar-nav-item")).not.toBeNull();
 });
 
 test("AppTopBar의 구조값이 components.measured.json과 같다", async () => {
   const spec = measured.components["app-shell-parts"].sizes.topBar;
   await render(<AppTopBar title="보관함" />);
-  const bar = find(".kds-app-top-bar");
+  const bar = find(".louis-app-top-bar");
   const style = getComputedStyle(bar);
 
   expect(round(bar.getBoundingClientRect().height), "height").toBe(spec.height);
@@ -207,14 +207,14 @@ test("AppTopBar의 제목이 남는 자리를 먹고 한 줄로 잘린다", asyn
       />
     </div>,
   );
-  const title = find(".kds-app-top-bar__title");
+  const title = find(".louis-app-top-bar__title");
   const style = getComputedStyle(title);
   expect(style.whiteSpace, "줄바꿈하지 않는다").toBe("nowrap");
   expect(style.textOverflow, "말줄임").toBe("ellipsis");
   // 양옆 슬롯이 자기 크기를 갖고 제목이 나머지를 쓴다.
-  const bar = find(".kds-app-top-bar").getBoundingClientRect();
-  const leading = find(".kds-app-top-bar__leading").getBoundingClientRect();
-  const trailing = find(".kds-app-top-bar__trailing").getBoundingClientRect();
+  const bar = find(".louis-app-top-bar").getBoundingClientRect();
+  const leading = find(".louis-app-top-bar__leading").getBoundingClientRect();
+  const trailing = find(".louis-app-top-bar__trailing").getBoundingClientRect();
   expect(title.getBoundingClientRect().width, "남는 자리를 먹는다").toBeGreaterThan(0);
   expect(leading.width + trailing.width, "슬롯이 자기 크기를 갖는다").toBeLessThan(bar.width);
 });
@@ -238,10 +238,10 @@ test("divider는 켤 때만 그려진다", async () => {
 
 test("layer-sticky 유틸리티가 토큰에서 온다", async () => {
   // 토큰은 있는데 쓸 클래스가 없어 셸을 짓는 사람이 숫자를 쓰게 되어 있었다 (DS-D-0018).
-  await render(<div className="kds-layer-sticky">rail</div>);
-  const node = find(".kds-layer-sticky");
+  await render(<div className="louis-layer-sticky">rail</div>);
+  const node = find(".louis-layer-sticky");
   expect(getComputedStyle(node).zIndex).toBe(
-    getComputedStyle(document.documentElement).getPropertyValue("--kds-layer-sticky").trim(),
+    getComputedStyle(document.documentElement).getPropertyValue("--louis-layer-sticky").trim(),
   );
 });
 

@@ -50,9 +50,9 @@ upstream 글리프를 채택하면 그 라이선스 원문이 저장소에 함�
 
 | 토큰 | 값 | 용도 |
 | --- | --- | --- |
-| `--kds-icon-size-sm` | 16px | 조밀한 행, 인라인 |
-| `--kds-icon-size-md` | 20px | 기본 |
-| `--kds-icon-size-lg` | 24px | 단독 액션, 큰 타깃 |
+| `--louis-icon-size-sm` | 16px | 조밀한 행, 인라인 |
+| `--louis-icon-size-md` | 20px | 기본 |
+| `--louis-icon-size-lg` | 24px | 단독 액션, 큰 타깃 |
 
 - 원시 px를 받는 prop은 제공하지 않는다.
 - **컨테이너와 글리프를 구분한다.** 컨테이너 크기는 컨트롤이 소유하고 글리프 크기는 아이콘이

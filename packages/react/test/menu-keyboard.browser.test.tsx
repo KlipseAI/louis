@@ -146,14 +146,14 @@ test("panel 안의 Tab stop은 하나뿐이다", async () => {
   });
 
   const panel = screen.getByTestId("panel").element();
-  const items = Array.from(panel.querySelectorAll<HTMLElement>("[data-kds-menu-item]"));
+  const items = Array.from(panel.querySelectorAll<HTMLElement>("[data-louis-menu-item]"));
   expect(items.length).toBeGreaterThan(1);
   expect(items.filter((item) => item.tabIndex === 0)).toHaveLength(1);
   // 활성 item이 그 하나여야 방향키 이동 뒤 Tab이 자연스럽다.
   expect(items.find((item) => item.tabIndex === 0)?.dataset["testid"]).toBe("item-save");
 
   await userEvent.keyboard("{ArrowDown}");
-  const after = Array.from(panel.querySelectorAll<HTMLElement>("[data-kds-menu-item]"));
+  const after = Array.from(panel.querySelectorAll<HTMLElement>("[data-louis-menu-item]"));
   expect(after.filter((item) => item.tabIndex === 0)).toHaveLength(1);
   expect(after.find((item) => item.tabIndex === 0)?.dataset["testid"]).toBe("item-share");
 });

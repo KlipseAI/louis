@@ -30,8 +30,8 @@ const OUTPUT_DIRECTORY = "packages/css/generated";
 const TOKEN_CSS = "packages/tokens/generated/tokens.css";
 const TOKEN_PROPOSAL = "packages/tokens/generated/figma.tokens.json";
 
-// layer 순서. 소비자 override가 항상 마지막에 오도록 kds.override를 끝에 둔다.
-const LAYERS = ["kds.reset", "kds.tokens", "kds.base", "kds.component", "kds.override"];
+// layer 순서. 소비자 override가 항상 마지막에 오도록 louis.override를 끝에 둔다.
+const LAYERS = ["louis.reset", "louis.tokens", "louis.base", "louis.component", "louis.override"];
 
 const GENERATED_NOTICE = [
   "/* GENERATED FILE — packages/css/src의 저작 원본을 고치고 pnpm build:css를 실행한다. */",
@@ -91,12 +91,12 @@ const FORBIDDEN = [
   {
     pattern: /z-index:\s*-?\d/g,
     message:
-      "숫자 z-index는 금지된다. var(--kds-layer-*)만 쓴다 (elevation-layer.md).",
+      "숫자 z-index는 금지된다. var(--louis-layer-*)만 쓴다 (elevation-layer.md).",
   },
   {
     pattern: /#[0-9a-fA-F]{3,8}\b|\brgba?\(|\bhsla?\(/g,
     message:
-      "raw color 리터럴은 금지된다. semantic 토큰 var(--kds-color-*)만 쓴다.",
+      "raw color 리터럴은 금지된다. semantic 토큰 var(--louis-color-*)만 쓴다.",
   },
 ];
 
@@ -116,7 +116,7 @@ function lintSource(label, rawSource, { isReset = false } = {}) {
   }
   // primitive 직접 소비 금지 — DS-D-0001은 CSS에 semantic만 노출한다.
   const primitiveUse = source.match(
-    /var\(--kds-(color-(neutral|blue|red|green|amber|black-alpha)-|space-\d|radius-\d|font-size-|font-weight-|line-height-|duration-)/g,
+    /var\(--louis-(color-(neutral|blue|red|green|amber|black-alpha)-|space-\d|radius-\d|font-size-|font-weight-|line-height-|duration-)/g,
   );
   if (primitiveUse) {
     errors.push(
@@ -126,7 +126,7 @@ function lintSource(label, rawSource, { isReset = false } = {}) {
 }
 
 /**
- * 저작 CSS가 참조하는 `var(--kds-*)`가 실제로 선언돼 있는지 확인한다.
+ * 저작 CSS가 참조하는 `var(--louis-*)`가 실제로 선언돼 있는지 확인한다.
  *
  * 이 검사가 없으면 오타 하나가 조용히 통과한다 — CSS는 정의되지 않은 커스텀 속성을 오류로
  * 만들지 않고 그 선언만 무효로 만들기 때문에, 화면에서는 "그 규칙을 애초에 안 썼을 때"와
@@ -136,7 +136,7 @@ function lintSource(label, rawSource, { isReset = false } = {}) {
  * 그것을 쓰는 형태(overlay가 선언하고 menu-popover가 소비)가 정상이기 때문이다.
  */
 function lintTokenReferences(entries) {
-  const declarationPattern = /^[ \t]*(--kds-[a-z0-9-]+)\s*:/gm;
+  const declarationPattern = /^[ \t]*(--louis-[a-z0-9-]+)\s*:/gm;
   const declared = new Set();
   for (const match of read(TOKEN_CSS).matchAll(declarationPattern)) {
     declared.add(match[1]);
@@ -152,7 +152,7 @@ function lintTokenReferences(entries) {
   }
   for (const entry of stripped) {
     const seen = new Set();
-    for (const match of entry.source.matchAll(/var\(\s*(--kds-[a-z0-9-]+)/g)) {
+    for (const match of entry.source.matchAll(/var\(\s*(--louis-[a-z0-9-]+)/g)) {
       if (declared.has(match[1]) || seen.has(match[1])) continue;
       seen.add(match[1]);
       errors.push(
@@ -198,7 +198,7 @@ function lintKeyframeContracts(entries, motionProperties) {
   for (const match of stripComments(all).matchAll(
     /animation-name:\s*([\w-]+);([\s\S]*?)\n\s*\}/g,
   )) {
-    const token = /--kds-(motion-[\w-]+)-duration/.exec(match[2]);
+    const token = /--louis-(motion-[\w-]+)-duration/.exec(match[2]);
     if (token === null) continue;
     const set = used.get(match[1]) ?? new Set();
     set.add(token[1]);
@@ -210,7 +210,7 @@ function lintKeyframeContracts(entries, motionProperties) {
     if (motions === undefined || motions.size === 0) {
       errors.push(
         `${body.label}: @keyframes ${name}이 motion 토큰에 연결되지 않았습니다. ` +
-          `같은 규칙에서 animation-duration을 var(--kds-motion-*-duration)으로 지정하십시오.`,
+          `같은 규칙에서 animation-duration을 var(--louis-motion-*-duration)으로 지정하십시오.`,
       );
       continue;
     }
@@ -261,12 +261,12 @@ const unlayeredBody = [base, ...components.map((component) => component.source)]
 const stylesCss = `${GENERATED_NOTICE}${unlayeredBody}\n`;
 
 const layeredBody = [
-  wrapInLayer("kds.base", base),
-  ...components.map((component) => wrapInLayer("kds.component", component.source)),
+  wrapInLayer("louis.base", base),
+  ...components.map((component) => wrapInLayer("louis.component", component.source)),
 ].join("\n");
 const stylesLayerCss = `${GENERATED_NOTICE}${layeredBody}`;
 
-const resetCss = `${GENERATED_NOTICE}${wrapInLayer("kds.reset", reset)}`;
+const resetCss = `${GENERATED_NOTICE}${wrapInLayer("louis.reset", reset)}`;
 
 // token CSS는 다시 생성하지 않고 그대로 재export한다 (DS-D-0001).
 const tokensCss = read(TOKEN_CSS);

@@ -26,10 +26,10 @@ authority: normative
 | light | `rgba(0, 0, 0, 0.1)` |
 | dark | `rgba(250, 250, 250, 0.1)` |
 
-KDS source는 그때까지 컴포넌트마다 다른 방식이었다 — Button/IconButton/Checkbox/Dialog/TextField/
+LOUIS source는 그때까지 컴포넌트마다 다른 방식이었다 — Button/IconButton/Checkbox/Dialog/TextField/
 Tooltip/ProjectCard는 CSS `border`, SegmentedControl은 바깥 spread box-shadow, Menu 패널은
 `shadow-menu-*` 토큰에 묶인 **바깥 0.5px 프레임**을 썼고, border 색도 `color-stroke-control` ·
-`-default` · `-strong` · `-subtle` · `-tooltip`로 갈렸다. 이 상태로 두면 KDS를 직접 보는 다음 구현자가
+`-default` · `-strong` · `-subtle` · `-tooltip`로 갈렸다. 이 상태로 두면 LOUIS를 직접 보는 다음 구현자가
 낡은 방식을 다시 쓴다.
 
 이 결정은 인계서의 **열려 있던 (2b) 컨트롤 테두리 정본** 판정을 함께 닫는다. 선택하지 않은 체크박스는
@@ -50,18 +50,18 @@ Tooltip/ProjectCard는 CSS `border`, SegmentedControl은 바깥 spread box-shado
    헤어라인 role을 별도로 세운다.
 
 2. **단일 CSS recipe.** `packages/css/src/base.css`가 `:root`에 한 번 선언한다.
-   - `--kds-hairline-inset` — 사방 stroke
-   - `--kds-hairline-inset-block-start` / `--kds-hairline-inset-block-end` — 한 면 divider
+   - `--louis-hairline-inset` — 사방 stroke
+   - `--louis-hairline-inset-block-start` / `--louis-hairline-inset-block-end` — 한 면 divider
    두께는 `border-width-hairline`(0.5px), 색은 `color-stroke-hairline`을 참조한다. 컴포넌트마다 shadow
    문자열을 복사하지 않는다.
 
 3. **컴포넌트는 recipe를 소비한다.** base `border`를 지우고 secondary Button/IconButton, TextField 박스,
    Checkbox 상자, ProjectCard, SegmentedControl 트랙, Dialog surface, Tooltip, Menu 패널이 inset을 쓴다.
-   elevation이 있는 표면은 `box-shadow: var(--kds-elevation-*), var(--kds-hairline-inset)`처럼 ambient/drop
+   elevation이 있는 표면은 `box-shadow: var(--louis-elevation-*), var(--louis-hairline-inset)`처럼 ambient/drop
    shadow 뒤에 조합한다. AppTopBar divider와 Menu separator는 방향성 변형을 쓴다.
 
 4. **Menu elevation과 헤어라인 책임을 분리한다.** `shadow-menu-light/dark`는 이제 ambient drop shadow만
-   소유하고, `.kds-popover`가 공용 inset 헤어라인을 마지막에 조합한다. 두 겹 frame이 생기지 않는다.
+   소유하고, `.louis-popover`가 공용 inset 헤어라인을 마지막에 조합한다. 두 겹 frame이 생기지 않는다.
 
 5. **(2b) 컨트롤 테두리 = 장식용 헤어라인.** 선택하지 않은 Checkbox, 기본/invalid/disabled TextField,
    secondary Button·IconButton은 모두 generic 10% 헤어라인을 쓴다. 상태는 stroke 색이 아니라 면 ·
@@ -93,8 +93,8 @@ Tooltip/ProjectCard는 CSS `border`, SegmentedControl은 바깥 spread box-shado
 
 ## Consequences
 
-- 제품 `5103ffeb`과 같은 계산 스타일을 KDS source가 직접 낸다. 제품은 새 KDS SHA를 소비한 뒤 로컬
-  `kds.override`를 지울 수 있다.
+- 제품 `5103ffeb`과 같은 계산 스타일을 LOUIS source가 직접 낸다. 제품은 새 LOUIS SHA를 소비한 뒤 로컬
+  `louis.override`를 지울 수 있다.
 - **Checkbox 대비가 더 낮아진다.** 선택하지 않은 상자가 라이트에서 black 10%(≈1.1:1)로, 이전 `strong`
   2.52보다 낮다. 이미 SC 1.4.11 미달이던 known deviation을 더 깊게 만드는 것이며, 제품이 배포한 계약과
   일치시키기 위한 것이다. checkbox.md Known deviations에 수치와 함께 남겼다. axe는 텍스트만 보므로 이
@@ -104,7 +104,7 @@ Tooltip/ProjectCard는 CSS `border`, SegmentedControl은 바깥 spread box-shado
 - **ProjectCard 헤어라인은 inset이라 full-bleed 썸네일이 가장자리를 덮을 수 있다.** 제품 `5103ffeb`과
   같은 결과다. 이전 border는 `overflow: hidden`과 만나 썸네일 위에 그려졌다.
 - **Menu separator가 오히려 또렷해진다.** 제품 override는 높이 없는 separator에 방향성 inset만 얹어
-  선이 그려지지 않았는데, KDS source는 `block-size: border-width-hairline`을 함께 주어 선이 실제로 렌더된다.
+  선이 그려지지 않았는데, LOUIS source는 `block-size: border-width-hairline`을 함께 주어 선이 실제로 렌더된다.
 - 제품 evidence lock은 여전히 `a3ed8e0`(제품이 1px border를 쓰던 시점)을 가리킨다. 그 커밋 대비 DS의
   0.5 deviation 기록은 그대로 유효하다. 제품 evidence를 `5103ffeb`로 재기준하는 것은 별도 후속이며, 그때
   여러 `deviates` 기록이 `same`으로 바뀌어 제거된다.
@@ -114,4 +114,4 @@ Tooltip/ProjectCard는 CSS `border`, SegmentedControl은 바깥 spread box-shado
 토큰(`color-stroke-hairline` · `color-static-black-alpha-10` · `shadow-menu-*`의 프레임 layer 복원), base.css
 recipe, 컴포넌트 CSS 10종, 브라우저 테스트, 규범, Figma parity를 함께 되돌린다. 접근성 규범이 통일
 헤어라인 대신 어포던스별 stroke(대안 2)를 요구한다고 판정되면, 이 저장소만 되돌리지 말고 제품
-`kds.override`의 Checkbox·TextField 정규화도 함께 되돌려 두 저장소가 다시 갈리지 않게 한다.
+`louis.override`의 Checkbox·TextField 정규화도 함께 되돌려 두 저장소가 다시 갈리지 않게 한다.

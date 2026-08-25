@@ -25,7 +25,7 @@ export function Skeleton({ shape = "block", className, ...rest }: SkeletonProps)
   return (
     <span
       {...rest}
-      className={join("kds-skeleton", className)}
+      className={join("louis-skeleton", className)}
       data-shape={shape}
       // 자리표시는 읽히지 않는다. 로딩을 알리는 것은 이 요소가 아니라 그것을 감싸는 영역의
       // aria-busy 또는 live region의 일이다 — 스켈레톤마다 읽히면 소음이 된다.

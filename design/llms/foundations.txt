@@ -223,7 +223,7 @@ DS-D-0010은 `[data-page-root]` 같은 DOM 상태 스코프를 토큰 축이 아
   `-webkit-text-fill-color`를 `--caption-tone`에서 되돌린다(`ImageNode.tsx:353`). 네 노드가 같은 패턴이다.
 - Tts/Bgm(audio) 노드에는 이 생성 중 아이콘·캡션 accent가 없다. audio는 영역 차오름으로 진행을 표시한다.
 
-**토큰 결손 두 건.** KDS에 `color-sky-*` 램프가 없다 — `color-blue-500`(`#0088ff`)은 제품 sky-500
+**토큰 결손 두 건.** LOUIS에 `color-sky-*` 램프가 없다 — `color-blue-500`(`#0088ff`)은 제품 sky-500
 `#0ea5e9`와 다른 색이므로 Video를 blue로 매핑하면 틀린다. 그리고
 `color-node-video-icon`·`color-node-video-surface`가 없다 — video는 `color-node-video-accent` 하나뿐이고
 나머지 매체는 icon·surface·accent 세 벌을 갖는다. Video 노드를 그리려면 sky 램프를 먼저 세운다.
@@ -240,7 +240,7 @@ DS-D-0010은 `[data-page-root]` 같은 DOM 상태 스코프를 토큰 축이 아
 제품의 인라인 오류 박스는 danger 색 하나를 **알파 두 칸으로** 쓴다. 면 8%, 테두리 16%로 정확히 1:2다.
 두 알파 모두 DS-D-0010이 정규화한 10단 알파 사다리 위 칸이므로 새 값이 아니다.
 
-| 부위 | 제품 값 | KDS 소유자 |
+| 부위 | 제품 값 | LOUIS 소유자 |
 | --- | --- | --- |
 | 면 | `rgb(var(--accent-red-500-rgb) / 8%)` | 없음 — `color-bg-danger`는 불투명 틴트다 |
 | 테두리 | `1px solid rgb(var(--accent-red-500-rgb) / 16%)` | 없음 — `color-stroke-danger`는 불투명 `#ff4b59`다 |
@@ -738,7 +738,7 @@ primitive의 `timingFunction`은 제품이 선언한 커브 둘에서 왔다. Fi
 
 - **enter 커브를 뒤집어 exit를 만들지 않는다.** exit primitive는 감속이 아니라 가속이다 —
   `overlay-exit`와 `modal-exit`는 `cubic-bezier(0.4, 0, 1, 1)`, `menu-exit`는
-  `cubic-bezier(0.42, 0, 1, 1)`이다. Figma에서 exit를 enter의 역재생으로 그리면 KDS와 갈린다.
+  `cubic-bezier(0.42, 0, 1, 1)`이다. Figma에서 exit를 enter의 역재생으로 그리면 LOUIS와 갈린다.
 - **enter와 exit는 duration도 대칭이 아니다.** `menu-enter` 260ms ↔ `menu-exit` 130ms,
   `overlay-enter` 200ms ↔ `overlay-exit` 120ms, `modal-enter` 320ms ↔ `modal-exit` 200ms이다.
   한 lifecycle을 하나의 duration으로 접으면 닫힘이 느려져 화면이 굼떠 보인다.
@@ -893,9 +893,9 @@ upstream 글리프를 채택하면 그 라이선스 원문이 저장소에 함�
 
 | 토큰 | 값 | 용도 |
 | --- | --- | --- |
-| `--kds-icon-size-sm` | 16px | 조밀한 행, 인라인 |
-| `--kds-icon-size-md` | 20px | 기본 |
-| `--kds-icon-size-lg` | 24px | 단독 액션, 큰 타깃 |
+| `--louis-icon-size-sm` | 16px | 조밀한 행, 인라인 |
+| `--louis-icon-size-md` | 20px | 기본 |
+| `--louis-icon-size-lg` | 24px | 단독 액션, 큰 타깃 |
 
 - 원시 px를 받는 prop은 제공하지 않는다.
 - **컨테이너와 글리프를 구분한다.** 컨테이너 크기는 컨트롤이 소유하고 글리프 크기는 아이콘이
@@ -1065,7 +1065,7 @@ breaking이므로**(DS-D-0006) 글리프 이름과 심볼은 이제 공개 계�
 
 #### 제품 실측 — 확인 모달 액션
 
-**KDS는 상태 어휘만 갖고 값이 없다.** Figma로 옮길 때 지어내지 않도록 제품이 실제로 쓰는 값을
+**LOUIS는 상태 어휘만 갖고 값이 없다.** Figma로 옮길 때 지어내지 않도록 제품이 실제로 쓰는 값을
 한 자리 적어 둔다(배포본 실측). 이것은 **DS 계약이 아니라 제품 인용**이다.
 
 | 상태 | 취소 | 확인 (primary) | 확인 (danger) |

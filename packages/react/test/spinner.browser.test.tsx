@@ -12,7 +12,7 @@ import "@klipse-design/css/layers.css";
 import "@klipse-design/css/tokens.css";
 import "@klipse-design/css/styles.css";
 
-declare const __KDS_REDUCED_MOTION__: boolean;
+declare const __LOUIS_REDUCED_MOTION__: boolean;
 
 const px = (value: string): number => Number.parseFloat(value);
 const round = (value: number): number => Math.round(value * 1000) / 1000;
@@ -30,7 +30,7 @@ for (const size of SIZES) {
 
   test(`Spinner ${size}의 구조값이 components.measured.json과 같다`, async () => {
     await render(<Spinner size={size} label="불러오는 중" />);
-    const ring = find(".kds-spinner__ring");
+    const ring = find(".louis-spinner__ring");
     const box = ring.getBoundingClientRect();
 
     expect(round(box.width), "width").toBe(spec.width);
@@ -52,7 +52,7 @@ test("링이 둘이다 — 트랙과 진행", async () => {
       <Spinner label="불러오는 중" />
     </span>,
   );
-  const ring = find(".kds-spinner__ring");
+  const ring = find(".louis-spinner__ring");
   const track = getComputedStyle(ring, "::before");
   const arc = getComputedStyle(ring, "::after");
 
@@ -75,39 +75,39 @@ test("색을 물려받는다", async () => {
       <Spinner label="불러오는 중" />
     </span>,
   );
-  expect(getComputedStyle(find(".kds-spinner__ring"), "::after").borderTopColor).toBe(
+  expect(getComputedStyle(find(".louis-spinner__ring"), "::after").borderTopColor).toBe(
     "rgb(200, 30, 40)",
   );
 });
 
 test("loop recipe가 토큰에서 온다", async () => {
   await render(<Spinner label="불러오는 중" />);
-  const style = getComputedStyle(find(".kds-spinner__ring"));
+  const style = getComputedStyle(find(".louis-spinner__ring"));
   const root = getComputedStyle(document.documentElement);
   const ms = (value: string): number =>
     value.trim().endsWith("ms")
       ? Number.parseFloat(value)
       : Number.parseFloat(value) * 1000;
 
-  const expected = __KDS_REDUCED_MOTION__
-    ? root.getPropertyValue("--kds-motion-reduced-duration")
-    : root.getPropertyValue("--kds-motion-spin-duration");
+  const expected = __LOUIS_REDUCED_MOTION__
+    ? root.getPropertyValue("--louis-motion-reduced-duration")
+    : root.getPropertyValue("--louis-motion-spin-duration");
   expect(ms(style.animationDuration), "duration").toBe(ms(expected));
   expect(style.animationTimingFunction, "등속").toBe(
-    root.getPropertyValue("--kds-motion-spin-timing-function").trim(),
+    root.getPropertyValue("--louis-motion-spin-timing-function").trim(),
   );
   // **이름 하나에 본문 하나.** button·menu·spinner가 같은 keyframe을 쓴다.
-  expect(style.animationName, "공용 keyframe").toBe("kds-spin");
+  expect(style.animationName, "공용 keyframe").toBe("louis-spin");
 });
 
 test("reduced-motion에서 회전이 멈춰도 의미가 남는다", async () => {
   // DS-D-0016 — loop는 짧아지는 것이 아니라 사라진다. 그 대체가 role/aria-busy다.
   await render(<Spinner label="불러오는 중" />);
-  const ring = find(".kds-spinner__ring");
-  const root = find(".kds-spinner");
+  const ring = find(".louis-spinner__ring");
+  const root = find(".louis-spinner");
 
   expect(getComputedStyle(ring).animationIterationCount, "iteration").toBe(
-    __KDS_REDUCED_MOTION__ ? "1" : "infinite",
+    __LOUIS_REDUCED_MOTION__ ? "1" : "infinite",
   );
   // 회전 여부와 무관하게 항상 참이어야 한다.
   expect(root.getAttribute("role"), "role").toBe("status");
@@ -118,7 +118,7 @@ test("reduced-motion에서 회전이 멈춰도 의미가 남는다", async () =>
 test("label이 없으면 장식이 된다", async () => {
   // 라벨을 가진 부모가 이미 진행을 알리고 있을 때 쓴다. 여기서 또 알리면 같은 사실을 두 번 읽는다.
   await render(<Spinner />);
-  const root = find(".kds-spinner");
+  const root = find(".louis-spinner");
   expect(root.getAttribute("aria-hidden"), "숨는다").toBe("true");
   expect(root.getAttribute("role"), "role 없음").toBeNull();
   expect(root.getAttribute("aria-live"), "live 없음").toBeNull();
@@ -129,7 +129,7 @@ test("기본 라벨 문자열을 배포하지 않는다", async () => {
   // 제품에 aria-label="Loading"이 하드코딩된 자리가 있다. DS가 기본값을 두면 그 하드코딩을
   // 시스템 전체로 퍼뜨리는 셈이 된다 — 문구는 i18n을 가진 호출부가 소유한다.
   await render(<Spinner />);
-  const html = find(".kds-spinner").outerHTML;
+  const html = find(".louis-spinner").outerHTML;
   expect(html).not.toContain("Loading");
   expect(html).not.toContain("로딩");
 });

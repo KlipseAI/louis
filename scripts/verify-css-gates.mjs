@@ -113,42 +113,42 @@ const BASE = "packages/css/src/base.css";
 
 withCanary(
   BASE,
-  (source) => `${source}\n.kds-canary { color: var(--kds-color-fg-primary) !important; }\n`,
+  (source) => `${source}\n.louis-canary { color: var(--louis-color-fg-primary) !important; }\n`,
   "important",
   "!important는 금지된다",
 );
 
 withCanary(
   BASE,
-  (source) => `${source}\n.kds-canary { z-index: 9999; }\n`,
+  (source) => `${source}\n.louis-canary { z-index: 9999; }\n`,
   "numeric z-index",
   "숫자 z-index는 금지된다",
 );
 
 withCanary(
   BASE,
-  (source) => `${source}\n.kds-canary { color: #ff0000; }\n`,
+  (source) => `${source}\n.louis-canary { color: #ff0000; }\n`,
   "raw color literal",
   "raw color 리터럴은 금지된다",
 );
 
 withCanary(
   BASE,
-  (source) => `${source}\nbody .kds-canary { display: block; }\n`,
+  (source) => `${source}\nbody .louis-canary { display: block; }\n`,
   "global selector outside reset",
   "전역 선택자(html/body/*)는 reset.css 안에서만 쓴다",
 );
 
 withCanary(
   BASE,
-  (source) => `${source}\n.kds-canary { padding: var(--kds-space-4); }\n`,
+  (source) => `${source}\n.louis-canary { padding: var(--louis-space-4); }\n`,
   "primitive consumption",
   "primitive를 직접 소비합니다",
 );
 
 withCanary(
   BASE,
-  (source) => `${source}\n.kds-canary { color: var(--kds-color-does-not-exist); }\n`,
+  (source) => `${source}\n.louis-canary { color: var(--louis-color-does-not-exist); }\n`,
   "unknown token reference",
   "존재하지 않는 토큰을 참조합니다",
 );
@@ -158,8 +158,8 @@ withCanary(
 withCanary(
   BASE,
   (source) =>
-    `${source}\n.kds-canary { animation-name: kds-canary-spin; animation-duration: var(--kds-motion-spin-duration); }\n` +
-    `@keyframes kds-canary-spin {\n  to {\n    left: 10px;\n  }\n}\n`,
+    `${source}\n.louis-canary { animation-name: louis-canary-spin; animation-duration: var(--louis-motion-spin-duration); }\n` +
+    `@keyframes louis-canary-spin {\n  to {\n    left: 10px;\n  }\n}\n`,
   "keyframe undeclared property",
   "선언되지 않은 property를",
 );
@@ -167,7 +167,7 @@ withCanary(
 // motion 토큰에 연결되지 않은 keyframe. `1s linear` 리터럴이 게이트 밖에 있던 방식이다.
 withCanary(
   BASE,
-  (source) => `${source}\n@keyframes kds-canary-orphan {\n  to {\n    opacity: 1;\n  }\n}\n`,
+  (source) => `${source}\n@keyframes louis-canary-orphan {\n  to {\n    opacity: 1;\n  }\n}\n`,
   "keyframe without motion token",
   "motion 토큰에 연결되지 않았습니다",
 );
@@ -176,15 +176,15 @@ withCanary(
 withCanary(
   BASE,
   (source) =>
-    `${source}\n.kds-canary { animation-name: kds-canary-transform; animation-duration: var(--kds-motion-spin-duration); }\n` +
-    `@keyframes kds-canary-transform {\n  to {\n    transform: rotate(360deg);\n  }\n}\n`,
+    `${source}\n.louis-canary { animation-name: louis-canary-transform; animation-duration: var(--louis-motion-spin-duration); }\n` +
+    `@keyframes louis-canary-transform {\n  to {\n    transform: rotate(360deg);\n  }\n}\n`,
   "loop rejects transform shorthand",
   "선언되지 않은 property를",
 );
 
 withCanary(
   "packages/css/generated/styles.css",
-  (source) => `${source}\n.kds-drift { color: red; }\n`,
+  (source) => `${source}\n.louis-drift { color: red; }\n`,
   "generated drift",
   "generated CSS가 최신이 아닙니다",
 );

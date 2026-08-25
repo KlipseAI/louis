@@ -168,7 +168,7 @@ DS 쪽 정본이고, 제품의 이 자리는 **결함으로 기록한다.**
 1. 면이 **놓이는 자리의 글자색을 따라간다** — 부모 `color`를 바꾸면 면 색이 바뀐다.
 2. 면이 반투명하다(알파 < 0.5).
 3. **light·dark 두 테마 모두에서** 면이 배경과 다르고 투명하지 않다.
-4. 흐름이 공용 `kds-shimmer` keyframe이고 `motion-shimmer` 토큰을 쓰며 **`transform`을 쓰지 않는다.**
+4. 흐름이 공용 `louis-shimmer` keyframe이고 `motion-shimmer` 토큰을 쓰며 **`transform`을 쓰지 않는다.**
 5. reduced-motion에서 duration이 reduced 토큰이 되고 반복이 1회가 된다.
 6. 모양 셋의 반경이 계약과 같다.
 7. `aria-hidden`이다.

@@ -19,69 +19,69 @@
  * 색각 이상에서 글자색 하나에 기대지 않고, 두 값이 게이트에 대비 쌍으로 묶여 있다.
  */
 
-.kds-badge {
+.louis-badge {
   box-sizing: border-box;
   display: inline-flex;
   align-items: center;
-  gap: var(--kds-space-control-xs);
+  gap: var(--louis-space-control-xs);
   max-inline-size: 100%;
-  padding-block: var(--kds-space-control-xs);
-  padding-inline: var(--kds-space-control-sm);
-  border-radius: var(--kds-radius-control-sm);
+  padding-block: var(--louis-space-control-xs);
+  padding-inline: var(--louis-space-control-sm);
+  border-radius: var(--louis-radius-control-sm);
   /* 기본은 중립이다. 상태가 없는 배지가 다수이고(분류·개수 라벨), 색을 기본값으로 두면 아무 뜻도
    * 없는 곳에 의미가 붙는다. */
-  background: var(--kds-color-bg-inset);
-  color: var(--kds-color-fg-secondary);
-  font-family: var(--kds-typography-caption-regular-font-family);
-  font-size: var(--kds-typography-caption-regular-font-size);
-  font-weight: var(--kds-typography-caption-regular-font-weight);
-  line-height: var(--kds-typography-caption-regular-line-height);
-  letter-spacing: var(--kds-typography-caption-regular-letter-spacing);
+  background: var(--louis-color-bg-inset);
+  color: var(--louis-color-fg-secondary);
+  font-family: var(--louis-typography-caption-regular-font-family);
+  font-size: var(--louis-typography-caption-regular-font-size);
+  font-weight: var(--louis-typography-caption-regular-font-weight);
+  line-height: var(--louis-typography-caption-regular-line-height);
+  letter-spacing: var(--louis-typography-caption-regular-letter-spacing);
   /* 라벨은 한 줄이다. 배지가 두 줄이 되면 그것이 놓인 행의 높이가 흔들린다. */
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-.kds-badge[data-tone="success"] {
-  background: var(--kds-color-bg-success);
-  color: var(--kds-color-fg-success);
+.louis-badge[data-tone="success"] {
+  background: var(--louis-color-bg-success);
+  color: var(--louis-color-fg-success);
 }
 
-.kds-badge[data-tone="warning"] {
-  background: var(--kds-color-bg-warning);
-  color: var(--kds-color-fg-warning);
+.louis-badge[data-tone="warning"] {
+  background: var(--louis-color-bg-warning);
+  color: var(--louis-color-fg-warning);
 }
 
-.kds-badge[data-tone="danger"] {
-  background: var(--kds-color-bg-danger);
-  color: var(--kds-color-fg-danger);
+.louis-badge[data-tone="danger"] {
+  background: var(--louis-color-bg-danger);
+  color: var(--louis-color-fg-danger);
 }
 
-.kds-badge[data-tone="info"] {
-  background: var(--kds-color-bg-info);
-  color: var(--kds-color-fg-info);
+.louis-badge[data-tone="info"] {
+  background: var(--louis-color-bg-info);
+  color: var(--louis-color-fg-info);
 }
 
 /* 아이콘 슬롯. **크기가 글자를 따라간다** — `1em`이라 12px 아이콘 토큰을 새로 만들지 않아도 되고,
  * iconography.md가 4px 격자 밖이라며 거부해 둔 12px을 다시 열 이유도 없다. */
-.kds-badge__icon {
+.louis-badge__icon {
   display: inline-flex;
   flex: 0 0 auto;
   inline-size: 1em;
   block-size: 1em;
 }
 
-.kds-badge__icon > :where(svg) {
+.louis-badge__icon > :where(svg) {
   inline-size: 100%;
   block-size: 100%;
 }
 
 /* 점. 아이콘보다 약한 신호이며 색은 글자를 따라간다. */
-.kds-badge__dot {
+.louis-badge__dot {
   flex: 0 0 auto;
   inline-size: 0.5em;
   block-size: 0.5em;
-  border-radius: var(--kds-radius-pill);
+  border-radius: var(--louis-radius-pill);
   background: currentcolor;
 }

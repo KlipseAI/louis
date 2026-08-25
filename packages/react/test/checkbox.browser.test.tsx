@@ -27,14 +27,14 @@ function find(selector: string): HTMLElement {
 }
 
 const control = (): HTMLInputElement =>
-  find("input.kds-checkbox__control") as HTMLInputElement;
+  find("input.louis-checkbox__control") as HTMLInputElement;
 
 const tokenPx = (id: string): number =>
-  px(getComputedStyle(document.documentElement).getPropertyValue(`--kds-${id}`));
+  px(getComputedStyle(document.documentElement).getPropertyValue(`--louis-${id}`));
 
 function tokenValue(id: string, property: "background-color" | "color"): string {
   const probe = document.createElement("div");
-  probe.style.setProperty(property, `var(--kds-${id})`);
+  probe.style.setProperty(property, `var(--louis-${id})`);
   document.body.append(probe);
   const value =
     property === "color"
@@ -60,9 +60,9 @@ test("구조값이 components.measured.json과 같다", async () => {
   expect(style.borderTopWidth, "border 제거").toBe("0px");
   expect(style.boxShadow, "inset 헤어라인").toContain("inset");
   expect(style.boxShadow, "헤어라인 색").toContain(tokenValue("color-stroke-hairline", "color"));
-  expect(px(getComputedStyle(find(".kds-checkbox")).columnGap), "gap").toBe(spec.gap);
+  expect(px(getComputedStyle(find(".louis-checkbox")).columnGap), "gap").toBe(spec.gap);
 
-  const labelStyle = getComputedStyle(find(".kds-checkbox__label"));
+  const labelStyle = getComputedStyle(find(".louis-checkbox__label"));
   expect(px(labelStyle.fontSize), "fontSize").toBe(spec.fontSize);
   expect(round(px(labelStyle.lineHeight)), "lineHeight").toBe(spec.lineHeight);
 });
@@ -124,7 +124,7 @@ test("states 표가 코드와 같다", async () => {
   expect(read().boxShadow, "Default 헤어라인 색").toContain(
     tokenValue("color-stroke-hairline", "color"),
   );
-  expect(getComputedStyle(find(".kds-checkbox__label")).color, "Default foreground").toBe(
+  expect(getComputedStyle(find(".louis-checkbox__label")).color, "Default foreground").toBe(
     tokenValue(states.Default.foreground, "color"),
   );
 
@@ -144,7 +144,7 @@ test("disabled의 면·라벨이 states 표와 같다", async () => {
   );
   // 상태는 면(background-inset)과 라벨 색이 전달한다 — border 없이 generic 헤어라인 (DS-D-0023).
   expect(getComputedStyle(input).borderTopWidth, "Disabled border 제거").toBe("0px");
-  expect(getComputedStyle(find(".kds-checkbox__label")).color, "Disabled foreground").toBe(
+  expect(getComputedStyle(find(".louis-checkbox__label")).color, "Disabled foreground").toBe(
     tokenValue(states.Disabled.foreground, "color"),
   );
 });
@@ -154,7 +154,7 @@ test("라벨을 눌러도 값이 바뀐다", async () => {
   // 포함 관계가 만든다 — 같은 화면에 여럿이 있어도 겹치지 않는다.
   const seen: boolean[] = [];
   await render(<Checkbox label="약관에 동의합니다" onCheckedChange={(v) => seen.push(v)} />);
-  await userEvent.click(find(".kds-checkbox__label"));
+  await userEvent.click(find(".louis-checkbox__label"));
   expect(control().checked, "라벨 클릭이 값을 바꾼다").toBe(true);
   expect(seen, "콜백이 값을 받는다").toEqual([true]);
 });
@@ -197,7 +197,7 @@ test("disabled면 클릭과 키보드로 값이 바뀌지 않는다", async () =
   const seen: boolean[] = [];
   await render(<Checkbox label="비활성" disabled onCheckedChange={(v) => seen.push(v)} />);
   const input = control();
-  await userEvent.click(find(".kds-checkbox__label"), { force: true });
+  await userEvent.click(find(".louis-checkbox__label"), { force: true });
   input.focus();
   await userEvent.keyboard(" ");
   expect(input.checked, "값 그대로").toBe(false);

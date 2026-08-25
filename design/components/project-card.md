@@ -96,7 +96,7 @@ variant 축이 없다. 카드의 강조는 카드가 아니라 **썸네일**이 
 | --- | --- |
 | Default | 헤어라인 inset, 변형 없음 |
 | Hover | 카드 자신은 바뀌지 않는다. 슬롯 안의 컨트롤이 드러난다 |
-| Active | `scale(0.975)`. `:has(.kds-project-card-action:active)`로 **클릭 타깃만** 본다 — 프레임에 직접 걸면 슬롯의 버튼을 눌러도 카드가 줄어든다 |
+| Active | `scale(0.975)`. `:has(.louis-project-card-action:active)`로 **클릭 타깃만** 본다 — 프레임에 직접 걸면 슬롯의 버튼을 눌러도 카드가 줄어든다 |
 | Focus visible | 링은 프레임에 그린다. 투명한 클릭 타깃에만 링이 뜨면 무엇이 선택됐는지 모른다 |
 
 **hover에서 카드 면을 바꾸지 않는다.** 카드의 대부분은 썸네일이고 그 위에 어떤 강조를 얹어도
@@ -200,14 +200,14 @@ Figma가 같은 원천을 본다.
 
 ## Implementation
 
-- `.kds-project-card`는 격자 트랙을 채운다(`inline-size: 100%`). 프레임이 내용에 맞춰 줄어들면
+- `.louis-project-card`는 격자 트랙을 채운다(`inline-size: 100%`). 프레임이 내용에 맞춰 줄어들면
   미디어 폭이 `100%`라 서로를 참조해 0으로 접힌다 — 240px 트랙에서 2px(테두리만)로 쟀다.
 - `box-sizing`을 카드와 오버레이에 **명시한다.** 소비자의 reset에 기대면 결과가 달라지고, 오버레이가
   content-box면 30% 띠에 여백 32px이 더해져 39%가 된다.
 - 숫자 z-index를 쓰지 않는다. 칠 순서는 곧 DOM 순서다 — 흐림 층은 `::before`라 트리 순서에서 앞이고
   텍스트 wrapper가 `position: relative`로 그 위에 온다. 카드 수준에서는 **Media → Action →
   Adornment**가 그 계약이다.
-- 썸네일은 `ProjectCardThumbnail`이 자리를 잡는다. CSS가 `.kds-project-card-media > img`를 직접
+- 썸네일은 `ProjectCardThumbnail`이 자리를 잡는다. CSS가 `.louis-project-card-media > img`를 직접
   잡으면 Next.js `Image`처럼 래퍼를 하나 더 만드는 컴포넌트를 넣는 순간 선택자가 빗나간다.
 - 누름 전환은 `transition-property`에 **`scale`**을 적는다. `scale`은 `transform`과 별개 property라
   `transform`만 적으면 선언이 아무것도 전이하지 않는다 — 이 저장소의 네 컴포넌트가 그 상태였다.

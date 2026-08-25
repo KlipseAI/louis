@@ -88,7 +88,7 @@ export function AnchoredTrigger({
     "aria-haspopup": kind === "action-menu" ? ("menu" as const) : ("dialog" as const),
     "aria-expanded": open,
     ...(controls === undefined ? {} : { "aria-controls": controls }),
-    "data-kds-anchored-trigger": kind,
+    "data-louis-anchored-trigger": kind,
     onClick: handleClick,
     onKeyDown: handleKeyDown,
   };

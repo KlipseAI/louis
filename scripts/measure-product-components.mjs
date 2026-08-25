@@ -978,7 +978,7 @@ function extractClassList(source, key, where) {
   return parts.map((part) => JSON.parse(part)).join(" ");
 }
 
-const workspace = mkdtempSync(join(tmpdir(), "kds-product-components-"));
+const workspace = mkdtempSync(join(tmpdir(), "louis-product-components-"));
 let rendered;
 let declaredByProbe;
 let sources;
@@ -1068,7 +1068,7 @@ try {
   }
   for (const token of bodyMarker.split(/\s+/)) if (token) candidates.add(token);
   const utilities = compiled.build([...candidates]);
-  if (process.env.KDS_DUMP_RULE) {
+  if (process.env.LOUIS_DUMP_RULE) {
     for (const line of utilities.split("\n")) {
       if (line.includes("body:has")) console.log(line.slice(0, 200));
     }
@@ -1100,7 +1100,7 @@ try {
       await page.setContent(
         "<!doctype html><html " + htmlAttributes + "><head><style>" +
           baseCss.replace(/<\/style>/gi, "<\\/style>") +
-          '</style><style id="kds-product-utilities">' +
+          '</style><style id="louis-product-utilities">' +
           utilities.replace(/<\/style>/gi, "<\\/style>") +
           '</style></head><body><div hidden style="display:none" class="' + bodyMarker + '"></div>' +
           group
@@ -1333,7 +1333,7 @@ function readTokenBlock(source, marker) {
   const close = source.indexOf("\n}", open);
   const map = new Map();
   for (const line of source.slice(open, close).split("\n")) {
-    const match = /^\s*(--kds-[a-z0-9-]+):\s*(.+);\s*$/.exec(line);
+    const match = /^\s*(--louis-[a-z0-9-]+):\s*(.+);\s*$/.exec(line);
     if (match) map.set(match[1], match[2].trim());
   }
   return map;
@@ -1381,9 +1381,9 @@ function compare(measured, expect, exempt, collect) {
     if (typeof want === "string") {
       const probe = PROBES.find((p) => p.id === probeId);
       const theme = (probe?.doc ?? "").includes("light") ? "light" : "dark";
-      const tokenValue = THEME_TOKENS[theme].get("--kds-" + want);
+      const tokenValue = THEME_TOKENS[theme].get("--louis-" + want);
       if (tokenValue === undefined) {
-        failures.push(label + ": DS 토큰 --kds-" + want + "가 " + theme + " 테마에 없습니다.");
+        failures.push(label + ": DS 토큰 --louis-" + want + "가 " + theme + " 테마에 없습니다.");
         continue;
       }
       const productColor = parseColor(raw);
@@ -1757,7 +1757,7 @@ if (unclassified.length > 0) {
     "[product-components] 제품이 선언했는데 분류되지 않은 축 " + unclassified.length + "건입니다. " +
       "EXPECT에 대조 행을 넣거나 figma/product-coverage.json에 사유와 함께 범위 밖으로 적으세요.",
   );
-  const limit = process.env.KDS_LIST_ALL ? unclassified.length : 60;
+  const limit = process.env.LOUIS_LIST_ALL ? unclassified.length : 60;
   for (const item of unclassified.slice(0, limit)) console.error("[product-components]   " + item);
   if (unclassified.length > limit) console.error("[product-components]   … 외 " + (unclassified.length - limit) + "건");
   process.exit(1);

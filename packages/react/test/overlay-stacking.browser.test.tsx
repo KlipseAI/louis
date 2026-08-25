@@ -103,11 +103,11 @@ test("Dialog 안에서 연 Popover는 별도 host에 있어도 inert 되지 않�
 
   // popover는 non-modal host에 있다. modal host와 다른 subtree다.
   const popoverHost = (node("inner-popover") as HTMLElement).closest(
-    "[data-kds-overlay-root]",
+    "[data-louis-overlay-root]",
   );
-  expect(popoverHost?.getAttribute("data-kds-overlay-root")).toBe("non-modal");
+  expect(popoverHost?.getAttribute("data-louis-overlay-root")).toBe("non-modal");
   expect(
-    (node("modal-1") as HTMLElement).closest("[data-kds-overlay-root]"),
+    (node("modal-1") as HTMLElement).closest("[data-louis-overlay-root]"),
   ).not.toBe(popoverHost);
 
   await userEvent.click(screen.getByTestId("popover-item"));
@@ -225,8 +225,8 @@ test("modal panel의 z-index가 숫자가 아니라 layer 토큰으로 해석된
   await expect.element(screen.getByTestId("inner-popover")).toBeInTheDocument();
 
   const root = getComputedStyle(document.documentElement);
-  const modalToken = root.getPropertyValue("--kds-layer-modal").trim();
-  const popoverToken = root.getPropertyValue("--kds-layer-popover").trim();
+  const modalToken = root.getPropertyValue("--louis-layer-modal").trim();
+  const popoverToken = root.getPropertyValue("--louis-layer-popover").trim();
 
   expect(getComputedStyle(node("modal-1-root") as HTMLElement).zIndex).toBe(modalToken);
   // 자손 branch는 부모 layer를 물려받는다. popover 값 그대로였다면 Dialog 뒤에 깔려
@@ -245,14 +245,14 @@ test("scroll lock이 owner의 인라인 style을 원래대로 복원한다", asy
   await userEvent.click(screen.getByTestId("trigger"));
   await expect.element(screen.getByTestId("modal-1")).toBeInTheDocument();
 
-  expect(owner.getAttribute("data-kds-scroll-locked")).toBe("true");
+  expect(owner.getAttribute("data-louis-scroll-locked")).toBe("true");
   expect(getComputedStyle(owner).overflow).toBe("hidden");
 
   pressEscape();
   await gone("modal-1");
 
   // "복원"이 값을 지우는 동작이 되면 안 된다. 속성 유무까지 원래대로여야 한다.
-  expect(owner.hasAttribute("data-kds-scroll-locked")).toBe(false);
+  expect(owner.hasAttribute("data-louis-scroll-locked")).toBe(false);
   expect(owner.hasAttribute("style")).toBe(hadStyle);
   expect(owner.getAttribute("style")).toBe(before);
 });
@@ -264,16 +264,16 @@ test("중첩 modal에서 scroll lock은 refcount로 유지되고 마지막에만
   await userEvent.click(screen.getByTestId("trigger"));
   await userEvent.click(screen.getByTestId("open-modal-2"));
   await expect.element(screen.getByTestId("modal-2")).toBeInTheDocument();
-  expect(owner.getAttribute("data-kds-scroll-locked")).toBe("true");
+  expect(owner.getAttribute("data-louis-scroll-locked")).toBe("true");
 
   pressEscape();
   await gone("modal-2");
   // 위 modal이 닫혀도 아래 modal이 아직 잠그고 있다.
-  expect(owner.getAttribute("data-kds-scroll-locked")).toBe("true");
+  expect(owner.getAttribute("data-louis-scroll-locked")).toBe("true");
 
   pressEscape();
   await gone("modal-1");
-  expect(owner.hasAttribute("data-kds-scroll-locked")).toBe(false);
+  expect(owner.hasAttribute("data-louis-scroll-locked")).toBe(false);
 });
 
 test("잠긴 동안 스크롤이 옮겨져도 닫으면 원래 위치로 돌아온다", async () => {

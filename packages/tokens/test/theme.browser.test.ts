@@ -38,7 +38,7 @@ function withTheme<T>(theme: "light" | "dark", run: (root: HTMLElement) => T): T
 }
 
 function readVariable(root: HTMLElement, id: string): string {
-  return getComputedStyle(root).getPropertyValue(`--kds-${id}`).trim();
+  return getComputedStyle(root).getPropertyValue(`--louis-${id}`).trim();
 }
 
 function parseSrgb(value: string): readonly number[] | null {

@@ -303,7 +303,7 @@ Icon Button 의 정본으로 지목됐던 제품의 공유 UI 패키지는 Turbo
 
 넷은 이렇다.
 
-- **`elevation-popover`** — `.kds-popover`는 action-menu와 composite-popover **둘 다**
+- **`elevation-popover`** — `.louis-popover`는 action-menu와 composite-popover **둘 다**
   `elevation-menu`를 쓴다. popover라는 이름의 토큰을 popover가 안 쓴다
 - **`elevation-focus-ring`** — 실제 링은 `outline`이고 이 토큰은 box-shadow `0 0 0 3px` 파랑 42%다
 - **`blur-panel`**(12px) — 흐림을 쓰는 둘(Toast·ProjectCard)이 모두 `blur-surface`(10px)를 쓴다
@@ -315,7 +315,7 @@ Icon Button 의 정본으로 지목됐던 제품의 공유 UI 패키지는 Turbo
 전자는 두면 되고 후자는 다음 사람이 집으면 화면이 달라진다.
 
 **(1b) 위 넷 중 `elevation-focus-ring`은 이미 한 번 걸렸다.** 이름은 focus ring인데
-실제 focus ring은 `outline: var(--kds-border-width-ring) solid var(--kds-color-stroke-focus)`이고
+실제 focus ring은 `outline: var(--louis-border-width-ring) solid var(--louis-color-stroke-focus)`이고
 그 토큰(box-shadow `0 0 0 3px` 파랑 42%)은 아무 데서도 쓰이지 않는다. `radius-card`와 **같은
 종류의 함정**이다 — 이름으로 집으면 화면이 달라진다. 다만 Figma effect style로도 발행돼 있어
 폐기는 breaking이며, DS-D-0014와 같은 절차가 필요하다. 지금은 리터럴 2px만 토큰으로 바꿔 두었다.
@@ -484,7 +484,7 @@ Badge의 `Label`). **모든 fill이 변수 바인딩이고 raw 값이 0이다.**
 
 한때 이 자리에 「`BannerCarousel` 은 지금 착수할 수 없다 — 막는 것 넷」이 적혀 있었다.
 **그중 하나(점의 폭 전환)는 `layout-change` 토큰이 서면서 반증된다** — 생성 CSS 가 이미
-`var(--kds-motion-layout-change-duration)` 을 쓴다. **그대로 읽으면 존재하는 컴포넌트를 처음부터
+`var(--louis-motion-layout-change-duration)` 을 쓴다. **그대로 읽으면 존재하는 컴포넌트를 처음부터
 다시 설계하게 된다.** 남은 표현 한계(런타임 톤 샘플링 · progressive blur · stagger)는 그
 컴포넌트의 Known deviations 가 소유한다.
 
@@ -523,7 +523,7 @@ Badge의 `Label`). **모든 fill이 변수 바인딩이고 raw 값이 0이다.**
 3. **`DS-P3-010` 공용 Pattern fixture** — Project Grid · Loading · App Shell 이 **전부 Web
    `partial` 로 섰다.** 한때 여기에 「남은 둘은 Loading(Skeleton에 막힘)과 App Shell」이 적혀
    있었으나 셋 다 manifest 가 `partial` 로 싣는다. **「아직 없다」를 읽고 App Shell 을 새로 지으면
-   `.kds-app-shell` 계열을 두 번 만들게 된다.** 남은 것은 이 셋의 Figma 쪽이다(`not-ready`)
+   `.louis-app-shell` 계열을 두 번 만들게 된다.** 남은 것은 이 셋의 Figma 쪽이다(`not-ready`)
 
 **14순위 Checkbox가 섰다(2026-08-18).** 등록부의 "4 파일"에 대해 실제는 **21벌 · 5레시피 ·
 14파일**이다. 앞의 셋과 달리 **제품에 정본이 있었는데 21벌 중 2벌만 쓴다.** 이유를 제품이 스스로
@@ -597,7 +597,7 @@ Badge의 `Label`). **모든 fill이 변수 바인딩이고 raw 값이 0이다.**
 6. `surface-states.browser.test.tsx`의 `covered` 목록에 새 id를 넣는다. 잊으면 가드가 잡는다.
 
 **셸 composition 은 섰다** — `app-shell` 이 Web `partial` 이고 rail·drawer·scrim·scroll root·
-`env(safe-area-inset-*)` 가 `.kds-app-shell*` 에 있으며 `AppShell` 이 public export 다. 상태의
+`env(safe-area-inset-*)` 가 `.louis-app-shell*` 에 있으며 `AppShell` 이 public export 다. 상태의
 정본은 [`manifest.json`](../manifest.json)이다.
 
 남은 것은 Figma(`figma: not-ready`)와 **compact 드로어의 layer 자리**다 — 제품의 드로어(1400)는
@@ -723,7 +723,7 @@ DS-P3-002a가 소유하고, spike 3건은 아래 조건이다.
 | [DS-D-0004](decisions/DS-D-0004-css-authoring.md) | authored plain CSS + cascade layer 두 벌 배포 · 상태는 `data-*` · 런타임 스타일 라이브러리 0 · reset은 opt-in |
 | [DS-D-0005](decisions/DS-D-0005-test-stack.md) | 실브라우저 러너를 1단계에 둔다. **jsdom·happy-dom 배제** — Dialog 규범을 거짓 통과시킨다 |
 | [DS-D-0006](decisions/DS-D-0006-versioning-peer-contract.md) | changesets `fixed`로 css·react 동반 버저닝 · css를 required peer로 강제 · `sideEffects` 즉시 명시 |
-| [DS-D-0009](decisions/DS-D-0009-font-distribution.md) | 폰트 바이너리 미동봉 · `--kds-font-family-sans` 방출로 교체 지점 단일화 · 폴백 스택 교정 |
+| [DS-D-0009](decisions/DS-D-0009-font-distribution.md) | 폰트 바이너리 미동봉 · `--louis-font-family-sans` 방출로 교체 지점 단일화 · 폴백 스택 교정 |
 
 **남은 선행 조건 (spike, 저장소 밖에서 수행):**
 
@@ -818,8 +818,8 @@ checkout에서 root 명령이 통과한다.
   `layers.css`(layer 순서 선언), `tokens.css`(재export), `reset.css`(opt-in), `styles.css`(언레이어드),
   `styles.layer.css`(레이어드). 두 벌 배포는 Tailwind 소비자가 유틸리티로 라이브러리를 이길 수 있게
   한다.
-- base 유틸리티: `kds-visually-hidden`, `kds-focus-ring`, `kds-hit-target`, `kds-layer-*`,
-  그리고 `[data-kds-state]`의 closing/closed 계약.
+- base 유틸리티: `louis-visually-hidden`, `louis-focus-ring`, `louis-hit-target`, `louis-layer-*`,
+  그리고 `[data-louis-state]`의 closing/closed 계약.
 - 저작 규칙 게이트 5종 + drift 1종을 `scripts/verify-css-gates.mjs`가 canary로 증명한다 —
   `!important`, 숫자 z-index, raw color, primitive 직접 소비, reset 밖 전역 선택자.
 - 브라우저 테스트 6건이 계산값과 실제 상호작용을 검증한다. focus-visible이 **키보드에서만** 나타나고
@@ -939,7 +939,7 @@ published Figma component(DS-F-006), 제품 사용처 2곳.
   Space가 click을 합성하지 않아 **링크 item만** keydown이 필요하다.
 - React 이벤트는 React 트리로 전파되므로 submenu의 방향키가 부모 핸들러까지 실행한다. panel들이
   DOM에서 형제라는 사실이 native 리스너를 정답으로 만든다.
-- `.kds-hit-target`의 44px `::after`는 간격 없이 쌓이는 메뉴 행에서 인접 항목의 hit 영역을 침범한다.
+- `.louis-hit-target`의 44px `::after`는 간격 없이 쌓이는 메뉴 행에서 인접 항목의 hit 영역을 침범한다.
 - Playwright는 IME 없이 한글 keydown을 만들지 못한다. 한국어 typeahead는 실기 측정 전까지 미검증이다.
 
 **남긴 것:** `Shift+Tab` 역방향 이탈과 scroll·resize·zoom anchor 추종에 아직 테스트가 없다. 규범
@@ -1243,7 +1243,7 @@ alpha·radius·border-width·duration을 함께 재고 `verify-product-drift`가
 추가할 것이 없다.
 
 **border-width — 최다 사용값에 토큰이 없었다.** 실사용은 `1px` **142회** · `2px` 25 · `0.5px` 20 ·
-`1.5px` 10이고(총 203회) KDS에는 `hairline`(0.5)과 `ring`(2)뿐이었다. **가장 많이 쓰이는 1px이
+`1.5px` 10이고(총 203회) LOUIS에는 `hairline`(0.5)과 `ring`(2)뿐이었다. **가장 많이 쓰이는 1px이
 빠져 있었다.** `border-width-default`(1px)를 primitive·semantic 양쪽에 세웠다. `1.5px`(10회)은
 올리지 않는다 — `hairline`과 `default` 사이의 드리프트로 보인다.
 
@@ -1253,7 +1253,7 @@ alpha·radius·border-width·duration을 함께 재고 `verify-product-drift`가
 > 처음부터 203회로 맞게 세고 있었다 — **계기의 수치가 맞고 산문이 틀렸다.**
 > 결론(1px이 최다이고 토큰이 없었다)은 그대로다.
 
-**radius — 알파와 같은 드리프트가 있다.** KDS의 짝수 스케일(0·2·4·6·8·10·12·16·20·24·full)이
+**radius — 알파와 같은 드리프트가 있다.** LOUIS의 짝수 스케일(0·2·4·6·8·10·12·16·20·24·full)이
 실사용 **587회 중 83.5%**를 덮고 나머지 **약 97회**가 결손이다.
 
 | 결손 | 7px | 3px | 5px | 1px | 9px | 14px | 18px | 1.5px |
@@ -1262,7 +1262,7 @@ alpha·radius·border-width·duration을 함께 재고 `verify-product-drift`가
 
 **홀수 다섯(1·3·5·7·9)이 73회**로 대부분이고 전부 이웃 계단과 1px 차다. 반경에서 1px은 화면에서
 구분되지 않으므로 접는 것이 안전하고, 알파(73단)와 달리 사람이 확인할 자리가 없다.
-**다만 `14px`·`18px`은 1px 차가 아니므로 따로 봐야 한다** — KDS spacing에는 있지만 radius에는 없는
+**다만 `14px`·`18px`은 1px 차가 아니므로 따로 봐야 한다** — LOUIS spacing에는 있지만 radius에는 없는
 계단이다. 접는 것은 제품 변경이므로 여기서 하지 않는다.
 
 > **수치 정정(2026-08-21).** 이 절을 처음 쓸 때 「홀수 5단 45회 / 전체 320회」라고 적었는데 틀렸다.
@@ -1279,7 +1279,7 @@ alpha·radius·border-width·duration을 함께 재고 `verify-product-drift`가
 제품의 accent 램프를 배포본에서 셌다. **램프 11종 · 정의 67단 · 참조되는 단계 67단** —
 미참조 단계가 **0개**다. 원칙 6의 「램프 일부 단계가 미참조여도 허용한다」를 적용할 일이 없다.
 
-| 램프 | 제품 단계 | KDS 현재 | 추가 필요 |
+| 램프 | 제품 단계 | LOUIS 현재 | 추가 필요 |
 | --- | ---: | ---: | ---: |
 | mint | 9 | 1 | 8 |
 | yellow | 9 | 0 | 9 |

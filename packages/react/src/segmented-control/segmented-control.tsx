@@ -78,11 +78,11 @@ export function SegmentedControl({
   return (
     <fieldset
       ref={ref}
-      className={join("kds-segmented-control", className)}
+      className={join("louis-segmented-control", className)}
       data-size={size}
       disabled={disabled || undefined}
     >
-      <legend className="kds-segmented-control__legend kds-visually-hidden">{label}</legend>
+      <legend className="louis-segmented-control__legend louis-visually-hidden">{label}</legend>
       <SegmentedControlContext.Provider value={{ name, value, disabled, onValueChange }}>
         {children}
       </SegmentedControlContext.Provider>
@@ -108,13 +108,13 @@ export function SegmentedControlItem({
 
   return (
     <label
-      className={join("kds-segmented-control__segment", className)}
+      className={join("louis-segmented-control__segment", className)}
       data-selected={selected ? "true" : "false"}
     >
       <input
         ref={ref}
         type="radio"
-        className="kds-segmented-control__input kds-visually-hidden"
+        className="louis-segmented-control__input louis-visually-hidden"
         name={group.name}
         value={value}
         checked={selected}
@@ -123,7 +123,7 @@ export function SegmentedControlItem({
           group.onValueChange(value);
         }}
       />
-      <span className="kds-segmented-control__label">{children}</span>
+      <span className="louis-segmented-control__label">{children}</span>
     </label>
   );
 }

@@ -63,7 +63,7 @@ primitive는 그 recipe의 구현 세부다.
 `readExitDuration(node)`는 토큰 이름을 JS에 하드코딩하지 않고 `getComputedStyle(node)`의
 `transition-duration + transition-delay`, `animation-duration + animation-delay` 중 최댓값을 읽는다.
 컴포넌트 CSS가 `@media (prefers-reduced-motion: reduce)`에서 duration을
-`--kds-motion-reduced-duration`(= `0ms`)으로 대입하면 timer도 자동으로 0이 된다.
+`--louis-motion-reduced-duration`(= `0ms`)으로 대입하면 timer도 자동으로 0이 된다.
 
 **순서는 바꾸지 않는다.** duration이 0이어도 `closing → performReturn → finish → unmount` 전이는
 같은 순서로 일어나며, 단지 같은 tick 안에서 끝난다. 이것이 Motion의 "exit 완료와 unmount가 같은

@@ -209,7 +209,7 @@ export function Dialog({
       {children}
       {/* 차단 안내. 규범 Accessibility의 live region 계약. Dialog root의 형제로 두어
           Dialog가 unmount돼도 마지막 안내가 읽히는 창을 남긴다. */}
-      <span className="kds-visually-hidden" role="status" aria-live="polite">
+      <span className="louis-visually-hidden" role="status" aria-live="polite">
         {blockedNotice}
       </span>
     </DialogContextProvider>

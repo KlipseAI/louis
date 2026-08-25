@@ -36,10 +36,10 @@ export default defineConfig({
         },
       },
       {
-        // __KDS_REDUCED_MOTION__은 "이 project가 어느 컨텍스트인지"를 테스트가 알게 한다.
+        // __LOUIS_REDUCED_MOTION__은 "이 project가 어느 컨텍스트인지"를 테스트가 알게 한다.
         // 이것이 없으면 matchMedia 분기 테스트가 어느 쪽으로 갔든 통과해 버려서,
         // contextOptions가 실제로 적용됐는지를 증명하지 못한다.
-        define: { __KDS_REDUCED_MOTION__: "false" },
+        define: { __LOUIS_REDUCED_MOTION__: "false" },
         optimizeDeps: { include: overlayDeps },
         test: {
           name: "browser",
@@ -54,7 +54,7 @@ export default defineConfig({
         },
       },
       {
-        define: { __KDS_REDUCED_MOTION__: "true" },
+        define: { __LOUIS_REDUCED_MOTION__: "true" },
         optimizeDeps: { include: overlayDeps },
         test: {
           name: "browser-reduced-motion",

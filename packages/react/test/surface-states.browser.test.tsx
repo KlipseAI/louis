@@ -46,7 +46,7 @@ const TRANSPARENT = "rgba(0, 0, 0, 0)";
 
 function tokenValue(id: string, property: "background-color" | "color"): string {
   const probe = document.createElement("div");
-  probe.style.setProperty(property, `var(--kds-${id})`);
+  probe.style.setProperty(property, `var(--louis-${id})`);
   document.body.append(probe);
   const value =
     property === "color"
@@ -112,10 +112,10 @@ test("Tooltip의 states 표가 코드와 같다", async () => {
       </Tooltip>
     </OverlayProvider>,
   );
-  await userEvent.hover(find("button.kds-button"));
-  await expect.poll(() => document.querySelector(".kds-tooltip")).not.toBeNull();
-  assertPaint(find(".kds-tooltip"), stateOf(spec, "Default"), "tooltip/Default");
-  await userEvent.unhover(find("button.kds-button"));
+  await userEvent.hover(find("button.louis-button"));
+  await expect.poll(() => document.querySelector(".louis-tooltip")).not.toBeNull();
+  assertPaint(find(".louis-tooltip"), stateOf(spec, "Default"), "tooltip/Default");
+  await userEvent.unhover(find("button.louis-button"));
 });
 
 const TOAST_TONES: readonly ToastTone[] = ["neutral", "danger"];
@@ -132,9 +132,9 @@ for (const tone of TOAST_TONES) {
         <Emitter />
       </ToastProvider>,
     );
-    await userEvent.click(find("button.kds-button"));
-    await expect.poll(() => document.querySelector(".kds-toast")).not.toBeNull();
-    assertPaint(find(".kds-toast"), stateOf(spec, "Default"), `toast/${tone}`);
+    await userEvent.click(find("button.louis-button"));
+    await expect.poll(() => document.querySelector(".louis-toast")).not.toBeNull();
+    assertPaint(find(".louis-toast"), stateOf(spec, "Default"), `toast/${tone}`);
   });
 }
 
@@ -158,11 +158,11 @@ test("Menu 항목의 states 표가 코드와 같다", async () => {
       </ActionMenu>
     </OverlayProvider>,
   );
-  await userEvent.click(find("button.kds-button"));
-  await expect.poll(() => document.querySelector(".kds-menu__item")).not.toBeNull();
+  await userEvent.click(find("button.louis-button"));
+  await expect.poll(() => document.querySelector(".louis-menu__item")).not.toBeNull();
 
   // 패널 면은 Default의 background를 소유하고, 항목의 면은 hover에서만 칠해진다.
-  const panel = find('.kds-popover[data-kind="action-menu"]');
+  const panel = find('.louis-popover[data-kind="action-menu"]');
   expect(getComputedStyle(panel).backgroundColor, "panel background").toBe(
     tokenValue(stateOf(spec, "Default").background as string, "background-color"),
   );
@@ -200,7 +200,7 @@ test("Dialog surface의 states 표가 코드와 같다", async () => {
       </Dialog>
     </OverlayProvider>,
   );
-  assertPaint(find(".kds-dialog__surface"), stateOf(spec, "Default"), "dialog/Default");
+  assertPaint(find(".louis-dialog__surface"), stateOf(spec, "Default"), "dialog/Default");
 });
 
 test("ProjectCard의 states 표가 코드와 같다", async () => {
@@ -218,7 +218,7 @@ test("ProjectCard의 states 표가 코드와 같다", async () => {
     </div>,
   );
   // 프레임은 배경을 칠하지 않는다(미디어 면이 칠한다). 제목이 foreground를 갖는다.
-  const card = find(".kds-project-card");
+  const card = find(".louis-project-card");
   const cardStyle = getComputedStyle(card);
   expect(cardStyle.backgroundColor, "card background").toBe(TRANSPARENT);
   // DS-D-0023: 프레임 경계는 border가 아니라 generic 헤어라인 inset이다.
@@ -227,7 +227,7 @@ test("ProjectCard의 states 표가 코드와 같다", async () => {
   expect(cardStyle.boxShadow, "card 헤어라인 색").toContain(
     tokenValue("color-stroke-hairline", "color"),
   );
-  expect(getComputedStyle(find(".kds-project-card-title")).color, "title foreground").toBe(
+  expect(getComputedStyle(find(".louis-project-card-title")).color, "title foreground").toBe(
     tokenValue(stateOf(spec, "Default").foreground, "color"),
   );
 });

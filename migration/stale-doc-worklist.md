@@ -56,7 +56,7 @@
 
 **낡음** — 「Avatar가 섰다(2026-08-18) — 남은 것은 `BannerCarousel` 하나이고 그것은 지금 착수할 수 없다.」 + 「막는 것 넷이 전부 이 컴포넌트 바깥의 미결이다」(톤 런타임 샘플링 · progressive blur · stagger · 점 폭 전환).
 
-**근거** — 이미 섰다. `design/manifest.json` 의 `banner-carousel` 이 web `partial` · figma `partial` · docs `done` 이고, `figma/snapshot.json` component 목록에 `BannerCarousel` 이 있으며 `packages/react/src/banner-carousel/` 이 실재한다. 막는 것으로 든 넷 중 「점의 폭 전환(`layout-change` 토큰 부재)」은 특히 반증된다 — `packages/css/src/component/banner-carousel.css:250` 이 `var(--kds-motion-layout-change-duration)` 을 쓰고 있다.
+**근거** — 이미 섰다. `design/manifest.json` 의 `banner-carousel` 이 web `partial` · figma `partial` · docs `done` 이고, `figma/snapshot.json` component 목록에 `BannerCarousel` 이 있으며 `packages/react/src/banner-carousel/` 이 실재한다. 막는 것으로 든 넷 중 「점의 폭 전환(`layout-change` 토큰 부재)」은 특히 반증된다 — `packages/css/src/component/banner-carousel.css:250` 이 `var(--louis-motion-layout-change-duration)` 을 쓰고 있다.
 
 **고침** — 448~456행을 「BannerCarousel `partial` (근거: manifest · snapshot)」로 줄이고 「지금 착수할 수 없다」와 막는 것 넷 목록을 삭제하라. 그대로 읽으면 존재하는 컴포넌트를 처음부터 다시 설계한다.
 
@@ -64,9 +64,9 @@
 
 **낡음** — 「셸 composition은 아직 없다. 부품 둘은 섰지만 rail·drawer·scroll root·safe area는 [패턴](../design/patterns/app-shell.md)이 기술만 하고 구현이 없다.」 489행 「남은 둘은 `Loading`(Skeleton에 막힘 — (1c) 면 색 판정)과 `App Shell`」.
 
-**근거** — 구현이 있다. `packages/css/src/component/app-shell.css` 에 `.kds-app-shell`·`.kds-app-shell__rail`·`.kds-app-shell__scrim`·`[data-drawer="open"]`·「유일한 primary scroll root」 주석·`env(safe-area-inset-bottom, 0)` 이 전부 들어 있고, `packages/react/src/index.ts:36` 이 `AppShell` 과 `AppShellProps`·`AppShellVariant` 를 export 한다. manifest patterns: `app-shell` web `partial`, `loading` web `partial`, `project-grid` web `partial` — 「남은 둘」이 둘 다 서 있다. 489행이 근거로 든 「(1c) 면 색 판정」도 같은 문서 300~305행이 「해소됨(2026-08-18) — 고를 면이 없으므로 죽을 조합도 없다」로 닫았고 manifest 의 skeleton note 가 같은 말을 한다. 덧붙여 manifest 에는 이 문서가 언급하지 않는 패턴 넷(`landing-shell`·`auth-two-panel`·`status-result`·`route-boundary`, 전부 docs `done`)이 더 있다.
+**근거** — 구현이 있다. `packages/css/src/component/app-shell.css` 에 `.louis-app-shell`·`.louis-app-shell__rail`·`.louis-app-shell__scrim`·`[data-drawer="open"]`·「유일한 primary scroll root」 주석·`env(safe-area-inset-bottom, 0)` 이 전부 들어 있고, `packages/react/src/index.ts:36` 이 `AppShell` 과 `AppShellProps`·`AppShellVariant` 를 export 한다. manifest patterns: `app-shell` web `partial`, `loading` web `partial`, `project-grid` web `partial` — 「남은 둘」이 둘 다 서 있다. 489행이 근거로 든 「(1c) 면 색 판정」도 같은 문서 300~305행이 「해소됨(2026-08-18) — 고를 면이 없으므로 죽을 조합도 없다」로 닫았고 manifest 의 skeleton note 가 같은 말을 한다. 덧붙여 manifest 에는 이 문서가 언급하지 않는 패턴 넷(`landing-shell`·`auth-two-panel`·`status-result`·`route-boundary`, 전부 docs `done`)이 더 있다.
 
-**고침** — 565행과 489행을 manifest 기준으로 고쳐라. 「아직 없다」를 읽고 App Shell 을 새로 지으면 `.kds-app-shell` 계열을 두 번 만들게 된다.
+**고침** — 565행과 489행을 manifest 기준으로 고쳐라. 「아직 없다」를 읽고 App Shell 을 새로 지으면 `.louis-app-shell` 계열을 두 번 만들게 된다.
 
 ### `design/governance/execution-handoff.md:1240`
 
@@ -219,7 +219,7 @@
 
 **낡음** — 「정확한 상태는 이렇다」 표: 「규범 문서만 있고 구현 없음 | `editor-workspace` · `app-shell` | 2」 · 「규범·구현 있고 Figma만 없음 | Skeleton | 1」. 259행이 「바로 다음에 할 일은 아래 「미등록 부품」 목록의 재계수와 그 다음 순서다」로 지시한다.
 
-**근거** — (a) 죽은 포인터를 확인했다 — `grep -n 미등록 design/governance/execution-handoff.md` 는 255행(「아래 미등록 목록 참조」) · 259행(이 지시문) · 850행(overlay 테스트의 「보류 member 미등록」, 무관)만 낸다. 「미등록 부품」이라는 목록은 문서에 없다. 「바로 다음에 할 일」이 존재하지 않는 절을 가리킨다. (b) manifest 실측: `app-shell` 패턴 web `partial`(`packages/css/src/component/app-shell.css` 에 `.kds-app-shell__rail` · drawer · scroll root · `env(safe-area-inset-bottom)` 이 실재하고 `packages/react/src/index.ts:36` 이 `AppShell` 을 export 한다), `skeleton` 컴포넌트 figma `partial` 이며 `Skeleton` 은 snapshot component 목록에 있다. 다만 `editor-workspace` 는 지금도 web `not-ready` 라 그 반쪽은 여전히 맞다 — 「세 행이 전부 낡았다」는 조사자의 요약이 조금 넘쳤다.
+**근거** — (a) 죽은 포인터를 확인했다 — `grep -n 미등록 design/governance/execution-handoff.md` 는 255행(「아래 미등록 목록 참조」) · 259행(이 지시문) · 850행(overlay 테스트의 「보류 member 미등록」, 무관)만 낸다. 「미등록 부품」이라는 목록은 문서에 없다. 「바로 다음에 할 일」이 존재하지 않는 절을 가리킨다. (b) manifest 실측: `app-shell` 패턴 web `partial`(`packages/css/src/component/app-shell.css` 에 `.louis-app-shell__rail` · drawer · scroll root · `env(safe-area-inset-bottom)` 이 실재하고 `packages/react/src/index.ts:36` 이 `AppShell` 을 export 한다), `skeleton` 컴포넌트 figma `partial` 이며 `Skeleton` 은 snapshot component 목록에 있다. 다만 `editor-workspace` 는 지금도 web `not-ready` 라 그 반쪽은 여전히 맞다 — 「세 행이 전부 낡았다」는 조사자의 요약이 조금 넘쳤다.
 
 **고침** — 255·259행의 「미등록 목록」 포인터를 지우고, 표는 manifest 에서 생성하거나 삭제하라. 남긴다면 `app-shell`·Skeleton 행만 manifest 값으로 고치고 `editor-workspace` 는 그대로 둔다.
 

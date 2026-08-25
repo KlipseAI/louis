@@ -193,14 +193,14 @@ refetch 순서는 공용 recipe로 가져오지 않는다.
 
 ## 구현 (2026-08-18)
 
-공용 recipe는 `.kds-project-grid` 하나다.
+공용 recipe는 `.louis-project-grid` 하나다.
 
 ```css
 display: grid;
-gap: var(--kds-layout-project-grid-gap);
+gap: var(--louis-layout-project-grid-gap);
 grid-template-columns: repeat(
   auto-fill,
-  minmax(min(var(--kds-layout-project-card-minimum), 100%), 1fr)
+  minmax(min(var(--louis-layout-project-card-minimum), 100%), 1fr)
 );
 ```
 

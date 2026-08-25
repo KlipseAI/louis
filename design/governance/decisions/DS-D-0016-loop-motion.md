@@ -22,7 +22,7 @@ authority: normative
 
 | 자리 | 지금 상태 |
 | --- | --- |
-| `button.css` spinner | `animation: kds-button-spin 1s linear infinite` — duration과 easing이 리터럴 |
+| `button.css` spinner | `animation: louis-button-spin 1s linear infinite` — duration과 easing이 리터럴 |
 | `menu-popover.css` spinner | 같음 |
 | 두 keyframe | `rotate: 360deg`를 애니메이션하는데 `rotate`는 허용 property가 아니다 |
 

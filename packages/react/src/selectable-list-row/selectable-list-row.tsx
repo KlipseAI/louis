@@ -49,20 +49,20 @@ export function SelectableListRow({
     <button
       {...rest}
       type="button"
-      className={join("kds-selectable-list-row", className)}
+      className={join("louis-selectable-list-row", className)}
       aria-current={selected ? "true" : undefined}
     >
       {media === undefined ? null : (
-        <span className="kds-selectable-list-row__media">{media}</span>
+        <span className="louis-selectable-list-row__media">{media}</span>
       )}
-      <span className="kds-selectable-list-row__text">
-        <span className="kds-selectable-list-row__title">{title}</span>
+      <span className="louis-selectable-list-row__text">
+        <span className="louis-selectable-list-row__title">{title}</span>
         {meta === undefined ? null : (
-          <span className="kds-selectable-list-row__meta">{meta}</span>
+          <span className="louis-selectable-list-row__meta">{meta}</span>
         )}
       </span>
       {trailing === undefined ? null : (
-        <span className="kds-selectable-list-row__trailing">{trailing}</span>
+        <span className="louis-selectable-list-row__trailing">{trailing}</span>
       )}
     </button>
   );

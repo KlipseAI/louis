@@ -152,7 +152,7 @@ Spinner의 16/12px과 같은 판정이다.
 
 ## Implementation
 
-- 채움 비율은 컴포넌트가 `--kds-slider-fill`로 내려보낸다. `::-webkit-slider-runnable-track`은
+- 채움 비율은 컴포넌트가 `--louis-slider-fill`로 내려보낸다. `::-webkit-slider-runnable-track`은
   진행 구간을 따로 갖지 않아 그라디언트 정지점으로 그려야 하고, 그 비율은 값에서만 나온다.
   Firefox는 `::-moz-range-progress`가 있어 비율이 필요 없다.
 - 그래서 **비제어일 때도 컴포넌트가 값을 안다.** 그 상태가 채움의 유일한 출처다. controlled면
@@ -172,7 +172,7 @@ Spinner의 16/12px과 같은 판정이다.
 - **Firefox 경로가 미검증이다.** `::-moz-range-*` 규칙을 나란히 적었으나 test harness가
   Chromium 단독이라 실행된 적이 없다.
 - **컨트롤 높이 40px은 `layout-control-hit-target-minimum` 44px에 미달한다.** Button은
-  `.kds-hit-target`의 `::after`로 44를 채우지만 range input은 `::before`/`::after`가 트랙·썸에
+  `.louis-hit-target`의 `::after`로 44를 채우지만 range input은 `::before`/`::after`가 트랙·썸에
   배정돼 그 유틸리티를 쓸 수 없다. Text Field도 같은 40px이며, 레일이 가로 전체를 차지해 실제
   타깃 면적은 크다.
 - **제품과 거의 모든 축이 다르다.** 정본이 없으므로 "다르다"가 결함이 아니다. 각 축의 판정은
@@ -185,7 +185,7 @@ Spinner의 16/12px과 같은 판정이다.
 2. md/sm의 레일 두께·썸 지름·썸 테두리 토큰 선언이 `components.measured.json`과 같다.
 3. `track` 변형의 막대 높이와 표식 크기 선언이 `components.measured.json`과 같다.
 4. `track` 변형의 썸이 `width:0`·`height:0`·`opacity`·`pointer-events`로 지워지지 않는다.
-5. `--kds-slider-fill`이 값을 따라가고 min에서 `0%`, max에서 `100%`다.
+5. `--louis-slider-fill`이 값을 따라가고 min에서 `0%`, max에서 `100%`다.
 6. 방향키가 `step`만큼 움직이고 `min`·`max`를 넘지 않는다.
 7. controlled일 때 호출부의 값이 이기고, 갱신하지 않으면 값이 튀지 않는다.
 8. 라벨의 `for`가 컨트롤을 가리키고, 라벨을 누르면 컨트롤이 포커스를 받는다.

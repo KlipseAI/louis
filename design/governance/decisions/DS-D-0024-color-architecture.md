@@ -16,13 +16,13 @@ authority: normative
 
 색 시스템이 실무 관점에서 과복잡했다 — primitive 14계열/~120단계, 그중 **알파 5계열**
 (`ink-alpha`#171b22 · `paper-alpha`#fafafa · `black-alpha`#000 · `red-alpha` · `inverse-alpha`), semantic
-81역할, 그리고 light/dark가 세 메커니즘(KDS `[data-theme]` 모드 + 제품 `palette-gray↔gray` 반전 +
+81역할, 그리고 light/dark가 세 메커니즘(LOUIS `[data-theme]` 모드 + 제품 `palette-gray↔gray` 반전 +
 `ink/paper-alpha` 수동 분리)으로 갈렸다. SEED(scale→semantic, static-black/white-alpha)와 Toss TDS를
 기준으로 단순화한다.
 
 ## Decision
 
-**2-tier(scale→semantic), 단일 소스(KDS)를 제품·Figma가 그대로 소비한다.**
+**2-tier(scale→semantic), 단일 소스(LOUIS)를 제품·Figma가 그대로 소비한다.**
 
 1. **Primitive rename/collapse.**
    - `neutral` → `gray` (0–1000, 값 동일).
@@ -33,7 +33,7 @@ authority: normative
    `action-*`→`accent-*`, `scrim-*`→`dim-*`. 제품/컴포넌트 전용(`node-*`·`media-*`·`progress-*`)은
    네임스페이스 유지. 값·의미는 보존한다.
 3. **Light/dark = 단일 메커니즘.** `Klipse Semantic Color`의 Light/Dark 모드가 유일한 소스다. 제품은
-   자기 `palette-gray↔gray` 반전을 버리고 KDS 세만틱을 직접 소비한다(후속 Phase).
+   자기 `palette-gray↔gray` 반전을 버리고 LOUIS 세만틱을 직접 소비한다(후속 Phase).
 4. **DS-D-0023 갱신.** 헤어라인 색 `color-border-hairline` → `color-stroke-hairline`,
    `black-alpha.10` → `static-black-alpha.10`. 계약(inset 헤어라인)은 그대로다.
 
@@ -46,7 +46,7 @@ authority: normative
 
 ## Consequences
 
-- KDS `check` + `test`(776)가 새 이름으로 통과한다. `verify`(figma-parity·product-parity 등)와 Figma
+- LOUIS `check` + `test`(776)가 새 이름으로 통과한다. `verify`(figma-parity·product-parity 등)와 Figma
   라이브 컬렉션은 후속 Phase에서 재정합한다.
 - 오버레이/호버/헤어라인 색이 순수 흑/백 알파로 미세하게 바뀐다(의도).
 - 제품 183파일 소비처 rename + 제품 게이트 9종, Figma 3컬렉션 재구성이 후속 Phase다.

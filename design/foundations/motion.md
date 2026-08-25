@@ -48,7 +48,7 @@ primitive의 `timingFunction`은 제품이 선언한 커브 둘에서 왔다. Fi
 
 - **enter 커브를 뒤집어 exit를 만들지 않는다.** exit primitive는 감속이 아니라 가속이다 —
   `overlay-exit`와 `modal-exit`는 `cubic-bezier(0.4, 0, 1, 1)`, `menu-exit`는
-  `cubic-bezier(0.42, 0, 1, 1)`이다. Figma에서 exit를 enter의 역재생으로 그리면 KDS와 갈린다.
+  `cubic-bezier(0.42, 0, 1, 1)`이다. Figma에서 exit를 enter의 역재생으로 그리면 LOUIS와 갈린다.
 - **enter와 exit는 duration도 대칭이 아니다.** `menu-enter` 260ms ↔ `menu-exit` 130ms,
   `overlay-enter` 200ms ↔ `overlay-exit` 120ms, `modal-enter` 320ms ↔ `modal-exit` 200ms이다.
   한 lifecycle을 하나의 duration으로 접으면 닫힘이 느려져 화면이 굼떠 보인다.

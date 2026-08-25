@@ -22,7 +22,7 @@ Tailwind를 쓰면 셋째 줄을 `styles.layer.css`로 바꾸고, `theme.css`를
 뒤에** 둔다([DS-D-0020](../../design/governance/decisions/DS-D-0020-tailwind-load-order.md)).
 
 **`tokens.css`를 빼면 아무 오류 없이 색·간격·반경이 전부 무효값이 된다.** `styles.css`에는 semantic
-토큰 정의가 없고 `var(--kds-*)` 참조만 있으며, 생성 CSS끼리는 `@import`하지 않는다. 브라우저는
+토큰 정의가 없고 `var(--louis-*)` 참조만 있으며, 생성 CSS끼리는 `@import`하지 않는다. 브라우저는
 정의되지 않은 custom property를 만나면 조용히 초기값으로 떨어뜨린다.
 
 ## 배포 파일
@@ -32,7 +32,7 @@ Tailwind를 쓰면 셋째 줄을 `styles.layer.css`로 바꾸고, `theme.css`를
 | `./layers.css` | `@layer` 순서 선언만. **root layout 최상단에서 가장 먼저** import한다 |
 | `./tokens.css` | 토큰 CSS 재export |
 | `./styles.css` | base + 컴포넌트, 언레이어드 |
-| `./styles.layer.css` | 같은 내용, `@layer kds.base`/`kds.component` 래핑 |
+| `./styles.layer.css` | 같은 내용, `@layer louis.base`/`louis.component` 래핑 |
 | `./reset.css` | opt-in reset. `:where()` 기반이라 특이도 0 |
 
 `styles.css`와 `styles.layer.css`를 **동시에 import하지 않는다.** Tailwind를 쓰는 소비자는
@@ -44,7 +44,7 @@ Tailwind를 쓰면 셋째 줄을 `styles.layer.css`로 바꾸고, `theme.css`를
 다음은 게이트가 차단한다.
 
 - `!important` — layer 우선순위가 역전돼 소비자가 이길 수 없게 된다
-- 숫자 z-index — `var(--kds-layer-*)`만 쓴다
+- 숫자 z-index — `var(--louis-layer-*)`만 쓴다
 - raw color 리터럴 — semantic 토큰만 쓴다
 - primitive 직접 소비 — CSS에는 semantic만 노출된다
 - 전역 선택자(`html`/`body`/`*`) — `reset.css` 안에서만 허용

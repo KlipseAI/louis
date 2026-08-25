@@ -132,7 +132,7 @@
 ### 접힘 CTA 라벨 max-width:4.5rem 이 45px 다 (§3 1rem = 10px) **[high]**
 
 - **문서**: 접힘 라벨 `max-width:4.5rem` = **45px**(§3 `1rem = 10px`)
-- **배포본**: 루트 폰트 크기는 10px 가 아니라 12px 다 — `html { font-size: var(--type-caption-12-size) }` 이고 `--type-caption-12-size: 12px`. 바로 위 주석만 「html 10px — 레거시 스케일 호환」이라고 낡은 채 남아 있다. 따라서 4.5rem = **54px**. globals.css 전체에 다른 html font-size 선언은 없다. (KDS components/app-shell-parts.md:148 도 실측 54px 로 적고 있다.)
+- **배포본**: 루트 폰트 크기는 10px 가 아니라 12px 다 — `html { font-size: var(--type-caption-12-size) }` 이고 `--type-caption-12-size: 12px`. 바로 위 주석만 「html 10px — 레거시 스케일 호환」이라고 낡은 채 남아 있다. 따라서 4.5rem = **54px**. globals.css 전체에 다른 html font-size 선언은 없다. (LOUIS components/app-shell-parts.md:148 도 실측 54px 로 적고 있다.)
 - 근거: apps/web/app/globals.css:942-943 `html { font-size: var(--type-caption-12-size); }`; globals.css:374 `--type-caption-12-size: 12px;`. awk 스캔 결과 globals.css 안 html font-size 선언은 943 한 곳뿐이고 미디어쿼리 재정의도 없다. 941행 주석 `/* html 10px — 레거시 스케일 호환 ... */` 만 낡게 남아 있다. 해당 선언은 Gnb.tsx:1918 `"[html[data-app-gnb-sidebar-collapsed=true]_&]:[max-width:4.5rem]"` (sidebarUpgradeLabel). 4.5rem x 12px = 54px. 문서의 「45p
 
 ### 비활성 hover 배경(light)이 `rgb(213 215 221 / 50%)` 다 **[medium]**
@@ -459,7 +459,7 @@
 
 ### 형태 B 씬은 표의 7개(`myPageSceneStyles.ts` · VideoEditScene · HighlightScene · HighlightProjectScene · ExploreScene · SettingsScene · SubscriptionScene)이며,  **[high]**
 
-- **배포본**: 형태 B 카드를 거는 소비처가 표 밖에 3곳 더 있고 전부 `components/scenes/` 가 **아니라** 라우트 폴더 안이다 — 셋 다 `appMainCardChromeSurface` + `contentWithAppSidebarPanel` 사본 + `<AppGnb>`/`<Gnb>` 를 갖는 온전한 앱 셸 화면이다(영상 편집 프로젝트 워크스페이스 · 문의 · 숏폼 클립 편집). 표가 이미 인정한 `app/admin/AdminClient.tsx` 까지 포함하면 라우트 폴더 안의 셸이 4곳이므로 「라우트 폴더가 아니라 씬 파일을 본다」는 탐색 지침 자체가 틀렸다. 참고로 KDS `design/patterns/app-shell.md:184-190` 의 소비처 표는 이 3곳을 이미 담고 있다 — patterns.txt 쪽이 뒤처졌다.
+- **배포본**: 형태 B 카드를 거는 소비처가 표 밖에 3곳 더 있고 전부 `components/scenes/` 가 **아니라** 라우트 폴더 안이다 — 셋 다 `appMainCardChromeSurface` + `contentWithAppSidebarPanel` 사본 + `<AppGnb>`/`<Gnb>` 를 갖는 온전한 앱 셸 화면이다(영상 편집 프로젝트 워크스페이스 · 문의 · 숏폼 클립 편집). 표가 이미 인정한 `app/admin/AdminClient.tsx` 까지 포함하면 라우트 폴더 안의 셸이 4곳이므로 「라우트 폴더가 아니라 씬 파일을 본다」는 탐색 지침 자체가 틀렸다. 참고로 LOUIS `design/patterns/app-shell.md:184-190` 의 소비처 표는 이 3곳을 이미 담고 있다 — patterns.txt 쪽이 뒤처졌다.
 - 근거: apps/web/app/videoeditor/[projectId]/EditorProjectWorkspace.tsx:91 · apps/web/app/inquiry/InquiryClient.tsx:114 · apps/web/app/highlight/[projectId]/shorts/[shortId]/page.tsx:81
 
 ### 형태 B 는 패널이 자체 `::before` 로 상·하 페이드를 함께 그린다 — 상단 높이는 `calc(72px * min(1, var(--header-progress, 0) * 1000))` 이라 스크롤이 0 을 벗어나는 순간 0 → 72px 로 즉시 켜진다 **[high]**
@@ -651,7 +651,7 @@
 확인했다. 초기 판정 중 75건은 질문이 모호해 분류가 뒤집혀 있었고, 재판정에서 65건이
 「문서가 틀렸다」로 확정됐다. 이 문서에는 **재판정을 거친 것만** 담았다.
 
-**KDS(`~/klipse-design-system`)와의 관계.** 같은 감사에서 「KDS에 없다」고 지목된 141건도
-판정했는데, 실제 결손은 80건이고 **25건은 이미 KDS에 있었다.** 지목한 쪽이 `design/`만 보고
-`migration/`을 안 봤기 때문이다. 그리고 §6.13에서는 **KDS가 번들보다 앞선 사례**가 나왔다 —
-형태 B 씬 소비처를 KDS `patterns/app-shell.md`가 3곳 더 갖고 있다. **이관은 한 방향이 아니다.**
+**LOUIS(`~/klipse-design-system`)와의 관계.** 같은 감사에서 「LOUIS에 없다」고 지목된 141건도
+판정했는데, 실제 결손은 80건이고 **25건은 이미 LOUIS에 있었다.** 지목한 쪽이 `design/`만 보고
+`migration/`을 안 봤기 때문이다. 그리고 §6.13에서는 **LOUIS가 번들보다 앞선 사례**가 나왔다 —
+형태 B 씬 소비처를 LOUIS `patterns/app-shell.md`가 3곳 더 갖고 있다. **이관은 한 방향이 아니다.**

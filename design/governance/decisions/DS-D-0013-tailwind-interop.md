@@ -31,12 +31,12 @@ Tailwind 4를 쓴다.
 
 1. `packages/css/generated/theme.css`를 token manifest에서 생성한다. `@klipse-design/css/theme.css`로
    내보낸다.
-2. 값은 리터럴이 아니라 `var(--kds-*)`를 가리킨다. `tokens.css`를 함께 불러야 동작한다.
+2. 값은 리터럴이 아니라 `var(--louis-*)`를 가리킨다. `tokens.css`를 함께 불러야 동작한다.
 3. `@theme` 가 아니라 **`@theme inline`** 이다. semantic 색이 `:root`와 `[data-theme="dark"]`에서
    각각 정의되어 런타임에 바뀌므로, inline이 아니면 Tailwind가 빌드 시점 값을 구워 넣어 테마 전환을
    따라가지 않는다.
 4. Tailwind에 대응 namespace가 없는 범주(`layer`, `border-width`, `motion`)도 변수로 내보낸다.
-   유틸리티는 생기지 않고 `[z-index:var(--kds-layer-modal)]` 같은 임의값으로 쓴다.
+   유틸리티는 생기지 않고 `[z-index:var(--louis-layer-modal)]` 같은 임의값으로 쓴다.
 5. **매핑되지 않은 토큰 접두사를 만나면 생성이 실패한다.** 새 범주가 생겼는데 매핑을 빠뜨리면
    조용히 사라지기 때문이다.
 6. Tailwind의 기본 팔레트를 지우는 `--color-*: initial`은 **내보내지 않는다.** 그것은 소비하는
@@ -52,7 +52,7 @@ Tailwind 4를 쓴다.
 - cascade layer가 주는 예측 가능한 override 계약이 사라진다. 제품 자신이 이 함정을 주석으로 적어
   두었다 — 레이어 안의 유틸리티는 레이어 밖 모듈 CSS에 **특이도와 무관하게 진다**.
 
-컴포넌트는 `.kds-*` 클래스와 `data-*` 상태를 유지한다. 제품은 DS React 컴포넌트를 쓰거나, 쓰지 않는
+컴포넌트는 `.louis-*` 클래스와 `data-*` 상태를 유지한다. 제품은 DS React 컴포넌트를 쓰거나, 쓰지 않는
 자리에서는 DS 토큰 유틸리티로 직접 짓는다.
 
 ## Consequences
@@ -72,5 +72,5 @@ build/check 체인에서 한 줄씩 뺀다. 컴포넌트 CSS와 토큰 파이프
 
 1. 생성물이 byte-for-byte 재현된다(`--check`).
 2. 매핑되지 않은 토큰 접두사가 생기면 생성이 실패한다.
-3. `@theme inline`이며 값이 `var(--kds-*)`를 가리킨다 — 리터럴 색이 들어가지 않는다.
+3. `@theme inline`이며 값이 `var(--louis-*)`를 가리킨다 — 리터럴 색이 들어가지 않는다.
 4. semantic token 수와 theme 항목 수가 일치한다(유틸리티 + 변수 전용).

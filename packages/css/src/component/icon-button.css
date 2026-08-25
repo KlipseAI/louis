@@ -7,57 +7,57 @@
  * 상태는 data-* 속성으로만 표현한다 (DS-D-0004).
  */
 
-.kds-icon-button {
+.louis-icon-button {
   display: inline-flex;
   flex: none;
   align-items: center;
   justify-content: center;
-  inline-size: var(--kds-layout-control-height-md);
-  block-size: var(--kds-layout-control-height-md);
+  inline-size: var(--louis-layout-control-height-md);
+  block-size: var(--louis-layout-control-height-md);
   /* base에는 stroke가 없다 — 네이티브 button의 UA 테두리를 지운다(reset은 opt-in이다). secondary만
    * 가시 헤어라인을 inset box-shadow로 그린다 (DS-D-0023). 정사각 계약은 inline/block-size가
    * 고정하고 box-shadow는 레이아웃을 건드리지 않는다. */
   border: 0;
-  border-radius: var(--kds-radius-control);
+  border-radius: var(--louis-radius-control);
   cursor: pointer;
   /* motion.md: 허용 property는 opacity와 transform뿐이다.
    * **`scale`은 `transform`과 별개 property다.** `transform`만 적으면 이 선언은 아무것도 전이하지
    * 않는다 — 실측하면 transitionProperty가 "opacity, transform"인데 움직이는 것은 scale뿐이라
    * 누름이 즉시 튄다. dialog.css는 처음부터 `translate, scale`로 적고 있었다. */
   transition-property: opacity, scale;
-  transition-duration: var(--kds-motion-overlay-exit-duration);
-  transition-timing-function: var(--kds-motion-overlay-exit-timing-function);
+  transition-duration: var(--louis-motion-overlay-exit-duration);
+  transition-timing-function: var(--louis-motion-overlay-exit-timing-function);
 }
 
-.kds-icon-button[data-size="sm"] {
-  inline-size: var(--kds-layout-control-height-sm);
-  block-size: var(--kds-layout-control-height-sm);
+.louis-icon-button[data-size="sm"] {
+  inline-size: var(--louis-layout-control-height-sm);
+  block-size: var(--louis-layout-control-height-sm);
 }
 
 /* variant — Button과 같은 네 축. 새 시각 언어를 만들지 않는다. */
-.kds-icon-button[data-variant="primary"] {
-  background: var(--kds-color-accent-primary);
-  color: var(--kds-color-fg-inverse);
+.louis-icon-button[data-variant="primary"] {
+  background: var(--louis-color-accent-primary);
+  color: var(--louis-color-fg-inverse);
 }
 
-.kds-icon-button[data-variant="secondary"] {
-  background: var(--kds-color-bg-surface);
+.louis-icon-button[data-variant="secondary"] {
+  background: var(--louis-color-bg-surface);
   /* generic 10% inset 헤어라인 (DS-D-0023). 이전엔 color-stroke-default(불투명) border였고 Button
    * secondary의 color-stroke-control과 값이 갈렸다 — 단일 헤어라인으로 통일했다. */
-  box-shadow: var(--kds-hairline-inset);
-  color: var(--kds-color-fg-primary);
+  box-shadow: var(--louis-hairline-inset);
+  color: var(--louis-color-fg-primary);
 }
 
-.kds-icon-button[data-variant="ghost"] {
+.louis-icon-button[data-variant="ghost"] {
   background: transparent;
-  color: var(--kds-color-fg-secondary);
+  color: var(--louis-color-fg-secondary);
 }
 
 /* Known deviation: solid danger를 표현할 action 토큰이 아직 없어 tonal로 둔다.
  * Button과 같은 사유이며 color-accent-danger*가 생기면 함께 갱신한다. */
-.kds-icon-button[data-variant="danger"] {
-  background: var(--kds-color-bg-danger);
-  color: var(--kds-color-fg-danger);
+.louis-icon-button[data-variant="danger"] {
+  background: var(--louis-color-bg-danger);
+  color: var(--louis-color-fg-danger);
 }
 
 /* hover와 active는 **pressed를 덮지 않는다.**
@@ -66,70 +66,70 @@
  * 글자만 pressed 색으로 남는다. 켜짐 상태가 시야에서 사라지는 것이고, 실측으로 확인했다 —
  * pressed primary에 hover하면 bg가 #38a4ff, fg가 foreground-primary가 됐다.
  * 지속 상태를 일시적 상태가 덮으면 안 된다 (design/foundations/interaction-states.md). */
-.kds-icon-button:where(:not([aria-disabled="true"]):not(:disabled)):not([aria-pressed="true"]):hover[data-variant="primary"] {
-  background: var(--kds-color-accent-primary-hover);
+.louis-icon-button:where(:not([aria-disabled="true"]):not(:disabled)):not([aria-pressed="true"]):hover[data-variant="primary"] {
+  background: var(--louis-color-accent-primary-hover);
 }
 
-.kds-icon-button:where(:not([aria-disabled="true"]):not(:disabled)):not([aria-pressed="true"]):hover:where(
+.louis-icon-button:where(:not([aria-disabled="true"]):not(:disabled)):not([aria-pressed="true"]):hover:where(
     [data-variant="secondary"],
     [data-variant="ghost"]
   ) {
-  background: var(--kds-color-bg-inset);
+  background: var(--louis-color-bg-inset);
 }
 
 /* pressed — 토글의 켜짐 상태. :active(누르는 중)와 다른 축이다. */
-.kds-icon-button[aria-pressed="true"] {
-  background: var(--kds-color-bg-inset);
-  color: var(--kds-color-fg-primary);
+.louis-icon-button[aria-pressed="true"] {
+  background: var(--louis-color-bg-inset);
+  color: var(--louis-color-fg-primary);
 }
 
-.kds-icon-button:where(:not([aria-disabled="true"]):not(:disabled)):not([aria-pressed="true"]):active[data-variant="primary"] {
-  background: var(--kds-color-accent-primary-active);
+.louis-icon-button:where(:not([aria-disabled="true"]):not(:disabled)):not([aria-pressed="true"]):active[data-variant="primary"] {
+  background: var(--louis-color-accent-primary-active);
 }
 
-.kds-icon-button:where(:not([aria-disabled="true"]):not(:disabled)):active {
+.louis-icon-button:where(:not([aria-disabled="true"]):not(:disabled)):active {
   scale: 0.98;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .kds-icon-button {
-    transition-duration: var(--kds-motion-reduced-duration);
+  .louis-icon-button {
+    transition-duration: var(--louis-motion-reduced-duration);
   }
 
-  .kds-icon-button:where(:not([aria-disabled="true"]):not(:disabled)):active {
+  .louis-icon-button:where(:not([aria-disabled="true"]):not(:disabled)):active {
     scale: 1;
   }
 }
 
-.kds-icon-button:disabled,
-.kds-icon-button[aria-disabled="true"] {
+.louis-icon-button:disabled,
+.louis-icon-button[aria-disabled="true"] {
   cursor: not-allowed;
-  color: var(--kds-color-fg-disabled);
+  color: var(--louis-color-fg-disabled);
 }
 
-.kds-icon-button:disabled:where([data-variant="primary"], [data-variant="danger"]),
-.kds-icon-button[aria-disabled="true"]:where([data-variant="primary"], [data-variant="danger"]) {
-  background: var(--kds-color-bg-inset);
+.louis-icon-button:disabled:where([data-variant="primary"], [data-variant="danger"]),
+.louis-icon-button[aria-disabled="true"]:where([data-variant="primary"], [data-variant="danger"]) {
+  background: var(--louis-color-bg-inset);
 }
 
 /* disabled secondary는 별도 테두리 색을 두지 않는다 — enabled의 generic 헤어라인을 유지하고
  * 상태는 foreground 색이 전달한다 (DS-D-0023, 이전엔 color-stroke-subtle border였다). */
 
 /* 글리프는 컨테이너와 독립이다. 두 size에서 같은 20px을 쓴다 (iconography.md Size model). */
-.kds-icon-button__glyph {
+.louis-icon-button__glyph {
   display: inline-flex;
   flex: none;
   align-items: center;
   justify-content: center;
-  inline-size: var(--kds-icon-size-md);
-  block-size: var(--kds-icon-size-md);
+  inline-size: var(--louis-icon-size-md);
+  block-size: var(--louis-icon-size-md);
 }
 
 /* forced-colors: box-shadow 헤어라인은 강제 색 모드에서 사라지므로 시스템 색 실선으로 경계를
  * 되살린다. 이전 base 투명 border가 강제 색에서 얻던 경계를 이어받는다 (DS-D-0023). */
 @media (forced-colors: active) {
-  .kds-icon-button {
+  .louis-icon-button {
     box-shadow: none;
-    border: var(--kds-border-width-default) solid currentColor;
+    border: var(--louis-border-width-default) solid currentColor;
   }
 }

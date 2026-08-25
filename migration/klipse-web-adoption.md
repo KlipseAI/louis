@@ -81,7 +81,7 @@ klipse-web `design` 브랜치(`a3ed8e03`) 실측:
 
 그래서 복사본으로 했다. klipse-web 브랜치 `design-system-adoption`, 커밋 `d7be4831`.
 
-- `apps/web/app/klipse-ds/tokens.css` — `--kds-*` 변수. `:root`와 `[data-theme="dark"]`에
+- `apps/web/app/klipse-ds/tokens.css` — `--louis-*` 변수. `:root`와 `[data-theme="dark"]`에
   정의되어 klipse-web의 `html[data-theme]` 토글을 그대로 따라간다
 - `apps/web/app/klipse-ds/theme.css` — `@theme inline`
 - `apps/web/scripts/check-klipse-ds.mjs` — 복사본이 원본과 같은지 검사한다. 원본을 찾지 못하면

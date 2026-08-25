@@ -56,7 +56,7 @@ positives.push("공개 진입점의 타입 선언이 존재함");
 // **저장소 안에 만든다.** 밖에 두면 Node가 위로 올라가며 node_modules를 찾지 못해
 // react-dom과 패키지 자신이 resolve되지 않는다 — 소비자 관점을 재현하려던 것이 오히려
 // 아무것도 재현하지 못하게 된다.
-const work = mkdtempSync(join(process.cwd(), ".kds-consumer-"));
+const work = mkdtempSync(join(process.cwd(), ".louis-consumer-"));
 try {
   // **import 순서 안내가 완전한지 본다.**
   // styles.css는 토큰을 정의하지 않고 생성물끼리 @import하지도 않는다. 그래서 tokens.css를
@@ -65,18 +65,18 @@ try {
   {
     const stylesCss = readFileSync(join(process.cwd(), "packages/css/generated/styles.css"), "utf8");
     // styles.css는 토큰을 정의하지 않는다. 유일한 예외는 base.css의 헤어라인 recipe
-    // (--kds-hairline-*)이며, 이는 토큰이 아니라 토큰을 조합하는 foundation custom property다
-    // (DS-D-0023). :root 블록이 있으면 그 안의 --kds-* 선언이 recipe allowlist에 드는지 본다 —
+    // (--louis-hairline-*)이며, 이는 토큰이 아니라 토큰을 조합하는 foundation custom property다
+    // (DS-D-0023). :root 블록이 있으면 그 안의 --louis-* 선언이 recipe allowlist에 드는지 본다 —
     // 색·간격·반경 같은 토큰이 새어들면 tokens.css 없이 styles.css만 import한 소비자에게 조용히
     // 무효가 되므로 실패시킨다.
-    const ROOT_RECIPE_ALLOW = /^--kds-hairline-inset(-block-(start|end))?$/;
+    const ROOT_RECIPE_ALLOW = /^--louis-hairline-inset(-block-(start|end))?$/;
     for (const block of stylesCss.match(/:root\s*\{[^}]*\}/g) ?? []) {
-      const leaked = [...block.matchAll(/(--kds-[a-z0-9-]+)\s*:/g)]
+      const leaked = [...block.matchAll(/(--louis-[a-z0-9-]+)\s*:/g)]
         .map((match) => match[1])
         .filter((name) => !ROOT_RECIPE_ALLOW.test(name));
       if (leaked.length > 0) {
         failures.push(
-          `styles.css :root에 토큰이 정의됐습니다: ${leaked.join(", ")}. 토큰은 tokens.css에만 두고 :root에는 헤어라인 recipe(--kds-hairline-*)만 허용된다.`,
+          `styles.css :root에 토큰이 정의됐습니다: ${leaked.join(", ")}. 토큰은 tokens.css에만 두고 :root에는 헤어라인 recipe(--louis-hairline-*)만 허용된다.`,
         );
       }
     }
@@ -113,7 +113,7 @@ import { createElement as h } from "react";
 import { Button, OverlayProvider, Tooltip, Dialog, DialogSurface, DialogTitle, ActionMenu, ActionMenuTrigger, ActionMenuContent } from "@klipse-design/react";
 
 const html = renderToStaticMarkup(h(Button, null, "저장"));
-if (!html.includes("kds-button")) throw new Error("Button이 SSR에서 렌더되지 않았습니다");
+if (!html.includes("louis-button")) throw new Error("Button이 SSR에서 렌더되지 않았습니다");
 
 // **overlay는 심볼 확인으로 충분하지 않다.** 예전에는 OverlayProvider가 서버에서 context를
 // null로 넘겨 useOverlayContext가 "Provider 밖"으로 오판해 throw했고, 닫힌 Dialog를 페이지에
@@ -146,7 +146,7 @@ process.stdout.write(html);
   );
   try {
     const out = execFileSync(process.execPath, [ssrEntry], { cwd: process.cwd(), encoding: "utf8" });
-    if (!out.includes("kds-button")) failures.push("SSR 출력에 Button 클래스가 없습니다.");
+    if (!out.includes("louis-button")) failures.push("SSR 출력에 Button 클래스가 없습니다.");
     positives.push("Node SSR: Button · Tooltip · Dialog(열림/닫힘) · ActionMenu가 렌더되고, Provider 밖에서는 던진다");
   } catch (error) {
     failures.push(`SSR 소비가 실패했습니다: ${String(error.stderr ?? error.message).slice(0, 400)}`);
@@ -173,7 +173,7 @@ process.stdout.write(html);
       { cwd: process.cwd(), encoding: "utf8", maxBuffer: 32 * 1024 * 1024 },
     );
   };
-  const MARKER = "kds-dialog__surface";
+  const MARKER = "louis-dialog__surface";
   const onlyButton = bundle(
     `import { Button } from "@klipse-design/react";\nconsole.log(Button);\n`, "only-button");
   const withDialog = bundle(

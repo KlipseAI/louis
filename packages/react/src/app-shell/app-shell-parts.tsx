@@ -47,7 +47,7 @@ export function SidebarNavItem(props: SidebarNavItemProps): JSX.Element {
   const { icon, trailing, current = false, collapsed = false, className, children } = props;
 
   const shared = {
-    className: join("kds-sidebar-nav-item", "kds-focus-ring", className),
+    className: join("louis-sidebar-nav-item", "louis-focus-ring", className),
     "aria-current": current ? ("page" as const) : undefined,
     "data-collapsed": collapsed ? "true" : undefined,
   };
@@ -55,13 +55,13 @@ export function SidebarNavItem(props: SidebarNavItemProps): JSX.Element {
     <>
       {icon === undefined ? null : (
         // 라벨이 이름을 소유하므로 아이콘은 장식이다.
-        <span className="kds-sidebar-nav-item__icon" aria-hidden="true">
+        <span className="louis-sidebar-nav-item__icon" aria-hidden="true">
           {icon}
         </span>
       )}
-      <span className="kds-sidebar-nav-item__label">{children}</span>
+      <span className="louis-sidebar-nav-item__label">{children}</span>
       {trailing === undefined ? null : (
-        <span className="kds-sidebar-nav-item__trailing">{trailing}</span>
+        <span className="louis-sidebar-nav-item__trailing">{trailing}</span>
       )}
     </>
   );
@@ -119,12 +119,12 @@ export function SidebarNavRow({
   return (
     <div
       {...rest}
-      className={join("kds-sidebar-nav-row", className)}
+      className={join("louis-sidebar-nav-row", className)}
       data-collapsed={collapsed ? "true" : undefined}
     >
       {children}
       {action === undefined || collapsed ? null : (
-        <span className="kds-sidebar-nav-row__action">{action}</span>
+        <span className="louis-sidebar-nav-row__action">{action}</span>
       )}
     </div>
   );
@@ -165,16 +165,16 @@ export function AppTopBar({
   return (
     <div
       {...rest}
-      className={join("kds-app-top-bar", className)}
+      className={join("louis-app-top-bar", className)}
       data-divider={divider ? "true" : undefined}
     >
       {leading === undefined ? null : (
-        <span className="kds-app-top-bar__leading">{leading}</span>
+        <span className="louis-app-top-bar__leading">{leading}</span>
       )}
-      {title === undefined ? null : <span className="kds-app-top-bar__title">{title}</span>}
+      {title === undefined ? null : <span className="louis-app-top-bar__title">{title}</span>}
       {children}
       {trailing === undefined ? null : (
-        <span className="kds-app-top-bar__trailing">{trailing}</span>
+        <span className="louis-app-top-bar__trailing">{trailing}</span>
       )}
     </div>
   );
@@ -207,13 +207,13 @@ export function SidebarBrand({
     <div
       {...rest}
       ref={ref}
-      className={["kds-sidebar-brand", className].filter(Boolean).join(" ")}
+      className={["louis-sidebar-brand", className].filter(Boolean).join(" ")}
       data-collapsed={collapsed ? "true" : "false"}
     >
-      <span className="kds-sidebar-brand__mark" aria-hidden="true">
+      <span className="louis-sidebar-brand__mark" aria-hidden="true">
         {mark}
       </span>
-      <span className="kds-sidebar-brand__wordmark">{wordmark}</span>
+      <span className="louis-sidebar-brand__wordmark">{wordmark}</span>
     </div>
   );
 }
@@ -253,18 +253,18 @@ export function SidebarCta({
     <div
       {...rest}
       ref={ref}
-      className={["kds-sidebar-cta", className].filter(Boolean).join(" ")}
+      className={["louis-sidebar-cta", className].filter(Boolean).join(" ")}
       data-collapsed={collapsed ? "true" : "false"}
     >
       <button
         type="button"
-        className="kds-sidebar-cta__button"
+        className="louis-sidebar-cta__button"
         aria-current={current ? "page" : undefined}
         onClick={onActivate}
       >
         {/* 접히면 라벨이 54px까지 줄고 말줄임한다. **지우지 않는다** — 아이콘이 없는 버튼이라
             라벨을 지우면 접힌 레일에 아무 단서도 남지 않고, 접근 가능한 이름도 사라진다. */}
-        <span className="kds-sidebar-cta__label">{label}</span>
+        <span className="louis-sidebar-cta__label">{label}</span>
       </button>
     </div>
   );

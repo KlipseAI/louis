@@ -7,38 +7,38 @@
  * 판정은 migration/product.measured.json에 근거와 함께 있다.
  */
 
-.kds-tooltip-positioner {
-  z-index: var(--kds-layer-popover);
+.louis-tooltip-positioner {
+  z-index: var(--louis-layer-popover);
   /* 위치 계산 래퍼도 포인터를 받지 않는다. 표면만 막으면 래퍼의 여백이 남는다. */
   pointer-events: none;
 }
 
-.kds-tooltip {
+.louis-tooltip {
   /* 제품: min(320px, calc(100vw - 20px)). 뷰포트 여유는 overlay primitive가 잰 값을 쓴다. */
-  max-inline-size: min(320px, var(--kds-overlay-available-width, 100vw));
-  padding-block: var(--kds-space-control-xs);
-  padding-inline: var(--kds-space-control-sm);
+  max-inline-size: min(320px, var(--louis-overlay-available-width, 100vw));
+  padding-block: var(--louis-space-control-xs);
+  padding-inline: var(--louis-space-control-sm);
   /* **표면이 페이지와 반전된다.** 라이트에서 어두운 면, 다크에서 밝은 면이다. 이전 DS는
    * background-inset이라 페이지와 같은 극성이었고 제품과 정반대였다. */
-  border-radius: var(--kds-radius-control-sm);
-  background: var(--kds-color-bg-inverse);
-  color: var(--kds-color-fg-on-inverse);
+  border-radius: var(--louis-radius-control-sm);
+  background: var(--louis-color-bg-inverse);
+  color: var(--louis-color-fg-on-inverse);
   /* 경계는 tooltip elevation 뒤에 조합한 inset 헤어라인이다 (DS-D-0023). 이전엔 color-stroke-tooltip
    * border였고, 이제 다른 표면과 같은 generic 10% 헤어라인으로 통일됐다. */
-  box-shadow: var(--kds-elevation-tooltip), var(--kds-hairline-inset);
+  box-shadow: var(--louis-elevation-tooltip), var(--louis-hairline-inset);
   pointer-events: none;
   /* 한 줄이 기본이고 길면 줄바꿈한다. 잘라내지 않는다 — 잘린 설명은 설명이 아니다. */
   overflow-wrap: break-word;
-  font-family: var(--kds-typography-caption-regular-font-family);
-  font-size: var(--kds-typography-caption-regular-font-size);
-  font-weight: var(--kds-typography-caption-regular-font-weight);
-  line-height: var(--kds-typography-caption-regular-line-height);
-  letter-spacing: var(--kds-typography-caption-regular-letter-spacing);
+  font-family: var(--louis-typography-caption-regular-font-family);
+  font-size: var(--louis-typography-caption-regular-font-size);
+  font-weight: var(--louis-typography-caption-regular-font-weight);
+  line-height: var(--louis-typography-caption-regular-line-height);
+  letter-spacing: var(--louis-typography-caption-regular-letter-spacing);
 }
 
 /* 이전에는 animation-duration과 timing-function만 있고 **animation-name이 없었다** — 모션이
  * 아예 걸리지 않았다. 값만 적어 두고 실제로 도는지 확인하지 않은 결과다. */
-@keyframes kds-tooltip-enter {
+@keyframes louis-tooltip-enter {
   from {
     opacity: 0;
     scale: 0.97;
@@ -50,15 +50,15 @@
   }
 }
 
-.kds-tooltip[data-kds-state="opening"] {
-  animation-name: kds-tooltip-enter;
-  animation-duration: var(--kds-motion-tooltip-enter-duration);
-  animation-timing-function: var(--kds-motion-tooltip-enter-timing-function);
+.louis-tooltip[data-louis-state="opening"] {
+  animation-name: louis-tooltip-enter;
+  animation-duration: var(--louis-motion-tooltip-enter-duration);
+  animation-timing-function: var(--louis-motion-tooltip-enter-timing-function);
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .kds-tooltip[data-kds-state="opening"] {
-    animation-duration: var(--kds-motion-reduced-duration);
+  .louis-tooltip[data-louis-state="opening"] {
+    animation-duration: var(--louis-motion-reduced-duration);
     /* 크기 이동을 제거한다. 나타남 자체는 유지된다. */
     animation-name: none;
   }
@@ -66,8 +66,8 @@
 
 /* forced-colors: elevation과 box-shadow 헤어라인이 사라지므로 시스템 색 경계를 되살린다 (DS-D-0023). */
 @media (forced-colors: active) {
-  .kds-tooltip {
+  .louis-tooltip {
     box-shadow: none;
-    border: var(--kds-border-width-default) solid currentColor;
+    border: var(--louis-border-width-default) solid currentColor;
   }
 }

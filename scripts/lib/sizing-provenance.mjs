@@ -93,9 +93,14 @@ export function substituteViewportUnits(declaration, contextId) {
  * @param {boolean} input.isReplaced       img/svg/video 등 치환 요소인가
  * @returns {{verdict:string, reason:string, source:string|null, value:number|null}}
  */
-export function decideAxis({ declared, computed, axis, parentComputed = null, isReplaced = false }) {
+export function decideAxis({ declared: rawDeclared, computed, axis, parentComputed = null, isReplaced = false, gridTrack = null }) {
   const horizontal = axis === "horizontal";
   const position = computed?.position;
+  // CDP는 `!important`를 값에 붙여 준다(`"50px !important"`). 우선순위는 collectDeclaredStyles가 이미
+  // 처리했으므로 여기서는 떼어내고 값만 본다 — 안 떼면 전부 UNRESOLVED로 샌다.
+  const declared = typeof rawDeclared === "string"
+    ? rawDeclared.replace(/\s*!\s*important\s*$/i, "").trim()
+    : rawDeclared;
 
   // 0. 절대 배치는 축 판정이 아니라 배치 문제다. 호출자가 ABSOLUTE로 처리한다.
   if (position === "absolute" || position === "fixed") {
@@ -160,6 +165,21 @@ export function decideAxis({ declared, computed, axis, parentComputed = null, is
   // 폭 82px)을 "block이니 부모 1888을 채운다"고 잘못 판정한다. flex/grid 아이템의 교차축 기본은
   // stretch지만 주축 기본은 콘텐츠(auto)다.
   const parentIsFlexOrGrid = /flex|grid/.test(parentDisplay);
+
+  // grid 아이템은 **부모 폭이 아니라 자기 트랙**을 따른다. 고정 트랙(`236px`)이면 FIXED이고 `1fr`이면
+  // 트랙이 남는 공간을 나눠 갖는 FILL이다. 이를 구분하지 않으면 `grid-template-columns:236px 1fr 324px`의
+  // 사이드바(236)까지 FILL로 판정해 리사이즈 시 제품과 다르게 늘어난다.
+  if (/grid/.test(parentDisplay) && horizontal && gridTrack != null) {
+    const track = String(gridTrack).trim();
+    if (/^(-?[\d.]+)fr$/.test(track) || /minmax\([^)]*\bfr\b[^)]*\)/.test(track) || track === "auto") {
+      return { verdict: AXIS.FILL, reason: `grid 트랙 ${track} — 남는 공간을 나눠 갖는다`, source: `grid-template: ${track}`, value: null };
+    }
+    const fixedTrack = px(track);
+    if (fixedTrack != null) {
+      return { verdict: AXIS.FIXED, reason: `grid 트랙 ${track} 고정`, source: `grid-template: ${track}`, value: fixedTrack };
+    }
+  }
+
   if (parentIsFlexOrGrid) {
     const crossAxisOfParent = !mainAxisOfParent;
     const alignSelf = computed?.alignSelf ?? "auto";
@@ -191,13 +211,69 @@ export function decideAxis({ declared, computed, axis, parentComputed = null, is
 }
 
 /**
+ * `grid-template-columns` 선언에서 n번째 자식의 트랙을 집는다.
+ * `repeat(N, X)`는 펼치고, `minmax(a,b)`처럼 괄호 안의 공백은 트랙 구분이 아니므로 깊이를 세며 자른다.
+ * 트랙 수보다 자식이 많으면(암시적 트랙) null을 돌려 판정을 다른 규칙에 맡긴다.
+ */
+export function trackForChild(declaration, childIndex) {
+  if (!declaration || childIndex == null) return null;
+  // `repeat(N, ...)`를 펼친다. 인자 안에 `minmax(0, 1fr)`처럼 괄호가 중첩되므로 정규식으로는 끝을
+  // 찾을 수 없다 — 여는 괄호부터 깊이를 세어 짝을 찾는다.
+  let expanded = String(declaration);
+  for (let guard = 0; guard < 10; guard += 1) {
+    const start = expanded.search(/repeat\(/i);
+    if (start < 0) break;
+    let depth = 0;
+    let end = -1;
+    for (let i = start + "repeat".length; i < expanded.length; i += 1) {
+      if (expanded[i] === "(") depth += 1;
+      else if (expanded[i] === ")") {
+        depth -= 1;
+        if (depth === 0) { end = i; break; }
+      }
+    }
+    if (end < 0) break;
+    const inner = expanded.slice(start + "repeat(".length, end);
+    const comma = inner.indexOf(",");
+    if (comma < 0) break;
+    const count = Number(inner.slice(0, comma).trim());
+    const track = inner.slice(comma + 1).trim();
+    if (!Number.isFinite(count) || count <= 0) break;
+    expanded = expanded.slice(0, start)
+      + Array.from({ length: count }, () => track).join(" ")
+      + expanded.slice(end + 1);
+  }
+  const tracks = [];
+  let depth = 0;
+  let current = "";
+  for (const char of expanded) {
+    if (char === "(") depth += 1;
+    if (char === ")") depth -= 1;
+    if (/\s/.test(char) && depth === 0) {
+      if (current.trim()) tracks.push(current.trim());
+      current = "";
+      continue;
+    }
+    current += char;
+  }
+  if (current.trim()) tracks.push(current.trim());
+  return tracks[childIndex] ?? null;
+}
+
+/**
  * 노드 하나의 크기 출처를 판정한다.
  * @returns {{h:object, v:object, absolute:boolean, minMax:object}}
  */
-export function decideNode({ declared = {}, computed = {}, parentComputed = null, tag = "", contextId = null }) {
+export function decideNode({ declared = {}, computed = {}, parentComputed = null, parentDeclared = null, childIndex = null, tag = "", contextId = null }) {
   const isReplaced = /^(img|svg|video|canvas|iframe|input|textarea|select)$/.test(tag);
   const sub = (value) => (contextId ? substituteViewportUnits(value, contextId) : value);
-  const h = decideAxis({ declared: sub(declared.width), computed, axis: "horizontal", parentComputed, isReplaced });
+  // 부모가 grid면 **선언된** 트랙 목록에서 이 자식의 트랙을 집는다. computed의 트랙은 이미 px로
+  // 해결돼 `1fr`인지 고정인지 구분할 수 없으므로 반드시 선언값을 써야 한다.
+  const gridTrack = trackForChild(
+    parentDeclared?.["grid-template-columns"],
+    childIndex,
+  );
+  const h = decideAxis({ declared: sub(declared.width), computed, axis: "horizontal", parentComputed, isReplaced, gridTrack });
   const v = decideAxis({ declared: sub(declared.height), computed, axis: "vertical", parentComputed, isReplaced });
   return {
     h,

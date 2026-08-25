@@ -8,7 +8,7 @@
  * 일반 0.5px stroke는 CSS `border`가 아니라 inset box-shadow로 그린다. border는 box-sizing:
  * border-box 안쪽을 0.5px 줄이고 브라우저가 DPR 1에서 사용값을 1px로 올리므로 레이아웃이
  * 화면마다 달라지지만, inset shadow는 레이아웃 박스를 건드리지 않는다. 색은 단일 semantic
- * 토큰 `color-border-hairline`(light black 10% · dark paper 10%)이고 두께는
+ * 토큰 `color-stroke-hairline`(light black 10% · dark paper 10%)이고 두께는
  * `border-width-hairline`(0.5px)이다. divider처럼 한 면만 필요하면 방향성 변형을 쓴다.
  *
  * **컴포넌트마다 shadow 문자열을 복사하지 않는다.** 한 곳에서 선언하고 var()로 참조한다.
@@ -19,11 +19,11 @@
  * 곱셈(`*`) 기호는 저작 게이트의 전역 선택자 패턴에 걸리므로 block-end는 `calc(0px - …)`로 뺀다. */
 :root {
   --kds-hairline-inset:
-    inset 0 0 0 var(--kds-border-width-hairline) var(--kds-color-border-hairline);
+    inset 0 0 0 var(--kds-border-width-hairline) var(--kds-color-stroke-hairline);
   --kds-hairline-inset-block-start:
-    inset 0 var(--kds-border-width-hairline) 0 var(--kds-color-border-hairline);
+    inset 0 var(--kds-border-width-hairline) 0 var(--kds-color-stroke-hairline);
   --kds-hairline-inset-block-end:
-    inset 0 calc(0px - var(--kds-border-width-hairline)) 0 var(--kds-color-border-hairline);
+    inset 0 calc(0px - var(--kds-border-width-hairline)) 0 var(--kds-color-stroke-hairline);
 }
 
 /* 시각적으로 숨기되 accessibility tree에는 남긴다.
@@ -48,7 +48,7 @@
  * overflow에 잘리지 않고, border-radius를 따라가며, forced-colors에서 시스템 색으로 바뀐다.
  * 토큰의 처리는 owner 결정이 필요하다(Figma effect style로도 발행돼 있다). */
 .kds-focus-ring:focus-visible {
-  outline: var(--kds-border-width-ring) solid var(--kds-color-border-focus);
+  outline: var(--kds-border-width-ring) solid var(--kds-color-stroke-focus);
   /* 링과 요소 사이의 틈. 2px 간격 토큰이 spacing 축에 없어 리터럴을 한 줄에 격리한다. */
   outline-offset: 2px;
 }

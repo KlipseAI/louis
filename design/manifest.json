@@ -851,6 +851,15 @@
       "generated": false
     },
     {
+      "id": "decision-color-architecture",
+      "path": "design/governance/decisions/DS-D-0024-color-architecture.md",
+      "title": "DS-D-0024 색 토큰을 SEED/Toss식 scale·semantic로 재구성한다",
+      "section": "governance",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
+    },
+    {
       "id": "governance-product-confirmations",
       "path": "design/governance/product-confirmations.md",
       "title": "제품 확인 대기 목록",
@@ -1029,6 +1038,7 @@
         "design/governance/decisions/DS-D-0021-icon-size-axis.md",
         "design/governance/decisions/DS-D-0022-determinate-progress-a11y.md",
         "design/governance/decisions/DS-D-0023-hairline-inset.md",
+        "design/governance/decisions/DS-D-0024-color-architecture.md",
         "design/governance/product-confirmations.md",
         "design/updates/README.md"
       ]
@@ -1212,7 +1222,7 @@
       "figma": "partial",
       "web": "partial",
       "docs": "done",
-      "note": "public export와 실브라우저 acceptance test 14건이 두 motion context에서 각각 돈다. **제품에 정본이 있는데 21벌 중 2벌만 쓴다** — 그 전역 클래스가 cascade layer 밖이라 소비처가 이길 수 없었다. 크기 20px은 채택하고 accent-color는 채택하지 않았다(면 색 하나만 주고 표시·링·부분선택 막대를 브라우저가 정한다). indeterminate는 DOM 프로퍼티라 ref로 맞추고 aria-checked=mixed를 함께 준다. **선택 안 한 테두리 대비가 SC 1.4.11(3:1)에 미달하며 테두리 토큰 셋 중 어느 것도 라이트에서 넘지 못한다** — 실측을 규범에 적었고 인계서 (2b) 판정의 입력이다. color-border-strong의 첫 소비처다. Figma component set 4 variant(State)가 섰고 parity 게이트가 Box·Check·Dash·Label을 자손으로 대조한다 — raw fill·stroke 0. 체크는 CSS와 같은 구조(5×9 사각형의 두 변 + 45° 회전)라 계약값이 그대로 남는다. publish는 DS-F-008이다",
+      "note": "public export와 실브라우저 acceptance test 14건이 두 motion context에서 각각 돈다. **제품에 정본이 있는데 21벌 중 2벌만 쓴다** — 그 전역 클래스가 cascade layer 밖이라 소비처가 이길 수 없었다. 크기 20px은 채택하고 accent-color는 채택하지 않았다(면 색 하나만 주고 표시·링·부분선택 막대를 브라우저가 정한다). indeterminate는 DOM 프로퍼티라 ref로 맞추고 aria-checked=mixed를 함께 준다. **선택 안 한 테두리 대비가 SC 1.4.11(3:1)에 미달하며 테두리 토큰 셋 중 어느 것도 라이트에서 넘지 못한다** — 실측을 규범에 적었고 인계서 (2b) 판정의 입력이다. color-stroke-strong의 첫 소비처다. Figma component set 4 variant(State)가 섰고 parity 게이트가 Box·Check·Dash·Label을 자손으로 대조한다 — raw fill·stroke 0. 체크는 CSS와 같은 구조(5×9 사각형의 두 변 + 45° 회전)라 계약값이 그대로 남는다. publish는 DS-F-008이다",
       "doc": "design/components/checkbox.md",
       "figmaName": "Checkbox"
     },

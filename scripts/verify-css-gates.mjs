@@ -113,7 +113,7 @@ const BASE = "packages/css/src/base.css";
 
 withCanary(
   BASE,
-  (source) => `${source}\n.kds-canary { color: var(--kds-color-foreground-primary) !important; }\n`,
+  (source) => `${source}\n.kds-canary { color: var(--kds-color-fg-primary) !important; }\n`,
   "important",
   "!important는 금지된다",
 );
@@ -199,7 +199,7 @@ withThemeCanary(
 withThemeCanary(
   "packages/tokens/generated/manifest.json",
   (source) =>
-    source.replace('"id": "color-action-primary"', '"id": "brandnew-action-primary"'),
+    source.replace('"id": "color-accent-primary"', '"id": "brandnew-action-primary"'),
   "tailwind theme 미매핑 접두사",
   "매핑되지 않은 토큰 접두사입니다",
 );

@@ -34,7 +34,7 @@ const cell: React.CSSProperties = {
 
 const caption: React.CSSProperties = {
   font: "var(--kds-typography-caption-regular-font-weight) var(--kds-typography-caption-regular-font-size)/var(--kds-typography-caption-regular-line-height) var(--kds-typography-caption-regular-font-family)",
-  color: "var(--kds-color-foreground-tertiary)",
+  color: "var(--kds-color-fg-tertiary)",
   textAlign: "center",
   wordBreak: "break-word",
 };
@@ -83,13 +83,13 @@ export const InheritsColor: Story = {
   render: () => (
     <div style={{ display: "grid", gap: 12 }}>
       {[
-        ["foreground-primary", "var(--kds-color-foreground-primary)"],
-        ["foreground-tertiary", "var(--kds-color-foreground-tertiary)"],
-        ["action-primary", "var(--kds-color-action-primary)"],
+        ["foreground-primary", "var(--kds-color-fg-primary)"],
+        ["foreground-tertiary", "var(--kds-color-fg-tertiary)"],
+        ["action-primary", "var(--kds-color-accent-primary)"],
         ["status-danger-foreground", "var(--kds-color-status-danger-foreground)"],
       ].map(([label, value]) => (
         <div key={label} style={{ display: "flex", gap: 12, alignItems: "center", color: value }}>
-          <code style={{ width: 200, color: "var(--kds-color-foreground-secondary)" }}>
+          <code style={{ width: 200, color: "var(--kds-color-fg-secondary)" }}>
             {label}
           </code>
           {glyphs.slice(0, 12).map(([name, Glyph]) => (

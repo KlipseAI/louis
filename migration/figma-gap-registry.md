@@ -301,7 +301,7 @@ CSS 폴백 `#6366f1`(인디고)로 떨어졌다.
 **즉 브랜드 파랑으로 그리려던 것이 인디고로 그려지고 있다.** 제품 쪽 결함이며 고칠 곳은 이름
 하나다(`--palette-primary-500` → `--primary-500`).
 
-DS는 의도한 값을 채택한다. `color-action-primary`가 이미 `#0088ff`로 **정확히 같은 값**이라
+DS는 의도한 값을 채택한다. `color-accent-primary`가 이미 `#0088ff`로 **정확히 같은 값**이라
 따로 정할 것이 없다. `product.measured.json`에는 `adopted`로 적되, 인용한 제품 값이 **화면에
 실제로 그려지는 색이 아니라 의도한 색**이라는 사실을 함께 남긴다.
 
@@ -688,7 +688,7 @@ adoption 노트로 넘긴다.
 | `slider-thumb-root.height` | 24 | 40 | 제품 24, DS 40 |
 | `slider-track-root-panel.height` | 28 | 40 | 제품 28, DS 40 |
 | `nav-item-inner.columnGap` | 10 | 8 | 제품 10, DS 8 |
-| `nav-item-hover-light.backgroundColor` | rgb(228 229 233 / 0.5) | color-action-ghost-hover | 라이트만 갈린다 |
+| `nav-item-hover-light.backgroundColor` | rgb(228 229 233 / 0.5) | color-accent-ghost-hover | 라이트만 갈린다 |
 | `progress-bar-track.borderTopLeftRadius` | 3 | 999 | 제품 3, DS 999(알약) |
 | `nav-row.borderTopLeftRadius` | 10 | 0 | 제품 10, DS 0 |
 | `nav-row.paddingLeft` | 4 | 0 | 제품 4, DS 0 |

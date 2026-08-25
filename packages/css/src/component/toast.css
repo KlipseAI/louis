@@ -30,8 +30,8 @@
   border-radius: var(--kds-radius-overlay);
   /* **반투명 + 배경 흐림.** 제품과 같다. 불투명 면으로 대체하면 뒤 콘텐츠가 사라져 toast가
    * 화면에서 떠 있는 물체가 아니라 판이 된다. */
-  background: var(--kds-color-background-inverse-translucent);
-  color: var(--kds-color-foreground-on-inverse);
+  background: var(--kds-color-bg-inverse-translucent);
+  color: var(--kds-color-fg-on-inverse);
   box-shadow: var(--kds-elevation-toast);
   /* **16이다.** 10으로 두고 있었는데 그것은 클래스 선언만 보고 정한 값이었다 — 배포본의 앱 홈과
    * 노드캔버스 홈이 인라인 style로 `blur(16px) saturate(130%)`를 얹어 클래스를 이긴다. 화면에
@@ -52,8 +52,8 @@
 }
 
 .kds-toast[data-tone="danger"] {
-  background: var(--kds-color-background-danger);
-  color: var(--kds-color-foreground-danger);
+  background: var(--kds-color-bg-danger);
+  color: var(--kds-color-fg-danger);
 }
 
 @keyframes kds-toast-enter {

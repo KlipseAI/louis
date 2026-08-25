@@ -27,9 +27,9 @@
   inline-size: 28px;
   block-size: 28px;
   border-radius: var(--kds-radius-pill);
-  background: var(--kds-color-background-inset);
+  background: var(--kds-color-bg-inset);
   /* 폴백 글리프가 currentColor를 문다. 제품의 기본 아바타와 같은 구조다. */
-  color: var(--kds-color-foreground-tertiary);
+  color: var(--kds-color-fg-tertiary);
 }
 
 .kds-avatar[data-size="sm"] {

@@ -480,7 +480,7 @@ light/dark 값을 강제로 갖게 되기 때문이다. `DS-D-0007` Decision으�
    제품 미러)는 읽기 전용이다 — 쓰기 전에 반드시 확인한다.**
    SEED식 3-파일 분리는 publish 이후의 후속 작업(DS-F-009)으로 두고, 파일 분리 전환은 Figma 파일
    재작성이 필요한 breaking임을 rollback 절에 기록한다.
-3. **이름 변환:** 안정 token ID(`color-action-primary`) → Figma 변수 경로(`color/action/primary` 등)
+3. **이름 변환:** 안정 token ID(`color-accent-primary`) → Figma 변수 경로(`color/action/primary` 등)
    규칙과 충돌 시 build error 정책.
 4. **Composite 정책:** text/effect style은 **semantic tier 이름**(`typography-*`, `elevation-*`)으로
    생성하고 내부 속성에 변수를 바인딩한다. primitive tier의 `type-style-*`/`shadow-*`는 Figma

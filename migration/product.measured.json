@@ -165,15 +165,15 @@
         },
         "border 색 secondary": {
           "product": "rgb(23 27 34 / 12%) = #171B22 12% (다크: rgb(250 250 250 / 16%))",
-          "ds": "#D5D7DD (--kds-color-border-default, 불투명. tokens.css:15)",
+          "ds": "#D5D7DD (--kds-color-stroke-default, 불투명. tokens.css:15)",
           "match": "different",
           "evidence": "apps/web/components/ui/Button.tsx:80",
           "status": "adopted",
-          "reason": "제품 rgb(23 27 34 / 12%)를 채택했다. ink-alpha 12 primitive를 세우고 color-border-control로 뒀다. 이전 DS는 불투명 border-default였다"
+          "reason": "제품 rgb(23 27 34 / 12%)를 채택했다. ink-alpha 12 primitive를 세우고 color-stroke-control로 뒀다. 이전 DS는 불투명 border-default였다"
         },
         "배경 secondary": {
           "product": "transparent",
-          "ds": "#FAFAFA (--kds-color-background-surface, tokens.css:14) — 면이 있다",
+          "ds": "#FAFAFA (--kds-color-bg-surface, tokens.css:14) — 면이 있다",
           "match": "different",
           "evidence": "apps/web/components/ui/Button.tsx:106",
           "status": "adopted",
@@ -181,7 +181,7 @@
         },
         "배경 danger": {
           "product": "#ff4b59 단색 (--accent-red-500) — solid",
-          "ds": "#FFE5E8 (--kds-color-background-danger, tokens.css:26) — tonal",
+          "ds": "#FFE5E8 (--kds-color-bg-danger, tokens.css:26) — tonal",
           "match": "different",
           "evidence": "apps/web/app/globals.css:226",
           "status": "adopted",
@@ -189,15 +189,15 @@
         },
         "전경 secondary": {
           "product": "#777d89 (--palette-gray-600). 다크는 rgb(250 250 250 / 72%)",
-          "ds": "#171B22 (--kds-color-foreground-primary, tokens.css:22)",
+          "ds": "#171B22 (--kds-color-fg-primary, tokens.css:22)",
           "match": "different",
           "evidence": "apps/web/app/globals.css:33",
           "status": "adopted",
-          "reason": "제품 gray-600 #777d89를 채택했다. color-action-secondary-foreground를 세웠다. 다크는 제품이 알파를 쓰는데 알파 전경은 대비를 잴 수 없어 가장 가까운 불투명 단계 neutral.400을 쓴다"
+          "reason": "제품 gray-600 #777d89를 채택했다. color-accent-secondary-foreground를 세웠다. 다크는 제품이 알파를 쓰는데 알파 전경은 대비를 잴 수 없어 가장 가까운 불투명 단계 neutral.400을 쓴다"
         },
         "전경 ghost": {
           "product": "#777d89 (--palette-gray-600) — secondary와 동일",
-          "ds": "#575D68 (--kds-color-foreground-secondary, tokens.css:23) — secondary와 다른 단계",
+          "ds": "#575D68 (--kds-color-fg-secondary, tokens.css:23) — secondary와 다른 단계",
           "match": "different",
           "evidence": "apps/web/components/ui/Button.tsx:118",
           "status": "adopted",
@@ -205,15 +205,15 @@
         },
         "전경 danger": {
           "product": "#fafafa (--palette-gray-000)",
-          "ds": "#541119 (--kds-color-foreground-danger, tokens.css:27)",
+          "ds": "#541119 (--kds-color-fg-danger, tokens.css:27)",
           "match": "different",
           "evidence": "apps/web/components/ui/Button.tsx:128",
           "status": "adopted",
-          "reason": "제품 #fafafa(neutral.0)를 채택했다. color-foreground-on-danger를 세웠다"
+          "reason": "제품 #fafafa(neutral.0)를 채택했다. color-fg-on-danger를 세웠다"
         },
         "hover secondary": {
           "product": "background: rgb(23 27 34 / 5%) 오버레이 (다크 rgb(250 250 250 / 8%))",
-          "ds": "background → #EAEBEE (--kds-color-background-inset, tokens.css:10) 불투명",
+          "ds": "background → #EAEBEE (--kds-color-bg-inset, tokens.css:10) 불투명",
           "match": "different",
           "evidence": "apps/web/components/ui/Button.tsx:108",
           "status": "adopted",
@@ -398,28 +398,28 @@
         },
         "border (두께·색)": {
           "product": "border: 0. 두께도 색도 없다",
-          "ds": "1px solid transparent가 기본. secondary만 border-color를 --kds-color-border-default (light #D5D7DD / dark #777D89)로 채운다. disabled secondary는 --kds-color-border-subtle (light #E3E4E8 / dark #575D68)",
+          "ds": "1px solid transparent가 기본. secondary만 border-color를 --kds-color-stroke-default (light #D5D7DD / dark #777D89)로 채운다. disabled secondary는 --kds-color-stroke-subtle (light #E3E4E8 / dark #575D68)",
           "match": "different",
           "evidence": "apps/web/components/navigation/Gnb.tsx:206",
           "status": "no-canon"
         },
         "전경(글리프 색)": {
           "product": "dark: rgb(250 250 250 / 82%), light: rgb(0 0 0 / 82%). 알파로 위계를 만든다",
-          "ds": "ghost는 --kds-color-foreground-secondary (light #575D68 / dark #D5D7DD). 불투명 토큰 색이고 알파를 쓰지 않는다. primary는 --kds-color-foreground-inverse #FAFAFA",
+          "ds": "ghost는 --kds-color-fg-secondary (light #575D68 / dark #D5D7DD). 불투명 토큰 색이고 알파를 쓰지 않는다. primary는 --kds-color-fg-inverse #FAFAFA",
           "match": "different",
           "evidence": "apps/web/components/navigation/Gnb.tsx:211",
           "status": "no-canon"
         },
         "pressed (토글 켜짐)": {
           "product": "gnb-iconButton 자체에는 축이 없다. 켜짐이 필요한 자리는 호출부에서 별도 클래스(gnb-projectGuideButtonActive)를 문자열로 덧붙여 만든다 — active(누르는 중)와 pressed(켜짐)가 컴포넌트 계약으로 분리돼 있지 않다",
-          "ds": "[aria-pressed=\"true\"] → background --kds-color-background-inset (light #EAEBEE), color --kds-color-foreground-primary (light #171B22 / dark #FAFAFA). active와 명시적으로 다른 축",
+          "ds": "[aria-pressed=\"true\"] → background --kds-color-bg-inset (light #EAEBEE), color --kds-color-fg-primary (light #171B22 / dark #FAFAFA). active와 명시적으로 다른 축",
           "match": "product-missing",
           "evidence": "apps/web/components/navigation/Gnb.tsx:4360",
           "status": "no-canon"
         },
         "disabled": {
           "product": "opacity: 0.56, cursor: default. 전경/배경 토큰은 그대로 두고 요소 전체를 반투명하게 만든다",
-          "ds": "opacity를 쓰지 않는다. cursor: not-allowed, color → --kds-color-foreground-disabled (light #9AA0AB / dark #777D89). primary/danger는 background → --kds-color-background-inset #EAEBEE, secondary는 border-color → --kds-color-border-subtle #E3E4E8",
+          "ds": "opacity를 쓰지 않는다. cursor: not-allowed, color → --kds-color-fg-disabled (light #9AA0AB / dark #777D89). primary/danger는 background → --kds-color-bg-inset #EAEBEE, secondary는 border-color → --kds-color-stroke-subtle #E3E4E8",
           "match": "different",
           "evidence": "apps/web/components/navigation/Gnb.tsx:220",
           "status": "no-canon"
@@ -461,7 +461,7 @@
         },
         "focus ring": {
           "product": "**없다.** 레이어 밖 전역 `button:focus, button:focus-visible, button:active { outline: none }`이 모든 버튼의 아웃라인을 끄고, gnb-iconButton은 대체 표현을 두지 않는다. 키보드 초점이 시각적으로 사라진다",
-          "ds": ".kds-focus-ring:focus-visible → outline 2px solid --kds-color-border-focus (light #0088FF / dark #38A4FF), outline-offset 2px. forced-colors에서는 Highlight로 교체",
+          "ds": ".kds-focus-ring:focus-visible → outline 2px solid --kds-color-stroke-focus (light #0088FF / dark #38A4FF), outline-offset 2px. forced-colors에서는 Highlight로 교체",
           "match": "product-missing",
           "evidence": "apps/web/app/globals.css:1022",
           "status": "no-canon"
@@ -548,7 +548,7 @@
         },
         "패널 border (두께·색)": {
           "product": "5겹 글래스 프레임 — 0 0 0 0.5px rgba(0,0,0,0.5) + 좌우 엣지 ±1.25px rgba(0,0,0,0.8) + inset 상하 흰 림 rgba(255,255,255,0.5). border는 여전히 none이다",
-          "ds": "border: 1px solid var(--kds-color-border-subtle) → light #E3E4E8 / dark #575D68 (실제 border, 레이아웃 차지)",
+          "ds": "border: 1px solid var(--kds-color-stroke-subtle) → light #E3E4E8 / dark #575D68 (실제 border, 레이아웃 차지)",
           "match": "different",
           "evidence": "apps/web/app/globals.css:63-68",
           "status": "accepted-deviation",
@@ -556,11 +556,11 @@
         },
         "패널 배경": {
           "product": "dark #313640 (rgb(49 54 64), 불투명) / light #f1f1f3 (rgb(241 241 243), 불투명)",
-          "ds": "dark #313640 / light #FAFAFA — var(--kds-color-background-overlay)",
+          "ds": "dark #313640 / light #FAFAFA — var(--kds-color-bg-overlay)",
           "match": "different",
           "evidence": "apps/web/components/scenes/appHomeSceneStyles.ts:69 → apps/web/app/globals.css:93,587,50,42",
           "status": "adopted",
-          "reason": "제품 라이트 #f1f1f3 / 다크 #313640을 채택해 color-background-menu를 세웠다. 이전 DS의 라이트는 #FAFAFA로 제품보다 밝았다"
+          "reason": "제품 라이트 #f1f1f3 / 다크 #313640을 채택해 color-bg-menu를 세웠다. 이전 DS의 라이트는 #FAFAFA로 제품보다 밝았다"
         },
         "패널 그림자 (elevation)": {
           "product": "0px 8px 15px 0px rgba(0,0,0,0.04) + 0 0 0 0.5px 헤어라인",
@@ -612,15 +612,15 @@
         },
         "항목 전경 (기본)": {
           "product": "dark rgb(250 250 250 / 86%) / light rgb(23 27 34 / 86%) — 알파 86%",
-          "ds": "dark #FAFAFA / light #171B22 — 알파 100% (color: inherit ← 패널의 --kds-color-foreground-primary)",
+          "ds": "dark #FAFAFA / light #171B22 — 알파 100% (color: inherit ← 패널의 --kds-color-fg-primary)",
           "match": "different",
           "evidence": "apps/web/components/scenes/appHomeSceneStyles.ts:96,102 → apps/web/app/globals.css:664,40,51",
           "status": "adopted",
-          "reason": "제품의 알파 86%를 채택해 color-foreground-menu-item을 세웠다. 이전 DS는 알파 100%였다"
+          "reason": "제품의 알파 86%를 채택해 color-fg-menu-item을 세웠다. 이전 DS는 알파 100%였다"
         },
         "항목 hover 배경": {
           "product": "dark rgb(250 250 250 / 10%) / light rgb(23 27 34 / 6%) — 반투명 오버레이",
-          "ds": "var(--kds-color-background-inset) → light #EAEBEE / dark #313640 — 불투명 면",
+          "ds": "var(--kds-color-bg-inset) → light #EAEBEE / dark #313640 — 불투명 면",
           "match": "different",
           "evidence": "apps/web/components/scenes/appHomeSceneStyles.ts:101,103",
           "status": "adopted",
@@ -644,7 +644,7 @@
         },
         "항목 disabled": {
           "product": "선언 없음. cursor·색 변화 없음",
-          "ds": "cursor: not-allowed + color light #9AA0AB / dark #777D89 (--kds-color-foreground-disabled). :disabled와 [aria-disabled=\"true\"] 둘 다",
+          "ds": "cursor: not-allowed + color light #9AA0AB / dark #777D89 (--kds-color-fg-disabled). :disabled와 [aria-disabled=\"true\"] 둘 다",
           "match": "product-missing",
           "evidence": "apps/web/components/scenes/appHomeSceneStyles.ts:86-105",
           "status": "accepted-deviation",
@@ -660,7 +660,7 @@
         },
         "danger 항목 전경": {
           "product": "#ff4b59 (양 테마 동일) — var(--accent-red-500)",
-          "ds": "light #541119 / dark #FFE5E8 — var(--kds-color-foreground-danger). 문서가 인정한 대비 결함(light 1.21, dark 1.14)",
+          "ds": "light #541119 / dark #FFE5E8 — var(--kds-color-fg-danger). 문서가 인정한 대비 결함(light 1.21, dark 1.14)",
           "match": "different",
           "evidence": "apps/web/components/scenes/appHomeSceneStyles.ts:109 → apps/web/app/globals.css:226",
           "status": "adopted",
@@ -668,7 +668,7 @@
         },
         "danger 항목 hover 배경": {
           "product": "dark rgb(255 75 89 / 12%) / light rgb(255 75 89 / 10%)",
-          "ds": "var(--kds-color-background-danger) → light #FFE5E8 / dark #541119 (불투명 면)",
+          "ds": "var(--kds-color-bg-danger) → light #FFE5E8 / dark #541119 (불투명 면)",
           "match": "different",
           "evidence": "apps/web/components/scenes/appHomeSceneStyles.ts:110,111 → apps/web/app/globals.css:235",
           "status": "adopted",
@@ -676,7 +676,7 @@
         },
         "구분선 (separator)": {
           "product": "카드 메뉴에는 없음. 프로필 팝오버만 height 1px, margin 4px 10px, background dark #575d68 / light #e3e4e8",
-          "ds": "border-block-start 1px solid var(--kds-color-border-subtle) (dark #575D68 / light #E3E4E8), margin-block 4px, margin-inline 0",
+          "ds": "border-block-start 1px solid var(--kds-color-stroke-subtle) (dark #575D68 / light #E3E4E8), margin-block 4px, margin-inline 0",
           "match": "different",
           "evidence": "apps/web/components/navigation/Gnb.tsx:1033,1034,1035,1036,1037,1286,1293",
           "status": "accepted-deviation",
@@ -817,21 +817,21 @@
         },
         "border — 표면 (두께·색)": {
           "product": "border 선언 없음. 대신 spread-only box-shadow 헤어라인 var(--glass-dropdown-frame) = 0 0 0 0.5px #575d68 (다크) / 0 0 0 0.5px #d5d7dd (라이트)",
-          "ds": "1px solid var(--kds-color-border-subtle) = #E3E4E8 (light) / #575D68 (dark). forced-colors에서 currentColor",
+          "ds": "1px solid var(--kds-color-stroke-subtle) = #E3E4E8 (light) / #575D68 (dark). forced-colors에서 currentColor",
           "match": "different",
           "evidence": "apps/web/components/scenes/create/node-canvas-v2/components/GlassConfirmModal.tsx:57",
           "status": "no-canon"
         },
         "배경 — 표면": {
           "product": "rgb(49 54 64 / 100%) = #313640 (기본·다크). 라이트 rgb(241 241 243) = #F1F1F3. palette 직접 참조라 테마 시맨틱 토큰을 우회",
-          "ds": "var(--kds-color-background-overlay) = #FAFAFA (light) / #313640 (dark)",
+          "ds": "var(--kds-color-bg-overlay) = #FAFAFA (light) / #313640 (dark)",
           "match": "different",
           "evidence": "apps/web/components/scenes/create/node-canvas-v2/components/GlassConfirmModal.tsx:54",
           "status": "no-canon"
         },
         "scrim — 색·알파": {
           "product": "rgb(23 27 34 / 50%) (palette-gray-900 @50%). 라이트/다크 분기 없음. 0% → 50% background 전이. 다른 벌: rgb(0 0 0 / 55%)·라이트 32%(HighlightCreateModal), 55% + blur 8px(YoutubeUploadModal), 40%/62% + blur 2px(ClipCropModal), 50% + blur 16px saturate 130%(ConfirmModal)",
-          "ds": "var(--kds-color-scrim-modal) = rgb(0 0 0 / 56%) (light) / rgb(0 0 0 / 72%) (dark). blur 없음. 알파 고정, opacity는 root가 페이드",
+          "ds": "var(--kds-color-dim-modal) = rgb(0 0 0 / 56%) (light) / rgb(0 0 0 / 72%) (dark). blur 없음. 알파 고정, opacity는 root가 페이드",
           "match": "different",
           "evidence": "apps/web/components/scenes/create/node-canvas-v2/components/GlassConfirmModal.tsx:49",
           "status": "no-canon"
@@ -845,14 +845,14 @@
         },
         "전경 — 제목 색": {
           "product": "var(--gray-000) = #fafafa (다크) / #000000 (라이트)",
-          "ds": "var(--kds-color-foreground-primary) = #171B22 (light) / #FAFAFA (dark)",
+          "ds": "var(--kds-color-fg-primary) = #171B22 (light) / #FAFAFA (dark)",
           "match": "different",
           "evidence": "apps/web/components/scenes/create/node-canvas-v2/components/GlassConfirmModal.tsx:79",
           "status": "no-canon"
         },
         "전경 — 설명 색": {
           "product": "rgb(250 250 250 / 60%) (다크) / rgb(0 0 0 / 60%) (라이트). 알파 합성",
-          "ds": "var(--kds-color-foreground-secondary) = #575D68 (light) / #D5D7DD (dark). 불투명 색",
+          "ds": "var(--kds-color-fg-secondary) = #575D68 (light) / #D5D7DD (dark). 불투명 색",
           "match": "different",
           "evidence": "apps/web/components/scenes/create/node-canvas-v2/components/GlassConfirmModal.tsx:84",
           "status": "no-canon"
@@ -976,39 +976,39 @@
           "match": "ds-missing",
           "evidence": "apps/web/app/globals.css:1498 → 698 → 51",
           "status": "adopted",
-          "reason": "color-border-tooltip을 세웠다. 라이트는 paper-alpha 14%, 다크는 ink-alpha 12%로 제품과 같다"
+          "reason": "color-stroke-tooltip을 세웠다. 라이트는 paper-alpha 14%, 다크는 ink-alpha 12%로 제품과 같다"
         },
         "배경 (light theme)": {
           "product": "#313640 (--palette-gray-800) — 어두운 면. 페이지와 반전",
-          "ds": "#EAEBEE (--kds-color-background-inset, srgb 0.917647 0.921569 0.933333) — 밝은 면. 페이지와 같은 극성",
+          "ds": "#EAEBEE (--kds-color-bg-inset, srgb 0.917647 0.921569 0.933333) — 밝은 면. 페이지와 같은 극성",
           "match": "different",
           "evidence": "apps/web/app/globals.css:1500 → 751 → 36",
           "status": "adopted",
-          "reason": "제품의 반전 면을 채택했다. 라이트에서 gray-800 = color-background-inverse이며 Toast가 먼저 세운 토큰과 값이 정확히 같았다. 이전 DS는 background-inset이라 페이지와 같은 극성이었다"
+          "reason": "제품의 반전 면을 채택했다. 라이트에서 gray-800 = color-bg-inverse이며 Toast가 먼저 세운 토큰과 값이 정확히 같았다. 이전 DS는 background-inset이라 페이지와 같은 극성이었다"
         },
         "배경 (dark theme)": {
           "product": "#E3E4E8 (--palette-gray-200) — 밝은 면. 페이지와 반전",
-          "ds": "#313640 (--kds-color-background-inset, srgb 0.192157 0.211765 0.250980) — 어두운 면. 페이지와 같은 극성",
+          "ds": "#313640 (--kds-color-bg-inset, srgb 0.192157 0.211765 0.250980) — 어두운 면. 페이지와 같은 극성",
           "match": "different",
           "evidence": "apps/web/app/globals.css:1500 → 695 → 28",
           "status": "adopted",
-          "reason": "다크에서 gray-200 = color-background-inverse. 같은 토큰이 모드로 뒤집힌다"
+          "reason": "다크에서 gray-200 = color-bg-inverse. 같은 토큰이 모드로 뒤집힌다"
         },
         "전경 (light theme)": {
           "product": "#FAFAFA (--palette-gray-000)",
-          "ds": "#171B22 (--kds-color-foreground-primary, srgb 0.090196 0.105882 0.133333)",
+          "ds": "#171B22 (--kds-color-fg-primary, srgb 0.090196 0.105882 0.133333)",
           "match": "different",
           "evidence": "apps/web/app/globals.css:1502 → 752 → 20",
           "status": "adopted",
-          "reason": "라이트에서 gray-000 = color-foreground-on-inverse"
+          "reason": "라이트에서 gray-000 = color-fg-on-inverse"
         },
         "전경 (dark theme)": {
           "product": "#171B22 (--palette-gray-900)",
-          "ds": "#FAFAFA (--kds-color-foreground-primary, srgb 0.980392 0.980392 0.980392)",
+          "ds": "#FAFAFA (--kds-color-fg-primary, srgb 0.980392 0.980392 0.980392)",
           "match": "different",
           "evidence": "apps/web/app/globals.css:1502 → 696 → 37",
           "status": "adopted",
-          "reason": "다크에서 gray-900 = color-foreground-on-inverse"
+          "reason": "다크에서 gray-900 = color-fg-on-inverse"
         },
         "그림자 (light theme)": {
           "product": "0 12px 24px rgba(119, 125, 137, 0.12) — rgb(--palette-gray-600-rgb / 12%). spread 없음, y=12, blur=24",
@@ -1270,14 +1270,14 @@
         },
         "테두리": {
           "product": "1px이 다수. 색은 gray-000/12%(인증·CreateProjectModal) · palette-gray-600(구독 해지) · palette-gray-900/12%(하이라이트 보정). 테두리가 아예 없는 계열이 C·D·E 22벌",
-          "ds": "border-width-hairline 0.5px + color-border-control",
+          "ds": "border-width-hairline 0.5px + color-stroke-control",
           "match": "different",
           "evidence": "apps/web/app/login/page.tsx:118 · apps/web/components/scenes/myPageSceneStyles.ts:1418-1439",
           "status": "no-canon"
         },
         "포커스 표현": {
           "product": "통일돼 있지 않다. 인증 계열은 outline 없이 wrapper border-color 변경 + box-shadow inset 0 0 0 1px. `outline: 2px solid rgb(var(--gray-000-rgb)/22%)` + offset 1px을 문자 단위로 같이 갖는 것이 5벌. outline:none만 두고 배경색으로만 표현하는 것이 다수. 포커스 표시를 의도적으로 없앤 것도 있다",
-          "ds": "공유 .kds-focus-ring — outline: var(--kds-border-width-ring) solid var(--kds-color-border-focus), offset 2px",
+          "ds": "공유 .kds-focus-ring — outline: var(--kds-border-width-ring) solid var(--kds-color-stroke-focus), offset 2px",
           "match": "different",
           "evidence": "apps/web/app/login/page.tsx:133 · apps/web/components/scenes/create/node-canvas-v2/components/NodeLayersPanel.tsx:178",
           "status": "accepted-deviation",
@@ -1285,7 +1285,7 @@
         },
         "placeholder 색": {
           "product": "gray-000/25~42% 알파 다수 · 비어서 경고일 때 rgb(255 120 80)/45%(ShotCarousel)",
-          "ds": "color-foreground-secondary. 값 텍스트는 foreground-primary라 서로 구분된다",
+          "ds": "color-fg-secondary. 값 텍스트는 foreground-primary라 서로 구분된다",
           "match": "different",
           "evidence": "apps/web/components/scenes/create/ShotCarousel.tsx:93-94 · apps/web/components/scenes/create/node-canvas-v2/components/NodeLayersPanel.tsx:184",
           "status": "accepted-deviation",
@@ -1378,7 +1378,7 @@
         },
         "트랙 헤어라인 기법": {
           "product": "box-shadow: var(--dropdown-frame) — spread-only 0.5px(A, B). C·E는 테두리가 없다",
-          "ds": "box-shadow: 0 0 0 var(--kds-border-width-hairline) var(--kds-color-border-subtle)",
+          "ds": "box-shadow: 0 0 0 var(--kds-border-width-hairline) var(--kds-color-stroke-subtle)",
           "match": "same",
           "evidence": "apps/web/components/scenes/myPageSceneStyles.ts:1103",
           "status": "adopted",
@@ -1426,7 +1426,7 @@
         },
         "비활성 글자색": {
           "product": "gray-000/42%(A) · 58%(B) · var(--dashboard-muted-color)(B PerformanceTab) · 55%(C) · 48%(E). 다섯 값이 흩어져 있다",
-          "ds": "color-foreground-secondary. hover에서 foreground-primary가 되고 면은 바뀌지 않는다",
+          "ds": "color-fg-secondary. hover에서 foreground-primary가 되고 면은 바뀌지 않는다",
           "match": "different",
           "evidence": "apps/web/components/scenes/myPageSceneStyles.ts:1069 · apps/web/components/scenes/YoutubeAnalyticsScene.tsx:994",
           "status": "accepted-deviation",
@@ -1452,7 +1452,7 @@
         },
         "포커스 표시": {
           "product": "**37벌 중 25벌(68%)이 포커스 표시를 명시적으로 지운다.** overlayRadix 썸은 `width:0;height:0;opacity:0;pointer-events:none` + `focus-visible:outline:none!`(17벌), DURATION_SLIDER_THUMB은 `[&:focus-visible]:[outline:none]`(2벌), RANGE_SLIDER는 `[&:focus]:[outline:none] [&:focus-visible]:[outline:none]`(6벌). 링이 있는 것은 crop 2벌(sky-500 offset 3)과 timelineZoom 1벌(sky-500 offset 2)뿐이다",
-          "ds": "공유 링 하나 — outline: var(--kds-border-width-ring) solid var(--kds-color-border-focus), offset 2px. 컨트롤 전체가 받는다",
+          "ds": "공유 링 하나 — outline: var(--kds-border-width-ring) solid var(--kds-color-stroke-focus), offset 2px. 컨트롤 전체가 받는다",
           "match": "different",
           "evidence": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx:2060-2072 · apps/web/components/scenes/create/node-canvas-v2/nodes/VideoNode.tsx:592 · apps/web/components/scenes/create/node-canvas-v2/nodes/TtsNode.tsx:516",
           "status": "accepted-deviation",
@@ -1489,7 +1489,7 @@
         },
         "썸 분리 방법": {
           "product": "그림자 셋이 값이 다 다르다 — `0 1.5px 3px rgb(0 0 0/24%)`(duration) · `0 2px 8px rgb(0 0 0/22%)`(crop) · `0 1px 2px .../30%`(refinement). crop만 2px 테두리를 함께 갖는다",
-          "ds": "그림자 없음. border-width-ring 2px의 color-background-surface 링으로 분리한다",
+          "ds": "그림자 없음. border-width-ring 2px의 color-bg-surface 링으로 분리한다",
           "match": "different",
           "evidence": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoNode.tsx:587 · apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/ClipCropModal.tsx:191-192",
           "status": "accepted-deviation",
@@ -1497,7 +1497,7 @@
         },
         "채움 색": {
           "product": "sky-500(crop · 맨 input 1벌) · pink-500(RANGE_SLIDER 6벌, 오디오 채널) · white/gray-900(duration) · white 96%(timelineZoom) · gray-100(refinement) · gray-700→800 그라디언트(overlay) · gray-500(맨 input 7벌 accentColor)",
-          "ds": "color-action-primary 하나. 빈 레일은 color-border-default",
+          "ds": "color-accent-primary 하나. 빈 레일은 color-stroke-default",
           "match": "different",
           "evidence": "apps/web/components/scenes/create/node-canvas-v2/nodes/BgmNode.tsx:366 · apps/web/app/admin/CaptionTemplateManagement.tsx:783",
           "status": "no-canon"
@@ -1552,7 +1552,7 @@
         },
         "테두리": {
           "product": "A·C·D·E는 테두리를 선언하지 않는다(accent-color와 브라우저 기본). B만 1px rgb(gray-000/26%)",
-          "ds": "border-width-hairline + color-border-strong",
+          "ds": "border-width-hairline + color-stroke-strong",
           "match": "different",
           "evidence": "apps/web/app/signup/page.tsx:186",
           "status": "accepted-deviation",
@@ -1560,7 +1560,7 @@
         },
         "선택 색": {
           "product": "gray-900/gray-000(A 정본, 전경색) · sky-500/gray-000(C) · gray-000(D) · 브라우저 기본(E). 셋이 다르다",
-          "ds": "color-action-primary. 선택은 액션 색이 소유한다",
+          "ds": "color-accent-primary. 선택은 액션 색이 소유한다",
           "match": "different",
           "evidence": "apps/web/app/globals.css:996-1000 · apps/web/components/scenes/VideoEditProjectPicker.tsx:154-155",
           "status": "accepted-deviation",
@@ -1611,7 +1611,7 @@
         },
         "선택을 무엇으로 보이는가": {
           "product": "A는 **면 하나**다. 표식도 테두리도 없다",
-          "ds": "면 + 3px 선행 표식(color-action-primary)",
+          "ds": "면 + 3px 선행 표식(color-accent-primary)",
           "match": "different",
           "evidence": "apps/web/components/scenes/highlightSceneStyles.ts:165-171",
           "status": "accepted-deviation",
@@ -1682,7 +1682,7 @@
         },
         "폴백 색": {
           "product": "light palette-gray-400 · dark palette-gray-600 — 다크 면 위에서 한 단계 밝게",
-          "ds": "color-foreground-tertiary. currentColor를 물어 놓이는 자리에서 덮을 수 있다",
+          "ds": "color-fg-tertiary. currentColor를 물어 놓이는 자리에서 덮을 수 있다",
           "match": "different",
           "evidence": "apps/web/components/navigation/UserCircleDefaultAvatar.tsx:12-13",
           "status": "accepted-deviation",

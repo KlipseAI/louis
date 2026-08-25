@@ -30,7 +30,7 @@
   border: 0;
   border-radius: var(--kds-radius-overlay-item);
   background: none;
-  color: var(--kds-color-foreground-secondary);
+  color: var(--kds-color-fg-secondary);
   text-align: start;
   cursor: pointer;
   font-family: var(--kds-typography-body-sm-medium-font-family);
@@ -41,15 +41,15 @@
 }
 
 .kds-selectable-list-row:hover {
-  background: var(--kds-color-action-ghost-hover);
-  color: var(--kds-color-foreground-primary);
+  background: var(--kds-color-accent-ghost-hover);
+  color: var(--kds-color-fg-primary);
 }
 
 /* **`aria-current`가 선택을 소유한다.** SidebarNavItem과 같은 판정이다 — 시각 전용 속성을 두면
  * 화면에는 선택으로 보이는데 보조기술에는 아무것도 전달되지 않는 상태를 만들 수 있다. */
 .kds-selectable-list-row[aria-current="true"] {
-  background: var(--kds-color-background-inset);
-  color: var(--kds-color-foreground-primary);
+  background: var(--kds-color-bg-inset);
+  color: var(--kds-color-fg-primary);
 }
 
 /* 선행 표식. 면이 배경과 같아지는 테마에서도 선택이 남고, 색 하나에 기대지 않게 한다. */
@@ -60,7 +60,7 @@
   inset-block: var(--kds-space-control-sm);
   inline-size: 3px;
   border-radius: var(--kds-radius-pill);
-  background: var(--kds-color-action-primary);
+  background: var(--kds-color-accent-primary);
 }
 
 @media (forced-colors: active) {
@@ -71,7 +71,7 @@
 }
 
 .kds-selectable-list-row:focus-visible {
-  outline: var(--kds-border-width-ring) solid var(--kds-color-border-focus);
+  outline: var(--kds-border-width-ring) solid var(--kds-color-stroke-focus);
   outline-offset: 2px;
 }
 
@@ -82,13 +82,13 @@
 }
 
 .kds-selectable-list-row:disabled {
-  color: var(--kds-color-foreground-disabled);
+  color: var(--kds-color-fg-disabled);
   cursor: not-allowed;
 }
 
 .kds-selectable-list-row:disabled:hover {
   background: none;
-  color: var(--kds-color-foreground-disabled);
+  color: var(--kds-color-fg-disabled);
 }
 
 /* 선행 슬롯. 썸네일이 들어가며 크기는 호출부가 정한다 — 96px(하이라이트)처럼 화면마다 다르다. */
@@ -119,7 +119,7 @@
 
 .kds-selectable-list-row__meta {
   overflow: hidden;
-  color: var(--kds-color-foreground-secondary);
+  color: var(--kds-color-fg-secondary);
   text-overflow: ellipsis;
   white-space: nowrap;
   font-family: var(--kds-typography-caption-regular-font-family);
@@ -131,11 +131,11 @@
 
 /* 선택된 행에서도 보조 문구는 한 단계 낮게 남는다. 둘 다 primary가 되면 위계가 사라진다. */
 .kds-selectable-list-row[aria-current="true"] .kds-selectable-list-row__meta {
-  color: var(--kds-color-foreground-secondary);
+  color: var(--kds-color-fg-secondary);
 }
 
 .kds-selectable-list-row:disabled .kds-selectable-list-row__meta {
-  color: var(--kds-color-foreground-disabled);
+  color: var(--kds-color-fg-disabled);
 }
 
 /* 후행 슬롯. 시간·개수 같은 짧은 값이 들어간다. 버튼은 넣지 않는다 — 행 자체가 버튼이다. */
@@ -143,5 +143,5 @@
   display: inline-flex;
   flex: none;
   align-items: center;
-  color: var(--kds-color-foreground-secondary);
+  color: var(--kds-color-fg-secondary);
 }

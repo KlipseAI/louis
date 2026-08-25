@@ -33,7 +33,7 @@
 }
 
 .kds-slider__label {
-  color: var(--kds-color-foreground-primary);
+  color: var(--kds-color-fg-primary);
   font-family: var(--kds-typography-body-sm-medium-font-family);
   font-size: var(--kds-typography-body-sm-medium-font-size);
   font-weight: var(--kds-typography-body-sm-medium-font-weight);
@@ -72,7 +72,7 @@
  * 레일을 두른다. 제품의 세 레시피가 `outline: none`으로 이 링을 지웠고 그것이 사용의 다수인데,
  * 키보드 사용자가 지금 어디에 있는지 알 수 없는 상태를 옮기지 않는다. */
 .kds-slider__control:focus-visible {
-  outline: var(--kds-border-width-ring) solid var(--kds-color-border-focus);
+  outline: var(--kds-border-width-ring) solid var(--kds-color-stroke-focus);
   outline-offset: 2px;
   border-radius: var(--kds-radius-control-sm);
 }
@@ -104,23 +104,23 @@
   border-radius: var(--kds-radius-pill);
   background: linear-gradient(
     to right,
-    var(--kds-color-action-primary) 0,
-    var(--kds-color-action-primary) var(--kds-slider-fill),
-    var(--kds-color-border-default) var(--kds-slider-fill),
-    var(--kds-color-border-default) 100%
+    var(--kds-color-accent-primary) 0,
+    var(--kds-color-accent-primary) var(--kds-slider-fill),
+    var(--kds-color-stroke-default) var(--kds-slider-fill),
+    var(--kds-color-stroke-default) 100%
   );
 }
 
 .kds-slider__control::-moz-range-track {
   block-size: 4px;
   border-radius: var(--kds-radius-pill);
-  background: var(--kds-color-border-default);
+  background: var(--kds-color-stroke-default);
 }
 
 .kds-slider__control::-moz-range-progress {
   block-size: 4px;
   border-radius: var(--kds-radius-pill);
-  background: var(--kds-color-action-primary);
+  background: var(--kds-color-accent-primary);
 }
 
 /* ── 썸 ──────────────────────────────────────────────────────────────────
@@ -140,18 +140,18 @@
   inline-size: 16px;
   block-size: 16px;
   margin-block-start: calc((4px - 16px) / 2);
-  border: var(--kds-border-width-ring) solid var(--kds-color-background-surface);
+  border: var(--kds-border-width-ring) solid var(--kds-color-bg-surface);
   border-radius: var(--kds-radius-pill);
-  background: var(--kds-color-action-primary);
+  background: var(--kds-color-accent-primary);
 }
 
 .kds-slider__control::-moz-range-thumb {
   box-sizing: border-box;
   inline-size: 16px;
   block-size: 16px;
-  border: var(--kds-border-width-ring) solid var(--kds-color-background-surface);
+  border: var(--kds-border-width-ring) solid var(--kds-color-bg-surface);
   border-radius: var(--kds-radius-pill);
-  background: var(--kds-color-action-primary);
+  background: var(--kds-color-accent-primary);
 }
 
 .kds-slider[data-size="sm"] .kds-slider__control::-webkit-slider-thumb {
@@ -166,23 +166,23 @@
 }
 
 .kds-slider__control:disabled::-webkit-slider-runnable-track {
-  background: var(--kds-color-border-subtle);
+  background: var(--kds-color-stroke-subtle);
 }
 
 .kds-slider__control:disabled::-moz-range-track {
-  background: var(--kds-color-border-subtle);
+  background: var(--kds-color-stroke-subtle);
 }
 
 .kds-slider__control:disabled::-moz-range-progress {
-  background: var(--kds-color-border-subtle);
+  background: var(--kds-color-stroke-subtle);
 }
 
 .kds-slider__control:disabled::-webkit-slider-thumb {
-  background: var(--kds-color-foreground-disabled);
+  background: var(--kds-color-fg-disabled);
 }
 
 .kds-slider__control:disabled::-moz-range-thumb {
-  background: var(--kds-color-foreground-disabled);
+  background: var(--kds-color-fg-disabled);
 }
 
 /* ── track 변형 ───────────────────────────────────────────────────────────
@@ -227,7 +227,7 @@
   /* 끝이 둥글다. 각진 2×14 막대로 두고 있었는데 배포본의 표식은 알약이다 — 2px 폭에서 이 차이가
    * 눈에 띈다. 열거 게이트가 `::after`의 반경을 세면서 드러났다. */
   border-radius: var(--kds-radius-pill);
-  background: var(--kds-color-foreground-inverse);
+  background: var(--kds-color-fg-inverse);
 }
 
 .kds-slider[data-variant="track"] .kds-slider__control::-moz-range-thumb {
@@ -235,7 +235,7 @@
   block-size: 14px;
   border: 0;
   border-radius: var(--kds-radius-pill);
-  background: var(--kds-color-foreground-inverse);
+  background: var(--kds-color-fg-inverse);
 }
 
 .kds-slider[data-variant="track"][data-size="sm"] .kds-slider__control::-webkit-slider-thumb {

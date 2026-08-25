@@ -13,8 +13,8 @@ import "@klipse-design/css/styles.css";
 const withTheme: Decorator = (Story, context) => {
   const theme = String(context.globals["theme"] ?? "light");
   document.documentElement.dataset["theme"] = theme;
-  document.body.style.background = "var(--kds-color-background-canvas)";
-  document.body.style.color = "var(--kds-color-foreground-primary)";
+  document.body.style.background = "var(--kds-color-bg-canvas)";
+  document.body.style.color = "var(--kds-color-fg-primary)";
   return <Story />;
 };
 

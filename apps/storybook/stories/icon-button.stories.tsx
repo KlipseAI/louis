@@ -111,7 +111,7 @@ export const InToolbar: Story = {
         alignItems: "center",
         padding: 8,
         borderRadius: "var(--kds-radius-control)",
-        background: "var(--kds-color-background-inset)",
+        background: "var(--kds-color-bg-inset)",
       }}
     >
       <IconButton label="검색" size="sm">

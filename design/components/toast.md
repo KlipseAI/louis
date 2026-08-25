@@ -129,18 +129,18 @@ toast가 떴다는 사실 자체가 이미 "그 일이 일어났다"이므로 �
 | 타이포      | `typography-body-sm-regular` (14px)                      |
 | padding     | `space-control-md` 12px / `space-toast-inline` 20px      |
 | radius      | `radius-overlay` 16px                                    |
-| 배경        | `color-background-inverse-translucent` — **70% 반투명**   |
+| 배경        | `color-bg-inverse-translucent` — **70% 반투명**   |
 | 배경 흐림   | `backdrop-filter: blur(--kds-blur-surface)` 10px         |
-| 전경        | `color-foreground-on-inverse`                            |
-| danger 배경 | `color-background-danger`                         |
-| danger 전경 | `color-foreground-danger`                         |
+| 전경        | `color-fg-on-inverse`                            |
+| danger 배경 | `color-bg-danger`                         |
+| danger 전경 | `color-fg-danger`                         |
 | 그림자      | `elevation-toast` — drop 1겹                             |
 | layer       | `layer-critical`                                         |
 | 최대 폭     | 420px                                                    |
 | 자동 소멸   | 4000ms                                                   |
 
-`color-background-inverse`와 `color-foreground-on-inverse`는 이 컴포넌트가 첫 소비자다. 기존
-`color-foreground-inverse`는 두 모드 모두 `neutral-0`이라 **다크에서 밝아지는 반전 표면 위에서는
+`color-bg-inverse`와 `color-fg-on-inverse`는 이 컴포넌트가 첫 소비자다. 기존
+`color-fg-inverse`는 두 모드 모두 `neutral-0`이라 **다크에서 밝아지는 반전 표면 위에서는
 쓸 수 없다** — 그 토큰은 `action-primary` 위 텍스트를 위한 것이다.
 
 ## Effects

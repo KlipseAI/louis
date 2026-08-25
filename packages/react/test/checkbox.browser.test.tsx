@@ -59,7 +59,7 @@ test("구조값이 components.measured.json과 같다", async () => {
   // 실제로 border가 아니라 inset 헤어라인이다 (DS-D-0023).
   expect(style.borderTopWidth, "border 제거").toBe("0px");
   expect(style.boxShadow, "inset 헤어라인").toContain("inset");
-  expect(style.boxShadow, "헤어라인 색").toContain(tokenValue("color-border-hairline", "color"));
+  expect(style.boxShadow, "헤어라인 색").toContain(tokenValue("color-stroke-hairline", "color"));
   expect(px(getComputedStyle(find(".kds-checkbox")).columnGap), "gap").toBe(spec.gap);
 
   const labelStyle = getComputedStyle(find(".kds-checkbox__label"));
@@ -122,7 +122,7 @@ test("states 표가 코드와 같다", async () => {
   expect(read().borderTopWidth, "Default border 제거").toBe("0px");
   expect(read().boxShadow, "Default 헤어라인").toContain("inset");
   expect(read().boxShadow, "Default 헤어라인 색").toContain(
-    tokenValue("color-border-hairline", "color"),
+    tokenValue("color-stroke-hairline", "color"),
   );
   expect(getComputedStyle(find(".kds-checkbox__label")).color, "Default foreground").toBe(
     tokenValue(states.Default.foreground, "color"),

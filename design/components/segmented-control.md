@@ -84,10 +84,10 @@ variant 축이 없다. 세그먼트 컨트롤은 강조 단계를 갖지 않는�
 
 | state | 표현 |
 | --- | --- |
-| Default | 면 없음(트랙 색이 보인다), 전경 `color-foreground-secondary` |
-| Hover | 전경 `color-foreground-primary`. **면은 바뀌지 않는다** |
-| Selected | 면 `color-background-raised`, 전경 `color-foreground-primary` |
-| Disabled | 전경 `color-foreground-disabled`, `cursor: not-allowed` |
+| Default | 면 없음(트랙 색이 보인다), 전경 `color-fg-secondary` |
+| Hover | 전경 `color-fg-primary`. **면은 바뀌지 않는다** |
+| Selected | 면 `color-bg-raised`, 전경 `color-fg-primary` |
+| Disabled | 전경 `color-fg-disabled`, `cursor: not-allowed` |
 | Focus | 세그먼트가 공유 링을 받는다 |
 
 **hover에서 면을 바꾸지 않는다.** 바꾸면 얹은 것과 선택된 것이 같은 표현이 되어 어느 쪽이 현재
@@ -132,7 +132,7 @@ variant 축이 없다. 세그먼트 컨트롤은 강조 단계를 갖지 않는�
 | 트랙 높이 | 40px | 32px | `layout-control-height-md` / `-sm` |
 | 트랙 padding | 4px | 4px | `space-control-xs` |
 | 트랙 반경 | 12px | 12px | `radius-control` |
-| 트랙 헤어라인 (inset) | 0.5px | 0.5px | `border-width-hairline` + `color-border-hairline` |
+| 트랙 헤어라인 (inset) | 0.5px | 0.5px | `border-width-hairline` + `color-stroke-hairline` |
 | 세그먼트 높이 | 32px | 24px | 트랙 − 2×padding |
 | 세그먼트 반경 | 8px | 8px | `radius-control-sm` |
 | 세그먼트 좌우 여백 | 12px | 8px | `space-control-md` / `-sm` |
@@ -172,8 +172,8 @@ variant 축이 없다. 세그먼트 컨트롤은 강조 단계를 갖지 않는�
 **트랙의 헤어라인은 테두리가 아니라 generic 10% inset box-shadow다.** `border`를 쓰면 border-box
 안쪽이 줄어 세그먼트 높이가 40 − 8 − 2×테두리가 되는데, 브라우저가 DPR 1에서 0.5px을 1px로
 올리므로 그 값이 화면마다 달라진다. inset box-shadow도 레이아웃을 건드리지 않아 세그먼트가 정확히
-32로 남는다. 이전엔 spread-only 바깥 그림자였고 색도 `color-border-subtle`이었다 — 다른 표면과 같은
-generic 10% `color-border-hairline` inset으로 통일했다([DS-D-0023](../governance/decisions/DS-D-0023-hairline-inset.md)).
+32로 남는다. 이전엔 spread-only 바깥 그림자였고 색도 `color-stroke-subtle`이었다 — 다른 표면과 같은
+generic 10% `color-stroke-hairline` inset으로 통일했다([DS-D-0023](../governance/decisions/DS-D-0023-hairline-inset.md)).
 Figma는 INNER_SHADOW로 대응한다 — 이전 OUTSIDE stroke에서 바뀐 것이다.
 
 선택 면에 그림자를 두지 않는다. 제품 A는 헤어라인 프레임을 얹지만, 면 색이 이미 트랙과 다르므로
@@ -181,7 +181,7 @@ Figma는 INNER_SHADOW로 대응한다 — 이전 OUTSIDE stroke에서 바뀐 것
 
 ## Implementation
 
-- 트랙 면 `color-background-inset`과 선택 면 `color-background-raised`는 **한 테마에서 죽지 않는
+- 트랙 면 `color-bg-inset`과 선택 면 `color-bg-raised`는 **한 테마에서 죽지 않는
   유일한 짝이다.** 다크에서 `inset`·`surface`·`menu`·`overlay` 넷이 같은 색이고 라이트에서
   `raised`·`overlay`·`surface` 셋이 같다.
 - 트랙에 헤어라인을 두는 이유도 같다 — 다크에서 `inset`이 `surface`와 같아, 표면 위에 놓인

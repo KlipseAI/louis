@@ -151,15 +151,15 @@ DS-D-0010은 `[data-page-root]` 같은 DOM 상태 스코프를 토큰 축이 아
 
 | 부위 | 제품 값 | KDS 소유자 |
 | --- | --- | --- |
-| 면 | `rgb(var(--accent-red-500-rgb) / 8%)` | 없음 — `color-background-danger`는 불투명 틴트다 |
-| 테두리 | `1px solid rgb(var(--accent-red-500-rgb) / 16%)` | 없음 — `color-border-danger`는 불투명 `#ff4b59`다 |
-| 전경 | `var(--accent-red-500)` `#ff4b59` | `color-action-danger` |
+| 면 | `rgb(var(--accent-red-500-rgb) / 8%)` | 없음 — `color-bg-danger`는 불투명 틴트다 |
+| 테두리 | `1px solid rgb(var(--accent-red-500-rgb) / 16%)` | 없음 — `color-stroke-danger`는 불투명 `#ff4b59`다 |
+| 전경 | `var(--accent-red-500)` `#ff4b59` | `color-accent-danger` |
 
 기하는 반경 12px · 패딩 12px 16px · 타이포 body-14(14px / 1.5) · `margin: 0`이고 세로 간격은 부모 컬럼이
 준다(`billing-success/page.tsx:108-113`). 한 화면에 같은 상수로 두 박스가 연달아 설 수 있다
 (`billing-success/page.tsx:432-438`).
 
-**이걸 모르면 틀리는 것 둘.** 첫째, 면을 `color-background-danger`로 매핑하면 안 된다 — 그 토큰은 light
+**이걸 모르면 틀리는 것 둘.** 첫째, 면을 `color-bg-danger`로 매핑하면 안 된다 — 그 토큰은 light
 `#ffe5e8` · dark `#541119`로 뒤집히는 불투명 값이고, 제품 값은 뒤 배경이 비치는 red-500 8% 알파다.
 둘째, 이 알림에는 아이콘도 접두 문구도 없다 — 색이 유일한 신호다. 위 「색 외의 텍스트·아이콘·형태 신호」
 규칙을 정면으로 어기므로, 소유자 컴포넌트를 세울 때 함께 고친다.

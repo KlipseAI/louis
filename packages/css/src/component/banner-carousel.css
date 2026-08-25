@@ -226,7 +226,7 @@
 }
 
 .kds-banner-carousel__arrow:focus-visible {
-  outline: var(--kds-border-width-ring) solid var(--kds-color-border-focus);
+  outline: var(--kds-border-width-ring) solid var(--kds-color-stroke-focus);
   outline-offset: 2px;
 }
 
@@ -259,7 +259,7 @@
 }
 
 .kds-banner-carousel__dot:focus-visible {
-  outline: var(--kds-border-width-ring) solid var(--kds-color-border-focus);
+  outline: var(--kds-border-width-ring) solid var(--kds-color-stroke-focus);
   outline-offset: 2px;
 }
 

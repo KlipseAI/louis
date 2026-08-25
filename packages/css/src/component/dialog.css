@@ -51,7 +51,7 @@
 .kds-dialog__backdrop {
   position: absolute;
   inset: 0;
-  background: var(--kds-color-scrim-modal);
+  background: var(--kds-color-dim-modal);
 }
 
 .kds-dialog__surface {
@@ -78,12 +78,12 @@
     )
   );
   overflow: hidden;
-  background: var(--kds-color-background-overlay);
+  background: var(--kds-color-bg-overlay);
   border-radius: var(--kds-dialog-surface-radius);
   /* 경계는 border가 아니라 modal elevation 뒤에 조합한 inset 헤어라인이다 (DS-D-0023). dark에서
    * elevation-modal 그림자만으로는 표면 경계가 서지 않아 generic 10% 헤어라인 한 겹을 남긴다. */
   box-shadow: var(--kds-elevation-modal), var(--kds-hairline-inset);
-  color: var(--kds-color-foreground-primary);
+  color: var(--kds-color-fg-primary);
 
   /* enter/exit transform의 절반. duration/timing을 **inherit**로 받는 것이 이 블록의 핵심이다.
    * presence의 readExitDuration은 root의 computed transition-duration을 읽는데, inherit는
@@ -129,7 +129,7 @@
 
 .kds-dialog__title {
   margin: 0;
-  color: var(--kds-color-foreground-primary);
+  color: var(--kds-color-fg-primary);
   overflow-wrap: break-word;
   word-break: keep-all;
   font-family: var(--kds-typography-heading-md-medium-font-family);
@@ -142,7 +142,7 @@
 .kds-dialog__description {
   margin: 0;
   margin-block-start: var(--kds-space-control-xs);
-  color: var(--kds-color-foreground-secondary);
+  color: var(--kds-color-fg-secondary);
   overflow-wrap: break-word;
   word-break: keep-all;
   font-family: var(--kds-typography-body-sm-regular-font-family);
@@ -163,13 +163,13 @@
   border: 0;
   border-radius: var(--kds-radius-control);
   background: transparent;
-  color: var(--kds-color-foreground-secondary);
+  color: var(--kds-color-fg-secondary);
   cursor: pointer;
 }
 
 .kds-dialog__close[aria-disabled="true"] {
   cursor: not-allowed;
-  color: var(--kds-color-foreground-disabled);
+  color: var(--kds-color-fg-disabled);
 }
 
 /* 스크롤은 이 요소 하나만 한다. */

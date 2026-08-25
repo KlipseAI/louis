@@ -65,7 +65,7 @@ test("focus 링 색이 semantic 토큰에서 온다", () => {
     target.focus();
     const outline = getComputedStyle(target).outlineColor;
     const tokenValue = getComputedStyle(document.documentElement)
-      .getPropertyValue("--kds-color-border-focus")
+      .getPropertyValue("--kds-color-stroke-focus")
       .trim();
     expect(tokenValue).not.toBe("");
     // 둘 다 브라우저가 계산한 색 문자열이므로 직접 비교 가능하다.

@@ -88,10 +88,10 @@ states 표를 두지 않는다. 칠해지는 면(레일·채움·썸)이 전부 
 
 | state | 표현 |
 | --- | --- |
-| Default | 채움 `color-action-primary`, 빈 레일 `color-border-default`, 썸 `color-action-primary` + 표면색 링 |
+| Default | 채움 `color-accent-primary`, 빈 레일 `color-stroke-default`, 썸 `color-accent-primary` + 표면색 링 |
 | Hover | **바뀌지 않는다** |
 | Focus | 컨트롤 전체가 공유 링을 받는다 |
-| Disabled | 레일 전체 `color-border-subtle`, 썸 `color-foreground-disabled`, `cursor: not-allowed` |
+| Disabled | 레일 전체 `color-stroke-subtle`, 썸 `color-fg-disabled`, `cursor: not-allowed` |
 
 **hover에서 아무것도 바꾸지 않는다.** 제품의 두 레시피는 썸을 1.15배로 키우는데, 커서가 이미
 레일 위에 있고 손잡이가 보이므로 어포던스가 부족하지 않다. 크기가 변하면 그 순간 값이 어디인지

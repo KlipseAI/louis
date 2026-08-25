@@ -24,7 +24,7 @@
   min-inline-size: 0;
   padding: 0;
   /* 경계는 border가 아니라 generic 10% inset 헤어라인이다 (DS-D-0023). 이전엔
-   * color-border-subtle border였고, `overflow: hidden`과 만나 썸네일 위 가장자리에 그려졌다.
+   * color-stroke-subtle border였고, `overflow: hidden`과 만나 썸네일 위 가장자리에 그려졌다.
    * inset 헤어라인은 레이아웃을 건드리지 않으며 제품 5103ffeb과 같은 표현이다 — full-bleed
    * 썸네일이 있는 카드에서는 미디어가 그 가장자리를 덮을 수 있다(제품과 동일한 결과). */
   box-shadow: var(--kds-hairline-inset);
@@ -69,7 +69,7 @@
 
 /* focus ring도 액션이 받되 링은 프레임에 그린다. 투명한 층에 링만 뜨면 무엇이 선택됐는지 모른다. */
 .kds-project-card:has(.kds-project-card-action:focus-visible) {
-  outline: var(--kds-border-width-ring) solid var(--kds-color-border-focus);
+  outline: var(--kds-border-width-ring) solid var(--kds-color-stroke-focus);
   /* base.css의 공유 링과 같은 틈이다. `space-card-text-gap`(4px)을 쓰면 그 토큰이 텍스트 간격과
    * 링 간격 두 자리를 한 값으로 묶어 버린다 — 하나를 고치면 다른 하나가 따라 움직인다. */
   outline-offset: 2px;
@@ -101,7 +101,7 @@
   inline-size: 100%;
   min-inline-size: 0;
   aspect-ratio: var(--kds-project-card-aspect-ratio);
-  background: var(--kds-color-background-canvas);
+  background: var(--kds-color-bg-canvas);
   overflow: hidden;
   /* 미디어 면 안에서 칠 순서를 닫는다. 카드 밖 요소가 오버레이 사이로 끼어들지 못한다. */
   isolation: isolate;
@@ -129,7 +129,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--kds-color-foreground-tertiary);
+  color: var(--kds-color-fg-tertiary);
 }
 
 .kds-project-card-overlay {
@@ -215,7 +215,7 @@
  * 놓인 썸네일에 따라 달라진다. 토큰은 달라지지 않는다. */
 .kds-project-card-eyebrow,
 .kds-project-card-meta {
-  color: var(--kds-color-foreground-secondary);
+  color: var(--kds-color-fg-secondary);
   font-family: var(--kds-typography-body-sm-regular-font-family);
   font-size: var(--kds-typography-body-sm-regular-font-size);
   font-weight: var(--kds-typography-body-sm-regular-font-weight);
@@ -223,7 +223,7 @@
 }
 
 .kds-project-card-title {
-  color: var(--kds-color-foreground-primary);
+  color: var(--kds-color-fg-primary);
   font-family: var(--kds-typography-body-md-medium-font-family);
   font-size: var(--kds-typography-body-md-medium-font-size);
   font-weight: var(--kds-typography-body-md-medium-font-weight);
@@ -240,7 +240,7 @@
   display: inline-flex;
   align-items: center;
   /* 프레임이 `<a>`가 아니게 됐지만, 슬롯 안에 링크를 넣는 소비자가 UA 색을 물려받지 않게 한다. */
-  color: var(--kds-color-foreground-primary);
+  color: var(--kds-color-fg-primary);
 }
 
 .kds-project-card-adornment[data-placement="top-start"] {
@@ -344,7 +344,7 @@
 }
 
 .kds-project-card-more:focus-visible {
-  outline: var(--kds-border-width-ring) solid var(--kds-color-border-focus);
+  outline: var(--kds-border-width-ring) solid var(--kds-color-stroke-focus);
   outline-offset: 2px;
 }
 
@@ -365,7 +365,7 @@
 }
 
 .kds-project-card-rename:focus-visible {
-  outline: var(--kds-border-width-hairline) solid var(--kds-color-border-focus);
+  outline: var(--kds-border-width-hairline) solid var(--kds-color-stroke-focus);
   outline-offset: 2px;
 }
 

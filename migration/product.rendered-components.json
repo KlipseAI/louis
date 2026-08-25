@@ -3638,7 +3638,7 @@
     {
       "axis": "nav-item-hover-light.backgroundColor",
       "product": "rgb(228 229 233 / 0.5)",
-      "ds": "color-action-ghost-hover",
+      "ds": "color-accent-ghost-hover",
       "why": "라이트만 갈린다. 제품은 재매핑된 palette-gray-300을 50%로 덮고(rgb 228 229 233 / 0.5) DS는 ink 8%를 쓴다 — 면 계열에 매는 것과 잉크에 매는 것의 차이다. `action-ghost-hover`는 SelectableListRow와 공유하는 토큰이라 사이드바 하나 때문에 옮기지 않는다. 다크는 rgb(250 250 250 / 0.1)로 정확히 같다."
     },
     {

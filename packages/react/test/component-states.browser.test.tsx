@@ -1,7 +1,7 @@
 // figma/components.measured.json의 states 표를 코드가 실제로 만드는지 검증한다.
 //
 // **색 이름을 역조회하지 않는다.** 같은 값을 갖는 토큰이 여럿 있어서(light에서
-// color-background-surface와 color-foreground-inverse가 둘 다 neutral-0) 계산색 → 이름 역조회는
+// color-bg-surface와 color-fg-inverse가 둘 다 neutral-0) 계산색 → 이름 역조회는
 // 나중에 넣은 쪽으로 붙는다. 실제로 그렇게 잘못 읽은 적이 있다. 대신 **기대 토큰의 계산값**을
 // probe로 얻어 값끼리 비교한다.
 import type { JSX } from "react";
@@ -43,12 +43,12 @@ function assertPaint(node: Element, expected: Paint, label: string): void {
   expect(style.backgroundColor, `${label} background`).toBe(wantBackground);
   expect(style.color, `${label} foreground`).toBe(tokenValue(expected.foreground, "color"));
   if (expected.border !== undefined) {
-    if (expected.border === "color-border-hairline") {
+    if (expected.border === "color-stroke-hairline") {
       // DS-D-0023: 일반 stroke는 border가 아니라 generic 헤어라인 inset이다.
       expect(style.borderTopWidth, `${label} border 제거`).toBe("0px");
       expect(style.boxShadow, `${label} 헤어라인`).toContain("inset");
       expect(style.boxShadow, `${label} 헤어라인 색`).toContain(
-        tokenValue("color-border-hairline", "color"),
+        tokenValue("color-stroke-hairline", "color"),
       );
     } else {
       expect(style.borderTopColor, `${label} border`).toBe(tokenValue(expected.border, "color"));

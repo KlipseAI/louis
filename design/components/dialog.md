@@ -379,7 +379,7 @@ host의 두 번째 직속 자식이 되고, primitive의 중첩 격리가 자기
   Specification의 `viewport - 40px`을 맞추려면 20px이 필요해 값을 지키고 리터럴을 한 줄에 격리했다.
 - **surface padding이 `space-layout-*`에서 온다.** `space-surface-*` tier가 없다. `space-control-*`는
   컨트롤 **내부** 스케일이라 표면 여백에 쓰지 않는다.
-- **`surface-scrim-modal` 대신 `color-scrim-modal`을 쓰고 값이 50%가 아니라 56%(light)/72%(dark)다.**
+- **`surface-scrim-modal` 대신 `color-dim-modal`을 쓰고 값이 50%가 아니라 56%(light)/72%(dark)다.**
   Specification 표가 대는 이름의 토큰이 없고 실제 값은 두 테마에서 다르다.
 - **surface 경계는 border가 아니라 inset 헤어라인이다.** Specification 표에는 없지만 dark에서
   `elevation-modal` 그림자만으로 표면 경계가 서지 않아, modal elevation 뒤에 조합한 inset

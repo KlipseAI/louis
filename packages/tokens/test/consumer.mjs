@@ -20,8 +20,8 @@ invariant(metadata.figmaCollection === "Klipse", "metadata mismatch");
 invariant(Object.keys(primitives).length > 0, "primitive export is empty");
 invariant(Object.keys(tokens.light).length > 0, "light token export is empty");
 invariant(
-  tokens.light["color-background-canvas"].aliasTarget?.id ===
-    "color-neutral-100",
+  tokens.light["color-bg-canvas"].aliasTarget?.id ===
+    "color-gray-100",
   "semantic alias export mismatch",
 );
 invariant(
@@ -66,7 +66,7 @@ invariant(
 invariant(cssUrl.endsWith("/generated/tokens.css"), "CSS export mismatch");
 const css = readFileSync(new URL(cssUrl), "utf8");
 invariant(
-  css.includes("--kds-color-background-canvas") &&
+  css.includes("--kds-color-bg-canvas") &&
     css.includes("color-scheme: dark"),
   "CSS artifact content mismatch",
 );

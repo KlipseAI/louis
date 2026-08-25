@@ -120,8 +120,8 @@ variant 축이 되는데, 그 축을 세울 근거가 하나뿐이다.
 두었다.
 
 **남은 판정.** `ghost` 라이트 8%는 [App Shell Parts](app-shell-parts.md)가 이미
-`color-action-ghost-hover`의 잉크 8%로 적어 둔 값과 같다. `secondary`의 5%에 대응하는
-`color-action-secondary-hover` 토큰은 **아직 없다** — 추가 여부가 판정 대상이고 그때까지는 위
+`color-accent-ghost-hover`의 잉크 8%로 적어 둔 값과 같다. `secondary`의 5%에 대응하는
+`color-accent-secondary-hover` 토큰은 **아직 없다** — 추가 여부가 판정 대상이고 그때까지는 위
 실측값을 정본으로 둔다.
 
 ## Content
@@ -201,7 +201,7 @@ focus-visible 링은 브라우저가 그리므로 Figma variant로 두지 않는
 | 아이콘 슬롯 | `icon-size-md` 20px                 | `icon-size-sm` 16px                 |
 
 **base에는 stroke가 없다.** 위 헤어라인 행은 `secondary` variant에만 적용된다 — `border-width-hairline`
-0.5px 두께의 `color-border-hairline` 색을 CSS `border`가 아니라 inset box-shadow로 그린다
+0.5px 두께의 `color-stroke-hairline` 색을 CSS `border`가 아니라 inset box-shadow로 그린다
 ([DS-D-0023](../governance/decisions/DS-D-0023-hairline-inset.md)).
 
 **이 값들은 제품 배포 코드에서 채택한 것이다.** 근거와 채택/편차 판정은
@@ -221,8 +221,8 @@ focus-visible 링은 브라우저가 그리므로 Figma variant로 두지 않는
 
 ## Known deviations
 
-- **`danger` variant가 tonal이다.** solid danger를 표현할 `color-action-danger*` 토큰이 아직 없어
-  `color-background-danger`·`color-foreground-danger`로 대체했다. `DS-P3-014` 단위 9가 토큰을 추가하면 갱신한다.
+- **`danger` variant가 tonal이다.** solid danger를 표현할 `color-accent-danger*` 토큰이 아직 없어
+  `color-bg-danger`·`color-fg-danger`로 대체했다. `DS-P3-014` 단위 9가 토큰을 추가하면 갱신한다.
   Button은 foreground와 background를 **쌍으로** 쓰므로 대비가 성립한다. 같은 토큰을 텍스트 색으로만
   쓰면 중립 표면에서 무너지는데, 그 실측은 [Menu / Popover](menu-popover.md)의 Known deviations에 있다.
 - **고정 높이가 없다.** 높이를 padding과 line-height로 결정하고 44px 타깃은 `kds-hit-target`이

@@ -82,13 +82,13 @@ master-detail의 좌측 열에서 하나를 고른다.
 
 | state | 표현 |
 | --- | --- |
-| Default | 면 없음, 전경 `color-foreground-secondary` |
-| Hover | 면 `color-action-ghost-hover`, 전경 `color-foreground-primary` |
-| Selected | 면 `color-background-inset` **+ 3px 선행 표식** `color-action-primary`, 전경 `color-foreground-primary` |
-| Disabled | 전경 `color-foreground-disabled`, hover가 면을 칠하지 않는다 |
+| Default | 면 없음, 전경 `color-fg-secondary` |
+| Hover | 면 `color-accent-ghost-hover`, 전경 `color-fg-primary` |
+| Selected | 면 `color-bg-inset` **+ 3px 선행 표식** `color-accent-primary`, 전경 `color-fg-primary` |
+| Disabled | 전경 `color-fg-disabled`, hover가 면을 칠하지 않는다 |
 | Focus | 행이 공유 링을 받는다 |
 
-**선택된 행에서도 보조 문구는 `color-foreground-secondary`로 남는다.** 둘 다 primary가 되면
+**선택된 행에서도 보조 문구는 `color-fg-secondary`로 남는다.** 둘 다 primary가 되면
 제목과 보조의 위계가 사라진다.
 
 ## Interaction and responsive behavior
@@ -140,7 +140,7 @@ master-detail의 좌측 열에서 하나를 고른다.
 ## Implementation
 
 **선택 면 하나에 기대면 다크에서 사라진다.** Sidebar Nav Item은 `aria-current` +
-`color-background-inset`만으로 선택을 표현하는데, 그것이 성립하는 이유는 **사이드바가 캔버스 위에
+`color-bg-inset`만으로 선택을 표현하는데, 그것이 성립하는 이유는 **사이드바가 캔버스 위에
 있기 때문**이다. 다크에서 `background-inset`은 `surface`·`menu`·`overlay`와 **같은 색**이고,
 목록은 표면 위에도 놓인다.
 

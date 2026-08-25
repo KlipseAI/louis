@@ -62,9 +62,9 @@ schema 또는 자동 import 입력으로 사용하지 않는다.
 
 | 제품 legacy/사용 맥락                                       | 새 semantic ID                                | 적용 조건과 근거                                                                         |
 | ----------------------------------------------------------- | --------------------------------------------- | ---------------------------------------------------------------------------------------- |
-| `--background`, `--app-page-bg`의 page/canvas 사용          | `color-background-canvas`                     | 현재 light `neutral.100`, dark `neutral.900` 관계와 일치한다.                            |
-| `--surface-page`                                            | `color-background-canvas`                     | mode 관계는 일치하지만 현재 소비 0건이므로 새 사용을 만들지 말고 legacy 선언만 제거한다. |
-| `--foreground`의 body/default content 사용                  | `color-foreground-primary`                    | page 기본 글자 역할에 한정한다.                                                          |
+| `--background`, `--app-page-bg`의 page/canvas 사용          | `color-bg-canvas`                     | 현재 light `neutral.100`, dark `neutral.900` 관계와 일치한다.                            |
+| `--surface-page`                                            | `color-bg-canvas`                     | mode 관계는 일치하지만 현재 소비 0건이므로 새 사용을 만들지 말고 legacy 선언만 제거한다. |
+| `--foreground`의 body/default content 사용                  | `color-fg-primary`                    | page 기본 글자 역할에 한정한다.                                                          |
 | `.type-caption-12-{regular,medium,semibold}`                | `typography-caption-{regular,medium,semibold}` | 12px, 1.5, letter spacing −0.12px가 일치한다.                                            |
 | `.type-body-14-{regular,medium,semibold}`                   | `typography-body-sm-{regular,medium,semibold}` | fixed 14px body에 한정한다.                                                              |
 | `.type-body-16-{regular,medium,semibold}`                   | `typography-body-md-{regular,medium,semibold}` | fixed 16px body에 한정하며 450px 전역 축소 규칙은 포함하지 않는다.                       |
@@ -79,8 +79,8 @@ schema 또는 자동 import 입력으로 사용하지 않는다.
 | `--app-gnb-main-inline-padding: 16px`                       | `layout-app-shell-content-inset`              | main content leading inset 관계를 보존한다.                                              |
 | `--app-gnb-sidebar-padding-x: 12px`                         | `layout-app-shell-sidebar-padding`            | sidebar 내부 정렬선에 한정한다.                                                          |
 | danger/success/warning/info 의미가 확인된 상태 메시지·badge | `color-status-*-{background,foreground}`      | YouTube red나 editor channel처럼 상태가 아닌 accent에는 적용하지 않는다.                 |
-| modal scrim 역할이 확인된 overlay                           | `color-scrim-modal`                           | 기존 RGB 재료가 아니라 완성된 semantic scrim을 소비한다.                                 |
-| 제거된 전역 focus outline의 대체 ring                       | `color-border-focus` + `elevation-focus-ring` | DS control은 `:focus-visible`에서 둘을 제공해야 한다.                                    |
+| modal scrim 역할이 확인된 overlay                           | `color-dim-modal`                           | 기존 RGB 재료가 아니라 완성된 semantic scrim을 소비한다.                                 |
+| 제거된 전역 focus outline의 대체 ring                       | `color-stroke-focus` + `elevation-focus-ring` | DS control은 `:focus-visible`에서 둘을 제공해야 한다.                                    |
 | `prefers-reduced-motion` 대체                               | `motion-reduced`                              | 0.01ms, 1ms와 `none` 혼용 대신 lifecycle을 보존하는 공용 reduced path를 사용한다.        |
 
 ### 검토 필요
@@ -92,12 +92,12 @@ light/dark, contrast, focus와 visual regression을 통과한 뒤 확정 표로 
 | --------------------------------------------------------- | ------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------- |
 | `--gray-000..1000`, `--gray-*-rgb`                        | foreground/background/border 역할별 분해                           | theme에 따라 숫자 ramp가 뒤집히고 `--gray-000-rgb` 하나가 글자·면·테두리 alpha를 모두 맡는다.   |
 | component가 직접 소비하는 `--palette-gray-*`              | 사용 맥락의 semantic color                                         | primitive 값은 보존됐지만 제품 component의 primitive 직접 소비는 새 계약이 아니다.              |
-| `--primary`, `--primary-500`, primary gradient            | `color-action-primary` 계열 또는 component recipe                  | 새 action은 blue.700 기반이고 기존 blue.500/450 gradient와 시각값이 다르다.                     |
-| `--primary-on`                                            | `color-foreground-inverse`                                         | legacy는 소비 0건이고 light에서 반전 gray를 참조한다. alias하지 말고 실제 대비 pair를 사용한다. |
+| `--primary`, `--primary-500`, primary gradient            | `color-accent-primary` 계열 또는 component recipe                  | 새 action은 blue.700 기반이고 기존 blue.500/450 gradient와 시각값이 다르다.                     |
+| `--primary-on`                                            | `color-fg-inverse`                                         | legacy는 소비 0건이고 light에서 반전 gray를 참조한다. alias하지 말고 실제 대비 pair를 사용한다. |
 | `--surface-raised`, `--surface-input`, `--surface-answer` | background semantic 또는 새 component role                         | 현재 DTCG mode 값과 일치하지 않거나 input/answer 전용 role이 없다. 기존 선언도 소비가 없다.     |
-| `--surface-inset*`                                        | `color-background-inset` + state recipe                            | hover/pressed 상태가 별도 color ID로 아직 정의되지 않았다.                                      |
-| `--border-input`, `--border-control`                      | `color-border-*`                                                   | legacy mode 값과 새 subtle/default/strong 값이 다르고 소비 0건이다.                             |
-| `--dropdown-surface-bg`                                   | `color-background-overlay`                                         | dark는 일치하지만 light legacy `neutral.100`과 새 overlay `neutral.0`이 다르다.                 |
+| `--surface-inset*`                                        | `color-bg-inset` + state recipe                            | hover/pressed 상태가 별도 color ID로 아직 정의되지 않았다.                                      |
+| `--border-input`, `--border-control`                      | `color-stroke-*`                                                   | legacy mode 값과 새 subtle/default/strong 값이 다르고 소비 0건이다.                             |
+| `--dropdown-surface-bg`                                   | `color-bg-overlay`                                         | dark는 일치하지만 light legacy `neutral.100`과 새 overlay `neutral.0`이 다르다.                 |
 | `--app-tooltip-*` color/radius/shadow/motion              | overlay color + P3 Tooltip component token                         | tooltip은 현재 theme와 반대되는 면을 쓰고 8px/140ms/120ms 전용 계약을 가진다.                   |
 | `--glass-dropdown-frame`, bevel shadow                    | `elevation-popover` + overlay border recipe                        | 0.5px frame과 inset bevel은 새 단일 shadow와 동치가 아니다. 조합을 visual review한다.           |
 | `--dropdown-ambient-shadow`, tooltip shadow               | `elevation-popover`                                                | legacy 8/15/4%·12/24/12%와 새 8/24/-4/14%가 달라 screenshot 비교가 필요하다.                    |
@@ -134,10 +134,10 @@ light/dark, contrast, focus와 visual regression을 통과한 뒤 확정 표로 
 재선언한다. 동일 primitive ID가 subtree 존재 여부에 따라 달라지므로 DTCG source, Figma와 캔버스가 같은
 색을 보장할 수 없다.
 
-- `color-neutral-*`, `color-blue-*` 같은 DS primitive는 어떤 theme, route 또는 component scope에서도
+- `color-gray-*`, `color-blue-*` 같은 DS primitive는 어떤 theme, route 또는 component scope에서도
   override하지 않는다.
 - theme는 semantic color만 light/dark alias로 resolve한다.
-- App Shell의 다른 면색은 `color-background-*` 또는 제품 adapter의 명시적 app role로 표현한다.
+- App Shell의 다른 면색은 `color-bg-*` 또는 제품 adapter의 명시적 app role로 표현한다.
 - GNB가 mount됐다는 이유로 `body` palette를 바꾸는 selector는 semantic 이관이 끝나면 제거한다.
 
 ### Canvas literal drift

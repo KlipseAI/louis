@@ -16,6 +16,35 @@ authority: normative
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
 
+## 2026-08-25 (101) — 색 토큰을 SEED/Toss식 scale·semantic로 재구성한다 (DS-D-0024)
+
+색 시스템이 과복잡했다 — primitive 14계열(알파 5계열 포함), semantic 81역할, light/dark 3중
+메커니즘. SEED(scale→semantic, static-black/white-alpha)를 기준으로 단순화했다 —
+[DS-D-0024](../governance/decisions/DS-D-0024-color-architecture.md).
+
+### Changed (Phase 1 — KDS 토큰 기반)
+
+- primitive `neutral` → `gray`. 알파 5계열 → 2(+danger): `ink-alpha`+`black-alpha` →
+  `static-black-alpha`(순수 #000), `paper-alpha`+`inverse-alpha` → `static-white-alpha`(순수 #fff),
+  `red-alpha` 유지. hue(`blue/red/green/amber`)와 노드 accent(`mint/yellow/violet/pink`) 유지.
+- semantic 접두사: `background-`→`bg-` · `foreground-`→`fg-` · `border-`→`stroke-` · `action-`→`accent-` ·
+  `scrim-`→`dim-`. `node-*`·`media-*`·`progress-*`는 네임스페이스 유지. 값·의미 보존.
+- 컴포넌트 CSS·테스트·규범·measured 참조를 새 이름으로 일괄 갱신. DS-D-0023 헤어라인 토큰도
+  `color-stroke-hairline` / `static-black-alpha.10`로 갱신.
+
+### Current impact
+
+- 오버레이/호버/헤어라인 색이 순수 흑/백 알파로 미세하게 바뀐다(#171b22/#fafafa 틴트 제거, 의도).
+- KDS `pnpm check` + `pnpm test`(776) 통과. `verify`(figma-parity·product-parity)와 Figma 라이브
+  컬렉션은 아직 이전 이름 — 후속 Phase에서 재정합.
+
+### Migration (남은 Phase)
+
+- **P2 (제품)**: `--kds-color-*` 소비처 183파일 rename + `globals.css`의 `palette-gray↔gray` 반전
+  제거(KDS 세만틱 직접 소비) + 게이트 9종.
+- **P3 (Figma)**: `Klipse Primitive`/`Semantic`/`Semantic Color` 3컬렉션 재구성 + parity 재정합
+  (라이브 공유 파일, 수동 편집 + publish).
+
 ## 2026-08-24 (100) — 일반 0.5px stroke를 border에서 inset 헤어라인으로 통일한다 (DS-D-0023)
 
 제품 저장소가 `5103ffeb`에서 제각각이던 0.5px stroke를 하나의 recipe로 통일했다 — CSS `border`나
@@ -27,9 +56,9 @@ authority: normative
 
 ### Added
 
-- primitive `color-black-alpha-10`(순수 black 10%). 제품 실측 헤어라인이 라이트에서 `rgba(0, 0, 0, 0.1)`
+- primitive `color-static-black-alpha-10`(순수 black 10%). 제품 실측 헤어라인이 라이트에서 `rgba(0, 0, 0, 0.1)`
   이고 `ink-alpha.10`(#171b22)이 아니므로 순수 black 단계가 필요했다.
-- semantic `color-border-hairline` — light `black-alpha.10` · dark `paper-alpha.10`.
+- semantic `color-stroke-hairline` — light `black-alpha.10` · dark `paper-alpha.10`.
 - CSS foundation recipe `--kds-hairline-inset` / `-block-start` / `-block-end`
   (`packages/css/src/base.css`, `:root` 한 곳).
 
@@ -788,8 +817,8 @@ verify를 중간에 죽이지 않는 편이 낫고, 죽였으면 다음 실행 �
 
 | 실패 | 기대 | 실제 |
 | --- | --- | --- |
-| sidebar CTA | `--kds-color-background-upgrade` `#171b22` | `--kds-color-background-upgrade-hover` **`#313640`** |
-| segmented | Default = `color-foreground-secondary` `#575d68` | Hover = `color-foreground-primary` **`#171b22`** |
+| sidebar CTA | `--kds-color-bg-upgrade` `#171b22` | `--kds-color-bg-upgrade-hover` **`#313640`** |
+| segmented | Default = `color-fg-secondary` `#575d68` | Hover = `color-fg-primary` **`#171b22`** |
 
 `userEvent.hover()`는 **진짜 마우스를 움직인다.** 얹은 채로 테스트가 끝나면 다음 테스트에서 같은
 좌표에 렌더된 요소가 `:hover`를 받는다. 값이 「그럴듯한 다른 색」이라 원인이 안 보인다.
@@ -1623,7 +1652,7 @@ duration      58단 / 56.9% ★
 
 ### 없던 것
 
-`color-foreground-danger`는 `color-background-danger`와 **쌍으로** 쓰도록 만들어졌고 두 테마에서
+`color-fg-danger`는 `color-bg-danger`와 **쌍으로** 쓰도록 만들어졌고 두 테마에서
 값이 서로 뒤바뀝니다. 그래서 **텍스트 색으로만 쓰면 본문색과 구분되지 않습니다** — light 1.21 ·
 dark 1.14. Button은 쌍으로 써서 성립하지만 Menu의 danger item이 이 공백을 그대로 밟고 있었습니다.
 
@@ -1640,7 +1669,7 @@ dark 1.14. Button은 쌍으로 써서 성립하지만 Menu의 danger item이 이
 본문색과의 차가 1.77로 「빨강」으로 읽히지 않습니다. **두 표면 모두 4.5를 넘으면서 본문색과도
 구분되는 것은 red-700 / red-400뿐**입니다.
 
-`color-foreground-danger-on-surface`를 세웠고 **contrastPairs 두 쌍을 함께 올렸습니다**
+`color-fg-danger-on-surface`를 세웠고 **contrastPairs 두 쌍을 함께 올렸습니다**
 (`background-surface`·`background-menu`, 각 4.5). 게이트가 매번 실제 WCAG 계산으로 확인합니다.
 
 ### 게이트가 규칙을 하나 가르쳐 줬습니다
@@ -1663,7 +1692,7 @@ contrastPairs 1   ← 의도한 항목
 
 ### Migration
 
-`color-foreground-danger-on-surface`가 순증했습니다. 기존 `color-foreground-danger`는 그대로이며
+`color-fg-danger-on-surface`가 순증했습니다. 기존 `color-fg-danger`는 그대로이며
 **쌍으로 쓰는 자리에서는 계속 그것을 씁니다.** 중립 표면 위 텍스트에만 새 토큰을 씁니다.
 
 ## 2026-08-21 (72) — 단위 8. 축마다 찾는 대신 전 축을 재는 계기를 세웠습니다
@@ -2526,7 +2555,7 @@ compact에서 상단만 유지되고 우측은 16, 하단은 0으로 갈라집�
   라벨이 최대 54px을 차지한다는 것을 감안하세요.
 - `BannerCarousel`의 사진은 이제 `--kds-banner-image`로 들어갑니다. `backgroundImage`를 직접
   인라인으로 넣던 호출부가 있다면 스크림 레이어를 덮게 되므로 바꿔야 합니다.
-- mint 토큰이 사라졌다가 링의 색으로 다시 섰습니다. `color-background-upgrade` 계열을 직접 읽던
+- mint 토큰이 사라졌다가 링의 색으로 다시 섰습니다. `color-bg-upgrade` 계열을 직접 읽던
   호출부는 값이 바뀐 것을 확인하세요.
 
 ## 2026-08-18 (53) — 눈에 보이는 것을 재기 시작합니다
@@ -3248,14 +3277,14 @@ owner 요청으로 seed-design.io 전 영역(색·타이포·레이아웃·tier 
 
 ### 그런데 대조 과정에서 우리 결함 둘이 드러났습니다
 
-**① `color-action-primary-pressed`가 옛 혼동을 들고 있었습니다.**
+**① `color-accent-primary-pressed`가 옛 혼동을 들고 있었습니다.**
 
 `interaction-states.md`는 `active`=`:active`(누르는 중, 일시적), `pressed`=`aria-pressed="true"`
 (토글 켜짐, 지속)로 고정하고 **"절대 섞지 않는다"**고 못 박았습니다. 그 문서 자체가 과거 이
 혼동을 기록하려고 쓰였습니다.
 
 그런데 이 토큰은 `button.css`와 `icon-button.css`에서 **`:active`로 소비됩니다.** 컴포넌트 층은
-고쳤는데 **토큰 이름만 옛 이름으로 남아 있었습니다.** `color-action-primary-active`로 바꿨습니다.
+고쳤는데 **토큰 이름만 옛 이름으로 남아 있었습니다.** `color-accent-primary-active`로 바꿨습니다.
 
 **SEED은 이것을 잡아 주지 못합니다** — SEED에 `active` 축이 없어 SEED도 `pressed`라 부릅니다.
 우리 규범이 SEED보다 정밀한 자리입니다.
@@ -3264,15 +3293,15 @@ owner 요청으로 seed-design.io 전 영역(색·타이포·레이아웃·tier 
 
 | 형태 | 개수 |
 | --- | ---: |
-| 속성이 앞 (`color-background-canvas`) | **24** |
+| 속성이 앞 (`color-bg-canvas`) | **24** |
 | 속성이 뒤 (`color-status-danger-background`) | 8 |
 | role 우선, 그룹 안에서도 흔들림 | 18 |
 
 SEED은 `$color.{property}.{role}` 하나로 예외가 없고, **이 축은 SEED이 낫습니다.** 다만 처방은
 "SEED 이름을 쓴다"가 아니라 **"우리 다수파로 통일한다"**입니다.
 
-`color-status-*` 8개를 속성 앞으로 옮겼습니다 — `color-background-danger` ·
-`color-foreground-danger` 식입니다. `color-border-danger`가 이미 그 형태라 나란히 섭니다.
+`color-status-*` 8개를 속성 앞으로 옮겼습니다 — `color-bg-danger` ·
+`color-fg-danger` 식입니다. `color-stroke-danger`가 이미 그 형태라 나란히 섭니다.
 
 ### 왜 지금인가
 
@@ -3989,7 +4018,7 @@ gap registry가 `layout-project-card-minimum`을 **"소비처 0 · 존재하지 
 토큰"**으로 분류하고 owner 판정 대기로 두었다. 그 추측이 맞았다 — **이 토큰은 카드가 아니라
 그리드의 것이었고**, Project Grid가 서면서 첫 CSS 소비처가 생겼다.
 
-인계서 (1a)의 `color-border-strong`과 같은 종류다. **"소비처가 0"은 폐기 사유가 아니라 아직
+인계서 (1a)의 `color-stroke-strong`과 같은 종류다. **"소비처가 0"은 폐기 사유가 아니라 아직
 그것을 쓸 것이 서지 않았다는 뜻일 수 있다.** 이름이 뜻과 맞는지를 먼저 본다.
 
 ### 패턴 recipe의 자리가 생겼다
@@ -4129,7 +4158,7 @@ install → 브라우저 설치 → build → check → verify → `--require-tr
 1. **브라우저 바이너리 설치 단계가 없었다** — 로컬 캐시 때문에 로컬에서만 통과
 2. **632건이 CI에서 한 번도 돈 적이 없었다** — `verify`는 러너의 실패 전파만 증명한다
 3. **앞 테스트의 포인터가 남아 행이 `:hover`였다** — 받은 값 `#171b22 / 0.08`이
-   `color-action-ghost-hover`였다. `surface-states`가 이미 적어 둔 함정을 이 파일이 안 따랐다
+   `color-accent-ghost-hover`였다. `surface-states`가 이미 적어 둔 함정을 이 파일이 안 따랐다
 4. **틀린 진단 하나** — 3번을 "범위 한정 누락"이라 단정했다가 CI가 반증했다
 
 ### 방법 하나가 섰다
@@ -4235,7 +4264,7 @@ gap registry 우선순위 1~15 어디에도 `select`가 들지 않은 이유가 
 수요가 생기면 Decision으로 이 판정을 뒤집고 다시 연다 — `not-planned`는 "안 만든다"가 아니라
 "계획에 없다는 것이 결정됐다"는 뜻이다.
 
-### `color-border-strong`이 폐기 후보에서 빠졌다
+### `color-stroke-strong`이 폐기 후보에서 빠졌다
 
 인계서 (1a)가 "소비처 0이고 이름이 가리키는 것이 그 이름을 안 쓴다"고 분류한 넷 중 하나였는데,
 Checkbox가 첫 소비처가 되면서 이름이 뜻과 맞게 됐다 — 경계가 반드시 보여야 하는 자리다.
@@ -4421,15 +4450,15 @@ near-white**로 갈렸다. 결정이 아니라 캐스케이드 사고다. **레�
 
 | 토큰 | light | dark |
 | --- | ---: | ---: |
-| `color-border-control` | 1.27 | 1.63 |
-| `color-border-default` | 1.38 | 2.93 |
-| **`color-border-strong`** | **2.52** | **4.61** |
+| `color-stroke-control` | 1.27 | 1.63 |
+| `color-stroke-default` | 1.38 | 2.93 |
+| **`color-stroke-strong`** | **2.52** | **4.61** |
 
 **셋 다 라이트에서 3:1을 넘지 못한다.** 가장 가까운 `border-strong`을 골랐고 라이트의 2.52는
 남는다 — 해소하려면 새 값이 필요하므로 owner 판정이다. 이 실측이 인계서 (2b)의 입력이다.
 선택된 상태의 면은 3.12/4.90으로 통과한다.
 
-**`color-border-strong`의 첫 소비처가 여기다.** 인계서 (1a)가 "소비처 0이고 이름이 가리키는 것이
+**`color-stroke-strong`의 첫 소비처가 여기다.** 인계서 (1a)가 "소비처 0이고 이름이 가리키는 것이
 그 이름을 안 쓴다"고 분류한 넷 중 하나인데, 경계가 반드시 보여야 하는 자리가 생겨 이름이 뜻과
 맞게 됐다. **그 토큰의 폐기 판정을 다시 해야 한다.**
 
@@ -4599,10 +4628,10 @@ pseudo-element가 아니라 호스트 input의 값을 돌려준다** — 실측�
 
 ### 워크샵이 잡은 결함 하나
 
-`track` 표식에 `color-foreground-on-inverse`를 썼는데 그 토큰은 테마마다 뒤집힌다
+`track` 표식에 `color-fg-on-inverse`를 썼는데 그 토큰은 테마마다 뒤집힌다
 (#fafafa ↔ #171b22). 채움은 두 테마 모두 같은 파랑이라 **다크에서 표식만 검게 변했다.**
 헤드리스 테스트는 이것을 보지 못한다 — 선언은 정상이고 토큰도 실재한다. 눈으로 보고 찾았고
-(DS-D-0012), `color-action-primary`의 문서화된 대비 짝인 `color-foreground-inverse`로 고쳤다.
+(DS-D-0012), `color-accent-primary`의 문서화된 대비 짝인 `color-fg-inverse`로 고쳤다.
 
 ### 남은 것
 
@@ -4932,7 +4961,7 @@ padding으로 만들었다.
 
 ### 토큰 하나
 
-`color-border-danger` = red.500. 테두리 역할의 danger 토큰이 없어서 IconButton도 solid danger를
+`color-stroke-danger` = red.500. 테두리 역할의 danger 토큰이 없어서 IconButton도 solid danger를
 포기하고 tonal로 우회한 적이 있다. red.500만 light 3.14 · dark 3.70으로 양쪽에서 비텍스트 경계
 3:1을 넘는다. 순수 additive이며 breaking이 아니다.
 
@@ -4941,7 +4970,7 @@ padding으로 만들었다.
 
 ### 드러난 불일치 하나
 
-TextField는 `color-border-control`을 쓰는데 IconButton은 같은 자리에 `color-border-default`를 쓴다.
+TextField는 `color-stroke-control`을 쓰는데 IconButton은 같은 자리에 `color-stroke-default`를 쓴다.
 값도 다르다(전자는 반투명, 후자는 불투명). **컨트롤 테두리의 정본이 저장소 안에서 아직 정해지지
 않았다.** 이 컴포넌트가 만든 문제가 아니라 드러낸 문제다.
 
@@ -5142,7 +5171,7 @@ owner 결정이다. 버튼에는 이너섀도우를 쓰지 않고, 이너섀도�
 제품 tooltip은 **페이지와 반전된 면**이다. 라이트에서 어두운 면에 밝은 글자, 다크에서 그 반대.
 DS는 `background-inset`을 써서 페이지와 같은 극성이었다. 정확히 반대로 만들어져 있었다.
 
-Toast가 먼저 세운 `color-background-inverse`/`color-foreground-on-inverse`가 제품 tooltip 면과
+Toast가 먼저 세운 `color-bg-inverse`/`color-fg-on-inverse`가 제품 tooltip 면과
 **값이 정확히 같았다.** 토큰은 이미 있었고 tooltip이 다른 것을 쓰고 있었을 뿐이다.
 
 **모션이 아예 걸리지 않고 있었다.** `animation-duration`과 `animation-timing-function`만 있고
@@ -5198,10 +5227,10 @@ DS는 사용 횟수 2회짜리 `blue.700`을 action 색으로 쓰고 있었다. 
 
 Owner가 `blue.500`을 정본으로 택했다. 반단계(450/550 같은 것)는 쓰지 않는다.
 
-- `color-action-primary` → `blue.500`
-- `color-action-primary-hover` → `blue.400`. 제품이 hover에서 **밝아진다**(`filter: brightness(1.06)`).
+- `color-accent-primary` → `blue.500`
+- `color-accent-primary-hover` → `blue.400`. 제품이 hover에서 **밝아진다**(`filter: brightness(1.06)`).
   기존 DS는 어두워졌다 — 방향이 반대였다.
-- `color-action-primary-pressed` → `blue.600`. hover가 밝아지므로 눌림은 어두워져 둘을 가른다.
+- `color-accent-primary-pressed` → `blue.600`. hover가 밝아지므로 눌림은 어두워져 둘을 가른다.
 
 제품의 3-stop 그라디언트는 채택하지 않는다. 그것은 노드 생성 FAB과 공유하는 면이고
 (`--node-prompt-generate-gradient`), 버튼이 FAB의 면을 물려받은 구조다. DS는 flat으로 간다.
@@ -5323,7 +5352,7 @@ Figma option을 `Active`로 고쳤다.
   `LeftIcon`/`RightIcon` boolean과 `LeftIconGlyph`/`RightIconGlyph` instance swap을 붙였고, 슬롯
   크기는 md 20 / sm 16이며 켜도 높이가 변하지 않는 것을 확인했다.
 - description에 기하 매핑과 **표현하지 못하는 것**을 적었다: `:active`의 scale 0.98(프레임 크기를
-  바꾸면 기하 계약이 깨진다), danger의 hover 면 변화(CSS에 없다 — `color-action-danger*` 대기).
+  바꾸면 기하 계약이 깨진다), danger의 hover 면 변화(CSS에 없다 — `color-accent-danger*` 대기).
 
 `INSTANCE_SWAP` property의 기본값은 component key가 아니라 **node id**를 받는다. key를 주면
 `Property value is incompatible with component property type`으로 거부한다. 세 형태를 실제로
@@ -5350,7 +5379,7 @@ DS-P3-009a 인벤토리와 Home 재조립이 그 근거를 실측으로 냈기 �
 Icon Button이 원래 목록(Input, Select, Tooltip, Toast, Empty State)에 없던 항목이라는 것도 함께 적었다.
 
 계획 밖에서 들어온 토큰도 기록했다. `icon-size-*`, `layout-control-height-*`, `radius-control-sm`,
-`color-background-inverse`/`color-foreground-on-inverse`는 `DS-P3-014`의 10개 단위 바깥에서
+`color-bg-inverse`/`color-fg-on-inverse`는 `DS-P3-014`의 10개 단위 바깥에서
 component가 요구해 들어왔다. 각각 규범·Figma 변수·snapshot까지 같은 변경 단위에서 반영했으므로
 누락은 없으나 단위 6·7의 잔여 범위는 다시 세어야 한다.
 
@@ -5369,14 +5398,14 @@ gap registry 3순위다. 세 화면 실측에서 **20개 파일이 toast를 쓰�
 
 - [Toast](../components/toast.md) 규범과 `ToastProvider` / `useToast` public export
 - `packages/css/src/component/toast.css`
-- `--kds-color-background-inverse`와 `--kds-color-foreground-on-inverse`. Toast가 첫 소비자이며
+- `--kds-color-bg-inverse`와 `--kds-color-fg-on-inverse`. Toast가 첫 소비자이며
   contrast pair로 등록해 두 모드 모두 게이트가 잰다(light 11.61, dark 13.59). Figma 변수로도
   함께 만들었다.
 - Storybook `Components/Toast` story 5종
 
-### 기존 `color-foreground-inverse`를 쓸 수 없었던 이유
+### 기존 `color-fg-inverse`를 쓸 수 없었던 이유
 
-이름이 비슷해 헷갈리기 쉽다. `color-foreground-inverse`는 **두 모드 모두 `neutral-0`**이다 —
+이름이 비슷해 헷갈리기 쉽다. `color-fg-inverse`는 **두 모드 모두 `neutral-0`**이다 —
 `action-primary` 같은 진한 표면 위 텍스트를 위한 것이다. Toast의 표면은 다크에서 오히려 **밝아지는**
 반전 표면이므로 그 위에 흰 글자를 얹으면 읽히지 않는다. 그래서 모드에 따라 뒤집히는 쌍을 새로 만들었다.
 
@@ -5384,7 +5413,7 @@ gap registry 3순위다. 세 화면 실측에서 **20개 파일이 toast를 쓰�
 
 `contrastPairs` 배열 변경은 diff 정책상 **무조건 breaking**이다 — 배열 전체를 한 단위로 비교하므로
 추가와 제거를 구분하지 않는다. 이번 변경의 분류별 diff는 additive 10건, breaking은 `contrastPairs`
-1건뿐이며 그 내용은 `color-background-inverse` / `color-foreground-on-inverse` 쌍 **추가 1, 제거 0**이다.
+1건뿐이며 그 내용은 `color-bg-inverse` / `color-fg-on-inverse` 쌍 **추가 1, 제거 0**이다.
 
 정책을 느슨하게 고치지 않고 [Releases](../governance/releases.md)의 DS-GOV-001 절차를 따랐다.
 분류를 "추가는 non-breaking"으로 바꾸면 게이트가 앞으로 **보증 철회를 놓칠 위험**이 생기고, 그것이
@@ -5975,7 +6004,7 @@ import { Button } from "@klipse-design/react";
 
 ### Known deviations
 
-- `danger` variant가 tonal이다. solid를 표현할 `color-action-danger*` 토큰이 없다.
+- `danger` variant가 tonal이다. solid를 표현할 `color-accent-danger*` 토큰이 없다.
 - 고정 높이 토큰이 없어 높이를 padding과 line-height로 결정하고 44px 타깃은 `kds-hit-target`이
   보장한다.
 

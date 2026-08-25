@@ -45,7 +45,7 @@ test("면이 놓이는 자리의 글자색을 문다 — 고른 면 토큰이 �
 
 test("두 테마 모두에서 면이 보인다", async () => {
   await render(
-    <div data-kds-fixture style={{ background: "var(--kds-color-background-surface)" }}>
+    <div data-kds-fixture style={{ background: "var(--kds-color-bg-surface)" }}>
       <Skeleton style={{ inlineSize: "120px", blockSize: "20px" }} />
     </div>,
   );

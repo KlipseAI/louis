@@ -50,33 +50,33 @@
       "states": {
         "primary": {
           "Default": {
-            "background": "color-action-primary",
+            "background": "color-accent-primary",
             "$background": "action primary 토큰",
-            "foreground": "color-foreground-inverse",
+            "foreground": "color-fg-inverse",
             "$foreground": "foreground inverse 토큰"
           },
           "Hover": {
-            "background": "color-action-primary-hover",
+            "background": "color-accent-primary-hover",
             "$background": "action primary hover 토큰",
-            "foreground": "color-foreground-inverse",
+            "foreground": "color-fg-inverse",
             "$foreground": "foreground inverse 토큰"
           },
           "Active": {
-            "background": "color-action-primary-active",
+            "background": "color-accent-primary-active",
             "$background": "action primary active 토큰",
-            "foreground": "color-foreground-inverse",
+            "foreground": "color-fg-inverse",
             "$foreground": "foreground inverse 토큰"
           },
           "Disabled": {
-            "background": "color-background-inset",
+            "background": "color-bg-inset",
             "$background": "inset 배경 토큰",
-            "foreground": "color-foreground-disabled",
+            "foreground": "color-fg-disabled",
             "$foreground": "disabled 전경 토큰"
           },
           "Loading": {
-            "background": "color-background-inset",
+            "background": "color-bg-inset",
             "$background": "inset 배경 토큰 (aria-disabled와 동일 배경)",
-            "foreground": "color-foreground-disabled",
+            "foreground": "color-fg-disabled",
             "$foreground": "disabled 전경 토큰"
           }
         },
@@ -84,105 +84,105 @@
           "Default": {
             "background": null,
             "$background": "투명 배경",
-            "foreground": "color-action-secondary-foreground",
+            "foreground": "color-accent-secondary-foreground",
             "$foreground": "action secondary foreground 토큰",
-            "border": "color-border-hairline",
-            "$border": "generic 헤어라인 (color-border-hairline, DS-D-0023)"
+            "border": "color-stroke-hairline",
+            "$border": "generic 헤어라인 (color-stroke-hairline, DS-D-0023)"
           },
           "Hover": {
-            "background": "color-action-secondary-hover",
+            "background": "color-accent-secondary-hover",
             "$background": "secondary hover 배경 토큰",
-            "foreground": "color-action-secondary-foreground",
+            "foreground": "color-accent-secondary-foreground",
             "$foreground": "action secondary foreground 토큰",
-            "border": "color-border-hairline",
-            "$border": "generic 헤어라인 (color-border-hairline, DS-D-0023)"
+            "border": "color-stroke-hairline",
+            "$border": "generic 헤어라인 (color-stroke-hairline, DS-D-0023)"
           },
           "Active": {
-            "background": "color-action-secondary-hover",
+            "background": "color-accent-secondary-hover",
             "$background": "secondary active 배경 토큰",
-            "foreground": "color-action-secondary-foreground",
+            "foreground": "color-accent-secondary-foreground",
             "$foreground": "action secondary foreground 토큰",
-            "border": "color-border-hairline",
-            "$border": "generic 헤어라인 (color-border-hairline, DS-D-0023)"
+            "border": "color-stroke-hairline",
+            "$border": "generic 헤어라인 (color-stroke-hairline, DS-D-0023)"
           },
           "Disabled": {
             "background": null,
             "$background": "투명 배경",
-            "foreground": "color-foreground-disabled",
+            "foreground": "color-fg-disabled",
             "$foreground": "disabled 전경 토큰",
-            "border": "color-border-hairline",
-            "$border": "generic 헤어라인 (color-border-hairline, DS-D-0023)"
+            "border": "color-stroke-hairline",
+            "$border": "generic 헤어라인 (color-stroke-hairline, DS-D-0023)"
           },
           "Loading": {
             "background": null,
             "$background": "투명 배경",
-            "foreground": "color-foreground-disabled",
+            "foreground": "color-fg-disabled",
             "$foreground": "disabled 전경 토큰",
-            "border": "color-border-hairline",
-            "$border": "generic 헤어라인 (color-border-hairline, DS-D-0023)"
+            "border": "color-stroke-hairline",
+            "$border": "generic 헤어라인 (color-stroke-hairline, DS-D-0023)"
           }
         },
         "ghost": {
           "Default": {
             "background": null,
             "$background": "투명 배경",
-            "foreground": "color-action-secondary-foreground",
+            "foreground": "color-accent-secondary-foreground",
             "$foreground": "action secondary foreground 토큰"
           },
           "Hover": {
-            "background": "color-action-ghost-hover",
+            "background": "color-accent-ghost-hover",
             "$background": "ghost hover 배경 토큰",
-            "foreground": "color-action-secondary-foreground",
+            "foreground": "color-accent-secondary-foreground",
             "$foreground": "action secondary foreground 토큰"
           },
           "Active": {
-            "background": "color-action-ghost-hover",
+            "background": "color-accent-ghost-hover",
             "$background": "ghost active 배경 토큰",
-            "foreground": "color-action-secondary-foreground",
+            "foreground": "color-accent-secondary-foreground",
             "$foreground": "action secondary foreground 토큰"
           },
           "Disabled": {
             "background": null,
             "$background": "투명 배경",
-            "foreground": "color-foreground-disabled",
+            "foreground": "color-fg-disabled",
             "$foreground": "disabled 전경 토큰"
           },
           "Loading": {
             "background": null,
             "$background": "투명 배경",
-            "foreground": "color-foreground-disabled",
+            "foreground": "color-fg-disabled",
             "$foreground": "disabled 전경 토큰"
           }
         },
         "danger": {
           "Default": {
-            "background": "color-action-danger",
+            "background": "color-accent-danger",
             "$background": "action danger 토큰",
-            "foreground": "color-foreground-on-danger",
+            "foreground": "color-fg-on-danger",
             "$foreground": "foreground on danger 토큰"
           },
           "Hover": {
-            "background": "color-action-danger",
+            "background": "color-accent-danger",
             "$background": "action danger hover 토큰",
-            "foreground": "color-foreground-on-danger",
+            "foreground": "color-fg-on-danger",
             "$foreground": "foreground on danger 토큰"
           },
           "Active": {
-            "background": "color-action-danger",
+            "background": "color-accent-danger",
             "$background": "action danger active 토큰",
-            "foreground": "color-foreground-on-danger",
+            "foreground": "color-fg-on-danger",
             "$foreground": "foreground on danger 토큰"
           },
           "Disabled": {
-            "background": "color-background-inset",
+            "background": "color-bg-inset",
             "$background": "inset 배경 토큰",
-            "foreground": "color-foreground-disabled",
+            "foreground": "color-fg-disabled",
             "$foreground": "disabled 전경 토큰"
           },
           "Loading": {
-            "background": "color-background-inset",
+            "background": "color-bg-inset",
             "$background": "inset 배경 토큰",
-            "foreground": "color-foreground-disabled",
+            "foreground": "color-fg-disabled",
             "$foreground": "disabled 전경 토큰"
           }
         }
@@ -222,139 +222,139 @@
       "states": {
         "primary": {
           "Default": {
-            "background": "color-action-primary",
+            "background": "color-accent-primary",
             "$background": "action primary 토큰",
-            "foreground": "color-foreground-inverse",
+            "foreground": "color-fg-inverse",
             "$foreground": "foreground inverse 토큰"
           },
           "Hover": {
-            "background": "color-action-primary-hover",
+            "background": "color-accent-primary-hover",
             "$background": "action primary hover 토큰",
-            "foreground": "color-foreground-inverse",
+            "foreground": "color-fg-inverse",
             "$foreground": "foreground inverse 토큰"
           },
           "Active": {
-            "background": "color-action-primary-active",
+            "background": "color-accent-primary-active",
             "$background": "action primary active 토큰",
-            "foreground": "color-foreground-inverse",
+            "foreground": "color-fg-inverse",
             "$foreground": "foreground inverse 토큰"
           },
           "Pressed": {
-            "background": "color-background-inset",
+            "background": "color-bg-inset",
             "$background": "inset 배경 토큰",
-            "foreground": "color-foreground-primary",
+            "foreground": "color-fg-primary",
             "$foreground": "foreground primary 토큰"
           },
           "Disabled": {
-            "background": "color-background-inset",
+            "background": "color-bg-inset",
             "$background": "inset 배경 토큰",
-            "foreground": "color-foreground-disabled",
+            "foreground": "color-fg-disabled",
             "$foreground": "disabled 전경 토큰"
           }
         },
         "secondary": {
           "Default": {
-            "background": "color-background-surface",
-            "$background": "표면 배경 color-background-surface",
-            "foreground": "color-foreground-primary",
+            "background": "color-bg-surface",
+            "$background": "표면 배경 color-bg-surface",
+            "foreground": "color-fg-primary",
             "$foreground": "foreground primary 토큰",
-            "border": "color-border-hairline",
-            "$border": "generic 헤어라인 (color-border-hairline, DS-D-0023)"
+            "border": "color-stroke-hairline",
+            "$border": "generic 헤어라인 (color-stroke-hairline, DS-D-0023)"
           },
           "Hover": {
-            "background": "color-background-inset",
+            "background": "color-bg-inset",
             "$background": "inset 배경 토큰",
-            "foreground": "color-foreground-primary",
+            "foreground": "color-fg-primary",
             "$foreground": "foreground primary 토큰",
-            "border": "color-border-hairline",
-            "$border": "generic 헤어라인 (color-border-hairline, DS-D-0023)"
+            "border": "color-stroke-hairline",
+            "$border": "generic 헤어라인 (color-stroke-hairline, DS-D-0023)"
           },
           "Active": {
-            "background": "color-background-inset",
+            "background": "color-bg-inset",
             "$background": "inset 배경 토큰",
-            "foreground": "color-foreground-primary",
+            "foreground": "color-fg-primary",
             "$foreground": "foreground primary 토큰",
-            "border": "color-border-hairline",
-            "$border": "generic 헤어라인 (color-border-hairline, DS-D-0023)"
+            "border": "color-stroke-hairline",
+            "$border": "generic 헤어라인 (color-stroke-hairline, DS-D-0023)"
           },
           "Pressed": {
-            "background": "color-background-inset",
+            "background": "color-bg-inset",
             "$background": "inset 배경 토큰",
-            "foreground": "color-foreground-primary",
+            "foreground": "color-fg-primary",
             "$foreground": "foreground primary 토큰",
-            "border": "color-border-hairline",
-            "$border": "generic 헤어라인 (color-border-hairline, DS-D-0023)"
+            "border": "color-stroke-hairline",
+            "$border": "generic 헤어라인 (color-stroke-hairline, DS-D-0023)"
           },
           "Disabled": {
-            "background": "color-background-surface",
-            "$background": "표면 배경 color-background-surface",
-            "foreground": "color-foreground-disabled",
+            "background": "color-bg-surface",
+            "$background": "표면 배경 color-bg-surface",
+            "foreground": "color-fg-disabled",
             "$foreground": "disabled 전경 토큰",
-            "border": "color-border-hairline",
-            "$border": "generic 헤어라인 (color-border-hairline, DS-D-0023)"
+            "border": "color-stroke-hairline",
+            "$border": "generic 헤어라인 (color-stroke-hairline, DS-D-0023)"
           }
         },
         "ghost": {
           "Default": {
             "background": null,
             "$background": "투명 배경",
-            "foreground": "color-foreground-secondary",
+            "foreground": "color-fg-secondary",
             "$foreground": "foreground secondary 토큰"
           },
           "Hover": {
-            "background": "color-background-inset",
+            "background": "color-bg-inset",
             "$background": "inset 배경 토큰",
-            "foreground": "color-foreground-secondary",
+            "foreground": "color-fg-secondary",
             "$foreground": "foreground secondary 토큰"
           },
           "Active": {
-            "background": "color-background-inset",
+            "background": "color-bg-inset",
             "$background": "inset 배경 토큰",
-            "foreground": "color-foreground-secondary",
+            "foreground": "color-fg-secondary",
             "$foreground": "foreground secondary 토큰"
           },
           "Pressed": {
-            "background": "color-background-inset",
+            "background": "color-bg-inset",
             "$background": "inset 배경 토큰",
-            "foreground": "color-foreground-primary",
+            "foreground": "color-fg-primary",
             "$foreground": "foreground primary 토큰"
           },
           "Disabled": {
             "background": null,
             "$background": "투명 배경",
-            "foreground": "color-foreground-disabled",
+            "foreground": "color-fg-disabled",
             "$foreground": "disabled 전경 토큰"
           }
         },
         "danger": {
           "Default": {
-            "background": "color-background-danger",
+            "background": "color-bg-danger",
             "$background": "danger 배경 토큰",
-            "foreground": "color-foreground-danger",
+            "foreground": "color-fg-danger",
             "$foreground": "danger 전경 토큰"
           },
           "Hover": {
-            "background": "color-background-danger",
+            "background": "color-bg-danger",
             "$background": "danger 배경 토큰",
-            "foreground": "color-foreground-danger",
+            "foreground": "color-fg-danger",
             "$foreground": "danger 전경 토큰"
           },
           "Active": {
-            "background": "color-background-danger",
+            "background": "color-bg-danger",
             "$background": "danger 배경 토큰",
-            "foreground": "color-foreground-danger",
+            "foreground": "color-fg-danger",
             "$foreground": "danger 전경 토큰"
           },
           "Pressed": {
-            "background": "color-background-inset",
+            "background": "color-bg-inset",
             "$background": "inset 배경 토큰",
-            "foreground": "color-foreground-primary",
+            "foreground": "color-fg-primary",
             "$foreground": "foreground primary 토큰"
           },
           "Disabled": {
-            "background": "color-background-inset",
+            "background": "color-bg-inset",
             "$background": "inset 배경 토큰",
-            "foreground": "color-foreground-disabled",
+            "foreground": "color-fg-disabled",
             "$foreground": "disabled 전경 토큰"
           }
         }
@@ -386,12 +386,12 @@
       "states": {
         "base": {
           "Default": {
-            "background": "color-background-inverse",
-            "$background": "반전 배경 color-background-inverse",
-            "foreground": "color-foreground-on-inverse",
-            "$foreground": "반전 위 전경 color-foreground-on-inverse",
-            "border": "color-border-hairline",
-            "$border": "generic 헤어라인 (color-border-hairline, DS-D-0023)"
+            "background": "color-bg-inverse",
+            "$background": "반전 배경 color-bg-inverse",
+            "foreground": "color-fg-on-inverse",
+            "$foreground": "반전 위 전경 color-fg-on-inverse",
+            "border": "color-stroke-hairline",
+            "$border": "generic 헤어라인 (color-stroke-hairline, DS-D-0023)"
           }
         }
       },
@@ -424,18 +424,18 @@
       "states": {
         "neutral": {
           "Default": {
-            "background": "color-background-inverse-translucent",
-            "$background": "반투명 반전 배경 color-background-inverse-translucent",
-            "foreground": "color-foreground-on-inverse",
-            "$foreground": "반전 위 전경 color-foreground-on-inverse"
+            "background": "color-bg-inverse-translucent",
+            "$background": "반투명 반전 배경 color-bg-inverse-translucent",
+            "foreground": "color-fg-on-inverse",
+            "$foreground": "반전 위 전경 color-fg-on-inverse"
           }
         },
         "danger": {
           "Default": {
-            "background": "color-background-danger",
-            "$background": "위험 배경 color-background-danger",
-            "foreground": "color-foreground-danger",
-            "$foreground": "위험 전경 color-foreground-danger"
+            "background": "color-bg-danger",
+            "$background": "위험 배경 color-bg-danger",
+            "foreground": "color-fg-danger",
+            "$foreground": "위험 전경 color-fg-danger"
           }
         }
       }
@@ -479,34 +479,34 @@
       "states": {
         "base": {
           "Default": {
-            "background": "color-background-menu",
-            "$background": "메뉴 기본 배경 color-background-menu",
-            "foreground": "color-foreground-menu-item",
-            "$foreground": "메뉴 항목 전경 color-foreground-menu-item"
+            "background": "color-bg-menu",
+            "$background": "메뉴 기본 배경 color-bg-menu",
+            "foreground": "color-fg-menu-item",
+            "$foreground": "메뉴 항목 전경 color-fg-menu-item"
           },
           "Hover": {
-            "background": "color-action-menu-item-hover",
-            "$background": "메뉴 항목 hover 배경 color-action-menu-item-hover",
-            "foreground": "color-foreground-menu-item",
-            "$foreground": "메뉴 항목 전경 color-foreground-menu-item"
+            "background": "color-accent-menu-item-hover",
+            "$background": "메뉴 항목 hover 배경 color-accent-menu-item-hover",
+            "foreground": "color-fg-menu-item",
+            "$foreground": "메뉴 항목 전경 color-fg-menu-item"
           },
           "Danger": {
             "background": null,
             "$background": "투명 배경",
-            "foreground": "color-action-danger",
-            "$foreground": "위험 액션 전경 color-action-danger"
+            "foreground": "color-accent-danger",
+            "$foreground": "위험 액션 전경 color-accent-danger"
           },
           "DangerHover": {
-            "background": "color-action-menu-danger-hover",
-            "$background": "위험 hover 배경 color-action-menu-danger-hover",
-            "foreground": "color-action-danger",
-            "$foreground": "위험 액션 전경 color-action-danger"
+            "background": "color-accent-menu-danger-hover",
+            "$background": "위험 hover 배경 color-accent-menu-danger-hover",
+            "foreground": "color-accent-danger",
+            "$foreground": "위험 액션 전경 color-accent-danger"
           },
           "Disabled": {
             "background": null,
             "$background": "투명 배경",
-            "foreground": "color-foreground-disabled",
-            "$foreground": "비활성 전경 color-foreground-disabled"
+            "foreground": "color-fg-disabled",
+            "$foreground": "비활성 전경 color-fg-disabled"
           }
         }
       }
@@ -596,12 +596,12 @@
       "states": {
         "base": {
           "Default": {
-            "background": "color-background-surface",
-            "$background": "대화상자 표면 배경 color-background-surface",
-            "foreground": "color-foreground-primary",
-            "$foreground": "기본 텍스트 전경 color-foreground-primary",
-            "border": "color-border-hairline",
-            "$border": "generic 헤어라인 (color-border-hairline, DS-D-0023)"
+            "background": "color-bg-surface",
+            "$background": "대화상자 표면 배경 color-bg-surface",
+            "foreground": "color-fg-primary",
+            "$foreground": "기본 텍스트 전경 color-fg-primary",
+            "border": "color-stroke-hairline",
+            "$border": "generic 헤어라인 (color-stroke-hairline, DS-D-0023)"
           }
         }
       },
@@ -677,10 +677,10 @@
           "Default": {
             "background": null,
             "$background": "투명 배경",
-            "foreground": "color-foreground-primary",
-            "$foreground": "카드 전경 color-foreground-primary",
-            "border": "color-border-hairline",
-            "$border": "generic 헤어라인 (color-border-hairline, DS-D-0023)"
+            "foreground": "color-fg-primary",
+            "$foreground": "카드 전경 color-fg-primary",
+            "border": "color-stroke-hairline",
+            "$border": "generic 헤어라인 (color-stroke-hairline, DS-D-0023)"
           }
         }
       }
@@ -764,10 +764,10 @@
       "states": {
         "base": {
           "Default": {
-            "background": "color-background-inset",
-            "$background": "기본 배경 color-background-inset",
-            "foreground": "color-foreground-tertiary",
-            "$foreground": "폴백 글리프 전경색 color-foreground-tertiary"
+            "background": "color-bg-inset",
+            "$background": "기본 배경 color-bg-inset",
+            "foreground": "color-fg-tertiary",
+            "$foreground": "폴백 글리프 전경색 color-fg-tertiary"
           }
         }
       },
@@ -798,42 +798,42 @@
       "states": {
         "neutral": {
           "Default": {
-            "background": "color-background-inset",
-            "$background": "중립 톤 배경 color-background-inset",
-            "foreground": "color-foreground-secondary",
-            "$foreground": "중립 톤 전경 color-foreground-secondary"
+            "background": "color-bg-inset",
+            "$background": "중립 톤 배경 color-bg-inset",
+            "foreground": "color-fg-secondary",
+            "$foreground": "중립 톤 전경 color-fg-secondary"
           }
         },
         "success": {
           "Default": {
-            "background": "color-background-success",
-            "$background": "성공 톤 배경 color-background-success",
-            "foreground": "color-foreground-success",
-            "$foreground": "성공 톤 전경 color-foreground-success"
+            "background": "color-bg-success",
+            "$background": "성공 톤 배경 color-bg-success",
+            "foreground": "color-fg-success",
+            "$foreground": "성공 톤 전경 color-fg-success"
           }
         },
         "warning": {
           "Default": {
-            "background": "color-background-warning",
-            "$background": "경고 톤 배경 color-background-warning",
-            "foreground": "color-foreground-warning",
-            "$foreground": "경고 톤 전경 color-foreground-warning"
+            "background": "color-bg-warning",
+            "$background": "경고 톤 배경 color-bg-warning",
+            "foreground": "color-fg-warning",
+            "$foreground": "경고 톤 전경 color-fg-warning"
           }
         },
         "danger": {
           "Default": {
-            "background": "color-background-danger",
-            "$background": "위험 톤 배경 color-background-danger",
-            "foreground": "color-foreground-danger",
-            "$foreground": "위험 톤 전경 color-foreground-danger"
+            "background": "color-bg-danger",
+            "$background": "위험 톤 배경 color-bg-danger",
+            "foreground": "color-fg-danger",
+            "$foreground": "위험 톤 전경 color-fg-danger"
           }
         },
         "info": {
           "Default": {
-            "background": "color-background-info",
-            "$background": "정보 톤 배경 color-background-info",
-            "foreground": "color-foreground-info",
-            "$foreground": "정보 톤 전경 color-foreground-info"
+            "background": "color-bg-info",
+            "$background": "정보 톤 배경 color-bg-info",
+            "foreground": "color-fg-info",
+            "$foreground": "정보 톤 전경 color-fg-info"
           }
         }
       },
@@ -897,28 +897,28 @@
       "states": {
         "base": {
           "Default": {
-            "background": "color-background-surface",
-            "$background": "표면 배경 color-background-surface",
-            "foreground": "color-foreground-primary",
-            "$foreground": "입력 텍스트 전경 color-foreground-primary",
-            "border": "color-border-hairline",
-            "$border": "generic 헤어라인 (color-border-hairline, DS-D-0023)"
+            "background": "color-bg-surface",
+            "$background": "표면 배경 color-bg-surface",
+            "foreground": "color-fg-primary",
+            "$foreground": "입력 텍스트 전경 color-fg-primary",
+            "border": "color-stroke-hairline",
+            "$border": "generic 헤어라인 (color-stroke-hairline, DS-D-0023)"
           },
           "Invalid": {
-            "background": "color-background-surface",
-            "$background": "표면 배경 color-background-surface",
-            "foreground": "color-foreground-primary",
-            "$foreground": "입력 텍스트 전경 color-foreground-primary",
-            "border": "color-border-hairline",
-            "$border": "generic 헤어라인 (color-border-hairline). 오류는 메시지+aria-invalid가 전달한다 (DS-D-0023)"
+            "background": "color-bg-surface",
+            "$background": "표면 배경 color-bg-surface",
+            "foreground": "color-fg-primary",
+            "$foreground": "입력 텍스트 전경 color-fg-primary",
+            "border": "color-stroke-hairline",
+            "$border": "generic 헤어라인 (color-stroke-hairline). 오류는 메시지+aria-invalid가 전달한다 (DS-D-0023)"
           },
           "Disabled": {
-            "background": "color-background-surface",
-            "$background": "표면 배경 color-background-surface",
-            "foreground": "color-foreground-disabled",
-            "$foreground": "비활성 전경 color-foreground-disabled",
-            "border": "color-border-hairline",
-            "$border": "generic 헤어라인 (color-border-hairline, DS-D-0023)"
+            "background": "color-bg-surface",
+            "$background": "표면 배경 color-bg-surface",
+            "foreground": "color-fg-disabled",
+            "$foreground": "비활성 전경 color-fg-disabled",
+            "border": "color-stroke-hairline",
+            "$border": "generic 헤어라인 (color-stroke-hairline, DS-D-0023)"
           }
         }
       },
@@ -961,8 +961,8 @@
           "Default": {
             "background": null,
             "$background": "투명 배경",
-            "foreground": "color-foreground-primary",
-            "$foreground": "기본 텍스트 전경 color-foreground-primary"
+            "foreground": "color-fg-primary",
+            "$foreground": "기본 텍스트 전경 color-fg-primary"
           }
         }
       },
@@ -1046,41 +1046,41 @@
       "states": {
         "base": {
           "Default": {
-            "background": "color-background-surface",
-            "$background": "표면 배경 color-background-surface",
-            "foreground": "color-foreground-primary",
-            "$foreground": "라벨 텍스트 전경 color-foreground-primary",
-            "border": "color-border-hairline",
-            "$border": "generic 헤어라인 (color-border-hairline). 이전 border-strong 대비 저하는 checkbox Known deviations 참조 (DS-D-0023)"
+            "background": "color-bg-surface",
+            "$background": "표면 배경 color-bg-surface",
+            "foreground": "color-fg-primary",
+            "$foreground": "라벨 텍스트 전경 color-fg-primary",
+            "border": "color-stroke-hairline",
+            "$border": "generic 헤어라인 (color-stroke-hairline). 이전 border-strong 대비 저하는 checkbox Known deviations 참조 (DS-D-0023)"
           },
           "Checked": {
-            "background": "color-action-primary",
-            "$background": "선택 채움 배경 color-action-primary",
-            "foreground": "color-foreground-primary",
-            "$foreground": "라벨 텍스트 전경 color-foreground-primary",
-            "border": "color-border-hairline",
-            "$border": "선택은 면(color-action-primary)이 채우고 base 헤어라인이 남는다 (DS-D-0023)"
+            "background": "color-accent-primary",
+            "$background": "선택 채움 배경 color-accent-primary",
+            "foreground": "color-fg-primary",
+            "$foreground": "라벨 텍스트 전경 color-fg-primary",
+            "border": "color-stroke-hairline",
+            "$border": "선택은 면(color-accent-primary)이 채우고 base 헤어라인이 남는다 (DS-D-0023)"
           },
           "Indeterminate": {
-            "background": "color-action-primary",
-            "$background": "부분 선택 배경 color-action-primary",
-            "foreground": "color-foreground-primary",
-            "$foreground": "라벨 텍스트 전경 color-foreground-primary",
-            "border": "color-border-hairline",
-            "$border": "부분 선택도 면(color-action-primary)이 채우고 base 헤어라인이 남는다 (DS-D-0023)"
+            "background": "color-accent-primary",
+            "$background": "부분 선택 배경 color-accent-primary",
+            "foreground": "color-fg-primary",
+            "$foreground": "라벨 텍스트 전경 color-fg-primary",
+            "border": "color-stroke-hairline",
+            "$border": "부분 선택도 면(color-accent-primary)이 채우고 base 헤어라인이 남는다 (DS-D-0023)"
           },
           "Disabled": {
-            "background": "color-background-inset",
-            "$background": "비활성 배경 color-background-inset",
-            "foreground": "color-foreground-disabled",
-            "$foreground": "비활성 라벨 전경 color-foreground-disabled",
-            "border": "color-border-hairline",
-            "$border": "generic 헤어라인 (color-border-hairline, DS-D-0023)"
+            "background": "color-bg-inset",
+            "$background": "비활성 배경 color-bg-inset",
+            "foreground": "color-fg-disabled",
+            "$foreground": "비활성 라벨 전경 color-fg-disabled",
+            "border": "color-stroke-hairline",
+            "$border": "generic 헤어라인 (color-stroke-hairline, DS-D-0023)"
           }
         }
       },
-      "$borderNote": "**generic 헤어라인(color-border-hairline)이다 (DS-D-0023).** 선택하지 않은 체크박스는 테두리가 어포던스의 전부라 SC 1.4.11(3:1)이 그 선에 걸린다. 상자 면 대비 실측 — control 1.27/1.63 · default 1.38/2.93 · strong 2.52/4.61 · black 10% ≈ 1.1(라이트/다크). 이전엔 가장 가까운 strong을 썼지만, 제품 owner가 모든 0.5px stroke를 10%로 통일하는 결정(인계서 (2b) 해소, DS-D-0023)을 내려 라이트 대비가 strong보다 더 낮아졌다 — checkbox.md Known deviations에 기록했다.",
-      "$statesNote": "foreground는 라벨의 색이다. 표시(체크 · 막대)의 색은 면 위에 얹히므로 color-foreground-inverse이며 states 표가 아니라 아래 규범이 갖는다 — states 표의 세 값은 면·전경·테두리로 고정돼 있다."
+      "$borderNote": "**generic 헤어라인(color-stroke-hairline)이다 (DS-D-0023).** 선택하지 않은 체크박스는 테두리가 어포던스의 전부라 SC 1.4.11(3:1)이 그 선에 걸린다. 상자 면 대비 실측 — control 1.27/1.63 · default 1.38/2.93 · strong 2.52/4.61 · black 10% ≈ 1.1(라이트/다크). 이전엔 가장 가까운 strong을 썼지만, 제품 owner가 모든 0.5px stroke를 10%로 통일하는 결정(인계서 (2b) 해소, DS-D-0023)을 내려 라이트 대비가 strong보다 더 낮아졌다 — checkbox.md Known deviations에 기록했다.",
+      "$statesNote": "foreground는 라벨의 색이다. 표시(체크 · 막대)의 색은 면 위에 얹히므로 color-fg-inverse이며 states 표가 아니라 아래 규범이 갖는다 — states 표의 세 값은 면·전경·테두리로 고정돼 있다."
     },
     "selectable-list-row": {
       "$doc": "design/components/selectable-list-row.md",
@@ -1113,30 +1113,30 @@
           "Default": {
             "background": null,
             "$background": "투명 배경",
-            "foreground": "color-foreground-secondary",
-            "$foreground": "보조 텍스트 전경 color-foreground-secondary"
+            "foreground": "color-fg-secondary",
+            "$foreground": "보조 텍스트 전경 color-fg-secondary"
           },
           "Hover": {
-            "background": "color-action-ghost-hover",
-            "$background": "hover 배경 color-action-ghost-hover",
-            "foreground": "color-foreground-primary",
-            "$foreground": "주 텍스트 전경 color-foreground-primary"
+            "background": "color-accent-ghost-hover",
+            "$background": "hover 배경 color-accent-ghost-hover",
+            "foreground": "color-fg-primary",
+            "$foreground": "주 텍스트 전경 color-fg-primary"
           },
           "Selected": {
-            "background": "color-background-inset",
-            "$background": "선택 행 배경 color-background-inset",
-            "foreground": "color-foreground-primary",
-            "$foreground": "주 텍스트 전경 color-foreground-primary"
+            "background": "color-bg-inset",
+            "$background": "선택 행 배경 color-bg-inset",
+            "foreground": "color-fg-primary",
+            "$foreground": "주 텍스트 전경 color-fg-primary"
           },
           "Disabled": {
             "background": null,
             "$background": "투명 배경",
-            "foreground": "color-foreground-disabled",
-            "$foreground": "비활성 전경 color-foreground-disabled"
+            "foreground": "color-fg-disabled",
+            "$foreground": "비활성 전경 color-fg-disabled"
           }
         }
       },
-      "$statesNote": "Selected의 면은 SidebarNavItem과 같은 토큰이지만 **면만으로 선택을 전달하지 않는다** — 3px 선행 표식이 color-action-primary로 함께 그려진다. 보조 문구는 선택된 행에서도 secondary로 남는다(둘 다 primary가 되면 위계가 사라진다)."
+      "$statesNote": "Selected의 면은 SidebarNavItem과 같은 토큰이지만 **면만으로 선택을 전달하지 않는다** — 3px 선행 표식이 color-accent-primary로 함께 그려진다. 보조 문구는 선택된 행에서도 secondary로 남는다(둘 다 primary가 되면 위계가 사라진다)."
     },
     "segmented-control": {
       "$doc": "design/components/segmented-control.md",
@@ -1188,26 +1188,26 @@
           "Default": {
             "background": null,
             "$background": "투명 배경",
-            "foreground": "color-foreground-secondary",
-            "$foreground": "보조 전경 color-foreground-secondary"
+            "foreground": "color-fg-secondary",
+            "$foreground": "보조 전경 color-fg-secondary"
           },
           "Hover": {
             "background": null,
             "$background": "투명 배경",
-            "foreground": "color-foreground-primary",
-            "$foreground": "주 전경 color-foreground-primary"
+            "foreground": "color-fg-primary",
+            "$foreground": "주 전경 color-fg-primary"
           },
           "Selected": {
-            "background": "color-background-raised",
-            "$background": "선택 세그먼트 배경 color-background-raised",
-            "foreground": "color-foreground-primary",
-            "$foreground": "주 전경 color-foreground-primary"
+            "background": "color-bg-raised",
+            "$background": "선택 세그먼트 배경 color-bg-raised",
+            "foreground": "color-fg-primary",
+            "$foreground": "주 전경 color-fg-primary"
           },
           "Disabled": {
             "background": null,
             "$background": "투명 배경",
-            "foreground": "color-foreground-disabled",
-            "$foreground": "비활성 전경 color-foreground-disabled"
+            "foreground": "color-fg-disabled",
+            "$foreground": "비활성 전경 color-fg-disabled"
           }
         }
       },
@@ -1413,20 +1413,20 @@
           "Default": {
             "background": null,
             "$background": "투명 배경",
-            "foreground": "color-foreground-secondary",
-            "$foreground": "항목 전경 color-foreground-secondary"
+            "foreground": "color-fg-secondary",
+            "$foreground": "항목 전경 color-fg-secondary"
           },
           "Hover": {
-            "background": "color-action-ghost-hover",
+            "background": "color-accent-ghost-hover",
             "$background": "다크는 제품과 정확히 같다(rgb 250 250 250 / 10%). 라이트만 갈린다 — 제품은 재매핑된 palette-gray-300을 50%로 덮고 DS는 ink 8%를 쓴다.",
-            "foreground": "color-foreground-primary",
-            "$foreground": "주 텍스트 전경 color-foreground-primary"
+            "foreground": "color-fg-primary",
+            "$foreground": "주 텍스트 전경 color-fg-primary"
           },
           "Current": {
-            "background": "color-background-inset",
-            "$background": "현재 항목 배경 color-background-inset",
-            "foreground": "color-foreground-primary",
-            "$foreground": "주 텍스트 전경 color-foreground-primary"
+            "background": "color-bg-inset",
+            "$background": "현재 항목 배경 color-bg-inset",
+            "foreground": "color-fg-primary",
+            "$foreground": "주 텍스트 전경 color-fg-primary"
           }
         }
       },
@@ -1546,16 +1546,16 @@
       "states": {
         "base": {
           "Default": {
-            "background": "color-background-upgrade",
-            "foreground": "color-foreground-upgrade"
+            "background": "color-bg-upgrade",
+            "foreground": "color-fg-upgrade"
           },
           "Hover": {
-            "background": "color-background-upgrade-hover",
-            "foreground": "color-foreground-upgrade-hover"
+            "background": "color-bg-upgrade-hover",
+            "foreground": "color-fg-upgrade-hover"
           },
           "Current": {
-            "background": "color-background-upgrade-current",
-            "foreground": "color-foreground-upgrade-current"
+            "background": "color-bg-upgrade-current",
+            "foreground": "color-fg-upgrade-current"
           }
         }
       }

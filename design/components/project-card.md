@@ -166,8 +166,8 @@ variant 축이 없다. 카드의 강조는 카드가 아니라 **썸네일**이 
 | --- | ---: | --- |
 | 반경 | 16px | `radius-card` |
 | 오버레이 높이 하한 | 미디어의 30% | — |
-| 헤어라인 (inset) | 0.5px | `border-width-hairline` + `color-border-hairline` |
-| 미디어 배경 | — | `color-background-canvas` |
+| 헤어라인 (inset) | 0.5px | `border-width-hairline` + `color-stroke-hairline` |
+| 미디어 배경 | — | `color-bg-canvas` |
 | 오버레이 여백 | 16px | `space-layout-gutter` |
 | 줄 간격 | 4px | `space-stack-xs` |
 | 줄 높이 | 1.2 | — |
@@ -225,7 +225,7 @@ Figma가 같은 원천을 본다.
   text style은 all-or-nothing이라 줄 간격만 덮으면 style 연결이 끊긴다. 그래서 세 줄은 style에
   묶이지 않고 parity 게이트가 `fontSize`와 `lineHeightPercent`를 직접 대조한다.
 - **미디어 배경이 light에서 제품과 7/255 다르다.** 제품은 `palette-gray-200`(#e3e4e8), DS는
-  `color-background-canvas`(light #f1f1f3 · dark #171b22)다. dark는 정확히 같다. 이 한 자리를 위해
+  `color-bg-canvas`(light #f1f1f3 · dark #171b22)다. dark는 정확히 같다. 이 한 자리를 위해
   색 계단을 늘리지 않는다.
 - **위계를 opacity가 아니라 토큰으로 만든다.** 제품은 같은 색에 0.72/0.7을 곱한다. 그러면 결과가
   뒤에 놓인 썸네일에 따라 달라진다.

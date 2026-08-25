@@ -97,7 +97,7 @@ test("states 표가 코드와 같다", async () => {
 
   // **포인터를 먼저 치운다.** 앞 테스트가 얹어 둔 포인터가 같은 좌표에 남아 있으면 새로 렌더된
   // 행이 그 자리에서 :hover를 받는다 — hosted CI가 그 상태를 결정적으로 재현했고(2026-08-18)
-  // 받은 값이 `#171b22 / 0.08`, 곧 `color-action-ghost-hover`였다. 로컬은 포인터 위치가 달라
+  // 받은 값이 `#171b22 / 0.08`, 곧 `color-accent-ghost-hover`였다. 로컬은 포인터 위치가 달라
   // 재현되지 않는다. surface-states 테스트가 같은 함정을 이미 기록해 두었다.
   await userEvent.unhover(plain!);
   expect(getComputedStyle(plain!).backgroundColor, "Default background").toBe(TRANSPARENT);
@@ -126,7 +126,7 @@ test("표면 위에서도 선택이 보인다 — 면이 배경과 같아지는 
   // **다크에서 background-inset은 surface와 같은 색이다.** 면 하나에 기대면 표면 위에 놓인
   // 목록에서 선택이 통째로 사라진다. 3px 선행 표식이 그 자리를 지킨다.
   await render(
-    <div data-kds-fixture style={{ inlineSize: 320, background: "var(--kds-color-background-surface)" }}>
+    <div data-kds-fixture style={{ inlineSize: 320, background: "var(--kds-color-bg-surface)" }}>
       <SelectableListRow selected title="선택됨" />
       <SelectableListRow title="선택 안 됨" />
     </div>,
@@ -139,7 +139,7 @@ test("표면 위에서도 선택이 보인다 — 면이 배경과 같아지는 
     expect(marker.content, `${theme}에서 표식이 있다`).not.toBe("none");
     expect(px(marker.width), `${theme}에서 표식 폭`).toBe(spec.markerInline);
     expect(marker.backgroundColor, `${theme}에서 표식 색`).toBe(
-      tokenValue("color-action-primary", "background-color"),
+      tokenValue("color-accent-primary", "background-color"),
     );
   }
   document.documentElement.removeAttribute("data-theme");
@@ -195,7 +195,7 @@ test("선택된 행에서도 보조 문구가 한 단계 낮게 남는다", asyn
   const titleColor = getComputedStyle(row()).color;
   const metaColor = getComputedStyle(find(".kds-selectable-list-row__meta")).color;
   expect(metaColor, "둘이 같으면 위계가 사라진다").not.toBe(titleColor);
-  expect(metaColor).toBe(tokenValue("color-foreground-secondary", "color"));
+  expect(metaColor).toBe(tokenValue("color-fg-secondary", "color"));
 });
 
 test("disabled면 클릭이 실행되지 않고 hover가 면을 칠하지 않는다", async () => {

@@ -40,11 +40,11 @@
   block-size: var(--kds-layout-control-height-md);
   border: 0;
   border-radius: var(--kds-radius-control);
-  background: var(--kds-color-background-inset);
+  background: var(--kds-color-bg-inset);
   /* **테두리가 아니라 box-shadow다.** border를 쓰면 border-box 안쪽이 줄어 세그먼트 높이가
    * 40 − 8 − 2×테두리가 되는데, 브라우저가 DPR 1에서 0.5px을 1px로 올리므로 그 값이 화면마다
    * 달라진다. box-shadow는 레이아웃을 건드리지 않아 세그먼트가 정확히 32로 남는다. 이전엔
-   * spread-only 바깥 그림자였고 색도 color-border-subtle이었다 — 다른 표면과 같은 generic 10%
+   * spread-only 바깥 그림자였고 색도 color-stroke-subtle이었다 — 다른 표면과 같은 generic 10%
    * inset 헤어라인으로 통일했다 (DS-D-0023). inset도 레이아웃을 건드리지 않는다. */
   box-shadow: var(--kds-hairline-inset);
 }
@@ -70,7 +70,7 @@
   padding-inline: var(--kds-space-control-md);
   /* 반경은 바깥에서 padding을 뺀 값이다 — 12 − 4 = 8. 중첩한 모서리가 어긋나지 않는다. */
   border-radius: var(--kds-radius-control-sm);
-  color: var(--kds-color-foreground-secondary);
+  color: var(--kds-color-fg-secondary);
   cursor: pointer;
   font-family: var(--kds-typography-body-sm-medium-font-family);
   font-size: var(--kds-typography-body-sm-medium-font-size);
@@ -101,19 +101,19 @@
 /* hover는 글자만 바꾼다. 면까지 바꾸면 선택된 것과 얹은 것이 같은 표현이 되어 어느 쪽이
  * 현재 값인지 순간 읽히지 않는다. */
 .kds-segmented-control__segment:hover {
-  color: var(--kds-color-foreground-primary);
+  color: var(--kds-color-fg-primary);
 }
 
 /* 선택. **면과 글자를 함께 바꾼다** — 제품 B는 색 하나로만 전달하고 aria도 없어서, 색각 이상과
  * 스크린 리더 양쪽에서 현재 값이 사라진다. */
 .kds-segmented-control__segment[data-selected="true"] {
-  background: var(--kds-color-background-raised);
-  color: var(--kds-color-foreground-primary);
+  background: var(--kds-color-bg-raised);
+  color: var(--kds-color-fg-primary);
 }
 
 /* 링은 라벨이 받는다. radio는 숨겨져 있어 거기 걸면 화면 밖에 그려진다. */
 .kds-segmented-control__segment:has(.kds-segmented-control__input:focus-visible) {
-  outline: var(--kds-border-width-ring) solid var(--kds-color-border-focus);
+  outline: var(--kds-border-width-ring) solid var(--kds-color-stroke-focus);
   outline-offset: 2px;
 }
 
@@ -135,14 +135,14 @@
 }
 
 .kds-segmented-control__segment:has(.kds-segmented-control__input:disabled) {
-  color: var(--kds-color-foreground-disabled);
+  color: var(--kds-color-fg-disabled);
   cursor: not-allowed;
 }
 
 .kds-segmented-control__segment[data-selected="true"]:has(
     .kds-segmented-control__input:disabled
   ) {
-  color: var(--kds-color-foreground-disabled);
+  color: var(--kds-color-fg-disabled);
 }
 
 /* 그룹 이름. 시각적으로는 숨기고 보조기술에는 남긴다 — fieldset의 legend가 그룹 이름이 되는

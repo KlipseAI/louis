@@ -67,7 +67,7 @@ summary: 사람을 나타내는 작은 원형 표식입니다.
 
 | state | 표현 |
 | --- | --- |
-| Default | 면 `color-background-inset`, 폴백 글리프 `color-foreground-tertiary` |
+| Default | 면 `color-bg-inset`, 폴백 글리프 `color-fg-tertiary` |
 
 면은 이미지가 뜨기 전과 깨졌을 때 그대로 보인다. 그래서 빈 원이 아니라 **자리를 가진 원**이 된다.
 
@@ -95,8 +95,8 @@ summary: 사람을 나타내는 작은 원형 표식입니다.
 | --- | ---: | ---: | --- |
 | 지름 | 28px | 24px | 리터럴 — 제품 값 채택 |
 | 반경 | 999px | 999px | `radius-pill` |
-| 면 | — | — | `color-background-inset` |
-| 폴백 글리프 | — | — | `color-foreground-tertiary` |
+| 면 | — | — | `color-bg-inset` |
+| 폴백 글리프 | — | — | `color-fg-tertiary` |
 
 **크기가 control 계단(40/32)을 따르지 않는다.** 아바타는 컨트롤이 아니라 표식이라 나란히 서도
 줄이 어긋나지 않는다 — 계단을 따를 이유가 없어 제품 값을 그대로 옮겼다. 리터럴로 둔 이유는

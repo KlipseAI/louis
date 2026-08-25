@@ -85,14 +85,14 @@
       "path": "button.states.danger.Active.background",
       "decision": "derived",
       "route": "제품-주장",
-      "reason": "DS에는 danger 전용 :active 배경 규칙이 없어 Active 면은 Default 면(color-action-danger)과 같고 누름은 scale 0.98로만 표현되며(button.css:137-139), 제품도 :active에서 색을 바꾸지 않는다(Button.tsx:131)."
+      "reason": "DS에는 danger 전용 :active 배경 규칙이 없어 Active 면은 Default 면(color-accent-danger)과 같고 누름은 scale 0.98로만 표현되며(button.css:137-139), 제품도 :active에서 색을 바꾸지 않는다(Button.tsx:131)."
     },
     {
       "component": "button",
       "path": "button.states.danger.Active.foreground",
       "decision": "derived",
       "route": "DS-내부만",
-      "reason": "DS에는 :active 전용 전경 규칙이 없어 Active 전경은 Default 전경(color-foreground-on-danger)과 항상 같다 — :active는 색이 아니라 scale로만 표현된다(button.css:137-144)."
+      "reason": "DS에는 :active 전용 전경 규칙이 없어 Active 전경은 Default 전경(color-fg-on-danger)과 항상 같다 — :active는 색이 아니라 scale로만 표현된다(button.css:137-144)."
     },
     {
       "component": "button",
@@ -101,7 +101,7 @@
       "productConstant": "DANGER / --accent-red-500",
       "productFile": "apps/web/components/ui/Button.tsx",
       "productLine": 127,
-      "productValue": "[background:var(--accent-red-500)] = #ff4b59 (globals.css:234). 단색 solid이며 DS의 color-action-danger(red.500 #ff4b59)와 같은 값이다"
+      "productValue": "[background:var(--accent-red-500)] = #ff4b59 (globals.css:234). 단색 solid이며 DS의 color-accent-danger(red.500 #ff4b59)와 같은 값이다"
     },
     {
       "component": "button",
@@ -110,7 +110,7 @@
       "productConstant": "DANGER / text-palette-gray-000",
       "productFile": "apps/web/components/ui/Button.tsx",
       "productLine": 128,
-      "productValue": "#fafafa (--palette-gray-000, globals.css:20). 다크 오버라이드 없음 — DS의 color-foreground-on-danger(neutral.0 #fafafa)와 같은 값이다"
+      "productValue": "#fafafa (--palette-gray-000, globals.css:20). 다크 오버라이드 없음 — DS의 color-fg-on-danger(neutral.0 #fafafa)와 같은 값이다"
     },
     {
       "component": "button",
@@ -137,14 +137,14 @@
       "path": "button.states.danger.Hover.background",
       "decision": "derived",
       "route": "제품-주장",
-      "reason": "DS는 danger의 hover를 색이 아니라 opacity 0.85로 표현하므로(button.css:128-130, 제품 Button.tsx:130과 같은 방식) Hover 면은 Default 면과 같은 color-action-danger다."
+      "reason": "DS는 danger의 hover를 색이 아니라 opacity 0.85로 표현하므로(button.css:128-130, 제품 Button.tsx:130과 같은 방식) Hover 면은 Default 면과 같은 color-accent-danger다."
     },
     {
       "component": "button",
       "path": "button.states.danger.Hover.foreground",
       "decision": "derived",
       "route": "제품-주장",
-      "reason": "DS에는 hover 전용 전경 규칙이 없어 Hover 전경은 Default 전경(color-foreground-on-danger)과 같고, 제품도 hover에서 전경을 재선언하지 않고 요소 전체에 opacity 0.85만 건다(Button.tsx:130)."
+      "reason": "DS에는 hover 전용 전경 규칙이 없어 Hover 전경은 Default 전경(color-fg-on-danger)과 같고, 제품도 hover에서 전경을 재선언하지 않고 요소 전체에 opacity 0.85만 건다(Button.tsx:130)."
     },
     {
       "component": "button",
@@ -165,14 +165,14 @@
       "path": "button.states.ghost.Active.background",
       "decision": "derived",
       "route": "DS-내부만",
-      "reason": "DS에는 ghost 전용 :active 배경 규칙이 없고 포인터로 누르는 동안 :hover가 계속 매칭되므로 Active 면은 Hover 면(color-action-ghost-hover)과 항상 같다 — :active가 바꾸는 것은 scale 0.97뿐이다(button.css:142-144)."
+      "reason": "DS에는 ghost 전용 :active 배경 규칙이 없고 포인터로 누르는 동안 :hover가 계속 매칭되므로 Active 면은 Hover 면(color-accent-ghost-hover)과 항상 같다 — :active가 바꾸는 것은 scale 0.97뿐이다(button.css:142-144)."
     },
     {
       "component": "button",
       "path": "button.states.ghost.Active.foreground",
       "decision": "derived",
       "route": "DS-내부만",
-      "reason": "DS에는 :active 전용 전경 규칙이 없어 Active 전경은 Default 전경(color-action-secondary-foreground)과 항상 같다 — :active는 색이 아니라 scale로만 표현된다."
+      "reason": "DS에는 :active 전용 전경 규칙이 없어 Active 전경은 Default 전경(color-accent-secondary-foreground)과 항상 같다 — :active는 색이 아니라 scale로만 표현된다."
     },
     {
       "component": "button",
@@ -251,7 +251,7 @@
       "path": "button.states.primary.Active.foreground",
       "decision": "derived",
       "route": "DS-내부만",
-      "reason": "DS에는 :active 전용 전경 규칙이 없어 Active 전경은 Default 전경(color-foreground-inverse)과 항상 같다 — :active가 바꾸는 것은 배경과 scale뿐이다(button.css:133-139)."
+      "reason": "DS에는 :active 전용 전경 규칙이 없어 Active 전경은 Default 전경(color-fg-inverse)과 항상 같다 — :active가 바꾸는 것은 배경과 scale뿐이다(button.css:133-139)."
     },
     {
       "component": "button",
@@ -260,7 +260,7 @@
       "productConstant": "PRIMARY / --node-prompt-generate-gradient",
       "productFile": "apps/web/components/ui/Button.tsx",
       "productLine": 92,
-      "productValue": "linear-gradient(90deg, var(--primary-450) 0%, var(--primary-500) 50%, var(--primary-450) 100%) = #1491ff → #0088ff → #1491ff (globals.css:513-518; --primary-450 #1491ff:179, --primary-500 #0088ff:159). **단색이 아니라 그라디언트다** — DS의 color-action-primary는 그 중앙 정지점 blue.500 #0088ff와 같고 좌우 정지점(primary-450)은 버린 것이다. product.measured.json에 이 축이 아직 없다"
+      "productValue": "linear-gradient(90deg, var(--primary-450) 0%, var(--primary-500) 50%, var(--primary-450) 100%) = #1491ff → #0088ff → #1491ff (globals.css:513-518; --primary-450 #1491ff:179, --primary-500 #0088ff:159). **단색이 아니라 그라디언트다** — DS의 color-accent-primary는 그 중앙 정지점 blue.500 #0088ff와 같고 좌우 정지점(primary-450)은 버린 것이다. product.measured.json에 이 축이 아직 없다"
     },
     {
       "component": "button",
@@ -269,7 +269,7 @@
       "productConstant": "PRIMARY / text-palette-gray-000",
       "productFile": "apps/web/components/ui/Button.tsx",
       "productLine": 93,
-      "productValue": "#fafafa (--palette-gray-000, globals.css:20). 다크 오버라이드 없음 — DS의 color-foreground-inverse(neutral.0 #fafafa)와 같은 값이다"
+      "productValue": "#fafafa (--palette-gray-000, globals.css:20). 다크 오버라이드 없음 — DS의 color-fg-inverse(neutral.0 #fafafa)와 같은 값이다"
     },
     {
       "component": "button",
@@ -299,14 +299,14 @@
       "productFile": "apps/web/components/ui/Button.tsx",
       "productLine": 100,
       "productSelector": ":hover:not(:disabled)",
-      "productValue": "filter: brightness(1.06) — **배경색 재선언이 아니라 밝기 필터다.** 제품은 hover에서 어두워지지 않고 그라디언트를 6% 밝힌다. DS는 대신 색 토큰 color-action-primary-hover(blue.400 #38a4ff)를 쓰는데, 그 색은 제품 팔레트에 --primary-400 #38a4ff(globals.css:158)로 존재하지만 제품 Button은 그것을 쓰지 않는다"
+      "productValue": "filter: brightness(1.06) — **배경색 재선언이 아니라 밝기 필터다.** 제품은 hover에서 어두워지지 않고 그라디언트를 6% 밝힌다. DS는 대신 색 토큰 color-accent-primary-hover(blue.400 #38a4ff)를 쓰는데, 그 색은 제품 팔레트에 --primary-400 #38a4ff(globals.css:158)로 존재하지만 제품 Button은 그것을 쓰지 않는다"
     },
     {
       "component": "button",
       "path": "button.states.primary.Hover.foreground",
       "decision": "derived",
       "route": "제품-주장",
-      "reason": "DS에는 hover 전용 전경 규칙이 없어 Hover 전경은 Default 전경(color-foreground-inverse)과 같고, 제품도 hover에서 전경을 재선언하지 않고 요소 전체에 brightness(1.06)만 건다(Button.tsx:100)."
+      "reason": "DS에는 hover 전용 전경 규칙이 없어 Hover 전경은 Default 전경(color-fg-inverse)과 같고, 제품도 hover에서 전경을 재선언하지 않고 요소 전체에 brightness(1.06)만 건다(Button.tsx:100)."
     },
     {
       "component": "button",
@@ -327,21 +327,21 @@
       "path": "button.states.secondary.Active.background",
       "decision": "derived",
       "route": "DS-내부만",
-      "reason": "DS에는 secondary 전용 :active 배경 규칙이 없고 포인터로 누르는 동안 :hover가 계속 매칭되므로 Active 면은 Hover 면(color-action-secondary-hover)과 항상 같다 — :active가 바꾸는 것은 scale 0.98뿐이다(button.css:137-139)."
+      "reason": "DS에는 secondary 전용 :active 배경 규칙이 없고 포인터로 누르는 동안 :hover가 계속 매칭되므로 Active 면은 Hover 면(color-accent-secondary-hover)과 항상 같다 — :active가 바꾸는 것은 scale 0.98뿐이다(button.css:137-139)."
     },
     {
       "component": "button",
       "path": "button.states.secondary.Active.border",
       "decision": "derived",
       "route": "DS-내부만",
-      "reason": "DS에는 :active 전용 테두리 규칙이 없어 Active 테두리는 Default 테두리(color-border-control)와 항상 같다."
+      "reason": "DS에는 :active 전용 테두리 규칙이 없어 Active 테두리는 Default 테두리(color-stroke-control)와 항상 같다."
     },
     {
       "component": "button",
       "path": "button.states.secondary.Active.foreground",
       "decision": "derived",
       "route": "DS-내부만",
-      "reason": "DS에는 :active 전용 전경 규칙이 없어 Active 전경은 Default 전경(color-action-secondary-foreground)과 항상 같다 — :active는 색이 아니라 scale로만 표현된다."
+      "reason": "DS에는 :active 전용 전경 규칙이 없어 Active 전경은 Default 전경(color-accent-secondary-foreground)과 항상 같다 — :active는 색이 아니라 scale로만 표현된다."
     },
     {
       "component": "button",
@@ -359,7 +359,7 @@
       "productConstant": "BORDER_SECONDARY",
       "productFile": "apps/web/components/ui/Button.tsx",
       "productLine": 80,
-      "productValue": "1px solid rgb(23 27 34 / 12%) (--palette-gray-900-rgb 23 27 34, globals.css:51) — 불투명색이 아니라 잉크 알파다. 다크는 rgb(250 250 250 / 16%) (Button.tsx:111). DS의 color-border-control(ink-alpha.12)과 같은 값이다"
+      "productValue": "1px solid rgb(23 27 34 / 12%) (--palette-gray-900-rgb 23 27 34, globals.css:51) — 불투명색이 아니라 잉크 알파다. 다크는 rgb(250 250 250 / 16%) (Button.tsx:111). DS의 color-stroke-control(ink-alpha.12)과 같은 값이다"
     },
     {
       "component": "button",
@@ -412,7 +412,7 @@
       "path": "button.states.secondary.Hover.border",
       "decision": "derived",
       "route": "제품-주장",
-      "reason": "DS에는 hover 전용 테두리 규칙이 없어 Hover 테두리는 Default 테두리(color-border-control)와 같고, 제품도 hover에서 배경 오버레이만 얹고 테두리는 그대로 둔다(Button.tsx:108)."
+      "reason": "DS에는 hover 전용 테두리 규칙이 없어 Hover 테두리는 Default 테두리(color-stroke-control)와 같고, 제품도 hover에서 배경 오버레이만 얹고 테두리는 그대로 둔다(Button.tsx:108)."
     },
     {
       "component": "button",
@@ -433,7 +433,7 @@
       "path": "button.states.secondary.Loading.border",
       "decision": "derived",
       "route": "제품-없음",
-      "reason": "Loading은 aria-disabled=\"true\"로 표시되어 disabled 테두리 규칙(button.css:168-171)이 함께 적용되므로 Loading 테두리는 언제나 Disabled 테두리(color-border-subtle)와 같고, 제품 공용 Button에는 loading prop 자체가 없다."
+      "reason": "Loading은 aria-disabled=\"true\"로 표시되어 disabled 테두리 규칙(button.css:168-171)이 함께 적용되므로 Loading 테두리는 언제나 Disabled 테두리(color-stroke-subtle)와 같고, 제품 공용 Button에는 loading prop 자체가 없다."
     },
     {
       "component": "button",
@@ -1033,7 +1033,7 @@
       "path": "input.states.base.Disabled.background",
       "decision": "derived",
       "route": "DS-내부만",
-      "reason": "Disabled은 테두리 색과 커서만 바꾼다 — 면은 Default의 `color-background-surface`가 그대로 계산된 값이라 따로 선언하지 않는다."
+      "reason": "Disabled은 테두리 색과 커서만 바꾼다 — 면은 Default의 `color-bg-surface`가 그대로 계산된 값이라 따로 선언하지 않는다."
     },
     {
       "component": "input",
@@ -1052,7 +1052,7 @@
       "path": "input.states.base.Invalid.background",
       "decision": "derived",
       "route": "DS-내부만",
-      "reason": "Invalid은 테두리 색과 메시지 색만 바꾼다 — 면은 Default의 `color-background-surface`가 그대로 계산된 값이라 따로 선언하지 않는다."
+      "reason": "Invalid은 테두리 색과 메시지 색만 바꾼다 — 면은 Default의 `color-bg-surface`가 그대로 계산된 값이라 따로 선언하지 않는다."
     },
     {
       "component": "input",
@@ -1065,7 +1065,7 @@
       "path": "input.states.base.Invalid.foreground",
       "decision": "derived",
       "route": "DS-내부만",
-      "reason": "Invalid은 테두리와 메시지 색만 바꾼다 — 값 텍스트는 Default의 `color-foreground-primary`가 그대로 계산된 값이다."
+      "reason": "Invalid은 테두리와 메시지 색만 바꾼다 — 값 텍스트는 Default의 `color-fg-primary`가 그대로 계산된 값이다."
     },
     {
       "component": "checkbox",
@@ -1396,7 +1396,7 @@
       "productConstant": "settingsToggleBtn의 `color`",
       "productFile": "apps/web/components/scenes/myPageSceneStyles.ts",
       "productLine": 1072,
-      "productValue": "rgb(var(--gray-000-rgb) / 42%) (DS는 `color-foreground-secondary`)"
+      "productValue": "rgb(var(--gray-000-rgb) / 42%) (DS는 `color-fg-secondary`)"
     },
     {
       "component": "segmented-control",
@@ -1429,7 +1429,7 @@
       "productFile": "apps/web/components/scenes/myPageSceneStyles.ts",
       "productLine": 1077,
       "productSelector": "[&:hover]",
-      "productValue": "rgb(var(--gray-000-rgb) / 72%) (DS는 `color-foreground-primary`)"
+      "productValue": "rgb(var(--gray-000-rgb) / 72%) (DS는 `color-fg-primary`)"
     },
     {
       "component": "segmented-control",
@@ -1439,7 +1439,7 @@
       "productFile": "apps/web/components/scenes/myPageSceneStyles.ts",
       "productLine": 1089,
       "productSelector": "선택된 세그먼트. 제품은 면을 세그먼트가 아니라 그 아래를 미끄러지는 별도 요소 `settingsToggleThumb`이 갖는다 — SegmentedToggle.tsx:44에서 활성 버튼의 offsetLeft/offsetWidth로 옮긴다",
-      "productValue": "rgb(var(--gray-000-rgb) / 14%) · 라이트 var(--palette-gray-000) (DS는 `color-background-raised`)"
+      "productValue": "rgb(var(--gray-000-rgb) / 14%) · 라이트 var(--palette-gray-000) (DS는 `color-bg-raised`)"
     },
     {
       "component": "segmented-control",
@@ -1449,7 +1449,7 @@
       "productFile": "apps/web/components/scenes/myPageSceneStyles.ts",
       "productLine": 1080,
       "productSelector": "`value === v`일 때 붙는 클래스. 제품은 같은 조건을 `aria-pressed`로도 낸다 — SegmentedToggle.tsx:53·55",
-      "productValue": "var(--gray-000) (DS는 `color-foreground-primary`)"
+      "productValue": "var(--gray-000) (DS는 `color-fg-primary`)"
     },
     {
       "component": "menu-popover",
@@ -1596,7 +1596,7 @@
       "component": "menu-popover",
       "path": "menu-popover.states.base.Disabled.foreground",
       "decision": "product-none",
-      "reason": "제품 메뉴에는 disabled 전용 전경색이 없고 행 전체를 opacity 0.45(AnalyticsAccountMoreMenu.tsx:82)·0.38(PaneContextMenu.tsx:63)로 흐릴 뿐이라 아이콘과 배지까지 함께 흐려져 대비를 값으로 보장할 수 없으므로, DS는 전경만 color-foreground-disabled로 바꾼다."
+      "reason": "제품 메뉴에는 disabled 전용 전경색이 없고 행 전체를 opacity 0.45(AnalyticsAccountMoreMenu.tsx:82)·0.38(PaneContextMenu.tsx:63)로 흐릴 뿐이라 아이콘과 배지까지 함께 흐려져 대비를 값으로 보장할 수 없으므로, DS는 전경만 color-fg-disabled로 바꾼다."
     },
     {
       "component": "menu-popover",
@@ -2058,7 +2058,7 @@
       "component": "selectable-list-row",
       "path": "selectable-list-row.sizes.base.markerInline",
       "decision": "product-none",
-      "reason": "제품의 선택된 행은 면 하나만 바꾸고 표식도 테두리도 그리지 않는다(clipDetailListItemActive에 background 선언 넷뿐, apps/web/components/scenes/highlightSceneStyles.ts:167-173). DS 다크에서 `color-background-inset`은 `surface`·`menu`·`overlay`와 같은 색(#313644)이라 표면 위에 놓인 목록에서는 면만으로 선택이 사라지므로, 3px 선행 표식을 두 번째 신호로 함께 그려 선택을 색 하나에 싣지 않는다."
+      "reason": "제품의 선택된 행은 면 하나만 바꾸고 표식도 테두리도 그리지 않는다(clipDetailListItemActive에 background 선언 넷뿐, apps/web/components/scenes/highlightSceneStyles.ts:167-173). DS 다크에서 `color-bg-inset`은 `surface`·`menu`·`overlay`와 같은 색(#313644)이라 표면 위에 놓인 목록에서는 면만으로 선택이 사라지므로, 3px 선행 표식을 두 번째 신호로 함께 그려 선택을 색 하나에 싣지 않는다."
     },
     {
       "component": "selectable-list-row",
@@ -2143,7 +2143,7 @@
       "productFile": "apps/web/components/scenes/highlightSceneStyles.ts",
       "productLine": 159,
       "productSelector": "&:hover (다크는 html[data-theme=dark] &:hover)",
-      "productValue": "light `rgb(var(--palette-gray-900-rgb) / 5%)` (:159) · dark `rgb(var(--palette-gray-000-rgb) / 6%)` (:160). B도 같은 꼴의 알파 오버레이다 — dark `rgb(var(--palette-gray-000-rgb)/8%)`, light `rgb(var(--palette-gray-900-rgb)/6%)` (apps/web/components/scenes/VideoEditProjectPicker.tsx:133, 136). DS의 `color-action-ghost-hover`도 같은 꼴(light ink-alpha.8 · dark paper-alpha.10)이고 불투명도만 갈린다."
+      "productValue": "light `rgb(var(--palette-gray-900-rgb) / 5%)` (:159) · dark `rgb(var(--palette-gray-000-rgb) / 6%)` (:160). B도 같은 꼴의 알파 오버레이다 — dark `rgb(var(--palette-gray-000-rgb)/8%)`, light `rgb(var(--palette-gray-900-rgb)/6%)` (apps/web/components/scenes/VideoEditProjectPicker.tsx:133, 136). DS의 `color-accent-ghost-hover`도 같은 꼴(light ink-alpha.8 · dark paper-alpha.10)이고 불투명도만 갈린다."
     },
     {
       "component": "selectable-list-row",
@@ -2205,7 +2205,7 @@
       "productFile": "apps/web/app/globals.css",
       "productLine": 742,
       "productSelector": "html[data-theme=\"light\"] (742) / html[data-theme=\"dark\"] (697). [data-landing-walkthrough-dark] 786과 [data-landing-walkthrough-light] 830이 같은 값을 복제한다",
-      "productValue": "light: var(--palette-gray-800) = #313640 / dark: var(--palette-gray-200) = #e3e4e8 — 페이지와 반전된 면이며, DS의 color-background-inverse가 모드별로 뒤집히는 것과 값이 같다"
+      "productValue": "light: var(--palette-gray-800) = #313640 / dark: var(--palette-gray-200) = #e3e4e8 — 페이지와 반전된 면이며, DS의 color-bg-inverse가 모드별로 뒤집히는 것과 값이 같다"
     },
     {
       "component": "tooltip",
@@ -2215,7 +2215,7 @@
       "productFile": "apps/web/app/globals.css",
       "productLine": 743,
       "productSelector": "html[data-theme=\"light\"] (743) / html[data-theme=\"dark\"] (698). [data-landing-walkthrough-dark] 787과 [data-landing-walkthrough-light] 831이 같은 값을 복제한다",
-      "productValue": "light: var(--palette-gray-000) = #fafafa / dark: var(--palette-gray-900) = #171b22 — DS의 color-foreground-on-inverse와 값이 같다. 별개로 --app-tooltip-text-subtle(744/699, 각각 gray-700/72%, gray-000/72%)이 있으나 DS에는 대응 축이 없다"
+      "productValue": "light: var(--palette-gray-000) = #fafafa / dark: var(--palette-gray-900) = #171b22 — DS의 color-fg-on-inverse와 값이 같다. 별개로 --app-tooltip-text-subtle(744/699, 각각 gray-700/72%, gray-000/72%)이 있으나 DS에는 대응 축이 없다"
     },
     {
       "component": "tooltip",
@@ -2225,7 +2225,7 @@
       "productFile": "apps/web/app/globals.css",
       "productLine": 745,
       "productSelector": "html[data-theme=\"light\"] (745) / html[data-theme=\"dark\"] (700). [data-landing-walkthrough-dark] 789와 [data-landing-walkthrough-light] 833이 같은 값을 복제한다",
-      "productValue": "light: rgb(var(--palette-gray-000-rgb) / 14%) = rgba(250, 250, 250, 0.14) / dark: rgb(var(--palette-gray-900-rgb) / 12%) = rgba(23, 27, 34, 0.12) — DS의 color-border-tooltip(라이트 paper-alpha 14%, 다크 ink-alpha 12%)과 값이 같다. 제품 두께는 1px이고 DS는 border-width-hairline 0.5px이라 두께 축은 다르다"
+      "productValue": "light: rgb(var(--palette-gray-000-rgb) / 14%) = rgba(250, 250, 250, 0.14) / dark: rgb(var(--palette-gray-900-rgb) / 12%) = rgba(23, 27, 34, 0.12) — DS의 color-stroke-tooltip(라이트 paper-alpha 14%, 다크 ink-alpha 12%)과 값이 같다. 제품 두께는 1px이고 DS는 border-width-hairline 0.5px이라 두께 축은 다르다"
     },
     {
       "component": "toast",
@@ -2263,7 +2263,7 @@
       "productFile": "apps/web/components/generation/GenerationProvider.tsx",
       "productLine": 287,
       "productSelector": "toast.type === \"error\" (GlobalToast.type: \"success\" | \"error\", GenerationProvider.tsx:88-93). 생성 실패 알림에서만 뜬다",
-      "productValue": "rgb(var(--accent-red-500-rgb) / 85%) = #ff4b59 85% (--accent-red-500, globals.css:234). success는 같은 삼항의 286줄에서 rgb(var(--gray-900-rgb) / 80%)로 갈린다. **migration/product.measured.json의 '제품에 danger tone이 없다'는 판정은 AppHomeScene 한 벌만 본 것이고, product.variants.json의 이름 패턴 `/^toast$|Toast$/`도 이 인라인 style 정의를 잡지 못했다 — 제품에는 tone 축이 있다.** DS의 color-background-danger는 라이트 #ffe5e8 / 다크 #541119(packages/css/generated/tokens.css:20,283)로, 제품 팔레트의 --accent-red-100·--accent-red-900(globals.css:230,238)과 값이 같다 — 같은 빨강 스케일을 쓰되 채도 높은 면 대신 옅은 틴트를 골랐다. 참고로 admin·문의의 인라인 배너는 rgb(var(--accent-red-500-rgb) / 10%)(AdminClient.tsx:163), 비디오 에디터의 errorToast는 빨강이 아닌 rgb(var(--gray-900-rgb) / 82%)(EditorProjectWorkspace.tsx:152)로 셋이 서로 다르다."
+      "productValue": "rgb(var(--accent-red-500-rgb) / 85%) = #ff4b59 85% (--accent-red-500, globals.css:234). success는 같은 삼항의 286줄에서 rgb(var(--gray-900-rgb) / 80%)로 갈린다. **migration/product.measured.json의 '제품에 danger tone이 없다'는 판정은 AppHomeScene 한 벌만 본 것이고, product.variants.json의 이름 패턴 `/^toast$|Toast$/`도 이 인라인 style 정의를 잡지 못했다 — 제품에는 tone 축이 있다.** DS의 color-bg-danger는 라이트 #ffe5e8 / 다크 #541119(packages/css/generated/tokens.css:20,283)로, 제품 팔레트의 --accent-red-100·--accent-red-900(globals.css:230,238)과 값이 같다 — 같은 빨강 스케일을 쓰되 채도 높은 면 대신 옅은 틴트를 골랐다. 참고로 admin·문의의 인라인 배너는 rgb(var(--accent-red-500-rgb) / 10%)(AdminClient.tsx:163), 비디오 에디터의 errorToast는 빨강이 아닌 rgb(var(--gray-900-rgb) / 82%)(EditorProjectWorkspace.tsx:152)로 셋이 서로 다르다."
     },
     {
       "component": "toast",
@@ -2273,7 +2273,7 @@
       "productFile": "apps/web/components/generation/GenerationProvider.tsx",
       "productLine": 292,
       "productSelector": "toast.type === \"error\"에도 같은 선언이 적용된다 — 전경은 삼항 밖에 있어 tone으로 갈리지 않는다",
-      "productValue": "var(--gray-000, #fafafa). 제품은 채도 높은 빨간 면 위에 흰 글자다. DS의 color-foreground-danger는 라이트 #541119 / 다크 #ffe5e8(packages/css/generated/tokens.css:41,304)로 면과 글자를 함께 뒤집는 방식이라 제품과 접근이 다르다. admin·문의 인라인 배너는 또 달라서 text-accent-red-500(#ff4b59)을 전경으로 쓴다(AdminClient.tsx:165)."
+      "productValue": "var(--gray-000, #fafafa). 제품은 채도 높은 빨간 면 위에 흰 글자다. DS의 color-fg-danger는 라이트 #541119 / 다크 #ffe5e8(packages/css/generated/tokens.css:41,304)로 면과 글자를 함께 뒤집는 방식이라 제품과 접근이 다르다. admin·문의 인라인 배너는 또 달라서 text-accent-red-500(#ff4b59)을 전경으로 쓴다(AdminClient.tsx:165)."
     },
     {
       "component": "toast",
@@ -2283,7 +2283,7 @@
       "productFile": "apps/web/components/scenes/appHomeSceneStyles.ts",
       "productLine": 948,
       "productSelector": "html[data-theme=light] (948줄) / html[data-theme=dark] (949줄)",
-      "productValue": "라이트 rgb(var(--palette-gray-800-rgb) / 70%) = #313640 70%, 다크 rgb(var(--palette-gray-200-rgb) / 70%) = #e3e4e8 70% (globals.css:36,44,50). DS의 color-background-inverse-translucent가 두 모드 모두 이 값을 그대로 채택했다 — packages/css/generated/tokens.css:24는 color(srgb 0.192157 0.211765 0.25098 / 0.7) = rgb(49 54 64)/70%, :287은 color(srgb 0.890196 0.894118 0.909804 / 0.7) = rgb(227 228 232)/70%로 제품 실측값과 정확히 같다. highlightSceneStyles.ts:2224-2225와 CreateScene.tsx:174-175도 같은 선언이다."
+      "productValue": "라이트 rgb(var(--palette-gray-800-rgb) / 70%) = #313640 70%, 다크 rgb(var(--palette-gray-200-rgb) / 70%) = #e3e4e8 70% (globals.css:36,44,50). DS의 color-bg-inverse-translucent가 두 모드 모두 이 값을 그대로 채택했다 — packages/css/generated/tokens.css:24는 color(srgb 0.192157 0.211765 0.25098 / 0.7) = rgb(49 54 64)/70%, :287은 color(srgb 0.890196 0.894118 0.909804 / 0.7) = rgb(227 228 232)/70%로 제품 실측값과 정확히 같다. highlightSceneStyles.ts:2224-2225와 CreateScene.tsx:174-175도 같은 선언이다."
     },
     {
       "component": "toast",
@@ -2293,7 +2293,7 @@
       "productFile": "apps/web/components/scenes/appHomeSceneStyles.ts",
       "productLine": 960,
       "productSelector": "html[data-theme=light] (960줄) / html[data-theme=dark] (961줄)",
-      "productValue": "라이트 var(--palette-gray-000) = #fafafa, 다크 var(--palette-gray-900) = #171b22 (globals.css:20,37). DS의 color-foreground-on-inverse가 두 모드 모두 이 값을 그대로 채택했다 — packages/css/generated/tokens.css:47은 color(srgb 0.980392 0.980392 0.980392) = rgb(250 250 250), :310은 color(srgb 0.090196 0.105882 0.133333) = rgb(23 27 34)로 제품과 같다. highlightSceneStyles.ts:2236-2237, CreateScene.tsx:180-181도 같은 선언이다."
+      "productValue": "라이트 var(--palette-gray-000) = #fafafa, 다크 var(--palette-gray-900) = #171b22 (globals.css:20,37). DS의 color-fg-on-inverse가 두 모드 모두 이 값을 그대로 채택했다 — packages/css/generated/tokens.css:47은 color(srgb 0.980392 0.980392 0.980392) = rgb(250 250 250), :310은 color(srgb 0.090196 0.105882 0.133333) = rgb(23 27 34)로 제품과 같다. highlightSceneStyles.ts:2236-2237, CreateScene.tsx:180-181도 같은 선언이다."
     },
     {
       "component": "dialog",
@@ -2833,7 +2833,7 @@
       "productConstant": "emptyTitle (tw-ah-059) — 짝: NodeCanvasHomeScene.tsx:173-176 `EMPTY_TITLE` `text-[var(--gray-000)]`",
       "productFile": "apps/web/components/scenes/appHomeSceneStyles.ts",
       "productLine": 711,
-      "productValue": "color: var(--gray-000) — 제품의 페이지 전경 별칭이다(`--foreground: var(--gray-000)`, globals.css:690 다크 · 733 라이트). 해결값은 다크 `--palette-gray-000` = #fafafa, 라이트 `--palette-gray-1000` = #000000. DS의 color-foreground-primary는 다크 neutral.0 = #fafafa로 같고 라이트 neutral.900 = #171b22로 다르다 — 라이트만 갈린다. 두 홈이 같은 값을 쓴다. (같은 블록의 컨테이너 색 `rgb(var(--gray-000-rgb)/40%)`(appHomeSceneStyles.ts:704)와 설명 색 `rgb(var(--gray-000-rgb)/55%)`(:692)는 이 축이 아니라 각각 DS의 root 무색·foreground-secondary에 대응한다. `[html[data-theme=light] [data-forced-theme=dark] &]` 분기는 랜딩 임베드 데모용 강제 다크 재선언이며 기본 상태가 아니다.)"
+      "productValue": "color: var(--gray-000) — 제품의 페이지 전경 별칭이다(`--foreground: var(--gray-000)`, globals.css:690 다크 · 733 라이트). 해결값은 다크 `--palette-gray-000` = #fafafa, 라이트 `--palette-gray-1000` = #000000. DS의 color-fg-primary는 다크 neutral.0 = #fafafa로 같고 라이트 neutral.900 = #171b22로 다르다 — 라이트만 갈린다. 두 홈이 같은 값을 쓴다. (같은 블록의 컨테이너 색 `rgb(var(--gray-000-rgb)/40%)`(appHomeSceneStyles.ts:704)와 설명 색 `rgb(var(--gray-000-rgb)/55%)`(:692)는 이 축이 아니라 각각 DS의 root 무색·foreground-secondary에 대응한다. `[html[data-theme=light] [data-forced-theme=dark] &]` 분기는 랜딩 임베드 데모용 강제 다크 재선언이며 기본 상태가 아니다.)"
     },
     {
       "component": "project-card",
@@ -2895,7 +2895,7 @@
       "productLine": 64,
       "productValue": "rgba(0, 0, 0, 0.5) (다크, :64) · rgba(0, 0, 0, 0.15) (라이트, :595)",
       "productSelector": "",
-      "reason": "제품의 카드 가장자리 선은 `border-color`가 아니라 같은 링(box-shadow 첫 겹)의 색이다 — 알파를 가진 검정이라 뒤에 놓인 썸네일에 따라 결과가 달라지고, DS는 그 자리에 불투명 토큰 `color-border-subtle`(라이트 #e3e4e8 · 다크 #575d68)을 둔다. 값 자체는 DS와 제품이 다르므로 이 축은 대조 대상이지 채택이 아니다."
+      "reason": "제품의 카드 가장자리 선은 `border-color`가 아니라 같은 링(box-shadow 첫 겹)의 색이다 — 알파를 가진 검정이라 뒤에 놓인 썸네일에 따라 결과가 달라지고, DS는 그 자리에 불투명 토큰 `color-stroke-subtle`(라이트 #e3e4e8 · 다크 #575d68)을 둔다. 값 자체는 DS와 제품이 다르므로 이 축은 대조 대상이지 채택이 아니다."
     },
     {
       "component": "project-card",
@@ -2906,7 +2906,7 @@
       "productLine": 337,
       "productValue": "#f1f1f3 (다크, :337) · #171b22 (라이트, :345)",
       "productSelector": "",
-      "reason": "DS의 이 축은 제목 줄의 색이다(surface-states.browser.test.tsx:218이 `.kds-project-card-title`의 color로 확인한다). 제품 제목 색은 앱 홈·노드캔버스 홈이 위 두 값이고(NodeCanvasHomeScene.tsx:349·352 동일), 라이트값 #171b22는 DS `color-foreground-primary`의 라이트값과 정확히 같지만 다크는 제품 #f1f1f3 대 DS #fafafa로 다르다. 하이라이트 허브와 비디오 에디터 허브는 썸네일 dominant color 광도로 뒤집는 `--card-text-color`가 이 색을 덮는다(appHomeSceneStyles.ts:346·348 조건 `.tw-ah-017` = dominantColor가 있는 하이라이트 카드, highlightSceneStyles.ts:1071, VideoEditScene.tsx:395-400) — 그 런타임 계약은 DS가 옮기지 않았다."
+      "reason": "DS의 이 축은 제목 줄의 색이다(surface-states.browser.test.tsx:218이 `.kds-project-card-title`의 color로 확인한다). 제품 제목 색은 앱 홈·노드캔버스 홈이 위 두 값이고(NodeCanvasHomeScene.tsx:349·352 동일), 라이트값 #171b22는 DS `color-fg-primary`의 라이트값과 정확히 같지만 다크는 제품 #f1f1f3 대 DS #fafafa로 다르다. 하이라이트 허브와 비디오 에디터 허브는 썸네일 dominant color 광도로 뒤집는 `--card-text-color`가 이 색을 덮는다(appHomeSceneStyles.ts:346·348 조건 `.tw-ah-017` = dominantColor가 있는 하이라이트 카드, highlightSceneStyles.ts:1071, VideoEditScene.tsx:395-400) — 그 런타임 계약은 DS가 옮기지 않았다."
     },
     {
       "component": "app-shell-parts",
@@ -2979,7 +2979,7 @@
       "productConstant": "gnbStyles.menuLinkActive",
       "productFile": "apps/web/components/navigation/Gnb.tsx",
       "productLine": 516,
-      "productValue": "`var(--gray-300)` — 라이트 `--palette-gray-700` #575d68(globals.css:711·34) · 다크 `--palette-gray-300` #d5d7dd(globals.css:668·30). 두 테마 모두 DS `color-foreground-secondary`와 값이 같다",
+      "productValue": "`var(--gray-300)` — 라이트 `--palette-gray-700` #575d68(globals.css:711·34) · 다크 `--palette-gray-300` #d5d7dd(globals.css:668·30). 두 테마 모두 DS `color-fg-secondary`와 값이 같다",
       "productSelector": "`.gnb-menuSidebar .gnb-menuLink:not(.gnb-menuLinkActive)` — 선택되지 않은 사이드바 항목에만 걸린다. 선언 자리는 `menuLinkActive` 상수 안이지만 겨누는 것은 형제(비선택) 항목이다"
     },
     {
@@ -3109,7 +3109,7 @@
       "productFile": "apps/web/components/scenes/highlightSceneStyles.ts",
       "productLine": 1190,
       "productValue": "rgb(var(--palette-gray-900-rgb) / 10%) = rgb(23 27 34 / 10%) — #171b22 10% (globals.css:37,51). 다크는 같은 상수 1193줄의 `[html[data-theme=dark]_&]:[background:rgb(var(--palette-gray-000-rgb)_/_10%)]` = rgb(250 250 250 / 10%) — #fafafa 10% (globals.css:20,40)",
-      "reason": "DS 토큰 `color-progress-track`이 light `color-ink-alpha-10` = srgb(0.090196 0.105882 0.133333 / 0.1) = rgb(23 27 34 / 10%), dark `color-paper-alpha-10` = rgb(250 250 250 / 10%)로 하이라이트 상세 진행바의 트랙 선언과 두 모드 모두 정확히 같다 — 즉 \"색은 DS가 골랐다\"는 progress.md의 서술과 달리 트랙 색에는 제품 대응이 있다. 다만 제품의 다른 한 벌(숏폼 클립 편집, apps/web/app/highlight/[projectId]/shorts/[shortId]/page.tsx:1124)은 `rgb(var(--palette-gray-900-rgb) / 12%)`로 12%를 쓰므로 두 벌이 어긋나며 DS는 10% 쪽을 채택했다."
+      "reason": "DS 토큰 `color-progress-track`이 light `color-static-black-alpha-10` = srgb(0.090196 0.105882 0.133333 / 0.1) = rgb(23 27 34 / 10%), dark `color-static-white-alpha-10` = rgb(250 250 250 / 10%)로 하이라이트 상세 진행바의 트랙 선언과 두 모드 모두 정확히 같다 — 즉 \"색은 DS가 골랐다\"는 progress.md의 서술과 달리 트랙 색에는 제품 대응이 있다. 다만 제품의 다른 한 벌(숏폼 클립 편집, apps/web/app/highlight/[projectId]/shorts/[shortId]/page.tsx:1124)은 `rgb(var(--palette-gray-900-rgb) / 12%)`로 12%를 쓰므로 두 벌이 어긋나며 DS는 10% 쪽을 채택했다."
     },
     {
       "component": "progress-bar",
@@ -3119,7 +3119,7 @@
       "productFile": "apps/web/components/scenes/highlightSceneStyles.ts",
       "productLine": 1180,
       "productValue": "var(--palette-primary-500, #6366f1) — 선언된 그대로. 이름이 정의되지 않아 화면에 실제로 그려지는 색은 폴백 #6366f1(인디고)이고, 의도한 이름은 --primary-500 = #0088ff (apps/web/app/globals.css:159)",
-      "reason": "`--palette-primary-500`은 제품 전역에 0곳이며(제품의 `--palette-` 접두사는 회색 계열 전용, 파랑은 접두사 없는 `--primary-500`) 유일한 정의는 무관한 라우트 스코프 `(highlight-standalone)/hl/page.module.css:53`의 #FFDD00뿐이라, 이 선언은 브랜드 파랑을 의도했으나 폴백 #6366f1로 그려지고 있다 — DS의 `color-progress-fill`은 `color-blue-500` #0088ff로 **실제로 그려지는 색이 아니라 의도한 색**을 채택한 것이며(`color-action-primary`와 같은 값), 제품의 다른 한 벌(숏폼 클립 편집, shorts/[shortId]/page.tsx:1128)은 `var(--palette-gray-900)` #171b22를 써서 두 벌의 채움 색이 어긋난다."
+      "reason": "`--palette-primary-500`은 제품 전역에 0곳이며(제품의 `--palette-` 접두사는 회색 계열 전용, 파랑은 접두사 없는 `--primary-500`) 유일한 정의는 무관한 라우트 스코프 `(highlight-standalone)/hl/page.module.css:53`의 #FFDD00뿐이라, 이 선언은 브랜드 파랑을 의도했으나 폴백 #6366f1로 그려지고 있다 — DS의 `color-progress-fill`은 `color-blue-500` #0088ff로 **실제로 그려지는 색이 아니라 의도한 색**을 채택한 것이며(`color-accent-primary`와 같은 값), 제품의 다른 한 벌(숏폼 클립 편집, shorts/[shortId]/page.tsx:1128)은 `var(--palette-gray-900)` #171b22를 써서 두 벌의 채움 색이 어긋난다."
     },
     {
       "component": "progress-ring",

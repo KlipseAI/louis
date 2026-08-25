@@ -99,7 +99,7 @@ for (const size of SIZES) {
     expect(trackStyle.borderTopWidth, "border 제거").toBe("0px");
     expect(trackStyle.boxShadow, "inset 헤어라인").toContain("inset");
     expect(trackStyle.boxShadow, "헤어라인 색").toContain(
-      tokenValue("color-border-hairline", "color"),
+      tokenValue("color-stroke-hairline", "color"),
     );
     expect(tokenPx("border-width-hairline"), "borderWidth").toBe(spec.borderWidth);
 

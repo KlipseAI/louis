@@ -129,10 +129,10 @@ test("live region이 아니다", async () => {
 test("제목과 설명의 위계가 토큰에서 온다", async () => {
   await render(<EmptyState title="아직 프로젝트가 없습니다" description="첫 번째 영상을 만들어보세요." />);
   expect(getComputedStyle(find(".kds-empty-state__title")).color, "제목").toBe(
-    tokenValue("color-foreground-primary"),
+    tokenValue("color-fg-primary"),
   );
   expect(getComputedStyle(find(".kds-empty-state__description")).color, "설명").toBe(
-    tokenValue("color-foreground-secondary"),
+    tokenValue("color-fg-secondary"),
   );
 });
 

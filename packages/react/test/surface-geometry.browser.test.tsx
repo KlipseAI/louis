@@ -57,7 +57,7 @@ function find(selector: string): HTMLElement {
 /** 헤어라인 색의 계산 직렬화(라이트 `color(srgb 0 0 0 / 0.1)`). box-shadow 안의 색과 대조한다. */
 const hairlineColor = (): string => {
   const probe = document.createElement("div");
-  probe.style.setProperty("color", "var(--kds-color-border-hairline)");
+  probe.style.setProperty("color", "var(--kds-color-stroke-hairline)");
   document.body.append(probe);
   const value = getComputedStyle(probe).color;
   probe.remove();

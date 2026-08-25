@@ -379,18 +379,18 @@ Specification 표의 `Panel surface` 행은 라이트 값을 하나만 담는다
 
 | Part/state     | 목표 token/recipe                                      | 검증                       |
 | -------------- | ------------------------------------------------------ | -------------------------- |
-| Panel surface  | `color-background-menu` — 라이트 neutral-100 / 다크 neutral-800 | light/dark/high contrast   |
+| Panel surface  | `color-bg-menu` — 라이트 neutral-100 / 다크 neutral-800 | light/dark/high contrast   |
 | Panel radius   | `radius-overlay` = 16px                                | visual regression          |
 | Panel padding  | `space-overlay-inset` = 6px                            | item hit area 유지         |
 | Panel border   | 없음. 헤어라인은 패널이 조합하는 inset(`--kds-hairline-inset`) | 레이아웃 박스 불변 |
 | Item radius    | `radius-overlay-item` = 10px                           | hover/focus/selected state |
 | Item 사이 간격 | `space-overlay-item-gap` = 2px                         | 행이 붙지 않는다           |
 | Item 내부 gap  | `space-overlay-item-content-gap` = 6px                 | 아이콘·라벨 간격           |
-| Item 전경      | `color-foreground-menu-item` — 알파 86%                | light/dark                 |
-| Item hover     | `color-action-menu-item-hover` — 반투명 오버레이       | 배경이 달라도 같은 정도    |
+| Item 전경      | `color-fg-menu-item` — 알파 86%                | light/dark                 |
+| Item hover     | `color-accent-menu-item-hover` — 반투명 오버레이       | 배경이 달라도 같은 정도    |
 | Item height    | 44px 이상 (`layout-control-hit-target-minimum`)        | pointer/touch target       |
-| Danger 전경    | `color-action-danger` = #ff4b59                        | 중립 표면 위 대비          |
-| Danger hover   | `color-action-menu-danger-hover` — red 알파            | light/dark                 |
+| Danger 전경    | `color-accent-danger` = #ff4b59                        | 중립 표면 위 대비          |
+| Danger hover   | `color-accent-menu-danger-hover` — red 알파            | light/dark                 |
 | Anchor offset  | 8px                                                    | collision/flip             |
 | Panel width    | 최소 160px, composite 240px reference                  | 긴 locale 문구와 200% zoom |
 | Elevation      | `elevation-menu` — ambient drop shadow만. 헤어라인은 패널이 뒤에 조합하는 inset | overlay hierarchy |
@@ -404,7 +404,7 @@ Specification 표의 `Panel surface` 행은 라이트 값을 하나만 담는다
 
 **항목 높이 44px과 focus ring은 제품을 따르지 않는다.** 제품 항목은 37px이고 focus ring이 없다.
 둘 다 WCAG 계약이라 제품에 맞춰 낮추지 않았다. **`danger` 전경을 제품 값으로 바꾼 것이 문서가
-이미 인정하던 대비 결함을 해소한다** — 이전 `color-foreground-danger`는 중립 표면 위에서
+이미 인정하던 대비 결함을 해소한다** — 이전 `color-fg-danger`는 중립 표면 위에서
 무너졌다.
 
 ### 제품 계열 분기와 파생 규칙
@@ -518,7 +518,7 @@ submenu의 방향키가 부모 핸들러까지 실행해 focus가 부모로 튀�
   증명되지 않은 수정은 이 경로에서 더 나쁜 회귀를 만든다. 재현 절차와 관측 기록을 남기고
   계측 가능한 형태가 될 때 판정한다.
 
-- **`surface-overlay` 대신 `color-background-overlay`를 쓴다.** Specification 표가 대는 이름의 토큰이
+- **`surface-overlay` 대신 `color-bg-overlay`를 쓴다.** Specification 표가 대는 이름의 토큰이
   소스에 없다. DS-P3-014가 이름을 정리하면 갱신한다.
 - **panel padding이 6px이 아니라 4px이다.** `space-overlay-inset`이 없어 `space-control-xs`로
   대체했다. DS-P3-014가 토큰을 추가하면 변수 한 줄만 바꾼다.

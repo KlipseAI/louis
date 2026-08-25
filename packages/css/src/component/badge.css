@@ -30,8 +30,8 @@
   border-radius: var(--kds-radius-control-sm);
   /* 기본은 중립이다. 상태가 없는 배지가 다수이고(분류·개수 라벨), 색을 기본값으로 두면 아무 뜻도
    * 없는 곳에 의미가 붙는다. */
-  background: var(--kds-color-background-inset);
-  color: var(--kds-color-foreground-secondary);
+  background: var(--kds-color-bg-inset);
+  color: var(--kds-color-fg-secondary);
   font-family: var(--kds-typography-caption-regular-font-family);
   font-size: var(--kds-typography-caption-regular-font-size);
   font-weight: var(--kds-typography-caption-regular-font-weight);
@@ -44,23 +44,23 @@
 }
 
 .kds-badge[data-tone="success"] {
-  background: var(--kds-color-background-success);
-  color: var(--kds-color-foreground-success);
+  background: var(--kds-color-bg-success);
+  color: var(--kds-color-fg-success);
 }
 
 .kds-badge[data-tone="warning"] {
-  background: var(--kds-color-background-warning);
-  color: var(--kds-color-foreground-warning);
+  background: var(--kds-color-bg-warning);
+  color: var(--kds-color-fg-warning);
 }
 
 .kds-badge[data-tone="danger"] {
-  background: var(--kds-color-background-danger);
-  color: var(--kds-color-foreground-danger);
+  background: var(--kds-color-bg-danger);
+  color: var(--kds-color-fg-danger);
 }
 
 .kds-badge[data-tone="info"] {
-  background: var(--kds-color-background-info);
-  color: var(--kds-color-foreground-info);
+  background: var(--kds-color-bg-info);
+  color: var(--kds-color-fg-info);
 }
 
 /* 아이콘 슬롯. **크기가 글자를 따라간다** — `1em`이라 12px 아이콘 토큰을 새로 만들지 않아도 되고,

@@ -121,9 +121,9 @@ variant가 없다. Tooltip은 강조 축을 갖지 않는다 — 위계를 표�
 | 타이포      | `typography-caption-regular` (12px)                     |
 | padding     | `space-control-xs` 4px / `space-control-sm` 8px         |
 | radius      | `radius-control-sm` 8px                                 |
-| 헤어라인    | inset (`--kds-hairline-inset`) 0.5px `color-border-hairline` — tooltip elevation 뒤에 조합. 이전 1px `color-border-tooltip` border가 없어지며 높이도 28 → 26px로 줄었다([DS-D-0023](../governance/decisions/DS-D-0023-hairline-inset.md)) |
-| 배경        | `color-background-inverse` — **페이지와 반전된다**       |
-| 전경        | `color-foreground-on-inverse`                           |
+| 헤어라인    | inset (`--kds-hairline-inset`) 0.5px `color-stroke-hairline` — tooltip elevation 뒤에 조합. 이전 1px `color-stroke-tooltip` border가 없어지며 높이도 28 → 26px로 줄었다([DS-D-0023](../governance/decisions/DS-D-0023-hairline-inset.md)) |
+| 배경        | `color-bg-inverse` — **페이지와 반전된다**       |
+| 전경        | `color-fg-on-inverse`                           |
 | 그림자      | `elevation-tooltip` (테마마다 색이 다르다)              |
 | layer       | `layer-popover`                                         |
 | 최대 폭     | min(320px, 사용 가능 폭)                                |
@@ -155,7 +155,7 @@ radius인데 semantic 이름이 없었다.
 
 **표면이 반전된다는 것이 이 컴포넌트의 핵심이다.** 라이트에서 어두운 면에 밝은 글자, 다크에서
 그 반대다. 이전 DS는 `background-inset`을 써서 페이지와 같은 극성이었고 제품과 정반대였다.
-`color-background-inverse`/`color-foreground-on-inverse`는 Toast가 먼저 세운 토큰인데 값이 제품의
+`color-bg-inverse`/`color-fg-on-inverse`는 Toast가 먼저 세운 토큰인데 값이 제품의
 tooltip 면과 정확히 같았다.
 
 **모션이 아예 걸리지 않고 있었다.** `animation-duration`과 `animation-timing-function`만 있고

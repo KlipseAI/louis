@@ -99,8 +99,8 @@ Figma 변수 이름은 `sourcePath`에서 tier/mode 접두사를 제거하고 �
 | radius | `CORNER_RADIUS` |
 | layer, duration, number | `ALL_SCOPES` 대신 해당 없음을 명시 |
 
-semantic color의 역할별 scope는 token ID 접두사(`color-background-*`, `color-foreground-*`,
-`color-border-*`)에서 결정론적으로 도출한다.
+semantic color의 역할별 scope는 token ID 접두사(`color-bg-*`, `color-fg-*`,
+`color-stroke-*`)에서 결정론적으로 도출한다.
 
 ### 6. 파일 구조
 

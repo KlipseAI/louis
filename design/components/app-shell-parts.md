@@ -109,9 +109,9 @@ variant 축이 없다. rail 안의 행은 전부 같은 무게이며, 강조는 
 
 | state | SidebarNavItem |
 | --- | --- |
-| Default | 투명, `color-foreground-secondary` |
-| Hover | `color-action-ghost-hover`, `color-foreground-primary` |
-| Current | `color-background-inset`, `color-foreground-primary` |
+| Default | 투명, `color-fg-secondary` |
+| Hover | `color-accent-ghost-hover`, `color-fg-primary` |
+| Current | `color-bg-inset`, `color-fg-primary` |
 | Focus visible | 공유 focus ring |
 
 **행 아이콘은 라벨보다 옅다.** 아이콘 슬롯은 20×20에 `background-color: currentColor` + 마스크이고,
@@ -523,7 +523,7 @@ bleed와 음수 마진 자체는 이 폭에서도 계속 걸려 있으므로 배
 ## Known deviations
 
 - **라이트에서 hover 면이 갈린다.** 제품은 재매핑된 `palette-gray-300`을 50%로 덮고(브라우저 실측
-  `rgb(228 229 233 / 0.5)`), DS는 `color-action-ghost-hover`의 잉크 8%를 쓴다. 면 계열에 매는 것과
+  `rgb(228 229 233 / 0.5)`), DS는 `color-accent-ghost-hover`의 잉크 8%를 쓴다. 면 계열에 매는 것과
   잉크에 매는 것의 차이이며, 그 토큰을 SelectableListRow와 공유하므로 사이드바 하나 때문에 옮기지
   않는다. **다크는 `rgb(250 250 250 / 0.1)`로 정확히 같다.**
 - **사이드바가 화면에 있으면 라이트 팔레트가 통째로 한 단계 밝아진다.** 배포본의 `wrapperSidebar`가

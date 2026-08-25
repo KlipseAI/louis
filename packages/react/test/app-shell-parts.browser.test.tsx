@@ -71,7 +71,7 @@ test("포커스 링이 실제로 그려진다", async () => {
   expect(px(style.outlineWidth), "링 두께").toBe(
     px(getComputedStyle(document.documentElement).getPropertyValue("--kds-border-width-ring")),
   );
-  expect(style.outlineColor, "링 색").toBe(tokenValue("color-border-focus", "color"));
+  expect(style.outlineColor, "링 색").toBe(tokenValue("color-stroke-focus", "color"));
 });
 
 test("선택이 aria로 전달된다", async () => {

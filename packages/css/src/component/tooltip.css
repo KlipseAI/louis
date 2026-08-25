@@ -21,9 +21,9 @@
   /* **표면이 페이지와 반전된다.** 라이트에서 어두운 면, 다크에서 밝은 면이다. 이전 DS는
    * background-inset이라 페이지와 같은 극성이었고 제품과 정반대였다. */
   border-radius: var(--kds-radius-control-sm);
-  background: var(--kds-color-background-inverse);
-  color: var(--kds-color-foreground-on-inverse);
-  /* 경계는 tooltip elevation 뒤에 조합한 inset 헤어라인이다 (DS-D-0023). 이전엔 color-border-tooltip
+  background: var(--kds-color-bg-inverse);
+  color: var(--kds-color-fg-on-inverse);
+  /* 경계는 tooltip elevation 뒤에 조합한 inset 헤어라인이다 (DS-D-0023). 이전엔 color-stroke-tooltip
    * border였고, 이제 다른 표면과 같은 generic 10% 헤어라인으로 통일됐다. */
   box-shadow: var(--kds-elevation-tooltip), var(--kds-hairline-inset);
   pointer-events: none;

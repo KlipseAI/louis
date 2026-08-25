@@ -13,7 +13,7 @@ import "@klipse-design/css/layers.css";
 import "@klipse-design/css/tokens.css";
 import "@klipse-design/css/styles.css";
 
-const TOKEN = "--kds-color-background-upgrade";
+const TOKEN = "--kds-color-bg-upgrade";
 const TIMEOUT_MS = 5000;
 
 function tokensReady(): boolean {
@@ -56,10 +56,10 @@ beforeAll(async () => {
 // 40회 반복에서 2건이 실패했고 둘 다 「기대한 색 대신 hover 색」이었다. 토큰 값이 정확히
 // 일치해서 추측이 아니다.
 //
-//   sidebar CTA   기대 `--kds-color-background-upgrade`       #171b22
-//                 실제 `--kds-color-background-upgrade-hover` #313640
-//   segmented     기대 Default = `color-foreground-secondary` #575d68
-//                 실제 Hover   = `color-foreground-primary`   #171b22
+//   sidebar CTA   기대 `--kds-color-bg-upgrade`       #171b22
+//                 실제 `--kds-color-bg-upgrade-hover` #313640
+//   segmented     기대 Default = `color-fg-secondary` #575d68
+//                 실제 Hover   = `color-fg-primary`   #171b22
 //
 // `userEvent.hover()`는 **진짜 마우스를 움직인다.** 얹은 채로 테스트가 끝나면 다음 테스트에서
 // 같은 좌표에 렌더된 요소가 `:hover`를 받는다.

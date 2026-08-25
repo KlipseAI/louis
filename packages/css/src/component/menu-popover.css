@@ -28,14 +28,14 @@
   display: flex;
   flex-direction: column;
   padding: var(--kds-popover-inset);
-  background: var(--kds-color-background-menu);
+  background: var(--kds-color-bg-menu);
   /* 경계는 border가 아니라 inset 헤어라인이다 (DS-D-0023). elevation-menu는 ambient drop shadow만
    * 소유하고, 여기서 generic 10% inset 헤어라인을 뒤에 조합한다 — ambient와 프레임 책임을 분리해
    * 두 겹 frame이 생기지 않게 한다. 레이아웃 박스는 건드리지 않는다. */
   border: 0;
   border-radius: var(--kds-radius-overlay);
   box-shadow: var(--kds-elevation-menu), var(--kds-hairline-inset);
-  color: var(--kds-color-foreground-menu-item);
+  color: var(--kds-color-fg-menu-item);
 
   /* 상한은 overlay.css가 소유한다. min()으로 감싸지 않으면 min-inline-size가 max-width를
    * 이겨서, 320px 화면 200% 확대(가용 폭 144px)에서 패널이 화면을 넘는다. */
@@ -78,7 +78,7 @@
   margin: 0;
   padding-block: var(--kds-space-control-xs);
   padding-inline: var(--kds-space-control-md);
-  color: var(--kds-color-foreground-primary);
+  color: var(--kds-color-fg-primary);
   font-family: var(--kds-typography-heading-sm-medium-font-family);
   font-size: var(--kds-typography-heading-sm-medium-font-size);
   font-weight: var(--kds-typography-heading-sm-medium-font-weight);
@@ -125,22 +125,22 @@
  * `:focus-visible`만으로는 표시가 비는 프레임이 생기므로 data 속성이 함께 필요하다. */
 .kds-menu__item:where(:not([aria-disabled="true"]):not(:disabled)):hover,
 .kds-menu__item:where(:not([aria-disabled="true"]):not(:disabled))[data-highlighted="true"] {
-  background: var(--kds-color-action-menu-item-hover);
+  background: var(--kds-color-accent-menu-item-hover);
 }
 
 .kds-menu__item[data-tone="danger"] {
-  color: var(--kds-color-action-danger);
+  color: var(--kds-color-accent-danger);
 }
 
 .kds-menu__item[data-tone="danger"]:where(:not([aria-disabled="true"]):not(:disabled)):hover,
 .kds-menu__item[data-tone="danger"]:where(:not([aria-disabled="true"]):not(:disabled))[data-highlighted="true"] {
-  background: var(--kds-color-action-menu-danger-hover);
+  background: var(--kds-color-accent-menu-danger-hover);
 }
 
 .kds-menu__item:disabled,
 .kds-menu__item[aria-disabled="true"] {
   cursor: not-allowed;
-  color: var(--kds-color-foreground-disabled);
+  color: var(--kds-color-fg-disabled);
 }
 
 /* 선택은 면 강조가 아니라 글리프가 표현한다. 이 저장소의 semantic 면 토큰 중 overlay 위에서
@@ -172,7 +172,7 @@
 
 .kds-menu__item-trailing {
   flex: none;
-  color: var(--kds-color-foreground-secondary);
+  color: var(--kds-color-fg-secondary);
   font-family: var(--kds-typography-caption-regular-font-family);
   font-size: var(--kds-typography-caption-regular-font-size);
   font-weight: var(--kds-typography-caption-regular-font-weight);
@@ -221,7 +221,7 @@
 .kds-menu__group-label {
   padding-block: var(--kds-space-control-xs);
   padding-inline: var(--kds-space-control-md);
-  color: var(--kds-color-foreground-secondary);
+  color: var(--kds-color-fg-secondary);
   font-family: var(--kds-typography-caption-medium-font-family);
   font-size: var(--kds-typography-caption-medium-font-size);
   font-weight: var(--kds-typography-caption-medium-font-weight);
@@ -237,7 +237,7 @@
   border: 0;
   /* 한 면 divider — 방향성 inset 헤어라인 (DS-D-0023). box-shadow가 그려질 박스가 있어야 하므로
    * 선 두께만큼 block-size를 준다. 이전엔 border-block-start가 선이자 높이였고 색은
-   * color-border-subtle이었다 — generic 10% 헤어라인으로 통일했다. */
+   * color-stroke-subtle이었다 — generic 10% 헤어라인으로 통일했다. */
   block-size: var(--kds-border-width-hairline);
   box-shadow: var(--kds-hairline-inset-block-start);
   margin-block: var(--kds-space-control-xs);

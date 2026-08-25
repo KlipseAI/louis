@@ -59,7 +59,7 @@ for (const size of SIZES) {
     expect(boxStyle.borderTopWidth, "border 제거").toBe("0px");
     expect(boxStyle.boxShadow, "inset 헤어라인").toContain("inset");
     expect(boxStyle.boxShadow, "헤어라인 색").toContain(
-      tokenValue("color-border-hairline", "color"),
+      tokenValue("color-stroke-hairline", "color"),
     );
 
     const control = find(".kds-text-field__control");
@@ -101,7 +101,7 @@ test("states 표가 코드와 같다 — 모든 상태가 generic 헤어라인�
   }
 
   // 세 상태 모두 border 없이 같은 generic 헤어라인 inset을 쓴다.
-  const hairline = tokenValue("color-border-hairline", "color");
+  const hairline = tokenValue("color-stroke-hairline", "color");
   for (const box of [defaultBox, invalidBox, disabledBox]) {
     const style = getComputedStyle(box);
     expect(style.borderTopWidth, "border 제거").toBe("0px");
@@ -144,7 +144,7 @@ test("포커스 링을 박스가 받는다 — 슬롯까지 함께 둘린다", a
   expect(px(boxStyle.outlineWidth), "링 두께").toBe(
     px(getComputedStyle(document.documentElement).getPropertyValue("--kds-border-width-ring")),
   );
-  expect(boxStyle.outlineColor, "링 색").toBe(tokenValue("color-border-focus", "color"));
+  expect(boxStyle.outlineColor, "링 색").toBe(tokenValue("color-stroke-focus", "color"));
 
   // 입력 자신은 링을 그리지 않는다 — 두 겹이 되면 안 된다.
   expect(getComputedStyle(control).outlineStyle, "입력은 링을 그리지 않는다").toBe("none");
@@ -162,10 +162,10 @@ test("placeholder가 값과 구분되면서 대비를 지킨다", async () => {
   const placeholder = getComputedStyle(control, "::placeholder");
 
   expect(placeholder.color, "placeholder 색").toBe(
-    tokenValue("color-foreground-secondary", "color"),
+    tokenValue("color-fg-secondary", "color"),
   );
   expect(getComputedStyle(control).color, "값 색").toBe(
-    tokenValue("color-foreground-primary", "color"),
+    tokenValue("color-fg-primary", "color"),
   );
   expect(placeholder.color, "값과 달라야 한다").not.toBe(getComputedStyle(control).color);
   // Firefox가 기본으로 낮춘다. 대비를 계산해 놓고 브라우저가 흐리게 만들면 의미가 없다.

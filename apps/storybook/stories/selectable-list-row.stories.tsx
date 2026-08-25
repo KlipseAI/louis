@@ -18,7 +18,7 @@ const Thumb = () => (
       inlineSize: 96,
       blockSize: 54,
       display: "block",
-      background: "var(--kds-color-background-inset)",
+      background: "var(--kds-color-bg-inset)",
     }}
   />
 );
@@ -44,7 +44,7 @@ export const OnSurface: Story = {
           inlineSize: 340,
           padding: 8,
           borderRadius: 16,
-          background: "var(--kds-color-background-surface)",
+          background: "var(--kds-color-bg-surface)",
         }}
       >
         {["첫 클립", "둘째 클립", "셋째 클립"].map((label, index) => (

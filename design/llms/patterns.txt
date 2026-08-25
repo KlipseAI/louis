@@ -493,7 +493,7 @@ main inset이 우연히 어긋나지 않게** 관계 테스트를 유지한다. 
 `#eeeef1`이므로 **페이지 배경색으로 드로어를 그리면 한 단계 밝게 나온다.** 다크는 둘이 같다.
 
 **드로어 스크림은 dialog scrim과 다른 값이다.** 드로어 스크림은 `rgba(0, 0, 0, 0.44)`로 테마와
-무관하게 고정이고, [Dialog](../components/dialog.md)의 `color-scrim-modal`(라이트 56% · 다크 72%)과
+무관하게 고정이고, [Dialog](../components/dialog.md)의 `color-dim-modal`(라이트 56% · 다크 72%)과
 갈린다. **56%/72%로 대신 그리면 뒤 화면이 한 단계 어둡게 나온다.** 적층도 DS 사다리 밖이다 —
 드로어 `z-index: 1400` · 스크림 `1399`(`Gnb.tsx:2001` · `1845`)로 프로필 popover(1100)보다 위이며,
 그 이탈은 [App Shell Parts](../components/app-shell-parts.md)의 Known deviations가 기록한다.

@@ -307,7 +307,7 @@ Icon Button 의 정본으로 지목됐던 제품의 공유 UI 패키지는 Turbo
   `elevation-menu`를 쓴다. popover라는 이름의 토큰을 popover가 안 쓴다
 - **`elevation-focus-ring`** — 실제 링은 `outline`이고 이 토큰은 box-shadow `0 0 0 3px` 파랑 42%다
 - **`blur-panel`**(12px) — 흐림을 쓰는 둘(Toast·ProjectCard)이 모두 `blur-surface`(10px)를 쓴다
-- ~~**`color-border-strong`**~~ — **해소됨(2026-08-18).** Checkbox가 첫 소비처이고 이름이 뜻과
+- ~~**`color-stroke-strong`**~~ — **해소됨(2026-08-18).** Checkbox가 첫 소비처이고 이름이 뜻과
   맞는다 — 경계가 반드시 보여야 하는 자리다. **폐기 후보에서 뺀다.** 남은 것은 위 셋이다
 
 **넷 다 Figma 변수나 effect style로 발행돼 있어 폐기가 breaking이다.** DS-D-0014와 같은 절차가
@@ -315,7 +315,7 @@ Icon Button 의 정본으로 지목됐던 제품의 공유 UI 패키지는 Turbo
 전자는 두면 되고 후자는 다음 사람이 집으면 화면이 달라진다.
 
 **(1b) 위 넷 중 `elevation-focus-ring`은 이미 한 번 걸렸다.** 이름은 focus ring인데
-실제 focus ring은 `outline: var(--kds-border-width-ring) solid var(--kds-color-border-focus)`이고
+실제 focus ring은 `outline: var(--kds-border-width-ring) solid var(--kds-color-stroke-focus)`이고
 그 토큰(box-shadow `0 0 0 3px` 파랑 42%)은 아무 데서도 쓰이지 않는다. `radius-card`와 **같은
 종류의 함정**이다 — 이름으로 집으면 화면이 달라진다. 다만 Figma effect style로도 발행돼 있어
 폐기는 breaking이며, DS-D-0014와 같은 절차가 필요하다. 지금은 리터럴 2px만 토큰으로 바꿔 두었다.
@@ -400,7 +400,7 @@ admin·운영 화면이다), 고르는 일은 대부분 트리거 + 메뉴 패�
 2. **실브라우저 632건이 CI에서 한 번도 돈 적이 없었다.** `verify`의 test-harness는 러너가 실패를
    전파하는지만 증명하고 suite를 돌리지 않는다. `pnpm test` 단계를 붙였다
 3. **`selectable-list-row`의 Default background 실패.** 원인은 **앞 테스트가 얹어 둔 포인터**였다 —
-   받은 값이 `#171b22 / 0.08`, 곧 `color-action-ghost-hover`였고 그 행이 `:hover`였다. 같은 좌표에
+   받은 값이 `#171b22 / 0.08`, 곧 `color-accent-ghost-hover`였고 그 행이 `:hover`였다. 같은 좌표에
    새로 렌더된 요소가 hover를 받는 함정을 `surface-states` 테스트가 이미 적어 두었는데 이 파일이
    그것을 따르지 않았다. 단언 앞에 `unhover`를 넣었다 — **기대값은 바꾸지 않았다**
 4. **틀린 진단 하나.** 3번을 "테스트의 범위 한정 누락"이라고 단정했다가 CI가 반증했다. 범위
@@ -515,7 +515,7 @@ Badge의 `Label`). **모든 fill이 변수 바인딩이고 raw 값이 0이다.**
 게이트의 `sizeKey: "base"` 계약이 그 이름으로 readback을 찾는다(Badge·EmptyState와 같다).
 이 상태에서 Checkbox와 SelectableListRow는 **build → snapshot 재덤프 → 계약 추가 → parity**
 순서로 바로 진행할 수 있다
-2. **owner 판정 — 넷이 닫혔다.** ~~(1a) `color-border-strong`~~(소비처가 생겨 폐기 후보에서
+2. **owner 판정 — 넷이 닫혔다.** ~~(1a) `color-stroke-strong`~~(소비처가 생겨 폐기 후보에서
    빠졌다) · ~~(1d) `select`~~(`not-planned`) · ~~(1c) Skeleton 면 색~~(제품이 테마별 면을 고른
    적이 없어 고를 면 자체가 없었다) · ~~`layout-change` motion lifecycle~~(DS-D-0019).
    **남은 것은 (2b) 컨트롤 테두리 하나다**(셋 다 3:1 미달) — 새 값이 필요해 token source 를
@@ -537,7 +537,7 @@ Badge의 `Label`). **모든 fill이 변수 바인딩이고 raw 값이 0이다.**
   3:1이 걸린다. 상자 면 대비 실측은 `control` 1.27/1.63 · `default` 1.38/2.93 ·
   `strong` 2.52/4.61(라이트/다크)이고 **셋 다 라이트에서 미달한다.** "셋 중 하나가 틀렸다"가
   아니라 **셋 다 이 자리에는 모자란다**는 것이 답이다. 해소하려면 새 값이 필요하다
-- **(1a) `color-border-strong` 처분** — 소비처 0이던 그 토큰의 첫 소비처가 생겼고 이름이 뜻과
+- **(1a) `color-stroke-strong` 처분** — 소비처 0이던 그 토큰의 첫 소비처가 생겼고 이름이 뜻과
   맞는다(경계가 반드시 보여야 하는 자리). **폐기 후보에서 빼고 다시 판정해야 한다.** 남은 셋
   (`elevation-popover`·`elevation-focus-ring`·`blur-panel`)은 그대로다
 
@@ -576,8 +576,8 @@ Badge의 `Label`). **모든 fill이 변수 바인딩이고 raw 값이 0이다.**
   계산값으로 잴 수 없어 states 표를 두지 않았고 기하는 CSSOM 선언을 대조한다. `<select>`,
   `<progress>`, `<meter>`, 파일 입력의 버튼도 같은 성질이라 **(1d)의 Select와 (1c)의 진행률이
   같은 벽을 만난다.**
-- **워크샵이 헤드리스가 못 보는 결함을 또 잡았다.** `color-foreground-on-inverse`는 테마마다
-  뒤집히는데(#fafafa ↔ #171b22) `color-action-primary`는 두 테마가 같다. 그래서 파란 면 위의
+- **워크샵이 헤드리스가 못 보는 결함을 또 잡았다.** `color-fg-on-inverse`는 테마마다
+  뒤집히는데(#fafafa ↔ #171b22) `color-accent-primary`는 두 테마가 같다. 그래서 파란 면 위의
   표식이 다크에서만 검게 변했다. 선언도 토큰도 정상이라 테스트가 통과한다 —
   **면과 전경의 테마 축이 다르면 한 테마에서만 죽는다.** Badge의 죽은 축과 같은 종류다.
 
@@ -603,8 +603,8 @@ Badge의 `Label`). **모든 fill이 변수 바인딩이고 raw 값이 0이다.**
 남은 것은 Figma(`figma: not-ready`)와 **compact 드로어의 layer 자리**다 — 제품의 드로어(1400)는
 popover(1100)보다 위인데 DS 사다리는 `sticky < popover` 라 그 조합이 없다.
 
-**(2b) 컨트롤 테두리의 정본이 정해지지 않았다.** Button secondary는 `color-border-control`(반투명),
-IconButton secondary는 `color-border-default`(불투명)를 쓴다. TextField는 Button을 따랐다. 셋 중
+**(2b) 컨트롤 테두리의 정본이 정해지지 않았다.** Button secondary는 `color-stroke-control`(반투명),
+IconButton secondary는 `color-stroke-default`(불투명)를 쓴다. TextField는 Button을 따랐다. 셋 중
 하나가 틀렸거나 셋 다 맞고 이름이 부족한 것이며, 어느 쪽인지는 owner가 정해야 한다.
 
 **(2c) Textarea가 없다.** 제품에 여러 줄 입력이 최소 5벌 있다(노드 캔버스 프롬프트 계열). TextField와
@@ -649,7 +649,7 @@ gap registry 1순위로 추가됐다.
 
 `DS-P3-014`(token coverage 확장)는 `in-progress`이며 병렬로 진행할 수 있다. 다만 계획된 10개 단위
 바깥에서 component가 요구한 토큰이 이미 여럿 들어왔다 — `icon-size-*`, `layout-control-height-*`,
-`radius-control-sm`, `color-background-inverse`/`color-foreground-on-inverse`. 각각은 해당 component의
+`radius-control-sm`, `color-bg-inverse`/`color-fg-on-inverse`. 각각은 해당 component의
 변경 단위 안에서 규범·Figma 변수·snapshot까지 함께 반영했으므로 누락은 없으나, 단위 6·7의 잔여
 범위는 다시 세어야 한다.
 
@@ -1125,7 +1125,7 @@ coverage가 끝나지 않았다면 P3 core release라고 명시한다. published
 
 **단위 9 — danger foreground 공백은 해소됐다 (2026-08-21).**
 
-`color-foreground-danger-on-surface`를 세웠다. light `red.700`(표면 6.08 · 메뉴 5.62 · 본문색과
+`color-fg-danger-on-surface`를 세웠다. light `red.700`(표면 6.08 · 메뉴 5.62 · 본문색과
 2.72) · dark `red.400`(4.51 · 4.51 · 2.57)이며 **두 표면 모두 4.5를 넘으면서 본문색과도 구분되는
 유일한 조합**이다. `red-600`(light 4.15)·`red-500`(dark 3.70)은 미달이고, `red-800`은 대비는
 높지만 본문색과 1.77이라 「빨강」으로 읽히지 않는다. contrastPairs 두 쌍(`background-surface` ·
@@ -1135,8 +1135,8 @@ coverage가 끝나지 않았다면 P3 core release라고 명시한다. published
 
 **단위 9가 반드시 포함해야 하는 것 (2026-08-14 워크샵 실측):**
 
-중립 표면 위에서 성립하는 **danger foreground**가 없다. 현재 `color-foreground-danger`는
-`color-background-danger`와 **쌍으로** 쓰도록 만들어졌고 두 테마에서 값이 서로 뒤바뀐다. 그래서
+중립 표면 위에서 성립하는 **danger foreground**가 없다. 현재 `color-fg-danger`는
+`color-bg-danger`와 **쌍으로** 쓰도록 만들어졌고 두 테마에서 값이 서로 뒤바뀐다. 그래서
 텍스트 색으로만 쓰면 일반 텍스트와의 대비가 light 1.21, dark 1.14로 사실상 구분되지 않는다.
 Button은 쌍으로 써서 성립하지만 Menu의 danger item은 이 공백을 그대로 밟는다 —
 [Menu / Popover](../components/menu-popover.md)의 Known deviations에 실측이 있다.

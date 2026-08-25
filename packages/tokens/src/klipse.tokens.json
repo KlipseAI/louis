@@ -6058,6 +6058,16 @@
             }
           }
         },
+        "accent-inverse": {
+          "$value": "{primitive.color.gray.1000}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-accent-inverse",
+              "tier": "semantic",
+              "mode": "light"
+            }
+          }
+        },
         "accent-menu-danger-hover": {
           "$value": "{primitive.color.red-alpha.10}",
           "$extensions": {
@@ -6463,6 +6473,16 @@
           "$extensions": {
             "com.klipse-design": {
               "id": "color-fg-menu-item",
+              "tier": "semantic",
+              "mode": "light"
+            }
+          }
+        },
+        "fg-on-accent-inverse": {
+          "$value": "{primitive.color.gray.0}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-fg-on-accent-inverse",
               "tier": "semantic",
               "mode": "light"
             }
@@ -7116,6 +7136,16 @@
             }
           }
         },
+        "accent-inverse": {
+          "$value": "{primitive.color.gray.0}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-accent-inverse",
+              "tier": "semantic",
+              "mode": "dark"
+            }
+          }
+        },
         "accent-menu-danger-hover": {
           "$value": "{primitive.color.red-alpha.12}",
           "$extensions": {
@@ -7521,6 +7551,16 @@
           "$extensions": {
             "com.klipse-design": {
               "id": "color-fg-menu-item",
+              "tier": "semantic",
+              "mode": "dark"
+            }
+          }
+        },
+        "fg-on-accent-inverse": {
+          "$value": "{primitive.color.gray.1000}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-fg-on-accent-inverse",
               "tier": "semantic",
               "mode": "dark"
             }

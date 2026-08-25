@@ -1306,6 +1306,19 @@
   color: var(--louis-color-fg-inverse);
 }
 
+/* inverse — 인증 플로우(로그인·회원가입·계정복구·비밀번호 재설정)의 제출 CTA다. 제품이 이 자리에
+ * primary blue 가 아니라 **페이지와 반전된 면**을 쓴다(라이트에서 순수 검정, 다크에서 흰 면).
+ * 브랜드 색을 쓰지 않는 이유는 이 화면들이 좌측 브랜드 그라디언트와 나란히 서기 때문이다 —
+ * 파란 CTA 는 그 아트워크와 경쟁한다.
+ *
+ * tooltip/toast 가 쓰는 `bg-inverse`(gray-800)와는 다른 값이다. 그쪽은 떠 있는 표면이라 완전한
+ * 검정이 너무 무겁고, 이쪽은 페이지 위 solid CTA 라 최대 대비를 쓴다. 두 축을 하나로 합치면
+ * 둘 중 하나가 반드시 어긋난다. */
+.louis-button[data-variant="inverse"] {
+  background: var(--louis-color-accent-inverse);
+  color: var(--louis-color-fg-on-accent-inverse);
+}
+
 /* 제품의 secondary·ghost는 **면이 없다.** 이전 DS는 secondary에 surface 면과 불투명 테두리를
  * 두어 제품과 달랐다 (Button.tsx:106,117). */
 .louis-button[data-variant="secondary"] {
@@ -1350,6 +1363,12 @@
   opacity: 0.85;
 }
 
+/* 제품 인증 CTA 의 hover 는 saturate/brightness 필터였다. 단색 반전 면에서는 밝기 변화가 곧
+ * 불투명도 변화라 danger 와 같은 방식으로 통일한다 — 새 색 토큰을 만들지 않는다. */
+.louis-button:where(:not([aria-disabled="true"]):not(:disabled)):hover[data-variant="inverse"] {
+  opacity: 0.85;
+}
+
 /* pressed — reduced-motion에서는 scale 이동을 제거하되 의미는 유지한다. */
 .louis-button:where(:not([aria-disabled="true"]):not(:disabled)):active[data-variant="primary"] {
   background: var(--louis-color-accent-primary-active);
@@ -1381,8 +1400,8 @@
   color: var(--louis-color-fg-disabled);
 }
 
-.louis-button:disabled:where([data-variant="primary"], [data-variant="danger"]),
-.louis-button[aria-disabled="true"]:where([data-variant="primary"], [data-variant="danger"]) {
+.louis-button:disabled:where([data-variant="primary"], [data-variant="danger"], [data-variant="inverse"]),
+.louis-button[aria-disabled="true"]:where([data-variant="primary"], [data-variant="danger"], [data-variant="inverse"]) {
   background: var(--louis-color-bg-inset);
 }
 

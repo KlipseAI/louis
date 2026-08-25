@@ -2,23 +2,23 @@
   "artifacts": [
     {
       "path": "packages/tokens/generated/figma.tokens.json",
-      "sha256": "2a8f1e3f7e8358cad07675012ac0bbb5a046838ab2f278b0282614421e96d273"
+      "sha256": "7407fe794e598c3f1abece34ba9309570725f9b9852e229bd7b24aa5ac5a6a69"
     },
     {
       "path": "packages/tokens/generated/index.d.ts",
-      "sha256": "66b249d09215fc4de603709374ec32c19785af4de38f1513273a510932d83665"
+      "sha256": "f91961253070bceffdd6196d465e8bcf454965b34bfeb82e75cb9996d42f37e7"
     },
     {
       "path": "packages/tokens/generated/index.js",
-      "sha256": "f4204cbc759939ce5a955414ec6052bd424a05d84c9823709cf098a3fd209a2c"
+      "sha256": "2a0a34b1066fab364e41349a622f4ca476e032ca270530213facd557984ed693"
     },
     {
       "path": "packages/tokens/generated/tokens.css",
-      "sha256": "3fdb00e1fb56ef649b54ed9c4dc362c453c96537926f80660dee8b54923ec783"
+      "sha256": "bf9e7011b9fe55793c56af146bb7e0141b5ce6aa1675f825cf64755d9b05c0ae"
     },
     {
       "path": "packages/tokens/generated/tokens.json",
-      "sha256": "2c931b71a406d433cd615206033656183b30729d0f8829818c71922fdd2910f0"
+      "sha256": "e92d2d5cbbde4f2c76f902a1f1e278950f54377c2a2e1eef744067b6dbd3fccf"
     }
   ],
   "contrastPairs": [
@@ -408,13 +408,13 @@
   },
   "source": {
     "path": "packages/tokens/src/klipse.tokens.json",
-    "sha256": "ddc38f8ee2fb144a07379e85b853c6471051ff13a385fe0a93c4751cb10b3862"
+    "sha256": "207fd40b7c08f493ce1221b7f411d849f2060b2bc97a3e8b0e62626218b72e31"
   },
   "themes": [
     "light",
     "dark"
   ],
-  "tokenCount": 560,
+  "tokenCount": 564,
   "tokens": [
     {
       "aliasTarget": null,
@@ -778,6 +778,58 @@
         ]
       },
       "sourcePath": "semantic.dark.color.accent-ghost-hover",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-gray-1000",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-accent-inverse": "color(srgb 0 0 0 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-accent-inverse",
+      "mode": "light",
+      "rawValue": "{primitive.color.gray.1000}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0,
+          0,
+          0
+        ]
+      },
+      "sourcePath": "semantic.light.color.accent-inverse",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-gray-0",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-accent-inverse": "color(srgb 0.980392 0.980392 0.980392 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-accent-inverse",
+      "mode": "dark",
+      "rawValue": "{primitive.color.gray.0}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0.980392,
+          0.980392,
+          0.980392
+        ]
+      },
+      "sourcePath": "semantic.dark.color.accent-inverse",
       "tier": "semantic",
       "type": "color"
     },
@@ -3358,6 +3410,58 @@
         ]
       },
       "sourcePath": "semantic.dark.color.fg-menu-item",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-gray-0",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-fg-on-accent-inverse": "color(srgb 0.980392 0.980392 0.980392 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-fg-on-accent-inverse",
+      "mode": "light",
+      "rawValue": "{primitive.color.gray.0}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0.980392,
+          0.980392,
+          0.980392
+        ]
+      },
+      "sourcePath": "semantic.light.color.fg-on-accent-inverse",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-gray-1000",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-fg-on-accent-inverse": "color(srgb 0 0 0 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-fg-on-accent-inverse",
+      "mode": "dark",
+      "rawValue": "{primitive.color.gray.1000}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0,
+          0,
+          0
+        ]
+      },
+      "sourcePath": "semantic.dark.color.fg-on-accent-inverse",
       "tier": "semantic",
       "type": "color"
     },

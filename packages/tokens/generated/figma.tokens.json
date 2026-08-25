@@ -14438,6 +14438,57 @@
             }
           }
         },
+        "color-accent-inverse": {
+          "$type": "color",
+          "fields": [],
+          "figmaName": "color/accent-inverse",
+          "hiddenFromPublishing": false,
+          "losses": [],
+          "nativeVariableType": "COLOR",
+          "representation": "variable",
+          "scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL",
+            "STROKE_COLOR",
+            "TEXT_FILL"
+          ],
+          "valuesByMode": {
+            "Dark": {
+              "$value": "{primitive.color.gray.0}",
+              "aliasTarget": {
+                "id": "color-gray-0",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 1,
+                "colorSpace": "srgb",
+                "components": [
+                  0.980392,
+                  0.980392,
+                  0.980392
+                ]
+              },
+              "sourcePath": "semantic.dark.color.accent-inverse"
+            },
+            "Light": {
+              "$value": "{primitive.color.gray.1000}",
+              "aliasTarget": {
+                "id": "color-gray-1000",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 1,
+                "colorSpace": "srgb",
+                "components": [
+                  0,
+                  0,
+                  0
+                ]
+              },
+              "sourcePath": "semantic.light.color.accent-inverse"
+            }
+          }
+        },
         "color-accent-menu-danger-hover": {
           "$type": "color",
           "fields": [],
@@ -16526,6 +16577,57 @@
                 ]
               },
               "sourcePath": "semantic.light.color.fg-menu-item"
+            }
+          }
+        },
+        "color-fg-on-accent-inverse": {
+          "$type": "color",
+          "fields": [],
+          "figmaName": "color/fg-on-accent-inverse",
+          "hiddenFromPublishing": false,
+          "losses": [],
+          "nativeVariableType": "COLOR",
+          "representation": "variable",
+          "scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL",
+            "STROKE_COLOR",
+            "TEXT_FILL"
+          ],
+          "valuesByMode": {
+            "Dark": {
+              "$value": "{primitive.color.gray.1000}",
+              "aliasTarget": {
+                "id": "color-gray-1000",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 1,
+                "colorSpace": "srgb",
+                "components": [
+                  0,
+                  0,
+                  0
+                ]
+              },
+              "sourcePath": "semantic.dark.color.fg-on-accent-inverse"
+            },
+            "Light": {
+              "$value": "{primitive.color.gray.0}",
+              "aliasTarget": {
+                "id": "color-gray-0",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 1,
+                "colorSpace": "srgb",
+                "components": [
+                  0.980392,
+                  0.980392,
+                  0.980392
+                ]
+              },
+              "sourcePath": "semantic.light.color.fg-on-accent-inverse"
             }
           }
         },

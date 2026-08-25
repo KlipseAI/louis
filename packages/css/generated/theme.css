@@ -20,6 +20,7 @@
   /* 색 — bg-*, text-*, border-* 유틸리티가 된다 */
   --color-accent-danger: var(--louis-color-accent-danger);
   --color-accent-ghost-hover: var(--louis-color-accent-ghost-hover);
+  --color-accent-inverse: var(--louis-color-accent-inverse);
   --color-accent-menu-danger-hover: var(--louis-color-accent-menu-danger-hover);
   --color-accent-menu-item-hover: var(--louis-color-accent-menu-item-hover);
   --color-accent-primary: var(--louis-color-accent-primary);
@@ -61,6 +62,7 @@
   --color-fg-info: var(--louis-color-fg-info);
   --color-fg-inverse: var(--louis-color-fg-inverse);
   --color-fg-menu-item: var(--louis-color-fg-menu-item);
+  --color-fg-on-accent-inverse: var(--louis-color-fg-on-accent-inverse);
   --color-fg-on-danger: var(--louis-color-fg-on-danger);
   --color-fg-on-inverse: var(--louis-color-fg-on-inverse);
   --color-fg-primary: var(--louis-color-fg-primary);

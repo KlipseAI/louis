@@ -261,6 +261,7 @@
   --louis-border-width-ring: 2px;
   --louis-color-accent-danger: color(srgb 1 0.294118 0.34902 / 1);
   --louis-color-accent-ghost-hover: color(srgb 0 0 0 / 0.08);
+  --louis-color-accent-inverse: color(srgb 0 0 0 / 1);
   --louis-color-accent-menu-danger-hover: color(srgb 1 0.294118 0.34902 / 0.1);
   --louis-color-accent-menu-item-hover: color(srgb 0 0 0 / 0.06);
   --louis-color-accent-primary: color(srgb 0 0.533333 1 / 1);
@@ -302,6 +303,7 @@
   --louis-color-fg-info: color(srgb 0 0.203922 0.380392 / 1);
   --louis-color-fg-inverse: color(srgb 0.980392 0.980392 0.980392 / 1);
   --louis-color-fg-menu-item: color(srgb 0 0 0 / 0.86);
+  --louis-color-fg-on-accent-inverse: color(srgb 0.980392 0.980392 0.980392 / 1);
   --louis-color-fg-on-danger: color(srgb 0.980392 0.980392 0.980392 / 1);
   --louis-color-fg-on-inverse: color(srgb 0.980392 0.980392 0.980392 / 1);
   --louis-color-fg-primary: color(srgb 0.090196 0.105882 0.133333 / 1);
@@ -579,6 +581,7 @@
   color-scheme: dark;
   --louis-color-accent-danger: color(srgb 1 0.294118 0.34902 / 1);
   --louis-color-accent-ghost-hover: color(srgb 1 1 1 / 0.1);
+  --louis-color-accent-inverse: color(srgb 0.980392 0.980392 0.980392 / 1);
   --louis-color-accent-menu-danger-hover: color(srgb 1 0.294118 0.34902 / 0.12);
   --louis-color-accent-menu-item-hover: color(srgb 1 1 1 / 0.1);
   --louis-color-accent-primary: color(srgb 0 0.533333 1 / 1);
@@ -620,6 +623,7 @@
   --louis-color-fg-info: color(srgb 0.941176 0.968627 1 / 1);
   --louis-color-fg-inverse: color(srgb 0.980392 0.980392 0.980392 / 1);
   --louis-color-fg-menu-item: color(srgb 1 1 1 / 0.86);
+  --louis-color-fg-on-accent-inverse: color(srgb 0 0 0 / 1);
   --louis-color-fg-on-danger: color(srgb 0.980392 0.980392 0.980392 / 1);
   --louis-color-fg-on-inverse: color(srgb 0.090196 0.105882 0.133333 / 1);
   --louis-color-fg-primary: color(srgb 0.980392 0.980392 0.980392 / 1);

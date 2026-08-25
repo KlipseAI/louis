@@ -2147,7 +2147,13 @@
    *
    * 그 유틸의 ::after는 44px 사각형을 항목 **중앙에 겹쳐** 놓는다. 간격 없이 쌓이는 메뉴 행에서
    * 시각 높이가 40px이면 위아래로 2px씩 삐져나오고, 겹친 구간은 tree order상 뒤 형제가 이긴다.
-   * "삭제"가 "설정" 바로 아래에 있으면 그 2px이 그대로 사고다. 대신 행 자체를 44px로 만든다. */
+   * "삭제"가 "설정" 바로 아래에 있으면 그 2px이 그대로 사고다. 그래서 hit-target 유틸 대신 행
+   * 자체 높이로 타깃을 확보한다.
+   *
+   * 높이 정책: 예전엔 min-block-size로 44px(AAA target-size)를 강제해 제품(37px)을 의도적으로
+   * 따르지 않았다. 제품 외형 수렴 결정(사용자)에 따라 그 floor를 제거해 제품과 같은 콘텐츠 높이
+   * (padding-block 8+8 + body-sm line-height 21 = 37px)를 쓴다. WCAG 2.5.8 AA(24px)는 여전히
+   * 충족하고 AAA(44)만 포기한다. 키보드 focus ring(base.css)은 마우스 외형과 무관하므로 유지한다. */
   .louis-menu__item {
     box-sizing: border-box;
     position: relative;
@@ -2158,7 +2164,6 @@
     gap: var(--louis-space-overlay-item-content-gap);
     inline-size: 100%;
     min-inline-size: 0;
-    min-block-size: var(--louis-layout-control-hit-target-minimum);
     padding-block: var(--louis-space-control-sm);
     padding-inline: var(--louis-space-control-md);
     border: 0;

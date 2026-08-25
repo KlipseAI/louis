@@ -642,8 +642,7 @@ const EXPECT = [
   ["menu-item", "paddingLeft", ["menu-popover", "sizes", "panel", "itemPaddingInline"], "same"],
   ["menu-item", "columnGap", ["menu-popover", "sizes", "panel", "itemGap"], "same"],
   ["menu-item", "borderTopLeftRadius", ["menu-popover", "sizes", "panel", "itemRadius"], "same"],
-  ["menu-item", "height", ["menu-popover", "sizes", "panel", "itemHeight"], "deviates",
-    "제품 40, DS 44. 여백 8/12는 같고 제품 항목이 문서 기본 16/24를, DS가 body-sm 14/21에 아이콘 슬롯 20을 담아 44가 된다."],
+  ["menu-item", "height", ["menu-popover", "sizes", "panel", "itemHeight"], "same"],
 
   ["dialog-card", "width", ["dialog", "sizes", "compact", "width"], "same"],
   ["dialog-card", "paddingTop", ["dialog", "sizes", "compact", "surfaceInset"], "same"],

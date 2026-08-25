@@ -339,8 +339,8 @@ Specification 표의 `Panel surface` 행은 라이트 값을 하나만 담는다
 - action menu는 최소 Trigger 폭 이상, 기본 200px을 권장한다. 프로필 composite popover는 240px을 기준으로
   하되 긴 번역과 200% 확대에서 내용 폭으로 확장하거나 작은 화면 variant로 바꾼다.
 - 높이가 부족하면 `max-height`와 내부 스크롤을 사용한다. viewport 밖 item을 잘라내지 않는다.
-- touch에서는 각 action의 hit area를 44px 이상 권장한다. 시각 행이 40px이면 인접 패딩으로 44px의
-  유효 타깃을 확보한다.
+- touch에서는 각 action의 hit area를 44px 이상 권장한다. DS 행은 37px(제품 정합)이므로 touch 밀집
+  UI에서는 인접 간격으로 유효 타깃을 보완한다.
 - mobile Sheet로 전환하면 기존 menu가 아니라 이름 있는 modal dialog가 된다. focus trap, scroll lock,
   닫기 버튼 계약도 함께 전환한다.
 
@@ -388,7 +388,7 @@ Specification 표의 `Panel surface` 행은 라이트 값을 하나만 담는다
 | Item 내부 gap  | `space-overlay-item-content-gap` = 6px                 | 아이콘·라벨 간격           |
 | Item 전경      | `color-fg-menu-item` — 알파 86%                | light/dark                 |
 | Item hover     | `color-accent-menu-item-hover` — 반투명 오버레이       | 배경이 달라도 같은 정도    |
-| Item height    | 44px 이상 (`layout-control-hit-target-minimum`)        | pointer/touch target       |
+| Item height    | 37px (콘텐츠 높이 — floor 없음, 제품 정합)             | pointer/touch target (AA)  |
 | Danger 전경    | `color-accent-danger` = #ff4b59                        | 중립 표면 위 대비          |
 | Danger hover   | `color-accent-menu-danger-hover` — red 알파            | light/dark                 |
 | Anchor offset  | 8px                                                    | collision/flip             |
@@ -402,8 +402,10 @@ Specification 표의 `Panel surface` 행은 라이트 값을 하나만 담는다
 [`migration/product.measured.json`](../../migration/product.measured.json)에 있고 게이트가 매 실행
 확인한다.
 
-**항목 높이 44px과 focus ring은 제품을 따르지 않는다.** 제품 항목은 37px이고 focus ring이 없다.
-둘 다 WCAG 계약이라 제품에 맞춰 낮추지 않았다. **`danger` 전경을 제품 값으로 바꾼 것이 문서가
+**항목 높이는 제품(37px)을 따른다.** 예전엔 min-block-size로 44px(AAA target-size) floor를 강제해
+제품을 의도적으로 따르지 않았으나, 제품 외형 수렴 결정으로 floor를 제거했다 — WCAG 2.5.8 AA(24px)는
+충족하고 AAA만 포기한다. **focus ring은 유지한다**(base.css의 키보드 전용 ring이라 마우스 외형과
+무관하다; 제품엔 ring이 없다). **`danger` 전경을 제품 값으로 바꾼 것이 문서가
 이미 인정하던 대비 결함을 해소한다** — 이전 `color-fg-danger`는 중립 표면 위에서
 무너졌다.
 
@@ -526,7 +528,8 @@ submenu의 방향키가 부모 핸들러까지 실행해 focus가 부모로 튀�
   `elevation-popover` 그림자만으로는 표면 경계가 서지 않아, elevation 뒤에 조합한 inset
   box-shadow(`--louis-hairline-inset`)를 한 겹 더 쓴다([DS-D-0023](../governance/decisions/DS-D-0023-hairline-inset.md)).
 - **item에 `.louis-hit-target`을 쓰지 않는다.** 그 유틸의 44px `::after`는 항목 중앙에 겹쳐 놓이므로
-  간격 없이 쌓이는 행에서 인접 항목의 hit 영역을 2px씩 가로챈다. 행 자체를 44px로 만든다.
+  간격 없이 쌓이는 행에서 인접 항목의 hit 영역을 2px씩 가로챈다. 대신 행 자체 높이(제품 정합 37px)로
+  타깃을 확보한다.
 - **`offset`과 `collisionPadding`을 인스턴스별로 바꿀 수 없다.** 값은 overlay 표면 CSS 한 블록이
   소유하고 Provider가 1회 측정한다.
 - **Anchor를 Trigger와 분리할 수 없다.** Anatomy 2번이 허용한 분리는 아직 public 수단이 없다.
@@ -536,7 +539,7 @@ submenu의 방향키가 부모 핸들러까지 실행해 focus가 부모로 튀�
 - **`ArrowRight`/`ArrowLeft`가 RTL에서 반전되지 않는다.**
 - **composite popover의 inset이 action menu보다 크다(8px vs 4px).** `.louis-hit-target`을 쓰는 컨트롤은
   44px 타겟을 시각 박스 밖으로 확장하는데, 패널이 스크롤 컨테이너라 그 초과분이 유령 스크롤바가 된다.
-  action menu는 행 자체를 44px로 만들어 그 유틸을 쓰지 않으므로 4px을 유지한다 — 거기서 8px을 쓰면
+  action menu는 행 자체 높이(37px)로 타깃을 확보해 그 유틸을 쓰지 않으므로 4px을 유지한다 — 거기서 8px을 쓰면
   안쪽 곡률이 item radius보다 작아져 모서리가 뚫린다. 두 값이 다른 것은 실수가 아니다.
 - **danger item의 톤이 일반 item과 거의 구분되지 않는다.** 워크샵에서 실측한 대비는 light
   **1.21**, dark **1.14**다(danger 텍스트 : 일반 텍스트). `background-danger`·`foreground-danger`는 foreground와

@@ -445,7 +445,7 @@
     "menu-popover": {
       "$doc": "design/components/menu-popover.md",
       "$source": "packages/react/src/menu/*, packages/css/src/component/menu-popover.css",
-      "$note": "제품 공용 정본은 --dropdown-* 토큰이다. 항목 높이 44와 focus ring은 접근성 계약이라 제품(37px, ring 없음)을 따르지 않는다.",
+      "$note": "제품 공용 정본은 --dropdown-* 토큰이다. 항목 높이는 제품(37px = padding 8+8 + body-sm lh 21)에 맞춘다 — 제품 외형 수렴 결정. AAA 44px floor는 제거하되 WCAG AA(24px)는 충족한다. 키보드 focus ring은 마우스 외형과 무관하므로 유지한다.",
       "sizes": {
         "panel": {
           "paddingBlock": 6,
@@ -461,7 +461,8 @@
           "lineHeight": 21,
           "$lineHeight": "body-sm line-height 21px",
           "$height": "항목 수에 따라 달라진다. 고정 높이 계약이 없다",
-          "itemHeight": 44,
+          "itemHeight": 37,
+          "$itemHeight": "37px = itemPaddingBlock 8+8 + body-sm line-height 21. 44px floor 제거(제품 수렴).",
           "itemPaddingBlock": 8,
           "itemPaddingInline": 12,
           "itemGap": 6,

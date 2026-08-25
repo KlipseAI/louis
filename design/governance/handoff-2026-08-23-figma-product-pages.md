@@ -37,7 +37,11 @@ authority: reference
   `bxGEp0km5zluMJGulaTvFW`와 혼동하지 말 것. **step 5 소스 측정도 완료**(3 desktop을 pinned 소스로
   adversarial 검증): `38:3`은 공통 GNB 없는 전면 에디터로 이미 올바름 확정(교체 불필요 — 인계서 가정이
   틀렸다), `220:3452`/`221:3234`는 공통 GNB 셸이며 셸 기하는 확정·top-bar 내부는 dynamic 인증 route probe
-  필요로 차단. 남은 것은 step 5 잔여(220/221 셸 생성기 + probe)와 step 6(mobile common shell).
+  필요로 차단. **step 6(mobile common shell)도 착수**: mobile 프레임 12개 인벤토리 + 공유
+  `Product/Mobile App Top Bar`(`400:670`) 확인, 라이브 컴포넌트가 stale-LIGHT임을 발견하고 app-shell
+  renderer의 mobile reconcile 분기를 desktop과 동등하게 고쳤다(surface/mode/text-fill 재적용). 남은 것은
+  step 5 잔여(220/221 셸 생성기 + probe)와 step 6 라이브 적용(고친 draw.js 재실행 → 결제 mobile scene
+  회귀 검증 → 12 프레임 instance 교체). 상세는 "남은 것 (step 6 + step 5 잔여)" 절.
 
 ## 목표
 
@@ -1112,8 +1116,43 @@ x280 / mr12 → **width 1628** (1920 프레임) · top-bar 3-클러스터 구조
 1628 메인으로 교체하는 생성기를 만든다(옛 노드는 삭제 말고 visible=false 보존). top-bar 내부 기하는
 dynamic route probe 능력이 생긴 뒤 채운다.
 
-**step 6 · mobile common shell.** `Product/Mobile App Top Bar`와 mobile GNB를 route별 fixture로 검증해 적용한다.
-analytics connected/dynamic project state는 fixture가 없으면 완료 처리하지 않는다.
+**step 6 · mobile common shell — 진단 완료, reconciler 결함 수정함, 라이브 적용은 다음.**
+
+_인벤토리 (page `246:3449` 03 · 앱 셸의 mobile 프레임 12개, 전부 402 wide):_
+`23:2` /archive · `28:44` /settings · `190:1497` /subscription · `219:3209` /nodecanvas hub ·
+`38:3843` /nodecanvas?project= · `219:3701` /videoeditor hub · `39:1520` /videoeditor project ·
+`29:44` /highlight hub · `220:3759` /highlight/[projectId] · `221:3504` /highlight shorts ·
+`30:33` /analytics/youtube · `220:3311` /analytics/instagram. 전부 상단 크롬이 **손수 제작**(shared
+instance 아님)이며 surface는 `gray/800`(다크)로 이미 올바르다 — 즉 프레임은 깨지지 않았고, step 6은
+정합성(shared component 화) 작업이지 결함 수정이 아니다.
+
+_공유 컴포넌트:_ `Product/Mobile App Top Bar` set `400:670`(6 variant, section `400:591`) +
+`Product/Desktop App Top Bar`. auth-fixture 16 route(402×874, `migration/product.auth-fixture.json`)에서
+측정됨. app-shell 생성기(`build-figma-product-app-shell.mjs`)는 이 **컴포넌트 라이브러리만 만들고**
+화면 프레임에 instance를 넣지 않는다(desktop도 화면 적용은 라이브였다).
+
+_발견한 블로커와 수정:_ **라이브 `Product/Mobile App Top Bar` variant는 stale-LIGHT다** —
+surface가 `palette/gray-100`(248,248,249)에 묶여 있다. plan은 `palette/gray-800`(다크)를 의도한다.
+원인: renderer의 mobile **reconcile 분기**가 surface/variable-mode/text-fill을 재적용하지 않았다
+(create 분기에만 있었다). desktop reconcile 분기는 이미 완전하다(surface `491`, modes `485-486`,
+text-fills `535`). **이 세션에서 mobile reconcile 분기를 desktop과 동등하게 고쳤다**
+(`figma-product-app-shell-renderer.js`: variant surface + palette/semantic mode + leading control 아이콘 +
+divider stroke + breadcrumb text-fill 재적용). 재생성·`--check`·`verify:product` 통과. draw.js 42,436B.
+
+_다음(라이브 적용, blast radius 있음):_
+1. **고친 `figma/product-app-shell.draw.js`를 라이브에 재실행** → mobile top bar variant가 다크(gray-800 +
+   white text)가 된다. **검증 필수**: 컴포넌트 스크린샷 + 이 컴포넌트를 쓰는 결제/checkout/upgrade
+   **mobile scene**(checkout-status·upgrade-scene renderer가 instance화)이 회귀하지 않는지 확인.
+2. 그 다음 12개 mobile 프레임의 손수 top bar를 shared variant instance로 교체(옛 bar는 visible=false 보존,
+   body를 53으로 밀기). variant 매핑(측정된 대표 route 기준): /archive→`400:595`(Full/Single/Div Off),
+   /settings·/subscription→`400:606`(Full/Single/Div On), /analytics/*→`400:617`(Full/Trail/Div On).
+   hub·dynamic route(nodecanvas/videoeditor/highlight, project/shorts)는 auth-fixture가 정적 route만
+   렌더하므로 desktop 선례(같은 GNB, currentPath로 active row 파생)를 따르되 측정 불가값은 채우지 않는다.
+3. mobile GNB 드로어(닫힘 x=-268, viewport 밖)는 제품 소스대로 별도 확인.
+   analytics connected/dynamic project state는 fixture 없으면 완료 처리하지 않는다.
+
+_주의:_ 이 세션의 archive 파일럿(`23:2`에 `400:595` instance)은 stale-light 때문에 다크 프레임에 밝은
+bar가 얹혀 **되돌렸다**(옛 다크 bar 복원). reconciler를 고쳐 재실행한 뒤에야 올바른 다크 instance가 나온다.
 
 ### 다음 에이전트 첫 6단계 (원본 — 1·2·3은 위에서 완료)
 

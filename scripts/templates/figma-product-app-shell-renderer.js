@@ -281,12 +281,35 @@ const specByVariant = new Map(
 for (const variant of componentSet.children) {
   const spec = specByVariant.get(variant.name);
   const nav = variant.findOne((entry) => entry.type === "FRAME" && entry.name === "breadcrumb");
-  if (!spec || !nav) throw new Error(`Cannot reconcile measured variant ${variant.name}`);
+  const leading = variant.findOne((entry) => entry.type === "FRAME" && entry.name === "leading");
+  if (!spec || !nav || !leading) throw new Error(`Cannot reconcile measured variant ${variant.name}`);
+  // Surface + variable modes + ink — parity with the desktop reconcile branch. Without this an
+  // existing set built from an older plan (light palette/semantic modes) never adopts the current
+  // measured surface (palette/gray-800) and stays light; the create path alone can't fix live drift.
+  variant.setExplicitVariableModeForCollection(paletteMode.collectionId, paletteMode.modeId);
+  variant.setExplicitVariableModeForCollection(semanticMode.collectionId, semanticMode.modeId);
+  variant.fills = [setPaint(V.surface)];
+  variant.strokes = spec.divider ? [dividerPaint()] : [];
+  if (spec.divider) {
+    variant.strokeTopWeight = 0;
+    variant.strokeRightWeight = 0;
+    variant.strokeBottomWeight = 1;
+    variant.strokeLeftWeight = 0;
+  }
+  for (const control of leading.children) {
+    const icon = "children" in control && control.children.find((entry) => entry.type === "INSTANCE" && entry.name === "icon");
+    if (icon) {
+      icon.setExplicitVariableModeForCollection(semanticMode.collectionId, semanticMode.modeId);
+      bindIconPaints(icon, V.control);
+    }
+  }
   reconcileProfileVisual(variant, spec);
   const textNodes = nav.findAllWithCriteria({ types: ["TEXT"] });
   if (textNodes.length !== spec.text.length) throw new Error(`Breadcrumb text count changed ${variant.name}`);
   for (const [index, text] of textNodes.entries()) {
     const measured = spec.text[index];
+    const variable = spec.breadcrumb === "Single" ? V.current : index === 0 ? V.parent : index === 1 ? V.separator : V.current;
+    text.fills = [setPaint(variable)];
     text.textAutoResize = "NONE";
     text.resize(Math.max(measured.rect.width, measured.figmaBounds.width), measured.figmaBounds.height);
     text.x = measured.rect.x - spec.nav.x;

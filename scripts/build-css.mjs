@@ -114,9 +114,11 @@ function lintSource(label, rawSource, { isReset = false } = {}) {
       errors.push(`${label}: ${rule.message} (${matches.length}건: ${matches[0]})`);
     }
   }
-  // primitive 직접 소비 금지 — DS-D-0001은 CSS에 semantic만 노출한다.
+  // component 저작 CSS의 primitive 직접 소비 금지 — LOUIS 내부 계층은 semantic만 쓴다.
+  // (DS-D-0001 2026-08-25 개정으로 primitive color는 tokens.css로 downstream에 공개되지만,
+  //  LOUIS 자신의 component CSS는 여전히 semantic만 소비한다. 이 게이트가 그 규칙을 강제한다.)
   const primitiveUse = source.match(
-    /var\(--louis-(color-(neutral|blue|red|green|amber|black-alpha)-|space-\d|radius-\d|font-size-|font-weight-|line-height-|duration-)/g,
+    /var\(--louis-(color-(gray|blue|red|green|amber|mint|violet|pink|yellow|static-black-alpha|static-white-alpha|red-alpha)-|space-\d|radius-\d|font-size-|font-weight-|line-height-|duration-)/g,
   );
   if (primitiveUse) {
     errors.push(

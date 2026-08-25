@@ -493,7 +493,10 @@ export const primitives = {
   },
   "color-amber-100": {
     "aliasTarget": null,
-    "cssProperties": {},
+    "cssProperties": {
+      "--louis-color-amber-100": "color(srgb 1 0.960784 0.839216 / 1)",
+      "--louis-color-amber-100-rgb": "255 245 214"
+    },
     "deprecated": null,
     "description": null,
     "id": "color-amber-100",
@@ -522,7 +525,10 @@ export const primitives = {
   },
   "color-amber-500": {
     "aliasTarget": null,
-    "cssProperties": {},
+    "cssProperties": {
+      "--louis-color-amber-500": "color(srgb 1 0.741176 0.180392 / 1)",
+      "--louis-color-amber-500-rgb": "255 189 46"
+    },
     "deprecated": null,
     "description": null,
     "id": "color-amber-500",
@@ -551,7 +557,10 @@ export const primitives = {
   },
   "color-amber-700": {
     "aliasTarget": null,
-    "cssProperties": {},
+    "cssProperties": {
+      "--louis-color-amber-700": "color(srgb 0.721569 0.478431 0 / 1)",
+      "--louis-color-amber-700-rgb": "184 122 0"
+    },
     "deprecated": null,
     "description": null,
     "id": "color-amber-700",
@@ -580,7 +589,10 @@ export const primitives = {
   },
   "color-amber-900": {
     "aliasTarget": null,
-    "cssProperties": {},
+    "cssProperties": {
+      "--louis-color-amber-900": "color(srgb 0.360784 0.239216 0 / 1)",
+      "--louis-color-amber-900-rgb": "92 61 0"
+    },
     "deprecated": null,
     "description": null,
     "id": "color-amber-900",
@@ -609,7 +621,10 @@ export const primitives = {
   },
   "color-blue-100": {
     "aliasTarget": null,
-    "cssProperties": {},
+    "cssProperties": {
+      "--louis-color-blue-100": "color(srgb 0.839216 0.921569 1 / 1)",
+      "--louis-color-blue-100-rgb": "214 235 255"
+    },
     "deprecated": null,
     "description": null,
     "id": "color-blue-100",
@@ -638,7 +653,10 @@ export const primitives = {
   },
   "color-blue-200": {
     "aliasTarget": null,
-    "cssProperties": {},
+    "cssProperties": {
+      "--louis-color-blue-200": "color(srgb 0.639216 0.835294 1 / 1)",
+      "--louis-color-blue-200-rgb": "163 213 255"
+    },
     "deprecated": null,
     "description": null,
     "id": "color-blue-200",
@@ -667,7 +685,10 @@ export const primitives = {
   },
   "color-blue-300": {
     "aliasTarget": null,
-    "cssProperties": {},
+    "cssProperties": {
+      "--louis-color-blue-300": "color(srgb 0.439216 0.74902 1 / 1)",
+      "--louis-color-blue-300-rgb": "112 191 255"
+    },
     "deprecated": null,
     "description": null,
     "id": "color-blue-300",
@@ -696,7 +717,10 @@ export const primitives = {
   },
   "color-blue-400": {
     "aliasTarget": null,
-    "cssProperties": {},
+    "cssProperties": {
+      "--louis-color-blue-400": "color(srgb 0.219608 0.643137 1 / 1)",
+      "--louis-color-blue-400-rgb": "56 164 255"
+    },
     "deprecated": null,
     "description": null,
     "id": "color-blue-400",
@@ -725,7 +749,10 @@ export const primitives = {
   },
   "color-blue-50": {
     "aliasTarget": null,
-    "cssProperties": {},
+    "cssProperties": {
+      "--louis-color-blue-50": "color(srgb 0.941176 0.968627 1 / 1)",
+      "--louis-color-blue-50-rgb": "240 247 255"
+    },
     "deprecated": null,
     "description": null,
     "id": "color-blue-50",
@@ -754,7 +781,10 @@ export const primitives = {
   },
   "color-blue-500": {
     "aliasTarget": null,
-    "cssProperties": {},
+    "cssProperties": {
+      "--louis-color-blue-500": "color(srgb 0 0.533333 1 / 1)",
+      "--louis-color-blue-500-rgb": "0 136 255"
+    },
     "deprecated": null,
     "description": null,
     "id": "color-blue-500",
@@ -783,7 +813,10 @@ export const primitives = {
   },
   "color-blue-600": {
     "aliasTarget": null,
-    "cssProperties": {},
+    "cssProperties": {
+      "--louis-color-blue-600": "color(srgb 0 0.458824 0.858824 / 1)",
+      "--louis-color-blue-600-rgb": "0 117 219"
+    },
     "deprecated": null,
     "description": null,
     "id": "color-blue-600",
@@ -812,7 +845,10 @@ export const primitives = {
   },
   "color-blue-700": {
     "aliasTarget": null,
-    "cssProperties": {},
+    "cssProperties": {
+      "--louis-color-blue-700": "color(srgb 0 0.372549 0.701961 / 1)",
+      "--louis-color-blue-700-rgb": "0 95 179"
+    },
     "deprecated": null,
     "description": null,
     "id": "color-blue-700",
@@ -841,7 +877,10 @@ export const primitives = {
   },
   "color-blue-800": {
     "aliasTarget": null,
-    "cssProperties": {},
+    "cssProperties": {
+      "--louis-color-blue-800": "color(srgb 0 0.286275 0.541176 / 1)",
+      "--louis-color-blue-800-rgb": "0 73 138"
+    },
     "deprecated": null,
     "description": null,
     "id": "color-blue-800",
@@ -870,7 +909,10 @@ export const primitives = {
   },
   "color-blue-900": {
     "aliasTarget": null,
-    "cssProperties": {},
+    "cssProperties": {
+      "--louis-color-blue-900": "color(srgb 0 0.203922 0.380392 / 1)",
+      "--louis-color-blue-900-rgb": "0 52 97"
+    },
     "deprecated": null,
     "description": null,
     "id": "color-blue-900",
@@ -899,7 +941,10 @@ export const primitives = {
   },
   "color-gray-0": {
     "aliasTarget": null,
-    "cssProperties": {},
+    "cssProperties": {
+      "--louis-color-gray-0": "color(srgb 0.980392 0.980392 0.980392 / 1)",
+      "--louis-color-gray-0-rgb": "250 250 250"
+    },
     "deprecated": null,
     "description": null,
     "id": "color-gray-0",
@@ -928,7 +973,10 @@ export const primitives = {
   },
   "color-gray-100": {
     "aliasTarget": null,
-    "cssProperties": {},
+    "cssProperties": {
+      "--louis-color-gray-100": "color(srgb 0.945098 0.945098 0.952941 / 1)",
+      "--louis-color-gray-100-rgb": "241 241 243"
+    },
     "deprecated": null,
     "description": null,
     "id": "color-gray-100",
@@ -957,7 +1005,10 @@ export const primitives = {
   },
   "color-gray-1000": {
     "aliasTarget": null,
-    "cssProperties": {},
+    "cssProperties": {
+      "--louis-color-gray-1000": "color(srgb 0 0 0 / 1)",
+      "--louis-color-gray-1000-rgb": "0 0 0"
+    },
     "deprecated": null,
     "description": null,
     "id": "color-gray-1000",
@@ -986,7 +1037,10 @@ export const primitives = {
   },
   "color-gray-150": {
     "aliasTarget": null,
-    "cssProperties": {},
+    "cssProperties": {
+      "--louis-color-gray-150": "color(srgb 0.917647 0.921569 0.933333 / 1)",
+      "--louis-color-gray-150-rgb": "234 235 238"
+    },
     "deprecated": null,
     "description": null,
     "id": "color-gray-150",
@@ -1015,7 +1069,10 @@ export const primitives = {
   },
   "color-gray-200": {
     "aliasTarget": null,
-    "cssProperties": {},
+    "cssProperties": {
+      "--louis-color-gray-200": "color(srgb 0.890196 0.894118 0.909804 / 1)",
+      "--louis-color-gray-200-rgb": "227 228 232"
+    },
     "deprecated": null,
     "description": null,
     "id": "color-gray-200",
@@ -1044,7 +1101,10 @@ export const primitives = {
   },
   "color-gray-300": {
     "aliasTarget": null,
-    "cssProperties": {},
+    "cssProperties": {
+      "--louis-color-gray-300": "color(srgb 0.835294 0.843137 0.866667 / 1)",
+      "--louis-color-gray-300-rgb": "213 215 221"
+    },
     "deprecated": null,
     "description": null,
     "id": "color-gray-300",
@@ -1073,7 +1133,10 @@ export const primitives = {
   },
   "color-gray-400": {
     "aliasTarget": null,
-    "cssProperties": {},
+    "cssProperties": {
+      "--louis-color-gray-400": "color(srgb 0.737255 0.752941 0.788235 / 1)",
+      "--louis-color-gray-400-rgb": "188 192 201"
+    },
     "deprecated": null,
     "description": null,
     "id": "color-gray-400",
@@ -1102,7 +1165,10 @@ export const primitives = {
   },
   "color-gray-50": {
     "aliasTarget": null,
-    "cssProperties": {},
+    "cssProperties": {
+      "--louis-color-gray-50": "color(srgb 0.972549 0.972549 0.976471 / 1)",
+      "--louis-color-gray-50-rgb": "248 248 249"
+    },
     "deprecated": null,
     "description": null,
     "id": "color-gray-50",
@@ -1131,7 +1197,10 @@ export const primitives = {
   },
   "color-gray-500": {
     "aliasTarget": null,
-    "cssProperties": {},
+    "cssProperties": {
+      "--louis-color-gray-500": "color(srgb 0.603922 0.627451 0.670588 / 1)",
+      "--louis-color-gray-500-rgb": "154 160 171"
+    },
     "deprecated": null,
     "description": null,
     "id": "color-gray-500",
@@ -1160,7 +1229,10 @@ export const primitives = {
   },
   "color-gray-600": {
     "aliasTarget": null,
-    "cssProperties": {},
+    "cssProperties": {
+      "--louis-color-gray-600": "color(srgb 0.466667 0.490196 0.537255 / 1)",
+      "--louis-color-gray-600-rgb": "119 125 137"
+    },
     "deprecated": null,
     "description": null,
     "id": "color-gray-600",
@@ -1189,7 +1261,10 @@ export const primitives = {
   },
   "color-gray-700": {
     "aliasTarget": null,
-    "cssProperties": {},
+    "cssProperties": {
+      "--louis-color-gray-700": "color(srgb 0.341176 0.364706 0.407843 / 1)",
+      "--louis-color-gray-700-rgb": "87 93 104"
+    },
     "deprecated": null,
     "description": null,
     "id": "color-gray-700",
@@ -1218,7 +1293,10 @@ export const primitives = {
   },
   "color-gray-800": {
     "aliasTarget": null,
-    "cssProperties": {},
+    "cssProperties": {
+      "--louis-color-gray-800": "color(srgb 0.192157 0.211765 0.25098 / 1)",
+      "--louis-color-gray-800-rgb": "49 54 64"
+    },
     "deprecated": null,
     "description": null,
     "id": "color-gray-800",
@@ -1247,7 +1325,10 @@ export const primitives = {
   },
   "color-gray-900": {
     "aliasTarget": null,
-    "cssProperties": {},
+    "cssProperties": {
+      "--louis-color-gray-900": "color(srgb 0.090196 0.105882 0.133333 / 1)",
+      "--louis-color-gray-900-rgb": "23 27 34"
+    },
     "deprecated": null,
     "description": null,
     "id": "color-gray-900",
@@ -1276,7 +1357,10 @@ export const primitives = {
   },
   "color-green-100": {
     "aliasTarget": null,
-    "cssProperties": {},
+    "cssProperties": {
+      "--louis-color-green-100": "color(srgb 0.894118 0.972549 0.917647 / 1)",
+      "--louis-color-green-100-rgb": "228 248 234"
+    },
     "deprecated": null,
     "description": null,
     "id": "color-green-100",
@@ -1305,7 +1389,10 @@ export const primitives = {
   },
   "color-green-500": {
     "aliasTarget": null,
-    "cssProperties": {},
+    "cssProperties": {
+      "--louis-color-green-500": "color(srgb 0.156863 0.784314 0.25098 / 1)",
+      "--louis-color-green-500-rgb": "40 200 64"
+    },
     "deprecated": null,
     "description": null,
     "id": "color-green-500",
@@ -1334,7 +1421,10 @@ export const primitives = {
   },
   "color-green-700": {
     "aliasTarget": null,
-    "cssProperties": {},
+    "cssProperties": {
+      "--louis-color-green-700": "color(srgb 0.090196 0.478431 0.172549 / 1)",
+      "--louis-color-green-700-rgb": "23 122 44"
+    },
     "deprecated": null,
     "description": null,
     "id": "color-green-700",
@@ -1363,7 +1453,10 @@ export const primitives = {
   },
   "color-green-900": {
     "aliasTarget": null,
-    "cssProperties": {},
+    "cssProperties": {
+      "--louis-color-green-900": "color(srgb 0.043137 0.239216 0.094118 / 1)",
+      "--louis-color-green-900-rgb": "11 61 24"
+    },
     "deprecated": null,
     "description": null,
     "id": "color-green-900",
@@ -1392,7 +1485,10 @@ export const primitives = {
   },
   "color-mint-100": {
     "aliasTarget": null,
-    "cssProperties": {},
+    "cssProperties": {
+      "--louis-color-mint-100": "color(srgb 0.898039 1 0.968627 / 1)",
+      "--louis-color-mint-100-rgb": "229 255 247"
+    },
     "deprecated": null,
     "description": null,
     "id": "color-mint-100",
@@ -1421,7 +1517,10 @@ export const primitives = {
   },
   "color-mint-200": {
     "aliasTarget": null,
-    "cssProperties": {},
+    "cssProperties": {
+      "--louis-color-mint-200": "color(srgb 0.721569 0.972549 0.898039 / 1)",
+      "--louis-color-mint-200-rgb": "184 248 229"
+    },
     "deprecated": null,
     "description": null,
     "id": "color-mint-200",
@@ -1450,7 +1549,10 @@ export const primitives = {
   },
   "color-mint-300": {
     "aliasTarget": null,
-    "cssProperties": {},
+    "cssProperties": {
+      "--louis-color-mint-300": "color(srgb 0.47451 0.92549 0.8 / 1)",
+      "--louis-color-mint-300-rgb": "121 236 204"
+    },
     "deprecated": null,
     "description": null,
     "id": "color-mint-300",
@@ -1479,7 +1581,10 @@ export const primitives = {
   },
   "color-mint-400": {
     "aliasTarget": null,
-    "cssProperties": {},
+    "cssProperties": {
+      "--louis-color-mint-400": "color(srgb 0.156863 0.85098 0.647059 / 1)",
+      "--louis-color-mint-400-rgb": "40 217 165"
+    },
     "deprecated": null,
     "description": null,
     "id": "color-mint-400",
@@ -1508,7 +1613,10 @@ export const primitives = {
   },
   "color-mint-500": {
     "aliasTarget": null,
-    "cssProperties": {},
+    "cssProperties": {
+      "--louis-color-mint-500": "color(srgb 0 0.776471 0.556863 / 1)",
+      "--louis-color-mint-500-rgb": "0 198 142"
+    },
     "deprecated": null,
     "description": null,
     "id": "color-mint-500",
@@ -1538,7 +1646,10 @@ export const primitives = {
   },
   "color-mint-600": {
     "aliasTarget": null,
-    "cssProperties": {},
+    "cssProperties": {
+      "--louis-color-mint-600": "color(srgb 0 0.701961 0.498039 / 1)",
+      "--louis-color-mint-600-rgb": "0 179 127"
+    },
     "deprecated": null,
     "description": null,
     "id": "color-mint-600",
@@ -1567,7 +1678,10 @@ export const primitives = {
   },
   "color-mint-700": {
     "aliasTarget": null,
-    "cssProperties": {},
+    "cssProperties": {
+      "--louis-color-mint-700": "color(srgb 0 0.560784 0.403922 / 1)",
+      "--louis-color-mint-700-rgb": "0 143 103"
+    },
     "deprecated": null,
     "description": null,
     "id": "color-mint-700",
@@ -1596,7 +1710,10 @@ export const primitives = {
   },
   "color-mint-800": {
     "aliasTarget": null,
-    "cssProperties": {},
+    "cssProperties": {
+      "--louis-color-mint-800": "color(srgb 0 0.431373 0.317647 / 1)",
+      "--louis-color-mint-800-rgb": "0 110 81"
+    },
     "deprecated": null,
     "description": null,
     "id": "color-mint-800",
@@ -1625,7 +1742,10 @@ export const primitives = {
   },
   "color-mint-900": {
     "aliasTarget": null,
-    "cssProperties": {},
+    "cssProperties": {
+      "--louis-color-mint-900": "color(srgb 0 0.298039 0.223529 / 1)",
+      "--louis-color-mint-900-rgb": "0 76 57"
+    },
     "deprecated": null,
     "description": null,
     "id": "color-mint-900",
@@ -1654,7 +1774,10 @@ export const primitives = {
   },
   "color-pink-100": {
     "aliasTarget": null,
-    "cssProperties": {},
+    "cssProperties": {
+      "--louis-color-pink-100": "color(srgb 1 0.898039 0.929412 / 1)",
+      "--louis-color-pink-100-rgb": "255 229 237"
+    },
     "deprecated": null,
     "description": null,
     "id": "color-pink-100",
@@ -1683,7 +1806,10 @@ export const primitives = {
   },
   "color-pink-200": {
     "aliasTarget": null,
-    "cssProperties": {},
+    "cssProperties": {
+      "--louis-color-pink-200": "color(srgb 1 0.756863 0.839216 / 1)",
+      "--louis-color-pink-200-rgb": "255 193 214"
+    },
     "deprecated": null,
     "description": null,
     "id": "color-pink-200",
@@ -1712,7 +1838,10 @@ export const primitives = {
   },
   "color-pink-300": {
     "aliasTarget": null,
-    "cssProperties": {},
+    "cssProperties": {
+      "--louis-color-pink-300": "color(srgb 1 0.607843 0.745098 / 1)",
+      "--louis-color-pink-300-rgb": "255 155 190"
+    },
     "deprecated": null,
     "description": null,
     "id": "color-pink-300",
@@ -1741,7 +1870,10 @@ export const primitives = {
   },
   "color-pink-400": {
     "aliasTarget": null,
-    "cssProperties": {},
+    "cssProperties": {
+      "--louis-color-pink-400": "color(srgb 1 0.427451 0.615686 / 1)",
+      "--louis-color-pink-400-rgb": "255 109 157"
+    },
     "deprecated": null,
     "description": null,
     "id": "color-pink-400",
@@ -1770,7 +1902,10 @@ export const primitives = {
   },
   "color-pink-500": {
     "aliasTarget": null,
-    "cssProperties": {},
+    "cssProperties": {
+      "--louis-color-pink-500": "color(srgb 1 0.301961 0.533333 / 1)",
+      "--louis-color-pink-500-rgb": "255 77 136"
+    },
     "deprecated": null,
     "description": null,
     "id": "color-pink-500",
@@ -1799,7 +1934,10 @@ export const primitives = {
   },
   "color-pink-600": {
     "aliasTarget": null,
-    "cssProperties": {},
+    "cssProperties": {
+      "--louis-color-pink-600": "color(srgb 0.886275 0.211765 0.443137 / 1)",
+      "--louis-color-pink-600-rgb": "226 54 113"
+    },
     "deprecated": null,
     "description": null,
     "id": "color-pink-600",
@@ -1828,7 +1966,10 @@ export const primitives = {
   },
   "color-pink-700": {
     "aliasTarget": null,
-    "cssProperties": {},
+    "cssProperties": {
+      "--louis-color-pink-700": "color(srgb 0.717647 0.141176 0.345098 / 1)",
+      "--louis-color-pink-700-rgb": "183 36 88"
+    },
     "deprecated": null,
     "description": null,
     "id": "color-pink-700",
@@ -1857,7 +1998,10 @@ export const primitives = {
   },
   "color-pink-800": {
     "aliasTarget": null,
-    "cssProperties": {},
+    "cssProperties": {
+      "--louis-color-pink-800": "color(srgb 0.517647 0.101961 0.247059 / 1)",
+      "--louis-color-pink-800-rgb": "132 26 63"
+    },
     "deprecated": null,
     "description": null,
     "id": "color-pink-800",
@@ -1886,7 +2030,10 @@ export const primitives = {
   },
   "color-pink-900": {
     "aliasTarget": null,
-    "cssProperties": {},
+    "cssProperties": {
+      "--louis-color-pink-900": "color(srgb 0.329412 0.066667 0.164706 / 1)",
+      "--louis-color-pink-900-rgb": "84 17 42"
+    },
     "deprecated": null,
     "description": null,
     "id": "color-pink-900",
@@ -1915,7 +2062,10 @@ export const primitives = {
   },
   "color-red-100": {
     "aliasTarget": null,
-    "cssProperties": {},
+    "cssProperties": {
+      "--louis-color-red-100": "color(srgb 1 0.898039 0.909804 / 1)",
+      "--louis-color-red-100-rgb": "255 229 232"
+    },
     "deprecated": null,
     "description": null,
     "id": "color-red-100",
@@ -1944,7 +2094,10 @@ export const primitives = {
   },
   "color-red-200": {
     "aliasTarget": null,
-    "cssProperties": {},
+    "cssProperties": {
+      "--louis-color-red-200": "color(srgb 1 0.768627 0.792157 / 1)",
+      "--louis-color-red-200-rgb": "255 196 202"
+    },
     "deprecated": null,
     "description": null,
     "id": "color-red-200",
@@ -1973,7 +2126,10 @@ export const primitives = {
   },
   "color-red-300": {
     "aliasTarget": null,
-    "cssProperties": {},
+    "cssProperties": {
+      "--louis-color-red-300": "color(srgb 1 0.603922 0.643137 / 1)",
+      "--louis-color-red-300-rgb": "255 154 164"
+    },
     "deprecated": null,
     "description": null,
     "id": "color-red-300",
@@ -2002,7 +2158,10 @@ export const primitives = {
   },
   "color-red-400": {
     "aliasTarget": null,
-    "cssProperties": {},
+    "cssProperties": {
+      "--louis-color-red-400": "color(srgb 1 0.435294 0.486275 / 1)",
+      "--louis-color-red-400-rgb": "255 111 124"
+    },
     "deprecated": null,
     "description": null,
     "id": "color-red-400",
@@ -2031,7 +2190,10 @@ export const primitives = {
   },
   "color-red-500": {
     "aliasTarget": null,
-    "cssProperties": {},
+    "cssProperties": {
+      "--louis-color-red-500": "color(srgb 1 0.294118 0.34902 / 1)",
+      "--louis-color-red-500-rgb": "255 75 89"
+    },
     "deprecated": null,
     "description": null,
     "id": "color-red-500",
@@ -2060,7 +2222,10 @@ export const primitives = {
   },
   "color-red-600": {
     "aliasTarget": null,
-    "cssProperties": {},
+    "cssProperties": {
+      "--louis-color-red-600": "color(srgb 0.886275 0.211765 0.270588 / 1)",
+      "--louis-color-red-600-rgb": "226 54 69"
+    },
     "deprecated": null,
     "description": null,
     "id": "color-red-600",
@@ -2089,7 +2254,10 @@ export const primitives = {
   },
   "color-red-700": {
     "aliasTarget": null,
-    "cssProperties": {},
+    "cssProperties": {
+      "--louis-color-red-700": "color(srgb 0.717647 0.141176 0.192157 / 1)",
+      "--louis-color-red-700-rgb": "183 36 49"
+    },
     "deprecated": null,
     "description": null,
     "id": "color-red-700",
@@ -2118,7 +2286,10 @@ export const primitives = {
   },
   "color-red-800": {
     "aliasTarget": null,
-    "cssProperties": {},
+    "cssProperties": {
+      "--louis-color-red-800": "color(srgb 0.517647 0.101961 0.141176 / 1)",
+      "--louis-color-red-800-rgb": "132 26 36"
+    },
     "deprecated": null,
     "description": null,
     "id": "color-red-800",
@@ -2147,7 +2318,10 @@ export const primitives = {
   },
   "color-red-900": {
     "aliasTarget": null,
-    "cssProperties": {},
+    "cssProperties": {
+      "--louis-color-red-900": "color(srgb 0.329412 0.066667 0.098039 / 1)",
+      "--louis-color-red-900-rgb": "84 17 25"
+    },
     "deprecated": null,
     "description": null,
     "id": "color-red-900",
@@ -2176,7 +2350,10 @@ export const primitives = {
   },
   "color-red-alpha-10": {
     "aliasTarget": null,
-    "cssProperties": {},
+    "cssProperties": {
+      "--louis-color-red-alpha-10": "color(srgb 1 0.294118 0.34902 / 0.1)",
+      "--louis-color-red-alpha-10-rgb": "255 75 89"
+    },
     "deprecated": null,
     "description": null,
     "id": "color-red-alpha-10",
@@ -2206,7 +2383,10 @@ export const primitives = {
   },
   "color-red-alpha-12": {
     "aliasTarget": null,
-    "cssProperties": {},
+    "cssProperties": {
+      "--louis-color-red-alpha-12": "color(srgb 1 0.294118 0.34902 / 0.12)",
+      "--louis-color-red-alpha-12-rgb": "255 75 89"
+    },
     "deprecated": null,
     "description": null,
     "id": "color-red-alpha-12",
@@ -2236,7 +2416,10 @@ export const primitives = {
   },
   "color-red-alpha-16": {
     "aliasTarget": null,
-    "cssProperties": {},
+    "cssProperties": {
+      "--louis-color-red-alpha-16": "color(srgb 1 0.294118 0.34902 / 0.16)",
+      "--louis-color-red-alpha-16-rgb": "255 75 89"
+    },
     "deprecated": null,
     "description": null,
     "id": "color-red-alpha-16",
@@ -2266,7 +2449,10 @@ export const primitives = {
   },
   "color-red-alpha-20": {
     "aliasTarget": null,
-    "cssProperties": {},
+    "cssProperties": {
+      "--louis-color-red-alpha-20": "color(srgb 1 0.294118 0.34902 / 0.2)",
+      "--louis-color-red-alpha-20-rgb": "255 75 89"
+    },
     "deprecated": null,
     "description": null,
     "id": "color-red-alpha-20",
@@ -2296,7 +2482,10 @@ export const primitives = {
   },
   "color-red-alpha-25": {
     "aliasTarget": null,
-    "cssProperties": {},
+    "cssProperties": {
+      "--louis-color-red-alpha-25": "color(srgb 1 0.294118 0.34902 / 0.25)",
+      "--louis-color-red-alpha-25-rgb": "255 75 89"
+    },
     "deprecated": null,
     "description": null,
     "id": "color-red-alpha-25",
@@ -2326,7 +2515,10 @@ export const primitives = {
   },
   "color-red-alpha-6": {
     "aliasTarget": null,
-    "cssProperties": {},
+    "cssProperties": {
+      "--louis-color-red-alpha-6": "color(srgb 1 0.294118 0.34902 / 0.06)",
+      "--louis-color-red-alpha-6-rgb": "255 75 89"
+    },
     "deprecated": null,
     "description": null,
     "id": "color-red-alpha-6",
@@ -2356,7 +2548,10 @@ export const primitives = {
   },
   "color-red-alpha-60": {
     "aliasTarget": null,
-    "cssProperties": {},
+    "cssProperties": {
+      "--louis-color-red-alpha-60": "color(srgb 1 0.294118 0.34902 / 0.6)",
+      "--louis-color-red-alpha-60-rgb": "255 75 89"
+    },
     "deprecated": null,
     "description": null,
     "id": "color-red-alpha-60",
@@ -2386,7 +2581,10 @@ export const primitives = {
   },
   "color-red-alpha-8": {
     "aliasTarget": null,
-    "cssProperties": {},
+    "cssProperties": {
+      "--louis-color-red-alpha-8": "color(srgb 1 0.294118 0.34902 / 0.08)",
+      "--louis-color-red-alpha-8-rgb": "255 75 89"
+    },
     "deprecated": null,
     "description": null,
     "id": "color-red-alpha-8",
@@ -2416,7 +2614,10 @@ export const primitives = {
   },
   "color-red-alpha-80": {
     "aliasTarget": null,
-    "cssProperties": {},
+    "cssProperties": {
+      "--louis-color-red-alpha-80": "color(srgb 1 0.294118 0.34902 / 0.8)",
+      "--louis-color-red-alpha-80-rgb": "255 75 89"
+    },
     "deprecated": null,
     "description": null,
     "id": "color-red-alpha-80",
@@ -2446,7 +2647,10 @@ export const primitives = {
   },
   "color-static-black-alpha-10": {
     "aliasTarget": null,
-    "cssProperties": {},
+    "cssProperties": {
+      "--louis-color-static-black-alpha-10": "color(srgb 0 0 0 / 0.1)",
+      "--louis-color-static-black-alpha-10-rgb": "0 0 0"
+    },
     "deprecated": null,
     "description": null,
     "id": "color-static-black-alpha-10",
@@ -2476,7 +2680,10 @@ export const primitives = {
   },
   "color-static-black-alpha-12": {
     "aliasTarget": null,
-    "cssProperties": {},
+    "cssProperties": {
+      "--louis-color-static-black-alpha-12": "color(srgb 0 0 0 / 0.12)",
+      "--louis-color-static-black-alpha-12-rgb": "0 0 0"
+    },
     "deprecated": null,
     "description": null,
     "id": "color-static-black-alpha-12",
@@ -2506,7 +2713,10 @@ export const primitives = {
   },
   "color-static-black-alpha-16": {
     "aliasTarget": null,
-    "cssProperties": {},
+    "cssProperties": {
+      "--louis-color-static-black-alpha-16": "color(srgb 0 0 0 / 0.16)",
+      "--louis-color-static-black-alpha-16-rgb": "0 0 0"
+    },
     "deprecated": null,
     "description": null,
     "id": "color-static-black-alpha-16",
@@ -2536,7 +2746,10 @@ export const primitives = {
   },
   "color-static-black-alpha-20": {
     "aliasTarget": null,
-    "cssProperties": {},
+    "cssProperties": {
+      "--louis-color-static-black-alpha-20": "color(srgb 0 0 0 / 0.2)",
+      "--louis-color-static-black-alpha-20-rgb": "0 0 0"
+    },
     "deprecated": null,
     "description": null,
     "id": "color-static-black-alpha-20",
@@ -2566,7 +2779,10 @@ export const primitives = {
   },
   "color-static-black-alpha-25": {
     "aliasTarget": null,
-    "cssProperties": {},
+    "cssProperties": {
+      "--louis-color-static-black-alpha-25": "color(srgb 0 0 0 / 0.25)",
+      "--louis-color-static-black-alpha-25-rgb": "0 0 0"
+    },
     "deprecated": null,
     "description": null,
     "id": "color-static-black-alpha-25",
@@ -2596,7 +2812,10 @@ export const primitives = {
   },
   "color-static-black-alpha-28": {
     "aliasTarget": null,
-    "cssProperties": {},
+    "cssProperties": {
+      "--louis-color-static-black-alpha-28": "color(srgb 0 0 0 / 0.28)",
+      "--louis-color-static-black-alpha-28-rgb": "0 0 0"
+    },
     "deprecated": null,
     "description": null,
     "id": "color-static-black-alpha-28",
@@ -2626,7 +2845,10 @@ export const primitives = {
   },
   "color-static-black-alpha-30": {
     "aliasTarget": null,
-    "cssProperties": {},
+    "cssProperties": {
+      "--louis-color-static-black-alpha-30": "color(srgb 0 0 0 / 0.3)",
+      "--louis-color-static-black-alpha-30-rgb": "0 0 0"
+    },
     "deprecated": null,
     "description": null,
     "id": "color-static-black-alpha-30",
@@ -2656,7 +2878,10 @@ export const primitives = {
   },
   "color-static-black-alpha-4": {
     "aliasTarget": null,
-    "cssProperties": {},
+    "cssProperties": {
+      "--louis-color-static-black-alpha-4": "color(srgb 0 0 0 / 0.04)",
+      "--louis-color-static-black-alpha-4-rgb": "0 0 0"
+    },
     "deprecated": null,
     "description": null,
     "id": "color-static-black-alpha-4",
@@ -2686,7 +2911,10 @@ export const primitives = {
   },
   "color-static-black-alpha-40": {
     "aliasTarget": null,
-    "cssProperties": {},
+    "cssProperties": {
+      "--louis-color-static-black-alpha-40": "color(srgb 0 0 0 / 0.4)",
+      "--louis-color-static-black-alpha-40-rgb": "0 0 0"
+    },
     "deprecated": null,
     "description": null,
     "id": "color-static-black-alpha-40",
@@ -2716,7 +2944,10 @@ export const primitives = {
   },
   "color-static-black-alpha-5": {
     "aliasTarget": null,
-    "cssProperties": {},
+    "cssProperties": {
+      "--louis-color-static-black-alpha-5": "color(srgb 0 0 0 / 0.05)",
+      "--louis-color-static-black-alpha-5-rgb": "0 0 0"
+    },
     "deprecated": null,
     "description": null,
     "id": "color-static-black-alpha-5",
@@ -2746,7 +2977,10 @@ export const primitives = {
   },
   "color-static-black-alpha-50": {
     "aliasTarget": null,
-    "cssProperties": {},
+    "cssProperties": {
+      "--louis-color-static-black-alpha-50": "color(srgb 0 0 0 / 0.5)",
+      "--louis-color-static-black-alpha-50-rgb": "0 0 0"
+    },
     "deprecated": null,
     "description": null,
     "id": "color-static-black-alpha-50",
@@ -2776,7 +3010,10 @@ export const primitives = {
   },
   "color-static-black-alpha-56": {
     "aliasTarget": null,
-    "cssProperties": {},
+    "cssProperties": {
+      "--louis-color-static-black-alpha-56": "color(srgb 0 0 0 / 0.56)",
+      "--louis-color-static-black-alpha-56-rgb": "0 0 0"
+    },
     "deprecated": null,
     "description": null,
     "id": "color-static-black-alpha-56",
@@ -2806,7 +3043,10 @@ export const primitives = {
   },
   "color-static-black-alpha-6": {
     "aliasTarget": null,
-    "cssProperties": {},
+    "cssProperties": {
+      "--louis-color-static-black-alpha-6": "color(srgb 0 0 0 / 0.06)",
+      "--louis-color-static-black-alpha-6-rgb": "0 0 0"
+    },
     "deprecated": null,
     "description": null,
     "id": "color-static-black-alpha-6",
@@ -2836,7 +3076,10 @@ export const primitives = {
   },
   "color-static-black-alpha-60": {
     "aliasTarget": null,
-    "cssProperties": {},
+    "cssProperties": {
+      "--louis-color-static-black-alpha-60": "color(srgb 0 0 0 / 0.6)",
+      "--louis-color-static-black-alpha-60-rgb": "0 0 0"
+    },
     "deprecated": null,
     "description": null,
     "id": "color-static-black-alpha-60",
@@ -2866,7 +3109,10 @@ export const primitives = {
   },
   "color-static-black-alpha-70": {
     "aliasTarget": null,
-    "cssProperties": {},
+    "cssProperties": {
+      "--louis-color-static-black-alpha-70": "color(srgb 0 0 0 / 0.7)",
+      "--louis-color-static-black-alpha-70-rgb": "0 0 0"
+    },
     "deprecated": null,
     "description": null,
     "id": "color-static-black-alpha-70",
@@ -2896,7 +3142,10 @@ export const primitives = {
   },
   "color-static-black-alpha-72": {
     "aliasTarget": null,
-    "cssProperties": {},
+    "cssProperties": {
+      "--louis-color-static-black-alpha-72": "color(srgb 0 0 0 / 0.72)",
+      "--louis-color-static-black-alpha-72-rgb": "0 0 0"
+    },
     "deprecated": null,
     "description": null,
     "id": "color-static-black-alpha-72",
@@ -2926,7 +3175,10 @@ export const primitives = {
   },
   "color-static-black-alpha-8": {
     "aliasTarget": null,
-    "cssProperties": {},
+    "cssProperties": {
+      "--louis-color-static-black-alpha-8": "color(srgb 0 0 0 / 0.08)",
+      "--louis-color-static-black-alpha-8-rgb": "0 0 0"
+    },
     "deprecated": null,
     "description": null,
     "id": "color-static-black-alpha-8",
@@ -2956,7 +3208,10 @@ export const primitives = {
   },
   "color-static-black-alpha-80": {
     "aliasTarget": null,
-    "cssProperties": {},
+    "cssProperties": {
+      "--louis-color-static-black-alpha-80": "color(srgb 0 0 0 / 0.8)",
+      "--louis-color-static-black-alpha-80-rgb": "0 0 0"
+    },
     "deprecated": null,
     "description": null,
     "id": "color-static-black-alpha-80",
@@ -2986,7 +3241,10 @@ export const primitives = {
   },
   "color-static-black-alpha-86": {
     "aliasTarget": null,
-    "cssProperties": {},
+    "cssProperties": {
+      "--louis-color-static-black-alpha-86": "color(srgb 0 0 0 / 0.86)",
+      "--louis-color-static-black-alpha-86-rgb": "0 0 0"
+    },
     "deprecated": null,
     "description": null,
     "id": "color-static-black-alpha-86",
@@ -3016,7 +3274,10 @@ export const primitives = {
   },
   "color-static-white-alpha-10": {
     "aliasTarget": null,
-    "cssProperties": {},
+    "cssProperties": {
+      "--louis-color-static-white-alpha-10": "color(srgb 1 1 1 / 0.1)",
+      "--louis-color-static-white-alpha-10-rgb": "255 255 255"
+    },
     "deprecated": null,
     "description": null,
     "id": "color-static-white-alpha-10",
@@ -3046,7 +3307,10 @@ export const primitives = {
   },
   "color-static-white-alpha-12": {
     "aliasTarget": null,
-    "cssProperties": {},
+    "cssProperties": {
+      "--louis-color-static-white-alpha-12": "color(srgb 1 1 1 / 0.12)",
+      "--louis-color-static-white-alpha-12-rgb": "255 255 255"
+    },
     "deprecated": null,
     "description": null,
     "id": "color-static-white-alpha-12",
@@ -3076,7 +3340,10 @@ export const primitives = {
   },
   "color-static-white-alpha-14": {
     "aliasTarget": null,
-    "cssProperties": {},
+    "cssProperties": {
+      "--louis-color-static-white-alpha-14": "color(srgb 1 1 1 / 0.14)",
+      "--louis-color-static-white-alpha-14-rgb": "255 255 255"
+    },
     "deprecated": null,
     "description": null,
     "id": "color-static-white-alpha-14",
@@ -3106,7 +3373,10 @@ export const primitives = {
   },
   "color-static-white-alpha-16": {
     "aliasTarget": null,
-    "cssProperties": {},
+    "cssProperties": {
+      "--louis-color-static-white-alpha-16": "color(srgb 1 1 1 / 0.16)",
+      "--louis-color-static-white-alpha-16-rgb": "255 255 255"
+    },
     "deprecated": null,
     "description": null,
     "id": "color-static-white-alpha-16",
@@ -3136,7 +3406,10 @@ export const primitives = {
   },
   "color-static-white-alpha-20": {
     "aliasTarget": null,
-    "cssProperties": {},
+    "cssProperties": {
+      "--louis-color-static-white-alpha-20": "color(srgb 1 1 1 / 0.2)",
+      "--louis-color-static-white-alpha-20-rgb": "255 255 255"
+    },
     "deprecated": null,
     "description": null,
     "id": "color-static-white-alpha-20",
@@ -3166,7 +3439,10 @@ export const primitives = {
   },
   "color-static-white-alpha-25": {
     "aliasTarget": null,
-    "cssProperties": {},
+    "cssProperties": {
+      "--louis-color-static-white-alpha-25": "color(srgb 1 1 1 / 0.25)",
+      "--louis-color-static-white-alpha-25-rgb": "255 255 255"
+    },
     "deprecated": null,
     "description": null,
     "id": "color-static-white-alpha-25",
@@ -3196,7 +3472,10 @@ export const primitives = {
   },
   "color-static-white-alpha-30": {
     "aliasTarget": null,
-    "cssProperties": {},
+    "cssProperties": {
+      "--louis-color-static-white-alpha-30": "color(srgb 1 1 1 / 0.3)",
+      "--louis-color-static-white-alpha-30-rgb": "255 255 255"
+    },
     "deprecated": null,
     "description": null,
     "id": "color-static-white-alpha-30",
@@ -3226,7 +3505,10 @@ export const primitives = {
   },
   "color-static-white-alpha-4": {
     "aliasTarget": null,
-    "cssProperties": {},
+    "cssProperties": {
+      "--louis-color-static-white-alpha-4": "color(srgb 1 1 1 / 0.04)",
+      "--louis-color-static-white-alpha-4-rgb": "255 255 255"
+    },
     "deprecated": null,
     "description": null,
     "id": "color-static-white-alpha-4",
@@ -3256,7 +3538,10 @@ export const primitives = {
   },
   "color-static-white-alpha-40": {
     "aliasTarget": null,
-    "cssProperties": {},
+    "cssProperties": {
+      "--louis-color-static-white-alpha-40": "color(srgb 1 1 1 / 0.4)",
+      "--louis-color-static-white-alpha-40-rgb": "255 255 255"
+    },
     "deprecated": null,
     "description": null,
     "id": "color-static-white-alpha-40",
@@ -3286,7 +3571,10 @@ export const primitives = {
   },
   "color-static-white-alpha-45": {
     "aliasTarget": null,
-    "cssProperties": {},
+    "cssProperties": {
+      "--louis-color-static-white-alpha-45": "color(srgb 1 1 1 / 0.45)",
+      "--louis-color-static-white-alpha-45-rgb": "255 255 255"
+    },
     "deprecated": null,
     "description": null,
     "id": "color-static-white-alpha-45",
@@ -3316,7 +3604,10 @@ export const primitives = {
   },
   "color-static-white-alpha-50": {
     "aliasTarget": null,
-    "cssProperties": {},
+    "cssProperties": {
+      "--louis-color-static-white-alpha-50": "color(srgb 1 1 1 / 0.5)",
+      "--louis-color-static-white-alpha-50-rgb": "255 255 255"
+    },
     "deprecated": null,
     "description": null,
     "id": "color-static-white-alpha-50",
@@ -3346,7 +3637,10 @@ export const primitives = {
   },
   "color-static-white-alpha-6": {
     "aliasTarget": null,
-    "cssProperties": {},
+    "cssProperties": {
+      "--louis-color-static-white-alpha-6": "color(srgb 1 1 1 / 0.06)",
+      "--louis-color-static-white-alpha-6-rgb": "255 255 255"
+    },
     "deprecated": null,
     "description": null,
     "id": "color-static-white-alpha-6",
@@ -3376,7 +3670,10 @@ export const primitives = {
   },
   "color-static-white-alpha-60": {
     "aliasTarget": null,
-    "cssProperties": {},
+    "cssProperties": {
+      "--louis-color-static-white-alpha-60": "color(srgb 1 1 1 / 0.6)",
+      "--louis-color-static-white-alpha-60-rgb": "255 255 255"
+    },
     "deprecated": null,
     "description": null,
     "id": "color-static-white-alpha-60",
@@ -3406,7 +3703,10 @@ export const primitives = {
   },
   "color-static-white-alpha-70": {
     "aliasTarget": null,
-    "cssProperties": {},
+    "cssProperties": {
+      "--louis-color-static-white-alpha-70": "color(srgb 1 1 1 / 0.7)",
+      "--louis-color-static-white-alpha-70-rgb": "255 255 255"
+    },
     "deprecated": null,
     "description": null,
     "id": "color-static-white-alpha-70",
@@ -3436,7 +3736,10 @@ export const primitives = {
   },
   "color-static-white-alpha-72": {
     "aliasTarget": null,
-    "cssProperties": {},
+    "cssProperties": {
+      "--louis-color-static-white-alpha-72": "color(srgb 1 1 1 / 0.72)",
+      "--louis-color-static-white-alpha-72-rgb": "255 255 255"
+    },
     "deprecated": null,
     "description": null,
     "id": "color-static-white-alpha-72",
@@ -3466,7 +3769,10 @@ export const primitives = {
   },
   "color-static-white-alpha-8": {
     "aliasTarget": null,
-    "cssProperties": {},
+    "cssProperties": {
+      "--louis-color-static-white-alpha-8": "color(srgb 1 1 1 / 0.08)",
+      "--louis-color-static-white-alpha-8-rgb": "255 255 255"
+    },
     "deprecated": null,
     "description": null,
     "id": "color-static-white-alpha-8",
@@ -3496,7 +3802,10 @@ export const primitives = {
   },
   "color-static-white-alpha-80": {
     "aliasTarget": null,
-    "cssProperties": {},
+    "cssProperties": {
+      "--louis-color-static-white-alpha-80": "color(srgb 1 1 1 / 0.8)",
+      "--louis-color-static-white-alpha-80-rgb": "255 255 255"
+    },
     "deprecated": null,
     "description": null,
     "id": "color-static-white-alpha-80",
@@ -3526,7 +3835,10 @@ export const primitives = {
   },
   "color-static-white-alpha-86": {
     "aliasTarget": null,
-    "cssProperties": {},
+    "cssProperties": {
+      "--louis-color-static-white-alpha-86": "color(srgb 1 1 1 / 0.86)",
+      "--louis-color-static-white-alpha-86-rgb": "255 255 255"
+    },
     "deprecated": null,
     "description": null,
     "id": "color-static-white-alpha-86",
@@ -3556,7 +3868,10 @@ export const primitives = {
   },
   "color-static-white-alpha-88": {
     "aliasTarget": null,
-    "cssProperties": {},
+    "cssProperties": {
+      "--louis-color-static-white-alpha-88": "color(srgb 1 1 1 / 0.88)",
+      "--louis-color-static-white-alpha-88-rgb": "255 255 255"
+    },
     "deprecated": null,
     "description": null,
     "id": "color-static-white-alpha-88",
@@ -3586,7 +3901,10 @@ export const primitives = {
   },
   "color-violet-100": {
     "aliasTarget": null,
-    "cssProperties": {},
+    "cssProperties": {
+      "--louis-color-violet-100": "color(srgb 0.921569 0.909804 1 / 1)",
+      "--louis-color-violet-100-rgb": "235 232 255"
+    },
     "deprecated": null,
     "description": null,
     "id": "color-violet-100",
@@ -3615,7 +3933,10 @@ export const primitives = {
   },
   "color-violet-200": {
     "aliasTarget": null,
-    "cssProperties": {},
+    "cssProperties": {
+      "--louis-color-violet-200": "color(srgb 0.788235 0.760784 1 / 1)",
+      "--louis-color-violet-200-rgb": "201 194 255"
+    },
     "deprecated": null,
     "description": null,
     "id": "color-violet-200",
@@ -3644,7 +3965,10 @@ export const primitives = {
   },
   "color-violet-300": {
     "aliasTarget": null,
-    "cssProperties": {},
+    "cssProperties": {
+      "--louis-color-violet-300": "color(srgb 0.615686 0.568627 1 / 1)",
+      "--louis-color-violet-300-rgb": "157 145 255"
+    },
     "deprecated": null,
     "description": null,
     "id": "color-violet-300",
@@ -3673,7 +3997,10 @@ export const primitives = {
   },
   "color-violet-400": {
     "aliasTarget": null,
-    "cssProperties": {},
+    "cssProperties": {
+      "--louis-color-violet-400": "color(srgb 0.517647 0.470588 1 / 1)",
+      "--louis-color-violet-400-rgb": "132 120 255"
+    },
     "deprecated": null,
     "description": null,
     "id": "color-violet-400",
@@ -3702,7 +4029,10 @@ export const primitives = {
   },
   "color-violet-500": {
     "aliasTarget": null,
-    "cssProperties": {},
+    "cssProperties": {
+      "--louis-color-violet-500": "color(srgb 0.376471 0.333333 1 / 1)",
+      "--louis-color-violet-500-rgb": "96 85 255"
+    },
     "deprecated": null,
     "description": null,
     "id": "color-violet-500",
@@ -3731,7 +4061,10 @@ export const primitives = {
   },
   "color-violet-600": {
     "aliasTarget": null,
-    "cssProperties": {},
+    "cssProperties": {
+      "--louis-color-violet-600": "color(srgb 0.309804 0.270588 0.890196 / 1)",
+      "--louis-color-violet-600-rgb": "79 69 227"
+    },
     "deprecated": null,
     "description": null,
     "id": "color-violet-600",
@@ -3760,7 +4093,10 @@ export const primitives = {
   },
   "color-violet-700": {
     "aliasTarget": null,
-    "cssProperties": {},
+    "cssProperties": {
+      "--louis-color-violet-700": "color(srgb 0.207843 0.156863 0.721569 / 1)",
+      "--louis-color-violet-700-rgb": "53 40 184"
+    },
     "deprecated": null,
     "description": null,
     "id": "color-violet-700",
@@ -3789,7 +4125,10 @@ export const primitives = {
   },
   "color-violet-800": {
     "aliasTarget": null,
-    "cssProperties": {},
+    "cssProperties": {
+      "--louis-color-violet-800": "color(srgb 0.133333 0.101961 0.501961 / 1)",
+      "--louis-color-violet-800-rgb": "34 26 128"
+    },
     "deprecated": null,
     "description": null,
     "id": "color-violet-800",
@@ -3818,7 +4157,10 @@ export const primitives = {
   },
   "color-violet-900": {
     "aliasTarget": null,
-    "cssProperties": {},
+    "cssProperties": {
+      "--louis-color-violet-900": "color(srgb 0.082353 0.062745 0.301961 / 1)",
+      "--louis-color-violet-900-rgb": "21 16 77"
+    },
     "deprecated": null,
     "description": null,
     "id": "color-violet-900",
@@ -3847,7 +4189,10 @@ export const primitives = {
   },
   "color-yellow-100": {
     "aliasTarget": null,
-    "cssProperties": {},
+    "cssProperties": {
+      "--louis-color-yellow-100": "color(srgb 1 0.960784 0.839216 / 1)",
+      "--louis-color-yellow-100-rgb": "255 245 214"
+    },
     "deprecated": null,
     "description": null,
     "id": "color-yellow-100",
@@ -3876,7 +4221,10 @@ export const primitives = {
   },
   "color-yellow-200": {
     "aliasTarget": null,
-    "cssProperties": {},
+    "cssProperties": {
+      "--louis-color-yellow-200": "color(srgb 1 0.909804 0.639216 / 1)",
+      "--louis-color-yellow-200-rgb": "255 232 163"
+    },
     "deprecated": null,
     "description": null,
     "id": "color-yellow-200",
@@ -3905,7 +4253,10 @@ export const primitives = {
   },
   "color-yellow-300": {
     "aliasTarget": null,
-    "cssProperties": {},
+    "cssProperties": {
+      "--louis-color-yellow-300": "color(srgb 1 0.85098 0.501961 / 1)",
+      "--louis-color-yellow-300-rgb": "255 217 128"
+    },
     "deprecated": null,
     "description": null,
     "id": "color-yellow-300",
@@ -3934,7 +4285,10 @@ export const primitives = {
   },
   "color-yellow-400": {
     "aliasTarget": null,
-    "cssProperties": {},
+    "cssProperties": {
+      "--louis-color-yellow-400": "color(srgb 1 0.760784 0.2 / 1)",
+      "--louis-color-yellow-400-rgb": "255 194 51"
+    },
     "deprecated": null,
     "description": null,
     "id": "color-yellow-400",
@@ -3963,7 +4317,10 @@ export const primitives = {
   },
   "color-yellow-500": {
     "aliasTarget": null,
-    "cssProperties": {},
+    "cssProperties": {
+      "--louis-color-yellow-500": "color(srgb 1 0.698039 0 / 1)",
+      "--louis-color-yellow-500-rgb": "255 178 0"
+    },
     "deprecated": null,
     "description": null,
     "id": "color-yellow-500",
@@ -3992,7 +4349,10 @@ export const primitives = {
   },
   "color-yellow-600": {
     "aliasTarget": null,
-    "cssProperties": {},
+    "cssProperties": {
+      "--louis-color-yellow-600": "color(srgb 0.894118 0.603922 0 / 1)",
+      "--louis-color-yellow-600-rgb": "228 154 0"
+    },
     "deprecated": null,
     "description": null,
     "id": "color-yellow-600",
@@ -4021,7 +4381,10 @@ export const primitives = {
   },
   "color-yellow-700": {
     "aliasTarget": null,
-    "cssProperties": {},
+    "cssProperties": {
+      "--louis-color-yellow-700": "color(srgb 0.721569 0.462745 0 / 1)",
+      "--louis-color-yellow-700-rgb": "184 118 0"
+    },
     "deprecated": null,
     "description": null,
     "id": "color-yellow-700",
@@ -4050,7 +4413,10 @@ export const primitives = {
   },
   "color-yellow-800": {
     "aliasTarget": null,
-    "cssProperties": {},
+    "cssProperties": {
+      "--louis-color-yellow-800": "color(srgb 0.478431 0.321569 0 / 1)",
+      "--louis-color-yellow-800-rgb": "122 82 0"
+    },
     "deprecated": null,
     "description": null,
     "id": "color-yellow-800",
@@ -4079,7 +4445,10 @@ export const primitives = {
   },
   "color-yellow-900": {
     "aliasTarget": null,
-    "cssProperties": {},
+    "cssProperties": {
+      "--louis-color-yellow-900": "color(srgb 0.298039 0.2 0 / 1)",
+      "--louis-color-yellow-900-rgb": "76 51 0"
+    },
     "deprecated": null,
     "description": null,
     "id": "color-yellow-900",

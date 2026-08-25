@@ -48,10 +48,15 @@ TypeScript, JSON과 Figma proposal이 동일한 의미를 가져야 한다.
    - `packages/tokens/generated/tokens.json`
    - `packages/tokens/generated/figma.tokens.json`
    - `packages/tokens/generated/manifest.json`
-     CSS는 제품 소비용 semantic custom property만 노출한다. JS·resolved JSON·Figma proposal·manifest는
-     검증과 provenance를 위해 primitive/semantic graph를 함께 보존한다. TypeScript declaration은 JavaScript
-     export surface와 안정 token ID, token별 type·mode·alias target, DTCG value shape를 선언한다. 제품의
-     primitive 직접 소비는 지원하지 않는다.
+     CSS는 semantic custom property를 노출하며, **2026-08-25 개정으로 primitive `color`도 함께 노출한다**
+     — downstream 제품이 자기 palette를 LOUIS 원시값 하나로 alias해 값 드리프트를 없애기 위함이다(TDS/SEED
+     관행과 일치). primitive color는 `color()` 형식과 파라메트릭 알파(`rgb(... / N%)`)용 space-separated
+     0–255 `-rgb` triplet 두 형식으로 낸다. **LOUIS 자신의 component CSS는 여전히 semantic만 소비한다**
+     (`build-css.mjs`의 primitive-소비 게이트가 component 저작 CSS에 대해 그대로 강제된다) — 공개는
+     downstream 소비 계약을 넓힌 것이지 내부 계층 규칙을 바꾼 것이 아니다. color 이외의 primitive(치수·
+     반경·모션 등)는 계속 CSS로 내지 않는다. JS·resolved JSON·Figma proposal·manifest는 검증과 provenance를
+     위해 primitive/semantic graph를 함께 보존한다. TypeScript declaration은 JavaScript export surface와 안정
+     token ID, token별 type·mode·alias target, DTCG value shape를 선언한다.
 6. `packages/tokens/baseline/manifest.json`은 token diff의 비교 기준이다. Source authority를 갖지 않으며
    승인된 baseline 갱신 없이 현재 출력을 덮어쓰지 않는다.
 7. Figma JSON은 review proposal이다. 생성 또는 승인만으로 published Figma variables/library가 되거나

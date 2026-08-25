@@ -187,7 +187,9 @@ export function compileTokenSource(rawSource, options = {}) {
     cssProperties:
       token.tier === "semantic"
         ? cssPropertiesForToken(token.id, token.type, token.resolvedValue)
-        : {},
+        : token.tier === "primitive" && token.type === "color"
+          ? primitiveColorCss(token.id, token.resolvedValue)
+          : {},
   }));
   const semanticTokens = allTokens.filter((token) => token.tier === "semantic");
   const primitiveTokens = allTokens.filter(
@@ -491,9 +493,20 @@ export function parseTokenManifest(rawSource, label = "token manifest") {
         if (!isPlainObject(token.cssProperties)) {
           issues.push(`${tokenLabel}.cssProperties는 object여야 합니다.`);
         } else if (token.tier === "primitive") {
-          if (Object.keys(token.cssProperties).length !== 0) {
+          if (token.type === "color" && normalizedValue !== undefined) {
+            // primitive color는 CSS로 공개된다 (DS-D-0001 2026-08-25 개정). dual form 검증.
+            const expectedCss = primitiveColorCss(token.id, normalizedValue);
+            if (!jsonEqual(token.cssProperties, expectedCss)) {
+              issues.push(
+                `${tokenLabel}.primitive color cssProperties가 resolvedValue와 일치하지 않습니다.`,
+              );
+            }
+          } else if (
+            token.type !== "color" &&
+            Object.keys(token.cssProperties).length !== 0
+          ) {
             issues.push(
-              `${tokenLabel}.primitive cssProperties는 비어 있어야 합니다.`,
+              `${tokenLabel}.non-color primitive cssProperties는 비어 있어야 합니다.`,
             );
           }
         } else if (
@@ -1946,6 +1959,19 @@ function renderCss(model) {
     "/* GENERATED FILE — edit packages/tokens/src/klipse.tokens.json. */",
     "",
   ];
+  // primitive color 공개 (DS-D-0001 2026-08-25 개정) — 테마 무관 고정값이라 bare :root에 둔다.
+  const primitiveProperties = new Map();
+  for (const token of model.primitiveTokens) {
+    for (const [name, value] of Object.entries(token.cssProperties))
+      primitiveProperties.set(name, value);
+  }
+  if (primitiveProperties.size > 0) {
+    lines.push(":root {");
+    for (const name of [...primitiveProperties.keys()].sort(compareStrings))
+      lines.push(`  ${name}: ${primitiveProperties.get(name)};`);
+    lines.push("}");
+    lines.push("");
+  }
   const lightProperties = new Map([
     ...byMode.get("global").entries(),
     ...byMode.get("light").entries(),
@@ -2321,6 +2347,21 @@ function cssPropertiesForToken(id, type, value) {
     };
   }
   return { [base]: cssLiteral(type, value) };
+}
+
+// primitive color CSS export (DS-D-0001, 2026-08-25 개정). semantic만 노출하던 원칙을 확장해
+// downstream 제품이 palette를 단일 소스로 alias할 수 있도록 원시 color를 CSS로 공개한다.
+// 두 형식을 낸다 — color() 형식과, 파라메트릭 알파(rgb(... / N%))용 space-separated 0–255 triplet.
+function primitiveColorCss(id, value) {
+  const base = `--louis-${id.replaceAll(".", "-")}`;
+  const props = { [base]: cssColor(value) };
+  if (value.colorSpace === "srgb") {
+    const triplet = value.components
+      .map((item) => (item === "none" ? "0" : String(Math.round(item * 255))))
+      .join(" ");
+    props[`${base}-rgb`] = triplet;
+  }
+  return props;
 }
 
 function cssLiteral(type, value) {

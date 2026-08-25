@@ -1307,8 +1307,8 @@
           "$thumbRadius": "알약이다. 각진 2×14로 두고 있었는데 배포본 표식이 999다 — 2px 폭에서 끝 모양이 눈에 띈다. 열거 게이트가 `::after` 반경을 세면서 드러났다."
         },
         "sm/thumb": {
-          "height": 32,
-          "$height": "layout-control-height-sm 32",
+          "height": 16,
+          "$height": "16px. 제품의 촘촘한 인스펙터(노드 메타 드롭다운) 밀도에 맞춘다 — control-height-sm(32)을 쓰면 드롭다운 한 칸이 28px씩 두꺼워진다. 썸 12px이 잘리지 않는 최소치다.",
           "stackGap": 4,
           "$stackGap": "space-control-xs 4",
           "labelFontSize": 14,
@@ -1323,8 +1323,8 @@
           "$thumbBorderWidth": "border-width-ring 2"
         },
         "sm/track": {
-          "height": 32,
-          "$height": "layout-control-height-sm 32",
+          "height": 16,
+          "$height": "16px. 제품의 촘촘한 인스펙터(노드 메타 드롭다운) 밀도에 맞춘다 — control-height-sm(32)을 쓰면 드롭다운 한 칸이 28px씩 두꺼워진다. 썸 12px이 잘리지 않는 최소치다.",
           "stackGap": 4,
           "$stackGap": "space-control-xs 4",
           "labelFontSize": 14,

@@ -3528,8 +3528,12 @@
     touch-action: none;
   }
 
+  /* sm은 노드 캔버스의 메타 드롭다운처럼 **밀도가 촘촘한 인스펙터**에 쓰인다. 제품의 그 슬라이더는
+   * 컨트롤 박스가 레일 두께(4px)에 붙어 있어, control-height-sm(32px)을 쓰면 드롭다운 한 칸이
+   * 28px씩 두꺼워진다 — 실제로 그렇게 보였다. 썸(12px)이 잘리지 않는 최소치인 16px로 낮춰
+   * 제품 밀도를 유지한다. md(40px)는 폼 안에 놓이는 슬라이더의 넉넉한 타깃을 그대로 둔다. */
   .louis-slider[data-size="sm"] .louis-slider__control {
-    block-size: var(--louis-layout-control-height-sm);
+    block-size: 16px;
   }
 
   /* 포커스 링은 **컨트롤 전체**가 받는다. 네이티브 range는 input 자신이 포커스 대상이라 링이

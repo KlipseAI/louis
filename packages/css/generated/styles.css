@@ -145,6 +145,100 @@
   }
 }
 
+/* Alert — 화면 안에 머무르는 상태 배너(인라인 알림)
+ *
+ * 제품 정본은 결제 체크아웃의 오류 배너(`CHECKOUT_ERROR`)다: 패딩 16/18 · 반경 20 ·
+ * red-500 12% 면 + 24% 테두리 · body-14. 그 사양을 톤 축으로 일반화해 채택했다 —
+ * 제품 외형 수렴 결정.
+ *
+ * **toast와 다른 컴포넌트다.** toast는 떠서 스스로 사라지는 일시 알림이고, alert는 폼이나
+ * 섹션 안에 남아 상태를 설명한다(사라지지 않는다). 그래서 elevation도 진입 모션도 없다.
+ *
+ * 마크업은 소비처가 `role="alert"`(즉시 알림) 또는 `role="status"`(비긴급)를 붙이는 것을
+ * 전제한다 — DS가 role을 대신 정하면 긴급도까지 가져가게 된다. 배너는 면 색만으로 뜻을
+ * 전달하지 않는다: 소비처가 아이콘 슬롯이나 제목으로 의미를 함께 준다(WCAG 1.4.1).
+ */
+
+.louis-alert {
+  box-sizing: border-box;
+  display: flex;
+  align-items: flex-start;
+  gap: var(--louis-space-control-sm);
+  inline-size: 100%;
+  min-inline-size: 0;
+  margin: 0;
+  padding-block: var(--louis-space-control-md);
+  padding-inline: var(--louis-layout-alert-inset);
+  border: var(--louis-border-width-default) solid var(--louis-color-alert-danger-stroke);
+  border-radius: var(--louis-radius-alert);
+  background: var(--louis-color-alert-danger-surface);
+  color: var(--louis-color-alert-danger-foreground);
+  font-family: var(--louis-typography-body-sm-regular-font-family);
+  font-size: var(--louis-typography-body-sm-regular-font-size);
+  font-weight: var(--louis-typography-body-sm-regular-font-weight);
+  line-height: var(--louis-typography-body-sm-regular-line-height);
+  letter-spacing: var(--louis-typography-body-sm-regular-letter-spacing);
+  /* 긴 안내문이 줄바꿈될 때 KO 어절은 보존한다. */
+  overflow-wrap: break-word;
+  word-break: keep-all;
+}
+
+/* 톤 — danger가 기본인 이유는 제품의 인라인 배너가 거의 전부 오류이기 때문이다. */
+.louis-alert[data-tone="info"] {
+  border-color: var(--louis-color-alert-info-stroke);
+  background: var(--louis-color-alert-info-surface);
+  color: var(--louis-color-alert-info-foreground);
+}
+
+.louis-alert[data-tone="success"] {
+  border-color: var(--louis-color-alert-success-stroke);
+  background: var(--louis-color-alert-success-surface);
+  color: var(--louis-color-alert-success-foreground);
+}
+
+.louis-alert[data-tone="warning"] {
+  border-color: var(--louis-color-alert-warning-stroke);
+  background: var(--louis-color-alert-warning-surface);
+  color: var(--louis-color-alert-warning-foreground);
+}
+
+/* 아이콘 슬롯 — 색만으로 뜻을 전달하지 않기 위한 자리다. 텍스트 첫 줄에 광학 정렬한다. */
+.louis-alert__icon {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  inline-size: var(--louis-icon-size-sm);
+  block-size: var(--louis-icon-size-sm);
+  /* 아이콘 16 vs 본문 줄높이 — 첫 줄 가운데에 맞춘다. */
+  margin-block-start: calc(
+    (var(--louis-typography-body-sm-regular-line-height) - var(--louis-icon-size-sm)) / 2
+  );
+  color: inherit;
+}
+
+.louis-alert__content {
+  flex: 1 1 auto;
+  min-inline-size: 0;
+}
+
+.louis-alert__title {
+  margin: 0;
+  font-family: var(--louis-typography-body-sm-medium-font-family);
+  font-size: var(--louis-typography-body-sm-medium-font-size);
+  font-weight: var(--louis-typography-body-sm-medium-font-weight);
+  line-height: var(--louis-typography-body-sm-medium-line-height);
+  letter-spacing: var(--louis-typography-body-sm-medium-letter-spacing);
+}
+
+/* forced-colors — 면 색이 강제 치환되면 톤 구분이 사라진다. 경계는 시스템 색 실선으로 남긴다
+ * (아이콘·제목이 의미를 계속 전달한다). */
+@media (forced-colors: active) {
+  .louis-alert {
+    border: var(--louis-border-width-default) solid currentColor;
+  }
+}
+
 /* Sidebar Nav Item · App Top Bar — design/components/app-shell-parts.md
  *
  * 셸의 **레이아웃 계약은 design/patterns/app-shell.md가 소유한다.** 여기 있는 것은 그 안에 놓이는
@@ -3864,6 +3958,89 @@
 
   .louis-switch[aria-checked="true"] .louis-switch__thumb {
     background: HighlightText;
+  }
+}
+
+/* Tabs — 같은 화면 안에서 뷰를 바꾸는 탭 바
+ *
+ * 제품 정본은 analytics 대시보드의 `DASHBOARD_TAB*`이다. YouTube·Instagram 두 씬이 같은 값을
+ * 통째로 복제하고 있었다(높이 28 · 좌우 12 · pill · 비활성 투명도 48% · 호버 90% · 200ms).
+ * 그 사양을 그대로 채택했다 — 제품 외형 수렴 결정.
+ *
+ * **segmented-control과 다른 컴포넌트다.** segmented는 값을 고르는 입력(트랙 위에 선택 면이
+ * 얹히고 폼 값처럼 다뤄진다)이고, tabs는 화면을 전환하는 내비게이션이다. 그래서 선택 표시가
+ * 면이 아니라 **전경 대비**(투명도)이고 트랙 배경이 없다 — 제품도 그렇게 그리고 있다.
+ *
+ * 마크업은 `role="tablist"` > `role="tab"`(+`aria-selected`)를 전제한다. 패널 연결
+ * (`aria-controls`/`id`)과 키보드 좌우 이동은 소비처가 소유한다 — DS가 포커스 관리를 대신
+ * 가져가면 두 벌의 roving tabindex가 생긴다.
+ */
+
+.louis-tabs {
+  display: flex;
+  align-items: center;
+  gap: var(--louis-space-control-xs);
+  min-inline-size: 0;
+}
+
+.louis-tabs__tab {
+  box-sizing: border-box;
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  block-size: var(--louis-layout-tab-height);
+  padding-block: 0;
+  padding-inline: var(--louis-space-control-md);
+  border: 0;
+  border-radius: var(--louis-radius-pill);
+  background: transparent;
+  color: var(--louis-color-fg-primary);
+  cursor: pointer;
+  white-space: nowrap;
+  /* 선택은 면이 아니라 전경 대비로 표시한다 — 제품 정본과 같다. */
+  opacity: 0.48;
+  transition-property: opacity;
+  transition-duration: var(--louis-motion-content-fade-duration);
+  transition-timing-function: var(--louis-motion-control-hover-timing-function);
+  font-family: var(--louis-typography-body-md-medium-font-family);
+  font-size: var(--louis-typography-body-md-medium-font-size);
+  font-weight: var(--louis-typography-body-md-medium-font-weight);
+  line-height: var(--louis-typography-body-md-medium-line-height);
+  letter-spacing: var(--louis-typography-body-md-medium-letter-spacing);
+}
+
+.louis-tabs__tab:where(:not([aria-selected="true"]):not(:disabled)):hover {
+  opacity: 0.9;
+}
+
+.louis-tabs__tab[aria-selected="true"] {
+  opacity: 1;
+}
+
+.louis-tabs__tab:disabled,
+.louis-tabs__tab[aria-disabled="true"] {
+  cursor: not-allowed;
+  opacity: 0.32;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .louis-tabs__tab {
+    transition-duration: var(--louis-motion-reduced-duration);
+  }
+}
+
+/* forced-colors — 투명도는 강제 색 모드에서 선택 상태를 전달하지 못한다(둘 다 같은 시스템 색이
+ * 된다). 선택된 탭만 밑줄로 상태를 되살린다. */
+@media (forced-colors: active) {
+  .louis-tabs__tab {
+    opacity: 1;
+  }
+
+  .louis-tabs__tab[aria-selected="true"] {
+    text-decoration: underline;
+    text-decoration-thickness: var(--louis-border-width-default);
+    text-underline-offset: 4px;
   }
 }
 

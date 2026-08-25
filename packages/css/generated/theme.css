@@ -27,6 +27,18 @@
   --color-accent-primary-hover: var(--louis-color-accent-primary-hover);
   --color-accent-secondary-foreground: var(--louis-color-accent-secondary-foreground);
   --color-accent-secondary-hover: var(--louis-color-accent-secondary-hover);
+  --color-alert-danger-foreground: var(--louis-color-alert-danger-foreground);
+  --color-alert-danger-stroke: var(--louis-color-alert-danger-stroke);
+  --color-alert-danger-surface: var(--louis-color-alert-danger-surface);
+  --color-alert-info-foreground: var(--louis-color-alert-info-foreground);
+  --color-alert-info-stroke: var(--louis-color-alert-info-stroke);
+  --color-alert-info-surface: var(--louis-color-alert-info-surface);
+  --color-alert-success-foreground: var(--louis-color-alert-success-foreground);
+  --color-alert-success-stroke: var(--louis-color-alert-success-stroke);
+  --color-alert-success-surface: var(--louis-color-alert-success-surface);
+  --color-alert-warning-foreground: var(--louis-color-alert-warning-foreground);
+  --color-alert-warning-stroke: var(--louis-color-alert-warning-stroke);
+  --color-alert-warning-surface: var(--louis-color-alert-warning-surface);
   --color-bg-canvas: var(--louis-color-bg-canvas);
   --color-bg-danger: var(--louis-color-bg-danger);
   --color-bg-info: var(--louis-color-bg-info);
@@ -107,6 +119,7 @@
   --color-switch-thumb: var(--louis-color-switch-thumb);
 
   /* 곡률 — rounded-* 유틸리티가 된다 */
+  --radius-alert: var(--louis-radius-alert);
   --radius-card: var(--louis-radius-card);
   --radius-card-lg: var(--louis-radius-card-lg);
   --radius-control: var(--louis-radius-control);
@@ -133,6 +146,7 @@
   --spacing-icon-size-md: var(--louis-icon-size-md);
   --spacing-icon-size-sm: var(--louis-icon-size-sm);
   --spacing-icon-size-xl: var(--louis-icon-size-xl);
+  --spacing-layout-alert-inset: var(--louis-layout-alert-inset);
   --spacing-layout-app-shell-brand-mark-height: var(--louis-layout-app-shell-brand-mark-height);
   --spacing-layout-app-shell-content-inset: var(--louis-layout-app-shell-content-inset);
   --spacing-layout-app-shell-content-reserve: var(--louis-layout-app-shell-content-reserve);
@@ -151,6 +165,7 @@
   --spacing-layout-progress-bar-max-inline-size: var(--louis-layout-progress-bar-max-inline-size);
   --spacing-layout-project-card-minimum: var(--louis-layout-project-card-minimum);
   --spacing-layout-project-grid-gap: var(--louis-layout-project-grid-gap);
+  --spacing-layout-tab-height: var(--louis-layout-tab-height);
   --spacing-control-lg: var(--louis-space-control-lg);
   --spacing-control-md: var(--louis-space-control-md);
   --spacing-control-sm: var(--louis-space-control-sm);

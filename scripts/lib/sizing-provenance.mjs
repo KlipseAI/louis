@@ -152,6 +152,34 @@ export function decideAxis({ declared: rawDeclared, computed, axis, parentComput
     if (fixed != null) {
       return { verdict: AXIS.FIXED, reason: `${declared} 고정 선언`, source: `${horizontal ? "width" : "height"}:${declared}`, value: fixed };
     }
+
+    // **CSS 변수는 computed가 이미 풀어 놓았다.** `var(--profile-ring-size)` 같은 선언은 그 자체로는
+    // 해석할 수 없지만, 변수의 성질(고정 토큰인가 부모 비례인가)은 computed 값으로 판별된다.
+    // 선언에 `%`가 섞이지 않은 순수 var/calc라면 **고정 토큰**으로 보고 computed px를 쓴다.
+    // 실측 사례: `/settings`의 profile ring/avatar는 `var(--profile-ring-size)`이며 실제로 고정 크기다.
+    // `calc(100% + ...)`처럼 **퍼센트가 섞인 계산식은 부모에 비례**하므로 FILL이다. 실측 사례:
+    // `/settings`의 크롬 바가 `calc(100% + var(--mainchrome-bleed-left) + var(--mainchrome-bleed-right))`로
+    // 부모보다 넓게 번진다(bleed). 이를 FIXED로 굳히면 리사이즈 때 따라오지 않는다.
+    if (/^calc\(/.test(declared) && /(^|[\s(+\-*/])100%/.test(declared)) {
+      return {
+        verdict: AXIS.FILL,
+        reason: `${declared.slice(0, 40)}… — 100% 기반 계산식이라 부모에 비례한다`,
+        source: `${horizontal ? "width" : "height"}:${declared}`,
+        value: null,
+      };
+    }
+
+    if (/^(var\(|calc\()/.test(declared) && !declared.includes("%")) {
+      const resolved = px(horizontal ? computed?.width : computed?.height);
+      if (resolved != null) {
+        return {
+          verdict: AXIS.FIXED,
+          reason: `${declared} — CSS 변수/계산식이지만 퍼센트가 없어 고정 크기로 해결됨(${resolved}px)`,
+          source: `${horizontal ? "width" : "height"}:${declared}`,
+          value: resolved,
+        };
+      }
+    }
     // calc()/var() 등은 호출자가 뷰포트 치환 후 다시 넣어준다. 여기까지 왔다면 해석 실패.
     return { verdict: AXIS.UNRESOLVED, reason: `해석하지 못한 선언: ${declared}`, source: `${horizontal ? "width" : "height"}:${declared}`, value: null };
   }

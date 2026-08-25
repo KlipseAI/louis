@@ -1142,11 +1142,11 @@
     min-width: 0;
     text-align: center;
     overflow-wrap: break-word;
-    /* 제품은 h-[40px]/h-[32px] 고정이다(globals.css:82,85). 여기서 height가 아니라 min-block-size를
-     * 쓰는 이유는 하나뿐이다 — 일반 라벨에서는 제품과 **정확히 같은 40/32**가 나오고, KO/EN/JA 긴
-     * 라벨이나 200% 확대에서는 잘리는 대신 자란다. 제품은 nowrap이라 그 경우 라벨이 넘친다.
+    /* 버튼 높이는 32(control-height-sm) 단일이다 — owner 결정으로 md(40)를 폐지하고 모든 버튼을
+     * 32로 통일했다(2025-08-25). height가 아니라 min-block-size를 쓰는 이유는 일반 라벨에서 정확히
+     * 32가 나오고, KO/EN/JA 긴 라벨이나 200% 확대에서는 잘리는 대신 자라기 때문이다.
      * 이 차이는 migration/product.measured.json에 사유와 함께 선언돼 있다. */
-    min-block-size: var(--louis-layout-control-height-md);
+    min-block-size: var(--louis-layout-control-height-sm);
     /* **타이포는 size 축이 아니다.** 제품은 md·sm 모두 14px/500이며 size가 글자 크기를 바꾸지
      * 않는다(Button.tsx:56-67). 이전 DS는 sm에서 caption 12px로 줄여 제품과 달랐다. */
     font-family: var(--louis-typography-body-sm-medium-font-family);
@@ -1165,9 +1165,11 @@
 
   /* size — 시각 크기만 바꾼다. hit area 계약은 .louis-hit-target이 별도로 유지한다. */
   .louis-button[data-size="md"] {
-    /* 제품: py-0 · px-16 · gap-8 (globals.css:81, Button.tsx:58,66) */
+    /* md는 32로 통일 — sm과 동일 사양(px-12 · gap-4 · min-w-48). 높이는 base(control-height-sm). */
+    min-inline-size: var(--louis-layout-control-minimum-width-sm);
     padding-block: 0;
-    padding-inline: var(--louis-space-control-lg);
+    padding-inline: var(--louis-space-control-md);
+    column-gap: var(--louis-space-control-xs);
   }
 
   /* 제품: h-32 · px-12 · gap-4 · min-w-48. **타이포는 md와 같다** — size가 글자 크기를 바꾸지
@@ -1183,11 +1185,11 @@
   /* 아이콘이 붙은 쪽만 2px 줄여 광학 균형을 맞춘다 (제품 Button.tsx:73-77). 아이콘의 자체 시각
    * 여백 때문에 텍스트-only 대비 그 쪽 padding이 넓어 보인다. */
   .louis-button[data-size="md"][data-left-icon="true"] {
-    padding-inline-start: calc(var(--louis-space-control-lg) - 2px);
+    padding-inline-start: calc(var(--louis-space-control-md) - 2px);
   }
 
   .louis-button[data-size="md"][data-right-icon="true"] {
-    padding-inline-end: calc(var(--louis-space-control-lg) - 2px);
+    padding-inline-end: calc(var(--louis-space-control-md) - 2px);
   }
 
   .louis-button[data-size="sm"][data-left-icon="true"] {
@@ -1307,8 +1309,9 @@
     flex: none;
     align-items: center;
     justify-content: center;
-    inline-size: var(--louis-icon-size-md);
-    block-size: var(--louis-icon-size-md);
+    /* 버튼이 32 단일이라 아이콘도 16(icon-size-sm) 단일이다. */
+    inline-size: var(--louis-icon-size-sm);
+    block-size: var(--louis-icon-size-sm);
   }
 
   .louis-button[data-size="sm"] .louis-button__icon {

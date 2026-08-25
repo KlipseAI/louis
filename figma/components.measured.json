@@ -9,11 +9,11 @@
       "$source": "packages/react/src/button/button.tsx, packages/css/src/component/button.css",
       "sizes": {
         "md": {
-          "height": 40,
-          "$height": "제품 --button-height 40px 채택. CSS는 height가 아니라 min-block-size라 일반 라벨에서 정확히 40이고 긴 라벨에서만 자란다",
+          "height": 32,
+          "$height": "버튼 높이 32 단일 — owner 결정으로 md(40) 폐지(2025-08-25). CSS는 min-block-size라 긴 라벨/확대에서 자란다",
           "paddingBlock": 0,
-          "paddingInline": 16,
-          "gap": 8,
+          "paddingInline": 12,
+          "gap": 4,
           "borderWidth": 0.5,
           "radius": 12,
           "fontSize": 14,
@@ -22,9 +22,11 @@
           "$lineHeight": "typography-body-sm line-height 21px (150%)",
           "spinner": 18,
           "$spinner": "버튼 내부 로딩 인디케이터 18px (1em)",
-          "iconSlot": 20,
-          "$iconSlot": "icon-size-md 20. 제품에는 슬롯 크기 계약이 없어 DS가 정한다",
-          "$borderWidth": "0.5px. **브라우저는 DPR 1에서 사용값을 1px로 올린다** — getComputedStyle이 1px을 돌려주므로 테스트는 계산값이 아니라 선언 토큰(--louis-border-width-hairline)을 본다. 레티나에서는 진짜 half-pixel로 그려진다."
+          "iconSlot": 16,
+          "$iconSlot": "icon-size-sm 16. 32 버튼 단일 사양",
+          "$borderWidth": "0.5px. **브라우저는 DPR 1에서 사용값을 1px로 올린다** — getComputedStyle이 1px을 돌려주므로 테스트는 계산값이 아니라 선언 토큰(--louis-border-width-hairline)을 본다. 레티나에서는 진짜 half-pixel로 그려진다.",
+          "minWidth": 48,
+          "$minWidth": "control-minimum-width-sm 48px. 32 통일로 md도 최소폭 채택"
         },
         "sm": {
           "height": 32,

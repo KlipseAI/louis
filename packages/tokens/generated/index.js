@@ -8342,6 +8342,27 @@ export const primitives = {
 };
 export const tokens = {
   "global": {
+    "blur-glass": {
+      "aliasTarget": {
+        "id": "blur-16",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-blur-glass": "16px"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "blur-glass",
+      "mode": "global",
+      "rawValue": "{primitive.blur.16}",
+      "sourcePath": "semantic.global.blur.glass",
+      "tier": "semantic",
+      "type": "dimension",
+      "value": {
+        "value": 16,
+        "unit": "px"
+      }
+    },
     "blur-panel": {
       "aliasTarget": {
         "id": "blur-12",

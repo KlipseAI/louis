@@ -12,6 +12,7 @@
  */
 @theme inline {
   /* 흐림 — blur-*, backdrop-blur-* 유틸리티가 된다 */
+  --blur-glass: var(--louis-blur-glass);
   --blur-panel: var(--louis-blur-panel);
   --blur-surface: var(--louis-blur-surface);
   --blur-toast: var(--louis-blur-toast);

@@ -2,23 +2,23 @@
   "artifacts": [
     {
       "path": "packages/tokens/generated/figma.tokens.json",
-      "sha256": "5824c04dbdff03449ea2e8ef8693795a66d379fe34d6be7b0b15eb71def86dae"
+      "sha256": "96f9f89731b06794a513a583d1d2f50f58cf28ef95f9ebbf3f94ccc552edb434"
     },
     {
       "path": "packages/tokens/generated/index.d.ts",
-      "sha256": "dbba1060d0b6501b49b7719a1d146608d6c806e5273f7512ddc4abc1777e9aec"
+      "sha256": "3fb399be31bd4008fdb1ffed38b902e72aa2b3d23fcfe24c56e7f1795902a55a"
     },
     {
       "path": "packages/tokens/generated/index.js",
-      "sha256": "90d907dc2c720bffb61fdd6ef16223017b5432dc641d839fbbbcfaddcfcd32d2"
+      "sha256": "361d6b18f7a578a9155864d7a1e52eddab91e863875a60f18fbb51f000245978"
     },
     {
       "path": "packages/tokens/generated/tokens.css",
-      "sha256": "bbfc1bee5805040e7bc75b00168e8f835e16123c5e2da9473a0c13b79d68de96"
+      "sha256": "209eaeb69f568c914f152ad6169b2bdbacc40b6ac47bad13c1bbc66e7c2a5c51"
     },
     {
       "path": "packages/tokens/generated/tokens.json",
-      "sha256": "6e6067c9e40068d96eb7d10404d9fa2b19e6ce1941f473bd8b8ec9e02bb926a6"
+      "sha256": "6a233a6c8fe84cac7c7c40d037c5d087d090156f1295d55dcb2b4a1914b13ab0"
     }
   ],
   "contrastPairs": [
@@ -398,13 +398,13 @@
   },
   "source": {
     "path": "packages/tokens/src/klipse.tokens.json",
-    "sha256": "34a92c92fc3c89d8250d69cc84db2fd8d326c767fae6b634acff686cac90335e"
+    "sha256": "4a0e12b541ba74a97a3a18217a2b4222bc0842c08d7b062c00580ef7c22d4b7f"
   },
   "themes": [
     "light",
     "dark"
   ],
-  "tokenCount": 521,
+  "tokenCount": 522,
   "tokens": [
     {
       "aliasTarget": null,
@@ -461,6 +461,27 @@
       },
       "sourcePath": "primitive.blur.16",
       "tier": "primitive",
+      "type": "dimension"
+    },
+    {
+      "aliasTarget": {
+        "id": "blur-16",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-blur-glass": "16px"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "blur-glass",
+      "mode": "global",
+      "rawValue": "{primitive.blur.16}",
+      "resolvedValue": {
+        "unit": "px",
+        "value": 16
+      },
+      "sourcePath": "semantic.global.blur.glass",
+      "tier": "semantic",
       "type": "dimension"
     },
     {

@@ -78,6 +78,17 @@
     height: max(100%, var(--louis-layout-control-hit-target-minimum));
   }
 
+  /* 떠 있는 크롬의 글래스 표면 — 캔버스/그리드 위에 뜨는 플로팅 CTA·토스트·오버레이가 쓴다.
+   * 제품 정본은 두 홈 씬이 인라인 style로 복제하던 `blur(16px) saturate(130%)`이며 그 값을
+   * 그대로 채택했다 — 제품 외형 수렴 결정.
+   *
+   * `-webkit-` 접두사를 **병기하지 않는다.** 제품 빌드의 lightningcss가 접두사 병기 시 표준
+   * 선언을 떨어뜨린 전례가 있다(제품 주석에 기록됨). 면 색·라운드·그림자는 이 유틸이 소유하지
+   * 않는다 — 흐림만 얹고 나머지는 소비처(또는 dialog/menu recipe)가 그린다. */
+  .louis-glass-surface {
+    backdrop-filter: blur(var(--louis-blur-glass)) saturate(130%);
+  }
+
   /* overlay가 놓이는 stacking 문맥. 숫자 z-index 대신 layer 토큰만 쓴다. */
   /* sticky 층 — 앱 셸의 navigation rail과 top chrome이 쓴다. 토큰만 있고 쓸 클래스가 없어
    * 셸을 짓는 사람이 숫자를 쓰게 되어 있었다 (DS-D-0018). */

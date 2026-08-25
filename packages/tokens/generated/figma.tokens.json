@@ -10432,6 +10432,34 @@
         "Global"
       ],
       "variables": {
+        "blur-glass": {
+          "$type": "dimension",
+          "fields": [],
+          "figmaName": "blur/glass",
+          "hiddenFromPublishing": false,
+          "losses": [
+            "Figma FLOAT는 DTCG 단위 의미를 직접 보존하지 않으므로 source metadata를 함께 검토해야 합니다."
+          ],
+          "nativeVariableType": "FLOAT",
+          "representation": "variable",
+          "scopes": [
+            "WIDTH_HEIGHT"
+          ],
+          "valuesByMode": {
+            "Global": {
+              "$value": "{primitive.blur.16}",
+              "aliasTarget": {
+                "id": "blur-16",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "unit": "px",
+                "value": 16
+              },
+              "sourcePath": "semantic.global.blur.glass"
+            }
+          }
+        },
         "blur-panel": {
           "$type": "dimension",
           "fields": [],

@@ -252,6 +252,7 @@
 :root,
 [data-theme="light"] {
   color-scheme: light;
+  --louis-blur-glass: 16px;
   --louis-blur-panel: 12px;
   --louis-blur-surface: 10px;
   --louis-blur-toast: 16px;

@@ -5855,6 +5855,17 @@
         }
       },
       "blur": {
+        "$type": "dimension",
+        "glass": {
+          "$value": "{primitive.blur.16}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "blur-glass",
+              "tier": "semantic",
+              "mode": "global"
+            }
+          }
+        },
         "panel": {
           "$value": "{primitive.blur.12}",
           "$extensions": {
@@ -5884,8 +5895,7 @@
               "mode": "global"
             }
           }
-        },
-        "$type": "dimension"
+        }
       },
       "border-width": {
         "$type": "dimension",

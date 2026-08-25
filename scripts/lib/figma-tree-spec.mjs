@@ -139,6 +139,16 @@ export function toFigmaTreeSpec(tree, options = {}) {
       // x=280부터 시작하는데, 이 정보를 잃자 부모가 column이라는 이유로 사이드바 아래에 메인이
       // 세로로 쌓였다(사이드바 y=0, 메인 y=540). 제품은 가로로 나란하다.
       positioning: decision.absolute ? "ABSOLUTE" : "AUTO",
+      // **margin은 반드시 담는다.** Figma Auto Layout에는 margin이 없으므로 부모의 padding으로 옮겨야
+      // 하는데, 그 값이 spec에 없으면 형제가 겹친다. 실측 사고: `/mypage/topup/fail`의 main은
+      // `margin-left:280px`(= `var(--app-gnb-sidebar-width)`)로 사이드바 옆에 놓이는데, 이 값을 잃자
+      // main이 x=0에서 1920 폭으로 그려져 **사이드바를 통째로 덮었다**.
+      margin: {
+        top: px(style.marginTop) ?? 0,
+        right: px(style.marginRight) ?? 0,
+        bottom: px(style.marginBottom) ?? 0,
+        left: px(style.marginLeft) ?? 0,
+      },
       // ABSOLUTE 노드는 부모 기준 좌표와 제약이 필요하다.
       offset: decision.absolute && parent
         ? { x: node.rect.x - parent.rect.x, y: node.rect.y - parent.rect.y }

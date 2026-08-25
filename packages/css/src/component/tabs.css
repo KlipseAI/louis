@@ -37,9 +37,10 @@
   white-space: nowrap;
   /* 선택은 면이 아니라 전경 대비로 표시한다 — 제품 정본과 같다. */
   opacity: 0.48;
+  /* 제품 정본은 200ms ease다. content-fade(300ms)를 쓰면 탭 전환이 눈에 띄게 느려진다. */
   transition-property: opacity;
-  transition-duration: var(--louis-motion-content-fade-duration);
-  transition-timing-function: var(--louis-motion-control-hover-timing-function);
+  transition-duration: var(--louis-motion-tab-select-duration);
+  transition-timing-function: var(--louis-motion-tab-select-timing-function);
   font-family: var(--louis-typography-body-md-medium-font-family);
   font-size: var(--louis-typography-body-md-medium-font-size);
   font-weight: var(--louis-typography-body-md-medium-font-weight);

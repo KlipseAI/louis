@@ -2,23 +2,23 @@
   "artifacts": [
     {
       "path": "packages/tokens/generated/figma.tokens.json",
-      "sha256": "74d0ae654d289acfd4e7ba3651c54481aac81cf536f191432f1fde9bd053c9b9"
+      "sha256": "ed31a287c3b75e398abc239fc79f55c65d124984926ccda19caafb8e7dddd9d4"
     },
     {
       "path": "packages/tokens/generated/index.d.ts",
-      "sha256": "8dbfc658a89d49162c67853b029cef79d91613e3198f29d743b64ae0e8d12e48"
+      "sha256": "cffd538f59a675e953301fbfb7f627592117265ab71953f3b855ff3688feb7b7"
     },
     {
       "path": "packages/tokens/generated/index.js",
-      "sha256": "063d96adc24291856e1fef4ce0f93379788668546c7b9f8c1613d074b4f411ef"
+      "sha256": "ce29390ccf84834afeb2f93a054575ab9fcd63751816edd21c68dde7ab35529e"
     },
     {
       "path": "packages/tokens/generated/tokens.css",
-      "sha256": "530dfa3ce2f9ff691a95b0911e91cc82697e79d59bcfe795140bb1e96d870073"
+      "sha256": "53328fafe24f13c48d61cb0e9797ca04f0b740bf9bccf1fa2eb8acfedd8f1441"
     },
     {
       "path": "packages/tokens/generated/tokens.json",
-      "sha256": "829e5d4555fa7d3382df43799d3d82c4cb933c806745a09d3c19c235438a00cb"
+      "sha256": "3445afb348fb2941f8f9fa7c6c51262b2da68e68312e333d2e17027ae645596c"
     }
   ],
   "contrastPairs": [
@@ -273,6 +273,12 @@
         "opacity",
         "translate"
       ]
+    },
+    {
+      "motion": "motion-tab-select",
+      "properties": [
+        "opacity"
+      ]
     }
   ],
   "reducedMotionPairs": [
@@ -355,6 +361,10 @@
     {
       "motion": "motion-list-stagger-step",
       "reduced": "motion-reduced"
+    },
+    {
+      "motion": "motion-tab-select",
+      "reduced": "motion-reduced"
     }
   ],
   "responsiveProfiles": {
@@ -398,13 +408,13 @@
   },
   "source": {
     "path": "packages/tokens/src/klipse.tokens.json",
-    "sha256": "ac67df73025246f68640c91b7fc3bd4b8e633f94d5a37a880ff90fc25c8a1619"
+    "sha256": "17e763253fff2d81be7b2107ea86402c62b9c729710ccbe28a43999cb0713dc5"
   },
   "themes": [
     "light",
     "dark"
   ],
-  "tokenCount": 556,
+  "tokenCount": 558,
   "tokens": [
     {
       "aliasTarget": null,
@@ -12353,6 +12363,41 @@
     },
     {
       "aliasTarget": {
+        "id": "transition-tab-select",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-motion-tab-select-delay": "0ms",
+        "--louis-motion-tab-select-duration": "200ms",
+        "--louis-motion-tab-select-timing-function": "cubic-bezier(0.25, 0.1, 0.25, 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "motion-tab-select",
+      "mode": "global",
+      "rawValue": "{primitive.transition.tab-select}",
+      "resolvedValue": {
+        "delay": {
+          "unit": "ms",
+          "value": 0
+        },
+        "duration": {
+          "unit": "ms",
+          "value": 200
+        },
+        "timingFunction": [
+          0.25,
+          0.1,
+          0.25,
+          1
+        ]
+      },
+      "sourcePath": "semantic.global.motion.tab-select",
+      "tier": "semantic",
+      "type": "transition"
+    },
+    {
+      "aliasTarget": {
         "id": "transition-tooltip-enter",
         "mode": "base"
       },
@@ -15422,6 +15467,49 @@
         ]
       },
       "sourcePath": "primitive.transition.stagger-3",
+      "tier": "primitive",
+      "type": "transition"
+    },
+    {
+      "aliasTarget": null,
+      "cssProperties": {},
+      "deprecated": null,
+      "description": null,
+      "id": "transition-tab-select",
+      "mode": "base",
+      "rawValue": {
+        "delay": {
+          "unit": "ms",
+          "value": 0
+        },
+        "duration": {
+          "unit": "ms",
+          "value": 200
+        },
+        "timingFunction": [
+          0.25,
+          0.1,
+          0.25,
+          1
+        ]
+      },
+      "resolvedValue": {
+        "delay": {
+          "unit": "ms",
+          "value": 0
+        },
+        "duration": {
+          "unit": "ms",
+          "value": 200
+        },
+        "timingFunction": [
+          0.25,
+          0.1,
+          0.25,
+          1
+        ]
+      },
+      "sourcePath": "primitive.transition.tab-select",
       "tier": "primitive",
       "type": "transition"
     },

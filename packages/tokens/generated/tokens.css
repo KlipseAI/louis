@@ -459,6 +459,9 @@
   --louis-motion-stagger-3-delay: 150ms;
   --louis-motion-stagger-3-duration: 360ms;
   --louis-motion-stagger-3-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  --louis-motion-tab-select-delay: 0ms;
+  --louis-motion-tab-select-duration: 200ms;
+  --louis-motion-tab-select-timing-function: cubic-bezier(0.25, 0.1, 0.25, 1);
   --louis-motion-tooltip-enter-delay: 0ms;
   --louis-motion-tooltip-enter-duration: 140ms;
   --louis-motion-tooltip-enter-timing-function: cubic-bezier(0.23, 1, 0.32, 1);

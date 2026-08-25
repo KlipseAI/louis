@@ -252,6 +252,12 @@ export const metadata = Object.freeze({
         "opacity",
         "translate"
       ]
+    },
+    {
+      "motion": "motion-tab-select",
+      "properties": [
+        "opacity"
+      ]
     }
   ],
   "reducedMotionPairs": [
@@ -333,6 +339,10 @@ export const metadata = Object.freeze({
     },
     {
       "motion": "motion-list-stagger-step",
+      "reduced": "motion-reduced"
+    },
+    {
+      "motion": "motion-tab-select",
       "reduced": "motion-reduced"
     }
   ],
@@ -7415,6 +7425,49 @@ export const primitives = {
       ]
     }
   },
+  "transition-tab-select": {
+    "aliasTarget": null,
+    "cssProperties": {},
+    "deprecated": null,
+    "description": null,
+    "id": "transition-tab-select",
+    "mode": "base",
+    "rawValue": {
+      "duration": {
+        "value": 200,
+        "unit": "ms"
+      },
+      "delay": {
+        "value": 0,
+        "unit": "ms"
+      },
+      "timingFunction": [
+        0.25,
+        0.1,
+        0.25,
+        1
+      ]
+    },
+    "sourcePath": "primitive.transition.tab-select",
+    "tier": "primitive",
+    "type": "transition",
+    "value": {
+      "duration": {
+        "value": 200,
+        "unit": "ms"
+      },
+      "delay": {
+        "value": 0,
+        "unit": "ms"
+      },
+      "timingFunction": [
+        0.25,
+        0.1,
+        0.25,
+        1
+      ]
+    }
+  },
   "transition-tooltip-enter": {
     "aliasTarget": null,
     "cssProperties": {},
@@ -10051,6 +10104,41 @@ export const tokens = {
           0.22,
           1,
           0.36,
+          1
+        ]
+      }
+    },
+    "motion-tab-select": {
+      "aliasTarget": {
+        "id": "transition-tab-select",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-motion-tab-select-duration": "200ms",
+        "--louis-motion-tab-select-delay": "0ms",
+        "--louis-motion-tab-select-timing-function": "cubic-bezier(0.25, 0.1, 0.25, 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "motion-tab-select",
+      "mode": "global",
+      "rawValue": "{primitive.transition.tab-select}",
+      "sourcePath": "semantic.global.motion.tab-select",
+      "tier": "semantic",
+      "type": "transition",
+      "value": {
+        "duration": {
+          "value": 200,
+          "unit": "ms"
+        },
+        "delay": {
+          "value": 0,
+          "unit": "ms"
+        },
+        "timingFunction": [
+          0.25,
+          0.1,
+          0.25,
           1
         ]
       }

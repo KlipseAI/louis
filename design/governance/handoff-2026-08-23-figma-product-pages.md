@@ -1178,6 +1178,24 @@ mobile 프레임에 shared variant instance를 넣었다(옛 bar는 visible=fals
 현재 auth-fixture가 못 렌더한다(정적 보호 route + unreachable Supabase). seed 프로젝트/연동 데이터를 갖춘
 fixture 확장이 이 둘을 동시에 푼다.
 
+### 캔버스 청소 (2026-08-25) — 교체된 손수 셸 영구 삭제
+
+토스식 캔버스 위생(작업 페이지에 죽은 레이어 없음)으로 라이브 정본을 정리했다. 전 페이지 숨김 노드
+감사 후, **공유 컴포넌트로 교체되고 숨겨져 있던 손수 셸 33개를 영구 삭제**했다(page 03: 25 · page 04: 8 —
+`sidebar (280)`/`top chrome bar` 계열). git 커밋과 생성기가 정본이라 복구 가능. 삭제기는 **visible=false만
+지우는 안전장치**를 넣어 보이는 노드는 절대 건드리지 않는다. 검증: page 03 숨김 36→11, page 04 8→0,
+archive/billing-fail/settings-mobile의 보이는 공유 셸 인스턴스 전부 유지, archive 데스크톱 스크린샷 정상.
+
+**보류·손대지 않은 것:**
+- page 03 숨김 11개 = `/analytics/youtube` 데스크톱(`30:7`)의 옛 콘텐츠(KPI/차트/배너/콘텐츠표). 셸이
+  아니라 **콘텐츠**이고, 현재 보이는 본문이 `465:1367 measured/analytics-youtube-unconnected`(미연동)인데
+  프레임 제목은 "채널 연동 **완료**"라 **상태 불일치** 소지가 있다 — 제목과 맞는 연동 콘텐츠가 오히려 이
+  숨김 쪽이다. 콘텐츠 손실 위험이라 삭제 보류. **다음: 이 화면이 연동 완료 상태를 보여야 하는지 미연동을
+  보여야 하는지 먼저 판정**하고, 그에 따라 숨김 콘텐츠를 되살리거나(제목=연동완료면) 삭제한다(미연동이 맞으면).
+- page 90 숨김 13개 = GNB rail variant 내부의 옛 `upgrade-cta`/`measured collapsed` 인스턴스. **컴포넌트
+  내부**라 수동 삭제하면 생성기와 어긋난다 — sidebar-states/components 생성기가 정리해야 한다.
+- 빈 프레임(노드 핸들 28×28, `divider/measured` 1px), 아이콘 내부 Vector/Group 658개는 정상 구조 — 유지.
+
 ### 다음 에이전트 첫 6단계 (원본 — 1·2·3은 위에서 완료)
 
 1. `migration/product.sidebar-states.json`을 새 typography 축으로 재측정한다. 외부 서버를 쓸 경우

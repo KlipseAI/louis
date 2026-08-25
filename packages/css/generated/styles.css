@@ -2407,10 +2407,14 @@
 }
 
 /* 비활성 — 면과 경계는 유지하고 글자만 죽인다. 알약이 사라지면 툴바 행의 리듬이 깨진다. */
+/* 비활성 전경은 공용 fg-disabled 를 쓰지 않는다 — 다크에서 그 값이 칩 표면색과 정확히 같아
+ * (둘 다 gray-600) 대비 1.00:1 이 된다. 제품이 이 버그를 피하려고 고른 gray-400 을 칩 전용
+ * 토큰으로 승격했다(다크 2.27:1). 면과 헤어라인은 유지하고 글자만 죽인다 — 알약이 사라지면
+ * 툴바 행의 리듬이 깨진다. */
 .louis-node-chip:disabled,
 .louis-node-chip[aria-disabled="true"] {
   cursor: not-allowed;
-  color: var(--louis-color-fg-disabled);
+  color: var(--louis-color-node-chip-fg-disabled);
 }
 
 .louis-node-chip__glyph {

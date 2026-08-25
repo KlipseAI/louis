@@ -6454,6 +6454,16 @@
             }
           }
         },
+        "node-chip-fg-disabled": {
+          "$value": "{primitive.color.gray.500}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-node-chip-fg-disabled",
+              "tier": "semantic",
+              "mode": "light"
+            }
+          }
+        },
         "node-chip-surface": {
           "$value": "{primitive.color.gray.100}",
           "$extensions": {
@@ -7347,6 +7357,16 @@
           "$extensions": {
             "com.klipse-design": {
               "id": "color-node-audio-surface",
+              "tier": "semantic",
+              "mode": "dark"
+            }
+          }
+        },
+        "node-chip-fg-disabled": {
+          "$value": "{primitive.color.gray.400}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-node-chip-fg-disabled",
               "tier": "semantic",
               "mode": "dark"
             }

@@ -16737,6 +16737,57 @@
             }
           }
         },
+        "color-node-chip-fg-disabled": {
+          "$type": "color",
+          "fields": [],
+          "figmaName": "color/node-chip-fg-disabled",
+          "hiddenFromPublishing": false,
+          "losses": [],
+          "nativeVariableType": "COLOR",
+          "representation": "variable",
+          "scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL",
+            "STROKE_COLOR",
+            "TEXT_FILL"
+          ],
+          "valuesByMode": {
+            "Dark": {
+              "$value": "{primitive.color.gray.400}",
+              "aliasTarget": {
+                "id": "color-gray-400",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 1,
+                "colorSpace": "srgb",
+                "components": [
+                  0.737255,
+                  0.752941,
+                  0.788235
+                ]
+              },
+              "sourcePath": "semantic.dark.color.node-chip-fg-disabled"
+            },
+            "Light": {
+              "$value": "{primitive.color.gray.500}",
+              "aliasTarget": {
+                "id": "color-gray-500",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 1,
+                "colorSpace": "srgb",
+                "components": [
+                  0.603922,
+                  0.627451,
+                  0.670588
+                ]
+              },
+              "sourcePath": "semantic.light.color.node-chip-fg-disabled"
+            }
+          }
+        },
         "color-node-chip-surface": {
           "$type": "color",
           "fields": [],

@@ -12590,6 +12590,32 @@ export const tokens = {
         "alpha": 1
       }
     },
+    "color-node-chip-fg-disabled": {
+      "aliasTarget": {
+        "id": "color-gray-500",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-node-chip-fg-disabled": "color(srgb 0.603922 0.627451 0.670588 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-node-chip-fg-disabled",
+      "mode": "light",
+      "rawValue": "{primitive.color.gray.500}",
+      "sourcePath": "semantic.light.color.node-chip-fg-disabled",
+      "tier": "semantic",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.603922,
+          0.627451,
+          0.670588
+        ],
+        "alpha": 1
+      }
+    },
     "color-node-chip-surface": {
       "aliasTarget": {
         "id": "color-gray-100",
@@ -14991,6 +15017,32 @@ export const tokens = {
           0.517647,
           0.101961,
           0.247059
+        ],
+        "alpha": 1
+      }
+    },
+    "color-node-chip-fg-disabled": {
+      "aliasTarget": {
+        "id": "color-gray-400",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-node-chip-fg-disabled": "color(srgb 0.737255 0.752941 0.788235 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-node-chip-fg-disabled",
+      "mode": "dark",
+      "rawValue": "{primitive.color.gray.400}",
+      "sourcePath": "semantic.dark.color.node-chip-fg-disabled",
+      "tier": "semantic",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.737255,
+          0.752941,
+          0.788235
         ],
         "alpha": 1
       }

@@ -7,6 +7,7 @@ import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { chromium } from "playwright";
 import { atomicWriteBatch } from "./lib/atomic-output.mjs";
+import { captureDeclaredStyles } from "./lib/declared-styles.mjs";
 import { assertLiveProductSceneCoverage } from "./lib/product-scene-contract.mjs";
 import { resolveProductRef } from "./lib/product-ref.mjs";
 
@@ -791,7 +792,7 @@ try {
         requestAnimationFrame(() => requestAnimationFrame(resolveFrame)),
       ));
 
-      return page.evaluate((axes) => {
+      const measured = await page.evaluate((axes) => {
         const round = (value) => Math.round(value * 10000) / 10000;
         const rect = (element, relativeTo = null) => {
           if (!(element instanceof Element)) throw new Error("측정할 가격 페이지 노드가 없습니다.");
@@ -898,6 +899,9 @@ try {
             id: element.id || null,
             role: element.getAttribute("role"),
             ariaLabel: element.getAttribute("aria-label"),
+            // 크기 출처 판정의 보조 신호이자 사람이 읽을 근거. SVG는 className이 SVGAnimatedString이라
+            // JSON에서 `{}`가 되므로 반드시 getAttribute를 쓴다.
+            classAttr: element.getAttribute("class"),
             ownText: ownText(element),
             ownTextLines: ownTextLines(element),
             href: element instanceof HTMLAnchorElement ? normalizeAssetUrl(element.href) : null,
@@ -960,6 +964,29 @@ try {
           tree,
         };
       }, PRICING_STYLE_AXES);
+
+      // **선언된 CSS 원문을 CDP로 덧붙인다.** `getComputedStyle`은 해결된 값을 주므로 `width:100%`와
+      // `width:1920px`가 둘 다 `"1920px"`로 보인다 — 즉 "왜 그 크기인가"가 소실된다. Figma Auto Layout
+      // (FILL/HUG/FIXED)을 정하려면 선언 원문이 필요하다. 트리 순회와 **같은 경로 스킴**을 쓰므로
+      // path로 그대로 붙는다(스킴이 어긋나면 엉뚱한 노드에 붙으므로 개수를 검사한다).
+      const { declared, nodeCount } = await captureDeclaredStyles(
+        context,
+        page,
+        (node, attributes) => node.localName === "main" && attributes["data-page-root"] !== undefined,
+        { rootPath: "main" },
+      );
+      if (nodeCount !== measured.tree.length) {
+        throw new Error(
+          "[product-scenes] 선언 스타일 노드 수가 측정 트리와 다릅니다: " +
+            nodeCount + " != " + measured.tree.length,
+        );
+      }
+      for (const node of measured.tree) {
+        const entry = declared.get(node.path);
+        // 선언이 하나도 없는 노드는 키를 만들지 않는다 — 생성물 크기를 아낀다.
+        if (entry && Object.keys(entry).length > 0) node.declared = entry;
+      }
+      return measured;
     };
 
     const measureGenericPage = async (route) => {

@@ -2,7 +2,7 @@
   "artifacts": [
     {
       "path": "packages/tokens/generated/figma.tokens.json",
-      "sha256": "fb71a335b6d3d843b69dc4f3efb94fb71cb8139fdc47223e077da88932e37839"
+      "sha256": "a30efbd161a63e1270068f9e0f9cf682071e7f57c6583dbd928937b659f4ab66"
     },
     {
       "path": "packages/tokens/generated/index.d.ts",
@@ -10,7 +10,7 @@
     },
     {
       "path": "packages/tokens/generated/index.js",
-      "sha256": "472e073a525d44f1539c6647890fad5e473bba4f8dc598ef6af59ce12198cbd3"
+      "sha256": "a5e4eaf2e67e38b14262dbd5edb7d19d345dbd3ad1e8291d05cfa319ae403419"
     },
     {
       "path": "packages/tokens/generated/tokens.css",
@@ -18,7 +18,7 @@
     },
     {
       "path": "packages/tokens/generated/tokens.json",
-      "sha256": "8e2594e12b80a83e9c177bab9f4b9476867d8eea563aa22d397e16620e74df69"
+      "sha256": "ef2f563de0007bacde7ef7b63e1057a397908012ce082525054cfcc9930cc11e"
     }
   ],
   "contrastPairs": [
@@ -41,7 +41,7 @@
       "background": "color-accent-primary",
       "foreground": "color-fg-inverse",
       "minimum": 3,
-      "note": "제품 브랜드 블루(blue.500 #0088ff)를 정본으로 채택한 owner 결정의 결과다. 흰 글자(neutral-0) 대비가 3.37로 WCAG 2.2 AA의 일반 텍스트 기준 4.5에 미달한다. 4.5를 넘는 첫 단계는 blue.700(6.12)인데 제품에서 2번밖에 쓰이지 않는 색이라 브랜드가 아니다. 이 미달은 제품이 이미 갖고 있는 것이며 DS가 그것을 그대로 재현한다. 해소하려면 라벨을 18.66px bold 이상으로 키우거나 면 색을 어둡게 바꿔야 하고, 둘 다 owner 판정 대상이다."
+      "note": "제품 브랜드 블루(blue.500 #0088ff)를 정본으로 채택한 owner 결정의 결과다. 흰 글자(gray-0) 대비가 3.37로 WCAG 2.2 AA의 일반 텍스트 기준 4.5에 미달한다. 4.5를 넘는 첫 단계는 blue.700(6.12)인데 제품에서 2번밖에 쓰이지 않는 색이라 브랜드가 아니다. 이 미달은 제품이 이미 갖고 있는 것이며 DS가 그것을 그대로 재현한다. 해소하려면 라벨을 18.66px bold 이상으로 키우거나 면 색을 어둡게 바꿔야 하고, 둘 다 owner 판정 대상이다."
     },
     {
       "background": "color-bg-danger",
@@ -85,7 +85,7 @@
       "background": "color-bg-canvas",
       "foreground": "color-accent-secondary-foreground",
       "minimum": 3.5,
-      "note": "제품의 secondary·ghost 전경은 gray-600 #777d89이고 흰 배경 대비 4.13, DS canvas 대비 3.67로 WCAG AA 4.5에 미달한다. 제품 값을 정본으로 채택한 결과다. 한 단계 진한 neutral.700을 쓰면 6.35로 통과하지만 제품과 달라진다. 다크 모드는 제품이 알파(paper-alpha 72)를 쓰는데 알파 전경은 배경에 따라 대비가 달라져 게이트가 잴 수 없으므로 가장 가까운 불투명 단계 neutral.400을 쓴다."
+      "note": "제품의 secondary·ghost 전경은 gray-600 #777d89이고 흰 배경 대비 4.13, DS canvas 대비 3.67로 WCAG AA 4.5에 미달한다. 제품 값을 정본으로 채택한 결과다. 한 단계 진한 gray.700을 쓰면 6.35로 통과하지만 제품과 달라진다. 다크 모드는 제품이 알파(static-white-alpha 72)를 쓰는데 알파 전경은 배경에 따라 대비가 달라져 게이트가 잴 수 없으므로 가장 가까운 불투명 단계 gray.400을 쓴다."
     },
     {
       "background": "color-bg-surface",
@@ -398,7 +398,7 @@
   },
   "source": {
     "path": "packages/tokens/src/klipse.tokens.json",
-    "sha256": "0546199bbba6bdff9e98c5e75cb0c014d1f8bd35fc6f9e8be3a54488dfcf33c2"
+    "sha256": "3d26000c962823da5cff5947065a2fb1f7250188e9a6ef31c81f247f8b1a5d3b"
   },
   "themes": [
     "light",

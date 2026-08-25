@@ -2,23 +2,23 @@
   "artifacts": [
     {
       "path": "packages/tokens/generated/figma.tokens.json",
-      "sha256": "fea8c93eee20adb103dc4b598cc96feb048c807d5a29217869685ea7aee01e32"
+      "sha256": "3af207227db06d408e8d044e9f86cbe3d37073593c05b405698d312f077b73f2"
     },
     {
       "path": "packages/tokens/generated/index.d.ts",
-      "sha256": "7d1b9e2c823155d0d2879770034c671115eaaf3b79dab834313d6eff2f3b77ed"
+      "sha256": "f2c8ae7bd4b52ed3c05a3ac6cb4f4a826ceaf37a92c6f827205709e751a0bbef"
     },
     {
       "path": "packages/tokens/generated/index.js",
-      "sha256": "70225dc7b29bc578ff50ed271fbda03c0588df72dff78367d9b360da042ca7b6"
+      "sha256": "b1dbe69b99479b4c8d82cc718a7283ad8f3d20e8e17df349d57d5aaff1f8e332"
     },
     {
       "path": "packages/tokens/generated/tokens.css",
-      "sha256": "94f42bc2ead0b88b8c9458eeda90d6040ee4eab3b13ab91a4d2d0c075554f5ec"
+      "sha256": "77d37e3be84dfc5cebb014f2ad9aa4443ab6c8673bc08cc14fccc520b1bc50d9"
     },
     {
       "path": "packages/tokens/generated/tokens.json",
-      "sha256": "d0cc0af2a89e0a066d55dc755a1b254a09c6746550ce82f962ce584af1bc3899"
+      "sha256": "2616f77ebf4dcd057d94945cdf8a3466890e1645ce72644efa04dd646ee44b46"
     }
   ],
   "contrastPairs": [
@@ -398,13 +398,13 @@
   },
   "source": {
     "path": "packages/tokens/src/klipse.tokens.json",
-    "sha256": "92010b2a7bce70953d45c59a51340a232b9f0597b7e1fc48a6bf6510ad80b6ee"
+    "sha256": "b113470dd8201bf219ad1be3dbb83577986eae7616d5a66d53e39525fb596d3d"
   },
   "themes": [
     "light",
     "dark"
   ],
-  "tokenCount": 512,
+  "tokenCount": 519,
   "tokens": [
     {
       "aliasTarget": null,
@@ -4680,6 +4680,110 @@
         ]
       },
       "sourcePath": "semantic.dark.color.node-audio-surface",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-gray-100",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-node-chip-surface": "color(srgb 0.945098 0.945098 0.952941 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-node-chip-surface",
+      "mode": "light",
+      "rawValue": "{primitive.color.gray.100}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0.945098,
+          0.945098,
+          0.952941
+        ]
+      },
+      "sourcePath": "semantic.light.color.node-chip-surface",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-gray-600",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-node-chip-surface": "color(srgb 0.466667 0.490196 0.537255 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-node-chip-surface",
+      "mode": "dark",
+      "rawValue": "{primitive.color.gray.600}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0.466667,
+          0.490196,
+          0.537255
+        ]
+      },
+      "sourcePath": "semantic.dark.color.node-chip-surface",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-gray-150",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-node-chip-surface-hover": "color(srgb 0.917647 0.921569 0.933333 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-node-chip-surface-hover",
+      "mode": "light",
+      "rawValue": "{primitive.color.gray.150}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0.917647,
+          0.921569,
+          0.933333
+        ]
+      },
+      "sourcePath": "semantic.light.color.node-chip-surface-hover",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-gray-500",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-node-chip-surface-hover": "color(srgb 0.603922 0.627451 0.670588 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-node-chip-surface-hover",
+      "mode": "dark",
+      "rawValue": "{primitive.color.gray.500}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0.603922,
+          0.627451,
+          0.670588
+        ]
+      },
+      "sourcePath": "semantic.dark.color.node-chip-surface-hover",
       "tier": "semantic",
       "type": "color"
     },
@@ -10489,6 +10593,48 @@
     },
     {
       "aliasTarget": {
+        "id": "space-32",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-layout-node-chip-height": "32px"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "layout-node-chip-height",
+      "mode": "global",
+      "rawValue": "{primitive.spacing.32}",
+      "resolvedValue": {
+        "unit": "px",
+        "value": 32
+      },
+      "sourcePath": "semantic.global.layout.node-chip-height",
+      "tier": "semantic",
+      "type": "dimension"
+    },
+    {
+      "aliasTarget": {
+        "id": "space-10",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-layout-node-chip-inset": "10px"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "layout-node-chip-inset",
+      "mode": "global",
+      "rawValue": "{primitive.spacing.10}",
+      "resolvedValue": {
+        "unit": "px",
+        "value": 10
+      },
+      "sourcePath": "semantic.global.layout.node-chip-inset",
+      "tier": "semantic",
+      "type": "dimension"
+    },
+    {
+      "aliasTarget": {
         "id": "space-6",
         "mode": "base"
       },
@@ -11706,6 +11852,27 @@
       },
       "sourcePath": "primitive.radius.full",
       "tier": "primitive",
+      "type": "dimension"
+    },
+    {
+      "aliasTarget": {
+        "id": "radius-12",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-radius-node-chip": "12px"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "radius-node-chip",
+      "mode": "global",
+      "rawValue": "{primitive.radius.12}",
+      "resolvedValue": {
+        "unit": "px",
+        "value": 12
+      },
+      "sourcePath": "semantic.global.radius.node-chip",
+      "tier": "semantic",
       "type": "dimension"
     },
     {

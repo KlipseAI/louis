@@ -311,6 +311,8 @@
   --louis-color-node-audio-accent: color(srgb 1 0.301961 0.533333 / 1);
   --louis-color-node-audio-icon: color(srgb 1 0.301961 0.533333 / 1);
   --louis-color-node-audio-surface: color(srgb 1 0.756863 0.839216 / 1);
+  --louis-color-node-chip-surface: color(srgb 0.945098 0.945098 0.952941 / 1);
+  --louis-color-node-chip-surface-hover: color(srgb 0.917647 0.921569 0.933333 / 1);
   --louis-color-node-edit-accent: color(srgb 0.376471 0.333333 1 / 1);
   --louis-color-node-edit-icon: color(srgb 0.376471 0.333333 1 / 1);
   --louis-color-node-edit-surface: color(srgb 0.788235 0.760784 1 / 1);
@@ -372,6 +374,8 @@
   --louis-layout-control-height-sm: 32px;
   --louis-layout-control-hit-target-minimum: 44px;
   --louis-layout-control-minimum-width-sm: 48px;
+  --louis-layout-node-chip-height: 32px;
+  --louis-layout-node-chip-inset: 10px;
   --louis-layout-progress-bar-height: 6px;
   --louis-layout-progress-bar-max-inline-size: 320px;
   --louis-layout-project-card-minimum: 240px;
@@ -449,6 +453,7 @@
   --louis-radius-card-lg: 20px;
   --louis-radius-control: 12px;
   --louis-radius-control-sm: 8px;
+  --louis-radius-node-chip: 12px;
   --louis-radius-overlay: 16px;
   --louis-radius-overlay-item: 10px;
   --louis-radius-overlay-lg: 24px;
@@ -599,6 +604,8 @@
   --louis-color-node-audio-accent: color(srgb 1 0.301961 0.533333 / 1);
   --louis-color-node-audio-icon: color(srgb 1 0.301961 0.533333 / 1);
   --louis-color-node-audio-surface: color(srgb 0.517647 0.101961 0.247059 / 1);
+  --louis-color-node-chip-surface: color(srgb 0.466667 0.490196 0.537255 / 1);
+  --louis-color-node-chip-surface-hover: color(srgb 0.603922 0.627451 0.670588 / 1);
   --louis-color-node-edit-accent: color(srgb 0.376471 0.333333 1 / 1);
   --louis-color-node-edit-icon: color(srgb 0.376471 0.333333 1 / 1);
   --louis-color-node-edit-surface: color(srgb 0.133333 0.101961 0.501961 / 1);

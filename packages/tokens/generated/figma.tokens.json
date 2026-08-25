@@ -11497,6 +11497,62 @@
             }
           }
         },
+        "layout-node-chip-height": {
+          "$type": "dimension",
+          "fields": [],
+          "figmaName": "layout/node-chip-height",
+          "hiddenFromPublishing": false,
+          "losses": [
+            "Figma FLOAT는 DTCG 단위 의미를 직접 보존하지 않으므로 source metadata를 함께 검토해야 합니다."
+          ],
+          "nativeVariableType": "FLOAT",
+          "representation": "variable",
+          "scopes": [
+            "WIDTH_HEIGHT"
+          ],
+          "valuesByMode": {
+            "Global": {
+              "$value": "{primitive.spacing.32}",
+              "aliasTarget": {
+                "id": "space-32",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "unit": "px",
+                "value": 32
+              },
+              "sourcePath": "semantic.global.layout.node-chip-height"
+            }
+          }
+        },
+        "layout-node-chip-inset": {
+          "$type": "dimension",
+          "fields": [],
+          "figmaName": "layout/node-chip-inset",
+          "hiddenFromPublishing": false,
+          "losses": [
+            "Figma FLOAT는 DTCG 단위 의미를 직접 보존하지 않으므로 source metadata를 함께 검토해야 합니다."
+          ],
+          "nativeVariableType": "FLOAT",
+          "representation": "variable",
+          "scopes": [
+            "WIDTH_HEIGHT"
+          ],
+          "valuesByMode": {
+            "Global": {
+              "$value": "{primitive.spacing.10}",
+              "aliasTarget": {
+                "id": "space-10",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "unit": "px",
+                "value": 10
+              },
+              "sourcePath": "semantic.global.layout.node-chip-inset"
+            }
+          }
+        },
         "layout-progress-bar-height": {
           "$type": "dimension",
           "fields": [],
@@ -12684,6 +12740,34 @@
                 "value": 8
               },
               "sourcePath": "semantic.global.radius.control-sm"
+            }
+          }
+        },
+        "radius-node-chip": {
+          "$type": "dimension",
+          "fields": [],
+          "figmaName": "radius/node-chip",
+          "hiddenFromPublishing": false,
+          "losses": [
+            "Figma FLOAT는 DTCG 단위 의미를 직접 보존하지 않으므로 source metadata를 함께 검토해야 합니다."
+          ],
+          "nativeVariableType": "FLOAT",
+          "representation": "variable",
+          "scopes": [
+            "CORNER_RADIUS"
+          ],
+          "valuesByMode": {
+            "Global": {
+              "$value": "{primitive.radius.12}",
+              "aliasTarget": {
+                "id": "radius-12",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "unit": "px",
+                "value": 12
+              },
+              "sourcePath": "semantic.global.radius.node-chip"
             }
           }
         },
@@ -16650,6 +16734,108 @@
                 ]
               },
               "sourcePath": "semantic.light.color.node-audio-surface"
+            }
+          }
+        },
+        "color-node-chip-surface": {
+          "$type": "color",
+          "fields": [],
+          "figmaName": "color/node-chip-surface",
+          "hiddenFromPublishing": false,
+          "losses": [],
+          "nativeVariableType": "COLOR",
+          "representation": "variable",
+          "scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL",
+            "STROKE_COLOR",
+            "TEXT_FILL"
+          ],
+          "valuesByMode": {
+            "Dark": {
+              "$value": "{primitive.color.gray.600}",
+              "aliasTarget": {
+                "id": "color-gray-600",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 1,
+                "colorSpace": "srgb",
+                "components": [
+                  0.466667,
+                  0.490196,
+                  0.537255
+                ]
+              },
+              "sourcePath": "semantic.dark.color.node-chip-surface"
+            },
+            "Light": {
+              "$value": "{primitive.color.gray.100}",
+              "aliasTarget": {
+                "id": "color-gray-100",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 1,
+                "colorSpace": "srgb",
+                "components": [
+                  0.945098,
+                  0.945098,
+                  0.952941
+                ]
+              },
+              "sourcePath": "semantic.light.color.node-chip-surface"
+            }
+          }
+        },
+        "color-node-chip-surface-hover": {
+          "$type": "color",
+          "fields": [],
+          "figmaName": "color/node-chip-surface-hover",
+          "hiddenFromPublishing": false,
+          "losses": [],
+          "nativeVariableType": "COLOR",
+          "representation": "variable",
+          "scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL",
+            "STROKE_COLOR",
+            "TEXT_FILL"
+          ],
+          "valuesByMode": {
+            "Dark": {
+              "$value": "{primitive.color.gray.500}",
+              "aliasTarget": {
+                "id": "color-gray-500",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 1,
+                "colorSpace": "srgb",
+                "components": [
+                  0.603922,
+                  0.627451,
+                  0.670588
+                ]
+              },
+              "sourcePath": "semantic.dark.color.node-chip-surface-hover"
+            },
+            "Light": {
+              "$value": "{primitive.color.gray.150}",
+              "aliasTarget": {
+                "id": "color-gray-150",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 1,
+                "colorSpace": "srgb",
+                "components": [
+                  0.917647,
+                  0.921569,
+                  0.933333
+                ]
+              },
+              "sourcePath": "semantic.light.color.node-chip-surface-hover"
             }
           }
         },

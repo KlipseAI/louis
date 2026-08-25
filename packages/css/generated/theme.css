@@ -70,6 +70,8 @@
   --color-node-audio-accent: var(--louis-color-node-audio-accent);
   --color-node-audio-icon: var(--louis-color-node-audio-icon);
   --color-node-audio-surface: var(--louis-color-node-audio-surface);
+  --color-node-chip-surface: var(--louis-color-node-chip-surface);
+  --color-node-chip-surface-hover: var(--louis-color-node-chip-surface-hover);
   --color-node-edit-accent: var(--louis-color-node-edit-accent);
   --color-node-edit-icon: var(--louis-color-node-edit-icon);
   --color-node-edit-surface: var(--louis-color-node-edit-surface);
@@ -107,6 +109,7 @@
   --radius-card-lg: var(--louis-radius-card-lg);
   --radius-control: var(--louis-radius-control);
   --radius-control-sm: var(--louis-radius-control-sm);
+  --radius-node-chip: var(--louis-radius-node-chip);
   --radius-overlay: var(--louis-radius-overlay);
   --radius-overlay-item: var(--louis-radius-overlay-item);
   --radius-overlay-lg: var(--louis-radius-overlay-lg);
@@ -140,6 +143,8 @@
   --spacing-layout-control-height-sm: var(--louis-layout-control-height-sm);
   --spacing-layout-control-hit-target-minimum: var(--louis-layout-control-hit-target-minimum);
   --spacing-layout-control-minimum-width-sm: var(--louis-layout-control-minimum-width-sm);
+  --spacing-layout-node-chip-height: var(--louis-layout-node-chip-height);
+  --spacing-layout-node-chip-inset: var(--louis-layout-node-chip-inset);
   --spacing-layout-progress-bar-height: var(--louis-layout-progress-bar-height);
   --spacing-layout-progress-bar-max-inline-size: var(--louis-layout-progress-bar-max-inline-size);
   --spacing-layout-project-card-minimum: var(--louis-layout-project-card-minimum);

@@ -2369,6 +2369,110 @@
 }
 
 @layer louis.component {
+  /* Node chip — 노드 캔버스의 메타 알약(모델·화면비·길이·해상도·사운드 등)
+   *
+   * 제품 정본은 node-canvas-v2 의 `--node-chrome-btn-*` 계열이다(VideoNode·ImageNode·BgmNode·
+   * TtsNode 네 벌에 같은 값이 복제돼 있었다): 높이 32 · 좌우 패딩 10 · 반경 12 · 사이 간격 4,
+   * 면은 다크 gray-600 / 라이트 gray-100, 경계는 0.5px inset 헤어라인(DS-D-0023),
+   * 호버는 면 위에 옅은 오버레이. 그 사양을 그대로 채택했다 — 제품 외형 수렴 결정.
+   *
+   * **badge와 다른 컴포넌트다.** badge는 상태를 읽기만 하는 정적 라벨이고, node chip은 눌러서
+   * 드롭다운을 여는 대화형 트리거다(비활성 상태와 호버 면이 있고, 아이콘 전용 정사각 변형도 쓴다).
+   * 그래서 배지 계열 토큰이 아니라 자체 면 토큰(node-chip-surface)을 쓴다.
+   *
+   * 캔버스 줌과 무관하게 화면 픽셀을 유지하는 스케일 보정, 위치, 드롭다운 앵커는 소비처가 소유한다.
+   */
+
+  .louis-node-chip {
+    box-sizing: border-box;
+    display: inline-flex;
+    flex: none;
+    align-items: center;
+    justify-content: center;
+    gap: var(--louis-space-control-xs);
+    block-size: var(--louis-layout-node-chip-height);
+    min-inline-size: 0;
+    max-inline-size: 100%;
+    padding-block: 0;
+    padding-inline: var(--louis-layout-node-chip-inset);
+    border: 0;
+    border-radius: var(--louis-radius-node-chip);
+    background: var(--louis-color-node-chip-surface);
+    /* 경계는 border가 아니라 inset 헤어라인이다 — 레이아웃 박스를 건드리지 않는다 (DS-D-0023). */
+    box-shadow: var(--louis-hairline-inset);
+    color: var(--louis-color-fg-primary);
+    /* 알약이 두 줄이 되면 노드 헤더 행의 높이가 흔들린다. */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    user-select: none;
+    font-family: var(--louis-typography-caption-regular-font-family);
+    font-size: var(--louis-typography-caption-regular-font-size);
+    font-weight: var(--louis-typography-caption-regular-font-weight);
+    line-height: var(--louis-typography-caption-regular-line-height);
+    letter-spacing: var(--louis-typography-caption-regular-letter-spacing);
+    transition-property: background, color;
+    transition-duration: var(--louis-motion-control-hover-duration);
+    transition-timing-function: var(--louis-motion-control-hover-timing-function);
+  }
+
+  /* 아이콘 전용 — 정사각(폭 = 높이). 좌우 패딩 대신 중앙 정렬만 쓴다. */
+  .louis-node-chip[data-shape="square"] {
+    inline-size: var(--louis-layout-node-chip-height);
+    min-inline-size: var(--louis-layout-node-chip-height);
+    padding-inline: 0;
+  }
+
+  /* 눌러서 여는 트리거만 호버 면을 갖는다. 값을 보여주기만 하는 알약은 정적이다. */
+  .louis-node-chip:where(button, [role="button"]):where(
+      :not(:disabled):not([aria-disabled="true"])
+    ):hover {
+    background: var(--louis-color-node-chip-surface-hover);
+    cursor: pointer;
+  }
+
+  /* 비활성 — 면과 경계는 유지하고 글자만 죽인다. 알약이 사라지면 툴바 행의 리듬이 깨진다. */
+  .louis-node-chip:disabled,
+  .louis-node-chip[aria-disabled="true"] {
+    cursor: not-allowed;
+    color: var(--louis-color-fg-disabled);
+  }
+
+  .louis-node-chip__glyph {
+    display: block;
+    flex: none;
+    inline-size: var(--louis-icon-size-sm);
+    block-size: var(--louis-icon-size-sm);
+    color: inherit;
+  }
+
+  .louis-node-chip__label {
+    min-inline-size: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .louis-node-chip {
+      transition-duration: var(--louis-motion-reduced-duration);
+    }
+  }
+
+  /* forced-colors — 면과 헤어라인이 강제 치환되면 알약 경계가 사라진다. 시스템 색 실선으로 되살린다. */
+  @media (forced-colors: active) {
+    .louis-node-chip {
+      box-shadow: none;
+      border: var(--louis-border-width-default) solid currentColor;
+    }
+
+    .louis-node-chip:disabled,
+    .louis-node-chip[aria-disabled="true"] {
+      color: GrayText;
+    }
+  }
+}
+
+@layer louis.component {
   /* Overlay panel — design/components/menu-popover.md, dialog.md, foundations/motion.md
    *
    * 이 파일은 **단일 seam**이다. 하부 positioning 유틸이 발행하는 변수 이름이 나머지 CSS로

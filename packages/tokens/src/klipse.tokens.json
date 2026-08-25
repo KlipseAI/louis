@@ -5034,6 +5034,7 @@
         "$type": "dimension"
       },
       "radius": {
+        "$type": "dimension",
         "card": {
           "$value": "{primitive.radius.16}",
           "$extensions": {
@@ -5069,6 +5070,16 @@
           "$extensions": {
             "com.klipse-design": {
               "id": "radius-control-sm",
+              "tier": "semantic",
+              "mode": "global"
+            }
+          }
+        },
+        "node-chip": {
+          "$value": "{primitive.radius.12}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "radius-node-chip",
               "tier": "semantic",
               "mode": "global"
             }
@@ -5113,8 +5124,7 @@
               "mode": "global"
             }
           }
-        },
-        "$type": "dimension"
+        }
       },
       "typography": {
         "$type": "typography",
@@ -5619,6 +5629,7 @@
         }
       },
       "layout": {
+        "$type": "dimension",
         "app-shell-brand-mark-height": {
           "$value": "{primitive.spacing.28}",
           "$extensions": {
@@ -5739,6 +5750,26 @@
             }
           }
         },
+        "node-chip-height": {
+          "$value": "{primitive.spacing.32}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "layout-node-chip-height",
+              "tier": "semantic",
+              "mode": "global"
+            }
+          }
+        },
+        "node-chip-inset": {
+          "$value": "{primitive.spacing.10}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "layout-node-chip-inset",
+              "tier": "semantic",
+              "mode": "global"
+            }
+          }
+        },
         "progress-bar-height": {
           "$value": "{primitive.spacing.6}",
           "$extensions": {
@@ -5778,8 +5809,7 @@
               "mode": "global"
             }
           }
-        },
-        "$type": "dimension"
+        }
       },
       "icon": {
         "$type": "dimension",
@@ -6419,6 +6449,26 @@
           "$extensions": {
             "com.klipse-design": {
               "id": "color-node-audio-surface",
+              "tier": "semantic",
+              "mode": "light"
+            }
+          }
+        },
+        "node-chip-surface": {
+          "$value": "{primitive.color.gray.100}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-node-chip-surface",
+              "tier": "semantic",
+              "mode": "light"
+            }
+          }
+        },
+        "node-chip-surface-hover": {
+          "$value": "{primitive.color.gray.150}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-node-chip-surface-hover",
               "tier": "semantic",
               "mode": "light"
             }
@@ -7297,6 +7347,26 @@
           "$extensions": {
             "com.klipse-design": {
               "id": "color-node-audio-surface",
+              "tier": "semantic",
+              "mode": "dark"
+            }
+          }
+        },
+        "node-chip-surface": {
+          "$value": "{primitive.color.gray.600}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-node-chip-surface",
+              "tier": "semantic",
+              "mode": "dark"
+            }
+          }
+        },
+        "node-chip-surface-hover": {
+          "$value": "{primitive.color.gray.500}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-node-chip-surface-hover",
               "tier": "semantic",
               "mode": "dark"
             }

@@ -9166,6 +9166,48 @@ export const tokens = {
         "unit": "px"
       }
     },
+    "layout-node-chip-height": {
+      "aliasTarget": {
+        "id": "space-32",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-layout-node-chip-height": "32px"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "layout-node-chip-height",
+      "mode": "global",
+      "rawValue": "{primitive.spacing.32}",
+      "sourcePath": "semantic.global.layout.node-chip-height",
+      "tier": "semantic",
+      "type": "dimension",
+      "value": {
+        "value": 32,
+        "unit": "px"
+      }
+    },
+    "layout-node-chip-inset": {
+      "aliasTarget": {
+        "id": "space-10",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-layout-node-chip-inset": "10px"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "layout-node-chip-inset",
+      "mode": "global",
+      "rawValue": "{primitive.spacing.10}",
+      "sourcePath": "semantic.global.layout.node-chip-inset",
+      "tier": "semantic",
+      "type": "dimension",
+      "value": {
+        "value": 10,
+        "unit": "px"
+      }
+    },
     "layout-progress-bar-height": {
       "aliasTarget": {
         "id": "space-6",
@@ -10136,6 +10178,27 @@ export const tokens = {
       "type": "dimension",
       "value": {
         "value": 8,
+        "unit": "px"
+      }
+    },
+    "radius-node-chip": {
+      "aliasTarget": {
+        "id": "radius-12",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-radius-node-chip": "12px"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "radius-node-chip",
+      "mode": "global",
+      "rawValue": "{primitive.radius.12}",
+      "sourcePath": "semantic.global.radius.node-chip",
+      "tier": "semantic",
+      "type": "dimension",
+      "value": {
+        "value": 12,
         "unit": "px"
       }
     },
@@ -12527,6 +12590,58 @@ export const tokens = {
         "alpha": 1
       }
     },
+    "color-node-chip-surface": {
+      "aliasTarget": {
+        "id": "color-gray-100",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-node-chip-surface": "color(srgb 0.945098 0.945098 0.952941 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-node-chip-surface",
+      "mode": "light",
+      "rawValue": "{primitive.color.gray.100}",
+      "sourcePath": "semantic.light.color.node-chip-surface",
+      "tier": "semantic",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.945098,
+          0.945098,
+          0.952941
+        ],
+        "alpha": 1
+      }
+    },
+    "color-node-chip-surface-hover": {
+      "aliasTarget": {
+        "id": "color-gray-150",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-node-chip-surface-hover": "color(srgb 0.917647 0.921569 0.933333 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-node-chip-surface-hover",
+      "mode": "light",
+      "rawValue": "{primitive.color.gray.150}",
+      "sourcePath": "semantic.light.color.node-chip-surface-hover",
+      "tier": "semantic",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.917647,
+          0.921569,
+          0.933333
+        ],
+        "alpha": 1
+      }
+    },
     "color-node-edit-accent": {
       "aliasTarget": {
         "id": "color-violet-500",
@@ -14876,6 +14991,58 @@ export const tokens = {
           0.517647,
           0.101961,
           0.247059
+        ],
+        "alpha": 1
+      }
+    },
+    "color-node-chip-surface": {
+      "aliasTarget": {
+        "id": "color-gray-600",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-node-chip-surface": "color(srgb 0.466667 0.490196 0.537255 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-node-chip-surface",
+      "mode": "dark",
+      "rawValue": "{primitive.color.gray.600}",
+      "sourcePath": "semantic.dark.color.node-chip-surface",
+      "tier": "semantic",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.466667,
+          0.490196,
+          0.537255
+        ],
+        "alpha": 1
+      }
+    },
+    "color-node-chip-surface-hover": {
+      "aliasTarget": {
+        "id": "color-gray-500",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-node-chip-surface-hover": "color(srgb 0.603922 0.627451 0.670588 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-node-chip-surface-hover",
+      "mode": "dark",
+      "rawValue": "{primitive.color.gray.500}",
+      "sourcePath": "semantic.dark.color.node-chip-surface-hover",
+      "tier": "semantic",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.603922,
+          0.627451,
+          0.670588
         ],
         "alpha": 1
       }

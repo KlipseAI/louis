@@ -1,7 +1,14 @@
 # DS 컴포넌트 성숙 로드맵 (커버리지 · 갭 · 어돕션)
 
-2026-08-25 착수. 정본 두 파일: **DS 라이브러리 `bxGEp0km5zluMJGulaTvFW`**(재사용 컴포넌트·토큰) +
-**제품 보드 `OlYKERKOkgbxBEEoXGZW2c`**(화면 재현·측정 컴포넌트). 지도 아티팩트가 둘을 함께 담는다.
+2026-08-25 착수.
+
+> **⚠ 2026-08-25 정정 — 파일은 하나다.** owner 결정: 클립스 디자인 시스템의 모든 것은 **`OlYKERKOkgbxBEEoXGZW2c`
+> (Figma 파일명 "LOUIS")** 한 파일에 있어야 한다. 별도 파일 `bxGEp0km5zluMJGulaTvFW`("Klipse Design System —
+> Library")는 **버린다.** 아래에서 처음에 bxGEp0에 만든 신규 7 컴포넌트는 **LOUIS의 `Components` 페이지로
+> 다시 만들어 이전 완료**(LOUIS의 `Klipse Semantic Color` 토큰에 이름으로 바인딩). LOUIS는 그 토큰 컬렉션
+> (`color/bg-surface`·`accent-primary`·`fg-success`·`fg-danger` 등)을 이미 갖고 있어 이전이 깨끗했다.
+> **미해결:** 기존 57 컴포넌트(Button 등)는 아직 bxGEp0에만 있다 — LOUIS로 옮길지, LOUIS에서 새로 세울지
+> owner 결정 필요.
 
 ## 실측 진단 (라이브 감사)
 
@@ -50,17 +57,17 @@ StaticAnalyticsDemo 차트, skeleton)가 공개 route에서 측정 가능** → 
 
 ## 제작 완료 — organism 갭 7종 전부 (Figma, 스크린샷 검증)
 
-DS 라이브러리 `bxGEp0` Components 페이지에 7개 신규 컴포넌트를 시맨틱 토큰 바인딩으로 제작.
+**LOUIS(`OlYKERKOkgbxBEEoXGZW2c`) `Components` 페이지**에 7개 신규 컴포넌트를 LOUIS 시맨틱 토큰 바인딩으로 제작.
 
 | # | 컴포넌트 | set/id | 섹션 | 구성 | 근거 |
 |---|---|---|---|---|---|
-| 1 | **ChangePill** | `342:123` | Content | Tone=Positive/Negative/Neutral · padding 4/12 · radius 999 · caption-12-medium | OverviewTab CHANGE_PILL_CLASSES; badge.css "별도 물건" |
-| 2 | **Chart** (AreaChart) | `343:131` | Content | Accent=Positive(success)/Negative(danger) · stroke 2 round · 그라디언트 0.18→0 · 그리드 · 끝점 dot | analytics shared AreaChart viewBox 800×200 |
-| 3 | **KPI Card** | `346:117` | Content | Label+Value+ChangePill 인스턴스+미니 sparkline (composition) | reportKpiCard.kpiCardV2 |
-| 4 | **Data Table** | `348:124` | Content | header + rows · cell media/text/numeric/badge(instance) · 행 구분선 | analytics ContentTable |
-| 5 | **Node Card** | `349:124` | Shell | header(type Badge + title + more) + body slot + 좌우 handle | node-canvas-v2 NODE_CONTAINER |
-| 6 | **Editor Grid** | `350:127` | Shell | assets(236)/preview(flex)/properties(324) + timeline(400) 레이아웃 | vemClass.ts grid-template |
-| 7 | **CaptionPanel** | `351:127` | Forms | 색 swatch + 크기 slider (highlight shorts) | CaptionColorPanel |
+| 1 | **ChangePill** | `547:10` | Content | Tone=Positive/Negative/Neutral · padding 4/12 · radius 999 · caption-12-medium | OverviewTab CHANGE_PILL_CLASSES; badge.css "별도 물건" |
+| 2 | **Chart** (AreaChart) | `547:25` | Content | Accent=Positive(success)/Negative(danger) · stroke 2 round · 그라디언트 0.18→0 · 그리드 · 끝점 dot | analytics shared AreaChart viewBox 800×200 |
+| 3 | **KPI Card** | `548:2` | Content | Label+Value+ChangePill 인스턴스+미니 sparkline (composition) | reportKpiCard.kpiCardV2 |
+| 4 | **Data Table** | `548:11` | Content | header + rows · cell media/text/numeric/badge(instance) · 행 구분선 | analytics ContentTable |
+| 5 | **Node Card** | `549:5` | Shell | header(type Badge + title + more) + body slot + 좌우 handle | node-canvas-v2 NODE_CONTAINER |
+| 6 | **Editor Grid** | `549:15` | Shell | assets(236)/preview(flex)/properties(324) + timeline(400) 레이아웃 | vemClass.ts grid-template |
+| 7 | **CaptionPanel** | `549:25` | Forms | 색 swatch + 크기 slider (highlight shorts) | CaptionColorPanel |
 
 바인딩: bg-surface · fg-primary · fg-secondary · stroke-default · accent-primary · fg/bg-success · fg/bg-danger.
 값·곡선·행은 placeholder(인스턴스가 data 교체). Pricing/Payment는 composition으로 판정되어 신규 컴포넌트 아님.

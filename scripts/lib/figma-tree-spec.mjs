@@ -42,6 +42,25 @@ export function hasOwnPaint(node) {
   return false;
 }
 
+/**
+ * auth-fixture 트리를 scenes 트리와 같은 모양으로 정규화한다.
+ *
+ * 두 측정기의 출력이 다르다:
+ * - `product.scenes.json` — 노드에 `style` 객체가 통째로 들어 있다(축 97개).
+ * - `product.auth-fixture.json` — 노드는 `styleRef`만 갖고 실제 값은 `computedStyles` 테이블(505개)에
+ *   모여 있다. 같은 스타일을 쓰는 노드가 많아 이렇게 하면 파일이 훨씬 작다.
+ *
+ * 변환기는 `style`을 직접 읽으므로 여기서 참조를 풀어 준다. 원본을 건드리지 않고 새 객체를 만든다.
+ */
+export function normalizeAuthFixtureTree(tree, computedStyles) {
+  const table = new Map(computedStyles.map((entry) => [entry.id, entry.value]));
+  return tree.map((node) => {
+    const style = table.get(node.styleRef);
+    if (!style) throw new Error(`[figma-tree-spec] styleRef를 찾지 못했습니다: ${node.styleRef} (${node.path})`);
+    return { ...node, style };
+  });
+}
+
 /** 측정 트리(평탄 배열)를 path 기준 계층으로 되돌린다. */
 export function buildHierarchy(tree, rootPath = "main") {
   const byPath = new Map(tree.map((node) => [node.path, node]));

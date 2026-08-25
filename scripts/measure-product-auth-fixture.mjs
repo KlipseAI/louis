@@ -7,6 +7,7 @@ import { delimiter, dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { chromium } from "playwright";
 import { atomicWriteBatch } from "./lib/atomic-output.mjs";
+import { captureDeclaredStyles } from "./lib/declared-styles.mjs";
 import { resolveProductRef } from "./lib/product-ref.mjs";
 
 // 이 측정기는 운영 인증을 재현하지 않는다. 제품이 소스에서 명시한 development-only bypass로
@@ -577,6 +578,28 @@ try {
             overlays,
           };
         }, { styleAxes: STYLE_AXES, pseudoStyleAxes: PSEUDO_STYLE_AXES });
+
+        // **선언된 CSS 원문을 CDP로 덧붙인다.** `getComputedStyle`은 해결된 값을 주므로 `width:100%`와
+        // 고정 px가 구분되지 않는다 — Figma Auto Layout(FILL/HUG/FIXED)을 정하려면 선언 원문이 필요하다.
+        // 트리 루트는 런타임에 정해지므로(viewport와 가장 크게 겹치는 body 자식) `rootPath`의 인덱스를
+        // 그대로 써서 CDP 쪽 루트를 찾는다. 경로 스킴이 같아 path로 그대로 붙는다.
+        const rootBodyIndex = Number(measured.rootPath.slice("body.".length));
+        const { declared, nodeCount: declaredNodeCount } = await captureDeclaredStyles(
+          context,
+          page,
+          (node, attributes, bodyIndex) => bodyIndex === rootBodyIndex,
+          { rootPath: measured.rootPath },
+        );
+        if (declaredNodeCount !== measured.tree.length) {
+          throw new Error(
+            "[product-auth-fixture] 선언 스타일 노드 수가 측정 트리와 다릅니다: " +
+              declaredNodeCount + " != " + measured.tree.length + " (" + route + ")",
+          );
+        }
+        for (const node of measured.tree) {
+          const entry = declared.get(node.path);
+          if (entry && Object.keys(entry).length > 0) node.declared = entry;
+        }
 
         const uniqueRecords = (records) => [...new Map(records
           .map((entry) => [JSON.stringify(entry), entry])).values()]

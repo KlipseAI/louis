@@ -129,7 +129,16 @@ export async function captureDeclaredStyles(context, page, rootPredicate, option
     await cdp.send("DOM.enable");
     await cdp.send("CSS.enable");
     const { root } = await cdp.send("DOM.getDocument", { depth: -1, pierce: false });
-    const rootElement = findCdpElement(root, (node) => rootPredicate(node, cdpAttributes(node)));
+
+    // 루트를 body 자식 인덱스로 찾는 경우를 함께 지원한다. auth-fixture의 트리 루트는 런타임에
+    // 정해지므로(viewport와 가장 크게 겹치는 body 자식) predicate가 그 인덱스를 받아야 한다.
+    const body = findCdpElement(root, (node) => node.localName === "body");
+    const bodyElements = (body?.children || []).filter((child) => child.nodeType === ELEMENT_NODE);
+    const indexOfBodyChild = new Map(bodyElements.map((child, index) => [child.nodeId, index]));
+
+    const rootElement = findCdpElement(root, (node) =>
+      rootPredicate(node, cdpAttributes(node), indexOfBodyChild.get(node.nodeId)),
+    );
     if (!rootElement) throw new Error("[declared-styles] 측정 루트 요소를 CDP 트리에서 찾지 못했습니다.");
     const pathToNodeId = mapPathsToNodeIds(rootElement, options.rootPath ?? "main");
     const declared = await collectDeclaredStyles(cdp, pathToNodeId, options);

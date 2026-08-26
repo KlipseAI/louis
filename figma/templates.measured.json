@@ -50,9 +50,9 @@
         "$was": 16
       },
       "overlayHeightRatio": {
-        "value": 0.4,
-        "evidence": "**제품은 30%를 고정 높이로 쓰고 DS는 하한으로 쓴다.** 제품 archivePreviewTitleOverlay는 height:30%라 270px 카드에서 81px이 되고 세 줄이 넘친다 — DS가 block-size:fit-content · min-block-size:30%로 고친 그 결함이다(project-card.md). 4열 1440 화면의 카드가 270이므로 세 줄이 하한을 이겨 107.7/269 = 0.4가 된다. 0.3은 카드가 360 이상일 때의 값이며 figma/components.measured.json의 project-card가 그 사실을 적는다.",
-        "$productValue": 0.3
+        "value": 0.39,
+        "evidence": "2026-08-26 재계산 — 오버레이 높이는 **내용이 정하는 고정값 107.7px** 이다(eyebrow 21 + title 24 + meta 21 + gap 4×2 + padding 16×2). 카드 폭과 무관하다. 비율은 그것을 media 한 변으로 나눈 값이므로 카드가 커지면 비율이 **내려간다** — 270 카드(media 269)에서 107.7/269 = 0.400 이었고, 276 카드(media 275)에서는 107.7/275 = 0.392 → 0.39 다. 같은 날 cardWidth 를 270→276 으로 고치면서 이 값을 재계산하지 않아 계약이 스스로 모순됐다(0.4 와 276 은 양립 불가). 조립 에이전트가 잡았다.",
+        "$was": 0.4
       },
       "overlayPadding": {
         "value": 16,
@@ -112,6 +112,13 @@
         "cardRadius: 16 → 12",
         "cardWidth: 270 → 276",
         "cardHeight: 270 → 276"
+      ]
+    },
+    {
+      "date": "2026-08-26",
+      "why": "cardWidth 갱신의 연쇄를 놓쳤다. overlayHeightRatio 는 cardWidth 에 종속인데 함께 고치지 않아 계약 두 항목이 서로 모순됐다.",
+      "fields": [
+        "overlayHeightRatio: 0.4 → 0.39"
       ]
     }
   ]

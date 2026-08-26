@@ -303,6 +303,63 @@ const COMPONENT_CONTRACTS = [
       extraStrokeWeights: [],
     },
   },
+  // ── Figma 선행 컴포넌트 ──────────────────────────────────────────────────
+  // 제품 전수 인벤토리(2026-08-26)에서 「재사용되는데 DS 에 없다」로 확인된 것들을 Figma 에
+  // 먼저 세웠다. LOUIS recipe 가 아직 없으므로 declaration 을 대조할 수 없다 — 코드가 생기면
+  // variantProperties·geometry 를 채운다. 계약에서 빼 두면 게이트가 「계약에 없는 set」으로
+  // 잡아 매번 걸리므로, **아직 코드가 없다는 사실을 계약으로 적는다.**
+  {
+    id: "keycap",
+    figmaName: "Keycap",
+    figmaAhead: "LOUIS recipe 없음 — CommandPalette.tsx:281-296 이 정본이다.",
+    variantProperties: {},
+    figmaOnlyProperties: {
+      Label: { type: "TEXT", reason: "키캡 글자. 코드에서는 children 이다." },
+      Kind: { options: ["glyph", "text"], reason: "글리프 키캡과 글자 키캡은 자간·굵기만 다르다(KEY vs KEY_TEXT)." },
+    },
+  },
+  {
+    id: "menu-popover",
+    figmaName: "MenuSeparator",
+    figmaAhead: "menu-popover.css:239-251 이 정본이다. 1px 선 하나라 코드 선언이 없다.",
+    variantProperties: {},
+    figmaOnlyProperties: {},
+  },
+  {
+    id: "form-message",
+    figmaName: "FormMessage",
+    figmaAhead: "LOUIS recipe 없음 — app/login/page.tsx:199,537 이 정본이다.",
+    variantProperties: {},
+    figmaOnlyProperties: {
+      Message: { type: "TEXT", reason: "메시지 문구. 코드에서는 children 이다." },
+      Tone: { options: ["error", "neutral"], reason: "제품은 error 만 쓰지만 neutral 도인 자리가 있다(도움말)." },
+    },
+  },
+  {
+    id: "breadcrumb",
+    figmaName: "Breadcrumb",
+    figmaAhead: "LOUIS recipe 없음 — Gnb.tsx:5335-5352 이 정본이다.",
+    variantProperties: {},
+    figmaOnlyProperties: {
+      Current: { type: "TEXT", reason: "현재 페이지 이름." },
+      Parent: { type: "TEXT", reason: "부모 이름. nested 에서만 보인다." },
+      Kind: { options: ["single", "nested"], reason: "코드의 mainChromePageNav.kind 와 같은 축이다." },
+    },
+  },
+  {
+    id: "segmented-control-item",
+    figmaName: "SegmentedControlItem",
+    figmaAhead: "세그먼트 하나를 Figma 에서 별도 set 으로 뽑았다 — 상호작용과 프로토타입을 받는 단위다. 코드에서는 SegmentedControl 안의 label 이라 독립 선언이 없다.",
+    variantProperties: {},
+    figmaOnlyProperties: {
+      Label: { type: "TEXT", reason: "세그먼트 라벨." },
+      Size: { options: ["lg", "md", "xs"], reason: "컨트롤의 size 를 세그먼트가 물려받는다." },
+      State: {
+        options: ["Default", "Hover", "Selected", "Focus", "Disabled", "SelectedDisabled"],
+        reason: "segmented-control.css:124·130·136·158·163. hover 는 글자색만, selected 는 면+글자, focus 는 outline, disabled 는 글자만 흐리게.",
+      },
+    },
+  },
   {
     id: "menu-popover",
     figmaName: "MenuPanel",

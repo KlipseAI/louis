@@ -806,24 +806,26 @@ const COMPONENT_CONTRACTS = [
     // 파일이 내보내는 것은 묶음 하나뿐이다. 설계가 걸린 곳도 묶음이다: 칸이
     // `flex-1 min-w-0 max-w-14` 라 컨테이너에 맞춰 줄고(주석: 12칸을 고정폭으로 두면 360px 모달에서
     // 넘친다), 칸 사이 2 와 네 칸마다 오는 구분자를 칸 하나짜리 컴포넌트는 소유할 수 없다.
-    // 그래서 Figma 도 칸을 채움으로 두고 프레임 폭 386 만 고정했다 — 386 은 칸이 상한 28 에 닿는
-    // 폭이고 12*28 + 2*12 + 13*2 = 386 으로 떨어진다.
+    // 그래서 Figma 도 프레임 폭 386 만 고정했다 — 386 은 칸이 상한 28 에 닿는 폭이고
+    // 12*28 + 2*12 + 13*2 = 386 으로 떨어진다. **칸이 채움인지 고정인지는 확인되지 않는다** —
+    // 되읽기가 sizing mode 를 담지 않는다.
     //
     // **칸 수 12 와 묶음 4 는 이 컴포넌트의 값이 아니다.** length / groupSize prop 으로 들어오고
     // 정본은 app/lib/payments/coupon-code.ts 의 COUPON_CODE_LENGTH ·
     // COUPON_CODE_GROUP_SIZE 다. Figma 의 12칸 · 구분자 2 는 그 한 소비처의 표본이다.
     //
     // **경계가 헤어라인이 아니라 진짜 1px 테두리다.** DS-D-0023 이후 이 저장소의 기본은
-    // inset 0 0 0 0.5px 그림자이고 LOUIS TextField 도 그 방식인데, 칸이 열둘이라 경계가 촘촘히
-    // 반복되는 조형이어서 제품은 border 1 을 골랐다. 되읽기에 strokeWeight 1 과 Cell 1: 1|INSIDE 가
-    // 있는 것이 정상이고, effects 가 비어 있는 것도 정상이다.
+    // inset 0 0 0 0.5px 그림자이고 LOUIS TextField 도 그 방식인데, 이 컴포넌트만 border 1 을 쓴다.
+    // **왜 그런지는 코드 주석에도 제품 커밋에도 결정 기록에도 없다 — 소유자 확인이 필요하다.**
+    // 되읽기에 strokeWeight 1 과 Cell 1: 1|INSIDE 가 있는 것이 정상이고, effects 가 비어 있는
+    // 것도 정상이다.
     strokes: { "Cell 1": { weight: 1, align: "INSIDE" } },
     effects: {},
     figmaOnlyProperties: {
       State: {
         options: ["Default", "Focus", "Disabled"],
         reason:
-          "Focus 는 코드에서 CSS 상태([&:focus]) 이고 Disabled 는 disabled prop 이 만드는 네이티브 disabled 다. Figma 에 CSS 상태가 없어 한 축에 묶는다. **Hover 가 없는 것은 결손이 아니라 사실이다** — 정본 칸 클래스에 :hover 선언이 하나도 없다(CarouselArrow · GnbMenuItem 과 정반대다: 그쪽은 Hover 가 있고 Focus 가 없다). **입력됨/빈칸과 오류도 축이 아니다** — 채워짐을 가르는 규칙이 CSS 에 없고(상태 선택자가 :focus 와 :disabled 둘뿐이다), 오류는 칸이 아니라 형제 p role=alert 가 지며 그것은 이미 FormMessage Tone=error 다. **Focus 는 칸 하나의 상태인데 축이 묶음에 있다** — 제품에서 :focus 는 열두 칸 중 하나에만 서는데, 되읽기가 파트별 fill 분해를 주지 않아(세 변형의 boundFills 가 26 으로 같다) Figma 가 몇 칸을 포커스로 그렸는지 이 게이트로는 확인할 수 없다(design/components/segmented-code-input.md Known deviations 4). **포커스 색이 셋 다 다르다** — 제품은 primary-400(#38a4ff) 72% 를 두 테마 모두 쓰고, color/stroke-focus 는 모드마다 갈리며(#0088ff / #38a4ff), 그래서 모드 불변인 color/accent-primary @72% 에 묶었는데 그 값은 #0088ff 다. 바인딩 검사는 「묶였는가」만 보므로 이 어긋남을 잡지 못한다(같은 문서 Known deviations 1).",
+          "Focus 는 코드에서 CSS 상태([&:focus]) 이고 Disabled 는 disabled prop 이 만드는 네이티브 disabled 다. Figma 에 CSS 상태가 없어 한 축에 묶는다. **Hover 가 없는 것은 결손이 아니라 사실이다** — 정본 칸 클래스에 :hover 선언이 하나도 없다(CarouselArrow · GnbMenuItem 과 정반대다: 그쪽은 Hover 가 있고 Focus 가 없다). **입력됨/빈칸과 오류도 축이 아니다** — 채워짐을 가르는 규칙이 CSS 에 없고(상태 선택자가 :focus 와 :disabled 둘뿐이다), 오류는 칸이 아니라 형제 p role=alert 가 지는데, 제품에 FormMessage 컴포넌트는 없고 그 p 는 인라인 마크업이라 form-message.md 가 정본으로 지목하는 로그인 화면과 색 단계·여백·role 이 다르다(같은 문서 Known deviations 11). **Focus 는 칸 하나의 상태인데 축이 묶음에 있다** — 제품에서 :focus 는 열두 칸 중 하나에만 서는데, 되읽기가 파트별 fill 분해를 주지 않아(세 변형의 boundFills 가 26 으로 같다) Figma 가 몇 칸을 포커스로 그렸는지 이 게이트로는 확인할 수 없다(design/components/segmented-code-input.md Known deviations 4). **포커스 색이 셋 다 다르다** — 제품은 primary-400(#38a4ff) 72% 를 두 테마 모두 쓰고, color/stroke-focus 는 모드마다 갈리며(#0088ff / #38a4ff), 그래서 모드 불변인 color/accent-primary @72% 에 묶었는데 그 값은 #0088ff 다. 바인딩 검사는 「묶였는가」만 보므로 이 어긋남을 잡지 못한다(같은 문서 Known deviations 1).",
       },
     },
     // geometry 를 넣지 않았다 — figma/components.measured.json 에 segmented-code-input 항목이 없어

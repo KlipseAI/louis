@@ -177,11 +177,15 @@ if (P.head) {
     }
     target = target.children[index];
   }
+  // **대기 자리를 먼저 지운다.** margin→padding 이관은 "흐름 자식이 하나일 때"만 도는데,
+  // 자리표시를 남긴 채 교체본을 만들면 흐름 자식이 둘로 보여 이관이 건너뛰어진다.
+  // 실측 사고: `/mypage/upgrade/fail` desktop의 `main`이 margin-left 280을 못 받아
+  // 1628이 아니라 1920으로 그려졌다.
   const holder = target.parent;
   const at = holder.children.indexOf(target);
+  target.remove();
   const built = buildNode(P.spec, holder);
   holder.insertChild(at, built);
-  target.remove();
   result = { chunk: P.path.join("."), replaced: built.name };
 }
 return result;

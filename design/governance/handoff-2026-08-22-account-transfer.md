@@ -6,6 +6,12 @@ authority: reference
 
 # 계정 이전 인계서 (2026-08-22)
 
+> **낡음 주의 (2026-08-26).** 이 문서는 2026-08-22 시점의 기록이며 그대로 둔다. 다만 파일 역할
+> 기술은 이후 뒤집혔다 — 소유자 기준 **LOUIS 는 `OlYKERKOkgbxBEEoXGZW2c`** 이고
+> `bxGEp0km5zluMJGulaTvFW` 는 은퇴 진행 중인 선행 파일이다. 아래에서 그것을 「DS 정본 라이브러리」로
+> 부르는 대목은 지금 기준으로 틀렸다. 현재 정본은
+> [figma-sync](figma-sync.md) 「운영 파일」과 [DS-D-0025](decisions/DS-D-0025-figma-as-projection.md) 다.
+
 작업이 **다른 Claude Code 계정으로 넘어간다.** 이 문서는 그 경계에서 사라지는 것과, 사라지기
 전에 저장소로 옮겨 둔 것을 적는다. 큐와 임무는 [실행 인계서](execution-handoff.md)가,
 본류 작업은 [제품 실측 대조 인계서](handoff-2026-08-19-product-parity.md)가 소유한다.

@@ -15,12 +15,25 @@ Figma에는 역할이 다른 **파일 셋**이 있다. 섞지 않는다. **쓰�
 
 | 역할 | File key | 소유 | 쓰기 |
 | --- | --- | --- | --- |
-| 디자인 시스템 라이브러리 (정본 projection) | `bxGEp0km5zluMJGulaTvFW` — "Klipse Design System — Library" | 이 저장소 | 허용. `verify-figma-parity` · `readback.json` · `snapshot.json` 이 이 파일을 가리킨다 |
-| 제품 화면 이식 보드 | `OlYKERKOkgbxBEEoXGZW2c` | 이 저장소 | 허용. **게이트 밖이다.** 조립 규칙은 [figma-screen-assembly](figma-screen-assembly.md), 실행 절차는 `.claude/skills/klipse-figma-transplant/SKILL.md` |
+| **LOUIS — 현행 작업 파일** | `OlYKERKOkgbxBEEoXGZW2c` — Figma 상 이름 **"LOUIS"** | 이 저장소 | 허용. **소유자가 「LOUIS 피그마」라고 부르는 파일이 이것이다.** 제품 화면 8페이지 + 자산 + DS 변수 사본. DS 컴포넌트 레이어는 여기에 만든다 |
+| 선행 라이브러리 (은퇴 진행 중) | `bxGEp0km5zluMJGulaTvFW` — "Klipse Design System — Library" | 이 저장소 | 조건부. DS 컴포넌트 26개와 변수 378개가 여기 남아 있고 `verify-figma-parity` · `readback.json` · `snapshot.json` 이 **아직 이 파일을 가리킨다** — 아래 「게이트가 은퇴 파일을 가리킨다」 참조 |
 | 제품 미러 reference | `CNORJOONt4z0a4Bl22Kjuu` — "Klipse 3.0" | 제품/디자인 작업자 | **금지.** 읽기 전용 evidence ([KP-FIGMA-001](../../migration/product-baseline.md)) |
 
-**두 쓰기 대상은 collection 이름 체계가 다르다** — 아래 「이전은 끝나지 않았다」 절 참조.
-DS 변수·style·component 를 쓸 곳은 라이브러리이고, 제품 화면을 조립할 곳은 이식 보드다.
+**어느 파일이 LOUIS 인지 헷갈리지 마라.** 이 문서는 오래도록 `bxGEp0km…` 을 「정본 라이브러리」로
+적어 왔고, 그 기술을 믿은 작업자가 소유자에게 그 파일을 열어 달라고 반복 요청하는 일이 실제로
+일어났다(2026-08-26). 소유자 기준 LOUIS 는 `OlYKERKOkgbxBEEoXGZW2c` 다.
+
+### 게이트가 은퇴 파일을 가리킨다 (미해결)
+
+`readback.json` · `snapshot.json` · `verify-figma-parity` 는 여전히 `bxGEp0km…` 를 읽는다.
+**이것은 의도가 아니라 미완결이다.** 그대로 두면 게이트는 아무도 안 쓰는 파일에 대해 green 을 낸다.
+
+지금 바로 대상을 바꿀 수는 없다 — LOUIS 파일에는 **DS 컴포넌트가 0개**이고 변수도 344 개로
+선행 파일(378)보다 34 개 적다(그 34 개는 [DS-D-0025](decisions/DS-D-0025-figma-as-projection.md)
+에 따라 동결됐다). 대상을 옮기면 게이트가 즉시 red 가 된다.
+
+해소 순서는 이렇다. **컴포넌트 레이어를 LOUIS 파일에 세운다 → 변수를 정리한다 → readback 대상을
+옮긴다 → 선행 파일을 폐기한다.** 그 전까지 이 절을 지우지 않는다.
 
 **이전은 끝나지 않았고, 두 파일은 지금 서로 다른 것이 됐다(2026-08-22 실측).**
 
@@ -28,7 +41,7 @@ DS 변수·style·component 를 쓸 곳은 라이브러리이고, 제품 화면�
 23개를 옮겼다. 그 뒤 그 파일에서 **제품 화면 이식**이 진행되면서 파일의 성격이 갈렸다.
 두 파일을 Figma에서 직접 세면 이렇다.
 
-| | `bxGEp0km5zluMJGulaTvFW` (정본 라이브러리) | `OlYKERKOkgbxBEEoXGZW2c` (제품 화면 이식 보드) |
+| | `bxGEp0km5zluMJGulaTvFW` (선행 라이브러리) | `OlYKERKOkgbxBEEoXGZW2c` (**LOUIS** — 현행) |
 | --- | --- | --- |
 | 페이지 | Cover · Foundations · Components · Patterns · Templates · Product inventory (6) | 여정 순 8페이지 (00 START HERE ~ 99 보류) |
 | collection | `Klipse Primitive` · `Klipse Semantic` · `Klipse Semantic Color`(2모드) | `1 · Palette`(2모드) · `2 · Semantic`(4모드) · `3 · Scale` |
@@ -38,13 +51,13 @@ DS 변수·style·component 를 쓸 곳은 라이브러리이고, 제품 화면�
 **collection 이름 체계가 서로 다르다.** 한쪽에서 다른 쪽으로 그냥 옮길 수 없고, 옮기려면
 매핑을 먼저 결정해야 한다.
 
-`readback.json`·`snapshot.json`과 `verify-figma-parity`는 **정본 라이브러리
-`bxGEp0km5zluMJGulaTvFW`를 가리킨다.** DS 변수·style·component를 쓸 곳은 그 파일이다.
-제품 화면 조립은 `OlYKERKOkgbxBEEoXGZW2c`에서 하고, 그 규약은
+`readback.json`·`snapshot.json`과 `verify-figma-parity`는 **선행 라이브러리
+`bxGEp0km5zluMJGulaTvFW`를 가리킨다 — 위 「게이트가 은퇴 파일을 가리킨다」가 그 미완결을 소유한다.**
+현행 작업 파일은 `OlYKERKOkgbxBEEoXGZW2c`("LOUIS")이고 제품 화면 조립 규약은
 [figma-screen-assembly](figma-screen-assembly.md)와 `klipse-figma-transplant` 스킬이 소유한다.
 **둘을 섞지 마라 — 어느 파일에 쓰는지 먼저 확인한다.**
 
-라이브러리 파일은 2026-08-14에 `SEJUNKI` 팀(pro tier, Full seat) drafts에 생성됐다. 단일 파일
+선행 라이브러리 파일은 2026-08-14에 `SEJUNKI` 팀(pro tier, Full seat) drafts에 생성됐다. 단일 파일
 3-페이지 구조를 유지한다 — 파일 간 변수·component 소비는 발행을 요구하는데
 [DS-D-0025](decisions/DS-D-0025-figma-as-projection.md)가 발행하지 않기로 했으므로 파일 분리는
 검토 대상이 아니다.

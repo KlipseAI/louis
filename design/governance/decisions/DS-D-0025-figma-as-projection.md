@@ -9,8 +9,9 @@ authority: normative
 - Status: accepted
 - Date: 2026-08-26
 - Owners: repository owner
-- Affects: `governance-figma-sync`, `governance-execution-playbook`, 정본 라이브러리
-  `bxGEp0km5zluMJGulaTvFW`, 제품 화면 이식 보드 `OlYKERKOkgbxBEEoXGZW2c`
+- Affects: `governance-figma-sync`, `governance-execution-playbook`,
+  `klipse-figma-transplant` 스킬, LOUIS 현행 파일 `OlYKERKOkgbxBEEoXGZW2c`,
+  선행 라이브러리 `bxGEp0km5zluMJGulaTvFW`
 
 ## Context
 
@@ -22,7 +23,7 @@ Figma를 두 가지로 쓸 수 있는데 문서가 어느 쪽인지 확정하지
 B는 **library publish 없이는 성립하지 않는다.** Figma에서 미발행 파일의 컴포넌트·변수·스타일은
 다른 파일이 소비할 수 없다. 2026-08-26 실측으로 그 결과가 확인됐다.
 
-| | `OlYKERKOkgbxBEEoXGZW2c` ("LOUIS") | `bxGEp0km5zluMJGulaTvFW` (정본 라이브러리) |
+| | `OlYKERKOkgbxBEEoXGZW2c` — **LOUIS, 현행 작업 파일** | `bxGEp0km5zluMJGulaTvFW` — 선행 라이브러리 |
 | --- | --- | --- |
 | DS 컴포넌트 | **0개** | 26개 |
 | 있는 컴포넌트 | logo·tile·icon 326 + `Product/*` 화면 조립 27세트 | — |
@@ -35,6 +36,12 @@ B는 **library publish 없이는 성립하지 않는다.** Figma에서 미발행
 
 publish를 미뤄 온 근거는 타당했다 — 미발행이라 rename 99건(DS-D-0024 색 마이그레이션)을 무비용으로
 할 수 있었다. 발행하는 순간 변수 이름이 계약이 되고 이후 rename·삭제가 구독 파일의 바인딩을 깬다.
+
+**어느 파일이 LOUIS 인지도 이 결정과 함께 확정한다.** 소유자 기준 LOUIS 는
+`OlYKERKOkgbxBEEoXGZW2c`(Figma 상 이름 "LOUIS")다. `bxGEp0km…` 은 2026-08-21 이전을 시작하고
+끝내지 못한 **선행 파일**이며, 문서가 그것을 계속 「정본 라이브러리」로 적어 둔 탓에 작업자가
+소유자에게 그 파일을 열어 달라고 반복 요청하는 일이 벌어졌다. `figma-sync.md` 의 운영 파일 표를
+이 결정과 같은 커밋에서 고쳤다.
 
 ## Decision
 
@@ -103,12 +110,17 @@ publish를 미뤄 온 근거는 타당했다 — 미발행이라 rename 99건(DS
 
 ## 후속
 
-- **컴포넌트 5종 미작도** — `alert` · `node-chip` · `switch` · `table` · `tabs`. LOUIS CSS 레시피 27개
-  중 이 다섯만 라이브러리에 아트보드가 없다(변수는 이미 들어가 있다). A 모델에서도 "시스템이
-  이렇게 생겼다" 를 보이려면 필요하므로 남은 과제다.
-- **막힌 것: 라이브러리의 Plugin API 접근.** 2026-08-26 기준 `bxGEp0km5zluMJGulaTvFW` 는
+- **게이트가 은퇴 파일을 가리킨다.** `readback.json`·`snapshot.json`·`verify-figma-parity` 는 아직
+  `bxGEp0km…` 를 읽는다. 지금 대상을 옮기면 LOUIS 파일에는 DS 컴포넌트가 0 개이고 변수도 34 개
+  적어 게이트가 즉시 red 가 된다. 해소 순서는 **컴포넌트 레이어를 LOUIS 에 세운다 → 변수 정리 →
+  readback 대상 이전 → 선행 파일 폐기**. `figma-sync.md` 「게이트가 은퇴 파일을 가리킨다」가 소유한다.
+
+- **LOUIS 파일에 DS 컴포넌트 레이어가 없다.** 현행 파일의 컴포넌트는 `Product/*` 화면 조립 27 세트와
+  logo·tile·icon 326 개뿐이고 DS 프리미티브는 0 개다. CSS 레시피 27 종을 여기에 세워야 A 모델의
+  "시스템이 이렇게 생겼다" 가 성립한다. 그중 `alert`·`node-chip`·`switch`·`table`·`tabs` 다섯은
+  선행 라이브러리에도 없고 `figma/components.measured.json` 에 실측 스펙조차 없다 — CSS·토큰에서
+  도출해야 한다.
+- **선행 라이브러리는 Plugin API 로 열리지 않는다.** 2026-08-26 기준 `bxGEp0km…` 는
   `get_metadata`(읽기)는 되는데 `use_figma` 가 `User does not have permission to access this file
-  using MCP` 로 거부한다. 같은 세션 오전에는 같은 경로로 변수 34개를 썼고, 같은 계정으로 보드
-  `OlYKERKOkgbxBEEoXGZW2c` 와 미러 `CNORJOONt4z0a4Bl22Kjuu` 는 `use_figma` 가 정상 동작한다.
-  파일이 사라지거나 권한을 잃은 정황은 없다 — **Figma 데스크톱 앱에 그 파일이 열려 있지 않은
-  것이 가장 유력**하다. 작도 전에 이 접근을 먼저 회복해야 한다.
+  using MCP` 로 거부한다. LOUIS 파일과 미러는 정상 동작한다. **은퇴 대상이므로 이 접근을 회복하려
+  애쓰지 않는다** — 필요한 정보는 이미 `readback.json` 에 캡처돼 있다.

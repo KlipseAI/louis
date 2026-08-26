@@ -16,6 +16,8 @@
 //       그 반환 JSON 을 `figma/readback.json` 의 `components` 에 병합한다. 키는 알파벳순을
 //       유지하고 **나머지 블록은 건드리지 않는다.**
 //   node scripts/figma-readback-emit.mjs --spec [--only ...]
+//   node scripts/figma-readback-emit.mjs --variables --only color/a,color/b   # 변수 행만 뜬다
+//   node scripts/figma-readback-emit.mjs --merge-variables <결과.json>
 //       채취 명세만 낸다(디버그용).
 //
 // **채취 명세(`CAPTURE`)가 왜 필요한가.** 되읽기는 「Figma 를 전부 덤프한 것」이 아니라
@@ -150,6 +152,8 @@ function usage(message) {
       "  node scripts/figma-readback-emit.mjs --components [--only Name1,Name2]",
       "  node scripts/figma-readback-emit.mjs --merge <결과.json>",
       "  node scripts/figma-readback-emit.mjs --spec [--only Name1,Name2]",
+      "  node scripts/figma-readback-emit.mjs --variables --only color/a,color/b",
+      "  node scripts/figma-readback-emit.mjs --merge-variables <결과.json>",
     ].join("\n"),
   );
   process.exit(message ? 1 : 0);
@@ -472,10 +476,96 @@ function mergeInto(resultPath) {
   );
 }
 
+
+/** 변수 부분 채취 — 이름을 지정한 변수의 행만 뜬다.
+ *
+ * 컬렉션 전체(191행)를 한 번에 뜨면 `use_figma` 응답 20KB 제한에서 잘린다. 토큰 하나를 고쳤을
+ * 때 되읽기를 손으로 고치지 않으려면 **그 행만 다시 뜨는 길**이 있어야 한다. 행 형식은
+ * `readback.json` 의 `rowFormat` 이 정한다:
+ *   [figmaName, resolvedType, scopesCsv, [[modeName, aliasRef|null, rawValue|null], ...]] */
+function variablesPluginSource(names) {
+  return `// 생성물 — \`node scripts/figma-readback-emit.mjs --variables\` 가 낸 코드다. 손으로 고치지 않는다.
+const NAMES = ${JSON.stringify(names)};
+const cs = await figma.variables.getLocalVariableCollectionsAsync();
+const all = await figma.variables.getLocalVariablesAsync();
+const byId = new Map(all.map((v) => [v.id, v]));
+const collById = new Map(cs.map((c) => [c.id, c.name]));
+const r6 = (n) => Math.round(n * 1e6) / 1e6;
+const out = {};
+for (const v of all) {
+  if (NAMES.indexOf(v.name) === -1) continue;
+  const coll = cs.find((c) => c.id === v.variableCollectionId);
+  const modeName = new Map(coll.modes.map((m) => [m.modeId, m.name]));
+  const modes = [];
+  for (const [modeId, raw] of Object.entries(v.valuesByMode)) {
+    const name = modeName.get(modeId);
+    if (name === undefined) continue;
+    if (raw && raw.type === "VARIABLE_ALIAS") {
+      const t = byId.get(raw.id);
+      modes.push([name, collById.get(t.variableCollectionId) + "::" + t.name, null]);
+    } else if (raw && typeof raw === "object" && "r" in raw) {
+      modes.push([name, null, [r6(raw.r), r6(raw.g), r6(raw.b), r6(raw.a)]]);
+    } else modes.push([name, null, raw]);
+  }
+  (out[coll.name] = out[coll.name] || []).push([v.name, v.resolvedType, v.scopes.join(","), modes]);
+}
+const missing = NAMES.filter((n) => !Object.values(out).some((rows) => rows.some((r) => r[0] === n)));
+return { rows: out, missing };
+`;
+}
+
+/** `--variables` 결과를 `readback.json` 의 컬렉션 행에 **이름으로 덮어쓴다.** 순서는 건드리지 않는다. */
+function mergeVariables(resultPath) {
+  const readbackFile = resolve(repoRoot, READBACK_PATH);
+  const readback = JSON.parse(readFileSync(readbackFile, "utf8"));
+  const incoming = JSON.parse(readFileSync(resolve(process.cwd(), resultPath), "utf8"));
+  if (Array.isArray(incoming.missing) && incoming.missing.length > 0) {
+    console.error(`[readback-emit] Figma 에서 찾지 못한 변수가 있습니다: ${incoming.missing.join(", ")}`);
+    process.exit(1);
+  }
+  let touched = 0;
+  for (const [collName, rows] of Object.entries(incoming.rows ?? {})) {
+    const target = readback.collections?.[collName];
+    if (target === undefined) {
+      console.error(`[readback-emit] 되읽기에 없는 컬렉션입니다: ${collName}`);
+      process.exit(1);
+    }
+    for (const row of rows) {
+      const at = target.rows.findIndex((r) => r[0] === row[0]);
+      if (at === -1) {
+        console.error(`[readback-emit] 되읽기에 없는 변수입니다: ${collName}::${row[0]}`);
+        process.exit(1);
+      }
+      /* **scopes 문자열은 덮어쓰지 않는다.** 되읽기의 `capturedBy` 가 「scopes 는 Figma 쪽 저장
+         형태라 proposal 값을 쓴다 — 게이트가 보는 축이 아니다」로 정해 두었다. Figma 는 같은
+         변수를 `ALL_FILLS,STROKE_COLOR,EFFECT_COLOR` 로, proposal 은
+         `FRAME_FILL,SHAPE_FILL,STROKE_COLOR,TEXT_FILL` 로 적는다 — 뜻은 같고 표기만 다르다.
+         여기서 덮으면 게이트와 무관한 diff 가 매번 생긴다. 갈아 끼우는 것은 **모드 값**뿐이다. */
+      const [, type, , modes] = row;
+      if (target.rows[at][1] !== type) {
+        console.error(`[readback-emit] resolvedType 이 바뀌었습니다: ${collName}::${row[0]} — ${target.rows[at][1]} → ${type}`);
+        process.exit(1);
+      }
+      target.rows[at] = [target.rows[at][0], type, target.rows[at][2], modes];
+      touched += 1;
+    }
+  }
+  writeFileSync(readbackFile, `${JSON.stringify(readback, null, 2)}\n`);
+  console.error(`[readback-emit] 변수 ${touched}개 행을 갱신했습니다.`);
+}
+
 if (argv.includes("--components")) {
   process.stdout.write(pluginSource(selectedSpec()));
 } else if (argv.includes("--spec")) {
   process.stdout.write(`${JSON.stringify(selectedSpec(), null, 2)}\n`);
+} else if (argv.includes("--variables")) {
+  const only = argv[argv.indexOf("--only") + 1];
+  if (!argv.includes("--only") || !only) usage("--variables 에는 --only <이름,이름> 이 필요합니다.");
+  process.stdout.write(variablesPluginSource(only.split(",").map((n) => n.trim()).filter(Boolean)));
+} else if (argv.includes("--merge-variables")) {
+  const path = argv[argv.indexOf("--merge-variables") + 1];
+  if (!path) usage("--merge-variables 뒤에 결과 파일 경로가 필요합니다.");
+  mergeVariables(path);
 } else if (argv.includes("--merge")) {
   const path = argv[argv.indexOf("--merge") + 1];
   if (!path) usage("--merge 뒤에 결과 파일 경로가 필요합니다.");

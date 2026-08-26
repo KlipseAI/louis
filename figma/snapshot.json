@@ -6,12 +6,12 @@
     "capturedAt": "2026-08-26",
     "capturedBy": "use_figma 전수 캡처 + proposal 대조. 변수는 이름·값·alias 를 Figma 실물과 대조해 확인했다(FNV-1a 정본 해시 · 516행). scopes 문자열과 float 정밀도(예: line-height/heading 을 Figma 는 1.350000023841858 로 보관)는 Figma 쪽 저장 형태라 proposal 값을 쓴다 — 게이트가 보는 축이 아니다. components 41개는 use_figma 로 각 set 을 순회해 뜬 값이고, MediaCard·CarouselArrow 2개와 랜딩 4개(StepTile·FaqRow·NewsCard·GnbMenuItem)는 scripts/figma-readback-emit.mjs 가 낸 채취 코드로 떴다(2026-08-26). 그 emitter 로 Keycap·Badge 를 다시 떠 기존 값과 정규화 바이트 일치를 확인했다. Button·IconButton·Slider·ProjectCard 는 일치하지 않으며 사유는 emitter 머리말의 「알려진 어긋남」에 적었다 — 되읽기가 낡은 것이지 emitter 가 틀린 것이 아니다.",
     "published": false,
-    "tokenSourceSha256": "37bf82d07ba38ba84b80bf21670fad233a082a664660e280c20e039ba09425a9",
-    "proposalSha256": "f07a138b04a479cad1aa5de18b4d585e66d6315f93737f42e7163e0d5650483e",
+    "tokenSourceSha256": "1055028e7b4bd3929b3abaf8de7851cd18973c3b8a0ae9720916b82e1bbba1f9",
+    "proposalSha256": "99fc4cfc45d0436ea681d03555b1030d5ad5df64696b09765ae8eba6a651d601",
     "readback": {
       "tokens": 516,
       "canonicalLength": 51852,
-      "fnv1a32": "12c7ce24",
+      "fnv1a32": "7c2d7a91",
       "note": "변수는 readback.json의 되읽기 행을 tokenId 공간으로 옮긴 것이고, style과 component는 같은 되읽기의 style/component 절이다. canonical 해시는 컬렉션·이름·타입·mode 값을 정렬해 이은 문자열의 FNV-1a다.",
       "styles": {
         "text": 15,
@@ -2011,11 +2011,11 @@
       "figmaName": "color/landing/text-muted",
       "resolvedType": "COLOR",
       "valuesByMode": {
+        "Light": {
+          "alias": "color-static-black-alpha-56"
+        },
         "Dark": {
           "alias": "color-static-white-alpha-56"
-        },
-        "Light": {
-          "alias": "color-static-black-alpha-48"
         }
       }
     },

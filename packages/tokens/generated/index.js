@@ -15107,17 +15107,17 @@ export const tokens = {
     },
     "color-landing-text-muted": {
       "aliasTarget": {
-        "id": "color-static-black-alpha-48",
+        "id": "color-static-black-alpha-56",
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-landing-text-muted": "color(srgb 0 0 0 / 0.48)"
+        "--louis-color-landing-text-muted": "color(srgb 0 0 0 / 0.56)"
       },
       "deprecated": null,
       "description": null,
       "id": "color-landing-text-muted",
       "mode": "light",
-      "rawValue": "{primitive.color.static-black-alpha.48}",
+      "rawValue": "{primitive.color.static-black-alpha.56}",
       "sourcePath": "semantic.light.color.landing.text-muted",
       "tier": "semantic",
       "type": "color",
@@ -15128,7 +15128,7 @@ export const tokens = {
           0,
           0
         ],
-        "alpha": 0.48
+        "alpha": 0.56
       }
     },
     "color-landing-text-soft": {

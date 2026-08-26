@@ -56851,7 +56851,7 @@
                         "left": 24
                       },
                       "align": {
-                        "counterAxis": null,
+                        "counterAxis": "CENTER",
                         "primaryAxis": "MIN"
                       }
                     },
@@ -58369,7 +58369,7 @@
                         "left": 16
                       },
                       "align": {
-                        "counterAxis": null,
+                        "counterAxis": "CENTER",
                         "primaryAxis": "MIN"
                       }
                     },
@@ -63043,7 +63043,7 @@
                         "left": 24
                       },
                       "align": {
-                        "counterAxis": null,
+                        "counterAxis": "CENTER",
                         "primaryAxis": "MIN"
                       }
                     },
@@ -64909,7 +64909,7 @@
                         "left": 16
                       },
                       "align": {
-                        "counterAxis": null,
+                        "counterAxis": "CENTER",
                         "primaryAxis": "MIN"
                       }
                     },
@@ -69931,7 +69931,7 @@
                         "left": 24
                       },
                       "align": {
-                        "counterAxis": null,
+                        "counterAxis": "CENTER",
                         "primaryAxis": "MIN"
                       }
                     },
@@ -71219,7 +71219,7 @@
                         "left": 16
                       },
                       "align": {
-                        "counterAxis": null,
+                        "counterAxis": "CENTER",
                         "primaryAxis": "MIN"
                       }
                     },
@@ -75663,7 +75663,7 @@
                         "left": 24
                       },
                       "align": {
-                        "counterAxis": null,
+                        "counterAxis": "CENTER",
                         "primaryAxis": "MIN"
                       }
                     },
@@ -77117,7 +77117,7 @@
                         "left": 16
                       },
                       "align": {
-                        "counterAxis": null,
+                        "counterAxis": "CENTER",
                         "primaryAxis": "MIN"
                       }
                     },
@@ -81727,7 +81727,7 @@
                         "left": 24
                       },
                       "align": {
-                        "counterAxis": null,
+                        "counterAxis": "CENTER",
                         "primaryAxis": "MIN"
                       }
                     },
@@ -83759,7 +83759,7 @@
                         "left": 16
                       },
                       "align": {
-                        "counterAxis": null,
+                        "counterAxis": "CENTER",
                         "primaryAxis": "MIN"
                       }
                     },
@@ -88947,7 +88947,7 @@
                         "left": 24
                       },
                       "align": {
-                        "counterAxis": null,
+                        "counterAxis": "CENTER",
                         "primaryAxis": "MIN"
                       }
                     },
@@ -90235,7 +90235,7 @@
                         "left": 16
                       },
                       "align": {
-                        "counterAxis": null,
+                        "counterAxis": "CENTER",
                         "primaryAxis": "MIN"
                       }
                     },
@@ -94679,7 +94679,7 @@
                         "left": 24
                       },
                       "align": {
-                        "counterAxis": null,
+                        "counterAxis": "CENTER",
                         "primaryAxis": "MIN"
                       }
                     },
@@ -96133,7 +96133,7 @@
                         "left": 16
                       },
                       "align": {
-                        "counterAxis": null,
+                        "counterAxis": "CENTER",
                         "primaryAxis": "MIN"
                       }
                     },
@@ -97536,7 +97536,7 @@
       "files": [
         {
           "file": "figma/app-screens.mypage-upgrade-billing-success.desktop.00.draw.js",
-          "bytes": 11922
+          "bytes": 11928
         },
         {
           "file": "figma/app-screens.mypage-upgrade-billing-success.desktop.01.draw.js",
@@ -97552,7 +97552,7 @@
       "files": [
         {
           "file": "figma/app-screens.mypage-upgrade-billing-success.mobile.00.draw.js",
-          "bytes": 10929
+          "bytes": 10935
         }
       ]
     },
@@ -97568,7 +97568,7 @@
         },
         {
           "file": "figma/app-screens.mypage-upgrade-billing-fail.desktop.01.draw.js",
-          "bytes": 11155
+          "bytes": 11161
         },
         {
           "file": "figma/app-screens.mypage-upgrade-billing-fail.desktop.02.draw.js",
@@ -97584,7 +97584,7 @@
       "files": [
         {
           "file": "figma/app-screens.mypage-upgrade-billing-fail.mobile.00.draw.js",
-          "bytes": 11342
+          "bytes": 11348
         }
       ]
     },
@@ -97596,7 +97596,7 @@
       "files": [
         {
           "file": "figma/app-screens.mypage-upgrade-billing-change-success.desktop.00.draw.js",
-          "bytes": 11585
+          "bytes": 11591
         },
         {
           "file": "figma/app-screens.mypage-upgrade-billing-change-success.desktop.01.draw.js",
@@ -97612,7 +97612,7 @@
       "files": [
         {
           "file": "figma/app-screens.mypage-upgrade-billing-change-success.mobile.00.draw.js",
-          "bytes": 10588
+          "bytes": 10594
         }
       ]
     },
@@ -97624,7 +97624,7 @@
       "files": [
         {
           "file": "figma/app-screens.mypage-upgrade-billing-change-fail.desktop.00.draw.js",
-          "bytes": 11717
+          "bytes": 11723
         },
         {
           "file": "figma/app-screens.mypage-upgrade-billing-change-fail.desktop.01.draw.js",
@@ -97640,7 +97640,7 @@
       "files": [
         {
           "file": "figma/app-screens.mypage-upgrade-billing-change-fail.mobile.00.draw.js",
-          "bytes": 10719
+          "bytes": 10725
         }
       ]
     },
@@ -97656,7 +97656,7 @@
         },
         {
           "file": "figma/app-screens.mypage-upgrade-fail.desktop.01.draw.js",
-          "bytes": 11322
+          "bytes": 11328
         },
         {
           "file": "figma/app-screens.mypage-upgrade-fail.desktop.02.draw.js",
@@ -97672,7 +97672,7 @@
       "files": [
         {
           "file": "figma/app-screens.mypage-upgrade-fail.mobile.00.draw.js",
-          "bytes": 11507
+          "bytes": 11513
         }
       ]
     },
@@ -97684,7 +97684,7 @@
       "files": [
         {
           "file": "figma/app-screens.mypage-topup-success.desktop.00.draw.js",
-          "bytes": 11539
+          "bytes": 11545
         },
         {
           "file": "figma/app-screens.mypage-topup-success.desktop.01.draw.js",
@@ -97700,7 +97700,7 @@
       "files": [
         {
           "file": "figma/app-screens.mypage-topup-success.mobile.00.draw.js",
-          "bytes": 10542
+          "bytes": 10548
         }
       ]
     },
@@ -97712,7 +97712,7 @@
       "files": [
         {
           "file": "figma/app-screens.mypage-topup-fail.desktop.00.draw.js",
-          "bytes": 11683
+          "bytes": 11689
         },
         {
           "file": "figma/app-screens.mypage-topup-fail.desktop.01.draw.js",
@@ -97728,7 +97728,7 @@
       "files": [
         {
           "file": "figma/app-screens.mypage-topup-fail.mobile.00.draw.js",
-          "bytes": 10685
+          "bytes": 10691
         }
       ]
     }

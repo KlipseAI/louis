@@ -174,7 +174,7 @@ export function toFigmaTreeSpec(tree, options = {}) {
           left: px(style.paddingLeft) ?? 0,
         },
         align: {
-          counterAxis: cssAlignToFigma(style.alignItems),
+          counterAxis: liftChildAlign(cssAlignToFigma(style.alignItems), rawChildren, children),
           primaryAxis: cssJustifyToFigma(style.justifyContent),
         },
       },
@@ -255,6 +255,35 @@ export function cssAlignToFigma(value) {
     case "flex-start": case "start": return "MIN";
     default: return null; // normal/stretch 는 Figma 기본(늘어남)과 같다
   }
+}
+
+/**
+ * 자식들의 `align-self`를 부모의 `counterAxisAlignItems`로 끌어올린다.
+ *
+ * **Figma에는 자식별 교차축 정렬이 없다.** Plugin API 문서가 못박고 있다 — `layoutAlign`의
+ * `MIN`/`CENTER`/`MAX`는 폐기됐고 교차축 정렬은 프레임 하나에 걸려 모든 자식에 똑같이 적용된다.
+ * 그래서 자식 하나만 `align-self:center`인 CSS를 그대로는 옮길 수 없다.
+ *
+ * 다만 **교차축이 FILL인 자식은 정렬 값과 무관하게 부모를 채우므로** 정렬 판정에서 빼도 된다.
+ * 남은(=크기가 콘텐츠나 고정으로 정해지는) 자식들의 `align-self`가 하나로 모이면 그 값을 부모에
+ * 올려도 결과가 같다. 실측 사례: `/mypage/topup/fail`의 `main`은 자식이 둘인데 상단 바는 FILL,
+ * 상태 섹션만 `align-self:center`다. 부모를 CENTER로 두면 섹션은 가운데, 상단 바는 그대로 꽉 찬다.
+ *
+ * 값이 갈리면 올리지 않는다 — 틀린 정렬을 전부에 강제하느니 CSS 기본을 남긴다.
+ */
+function liftChildAlign(fallback, rawChildren, specChildren) {
+  const wanted = new Set();
+  for (let index = 0; index < rawChildren.length; index += 1) {
+    const spec = specChildren[index];
+    if (!spec || spec.positioning === "ABSOLUTE") continue;
+    const style = rawChildren[index].style ?? {};
+    const declared = rawChildren[index].declared?.["align-self"] ?? style.alignSelf;
+    const figma = cssAlignToFigma(declared);
+    if (!figma) continue;
+    wanted.add(figma);
+  }
+  if (wanted.size !== 1) return fallback;
+  return [...wanted][0];
 }
 
 /** CSS `justify-content` → Figma `primaryAxisAlignItems`. */

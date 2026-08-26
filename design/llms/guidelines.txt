@@ -753,6 +753,41 @@ DS-D-0026 의 16단으로 스냅해 **79 → 46** 으로 줄였다(19 개는 이
   지배하지 않으므로 렌더에는 영향이 없지만, 바인딩을 세는 스크립트는 이걸 실제 참조로 오인한다.
   참조를 셀 때 TEXT 는 반드시 구간 단위로 세라.
 
+#### 색 팔레트 — 여섯에서 여섯으로, 겹치는 것 없이
+
+2026-08-26 에 서로 겹치던 패밀리를 정리했다.
+
+| 폐지 | → | 근거 |
+| --- | --- | --- |
+| `sky` 9단 | `blue` (제품은 `--primary-*`) | 둘 다 파랑이었다. 단계 대 단계. |
+| `ultra` 1단 | `blue/200` | 400 한 단계짜리 연파랑. 단계로 붙이면 Δ143 이라 **최근접**으로 갔다(Δ26). |
+| `amber` 9단 | `yellow` | 100 단계는 값이 아예 같았다(#fff5d6). |
+| `green` 4단 | `mint` → **`green` 으로 개명** | Klipse 의 초록은 이제 민트 계열(#00c68e)이고 이름은 하나다. |
+
+남은 팔레트: `blue` 16 · `green` 9 · `palette-gray` 12 · `pink` 9 · `red` 9 · `violet` 9 · `yellow` 9
++ 앵커 `static/black` · `static/white`.
+
+##### 알파 패밀리는 14 에서 4 로
+
+`gray-{0,100,200,300,500,600,700,800,900,1000}-alpha` 열 종이 있었다. 흡수 기준은 **합성 결과**다 —
+쓰이는 배경 위에 올렸을 때 색이 같아 보이는 `static-black/white-alpha` 단계를 골랐다. 최대 오차
+11.7/441(2.7%)로 눈에 띄지 않는다. 88% 이상은 배경이 12% 밖에 안 비치므로 불투명 팔레트색으로 보냈다.
+
+- `gray-1000-alpha` → `static-black-alpha` (같은 #000000, 오차 0)
+- `gray-0-alpha` → `static-white-alpha` (#fafafa → #ffffff, 2%)
+- 남은 알파: `static-black-alpha` 16 · `static-white-alpha` 16 · `red-alpha` 3 · `green-500-alpha` 1
+
+##### 표가 순서대로 보이려면 자릿수를 맞춰야 한다
+
+Figma 변수 표는 이름으로 정렬하고 `variableIds` 쓰기를 막아 두었다 — **이름이 유일한 지렛대다.**
+알파는 2자리(`04`), 팔레트는 3자리(`050`)로 맞췄다. `gray/1000` 은 순수 검정이라
+`static/black` 으로 빼서 gray 를 000~900 균일하게 만들었다.
+
+##### 고정 회색은 `palette-gray` 다
+
+적응형 semantic `color/gray/700` 과 고정 primitive 가 같은 id 를 갖고 충돌했다. 제품이 이미
+`--gray-*`(적응형)과 `--palette-gray-*`(고정)로 구분하므로 그 어휘를 따랐다.
+
 ## Figma 컴포넌트 작성 규범
 
 - Source: design/governance/figma-component-authoring.md

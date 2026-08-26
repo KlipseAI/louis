@@ -21,7 +21,7 @@ invariant(Object.keys(primitives).length > 0, "primitive export is empty");
 invariant(Object.keys(tokens.light).length > 0, "light token export is empty");
 invariant(
   tokens.light["color-bg-canvas"].aliasTarget?.id ===
-    "color-gray-100",
+    "color-palette-gray-100",
   "semantic alias export mismatch",
 );
 invariant(

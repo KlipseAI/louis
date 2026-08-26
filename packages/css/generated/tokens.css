@@ -1,6 +1,8 @@
 /* GENERATED FILE — edit packages/tokens/src/klipse.tokens.json. */
 
 :root {
+  --louis-color-blue-050: color(srgb 0.941176 0.968627 1 / 1);
+  --louis-color-blue-050-rgb: 240 247 255;
   --louis-color-blue-100: color(srgb 0.839216 0.921569 1 / 1);
   --louis-color-blue-100-rgb: 214 235 255;
   --louis-color-blue-200: color(srgb 0.639216 0.835294 1 / 1);
@@ -15,8 +17,6 @@
   --louis-color-blue-420-rgb: 41 154 255;
   --louis-color-blue-450: color(srgb 0.078431 0.568627 1 / 1);
   --louis-color-blue-450-rgb: 20 145 255;
-  --louis-color-blue-50: color(srgb 0.941176 0.968627 1 / 1);
-  --louis-color-blue-50-rgb: 240 247 255;
   --louis-color-blue-500: color(srgb 0 0.533333 1 / 1);
   --louis-color-blue-500-rgb: 0 136 255;
   --louis-color-blue-550: color(srgb 0 0.494118 0.909804 / 1);
@@ -33,12 +33,12 @@
   --louis-color-blue-800-rgb: 0 73 138;
   --louis-color-blue-900: color(srgb 0 0.203922 0.380392 / 1);
   --louis-color-blue-900-rgb: 0 52 97;
-  --louis-color-gray-0: color(srgb 0.980392 0.980392 0.980392 / 1);
-  --louis-color-gray-0-rgb: 250 250 250;
+  --louis-color-gray-000: color(srgb 0.980392 0.980392 0.980392 / 1);
+  --louis-color-gray-000-rgb: 250 250 250;
+  --louis-color-gray-050: color(srgb 0.972549 0.972549 0.976471 / 1);
+  --louis-color-gray-050-rgb: 248 248 249;
   --louis-color-gray-100: color(srgb 0.945098 0.945098 0.952941 / 1);
   --louis-color-gray-100-rgb: 241 241 243;
-  --louis-color-gray-1000: color(srgb 0 0 0 / 1);
-  --louis-color-gray-1000-rgb: 0 0 0;
   --louis-color-gray-150: color(srgb 0.917647 0.921569 0.933333 / 1);
   --louis-color-gray-150-rgb: 234 235 238;
   --louis-color-gray-200: color(srgb 0.890196 0.894118 0.909804 / 1);
@@ -47,8 +47,6 @@
   --louis-color-gray-300-rgb: 213 215 221;
   --louis-color-gray-400: color(srgb 0.737255 0.752941 0.788235 / 1);
   --louis-color-gray-400-rgb: 188 192 201;
-  --louis-color-gray-50: color(srgb 0.972549 0.972549 0.976471 / 1);
-  --louis-color-gray-50-rgb: 248 248 249;
   --louis-color-gray-500: color(srgb 0.603922 0.627451 0.670588 / 1);
   --louis-color-gray-500-rgb: 154 160 171;
   --louis-color-gray-600: color(srgb 0.466667 0.490196 0.537255 / 1);
@@ -113,12 +111,17 @@
   --louis-color-red-800-rgb: 132 26 36;
   --louis-color-red-900: color(srgb 0.329412 0.066667 0.098039 / 1);
   --louis-color-red-900-rgb: 84 17 25;
+  --louis-color-red-alpha-08: color(srgb 1 0.294118 0.34902 / 0.08);
+  --louis-color-red-alpha-08-rgb: 255 75 89;
   --louis-color-red-alpha-12: color(srgb 1 0.294118 0.34902 / 0.12);
   --louis-color-red-alpha-12-rgb: 255 75 89;
   --louis-color-red-alpha-24: color(srgb 1 0.294118 0.34902 / 0.24);
   --louis-color-red-alpha-24-rgb: 255 75 89;
-  --louis-color-red-alpha-8: color(srgb 1 0.294118 0.34902 / 0.08);
-  --louis-color-red-alpha-8-rgb: 255 75 89;
+  --louis-color-static-black: color(srgb 0 0 0 / 1);
+  --louis-color-static-black-alpha-04: color(srgb 0 0 0 / 0.04);
+  --louis-color-static-black-alpha-04-rgb: 0 0 0;
+  --louis-color-static-black-alpha-08: color(srgb 0 0 0 / 0.08);
+  --louis-color-static-black-alpha-08-rgb: 0 0 0;
   --louis-color-static-black-alpha-12: color(srgb 0 0 0 / 0.12);
   --louis-color-static-black-alpha-12-rgb: 0 0 0;
   --louis-color-static-black-alpha-16: color(srgb 0 0 0 / 0.16);
@@ -131,8 +134,6 @@
   --louis-color-static-black-alpha-28-rgb: 0 0 0;
   --louis-color-static-black-alpha-32: color(srgb 0 0 0 / 0.32);
   --louis-color-static-black-alpha-32-rgb: 0 0 0;
-  --louis-color-static-black-alpha-4: color(srgb 0 0 0 / 0.04);
-  --louis-color-static-black-alpha-4-rgb: 0 0 0;
   --louis-color-static-black-alpha-40: color(srgb 0 0 0 / 0.4);
   --louis-color-static-black-alpha-40-rgb: 0 0 0;
   --louis-color-static-black-alpha-48: color(srgb 0 0 0 / 0.48);
@@ -143,14 +144,18 @@
   --louis-color-static-black-alpha-64-rgb: 0 0 0;
   --louis-color-static-black-alpha-72: color(srgb 0 0 0 / 0.72);
   --louis-color-static-black-alpha-72-rgb: 0 0 0;
-  --louis-color-static-black-alpha-8: color(srgb 0 0 0 / 0.08);
-  --louis-color-static-black-alpha-8-rgb: 0 0 0;
   --louis-color-static-black-alpha-80: color(srgb 0 0 0 / 0.8);
   --louis-color-static-black-alpha-80-rgb: 0 0 0;
   --louis-color-static-black-alpha-88: color(srgb 0 0 0 / 0.88);
   --louis-color-static-black-alpha-88-rgb: 0 0 0;
   --louis-color-static-black-alpha-96: color(srgb 0 0 0 / 0.96);
   --louis-color-static-black-alpha-96-rgb: 0 0 0;
+  --louis-color-static-black-rgb: 0 0 0;
+  --louis-color-static-white: color(srgb 1 1 1 / 1);
+  --louis-color-static-white-alpha-04: color(srgb 1 1 1 / 0.04);
+  --louis-color-static-white-alpha-04-rgb: 255 255 255;
+  --louis-color-static-white-alpha-08: color(srgb 1 1 1 / 0.08);
+  --louis-color-static-white-alpha-08-rgb: 255 255 255;
   --louis-color-static-white-alpha-12: color(srgb 1 1 1 / 0.12);
   --louis-color-static-white-alpha-12-rgb: 255 255 255;
   --louis-color-static-white-alpha-16: color(srgb 1 1 1 / 0.16);
@@ -163,8 +168,6 @@
   --louis-color-static-white-alpha-28-rgb: 255 255 255;
   --louis-color-static-white-alpha-32: color(srgb 1 1 1 / 0.32);
   --louis-color-static-white-alpha-32-rgb: 255 255 255;
-  --louis-color-static-white-alpha-4: color(srgb 1 1 1 / 0.04);
-  --louis-color-static-white-alpha-4-rgb: 255 255 255;
   --louis-color-static-white-alpha-40: color(srgb 1 1 1 / 0.4);
   --louis-color-static-white-alpha-40-rgb: 255 255 255;
   --louis-color-static-white-alpha-48: color(srgb 1 1 1 / 0.48);
@@ -175,14 +178,13 @@
   --louis-color-static-white-alpha-64-rgb: 255 255 255;
   --louis-color-static-white-alpha-72: color(srgb 1 1 1 / 0.72);
   --louis-color-static-white-alpha-72-rgb: 255 255 255;
-  --louis-color-static-white-alpha-8: color(srgb 1 1 1 / 0.08);
-  --louis-color-static-white-alpha-8-rgb: 255 255 255;
   --louis-color-static-white-alpha-80: color(srgb 1 1 1 / 0.8);
   --louis-color-static-white-alpha-80-rgb: 255 255 255;
   --louis-color-static-white-alpha-88: color(srgb 1 1 1 / 0.88);
   --louis-color-static-white-alpha-88-rgb: 255 255 255;
   --louis-color-static-white-alpha-96: color(srgb 1 1 1 / 0.96);
   --louis-color-static-white-alpha-96-rgb: 255 255 255;
+  --louis-color-static-white-rgb: 255 255 255;
   --louis-color-violet-100: color(srgb 0.921569 0.909804 1 / 1);
   --louis-color-violet-100-rgb: 235 232 255;
   --louis-color-violet-200: color(srgb 0.788235 0.760784 1 / 1);

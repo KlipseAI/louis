@@ -501,6 +501,38 @@ export const primitives = {
       "unit": "px"
     }
   },
+  "color-blue-050": {
+    "aliasTarget": null,
+    "cssProperties": {
+      "--louis-color-blue-050": "color(srgb 0.941176 0.968627 1 / 1)",
+      "--louis-color-blue-050-rgb": "240 247 255"
+    },
+    "deprecated": null,
+    "description": null,
+    "id": "color-blue-050",
+    "mode": "base",
+    "rawValue": {
+      "colorSpace": "srgb",
+      "components": [
+        0.941176,
+        0.968627,
+        1
+      ],
+      "hex": "#f0f7ff"
+    },
+    "sourcePath": "primitive.color.blue.050",
+    "tier": "primitive",
+    "type": "color",
+    "value": {
+      "colorSpace": "srgb",
+      "components": [
+        0.941176,
+        0.968627,
+        1
+      ],
+      "alpha": 1
+    }
+  },
   "color-blue-100": {
     "aliasTarget": null,
     "cssProperties": {
@@ -720,38 +752,6 @@ export const primitives = {
       "components": [
         0.078431,
         0.568627,
-        1
-      ],
-      "alpha": 1
-    }
-  },
-  "color-blue-50": {
-    "aliasTarget": null,
-    "cssProperties": {
-      "--louis-color-blue-50": "color(srgb 0.941176 0.968627 1 / 1)",
-      "--louis-color-blue-50-rgb": "240 247 255"
-    },
-    "deprecated": null,
-    "description": null,
-    "id": "color-blue-50",
-    "mode": "base",
-    "rawValue": {
-      "colorSpace": "srgb",
-      "components": [
-        0.941176,
-        0.968627,
-        1
-      ],
-      "hex": "#f0f7ff"
-    },
-    "sourcePath": "primitive.color.blue.50",
-    "tier": "primitive",
-    "type": "color",
-    "value": {
-      "colorSpace": "srgb",
-      "components": [
-        0.941176,
-        0.968627,
         1
       ],
       "alpha": 1
@@ -1013,15 +1013,15 @@ export const primitives = {
       "alpha": 1
     }
   },
-  "color-gray-0": {
+  "color-gray-000": {
     "aliasTarget": null,
     "cssProperties": {
-      "--louis-color-gray-0": "color(srgb 0.980392 0.980392 0.980392 / 1)",
-      "--louis-color-gray-0-rgb": "250 250 250"
+      "--louis-color-gray-000": "color(srgb 0.980392 0.980392 0.980392 / 1)",
+      "--louis-color-gray-000-rgb": "250 250 250"
     },
     "deprecated": null,
     "description": null,
-    "id": "color-gray-0",
+    "id": "color-gray-000",
     "mode": "base",
     "rawValue": {
       "colorSpace": "srgb",
@@ -1032,7 +1032,7 @@ export const primitives = {
       ],
       "hex": "#fafafa"
     },
-    "sourcePath": "primitive.color.gray.0",
+    "sourcePath": "primitive.color.gray.000",
     "tier": "primitive",
     "type": "color",
     "value": {
@@ -1041,6 +1041,38 @@ export const primitives = {
         0.980392,
         0.980392,
         0.980392
+      ],
+      "alpha": 1
+    }
+  },
+  "color-gray-050": {
+    "aliasTarget": null,
+    "cssProperties": {
+      "--louis-color-gray-050": "color(srgb 0.972549 0.972549 0.976471 / 1)",
+      "--louis-color-gray-050-rgb": "248 248 249"
+    },
+    "deprecated": null,
+    "description": null,
+    "id": "color-gray-050",
+    "mode": "base",
+    "rawValue": {
+      "colorSpace": "srgb",
+      "components": [
+        0.972549,
+        0.972549,
+        0.976471
+      ],
+      "hex": "#f8f8f9"
+    },
+    "sourcePath": "primitive.color.gray.050",
+    "tier": "primitive",
+    "type": "color",
+    "value": {
+      "colorSpace": "srgb",
+      "components": [
+        0.972549,
+        0.972549,
+        0.976471
       ],
       "alpha": 1
     }
@@ -1073,38 +1105,6 @@ export const primitives = {
         0.945098,
         0.945098,
         0.952941
-      ],
-      "alpha": 1
-    }
-  },
-  "color-gray-1000": {
-    "aliasTarget": null,
-    "cssProperties": {
-      "--louis-color-gray-1000": "color(srgb 0 0 0 / 1)",
-      "--louis-color-gray-1000-rgb": "0 0 0"
-    },
-    "deprecated": null,
-    "description": null,
-    "id": "color-gray-1000",
-    "mode": "base",
-    "rawValue": {
-      "colorSpace": "srgb",
-      "components": [
-        0,
-        0,
-        0
-      ],
-      "hex": "#000000"
-    },
-    "sourcePath": "primitive.color.gray.1000",
-    "tier": "primitive",
-    "type": "color",
-    "value": {
-      "colorSpace": "srgb",
-      "components": [
-        0,
-        0,
-        0
       ],
       "alpha": 1
     }
@@ -1233,38 +1233,6 @@ export const primitives = {
         0.737255,
         0.752941,
         0.788235
-      ],
-      "alpha": 1
-    }
-  },
-  "color-gray-50": {
-    "aliasTarget": null,
-    "cssProperties": {
-      "--louis-color-gray-50": "color(srgb 0.972549 0.972549 0.976471 / 1)",
-      "--louis-color-gray-50-rgb": "248 248 249"
-    },
-    "deprecated": null,
-    "description": null,
-    "id": "color-gray-50",
-    "mode": "base",
-    "rawValue": {
-      "colorSpace": "srgb",
-      "components": [
-        0.972549,
-        0.972549,
-        0.976471
-      ],
-      "hex": "#f8f8f9"
-    },
-    "sourcePath": "primitive.color.gray.50",
-    "tier": "primitive",
-    "type": "color",
-    "value": {
-      "colorSpace": "srgb",
-      "components": [
-        0.972549,
-        0.972549,
-        0.976471
       ],
       "alpha": 1
     }
@@ -2294,6 +2262,39 @@ export const primitives = {
       "alpha": 1
     }
   },
+  "color-red-alpha-08": {
+    "aliasTarget": null,
+    "cssProperties": {
+      "--louis-color-red-alpha-08": "color(srgb 1 0.294118 0.34902 / 0.08)",
+      "--louis-color-red-alpha-08-rgb": "255 75 89"
+    },
+    "deprecated": null,
+    "description": null,
+    "id": "color-red-alpha-08",
+    "mode": "base",
+    "rawValue": {
+      "colorSpace": "srgb",
+      "components": [
+        1,
+        0.294118,
+        0.34902
+      ],
+      "alpha": 0.08,
+      "hex": "#ff4b59"
+    },
+    "sourcePath": "primitive.color.red-alpha.08",
+    "tier": "primitive",
+    "type": "color",
+    "value": {
+      "colorSpace": "srgb",
+      "components": [
+        1,
+        0.294118,
+        0.34902
+      ],
+      "alpha": 0.08
+    }
+  },
   "color-red-alpha-12": {
     "aliasTarget": null,
     "cssProperties": {
@@ -2360,35 +2361,100 @@ export const primitives = {
       "alpha": 0.24
     }
   },
-  "color-red-alpha-8": {
+  "color-static-black": {
     "aliasTarget": null,
     "cssProperties": {
-      "--louis-color-red-alpha-8": "color(srgb 1 0.294118 0.34902 / 0.08)",
-      "--louis-color-red-alpha-8-rgb": "255 75 89"
+      "--louis-color-static-black": "color(srgb 0 0 0 / 1)",
+      "--louis-color-static-black-rgb": "0 0 0"
     },
     "deprecated": null,
     "description": null,
-    "id": "color-red-alpha-8",
+    "id": "color-static-black",
     "mode": "base",
     "rawValue": {
       "colorSpace": "srgb",
       "components": [
-        1,
-        0.294118,
-        0.34902
+        0,
+        0,
+        0
       ],
-      "alpha": 0.08,
-      "hex": "#ff4b59"
+      "hex": "#000000"
     },
-    "sourcePath": "primitive.color.red-alpha.8",
+    "sourcePath": "primitive.color.static.black",
     "tier": "primitive",
     "type": "color",
     "value": {
       "colorSpace": "srgb",
       "components": [
-        1,
-        0.294118,
-        0.34902
+        0,
+        0,
+        0
+      ],
+      "alpha": 1
+    }
+  },
+  "color-static-black-alpha-04": {
+    "aliasTarget": null,
+    "cssProperties": {
+      "--louis-color-static-black-alpha-04": "color(srgb 0 0 0 / 0.04)",
+      "--louis-color-static-black-alpha-04-rgb": "0 0 0"
+    },
+    "deprecated": null,
+    "description": null,
+    "id": "color-static-black-alpha-04",
+    "mode": "base",
+    "rawValue": {
+      "colorSpace": "srgb",
+      "components": [
+        0,
+        0,
+        0
+      ],
+      "alpha": 0.04,
+      "hex": "#000000"
+    },
+    "sourcePath": "primitive.color.static-black-alpha.04",
+    "tier": "primitive",
+    "type": "color",
+    "value": {
+      "colorSpace": "srgb",
+      "components": [
+        0,
+        0,
+        0
+      ],
+      "alpha": 0.04
+    }
+  },
+  "color-static-black-alpha-08": {
+    "aliasTarget": null,
+    "cssProperties": {
+      "--louis-color-static-black-alpha-08": "color(srgb 0 0 0 / 0.08)",
+      "--louis-color-static-black-alpha-08-rgb": "0 0 0"
+    },
+    "deprecated": null,
+    "description": null,
+    "id": "color-static-black-alpha-08",
+    "mode": "base",
+    "rawValue": {
+      "colorSpace": "srgb",
+      "components": [
+        0,
+        0,
+        0
+      ],
+      "alpha": 0.08,
+      "hex": "#000000"
+    },
+    "sourcePath": "primitive.color.static-black-alpha.08",
+    "tier": "primitive",
+    "type": "color",
+    "value": {
+      "colorSpace": "srgb",
+      "components": [
+        0,
+        0,
+        0
       ],
       "alpha": 0.08
     }
@@ -2591,39 +2657,6 @@ export const primitives = {
       "alpha": 0.32
     }
   },
-  "color-static-black-alpha-4": {
-    "aliasTarget": null,
-    "cssProperties": {
-      "--louis-color-static-black-alpha-4": "color(srgb 0 0 0 / 0.04)",
-      "--louis-color-static-black-alpha-4-rgb": "0 0 0"
-    },
-    "deprecated": null,
-    "description": null,
-    "id": "color-static-black-alpha-4",
-    "mode": "base",
-    "rawValue": {
-      "colorSpace": "srgb",
-      "components": [
-        0,
-        0,
-        0
-      ],
-      "alpha": 0.04,
-      "hex": "#000000"
-    },
-    "sourcePath": "primitive.color.static-black-alpha.4",
-    "tier": "primitive",
-    "type": "color",
-    "value": {
-      "colorSpace": "srgb",
-      "components": [
-        0,
-        0,
-        0
-      ],
-      "alpha": 0.04
-    }
-  },
   "color-static-black-alpha-40": {
     "aliasTarget": null,
     "cssProperties": {
@@ -2789,39 +2822,6 @@ export const primitives = {
       "alpha": 0.72
     }
   },
-  "color-static-black-alpha-8": {
-    "aliasTarget": null,
-    "cssProperties": {
-      "--louis-color-static-black-alpha-8": "color(srgb 0 0 0 / 0.08)",
-      "--louis-color-static-black-alpha-8-rgb": "0 0 0"
-    },
-    "deprecated": null,
-    "description": null,
-    "id": "color-static-black-alpha-8",
-    "mode": "base",
-    "rawValue": {
-      "colorSpace": "srgb",
-      "components": [
-        0,
-        0,
-        0
-      ],
-      "alpha": 0.08,
-      "hex": "#000000"
-    },
-    "sourcePath": "primitive.color.static-black-alpha.8",
-    "tier": "primitive",
-    "type": "color",
-    "value": {
-      "colorSpace": "srgb",
-      "components": [
-        0,
-        0,
-        0
-      ],
-      "alpha": 0.08
-    }
-  },
   "color-static-black-alpha-80": {
     "aliasTarget": null,
     "cssProperties": {
@@ -2919,6 +2919,104 @@ export const primitives = {
         0
       ],
       "alpha": 0.96
+    }
+  },
+  "color-static-white": {
+    "aliasTarget": null,
+    "cssProperties": {
+      "--louis-color-static-white": "color(srgb 1 1 1 / 1)",
+      "--louis-color-static-white-rgb": "255 255 255"
+    },
+    "deprecated": null,
+    "description": null,
+    "id": "color-static-white",
+    "mode": "base",
+    "rawValue": {
+      "colorSpace": "srgb",
+      "components": [
+        1,
+        1,
+        1
+      ],
+      "hex": "#ffffff"
+    },
+    "sourcePath": "primitive.color.static.white",
+    "tier": "primitive",
+    "type": "color",
+    "value": {
+      "colorSpace": "srgb",
+      "components": [
+        1,
+        1,
+        1
+      ],
+      "alpha": 1
+    }
+  },
+  "color-static-white-alpha-04": {
+    "aliasTarget": null,
+    "cssProperties": {
+      "--louis-color-static-white-alpha-04": "color(srgb 1 1 1 / 0.04)",
+      "--louis-color-static-white-alpha-04-rgb": "255 255 255"
+    },
+    "deprecated": null,
+    "description": null,
+    "id": "color-static-white-alpha-04",
+    "mode": "base",
+    "rawValue": {
+      "colorSpace": "srgb",
+      "components": [
+        1,
+        1,
+        1
+      ],
+      "alpha": 0.04,
+      "hex": "#ffffff"
+    },
+    "sourcePath": "primitive.color.static-white-alpha.04",
+    "tier": "primitive",
+    "type": "color",
+    "value": {
+      "colorSpace": "srgb",
+      "components": [
+        1,
+        1,
+        1
+      ],
+      "alpha": 0.04
+    }
+  },
+  "color-static-white-alpha-08": {
+    "aliasTarget": null,
+    "cssProperties": {
+      "--louis-color-static-white-alpha-08": "color(srgb 1 1 1 / 0.08)",
+      "--louis-color-static-white-alpha-08-rgb": "255 255 255"
+    },
+    "deprecated": null,
+    "description": null,
+    "id": "color-static-white-alpha-08",
+    "mode": "base",
+    "rawValue": {
+      "colorSpace": "srgb",
+      "components": [
+        1,
+        1,
+        1
+      ],
+      "alpha": 0.08,
+      "hex": "#ffffff"
+    },
+    "sourcePath": "primitive.color.static-white-alpha.08",
+    "tier": "primitive",
+    "type": "color",
+    "value": {
+      "colorSpace": "srgb",
+      "components": [
+        1,
+        1,
+        1
+      ],
+      "alpha": 0.08
     }
   },
   "color-static-white-alpha-12": {
@@ -3119,39 +3217,6 @@ export const primitives = {
       "alpha": 0.32
     }
   },
-  "color-static-white-alpha-4": {
-    "aliasTarget": null,
-    "cssProperties": {
-      "--louis-color-static-white-alpha-4": "color(srgb 1 1 1 / 0.04)",
-      "--louis-color-static-white-alpha-4-rgb": "255 255 255"
-    },
-    "deprecated": null,
-    "description": null,
-    "id": "color-static-white-alpha-4",
-    "mode": "base",
-    "rawValue": {
-      "colorSpace": "srgb",
-      "components": [
-        1,
-        1,
-        1
-      ],
-      "alpha": 0.04,
-      "hex": "#ffffff"
-    },
-    "sourcePath": "primitive.color.static-white-alpha.4",
-    "tier": "primitive",
-    "type": "color",
-    "value": {
-      "colorSpace": "srgb",
-      "components": [
-        1,
-        1,
-        1
-      ],
-      "alpha": 0.04
-    }
-  },
   "color-static-white-alpha-40": {
     "aliasTarget": null,
     "cssProperties": {
@@ -3315,39 +3380,6 @@ export const primitives = {
         1
       ],
       "alpha": 0.72
-    }
-  },
-  "color-static-white-alpha-8": {
-    "aliasTarget": null,
-    "cssProperties": {
-      "--louis-color-static-white-alpha-8": "color(srgb 1 1 1 / 0.08)",
-      "--louis-color-static-white-alpha-8-rgb": "255 255 255"
-    },
-    "deprecated": null,
-    "description": null,
-    "id": "color-static-white-alpha-8",
-    "mode": "base",
-    "rawValue": {
-      "colorSpace": "srgb",
-      "components": [
-        1,
-        1,
-        1
-      ],
-      "alpha": 0.08,
-      "hex": "#ffffff"
-    },
-    "sourcePath": "primitive.color.static-white-alpha.8",
-    "tier": "primitive",
-    "type": "color",
-    "value": {
-      "colorSpace": "srgb",
-      "components": [
-        1,
-        1,
-        1
-      ],
-      "alpha": 0.08
     }
   },
   "color-static-white-alpha-80": {
@@ -11015,7 +11047,7 @@ export const tokens = {
     },
     "color-accent-ghost-hover": {
       "aliasTarget": {
-        "id": "color-static-black-alpha-8",
+        "id": "color-static-black-alpha-08",
         "mode": "base"
       },
       "cssProperties": {
@@ -11025,7 +11057,7 @@ export const tokens = {
       "description": null,
       "id": "color-accent-ghost-hover",
       "mode": "light",
-      "rawValue": "{primitive.color.static-black-alpha.8}",
+      "rawValue": "{primitive.color.static-black-alpha.08}",
       "sourcePath": "semantic.light.color.accent-ghost-hover",
       "tier": "semantic",
       "type": "color",
@@ -11041,7 +11073,7 @@ export const tokens = {
     },
     "color-accent-inverse": {
       "aliasTarget": {
-        "id": "color-gray-1000",
+        "id": "color-static-black",
         "mode": "base"
       },
       "cssProperties": {
@@ -11051,7 +11083,7 @@ export const tokens = {
       "description": null,
       "id": "color-accent-inverse",
       "mode": "light",
-      "rawValue": "{primitive.color.gray.1000}",
+      "rawValue": "{primitive.color.static.black}",
       "sourcePath": "semantic.light.color.accent-inverse",
       "tier": "semantic",
       "type": "color",
@@ -11067,7 +11099,7 @@ export const tokens = {
     },
     "color-accent-menu-danger-hover": {
       "aliasTarget": {
-        "id": "color-red-alpha-8",
+        "id": "color-red-alpha-08",
         "mode": "base"
       },
       "cssProperties": {
@@ -11077,7 +11109,7 @@ export const tokens = {
       "description": null,
       "id": "color-accent-menu-danger-hover",
       "mode": "light",
-      "rawValue": "{primitive.color.red-alpha.8}",
+      "rawValue": "{primitive.color.red-alpha.08}",
       "sourcePath": "semantic.light.color.accent-menu-danger-hover",
       "tier": "semantic",
       "type": "color",
@@ -11093,7 +11125,7 @@ export const tokens = {
     },
     "color-accent-menu-item-hover": {
       "aliasTarget": {
-        "id": "color-static-black-alpha-4",
+        "id": "color-static-black-alpha-04",
         "mode": "base"
       },
       "cssProperties": {
@@ -11103,7 +11135,7 @@ export const tokens = {
       "description": null,
       "id": "color-accent-menu-item-hover",
       "mode": "light",
-      "rawValue": "{primitive.color.static-black-alpha.4}",
+      "rawValue": "{primitive.color.static-black-alpha.04}",
       "sourcePath": "semantic.light.color.accent-menu-item-hover",
       "tier": "semantic",
       "type": "color",
@@ -11223,7 +11255,7 @@ export const tokens = {
     },
     "color-accent-secondary-hover": {
       "aliasTarget": {
-        "id": "color-static-black-alpha-4",
+        "id": "color-static-black-alpha-04",
         "mode": "base"
       },
       "cssProperties": {
@@ -11233,7 +11265,7 @@ export const tokens = {
       "description": null,
       "id": "color-accent-secondary-hover",
       "mode": "light",
-      "rawValue": "{primitive.color.static-black-alpha.4}",
+      "rawValue": "{primitive.color.static-black-alpha.04}",
       "sourcePath": "semantic.light.color.accent-secondary-hover",
       "tier": "semantic",
       "type": "color",
@@ -11379,7 +11411,7 @@ export const tokens = {
     },
     "color-alert-info-surface": {
       "aliasTarget": {
-        "id": "color-blue-50",
+        "id": "color-blue-050",
         "mode": "base"
       },
       "cssProperties": {
@@ -11389,7 +11421,7 @@ export const tokens = {
       "description": null,
       "id": "color-alert-info-surface",
       "mode": "light",
-      "rawValue": "{primitive.color.blue.50}",
+      "rawValue": "{primitive.color.blue.050}",
       "sourcePath": "semantic.light.color.alert-info-surface",
       "tier": "semantic",
       "type": "color",
@@ -11613,7 +11645,7 @@ export const tokens = {
     },
     "color-bg-info": {
       "aliasTarget": {
-        "id": "color-blue-50",
+        "id": "color-blue-050",
         "mode": "base"
       },
       "cssProperties": {
@@ -11623,7 +11655,7 @@ export const tokens = {
       "description": null,
       "id": "color-bg-info",
       "mode": "light",
-      "rawValue": "{primitive.color.blue.50}",
+      "rawValue": "{primitive.color.blue.050}",
       "sourcePath": "semantic.light.color.bg-info",
       "tier": "semantic",
       "type": "color",
@@ -11743,7 +11775,7 @@ export const tokens = {
     },
     "color-bg-overlay": {
       "aliasTarget": {
-        "id": "color-gray-0",
+        "id": "color-gray-000",
         "mode": "base"
       },
       "cssProperties": {
@@ -11753,7 +11785,7 @@ export const tokens = {
       "description": null,
       "id": "color-bg-overlay",
       "mode": "light",
-      "rawValue": "{primitive.color.gray.0}",
+      "rawValue": "{primitive.color.gray.000}",
       "sourcePath": "semantic.light.color.bg-overlay",
       "tier": "semantic",
       "type": "color",
@@ -11769,7 +11801,7 @@ export const tokens = {
     },
     "color-bg-raised": {
       "aliasTarget": {
-        "id": "color-gray-0",
+        "id": "color-gray-000",
         "mode": "base"
       },
       "cssProperties": {
@@ -11779,7 +11811,7 @@ export const tokens = {
       "description": null,
       "id": "color-bg-raised",
       "mode": "light",
-      "rawValue": "{primitive.color.gray.0}",
+      "rawValue": "{primitive.color.gray.000}",
       "sourcePath": "semantic.light.color.bg-raised",
       "tier": "semantic",
       "type": "color",
@@ -11821,7 +11853,7 @@ export const tokens = {
     },
     "color-bg-surface": {
       "aliasTarget": {
-        "id": "color-gray-0",
+        "id": "color-gray-000",
         "mode": "base"
       },
       "cssProperties": {
@@ -11831,7 +11863,7 @@ export const tokens = {
       "description": null,
       "id": "color-bg-surface",
       "mode": "light",
-      "rawValue": "{primitive.color.gray.0}",
+      "rawValue": "{primitive.color.gray.000}",
       "sourcePath": "semantic.light.color.bg-surface",
       "tier": "semantic",
       "type": "color",
@@ -11873,7 +11905,7 @@ export const tokens = {
     },
     "color-bg-upgrade-current": {
       "aliasTarget": {
-        "id": "color-gray-50",
+        "id": "color-gray-050",
         "mode": "base"
       },
       "cssProperties": {
@@ -11883,7 +11915,7 @@ export const tokens = {
       "description": null,
       "id": "color-bg-upgrade-current",
       "mode": "light",
-      "rawValue": "{primitive.color.gray.50}",
+      "rawValue": "{primitive.color.gray.050}",
       "sourcePath": "semantic.light.color.bg-upgrade-current",
       "tier": "semantic",
       "type": "color",
@@ -12081,7 +12113,7 @@ export const tokens = {
     },
     "color-fg-inverse": {
       "aliasTarget": {
-        "id": "color-gray-0",
+        "id": "color-gray-000",
         "mode": "base"
       },
       "cssProperties": {
@@ -12091,7 +12123,7 @@ export const tokens = {
       "description": null,
       "id": "color-fg-inverse",
       "mode": "light",
-      "rawValue": "{primitive.color.gray.0}",
+      "rawValue": "{primitive.color.gray.000}",
       "sourcePath": "semantic.light.color.fg-inverse",
       "tier": "semantic",
       "type": "color",
@@ -12133,7 +12165,7 @@ export const tokens = {
     },
     "color-fg-on-accent-inverse": {
       "aliasTarget": {
-        "id": "color-gray-0",
+        "id": "color-gray-000",
         "mode": "base"
       },
       "cssProperties": {
@@ -12143,7 +12175,7 @@ export const tokens = {
       "description": null,
       "id": "color-fg-on-accent-inverse",
       "mode": "light",
-      "rawValue": "{primitive.color.gray.0}",
+      "rawValue": "{primitive.color.gray.000}",
       "sourcePath": "semantic.light.color.fg-on-accent-inverse",
       "tier": "semantic",
       "type": "color",
@@ -12159,7 +12191,7 @@ export const tokens = {
     },
     "color-fg-on-danger": {
       "aliasTarget": {
-        "id": "color-gray-0",
+        "id": "color-gray-000",
         "mode": "base"
       },
       "cssProperties": {
@@ -12169,7 +12201,7 @@ export const tokens = {
       "description": null,
       "id": "color-fg-on-danger",
       "mode": "light",
-      "rawValue": "{primitive.color.gray.0}",
+      "rawValue": "{primitive.color.gray.000}",
       "sourcePath": "semantic.light.color.fg-on-danger",
       "tier": "semantic",
       "type": "color",
@@ -12185,7 +12217,7 @@ export const tokens = {
     },
     "color-fg-on-inverse": {
       "aliasTarget": {
-        "id": "color-gray-0",
+        "id": "color-gray-000",
         "mode": "base"
       },
       "cssProperties": {
@@ -12195,7 +12227,7 @@ export const tokens = {
       "description": null,
       "id": "color-fg-on-inverse",
       "mode": "light",
-      "rawValue": "{primitive.color.gray.0}",
+      "rawValue": "{primitive.color.gray.000}",
       "sourcePath": "semantic.light.color.fg-on-inverse",
       "tier": "semantic",
       "type": "color",
@@ -12315,7 +12347,7 @@ export const tokens = {
     },
     "color-fg-upgrade": {
       "aliasTarget": {
-        "id": "color-gray-50",
+        "id": "color-gray-050",
         "mode": "base"
       },
       "cssProperties": {
@@ -12325,7 +12357,7 @@ export const tokens = {
       "description": null,
       "id": "color-fg-upgrade",
       "mode": "light",
-      "rawValue": "{primitive.color.gray.50}",
+      "rawValue": "{primitive.color.gray.050}",
       "sourcePath": "semantic.light.color.fg-upgrade",
       "tier": "semantic",
       "type": "color",
@@ -12341,7 +12373,7 @@ export const tokens = {
     },
     "color-fg-upgrade-current": {
       "aliasTarget": {
-        "id": "color-gray-1000",
+        "id": "color-static-black",
         "mode": "base"
       },
       "cssProperties": {
@@ -12351,7 +12383,7 @@ export const tokens = {
       "description": null,
       "id": "color-fg-upgrade-current",
       "mode": "light",
-      "rawValue": "{primitive.color.gray.1000}",
+      "rawValue": "{primitive.color.static.black}",
       "sourcePath": "semantic.light.color.fg-upgrade-current",
       "tier": "semantic",
       "type": "color",
@@ -12367,7 +12399,7 @@ export const tokens = {
     },
     "color-fg-upgrade-hover": {
       "aliasTarget": {
-        "id": "color-gray-50",
+        "id": "color-gray-050",
         "mode": "base"
       },
       "cssProperties": {
@@ -12377,7 +12409,7 @@ export const tokens = {
       "description": null,
       "id": "color-fg-upgrade-hover",
       "mode": "light",
-      "rawValue": "{primitive.color.gray.50}",
+      "rawValue": "{primitive.color.gray.050}",
       "sourcePath": "semantic.light.color.fg-upgrade-hover",
       "tier": "semantic",
       "type": "color",
@@ -12523,7 +12555,7 @@ export const tokens = {
     },
     "color-media-foreground-dark": {
       "aliasTarget": {
-        "id": "color-gray-0",
+        "id": "color-gray-000",
         "mode": "base"
       },
       "cssProperties": {
@@ -12533,7 +12565,7 @@ export const tokens = {
       "description": null,
       "id": "color-media-foreground-dark",
       "mode": "light",
-      "rawValue": "{primitive.color.gray.0}",
+      "rawValue": "{primitive.color.gray.000}",
       "sourcePath": "semantic.light.color.media-foreground-dark",
       "tier": "semantic",
       "type": "color",
@@ -12549,7 +12581,7 @@ export const tokens = {
     },
     "color-media-indicator-active": {
       "aliasTarget": {
-        "id": "color-gray-0",
+        "id": "color-gray-000",
         "mode": "base"
       },
       "cssProperties": {
@@ -12559,7 +12591,7 @@ export const tokens = {
       "description": null,
       "id": "color-media-indicator-active",
       "mode": "light",
-      "rawValue": "{primitive.color.gray.0}",
+      "rawValue": "{primitive.color.gray.000}",
       "sourcePath": "semantic.light.color.media-indicator-active",
       "tier": "semantic",
       "type": "color",
@@ -12601,7 +12633,7 @@ export const tokens = {
     },
     "color-media-scrim-bright": {
       "aliasTarget": {
-        "id": "color-gray-0",
+        "id": "color-gray-000",
         "mode": "base"
       },
       "cssProperties": {
@@ -12611,7 +12643,7 @@ export const tokens = {
       "description": null,
       "id": "color-media-scrim-bright",
       "mode": "light",
-      "rawValue": "{primitive.color.gray.0}",
+      "rawValue": "{primitive.color.gray.000}",
       "sourcePath": "semantic.light.color.media-scrim-bright",
       "tier": "semantic",
       "type": "color",
@@ -12627,7 +12659,7 @@ export const tokens = {
     },
     "color-media-scrim-dark": {
       "aliasTarget": {
-        "id": "color-gray-1000",
+        "id": "color-static-black",
         "mode": "base"
       },
       "cssProperties": {
@@ -12637,7 +12669,7 @@ export const tokens = {
       "description": null,
       "id": "color-media-scrim-dark",
       "mode": "light",
-      "rawValue": "{primitive.color.gray.1000}",
+      "rawValue": "{primitive.color.static.black}",
       "sourcePath": "semantic.light.color.media-scrim-dark",
       "tier": "semantic",
       "type": "color",
@@ -13303,7 +13335,7 @@ export const tokens = {
     },
     "color-progress-track": {
       "aliasTarget": {
-        "id": "color-static-black-alpha-8",
+        "id": "color-static-black-alpha-08",
         "mode": "base"
       },
       "cssProperties": {
@@ -13313,7 +13345,7 @@ export const tokens = {
       "description": null,
       "id": "color-progress-track",
       "mode": "light",
-      "rawValue": "{primitive.color.static-black-alpha.8}",
+      "rawValue": "{primitive.color.static-black-alpha.08}",
       "sourcePath": "semantic.light.color.progress-track",
       "tier": "semantic",
       "type": "color",
@@ -13433,7 +13465,7 @@ export const tokens = {
     },
     "color-stroke-hairline": {
       "aliasTarget": {
-        "id": "color-static-black-alpha-8",
+        "id": "color-static-black-alpha-08",
         "mode": "base"
       },
       "cssProperties": {
@@ -13443,7 +13475,7 @@ export const tokens = {
       "description": null,
       "id": "color-stroke-hairline",
       "mode": "light",
-      "rawValue": "{primitive.color.static-black-alpha.8}",
+      "rawValue": "{primitive.color.static-black-alpha.08}",
       "sourcePath": "semantic.light.color.stroke-hairline",
       "tier": "semantic",
       "type": "color",
@@ -13589,7 +13621,7 @@ export const tokens = {
     },
     "color-switch-thumb": {
       "aliasTarget": {
-        "id": "color-gray-0",
+        "id": "color-gray-000",
         "mode": "base"
       },
       "cssProperties": {
@@ -13599,7 +13631,7 @@ export const tokens = {
       "description": null,
       "id": "color-switch-thumb",
       "mode": "light",
-      "rawValue": "{primitive.color.gray.0}",
+      "rawValue": "{primitive.color.gray.000}",
       "sourcePath": "semantic.light.color.switch-thumb",
       "tier": "semantic",
       "type": "color",
@@ -13641,7 +13673,7 @@ export const tokens = {
     },
     "color-table-row-hover": {
       "aliasTarget": {
-        "id": "color-gray-50",
+        "id": "color-gray-050",
         "mode": "base"
       },
       "cssProperties": {
@@ -13651,7 +13683,7 @@ export const tokens = {
       "description": null,
       "id": "color-table-row-hover",
       "mode": "light",
-      "rawValue": "{primitive.color.gray.50}",
+      "rawValue": "{primitive.color.gray.050}",
       "sourcePath": "semantic.light.color.table-row-hover",
       "tier": "semantic",
       "type": "color",
@@ -13888,7 +13920,7 @@ export const tokens = {
     },
     "color-accent-ghost-hover": {
       "aliasTarget": {
-        "id": "color-static-white-alpha-8",
+        "id": "color-static-white-alpha-08",
         "mode": "base"
       },
       "cssProperties": {
@@ -13898,7 +13930,7 @@ export const tokens = {
       "description": null,
       "id": "color-accent-ghost-hover",
       "mode": "dark",
-      "rawValue": "{primitive.color.static-white-alpha.8}",
+      "rawValue": "{primitive.color.static-white-alpha.08}",
       "sourcePath": "semantic.dark.color.accent-ghost-hover",
       "tier": "semantic",
       "type": "color",
@@ -13914,7 +13946,7 @@ export const tokens = {
     },
     "color-accent-inverse": {
       "aliasTarget": {
-        "id": "color-gray-0",
+        "id": "color-gray-000",
         "mode": "base"
       },
       "cssProperties": {
@@ -13924,7 +13956,7 @@ export const tokens = {
       "description": null,
       "id": "color-accent-inverse",
       "mode": "dark",
-      "rawValue": "{primitive.color.gray.0}",
+      "rawValue": "{primitive.color.gray.000}",
       "sourcePath": "semantic.dark.color.accent-inverse",
       "tier": "semantic",
       "type": "color",
@@ -13966,7 +13998,7 @@ export const tokens = {
     },
     "color-accent-menu-item-hover": {
       "aliasTarget": {
-        "id": "color-static-white-alpha-8",
+        "id": "color-static-white-alpha-08",
         "mode": "base"
       },
       "cssProperties": {
@@ -13976,7 +14008,7 @@ export const tokens = {
       "description": null,
       "id": "color-accent-menu-item-hover",
       "mode": "dark",
-      "rawValue": "{primitive.color.static-white-alpha.8}",
+      "rawValue": "{primitive.color.static-white-alpha.08}",
       "sourcePath": "semantic.dark.color.accent-menu-item-hover",
       "tier": "semantic",
       "type": "color",
@@ -14096,7 +14128,7 @@ export const tokens = {
     },
     "color-accent-secondary-hover": {
       "aliasTarget": {
-        "id": "color-static-white-alpha-8",
+        "id": "color-static-white-alpha-08",
         "mode": "base"
       },
       "cssProperties": {
@@ -14106,7 +14138,7 @@ export const tokens = {
       "description": null,
       "id": "color-accent-secondary-hover",
       "mode": "dark",
-      "rawValue": "{primitive.color.static-white-alpha.8}",
+      "rawValue": "{primitive.color.static-white-alpha.08}",
       "sourcePath": "semantic.dark.color.accent-secondary-hover",
       "tier": "semantic",
       "type": "color",
@@ -14928,7 +14960,7 @@ export const tokens = {
     },
     "color-fg-info": {
       "aliasTarget": {
-        "id": "color-blue-50",
+        "id": "color-blue-050",
         "mode": "base"
       },
       "cssProperties": {
@@ -14938,7 +14970,7 @@ export const tokens = {
       "description": null,
       "id": "color-fg-info",
       "mode": "dark",
-      "rawValue": "{primitive.color.blue.50}",
+      "rawValue": "{primitive.color.blue.050}",
       "sourcePath": "semantic.dark.color.fg-info",
       "tier": "semantic",
       "type": "color",
@@ -14954,7 +14986,7 @@ export const tokens = {
     },
     "color-fg-inverse": {
       "aliasTarget": {
-        "id": "color-gray-0",
+        "id": "color-gray-000",
         "mode": "base"
       },
       "cssProperties": {
@@ -14964,7 +14996,7 @@ export const tokens = {
       "description": null,
       "id": "color-fg-inverse",
       "mode": "dark",
-      "rawValue": "{primitive.color.gray.0}",
+      "rawValue": "{primitive.color.gray.000}",
       "sourcePath": "semantic.dark.color.fg-inverse",
       "tier": "semantic",
       "type": "color",
@@ -15006,7 +15038,7 @@ export const tokens = {
     },
     "color-fg-on-accent-inverse": {
       "aliasTarget": {
-        "id": "color-gray-1000",
+        "id": "color-static-black",
         "mode": "base"
       },
       "cssProperties": {
@@ -15016,7 +15048,7 @@ export const tokens = {
       "description": null,
       "id": "color-fg-on-accent-inverse",
       "mode": "dark",
-      "rawValue": "{primitive.color.gray.1000}",
+      "rawValue": "{primitive.color.static.black}",
       "sourcePath": "semantic.dark.color.fg-on-accent-inverse",
       "tier": "semantic",
       "type": "color",
@@ -15032,7 +15064,7 @@ export const tokens = {
     },
     "color-fg-on-danger": {
       "aliasTarget": {
-        "id": "color-gray-0",
+        "id": "color-gray-000",
         "mode": "base"
       },
       "cssProperties": {
@@ -15042,7 +15074,7 @@ export const tokens = {
       "description": null,
       "id": "color-fg-on-danger",
       "mode": "dark",
-      "rawValue": "{primitive.color.gray.0}",
+      "rawValue": "{primitive.color.gray.000}",
       "sourcePath": "semantic.dark.color.fg-on-danger",
       "tier": "semantic",
       "type": "color",
@@ -15084,7 +15116,7 @@ export const tokens = {
     },
     "color-fg-primary": {
       "aliasTarget": {
-        "id": "color-gray-0",
+        "id": "color-gray-000",
         "mode": "base"
       },
       "cssProperties": {
@@ -15094,7 +15126,7 @@ export const tokens = {
       "description": null,
       "id": "color-fg-primary",
       "mode": "dark",
-      "rawValue": "{primitive.color.gray.0}",
+      "rawValue": "{primitive.color.gray.000}",
       "sourcePath": "semantic.dark.color.fg-primary",
       "tier": "semantic",
       "type": "color",
@@ -15214,7 +15246,7 @@ export const tokens = {
     },
     "color-fg-upgrade-current": {
       "aliasTarget": {
-        "id": "color-gray-0",
+        "id": "color-gray-000",
         "mode": "base"
       },
       "cssProperties": {
@@ -15224,7 +15256,7 @@ export const tokens = {
       "description": null,
       "id": "color-fg-upgrade-current",
       "mode": "dark",
-      "rawValue": "{primitive.color.gray.0}",
+      "rawValue": "{primitive.color.gray.000}",
       "sourcePath": "semantic.dark.color.fg-upgrade-current",
       "tier": "semantic",
       "type": "color",
@@ -15396,7 +15428,7 @@ export const tokens = {
     },
     "color-media-foreground-dark": {
       "aliasTarget": {
-        "id": "color-gray-0",
+        "id": "color-gray-000",
         "mode": "base"
       },
       "cssProperties": {
@@ -15406,7 +15438,7 @@ export const tokens = {
       "description": null,
       "id": "color-media-foreground-dark",
       "mode": "dark",
-      "rawValue": "{primitive.color.gray.0}",
+      "rawValue": "{primitive.color.gray.000}",
       "sourcePath": "semantic.dark.color.media-foreground-dark",
       "tier": "semantic",
       "type": "color",
@@ -15422,7 +15454,7 @@ export const tokens = {
     },
     "color-media-indicator-active": {
       "aliasTarget": {
-        "id": "color-gray-0",
+        "id": "color-gray-000",
         "mode": "base"
       },
       "cssProperties": {
@@ -15432,7 +15464,7 @@ export const tokens = {
       "description": null,
       "id": "color-media-indicator-active",
       "mode": "dark",
-      "rawValue": "{primitive.color.gray.0}",
+      "rawValue": "{primitive.color.gray.000}",
       "sourcePath": "semantic.dark.color.media-indicator-active",
       "tier": "semantic",
       "type": "color",
@@ -15474,7 +15506,7 @@ export const tokens = {
     },
     "color-media-scrim-bright": {
       "aliasTarget": {
-        "id": "color-gray-0",
+        "id": "color-gray-000",
         "mode": "base"
       },
       "cssProperties": {
@@ -15484,7 +15516,7 @@ export const tokens = {
       "description": null,
       "id": "color-media-scrim-bright",
       "mode": "dark",
-      "rawValue": "{primitive.color.gray.0}",
+      "rawValue": "{primitive.color.gray.000}",
       "sourcePath": "semantic.dark.color.media-scrim-bright",
       "tier": "semantic",
       "type": "color",
@@ -15500,7 +15532,7 @@ export const tokens = {
     },
     "color-media-scrim-dark": {
       "aliasTarget": {
-        "id": "color-gray-1000",
+        "id": "color-static-black",
         "mode": "base"
       },
       "cssProperties": {
@@ -15510,7 +15542,7 @@ export const tokens = {
       "description": null,
       "id": "color-media-scrim-dark",
       "mode": "dark",
-      "rawValue": "{primitive.color.gray.1000}",
+      "rawValue": "{primitive.color.static.black}",
       "sourcePath": "semantic.dark.color.media-scrim-dark",
       "tier": "semantic",
       "type": "color",
@@ -16176,7 +16208,7 @@ export const tokens = {
     },
     "color-progress-track": {
       "aliasTarget": {
-        "id": "color-static-white-alpha-8",
+        "id": "color-static-white-alpha-08",
         "mode": "base"
       },
       "cssProperties": {
@@ -16186,7 +16218,7 @@ export const tokens = {
       "description": null,
       "id": "color-progress-track",
       "mode": "dark",
-      "rawValue": "{primitive.color.static-white-alpha.8}",
+      "rawValue": "{primitive.color.static-white-alpha.08}",
       "sourcePath": "semantic.dark.color.progress-track",
       "tier": "semantic",
       "type": "color",
@@ -16306,7 +16338,7 @@ export const tokens = {
     },
     "color-stroke-hairline": {
       "aliasTarget": {
-        "id": "color-static-white-alpha-8",
+        "id": "color-static-white-alpha-08",
         "mode": "base"
       },
       "cssProperties": {
@@ -16316,7 +16348,7 @@ export const tokens = {
       "description": null,
       "id": "color-stroke-hairline",
       "mode": "dark",
-      "rawValue": "{primitive.color.static-white-alpha.8}",
+      "rawValue": "{primitive.color.static-white-alpha.08}",
       "sourcePath": "semantic.dark.color.stroke-hairline",
       "tier": "semantic",
       "type": "color",
@@ -16462,7 +16494,7 @@ export const tokens = {
     },
     "color-switch-thumb": {
       "aliasTarget": {
-        "id": "color-gray-0",
+        "id": "color-gray-000",
         "mode": "base"
       },
       "cssProperties": {
@@ -16472,7 +16504,7 @@ export const tokens = {
       "description": null,
       "id": "color-switch-thumb",
       "mode": "dark",
-      "rawValue": "{primitive.color.gray.0}",
+      "rawValue": "{primitive.color.gray.000}",
       "sourcePath": "semantic.dark.color.switch-thumb",
       "tier": "semantic",
       "type": "color",

@@ -525,10 +525,14 @@ const COMPONENT_CONTRACTS = [
       Kind: { options: ["glyph", "text"], reason: "글리프 키캡과 글자 키캡은 자간·굵기만 다르다(KEY vs KEY_TEXT)." },
     },
   },
-  // ── 랜딩에서 올라온 둘 ────────────────────────────────────────────────────
+  // ── 랜딩에서 올라온 여섯 ──────────────────────────────────────────────────
   // 제품 랜딩이 이미 쓰고 있는데 DS 에 이름이 없던 자리다. **여기서는 코드가 Figma 보다
   // 앞서 있다** — Keycap 계열과 방향이 반대이므로 계약값은 전부 제품 소스에서 끌어왔다.
   // Figma 값을 그대로 옮기면 게이트가 Figma 로 Figma 를 검증하는 셈이 된다.
+  //
+  // 여섯이 요구한 축(Badge · Direction · Expanded · Featured · Surface · State=Selected)의
+  // 판정은 design/governance/figma-component-authoring.md §2 가 소유한다. 아래 사유 문구는
+  // 그 판정을 가리키고, 판정과 Figma 파일이 아직 갈린 자리는 결손으로 적는다.
   {
     id: "media-card",
     figmaName: "MediaCard",
@@ -551,7 +555,7 @@ const COMPONENT_CONTRACTS = [
       Badge: {
         options: ["New", "Top", "none"],
         reason:
-          "코드에서 badge 는 optional 문구 prop 이라 축이 아니다. Figma 에 「값이 없으면 안 그린다」가 없어 축으로 뒀고, 값에 문구까지 들어가 있다. **figma-component-authoring.md §2 의 닫힌 축 표에 없는 축이며 §3 은 있고 없고를 BOOLEAN 으로 두라고 한다** — 소유자 판정이 필요하고 그때까지 이 계약이 현상을 고정한다.",
+          "코드에서 badge 는 optional 문구 prop 이라 축이 아니다. Figma 에 「값이 없으면 안 그린다」가 없어 축으로 뒀고, 값에 문구까지 들어가 있다. **figma-component-authoring.md §2 개정이 이 축을 폐기 판정했다** — 값이 내용이라 시험 4 에 걸리고, 배지를 감춰도 카드가 316×316 고정이라 나머지 세 시험은 통과한다. 갈 곳은 Badge BOOLEAN + BadgeLabel TEXT(변형 3 → 1)다. **Figma 재작업이 아직 안 됐다** — 그래서 이 계약은 현상(3값 VARIANT)을 그대로 적는다. 파일을 다시 세우면 여기도 같이 고친다.",
       },
       Title: { type: "TEXT", reason: "이름 한 줄. 코드에서는 name prop 이다." },
       Icon: { type: "BOOLEAN", reason: "브랜드 글리프의 유무. 코드에서는 icon prop 이 ReactNode 라 있으면 그린다." },
@@ -578,7 +582,7 @@ const COMPONENT_CONTRACTS = [
       Direction: {
         options: ["prev", "next"],
         reason:
-          "코드는 버튼 **쌍**을 하나로 내보내고 방향은 두 개의 button 이라 prop 이 아니다. Figma 는 상호작용을 받는 단위가 버튼 하나라 set 을 하나로 뽑았고 방향이 축이 됐다. **figma-component-authoring.md §2 의 닫힌 축 표에 없는 축이다** — 소유자 판정이 필요하고 그때까지 이 계약이 현상을 고정한다.",
+          "코드는 버튼 **쌍**을 하나로 내보내고 방향은 두 개의 button 이라 prop 이 아니다. Figma 는 상호작용을 받는 단위가 버튼 하나라 set 을 하나로 뽑았고 방향이 축이 됐다. **figma-component-authoring.md §2 개정이 Direction 을 축 표에 열었다** — 값 prev·next 는 트랙의 진행 방향이지 화살표가 가리키는 쪽(left/right)이 아니다. 글리프를 INSTANCE_SWAP 으로 내려 축을 없애는 길은 두 캐럿이 인라인 벡터라 스왑 후보를 채울 수 없어 성립하지 않는다.",
       },
       State: {
         options: ["Default", "Hover", "Disabled"],
@@ -586,6 +590,154 @@ const COMPONENT_CONTRACTS = [
           "Hover 는 코드에서 CSS 상태이고 Disabled 는 prevDisabled/nextDisabled prop 이 만드는 네이티브 disabled 다. Figma 에 CSS 상태가 없어 한 축에 묶는다. **Focus 가 없는 것은 의도가 아니라 결손이다** — 제품 버튼 클래스에 :focus-visible 선언이 없다(carousel-arrow.md Accessibility).",
       },
     },
+  },
+  {
+    id: "step-tile",
+    figmaName: "StepTile",
+    figmaAhead:
+      "LOUIS recipe 없음 — 제품 StepTiles.tsx 가 정본이고 랜딩 3-스텝 섹션 한 자리에서 쓴다.",
+    // 변형 축이 하나도 없다. variantCount 가 1 이고, 폭은 바깥 3열 격자가 정하므로 Size 축도
+    // 만들지 않았다 — 어떤 폭을 고정해도 거짓이 된다(MediaCard 의 layout 축을 비운 것과 같다).
+    variantProperties: {},
+    // **테두리가 없다.** 제품 타일은 border 도 inset 그림자도 없는 순수한 면이다 — 이 시스템의
+    // 면 대부분이 갖는 헤어라인이 여기엔 없다. 빈 객체가 그 사실을 계약으로 고정한다:
+    // 나중에 Figma 에 stroke 가 생기면 「계약에 없는 stroke」로 잡힌다.
+    strokes: {},
+    // 그림자도 배경 흐림도 없다. 같은 이유로 비워 둔다 — MediaCard 와 달리 이 타일에는
+    // 얹히는 층이 없어서 흐릴 대상 자체가 없다.
+    effects: {},
+    // 제품은 **타일 하나를 컴포넌트로 내보내지 않는다** — StepTiles.tsx 가 섹션 전체를 그리고
+    // 타일은 그 안의 li 다. 그래서 대조할 prop 선언이 없고 세 슬롯이 전부 Figma 전용이다.
+    // 셋 다 figma-component-authoring.md §3 의 이름 관례(있고 없고=BOOLEAN, 문구=TEXT)에
+    // 그대로 맞으므로 닫힌 축 표를 벗어나는 축이 없다 — 이 컴포넌트에는 판정이 걸린 축이 없다.
+    figmaOnlyProperties: {
+      Label: {
+        type: "TEXT",
+        reason:
+          "캡션의 첫 덩어리이자 이 타일에서 유일한 필수 글자. 코드에서는 항목의 label 문구이고 컴포넌트 prop 이 아니다.",
+      },
+      Description: {
+        type: "BOOLEAN",
+        reason:
+          "설명 덩어리의 유무. 코드에서는 description 이 빈 문자열이면 그 span 자체를 그리지 않는다 — 빈 것을 남기면 공백만 붙기 때문이다. 세 번째 항목이 실제로 빈 문자열이다.",
+      },
+      DescriptionLabel: {
+        type: "TEXT",
+        reason: "설명 문구. 코드에서는 description 의 값이다. Description 과 짝으로 낸다(§3).",
+      },
+    },
+    // geometry 를 넣지 않았다 — figma/components.measured.json 에 step-tile 항목이 없어
+    // 12 · 30 · 60 · 4 를 대조할 실측 정본이 없다. measuredId 를 적으면 게이트가 「실측값이
+    // 없습니다」로 즉시 실패한다. MediaCard · CarouselArrow 와 같은 상태이고, 실측 probe 를
+    // 붙이는 것이 랜딩 여섯의 공통 승격 조건이다.
+  },
+  {
+    id: "faq-row",
+    figmaName: "FaqRow",
+    figmaAhead:
+      "LOUIS recipe 없음 — 제품 FAQ.tsx 가 정본이고 소비처가 두 자리다(랜딩 faq · 가격 pricing-faq).",
+    variantProperties: {},
+    // **행에 선이 한 줄도 없다.** 제품 행 클래스는 `rounded-12 bg-[var(--panel-strong)]
+    // overflow-hidden` 셋뿐이고 질문 버튼은 `[border:0]` 이다 — `border-0`(폭만 0, style 은
+    // solid)과 다르다. 경계는 잉크 8% 오버레이 한 겹이 혼자 만든다.
+    strokes: {},
+    // **헤어라인도 없다.** carousel-arrow · node-chip 은 같은 랜딩 면에 INNER_SHADOW:0:0:0.5 를
+    // 두르는데 이 행은 두르지 않는다 — 제품에 box-shadow 선언이 없다. 빈 칸을 비워 두는 것이
+    // 아니라 **없다는 사실을 적는 것**이다. 나중에 누가 Figma 에서 헤어라인을 얹으면 게이트가
+    // 잡는다. 행 면과 페이지 바닥의 대비가 1.2:1 뿐이라 얹고 싶어지는 자리다(faq-row.md 2번).
+    effects: {},
+    // `+` 는 아이콘 인스턴스가 아니라 **텍스트 노드**다(되읽기의 Glyph fontSize 20). 그래서
+    // INSTANCE_SWAP 슬롯이 없고 iconSlots 도 없다. 열림에서 45° 도는 것도 아이콘 교체가 아니라
+    // 같은 글리프의 transform 이다.
+    figmaOnlyProperties: {
+      Expanded: {
+        options: ["false", "true"],
+        reason:
+          "코드에서 열림은 행의 prop 이 아니라 섹션이 가진 openIndex 하나다 — 한 번에 한 행만 열린다. Figma 에 그 state 가 없어 행의 축으로 둔다. 답변의 유무와 + 글리프의 45° 회전을 함께 바꾸고 면·반경·좌우 여백은 건드리지 않는다. **figma-component-authoring.md §2 개정이 Expanded 를 조건 축 명부에 올렸다** — 글리프가 계속 보이는 채로 도는 것이 시험 1, 여닫이에 걸 전이가 시험 3 에 걸려 BOOLEAN 이 아니다. 값이 false·true 인 것도 그 절이 정한 형태다.",
+      },
+      Title: {
+        type: "TEXT",
+        reason:
+          "질문 문구. 코드에서는 items[].q 이며 **React key 이기도 하다** — 목록 안에서 유일하지 않으면 펼침 상태가 엉킨다.",
+      },
+      Description: {
+        type: "TEXT",
+        reason:
+          "답변 문구. 코드에서는 items[].a 이고 문자열 하나다(목록·링크를 담는 구조가 없다). 가시성은 Expanded 축이 이미 소유하므로 §3 의 BOOLEAN 짝을 따로 두지 않는다 — 두면 「닫혔는데 답변 있음」 같은 거짓 조합이 생긴다.",
+      },
+    },
+    // State 축을 일부러 두지 않았다. 제품 행에 hover · active · disabled 선언이 하나도 없고
+    // 포커스도 컴포넌트가 그리지 않는다(전역 리셋이 :focus:not(:focus-visible) 만 끄므로
+    // 브라우저 기본 링만 남는다). 없는 것을 Figma 에 그리면 없는 계약을 있는 것처럼 보여 준다.
+    //
+    // geometry 도 없다 — figma/components.measured.json 에 faq-row 항목이 없다. 닫힌 행 66 은
+    // 18 + 30 + 18 이지만 **1024 이상에서만 참이다**(질문 타입이 20 → 18 → 16 으로 내려간다).
+    // 실측 probe 가 붙기 전에는 대조하지 않는다.
+  },
+  {
+    id: "news-card",
+    figmaName: "NewsCard",
+    figmaAhead:
+      "LOUIS recipe 없음 — 제품 NewsCarousel.tsx 안의 NewsCard 가 정본이다. export 되지 않는 파일 내부 함수라 대조할 .d.ts 자체가 없다.",
+    variantProperties: {},
+    // 카드에 테두리가 없다. 시안도 stroke 를 주지 않고 제품 클래스에도 border 선언이 없다 —
+    // 보통 카드의 경계는 면(잉크 8%)이 만들고 피처드는 사진 자신이 만든다. 빈 객체로 적어
+    // 두어야 나중에 누가 stroke 를 얹었을 때 「계약에 없는 stroke」로 잡힌다.
+    strokes: {},
+    // **그림자도 배경 흐림도 없다.** MediaCard 와 갈라지는 지점이다 — 그쪽은 유리 정보 바가
+    // backdrop-filter 로 사진을 흐리고, 이쪽은 그라디언트 스크림이 사진을 눌러 글자를 세운다.
+    // 스크림은 effect 가 아니라 fill 이라 이 칸에 오지 않는다.
+    effects: {},
+    figmaOnlyProperties: {
+      Featured: {
+        options: ["false", "true"],
+        reason:
+          "코드에서는 item.image 의 유무다. §3 은 있고 없고를 BOOLEAN 으로 두라고 하지만 **BOOLEAN 은 가시성만 바꾼다** — 이 축은 카드를 347×160 에서 698×324 로 키우고(셸프에서 두 열 두 행을 차지하며 그 사이 간격 4 를 자기 몸으로 덮는다) 전경 색 계열을 테마 추종(landing/panel-strong · gray/000 · landing/text-muted)에서 고정 팔레트(media-foreground-dark · palette-gray/500)로 통째로 바꾼다. 제목 줄 수도 2 에서 1 로 갈린다. Button 의 Icon 축이 padding 보정 때문에 불리언이 될 수 없었던 것과 같은 사유다. **figma-component-authoring.md §2 개정이 Featured 를 조건 축 명부에 올렸다** — 프레임 자신의 고정 크기가 다시 쓰이므로 시험 2 에 걸린다.",
+      },
+      Title: { type: "TEXT", reason: "제목 한 줄. 코드에서는 item.title 이다." },
+      Meta: {
+        type: "TEXT",
+        reason:
+          "날짜 표기. 코드에서는 dateLabel prop 이고 값은 i18n 문자열이 아니라 셸프가 소유한 로케일 포맷터가 만든다. 기계용 ISO 값(item.date)은 Figma 에 대응 슬롯이 없다 — dateTime 같은 의미 속성이 없기 때문이며 그 값의 정본은 코드에만 있다.",
+      },
+    },
+    // **기하 계약을 일부러 비웠다.** figma/components.measured.json 에 news-card 항목이 없어
+    // 347 · 160 · 698 · 324 · 94 · 64 를 대조할 실측 정본이 없다 — measuredId 를 적으면 게이트가
+    // 「실측값이 없습니다」로 즉시 실패한다. MediaCard · CarouselArrow 와 같은 상태이고, 실측
+    // probe 를 붙이는 것이 셋의 공통 승격 조건이다(news-card.md Known deviations 7).
+  },
+  {
+    id: "gnb-menu-item",
+    figmaName: "GnbMenuItem",
+    figmaAhead:
+      "LOUIS recipe 없음 — 제품 landing/navigation/Gnb.tsx 의 menuLinkClass() 가 정본이다. 제품은 이것을 컴포넌트가 아니라 클래스 조립 함수로 갖고 있고 항목은 네 요소(a · Link · button · span)로 렌더된다 — 대조할 .d.ts 가 없다.",
+    variantProperties: {},
+    // **면도 테두리도 그림자도 없다.** 알약이 `bg-transparent` 이고 헤어라인이 없는 것이 이
+    // 컴포넌트가 시스템의 다른 알약과 갈리는 지점이다 — 상태를 면이 아니라 **잉크 불투명도**로
+    // 만든다. 빈 계약이 그 사실을 고정한다: Figma 에 stroke 나 effect 가 하나라도 생기면
+    // 「계약에 없는 것」으로 걸린다. 되읽기의 strokeWeight 가 비어 있는 것이 정상이다.
+    strokes: {},
+    effects: {},
+    figmaOnlyProperties: {
+      Label: {
+        type: "TEXT",
+        reason:
+          "메뉴 항목의 글자. 코드에서는 요소의 children 이고 문구는 전부 i18n(messages.nav.*)에서 온다. 폭이 라벨을 따라가므로 로케일이 바뀌면 항목 폭도 메뉴 폭도 달라진다.",
+      },
+      Surface: {
+        options: ["light", "dark"],
+        reason:
+          "밑에 깔린 면이 밝은가 어두운가. 코드에서는 navBlack boolean 이고 **테마가 아니라 면이 정한다** — 라이트 테마의 랜딩 안에도 어두운 사진 밴드가 있어 거기서 뒤집히고(data-nav-tone=\"dark\"), 랜딩 밖의 밝은 페이지는 테마와 무관하게 고정한다(lightSurface). 그래서 semantic 의 Light/Dark 모드로는 표현할 수 없고, 제품도 시맨틱 gray-* 램프가 아니라 고정 palette-gray-* 를 쓴다. **figma-component-authoring.md §2 개정이 Surface 를 축 표에 열었다** — 판정 규칙은 「제품이 그 자리를 시맨틱 램프로 받으면 모드, 고정 팔레트로 받으면 Surface」이고 이 자리는 후자다. **이름이 교차한다**: Surface=light(밝은 면)는 제품의 MENU_LINK_TONE_BLACK(검은 잉크)에 대응한다. 두 변형이 실제로 그 방향으로 묶여 있는지는 되읽기가 변형별 색 바인딩을 내지 않아 이 게이트로 확인할 수 없다 — 소유자 확인이 남은 결손이다(같은 절의 「이 개정이 남긴 결손」 1번).",
+      },
+      State: {
+        options: ["Default", "Hover", "Selected", "Disabled"],
+        reason:
+          "Hover 는 코드에서 CSS 상태([&:hover]: 임의 변형이라 @media (hover: hover) 밖이다), Selected 는 menuLinkClass 의 isActive, Disabled 는 MENU_LINK_COMING_SOON 덧붙임이다. Figma 에 CSS 상태가 없어 한 축에 묶는다. **Selected 가 여기 남는 것은 §2 개정의 판정이다** — 접기 시험(활성 링크는 hover 로 아무것도 바뀌지 않고 갈 곳 없는 항목과 활성이 같이 서지 않는다)을 통과하므로 곱할 조합이 없고, 앞선 판의 「Selected 는 BOOLEAN 으로 빼라」쪽이 오류였다. 네 값이 바꾸는 것은 기하가 아니라 잉크 불투명도 하나뿐이고(Selected 1.00 / Hover 0.90·0.80 / Default 0.70·0.65 / Disabled 0.40), **되읽기가 opacity 를 담지 않아 이 게이트는 그 값을 대조하지 못한다** — Figma 가 아직 밝은 면 Default 를 0.50 으로 그리고 있는 어긋남이 여기로 잡히지 않는다(design/components/gnb-menu-item.md Known deviations 1). Focus 가 없는 것은 의도가 아니라 결손이다 — 제품 클래스에 :focus-visible 선언이 없다.",
+      },
+    },
+    // geometry 를 넣지 않았다 — figma/components.measured.json 에 gnb-menu-item 항목이 없어
+    // 28 · 12 · 999 를 대조할 실측이 없다. 여덟 변형의 기하가 완전히 같아 되읽기 키도 base
+    // 하나다.
   },
   {
     id: "menu-popover",

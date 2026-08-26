@@ -525,6 +525,68 @@ const COMPONENT_CONTRACTS = [
       Kind: { options: ["glyph", "text"], reason: "글리프 키캡과 글자 키캡은 자간·굵기만 다르다(KEY vs KEY_TEXT)." },
     },
   },
+  // ── 랜딩에서 올라온 둘 ────────────────────────────────────────────────────
+  // 제품 랜딩이 이미 쓰고 있는데 DS 에 이름이 없던 자리다. **여기서는 코드가 Figma 보다
+  // 앞서 있다** — Keycap 계열과 방향이 반대이므로 계약값은 전부 제품 소스에서 끌어왔다.
+  // Figma 값을 그대로 옮기면 게이트가 Figma 로 Figma 를 검증하는 셈이 된다.
+  {
+    id: "media-card",
+    figmaName: "MediaCard",
+    figmaAhead: "LOUIS recipe 없음 — 제품 MediaCard.tsx 가 정본이고 소비처가 세 자리다.",
+    variantProperties: {},
+    // 카드 자신에는 테두리가 없다. 사진이 면이고 경계는 radius 로만 만든다.
+    strokes: {},
+    // **두 겹의 배경 흐림이 이 컴포넌트의 조형이다.** 값의 출처는 제품 클래스다 —
+    // 배지가 `backdrop-filter: blur(10px)`, 정보 바가 `blur(20px)`.
+    // 10 은 토큰이 있어 변수로 묶는다(`blur/surface` = primitive.blur.10). 20 은 **없다** —
+    // blur 토큰이 10·12·16 셋뿐이라 리터럴로 남는다. 그 사실을 계약이 적어 두어야
+    // 나중에 20 토큰이 생겼을 때 이 자리가 따라오지 않는 것을 게이트가 잡는다.
+    effects: {
+      Badge: "BACKGROUND_BLUR:NORMAL:var(blur/surface)",
+      InfoBar: "BACKGROUND_BLUR:NORMAL:20",
+    },
+    // 브랜드 글리프는 소비처마다 다르다. 슬롯이 없으면 아홉 장이 전부 같은 글리프가 된다.
+    iconSlots: ["Glyph"],
+    figmaOnlyProperties: {
+      Badge: {
+        options: ["New", "Top", "none"],
+        reason:
+          "코드에서 badge 는 optional 문구 prop 이라 축이 아니다. Figma 에 「값이 없으면 안 그린다」가 없어 축으로 뒀고, 값에 문구까지 들어가 있다. **figma-component-authoring.md §2 의 닫힌 축 표에 없는 축이며 §3 은 있고 없고를 BOOLEAN 으로 두라고 한다** — 소유자 판정이 필요하고 그때까지 이 계약이 현상을 고정한다.",
+      },
+      Title: { type: "TEXT", reason: "이름 한 줄. 코드에서는 name prop 이다." },
+      Icon: { type: "BOOLEAN", reason: "브랜드 글리프의 유무. 코드에서는 icon prop 이 ReactNode 라 있으면 그린다." },
+      Glyph: { type: "INSTANCE_SWAP", reason: "그 글리프가 무엇인지. Icon 과 짝으로 낸다(§3)." },
+      Description: { type: "BOOLEAN", reason: "설명 줄의 유무. 코드에서는 sub prop 의 유무다." },
+      DescriptionLabel: { type: "TEXT", reason: "설명 문구. 코드에서는 sub 의 값이다." },
+    },
+  },
+  {
+    id: "carousel-arrow",
+    figmaName: "CarouselArrow",
+    figmaAhead: "LOUIS recipe 없음 — 제품 CarouselArrows.tsx 가 정본이고 소비처가 다섯 자리다.",
+    variantProperties: {},
+    // 캐럿은 인라인 SVG 다. 제품이 strokeWidth="1" 을 주고 SVG stroke 는 경로 위에 가운데
+    // 정렬되므로 CENTER 다. **아이콘 정본 두께(1.5)와 다르다** — 라이브러리에 없는 글리프라
+    // 제품 값을 그대로 옮겼고, 그래서 `weight: "icon"` 이 아니라 숫자를 적는다.
+    strokes: { glyph: { weight: 1, align: "CENTER" } },
+    // 헤어라인이 **테두리가 아니다.** 제품이 box-shadow: var(--louis-hairline-inset) 을 쓰고
+    // 그 토큰은 `inset 0 0 0 border-width-hairline(0.5)` 이다(base.css). inset 그림자는
+    // 레이아웃 박스를 건드리지 않아 32×32 가 그대로 남는다 — stroke 로 그리면 INSIDE 여도
+    // 시각 박스가 달라진다.
+    effects: { self: "INNER_SHADOW:0:0:0.5" },
+    figmaOnlyProperties: {
+      Direction: {
+        options: ["prev", "next"],
+        reason:
+          "코드는 버튼 **쌍**을 하나로 내보내고 방향은 두 개의 button 이라 prop 이 아니다. Figma 는 상호작용을 받는 단위가 버튼 하나라 set 을 하나로 뽑았고 방향이 축이 됐다. **figma-component-authoring.md §2 의 닫힌 축 표에 없는 축이다** — 소유자 판정이 필요하고 그때까지 이 계약이 현상을 고정한다.",
+      },
+      State: {
+        options: ["Default", "Hover", "Disabled"],
+        reason:
+          "Hover 는 코드에서 CSS 상태이고 Disabled 는 prevDisabled/nextDisabled prop 이 만드는 네이티브 disabled 다. Figma 에 CSS 상태가 없어 한 축에 묶는다. **Focus 가 없는 것은 의도가 아니라 결손이다** — 제품 버튼 클래스에 :focus-visible 선언이 없다(carousel-arrow.md Accessibility).",
+      },
+    },
+  },
   {
     id: "menu-popover",
     figmaName: "MenuSeparator",

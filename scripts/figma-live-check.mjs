@@ -27,24 +27,40 @@ import { dirname, resolve } from "node:path";
 const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const READBACK = "figma/readback.json";
 
-/** Figma 안에서 돌릴 코드. 응답이 작아야 하므로 **이름과 축만** 뜬다 — 기하·색은 되읽기의 일이다. */
+/** Figma 안에서 돌릴 코드. 응답이 작아야 하므로 **이름·축·겹침 수만** 뜬다 — 기하·색은 되읽기의 일이다.
+ *
+ * 겹침을 함께 세는 이유: 변형을 프로그램으로 만들면 **전부 (0,0) 에 쌓이기 쉽다.**
+ * 실제로 한 세트(SegmentedControlItem)는 18개가 한 자리에 겹쳐 153쌍이었고, 그 상태로도
+ * parity 는 초록이었다 — 계약은 축과 값만 보지 배치를 보지 않기 때문이다. 겹친 세트는
+ * 디자이너가 쓸 수 없으므로 「만든 것」이 아니다. */
 const PROBE = `const page = figma.root.children.find(p => p.name === "DS · Components");
 await figma.setCurrentPageAsync(page);
+const hit = (a, b) => a.x < b.x + b.width - 0.5 && b.x < a.x + a.width - 0.5 && a.y < b.y + b.height - 0.5 && b.y < a.y + a.height - 0.5;
 const out = {};
+const tops = [];
 for (const n of page.children) {
   if (n.type !== "COMPONENT_SET" && n.type !== "COMPONENT") continue;
+  tops.push(n);
   const props = {};
   for (const [raw, def] of Object.entries(n.componentPropertyDefinitions || {})) {
     const key = raw.includes("#") ? raw.slice(0, raw.indexOf("#")) : raw;
     props[key] = def.type === "VARIANT" ? def.variantOptions.slice().sort() : def.type;
   }
+  let overlap = 0;
+  if (n.type === "COMPONENT_SET") {
+    const k = n.children;
+    for (let i = 0; i < k.length; i += 1) for (let j = i + 1; j < k.length; j += 1) if (hit(k[i], k[j])) overlap += 1;
+  }
   out[n.name] = {
     variantCount: n.type === "COMPONENT_SET" ? n.children.length : 1,
     hasDescription: (n.description || "").length > 0,
     props,
+    variantOverlap: overlap,
   };
 }
-return out;`;
+let setOverlap = 0;
+for (let i = 0; i < tops.length; i += 1) for (let j = i + 1; j < tops.length; j += 1) if (hit(tops[i], tops[j])) setOverlap += 1;
+return { components: out, setOverlap };`;
 
 const args = process.argv.slice(2);
 const read = (p) => JSON.parse(readFileSync(resolve(repoRoot, p), "utf8"));
@@ -66,9 +82,22 @@ if (idx === -1 || !args[idx + 1]) {
   process.exit(2);
 }
 
-const live = read(args[idx + 1]);
+const raw = read(args[idx + 1]);
+/* 예전 형태(컴포넌트 맵만)도 받는다 — 겹침 검사는 그 경우 건너뛴다. */
+const live = raw.components ?? raw;
 const snapshot = read(READBACK).components ?? {};
 const issues = [];
+
+if (typeof raw.setOverlap === "number" && raw.setOverlap > 0) {
+  issues.push(`component set 끼리 겹칩니다 (${raw.setOverlap}쌍) — 캔버스에서 서로를 덮고 있습니다.`);
+}
+for (const [name, got] of Object.entries(live)) {
+  if (got.variantOverlap > 0) {
+    issues.push(
+      `변형이 겹칩니다: ${name} (${got.variantOverlap}쌍 / 변형 ${got.variantCount}개) — 프로그램으로 만든 변형이 한 자리에 쌓였습니다. 격자로 재배치하세요.`,
+    );
+  }
+}
 
 const sortedKeys = (o) => Object.keys(o).sort();
 for (const name of sortedKeys(live)) {

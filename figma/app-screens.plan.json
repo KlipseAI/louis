@@ -92393,5 +92393,399 @@
         ]
       }
     }
+  ],
+  "runners": [
+    {
+      "route": "/archive",
+      "context": "desktop-1920x1080",
+      "frameId": "20:2",
+      "chunkCount": 3,
+      "files": [
+        {
+          "file": "figma/app-screens.archive.desktop.00.draw.js",
+          "bytes": 9697
+        },
+        {
+          "file": "figma/app-screens.archive.desktop.01.draw.js",
+          "bytes": 11295
+        },
+        {
+          "file": "figma/app-screens.archive.desktop.02.draw.js",
+          "bytes": 10896
+        }
+      ]
+    },
+    {
+      "route": "/archive",
+      "context": "mobile-402x874",
+      "frameId": "23:2",
+      "chunkCount": 1,
+      "files": [
+        {
+          "file": "figma/app-screens.archive.mobile.00.draw.js",
+          "bytes": 11074
+        }
+      ]
+    },
+    {
+      "route": "/settings",
+      "context": "desktop-1920x1080",
+      "frameId": "28:3",
+      "chunkCount": 6,
+      "files": [
+        {
+          "file": "figma/app-screens.settings.desktop.00.draw.js",
+          "bytes": 10543
+        },
+        {
+          "file": "figma/app-screens.settings.desktop.01.draw.js",
+          "bytes": 11236
+        },
+        {
+          "file": "figma/app-screens.settings.desktop.02.draw.js",
+          "bytes": 9435
+        },
+        {
+          "file": "figma/app-screens.settings.desktop.03.draw.js",
+          "bytes": 9162
+        },
+        {
+          "file": "figma/app-screens.settings.desktop.04.draw.js",
+          "bytes": 9072
+        },
+        {
+          "file": "figma/app-screens.settings.desktop.05.draw.js",
+          "bytes": 11520
+        }
+      ]
+    },
+    {
+      "route": "/settings",
+      "context": "mobile-402x874",
+      "frameId": "28:44",
+      "chunkCount": 2,
+      "files": [
+        {
+          "file": "figma/app-screens.settings.mobile.00.draw.js",
+          "bytes": 9586
+        },
+        {
+          "file": "figma/app-screens.settings.mobile.01.draw.js",
+          "bytes": 11703
+        }
+      ]
+    },
+    {
+      "route": "/subscription",
+      "context": "desktop-1920x1080",
+      "frameId": "190:1172",
+      "chunkCount": 3,
+      "files": [
+        {
+          "file": "figma/app-screens.subscription.desktop.00.draw.js",
+          "bytes": 10559
+        },
+        {
+          "file": "figma/app-screens.subscription.desktop.01.draw.js",
+          "bytes": 11248
+        },
+        {
+          "file": "figma/app-screens.subscription.desktop.02.draw.js",
+          "bytes": 11640
+        }
+      ]
+    },
+    {
+      "route": "/subscription",
+      "context": "mobile-402x874",
+      "frameId": "190:1497",
+      "chunkCount": 1,
+      "files": [
+        {
+          "file": "figma/app-screens.subscription.mobile.00.draw.js",
+          "bytes": 11202
+        }
+      ]
+    },
+    {
+      "route": "/analytics/youtube",
+      "context": "desktop-1920x1080",
+      "frameId": "30:3",
+      "chunkCount": 2,
+      "files": [
+        {
+          "file": "figma/app-screens.analytics-youtube.desktop.00.draw.js",
+          "bytes": 11382
+        },
+        {
+          "file": "figma/app-screens.analytics-youtube.desktop.01.draw.js",
+          "bytes": 11316
+        }
+      ]
+    },
+    {
+      "route": "/analytics/youtube",
+      "context": "mobile-402x874",
+      "frameId": "30:33",
+      "chunkCount": 1,
+      "files": [
+        {
+          "file": "figma/app-screens.analytics-youtube.mobile.00.draw.js",
+          "bytes": 10421
+        }
+      ]
+    },
+    {
+      "route": "/mypage/upgrade",
+      "context": "desktop-1920x1080",
+      "frameId": "192:1251",
+      "chunkCount": 6,
+      "files": [
+        {
+          "file": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
+          "bytes": 10881
+        },
+        {
+          "file": "figma/app-screens.mypage-upgrade.desktop.01.draw.js",
+          "bytes": 11252
+        },
+        {
+          "file": "figma/app-screens.mypage-upgrade.desktop.02.draw.js",
+          "bytes": 11009
+        },
+        {
+          "file": "figma/app-screens.mypage-upgrade.desktop.03.draw.js",
+          "bytes": 10392
+        },
+        {
+          "file": "figma/app-screens.mypage-upgrade.desktop.04.draw.js",
+          "bytes": 10258
+        },
+        {
+          "file": "figma/app-screens.mypage-upgrade.desktop.05.draw.js",
+          "bytes": 11708
+        }
+      ]
+    },
+    {
+      "route": "/mypage/upgrade",
+      "context": "mobile-402x874",
+      "frameId": "192:1794",
+      "chunkCount": 3,
+      "files": [
+        {
+          "file": "figma/app-screens.mypage-upgrade.mobile.00.draw.js",
+          "bytes": 9835
+        },
+        {
+          "file": "figma/app-screens.mypage-upgrade.mobile.01.draw.js",
+          "bytes": 10332
+        },
+        {
+          "file": "figma/app-screens.mypage-upgrade.mobile.02.draw.js",
+          "bytes": 10794
+        }
+      ]
+    },
+    {
+      "route": "/mypage/upgrade/billing-success",
+      "context": "desktop-1920x1080",
+      "frameId": "25:3",
+      "chunkCount": 2,
+      "files": [
+        {
+          "file": "figma/app-screens.mypage-upgrade-billing-success.desktop.00.draw.js",
+          "bytes": 11255
+        },
+        {
+          "file": "figma/app-screens.mypage-upgrade-billing-success.desktop.01.draw.js",
+          "bytes": 11280
+        }
+      ]
+    },
+    {
+      "route": "/mypage/upgrade/billing-success",
+      "context": "mobile-402x874",
+      "frameId": "25:29",
+      "chunkCount": 1,
+      "files": [
+        {
+          "file": "figma/app-screens.mypage-upgrade-billing-success.mobile.00.draw.js",
+          "bytes": 10292
+        }
+      ]
+    },
+    {
+      "route": "/mypage/upgrade/billing-fail",
+      "context": "desktop-1920x1080",
+      "frameId": "183:922",
+      "chunkCount": 2,
+      "files": [
+        {
+          "file": "figma/app-screens.mypage-upgrade-billing-fail.desktop.00.draw.js",
+          "bytes": 11669
+        },
+        {
+          "file": "figma/app-screens.mypage-upgrade-billing-fail.desktop.01.draw.js",
+          "bytes": 11277
+        }
+      ]
+    },
+    {
+      "route": "/mypage/upgrade/billing-fail",
+      "context": "mobile-402x874",
+      "frameId": "183:1057",
+      "chunkCount": 1,
+      "files": [
+        {
+          "file": "figma/app-screens.mypage-upgrade-billing-fail.mobile.00.draw.js",
+          "bytes": 10705
+        }
+      ]
+    },
+    {
+      "route": "/mypage/upgrade/billing-change-success",
+      "context": "desktop-1920x1080",
+      "frameId": "183:1258",
+      "chunkCount": 2,
+      "files": [
+        {
+          "file": "figma/app-screens.mypage-upgrade-billing-change-success.desktop.00.draw.js",
+          "bytes": 10918
+        },
+        {
+          "file": "figma/app-screens.mypage-upgrade-billing-change-success.desktop.01.draw.js",
+          "bytes": 11298
+        }
+      ]
+    },
+    {
+      "route": "/mypage/upgrade/billing-change-success",
+      "context": "mobile-402x874",
+      "frameId": "183:1391",
+      "chunkCount": 1,
+      "files": [
+        {
+          "file": "figma/app-screens.mypage-upgrade-billing-change-success.mobile.00.draw.js",
+          "bytes": 9951
+        }
+      ]
+    },
+    {
+      "route": "/mypage/upgrade/billing-change-fail",
+      "context": "desktop-1920x1080",
+      "frameId": "183:1095",
+      "chunkCount": 2,
+      "files": [
+        {
+          "file": "figma/app-screens.mypage-upgrade-billing-change-fail.desktop.00.draw.js",
+          "bytes": 11050
+        },
+        {
+          "file": "figma/app-screens.mypage-upgrade-billing-change-fail.desktop.01.draw.js",
+          "bytes": 11292
+        }
+      ]
+    },
+    {
+      "route": "/mypage/upgrade/billing-change-fail",
+      "context": "mobile-402x874",
+      "frameId": "183:1225",
+      "chunkCount": 1,
+      "files": [
+        {
+          "file": "figma/app-screens.mypage-upgrade-billing-change-fail.mobile.00.draw.js",
+          "bytes": 10082
+        }
+      ]
+    },
+    {
+      "route": "/mypage/upgrade/fail",
+      "context": "desktop-1920x1080",
+      "frameId": "183:743",
+      "chunkCount": 3,
+      "files": [
+        {
+          "file": "figma/app-screens.mypage-upgrade-fail.desktop.00.draw.js",
+          "bytes": 8711
+        },
+        {
+          "file": "figma/app-screens.mypage-upgrade-fail.desktop.01.draw.js",
+          "bytes": 11261
+        },
+        {
+          "file": "figma/app-screens.mypage-upgrade-fail.desktop.02.draw.js",
+          "bytes": 11701
+        }
+      ]
+    },
+    {
+      "route": "/mypage/upgrade/fail",
+      "context": "mobile-402x874",
+      "frameId": "183:881",
+      "chunkCount": 1,
+      "files": [
+        {
+          "file": "figma/app-screens.mypage-upgrade-fail.mobile.00.draw.js",
+          "bytes": 10870
+        }
+      ]
+    },
+    {
+      "route": "/mypage/topup/success",
+      "context": "desktop-1920x1080",
+      "frameId": "183:1427",
+      "chunkCount": 2,
+      "files": [
+        {
+          "file": "figma/app-screens.mypage-topup-success.desktop.00.draw.js",
+          "bytes": 10872
+        },
+        {
+          "file": "figma/app-screens.mypage-topup-success.desktop.01.draw.js",
+          "bytes": 11264
+        }
+      ]
+    },
+    {
+      "route": "/mypage/topup/success",
+      "context": "mobile-402x874",
+      "frameId": "183:1565",
+      "chunkCount": 1,
+      "files": [
+        {
+          "file": "figma/app-screens.mypage-topup-success.mobile.00.draw.js",
+          "bytes": 9905
+        }
+      ]
+    },
+    {
+      "route": "/mypage/topup/fail",
+      "context": "desktop-1920x1080",
+      "frameId": "183:1606",
+      "chunkCount": 2,
+      "files": [
+        {
+          "file": "figma/app-screens.mypage-topup-fail.desktop.00.draw.js",
+          "bytes": 11016
+        },
+        {
+          "file": "figma/app-screens.mypage-topup-fail.desktop.01.draw.js",
+          "bytes": 11258
+        }
+      ]
+    },
+    {
+      "route": "/mypage/topup/fail",
+      "context": "mobile-402x874",
+      "frameId": "183:1736",
+      "chunkCount": 1,
+      "files": [
+        {
+          "file": "figma/app-screens.mypage-topup-fail.mobile.00.draw.js",
+          "bytes": 10048
+        }
+      ]
+    }
   ]
 }

@@ -1,34 +1,35 @@
-// **앱 화면 렌더러.** `PLAN`(축약된 계층 spec)을 Figma Auto Layout 계층으로 조립한다.
-// Figma 플러그인 샌드박스 안에서 실행되며, 생성기가 `PLAN` 상수와 함께 draw.js로 합쳐 넣는다.
+// **앱 화면 조각 렌더러.** `P`(조각 하나)를 Figma Auto Layout으로 조립한다.
+// Figma 플러그인 샌드박스 안에서 실행되며, 생성기가 `P`와 함께 draw.js로 합쳐 넣는다.
+//
+// ## 왜 조각인가
+//
+// `use_figma`는 인라인 payload가 크고 깊으면 `SyntaxError: expecting ']'`로 끊긴다(실측: 74노드/깊이 12는
+// 통과, 89노드/깊이 12는 실패 — 크기×깊이 조합). 그래서 화면 하나를 조각으로 나눠 넘긴다.
+//   조각 0 — 프레임 껍데기 + 상단부. 떼어낸 자리에 `w:1`(대기) 표시가 남는다.
+//   조각 n — `path`(자식 인덱스 체인)로 그 자리를 찾아 실제 서브트리로 교체한다.
 //
 // ## 불변 순서 (라이브 probe로 확정한 API 제약)
 //
-//   ① 부모에 append  → ② layoutMode 설정 → ③ ABSOLUTE 지정 → ④ resize(고정축) → ⑤ layoutSizing → ⑥ min/max
+//   append → layoutMode → ABSOLUTE → resize(고정축) → layoutSizing → min/max → margin
 //
-// - 부모 없이 `layoutSizingHorizontal="FILL"`은 **거부**된다("must be a child of an auto-layout frame").
-// - **`resize()`는 `layoutSizing`을 FIXED로 덮는다** — 그래서 resize를 sizing보다 먼저 한다.
+// - 부모 없이 `layoutSizingHorizontal="FILL"`은 **거부**된다.
+// - **`resize()`는 `layoutSizing`을 FIXED로 덮는다** — resize를 sizing보다 먼저 한다.
 // - `HUG`는 자기 자신이 auto-layout이거나 TEXT일 때만 유효하다.
-// - `layoutPositioning="ABSOLUTE"`는 부모가 auto-layout일 때만 유효하다.
-//
-// ## 기존 프레임을 어떻게 다루는가
-//
-// 손수 제작된 옛 내용은 **지우지 않고** `legacy/…` 프레임으로 묶어 숨긴다. 실측본이 틀렸을 때
-// 되돌릴 근거가 남아야 하고, 보드 규약도 "삭제 말고 보존"이다.
+// - `ABSOLUTE`는 부모가 auto-layout일 때만 유효하다.
 
 const MODE = { V: "VERTICAL", H: "HORIZONTAL", G: "GRID" };
 const SIZE = { F: "FILL", H: "HUG", A: "FIXED" };
 const CONSTRAINT = { M: "MIN", A: "MAX", S: "STRETCH", C: "CENTER" };
 
 await figma.loadFontAsync({ family: "Pretendard", style: "Regular" });
-await figma.loadFontAsync({ family: "Pretendard", style: "Medium" });
 
-// 실측 색이 아직 spec에 없으므로 구조가 보이도록 최소한의 구분 색만 쓴다.
-// (색·타이포 이관은 다음 단계다 — 지금은 레이아웃 계약을 먼저 고정한다.)
+// 실측 색은 아직 spec에 없으므로 구조가 보이도록 최소한의 구분 색만 쓴다.
+// (색·타이포 이관은 다음 단계 — 지금은 레이아웃 계약을 먼저 고정한다.)
 const surfaceFor = (tag, sizing) => {
   if (tag === "header" || tag === "aside") return { r: 0.09, g: 0.10, b: 0.12 };
   if (tag === "main") return { r: 0.19, g: 0.21, b: 0.25 };
-  if (tag === "button") return { r: 0.20, g: 0.22, b: 0.26 };
-  if (tag === "article" || tag === "section") return { r: 0.14, g: 0.15, b: 0.18 };
+  if (tag === "a" || tag === "button") return { r: 0.20, g: 0.42, b: 0.72 };
+  if (tag === "section" || tag === "article") return { r: 0.14, g: 0.15, b: 0.18 };
   if (sizing[0] === "A") return { r: 0.24, g: 0.26, b: 0.30 };
   return null;
 };
@@ -40,7 +41,7 @@ const buildNode = (spec, parent) => {
     node = figma.createText();
     node.fontName = { family: "Pretendard", style: "Regular" };
     node.fontSize = 14;
-    node.characters = spec.x;
+    node.characters = String(spec.x);
     node.fills = [{ type: "SOLID", color: { r: 0.90, g: 0.91, b: 0.93 } }];
   } else {
     node = figma.createFrame();
@@ -63,13 +64,12 @@ const buildNode = (spec, parent) => {
     }
     if (spec.c) node.clipsContent = true;
   }
-  node.name = `${spec.t}${spec.x ? " " + spec.x.slice(0, 18) : ""} ${spec.s}`;
+  // 대기 자리는 뒤 조각이 찾을 수 있게 표시를 남긴다.
+  node.name = (spec.w ? "pending " : "") + spec.t + (spec.x ? " " + String(spec.x).slice(0, 18) : "") + " " + spec.s;
 
-  // ① append
   if (parent && node.parent !== parent) parent.appendChild(node);
   const parentAuto = parent && "layoutMode" in parent && parent.layoutMode && parent.layoutMode !== "NONE";
 
-  // ③ ABSOLUTE — 흐름에서 빼야 형제가 자리를 뺏기지 않는다.
   const isAbsolute = Boolean(spec.p) && parentAuto;
   if (isAbsolute) {
     node.layoutPositioning = "ABSOLUTE";
@@ -82,17 +82,14 @@ const buildNode = (spec, parent) => {
   const h = SIZE[spec.s[0]];
   const v = SIZE[spec.s[1]];
 
-  // ④ resize — sizing보다 먼저. ABSOLUTE는 두 축 모두 실측 크기를 준다.
   if (!isText && (isAbsolute || h === "FIXED" || v === "FIXED")) {
     node.resize(
       (isAbsolute || h === "FIXED") ? Math.max(0.01, spec.r[0]) : node.width,
       (isAbsolute || v === "FIXED") ? Math.max(0.01, spec.r[1]) : node.height,
     );
   }
-
   if (isAbsolute && spec.o) { node.x = spec.o[0]; node.y = spec.o[1]; }
 
-  // ⑤ layoutSizing — ABSOLUTE에는 축 개념이 없다.
   if (!isAbsolute) {
     const selfAuto = "layoutMode" in node && node.layoutMode && node.layoutMode !== "NONE";
     const apply = (axis, value) => {
@@ -106,28 +103,18 @@ const buildNode = (spec, parent) => {
     if (isText) node.textAutoResize = (h === "HUG" && v === "HUG") ? "WIDTH_AND_HEIGHT" : "HEIGHT";
   }
 
-  // ⑥ min/max — FILL과 공존한다(실측 확인). 제품의 max-width 제한이 여기서 살아난다.
   if (spec.mh) { try { node.minHeight = spec.mh; } catch (error) {} }
   if (spec.mw) { try { node.maxWidth = spec.mw; } catch (error) {} }
 
-  // ⑦ margin — **Figma Auto Layout에는 margin이 없다.** 부모의 padding으로 옮긴다.
-  // 실측 사고: `/mypage/topup/fail`의 main은 `margin-left:280px`(사이드바 폭)로 옆에 놓이는데
-  // 이를 버리자 main이 x=0에서 전폭으로 그려져 사이드바를 통째로 덮었다.
-  // 형제가 하나뿐이면 부모 padding으로 정확히 옮길 수 있다. 형제가 여럿이면 각자 다른 margin을
-  // 가질 수 있어 padding 하나로는 표현되지 않으므로, 그때는 자기 폭에서 빼는 방식으로 근사한다.
-  if (spec.m && parent) {
-    const [mt, mr, mb, ml] = spec.m;
-    const onlyChild = parent.children.length === 1;
-    if (onlyChild && parentAuto) {
-      if (ml) parent.paddingLeft = (parent.paddingLeft || 0) + ml;
-      if (mr) parent.paddingRight = (parent.paddingRight || 0) + mr;
-      if (mt) parent.paddingTop = (parent.paddingTop || 0) + mt;
-      if (mb) parent.paddingBottom = (parent.paddingBottom || 0) + mb;
-    } else if (!isAbsolute && (ml || mr)) {
-      // 형제가 여럿일 때: FILL이면 부모가 폭을 주므로 그대로 두고, 아니면 실측 폭을 유지한다.
-      if (h !== "FILL") {
-        try { node.resize(Math.max(0.01, spec.r[0]), node.height); } catch (error) {}
-      }
+  // margin — Figma Auto Layout에는 margin이 없다. 흐름 자식이 하나면 부모 padding으로 옮긴다.
+  // (사이드바처럼 ABSOLUTE인 형제는 흐름 밖이라 자리를 뺏지 않는다.)
+  if (spec.m && parent && parentAuto && !isAbsolute) {
+    const flow = parent.children.filter((child) => child.layoutPositioning !== "ABSOLUTE");
+    if (flow.length === 1) {
+      if (spec.m[3]) parent.paddingLeft = (parent.paddingLeft || 0) + spec.m[3];
+      if (spec.m[1]) parent.paddingRight = (parent.paddingRight || 0) + spec.m[1];
+      if (spec.m[0]) parent.paddingTop = (parent.paddingTop || 0) + spec.m[0];
+      if (spec.m[2]) parent.paddingBottom = (parent.paddingBottom || 0) + spec.m[2];
     }
   }
 
@@ -135,20 +122,20 @@ const buildNode = (spec, parent) => {
   return node;
 };
 
-const report = [];
-for (const entry of PLAN) {
-  const frame = await figma.getNodeByIdAsync(entry.frameId);
-  if (!frame) throw new Error(`대상 프레임을 찾지 못했습니다: ${entry.frameId} (${entry.route})`);
-  await figma.setCurrentPageAsync(
-    frame.parent && frame.parent.type === "PAGE" ? frame.parent
-      : (frame.parent?.parent?.type === "PAGE" ? frame.parent.parent : figma.currentPage),
-  );
+const frame = await figma.getNodeByIdAsync(P.frameId);
+if (!frame) throw new Error(`대상 프레임을 찾지 못했습니다: ${P.frameId} (${P.route})`);
+await figma.setCurrentPageAsync(
+  frame.parent && frame.parent.type === "PAGE" ? frame.parent
+    : (frame.parent && frame.parent.parent && frame.parent.parent.type === "PAGE" ? frame.parent.parent : figma.currentPage),
+);
+const generatedName = `generated/${P.route} ${P.context.split("-")[0]}`;
 
-  // 옛 내용은 지우지 않고 숨긴 legacy 묶음으로 보존한다.
-  const generatedName = `generated/${entry.route} · ${entry.context}`;
+let result;
+if (P.head) {
+  // 조각 0 — 옛 손수 내용은 지우지 않고 `legacy/…`로 묶어 숨긴다(되돌릴 근거 보존).
   const prior = frame.children.find((child) => child.name === generatedName);
   if (prior) prior.remove();
-  const legacyName = `legacy/${entry.route}`;
+  const legacyName = `legacy/${P.route}`;
   let legacy = frame.children.find((child) => child.name === legacyName);
   if (!legacy) {
     const survivors = frame.children.filter((child) => child.name !== generatedName);
@@ -158,24 +145,31 @@ for (const entry of PLAN) {
       legacy.visible = false;
     }
   }
-
-  // 프레임 자체를 Auto Layout 껍데기로 만들어 자식이 FILL로 반응하게 한다.
   frame.layoutMode = "VERTICAL";
   frame.primaryAxisSizingMode = "FIXED";
   frame.counterAxisSizingMode = "FIXED";
   frame.itemSpacing = 0;
   frame.paddingTop = frame.paddingRight = frame.paddingBottom = frame.paddingLeft = 0;
-  frame.resize(entry.frameSize[0], entry.frameSize[1]);
+  frame.resize(P.frameSize[0], P.frameSize[1]);
   if (legacy) legacy.layoutPositioning = "ABSOLUTE";
-
-  const root = buildNode(entry.spec, frame);
+  const root = buildNode(P.head, frame);
   root.name = generatedName;
-  report.push({
-    route: entry.route,
-    context: entry.context,
-    frameId: entry.frameId,
-    built: [Math.round(root.width), Math.round(root.height)],
-    legacyPreserved: Boolean(legacy),
-  });
+  result = { chunk: 0, built: [Math.round(root.width), Math.round(root.height)], legacy: Boolean(legacy) };
+} else {
+  // 조각 n — path를 따라 대기 자리를 찾아 실제 서브트리로 바꾼다.
+  let target = frame.children.find((child) => child.name === generatedName);
+  if (!target) throw new Error(`조각 0을 먼저 돌려야 합니다: ${generatedName}`);
+  for (const index of P.path) {
+    if (!("children" in target) || !target.children[index]) {
+      throw new Error(`대기 자리를 찾지 못했습니다: path=${P.path.join(".")} (${P.route})`);
+    }
+    target = target.children[index];
+  }
+  const holder = target.parent;
+  const at = holder.children.indexOf(target);
+  const built = buildNode(P.spec, holder);
+  holder.insertChild(at, built);
+  target.remove();
+  result = { chunk: P.path.join("."), replaced: built.name };
 }
-return { rendered: report };
+return result;

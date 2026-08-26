@@ -5013,7 +5013,12 @@
   "templates": {},
   "iconInstances": {},
   "foundations": {
-    "sections": [],
+    "sections": [
+      "Color",
+      "Typography",
+      "Spacing & Radius",
+      "Elevation"
+    ],
     "staleNames": []
   }
 }

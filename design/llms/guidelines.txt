@@ -951,6 +951,38 @@ Button 을 규범만 보고 세웠다가 State 어휘(Active↔Pressed)와 슬�
 **게이트가 green 이라고 이 문서를 지켰다는 뜻은 아니다** — parity 는 값이 코드와 같은지만 보고,
 축 어휘와 슬롯 설계는 보지 않는다. 그 둘은 리뷰로 지킨다.
 
+#### 불리언으로 두면 표현할 수 없는 것이 있다
+
+옵션 슬롯은 **BOOLEAN + INSTANCE_SWAP** 이 기본이다(베리언트로 쪼개면 곱셈이 된다). 단, 그 슬롯이
+**컨테이너의 기하를 바꾸면 불리언으로는 표현할 수 없다** — 불리언은 자식의 가시성만 바꾸고
+프레임의 padding·gap 은 못 바꾼다.
+
+Button 이 그 경우였다. 코드는 아이콘이 붙은 쪽 padding 을 2px 줄이는데(`button.css:78-91`),
+Figma 는 불리언으로 두어 그 상태를 **그릴 방법이 없었다.** `Icon: none|left|right|both` 축으로
+쪼개 5×2×5×4 = 200 이 됐다. 200 이 부담스러워도, 표현 못 하는 것보다는 낫다.
+
+**판단 기준:** 슬롯을 켰을 때 컨테이너의 padding·gap·height 중 하나라도 달라지면 → variant 축.
+자식만 나타났다 사라지면 → BOOLEAN.
+
+#### border 가 없는데 padding 에 border 를 더하지 마라
+
+「Figma padding = CSS padding + border(INSIDE stroke)」는 **border 가 실재할 때만** 맞다.
+Button 은 `border: 0` 이고 헤어라인은 레이아웃을 건드리지 않는 inset box-shadow 다(DS-D-0023).
+그런데 계약이 무조건 더하고 있어서 디자이너 눈에 `14.5 / 16.5 / 0.5` 가 보였다 — CSS 어디에도
+없는 수다. 컴포넌트마다 border 가 실재하는지 확인하고 계약을 따로 쓴다.
+
+같은 이유로 **헤어라인은 stroke 가 아니라 INNER_SHADOW 로 그린다.** CSS 가
+`inset 0 0 0 0.5px var(--louis-color-stroke-hairline)` 이면 Figma 도 spread 0.5 의 inner shadow 여야
+한다. stroke 로 두면 기법도 다르고, 실제로 토큰도 엉뚱한 것(`stroke-control`)에 물려 있었다.
+
+#### INSTANCE_SWAP 은 노드 id 를 받는다 — 그리고 후보를 채워야 쓸 수 있다
+
+- `setProperties` 로 글리프를 바꿀 때 **컴포넌트 key 가 아니라 노드 id** 를 넘긴다.
+  key 를 넘기면 `Property value is incompatible with component property type` 이 난다.
+- `preferredValues` 가 비어 있으면 **인스턴스에서 아이콘을 고를 수가 없다.** 스왑 목록이 안 뜬다.
+  `editComponentProperty(key, { preferredValues })` 로 아이콘 컴포넌트를 채운다. 이때는 반대로
+  `{type:"COMPONENT", key}` 형태의 **key** 를 쓴다. 둘이 다르다는 것을 기억할 것.
+
 ## Figma Screen Assembly
 
 - Source: design/governance/figma-screen-assembly.md

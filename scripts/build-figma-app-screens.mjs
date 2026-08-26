@@ -24,7 +24,7 @@ import { readFileSync, readdirSync, rmSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { atomicWriteBatch } from "./lib/atomic-output.mjs";
-import { applyShellInstances } from "./lib/figma-shell-instances.mjs";
+import { applyComponentInstances } from "./lib/figma-component-substitution.mjs";
 import { normalizeAuthFixtureTree, toFigmaTreeSpec } from "./lib/figma-tree-spec.mjs";
 
 const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), "..");
@@ -175,9 +175,9 @@ for (const screen of SCREENS) {
       rootPath: measured.rootPath,
       contextId: context.id,
     });
-    // **셸은 도형이 아니라 인스턴스여야 한다.** 사이드바·상단 바 서브트리를 잘라내고
-    // 컴포넌트 variant를 심는다(자세한 판정 근거는 figma-shell-instances.mjs).
-    const shells = applyShellInstances(spec, {
+    // **이미 있는 컴포넌트는 다시 그리지 않는다.** 셸(사이드바·상단 바)과 본문 블록(결제 결과·
+    // 체크아웃 상태·요금제 카드)을 잘라내고 인스턴스를 심는다(판정 근거는 figma-component-substitution.mjs).
+    const shells = applyComponentInstances(spec, {
       route: screen.route,
       context: context.id,
       viewport: { width: measured.rootRect.width, height: measured.rootRect.height },

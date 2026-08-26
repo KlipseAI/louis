@@ -608,8 +608,10 @@ const COMPONENT_CONTRACTS = [
     effects: {},
     // 제품은 **타일 하나를 컴포넌트로 내보내지 않는다** — StepTiles.tsx 가 섹션 전체를 그리고
     // 타일은 그 안의 li 다. 그래서 대조할 prop 선언이 없고 세 슬롯이 전부 Figma 전용이다.
-    // 셋 다 figma-component-authoring.md §3 의 이름 관례(있고 없고=BOOLEAN, 문구=TEXT)에
-    // 그대로 맞으므로 닫힌 축 표를 벗어나는 축이 없다 — 이 컴포넌트에는 판정이 걸린 축이 없다.
+    // 타입은 figma-component-authoring.md §3 대로다(있고 없고=BOOLEAN, 문구=TEXT) — 닫힌 축
+    // 표를 벗어나는 축이 없다. **이름은 §3 명부를 그대로 따르지 않는다**: Description 은 §3 의
+    // TEXT 명부에 있는 이름이고 BOOLEAN 명부에는 없다. 이 짝의 근거는 §2 개정표의 MediaCard
+    // 선례(Badge BOOLEAN + BadgeLabel TEXT)다(step-tile.md Known deviations 10).
     figmaOnlyProperties: {
       Label: {
         type: "TEXT",
@@ -623,7 +625,8 @@ const COMPONENT_CONTRACTS = [
       },
       DescriptionLabel: {
         type: "TEXT",
-        reason: "설명 문구. 코드에서는 description 의 값이다. Description 과 짝으로 낸다(§3).",
+        reason:
+          "설명 문구. 코드에서는 description 의 값이다. Description(BOOLEAN) 과 짝으로 낸다 — §3 이 짝으로 규정한 것은 BOOLEAN + INSTANCE_SWAP 뿐이고, 이 BOOLEAN + {Name}Label TEXT 형태의 근거는 §2 개정표의 MediaCard 선례(Badge + BadgeLabel)다.",
       },
     },
     // geometry 를 넣지 않았다 — figma/components.measured.json 에 step-tile 항목이 없어

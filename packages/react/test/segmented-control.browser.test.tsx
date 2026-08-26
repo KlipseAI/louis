@@ -54,7 +54,7 @@ function tokenValue(id: string, property: "background-color" | "color"): string 
 // 기본값을 여기서 채운다. `exactOptionalPropertyTypes`가 켜져 있어 `undefined`를 그대로
 // 넘기면 타입이 거부한다 — 컴포넌트 쪽을 느슨하게 하는 대신 호출부가 값을 갖는다.
 function Fixture({
-  size = "md",
+  size = "lg",
   disabled = false,
   itemDisabled = false,
 }: {
@@ -80,7 +80,7 @@ function Fixture({
   );
 }
 
-const SIZES: readonly SegmentedControlSize[] = ["md", "sm"];
+const SIZES: readonly SegmentedControlSize[] = ["lg", "md"];
 
 for (const size of SIZES) {
   const spec = measured.components["segmented-control"].sizes[size];

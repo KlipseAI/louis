@@ -20,7 +20,7 @@ test("md·sm 모두 32×32 정사각이다 (md 40 폐지)", async () => {
       <IconButton label="삭제" data-testid="md">
         <IconTrashSimple />
       </IconButton>
-      <IconButton label="닫기" size="sm" data-testid="sm">
+      <IconButton label="닫기" size="md" data-testid="sm">
         <IconX />
       </IconButton>
     </div>,
@@ -40,7 +40,7 @@ test("md·sm 모두 32×32 정사각이다 (md 40 폐지)", async () => {
 test("시각 크기와 무관하게 히트 영역이 44×44 이상이다", async () => {
   // .louis-hit-target이 중앙에 보이지 않는 의사 요소를 깐다. 시각 32px이어도 히트는 44px다.
   await render(
-    <IconButton label="닫기" size="sm">
+    <IconButton label="닫기" size="md">
       <IconX />
     </IconButton>,
   );
@@ -136,12 +136,12 @@ test("두 size의 글리프 계산 박스가 모두 16px다", async () => {
       <IconButton label="a" data-testid="md">
         <IconX />
       </IconButton>
-      <IconButton label="b" size="sm" data-testid="sm">
+      <IconButton label="b" size="md" data-testid="sm">
         <IconX />
       </IconButton>
     </div>,
   );
-  for (const testId of ["md", "sm"]) {
+  for (const testId of ["lg", "md"]) {
     const glyph = document
       .querySelector(`[data-testid="${testId}"]`)
       ?.querySelector(".louis-icon-button__glyph");

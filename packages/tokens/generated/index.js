@@ -9453,20 +9453,20 @@ export const tokens = {
         "unit": "px"
       }
     },
-    "layout-control-height-md": {
+    "layout-control-height-lg": {
       "aliasTarget": {
         "id": "space-40",
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-layout-control-height-md": "40px"
+        "--louis-layout-control-height-lg": "40px"
       },
       "deprecated": null,
       "description": null,
-      "id": "layout-control-height-md",
+      "id": "layout-control-height-lg",
       "mode": "global",
       "rawValue": "{primitive.spacing.40}",
-      "sourcePath": "semantic.global.layout.control-height-md",
+      "sourcePath": "semantic.global.layout.control-height-lg",
       "tier": "semantic",
       "type": "dimension",
       "value": {
@@ -9474,20 +9474,20 @@ export const tokens = {
         "unit": "px"
       }
     },
-    "layout-control-height-sm": {
+    "layout-control-height-md": {
       "aliasTarget": {
         "id": "space-32",
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-layout-control-height-sm": "32px"
+        "--louis-layout-control-height-md": "32px"
       },
       "deprecated": null,
       "description": null,
-      "id": "layout-control-height-sm",
+      "id": "layout-control-height-md",
       "mode": "global",
       "rawValue": "{primitive.spacing.32}",
-      "sourcePath": "semantic.global.layout.control-height-sm",
+      "sourcePath": "semantic.global.layout.control-height-md",
       "tier": "semantic",
       "type": "dimension",
       "value": {
@@ -9516,20 +9516,20 @@ export const tokens = {
         "unit": "px"
       }
     },
-    "layout-control-minimum-width-sm": {
+    "layout-control-minimum-width-md": {
       "aliasTarget": {
         "id": "space-48",
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-layout-control-minimum-width-sm": "48px"
+        "--louis-layout-control-minimum-width-md": "48px"
       },
       "deprecated": null,
       "description": null,
-      "id": "layout-control-minimum-width-sm",
+      "id": "layout-control-minimum-width-md",
       "mode": "global",
       "rawValue": "{primitive.spacing.48}",
-      "sourcePath": "semantic.global.layout.control-minimum-width-sm",
+      "sourcePath": "semantic.global.layout.control-minimum-width-md",
       "tier": "semantic",
       "type": "dimension",
       "value": {

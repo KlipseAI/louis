@@ -26,7 +26,7 @@ export const Playground: Story = {};
 export const Matrix: Story = {
   render: () => (
     <div style={{ display: "grid", gap: 16 }}>
-      {(["md", "sm"] as const).map((size) => (
+      {(["lg", "md"] as const).map((size) => (
         <div key={size} style={{ display: "flex", gap: 8, alignItems: "center" }}>
           <code style={{ width: 32 }}>{size}</code>
           {(["primary", "secondary", "ghost", "danger"] as const).map((variant) => (
@@ -65,7 +65,7 @@ export const WhyNotButton: Story = {
         <IconButton label="삭제" variant="secondary">
           <IconTrashSimple />
         </IconButton>
-        <IconButton label="삭제" variant="secondary" size="sm">
+        <IconButton label="삭제" variant="secondary" size="md">
           <IconTrashSimple />
         </IconButton>
       </div>
@@ -74,7 +74,7 @@ export const WhyNotButton: Story = {
         <Button aria-label="삭제" variant="secondary" leftIcon={<IconTrashSimple />}>
           {null}
         </Button>
-        <Button aria-label="삭제" variant="secondary" size="sm" leftIcon={<IconTrashSimple />}>
+        <Button aria-label="삭제" variant="secondary" size="md" leftIcon={<IconTrashSimple />}>
           {null}
         </Button>
       </div>
@@ -114,16 +114,16 @@ export const InToolbar: Story = {
         background: "var(--louis-color-bg-inset)",
       }}
     >
-      <IconButton label="검색" size="sm">
+      <IconButton label="검색" size="md">
         <IconMagnifyingGlass />
       </IconButton>
-      <IconButton label="추가" size="sm">
+      <IconButton label="추가" size="md">
         <IconPlus />
       </IconButton>
-      <IconButton label="삭제" size="sm" variant="danger">
+      <IconButton label="삭제" size="md" variant="danger">
         <IconTrashSimple />
       </IconButton>
-      <IconButton label="더 보기" size="sm">
+      <IconButton label="더 보기" size="md">
         <IconDotsThreeVertical />
       </IconButton>
     </div>

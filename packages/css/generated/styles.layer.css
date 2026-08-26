@@ -275,7 +275,7 @@
     gap: var(--louis-space-control-sm);
     inline-size: 100%;
     min-inline-size: 0;
-    min-block-size: var(--louis-layout-control-height-sm);
+    min-block-size: var(--louis-layout-control-height-md);
     /* 4px이다. 배포본의 사이드바 항목은 `main-inline-padding − sidebar-padding-x` = 16 − 12 = 4를
      * 좌우에 쓴다. 행 혼자 보면 좁지만 **행과 레일의 합이 계약이다** — 레일 12 + 행 4 = 16이 본문
      * 좌측선과 맞는다. 여기를 8로 두면 아이콘이 본문보다 4px 안으로 들어간다. */
@@ -534,7 +534,7 @@
     position: relative;
     box-sizing: border-box;
     inline-size: 100%;
-    min-block-size: var(--louis-layout-control-height-md);
+    min-block-size: var(--louis-layout-control-height-lg);
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -597,7 +597,7 @@
 
   /* 접히면 높이와 여백이 함께 줄어든다. 제품 실측 32 · `0 10`. */
   .louis-sidebar-cta[data-collapsed="true"] .louis-sidebar-cta__button {
-    min-block-size: var(--louis-layout-control-height-sm);
+    min-block-size: var(--louis-layout-control-height-md);
     padding-block: 0;
     padding-inline: 10px;
     gap: 0;
@@ -1254,13 +1254,15 @@
     min-width: 0;
     text-align: center;
     overflow-wrap: break-word;
-    /* 버튼 높이는 32(control-height-sm) 단일이다 — owner 결정으로 md(40)를 폐지하고 모든 버튼을
-     * 32로 통일했다(2025-08-25). height가 아니라 min-block-size를 쓰는 이유는 일반 라벨에서 정확히
-     * 32가 나오고, KO/EN/JA 긴 라벨이나 200% 확대에서는 잘리는 대신 자라기 때문이다.
+    /* base 높이는 32(control-height-md)다. 2025-08-25 에 40 을 폐지하고 전부 32 로 통일했으나,
+     * 그 결과 md 와 sm 두 이름이 같은 32 를 가리키는 상태가 됐다 — 이름이 둘인데 실물은 하나였다.
+     * 2026-08-26 owner 결정으로 사다리를 lg(40) · md(32) 로 다시 세웠다(DS-D-0027).
+     * height가 아니라 min-block-size를 쓰는 이유는 일반 라벨에서 정확히 그 높이가 나오고,
+     * KO/EN/JA 긴 라벨이나 200% 확대에서는 잘리는 대신 자라기 때문이다.
      * 이 차이는 migration/product.measured.json에 사유와 함께 선언돼 있다. */
-    min-block-size: var(--louis-layout-control-height-sm);
-    /* **타이포는 size 축이 아니다.** 제품은 md·sm 모두 14px/500이며 size가 글자 크기를 바꾸지
-     * 않는다(Button.tsx:56-67). 이전 DS는 sm에서 caption 12px로 줄여 제품과 달랐다. */
+    min-block-size: var(--louis-layout-control-height-md);
+    /* **타이포는 size 축이 아니다.** 제품은 lg·md 모두 14px/500이며 size가 글자 크기를 바꾸지
+     * 않는다. 이전 DS는 작은 쪽에서 caption 12px로 줄여 제품과 달랐다. */
     font-family: var(--louis-typography-body-sm-medium-font-family);
     font-size: var(--louis-typography-body-sm-medium-font-size);
     font-weight: var(--louis-typography-body-sm-medium-font-weight);
@@ -1276,19 +1278,21 @@
   }
 
   /* size — 시각 크기만 바꾼다. hit area 계약은 .louis-hit-target이 별도로 유지한다. */
-  .louis-button[data-size="md"] {
-    /* md는 32로 통일 — sm과 동일 사양(px-12 · gap-4 · min-w-48). 높이는 base(control-height-sm). */
-    min-inline-size: var(--louis-layout-control-minimum-width-sm);
+
+  /* lg: h-40. 화면의 주인공이 되는 제출 CTA — 로그인·회원가입이 이 크기를 쓴다.
+   * 좌우 여백도 한 단 넓다(control-lg 16). **타이포는 md와 같다** — size는 글자 크기를 바꾸지 않는다. */
+  .louis-button[data-size="lg"] {
+    min-block-size: var(--louis-layout-control-height-lg);
+    min-inline-size: var(--louis-layout-control-minimum-width-md);
     padding-block: 0;
-    padding-inline: var(--louis-space-control-md);
+    padding-inline: var(--louis-space-control-lg);
     column-gap: var(--louis-space-control-xs);
   }
 
-  /* 제품: h-32 · px-12 · gap-4 · min-w-48. **타이포는 md와 같다** — size가 글자 크기를 바꾸지
-   * 않는다(globals.css:85-87, Button.tsx:62-67). 이전 DS는 sm에서 12px로 줄여 제품과 달랐다. */
-  .louis-button[data-size="sm"] {
-    min-block-size: var(--louis-layout-control-height-sm);
-    min-inline-size: var(--louis-layout-control-minimum-width-sm);
+  /* md: h-32 · px-12 · gap-4 · min-w-48 — 제품 기본값이다. */
+  .louis-button[data-size="md"] {
+    min-block-size: var(--louis-layout-control-height-md);
+    min-inline-size: var(--louis-layout-control-minimum-width-md);
     padding-block: 0;
     padding-inline: var(--louis-space-control-md);
     column-gap: var(--louis-space-control-xs);
@@ -1296,19 +1300,19 @@
 
   /* 아이콘이 붙은 쪽만 2px 줄여 광학 균형을 맞춘다 (제품 Button.tsx:73-77). 아이콘의 자체 시각
    * 여백 때문에 텍스트-only 대비 그 쪽 padding이 넓어 보인다. */
+  .louis-button[data-size="lg"][data-left-icon="true"] {
+    padding-inline-start: calc(var(--louis-space-control-lg) - 2px);
+  }
+
+  .louis-button[data-size="lg"][data-right-icon="true"] {
+    padding-inline-end: calc(var(--louis-space-control-lg) - 2px);
+  }
+
   .louis-button[data-size="md"][data-left-icon="true"] {
     padding-inline-start: calc(var(--louis-space-control-md) - 2px);
   }
 
   .louis-button[data-size="md"][data-right-icon="true"] {
-    padding-inline-end: calc(var(--louis-space-control-md) - 2px);
-  }
-
-  .louis-button[data-size="sm"][data-left-icon="true"] {
-    padding-inline-start: calc(var(--louis-space-control-md) - 2px);
-  }
-
-  .louis-button[data-size="sm"][data-right-icon="true"] {
     padding-inline-end: calc(var(--louis-space-control-md) - 2px);
   }
 
@@ -1445,7 +1449,7 @@
     block-size: var(--louis-icon-size-sm);
   }
 
-  .louis-button[data-size="sm"] .louis-button__icon {
+  .louis-button[data-size="md"] .louis-button__icon {
     inline-size: var(--louis-icon-size-sm);
     block-size: var(--louis-icon-size-sm);
   }
@@ -2041,10 +2045,11 @@
     flex: none;
     align-items: center;
     justify-content: center;
-    /* 아이콘 버튼도 32(control-height-sm) 단일이다 — Button과 같은 owner 결정으로 md(40)를
-     * 폐지했다(2025-08-25). 정사각이므로 inline/block 둘 다 같은 토큰을 쓴다. */
-    inline-size: var(--louis-layout-control-height-sm);
-    block-size: var(--louis-layout-control-height-sm);
+    /* 아이콘 버튼은 32(control-height-md) 단일이다. Button 은 2026-08-26 에 lg(40)를 되살렸지만
+     * (DS-D-0027) 아이콘 버튼에는 40 을 쓰는 자리가 제품에 없다 — 생기면 그때 나눈다.
+     * 정사각이므로 inline/block 둘 다 같은 토큰을 쓴다. */
+    inline-size: var(--louis-layout-control-height-md);
+    block-size: var(--louis-layout-control-height-md);
     /* base에는 stroke가 없다 — 네이티브 button의 UA 테두리를 지운다(reset은 opt-in이다). secondary만
      * 가시 헤어라인을 inset box-shadow로 그린다 (DS-D-0023). 정사각 계약은 inline/block-size가
      * 고정하고 box-shadow는 레이아웃을 건드리지 않는다. */
@@ -2060,11 +2065,12 @@
     transition-timing-function: var(--louis-motion-overlay-exit-timing-function);
   }
 
-  /* sm은 base와 같은 32다 — md 폐지 후 두 크기가 같은 사양이 됐다. 축 자체는 API 호환을 위해
-   * 남기고, 크기가 갈라지면 이 자리에서 다시 나뉜다. */
-  .louis-icon-button[data-size="sm"] {
-    inline-size: var(--louis-layout-control-height-sm);
-    block-size: var(--louis-layout-control-height-sm);
+  /* lg·md 둘 다 base와 같은 32다 — 아이콘 버튼에 40 을 쓰는 자리가 제품에 아직 없다.
+   * 축은 API 호환을 위해 남기고, 크기가 갈라지면 여기서 나뉜다. */
+  .louis-icon-button[data-size="lg"],
+  .louis-icon-button[data-size="md"] {
+    inline-size: var(--louis-layout-control-height-md);
+    block-size: var(--louis-layout-control-height-md);
   }
 
   /* variant — Button과 같은 네 축. 새 시각 언어를 만들지 않는다. */
@@ -3147,8 +3153,8 @@
     position: absolute;
     inset-block-start: var(--louis-space-control-sm);
     inset-inline-end: var(--louis-space-control-sm);
-    inline-size: var(--louis-layout-control-height-sm);
-    block-size: var(--louis-layout-control-height-sm);
+    inline-size: var(--louis-layout-control-height-md);
+    block-size: var(--louis-layout-control-height-md);
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -3261,7 +3267,7 @@
     /* fieldset의 기본 여백·테두리를 지운다. reset은 opt-in이라 여기서 스스로 지워야 한다. */
     margin: 0;
     padding: var(--louis-space-control-xs);
-    block-size: var(--louis-layout-control-height-md);
+    block-size: var(--louis-layout-control-height-lg);
     border: 0;
     border-radius: var(--louis-radius-control);
     background: var(--louis-color-bg-inset);
@@ -3273,8 +3279,8 @@
     box-shadow: var(--louis-hairline-inset);
   }
 
-  .louis-segmented-control[data-size="sm"] {
-    block-size: var(--louis-layout-control-height-sm);
+  .louis-segmented-control[data-size="md"] {
+    block-size: var(--louis-layout-control-height-md);
   }
 
   /* xs — 비디오 에디터 인스펙터의 조밀한 속성 행에서 쓴다. 제품 정본(vemClass inspectorToggle*)이
@@ -3324,7 +3330,7 @@
     letter-spacing: var(--louis-typography-caption-medium-letter-spacing);
   }
 
-  .louis-segmented-control[data-size="sm"] .louis-segmented-control__segment {
+  .louis-segmented-control[data-size="md"] .louis-segmented-control__segment {
     padding-inline: var(--louis-space-control-sm);
     font-family: var(--louis-typography-caption-medium-font-family);
     font-size: var(--louis-typography-caption-medium-font-size);
@@ -3679,7 +3685,7 @@
     display: block;
     inline-size: 100%;
     min-inline-size: 0;
-    block-size: var(--louis-layout-control-height-md);
+    block-size: var(--louis-layout-control-height-lg);
     margin: 0;
     padding: 0;
     border: 0;
@@ -3690,10 +3696,10 @@
   }
 
   /* sm은 노드 캔버스의 메타 드롭다운처럼 **밀도가 촘촘한 인스펙터**에 쓰인다. 제품의 그 슬라이더는
-   * 컨트롤 박스가 레일 두께(4px)에 붙어 있어, control-height-sm(32px)을 쓰면 드롭다운 한 칸이
+   * 컨트롤 박스가 레일 두께(4px)에 붙어 있어, control-height-md(32px)을 쓰면 드롭다운 한 칸이
    * 28px씩 두꺼워진다 — 실제로 그렇게 보였다. 썸(12px)이 잘리지 않는 최소치인 16px로 낮춰
    * 제품 밀도를 유지한다. md(40px)는 폼 안에 놓이는 슬라이더의 넉넉한 타깃을 그대로 둔다. */
-  .louis-slider[data-size="sm"] .louis-slider__control {
+  .louis-slider[data-size="md"] .louis-slider__control {
     block-size: 16px;
   }
 
@@ -3783,13 +3789,13 @@
     background: var(--louis-color-accent-primary);
   }
 
-  .louis-slider[data-size="sm"] .louis-slider__control::-webkit-slider-thumb {
+  .louis-slider[data-size="md"] .louis-slider__control::-webkit-slider-thumb {
     inline-size: 12px;
     block-size: 12px;
     margin-block-start: calc((4px - 12px) / 2);
   }
 
-  .louis-slider[data-size="sm"] .louis-slider__control::-moz-range-thumb {
+  .louis-slider[data-size="md"] .louis-slider__control::-moz-range-thumb {
     inline-size: 12px;
     block-size: 12px;
   }
@@ -3839,12 +3845,12 @@
     border-radius: var(--louis-radius-control-sm);
   }
 
-  .louis-slider[data-variant="track"][data-size="sm"] .louis-slider__control::-webkit-slider-runnable-track {
+  .louis-slider[data-variant="track"][data-size="md"] .louis-slider__control::-webkit-slider-runnable-track {
     block-size: 20px;
   }
 
-  .louis-slider[data-variant="track"][data-size="sm"] .louis-slider__control::-moz-range-track,
-  .louis-slider[data-variant="track"][data-size="sm"] .louis-slider__control::-moz-range-progress {
+  .louis-slider[data-variant="track"][data-size="md"] .louis-slider__control::-moz-range-track,
+  .louis-slider[data-variant="track"][data-size="md"] .louis-slider__control::-moz-range-progress {
     block-size: 20px;
   }
 
@@ -3867,7 +3873,7 @@
     background: var(--louis-color-fg-inverse);
   }
 
-  .louis-slider[data-variant="track"][data-size="sm"] .louis-slider__control::-webkit-slider-thumb {
+  .louis-slider[data-variant="track"][data-size="md"] .louis-slider__control::-webkit-slider-thumb {
     margin-block-start: calc((20px - 14px) / 2);
   }
 }
@@ -4286,7 +4292,7 @@
     align-items: center;
     gap: var(--louis-space-control-sm);
     min-inline-size: 0;
-    min-block-size: var(--louis-layout-control-height-md);
+    min-block-size: var(--louis-layout-control-height-lg);
     padding-inline: var(--louis-space-control-lg);
     /* 경계는 border가 아니라 generic 10% inset 헤어라인이다 (DS-D-0023). 이전엔 color-stroke-control
      * 이었다. invalid/disabled 상태 축은 아래에서 별도로 다룬다. */
@@ -4297,8 +4303,8 @@
     cursor: text;
   }
 
-  .louis-text-field[data-size="sm"] .louis-text-field__box {
-    min-block-size: var(--louis-layout-control-height-sm);
+  .louis-text-field[data-size="md"] .louis-text-field__box {
+    min-block-size: var(--louis-layout-control-height-md);
     padding-inline: var(--louis-space-control-md);
   }
 

@@ -37,7 +37,7 @@
   /* fieldset의 기본 여백·테두리를 지운다. reset은 opt-in이라 여기서 스스로 지워야 한다. */
   margin: 0;
   padding: var(--louis-space-control-xs);
-  block-size: var(--louis-layout-control-height-md);
+  block-size: var(--louis-layout-control-height-lg);
   border: 0;
   border-radius: var(--louis-radius-control);
   background: var(--louis-color-bg-inset);
@@ -49,8 +49,8 @@
   box-shadow: var(--louis-hairline-inset);
 }
 
-.louis-segmented-control[data-size="sm"] {
-  block-size: var(--louis-layout-control-height-sm);
+.louis-segmented-control[data-size="md"] {
+  block-size: var(--louis-layout-control-height-md);
 }
 
 /* xs — 비디오 에디터 인스펙터의 조밀한 속성 행에서 쓴다. 제품 정본(vemClass inspectorToggle*)이
@@ -100,7 +100,7 @@
   letter-spacing: var(--louis-typography-caption-medium-letter-spacing);
 }
 
-.louis-segmented-control[data-size="sm"] .louis-segmented-control__segment {
+.louis-segmented-control[data-size="md"] .louis-segmented-control__segment {
   padding-inline: var(--louis-space-control-sm);
   font-family: var(--louis-typography-caption-medium-font-family);
   font-size: var(--louis-typography-caption-medium-font-size);

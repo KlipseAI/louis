@@ -40,7 +40,7 @@ test("EmptyState의 구조값이 components.measured.json과 같다", async () =
         title="아직 프로젝트가 없습니다"
         description="첫 번째 영상을 만들어보세요."
         action={
-          <Button variant="primary" size="sm">
+          <Button variant="primary" size="md">
             만들기
           </Button>
         }

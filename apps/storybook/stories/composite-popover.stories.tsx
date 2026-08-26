@@ -28,10 +28,10 @@ export const Profile: Story = {
       <CompositePopoverContent>
         <CompositePopoverTitle>내 계정</CompositePopoverTitle>
         <p style={{ margin: 0 }}>sniperfactory@example.com</p>
-        <Button variant="secondary" size="sm">
+        <Button variant="secondary" size="md">
           설정
         </Button>
-        <Button variant="ghost" size="sm">
+        <Button variant="ghost" size="md">
           로그아웃
         </Button>
       </CompositePopoverContent>

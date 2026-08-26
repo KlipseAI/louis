@@ -34,7 +34,7 @@ function tokenValue(id: string, property: "background-color" | "color"): string 
   return value;
 }
 
-const SIZES: readonly TextFieldSize[] = ["md", "sm"];
+const SIZES: readonly TextFieldSize[] = ["lg", "md"];
 
 for (const size of SIZES) {
   const spec = measured.components.input.sizes[size];

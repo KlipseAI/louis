@@ -162,10 +162,10 @@
   --spacing-layout-app-shell-sidebar-padding: var(--louis-layout-app-shell-sidebar-padding);
   --spacing-layout-app-shell-sidebar-width: var(--louis-layout-app-shell-sidebar-width);
   --spacing-layout-app-shell-top-bar-height: var(--louis-layout-app-shell-top-bar-height);
+  --spacing-layout-control-height-lg: var(--louis-layout-control-height-lg);
   --spacing-layout-control-height-md: var(--louis-layout-control-height-md);
-  --spacing-layout-control-height-sm: var(--louis-layout-control-height-sm);
   --spacing-layout-control-hit-target-minimum: var(--louis-layout-control-hit-target-minimum);
-  --spacing-layout-control-minimum-width-sm: var(--louis-layout-control-minimum-width-sm);
+  --spacing-layout-control-minimum-width-md: var(--louis-layout-control-minimum-width-md);
   --spacing-layout-inspector-control-height: var(--louis-layout-inspector-control-height);
   --spacing-layout-node-chip-height: var(--louis-layout-node-chip-height);
   --spacing-layout-node-chip-inset: var(--louis-layout-node-chip-inset);

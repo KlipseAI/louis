@@ -16,7 +16,7 @@ export const Playground: Story = {};
 export const Matrix: Story = {
   render: () => (
     <div style={{ display: "grid", gap: 16 }}>
-      {(["md", "sm"] as const).map((size) => (
+      {(["lg", "md"] as const).map((size) => (
         <div key={size} style={{ display: "flex", gap: 8, alignItems: "center" }}>
           <code style={{ width: 32 }}>{size}</code>
           {(["primary", "secondary", "ghost", "danger"] as const).map((variant) => (

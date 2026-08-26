@@ -3,7 +3,7 @@ import type { ButtonHTMLAttributes, JSX, ReactNode, Ref } from "react";
 /* inverse — 인증 플로우 제출 CTA. 페이지를 반전시킨 면이다. button.css 의 같은 이름 변형이
    소유하며 제품 apps/web/components/ui/Button.tsx 도 같은 집합을 쓴다. */
 export type ButtonVariant = "primary" | "secondary" | "ghost" | "danger" | "inverse";
-export type ButtonSize = "md" | "sm";
+export type ButtonSize = "lg" | "md";
 
 export interface ButtonProps
   extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, "type"> {

@@ -155,7 +155,7 @@ test("아이콘은 보조기술에서 숨는다", async () => {
 test("복합 행은 버튼 안에 버튼을 넣지 않는다", async () => {
   await render(
     <div data-louis-fixture style={{ inlineSize: "280px" }}>
-      <SidebarNavRow action={<IconButton size="sm" variant="ghost" label="새로 만들기"><span /></IconButton>}>
+      <SidebarNavRow action={<IconButton size="md" variant="ghost" label="새로 만들기"><span /></IconButton>}>
         <SidebarNavItem href="/highlight">하이라이트</SidebarNavItem>
       </SidebarNavRow>
     </div>,
@@ -173,7 +173,7 @@ test("복합 행은 버튼 안에 버튼을 넣지 않는다", async () => {
 test("접히면 보조 액션이 사라진다 — 아이콘 하나 자리에 둘이 들어갈 수 없다", async () => {
   await render(
     <div data-louis-fixture style={{ inlineSize: "72px" }}>
-      <SidebarNavRow collapsed action={<IconButton size="sm" variant="ghost" label="새로 만들기"><span /></IconButton>}>
+      <SidebarNavRow collapsed action={<IconButton size="md" variant="ghost" label="새로 만들기"><span /></IconButton>}>
         <SidebarNavItem href="/highlight" collapsed>
           하이라이트
         </SidebarNavItem>

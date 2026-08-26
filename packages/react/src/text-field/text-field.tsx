@@ -1,7 +1,7 @@
 import type { InputHTMLAttributes, JSX, ReactNode, Ref } from "react";
 import { useId } from "react";
 
-export type TextFieldSize = "md" | "sm";
+export type TextFieldSize = "lg" | "md";
 
 export interface TextFieldProps
   // `prefix`는 HTML 전역 속성(RDFa)이라 이름이 겹친다. 필드 슬롯 쪽 뜻으로 덮어쓴다.
@@ -42,7 +42,7 @@ function join(...values: readonly (string | undefined)[]): string {
  */
 export function TextField({
   label,
-  size = "md",
+  size = "lg",
   description,
   invalid = false,
   prefix,

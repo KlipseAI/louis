@@ -408,10 +408,10 @@
   --louis-layout-app-shell-sidebar-padding: 12px;
   --louis-layout-app-shell-sidebar-width: 280px;
   --louis-layout-app-shell-top-bar-height: 40px;
-  --louis-layout-control-height-md: 40px;
-  --louis-layout-control-height-sm: 32px;
+  --louis-layout-control-height-lg: 40px;
+  --louis-layout-control-height-md: 32px;
   --louis-layout-control-hit-target-minimum: 44px;
-  --louis-layout-control-minimum-width-sm: 48px;
+  --louis-layout-control-minimum-width-md: 48px;
   --louis-layout-inspector-control-height: 28px;
   --louis-layout-node-chip-height: 32px;
   --louis-layout-node-chip-inset: 10px;

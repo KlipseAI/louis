@@ -7,7 +7,7 @@ import type {
 } from "react";
 import { useId, useState } from "react";
 
-export type SliderSize = "md" | "sm";
+export type SliderSize = "lg" | "md";
 
 /**
  * `thumb`은 얇은 레일 위의 손잡이, `track`은 굵은 막대를 채우는 형태다.
@@ -70,7 +70,7 @@ function clampRatio(ratio: number): number {
  */
 export function Slider({
   label,
-  size = "md",
+  size = "lg",
   variant = "thumb",
   min = 0,
   max = 100,

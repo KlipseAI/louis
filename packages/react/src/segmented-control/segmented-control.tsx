@@ -1,7 +1,7 @@
 import type { JSX, ReactNode, Ref } from "react";
 import { createContext, useContext, useId } from "react";
 
-export type SegmentedControlSize = "md" | "sm";
+export type SegmentedControlSize = "lg" | "md";
 
 interface SegmentedControlContextValue {
   readonly name: string;
@@ -65,7 +65,7 @@ export function SegmentedControl({
   label,
   value,
   onValueChange,
-  size = "md",
+  size = "lg",
   disabled = false,
   className,
   children,

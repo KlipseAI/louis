@@ -11,7 +11,7 @@ export default meta;
 
 type Story = StoryObj<typeof SegmentedControl>;
 
-function Themed({ size = "md" }: { size?: "md" | "sm" }) {
+function Themed({ size = "lg" }: { size?: "lg" | "md" }) {
   const [value, setValue] = useState("light");
   return (
     <SegmentedControl label="테마" size={size} value={value} onValueChange={setValue}>
@@ -34,8 +34,8 @@ export const Playground: Story = { render: () => <Themed /> };
 export const Matrix: Story = {
   render: () => (
     <div style={{ display: "grid", gap: 20, justifyItems: "start" }}>
+      <Themed size="lg" />
       <Themed size="md" />
-      <Themed size="sm" />
       <SegmentedControl label="정렬" value="recent" onValueChange={() => {}}>
         <SegmentedControlItem value="recent">최신</SegmentedControlItem>
         <SegmentedControlItem value="name">이름</SegmentedControlItem>

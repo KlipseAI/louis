@@ -1,7 +1,7 @@
 import type { ButtonHTMLAttributes, JSX, ReactNode, Ref } from "react";
 import type { ButtonVariant } from "../button/button.js";
 
-export type IconButtonSize = "md" | "sm";
+export type IconButtonSize = "lg" | "md";
 
 export interface IconButtonProps
   extends Omit<

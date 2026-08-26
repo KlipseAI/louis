@@ -13,7 +13,7 @@ import "@klipse-design/css/layers.css";
 import "@klipse-design/css/tokens.css";
 import "@klipse-design/css/styles.css";
 
-type SizeKey = "md" | "sm";
+type SizeKey = "lg" | "md";
 
 const px = (value: string): number => Number.parseFloat(value);
 const rect = (node: Element): DOMRect => node.getBoundingClientRect();
@@ -38,7 +38,7 @@ function Isolated({ children }: { children: ReactNode }): JSX.Element {
   return <div style={{ display: "block" }}>{children}</div>;
 }
 
-const SIZES: readonly SizeKey[] = ["md", "sm"];
+const SIZES: readonly SizeKey[] = ["lg", "md"];
 
 for (const size of SIZES) {
   const spec = measured.components.button.sizes[size];

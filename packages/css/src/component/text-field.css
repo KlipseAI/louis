@@ -37,7 +37,7 @@
   align-items: center;
   gap: var(--louis-space-control-sm);
   min-inline-size: 0;
-  min-block-size: var(--louis-layout-control-height-md);
+  min-block-size: var(--louis-layout-control-height-lg);
   padding-inline: var(--louis-space-control-lg);
   /* 경계는 border가 아니라 generic 10% inset 헤어라인이다 (DS-D-0023). 이전엔 color-stroke-control
    * 이었다. invalid/disabled 상태 축은 아래에서 별도로 다룬다. */
@@ -48,8 +48,8 @@
   cursor: text;
 }
 
-.louis-text-field[data-size="sm"] .louis-text-field__box {
-  min-block-size: var(--louis-layout-control-height-sm);
+.louis-text-field[data-size="md"] .louis-text-field__box {
+  min-block-size: var(--louis-layout-control-height-md);
   padding-inline: var(--louis-space-control-md);
 }
 

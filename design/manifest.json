@@ -887,6 +887,15 @@
       "generated": false
     },
     {
+      "id": "decision-control-size-ladder",
+      "path": "design/governance/decisions/DS-D-0027-control-size-ladder.md",
+      "title": "DS-D-0027 컨트롤 크기 사다리는 lg(40) · md(32) 다",
+      "section": "governance",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
+    },
+    {
       "id": "governance-product-confirmations",
       "path": "design/governance/product-confirmations.md",
       "title": "제품 확인 대기 목록",
@@ -1069,6 +1078,7 @@
         "design/governance/decisions/DS-D-0024-color-architecture.md",
         "design/governance/decisions/DS-D-0025-figma-as-projection.md",
         "design/governance/decisions/DS-D-0026-alpha-scale.md",
+        "design/governance/decisions/DS-D-0027-control-size-ladder.md",
         "design/governance/product-confirmations.md",
         "design/updates/README.md"
       ]

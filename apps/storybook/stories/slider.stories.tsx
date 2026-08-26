@@ -30,7 +30,7 @@ export const Matrix: Story = {
   render: () => (
     <div style={{ display: "grid", gap: 24, inlineSize: 320 }}>
       {(["thumb", "track"] as const).map((variant) =>
-        (["md", "sm"] as const).map((size) => (
+        (["lg", "md"] as const).map((size) => (
           <Slider
             key={`${variant}-${size}`}
             label={`${variant} · ${size}`}

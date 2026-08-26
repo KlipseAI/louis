@@ -14,8 +14,8 @@ export default meta;
 export const Sizes: StoryObj<typeof TextField> = {
   render: () => (
     <div style={{ display: "flex", flexDirection: "column", gap: 16, width: 320 }}>
-      <TextField label="Medium (40px)" size="md" placeholder="기본 크기" />
-      <TextField label="Small (32px)" size="sm" placeholder="작은 크기" />
+      <TextField label="Medium (40px)" size="lg" placeholder="기본 크기" />
+      <TextField label="Small (32px)" size="md" placeholder="작은 크기" />
     </div>
   ),
 };

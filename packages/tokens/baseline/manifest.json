@@ -2,23 +2,23 @@
   "artifacts": [
     {
       "path": "packages/tokens/generated/figma.tokens.json",
-      "sha256": "e7e95bca2fab1182736e69707b6fa3853e5578d90f3d475561b49dffa0748d2f"
+      "sha256": "9d6e16d8e15671910834ec4b267887d99f47f3bf43ac034081787693480f1311"
     },
     {
       "path": "packages/tokens/generated/index.d.ts",
-      "sha256": "5162556c41f30f67154493256d66ba135ae59b9911da60602a1102edcc64d49e"
+      "sha256": "a695cdab467539d7f699800470eb6bb94ff5ccb44cd7e6e7844580437cb2085a"
     },
     {
       "path": "packages/tokens/generated/index.js",
-      "sha256": "46030e36cee73059d125e46f32ddf0508ed316fefc5ca1b441b76d730997b91d"
+      "sha256": "21c74b668925c0c2c3095072438bc95634930853b43c95d8889e43c1a4dce6b8"
     },
     {
       "path": "packages/tokens/generated/tokens.css",
-      "sha256": "b083353186903878710129aab78e067cf0b149b44ff4aeebfb37b0952caf6ae9"
+      "sha256": "3b3e7094f605b5de6e7607634ec2345a73a4bdcd190e5bcd3547745ee63e6a30"
     },
     {
       "path": "packages/tokens/generated/tokens.json",
-      "sha256": "90e7d2ee9fa12e11111c1460f4e4a4398c0a4d88d30c8bb690a0ad2d2ad3c56f"
+      "sha256": "9ba71584831dd62b2fe82ad3f2cac72b63fbe4d1abddd44ae2d41739c385424f"
     }
   ],
   "contrastPairs": [
@@ -408,7 +408,7 @@
   },
   "source": {
     "path": "packages/tokens/src/klipse.tokens.json",
-    "sha256": "639e2424dfc0b1e1e2b89cb5f8e2f6bc3b71bec7a485302a9c166f18170efb84"
+    "sha256": "1c6707b8daf0d72a9b9be530bfb8c4c6bc2476f17764f6cd6c97d7fc5d611564"
   },
   "themes": [
     "light",
@@ -11777,18 +11777,18 @@
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-layout-control-height-md": "40px"
+        "--louis-layout-control-height-lg": "40px"
       },
       "deprecated": null,
       "description": null,
-      "id": "layout-control-height-md",
+      "id": "layout-control-height-lg",
       "mode": "global",
       "rawValue": "{primitive.spacing.40}",
       "resolvedValue": {
         "unit": "px",
         "value": 40
       },
-      "sourcePath": "semantic.global.layout.control-height-md",
+      "sourcePath": "semantic.global.layout.control-height-lg",
       "tier": "semantic",
       "type": "dimension"
     },
@@ -11798,18 +11798,18 @@
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-layout-control-height-sm": "32px"
+        "--louis-layout-control-height-md": "32px"
       },
       "deprecated": null,
       "description": null,
-      "id": "layout-control-height-sm",
+      "id": "layout-control-height-md",
       "mode": "global",
       "rawValue": "{primitive.spacing.32}",
       "resolvedValue": {
         "unit": "px",
         "value": 32
       },
-      "sourcePath": "semantic.global.layout.control-height-sm",
+      "sourcePath": "semantic.global.layout.control-height-md",
       "tier": "semantic",
       "type": "dimension"
     },
@@ -11840,18 +11840,18 @@
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-layout-control-minimum-width-sm": "48px"
+        "--louis-layout-control-minimum-width-md": "48px"
       },
       "deprecated": null,
       "description": null,
-      "id": "layout-control-minimum-width-sm",
+      "id": "layout-control-minimum-width-md",
       "mode": "global",
       "rawValue": "{primitive.spacing.48}",
       "resolvedValue": {
         "unit": "px",
         "value": 48
       },
-      "sourcePath": "semantic.global.layout.control-minimum-width-sm",
+      "sourcePath": "semantic.global.layout.control-minimum-width-md",
       "tier": "semantic",
       "type": "dimension"
     },

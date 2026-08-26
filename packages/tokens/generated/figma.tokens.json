@@ -11844,10 +11844,10 @@
             }
           }
         },
-        "layout-control-height-md": {
+        "layout-control-height-lg": {
           "$type": "dimension",
           "fields": [],
-          "figmaName": "layout/control-height-md",
+          "figmaName": "layout/control-height-lg",
           "hiddenFromPublishing": false,
           "losses": [
             "Figma FLOAT는 DTCG 단위 의미를 직접 보존하지 않으므로 source metadata를 함께 검토해야 합니다."
@@ -11868,14 +11868,14 @@
                 "unit": "px",
                 "value": 40
               },
-              "sourcePath": "semantic.global.layout.control-height-md"
+              "sourcePath": "semantic.global.layout.control-height-lg"
             }
           }
         },
-        "layout-control-height-sm": {
+        "layout-control-height-md": {
           "$type": "dimension",
           "fields": [],
-          "figmaName": "layout/control-height-sm",
+          "figmaName": "layout/control-height-md",
           "hiddenFromPublishing": false,
           "losses": [
             "Figma FLOAT는 DTCG 단위 의미를 직접 보존하지 않으므로 source metadata를 함께 검토해야 합니다."
@@ -11896,7 +11896,7 @@
                 "unit": "px",
                 "value": 32
               },
-              "sourcePath": "semantic.global.layout.control-height-sm"
+              "sourcePath": "semantic.global.layout.control-height-md"
             }
           }
         },
@@ -11928,10 +11928,10 @@
             }
           }
         },
-        "layout-control-minimum-width-sm": {
+        "layout-control-minimum-width-md": {
           "$type": "dimension",
           "fields": [],
-          "figmaName": "layout/control-minimum-width-sm",
+          "figmaName": "layout/control-minimum-width-md",
           "hiddenFromPublishing": false,
           "losses": [
             "Figma FLOAT는 DTCG 단위 의미를 직접 보존하지 않으므로 source metadata를 함께 검토해야 합니다."
@@ -11952,7 +11952,7 @@
                 "unit": "px",
                 "value": 48
               },
-              "sourcePath": "semantic.global.layout.control-minimum-width-sm"
+              "sourcePath": "semantic.global.layout.control-minimum-width-md"
             }
           }
         },

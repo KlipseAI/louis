@@ -5941,21 +5941,21 @@
             }
           }
         },
-        "control-height-md": {
+        "control-height-lg": {
           "$value": "{primitive.spacing.40}",
           "$extensions": {
             "com.klipse-design": {
-              "id": "layout-control-height-md",
+              "id": "layout-control-height-lg",
               "tier": "semantic",
               "mode": "global"
             }
           }
         },
-        "control-height-sm": {
+        "control-height-md": {
           "$value": "{primitive.spacing.32}",
           "$extensions": {
             "com.klipse-design": {
-              "id": "layout-control-height-sm",
+              "id": "layout-control-height-md",
               "tier": "semantic",
               "mode": "global"
             }
@@ -5971,11 +5971,11 @@
             }
           }
         },
-        "control-minimum-width-sm": {
+        "control-minimum-width-md": {
           "$value": "{primitive.spacing.48}",
           "$extensions": {
             "com.klipse-design": {
-              "id": "layout-control-minimum-width-sm",
+              "id": "layout-control-minimum-width-md",
               "tier": "semantic",
               "mode": "global"
             }

@@ -63,9 +63,9 @@ function declared(selector: string, property: string): string {
   throw new Error(`선언을 찾지 못했습니다: ${selector} { ${property} }`);
 }
 
-const SIZES: readonly SliderSize[] = ["md", "sm"];
+const SIZES: readonly SliderSize[] = ["lg", "md"];
 const sizeScope = (size: SliderSize): string =>
-  size === "md" ? ".louis-slider__control" : '.louis-slider[data-size="sm"] .louis-slider__control';
+  size === "md" ? ".louis-slider__control" : '.louis-slider[data-size="md"] .louis-slider__control';
 
 // **measured의 키가 `{size}/{variant}` 복합이다.** Variant 축이 레일 두께와 썸 크기를 바꾸므로
 // size 하나로 묶으면 두 값이 한 항목에 섞여 어느 쪽이 어느 변형의 것인지 사라진다.
@@ -119,7 +119,7 @@ for (const size of SIZES) {
     const barSelector =
       size === "md"
         ? '.louis-slider[data-variant="track"] .louis-slider__control::-webkit-slider-runnable-track'
-        : '.louis-slider[data-variant="track"][data-size="sm"] .louis-slider__control::-webkit-slider-runnable-track';
+        : '.louis-slider[data-variant="track"][data-size="md"] .louis-slider__control::-webkit-slider-runnable-track';
     expect(px(declared(barSelector, "block-size")), "railHeight").toBe(trackSpec.railHeight);
 
     const grip =

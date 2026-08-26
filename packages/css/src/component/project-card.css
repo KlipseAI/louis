@@ -308,8 +308,8 @@
   position: absolute;
   inset-block-start: var(--louis-space-control-sm);
   inset-inline-end: var(--louis-space-control-sm);
-  inline-size: var(--louis-layout-control-height-sm);
-  block-size: var(--louis-layout-control-height-sm);
+  inline-size: var(--louis-layout-control-height-md);
+  block-size: var(--louis-layout-control-height-md);
   display: inline-flex;
   align-items: center;
   justify-content: center;

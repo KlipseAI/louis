@@ -287,7 +287,7 @@ function Popover({
           {/* 실제 Button을 **마지막 자식으로** 둔다. `.louis-hit-target`이 44px 타겟을 시각 박스
               밖으로 확장하므로, 마지막 자식일 때 그 초과분이 패널의 아래 padding을 넘어
               스크롤 가능한 overflow가 된다. 가운데에 두면 gap이 흡수해 재현되지 않는다. */}
-          <Button variant="secondary" size="sm" data-testid="settings">
+          <Button variant="secondary" size="md" data-testid="settings">
             설정
           </Button>
         </CompositePopoverContent>

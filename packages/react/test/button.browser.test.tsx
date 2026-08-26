@@ -153,7 +153,7 @@ test("light와 dark 모두에서 focus 링 색이 테마를 따른다", async ()
 });
 
 test("hit target이 44px 이상이다", async () => {
-  await render(<Button size="sm">삭제</Button>);
+  await render(<Button size="md">삭제</Button>);
   const button = buttonIn();
   expect(button.getBoundingClientRect().height).toBeGreaterThan(0);
   // ::after가 넓힌 실제 타깃을 확인한다. 시각 크기는 작아도 된다.

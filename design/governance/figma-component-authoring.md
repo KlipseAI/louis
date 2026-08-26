@@ -38,7 +38,7 @@ Figma 컴포넌트를 만들거나 고칠 때 지키는 규칙. 기준선은 이
 | `Size` | `sm` · `md` · `lg` | 밀도. **`compact`/`medium`/`large`는 폐기** — 같은 뜻을 두 어휘로 부르면 두 벌이 된다 |
 | `Variant` | `primary` · `secondary` · `ghost` · `danger` · `inverse` | **강조 단계만.** 부품 이름을 넣지 않는다 |
 | `Tone` | `neutral` · `info` · `success` · `warning` · `danger` | **의미 톤만.** 밝기(`bright`/`dark`)는 톤이 아니다 — 모드나 별도 축으로 뺀다 |
-| `State` | `Default` · `Hover` · `Pressed` · `Focus` · `Disabled` | **상호작용 상태만** |
+| `State` | `Default` · `Hover` · `Active` · `Focus` · `Disabled` | **상호작용 상태만.** `Active` 는 `:active`(누르는 중)다 — `Pressed`(aria-pressed)와 다르며 Button 에는 후자가 없다. 이 뜻은 `design/foundations/interaction-states.md` 가 소유한다 |
 
 ### State 에 넣지 않는 것
 
@@ -52,6 +52,7 @@ Figma 컴포넌트를 만들거나 고칠 때 지키는 규칙. 기준선은 이
 | `Invalid` | `Invalid` BOOLEAN |
 | `Loading` | `Loading` BOOLEAN |
 | `Danger` · `DangerHover` | `Variant=danger` × `State=Hover` |
+| `Pressed` | Button 에는 없다 — `:active` 는 `Active` 다 |
 | `determinate` · `indeterminate` | `Mode` 축 |
 
 ### 해부 구조는 variant 가 아니다
@@ -108,7 +109,24 @@ description 에 이유를 적는다. 조합이 늘면 유지 비용이 곱으로
 
 순서: 원시 토큰 → 컴포넌트(Button·IconButton·TextField…) → 조합 컴포넌트 → 화면 조립.
 
-## 9. 검증
+## 9. 계약의 정본은 게이트다
+
+이 문서는 **원칙**을 적고, 컴포넌트별 **계약**은 `scripts/verify-figma-parity.mjs` 의
+`COMPONENT_CONTRACTS` 가 소유한다. 거기에 컴포넌트마다 이렇게 선언돼 있다.
+
+- `variantProperties` — Figma variant 축 ↔ 코드 타입 alias(예: `Variant: "ButtonVariant"`).
+  **옵션 집합을 코드에서 읽어 대조하므로 Figma 에 값을 늘리려면 코드 타입을 먼저 늘려야 한다.**
+- `figmaOnlyProperties` — Figma 에만 있는 property 와 **그 사유**. 사유 없이는 통과하지 않는다.
+- `propProperties` — 코드 prop 존재 여부로 대응하는 슬롯(ReactNode 는 옵션 대조가 불가능하다).
+- `geometry.fields` — 되읽기 필드 ↔ 기대값. **`Figma padding = CSS padding + border`** 이고
+  stroke 는 INSIDE 다. 이걸 접지 않으면 프레임이 border 두께의 두 배만큼 작아진다.
+- `strokes` · `extraStrokeWeights` — 허용되는 stroke 두께 집합.
+
+**만들기 전에 그 컴포넌트의 계약을 읽어라.** 이 문서만 보고 만들면 어긋난다 — 2026-08-26 에
+Button 을 규범만 보고 세웠다가 State 어휘(Active↔Pressed)와 슬롯 4개가 계약과 달라 게이트가
+잡았다.
+
+## 10. 검증
 
 컴포넌트를 만들거나 고친 뒤 `pnpm run verify-figma-parity` 를 돌린다. 되읽기(`figma:fetch`)로
 `readback.json` 을 갱신하고 snapshot 을 재생성해야 그 게이트가 새 컴포넌트를 본다.

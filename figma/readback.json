@@ -15,7 +15,8 @@
     "05 · 운영 — 어드민 · 라우트 경계 (§10.12 · 결번 · 미등록)",
     "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
     "99 · 보류 — 범위 밖",
-    "DS · Foundations"
+    "DS · Foundations",
+    "DS · Components"
   ],
   "rowFormat": [
     "figmaName",
@@ -6389,7 +6390,123 @@
       }
     }
   },
-  "components": {},
+  "components": {
+    "Button": {
+      "variantCount": 50,
+      "hasDescription": true,
+      "properties": {
+        "Variant": {
+          "type": "VARIANT",
+          "options": [
+            "primary",
+            "secondary",
+            "ghost",
+            "danger",
+            "inverse"
+          ]
+        },
+        "Size": {
+          "type": "VARIANT",
+          "options": [
+            "md",
+            "sm"
+          ]
+        },
+        "State": {
+          "type": "VARIANT",
+          "options": [
+            "Default",
+            "Hover",
+            "Pressed",
+            "Disabled",
+            "Loading"
+          ]
+        }
+      },
+      "binding": {
+        "boundFills": 82,
+        "rawFills": 0,
+        "boundStrokes": 10,
+        "rawStrokes": 0,
+        "textStyled": 50,
+        "textUnstyled": 0
+      },
+      "geometry": {
+        "md": {
+          "slots": {},
+          "height": [
+            32
+          ],
+          "width": [
+            80
+          ],
+          "paddingBlock": [
+            0
+          ],
+          "paddingBlockEnd": [
+            0
+          ],
+          "paddingInline": [
+            12
+          ],
+          "paddingInlineEnd": [
+            12
+          ],
+          "itemSpacing": [
+            4
+          ],
+          "cornerRadius": [
+            12
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ],
+          "strokeWeight": [
+            1
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "sm": {
+          "slots": {},
+          "height": [
+            32
+          ],
+          "width": [
+            80
+          ],
+          "paddingBlock": [
+            0
+          ],
+          "paddingBlockEnd": [
+            0
+          ],
+          "paddingInline": [
+            12
+          ],
+          "paddingInlineEnd": [
+            12
+          ],
+          "itemSpacing": [
+            4
+          ],
+          "cornerRadius": [
+            12
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ],
+          "strokeWeight": [
+            1
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        }
+      },
+      "strokes": {},
+      "effects": {}
+    }
+  },
   "icons": {},
   "templates": {},
   "foundations": {

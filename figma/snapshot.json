@@ -18,8 +18,8 @@
         "effect": 9
       },
       "components": {
-        "sets": 0,
-        "variants": 0
+        "sets": 1,
+        "variants": 50
       },
       "icons": 0,
       "templates": 0
@@ -5008,7 +5008,125 @@
     },
     "note": "semantic tier 이름으로만 생성한다. primitive type-style-*/shadow-*는 Figma 미표현(DS-D-0007)."
   },
-  "components": {},
+  "components": {
+    "Button": {
+      "outsideParts": [],
+      "tokenId": "button",
+      "variantCount": 50,
+      "hasDescription": true,
+      "properties": {
+        "Variant": {
+          "type": "VARIANT",
+          "options": [
+            "primary",
+            "secondary",
+            "ghost",
+            "danger",
+            "inverse"
+          ]
+        },
+        "Size": {
+          "type": "VARIANT",
+          "options": [
+            "md",
+            "sm"
+          ]
+        },
+        "State": {
+          "type": "VARIANT",
+          "options": [
+            "Default",
+            "Hover",
+            "Pressed",
+            "Disabled",
+            "Loading"
+          ]
+        }
+      },
+      "binding": {
+        "boundFills": 82,
+        "rawFills": 0,
+        "boundStrokes": 10,
+        "rawStrokes": 0,
+        "textStyled": 50,
+        "textUnstyled": 0
+      },
+      "geometry": {
+        "md": {
+          "slots": {},
+          "height": [
+            32
+          ],
+          "width": [
+            80
+          ],
+          "paddingBlock": [
+            0
+          ],
+          "paddingBlockEnd": [
+            0
+          ],
+          "paddingInline": [
+            12
+          ],
+          "paddingInlineEnd": [
+            12
+          ],
+          "itemSpacing": [
+            4
+          ],
+          "cornerRadius": [
+            12
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ],
+          "strokeWeight": [
+            1
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "sm": {
+          "slots": {},
+          "height": [
+            32
+          ],
+          "width": [
+            80
+          ],
+          "paddingBlock": [
+            0
+          ],
+          "paddingBlockEnd": [
+            0
+          ],
+          "paddingInline": [
+            12
+          ],
+          "paddingInlineEnd": [
+            12
+          ],
+          "itemSpacing": [
+            4
+          ],
+          "cornerRadius": [
+            12
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ],
+          "strokeWeight": [
+            1
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        }
+      },
+      "strokes": {},
+      "effects": {}
+    }
+  },
   "icons": {},
   "templates": {},
   "iconInstances": {},

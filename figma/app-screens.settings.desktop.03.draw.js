@@ -117,11 +117,16 @@ const buildNode = (spec, parent) => {
   // (사이드바처럼 ABSOLUTE인 형제는 흐름 밖이라 자리를 뺏지 않는다.)
   if (spec.m && parent && parentAuto && !isAbsolute) {
     const flow = parent.children.filter((child) => child.layoutPositioning !== "ABSOLUTE");
+    // **음수 margin은 0으로 막는다.** Figma는 음수 padding을 거부한다. CSS에서 음수 margin은
+    // 자식이 부모 padding 밖으로 번지는(bleed) 동작인데, padding을 0까지 깎으면 자식이 부모 폭을
+    // 그대로 채워 같은 결과가 된다. 실측 사례: 앱 상단 크롬 바가 `margin: 0 -16px`로 좌우
+    // padding 16을 상쇄해 카드 전체 폭을 쓴다.
     if (flow.length === 1) {
-      if (spec.m[3]) parent.paddingLeft = (parent.paddingLeft || 0) + spec.m[3];
-      if (spec.m[1]) parent.paddingRight = (parent.paddingRight || 0) + spec.m[1];
-      if (spec.m[0]) parent.paddingTop = (parent.paddingTop || 0) + spec.m[0];
-      if (spec.m[2]) parent.paddingBottom = (parent.paddingBottom || 0) + spec.m[2];
+      const bleed = (side, delta) => { parent[side] = Math.max(0, (parent[side] || 0) + delta); };
+      if (spec.m[3]) bleed("paddingLeft", spec.m[3]);
+      if (spec.m[1]) bleed("paddingRight", spec.m[1]);
+      if (spec.m[0]) bleed("paddingTop", spec.m[0]);
+      if (spec.m[2]) bleed("paddingBottom", spec.m[2]);
     }
   }
 

@@ -1277,6 +1277,7 @@
         }
       },
       "static-black-alpha": {
+        "$type": "color",
         "4": {
           "$value": {
             "colorSpace": "srgb",
@@ -1295,42 +1296,6 @@
             }
           }
         },
-        "5": {
-          "$value": {
-            "colorSpace": "srgb",
-            "components": [
-              0,
-              0,
-              0
-            ],
-            "alpha": 0.05,
-            "hex": "#000000"
-          },
-          "$extensions": {
-            "com.klipse-design": {
-              "id": "color-static-black-alpha-5",
-              "tier": "primitive"
-            }
-          }
-        },
-        "6": {
-          "$value": {
-            "colorSpace": "srgb",
-            "components": [
-              0,
-              0,
-              0
-            ],
-            "alpha": 0.06,
-            "hex": "#000000"
-          },
-          "$extensions": {
-            "com.klipse-design": {
-              "id": "color-static-black-alpha-6",
-              "tier": "primitive"
-            }
-          }
-        },
         "8": {
           "$value": {
             "colorSpace": "srgb",
@@ -1345,24 +1310,6 @@
           "$extensions": {
             "com.klipse-design": {
               "id": "color-static-black-alpha-8",
-              "tier": "primitive"
-            }
-          }
-        },
-        "10": {
-          "$value": {
-            "colorSpace": "srgb",
-            "components": [
-              0,
-              0,
-              0
-            ],
-            "alpha": 0.1,
-            "hex": "#000000"
-          },
-          "$extensions": {
-            "com.klipse-design": {
-              "id": "color-static-black-alpha-10",
               "tier": "primitive"
             }
           }
@@ -1421,7 +1368,7 @@
             }
           }
         },
-        "25": {
+        "24": {
           "$value": {
             "colorSpace": "srgb",
             "components": [
@@ -1429,12 +1376,12 @@
               0,
               0
             ],
-            "alpha": 0.25,
+            "alpha": 0.24,
             "hex": "#000000"
           },
           "$extensions": {
             "com.klipse-design": {
-              "id": "color-static-black-alpha-25",
+              "id": "color-static-black-alpha-24",
               "tier": "primitive"
             }
           }
@@ -1457,7 +1404,7 @@
             }
           }
         },
-        "30": {
+        "32": {
           "$value": {
             "colorSpace": "srgb",
             "components": [
@@ -1465,12 +1412,12 @@
               0,
               0
             ],
-            "alpha": 0.3,
+            "alpha": 0.32,
             "hex": "#000000"
           },
           "$extensions": {
             "com.klipse-design": {
-              "id": "color-static-black-alpha-30",
+              "id": "color-static-black-alpha-32",
               "tier": "primitive"
             }
           }
@@ -1493,7 +1440,7 @@
             }
           }
         },
-        "50": {
+        "48": {
           "$value": {
             "colorSpace": "srgb",
             "components": [
@@ -1501,12 +1448,12 @@
               0,
               0
             ],
-            "alpha": 0.5,
+            "alpha": 0.48,
             "hex": "#000000"
           },
           "$extensions": {
             "com.klipse-design": {
-              "id": "color-static-black-alpha-50",
+              "id": "color-static-black-alpha-48",
               "tier": "primitive"
             }
           }
@@ -1529,7 +1476,7 @@
             }
           }
         },
-        "60": {
+        "64": {
           "$value": {
             "colorSpace": "srgb",
             "components": [
@@ -1537,30 +1484,12 @@
               0,
               0
             ],
-            "alpha": 0.6,
+            "alpha": 0.64,
             "hex": "#000000"
           },
           "$extensions": {
             "com.klipse-design": {
-              "id": "color-static-black-alpha-60",
-              "tier": "primitive"
-            }
-          }
-        },
-        "70": {
-          "$value": {
-            "colorSpace": "srgb",
-            "components": [
-              0,
-              0,
-              0
-            ],
-            "alpha": 0.7,
-            "hex": "#000000"
-          },
-          "$extensions": {
-            "com.klipse-design": {
-              "id": "color-static-black-alpha-70",
+              "id": "color-static-black-alpha-64",
               "tier": "primitive"
             }
           }
@@ -1601,7 +1530,7 @@
             }
           }
         },
-        "86": {
+        "88": {
           "$value": {
             "colorSpace": "srgb",
             "components": [
@@ -1609,19 +1538,37 @@
               0,
               0
             ],
-            "alpha": 0.86,
+            "alpha": 0.88,
             "hex": "#000000"
           },
           "$extensions": {
             "com.klipse-design": {
-              "id": "color-static-black-alpha-86",
+              "id": "color-static-black-alpha-88",
               "tier": "primitive"
             }
           }
         },
-        "$type": "color"
+        "96": {
+          "$value": {
+            "colorSpace": "srgb",
+            "components": [
+              0,
+              0,
+              0
+            ],
+            "alpha": 0.96,
+            "hex": "#000000"
+          },
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-static-black-alpha-96",
+              "tier": "primitive"
+            }
+          }
+        }
       },
       "static-white-alpha": {
+        "$type": "color",
         "4": {
           "$value": {
             "colorSpace": "srgb",
@@ -1636,24 +1583,6 @@
           "$extensions": {
             "com.klipse-design": {
               "id": "color-static-white-alpha-4",
-              "tier": "primitive"
-            }
-          }
-        },
-        "6": {
-          "$value": {
-            "colorSpace": "srgb",
-            "components": [
-              1,
-              1,
-              1
-            ],
-            "alpha": 0.06,
-            "hex": "#ffffff"
-          },
-          "$extensions": {
-            "com.klipse-design": {
-              "id": "color-static-white-alpha-6",
               "tier": "primitive"
             }
           }
@@ -1676,24 +1605,6 @@
             }
           }
         },
-        "10": {
-          "$value": {
-            "colorSpace": "srgb",
-            "components": [
-              1,
-              1,
-              1
-            ],
-            "alpha": 0.1,
-            "hex": "#ffffff"
-          },
-          "$extensions": {
-            "com.klipse-design": {
-              "id": "color-static-white-alpha-10",
-              "tier": "primitive"
-            }
-          }
-        },
         "12": {
           "$value": {
             "colorSpace": "srgb",
@@ -1708,24 +1619,6 @@
           "$extensions": {
             "com.klipse-design": {
               "id": "color-static-white-alpha-12",
-              "tier": "primitive"
-            }
-          }
-        },
-        "14": {
-          "$value": {
-            "colorSpace": "srgb",
-            "components": [
-              1,
-              1,
-              1
-            ],
-            "alpha": 0.14,
-            "hex": "#ffffff"
-          },
-          "$extensions": {
-            "com.klipse-design": {
-              "id": "color-static-white-alpha-14",
               "tier": "primitive"
             }
           }
@@ -1766,7 +1659,7 @@
             }
           }
         },
-        "25": {
+        "24": {
           "$value": {
             "colorSpace": "srgb",
             "components": [
@@ -1774,17 +1667,17 @@
               1,
               1
             ],
-            "alpha": 0.25,
+            "alpha": 0.24,
             "hex": "#ffffff"
           },
           "$extensions": {
             "com.klipse-design": {
-              "id": "color-static-white-alpha-25",
+              "id": "color-static-white-alpha-24",
               "tier": "primitive"
             }
           }
         },
-        "30": {
+        "28": {
           "$value": {
             "colorSpace": "srgb",
             "components": [
@@ -1792,12 +1685,30 @@
               1,
               1
             ],
-            "alpha": 0.3,
+            "alpha": 0.28,
             "hex": "#ffffff"
           },
           "$extensions": {
             "com.klipse-design": {
-              "id": "color-static-white-alpha-30",
+              "id": "color-static-white-alpha-28",
+              "tier": "primitive"
+            }
+          }
+        },
+        "32": {
+          "$value": {
+            "colorSpace": "srgb",
+            "components": [
+              1,
+              1,
+              1
+            ],
+            "alpha": 0.32,
+            "hex": "#ffffff"
+          },
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-static-white-alpha-32",
               "tier": "primitive"
             }
           }
@@ -1820,7 +1731,7 @@
             }
           }
         },
-        "45": {
+        "48": {
           "$value": {
             "colorSpace": "srgb",
             "components": [
@@ -1828,17 +1739,17 @@
               1,
               1
             ],
-            "alpha": 0.45,
+            "alpha": 0.48,
             "hex": "#ffffff"
           },
           "$extensions": {
             "com.klipse-design": {
-              "id": "color-static-white-alpha-45",
+              "id": "color-static-white-alpha-48",
               "tier": "primitive"
             }
           }
         },
-        "50": {
+        "56": {
           "$value": {
             "colorSpace": "srgb",
             "components": [
@@ -1846,17 +1757,17 @@
               1,
               1
             ],
-            "alpha": 0.5,
+            "alpha": 0.56,
             "hex": "#ffffff"
           },
           "$extensions": {
             "com.klipse-design": {
-              "id": "color-static-white-alpha-50",
+              "id": "color-static-white-alpha-56",
               "tier": "primitive"
             }
           }
         },
-        "60": {
+        "64": {
           "$value": {
             "colorSpace": "srgb",
             "components": [
@@ -1864,30 +1775,12 @@
               1,
               1
             ],
-            "alpha": 0.6,
+            "alpha": 0.64,
             "hex": "#ffffff"
           },
           "$extensions": {
             "com.klipse-design": {
-              "id": "color-static-white-alpha-60",
-              "tier": "primitive"
-            }
-          }
-        },
-        "70": {
-          "$value": {
-            "colorSpace": "srgb",
-            "components": [
-              1,
-              1,
-              1
-            ],
-            "alpha": 0.7,
-            "hex": "#ffffff"
-          },
-          "$extensions": {
-            "com.klipse-design": {
-              "id": "color-static-white-alpha-70",
+              "id": "color-static-white-alpha-64",
               "tier": "primitive"
             }
           }
@@ -1928,24 +1821,6 @@
             }
           }
         },
-        "86": {
-          "$value": {
-            "colorSpace": "srgb",
-            "components": [
-              1,
-              1,
-              1
-            ],
-            "alpha": 0.86,
-            "hex": "#ffffff"
-          },
-          "$extensions": {
-            "com.klipse-design": {
-              "id": "color-static-white-alpha-86",
-              "tier": "primitive"
-            }
-          }
-        },
         "88": {
           "$value": {
             "colorSpace": "srgb",
@@ -1964,27 +1839,27 @@
             }
           }
         },
-        "$type": "color"
-      },
-      "red-alpha": {
-        "6": {
+        "96": {
           "$value": {
             "colorSpace": "srgb",
             "components": [
               1,
-              0.294118,
-              0.34902
+              1,
+              1
             ],
-            "alpha": 0.06,
-            "hex": "#ff4b59"
+            "alpha": 0.96,
+            "hex": "#ffffff"
           },
           "$extensions": {
             "com.klipse-design": {
-              "id": "color-red-alpha-6",
+              "id": "color-static-white-alpha-96",
               "tier": "primitive"
             }
           }
-        },
+        }
+      },
+      "red-alpha": {
+        "$type": "color",
         "8": {
           "$value": {
             "colorSpace": "srgb",
@@ -1999,24 +1874,6 @@
           "$extensions": {
             "com.klipse-design": {
               "id": "color-red-alpha-8",
-              "tier": "primitive"
-            }
-          }
-        },
-        "10": {
-          "$value": {
-            "colorSpace": "srgb",
-            "components": [
-              1,
-              0.294118,
-              0.34902
-            ],
-            "alpha": 0.1,
-            "hex": "#ff4b59"
-          },
-          "$extensions": {
-            "com.klipse-design": {
-              "id": "color-red-alpha-10",
               "tier": "primitive"
             }
           }
@@ -2039,7 +1896,7 @@
             }
           }
         },
-        "16": {
+        "24": {
           "$value": {
             "colorSpace": "srgb",
             "components": [
@@ -2047,89 +1904,16 @@
               0.294118,
               0.34902
             ],
-            "alpha": 0.16,
+            "alpha": 0.24,
             "hex": "#ff4b59"
           },
           "$extensions": {
             "com.klipse-design": {
-              "id": "color-red-alpha-16",
+              "id": "color-red-alpha-24",
               "tier": "primitive"
             }
           }
-        },
-        "20": {
-          "$value": {
-            "colorSpace": "srgb",
-            "components": [
-              1,
-              0.294118,
-              0.34902
-            ],
-            "alpha": 0.2,
-            "hex": "#ff4b59"
-          },
-          "$extensions": {
-            "com.klipse-design": {
-              "id": "color-red-alpha-20",
-              "tier": "primitive"
-            }
-          }
-        },
-        "25": {
-          "$value": {
-            "colorSpace": "srgb",
-            "components": [
-              1,
-              0.294118,
-              0.34902
-            ],
-            "alpha": 0.25,
-            "hex": "#ff4b59"
-          },
-          "$extensions": {
-            "com.klipse-design": {
-              "id": "color-red-alpha-25",
-              "tier": "primitive"
-            }
-          }
-        },
-        "60": {
-          "$value": {
-            "colorSpace": "srgb",
-            "components": [
-              1,
-              0.294118,
-              0.34902
-            ],
-            "alpha": 0.6,
-            "hex": "#ff4b59"
-          },
-          "$extensions": {
-            "com.klipse-design": {
-              "id": "color-red-alpha-60",
-              "tier": "primitive"
-            }
-          }
-        },
-        "80": {
-          "$value": {
-            "colorSpace": "srgb",
-            "components": [
-              1,
-              0.294118,
-              0.34902
-            ],
-            "alpha": 0.8,
-            "hex": "#ff4b59"
-          },
-          "$extensions": {
-            "com.klipse-design": {
-              "id": "color-red-alpha-80",
-              "tier": "primitive"
-            }
-          }
-        },
-        "$type": "color"
+        }
       },
       "mint": {
         "100": {
@@ -6432,7 +6216,7 @@
           }
         },
         "accent-menu-danger-hover": {
-          "$value": "{primitive.color.red-alpha.10}",
+          "$value": "{primitive.color.red-alpha.8}",
           "$extensions": {
             "com.klipse-design": {
               "id": "color-accent-menu-danger-hover",
@@ -6442,7 +6226,7 @@
           }
         },
         "accent-menu-item-hover": {
-          "$value": "{primitive.color.static-black-alpha.6}",
+          "$value": "{primitive.color.static-black-alpha.4}",
           "$extensions": {
             "com.klipse-design": {
               "id": "color-accent-menu-item-hover",
@@ -6492,7 +6276,7 @@
           }
         },
         "accent-secondary-hover": {
-          "$value": "{primitive.color.static-black-alpha.5}",
+          "$value": "{primitive.color.static-black-alpha.4}",
           "$extensions": {
             "com.klipse-design": {
               "id": "color-accent-secondary-hover",
@@ -6512,7 +6296,7 @@
           }
         },
         "alert-danger-stroke": {
-          "$value": "{primitive.color.red-alpha.25}",
+          "$value": "{primitive.color.red-alpha.24}",
           "$extensions": {
             "com.klipse-design": {
               "id": "color-alert-danger-stroke",
@@ -6672,7 +6456,7 @@
           }
         },
         "bg-inverse-translucent": {
-          "$value": "{primitive.color.static-black-alpha.70}",
+          "$value": "{primitive.color.static-black-alpha.72}",
           "$extensions": {
             "com.klipse-design": {
               "id": "color-bg-inverse-translucent",
@@ -6832,7 +6616,7 @@
           }
         },
         "fg-menu-item": {
-          "$value": "{primitive.color.static-black-alpha.86}",
+          "$value": "{primitive.color.static-black-alpha.88}",
           "$extensions": {
             "com.klipse-design": {
               "id": "color-fg-menu-item",
@@ -6962,7 +6746,7 @@
           }
         },
         "media-control-hover": {
-          "$value": "{primitive.color.static-white-alpha.14}",
+          "$value": "{primitive.color.static-white-alpha.12}",
           "$extensions": {
             "com.klipse-design": {
               "id": "color-media-control-hover",
@@ -7012,7 +6796,7 @@
           }
         },
         "media-indicator-rest": {
-          "$value": "{primitive.color.static-white-alpha.45}",
+          "$value": "{primitive.color.static-white-alpha.48}",
           "$extensions": {
             "com.klipse-design": {
               "id": "color-media-indicator-rest",
@@ -7292,7 +7076,7 @@
           }
         },
         "progress-track": {
-          "$value": "{primitive.color.static-black-alpha.10}",
+          "$value": "{primitive.color.static-black-alpha.8}",
           "$extensions": {
             "com.klipse-design": {
               "id": "color-progress-track",
@@ -7342,7 +7126,7 @@
           }
         },
         "stroke-hairline": {
-          "$value": "{primitive.color.static-black-alpha.10}",
+          "$value": "{primitive.color.static-black-alpha.8}",
           "$extensions": {
             "com.klipse-design": {
               "id": "color-stroke-hairline",
@@ -7372,7 +7156,7 @@
           }
         },
         "stroke-tooltip": {
-          "$value": "{primitive.color.static-white-alpha.14}",
+          "$value": "{primitive.color.static-white-alpha.12}",
           "$extensions": {
             "com.klipse-design": {
               "id": "color-stroke-tooltip",
@@ -7490,7 +7274,7 @@
           }
         },
         "accent-ghost-hover": {
-          "$value": "{primitive.color.static-white-alpha.10}",
+          "$value": "{primitive.color.static-white-alpha.8}",
           "$extensions": {
             "com.klipse-design": {
               "id": "color-accent-ghost-hover",
@@ -7520,7 +7304,7 @@
           }
         },
         "accent-menu-item-hover": {
-          "$value": "{primitive.color.static-white-alpha.10}",
+          "$value": "{primitive.color.static-white-alpha.8}",
           "$extensions": {
             "com.klipse-design": {
               "id": "color-accent-menu-item-hover",
@@ -7590,7 +7374,7 @@
           }
         },
         "alert-danger-stroke": {
-          "$value": "{primitive.color.red-alpha.25}",
+          "$value": "{primitive.color.red-alpha.24}",
           "$extensions": {
             "com.klipse-design": {
               "id": "color-alert-danger-stroke",
@@ -7750,7 +7534,7 @@
           }
         },
         "bg-inverse-translucent": {
-          "$value": "{primitive.color.static-white-alpha.70}",
+          "$value": "{primitive.color.static-white-alpha.72}",
           "$extensions": {
             "com.klipse-design": {
               "id": "color-bg-inverse-translucent",
@@ -7910,7 +7694,7 @@
           }
         },
         "fg-menu-item": {
-          "$value": "{primitive.color.static-white-alpha.86}",
+          "$value": "{primitive.color.static-white-alpha.88}",
           "$extensions": {
             "com.klipse-design": {
               "id": "color-fg-menu-item",
@@ -8040,7 +7824,7 @@
           }
         },
         "media-control-hover": {
-          "$value": "{primitive.color.static-white-alpha.14}",
+          "$value": "{primitive.color.static-white-alpha.12}",
           "$extensions": {
             "com.klipse-design": {
               "id": "color-media-control-hover",
@@ -8090,7 +7874,7 @@
           }
         },
         "media-indicator-rest": {
-          "$value": "{primitive.color.static-white-alpha.45}",
+          "$value": "{primitive.color.static-white-alpha.48}",
           "$extensions": {
             "com.klipse-design": {
               "id": "color-media-indicator-rest",
@@ -8370,7 +8154,7 @@
           }
         },
         "progress-track": {
-          "$value": "{primitive.color.static-white-alpha.10}",
+          "$value": "{primitive.color.static-white-alpha.8}",
           "$extensions": {
             "com.klipse-design": {
               "id": "color-progress-track",
@@ -8420,7 +8204,7 @@
           }
         },
         "stroke-hairline": {
-          "$value": "{primitive.color.static-white-alpha.10}",
+          "$value": "{primitive.color.static-white-alpha.8}",
           "$extensions": {
             "com.klipse-design": {
               "id": "color-stroke-hairline",

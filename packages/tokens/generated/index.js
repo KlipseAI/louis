@@ -2710,39 +2710,6 @@ export const primitives = {
       "alpha": 1
     }
   },
-  "color-red-alpha-10": {
-    "aliasTarget": null,
-    "cssProperties": {
-      "--louis-color-red-alpha-10": "color(srgb 1 0.294118 0.34902 / 0.1)",
-      "--louis-color-red-alpha-10-rgb": "255 75 89"
-    },
-    "deprecated": null,
-    "description": null,
-    "id": "color-red-alpha-10",
-    "mode": "base",
-    "rawValue": {
-      "colorSpace": "srgb",
-      "components": [
-        1,
-        0.294118,
-        0.34902
-      ],
-      "alpha": 0.1,
-      "hex": "#ff4b59"
-    },
-    "sourcePath": "primitive.color.red-alpha.10",
-    "tier": "primitive",
-    "type": "color",
-    "value": {
-      "colorSpace": "srgb",
-      "components": [
-        1,
-        0.294118,
-        0.34902
-      ],
-      "alpha": 0.1
-    }
-  },
   "color-red-alpha-12": {
     "aliasTarget": null,
     "cssProperties": {
@@ -2776,15 +2743,15 @@ export const primitives = {
       "alpha": 0.12
     }
   },
-  "color-red-alpha-16": {
+  "color-red-alpha-24": {
     "aliasTarget": null,
     "cssProperties": {
-      "--louis-color-red-alpha-16": "color(srgb 1 0.294118 0.34902 / 0.16)",
-      "--louis-color-red-alpha-16-rgb": "255 75 89"
+      "--louis-color-red-alpha-24": "color(srgb 1 0.294118 0.34902 / 0.24)",
+      "--louis-color-red-alpha-24-rgb": "255 75 89"
     },
     "deprecated": null,
     "description": null,
-    "id": "color-red-alpha-16",
+    "id": "color-red-alpha-24",
     "mode": "base",
     "rawValue": {
       "colorSpace": "srgb",
@@ -2793,10 +2760,10 @@ export const primitives = {
         0.294118,
         0.34902
       ],
-      "alpha": 0.16,
+      "alpha": 0.24,
       "hex": "#ff4b59"
     },
-    "sourcePath": "primitive.color.red-alpha.16",
+    "sourcePath": "primitive.color.red-alpha.24",
     "tier": "primitive",
     "type": "color",
     "value": {
@@ -2806,139 +2773,7 @@ export const primitives = {
         0.294118,
         0.34902
       ],
-      "alpha": 0.16
-    }
-  },
-  "color-red-alpha-20": {
-    "aliasTarget": null,
-    "cssProperties": {
-      "--louis-color-red-alpha-20": "color(srgb 1 0.294118 0.34902 / 0.2)",
-      "--louis-color-red-alpha-20-rgb": "255 75 89"
-    },
-    "deprecated": null,
-    "description": null,
-    "id": "color-red-alpha-20",
-    "mode": "base",
-    "rawValue": {
-      "colorSpace": "srgb",
-      "components": [
-        1,
-        0.294118,
-        0.34902
-      ],
-      "alpha": 0.2,
-      "hex": "#ff4b59"
-    },
-    "sourcePath": "primitive.color.red-alpha.20",
-    "tier": "primitive",
-    "type": "color",
-    "value": {
-      "colorSpace": "srgb",
-      "components": [
-        1,
-        0.294118,
-        0.34902
-      ],
-      "alpha": 0.2
-    }
-  },
-  "color-red-alpha-25": {
-    "aliasTarget": null,
-    "cssProperties": {
-      "--louis-color-red-alpha-25": "color(srgb 1 0.294118 0.34902 / 0.25)",
-      "--louis-color-red-alpha-25-rgb": "255 75 89"
-    },
-    "deprecated": null,
-    "description": null,
-    "id": "color-red-alpha-25",
-    "mode": "base",
-    "rawValue": {
-      "colorSpace": "srgb",
-      "components": [
-        1,
-        0.294118,
-        0.34902
-      ],
-      "alpha": 0.25,
-      "hex": "#ff4b59"
-    },
-    "sourcePath": "primitive.color.red-alpha.25",
-    "tier": "primitive",
-    "type": "color",
-    "value": {
-      "colorSpace": "srgb",
-      "components": [
-        1,
-        0.294118,
-        0.34902
-      ],
-      "alpha": 0.25
-    }
-  },
-  "color-red-alpha-6": {
-    "aliasTarget": null,
-    "cssProperties": {
-      "--louis-color-red-alpha-6": "color(srgb 1 0.294118 0.34902 / 0.06)",
-      "--louis-color-red-alpha-6-rgb": "255 75 89"
-    },
-    "deprecated": null,
-    "description": null,
-    "id": "color-red-alpha-6",
-    "mode": "base",
-    "rawValue": {
-      "colorSpace": "srgb",
-      "components": [
-        1,
-        0.294118,
-        0.34902
-      ],
-      "alpha": 0.06,
-      "hex": "#ff4b59"
-    },
-    "sourcePath": "primitive.color.red-alpha.6",
-    "tier": "primitive",
-    "type": "color",
-    "value": {
-      "colorSpace": "srgb",
-      "components": [
-        1,
-        0.294118,
-        0.34902
-      ],
-      "alpha": 0.06
-    }
-  },
-  "color-red-alpha-60": {
-    "aliasTarget": null,
-    "cssProperties": {
-      "--louis-color-red-alpha-60": "color(srgb 1 0.294118 0.34902 / 0.6)",
-      "--louis-color-red-alpha-60-rgb": "255 75 89"
-    },
-    "deprecated": null,
-    "description": null,
-    "id": "color-red-alpha-60",
-    "mode": "base",
-    "rawValue": {
-      "colorSpace": "srgb",
-      "components": [
-        1,
-        0.294118,
-        0.34902
-      ],
-      "alpha": 0.6,
-      "hex": "#ff4b59"
-    },
-    "sourcePath": "primitive.color.red-alpha.60",
-    "tier": "primitive",
-    "type": "color",
-    "value": {
-      "colorSpace": "srgb",
-      "components": [
-        1,
-        0.294118,
-        0.34902
-      ],
-      "alpha": 0.6
+      "alpha": 0.24
     }
   },
   "color-red-alpha-8": {
@@ -2972,39 +2807,6 @@ export const primitives = {
         0.34902
       ],
       "alpha": 0.08
-    }
-  },
-  "color-red-alpha-80": {
-    "aliasTarget": null,
-    "cssProperties": {
-      "--louis-color-red-alpha-80": "color(srgb 1 0.294118 0.34902 / 0.8)",
-      "--louis-color-red-alpha-80-rgb": "255 75 89"
-    },
-    "deprecated": null,
-    "description": null,
-    "id": "color-red-alpha-80",
-    "mode": "base",
-    "rawValue": {
-      "colorSpace": "srgb",
-      "components": [
-        1,
-        0.294118,
-        0.34902
-      ],
-      "alpha": 0.8,
-      "hex": "#ff4b59"
-    },
-    "sourcePath": "primitive.color.red-alpha.80",
-    "tier": "primitive",
-    "type": "color",
-    "value": {
-      "colorSpace": "srgb",
-      "components": [
-        1,
-        0.294118,
-        0.34902
-      ],
-      "alpha": 0.8
     }
   },
   "color-sky-100": {
@@ -3295,39 +3097,6 @@ export const primitives = {
       "alpha": 1
     }
   },
-  "color-static-black-alpha-10": {
-    "aliasTarget": null,
-    "cssProperties": {
-      "--louis-color-static-black-alpha-10": "color(srgb 0 0 0 / 0.1)",
-      "--louis-color-static-black-alpha-10-rgb": "0 0 0"
-    },
-    "deprecated": null,
-    "description": null,
-    "id": "color-static-black-alpha-10",
-    "mode": "base",
-    "rawValue": {
-      "colorSpace": "srgb",
-      "components": [
-        0,
-        0,
-        0
-      ],
-      "alpha": 0.1,
-      "hex": "#000000"
-    },
-    "sourcePath": "primitive.color.static-black-alpha.10",
-    "tier": "primitive",
-    "type": "color",
-    "value": {
-      "colorSpace": "srgb",
-      "components": [
-        0,
-        0,
-        0
-      ],
-      "alpha": 0.1
-    }
-  },
   "color-static-black-alpha-12": {
     "aliasTarget": null,
     "cssProperties": {
@@ -3427,15 +3196,15 @@ export const primitives = {
       "alpha": 0.2
     }
   },
-  "color-static-black-alpha-25": {
+  "color-static-black-alpha-24": {
     "aliasTarget": null,
     "cssProperties": {
-      "--louis-color-static-black-alpha-25": "color(srgb 0 0 0 / 0.25)",
-      "--louis-color-static-black-alpha-25-rgb": "0 0 0"
+      "--louis-color-static-black-alpha-24": "color(srgb 0 0 0 / 0.24)",
+      "--louis-color-static-black-alpha-24-rgb": "0 0 0"
     },
     "deprecated": null,
     "description": null,
-    "id": "color-static-black-alpha-25",
+    "id": "color-static-black-alpha-24",
     "mode": "base",
     "rawValue": {
       "colorSpace": "srgb",
@@ -3444,10 +3213,10 @@ export const primitives = {
         0,
         0
       ],
-      "alpha": 0.25,
+      "alpha": 0.24,
       "hex": "#000000"
     },
-    "sourcePath": "primitive.color.static-black-alpha.25",
+    "sourcePath": "primitive.color.static-black-alpha.24",
     "tier": "primitive",
     "type": "color",
     "value": {
@@ -3457,7 +3226,7 @@ export const primitives = {
         0,
         0
       ],
-      "alpha": 0.25
+      "alpha": 0.24
     }
   },
   "color-static-black-alpha-28": {
@@ -3493,15 +3262,15 @@ export const primitives = {
       "alpha": 0.28
     }
   },
-  "color-static-black-alpha-30": {
+  "color-static-black-alpha-32": {
     "aliasTarget": null,
     "cssProperties": {
-      "--louis-color-static-black-alpha-30": "color(srgb 0 0 0 / 0.3)",
-      "--louis-color-static-black-alpha-30-rgb": "0 0 0"
+      "--louis-color-static-black-alpha-32": "color(srgb 0 0 0 / 0.32)",
+      "--louis-color-static-black-alpha-32-rgb": "0 0 0"
     },
     "deprecated": null,
     "description": null,
-    "id": "color-static-black-alpha-30",
+    "id": "color-static-black-alpha-32",
     "mode": "base",
     "rawValue": {
       "colorSpace": "srgb",
@@ -3510,10 +3279,10 @@ export const primitives = {
         0,
         0
       ],
-      "alpha": 0.3,
+      "alpha": 0.32,
       "hex": "#000000"
     },
-    "sourcePath": "primitive.color.static-black-alpha.30",
+    "sourcePath": "primitive.color.static-black-alpha.32",
     "tier": "primitive",
     "type": "color",
     "value": {
@@ -3523,7 +3292,7 @@ export const primitives = {
         0,
         0
       ],
-      "alpha": 0.3
+      "alpha": 0.32
     }
   },
   "color-static-black-alpha-4": {
@@ -3592,15 +3361,15 @@ export const primitives = {
       "alpha": 0.4
     }
   },
-  "color-static-black-alpha-5": {
+  "color-static-black-alpha-48": {
     "aliasTarget": null,
     "cssProperties": {
-      "--louis-color-static-black-alpha-5": "color(srgb 0 0 0 / 0.05)",
-      "--louis-color-static-black-alpha-5-rgb": "0 0 0"
+      "--louis-color-static-black-alpha-48": "color(srgb 0 0 0 / 0.48)",
+      "--louis-color-static-black-alpha-48-rgb": "0 0 0"
     },
     "deprecated": null,
     "description": null,
-    "id": "color-static-black-alpha-5",
+    "id": "color-static-black-alpha-48",
     "mode": "base",
     "rawValue": {
       "colorSpace": "srgb",
@@ -3609,10 +3378,10 @@ export const primitives = {
         0,
         0
       ],
-      "alpha": 0.05,
+      "alpha": 0.48,
       "hex": "#000000"
     },
-    "sourcePath": "primitive.color.static-black-alpha.5",
+    "sourcePath": "primitive.color.static-black-alpha.48",
     "tier": "primitive",
     "type": "color",
     "value": {
@@ -3622,40 +3391,7 @@ export const primitives = {
         0,
         0
       ],
-      "alpha": 0.05
-    }
-  },
-  "color-static-black-alpha-50": {
-    "aliasTarget": null,
-    "cssProperties": {
-      "--louis-color-static-black-alpha-50": "color(srgb 0 0 0 / 0.5)",
-      "--louis-color-static-black-alpha-50-rgb": "0 0 0"
-    },
-    "deprecated": null,
-    "description": null,
-    "id": "color-static-black-alpha-50",
-    "mode": "base",
-    "rawValue": {
-      "colorSpace": "srgb",
-      "components": [
-        0,
-        0,
-        0
-      ],
-      "alpha": 0.5,
-      "hex": "#000000"
-    },
-    "sourcePath": "primitive.color.static-black-alpha.50",
-    "tier": "primitive",
-    "type": "color",
-    "value": {
-      "colorSpace": "srgb",
-      "components": [
-        0,
-        0,
-        0
-      ],
-      "alpha": 0.5
+      "alpha": 0.48
     }
   },
   "color-static-black-alpha-56": {
@@ -3691,15 +3427,15 @@ export const primitives = {
       "alpha": 0.56
     }
   },
-  "color-static-black-alpha-6": {
+  "color-static-black-alpha-64": {
     "aliasTarget": null,
     "cssProperties": {
-      "--louis-color-static-black-alpha-6": "color(srgb 0 0 0 / 0.06)",
-      "--louis-color-static-black-alpha-6-rgb": "0 0 0"
+      "--louis-color-static-black-alpha-64": "color(srgb 0 0 0 / 0.64)",
+      "--louis-color-static-black-alpha-64-rgb": "0 0 0"
     },
     "deprecated": null,
     "description": null,
-    "id": "color-static-black-alpha-6",
+    "id": "color-static-black-alpha-64",
     "mode": "base",
     "rawValue": {
       "colorSpace": "srgb",
@@ -3708,10 +3444,10 @@ export const primitives = {
         0,
         0
       ],
-      "alpha": 0.06,
+      "alpha": 0.64,
       "hex": "#000000"
     },
-    "sourcePath": "primitive.color.static-black-alpha.6",
+    "sourcePath": "primitive.color.static-black-alpha.64",
     "tier": "primitive",
     "type": "color",
     "value": {
@@ -3721,73 +3457,7 @@ export const primitives = {
         0,
         0
       ],
-      "alpha": 0.06
-    }
-  },
-  "color-static-black-alpha-60": {
-    "aliasTarget": null,
-    "cssProperties": {
-      "--louis-color-static-black-alpha-60": "color(srgb 0 0 0 / 0.6)",
-      "--louis-color-static-black-alpha-60-rgb": "0 0 0"
-    },
-    "deprecated": null,
-    "description": null,
-    "id": "color-static-black-alpha-60",
-    "mode": "base",
-    "rawValue": {
-      "colorSpace": "srgb",
-      "components": [
-        0,
-        0,
-        0
-      ],
-      "alpha": 0.6,
-      "hex": "#000000"
-    },
-    "sourcePath": "primitive.color.static-black-alpha.60",
-    "tier": "primitive",
-    "type": "color",
-    "value": {
-      "colorSpace": "srgb",
-      "components": [
-        0,
-        0,
-        0
-      ],
-      "alpha": 0.6
-    }
-  },
-  "color-static-black-alpha-70": {
-    "aliasTarget": null,
-    "cssProperties": {
-      "--louis-color-static-black-alpha-70": "color(srgb 0 0 0 / 0.7)",
-      "--louis-color-static-black-alpha-70-rgb": "0 0 0"
-    },
-    "deprecated": null,
-    "description": null,
-    "id": "color-static-black-alpha-70",
-    "mode": "base",
-    "rawValue": {
-      "colorSpace": "srgb",
-      "components": [
-        0,
-        0,
-        0
-      ],
-      "alpha": 0.7,
-      "hex": "#000000"
-    },
-    "sourcePath": "primitive.color.static-black-alpha.70",
-    "tier": "primitive",
-    "type": "color",
-    "value": {
-      "colorSpace": "srgb",
-      "components": [
-        0,
-        0,
-        0
-      ],
-      "alpha": 0.7
+      "alpha": 0.64
     }
   },
   "color-static-black-alpha-72": {
@@ -3889,15 +3559,15 @@ export const primitives = {
       "alpha": 0.8
     }
   },
-  "color-static-black-alpha-86": {
+  "color-static-black-alpha-88": {
     "aliasTarget": null,
     "cssProperties": {
-      "--louis-color-static-black-alpha-86": "color(srgb 0 0 0 / 0.86)",
-      "--louis-color-static-black-alpha-86-rgb": "0 0 0"
+      "--louis-color-static-black-alpha-88": "color(srgb 0 0 0 / 0.88)",
+      "--louis-color-static-black-alpha-88-rgb": "0 0 0"
     },
     "deprecated": null,
     "description": null,
-    "id": "color-static-black-alpha-86",
+    "id": "color-static-black-alpha-88",
     "mode": "base",
     "rawValue": {
       "colorSpace": "srgb",
@@ -3906,10 +3576,10 @@ export const primitives = {
         0,
         0
       ],
-      "alpha": 0.86,
+      "alpha": 0.88,
       "hex": "#000000"
     },
-    "sourcePath": "primitive.color.static-black-alpha.86",
+    "sourcePath": "primitive.color.static-black-alpha.88",
     "tier": "primitive",
     "type": "color",
     "value": {
@@ -3919,40 +3589,40 @@ export const primitives = {
         0,
         0
       ],
-      "alpha": 0.86
+      "alpha": 0.88
     }
   },
-  "color-static-white-alpha-10": {
+  "color-static-black-alpha-96": {
     "aliasTarget": null,
     "cssProperties": {
-      "--louis-color-static-white-alpha-10": "color(srgb 1 1 1 / 0.1)",
-      "--louis-color-static-white-alpha-10-rgb": "255 255 255"
+      "--louis-color-static-black-alpha-96": "color(srgb 0 0 0 / 0.96)",
+      "--louis-color-static-black-alpha-96-rgb": "0 0 0"
     },
     "deprecated": null,
     "description": null,
-    "id": "color-static-white-alpha-10",
+    "id": "color-static-black-alpha-96",
     "mode": "base",
     "rawValue": {
       "colorSpace": "srgb",
       "components": [
-        1,
-        1,
-        1
+        0,
+        0,
+        0
       ],
-      "alpha": 0.1,
-      "hex": "#ffffff"
+      "alpha": 0.96,
+      "hex": "#000000"
     },
-    "sourcePath": "primitive.color.static-white-alpha.10",
+    "sourcePath": "primitive.color.static-black-alpha.96",
     "tier": "primitive",
     "type": "color",
     "value": {
       "colorSpace": "srgb",
       "components": [
-        1,
-        1,
-        1
+        0,
+        0,
+        0
       ],
-      "alpha": 0.1
+      "alpha": 0.96
     }
   },
   "color-static-white-alpha-12": {
@@ -3986,39 +3656,6 @@ export const primitives = {
         1
       ],
       "alpha": 0.12
-    }
-  },
-  "color-static-white-alpha-14": {
-    "aliasTarget": null,
-    "cssProperties": {
-      "--louis-color-static-white-alpha-14": "color(srgb 1 1 1 / 0.14)",
-      "--louis-color-static-white-alpha-14-rgb": "255 255 255"
-    },
-    "deprecated": null,
-    "description": null,
-    "id": "color-static-white-alpha-14",
-    "mode": "base",
-    "rawValue": {
-      "colorSpace": "srgb",
-      "components": [
-        1,
-        1,
-        1
-      ],
-      "alpha": 0.14,
-      "hex": "#ffffff"
-    },
-    "sourcePath": "primitive.color.static-white-alpha.14",
-    "tier": "primitive",
-    "type": "color",
-    "value": {
-      "colorSpace": "srgb",
-      "components": [
-        1,
-        1,
-        1
-      ],
-      "alpha": 0.14
     }
   },
   "color-static-white-alpha-16": {
@@ -4087,15 +3724,15 @@ export const primitives = {
       "alpha": 0.2
     }
   },
-  "color-static-white-alpha-25": {
+  "color-static-white-alpha-24": {
     "aliasTarget": null,
     "cssProperties": {
-      "--louis-color-static-white-alpha-25": "color(srgb 1 1 1 / 0.25)",
-      "--louis-color-static-white-alpha-25-rgb": "255 255 255"
+      "--louis-color-static-white-alpha-24": "color(srgb 1 1 1 / 0.24)",
+      "--louis-color-static-white-alpha-24-rgb": "255 255 255"
     },
     "deprecated": null,
     "description": null,
-    "id": "color-static-white-alpha-25",
+    "id": "color-static-white-alpha-24",
     "mode": "base",
     "rawValue": {
       "colorSpace": "srgb",
@@ -4104,10 +3741,10 @@ export const primitives = {
         1,
         1
       ],
-      "alpha": 0.25,
+      "alpha": 0.24,
       "hex": "#ffffff"
     },
-    "sourcePath": "primitive.color.static-white-alpha.25",
+    "sourcePath": "primitive.color.static-white-alpha.24",
     "tier": "primitive",
     "type": "color",
     "value": {
@@ -4117,18 +3754,18 @@ export const primitives = {
         1,
         1
       ],
-      "alpha": 0.25
+      "alpha": 0.24
     }
   },
-  "color-static-white-alpha-30": {
+  "color-static-white-alpha-28": {
     "aliasTarget": null,
     "cssProperties": {
-      "--louis-color-static-white-alpha-30": "color(srgb 1 1 1 / 0.3)",
-      "--louis-color-static-white-alpha-30-rgb": "255 255 255"
+      "--louis-color-static-white-alpha-28": "color(srgb 1 1 1 / 0.28)",
+      "--louis-color-static-white-alpha-28-rgb": "255 255 255"
     },
     "deprecated": null,
     "description": null,
-    "id": "color-static-white-alpha-30",
+    "id": "color-static-white-alpha-28",
     "mode": "base",
     "rawValue": {
       "colorSpace": "srgb",
@@ -4137,10 +3774,10 @@ export const primitives = {
         1,
         1
       ],
-      "alpha": 0.3,
+      "alpha": 0.28,
       "hex": "#ffffff"
     },
-    "sourcePath": "primitive.color.static-white-alpha.30",
+    "sourcePath": "primitive.color.static-white-alpha.28",
     "tier": "primitive",
     "type": "color",
     "value": {
@@ -4150,7 +3787,40 @@ export const primitives = {
         1,
         1
       ],
-      "alpha": 0.3
+      "alpha": 0.28
+    }
+  },
+  "color-static-white-alpha-32": {
+    "aliasTarget": null,
+    "cssProperties": {
+      "--louis-color-static-white-alpha-32": "color(srgb 1 1 1 / 0.32)",
+      "--louis-color-static-white-alpha-32-rgb": "255 255 255"
+    },
+    "deprecated": null,
+    "description": null,
+    "id": "color-static-white-alpha-32",
+    "mode": "base",
+    "rawValue": {
+      "colorSpace": "srgb",
+      "components": [
+        1,
+        1,
+        1
+      ],
+      "alpha": 0.32,
+      "hex": "#ffffff"
+    },
+    "sourcePath": "primitive.color.static-white-alpha.32",
+    "tier": "primitive",
+    "type": "color",
+    "value": {
+      "colorSpace": "srgb",
+      "components": [
+        1,
+        1,
+        1
+      ],
+      "alpha": 0.32
     }
   },
   "color-static-white-alpha-4": {
@@ -4219,15 +3889,15 @@ export const primitives = {
       "alpha": 0.4
     }
   },
-  "color-static-white-alpha-45": {
+  "color-static-white-alpha-48": {
     "aliasTarget": null,
     "cssProperties": {
-      "--louis-color-static-white-alpha-45": "color(srgb 1 1 1 / 0.45)",
-      "--louis-color-static-white-alpha-45-rgb": "255 255 255"
+      "--louis-color-static-white-alpha-48": "color(srgb 1 1 1 / 0.48)",
+      "--louis-color-static-white-alpha-48-rgb": "255 255 255"
     },
     "deprecated": null,
     "description": null,
-    "id": "color-static-white-alpha-45",
+    "id": "color-static-white-alpha-48",
     "mode": "base",
     "rawValue": {
       "colorSpace": "srgb",
@@ -4236,10 +3906,10 @@ export const primitives = {
         1,
         1
       ],
-      "alpha": 0.45,
+      "alpha": 0.48,
       "hex": "#ffffff"
     },
-    "sourcePath": "primitive.color.static-white-alpha.45",
+    "sourcePath": "primitive.color.static-white-alpha.48",
     "tier": "primitive",
     "type": "color",
     "value": {
@@ -4249,18 +3919,18 @@ export const primitives = {
         1,
         1
       ],
-      "alpha": 0.45
+      "alpha": 0.48
     }
   },
-  "color-static-white-alpha-50": {
+  "color-static-white-alpha-56": {
     "aliasTarget": null,
     "cssProperties": {
-      "--louis-color-static-white-alpha-50": "color(srgb 1 1 1 / 0.5)",
-      "--louis-color-static-white-alpha-50-rgb": "255 255 255"
+      "--louis-color-static-white-alpha-56": "color(srgb 1 1 1 / 0.56)",
+      "--louis-color-static-white-alpha-56-rgb": "255 255 255"
     },
     "deprecated": null,
     "description": null,
-    "id": "color-static-white-alpha-50",
+    "id": "color-static-white-alpha-56",
     "mode": "base",
     "rawValue": {
       "colorSpace": "srgb",
@@ -4269,10 +3939,10 @@ export const primitives = {
         1,
         1
       ],
-      "alpha": 0.5,
+      "alpha": 0.56,
       "hex": "#ffffff"
     },
-    "sourcePath": "primitive.color.static-white-alpha.50",
+    "sourcePath": "primitive.color.static-white-alpha.56",
     "tier": "primitive",
     "type": "color",
     "value": {
@@ -4282,18 +3952,18 @@ export const primitives = {
         1,
         1
       ],
-      "alpha": 0.5
+      "alpha": 0.56
     }
   },
-  "color-static-white-alpha-6": {
+  "color-static-white-alpha-64": {
     "aliasTarget": null,
     "cssProperties": {
-      "--louis-color-static-white-alpha-6": "color(srgb 1 1 1 / 0.06)",
-      "--louis-color-static-white-alpha-6-rgb": "255 255 255"
+      "--louis-color-static-white-alpha-64": "color(srgb 1 1 1 / 0.64)",
+      "--louis-color-static-white-alpha-64-rgb": "255 255 255"
     },
     "deprecated": null,
     "description": null,
-    "id": "color-static-white-alpha-6",
+    "id": "color-static-white-alpha-64",
     "mode": "base",
     "rawValue": {
       "colorSpace": "srgb",
@@ -4302,10 +3972,10 @@ export const primitives = {
         1,
         1
       ],
-      "alpha": 0.06,
+      "alpha": 0.64,
       "hex": "#ffffff"
     },
-    "sourcePath": "primitive.color.static-white-alpha.6",
+    "sourcePath": "primitive.color.static-white-alpha.64",
     "tier": "primitive",
     "type": "color",
     "value": {
@@ -4315,73 +3985,7 @@ export const primitives = {
         1,
         1
       ],
-      "alpha": 0.06
-    }
-  },
-  "color-static-white-alpha-60": {
-    "aliasTarget": null,
-    "cssProperties": {
-      "--louis-color-static-white-alpha-60": "color(srgb 1 1 1 / 0.6)",
-      "--louis-color-static-white-alpha-60-rgb": "255 255 255"
-    },
-    "deprecated": null,
-    "description": null,
-    "id": "color-static-white-alpha-60",
-    "mode": "base",
-    "rawValue": {
-      "colorSpace": "srgb",
-      "components": [
-        1,
-        1,
-        1
-      ],
-      "alpha": 0.6,
-      "hex": "#ffffff"
-    },
-    "sourcePath": "primitive.color.static-white-alpha.60",
-    "tier": "primitive",
-    "type": "color",
-    "value": {
-      "colorSpace": "srgb",
-      "components": [
-        1,
-        1,
-        1
-      ],
-      "alpha": 0.6
-    }
-  },
-  "color-static-white-alpha-70": {
-    "aliasTarget": null,
-    "cssProperties": {
-      "--louis-color-static-white-alpha-70": "color(srgb 1 1 1 / 0.7)",
-      "--louis-color-static-white-alpha-70-rgb": "255 255 255"
-    },
-    "deprecated": null,
-    "description": null,
-    "id": "color-static-white-alpha-70",
-    "mode": "base",
-    "rawValue": {
-      "colorSpace": "srgb",
-      "components": [
-        1,
-        1,
-        1
-      ],
-      "alpha": 0.7,
-      "hex": "#ffffff"
-    },
-    "sourcePath": "primitive.color.static-white-alpha.70",
-    "tier": "primitive",
-    "type": "color",
-    "value": {
-      "colorSpace": "srgb",
-      "components": [
-        1,
-        1,
-        1
-      ],
-      "alpha": 0.7
+      "alpha": 0.64
     }
   },
   "color-static-white-alpha-72": {
@@ -4483,39 +4087,6 @@ export const primitives = {
       "alpha": 0.8
     }
   },
-  "color-static-white-alpha-86": {
-    "aliasTarget": null,
-    "cssProperties": {
-      "--louis-color-static-white-alpha-86": "color(srgb 1 1 1 / 0.86)",
-      "--louis-color-static-white-alpha-86-rgb": "255 255 255"
-    },
-    "deprecated": null,
-    "description": null,
-    "id": "color-static-white-alpha-86",
-    "mode": "base",
-    "rawValue": {
-      "colorSpace": "srgb",
-      "components": [
-        1,
-        1,
-        1
-      ],
-      "alpha": 0.86,
-      "hex": "#ffffff"
-    },
-    "sourcePath": "primitive.color.static-white-alpha.86",
-    "tier": "primitive",
-    "type": "color",
-    "value": {
-      "colorSpace": "srgb",
-      "components": [
-        1,
-        1,
-        1
-      ],
-      "alpha": 0.86
-    }
-  },
   "color-static-white-alpha-88": {
     "aliasTarget": null,
     "cssProperties": {
@@ -4547,6 +4118,39 @@ export const primitives = {
         1
       ],
       "alpha": 0.88
+    }
+  },
+  "color-static-white-alpha-96": {
+    "aliasTarget": null,
+    "cssProperties": {
+      "--louis-color-static-white-alpha-96": "color(srgb 1 1 1 / 0.96)",
+      "--louis-color-static-white-alpha-96-rgb": "255 255 255"
+    },
+    "deprecated": null,
+    "description": null,
+    "id": "color-static-white-alpha-96",
+    "mode": "base",
+    "rawValue": {
+      "colorSpace": "srgb",
+      "components": [
+        1,
+        1,
+        1
+      ],
+      "alpha": 0.96,
+      "hex": "#ffffff"
+    },
+    "sourcePath": "primitive.color.static-white-alpha.96",
+    "tier": "primitive",
+    "type": "color",
+    "value": {
+      "colorSpace": "srgb",
+      "components": [
+        1,
+        1,
+        1
+      ],
+      "alpha": 0.96
     }
   },
   "color-ultra-400": {
@@ -12199,17 +11803,17 @@ export const tokens = {
     },
     "color-accent-menu-danger-hover": {
       "aliasTarget": {
-        "id": "color-red-alpha-10",
+        "id": "color-red-alpha-8",
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-accent-menu-danger-hover": "color(srgb 1 0.294118 0.34902 / 0.1)"
+        "--louis-color-accent-menu-danger-hover": "color(srgb 1 0.294118 0.34902 / 0.08)"
       },
       "deprecated": null,
       "description": null,
       "id": "color-accent-menu-danger-hover",
       "mode": "light",
-      "rawValue": "{primitive.color.red-alpha.10}",
+      "rawValue": "{primitive.color.red-alpha.8}",
       "sourcePath": "semantic.light.color.accent-menu-danger-hover",
       "tier": "semantic",
       "type": "color",
@@ -12220,22 +11824,22 @@ export const tokens = {
           0.294118,
           0.34902
         ],
-        "alpha": 0.1
+        "alpha": 0.08
       }
     },
     "color-accent-menu-item-hover": {
       "aliasTarget": {
-        "id": "color-static-black-alpha-6",
+        "id": "color-static-black-alpha-4",
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-accent-menu-item-hover": "color(srgb 0 0 0 / 0.06)"
+        "--louis-color-accent-menu-item-hover": "color(srgb 0 0 0 / 0.04)"
       },
       "deprecated": null,
       "description": null,
       "id": "color-accent-menu-item-hover",
       "mode": "light",
-      "rawValue": "{primitive.color.static-black-alpha.6}",
+      "rawValue": "{primitive.color.static-black-alpha.4}",
       "sourcePath": "semantic.light.color.accent-menu-item-hover",
       "tier": "semantic",
       "type": "color",
@@ -12246,7 +11850,7 @@ export const tokens = {
           0,
           0
         ],
-        "alpha": 0.06
+        "alpha": 0.04
       }
     },
     "color-accent-primary": {
@@ -12355,17 +11959,17 @@ export const tokens = {
     },
     "color-accent-secondary-hover": {
       "aliasTarget": {
-        "id": "color-static-black-alpha-5",
+        "id": "color-static-black-alpha-4",
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-accent-secondary-hover": "color(srgb 0 0 0 / 0.05)"
+        "--louis-color-accent-secondary-hover": "color(srgb 0 0 0 / 0.04)"
       },
       "deprecated": null,
       "description": null,
       "id": "color-accent-secondary-hover",
       "mode": "light",
-      "rawValue": "{primitive.color.static-black-alpha.5}",
+      "rawValue": "{primitive.color.static-black-alpha.4}",
       "sourcePath": "semantic.light.color.accent-secondary-hover",
       "tier": "semantic",
       "type": "color",
@@ -12376,7 +11980,7 @@ export const tokens = {
           0,
           0
         ],
-        "alpha": 0.05
+        "alpha": 0.04
       }
     },
     "color-alert-danger-foreground": {
@@ -12407,17 +12011,17 @@ export const tokens = {
     },
     "color-alert-danger-stroke": {
       "aliasTarget": {
-        "id": "color-red-alpha-25",
+        "id": "color-red-alpha-24",
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-alert-danger-stroke": "color(srgb 1 0.294118 0.34902 / 0.25)"
+        "--louis-color-alert-danger-stroke": "color(srgb 1 0.294118 0.34902 / 0.24)"
       },
       "deprecated": null,
       "description": null,
       "id": "color-alert-danger-stroke",
       "mode": "light",
-      "rawValue": "{primitive.color.red-alpha.25}",
+      "rawValue": "{primitive.color.red-alpha.24}",
       "sourcePath": "semantic.light.color.alert-danger-stroke",
       "tier": "semantic",
       "type": "color",
@@ -12428,7 +12032,7 @@ export const tokens = {
           0.294118,
           0.34902
         ],
-        "alpha": 0.25
+        "alpha": 0.24
       }
     },
     "color-alert-danger-surface": {
@@ -12823,17 +12427,17 @@ export const tokens = {
     },
     "color-bg-inverse-translucent": {
       "aliasTarget": {
-        "id": "color-static-black-alpha-70",
+        "id": "color-static-black-alpha-72",
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-bg-inverse-translucent": "color(srgb 0 0 0 / 0.7)"
+        "--louis-color-bg-inverse-translucent": "color(srgb 0 0 0 / 0.72)"
       },
       "deprecated": null,
       "description": null,
       "id": "color-bg-inverse-translucent",
       "mode": "light",
-      "rawValue": "{primitive.color.static-black-alpha.70}",
+      "rawValue": "{primitive.color.static-black-alpha.72}",
       "sourcePath": "semantic.light.color.bg-inverse-translucent",
       "tier": "semantic",
       "type": "color",
@@ -12844,7 +12448,7 @@ export const tokens = {
           0,
           0
         ],
-        "alpha": 0.7
+        "alpha": 0.72
       }
     },
     "color-bg-menu": {
@@ -13239,17 +12843,17 @@ export const tokens = {
     },
     "color-fg-menu-item": {
       "aliasTarget": {
-        "id": "color-static-black-alpha-86",
+        "id": "color-static-black-alpha-88",
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-fg-menu-item": "color(srgb 0 0 0 / 0.86)"
+        "--louis-color-fg-menu-item": "color(srgb 0 0 0 / 0.88)"
       },
       "deprecated": null,
       "description": null,
       "id": "color-fg-menu-item",
       "mode": "light",
-      "rawValue": "{primitive.color.static-black-alpha.86}",
+      "rawValue": "{primitive.color.static-black-alpha.88}",
       "sourcePath": "semantic.light.color.fg-menu-item",
       "tier": "semantic",
       "type": "color",
@@ -13260,7 +12864,7 @@ export const tokens = {
           0,
           0
         ],
-        "alpha": 0.86
+        "alpha": 0.88
       }
     },
     "color-fg-on-accent-inverse": {
@@ -13577,17 +13181,17 @@ export const tokens = {
     },
     "color-media-control-hover": {
       "aliasTarget": {
-        "id": "color-static-white-alpha-14",
+        "id": "color-static-white-alpha-12",
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-media-control-hover": "color(srgb 1 1 1 / 0.14)"
+        "--louis-color-media-control-hover": "color(srgb 1 1 1 / 0.12)"
       },
       "deprecated": null,
       "description": null,
       "id": "color-media-control-hover",
       "mode": "light",
-      "rawValue": "{primitive.color.static-white-alpha.14}",
+      "rawValue": "{primitive.color.static-white-alpha.12}",
       "sourcePath": "semantic.light.color.media-control-hover",
       "tier": "semantic",
       "type": "color",
@@ -13598,7 +13202,7 @@ export const tokens = {
           1,
           1
         ],
-        "alpha": 0.14
+        "alpha": 0.12
       }
     },
     "color-media-control-surface": {
@@ -13707,17 +13311,17 @@ export const tokens = {
     },
     "color-media-indicator-rest": {
       "aliasTarget": {
-        "id": "color-static-white-alpha-45",
+        "id": "color-static-white-alpha-48",
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-media-indicator-rest": "color(srgb 1 1 1 / 0.45)"
+        "--louis-color-media-indicator-rest": "color(srgb 1 1 1 / 0.48)"
       },
       "deprecated": null,
       "description": null,
       "id": "color-media-indicator-rest",
       "mode": "light",
-      "rawValue": "{primitive.color.static-white-alpha.45}",
+      "rawValue": "{primitive.color.static-white-alpha.48}",
       "sourcePath": "semantic.light.color.media-indicator-rest",
       "tier": "semantic",
       "type": "color",
@@ -13728,7 +13332,7 @@ export const tokens = {
           1,
           1
         ],
-        "alpha": 0.45
+        "alpha": 0.48
       }
     },
     "color-media-scrim-bright": {
@@ -14435,17 +14039,17 @@ export const tokens = {
     },
     "color-progress-track": {
       "aliasTarget": {
-        "id": "color-static-black-alpha-10",
+        "id": "color-static-black-alpha-8",
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-progress-track": "color(srgb 0 0 0 / 0.1)"
+        "--louis-color-progress-track": "color(srgb 0 0 0 / 0.08)"
       },
       "deprecated": null,
       "description": null,
       "id": "color-progress-track",
       "mode": "light",
-      "rawValue": "{primitive.color.static-black-alpha.10}",
+      "rawValue": "{primitive.color.static-black-alpha.8}",
       "sourcePath": "semantic.light.color.progress-track",
       "tier": "semantic",
       "type": "color",
@@ -14456,7 +14060,7 @@ export const tokens = {
           0,
           0
         ],
-        "alpha": 0.1
+        "alpha": 0.08
       }
     },
     "color-stroke-control": {
@@ -14565,17 +14169,17 @@ export const tokens = {
     },
     "color-stroke-hairline": {
       "aliasTarget": {
-        "id": "color-static-black-alpha-10",
+        "id": "color-static-black-alpha-8",
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-stroke-hairline": "color(srgb 0 0 0 / 0.1)"
+        "--louis-color-stroke-hairline": "color(srgb 0 0 0 / 0.08)"
       },
       "deprecated": null,
       "description": null,
       "id": "color-stroke-hairline",
       "mode": "light",
-      "rawValue": "{primitive.color.static-black-alpha.10}",
+      "rawValue": "{primitive.color.static-black-alpha.8}",
       "sourcePath": "semantic.light.color.stroke-hairline",
       "tier": "semantic",
       "type": "color",
@@ -14586,7 +14190,7 @@ export const tokens = {
           0,
           0
         ],
-        "alpha": 0.1
+        "alpha": 0.08
       }
     },
     "color-stroke-strong": {
@@ -14643,17 +14247,17 @@ export const tokens = {
     },
     "color-stroke-tooltip": {
       "aliasTarget": {
-        "id": "color-static-white-alpha-14",
+        "id": "color-static-white-alpha-12",
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-stroke-tooltip": "color(srgb 1 1 1 / 0.14)"
+        "--louis-color-stroke-tooltip": "color(srgb 1 1 1 / 0.12)"
       },
       "deprecated": null,
       "description": null,
       "id": "color-stroke-tooltip",
       "mode": "light",
-      "rawValue": "{primitive.color.static-white-alpha.14}",
+      "rawValue": "{primitive.color.static-white-alpha.12}",
       "sourcePath": "semantic.light.color.stroke-tooltip",
       "tier": "semantic",
       "type": "color",
@@ -14664,7 +14268,7 @@ export const tokens = {
           1,
           1
         ],
-        "alpha": 0.14
+        "alpha": 0.12
       }
     },
     "color-switch-off-track": {
@@ -15020,17 +14624,17 @@ export const tokens = {
     },
     "color-accent-ghost-hover": {
       "aliasTarget": {
-        "id": "color-static-white-alpha-10",
+        "id": "color-static-white-alpha-8",
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-accent-ghost-hover": "color(srgb 1 1 1 / 0.1)"
+        "--louis-color-accent-ghost-hover": "color(srgb 1 1 1 / 0.08)"
       },
       "deprecated": null,
       "description": null,
       "id": "color-accent-ghost-hover",
       "mode": "dark",
-      "rawValue": "{primitive.color.static-white-alpha.10}",
+      "rawValue": "{primitive.color.static-white-alpha.8}",
       "sourcePath": "semantic.dark.color.accent-ghost-hover",
       "tier": "semantic",
       "type": "color",
@@ -15041,7 +14645,7 @@ export const tokens = {
           1,
           1
         ],
-        "alpha": 0.1
+        "alpha": 0.08
       }
     },
     "color-accent-inverse": {
@@ -15098,17 +14702,17 @@ export const tokens = {
     },
     "color-accent-menu-item-hover": {
       "aliasTarget": {
-        "id": "color-static-white-alpha-10",
+        "id": "color-static-white-alpha-8",
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-accent-menu-item-hover": "color(srgb 1 1 1 / 0.1)"
+        "--louis-color-accent-menu-item-hover": "color(srgb 1 1 1 / 0.08)"
       },
       "deprecated": null,
       "description": null,
       "id": "color-accent-menu-item-hover",
       "mode": "dark",
-      "rawValue": "{primitive.color.static-white-alpha.10}",
+      "rawValue": "{primitive.color.static-white-alpha.8}",
       "sourcePath": "semantic.dark.color.accent-menu-item-hover",
       "tier": "semantic",
       "type": "color",
@@ -15119,7 +14723,7 @@ export const tokens = {
           1,
           1
         ],
-        "alpha": 0.1
+        "alpha": 0.08
       }
     },
     "color-accent-primary": {
@@ -15280,17 +14884,17 @@ export const tokens = {
     },
     "color-alert-danger-stroke": {
       "aliasTarget": {
-        "id": "color-red-alpha-25",
+        "id": "color-red-alpha-24",
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-alert-danger-stroke": "color(srgb 1 0.294118 0.34902 / 0.25)"
+        "--louis-color-alert-danger-stroke": "color(srgb 1 0.294118 0.34902 / 0.24)"
       },
       "deprecated": null,
       "description": null,
       "id": "color-alert-danger-stroke",
       "mode": "dark",
-      "rawValue": "{primitive.color.red-alpha.25}",
+      "rawValue": "{primitive.color.red-alpha.24}",
       "sourcePath": "semantic.dark.color.alert-danger-stroke",
       "tier": "semantic",
       "type": "color",
@@ -15301,7 +14905,7 @@ export const tokens = {
           0.294118,
           0.34902
         ],
-        "alpha": 0.25
+        "alpha": 0.24
       }
     },
     "color-alert-danger-surface": {
@@ -15696,17 +15300,17 @@ export const tokens = {
     },
     "color-bg-inverse-translucent": {
       "aliasTarget": {
-        "id": "color-static-white-alpha-70",
+        "id": "color-static-white-alpha-72",
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-bg-inverse-translucent": "color(srgb 1 1 1 / 0.7)"
+        "--louis-color-bg-inverse-translucent": "color(srgb 1 1 1 / 0.72)"
       },
       "deprecated": null,
       "description": null,
       "id": "color-bg-inverse-translucent",
       "mode": "dark",
-      "rawValue": "{primitive.color.static-white-alpha.70}",
+      "rawValue": "{primitive.color.static-white-alpha.72}",
       "sourcePath": "semantic.dark.color.bg-inverse-translucent",
       "tier": "semantic",
       "type": "color",
@@ -15717,7 +15321,7 @@ export const tokens = {
           1,
           1
         ],
-        "alpha": 0.7
+        "alpha": 0.72
       }
     },
     "color-bg-menu": {
@@ -16112,17 +15716,17 @@ export const tokens = {
     },
     "color-fg-menu-item": {
       "aliasTarget": {
-        "id": "color-static-white-alpha-86",
+        "id": "color-static-white-alpha-88",
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-fg-menu-item": "color(srgb 1 1 1 / 0.86)"
+        "--louis-color-fg-menu-item": "color(srgb 1 1 1 / 0.88)"
       },
       "deprecated": null,
       "description": null,
       "id": "color-fg-menu-item",
       "mode": "dark",
-      "rawValue": "{primitive.color.static-white-alpha.86}",
+      "rawValue": "{primitive.color.static-white-alpha.88}",
       "sourcePath": "semantic.dark.color.fg-menu-item",
       "tier": "semantic",
       "type": "color",
@@ -16133,7 +15737,7 @@ export const tokens = {
           1,
           1
         ],
-        "alpha": 0.86
+        "alpha": 0.88
       }
     },
     "color-fg-on-accent-inverse": {
@@ -16450,17 +16054,17 @@ export const tokens = {
     },
     "color-media-control-hover": {
       "aliasTarget": {
-        "id": "color-static-white-alpha-14",
+        "id": "color-static-white-alpha-12",
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-media-control-hover": "color(srgb 1 1 1 / 0.14)"
+        "--louis-color-media-control-hover": "color(srgb 1 1 1 / 0.12)"
       },
       "deprecated": null,
       "description": null,
       "id": "color-media-control-hover",
       "mode": "dark",
-      "rawValue": "{primitive.color.static-white-alpha.14}",
+      "rawValue": "{primitive.color.static-white-alpha.12}",
       "sourcePath": "semantic.dark.color.media-control-hover",
       "tier": "semantic",
       "type": "color",
@@ -16471,7 +16075,7 @@ export const tokens = {
           1,
           1
         ],
-        "alpha": 0.14
+        "alpha": 0.12
       }
     },
     "color-media-control-surface": {
@@ -16580,17 +16184,17 @@ export const tokens = {
     },
     "color-media-indicator-rest": {
       "aliasTarget": {
-        "id": "color-static-white-alpha-45",
+        "id": "color-static-white-alpha-48",
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-media-indicator-rest": "color(srgb 1 1 1 / 0.45)"
+        "--louis-color-media-indicator-rest": "color(srgb 1 1 1 / 0.48)"
       },
       "deprecated": null,
       "description": null,
       "id": "color-media-indicator-rest",
       "mode": "dark",
-      "rawValue": "{primitive.color.static-white-alpha.45}",
+      "rawValue": "{primitive.color.static-white-alpha.48}",
       "sourcePath": "semantic.dark.color.media-indicator-rest",
       "tier": "semantic",
       "type": "color",
@@ -16601,7 +16205,7 @@ export const tokens = {
           1,
           1
         ],
-        "alpha": 0.45
+        "alpha": 0.48
       }
     },
     "color-media-scrim-bright": {
@@ -17308,17 +16912,17 @@ export const tokens = {
     },
     "color-progress-track": {
       "aliasTarget": {
-        "id": "color-static-white-alpha-10",
+        "id": "color-static-white-alpha-8",
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-progress-track": "color(srgb 1 1 1 / 0.1)"
+        "--louis-color-progress-track": "color(srgb 1 1 1 / 0.08)"
       },
       "deprecated": null,
       "description": null,
       "id": "color-progress-track",
       "mode": "dark",
-      "rawValue": "{primitive.color.static-white-alpha.10}",
+      "rawValue": "{primitive.color.static-white-alpha.8}",
       "sourcePath": "semantic.dark.color.progress-track",
       "tier": "semantic",
       "type": "color",
@@ -17329,7 +16933,7 @@ export const tokens = {
           1,
           1
         ],
-        "alpha": 0.1
+        "alpha": 0.08
       }
     },
     "color-stroke-control": {
@@ -17438,17 +17042,17 @@ export const tokens = {
     },
     "color-stroke-hairline": {
       "aliasTarget": {
-        "id": "color-static-white-alpha-10",
+        "id": "color-static-white-alpha-8",
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-stroke-hairline": "color(srgb 1 1 1 / 0.1)"
+        "--louis-color-stroke-hairline": "color(srgb 1 1 1 / 0.08)"
       },
       "deprecated": null,
       "description": null,
       "id": "color-stroke-hairline",
       "mode": "dark",
-      "rawValue": "{primitive.color.static-white-alpha.10}",
+      "rawValue": "{primitive.color.static-white-alpha.8}",
       "sourcePath": "semantic.dark.color.stroke-hairline",
       "tier": "semantic",
       "type": "color",
@@ -17459,7 +17063,7 @@ export const tokens = {
           1,
           1
         ],
-        "alpha": 0.1
+        "alpha": 0.08
       }
     },
     "color-stroke-strong": {

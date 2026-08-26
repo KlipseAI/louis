@@ -6,12 +6,12 @@
     "capturedAt": "2026-08-26",
     "capturedBy": "figma-mcp-plugin-api (대상 이전: bxGEp0km → OlYKERK)",
     "published": false,
-    "tokenSourceSha256": "7a33ac7b8ec8a27a0d0a59c1437a350c871ab265c94a30eae2a9f0a5c5750e2a",
-    "proposalSha256": "d7690b2afb6857303333380e63d2c45d4f5d891b0e695c706e5341bc5d2055a2",
+    "tokenSourceSha256": "639e2424dfc0b1e1e2b89cb5f8e2f6bc3b71bec7a485302a9c166f18170efb84",
+    "proposalSha256": "e7e95bca2fab1182736e69707b6fa3853e5578d90f3d475561b49dffa0748d2f",
     "readback": {
-      "tokens": 399,
-      "canonicalLength": 35053,
-      "fnv1a32": "0fe8aaee",
+      "tokens": 387,
+      "canonicalLength": 34188,
+      "fnv1a32": "eff61693",
       "note": "변수는 readback.json의 되읽기 행을 tokenId 공간으로 옮긴 것이고, style과 component는 같은 되읽기의 style/component 절이다. canonical 해시는 컬렉션·이름·타입·mode 값을 정렬해 이은 문자열의 FNV-1a다.",
       "styles": {
         "text": 15,
@@ -31,7 +31,7 @@
         "Base"
       ],
       "defaultMode": "Base",
-      "variableCount": 208
+      "variableCount": 196
     },
     "Klipse Semantic": {
       "modes": [
@@ -187,7 +187,7 @@
           "alias": "color-static-black-alpha-8"
         },
         "Dark": {
-          "alias": "color-static-white-alpha-10"
+          "alias": "color-static-white-alpha-8"
         }
       }
     },
@@ -208,7 +208,7 @@
       "resolvedType": "COLOR",
       "valuesByMode": {
         "Light": {
-          "alias": "color-red-alpha-10"
+          "alias": "color-red-alpha-8"
         },
         "Dark": {
           "alias": "color-red-alpha-12"
@@ -220,10 +220,10 @@
       "resolvedType": "COLOR",
       "valuesByMode": {
         "Light": {
-          "alias": "color-static-black-alpha-6"
+          "alias": "color-static-black-alpha-4"
         },
         "Dark": {
-          "alias": "color-static-white-alpha-10"
+          "alias": "color-static-white-alpha-8"
         }
       }
     },
@@ -280,7 +280,7 @@
       "resolvedType": "COLOR",
       "valuesByMode": {
         "Light": {
-          "alias": "color-static-black-alpha-5"
+          "alias": "color-static-black-alpha-4"
         },
         "Dark": {
           "alias": "color-static-white-alpha-8"
@@ -304,10 +304,10 @@
       "resolvedType": "COLOR",
       "valuesByMode": {
         "Light": {
-          "alias": "color-red-alpha-25"
+          "alias": "color-red-alpha-24"
         },
         "Dark": {
-          "alias": "color-red-alpha-25"
+          "alias": "color-red-alpha-24"
         }
       }
     },
@@ -622,10 +622,10 @@
       "resolvedType": "COLOR",
       "valuesByMode": {
         "Light": {
-          "alias": "color-static-black-alpha-70"
+          "alias": "color-static-black-alpha-72"
         },
         "Dark": {
-          "alias": "color-static-white-alpha-70"
+          "alias": "color-static-white-alpha-72"
         }
       }
     },
@@ -1038,10 +1038,10 @@
       "resolvedType": "COLOR",
       "valuesByMode": {
         "Light": {
-          "alias": "color-static-black-alpha-86"
+          "alias": "color-static-black-alpha-88"
         },
         "Dark": {
-          "alias": "color-static-white-alpha-86"
+          "alias": "color-static-white-alpha-88"
         }
       }
     },
@@ -1432,10 +1432,10 @@
       "resolvedType": "COLOR",
       "valuesByMode": {
         "Light": {
-          "alias": "color-static-white-alpha-14"
+          "alias": "color-static-white-alpha-12"
         },
         "Dark": {
-          "alias": "color-static-white-alpha-14"
+          "alias": "color-static-white-alpha-12"
         }
       }
     },
@@ -1492,10 +1492,10 @@
       "resolvedType": "COLOR",
       "valuesByMode": {
         "Light": {
-          "alias": "color-static-white-alpha-45"
+          "alias": "color-static-white-alpha-48"
         },
         "Dark": {
-          "alias": "color-static-white-alpha-45"
+          "alias": "color-static-white-alpha-48"
         }
       }
     },
@@ -2080,10 +2080,10 @@
       "resolvedType": "COLOR",
       "valuesByMode": {
         "Light": {
-          "alias": "color-static-black-alpha-10"
+          "alias": "color-static-black-alpha-8"
         },
         "Dark": {
-          "alias": "color-static-white-alpha-10"
+          "alias": "color-static-white-alpha-8"
         }
       }
     },
@@ -2213,20 +2213,6 @@
         }
       }
     },
-    "color-red-alpha-10": {
-      "figmaName": "color/red-alpha/10",
-      "resolvedType": "COLOR",
-      "valuesByMode": {
-        "Base": {
-          "value": [
-            1,
-            0.294118,
-            0.34902,
-            0.1
-          ]
-        }
-      }
-    },
     "color-red-alpha-12": {
       "figmaName": "color/red-alpha/12",
       "resolvedType": "COLOR",
@@ -2241,8 +2227,8 @@
         }
       }
     },
-    "color-red-alpha-16": {
-      "figmaName": "color/red-alpha/16",
+    "color-red-alpha-24": {
+      "figmaName": "color/red-alpha/24",
       "resolvedType": "COLOR",
       "valuesByMode": {
         "Base": {
@@ -2250,63 +2236,7 @@
             1,
             0.294118,
             0.34902,
-            0.16
-          ]
-        }
-      }
-    },
-    "color-red-alpha-20": {
-      "figmaName": "color/red-alpha/20",
-      "resolvedType": "COLOR",
-      "valuesByMode": {
-        "Base": {
-          "value": [
-            1,
-            0.294118,
-            0.34902,
-            0.2
-          ]
-        }
-      }
-    },
-    "color-red-alpha-25": {
-      "figmaName": "color/red-alpha/25",
-      "resolvedType": "COLOR",
-      "valuesByMode": {
-        "Base": {
-          "value": [
-            1,
-            0.294118,
-            0.34902,
-            0.25
-          ]
-        }
-      }
-    },
-    "color-red-alpha-6": {
-      "figmaName": "color/red-alpha/6",
-      "resolvedType": "COLOR",
-      "valuesByMode": {
-        "Base": {
-          "value": [
-            1,
-            0.294118,
-            0.34902,
-            0.06
-          ]
-        }
-      }
-    },
-    "color-red-alpha-60": {
-      "figmaName": "color/red-alpha/60",
-      "resolvedType": "COLOR",
-      "valuesByMode": {
-        "Base": {
-          "value": [
-            1,
-            0.294118,
-            0.34902,
-            0.6
+            0.24
           ]
         }
       }
@@ -2321,20 +2251,6 @@
             0.294118,
             0.34902,
             0.08
-          ]
-        }
-      }
-    },
-    "color-red-alpha-80": {
-      "figmaName": "color/red-alpha/80",
-      "resolvedType": "COLOR",
-      "valuesByMode": {
-        "Base": {
-          "value": [
-            1,
-            0.294118,
-            0.34902,
-            0.8
           ]
         }
       }
@@ -2465,20 +2381,6 @@
         }
       }
     },
-    "color-static-black-alpha-10": {
-      "figmaName": "color/static-black-alpha/10",
-      "resolvedType": "COLOR",
-      "valuesByMode": {
-        "Base": {
-          "value": [
-            0,
-            0,
-            0,
-            0.1
-          ]
-        }
-      }
-    },
     "color-static-black-alpha-12": {
       "figmaName": "color/static-black-alpha/12",
       "resolvedType": "COLOR",
@@ -2521,8 +2423,8 @@
         }
       }
     },
-    "color-static-black-alpha-25": {
-      "figmaName": "color/static-black-alpha/25",
+    "color-static-black-alpha-24": {
+      "figmaName": "color/static-black-alpha/24",
       "resolvedType": "COLOR",
       "valuesByMode": {
         "Base": {
@@ -2530,7 +2432,7 @@
             0,
             0,
             0,
-            0.25
+            0.24
           ]
         }
       }
@@ -2549,8 +2451,8 @@
         }
       }
     },
-    "color-static-black-alpha-30": {
-      "figmaName": "color/static-black-alpha/30",
+    "color-static-black-alpha-32": {
+      "figmaName": "color/static-black-alpha/32",
       "resolvedType": "COLOR",
       "valuesByMode": {
         "Base": {
@@ -2558,7 +2460,7 @@
             0,
             0,
             0,
-            0.3
+            0.32
           ]
         }
       }
@@ -2591,8 +2493,8 @@
         }
       }
     },
-    "color-static-black-alpha-5": {
-      "figmaName": "color/static-black-alpha/5",
+    "color-static-black-alpha-48": {
+      "figmaName": "color/static-black-alpha/48",
       "resolvedType": "COLOR",
       "valuesByMode": {
         "Base": {
@@ -2600,21 +2502,7 @@
             0,
             0,
             0,
-            0.05
-          ]
-        }
-      }
-    },
-    "color-static-black-alpha-50": {
-      "figmaName": "color/static-black-alpha/50",
-      "resolvedType": "COLOR",
-      "valuesByMode": {
-        "Base": {
-          "value": [
-            0,
-            0,
-            0,
-            0.5
+            0.48
           ]
         }
       }
@@ -2633,8 +2521,8 @@
         }
       }
     },
-    "color-static-black-alpha-6": {
-      "figmaName": "color/static-black-alpha/6",
+    "color-static-black-alpha-64": {
+      "figmaName": "color/static-black-alpha/64",
       "resolvedType": "COLOR",
       "valuesByMode": {
         "Base": {
@@ -2642,35 +2530,7 @@
             0,
             0,
             0,
-            0.06
-          ]
-        }
-      }
-    },
-    "color-static-black-alpha-60": {
-      "figmaName": "color/static-black-alpha/60",
-      "resolvedType": "COLOR",
-      "valuesByMode": {
-        "Base": {
-          "value": [
-            0,
-            0,
-            0,
-            0.6
-          ]
-        }
-      }
-    },
-    "color-static-black-alpha-70": {
-      "figmaName": "color/static-black-alpha/70",
-      "resolvedType": "COLOR",
-      "valuesByMode": {
-        "Base": {
-          "value": [
-            0,
-            0,
-            0,
-            0.7
+            0.64
           ]
         }
       }
@@ -2717,8 +2577,8 @@
         }
       }
     },
-    "color-static-black-alpha-86": {
-      "figmaName": "color/static-black-alpha/86",
+    "color-static-black-alpha-88": {
+      "figmaName": "color/static-black-alpha/88",
       "resolvedType": "COLOR",
       "valuesByMode": {
         "Base": {
@@ -2726,21 +2586,21 @@
             0,
             0,
             0,
-            0.86
+            0.88
           ]
         }
       }
     },
-    "color-static-white-alpha-10": {
-      "figmaName": "color/static-white-alpha/10",
+    "color-static-black-alpha-96": {
+      "figmaName": "color/static-black-alpha/96",
       "resolvedType": "COLOR",
       "valuesByMode": {
         "Base": {
           "value": [
-            1,
-            1,
-            1,
-            0.1
+            0,
+            0,
+            0,
+            0.96
           ]
         }
       }
@@ -2755,20 +2615,6 @@
             1,
             1,
             0.12
-          ]
-        }
-      }
-    },
-    "color-static-white-alpha-14": {
-      "figmaName": "color/static-white-alpha/14",
-      "resolvedType": "COLOR",
-      "valuesByMode": {
-        "Base": {
-          "value": [
-            1,
-            1,
-            1,
-            0.14
           ]
         }
       }
@@ -2801,8 +2647,8 @@
         }
       }
     },
-    "color-static-white-alpha-25": {
-      "figmaName": "color/static-white-alpha/25",
+    "color-static-white-alpha-24": {
+      "figmaName": "color/static-white-alpha/24",
       "resolvedType": "COLOR",
       "valuesByMode": {
         "Base": {
@@ -2810,13 +2656,13 @@
             1,
             1,
             1,
-            0.25
+            0.24
           ]
         }
       }
     },
-    "color-static-white-alpha-30": {
-      "figmaName": "color/static-white-alpha/30",
+    "color-static-white-alpha-28": {
+      "figmaName": "color/static-white-alpha/28",
       "resolvedType": "COLOR",
       "valuesByMode": {
         "Base": {
@@ -2824,7 +2670,21 @@
             1,
             1,
             1,
-            0.3
+            0.28
+          ]
+        }
+      }
+    },
+    "color-static-white-alpha-32": {
+      "figmaName": "color/static-white-alpha/32",
+      "resolvedType": "COLOR",
+      "valuesByMode": {
+        "Base": {
+          "value": [
+            1,
+            1,
+            1,
+            0.32
           ]
         }
       }
@@ -2857,8 +2717,8 @@
         }
       }
     },
-    "color-static-white-alpha-45": {
-      "figmaName": "color/static-white-alpha/45",
+    "color-static-white-alpha-48": {
+      "figmaName": "color/static-white-alpha/48",
       "resolvedType": "COLOR",
       "valuesByMode": {
         "Base": {
@@ -2866,13 +2726,13 @@
             1,
             1,
             1,
-            0.45
+            0.48
           ]
         }
       }
     },
-    "color-static-white-alpha-50": {
-      "figmaName": "color/static-white-alpha/50",
+    "color-static-white-alpha-56": {
+      "figmaName": "color/static-white-alpha/56",
       "resolvedType": "COLOR",
       "valuesByMode": {
         "Base": {
@@ -2880,13 +2740,13 @@
             1,
             1,
             1,
-            0.5
+            0.56
           ]
         }
       }
     },
-    "color-static-white-alpha-6": {
-      "figmaName": "color/static-white-alpha/6",
+    "color-static-white-alpha-64": {
+      "figmaName": "color/static-white-alpha/64",
       "resolvedType": "COLOR",
       "valuesByMode": {
         "Base": {
@@ -2894,35 +2754,7 @@
             1,
             1,
             1,
-            0.06
-          ]
-        }
-      }
-    },
-    "color-static-white-alpha-60": {
-      "figmaName": "color/static-white-alpha/60",
-      "resolvedType": "COLOR",
-      "valuesByMode": {
-        "Base": {
-          "value": [
-            1,
-            1,
-            1,
-            0.6
-          ]
-        }
-      }
-    },
-    "color-static-white-alpha-70": {
-      "figmaName": "color/static-white-alpha/70",
-      "resolvedType": "COLOR",
-      "valuesByMode": {
-        "Base": {
-          "value": [
-            1,
-            1,
-            1,
-            0.7
+            0.64
           ]
         }
       }
@@ -2969,20 +2801,6 @@
         }
       }
     },
-    "color-static-white-alpha-86": {
-      "figmaName": "color/static-white-alpha/86",
-      "resolvedType": "COLOR",
-      "valuesByMode": {
-        "Base": {
-          "value": [
-            1,
-            1,
-            1,
-            0.86
-          ]
-        }
-      }
-    },
     "color-static-white-alpha-88": {
       "figmaName": "color/static-white-alpha/88",
       "resolvedType": "COLOR",
@@ -2993,6 +2811,20 @@
             1,
             1,
             0.88
+          ]
+        }
+      }
+    },
+    "color-static-white-alpha-96": {
+      "figmaName": "color/static-white-alpha/96",
+      "resolvedType": "COLOR",
+      "valuesByMode": {
+        "Base": {
+          "value": [
+            1,
+            1,
+            1,
+            0.96
           ]
         }
       }
@@ -3050,10 +2882,10 @@
       "resolvedType": "COLOR",
       "valuesByMode": {
         "Light": {
-          "alias": "color-static-black-alpha-10"
+          "alias": "color-static-black-alpha-8"
         },
         "Dark": {
-          "alias": "color-static-white-alpha-10"
+          "alias": "color-static-white-alpha-8"
         }
       }
     },
@@ -3086,7 +2918,7 @@
       "resolvedType": "COLOR",
       "valuesByMode": {
         "Light": {
-          "alias": "color-static-white-alpha-14"
+          "alias": "color-static-white-alpha-12"
         },
         "Dark": {
           "alias": "color-static-black-alpha-12"

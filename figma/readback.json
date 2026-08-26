@@ -1125,23 +1125,6 @@
           ]
         ],
         [
-          "color/red-alpha/10",
-          "COLOR",
-          "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
-          [
-            [
-              "Base",
-              null,
-              [
-                1,
-                0.294118,
-                0.34902,
-                0.1
-              ]
-            ]
-          ]
-        ],
-        [
           "color/red-alpha/12",
           "COLOR",
           "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
@@ -1159,7 +1142,7 @@
           ]
         ],
         [
-          "color/red-alpha/16",
+          "color/red-alpha/24",
           "COLOR",
           "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
           [
@@ -1170,75 +1153,7 @@
                 1,
                 0.294118,
                 0.34902,
-                0.16
-              ]
-            ]
-          ]
-        ],
-        [
-          "color/red-alpha/20",
-          "COLOR",
-          "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
-          [
-            [
-              "Base",
-              null,
-              [
-                1,
-                0.294118,
-                0.34902,
-                0.2
-              ]
-            ]
-          ]
-        ],
-        [
-          "color/red-alpha/25",
-          "COLOR",
-          "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
-          [
-            [
-              "Base",
-              null,
-              [
-                1,
-                0.294118,
-                0.34902,
-                0.25
-              ]
-            ]
-          ]
-        ],
-        [
-          "color/red-alpha/6",
-          "COLOR",
-          "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
-          [
-            [
-              "Base",
-              null,
-              [
-                1,
-                0.294118,
-                0.34902,
-                0.06
-              ]
-            ]
-          ]
-        ],
-        [
-          "color/red-alpha/60",
-          "COLOR",
-          "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
-          [
-            [
-              "Base",
-              null,
-              [
-                1,
-                0.294118,
-                0.34902,
-                0.6
+                0.24
               ]
             ]
           ]
@@ -1256,23 +1171,6 @@
                 0.294118,
                 0.34902,
                 0.08
-              ]
-            ]
-          ]
-        ],
-        [
-          "color/red-alpha/80",
-          "COLOR",
-          "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
-          [
-            [
-              "Base",
-              null,
-              [
-                1,
-                0.294118,
-                0.34902,
-                0.8
               ]
             ]
           ]
@@ -1584,23 +1482,6 @@
           ]
         ],
         [
-          "color/static-black-alpha/10",
-          "COLOR",
-          "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
-          [
-            [
-              "Base",
-              null,
-              [
-                0,
-                0,
-                0,
-                0.1
-              ]
-            ]
-          ]
-        ],
-        [
           "color/static-black-alpha/12",
           "COLOR",
           "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
@@ -1652,7 +1533,7 @@
           ]
         ],
         [
-          "color/static-black-alpha/25",
+          "color/static-black-alpha/24",
           "COLOR",
           "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
           [
@@ -1663,7 +1544,7 @@
                 0,
                 0,
                 0,
-                0.25
+                0.24
               ]
             ]
           ]
@@ -1686,7 +1567,7 @@
           ]
         ],
         [
-          "color/static-black-alpha/30",
+          "color/static-black-alpha/32",
           "COLOR",
           "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
           [
@@ -1697,7 +1578,7 @@
                 0,
                 0,
                 0,
-                0.3
+                0.32
               ]
             ]
           ]
@@ -1737,7 +1618,7 @@
           ]
         ],
         [
-          "color/static-black-alpha/5",
+          "color/static-black-alpha/48",
           "COLOR",
           "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
           [
@@ -1748,24 +1629,7 @@
                 0,
                 0,
                 0,
-                0.05
-              ]
-            ]
-          ]
-        ],
-        [
-          "color/static-black-alpha/50",
-          "COLOR",
-          "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
-          [
-            [
-              "Base",
-              null,
-              [
-                0,
-                0,
-                0,
-                0.5
+                0.48
               ]
             ]
           ]
@@ -1788,7 +1652,7 @@
           ]
         ],
         [
-          "color/static-black-alpha/6",
+          "color/static-black-alpha/64",
           "COLOR",
           "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
           [
@@ -1799,41 +1663,7 @@
                 0,
                 0,
                 0,
-                0.06
-              ]
-            ]
-          ]
-        ],
-        [
-          "color/static-black-alpha/60",
-          "COLOR",
-          "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
-          [
-            [
-              "Base",
-              null,
-              [
-                0,
-                0,
-                0,
-                0.6
-              ]
-            ]
-          ]
-        ],
-        [
-          "color/static-black-alpha/70",
-          "COLOR",
-          "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
-          [
-            [
-              "Base",
-              null,
-              [
-                0,
-                0,
-                0,
-                0.7
+                0.64
               ]
             ]
           ]
@@ -1890,7 +1720,7 @@
           ]
         ],
         [
-          "color/static-black-alpha/86",
+          "color/static-black-alpha/88",
           "COLOR",
           "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
           [
@@ -1901,13 +1731,13 @@
                 0,
                 0,
                 0,
-                0.86
+                0.88
               ]
             ]
           ]
         ],
         [
-          "color/static-white-alpha/10",
+          "color/static-black-alpha/96",
           "COLOR",
           "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
           [
@@ -1915,10 +1745,10 @@
               "Base",
               null,
               [
-                1,
-                1,
-                1,
-                0.1
+                0,
+                0,
+                0,
+                0.96
               ]
             ]
           ]
@@ -1936,23 +1766,6 @@
                 1,
                 1,
                 0.12
-              ]
-            ]
-          ]
-        ],
-        [
-          "color/static-white-alpha/14",
-          "COLOR",
-          "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
-          [
-            [
-              "Base",
-              null,
-              [
-                1,
-                1,
-                1,
-                0.14
               ]
             ]
           ]
@@ -1992,7 +1805,7 @@
           ]
         ],
         [
-          "color/static-white-alpha/25",
+          "color/static-white-alpha/24",
           "COLOR",
           "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
           [
@@ -2003,13 +1816,13 @@
                 1,
                 1,
                 1,
-                0.25
+                0.24
               ]
             ]
           ]
         ],
         [
-          "color/static-white-alpha/30",
+          "color/static-white-alpha/28",
           "COLOR",
           "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
           [
@@ -2020,7 +1833,24 @@
                 1,
                 1,
                 1,
-                0.3
+                0.28
+              ]
+            ]
+          ]
+        ],
+        [
+          "color/static-white-alpha/32",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
+          [
+            [
+              "Base",
+              null,
+              [
+                1,
+                1,
+                1,
+                0.32
               ]
             ]
           ]
@@ -2060,7 +1890,7 @@
           ]
         ],
         [
-          "color/static-white-alpha/45",
+          "color/static-white-alpha/48",
           "COLOR",
           "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
           [
@@ -2071,13 +1901,13 @@
                 1,
                 1,
                 1,
-                0.45
+                0.48
               ]
             ]
           ]
         ],
         [
-          "color/static-white-alpha/50",
+          "color/static-white-alpha/56",
           "COLOR",
           "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
           [
@@ -2088,13 +1918,13 @@
                 1,
                 1,
                 1,
-                0.5
+                0.56
               ]
             ]
           ]
         ],
         [
-          "color/static-white-alpha/6",
+          "color/static-white-alpha/64",
           "COLOR",
           "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
           [
@@ -2105,41 +1935,7 @@
                 1,
                 1,
                 1,
-                0.06
-              ]
-            ]
-          ]
-        ],
-        [
-          "color/static-white-alpha/60",
-          "COLOR",
-          "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
-          [
-            [
-              "Base",
-              null,
-              [
-                1,
-                1,
-                1,
-                0.6
-              ]
-            ]
-          ]
-        ],
-        [
-          "color/static-white-alpha/70",
-          "COLOR",
-          "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
-          [
-            [
-              "Base",
-              null,
-              [
-                1,
-                1,
-                1,
-                0.7
+                0.64
               ]
             ]
           ]
@@ -2196,23 +1992,6 @@
           ]
         ],
         [
-          "color/static-white-alpha/86",
-          "COLOR",
-          "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
-          [
-            [
-              "Base",
-              null,
-              [
-                1,
-                1,
-                1,
-                0.86
-              ]
-            ]
-          ]
-        ],
-        [
           "color/static-white-alpha/88",
           "COLOR",
           "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
@@ -2225,6 +2004,23 @@
                 1,
                 1,
                 0.88
+              ]
+            ]
+          ]
+        ],
+        [
+          "color/static-white-alpha/96",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
+          [
+            [
+              "Base",
+              null,
+              [
+                1,
+                1,
+                1,
+                0.96
               ]
             ]
           ]
@@ -4338,7 +4134,7 @@
             ],
             [
               "Dark",
-              "Klipse Primitive::color/static-white-alpha/10",
+              "Klipse Primitive::color/static-white-alpha/8",
               null
             ]
           ]
@@ -4367,7 +4163,7 @@
           [
             [
               "Light",
-              "Klipse Primitive::color/red-alpha/10",
+              "Klipse Primitive::color/red-alpha/8",
               null
             ],
             [
@@ -4384,12 +4180,12 @@
           [
             [
               "Light",
-              "Klipse Primitive::color/static-black-alpha/6",
+              "Klipse Primitive::color/static-black-alpha/4",
               null
             ],
             [
               "Dark",
-              "Klipse Primitive::color/static-white-alpha/10",
+              "Klipse Primitive::color/static-white-alpha/8",
               null
             ]
           ]
@@ -4469,7 +4265,7 @@
           [
             [
               "Light",
-              "Klipse Primitive::color/static-black-alpha/5",
+              "Klipse Primitive::color/static-black-alpha/4",
               null
             ],
             [
@@ -4503,12 +4299,12 @@
           [
             [
               "Light",
-              "Klipse Primitive::color/red-alpha/25",
+              "Klipse Primitive::color/red-alpha/24",
               null
             ],
             [
               "Dark",
-              "Klipse Primitive::color/red-alpha/25",
+              "Klipse Primitive::color/red-alpha/24",
               null
             ]
           ]
@@ -4775,12 +4571,12 @@
           [
             [
               "Light",
-              "Klipse Primitive::color/static-black-alpha/70",
+              "Klipse Primitive::color/static-black-alpha/72",
               null
             ],
             [
               "Dark",
-              "Klipse Primitive::color/static-white-alpha/70",
+              "Klipse Primitive::color/static-white-alpha/72",
               null
             ]
           ]
@@ -5047,12 +4843,12 @@
           [
             [
               "Light",
-              "Klipse Primitive::color/static-black-alpha/86",
+              "Klipse Primitive::color/static-black-alpha/88",
               null
             ],
             [
               "Dark",
-              "Klipse Primitive::color/static-white-alpha/86",
+              "Klipse Primitive::color/static-white-alpha/88",
               null
             ]
           ]
@@ -5268,12 +5064,12 @@
           [
             [
               "Light",
-              "Klipse Primitive::color/static-white-alpha/14",
+              "Klipse Primitive::color/static-white-alpha/12",
               null
             ],
             [
               "Dark",
-              "Klipse Primitive::color/static-white-alpha/14",
+              "Klipse Primitive::color/static-white-alpha/12",
               null
             ]
           ]
@@ -5353,12 +5149,12 @@
           [
             [
               "Light",
-              "Klipse Primitive::color/static-white-alpha/45",
+              "Klipse Primitive::color/static-white-alpha/48",
               null
             ],
             [
               "Dark",
-              "Klipse Primitive::color/static-white-alpha/45",
+              "Klipse Primitive::color/static-white-alpha/48",
               null
             ]
           ]
@@ -5829,12 +5625,12 @@
           [
             [
               "Light",
-              "Klipse Primitive::color/static-black-alpha/10",
+              "Klipse Primitive::color/static-black-alpha/8",
               null
             ],
             [
               "Dark",
-              "Klipse Primitive::color/static-white-alpha/10",
+              "Klipse Primitive::color/static-white-alpha/8",
               null
             ]
           ]
@@ -5914,12 +5710,12 @@
           [
             [
               "Light",
-              "Klipse Primitive::color/static-black-alpha/10",
+              "Klipse Primitive::color/static-black-alpha/8",
               null
             ],
             [
               "Dark",
-              "Klipse Primitive::color/static-white-alpha/10",
+              "Klipse Primitive::color/static-white-alpha/8",
               null
             ]
           ]
@@ -5965,7 +5761,7 @@
           [
             [
               "Light",
-              "Klipse Primitive::color/static-white-alpha/14",
+              "Klipse Primitive::color/static-white-alpha/12",
               null
             ],
             [

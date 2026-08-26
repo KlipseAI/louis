@@ -878,6 +878,15 @@
       "generated": false
     },
     {
+      "id": "decision-alpha-scale",
+      "path": "design/governance/decisions/DS-D-0026-alpha-scale.md",
+      "title": "DS-D-0026 알파는 16단 스케일이다 — 32까지 4씩, 그 위 8씩",
+      "section": "governance",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
+    },
+    {
       "id": "governance-product-confirmations",
       "path": "design/governance/product-confirmations.md",
       "title": "제품 확인 대기 목록",
@@ -1059,6 +1068,7 @@
         "design/governance/decisions/DS-D-0023-hairline-inset.md",
         "design/governance/decisions/DS-D-0024-color-architecture.md",
         "design/governance/decisions/DS-D-0025-figma-as-projection.md",
+        "design/governance/decisions/DS-D-0026-alpha-scale.md",
         "design/governance/product-confirmations.md",
         "design/updates/README.md"
       ]

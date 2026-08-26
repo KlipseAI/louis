@@ -91,6 +91,11 @@ const COMPONENT_CONTRACTS = [
     variantProperties: { Variant: "ButtonVariant", Size: "ButtonSize" },
     figmaOnlyProperties: {
       Label: { type: "TEXT", reason: "코드에서 children이라 타입 선언에 항목으로 나타나지 않는다(React가 준다)." },
+      Icon: {
+        options: ["left", "right", "both", "none"],
+        reason:
+          "코드에서 leftIcon/rightIcon은 ReactNode prop이고 있으면 그린다. Figma에서 불리언으로 두면 아이콘이 붙은 쪽 padding 보정(-2px, button.css:78-91)을 표현할 수 없다 — 불리언은 가시성만 바꾼다. 그래서 variant 축으로 쪼갰고 5×2×5×4 = 200이다.",
+      },
       State: {
         options: ["Default", "Hover", "Active", "Disabled", "Loading"],
         reason:
@@ -100,23 +105,25 @@ const COMPONENT_CONTRACTS = [
     // variant 축이 아니라 **존재 여부**로 코드 prop과 대응하는 property.
     // ReactNode prop은 문자열 union이 아니므로 옵션을 대조할 수 없다. 대신 선언에 그 prop이
     // 실제로 있는지를 본다. 이 칸이 없으면 Figma에만 있는 슬롯이 조용히 생긴다.
-    propProperties: { LeftIcon: "leftIcon",
-      RightIcon: "rightIcon",
-      LeftIconGlyph: "leftIcon",
+    // 아이콘은 **불리언이 아니라 Icon variant 축**이다 — 아이콘이 붙은 쪽 padding이 2px 줄기
+    // 때문이다(button.css:78-91). 불리언은 가시성만 바꾸고 padding은 못 바꾼다.
+    propProperties: { LeftIconGlyph: "leftIcon",
       RightIconGlyph: "rightIcon", },
-    // 기하 계약. Figma padding = CSS padding + border이고 stroke는 INSIDE다.
-    // 이렇게 접지 않으면 프레임 높이가 CSS보다 border 두께의 두 배만큼 작아진다 —
-    // 실제로 md 39 대신 37, sm 28 대신 26으로 만들어져 있었고 아무 게이트도 잡지 못했다.
+    // 기하 계약. **Button은 border가 0이다** — `button.css:18`이 `border: 0`이고 secondary의
+    // 헤어라인은 레이아웃을 건드리지 않는 inset box-shadow다(DS-D-0023). Figma의 INSIDE stroke도
+    // auto-layout padding을 먹지 않는다. 그래서 padding에 border를 더하지 않는다 —
+    // 더했더니 디자이너 눈에 `14.5 / 16.5 / 0.5` 같은 값이 보였고, 그건 CSS 어디에도 없는 수다.
+    // (border가 실재하는 컴포넌트에서는 접는 것이 맞다. 그 계약은 각자 갖는다.)
     geometry: {
       measuredId: "button",
       // readback 기하 필드 → 기대값. 문자열이면 measured의 키, 배열이면 그 키들의 합, 그 외는 리터럴.
       // Button은 폭이 라벨에 달려 있으므로 width를 보지 않는다.
       fields: {
         height: "height",
-        paddingBlock: ["paddingBlock", "borderWidth"],
-        paddingBlockEnd: ["paddingBlock", "borderWidth"],
-        paddingInline: ["paddingInline", "borderWidth"],
-        paddingInlineEnd: ["paddingInline", "borderWidth"],
+        paddingBlock: "paddingBlock",
+        paddingBlockEnd: "paddingBlock",
+        paddingInline: "paddingInline",
+        paddingInlineEnd: "paddingInline",
         itemSpacing: "gap",
         cornerRadius: "radius",
         layoutMode: { literal: "HORIZONTAL" },
@@ -138,7 +145,8 @@ const COMPONENT_CONTRACTS = [
     declaration: "packages/react/dist/icon-button/icon-button.d.ts",
     variantProperties: {
       // Icon Button은 Button과 같은 강조 축을 쓴다. alias 선언은 button.d.ts에 있다.
-      Variant: { type: "ButtonVariant", declaration: "packages/react/dist/button/button.d.ts" },
+      // Button의 다섯 축이 아니라 넷이다 — icon-button.css에 inverse를 그릴 규칙이 없다.
+      Variant: "IconButtonVariant",
       Size: "IconButtonSize",
     },
     // 글리프는 코드에서 children이다. Button과 달리 슬롯이 하나뿐이라 boolean 가시성이 없다.

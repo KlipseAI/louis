@@ -26,7 +26,8 @@
           "iconSlot": 16,
           "$iconSlot": "icon-size-sm 16. 제품에는 슬롯 크기 계약이 없어 DS가 정한다",
           "minWidth": 48,
-          "$minWidth": "제품 --button-min-width-sm 48px 채택. md에는 최소 폭 계약이 없다"
+          "$minWidth": "제품 --button-min-width-sm 48px 채택. md에는 최소 폭 계약이 없다",
+          "paddingInlineWithIcon": 14
         },
         "md": {
           "height": 32,
@@ -46,7 +47,8 @@
           "iconSlot": 16,
           "$iconSlot": "icon-size-sm 16. 제품에는 슬롯 크기 계약이 없어 DS가 정한다",
           "minWidth": 48,
-          "$minWidth": "제품 --button-min-width-sm 48px 채택. md에는 최소 폭 계약이 없다"
+          "$minWidth": "제품 --button-min-width-sm 48px 채택. md에는 최소 폭 계약이 없다",
+          "paddingInlineWithIcon": 10
         }
       },
       "states": {
@@ -189,7 +191,8 @@
           }
         }
       },
-      "$statesNote": "Loading이 Disabled와 같은 면인 것은 사실이다 — button.tsx가 loading일 때 aria-disabled=\"true\"를 붙이고(중복 실행 차단), CSS의 disabled 규칙이 그것을 함께 잡는다. Loading을 Disabled와 가르는 것은 면이 아니라 spinner의 존재와 라벨 opacity 0.6이다. 처음 만든 Figma set은 Loading을 variant의 기본 면으로 그려 틀렸고, 이 표가 그것을 잡았다."
+      "$statesNote": "Loading이 Disabled와 같은 면인 것은 사실이다 — button.tsx가 loading일 때 aria-disabled=\"true\"를 붙이고(중복 실행 차단), CSS의 disabled 규칙이 그것을 함께 잡는다. Loading을 Disabled와 가르는 것은 면이 아니라 spinner의 존재와 라벨 opacity 0.6이다. 처음 만든 Figma set은 Loading을 variant의 기본 면으로 그려 틀렸고, 이 표가 그것을 잡았다.",
+      "$borderWidthNote": "borderWidth 0.5는 secondary 헤어라인의 **두께**이지 레이아웃 값이 아니다 — CSS는 border 0이고 inset box-shadow로 그린다. padding에 더하지 않는다."
     },
     "icon-button": {
       "$doc": "design/components/icon-button.md",

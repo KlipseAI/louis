@@ -60,6 +60,9 @@ import { IconTrashSimple } from "@klipse-design/react/icons";
 ## Hierarchy와 variants
 
 - variant는 Button과 같은 네 축을 쓴다. 새 시각 언어를 만들지 않는다.
+- **Button의 다섯 번째 축 `inverse`는 없다.** icon-button.css에 그릴 규칙이 없고 제품 타입도
+  넷이다. React가 `ButtonVariant`를 그대로 물려받고 있어 스타일 없이 렌더되는 조합을
+  타입이 통과시켰다 — `IconButtonVariant`로 분리했다(2026-08-26).
 - **기본값이 `ghost`인 이유**: 아이콘 전용 버튼은 대개 밀집한 도구 영역에 놓인다. 그 자리에서
   `primary`가 기본이면 화면에 경쟁하는 강조가 늘어난다.
 - 크기는 padding이 아니라 **한 변의 길이**로 정한다 — `layout-control-height-md`(40)와

@@ -56,6 +56,10 @@ import "@klipse-design/css/styles.css";
 
 | Prop         | 값                                        | 기본값    | 설명                                            |
 | ------------ | ----------------------------------------- | --------- | ----------------------------------------------- |
+
+> **아이콘은 불리언이 아니라 `Icon` 축이다.** 아이콘이 붙은 쪽 padding이 2px 줄기 때문이다
+> (`button.css`: lg 16→14, md 12→10). Figma 불리언은 가시성만 바꾸고 padding은 못 바꾼다 —
+> 불리언으로 두면 표현할 수 없는 상태가 생긴다. 그래서 Variant×Size×State×Icon = 5×2×5×4 = 200이다.
 | `variant`    | `primary`, `secondary`, `ghost`, `danger` | `primary` | 강조와 의미                                     |
 | `size`       | `md`, `sm`                                | `md`      | 시각 크기; hit area 계약은 별도 유지            |
 | `loading`    | boolean                                   | `false`   | 중복 실행 차단, `aria-busy`, progress indicator |

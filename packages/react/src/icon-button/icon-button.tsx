@@ -1,7 +1,12 @@
 import type { ButtonHTMLAttributes, JSX, ReactNode, Ref } from "react";
-import type { ButtonVariant } from "../button/button.js";
-
 export type IconButtonSize = "lg" | "md";
+
+/**
+ * **Button 의 다섯 축이 아니라 넷이다.** `inverse` 는 아이콘 버튼에 없다 — icon-button.css 에
+ * 그릴 규칙이 없고(primary·secondary·ghost·danger 넷뿐), 제품 타입도 넷이며, 규범 문서도 넷이다.
+ * ButtonVariant 를 그대로 물려받으면 스타일 없이 렌더되는 조합을 타입이 통과시킨다.
+ */
+export type IconButtonVariant = "primary" | "secondary" | "ghost" | "danger";
 
 export interface IconButtonProps
   extends Omit<
@@ -17,7 +22,7 @@ export interface IconButtonProps
    */
   readonly label: string;
   /** 강조와 의미. Button과 같은 축을 쓴다. */
-  readonly variant?: ButtonVariant;
+  readonly variant?: IconButtonVariant;
   /** 한 변의 길이. md 40, sm 32. 히트 영역은 크기와 무관하게 44 이상이다. */
   readonly size?: IconButtonSize;
   /** 토글일 때만 준다. 주지 않으면 `aria-pressed` 속성 자체가 붙지 않는다. */

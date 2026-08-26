@@ -6,12 +6,12 @@
     "capturedAt": "2026-08-26",
     "capturedBy": "figma-mcp-plugin-api (대상 이전: bxGEp0km → OlYKERK)",
     "published": false,
-    "tokenSourceSha256": "639e2424dfc0b1e1e2b89cb5f8e2f6bc3b71bec7a485302a9c166f18170efb84",
-    "proposalSha256": "e7e95bca2fab1182736e69707b6fa3853e5578d90f3d475561b49dffa0748d2f",
+    "tokenSourceSha256": "1c6707b8daf0d72a9b9be530bfb8c4c6bc2476f17764f6cd6c97d7fc5d611564",
+    "proposalSha256": "9d6e16d8e15671910834ec4b267887d99f47f3bf43ac034081787693480f1311",
     "readback": {
       "tokens": 387,
       "canonicalLength": 34188,
-      "fnv1a32": "eff61693",
+      "fnv1a32": "ed60279b",
       "note": "변수는 readback.json의 되읽기 행을 tokenId 공간으로 옮긴 것이고, style과 component는 같은 되읽기의 style/component 절이다. canonical 해시는 컬렉션·이름·타입·mode 값을 정렬해 이은 문자열의 FNV-1a다.",
       "styles": {
         "text": 15,
@@ -3614,8 +3614,8 @@
         }
       }
     },
-    "layout-control-height-md": {
-      "figmaName": "layout/control-height-md",
+    "layout-control-height-lg": {
+      "figmaName": "layout/control-height-lg",
       "resolvedType": "FLOAT",
       "valuesByMode": {
         "Global": {
@@ -3623,8 +3623,8 @@
         }
       }
     },
-    "layout-control-height-sm": {
-      "figmaName": "layout/control-height-sm",
+    "layout-control-height-md": {
+      "figmaName": "layout/control-height-md",
       "resolvedType": "FLOAT",
       "valuesByMode": {
         "Global": {
@@ -3641,8 +3641,8 @@
         }
       }
     },
-    "layout-control-minimum-width-sm": {
-      "figmaName": "layout/control-minimum-width-sm",
+    "layout-control-minimum-width-md": {
+      "figmaName": "layout/control-minimum-width-md",
       "resolvedType": "FLOAT",
       "valuesByMode": {
         "Global": {
@@ -5432,8 +5432,8 @@
         "Size": {
           "type": "VARIANT",
           "options": [
-            "md",
-            "sm"
+            "lg",
+            "md"
           ]
         },
         "State": {
@@ -5456,7 +5456,7 @@
         "textUnstyled": 0
       },
       "geometry": {
-        "md": {
+        "lg": {
           "slots": {
             "LeftIcon": [
               "16x16"
@@ -5469,10 +5469,11 @@
             ]
           },
           "height": [
-            32
+            40
           ],
           "width": [
-            80
+            58,
+            51
           ],
           "paddingBlock": [
             0.5
@@ -5481,10 +5482,10 @@
             0.5
           ],
           "paddingInline": [
-            12.5
+            16.5
           ],
           "paddingInlineEnd": [
-            12.5
+            16.5
           ],
           "itemSpacing": [
             4
@@ -5502,7 +5503,7 @@
           "overflowingParts": [],
           "offCenterMarks": []
         },
-        "sm": {
+        "md": {
           "slots": {
             "LeftIcon": [
               "16x16"
@@ -5518,7 +5519,8 @@
             32
           ],
           "width": [
-            80
+            50,
+            43
           ],
           "paddingBlock": [
             0.5
@@ -6068,8 +6070,8 @@
         "Size": {
           "type": "VARIANT",
           "options": [
-            "md",
-            "sm"
+            "lg",
+            "md"
           ]
         },
         "State": {
@@ -6092,7 +6094,7 @@
         "textUnstyled": 0
       },
       "geometry": {
-        "md": {
+        "lg": {
           "slots": {
             "Glyph": [
               "16x16"
@@ -6132,7 +6134,7 @@
           "overflowingParts": [],
           "offCenterMarks": []
         },
-        "sm": {
+        "md": {
           "slots": {
             "Glyph": [
               "16x16"
@@ -6644,8 +6646,8 @@
         "Size": {
           "type": "VARIANT",
           "options": [
-            "md",
-            "sm"
+            "lg",
+            "md"
           ]
         },
         "Label1": {
@@ -6667,7 +6669,7 @@
         "textUnstyled": 0
       },
       "geometry": {
-        "md": {
+        "lg": {
           "slots": {},
           "height": [
             40
@@ -6778,7 +6780,7 @@
             }
           }
         },
-        "sm": {
+        "md": {
           "slots": {},
           "height": [
             32
@@ -7559,8 +7561,8 @@
         "Size": {
           "type": "VARIANT",
           "options": [
-            "md",
-            "sm"
+            "lg",
+            "md"
           ]
         },
         "Variant": {
@@ -7580,7 +7582,7 @@
         "textUnstyled": 0
       },
       "geometry": {
-        "md/thumb": {
+        "lg/thumb": {
           "slots": {},
           "parts": {
             "Label": {
@@ -7663,7 +7665,7 @@
           "overflowingParts": [],
           "offCenterMarks": []
         },
-        "md/track": {
+        "lg/track": {
           "slots": {},
           "parts": {
             "Label": {
@@ -7744,7 +7746,7 @@
           "overflowingParts": [],
           "offCenterMarks": []
         },
-        "sm/thumb": {
+        "md/thumb": {
           "slots": {},
           "parts": {
             "Label": {
@@ -7827,7 +7829,7 @@
           "overflowingParts": [],
           "offCenterMarks": []
         },
-        "sm/track": {
+        "md/track": {
           "slots": {},
           "parts": {
             "Label": {
@@ -8033,8 +8035,8 @@
         "Size": {
           "type": "VARIANT",
           "options": [
-            "md",
-            "sm"
+            "lg",
+            "md"
           ]
         },
         "State": {
@@ -8056,7 +8058,7 @@
         "textUnstyled": 0
       },
       "geometry": {
-        "md": {
+        "lg": {
           "slots": {},
           "parts": {
             "Box": {
@@ -8159,7 +8161,7 @@
           "overflowingParts": [],
           "offCenterMarks": []
         },
-        "sm": {
+        "md": {
           "slots": {},
           "parts": {
             "Box": {

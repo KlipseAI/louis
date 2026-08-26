@@ -329,3 +329,46 @@ P2 private release-candidate와 proposal만으로는 `figma: not-ready`를 유�
 
 credential이나 plugin session이 없는 CI에서도 catalog가 정직해야 하므로, Figma 연결 실패를
 `done`으로 캐시하지 않는다.
+
+## 변수 컬렉션 — 다섯이고, 각자 하는 일이 있다
+
+`1 · Palette` 은퇴로 여섯이 다섯이 됐고, 2026-08-26 에 남은 둘의 정체를 확정했다.
+**`2 · Semantic` 과 `3 · Scale` 은 Klipse 컬렉션과 중복이 아니었다** — 이름 규칙만 달랐을 뿐
+계층이 다른, 제품 전용 값들이다(`app/*` · `node/*` · `landing/*` 접두사가 그 사실을 말한다).
+그래서 지우는 대신 하는 일이 이름에 드러나게 옮겼다.
+
+| 컬렉션 | 모드 | 개수 | 하는 일 |
+| --- | --- | ---: | --- |
+| `Klipse Primitive` | Base | 196 | 원시값. 색·간격·반경·글자 크기의 바닥 |
+| `Klipse Semantic` | Global | 87 | 의미로 이름 붙인 비색상 값(높이·두께·레이어) |
+| `Klipse Semantic Color` | Light · Dark | 104 | 의미로 이름 붙인 색. 테마 두 벌 |
+| `Klipse Product Color` | dark · light · light-sidebar · landing-light | 110 | **제품 전용** 색. DS 가 아직 흡수하지 않은 화면별 색 |
+| `Klipse Product Scale` | Base | 57 | **제품 전용** 치수. GNB·노드·툴팁 등 화면별 측정값 |
+
+`Klipse Product *` 두 개가 남아 있는 것은 실패가 아니라 **아직 안 끝났다는 표시**다.
+여기 있는 값이 DS 로 올라갈 만하면 `Klipse Semantic*` 으로 옮기고, 화면 하나에만 쓰는 값이면
+여기 남는다. 그 판단은 사람이 한다.
+
+### 모드가 다르면 합칠 수 없다
+
+`Klipse Product Color` 를 `Klipse Semantic Color` 로 접으려면 후자에 `light-sidebar` 와
+`landing-light` 모드를 더해야 한다. Figma 컬렉션은 모드 축을 하나만 갖기 때문이다. 이는
+「제품에 테마 스코프가 넷 있다」를 DS 가 인정하는 결정이며, 값 정리가 아니라 모델 변경이다.
+그 결정 전에는 합치지 않는다.
+
+### 알파는 여기에도 적용했다
+
+`Klipse Product Color` 의 알파 변형 79 개가 옛 값(a94 · a78 · a65 …)을 그대로 쓰고 있었다.
+DS-D-0026 의 16단으로 스냅해 **79 → 46** 으로 줄였다(19 개는 이름·값을 옮기고, 33 개는 이미
+있는 단계로 병합했다). 컬렉션은 143 → 110 이 됐다.
+
+병합 과정에서 배운 것 두 가지를 남긴다.
+
+- **인스턴스 자식은 메인만 고쳐서는 안 되는 경우가 있다.** 로컬 오버라이드를 가진 인스턴스는
+  자기 바인딩을 따로 들고 있어서, 메인을 고쳐도 따라오지 않는다. 메인을 먼저 고친 뒤 남은 것을
+  다시 훑어야 한다.
+- **`figma.mixed` 인 TEXT 노드는 `node.fills` 로 못 고친다.** 구간마다 색이 다른 텍스트는
+  `getStyledTextSegments(['fills'])` 로 읽고 `setRangeFills` 로 써야 한다. 그리고 고친 뒤에도
+  `node.boundVariables.fills` 에는 **옛 변수를 가리키는 잔재 기록이 남는다** — 어떤 문자 범위도
+  지배하지 않으므로 렌더에는 영향이 없지만, 바인딩을 세는 스크립트는 이걸 실제 참조로 오인한다.
+  참조를 셀 때 TEXT 는 반드시 구간 단위로 세라.

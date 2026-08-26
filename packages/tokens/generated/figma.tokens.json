@@ -614,6 +614,123 @@
             }
           }
         },
+        "color-amber-200": {
+          "$type": "color",
+          "fields": [],
+          "figmaName": "color/amber/200",
+          "hiddenFromPublishing": true,
+          "losses": [],
+          "nativeVariableType": "COLOR",
+          "representation": "variable",
+          "scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL",
+            "STROKE_COLOR",
+            "TEXT_FILL"
+          ],
+          "valuesByMode": {
+            "Base": {
+              "$value": {
+                "colorSpace": "srgb",
+                "components": [
+                  1,
+                  0.898039,
+                  0.639216
+                ],
+                "hex": "#ffe5a3"
+              },
+              "aliasTarget": null,
+              "resolvedValue": {
+                "alpha": 1,
+                "colorSpace": "srgb",
+                "components": [
+                  1,
+                  0.898039,
+                  0.639216
+                ]
+              },
+              "sourcePath": "primitive.color.amber.200"
+            }
+          }
+        },
+        "color-amber-300": {
+          "$type": "color",
+          "fields": [],
+          "figmaName": "color/amber/300",
+          "hiddenFromPublishing": true,
+          "losses": [],
+          "nativeVariableType": "COLOR",
+          "representation": "variable",
+          "scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL",
+            "STROKE_COLOR",
+            "TEXT_FILL"
+          ],
+          "valuesByMode": {
+            "Base": {
+              "$value": {
+                "colorSpace": "srgb",
+                "components": [
+                  1,
+                  0.839216,
+                  0.419608
+                ],
+                "hex": "#ffd66b"
+              },
+              "aliasTarget": null,
+              "resolvedValue": {
+                "alpha": 1,
+                "colorSpace": "srgb",
+                "components": [
+                  1,
+                  0.839216,
+                  0.419608
+                ]
+              },
+              "sourcePath": "primitive.color.amber.300"
+            }
+          }
+        },
+        "color-amber-400": {
+          "$type": "color",
+          "fields": [],
+          "figmaName": "color/amber/400",
+          "hiddenFromPublishing": true,
+          "losses": [],
+          "nativeVariableType": "COLOR",
+          "representation": "variable",
+          "scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL",
+            "STROKE_COLOR",
+            "TEXT_FILL"
+          ],
+          "valuesByMode": {
+            "Base": {
+              "$value": {
+                "colorSpace": "srgb",
+                "components": [
+                  1,
+                  0.784314,
+                  0.278431
+                ],
+                "hex": "#ffc847"
+              },
+              "aliasTarget": null,
+              "resolvedValue": {
+                "alpha": 1,
+                "colorSpace": "srgb",
+                "components": [
+                  1,
+                  0.784314,
+                  0.278431
+                ]
+              },
+              "sourcePath": "primitive.color.amber.400"
+            }
+          }
+        },
         "color-amber-500": {
           "$type": "color",
           "fields": [],
@@ -653,6 +770,45 @@
             }
           }
         },
+        "color-amber-600": {
+          "$type": "color",
+          "fields": [],
+          "figmaName": "color/amber/600",
+          "hiddenFromPublishing": true,
+          "losses": [],
+          "nativeVariableType": "COLOR",
+          "representation": "variable",
+          "scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL",
+            "STROKE_COLOR",
+            "TEXT_FILL"
+          ],
+          "valuesByMode": {
+            "Base": {
+              "$value": {
+                "colorSpace": "srgb",
+                "components": [
+                  0.909804,
+                  0.619608,
+                  0
+                ],
+                "hex": "#e89e00"
+              },
+              "aliasTarget": null,
+              "resolvedValue": {
+                "alpha": 1,
+                "colorSpace": "srgb",
+                "components": [
+                  0.909804,
+                  0.619608,
+                  0
+                ]
+              },
+              "sourcePath": "primitive.color.amber.600"
+            }
+          }
+        },
         "color-amber-700": {
           "$type": "color",
           "fields": [],
@@ -689,6 +845,45 @@
                 ]
               },
               "sourcePath": "primitive.color.amber.700"
+            }
+          }
+        },
+        "color-amber-800": {
+          "$type": "color",
+          "fields": [],
+          "figmaName": "color/amber/800",
+          "hiddenFromPublishing": true,
+          "losses": [],
+          "nativeVariableType": "COLOR",
+          "representation": "variable",
+          "scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL",
+            "STROKE_COLOR",
+            "TEXT_FILL"
+          ],
+          "valuesByMode": {
+            "Base": {
+              "$value": {
+                "colorSpace": "srgb",
+                "components": [
+                  0.533333,
+                  0.352941,
+                  0
+                ],
+                "hex": "#885a00"
+              },
+              "aliasTarget": null,
+              "resolvedValue": {
+                "alpha": 1,
+                "colorSpace": "srgb",
+                "components": [
+                  0.533333,
+                  0.352941,
+                  0
+                ]
+              },
+              "sourcePath": "primitive.color.amber.800"
             }
           }
         },
@@ -848,6 +1043,45 @@
             }
           }
         },
+        "color-blue-350": {
+          "$type": "color",
+          "fields": [],
+          "figmaName": "color/blue/350",
+          "hiddenFromPublishing": true,
+          "losses": [],
+          "nativeVariableType": "COLOR",
+          "representation": "variable",
+          "scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL",
+            "STROKE_COLOR",
+            "TEXT_FILL"
+          ],
+          "valuesByMode": {
+            "Base": {
+              "$value": {
+                "colorSpace": "srgb",
+                "components": [
+                  0.329412,
+                  0.694118,
+                  1
+                ],
+                "hex": "#54b1ff"
+              },
+              "aliasTarget": null,
+              "resolvedValue": {
+                "alpha": 1,
+                "colorSpace": "srgb",
+                "components": [
+                  0.329412,
+                  0.694118,
+                  1
+                ]
+              },
+              "sourcePath": "primitive.color.blue.350"
+            }
+          }
+        },
         "color-blue-400": {
           "$type": "color",
           "fields": [],
@@ -884,6 +1118,84 @@
                 ]
               },
               "sourcePath": "primitive.color.blue.400"
+            }
+          }
+        },
+        "color-blue-420": {
+          "$type": "color",
+          "fields": [],
+          "figmaName": "color/blue/420",
+          "hiddenFromPublishing": true,
+          "losses": [],
+          "nativeVariableType": "COLOR",
+          "representation": "variable",
+          "scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL",
+            "STROKE_COLOR",
+            "TEXT_FILL"
+          ],
+          "valuesByMode": {
+            "Base": {
+              "$value": {
+                "colorSpace": "srgb",
+                "components": [
+                  0.160784,
+                  0.603922,
+                  1
+                ],
+                "hex": "#299aff"
+              },
+              "aliasTarget": null,
+              "resolvedValue": {
+                "alpha": 1,
+                "colorSpace": "srgb",
+                "components": [
+                  0.160784,
+                  0.603922,
+                  1
+                ]
+              },
+              "sourcePath": "primitive.color.blue.420"
+            }
+          }
+        },
+        "color-blue-450": {
+          "$type": "color",
+          "fields": [],
+          "figmaName": "color/blue/450",
+          "hiddenFromPublishing": true,
+          "losses": [],
+          "nativeVariableType": "COLOR",
+          "representation": "variable",
+          "scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL",
+            "STROKE_COLOR",
+            "TEXT_FILL"
+          ],
+          "valuesByMode": {
+            "Base": {
+              "$value": {
+                "colorSpace": "srgb",
+                "components": [
+                  0.078431,
+                  0.568627,
+                  1
+                ],
+                "hex": "#1491ff"
+              },
+              "aliasTarget": null,
+              "resolvedValue": {
+                "alpha": 1,
+                "colorSpace": "srgb",
+                "components": [
+                  0.078431,
+                  0.568627,
+                  1
+                ]
+              },
+              "sourcePath": "primitive.color.blue.450"
             }
           }
         },
@@ -965,6 +1277,84 @@
             }
           }
         },
+        "color-blue-550": {
+          "$type": "color",
+          "fields": [],
+          "figmaName": "color/blue/550",
+          "hiddenFromPublishing": true,
+          "losses": [],
+          "nativeVariableType": "COLOR",
+          "representation": "variable",
+          "scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL",
+            "STROKE_COLOR",
+            "TEXT_FILL"
+          ],
+          "valuesByMode": {
+            "Base": {
+              "$value": {
+                "colorSpace": "srgb",
+                "components": [
+                  0,
+                  0.494118,
+                  0.909804
+                ],
+                "hex": "#007ee8"
+              },
+              "aliasTarget": null,
+              "resolvedValue": {
+                "alpha": 1,
+                "colorSpace": "srgb",
+                "components": [
+                  0,
+                  0.494118,
+                  0.909804
+                ]
+              },
+              "sourcePath": "primitive.color.blue.550"
+            }
+          }
+        },
+        "color-blue-580": {
+          "$type": "color",
+          "fields": [],
+          "figmaName": "color/blue/580",
+          "hiddenFromPublishing": true,
+          "losses": [],
+          "nativeVariableType": "COLOR",
+          "representation": "variable",
+          "scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL",
+            "STROKE_COLOR",
+            "TEXT_FILL"
+          ],
+          "valuesByMode": {
+            "Base": {
+              "$value": {
+                "colorSpace": "srgb",
+                "components": [
+                  0,
+                  0.462745,
+                  0.85098
+                ],
+                "hex": "#0076d9"
+              },
+              "aliasTarget": null,
+              "resolvedValue": {
+                "alpha": 1,
+                "colorSpace": "srgb",
+                "components": [
+                  0,
+                  0.462745,
+                  0.85098
+                ]
+              },
+              "sourcePath": "primitive.color.blue.580"
+            }
+          }
+        },
         "color-blue-600": {
           "$type": "color",
           "fields": [],
@@ -1001,6 +1391,45 @@
                 ]
               },
               "sourcePath": "primitive.color.blue.600"
+            }
+          }
+        },
+        "color-blue-620": {
+          "$type": "color",
+          "fields": [],
+          "figmaName": "color/blue/620",
+          "hiddenFromPublishing": true,
+          "losses": [],
+          "nativeVariableType": "COLOR",
+          "representation": "variable",
+          "scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL",
+            "STROKE_COLOR",
+            "TEXT_FILL"
+          ],
+          "valuesByMode": {
+            "Base": {
+              "$value": {
+                "colorSpace": "srgb",
+                "components": [
+                  0,
+                  0.431373,
+                  0.768627
+                ],
+                "hex": "#006ec4"
+              },
+              "aliasTarget": null,
+              "resolvedValue": {
+                "alpha": 1,
+                "colorSpace": "srgb",
+                "components": [
+                  0,
+                  0.431373,
+                  0.768627
+                ]
+              },
+              "sourcePath": "primitive.color.blue.620"
             }
           }
         },
@@ -3198,6 +3627,357 @@
             }
           }
         },
+        "color-sky-100": {
+          "$type": "color",
+          "fields": [],
+          "figmaName": "color/sky/100",
+          "hiddenFromPublishing": true,
+          "losses": [],
+          "nativeVariableType": "COLOR",
+          "representation": "variable",
+          "scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL",
+            "STROKE_COLOR",
+            "TEXT_FILL"
+          ],
+          "valuesByMode": {
+            "Base": {
+              "$value": {
+                "colorSpace": "srgb",
+                "components": [
+                  0.878431,
+                  0.960784,
+                  1
+                ],
+                "hex": "#e0f5ff"
+              },
+              "aliasTarget": null,
+              "resolvedValue": {
+                "alpha": 1,
+                "colorSpace": "srgb",
+                "components": [
+                  0.878431,
+                  0.960784,
+                  1
+                ]
+              },
+              "sourcePath": "primitive.color.sky.100"
+            }
+          }
+        },
+        "color-sky-200": {
+          "$type": "color",
+          "fields": [],
+          "figmaName": "color/sky/200",
+          "hiddenFromPublishing": true,
+          "losses": [],
+          "nativeVariableType": "COLOR",
+          "representation": "variable",
+          "scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL",
+            "STROKE_COLOR",
+            "TEXT_FILL"
+          ],
+          "valuesByMode": {
+            "Base": {
+              "$value": {
+                "colorSpace": "srgb",
+                "components": [
+                  0.729412,
+                  0.909804,
+                  1
+                ],
+                "hex": "#bae8ff"
+              },
+              "aliasTarget": null,
+              "resolvedValue": {
+                "alpha": 1,
+                "colorSpace": "srgb",
+                "components": [
+                  0.729412,
+                  0.909804,
+                  1
+                ]
+              },
+              "sourcePath": "primitive.color.sky.200"
+            }
+          }
+        },
+        "color-sky-300": {
+          "$type": "color",
+          "fields": [],
+          "figmaName": "color/sky/300",
+          "hiddenFromPublishing": true,
+          "losses": [],
+          "nativeVariableType": "COLOR",
+          "representation": "variable",
+          "scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL",
+            "STROKE_COLOR",
+            "TEXT_FILL"
+          ],
+          "valuesByMode": {
+            "Base": {
+              "$value": {
+                "colorSpace": "srgb",
+                "components": [
+                  0.490196,
+                  0.827451,
+                  0.988235
+                ],
+                "hex": "#7dd3fc"
+              },
+              "aliasTarget": null,
+              "resolvedValue": {
+                "alpha": 1,
+                "colorSpace": "srgb",
+                "components": [
+                  0.490196,
+                  0.827451,
+                  0.988235
+                ]
+              },
+              "sourcePath": "primitive.color.sky.300"
+            }
+          }
+        },
+        "color-sky-400": {
+          "$type": "color",
+          "fields": [],
+          "figmaName": "color/sky/400",
+          "hiddenFromPublishing": true,
+          "losses": [],
+          "nativeVariableType": "COLOR",
+          "representation": "variable",
+          "scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL",
+            "STROKE_COLOR",
+            "TEXT_FILL"
+          ],
+          "valuesByMode": {
+            "Base": {
+              "$value": {
+                "colorSpace": "srgb",
+                "components": [
+                  0.219608,
+                  0.741176,
+                  0.972549
+                ],
+                "hex": "#38bdf8"
+              },
+              "aliasTarget": null,
+              "resolvedValue": {
+                "alpha": 1,
+                "colorSpace": "srgb",
+                "components": [
+                  0.219608,
+                  0.741176,
+                  0.972549
+                ]
+              },
+              "sourcePath": "primitive.color.sky.400"
+            }
+          }
+        },
+        "color-sky-500": {
+          "$type": "color",
+          "fields": [],
+          "figmaName": "color/sky/500",
+          "hiddenFromPublishing": true,
+          "losses": [],
+          "nativeVariableType": "COLOR",
+          "representation": "variable",
+          "scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL",
+            "STROKE_COLOR",
+            "TEXT_FILL"
+          ],
+          "valuesByMode": {
+            "Base": {
+              "$value": {
+                "colorSpace": "srgb",
+                "components": [
+                  0.054902,
+                  0.647059,
+                  0.913725
+                ],
+                "hex": "#0ea5e9"
+              },
+              "aliasTarget": null,
+              "resolvedValue": {
+                "alpha": 1,
+                "colorSpace": "srgb",
+                "components": [
+                  0.054902,
+                  0.647059,
+                  0.913725
+                ]
+              },
+              "sourcePath": "primitive.color.sky.500"
+            }
+          }
+        },
+        "color-sky-600": {
+          "$type": "color",
+          "fields": [],
+          "figmaName": "color/sky/600",
+          "hiddenFromPublishing": true,
+          "losses": [],
+          "nativeVariableType": "COLOR",
+          "representation": "variable",
+          "scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL",
+            "STROKE_COLOR",
+            "TEXT_FILL"
+          ],
+          "valuesByMode": {
+            "Base": {
+              "$value": {
+                "colorSpace": "srgb",
+                "components": [
+                  0.007843,
+                  0.517647,
+                  0.780392
+                ],
+                "hex": "#0284c7"
+              },
+              "aliasTarget": null,
+              "resolvedValue": {
+                "alpha": 1,
+                "colorSpace": "srgb",
+                "components": [
+                  0.007843,
+                  0.517647,
+                  0.780392
+                ]
+              },
+              "sourcePath": "primitive.color.sky.600"
+            }
+          }
+        },
+        "color-sky-700": {
+          "$type": "color",
+          "fields": [],
+          "figmaName": "color/sky/700",
+          "hiddenFromPublishing": true,
+          "losses": [],
+          "nativeVariableType": "COLOR",
+          "representation": "variable",
+          "scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL",
+            "STROKE_COLOR",
+            "TEXT_FILL"
+          ],
+          "valuesByMode": {
+            "Base": {
+              "$value": {
+                "colorSpace": "srgb",
+                "components": [
+                  0.011765,
+                  0.411765,
+                  0.631373
+                ],
+                "hex": "#0369a1"
+              },
+              "aliasTarget": null,
+              "resolvedValue": {
+                "alpha": 1,
+                "colorSpace": "srgb",
+                "components": [
+                  0.011765,
+                  0.411765,
+                  0.631373
+                ]
+              },
+              "sourcePath": "primitive.color.sky.700"
+            }
+          }
+        },
+        "color-sky-800": {
+          "$type": "color",
+          "fields": [],
+          "figmaName": "color/sky/800",
+          "hiddenFromPublishing": true,
+          "losses": [],
+          "nativeVariableType": "COLOR",
+          "representation": "variable",
+          "scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL",
+            "STROKE_COLOR",
+            "TEXT_FILL"
+          ],
+          "valuesByMode": {
+            "Base": {
+              "$value": {
+                "colorSpace": "srgb",
+                "components": [
+                  0.027451,
+                  0.34902,
+                  0.521569
+                ],
+                "hex": "#075985"
+              },
+              "aliasTarget": null,
+              "resolvedValue": {
+                "alpha": 1,
+                "colorSpace": "srgb",
+                "components": [
+                  0.027451,
+                  0.34902,
+                  0.521569
+                ]
+              },
+              "sourcePath": "primitive.color.sky.800"
+            }
+          }
+        },
+        "color-sky-900": {
+          "$type": "color",
+          "fields": [],
+          "figmaName": "color/sky/900",
+          "hiddenFromPublishing": true,
+          "losses": [],
+          "nativeVariableType": "COLOR",
+          "representation": "variable",
+          "scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL",
+            "STROKE_COLOR",
+            "TEXT_FILL"
+          ],
+          "valuesByMode": {
+            "Base": {
+              "$value": {
+                "colorSpace": "srgb",
+                "components": [
+                  0.047059,
+                  0.184314,
+                  0.290196
+                ],
+                "hex": "#0c2f4a"
+              },
+              "aliasTarget": null,
+              "resolvedValue": {
+                "alpha": 1,
+                "colorSpace": "srgb",
+                "components": [
+                  0.047059,
+                  0.184314,
+                  0.290196
+                ]
+              },
+              "sourcePath": "primitive.color.sky.900"
+            }
+          }
+        },
         "color-static-black-alpha-10": {
           "$type": "color",
           "fields": [],
@@ -4715,6 +5495,45 @@
                 ]
               },
               "sourcePath": "primitive.color.static-white-alpha.88"
+            }
+          }
+        },
+        "color-ultra-400": {
+          "$type": "color",
+          "fields": [],
+          "figmaName": "color/ultra/400",
+          "hiddenFromPublishing": true,
+          "losses": [],
+          "nativeVariableType": "COLOR",
+          "representation": "variable",
+          "scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL",
+            "STROKE_COLOR",
+            "TEXT_FILL"
+          ],
+          "valuesByMode": {
+            "Base": {
+              "$value": {
+                "colorSpace": "srgb",
+                "components": [
+                  0.72549,
+                  0.882353,
+                  0.968627
+                ],
+                "hex": "#b9e1f7"
+              },
+              "aliasTarget": null,
+              "resolvedValue": {
+                "alpha": 1,
+                "colorSpace": "srgb",
+                "components": [
+                  0.72549,
+                  0.882353,
+                  0.968627
+                ]
+              },
+              "sourcePath": "primitive.color.ultra.400"
             }
           }
         },

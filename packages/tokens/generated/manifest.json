@@ -2,23 +2,23 @@
   "artifacts": [
     {
       "path": "packages/tokens/generated/figma.tokens.json",
-      "sha256": "9f024f22902724782713b2874a29b51c3116f2d7ea31b5cdc1236df3744a9398"
+      "sha256": "d7690b2afb6857303333380e63d2c45d4f5d891b0e695c706e5341bc5d2055a2"
     },
     {
       "path": "packages/tokens/generated/index.d.ts",
-      "sha256": "93c04b2d0e719d3d870c92a89946e88f89c5ca21129a406609f59cb8b3a876fa"
+      "sha256": "5a838938914d0a1af2d3f28a61667e8facb8ce52e1e12e75d3d5bee7b0d8f173"
     },
     {
       "path": "packages/tokens/generated/index.js",
-      "sha256": "e9ac661001e159dbc3d9172a654756172c6e23c51d4a7eee6944f5dfafe3d37b"
+      "sha256": "af3387c1345c2c482de3c563de933ab6f733f0c1421be18d85ae24b6f7b27aa4"
     },
     {
       "path": "packages/tokens/generated/tokens.css",
-      "sha256": "ce03c45df0f45032a3bb8ec152d8b3f0e8905c83123ef54de79391eb9624f479"
+      "sha256": "8a16b02fdad13b2ef45d689abab85ccfd97b404b1107f187d0a42c89936964ff"
     },
     {
       "path": "packages/tokens/generated/tokens.json",
-      "sha256": "286a5d5160e94b97ff80c2b22c9351b990363b41a90c65a4043cdd65e9560fca"
+      "sha256": "7ca18461b11f49f9f46aa108f1ddd16a82560b817a5d9f709a978aaaf82bd152"
     }
   ],
   "contrastPairs": [
@@ -408,13 +408,13 @@
   },
   "source": {
     "path": "packages/tokens/src/klipse.tokens.json",
-    "sha256": "57853f922d5c6f482f706aaa6f3d8cbcb4feb19aec7870b4ea2964cab9ac0a02"
+    "sha256": "7a33ac7b8ec8a27a0d0a59c1437a350c871ab265c94a30eae2a9f0a5c5750e2a"
   },
   "themes": [
     "light",
     "dark"
   ],
-  "tokenCount": 564,
+  "tokenCount": 585,
   "tokens": [
     {
       "aliasTarget": null,
@@ -1856,6 +1856,102 @@
     {
       "aliasTarget": null,
       "cssProperties": {
+        "--louis-color-amber-200": "color(srgb 1 0.898039 0.639216 / 1)",
+        "--louis-color-amber-200-rgb": "255 229 163"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-amber-200",
+      "mode": "base",
+      "rawValue": {
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.898039,
+          0.639216
+        ],
+        "hex": "#ffe5a3"
+      },
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.898039,
+          0.639216
+        ]
+      },
+      "sourcePath": "primitive.color.amber.200",
+      "tier": "primitive",
+      "type": "color"
+    },
+    {
+      "aliasTarget": null,
+      "cssProperties": {
+        "--louis-color-amber-300": "color(srgb 1 0.839216 0.419608 / 1)",
+        "--louis-color-amber-300-rgb": "255 214 107"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-amber-300",
+      "mode": "base",
+      "rawValue": {
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.839216,
+          0.419608
+        ],
+        "hex": "#ffd66b"
+      },
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.839216,
+          0.419608
+        ]
+      },
+      "sourcePath": "primitive.color.amber.300",
+      "tier": "primitive",
+      "type": "color"
+    },
+    {
+      "aliasTarget": null,
+      "cssProperties": {
+        "--louis-color-amber-400": "color(srgb 1 0.784314 0.278431 / 1)",
+        "--louis-color-amber-400-rgb": "255 200 71"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-amber-400",
+      "mode": "base",
+      "rawValue": {
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.784314,
+          0.278431
+        ],
+        "hex": "#ffc847"
+      },
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.784314,
+          0.278431
+        ]
+      },
+      "sourcePath": "primitive.color.amber.400",
+      "tier": "primitive",
+      "type": "color"
+    },
+    {
+      "aliasTarget": null,
+      "cssProperties": {
         "--louis-color-amber-500": "color(srgb 1 0.741176 0.180392 / 1)",
         "--louis-color-amber-500-rgb": "255 189 46"
       },
@@ -1888,6 +1984,38 @@
     {
       "aliasTarget": null,
       "cssProperties": {
+        "--louis-color-amber-600": "color(srgb 0.909804 0.619608 0 / 1)",
+        "--louis-color-amber-600-rgb": "232 158 0"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-amber-600",
+      "mode": "base",
+      "rawValue": {
+        "colorSpace": "srgb",
+        "components": [
+          0.909804,
+          0.619608,
+          0
+        ],
+        "hex": "#e89e00"
+      },
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0.909804,
+          0.619608,
+          0
+        ]
+      },
+      "sourcePath": "primitive.color.amber.600",
+      "tier": "primitive",
+      "type": "color"
+    },
+    {
+      "aliasTarget": null,
+      "cssProperties": {
         "--louis-color-amber-700": "color(srgb 0.721569 0.478431 0 / 1)",
         "--louis-color-amber-700-rgb": "184 122 0"
       },
@@ -1914,6 +2042,38 @@
         ]
       },
       "sourcePath": "primitive.color.amber.700",
+      "tier": "primitive",
+      "type": "color"
+    },
+    {
+      "aliasTarget": null,
+      "cssProperties": {
+        "--louis-color-amber-800": "color(srgb 0.533333 0.352941 0 / 1)",
+        "--louis-color-amber-800-rgb": "136 90 0"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-amber-800",
+      "mode": "base",
+      "rawValue": {
+        "colorSpace": "srgb",
+        "components": [
+          0.533333,
+          0.352941,
+          0
+        ],
+        "hex": "#885a00"
+      },
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0.533333,
+          0.352941,
+          0
+        ]
+      },
+      "sourcePath": "primitive.color.amber.800",
       "tier": "primitive",
       "type": "color"
     },
@@ -2828,6 +2988,38 @@
     {
       "aliasTarget": null,
       "cssProperties": {
+        "--louis-color-blue-350": "color(srgb 0.329412 0.694118 1 / 1)",
+        "--louis-color-blue-350-rgb": "84 177 255"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-blue-350",
+      "mode": "base",
+      "rawValue": {
+        "colorSpace": "srgb",
+        "components": [
+          0.329412,
+          0.694118,
+          1
+        ],
+        "hex": "#54b1ff"
+      },
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0.329412,
+          0.694118,
+          1
+        ]
+      },
+      "sourcePath": "primitive.color.blue.350",
+      "tier": "primitive",
+      "type": "color"
+    },
+    {
+      "aliasTarget": null,
+      "cssProperties": {
         "--louis-color-blue-400": "color(srgb 0.219608 0.643137 1 / 1)",
         "--louis-color-blue-400-rgb": "56 164 255"
       },
@@ -2854,6 +3046,70 @@
         ]
       },
       "sourcePath": "primitive.color.blue.400",
+      "tier": "primitive",
+      "type": "color"
+    },
+    {
+      "aliasTarget": null,
+      "cssProperties": {
+        "--louis-color-blue-420": "color(srgb 0.160784 0.603922 1 / 1)",
+        "--louis-color-blue-420-rgb": "41 154 255"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-blue-420",
+      "mode": "base",
+      "rawValue": {
+        "colorSpace": "srgb",
+        "components": [
+          0.160784,
+          0.603922,
+          1
+        ],
+        "hex": "#299aff"
+      },
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0.160784,
+          0.603922,
+          1
+        ]
+      },
+      "sourcePath": "primitive.color.blue.420",
+      "tier": "primitive",
+      "type": "color"
+    },
+    {
+      "aliasTarget": null,
+      "cssProperties": {
+        "--louis-color-blue-450": "color(srgb 0.078431 0.568627 1 / 1)",
+        "--louis-color-blue-450-rgb": "20 145 255"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-blue-450",
+      "mode": "base",
+      "rawValue": {
+        "colorSpace": "srgb",
+        "components": [
+          0.078431,
+          0.568627,
+          1
+        ],
+        "hex": "#1491ff"
+      },
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0.078431,
+          0.568627,
+          1
+        ]
+      },
+      "sourcePath": "primitive.color.blue.450",
       "tier": "primitive",
       "type": "color"
     },
@@ -2924,6 +3180,70 @@
     {
       "aliasTarget": null,
       "cssProperties": {
+        "--louis-color-blue-550": "color(srgb 0 0.494118 0.909804 / 1)",
+        "--louis-color-blue-550-rgb": "0 126 232"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-blue-550",
+      "mode": "base",
+      "rawValue": {
+        "colorSpace": "srgb",
+        "components": [
+          0,
+          0.494118,
+          0.909804
+        ],
+        "hex": "#007ee8"
+      },
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0,
+          0.494118,
+          0.909804
+        ]
+      },
+      "sourcePath": "primitive.color.blue.550",
+      "tier": "primitive",
+      "type": "color"
+    },
+    {
+      "aliasTarget": null,
+      "cssProperties": {
+        "--louis-color-blue-580": "color(srgb 0 0.462745 0.85098 / 1)",
+        "--louis-color-blue-580-rgb": "0 118 217"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-blue-580",
+      "mode": "base",
+      "rawValue": {
+        "colorSpace": "srgb",
+        "components": [
+          0,
+          0.462745,
+          0.85098
+        ],
+        "hex": "#0076d9"
+      },
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0,
+          0.462745,
+          0.85098
+        ]
+      },
+      "sourcePath": "primitive.color.blue.580",
+      "tier": "primitive",
+      "type": "color"
+    },
+    {
+      "aliasTarget": null,
+      "cssProperties": {
         "--louis-color-blue-600": "color(srgb 0 0.458824 0.858824 / 1)",
         "--louis-color-blue-600-rgb": "0 117 219"
       },
@@ -2950,6 +3270,38 @@
         ]
       },
       "sourcePath": "primitive.color.blue.600",
+      "tier": "primitive",
+      "type": "color"
+    },
+    {
+      "aliasTarget": null,
+      "cssProperties": {
+        "--louis-color-blue-620": "color(srgb 0 0.431373 0.768627 / 1)",
+        "--louis-color-blue-620-rgb": "0 110 196"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-blue-620",
+      "mode": "base",
+      "rawValue": {
+        "colorSpace": "srgb",
+        "components": [
+          0,
+          0.431373,
+          0.768627
+        ],
+        "hex": "#006ec4"
+      },
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0,
+          0.431373,
+          0.768627
+        ]
+      },
+      "sourcePath": "primitive.color.blue.620",
       "tier": "primitive",
       "type": "color"
     },
@@ -7514,6 +7866,294 @@
     {
       "aliasTarget": null,
       "cssProperties": {
+        "--louis-color-sky-100": "color(srgb 0.878431 0.960784 1 / 1)",
+        "--louis-color-sky-100-rgb": "224 245 255"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-sky-100",
+      "mode": "base",
+      "rawValue": {
+        "colorSpace": "srgb",
+        "components": [
+          0.878431,
+          0.960784,
+          1
+        ],
+        "hex": "#e0f5ff"
+      },
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0.878431,
+          0.960784,
+          1
+        ]
+      },
+      "sourcePath": "primitive.color.sky.100",
+      "tier": "primitive",
+      "type": "color"
+    },
+    {
+      "aliasTarget": null,
+      "cssProperties": {
+        "--louis-color-sky-200": "color(srgb 0.729412 0.909804 1 / 1)",
+        "--louis-color-sky-200-rgb": "186 232 255"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-sky-200",
+      "mode": "base",
+      "rawValue": {
+        "colorSpace": "srgb",
+        "components": [
+          0.729412,
+          0.909804,
+          1
+        ],
+        "hex": "#bae8ff"
+      },
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0.729412,
+          0.909804,
+          1
+        ]
+      },
+      "sourcePath": "primitive.color.sky.200",
+      "tier": "primitive",
+      "type": "color"
+    },
+    {
+      "aliasTarget": null,
+      "cssProperties": {
+        "--louis-color-sky-300": "color(srgb 0.490196 0.827451 0.988235 / 1)",
+        "--louis-color-sky-300-rgb": "125 211 252"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-sky-300",
+      "mode": "base",
+      "rawValue": {
+        "colorSpace": "srgb",
+        "components": [
+          0.490196,
+          0.827451,
+          0.988235
+        ],
+        "hex": "#7dd3fc"
+      },
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0.490196,
+          0.827451,
+          0.988235
+        ]
+      },
+      "sourcePath": "primitive.color.sky.300",
+      "tier": "primitive",
+      "type": "color"
+    },
+    {
+      "aliasTarget": null,
+      "cssProperties": {
+        "--louis-color-sky-400": "color(srgb 0.219608 0.741176 0.972549 / 1)",
+        "--louis-color-sky-400-rgb": "56 189 248"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-sky-400",
+      "mode": "base",
+      "rawValue": {
+        "colorSpace": "srgb",
+        "components": [
+          0.219608,
+          0.741176,
+          0.972549
+        ],
+        "hex": "#38bdf8"
+      },
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0.219608,
+          0.741176,
+          0.972549
+        ]
+      },
+      "sourcePath": "primitive.color.sky.400",
+      "tier": "primitive",
+      "type": "color"
+    },
+    {
+      "aliasTarget": null,
+      "cssProperties": {
+        "--louis-color-sky-500": "color(srgb 0.054902 0.647059 0.913725 / 1)",
+        "--louis-color-sky-500-rgb": "14 165 233"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-sky-500",
+      "mode": "base",
+      "rawValue": {
+        "colorSpace": "srgb",
+        "components": [
+          0.054902,
+          0.647059,
+          0.913725
+        ],
+        "hex": "#0ea5e9"
+      },
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0.054902,
+          0.647059,
+          0.913725
+        ]
+      },
+      "sourcePath": "primitive.color.sky.500",
+      "tier": "primitive",
+      "type": "color"
+    },
+    {
+      "aliasTarget": null,
+      "cssProperties": {
+        "--louis-color-sky-600": "color(srgb 0.007843 0.517647 0.780392 / 1)",
+        "--louis-color-sky-600-rgb": "2 132 199"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-sky-600",
+      "mode": "base",
+      "rawValue": {
+        "colorSpace": "srgb",
+        "components": [
+          0.007843,
+          0.517647,
+          0.780392
+        ],
+        "hex": "#0284c7"
+      },
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0.007843,
+          0.517647,
+          0.780392
+        ]
+      },
+      "sourcePath": "primitive.color.sky.600",
+      "tier": "primitive",
+      "type": "color"
+    },
+    {
+      "aliasTarget": null,
+      "cssProperties": {
+        "--louis-color-sky-700": "color(srgb 0.011765 0.411765 0.631373 / 1)",
+        "--louis-color-sky-700-rgb": "3 105 161"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-sky-700",
+      "mode": "base",
+      "rawValue": {
+        "colorSpace": "srgb",
+        "components": [
+          0.011765,
+          0.411765,
+          0.631373
+        ],
+        "hex": "#0369a1"
+      },
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0.011765,
+          0.411765,
+          0.631373
+        ]
+      },
+      "sourcePath": "primitive.color.sky.700",
+      "tier": "primitive",
+      "type": "color"
+    },
+    {
+      "aliasTarget": null,
+      "cssProperties": {
+        "--louis-color-sky-800": "color(srgb 0.027451 0.34902 0.521569 / 1)",
+        "--louis-color-sky-800-rgb": "7 89 133"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-sky-800",
+      "mode": "base",
+      "rawValue": {
+        "colorSpace": "srgb",
+        "components": [
+          0.027451,
+          0.34902,
+          0.521569
+        ],
+        "hex": "#075985"
+      },
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0.027451,
+          0.34902,
+          0.521569
+        ]
+      },
+      "sourcePath": "primitive.color.sky.800",
+      "tier": "primitive",
+      "type": "color"
+    },
+    {
+      "aliasTarget": null,
+      "cssProperties": {
+        "--louis-color-sky-900": "color(srgb 0.047059 0.184314 0.290196 / 1)",
+        "--louis-color-sky-900-rgb": "12 47 74"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-sky-900",
+      "mode": "base",
+      "rawValue": {
+        "colorSpace": "srgb",
+        "components": [
+          0.047059,
+          0.184314,
+          0.290196
+        ],
+        "hex": "#0c2f4a"
+      },
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0.047059,
+          0.184314,
+          0.290196
+        ]
+      },
+      "sourcePath": "primitive.color.sky.900",
+      "tier": "primitive",
+      "type": "color"
+    },
+    {
+      "aliasTarget": null,
+      "cssProperties": {
         "--louis-color-static-black-alpha-10": "color(srgb 0 0 0 / 0.1)",
         "--louis-color-static-black-alpha-10-rgb": "0 0 0"
       },
@@ -9491,6 +10131,38 @@
       },
       "sourcePath": "semantic.dark.color.table-row-line",
       "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": null,
+      "cssProperties": {
+        "--louis-color-ultra-400": "color(srgb 0.72549 0.882353 0.968627 / 1)",
+        "--louis-color-ultra-400-rgb": "185 225 247"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-ultra-400",
+      "mode": "base",
+      "rawValue": {
+        "colorSpace": "srgb",
+        "components": [
+          0.72549,
+          0.882353,
+          0.968627
+        ],
+        "hex": "#b9e1f7"
+      },
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0.72549,
+          0.882353,
+          0.968627
+        ]
+      },
+      "sourcePath": "primitive.color.ultra.400",
+      "tier": "primitive",
       "type": "color"
     },
     {

@@ -8078,6 +8078,12 @@
         },
         "TrailingSlot": {
           "type": "INSTANCE_SWAP"
+        },
+        "Leading": {
+          "type": "BOOLEAN"
+        },
+        "Trailing": {
+          "type": "BOOLEAN"
         }
       },
       "binding": {
@@ -8151,6 +8157,9 @@
             "md",
             "sm"
           ]
+        },
+        "HasImage": {
+          "type": "BOOLEAN"
         }
       },
       "binding": {
@@ -8370,6 +8379,12 @@
             "boxed",
             "full"
           ]
+        },
+        "HasWordmark": {
+          "type": "BOOLEAN"
+        },
+        "HasCta": {
+          "type": "BOOLEAN"
         }
       },
       "binding": {
@@ -8800,6 +8815,9 @@
             "Indeterminate",
             "Disabled"
           ]
+        },
+        "HasLabel": {
+          "type": "BOOLEAN"
         }
       },
       "binding": {
@@ -8902,7 +8920,7 @@
       "effects": {}
     },
     "Dialog": {
-      "variantCount": 3,
+      "variantCount": 4,
       "hasDescription": true,
       "properties": {
         "Title": {
@@ -8916,8 +8934,12 @@
           "options": [
             "compact",
             "medium",
-            "large"
+            "large",
+            "sheet"
           ]
+        },
+        "HasClose": {
+          "type": "BOOLEAN"
         }
       },
       "binding": {
@@ -9157,6 +9179,15 @@
         },
         "Description": {
           "type": "TEXT"
+        },
+        "HasGraphic": {
+          "type": "BOOLEAN"
+        },
+        "HasDescription": {
+          "type": "BOOLEAN"
+        },
+        "HasAction": {
+          "type": "BOOLEAN"
         }
       },
       "binding": {
@@ -9395,7 +9426,7 @@
       "effects": {}
     },
     "Menu": {
-      "variantCount": 5,
+      "variantCount": 6,
       "hasDescription": true,
       "properties": {
         "State": {
@@ -9405,8 +9436,18 @@
             "Hover",
             "Danger",
             "DangerHover",
-            "Disabled"
+            "Disabled",
+            "Busy"
           ]
+        },
+        "HasIcon": {
+          "type": "BOOLEAN"
+        },
+        "HasTrailing": {
+          "type": "BOOLEAN"
+        },
+        "Checked": {
+          "type": "BOOLEAN"
         }
       },
       "binding": {
@@ -9589,7 +9630,11 @@
     "ProgressRing": {
       "variantCount": 1,
       "hasDescription": true,
-      "properties": {},
+      "properties": {
+        "Content": {
+          "type": "INSTANCE_SWAP"
+        }
+      },
       "binding": {
         "boundFills": 3,
         "rawFills": 0,
@@ -9837,14 +9882,15 @@
       }
     },
     "SegmentedControl": {
-      "variantCount": 2,
+      "variantCount": 12,
       "hasDescription": true,
       "properties": {
         "Size": {
           "type": "VARIANT",
           "options": [
+            "md",
             "lg",
-            "md"
+            "xs"
           ]
         },
         "Label1": {
@@ -9855,6 +9901,18 @@
         },
         "Label3": {
           "type": "TEXT"
+        },
+        "Segment3": {
+          "type": "BOOLEAN"
+        },
+        "State": {
+          "type": "VARIANT",
+          "options": [
+            "Hover",
+            "Focus",
+            "Disabled",
+            "Default"
+          ]
         }
       },
       "binding": {
@@ -10116,6 +10174,9 @@
         },
         "Trailing": {
           "type": "BOOLEAN"
+        },
+        "Media": {
+          "type": "BOOLEAN"
         }
       },
       "binding": {
@@ -10355,7 +10416,7 @@
       "effects": {}
     },
     "SidebarCta": {
-      "variantCount": 2,
+      "variantCount": 8,
       "hasDescription": true,
       "properties": {
         "Collapsed": {
@@ -10363,6 +10424,15 @@
           "options": [
             "false",
             "true"
+          ]
+        },
+        "State": {
+          "type": "VARIANT",
+          "options": [
+            "Hover",
+            "Focus",
+            "Current",
+            "Default"
           ]
         }
       },
@@ -10481,6 +10551,9 @@
             "false",
             "true"
           ]
+        },
+        "HasTrailing": {
+          "type": "BOOLEAN"
         }
       },
       "binding": {
@@ -10543,7 +10616,11 @@
     "SidebarNavRow": {
       "variantCount": 1,
       "hasDescription": true,
-      "properties": {},
+      "properties": {
+        "Action": {
+          "type": "BOOLEAN"
+        }
+      },
       "binding": {
         "boundFills": 1,
         "rawFills": 0,
@@ -10735,7 +10812,7 @@
       "effects": {}
     },
     "Slider": {
-      "variantCount": 4,
+      "variantCount": 12,
       "hasDescription": true,
       "properties": {
         "Label": {
@@ -10753,6 +10830,17 @@
           "options": [
             "thumb",
             "track"
+          ]
+        },
+        "HasLabel": {
+          "type": "BOOLEAN"
+        },
+        "State": {
+          "type": "VARIANT",
+          "options": [
+            "Focus",
+            "Disabled",
+            "Default"
           ]
         }
       },
@@ -11187,7 +11275,7 @@
       "effects": {}
     },
     "TextField": {
-      "variantCount": 8,
+      "variantCount": 10,
       "hasDescription": true,
       "properties": {
         "Label": {
@@ -11224,8 +11312,15 @@
             "Default",
             "Focus",
             "Invalid",
-            "Disabled"
+            "Disabled",
+            "Placeholder"
           ]
+        },
+        "HasLabel": {
+          "type": "BOOLEAN"
+        },
+        "HasMessage": {
+          "type": "BOOLEAN"
         }
       },
       "binding": {
@@ -11603,6 +11698,55 @@
       "outsideParts": [
         "Arrow"
       ]
+    },
+    "MenuSeparator": {
+      "variantCount": 1,
+      "hasDescription": true,
+      "properties": {},
+      "binding": {
+        "boundFills": 1,
+        "rawFills": 0,
+        "boundStrokes": 0,
+        "rawStrokes": 0,
+        "textStyled": 0,
+        "textUnstyled": 0
+      },
+      "geometry": {
+        "default": {
+          "slots": {},
+          "parts": {},
+          "height": [
+            1
+          ],
+          "width": [
+            200
+          ],
+          "paddingBlock": [
+            0
+          ],
+          "paddingBlockEnd": [
+            0
+          ],
+          "paddingInline": [
+            0
+          ],
+          "paddingInlineEnd": [
+            0
+          ],
+          "itemSpacing": [
+            0
+          ],
+          "cornerRadius": [
+            0
+          ],
+          "layoutMode": [
+            "NONE"
+          ],
+          "strokeWeight": [],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        }
+      }
     }
   },
   "icons": {

@@ -21,7 +21,7 @@
         "sets": 1,
         "variants": 50
       },
-      "icons": 0,
+      "icons": 31,
       "templates": 0
     }
   },
@@ -5127,7 +5127,867 @@
       "effects": {}
     }
   },
-  "icons": {},
+  "icons": {
+    "arrow-up": {
+      "figmaName": "icon/arrow-up",
+      "width": 24,
+      "height": 24,
+      "vectors": 2,
+      "strokeWeights": [
+        1.5
+      ],
+      "strokeCaps": [
+        "ROUND"
+      ],
+      "binding": {
+        "boundStrokes": 2,
+        "rawStrokes": 0,
+        "boundFills": 0,
+        "rawFills": 0
+      },
+      "hasDescription": true,
+      "keywords": [
+        "arrow",
+        "up",
+        "맨 위",
+        "상단",
+        "위로",
+        "화살표"
+      ]
+    },
+    "arrows-left-right": {
+      "figmaName": "icon/arrows-left-right",
+      "width": 24,
+      "height": 24,
+      "vectors": 4,
+      "strokeWeights": [
+        1.5
+      ],
+      "strokeCaps": [
+        "ROUND"
+      ],
+      "binding": {
+        "boundStrokes": 4,
+        "rawStrokes": 0,
+        "boundFills": 0,
+        "rawFills": 0
+      },
+      "hasDescription": true,
+      "keywords": [
+        "arrows",
+        "left",
+        "right",
+        "swap",
+        "교체",
+        "전환",
+        "좌우",
+        "화살표"
+      ]
+    },
+    "caret-down": {
+      "figmaName": "icon/caret-down",
+      "width": 24,
+      "height": 24,
+      "vectors": 1,
+      "strokeWeights": [
+        1.5
+      ],
+      "strokeCaps": [
+        "ROUND"
+      ],
+      "binding": {
+        "boundStrokes": 1,
+        "rawStrokes": 0,
+        "boundFills": 0,
+        "rawFills": 0
+      },
+      "hasDescription": true,
+      "keywords": [
+        "caret",
+        "chevron",
+        "down",
+        "dropdown",
+        "expand",
+        "드롭다운",
+        "아래",
+        "펼치기",
+        "화살표"
+      ]
+    },
+    "caret-left": {
+      "figmaName": "icon/caret-left",
+      "width": 24,
+      "height": 24,
+      "vectors": 1,
+      "strokeWeights": [
+        1.5
+      ],
+      "strokeCaps": [
+        "ROUND"
+      ],
+      "binding": {
+        "boundStrokes": 1,
+        "rawStrokes": 0,
+        "boundFills": 0,
+        "rawFills": 0
+      },
+      "hasDescription": true,
+      "keywords": [
+        "back",
+        "caret",
+        "chevron",
+        "left",
+        "previous",
+        "갈매기",
+        "왼쪽",
+        "이전",
+        "화살표"
+      ]
+    },
+    "caret-right": {
+      "figmaName": "icon/caret-right",
+      "width": 24,
+      "height": 24,
+      "vectors": 1,
+      "strokeWeights": [
+        1.5
+      ],
+      "strokeCaps": [
+        "ROUND"
+      ],
+      "binding": {
+        "boundStrokes": 1,
+        "rawStrokes": 0,
+        "boundFills": 0,
+        "rawFills": 0
+      },
+      "hasDescription": true,
+      "keywords": [
+        "caret",
+        "chevron",
+        "forward",
+        "next",
+        "right",
+        "갈매기",
+        "다음",
+        "오른쪽",
+        "화살표"
+      ]
+    },
+    "check-circle": {
+      "figmaName": "icon/check-circle",
+      "width": 24,
+      "height": 24,
+      "vectors": 2,
+      "strokeWeights": [
+        1.5
+      ],
+      "strokeCaps": [
+        "ROUND"
+      ],
+      "binding": {
+        "boundStrokes": 2,
+        "rawStrokes": 0,
+        "boundFills": 0,
+        "rawFills": 0
+      },
+      "hasDescription": true,
+      "keywords": [
+        "check",
+        "done",
+        "success",
+        "성공",
+        "완료",
+        "체크",
+        "확인"
+      ]
+    },
+    "copy": {
+      "figmaName": "icon/copy",
+      "width": 24,
+      "height": 24,
+      "vectors": 2,
+      "strokeWeights": [
+        1.5
+      ],
+      "strokeCaps": [
+        "ROUND"
+      ],
+      "binding": {
+        "boundStrokes": 2,
+        "rawStrokes": 0,
+        "boundFills": 0,
+        "rawFills": 0
+      },
+      "hasDescription": true,
+      "keywords": [
+        "copy",
+        "duplicate",
+        "복사",
+        "복제"
+      ]
+    },
+    "copy-check": {
+      "figmaName": "icon/copy-check",
+      "width": 24,
+      "height": 24,
+      "vectors": 3,
+      "strokeWeights": [
+        1.5
+      ],
+      "strokeCaps": [
+        "ROUND"
+      ],
+      "binding": {
+        "boundStrokes": 3,
+        "rawStrokes": 0,
+        "boundFills": 0,
+        "rawFills": 0
+      },
+      "hasDescription": true,
+      "keywords": [
+        "copied",
+        "copy",
+        "done",
+        "복사 완료",
+        "복사됨"
+      ]
+    },
+    "dots-three-vertical": {
+      "figmaName": "icon/dots-three-vertical",
+      "width": 24,
+      "height": 24,
+      "vectors": 3,
+      "strokeWeights": [],
+      "strokeCaps": [],
+      "binding": {
+        "boundStrokes": 0,
+        "rawStrokes": 0,
+        "boundFills": 3,
+        "rawFills": 0
+      },
+      "hasDescription": true,
+      "keywords": [
+        "kebab",
+        "menu",
+        "more",
+        "overflow",
+        "더보기",
+        "메뉴",
+        "점 세 개"
+      ]
+    },
+    "download-simple": {
+      "figmaName": "icon/download-simple",
+      "width": 24,
+      "height": 24,
+      "vectors": 3,
+      "strokeWeights": [
+        1.5
+      ],
+      "strokeCaps": [
+        "ROUND"
+      ],
+      "binding": {
+        "boundStrokes": 3,
+        "rawStrokes": 0,
+        "boundFills": 0,
+        "rawFills": 0
+      },
+      "hasDescription": true,
+      "keywords": [
+        "download",
+        "save",
+        "내려받기",
+        "다운로드",
+        "저장"
+      ]
+    },
+    "eye": {
+      "figmaName": "icon/eye",
+      "width": 24,
+      "height": 24,
+      "vectors": 2,
+      "strokeWeights": [
+        1.5
+      ],
+      "strokeCaps": [
+        "ROUND"
+      ],
+      "binding": {
+        "boundStrokes": 2,
+        "rawStrokes": 0,
+        "boundFills": 0,
+        "rawFills": 0
+      },
+      "hasDescription": true,
+      "keywords": [
+        "eye",
+        "preview",
+        "view",
+        "visible",
+        "눈",
+        "미리보기",
+        "보기",
+        "표시"
+      ]
+    },
+    "eye-slash": {
+      "figmaName": "icon/eye-slash",
+      "width": 24,
+      "height": 24,
+      "vectors": 4,
+      "strokeWeights": [
+        1.5
+      ],
+      "strokeCaps": [
+        "ROUND"
+      ],
+      "binding": {
+        "boundStrokes": 4,
+        "rawStrokes": 0,
+        "boundFills": 0,
+        "rawFills": 0
+      },
+      "hasDescription": true,
+      "keywords": [
+        "eye",
+        "hidden",
+        "hide",
+        "invisible",
+        "가리기",
+        "비표시",
+        "숨기기"
+      ]
+    },
+    "file-zip": {
+      "figmaName": "icon/file-zip",
+      "width": 24,
+      "height": 24,
+      "vectors": 5,
+      "strokeWeights": [
+        1.5
+      ],
+      "strokeCaps": [
+        "ROUND"
+      ],
+      "binding": {
+        "boundStrokes": 5,
+        "rawStrokes": 0,
+        "boundFills": 0,
+        "rawFills": 0
+      },
+      "hasDescription": true,
+      "keywords": [
+        "archive",
+        "file",
+        "zip",
+        "아카이브",
+        "압축",
+        "파일"
+      ]
+    },
+    "folder": {
+      "figmaName": "icon/folder",
+      "width": 24,
+      "height": 24,
+      "vectors": 2,
+      "strokeWeights": [
+        1.5
+      ],
+      "strokeCaps": [
+        "ROUND"
+      ],
+      "binding": {
+        "boundStrokes": 2,
+        "rawStrokes": 0,
+        "boundFills": 0,
+        "rawFills": 0
+      },
+      "hasDescription": true,
+      "keywords": [
+        "directory",
+        "folder",
+        "디렉터리",
+        "폴더"
+      ]
+    },
+    "graph": {
+      "figmaName": "icon/graph",
+      "width": 24,
+      "height": 24,
+      "vectors": 9,
+      "strokeWeights": [
+        1.5
+      ],
+      "strokeCaps": [
+        "ROUND"
+      ],
+      "binding": {
+        "boundStrokes": 9,
+        "rawStrokes": 0,
+        "boundFills": 0,
+        "rawFills": 0
+      },
+      "hasDescription": true,
+      "keywords": [
+        "analytics",
+        "chart",
+        "graph",
+        "stats",
+        "그래프",
+        "분석",
+        "차트",
+        "통계"
+      ]
+    },
+    "hand": {
+      "figmaName": "icon/hand",
+      "width": 24,
+      "height": 24,
+      "vectors": 2,
+      "strokeWeights": [
+        1.5
+      ],
+      "strokeCaps": [
+        "ROUND"
+      ],
+      "binding": {
+        "boundStrokes": 2,
+        "rawStrokes": 0,
+        "boundFills": 0,
+        "rawFills": 0
+      },
+      "hasDescription": true,
+      "keywords": [
+        "drag",
+        "grab",
+        "hand",
+        "pan",
+        "끌기",
+        "손",
+        "이동"
+      ]
+    },
+    "house": {
+      "figmaName": "icon/house",
+      "width": 24,
+      "height": 24,
+      "vectors": 1,
+      "strokeWeights": [
+        1.5
+      ],
+      "strokeCaps": [
+        "ROUND"
+      ],
+      "binding": {
+        "boundStrokes": 1,
+        "rawStrokes": 0,
+        "boundFills": 0,
+        "rawFills": 0
+      },
+      "hasDescription": true,
+      "keywords": [
+        "home",
+        "house",
+        "집",
+        "처음",
+        "홈"
+      ]
+    },
+    "image": {
+      "figmaName": "icon/image",
+      "width": 24,
+      "height": 24,
+      "vectors": 3,
+      "strokeWeights": [
+        1.5
+      ],
+      "strokeCaps": [
+        "ROUND"
+      ],
+      "binding": {
+        "boundStrokes": 3,
+        "rawStrokes": 0,
+        "boundFills": 0,
+        "rawFills": 0
+      },
+      "hasDescription": true,
+      "keywords": [
+        "image",
+        "photo",
+        "picture",
+        "그림",
+        "사진",
+        "이미지"
+      ]
+    },
+    "info": {
+      "figmaName": "icon/info",
+      "width": 24,
+      "height": 24,
+      "vectors": 3,
+      "strokeWeights": [
+        1.5
+      ],
+      "strokeCaps": [
+        "ROUND"
+      ],
+      "binding": {
+        "boundStrokes": 2,
+        "rawStrokes": 0,
+        "boundFills": 1,
+        "rawFills": 0
+      },
+      "hasDescription": true,
+      "keywords": [
+        "help",
+        "info",
+        "information",
+        "도움말",
+        "안내",
+        "정보"
+      ]
+    },
+    "magnifying-glass": {
+      "figmaName": "icon/magnifying-glass",
+      "width": 24,
+      "height": 24,
+      "vectors": 2,
+      "strokeWeights": [
+        1.5
+      ],
+      "strokeCaps": [
+        "ROUND"
+      ],
+      "binding": {
+        "boundStrokes": 2,
+        "rawStrokes": 0,
+        "boundFills": 0,
+        "rawFills": 0
+      },
+      "hasDescription": true,
+      "keywords": [
+        "find",
+        "search",
+        "zoom",
+        "검색",
+        "돋보기",
+        "찾기"
+      ]
+    },
+    "monitor-arrow-up": {
+      "figmaName": "icon/monitor-arrow-up",
+      "width": 24,
+      "height": 24,
+      "vectors": 4,
+      "strokeWeights": [
+        1.5
+      ],
+      "strokeCaps": [
+        "ROUND"
+      ],
+      "binding": {
+        "boundStrokes": 4,
+        "rawStrokes": 0,
+        "boundFills": 0,
+        "rawFills": 0
+      },
+      "hasDescription": true,
+      "keywords": [
+        "export",
+        "monitor",
+        "screen",
+        "upload",
+        "내보내기",
+        "모니터",
+        "업로드",
+        "화면"
+      ]
+    },
+    "music-notes-simple": {
+      "figmaName": "icon/music-notes-simple",
+      "width": 24,
+      "height": 24,
+      "vectors": 3,
+      "strokeWeights": [
+        1.5
+      ],
+      "strokeCaps": [
+        "ROUND"
+      ],
+      "binding": {
+        "boundStrokes": 3,
+        "rawStrokes": 0,
+        "boundFills": 0,
+        "rawFills": 0
+      },
+      "hasDescription": true,
+      "keywords": [
+        "audio",
+        "music",
+        "note",
+        "sound",
+        "소리",
+        "오디오",
+        "음악",
+        "음표"
+      ]
+    },
+    "pause": {
+      "figmaName": "icon/pause",
+      "width": 24,
+      "height": 24,
+      "vectors": 2,
+      "strokeWeights": [
+        1.5
+      ],
+      "strokeCaps": [
+        "ROUND"
+      ],
+      "binding": {
+        "boundStrokes": 2,
+        "rawStrokes": 0,
+        "boundFills": 0,
+        "rawFills": 0
+      },
+      "hasDescription": true,
+      "keywords": [
+        "hold",
+        "pause",
+        "stop",
+        "멈춤",
+        "일시정지",
+        "정지"
+      ]
+    },
+    "play": {
+      "figmaName": "icon/play",
+      "width": 24,
+      "height": 24,
+      "vectors": 1,
+      "strokeWeights": [
+        1.5
+      ],
+      "strokeCaps": [
+        "ROUND"
+      ],
+      "binding": {
+        "boundStrokes": 1,
+        "rawStrokes": 0,
+        "boundFills": 0,
+        "rawFills": 0
+      },
+      "hasDescription": true,
+      "keywords": [
+        "play",
+        "resume",
+        "start",
+        "시작",
+        "재생"
+      ]
+    },
+    "plus": {
+      "figmaName": "icon/plus",
+      "width": 24,
+      "height": 24,
+      "vectors": 2,
+      "strokeWeights": [
+        1.5
+      ],
+      "strokeCaps": [
+        "ROUND"
+      ],
+      "binding": {
+        "boundStrokes": 2,
+        "rawStrokes": 0,
+        "boundFills": 0,
+        "rawFills": 0
+      },
+      "hasDescription": true,
+      "keywords": [
+        "add",
+        "create",
+        "new",
+        "plus",
+        "더하기",
+        "만들기",
+        "새로",
+        "추가"
+      ]
+    },
+    "text": {
+      "figmaName": "icon/text",
+      "width": 24,
+      "height": 24,
+      "vectors": 3,
+      "strokeWeights": [
+        1.5
+      ],
+      "strokeCaps": [
+        "ROUND"
+      ],
+      "binding": {
+        "boundStrokes": 3,
+        "rawStrokes": 0,
+        "boundFills": 0,
+        "rawFills": 0
+      },
+      "hasDescription": true,
+      "keywords": [
+        "caption",
+        "font",
+        "text",
+        "type",
+        "글자",
+        "문자",
+        "자막",
+        "텍스트"
+      ]
+    },
+    "trash-simple": {
+      "figmaName": "icon/trash-simple",
+      "width": 24,
+      "height": 24,
+      "vectors": 3,
+      "strokeWeights": [
+        1.5
+      ],
+      "strokeCaps": [
+        "ROUND"
+      ],
+      "binding": {
+        "boundStrokes": 3,
+        "rawStrokes": 0,
+        "boundFills": 0,
+        "rawFills": 0
+      },
+      "hasDescription": true,
+      "keywords": [
+        "bin",
+        "delete",
+        "remove",
+        "trash",
+        "삭제",
+        "지우기",
+        "휴지통"
+      ]
+    },
+    "user-sound": {
+      "figmaName": "icon/user-sound",
+      "width": 24,
+      "height": 24,
+      "vectors": 4,
+      "strokeWeights": [
+        1.5
+      ],
+      "strokeCaps": [
+        "ROUND"
+      ],
+      "binding": {
+        "boundStrokes": 4,
+        "rawStrokes": 0,
+        "boundFills": 0,
+        "rawFills": 0
+      },
+      "hasDescription": true,
+      "keywords": [
+        "narration",
+        "speaker",
+        "user",
+        "voice",
+        "내레이션",
+        "목소리",
+        "사용자",
+        "화자"
+      ]
+    },
+    "waveform": {
+      "figmaName": "icon/waveform",
+      "width": 24,
+      "height": 24,
+      "vectors": 5,
+      "strokeWeights": [
+        1.5
+      ],
+      "strokeCaps": [
+        "ROUND"
+      ],
+      "binding": {
+        "boundStrokes": 5,
+        "rawStrokes": 0,
+        "boundFills": 0,
+        "rawFills": 0
+      },
+      "hasDescription": true,
+      "keywords": [
+        "audio",
+        "sound",
+        "wave",
+        "waveform",
+        "소리",
+        "오디오",
+        "파형"
+      ]
+    },
+    "x": {
+      "figmaName": "icon/x",
+      "width": 24,
+      "height": 24,
+      "vectors": 2,
+      "strokeWeights": [
+        1.5
+      ],
+      "strokeCaps": [
+        "ROUND"
+      ],
+      "binding": {
+        "boundStrokes": 2,
+        "rawStrokes": 0,
+        "boundFills": 0,
+        "rawFills": 0
+      },
+      "hasDescription": true,
+      "keywords": [
+        "cancel",
+        "close",
+        "dismiss",
+        "x",
+        "닫기",
+        "엑스",
+        "취소"
+      ]
+    },
+    "x-circle": {
+      "figmaName": "icon/x-circle",
+      "width": 24,
+      "height": 24,
+      "vectors": 3,
+      "strokeWeights": [
+        1.5
+      ],
+      "strokeCaps": [
+        "ROUND"
+      ],
+      "binding": {
+        "boundStrokes": 3,
+        "rawStrokes": 0,
+        "boundFills": 0,
+        "rawFills": 0
+      },
+      "hasDescription": true,
+      "keywords": [
+        "clear",
+        "close",
+        "error",
+        "remove",
+        "닫기",
+        "오류",
+        "제거",
+        "지우기"
+      ]
+    }
+  },
   "templates": {},
   "iconInstances": {},
   "foundations": {

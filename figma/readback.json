@@ -16,7 +16,8 @@
     "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
     "99 · 보류 — 범위 밖",
     "DS · Foundations",
-    "DS · Components"
+    "DS · Components",
+    "DS · Icons"
   ],
   "rowFormat": [
     "figmaName",
@@ -6507,7 +6508,836 @@
       "effects": {}
     }
   },
-  "icons": {},
+  "icons": {
+    "icon/arrow-up": {
+      "width": 24,
+      "height": 24,
+      "vectors": 2,
+      "strokeWeights": [
+        1.5
+      ],
+      "strokeCaps": [
+        "ROUND"
+      ],
+      "binding": {
+        "boundStrokes": 2,
+        "rawStrokes": 0,
+        "boundFills": 0,
+        "rawFills": 0
+      },
+      "hasDescription": true,
+      "keywords": [
+        "arrow",
+        "up",
+        "맨 위",
+        "상단",
+        "위로",
+        "화살표"
+      ]
+    },
+    "icon/arrows-left-right": {
+      "width": 24,
+      "height": 24,
+      "vectors": 4,
+      "strokeWeights": [
+        1.5
+      ],
+      "strokeCaps": [
+        "ROUND"
+      ],
+      "binding": {
+        "boundStrokes": 4,
+        "rawStrokes": 0,
+        "boundFills": 0,
+        "rawFills": 0
+      },
+      "hasDescription": true,
+      "keywords": [
+        "arrows",
+        "left",
+        "right",
+        "swap",
+        "교체",
+        "전환",
+        "좌우",
+        "화살표"
+      ]
+    },
+    "icon/caret-down": {
+      "width": 24,
+      "height": 24,
+      "vectors": 1,
+      "strokeWeights": [
+        1.5
+      ],
+      "strokeCaps": [
+        "ROUND"
+      ],
+      "binding": {
+        "boundStrokes": 1,
+        "rawStrokes": 0,
+        "boundFills": 0,
+        "rawFills": 0
+      },
+      "hasDescription": true,
+      "keywords": [
+        "caret",
+        "chevron",
+        "down",
+        "dropdown",
+        "expand",
+        "드롭다운",
+        "아래",
+        "펼치기",
+        "화살표"
+      ]
+    },
+    "icon/caret-left": {
+      "width": 24,
+      "height": 24,
+      "vectors": 1,
+      "strokeWeights": [
+        1.5
+      ],
+      "strokeCaps": [
+        "ROUND"
+      ],
+      "binding": {
+        "boundStrokes": 1,
+        "rawStrokes": 0,
+        "boundFills": 0,
+        "rawFills": 0
+      },
+      "hasDescription": true,
+      "keywords": [
+        "back",
+        "caret",
+        "chevron",
+        "left",
+        "previous",
+        "갈매기",
+        "왼쪽",
+        "이전",
+        "화살표"
+      ]
+    },
+    "icon/caret-right": {
+      "width": 24,
+      "height": 24,
+      "vectors": 1,
+      "strokeWeights": [
+        1.5
+      ],
+      "strokeCaps": [
+        "ROUND"
+      ],
+      "binding": {
+        "boundStrokes": 1,
+        "rawStrokes": 0,
+        "boundFills": 0,
+        "rawFills": 0
+      },
+      "hasDescription": true,
+      "keywords": [
+        "caret",
+        "chevron",
+        "forward",
+        "next",
+        "right",
+        "갈매기",
+        "다음",
+        "오른쪽",
+        "화살표"
+      ]
+    },
+    "icon/check-circle": {
+      "width": 24,
+      "height": 24,
+      "vectors": 2,
+      "strokeWeights": [
+        1.5
+      ],
+      "strokeCaps": [
+        "ROUND"
+      ],
+      "binding": {
+        "boundStrokes": 2,
+        "rawStrokes": 0,
+        "boundFills": 0,
+        "rawFills": 0
+      },
+      "hasDescription": true,
+      "keywords": [
+        "check",
+        "done",
+        "success",
+        "성공",
+        "완료",
+        "체크",
+        "확인"
+      ]
+    },
+    "icon/copy": {
+      "width": 24,
+      "height": 24,
+      "vectors": 2,
+      "strokeWeights": [
+        1.5
+      ],
+      "strokeCaps": [
+        "ROUND"
+      ],
+      "binding": {
+        "boundStrokes": 2,
+        "rawStrokes": 0,
+        "boundFills": 0,
+        "rawFills": 0
+      },
+      "hasDescription": true,
+      "keywords": [
+        "copy",
+        "duplicate",
+        "복사",
+        "복제"
+      ]
+    },
+    "icon/copy-check": {
+      "width": 24,
+      "height": 24,
+      "vectors": 3,
+      "strokeWeights": [
+        1.5
+      ],
+      "strokeCaps": [
+        "ROUND"
+      ],
+      "binding": {
+        "boundStrokes": 3,
+        "rawStrokes": 0,
+        "boundFills": 0,
+        "rawFills": 0
+      },
+      "hasDescription": true,
+      "keywords": [
+        "copied",
+        "copy",
+        "done",
+        "복사 완료",
+        "복사됨"
+      ]
+    },
+    "icon/dots-three-vertical": {
+      "width": 24,
+      "height": 24,
+      "vectors": 3,
+      "strokeWeights": [],
+      "strokeCaps": [],
+      "binding": {
+        "boundStrokes": 0,
+        "rawStrokes": 0,
+        "boundFills": 3,
+        "rawFills": 0
+      },
+      "hasDescription": true,
+      "keywords": [
+        "kebab",
+        "menu",
+        "more",
+        "overflow",
+        "더보기",
+        "메뉴",
+        "점 세 개"
+      ]
+    },
+    "icon/download-simple": {
+      "width": 24,
+      "height": 24,
+      "vectors": 3,
+      "strokeWeights": [
+        1.5
+      ],
+      "strokeCaps": [
+        "ROUND"
+      ],
+      "binding": {
+        "boundStrokes": 3,
+        "rawStrokes": 0,
+        "boundFills": 0,
+        "rawFills": 0
+      },
+      "hasDescription": true,
+      "keywords": [
+        "download",
+        "save",
+        "내려받기",
+        "다운로드",
+        "저장"
+      ]
+    },
+    "icon/eye": {
+      "width": 24,
+      "height": 24,
+      "vectors": 2,
+      "strokeWeights": [
+        1.5
+      ],
+      "strokeCaps": [
+        "ROUND"
+      ],
+      "binding": {
+        "boundStrokes": 2,
+        "rawStrokes": 0,
+        "boundFills": 0,
+        "rawFills": 0
+      },
+      "hasDescription": true,
+      "keywords": [
+        "eye",
+        "preview",
+        "view",
+        "visible",
+        "눈",
+        "미리보기",
+        "보기",
+        "표시"
+      ]
+    },
+    "icon/eye-slash": {
+      "width": 24,
+      "height": 24,
+      "vectors": 4,
+      "strokeWeights": [
+        1.5
+      ],
+      "strokeCaps": [
+        "ROUND"
+      ],
+      "binding": {
+        "boundStrokes": 4,
+        "rawStrokes": 0,
+        "boundFills": 0,
+        "rawFills": 0
+      },
+      "hasDescription": true,
+      "keywords": [
+        "eye",
+        "hidden",
+        "hide",
+        "invisible",
+        "가리기",
+        "비표시",
+        "숨기기"
+      ]
+    },
+    "icon/file-zip": {
+      "width": 24,
+      "height": 24,
+      "vectors": 5,
+      "strokeWeights": [
+        1.5
+      ],
+      "strokeCaps": [
+        "ROUND"
+      ],
+      "binding": {
+        "boundStrokes": 5,
+        "rawStrokes": 0,
+        "boundFills": 0,
+        "rawFills": 0
+      },
+      "hasDescription": true,
+      "keywords": [
+        "archive",
+        "file",
+        "zip",
+        "아카이브",
+        "압축",
+        "파일"
+      ]
+    },
+    "icon/folder": {
+      "width": 24,
+      "height": 24,
+      "vectors": 2,
+      "strokeWeights": [
+        1.5
+      ],
+      "strokeCaps": [
+        "ROUND"
+      ],
+      "binding": {
+        "boundStrokes": 2,
+        "rawStrokes": 0,
+        "boundFills": 0,
+        "rawFills": 0
+      },
+      "hasDescription": true,
+      "keywords": [
+        "directory",
+        "folder",
+        "디렉터리",
+        "폴더"
+      ]
+    },
+    "icon/graph": {
+      "width": 24,
+      "height": 24,
+      "vectors": 9,
+      "strokeWeights": [
+        1.5
+      ],
+      "strokeCaps": [
+        "ROUND"
+      ],
+      "binding": {
+        "boundStrokes": 9,
+        "rawStrokes": 0,
+        "boundFills": 0,
+        "rawFills": 0
+      },
+      "hasDescription": true,
+      "keywords": [
+        "analytics",
+        "chart",
+        "graph",
+        "stats",
+        "그래프",
+        "분석",
+        "차트",
+        "통계"
+      ]
+    },
+    "icon/hand": {
+      "width": 24,
+      "height": 24,
+      "vectors": 2,
+      "strokeWeights": [
+        1.5
+      ],
+      "strokeCaps": [
+        "ROUND"
+      ],
+      "binding": {
+        "boundStrokes": 2,
+        "rawStrokes": 0,
+        "boundFills": 0,
+        "rawFills": 0
+      },
+      "hasDescription": true,
+      "keywords": [
+        "drag",
+        "grab",
+        "hand",
+        "pan",
+        "끌기",
+        "손",
+        "이동"
+      ]
+    },
+    "icon/house": {
+      "width": 24,
+      "height": 24,
+      "vectors": 1,
+      "strokeWeights": [
+        1.5
+      ],
+      "strokeCaps": [
+        "ROUND"
+      ],
+      "binding": {
+        "boundStrokes": 1,
+        "rawStrokes": 0,
+        "boundFills": 0,
+        "rawFills": 0
+      },
+      "hasDescription": true,
+      "keywords": [
+        "home",
+        "house",
+        "집",
+        "처음",
+        "홈"
+      ]
+    },
+    "icon/image": {
+      "width": 24,
+      "height": 24,
+      "vectors": 3,
+      "strokeWeights": [
+        1.5
+      ],
+      "strokeCaps": [
+        "ROUND"
+      ],
+      "binding": {
+        "boundStrokes": 3,
+        "rawStrokes": 0,
+        "boundFills": 0,
+        "rawFills": 0
+      },
+      "hasDescription": true,
+      "keywords": [
+        "image",
+        "photo",
+        "picture",
+        "그림",
+        "사진",
+        "이미지"
+      ]
+    },
+    "icon/info": {
+      "width": 24,
+      "height": 24,
+      "vectors": 3,
+      "strokeWeights": [
+        1.5
+      ],
+      "strokeCaps": [
+        "ROUND"
+      ],
+      "binding": {
+        "boundStrokes": 2,
+        "rawStrokes": 0,
+        "boundFills": 1,
+        "rawFills": 0
+      },
+      "hasDescription": true,
+      "keywords": [
+        "help",
+        "info",
+        "information",
+        "도움말",
+        "안내",
+        "정보"
+      ]
+    },
+    "icon/magnifying-glass": {
+      "width": 24,
+      "height": 24,
+      "vectors": 2,
+      "strokeWeights": [
+        1.5
+      ],
+      "strokeCaps": [
+        "ROUND"
+      ],
+      "binding": {
+        "boundStrokes": 2,
+        "rawStrokes": 0,
+        "boundFills": 0,
+        "rawFills": 0
+      },
+      "hasDescription": true,
+      "keywords": [
+        "find",
+        "search",
+        "zoom",
+        "검색",
+        "돋보기",
+        "찾기"
+      ]
+    },
+    "icon/monitor-arrow-up": {
+      "width": 24,
+      "height": 24,
+      "vectors": 4,
+      "strokeWeights": [
+        1.5
+      ],
+      "strokeCaps": [
+        "ROUND"
+      ],
+      "binding": {
+        "boundStrokes": 4,
+        "rawStrokes": 0,
+        "boundFills": 0,
+        "rawFills": 0
+      },
+      "hasDescription": true,
+      "keywords": [
+        "export",
+        "monitor",
+        "screen",
+        "upload",
+        "내보내기",
+        "모니터",
+        "업로드",
+        "화면"
+      ]
+    },
+    "icon/music-notes-simple": {
+      "width": 24,
+      "height": 24,
+      "vectors": 3,
+      "strokeWeights": [
+        1.5
+      ],
+      "strokeCaps": [
+        "ROUND"
+      ],
+      "binding": {
+        "boundStrokes": 3,
+        "rawStrokes": 0,
+        "boundFills": 0,
+        "rawFills": 0
+      },
+      "hasDescription": true,
+      "keywords": [
+        "audio",
+        "music",
+        "note",
+        "sound",
+        "소리",
+        "오디오",
+        "음악",
+        "음표"
+      ]
+    },
+    "icon/pause": {
+      "width": 24,
+      "height": 24,
+      "vectors": 2,
+      "strokeWeights": [
+        1.5
+      ],
+      "strokeCaps": [
+        "ROUND"
+      ],
+      "binding": {
+        "boundStrokes": 2,
+        "rawStrokes": 0,
+        "boundFills": 0,
+        "rawFills": 0
+      },
+      "hasDescription": true,
+      "keywords": [
+        "hold",
+        "pause",
+        "stop",
+        "멈춤",
+        "일시정지",
+        "정지"
+      ]
+    },
+    "icon/play": {
+      "width": 24,
+      "height": 24,
+      "vectors": 1,
+      "strokeWeights": [
+        1.5
+      ],
+      "strokeCaps": [
+        "ROUND"
+      ],
+      "binding": {
+        "boundStrokes": 1,
+        "rawStrokes": 0,
+        "boundFills": 0,
+        "rawFills": 0
+      },
+      "hasDescription": true,
+      "keywords": [
+        "play",
+        "resume",
+        "start",
+        "시작",
+        "재생"
+      ]
+    },
+    "icon/plus": {
+      "width": 24,
+      "height": 24,
+      "vectors": 2,
+      "strokeWeights": [
+        1.5
+      ],
+      "strokeCaps": [
+        "ROUND"
+      ],
+      "binding": {
+        "boundStrokes": 2,
+        "rawStrokes": 0,
+        "boundFills": 0,
+        "rawFills": 0
+      },
+      "hasDescription": true,
+      "keywords": [
+        "add",
+        "create",
+        "new",
+        "plus",
+        "더하기",
+        "만들기",
+        "새로",
+        "추가"
+      ]
+    },
+    "icon/text": {
+      "width": 24,
+      "height": 24,
+      "vectors": 3,
+      "strokeWeights": [
+        1.5
+      ],
+      "strokeCaps": [
+        "ROUND"
+      ],
+      "binding": {
+        "boundStrokes": 3,
+        "rawStrokes": 0,
+        "boundFills": 0,
+        "rawFills": 0
+      },
+      "hasDescription": true,
+      "keywords": [
+        "caption",
+        "font",
+        "text",
+        "type",
+        "글자",
+        "문자",
+        "자막",
+        "텍스트"
+      ]
+    },
+    "icon/trash-simple": {
+      "width": 24,
+      "height": 24,
+      "vectors": 3,
+      "strokeWeights": [
+        1.5
+      ],
+      "strokeCaps": [
+        "ROUND"
+      ],
+      "binding": {
+        "boundStrokes": 3,
+        "rawStrokes": 0,
+        "boundFills": 0,
+        "rawFills": 0
+      },
+      "hasDescription": true,
+      "keywords": [
+        "bin",
+        "delete",
+        "remove",
+        "trash",
+        "삭제",
+        "지우기",
+        "휴지통"
+      ]
+    },
+    "icon/user-sound": {
+      "width": 24,
+      "height": 24,
+      "vectors": 4,
+      "strokeWeights": [
+        1.5
+      ],
+      "strokeCaps": [
+        "ROUND"
+      ],
+      "binding": {
+        "boundStrokes": 4,
+        "rawStrokes": 0,
+        "boundFills": 0,
+        "rawFills": 0
+      },
+      "hasDescription": true,
+      "keywords": [
+        "narration",
+        "speaker",
+        "user",
+        "voice",
+        "내레이션",
+        "목소리",
+        "사용자",
+        "화자"
+      ]
+    },
+    "icon/waveform": {
+      "width": 24,
+      "height": 24,
+      "vectors": 5,
+      "strokeWeights": [
+        1.5
+      ],
+      "strokeCaps": [
+        "ROUND"
+      ],
+      "binding": {
+        "boundStrokes": 5,
+        "rawStrokes": 0,
+        "boundFills": 0,
+        "rawFills": 0
+      },
+      "hasDescription": true,
+      "keywords": [
+        "audio",
+        "sound",
+        "wave",
+        "waveform",
+        "소리",
+        "오디오",
+        "파형"
+      ]
+    },
+    "icon/x": {
+      "width": 24,
+      "height": 24,
+      "vectors": 2,
+      "strokeWeights": [
+        1.5
+      ],
+      "strokeCaps": [
+        "ROUND"
+      ],
+      "binding": {
+        "boundStrokes": 2,
+        "rawStrokes": 0,
+        "boundFills": 0,
+        "rawFills": 0
+      },
+      "hasDescription": true,
+      "keywords": [
+        "cancel",
+        "close",
+        "dismiss",
+        "x",
+        "닫기",
+        "엑스",
+        "취소"
+      ]
+    },
+    "icon/x-circle": {
+      "width": 24,
+      "height": 24,
+      "vectors": 3,
+      "strokeWeights": [
+        1.5
+      ],
+      "strokeCaps": [
+        "ROUND"
+      ],
+      "binding": {
+        "boundStrokes": 3,
+        "rawStrokes": 0,
+        "boundFills": 0,
+        "rawFills": 0
+      },
+      "hasDescription": true,
+      "keywords": [
+        "clear",
+        "close",
+        "error",
+        "remove",
+        "닫기",
+        "오류",
+        "제거",
+        "지우기"
+      ]
+    }
+  },
   "templates": {},
   "foundations": {
     "$comment": "Foundations 페이지가 캔버스에 적어 둔 토큰 이름. 파일에 없는 이름을 적어 두면 문서가 거짓말이 된다.",

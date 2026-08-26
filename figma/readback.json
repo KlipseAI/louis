@@ -1,6 +1,6 @@
 {
  "$comment": "GENERATED EVIDENCE — Figma Plugin API 되읽기. 이 리비전은 2026-08-21 전체 덤프에 DS-D-0024 색 마이그레이션(rename 99·static-alpha 순수화·bg-inverse-translucent 재지정·stroke-hairline 생성·inverse-alpha 삭제)과 DS-D-0023 헤어라인 컴포넌트 동기화(Tooltip height 26·SegmentedControl/MenuPanel INNER_SHADOW)를 결정론적으로 반영하고, 2026-08-25 라이브 Plugin API 되읽기(변수 344·컴포넌트 바인딩·헤어라인 effect)로 전수 대조해 확인한 것이다. 손으로 값을 지어내지 않는다. 다음 전체 재덤프 시 이 리비전을 대체한다. 절차는 scripts/build-figma-snapshot.mjs 헤더.",
- "capturedAt": "2026-08-25",
+ "capturedAt": "2026-08-26",
  "capturedBy": "figma-mcp-plugin-api (patched: DS-D-0024 색 마이그레이션 반영)",
  "figmaFileKey": "bxGEp0km5zluMJGulaTvFW",
  "figmaFileName": "Klipse Design System — Library",
@@ -2892,6 +2892,18 @@
    "defaultMode": "Global",
    "rows": [
     [
+     "blur/glass",
+     "FLOAT",
+     "WIDTH_HEIGHT",
+     [
+      [
+       "Global",
+       "Klipse Primitive::blur/16",
+       null
+      ]
+     ]
+    ],
+    [
      "blur/panel",
      "FLOAT",
      "EFFECT_FLOAT",
@@ -3072,6 +3084,18 @@
      ]
     ],
     [
+     "layout/alert-inset",
+     "FLOAT",
+     "WIDTH_HEIGHT",
+     [
+      [
+       "Global",
+       "Klipse Primitive::spacing/18",
+       null
+      ]
+     ]
+    ],
+    [
      "layout/app-shell-brand-mark-height",
      "FLOAT",
      "WIDTH_HEIGHT",
@@ -3216,6 +3240,42 @@
      ]
     ],
     [
+     "layout/inspector-control-height",
+     "FLOAT",
+     "WIDTH_HEIGHT",
+     [
+      [
+       "Global",
+       "Klipse Primitive::spacing/28",
+       null
+      ]
+     ]
+    ],
+    [
+     "layout/node-chip-height",
+     "FLOAT",
+     "WIDTH_HEIGHT",
+     [
+      [
+       "Global",
+       "Klipse Primitive::spacing/32",
+       null
+      ]
+     ]
+    ],
+    [
+     "layout/node-chip-inset",
+     "FLOAT",
+     "WIDTH_HEIGHT",
+     [
+      [
+       "Global",
+       "Klipse Primitive::spacing/10",
+       null
+      ]
+     ]
+    ],
+    [
      "layout/progress-bar-height",
      "FLOAT",
      "WIDTH_HEIGHT",
@@ -3259,6 +3319,18 @@
       [
        "Global",
        "Klipse Primitive::spacing/12",
+       null
+      ]
+     ]
+    ],
+    [
+     "layout/tab-height",
+     "FLOAT",
+     "WIDTH_HEIGHT",
+     [
+      [
+       "Global",
+       "Klipse Primitive::spacing/28",
        null
       ]
      ]
@@ -3504,6 +3576,18 @@
      ]
     ],
     [
+     "motion/tab-select",
+     "STRING",
+     "ALL_SCOPES",
+     [
+      [
+       "Global",
+       null,
+       "200ms cubic-bezier(0.25, 0.1, 0.25, 1) delay 0ms"
+      ]
+     ]
+    ],
+    [
      "motion/tooltip-enter",
      "STRING",
      "",
@@ -3540,13 +3624,25 @@
      ]
     ],
     [
+     "radius/alert",
+     "FLOAT",
+     "CORNER_RADIUS",
+     [
+      [
+       "Global",
+       "Klipse Primitive::radius/20",
+       null
+      ]
+     ]
+    ],
+    [
      "radius/card",
      "FLOAT",
      "CORNER_RADIUS",
      [
       [
        "Global",
-       "Klipse Primitive::radius/16",
+       "Klipse Primitive::radius/12",
        null
       ]
      ]
@@ -3583,6 +3679,30 @@
       [
        "Global",
        "Klipse Primitive::radius/8",
+       null
+      ]
+     ]
+    ],
+    [
+     "radius/inspector-control",
+     "FLOAT",
+     "CORNER_RADIUS",
+     [
+      [
+       "Global",
+       "Klipse Primitive::radius/10",
+       null
+      ]
+     ]
+    ],
+    [
+     "radius/node-chip",
+     "FLOAT",
+     "CORNER_RADIUS",
+     [
+      [
+       "Global",
+       "Klipse Primitive::radius/12",
        null
       ]
      ]
@@ -3631,6 +3751,18 @@
       [
        "Global",
        "Klipse Primitive::radius/full",
+       null
+      ]
+     ]
+    ],
+    [
+     "radius/table-header",
+     "FLOAT",
+     "CORNER_RADIUS",
+     [
+      [
+       "Global",
+       "Klipse Primitive::radius/4",
        null
       ]
      ]
@@ -3847,6 +3979,23 @@
      ]
     ],
     [
+     "color/accent-inverse",
+     "COLOR",
+     "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
+     [
+      [
+       "Light",
+       "Klipse Primitive::color/gray/1000",
+       null
+      ],
+      [
+       "Dark",
+       "Klipse Primitive::color/gray/0",
+       null
+      ]
+     ]
+    ],
+    [
      "color/accent-menu-danger-hover",
      "COLOR",
      "FRAME_FILL,SHAPE_FILL",
@@ -3961,6 +4110,210 @@
       [
        "Dark",
        "Klipse Primitive::color/static-white-alpha/8",
+       null
+      ]
+     ]
+    ],
+    [
+     "color/alert-danger-foreground",
+     "COLOR",
+     "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
+     [
+      [
+       "Light",
+       "Klipse Primitive::color/red/700",
+       null
+      ],
+      [
+       "Dark",
+       "Klipse Primitive::color/red/100",
+       null
+      ]
+     ]
+    ],
+    [
+     "color/alert-danger-stroke",
+     "COLOR",
+     "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
+     [
+      [
+       "Light",
+       "Klipse Primitive::color/red-alpha/25",
+       null
+      ],
+      [
+       "Dark",
+       "Klipse Primitive::color/red-alpha/25",
+       null
+      ]
+     ]
+    ],
+    [
+     "color/alert-danger-surface",
+     "COLOR",
+     "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
+     [
+      [
+       "Light",
+       "Klipse Primitive::color/red-alpha/12",
+       null
+      ],
+      [
+       "Dark",
+       "Klipse Primitive::color/red-alpha/12",
+       null
+      ]
+     ]
+    ],
+    [
+     "color/alert-info-foreground",
+     "COLOR",
+     "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
+     [
+      [
+       "Light",
+       "Klipse Primitive::color/blue/700",
+       null
+      ],
+      [
+       "Dark",
+       "Klipse Primitive::color/blue/100",
+       null
+      ]
+     ]
+    ],
+    [
+     "color/alert-info-stroke",
+     "COLOR",
+     "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
+     [
+      [
+       "Light",
+       "Klipse Primitive::color/blue/200",
+       null
+      ],
+      [
+       "Dark",
+       "Klipse Primitive::color/blue/700",
+       null
+      ]
+     ]
+    ],
+    [
+     "color/alert-info-surface",
+     "COLOR",
+     "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
+     [
+      [
+       "Light",
+       "Klipse Primitive::color/blue/50",
+       null
+      ],
+      [
+       "Dark",
+       "Klipse Primitive::color/blue/900",
+       null
+      ]
+     ]
+    ],
+    [
+     "color/alert-success-foreground",
+     "COLOR",
+     "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
+     [
+      [
+       "Light",
+       "Klipse Primitive::color/green/700",
+       null
+      ],
+      [
+       "Dark",
+       "Klipse Primitive::color/green/100",
+       null
+      ]
+     ]
+    ],
+    [
+     "color/alert-success-stroke",
+     "COLOR",
+     "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
+     [
+      [
+       "Light",
+       "Klipse Primitive::color/green/500",
+       null
+      ],
+      [
+       "Dark",
+       "Klipse Primitive::color/green/700",
+       null
+      ]
+     ]
+    ],
+    [
+     "color/alert-success-surface",
+     "COLOR",
+     "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
+     [
+      [
+       "Light",
+       "Klipse Primitive::color/green/100",
+       null
+      ],
+      [
+       "Dark",
+       "Klipse Primitive::color/green/900",
+       null
+      ]
+     ]
+    ],
+    [
+     "color/alert-warning-foreground",
+     "COLOR",
+     "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
+     [
+      [
+       "Light",
+       "Klipse Primitive::color/amber/700",
+       null
+      ],
+      [
+       "Dark",
+       "Klipse Primitive::color/amber/100",
+       null
+      ]
+     ]
+    ],
+    [
+     "color/alert-warning-stroke",
+     "COLOR",
+     "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
+     [
+      [
+       "Light",
+       "Klipse Primitive::color/amber/500",
+       null
+      ],
+      [
+       "Dark",
+       "Klipse Primitive::color/amber/700",
+       null
+      ]
+     ]
+    ],
+    [
+     "color/alert-warning-surface",
+     "COLOR",
+     "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
+     [
+      [
+       "Light",
+       "Klipse Primitive::color/amber/100",
+       null
+      ],
+      [
+       "Dark",
+       "Klipse Primitive::color/amber/900",
        null
       ]
      ]
@@ -4221,120 +4574,18 @@
      ]
     ],
     [
-     "color/stroke-control",
+     "color/dim-modal",
      "COLOR",
-     "STROKE_COLOR",
+     "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
      [
       [
        "Light",
-       "Klipse Primitive::color/static-black-alpha/12",
+       "Klipse Primitive::color/static-black-alpha/56",
        null
       ],
       [
        "Dark",
-       "Klipse Primitive::color/static-white-alpha/16",
-       null
-      ]
-     ]
-    ],
-    [
-     "color/stroke-danger",
-     "COLOR",
-     "STROKE_COLOR",
-     [
-      [
-       "Light",
-       "Klipse Primitive::color/red/500",
-       null
-      ],
-      [
-       "Dark",
-       "Klipse Primitive::color/red/500",
-       null
-      ]
-     ]
-    ],
-    [
-     "color/stroke-default",
-     "COLOR",
-     "STROKE_COLOR",
-     [
-      [
-       "Light",
-       "Klipse Primitive::color/gray/300",
-       null
-      ],
-      [
-       "Dark",
-       "Klipse Primitive::color/gray/600",
-       null
-      ]
-     ]
-    ],
-    [
-     "color/stroke-focus",
-     "COLOR",
-     "STROKE_COLOR",
-     [
-      [
-       "Light",
-       "Klipse Primitive::color/blue/500",
-       null
-      ],
-      [
-       "Dark",
-       "Klipse Primitive::color/blue/400",
-       null
-      ]
-     ]
-    ],
-    [
-     "color/stroke-strong",
-     "COLOR",
-     "STROKE_COLOR",
-     [
-      [
-       "Light",
-       "Klipse Primitive::color/gray/500",
-       null
-      ],
-      [
-       "Dark",
-       "Klipse Primitive::color/gray/500",
-       null
-      ]
-     ]
-    ],
-    [
-     "color/stroke-subtle",
-     "COLOR",
-     "STROKE_COLOR",
-     [
-      [
-       "Light",
-       "Klipse Primitive::color/gray/200",
-       null
-      ],
-      [
-       "Dark",
-       "Klipse Primitive::color/gray/700",
-       null
-      ]
-     ]
-    ],
-    [
-     "color/stroke-tooltip",
-     "COLOR",
-     "STROKE_COLOR",
-     [
-      [
-       "Light",
-       "Klipse Primitive::color/static-white-alpha/14",
-       null
-      ],
-      [
-       "Dark",
-       "Klipse Primitive::color/static-black-alpha/12",
+       "Klipse Primitive::color/static-black-alpha/72",
        null
       ]
      ]
@@ -4437,6 +4688,23 @@
       [
        "Dark",
        "Klipse Primitive::color/static-white-alpha/86",
+       null
+      ]
+     ]
+    ],
+    [
+     "color/fg-on-accent-inverse",
+     "COLOR",
+     "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
+     [
+      [
+       "Light",
+       "Klipse Primitive::color/gray/0",
+       null
+      ],
+      [
+       "Dark",
+       "Klipse Primitive::color/gray/1000",
        null
       ]
      ]
@@ -4816,6 +5084,57 @@
      ]
     ],
     [
+     "color/node-chip-fg-disabled",
+     "COLOR",
+     "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
+     [
+      [
+       "Light",
+       "Klipse Primitive::color/gray/500",
+       null
+      ],
+      [
+       "Dark",
+       "Klipse Primitive::color/gray/400",
+       null
+      ]
+     ]
+    ],
+    [
+     "color/node-chip-surface",
+     "COLOR",
+     "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
+     [
+      [
+       "Light",
+       "Klipse Primitive::color/gray/100",
+       null
+      ],
+      [
+       "Dark",
+       "Klipse Primitive::color/gray/600",
+       null
+      ]
+     ]
+    ],
+    [
+     "color/node-chip-surface-hover",
+     "COLOR",
+     "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
+     [
+      [
+       "Light",
+       "Klipse Primitive::color/gray/150",
+       null
+      ],
+      [
+       "Dark",
+       "Klipse Primitive::color/gray/500",
+       null
+      ]
+     ]
+    ],
+    [
      "color/node-edit-accent",
      "COLOR",
      "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
@@ -5156,18 +5475,69 @@
      ]
     ],
     [
-     "color/dim-modal",
+     "color/stroke-control",
      "COLOR",
-     "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
+     "STROKE_COLOR",
      [
       [
        "Light",
-       "Klipse Primitive::color/static-black-alpha/56",
+       "Klipse Primitive::color/static-black-alpha/12",
        null
       ],
       [
        "Dark",
-       "Klipse Primitive::color/static-black-alpha/72",
+       "Klipse Primitive::color/static-white-alpha/16",
+       null
+      ]
+     ]
+    ],
+    [
+     "color/stroke-danger",
+     "COLOR",
+     "STROKE_COLOR",
+     [
+      [
+       "Light",
+       "Klipse Primitive::color/red/500",
+       null
+      ],
+      [
+       "Dark",
+       "Klipse Primitive::color/red/500",
+       null
+      ]
+     ]
+    ],
+    [
+     "color/stroke-default",
+     "COLOR",
+     "STROKE_COLOR",
+     [
+      [
+       "Light",
+       "Klipse Primitive::color/gray/300",
+       null
+      ],
+      [
+       "Dark",
+       "Klipse Primitive::color/gray/600",
+       null
+      ]
+     ]
+    ],
+    [
+     "color/stroke-focus",
+     "COLOR",
+     "STROKE_COLOR",
+     [
+      [
+       "Light",
+       "Klipse Primitive::color/blue/500",
+       null
+      ],
+      [
+       "Dark",
+       "Klipse Primitive::color/blue/400",
        null
       ]
      ]
@@ -5185,6 +5555,159 @@
       [
        "Dark",
        "Klipse Primitive::color/static-white-alpha/10",
+       null
+      ]
+     ]
+    ],
+    [
+     "color/stroke-strong",
+     "COLOR",
+     "STROKE_COLOR",
+     [
+      [
+       "Light",
+       "Klipse Primitive::color/gray/500",
+       null
+      ],
+      [
+       "Dark",
+       "Klipse Primitive::color/gray/500",
+       null
+      ]
+     ]
+    ],
+    [
+     "color/stroke-subtle",
+     "COLOR",
+     "STROKE_COLOR",
+     [
+      [
+       "Light",
+       "Klipse Primitive::color/gray/200",
+       null
+      ],
+      [
+       "Dark",
+       "Klipse Primitive::color/gray/700",
+       null
+      ]
+     ]
+    ],
+    [
+     "color/stroke-tooltip",
+     "COLOR",
+     "STROKE_COLOR",
+     [
+      [
+       "Light",
+       "Klipse Primitive::color/static-white-alpha/14",
+       null
+      ],
+      [
+       "Dark",
+       "Klipse Primitive::color/static-black-alpha/12",
+       null
+      ]
+     ]
+    ],
+    [
+     "color/switch-off-track",
+     "COLOR",
+     "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
+     [
+      [
+       "Light",
+       "Klipse Primitive::color/static-white-alpha/16",
+       null
+      ],
+      [
+       "Dark",
+       "Klipse Primitive::color/static-white-alpha/16",
+       null
+      ]
+     ]
+    ],
+    [
+     "color/switch-on-track",
+     "COLOR",
+     "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
+     [
+      [
+       "Light",
+       "Klipse Primitive::color/mint/500",
+       null
+      ],
+      [
+       "Dark",
+       "Klipse Primitive::color/mint/500",
+       null
+      ]
+     ]
+    ],
+    [
+     "color/switch-thumb",
+     "COLOR",
+     "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
+     [
+      [
+       "Light",
+       "Klipse Primitive::color/gray/0",
+       null
+      ],
+      [
+       "Dark",
+       "Klipse Primitive::color/gray/0",
+       null
+      ]
+     ]
+    ],
+    [
+     "color/table-header-surface",
+     "COLOR",
+     "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
+     [
+      [
+       "Light",
+       "Klipse Primitive::color/gray/100",
+       null
+      ],
+      [
+       "Dark",
+       "Klipse Primitive::color/gray/800",
+       null
+      ]
+     ]
+    ],
+    [
+     "color/table-row-hover",
+     "COLOR",
+     "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
+     [
+      [
+       "Light",
+       "Klipse Primitive::color/gray/50",
+       null
+      ],
+      [
+       "Dark",
+       "Klipse Primitive::color/gray/800",
+       null
+      ]
+     ]
+    ],
+    [
+     "color/table-row-line",
+     "COLOR",
+     "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
+     [
+      [
+       "Light",
+       "Klipse Primitive::color/gray/150",
+       null
+      ],
+      [
+       "Dark",
+       "Klipse Primitive::color/gray/700",
        null
       ]
      ]
@@ -5480,6 +6003,19 @@
        0.06
       ]
      }
+    ]
+   },
+   "elevation/switch-thumb": {
+    "type": "DROP_SHADOW",
+    "offsetY": 1,
+    "blur": 3,
+    "spread": 0,
+    "inset": false,
+    "color": [
+     0,
+     0,
+     0,
+     0.2
     ]
    }
   }
@@ -5853,7 +6389,7 @@
       "NONE"
      ],
      "cornerRadius": [
-      16
+      12
      ],
      "overflowingParts": [],
      "offCenterMarks": []
@@ -6604,14 +7140,14 @@
     "md": {
      "slots": {
       "Glyph": [
-       "20x20"
+       "16x16"
       ]
      },
      "height": [
-      40
+      32
      ],
      "width": [
-      40
+      32
      ],
      "paddingBlock": [
       0
@@ -6643,7 +7179,7 @@
     "sm": {
      "slots": {
       "Glyph": [
-       "20x20"
+       "16x16"
       ]
      },
      "height": [
@@ -6717,7 +7253,7 @@
     "panel": {
      "slots": {},
      "height": [
-      44
+      37
      ],
      "width": [
       180
@@ -6956,7 +7492,7 @@
       360
      ],
      "cornerRadius": [
-      16
+      12
      ],
      "strokeWeight": [
       0.5
@@ -8004,7 +8540,7 @@
         240
        ],
        "height": [
-        32
+        16
        ]
       },
       "Rail": {
@@ -8063,7 +8599,7 @@
         240
        ],
        "height": [
-        32
+        16
        ]
       },
       "Rail": {

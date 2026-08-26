@@ -3,19 +3,19 @@
   "provenance": {
     "figmaFileKey": "bxGEp0km5zluMJGulaTvFW",
     "figmaFileName": "Klipse Design System — Library",
-    "capturedAt": "2026-08-25",
+    "capturedAt": "2026-08-26",
     "capturedBy": "figma-mcp-plugin-api (patched: DS-D-0024 색 마이그레이션 반영)",
     "published": false,
-    "tokenSourceSha256": "3d26000c962823da5cff5947065a2fb1f7250188e9a6ef31c81f247f8b1a5d3b",
-    "proposalSha256": "a30efbd161a63e1270068f9e0f9cf682071e7f57c6583dbd928937b659f4ab66",
+    "tokenSourceSha256": "57853f922d5c6f482f706aaa6f3d8cbcb4feb19aec7870b4ea2964cab9ac0a02",
+    "proposalSha256": "9f024f22902724782713b2874a29b51c3116f2d7ea31b5cdc1236df3744a9398",
     "readback": {
-      "tokens": 344,
-      "canonicalLength": 29512,
-      "fnv1a32": "6728eee6",
+      "tokens": 378,
+      "canonicalLength": 33554,
+      "fnv1a32": "9834bbd3",
       "note": "변수는 readback.json의 되읽기 행을 tokenId 공간으로 옮긴 것이고, style과 component는 같은 되읽기의 style/component 절이다. canonical 해시는 컬렉션·이름·타입·mode 값을 정렬해 이은 문자열의 FNV-1a다.",
       "styles": {
         "text": 15,
-        "effect": 8
+        "effect": 9
       },
       "components": {
         "sets": 26,
@@ -38,7 +38,7 @@
         "Global"
       ],
       "defaultMode": "Global",
-      "variableCount": 76
+      "variableCount": 87
     },
     "Klipse Semantic Color": {
       "modes": [
@@ -46,7 +46,7 @@
         "Dark"
       ],
       "defaultMode": "Light",
-      "variableCount": 81
+      "variableCount": 104
     }
   },
   "variables": {
@@ -74,6 +74,15 @@
       "valuesByMode": {
         "Base": {
           "value": 16
+        }
+      }
+    },
+    "blur-glass": {
+      "figmaName": "blur/glass",
+      "resolvedType": "FLOAT",
+      "valuesByMode": {
+        "Global": {
+          "alias": "blur-16"
         }
       }
     },
@@ -182,6 +191,18 @@
         }
       }
     },
+    "color-accent-inverse": {
+      "figmaName": "color/accent-inverse",
+      "resolvedType": "COLOR",
+      "valuesByMode": {
+        "Light": {
+          "alias": "color-gray-1000"
+        },
+        "Dark": {
+          "alias": "color-gray-0"
+        }
+      }
+    },
     "color-accent-menu-danger-hover": {
       "figmaName": "color/accent-menu-danger-hover",
       "resolvedType": "COLOR",
@@ -263,6 +284,150 @@
         },
         "Dark": {
           "alias": "color-static-white-alpha-8"
+        }
+      }
+    },
+    "color-alert-danger-foreground": {
+      "figmaName": "color/alert-danger-foreground",
+      "resolvedType": "COLOR",
+      "valuesByMode": {
+        "Light": {
+          "alias": "color-red-700"
+        },
+        "Dark": {
+          "alias": "color-red-100"
+        }
+      }
+    },
+    "color-alert-danger-stroke": {
+      "figmaName": "color/alert-danger-stroke",
+      "resolvedType": "COLOR",
+      "valuesByMode": {
+        "Light": {
+          "alias": "color-red-alpha-25"
+        },
+        "Dark": {
+          "alias": "color-red-alpha-25"
+        }
+      }
+    },
+    "color-alert-danger-surface": {
+      "figmaName": "color/alert-danger-surface",
+      "resolvedType": "COLOR",
+      "valuesByMode": {
+        "Light": {
+          "alias": "color-red-alpha-12"
+        },
+        "Dark": {
+          "alias": "color-red-alpha-12"
+        }
+      }
+    },
+    "color-alert-info-foreground": {
+      "figmaName": "color/alert-info-foreground",
+      "resolvedType": "COLOR",
+      "valuesByMode": {
+        "Light": {
+          "alias": "color-blue-700"
+        },
+        "Dark": {
+          "alias": "color-blue-100"
+        }
+      }
+    },
+    "color-alert-info-stroke": {
+      "figmaName": "color/alert-info-stroke",
+      "resolvedType": "COLOR",
+      "valuesByMode": {
+        "Light": {
+          "alias": "color-blue-200"
+        },
+        "Dark": {
+          "alias": "color-blue-700"
+        }
+      }
+    },
+    "color-alert-info-surface": {
+      "figmaName": "color/alert-info-surface",
+      "resolvedType": "COLOR",
+      "valuesByMode": {
+        "Light": {
+          "alias": "color-blue-50"
+        },
+        "Dark": {
+          "alias": "color-blue-900"
+        }
+      }
+    },
+    "color-alert-success-foreground": {
+      "figmaName": "color/alert-success-foreground",
+      "resolvedType": "COLOR",
+      "valuesByMode": {
+        "Light": {
+          "alias": "color-green-700"
+        },
+        "Dark": {
+          "alias": "color-green-100"
+        }
+      }
+    },
+    "color-alert-success-stroke": {
+      "figmaName": "color/alert-success-stroke",
+      "resolvedType": "COLOR",
+      "valuesByMode": {
+        "Light": {
+          "alias": "color-green-500"
+        },
+        "Dark": {
+          "alias": "color-green-700"
+        }
+      }
+    },
+    "color-alert-success-surface": {
+      "figmaName": "color/alert-success-surface",
+      "resolvedType": "COLOR",
+      "valuesByMode": {
+        "Light": {
+          "alias": "color-green-100"
+        },
+        "Dark": {
+          "alias": "color-green-900"
+        }
+      }
+    },
+    "color-alert-warning-foreground": {
+      "figmaName": "color/alert-warning-foreground",
+      "resolvedType": "COLOR",
+      "valuesByMode": {
+        "Light": {
+          "alias": "color-amber-700"
+        },
+        "Dark": {
+          "alias": "color-amber-100"
+        }
+      }
+    },
+    "color-alert-warning-stroke": {
+      "figmaName": "color/alert-warning-stroke",
+      "resolvedType": "COLOR",
+      "valuesByMode": {
+        "Light": {
+          "alias": "color-amber-500"
+        },
+        "Dark": {
+          "alias": "color-amber-700"
+        }
+      }
+    },
+    "color-alert-warning-surface": {
+      "figmaName": "color/alert-warning-surface",
+      "resolvedType": "COLOR",
+      "valuesByMode": {
+        "Light": {
+          "alias": "color-amber-100"
+        },
+        "Dark": {
+          "alias": "color-amber-900"
         }
       }
     },
@@ -723,6 +888,18 @@
         },
         "Dark": {
           "alias": "color-static-white-alpha-86"
+        }
+      }
+    },
+    "color-fg-on-accent-inverse": {
+      "figmaName": "color/fg-on-accent-inverse",
+      "resolvedType": "COLOR",
+      "valuesByMode": {
+        "Light": {
+          "alias": "color-gray-0"
+        },
+        "Dark": {
+          "alias": "color-gray-1000"
         }
       }
     },
@@ -1351,6 +1528,42 @@
         },
         "Dark": {
           "alias": "color-pink-800"
+        }
+      }
+    },
+    "color-node-chip-fg-disabled": {
+      "figmaName": "color/node-chip-fg-disabled",
+      "resolvedType": "COLOR",
+      "valuesByMode": {
+        "Light": {
+          "alias": "color-gray-500"
+        },
+        "Dark": {
+          "alias": "color-gray-400"
+        }
+      }
+    },
+    "color-node-chip-surface": {
+      "figmaName": "color/node-chip-surface",
+      "resolvedType": "COLOR",
+      "valuesByMode": {
+        "Light": {
+          "alias": "color-gray-100"
+        },
+        "Dark": {
+          "alias": "color-gray-600"
+        }
+      }
+    },
+    "color-node-chip-surface-hover": {
+      "figmaName": "color/node-chip-surface-hover",
+      "resolvedType": "COLOR",
+      "valuesByMode": {
+        "Light": {
+          "alias": "color-gray-150"
+        },
+        "Dark": {
+          "alias": "color-gray-500"
         }
       }
     },
@@ -2600,6 +2813,78 @@
         }
       }
     },
+    "color-switch-off-track": {
+      "figmaName": "color/switch-off-track",
+      "resolvedType": "COLOR",
+      "valuesByMode": {
+        "Light": {
+          "alias": "color-static-white-alpha-16"
+        },
+        "Dark": {
+          "alias": "color-static-white-alpha-16"
+        }
+      }
+    },
+    "color-switch-on-track": {
+      "figmaName": "color/switch-on-track",
+      "resolvedType": "COLOR",
+      "valuesByMode": {
+        "Light": {
+          "alias": "color-mint-500"
+        },
+        "Dark": {
+          "alias": "color-mint-500"
+        }
+      }
+    },
+    "color-switch-thumb": {
+      "figmaName": "color/switch-thumb",
+      "resolvedType": "COLOR",
+      "valuesByMode": {
+        "Light": {
+          "alias": "color-gray-0"
+        },
+        "Dark": {
+          "alias": "color-gray-0"
+        }
+      }
+    },
+    "color-table-header-surface": {
+      "figmaName": "color/table-header-surface",
+      "resolvedType": "COLOR",
+      "valuesByMode": {
+        "Light": {
+          "alias": "color-gray-100"
+        },
+        "Dark": {
+          "alias": "color-gray-800"
+        }
+      }
+    },
+    "color-table-row-hover": {
+      "figmaName": "color/table-row-hover",
+      "resolvedType": "COLOR",
+      "valuesByMode": {
+        "Light": {
+          "alias": "color-gray-50"
+        },
+        "Dark": {
+          "alias": "color-gray-800"
+        }
+      }
+    },
+    "color-table-row-line": {
+      "figmaName": "color/table-row-line",
+      "resolvedType": "COLOR",
+      "valuesByMode": {
+        "Light": {
+          "alias": "color-gray-150"
+        },
+        "Dark": {
+          "alias": "color-gray-700"
+        }
+      }
+    },
     "color-violet-100": {
       "figmaName": "color/violet/100",
       "resolvedType": "COLOR",
@@ -3122,6 +3407,15 @@
         }
       }
     },
+    "layout-alert-inset": {
+      "figmaName": "layout/alert-inset",
+      "resolvedType": "FLOAT",
+      "valuesByMode": {
+        "Global": {
+          "alias": "space-18"
+        }
+      }
+    },
     "layout-app-shell-brand-mark-height": {
       "figmaName": "layout/app-shell-brand-mark-height",
       "resolvedType": "FLOAT",
@@ -3230,6 +3524,33 @@
         }
       }
     },
+    "layout-inspector-control-height": {
+      "figmaName": "layout/inspector-control-height",
+      "resolvedType": "FLOAT",
+      "valuesByMode": {
+        "Global": {
+          "alias": "space-28"
+        }
+      }
+    },
+    "layout-node-chip-height": {
+      "figmaName": "layout/node-chip-height",
+      "resolvedType": "FLOAT",
+      "valuesByMode": {
+        "Global": {
+          "alias": "space-32"
+        }
+      }
+    },
+    "layout-node-chip-inset": {
+      "figmaName": "layout/node-chip-inset",
+      "resolvedType": "FLOAT",
+      "valuesByMode": {
+        "Global": {
+          "alias": "space-10"
+        }
+      }
+    },
     "layout-progress-bar-height": {
       "figmaName": "layout/progress-bar-height",
       "resolvedType": "FLOAT",
@@ -3263,6 +3584,15 @@
       "valuesByMode": {
         "Global": {
           "alias": "space-12"
+        }
+      }
+    },
+    "layout-tab-height": {
+      "figmaName": "layout/tab-height",
+      "resolvedType": "FLOAT",
+      "valuesByMode": {
+        "Global": {
+          "alias": "space-28"
         }
       }
     },
@@ -3473,6 +3803,15 @@
         }
       }
     },
+    "motion-tab-select": {
+      "figmaName": "motion/tab-select",
+      "resolvedType": "STRING",
+      "valuesByMode": {
+        "Global": {
+          "value": "200ms cubic-bezier(0.25, 0.1, 0.25, 1) delay 0ms"
+        }
+      }
+    },
     "motion-tooltip-enter": {
       "figmaName": "motion/tooltip-enter",
       "resolvedType": "STRING",
@@ -3590,12 +3929,21 @@
         }
       }
     },
+    "radius-alert": {
+      "figmaName": "radius/alert",
+      "resolvedType": "FLOAT",
+      "valuesByMode": {
+        "Global": {
+          "alias": "radius-20"
+        }
+      }
+    },
     "radius-card": {
       "figmaName": "radius/card",
       "resolvedType": "FLOAT",
       "valuesByMode": {
         "Global": {
-          "alias": "radius-16"
+          "alias": "radius-12"
         }
       }
     },
@@ -3635,6 +3983,24 @@
         }
       }
     },
+    "radius-inspector-control": {
+      "figmaName": "radius/inspector-control",
+      "resolvedType": "FLOAT",
+      "valuesByMode": {
+        "Global": {
+          "alias": "radius-10"
+        }
+      }
+    },
+    "radius-node-chip": {
+      "figmaName": "radius/node-chip",
+      "resolvedType": "FLOAT",
+      "valuesByMode": {
+        "Global": {
+          "alias": "radius-12"
+        }
+      }
+    },
     "radius-overlay": {
       "figmaName": "radius/overlay",
       "resolvedType": "FLOAT",
@@ -3668,6 +4034,15 @@
       "valuesByMode": {
         "Global": {
           "alias": "radius-full"
+        }
+      }
+    },
+    "radius-table-header": {
+      "figmaName": "radius/table-header",
+      "resolvedType": "FLOAT",
+      "valuesByMode": {
+        "Global": {
+          "alias": "radius-4"
         }
       }
     },
@@ -4262,6 +4637,20 @@
           0.06
         ]
       },
+      "elevation/switch-thumb": {
+        "tokenId": "elevation-switch-thumb",
+        "type": "DROP_SHADOW",
+        "offsetY": 1,
+        "blur": 3,
+        "spread": 0,
+        "inset": false,
+        "color": [
+          0,
+          0,
+          0,
+          0.2
+        ]
+      },
       "elevation/toast": {
         "tokenId": "elevation-toast",
         "layers": [
@@ -4702,7 +5091,7 @@
             "NONE"
           ],
           "cornerRadius": [
-            16
+            12
           ],
           "overflowingParts": [],
           "offCenterMarks": []
@@ -5463,14 +5852,14 @@
         "md": {
           "slots": {
             "Glyph": [
-              "20x20"
+              "16x16"
             ]
           },
           "height": [
-            40
+            32
           ],
           "width": [
-            40
+            32
           ],
           "paddingBlock": [
             0
@@ -5502,7 +5891,7 @@
         "sm": {
           "slots": {
             "Glyph": [
-              "20x20"
+              "16x16"
             ]
           },
           "height": [
@@ -5578,7 +5967,7 @@
         "panel": {
           "slots": {},
           "height": [
-            44
+            37
           ],
           "width": [
             180
@@ -5825,7 +6214,7 @@
             360
           ],
           "cornerRadius": [
-            16
+            12
           ],
           "strokeWeight": [
             0.5
@@ -6889,7 +7278,7 @@
                 240
               ],
               "height": [
-                32
+                16
               ]
             },
             "Rail": {
@@ -6948,7 +7337,7 @@
                 240
               ],
               "height": [
-                32
+                16
               ]
             },
             "Rail": {

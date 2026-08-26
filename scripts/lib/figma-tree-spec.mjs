@@ -268,17 +268,31 @@ export function cssAlignToFigma(value) {
 
 /**
  * CSS 색 → `rrggbb` 또는 `rrggbbaa`(16진). 완전 투명이면 null.
- * 측정값은 전부 `rgb()`/`rgba()` 형태다(실측 확인).
+ *
+ * **표기가 두 가지 섞여 있다.** 배경은 `rgb()`/`rgba()`지만 테두리에는
+ * `color(srgb 0.933333 0.933333 0.945098)` 형태가 나온다(0~1 정규화 + 슬래시 알파).
+ * 실측 사고: `rgb()`만 읽었더니 제품에서 **가장 많이 쓰이는 구분선 색 `#eeeef1`(28 edge)** 을
+ * 통째로 놓쳐 `/settings`·`/subscription` 행 사이 줄이 전부 사라졌다.
  */
 export function cssColorToHex(value) {
-  const match = /^rgba?\(([^)]+)\)$/.exec(String(value ?? "").trim());
-  if (!match) return null;
-  const parts = match[1].split(",").map((part) => Number(part.trim()));
-  const [r, g, b] = parts;
+  const raw = String(value ?? "").trim();
+  let channels = null;
+  const legacy = /^rgba?\(([^)]+)\)$/.exec(raw);
+  if (legacy) {
+    channels = legacy[1].split(/[,\s/]+/).filter(Boolean).map(Number);
+  } else {
+    const modern = /^color\(srgb\s+([^)]+)\)$/.exec(raw);
+    if (!modern) return null;
+    const parts = modern[1].split(/[\s/]+/).filter(Boolean).map(Number);
+    if (parts.length < 3) return null;
+    // `color(srgb …)` 는 0~1 정규화 값이다. 알파는 있으면 그대로 0~1.
+    channels = [parts[0] * 255, parts[1] * 255, parts[2] * 255, parts.length > 3 ? parts[3] : 1];
+  }
+  const [r, g, b] = channels;
   if (![r, g, b].every(Number.isFinite)) return null;
-  const alpha = parts.length > 3 && Number.isFinite(parts[3]) ? parts[3] : 1;
+  const alpha = channels.length > 3 && Number.isFinite(channels[3]) ? channels[3] : 1;
   if (alpha <= 0) return null;
-  const to = (channel) => Math.round(channel).toString(16).padStart(2, "0");
+  const to = (channel) => Math.round(Math.min(255, Math.max(0, channel))).toString(16).padStart(2, "0");
   return `${to(r)}${to(g)}${to(b)}${alpha >= 0.999 ? "" : to(alpha * 255)}`;
 }
 
@@ -309,10 +323,13 @@ export function parseBoxShadow(value) {
 /** 면 관련 측정값을 spec 형태로. 그릴 게 하나도 없으면 null. */
 function paintOf(style) {
   const fill = cssColorToHex(style.backgroundColor);
-  const widths = ["borderTopWidth", "borderRightWidth", "borderBottomWidth", "borderLeftWidth"]
-    .map((axis) => px(style[axis]) ?? 0);
-  // 테두리 색은 지정이 없으면 `currentColor`로 떨어지므로 **두께가 0보다 클 때만** 의미가 있다.
-  const strokeColor = widths.some((width) => width > 0) ? cssColorToHex(style.borderTopColor) : null;
+  // 테두리 색은 지정이 없으면 `currentColor`로 떨어진다. **두께 > 0 이고 style ≠ none 인 변만**
+  // 실제로 그려진다 — 이 둘로 거르지 않으면 안 그려지는 변의 색을 잘못 가져온다.
+  const SIDES = ["Top", "Right", "Bottom", "Left"];
+  const widths = SIDES.map((side) =>
+    (style[`border${side}Style`] ?? "none") === "none" ? 0 : (px(style[`border${side}Width`]) ?? 0));
+  const drawn = SIDES.findIndex((side, index) => widths[index] > 0);
+  const strokeColor = drawn >= 0 ? cssColorToHex(style[`border${SIDES[drawn]}Color`]) : null;
   const stroke = strokeColor ? { color: strokeColor, widths } : null;
   const radii = ["borderTopLeftRadius", "borderTopRightRadius", "borderBottomRightRadius", "borderBottomLeftRadius"]
     .map((axis) => px(style[axis]) ?? 0);

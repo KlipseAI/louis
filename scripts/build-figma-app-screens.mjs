@@ -95,6 +95,7 @@ const slim = (node) => ({
       node.layout.align.counterAxis ?? "",
       node.layout.align.primaryAxis ?? "",
       node.layout.wrap ? 1 : 0,
+      node.layout.columns ?? 0,
     ],
   } : {}),
   ...(node.clipsContent ? { c: 1 } : {}),

@@ -307,7 +307,17 @@ export function decideAxis({ declared: rawDeclared, computed, axis, parentComput
  * 트랙 수보다 자식이 많으면(암시적 트랙) null을 돌려 판정을 다른 규칙에 맡긴다.
  */
 export function trackForChild(declaration, childIndex) {
-  if (!declaration || childIndex == null) return null;
+  const tracks = parseTracks(declaration);
+  if (!tracks || childIndex == null) return null;
+  return tracks[childIndex] ?? null;
+}
+
+/**
+ * `grid-template-columns` 선언을 트랙 배열로 펼친다.
+ * `repeat(N, X)`는 펼치고, `minmax(a,b)`처럼 괄호 안의 공백은 트랙 구분이 아니므로 깊이를 세며 자른다.
+ */
+export function parseTracks(declaration) {
+  if (!declaration) return null;
   // `repeat(N, ...)`를 펼친다. 인자 안에 `minmax(0, 1fr)`처럼 괄호가 중첩되므로 정규식으로는 끝을
   // 찾을 수 없다 — 여는 괄호부터 깊이를 세어 짝을 찾는다.
   let expanded = String(declaration);
@@ -348,7 +358,7 @@ export function trackForChild(declaration, childIndex) {
     current += char;
   }
   if (current.trim()) tracks.push(current.trim());
-  return tracks[childIndex] ?? null;
+  return tracks;
 }
 
 /** 두 한계 중 더 좁은 쪽을 고른다(없으면 있는 쪽). */

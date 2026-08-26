@@ -15,7 +15,7 @@
 //
 // rect는 **FIXED 축의 크기**와 **검증**에만 쓴다. FILL/HUG 축의 크기는 Figma가 계산하게 둔다.
 
-import { decideNode, toFigmaSizing, toLayoutMode, px } from "./sizing-provenance.mjs";
+import { decideNode, toFigmaSizing, toLayoutMode, parseTracks, px } from "./sizing-provenance.mjs";
 
 const TRANSPARENT = /^(transparent|rgba\(0,\s*0,\s*0,\s*0\))$/;
 
@@ -173,6 +173,10 @@ export function toFigmaTreeSpec(tree, options = {}) {
           bottom: px(style.paddingBottom) ?? 0,
           left: px(style.paddingLeft) ?? 0,
         },
+        // **GRID는 열 개수를 함께 줘야 한다.** Figma는 `gridColumnCount`가 없으면 기본 2열로 깔아
+        // 4열 카드가 2열로 접힌다. 열 수는 선언된 `grid-template-columns`를 펼쳐 센다(computed는
+        // 이미 px로 풀려 `repeat()`을 복원할 수 없지만 트랙 개수는 그대로 살아 있다).
+        columns: layoutMode === "GRID" ? gridColumns(node, style) : null,
         align: {
           counterAxis: liftChildAlign(cssAlignToFigma(style.alignItems), rawChildren, children),
           primaryAxis: cssJustifyToFigma(style.justifyContent),
@@ -255,6 +259,15 @@ export function cssAlignToFigma(value) {
     case "flex-start": case "start": return "MIN";
     default: return null; // normal/stretch 는 Figma 기본(늘어남)과 같다
   }
+}
+
+/** grid 컨테이너의 열 개수 — 선언을 먼저 보고, 없으면 computed의 px 트랙을 센다. */
+function gridColumns(node, style) {
+  const declared = parseTracks(node.declared?.["grid-template-columns"]);
+  if (declared?.length) return declared.length;
+  const computed = parseTracks(style.gridTemplateColumns);
+  if (computed?.length && computed[0] !== "none") return computed.length;
+  return null;
 }
 
 /**

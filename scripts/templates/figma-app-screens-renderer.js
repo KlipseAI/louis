@@ -49,6 +49,10 @@ const buildNode = (spec, parent) => {
     node.fills = surface ? [{ type: "SOLID", color: surface }] : [];
     if (spec.l) {
       node.layoutMode = MODE[spec.l[0]];
+      // GRID는 열 개수를 반드시 세워야 한다 — 없으면 Figma가 기본 2열로 깔아 4열 카드가 접힌다.
+      if (node.layoutMode === "GRID" && spec.l[9]) {
+        try { node.gridColumnCount = spec.l[9]; } catch (error) {}
+      }
       if (node.layoutMode !== "GRID") {
         node.itemSpacing = spec.l[1];
         node.layoutWrap = spec.l[8] ? "WRAP" : "NO_WRAP";

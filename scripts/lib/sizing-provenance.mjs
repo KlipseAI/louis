@@ -353,12 +353,31 @@ export function toFigmaSizing(decision) {
   };
 }
 
-/** CSS display → Figma layoutMode. Figma는 GRID도 지원한다(layoutMode:'GRID'). */
-export function toLayoutMode(computed) {
+/** 바깥 display가 inline 계열인가 — 형제와 가로로 흐른다는 뜻이다. */
+const INLINE_LEVEL = /^inline(-block|-flex|-grid|-table)?$/;
+
+/**
+ * CSS display → Figma layoutMode. Figma는 GRID도 지원한다(layoutMode:'GRID').
+ *
+ * **flex/grid가 아닌 흐름(block) 컨테이너도 auto-layout이어야 한다.** `NONE`으로 두면 자식이 전부
+ * (0,0)에 겹치고 그 안에서는 FILL·HUG가 아예 거부되어 100×100 기본 크기로 남는다. 실측 사고:
+ * `/mypage/upgrade/billing-change-fail` desktop은 최상위 래퍼가 `display:block`이라 화면 전체가
+ * 100×100으로 무너졌다(스크린샷으로 확인).
+ *
+ * 방향은 자식의 바깥 display로 정한다 — CSS 흐름이 그렇게 동작한다. 흐름에서 빠진
+ * absolute/fixed 자식은 방향 판정에 쓰지 않는다.
+ */
+export function toLayoutMode(computed, childComputeds = []) {
   const display = computed?.display ?? "";
   if (/grid/.test(display)) return "GRID";
   if (/flex/.test(display)) {
     return (computed.flexDirection ?? "row").startsWith("column") ? "VERTICAL" : "HORIZONTAL";
   }
-  return "NONE";
+  if (display === "none" || display === "contents" || display === "") return "NONE";
+  if (display === "table-row") return "HORIZONTAL";
+  const flow = childComputeds.filter(
+    (child) => !/^(absolute|fixed)$/.test(child?.position ?? "static"),
+  );
+  if (flow.length === 0) return "NONE";
+  return flow.every((child) => INLINE_LEVEL.test(child?.display ?? "")) ? "HORIZONTAL" : "VERTICAL";
 }

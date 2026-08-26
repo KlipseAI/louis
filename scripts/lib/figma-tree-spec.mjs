@@ -115,15 +115,15 @@ export function toFigmaTreeSpec(tree, options = {}) {
       stats.unresolved.push({ path: node.path, tag: node.tag, reason });
     }
 
-    const children = (childrenOf.get(node.path) ?? [])
-      .map((child) => convert(child, node))
-      .filter(Boolean);
+    const rawChildren = childrenOf.get(node.path) ?? [];
+    const children = rawChildren.map((child) => convert(child, node)).filter(Boolean);
 
     // 자식도 없고 스스로 그릴 것도 없으면 버린다 — Auto Layout에 빈 껍데기를 남기지 않는다.
     if (children.length === 0 && !hasOwnPaint(node)) { stats.droppedEmpty += 1; return null; }
 
     const style = node.style ?? {};
-    const layoutMode = toLayoutMode(style);
+    // 흐름 방향은 자식의 display가 결정한다(inline 형제는 가로로 흐른다).
+    const layoutMode = toLayoutMode(style, rawChildren.map((child) => child.style ?? {}));
     stats.kept += 1;
     return {
       path: node.path,
@@ -159,8 +159,13 @@ export function toFigmaTreeSpec(tree, options = {}) {
       why: { horizontal: decision.h, vertical: decision.v },
       layout: layoutMode === "NONE" ? null : {
         layoutMode,
-        itemSpacing: px(style.columnGap ?? style.gap) ?? 0,
-        counterAxisSpacing: px(style.rowGap) ?? null,
+        // itemSpacing은 **주축** 간격이다 — 세로 배치면 row-gap, 가로 배치면 column-gap.
+        itemSpacing: (layoutMode === "VERTICAL"
+          ? px(style.rowGap ?? style.gap)
+          : px(style.columnGap ?? style.gap)) ?? 0,
+        counterAxisSpacing: (layoutMode === "VERTICAL"
+          ? px(style.columnGap)
+          : px(style.rowGap)) ?? null,
         wrap: style.flexWrap === "wrap",
         padding: {
           top: px(style.paddingTop) ?? 0,

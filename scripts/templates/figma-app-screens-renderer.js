@@ -82,11 +82,14 @@ const buildNode = (spec, parent) => {
   const h = SIZE[spec.s[0]];
   const v = SIZE[spec.s[1]];
 
-  if (!isText && (isAbsolute || h === "FIXED" || v === "FIXED")) {
-    node.resize(
-      (isAbsolute || h === "FIXED") ? Math.max(0.01, spec.r[0]) : node.width,
-      (isAbsolute || v === "FIXED") ? Math.max(0.01, spec.r[1]) : node.height,
-    );
+  // **측정 크기를 먼저 깔고 그 위에 FILL/HUG를 얹는다.** Figma는 구조상 불가능한 FILL·HUG를 거부하는데
+  // (부모가 auto-layout이 아니거나 자신이 auto-layout이 아닐 때), 그때 아무것도 하지 않으면 새 프레임의
+  // 기본 100×100이 그대로 남는다. 실측 사고: 사이드바 목록이 250 대신 100으로 잘렸다.
+  // `resize()`가 `layoutSizing`을 FIXED로 덮으므로 순서는 반드시 resize → layoutSizing이다.
+  if (isText) {
+    if (h !== "HUG") node.resize(Math.max(0.01, spec.r[0]), node.height);
+  } else {
+    node.resize(Math.max(0.01, spec.r[0]), Math.max(0.01, spec.r[1]));
   }
   if (isAbsolute && spec.o) { node.x = spec.o[0]; node.y = spec.o[1]; }
 

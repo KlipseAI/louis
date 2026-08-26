@@ -213,7 +213,13 @@ for (const entry of screens) {
   // 조각 0: 프레임 껍데기 + head. 이후 조각들은 path로 자리표시를 찾아 채운다.
   emit(0, { route: entry.route, context: entry.context, frameId: entry.figmaFrameId,
             frameSize: entry.frameSize, head });
-  chunks.forEach((chunk, index) => {
+  // 조각은 **조상 먼저** 나가야 한다. `splitSpec`은 깊은 곳부터 떼어내므로 push 순서대로 돌리면
+  // 아직 자리표시로 남아 있는 조상 안쪽을 찾으려다 실패한다(실측: `/mypage/upgrade` desktop 등 4화면).
+  // 경로 길이 오름차순이면 조상이 항상 먼저이고, 형제끼리는 원래 순서를 유지한다.
+  const ordered = chunks
+    .map((chunk, index) => ({ chunk, index }))
+    .sort((a, b) => a.chunk.path.length - b.chunk.path.length || a.index - b.index);
+  ordered.forEach(({ chunk }, index) => {
     emit(index + 1, { route: entry.route, context: entry.context, frameId: entry.figmaFrameId,
                       path: chunk.path, spec: chunk.spec });
   });

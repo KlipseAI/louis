@@ -10500,6 +10500,27 @@ export const tokens = {
         "unit": "px"
       }
     },
+    "radius-project-card": {
+      "aliasTarget": {
+        "id": "radius-12",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-radius-project-card": "12px"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "radius-project-card",
+      "mode": "global",
+      "rawValue": "{primitive.radius.12}",
+      "sourcePath": "semantic.global.radius.project-card",
+      "tier": "semantic",
+      "type": "dimension",
+      "value": {
+        "value": 12,
+        "unit": "px"
+      }
+    },
     "radius-table-header": {
       "aliasTarget": {
         "id": "radius-4",

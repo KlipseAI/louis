@@ -28,7 +28,9 @@
    * inset 헤어라인은 레이아웃을 건드리지 않으며 제품 5103ffeb과 같은 표현이다 — full-bleed
    * 썸네일이 있는 카드에서는 미디어가 그 가장자리를 덮을 수 있다(제품과 동일한 결과). */
   box-shadow: var(--louis-hairline-inset);
-  border-radius: var(--louis-radius-card);
+  /* 프로젝트 카드 전용 반경(12)이다. 일반 `radius-card`(16)와 나눈 이유는 배너 캐러셀이 그
+   * 토큰을 함께 쓰기 때문 — 카드만 12로 내리려면 축이 갈라져야 한다(제품 결정). */
+  border-radius: var(--louis-radius-project-card);
   background: none;
   overflow: hidden;
   text-align: start;
@@ -153,8 +155,8 @@
   /* **아래 두 모서리를 직접 깎는다.** 카드의 `overflow: hidden`에만 기대고 있었는데, 아래 흐림 층은
    * `backdrop-filter`라 합성 레이어로 올라가 조상의 클립을 받지 않는다 — 모서리에서 흐림이 샌다.
    * 배포본 4벌이 전수 `0 0 16px 16px`을 직접 적는 이유가 그것이다. */
-  border-end-start-radius: var(--louis-radius-card);
-  border-end-end-radius: var(--louis-radius-card);
+  border-end-start-radius: var(--louis-radius-project-card);
+  border-end-end-radius: var(--louis-radius-project-card);
 }
 
 /* **프로그레시브 블러.** 흐림을 칠하는 층이다.

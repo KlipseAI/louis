@@ -5179,6 +5179,16 @@
             }
           }
         },
+        "project-card": {
+          "$value": "{primitive.radius.12}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "radius-project-card",
+              "tier": "semantic",
+              "mode": "global"
+            }
+          }
+        },
         "table-header": {
           "$value": "{primitive.radius.4}",
           "$extensions": {

@@ -56818,7 +56818,7 @@
                       "height": 1004
                     },
                     "sizing": {
-                      "layoutSizingHorizontal": "HUG",
+                      "layoutSizingHorizontal": "FILL",
                       "layoutSizingVertical": "HUG",
                       "layoutPositioning": "AUTO",
                       "minWidth": 0,
@@ -56838,9 +56838,9 @@
                     "constraints": null,
                     "why": {
                       "horizontal": {
-                        "verdict": "HUG",
-                        "reason": "horizontal auto — 콘텐츠가 결정한다",
-                        "source": "width:auto",
+                        "verdict": "FILL",
+                        "reason": "block-level + width:auto — CSS 기본으로 inline축을 채운다",
+                        "source": "width:auto (기본)",
                         "value": null
                       },
                       "vertical": {
@@ -58341,7 +58341,7 @@
                       "height": 810
                     },
                     "sizing": {
-                      "layoutSizingHorizontal": "HUG",
+                      "layoutSizingHorizontal": "FILL",
                       "layoutSizingVertical": "HUG",
                       "layoutPositioning": "AUTO",
                       "minWidth": 0,
@@ -58361,9 +58361,9 @@
                     "constraints": null,
                     "why": {
                       "horizontal": {
-                        "verdict": "HUG",
-                        "reason": "horizontal auto — 콘텐츠가 결정한다",
-                        "source": "width:auto",
+                        "verdict": "FILL",
+                        "reason": "block-level + width:auto — CSS 기본으로 inline축을 채운다",
+                        "source": "width:auto (기본)",
                         "value": null
                       },
                       "vertical": {
@@ -63020,7 +63020,7 @@
                       "height": 1004
                     },
                     "sizing": {
-                      "layoutSizingHorizontal": "HUG",
+                      "layoutSizingHorizontal": "FILL",
                       "layoutSizingVertical": "HUG",
                       "layoutPositioning": "AUTO",
                       "minWidth": 0,
@@ -63040,9 +63040,9 @@
                     "constraints": null,
                     "why": {
                       "horizontal": {
-                        "verdict": "HUG",
-                        "reason": "horizontal auto — 콘텐츠가 결정한다",
-                        "source": "width:auto",
+                        "verdict": "FILL",
+                        "reason": "block-level + width:auto — CSS 기본으로 inline축을 채운다",
+                        "source": "width:auto (기본)",
                         "value": null
                       },
                       "vertical": {
@@ -64891,7 +64891,7 @@
                       "height": 810
                     },
                     "sizing": {
-                      "layoutSizingHorizontal": "HUG",
+                      "layoutSizingHorizontal": "FILL",
                       "layoutSizingVertical": "HUG",
                       "layoutPositioning": "AUTO",
                       "minWidth": 0,
@@ -64911,9 +64911,9 @@
                     "constraints": null,
                     "why": {
                       "horizontal": {
-                        "verdict": "HUG",
-                        "reason": "horizontal auto — 콘텐츠가 결정한다",
-                        "source": "width:auto",
+                        "verdict": "FILL",
+                        "reason": "block-level + width:auto — CSS 기본으로 inline축을 채운다",
+                        "source": "width:auto (기본)",
                         "value": null
                       },
                       "vertical": {
@@ -69918,7 +69918,7 @@
                       "height": 1004
                     },
                     "sizing": {
-                      "layoutSizingHorizontal": "HUG",
+                      "layoutSizingHorizontal": "FILL",
                       "layoutSizingVertical": "HUG",
                       "layoutPositioning": "AUTO",
                       "minWidth": 0,
@@ -69938,9 +69938,9 @@
                     "constraints": null,
                     "why": {
                       "horizontal": {
-                        "verdict": "HUG",
-                        "reason": "horizontal auto — 콘텐츠가 결정한다",
-                        "source": "width:auto",
+                        "verdict": "FILL",
+                        "reason": "block-level + width:auto — CSS 기본으로 inline축을 채운다",
+                        "source": "width:auto (기본)",
                         "value": null
                       },
                       "vertical": {
@@ -71211,7 +71211,7 @@
                       "height": 810
                     },
                     "sizing": {
-                      "layoutSizingHorizontal": "HUG",
+                      "layoutSizingHorizontal": "FILL",
                       "layoutSizingVertical": "HUG",
                       "layoutPositioning": "AUTO",
                       "minWidth": 0,
@@ -71231,9 +71231,9 @@
                     "constraints": null,
                     "why": {
                       "horizontal": {
-                        "verdict": "HUG",
-                        "reason": "horizontal auto — 콘텐츠가 결정한다",
-                        "source": "width:auto",
+                        "verdict": "FILL",
+                        "reason": "block-level + width:auto — CSS 기본으로 inline축을 채운다",
+                        "source": "width:auto (기본)",
                         "value": null
                       },
                       "vertical": {
@@ -75660,7 +75660,7 @@
                       "height": 1004
                     },
                     "sizing": {
-                      "layoutSizingHorizontal": "HUG",
+                      "layoutSizingHorizontal": "FILL",
                       "layoutSizingVertical": "HUG",
                       "layoutPositioning": "AUTO",
                       "minWidth": 0,
@@ -75680,9 +75680,9 @@
                     "constraints": null,
                     "why": {
                       "horizontal": {
-                        "verdict": "HUG",
-                        "reason": "horizontal auto — 콘텐츠가 결정한다",
-                        "source": "width:auto",
+                        "verdict": "FILL",
+                        "reason": "block-level + width:auto — CSS 기본으로 inline축을 채운다",
+                        "source": "width:auto (기본)",
                         "value": null
                       },
                       "vertical": {
@@ -77119,7 +77119,7 @@
                       "height": 810
                     },
                     "sizing": {
-                      "layoutSizingHorizontal": "HUG",
+                      "layoutSizingHorizontal": "FILL",
                       "layoutSizingVertical": "HUG",
                       "layoutPositioning": "AUTO",
                       "minWidth": 0,
@@ -77139,9 +77139,9 @@
                     "constraints": null,
                     "why": {
                       "horizontal": {
-                        "verdict": "HUG",
-                        "reason": "horizontal auto — 콘텐츠가 결정한다",
-                        "source": "width:auto",
+                        "verdict": "FILL",
+                        "reason": "block-level + width:auto — CSS 기본으로 inline축을 채운다",
+                        "source": "width:auto (기본)",
                         "value": null
                       },
                       "vertical": {
@@ -81734,7 +81734,7 @@
                       "height": 1004
                     },
                     "sizing": {
-                      "layoutSizingHorizontal": "HUG",
+                      "layoutSizingHorizontal": "FILL",
                       "layoutSizingVertical": "HUG",
                       "layoutPositioning": "AUTO",
                       "minWidth": 0,
@@ -81754,9 +81754,9 @@
                     "constraints": null,
                     "why": {
                       "horizontal": {
-                        "verdict": "HUG",
-                        "reason": "horizontal auto — 콘텐츠가 결정한다",
-                        "source": "width:auto",
+                        "verdict": "FILL",
+                        "reason": "block-level + width:auto — CSS 기본으로 inline축을 채운다",
+                        "source": "width:auto (기본)",
                         "value": null
                       },
                       "vertical": {
@@ -83771,7 +83771,7 @@
                       "height": 810
                     },
                     "sizing": {
-                      "layoutSizingHorizontal": "HUG",
+                      "layoutSizingHorizontal": "FILL",
                       "layoutSizingVertical": "HUG",
                       "layoutPositioning": "AUTO",
                       "minWidth": 0,
@@ -83791,9 +83791,9 @@
                     "constraints": null,
                     "why": {
                       "horizontal": {
-                        "verdict": "HUG",
-                        "reason": "horizontal auto — 콘텐츠가 결정한다",
-                        "source": "width:auto",
+                        "verdict": "FILL",
+                        "reason": "block-level + width:auto — CSS 기본으로 inline축을 채운다",
+                        "source": "width:auto (기본)",
                         "value": null
                       },
                       "vertical": {
@@ -88964,7 +88964,7 @@
                       "height": 1004
                     },
                     "sizing": {
-                      "layoutSizingHorizontal": "HUG",
+                      "layoutSizingHorizontal": "FILL",
                       "layoutSizingVertical": "HUG",
                       "layoutPositioning": "AUTO",
                       "minWidth": 0,
@@ -88984,9 +88984,9 @@
                     "constraints": null,
                     "why": {
                       "horizontal": {
-                        "verdict": "HUG",
-                        "reason": "horizontal auto — 콘텐츠가 결정한다",
-                        "source": "width:auto",
+                        "verdict": "FILL",
+                        "reason": "block-level + width:auto — CSS 기본으로 inline축을 채운다",
+                        "source": "width:auto (기본)",
                         "value": null
                       },
                       "vertical": {
@@ -90257,7 +90257,7 @@
                       "height": 810
                     },
                     "sizing": {
-                      "layoutSizingHorizontal": "HUG",
+                      "layoutSizingHorizontal": "FILL",
                       "layoutSizingVertical": "HUG",
                       "layoutPositioning": "AUTO",
                       "minWidth": 0,
@@ -90277,9 +90277,9 @@
                     "constraints": null,
                     "why": {
                       "horizontal": {
-                        "verdict": "HUG",
-                        "reason": "horizontal auto — 콘텐츠가 결정한다",
-                        "source": "width:auto",
+                        "verdict": "FILL",
+                        "reason": "block-level + width:auto — CSS 기본으로 inline축을 채운다",
+                        "source": "width:auto (기본)",
                         "value": null
                       },
                       "vertical": {
@@ -94706,7 +94706,7 @@
                       "height": 1004
                     },
                     "sizing": {
-                      "layoutSizingHorizontal": "HUG",
+                      "layoutSizingHorizontal": "FILL",
                       "layoutSizingVertical": "HUG",
                       "layoutPositioning": "AUTO",
                       "minWidth": 0,
@@ -94726,9 +94726,9 @@
                     "constraints": null,
                     "why": {
                       "horizontal": {
-                        "verdict": "HUG",
-                        "reason": "horizontal auto — 콘텐츠가 결정한다",
-                        "source": "width:auto",
+                        "verdict": "FILL",
+                        "reason": "block-level + width:auto — CSS 기본으로 inline축을 채운다",
+                        "source": "width:auto (기본)",
                         "value": null
                       },
                       "vertical": {
@@ -96165,7 +96165,7 @@
                       "height": 810
                     },
                     "sizing": {
-                      "layoutSizingHorizontal": "HUG",
+                      "layoutSizingHorizontal": "FILL",
                       "layoutSizingVertical": "HUG",
                       "layoutPositioning": "AUTO",
                       "minWidth": 0,
@@ -96185,9 +96185,9 @@
                     "constraints": null,
                     "why": {
                       "horizontal": {
-                        "verdict": "HUG",
-                        "reason": "horizontal auto — 콘텐츠가 결정한다",
-                        "source": "width:auto",
+                        "verdict": "FILL",
+                        "reason": "block-level + width:auto — CSS 기본으로 inline축을 채운다",
+                        "source": "width:auto (기본)",
                         "value": null
                       },
                       "vertical": {

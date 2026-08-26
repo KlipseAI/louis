@@ -93,6 +93,9 @@ export function substituteViewportUnits(declaration, contextId) {
  * @param {boolean} input.isReplaced       img/svg/video 등 치환 요소인가
  * @returns {{verdict:string, reason:string, source:string|null, value:number|null}}
  */
+/** 바깥 display가 block-level인 집합. `flex`·`grid`도 바깥은 block이다(안쪽만 flex/grid). */
+const BLOCK_LEVEL = /^(block|flow-root|list-item|table|flex|grid)$/;
+
 export function decideAxis({ declared: rawDeclared, computed, axis, parentComputed = null, isReplaced = false, gridTrack = null, selfAlign = null }) {
   const horizontal = axis === "horizontal";
   const position = computed?.position;
@@ -139,10 +142,13 @@ export function decideAxis({ declared: rawDeclared, computed, axis, parentComput
     }
     if (/^fit-content|^min-content|^max-content|^auto$/.test(declared)) {
       if (declared === "auto") {
-        // block 요소의 auto는 inline축을 채우는 것이 CSS 기본이다.
-        const isBlockish = /^(block|flow-root|list-item|table)$/.test(computed?.display ?? "");
-        if (horizontal && isBlockish && !isReplaced) {
-          return { verdict: AXIS.FILL, reason: "block 요소 + width:auto — CSS 기본으로 inline축을 채운다", source: "width:auto (기본)", value: null };
+        // block-level 요소의 auto는 inline축을 채우는 것이 CSS 기본이다.
+        // **`display:flex`·`grid`도 block-level이다** — 바깥 display가 block이고 안쪽만 flex/grid다.
+        // 안쪽 display로만 판정하면 flex 컨테이너가 HUG로 떨어진다. 실측 사고:
+        // `/mypage/topup/fail`의 `main`은 `display:flex`+`width:auto`인데 HUG로 판정돼
+        // Figma에서 1628이 아니라 콘텐츠 폭 520으로 줄었다. 진짜 inline-level은 `inline-flex`다.
+        if (horizontal && BLOCK_LEVEL.test(computed?.display ?? "") && !isReplaced) {
+          return { verdict: AXIS.FILL, reason: "block-level + width:auto — CSS 기본으로 inline축을 채운다", source: "width:auto (기본)", value: null };
         }
         return { verdict: AXIS.HUG, reason: `${axis} auto — 콘텐츠가 결정한다`, source: `${horizontal ? "width" : "height"}:auto`, value: null };
       }

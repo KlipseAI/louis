@@ -221,8 +221,14 @@ const buildNode = (spec, parent) => {
     if (spec.l) {
       node.layoutMode = MODE[spec.l[0]];
       // GRID는 열 개수를 반드시 세워야 한다 — 없으면 Figma가 기본 2열로 깔아 4열 카드가 접힌다.
+      // **행 개수도 같이 세운다.** 안 세우면 Figma가 기본 행 수(2)를 유지해, 항목 2개짜리 2열 그리드가
+      // 2행으로 깔리고 각 칸이 절반 높이가 된다. 실측 사고: `/subscription` desktop 카드가 455 대신
+      // 227로 그려져 본문(안내 문구·쿠폰 버튼)이 카드 밖으로 밀려났다(스크린샷으로 확인).
       if (node.layoutMode === "GRID" && spec.l[9]) {
-        try { node.gridColumnCount = spec.l[9]; } catch (error) {}
+        const columns = spec.l[9];
+        const cells = (spec.k || []).filter((child) => !child.p).length;
+        try { node.gridColumnCount = columns; } catch (error) {}
+        try { node.gridRowCount = Math.max(1, Math.ceil(cells / columns)); } catch (error) {}
       }
       if (node.layoutMode !== "GRID") {
         node.itemSpacing = spec.l[1];

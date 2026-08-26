@@ -7021,7 +7021,7 @@
                                             "path": "body.1.0.0.1.0.1.7.1.0.1.0",
                                             "tag": "span",
                                             "name": "body.1.0.0.1.0.1.7.1.0.1.0",
-                                            "text": "System",
+                                            "text": null,
                                             "textLines": null,
                                             "paints": true,
                                             "rect": {
@@ -7041,15 +7041,7 @@
                                               "unresolved": []
                                             },
                                             "paint": null,
-                                            "typography": {
-                                              "style": "typography/body-sm-medium",
-                                              "size": 14,
-                                              "weight": 500,
-                                              "lineHeight": 21,
-                                              "letterSpacing": -0.14,
-                                              "color": "0000006b",
-                                              "align": "center"
-                                            },
+                                            "typography": null,
                                             "positioning": "AUTO",
                                             "margin": {
                                               "top": 0,
@@ -7159,6 +7151,61 @@
                                                 },
                                                 "clipsContent": true,
                                                 "children": []
+                                              },
+                                              {
+                                                "path": "body.1.0.0.1.0.1.7.1.0.1.0.t",
+                                                "tag": "span",
+                                                "name": "body.1.0.0.1.0.1.7.1.0.1.0.t",
+                                                "text": "System",
+                                                "textLines": null,
+                                                "paints": true,
+                                                "rect": {
+                                                  "x": 1565.6875,
+                                                  "y": 630.2969,
+                                                  "width": 51.046899999999994,
+                                                  "height": 21
+                                                },
+                                                "sizing": {
+                                                  "layoutSizingHorizontal": "HUG",
+                                                  "layoutSizingVertical": "HUG",
+                                                  "layoutPositioning": "AUTO",
+                                                  "minWidth": null,
+                                                  "maxWidth": null,
+                                                  "minHeight": null,
+                                                  "maxHeight": null,
+                                                  "unresolved": []
+                                                },
+                                                "paint": null,
+                                                "typography": {
+                                                  "style": "typography/body-sm-medium",
+                                                  "size": 14,
+                                                  "weight": 500,
+                                                  "lineHeight": 21,
+                                                  "letterSpacing": -0.14,
+                                                  "color": "0000006b",
+                                                  "align": "center"
+                                                },
+                                                "positioning": "AUTO",
+                                                "margin": {
+                                                  "top": 0,
+                                                  "right": 0,
+                                                  "bottom": 0,
+                                                  "left": 0
+                                                },
+                                                "offset": null,
+                                                "constraints": null,
+                                                "why": {
+                                                  "horizontal": {
+                                                    "verdict": "HUG",
+                                                    "reason": "own-text-split"
+                                                  },
+                                                  "vertical": {
+                                                    "verdict": "HUG",
+                                                    "reason": "own-text-split"
+                                                  }
+                                                },
+                                                "layout": null,
+                                                "children": []
                                               }
                                             ]
                                           }
@@ -7246,7 +7293,7 @@
                                             "path": "body.1.0.0.1.0.1.7.1.0.2.0",
                                             "tag": "span",
                                             "name": "body.1.0.0.1.0.1.7.1.0.2.0",
-                                            "text": "Light",
+                                            "text": null,
                                             "textLines": null,
                                             "paints": true,
                                             "rect": {
@@ -7266,15 +7313,7 @@
                                               "unresolved": []
                                             },
                                             "paint": null,
-                                            "typography": {
-                                              "style": "typography/body-sm-medium",
-                                              "size": 14,
-                                              "weight": 500,
-                                              "lineHeight": 21,
-                                              "letterSpacing": -0.14,
-                                              "color": "000000",
-                                              "align": "center"
-                                            },
+                                            "typography": null,
                                             "positioning": "AUTO",
                                             "margin": {
                                               "top": 0,
@@ -7384,6 +7423,61 @@
                                                 },
                                                 "clipsContent": true,
                                                 "children": []
+                                              },
+                                              {
+                                                "path": "body.1.0.0.1.0.1.7.1.0.2.0.t",
+                                                "tag": "span",
+                                                "name": "body.1.0.0.1.0.1.7.1.0.2.0.t",
+                                                "text": "Light",
+                                                "textLines": null,
+                                                "paints": true,
+                                                "rect": {
+                                                  "x": 1656.7344,
+                                                  "y": 630.2969,
+                                                  "width": 35.2656,
+                                                  "height": 21
+                                                },
+                                                "sizing": {
+                                                  "layoutSizingHorizontal": "HUG",
+                                                  "layoutSizingVertical": "HUG",
+                                                  "layoutPositioning": "AUTO",
+                                                  "minWidth": null,
+                                                  "maxWidth": null,
+                                                  "minHeight": null,
+                                                  "maxHeight": null,
+                                                  "unresolved": []
+                                                },
+                                                "paint": null,
+                                                "typography": {
+                                                  "style": "typography/body-sm-medium",
+                                                  "size": 14,
+                                                  "weight": 500,
+                                                  "lineHeight": 21,
+                                                  "letterSpacing": -0.14,
+                                                  "color": "000000",
+                                                  "align": "center"
+                                                },
+                                                "positioning": "AUTO",
+                                                "margin": {
+                                                  "top": 0,
+                                                  "right": 0,
+                                                  "bottom": 0,
+                                                  "left": 0
+                                                },
+                                                "offset": null,
+                                                "constraints": null,
+                                                "why": {
+                                                  "horizontal": {
+                                                    "verdict": "HUG",
+                                                    "reason": "own-text-split"
+                                                  },
+                                                  "vertical": {
+                                                    "verdict": "HUG",
+                                                    "reason": "own-text-split"
+                                                  }
+                                                },
+                                                "layout": null,
+                                                "children": []
                                               }
                                             ]
                                           }
@@ -7471,7 +7565,7 @@
                                             "path": "body.1.0.0.1.0.1.7.1.0.3.0",
                                             "tag": "span",
                                             "name": "body.1.0.0.1.0.1.7.1.0.3.0",
-                                            "text": "Dark",
+                                            "text": null,
                                             "textLines": null,
                                             "paints": true,
                                             "rect": {
@@ -7491,15 +7585,7 @@
                                               "unresolved": []
                                             },
                                             "paint": null,
-                                            "typography": {
-                                              "style": "typography/body-sm-medium",
-                                              "size": 14,
-                                              "weight": 500,
-                                              "lineHeight": 21,
-                                              "letterSpacing": -0.14,
-                                              "color": "0000006b",
-                                              "align": "center"
-                                            },
+                                            "typography": null,
                                             "positioning": "AUTO",
                                             "margin": {
                                               "top": 0,
@@ -7608,6 +7694,61 @@
                                                   }
                                                 },
                                                 "clipsContent": true,
+                                                "children": []
+                                              },
+                                              {
+                                                "path": "body.1.0.0.1.0.1.7.1.0.3.0.t",
+                                                "tag": "span",
+                                                "name": "body.1.0.0.1.0.1.7.1.0.3.0.t",
+                                                "text": "Dark",
+                                                "textLines": null,
+                                                "paints": true,
+                                                "rect": {
+                                                  "x": 1732,
+                                                  "y": 630.2969,
+                                                  "width": 34,
+                                                  "height": 21
+                                                },
+                                                "sizing": {
+                                                  "layoutSizingHorizontal": "HUG",
+                                                  "layoutSizingVertical": "HUG",
+                                                  "layoutPositioning": "AUTO",
+                                                  "minWidth": null,
+                                                  "maxWidth": null,
+                                                  "minHeight": null,
+                                                  "maxHeight": null,
+                                                  "unresolved": []
+                                                },
+                                                "paint": null,
+                                                "typography": {
+                                                  "style": "typography/body-sm-medium",
+                                                  "size": 14,
+                                                  "weight": 500,
+                                                  "lineHeight": 21,
+                                                  "letterSpacing": -0.14,
+                                                  "color": "0000006b",
+                                                  "align": "center"
+                                                },
+                                                "positioning": "AUTO",
+                                                "margin": {
+                                                  "top": 0,
+                                                  "right": 0,
+                                                  "bottom": 0,
+                                                  "left": 0
+                                                },
+                                                "offset": null,
+                                                "constraints": null,
+                                                "why": {
+                                                  "horizontal": {
+                                                    "verdict": "HUG",
+                                                    "reason": "own-text-split"
+                                                  },
+                                                  "vertical": {
+                                                    "verdict": "HUG",
+                                                    "reason": "own-text-split"
+                                                  }
+                                                },
+                                                "layout": null,
                                                 "children": []
                                               }
                                             ]
@@ -12543,7 +12684,7 @@
                                                 "path": "body.1.0.0.1.0.1.7.1.0.1.0",
                                                 "tag": "span",
                                                 "name": "body.1.0.0.1.0.1.7.1.0.1.0",
-                                                "text": "System",
+                                                "text": null,
                                                 "textLines": null,
                                                 "paints": true,
                                                 "rect": {
@@ -12563,15 +12704,7 @@
                                                   "unresolved": []
                                                 },
                                                 "paint": null,
-                                                "typography": {
-                                                  "style": "typography/body-sm-medium",
-                                                  "size": 14,
-                                                  "weight": 500,
-                                                  "lineHeight": 21,
-                                                  "letterSpacing": -0.14,
-                                                  "color": "0000006b",
-                                                  "align": "center"
-                                                },
+                                                "typography": null,
                                                 "positioning": "AUTO",
                                                 "margin": {
                                                   "top": 0,
@@ -12681,6 +12814,61 @@
                                                     },
                                                     "clipsContent": true,
                                                     "children": []
+                                                  },
+                                                  {
+                                                    "path": "body.1.0.0.1.0.1.7.1.0.1.0.t",
+                                                    "tag": "span",
+                                                    "name": "body.1.0.0.1.0.1.7.1.0.1.0.t",
+                                                    "text": "System",
+                                                    "textLines": null,
+                                                    "paints": true,
+                                                    "rect": {
+                                                      "x": 32,
+                                                      "y": 839.2969,
+                                                      "width": 51.046899999999994,
+                                                      "height": 21
+                                                    },
+                                                    "sizing": {
+                                                      "layoutSizingHorizontal": "HUG",
+                                                      "layoutSizingVertical": "HUG",
+                                                      "layoutPositioning": "AUTO",
+                                                      "minWidth": null,
+                                                      "maxWidth": null,
+                                                      "minHeight": null,
+                                                      "maxHeight": null,
+                                                      "unresolved": []
+                                                    },
+                                                    "paint": null,
+                                                    "typography": {
+                                                      "style": "typography/body-sm-medium",
+                                                      "size": 14,
+                                                      "weight": 500,
+                                                      "lineHeight": 21,
+                                                      "letterSpacing": -0.14,
+                                                      "color": "0000006b",
+                                                      "align": "center"
+                                                    },
+                                                    "positioning": "AUTO",
+                                                    "margin": {
+                                                      "top": 0,
+                                                      "right": 0,
+                                                      "bottom": 0,
+                                                      "left": 0
+                                                    },
+                                                    "offset": null,
+                                                    "constraints": null,
+                                                    "why": {
+                                                      "horizontal": {
+                                                        "verdict": "HUG",
+                                                        "reason": "own-text-split"
+                                                      },
+                                                      "vertical": {
+                                                        "verdict": "HUG",
+                                                        "reason": "own-text-split"
+                                                      }
+                                                    },
+                                                    "layout": null,
+                                                    "children": []
                                                   }
                                                 ]
                                               }
@@ -12768,7 +12956,7 @@
                                                 "path": "body.1.0.0.1.0.1.7.1.0.2.0",
                                                 "tag": "span",
                                                 "name": "body.1.0.0.1.0.1.7.1.0.2.0",
-                                                "text": "Light",
+                                                "text": null,
                                                 "textLines": null,
                                                 "paints": true,
                                                 "rect": {
@@ -12788,15 +12976,7 @@
                                                   "unresolved": []
                                                 },
                                                 "paint": null,
-                                                "typography": {
-                                                  "style": "typography/body-sm-medium",
-                                                  "size": 14,
-                                                  "weight": 500,
-                                                  "lineHeight": 21,
-                                                  "letterSpacing": -0.14,
-                                                  "color": "000000",
-                                                  "align": "center"
-                                                },
+                                                "typography": null,
                                                 "positioning": "AUTO",
                                                 "margin": {
                                                   "top": 0,
@@ -12906,6 +13086,61 @@
                                                     },
                                                     "clipsContent": true,
                                                     "children": []
+                                                  },
+                                                  {
+                                                    "path": "body.1.0.0.1.0.1.7.1.0.2.0.t",
+                                                    "tag": "span",
+                                                    "name": "body.1.0.0.1.0.1.7.1.0.2.0.t",
+                                                    "text": "Light",
+                                                    "textLines": null,
+                                                    "paints": true,
+                                                    "rect": {
+                                                      "x": 123.0469,
+                                                      "y": 839.2969,
+                                                      "width": 35.2656,
+                                                      "height": 21
+                                                    },
+                                                    "sizing": {
+                                                      "layoutSizingHorizontal": "HUG",
+                                                      "layoutSizingVertical": "HUG",
+                                                      "layoutPositioning": "AUTO",
+                                                      "minWidth": null,
+                                                      "maxWidth": null,
+                                                      "minHeight": null,
+                                                      "maxHeight": null,
+                                                      "unresolved": []
+                                                    },
+                                                    "paint": null,
+                                                    "typography": {
+                                                      "style": "typography/body-sm-medium",
+                                                      "size": 14,
+                                                      "weight": 500,
+                                                      "lineHeight": 21,
+                                                      "letterSpacing": -0.14,
+                                                      "color": "000000",
+                                                      "align": "center"
+                                                    },
+                                                    "positioning": "AUTO",
+                                                    "margin": {
+                                                      "top": 0,
+                                                      "right": 0,
+                                                      "bottom": 0,
+                                                      "left": 0
+                                                    },
+                                                    "offset": null,
+                                                    "constraints": null,
+                                                    "why": {
+                                                      "horizontal": {
+                                                        "verdict": "HUG",
+                                                        "reason": "own-text-split"
+                                                      },
+                                                      "vertical": {
+                                                        "verdict": "HUG",
+                                                        "reason": "own-text-split"
+                                                      }
+                                                    },
+                                                    "layout": null,
+                                                    "children": []
                                                   }
                                                 ]
                                               }
@@ -12993,7 +13228,7 @@
                                                 "path": "body.1.0.0.1.0.1.7.1.0.3.0",
                                                 "tag": "span",
                                                 "name": "body.1.0.0.1.0.1.7.1.0.3.0",
-                                                "text": "Dark",
+                                                "text": null,
                                                 "textLines": null,
                                                 "paints": true,
                                                 "rect": {
@@ -13013,15 +13248,7 @@
                                                   "unresolved": []
                                                 },
                                                 "paint": null,
-                                                "typography": {
-                                                  "style": "typography/body-sm-medium",
-                                                  "size": 14,
-                                                  "weight": 500,
-                                                  "lineHeight": 21,
-                                                  "letterSpacing": -0.14,
-                                                  "color": "0000006b",
-                                                  "align": "center"
-                                                },
+                                                "typography": null,
                                                 "positioning": "AUTO",
                                                 "margin": {
                                                   "top": 0,
@@ -13130,6 +13357,61 @@
                                                       }
                                                     },
                                                     "clipsContent": true,
+                                                    "children": []
+                                                  },
+                                                  {
+                                                    "path": "body.1.0.0.1.0.1.7.1.0.3.0.t",
+                                                    "tag": "span",
+                                                    "name": "body.1.0.0.1.0.1.7.1.0.3.0.t",
+                                                    "text": "Dark",
+                                                    "textLines": null,
+                                                    "paints": true,
+                                                    "rect": {
+                                                      "x": 198.3125,
+                                                      "y": 839.2969,
+                                                      "width": 34,
+                                                      "height": 21
+                                                    },
+                                                    "sizing": {
+                                                      "layoutSizingHorizontal": "HUG",
+                                                      "layoutSizingVertical": "HUG",
+                                                      "layoutPositioning": "AUTO",
+                                                      "minWidth": null,
+                                                      "maxWidth": null,
+                                                      "minHeight": null,
+                                                      "maxHeight": null,
+                                                      "unresolved": []
+                                                    },
+                                                    "paint": null,
+                                                    "typography": {
+                                                      "style": "typography/body-sm-medium",
+                                                      "size": 14,
+                                                      "weight": 500,
+                                                      "lineHeight": 21,
+                                                      "letterSpacing": -0.14,
+                                                      "color": "0000006b",
+                                                      "align": "center"
+                                                    },
+                                                    "positioning": "AUTO",
+                                                    "margin": {
+                                                      "top": 0,
+                                                      "right": 0,
+                                                      "bottom": 0,
+                                                      "left": 0
+                                                    },
+                                                    "offset": null,
+                                                    "constraints": null,
+                                                    "why": {
+                                                      "horizontal": {
+                                                        "verdict": "HUG",
+                                                        "reason": "own-text-split"
+                                                      },
+                                                      "vertical": {
+                                                        "verdict": "HUG",
+                                                        "reason": "own-text-split"
+                                                      }
+                                                    },
+                                                    "layout": null,
                                                     "children": []
                                                   }
                                                 ]
@@ -35413,7 +35695,7 @@
       "files": [
         {
           "file": "figma/app-screens.settings.desktop.00.draw.js",
-          "bytes": 28747
+          "bytes": 28855
         }
       ]
     },
@@ -35425,7 +35707,7 @@
       "files": [
         {
           "file": "figma/app-screens.settings.mobile.00.draw.js",
-          "bytes": 25598
+          "bytes": 25706
         }
       ]
     },

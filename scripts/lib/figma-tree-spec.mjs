@@ -90,11 +90,86 @@ export function buildHierarchy(tree, rootPath = "main") {
  * @param {{rootPath?: string, contextId?: string}} options
  * @returns {{spec: object, stats: object}}
  */
+/**
+ * 텍스트와 요소 자식을 **동시에** 가진 노드는 텍스트를 별도 자식으로 떼어낸다.
+ *
+ * Figma에는 "자식이 있으면서 자기 글자도 가진 프레임"이 없다. 떼어내지 않으면 렌더러가 그 노드를
+ * 프레임으로 그리고 글자를 버린다. 실측 사고: `/settings` 테마 토글의 `System`·`Light`·`Dark`가
+ * 각각 svg 아이콘 자식을 갖고 있어 **라벨이 통째로 사라지고 아이콘만 남았다**(스크린샷으로 확인).
+ * 같은 화면의 `KOR`·`ENG`·`JPN`은 아이콘이 없어 멀쩡히 나와 대조가 됐다.
+ *
+ * 끼워 넣는 자리는 **측정된 글자 줄의 rect**로 정한다 — DOM 순서가 아니라 실제로 보이는 자리다.
+ * 읽기 순서 기준으로 글자보다 뒤에 오는 첫 자식 앞에 넣는다.
+ */
+function splitOwnText(node, children) {
+  if (!node.ownText || children.length === 0) return null;
+  const style = node.style ?? {};
+  const lines = node.ownTextLines ?? [];
+  // 주축 방향 — 세로로 쌓이면 y로, 아니면 x로 자리를 판정한다.
+  const vertical = /^column/.test(style.flexDirection ?? "") && /flex|grid/.test(style.display ?? "");
+  const axis = vertical ? "y" : "x";
+  const extent = vertical ? "height" : "width";
+  const padStart = px(vertical ? style.paddingTop : style.paddingLeft) ?? 0;
+
+  let at;
+  let rect;
+  if (lines.length > 0) {
+    // 줄 rect가 있으면(scenes 측정) 실제 보이는 자리로 정확히 끼운다.
+    const left = Math.min(...lines.map((line) => line.x));
+    const top = Math.min(...lines.map((line) => line.y));
+    const right = Math.max(...lines.map((line) => line.x + line.width));
+    const bottom = Math.max(...lines.map((line) => line.y + line.height));
+    rect = { x: left, y: top, width: right - left, height: bottom - top };
+    const near = vertical ? bottom : right;
+    const index = children.findIndex((child) => child.rect[axis] >= near - 0.5);
+    at = index < 0 ? children.length : index;
+  } else {
+    // 줄 rect가 없으면(auth-fixture) **첫 자식이 콘텐츠 시작에 붙어 있는지**로 판정한다.
+    // 붙어 있으면 글자는 자식들 뒤, 아니면 앞이다.
+    const first = children[0].rect[axis] - node.rect[axis];
+    at = first <= padStart + 0.5 ? children.length : 0;
+    const span = children.reduce((sum, child) => sum + child.rect[extent], 0);
+    rect = vertical
+      ? { x: node.rect.x, y: node.rect.y, width: node.rect.width, height: Math.max(0, node.rect.height - span) }
+      : { x: node.rect.x, y: node.rect.y, width: Math.max(0, node.rect.width - span), height: node.rect.height };
+  }
+
+  const textChild = {
+    path: `${node.path}.t`,
+    tag: "span",
+    name: `${node.path}.t`,
+    text: node.ownText,
+    textLines: lines.length > 0 ? lines : null,
+    paints: true,
+    rect,
+    sizing: {
+      layoutSizingHorizontal: "HUG",
+      layoutSizingVertical: "HUG",
+      layoutPositioning: "AUTO",
+      minWidth: null, maxWidth: null, minHeight: null, maxHeight: null,
+      unresolved: [],
+    },
+    paint: null,
+    typography: typographyOf(style),
+    positioning: "AUTO",
+    margin: { top: 0, right: 0, bottom: 0, left: 0 },
+    offset: null,
+    constraints: null,
+    why: {
+      horizontal: { verdict: "HUG", reason: "own-text-split" },
+      vertical: { verdict: "HUG", reason: "own-text-split" },
+    },
+    layout: null,
+    children: [],
+  };
+  return [...children.slice(0, at), textChild, ...children.slice(at)];
+}
+
 export function toFigmaTreeSpec(tree, options = {}) {
   const rootPath = options.rootPath ?? "main";
   const contextId = options.contextId ?? null;
   const { byPath, childrenOf } = buildHierarchy(tree, rootPath);
-  const stats = { total: tree.length, kept: 0, droppedInvisible: 0, droppedEmpty: 0, unresolved: [] };
+  const stats = { total: tree.length, kept: 0, droppedInvisible: 0, droppedEmpty: 0, textSplits: 0, unresolved: [] };
 
   const convert = (node, parent) => {
     if (!isVisible(node)) { stats.droppedInvisible += 1; return null; }
@@ -117,7 +192,10 @@ export function toFigmaTreeSpec(tree, options = {}) {
     }
 
     const rawChildren = childrenOf.get(node.path) ?? [];
-    const children = rawChildren.map((child) => convert(child, node)).filter(Boolean);
+    let children = rawChildren.map((child) => convert(child, node)).filter(Boolean);
+    // 글자와 요소 자식을 함께 가진 노드는 글자를 자식으로 떼어낸다(splitOwnText 주석 참조).
+    const split = splitOwnText(node, children);
+    if (split) { children = split; stats.textSplits += 1; }
 
     // 자식도 없고 스스로 그릴 것도 없으면 버린다 — Auto Layout에 빈 껍데기를 남기지 않는다.
     if (children.length === 0 && !hasOwnPaint(node)) { stats.droppedEmpty += 1; return null; }
@@ -130,8 +208,9 @@ export function toFigmaTreeSpec(tree, options = {}) {
       path: node.path,
       tag: node.tag,
       name: node.classAttr ? `${node.tag}.${node.path}` : node.path,
-      text: node.ownText || null,
-      textLines: node.ownTextLines?.length ? node.ownTextLines : null,
+      // 글자를 자식으로 떼어냈으면 이 노드는 더 이상 글자를 갖지 않는다(중복 렌더 방지).
+      text: split ? null : (node.ownText || null),
+      textLines: split ? null : (node.ownTextLines?.length ? node.ownTextLines : null),
       // 스스로 그리는 것이 있는가(면·테두리·그림자·이미지). 래퍼 접기 판정과 색 이관에 쓴다.
       paints: hasOwnPaint(node),
       // rect는 FIXED 축 크기와 검증용이다. FILL/HUG 축은 Figma가 계산한다.
@@ -140,7 +219,7 @@ export function toFigmaTreeSpec(tree, options = {}) {
       // **색·테두리·radius·그림자·불투명도.** 측정에 없는 값은 담지 않는다.
       paint: paintOf(style),
       // **타이포.** 텍스트를 직접 가진 노드만. LOUIS 텍스트 스타일 이름으로 바꿔 싣는다.
-      typography: (node.ownText || node.ownTextLines?.length) ? typographyOf(style) : null,
+      typography: (!split && (node.ownText || node.ownTextLines?.length)) ? typographyOf(style) : null,
       // **절대 배치는 spec에 반드시 남긴다.** 안 남기면 Figma에서 일반 auto-layout 자식이 되어
       // 흐름에 끼어든다. 실측 사고: `/settings` 사이드바는 `position:fixed`라 흐름에서 빠지고 메인이
       // x=280부터 시작하는데, 이 정보를 잃자 부모가 column이라는 이유로 사이드바 아래에 메인이

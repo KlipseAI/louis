@@ -142,11 +142,12 @@ summary: 캐러셀을 앞뒤로 넘기는 32×32 화살표 버튼입니다.
    `inset 0 0 0 0.5px` 다(DS-D-0023 이후 LOUIS 의 헤어라인 정본). inset 그림자는 레이아웃 박스를
    건드리지 않으므로 32 × 32 가 그대로 남는다 — stroke 로 그리면 `INSIDE` 여도 시각 박스가
    달라진다. 되읽기의 `geometry.strokeWeight` 가 비어 있는 것이 정상이다.
-2. **`Direction` 축이 닫힌 축 표에 없다.** `design/governance/figma-component-authoring.md` §2
-   의 축 어휘는 `Size` · `Variant` · `Tone` · `State` 넷으로 닫혀 있고 `Direction` 은 그중
-   어느 것도 아니다. 방향은 밀도도 강조도 톤도 상호작용 상태도 아니라 기존 넷 중 어디로도
-   접히지 않는다. 표를 임의로 고치지 않았다. **소유자 판정 필요**: 축 표에 `Direction` 을
-   여는가, 글리프를 `INSTANCE_SWAP` 슬롯으로 내리고 축을 없애는가.
+2. **`Direction` 축은 판정을 받아 축 표에 열렸다(해소).**
+   `design/governance/figma-component-authoring.md` §2 개정이 `Direction` 을 축 어휘에 넣었다 —
+   허용값은 `prev` · `next` 이고, 값은 **트랙의 진행 방향**이지 화살표가 가리키는 쪽
+   (`left`/`right`)이 아니다. 세로 트랙이 생겨도 이름이 산다. 글리프를 `INSTANCE_SWAP` 으로
+   내려 축을 없애는 길은 두 캐럿이 아이콘 라이브러리에 없어(인라인 벡터) 스왑 후보를 채울
+   대상이 없으므로 성립하지 않는다 — 그 판단의 근거도 같은 절에 남아 있다.
 3. **hover 두 겹의 색 변수가 서로 바뀌어 묶여 있다.** 되읽기 기준 아래 겹은 `paint.opacity`
    0.08 인데 `color/landing/panel`(토큰 값 4%)에, 위 겹은 0.04 인데
    `color/landing/panel-strong`(토큰 값 8%)에 묶여 있다. **지금 화면은 맞게 보이지만 토큰이

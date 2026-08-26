@@ -131,6 +131,8 @@ export function toFigmaTreeSpec(tree, options = {}) {
       name: node.classAttr ? `${node.tag}.${node.path}` : node.path,
       text: node.ownText || null,
       textLines: node.ownTextLines?.length ? node.ownTextLines : null,
+      // 스스로 그리는 것이 있는가(면·테두리·그림자·이미지). 래퍼 접기 판정과 색 이관에 쓴다.
+      paints: hasOwnPaint(node),
       // rect는 FIXED 축 크기와 검증용이다. FILL/HUG 축은 Figma가 계산한다.
       rect: node.rect,
       sizing,
@@ -178,7 +180,50 @@ export function toFigmaTreeSpec(tree, options = {}) {
 
   const root = byPath.get(rootPath);
   if (!root) throw new Error(`[figma-tree-spec] 루트 경로를 찾지 못했습니다: ${rootPath}`);
-  return { spec: convert(root, null), stats };
+  const converted = convert(root, null);
+  const collapsed = options.collapseWrappers === false ? converted : collapseWrappers(converted, stats);
+  return { spec: collapsed, stats };
+}
+
+/**
+ * **의미 없는 래퍼를 접는다.** 제품 DOM은 스타일 훅을 위해 빈 div를 겹겹이 쌓는데, 그대로 옮기면
+ * Figma에서 13단계 중첩이 되어 디자이너가 편집하기 나쁘고 payload도 커진다.
+ *
+ * 접어도 안전한 조건(전부 만족해야 한다):
+ *   - 자식이 정확히 하나
+ *   - 스스로 그리는 것이 없다(면·테두리·그림자·텍스트)
+ *   - padding·clip·min/max가 없다 — 있으면 레이아웃에 기여하므로 남긴다
+ *   - 절대 배치가 아니다 — 좌표 기준점이므로 남긴다
+ *   - margin이 없다 — 부모 padding으로 옮겨야 하므로 남긴다
+ *   - **크기 판정이 자식과 같다** — 다르면 접는 순간 반응 방식이 바뀐다(가장 중요한 조건)
+ */
+export function collapseWrappers(node, stats = null) {
+  const children = node.children.map((child) => collapseWrappers(child, stats));
+  const isPassThrough = (candidate) => {
+    if (candidate.children.length !== 1) return false;
+    if (candidate.text) return false;
+    // 스스로 그리는 것이 있으면(면·테두리·그림자) 접는 순간 그 그림이 사라진다.
+    if (candidate.paints) return false;
+    if (candidate.positioning === "ABSOLUTE") return false;
+    if (candidate.clipsContent) return false;
+    if (candidate.sizing.minWidth || candidate.sizing.maxWidth) return false;
+    if (candidate.sizing.minHeight || candidate.sizing.maxHeight) return false;
+    const m = candidate.margin;
+    if (m && (m.top || m.right || m.bottom || m.left)) return false;
+    const p = candidate.layout?.padding;
+    if (p && (p.top || p.right || p.bottom || p.left)) return false;
+    const only = candidate.children[0];
+    if (only.positioning === "ABSOLUTE") return false;
+    // 크기 판정이 다르면 접는 순간 리사이즈 반응이 달라진다.
+    return candidate.sizing.layoutSizingHorizontal === only.sizing.layoutSizingHorizontal
+      && candidate.sizing.layoutSizingVertical === only.sizing.layoutSizingVertical;
+  };
+  const self = { ...node, children };
+  if (isPassThrough(self)) {
+    if (stats) stats.collapsedWrappers = (stats.collapsedWrappers ?? 0) + 1;
+    return self.children[0];
+  }
+  return self;
 }
 
 /**

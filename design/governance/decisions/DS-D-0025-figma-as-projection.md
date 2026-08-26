@@ -75,8 +75,22 @@ publish를 미뤄 온 근거는 타당했다 — 미발행이라 rename 99건(DS
    보장이 없다.** 실제 삭제는 이 둘을 해소하고 2,601건을 보드 고유 컬렉션으로 재매핑한 뒤에만 가능하다.
 
    그래서 **34개를 맞추지도, 지우지도 않는다.** 코드가 정본인 A 모델에서 수동 재동기화는 무기한
-   반복되는 순수 비용이고, 삭제는 지금 위험하다. 컬렉션 이름에 동결 표식을 달아 "이 값을 보고
-   구현하지 말 것"만 명시한다 — 비용 0, 위험 0.
+   반복되는 순수 비용이고, 삭제는 지금 위험하다. 대신 2026-08-26 에 보드의 세 컬렉션 이름에
+   동결 표식을 달았다 — 비용 0, 위험 0.
+
+   | 이전 | 이후 | 변수 |
+   | --- | --- | ---: |
+   | `Klipse Primitive` | `Klipse Primitive · frozen — 코드가 정본` | 187 |
+   | `Klipse Semantic` | `Klipse Semantic · frozen — 코드가 정본` | 76 |
+   | `Klipse Semantic Color` | `Klipse Semantic Color · frozen — 코드가 정본` | 81 |
+
+   바인딩은 id 로 맺어지므로 2,577건은 그대로다. 보드 고유 `1 · Palette`·`2 · Semantic`·`3 · Scale`
+   은 건드리지 않았다.
+
+   **표식이 만든 함정 하나를 남긴다.** `figma/apply-variables.*.js` 는 컬렉션을 이름 **정확 일치**로
+   찾는다(`cols.find(x => x.name === COL.c)`). 라이브러리는 이름을 그대로 두었으므로 그쪽 경로는
+   멀쩡하지만, 누군가 보드에 대고 apply 를 실행하면 이름이 안 맞아 **`Klipse Primitive` 를 새로
+   만들어 버린다.** 보드는 이 결정으로 동결 대상이므로 **apply-variables 를 보드에 실행하지 않는다.**
 
 ## Alternatives
 
@@ -85,3 +99,16 @@ publish를 미뤄 온 근거는 타당했다 — 미발행이라 rename 99건(DS
   Figma에서 화면을 조립할 필요가 실제로 생기면 이 결정을 superseded로 바꾸고 발행한다.
 - **현상 유지.** A라고 말하면서 사본을 방치하는 상태. 이번에 34개가 조용히 어긋난 것이 그 비용을
   이미 보여 줬다.
+
+
+## 후속
+
+- **컴포넌트 5종 미작도** — `alert` · `node-chip` · `switch` · `table` · `tabs`. LOUIS CSS 레시피 27개
+  중 이 다섯만 라이브러리에 아트보드가 없다(변수는 이미 들어가 있다). A 모델에서도 "시스템이
+  이렇게 생겼다" 를 보이려면 필요하므로 남은 과제다.
+- **막힌 것: 라이브러리의 Plugin API 접근.** 2026-08-26 기준 `bxGEp0km5zluMJGulaTvFW` 는
+  `get_metadata`(읽기)는 되는데 `use_figma` 가 `User does not have permission to access this file
+  using MCP` 로 거부한다. 같은 세션 오전에는 같은 경로로 변수 34개를 썼고, 같은 계정으로 보드
+  `OlYKERKOkgbxBEEoXGZW2c` 와 미러 `CNORJOONt4z0a4Bl22Kjuu` 는 `use_figma` 가 정상 동작한다.
+  파일이 사라지거나 권한을 잃은 정황은 없다 — **Figma 데스크톱 앱에 그 파일이 열려 있지 않은
+  것이 가장 유력**하다. 작도 전에 이 접근을 먼저 회복해야 한다.

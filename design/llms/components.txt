@@ -77,9 +77,9 @@ Klipse 화면을 이루는 재사용 가능한 UI 단위다. 컴포넌트가 코
 | [Checkbox](../components/checkbox.md) | `experimental` | `partial` | `partial` | `done` | public export와 실브라우저 acceptance test 14건이 두 motion context에서 각각 돈다. **제품에 정본이 있는데 21벌 중 2벌만 쓴다** — 그 전역 클래스가 cascade layer 밖이라 소비처가 이길 수 없었다. 크기 20px은 채택하고 accent-color는 채택하지 않았다(면 색 하나만 주고 표시·링·부분선택 막대를 브라우저가 정한다). indeterminate는 DOM 프로퍼티라 ref로 맞추고 aria-checked=mixed를 함께 준다. **선택 안 한 테두리 대비가 SC 1.4.11(3:1)에 미달하며 테두리 토큰 셋 중 어느 것도 라이트에서 넘지 못한다** — 실측을 규범에 적었고 인계서 (2b) 판정의 입력이다. color-stroke-strong의 첫 소비처다. Figma component set 4 variant(State)가 섰고 parity 게이트가 Box·Check·Dash·Label을 자손으로 대조한다 — raw fill·stroke 0. 체크는 CSS와 같은 구조(5×9 사각형의 두 변 + 45° 회전)라 계약값이 그대로 남는다. publish는 DS-F-008이다 |
 | [Dialog / Confirm Modal](../components/dialog.md) | `experimental` | `partial` | `partial` | `done` | public export와 실브라우저 acceptance test. Figma component set 3 variant(Size). fullscreen은 표면이 뷰포트라 고정 폭 variant로 그릴 수 없어 제외했다. 제품에 공용 정본이 없다 |
 | [Empty State](../components/empty-state.md) | `experimental` | `partial` | `partial` | `done` | public export와 실브라우저 acceptance test 7건. Figma component 하나이며 parity 게이트가 Graphic·Title·Description·Action을 자손으로 대조한다. 제품에 정의가 9벌 있고 하나는 도달 불가능한 죽은 분기다. 아홉 벌이 합의하는 것은 '자기 배경도 테두리도 반경도 갖지 않는다' 하나뿐이다. 오류 상태는 다루지 않는다 — 제품은 둘을 합쳤지만 사용자가 취할 행동이 다르다 |
-| [FAQ Row](../components/faq-row.md) | `experimental` | `partial` | `not-ready` | `done` | 랜딩·가격 두 페이지가 쓰는 아코디언 행. 제품 구현(FAQ.tsx)이 정본이고 LOUIS recipe 는 없다 — 행 하나가 통째로 버튼이다(좌우 20 · 위아래 18 · 사이 16, 닫힌 높이 66 = 18+30+18). **면을 gray-900 으로 두면 라이트에서 사라진다** — 그 단이 랜딩 페이지 바닥과 바이트 동일해져 대비가 1:1 이 되므로 잉크 8% 오버레이(landing/panel-strong)를 쓴다. 밑줄 2열 배치를 버리고 면으로 나눈 결과 행 면과 바닥의 대비가 1.2:1 뿐이고 헤어라인도 두르지 않는다 — 다른 랜딩 면과 갈리는 자리다. 전환이 둘로 갈려 있다: 높이·투명도 300ms cubic-bezier(0.4,0,0.2,1)(framer-motion) 과 + 글리프 회전 220ms ease(CSS) 인데 Figma 는 한 전환에 두 시간을 담을 수 없어 300 으로 합쳤다. **Expanded 는 figma-component-authoring.md §2 개정으로 조건 축(false·true) 명부에 올랐다** — + 글리프가 계속 보이는 채로 45° 돌고(시험 1) 여닫이에 전이를 걸어야 해서(시험 3) BOOLEAN 이 아니다. + 글리프 대비가 라이트에서 3.73:1 로 AA(4.5) 미만이지만 아이콘성 글리프라 비-텍스트 3:1 로 판정했다. aria-controls 와 제목 요소가 없고 prefers-reduced-motion 계약도 없다. 가격 페이지 스코프가 --gray-000 만 되돌리고 --gray-300 을 빼놓아 다크 테마에서 답변 대비가 1.29:1 로 떨어지는 미해결이 남아 있다. |
+| [FAQ Row](../components/faq-row.md) | `experimental` | `partial` | `not-ready` | `done` | 랜딩·가격 두 페이지가 쓰는 아코디언 행. 제품 구현(FAQ.tsx)이 정본이고 LOUIS recipe 는 없다 — 닫힌 행이 통째로 버튼이고 열리면 질문 줄까지다(답변은 버튼 밖의 형제다. 좌우 20 · 위아래 18 · 사이 16, 닫힌 높이 66 = 18+30+18). **면을 gray-900 으로 두면 라이트에서 사라진다** — 그 단이 랜딩 페이지 바닥과 바이트 동일해져 대비가 1:1 이 되므로 잉크 8% 오버레이(landing/panel-strong)를 쓴다. 밑줄 2열 배치를 버리고 면으로 나눈 결과 행 면과 바닥의 대비가 1.2:1 뿐이고 헤어라인도 두르지 않는다 — 다른 랜딩 면과 갈리는 자리다. 그 1.2:1 은 랜딩 바닥 기준이고, 바닥을 고정하는 가격 페이지 다크에서는 1.01:1 이며 방향도 반대다. 전환이 둘로 갈려 있다: 높이·투명도 300ms cubic-bezier(0.4,0,0.2,1)(framer-motion) 과 + 글리프 회전 220ms ease(CSS) 인데 Figma 는 한 전환에 두 시간을 담을 수 없어 하나로 합칠 수밖에 없다 — 그 하나가 얼마인지는 되읽기가 프로토타입 전이를 채취하지 않아 대조되지 않는다. **Expanded 는 figma-component-authoring.md §2 개정으로 조건 축(false·true) 명부에 올랐다** — + 글리프가 계속 보이는 채로 45° 돌고(시험 1) 여닫이에 전이를 걸어야 해서(시험 3) BOOLEAN 이 아니다. + 글리프 대비가 라이트에서 3.73:1 로 AA(4.5) 미만이지만 아이콘성 글리프라 비-텍스트 3:1 로 판정했다. aria-controls 와 제목 요소가 없고 prefers-reduced-motion 계약도 없다. 가격 페이지 스코프가 --gray-000 만 되돌리고 --gray-300 을 빼놓아 다크 테마에서 답변 대비가 1.29:1 로 떨어지는 미해결이 남아 있다. |
 | [FormMessage](../components/form-message.md) | `experimental` | `partial` | `not-ready` | `partial` | 제품 전수 인벤토리에서 확인. 인증 폼 아래 한 줄 메시지(login/page.tsx:199,537) — caption-12-regular · padding-left 4. error/neutral 두 톤. LOUIS recipe 는 아직 없다. |
-| [GNB Menu Item](../components/gnb-menu-item.md) | `experimental` | `partial` | `not-ready` | `done` | 랜딩 상단 내비게이션 가운데 메뉴의 항목 하나. 제품 구현(landing/navigation/Gnb.tsx 의 menuLinkClass)이 정본이고 앵커·라우트·드롭다운 트리거·「공개 예정」 넷이 같은 알약을 쓴다 — LOUIS recipe 는 없다. **상태를 면이 아니라 잉크 불투명도로 만든다**: 여덟 변형의 기하가 완전히 같아 되읽기 키가 base 하나이고, 면·테두리·그림자가 전부 없다. **톤은 테마가 아니라 밑에 깔린 면이다** — 라이트 테마 안의 어두운 사진 밴드에서 뒤집히므로 시맨틱 램프가 아니라 고정 palette-gray-* 를 쓴다. **제품이 밝은 면 Default 를 0.50 → 0.65 로 올렸는데 Figma 는 아직 0.50 이다** — 0.50 은 랜딩 바닥과 AA 미달이었고 누를 수 있는 링크라 비활성 면제 대상이 아니다. 되읽기가 opacity 를 담지 않아 어떤 게이트도 이 어긋남을 잡지 못한다. **figma-component-authoring.md §2 개정이 두 축을 판정했다** — Surface 는 축 표에 열렸고(제품이 이 자리를 고정 팔레트로 받으므로 테마 모드로 접히지 않는다), State=Selected 는 접기 시험을 통과해 State 값으로 남는다. 남은 것은 Figma 재작업이다 — Surface 두 변형이 어느 색에 묶여 있는지 확인해야 한다. 포커스 링을 코드도 Figma 도 소유하지 않는다(SC 2.4.7 결손). |
+| [GNB Menu Item](../components/gnb-menu-item.md) | `experimental` | `partial` | `not-ready` | `done` | 랜딩 상단 내비게이션 가운데 메뉴의 항목 하나. 제품 구현(landing/navigation/Gnb.tsx 의 menuLinkClass)이 정본이고 앵커·라우트·드롭다운 트리거·「공개 예정」 넷이 같은 알약을 쓴다 — LOUIS recipe 는 없다. **상태를 면이 아니라 잉크 불투명도로 만든다**: 여덟 변형의 기하가 완전히 같고(되읽기의 기하 값이 전부 단일값이다 — base 키 자체는 채취 명세의 선언이라 증거가 아니다), 면·테두리·그림자가 전부 없다. **톤은 테마가 아니라 밑에 깔린 면이다** — 라이트 테마 안의 어두운 사진 밴드에서 뒤집히므로 시맨틱 램프가 아니라 고정 palette-gray-* 를 쓴다. **제품이 밝은 면 Default 를 0.50 → 0.65 로 올렸는데 Figma 는 아직 0.50 이다** — 0.50 은 랜딩 바닥과 AA 미달이었고 누를 수 있는 링크라 비활성 면제 대상이 아니다. 되읽기가 opacity 를 담지 않아 어떤 게이트도 이 어긋남을 잡지 못한다. **figma-component-authoring.md §2 개정이 두 축을 판정했다** — Surface 는 축 표에 열렸고(제품이 이 자리를 고정 팔레트로 받으므로 테마 모드로 접히지 않는다), State=Selected 는 접기 시험을 통과해 State 값으로 남는다. 남은 것은 Figma 재작업이다 — Surface 두 변형이 어느 색에 묶여 있는지 확인해야 한다. 포커스 링을 코드도 Figma 도 소유하지 않는다(SC 2.4.7 결손). |
 | [Icon Button](../components/icon-button.md) | `experimental` | `partial` | `partial` | `done` | public export와 실브라우저 acceptance test 11건. Figma component set 40 variant가 기하 계약(한 변 40/32)으로 묶여 있다. pressed의 hover 면과 loading 상태가 남음 |
 | [Input / Field](../components/text-field.md) | `experimental` | `partial` | `partial` | `done` | public export와 실브라우저 acceptance test 8건. Figma component set 8 variant(Size×State)이며 parity 게이트가 Box·Label·Value·Message를 자손으로 대조한다. **제품에 공용 구현이 없다** — 정의 약 40벌이 다섯 계열로 갈려 값은 DS가 정했다. 시각적 필드는 <input>이 아니라 감싸는 박스다. Textarea는 아직 없다 |
 | [Keycap](../components/keycap.md) | `experimental` | `partial` | `not-ready` | `partial` | 제품 전수 인벤토리에서 확인된 미커버 패턴. CommandPalette.tsx:281-296 의 단축키 칩 — h20 · px5 · r6 · caption-12 · leading 1. LOUIS recipe 는 아직 없다. |
@@ -96,7 +96,7 @@ Klipse 화면을 이루는 재사용 가능한 UI 단위다. 컴포넌트가 코
 | [Skeleton](../components/skeleton.md) | `experimental` | `partial` | `partial` | `done` | public export와 실브라우저 acceptance test 5건이 두 motion context에서 각각 돈다. **면 색을 고르지 않는다** — 제품 실측(면 8% · 하이라이트 9%, 전경색 기준)대로 currentColor를 낮은 알파로 깐다. 인계서 (1c)의 "면 색 판정"은 solid 토큰이 필요하다는 전제 위에 있었고 실측이 그것을 부정했다. 흐름은 background-position이며 loop 허용 property(DS-D-0016)와 제품 우세 기법이 같은 곳을 가리킨다. 크기는 호출부가 정한다 |
 | [Slider](../components/slider.md) | `experimental` | `partial` | `partial` | `done` | public export와 실브라우저 acceptance test 16건이 두 motion context에서 각각 돈다. **제품에 공용 구현이 없다** — 정의 37벌이 일곱 레시피로 갈리고 합의하는 축이 하나도 없어 값은 DS가 정했다. 네이티브 <input type="range">이며 track 변형이 제품 인스펙터의 채움 막대를 흡수한다(제품은 그 자리에서 썸을 지웠고 DS는 표식을 곧 썸으로 만든다). 레일·썸의 렌더 결과는 섀도우 pseudo-element라 계산값을 읽을 수 없어 CSSOM 선언을 대조한다. Figma component set 4 variant(Size×Variant)가 섰고 **복합 키 `{size}/{variant}`를 쓰는 유일한 컴포넌트**다 — Variant 축이 레일 두께 4↔28과 썸 16↔2×14를 바꾼다. parity 게이트가 Rail·Fill·Thumb·Control·Label을 그룹별로 대조하고 변조 canary가 한 variant만 어긋난 경우를 잡는다. publish는 DS-F-008이다 |
 | [Spinner](../components/spinner.md) | `experimental` | `partial` | `partial` | `done` | public export, Figma component set 2 variant(Size), parity 게이트가 Track·Arc를 자손으로 대조한다. 실브라우저 acceptance test 8건이 두 motion context에서 각각 돈다. 제품의 로딩 표현은 약 62벌이지만 공용 LoadingSpinner가 정본이고 그 recipe(700ms · linear)가 motion-loop와 정확히 같다. 회전 keyframe은 base.css의 공용 louis-spin 하나이며 Button·Menu도 그것을 가리킨다. determinate 진행률·스켈레톤·텍스트 쉬머는 별도 컴포넌트이며 아직 없다 |
-| [Step Tile](../components/step-tile.md) | `experimental` | `partial` | `not-ready` | `done` | 순서가 있는 3-스텝 안내의 한 칸. 비어 있는 정사각 면 하나와 그 밑의 한 줄 캡션이 전부다. 제품 구현(StepTiles.tsx)이 정본이고 랜딩 한 자리에서 쓴다 — LOUIS recipe 는 없다. 변형 축이 0 이고 슬롯 셋(Label TEXT · Description BOOLEAN · DescriptionLabel TEXT)이 전부라 닫힌 축 표를 벗어나는 축이 없다. 타일 면은 gray-* 램프가 아니라 landing/panel-strong 에서 받는다 — 램프를 뒤집으면 라이트에서 타일과 바닥이 같은 값이 되어 대비 1:1 로 사라진다. 테두리도 그림자도 없다. **캡션의 층이 두 매체에서 다르다** — Figma 는 가로 auto-layout(itemSpacing 4)이고 제품은 문단 하나의 인라인 흐름에 진짜 공백 문자(실측 4.69)다. flex 로 두면 복사·접근성 트리에서 라벨과 설명이 붙기 때문이며, 어느 쪽을 recipe 정본으로 삼을지는 소유자 판정이다. 줄 높이 150% 를 따른 결과 설명이 있는 한 줄 카드가 시안보다 6 높다. 462.667 은 한 폭에서 나온 FILL 분배값이라 고정 폭 축을 만들지 않았다. 타일 콘텐츠와 문구(카드 1·2 설명 중복 · JA 번역 없음)는 아직 미결이다. |
+| [Step Tile](../components/step-tile.md) | `experimental` | `partial` | `not-ready` | `done` | 순서가 있는 3-스텝 안내의 한 칸. 비어 있는 정사각 면 하나와 그 밑의 한 줄 캡션이 전부다. 제품 구현(StepTiles.tsx)이 정본이고 랜딩 한 자리에서 쓴다 — LOUIS recipe 는 없다. 변형 축이 0 이고 슬롯 셋(Label TEXT · Description BOOLEAN · DescriptionLabel TEXT)이 전부라 닫힌 축 표를 벗어나는 축이 없다 — 다만 Description 이라는 BOOLEAN 이름은 §3 명부에 없고 그 짝의 근거는 §2 의 MediaCard 선례다(소유자 판정). 타일 면은 gray-* 램프가 아니라 landing/panel-strong 에서 받는다 — 램프에서 고를 만한 gray-900 이 라이트에서 랜딩 바닥과 같은 #f1f1f3 이 되어 대비 1:1 로 사라진다. 테두리도 그림자도 없다. **캡션의 층이 두 매체에서 다르다** — Figma 는 가로 auto-layout(itemSpacing 4)이고 제품은 문단 하나의 인라인 흐름에 진짜 공백 문자(실측 4.69)다. flex 로 두면 복사·접근성 트리에서 라벨과 설명이 붙기 때문이며, 어느 쪽을 recipe 정본으로 삼을지는 소유자 판정이다. 줄 높이 150% 를 따른 결과 설명이 있는 한 줄 카드가 랜딩 목업보다 6 높다 — 되읽기의 StepTile 은 이미 150% 라 Figma 컴포넌트와 제품 사이에는 차이가 없다. 되읽기의 462.7(목업 계산값 462.667)은 한 폭에서 나온 FILL 분배값이라 고정 폭 축을 만들지 않았다. 타일 콘텐츠와 문구(카드 1·2 설명 중복 · JA 번역 없음)는 아직 미결이다. |
 | [Switch](../components/switch.md) | `experimental` | `partial` | `partial` | `done` | CSS 레시피(.louis-switch)는 있고 React 표면은 없다. Figma component set 4 variant(Checked × Disabled). 44×24 는 제품 실측을 채택한 값이다. 2026-08-26 Figma 등재. |
 | [Table](../components/table.md) | `experimental` | `partial` | `partial` | `done` | CSS 레시피(.louis-table)는 있고 React 표면은 없다. Figma 는 셋으로 나뉜다 — TableHeaderCell(Align 3) · TableCell(Align × State 6) · 그 둘을 조립하는 Table. 머리 칸과 몸 칸은 패딩·타이포·글자색·테두리가 모두 달라 한 set 으로 묶으면 절반이 거짓 조합이 된다. |
 | [Tabs](../components/tabs.md) | `experimental` | `partial` | `partial` | `done` | CSS 레시피(.louis-tabs)는 있고 React 표면은 없다. Figma 는 둘로 나뉜다 — 상호작용과 프로토타입을 받는 TabItem(State 4) 과 그것을 조립하는 Tabs. 네 상태가 전부 opacity 로만 갈린다. |
@@ -7792,17 +7792,19 @@ Figma 의 축·슬롯은 이것과 이렇게 대응한다.
 파일명도 없다. 캡션으로 보아 제품 화면 캡처가 들어갈 자리로 보이지만 없는 것을 지어내지 않고
 제품도 면만 둔다. 그래서 지금 이 컴포넌트가 소유하는 것은 **면과 캡션의 관계**뿐이다.
 
-**면이 사라지지 않는 것이 이 타일의 유일한 조형 요구다.** 자식도 글자도 헤어라인도 없어서 면이
-바닥과 같은 색이 되는 순간 남는 단서가 하나도 없다. 그래서 면 색을 `gray-*` 램프가 아니라
-랜딩의 면 시맨틱 `landing/panel-strong` 에서 받는다 — 램프는 인덱스만 대칭으로 뒤집으므로
-바닥도 같이 뒤집혀 라이트에서 타일과 바닥이 정확히 같은 값이 되고 대비가 1:1 이 된다(제품 실측).
+**면이 사라지면 화면에서 타일이 통째로 없어진다.** 자식도 글자도 헤어라인도 없어서 면이 바닥과
+같은 색이 되는 순간 남는 단서가 하나도 없다 — 읽히는 내용은 캡션이 전부 나르므로 접근성 계약이
+깨지는 것은 아니지만(Accessibility) 조형은 사라진다. 그래서 면 색을 `gray-*` 램프가 아니라
+랜딩의 면 시맨틱 `landing/panel-strong` 에서 받는다 — 램프에서 이 면에 쓸 만한 `gray-900` 을
+고르면 라이트에서 `palette-gray-100`(#f1f1f3)으로 뒤집히는데 랜딩 바닥도 라이트에서 정확히 같은
+값이라 대비가 1:1 이 된다(제품 실측). 다른 인덱스는 재 본 적이 없다.
 
 #### Availability
 
 | Surface       | 상태           | 근거                                                                                                                                                                    |
 | ------------- | -------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Web           | `not-ready`    | 제품 구현이 정본이고 소비처는 랜딩 한 자리다. **LOUIS 표면은 0** — CSS 레시피도 React export 도 없고 acceptance test 도 0건이다                                          |
-| Figma         | `partial`      | `StepTile` 단일 COMPONENT(변형 축 0) · TEXT 2 · BOOLEAN 1. parity 게이트가 대조하는 것은 속성 축 · stroke 0 · effect 0 · raw fill·stroke 0 넷이다. **기하는 대조하지 않는다** — `figma/components.measured.json` 에 `step-tile` 항목이 없다 |
+| Figma         | `partial`      | `StepTile` 단일 COMPONENT(변형 축 0) · TEXT 2 · BOOLEAN 1. parity 게이트가 대조하는 것은 속성 축 · stroke 0 · effect 0 · raw fill·stroke 0 · 스타일 없는 텍스트 0 · set 설명 유무 · 프레임 밖 넘침 0 · 광학 중앙 이탈 0 이다. **기하는 대조하지 않는다** — `figma/components.measured.json` 에 `step-tile` 항목이 없다 |
 | Documentation | `done`         | 이 문서                                                                                                                                                                 |
 | Maturity      | `experimental` | 되읽기와 문서가 방금 처음 섰다. 타일 콘텐츠가 정해지고 기하 실측이 붙으면 승격한다                                                                                      |
 
@@ -7850,8 +7852,13 @@ Figma 의 슬롯은 이것과 이렇게 대응한다.
 | `Description` | BOOLEAN | `description` 이 비어 있지 않은가 |
 | `DescriptionLabel` | TEXT | `description` 의 문구 |
 
-세 슬롯이 `design/governance/figma-component-authoring.md` §3 의 이름 관례와 그대로 맞는다 —
-「있고 없고」가 BOOLEAN 이고 문구가 TEXT 다. **닫힌 축 표를 벗어나는 축이 하나도 없다.**
+슬롯의 **타입**은 `design/governance/figma-component-authoring.md` §3 이 정한 대로다 — 「있고
+없고」가 BOOLEAN 이고 문구가 TEXT 다. **닫힌 축 표를 벗어나는 축이 하나도 없다.** 다만 **이름은
+§3 의 명부를 그대로 따르지 않는다** — `Description` 은 §3 의 TEXT 명부에 올라 있는 이름이고
+BOOLEAN 명부(`Icon` · `Dot` · `Prefix` · `Suffix` · `LeftIcon` · `RightIcon`)에는 없다. §3 이
+「짝으로 낸다」고 적은 것도 BOOLEAN + INSTANCE_SWAP 뿐이다. 이 BOOLEAN + `{Name}Label` TEXT 짝의
+근거는 §3 이 아니라 §2 개정표의 MediaCard 선례(`Badge` BOOLEAN + `BadgeLabel` TEXT)다
+(Known deviations 10).
 
 #### Variants, sizes, and states
 
@@ -7881,9 +7888,9 @@ Figma 의 슬롯은 이것과 이렇게 대응한다.
 #### Interaction and responsive behavior
 
 - **폭을 고정하지 않는다.** 제품은 3열 격자에 `w-full` 정사각을 얹어 칸이 폭을 정하게 둔다.
-  시안의 462.667 은 한 폭에서 나온 분배값이지 컴포넌트의 계약이 아니다(Known deviations 3).
-- **좁은 화면에서 1열로 선다.** 정사각 셋을 그대로 두면 한 변이 100 도 안 되기 때문이다. 이
-  규칙은 시안에 없고 제품이 정했다(Known deviations 6).
+  되읽기의 462.7 은 한 폭에서 나온 분배값이지 컴포넌트의 계약이 아니다(Known deviations 3).
+- **720 미만에서 1열로 선다**(`max-width: 719px`). 정사각 셋을 그대로 두면 한 변이 100 도 안
+  되기 때문이다. 이 규칙은 시안에 없고 제품이 정했다(Known deviations 6).
 - 긴 라벨이 격자 트랙을 밀어 넓히지 못한다 — 카드에 `min-w-0` 이 걸려 있다.
 - 캡션은 **줄바꿈되는 한 줄**이다. 라벨과 설명이 각각 쪼개지지 않는 덩어리라, 한 줄에 못
   들어가는 카드만 설명이 통째로 다음 줄로 내려간다. 덩어리 자체는 컨테이너 폭 안에서 다시
@@ -7895,6 +7902,8 @@ Figma 의 슬롯은 이것과 이렇게 대응한다.
 #### Content
 
 - **라벨이 유일한 필수 글자다.** 설명은 없어도 된다 — 세 번째 항목이 실제로 비어 있다.
+- **라벨 셋은 서로 달라야 한다.** 제품이 라벨 문구를 목록 `key` 로 쓴다 — 같은 문구가 둘이면
+  항목이 엉킨다.
 - 라벨은 **한 동작**을 말한다. 첫 항목처럼 문장을 통째로 넣으면 캡션이 두 줄이 되고 그 카드만
   30 높아진다. 그 자체가 결함은 아니지만 세 칸의 캡션 높이가 갈리는 값이므로 의식하고 쓴다.
 - 라벨과 설명 사이는 **진짜 공백 문자**다. 복사하면 `카테고리 영상의 주제를 선택하세요.` 로
@@ -7910,9 +7919,12 @@ Figma 의 슬롯은 이것과 이렇게 대응한다.
 
 #### Accessibility
 
-- 세 타일은 `ol` 안의 `li` 다. **순서가 있는 목록이라는 사실이 보조기술에 실린다** — 화면에
-  번호가 없어도 「몇 개 중 몇 번째」가 읽힌다. 이것이 시안에 없는 번호를 그리지 않고도 순서를
-  전달하는 방법이다.
+- 세 타일은 `ol` 안의 `li` 다. 순서가 있는 목록이라는 사실을 **마크업은** 담고 있어, 화면에
+  번호가 없어도 「몇 개 중 몇 번째」가 읽힐 길이 열려 있다. 다만 제품이 마커를 지우려고
+  `list-none`(`list-style: none`)을 걸었고 `role="list"` 를 달지 않았다 — WebKit/VoiceOver
+  계열은 그때 목록 롤을 벗기므로 **지금은 그 전달이 보장되지 않는다.** 이 저장소에 그것을 잰
+  증거도 없다(acceptance test 0건). `role="list"` 를 다는 것이 승격 조건이다
+  (Known deviations 11).
 - 타일은 빈 상자다. 역할도 이름도 없고 포커스도 받지 않는다 — 지금은 **장식**이다. 사진이
   들어가면 그때 대체 텍스트 계약이 생긴다.
 - 캡션은 문단 하나이고 라벨과 설명이 그 안의 두 덩어리다. 사이에 진짜 공백이 있어 접근성
@@ -7921,16 +7933,17 @@ Figma 의 슬롯은 이것과 이렇게 대응한다.
   **설명은 라이트에서 3.63:1 로 AA(4.5:1)에 미달한다**(다크 6.48:1). 이 값은 랜딩 전체가
   공유하는 `landing/text-muted` 에서 오므로 여기서 덮지 않는다 — 올리려면 그 토큰을 손대야
   한다. **SC 1.4.3 결손**으로 적어 둔다.
-- 타일 면과 바닥의 대비는 라이트 1.19:1 · 다크 1.14:1 이다. 「겨우 보이는 면」이 의도이고 면이
-  정보를 나르지 않으므로 SC 1.4.11 의 대상이 아니다. 다만 이 면이 사라지면 타일이 통째로
-  없어진다는 점은 Known deviations 7 과 함께 본다.
+- 타일 면과 바닥의 대비는 라이트 1.19:1 · 다크 1.14:1 이다. 「겨우 보이는 면」이 의도이고, 지금
+  이 면은 **뜻을 나르지 않는 빈 상자**라 SC 1.4.11 의 대상이 아니다 — 뜻은 캡션이 전부 나른다.
+  사라지면 화면에서 타일이 없어지지만 읽히는 내용은 그대로다(머리말). **콘텐츠가 들어가는 순간
+  재판정한다** — 그때부터 면은 사진의 자리를 뜻한다(Known deviations 4 · 7).
 - 타깃 크기 계약이 없다 — 누를 수 있는 것이 없다.
 
 #### Specification
 
 | Part | 값 | 토큰·근거 |
 | --- | --- | --- |
-| Tile | 폭 100%, 정사각 | 칸이 정한다. Figma 는 462.667 고정(Known deviations 3) |
+| Tile | 폭 100%, 정사각 | 칸이 정한다. 되읽기는 462.7 고정(Known deviations 3) |
 | Tile radius | 12 | `radius/12` |
 | Tile 면 | 잉크 8% | `color/landing/panel-strong`. 제품은 `gray/000` 8% 폴백을 함께 단다(Known deviations 7) |
 | Tile 자름 | 내용 잘림 | 지금은 자를 것이 없다. 콘텐츠가 들어갈 때를 위한 것이다 |
@@ -7942,6 +7955,7 @@ Figma 의 슬롯은 이것과 이렇게 대응한다.
 | Label ↔ Description | 공백 문자 한 개(실측 4.69) | Figma 는 `itemSpacing` 4(Known deviations 1) |
 | 루트 안쪽 여백 | 0 | 여백은 섹션 껍데기가 갖는다 |
 | 타일 사이 간격 | 6 | **바깥 목록이 갖는다** — 이 컴포넌트 밖이다 |
+| 1열 전환 | `max-width: 719px`(720 미만) | **바깥 목록이 갖는다** — 제품 `ROW`. 시안에 없다(Known deviations 6) |
 
 #### Known deviations
 
@@ -7953,14 +7967,19 @@ Figma 의 슬롯은 이것과 이렇게 대응한다.
    노드는 렌더되지 않으므로 공백을 끼워 넣어도 해결되지 않았다. 보이는 결과(첫 카드 두 줄 ·
    나머지 한 줄)는 두 매체가 같지만 **간격의 출처가 다르다** — Figma 4 대 실측 4.69. LOUIS
    recipe 를 세울 때 어느 쪽을 정본으로 삼을지 정해야 한다. **소유자 판정 필요.**
-2. **줄 높이가 시안과 다르다 — 150% 대 120%.** 시안 캡션은 120%(24)인데 제품 타입 스케일의
-   `body-20` 은 150%(30)다. 이 한 곳을 위해 스케일 밖 리터럴을 박으면 토큰이 이미 갖고 있는
-   반응형 계단이 죽으므로 토큰을 그대로 쓴다. 그 결과 **설명이 있는 한 줄짜리 카드가 시안보다
+2. **줄 높이가 랜딩 목업과 다르다 — 150% 대 120%.** 여기서 「시안」은 되읽기의 `StepTile` 이
+   아니라 그 출처인 랜딩 목업(「New Klipse」 `#capabilities`)이다. **되읽기의 `StepTile` 은 이미
+   150%** 라(Label · Description 각 30 · Caption 60 · 루트 534.7) Figma 컴포넌트와 제품 사이에는
+   이 축의 차이가 없다 — 아래 120% · 24 · 498.667 은 제품 주석이 적어 둔 목업 값이고 되읽기에
+   없다. 목업 캡션은 120%(24)인데 제품 타입 스케일의 `body-20` 은 150%(30)다. 이 한 곳을 위해
+   스케일 밖 리터럴을 박으면 토큰이 이미 갖고 있는 반응형 계단이 죽으므로 토큰을 그대로 쓴다. 그 결과 **설명이 있는 한 줄짜리 카드가 목업보다
    6 높다**(504.664 대 498.667). 두 줄짜리 카드는 30 × 2 가 24 + 12 + 24 와 같아져 60 으로
-   일치한다. 자간도 같은 이유로 토큰값 −1% 를 쓴다(시안 −2%).
-3. **462.667 이 리터럴이고 대응 토큰이 없다.** (1400 − 6 × 2) ÷ 3 으로 나온 FILL 분배값이라
-   2px 격자에도 얹히지 않는다. 제품은 폭을 고정하지 않고 3열 격자가 만들게 두므로 Figma 의
-   고정 폭은 **한 폭의 투영**이다. 폭을 축으로 뚫지 않은 이유는 Media Card 의 `layout` 축을
+   일치한다. 자간도 같은 이유로 토큰값 −1% 를 쓴다(목업 −2%).
+3. **폭이 리터럴이고 대응 토큰이 없다.** 되읽기가 보관하는 값은 **462.7** 이다(채취가 기하를
+   소수 한 자리에서 접는다). 그 출처인 목업 계산값 **462.667** = (1400 − 6 × 2) ÷ 3 은 제품
+   주석에만 있고 되읽기에는 없다 — 「Figma 는 462.667」이라고 적으면 되읽기로 확인되지 않는다.
+   어느 쪽이든 FILL 분배값이라 2px 격자에도 얹히지 않는다. 제품은 폭을 고정하지 않고 3열
+   격자가 만들게 두므로 Figma 의 고정 폭은 **한 폭의 투영**이다. 폭을 축으로 뚫지 않은 이유는 Media Card 의 `layout` 축을
    비운 것과 같다 — 어떤 폭을 골라도 거짓이 된다.
 4. **타일이 비어 있다.** 시안 프레임이 자식 0 · IMAGE fill 0 · VECTOR 0 이고 에셋도 파일명도
    없다. 제품도 면만 둔다. **지금 비어 있는 것은 결정이 아니라 미결이다** — 콘텐츠가 정해지면
@@ -7969,7 +7988,8 @@ Figma 의 슬롯은 이것과 이렇게 대응한다.
    없어 12 · 30 · 60 · 4 를 아무도 대조하지 않는다. 위 값들은 제품 소스와 그 안에 적힌 실측이고
    이 저장소가 직접 잰 브라우저 값이 아니다. 실측 probe 를 붙이는 것이 승격 조건이다.
 6. **좁은 화면 규칙이 Figma 에 없다.** 시안에 좁은 프레임이 없어 제품이 1열로 접는 지점을
-   정했다. 그 값은 지금 제품에만 있고 아무도 대조하지 않는다 — 이 문서가 임시로 소유한다.
+   정했다 — **`max-width: 719px`**(720 미만)이고, 근거는 「정사각 3장이면 한 변이 100 도 안
+   된다」다. 그 값은 지금 제품에만 있고 아무도 대조하지 않는다 — 이 문서가 임시로 소유한다.
 7. **면의 폴백을 Figma 가 표현하지 못한다.** `landing/panel-strong` 은 제품에서 랜딩 루트
    스코프 안에서만 정의되는 변수라, 그 밖에 마운트되면 면이 투명으로 떨어진다 — 타일이 통째로
    사라지는 그림이다. 제품은 `gray/000` 8% 폴백을 달아 막았고 두 값은 두 테마 모두 실측
@@ -7985,6 +8005,15 @@ Figma 의 슬롯은 이것과 이렇게 대응한다.
    소스에서 읽은 것이며, Figma 쪽이 예컨대 면과 글자의 변수를 서로 바꿔 묶어도 이 게이트는
    통과한다 — Carousel Arrow 에서 실제로 그 교차가 발견됐다. 변수 이름까지 되읽는 것이
    승격 조건 하나다.
+10. **BOOLEAN 슬롯의 이름 관례가 미정이다.** `Description`(BOOLEAN) + `DescriptionLabel`(TEXT)
+    는 §2 개정표의 MediaCard 선례(`Badge` + `BadgeLabel`)를 따른 형태이지만, `Description` 은
+    §3 의 **TEXT 명부**에 올라 있는 이름이고 §3 의 BOOLEAN 명부에는 이 형태도 `{Name}Label`
+    이라는 이름도 없다. 관행은 집안에 있는데 명부가 그것을 인정하지 않는다 — **§3 표 개정이
+    필요하고 소유자 판정이다.**
+11. **`role="list"` 가 없다.** 제품이 마커를 지우려고 `ol` 에 `list-none` 을 걸었는데
+    `role="list"` 를 달지 않아, WebKit/VoiceOver 계열에서 목록 롤이 벗겨질 수 있다. 「번호를
+    그리지 않고도 순서를 전달한다」는 이 컴포넌트의 근거가 그 브라우저에서 성립하는지 아무도
+    재지 않았다. **`role="list"` 추가가 승격 조건이다.**
 
 #### Acceptance tests
 
@@ -8010,8 +8039,9 @@ Figma 의 슬롯은 이것과 이렇게 대응한다.
 
 ### FAQ Row
 
-질문이 늘 보이고 답변은 눌렀을 때만 보이는 행. **행 하나가 통째로 버튼이다** — 질문 글자만이
-아니라 좌우 20 여백까지 전부 누를 수 있다.
+질문이 늘 보이고 답변은 눌렀을 때만 보이는 행. **닫힌 행은 통째로 버튼이다** — 질문 글자만이
+아니라 좌우 20 여백까지 전부 누를 수 있다. 열리면 버튼은 질문 줄까지이고 **답변은 버튼 밖**이라,
+답변을 눌러도 접히지 않는다.
 
 **정본은 제품이다.** `FAQ.tsx` 가 구현이고 LOUIS 에는 표면이 없다 —
 `packages/css/src/component` 에 아코디언·디스클로저 레시피가 없고 `packages/react/src` 에도
@@ -8024,15 +8054,16 @@ Figma 의 슬롯은 이것과 이렇게 대응한다.
 **면 토큰을 잘못 고르면 라이트에서 컴포넌트가 사라진다.** `gray-900` 은 라이트에서
 `palette-gray-100`(#f1f1f3)으로 뒤집히는데 랜딩 페이지 바닥이 정확히 같은 값이다. 시안이 다크
 렌더라서 다크만 보고 고르면 걸리는 함정이고, 제품 주석에 「다른 섹션 셋도 같은 자리에서
-걸렸다」고 적혀 있다. 잉크 8% 오버레이(`landing/panel-strong`)는 두 테마 모두 바닥보다 한 단
-진하다.
+걸렸다」고 적혀 있다. 잉크 8% 오버레이(`landing/panel-strong`)는 **랜딩 바닥 위에서는** 두 테마
+모두 바닥보다 한 단 진하다 — 바닥을 테마와 무관하게 고정하는 가격 페이지는 다르다
+(Known deviations 7).
 
 #### Availability
 
 | Surface       | 상태           | 근거                                                                                                                                                                    |
 | ------------- | -------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Web           | `not-ready`    | 제품 구현이 정본이고 소비처가 두 자리다. **LOUIS 표면은 0** — CSS 레시피도 React export 도 없고 acceptance test 도 0건이다                                              |
-| Figma         | `partial`      | `FaqRow` 2 variant(`Expanded`) · TEXT 2. parity 게이트가 대조하는 것은 속성 축 · stroke 0 · effect 0 · raw fill·stroke 0 넷이다. **기하는 대조하지 않는다** — `figma/components.measured.json` 에 `faq-row` 항목이 없다 |
+| Figma         | `partial`      | `FaqRow` 2 variant(`Expanded`) · TEXT 2. parity 게이트가 대조하는 것은 속성 축 · stroke 0 · effect 0 · raw fill·stroke 0 · 스타일 없는 텍스트 0 · set 설명 유무 · 프레임 밖 넘침 0 · 광학 중앙 이탈 0 이다. **기하는 대조하지 않는다** — `figma/components.measured.json` 에 `faq-row` 항목이 없다 |
 | Documentation | `done`         | 이 문서                                                                                                                                                                 |
 | Maturity      | `experimental` | 되읽기와 문서가 방금 처음 섰다. LOUIS recipe 가 서고 기하 실측이 붙으면 승격한다                                                                                        |
 
@@ -8054,7 +8085,8 @@ Figma 의 슬롯은 이것과 이렇게 대응한다.
 
 1. **Row** — radius 12 의 채워진 상자. `overflow: hidden` 이라 펼침 애니메이션이 모서리를
    넘지 않는다.
-2. **Question** — 행 전체를 덮는 `<button>`. 좌우 20 · 위아래 18 · 사이 16.
+2. **Question** — 질문 줄 전체를 덮는 `<button>`(가로 100%). 좌우 20 · 위아래 18 · 사이 16.
+   **답변은 이 버튼 밖의 형제 노드다.**
    1. **QuestionText** — 질문 한 줄. body-20-medium.
    2. **Icon / Glyph** — `+` 글리프. 열리면 45° 돌아 `×` 가 된다.
 3. **Answer**(열렸을 때만) — **같은 면 안**에 들어간다. 좌우는 질문과 맞추고 위는 0, 아래만 18.
@@ -8119,9 +8151,11 @@ Figma 의 슬롯은 이것과 이렇게 대응한다.
 
 #### Interaction and responsive behavior
 
-- **행 전체가 버튼이다.** 질문 글자가 짧아도 오른쪽 빈 자리까지 눌린다.
-- 질문이 두 줄이 되면 `+` 가 **첫 줄에 붙어 위에 남는다**(`items-start`). Figma 의 counter 정렬이
-  `MIN` 인 것과 같은 동작이다.
+- **질문 줄 전체가 버튼이다.** 질문 글자가 짧아도 오른쪽 빈 자리까지 눌린다. 닫힌 행에서는 그것이
+  행 전체이고, 열린 행에서는 답변이 버튼 밖에 있어 답변을 눌러도 접히지 않는다.
+- 질문이 두 줄이 되면 `+` 가 **첫 줄에 붙어 위에 남는다**(`items-start`). 제품 주석은 「시안의
+  counter 정렬이 `MIN` 이라 그 동작을 그대로 옮겼다」고 적는데, **되읽기에는 정렬 필드 자체가
+  없어** 그 전언은 대조되지 않았다(Known deviations 11).
 - **타입 스케일이 뷰포트를 따라 줄어든다.** 질문의 body-20 은 20 → 18(≤1023) → 16(≤767), 답변의
   body-16 은 14 로(≤450) 내려간다. 그래서 **닫힌 행 높이 66 은 1024 이상에서만 참이다** —
   아래로는 63, 60 이 된다. Figma 의 66 은 그중 한 단계다.
@@ -8165,7 +8199,9 @@ Figma 의 슬롯은 이것과 이렇게 대응한다.
   아니지만, 값이 브라우저마다 다르고 Figma 에 `Focus` 변형이 없어 **검토 대상이 아니다.**
 - 타깃 크기: 닫힌 행이 폭 전체 × 66 이라 SC 2.5.5(44 × 44)를 넉넉히 넘는다. 행 간격 4 로 두
   타깃이 가깝지만 둘 다 크다.
-- **대비.** 아래는 토큰값에서 계산한 값이며 **브라우저 실측이 아니다.**
+- **대비.** 아래는 **랜딩 바닥**(`landing/page-bg` — 라이트 #f1f1f3 · 다크 #000000) 위에서
+  토큰값으로 계산한 값이며 **브라우저 실측이 아니다.** 바닥을 테마와 무관하게 고정하는 가격
+  페이지는 다른 표가 필요하다 — 그 자리의 미해결은 Known deviations 7 이 갖는다.
 
   | | 라이트 | 다크 |
   | --- | ---: | ---: |
@@ -8194,13 +8230,13 @@ Figma 의 슬롯은 이것과 이렇게 대응한다.
 | 행 간격 | 4 | 목록이 갖는다 — 이 컴포넌트 밖이다 |
 | Question | 좌우 20 · 위아래 18 · 사이 16 | 2px 그리드(`px-10 py-9 gap-8`) |
 | Question 높이 | 66 = 18 + 30 + 18 | 20 × 1.5 = 30. **1024 이상에서만**(→ 63 → 60) |
-| Question 정렬 | 위 맞춤 | `items-start`. Figma counter 정렬 `MIN` |
-| QuestionText | body-20-medium | `typography/body-lg-medium` · `color/gray-000` |
+| Question 정렬 | 위 맞춤 | `items-start`. 제품 주석이 「시안에서 `MIN`」이라 적었을 뿐 되읽기에 정렬 필드가 없다(Known deviations 11) |
+| QuestionText | body-20-medium | `typography/body-lg-medium` · `color/gray/000` |
 | Glyph | `+`, body-20-regular, 13 × 30 | 글리프 높이 30 은 20 × 1.5 의 줄 상자다 |
-| Glyph 색 | `gray-000` 50% | 시안의 순수 흰색 50% 를 팔레트로 통일했다(Known deviations 3) |
+| Glyph 색 | 잉크 50% | Figma 는 `color/gray/000` 50%. 시안의 순수 흰색 50% 를 팔레트로 통일했다(Known deviations 3) |
 | Glyph 회전 | 열림에서 45° | `transform: rotate(45deg)`. `rotate` 프로퍼티가 아니라 `transform` 이다 — 전환 대상이기 때문 |
 | Answer | 좌우 20 · 위 0 · 아래 18, 최대 `64ch` | 질문의 좌우 여백에 맞추고 아래만 띄운다 |
-| Answer 글자 | body-16-regular | `color/gray-300` |
+| Answer 글자 | body-16-regular | `color/gray/300` |
 | 펼침 전환 | 300ms `cubic-bezier(0.4, 0, 0.2, 1)` — 높이 · 투명도 | framer-motion |
 | 글리프 전환 | 220ms `ease` — transform | CSS |
 
@@ -8220,8 +8256,11 @@ Figma 의 슬롯은 이것과 이렇게 대응한다.
    질문·제목은 `#fafafa` 다. 같은 면 위에서 두 흰색을 쓰는 이유를 찾지 못해 팔레트 쪽으로
    통일했다 — 차이는 1% 미만이다. 대신 **테마를 따르게 되어 라이트에서 검정 잉크 50% 가 된다.**
 4. **전환 시간이 제품은 둘, Figma 는 하나다.** 제품은 높이·투명도 300ms 와 글리프 회전 220ms 가
-   따로 돈다. Figma 는 한 전환에 두 시간을 담을 수 없어 **300 하나로 합쳤다.** 시안의 회전이
-   실제보다 80ms 늦게 끝난다 — 눈으로는 거의 구분되지 않지만 값은 다르다.
+   따로 돈다. Figma 는 한 전환에 두 시간을 담을 수 없어 하나로 합칠 수밖에 없다. **그 하나가
+   얼마인지는 이 저장소의 어떤 산출물로도 대조되지 않는다** — 되읽기가 프로토타입 전이를 채취하지
+   않고(`transitionDuration` · `reactions` 가 0건) parity 계약에도 축이 없어, 누가 Figma 에서 이
+   값을 바꿔도 게이트는 초록이다. 확인하려면 파일을 직접 열어야 한다. 300 으로 맞춰 두었다면
+   회전이 제품보다 80ms 늦게 끝나지만 눈으로는 거의 구분되지 않는다.
 5. **Figma 의 열린 높이 132 가 고정이다.** 제품에서 열린 높이는 답변 길이가 정한다
    (`height: auto`). 132 는 두 줄 답변 하나를 그린 결과값이고(66 + 18 + 24 × 2), 다른 길이의
    답변에서는 재현되지 않는다. 고정 폭 variant 로 그릴 수 없는 것을 그린 자리이므로 **이 수를
@@ -8238,7 +8277,10 @@ Figma 의 슬롯은 이것과 이렇게 대응한다.
    목록에 없다.** 다크 테마에서 그 값은 밝은 회색이고 행 면은 흰색 8% 를 밝은 바닥에 얹은 거의
    흰 면이라, 답변 대비가 **1.29:1** 로 떨어진다. 질문(18.8:1)과 `+` 는 멀쩡해서 눈에 잘 띄지도
    않는다. 그 스코프 규칙은 답변이 없던 옛 배치에 맞춰 쓰였고 이번에 답변이 생기면서 따라오지
-   않았다. **토큰값에서 계산한 값이며 브라우저 실측이 아니다** — 확인과 소유자 판정이 필요하다.
+   않았다. **같은 자리에서 행 면과 바닥의 대비도 무너진다** — 흰색 8% 를 #f1f1f3 에 얹으면
+   rgb(242.1 242.1 244.0) 이라 바닥과 **1.01:1** 이고, 방향도 랜딩과 반대다(다크인데 행이 바닥보다
+   밝다). 즉 Accessibility 의 「1.2:1」과 「면으로 나눈 결정의 대가」는 랜딩에서만 참이다.
+   **토큰값에서 계산한 값이며 브라우저 실측이 아니다** — 확인과 소유자 판정이 필요하다.
 8. **기하가 게이트에 걸려 있지 않다.** `figma/components.measured.json` 에 `faq-row` 항목이 없어
    66 · 12 · 20 · 18 · 16 을 아무도 대조하지 않는다. 위 값들은 제품 소스에서 읽은 것이고 브라우저
    실측이 아니다. 실측 probe 를 붙이는 것이 승격 조건이다.
@@ -8249,6 +8291,10 @@ Figma 의 슬롯은 이것과 이렇게 대응한다.
 10. **`aria-controls` 와 제목 요소가 코드에 없다.** Accessibility 의 두 결손과 같은 항목이다.
     Figma 로는 표현되지 않는 차이라 되읽기가 잡을 수 없고, LOUIS recipe 를 세울 때 구조로
     채워야 한다.
+11. **counter 축 정렬이 대조되지 않는다.** `items-start` 의 근거로 적힌 「시안 counter 정렬
+    `MIN`」은 제품 주석의 전언이고, 되읽기에는 정렬 필드가 아예 없다(`FaqRow` 의
+    `parts.Question` 은 width · height · padding · itemSpacing 뿐이다). 되읽기 채취에 counter
+    정렬을 더하는 것이 승격 조건 하나다.
 
 #### Acceptance tests
 
@@ -8294,14 +8340,16 @@ Figma 의 슬롯은 이것과 이렇게 대응한다.
 갈리는 것이 이 카드의 조형 전부이며, `Featured` 를 슬롯이 아니라 축으로 둔 이유이기도 하다.
 
 **폭 347 은 지어낸 수가 아니라 유도값이다.** 347 = (1400 − gap 4×3) ÷ 4 — 시안 콘텐츠 폭 1400
-안에 카드 4열이 간격 4 로 들어가는 나머지다. 2px 격자에 떨어지지 않는 유일한 값이 이것이다.
+안에 카드 4열이 간격 4 로 들어가는 나머지다. 셸프가 박는 두 값(347 · 160) 중 2px 격자에
+떨어지지 않는 것은 347 하나이고, 거기서 파생되는 Body 폭 315(= 347 − 16 × 2)도 함께 격자를
+벗어난다.
 
 #### Availability
 
 | Surface       | 상태           | 근거                                                                                                                                                                                          |
 | ------------- | -------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Web           | `not-ready`    | 제품 구현이 정본이지만 **export 조차 되지 않는 파일 내부 함수**이고 소비처가 한 자리다. **LOUIS 표면은 0** — CSS 레시피도 React export 도 없고 acceptance test 도 0건이다                     |
-| Figma         | `partial`      | `NewsCard` 2 variant(`Featured`) · TEXT 2. parity 게이트가 대조하는 것은 stroke 0 · effect 0 · 속성 축 · raw fill·stroke 0 · 스타일 없는 텍스트 0 다섯이다. **기하는 대조하지 않는다** — `figma/components.measured.json` 에 `news-card` 항목이 없다 |
+| Figma         | `partial`      | `NewsCard` 2 variant(`Featured`) · TEXT 2. parity 게이트가 대조하는 것은 stroke 0 · effect 0 · 속성 축 · raw fill·stroke 0 · 스타일 없는 텍스트 0 · set 설명 유무 · 프레임 밖 넘침 0 · 광학 중앙 이탈 0 이다. **기하는 대조하지 않는다** — `figma/components.measured.json` 에 `news-card` 항목이 없다 |
 | Documentation | `done`         | 이 문서                                                                                                                                                                                       |
 | Maturity      | `experimental` | 되읽기와 문서가 방금 처음 섰다. LOUIS recipe 가 서고 기하 실측이 붙으면 승격한다                                                                                                              |
 
@@ -8400,7 +8448,12 @@ Figma 의 축·슬롯은 이것과 이렇게 대응한다.
 - **피처드 폭은 뷰포트에 흔들리지 않는다.** 열 폭이 고정이므로 어느 화면에서도 698 이고,
   그래서 「제목 1줄」 가정이 화면 크기에 따라 깨지지 않는다.
 - 보통 카드는 **높이 160 고정**이다. 안쪽 여유가 120(= 160 − 20 × 2)인데 제목 3줄이면 본문이
-  124 가 되어 넘친다. 그래서 2줄에서 말줄임한다.
+  124 가 되어 넘친다 — **1024 이상에서** 그렇다. 그래서 2줄에서 말줄임한다.
+- **카드 상자는 안 줄어드는데 타입 스케일은 내려간다.** 열 폭 347 · 행 높이 160 은 뷰포트와
+  무관하게 고정인데, 랜딩 스코프의 `body-20` 은 20 → 18(≤1023) → 16(≤767) 로, `body-16` 은
+  ≤450 에서 14 로 내려간다. 그래서 여유 120 에 대한 본문 높이가 뷰포트마다 다르다 — 보통
+  94 → 88 → 82 → 79, 피처드 64 → 61 → 58 → 55. **1023 이하에서는 제목 3줄도 여유 안에
+  들어온다**(115 · 106 · 103). 제품은 그와 무관하게 두 갈래 모두 한 값으로 자른다(2줄 · 1줄).
 - 피처드는 **1줄**에서 말줄임한다. 스크림 근거가 「글자 블록이 카드 상단 20~84px 안에 있다」에
   걸려 있는데, 2줄이면 블록이 20~114px 로 내려가고 그 지점(324 의 35%)은 스크림의 25%→50%
   보간 구간이라 알파가 0.47 까지 떨어진다 — 둘째 줄이 사진 위 생글자가 된다. 2줄을 허용하려면
@@ -8460,14 +8513,14 @@ Figma 의 축·슬롯은 이것과 이렇게 대응한다.
 | Card 면 (피처드) | 사진, 아래 기준으로 덮음 | `object-cover object-bottom` · `overflow: hidden` 이 radius 로 자른다 |
 | Scrim | 위→아래 `palette-gray/900` 1.0 @0% → 0.8 @25% → 0 @50% | `color/palette-gray/900`. **테마를 따르지 않는다** — 사진 위 장치다 |
 | Body | 세로, 간격 10, 폭 100% | `gap-5`(2px 격자) |
-| Body 높이 (보통) | 94 | 24 + 10 + 60 |
-| Body 높이 (피처드) | 64 | 24 + 10 + 30 |
-| Date | body-16-regular, 높이 24 | `typography/body-md-regular`(16 × 150%) |
+| Body 높이 (보통) | 94 | 24 + 10 + 60. **1024 이상에서만**(→ 88 → 82 → 79). 값의 출처는 Figma 되읽기다 — 제품은 Body 높이를 선언하지 않는다(Known deviations 7) |
+| Body 높이 (피처드) | 64 | 24 + 10 + 30. **1024 이상에서만**(→ 61 → 58 → 55). 출처는 위와 같다 |
+| Date | body-16-regular, 높이 24 | `typography/body-md-regular`(16 × 150%). **450 초과에서만** — 450 이하는 `body-16` 이 14 로 내려가 21 이다 |
 | Date 색 (보통) | `landing/text-muted` | 라이트 잉크 48% / 다크 잉크 56% |
 | Date 색 (피처드) | `palette-gray/500` | #9aa0ab 고정. 시안이 다섯 장의 날짜를 전부 이 값으로 찍었다 |
-| Headline | body-20-regular | `typography/body-lg-regular`(20 × 150%) |
-| Headline (보통) | 2줄 = 60, 말줄임 | 여유 120 − 24 − 10 = 86 이므로 2줄까지 든다 |
-| Headline (피처드) | 1줄 = 30, 말줄임 | 스크림 상한 84px 이 근거다 |
+| Headline | body-20-regular | `typography/body-lg-regular`(20 × 150%). 랜딩 스코프에서 20 → 18(≤1023) → 16(≤767) |
+| Headline (보통) | 2줄 = 60, 말줄임 | **1024 이상**: 여유 120 − 24 − 10 = 86 이므로 2줄까지 든다(3줄이면 124 로 넘친다). 아래로는 2줄 54 · 48 · 48 이고 3줄도 든다 |
+| Headline (피처드) | 1줄 = 30, 말줄임 | 스크림 상한 84px 이 근거다. **1024 이상** 기준이며 아래로는 27 · 24 |
 | Headline 색 (보통) | `gray/000` | 다크 #fafafa / 라이트 #000000 |
 | Headline 색 (피처드) | `media-foreground-dark` | #fafafa 고정 |
 | 테두리 · 그림자 · 배경 흐림 | **없음** | 시안도 stroke·effect 를 주지 않는다 |
@@ -8508,9 +8561,12 @@ Figma 의 축·슬롯은 이것과 이렇게 대응한다.
    사례로 기록됐다. 피처드를 별도 컴포넌트로 뽑는 길은 택하지 않았다.
 6. **폭 347 이 격자 밖이고 대응 토큰이 없다.** 유도값(1400 − 4 × 3) ÷ 4 이지만 2px 격자에
    떨어지지 않고, 값이 347 인 spacing 변수도 없다. 높이 160 은 격자에 떨어진다.
-7. **기하가 게이트에 걸려 있지 않다.** `figma/components.measured.json` 에 `news-card` 항목이
-   없어 347 · 160 · 698 · 324 · 94 · 64 를 아무도 대조하지 않는다. 위 값들은 제품 소스에서 읽은
-   것이고 브라우저 실측이 아니다. 실측 probe 를 붙이는 것이 승격 조건이다.
+7. **기하가 게이트에 걸려 있지 않고, 값의 출처가 둘로 갈린다.**
+   `figma/components.measured.json` 에 `news-card` 항목이 없어 347 · 160 · 698 · 324 · 94 · 64 를
+   아무도 대조하지 않는다. 그중 **347 · 160 · 698 · 324 는 제품 소스**(셸프의 열·행 트랙과 그
+   주석)에 있고, **94 · 64 는 Figma 되읽기에만 있다** — 제품은 Body 높이를 선언하지 않고 내용이
+   정하게 둔다(Body 폭 315 · 666 도 같다). 어느 쪽도 브라우저 실측이 아니므로 둘이 같은지 아무도
+   대조하지 않는다. 실측 probe 를 붙이는 것이 승격 조건이다.
 8. **셸프가 Figma 에 없다.** 열 흐름(`grid-auto-flow: column`) · 2행 · 간격 4 · 스크롤 스냅은
    전부 카드 밖인데 그것을 담는 컴포넌트가 Figma 에 없다. 그 결과 **피처드가 왜 698 × 324 인지**
    (= 두 열 두 행 + 간격)를 Figma 안에서는 확인할 수 없고 이 문서가 임시로 소유한다.
@@ -8529,8 +8585,9 @@ Figma 의 축·슬롯은 이것과 이렇게 대응한다.
 
 1. `Featured=false` 가 347 × 160, `Featured=true` 가 698 × 324 이고 둘 다 radius 12 다.
 2. 두 변형의 안쪽 여백이 같다 — 좌우 16 · 위아래 20.
-3. Body 간격이 10 이고 높이가 각각 94 · 64 다(24 + 10 + 60 / 24 + 10 + 30).
-4. Headline 이 보통 60(2줄) · 피처드 30(1줄)이고 두 변형 모두 20 × 150% 다.
+3. Body 간격이 10 이고 높이가 각각 94 · 64 다(24 + 10 + 60 / 24 + 10 + 30). **뷰포트 1024
+   이상에서 잰다** — 아래로는 타입 스케일이 내려가 88 · 82 · 79 / 61 · 58 · 55 가 된다.
+4. Headline 이 보통 60(2줄) · 피처드 30(1줄)이고 두 변형 모두 20 × 150% 다(**1024 이상**).
 5. 보통 카드의 면·제목·날짜가 전부 **테마를 따르는** 토큰에서 온다
    (`landing/panel-strong` · `gray/000` · `landing/text-muted`).
 6. 피처드의 제목·날짜가 전부 **고정** 토큰에서 온다(`media-foreground-dark` ·
@@ -8561,7 +8618,9 @@ Figma 의 축·슬롯은 이것과 이렇게 대응한다.
 
 **상태를 색이 아니라 불투명도로 만든다.** 여덟 변형의 기하가 완전히 같고, 면도 테두리도 밑줄도
 없다 — 바뀌는 것은 잉크 한 색의 불투명도뿐이다(1.00 · 0.90 · 0.80 · 0.70 · 0.65 · 0.40). 되읽기의
-기하 키가 `base` 하나뿐인 것이 그 결과다.
+기하 값이 전부 **단일값**(28 · 72 · 12 · 999 · 21)인 것이 그 증거다. 기하 키가 `base` 하나인
+것은 증거가 아니다 — 그 키는 발행 스크립트(`scripts/figma-readback-emit.mjs`)의 채취 명세에 손으로
+적힌 선언이고, 기하가 갈렸더라도 키는 그대로 `base` 다.
 
 **그 조형이 접근성 결함 하나를 숨겼다.** 색만 훑으면 두 톤 모두 팔레트 양 끝(`#171b22` ·
 `#fafafa`)이라 통과처럼 보인다. 조상까지의 요소 불투명도를 글자 알파에 곱해 재야 밝은 면 위
@@ -8580,7 +8639,7 @@ Figma 의 축·슬롯은 이것과 이렇게 대응한다.
 | Surface       | 상태           | 근거                                                                                                                                                                                                     |
 | ------------- | -------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Web           | `not-ready`    | 제품 구현이 정본이고 소비처는 랜딩 GNB 한 자리(같은 파일 안 네 갈래)다. **LOUIS 표면은 0** — CSS 레시피도 React export 도 없고 acceptance test 도 0건이다                                                |
-| Figma         | `partial`      | `GnbMenuItem` 8 variant(`Surface` × `State`) + `Label` TEXT. parity 게이트가 대조하는 것은 속성 축 셋 · raw fill·stroke 0 · stroke 없음 · effect 없음 넷이다. **기하도 불투명도도 대조하지 않는다** — `figma/components.measured.json` 에 항목이 없고 되읽기가 opacity 를 담지 않는다 |
+| Figma         | `partial`      | `GnbMenuItem` 8 variant(`Surface` × `State`) + `Label` TEXT. parity 게이트가 대조하는 것은 속성 축 셋 · raw fill·stroke 0 · 스타일 없는 텍스트 0 · stroke 없음 · effect 없음 · set 설명 유무 · 프레임 밖 넘침 0 · 광학 중앙 이탈 0 이다. **기하도 불투명도도 대조하지 않는다** — `figma/components.measured.json` 에 항목이 없고 되읽기가 opacity 를 담지 않는다 |
 | Documentation | `done`         | 이 문서                                                                                                                                                                                                  |
 | Maturity      | `experimental` | 되읽기와 문서가 방금 처음 섰다. Figma 의 0.50 을 0.65 로 고치고 LOUIS recipe 가 서면 승격한다                                                                                                            |
 
@@ -8617,7 +8676,7 @@ parity 계약도 `figmaAhead` 로 그 사실을 적어 둔다.
 | --- | --- | --- | --- |
 | `isActive` | boolean | 없음 | Selected 로 만든다. 라우트 일치 · 섹션 감지 · 드롭다운 열림 셋 중 하나가 참이면 켠다 |
 | `navBlack` | boolean | 없음 | 밑에 깔린 면이 **밝은가**. 잉크와 불투명도 두 벌을 동시에 가른다 |
-| `MENU_LINK_COMING_SOON` 덧붙임 | — | 없음 | Disabled. 불투명도 0.40 과 `cursor: not-allowed` 를 `!` 로 고정한다 |
+| `MENU_LINK_COMING_SOON` 덧붙임 | — | 없음 | Disabled. 불투명도 0.40 을 `!` 로 고정하고 커서를 `not-allowed` 로 바꾼다 — `!` 는 불투명도에만 붙는다 |
 | 라벨 | 문구 | 없음 | 유일한 내용이다. 전부 i18n 에서 온다 |
 
 Figma 의 축은 이것과 이렇게 대응한다.
@@ -8657,8 +8716,9 @@ Figma 의 축은 이것과 이렇게 대응한다.
 | Focus | **없다.** 아래 Accessibility | 같음 |
 | Active(누르는 중) | **없다.** 제품에 `:active` 선언이 없다 | 같음 |
 
-- **Selected 는 톤을 타지 않는다.** 두 면 모두 1.00 이다 — 활성 규칙이 톤 분기보다 뒤에 오도록
-  삼항으로 갈라 두었기 때문이다.
+- **Selected 는 톤을 타지 않는다.** 두 면 모두 1.00 이다 — 활성이면 톤 분기에 도달하지 않는
+  **상호배타 삼항**이라 불투명도 클래스가 하나만 나가기 때문이다. 소스 순서로 이기는 것이
+  아니다: Tailwind 는 소스 순서가 아니라 자체 정렬로 승자를 정하므로, 그래서 `!` 대신 삼항을 썼다.
 - **Disabled 가 hover 를 이긴다.** 0.40 에만 `!` 가 붙어 있어, 마우스를 얹어도 0.80/0.90 이
   적용되지 않는다. 「갈 곳이 없다」가 커서와 불투명도로 동시에 드러난다.
 - **두 톤의 Default 값이 다른 것이 맞다.** 같은 불투명도라도 검은 잉크가 훨씬 빨리 무너진다 —
@@ -8683,7 +8743,8 @@ Figma 의 축은 이것과 이렇게 대응한다.
 #### Content
 
 - **한 단어짜리 명사다.** 문장도 동사구도 넣지 않는다. 폭이 라벨을 따라가므로 길어지면 메뉴
-  전체가 밀린다 — 일본어 「お問い合わせ」가 현재 가장 길다.
+  전체가 밀린다 — 일본어 「ショーケース」·「ドキュメント」·「お問い合わせ」 셋이 전각 6자로 현재
+  가장 길다(글자 수 기준이며 폭을 실측하지는 않았다).
 - 「공개 예정」은 **라벨이 아니라 툴팁**이다. 항목의 글자는 목적지 이름 그대로 두고, 갈 곳이
   없다는 사실은 불투명도 0.40 과 `title` 이 말한다.
 - 문구 키가 이름과 어긋난 자리가 하나 있다 — 드롭다운 트리거의 키는 `community` 인데 문구는
@@ -8711,10 +8772,11 @@ Figma 의 축은 이것과 이렇게 대응한다.
   있으면서 닫혀 있을 때** 시각적으로는 Selected 인데 `aria-current` 가 없다 — 그 상태를 읽을
   방법이 없다(Known deviations 6).
 - **대비.** 밝은 면은 `palette-gray-900`(`#171b22`) 잉크에 랜딩 바닥 `#f1f1f3` 조합이다.
-  요소 불투명도를 글자 알파에 곱해 재면 Default 0.65 가 **5.11:1** 로 AA(4.5)를 넘는다.
-  0.50 이었을 때는 **3.23:1** 로 미달이었고, 그 수는 제품 주석이 기록한 값이다(같은 식으로 다시
-  재면 3.29:1 이 나온다 — 어느 쪽이든 4.5 미달이라 판정은 바뀌지 않는다). 어두운 면은 흰 잉크
-  0.70 에서 9.57:1 이라 손대지 않았다(제품 주석 기록값).
+  요소 불투명도를 글자 알파에 곱해 sRGB 에서 합성한 뒤 상대휘도로 재면 Default 0.65 가
+  **5.11:1** 로 AA(4.5)를 넘는다. 0.50 이었을 때는 **3.23:1** 로 미달이었고, 이 문서가 같은 식으로
+  다시 재도 3.23:1 이다(제품 주석 기록값과 일치). 어두운 면은 흰 잉크 0.70 에 다크 테마 랜딩 바닥
+  `#000000` 조합이라 **9.57:1** 이어서 손대지 않았다(제품 주석 기록값) — 어두운 사진 밴드 위에서는
+  검정 70% 스크림 아래 사진에 따라 달라진다.
 - **비활성 컨트롤 면제가 성립하지 않는다.** SC 1.4.3 은 비활성 컨트롤을 면제하는데, GNB 항목은
   누를 수 있는 내비게이션 링크라 그 대상이 아니다. 0.50 을 「비활성처럼 흐린 상태」로 읽고
   넘어가면 안 되는 이유가 이것이다.
@@ -8739,7 +8801,7 @@ Figma 의 축은 이것과 이렇게 대응한다.
 | 면 | **없다** | `bg-transparent`. 여덟 상태 전부 |
 | 테두리 · 그림자 | **없다** | 되읽기의 `strokeWeight` 가 비어 있고 `effects` 도 비어 있다 |
 | 폭 | 라벨이 정한다 | `inline-flex`. 되읽기의 72 는 라벨 48 + 12 + 12 인 한 사례다 |
-| 라벨 | body-14-medium, 줄 높이 150%(21) | `typography/body-sm-medium` · `type-body-14-medium` |
+| 라벨 | body-14-medium, 줄 높이 150%(21) | `typography/body-sm-medium` · `type-body-14-medium`. **되읽기로 확인되는 것은 크기 14 · 줄 높이 150% 까지다** — 스타일 이름을 담지 않아 굵기는 대조되지 않는다(Known deviations 10) |
 | 세로 정렬 | 21 을 28 안에서 가운데 | `items-center`. **안쪽 여백이 아니다** — paddingBlock 은 0 이고 남는 3.5 는 정렬의 결과다 |
 | 글꼴 · feature | 타입 스케일 그대로 | `--type-font-family` · `--type-feature-settings` |
 | 잉크 (밝은 면) | `#171b22` | `color/palette-gray/900`. **시맨틱 램프가 아니다** |
@@ -8747,7 +8809,7 @@ Figma 의 축은 이것과 이렇게 대응한다.
 | Default | 0.65 (밝은 면) · 0.70 (어두운 면) | — |
 | Hover | 0.80 (밝은 면) · 0.90 (어두운 면) | — |
 | Selected | 1.00 (두 면 공통) | — |
-| Disabled | 0.40 · `cursor: not-allowed` | `!` 로 고정 — hover 가 이기지 못한다 |
+| Disabled | 0.40 · `cursor: not-allowed` | 불투명도에만 `!` 가 붙는다 — 그래서 hover 가 이기지 못한다 |
 | 전환 | `color 320ms ease, opacity 200ms ease` | — |
 | 항목 간격 | 16 | 메뉴 `<ul>` 이 갖는다(`gap-8`) — 이 컴포넌트 밖이다 |
 | 표시 한계 | 719px 이하에서 메뉴째 숨김 | 같은 래퍼가 갖는다 — 이 컴포넌트 밖이다 |
@@ -8803,13 +8865,23 @@ Figma 의 축은 이것과 이렇게 대응한다.
 9. **포커스 상태가 코드에도 Figma 에도 없다.** Accessibility 의 SC 2.4.7 결손과 같은
    항목이다. `State` 축에 `Focus` 를 더하는 것은 코드에 포커스 링이 선 다음이다 — 먼저 그리면
    Figma 가 없는 것을 있는 것처럼 보여 준다.
+10. **라벨의 굵기가 대조되지 않는다.** 되읽기의 `parts.Label` 은 width · height · fontSize ·
+    lineHeightPercent 만 담고 텍스트 스타일 **이름**을 담지 않으며, `binding.textStyled: 8` 은
+    개수일 뿐이다. `typography/body-sm` 세 굵기가 모두 14 / 150% / −0.14 라 지금 게이트로는
+    regular · medium · semibold 를 가려낼 수 없다. 스타일 이름 되읽기를 더하는 것이 승격 조건
+    하나다(8번의 실측 probe 와 같은 묶음).
 
 #### Acceptance tests
 
 1. 알약 높이가 28 이고 좌우 안쪽이 12 이며 반경이 999 다.
-2. 여덟 변형의 기하가 모두 같다 — 되읽기의 기하 키가 `base` 하나이고 각 값이 단일값이다.
-3. 어떤 변형에도 면 · stroke · effect 가 없다. 되읽기의 `strokes` 와 `effects` 가 비어 있다.
-4. 라벨이 `typography/body-sm-medium` 이고 줄 높이가 150%(21) 다.
+2. 여덟 변형의 기하가 모두 같다 — 되읽기의 각 기하 값이 단일값이다(28 · 72 · 12 · 999 · 21).
+   기하 키가 `base` 인 것은 채취 명세의 선언이라 증거가 아니다.
+3. stroke 도 effect 도 없다 — 되읽기의 `strokes` 와 `effects` 가 비어 있다. **면이 없다는 것은
+   여기서 시험되지 않는다** — 되읽기가 파트별 fill 분해를 주지 않아 `boundFills` 12 중 넷이
+   설명되지 않은 채 남는다(**판정 불가**, Known deviations 4). 제품 쪽은 여덟 상태 전부
+   `bg-transparent` 다.
+4. 라벨의 크기가 14 이고 줄 높이가 150%(21) 다 — 되읽기로 확인된다. **굵기(medium)는 확인되지
+   않는다** — 되읽기가 스타일 이름을 담지 않는다(Known deviations 10).
 5. 잉크가 `color/palette-gray/900` 과 `color/palette-gray/000` 에서만 온다 — 시맨틱 `gray-*`
    램프를 쓰지 않는다.
 6. `Surface=light` · `State=Default` 의 불투명도가 **0.65** 다. (지금은 0.50 이라 **실패한다** —

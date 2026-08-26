@@ -4,7 +4,7 @@
 
 - System maturity: experimental
 - Coverage: exhaustive
-- Documents: 38
+- Documents: 40
 - Purpose: 컴포넌트 사용·상태·접근성 계약
 
 ## Sources
@@ -48,6 +48,8 @@
 - design/components/faq-row.md
 - design/components/news-card.md
 - design/components/gnb-menu-item.md
+- design/components/inline-loading-label.md
+- design/components/segmented-code-input.md
 
 ---
 ## Components & Progress Board
@@ -81,6 +83,7 @@ Klipse 화면을 이루는 재사용 가능한 UI 단위다. 컴포넌트가 코
 | [FormMessage](../components/form-message.md) | `experimental` | `partial` | `not-ready` | `partial` | 제품 전수 인벤토리에서 확인. 인증 폼 아래 한 줄 메시지(login/page.tsx:199,537) — caption-12-regular · padding-left 4. error/neutral 두 톤. LOUIS recipe 는 아직 없다. |
 | [GNB Menu Item](../components/gnb-menu-item.md) | `experimental` | `partial` | `not-ready` | `done` | 랜딩 상단 내비게이션 가운데 메뉴의 항목 하나. 제품 구현(landing/navigation/Gnb.tsx 의 menuLinkClass)이 정본이고 앵커·라우트·드롭다운 트리거·「공개 예정」 넷이 같은 알약을 쓴다 — LOUIS recipe 는 없다. **상태를 면이 아니라 잉크 불투명도로 만든다**: 여덟 변형의 기하가 완전히 같고(되읽기의 기하 값이 전부 단일값이다 — base 키 자체는 채취 명세의 선언이라 증거가 아니다), 면·테두리·그림자가 전부 없다. **톤은 테마가 아니라 밑에 깔린 면이다** — 라이트 테마 안의 어두운 사진 밴드에서 뒤집히므로 시맨틱 램프가 아니라 고정 palette-gray-* 를 쓴다. **제품이 밝은 면 Default 를 0.50 → 0.65 로 올렸는데 Figma 는 아직 0.50 이다** — 0.50 은 랜딩 바닥과 AA 미달이었고 누를 수 있는 링크라 비활성 면제 대상이 아니다. 되읽기가 opacity 를 담지 않아 어떤 게이트도 이 어긋남을 잡지 못한다. **figma-component-authoring.md §2 개정이 두 축을 판정했다** — Surface 는 축 표에 열렸고(제품이 이 자리를 고정 팔레트로 받으므로 테마 모드로 접히지 않는다), State=Selected 는 접기 시험을 통과해 State 값으로 남는다. 남은 것은 Figma 재작업이다 — Surface 두 변형이 어느 색에 묶여 있는지 확인해야 한다. 포커스 링을 코드도 Figma 도 소유하지 않는다(SC 2.4.7 결손). |
 | [Icon Button](../components/icon-button.md) | `experimental` | `partial` | `partial` | `done` | public export와 실브라우저 acceptance test 11건. Figma component set 40 variant가 기하 계약(한 변 40/32)으로 묶여 있다. pressed의 hover 면과 loading 상태가 남음 |
+| [Inline Loading Label](../components/inline-loading-label.md) | `experimental` | `partial` | `not-ready` | `done` | 버튼·행 안의 라벨 한 줄과 그 옆에서 열리고 닫히는 스피너 자리. 제품 구현(InlineLoadingLabel.tsx)이 정본이고 소비처가 13개 파일 · 20개 호출부다 — LOUIS recipe 는 없다. **이 컴포넌트가 로딩 표현 규범의 집행 장치다** — 제품 저장소 docs/design/loading-states.md 가 정한 「말줄임표가 아니라 스피너」를 런타임에 강제한다: 스피너를 붙이고 로딩 문구의 꼬리 ... 와 … 를 앞뒤 공백까지 떼어낸다. 제품 i18n 에는 아직 `가입 중...`·`Saving...`·`保存中...` 처럼 말줄임표가 박힌 자리가 여럿이라 이 방어가 실제로 일하고 있다. **닫힘 → 열림에서 네 프로퍼티가 함께 움직인다** — 폭 0→16(md)·0→12(sm), 왼쪽 여백 0→6·0→4, 불투명도 0→1, scale 0.85→1. 전환이 두 짝으로 갈려 있다(폭·여백 200ms cubic-bezier(0.22,1,0.36,1) · 불투명도·transform 180ms ease). 링은 스스로 그리지 않고 LOUIS .louis-spinner 레시피를 그대로 소비하며 제품 게이트가 그 소비를 클래스 문자열로 고정한다. **Figma 는 닫힌 변형에서 슬롯 레이어를 숨긴다** — 프레임을 0 폭으로 만들 수 없어서이고, 그래서 되읽기의 md/false·sm/false 에 slots 가 비어 있다(제품은 폭 0 + overflow-hidden). 결과적으로 닫힘 폭 0 을 어떤 게이트도 대조하지 않는다. 꼬리 말줄임표 제거는 Figma 에 표현되지 않는다. **축 이름 Loading 을 figma-component-authoring.md §2 의 조건 축 명부에 올렸다** — 프레임이 자기 itemSpacing 을 0 ↔ 6·4 로 다시 쓰고(시험 2) 닫힘과 열림 사이에 Smart Animate 를 걸어야 해(시험 3) BOOLEAN 으로 그릴 수 없다. 명부가 여섯에서 일곱이 됐고, Button 의 Loading 은 여전히 판정 전이다. 타이포를 Figma 가 14/150% 로 고정하는데 제품은 소유하지 않고 감싸는 컨트롤에서 물려받는다. 상태 전달을 이 컴포넌트가 하지 않는다 — 슬롯이 aria-hidden 이고 role·aria-live·aria-busy 가 없으며, aria-busy 를 건 호출부는 20 중 셋뿐이다(Spinner 의 reduce 대체 계약이 나머지 열일곱에서 성립하지 않는다). 기하 실측이 없고(components.measured.json 에 항목 없음) 증거 락이 링을 자체 유틸리티로 그리던 옛 판을 가리킨다. |
 | [Input / Field](../components/text-field.md) | `experimental` | `partial` | `partial` | `done` | public export와 실브라우저 acceptance test 8건. Figma component set 8 variant(Size×State)이며 parity 게이트가 Box·Label·Value·Message를 자손으로 대조한다. **제품에 공용 구현이 없다** — 정의 약 40벌이 다섯 계열로 갈려 값은 DS가 정했다. 시각적 필드는 <input>이 아니라 감싸는 박스다. Textarea는 아직 없다 |
 | [Keycap](../components/keycap.md) | `experimental` | `partial` | `not-ready` | `partial` | 제품 전수 인벤토리에서 확인된 미커버 패턴. CommandPalette.tsx:281-296 의 단축키 칩 — h20 · px5 · r6 · caption-12 · leading 1. LOUIS recipe 는 아직 없다. |
 | [Media Card](../components/media-card.md) | `experimental` | `partial` | `not-ready` | `done` | 사진이 배경을 채우고 그 위에 유리 배지와 흐린 정보 바를 얹는 정사각 카드. 제품 구현(MediaCard.tsx)이 정본이고 랜딩 캐러셀 둘과 템플릿 그리드가 같은 카드를 쓴다 — LOUIS recipe 는 없다. 정보 바는 그라디언트 스크림이 아니라 저알파 면 + 배경 흐림 20 이고 위쪽 padding 40 이 그 장치다. 높이 111 은 시안 98/94 와 다르다 — 제품 타입 스케일의 줄 높이 150% 를 따른 결과다. **Badge 축은 figma-component-authoring.md §2 개정에서 폐기 판정을 받았다** — 값이 내용이라 시험 4 에 걸린다. Badge BOOLEAN + BadgeLabel TEXT 로 접고 변형 3 → 1 이 되는 Figma 재작업이 남아 있다. 제품의 layout 축(carousel·grid)은 고정 폭으로 그릴 수 없어 Figma 에서 의도적으로 비웠다. 흰색 1% 는 알파 램프에 01 단계가 없어 static-white-alpha/04 로 올렸고 흐림 20 은 대응 토큰이 없어 리터럴이다. |
@@ -89,6 +92,7 @@ Klipse 화면을 이루는 재사용 가능한 UI 단위다. 컴포넌트가 코
 | [Node Chip](../components/node-chip.md) | `experimental` | `partial` | `partial` | `done` | CSS 레시피(.louis-node-chip)는 있고 React 표면은 없다. Figma component set 6 variant(Shape × State). 캔버스 노드 크롬의 알약이며 4개 노드가 소비한다. 다크 disabled 대비 1.00:1 버그를 칩 전용 fg 토큰으로 고친 이력이 있다. |
 | [Progress](../components/progress.md) | `experimental` | `partial` | `partial` | `done` | determinate 진행률. **제품에 정본이 없어 접근성 계약부터 DS가 정했다**(DS-D-0022) — 배포본에 role="progressbar"가 1곳, <progress>가 0곳이다. 값을 갖는 것은 트랙이고 채움은 장식이다. 기하는 제품 셋이 합의하는 축(높이 6 · 알약 · 최대 폭 320)만 옮기고 색은 DS가 골랐다. 링은 제품 정본이 하나뿐이라 두께·간격·지름 식을 그대로 옮겼고, 지름을 계산하는 대신 padding으로 만들어 내용이 커지면 따라온다. indeterminate는 폭이 아니라 면 그라디언트를 흘린다 — loop 허용 property가 그렇다 |
 | [Project Card](../components/project-card.md) | `experimental` | `partial` | `partial` | `done` | public export 10종과 실브라우저 acceptance test 6건. 값은 제품 정의 4벌의 정본을 옮긴 것이다. 프로그레시브 블러의 첫 소비처이며, parity 게이트가 자손 기하·타이포·흐림·자식 순서를 대조한다. 구조는 제품과 다르다 — 프레임은 div이고 클릭 타깃이 카드 전체를 덮는 형제다 |
+| [Segmented Code Input](../components/segmented-code-input.md) | `experimental` | `partial` | `not-ready` | `done` | 쿠폰 코드처럼 한 글자씩 칸을 나눠 받는 입력 묶음. 제품 구현(components/ui/SegmentedCodeInput.tsx)이 정본이고 소비처는 쿠폰 등록 모달 한 자리다 — LOUIS recipe 는 없다. **칸이 아니라 묶음이 컴포넌트다**: 칸은 정본에서 이름 없는 input 이고 export 되지 않으며, flex-1 min-w-0 max-w-14 로 컨테이너에 맞춰 줄어든다(12칸을 고정폭으로 두면 360px 모달에서 넘친다는 이유가 주석에 있다). Figma 도 칸을 채움으로 두고 프레임 폭 386 만 고정했다 — 12*28 + 2*12 + 13*2 = 386 으로, 칸이 상한 28 에 닿는 폭이다. **칸 수 12 와 묶음 4 는 컴포넌트의 값이 아니라 COUPON_CODE_LENGTH · COUPON_CODE_GROUP_SIZE 다** — Figma 의 12칸은 한 소비처의 표본이다. **입력됨/빈칸과 오류는 축이 아니다** — 채워짐 규칙이 CSS 에 없고(상태 선택자가 :focus 와 :disabled 둘뿐), 오류는 형제 p role=alert 가 진다(FormMessage Tone=error). **포커스 색이 세 곳에서 다르다** — 제품은 primary-400(#38a4ff) 72% 를 두 테마 모두 쓰는데 color/stroke-focus 는 모드마다 갈리고, 그래서 묶은 color/accent-primary 는 모드 불변이지만 값이 #0088ff 다. 더 나쁜 것은 **어느 후보도 라이트에서 대비 3:1 을 넘지 못한다**는 사실이다 — outline-none 에 1px 테두리 색만 바꾸는 조형이라 라이트 1.65:1 · 다크 2.58:1 이다(SC 1.4.11 결손). 칸 이름의 「번째 글자」가 i18n 밖에 박혀 있고, 기하는 components.measured.json 에 항목이 없어 대조되지 않는다. |
 | [Segmented Control](../components/segmented-control.md) | `experimental` | `partial` | `partial` | `done` | public export와 실브라우저 acceptance test 14건이 두 motion context에서 각각 돈다. **제품에 공용 구현이 둘인데 서로 아무것도 공유하지 않는다** — SegmentedToggle 컴포넌트(3벌)와 useSegmentedControlThumb 훅(4벌, 스타일은 복붙). 정본을 전자로 잡고 높이만 control 계단을 따랐다. 네이티브 radio 그룹이며 fieldset/legend가 그룹 이름을 소유한다. 트랙 inset ↔ 선택 raised는 두 테마 모두에서 죽지 않는 유일한 면 조합이다. 선택 면의 슬라이딩 전환은 layout-change motion 토큰이 없어 미구현이다. Figma component set 2 variant(Size)가 섰고 parity 게이트가 Track·Segment·Segment-Selected·Label을 자손으로 대조한다 — raw fill·stroke 0. 헤어라인은 CSS의 inset box-shadow에 대응하는 INNER_SHADOW effect다 (DS-D-0023, 이전엔 spread-only box-shadow → OUTSIDE stroke였다). publish는 DS-F-008이다 |
 | [SegmentedControlItem](../components/segmented-control-item.md) | `experimental` | `partial` | `not-ready` | `partial` | 세그먼트 하나. hover·selected·focus 는 컨트롤이 아니라 여기가 받으므로 별도 component set 으로 뽑고 프로토타입 반응(ON_HOVER → Hover, ON_CLICK → Selected)을 건다. hover 는 글자색만 바꾼다. |
 | Select / Dropdown | `experimental` | `not-planned` | `not-planned` | `not-planned` | **고르기는 Menu가 소유한다**(2026-08-18 판정). 제품 실측에서 네이티브 <select> 12벌이 전부 /admin 아래이고 배포 화면(Home·Highlight·Editor)에는 0벌이다 — 제품은 트리거 + 메뉴 패널로 고르며 그 파일이 11개다. DS에는 이미 ActionMenu와 CompositePopover가 있어 그 자리를 덮는다. gap registry 우선순위 1~15 어디에도 들지 않은 이유도 같다. 관리자 도구는 이 저장소의 소비 surface가 아니다. 수요가 생기면 Decision으로 이 판정을 뒤집고 다시 연다 |
@@ -8894,6 +8898,616 @@ Figma 의 축은 이것과 이렇게 대응한다.
 9. 제품에서 라우트 항목이 `aria-current="page"` 를, 인페이지 앵커가 `aria-current="location"`
    을 갖는다.
 10. 제품에서 Disabled 항목에 마우스를 얹어도 불투명도가 0.40 에서 움직이지 않는다.
+
+#### Migration and changelog
+
+새로 선 컴포넌트다. 이전 API 가 없다. LOUIS recipe 가 서면 이 문서의 Specification 이 그 값의
+정본이 된다. 사용자 영향 변경은 [Updates](../updates/README.md) 에 적는다.
+
+## Inline Loading Label
+
+- Source: design/components/inline-loading-label.md
+- Maturity: experimental
+
+### Inline Loading Label
+
+버튼이나 행 안의 **라벨 한 줄**과, 그 오른쪽에서 열리고 닫히는 **스피너 자리**. 작업이 시작되면
+문구가 바뀌고 옆자리가 열린다.
+
+**정본은 제품이다.** `InlineLoadingLabel.tsx` 가 구현이고 LOUIS 에는 표면이 없다 —
+`packages/css/src/component` 에 레시피가 없고 `packages/react/src` 에도 디렉터리가 없다. 소비처는
+**13개 파일 · 20개 호출부**다(로그인 · 회원가입 · 가입 메일 확인 · 비밀번호 재설정 두 화면 · 계정
+복구 · AWS 가입이 각 1, 설정 6, 구독 2, 아카이브의 플랫폼 섹션 2, 프로젝트 생성 모달 1, YouTube
+노드 1, Instagram 노드 1).
+
+**이 컴포넌트는 로딩 표현 규범의 집행 장치다.** 제품 저장소의 `docs/design/loading-states.md` 는
+진행 중을 「말줄임표가 아니라 스피너」로 보이라고 정한다. 규범을 저작에만 맡기면 문구에 박힌
+`...` 가 그대로 화면에 나가므로, 이 컴포넌트가 두 가지를 동시에 한다 — 스피너를 붙이고, 로딩
+문구의 꼬리 말줄임표를 런타임에 떼어낸다. [Loading](../patterns/loading.md) 의 선택 기준 표에서
+「버튼·짧은 인라인 액션」 칸이 이 자리다.
+
+**스피너를 소유하지 않는다.** 도는 링은 [Spinner](../components/spinner.md) 의 것이고 이 컴포넌트는 그것이
+들어앉는 **자리**만 갖는다. 제품은 React 표면이 아니라 LOUIS 의 CSS 레시피(`.louis-spinner` ·
+`.louis-spinner__ring`)를 직접 소비하며, 제품 게이트 하나가 그 소비를 클래스 문자열로 고정하고
+있다(`check-tailwind-theme.mjs` 의 LOUIS 소비 계약).
+
+**타이포도 색도 갖지 않는다.** 글꼴·크기·색은 전부 감싸는 컨트롤에서 물려받고, 링은
+`currentColor` 를 탄다. 그래서 이 컴포넌트에는 상호작용 상태 축이 없다 — 축은 크기와 로딩 여부
+둘뿐이다.
+
+#### Availability
+
+| Surface       | 상태           | 근거                                                                                                                                                                        |
+| ------------- | -------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Web           | `not-ready`    | 제품 구현이 정본이고 소비처가 13개 파일 · 20개 호출부다. **LOUIS 표면은 0** — CSS 레시피도 React export 도 없고 acceptance test 도 0건이다. 다만 링만은 LOUIS 레시피를 그대로 소비한다 |
+| Figma         | `partial`      | `InlineLoadingLabel` 4 variant(`Size` × `Loading`) + `Label`·`LoadingLabel` TEXT. parity 게이트가 대조하는 것은 속성 축 넷 · raw fill·stroke 0 · 스타일 없는 텍스트 0 · stroke 없음 · effect 없음 · set 설명 유무 · 프레임 밖 넘침 0 · 광학 중앙 이탈 0 이다. **기하는 대조하지 않는다** — `figma/components.measured.json` 에 `inline-loading-label` 항목이 없다 |
+| Documentation | `done`         | 이 문서                                                                                                                                                                     |
+| Maturity      | `experimental` | 되읽기와 문서가 방금 처음 섰다. 기하 실측이 붙고 증거 락이 현재 판을 가리키면 승격한다                                                                                      |
+
+#### When to use
+
+- **컨트롤이 스스로 시작한 작업이 도는 동안.** 제출 버튼, 저장 버튼, 노드의 분석 버튼 — 20 곳이
+  전부 그 자리다.
+- 쓰지 않는 자리:
+  - **독립된 영역의 로딩** — [Spinner](../components/spinner.md) 를 짧은 문구와 함께 놓는다. 그쪽은 `label`
+    을 받으면 스스로 `role="status"` 로 알린다. 이 컴포넌트는 알리지 않는다(아래 Accessibility).
+  - **진행률을 아는 작업** — [Progress](../components/progress.md) 다. 도는 링은 남은 정도에 대해 아무것도
+    말하지 않는다.
+  - **구조가 정해진 콘텐츠의 첫 로드** — [Skeleton](../components/skeleton.md) 이다.
+  - **버튼 자체의 로딩 축** — LOUIS [Button](../components/button.md) 의 `State=Loading` 은 버튼이 자기 라벨
+    `1em` 에 링을 더해 만드는 별개 표시다. **제품 Button 에는 `loading` prop 도 스피너 요소도
+    없다** — 제품에서 버튼의 로딩은 버튼이 아니라 그 안의 이 라벨이 갖는다. 둘을 같이 쓰면
+    스피너가 둘이 된다.
+
+#### Anatomy
+
+1. **Root** — `<span>`. 가로 inline-flex, 가운데 정렬. 면도 여백도 반경도 없다 — 되읽기의
+   padding 넷과 `cornerRadius` 가 전부 0 이다.
+2. **Label** — 글자 한 줄. `flex-none` 이라 줄지도 줄바꿈하지도 않는다.
+3. **Slot** — 링을 담는 상자. **높이는 크기 축이 정하고 폭은 로딩 여부가 정한다.**
+   `overflow: hidden`.
+4. **Spinner** — [Spinner](../components/spinner.md) 의 링. 지름이 슬롯과 같다(md 16 · sm 12).
+
+**슬롯은 닫혀 있어도 사라지지 않는다.** 제품은 링을 항상 그려 두고 폭 0 으로 접는다 — 그래야
+폭·여백·불투명도·scale 이 전이될 수 있다. 회전만 `paused` 로 세워 둔다. Figma 는 반대로 닫힌
+변형에서 레이어를 **숨긴다**(Known deviations 1).
+
+#### Properties
+
+정본은 제품 컴포넌트의 prop 이다. 넷뿐이고 그중 둘이 문구다.
+
+| prop | 값 | 기본 | 뜻 |
+| --- | --- | --- | --- |
+| `loading` | boolean | 없음 | 슬롯을 열고 문구를 바꾼다. **필수다** |
+| `idleLabel` | ReactNode | 없음 | 평소 문구. **문자열이 아닐 수 있다** — 아이콘을 낀 조립도 받는다 |
+| `loadingLabel` | string | 없음 | 로딩 문구. **문자열이어야 한다** — 꼬리 말줄임표를 떼어내기 때문이다 |
+| `size` | `md` \| `sm` | `md` | 슬롯 지름과 왼쪽 여백만 바꾼다. 라벨은 건드리지 않는다 |
+
+Figma 의 축은 이것과 이렇게 대응한다.
+
+| Figma | 타입 | 코드 대응 |
+| --- | --- | --- |
+| `Label` | TEXT | `idleLabel`. 코드에서 `ReactNode` 라 문자열 슬롯으로 완전히 대응하지는 않는다 |
+| `LoadingLabel` | TEXT | `loadingLabel`. **Figma 에는 꼬리 말줄임표 제거가 없다**(Known deviations 2) |
+| `Size` | VARIANT `md` · `sm` | `size` |
+| `Loading` | VARIANT `false` · `true` | `loading` |
+
+**대조할 코드 선언이 없다.** LOUIS 에 이 컴포넌트의 타입이 없으므로 네 축 전부가 parity 계약에서
+`figmaAhead` 의 Figma 전용 property 로 선언된다 — 옵션이 코드 union 과 맞는지는 아무도 보지
+않는다.
+
+#### Variants, sizes, and states
+
+| 축 | 값 | 무엇이 바뀌나 |
+| --- | --- | --- |
+| `Size` | `md` · `sm` | 슬롯 지름(16 · 12)과 왼쪽 여백(6 · 4). **라벨은 그대로다** |
+| `Loading` | `false` · `true` | 문구 교체와 슬롯 개폐. 아래 States |
+
+두 축은 직교하고 4 = 2 × 2 가 전부 존재한다. **`variantCount` 4 는 조합 예산 안이다.**
+
+**상호작용 상태 축이 없다.** hover · focus · active · disabled 는 전부 감싸는 버튼이 받는다 —
+이 컴포넌트는 `<span>` 이라 포인터도 키보드도 받지 않는다. `State` 축을 만들면 Figma 가 없는 것을
+있는 것처럼 보여 준다.
+
+**`Size` 가 타이포를 바꾸지 않는 것이 맞다.** 되읽기의 네 변형 모두 라벨이 14 / 150% 이고, 제품도
+슬롯 클래스만 갈아 끼운다. LOUIS Button 이 「타이포는 size 축이 아니다」로 서 있는 것과 같은
+결정이다.
+
+#### States
+
+값은 제품 소스에서 끌어왔다. 슬롯의 **네 프로퍼티가 함께 움직인다.**
+
+| 축 | 닫힘 (`Loading=false`) | 열림 md | 열림 sm |
+| --- | ---: | ---: | ---: |
+| 슬롯 폭 | 0 | 16 | 12 |
+| 슬롯 왼쪽 여백 | 0 | 6 | 4 |
+| 슬롯 불투명도 | 0 | 1 | 1 |
+| 슬롯 scale | 0.85 | 1 | 1 |
+| 슬롯 높이 | md 16 · sm 12 | 같음 | 같음 |
+| 회전 | `paused` | `running` | `running` |
+| 라벨 | `idleLabel` | 꼬리 말줄임표를 뗀 `loadingLabel` | 같음 |
+
+- **폭만 키우면 안 된다.** 폭과 왼쪽 여백을 함께 0 에서 키워야 문구가 처음부터 밀려 앉지 않는다.
+  불투명도만 바꾸면 자리가 처음부터 비어 있어 아무것도 움직이지 않는다.
+- **전환은 두 짝이 서로 다르다.** 폭·왼쪽 여백이 `200ms cubic-bezier(0.22, 1, 0.36, 1)`,
+  불투명도·transform 이 `180ms ease` 다. 네 축을 한 곡선으로 묶으면 자리가 열리는 속도와 링이
+  떠오르는 속도가 같아져 「밀려 들어온다」는 인상이 사라진다.
+- **라벨 교체에는 전환이 없다.** 문구는 즉시 바뀐다(아래 Interaction).
+- **닫힘 값과 열림 값이 상호배타 분기로 갈라져 있다.** 원본 모듈 CSS 에서는 열림 클래스가 소스
+  순서로 이겼는데, 유틸리티는 정렬이 순서를 대신 정하므로 그대로 옮기면 승패가 뒤집힌다. 그래서
+  네 프로퍼티를 한쪽만 내보내는 삼항으로 적었다 — 제품 소스 주석이 그 이유를 갖고 있다.
+
+#### Interaction and responsive behavior
+
+- **버튼 폭이 두 번 움직인다.** 문구 교체는 즉시고 슬롯은 200ms 다. Figma 되읽기가 그 점프를
+  수치로 보여 준다 — 라벨 폭이 25 에서 40 으로 갈아 끼워지고, 그 위에 6 + 16(md) 또는 4 + 12(sm)
+  가 더해진다. **평소 폭을 미리 잡아 두는 장치가 없다.**
+- **긴 문구를 이 컴포넌트가 처리하지 않는다.** 라벨이 `flex-none` 이라 줄바꿈도 축소도 말줄임도
+  하지 않는다. 좁은 폭에서 무엇이 일어나는지는 감싸는 버튼이 정하며, **이 저장소에서 실측하지
+  않았다**(결손).
+- **`prefers-reduced-motion` 에서 슬롯 전이는 그대로 돈다.** 축소 선언이 제품에도 LOUIS 에도
+  없다. 사라지는 것은 회전뿐이다 — LOUIS 레시피가 지속을 0ms 로, 반복을 1회로 바꾼다
+  (Known deviations 8).
+- 좁은 화면 거동이 따로 없다. 이 컴포넌트는 폭을 스스로 정하지 않는다.
+- 포인터·키보드 계약이 없다. 감싸는 버튼이 전부 소유한다.
+
+#### Content
+
+- **로딩 문구는 끝에 점을 붙이지 않는다.** `docs/design/loading-states.md` 3항이 그 규칙이고,
+  이 컴포넌트가 그것을 런타임에 강제한다 — `...`(마침표 셋)와 `…`(U+2026) 를 둘 다, 앞뒤 공백까지
+  함께, **문구 끝에서만** 걷어낸다. 문장 중간의 말줄임표는 뜻을 가질 수 있어 건드리지 않는다.
+- **그 방어가 지금도 일하고 있다.** 제품 i18n 에는 말줄임표가 박힌 자리가 여럿 남아 있다 —
+  `가입 중...` · `Saving...` · `保存中...` · `등록 중…`. 화면에는 나가지 않지만 **정본 문구는
+  여전히 규칙과 어긋나 있다.** 방어를 빼면 그 자리들이 한꺼번에 드러난다.
+- **평소 문구는 손대지 않는다.** `idleLabel` 은 `ReactNode` 라 애초에 문자열이 아닐 수 있고,
+  거기에는 말줄임표가 대신할 회전도 없다.
+- 문구는 「무엇이 도는가」를 말한다. `로딩` 이 아니라 `저장 중` · `분석 중`.
+
+| | KO | EN | JA |
+| --- | --- | --- | --- |
+| 로그인 · 평소 | `로그인` | `Log in` | `ログイン` |
+| 로그인 · 로딩 | `로그인 중` | `Logging in` | `ログイン中` |
+| 가입 · 로딩 | `가입 중...` | `Signing up...` | `登録中...` |
+| 저장 · 로딩 | `저장 중...` | `Saving...` | `保存中...` |
+| 분석 · 로딩 | `분석 중` | `Analyzing` | `分析中` |
+
+가입과 저장 세 줄은 **셋 다 말줄임표가 붙은 채로 i18n 에 들어 있고 화면에서 잘려 나간다.** 로그인과
+분석 줄이 규칙을 지킨 모습이다.
+
+문구 결손이 하나 있다 — 계정 삭제의 로딩 문구가 한국어 자리에 영어 `Deleting...` 로 들어 있다.
+번역 누락이며 이 컴포넌트가 고칠 수 있는 것이 아니다.
+
+#### Accessibility
+
+- **슬롯이 `aria-hidden="true"` 다.** 링은 보조기술에 존재하지 않는다. [Spinner](../components/spinner.md) 의
+  「`label` 이 없으면 숨는다」와 같은 계약이다.
+- **이 컴포넌트는 상태를 전달하지 않는다.** 정본에 `role` 도 `aria-live` 도 `aria-busy` 도
+  없다 — 두 개의 `<span>` 과 그 안의 링이 전부다. 없는 것을 있다고 적지 않기 위해 그대로 적는다.
+- 진행을 알리는 일은 **감싸는 컨트롤**이 한다. 네이티브 `disabled` 와 바뀐 문구 둘이다.
+- **`aria-busy` 를 붙인 호출부는 20 중 셋뿐이다** — 프로젝트 생성 모달 · YouTube 노드 ·
+  Instagram 노드. 나머지 열일곱은 `disabled` 만 건다.
+- **바뀐 문구는 live region 안에 있지 않다.** 문구 교체가 스크린리더에 자동으로 읽힌다는 보장이
+  없고, 눌린 버튼이 곧바로 `disabled` 가 되므로 포커스와 알림 거동은 브라우저에 달려 있다 —
+  **이 저장소에서 실측하지 않았다**(결손).
+- **reduce 대체 계약이 열일곱 곳에서 성립하지 않는다.** [Spinner](../components/spinner.md) 는 「회전이 멈춰도
+  `role="status"` 와 `aria-busy` 가 의미를 유지한다」를 loop 의 reduce 대체로 세웠는데, 이 자리는
+  회전이 멈추면 **아무것도 남지 않는** 호출부가 열일곱이다. `aria-busy` 를 소비처 계약으로
+  올릴지, 이 컴포넌트가 직접 걸지는 **소유자 판정**이다.
+- 타깃 크기와 포커스 표시는 감싸는 버튼이 소유한다 — 이 컴포넌트에는 둘 다 없다.
+- 확대에서 라벨이 줄지 않는다. 잘림이 아니라 넘침이 된다.
+
+#### Specification
+
+| Part/state | 값 | 토큰·근거 |
+| --- | --- | --- |
+| Root | inline-flex · 가운데 정렬 · `min-width: 0` · `max-width: 100%` | 면·여백·반경 없음. 되읽기의 padding 넷과 `cornerRadius` 가 0 |
+| Label | 한 줄. 축소·줄바꿈·말줄임 없음 | `flex-none`. 글꼴·크기·색은 감싸는 컨트롤에서 물려받는다 |
+| 라벨 타이포(Figma) | 14 / 150% | `typography/body-sm`. **Figma 가 고정한 값이고 제품은 소유하지 않는다**(Known deviations 4) |
+| 슬롯 높이 | md 16 · sm 12 | 로딩 여부와 무관하다 |
+| 슬롯 폭 | 0 → md 16 · sm 12 | 2px 그리드 유틸리티 |
+| 슬롯 왼쪽 여백 | 0 → md 6 · sm 4 | Figma 는 같은 값을 프레임 `itemSpacing` 으로 갖는다 |
+| 슬롯 불투명도 | 0 → 1 | — |
+| 슬롯 scale | 0.85 → 1 | — |
+| 슬롯 넘침 | `overflow: hidden` | 폭 0 으로 접히는 동안 링이 삐져나오지 않게 잡는다 |
+| 전환 (폭 · 왼쪽 여백) | 200ms `cubic-bezier(0.22, 1, 0.36, 1)` | — |
+| 전환 (불투명도 · transform) | 180ms `ease` | 두 짝을 다르게 둔 이유는 States |
+| 스피너 | md 지름 16 · 링 2 / sm 지름 12 · 링 1 | `.louis-spinner` — [Spinner](../components/spinner.md) 의 Specification |
+| 회전 | 700ms 등속 | `motion-spin`(`--louis-motion-spin-duration` · `cubic-bezier(0, 0, 1, 1)`) |
+| 회전 정지 | 닫힘에서 `animation-play-state: paused` | 보이지 않는 애니메이션이 프레임을 먹지 않게 한다 |
+| reduced-motion | 회전만 사라진다(0ms · 1회) | LOUIS 레시피가 소유한다. 슬롯 전이는 그대로다 |
+| 로딩 문구 | 꼬리 `...` · `…` 와 그 앞뒤 공백 제거 | `stripTrailingEllipsis` |
+| 간격 토큰 | **없다** | 6 · 4 와 값이 같은 토큰은 있으나(`space-overlay-item-content-gap` 6 · `space-control-xs` 4) 뜻이 다른 자리의 것이다. 승격 조건은 두 번째 사용처다(`design/foundations/spacing-radius.md`) |
+
+#### Known deviations
+
+1. **Figma 는 닫힌 변형에서 슬롯 레이어를 숨긴다.** 제품은 폭 0 + `overflow: hidden` 인데 Figma 는
+   프레임을 0 폭으로 만들 수 없어서다. 그래서 되읽기의 `md/false` · `sm/false` 에 `slots` 가 비어
+   있고 `parts` 에도 `Slot` 이 없다 — 발행 스크립트가 숨긴 레이어의 **자손**을 넘침·슬롯·자손 치수
+   집계에서 빼기 때문이다(그 예외 처리가 붙은 계기가 바로 이 컴포넌트의 닫힌 변형이다).
+   **결과: 닫힘 폭 0 을 어떤 게이트도 대조하지 않는다.** 대조되는 것은 열림뿐이다. 두 매체가 같은
+   화면을 서로 다른 방식으로 그리는 것이며 어느 쪽도 틀리지 않았다 — **적어 두지 않으면 다음
+   사람이 「Figma 에 슬롯이 빠졌다」고 읽는다.**
+2. **꼬리 말줄임표 제거가 Figma 에 없다.** 제품은 `LoadingLabel` 을 화면에 넣기 직전에 깎지만
+   Figma 는 적은 그대로 그린다. **같은 i18n 값을 두 매체에 넣으면 화면이 달라진다** —
+   `가입 중...` 은 제품에서 `가입 중` 이고 Figma 에서는 `가입 중...` 이다. Figma 쪽에 이 규칙을
+   표현할 자리가 없으므로, `LoadingLabel` 슬롯의 예시 문구를 **이미 깎인 형태**로 적어 두는 것이
+   현재 할 수 있는 전부다.
+3. **`Loading` 축 이름을 조건 축 명부에 올렸다.** 문서를 쓸 때
+   `design/governance/figma-component-authoring.md` §2 가 여는 조건 축은 여섯(`Checked` ·
+   `Selected` · `Invalid` · `Expanded` · `Featured` · `Collapsed`)이었고 `Loading` 은 거기 없었다.
+   판정 근거는 이 컴포넌트의 되읽기다 — 네 시험 중 2·3 에 걸린다: 프레임이 자기 `itemSpacing` 을
+   0 ↔ 6·4 로 다시 쓰고(2), 닫힘과 열림 사이에 Smart Animate 를 걸어야 한다(3). 시험에 적히지
+   않은 한계도 하나 있다 — 두 조건에서 **보이는 텍스트 프로퍼티가 서로 다르다**
+   (`Label` ↔ `LoadingLabel`). BOOLEAN 으로 그리려면 두 텍스트 레이어를 반대 가시성으로 묶어야
+   하는데 Figma 에 그 부정이 없다. 명부는 여섯에서 일곱이 됐다. **이름이 열린 것을 「`Loading` 은
+   늘 축」으로 읽지 마라** — 축이냐 BOOLEAN 이냐는 컴포넌트마다 네 시험이 정하고, LOUIS
+   [Button](../components/button.md) 의 `Loading` 은 아직 그 판정을 받지 않았다(§2 「이 개정이 남긴 결손」 3).
+4. **타이포를 Figma 가 고정하고 제품은 소유하지 않는다.** 제품 컴포넌트에는 글꼴·크기·색 선언이
+   하나도 없고 전부 감싸는 컨트롤에서 물려받는다. Figma 는 무언가는 그려야 하므로 네 변형 모두
+   14 / 150% 로 고정했다. 확인한 소비처에서는 값이 맞는다 — LOUIS Button 이 lg·md 모두 14 이고,
+   아카이브의 자체 버튼도 `type-body-14-medium` 이다. **맞는 것은 우연이 아니라 현재 상태일
+   뿐이며, 12 나 16 짜리 컨트롤 안에 놓이는 순간 Figma 만 어긋난다.**
+5. **기하가 게이트에 걸려 있지 않다.** `figma/components.measured.json` 에 `inline-loading-label`
+   항목이 없어 16 · 12 · 6 · 4 · 0.85 를 아무도 대조하지 않는다. 위 값들은 제품 소스에서 읽은
+   것이고 브라우저 실측이 아니다. 실측 probe 를 붙이는 것이 승격 조건이다.
+6. **증거 락이 이 파일의 옛 판을 가리킨다.** `migration/product-evidence.lock.json` 이 고정한 blob
+   은 링을 **자체 유틸리티 묶음**으로 그리던 판이고, 지금 제품은 LOUIS `.louis-spinner` 레시피를
+   소비한다. 그래서 [Spinner](../components/spinner.md) 의 「인라인 로딩 슬롯」 표가 인용하는 좌표와 회전
+   구현(자체 keyframe)이 현재 소스와 다르다. **슬롯 기하 네 값은 두 판이 같다** — 달라진 것은 링을
+   누가 그리는가다. 락을 현재 판으로 올리고 그 표를 함께 고치는 것이 승격 조건 하나다.
+7. **슬롯이 `Spinner` 인스턴스인지 되읽기로 확정되지 않는다.** 되읽기는 노드 종류를 담지 않는다.
+   정황은 맞는다 — 되읽기가 INSTANCE 내부로 들어가지 않는데 `boundFills` 4 가 변형 4 × 라벨 1 로
+   남김없이 설명되고, 슬롯 치수 16 × 16 · 12 × 12 가 Spinner set 의 md · sm 과 같다. 다만 **빈
+   프레임이어도 같은 수가 나온다.** 인스턴스 여부 확인은 파일에서 해야 한다.
+8. **reduced-motion 에서 슬롯 전이가 그대로 돈다.** 사라지는 것은 회전뿐이고, 폭·여백·불투명도·
+   scale 네 축은 축소 선언이 없어 200ms · 180ms 그대로 움직인다. 제품 전역에도 이 자리를 덮는
+   선언이 없다. 움직임이 작아 지금까지 문제로 잡히지 않았을 뿐이며 **판정을 받은 적은 없다.**
+9. **`aria-busy` 가 소비처마다 다르다.** 20 중 셋만 붙인다. 컴포넌트가 알리지 않기로 한 이상
+   그것은 소비처 계약이어야 하는데, 계약으로 적힌 곳이 없어 지금은 습관에 달려 있다
+   (Accessibility).
+10. **세로 정렬과 정렬 축이 되읽기에 없다.** 열린 md 변형에서 16 짜리 슬롯이 21 높이 안에
+    가운데로 앉는데, 발행 스크립트의 채취 명세에 정렬 필드가 없어 그 값이 실려 오지 않는다. 네
+    변형의 프레임 높이가 21 로 같다는 것까지가 확인되는 전부다.
+
+#### Acceptance tests
+
+1. 변형이 넷이고 축이 `Size`(md · sm) × `Loading`(false · true) 둘이다.
+2. `Loading=true` 에서 슬롯이 md 16 × 16 · sm 12 × 12 이고 프레임 `itemSpacing` 이 md 6 · sm 4 다.
+3. `Loading=false` 에서 프레임 `itemSpacing` 이 0 이고 되읽기의 `slots` 가 비어 있다 — Figma 가
+   슬롯 레이어를 숨긴 결과다. **닫힘 폭 0 은 여기서 시험되지 않는다**(Known deviations 1).
+4. 네 변형의 프레임 높이가 모두 21 이고 padding 넷과 `cornerRadius` 가 0 이다.
+5. 열림 폭이 라벨 + `itemSpacing` + 슬롯과 맞는다 — md 40 + 6 + 16 = 62, sm 40 + 4 + 12 = 56.
+6. `Size` 가 라벨을 건드리지 않는다 — 네 변형 모두 `fontSize` 14 · `lineHeightPercent` 150 이다.
+7. Figma 되읽기에서 raw fill · raw stroke · 스타일 없는 텍스트가 각각 0 이고, `boundFills` 4 가
+   변형 4 × 라벨 1 로 남김없이 설명된다.
+8. stroke 도 effect 도 없다 — 되읽기의 `strokeWeight` 가 비어 있다.
+9. 제품에서 로딩 문구의 꼬리 말줄임표가 화면에 나가지 않는다 — `가입 중...` 이 `가입 중` 으로
+   그려진다. `...` 와 `…` 를 둘 다 잡는다.
+10. 제품에서 슬롯이 `aria-hidden="true"` 이고, 이 컴포넌트가 `role` · `aria-live` · `aria-busy` 를
+    갖지 않는다.
+11. 제품에서 닫힌 슬롯의 링이 `animation-play-state: paused` 이고 열릴 때 `running` 이 된다.
+
+#### Migration and changelog
+
+새로 선 컴포넌트다. 이전 API 가 없다. LOUIS recipe 가 서면 이 문서의 Specification 이 그 값의
+정본이 된다. 사용자 영향 변경은 [Updates](../updates/README.md) 에 적는다.
+
+## Segmented Code Input
+
+- Source: design/components/segmented-code-input.md
+- Maturity: experimental
+
+### Segmented Code Input
+
+한 칸에 한 글자씩 받는 입력 묶음. 실물 쿠폰의 코드를 손으로 옮겨 적는 자리라, 어디까지
+입력했는지 눈에 보이고 한 글자마다 다음 칸으로 넘어간다.
+
+**정본은 제품이다.** `components/ui/SegmentedCodeInput.tsx` 가 구현이고 LOUIS 에는 표면이
+없다 — `packages/css/src/component` 에 레시피가 없고 `packages/react/src` 에도 디렉터리가
+없다. 소비처는 `components/scenes/SubscriptionScene.tsx` 의 쿠폰 등록 모달 **한 자리**다.
+
+**컴포넌트는 칸이 아니라 묶음이다.** 칸은 정본에서 이름 없는 `input` 이고 export 되지
+않는다 — 파일이 내보내는 것은 묶음 하나뿐이다. 설계가 걸린 곳도 묶음이다: 칸이
+`flex-1 min-w-0 max-w-14` 라 컨테이너에 맞춰 **줄어들고**, 정본 주석이 그 이유를 적어 뒀다 —
+12칸을 고정폭으로 두면 좁은 모달(360px)에서 가로로 넘친다. 칸 하나를 컴포넌트로 뽑으면 그
+줄어듦도, 칸 사이 2, 네 칸마다 오는 구분자도 아무도 소유하지 않는다. 그래서 Figma 도 칸을
+채움으로 두고 **프레임 폭 386 하나만 고정했다** — 386 은 칸이 최대폭 28 에 닿는 폭이고,
+12 × 28 + 2 × 12 + 13 × 2 = 386 으로 딱 떨어진다.
+
+**칸 수와 묶음 크기는 이 컴포넌트의 값이 아니다.** 12 와 4 는 `length` · `groupSize` prop 으로
+들어오고, 그 값은 `app/lib/payments/coupon-code.ts` 의 `COUPON_CODE_LENGTH`(12) ·
+`COUPON_CODE_GROUP_SIZE`(4) 다. Figma 의 12칸 · 구분자 2 는 **그 한 소비처의 표본**이지
+컴포넌트의 계약이 아니다.
+
+#### Availability
+
+| Surface       | 상태           | 근거                                                                                                                                                                                                                                              |
+| ------------- | -------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Web           | `not-ready`    | 제품 구현이 정본이고 소비처는 쿠폰 등록 모달 한 자리다. **LOUIS 표면은 0** — CSS 레시피도 React export 도 없고 acceptance test 도 0건이다. 제품 쪽에도 이 컴포넌트를 겨냥한 테스트가 없다                                                          |
+| Figma         | `partial`      | `SegmentedCodeInput` 3 variant(`State`). parity 게이트가 대조하는 것은 속성 축 하나 · `Cell 1` stroke(1 · `INSIDE`) · effect 없음 · raw fill·stroke 0 · 스타일 없는 텍스트 0 이다. **기하는 대조하지 않는다** — `figma/components.measured.json` 에 `segmented-code-input` 항목이 없다 |
+| Documentation | `done`         | 이 문서                                                                                                                                                                                                                                            |
+| Maturity      | `experimental` | 되읽기와 문서가 방금 처음 섰다. LOUIS recipe 가 서고 기하 실측이 붙으면 승격한다                                                                                                                                                                  |
+
+#### When to use
+
+- **한 코드를 손으로 옮겨 적는 자리.** 종이·화면에 `XXXX-XXXX-XXXX` 로 찍힌 것을 보고 치는
+  상황이다. 칸이 나뉘어 있으면 어디까지 쳤는지 눈으로 세지 않아도 된다.
+- 쓰지 않는 자리:
+  - **이름이 닮았을 뿐 관계가 없는 것** — [Segmented Control](../components/segmented-control.md) ·
+    [Segmented Control Item](../components/segmented-control-item.md) 은 **고르는** 컨트롤이다. 이쪽은
+    입력이고, 두 컴포넌트 사이에 공유하는 기하도 토큰도 없다.
+  - **보통의 한 줄 입력** — [Text Field](../components/text-field.md) 다. 라벨 · 슬롯 · 도움말을 갖고
+    높이가 `layout/control-height-*` 계단에 있다. 코드를 굳이 칸으로 쪼갤 이유가 없으면
+    그쪽이다.
+  - **코드를 여러 개 한꺼번에 붙여넣는 자리** — 운영자 화면의 쿠폰 일괄 등록은 textarea 에
+    `parseCouponCodeList` 를 물린다. 줄바꿈·쉼표·탭 어느 것으로 구분해도 받아야 하므로 칸이
+    성립하지 않는다.
+  - **오류 문구** — 이 컴포넌트는 오류를 그리지 않는다. 형제로 놓인
+    [Form Message](../components/form-message.md) `Tone=error` 가 진다.
+
+#### Anatomy
+
+1. **Track** — 가로 한 줄. 높이 36, 안쪽 여백 0, 항목 간격 2. 폭은 컨테이너를 채운다.
+2. **Cell** — 칸 하나. 최대 28 × 36, radius 8, stroke 1(안쪽). 12개.
+3. **Char** — 칸 안의 글자 한 자. `body-md-medium`(16 / 150% = 24), 가운데 정렬, 대문자 표기.
+4. **Separator** — 12 × 24 자리에 놓인 하이픈. 네 칸마다 하나, **마지막 칸 뒤에는 없다.**
+   12칸 · 묶음 4 에서 2개다.
+5. **Dash** — 그 안의 `-` 글자. 크기 16.
+
+구분자의 하이픈은 장식이 아니라 **인쇄물 표기와 같은 자리**다 — `formatCouponCode` 가
+`XXXX-XXXX-XXXX` 를 만들고 쿠폰 인쇄 페이지가 실제로 그 형태로 찍는다. 손에 든 종이와 화면의
+끊는 자리가 같아야 눈이 따라간다.
+
+#### Properties
+
+정본은 제품 컴포넌트의 prop 이다. **Figma 축은 그중 `disabled` 하나에만 대응한다** — 나머지
+일곱은 값이거나 콜백이라 변형으로 그릴 것이 없다.
+
+| prop | 값 | 기본 | 뜻 |
+| --- | --- | --- | --- |
+| `value` | 문자열 | 없음 | 정규화된 코드. `length` 보다 짧아도 되고 남는 칸은 빈칸으로 보인다 |
+| `onChange` | 콜백 | 없음 | 정규화를 마친 문자열을 돌려준다 |
+| `normalize` | 함수 | 없음 | 입력을 저장 형태로 바꾼다. **주입받는다** — 화면과 서버가 같은 규칙을 쓰게 하려는 것이다 |
+| `length` | 수 | 없음 | 칸 수. 소비처는 `COUPON_CODE_LENGTH`(12)를 넘긴다 |
+| `groupSize` | 수 | 없음 | 몇 칸마다 구분자를 넣을지. 소비처는 `COUPON_CODE_GROUP_SIZE`(4)를 넘긴다 |
+| `disabled` | boolean | `false` | 열두 칸 전부에 네이티브 `disabled` 를 건다 |
+| `ariaLabel` | 문구 | 없음 | 묶음의 이름. **필수다** — 아래 Accessibility |
+| `onComplete` | 콜백 | 없음 | 마지막 칸까지 찼을 때. **자동 제출이 아니다.** 소비처는 넘기지 않는다 |
+
+| Figma | 타입 | 코드 대응 |
+| --- | --- | --- |
+| `State` | VARIANT `Default` · `Focus` · `Disabled` | `Focus` 는 CSS 상태, `Disabled` 는 `disabled` prop |
+
+#### Variants, sizes, and states
+
+크기 축이 없다. 칸 28 × 36 하나다.
+
+| 축 | 값 | 무엇이 바뀌나 |
+| --- | --- | --- |
+| `State` | `Default` · `Focus` · `Disabled` | 칸의 면·테두리와 요소 불투명도. 기하는 그대로 |
+
+**축이 아닌 것 넷을 여기에 적는다.** 축을 늘리자는 제안이 반복해서 들어오는 자리다.
+
+- **「입력됨 / 빈칸」이 축이 아니다.** 채워진 칸과 빈 칸을 가르는 규칙이 **CSS 에 없다** —
+  정본의 칸 클래스에 있는 상태 선택자는 `[&:focus]` 와 `[&:disabled]` 둘뿐이고,
+  `:placeholder-shown` 도 `data-filled` 도 없다. 채워진 칸이 달라 보이는 것은 글자가 있기
+  때문이지 면이 바뀌기 때문이 아니다.
+- **오류가 축이 아니다.** 이 컴포넌트에는 오류 prop 이 없다. 쿠폰 코드가 틀렸을 때 붉게
+  변하는 것은 칸이 아니라 **형제로 놓인 `p role="alert"`** 이고, 그것은 이미
+  [Form Message](../components/form-message.md) `Tone=error` 다. 같은 판단이 LOUIS TextField 에도 서 있다 —
+  오류를 테두리로 그리지 않고 메시지 + `aria-invalid` + `role="alert"` 로 만든다.
+- **Hover 가 없다.** 정본에 `:hover` 선언이 하나도 없다. 이 저장소의 다른 두 `figmaAhead`
+  컴포넌트와 정반대다 — [Carousel Arrow](../components/carousel-arrow.md) 와
+  [GNB Menu Item](../components/gnb-menu-item.md) 은 Hover 가 있고 Focus 가 없다.
+- **길이·묶음 크기가 축이 아니다.** `length` · `groupSize` 는 수 prop 이라 변형으로 열 수
+  없다. Figma 는 12 · 4 한 벌만 그렸고, 그것이 지금 유일한 소비처의 값이다.
+
+#### States
+
+| 상태 | 무엇이 바뀌나 |
+| --- | --- |
+| Default | 면 잉크 4%, 테두리 잉크 12%, 글자 잉크 88% |
+| Focus | 테두리가 `primary-400` 72% 로, 면이 잉크 8% 로 바뀐다. **`outline` 은 꺼져 있다** |
+| Disabled | 칸의 요소 불투명도 0.40. 색은 그대로다 |
+| Hover | **없다.** 위 Variants |
+| Error | **없다.** 형제 메시지가 진다 |
+
+- **Focus 는 칸 하나의 상태인데 축은 묶음에 있다.** 제품에서 `:focus` 는 언제나 열두 칸 중
+  하나에만 선다. Figma 의 `State=Focus` 변형이 몇 칸을 포커스로 그렸는지는 **되읽기로 확인할
+  수 없다** — 파트별 fill 분해를 주지 않고 세 변형의 `boundFills` 가 26 으로 같다(Known
+  deviations 4).
+- **Disabled 가 구분자를 건드리지 않는다.** 불투명도 0.40 은 `input` 의 `:disabled` 에 걸려
+  있고, 구분자는 `<span>` 이라 `disabled` 가 없다. 비활성 묶음에서 **하이픈만 원래 밝기(잉크
+  28%)로 남는다.**
+- 전환은 `border-color 120ms ease, background 120ms ease` 다. 기하는 움직이지 않는다.
+
+#### Interaction and responsive behavior
+
+- **칸이 컨테이너에 맞춰 줄어든다.** `flex-1 min-w-0 max-w-14` 다 — 28 은 상한이지 고정값이
+  아니다. 트랙은 `w-full` 이라 부모 폭을 그대로 받는다.
+- **유일한 소비처에서 칸은 28 에 닿지 않는다.** 모달 카드가
+  `min(360px, calc(100vw - 40px))` 에 안쪽 16 이라 트랙에 오는 폭이 328 이고, 구분자 둘과 간격
+  열셋을 빼면 칸 하나가 약 23.17 이다. Figma 의 386 은 **상한을 고정하려고 고른 표본 폭**이고
+  제품 화면에서 실제로 나타나는 폭이 아니다. (구분자 폭 12 를 그대로 놓고 계산한 값이다 —
+  Known deviations 3.)
+- 키 조작은 아래 Accessibility 에 모아 적는다.
+- **붙여넣기는 어느 칸에서 해도 된다.** 붙여넣은 문자열이 전체 길이 이상이면 **처음부터**
+  채우고, 짧으면 그 칸부터 이어 붙인다. 어느 쪽이든 `normalize` 를 먼저 통과하므로 하이픈과
+  공백이 섞인 `ABCD-EFGH-JKMN` 을 그대로 붙여도 들어간다.
+- **한 칸에 여러 글자가 들어오는 경우를 감당한다.** 모바일 자동완성처럼 한 번에 여러 자가
+  떨어지면 그 자리부터 이어 붙이고 초점을 끝으로 옮긴다.
+- 칸에 초점이 서면 그 칸의 글자를 **선택**한다(`select()`). 채워진 칸을 눌러 바로 덮어쓸 수
+  있다.
+- **자동 제출이 없다.** `onComplete` 를 소비처가 넘기지 않고, 등록 버튼은 `value` 의 길이가
+  `COUPON_CODE_LENGTH` 일 때 열린다.
+- **첫 칸에 자동으로 초점이 서지 않는다.** 모달이 열려도 사용자가 직접 눌러야 한다.
+- 자판은 `inputMode="text"` 다. 코드 알파벳이 Crockford Base32(숫자 + 글자)라 숫자 자판을
+  띄우면 안 된다. `autoCapitalize="characters"` · `autoComplete="off"` · `spellCheck={false}`
+  가 함께 붙는다.
+- 모션 축소 계약이 필요 없다 — 움직이는 것이 색 둘(120ms)뿐이다.
+
+#### Content
+
+- **이 컴포넌트에 보이는 문구는 하이픈 하나뿐이다.** 나머지는 사용자가 친 글자다. 제목 ·
+  설명 · 버튼 · 오류는 전부 모달이 소유한다.
+- **글자가 사용자가 친 것과 다를 수 있다.** 주입된 `normalize` 가 인쇄물에서 흔한 오독을
+  교정한다 — `O` → `0`, `I` · `L` → `1`, 소문자는 대문자로. `O` 를 쳤는데 `0` 이 보이는 것이
+  정상이고, **화면 어디에도 그 규칙을 설명하는 문구가 없다**(결손).
+- 하이픈은 `aria-hidden` 이라 읽히지 않고, 붙여넣기에서도 `normalize` 가 지운다.
+- 묶음 이름(`ariaLabel`)은 소비처가 넘긴다. 지금은 모달 제목을 그대로 쓴다.
+
+| | KO | EN | JA |
+| --- | --- | --- | --- |
+| 묶음 이름 | `쿠폰 코드 등록` | `Redeem a coupon` | 오버라이드 없음 — EN 이 그대로 나온다 |
+| 칸 이름 | `쿠폰 코드 등록 1번째 글자` | `Redeem a coupon 1번째 글자` | 같음 |
+| 구분자 | `-` | `-` | `-` |
+
+**칸 이름의 「번째 글자」가 i18n 밖에 있다.** 정본이 그 꼬리를 한국어 문자열로 박아 뒀다 —
+로케일과 무관하게 한국어가 붙는다(Known deviations 6). JA 는 쿠폰 문구 전체에 오버라이드가
+없어 영문이 나온다.
+
+#### Accessibility
+
+- 묶음은 `role="group"` + `aria-label` 이다. 칸은 각각 네이티브 `<input>` 이고 자기
+  `aria-label` 을 갖는다 — `<label>` 요소는 없다.
+- **칸 열둘이 각각 탭 정지점이다.** 로빙 탭인덱스가 아니라서 Tab 으로 묶음을 지나려면 열두
+  번 눌러야 한다. WAI-ARIA 의 composite widget 패턴을 쓰지 않는다 — **소유자 판정 필요**
+  (Known deviations 5).
+- 키 동작은 정본에 이만큼 있다. **읽어서 확인한 목록이고, 없는 것은 없다고 적는다.**
+
+  | 키 | 동작 |
+  | --- | --- |
+  | 붙여넣기 | 기본 동작을 막고 직접 처리한다. 전체 길이 이상이면 첫 칸부터, 짧으면 그 칸부터 채운다 |
+  | Backspace | 기본 동작을 막는다. **빈 칸에서 누르면 앞 칸의 글자를 지우고 그리로 옮긴다** — 칸을 오가며 지우는 수고가 없다 |
+  | ArrowLeft · ArrowRight | 앞뒤 칸으로 옮긴다. 범위를 벗어나면 양 끝에 머문다 |
+  | Home · End · Delete · ArrowUp · ArrowDown | **없다**(결손) |
+
+- **오류가 칸에 연결돼 있지 않다.** 형제 `p role="alert"` 는 뜰 때 한 번 읽히지만, 칸에
+  `aria-invalid` 도 `aria-describedby` 도 없어 **다시 초점을 맞춰도 무엇이 틀렸는지 들리지
+  않는다.** SC 3.3.1 을 여는 결손이다.
+- **포커스 표시가 대비 요건을 넘지 못한다.** `outline` 을 끄고 1px 테두리 색만 바꾸는데,
+  쿠폰 모달의 카드 면 위에서 이 문서가 sRGB 합성 후 상대휘도로 재면 이렇다.
+
+  | | 칸 안쪽 대비 | 카드 대비 |
+  | --- | --- | --- |
+  | 다크 | **2.58:1** | 3.28:1 |
+  | 라이트 | **1.65:1** | 1.97:1 |
+
+  SC 1.4.11 은 포커스 표시에 인접색 대비 3:1 을 요구한다. 라이트에서는 어느 쪽으로 재도
+  미달이고, `outline-none` 이라 물러설 기본 링도 없다. 색을 `color/stroke-focus` 로 바꿔
+  불투명도를 1 로 올려도 라이트는 2.61:1 이라 여전히 미달이다 — **테두리 색만으로는 이 조형이
+  요건을 넘지 못한다.** LOUIS TextField 가 색이 아니라 **박스 바깥의 2px `outline`** 을 쓰는
+  이유가 이것이다(그때 인접색은 칸 안쪽이 아니라 카드가 된다).
+- **타깃 크기가 간격 예외로만 성립한다.** 소비처에서 칸은 약 23.17 × 36 이라 SC 2.5.8
+  (24 × 24)에 폭이 미달이고, 이웃 칸의 중심 간격 약 25.17 이 24 를 넘어 간격 예외로 통과한다 —
+  여유가 1.2 남짓이다. 모달이 `calc(100vw - 40px)` 로 좁아지는 **뷰포트 386px 아래에서는 그
+  예외도 깨진다.** 320px 기기가 그 범위 안이다.
+- **비활성 대비는 면제 대상이 맞다.** 불투명도 0.40 에서 글자 대 면이 다크 2.74:1 ·
+  라이트 2.36:1 인데, 칸이 네이티브 `disabled` 인 진짜 비활성 컨트롤이라 SC 1.4.3 의 면제가
+  성립한다. (같은 값이라도 [GNB Menu Item](../components/gnb-menu-item.md) 의 `<span>` 은 면제가 성립하지
+  않는다 — 요소가 컨트롤이 아니기 때문이다.)
+- 글자 대비는 넉넉하다 — 잉크 88% 가 칸 면 위에서 다크 8.41:1 · 라이트 13.88:1 이다.
+  구분자 잉크 28% 는 다크 2.33:1 · 라이트 1.98:1 이지만 `aria-hidden` 인 장식이다.
+- **칸에 폭 하한이 없다**(`min-w-0`). 400% 확대나 아주 좁은 기기에서 칸이 글자보다 좁아질 수
+  있고, 그 지점의 거동은 실측되지 않았다(결손).
+- 모션 없음 — `prefers-reduced-motion` 계약이 필요 없다.
+- 위 대비 값은 전부 **이 문서가 계산한 것**이다. 면은 모달 카드
+  (`palette-gray-800` / 라이트 `palette-gray-100`), 잉크는 테마를 따라 뒤집히는 `gray-000` 을
+  놓고 합성했다. 브라우저 실측이 아니다.
+
+#### Specification
+
+| Part/state | 값 | 토큰·근거 |
+| --- | --- | --- |
+| 트랙 | 높이 36, 안쪽 여백 0, 간격 2 | `flex w-full items-center gap-1`(2px 그리드). **간격 2 에 대응하는 일반 토큰이 없다** — 값이 같은 `space/overlay-item-gap` · `space/progress-ring-gap` 은 다른 컴포넌트의 이름이다 |
+| 트랙 폭 | 컨테이너를 채운다 | `w-full`. Figma 의 386 은 칸이 상한에 닿는 표본 폭이다 |
+| 칸 | 최대 28 × 36, radius 8 | `flex-1 min-w-0 max-w-14 h-18 rounded-8`. **높이 36 에 대응 토큰이 없다** — `layout/control-height-md`(32) 와 `-lg`(40) 사이가 비어 있다 |
+| 칸 테두리 | 1, 안쪽 | `border-width-default` · `1 \| INSIDE`. **헤어라인이 아니다** — 이 저장소의 기본 경계는 0.5 inset 그림자다(Known deviations 2) |
+| 칸 면 | 잉크 4% | `color/gray-000-alpha-04` |
+| 칸 테두리 색 | 잉크 12% | `color/gray-000-alpha-12` |
+| 글자 | `body-md-medium` 16 / 150%(24), 가운데, 대문자 | `typography/body-md-medium` · `type-body-16-medium` + `text-center uppercase` |
+| 글자색 | 잉크 88% | `color/gray-000-alpha-88` |
+| Focus 테두리 | `primary-400` 72% | Figma 는 `color/accent-primary` @72% 에 묶었다 — Known deviations 1 |
+| Focus 면 | 잉크 8% | `color/gray-000-alpha-08` |
+| Focus outline | **없다** | `outline-none`. 표시가 테두리 색 하나뿐이다 |
+| Disabled | 요소 불투명도 0.40 | `[&:disabled]:opacity-40`. 칸에만 걸린다 — 구분자는 그대로다 |
+| 구분자 | 12 × 24, 좌우 안쪽 2 | `shrink-0 px-1`. **폭 12 는 Figma 값**이고 제품에서는 하이픈 글자 폭이 정한다 |
+| 구분자 색 | 잉크 28% | `color/gray-000-alpha-28`. `select-none` · `aria-hidden` |
+| 전환 | `border-color 120ms ease, background 120ms ease` | 색만. 기하는 움직이지 않는다 |
+| 칸 수 · 묶음 | 12 · 4 | 컴포넌트 값이 아니다 — `COUPON_CODE_LENGTH` · `COUPON_CODE_GROUP_SIZE` 가 소유한다 |
+
+#### Known deviations
+
+1. **포커스 색이 셋 다 서로 다르다.** 제품은 `--primary-400`(`#38a4ff`) 72% 를 쓰고 그 값은
+   **두 테마가 같다** — `globals.css` 의 `:root` 에서 한 번 정의되고 테마 블록이 덮지 않는다.
+   LOUIS 의 `color/stroke-focus` 는 라이트 `#0088ff` · 다크 `#38a4ff` 로 **모드마다 갈리므로**
+   거기 묶으면 제품에 없는 모드 분기가 Figma 에 생긴다. 그래서 모드 불변인
+   `color/accent-primary` @72% 에 묶었는데, 그 토큰의 값은 `#0088ff` 라 **제품 색과 같지
+   않다.** 값이 정확히 `#38a4ff` 이면서 모드 불변인 토큰은 `color/accent-primary-hover` 하나뿐이고
+   이름이 hover 다 — **이 자리에 맞는 이름을 가진 토큰이 LOUIS 에 없다.** 바인딩 검사는
+   「묶였는가」만 보므로 이 어긋남을 잡지 못한다. **소유자 판정 필요**: 제품을
+   `stroke-focus` 로 옮겨 모드 분기를 받아들이는가, LOUIS 에 모드 불변 포커스 토큰을 세우는가.
+   어느 쪽이든 Accessibility 의 대비 미달이 먼저 풀려야 한다 — 두 후보 다 라이트에서 3:1 을
+   넘지 못한다.
+2. **경계가 헤어라인이 아니라 진짜 1px 테두리다.** 이 저장소의 기본은 DS-D-0023 이후
+   `inset 0 0 0 0.5px` 그림자이고 LOUIS TextField 도 그 방식이다. 이 컴포넌트만 실제 `border`
+   를 쓰고, 그래서 되읽기에 `strokeWeight: 1` 과 `Cell 1: 1|INSIDE` 가 **있는 것이 정상이다.**
+   칸이 열둘이라 경계가 촘촘히 반복되는 조형이어서 0.5 로는 칸이 나뉘어 보이지 않는다는 것이
+   제품의 선택이었다 — 다만 그 판단이 코드 주석에 남아 있지 않다.
+3. **구분자 폭의 정본이 두 곳에서 다르다.** Figma 는 12 로 고정했고 제품에서는 좌우 안쪽 2 에
+   하이픈 글자 폭이 더해진 값이다 — 글꼴이 바뀌면 따라 움직인다. 되읽기에 sizing mode 가 없어
+   Figma 의 12 가 FIXED 인지 HUG 인지도 알 수 없다. 이 문서의 「칸 약 23.17」 계산도 12 를
+   그대로 놓은 것이라 **실측으로 바뀔 수 있다.**
+4. **`State=Focus` 가 몇 칸을 포커스로 그렸는지 확인할 수 없다.** 제품에서 `:focus` 는 열두
+   칸 중 하나에만 선다. 되읽기의 `boundFills` 78 은 변형당 26 으로 완전히 설명되지만
+   (칸 12 + 글자 12 + 하이픈 2), **어느 칸이 어떤 색에 묶였는지는 담지 않는다.**
+   `boundStrokes` 36 = 칸 12 × 3 변형, `textStyled` 42 = (글자 12 + 하이픈 2) × 3 도 같다.
+   **소유자 확인 필요.**
+5. **탭 정지점이 열둘이다.** 코드 한 개를 넣는 자리에 탭 정지점 열둘은 키보드 사용자에게
+   묶음을 통과하기 어렵게 만든다. 로빙 탭인덱스(묶음 전체가 하나의 정지점이고 화살표로 칸을
+   오가는 방식)로 바꾸는 것이 표준 패턴이지만, 붙여넣기·자동 이동 거동과 함께 다시 설계해야
+   한다. **소유자 판정 필요.**
+6. **칸 이름의 꼬리가 i18n 밖에 있다.** `aria-label` 이 `${ariaLabel} N번째 글자` 로 조립되고
+   「번째 글자」가 한국어 리터럴이다. 영어·일본어 로케일에서 스크린리더가 두 언어를 섞어
+   읽는다. 게이트가 잡지 못한다 — 이 저장소에는 제품의 하드코딩 문구를 보는 검사가 없다.
+7. **기하가 게이트에 걸려 있지 않다.** `figma/components.measured.json` 에
+   `segmented-code-input` 항목이 없어 28 · 36 · 8 · 2 · 386 을 아무도 대조하지 않는다. 위
+   값들은 제품 소스와 되읽기에서 읽은 것이고 브라우저 실측이 아니다. 실측 probe 를 붙이는 것이
+   승격 조건이다.
+8. **글자 굵기가 대조되지 않는다.** 되읽기의 `parts` 는 `fontSize` 와 높이만 담고 텍스트
+   스타일 **이름**을 담지 않는다. `typography/body-md` 세 굵기가 모두 16 / 150% / −0.16 이라
+   지금 게이트로는 regular · medium · semibold 를 가려낼 수 없다 —
+   [GNB Menu Item](../components/gnb-menu-item.md) 과 같은 결손이다.
+9. **스냅샷은 이 문서보다 뒤에 갱신됐다.** 문서를 쓸 때 `figma/snapshot.json` 에
+   `SegmentedCodeInput` 이 없어 계약이 「component set 이 snapshot 에 없습니다」로 실패했다.
+   되읽기를 병합하고 `node scripts/build-figma-snapshot.mjs` 를 다시 돌려 해소했다 — 스냅샷은
+   손으로 쓰는 파일이 아니라 되읽기의 projection 이므로 **되읽기가 먼저 갱신돼야** 이 절차가
+   성립한다.
+10. **자동 테스트가 양쪽 다 없다.** LOUIS 에 acceptance test 가 0건이고, 제품에도 이
+    컴포넌트를 겨냥한 테스트가 없다. 제품의 `coupon-service.test.ts` 는 `formatCouponCode` ·
+    `normalizeCouponCode` 를 시험하지 이 입력창을 시험하지 않는다 — 붙여넣기와 Backspace 거동은
+    아무도 자동으로 확인하지 않는다.
+
+#### Acceptance tests
+
+1. 칸이 28 × 36 이고 radius 8 이다.
+2. 트랙 높이가 36, 항목 간격이 2, 안쪽 여백이 0 이며 `layoutMode` 가 `HORIZONTAL` 이다.
+3. 프레임 폭 386 이 칸 상한과 맞아떨어진다 — 12 × 28 + 2 × 12 + 13 × 2 = 386.
+4. 칸에 stroke 가 있고 `1 | INSIDE` 다. **헤어라인 effect 가 아니다** — 되읽기의 `effects` 가
+   비어 있다.
+5. 구분자가 2개다 — 네 칸마다 하나이고 **마지막 칸 뒤에는 없다.**
+6. 글자와 하이픈의 크기가 16 이고 글자 높이가 24 다. **굵기(medium)는 확인되지 않는다**
+   (Known deviations 8).
+7. 세 변형의 기하가 모두 같다 — 되읽기의 각 기하 값이 단일값이다(28 · 36 · 8 · 386 · 2).
+8. Figma 되읽기에서 raw fill · raw stroke · 스타일 없는 텍스트가 각각 0 이고, set 에 설명이
+   있다.
+9. `boundFills` 78 · `boundStrokes` 36 · `textStyled` 42 가 각각 26 · 12 · 14 의 3배로 남김
+   없이 설명된다.
+10. 제품에서 칸 클래스의 상태 선택자가 `:focus` 와 `:disabled` **둘뿐**이다 — 채워짐 규칙도
+    오류 규칙도 `:hover` 도 없다.
+11. 제품에서 빈 칸에 Backspace 를 누르면 앞 칸의 글자가 지워지고 초점이 그리로 옮겨 간다.
+12. 제품에서 마지막 칸에 `ABCD-EFGH-JKMN` 을 붙여넣으면 첫 칸부터 열두 칸이 채워진다.
+13. 제품에서 비활성일 때 칸만 흐려지고 구분자는 밝기가 그대로다.
 
 #### Migration and changelog
 

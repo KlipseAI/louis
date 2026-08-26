@@ -581,6 +581,24 @@
       "generated": false
     },
     {
+      "id": "inline-loading-label",
+      "path": "design/components/inline-loading-label.md",
+      "title": "Inline Loading Label",
+      "section": "components",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
+    },
+    {
+      "id": "segmented-code-input",
+      "path": "design/components/segmented-code-input.md",
+      "title": "Segmented Code Input",
+      "section": "components",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
+    },
+    {
       "id": "patterns-overview",
       "path": "design/patterns/README.md",
       "title": "Patterns",
@@ -1176,7 +1194,9 @@
         "design/components/step-tile.md",
         "design/components/faq-row.md",
         "design/components/news-card.md",
-        "design/components/gnb-menu-item.md"
+        "design/components/gnb-menu-item.md",
+        "design/components/inline-loading-label.md",
+        "design/components/segmented-code-input.md"
       ]
     },
     {
@@ -1445,6 +1465,20 @@
       "figmaName": "IconButton"
     },
     {
+      "id": "inline-loading-label",
+      "name": "Inline Loading Label",
+      "figmaName": "InlineLoadingLabel",
+      "figmaNames": [
+        "InlineLoadingLabel"
+      ],
+      "doc": "design/components/inline-loading-label.md",
+      "note": "버튼·행 안의 라벨 한 줄과 그 옆에서 열리고 닫히는 스피너 자리. 제품 구현(InlineLoadingLabel.tsx)이 정본이고 소비처가 13개 파일 · 20개 호출부다 — LOUIS recipe 는 없다. **이 컴포넌트가 로딩 표현 규범의 집행 장치다** — 제품 저장소 docs/design/loading-states.md 가 정한 「말줄임표가 아니라 스피너」를 런타임에 강제한다: 스피너를 붙이고 로딩 문구의 꼬리 ... 와 … 를 앞뒤 공백까지 떼어낸다. 제품 i18n 에는 아직 `가입 중...`·`Saving...`·`保存中...` 처럼 말줄임표가 박힌 자리가 여럿이라 이 방어가 실제로 일하고 있다. **닫힘 → 열림에서 네 프로퍼티가 함께 움직인다** — 폭 0→16(md)·0→12(sm), 왼쪽 여백 0→6·0→4, 불투명도 0→1, scale 0.85→1. 전환이 두 짝으로 갈려 있다(폭·여백 200ms cubic-bezier(0.22,1,0.36,1) · 불투명도·transform 180ms ease). 링은 스스로 그리지 않고 LOUIS .louis-spinner 레시피를 그대로 소비하며 제품 게이트가 그 소비를 클래스 문자열로 고정한다. **Figma 는 닫힌 변형에서 슬롯 레이어를 숨긴다** — 프레임을 0 폭으로 만들 수 없어서이고, 그래서 되읽기의 md/false·sm/false 에 slots 가 비어 있다(제품은 폭 0 + overflow-hidden). 결과적으로 닫힘 폭 0 을 어떤 게이트도 대조하지 않는다. 꼬리 말줄임표 제거는 Figma 에 표현되지 않는다. **축 이름 Loading 을 figma-component-authoring.md §2 의 조건 축 명부에 올렸다** — 프레임이 자기 itemSpacing 을 0 ↔ 6·4 로 다시 쓰고(시험 2) 닫힘과 열림 사이에 Smart Animate 를 걸어야 해(시험 3) BOOLEAN 으로 그릴 수 없다. 명부가 여섯에서 일곱이 됐고, Button 의 Loading 은 여전히 판정 전이다. 타이포를 Figma 가 14/150% 로 고정하는데 제품은 소유하지 않고 감싸는 컨트롤에서 물려받는다. 상태 전달을 이 컴포넌트가 하지 않는다 — 슬롯이 aria-hidden 이고 role·aria-live·aria-busy 가 없으며, aria-busy 를 건 호출부는 20 중 셋뿐이다(Spinner 의 reduce 대체 계약이 나머지 열일곱에서 성립하지 않는다). 기하 실측이 없고(components.measured.json 에 항목 없음) 증거 락이 링을 자체 유틸리티로 그리던 옛 판을 가리킨다.",
+      "maturity": "experimental",
+      "figma": "partial",
+      "web": "not-ready",
+      "docs": "done"
+    },
+    {
       "id": "input",
       "name": "Input / Field",
       "maturity": "experimental",
@@ -1544,6 +1578,20 @@
       "note": "public export 10종과 실브라우저 acceptance test 6건. 값은 제품 정의 4벌의 정본을 옮긴 것이다. 프로그레시브 블러의 첫 소비처이며, parity 게이트가 자손 기하·타이포·흐림·자식 순서를 대조한다. 구조는 제품과 다르다 — 프레임은 div이고 클릭 타깃이 카드 전체를 덮는 형제다",
       "doc": "design/components/project-card.md",
       "figmaName": "ProjectCard"
+    },
+    {
+      "id": "segmented-code-input",
+      "name": "Segmented Code Input",
+      "figmaName": "SegmentedCodeInput",
+      "figmaNames": [
+        "SegmentedCodeInput"
+      ],
+      "doc": "design/components/segmented-code-input.md",
+      "note": "쿠폰 코드처럼 한 글자씩 칸을 나눠 받는 입력 묶음. 제품 구현(components/ui/SegmentedCodeInput.tsx)이 정본이고 소비처는 쿠폰 등록 모달 한 자리다 — LOUIS recipe 는 없다. **칸이 아니라 묶음이 컴포넌트다**: 칸은 정본에서 이름 없는 input 이고 export 되지 않으며, flex-1 min-w-0 max-w-14 로 컨테이너에 맞춰 줄어든다(12칸을 고정폭으로 두면 360px 모달에서 넘친다는 이유가 주석에 있다). Figma 도 칸을 채움으로 두고 프레임 폭 386 만 고정했다 — 12*28 + 2*12 + 13*2 = 386 으로, 칸이 상한 28 에 닿는 폭이다. **칸 수 12 와 묶음 4 는 컴포넌트의 값이 아니라 COUPON_CODE_LENGTH · COUPON_CODE_GROUP_SIZE 다** — Figma 의 12칸은 한 소비처의 표본이다. **입력됨/빈칸과 오류는 축이 아니다** — 채워짐 규칙이 CSS 에 없고(상태 선택자가 :focus 와 :disabled 둘뿐), 오류는 형제 p role=alert 가 진다(FormMessage Tone=error). **포커스 색이 세 곳에서 다르다** — 제품은 primary-400(#38a4ff) 72% 를 두 테마 모두 쓰는데 color/stroke-focus 는 모드마다 갈리고, 그래서 묶은 color/accent-primary 는 모드 불변이지만 값이 #0088ff 다. 더 나쁜 것은 **어느 후보도 라이트에서 대비 3:1 을 넘지 못한다**는 사실이다 — outline-none 에 1px 테두리 색만 바꾸는 조형이라 라이트 1.65:1 · 다크 2.58:1 이다(SC 1.4.11 결손). 칸 이름의 「번째 글자」가 i18n 밖에 박혀 있고, 기하는 components.measured.json 에 항목이 없어 대조되지 않는다.",
+      "maturity": "experimental",
+      "figma": "partial",
+      "web": "not-ready",
+      "docs": "done"
     },
     {
       "id": "segmented-control",

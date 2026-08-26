@@ -1,7 +1,7 @@
 {
-  "$comment": "Figma Plugin API 되읽기 원본. 손으로 쓰지 않는다 — build-figma-snapshot.mjs 머리말의 절차로 재생성한다. 2026-08-26 에 대상을 선행 라이브러리 bxGEp0km 에서 LOUIS OlYKERK 로 옮겼다(DS-D-0025 정정). 같은 날 DS 컴포넌트를 LOUIS 파일에 다시 세워 components 가 38개다 — 이전 머리말의 「components 가 비어 있는 것은 사실이다」는 그 이관 시점의 기록이었고 지금은 더 이상 맞지 않는다. 은퇴 파일의 명세는 readback.retired-library.json 에 보존했다.",
+  "$comment": "Figma Plugin API 되읽기 원본. 손으로 쓰지 않는다 — components 블록은 `node scripts/figma-readback-emit.mjs --components` 가 내는 플러그인 코드로 뜨고 `--merge` 로 병합한다(그 밖의 블록은 build-figma-snapshot.mjs 머리말의 절차). 2026-08-26 에 대상을 선행 라이브러리 bxGEp0km 에서 LOUIS OlYKERK 로 옮겼다(DS-D-0025 정정). 같은 날 DS 컴포넌트를 LOUIS 파일에 다시 세웠고 지금 components 는 43개다 — 이전 머리말의 「components 가 비어 있는 것은 사실이다」는 그 이관 시점의 기록이었고 지금은 더 이상 맞지 않는다. 은퇴 파일의 명세는 readback.retired-library.json 에 보존했다.",
   "capturedAt": "2026-08-26",
-  "capturedBy": "use_figma 전수 캡처 + proposal 대조. 변수는 이름·값·alias 를 Figma 실물과 대조해 확인했다(FNV-1a 정본 해시 · 516행). scopes 문자열과 float 정밀도(예: line-height/heading 을 Figma 는 1.350000023841858 로 보관)는 Figma 쪽 저장 형태라 proposal 값을 쓴다 — 게이트가 보는 축이 아니다. components 는 use_figma 로 각 set 을 순회해 뜬 값이다.",
+  "capturedBy": "use_figma 전수 캡처 + proposal 대조. 변수는 이름·값·alias 를 Figma 실물과 대조해 확인했다(FNV-1a 정본 해시 · 516행). scopes 문자열과 float 정밀도(예: line-height/heading 을 Figma 는 1.350000023841858 로 보관)는 Figma 쪽 저장 형태라 proposal 값을 쓴다 — 게이트가 보는 축이 아니다. components 41개는 use_figma 로 각 set 을 순회해 뜬 값이고, MediaCard·CarouselArrow 2개는 scripts/figma-readback-emit.mjs 가 낸 채취 코드로 떴다(2026-08-26). 그 emitter 로 Keycap·Badge 를 다시 떠 기존 값과 정규화 바이트 일치를 확인했다. Button·IconButton·Slider·ProjectCard 는 일치하지 않으며 사유는 emitter 머리말의 「알려진 어긋남」에 적었다 — 되읽기가 낡은 것이지 emitter 가 틀린 것이 아니다.",
   "figmaFileKey": "OlYKERKOkgbxBEEoXGZW2c",
   "figmaFileName": "LOUIS",
   "rootNameFromApi": "Document",
@@ -9203,6 +9203,98 @@
       },
       "effects": {}
     },
+    "CarouselArrow": {
+      "variantCount": 6,
+      "hasDescription": true,
+      "properties": {
+        "Direction": {
+          "type": "VARIANT",
+          "options": [
+            "prev",
+            "next"
+          ]
+        },
+        "State": {
+          "type": "VARIANT",
+          "options": [
+            "Default",
+            "Hover",
+            "Disabled"
+          ]
+        }
+      },
+      "binding": {
+        "boundFills": 8,
+        "rawFills": 0,
+        "boundStrokes": 6,
+        "rawStrokes": 0,
+        "textStyled": 0,
+        "textUnstyled": 0
+      },
+      "geometry": {
+        "base": {
+          "slots": {},
+          "parts": {
+            "Caret": {
+              "width": [
+                16
+              ],
+              "height": [
+                16
+              ]
+            },
+            "glyph": {
+              "width": [
+                5
+              ],
+              "height": [
+                10
+              ]
+            }
+          },
+          "height": [
+            32
+          ],
+          "width": [
+            32
+          ],
+          "paddingBlock": [
+            0
+          ],
+          "paddingBlockEnd": [
+            0
+          ],
+          "paddingInline": [
+            0
+          ],
+          "paddingInlineEnd": [
+            0
+          ],
+          "itemSpacing": [
+            0
+          ],
+          "cornerRadius": [
+            12
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ],
+          "strokeWeight": [],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        }
+      },
+      "strokes": {
+        "glyph": [
+          "1|CENTER"
+        ]
+      },
+      "effects": {
+        "self": [
+          "INNER_SHADOW:0:0:0.5"
+        ]
+      }
+    },
     "Checkbox": {
       "variantCount": 4,
       "hasDescription": true,
@@ -10069,6 +10161,191 @@
       "effects": {
         "self": [
           "INNER_SHADOW:0:0:1"
+        ]
+      }
+    },
+    "MediaCard": {
+      "variantCount": 3,
+      "hasDescription": true,
+      "properties": {
+        "Title": {
+          "type": "TEXT"
+        },
+        "Icon": {
+          "type": "BOOLEAN"
+        },
+        "Glyph": {
+          "type": "INSTANCE_SWAP"
+        },
+        "Description": {
+          "type": "BOOLEAN"
+        },
+        "DescriptionLabel": {
+          "type": "TEXT"
+        },
+        "Badge": {
+          "type": "VARIANT",
+          "options": [
+            "New",
+            "Top",
+            "none"
+          ]
+        }
+      },
+      "binding": {
+        "boundFills": 15,
+        "rawFills": 0,
+        "boundStrokes": 0,
+        "rawStrokes": 0,
+        "textStyled": 9,
+        "textUnstyled": 0
+      },
+      "geometry": {
+        "base": {
+          "slots": {
+            "Glyph": [
+              "16x16"
+            ]
+          },
+          "parts": {
+            "TopBar": {
+              "width": [
+                316
+              ],
+              "height": [
+                54
+              ],
+              "paddingBlock": [
+                16
+              ],
+              "paddingBlockEnd": [
+                16
+              ],
+              "paddingInline": [
+                16
+              ],
+              "paddingInlineEnd": [
+                16
+              ]
+            },
+            "Badge": {
+              "height": [
+                22
+              ],
+              "paddingBlock": [
+                2
+              ],
+              "paddingBlockEnd": [
+                2
+              ],
+              "paddingInline": [
+                4
+              ],
+              "paddingInlineEnd": [
+                4
+              ],
+              "cornerRadius": [
+                999
+              ]
+            },
+            "BadgeLabel": {
+              "fontSize": [
+                12
+              ],
+              "lineHeightPercent": [
+                150
+              ]
+            },
+            "InfoBar": {
+              "width": [
+                316
+              ],
+              "height": [
+                111
+              ],
+              "paddingBlock": [
+                40
+              ],
+              "paddingBlockEnd": [
+                16
+              ],
+              "paddingInline": [
+                16
+              ],
+              "paddingInlineEnd": [
+                16
+              ],
+              "itemSpacing": [
+                4
+              ],
+              "layoutMode": [
+                "VERTICAL"
+              ]
+            },
+            "NameRow": {
+              "height": [
+                30
+              ],
+              "itemSpacing": [
+                8
+              ]
+            },
+            "Title": {
+              "fontSize": [
+                20
+              ],
+              "lineHeightPercent": [
+                150
+              ]
+            },
+            "Description": {
+              "fontSize": [
+                14
+              ],
+              "lineHeightPercent": [
+                150
+              ]
+            }
+          },
+          "height": [
+            316
+          ],
+          "width": [
+            316
+          ],
+          "paddingBlock": [
+            0
+          ],
+          "paddingBlockEnd": [
+            0
+          ],
+          "paddingInline": [
+            0
+          ],
+          "paddingInlineEnd": [
+            0
+          ],
+          "itemSpacing": [
+            0
+          ],
+          "cornerRadius": [
+            12
+          ],
+          "layoutMode": [
+            "VERTICAL"
+          ],
+          "strokeWeight": [],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        }
+      },
+      "strokes": {},
+      "effects": {
+        "Badge": [
+          "BACKGROUND_BLUR:NORMAL:var(blur/surface)"
+        ],
+        "InfoBar": [
+          "BACKGROUND_BLUR:NORMAL:20"
         ]
       }
     },

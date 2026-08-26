@@ -400,8 +400,71 @@ export function parseBoxShadow(value) {
 }
 
 /** 면 관련 측정값을 spec 형태로. 그릴 게 하나도 없으면 null. */
+/** 괄호를 세며 최상위 쉼표로만 자른다 — `rgb(0, 0, 0)` 안의 쉼표에 걸리지 않게. */
+function splitTopLevel(value, separator = ",") {
+  const parts = [];
+  let depth = 0;
+  let start = 0;
+  for (let index = 0; index < value.length; index += 1) {
+    const char = value[index];
+    if (char === "(") depth += 1;
+    else if (char === ")") depth -= 1;
+    else if (char === separator && depth === 0) { parts.push(value.slice(start, index)); start = index + 1; }
+  }
+  parts.push(value.slice(start));
+  return parts.map((part) => part.trim()).filter(Boolean);
+}
+
+/** CSS 방향 키워드 → deg(0deg = 위쪽, 시계 방향). */
+const GRADIENT_KEYWORDS = Object.freeze({
+  "to top": 0, "to right": 90, "to bottom": 180, "to left": 270,
+  "to top right": 45, "to right top": 45, "to bottom right": 135, "to right bottom": 135,
+  "to bottom left": 225, "to left bottom": 225, "to top left": 315, "to left top": 315,
+});
+
+/**
+ * `linear-gradient(...)` 한 겹을 각도와 색 정지점으로 읽는다.
+ *
+ * **왜 필요한가:** `backgroundColor` 만 읽으면 그라디언트 면이 통째로 빠진다. 실측 사고:
+ * `/archive` 의 `Start a new project` 버튼은 배경이 `linear-gradient(90deg, #1491ff …)` 이고
+ * 글자는 `#fafafa` 라, 면을 잃자 **흰 글자만 남아 화면에서 사라졌다**(스크린샷으로 확인).
+ *
+ * 정지점 위치가 없으면 균등 배분한다(CSS 기본). `url()` 등 다른 겹은 여기서 다루지 않는다.
+ */
+function parseLinearGradient(layer) {
+  const match = /^linear-gradient\((.*)\)$/s.exec(layer.trim());
+  if (!match) return null;
+  const parts = splitTopLevel(match[1]);
+  if (parts.length < 2) return null;
+  let angle = 180;
+  let first = 0;
+  const head = parts[0].toLowerCase();
+  const deg = /^(-?[\d.]+)deg$/.exec(head);
+  if (deg) { angle = Number(deg[1]); first = 1; }
+  else if (head in GRADIENT_KEYWORDS) { angle = GRADIENT_KEYWORDS[head]; first = 1; }
+  const stops = [];
+  for (const part of parts.slice(first)) {
+    const percent = /\s(-?[\d.]+)%$/.exec(part);
+    const color = cssColorToHex(percent ? part.slice(0, percent.index) : part);
+    if (!color) return null;
+    stops.push({ color, position: percent ? Number(percent[1]) / 100 : null });
+  }
+  if (stops.length < 2) return null;
+  // 위치가 없는 정지점은 CSS 기본대로 균등 배분한다.
+  if (stops[0].position == null) stops[0].position = 0;
+  if (stops[stops.length - 1].position == null) stops[stops.length - 1].position = 1;
+  for (let index = 1; index < stops.length - 1; index += 1) {
+    if (stops[index].position == null) stops[index].position = index / (stops.length - 1);
+  }
+  return { angle, stops };
+}
+
 function paintOf(style) {
   const fill = cssColorToHex(style.backgroundColor);
+  // 그라디언트 면. 겹이 여럿이면 **맨 앞(가장 위에 그려지는) 그라디언트**를 쓴다.
+  const layers = (style.backgroundImage && style.backgroundImage !== "none")
+    ? splitTopLevel(style.backgroundImage) : [];
+  const gradient = layers.map(parseLinearGradient).find(Boolean) ?? null;
   // 테두리 색은 지정이 없으면 `currentColor`로 떨어진다. **두께 > 0 이고 style ≠ none 인 변만**
   // 실제로 그려진다 — 이 둘로 거르지 않으면 안 그려지는 변의 색을 잘못 가져온다.
   const SIDES = ["Top", "Right", "Bottom", "Left"];
@@ -416,8 +479,8 @@ function paintOf(style) {
   const shadow = parseBoxShadow(style.boxShadow);
   const rawOpacity = Number(style.opacity);
   const opacity = Number.isFinite(rawOpacity) && rawOpacity < 1 ? rawOpacity : null;
-  if (!fill && !stroke && !radius && !shadow && opacity == null) return null;
-  return { fill, stroke, radius, shadow, opacity };
+  if (!fill && !gradient && !stroke && !radius && !shadow && opacity == null) return null;
+  return { fill, gradient, stroke, radius, shadow, opacity };
 }
 
 /**

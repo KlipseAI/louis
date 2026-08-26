@@ -101,6 +101,7 @@ const textStyleByName = new Map((await figma.getLocalTextStylesAsync()).map((sty
 
 // ── 색 적용 ───────────────────────────────────────────────────────────────
 const boundColors = new Set();
+let gradientCount = 0;
 const unboundColors = new Set();
 const hexToPaint = (hex) => {
   const parse = (offset) => parseInt(hex.slice(offset, offset + 2), 16) / 255;
@@ -116,8 +117,37 @@ const hexToPaint = (hex) => {
   return figma.variables.setBoundVariableForPaint(paint, "color", variable);
 };
 
+/**
+ * CSS 각도(0deg = 위, 시계 방향) → Figma `gradientTransform`.
+ * Figma의 그라디언트는 기본이 왼→오른쪽이므로 중심(0.5, 0.5)을 기준으로 회전시킨다.
+ * 검증: 90deg(→오른쪽) → [[1,0,0],[0,1,0]] (기본값), 180deg(→아래) → [[0,1,0],[-1,0,1]].
+ */
+const gradientTransform = (angle) => {
+  const radians = ((angle - 90) * Math.PI) / 180;
+  const cos = Math.cos(radians);
+  const sin = Math.sin(radians);
+  return [[cos, sin, (1 - cos - sin) / 2], [-sin, cos, (1 + sin - cos) / 2]];
+};
 const applyPaint = (node, spec) => {
-  if (spec.f) node.fills = [hexToPaint(spec.f)];
+  // CSS는 background-image(그라디언트)를 background-color 위에 그린다 — 순서를 그대로 지킨다.
+  const fills = [];
+  if (spec.f) fills.push(hexToPaint(spec.f));
+  if (spec.g) {
+    const [angle, ...stops] = spec.g;
+    fills.push({
+      type: "GRADIENT_LINEAR",
+      gradientTransform: gradientTransform(angle),
+      gradientStops: stops.map(([hex, position]) => {
+        const parse = (offset) => parseInt(hex.slice(offset, offset + 2), 16) / 255;
+        return {
+          position,
+          color: { r: parse(0), g: parse(2), b: parse(4), a: hex.length >= 8 ? parse(6) : 1 },
+        };
+      }),
+    });
+    gradientCount += 1;
+  }
+  if (fills.length > 0) node.fills = fills;
   if (spec.b) {
     const [hex, top, right, bottom, left] = spec.b;
     node.strokes = [hexToPaint(hex)];
@@ -243,7 +273,10 @@ const buildNode = (spec, parent) => {
     } else {
       node.layoutMode = "NONE";
     }
-    if (spec.c) node.clipsContent = true;
+    // **자를 때만 자른다.** `createFrame()` 은 clipsContent 가 기본 true 라, 명시하지 않으면
+    // 제품이 안 자르는 곳까지 잘린다. 실측 사고: `/archive` 의 사이드바는 부모 기준 x=-280 에
+    // 절대 배치되는데(부모가 margin-left 280), 조상 프레임이 기본값으로 잘라 **통째로 사라졌다**.
+    node.clipsContent = Boolean(spec.c);
   }
   node.name = spec.i
     ? `shell/${spec.i[0]} · ${spec.i[1]}`
@@ -312,7 +345,19 @@ const buildNode = (spec, parent) => {
     node.appendChild(label);
     applyTypography(label, spec);
     label.name = `text ${String(spec.x).slice(0, 18)}`;
-    try { label.layoutSizingHorizontal = "HUG"; label.layoutSizingVertical = "HUG"; } catch (error) {}
+    if (spec.l) {
+      // 제품이 auto-layout(flex)으로 가운데 정렬한 버튼 — 부모 정렬을 그대로 쓴다.
+      try { label.layoutSizingHorizontal = "HUG"; label.layoutSizingVertical = "HUG"; } catch (error) {}
+    } else {
+      // **flex가 아닌 블록 버튼**은 `text-align`으로만 글자를 가운데 놓는다. Figma에서 HUG로 두면
+      // 글자가 (0,0)에 붙어 면 밖으로 삐져나온다. 실측 사고: `/subscription` 의 `Redeem a coupon`
+      // 이 왼쪽으로 밀려 "edeem a coupon" 으로 잘렸다(스크린샷으로 확인).
+      // 면을 가득 채우고 세로 가운데로 맞춰 블록 버튼과 같은 결과를 만든다.
+      label.textAutoResize = "NONE";
+      label.resize(Math.max(0.01, node.width), Math.max(0.01, node.height));
+      label.textAlignVertical = "CENTER";
+      try { label.constraints = { horizontal: "STRETCH", vertical: "STRETCH" }; } catch (error) {}
+    }
   }
 
   for (const child of (spec.k || [])) buildNode(child, node);
@@ -405,6 +450,7 @@ if (P.head) {
 return {
   ...result,
   boundColors: boundColors.size,
+  gradients: gradientCount,
   unboundColors: [...unboundColors].sort(),
   missingTextStyles: [...missingTextStyles],
 };

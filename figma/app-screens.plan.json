@@ -11,6 +11,7 @@
   "totalShellGaps": 3,
   "paint": {
     "fills": 144,
+    "gradients": 2,
     "strokes": 11,
     "radii": 93,
     "shadows": 41,
@@ -76,6 +77,7 @@
         },
         "paint": {
           "fill": "eeeef1",
+          "gradient": null,
           "stroke": null,
           "radius": null,
           "shadow": null,
@@ -149,6 +151,7 @@
             },
             "paint": {
               "fill": "eeeef1",
+              "gradient": null,
               "stroke": null,
               "radius": null,
               "shadow": null,
@@ -222,6 +225,7 @@
                 },
                 "paint": {
                   "fill": "eeeef1",
+                  "gradient": null,
                   "stroke": null,
                   "radius": null,
                   "shadow": null,
@@ -374,6 +378,7 @@
                     },
                     "paint": {
                       "fill": "f8f8f9",
+                      "gradient": null,
                       "stroke": null,
                       "radius": [
                         16,
@@ -595,6 +600,7 @@
                                 },
                                 "paint": {
                                   "fill": "f8f8f9",
+                                  "gradient": null,
                                   "stroke": null,
                                   "radius": null,
                                   "shadow": null,
@@ -674,6 +680,7 @@
                                 },
                                 "paint": {
                                   "fill": "313640",
+                                  "gradient": null,
                                   "stroke": null,
                                   "radius": [
                                     16,
@@ -752,6 +759,7 @@
                                     },
                                     "paint": {
                                       "fill": null,
+                                      "gradient": null,
                                       "stroke": null,
                                       "radius": [
                                         16,
@@ -814,6 +822,7 @@
                                         },
                                         "paint": {
                                           "fill": "f8f8f9",
+                                          "gradient": null,
                                           "stroke": null,
                                           "radius": [
                                             16,
@@ -1088,6 +1097,23 @@
                                                 },
                                                 "paint": {
                                                   "fill": null,
+                                                  "gradient": {
+                                                    "angle": 90,
+                                                    "stops": [
+                                                      {
+                                                        "color": "1491ff",
+                                                        "position": 0
+                                                      },
+                                                      {
+                                                        "color": "0088ff",
+                                                        "position": 0.5
+                                                      },
+                                                      {
+                                                        "color": "1491ff",
+                                                        "position": 1
+                                                      }
+                                                    ]
+                                                  },
                                                   "stroke": null,
                                                   "radius": [
                                                     12,
@@ -1234,6 +1260,7 @@
                                     },
                                     "paint": {
                                       "fill": "00000047",
+                                      "gradient": null,
                                       "stroke": null,
                                       "radius": [
                                         999,
@@ -1318,6 +1345,7 @@
                                         },
                                         "paint": {
                                           "fill": null,
+                                          "gradient": null,
                                           "stroke": null,
                                           "radius": [
                                             999,
@@ -1533,6 +1561,7 @@
                                             },
                                             "paint": {
                                               "fill": "fafafa",
+                                              "gradient": null,
                                               "stroke": null,
                                               "radius": [
                                                 999,
@@ -1596,6 +1625,7 @@
                                             },
                                             "paint": {
                                               "fill": "fafafa73",
+                                              "gradient": null,
                                               "stroke": null,
                                               "radius": [
                                                 999,
@@ -1659,6 +1689,7 @@
                                             },
                                             "paint": {
                                               "fill": "fafafa73",
+                                              "gradient": null,
                                               "stroke": null,
                                               "radius": [
                                                 999,
@@ -1724,6 +1755,7 @@
                                         },
                                         "paint": {
                                           "fill": null,
+                                          "gradient": null,
                                           "stroke": null,
                                           "radius": [
                                             999,
@@ -2103,6 +2135,7 @@
         },
         "paint": {
           "fill": "eeeef1",
+          "gradient": null,
           "stroke": null,
           "radius": null,
           "shadow": null,
@@ -2176,6 +2209,7 @@
             },
             "paint": {
               "fill": "eeeef1",
+              "gradient": null,
               "stroke": null,
               "radius": null,
               "shadow": null,
@@ -2249,6 +2283,7 @@
                 },
                 "paint": {
                   "fill": "f8f8f9",
+                  "gradient": null,
                   "stroke": null,
                   "radius": null,
                   "shadow": null,
@@ -2322,6 +2357,7 @@
                     },
                     "paint": {
                       "fill": "f8f8f9",
+                      "gradient": null,
                       "stroke": null,
                       "radius": null,
                       "shadow": null,
@@ -2529,6 +2565,7 @@
                                 },
                                 "paint": {
                                   "fill": "f8f8f9",
+                                  "gradient": null,
                                   "stroke": null,
                                   "radius": null,
                                   "shadow": null,
@@ -2608,6 +2645,7 @@
                                 },
                                 "paint": {
                                   "fill": "313640",
+                                  "gradient": null,
                                   "stroke": null,
                                   "radius": [
                                     16,
@@ -2686,6 +2724,7 @@
                                     },
                                     "paint": {
                                       "fill": null,
+                                      "gradient": null,
                                       "stroke": null,
                                       "radius": [
                                         16,
@@ -2748,6 +2787,7 @@
                                         },
                                         "paint": {
                                           "fill": "f8f8f9",
+                                          "gradient": null,
                                           "stroke": null,
                                           "radius": [
                                             16,
@@ -3019,6 +3059,23 @@
                                                 },
                                                 "paint": {
                                                   "fill": null,
+                                                  "gradient": {
+                                                    "angle": 90,
+                                                    "stops": [
+                                                      {
+                                                        "color": "1491ff",
+                                                        "position": 0
+                                                      },
+                                                      {
+                                                        "color": "0088ff",
+                                                        "position": 0.5
+                                                      },
+                                                      {
+                                                        "color": "1491ff",
+                                                        "position": 1
+                                                      }
+                                                    ]
+                                                  },
                                                   "stroke": null,
                                                   "radius": [
                                                     12,
@@ -3165,6 +3222,7 @@
                                     },
                                     "paint": {
                                       "fill": "00000047",
+                                      "gradient": null,
                                       "stroke": null,
                                       "radius": [
                                         999,
@@ -3249,6 +3307,7 @@
                                         },
                                         "paint": {
                                           "fill": null,
+                                          "gradient": null,
                                           "stroke": null,
                                           "radius": [
                                             999,
@@ -3464,6 +3523,7 @@
                                             },
                                             "paint": {
                                               "fill": "fafafa",
+                                              "gradient": null,
                                               "stroke": null,
                                               "radius": [
                                                 999,
@@ -3527,6 +3587,7 @@
                                             },
                                             "paint": {
                                               "fill": "fafafa73",
+                                              "gradient": null,
                                               "stroke": null,
                                               "radius": [
                                                 999,
@@ -3590,6 +3651,7 @@
                                             },
                                             "paint": {
                                               "fill": "fafafa73",
+                                              "gradient": null,
                                               "stroke": null,
                                               "radius": [
                                                 999,
@@ -3655,6 +3717,7 @@
                                         },
                                         "paint": {
                                           "fill": null,
+                                          "gradient": null,
                                           "stroke": null,
                                           "radius": [
                                             999,
@@ -4050,6 +4113,7 @@
         },
         "paint": {
           "fill": "eeeef1",
+          "gradient": null,
           "stroke": null,
           "radius": null,
           "shadow": null,
@@ -4123,6 +4187,7 @@
             },
             "paint": {
               "fill": "eeeef1",
+              "gradient": null,
               "stroke": null,
               "radius": null,
               "shadow": null,
@@ -4196,6 +4261,7 @@
                 },
                 "paint": {
                   "fill": "eeeef1",
+                  "gradient": null,
                   "stroke": null,
                   "radius": null,
                   "shadow": null,
@@ -4348,6 +4414,7 @@
                     },
                     "paint": {
                       "fill": "f8f8f9",
+                      "gradient": null,
                       "stroke": null,
                       "radius": [
                         16,
@@ -4502,6 +4569,7 @@
                             },
                             "paint": {
                               "fill": "f8f8f9",
+                              "gradient": null,
                               "stroke": {
                                 "color": "eeeef1",
                                 "widths": [
@@ -4919,6 +4987,7 @@
                                         },
                                         "paint": {
                                           "fill": "0000001f",
+                                          "gradient": null,
                                           "stroke": null,
                                           "radius": [
                                             999,
@@ -5330,6 +5399,7 @@
                                     },
                                     "paint": {
                                       "fill": "eeeef1",
+                                      "gradient": null,
                                       "stroke": null,
                                       "radius": [
                                         12,
@@ -5813,6 +5883,7 @@
                                     },
                                     "paint": {
                                       "fill": "eeeef1",
+                                      "gradient": null,
                                       "stroke": null,
                                       "radius": [
                                         12,
@@ -6167,6 +6238,7 @@
                                     },
                                     "paint": {
                                       "fill": "eeeef1",
+                                      "gradient": null,
                                       "stroke": null,
                                       "radius": [
                                         12,
@@ -6521,6 +6593,7 @@
                                     },
                                     "paint": {
                                       "fill": "eeeef1",
+                                      "gradient": null,
                                       "stroke": null,
                                       "radius": [
                                         12,
@@ -6799,6 +6872,7 @@
                                     },
                                     "paint": {
                                       "fill": "eeeef1",
+                                      "gradient": null,
                                       "stroke": null,
                                       "radius": [
                                         12,
@@ -6886,6 +6960,7 @@
                                         },
                                         "paint": {
                                           "fill": "fafafa",
+                                          "gradient": null,
                                           "stroke": null,
                                           "radius": [
                                             8,
@@ -6964,6 +7039,7 @@
                                         },
                                         "paint": {
                                           "fill": null,
+                                          "gradient": null,
                                           "stroke": null,
                                           "radius": [
                                             8,
@@ -7236,6 +7312,7 @@
                                         },
                                         "paint": {
                                           "fill": null,
+                                          "gradient": null,
                                           "stroke": null,
                                           "radius": [
                                             8,
@@ -7508,6 +7585,7 @@
                                         },
                                         "paint": {
                                           "fill": null,
+                                          "gradient": null,
                                           "stroke": null,
                                           "radius": [
                                             8,
@@ -7911,6 +7989,7 @@
                                     },
                                     "paint": {
                                       "fill": "eeeef1",
+                                      "gradient": null,
                                       "stroke": null,
                                       "radius": [
                                         12,
@@ -7998,6 +8077,7 @@
                                         },
                                         "paint": {
                                           "fill": "fafafa",
+                                          "gradient": null,
                                           "stroke": null,
                                           "radius": [
                                             8,
@@ -8076,6 +8156,7 @@
                                         },
                                         "paint": {
                                           "fill": null,
+                                          "gradient": null,
                                           "stroke": null,
                                           "radius": [
                                             8,
@@ -8163,6 +8244,7 @@
                                         },
                                         "paint": {
                                           "fill": null,
+                                          "gradient": null,
                                           "stroke": null,
                                           "radius": [
                                             8,
@@ -8250,6 +8332,7 @@
                                         },
                                         "paint": {
                                           "fill": null,
+                                          "gradient": null,
                                           "stroke": null,
                                           "radius": [
                                             8,
@@ -8597,6 +8680,7 @@
                                     },
                                     "paint": {
                                       "fill": "eeeef1",
+                                      "gradient": null,
                                       "stroke": null,
                                       "radius": [
                                         12,
@@ -8822,6 +8906,7 @@
                                     },
                                     "paint": {
                                       "fill": "eeeef1",
+                                      "gradient": null,
                                       "stroke": null,
                                       "radius": [
                                         12,
@@ -9047,6 +9132,7 @@
                                     },
                                     "paint": {
                                       "fill": "eeeef1",
+                                      "gradient": null,
                                       "stroke": null,
                                       "radius": [
                                         12,
@@ -9454,6 +9540,7 @@
                                     },
                                     "paint": {
                                       "fill": "eeeef1",
+                                      "gradient": null,
                                       "stroke": null,
                                       "radius": [
                                         12,
@@ -9601,6 +9688,7 @@
         },
         "paint": {
           "fill": "eeeef1",
+          "gradient": null,
           "stroke": null,
           "radius": null,
           "shadow": null,
@@ -9674,6 +9762,7 @@
             },
             "paint": {
               "fill": "eeeef1",
+              "gradient": null,
               "stroke": null,
               "radius": null,
               "shadow": null,
@@ -9747,6 +9836,7 @@
                 },
                 "paint": {
                   "fill": "f8f8f9",
+                  "gradient": null,
                   "stroke": null,
                   "radius": null,
                   "shadow": null,
@@ -9820,6 +9910,7 @@
                     },
                     "paint": {
                       "fill": "f8f8f9",
+                      "gradient": null,
                       "stroke": null,
                       "radius": null,
                       "shadow": null,
@@ -9960,6 +10051,7 @@
                             },
                             "paint": {
                               "fill": "f8f8f9",
+                              "gradient": null,
                               "stroke": {
                                 "color": "eeeef1",
                                 "widths": [
@@ -10377,6 +10469,7 @@
                                         },
                                         "paint": {
                                           "fill": "0000001f",
+                                          "gradient": null,
                                           "stroke": null,
                                           "radius": [
                                             999,
@@ -10788,6 +10881,7 @@
                                     },
                                     "paint": {
                                       "fill": "eeeef1",
+                                      "gradient": null,
                                       "stroke": null,
                                       "radius": [
                                         12,
@@ -11340,6 +11434,7 @@
                                     },
                                     "paint": {
                                       "fill": "eeeef1",
+                                      "gradient": null,
                                       "stroke": null,
                                       "radius": [
                                         12,
@@ -11694,6 +11789,7 @@
                                     },
                                     "paint": {
                                       "fill": "eeeef1",
+                                      "gradient": null,
                                       "stroke": null,
                                       "radius": [
                                         12,
@@ -12048,6 +12144,7 @@
                                     },
                                     "paint": {
                                       "fill": "eeeef1",
+                                      "gradient": null,
                                       "stroke": null,
                                       "radius": [
                                         12,
@@ -12462,6 +12559,7 @@
                                         },
                                         "paint": {
                                           "fill": "eeeef1",
+                                          "gradient": null,
                                           "stroke": null,
                                           "radius": [
                                             12,
@@ -12549,6 +12647,7 @@
                                             },
                                             "paint": {
                                               "fill": "fafafa",
+                                              "gradient": null,
                                               "stroke": null,
                                               "radius": [
                                                 8,
@@ -12627,6 +12726,7 @@
                                             },
                                             "paint": {
                                               "fill": null,
+                                              "gradient": null,
                                               "stroke": null,
                                               "radius": [
                                                 8,
@@ -12899,6 +12999,7 @@
                                             },
                                             "paint": {
                                               "fill": null,
+                                              "gradient": null,
                                               "stroke": null,
                                               "radius": [
                                                 8,
@@ -13171,6 +13272,7 @@
                                             },
                                             "paint": {
                                               "fill": null,
+                                              "gradient": null,
                                               "stroke": null,
                                               "radius": [
                                                 8,
@@ -13494,6 +13596,7 @@
         },
         "paint": {
           "fill": "eeeef1",
+          "gradient": null,
           "stroke": null,
           "radius": null,
           "shadow": null,
@@ -13567,6 +13670,7 @@
             },
             "paint": {
               "fill": "eeeef1",
+              "gradient": null,
               "stroke": null,
               "radius": null,
               "shadow": null,
@@ -13640,6 +13744,7 @@
                 },
                 "paint": {
                   "fill": "eeeef1",
+                  "gradient": null,
                   "stroke": null,
                   "radius": null,
                   "shadow": null,
@@ -13792,6 +13897,7 @@
                     },
                     "paint": {
                       "fill": "f8f8f9",
+                      "gradient": null,
                       "stroke": null,
                       "radius": [
                         16,
@@ -13946,6 +14052,7 @@
                             },
                             "paint": {
                               "fill": "f8f8f9",
+                              "gradient": null,
                               "stroke": {
                                 "color": "eeeef1",
                                 "widths": [
@@ -14094,6 +14201,7 @@
                                     },
                                     "paint": {
                                       "fill": null,
+                                      "gradient": null,
                                       "stroke": null,
                                       "radius": [
                                         12,
@@ -14172,6 +14280,7 @@
                                         },
                                         "paint": {
                                           "fill": null,
+                                          "gradient": null,
                                           "stroke": null,
                                           "radius": null,
                                           "shadow": null,
@@ -14582,6 +14691,7 @@
                                         },
                                         "paint": {
                                           "fill": null,
+                                          "gradient": null,
                                           "stroke": null,
                                           "radius": [
                                             999,
@@ -15133,6 +15243,7 @@
                                             },
                                             "paint": {
                                               "fill": "eeeef1",
+                                              "gradient": null,
                                               "stroke": null,
                                               "radius": [
                                                 12,
@@ -15465,6 +15576,7 @@
                                                         },
                                                         "paint": {
                                                           "fill": "0000001a",
+                                                          "gradient": null,
                                                           "stroke": null,
                                                           "radius": [
                                                             12,
@@ -15558,6 +15670,7 @@
                                             },
                                             "paint": {
                                               "fill": "eeeef1",
+                                              "gradient": null,
                                               "stroke": null,
                                               "radius": [
                                                 12,
@@ -16213,6 +16326,7 @@
                                                                 },
                                                                 "paint": {
                                                                   "fill": "0000001a",
+                                                                  "gradient": null,
                                                                   "stroke": null,
                                                                   "radius": [
                                                                     999,
@@ -16736,6 +16850,7 @@
                                                         },
                                                         "paint": {
                                                           "fill": "0000001a",
+                                                          "gradient": null,
                                                           "stroke": null,
                                                           "radius": [
                                                             12,
@@ -17018,6 +17133,7 @@
                                                 },
                                                 "paint": {
                                                   "fill": "eeeef1",
+                                                  "gradient": null,
                                                   "stroke": null,
                                                   "radius": [
                                                     12,
@@ -17105,6 +17221,7 @@
                                                     },
                                                     "paint": {
                                                       "fill": "fafafa",
+                                                      "gradient": null,
                                                       "stroke": null,
                                                       "radius": [
                                                         8,
@@ -17183,6 +17300,7 @@
                                                     },
                                                     "paint": {
                                                       "fill": null,
+                                                      "gradient": null,
                                                       "stroke": null,
                                                       "radius": [
                                                         8,
@@ -17270,6 +17388,7 @@
                                                     },
                                                     "paint": {
                                                       "fill": null,
+                                                      "gradient": null,
                                                       "stroke": null,
                                                       "radius": [
                                                         8,
@@ -17357,6 +17476,7 @@
                                                     },
                                                     "paint": {
                                                       "fill": null,
+                                                      "gradient": null,
                                                       "stroke": null,
                                                       "radius": [
                                                         8,
@@ -17446,6 +17566,7 @@
                                                 },
                                                 "paint": {
                                                   "fill": null,
+                                                  "gradient": null,
                                                   "stroke": null,
                                                   "radius": [
                                                     8,
@@ -17821,6 +17942,7 @@
         },
         "paint": {
           "fill": "eeeef1",
+          "gradient": null,
           "stroke": null,
           "radius": null,
           "shadow": null,
@@ -17894,6 +18016,7 @@
             },
             "paint": {
               "fill": "eeeef1",
+              "gradient": null,
               "stroke": null,
               "radius": null,
               "shadow": null,
@@ -17967,6 +18090,7 @@
                 },
                 "paint": {
                   "fill": "f8f8f9",
+                  "gradient": null,
                   "stroke": null,
                   "radius": null,
                   "shadow": null,
@@ -18040,6 +18164,7 @@
                     },
                     "paint": {
                       "fill": "f8f8f9",
+                      "gradient": null,
                       "stroke": null,
                       "radius": null,
                       "shadow": null,
@@ -18180,6 +18305,7 @@
                             },
                             "paint": {
                               "fill": "f8f8f9",
+                              "gradient": null,
                               "stroke": {
                                 "color": "eeeef1",
                                 "widths": [
@@ -18597,6 +18723,7 @@
                                         },
                                         "paint": {
                                           "fill": "eeeef1",
+                                          "gradient": null,
                                           "stroke": null,
                                           "radius": [
                                             12,
@@ -18929,6 +19056,7 @@
                                                     },
                                                     "paint": {
                                                       "fill": "0000001a",
+                                                      "gradient": null,
                                                       "stroke": null,
                                                       "radius": [
                                                         12,
@@ -19022,6 +19150,7 @@
                                         },
                                         "paint": {
                                           "fill": "eeeef1",
+                                          "gradient": null,
                                           "stroke": null,
                                           "radius": [
                                             12,
@@ -19610,6 +19739,7 @@
                                                         },
                                                         "paint": {
                                                           "fill": "0000001a",
+                                                          "gradient": null,
                                                           "stroke": null,
                                                           "radius": [
                                                             999,
@@ -19988,6 +20118,7 @@
         },
         "paint": {
           "fill": "eeeef1",
+          "gradient": null,
           "stroke": null,
           "radius": null,
           "shadow": null,
@@ -20061,6 +20192,7 @@
             },
             "paint": {
               "fill": "eeeef1",
+              "gradient": null,
               "stroke": null,
               "radius": null,
               "shadow": null,
@@ -20134,6 +20266,7 @@
                 },
                 "paint": {
                   "fill": "eeeef1",
+                  "gradient": null,
                   "stroke": null,
                   "radius": null,
                   "shadow": null,
@@ -20286,6 +20419,7 @@
                     },
                     "paint": {
                       "fill": "f8f8f9",
+                      "gradient": null,
                       "stroke": null,
                       "radius": [
                         16,
@@ -20574,6 +20708,7 @@
                                     },
                                     "paint": {
                                       "fill": "f8f8f9",
+                                      "gradient": null,
                                       "stroke": {
                                         "color": "eeeef1",
                                         "widths": [
@@ -20722,6 +20857,7 @@
                                             },
                                             "paint": {
                                               "fill": null,
+                                              "gradient": null,
                                               "stroke": null,
                                               "radius": [
                                                 12,
@@ -20800,6 +20936,7 @@
                                                 },
                                                 "paint": {
                                                   "fill": null,
+                                                  "gradient": null,
                                                   "stroke": null,
                                                   "radius": null,
                                                   "shadow": null,
@@ -21346,6 +21483,7 @@
                                                 },
                                                 "paint": {
                                                   "fill": null,
+                                                  "gradient": null,
                                                   "stroke": null,
                                                   "radius": [
                                                     999,
@@ -21877,6 +22015,7 @@
                                         },
                                         "paint": {
                                           "fill": "000000",
+                                          "gradient": null,
                                           "stroke": null,
                                           "radius": [
                                             999,
@@ -22007,6 +22146,7 @@
         },
         "paint": {
           "fill": "eeeef1",
+          "gradient": null,
           "stroke": null,
           "radius": null,
           "shadow": null,
@@ -22080,6 +22220,7 @@
             },
             "paint": {
               "fill": "eeeef1",
+              "gradient": null,
               "stroke": null,
               "radius": null,
               "shadow": null,
@@ -22153,6 +22294,7 @@
                 },
                 "paint": {
                   "fill": "f8f8f9",
+                  "gradient": null,
                   "stroke": null,
                   "radius": null,
                   "shadow": null,
@@ -22226,6 +22368,7 @@
                     },
                     "paint": {
                       "fill": "f8f8f9",
+                      "gradient": null,
                       "stroke": null,
                       "radius": null,
                       "shadow": null,
@@ -22500,6 +22643,7 @@
                                     },
                                     "paint": {
                                       "fill": "f8f8f9",
+                                      "gradient": null,
                                       "stroke": {
                                         "color": "eeeef1",
                                         "widths": [
@@ -22648,6 +22792,7 @@
                                             },
                                             "paint": {
                                               "fill": null,
+                                              "gradient": null,
                                               "stroke": null,
                                               "radius": [
                                                 12,
@@ -22726,6 +22871,7 @@
                                                 },
                                                 "paint": {
                                                   "fill": null,
+                                                  "gradient": null,
                                                   "stroke": null,
                                                   "radius": null,
                                                   "shadow": null,
@@ -23272,6 +23418,7 @@
                                                 },
                                                 "paint": {
                                                   "fill": null,
+                                                  "gradient": null,
                                                   "stroke": null,
                                                   "radius": [
                                                     999,
@@ -23803,6 +23950,7 @@
                                         },
                                         "paint": {
                                           "fill": "000000",
+                                          "gradient": null,
                                           "stroke": null,
                                           "radius": [
                                             999,
@@ -23957,6 +24105,7 @@
         },
         "paint": {
           "fill": "eeeef1",
+          "gradient": null,
           "stroke": null,
           "radius": null,
           "shadow": null,
@@ -24030,6 +24179,7 @@
             },
             "paint": {
               "fill": "eeeef1",
+              "gradient": null,
               "stroke": null,
               "radius": null,
               "shadow": null,
@@ -24103,6 +24253,7 @@
                 },
                 "paint": {
                   "fill": "eeeef1",
+                  "gradient": null,
                   "stroke": null,
                   "radius": null,
                   "shadow": null,
@@ -24322,6 +24473,7 @@
                         },
                         "paint": {
                           "fill": "f8f8f9",
+                          "gradient": null,
                           "stroke": null,
                           "radius": [
                             16,
@@ -24476,6 +24628,7 @@
                                 },
                                 "paint": {
                                   "fill": "f8f8f9",
+                                  "gradient": null,
                                   "stroke": {
                                     "color": "eeeef1",
                                     "widths": [
@@ -24886,6 +25039,7 @@
                                         },
                                         "paint": {
                                           "fill": "fafafa",
+                                          "gradient": null,
                                           "stroke": null,
                                           "radius": [
                                             24,
@@ -24979,6 +25133,7 @@
                                         },
                                         "paint": {
                                           "fill": "fafafa",
+                                          "gradient": null,
                                           "stroke": null,
                                           "radius": [
                                             24,
@@ -25072,6 +25227,7 @@
                                         },
                                         "paint": {
                                           "fill": "fafafa",
+                                          "gradient": null,
                                           "stroke": null,
                                           "radius": [
                                             24,
@@ -25165,6 +25321,7 @@
                                         },
                                         "paint": {
                                           "fill": "fafafa",
+                                          "gradient": null,
                                           "stroke": null,
                                           "radius": [
                                             24,
@@ -25454,6 +25611,7 @@
                                             },
                                             "paint": {
                                               "fill": null,
+                                              "gradient": null,
                                               "stroke": {
                                                 "color": "f8f8f91f",
                                                 "widths": [
@@ -25607,6 +25765,7 @@
                                                     },
                                                     "paint": {
                                                       "fill": null,
+                                                      "gradient": null,
                                                       "stroke": {
                                                         "color": "f8f8f91a",
                                                         "widths": [
@@ -25881,6 +26040,7 @@
                                                 },
                                                 "paint": {
                                                   "fill": null,
+                                                  "gradient": null,
                                                   "stroke": {
                                                     "color": "f8f8f914",
                                                     "widths": [
@@ -25962,6 +26122,7 @@
                                                     },
                                                     "paint": {
                                                       "fill": null,
+                                                      "gradient": null,
                                                       "stroke": {
                                                         "color": "f8f8f91a",
                                                         "widths": [
@@ -26236,6 +26397,7 @@
                                                 },
                                                 "paint": {
                                                   "fill": null,
+                                                  "gradient": null,
                                                   "stroke": {
                                                     "color": "f8f8f914",
                                                     "widths": [
@@ -26317,6 +26479,7 @@
                                                     },
                                                     "paint": {
                                                       "fill": null,
+                                                      "gradient": null,
                                                       "stroke": {
                                                         "color": "f8f8f91a",
                                                         "widths": [
@@ -26591,6 +26754,7 @@
                                                 },
                                                 "paint": {
                                                   "fill": null,
+                                                  "gradient": null,
                                                   "stroke": {
                                                     "color": "f8f8f914",
                                                     "widths": [
@@ -26672,6 +26836,7 @@
                                                     },
                                                     "paint": {
                                                       "fill": null,
+                                                      "gradient": null,
                                                       "stroke": {
                                                         "color": "f8f8f91a",
                                                         "widths": [
@@ -27002,6 +27167,7 @@
         },
         "paint": {
           "fill": "eeeef1",
+          "gradient": null,
           "stroke": null,
           "radius": null,
           "shadow": null,
@@ -27075,6 +27241,7 @@
             },
             "paint": {
               "fill": "eeeef1",
+              "gradient": null,
               "stroke": null,
               "radius": null,
               "shadow": null,
@@ -27148,6 +27315,7 @@
                 },
                 "paint": {
                   "fill": "f8f8f9",
+                  "gradient": null,
                   "stroke": null,
                   "radius": null,
                   "shadow": null,
@@ -27221,6 +27389,7 @@
                     },
                     "paint": {
                       "fill": "f8f8f9",
+                      "gradient": null,
                       "stroke": null,
                       "radius": [
                         16,
@@ -27375,6 +27544,7 @@
                             },
                             "paint": {
                               "fill": "f8f8f9",
+                              "gradient": null,
                               "stroke": {
                                 "color": "eeeef1",
                                 "widths": [
@@ -27785,6 +27955,7 @@
                                     },
                                     "paint": {
                                       "fill": "fafafa",
+                                      "gradient": null,
                                       "stroke": null,
                                       "radius": [
                                         16,
@@ -27878,6 +28049,7 @@
                                     },
                                     "paint": {
                                       "fill": "fafafa",
+                                      "gradient": null,
                                       "stroke": null,
                                       "radius": [
                                         16,
@@ -28021,6 +28193,7 @@
         },
         "paint": {
           "fill": "eeeef1",
+          "gradient": null,
           "stroke": null,
           "radius": null,
           "shadow": null,
@@ -28094,6 +28267,7 @@
             },
             "paint": {
               "fill": "eeeef1",
+              "gradient": null,
               "stroke": null,
               "radius": null,
               "shadow": null,
@@ -28167,6 +28341,7 @@
                 },
                 "paint": {
                   "fill": "eeeef1",
+                  "gradient": null,
                   "stroke": null,
                   "radius": null,
                   "shadow": null,
@@ -28319,6 +28494,7 @@
                     },
                     "paint": {
                       "fill": "f8f8f9",
+                      "gradient": null,
                       "stroke": null,
                       "radius": [
                         16,
@@ -28406,6 +28582,7 @@
                         },
                         "paint": {
                           "fill": "f8f8f9",
+                          "gradient": null,
                           "stroke": {
                             "color": "eeeef1",
                             "widths": [
@@ -28608,6 +28785,7 @@
         },
         "paint": {
           "fill": "eeeef1",
+          "gradient": null,
           "stroke": null,
           "radius": null,
           "shadow": null,
@@ -28681,6 +28859,7 @@
             },
             "paint": {
               "fill": "eeeef1",
+              "gradient": null,
               "stroke": null,
               "radius": null,
               "shadow": null,
@@ -28754,6 +28933,7 @@
                 },
                 "paint": {
                   "fill": "f8f8f9",
+                  "gradient": null,
                   "stroke": null,
                   "radius": null,
                   "shadow": null,
@@ -28827,6 +29007,7 @@
                     },
                     "paint": {
                       "fill": "f8f8f9",
+                      "gradient": null,
                       "stroke": null,
                       "radius": [
                         16,
@@ -28914,6 +29095,7 @@
                         },
                         "paint": {
                           "fill": "f8f8f9",
+                          "gradient": null,
                           "stroke": {
                             "color": "eeeef1",
                             "widths": [
@@ -29121,6 +29303,7 @@
         },
         "paint": {
           "fill": "eeeef1",
+          "gradient": null,
           "stroke": null,
           "radius": null,
           "shadow": null,
@@ -29194,6 +29377,7 @@
             },
             "paint": {
               "fill": "eeeef1",
+              "gradient": null,
               "stroke": null,
               "radius": null,
               "shadow": null,
@@ -29267,6 +29451,7 @@
                 },
                 "paint": {
                   "fill": "eeeef1",
+                  "gradient": null,
                   "stroke": null,
                   "radius": null,
                   "shadow": null,
@@ -29419,6 +29604,7 @@
                     },
                     "paint": {
                       "fill": "f8f8f9",
+                      "gradient": null,
                       "stroke": null,
                       "radius": [
                         16,
@@ -29506,6 +29692,7 @@
                         },
                         "paint": {
                           "fill": "f8f8f9",
+                          "gradient": null,
                           "stroke": {
                             "color": "eeeef1",
                             "widths": [
@@ -29708,6 +29895,7 @@
         },
         "paint": {
           "fill": "eeeef1",
+          "gradient": null,
           "stroke": null,
           "radius": null,
           "shadow": null,
@@ -29781,6 +29969,7 @@
             },
             "paint": {
               "fill": "eeeef1",
+              "gradient": null,
               "stroke": null,
               "radius": null,
               "shadow": null,
@@ -29854,6 +30043,7 @@
                 },
                 "paint": {
                   "fill": "f8f8f9",
+                  "gradient": null,
                   "stroke": null,
                   "radius": null,
                   "shadow": null,
@@ -29927,6 +30117,7 @@
                     },
                     "paint": {
                       "fill": "f8f8f9",
+                      "gradient": null,
                       "stroke": null,
                       "radius": [
                         16,
@@ -30014,6 +30205,7 @@
                         },
                         "paint": {
                           "fill": "f8f8f9",
+                          "gradient": null,
                           "stroke": {
                             "color": "eeeef1",
                             "widths": [
@@ -30221,6 +30413,7 @@
         },
         "paint": {
           "fill": "eeeef1",
+          "gradient": null,
           "stroke": null,
           "radius": null,
           "shadow": null,
@@ -30294,6 +30487,7 @@
             },
             "paint": {
               "fill": "eeeef1",
+              "gradient": null,
               "stroke": null,
               "radius": null,
               "shadow": null,
@@ -30367,6 +30561,7 @@
                 },
                 "paint": {
                   "fill": "eeeef1",
+                  "gradient": null,
                   "stroke": null,
                   "radius": null,
                   "shadow": null,
@@ -30519,6 +30714,7 @@
                     },
                     "paint": {
                       "fill": "f8f8f9",
+                      "gradient": null,
                       "stroke": null,
                       "radius": [
                         16,
@@ -30606,6 +30802,7 @@
                         },
                         "paint": {
                           "fill": "f8f8f9",
+                          "gradient": null,
                           "stroke": {
                             "color": "eeeef1",
                             "widths": [
@@ -30808,6 +31005,7 @@
         },
         "paint": {
           "fill": "eeeef1",
+          "gradient": null,
           "stroke": null,
           "radius": null,
           "shadow": null,
@@ -30881,6 +31079,7 @@
             },
             "paint": {
               "fill": "eeeef1",
+              "gradient": null,
               "stroke": null,
               "radius": null,
               "shadow": null,
@@ -30954,6 +31153,7 @@
                 },
                 "paint": {
                   "fill": "f8f8f9",
+                  "gradient": null,
                   "stroke": null,
                   "radius": null,
                   "shadow": null,
@@ -31027,6 +31227,7 @@
                     },
                     "paint": {
                       "fill": "f8f8f9",
+                      "gradient": null,
                       "stroke": null,
                       "radius": [
                         16,
@@ -31114,6 +31315,7 @@
                         },
                         "paint": {
                           "fill": "f8f8f9",
+                          "gradient": null,
                           "stroke": {
                             "color": "eeeef1",
                             "widths": [
@@ -31321,6 +31523,7 @@
         },
         "paint": {
           "fill": "eeeef1",
+          "gradient": null,
           "stroke": null,
           "radius": null,
           "shadow": null,
@@ -31394,6 +31597,7 @@
             },
             "paint": {
               "fill": "eeeef1",
+              "gradient": null,
               "stroke": null,
               "radius": null,
               "shadow": null,
@@ -31467,6 +31671,7 @@
                 },
                 "paint": {
                   "fill": "eeeef1",
+                  "gradient": null,
                   "stroke": null,
                   "radius": null,
                   "shadow": null,
@@ -31619,6 +31824,7 @@
                     },
                     "paint": {
                       "fill": "f8f8f9",
+                      "gradient": null,
                       "stroke": null,
                       "radius": [
                         16,
@@ -31706,6 +31912,7 @@
                         },
                         "paint": {
                           "fill": "f8f8f9",
+                          "gradient": null,
                           "stroke": {
                             "color": "eeeef1",
                             "widths": [
@@ -31908,6 +32115,7 @@
         },
         "paint": {
           "fill": "eeeef1",
+          "gradient": null,
           "stroke": null,
           "radius": null,
           "shadow": null,
@@ -31981,6 +32189,7 @@
             },
             "paint": {
               "fill": "eeeef1",
+              "gradient": null,
               "stroke": null,
               "radius": null,
               "shadow": null,
@@ -32054,6 +32263,7 @@
                 },
                 "paint": {
                   "fill": "f8f8f9",
+                  "gradient": null,
                   "stroke": null,
                   "radius": null,
                   "shadow": null,
@@ -32127,6 +32337,7 @@
                     },
                     "paint": {
                       "fill": "f8f8f9",
+                      "gradient": null,
                       "stroke": null,
                       "radius": [
                         16,
@@ -32214,6 +32425,7 @@
                         },
                         "paint": {
                           "fill": "f8f8f9",
+                          "gradient": null,
                           "stroke": {
                             "color": "eeeef1",
                             "widths": [
@@ -32421,6 +32633,7 @@
         },
         "paint": {
           "fill": "eeeef1",
+          "gradient": null,
           "stroke": null,
           "radius": null,
           "shadow": null,
@@ -32494,6 +32707,7 @@
             },
             "paint": {
               "fill": "eeeef1",
+              "gradient": null,
               "stroke": null,
               "radius": null,
               "shadow": null,
@@ -32567,6 +32781,7 @@
                 },
                 "paint": {
                   "fill": "eeeef1",
+                  "gradient": null,
                   "stroke": null,
                   "radius": null,
                   "shadow": null,
@@ -32719,6 +32934,7 @@
                     },
                     "paint": {
                       "fill": "f8f8f9",
+                      "gradient": null,
                       "stroke": null,
                       "radius": [
                         16,
@@ -32806,6 +33022,7 @@
                         },
                         "paint": {
                           "fill": "f8f8f9",
+                          "gradient": null,
                           "stroke": {
                             "color": "eeeef1",
                             "widths": [
@@ -33008,6 +33225,7 @@
         },
         "paint": {
           "fill": "eeeef1",
+          "gradient": null,
           "stroke": null,
           "radius": null,
           "shadow": null,
@@ -33081,6 +33299,7 @@
             },
             "paint": {
               "fill": "eeeef1",
+              "gradient": null,
               "stroke": null,
               "radius": null,
               "shadow": null,
@@ -33154,6 +33373,7 @@
                 },
                 "paint": {
                   "fill": "f8f8f9",
+                  "gradient": null,
                   "stroke": null,
                   "radius": null,
                   "shadow": null,
@@ -33227,6 +33447,7 @@
                     },
                     "paint": {
                       "fill": "f8f8f9",
+                      "gradient": null,
                       "stroke": null,
                       "radius": [
                         16,
@@ -33314,6 +33535,7 @@
                         },
                         "paint": {
                           "fill": "f8f8f9",
+                          "gradient": null,
                           "stroke": {
                             "color": "eeeef1",
                             "widths": [
@@ -33521,6 +33743,7 @@
         },
         "paint": {
           "fill": "eeeef1",
+          "gradient": null,
           "stroke": null,
           "radius": null,
           "shadow": null,
@@ -33594,6 +33817,7 @@
             },
             "paint": {
               "fill": "eeeef1",
+              "gradient": null,
               "stroke": null,
               "radius": null,
               "shadow": null,
@@ -33667,6 +33891,7 @@
                 },
                 "paint": {
                   "fill": "eeeef1",
+                  "gradient": null,
                   "stroke": null,
                   "radius": null,
                   "shadow": null,
@@ -33819,6 +34044,7 @@
                     },
                     "paint": {
                       "fill": "f8f8f9",
+                      "gradient": null,
                       "stroke": null,
                       "radius": [
                         16,
@@ -33906,6 +34132,7 @@
                         },
                         "paint": {
                           "fill": "f8f8f9",
+                          "gradient": null,
                           "stroke": {
                             "color": "eeeef1",
                             "widths": [
@@ -34108,6 +34335,7 @@
         },
         "paint": {
           "fill": "eeeef1",
+          "gradient": null,
           "stroke": null,
           "radius": null,
           "shadow": null,
@@ -34181,6 +34409,7 @@
             },
             "paint": {
               "fill": "eeeef1",
+              "gradient": null,
               "stroke": null,
               "radius": null,
               "shadow": null,
@@ -34254,6 +34483,7 @@
                 },
                 "paint": {
                   "fill": "f8f8f9",
+                  "gradient": null,
                   "stroke": null,
                   "radius": null,
                   "shadow": null,
@@ -34327,6 +34557,7 @@
                     },
                     "paint": {
                       "fill": "f8f8f9",
+                      "gradient": null,
                       "stroke": null,
                       "radius": [
                         16,
@@ -34414,6 +34645,7 @@
                         },
                         "paint": {
                           "fill": "f8f8f9",
+                          "gradient": null,
                           "stroke": {
                             "color": "eeeef1",
                             "widths": [
@@ -34621,6 +34853,7 @@
         },
         "paint": {
           "fill": "eeeef1",
+          "gradient": null,
           "stroke": null,
           "radius": null,
           "shadow": null,
@@ -34694,6 +34927,7 @@
             },
             "paint": {
               "fill": "eeeef1",
+              "gradient": null,
               "stroke": null,
               "radius": null,
               "shadow": null,
@@ -34767,6 +35001,7 @@
                 },
                 "paint": {
                   "fill": "eeeef1",
+                  "gradient": null,
                   "stroke": null,
                   "radius": null,
                   "shadow": null,
@@ -34919,6 +35154,7 @@
                     },
                     "paint": {
                       "fill": "f8f8f9",
+                      "gradient": null,
                       "stroke": null,
                       "radius": [
                         16,
@@ -35006,6 +35242,7 @@
                         },
                         "paint": {
                           "fill": "f8f8f9",
+                          "gradient": null,
                           "stroke": {
                             "color": "eeeef1",
                             "widths": [
@@ -35208,6 +35445,7 @@
         },
         "paint": {
           "fill": "eeeef1",
+          "gradient": null,
           "stroke": null,
           "radius": null,
           "shadow": null,
@@ -35281,6 +35519,7 @@
             },
             "paint": {
               "fill": "eeeef1",
+              "gradient": null,
               "stroke": null,
               "radius": null,
               "shadow": null,
@@ -35354,6 +35593,7 @@
                 },
                 "paint": {
                   "fill": "f8f8f9",
+                  "gradient": null,
                   "stroke": null,
                   "radius": null,
                   "shadow": null,
@@ -35427,6 +35667,7 @@
                     },
                     "paint": {
                       "fill": "f8f8f9",
+                      "gradient": null,
                       "stroke": null,
                       "radius": [
                         16,
@@ -35514,6 +35755,7 @@
                         },
                         "paint": {
                           "fill": "f8f8f9",
+                          "gradient": null,
                           "stroke": {
                             "color": "eeeef1",
                             "widths": [
@@ -35671,7 +35913,7 @@
       "files": [
         {
           "file": "figma/app-screens.archive.desktop.00.draw.js",
-          "bytes": 23557
+          "bytes": 26068
         }
       ]
     },
@@ -35683,7 +35925,7 @@
       "files": [
         {
           "file": "figma/app-screens.archive.mobile.00.draw.js",
-          "bytes": 23303
+          "bytes": 25814
         }
       ]
     },
@@ -35695,7 +35937,7 @@
       "files": [
         {
           "file": "figma/app-screens.settings.desktop.00.draw.js",
-          "bytes": 29441
+          "bytes": 31902
         }
       ]
     },
@@ -35707,7 +35949,7 @@
       "files": [
         {
           "file": "figma/app-screens.settings.mobile.00.draw.js",
-          "bytes": 26292
+          "bytes": 28753
         }
       ]
     },
@@ -35719,7 +35961,7 @@
       "files": [
         {
           "file": "figma/app-screens.subscription.desktop.00.draw.js",
-          "bytes": 26852
+          "bytes": 29313
         }
       ]
     },
@@ -35731,7 +35973,7 @@
       "files": [
         {
           "file": "figma/app-screens.subscription.mobile.00.draw.js",
-          "bytes": 23632
+          "bytes": 26093
         }
       ]
     },
@@ -35743,7 +35985,7 @@
       "files": [
         {
           "file": "figma/app-screens.analytics-youtube.desktop.00.draw.js",
-          "bytes": 23499
+          "bytes": 25960
         }
       ]
     },
@@ -35755,7 +35997,7 @@
       "files": [
         {
           "file": "figma/app-screens.analytics-youtube.mobile.00.draw.js",
-          "bytes": 23259
+          "bytes": 25720
         }
       ]
     },
@@ -35767,7 +36009,7 @@
       "files": [
         {
           "file": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
-          "bytes": 25145
+          "bytes": 27606
         }
       ]
     },
@@ -35779,7 +36021,7 @@
       "files": [
         {
           "file": "figma/app-screens.mypage-upgrade.mobile.00.draw.js",
-          "bytes": 22247
+          "bytes": 24708
         }
       ]
     },
@@ -35791,7 +36033,7 @@
       "files": [
         {
           "file": "figma/app-screens.mypage-upgrade-billing-success.desktop.00.draw.js",
-          "bytes": 21629
+          "bytes": 24090
         }
       ]
     },
@@ -35803,7 +36045,7 @@
       "files": [
         {
           "file": "figma/app-screens.mypage-upgrade-billing-success.mobile.00.draw.js",
-          "bytes": 21413
+          "bytes": 23874
         }
       ]
     },
@@ -35815,7 +36057,7 @@
       "files": [
         {
           "file": "figma/app-screens.mypage-upgrade-billing-fail.desktop.00.draw.js",
-          "bytes": 21623
+          "bytes": 24084
         }
       ]
     },
@@ -35827,7 +36069,7 @@
       "files": [
         {
           "file": "figma/app-screens.mypage-upgrade-billing-fail.mobile.00.draw.js",
-          "bytes": 21407
+          "bytes": 23868
         }
       ]
     },
@@ -35839,7 +36081,7 @@
       "files": [
         {
           "file": "figma/app-screens.mypage-upgrade-billing-change-success.desktop.00.draw.js",
-          "bytes": 21638
+          "bytes": 24099
         }
       ]
     },
@@ -35851,7 +36093,7 @@
       "files": [
         {
           "file": "figma/app-screens.mypage-upgrade-billing-change-success.mobile.00.draw.js",
-          "bytes": 21427
+          "bytes": 23888
         }
       ]
     },
@@ -35863,7 +36105,7 @@
       "files": [
         {
           "file": "figma/app-screens.mypage-upgrade-billing-change-fail.desktop.00.draw.js",
-          "bytes": 21628
+          "bytes": 24089
         }
       ]
     },
@@ -35875,7 +36117,7 @@
       "files": [
         {
           "file": "figma/app-screens.mypage-upgrade-billing-change-fail.mobile.00.draw.js",
-          "bytes": 21417
+          "bytes": 23878
         }
       ]
     },
@@ -35887,7 +36129,7 @@
       "files": [
         {
           "file": "figma/app-screens.mypage-upgrade-fail.desktop.00.draw.js",
-          "bytes": 21608
+          "bytes": 24069
         }
       ]
     },
@@ -35899,7 +36141,7 @@
       "files": [
         {
           "file": "figma/app-screens.mypage-upgrade-fail.mobile.00.draw.js",
-          "bytes": 21391
+          "bytes": 23852
         }
       ]
     },
@@ -35911,7 +36153,7 @@
       "files": [
         {
           "file": "figma/app-screens.mypage-topup-success.desktop.00.draw.js",
-          "bytes": 21605
+          "bytes": 24066
         }
       ]
     },
@@ -35923,7 +36165,7 @@
       "files": [
         {
           "file": "figma/app-screens.mypage-topup-success.mobile.00.draw.js",
-          "bytes": 21394
+          "bytes": 23855
         }
       ]
     },
@@ -35935,7 +36177,7 @@
       "files": [
         {
           "file": "figma/app-screens.mypage-topup-fail.desktop.00.draw.js",
-          "bytes": 21594
+          "bytes": 24055
         }
       ]
     },
@@ -35947,7 +36189,7 @@
       "files": [
         {
           "file": "figma/app-screens.mypage-topup-fail.mobile.00.draw.js",
-          "bytes": 21383
+          "bytes": 23844
         }
       ]
     }

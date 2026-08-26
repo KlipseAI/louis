@@ -87,6 +87,9 @@ const paintKeys = (node) => {
     ? paint.radius[0] : paint.radius;
   return {
     ...(paint.fill ? { f: paint.fill } : {}),
+    // `g`: 그라디언트 면 — [각도, [색, 위치], …]. `f` 보다 위에 그려진다(CSS background-image 규칙).
+    ...(paint.gradient ? { g: [round(paint.gradient.angle),
+      ...paint.gradient.stops.map((stop) => [stop.color, round(stop.position)])] } : {}),
     ...(paint.stroke ? { b: [paint.stroke.color, ...paint.stroke.widths.map(round)] } : {}),
     ...(radius ? { d: Array.isArray(radius) ? radius.map(round) : round(radius) } : {}),
     ...(paint.shadow ? { e: paint.shadow.map((shadow) =>
@@ -204,7 +207,7 @@ let totalNodes = 0;
 let totalUnresolved = 0;
 let totalShells = 0;
 let totalShellGaps = 0;
-const paintStats = { fills: 0, strokes: 0, radii: 0, shadows: 0, texts: 0, textStyled: 0, textLiteral: new Set() };
+const paintStats = { fills: 0, gradients: 0, strokes: 0, radii: 0, shadows: 0, texts: 0, textStyled: 0, textLiteral: new Set() };
 
 for (const screen of SCREENS) {
   for (const context of CONTEXTS) {
@@ -232,6 +235,7 @@ for (const screen of SCREENS) {
     const tally = (spec) => {
       if (spec.instance) return;
       if (spec.paint?.fill) paintStats.fills += 1;
+      if (spec.paint?.gradient) paintStats.gradients += 1;
       if (spec.paint?.stroke) paintStats.strokes += 1;
       if (spec.paint?.radius) paintStats.radii += 1;
       if (spec.paint?.shadow) paintStats.shadows += 1;
@@ -348,5 +352,5 @@ if (checkOnly) {
 
 console.log(
   `[figma-app-screens] ${checkOnly ? "checked" : "built"} @ ${fixture.productCommit.slice(0, 8)}: ` +
-  `${screens.length} screens · ${totalNodes} nodes · UNRESOLVED ${totalUnresolved} · 인스턴스 ${totalShells}(공백 ${totalShellGaps}) · 면 ${paintStats.fills}/${paintStats.strokes}/${paintStats.radii}/${paintStats.shadows} · 텍스트 ${paintStats.textStyled}/${paintStats.texts} 스타일 매칭 · 런너 ${SCREENS.length}개`,
+  `${screens.length} screens · ${totalNodes} nodes · UNRESOLVED ${totalUnresolved} · 인스턴스 ${totalShells}(공백 ${totalShellGaps}) · 면 ${paintStats.fills}+${paintStats.gradients}g/${paintStats.strokes}/${paintStats.radii}/${paintStats.shadows} · 텍스트 ${paintStats.textStyled}/${paintStats.texts} 스타일 매칭 · 런너 ${SCREENS.length}개`,
 );

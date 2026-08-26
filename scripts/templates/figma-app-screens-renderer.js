@@ -34,6 +34,32 @@ const surfaceFor = (tag, sizing) => {
   return null;
 };
 
+// **셸은 인스턴스로 심는다.** 컴포넌트 세트를 이름으로 찾고 variant를 이름으로 고른다.
+// 세트나 variant가 없으면 조용히 도형으로 떨어지지 않고 던진다 — 조용한 실패는 24화면에 퍼진다.
+const componentCache = new Map();
+const findVariant = async (setName, variantName) => {
+  const key = `${setName}|${variantName}`;
+  if (componentCache.has(key)) return componentCache.get(key);
+  let set = null;
+  for (const page of figma.root.children) {
+    await page.loadAsync();
+    set = page.findOne((node) => node.type === "COMPONENT_SET" && node.name === setName);
+    if (set) break;
+  }
+  if (!set) throw new Error(`컴포넌트 세트를 찾지 못했습니다: ${setName}`);
+  const variant = set.children.find((child) => child.name === variantName);
+  if (!variant) {
+    throw new Error(`variant를 찾지 못했습니다: ${setName} · ${variantName} (있는 것: ${set.children.map((c) => c.name).join(" | ")})`);
+  }
+  componentCache.set(key, variant);
+  return variant;
+};
+// 인스턴스 생성은 비동기 조회가 필요하므로, 트리를 만들기 전에 쓸 variant를 미리 모아 둔다.
+const preloadVariants = async (spec) => {
+  if (spec.i) await findVariant(spec.i[0], spec.i[1]);
+  for (const child of (spec.k || [])) await preloadVariants(child);
+};
+
 const buildNode = (spec, parent) => {
   let node;
   const isText = Boolean(spec.x) && !spec.k;
@@ -43,6 +69,9 @@ const buildNode = (spec, parent) => {
     node.fontSize = 14;
     node.characters = String(spec.x);
     node.fills = [{ type: "SOLID", color: { r: 0.90, g: 0.91, b: 0.93 } }];
+  } else if (spec.i) {
+    // 셸 자리 — 도형 대신 컴포넌트 인스턴스. 크기·배치는 아래 공통 경로가 그대로 건다.
+    node = componentCache.get(`${spec.i[0]}|${spec.i[1]}`).createInstance();
   } else {
     node = figma.createFrame();
     const surface = surfaceFor(spec.t, spec.s);
@@ -69,7 +98,9 @@ const buildNode = (spec, parent) => {
     if (spec.c) node.clipsContent = true;
   }
   // 대기 자리는 뒤 조각이 찾을 수 있게 표시를 남긴다.
-  node.name = (spec.w ? "pending " : "") + spec.t + (spec.x ? " " + String(spec.x).slice(0, 18) : "") + " " + spec.s;
+  node.name = spec.i
+    ? `shell/${spec.i[0]} · ${spec.i[1]}`
+    : (spec.w ? "pending " : "") + spec.t + (spec.x ? " " + String(spec.x).slice(0, 18) : "") + " " + spec.s;
 
   if (parent && node.parent !== parent) parent.appendChild(node);
   const parentAuto = parent && "layoutMode" in parent && parent.layoutMode && parent.layoutMode !== "NONE";
@@ -164,6 +195,7 @@ if (P.head) {
   frame.paddingTop = frame.paddingRight = frame.paddingBottom = frame.paddingLeft = 0;
   frame.resize(P.frameSize[0], P.frameSize[1]);
   if (legacy) legacy.layoutPositioning = "ABSOLUTE";
+  await preloadVariants(P.head);
   const root = buildNode(P.head, frame);
   root.name = generatedName;
   result = { chunk: 0, built: [Math.round(root.width), Math.round(root.height)], legacy: Boolean(legacy) };
@@ -183,6 +215,7 @@ if (P.head) {
   // 1628이 아니라 1920으로 그려졌다.
   const holder = target.parent;
   const at = holder.children.indexOf(target);
+  await preloadVariants(P.spec);
   target.remove();
   const built = buildNode(P.spec, holder);
   holder.insertChild(at, built);

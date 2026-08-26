@@ -20,10 +20,11 @@
 //
 // 실행: `node scripts/build-figma-app-screens.mjs [--check]`
 
-import { readFileSync } from "node:fs";
+import { readFileSync, readdirSync, rmSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { atomicWriteBatch } from "./lib/atomic-output.mjs";
+import { applyShellInstances } from "./lib/figma-shell-instances.mjs";
 import { normalizeAuthFixtureTree, toFigmaTreeSpec } from "./lib/figma-tree-spec.mjs";
 
 const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), "..");
@@ -99,6 +100,8 @@ const slim = (node) => ({
     ],
   } : {}),
   ...(node.clipsContent ? { c: 1 } : {}),
+  // 셸 자리는 자식 대신 컴포넌트 variant 참조만 싣는다.
+  ...(node.instance ? { i: [node.instance.set, node.instance.variant] } : {}),
   ...(node.children.length ? { k: node.children.map(slim) } : {}),
 });
 const round = (value) => Math.round((value ?? 0) * 100) / 100;
@@ -144,6 +147,13 @@ function splitSpec(slimRoot, budget = CHUNK_BUDGET) {
   };
 
   const head = fit(slimRoot, []);
+  // 같은 자리를 두 번 떼어내면 뒤 조각이 대기 자리를 못 찾는다 — 경로는 반드시 유일하다.
+  const seen = new Set();
+  for (const chunk of chunks) {
+    const key = chunk.path.join(".");
+    if (seen.has(key)) throw new Error(`[figma-app-screens] 조각 경로가 중복됐습니다: ${key}`);
+    seen.add(key);
+  }
   return { head, chunks };
 }
 
@@ -151,6 +161,8 @@ const screens = [];
 const outputs = [];
 let totalNodes = 0;
 let totalUnresolved = 0;
+let totalShells = 0;
+let totalShellGaps = 0;
 
 for (const screen of SCREENS) {
   for (const context of CONTEXTS) {
@@ -163,14 +175,24 @@ for (const screen of SCREENS) {
       rootPath: measured.rootPath,
       contextId: context.id,
     });
+    // **셸은 도형이 아니라 인스턴스여야 한다.** 사이드바·상단 바 서브트리를 잘라내고
+    // 컴포넌트 variant를 심는다(자세한 판정 근거는 figma-shell-instances.mjs).
+    const shells = applyShellInstances(spec, {
+      route: screen.route,
+      context: context.id,
+      viewport: { width: measured.rootRect.width, height: measured.rootRect.height },
+    });
     totalNodes += stats.kept;
     totalUnresolved += stats.unresolved.length;
+    totalShells += shells.applied.length;
+    totalShellGaps += shells.skipped.length;
 
     screens.push({
       route: screen.route,
       context: context.id,
       figmaFrameId: screen[context.key],
       frameSize: [round(measured.rootRect.width), round(measured.rootRect.height)],
+      shells,
       stats: {
         measured: stats.total,
         kept: stats.kept,
@@ -192,6 +214,8 @@ const plan = {
   screenCount: screens.length,
   totalNodes,
   totalUnresolved,
+  totalShellInstances: totalShells,
+  totalShellGaps,
   screens,
 };
 
@@ -242,6 +266,15 @@ plan.runners = manifest;
 // plan 갱신 후 다시 직렬화해야 manifest가 담긴다.
 outputs[0] = { absolute: planPath, expected: `${JSON.stringify(plan, null, 2)}\n` };
 
+// **더 이상 내지 않는 런너는 지운다.** 조각 수는 spec이 바뀌면 줄어드는데, 남은 옛 파일은
+// `--check`가 잡지 못한다(검사는 "내야 할 것"만 본다). 실측 사고: 셸을 인스턴스로 바꿔 조각이
+// 7→6으로 줄자 `settings.desktop.06`이 남았고, 그게 05와 같은 path를 들고 있어 중복처럼 보였다.
+const wanted = new Set(outputs.map((output) => output.absolute));
+const orphans = readdirSync(resolve(repoRoot, "figma"))
+  .filter((name) => /^app-screens\..+\.\d\d\.draw\.js$/.test(name))
+  .map((name) => resolve(repoRoot, "figma", name))
+  .filter((absolute) => !wanted.has(absolute));
+
 if (checkOnly) {
   for (const output of outputs) {
     let current = "";
@@ -249,11 +282,13 @@ if (checkOnly) {
     catch { fail(`생성물이 없습니다: ${output.absolute.slice(repoRoot.length + 1)}`); }
     if (current !== output.expected) fail(`생성물이 다릅니다: ${output.absolute.slice(repoRoot.length + 1)}`);
   }
+  for (const orphan of orphans) fail(`더 이상 생성하지 않는 런너가 남아 있습니다: ${orphan.slice(repoRoot.length + 1)}`);
 } else {
   atomicWriteBatch(outputs);
+  for (const orphan of orphans) rmSync(orphan);
 }
 
 console.log(
   `[figma-app-screens] ${checkOnly ? "checked" : "built"} @ ${fixture.productCommit.slice(0, 8)}: ` +
-  `${screens.length} screens · ${totalNodes} nodes · UNRESOLVED ${totalUnresolved} · 런너 ${SCREENS.length}개`,
+  `${screens.length} screens · ${totalNodes} nodes · UNRESOLVED ${totalUnresolved} · 셸 인스턴스 ${totalShells} (공백 ${totalShellGaps}) · 런너 ${SCREENS.length}개`,
 );

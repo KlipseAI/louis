@@ -527,6 +527,24 @@
       "generated": false
     },
     {
+      "id": "carousel-arrow",
+      "path": "design/components/carousel-arrow.md",
+      "title": "Carousel Arrow",
+      "section": "components",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
+    },
+    {
+      "id": "media-card",
+      "path": "design/components/media-card.md",
+      "title": "Media Card",
+      "section": "components",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
+    },
+    {
       "id": "patterns-overview",
       "path": "design/patterns/README.md",
       "title": "Patterns",
@@ -1116,7 +1134,9 @@
         "design/components/node-chip.md",
         "design/components/tabs.md",
         "design/components/table.md",
-        "design/components/video-player.md"
+        "design/components/video-player.md",
+        "design/components/carousel-arrow.md",
+        "design/components/media-card.md"
       ]
     },
     {
@@ -1291,6 +1311,17 @@
       "figmaName": "Button"
     },
     {
+      "id": "carousel-arrow",
+      "name": "Carousel Arrow",
+      "figmaName": "CarouselArrow",
+      "doc": "design/components/carousel-arrow.md",
+      "note": "랜딩 캐러셀 헤더의 넘김 버튼 쌍. 제품 구현(CarouselArrows.tsx)이 정본이고 소비처가 다섯 자리다 — LOUIS recipe 는 없다. 32×32 · radius 12 · 잉크 8% 면 · 헤어라인은 stroke 가 아니라 inset 그림자다(DS-D-0023 정본). Figma 는 쌍이 아니라 버튼 하나를 set 으로 뽑았다(Direction × State 6) — 상호작용과 프로토타입을 받는 단위가 그것이다. **Direction 축은 figma-component-authoring.md §2 의 닫힌 축 표에 없다 — 소유자 판정이 필요하다.** hover 두 겹의 색 변수가 서로 바뀌어 묶여 있는 것도 미해결이다. 포커스 표시가 코드에도 Figma 에도 없다(SC 2.4.7 결손).",
+      "maturity": "experimental",
+      "figma": "partial",
+      "web": "not-ready",
+      "docs": "done"
+    },
+    {
       "id": "checkbox",
       "name": "Checkbox",
       "maturity": "experimental",
@@ -1366,6 +1397,17 @@
       "figma": "partial",
       "web": "not-ready",
       "docs": "partial"
+    },
+    {
+      "id": "media-card",
+      "name": "Media Card",
+      "figmaName": "MediaCard",
+      "doc": "design/components/media-card.md",
+      "note": "사진이 배경을 채우고 그 위에 유리 배지와 흐린 정보 바를 얹는 정사각 카드. 제품 구현(MediaCard.tsx)이 정본이고 랜딩 캐러셀 둘과 템플릿 그리드가 같은 카드를 쓴다 — LOUIS recipe 는 없다. 정보 바는 그라디언트 스크림이 아니라 저알파 면 + 배경 흐림 20 이고 위쪽 padding 40 이 그 장치다. 높이 111 은 시안 98/94 와 다르다 — 제품 타입 스케일의 줄 높이 150% 를 따른 결과다. **Badge 축은 figma-component-authoring.md §2 의 닫힌 축 표에 없고 값에 문구까지 담고 있다 — 소유자 판정이 필요하다.** 제품의 layout 축(carousel·grid)은 고정 폭으로 그릴 수 없어 Figma 에서 의도적으로 비웠다. 흰색 1% 는 알파 램프에 01 단계가 없어 static-white-alpha/04 로 올렸고 흐림 20 은 대응 토큰이 없어 리터럴이다.",
+      "maturity": "experimental",
+      "figma": "partial",
+      "web": "not-ready",
+      "docs": "done"
     },
     {
       "id": "menu-popover",

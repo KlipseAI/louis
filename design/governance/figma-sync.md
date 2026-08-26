@@ -6,6 +6,12 @@ authority: normative
 
 # Figma Sync Governance
 
+> ## 규칙 1 — 바꾸면 세 곳을 같이 바꾼다
+>
+> LOUIS 저장소 · 제품 저장소 · Figma. **하나라도 뒤에 미루면 그 작업은 끝난 것이 아니다.**
+> 특히 Figma 를 건드렸으면 같은 작업 안에서 `figma/readback.json` 을 재캡처한다 — 미루면
+> 게이트가 낡은 캡처를 보고 **거짓 초록**을 낸다. 근거와 사고 기록은 DS-D-0028.
+
 Figma와 코드는 서로를 자동으로 덮어쓰는 두 정본이 아니다. 승인된 design decision을 중심으로
 token과 component parity를 검토하며, 자동 sync가 구현되기 전까지 상태를 과장하지 않는다.
 

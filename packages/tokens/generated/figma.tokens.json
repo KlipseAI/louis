@@ -575,357 +575,6 @@
             }
           }
         },
-        "color-amber-100": {
-          "$type": "color",
-          "fields": [],
-          "figmaName": "color/amber/100",
-          "hiddenFromPublishing": true,
-          "losses": [],
-          "nativeVariableType": "COLOR",
-          "representation": "variable",
-          "scopes": [
-            "FRAME_FILL",
-            "SHAPE_FILL",
-            "STROKE_COLOR",
-            "TEXT_FILL"
-          ],
-          "valuesByMode": {
-            "Base": {
-              "$value": {
-                "colorSpace": "srgb",
-                "components": [
-                  1,
-                  0.960784,
-                  0.839216
-                ],
-                "hex": "#fff5d6"
-              },
-              "aliasTarget": null,
-              "resolvedValue": {
-                "alpha": 1,
-                "colorSpace": "srgb",
-                "components": [
-                  1,
-                  0.960784,
-                  0.839216
-                ]
-              },
-              "sourcePath": "primitive.color.amber.100"
-            }
-          }
-        },
-        "color-amber-200": {
-          "$type": "color",
-          "fields": [],
-          "figmaName": "color/amber/200",
-          "hiddenFromPublishing": true,
-          "losses": [],
-          "nativeVariableType": "COLOR",
-          "representation": "variable",
-          "scopes": [
-            "FRAME_FILL",
-            "SHAPE_FILL",
-            "STROKE_COLOR",
-            "TEXT_FILL"
-          ],
-          "valuesByMode": {
-            "Base": {
-              "$value": {
-                "colorSpace": "srgb",
-                "components": [
-                  1,
-                  0.898039,
-                  0.639216
-                ],
-                "hex": "#ffe5a3"
-              },
-              "aliasTarget": null,
-              "resolvedValue": {
-                "alpha": 1,
-                "colorSpace": "srgb",
-                "components": [
-                  1,
-                  0.898039,
-                  0.639216
-                ]
-              },
-              "sourcePath": "primitive.color.amber.200"
-            }
-          }
-        },
-        "color-amber-300": {
-          "$type": "color",
-          "fields": [],
-          "figmaName": "color/amber/300",
-          "hiddenFromPublishing": true,
-          "losses": [],
-          "nativeVariableType": "COLOR",
-          "representation": "variable",
-          "scopes": [
-            "FRAME_FILL",
-            "SHAPE_FILL",
-            "STROKE_COLOR",
-            "TEXT_FILL"
-          ],
-          "valuesByMode": {
-            "Base": {
-              "$value": {
-                "colorSpace": "srgb",
-                "components": [
-                  1,
-                  0.839216,
-                  0.419608
-                ],
-                "hex": "#ffd66b"
-              },
-              "aliasTarget": null,
-              "resolvedValue": {
-                "alpha": 1,
-                "colorSpace": "srgb",
-                "components": [
-                  1,
-                  0.839216,
-                  0.419608
-                ]
-              },
-              "sourcePath": "primitive.color.amber.300"
-            }
-          }
-        },
-        "color-amber-400": {
-          "$type": "color",
-          "fields": [],
-          "figmaName": "color/amber/400",
-          "hiddenFromPublishing": true,
-          "losses": [],
-          "nativeVariableType": "COLOR",
-          "representation": "variable",
-          "scopes": [
-            "FRAME_FILL",
-            "SHAPE_FILL",
-            "STROKE_COLOR",
-            "TEXT_FILL"
-          ],
-          "valuesByMode": {
-            "Base": {
-              "$value": {
-                "colorSpace": "srgb",
-                "components": [
-                  1,
-                  0.784314,
-                  0.278431
-                ],
-                "hex": "#ffc847"
-              },
-              "aliasTarget": null,
-              "resolvedValue": {
-                "alpha": 1,
-                "colorSpace": "srgb",
-                "components": [
-                  1,
-                  0.784314,
-                  0.278431
-                ]
-              },
-              "sourcePath": "primitive.color.amber.400"
-            }
-          }
-        },
-        "color-amber-500": {
-          "$type": "color",
-          "fields": [],
-          "figmaName": "color/amber/500",
-          "hiddenFromPublishing": true,
-          "losses": [],
-          "nativeVariableType": "COLOR",
-          "representation": "variable",
-          "scopes": [
-            "FRAME_FILL",
-            "SHAPE_FILL",
-            "STROKE_COLOR",
-            "TEXT_FILL"
-          ],
-          "valuesByMode": {
-            "Base": {
-              "$value": {
-                "colorSpace": "srgb",
-                "components": [
-                  1,
-                  0.741176,
-                  0.180392
-                ],
-                "hex": "#ffbd2e"
-              },
-              "aliasTarget": null,
-              "resolvedValue": {
-                "alpha": 1,
-                "colorSpace": "srgb",
-                "components": [
-                  1,
-                  0.741176,
-                  0.180392
-                ]
-              },
-              "sourcePath": "primitive.color.amber.500"
-            }
-          }
-        },
-        "color-amber-600": {
-          "$type": "color",
-          "fields": [],
-          "figmaName": "color/amber/600",
-          "hiddenFromPublishing": true,
-          "losses": [],
-          "nativeVariableType": "COLOR",
-          "representation": "variable",
-          "scopes": [
-            "FRAME_FILL",
-            "SHAPE_FILL",
-            "STROKE_COLOR",
-            "TEXT_FILL"
-          ],
-          "valuesByMode": {
-            "Base": {
-              "$value": {
-                "colorSpace": "srgb",
-                "components": [
-                  0.909804,
-                  0.619608,
-                  0
-                ],
-                "hex": "#e89e00"
-              },
-              "aliasTarget": null,
-              "resolvedValue": {
-                "alpha": 1,
-                "colorSpace": "srgb",
-                "components": [
-                  0.909804,
-                  0.619608,
-                  0
-                ]
-              },
-              "sourcePath": "primitive.color.amber.600"
-            }
-          }
-        },
-        "color-amber-700": {
-          "$type": "color",
-          "fields": [],
-          "figmaName": "color/amber/700",
-          "hiddenFromPublishing": true,
-          "losses": [],
-          "nativeVariableType": "COLOR",
-          "representation": "variable",
-          "scopes": [
-            "FRAME_FILL",
-            "SHAPE_FILL",
-            "STROKE_COLOR",
-            "TEXT_FILL"
-          ],
-          "valuesByMode": {
-            "Base": {
-              "$value": {
-                "colorSpace": "srgb",
-                "components": [
-                  0.721569,
-                  0.478431,
-                  0
-                ],
-                "hex": "#b87a00"
-              },
-              "aliasTarget": null,
-              "resolvedValue": {
-                "alpha": 1,
-                "colorSpace": "srgb",
-                "components": [
-                  0.721569,
-                  0.478431,
-                  0
-                ]
-              },
-              "sourcePath": "primitive.color.amber.700"
-            }
-          }
-        },
-        "color-amber-800": {
-          "$type": "color",
-          "fields": [],
-          "figmaName": "color/amber/800",
-          "hiddenFromPublishing": true,
-          "losses": [],
-          "nativeVariableType": "COLOR",
-          "representation": "variable",
-          "scopes": [
-            "FRAME_FILL",
-            "SHAPE_FILL",
-            "STROKE_COLOR",
-            "TEXT_FILL"
-          ],
-          "valuesByMode": {
-            "Base": {
-              "$value": {
-                "colorSpace": "srgb",
-                "components": [
-                  0.533333,
-                  0.352941,
-                  0
-                ],
-                "hex": "#885a00"
-              },
-              "aliasTarget": null,
-              "resolvedValue": {
-                "alpha": 1,
-                "colorSpace": "srgb",
-                "components": [
-                  0.533333,
-                  0.352941,
-                  0
-                ]
-              },
-              "sourcePath": "primitive.color.amber.800"
-            }
-          }
-        },
-        "color-amber-900": {
-          "$type": "color",
-          "fields": [],
-          "figmaName": "color/amber/900",
-          "hiddenFromPublishing": true,
-          "losses": [],
-          "nativeVariableType": "COLOR",
-          "representation": "variable",
-          "scopes": [
-            "FRAME_FILL",
-            "SHAPE_FILL",
-            "STROKE_COLOR",
-            "TEXT_FILL"
-          ],
-          "valuesByMode": {
-            "Base": {
-              "$value": {
-                "colorSpace": "srgb",
-                "components": [
-                  0.360784,
-                  0.239216,
-                  0
-                ],
-                "hex": "#5c3d00"
-              },
-              "aliasTarget": null,
-              "resolvedValue": {
-                "alpha": 1,
-                "colorSpace": "srgb",
-                "components": [
-                  0.360784,
-                  0.239216,
-                  0
-                ]
-              },
-              "sourcePath": "primitive.color.amber.900"
-            }
-          }
-        },
         "color-blue-100": {
           "$type": "color",
           "fields": [],
@@ -2076,162 +1725,6 @@
               "$value": {
                 "colorSpace": "srgb",
                 "components": [
-                  0.894118,
-                  0.972549,
-                  0.917647
-                ],
-                "hex": "#e4f8ea"
-              },
-              "aliasTarget": null,
-              "resolvedValue": {
-                "alpha": 1,
-                "colorSpace": "srgb",
-                "components": [
-                  0.894118,
-                  0.972549,
-                  0.917647
-                ]
-              },
-              "sourcePath": "primitive.color.green.100"
-            }
-          }
-        },
-        "color-green-500": {
-          "$type": "color",
-          "fields": [],
-          "figmaName": "color/green/500",
-          "hiddenFromPublishing": true,
-          "losses": [],
-          "nativeVariableType": "COLOR",
-          "representation": "variable",
-          "scopes": [
-            "FRAME_FILL",
-            "SHAPE_FILL",
-            "STROKE_COLOR",
-            "TEXT_FILL"
-          ],
-          "valuesByMode": {
-            "Base": {
-              "$value": {
-                "colorSpace": "srgb",
-                "components": [
-                  0.156863,
-                  0.784314,
-                  0.25098
-                ],
-                "hex": "#28c840"
-              },
-              "aliasTarget": null,
-              "resolvedValue": {
-                "alpha": 1,
-                "colorSpace": "srgb",
-                "components": [
-                  0.156863,
-                  0.784314,
-                  0.25098
-                ]
-              },
-              "sourcePath": "primitive.color.green.500"
-            }
-          }
-        },
-        "color-green-700": {
-          "$type": "color",
-          "fields": [],
-          "figmaName": "color/green/700",
-          "hiddenFromPublishing": true,
-          "losses": [],
-          "nativeVariableType": "COLOR",
-          "representation": "variable",
-          "scopes": [
-            "FRAME_FILL",
-            "SHAPE_FILL",
-            "STROKE_COLOR",
-            "TEXT_FILL"
-          ],
-          "valuesByMode": {
-            "Base": {
-              "$value": {
-                "colorSpace": "srgb",
-                "components": [
-                  0.090196,
-                  0.478431,
-                  0.172549
-                ],
-                "hex": "#177a2c"
-              },
-              "aliasTarget": null,
-              "resolvedValue": {
-                "alpha": 1,
-                "colorSpace": "srgb",
-                "components": [
-                  0.090196,
-                  0.478431,
-                  0.172549
-                ]
-              },
-              "sourcePath": "primitive.color.green.700"
-            }
-          }
-        },
-        "color-green-900": {
-          "$type": "color",
-          "fields": [],
-          "figmaName": "color/green/900",
-          "hiddenFromPublishing": true,
-          "losses": [],
-          "nativeVariableType": "COLOR",
-          "representation": "variable",
-          "scopes": [
-            "FRAME_FILL",
-            "SHAPE_FILL",
-            "STROKE_COLOR",
-            "TEXT_FILL"
-          ],
-          "valuesByMode": {
-            "Base": {
-              "$value": {
-                "colorSpace": "srgb",
-                "components": [
-                  0.043137,
-                  0.239216,
-                  0.094118
-                ],
-                "hex": "#0b3d18"
-              },
-              "aliasTarget": null,
-              "resolvedValue": {
-                "alpha": 1,
-                "colorSpace": "srgb",
-                "components": [
-                  0.043137,
-                  0.239216,
-                  0.094118
-                ]
-              },
-              "sourcePath": "primitive.color.green.900"
-            }
-          }
-        },
-        "color-mint-100": {
-          "$type": "color",
-          "fields": [],
-          "figmaName": "color/mint/100",
-          "hiddenFromPublishing": true,
-          "losses": [],
-          "nativeVariableType": "COLOR",
-          "representation": "variable",
-          "scopes": [
-            "FRAME_FILL",
-            "SHAPE_FILL",
-            "STROKE_COLOR",
-            "TEXT_FILL"
-          ],
-          "valuesByMode": {
-            "Base": {
-              "$value": {
-                "colorSpace": "srgb",
-                "components": [
                   0.898039,
                   1,
                   0.968627
@@ -2248,14 +1741,14 @@
                   0.968627
                 ]
               },
-              "sourcePath": "primitive.color.mint.100"
+              "sourcePath": "primitive.color.green.100"
             }
           }
         },
-        "color-mint-200": {
+        "color-green-200": {
           "$type": "color",
           "fields": [],
-          "figmaName": "color/mint/200",
+          "figmaName": "color/green/200",
           "hiddenFromPublishing": true,
           "losses": [],
           "nativeVariableType": "COLOR",
@@ -2287,14 +1780,14 @@
                   0.898039
                 ]
               },
-              "sourcePath": "primitive.color.mint.200"
+              "sourcePath": "primitive.color.green.200"
             }
           }
         },
-        "color-mint-300": {
+        "color-green-300": {
           "$type": "color",
           "fields": [],
-          "figmaName": "color/mint/300",
+          "figmaName": "color/green/300",
           "hiddenFromPublishing": true,
           "losses": [],
           "nativeVariableType": "COLOR",
@@ -2326,14 +1819,14 @@
                   0.8
                 ]
               },
-              "sourcePath": "primitive.color.mint.300"
+              "sourcePath": "primitive.color.green.300"
             }
           }
         },
-        "color-mint-400": {
+        "color-green-400": {
           "$type": "color",
           "fields": [],
-          "figmaName": "color/mint/400",
+          "figmaName": "color/green/400",
           "hiddenFromPublishing": true,
           "losses": [],
           "nativeVariableType": "COLOR",
@@ -2365,14 +1858,14 @@
                   0.647059
                 ]
               },
-              "sourcePath": "primitive.color.mint.400"
+              "sourcePath": "primitive.color.green.400"
             }
           }
         },
-        "color-mint-500": {
+        "color-green-500": {
           "$type": "color",
           "fields": [],
-          "figmaName": "color/mint/500",
+          "figmaName": "color/green/500",
           "hiddenFromPublishing": true,
           "losses": [],
           "nativeVariableType": "COLOR",
@@ -2405,14 +1898,14 @@
                   0.556863
                 ]
               },
-              "sourcePath": "primitive.color.mint.500"
+              "sourcePath": "primitive.color.green.500"
             }
           }
         },
-        "color-mint-600": {
+        "color-green-600": {
           "$type": "color",
           "fields": [],
-          "figmaName": "color/mint/600",
+          "figmaName": "color/green/600",
           "hiddenFromPublishing": true,
           "losses": [],
           "nativeVariableType": "COLOR",
@@ -2444,14 +1937,14 @@
                   0.498039
                 ]
               },
-              "sourcePath": "primitive.color.mint.600"
+              "sourcePath": "primitive.color.green.600"
             }
           }
         },
-        "color-mint-700": {
+        "color-green-700": {
           "$type": "color",
           "fields": [],
-          "figmaName": "color/mint/700",
+          "figmaName": "color/green/700",
           "hiddenFromPublishing": true,
           "losses": [],
           "nativeVariableType": "COLOR",
@@ -2483,14 +1976,14 @@
                   0.403922
                 ]
               },
-              "sourcePath": "primitive.color.mint.700"
+              "sourcePath": "primitive.color.green.700"
             }
           }
         },
-        "color-mint-800": {
+        "color-green-800": {
           "$type": "color",
           "fields": [],
-          "figmaName": "color/mint/800",
+          "figmaName": "color/green/800",
           "hiddenFromPublishing": true,
           "losses": [],
           "nativeVariableType": "COLOR",
@@ -2522,14 +2015,14 @@
                   0.317647
                 ]
               },
-              "sourcePath": "primitive.color.mint.800"
+              "sourcePath": "primitive.color.green.800"
             }
           }
         },
-        "color-mint-900": {
+        "color-green-900": {
           "$type": "color",
           "fields": [],
-          "figmaName": "color/mint/900",
+          "figmaName": "color/green/900",
           "hiddenFromPublishing": true,
           "losses": [],
           "nativeVariableType": "COLOR",
@@ -2561,7 +2054,7 @@
                   0.223529
                 ]
               },
-              "sourcePath": "primitive.color.mint.900"
+              "sourcePath": "primitive.color.green.900"
             }
           }
         },
@@ -3384,357 +2877,6 @@
                 ]
               },
               "sourcePath": "primitive.color.red-alpha.8"
-            }
-          }
-        },
-        "color-sky-100": {
-          "$type": "color",
-          "fields": [],
-          "figmaName": "color/sky/100",
-          "hiddenFromPublishing": true,
-          "losses": [],
-          "nativeVariableType": "COLOR",
-          "representation": "variable",
-          "scopes": [
-            "FRAME_FILL",
-            "SHAPE_FILL",
-            "STROKE_COLOR",
-            "TEXT_FILL"
-          ],
-          "valuesByMode": {
-            "Base": {
-              "$value": {
-                "colorSpace": "srgb",
-                "components": [
-                  0.878431,
-                  0.960784,
-                  1
-                ],
-                "hex": "#e0f5ff"
-              },
-              "aliasTarget": null,
-              "resolvedValue": {
-                "alpha": 1,
-                "colorSpace": "srgb",
-                "components": [
-                  0.878431,
-                  0.960784,
-                  1
-                ]
-              },
-              "sourcePath": "primitive.color.sky.100"
-            }
-          }
-        },
-        "color-sky-200": {
-          "$type": "color",
-          "fields": [],
-          "figmaName": "color/sky/200",
-          "hiddenFromPublishing": true,
-          "losses": [],
-          "nativeVariableType": "COLOR",
-          "representation": "variable",
-          "scopes": [
-            "FRAME_FILL",
-            "SHAPE_FILL",
-            "STROKE_COLOR",
-            "TEXT_FILL"
-          ],
-          "valuesByMode": {
-            "Base": {
-              "$value": {
-                "colorSpace": "srgb",
-                "components": [
-                  0.729412,
-                  0.909804,
-                  1
-                ],
-                "hex": "#bae8ff"
-              },
-              "aliasTarget": null,
-              "resolvedValue": {
-                "alpha": 1,
-                "colorSpace": "srgb",
-                "components": [
-                  0.729412,
-                  0.909804,
-                  1
-                ]
-              },
-              "sourcePath": "primitive.color.sky.200"
-            }
-          }
-        },
-        "color-sky-300": {
-          "$type": "color",
-          "fields": [],
-          "figmaName": "color/sky/300",
-          "hiddenFromPublishing": true,
-          "losses": [],
-          "nativeVariableType": "COLOR",
-          "representation": "variable",
-          "scopes": [
-            "FRAME_FILL",
-            "SHAPE_FILL",
-            "STROKE_COLOR",
-            "TEXT_FILL"
-          ],
-          "valuesByMode": {
-            "Base": {
-              "$value": {
-                "colorSpace": "srgb",
-                "components": [
-                  0.490196,
-                  0.827451,
-                  0.988235
-                ],
-                "hex": "#7dd3fc"
-              },
-              "aliasTarget": null,
-              "resolvedValue": {
-                "alpha": 1,
-                "colorSpace": "srgb",
-                "components": [
-                  0.490196,
-                  0.827451,
-                  0.988235
-                ]
-              },
-              "sourcePath": "primitive.color.sky.300"
-            }
-          }
-        },
-        "color-sky-400": {
-          "$type": "color",
-          "fields": [],
-          "figmaName": "color/sky/400",
-          "hiddenFromPublishing": true,
-          "losses": [],
-          "nativeVariableType": "COLOR",
-          "representation": "variable",
-          "scopes": [
-            "FRAME_FILL",
-            "SHAPE_FILL",
-            "STROKE_COLOR",
-            "TEXT_FILL"
-          ],
-          "valuesByMode": {
-            "Base": {
-              "$value": {
-                "colorSpace": "srgb",
-                "components": [
-                  0.219608,
-                  0.741176,
-                  0.972549
-                ],
-                "hex": "#38bdf8"
-              },
-              "aliasTarget": null,
-              "resolvedValue": {
-                "alpha": 1,
-                "colorSpace": "srgb",
-                "components": [
-                  0.219608,
-                  0.741176,
-                  0.972549
-                ]
-              },
-              "sourcePath": "primitive.color.sky.400"
-            }
-          }
-        },
-        "color-sky-500": {
-          "$type": "color",
-          "fields": [],
-          "figmaName": "color/sky/500",
-          "hiddenFromPublishing": true,
-          "losses": [],
-          "nativeVariableType": "COLOR",
-          "representation": "variable",
-          "scopes": [
-            "FRAME_FILL",
-            "SHAPE_FILL",
-            "STROKE_COLOR",
-            "TEXT_FILL"
-          ],
-          "valuesByMode": {
-            "Base": {
-              "$value": {
-                "colorSpace": "srgb",
-                "components": [
-                  0.054902,
-                  0.647059,
-                  0.913725
-                ],
-                "hex": "#0ea5e9"
-              },
-              "aliasTarget": null,
-              "resolvedValue": {
-                "alpha": 1,
-                "colorSpace": "srgb",
-                "components": [
-                  0.054902,
-                  0.647059,
-                  0.913725
-                ]
-              },
-              "sourcePath": "primitive.color.sky.500"
-            }
-          }
-        },
-        "color-sky-600": {
-          "$type": "color",
-          "fields": [],
-          "figmaName": "color/sky/600",
-          "hiddenFromPublishing": true,
-          "losses": [],
-          "nativeVariableType": "COLOR",
-          "representation": "variable",
-          "scopes": [
-            "FRAME_FILL",
-            "SHAPE_FILL",
-            "STROKE_COLOR",
-            "TEXT_FILL"
-          ],
-          "valuesByMode": {
-            "Base": {
-              "$value": {
-                "colorSpace": "srgb",
-                "components": [
-                  0.007843,
-                  0.517647,
-                  0.780392
-                ],
-                "hex": "#0284c7"
-              },
-              "aliasTarget": null,
-              "resolvedValue": {
-                "alpha": 1,
-                "colorSpace": "srgb",
-                "components": [
-                  0.007843,
-                  0.517647,
-                  0.780392
-                ]
-              },
-              "sourcePath": "primitive.color.sky.600"
-            }
-          }
-        },
-        "color-sky-700": {
-          "$type": "color",
-          "fields": [],
-          "figmaName": "color/sky/700",
-          "hiddenFromPublishing": true,
-          "losses": [],
-          "nativeVariableType": "COLOR",
-          "representation": "variable",
-          "scopes": [
-            "FRAME_FILL",
-            "SHAPE_FILL",
-            "STROKE_COLOR",
-            "TEXT_FILL"
-          ],
-          "valuesByMode": {
-            "Base": {
-              "$value": {
-                "colorSpace": "srgb",
-                "components": [
-                  0.011765,
-                  0.411765,
-                  0.631373
-                ],
-                "hex": "#0369a1"
-              },
-              "aliasTarget": null,
-              "resolvedValue": {
-                "alpha": 1,
-                "colorSpace": "srgb",
-                "components": [
-                  0.011765,
-                  0.411765,
-                  0.631373
-                ]
-              },
-              "sourcePath": "primitive.color.sky.700"
-            }
-          }
-        },
-        "color-sky-800": {
-          "$type": "color",
-          "fields": [],
-          "figmaName": "color/sky/800",
-          "hiddenFromPublishing": true,
-          "losses": [],
-          "nativeVariableType": "COLOR",
-          "representation": "variable",
-          "scopes": [
-            "FRAME_FILL",
-            "SHAPE_FILL",
-            "STROKE_COLOR",
-            "TEXT_FILL"
-          ],
-          "valuesByMode": {
-            "Base": {
-              "$value": {
-                "colorSpace": "srgb",
-                "components": [
-                  0.027451,
-                  0.34902,
-                  0.521569
-                ],
-                "hex": "#075985"
-              },
-              "aliasTarget": null,
-              "resolvedValue": {
-                "alpha": 1,
-                "colorSpace": "srgb",
-                "components": [
-                  0.027451,
-                  0.34902,
-                  0.521569
-                ]
-              },
-              "sourcePath": "primitive.color.sky.800"
-            }
-          }
-        },
-        "color-sky-900": {
-          "$type": "color",
-          "fields": [],
-          "figmaName": "color/sky/900",
-          "hiddenFromPublishing": true,
-          "losses": [],
-          "nativeVariableType": "COLOR",
-          "representation": "variable",
-          "scopes": [
-            "FRAME_FILL",
-            "SHAPE_FILL",
-            "STROKE_COLOR",
-            "TEXT_FILL"
-          ],
-          "valuesByMode": {
-            "Base": {
-              "$value": {
-                "colorSpace": "srgb",
-                "components": [
-                  0.047059,
-                  0.184314,
-                  0.290196
-                ],
-                "hex": "#0c2f4a"
-              },
-              "aliasTarget": null,
-              "resolvedValue": {
-                "alpha": 1,
-                "colorSpace": "srgb",
-                "components": [
-                  0.047059,
-                  0.184314,
-                  0.290196
-                ]
-              },
-              "sourcePath": "primitive.color.sky.900"
             }
           }
         },
@@ -5015,45 +4157,6 @@
                 ]
               },
               "sourcePath": "primitive.color.static-white-alpha.96"
-            }
-          }
-        },
-        "color-ultra-400": {
-          "$type": "color",
-          "fields": [],
-          "figmaName": "color/ultra/400",
-          "hiddenFromPublishing": true,
-          "losses": [],
-          "nativeVariableType": "COLOR",
-          "representation": "variable",
-          "scopes": [
-            "FRAME_FILL",
-            "SHAPE_FILL",
-            "STROKE_COLOR",
-            "TEXT_FILL"
-          ],
-          "valuesByMode": {
-            "Base": {
-              "$value": {
-                "colorSpace": "srgb",
-                "components": [
-                  0.72549,
-                  0.882353,
-                  0.968627
-                ],
-                "hex": "#b9e1f7"
-              },
-              "aliasTarget": null,
-              "resolvedValue": {
-                "alpha": 1,
-                "colorSpace": "srgb",
-                "components": [
-                  0.72549,
-                  0.882353,
-                  0.968627
-                ]
-              },
-              "sourcePath": "primitive.color.ultra.400"
             }
           }
         },
@@ -15516,9 +14619,9 @@
                 "alpha": 1,
                 "colorSpace": "srgb",
                 "components": [
-                  0.894118,
-                  0.972549,
-                  0.917647
+                  0.898039,
+                  1,
+                  0.968627
                 ]
               },
               "sourcePath": "semantic.dark.color.alert-success-foreground"
@@ -15533,9 +14636,9 @@
                 "alpha": 1,
                 "colorSpace": "srgb",
                 "components": [
-                  0.090196,
-                  0.478431,
-                  0.172549
+                  0,
+                  0.560784,
+                  0.403922
                 ]
               },
               "sourcePath": "semantic.light.color.alert-success-foreground"
@@ -15567,9 +14670,9 @@
                 "alpha": 1,
                 "colorSpace": "srgb",
                 "components": [
-                  0.090196,
-                  0.478431,
-                  0.172549
+                  0,
+                  0.560784,
+                  0.403922
                 ]
               },
               "sourcePath": "semantic.dark.color.alert-success-stroke"
@@ -15584,9 +14687,9 @@
                 "alpha": 1,
                 "colorSpace": "srgb",
                 "components": [
-                  0.156863,
-                  0.784314,
-                  0.25098
+                  0,
+                  0.776471,
+                  0.556863
                 ]
               },
               "sourcePath": "semantic.light.color.alert-success-stroke"
@@ -15618,9 +14721,9 @@
                 "alpha": 1,
                 "colorSpace": "srgb",
                 "components": [
-                  0.043137,
-                  0.239216,
-                  0.094118
+                  0,
+                  0.298039,
+                  0.223529
                 ]
               },
               "sourcePath": "semantic.dark.color.alert-success-surface"
@@ -15635,9 +14738,9 @@
                 "alpha": 1,
                 "colorSpace": "srgb",
                 "components": [
-                  0.894118,
-                  0.972549,
-                  0.917647
+                  0.898039,
+                  1,
+                  0.968627
                 ]
               },
               "sourcePath": "semantic.light.color.alert-success-surface"
@@ -15660,9 +14763,9 @@
           ],
           "valuesByMode": {
             "Dark": {
-              "$value": "{primitive.color.amber.100}",
+              "$value": "{primitive.color.yellow.100}",
               "aliasTarget": {
-                "id": "color-amber-100",
+                "id": "color-yellow-100",
                 "mode": "base"
               },
               "resolvedValue": {
@@ -15677,9 +14780,9 @@
               "sourcePath": "semantic.dark.color.alert-warning-foreground"
             },
             "Light": {
-              "$value": "{primitive.color.amber.700}",
+              "$value": "{primitive.color.yellow.700}",
               "aliasTarget": {
-                "id": "color-amber-700",
+                "id": "color-yellow-700",
                 "mode": "base"
               },
               "resolvedValue": {
@@ -15687,7 +14790,7 @@
                 "colorSpace": "srgb",
                 "components": [
                   0.721569,
-                  0.478431,
+                  0.462745,
                   0
                 ]
               },
@@ -15711,9 +14814,9 @@
           ],
           "valuesByMode": {
             "Dark": {
-              "$value": "{primitive.color.amber.700}",
+              "$value": "{primitive.color.yellow.700}",
               "aliasTarget": {
-                "id": "color-amber-700",
+                "id": "color-yellow-700",
                 "mode": "base"
               },
               "resolvedValue": {
@@ -15721,16 +14824,16 @@
                 "colorSpace": "srgb",
                 "components": [
                   0.721569,
-                  0.478431,
+                  0.462745,
                   0
                 ]
               },
               "sourcePath": "semantic.dark.color.alert-warning-stroke"
             },
             "Light": {
-              "$value": "{primitive.color.amber.500}",
+              "$value": "{primitive.color.yellow.500}",
               "aliasTarget": {
-                "id": "color-amber-500",
+                "id": "color-yellow-500",
                 "mode": "base"
               },
               "resolvedValue": {
@@ -15738,8 +14841,8 @@
                 "colorSpace": "srgb",
                 "components": [
                   1,
-                  0.741176,
-                  0.180392
+                  0.698039,
+                  0
                 ]
               },
               "sourcePath": "semantic.light.color.alert-warning-stroke"
@@ -15762,26 +14865,26 @@
           ],
           "valuesByMode": {
             "Dark": {
-              "$value": "{primitive.color.amber.900}",
+              "$value": "{primitive.color.yellow.900}",
               "aliasTarget": {
-                "id": "color-amber-900",
+                "id": "color-yellow-900",
                 "mode": "base"
               },
               "resolvedValue": {
                 "alpha": 1,
                 "colorSpace": "srgb",
                 "components": [
-                  0.360784,
-                  0.239216,
+                  0.298039,
+                  0.2,
                   0
                 ]
               },
               "sourcePath": "semantic.dark.color.alert-warning-surface"
             },
             "Light": {
-              "$value": "{primitive.color.amber.100}",
+              "$value": "{primitive.color.yellow.100}",
               "aliasTarget": {
-                "id": "color-amber-100",
+                "id": "color-yellow-100",
                 "mode": "base"
               },
               "resolvedValue": {
@@ -16281,9 +15384,9 @@
                 "alpha": 1,
                 "colorSpace": "srgb",
                 "components": [
-                  0.043137,
-                  0.239216,
-                  0.094118
+                  0,
+                  0.298039,
+                  0.223529
                 ]
               },
               "sourcePath": "semantic.dark.color.bg-success"
@@ -16298,9 +15401,9 @@
                 "alpha": 1,
                 "colorSpace": "srgb",
                 "components": [
-                  0.894118,
-                  0.972549,
-                  0.917647
+                  0.898039,
+                  1,
+                  0.968627
                 ]
               },
               "sourcePath": "semantic.light.color.bg-success"
@@ -16527,26 +15630,26 @@
           ],
           "valuesByMode": {
             "Dark": {
-              "$value": "{primitive.color.amber.900}",
+              "$value": "{primitive.color.yellow.900}",
               "aliasTarget": {
-                "id": "color-amber-900",
+                "id": "color-yellow-900",
                 "mode": "base"
               },
               "resolvedValue": {
                 "alpha": 1,
                 "colorSpace": "srgb",
                 "components": [
-                  0.360784,
-                  0.239216,
+                  0.298039,
+                  0.2,
                   0
                 ]
               },
               "sourcePath": "semantic.dark.color.bg-warning"
             },
             "Light": {
-              "$value": "{primitive.color.amber.100}",
+              "$value": "{primitive.color.yellow.100}",
               "aliasTarget": {
-                "id": "color-amber-100",
+                "id": "color-yellow-100",
                 "mode": "base"
               },
               "resolvedValue": {
@@ -17199,9 +16302,9 @@
                 "alpha": 1,
                 "colorSpace": "srgb",
                 "components": [
-                  0.894118,
-                  0.972549,
-                  0.917647
+                  0.898039,
+                  1,
+                  0.968627
                 ]
               },
               "sourcePath": "semantic.dark.color.fg-success"
@@ -17216,9 +16319,9 @@
                 "alpha": 1,
                 "colorSpace": "srgb",
                 "components": [
-                  0.043137,
-                  0.239216,
-                  0.094118
+                  0,
+                  0.298039,
+                  0.223529
                 ]
               },
               "sourcePath": "semantic.light.color.fg-success"
@@ -17445,9 +16548,9 @@
           ],
           "valuesByMode": {
             "Dark": {
-              "$value": "{primitive.color.amber.100}",
+              "$value": "{primitive.color.yellow.100}",
               "aliasTarget": {
-                "id": "color-amber-100",
+                "id": "color-yellow-100",
                 "mode": "base"
               },
               "resolvedValue": {
@@ -17462,17 +16565,17 @@
               "sourcePath": "semantic.dark.color.fg-warning"
             },
             "Light": {
-              "$value": "{primitive.color.amber.900}",
+              "$value": "{primitive.color.yellow.900}",
               "aliasTarget": {
-                "id": "color-amber-900",
+                "id": "color-yellow-900",
                 "mode": "base"
               },
               "resolvedValue": {
                 "alpha": 1,
                 "colorSpace": "srgb",
                 "components": [
-                  0.360784,
-                  0.239216,
+                  0.298039,
+                  0.2,
                   0
                 ]
               },
@@ -18414,9 +17517,9 @@
           ],
           "valuesByMode": {
             "Dark": {
-              "$value": "{primitive.color.mint.500}",
+              "$value": "{primitive.color.green.500}",
               "aliasTarget": {
-                "id": "color-mint-500",
+                "id": "color-green-500",
                 "mode": "base"
               },
               "resolvedValue": {
@@ -18431,9 +17534,9 @@
               "sourcePath": "semantic.dark.color.node-image-accent"
             },
             "Light": {
-              "$value": "{primitive.color.mint.500}",
+              "$value": "{primitive.color.green.500}",
               "aliasTarget": {
-                "id": "color-mint-500",
+                "id": "color-green-500",
                 "mode": "base"
               },
               "resolvedValue": {
@@ -18465,9 +17568,9 @@
           ],
           "valuesByMode": {
             "Dark": {
-              "$value": "{primitive.color.mint.500}",
+              "$value": "{primitive.color.green.500}",
               "aliasTarget": {
-                "id": "color-mint-500",
+                "id": "color-green-500",
                 "mode": "base"
               },
               "resolvedValue": {
@@ -18482,9 +17585,9 @@
               "sourcePath": "semantic.dark.color.node-image-icon"
             },
             "Light": {
-              "$value": "{primitive.color.mint.500}",
+              "$value": "{primitive.color.green.500}",
               "aliasTarget": {
-                "id": "color-mint-500",
+                "id": "color-green-500",
                 "mode": "base"
               },
               "resolvedValue": {
@@ -18516,9 +17619,9 @@
           ],
           "valuesByMode": {
             "Dark": {
-              "$value": "{primitive.color.mint.800}",
+              "$value": "{primitive.color.green.800}",
               "aliasTarget": {
-                "id": "color-mint-800",
+                "id": "color-green-800",
                 "mode": "base"
               },
               "resolvedValue": {
@@ -18533,9 +17636,9 @@
               "sourcePath": "semantic.dark.color.node-image-surface"
             },
             "Light": {
-              "$value": "{primitive.color.mint.200}",
+              "$value": "{primitive.color.green.200}",
               "aliasTarget": {
-                "id": "color-mint-200",
+                "id": "color-green-200",
                 "mode": "base"
               },
               "resolvedValue": {
@@ -19128,9 +18231,9 @@
           ],
           "valuesByMode": {
             "Dark": {
-              "$value": "{primitive.color.mint.500}",
+              "$value": "{primitive.color.green.500}",
               "aliasTarget": {
-                "id": "color-mint-500",
+                "id": "color-green-500",
                 "mode": "base"
               },
               "resolvedValue": {
@@ -19145,9 +18248,9 @@
               "sourcePath": "semantic.dark.color.progress-ring-fill"
             },
             "Light": {
-              "$value": "{primitive.color.mint.500}",
+              "$value": "{primitive.color.green.500}",
               "aliasTarget": {
-                "id": "color-mint-500",
+                "id": "color-green-500",
                 "mode": "base"
               },
               "resolvedValue": {
@@ -19740,9 +18843,9 @@
           ],
           "valuesByMode": {
             "Dark": {
-              "$value": "{primitive.color.mint.500}",
+              "$value": "{primitive.color.green.500}",
               "aliasTarget": {
-                "id": "color-mint-500",
+                "id": "color-green-500",
                 "mode": "base"
               },
               "resolvedValue": {
@@ -19757,9 +18860,9 @@
               "sourcePath": "semantic.dark.color.switch-on-track"
             },
             "Light": {
-              "$value": "{primitive.color.mint.500}",
+              "$value": "{primitive.color.green.500}",
               "aliasTarget": {
-                "id": "color-mint-500",
+                "id": "color-green-500",
                 "mode": "base"
               },
               "resolvedValue": {

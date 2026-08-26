@@ -32,8 +32,9 @@
         "evidence": "apps/web/components/scenes/appHomeSceneStyles.ts:131 min-[1200px]:[grid-template-columns:repeat(4,_1fr)]. 1440 뷰포트는 1200 이상 1800 미만"
       },
       "gridGap": {
-        "value": 12,
-        "evidence": "appHomeSceneStyles.ts:129 [gap:12px]. DS layout-project-grid-gap과 일치"
+        "value": 4,
+        "evidence": "2026-08-26 갱신 — appHomeSceneStyles.ts archiveGrid 가 `gap-2` 다(--spacing:2px → 4px). 소유자 요청으로 12→4 로 내렸다. 브라우저 실측 /archive 그리드 gap 4px.",
+        "$was": 12
       },
       "sectionPaddingTop": {
         "value": 40,
@@ -44,8 +45,9 @@
         "evidence": "apps/web/components/scenes/AppHomeScene.tsx:1094 aspectRatio: \"1 / 1\""
       },
       "cardRadius": {
-        "value": 16,
-        "evidence": "appHomeSceneStyles.ts archiveCard [border-radius:16px], archivePreview 동일"
+        "value": 12,
+        "evidence": "2026-08-26 갱신 — appHomeSceneStyles.ts:178 `rounded-12`. 카드·배너 곡률을 12 로 통일하면서 16→12. 브라우저 실측 .louis-project-card 12px.",
+        "$was": 16
       },
       "overlayHeightRatio": {
         "value": 0.4,
@@ -90,13 +92,27 @@
         "evidence": "'배너 제목'·'Label'·'배너 설명 한 줄' 같은 컴포넌트 기본 문자열이 화면 템플릿에 남아 있으면 그것은 조립이 끝나지 않은 것이다"
       },
       "cardWidth": {
-        "value": 270,
-        "evidence": "1440 화면에서 본문 폭 1116을 4열 · gap 12로 나눈 값이다. (1116 − 36) / 4 = 270. 카드 폭은 그리드가 정하므로 계약이 아니라 결과다."
+        "value": 276,
+        "evidence": "2026-08-26 갱신 — 본문 폭 1116 을 4열 · gap 4 로 나눈 값이다. (1116 − 3×4) / 4 = 276. gap 이 12→4 로 바뀌어 270→276.",
+        "$was": 270
       },
       "cardHeight": {
-        "value": 270,
-        "evidence": "aspect-ratio 1이라 폭과 같다."
+        "value": 276,
+        "evidence": "2026-08-26 갱신 — aspect-ratio 1 이라 폭과 같다.",
+        "$was": 270
       }
     }
-  }
+  },
+  "$updates": [
+    {
+      "date": "2026-08-26",
+      "why": "제품이 바뀌어 template 계약이 낡았다. 소유자 요청으로 프로젝트 카드 간격을 4, 곡률을 12 로 내렸고 그에 따라 카드 폭이 재계산된다. 낡은 값으로 Figma 를 그리면 제품과 다른 화면을 정본이라고 우기게 된다.",
+      "fields": [
+        "gridGap: 12 → 4",
+        "cardRadius: 16 → 12",
+        "cardWidth: 270 → 276",
+        "cardHeight: 270 → 276"
+      ]
+    }
+  ]
 }

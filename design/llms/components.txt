@@ -367,8 +367,14 @@ focus-visible 링은 브라우저가 그리므로 Figma variant로 두지 않는
   쓰면 중립 표면에서 무너지는데, 그 실측은 [Menu / Popover](../components/menu-popover.md)의 Known deviations에 있다.
 - **고정 높이가 없다.** 높이를 padding과 line-height로 결정하고 44px 타깃은 `louis-hit-target`이
   보장한다. 제품과 픽셀 단위로 맞추려면 control height 토큰이 필요하다(DS-P3-014).
-- **네 variant 전부 WCAG AA에 미달한다.** owner가 제품의 공용 Button을 정본으로 채택했고,
-  그 제품 Button이 네 variant 모두 4.5에 못 미친다. axe 실측값이다.
+- **네 variant 전부 WCAG AA에 미달한다 — owner 가 받아들인 값이다.** owner 가 제품의 공용
+  Button 을 정본으로 채택했고, 그 제품 Button 이 네 variant 모두 4.5 에 못 미친다. axe 실측값이다.
+  2026-08-27 에 랜딩 전 요소를 다시 재면서 `primary` 의 수를 특정했다 — 흰 글자(`#fafafa`)가
+  브랜드 블루(`#0088ff`) 위에서 **3.37:1** 이다. 14px medium 이라 본문 기준 4.5 가 적용되고,
+  큰 글자 기준 3:1 은 넘는다. 4.5 를 넘기려면 브랜드 블루를 **`#0072d6`**(명도 −16%)까지
+  내려야 한다.
+  **owner 판단: 브랜드색을 유지하고 이 편차를 받아들인다.** 다시 제안하지 않는다 — 접근성
+  감사에서 지적되면 그때 브랜드와 함께 다시 본다.
 
   | variant | 전경 | 배경 | 대비 |
   | --- | --- | --- | --- |

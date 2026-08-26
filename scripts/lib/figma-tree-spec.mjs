@@ -15,6 +15,7 @@
 //
 // rect는 **FIXED 축의 크기**와 **검증**에만 쓴다. FILL/HUG 축의 크기는 Figma가 계산하게 둔다.
 
+import { matchTextStyle } from "./figma-louis-styles.mjs";
 import { decideNode, toFigmaSizing, toLayoutMode, parseTracks, px } from "./sizing-provenance.mjs";
 
 const TRANSPARENT = /^(transparent|rgba\(0,\s*0,\s*0,\s*0\))$/;
@@ -136,6 +137,10 @@ export function toFigmaTreeSpec(tree, options = {}) {
       // rect는 FIXED 축 크기와 검증용이다. FILL/HUG 축은 Figma가 계산한다.
       rect: node.rect,
       sizing,
+      // **색·테두리·radius·그림자·불투명도.** 측정에 없는 값은 담지 않는다.
+      paint: paintOf(style),
+      // **타이포.** 텍스트를 직접 가진 노드만. LOUIS 텍스트 스타일 이름으로 바꿔 싣는다.
+      typography: (node.ownText || node.ownTextLines?.length) ? typographyOf(style) : null,
       // **절대 배치는 spec에 반드시 남긴다.** 안 남기면 Figma에서 일반 auto-layout 자식이 되어
       // 흐름에 끼어든다. 실측 사고: `/settings` 사이드바는 `position:fixed`라 흐름에서 빠지고 메인이
       // x=280부터 시작하는데, 이 정보를 잃자 부모가 column이라는 이유로 사이드바 아래에 메인이
@@ -259,6 +264,82 @@ export function cssAlignToFigma(value) {
     case "flex-start": case "start": return "MIN";
     default: return null; // normal/stretch 는 Figma 기본(늘어남)과 같다
   }
+}
+
+/**
+ * CSS 색 → `rrggbb` 또는 `rrggbbaa`(16진). 완전 투명이면 null.
+ * 측정값은 전부 `rgb()`/`rgba()` 형태다(실측 확인).
+ */
+export function cssColorToHex(value) {
+  const match = /^rgba?\(([^)]+)\)$/.exec(String(value ?? "").trim());
+  if (!match) return null;
+  const parts = match[1].split(",").map((part) => Number(part.trim()));
+  const [r, g, b] = parts;
+  if (![r, g, b].every(Number.isFinite)) return null;
+  const alpha = parts.length > 3 && Number.isFinite(parts[3]) ? parts[3] : 1;
+  if (alpha <= 0) return null;
+  const to = (channel) => Math.round(channel).toString(16).padStart(2, "0");
+  return `${to(r)}${to(g)}${to(b)}${alpha >= 0.999 ? "" : to(alpha * 255)}`;
+}
+
+/**
+ * CSS `box-shadow` → Figma DROP_SHADOW/INNER_SHADOW 목록.
+ * 제품이 쓰는 값은 3종뿐이며(실측) 형태는 `<color> x y blur spread [inset]` 이다.
+ * 해석하지 못한 그림자는 **버린다** — 지어내지 않는다.
+ */
+export function parseBoxShadow(value) {
+  if (!value || value === "none") return null;
+  const shadows = [];
+  for (const piece of String(value).split(/,(?![^(]*\))/)) {
+    const raw = piece.trim();
+    if (!raw) continue;
+    const inset = /(^|\s)inset(\s|$)/.test(raw);
+    const colorMatch = /rgba?\([^)]+\)/.exec(raw);
+    const color = colorMatch ? cssColorToHex(colorMatch[0]) : null;
+    if (!color) continue;
+    const numbers = raw.replace(/rgba?\([^)]+\)/, "").replace(/inset/, "")
+      .trim().split(/\s+/).map((token) => px(token)).filter((n) => n != null);
+    if (numbers.length < 2) continue;
+    const [x, y, blur = 0, spread = 0] = numbers;
+    shadows.push({ inset, color, x, y, blur, spread });
+  }
+  return shadows.length ? shadows : null;
+}
+
+/** 면 관련 측정값을 spec 형태로. 그릴 게 하나도 없으면 null. */
+function paintOf(style) {
+  const fill = cssColorToHex(style.backgroundColor);
+  const widths = ["borderTopWidth", "borderRightWidth", "borderBottomWidth", "borderLeftWidth"]
+    .map((axis) => px(style[axis]) ?? 0);
+  // 테두리 색은 지정이 없으면 `currentColor`로 떨어지므로 **두께가 0보다 클 때만** 의미가 있다.
+  const strokeColor = widths.some((width) => width > 0) ? cssColorToHex(style.borderTopColor) : null;
+  const stroke = strokeColor ? { color: strokeColor, widths } : null;
+  const radii = ["borderTopLeftRadius", "borderTopRightRadius", "borderBottomRightRadius", "borderBottomLeftRadius"]
+    .map((axis) => px(style[axis]) ?? 0);
+  const radius = radii.some((value) => value > 0) ? radii : null;
+  const shadow = parseBoxShadow(style.boxShadow);
+  const rawOpacity = Number(style.opacity);
+  const opacity = Number.isFinite(rawOpacity) && rawOpacity < 1 ? rawOpacity : null;
+  if (!fill && !stroke && !radius && !shadow && opacity == null) return null;
+  return { fill, stroke, radius, shadow, opacity };
+}
+
+/**
+ * 타이포 측정값 → LOUIS 텍스트 스타일 이름 + 색.
+ * 스타일이 안 맞으면 `style: null` 로 두고 숫자를 그대로 남긴다 — 렌더러가 직접 세운다.
+ */
+function typographyOf(style) {
+  const size = px(style.fontSize);
+  if (!size) return null;
+  const weight = Number(style.fontWeight) || 400;
+  const lineHeight = style.lineHeight === "normal" ? null : px(style.lineHeight);
+  const letterSpacing = style.letterSpacing === "normal" ? 0 : (px(style.letterSpacing) ?? 0);
+  return {
+    style: matchTextStyle({ size, weight, lineHeight, letterSpacing }),
+    size, weight, lineHeight, letterSpacing,
+    color: cssColorToHex(style.color),
+    align: /^(center|right|justify)$/.test(style.textAlign ?? "") ? style.textAlign : null,
+  };
 }
 
 /** grid 컨테이너의 열 개수 — 선언을 먼저 보고, 없으면 computed의 px 트랙을 센다. */

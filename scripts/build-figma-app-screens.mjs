@@ -73,6 +73,40 @@ const SIZING_CODE = (verdict) => {
   return code;
 };
 
+/**
+ * 색·타이포 축약 키.
+ *   f — 배경 채움 hex           b — 테두리 [hex, top, right, bottom, left]
+ *   d — radius(4모서리가 같으면 숫자 하나)  e — 그림자 [[inset,hex,x,y,blur,spread], …]
+ *   a — 불투명도                y — LOUIS 텍스트 스타일 이름(문자열) 또는 [size,weight,lineHeight,tracking]
+ *   tc — 글자색 hex             ta — 정렬
+ */
+const paintKeys = (node) => {
+  const paint = node.paint;
+  if (!paint) return {};
+  const radius = paint.radius && paint.radius.every((value) => value === paint.radius[0])
+    ? paint.radius[0] : paint.radius;
+  return {
+    ...(paint.fill ? { f: paint.fill } : {}),
+    ...(paint.stroke ? { b: [paint.stroke.color, ...paint.stroke.widths.map(round)] } : {}),
+    ...(radius ? { d: Array.isArray(radius) ? radius.map(round) : round(radius) } : {}),
+    ...(paint.shadow ? { e: paint.shadow.map((shadow) =>
+      [shadow.inset ? 1 : 0, shadow.color, round(shadow.x), round(shadow.y), round(shadow.blur), round(shadow.spread)]) } : {}),
+    ...(paint.opacity != null ? { a: round(paint.opacity) } : {}),
+  };
+};
+
+const typographyKeys = (node) => {
+  const typography = node.typography;
+  if (!typography) return {};
+  return {
+    y: typography.style
+      ? typography.style
+      : [round(typography.size), typography.weight, round(typography.lineHeight ?? 0), round(typography.letterSpacing ?? 0)],
+    ...(typography.color ? { tc: typography.color } : {}),
+    ...(typography.align ? { ta: typography.align } : {}),
+  };
+};
+
 const slim = (node) => ({
   t: node.tag,
   ...(node.text ? { x: node.text } : {}),
@@ -102,6 +136,10 @@ const slim = (node) => ({
   ...(node.clipsContent ? { c: 1 } : {}),
   // 셸 자리는 자식 대신 컴포넌트 variant 참조만 싣는다.
   ...(node.instance ? { i: [node.instance.set, node.instance.variant] } : {}),
+  // **인스턴스에는 색·타이포를 싣지 않는다.** 컴포넌트가 이미 제 색을 갖고 있고,
+  // 덮어쓰면 디자인 시스템 쪽 수정이 화면에 전파되지 않는다.
+  ...(node.instance ? {} : paintKeys(node)),
+  ...(node.instance ? {} : typographyKeys(node)),
   ...(node.children.length ? { k: node.children.map(slim) } : {}),
 });
 const round = (value) => Math.round((value ?? 0) * 100) / 100;
@@ -120,7 +158,10 @@ const round = (value) => Math.round((value ?? 0) * 100) / 100;
  * **반드시 축약(slim) 후 크기로 재야 한다.** plan.json의 spec은 판정 근거(`why`) 등 감사 필드를 달고
  * 있어 60~168KB지만 축약 후에는 4~14KB다. 감사본 크기로 예산을 재면 과분할된다(실패한 첫 시도).
  */
-const CHUNK_BUDGET = 3200; // 렌더러 코드(~3KB)와 합쳐 한계 아래로 들어가는 축약 spec 예산
+// 렌더러 코드(~9KB)와 합쳐 `use_figma` 파서 한계 아래로 들어가는 축약 spec 예산.
+// 실측: 20.7KB 페이로드(6화면 묶음)가 통과했다. 예전에 3200으로 잡았던 건 전사 오류를 파서 한계로
+// 오해했기 때문이다 — 실제 한계는 훨씬 높다. 조각이 적을수록 적용 호출 수가 줄어든다.
+const CHUNK_BUDGET = 9000;
 const slimBytes = (node) => JSON.stringify(node).length;
 
 function splitSpec(slimRoot, budget = CHUNK_BUDGET) {
@@ -163,6 +204,7 @@ let totalNodes = 0;
 let totalUnresolved = 0;
 let totalShells = 0;
 let totalShellGaps = 0;
+const paintStats = { fills: 0, strokes: 0, radii: 0, shadows: 0, texts: 0, textStyled: 0, textLiteral: new Set() };
 
 for (const screen of SCREENS) {
   for (const context of CONTEXTS) {
@@ -186,6 +228,21 @@ for (const screen of SCREENS) {
     totalUnresolved += stats.unresolved.length;
     totalShells += shells.applied.length;
     totalShellGaps += shells.skipped.length;
+    // 이관 커버리지 — 숫자로 판정할 수 있어야 "이관이 됐다"고 말할 수 있다.
+    const tally = (spec) => {
+      if (spec.instance) return;
+      if (spec.paint?.fill) paintStats.fills += 1;
+      if (spec.paint?.stroke) paintStats.strokes += 1;
+      if (spec.paint?.radius) paintStats.radii += 1;
+      if (spec.paint?.shadow) paintStats.shadows += 1;
+      if (spec.typography) {
+        paintStats.texts += 1;
+        if (spec.typography.style) paintStats.textStyled += 1;
+        else paintStats.textLiteral.add(`${spec.typography.size}/${spec.typography.weight}/${spec.typography.lineHeight}/${spec.typography.letterSpacing}`);
+      }
+      for (const child of spec.children ?? []) tally(child);
+    };
+    tally(spec);
 
     screens.push({
       route: screen.route,
@@ -216,6 +273,7 @@ const plan = {
   totalUnresolved,
   totalShellInstances: totalShells,
   totalShellGaps,
+  paint: { ...paintStats, textLiteral: [...paintStats.textLiteral].sort() },
   screens,
 };
 
@@ -290,5 +348,5 @@ if (checkOnly) {
 
 console.log(
   `[figma-app-screens] ${checkOnly ? "checked" : "built"} @ ${fixture.productCommit.slice(0, 8)}: ` +
-  `${screens.length} screens · ${totalNodes} nodes · UNRESOLVED ${totalUnresolved} · 셸 인스턴스 ${totalShells} (공백 ${totalShellGaps}) · 런너 ${SCREENS.length}개`,
+  `${screens.length} screens · ${totalNodes} nodes · UNRESOLVED ${totalUnresolved} · 인스턴스 ${totalShells}(공백 ${totalShellGaps}) · 면 ${paintStats.fills}/${paintStats.strokes}/${paintStats.radii}/${paintStats.shadows} · 텍스트 ${paintStats.textStyled}/${paintStats.texts} 스타일 매칭 · 런너 ${SCREENS.length}개`,
 );

@@ -79,7 +79,7 @@ BOOLEAN 이 못 그리는 조건은 **그 조건 이름을 그대로 쓰는 2값
 Switch 의 `Checked` 와 SidebarNavItem 의 `Collapsed` 가 이미 그렇게 서 있고, 이 표가 그것을
 인정하지 않고 있었을 뿐이다.
 
-**현재 열려 있는 조건 축 이름은 여섯이다.**
+**현재 열려 있는 조건 축 이름은 일곱이다.**
 
 | 조건 축 | 어디에 | 왜 BOOLEAN 이 아닌가 |
 | --- | --- | --- |
@@ -89,9 +89,22 @@ Switch 의 `Checked` 와 SidebarNavItem 의 `Collapsed` 가 이미 그렇게 서
 | `Expanded` | 여닫이 | 아이콘이 남은 채로 돌고 여닫이에 전이가 걸린다(시험 1·3) |
 | `Featured` | 목록 안의 대표 항목 | 프레임 고정 크기가 바뀐다(시험 2) |
 | `Collapsed` | 접히는 내비 | 라벨이 사라지고 프레임 폭이 다시 쓰인다(시험 1·2) |
+| `Loading` | 작업이 도는 동안 자리를 여는 라벨 | 프레임이 자기 `itemSpacing` 을 다시 쓰고 두 조건 사이에 전이가 걸린다(시험 2·3) |
 
-이 여섯 밖의 조건 이름을 쓰려면 이 표를 먼저 늘린다. `Current` 는 `Selected` 의 두 번째
+이 일곱 밖의 조건 이름을 쓰려면 이 표를 먼저 늘린다. `Current` 는 `Selected` 의 두 번째
 어휘이므로 **쓰지 않는다** — 같은 뜻에 이름이 둘이면 두 벌이 된다.
+
+**`Loading` 은 2026-08-27 에 열렸다.** 근거는 InlineLoadingLabel 실측이다 — 네 변형의 되읽기에서
+프레임 `itemSpacing` 이 닫힘 0, 열림 md 6 · sm 4 로 **프레임 자신이 자기 값을 다시 쓴다**(시험 2).
+자식이 감춰져 오토레이아웃이 줄어드는 정상 결과와 다르다. 여기에 제품이 폭·왼쪽 여백·불투명도·
+scale 넷을 200ms · 180ms 로 전이시키므로 닫힘과 열림 사이에 Smart Animate 가 필요하고(시험 3),
+두 조건에서 **보이는 텍스트 프로퍼티가 서로 다르다**(`Label` ↔ `LoadingLabel`) — BOOLEAN 에는
+반대 가시성을 묶을 부정이 없다.
+
+**이름이 열렸다는 것이 「`Loading` 은 늘 축」이라는 뜻은 아니다.** 이 표는 **어휘**를 여는 것이고,
+축이냐 BOOLEAN 이냐는 컴포넌트마다 네 시험이 정한다. 라벨을 감추고 스피너를 보이기만 하고
+프레임이 자기 값을 다시 쓰지 않으면 그 자리는 여전히 BOOLEAN 이다 — Button 이 그 판정을 아직
+받지 않았다(아래 「이 개정이 남긴 결손」 3).
 
 ### 조건을 `State` 값으로 접어도 되는 때
 
@@ -143,7 +156,7 @@ MediaCard 는 고정 토큰(`media-foreground-dark`)을 쓰지만 갈래가 하�
 | `Checked` · `Indeterminate` | `Checked` **조건 축**(Checkbox 는 `false`·`true`·`indeterminate` 3값). BOOLEAN 불가 — 면과 글리프가 바뀐다 |
 | `Selected` · `Current` | `Selected`. **접기 시험**을 먼저 적용한다 — 상호작용이 흡수되면 `State` 값으로 남기고, 아니면 조건 축. `Current` 어휘는 폐기 |
 | `Invalid` | `Invalid` **조건 축**. BOOLEAN 불가 — stroke 색이 바뀐다. Focus 와 동시에 서므로 접히지 않는다 |
-| `Loading` | 라벨을 감추고 스피너를 보이는 것뿐이면 BOOLEAN 이 맞다. Button 은 지금 `State` 값으로 갖고 있고 **그 상태에서 padding·gap 이 그대로인지 대조하지 않았다** — 결손 |
+| `Loading` | 라벨을 감추고 스피너를 보이는 것뿐이면 BOOLEAN 이 맞다. gap 이 다시 쓰이면 `Loading` **조건 축**이다 — 2026-08-27 InlineLoadingLabel 실측으로 그 이름이 명부에 올랐다. Button 은 지금 `State` 값으로 갖고 있고 **그 상태에서 padding·gap 이 그대로인지 대조하지 않았다** — 결손 |
 | `Danger` · `DangerHover` | `Variant=danger` × `State=Hover` |
 | `Pressed` | Button 에는 없다 — `:active` 는 `Active` 다 |
 | `determinate` · `indeterminate` | `Mode` 축. 소문자 값이 PascalCase 축에 섞여 있는 것도 함께 고친다 |
@@ -191,6 +204,10 @@ Slider 의 `thumb`/`track` 이 `Variant` 축에 들어가 있다. 부품은 vari
    세우는 작업, 그리고 그 컴포넌트를 쓰는 인스턴스의 재바인딩이 남는다.
 3. **Button `Loading` 이 가시성만 바꾸는지 대조하지 않았다.** 라벨을 감추고 스피너를 보이는
    것뿐이면 BOOLEAN 이 맞지만, 그 상태에서 padding·gap 이 다시 쓰이는지 확인하지 않았다.
+   **이 결손은 2026-08-27 에도 남아 있다.** 같은 날 InlineLoadingLabel 이 `Loading` 을 조건 축
+   명부에 올렸지만 그것은 **그 컴포넌트의 실측**(프레임 `itemSpacing` 0 ↔ 6·4)에서 나온 판정이고,
+   Button 의 되읽기에는 `State=Loading` 의 padding·gap 이 담겨 있지 않다. 이름이 열린 것을 Button
+   판정으로 읽지 마라.
 4. **`Mode` 축의 값 명부가 ProgressBar 하나에서 나왔다.** 두 번째 소비처가 생기기 전까지
    `determinate`·`indeterminate` 밖의 값은 근거가 없다. 그리고 Switch 는 `Disabled` 를 조건
    축으로 갖고 `State` 축이 아예 없다 — 상호작용 상태는 `State` 가 소유하므로 어긋나지만,

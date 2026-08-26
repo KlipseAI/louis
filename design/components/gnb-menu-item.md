@@ -23,7 +23,7 @@ summary: 랜딩 상단 내비게이션의 가운데 메뉴를 이루는 알약�
 **그 조형이 접근성 결함 하나를 숨겼다.** 색만 훑으면 두 톤 모두 팔레트 양 끝(`#171b22` ·
 `#fafafa`)이라 통과처럼 보인다. 조상까지의 요소 불투명도를 글자 알파에 곱해 재야 밝은 면 위
 기본 상태가 AA 미달이라는 것이 드러나고, 제품은 그래서 시안 값 0.50 을 **0.65** 로 올렸다.
-**Figma 는 아직 0.50 을 그리고 있다**(Known deviations 1).
+Figma 도 같은 작업에서 0.65(hover 0.80)로 맞췄다 — 세 곳이 같은 값이다.
 
 **톤은 테마가 아니라 「내 밑에 깔린 면」이다.** `html[data-theme]` 이 아니라 GNB 아래에 지금
 무엇이 깔려 있는지가 잉크를 정한다 — 라이트 테마의 랜딩 안에도 어두운 사진 밴드가 있고
@@ -39,7 +39,7 @@ summary: 랜딩 상단 내비게이션의 가운데 메뉴를 이루는 알약�
 | Web           | `not-ready`    | 제품 구현이 정본이고 소비처는 랜딩 GNB 한 자리(같은 파일 안 네 갈래)다. **LOUIS 표면은 0** — CSS 레시피도 React export 도 없고 acceptance test 도 0건이다                                                |
 | Figma         | `partial`      | `GnbMenuItem` 8 variant(`Surface` × `State`) + `Label` TEXT. parity 게이트가 대조하는 것은 속성 축 셋 · raw fill·stroke 0 · 스타일 없는 텍스트 0 · stroke 없음 · effect 없음 · set 설명 유무 · 프레임 밖 넘침 0 · 광학 중앙 이탈 0 이다. **기하도 불투명도도 대조하지 않는다** — `figma/components.measured.json` 에 항목이 없고 되읽기가 opacity 를 담지 않는다 |
 | Documentation | `done`         | 이 문서                                                                                                                                                                                                  |
-| Maturity      | `experimental` | 되읽기와 문서가 방금 처음 섰다. Figma 의 0.50 을 0.65 로 고치고 LOUIS recipe 가 서면 승격한다                                                                                                            |
+| Maturity      | `experimental` | 되읽기와 문서가 방금 처음 섰다. LOUIS recipe 가 서고 라벨 굵기 대조가 붙으면 승격한다                                                                                                            |
 
 ## When to use
 
@@ -214,10 +214,12 @@ Figma 의 축은 이것과 이렇게 대응한다.
 
 ## Known deviations
 
-1. **Figma 가 아직 0.50 을 그리고 있다.** 제품은 밝은 면 위 `State=Default` 를 **0.65** 로
-   올렸다 — 0.50 에서는 `palette-gray-900` 이 랜딩 바닥과 AA 미달이었고, 누를 수 있는 링크라
-   비활성 면제 대상이 아니기 때문이다(Accessibility). 어두운 면 0.70 은 그대로다.
-   **결손: Figma `Surface=light` · `State=Default` 의 불투명도를 0.65 로 고쳐야 한다.**
+1. **시안 값 0.50 을 버렸다.** 밝은 면 위 `State=Default` 는 세 곳 모두 **0.65**(hover 0.80)다 —
+   0.50 에서는 `palette-gray-900` 이 랜딩 바닥과 **3.23:1** 로 AA 미달이었고, 누를 수 있는
+   링크라 비활성 면제 대상이 아니기 때문이다(Accessibility). 어두운 면은 0.70 / 0.90 그대로다 —
+   같은 불투명도라도 흰 잉크는 검은 바닥에서 9.57:1 이라 무너지지 않는다.
+   시안(Page 14 "New Klipse")만 0.50 으로 남아 있고, **고칠 대상은 제품·LOUIS·Figma 가 아니라
+   시안 프레임이다.**
    더 나쁜 것은 **어떤 게이트도 이 어긋남을 잡지 못한다**는 사실이다 — 되읽기가 opacity 를
    담지 않아 parity 계약에 적을 자리가 없다. 되읽기에 불투명도 축을 더하는 것이 이 컴포넌트의
    승격 조건이다.
@@ -282,10 +284,10 @@ Figma 의 축은 이것과 이렇게 대응한다.
    않는다** — 되읽기가 스타일 이름을 담지 않는다(Known deviations 10).
 5. 잉크가 `color/palette-gray/900` 과 `color/palette-gray/000` 에서만 온다 — 시맨틱 `gray-*`
    램프를 쓰지 않는다.
-6. `Surface=light` · `State=Default` 의 불투명도가 **0.65** 다. (지금은 0.50 이라 **실패한다** —
-   Known deviations 1.)
-7. `Surface=dark` · `State=Default` 가 0.70, Hover 가 각각 0.80 · 0.90, Selected 가 두 면 모두
-   1.00, Disabled 가 두 면 모두 0.40 이다.
+6. `Surface=light` 의 불투명도가 `State=Default` 0.65 · `State=Hover` 0.80 이다 —
+   시안의 0.50 / 0.70 이 아니다(Known deviations 1).
+7. `Surface=dark` 의 불투명도가 `State=Default` 0.70 · `State=Hover` 0.90 이고, `Selected` 는
+   두 면 모두 1.00, `Disabled` 는 두 면 모두 0.40 이다.
 8. Figma 되읽기에서 raw fill · raw stroke · 스타일 없는 텍스트가 각각 0 이다.
 9. 제품에서 라우트 항목이 `aria-current="page"` 를, 인페이지 앵커가 `aria-current="location"`
    을 갖는다.

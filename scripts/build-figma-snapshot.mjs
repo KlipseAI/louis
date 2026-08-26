@@ -84,6 +84,13 @@
 //
 //       binding은 set 자신의 노드만 센다. 완전히 투명한 fill(opacity 0)은 색이 아니므로 rawFills에
 //       세지 않는다 — Figma 배경 흐림이 렌더되려면 그 층에 fill이 있어야 하기 때문에 생기는 것이다.
+//
+//       **그라디언트는 paint가 아니라 stop 단위로 센다.** 그라디언트 paint에는 `boundVariables.color`가
+//       아예 없어서 paint 단위로 세면 어떤 그라디언트든 raw로 잡힌다. 실제로 확인해야 하는 것은
+//       「보이는 색이 토큰에서 왔는가」이므로, **알파가 0보다 큰 stop 중 변수에 묶이지 않은 것**만
+//       센다. 알파 0 stop은 위와 같은 이유로 세지 않는다 — 파일에 알파 0인 색 변수가 하나도 없어
+//       묶을 대상 자체가 없고, 그 stop은 색을 나르지 않는다(VideoPlayer default 스킨의 하단
+//       그라디언트가 이 경우다).
 import { readFileSync, writeFileSync } from "node:fs";
 import { createHash } from "node:crypto";
 import { fileURLToPath } from "node:url";

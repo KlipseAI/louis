@@ -307,6 +307,57 @@ const COMPONENT_CONTRACTS = [
       extraStrokeWeights: [],
     },
   },
+  // ── 코드가 정본이고 LOUIS recipe 가 아직 없는 것 ──────────────────────────
+  // 제품 구현이 이미 있고 소비처도 여덟인데 DS 에는 없던 자리다. Figma 를 먼저 세워
+  // 「무엇을 만들어야 하는지」를 고정한다. 대조할 `.d.ts` 가 없으므로 declaration 을 읽지 않는다.
+  {
+    id: "video-player",
+    figmaName: "MediaScrubber",
+    figmaAhead: "LOUIS recipe 없음 — apps/web/components/ui/VideoPlayer.tsx 의 진행 바가 정본이다.",
+    variantProperties: {},
+    figmaOnlyProperties: {
+      State: {
+        options: ["Default", "Hover"],
+        reason:
+          "hover 에서 트랙이 3→5 로 두꺼워지고 썸이 scale(0)→scale(1) 로 나타난다. **포인터 이벤트를 바깥 wrapper 하나가 소유**하므로(VideoPlayer.tsx:846-853) 프로토타입도 여기 걸린다. 드래그 전용 상태는 코드에 없다 — dragging state 가 CSS 에 반영되지 않는다.",
+      },
+    },
+    strokes: {},
+    effects: {},
+  },
+  {
+    id: "video-player",
+    figmaName: "VideoPlayer",
+    figmaAhead: "LOUIS recipe 없음 — 제품 VideoPlayer.tsx 가 정본이고 소비처가 8곳이다.",
+    variantProperties: {},
+    // **스킨 축이 없다.** 제품에 두 벌이 있었고 그중 한 벌만 여덟 자리 중 일곱에서 쓰였다 —
+    // 나머지 한 자리(PublishFlow)도 같은 조형으로 통합해 지금은 플레이어가 하나다.
+    figmaOnlyProperties: {
+      Chrome: {
+        options: ["Shown", "Hidden"],
+        reason: "컨트롤의 opacity 와 pointer-events. 유리 알약의 blur 반경(0↔2px)까지 함께 바뀌어 색 축이 아니다.",
+      },
+      Tone: {
+        options: ["dark", "bright"],
+        reason:
+          "**유리 틴트는 두 톤 모두 검정 계열이고 글자·아이콘 색만 뒤집힌다**(VideoPlayer.tsx:72-78). 알약이 밝아 보이는 것은 뒤의 밝은 영상이 검정 틴트를 통과한 합성 결과다 — 틴트를 흰색으로 만들면 원본과 달라진다.",
+      },
+      SkipButtons: { type: "BOOLEAN", reason: "스킵 버튼 두 개의 유무. **기본이 꺼짐이다** — 소비처 8곳 중 켜는 곳이 둘뿐이다." },
+      ExpandButton: { type: "BOOLEAN", reason: "확대 버튼의 유무. 8곳 중 3곳만 쓴다." },
+      DownloadButton: { type: "BOOLEAN", reason: "다운로드 버튼의 유무. PublishFlow 하나만 쓴다 — 기본은 꺼짐이다." },
+      PlayGlyph: { type: "INSTANCE_SWAP", reason: "재생·일시정지 글리프를 바꿔 끼운다." },
+    },
+    // 스킵·확대 글리프는 라이브러리에 없어 벡터로 그렸다. 두께는 아이콘 정본을 따른다.
+    strokes: { Vector: { weight: "icon", align: "CENTER" } },
+    // 유리 알약 다섯이 같은 헤어라인을 쓴다 — Button secondary 와 같은 레시피다.
+    effects: {
+      "Skip back 10s": "INNER_SHADOW:0:0:0.5",
+      Play: "INNER_SHADOW:0:0:0.5",
+      "Skip forward 10s": "INNER_SHADOW:0:0:0.5",
+      "Progress pill": "INNER_SHADOW:0:0:0.5",
+      Expand: "INNER_SHADOW:0:0:0.5",
+    },
+  },
   // ── CSS 레시피는 있고 React 표면이 없는 것들 ────────────────────────────────
   // LOUIS 가 CSS 로 정의해 두고 **Figma 에도 문서에도 없던** 다섯이다(2026-08-26 확인).
   // 시스템이 정의한 것을 디자이너가 볼 수 없으면 정의하지 않은 것과 같아서, Figma 를 먼저

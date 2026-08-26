@@ -518,6 +518,15 @@
       "generated": false
     },
     {
+      "id": "video-player",
+      "path": "design/components/video-player.md",
+      "title": "Video Player",
+      "section": "components",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
+    },
+    {
       "id": "patterns-overview",
       "path": "design/patterns/README.md",
       "title": "Patterns",
@@ -1106,7 +1115,8 @@
         "design/components/switch.md",
         "design/components/node-chip.md",
         "design/components/tabs.md",
-        "design/components/table.md"
+        "design/components/table.md",
+        "design/components/video-player.md"
       ]
     },
     {
@@ -1549,6 +1559,20 @@
       "note": "public export와 실브라우저 acceptance test 12건. Figma component set 4 variant(Side). 표면이 페이지와 반전된다 — 제품 공용 SSOT에서 채택했다. 그룹 지연 건너뛰기와 arrow가 남음",
       "doc": "design/components/tooltip.md",
       "figmaName": "Tooltip"
+    },
+    {
+      "id": "video-player",
+      "name": "Video Player",
+      "maturity": "experimental",
+      "figma": "partial",
+      "web": "partial",
+      "docs": "done",
+      "note": "제품 구현(VideoPlayer.tsx)이 정본이고 소비처가 8곳이다. LOUIS recipe 는 아직 없다 — Figma 가 코드보다 앞서 있는 자리다. **스킨 축을 없앴다** — 두 벌 중 하나만 8곳 중 7곳에서 쓰였고 나머지 한 자리도 같은 조형으로 통합했다(제품·Figma 동시 반영). Figma 는 둘로 나뉜다: 포인터 이벤트를 혼자 소유하는 MediaScrubber(2 variant, ON_HOVER 프로토타입)와 그것을 조립하는 VideoPlayer(4 variant, Chrome × Tone). tone=bright 가 유리 틴트가 아니라 잉크만 뒤집는다는 함정을 문서에 적어 두었다.",
+      "doc": "design/components/video-player.md",
+      "figmaNames": [
+        "MediaScrubber",
+        "VideoPlayer"
+      ]
     }
   ],
   "patterns": [

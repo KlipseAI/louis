@@ -4,7 +4,7 @@
 
 - System maturity: experimental
 - Coverage: exhaustive
-- Documents: 41
+- Documents: 42
 - Purpose: 개발, 콘텐츠, 거버넌스와 adoption 계약
 
 ## Sources
@@ -16,6 +16,7 @@
 - design/governance/contributing.md
 - design/governance/operating-model.md
 - design/governance/figma-sync.md
+- design/governance/figma-component-authoring.md
 - design/governance/figma-screen-assembly.md
 - design/governance/migration.md
 - design/governance/roadmap.md
@@ -115,7 +116,7 @@ Figma library는 아직 `not-ready`다. 시스템 전체 maturity도 `experiment
 | 항목 | 현재 값 |
 | --- | --- |
 | System maturity | `experimental` |
-| Normative documents | 86 |
+| Normative documents | 87 |
 | Generated documents | 5 |
 | Components | 21 |
 | Patterns | 8 |
@@ -596,6 +597,123 @@ P2 private release-candidate와 proposal만으로는 `figma: not-ready`를 유�
 
 credential이나 plugin session이 없는 CI에서도 catalog가 정직해야 하므로, Figma 연결 실패를
 `done`으로 캐시하지 않는다.
+
+## Figma 컴포넌트 작성 규범
+
+- Source: design/governance/figma-component-authoring.md
+- Maturity: experimental
+
+### Figma 컴포넌트 작성 규범
+
+Figma 컴포넌트를 만들거나 고칠 때 지키는 규칙. 기준선은 이미 만들어진 26개가 실측으로 보여 준
+수준이고(2026-08-26 `figma/readback.json` 되읽기), 이 문서는 그 수준을 규칙으로 굳히고
+**어휘가 무너진 곳을 바로잡는다.**
+
+정본은 저장소다([DS-D-0025](../governance/decisions/DS-D-0025-figma-as-projection.md)). 여기 적힌 것은
+그 정본을 Figma 컴포넌트로 투영하는 방법이다. 컬렉션 구조는
+[DS-D-0007](../governance/decisions/DS-D-0007-figma-library-structure.md)이 소유한다.
+
+#### 1. 원시값 0 — 타협 없음
+
+되읽기가 내는 세 수가 **전부 0**이어야 한다.
+
+| 지표 | 뜻 | 현재 |
+| --- | --- | ---: |
+| `rawFills` | 변수에 안 묶인 채움 | 0 ✅ |
+| `rawStrokes` | 변수에 안 묶인 선 | 0 ✅ |
+| `textUnstyled` | 텍스트 스타일 없는 텍스트 노드 | **3** ❌ |
+
+색·선은 변수, 타이포는 text style, 그림자는 effect style에 묶는다. 값을 손으로 적으면 정본이
+바뀌어도 Figma가 따라오지 않는다 — projection 이라는 전제가 그 순간 깨진다.
+
+`textUnstyled: 3`은 갚아야 할 빚이다. 새 컴포넌트에서는 0을 지킨다.
+
+#### 2. 축 어휘는 닫혀 있다
+
+축 이름은 PascalCase. **아래 표에 없는 축을 새로 만들려면 이 문서를 먼저 고친다.**
+
+| 축 | 허용값 | 무엇을 담나 |
+| --- | --- | --- |
+| `Size` | `sm` · `md` · `lg` | 밀도. **`compact`/`medium`/`large`는 폐기** — 같은 뜻을 두 어휘로 부르면 두 벌이 된다 |
+| `Variant` | `primary` · `secondary` · `ghost` · `danger` · `inverse` | **강조 단계만.** 부품 이름을 넣지 않는다 |
+| `Tone` | `neutral` · `info` · `success` · `warning` · `danger` | **의미 톤만.** 밝기(`bright`/`dark`)는 톤이 아니다 — 모드나 별도 축으로 뺀다 |
+| `State` | `Default` · `Hover` · `Pressed` · `Focus` · `Disabled` | **상호작용 상태만** |
+
+##### State 에 넣지 않는 것
+
+지금 `State` 축에 16개 값이 뭉쳐 있다 — 상호작용 상태에 의미 상태·톤·진행 모드가 섞였다.
+섞으면 조합이 곱해지고, 「Checked 이면서 Hover」 같은 실재하는 조합을 표현할 수 없게 된다.
+
+| 지금 State 에 있는 것 | 옮길 곳 |
+| --- | --- |
+| `Checked` · `Indeterminate` | `Checked` BOOLEAN 또는 3값 축 |
+| `Selected` · `Current` | `Selected` BOOLEAN |
+| `Invalid` | `Invalid` BOOLEAN |
+| `Loading` | `Loading` BOOLEAN |
+| `Danger` · `DangerHover` | `Variant=danger` × `State=Hover` |
+| `determinate` · `indeterminate` | `Mode` 축 |
+
+##### 해부 구조는 variant 가 아니다
+
+Slider 의 `thumb`/`track` 이 `Variant` 축에 들어가 있다. 부품은 variant 가 아니라 **부품**이다 —
+한 컴포넌트 안의 레이어이거나 별도 컴포넌트다. variant 로 두면 「thumb 이면서 primary」 같은
+무의미한 조합이 생긴다.
+
+#### 3. 슬롯은 컴포넌트 프로퍼티로
+
+variant 로 만들지 않는다. 슬롯을 variant 축에 넣으면 조합이 2배씩 늘어난다.
+
+| 용도 | 타입 | 이름 관례 |
+| --- | --- | --- |
+| 있고 없고 | `BOOLEAN` | `Icon` · `Dot` · `Prefix` · `Suffix` · `LeftIcon` · `RightIcon` |
+| 아이콘 교체 | `INSTANCE_SWAP` | `Glyph` · `IconGlyph` · `PrefixGlyph` · `{Position}Glyph` |
+| 문구 | `TEXT` | `Label` · `Title` · `Description` · `Message` · `Meta` |
+
+BOOLEAN 과 INSTANCE_SWAP 은 짝으로 낸다 — `Icon`(있고 없고) + `IconGlyph`(무엇을).
+
+#### 4. 라이트/다크는 모드로만
+
+컴포넌트를 두 벌 만들지 않는다. `Klipse Semantic Color` 의 `Light`/`Dark` 모드에 묶으면 한 벌로
+양쪽이 나온다. 다크 전용 컴포넌트가 생겼다면 그건 토큰이 부족하다는 신호다.
+
+#### 5. 조합 예산
+
+`variantCount` 는 축의 곱이다. Button 은 4 × 2 × 5 = 40 으로 현재 최대다.
+
+**40을 넘기려면 축을 하나 슬롯으로 내릴 수 있는지 먼저 검토한다.** 넘겨야 한다면 컴포넌트
+description 에 이유를 적는다. 조합이 늘면 유지 비용이 곱으로 늘고, 실제로 쓰이지 않는 조합이
+정본인 척 남는다.
+
+#### 6. 설명은 필수
+
+26/26 이 description 을 갖고 있다. 이 비율을 100% 로 유지한다. 설명에는 셋을 적는다.
+
+1. 무엇인가 — 한 줄
+2. 언제 쓰나 / 언제 쓰지 않나 (혼동하기 쉬운 이웃 컴포넌트를 지목한다)
+3. 제품 정본 — 어느 화면·상수에서 왔는지
+
+#### 7. 오토레이아웃과 크기
+
+- 컨테이너는 오토레이아웃으로 만든다. 절대 좌표로 자식을 놓지 않는다.
+- HUG/FILL 은 CSS 를 따른다 — `inline-size: 100%` → FILL, 선언 없음 → HUG.
+- **CSS 에 없는 고정 폭을 지어내지 않는다.** 근거가 없으면 비워 두고
+  `figma/components.measured.json` 의 `$whyNotTextWidth` 방침을 따른다.
+
+#### 8. 작업 순서 — 부품 먼저, 조립은 그다음
+
+화면부터 그리지 않는다. **제품의 디자인 요소를 먼저 컴포넌트로 만들고, 그 인스턴스로 화면을
+조립한다.** 화면을 먼저 그리면 같은 버튼이 화면 수만큼 복제되고, 그때 가서 컴포넌트로 묶으려면
+전부 다시 만져야 한다.
+
+순서: 원시 토큰 → 컴포넌트(Button·IconButton·TextField…) → 조합 컴포넌트 → 화면 조립.
+
+#### 9. 검증
+
+컴포넌트를 만들거나 고친 뒤 `pnpm run verify-figma-parity` 를 돌린다. 되읽기(`figma:fetch`)로
+`readback.json` 을 갱신하고 snapshot 을 재생성해야 그 게이트가 새 컴포넌트를 본다.
+
+**게이트가 green 이라고 이 문서를 지켰다는 뜻은 아니다** — parity 는 값이 코드와 같은지만 보고,
+축 어휘와 슬롯 설계는 보지 않는다. 그 둘은 리뷰로 지킨다.
 
 ## Figma Screen Assembly
 

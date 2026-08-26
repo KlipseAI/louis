@@ -119,9 +119,9 @@ Figma library는 아직 `not-ready`다. 시스템 전체 maturity도 `experiment
 | 항목 | 현재 값 |
 | --- | --- |
 | System maturity | `experimental` |
-| Normative documents | 95 |
+| Normative documents | 100 |
 | Generated documents | 5 |
-| Components | 25 |
+| Components | 30 |
 | Patterns | 8 |
 | Web done | 0 |
 | Token artifacts done | 6/6 |
@@ -979,6 +979,9 @@ Button 은 `border: 0` 이고 헤어라인은 레이아웃을 건드리지 않�
 
 - `setProperties` 로 글리프를 바꿀 때 **컴포넌트 key 가 아니라 노드 id** 를 넘긴다.
   key 를 넘기면 `Property value is incompatible with component property type` 이 난다.
+- **`addComponentProperty` 의 기본값도 같다** — `INSTANCE_SWAP` 축을 만들 때 넘기는 기본값이
+  노드 id 여야 하고 key 를 넘기면 같은 오류가 난다(2026-08-26 Alert 작성 중 확인, 두 형태를
+  나란히 시도해 대조했다). 스크립트는 원자적이라 이 한 줄에서 전체가 되돌려진다.
 - `preferredValues` 가 비어 있으면 **인스턴스에서 아이콘을 고를 수가 없다.** 스왑 목록이 안 뜬다.
   `editComponentProperty(key, { preferredValues })` 로 아이콘 컴포넌트를 채운다. 이때는 반대로
   `{type:"COMPONENT", key}` 형태의 **key** 를 쓴다. 둘이 다르다는 것을 기억할 것.

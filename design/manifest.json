@@ -473,6 +473,51 @@
       "generated": false
     },
     {
+      "id": "alert",
+      "path": "design/components/alert.md",
+      "title": "Alert",
+      "section": "components",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
+    },
+    {
+      "id": "switch",
+      "path": "design/components/switch.md",
+      "title": "Switch",
+      "section": "components",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
+    },
+    {
+      "id": "node-chip",
+      "path": "design/components/node-chip.md",
+      "title": "Node Chip",
+      "section": "components",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
+    },
+    {
+      "id": "tabs",
+      "path": "design/components/tabs.md",
+      "title": "Tabs",
+      "section": "components",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
+    },
+    {
+      "id": "table",
+      "path": "design/components/table.md",
+      "title": "Table",
+      "section": "components",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
+    },
+    {
       "id": "patterns-overview",
       "path": "design/patterns/README.md",
       "title": "Patterns",
@@ -1056,7 +1101,12 @@
         "design/components/form-message.md",
         "design/components/breadcrumb.md",
         "design/components/menu-separator.md",
-        "design/components/segmented-control-item.md"
+        "design/components/segmented-control-item.md",
+        "design/components/alert.md",
+        "design/components/switch.md",
+        "design/components/node-chip.md",
+        "design/components/tabs.md",
+        "design/components/table.md"
       ]
     },
     {
@@ -1145,6 +1195,19 @@
     }
   ],
   "components": [
+    {
+      "id": "alert",
+      "name": "Alert",
+      "maturity": "experimental",
+      "figma": "partial",
+      "web": "partial",
+      "docs": "done",
+      "note": "CSS 레시피(.louis-alert)는 있고 React 표면은 없다. Figma component set 4 variant(Tone). 결제·체크아웃 배너가 정본이다. 2026-08-26: 레시피만 있고 문서·Figma 가 없던 다섯 중 하나였다 — 시스템이 정의해 놓고 디자이너가 볼 수 없는 상태였다.",
+      "doc": "design/components/alert.md",
+      "figmaNames": [
+        "Alert"
+      ]
+    },
     {
       "id": "app-shell-parts",
       "name": "Sidebar Nav Item · App Top Bar",
@@ -1311,6 +1374,19 @@
       ]
     },
     {
+      "id": "node-chip",
+      "name": "Node Chip",
+      "maturity": "experimental",
+      "figma": "partial",
+      "web": "partial",
+      "docs": "done",
+      "note": "CSS 레시피(.louis-node-chip)는 있고 React 표면은 없다. Figma component set 6 variant(Shape × State). 캔버스 노드 크롬의 알약이며 4개 노드가 소비한다. 다크 disabled 대비 1.00:1 버그를 칩 전용 fg 토큰으로 고친 이력이 있다.",
+      "doc": "design/components/node-chip.md",
+      "figmaNames": [
+        "NodeChip"
+      ]
+    },
+    {
       "id": "progress",
       "name": "Progress",
       "maturity": "experimental",
@@ -1409,6 +1485,48 @@
       "note": "public export, Figma component set 2 variant(Size), parity 게이트가 Track·Arc를 자손으로 대조한다. 실브라우저 acceptance test 8건이 두 motion context에서 각각 돈다. 제품의 로딩 표현은 약 62벌이지만 공용 LoadingSpinner가 정본이고 그 recipe(700ms · linear)가 motion-loop와 정확히 같다. 회전 keyframe은 base.css의 공용 louis-spin 하나이며 Button·Menu도 그것을 가리킨다. determinate 진행률·스켈레톤·텍스트 쉬머는 별도 컴포넌트이며 아직 없다",
       "doc": "design/components/spinner.md",
       "figmaName": "Spinner"
+    },
+    {
+      "id": "switch",
+      "name": "Switch",
+      "maturity": "experimental",
+      "figma": "partial",
+      "web": "partial",
+      "docs": "done",
+      "note": "CSS 레시피(.louis-switch)는 있고 React 표면은 없다. Figma component set 4 variant(Checked × Disabled). 44×24 는 제품 실측을 채택한 값이다. 2026-08-26 Figma 등재.",
+      "doc": "design/components/switch.md",
+      "figmaNames": [
+        "Switch"
+      ]
+    },
+    {
+      "id": "table",
+      "name": "Table",
+      "maturity": "experimental",
+      "figma": "partial",
+      "web": "partial",
+      "docs": "done",
+      "note": "CSS 레시피(.louis-table)는 있고 React 표면은 없다. Figma 는 셋으로 나뉜다 — TableHeaderCell(Align 3) · TableCell(Align × State 6) · 그 둘을 조립하는 Table. 머리 칸과 몸 칸은 패딩·타이포·글자색·테두리가 모두 달라 한 set 으로 묶으면 절반이 거짓 조합이 된다.",
+      "doc": "design/components/table.md",
+      "figmaNames": [
+        "TableHeaderCell",
+        "TableCell",
+        "Table"
+      ]
+    },
+    {
+      "id": "tabs",
+      "name": "Tabs",
+      "maturity": "experimental",
+      "figma": "partial",
+      "web": "partial",
+      "docs": "done",
+      "note": "CSS 레시피(.louis-tabs)는 있고 React 표면은 없다. Figma 는 둘로 나뉜다 — 상호작용과 프로토타입을 받는 TabItem(State 4) 과 그것을 조립하는 Tabs. 네 상태가 전부 opacity 로만 갈린다.",
+      "doc": "design/components/tabs.md",
+      "figmaNames": [
+        "TabItem",
+        "Tabs"
+      ]
     },
     {
       "id": "toast",

@@ -545,6 +545,42 @@
       "generated": false
     },
     {
+      "id": "step-tile",
+      "path": "design/components/step-tile.md",
+      "title": "Step Tile",
+      "section": "components",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
+    },
+    {
+      "id": "faq-row",
+      "path": "design/components/faq-row.md",
+      "title": "FAQ Row",
+      "section": "components",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
+    },
+    {
+      "id": "news-card",
+      "path": "design/components/news-card.md",
+      "title": "News Card",
+      "section": "components",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
+    },
+    {
+      "id": "gnb-menu-item",
+      "path": "design/components/gnb-menu-item.md",
+      "title": "GNB Menu Item",
+      "section": "components",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
+    },
+    {
       "id": "patterns-overview",
       "path": "design/patterns/README.md",
       "title": "Patterns",
@@ -1136,7 +1172,11 @@
         "design/components/table.md",
         "design/components/video-player.md",
         "design/components/carousel-arrow.md",
-        "design/components/media-card.md"
+        "design/components/media-card.md",
+        "design/components/step-tile.md",
+        "design/components/faq-row.md",
+        "design/components/news-card.md",
+        "design/components/gnb-menu-item.md"
       ]
     },
     {
@@ -1355,6 +1395,20 @@
       "doc": "design/components/empty-state.md"
     },
     {
+      "id": "faq-row",
+      "name": "FAQ Row",
+      "figmaName": "FaqRow",
+      "figmaNames": [
+        "FaqRow"
+      ],
+      "doc": "design/components/faq-row.md",
+      "note": "랜딩·가격 두 페이지가 쓰는 아코디언 행. 제품 구현(FAQ.tsx)이 정본이고 LOUIS recipe 는 없다 — 행 하나가 통째로 버튼이다(좌우 20 · 위아래 18 · 사이 16, 닫힌 높이 66 = 18+30+18). **면을 gray-900 으로 두면 라이트에서 사라진다** — 그 단이 랜딩 페이지 바닥과 바이트 동일해져 대비가 1:1 이 되므로 잉크 8% 오버레이(landing/panel-strong)를 쓴다. 밑줄 2열 배치를 버리고 면으로 나눈 결과 행 면과 바닥의 대비가 1.2:1 뿐이고 헤어라인도 두르지 않는다 — 다른 랜딩 면과 갈리는 자리다. 전환이 둘로 갈려 있다: 높이·투명도 300ms cubic-bezier(0.4,0,0.2,1)(framer-motion) 과 + 글리프 회전 220ms ease(CSS) 인데 Figma 는 한 전환에 두 시간을 담을 수 없어 300 으로 합쳤다. **Expanded 는 figma-component-authoring.md §2 개정으로 조건 축(false·true) 명부에 올랐다** — + 글리프가 계속 보이는 채로 45° 돌고(시험 1) 여닫이에 전이를 걸어야 해서(시험 3) BOOLEAN 이 아니다. + 글리프 대비가 라이트에서 3.73:1 로 AA(4.5) 미만이지만 아이콘성 글리프라 비-텍스트 3:1 로 판정했다. aria-controls 와 제목 요소가 없고 prefers-reduced-motion 계약도 없다. 가격 페이지 스코프가 --gray-000 만 되돌리고 --gray-300 을 빼놓아 다크 테마에서 답변 대비가 1.29:1 로 떨어지는 미해결이 남아 있다.",
+      "maturity": "experimental",
+      "figma": "partial",
+      "web": "not-ready",
+      "docs": "done"
+    },
+    {
       "id": "form-message",
       "name": "FormMessage",
       "figmaName": "FormMessage",
@@ -1364,6 +1418,20 @@
       "figma": "partial",
       "web": "not-ready",
       "docs": "partial"
+    },
+    {
+      "id": "gnb-menu-item",
+      "name": "GNB Menu Item",
+      "figmaName": "GnbMenuItem",
+      "figmaNames": [
+        "GnbMenuItem"
+      ],
+      "doc": "design/components/gnb-menu-item.md",
+      "note": "랜딩 상단 내비게이션 가운데 메뉴의 항목 하나. 제품 구현(landing/navigation/Gnb.tsx 의 menuLinkClass)이 정본이고 앵커·라우트·드롭다운 트리거·「공개 예정」 넷이 같은 알약을 쓴다 — LOUIS recipe 는 없다. **상태를 면이 아니라 잉크 불투명도로 만든다**: 여덟 변형의 기하가 완전히 같아 되읽기 키가 base 하나이고, 면·테두리·그림자가 전부 없다. **톤은 테마가 아니라 밑에 깔린 면이다** — 라이트 테마 안의 어두운 사진 밴드에서 뒤집히므로 시맨틱 램프가 아니라 고정 palette-gray-* 를 쓴다. **제품이 밝은 면 Default 를 0.50 → 0.65 로 올렸는데 Figma 는 아직 0.50 이다** — 0.50 은 랜딩 바닥과 AA 미달이었고 누를 수 있는 링크라 비활성 면제 대상이 아니다. 되읽기가 opacity 를 담지 않아 어떤 게이트도 이 어긋남을 잡지 못한다. **figma-component-authoring.md §2 개정이 두 축을 판정했다** — Surface 는 축 표에 열렸고(제품이 이 자리를 고정 팔레트로 받으므로 테마 모드로 접히지 않는다), State=Selected 는 접기 시험을 통과해 State 값으로 남는다. 남은 것은 Figma 재작업이다 — Surface 두 변형이 어느 색에 묶여 있는지 확인해야 한다. 포커스 링을 코드도 Figma 도 소유하지 않는다(SC 2.4.7 결손).",
+      "maturity": "experimental",
+      "figma": "partial",
+      "web": "not-ready",
+      "docs": "done"
     },
     {
       "id": "icon-button",
@@ -1424,6 +1492,20 @@
         "MenuPanel",
         "MenuSeparator"
       ]
+    },
+    {
+      "id": "news-card",
+      "name": "News Card",
+      "figmaName": "NewsCard",
+      "figmaNames": [
+        "NewsCard"
+      ],
+      "doc": "design/components/news-card.md",
+      "note": "날짜 한 줄과 제목으로 소식 한 건을 적는 카드. 제품 구현(NewsCarousel.tsx 안의 NewsCard)이 정본인데 **export 되지 않는 파일 내부 함수**라 소비처가 한 자리뿐이다 — MediaCard·CarouselArrow 가 여러 곳에서 이미 쓰이던 것을 뒤늦게 이름 붙인 것과 출발점이 다르다. LOUIS recipe 는 없다. **색이 두 갈래다** — 보통 카드는 테마를 따르는 landing/panel-strong · gray/000 · landing/text-muted, 피처드는 사진 + 스크림 위라 고정 media-foreground-dark · palette-gray/500 이다. 열 폭 347 = (1400 − gap 4×3) ÷ 4 이고 피처드 698×324 는 두 열 두 행 + 간격이다. 카드 면이 시안 #171b22 가 아닌 것은 gray-900 이 라이트에서 랜딩 바닥과 바이트 동일이 되어 카드 경계가 사라지기 때문이다. **Featured 는 figma-component-authoring.md §2 개정으로 조건 축(false·true) 명부에 올랐다** — 프레임 자신의 고정 크기가 347×160 → 698×324 로 다시 쓰여(시험 2) BOOLEAN 으로 접히지 않는다. 스크림은 제품에서 한 겹 3정지점인데 Figma 는 두 겹이다 — 정지점에 변수를 묶으면 알파가 변수값으로 덮이기 때문이며 합성 곡선은 대조되지 않는다. 보통 카드 날짜의 라이트 대비 3.5:1(SC 1.4.3 결손)과 시안이 다섯 장을 같은 #9aa0ab 로 찍은 것을 두 갈래로 가른 것도 미해결이다.",
+      "maturity": "experimental",
+      "figma": "partial",
+      "web": "not-ready",
+      "docs": "done"
     },
     {
       "id": "node-chip",
@@ -1537,6 +1619,20 @@
       "note": "public export, Figma component set 2 variant(Size), parity 게이트가 Track·Arc를 자손으로 대조한다. 실브라우저 acceptance test 8건이 두 motion context에서 각각 돈다. 제품의 로딩 표현은 약 62벌이지만 공용 LoadingSpinner가 정본이고 그 recipe(700ms · linear)가 motion-loop와 정확히 같다. 회전 keyframe은 base.css의 공용 louis-spin 하나이며 Button·Menu도 그것을 가리킨다. determinate 진행률·스켈레톤·텍스트 쉬머는 별도 컴포넌트이며 아직 없다",
       "doc": "design/components/spinner.md",
       "figmaName": "Spinner"
+    },
+    {
+      "id": "step-tile",
+      "name": "Step Tile",
+      "figmaName": "StepTile",
+      "figmaNames": [
+        "StepTile"
+      ],
+      "doc": "design/components/step-tile.md",
+      "note": "순서가 있는 3-스텝 안내의 한 칸. 비어 있는 정사각 면 하나와 그 밑의 한 줄 캡션이 전부다. 제품 구현(StepTiles.tsx)이 정본이고 랜딩 한 자리에서 쓴다 — LOUIS recipe 는 없다. 변형 축이 0 이고 슬롯 셋(Label TEXT · Description BOOLEAN · DescriptionLabel TEXT)이 전부라 닫힌 축 표를 벗어나는 축이 없다. 타일 면은 gray-* 램프가 아니라 landing/panel-strong 에서 받는다 — 램프를 뒤집으면 라이트에서 타일과 바닥이 같은 값이 되어 대비 1:1 로 사라진다. 테두리도 그림자도 없다. **캡션의 층이 두 매체에서 다르다** — Figma 는 가로 auto-layout(itemSpacing 4)이고 제품은 문단 하나의 인라인 흐름에 진짜 공백 문자(실측 4.69)다. flex 로 두면 복사·접근성 트리에서 라벨과 설명이 붙기 때문이며, 어느 쪽을 recipe 정본으로 삼을지는 소유자 판정이다. 줄 높이 150% 를 따른 결과 설명이 있는 한 줄 카드가 시안보다 6 높다. 462.667 은 한 폭에서 나온 FILL 분배값이라 고정 폭 축을 만들지 않았다. 타일 콘텐츠와 문구(카드 1·2 설명 중복 · JA 번역 없음)는 아직 미결이다.",
+      "maturity": "experimental",
+      "figma": "partial",
+      "web": "not-ready",
+      "docs": "done"
     },
     {
       "id": "switch",

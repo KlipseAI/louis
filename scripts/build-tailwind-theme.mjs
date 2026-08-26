@@ -46,6 +46,16 @@ const NAMESPACE = {
   elevation: { prefix: "--shadow-", strip: "elevation-" },
   blur: { prefix: "--blur-", strip: "blur-" },
   typography: { prefix: "--text-", strip: "typography-" },
+  // 제품 티어 토큰(DS-D-0029). Tailwind namespace 로 내보내지 않고 변수로만 둔다 —
+  // 이들은 특정 화면의 측정값이라 유틸리티가 되면 아무 데나 쓰이게 된다.
+  app: null,
+  button: null,
+  dropdown: null,
+  footer: null,
+  misc: null,
+  node: null,
+  type: null,
+  scale: null,
   // Tailwind 4에 대응 namespace가 없다. 변수로만 내보낸다.
   layer: null,
   border: null,

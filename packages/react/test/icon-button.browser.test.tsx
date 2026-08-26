@@ -133,10 +133,10 @@ test("부모 color 변경이 글리프에 반영된다", async () => {
 test("두 size의 글리프 계산 박스가 모두 16px다", async () => {
   await render(
     <div>
-      <IconButton label="a" data-testid="md">
+      <IconButton label="a" size="lg" data-testid="lg">
         <IconX />
       </IconButton>
-      <IconButton label="b" size="md" data-testid="sm">
+      <IconButton label="b" data-testid="md">
         <IconX />
       </IconButton>
     </div>,

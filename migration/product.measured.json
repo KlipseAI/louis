@@ -43,7 +43,7 @@
     },
     "높이 sm": {
      "product": "32px (고정. --button-height-sm)",
-     "ds": "제품 값 채택 (32). figma/components.measured.json이 정본이고 브라우저 실측 테스트가 매 실행 확인한다",
+     "ds": "제품 값 채택 (32). figma/components.measured.json이 정본이고 브라우저 실측 테스트가 매 실행 확인한다 계단 개명(DS-D-0027: 옛 sm(32) → md, 옛 md(40) → lg) 이후 이 제품 변수의 대응 단은 md 다 — 제품 변수 이름의 `-sm` 접미사는 옛 이름이 남은 것이고 값은 32 그대로다.",
      "match": "different",
      "evidence": "apps/web/app/globals.css:85",
      "status": "adopted",
@@ -53,7 +53,7 @@
        "components",
        "button",
        "sizes",
-       "sm",
+       "md",
        "height"
       ]
      },
@@ -69,7 +69,7 @@
     },
     "최소 폭 sm": {
      "product": "48px (--button-min-width-sm)",
-     "ds": "제품 값 채택 (48). figma/components.measured.json이 정본이고 브라우저 실측 테스트가 매 실행 확인한다",
+     "ds": "제품 값 채택 (48). figma/components.measured.json이 정본이고 브라우저 실측 테스트가 매 실행 확인한다 계단 개명(DS-D-0027: 옛 sm(32) → md, 옛 md(40) → lg) 이후 이 제품 변수의 대응 단은 md 다 — 제품 변수 이름의 `-sm` 접미사는 옛 이름이 남은 것이고 값은 32 그대로다.",
      "match": "different",
      "evidence": "apps/web/app/globals.css:87",
      "status": "adopted",
@@ -79,7 +79,7 @@
        "components",
        "button",
        "sizes",
-       "sm",
+       "md",
        "minWidth"
       ]
      },
@@ -105,7 +105,7 @@
     },
     "padding-inline sm": {
      "product": "12px (--button-padding-inline-sm)",
-     "ds": "제품 값 채택 (12). figma/components.measured.json이 정본이고 브라우저 실측 테스트가 매 실행 확인한다",
+     "ds": "제품 값 채택 (12). figma/components.measured.json이 정본이고 브라우저 실측 테스트가 매 실행 확인한다 계단 개명(DS-D-0027: 옛 sm(32) → md, 옛 md(40) → lg) 이후 이 제품 변수의 대응 단은 md 다 — 제품 변수 이름의 `-sm` 접미사는 옛 이름이 남은 것이고 값은 32 그대로다.",
      "match": "different",
      "evidence": "apps/web/app/globals.css:86",
      "status": "adopted",
@@ -115,7 +115,7 @@
        "components",
        "button",
        "sizes",
-       "sm",
+       "md",
        "paddingInline"
       ]
      },
@@ -139,7 +139,7 @@
     },
     "gap sm": {
      "product": "4px (gap-2 × --spacing:2px)",
-     "ds": "제품 값 채택 (4). figma/components.measured.json이 정본이고 브라우저 실측 테스트가 매 실행 확인한다",
+     "ds": "제품 값 채택 (4). figma/components.measured.json이 정본이고 브라우저 실측 테스트가 매 실행 확인한다 계단 개명(DS-D-0027: 옛 sm(32) → md, 옛 md(40) → lg) 이후 이 제품 변수의 대응 단은 md 다 — 제품 변수 이름의 `-sm` 접미사는 옛 이름이 남은 것이고 값은 32 그대로다.",
      "match": "different",
      "evidence": "apps/web/components/ui/Button.tsx:66",
      "status": "adopted",
@@ -149,7 +149,7 @@
        "components",
        "button",
        "sizes",
-       "sm",
+       "md",
        "gap"
       ]
      },
@@ -269,7 +269,7 @@
     },
     "타이포 sm": {
      "product": "14px / 500 / 1.5 / -0.14px — md와 동일. size가 타이포를 바꾸지 않는다",
-     "ds": "제품 값 채택 (14). figma/components.measured.json이 정본이고 브라우저 실측 테스트가 매 실행 확인한다",
+     "ds": "제품 값 채택 (14). figma/components.measured.json이 정본이고 브라우저 실측 테스트가 매 실행 확인한다 계단 개명(DS-D-0027: 옛 sm(32) → md, 옛 md(40) → lg) 이후 이 제품 변수의 대응 단은 md 다 — 제품 변수 이름의 `-sm` 접미사는 옛 이름이 남은 것이고 값은 32 그대로다.",
      "match": "different",
      "evidence": "apps/web/components/ui/Button.tsx:185",
      "status": "adopted",
@@ -279,7 +279,7 @@
        "components",
        "button",
        "sizes",
-       "sm",
+       "md",
        "fontSize"
       ]
      },

@@ -1,7 +1,10 @@
 import type { JSX, ReactNode, Ref } from "react";
 import { createContext, useContext, useId } from "react";
 
-export type SegmentedControlSize = "lg" | "md";
+/* xs 는 비디오 에디터 인스펙터의 조밀한 속성 행이다. CSS 정본(segmented-control.css:60)에는
+ * 처음부터 있었는데 이 타입에만 없어, **CSS 가 지원하는 축을 타입이 금지하는** 상태였다.
+ * 제품은 클래스를 직접 붙여 그 축을 쓰고 있었고 Figma 에도 xs 가 있다 — 타입을 넓혀 셋을 맞춘다. */
+export type SegmentedControlSize = "lg" | "md" | "xs";
 
 interface SegmentedControlContextValue {
   readonly name: string;

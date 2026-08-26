@@ -64,8 +64,11 @@ function declared(selector: string, property: string): string {
 }
 
 const SIZES: readonly SliderSize[] = ["lg", "md"];
+// 기본(속성 없음)이 lg 다 — md 만 `[data-size="md"]` 로 덮는다. 계단 개명(sm→md, md→lg,
+// DS-D-0027) 전에는 기본이 md 였고 이 삼항이 그때 방향 그대로 남아 lg 와 md 의 기대값이
+// 서로 바뀌어 있었다.
 const sizeScope = (size: SliderSize): string =>
-  size === "md" ? ".louis-slider__control" : '.louis-slider[data-size="md"] .louis-slider__control';
+  size === "lg" ? ".louis-slider__control" : '.louis-slider[data-size="md"] .louis-slider__control';
 
 // **measured의 키가 `{size}/{variant}` 복합이다.** Variant 축이 레일 두께와 썸 크기를 바꾸므로
 // size 하나로 묶으면 두 값이 한 항목에 섞여 어느 쪽이 어느 변형의 것인지 사라진다.
@@ -117,7 +120,7 @@ for (const size of SIZES) {
     // 굵은 막대는 레일이고 얇은 표식은 썸이다 — thumb 변형과 **같은 부품의 다른 값**이라
     // 계약에서도 같은 이름을 쓴다.
     const barSelector =
-      size === "md"
+      size === "lg"
         ? '.louis-slider[data-variant="track"] .louis-slider__control::-webkit-slider-runnable-track'
         : '.louis-slider[data-variant="track"][data-size="md"] .louis-slider__control::-webkit-slider-runnable-track';
     expect(px(declared(barSelector, "block-size")), "railHeight").toBe(trackSpec.railHeight);

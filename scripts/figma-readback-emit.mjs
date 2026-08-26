@@ -109,6 +109,7 @@ const CAPTURE = {
   "FaqRow": {"key":{"by":["Expanded"]},"parts":{"Question":["width","height","paddingBlock","paddingBlockEnd","paddingInline","paddingInlineEnd","itemSpacing"],"QuestionText":["width","height","fontSize","lineHeightPercent"],"Icon":["width","height"],"Glyph":["fontSize"]}},
   "FormMessage": {"key":{"by":["Tone"]},"parts":{"Message":["width","height","fontSize"]}},
   "IconButton": {"key":{"by":["Size"]},"slots":{"Glyph":"size"},"strokes":["self","Glyph.glyph"]},
+  "InlineLoadingLabel": {"key":{"by":["Size","Loading"]},"slots":{"Slot":"size"},"parts":{"Label":["width","height","fontSize","lineHeightPercent"],"Slot":["width","height"]}},
   "Keycap": {"key":{"by":["Kind"]},"parts":{"Label":["width","height","fontSize"]},"effects":["self"]},
   "MediaCard": {"key":{"name":"base"},"slots":{"Glyph":"size"},"parts":{"TopBar":["width","height","paddingBlock","paddingBlockEnd","paddingInline","paddingInlineEnd"],"Badge":["height","paddingBlock","paddingBlockEnd","paddingInline","paddingInlineEnd","cornerRadius"],"BadgeLabel":["fontSize","lineHeightPercent"],"InfoBar":["width","height","paddingBlock","paddingBlockEnd","paddingInline","paddingInlineEnd","itemSpacing","layoutMode"],"NameRow":["height","itemSpacing"],"Title":["fontSize","lineHeightPercent"],"Description":["fontSize","lineHeightPercent"]},"effects":["Badge","InfoBar"]},
   "MediaScrubber": {"key":{"name":"base"},"parts":{"Track":["width","height"],"Thumb":["width","height"]}},
@@ -123,6 +124,7 @@ const CAPTURE = {
   "ProjectCard": {"key":{"name":"base"},"parts":{"More":["width","height"],"Media":["width","height"],"Title overlay":["width","height","itemSpacing","paddingBlock","paddingBlockEnd","paddingInline","paddingInlineEnd","layoutMode"],"Eyebrow":["width","height","fontSize","lineHeightPercent"],"Title":["width","height","fontSize","lineHeightPercent"],"Meta":["width","height","fontSize","lineHeightPercent"],"Thumbnail":["width","height"],"Action":["width","height"],"Adornment":["width","height"]},"strokes":["self"],"effects":["Title overlay"],"childOrder":true},
   "SegmentedControl": {"key":{"by":["Size"]},"slots":{"Item 1":"size","Item 2":"size","Item 3":"size"},"parts":{"Item 1":["width","height"],"Item 2":["width","height"],"Item 3":["width","height"]},"effects":["self"]},
   "SegmentedControlItem": {"key":{"by":["Size"]},"parts":{"Label":["width","height","fontSize"],"FocusRing":["width","height"]},"strokes":["FocusRing"],"outsideParts":["FocusRing"]},
+  "SegmentedCodeInput": {"key":{"by":["State"]},"parts":{"Cell 1":["width","height","cornerRadius"],"Separator":["width","height"],"Dash":["fontSize"],"Char":["height","fontSize"]},"strokes":["Cell 1"]},
   "SelectableListRow": {"key":{"name":"base"},"parts":{"Marker":["width","height","cornerRadius"],"Media":["width","height","cornerRadius"],"Text":["width","height","itemSpacing","cornerRadius"],"Title":["width","height","fontSize"],"Meta":["width","height","fontSize"],"Trailing":["width","height","fontSize"]}},
   "SidebarBrand": {"key":{"by":["Collapsed"]},"fields":["strokeWeight","width","height","cornerRadius","layoutMode","paddingInline","paddingInlineEnd","paddingBlock","paddingBlockEnd","itemSpacing"],"parts":{"Mark":["width","height"],"Wordmark":["width","height"]}},
   "SidebarCta": {"key":{"by":["Collapsed"]},"parts":{"Label":["width"]},"effects":["self"]},
@@ -372,9 +374,14 @@ for (const name of Object.keys(SPEC)) {
     if (spec.childOrder) bag.childOrder = (variant.children || []).map((c) => c.name);
 
     const box = variant.absoluteBoundingBox;
-    const visit = (node) => {
+    // 숨긴 레이어의 **자손**은 화면에 없다. 넘침·슬롯·자손 치수를 셀 때 그 subtree 를 빼지
+    // 않으면 「안 보이는 것이 프레임 밖으로 나갔다」는 거짓 결함이 잡힌다 — 실제로
+    // InlineLoadingLabel 의 닫힌 변형(슬롯을 숨겨 폭 0 을 표현한다)에서 그랬다.
+    // **바인딩은 계속 센다** — 숨긴 레이어의 원시 fill 도 라이브러리에는 그대로 실린다.
+    const visit = (node, hidden) => {
       countNode(node);
-      if (node.id !== variant.id) {
+      const invisible = hidden || node.visible === false;
+      if (node.id !== variant.id && !invisible) {
         // **VECTOR 의 stroke 는 테두리가 아니라 그림 자체다.** 글리프 외곽선을 테두리 두께로
         // 세면 "보이는 테두리는 CSS border 두께여야 한다" 검사가 아이콘 획을 잡는다.
         if (hasPaint(node.strokes) && typeof node.strokeWeight === "number" && node.type !== "VECTOR") {
@@ -395,7 +402,7 @@ for (const name of Object.keys(SPEC)) {
         }
         // 보이는 자손이 variant 프레임 밖으로 나가면 썸네일과 인스턴스에서 잘려 보인다.
         const own = node.absoluteBoundingBox;
-        if (node.visible !== false && own && box) {
+        if (own && box) {
           const outside =
             own.x < box.x - 0.01 || own.y < box.y - 0.01 ||
             own.x + own.width > box.x + box.width + 0.01 ||
@@ -406,7 +413,7 @@ for (const name of Object.keys(SPEC)) {
       // **instance 내부로 들어가지 않는다.** instance 가 품은 값은 그 원본 컴포넌트의 것이고,
       // 아이콘 instance 의 원시값은 icon 게이트가 각 아이콘 component 에서 따로 잡는다.
       // 여기서 세면 같은 값이 두 곳에서 두 번 계약된다.
-      if (node.type !== "INSTANCE") for (const child of node.children || []) visit(child);
+      if (node.type !== "INSTANCE") for (const child of node.children || []) visit(child, invisible);
     };
 
     countNode(variant);
@@ -415,7 +422,7 @@ for (const name of Object.keys(SPEC)) {
       if (bag.weights.indexOf(r1(variant.strokeWeight)) === -1) bag.weights.push(r1(variant.strokeWeight));
     }
     if ((spec.effects || []).indexOf("self") !== -1) push(effects, "self", effectString(variant.effects));
-    for (const child of variant.children || []) visit(child);
+    for (const child of variant.children || []) visit(child, false);
   }
   // set 프레임 자신도 센다 — 여기에 원시 fill 이 남아 있으면 라이브러리에 그대로 실린다.
   if (set.type === "COMPONENT_SET") countNode(set);

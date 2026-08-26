@@ -18,8 +18,8 @@
         "effect": 9
       },
       "components": {
-        "sets": 47,
-        "variants": 414
+        "sets": 49,
+        "variants": 421
       },
       "icons": 31,
       "templates": 1
@@ -8816,6 +8816,266 @@
       },
       "effects": {}
     },
+    "InlineLoadingLabel": {
+      "outsideParts": [],
+      "tokenId": "inline-loading-label",
+      "variantCount": 4,
+      "hasDescription": true,
+      "properties": {
+        "Label": {
+          "type": "TEXT"
+        },
+        "LoadingLabel": {
+          "type": "TEXT"
+        },
+        "Size": {
+          "type": "VARIANT",
+          "options": [
+            "md",
+            "sm"
+          ]
+        },
+        "Loading": {
+          "type": "VARIANT",
+          "options": [
+            "false",
+            "true"
+          ]
+        }
+      },
+      "binding": {
+        "boundFills": 4,
+        "rawFills": 0,
+        "boundStrokes": 0,
+        "rawStrokes": 0,
+        "textStyled": 4,
+        "textUnstyled": 0
+      },
+      "geometry": {
+        "md/false": {
+          "slots": {},
+          "parts": {
+            "Label": {
+              "width": [
+                25
+              ],
+              "height": [
+                21
+              ],
+              "fontSize": [
+                14
+              ],
+              "lineHeightPercent": [
+                150
+              ]
+            }
+          },
+          "height": [
+            21
+          ],
+          "width": [
+            25
+          ],
+          "paddingBlock": [
+            0
+          ],
+          "paddingBlockEnd": [
+            0
+          ],
+          "paddingInline": [
+            0
+          ],
+          "paddingInlineEnd": [
+            0
+          ],
+          "itemSpacing": [
+            0
+          ],
+          "cornerRadius": [
+            0
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ],
+          "strokeWeight": [],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "md/true": {
+          "slots": {
+            "Slot": [
+              "16x16"
+            ]
+          },
+          "parts": {
+            "Label": {
+              "width": [
+                40
+              ],
+              "height": [
+                21
+              ],
+              "fontSize": [
+                14
+              ],
+              "lineHeightPercent": [
+                150
+              ]
+            },
+            "Slot": {
+              "width": [
+                16
+              ],
+              "height": [
+                16
+              ]
+            }
+          },
+          "height": [
+            21
+          ],
+          "width": [
+            62
+          ],
+          "paddingBlock": [
+            0
+          ],
+          "paddingBlockEnd": [
+            0
+          ],
+          "paddingInline": [
+            0
+          ],
+          "paddingInlineEnd": [
+            0
+          ],
+          "itemSpacing": [
+            6
+          ],
+          "cornerRadius": [
+            0
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ],
+          "strokeWeight": [],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "sm/false": {
+          "slots": {},
+          "parts": {
+            "Label": {
+              "width": [
+                25
+              ],
+              "height": [
+                21
+              ],
+              "fontSize": [
+                14
+              ],
+              "lineHeightPercent": [
+                150
+              ]
+            }
+          },
+          "height": [
+            21
+          ],
+          "width": [
+            25
+          ],
+          "paddingBlock": [
+            0
+          ],
+          "paddingBlockEnd": [
+            0
+          ],
+          "paddingInline": [
+            0
+          ],
+          "paddingInlineEnd": [
+            0
+          ],
+          "itemSpacing": [
+            0
+          ],
+          "cornerRadius": [
+            0
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ],
+          "strokeWeight": [],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "sm/true": {
+          "slots": {
+            "Slot": [
+              "12x12"
+            ]
+          },
+          "parts": {
+            "Label": {
+              "width": [
+                40
+              ],
+              "height": [
+                21
+              ],
+              "fontSize": [
+                14
+              ],
+              "lineHeightPercent": [
+                150
+              ]
+            },
+            "Slot": {
+              "width": [
+                12
+              ],
+              "height": [
+                12
+              ]
+            }
+          },
+          "height": [
+            21
+          ],
+          "width": [
+            56
+          ],
+          "paddingBlock": [
+            0
+          ],
+          "paddingBlockEnd": [
+            0
+          ],
+          "paddingInline": [
+            0
+          ],
+          "paddingInlineEnd": [
+            0
+          ],
+          "itemSpacing": [
+            4
+          ],
+          "cornerRadius": [
+            0
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ],
+          "strokeWeight": [],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        }
+      },
+      "strokes": {},
+      "effects": {}
+    },
     "Keycap": {
       "outsideParts": [],
       "tokenId": "keycap",
@@ -10078,6 +10338,245 @@
           "BACKGROUND_BLUR:PROGRESSIVE:var(blur/surface):0:0.5,0:0.5,0.45"
         ]
       }
+    },
+    "SegmentedCodeInput": {
+      "outsideParts": [],
+      "tokenId": "segmented-code-input",
+      "variantCount": 3,
+      "hasDescription": true,
+      "properties": {
+        "State": {
+          "type": "VARIANT",
+          "options": [
+            "Default",
+            "Focus",
+            "Disabled"
+          ]
+        }
+      },
+      "binding": {
+        "boundFills": 78,
+        "rawFills": 0,
+        "boundStrokes": 36,
+        "rawStrokes": 0,
+        "textStyled": 42,
+        "textUnstyled": 0
+      },
+      "geometry": {
+        "Default": {
+          "slots": {},
+          "parts": {
+            "Cell 1": {
+              "width": [
+                28
+              ],
+              "height": [
+                36
+              ],
+              "cornerRadius": [
+                8
+              ]
+            },
+            "Char": {
+              "height": [
+                24
+              ],
+              "fontSize": [
+                16
+              ]
+            },
+            "Separator": {
+              "width": [
+                12
+              ],
+              "height": [
+                24
+              ]
+            },
+            "Dash": {
+              "fontSize": [
+                16
+              ]
+            }
+          },
+          "height": [
+            36
+          ],
+          "width": [
+            386
+          ],
+          "paddingBlock": [
+            0
+          ],
+          "paddingBlockEnd": [
+            0
+          ],
+          "paddingInline": [
+            0
+          ],
+          "paddingInlineEnd": [
+            0
+          ],
+          "itemSpacing": [
+            2
+          ],
+          "cornerRadius": [
+            0
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ],
+          "strokeWeight": [
+            1
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "Disabled": {
+          "slots": {},
+          "parts": {
+            "Cell 1": {
+              "width": [
+                28
+              ],
+              "height": [
+                36
+              ],
+              "cornerRadius": [
+                8
+              ]
+            },
+            "Char": {
+              "height": [
+                24
+              ],
+              "fontSize": [
+                16
+              ]
+            },
+            "Separator": {
+              "width": [
+                12
+              ],
+              "height": [
+                24
+              ]
+            },
+            "Dash": {
+              "fontSize": [
+                16
+              ]
+            }
+          },
+          "height": [
+            36
+          ],
+          "width": [
+            386
+          ],
+          "paddingBlock": [
+            0
+          ],
+          "paddingBlockEnd": [
+            0
+          ],
+          "paddingInline": [
+            0
+          ],
+          "paddingInlineEnd": [
+            0
+          ],
+          "itemSpacing": [
+            2
+          ],
+          "cornerRadius": [
+            0
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ],
+          "strokeWeight": [
+            1
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "Focus": {
+          "slots": {},
+          "parts": {
+            "Cell 1": {
+              "width": [
+                28
+              ],
+              "height": [
+                36
+              ],
+              "cornerRadius": [
+                8
+              ]
+            },
+            "Char": {
+              "height": [
+                24
+              ],
+              "fontSize": [
+                16
+              ]
+            },
+            "Separator": {
+              "width": [
+                12
+              ],
+              "height": [
+                24
+              ]
+            },
+            "Dash": {
+              "fontSize": [
+                16
+              ]
+            }
+          },
+          "height": [
+            36
+          ],
+          "width": [
+            386
+          ],
+          "paddingBlock": [
+            0
+          ],
+          "paddingBlockEnd": [
+            0
+          ],
+          "paddingInline": [
+            0
+          ],
+          "paddingInlineEnd": [
+            0
+          ],
+          "itemSpacing": [
+            2
+          ],
+          "cornerRadius": [
+            0
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ],
+          "strokeWeight": [
+            1
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        }
+      },
+      "strokes": {
+        "Cell 1": [
+          "1|INSIDE"
+        ]
+      },
+      "effects": {}
     },
     "SegmentedControl": {
       "outsideParts": [],

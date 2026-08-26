@@ -761,6 +761,75 @@ const COMPONENT_CONTRACTS = [
     // 하나다.
   },
   {
+    id: "inline-loading-label",
+    figmaName: "InlineLoadingLabel",
+    figmaAhead:
+      "LOUIS recipe 없음 — 제품 InlineLoadingLabel.tsx 가 정본이고 소비처가 13개 파일 · 20개 호출부다. 링만은 LOUIS 의 .louis-spinner 레시피를 그대로 소비하고, 제품 게이트(check-tailwind-theme.mjs 의 louisPrimitiveContract)가 그 소비를 클래스 문자열로 고정한다.",
+    variantProperties: {},
+    // 선도 그림자도 없다. 되읽기의 strokeWeight 가 네 변형 모두 비어 있다 — 이 컴포넌트는 면을
+    // 그리지 않고 라벨과 슬롯을 배치하기만 한다.
+    strokes: {},
+    effects: {},
+    figmaOnlyProperties: {
+      Label: {
+        type: "TEXT",
+        reason:
+          "평소 문구. 코드에서는 idleLabel prop 이고 타입이 ReactNode 라 문자열 슬롯으로 완전히 대응하지 않는다. **다만 20개 호출부는 지금 전부 문자열을 넘긴다** — 카운트다운을 이어 붙인 템플릿 리터럴까지가 전부이고 요소를 넘기는 자리는 하나도 없다. 어긋남은 타입에 있지 화면에 있지 않다.",
+      },
+      LoadingLabel: {
+        type: "TEXT",
+        reason:
+          "로딩 문구. 코드에서는 loadingLabel prop 이며 string 이다. **제품은 화면에 넣기 직전 꼬리 말줄임표(... 와 …)를 앞뒤 공백까지 떼어내는데 Figma 에는 그 규칙을 표현할 자리가 없다** — 예시 문구를 이미 깎인 형태로 적어 두는 것이 전부다(inline-loading-label.md Known deviations 2).",
+      },
+      Size: {
+        options: ["md", "sm"],
+        reason:
+          "코드의 size prop 과 같은 축이지만 LOUIS 에 타입 선언이 없어 variantProperties 로 대조할 수 없다. 바꾸는 것은 슬롯 지름(16 · 12)과 열림의 왼쪽 여백(6 · 4)뿐이고 라벨 타이포는 건드리지 않는다 — 네 변형 모두 14 / 150% 다.",
+      },
+      Loading: {
+        options: ["false", "true"],
+        reason:
+          "코드의 loading prop. BOOLEAN 으로 그릴 수 없어 조건 축이다 — 프레임이 자기 itemSpacing 을 0 ↔ 6·4 로 다시 쓰고(시험 2), 닫힘과 열림 사이에 Smart Animate 를 걸어야 하며(시험 3), 두 조건에서 보이는 텍스트 프로퍼티가 Label ↔ LoadingLabel 로 갈린다(반대 가시성을 Figma 가 표현하지 못한다). **figma-component-authoring.md §2 개정이 Loading 을 조건 축 명부에 올렸다** — 이 컴포넌트의 되읽기(itemSpacing 0 ↔ 6·4)가 그 판정의 근거이고 명부가 여섯에서 일곱이 됐다. 이름이 열린 것은 어휘가 열린 것이지 「Loading 은 늘 축」이라는 뜻이 아니다 — Button 의 Loading 은 아직 네 시험을 받지 않았다(같은 절 「이 개정이 남긴 결손」 3). 또한 Figma 는 닫힌 변형에서 슬롯 레이어를 숨겨 폭 0 을 표현하므로 되읽기의 md/false·sm/false 에 slots 가 비어 있다(제품은 폭 0 + overflow-hidden) — **닫힘 폭 0 은 이 게이트가 대조하지 않는다.**",
+      },
+    },
+    // geometry 를 넣지 않았다 — figma/components.measured.json 에 inline-loading-label 항목이
+    // 없어 16 · 12 · 6 · 4 · 0.85 를 대조할 실측이 없다. 위 사유에 적은 수는 제품 소스에서 읽은
+    // 것이고 브라우저 실측이 아니다. carousel-arrow · step-tile · gnb-menu-item 과 같은 상태다.
+  },
+  {
+    id: "segmented-code-input",
+    figmaName: "SegmentedCodeInput",
+    figmaAhead:
+      "LOUIS recipe 없음 — 제품 components/ui/SegmentedCodeInput.tsx 가 정본이고 소비처는 components/scenes/SubscriptionScene.tsx 의 쿠폰 등록 모달 한 자리다. 대조할 .d.ts 가 없다.",
+    variantProperties: {},
+    // **칸이 아니라 묶음이 컴포넌트다.** 칸은 제품에서 이름 없는 input 이고 export 되지 않는다 —
+    // 파일이 내보내는 것은 묶음 하나뿐이다. 설계가 걸린 곳도 묶음이다: 칸이
+    // `flex-1 min-w-0 max-w-14` 라 컨테이너에 맞춰 줄고(주석: 12칸을 고정폭으로 두면 360px 모달에서
+    // 넘친다), 칸 사이 2 와 네 칸마다 오는 구분자를 칸 하나짜리 컴포넌트는 소유할 수 없다.
+    // 그래서 Figma 도 칸을 채움으로 두고 프레임 폭 386 만 고정했다 — 386 은 칸이 상한 28 에 닿는
+    // 폭이고 12*28 + 2*12 + 13*2 = 386 으로 떨어진다.
+    //
+    // **칸 수 12 와 묶음 4 는 이 컴포넌트의 값이 아니다.** length / groupSize prop 으로 들어오고
+    // 정본은 app/lib/payments/coupon-code.ts 의 COUPON_CODE_LENGTH ·
+    // COUPON_CODE_GROUP_SIZE 다. Figma 의 12칸 · 구분자 2 는 그 한 소비처의 표본이다.
+    //
+    // **경계가 헤어라인이 아니라 진짜 1px 테두리다.** DS-D-0023 이후 이 저장소의 기본은
+    // inset 0 0 0 0.5px 그림자이고 LOUIS TextField 도 그 방식인데, 칸이 열둘이라 경계가 촘촘히
+    // 반복되는 조형이어서 제품은 border 1 을 골랐다. 되읽기에 strokeWeight 1 과 Cell 1: 1|INSIDE 가
+    // 있는 것이 정상이고, effects 가 비어 있는 것도 정상이다.
+    strokes: { "Cell 1": { weight: 1, align: "INSIDE" } },
+    effects: {},
+    figmaOnlyProperties: {
+      State: {
+        options: ["Default", "Focus", "Disabled"],
+        reason:
+          "Focus 는 코드에서 CSS 상태([&:focus]) 이고 Disabled 는 disabled prop 이 만드는 네이티브 disabled 다. Figma 에 CSS 상태가 없어 한 축에 묶는다. **Hover 가 없는 것은 결손이 아니라 사실이다** — 정본 칸 클래스에 :hover 선언이 하나도 없다(CarouselArrow · GnbMenuItem 과 정반대다: 그쪽은 Hover 가 있고 Focus 가 없다). **입력됨/빈칸과 오류도 축이 아니다** — 채워짐을 가르는 규칙이 CSS 에 없고(상태 선택자가 :focus 와 :disabled 둘뿐이다), 오류는 칸이 아니라 형제 p role=alert 가 지며 그것은 이미 FormMessage Tone=error 다. **Focus 는 칸 하나의 상태인데 축이 묶음에 있다** — 제품에서 :focus 는 열두 칸 중 하나에만 서는데, 되읽기가 파트별 fill 분해를 주지 않아(세 변형의 boundFills 가 26 으로 같다) Figma 가 몇 칸을 포커스로 그렸는지 이 게이트로는 확인할 수 없다(design/components/segmented-code-input.md Known deviations 4). **포커스 색이 셋 다 다르다** — 제품은 primary-400(#38a4ff) 72% 를 두 테마 모두 쓰고, color/stroke-focus 는 모드마다 갈리며(#0088ff / #38a4ff), 그래서 모드 불변인 color/accent-primary @72% 에 묶었는데 그 값은 #0088ff 다. 바인딩 검사는 「묶였는가」만 보므로 이 어긋남을 잡지 못한다(같은 문서 Known deviations 1).",
+      },
+    },
+    // geometry 를 넣지 않았다 — figma/components.measured.json 에 segmented-code-input 항목이 없어
+    // 28 · 36 · 8 · 2 · 386 을 대조할 실측이 없다. 세 변형의 기하가 완전히 같다.
+  },
+  {
     id: "menu-popover",
     figmaName: "MenuSeparator",
     figmaAhead: "menu-popover.css:239-251 이 정본이다. 1px 선 하나라 코드 선언이 없다.",

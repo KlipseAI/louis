@@ -243,10 +243,13 @@ const COMPONENT_CONTRACTS = [
     // 코드 타입 alias와 1:1로 대응하지 않는다. 그래서 전부 Figma 전용 축으로 선언한다.
     variantProperties: {},
     figmaOnlyProperties: {
+      HasIcon: { type: "BOOLEAN", reason: "선행 글리프의 유무. 한 메뉴 안에서 항목마다 갈리므로 축이 아니라 슬롯이다." },
+      HasTrailing: { type: "BOOLEAN", reason: "후행 자리(단축키·화살표)의 유무." },
+      Checked: { type: "BOOLEAN", reason: "선택 표시. 코드에서는 role=menuitemradio/checkbox의 aria-checked다 — tone·상태와 직교하므로 State 축에 접지 않는다." },
       State: {
-        options: ["Default", "Hover", "Danger", "DangerHover", "Disabled"],
+        options: ["Default", "Hover", "Danger", "DangerHover", "Disabled", "Busy"],
         reason:
-          "Default/Hover는 CSS 상태이고 Danger는 tone prop, Disabled는 disabled prop이다. Figma에는 CSS 상태가 없어 한 축에 합친다. DangerHover가 따로 있는 이유는 danger 항목의 hover 면이 일반 항목과 다른 토큰을 쓰기 때문이다.",
+          "Default/Hover는 CSS 상태이고 Danger는 tone prop, Disabled는 disabled prop이다. Figma에는 CSS 상태가 없어 한 축에 합친다. DangerHover가 따로 있는 이유는 danger 항목의 hover 면이 일반 항목과 다른 토큰을 쓰기 때문이다. Busy는 항목이 스스로 작업을 도는 동안이다 — 후행 자리에 스피너가 서고 항목이 비활성처럼 보이지만 disabled와 달리 취소가 열려 있다.",
       },
     },
     geometry: {
@@ -275,10 +278,11 @@ const COMPONENT_CONTRACTS = [
     declaration: "packages/react/dist/dialog/types.d.ts",
     variantProperties: {},
     figmaOnlyProperties: {
+      HasClose: { type: "BOOLEAN", reason: "닫기 버튼이 없는 대화상자가 있다 — 결정을 강제하는 확인 창이다. 코드에서는 onClose의 유무다." },
       Size: {
-        options: ["compact", "medium", "large"],
+        options: ["compact", "medium", "large", "sheet"],
         reason:
-          "코드의 DialogSize는 fullscreen을 포함해 넷이다. fullscreen은 표면이 뷰포트 자체이고 radius가 0이며 border가 없어 **고정 폭 variant로 그릴 수 없다** — Figma에서 그리면 어떤 폭을 골라도 거짓이 된다. 그래서 코드 축의 부분집합을 Figma 전용으로 선언한다.",
+          "코드의 DialogSize는 fullscreen을 포함해 넷이다. fullscreen은 표면이 뷰포트 자체이고 radius가 0이며 border가 없어 **고정 폭 variant로 그릴 수 없다** — Figma에서 그리면 어떤 폭을 골라도 거짓이 된다. 그래서 코드 축의 부분집합을 Figma 전용으로 선언한다. sheet는 반대 방향의 추가다 — 좁은 화면에서 아래에서 올라오는 시트가 제품에 실재하는데 코드 축에 이름이 없어, 디자이너가 그것을 그릴 자리가 없었다.",
       },
     },
     geometry: {
@@ -303,6 +307,151 @@ const COMPONENT_CONTRACTS = [
       extraStrokeWeights: [],
     },
   },
+  // ── CSS 레시피는 있고 React 표면이 없는 것들 ────────────────────────────────
+  // LOUIS 가 CSS 로 정의해 두고 **Figma 에도 문서에도 없던** 다섯이다(2026-08-26 확인).
+  // 시스템이 정의한 것을 디자이너가 볼 수 없으면 정의하지 않은 것과 같아서, Figma 를 먼저
+  // 세우고 문서를 붙였다. 대조할 `.d.ts` 가 없으므로 declaration 을 읽지 않는다 —
+  // 정본은 CSS 파일이고, 그 사실을 figmaAhead 에 적는다.
+  {
+    id: "alert",
+    figmaName: "Alert",
+    figmaAhead: "React 표면 없음 — packages/css/src/component/alert.css 가 정본이다.",
+    variantProperties: {},
+    figmaOnlyProperties: {
+      Tone: {
+        options: ["danger", "info", "success", "warning"],
+        reason:
+          "tone 하나가 면·테두리·글자 셋을 함께 바꾼다. CSS 에서 data-tone 속성 선택자이고 기본값이 danger 다 — 제품에서 실제로 가장 많이 쓰는 자리가 결제 실패 배너다.",
+      },
+      HasIcon: { type: "BOOLEAN", reason: "아이콘 없는 경고가 있다. CSS 에서는 __icon 자식의 유무다." },
+      HasTitle: { type: "BOOLEAN", reason: "제목 없이 한 줄만 있는 경고가 있다. CSS 에서는 __title 자식의 유무다." },
+      Title: { type: "TEXT", reason: "제목 문구. 코드에서는 자식 요소라 prop 이 아니다." },
+      Body: { type: "TEXT", reason: "본문 문구. 코드에서는 __content 안의 텍스트다." },
+      Glyph: { type: "INSTANCE_SWAP", reason: "tone 마다 어울리는 글리프가 달라 고를 수 있어야 한다." },
+    },
+    // 경고는 헤어라인이 아니라 **보이는 테두리**를 갖는다 — 면과 글자가 tone 색이라
+    // 표면 위에서 경계가 필요하고, border-width-default(1) 를 쓴다.
+    strokes: { self: { weight: 1, align: "INSIDE" } },
+    effects: {},
+  },
+  {
+    id: "switch",
+    figmaName: "Switch",
+    figmaAhead: "React 표면 없음 — packages/css/src/component/switch.css 가 정본이다.",
+    variantProperties: {},
+    figmaOnlyProperties: {
+      Checked: {
+        options: ["false", "true"],
+        reason: "코드에서는 aria-checked 다. Figma 에 상태가 없어 축으로 둔다 — 켜짐은 트랙 색과 썸 위치를 함께 바꾼다.",
+      },
+      Disabled: {
+        options: ["false", "true"],
+        reason: "opacity 0.45 하나만 바꾼다. Checked 와 직교하므로 한 축에 접지 않는다 — 켜진 채 비활성인 스위치가 실재한다.",
+      },
+    },
+    strokes: {},
+    // 썸의 그림자는 elevation/switch-thumb 다. 트랙에는 그림자가 없다.
+    effects: { Thumb: "DROP_SHADOW:1:3:0" },
+  },
+  {
+    id: "node-chip",
+    figmaName: "NodeChip",
+    figmaAhead: "React 표면 없음 — packages/css/src/component/node-chip.css 가 정본이다.",
+    variantProperties: {},
+    figmaOnlyProperties: {
+      Shape: {
+        options: ["default", "square"],
+        reason: "square 는 폭과 좌우 패딩을 함께 바꾼다(32 고정 · 패딩 0). 기하가 갈리므로 boolean 슬롯이 아니라 축이다.",
+      },
+      State: {
+        options: ["Default", "Hover", "Disabled"],
+        reason: "Hover 는 CSS 상태이고 Disabled 는 prop 이다. Figma 에 CSS 상태가 없어 한 축에 합친다. disabled 는 면이 아니라 글자색만 바꾼다 — 칩 전용 fg 토큰이 그것 때문에 생겼다.",
+      },
+      Label: { type: "TEXT", reason: "칩 글자. square 에는 없다." },
+      HasGlyph: { type: "BOOLEAN", reason: "글리프 없는 글자 전용 칩이 있다." },
+      Glyph: { type: "INSTANCE_SWAP", reason: "노드 종류마다 글리프가 다르다." },
+    },
+    strokes: {},
+    // 헤어라인은 테두리가 아니라 inset 그림자다 — 레이아웃을 건드리지 않는다.
+    effects: { self: "INNER_SHADOW:0:0:0.5" },
+  },
+  {
+    id: "tabs",
+    figmaName: "TabItem",
+    figmaAhead: "React 표면 없음 — packages/css/src/component/tabs.css 의 .louis-tabs__tab 이 정본이다.",
+    variantProperties: {},
+    figmaOnlyProperties: {
+      State: {
+        options: ["Default", "Hover", "Selected", "Disabled"],
+        reason:
+          "네 상태가 **전부 opacity 로만 갈린다** — 0.48 · 0.9 · 1 · 0.32. 면도 글자색도 바뀌지 않는다. 상호작용을 받는 것이 탭 하나이므로 트랙이 아니라 여기가 소유하고, 프로토타입(ON_HOVER · ON_CLICK)도 여기 걸린다.",
+      },
+      Label: { type: "TEXT", reason: "탭 글자." },
+    },
+    strokes: {},
+    effects: {},
+  },
+  {
+    id: "tabs",
+    figmaName: "Tabs",
+    figmaAhead: "React 표면 없음 — packages/css/src/component/tabs.css 의 .louis-tabs 가 정본이다.",
+    // 트랙은 축이 없다. TabItem 인스턴스를 붙이고 빼서 조립하며 auto-layout 이 폭을 정한다.
+    variantProperties: {},
+    figmaOnlyProperties: {},
+    strokes: {},
+    effects: {},
+  },
+  {
+    id: "table",
+    figmaName: "TableHeaderCell",
+    figmaAhead: "React 표면 없음 — packages/css/src/component/table.css 의 thead th 가 정본이다.",
+    variantProperties: {},
+    figmaOnlyProperties: {
+      Align: {
+        options: ["start", "center", "end"],
+        reason: "CSS 의 data-align 이다. end 는 tabular-nums 도 함께 켜는데 Figma 에 대응이 없어 정렬만 표현한다.",
+      },
+      Label: { type: "TEXT", reason: "머리글 문구." },
+    },
+    strokes: {},
+    effects: {},
+  },
+  {
+    id: "table",
+    figmaName: "TableCell",
+    figmaAhead: "React 표면 없음 — packages/css/src/component/table.css 의 tbody td 가 정본이다.",
+    variantProperties: {},
+    figmaOnlyProperties: {
+      Align: { options: ["start", "center", "end"], reason: "머리 칸과 같은 축이다." },
+      State: {
+        options: ["Default", "Hover"],
+        reason: "hover 는 행이 받지만 면은 칸이 칠한다(CSS 도 tr:hover > td 다). 그래서 칸의 축이다.",
+      },
+      Label: { type: "TEXT", reason: "값 문구." },
+    },
+    // 행 구분선은 칸의 **아래 한 변**이다. 마지막 행은 이 변을 0 으로 두므로 Table 조립본에는
+    // 1 과 0 이 함께 나타난다.
+    strokes: { self: { weight: 1, align: "INSIDE" } },
+    effects: {},
+  },
+  {
+    id: "table",
+    figmaName: "Table",
+    figmaAhead: "React 표면 없음 — packages/css/src/component/table.css 가 정본이다.",
+    variantProperties: {},
+    figmaOnlyProperties: {},
+    // 머리 **행**이 반경과 헤어라인을 갖는다(CSS 의 thead > tr). 칸은 면만 칠하고, 행이
+    // clipsContent 로 그 면을 반경에 맞춰 깎는다 — isolation:isolate 가 하던 일이다.
+    strokes: {
+      TableCell: {
+        weight: [1, 0],
+        align: "INSIDE",
+        reason:
+          "행 구분선은 칸의 아래 한 변인데 마지막 행만 0 이다 — CSS의 `tbody > tr:last-child > td { border-block-end: 0 }`. 조립본에는 두 값이 함께 나타나는 것이 맞다.",
+      },
+    },
+    effects: { HeaderRow: "INNER_SHADOW:0:0:0.5" },
+  },
   // ── Figma 선행 컴포넌트 ──────────────────────────────────────────────────
   // 제품 전수 인벤토리(2026-08-26)에서 「재사용되는데 DS 에 없다」로 확인된 것들을 Figma 에
   // 먼저 세웠다. LOUIS recipe 가 아직 없으므로 declaration 을 대조할 수 없다 — 코드가 생기면
@@ -313,6 +462,13 @@ const COMPONENT_CONTRACTS = [
     figmaName: "Keycap",
     figmaAhead: "LOUIS recipe 없음 — CommandPalette.tsx:281-296 이 정본이다.",
     variantProperties: {},
+    // **제품과 줄 높이·자간이 다르다.** 정본(CommandPalette.tsx:288)은 leading-[1] 이고 글자
+    // 키캡은 tracking-[0.02em] 을 더 준다. Figma 에서는 스케일 스타일(typography/caption-*)을
+    // 그대로 쓴다 — 칩이 20×20 고정이고 글자가 가운데 정렬이라 줄 높이가 보이는 크기를 바꾸지
+    // 않는다(적용 전후 칩 20×20 동일 확인). 스타일 연결을 끊어 가며 지킬 값이 아니다.
+    // 칩 테두리는 border 가 아니라 inset 그림자다(정본의 box-shadow: inset 0 0 0 1px).
+    strokes: {},
+    effects: { self: "INNER_SHADOW:0:0:1" },
     figmaOnlyProperties: {
       Label: { type: "TEXT", reason: "키캡 글자. 코드에서는 children 이다." },
       Kind: { options: ["glyph", "text"], reason: "글리프 키캡과 글자 키캡은 자간·굵기만 다르다(KEY vs KEY_TEXT)." },
@@ -349,6 +505,10 @@ const COMPONENT_CONTRACTS = [
   {
     id: "segmented-control-item",
     figmaName: "SegmentedControlItem",
+    // 포커스 링은 CSS 에서 outline 이고 Figma 에 outline 이 없어 **바깥으로 나가는 stroke** 로
+    // 그린다. 그래서 링이 세그먼트 바깥으로 넘치는 것이 정상이다.
+    strokes: { FocusRing: { weight: 2, align: "OUTSIDE" } },
+    effects: {},
     figmaAhead: "세그먼트 하나를 Figma 에서 별도 set 으로 뽑았다 — 상호작용과 프로토타입을 받는 단위다. 코드에서는 SegmentedControl 안의 label 이라 독립 선언이 없다.",
     variantProperties: {},
     figmaOnlyProperties: {
@@ -398,11 +558,13 @@ const COMPONENT_CONTRACTS = [
     declaration: "packages/react/dist/text-field/text-field.d.ts",
     variantProperties: { Size: "TextFieldSize" },
     figmaOnlyProperties: {
+      HasLabel: { type: "BOOLEAN", reason: "라벨 없는 필드가 실재한다 — 검색창이 그것이다." },
+      HasMessage: { type: "BOOLEAN", reason: "도움말·오류 문구의 유무. 있고 없고에 따라 아래 여백이 달라진다." },
       Value: { type: "TEXT", reason: "코드에서 children이라 타입 선언에 항목으로 나타나지 않는다(React가 준다)." },
       State: {
-        options: ["Default", "Focus", "Invalid", "Disabled"],
+        options: ["Default", "Focus", "Invalid", "Disabled", "Placeholder"],
         reason:
-          "Focus는 코드에서 CSS 상태(:focus-within)이고 Invalid/Disabled는 boolean prop이다. Figma에는 CSS 상태가 없어 variant로 둔다. Hover 축은 없다 — 필드는 hover에서 아무것도 바꾸지 않는다.",
+          "Focus는 코드에서 CSS 상태(:focus-within)이고 Invalid/Disabled는 boolean prop이다. Figma에는 CSS 상태가 없어 variant로 둔다. Hover 축은 없다 — 필드는 hover에서 아무것도 바꾸지 않는다. Placeholder는 값이 비어 있는 쉼 상태다 — 코드에서는 :placeholder-shown 이라 prop이 아니고, 디자이너가 「빈 필드」를 그리려면 Figma에 자리가 있어야 한다.",
       },
     },
     // 보이는 테두리는 Box가 갖는다. root(component set)에는 stroke가 없다.
@@ -447,6 +609,7 @@ const COMPONENT_CONTRACTS = [
     // 코드 타입 alias와 1:1로 대응하지 않으므로 Figma 전용 축으로 선언한다.
     variantProperties: {},
     figmaOnlyProperties: {
+      HasTrailing: { type: "BOOLEAN", reason: "후행 배지·개수의 유무. 항목마다 갈리므로 슬롯이다." },
       Label: { type: "TEXT", reason: "코드에서 children이라 타입 선언에 항목으로 나타나지 않는다(React가 준다)." },
       State: {
         options: ["Default", "Hover", "Current"],
@@ -480,6 +643,10 @@ const COMPONENT_CONTRACTS = [
     },
   },
   {
+    figmaOnlyProperties: {
+      Leading: { type: "BOOLEAN", reason: "선행 슬롯을 켜고 끈다. LeadingSlot(무엇을)과 짝이다 — 코드에서는 leading prop이 undefined인 것과 같다." },
+      Trailing: { type: "BOOLEAN", reason: "후행 슬롯을 켜고 끈다. TrailingSlot과 짝이다. 코드 API에는 처음부터 있었는데 Figma에 자리가 없어 조립하면 상단바가 제목만 남았다." },
+    },
     id: "app-shell-parts",
     figmaName: "AppTopBar",
     // 슬롯이 없으면 조립할 때 화면이 비어 보인다. 코드 API에는 처음부터 있었다.
@@ -528,6 +695,14 @@ const COMPONENT_CONTRACTS = [
     },
   },
   {
+    figmaOnlyProperties: {
+      Segment3: { type: "BOOLEAN", reason: "세그먼트가 둘인 컨트롤과 셋인 컨트롤이 둘 다 실재한다. 셋째만 켜고 끈다 — 넷 이상은 제품에 없다." },
+      State: {
+        options: ["Hover", "Focus", "Disabled", "Default"],
+        reason:
+          "트랙 수준의 상태다. **어느 세그먼트가 그 상태인지는 SegmentedControlItem이 소유한다** — 여기 있는 것은 컨트롤 전체가 받는 focus 링과 disabled 뿐이다.",
+      },
+    },
     id: "segmented-control",
     figmaName: "SegmentedControl",
     propProperties: { Label1: "children", Label2: "children", Label3: "children" },
@@ -587,6 +762,7 @@ const COMPONENT_CONTRACTS = [
     // 코드에 union 축이 없다. 선택은 boolean prop이고 Figma에는 그 표현이 없어 variant로 둔다.
     variantProperties: {},
     figmaOnlyProperties: {
+      Media: { type: "BOOLEAN", reason: "왼쪽 섬네일의 유무. 미디어 없는 목록 행이 실재한다." },
       State: {
         options: ["Default", "Selected", "Disabled"],
         reason:
@@ -630,6 +806,7 @@ const COMPONENT_CONTRACTS = [
     // 코드에 union 축이 없다. checked·indeterminate·disabled가 전부 boolean이다.
     variantProperties: {},
     figmaOnlyProperties: {
+      HasLabel: { type: "BOOLEAN", reason: "라벨 없는 체크박스가 실재한다 — 표 머리의 전체 선택이 그것이다. 코드에서는 children의 유무다." },
       State: {
         options: ["Default", "Checked", "Indeterminate", "Disabled"],
         reason:
@@ -660,6 +837,14 @@ const COMPONENT_CONTRACTS = [
     },
   },
   {
+    figmaOnlyProperties: {
+      HasLabel: { type: "BOOLEAN", reason: "라벨 없는 슬라이더가 실재한다 — 인스펙터의 조밀한 속성 행이 그것이다." },
+      State: {
+        options: ["Focus", "Disabled", "Default"],
+        reason:
+          "Focus는 CSS 상태(:focus-visible)이고 Disabled는 prop이다. Hover 축은 없다 — 트랙은 hover에서 바뀌지 않는다.",
+      },
+    },
     id: "slider",
     figmaName: "Slider",
     propProperties: { Label: "label" },
@@ -691,6 +876,9 @@ const COMPONENT_CONTRACTS = [
     },
   },
   {
+    figmaOnlyProperties: {
+      HasImage: { type: "BOOLEAN", reason: "이미지가 없으면 이니셜 폴백이 뜬다. 코드에서는 src의 유무이므로 축이 아니라 슬롯이다." },
+    },
     id: "avatar",
     figmaName: "Avatar",
     declaration: "packages/react/dist/avatar/avatar.d.ts",
@@ -719,6 +907,10 @@ const COMPONENT_CONTRACTS = [
     },
   },
   {
+    figmaOnlyProperties: {
+      HasWordmark: { type: "BOOLEAN", reason: "브랜드 워드마크를 얹는 배너와 그렇지 않은 배너가 둘 다 실재한다. 코드에서는 자식 유무다." },
+      HasCta: { type: "BOOLEAN", reason: "행동 유도 버튼 없이 알림만 나르는 배너가 있다. 코드에서는 cta prop의 유무다." },
+    },
     id: "banner-carousel",
     figmaName: "BannerCarousel",
     propProperties: { Title: "slides", Description: "slides" },
@@ -799,6 +991,9 @@ const COMPONENT_CONTRACTS = [
     },
   },
   {
+    figmaOnlyProperties: {
+      Content: { type: "INSTANCE_SWAP", reason: "링 가운데에 들어가는 것. 퍼센트 글자일 수도 글리프일 수도 있어 코드에서는 children이다." },
+    },
     id: "progress",
     figmaName: "ProgressRing",
     declaration: "packages/react/dist/progress/progress.d.ts",
@@ -827,6 +1022,9 @@ const COMPONENT_CONTRACTS = [
     },
   },
   {
+    figmaOnlyProperties: {
+      Action: { type: "BOOLEAN", reason: "행 끝의 액션 버튼 유무. 호버해야 나타나는 자리라 없는 상태가 기본이다." },
+    },
     id: "app-shell-parts",
     figmaName: "SidebarNavRow",
     declaration: "packages/react/dist/app-shell/app-shell-parts.d.ts",
@@ -891,6 +1089,11 @@ const COMPONENT_CONTRACTS = [
     declaration: "packages/react/dist/app-shell/app-shell-parts.d.ts",
     variantProperties: {},
     figmaOnlyProperties: {
+      State: {
+        options: ["Hover", "Focus", "Current", "Default"],
+        reason:
+          "CSS 상태(hover·focus)와 현재 위치(current)를 한 축에 합쳤다. Figma에는 CSS 상태가 없다.",
+      },
       Collapsed: {
         options: ["false", "true"],
         reason: "코드에서는 `collapsed` boolean prop이다.",
@@ -964,6 +1167,11 @@ const COMPONENT_CONTRACTS = [
     },
   },
   {
+    figmaOnlyProperties: {
+      HasGraphic: { type: "BOOLEAN", reason: "그림 없는 빈 상태가 있다 — 좁은 패널 안에서는 글만 남긴다." },
+      HasDescription: { type: "BOOLEAN", reason: "제목 한 줄로 끝나는 빈 상태가 있다." },
+      HasAction: { type: "BOOLEAN", reason: "할 수 있는 일이 없는 빈 상태(권한 없음)에는 버튼을 두지 않는다." },
+    },
     id: "empty-state",
     figmaName: "EmptyState",
     iconSlots: ["Glyph"],
@@ -1942,6 +2150,31 @@ function compareComponentStrokes(contract, got) {
 
   for (const [role, spec] of Object.entries(plan)) {
     let want;
+    // **한 역할이 여러 두께를 갖는 것이 계약인 자리가 있다.** 표의 행 구분선은 칸의 아래 한
+    // 변인데 마지막 행만 0 이다(`tbody > tr:last-child > td`). 하나만 적으면 조립본이 영원히
+    // 실패하고, 역할을 빼면 「계약에 없는 stroke」로 잡힌다 — 둘 다 사실을 못 적는다.
+    // 목록을 허용하되 **왜 여럿인지 사유를 요구한다.** 사유 없이 목록으로 넓히는 길은 없다.
+    if (Array.isArray(spec.weight)) {
+      if (typeof spec.reason !== "string" || spec.reason.length < 20) {
+        issues.push(
+          `${contract.figmaName}: stroke 역할 ${role}이 두께를 여럿 선언하려면 20자 이상의 사유가 필요합니다.`,
+        );
+        continue;
+      }
+      const allowed = spec.weight.map((w) => `${w}|${spec.align}`);
+      const values = actual[role];
+      if (!Array.isArray(values) || values.length === 0) {
+        issues.push(`${contract.figmaName}: stroke 역할 ${role}이 Figma에 없습니다.`);
+        continue;
+      }
+      const wrong = values.filter((value) => !allowed.includes(value));
+      if (wrong.length > 0) {
+        issues.push(
+          `${contract.figmaName}: ${role}의 stroke가 다릅니다 — 허용 [${allowed.join(", ")}], 실제 [${values.join(", ")}]`,
+        );
+      }
+      continue;
+    }
     if (typeof spec.weight === "number") {
       want = spec.weight;
     } else if (spec.weight === "icon") {
@@ -2037,12 +2270,16 @@ function compareComponents(actualComponents) {
       );
     }
 
-    let declarationSource;
+    // figmaAhead 계약은 **코드가 아직 없다는 사실 자체가 계약**이다. 대조할 선언이 없으므로
+    // 읽지 않는다 — 없는 파일을 읽으려다 실패하는 것과 「아직 안 만들었다」는 다른 상태다.
+    let declarationSource = "";
     try {
-      declarationSource = readFileSync(
-        resolve(repoRoot, contract.declaration),
-        "utf8",
-      );
+      if (contract.figmaAhead === undefined) {
+        declarationSource = readFileSync(
+          resolve(repoRoot, contract.declaration),
+          "utf8",
+        );
+      }
     } catch {
       issues.push(
         `코드 선언을 읽을 수 없습니다: ${contract.declaration} — 먼저 pnpm build:react를 실행합니다.`,

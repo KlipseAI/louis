@@ -475,7 +475,7 @@
   --louis-motion-zoom-settle-duration: 680ms;
   --louis-motion-zoom-settle-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
   --louis-radius-alert: 20px;
-  --louis-radius-card: 16px;
+  --louis-radius-card: 12px;
   --louis-radius-card-lg: 20px;
   --louis-radius-control: 12px;
   --louis-radius-control-sm: 8px;
@@ -485,7 +485,6 @@
   --louis-radius-overlay-item: 10px;
   --louis-radius-overlay-lg: 24px;
   --louis-radius-pill: 999px;
-  --louis-radius-project-card: 12px;
   --louis-radius-table-header: 4px;
   --louis-space-control-lg: 16px;
   --louis-space-control-md: 12px;

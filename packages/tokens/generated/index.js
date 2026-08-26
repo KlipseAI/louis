@@ -10292,22 +10292,22 @@ export const tokens = {
     },
     "radius-card": {
       "aliasTarget": {
-        "id": "radius-16",
+        "id": "radius-12",
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-radius-card": "16px"
+        "--louis-radius-card": "12px"
       },
       "deprecated": null,
       "description": null,
       "id": "radius-card",
       "mode": "global",
-      "rawValue": "{primitive.radius.16}",
+      "rawValue": "{primitive.radius.12}",
       "sourcePath": "semantic.global.radius.card",
       "tier": "semantic",
       "type": "dimension",
       "value": {
-        "value": 16,
+        "value": 12,
         "unit": "px"
       }
     },
@@ -10497,27 +10497,6 @@ export const tokens = {
       "type": "dimension",
       "value": {
         "value": 999,
-        "unit": "px"
-      }
-    },
-    "radius-project-card": {
-      "aliasTarget": {
-        "id": "radius-12",
-        "mode": "base"
-      },
-      "cssProperties": {
-        "--louis-radius-project-card": "12px"
-      },
-      "deprecated": null,
-      "description": null,
-      "id": "radius-project-card",
-      "mode": "global",
-      "rawValue": "{primitive.radius.12}",
-      "sourcePath": "semantic.global.radius.project-card",
-      "tier": "semantic",
-      "type": "dimension",
-      "value": {
-        "value": 12,
         "unit": "px"
       }
     },

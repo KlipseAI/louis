@@ -2,23 +2,23 @@
   "artifacts": [
     {
       "path": "packages/tokens/generated/figma.tokens.json",
-      "sha256": "1ac082ba19fe930ada5ffae1036620276e2b24e8b849a23ce393373087dc2313"
+      "sha256": "9f024f22902724782713b2874a29b51c3116f2d7ea31b5cdc1236df3744a9398"
     },
     {
       "path": "packages/tokens/generated/index.d.ts",
-      "sha256": "e9018b0feab5b9ddd4a6aa668d4ec07872994624ec662c5e66003eb466cb184c"
+      "sha256": "93c04b2d0e719d3d870c92a89946e88f89c5ca21129a406609f59cb8b3a876fa"
     },
     {
       "path": "packages/tokens/generated/index.js",
-      "sha256": "e791037ffb4c7db3b763e83938aa429c6fbba6c58369d8377b2f5426c8dc4e1d"
+      "sha256": "e9ac661001e159dbc3d9172a654756172c6e23c51d4a7eee6944f5dfafe3d37b"
     },
     {
       "path": "packages/tokens/generated/tokens.css",
-      "sha256": "65eecc083d68221ac3ab1b3730170991490296b65286824d4aacfc7c6853389b"
+      "sha256": "ce03c45df0f45032a3bb8ec152d8b3f0e8905c83123ef54de79391eb9624f479"
     },
     {
       "path": "packages/tokens/generated/tokens.json",
-      "sha256": "83806733c2f506a048248385cf3d662103d1ffbfbc157cab5fdcfd2efbe420ec"
+      "sha256": "286a5d5160e94b97ff80c2b22c9351b990363b41a90c65a4043cdd65e9560fca"
     }
   ],
   "contrastPairs": [
@@ -408,13 +408,13 @@
   },
   "source": {
     "path": "packages/tokens/src/klipse.tokens.json",
-    "sha256": "d421899209bc35886a5871a1bb1559318fca0aba5454d4375a76c13b1f610e32"
+    "sha256": "57853f922d5c6f482f706aaa6f3d8cbcb4feb19aec7870b4ea2964cab9ac0a02"
   },
   "themes": [
     "light",
     "dark"
   ],
-  "tokenCount": 565,
+  "tokenCount": 564,
   "tokens": [
     {
       "aliasTarget": null,
@@ -12839,20 +12839,20 @@
     },
     {
       "aliasTarget": {
-        "id": "radius-16",
+        "id": "radius-12",
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-radius-card": "16px"
+        "--louis-radius-card": "12px"
       },
       "deprecated": null,
       "description": null,
       "id": "radius-card",
       "mode": "global",
-      "rawValue": "{primitive.radius.16}",
+      "rawValue": "{primitive.radius.12}",
       "resolvedValue": {
         "unit": "px",
-        "value": 16
+        "value": 12
       },
       "sourcePath": "semantic.global.radius.card",
       "tier": "semantic",
@@ -13063,27 +13063,6 @@
         "value": 999
       },
       "sourcePath": "semantic.global.radius.pill",
-      "tier": "semantic",
-      "type": "dimension"
-    },
-    {
-      "aliasTarget": {
-        "id": "radius-12",
-        "mode": "base"
-      },
-      "cssProperties": {
-        "--louis-radius-project-card": "12px"
-      },
-      "deprecated": null,
-      "description": null,
-      "id": "radius-project-card",
-      "mode": "global",
-      "rawValue": "{primitive.radius.12}",
-      "resolvedValue": {
-        "unit": "px",
-        "value": 12
-      },
-      "sourcePath": "semantic.global.radius.project-card",
       "tier": "semantic",
       "type": "dimension"
     },

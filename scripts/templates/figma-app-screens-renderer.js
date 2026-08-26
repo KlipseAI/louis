@@ -308,7 +308,19 @@ const buildNode = (spec, parent) => {
     node.appendChild(label);
     applyTypography(label, spec);
     label.name = `text ${String(spec.x).slice(0, 18)}`;
-    try { label.layoutSizingHorizontal = "HUG"; label.layoutSizingVertical = "HUG"; } catch (error) {}
+    if (spec.l) {
+      // 제품이 auto-layout(flex)으로 가운데 정렬한 버튼 — 부모 정렬을 그대로 쓴다.
+      try { label.layoutSizingHorizontal = "HUG"; label.layoutSizingVertical = "HUG"; } catch (error) {}
+    } else {
+      // **flex가 아닌 블록 버튼**은 `text-align`으로만 글자를 가운데 놓는다. Figma에서 HUG로 두면
+      // 글자가 (0,0)에 붙어 면 밖으로 삐져나온다. 실측 사고: `/subscription` 의 `Redeem a coupon`
+      // 이 왼쪽으로 밀려 "edeem a coupon" 으로 잘렸다(스크린샷으로 확인).
+      // 면을 가득 채우고 세로 가운데로 맞춰 블록 버튼과 같은 결과를 만든다.
+      label.textAutoResize = "NONE";
+      label.resize(Math.max(0.01, node.width), Math.max(0.01, node.height));
+      label.textAlignVertical = "CENTER";
+      try { label.constraints = { horizontal: "STRETCH", vertical: "STRETCH" }; } catch (error) {}
+    }
   }
 
   for (const child of (spec.k || [])) buildNode(child, node);

@@ -19,7 +19,7 @@
       },
       "components": {
         "sets": 26,
-        "variants": 169
+        "variants": 170
       },
       "icons": 31,
       "templates": 0
@@ -6622,7 +6622,7 @@
     "ProjectCard": {
       "outsideParts": [],
       "tokenId": "project-card",
-      "variantCount": 1,
+      "variantCount": 2,
       "hasDescription": true,
       "properties": {
         "Eyebrow": {
@@ -6633,15 +6633,22 @@
         },
         "Meta": {
           "type": "TEXT"
+        },
+        "State": {
+          "type": "VARIANT",
+          "options": [
+            "Default",
+            "Hover"
+          ]
         }
       },
       "binding": {
-        "boundFills": 5,
+        "boundFills": 12,
         "rawFills": 0,
-        "boundStrokes": 1,
+        "boundStrokes": 2,
         "rawStrokes": 0,
         "textStyled": 0,
-        "textUnstyled": 3
+        "textUnstyled": 6
       },
       "geometry": {
         "base": {
@@ -6652,27 +6659,32 @@
           "width": [
             360
           ],
+          "paddingBlock": [],
+          "paddingBlockEnd": [],
+          "paddingInline": [],
+          "paddingInlineEnd": [],
+          "itemSpacing": [],
           "cornerRadius": [
             12
+          ],
+          "layoutMode": [
+            "NONE"
           ],
           "strokeWeight": [
             0.5
           ],
-          "childOrder": [
-            "Media",
-            "Action",
-            "Adornment"
-          ],
+          "overflowingParts": [],
+          "offCenterMarks": [],
           "parts": {
-            "Media": {
+            "More": {
               "width": [
-                359
+                32
               ],
               "height": [
-                359
+                32
               ]
             },
-            "Thumbnail": {
+            "Media": {
               "width": [
                 359
               ],
@@ -6685,7 +6697,10 @@
                 359
               ],
               "height": [
-                107.699997
+                107.7
+              ],
+              "itemSpacing": [
+                4
               ],
               "paddingBlock": [
                 16
@@ -6698,9 +6713,6 @@
               ],
               "paddingInlineEnd": [
                 16
-              ],
-              "itemSpacing": [
-                4
               ],
               "layoutMode": [
                 "VERTICAL"
@@ -6716,11 +6728,8 @@
               "fontSize": [
                 14
               ],
-              "fontStyle": [
-                "Regular"
-              ],
               "lineHeightPercent": [
-                120.000005
+                120
               ]
             },
             "Title": {
@@ -6733,11 +6742,8 @@
               "fontSize": [
                 16
               ],
-              "fontStyle": [
-                "Medium"
-              ],
               "lineHeightPercent": [
-                120.000005
+                120
               ]
             },
             "Meta": {
@@ -6750,11 +6756,16 @@
               "fontSize": [
                 14
               ],
-              "fontStyle": [
-                "Regular"
-              ],
               "lineHeightPercent": [
-                120.000005
+                120
+              ]
+            },
+            "Thumbnail": {
+              "width": [
+                359
+              ],
+              "height": [
+                359
               ]
             },
             "Action": {
@@ -6771,37 +6782,14 @@
               ],
               "height": [
                 32
-              ],
-              "paddingBlock": [
-                0
-              ],
-              "paddingBlockEnd": [
-                0
-              ],
-              "paddingInline": [
-                0
-              ],
-              "paddingInlineEnd": [
-                0
-              ],
-              "itemSpacing": [
-                4
-              ],
-              "layoutMode": [
-                "HORIZONTAL"
-              ]
-            },
-            "More": {
-              "width": [
-                32
-              ],
-              "height": [
-                32
               ]
             }
           },
-          "overflowingParts": [],
-          "offCenterMarks": []
+          "childOrder": [
+            "Media",
+            "Action",
+            "Adornment"
+          ]
         }
       },
       "strokes": {

@@ -949,9 +949,19 @@ const COMPONENT_CONTRACTS = [
       Eyebrow: { type: "TEXT", reason: "ProjectCardEyebrow의 children. 루트 prop이 아니다." },
       Title: { type: "TEXT", reason: "ProjectCardTitle의 children." },
       Meta: { type: "TEXT", reason: "ProjectCardMeta의 children." },
+      State: {
+        options: ["Default", "Hover"],
+        reason:
+          "더보기 버튼이 **호버에서만 드러난다** — `.louis-project-card-more`는 `opacity: 0`이고 " +
+          "`.louis-project-card:hover`와 `:focus-within`이 1로 올린다(project-card.css:322·331·342). " +
+          "Figma에는 CSS 상태가 없으므로 Button의 State와 같은 이유로 variant로 둔다. " +
+          "축이 없으면 기본 변형 하나만 남는데, 그러면 **더보기 버튼이 있다는 사실 자체를 볼 수 없다** — " +
+          "항상 보이게 그리면 반대로 거짓이 된다. 2026-08-26 소유자 지적으로 추가했다.",
+      },
     },
     declaration: "packages/react/dist/project-card/project-card.d.ts",
-    // variant 축이 없다. 카드의 강조는 카드가 아니라 썸네일이 만든다.
+    // 코드 타입 alias에서 읽는 variant 축은 없다. 카드의 강조는 카드가 아니라 썸네일이 만든다.
+    // CSS 상태(호버)는 위 figmaOnlyProperties.State가 담는다.
     variantProperties: {},
     strokes: { self: { weight: "borderWidth", align: "INSIDE" } },
     // Figma text style은 all-or-nothing이라 line-height만 덮으면 style 연결이 끊긴다(실측 확인).
@@ -2123,9 +2133,14 @@ function compareComponents(actualComponents) {
       if (typeof exempt.reason !== "string" || exempt.reason.length < 20) {
         issues.push(`${contract.figmaName}: textStyleExempt에 20자 이상의 사유가 필요합니다.`);
       }
-      if ((binding.textUnstyled ?? 0) !== exempt.parts.length) {
+      // 면제한 자리는 **변형마다 하나씩** 있다. variant 축이 있는 컴포넌트에서 parts.length 만
+      // 기대하면 축을 늘리는 순간 거짓 실패가 난다 — ProjectCard 에 State(Default·Hover)를
+      // 더하자 선언 3 · 실제 6 이 됐다(2026-08-26). 곱해서 본다.
+      const variants = Math.max(got.variantCount ?? 1, 1);
+      const expectedUnstyled = exempt.parts.length * variants;
+      if ((binding.textUnstyled ?? 0) !== expectedUnstyled) {
         issues.push(
-          `${contract.figmaName}: style이 없는 텍스트 수가 면제 선언과 다릅니다 — 선언 ${exempt.parts.length}, Figma ${binding.textUnstyled}`,
+          `${contract.figmaName}: style이 없는 텍스트 수가 면제 선언과 다릅니다 — 선언 ${exempt.parts.length}×${variants}=${expectedUnstyled}, Figma ${binding.textUnstyled}`,
         );
       }
       // 면제한 자리는 값을 직접 대조해야 한다. 대조하지 않으면 그냥 검사를 뺀 것이다.

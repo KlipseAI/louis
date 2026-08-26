@@ -99,7 +99,7 @@ const total = plan.reduce((n, c) => n + c.vars.length, 0);
 // 별칭 대상을 이름으로 찾을 수 있도록 id → figmaName 표를 함께 싣는다.
 // 컬렉션마다 파일을 나눠도(=따로 실행해도) 별칭이 끊기지 않는다.
 const nameById = {};
-for (const col of plan) for (const v of col.vars) nameById[v.i] = v.n;
+for (const col of plan) for (const v of col.vars) nameById[v.i] = `${col.c}::${v.n}`;
 
 // 조각 크기 — use_figma 한도(50,000자)보다 훨씬 작게 잡는다. 붙여넣기와 검토가 가능해야 한다.
 const CHUNK = 64;
@@ -129,9 +129,14 @@ for(const spec of COL.vars){
   v.hiddenFromPublishing=spec.h;
   if(spec.sc.length) v.scopes=spec.sc;
 }
-// 2차 — 값을 넣는다. 별칭은 **이름으로** 파일 전체에서 찾는다.
+// 2차 — 값을 넣는다. 별칭은 **컬렉션::이름** 으로 파일 전체에서 찾는다.
+// 이름만으로 찾으면 안 된다 — border-width/default 와 layer/* 8개는 Primitive 와 Semantic
+// 양쪽에 같은 이름으로 존재한다. Map 은 나중 것이 이기므로 semantic 이 자기 자신을 별칭
+// 대상으로 잡아 Figma 가 값을 0 으로 떨어뜨린다(2026-08-26 LOUIS 파일에서 8건 실측).
 all=await figma.variables.getLocalVariablesAsync();
-const byName=new Map(all.map(v=>[v.name,v]));
+cols=await figma.variables.getLocalVariableCollectionsAsync();
+const collName=new Map(cols.map(x=>[x.id,x.name]));
+const byName=new Map(all.map(v=>[collName.get(v.variableCollectionId)+"::"+v.name,v]));
 for(const spec of COL.vars){
   const v=inCol.get(spec.n); if(!v) continue;
   let touched=false;

@@ -185,24 +185,33 @@ const preloadVariants = async (spec) => {
 const pendingTextStyles = [];
 const missingTextStyles = new Set();
 
+/** 텍스트 노드에 타이포를 건다. 스타일 이름이면 뒤에서 한 번에, 숫자면 즉시. */
+const applyTypography = (node, spec) => {
+  const literal = Array.isArray(spec.y) ? spec.y : null;
+  node.fontName = { family: "Pretendard", style: literal ? (WEIGHT_STYLE[literal[1]] ?? "Regular") : "Regular" };
+  if (literal) node.fontSize = literal[0];
+  node.characters = String(spec.x);
+  node.fills = spec.tc ? [hexToPaint(spec.tc)] : [];
+  if (spec.ta && ALIGN[spec.ta]) node.textAlignHorizontal = ALIGN[spec.ta];
+  if (literal) {
+    if (literal[2]) node.lineHeight = { value: literal[2], unit: "PIXELS" };
+    node.letterSpacing = { value: literal[3] ?? 0, unit: "PIXELS" };
+  } else if (typeof spec.y === "string") {
+    pendingTextStyles.push([node, spec.y]);
+  }
+};
+
 const buildNode = (spec, parent) => {
   let node;
-  const isText = Boolean(spec.x) && !spec.k;
+  // **글자와 면을 같이 가진 노드는 TEXT로 만들면 안 된다.** Figma TEXT에는 배경·radius·그림자가 없다.
+  // 제품의 버튼(`<button>검은 알약</button>`)이 그런 경우다 — 프레임 + 안쪽 텍스트로 만든다.
+  // 실측 사고: `/analytics/youtube`의 `Connect Google Account` 검은 알약이 통째로 사라졌다.
+  const wantsSurface = Boolean(spec.f || spec.b || spec.d != null || spec.e);
+  const textInSurface = Boolean(spec.x) && !spec.k && wantsSurface;
+  const isText = Boolean(spec.x) && !spec.k && !wantsSurface;
   if (isText) {
-    const literal = Array.isArray(spec.y) ? spec.y : null;
     node = figma.createText();
-    node.fontName = { family: "Pretendard", style: literal ? (WEIGHT_STYLE[literal[1]] ?? "Regular") : "Regular" };
-    if (literal) node.fontSize = literal[0];
-    node.characters = String(spec.x);
-    // 글자색도 변수에 붙인다. 측정에 색이 없으면 칠하지 않는다(지어내지 않는다).
-    node.fills = spec.tc ? [hexToPaint(spec.tc)] : [];
-    if (spec.ta && ALIGN[spec.ta]) node.textAlignHorizontal = ALIGN[spec.ta];
-    if (literal) {
-      if (literal[2]) node.lineHeight = { value: literal[2], unit: "PIXELS" };
-      node.letterSpacing = { value: literal[3] ?? 0, unit: "PIXELS" };
-    } else if (typeof spec.y === "string") {
-      pendingTextStyles.push([node, spec.y]);
-    }
+    applyTypography(node, spec);
   } else if (spec.i) {
     // 셸·본문 자리 — 도형 대신 컴포넌트 인스턴스. 크기·배치는 아래 공통 경로가 그대로 건다.
     node = componentCache.get(`${spec.i[0]}|${spec.i[1]}`).createInstance();
@@ -290,6 +299,15 @@ const buildNode = (spec, parent) => {
 
   // 면은 크기·배치가 끝난 뒤에 건다. 인스턴스에는 걸지 않는다.
   if (!isText && !spec.i) applyPaint(node, spec);
+
+  // 면을 가진 텍스트: 프레임 안에 실제 글자를 넣는다. 프레임의 padding/정렬이 그대로 배치를 잡는다.
+  if (textInSurface) {
+    const label = figma.createText();
+    node.appendChild(label);
+    applyTypography(label, spec);
+    label.name = `text ${String(spec.x).slice(0, 18)}`;
+    try { label.layoutSizingHorizontal = "HUG"; label.layoutSizingVertical = "HUG"; } catch (error) {}
+  }
 
   for (const child of (spec.k || [])) buildNode(child, node);
   return node;

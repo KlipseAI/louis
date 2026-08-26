@@ -5015,6 +5015,21 @@
       "variantCount": 50,
       "hasDescription": true,
       "properties": {
+        "LeftIcon": {
+          "type": "BOOLEAN"
+        },
+        "RightIcon": {
+          "type": "BOOLEAN"
+        },
+        "Label": {
+          "type": "TEXT"
+        },
+        "LeftIconGlyph": {
+          "type": "INSTANCE_SWAP"
+        },
+        "RightIconGlyph": {
+          "type": "INSTANCE_SWAP"
+        },
         "Variant": {
           "type": "VARIANT",
           "options": [
@@ -5037,7 +5052,7 @@
           "options": [
             "Default",
             "Hover",
-            "Pressed",
+            "Active",
             "Disabled",
             "Loading"
           ]
@@ -5046,14 +5061,24 @@
       "binding": {
         "boundFills": 82,
         "rawFills": 0,
-        "boundStrokes": 10,
+        "boundStrokes": 260,
         "rawStrokes": 0,
         "textStyled": 50,
         "textUnstyled": 0
       },
       "geometry": {
         "md": {
-          "slots": {},
+          "slots": {
+            "LeftIcon": [
+              "16x16"
+            ],
+            "RightIcon": [
+              "16x16"
+            ],
+            "Spinner": [
+              "18x18"
+            ]
+          },
           "height": [
             32
           ],
@@ -5061,16 +5086,16 @@
             80
           ],
           "paddingBlock": [
-            0
+            0.5
           ],
           "paddingBlockEnd": [
-            0
+            0.5
           ],
           "paddingInline": [
-            12
+            12.5
           ],
           "paddingInlineEnd": [
-            12
+            12.5
           ],
           "itemSpacing": [
             4
@@ -5082,13 +5107,24 @@
             "HORIZONTAL"
           ],
           "strokeWeight": [
-            1
+            2,
+            0.5
           ],
           "overflowingParts": [],
           "offCenterMarks": []
         },
         "sm": {
-          "slots": {},
+          "slots": {
+            "LeftIcon": [
+              "16x16"
+            ],
+            "RightIcon": [
+              "16x16"
+            ],
+            "Spinner": [
+              "18x18"
+            ]
+          },
           "height": [
             32
           ],
@@ -5096,16 +5132,16 @@
             80
           ],
           "paddingBlock": [
-            0
+            0.5
           ],
           "paddingBlockEnd": [
-            0
+            0.5
           ],
           "paddingInline": [
-            12
+            12.5
           ],
           "paddingInlineEnd": [
-            12
+            12.5
           ],
           "itemSpacing": [
             4
@@ -5117,13 +5153,27 @@
             "HORIZONTAL"
           ],
           "strokeWeight": [
-            1
+            2,
+            0.5
           ],
           "overflowingParts": [],
           "offCenterMarks": []
         }
       },
-      "strokes": {},
+      "strokes": {
+        "LeftIcon.glyph": [
+          "1.5|CENTER"
+        ],
+        "RightIcon.glyph": [
+          "1.5|CENTER"
+        ],
+        "Spinner": [
+          "2|INSIDE"
+        ],
+        "self": [
+          "0.5|INSIDE"
+        ]
+      },
       "effects": {}
     }
   },

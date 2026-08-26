@@ -41,8 +41,20 @@ for (const style of ["Regular", "Medium", "SemiBold", "Bold"]) {
 
 // ── 파일에 이미 있는 것 색인 ──────────────────────────────────────────────
 // 색 변수는 **값(hex)** 으로 찾는다 — 이름 규칙을 짐작하지 않기 위해서다.
-// 우선순위: 의미 토큰 → 원시 팔레트. 측정이 light 테마이므로 light/base 모드 값을 쓴다.
-const PREFERRED_COLLECTIONS = ["Klipse Semantic Color", "Klipse Primitive", "2 · Semantic", "1 · Palette"];
+//
+// **모드는 측정을 따른다.** 화면 전체에 앱 모드 하나를 건다.
+// `1 · Palette=sidebar`, `2 · Semantic=light-sidebar` 에서 측정값이 정확히 잡힌다:
+//   `#eeeef1` → `1 · Palette[sidebar]::palette/gray-200` (페이지 배경)
+//   `#f8f8f9` → `2 · Semantic[light-sidebar]::app/page-bg` (메인 카드)
+//   `#575d68` → `2 · Semantic[light-sidebar]::gray/300` (사이드바 라벨)
+//
+// **셸 인스턴스를 dark로 되돌리지 않는다.** 기존 `Desktop Payment Result Scene` 은 gnb·top-bar에
+// `2 · Semantic=dark` 를 못박아 두었지만, 그러면 사이드바 라벨이 `#d5d7dd` 로 나와 밝은 페이지 위에서
+// 읽히지 않는다. 제품 실측은 사이드바 **배경 투명 + 라벨 `#575d68`** 이다(light 테마).
+// 장면 컴포넌트 쪽이 현재 측정과 어긋나 있는 것이므로 측정을 따른다.
+const APP_MODES = { "2 · Semantic": "light-sidebar", "1 · Palette": "sidebar" };
+// 앱 토큰(2 · Semantic / 1 · Palette)을 먼저 본다 — 앱 화면이 실제로 쓰는 층이다.
+const PREFERRED_COLLECTIONS = ["2 · Semantic", "1 · Palette", "Klipse Semantic Color", "Klipse Primitive"];
 const collections = await figma.variables.getLocalVariableCollectionsAsync();
 const allVariables = await figma.variables.getLocalVariablesAsync();
 const variableById = new Map(allVariables.map((variable) => [variable.id, variable]));
@@ -65,14 +77,18 @@ const resolveVariable = (variable, modeId, depth) => {
   return value;
 };
 
-const lightModeOf = (collection) =>
-  collection.modes.find((mode) => /^(light|base|default|global)$/i.test(mode.name)) ?? collection.modes[0];
+const modeOf = (collection, table) => {
+  const wanted = table[collection.name];
+  return (wanted && collection.modes.find((mode) => mode.name === wanted))
+    ?? collection.modes.find((mode) => /^(light|base|default|global)$/i.test(mode.name))
+    ?? collection.modes[0];
+};
 
 const variableByHex = new Map();
 for (const name of PREFERRED_COLLECTIONS) {
   const collection = collections.find((entry) => entry.name === name);
   if (!collection) continue;
-  const mode = lightModeOf(collection);
+  const mode = modeOf(collection, APP_MODES);
   for (const id of collection.variableIds) {
     const variable = variableById.get(id);
     if (!variable || variable.resolvedType !== "COLOR") continue;
@@ -290,15 +306,19 @@ const flushTextStyles = async () => {
   pendingTextStyles.length = 0;
 };
 
-/** 측정이 light 테마이므로 생성본의 변수 모드를 light로 고정한다. */
-const pinLightMode = (node) => {
+/**
+ * 변수 모드를 건다 — 완성된 장면 컴포넌트가 쓰는 규약 그대로.
+ * 화면 전체는 앱 모드(light-sidebar/sidebar), 셸 인스턴스만 어두운 모드(dark/default).
+ */
+const pinModes = (node, table) => {
   for (const collection of collections) {
-    if (collection.modes.length < 2) continue;
-    const light = collection.modes.find((mode) => /^(light|base|default|global)$/i.test(mode.name));
-    if (!light) continue;
-    try { node.setExplicitVariableModeForCollection(collection, light.modeId); } catch (error) {}
+    if (!(collection.name in table)) continue;
+    const mode = collection.modes.find((entry) => entry.name === table[collection.name]);
+    if (!mode) continue;
+    try { node.setExplicitVariableModeForCollection(collection, mode.modeId); } catch (error) {}
   }
 };
+
 
 const frame = await figma.getNodeByIdAsync(P.frameId);
 if (!frame) throw new Error(`대상 프레임을 찾지 못했습니다: ${P.frameId} (${P.route})`);
@@ -333,7 +353,7 @@ if (P.head) {
   await preloadVariants(P.head);
   const root = buildNode(P.head, frame);
   root.name = generatedName;
-  pinLightMode(root);
+  pinModes(root, APP_MODES);
   await flushTextStyles();
   result = { chunk: 0, built: [Math.round(root.width), Math.round(root.height)], legacy: Boolean(legacy) };
 } else {

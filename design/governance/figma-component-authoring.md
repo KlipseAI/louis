@@ -190,6 +190,41 @@ Button 은 `border: 0` 이고 헤어라인은 레이아웃을 건드리지 않�
 
 - `setProperties` 로 글리프를 바꿀 때 **컴포넌트 key 가 아니라 노드 id** 를 넘긴다.
   key 를 넘기면 `Property value is incompatible with component property type` 이 난다.
+- **`addComponentProperty` 의 기본값도 같다** — `INSTANCE_SWAP` 축을 만들 때 넘기는 기본값이
+  노드 id 여야 하고 key 를 넘기면 같은 오류가 난다(2026-08-26 Alert 작성 중 확인, 두 형태를
+  나란히 시도해 대조했다). 스크립트는 원자적이라 이 한 줄에서 전체가 되돌려진다.
 - `preferredValues` 가 비어 있으면 **인스턴스에서 아이콘을 고를 수가 없다.** 스왑 목록이 안 뜬다.
   `editComponentProperty(key, { preferredValues })` 로 아이콘 컴포넌트를 채운다. 이때는 반대로
   `{type:"COMPONENT", key}` 형태의 **key** 를 쓴다. 둘이 다르다는 것을 기억할 것.
+
+## 상호작용은 **그것을 받는 요소**가 소유한다 — 그리고 거기 프로토타입을 건다
+
+hover·focus·selected 를 **컨테이너의 variant** 로 두면 두 가지가 동시에 깨진다.
+
+1. **어느 자식이 그 상태인지 고를 수 없다.** SegmentedControl 에 `State=Hover` 를 두었더니
+   세 세그먼트 중 하나를 임의로 골라 칠해야 했다 — 「옵션2 hover」라는, 뜻이 없는 변형이 생겼다.
+   실제로는 포인터가 얹힌 세그먼트가 받는다.
+2. **프로토타입을 걸 수 없다.** Figma 의 `ON_HOVER` · `ON_CLICK` 반응은 그 상호작용을 받는
+   노드에 걸어야 동작한다. 컨테이너에 걸면 어디에 얹어도 같은 변형으로 넘어간다.
+
+그래서 **상호작용 단위를 자기 컴포넌트로 뽑고**, 컨테이너는 그 인스턴스를 조립한다.
+
+    SegmentedControlItem   Size × State(Default·Hover·Selected·Focus·Disabled·SelectedDisabled)
+                           ← 여기에 setReactionsAsync 로 ON_HOVER → Hover, ON_CLICK → Selected
+    SegmentedControl       Size × Disabled  (그룹 축만 남는다)
+
+**판단 기준:** 그 상태가 컨테이너 전체에 걸리는가, 자식 하나에 걸리는가. 자식 하나면 그 자식이
+컴포넌트다. 그룹 전체를 끄는 `disabled` 처럼 진짜 컨테이너 축인 것만 컨테이너에 남긴다.
+
+### 상태의 시각 표현은 CSS 를 그대로 옮긴다 — 지어내지 않는다
+
+세그먼트 hover 는 **글자색만** 바꾼다(`segmented-control.css:122-127`). 면까지 바꾸면 선택된
+것과 얹은 것이 같은 표현이 되어 어느 쪽이 현재 값인지 순간 읽히지 않는다 — CSS 주석이 그렇게
+적어 두었는데도 처음엔 면을 칠했다. 상태를 만들기 전에 그 상태의 CSS 규칙을 먼저 읽는다.
+
+### 포커스 링은 `outline` 이고 `outline-offset` 이 있다
+
+`base.css:50-54` 는 `outline: 2px solid stroke-focus; outline-offset: 2px` 다. Figma 에는
+outline-offset 이 없으므로 **요소보다 각 변 2px 큰 사각형에 2px OUTSIDE stroke** 를 둔다.
+반지름도 따라간다 — 요소 반지름 + 2. 요소에 바로 stroke 를 걸면 딱 붙은 각진 상자가 되고,
+그건 브라우저가 그리는 것과 다르다.

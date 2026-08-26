@@ -860,6 +860,15 @@
       "generated": false
     },
     {
+      "id": "decision-figma-as-projection",
+      "path": "design/governance/decisions/DS-D-0025-figma-as-projection.md",
+      "title": "DS-D-0025 Figma는 참조용 projection이다 — 라이브러리를 발행하지 않는다",
+      "section": "governance",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
+    },
+    {
       "id": "governance-product-confirmations",
       "path": "design/governance/product-confirmations.md",
       "title": "제품 확인 대기 목록",
@@ -1039,6 +1048,7 @@
         "design/governance/decisions/DS-D-0022-determinate-progress-a11y.md",
         "design/governance/decisions/DS-D-0023-hairline-inset.md",
         "design/governance/decisions/DS-D-0024-color-architecture.md",
+        "design/governance/decisions/DS-D-0025-figma-as-projection.md",
         "design/governance/product-confirmations.md",
         "design/updates/README.md"
       ]

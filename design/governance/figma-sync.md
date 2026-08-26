@@ -44,9 +44,10 @@ DS 변수·style·component 를 쓸 곳은 라이브러리이고, 제품 화면�
 [figma-screen-assembly](figma-screen-assembly.md)와 `klipse-figma-transplant` 스킬이 소유한다.
 **둘을 섞지 마라 — 어느 파일에 쓰는지 먼저 확인한다.**
 
-라이브러리 파일은 2026-08-14에 `SEJUNKI` 팀(pro tier, Full seat) drafts에 생성됐다. 파일 분리는
-publish 이후에만 검토한다 — publish 전에는 파일 간 변수·component 소비가 불가능하므로 단일 파일
-3-페이지 구조를 유지한다.
+라이브러리 파일은 2026-08-14에 `SEJUNKI` 팀(pro tier, Full seat) drafts에 생성됐다. 단일 파일
+3-페이지 구조를 유지한다 — 파일 간 변수·component 소비는 발행을 요구하는데
+[DS-D-0025](decisions/DS-D-0025-figma-as-projection.md)가 발행하지 않기로 했으므로 파일 분리는
+검토 대상이 아니다.
 
 ### 실측된 capability (2026-08-14, 라이브러리 파일)
 
@@ -126,7 +127,9 @@ publish 이후에만 검토한다 — publish 전에는 파일 간 변수·compo
 
 ## 현재 상태
 
-- published Klipse Design library: `not-ready`
+- published Klipse Design library: `not-ready` — **미달이 아니라 선택이다.**
+  [DS-D-0025](decisions/DS-D-0025-figma-as-projection.md)가 Figma를 참조용 projection으로 확정했고
+  발행하지 않기로 했다. publish를 남은 과제로 적지 않는다
 - library 파일: collection 3개(`Klipse Primitive` · `Klipse Semantic` · `Klipse Semantic Color`).
   **수는 이 문서가 갖지 않는다** — `pnpm verify-figma-parity` 출력과 `figma/snapshot.json` 이 낸다.
   publish하지 않음
@@ -194,13 +197,19 @@ P2는 review 가능한 proposal까지만 소유한다. 실제 library evidence�
 3. P3에서 승인된 proposal을 library draft에 적용하고 stable variable key를 기록한다.
 4. 이름, mode, alias, component property와 variant parity를 검사한다.
 5. 승인한 Figma change와 code change를 같은 DS release에 연결한다.
-6. 제품 screen은 published library component instance를 소비하고 detach 이유를 제품 이슈에 기록한다.
+6. ~~제품 screen은 published library component instance를 소비하고 detach 이유를 제품 이슈에 기록한다.~~
+   **철회 — [DS-D-0025](decisions/DS-D-0025-figma-as-projection.md).** 발행하지 않기로 했으므로 파일 간
+   component 소비가 성립하지 않는다. 이식 보드의 화면 조립은 보드 고유 컴포넌트와
+   `1 · Palette`/`2 · Semantic`/`3 · Scale`로 계속한다.
 
 ## 승격 조건
 
 P2 private release-candidate와 proposal만으로는 `figma: not-ready`를 유지한다.
 `figma: partial`에는 review 가능한 P3 library draft와 stable variable/component key가 필요하다.
 `figma: done`에는 published library, token/variant parity check, usage guidance와 owner가 필요하다.
+**이 저장소는 `done`을 추구하지 않는다** — [DS-D-0025](decisions/DS-D-0025-figma-as-projection.md)가
+발행하지 않기로 했으므로 첫 조건이 의도적으로 충족되지 않는다. parity check는 발행과 무관하게
+계속 강제된다.
 
 credential이나 plugin session이 없는 CI에서도 catalog가 정직해야 하므로, Figma 연결 실패를
 `done`으로 캐시하지 않는다.

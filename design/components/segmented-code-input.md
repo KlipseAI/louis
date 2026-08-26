@@ -18,9 +18,10 @@ summary: 쿠폰 코드처럼 한 글자씩 칸을 나눠 받는 입력 묶음입
 않는다 — 파일이 내보내는 것은 묶음 하나뿐이다. 설계가 걸린 곳도 묶음이다: 칸이
 `flex-1 min-w-0 max-w-14` 라 컨테이너에 맞춰 **줄어들고**, 정본 주석이 그 이유를 적어 뒀다 —
 12칸을 고정폭으로 두면 좁은 모달(360px)에서 가로로 넘친다. 칸 하나를 컴포넌트로 뽑으면 그
-줄어듦도, 칸 사이 2, 네 칸마다 오는 구분자도 아무도 소유하지 않는다. 그래서 Figma 도 칸을
-채움으로 두고 **프레임 폭 386 하나만 고정했다** — 386 은 칸이 최대폭 28 에 닿는 폭이고,
-12 × 28 + 2 × 12 + 13 × 2 = 386 으로 딱 떨어진다.
+줄어듦도, 칸 사이 2, 네 칸마다 오는 구분자도 아무도 소유하지 않는다. 그래서 Figma 도
+**프레임 폭 386 하나만 고정했다** — 386 은 칸이 최대폭 28 에 닿는 폭이고,
+12 × 28 + 2 × 12 + 13 × 2 = 386 으로 딱 떨어진다. **Figma 의 칸이 채움인지 고정인지는
+확인되지 않는다** — 되읽기가 sizing mode 를 담지 않는다(Known deviations 3).
 
 **칸 수와 묶음 크기는 이 컴포넌트의 값이 아니다.** 12 와 4 는 `length` · `groupSize` prop 으로
 들어오고, 그 값은 `app/lib/payments/coupon-code.ts` 의 `COUPON_CODE_LENGTH`(12) ·
@@ -50,8 +51,9 @@ summary: 쿠폰 코드처럼 한 글자씩 칸을 나눠 받는 입력 묶음입
   - **코드를 여러 개 한꺼번에 붙여넣는 자리** — 운영자 화면의 쿠폰 일괄 등록은 textarea 에
     `parseCouponCodeList` 를 물린다. 줄바꿈·쉼표·탭 어느 것으로 구분해도 받아야 하므로 칸이
     성립하지 않는다.
-  - **오류 문구** — 이 컴포넌트는 오류를 그리지 않는다. 형제로 놓인
-    [Form Message](./form-message.md) `Tone=error` 가 진다.
+  - **오류 문구** — 이 컴포넌트는 오류를 그리지 않는다. 형제로 놓인 `<p role="alert">` 가
+    진다. [Form Message](./form-message.md) 가 덮어야 할 자리인데 **아직 덮지 못한다**
+    (Known deviations 11).
 
 ## Anatomy
 
@@ -101,12 +103,14 @@ summary: 쿠폰 코드처럼 한 글자씩 칸을 나눠 받는 입력 묶음입
   `:placeholder-shown` 도 `data-filled` 도 없다. 채워진 칸이 달라 보이는 것은 글자가 있기
   때문이지 면이 바뀌기 때문이 아니다.
 - **오류가 축이 아니다.** 이 컴포넌트에는 오류 prop 이 없다. 쿠폰 코드가 틀렸을 때 붉게
-  변하는 것은 칸이 아니라 **형제로 놓인 `p role="alert"`** 이고, 그것은 이미
-  [Form Message](./form-message.md) `Tone=error` 다. 같은 판단이 LOUIS TextField 에도 서 있다 —
-  오류를 테두리로 그리지 않고 메시지 + `aria-invalid` + `role="alert"` 로 만든다.
-- **Hover 가 없다.** 정본에 `:hover` 선언이 하나도 없다. 이 저장소의 다른 두 `figmaAhead`
-  컴포넌트와 정반대다 — [Carousel Arrow](./carousel-arrow.md) 와
-  [GNB Menu Item](./gnb-menu-item.md) 은 Hover 가 있고 Focus 가 없다.
+  변하는 것은 칸이 아니라 **형제로 놓인 `p role="alert"`** 이고, 그것은
+  [Form Message](./form-message.md) 가 덮어야 할 자리다 — 다만 제품에 FormMessage 컴포넌트는
+  아직 없고 그 `<p>` 는 인라인 마크업이다(Known deviations 11). 같은 판단이 LOUIS TextField
+  에도 서 있다 — 오류를 테두리로 그리지 않고 메시지 + `aria-invalid` + `role="alert"` 로
+  만든다.
+- **Hover 가 없다.** 정본에 `:hover` 선언이 하나도 없다.
+  [Carousel Arrow](./carousel-arrow.md) · [GNB Menu Item](./gnb-menu-item.md) 과 정반대다 —
+  그 둘은 `State` 축에 Hover 가 있고 Focus 가 없다.
 - **길이·묶음 크기가 축이 아니다.** `length` · `groupSize` 는 수 prop 이라 변형으로 열 수
   없다. Figma 는 12 · 4 한 벌만 그렸고, 그것이 지금 유일한 소비처의 값이다.
 
@@ -140,10 +144,13 @@ summary: 쿠폰 코드처럼 한 글자씩 칸을 나눠 받는 입력 묶음입
   Known deviations 3.)
 - 키 조작은 아래 Accessibility 에 모아 적는다.
 - **붙여넣기는 어느 칸에서 해도 된다.** 붙여넣은 문자열이 전체 길이 이상이면 **처음부터**
-  채우고, 짧으면 그 칸부터 이어 붙인다. 어느 쪽이든 `normalize` 를 먼저 통과하므로 하이픈과
-  공백이 섞인 `ABCD-EFGH-JKMN` 을 그대로 붙여도 들어간다.
+  채우고, 짧으면 그 칸부터 채우되 **그 뒤에 있던 글자는 지운다** — 정본이
+  `value.slice(0, start) + pasted` 를 커밋하고 꼬리를 다시 붙이지 않기 때문이다. 같은 자리에
+  타이핑할 때는 꼬리가 남으므로 **두 경로의 거동이 다르다.** 어느 쪽이든 `normalize` 를 먼저
+  통과하므로 하이픈과 공백이 섞인 `ABCD-EFGH-JKMN` 을 그대로 붙여도 들어간다.
 - **한 칸에 여러 글자가 들어오는 경우를 감당한다.** 모바일 자동완성처럼 한 번에 여러 자가
-  떨어지면 그 자리부터 이어 붙이고 초점을 끝으로 옮긴다.
+  떨어지면 그 자리부터 이어 붙이고 **붙은 글자 수만큼 뒤로** 초점을 옮긴다(채워진 길이를 넘지
+  않는다). 끝으로 가는 것은 붙여넣기 쪽이다.
 - 칸에 초점이 서면 그 칸의 글자를 **선택**한다(`select()`). 채워진 칸을 눌러 바로 덮어쓸 수
   있다.
 - **자동 제출이 없다.** `onComplete` 를 소비처가 넘기지 않고, 등록 버튼은 `value` 의 길이가
@@ -185,7 +192,7 @@ summary: 쿠폰 코드처럼 한 글자씩 칸을 나눠 받는 입력 묶음입
 
   | 키 | 동작 |
   | --- | --- |
-  | 붙여넣기 | 기본 동작을 막고 직접 처리한다. 전체 길이 이상이면 첫 칸부터, 짧으면 그 칸부터 채운다 |
+  | 붙여넣기 | 기본 동작을 막고 직접 처리한다. 전체 길이 이상이면 첫 칸부터, 짧으면 그 칸부터 채우고 **뒤 칸은 비운다** |
   | Backspace | 기본 동작을 막는다. **빈 칸에서 누르면 앞 칸의 글자를 지우고 그리로 옮긴다** — 칸을 오가며 지우는 수고가 없다 |
   | ArrowLeft · ArrowRight | 앞뒤 칸으로 옮긴다. 범위를 벗어나면 양 끝에 머문다 |
   | Home · End · Delete · ArrowUp · ArrowDown | **없다**(결손) |
@@ -212,8 +219,8 @@ summary: 쿠폰 코드처럼 한 글자씩 칸을 나눠 받는 입력 묶음입
   예외도 깨진다.** 320px 기기가 그 범위 안이다.
 - **비활성 대비는 면제 대상이 맞다.** 불투명도 0.40 에서 글자 대 면이 다크 2.74:1 ·
   라이트 2.36:1 인데, 칸이 네이티브 `disabled` 인 진짜 비활성 컨트롤이라 SC 1.4.3 의 면제가
-  성립한다. (같은 값이라도 [GNB Menu Item](./gnb-menu-item.md) 의 `<span>` 은 면제가 성립하지
-  않는다 — 요소가 컨트롤이 아니기 때문이다.)
+  성립한다. (같은 값이라도 [GNB Menu Item](./gnb-menu-item.md) 의 `<span>` 은 **면제 성립
+  여부가 열려 있다** — 요소가 컨트롤이 아니라 판정이 미정이다. 그 문서 Known deviations 5.)
 - 글자 대비는 넉넉하다 — 잉크 88% 가 칸 면 위에서 다크 8.41:1 · 라이트 13.88:1 이다.
   구분자 잉크 28% 는 다크 2.33:1 · 라이트 1.98:1 이지만 `aria-hidden` 인 장식이다.
 - **칸에 폭 하한이 없다**(`min-w-0`). 400% 확대나 아주 좁은 기기에서 칸이 글자보다 좁아질 수
@@ -227,20 +234,20 @@ summary: 쿠폰 코드처럼 한 글자씩 칸을 나눠 받는 입력 묶음입
 
 | Part/state | 값 | 토큰·근거 |
 | --- | --- | --- |
-| 트랙 | 높이 36, 안쪽 여백 0, 간격 2 | `flex w-full items-center gap-1`(2px 그리드). **간격 2 에 대응하는 일반 토큰이 없다** — 값이 같은 `space/overlay-item-gap` · `space/progress-ring-gap` 은 다른 컴포넌트의 이름이다 |
+| 트랙 | 높이 36, 안쪽 여백 0, 간격 2 | `flex w-full items-center gap-1`(2px 그리드). **간격 2 에 대응하는 일반 토큰이 없다** — 값이 같은 `space-overlay-item-gap`([Menu Popover](./menu-popover.md)) · `space-progress-ring-gap`([Progress](./progress.md)) 은 다른 컴포넌트의 이름이다 |
 | 트랙 폭 | 컨테이너를 채운다 | `w-full`. Figma 의 386 은 칸이 상한에 닿는 표본 폭이다 |
 | 칸 | 최대 28 × 36, radius 8 | `flex-1 min-w-0 max-w-14 h-18 rounded-8`. **높이 36 에 대응 토큰이 없다** — `layout/control-height-md`(32) 와 `-lg`(40) 사이가 비어 있다 |
 | 칸 테두리 | 1, 안쪽 | `border-width-default` · `1 \| INSIDE`. **헤어라인이 아니다** — 이 저장소의 기본 경계는 0.5 inset 그림자다(Known deviations 2) |
-| 칸 면 | 잉크 4% | `color/gray-000-alpha-04` |
-| 칸 테두리 색 | 잉크 12% | `color/gray-000-alpha-12` |
+| 칸 면 | 잉크 4% | `color/gray/000-alpha/04` |
+| 칸 테두리 색 | 잉크 12% | `color/gray/000-alpha/12` |
 | 글자 | `body-md-medium` 16 / 150%(24), 가운데, 대문자 | `typography/body-md-medium` · `type-body-16-medium` + `text-center uppercase` |
-| 글자색 | 잉크 88% | `color/gray-000-alpha-88` |
+| 글자색 | 잉크 88% | `color/gray/000-alpha/88` |
 | Focus 테두리 | `primary-400` 72% | Figma 는 `color/accent-primary` @72% 에 묶었다 — Known deviations 1 |
-| Focus 면 | 잉크 8% | `color/gray-000-alpha-08` |
+| Focus 면 | 잉크 8% | `color/gray/000-alpha/08` |
 | Focus outline | **없다** | `outline-none`. 표시가 테두리 색 하나뿐이다 |
 | Disabled | 요소 불투명도 0.40 | `[&:disabled]:opacity-40`. 칸에만 걸린다 — 구분자는 그대로다 |
 | 구분자 | 12 × 24, 좌우 안쪽 2 | `shrink-0 px-1`. **폭 12 는 Figma 값**이고 제품에서는 하이픈 글자 폭이 정한다 |
-| 구분자 색 | 잉크 28% | `color/gray-000-alpha-28`. `select-none` · `aria-hidden` |
+| 구분자 색 | 잉크 28% | `color/gray/000-alpha/28`. `select-none` · `aria-hidden` |
 | 전환 | `border-color 120ms ease, background 120ms ease` | 색만. 기하는 움직이지 않는다 |
 | 칸 수 · 묶음 | 12 · 4 | 컴포넌트 값이 아니다 — `COUPON_CODE_LENGTH` · `COUPON_CODE_GROUP_SIZE` 가 소유한다 |
 
@@ -260,8 +267,9 @@ summary: 쿠폰 코드처럼 한 글자씩 칸을 나눠 받는 입력 묶음입
 2. **경계가 헤어라인이 아니라 진짜 1px 테두리다.** 이 저장소의 기본은 DS-D-0023 이후
    `inset 0 0 0 0.5px` 그림자이고 LOUIS TextField 도 그 방식이다. 이 컴포넌트만 실제 `border`
    를 쓰고, 그래서 되읽기에 `strokeWeight: 1` 과 `Cell 1: 1|INSIDE` 가 **있는 것이 정상이다.**
-   칸이 열둘이라 경계가 촘촘히 반복되는 조형이어서 0.5 로는 칸이 나뉘어 보이지 않는다는 것이
-   제품의 선택이었다 — 다만 그 판단이 코드 주석에 남아 있지 않다.
+   **왜 border 1 인지는 어디에도 적혀 있지 않다** — 정본의 주석은 칸이 줄어드는 이유
+   (좁은 모달에서 넘친다)만 갖고 있고, 제품 커밋 메시지에도 결정 기록에도 두께에 대한 언급이
+   없다. **소유자 확인 필요.**
 3. **구분자 폭의 정본이 두 곳에서 다르다.** Figma 는 12 로 고정했고 제품에서는 좌우 안쪽 2 에
    하이픈 글자 폭이 더해진 값이다 — 글꼴이 바뀌면 따라 움직인다. 되읽기에 sizing mode 가 없어
    Figma 의 12 가 FIXED 인지 HUG 인지도 알 수 없다. 이 문서의 「칸 약 23.17」 계산도 12 를
@@ -295,6 +303,13 @@ summary: 쿠폰 코드처럼 한 글자씩 칸을 나눠 받는 입력 묶음입
     컴포넌트를 겨냥한 테스트가 없다. 제품의 `coupon-service.test.ts` 는 `formatCouponCode` ·
     `normalizeCouponCode` 를 시험하지 이 입력창을 시험하지 않는다 — 붙여넣기와 Backspace 거동은
     아무도 자동으로 확인하지 않는다.
+11. **오류를 지는 형제 `<p>` 가 FormMessage 가 아니다.** 제품에 FormMessage 컴포넌트는
+    존재하지 않는다. 쿠폰 모달의 오류는 인라인 `<p role="alert">` 에
+    `type-caption-12-regular` + `accent-red-400` 88% 이고, [Form Message](./form-message.md) 가
+    정본으로 지목하는 로그인 화면(`app/login/page.tsx` 의 `ERROR_TEXT`)은
+    `type-caption-12-regular` + `accent-red-500` 에 좌여백 2 이며 `role` 이 없다 — 색 단계도
+    여백도 `role` 도 다르다. form-message.md 는 Specification 이 없는 스텁이라 **어느 쪽이
+    정본인지 판정할 근거 자체가 없다.** **소유자 판정 필요.**
 
 ## Acceptance tests
 

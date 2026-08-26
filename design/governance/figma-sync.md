@@ -4,6 +4,22 @@ status: experimental
 authority: normative
 ---
 
+> **Figma 를 건드렸으면 마지막에 `pnpm figma-live-check` 를 돌린다.**
+>
+> `verify-figma-parity` 는 **계약과 스냅숏**을 대조한다. 스냅숏(`figma/readback.json`)은 사람이
+> 떠 오는 파일이라, Figma 를 고치고 되읽기를 빠뜨리면 **둘이 함께 낡아 게이트가 초록인 채로
+> 어긋난다.** 실제로 세 번 그랬다 — 컴포넌트를 세우고 등재를 빠뜨렸고, 스킨 축을 없애고 LOUIS 를
+> 안 맞췄고, SegmentedControl 을 다시 만들고 되읽기를 안 떴다. 셋 다 게이트는 통과했고 사람이
+> 물어봐서 드러났다.
+>
+> ```
+> node scripts/figma-live-check.mjs --emit      # 붙여 넣을 코드
+> node scripts/figma-live-check.mjs --check <결과.json>
+> ```
+>
+> 이 검사는 CI 에서 돌 수 없다(Figma 접근이 필요하다). **규칙이 아니라 관측 장치**이고,
+> DS-D-0028 이 규칙이다. 규칙만으로는 안 지켜진다는 것이 이미 세 번 증명됐다.
+
 # Figma Sync Governance
 
 > ## 규칙 1 — 바꾸면 세 곳을 같이 바꾼다

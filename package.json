@@ -26,6 +26,7 @@
     "build-figma-snapshot": "node ./scripts/build-figma-snapshot.mjs",
     "check-figma-snapshot": "node ./scripts/build-figma-snapshot.mjs --check",
     "verify-figma-parity": "node ./scripts/verify-figma-parity.mjs",
+    "figma-live-check": "node ./scripts/figma-live-check.mjs",
     "build-figma-variables": "node ./scripts/build-figma-variables.mjs",
     "verify-figma-variables": "node ./scripts/build-figma-variables.mjs --check",
     "build-figma-styles": "node ./scripts/build-figma-styles.mjs",

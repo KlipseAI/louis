@@ -756,54 +756,28 @@ const COMPONENT_CONTRACTS = [
     },
     id: "segmented-control",
     figmaName: "SegmentedControl",
-    propProperties: { Label1: "children", Label2: "children", Label3: "children" },
     declaration: "packages/react/dist/segmented-control/segmented-control.d.ts",
     variantProperties: { Size: "SegmentedControlSize" },
-    // **헤어라인은 INNER_SHADOW effect다 (DS-D-0023).** CSS가 inset box-shadow로 그리므로 Figma
-    // 등가물은 inner shadow다. stroke로 두지 않는 이유는 둘이다 — inset은 개념상 inner shadow이고,
-    // INSIDE stroke는 안쪽 콘텐츠 박스를 줄여 세그먼트 높이가 32에서 31이 되어 아래 parts가
-    // 실패한다. effect는 auto-layout 크기를 건드리지 않는다.
-    strokes: {},
-    effects: { self: "INNER_SHADOW:0:0:0.5" },
-    geometry: {
-      measuredId: "segmented-control",
-      fields: {
-        height: "trackHeight",
-        paddingBlock: "trackPadding",
-        paddingBlockEnd: "trackPadding",
-        paddingInline: "trackPadding",
-        paddingInlineEnd: "trackPadding",
-        // 세그먼트 사이에 간격을 두지 않는다. 선택 면이 자기 반경으로 경계를 만든다.
-        itemSpacing: { literal: 0 },
-        cornerRadius: "trackRadius",
-        layoutMode: { literal: "HORIZONTAL" },
+    // **트랙은 세그먼트를 조립한다.** 예전에는 트랙 하나에 라벨 셋과 상태 축을 직접 달았는데,
+    // 그러면 「어느 세그먼트가 hover 인가」를 고를 수 없어 뜻 없는 변형이 생겼다(2026-08-26).
+    // 상호작용은 SegmentedControlItem 이 소유하고 트랙은 그 인스턴스를 담기만 한다.
+    figmaOnlyProperties: {
+      Segment3: {
+        type: "BOOLEAN",
+        reason: "세그먼트가 둘인 컨트롤과 셋인 컨트롤이 둘 다 실재한다. 셋째만 켜고 끈다 — 넷 이상은 제품에 없다.",
       },
-      slots: {},
-      extraStrokeWeights: [],
-      parts: {
-        // 선택/비선택은 **면 색만** 다르고 기하가 같다. 그래서 variant 축으로 나누지 않고
-        // 한 variant 안의 두 자손으로 둔다 — 둘의 기하가 갈리면 여기서 걸린다.
-        Segment: {
-          fields: {
-            height: "segmentHeight",
-            paddingInline: "segmentPaddingInline",
-            paddingInlineEnd: "segmentPaddingInline",
-            itemSpacing: "segmentGap",
-            cornerRadius: "segmentRadius",
-          },
-        },
-        "Segment-Selected": {
-          fields: {
-            height: "segmentHeight",
-            paddingInline: "segmentPaddingInline",
-            paddingInlineEnd: "segmentPaddingInline",
-            itemSpacing: "segmentGap",
-            cornerRadius: "segmentRadius",
-          },
-        },
-        Label: { fields: { fontSize: "fontSize" } },
+      Disabled: {
+        options: ["false", "true"],
+        reason: "컨트롤 전체가 받는 비활성이다. CSS 에서 `:has(input:disabled)` 라 세그먼트가 아니라 트랙의 상태다.",
       },
     },
+    // **헤어라인은 INNER_SHADOW effect다 (DS-D-0023).** CSS가 inset box-shadow로 그리므로 Figma
+    // 등가물은 inner shadow다. stroke로 두지 않는 이유는 둘이다 — inset은 개념상 inner shadow이고,
+    // INSIDE stroke는 안쪽 콘텐츠 박스를 줄여 세그먼트 높이가 32에서 31이 되어 parts가 실패한다.
+    strokes: {},
+    effects: { self: "INNER_SHADOW:0:0:0.5" },
+    // 기하 대조는 **세그먼트 쪽(SegmentedControlItem)** 이 갖는다. 트랙은 인스턴스를 담기만 하고
+    // measured 에 xs 단이 없어(제품 인스펙터 전용) 여기서 대조하면 그 단이 통째로 빠진다.
   },
   {
     id: "selectable-list-row",

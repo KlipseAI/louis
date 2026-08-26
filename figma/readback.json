@@ -10806,50 +10806,77 @@
       }
     },
     "SegmentedControl": {
-      "variantCount": 12,
+      "variantCount": 6,
       "hasDescription": true,
       "properties": {
-        "Size": {
-          "type": "VARIANT",
-          "options": [
-            "md",
-            "lg",
-            "xs"
-          ]
-        },
-        "Label1": {
-          "type": "TEXT"
-        },
-        "Label2": {
-          "type": "TEXT"
-        },
-        "Label3": {
-          "type": "TEXT"
-        },
         "Segment3": {
           "type": "BOOLEAN"
         },
-        "State": {
+        "Size": {
           "type": "VARIANT",
           "options": [
-            "Hover",
-            "Focus",
-            "Disabled",
-            "Default"
+            "lg",
+            "md",
+            "xs"
+          ]
+        },
+        "Disabled": {
+          "type": "VARIANT",
+          "options": [
+            "false",
+            "true"
           ]
         }
       },
       "binding": {
-        "boundFills": 10,
+        "boundFills": 12,
         "rawFills": 0,
         "boundStrokes": 0,
         "rawStrokes": 0,
-        "textStyled": 6,
+        "textStyled": 0,
         "textUnstyled": 0
       },
       "geometry": {
         "lg": {
-          "slots": {},
+          "slots": {
+            "Item 1": [
+              "60x32"
+            ],
+            "Item 2": [
+              "60x32"
+            ],
+            "Item 3": [
+              "60x32"
+            ]
+          },
+          "parts": {
+            "Item 1": {
+              "width": [
+                60
+              ],
+              "height": [
+                32
+              ]
+            },
+            "Item 2": {
+              "width": [
+                60
+              ],
+              "height": [
+                32
+              ]
+            },
+            "Item 3": {
+              "width": [
+                60
+              ],
+              "height": [
+                32
+              ]
+            }
+          },
+          "overflowingParts": [],
+          "offCenterMarks": [],
           "height": [
             40
           ],
@@ -10877,95 +10904,53 @@
           "layoutMode": [
             "HORIZONTAL"
           ],
-          "strokeWeight": [],
-          "overflowingParts": [],
-          "offCenterMarks": [],
+          "strokeWeight": []
+        },
+        "md": {
+          "slots": {
+            "Item 1": [
+              "60x24"
+            ],
+            "Item 2": [
+              "60x24"
+            ],
+            "Item 3": [
+              "60x24"
+            ]
+          },
           "parts": {
-            "Segment": {
-              "height": [
-                32
-              ],
+            "Item 1": {
               "width": [
                 60
               ],
-              "paddingBlock": [
-                0
-              ],
-              "paddingBlockEnd": [
-                0
-              ],
-              "paddingInline": [
-                12
-              ],
-              "paddingInlineEnd": [
-                12
-              ],
-              "itemSpacing": [
-                8
-              ],
-              "cornerRadius": [
-                8
-              ],
-              "layoutMode": [
-                "HORIZONTAL"
+              "height": [
+                24
               ]
             },
-            "Segment-Selected": {
-              "height": [
-                32
-              ],
+            "Item 2": {
               "width": [
-                58
+                60
               ],
-              "paddingBlock": [
-                0
-              ],
-              "paddingBlockEnd": [
-                0
-              ],
-              "paddingInline": [
-                12
-              ],
-              "paddingInlineEnd": [
-                12
-              ],
-              "itemSpacing": [
-                8
-              ],
-              "cornerRadius": [
-                8
-              ],
-              "layoutMode": [
-                "HORIZONTAL"
+              "height": [
+                24
               ]
             },
-            "Label": {
-              "height": [
-                21
-              ],
+            "Item 3": {
               "width": [
-                34,
-                36
+                60
               ],
-              "fontSize": [
-                14
-              ],
-              "fontStyle": [
-                "Medium"
-              ],
-              "lineHeightPercent": [
-                150
+              "height": [
+                24
               ]
             }
-          }
-        },
-        "md": {
-          "slots": {},
+          },
+          "overflowingParts": [],
+          "offCenterMarks": [],
           "height": [
             32
           ],
           "width": [
-            147
+            186
           ],
           "paddingBlock": [
             4
@@ -10988,87 +10973,76 @@
           "layoutMode": [
             "HORIZONTAL"
           ],
-          "strokeWeight": [],
-          "overflowingParts": [],
-          "offCenterMarks": [],
+          "strokeWeight": []
+        },
+        "xs": {
+          "slots": {
+            "Item 1": [
+              "60x28"
+            ],
+            "Item 2": [
+              "60x28"
+            ],
+            "Item 3": [
+              "60x28"
+            ]
+          },
           "parts": {
-            "Segment": {
-              "height": [
-                24
-              ],
+            "Item 1": {
               "width": [
-                47
+                60
               ],
-              "paddingBlock": [
-                0
-              ],
-              "paddingBlockEnd": [
-                0
-              ],
-              "paddingInline": [
-                8
-              ],
-              "paddingInlineEnd": [
-                8
-              ],
-              "itemSpacing": [
-                8
-              ],
-              "cornerRadius": [
-                8
-              ],
-              "layoutMode": [
-                "HORIZONTAL"
+              "height": [
+                28
               ]
             },
-            "Segment-Selected": {
-              "height": [
-                24
-              ],
+            "Item 2": {
               "width": [
-                45
+                60
               ],
-              "paddingBlock": [
-                0
-              ],
-              "paddingBlockEnd": [
-                0
-              ],
-              "paddingInline": [
-                8
-              ],
-              "paddingInlineEnd": [
-                8
-              ],
-              "itemSpacing": [
-                8
-              ],
-              "cornerRadius": [
-                8
-              ],
-              "layoutMode": [
-                "HORIZONTAL"
+              "height": [
+                28
               ]
             },
-            "Label": {
-              "height": [
-                18
-              ],
+            "Item 3": {
               "width": [
-                29,
-                31
+                60
               ],
-              "fontSize": [
-                12
-              ],
-              "fontStyle": [
-                "Medium"
-              ],
-              "lineHeightPercent": [
-                150
+              "height": [
+                28
               ]
             }
-          }
+          },
+          "overflowingParts": [],
+          "offCenterMarks": [],
+          "height": [
+            28
+          ],
+          "width": [
+            186
+          ],
+          "paddingBlock": [
+            4
+          ],
+          "paddingBlockEnd": [
+            4
+          ],
+          "paddingInline": [
+            4
+          ],
+          "paddingInlineEnd": [
+            4
+          ],
+          "itemSpacing": [
+            0
+          ],
+          "cornerRadius": [
+            12
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ],
+          "strokeWeight": []
         }
       },
       "strokes": {},

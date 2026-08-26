@@ -44,6 +44,50 @@ Figma 작업의 목표는 **제품에 있는 디자인을 하나도 빠짐없이
 열거기가 없다.** 그래서 아래처럼 손으로 세어 기록한다. 세는 방법을 자동화하기 전까지는
 이 절이 유일한 커버리지 원장이다.
 
+### 변수 컬렉션 정리 — `1 · Palette` 은퇴 (2026-08-26)
+
+파일에 컬렉션이 여섯이었다. 셋은 DS 정본(`Klipse Primitive`·`Semantic`·`Semantic Color`,
+[DS-D-0007](decisions/DS-D-0007-figma-library-structure.md))이고 셋은 이식 과정에서 생긴
+보드 고유(`1 · Palette`·`2 · Semantic`·`3 · Scale`)였다. 같은 것을 두 벌 갖고 있었다.
+
+**`1 · Palette` 99개를 없앴다. 컬렉션은 여섯에서 다섯이 됐다.**
+
+값으로 짝을 찾으려던 첫 시도는 **버려야 했다** — 숫자 토큰이 값만 같으면 걸려서
+`app/gnb-main-inline-padding`(16)이 `blur/16`에, `app/gnb-sidebar-logo-h`(28)가
+`font-size/heading-sm`에 잡혔다. 우연의 일치이지 같은 것이 아니다. **숫자는 값으로 매핑하지
+않는다.**
+
+이름으로 다시 맞추니 의미가 보존됐다 — `accent/amber/100` → `color/amber/100`,
+`palette/gray-900` → `color/gray/900`, `primary/500` → `color/blue/500`. 95개가 이렇게 짝이
+났고, 값 비교가 어긋나 보인 94건은 **저장 정밀도 차이**였다(보드 4자리 `0.9608` ↔ LOUIS 6자리
+`0.960784`, 8비트로는 둘 다 245).
+
+이전 절차와 실측:
+
+| 단계 | 건수 |
+| --- | ---: |
+| 변수→변수 별칭 이전 (`2 · Semantic` → LOUIS) | 173 |
+| 노드 바인딩 이전 (8페이지) | 3,358 |
+| 이전 뒤 잔여 참조 (12페이지 전수 재확인) | **0** |
+| 삭제한 변수 | 97 (매핑 95 + 제품 소비처 0인 `yellow/deep`·`yellow/ink`) |
+| 브랜드색 2종 | LOUIS `color/node-{instagram,youtube}-icon` 으로 이전 후 삭제 |
+
+**픽셀 변화 0** — 값이 같은 변수로만 옮겼다.
+
+그 과정에서 버그 하나를 찾았다. `2 · Semantic/node/handle-icon-youtube` 가 네 모드 전부
+`accent/youtube/500` 이 아니라 **`accent/instagram/500`** 을 가리키고 있었다. 두 색이 같은
+`#ff4b59` 라 지금은 드러나지 않지만 브랜드색이 갈리는 순간 유튜브 핸들이 인스타 색으로 그려진다.
+
+### 남은 둘은 이름 체계가 다르다
+
+`2 · Semantic`(143) · `3 · Scale`(57)은 이름 매핑이 **0건**이다. 규칙이 없어서가 아니라 체계가
+다르다 — `node/handle-icon-audio` ↔ `color/node-audio-icon`, `button/height` ↔
+`layout/control-height-sm`, `app/gnb-main-inline-padding` ↔ (대응 없음, 제품 셸 고유).
+
+미매칭 접두사: `gray` 58 · `node` 35 · `palette` 31 · `app` 26 · `type` 17.
+**이 중 `gray`+`palette` 89개가 알파 변형**(`gray-000 · a78` 류)이며, 이름 매핑이 아니라
+static-alpha 정책 결정이 선행돼야 한다.
+
 ### 실측 — 모달 (2026-08-26)
 
 `role="dialog"` · `aria-modal` · `.louis-dialog` 중 하나를 쓰는 제품 표면이 **22곳**이다.

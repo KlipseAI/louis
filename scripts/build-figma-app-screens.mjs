@@ -62,11 +62,21 @@ const CONTEXTS = [
 ];
 
 /** 런너 payload를 줄이기 위한 축약. 키가 길면 50KB 상한에 금방 닿는다. */
+// **축 코드는 서로 겹치면 안 된다.** 첫 글자만 쓰면 `FIXED`와 `FILL`이 둘 다 `"F"`가 되어
+// 렌더러가 모든 고정 크기를 FILL로 읽는다. 실측 사고: 20×20 아이콘이 행 전체를 채워 텍스트를
+// 오른쪽으로 밀고, `width:min(520px,100%)` 섹션이 1628로 늘어났다(스크린샷으로 확인).
+const SIZING_CODES = { FILL: "F", HUG: "H", FIXED: "A" };
+const SIZING_CODE = (verdict) => {
+  const code = SIZING_CODES[verdict];
+  if (!code) throw new Error(`[figma-app-screens] 알 수 없는 sizing 판정: ${verdict}`);
+  return code;
+};
+
 const slim = (node) => ({
   t: node.tag,
   ...(node.text ? { x: node.text } : {}),
   r: [round(node.rect.width), round(node.rect.height)],
-  s: node.sizing.layoutSizingHorizontal[0] + node.sizing.layoutSizingVertical[0],
+  s: SIZING_CODE(node.sizing.layoutSizingHorizontal) + SIZING_CODE(node.sizing.layoutSizingVertical),
   ...(node.positioning === "ABSOLUTE" ? { p: 1 } : {}),
   ...(node.offset ? { o: [round(node.offset.x), round(node.offset.y)] } : {}),
   ...(node.constraints ? { n: node.constraints.horizontal[0] + node.constraints.vertical[0] } : {}),

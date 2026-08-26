@@ -6,7 +6,7 @@
   "figmaFileKey": "OlYKERKOkgbxBEEoXGZW2c",
   "screenCount": 24,
   "totalNodes": 1737,
-  "totalUnresolved": 19,
+  "totalUnresolved": 4,
   "screens": [
     {
       "route": "/archive",
@@ -21,13 +21,7 @@
         "kept": 98,
         "droppedInvisible": 0,
         "droppedEmpty": 4,
-        "unresolved": [
-          {
-            "path": "body.1.0.0.1.0.0.1.0.0.0",
-            "tag": "div",
-            "reason": "h: 해석하지 못한 선언: min(540px, 100%)"
-          }
-        ]
+        "unresolved": []
       },
       "spec": {
         "path": "body.1",
@@ -4530,16 +4524,14 @@
                                               "height": 360
                                             },
                                             "sizing": {
-                                              "layoutSizingHorizontal": "FIXED",
+                                              "layoutSizingHorizontal": "FILL",
                                               "layoutSizingVertical": "FILL",
                                               "layoutPositioning": "AUTO",
                                               "minWidth": null,
-                                              "maxWidth": null,
+                                              "maxWidth": 540,
                                               "minHeight": null,
                                               "maxHeight": null,
-                                              "unresolved": [
-                                                "h: 해석하지 못한 선언: min(540px, 100%)"
-                                              ]
+                                              "unresolved": []
                                             },
                                             "positioning": "AUTO",
                                             "margin": {
@@ -4552,10 +4544,13 @@
                                             "constraints": null,
                                             "why": {
                                               "horizontal": {
-                                                "verdict": "UNRESOLVED",
-                                                "reason": "해석하지 못한 선언: min(540px, 100%)",
+                                                "verdict": "FILL",
+                                                "reason": "min() + 100% — 부모를 채우되 {\"max\":540}로 묶인다",
                                                 "source": "width:min(540px, 100%)",
-                                                "value": null
+                                                "value": null,
+                                                "limit": {
+                                                  "max": 540
+                                                }
                                               },
                                               "vertical": {
                                                 "verdict": "FILL",
@@ -53448,13 +53443,7 @@
         "kept": 84,
         "droppedInvisible": 0,
         "droppedEmpty": 2,
-        "unresolved": [
-          {
-            "path": "body.1.0.0.1.1",
-            "tag": "section",
-            "reason": "h: 해석하지 못한 선언: min(520px, 100%)"
-          }
-        ]
+        "unresolved": []
       },
       "spec": {
         "path": "body.1",
@@ -57705,16 +57694,14 @@
                           "height": 338.1875
                         },
                         "sizing": {
-                          "layoutSizingHorizontal": "FIXED",
+                          "layoutSizingHorizontal": "FILL",
                           "layoutSizingVertical": "HUG",
                           "layoutPositioning": "AUTO",
                           "minWidth": null,
-                          "maxWidth": null,
+                          "maxWidth": 520,
                           "minHeight": null,
                           "maxHeight": null,
-                          "unresolved": [
-                            "h: 해석하지 못한 선언: min(520px, 100%)"
-                          ]
+                          "unresolved": []
                         },
                         "positioning": "AUTO",
                         "margin": {
@@ -57727,10 +57714,13 @@
                         "constraints": null,
                         "why": {
                           "horizontal": {
-                            "verdict": "UNRESOLVED",
-                            "reason": "해석하지 못한 선언: min(520px, 100%)",
+                            "verdict": "FILL",
+                            "reason": "min() + 100% — 부모를 채우되 {\"max\":520}로 묶인다",
                             "source": "width:min(520px, 100%)",
-                            "value": null
+                            "value": null,
+                            "limit": {
+                              "max": 520
+                            }
                           },
                           "vertical": {
                             "verdict": "HUG",
@@ -58127,13 +58117,7 @@
         "kept": 25,
         "droppedInvisible": 0,
         "droppedEmpty": 2,
-        "unresolved": [
-          {
-            "path": "body.1.0.0.1.1",
-            "tag": "section",
-            "reason": "h: 해석하지 못한 선언: min(520px, 100%)"
-          }
-        ]
+        "unresolved": []
       },
       "spec": {
         "path": "body.1",
@@ -59228,16 +59212,14 @@
                           "height": 425.7813
                         },
                         "sizing": {
-                          "layoutSizingHorizontal": "FIXED",
+                          "layoutSizingHorizontal": "FILL",
                           "layoutSizingVertical": "HUG",
                           "layoutPositioning": "AUTO",
                           "minWidth": null,
-                          "maxWidth": null,
+                          "maxWidth": 520,
                           "minHeight": null,
                           "maxHeight": null,
-                          "unresolved": [
-                            "h: 해석하지 못한 선언: min(520px, 100%)"
-                          ]
+                          "unresolved": []
                         },
                         "positioning": "AUTO",
                         "margin": {
@@ -59250,10 +59232,13 @@
                         "constraints": null,
                         "why": {
                           "horizontal": {
-                            "verdict": "UNRESOLVED",
-                            "reason": "해석하지 못한 선언: min(520px, 100%)",
+                            "verdict": "FILL",
+                            "reason": "min() + 100% — 부모를 채우되 {\"max\":520}로 묶인다",
                             "source": "width:min(520px, 100%)",
-                            "value": null
+                            "value": null,
+                            "limit": {
+                              "max": 520
+                            }
                           },
                           "vertical": {
                             "verdict": "HUG",
@@ -59650,13 +59635,7 @@
         "kept": 90,
         "droppedInvisible": 0,
         "droppedEmpty": 2,
-        "unresolved": [
-          {
-            "path": "body.1.0.0.1.1",
-            "tag": "section",
-            "reason": "h: 해석하지 못한 선언: min(520px, 100%)"
-          }
-        ]
+        "unresolved": []
       },
       "spec": {
         "path": "body.1",
@@ -63907,16 +63886,14 @@
                           "height": 381.5938
                         },
                         "sizing": {
-                          "layoutSizingHorizontal": "FIXED",
+                          "layoutSizingHorizontal": "FILL",
                           "layoutSizingVertical": "HUG",
                           "layoutPositioning": "AUTO",
                           "minWidth": null,
-                          "maxWidth": null,
+                          "maxWidth": 520,
                           "minHeight": null,
                           "maxHeight": null,
-                          "unresolved": [
-                            "h: 해석하지 못한 선언: min(520px, 100%)"
-                          ]
+                          "unresolved": []
                         },
                         "positioning": "AUTO",
                         "margin": {
@@ -63929,10 +63906,13 @@
                         "constraints": null,
                         "why": {
                           "horizontal": {
-                            "verdict": "UNRESOLVED",
-                            "reason": "해석하지 못한 선언: min(520px, 100%)",
+                            "verdict": "FILL",
+                            "reason": "min() + 100% — 부모를 채우되 {\"max\":520}로 묶인다",
                             "source": "width:min(520px, 100%)",
-                            "value": null
+                            "value": null,
+                            "limit": {
+                              "max": 520
+                            }
                           },
                           "vertical": {
                             "verdict": "HUG",
@@ -64677,13 +64657,7 @@
         "kept": 31,
         "droppedInvisible": 0,
         "droppedEmpty": 2,
-        "unresolved": [
-          {
-            "path": "body.1.0.0.1.1",
-            "tag": "section",
-            "reason": "h: 해석하지 못한 선언: min(520px, 100%)"
-          }
-        ]
+        "unresolved": []
       },
       "spec": {
         "path": "body.1",
@@ -65778,16 +65752,14 @@
                           "height": 516.1875
                         },
                         "sizing": {
-                          "layoutSizingHorizontal": "FIXED",
+                          "layoutSizingHorizontal": "FILL",
                           "layoutSizingVertical": "HUG",
                           "layoutPositioning": "AUTO",
                           "minWidth": null,
-                          "maxWidth": null,
+                          "maxWidth": 520,
                           "minHeight": null,
                           "maxHeight": null,
-                          "unresolved": [
-                            "h: 해석하지 못한 선언: min(520px, 100%)"
-                          ]
+                          "unresolved": []
                         },
                         "positioning": "AUTO",
                         "margin": {
@@ -65800,10 +65772,13 @@
                         "constraints": null,
                         "why": {
                           "horizontal": {
-                            "verdict": "UNRESOLVED",
-                            "reason": "해석하지 못한 선언: min(520px, 100%)",
+                            "verdict": "FILL",
+                            "reason": "min() + 100% — 부모를 채우되 {\"max\":520}로 묶인다",
                             "source": "width:min(520px, 100%)",
-                            "value": null
+                            "value": null,
+                            "limit": {
+                              "max": 520
+                            }
                           },
                           "vertical": {
                             "verdict": "HUG",
@@ -66548,13 +66523,7 @@
         "kept": 80,
         "droppedInvisible": 0,
         "droppedEmpty": 2,
-        "unresolved": [
-          {
-            "path": "body.1.0.0.1.1",
-            "tag": "section",
-            "reason": "h: 해석하지 못한 선언: min(520px, 100%)"
-          }
-        ]
+        "unresolved": []
       },
       "spec": {
         "path": "body.1",
@@ -70690,16 +70659,14 @@
                           "height": 217.1875
                         },
                         "sizing": {
-                          "layoutSizingHorizontal": "FIXED",
+                          "layoutSizingHorizontal": "FILL",
                           "layoutSizingVertical": "HUG",
                           "layoutPositioning": "AUTO",
                           "minWidth": null,
-                          "maxWidth": null,
+                          "maxWidth": 520,
                           "minHeight": null,
                           "maxHeight": null,
-                          "unresolved": [
-                            "h: 해석하지 못한 선언: min(520px, 100%)"
-                          ]
+                          "unresolved": []
                         },
                         "positioning": "AUTO",
                         "margin": {
@@ -70712,10 +70679,13 @@
                         "constraints": null,
                         "why": {
                           "horizontal": {
-                            "verdict": "UNRESOLVED",
-                            "reason": "해석하지 못한 선언: min(520px, 100%)",
+                            "verdict": "FILL",
+                            "reason": "min() + 100% — 부모를 채우되 {\"max\":520}로 묶인다",
                             "source": "width:min(520px, 100%)",
-                            "value": null
+                            "value": null,
+                            "limit": {
+                              "max": 520
+                            }
                           },
                           "vertical": {
                             "verdict": "HUG",
@@ -70997,13 +70967,7 @@
         "kept": 21,
         "droppedInvisible": 0,
         "droppedEmpty": 2,
-        "unresolved": [
-          {
-            "path": "body.1.0.0.1.1",
-            "tag": "section",
-            "reason": "h: 해석하지 못한 선언: min(520px, 100%)"
-          }
-        ]
+        "unresolved": []
       },
       "spec": {
         "path": "body.1",
@@ -71983,16 +71947,14 @@
                           "height": 283.7813
                         },
                         "sizing": {
-                          "layoutSizingHorizontal": "FIXED",
+                          "layoutSizingHorizontal": "FILL",
                           "layoutSizingVertical": "HUG",
                           "layoutPositioning": "AUTO",
                           "minWidth": null,
-                          "maxWidth": null,
+                          "maxWidth": 520,
                           "minHeight": null,
                           "maxHeight": null,
-                          "unresolved": [
-                            "h: 해석하지 못한 선언: min(520px, 100%)"
-                          ]
+                          "unresolved": []
                         },
                         "positioning": "AUTO",
                         "margin": {
@@ -72005,10 +71967,13 @@
                         "constraints": null,
                         "why": {
                           "horizontal": {
-                            "verdict": "UNRESOLVED",
-                            "reason": "해석하지 못한 선언: min(520px, 100%)",
+                            "verdict": "FILL",
+                            "reason": "min() + 100% — 부모를 채우되 {\"max\":520}로 묶인다",
                             "source": "width:min(520px, 100%)",
-                            "value": null
+                            "value": null,
+                            "limit": {
+                              "max": 520
+                            }
                           },
                           "vertical": {
                             "verdict": "HUG",
@@ -72290,13 +72255,7 @@
         "kept": 84,
         "droppedInvisible": 0,
         "droppedEmpty": 2,
-        "unresolved": [
-          {
-            "path": "body.1.0.0.1.1",
-            "tag": "section",
-            "reason": "h: 해석하지 못한 선언: min(520px, 100%)"
-          }
-        ]
+        "unresolved": []
       },
       "spec": {
         "path": "body.1",
@@ -76432,16 +76391,14 @@
                           "height": 237.5938
                         },
                         "sizing": {
-                          "layoutSizingHorizontal": "FIXED",
+                          "layoutSizingHorizontal": "FILL",
                           "layoutSizingVertical": "HUG",
                           "layoutPositioning": "AUTO",
                           "minWidth": null,
-                          "maxWidth": null,
+                          "maxWidth": 520,
                           "minHeight": null,
                           "maxHeight": null,
-                          "unresolved": [
-                            "h: 해석하지 못한 선언: min(520px, 100%)"
-                          ]
+                          "unresolved": []
                         },
                         "positioning": "AUTO",
                         "margin": {
@@ -76454,10 +76411,13 @@
                         "constraints": null,
                         "why": {
                           "horizontal": {
-                            "verdict": "UNRESOLVED",
-                            "reason": "해석하지 못한 선언: min(520px, 100%)",
+                            "verdict": "FILL",
+                            "reason": "min() + 100% — 부모를 채우되 {\"max\":520}로 묶인다",
                             "source": "width:min(520px, 100%)",
-                            "value": null
+                            "value": null,
+                            "limit": {
+                              "max": 520
+                            }
                           },
                           "vertical": {
                             "verdict": "HUG",
@@ -76905,13 +76865,7 @@
         "kept": 25,
         "droppedInvisible": 0,
         "droppedEmpty": 2,
-        "unresolved": [
-          {
-            "path": "body.1.0.0.1.1",
-            "tag": "section",
-            "reason": "h: 해석하지 못한 선언: min(520px, 100%)"
-          }
-        ]
+        "unresolved": []
       },
       "spec": {
         "path": "body.1",
@@ -77891,16 +77845,14 @@
                           "height": 320.1875
                         },
                         "sizing": {
-                          "layoutSizingHorizontal": "FIXED",
+                          "layoutSizingHorizontal": "FILL",
                           "layoutSizingVertical": "HUG",
                           "layoutPositioning": "AUTO",
                           "minWidth": null,
-                          "maxWidth": null,
+                          "maxWidth": 520,
                           "minHeight": null,
                           "maxHeight": null,
-                          "unresolved": [
-                            "h: 해석하지 못한 선언: min(520px, 100%)"
-                          ]
+                          "unresolved": []
                         },
                         "positioning": "AUTO",
                         "margin": {
@@ -77913,10 +77865,13 @@
                         "constraints": null,
                         "why": {
                           "horizontal": {
-                            "verdict": "UNRESOLVED",
-                            "reason": "해석하지 못한 선언: min(520px, 100%)",
+                            "verdict": "FILL",
+                            "reason": "min() + 100% — 부모를 채우되 {\"max\":520}로 묶인다",
                             "source": "width:min(520px, 100%)",
-                            "value": null
+                            "value": null,
+                            "limit": {
+                              "max": 520
+                            }
                           },
                           "vertical": {
                             "verdict": "HUG",
@@ -78364,13 +78319,7 @@
         "kept": 93,
         "droppedInvisible": 0,
         "droppedEmpty": 2,
-        "unresolved": [
-          {
-            "path": "body.1.0.0.1.1",
-            "tag": "section",
-            "reason": "h: 해석하지 못한 선언: min(520px, 100%)"
-          }
-        ]
+        "unresolved": []
       },
       "spec": {
         "path": "body.1",
@@ -82621,16 +82570,14 @@
                           "height": 427.5938
                         },
                         "sizing": {
-                          "layoutSizingHorizontal": "FIXED",
+                          "layoutSizingHorizontal": "FILL",
                           "layoutSizingVertical": "HUG",
                           "layoutPositioning": "AUTO",
                           "minWidth": null,
-                          "maxWidth": null,
+                          "maxWidth": 520,
                           "minHeight": null,
                           "maxHeight": null,
-                          "unresolved": [
-                            "h: 해석하지 못한 선언: min(520px, 100%)"
-                          ]
+                          "unresolved": []
                         },
                         "positioning": "AUTO",
                         "margin": {
@@ -82643,10 +82590,13 @@
                         "constraints": null,
                         "why": {
                           "horizontal": {
-                            "verdict": "UNRESOLVED",
-                            "reason": "해석하지 못한 선언: min(520px, 100%)",
+                            "verdict": "FILL",
+                            "reason": "min() + 100% — 부모를 채우되 {\"max\":520}로 묶인다",
                             "source": "width:min(520px, 100%)",
-                            "value": null
+                            "value": null,
+                            "limit": {
+                              "max": 520
+                            }
                           },
                           "vertical": {
                             "verdict": "HUG",
@@ -83557,13 +83507,7 @@
         "kept": 34,
         "droppedInvisible": 0,
         "droppedEmpty": 2,
-        "unresolved": [
-          {
-            "path": "body.1.0.0.1.1",
-            "tag": "section",
-            "reason": "h: 해석하지 못한 선언: min(520px, 100%)"
-          }
-        ]
+        "unresolved": []
       },
       "spec": {
         "path": "body.1",
@@ -84658,16 +84602,14 @@
                           "height": 599.1875
                         },
                         "sizing": {
-                          "layoutSizingHorizontal": "FIXED",
+                          "layoutSizingHorizontal": "FILL",
                           "layoutSizingVertical": "HUG",
                           "layoutPositioning": "AUTO",
                           "minWidth": null,
-                          "maxWidth": null,
+                          "maxWidth": 520,
                           "minHeight": null,
                           "maxHeight": null,
-                          "unresolved": [
-                            "h: 해석하지 못한 선언: min(520px, 100%)"
-                          ]
+                          "unresolved": []
                         },
                         "positioning": "AUTO",
                         "margin": {
@@ -84680,10 +84622,13 @@
                         "constraints": null,
                         "why": {
                           "horizontal": {
-                            "verdict": "UNRESOLVED",
-                            "reason": "해석하지 못한 선언: min(520px, 100%)",
+                            "verdict": "FILL",
+                            "reason": "min() + 100% — 부모를 채우되 {\"max\":520}로 묶인다",
                             "source": "width:min(520px, 100%)",
-                            "value": null
+                            "value": null,
+                            "limit": {
+                              "max": 520
+                            }
                           },
                           "vertical": {
                             "verdict": "HUG",
@@ -85594,13 +85539,7 @@
         "kept": 80,
         "droppedInvisible": 0,
         "droppedEmpty": 2,
-        "unresolved": [
-          {
-            "path": "body.1.0.0.1.1",
-            "tag": "section",
-            "reason": "h: 해석하지 못한 선언: min(520px, 100%)"
-          }
-        ]
+        "unresolved": []
       },
       "spec": {
         "path": "body.1",
@@ -89736,16 +89675,14 @@
                           "height": 217.1875
                         },
                         "sizing": {
-                          "layoutSizingHorizontal": "FIXED",
+                          "layoutSizingHorizontal": "FILL",
                           "layoutSizingVertical": "HUG",
                           "layoutPositioning": "AUTO",
                           "minWidth": null,
-                          "maxWidth": null,
+                          "maxWidth": 520,
                           "minHeight": null,
                           "maxHeight": null,
-                          "unresolved": [
-                            "h: 해석하지 못한 선언: min(520px, 100%)"
-                          ]
+                          "unresolved": []
                         },
                         "positioning": "AUTO",
                         "margin": {
@@ -89758,10 +89695,13 @@
                         "constraints": null,
                         "why": {
                           "horizontal": {
-                            "verdict": "UNRESOLVED",
-                            "reason": "해석하지 못한 선언: min(520px, 100%)",
+                            "verdict": "FILL",
+                            "reason": "min() + 100% — 부모를 채우되 {\"max\":520}로 묶인다",
                             "source": "width:min(520px, 100%)",
-                            "value": null
+                            "value": null,
+                            "limit": {
+                              "max": 520
+                            }
                           },
                           "vertical": {
                             "verdict": "HUG",
@@ -90043,13 +89983,7 @@
         "kept": 21,
         "droppedInvisible": 0,
         "droppedEmpty": 2,
-        "unresolved": [
-          {
-            "path": "body.1.0.0.1.1",
-            "tag": "section",
-            "reason": "h: 해석하지 못한 선언: min(520px, 100%)"
-          }
-        ]
+        "unresolved": []
       },
       "spec": {
         "path": "body.1",
@@ -91029,16 +90963,14 @@
                           "height": 262.7813
                         },
                         "sizing": {
-                          "layoutSizingHorizontal": "FIXED",
+                          "layoutSizingHorizontal": "FILL",
                           "layoutSizingVertical": "HUG",
                           "layoutPositioning": "AUTO",
                           "minWidth": null,
-                          "maxWidth": null,
+                          "maxWidth": 520,
                           "minHeight": null,
                           "maxHeight": null,
-                          "unresolved": [
-                            "h: 해석하지 못한 선언: min(520px, 100%)"
-                          ]
+                          "unresolved": []
                         },
                         "positioning": "AUTO",
                         "margin": {
@@ -91051,10 +90983,13 @@
                         "constraints": null,
                         "why": {
                           "horizontal": {
-                            "verdict": "UNRESOLVED",
-                            "reason": "해석하지 못한 선언: min(520px, 100%)",
+                            "verdict": "FILL",
+                            "reason": "min() + 100% — 부모를 채우되 {\"max\":520}로 묶인다",
                             "source": "width:min(520px, 100%)",
-                            "value": null
+                            "value": null,
+                            "limit": {
+                              "max": 520
+                            }
                           },
                           "vertical": {
                             "verdict": "HUG",
@@ -91336,13 +91271,7 @@
         "kept": 84,
         "droppedInvisible": 0,
         "droppedEmpty": 2,
-        "unresolved": [
-          {
-            "path": "body.1.0.0.1.1",
-            "tag": "section",
-            "reason": "h: 해석하지 못한 선언: min(520px, 100%)"
-          }
-        ]
+        "unresolved": []
       },
       "spec": {
         "path": "body.1",
@@ -95478,16 +95407,14 @@
                           "height": 237.5938
                         },
                         "sizing": {
-                          "layoutSizingHorizontal": "FIXED",
+                          "layoutSizingHorizontal": "FILL",
                           "layoutSizingVertical": "HUG",
                           "layoutPositioning": "AUTO",
                           "minWidth": null,
-                          "maxWidth": null,
+                          "maxWidth": 520,
                           "minHeight": null,
                           "maxHeight": null,
-                          "unresolved": [
-                            "h: 해석하지 못한 선언: min(520px, 100%)"
-                          ]
+                          "unresolved": []
                         },
                         "positioning": "AUTO",
                         "margin": {
@@ -95500,10 +95427,13 @@
                         "constraints": null,
                         "why": {
                           "horizontal": {
-                            "verdict": "UNRESOLVED",
-                            "reason": "해석하지 못한 선언: min(520px, 100%)",
+                            "verdict": "FILL",
+                            "reason": "min() + 100% — 부모를 채우되 {\"max\":520}로 묶인다",
                             "source": "width:min(520px, 100%)",
-                            "value": null
+                            "value": null,
+                            "limit": {
+                              "max": 520
+                            }
                           },
                           "vertical": {
                             "verdict": "HUG",
@@ -95951,13 +95881,7 @@
         "kept": 25,
         "droppedInvisible": 0,
         "droppedEmpty": 2,
-        "unresolved": [
-          {
-            "path": "body.1.0.0.1.1",
-            "tag": "section",
-            "reason": "h: 해석하지 못한 선언: min(520px, 100%)"
-          }
-        ]
+        "unresolved": []
       },
       "spec": {
         "path": "body.1",
@@ -96937,16 +96861,14 @@
                           "height": 320.1875
                         },
                         "sizing": {
-                          "layoutSizingHorizontal": "FIXED",
+                          "layoutSizingHorizontal": "FILL",
                           "layoutSizingVertical": "HUG",
                           "layoutPositioning": "AUTO",
                           "minWidth": null,
-                          "maxWidth": null,
+                          "maxWidth": 520,
                           "minHeight": null,
                           "maxHeight": null,
-                          "unresolved": [
-                            "h: 해석하지 못한 선언: min(520px, 100%)"
-                          ]
+                          "unresolved": []
                         },
                         "positioning": "AUTO",
                         "margin": {
@@ -96959,10 +96881,13 @@
                         "constraints": null,
                         "why": {
                           "horizontal": {
-                            "verdict": "UNRESOLVED",
-                            "reason": "해석하지 못한 선언: min(520px, 100%)",
+                            "verdict": "FILL",
+                            "reason": "min() + 100% — 부모를 채우되 {\"max\":520}로 묶인다",
                             "source": "width:min(520px, 100%)",
-                            "value": null
+                            "value": null,
+                            "limit": {
+                              "max": 520
+                            }
                           },
                           "vertical": {
                             "verdict": "HUG",
@@ -97411,7 +97336,7 @@
         },
         {
           "file": "figma/app-screens.archive.desktop.01.draw.js",
-          "bytes": 11554
+          "bytes": 11563
         },
         {
           "file": "figma/app-screens.archive.desktop.02.draw.js",
@@ -97611,7 +97536,7 @@
       "files": [
         {
           "file": "figma/app-screens.mypage-upgrade-billing-success.desktop.00.draw.js",
-          "bytes": 11913
+          "bytes": 11922
         },
         {
           "file": "figma/app-screens.mypage-upgrade-billing-success.desktop.01.draw.js",
@@ -97627,7 +97552,7 @@
       "files": [
         {
           "file": "figma/app-screens.mypage-upgrade-billing-success.mobile.00.draw.js",
-          "bytes": 10920
+          "bytes": 10929
         }
       ]
     },
@@ -97639,11 +97564,11 @@
       "files": [
         {
           "file": "figma/app-screens.mypage-upgrade-billing-fail.desktop.00.draw.js",
-          "bytes": 9175
+          "bytes": 10196
         },
         {
           "file": "figma/app-screens.mypage-upgrade-billing-fail.desktop.01.draw.js",
-          "bytes": 12164
+          "bytes": 11155
         },
         {
           "file": "figma/app-screens.mypage-upgrade-billing-fail.desktop.02.draw.js",
@@ -97659,7 +97584,7 @@
       "files": [
         {
           "file": "figma/app-screens.mypage-upgrade-billing-fail.mobile.00.draw.js",
-          "bytes": 11333
+          "bytes": 11342
         }
       ]
     },
@@ -97671,7 +97596,7 @@
       "files": [
         {
           "file": "figma/app-screens.mypage-upgrade-billing-change-success.desktop.00.draw.js",
-          "bytes": 11576
+          "bytes": 11585
         },
         {
           "file": "figma/app-screens.mypage-upgrade-billing-change-success.desktop.01.draw.js",
@@ -97687,7 +97612,7 @@
       "files": [
         {
           "file": "figma/app-screens.mypage-upgrade-billing-change-success.mobile.00.draw.js",
-          "bytes": 10579
+          "bytes": 10588
         }
       ]
     },
@@ -97699,7 +97624,7 @@
       "files": [
         {
           "file": "figma/app-screens.mypage-upgrade-billing-change-fail.desktop.00.draw.js",
-          "bytes": 11708
+          "bytes": 11717
         },
         {
           "file": "figma/app-screens.mypage-upgrade-billing-change-fail.desktop.01.draw.js",
@@ -97715,7 +97640,7 @@
       "files": [
         {
           "file": "figma/app-screens.mypage-upgrade-billing-change-fail.mobile.00.draw.js",
-          "bytes": 10710
+          "bytes": 10719
         }
       ]
     },
@@ -97731,7 +97656,7 @@
         },
         {
           "file": "figma/app-screens.mypage-upgrade-fail.desktop.01.draw.js",
-          "bytes": 11313
+          "bytes": 11322
         },
         {
           "file": "figma/app-screens.mypage-upgrade-fail.desktop.02.draw.js",
@@ -97747,7 +97672,7 @@
       "files": [
         {
           "file": "figma/app-screens.mypage-upgrade-fail.mobile.00.draw.js",
-          "bytes": 11498
+          "bytes": 11507
         }
       ]
     },
@@ -97759,7 +97684,7 @@
       "files": [
         {
           "file": "figma/app-screens.mypage-topup-success.desktop.00.draw.js",
-          "bytes": 11530
+          "bytes": 11539
         },
         {
           "file": "figma/app-screens.mypage-topup-success.desktop.01.draw.js",
@@ -97775,7 +97700,7 @@
       "files": [
         {
           "file": "figma/app-screens.mypage-topup-success.mobile.00.draw.js",
-          "bytes": 10533
+          "bytes": 10542
         }
       ]
     },
@@ -97787,7 +97712,7 @@
       "files": [
         {
           "file": "figma/app-screens.mypage-topup-fail.desktop.00.draw.js",
-          "bytes": 11674
+          "bytes": 11683
         },
         {
           "file": "figma/app-screens.mypage-topup-fail.desktop.01.draw.js",
@@ -97803,7 +97728,7 @@
       "files": [
         {
           "file": "figma/app-screens.mypage-topup-fail.mobile.00.draw.js",
-          "bytes": 10676
+          "bytes": 10685
         }
       ]
     }

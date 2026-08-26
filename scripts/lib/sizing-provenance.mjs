@@ -93,6 +93,21 @@ export function substituteViewportUnits(declaration, contextId) {
  * @param {boolean} input.isReplaced       img/svg/video 등 치환 요소인가
  * @returns {{verdict:string, reason:string, source:string|null, value:number|null}}
  */
+/** 괄호 깊이를 세며 최상위 콤마로만 자른다 — `min(520px, calc(100% - 8px))` 같은 중첩 대응. */
+function splitTopLevel(input) {
+  const parts = [];
+  let depth = 0;
+  let current = "";
+  for (const char of input) {
+    if (char === "(") depth += 1;
+    if (char === ")") depth -= 1;
+    if (char === "," && depth === 0) { parts.push(current.trim()); current = ""; continue; }
+    current += char;
+  }
+  if (current.trim()) parts.push(current.trim());
+  return parts;
+}
+
 /** 바깥 display가 block-level인 집합. `flex`·`grid`도 바깥은 block이다(안쪽만 flex/grid). */
 const BLOCK_LEVEL = /^(block|flow-root|list-item|table|flex|grid)$/;
 
@@ -166,6 +181,39 @@ export function decideAxis({ declared: rawDeclared, computed, axis, parentComput
     // `calc(100% + ...)`처럼 **퍼센트가 섞인 계산식은 부모에 비례**하므로 FILL이다. 실측 사례:
     // `/settings`의 크롬 바가 `calc(100% + var(--mainchrome-bleed-left) + var(--mainchrome-bleed-right))`로
     // 부모보다 넓게 번진다(bleed). 이를 FIXED로 굳히면 리사이즈 때 따라오지 않는다.
+    // **`min()`·`max()`·`clamp()`는 Figma의 max/minWidth와 정확히 대응한다.**
+    // `min(520px, 100%)`는 "부모를 채우되 520을 넘지 않는다" — FILL + maxWidth 520이다.
+    // FIXED 520으로 굳히면 부모가 520보다 좁아져도 안 줄어 제품과 어긋난다.
+    // 실측 사례: `/mypage/topup/fail`의 상태 섹션이 `width:min(520px, 100%)`이고,
+    // 해석 실패로 UNRESOLVED→FIXED가 되어 리사이즈에 반응하지 않았다.
+    const clampish = /^(min|max|clamp)\(([^]*)\)$/.exec(declared.trim());
+    if (clampish) {
+      const [, fn, inner] = clampish;
+      const parts = splitTopLevel(inner);
+      const lengths = parts.map((part) => px(part)).filter((value) => value != null);
+      const hasFullPercent = parts.some((part) => percent(part) === 100);
+      if (hasFullPercent && lengths.length > 0) {
+        const limit = fn === "max"
+          ? { min: Math.max(...lengths) }
+          : fn === "min"
+            ? { max: Math.min(...lengths) }
+            : { min: Math.min(...lengths), max: Math.max(...lengths) };
+        return {
+          verdict: AXIS.FILL,
+          reason: `${fn}() + 100% — 부모를 채우되 ${JSON.stringify(limit)}로 묶인다`,
+          source: `${horizontal ? "width" : "height"}:${declared}`,
+          value: null,
+          limit,
+        };
+      }
+      if (lengths.length > 0 && !declared.includes("%")) {
+        const resolved = px(horizontal ? computed?.width : computed?.height);
+        if (resolved != null) {
+          return { verdict: AXIS.FIXED, reason: `${fn}() 계산 결과 고정`, source: `${horizontal ? "width" : "height"}:${declared}`, value: resolved };
+        }
+      }
+    }
+
     if (/^calc\(/.test(declared) && /(^|[\s(+\-*/])100%/.test(declared)) {
       return {
         verdict: AXIS.FILL,
@@ -303,6 +351,13 @@ export function trackForChild(declaration, childIndex) {
   return tracks[childIndex] ?? null;
 }
 
+/** 두 한계 중 더 좁은 쪽을 고른다(없으면 있는 쪽). */
+function tighter(kind, a, b) {
+  if (a == null) return b ?? null;
+  if (b == null) return a;
+  return kind === "min" ? Math.max(a, b) : Math.min(a, b);
+}
+
 /**
  * 노드 하나의 크기 출처를 판정한다.
  * @returns {{h:object, v:object, absolute:boolean, minMax:object}}
@@ -328,11 +383,12 @@ export function decideNode({ declared = {}, computed = {}, parentComputed = null
     v,
     absolute: computed.position === "absolute" || computed.position === "fixed",
     // min/max 는 computed에서도 %가 살아남는 축이라 그대로 Figma로 옮긴다.
+    // `min()`/`clamp()` 선언이 만든 한계(`limit`)는 computed의 min/max보다 좁을 때만 이긴다.
     minMax: {
-      minWidth: px(computed.minWidth),
-      maxWidth: px(computed.maxWidth),
-      minHeight: px(computed.minHeight),
-      maxHeight: px(computed.maxHeight),
+      minWidth: tighter("min", px(computed.minWidth), h.limit?.min),
+      maxWidth: tighter("max", px(computed.maxWidth), h.limit?.max),
+      minHeight: tighter("min", px(computed.minHeight), v.limit?.min),
+      maxHeight: tighter("max", px(computed.maxHeight), v.limit?.max),
     },
   };
 }

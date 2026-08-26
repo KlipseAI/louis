@@ -3565,10 +3565,10 @@
       "quotedLine": "\"[.gnb-navCreate_.gnb-projectHeader_.gnb-projectHeaderActionsShell_&>svg]:[width:20px]\",",
       "productValue": "20px",
       "dsFile": "packages/css/src/component/icon-button.css",
-      "dsLine": 121,
-      "dsQuotedLine": "inline-size: var(--louis-icon-size-md);",
-      "dsValue": "20px (--louis-icon-size-md: 20px, packages/tokens/generated/tokens.css:80). figma/components.measured.json은 icon-button.sizes.sm.glyph = 20으로 기록한다",
-      "matches": "같음",
+      "dsLine": 129,
+      "dsQuotedLine": "inline-size: var(--louis-icon-size-sm);",
+      "dsValue": "16px (--louis-icon-size-sm: 16px, packages/css/generated/tokens.css:377). 2026-08-26 에 icon-button 을 제품 32 컨테이너로 수렴시키며 글리프도 md(20)→sm(16) 로 내렸다",
+      "matches": "다름",
       "mapClaimWrong": "",
       "reason": "매핑이 적은 상수·줄·값이 전부 맞다. (2) 줄 241이 gnbStyles.iconButton 블록(191-261) 안에 그대로 있다. (3) 함정 다섯을 전부 걸었다 — 셀렉터 조상 사슬이 실제로 DOM에 만들어진다: 4093 `${gnbStyles.nav} ${gnbStyles.navCreate}` → 4101 `<div className={gnbStyles.projectHeader}>` → 4248 `<div className={gnbStyles.projectHeaderActionsShell}>` → 4253-4255 `<button className={gnbStyles.iconButton}>` → 4259 직계 자식 `<svg>`. 중간의 .gnb-projectMenuAnchor는 후손 결합자라 사슬을 끊지 않는다. `git grep \"svg]:[width\"`로 Gnb.tsx 전체를 훑었을 때 `>svg` 폭 규칙은 241 하나뿐이라 더 구체적인 경쟁 선언이 없다. 호출부에 인라인 style이 없고, svg의 width=\"20\" height=\"20\"은 presentation attribute라 어떤 CSS 규칙에도 지므로 최종값을 바꾸지 않는다(값도 20으로 같다). 테마 의존이 없다. (4) 20px은 리터럴이라 `--spacing: 2px`가 개입하지 않는다 — 두 배로 틀릴 여지가 없다. DS 20px = 제품 20px으로 일치한다. 제품 컨테이너도 32x32(223-224)여서 DS sm(control-height-sm)과 대응이 맞다. 다만 매핑의 productSelector가 밝힌 대로 이 문맥 밖에서는 컨테이너가 글리프 크기를 소유하지 않는다 — 이는 공개된 단서지 오류가 아니다.",
       "commands": [
@@ -3581,7 +3581,8 @@
         "git grep -n \"gnbStyles.navCreate\\b\" 7e9c3b6946a71431479aef69d16baac5c53128b2 -- apps/web",
         "git grep -n \"gnbStyles.projectHeader\\b\" 7e9c3b6946a71431479aef69d16baac5c53128b2 -- apps/web"
       ],
-      "$productLineCorrectedFrom": 241
+      "$productLineCorrectedFrom": 241,
+      "$dsDrift": "2026-08-26 DS 변경 반영 — 이 감사는 2026-08-22 에 굳었고 제품 인용은 commit a89fc0d5 에 고정돼 그대로다. DS 쪽 인용만 현재 소스로 갱신했다. **판정이 뒤집혔다: 같음 → 다름.** 제품은 이 문맥에서 `projectHeaderActionsShell & > svg` 로 20px 을 강제하는데(Gnb.tsx:240) DS 글리프는 이제 16 이다. 그 Gnb 버튼은 아직 `.louis-icon-button` 을 쓰지 않는 자체 구현이라 지금 렌더가 깨지지는 않는다. 이관할 때 20 을 호출부 유틸리티로 얹든 DS 축을 늘리든 결정해야 한다."
     },
     {
       "path": "icon-button.states.danger.Active.background",
@@ -7184,10 +7185,10 @@
       "quotedLine": "\"relative flex items-center w-full h-8 cursor-pointer touch-none select-none\";",
       "productValue": "16px (h-8 = calc(var(--spacing) * 8), --spacing: 2px at apps/web/app/tailwind.css:164, 안에 @theme inline)",
       "dsFile": "packages/css/src/component/slider.css",
-      "dsLine": 68,
-      "dsQuotedLine": "block-size: var(--louis-layout-control-height-sm);",
-      "dsValue": "32px (--louis-layout-control-height-sm: 32px, packages/css/generated/tokens.css:97)",
-      "matches": "다름",
+      "dsLine": 72,
+      "dsQuotedLine": "block-size: 16px;",
+      "dsValue": "16px. 2026-08-26 에 sm 컨트롤을 control-height-sm(32) 에서 16 으로 낮췄다 — 제품 노드 캔버스 인스펙터의 촘촘한 밀도에 맞춘 수렴",
+      "matches": "같음",
       "mapClaimWrong": "productLine이 570이라고 적혀 있으나 570은 `const DURATION_SLIDER =` 뿐이고 h-8이 실제로 적힌 줄은 571이다. 상수 이름과 값(16px)은 맞다.",
       "reason": "함정 다섯을 전부 걸고 통과했다. (1) --spacing:2px를 tailwind.css:164에서 @theme inline 안에 있는 것으로 직접 확인했으므로 h-8=16px이다. (2) 인라인 style: 이 상수는 VideoNode.tsx:2646의 Radix `Slider.Root`에 붙는데, @radix-ui/react-slider@^1.3.6의 SliderHorizontal은 style에 `--radix-slider-thumb-transform: translateX(-50%)`만 얹고 height를 얹지 않는다(node_modules/@radix-ui/react-slider/dist/index.mjs:190-193). 인라인 height가 클래스를 이기지 않는다. (3) 더 구체적인 규칙: globals.css에 'slider'를 포함한 선택자가 하나도 없고, VideoNode의 부모 DROPDOWN_SURFACE/DURATION_CONTROL에 자손 높이 규칙(`[&_...]`)이 없다. 상수 문자열 안에 h- 유틸리티도 h-8 하나뿐이다. (4) 이름만 비슷한 다른 것: JSX가 실제로 이 상수를 슬라이더 루트에 쓰는 것을 VideoNode.tsx:2646에서 확인했다. (5) 테마: 이 줄에 light: 접두어가 없어 라이트/다크가 같다. 다만 DS 32px은 control 계단(TextField·Button)에서 온 값이고 제품 컨트롤은 16px이라 값이 다르다 — (A3)에서 DS를 고칠 후보다.",
       "commands": [
@@ -7203,7 +7204,8 @@
         "cd /Users/sejunki/klipse-web && git show 7e9c3b6946a71431479aef69d16baac5c53128b2:apps/web/components/scenes/create/node-canvas-v2/nodes/VideoNode.tsx | grep -n \"const DROPDOWN_SURFACE\" -A 12",
         "cat -n /Users/sejunki/klipse-design-system/packages/css/src/component/slider.css",
         "grep -rn -- \"--louis-layout-control-height-sm:\" /Users/sejunki/klipse-design-system/packages/"
-      ]
+      ],
+      "$dsDrift": "2026-08-26 DS 변경 반영 — 이 감사는 2026-08-22 에 굳었고 제품 인용은 commit a89fc0d5 에 고정돼 그대로다. DS 쪽 인용만 현재 소스로 갱신했다. **판정이 뒤집혔다: 다름 → 같음.** 제품 DURATION_SLIDER 가 h-8(16px)이고 DS 도 16 이 됐다 — 이 축의 divergence 가 해소됐다."
     },
     {
       "path": "slider.sizes.sm/thumb.labelFontSize",
@@ -7992,5 +7994,15 @@
       "$productLineCorrectedFrom": 743
     }
   ],
-  "$settledOn": "2026-08-22"
+  "$settledOn": "2026-08-22",
+  "$dsSideUpdates": [
+    {
+      "date": "2026-08-26",
+      "why": "DS 가 감사 이후 바뀌어 dsQuotedLine 2건이 소스에서 사라졌다(verify-refutation-quotes 무효 2). 제품 인용과 판정 근거는 손대지 않았고 DS 쪽 좌표·값·matches 만 현재 사실로 갱신했다.",
+      "axes": [
+        "icon-button.sizes.sm.glyph (같음→다름)",
+        "slider.sizes.sm/thumb.height (다름→같음)"
+      ]
+    }
+  ]
 }

@@ -4,10 +4,26 @@ import { fileURLToPath } from "node:url";
 
 const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 
-const FIGMA_ACCESS_TOKEN = process.env.FIGMA_ACCESS_TOKEN || "figd_jYLFp-M28KLBypUvpwO9Py1tTO-NSx3heFGqbUTm";
+// 토큰에 리터럴 폴백을 두지 않는다. 예전에는 `process.env.X || "figd_…"` 형태로 개인 토큰이
+// 박혀 있었고, 그대로 원격에 푸시돼 유출됐다. 폴백이 있으면 환경변수를 잊어도 조용히 남의
+// 계정 권한으로 돌아가기 때문에 잘못을 알아챌 방법이 없다 — 없으면 즉시 실패한다.
+const FIGMA_ACCESS_TOKEN = process.env.FIGMA_ACCESS_TOKEN;
+
+// 파일 key 는 비밀이 아니다(design/governance/figma-sync.md 「운영 파일」 절에 공개돼 있다).
+// 기본값은 제품 화면 이식 보드다. DS 정본 라이브러리를 읽으려면 FIGMA_FILE_KEY 로 덮어써라.
 const FIGMA_FILE_KEY = process.env.FIGMA_FILE_KEY || "OlYKERKOkgbxBEEoXGZW2c";
 
 async function fetchFigma(endpoint) {
+  // 모듈 최상단이 아니라 실제로 네트워크를 타는 지점에서 검사한다 — `figma:audit` 은 로컬
+  // 파일만 읽으므로 토큰 없이도 돌아야 한다. 최상단에서 throw 하면 그것까지 막힌다.
+  if (!FIGMA_ACCESS_TOKEN) {
+    throw new Error(
+      "FIGMA_ACCESS_TOKEN 이 설정되지 않았습니다.\n" +
+        "  Figma > Settings > Security > Personal access tokens 에서 발급한 뒤\n" +
+        "  FIGMA_ACCESS_TOKEN=figd_... pnpm run figma:sync\n" +
+        "  처럼 환경변수로 넘기세요. 토큰을 소스에 적으면 저장소에 유출됩니다.",
+    );
+  }
   const url = `https://api.figma.com/v1/${endpoint}`;
   const res = await fetch(url, {
     headers: {

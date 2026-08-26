@@ -6262,7 +6262,6 @@
       "elevation/menu": {
         "layers": [
           {
-            "type": "DROP_SHADOW",
             "offsetY": 8,
             "blur": 15,
             "spread": 0,
@@ -6272,19 +6271,6 @@
               0,
               0,
               0.04
-            ]
-          },
-          {
-            "type": "DROP_SHADOW",
-            "offsetY": 0,
-            "blur": 0,
-            "spread": 0.5,
-            "inset": false,
-            "color": [
-              0.835294,
-              0.843137,
-              0.866667,
-              1
             ]
           }
         ]
@@ -6328,17 +6314,33 @@
           0.06
         ]
       },
-      "elevation/toast": {
+      "elevation/switch-thumb": {
         "type": "DROP_SHADOW",
-        "offsetY": 8,
-        "blur": 20,
+        "offsetY": 1,
+        "blur": 3,
         "spread": 0,
         "inset": false,
         "color": [
           0,
           0,
           0,
-          0.16
+          0.2
+        ]
+      },
+      "elevation/toast": {
+        "layers": [
+          {
+            "offsetY": 8,
+            "blur": 20,
+            "spread": 0,
+            "inset": false,
+            "color": [
+              0,
+              0,
+              0,
+              0.16
+            ]
+          }
         ]
       },
       "elevation/tooltip": {

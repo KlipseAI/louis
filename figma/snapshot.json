@@ -15,7 +15,7 @@
       "note": "변수는 readback.json의 되읽기 행을 tokenId 공간으로 옮긴 것이고, style과 component는 같은 되읽기의 style/component 절이다. canonical 해시는 컬렉션·이름·타입·mode 값을 정렬해 이은 문자열의 FNV-1a다.",
       "styles": {
         "text": 15,
-        "effect": 8
+        "effect": 9
       },
       "components": {
         "sets": 0,
@@ -4886,18 +4886,6 @@
               0,
               0.04
             ]
-          },
-          {
-            "offsetY": 0,
-            "blur": 0,
-            "spread": 0.5,
-            "inset": false,
-            "color": [
-              0.835294,
-              0.843137,
-              0.866667,
-              1
-            ]
           }
         ]
       },
@@ -4943,18 +4931,35 @@
           0.06
         ]
       },
-      "elevation/toast": {
-        "tokenId": "elevation-toast",
+      "elevation/switch-thumb": {
+        "tokenId": "elevation-switch-thumb",
         "type": "DROP_SHADOW",
-        "offsetY": 8,
-        "blur": 20,
+        "offsetY": 1,
+        "blur": 3,
         "spread": 0,
         "inset": false,
         "color": [
           0,
           0,
           0,
-          0.16
+          0.2
+        ]
+      },
+      "elevation/toast": {
+        "tokenId": "elevation-toast",
+        "layers": [
+          {
+            "offsetY": 8,
+            "blur": 20,
+            "spread": 0,
+            "inset": false,
+            "color": [
+              0,
+              0,
+              0,
+              0.16
+            ]
+          }
         ]
       },
       "elevation/tooltip": {

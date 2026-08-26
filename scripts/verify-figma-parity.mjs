@@ -715,6 +715,24 @@ const COMPONENT_CONTRACTS = [
     figmaAhead:
       "LOUIS recipe 없음 — 제품 landing/navigation/Gnb.tsx 의 menuLinkClass() 가 정본이다. 제품은 이것을 컴포넌트가 아니라 클래스 조립 함수로 갖고 있고 항목은 네 요소(a · Link · button · span)로 렌더된다 — 대조할 .d.ts 가 없다.",
     variantProperties: {},
+    // **이 컴포넌트의 계약은 불투명도다.** 여덟 변형의 기하가 완전히 같아서(28 · 72 · 12 · 999)
+    // 기하만 보면 게이트가 아무것도 검증하지 않는다. 값은 제품 `Gnb.tsx` 의
+    // `MENU_LINK_OPACITY_ACTIVE`(1.00) · `MENU_LINK_OPACITY_LIGHT`(0.70 → hover 0.90, 어두운 면)
+    // · `MENU_LINK_OPACITY_BLACK`(0.65 → hover 0.80, 밝은 면) 과 `MENU_LINK_COMING_SOON`(0.40) 이다.
+    //
+    // 밝은 면 기본값이 0.65 인 것은 접근성 판정이다 — 0.50 이면 `palette-gray-900` 이 랜딩
+    // 바닥과 3.23:1 로 AA(4.5) 미달이고, 누를 수 있는 링크라 비활성 면제 대상이 아니다.
+    // **이 계약이 생기기 전에는 Figma 가 0.50 인 채로도 게이트가 초록이었다.**
+    opacity: {
+      "light/Default": 0.65,
+      "light/Hover": 0.8,
+      "light/Selected": 1,
+      "light/Disabled": 0.4,
+      "dark/Default": 0.7,
+      "dark/Hover": 0.9,
+      "dark/Selected": 1,
+      "dark/Disabled": 0.4,
+    },
     // **면도 테두리도 그림자도 없다.** 알약이 `bg-transparent` 이고 헤어라인이 없는 것이 이
     // 컴포넌트가 시스템의 다른 알약과 갈리는 지점이다 — 상태를 면이 아니라 **잉크 불투명도**로
     // 만든다. 빈 계약이 그 사실을 고정한다: Figma 에 stroke 나 effect 가 하나라도 생기면
@@ -1623,6 +1641,7 @@ const TAMPERS = [
   tamperComponentVariant,
   tamperComponentBinding,
   tamperComponentHeight,
+  tamperComponentOpacity,
   tamperComponentPadding,
   tamperComponentSlot,
   tamperComponentGeometryDrift,
@@ -2375,6 +2394,53 @@ function compareComponentGeometry(contract, got) {
 }
 
 /**
+ * variant 별 **불투명도**를 대조한다.
+ *
+ * 기하가 아니라 불투명도가 계약인 컴포넌트가 있다 — GnbMenuItem 은 여덟 변형의 기하가 완전히
+ * 같고(28 · 72 · 12 · 999) 면도 테두리도 없이 **잉크 한 색의 불투명도만** 바뀐다. 그래서
+ * 기하만 대조하면 이 컴포넌트에 대해 게이트가 사실상 아무것도 검증하지 않는다.
+ *
+ * 실제로 그 구멍으로 어긋남이 하나 지나갔다. 제품은 접근성 때문에 밝은 면 기본값을 0.50 →
+ * 0.65 로 올렸는데(3.23:1 → 5.11:1), 되읽기에 불투명도 축이 없어 **Figma 가 0.50 인 채로도
+ * 게이트가 초록이었다.** 사람이 두 곳을 눈으로 비교해서야 드러났다.
+ *
+ * 기대값은 `components.measured.json` 이 아니라 **계약에 리터럴로 적는다** — 불투명도는 제품
+ * 렌더 실측 대상이 아니라 소스에 적힌 상수이고(`MENU_LINK_OPACITY_*`), 그 상수를 옮겨 적는
+ * 것이 이 계약의 일이다.
+ */
+function compareComponentOpacity(contract, got) {
+  const issues = [];
+  const plan = contract.opacity;
+  if (plan === undefined) return issues;
+  const geometry = got.geometry ?? {};
+  for (const [key, want] of Object.entries(plan)) {
+    const bag = geometry[key];
+    if (bag === undefined) {
+      issues.push(`${contract.figmaName}: 불투명도 계약의 키가 snapshot 에 없습니다 — ${key}`);
+      continue;
+    }
+    const values = bag.opacity;
+    if (!Array.isArray(values) || values.length === 0) {
+      issues.push(`${contract.figmaName} ${key}: 불투명도가 되읽기에 없습니다. 채취 명세에 opacity 를 넣으세요.`);
+      continue;
+    }
+    if (values.length > 1) {
+      issues.push(`${contract.figmaName} ${key}: variant 마다 불투명도가 다릅니다 — [${values.join(", ")}]`);
+      continue;
+    }
+    if (Math.abs(values[0] - want) > 1e-4) {
+      issues.push(`${contract.figmaName} ${key}: 불투명도가 다릅니다 — 계약 ${want}, Figma ${values[0]}`);
+    }
+  }
+  for (const key of Object.keys(geometry)) {
+    if (plan[key] === undefined && Array.isArray(geometry[key].opacity) && geometry[key].opacity.length > 0) {
+      issues.push(`${contract.figmaName}: 되읽기에 불투명도가 있는데 계약에 없습니다 — ${key}`);
+    }
+  }
+  return issues;
+}
+
+/**
  * 역할별 stroke 두께와 정렬을 대조한다.
  *
  * 두께를 **집합**으로만 보면 버튼 테두리가 2px이 돼도 spinner의 2와 구분되지 않는다. 그래서
@@ -2618,6 +2684,7 @@ function compareComponents(actualComponents) {
     }
 
     issues.push(...compareComponentGeometry(contract, got));
+    issues.push(...compareComponentOpacity(contract, got));
     issues.push(...compareComponentStrokes(contract, got));
     issues.push(...compareComponentEffects(contract, got));
 
@@ -2806,6 +2873,19 @@ function tamperComponentVariant(document) {
  *
  * 각각이 독립적으로 실패를 만들어야 한다. 하나가 다른 것에 가려지면 그 검사는 없는 것과 같다.
  */
+/** 불투명도 하나를 시안 값으로 되돌린다 — 실제로 게이트를 빠져나갔던 어긋남 그대로다. */
+function tamperComponentOpacity(document) {
+  for (const contract of COMPONENT_CONTRACTS) {
+    if (contract.opacity === undefined) continue;
+    const geometry = document.components?.[contract.figmaName]?.geometry;
+    const key = Object.keys(contract.opacity).find((k) => Array.isArray(geometry?.[k]?.opacity));
+    if (key === undefined) continue;
+    geometry[key].opacity = [0.5];
+    return `component 불투명도 변조 ${contract.figmaName}.${key}`;
+  }
+  return null;
+}
+
 function tamperComponentHeight(document) {
   for (const contract of COMPONENT_CONTRACTS) {
     const geometry = document.components?.[contract.figmaName]?.geometry;

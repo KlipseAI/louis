@@ -113,7 +113,7 @@ const CAPTURE = {
   "Menu": {"key":{"name":"panel"}},
   "MenuPanel": {"key":{"name":"panel"},"fields":["height","width","paddingBlock","paddingBlockEnd","paddingInline","paddingInlineEnd","itemSpacing","cornerRadius","minWidth","layoutMode"],"effects":["self"]},
   "MenuSeparator": {"key":{"name":"default"}},
-  "GnbMenuItem": {"key":{"name":"base"},"parts":{"Label":["width","height","fontSize","lineHeightPercent"]}},
+  "GnbMenuItem": {"key":{"by":["Surface","State"]},"fields":["height","width","paddingBlock","paddingBlockEnd","paddingInline","paddingInlineEnd","itemSpacing","cornerRadius","layoutMode","strokeWeight","opacity"],"parts":{"Label":["width","height","fontSize","lineHeightPercent"]}},
   "NodeChip": {"key":{"by":["Shape"]},"slots":{"Glyph":"size"},"parts":{"Glyph":["width","height"],"Label":["width","height","fontSize"]},"effects":["self"]},
   "NewsCard": {"key":{"by":["Featured"]},"parts":{"Body":["width","height","paddingBlock","paddingBlockEnd","paddingInline","paddingInlineEnd","itemSpacing"],"Date":["width","height","fontSize"],"Headline":["width","height","fontSize","lineHeightPercent"]}},
   "ProgressBar": {"key":{"name":"base"},"parts":{"Fill":["width","height","cornerRadius","layoutMode"]}},
@@ -253,6 +253,10 @@ const push = (bag, key, value) => {
 
 const rootField = (node, field) => {
   if (field === "layoutMode") return node.layoutMode;
+  // 불투명도가 **계약 그 자체**인 컴포넌트가 있다(GnbMenuItem 은 여덟 변형의 기하가 완전히
+  // 같고 잉크 한 색의 불투명도만 바뀐다). Figma FLOAT 는 float32 라 0.65 가
+  // 0.6499999761581421 로 돌아오므로 두 자리에서 접는다.
+  if (field === "opacity") return Math.round(node.opacity * 100) / 100;
   if (field === "paddingBlock") return num(node.paddingTop);
   if (field === "paddingBlockEnd") return num(node.paddingBottom);
   if (field === "paddingInline") return num(node.paddingLeft);

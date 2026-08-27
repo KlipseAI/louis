@@ -9277,7 +9277,7 @@
           "BACKGROUND_BLUR:NORMAL:var(blur/surface)"
         ],
         "InfoBar": [
-          "BACKGROUND_BLUR:NORMAL:20"
+          "BACKGROUND_BLUR:PROGRESSIVE:var(blur/surface):0:0.5,0:0.5,0.45"
         ]
       }
     },

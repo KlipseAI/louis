@@ -1515,7 +1515,7 @@
       "name": "Media Card",
       "figmaName": "MediaCard",
       "doc": "design/components/media-card.md",
-      "note": "사진이 배경을 채우고 그 위에 유리 배지와 흐린 정보 바를 얹는 정사각 카드. 제품 구현(MediaCard.tsx)이 정본이고 랜딩 캐러셀 둘과 템플릿 그리드가 같은 카드를 쓴다 — LOUIS recipe 는 없다. 정보 바는 그라디언트 스크림이 아니라 저알파 면 + 배경 흐림 20 이고 위쪽 padding 40 이 그 장치다. 높이 111 은 시안 98/94 와 다르다 — 제품 타입 스케일의 줄 높이 150% 를 따른 결과다. **Badge 축은 figma-component-authoring.md §2 개정에서 폐기 판정을 받았다** — 값이 내용이라 시험 4 에 걸린다. Badge BOOLEAN + BadgeLabel TEXT 로 접고 변형 3 → 1 이 되는 Figma 재작업이 남아 있다. 제품의 layout 축(carousel·grid)은 고정 폭으로 그릴 수 없어 Figma 에서 의도적으로 비웠다. 흰색 1% 는 알파 램프에 01 단계가 없어 static-white-alpha/04 로 올렸고 흐림 20 은 대응 토큰이 없어 리터럴이다.",
+      "note": "사진이 배경을 채우고 그 위에 유리 배지와 흐린 정보 바를 얹는 정사각 카드. 제품 구현(MediaCard.tsx)이 정본이고 랜딩 캐러셀 둘과 템플릿 그리드가 같은 카드를 쓴다 — LOUIS recipe 는 없다. 정보 바는 ProjectCard 제목 띠와 **같은 점진 블러**다 — 반경과 마스크 곡선을 base.css 의 --louis-progressive-blur / --louis-progressive-blur-mask 가 한 벌로 소유하고 두 카드가 참조한다(2026-08-27, 소유자 확인). 전에는 균일 흐림 20 이었고 위쪽 padding 40 이 그 장치라고 적혀 있었는데, 그 판단이 소유자 의도와 달랐다. padding 40 은 남되 하는 일이 마스크의 감쇠 구간 확보로 바뀌었다. 높이 111 은 시안 98/94 와 다르다 — 제품 타입 스케일의 줄 높이 150% 를 따른 결과다. **Badge 축은 figma-component-authoring.md §2 개정에서 폐기 판정을 받았다** — 값이 내용이라 시험 4 에 걸린다. Badge BOOLEAN + BadgeLabel TEXT 로 접고 변형 3 → 1 이 되는 Figma 재작업이 남아 있다. 제품의 layout 축(carousel·grid)은 고정 폭으로 그릴 수 없어 Figma 에서 의도적으로 비웠다. 흰색 1% 는 알파 램프에 01 단계가 없어 static-white-alpha/04 로 올렸다. 흐림 반경은 리터럴 20 에서 blur/surface(10) 로 내려와 이름 없는 값이 사라졌고, 남은 차이는 Figma progressive 램프가 직선이라 CSS 의 꺾인 마스크 곡선을 근사한다는 것이다.",
       "maturity": "experimental",
       "figma": "partial",
       "web": "not-ready",

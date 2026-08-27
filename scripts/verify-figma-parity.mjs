@@ -541,13 +541,19 @@ const COMPONENT_CONTRACTS = [
     // 카드 자신에는 테두리가 없다. 사진이 면이고 경계는 radius 로만 만든다.
     strokes: {},
     // **두 겹의 배경 흐림이 이 컴포넌트의 조형이다.** 값의 출처는 제품 클래스다 —
-    // 배지가 `backdrop-filter: blur(10px)`, 정보 바가 `blur(20px)`.
-    // 10 은 토큰이 있어 변수로 묶는다(`blur/surface` = primitive.blur.10). 20 은 **없다** —
-    // blur 토큰이 10·12·16 셋뿐이라 리터럴로 남는다. 그 사실을 계약이 적어 두어야
-    // 나중에 20 토큰이 생겼을 때 이 자리가 따라오지 않는 것을 게이트가 잡는다.
+    // 배지가 `backdrop-filter: blur(10px)`, 정보 바가 **ProjectCard 제목 띠와 같은 점진 블러**다.
+    //
+    // 정보 바는 전에 균일 `blur(20)` 이었고 20 은 토큰이 없어 리터럴로 남아 있었다. 소유자가
+    // 「점진 블러가 의도였다」를 확인해 정본을 하나로 합쳤다 — 반경과 마스크 곡선을 LOUIS
+    // base.css 의 `--louis-progressive-blur` / `--louis-progressive-blur-mask` 가 소유하고
+    // 두 카드가 그것을 참조한다. 그래서 반경이 `blur/surface`(10) 로 내려오고 리터럴 20 이
+    // 사라진다.
+    //
+    // **램프를 project-card 의 정지점 표에서 유도한다.** media-card 쪽에 표를 복사하면 정본이
+    // 둘이 되어 CSS 를 고쳐도 한쪽만 따라온다 — 레시피가 한 벌이므로 표도 한 벌이다.
     effects: {
       Badge: "BACKGROUND_BLUR:NORMAL:var(blur/surface)",
-      InfoBar: "BACKGROUND_BLUR:NORMAL:20",
+      InfoBar: progressiveBlurFrom("project-card", "base", "blur/surface"),
     },
     // 브랜드 글리프는 소비처마다 다르다. 슬롯이 없으면 아홉 장이 전부 같은 글리프가 된다.
     iconSlots: ["Glyph"],

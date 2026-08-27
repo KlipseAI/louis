@@ -563,6 +563,78 @@ const COMPONENT_CONTRACTS = [
       Description: { type: "BOOLEAN", reason: "설명 줄의 유무. 코드에서는 sub prop 의 유무다." },
       DescriptionLabel: { type: "TEXT", reason: "설명 문구. 코드에서는 sub 의 값이다." },
     },
+    // **기하 정본이 생겼다.** 이 여덟은 LOUIS recipe 가 없어 `component-geometry.browser.test.tsx`
+    // 가 잴 코드가 없었고, 그래서 `figma/components.measured.json` 에 항목이 없어 계약이
+    // `geometry` 를 비워 두고 있었다. 이제 `scripts/measure-product-components.mjs` 가 제품
+    // 클래스를 제품 Tailwind 로 컴파일해 실브라우저에서 잰다 — 대조 방향이 반대다. 「DS 가
+    // 옳은가」가 아니라 **「Figma 가 제품 그대로인가」**를 본다.
+    //
+    // **TopBar 는 넣지 않는다.** 되읽기에 316×54 프레임이 있지만 제품에는 그런 상자가 없다 —
+    // 배지가 카드에 직접 absolute 로 앉는다(`left-8 top-8`). Figma 가 auto-layout 을 세우려고
+    // 만든 상자이므로 제품에서 잴 대상이 없다.
+    // **Glyph 슬롯(16×16)도 넣지 않는다.** 글리프는 소비처가 넘기는 ReactNode 이고 카드가
+    // 크기를 선언하지 않는다 — 제품에 슬롯 크기 계약 자체가 없다.
+    geometry: {
+      measuredId: "media-card",
+      sizeKey: "base",
+      fields: {
+        width: "width",
+        height: "height",
+        cornerRadius: "radius",
+        paddingBlock: "paddingBlock",
+        paddingBlockEnd: "paddingBlock",
+        paddingInline: "paddingInline",
+        paddingInlineEnd: "paddingInline",
+        // 카드는 flex 도 grid 도 아니라 gap 선언이 없다. Figma 는 auto-layout 프레임이라 0 을
+        // 갖는다 — 잴 선언이 없는 자리는 리터럴로 적는다.
+        itemSpacing: { literal: 0 },
+        layoutMode: { literal: "VERTICAL" },
+      },
+      slots: {},
+      extraStrokeWeights: [],
+      parts: {
+        // **제품에 없는 상자다.** Figma 가 배지를 auto-layout 으로 앉히려고 만든 프레임이고
+        // 제품은 배지를 카드에 직접 absolute 로 붙인다(`left-8 top-8`). 그래도 값은 실재한다 —
+        // padding 16 은 그 인셋이고 높이 54 는 16 + 배지 22 + 16 이다. 상자를 지어내는 대신
+        // 인셋을 재고 합으로 적는다.
+        TopBar: {
+          fields: {
+            width: "width",
+            height: ["badgeInset", "badgeHeight", "badgeInset"],
+            paddingBlock: "badgeInset",
+            paddingBlockEnd: "badgeInset",
+            paddingInline: "badgeInset",
+            paddingInlineEnd: "badgeInset",
+          },
+        },
+        Badge: {
+          fields: {
+            height: "badgeHeight",
+            paddingBlock: "badgePaddingBlock",
+            paddingBlockEnd: "badgePaddingBlock",
+            paddingInline: "badgePaddingInline",
+            paddingInlineEnd: "badgePaddingInline",
+            cornerRadius: "badgeRadius",
+          },
+        },
+        // 줄 높이는 Figma 가 %로 갖고 제품은 px 로 갖는다. 150 은 제품 타입 스케일이 전부 1.5
+        // 라는 사실이고, 그 곱은 fontSize·lineHeight 두 축을 함께 재는 EXPECT 가 지킨다.
+        BadgeLabel: { fields: { fontSize: "badgeFontSize", lineHeightPercent: { literal: 150 } } },
+        InfoBar: {
+          fields: {
+            paddingBlock: "infoPaddingBlockStart",
+            paddingBlockEnd: "infoPaddingBlockEnd",
+            paddingInline: "infoPaddingInline",
+            paddingInlineEnd: "infoPaddingInline",
+            itemSpacing: "infoGap",
+            layoutMode: { literal: "VERTICAL" },
+          },
+        },
+        NameRow: { fields: { itemSpacing: "nameRowGap" } },
+        Title: { fields: { fontSize: "titleFontSize", lineHeightPercent: { literal: 150 } } },
+        Description: { fields: { fontSize: "descriptionFontSize", lineHeightPercent: { literal: 150 } } },
+      },
+    },
   },
   {
     id: "carousel-arrow",
@@ -588,6 +660,42 @@ const COMPONENT_CONTRACTS = [
         options: ["Default", "Hover", "Disabled"],
         reason:
           "Hover 는 코드에서 CSS 상태이고 Disabled 는 prevDisabled/nextDisabled prop 이 만드는 네이티브 disabled 다. Figma 에 CSS 상태가 없어 한 축에 묶는다. **Focus 가 없는 것은 의도가 아니라 결손이다** — 제품 버튼 클래스에 :focus-visible 선언이 없다(carousel-arrow.md Accessibility).",
+      },
+    },
+    // **기하 정본이 생겼다.** 이 여덟은 LOUIS recipe 가 없어 `component-geometry.browser.test.tsx`
+    // 가 잴 코드가 없었고, 그래서 `figma/components.measured.json` 에 항목이 없어 계약이
+    // `geometry` 를 비워 두고 있었다. 이제 `scripts/measure-product-components.mjs` 가 제품
+    // 클래스를 제품 Tailwind 로 컴파일해 실브라우저에서 잰다 — 대조 방향이 반대다. 「DS 가
+    // 옳은가」가 아니라 **「Figma 가 제품 그대로인가」**를 본다.
+    //
+    // **Caret · glyph 파트는 넣지 않는다.** 캐럿 16×16 은 클래스가 아니라 인라인 SVG 의
+    // `width`/`height` **속성**이고, glyph 5×10 은 `path` 의 바운딩 박스다. 둘 다 클래스
+    // 문자열을 컴파일해 재는 이 하네스가 닿지 않는 값이라 억지로 적지 않는다.
+    geometry: {
+      measuredId: "carousel-arrow",
+      sizeKey: "base",
+      fields: {
+        width: "width",
+        height: "height",
+        cornerRadius: "radius",
+        paddingBlock: "paddingBlock",
+        paddingBlockEnd: "paddingBlock",
+        paddingInline: "paddingInline",
+        paddingInlineEnd: "paddingInline",
+        itemSpacing: { literal: 0 },
+        layoutMode: { literal: "HORIZONTAL" },
+      },
+      slots: {},
+      // 헤어라인이 stroke 가 아니라 inset 그림자다(위 effects). 되읽기의 strokeWeight 도 비어 있다.
+      extraStrokeWeights: [],
+      parts: {
+        // **둘 다 잴 대상이 없어 계약을 비운다.** 계약이 자손을 선언하지 않으면 게이트가
+        // 「계약에 없는 자손」으로 걸므로, **없다고 적는 대신 값이 없다고 적는다.**
+        //   · Caret 16×16 은 인라인 SVG 의 `width`/`height` **속성**이다 — 클래스가 아니라
+        //     이 하네스가 컴파일할 것이 없다.
+        //   · glyph 5×10 은 `path` 의 바운딩 박스다. DOM 에 그 수를 만드는 선언이 없다.
+        Caret: { fields: {} },
+        glyph: { fields: {} },
       },
     },
   },
@@ -629,10 +737,37 @@ const COMPONENT_CONTRACTS = [
           "설명 문구. 코드에서는 description 의 값이다. Description(BOOLEAN) 과 짝으로 낸다 — §3 이 짝으로 규정한 것은 BOOLEAN + INSTANCE_SWAP 뿐이고, 이 BOOLEAN + {Name}Label TEXT 형태의 근거는 §2 개정표의 MediaCard 선례(Badge + BadgeLabel)다.",
       },
     },
-    // geometry 를 넣지 않았다 — figma/components.measured.json 에 step-tile 항목이 없어
-    // 12 · 30 · 60 · 4 를 대조할 실측 정본이 없다. measuredId 를 적으면 게이트가 「실측값이
-    // 없습니다」로 즉시 실패한다. MediaCard · CarouselArrow 와 같은 상태이고, 실측 probe 를
-    // 붙이는 것이 랜딩 여섯의 공통 승격 조건이다.
+    geometry: {
+      measuredId: "step-tile",
+      sizeKey: "base",
+      fields: {
+        cornerRadius: "radius",
+        paddingBlock: "paddingBlock",
+        paddingBlockEnd: "paddingBlock",
+        paddingInline: "paddingInline",
+        paddingInlineEnd: "paddingInline",
+        itemSpacing: "gap",
+        layoutMode: { literal: "VERTICAL" },
+      },
+      slots: {},
+      extraStrokeWeights: [],
+      parts: {
+        // 캡션 프레임은 값을 비운다. itemSpacing 4 는 제품에 없는 gap 이고(정본이 flex 를
+        // 버리고 인라인 흐름 + 진짜 공백을 쓴다), 폭·높이는 격자와 줄 수가 정한다.
+        // 자손 자체는 선언해야 「계약에 없는 자손」으로 걸리지 않는다.
+        Caption: { fields: {} },
+        Tile: { fields: { cornerRadius: "tileRadius" } },
+        Label: { fields: { fontSize: "labelFontSize", lineHeightPercent: { literal: 150 } } },
+        Description: { fields: { fontSize: "labelFontSize", lineHeightPercent: { literal: 150 } } },
+      },
+    },
+    // **기하가 붙었다 — 다만 넷 중 둘만이다.** 실측 probe 가 섰지만 나머지 둘은 잴 대상이 없다.
+    //   · 폭·높이(462.7 · 534.7) — 바깥 3열 격자가 정한다. 어떤 폭을 고정해도 거짓이 된다는
+    //     variantProperties 주석의 판정이 기하에도 그대로 적용된다.
+    //   · Caption 의 itemSpacing 4 — **제품에 그런 gap 이 없다.** 정본이 flex 를 일부러 버리고
+    //     인라인 흐름 + 진짜 공백 문자를 쓴다(복사했을 때 라벨과 설명이 붙지 않게). 실측 공백
+    //     폭이 4.69px 라 시안 4 와 0.69 차이인데, 그것은 gap 선언이 아니라 Pretendard 20px
+    //     공백의 폭이다. gap 으로 적으면 없는 계약을 있는 것처럼 보여 준다.
   },
   {
     id: "faq-row",
@@ -673,9 +808,45 @@ const COMPONENT_CONTRACTS = [
     // 포커스도 컴포넌트가 그리지 않는다(전역 리셋이 :focus:not(:focus-visible) 만 끄므로
     // 브라우저 기본 링만 남는다). 없는 것을 Figma 에 그리면 없는 계약을 있는 것처럼 보여 준다.
     //
-    // geometry 도 없다 — figma/components.measured.json 에 faq-row 항목이 없다. 닫힌 행 66 은
-    // 18 + 30 + 18 이지만 **1024 이상에서만 참이다**(질문 타입이 20 → 18 → 16 으로 내려간다).
-    // 실측 probe 가 붙기 전에는 대조하지 않는다.
+    // **기하가 붙었다.** 실측 probe 가 1440 폭에서 재므로 닫힌 행 66(18 + 30 + 18)이 성립한다 —
+    // 그 값이 **1024 이상에서만 참**이라는 사실은 그대로다(질문 타입이 20 → 18 → 16 으로
+    // 내려간다). 좁은 화면 프레임은 Figma 에도 없으므로 계약에 넣을 자리가 없다.
+    //
+    // **행 자신의 높이(66 · 132)와 폭 1400 은 넣지 않는다.** 폭은 페이지 컨테이너가 정하고,
+    // 열린 행의 132 는 답변 글자가 몇 줄로 접히느냐에 달려 있어 컴포넌트의 계약이 아니다.
+    // 대신 그 66 을 실제로 만드는 질문 버튼을 파트로 잡는다.
+    geometry: {
+      measuredId: "faq-row",
+      fields: {
+        cornerRadius: "radius",
+        paddingBlock: "paddingBlock",
+        paddingBlockEnd: "paddingBlock",
+        paddingInline: "paddingInline",
+        paddingInlineEnd: "paddingInline",
+        // 행은 plain div 라 gap 선언이 없다. Figma auto-layout 의 0 과 같은 뜻이다.
+        itemSpacing: { literal: 0 },
+        layoutMode: { literal: "VERTICAL" },
+      },
+      slots: {},
+      extraStrokeWeights: [],
+      parts: {
+        Question: {
+          fields: {
+            height: "questionHeight",
+            paddingBlock: "questionPaddingBlock",
+            paddingBlockEnd: "questionPaddingBlock",
+            paddingInline: "questionPaddingInline",
+            paddingInlineEnd: "questionPaddingInline",
+            itemSpacing: "questionGap",
+          },
+        },
+        QuestionText: { fields: { fontSize: "questionFontSize", lineHeightPercent: { literal: 150 } } },
+        // `+` 는 아이콘 인스턴스가 아니라 텍스트 노드다(되읽기의 Glyph fontSize 20). 높이 30 은
+        // 그 글자의 줄 높이이고, 폭 13 은 글자 폭이라 재지 않는다($whyNotTextWidth).
+        Icon: { fields: { height: "iconHeight" } },
+        Glyph: { fields: { fontSize: "iconFontSize" } },
+      },
+    },
   },
   {
     id: "news-card",
@@ -704,10 +875,35 @@ const COMPONENT_CONTRACTS = [
           "날짜 표기. 코드에서는 dateLabel prop 이고 값은 i18n 문자열이 아니라 셸프가 소유한 로케일 포맷터가 만든다. 기계용 ISO 값(item.date)은 Figma 에 대응 슬롯이 없다 — dateTime 같은 의미 속성이 없기 때문이며 그 값의 정본은 코드에만 있다.",
       },
     },
-    // **기하 계약을 일부러 비웠다.** figma/components.measured.json 에 news-card 항목이 없어
-    // 347 · 160 · 698 · 324 · 94 · 64 를 대조할 실측 정본이 없다 — measuredId 를 적으면 게이트가
-    // 「실측값이 없습니다」로 즉시 실패한다. MediaCard · CarouselArrow 와 같은 상태이고, 실측
-    // probe 를 붙이는 것이 셋의 공통 승격 조건이다(news-card.md Known deviations 7).
+    // **기하가 붙었다 — 폭·높이까지 잰다.** 347 · 160 · 698 · 324 는 카드가 아니라 **트랙 격자**가
+    // 정하는 값이라(`grid-auto-columns: 347px` · `grid-template-rows: repeat(2,160px)` · gap 4)
+    // 카드만 세워서는 낼 수 없다. 탐침이 트랙을 조상으로 세우고 카드를 칸에 앉혀 격자가 직접
+    // 계산하게 한다 — 698 = 347×2 + 4, 324 = 160×2 + 4 라는 산술도 우리가 적지 않는다.
+    //
+    // Body 94 · 64 는 넣지 않는다. 제목이 두 줄이냐 한 줄이냐가 정하는 높이라 컴포넌트가
+    // 소유하는 값이 아니다 — 대신 그 두 값을 만드는 itemSpacing 10 과 타이포를 잡는다.
+    geometry: {
+      measuredId: "news-card",
+      fields: {
+        width: "width",
+        height: "height",
+        paddingBlock: "paddingBlock",
+        paddingBlockEnd: "paddingBlock",
+        paddingInline: "paddingInline",
+        paddingInlineEnd: "paddingInline",
+        cornerRadius: "radius",
+        // 카드에 gap 선언이 없다 — 안쪽 간격은 Body 가 갖는다.
+        itemSpacing: { literal: 0 },
+        layoutMode: { literal: "VERTICAL" },
+      },
+      slots: {},
+      extraStrokeWeights: [],
+      parts: {
+        Body: { fields: { itemSpacing: "bodyGap" } },
+        Date: { fields: { fontSize: "dateFontSize" } },
+        Headline: { fields: { fontSize: "headlineFontSize", lineHeightPercent: { literal: 150 } } },
+      },
+    },
   },
   {
     id: "gnb-menu-item",
@@ -756,9 +952,35 @@ const COMPONENT_CONTRACTS = [
           "Hover 는 코드에서 CSS 상태([&:hover]: 임의 변형이라 @media (hover: hover) 밖이다), Selected 는 menuLinkClass 의 isActive, Disabled 는 MENU_LINK_COMING_SOON 덧붙임이다. Figma 에 CSS 상태가 없어 한 축에 묶는다. **Selected 가 여기 남는 것은 §2 개정의 판정이다** — 접기 시험(활성 링크는 hover 로 아무것도 바뀌지 않고 갈 곳 없는 항목과 활성이 같이 서지 않는다)을 통과하므로 곱할 조합이 없고, 앞선 판의 「Selected 는 BOOLEAN 으로 빼라」쪽이 오류였다. 네 값이 바꾸는 것은 기하가 아니라 잉크 불투명도 하나뿐이고(Selected 1.00 / Hover 0.90·0.80 / Default 0.70·0.65 / Disabled 0.40), **되읽기가 opacity 를 담지 않아 이 게이트는 그 값을 대조하지 못한다** — Figma 가 아직 밝은 면 Default 를 0.50 으로 그리고 있는 어긋남이 여기로 잡히지 않는다(design/components/gnb-menu-item.md Known deviations 1). Focus 가 없는 것은 의도가 아니라 결손이다 — 제품 클래스에 :focus-visible 선언이 없다.",
       },
     },
-    // geometry 를 넣지 않았다 — figma/components.measured.json 에 gnb-menu-item 항목이 없어
-    // 28 · 12 · 999 를 대조할 실측이 없다. 여덟 변형의 기하가 완전히 같아 되읽기 키도 base
-    // 하나다.
+    // **기하가 붙었다.** 여덟 변형의 기하가 완전히 같아 기록도 여덟 벌이 같은 값이고, 되읽기
+    // 키도 여덟이다(`light|dark` × `Default|Hover|Selected|Disabled`) — 「되읽기 키도 base
+    // 하나다」라고 적어 두었던 것은 틀렸다.
+    //
+    // **폭 72 는 넣지 않는다.** 라벨이 정하는 값이고 로케일에 따라 달라진다
+    // (components.measured.json 의 `$whyNotTextWidth`). 라벨 폭을 뺀 나머지가 전부 여기 있으므로
+    // 폭이 틀리면 이 중 하나가 틀린 것이다.
+    geometry: {
+      measuredId: "gnb-menu-item",
+      fields: {
+        height: "height",
+        paddingBlock: "paddingBlock",
+        paddingBlockEnd: "paddingBlock",
+        paddingInline: "paddingInline",
+        paddingInlineEnd: "paddingInline",
+        // 알약 안에 자식이 하나뿐이라 제품이 gap 을 선언하지 않는다.
+        itemSpacing: { literal: 0 },
+        cornerRadius: "radius",
+        layoutMode: { literal: "HORIZONTAL" },
+      },
+      slots: {},
+      extraStrokeWeights: [],
+      parts: {
+        // 폭 48 은 로케일이 정하므로 빼고, 타이포와 줄 높이만 잡는다.
+        Label: {
+          fields: { height: "labelHeight", fontSize: "labelFontSize", lineHeightPercent: { literal: 150 } },
+        },
+      },
+    },
   },
   {
     id: "inline-loading-label",
@@ -792,9 +1014,37 @@ const COMPONENT_CONTRACTS = [
           "코드의 loading prop. BOOLEAN 으로 그릴 수 없어 조건 축이다 — 프레임이 자기 itemSpacing 을 0 ↔ 6·4 로 다시 쓰고(시험 2), 닫힘과 열림 사이에 Smart Animate 를 걸어야 하며(시험 3), 두 조건에서 보이는 텍스트 프로퍼티가 Label ↔ LoadingLabel 로 갈린다(반대 가시성을 Figma 가 표현하지 못한다). **figma-component-authoring.md §2 개정이 Loading 을 조건 축 명부에 올렸다** — 이 컴포넌트의 되읽기(itemSpacing 0 ↔ 6·4)가 그 판정의 근거이고 명부가 여섯에서 일곱이 됐다. 이름이 열린 것은 어휘가 열린 것이지 「Loading 은 늘 축」이라는 뜻이 아니다 — Button 의 Loading 은 아직 네 시험을 받지 않았다(같은 절 「이 개정이 남긴 결손」 3). 또한 Figma 는 닫힌 변형에서 슬롯 레이어를 숨겨 폭 0 을 표현하므로 되읽기의 md/false·sm/false 에 slots 가 비어 있다(제품은 폭 0 + overflow-hidden) — **닫힘 폭 0 은 이 게이트가 대조하지 않는다.**",
       },
     },
-    // geometry 를 넣지 않았다 — figma/components.measured.json 에 inline-loading-label 항목이
-    // 없어 16 · 12 · 6 · 4 · 0.85 를 대조할 실측이 없다. 위 사유에 적은 수는 제품 소스에서 읽은
-    // 것이고 브라우저 실측이 아니다. carousel-arrow · step-tile · gnb-menu-item 과 같은 상태다.
+    // **기하가 붙었다.** 16 · 12 · 6 · 4 가 이제 브라우저 실측이다.
+    //
+    // **Figma 의 itemSpacing 이 제품에서는 슬롯의 margin-left 다.** 제품 루트에 gap 선언이 없고
+    // 열림 슬롯이 `ml-3`(6) · `ml-2`(4)를 갖는다 — 같은 자리를 두 시스템이 다른 프로퍼티로
+    // 표현한 것이라 값으로 맞물린다. 닫힘은 `ml-0` 이라 0 이고, 그 0 도 실측이다.
+    //
+    // **닫힘 폭 0 과 scale 0.85 는 넣지 않는다.** 되읽기가 닫힘 변형에서 슬롯 레이어를 아예
+    // 감춰 파트가 없고(제품은 폭 0 + overflow-hidden), 0.85 는 기하가 아니라 transform 이다.
+    // 루트 높이 21 도 넣지 않는다 — 라벨 타이포가 만드는 값이지 이 컴포넌트의 선언이 아니다.
+    geometry: {
+      measuredId: "inline-loading-label",
+      fields: {
+        paddingBlock: "paddingBlock",
+        paddingBlockEnd: "paddingBlock",
+        paddingInline: "paddingInline",
+        paddingInlineEnd: "paddingInline",
+        cornerRadius: "radius",
+        itemSpacing: "gap",
+        layoutMode: { literal: "HORIZONTAL" },
+      },
+      // 닫힘 두 벌에는 `slot` 키가 없어 이 검사가 건너뛴다 — 되읽기에도 슬롯이 없다.
+      slots: { Slot: "slot" },
+      extraStrokeWeights: [],
+      parts: {
+        // **라벨 타이포는 이 컴포넌트가 소유하지 않는다.** 정본의 `LABEL` 은 `flex-none min-w-0`
+        // 둘뿐이고 14/21 은 호출부가 건다 — 되읽기의 fontSize 14 를 이 계약이 주장하면 없는
+        // 소유권을 적는 것이 된다. 자손은 선언하되 값은 비운다.
+        Label: { fields: {} },
+        Slot: { optional: true, fields: { width: "slot", height: "slot" } },
+      },
+    },
   },
   {
     id: "segmented-code-input",
@@ -828,8 +1078,43 @@ const COMPONENT_CONTRACTS = [
           "Focus 는 코드에서 CSS 상태([&:focus]) 이고 Disabled 는 disabled prop 이 만드는 네이티브 disabled 다. Figma 에 CSS 상태가 없어 한 축에 묶는다. **Hover 가 없는 것은 결손이 아니라 사실이다** — 정본 칸 클래스에 :hover 선언이 하나도 없다(CarouselArrow · GnbMenuItem 과 정반대다: 그쪽은 Hover 가 있고 Focus 가 없다). **입력됨/빈칸과 오류도 축이 아니다** — 채워짐을 가르는 규칙이 CSS 에 없고(상태 선택자가 :focus 와 :disabled 둘뿐이다), 오류는 칸이 아니라 형제 p role=alert 가 지는데, 제품에 FormMessage 컴포넌트는 없고 그 p 는 인라인 마크업이라 form-message.md 가 정본으로 지목하는 로그인 화면과 색 단계·여백·role 이 다르다(같은 문서 Known deviations 11). **Focus 는 칸 하나의 상태인데 축이 묶음에 있다** — 제품에서 :focus 는 열두 칸 중 하나에만 서는데, 되읽기가 파트별 fill 분해를 주지 않아(세 변형의 boundFills 가 26 으로 같다) Figma 가 몇 칸을 포커스로 그렸는지 이 게이트로는 확인할 수 없다(design/components/segmented-code-input.md Known deviations 4). **포커스 색이 셋 다 다르다** — 제품은 primary-400(#38a4ff) 72% 를 두 테마 모두 쓰고, color/stroke-focus 는 모드마다 갈리며(#0088ff / #38a4ff), 그래서 모드 불변인 color/accent-primary @72% 에 묶었는데 그 값은 #0088ff 다. 바인딩 검사는 「묶였는가」만 보므로 이 어긋남을 잡지 못한다(같은 문서 Known deviations 1).",
       },
     },
-    // geometry 를 넣지 않았다 — figma/components.measured.json 에 segmented-code-input 항목이 없어
-    // 28 · 36 · 8 · 2 · 386 을 대조할 실측이 없다. 세 변형의 기하가 완전히 같다.
+    // **기하가 붙었다 — 다섯 중 셋만이다.** 28 · 36 · 8 은 정본 칸 클래스(`BOX`)에서 실측했고,
+    // 나머지 둘은 잴 대상이 없다.
+    //   · 묶음 폭 386 — 칸이 상한 28 에 닿는 폭에서 나온 산술이다(12×28 + 2×12 + 13×2). Figma
+    //     프레임 하나의 값이고 제품에는 그 폭을 정하는 선언이 없다 — 칸이 `flex-1` 로 컨테이너에
+    //     맞춰 줄어든다.
+    //   · 칸 사이 2 — 소비처 래퍼의 **인라인 className**(`gap-1`)이다. 이 하네스는 제품 소스의
+    //     상수를 커밋에서 꺼내 재는데, 상수로 존재하지 않으므로 꺼낼 자리가 없다. 클래스를 손으로
+    //     옮겨 적으면 그 순간 제품과 갈라져도 초록으로 남는다.
+    //
+    // **프레임 높이 36 은 칸 높이가 정한다.** 칸이 가장 큰 자식이고 행이 `items-center` 라 묶음의
+    // 높이가 곧 칸의 높이다. 그래서 root `height` 를 `cellHeight` 로 받는다.
+    geometry: {
+      measuredId: "segmented-code-input",
+      fields: {
+        height: "cellHeight",
+        paddingBlock: { literal: 0 },
+        paddingBlockEnd: { literal: 0 },
+        paddingInline: { literal: 0 },
+        paddingInlineEnd: { literal: 0 },
+        cornerRadius: { literal: 0 },
+        layoutMode: { literal: "HORIZONTAL" },
+      },
+      slots: {},
+      // 되읽기의 strokeWeight 1 은 칸의 진짜 1px 테두리다 — 이 시스템에서 헤어라인 대신 border
+      // 를 쓰는 유일한 자리이고, 왜 그런지는 위 주석이 소유자 확인 대상으로 남겨 두었다.
+      extraStrokeWeights: [],
+      parts: {
+        "Cell 1": {
+          fields: { width: "cellWidth", height: "cellHeight", cornerRadius: "cellRadius" },
+        },
+        // 글자와 구분자는 같은 전역 클래스(`type-body-16-medium`)를 받는다 — 16/24 가 그 값이다.
+        // 구분자 폭 12 는 `-` 글자 폭 + 좌우 2 라 글자에 달려 있어 재지 않는다.
+        Char: { fields: { height: "charHeight", fontSize: "charFontSize" } },
+        Separator: { fields: { height: "charHeight" } },
+        Dash: { fields: { fontSize: "charFontSize" } },
+      },
+    },
   },
   {
     id: "menu-popover",

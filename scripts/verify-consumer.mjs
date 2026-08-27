@@ -64,12 +64,24 @@ try {
   // 규범이 styles.css import를 안내하면서 tokens.css를 빼먹은 적이 있다(2026-08-18).
   {
     const stylesCss = readFileSync(join(process.cwd(), "packages/css/generated/styles.css"), "utf8");
-    // styles.css는 토큰을 정의하지 않는다. 유일한 예외는 base.css의 헤어라인 recipe
-    // (--louis-hairline-*)이며, 이는 토큰이 아니라 토큰을 조합하는 foundation custom property다
-    // (DS-D-0023). :root 블록이 있으면 그 안의 --louis-* 선언이 recipe allowlist에 드는지 본다 —
-    // 색·간격·반경 같은 토큰이 새어들면 tokens.css 없이 styles.css만 import한 소비자에게 조용히
-    // 무효가 되므로 실패시킨다.
-    const ROOT_RECIPE_ALLOW = /^--louis-hairline-inset(-block-(start|end))?$/;
+    // styles.css는 토큰을 정의하지 않는다. 예외는 base.css가 발행하는 **foundation recipe**이며,
+    // 이는 토큰이 아니라 토큰을 조합한 값이다. :root 블록이 있으면 그 안의 --louis-* 선언이
+    // recipe allowlist에 드는지 본다 — 색·간격·반경 같은 토큰이 새어들면 tokens.css 없이
+    // styles.css만 import한 소비자에게 조용히 무효가 되므로 실패시킨다.
+    //
+    // allowlist에 드는 둘.
+    //   --louis-hairline-inset*   0.5px inset stroke recipe (DS-D-0023).
+    //   --louis-progressive-blur* 점진 블러 recipe. 반경(`blur/surface` 토큰)과 마스크 곡선을
+    //                             한 벌로 묶는다. 소비처가 둘(ProjectCard 제목 띠 · MediaCard
+    //                             정보 바)이고 **놓이는 자리가 언제나 `::before`**라 클래스로
+    //                             건네줄 수 없다 — 의사요소는 소비처 CSS가 만든다. 그래서
+    //                             헤어라인과 같은 형태(값 발행)를 쓴다.
+    //
+    // **둘 다 토큰을 참조하므로 tokens.css 없이는 무효가 된다** — 이 게이트가 막으려는 바로 그
+    // 실패다. 그래도 예외인 이유는 이름이 recipe라 소비자가 직접 쓰지 않고, 위 import 안내
+    // 검사가 tokens.css 누락을 따로 잡기 때문이다.
+    const ROOT_RECIPE_ALLOW =
+      /^--louis-(hairline-inset(-block-(start|end))?|progressive-blur(-mask)?)$/;
     for (const block of stylesCss.match(/:root\s*\{[^}]*\}/g) ?? []) {
       const leaked = [...block.matchAll(/(--louis-[a-z0-9-]+)\s*:/g)]
         .map((match) => match[1])

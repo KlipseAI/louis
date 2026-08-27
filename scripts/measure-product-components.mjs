@@ -100,12 +100,13 @@ const PROBES = [
   },
   {
     id: "toast",
-    // **소비처가 인라인으로 얹는 선언이 클래스를 이긴다.** 클래스는 blur(10px)인데 앱 홈과
-    // 노드캔버스 홈이 인라인으로 blur(16px) saturate(130%)를 건다 — 화면에 보이는 것은 그쪽이다.
-    // 클래스만 재고 DS 값을 정했다가 10으로 굳어 있었다.
-    source: "appHomeSceneStyles.ts toast + AppHomeScene.tsx floatingCtaBlurStyle(인라인)",
+    // **인라인 덮어쓰기가 사라졌다.** 그전에는 클래스가 blur(10px)인데 앱 홈이 인라인으로
+    // blur(16px) saturate(130%)를 걸어 그쪽이 이겼고, 이 탐침은 그 인라인을
+    // `AppHomeScene.tsx` 의 `floatingCtaBlurStyle` 에서 꺼내 함께 세웠다. 지금 제품에는 그
+    // 상수가 없고(LOUIS `.louis-toast` 채택 정리에서 없어졌다) 클래스의 10px 이 곧 화면 값이다.
+    // `inlineFrom` 을 지운 것은 단순화가 아니라 **제품이 그 겹을 없앴다는 기록**이다.
+    source: "appHomeSceneStyles.ts toast (= .louis-toast + 제품 유틸리티)",
     from: ["appHome", "toast"],
-    inlineFrom: ["appHomeScene", "floatingCtaBlurStyle"],
     text: "저장했어요",
     read: ["paddingTop", "paddingLeft", "borderTopLeftRadius", "borderTopWidth", "backdropFilter", "height"],
   },
@@ -161,14 +162,9 @@ const PROBES = [
     from: ["appHome", "modalOverlay"],
     read: ["backgroundColor", "zIndex"],
   },
-  {
-    id: "dialog-action",
-    source: "appHomeSceneStyles.ts modalConfirm",
-    from: ["appHome", "modalConfirm"],
-    tag: "button",
-    text: "삭제",
-    read: ["height", "borderTopLeftRadius"],
-  },
+  // `dialog-action` 은 없어졌다. 제품이 `61ef0db1` 에서 대화상자의 확인 버튼을 LOUIS `Button`
+  // 컴포넌트로 옮기면서 `modalConfirm` 클래스 상수 자체가 사라졌다 — 이제 그 자리를 재는 것은
+  // 위의 `button-*` 탐침이다. 대조하던 EXPECT 행은 원래 없었다(높이·반경 둘 다 미대조였다).
   {
     id: "input-box",
     source: "myPageSceneStyles.ts modalAuthInputBox + modalAuthInputBoxSingle",
@@ -200,16 +196,24 @@ const PROBES = [
     text: "완료",
     read: ["paddingTop", "paddingLeft", "borderTopLeftRadius", "borderTopWidth"],
   },
+  // **제품 스피너가 LOUIS 로 넘어갔다.** `LoadingSpinner.tsx` 는 이제 클래스 상수를 하나도 갖지
+  // 않고 `.louis-spinner` + `data-size` + 자식 `.louis-spinner__ring` 만 그린다. 그래서
+  // `from` 으로 뽑을 상수가 없고, 남은 것은 **후크 이름**뿐이다 — 수치는 한 글자도 여기 없고
+  // 전부 LOUIS CSS 에 있으므로 `.app-tooltip-chrome` · `.app-native-checkbox` 탐침과 같은
+  // 형태로 적는다. 재는 대상은 제품이 핀으로 소비하는 그 LOUIS 판이다(ds-package-shim 이
+  // 제품 커밋에서 꺼낸다) — 제품이 핀을 되돌리면 여기가 어긋난다.
   {
     id: "spinner-md",
-    source: "LoadingSpinner.tsx SPINNER_BASE + SPINNER_MD",
-    from: ["spinner", "SPINNER_BASE", "SPINNER_MD"],
+    source: "LoadingSpinner.tsx — 제품이 .louis-spinner 를 그대로 소비한다(기본 크기 md)",
+    html: `<span class="louis-spinner__ring"></span>`,
+    wrapper: [{ class: "louis-spinner", attrs: { "data-size": "md" } }],
     read: ["width", "height", "::after:borderTopWidth"],
   },
   {
     id: "spinner-sm",
-    source: "LoadingSpinner.tsx SPINNER_BASE + SPINNER_SM",
-    from: ["spinner", "SPINNER_BASE", "SPINNER_SM"],
+    source: 'LoadingSpinner.tsx — size="sm" 은 조상의 data-size 가 정한다',
+    html: `<span class="louis-spinner__ring"></span>`,
+    wrapper: [{ class: "louis-spinner", attrs: { "data-size": "sm" } }],
     read: ["width", "height", "::after:borderTopWidth"],
   },
   {
@@ -498,16 +502,21 @@ const PROBES = [
     wrapper: ["vem-overlay-radix-root-full"],
     read: ["::after:width", "::after:height"],
   },
+  // **진행바도 LOUIS 로 넘어갔다.** `5261daea`(P#8)가 `highlightSceneStyles.ts` 의
+  // `progressBarTrack` · `progressBarFill` 을 지우고 `HighlightProjectScene.tsx:2589,2601` 이
+  // `.louis-progress-bar` / `.louis-progress-bar__fill` 을 직접 그린다. 스피너와 같은 형태로
+  // 후크 이름만 적는다.
   {
     id: "progress-bar-track",
-    source: "highlightSceneStyles.ts progressBarTrack — determinate 진행바 두 벌 중 하나",
-    from: ["highlight", "progressBarTrack"],
+    source: "HighlightProjectScene.tsx — 제품이 .louis-progress-bar 를 그대로 소비한다",
+    html: `<div class="louis-progress-bar"></div>`,
     read: ["height", "maxWidth", "borderTopLeftRadius"],
   },
   {
     id: "progress-bar-fill",
-    source: "highlightSceneStyles.ts progressBarFill",
-    from: ["highlight", "progressBarFill"],
+    source: "HighlightProjectScene.tsx — .louis-progress-bar__fill",
+    html: `<div class="louis-progress-bar__fill"></div>`,
+    wrapper: ["louis-progress-bar"],
     read: ["borderTopLeftRadius"],
   },
   {
@@ -517,77 +526,83 @@ const PROBES = [
     tag: "button",
     read: ["width", "height", "--profile-ring-width", "--profile-ring-gap"],
   },
+  // ── 배너 캐러셀 ───────────────────────────────────────────────────────────
+  // **정본이 옮겨 갔다.** 제품이 `6602fd24` 에서 `components/banners/TabBannerCarousel.tsx`
+  // 를 지웠고, 마크업은 `AppHomeScene.tsx` 로 클래스 상수는 `appHomeSceneStyles.ts` 의
+  // `banner*` 로 갔다. 그래서 `from` 의 그룹이 `carousel` 에서 `appHome` 으로 바뀌었다.
+  //
+  // 그 이사 과정에서 값의 소유자도 바뀌었다. 컨트롤 알약·화살표·점 묶음·점은 제품이 이제
+  // LOUIS 클래스(`.louis-banner-carousel__*`)를 그대로 소비하고, 제품 클래스는 `tw-ah-0xx`
+  // 표식과 `z-index` 만 얹는다. 그래서 이 탐침들은 「제품이 DS 와 같은 값을 갖는가」가 아니라
+  // **「제품이 그 소비를 유지하는가」**를 재는 것이 됐다 — 제품이 LOUIS 클래스를 떼거나 위에
+  // 다른 값을 덮으면 여기가 어긋난다.
   {
     id: "carousel",
-    source: "TabBannerCarousel.tsx CAROUSEL + CAROUSEL_BOXED",
-    from: ["carousel", "CAROUSEL", "CAROUSEL_BOXED"],
+    source: "appHomeSceneStyles.ts updateBanner — 제품에 남은 유일한 배너 셸",
+    from: ["appHome", "updateBanner"],
     hostWidth: 960,
     read: ["height", "borderTopLeftRadius"],
   },
-  {
-    id: "carousel-full-bleed",
-    // 기존 `carousel`은 CAROUSEL_BOXED(`rounded-16`)를 달아 반경이 16이다. full 열의 radius는
-    // 0이라 boxed 탐침으로는 낼 수 없다. height는 두 벌이 공유하지만 같은 렌더에서 함께 읽어야
-    // 두 축이 같은 증거가 된다.
-    source: "TabBannerCarousel.tsx CAROUSEL + CAROUSEL_FULL_BLEED",
-    from: ["carousel", "CAROUSEL", "CAROUSEL_FULL_BLEED"],
-    hostWidth: 960,
-    read: ["height", "borderTopLeftRadius"],
-  },
+  // `carousel-full-bleed` 는 없어졌다. 제품에 `[data-bleed="full"]` 을 거는 자리가 **한 곳도
+  // 없다**(`git grep data-bleed` 0건) — 옛 `CAROUSEL_FULL_BLEED` 가 파일과 함께 사라졌다.
+  // 셸을 우리 손으로 `data-bleed="full"` 로 세워 재면 그것은 제품 실측이 아니라 LOUIS 를
+  // LOUIS 로 재는 것이므로 세우지 않는다. 그 결과 DS `banner-carousel.sizes.full.radius`(0) 는
+  // **제품 근거를 잃었다** — 아래 EXPECT 에 그 사실을 적어 둔다.
   {
     id: "carousel-content",
-    source: "TabBannerCarousel.tsx CONTENT",
-    from: ["carousel", "CONTENT"],
+    source: "appHomeSceneStyles.ts bannerContent",
+    from: ["appHome", "bannerContent"],
     hostWidth: 960,
     read: ["width", "paddingTop", "paddingLeft"],
   },
   {
     id: "carousel-controls",
-    source: "TabBannerCarousel.tsx CONTROLS",
-    from: ["carousel", "CONTROLS"],
+    source: "appHomeSceneStyles.ts bannerControls (= .louis-banner-carousel__controls + z-3)",
+    from: ["appHome", "bannerControls"],
     hostWidth: 960,
-    read: ["paddingTop", "columnGap", "right", "bottom"],
+    read: ["paddingTop", "columnGap", "right", "bottom", "borderTopLeftRadius"],
   },
   {
     id: "carousel-controls-filled",
-    // `controlsHeight`는 CONTROLS에 높이 선언이 **없는** 파생 축이다 — `p-2`(4px) 위아래 +
-    // 자식 최대 높이(ARROW_BUTTON `h-14`)로만 결정된다. 자식이 없는 `carousel-controls`로는
-    // 낼 수 없고, `from` 조립은 한 겹만 만들어 자식을 세우지 못한다. 그래서 이 축만 두 겹을
-    // html로 세운다. 아래 두 클래스 문자열은 락 커밋의 CONTROLS와 ARROW_BUTTON을 그대로 이어
-    // 붙인 것이고 **수치는 한 글자도 적지 않았다.**
-    //
-    // 드리프트 주의: 캐러셀 탐침 중 이것만 클래스가 고정 문자열이다. 제품이 ARROW_BUTTON을
-    // 상수에서 빼 호출부로 인라인하면 안쪽 버튼이 무스타일로 렌더돼 **빨개지는 대신 값이 조용히
-    // 틀린다.**
-    source: "TabBannerCarousel.tsx CONTROLS + 자식 ARROW_BUTTON 하나 — 높이 합",
-    html: `<div class="absolute right-8 bottom-8 z-3 inline-flex items-center gap-4 p-2 rounded-full bg-[rgb(var(--palette-gray-1000-rgb)/28%)] [backdrop-filter:blur(12px)_saturate(130%)] [-webkit-backdrop-filter:blur(12px)_saturate(130%)]"><button class="w-14 h-14 p-0 [border:0] rounded-full inline-flex items-center justify-center text-[rgb(var(--palette-gray-000-rgb)/88%)] bg-transparent cursor-pointer [transition:background_160ms_ease,transform_160ms_ease] [&:hover]:bg-[rgb(var(--palette-gray-000-rgb)/14%)] active:[transform:scale(0.94)]"></button></div>`,
+    // `controlsHeight` 는 컨트롤 알약에 높이 선언이 **없는** 파생 축이다 — 패딩 위아래 +
+    // 자식 최대 높이(화살표 28)로만 결정된다. 자식이 없는 `carousel-controls` 로는 낼 수 없어
+    // 두 겹을 세운다. 그전에는 이 한 축만 클래스를 손으로 이어 붙인 `html` 이었고 주석이
+    // 스스로 드리프트 위험을 적어 두었는데, `childFrom` 이 생겨 그 위험이 없어졌다.
+    source: "appHomeSceneStyles.ts bannerControls + 자식 bannerArrowButton 하나 — 높이 합",
+    from: ["appHome", "bannerControls"],
+    childFrom: ["appHome", "bannerArrowButton"],
+    childTag: "button",
     hostWidth: 960,
     read: ["height"],
   },
   {
     id: "carousel-arrow",
-    source: "TabBannerCarousel.tsx ARROW_BUTTON",
-    from: ["carousel", "ARROW_BUTTON"],
+    source: "appHomeSceneStyles.ts bannerArrowButton (= .louis-banner-carousel__arrow)",
+    from: ["appHome", "bannerArrowButton"],
     tag: "button",
-    read: ["width", "height"],
+    read: ["width", "height", "borderTopLeftRadius"],
   },
   {
     id: "carousel-dots",
-    source: "TabBannerCarousel.tsx DOTS",
-    from: ["carousel", "DOTS"],
+    source: "appHomeSceneStyles.ts bannerDots (= .louis-banner-carousel__dots)",
+    from: ["appHome", "bannerDots"],
     read: ["columnGap"],
   },
   {
     id: "carousel-dot-active",
-    source: "TabBannerCarousel.tsx DOT + DOT_ACTIVE",
-    from: ["carousel", "DOT", "DOT_ACTIVE"],
+    // **활성은 이제 클래스가 아니라 속성이다.** 옛 `DOT_ACTIVE` 상수가 사라지고 LOUIS 의
+    // `.louis-banner-carousel__dot[aria-current="true"]` 가 20px 를 소유한다. 제품
+    // `AppHomeScene.tsx:992` 가 그 훅을 마크업에 건다(주석까지 달려 있다).
+    source: "appHomeSceneStyles.ts bannerDot + aria-current=\"true\"",
+    from: ["appHome", "bannerDot"],
+    attrs: { "aria-current": "true" },
     tag: "button",
-    read: ["width", "height"],
+    read: ["width", "height", "borderTopLeftRadius"],
   },
   {
     id: "carousel-dot-rest",
-    source: "TabBannerCarousel.tsx DOT + DOT_REST",
-    from: ["carousel", "DOT", "DOT_REST"],
+    source: "appHomeSceneStyles.ts bannerDot (속성 없음 = 비활성)",
+    from: ["appHome", "bannerDot"],
     tag: "button",
     read: ["width", "height"],
   },
@@ -854,42 +869,48 @@ const EXPECT = [
   ["segmented-thumb", "height", ["segmented-control", "sizes", "md", "segmentHeight"], "deviates",
     "제품 28, DS 32. 세그먼트와 같은 사유다 — 제품 트랙 36은 control 계단에 없다."],
 
+  // ── 배너 캐러셀 ───────────────────────────────────────────────────────────
+  // **`full` 열의 근거가 줄었다.** 제품이 `6602fd24` 에서 캐러셀 파일을 지우면서
+  // `CAROUSEL_FULL_BLEED` 도 함께 사라졌고, 지금 제품에는 `[data-bleed="full"]` 을 거는 자리가
+  // 한 곳도 없다(`git grep data-bleed` 0건). 남은 셸은 `updateBanner` 하나뿐이다.
+  //
+  // 그래서 두 갈래로 갈린다.
+  //   - bleed 로 갈리지 않는 축(높이·콘텐츠·컨트롤·화살표·점)은 **그 하나의 셸이 곧 두 열의
+  //     요소**이므로 boxed 를 재던 탐침이 full 도 증명한다 — 옛 주석의 논리 그대로다.
+  //   - bleed 로 **갈리는** 축은 `radius` 하나뿐인데(boxed 12 / full 0), 그 0 을 낼 제품
+  //     소비처가 없어졌다. 셸에 우리 손으로 `data-bleed="full"` 을 걸어 재면 그것은 제품
+  //     실측이 아니라 LOUIS 를 LOUIS 로 재는 것이다. **그래서 그 축만 대조를 잃었다.**
+  //     되살리는 조건은 제품에 full-bleed 소비처가 다시 서는 것이다.
   ["carousel", "height", ["banner-carousel", "sizes", "boxed", "height"], "same"],
+  ["carousel", "height", ["banner-carousel", "sizes", "full", "height"], "same"],
   ["carousel", "borderTopLeftRadius", ["banner-carousel", "sizes", "boxed", "radius"], "same"],
   ["carousel-content", "width", ["banner-carousel", "sizes", "boxed", "contentInline"], "same"],
-  ["carousel-content", "paddingTop", ["banner-carousel", "sizes", "boxed", "contentBlockPadding"], "same"],
-  ["carousel-content", "paddingLeft", ["banner-carousel", "sizes", "boxed", "contentInlinePadding"], "same"],
-  ["carousel-controls", "paddingTop", ["banner-carousel", "sizes", "boxed", "controlsPadding"], "same"],
-  ["carousel-controls", "columnGap", ["banner-carousel", "sizes", "boxed", "controlsGap"], "same"],
-  ["carousel-arrow", "width", ["banner-carousel", "sizes", "boxed", "arrowSize"], "same"],
-  ["carousel-arrow", "height", ["banner-carousel", "sizes", "boxed", "arrowSize"], "same"],
-  ["carousel-dots", "columnGap", ["banner-carousel", "sizes", "boxed", "dotsGap"], "same"],
-  ["carousel-dot-active", "width", ["banner-carousel", "sizes", "boxed", "dotActiveWidth"], "same"],
-  ["carousel-dot-rest", "width", ["banner-carousel", "sizes", "boxed", "dotRestWidth"], "same"],
-  ["carousel-dot-rest", "height", ["banner-carousel", "sizes", "boxed", "dotHeight"], "same"],
-  // ── (A3) 첫 배치 — banner-carousel full 열 · 접힘 브랜드 · CTA hover · spinner sm ────
-  // 반증(migration/product-has-refutation.json)이 인용을 확인한 축에 탐침을 붙여
-  // **브라우저가 판정하게** 한 것이다. 반증 결과는 판정이 아니라 탐침 주소였다.
-  // 제품에는 bleed로 갈리는 상수가 CAROUSEL_BOXED/CAROUSEL_FULL_BLEED 둘뿐이고
-  // CONTENT·CONTROLS·ARROW_BUTTON·DOTS·DOT는 한 벌씩이라 boxed를 재던 요소가 곧 full의 요소다.
-  ["carousel-full-bleed", "height", ["banner-carousel", "sizes", "full", "height"], "same"],
-  ["carousel-full-bleed", "borderTopLeftRadius", ["banner-carousel", "sizes", "full", "radius"], "same"],
-  ["carousel-controls-filled", "height", ["banner-carousel", "sizes", "boxed", "controlsHeight"], "same"],
-  ["carousel-controls-filled", "height", ["banner-carousel", "sizes", "full", "controlsHeight"], "same"],
   ["carousel-content", "width", ["banner-carousel", "sizes", "full", "contentInline"], "same"],
+  ["carousel-content", "paddingTop", ["banner-carousel", "sizes", "boxed", "contentBlockPadding"], "same"],
   ["carousel-content", "paddingTop", ["banner-carousel", "sizes", "full", "contentBlockPadding"], "same"],
+  ["carousel-content", "paddingLeft", ["banner-carousel", "sizes", "boxed", "contentInlinePadding"], "same"],
   ["carousel-content", "paddingLeft", ["banner-carousel", "sizes", "full", "contentInlinePadding"], "same"],
+  ["carousel-controls", "paddingTop", ["banner-carousel", "sizes", "boxed", "controlsPadding"], "same"],
   ["carousel-controls", "paddingTop", ["banner-carousel", "sizes", "full", "controlsPadding"], "same"],
+  ["carousel-controls", "columnGap", ["banner-carousel", "sizes", "boxed", "controlsGap"], "same"],
   ["carousel-controls", "columnGap", ["banner-carousel", "sizes", "full", "controlsGap"], "same"],
   ["carousel-controls", "borderTopLeftRadius", ["banner-carousel", "sizes", "full", "controlsRadius"], "same"],
+  ["carousel-controls-filled", "height", ["banner-carousel", "sizes", "boxed", "controlsHeight"], "same"],
+  ["carousel-controls-filled", "height", ["banner-carousel", "sizes", "full", "controlsHeight"], "same"],
+  ["carousel-arrow", "width", ["banner-carousel", "sizes", "boxed", "arrowSize"], "same"],
   ["carousel-arrow", "width", ["banner-carousel", "sizes", "full", "arrowSize"], "same"],
+  ["carousel-arrow", "height", ["banner-carousel", "sizes", "boxed", "arrowSize"], "same"],
   ["carousel-arrow", "height", ["banner-carousel", "sizes", "full", "arrowSize"], "same"],
   ["carousel-arrow", "borderTopLeftRadius", ["banner-carousel", "sizes", "full", "arrowRadius"], "same"],
+  ["carousel-dots", "columnGap", ["banner-carousel", "sizes", "boxed", "dotsGap"], "same"],
   ["carousel-dots", "columnGap", ["banner-carousel", "sizes", "full", "dotsGap"], "same"],
+  ["carousel-dot-active", "width", ["banner-carousel", "sizes", "boxed", "dotActiveWidth"], "same"],
   ["carousel-dot-active", "width", ["banner-carousel", "sizes", "full", "dotActiveWidth"], "same"],
   ["carousel-dot-active", "height", ["banner-carousel", "sizes", "full", "dotHeight"], "same"],
   ["carousel-dot-active", "borderTopLeftRadius", ["banner-carousel", "sizes", "full", "dotRadius"], "same"],
+  ["carousel-dot-rest", "width", ["banner-carousel", "sizes", "boxed", "dotRestWidth"], "same"],
   ["carousel-dot-rest", "width", ["banner-carousel", "sizes", "full", "dotRestWidth"], "same"],
+  ["carousel-dot-rest", "height", ["banner-carousel", "sizes", "boxed", "dotHeight"], "same"],
   ["carousel-dot-rest", "height", ["banner-carousel", "sizes", "full", "dotHeight"], "same"],
 
   ["sidebar-header-row-collapsed", "minHeight", ["sidebar-brand", "sizes", "true", "height"], "same"],
@@ -1037,9 +1058,32 @@ try {
       );
     }
     const tag = probe.tag ?? "div";
+    // **속성은 값이 아니라 구조다.** `aria-current="true"` 같은 상태 훅은 제품이 마크업에
+    // 거는 것이고 클래스가 아니다 — LOUIS 가 `.louis-banner-carousel__dot[aria-current="true"]`
+    // 로 활성 폭을 소유하게 된 뒤로, 활성 점을 재려면 클래스가 아니라 이 속성이 필요하다.
+    // 여기 적는 것은 훅 이름이지 수치가 아니므로 「클래스 문자열을 옮겨 적지 않는다」에
+    // 걸리지 않는다.
+    const attrs = Object.entries(probe.attrs ?? {})
+      .map(([name, value]) => " " + name + '="' + value + '"')
+      .join("");
+    // **자식도 제품 상수에서 세운다.** 자식 높이가 부모를 정하는 축(컨트롤 알약의 높이)은 한
+    // 겹으로 낼 수 없다. 그전에는 그 한 축만 클래스를 손으로 이어 붙인 `html` 이었고, 주석이
+    // 스스로 「제품이 상수를 인라인하면 값이 조용히 틀린다」고 적어 두었다. 여기서 뽑으면
+    // 그 위험이 사라진다.
+    const child = probe.childFrom
+      ? (() => {
+          const [childAlias, ...childKeys] = probe.childFrom;
+          const childTag = probe.childTag ?? "div";
+          const childClasses = childKeys
+            .map((key) => extractClassList(sources[childAlias], key, FILES[childAlias]))
+            .join(" ");
+          return "<" + childTag + ' class="' + childClasses + '"></' + childTag + ">";
+        })()
+      : "";
     probe.html =
-      "<" + tag + ' class="' + probe.classes + '"' + (inline ? ' style="' + inline + '"' : "") + ">" +
-      (probe.text ?? "") + "</" + tag + ">";
+      "<" + tag + ' class="' + probe.classes + '"' + attrs +
+      (inline ? ' style="' + inline + '"' : "") + ">" +
+      (probe.text ?? "") + child + "</" + tag + ">";
   }
 
   const compiled = await compile(tailwindEntry, {
@@ -1062,8 +1106,12 @@ try {
     }
   }
   for (const probe of PROBES) {
-    for (const token of probe.html.match(/class="([^"]*)"/)[1].split(/\s+/)) if (token) candidates.add(token);
-    for (const className of [probe.wrapper ?? []].flat()) candidates.add(className);
+    for (const match of probe.html.matchAll(/class="([^"]*)"/g)) {
+      for (const token of match[1].split(/\s+/)) if (token) candidates.add(token);
+    }
+    for (const entry of [probe.wrapper ?? []].flat()) {
+      candidates.add(typeof entry === "string" ? entry : entry.class);
+    }
   }
   for (const token of bodyMarker.split(/\s+/)) if (token) candidates.add(token);
   const utilities = compiled.build([...candidates]);
@@ -1107,10 +1155,19 @@ try {
               // wrapper는 조상 선택자를 살리기 위한 것이다. 배열이면 바깥부터 순서대로 감싼다 —
               // `.a .b &` 처럼 조상이 둘인 규칙은 한 겹으로는 매칭되지 않는다.
               const wrappers = [probe.wrapper ?? []].flat();
-              const inner = wrappers.reduceRight(
-                (html, className) => '<div class="' + className + '">' + html + "</div>",
-                probe.html,
-              );
+              // 조상도 속성을 가질 수 있다 — `.louis-spinner[data-size="sm"] .louis-spinner__ring`
+              // 처럼 크기를 조상의 data 속성이 정하는 자리가 있다. 문자열이면 클래스만,
+              // 객체면 `{ class, attrs }` 로 받는다.
+              const inner = wrappers.reduceRight((html, entry) => {
+                const className = typeof entry === "string" ? entry : entry.class;
+                const attributes =
+                  typeof entry === "string"
+                    ? ""
+                    : Object.entries(entry.attrs ?? {})
+                        .map(([name, value]) => " " + name + '="' + value + '"')
+                        .join("");
+                return '<div class="' + className + '"' + attributes + ">" + html + "</div>";
+              }, probe.html);
               return (
                 '<div id="probe-' + index + '" style="position:relative;width:' +
                 (probe.hostWidth ?? 360) + 'px;height:360px">' + inner + "</div>"

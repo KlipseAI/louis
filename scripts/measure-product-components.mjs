@@ -960,8 +960,22 @@ try {
 const git = (args) =>
   execFileSync("git", args, { cwd: productRoot, encoding: "utf8", maxBuffer: 64 * 1024 * 1024 });
 const commit = git(["rev-parse", productRef]).trim();
+// **주석을 먼저 지운다 — 안 지우면 아래 한 줄이 레이어 순서를 통째로 삼킨다.**
+//
+// 제품 `tailwind.css` 의 머리말은 `@import "tailwindcss"` 를 **설명하려고** 인용한다. 주석을 남긴
+// 채 import 제거 정규식을 돌리면 그 인용에서 매칭이 시작되고 `[^;]*;` 가 다음 세미콜론까지
+// 삼킨다 — 배포본 `df414c24` 에서는 그 세미콜론이 **`@layer theme, base, components;`** 의 것이라
+// 순서 선언이 통째로 사라졌다. 그러면 문서에 남는 첫 선언이 `@layer utilities;` 가 되어
+// **utilities 가 가장 낮은 레이어**가 되고, `globals.css` 의 `* { padding: 0 }` 리셋이 유틸리티를
+// 이긴다. 빨개지지 않는다 — 패딩·마진 축이 조용히 전부 0 으로 잡힌다.
+//
+// 그전 배포본에서는 같은 삼킴이 순서 선언 **하나만** 지워 문서가 「선언 없음 = 등장 순서」로
+// 떨어졌고, 그 순서가 우연히 옳았다. 그래서 이 버그는 제품이 파일을 재배치하는 날까지 잠복했다.
 const normalize = (source) =>
-  source.replace(/@import\s+["'][^"']+["'][^;]*;/g, "").replace(/@theme\s+(?:inline\s+)?\{/g, ":root {");
+  source
+    .replace(/\/\*[\s\S]*?\*\//g, "")
+    .replace(/@import\s+["'][^;]*;/g, "")
+    .replace(/@theme\s+(?:inline\s+)?\{/g, ":root {");
 
 // 제품 소스에서 클래스 상수를 꺼낸다. `key: [...]`와 `const KEY = [...]` 둘 다 받는다.
 // 문자열 안에도 대괄호가 들어가므로(임의값 유틸리티) 따옴표 경계를 지키며 스캔한다.
@@ -1122,7 +1136,20 @@ try {
     process.exit(0);
   }
 
+  // **레이어 순서를 문서 맨 앞에 못 박는다.** 제품에서는 `tailwind.css` 가
+  // theme → base → components → LOUIS → utilities 순으로 선언하는데, 그 순서의 LOUIS 구간은
+  // `@import "@klipse-design/css/layers.css"` 가 갖고 있고 위 `normalize` 가 그 import 를 지운다.
+  // 지우고 나면 LOUIS 레이어가 컴파일 시트에서 처음 등장하며 **utilities 뒤에** 붙어, 제품과
+  // 반대로 LOUIS 가 호출부 유틸리티를 이기는 문서가 된다. 이름을 손으로 적지 않고 컴파일
+  // 산출물이 실제로 선언한 LOUIS 순서를 꺼내 쓴다.
+  const louisLayerOrder = /@layer\s+(louis\.[^;]*);/.exec(utilities)?.[1] ?? "";
+  const layerOrder =
+    "@layer theme, base, components" +
+    (louisLayerOrder ? ", " + louisLayerOrder : "") +
+    ", utilities;";
+
   const baseCss = [
+    layerOrder,
     // 제품 글꼴을 싣지 않으면 브라우저 기본 글꼴로 떨어져
     // 글자가 폭을 정하는 축이 전부 틀린 값으로 잡힌다. scripts/lib/product-font.mjs에 사유가 있다.
     productFontFace(productRoot, commit),

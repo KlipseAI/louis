@@ -130,7 +130,7 @@ toast가 떴다는 사실 자체가 이미 "그 일이 일어났다"이므로 �
 | padding     | `space-control-md` 12px / `space-toast-inline` 20px      |
 | radius      | `radius-overlay` 16px                                    |
 | 배경        | `color-bg-inverse-translucent` — **70% 반투명**   |
-| 배경 흐림   | `backdrop-filter: blur(--louis-blur-surface)` 10px         |
+| 배경 흐림   | `backdrop-filter: blur(--louis-blur-toast)` 16px · `saturate(1.3)` |
 | 전경        | `color-fg-on-inverse`                            |
 | danger 배경 | `color-bg-danger`                         |
 | danger 전경 | `color-fg-danger`                         |
@@ -151,7 +151,7 @@ Figma에서 이 컴포넌트가 갖는 effect를 종류와 순서까지 고정�
 | 순서 | 종류 | 값 |
 | --- | --- | --- |
 | 1 | `DROP_SHADOW` | y 8 · blur 20 · spread 0 · 검정 16% |
-| 2 | `BACKGROUND_BLUR` | radius가 `blur/surface` 변수에 묶인다 |
+| 2 | `BACKGROUND_BLUR` | radius가 `blur/toast`(16) 변수에 묶인다 |
 
 글래스 베벨 inset 2겹은 owner 결정으로 제거했다 — 이 디자인 시스템에 글래스 섀도우 개념을 두지
 않는다.
@@ -171,11 +171,11 @@ Figma에서 이 컴포넌트가 갖는 effect를 종류와 순서까지 고정�
 | Figma component set | 없음 | DS-F-006 대상 |
 | 동시 표시 3개 | 임의값 | 자동 소멸 4초 안에 읽을 수 있는 수를 근거로 정했으나 실측이 아니다 |
 | 실행 취소 액션 | 없음 | "되돌리기"를 담으려면 toast가 상호작용 대상이 되고 focus 정책이 통째로 달라진다. 별도 판정이 필요하다 |
-| 제품의 backdrop blur | **채택** | 반투명 70% 표면과 `blur(10px)`을 그대로 쓴다. 불투명 면으로 대체하면 뒤 콘텐츠가 사라져 toast가 떠 있는 물체가 아니라 판이 된다. Figma에서도 `BACKGROUND_BLUR`로 서 있고 radius를 `blur/surface` 변수에 문다 |
+| 제품의 backdrop blur | **채택** | 반투명 70% 표면과 `blur(16px) saturate(130%)`를 그대로 쓴다. 불투명 면으로 대체하면 뒤 콘텐츠가 사라져 toast가 떠 있는 물체가 아니라 판이 된다. **10px 이 아니다** — 배포본의 앱 홈과 노드캔버스 홈이 인라인 style 로 16 을 얹어 클래스 선언을 이기며 화면에 보이는 것은 그쪽이다(`packages/css/src/component/toast.css:36-39` 주석). Figma에서도 `BACKGROUND_BLUR`로 서 있고 radius를 `blur/toast` 변수에 문다 |
 | 제품의 단일 슬롯 교체 | 미채택 | 제품은 새 메시지가 이전 것을 지운다. 자동 소멸과 겹치면 읽기 전에 사라지므로 스택으로 바꿨다 |
 | 퇴장 전환 | 없음 | 진입만 애니메이션한다. 퇴장을 `animationend`로 걸면 그 이벤트가 오지 않는 경우(요소가 화면 밖, 애니메이션 미적용) 사라지지 않고 남는 실패 모드가 생긴다. 전환보다 **반드시 사라지는 것**이 우선이다 |
 
-| 제품의 에디터 오류 토스트 | 미채택 | 제품에는 이 문서가 규정한 표면 말고 **에디터 오류 전용 토스트가 하나 더** 있다 — 하단 고정 `bottom 32px` · z-index **1400** · padding `11px 20px` · radius **999px**(알약) · 최대 폭 `min(92vw, 440px)` · 가운데 정렬 · 배경 `gray-900` **82%** + `blur(12px)` · 그림자 `0 10px 28px` 검정 30%, 타이포는 소비처가 붙이는 **14px medium**(`EditorProjectWorkspace.tsx:150-158`, 소비처 `:1108`). 이 문서의 radius 16px · 70% 반투명 · blur 10px · 420px · 14px regular과 **전부 어긋난다.** 알약 모양 토스트를 제품 표준으로 착각하면 틀린다 — 이쪽이 한 곳짜리 예외다 |
+| 제품의 에디터 오류 토스트 | 미채택 | 제품에는 이 문서가 규정한 표면 말고 **에디터 오류 전용 토스트가 하나 더** 있다 — 하단 고정 `bottom 32px` · z-index **1400** · padding `11px 20px` · radius **999px**(알약) · 최대 폭 `min(92vw, 440px)` · 가운데 정렬 · 배경 `gray-900` **82%** + `blur(12px)` · 그림자 `0 10px 28px` 검정 30%, 타이포는 소비처가 붙이는 **14px medium**(`EditorProjectWorkspace.tsx:150-158`, 소비처 `:1108`). 이 문서의 radius 16px · 70% 반투명 · blur 16px · 420px · 14px regular과 **전부 어긋난다.** 알약 모양 토스트를 제품 표준으로 착각하면 틀린다 — 이쪽이 한 곳짜리 예외다 |
 | 제품의 `pointer-events: none` | 미채택 | 에디터 오류 토스트는 포인터를 아예 받지 않는다(`EditorProjectWorkspace.tsx:156`). 그러면 얹어서 타이머를 멈출 수 없고, **닫기 버튼을 두지 않는 근거가 통째로 무너진다** — States와 Accessibility가 「포인터·focus로 멈춘다」에 기대고 있기 때문이다. Figma에서 이 표면을 그대로 베끼면 hover 정지 계약이 조용히 사라진다. 이 문서는 포인터를 받는 쪽을 택한다 |
 | reduced-motion 대체 | 미규정 | 에디터 오류 토스트만 `prefers-reduced-motion: reduce`에서 `animate-none!`을 걸고(`EditorProjectWorkspace.tsx:157`), 진입·퇴장은 240ms `ease`다(`:159-160`). **저장소에서 reduced-motion을 처리하는 토스트 표면은 이 하나뿐이다** — 모달 `editorToast`(220ms)에도, 글래스 토스트 계열(280ms)에도 감소 모션 규칙이 없다. 이 문서는 진입 애니메이션의 reduced-motion 대체를 아직 적지 않았다 — 나머지 제품 토스트를 근거로 삼으면 대체 없는 채로 굳는다 |
 | 실측 하네스 커버리지 | 구멍 | 실측 변형 목록의 `editorToast`(`vemClass.ts:672-686`)는 radius 999 · blur **8px** · 그림자 없음 · z-index **10100** · padding `12px 20px` · 배경 `gray-900` 70%로, 위 에디터 오류 토스트와 **다른 세 번째 표면**이다(배경 70%만 이 문서와 같다). 게다가 하네스는 이 항목을 `uses: 0`으로 적었지만 제품은 실제로 `VideoEditModal.tsx:14004`에서 `role="status"`로 렌더한다 — **집계가 소비처를 놓쳤다.** 에디터 오류 토스트는 더해서 아예 없다: 하네스에 `EditorProjectWorkspace.tsx` 항목이 **0개**다. 제품 토스트를 2종으로 세면 틀린다 — 최소 3종이고, 값이 가장 크게 벌어진 하나가 통째로 집계 밖이다 |

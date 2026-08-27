@@ -306,7 +306,8 @@ Icon Button 의 정본으로 지목됐던 제품의 공유 UI 패키지는 Turbo
 - **`elevation-popover`** — `.louis-popover`는 action-menu와 composite-popover **둘 다**
   `elevation-menu`를 쓴다. popover라는 이름의 토큰을 popover가 안 쓴다
 - **`elevation-focus-ring`** — 실제 링은 `outline`이고 이 토큰은 box-shadow `0 0 0 3px` 파랑 42%다
-- **`blur-panel`**(12px) — 흐림을 쓰는 둘(Toast·ProjectCard)이 모두 `blur-surface`(10px)를 쓴다
+- **`blur-panel`**(12px) — 흐림을 쓰는 둘이 각각 `blur-toast`(16px · Toast)와 `blur-surface`(10px ·
+  ProjectCard)를 쓴다. panel 을 쓰는 자리가 없다
 - ~~**`color-stroke-strong`**~~ — **해소됨(2026-08-18).** Checkbox가 첫 소비처이고 이름이 뜻과
   맞는다 — 경계가 반드시 보여야 하는 자리다. **폐기 후보에서 뺀다.** 남은 것은 위 셋이다
 

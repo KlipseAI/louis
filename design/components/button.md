@@ -116,7 +116,7 @@ Button은 토글이 아니므로 `pressed`(`aria-pressed`)를 갖지 않는다 �
 **DS는 전 variant `0.98`로 통일했고 이것은 기록된 편차다** — `ghost`만 다르게 두면 press 깊이가
 variant 축이 되는데, 그 축을 세울 근거가 하나뿐이다.
 
-근거: `Button.tsx:82-83`(scale 상수) · `:105`·`:110`(secondary) · `:116`·`:120`(ghost) ·
+근거: `Button.tsx@a3ed8e03:82-83`(scale 상수) · `:105`·`:110`(secondary) · `:116`·`:120`(ghost) ·
 `globals.css:40`·`:51`(기준색).
 
 **알파 표기법이 계약이다.** 제품은 `rgb(var(--x-rgb) / 5%)` 임의값을 쓰고 Tailwind의 `/5` 단축을
@@ -225,6 +225,14 @@ focus-visible 링은 브라우저가 그리므로 Figma variant로 두지 않는
 
 ## Known deviations
 
+> **제품 좌표에 `@a3ed8e03` 이 붙은 항목은 과거 배포본을 가리킨다.** 제품 `components/ui/Button.tsx`
+> 는 그 뒤 LOUIS 를 채택했다 — 배포본 `df414c24` 에서 그 파일은 **69줄**이고 `.louis-button` ·
+> `.louis-focus-ring` 과 `data-variant` / `data-size` / `data-left-icon` / `data-right-icon` 만 건다.
+> 아래에 「제품 실측」으로 적힌 값 중 그 파일이 소유하던 것(글래스 3겹 · variant 별 disabled 알파 ·
+> 원 팔레트 라벨색)은 **지금 제품에 없다.** 좌표를 지우지 않고 커밋에 묶어 두는 것은, 그 값이
+> 실재했다는 것과 무엇이 없어졌는지를 함께 남기기 위해서다. 값이 사라진 것과 처음부터 없었던 것은
+> 다른 사실이다.
+
 - **`danger` variant가 tonal이다.** solid danger를 표현할 `color-accent-danger*` 토큰이 아직 없어
   `color-bg-danger`·`color-fg-danger`로 대체했다. `DS-P3-014` 단위 9가 토큰을 추가하면 갱신한다.
   Button은 foreground와 background를 **쌍으로** 쓰므로 대비가 성립한다. 같은 토큰을 텍스트 색으로만
@@ -260,7 +268,7 @@ focus-visible 링은 브라우저가 그리므로 Figma variant로 두지 않는
 
 - **앞의 대비표는 앱 셸 밖의 값이다.** 사이드바가 있는 화면의 라이트에서 `secondary`·`ghost`의 라벨색은
   `#777d89`가 아니라 **`#9aa0ab`**다. 제품 Button이 시맨틱을 거치지 않고 `text-palette-gray-600` 원
-  팔레트를 직접 읽고(`Button.tsx:104`·`:115`), `gnb-wrapperSidebar`가 `html[data-theme=light] body:has(&)`로
+  팔레트를 직접 읽고(`Button.tsx@a3ed8e03:104`·`:115`), `gnb-wrapperSidebar`가 `html[data-theme=light] body:has(&)`로
   그 이름을 `#9aa0ab`로 덮는다(`Gnb.tsx:1978`, rgb 미러 `:1985` = `154 160 171`; 전역 정의는
   `globals.css:33`). 셀렉터가 `body:has(&)`라 **버튼이 사이드바 안에 있든 밖에 있든 화면 전체에 걸린다.**
   재매핑 범위는 라벨까지다 — 테두리 `1px solid rgb(23 27 34 / 12%)`와 hover 면은 `--palette-gray-900-rgb`를
@@ -273,18 +281,18 @@ focus-visible 링은 브라우저가 그리므로 Figma variant로 두지 않는
 
   | 겹 | 제품 값 | 근거 |
   | --- | --- | --- |
-  | 면 | `linear-gradient(90deg, var(--primary-450) 0%, var(--primary-500) 50%, var(--primary-450) 100%)` | `Button.tsx:89` · `globals.css:513-518` |
-  | 베벨 페어 (요소 자신의 `box-shadow`) | `inset 0 1px 1px rgb(250 250 250 / 25%), inset 0 -1px 1px rgb(250 250 250 / 25%)` | `Button.tsx:91` · `globals.css:55-58`·`:53`·`:40` |
-  | 글로우 (별도 `::before`) | `inset 0 0 8px 0 rgb(250 250 250 / 100%)` + `mix-blend-mode: overlay` + `pointer-events: none` | `Button.tsx:93-96` |
+  | 면 | `linear-gradient(90deg, var(--primary-450) 0%, var(--primary-500) 50%, var(--primary-450) 100%)` | `Button.tsx@a3ed8e03:89` · `globals.css:513-518` |
+  | 베벨 페어 (요소 자신의 `box-shadow`) | `inset 0 1px 1px rgb(250 250 250 / 25%), inset 0 -1px 1px rgb(250 250 250 / 25%)` | `Button.tsx@a3ed8e03:91` · `globals.css:55-58`·`:53`·`:40` |
+  | 글로우 (별도 `::before`) | `inset 0 0 8px 0 rgb(250 250 250 / 100%)` + `mix-blend-mode: overlay` + `pointer-events: none` | `Button.tsx@a3ed8e03:93-96` |
 
   **글로우를 베벨과 같은 `box-shadow` 목록에 합치면 틀린다.** 합치는 순간 `mix-blend-mode`를 걸
   자리가 없어 흰 테가 그대로 뜬다 — 글로우가 별도 `::before`인 이유가 이것이다. 두 레이어 모두
-  `transform: translateZ(0)`으로 합성 승격되고(`Button.tsx:92`·`:96`), 같은 베벨 페어가 `danger`에도
-  있다(`Button.tsx:126`). 제거 결정과 그때 함께 지운 토큰(`shadow`/`elevation`의 `control-bevel`·
+  `transform: translateZ(0)`으로 합성 승격되고(`Button.tsx@a3ed8e03:92`·`:96`), 같은 베벨 페어가 `danger`에도
+  있다(`Button.tsx@a3ed8e03:126`). 제거 결정과 그때 함께 지운 토큰(`shadow`/`elevation`의 `control-bevel`·
   `control-gloss`)은 [`updates/README.md`](../updates/README.md)가, 같은 결정의 컴포넌트 쪽 기록은
   [Toast](toast.md)가 소유한다. **이 표는 Figma 재조립용 제품 실측이지 DS 계약이 아니다.**
 - **disabled를 요소 전체 opacity가 아니라 색 교체로 표현한다.** 제품은 variant마다 다른 불투명도 하나로
-  끝낸다 — `primary` 0.35(`Button.tsx:99`) · `secondary` 0.45(`:107`) · `ghost` 0.5(`:118`) ·
+  끝낸다 — `primary` 0.35(`Button.tsx@a3ed8e03:99`) · `secondary` 0.45(`:107`) · `ghost` 0.5(`:118`) ·
   `danger` 0.4(`:129`). 색·배경·테두리를 다시 선언하지 않고 커서만 ROOT 공통으로
   `disabled:cursor-not-allowed`다(`:46`). DS는 대신 전경을 `#9AA0AB`로, `primary`·`danger` 배경을
   `#EAEBEE`로, `secondary` 테두리를 `#E3E4E8`로 바꾼다. **제품 값을 그대로 옮기면 `primary`의 흰
@@ -330,14 +338,21 @@ focus-visible 링은 브라우저가 그리므로 Figma variant로 두지 않는
   8% → hover 14% → active 18% · 글자 `--gray-000`이고 둘 다 active에서 `scale(0.98)`이다. `!important`가
   필요한 이유는 레이어 **밖** 전역 `a { color: inherit; text-decoration: none }`가 `@layer utilities`를
   무조건 이기기 때문이다(`globals.css:1007-1010`).
-- **인증 화면 버튼은 컨트롤 계단(40/32px) 밖이고 공용 Button을 쓰지 않는다.** 어떤 인증 화면도
-  `components/ui/Button.tsx`를 import 하지 않는다. 로컬 제출 버튼은 전폭 **48px 고정**(`h-24`) ·
-  `rounded-12` · 면 `--gray-000` / 글자 `--gray-1000`(반전 잉크)이고(`login/page.tsx:206-211`), 상태 카드
-  버튼은 전폭 **48px 최소**(`min-h-24`) · 패딩 `0 18px` · `rounded-12`다. **고정과 최소를 같은 것으로
-  읽으면 틀린다.** 라벨은 두 곳 모두 `type-body-16-medium` **16px**으로 LOUIS의 `body-sm-medium`
-  14px/21px와 다르다(`login/page.tsx:594-596` · `reset-password/page.tsx:252-256`; 상태 카드 정의
-  `reset-password/page.tsx:59-67` primary · `:71-76` secondary).
+- **인증 화면 버튼은 대부분 넘어왔다 — 남은 것은 상태 카드의 secondary 하나다.** 이 항목은 원래
+  「어떤 인증 화면도 공용 Button을 import 하지 않는다」였는데 **그 명제가 뒤집혔다.** 배포본
+  `df414c24` 에서 로그인 제출 CTA 는 LOUIS `Button` 이고(`login/page.tsx:542-554`,
+  `variant="inverse" size="lg"`), 비밀번호 재설정의 상태 카드 primary 도 그렇다
+  (`reset-password/page.tsx:220`). 그래서 그 둘의 라벨은 이제 LOUIS 의 `body-sm-medium` 14/21 이고,
+  아래에 적힌 48px 고정·16px 라벨은 **채택 전 값**이다
+  (`login/page.tsx@a3ed8e03:206-211` · `:594-596`).
 
+  남은 어긋남은 하나다 — 상태 카드의 **secondary** 는 `/login` 으로 가는 `<Link>` 라 버튼 요소가
+  아니고, 아직 손으로 짠 알약이다: 전폭 **48px 최소**(`min-h-24`) · 패딩 `0 18px` · `rounded-12` ·
+  라벨 `type-body-16-medium` **16px**(`reset-password/page.tsx:61-66` 정의 · `:245` 적용).
+  **고정과 최소를 같은 것으로 읽으면 틀린다** — 넘어간 두 자리는 고정 48 이었고 이 자리는 최소다.
+
+  **아래 피드백 어휘는 채택 전(`a3ed8e03`) 값이다.** 넘어간 두 자리의 hover·press·disabled 는 이제
+  LOUIS `.louis-button` 이 소유하고, 남은 secondary 만 여기 적힌 대로다.
   **이 버튼들의 피드백 어휘는 filter와 scale이 전부다.** 제출 버튼은 hover
   `saturate(125%) brightness(125%)` · press `saturate(150%) brightness(150%)` + `scale(0.98)`이고
   (`login/page.tsx:213-218`), 상태 카드 primary는 hover `saturate(118%) brightness(110%)` ·

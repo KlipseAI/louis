@@ -88,7 +88,7 @@ workspace wrapper는 분리한다.
 8. **Nested overlay host** — Select, Popover, Tooltip을 같은 modal branch에 연결한다.
 
 **Body는 슬롯이다.** 배포본 확인 모달 셸은 설명 `<p>`와 액션 행 **사이**에 children을 그대로
-끼운다(`GlassConfirmModal.tsx:294`). 소비처가 넣는 것은 설명 아래·액션 위에 앉고, 설명과 액션
+끼운다(`GlassConfirmModal.tsx:179`). 소비처가 넣는 것은 설명 아래·액션 위에 앉고, 설명과 액션
 사이의 간격은 children이 있는 순간 children의 마진이 결정한다 — 셸은 그 간격을 소유하지 않는다.
 **셸에 고정 간격이 있다고 가정하고 Figma에 그리면 내용이 든 벌에서 어긋난다.**
 
@@ -263,8 +263,12 @@ Figma에서 제품 화면을 그릴 때는 아래를 쓴다.
 | 액션 라벨 | `type-body-16-medium` | 16 / 500 / 1.5 / -0.01em | 버튼 variant가 소유 |
 | 부속(내역 행·체크박스 라벨) | `type-body-14-*` | 14 / 400·600 / 1.5 / -0.01em | 라벨 60% · 값 100% |
 
-근거는 `GlassConfirmModal.tsx:286` · `:290` · `:300` · `:308`이고 제목 색 상수는 `:79`다.
-제목→설명 간격은 8px이다(`:84`) — 카드 여백 16px의 절반이라 제목과 설명이 한 덩어리로 읽힌다.
+근거는 `GlassConfirmModal.tsx:170`(제목 — `text-body-16 font-semibold`)과 `:173`(설명)이다.
+**나머지는 제품이 더는 갖고 있지 않다.** 배포본 `df414c24` 의 이 셸은 `.louis-dialog__*` 와 LOUIS
+`Button` 만 그리고, 색·제목→설명 간격(8px)·부속 타이포는 전부
+[dialog.css](../../packages/css/src/component/dialog.css) 가 소유한다 — 옛 좌표(`a3ed8e03` 의 `:286`
+· `:290` · `:300` · `:308` · `:79` · `:84`)가 가리키던 선언이 채택과 함께 사라졌다. 위 표는 이제
+**제품 실측이 아니라 DS 계약**이고, 제품이 그것을 소비한다.
 
 **뷰포트 450px 이하에서 위 표의 16px이 전부 14px로 내려간다.** 제품이 `--type-body-16-size`를
 `--type-body-14-size`로 재정의하기 때문이다(`globals.css:838-842`). `line-height`와

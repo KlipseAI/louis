@@ -622,14 +622,20 @@ static-alpha 정책 결정이 선행돼야 한다.
 
 | 항목 | 규모 | 왜 안 되나 |
 | --- | --- | --- |
-| `backdrop-filter` (뒤 배경 블러) | **65개 파일** | 뒤에 실제로 무엇이 있느냐에 따라 결과가 달라진다. 단색 채우기로 대체하면 다른 화면이 된다 |
-| 그라디언트 마스크 | **23개 파일** | 블러·이펙트에 알파 그라디언트를 씌우는 형태다. 레이어 마스크로는 강도가 점진적으로 변하는 구간이 재현되지 않는다 |
-| 테마를 따라가지 않는 그림자 | `--dropdown-ambient-shadow` | `:root`에만 정의되고 다크 재정의가 없다 — **다크에서도 같은 값이다**(`globals.css:63`). 다크용 변형을 새로 만들면 코드와 갈린다. 이름이 비슷한 `--dropdown-frame`도 정의가 둘이지만 **두 값이 바이트 동일**이라 결국 테마 무관이다 |
+| `backdrop-filter` (뒤 배경 블러) | **50개 파일** | 뒤에 실제로 무엇이 있느냐에 따라 결과가 달라진다. 단색 채우기로 대체하면 다른 화면이 된다 |
+| 그라디언트 마스크 | **17개 파일** | 블러·이펙트에 알파 그라디언트를 씌우는 형태다. 레이어 마스크로는 강도가 점진적으로 변하는 구간이 재현되지 않는다 |
+| 테마를 따라가지 않는 그림자 | `--louis-elevation-menu` | 드롭다운·메뉴·팝오버의 앰비언트 섀도우다. 제품의 옛 `--dropdown-ambient-shadow` 별칭은 P#1 에서 폐기됐고 지금은 제품이 LOUIS 정본을 직접 소비한다(`globals.css:59-62`). 정의가 한 벌이라 **다크에서도 같은 값이고**, 다크용 변형을 Figma 에서 새로 만들면 코드와 갈린다 |
 | `@layer` 밖 규칙의 우선순위 | — | 명시도와 무관하게 유틸리티를 이긴다. 옮길 때 `!`가 필요한 자리는 스타일 결정이 아니라 이 우선순위 때문이며, Figma에 대응 개념이 없다 |
 
 사용처 표본 — `backdrop-filter`: `app/admin/AdminClient.tsx` · `app/admin/BannerManagement.tsx` ·
-`app/admin/JobMonitor.tsx`. 마스크: `app/HomePageClient.tsx` ·
-`components/banners/TabBannerCarousel.tsx` · `app/mypage/upgrade/page.tsx`.
+`app/mypage/upgrade/page.tsx`. 마스크: `components/scenes/appHomeSceneStyles.ts`(배너 슬라이드의
+progressive blur) · `components/landing/navigation/Gnb.tsx` · `components/navigation/CommandPalette.tsx`.
+
+> **표본이 한 번 통째로 낡았다.** 앞선 판의 마스크 표본 셋(`app/HomePageClient.tsx` ·
+> `components/banners/TabBannerCarousel.tsx` · `app/mypage/upgrade/page.tsx`)은 배포본 `df414c24`
+> 에서 **한 곳도 마스크를 갖고 있지 않다.** 캐러셀 파일은 아예 없어졌고(`6602fd24`), 배너의 마스크는
+> `appHomeSceneStyles.ts` 의 `bannerSlide` 로 옮겨 갔다. 숫자와 표본은 배포본이 움직이면 같이 낡으므로
+> 재기준선 때 함께 다시 센다.
 
 막힌 자리는 근사치로 메우지 말고 기록한다 — 무엇이 없어서 raw로 그렸는지는
 [figma-gap-registry](../../migration/figma-gap-registry.md)가 소유한다.
@@ -1133,7 +1139,7 @@ Button 을 규범만 보고 세웠다가 State 어휘(Active↔Pressed)와 슬�
 **컨테이너의 기하를 바꾸면 불리언으로는 표현할 수 없다** — 불리언은 자식의 가시성만 바꾸고
 프레임의 padding·gap 은 못 바꾼다.
 
-Button 이 그 경우였다. 코드는 아이콘이 붙은 쪽 padding 을 2px 줄이는데(`button.css:78-91`),
+Button 이 그 경우였다. 코드는 아이콘이 붙은 쪽 padding 을 2px 줄이는데(`packages/css/src/component/button.css:78-91`),
 Figma 는 불리언으로 두어 그 상태를 **그릴 방법이 없었다.** `Icon: none|left|right|both` 축으로
 쪼개 5×2×5×4 = 200 이 됐다. 200 이 부담스러워도, 표현 못 하는 것보다는 낫다.
 
@@ -1183,13 +1189,13 @@ hover·focus·selected 를 **컨테이너의 variant** 로 두면 두 가지가 
 
 ##### 상태의 시각 표현은 CSS 를 그대로 옮긴다 — 지어내지 않는다
 
-세그먼트 hover 는 **글자색만** 바꾼다(`segmented-control.css:122-127`). 면까지 바꾸면 선택된
+세그먼트 hover 는 **글자색만** 바꾼다(`packages/css/src/component/segmented-control.css:122-127`). 면까지 바꾸면 선택된
 것과 얹은 것이 같은 표현이 되어 어느 쪽이 현재 값인지 순간 읽히지 않는다 — CSS 주석이 그렇게
 적어 두었는데도 처음엔 면을 칠했다. 상태를 만들기 전에 그 상태의 CSS 규칙을 먼저 읽는다.
 
 ##### 포커스 링은 `outline` 이고 `outline-offset` 이 있다
 
-`base.css:50-54` 는 `outline: 2px solid stroke-focus; outline-offset: 2px` 다. Figma 에는
+`packages/css/src/base.css:50-54` 는 `outline: 2px solid stroke-focus; outline-offset: 2px` 다. Figma 에는
 outline-offset 이 없으므로 **요소보다 각 변 2px 큰 사각형에 2px OUTSIDE stroke** 를 둔다.
 반지름도 따라간다 — 요소 반지름 + 2. 요소에 바로 stroke 를 걸면 딱 붙은 각진 상자가 되고,
 그건 브라우저가 그리는 것과 다르다.
@@ -6843,8 +6849,18 @@ popover에 가린다. **이 결정은 드로어를 다루지 않는다** — 드
 
 1. **SegmentedControl** — 선택 표식이 세그먼트 폭을 따라간다. 미결로 남겼다.
 2. **BannerCarousel** — 제품(`KlipseAI/klipse-web`, 당시 `origin/main` 7e9c3b69 — **정본은 그 뒤 `design` 계열로 옮겼다**)의 점이 비활성 **7px**에서
-   활성 **20px**로 늘어난다(`TabBannerCarousel.tsx`의 `DOT_REST`/`DOT_ACTIVE`, `w-10` × `--spacing: 2px`).
-   전환은 `width 220ms cubic-bezier(0.4, 0, 0.2, 1)`이고 배경은 `160ms ease`다.
+   활성 **20px**로 늘어난다. 당시 근거는 `TabBannerCarousel.tsx@7e9c3b69`의 `DOT_REST`/`DOT_ACTIVE`
+   (`w-10` × `--spacing: 2px`)였고, 전환은 `width 220ms cubic-bezier(0.4, 0, 0.2, 1)` · 배경 `160ms ease`였다.
+
+   **값은 그대로이고 소유자가 바뀌었다(2026-08-27 확인).** 그 두 상수도, 그 파일도 지금 제품에 없다 —
+   `TabBannerCarousel.tsx`는 `6602fd24`에서 지워졌고 캐러셀은 `AppHomeScene.tsx`로 옮겨 갔다. 점의 7→20px는
+   이제 이 저장소가 소유한다: `packages/css/src/component/banner-carousel.css:241-259`가
+   `.louis-banner-carousel__dot` 7px와 `[aria-current="true"]` 20px를, 전환을
+   `--louis-motion-layout-change-*`(220ms · `cubic-bezier(0.4, 0, 0.2, 1)`)와
+   `--louis-motion-control-hover-duration`(160ms)으로 세운다. 제품은 그것을 그대로 소비한다
+   (`appHomeSceneStyles.ts:436-441`의 `bannerDot`). **활성이 클래스가 아니라 `aria-current="true"`인 것도
+   그 이사에서 바뀐 것이다**(DS-D-0004) — 제품이 `AppHomeScene.tsx:992`에서 그 훅을 건다.
+   이 결정이 근거로 삼은 수치는 무너지지 않았고, 오히려 **그 수치가 DS로 들어왔다.**
 
 **그 폭이 곧 "여기가 지금 몇 번째인가"다.** 점은 라벨이 없으므로 폭 말고 현재 위치를 말하는 것이
 없다.

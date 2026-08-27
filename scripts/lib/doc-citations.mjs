@@ -13,10 +13,30 @@ import { readFileSync, readdirSync, statSync } from "node:fs";
 import { join, relative } from "node:path";
 
 // 인용 형태: `globals.css:63`, `Gnb.tsx:1911-1925`, `apps/web/app/globals.css:104`
+//
+// **과거형 좌표는 `<파일>@<커밋>:<줄>` 로 적는다** — 예: `Button.tsx@a3ed8e03:82-83`.
+// 파일명 뒤가 `:` 가 아니라 `@` 라서 아래 정규식에 걸리지 않고, 그래서 수집되지 않는다.
+// 이 형태가 필요한 이유: 제품이 파일을 지우거나 통째로 갈아엎으면 그 줄은 **어느 배포본에도
+// 없다.** 좌표를 지우면 「그런 선언이 있었다」는 사실까지 사라지고, 현재형으로 옮기면 거짓이 된다.
+// 커밋에 묶어 두면 둘 다 피하면서 사람이 손으로 확인할 수 있다(그 커밋이 원격에 있는 한).
 const CITATION = /`?([A-Za-z0-9_.\-/]+\.(?:tsx?|jsx?|css|mjs))`?\s*:\s*(\d+)(?:\s*[-–]\s*(\d+))?/g;
 
 // LOUIS 자신의 파일은 제품 인용이 아니다.
 const OWN_PREFIXES = ["scripts/", "packages/", "figma/", "test/"];
+
+// **마크다운 링크의 과녁도 본다.** 위 목록은 인용문에 경로가 **직접 적혀 있을 때만** 걸린다.
+// 그런데 컴포넌트 문서는 자기 CSS 를 `[table.css:3-5](../../packages/css/src/component/table.css)`
+// 처럼 링크로 적는다 — 보이는 글자에는 경로가 없고 과녁에만 있다. 그래서 LOUIS 자신의 파일
+// 15건이 「배포본에 `table.css` 가 없습니다」로 잡히고 있었다. 제품 저장소에 그 파일이 없는
+// 것은 당연하다. 이것은 게이트를 느슨하게 하는 것이 아니라 **과녁을 보면 이미 답이 적혀 있는
+// 오탐**을 없애는 것이다.
+const LINK_TARGET = /^`?\]\(([^)\s]+)/;
+const targetsOwnTree = (rest) => {
+  const match = LINK_TARGET.exec(rest);
+  if (!match) return false;
+  const path = match[1].replace(/^(?:\.\.\/)+/, "").replace(/^\.\//, "");
+  return OWN_PREFIXES.some((prefix) => path.startsWith(prefix));
+};
 
 export function collectDocCitations(repoRoot, { includeUpdates = false } = {}) {
   const out = [];
@@ -37,6 +57,7 @@ export function collectDocCitations(repoRoot, { includeUpdates = false } = {}) {
         for (const match of line.matchAll(CITATION)) {
           const file = match[1];
           if (OWN_PREFIXES.some((prefix) => file.startsWith(prefix))) continue;
+          if (targetsOwnTree(line.slice(match.index + match[0].length))) continue;
           if (/\.mjs$/.test(file) && !file.includes("/")) continue; // 우리 스크립트 이름
           out.push({
             doc: rel,

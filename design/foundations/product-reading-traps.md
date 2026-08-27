@@ -163,7 +163,7 @@ Tailwind는 소스 스캔으로 CSS를 내보낸다. 그래서 **어떤 배리�
 | 축 | 라이트 셀렉터 | 게이트 | 근거 |
 | --- | --- | --- | --- |
 | 프레임 토큰 — `--dropdown-frame` · `--dropdown-surface-bg` | `html[data-theme="light"]:not(:has(…)), [data-landing-walkthrough-light]` | **있다** | `globals.css:575-578` |
-| 모든 `light:` 유틸리티 | 같은 셀렉터 | **있다** | `tailwind.css:278` |
+| 모든 `light:` 유틸리티 | 같은 셀렉터 | **있다** | `tailwind.css:263` |
 | 패널 면의 라이트 분기 | `html[data-theme=light] &` | **없다** | `GlassConfirmModal.tsx:55` |
 
 **두 축의 폭이 달라서 한쪽만 뒤집힌다.** 게이트가 풀린 라이트 문서에서 패널 면은 라이트
@@ -183,8 +183,8 @@ Tailwind는 소스 스캔으로 CSS를 내보낸다. 그래서 **어떤 배리�
 `null`인지 확인한다. null이 아니면 그 스냅샷에서 잰 라이트 값은 전부 버린다. 이 문자열은 여러
 파일에 흩어져 있지만 **속성을 실제로 다는 곳은 한 곳**이다 — `StaticCreateDemo.tsx:541`
 (`data-landing-walkthrough-dark={darkWalkthrough ? "" : undefined}`). 나머지 히트는 주석과
-Tailwind 임의 변형 셀렉터 문자열이다. 짝인 `-light`는 같은 파일 `:540`과
-`NodeMockupCard.tsx:528`.
+Tailwind 임의 변형 셀렉터 문자열이다. 짝인 `-light`는 같은 파일 `:540` **하나뿐이다** — `NodeMockupCard.tsx` 는 랜딩 개편(`8802565e`)에서
+지워졌고 배포본 `df414c24` 에 없다.
 
 **제품 주석을 근거로 삼지 않는다.** `WalkthroughGenerateCursor.tsx:24`는 그 속성을 다는 곳이
 `GettingStartedPanel`이라고 적어 두었지만 실제 대입처는 `StaticCreateDemo.tsx:541`이다. 주석이

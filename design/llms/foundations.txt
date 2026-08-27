@@ -203,26 +203,42 @@ token이 아니라 리터럴·이미지·mode 불변 값으로 칠해졌으면 �
 DS-D-0010은 `[data-page-root]` 같은 DOM 상태 스코프를 토큰 축이 아니라고 못 박고 해결 책임을 소비 계층에
 넘겼다. 제품은 그 재적용을 **요소 자신의 선언**으로 한다 — 여기가 그 값이다.
 
-- 랜딩·마케팅 트리 루트 `[data-page-root]`는 `--gray-000`부터 `--gray-1000`까지 11개와 대응 `-rgb` 11개를
-  전부 팔레트 원시값으로 되돌린다. `--theme-shadow-rgb`·`--theme-scrim-rgb`도 함께 고정한다
-  (`globals.css:1627-1663`).
-- `html[data-theme]`는 조상에, 이 블록은 요소 자신에 있다. **자기 선언이 상속을 이기므로 앱 테마 반전이 이
-  트리 안에서 무효가 된다.** 블록을 `@layer` 밖 파일 끝에 두는 이유는 `globals.css:1619-1624`에 적혀 있다.
-- 파생 값도 같이 고정된다 — `--page-bg: var(--gray-1000)`(검정), `--panel` 6%, `--panel-strong` 10%,
-  `--line` 14%, `--text-soft` 74%, `--text-muted` 56%가 모두 `--gray-000-rgb` 알파다. 요소 자신은
-  `background: var(--page-bg); color: var(--gray-000)`을 갖는다(`globals.css:1652-1662`).
+**이 절의 앞선 판은 뒤집혔다.** 그때 `[data-page-root]`는 `--gray-000`부터 `--gray-1000`까지 11개와
+대응 `-rgb` 11개를 전부 팔레트 원시값으로 못 박아, 라이트 테마를 켠 사용자에게도 랜딩이 항상 검정
+배경·흰 글자였다. 그 위에서 랜딩 홈만 다시 밝은 램프로 뒤집고 그 안의 몇몇 섹션이 또 되돌리는
+**세 겹**이 쌓여 있었다. 배포본 `df414c24`는 세 겹을 다 걷어냈다 — 그 사유가 제품 소스 주석에 그대로
+적혀 있다(`globals.css:1518-1525`). **랜딩은 이제 테마를 따른다.**
+
+- 랜딩·마케팅 트리 루트 `[data-page-root]`가 지금 세우는 것은 **면 계열 여섯**뿐이고, 값은 전부 LOUIS의
+  `landing-*` 시맨틱에서 온다 — `--page-bg`·`--panel`·`--panel-strong`·`--line`·`--text-soft`·
+  `--text-muted`가 각각 `var(--louis-color-landing-*)`이다(`globals.css:1526-1538`). 회색 램프는 손대지
+  않으므로 `html[data-theme]`가 세운 값이 그대로 흐른다.
+- **알파를 여기서 다시 계산하지 않는 것이 규칙이다.** `landing-*`는 테마별 값이 이미 정의돼 있고
+  (light `#f1f1f3` / dark `#000000` 등), 소비 스코프가 알파를 다시 쓰면 정본이 둘이 된다. 이것이 랜딩
+  섹션들이 `bg-gray-900` 대신 `var(--panel-strong)`을 쓰는 이유이기도 하다.
+- 블록은 **`@layer components` 안**에 있다(`globals.css:1160`이 그 레이어를 연다). 파일 끝에 있는 것은
+  마케팅 훅을 한곳에 모으려는 조직상의 선택이고 **캐스케이드 승패에 의존하지 않는다** — 사유가
+  `globals.css:1513-1515`에 있다. 앞선 판이 「`@layer` 밖에 두어 상속을 이긴다」고 적었던 것은 그때의
+  구조였고 지금은 아니다.
+- 요소 자신은 `background: var(--page-bg); color: var(--gray-000)`을 갖는다(`globals.css:1536-1537`).
+  `background`가 단축인 채로 남아 있는 것도 계약이다 — 가격 페이지가 「이 단축이 `background-clip` 등
+  롱핸드를 초기화한다」를 근거로 삼고 있다.
 
 | 토큰 | 앱 light | 앱 dark | `[data-page-root]` 안 |
 | --- | --- | --- | --- |
-| `--gray-000` | `#000000` | `#fafafa` | **`#fafafa` — mode 불변** |
-| `--gray-900` | `#f1f1f3` | `#171b22` | **`#171b22` — mode 불변** |
+| `--gray-000` | `#000000` | `#fafafa` | **테마를 따른다 — 재정의 없음** |
+| `--gray-900` | `#f1f1f3` | `#171b22` | **테마를 따른다 — 재정의 없음** |
+| `--panel-strong` | — | — | `var(--louis-color-landing-panel-strong)` (light `rgb(0 0 0/8%)` · dark `rgb(255 255 255/8%)`) |
 
-되돌리는 예외는 둘뿐이다. `[data-page-root] [data-reveal]`은 진입 애니메이션을 무력화하고
-(`globals.css:1655-1659`), `[data-page-root] #pricing-faq`는 `--gray-000`·`--gray-000-rgb`·`--text-soft`를
-검정 램프로 복구한다(`globals.css:1665-1669`) — 가격 페이지 FAQ가 흰 카드 위에 서기 때문이다.
+램프를 건드리는 예외는 **하나만 남았다.** `[data-page-root] #pricing-faq`가 `--gray-000`·
+`--gray-000-rgb`·`--text-soft`를 검정 램프로 복구한다(`globals.css:1591-1595`) — 가격 페이지 FAQ가 흰
+카드 위에 서기 때문이다. 랜딩 FAQ는 `id`가 `faq`라 걸리지 않는다. 색이 아닌 예외로
+`[data-page-root] [data-reveal]`이 진입 애니메이션을 무력화하는 규칙이 함께 있다
+(`globals.css:1581-1585`).
 
-**이걸 모르면 틀린다.** 랜딩·가격 화면을 라이트 모드 변형으로 그리면 전부 틀린다. 제품은 라이트 테마를 켠
-사용자에게도 검정 배경·흰 글자를 보여준다. 랜딩에는 테마 축이 없다.
+**이걸 모르면 틀린다 — 방향이 반대다.** 랜딩·가격 화면을 **다크 전용**으로 그리면 틀린다. Figma 시안이
+다크 렌더일 뿐이고 제품은 두 테마를 다 그린다. 라이트에서 무너지는 자리는 램프 인덱스를 대칭으로
+뒤집어서는 성립하지 않는 역할들이며(면·선·보조 글자), 그것을 `landing-*`가 소유한다.
 
 #### Alias and naming rules
 
@@ -575,7 +591,9 @@ Elevation primitive, semantic elevation과 semantic layer는 단일 DTCG source 
 함께 사라진 것:
 
 - 공용 `Button`의 `primary`·`danger`가 갖던 베벨 2겹, `::before` 오버레이 이너섀도우, 그 층을 얹으려고
-  있던 `translateZ(0)` 스태킹 컨텍스트 (`components/ui/Button.tsx:83-96`)
+  있던 `translateZ(0)` 스태킹 컨텍스트 (`components/ui/Button.tsx@a3ed8e03:83-96` — **제품도 그 뒤
+  같은 층을 걷어냈다.** 배포본 `df414c24` 의 `Button.tsx` 는 69줄이고 `.louis-button` 을 소비하기만
+  한다. 좌표를 커밋에 묶어 두는 것은 그 선언이 실재했던 자리를 잃지 않기 위해서다)
 - 앱 메인 카드의 `::after` 베벨 링. 카드는 이제 `border-radius: 16px` + `--dropdown-frame`뿐이다
   (`globals.css:1345-1351`)
 - 비디오 에디터의 헤더 버튼·타임라인 표면이 쓰던 베벨 (`videoEditParts/vemClass.ts`)
@@ -1592,7 +1610,7 @@ Tailwind는 소스 스캔으로 CSS를 내보낸다. 그래서 **어떤 배리�
 | 축 | 라이트 셀렉터 | 게이트 | 근거 |
 | --- | --- | --- | --- |
 | 프레임 토큰 — `--dropdown-frame` · `--dropdown-surface-bg` | `html[data-theme="light"]:not(:has(…)), [data-landing-walkthrough-light]` | **있다** | `globals.css:575-578` |
-| 모든 `light:` 유틸리티 | 같은 셀렉터 | **있다** | `tailwind.css:278` |
+| 모든 `light:` 유틸리티 | 같은 셀렉터 | **있다** | `tailwind.css:263` |
 | 패널 면의 라이트 분기 | `html[data-theme=light] &` | **없다** | `GlassConfirmModal.tsx:55` |
 
 **두 축의 폭이 달라서 한쪽만 뒤집힌다.** 게이트가 풀린 라이트 문서에서 패널 면은 라이트
@@ -1612,8 +1630,8 @@ Tailwind는 소스 스캔으로 CSS를 내보낸다. 그래서 **어떤 배리�
 `null`인지 확인한다. null이 아니면 그 스냅샷에서 잰 라이트 값은 전부 버린다. 이 문자열은 여러
 파일에 흩어져 있지만 **속성을 실제로 다는 곳은 한 곳**이다 — `StaticCreateDemo.tsx:541`
 (`data-landing-walkthrough-dark={darkWalkthrough ? "" : undefined}`). 나머지 히트는 주석과
-Tailwind 임의 변형 셀렉터 문자열이다. 짝인 `-light`는 같은 파일 `:540`과
-`NodeMockupCard.tsx:528`.
+Tailwind 임의 변형 셀렉터 문자열이다. 짝인 `-light`는 같은 파일 `:540` **하나뿐이다** — `NodeMockupCard.tsx` 는 랜딩 개편(`8802565e`)에서
+지워졌고 배포본 `df414c24` 에 없다.
 
 **제품 주석을 근거로 삼지 않는다.** `WalkthroughGenerateCursor.tsx:24`는 그 속성을 다는 곳이
 `GettingStartedPanel`이라고 적어 두었지만 실제 대입처는 `StaticCreateDemo.tsx:541`이다. 주석이

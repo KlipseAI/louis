@@ -328,7 +328,7 @@ Button 을 규범만 보고 세웠다가 State 어휘(Active↔Pressed)와 슬�
 **컨테이너의 기하를 바꾸면 불리언으로는 표현할 수 없다** — 불리언은 자식의 가시성만 바꾸고
 프레임의 padding·gap 은 못 바꾼다.
 
-Button 이 그 경우였다. 코드는 아이콘이 붙은 쪽 padding 을 2px 줄이는데(`button.css:78-91`),
+Button 이 그 경우였다. 코드는 아이콘이 붙은 쪽 padding 을 2px 줄이는데(`packages/css/src/component/button.css:78-91`),
 Figma 는 불리언으로 두어 그 상태를 **그릴 방법이 없었다.** `Icon: none|left|right|both` 축으로
 쪼개 5×2×5×4 = 200 이 됐다. 200 이 부담스러워도, 표현 못 하는 것보다는 낫다.
 
@@ -378,13 +378,13 @@ hover·focus·selected 를 **컨테이너의 variant** 로 두면 두 가지가 
 
 ### 상태의 시각 표현은 CSS 를 그대로 옮긴다 — 지어내지 않는다
 
-세그먼트 hover 는 **글자색만** 바꾼다(`segmented-control.css:122-127`). 면까지 바꾸면 선택된
+세그먼트 hover 는 **글자색만** 바꾼다(`packages/css/src/component/segmented-control.css:122-127`). 면까지 바꾸면 선택된
 것과 얹은 것이 같은 표현이 되어 어느 쪽이 현재 값인지 순간 읽히지 않는다 — CSS 주석이 그렇게
 적어 두었는데도 처음엔 면을 칠했다. 상태를 만들기 전에 그 상태의 CSS 규칙을 먼저 읽는다.
 
 ### 포커스 링은 `outline` 이고 `outline-offset` 이 있다
 
-`base.css:50-54` 는 `outline: 2px solid stroke-focus; outline-offset: 2px` 다. Figma 에는
+`packages/css/src/base.css:50-54` 는 `outline: 2px solid stroke-focus; outline-offset: 2px` 다. Figma 에는
 outline-offset 이 없으므로 **요소보다 각 변 2px 큰 사각형에 2px OUTSIDE stroke** 를 둔다.
 반지름도 따라간다 — 요소 반지름 + 2. 요소에 바로 stroke 를 걸면 딱 붙은 각진 상자가 되고,
 그건 브라우저가 그리는 것과 다르다.

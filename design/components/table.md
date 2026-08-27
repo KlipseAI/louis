@@ -115,7 +115,7 @@ deviations.
 | --- | --- | --- |
 | 정본 `ContentTable.tsx:72,93` | 8/12 | 10/12 |
 | `InstagramAnalyticsScene.tsx:586,605` | 8/12 | 10/12 |
-| 랜딩 스냅샷 `StaticAnalyticsDemo.tsx:508-509,531-532` | 8/12 | 10/12 |
+| 랜딩 스냅샷 `StaticAnalyticsDemo.tsx@a3ed8e03:508-509,531-532` — **없어졌다**(↓) | 8/12 | 10/12 |
 | 가이드 모델 사양 `ModelSpecPanel.tsx:52-53` | 8/12 | 8/12 |
 | 관리자 캡션 템플릿 `CaptionTemplateManagement.tsx:45,54` | 10/14 | 10/14 |
 | 요금제 모달 `PricingModal.tsx:90,95` | 5/8 | 6/8 |
@@ -225,8 +225,9 @@ CSS 에 있는 상태는 **하나뿐이다.**
   행의 구분선 위에 와야 하는데, 층을 숫자로 만들면 `elevation-layer.md` 의 layer 토큰 체계 밖에
   값이 하나 생긴다([table.css:29-31](../../packages/css/src/component/table.css)).
   `position: relative` 가 이미 있어 비위치 지정 tbody 행 배경 위에 그려지므로, 옛 `z-[1]` 과 결과가
-  같다 — 랜딩 스냅샷이 아직 그 `z-[1]` 을 쓰고 있고 두 화면의 외형이 같다
-  (`components/landing/demo-snapshots/StaticAnalyticsDemo.tsx:518`).
+  같다. **랜딩 스냅샷이 그 `z-[1]` 을 쓰던 자리는 없어졌다** — `StaticAnalyticsDemo.tsx` 가 랜딩
+  개편(`8802565e`)에서 통째로 지워져 배포본 `df414c24` 에 없다
+  (`components/landing/demo-snapshots/StaticAnalyticsDemo.tsx@a3ed8e03:518`).
 
 **헤더 높이는 Figma 와 같고, 본문 셀은 1px 어긋난다.** `figma/readback.json` 의 TableHeaderCell 이
 높이 26 · padding 4/8 · 라벨 12/18 이고, CSS 헤더 셀은 `border-block-end: 0`
@@ -359,8 +360,10 @@ CSS 에 있는 상태는 **하나뿐이다.**
   `isolation: isolate` 가 만드는 stacking 문맥과 어떻게 겹치는지 확인되지 않았다.
 - **정렬(sort)·선택 열·페이지네이션·zebra striping·빈 상태가 없다.** 정렬 헤더는 `aria-sort` 와
   방향 표식이 필요하고, 빈 상태는 `Empty State` 가 소유한다.
-- **제품의 나머지 표 4벌을 덮지 않는다.** 랜딩 스냅샷
-  (`StaticAnalyticsDemo.tsx:503-521`)은 같은 기하를 손으로 재현했으므로 흡수 후보이고, 가이드
+- **제품의 나머지 표 3벌을 덮지 않는다.** 랜딩 스냅샷
+  (`StaticAnalyticsDemo.tsx@a3ed8e03:503-521`)이 같은 기하를 손으로 재현해 흡수 후보였는데 **그 파일
+  자체가 없어졌다**(랜딩 개편 `8802565e`) — 후보 하나가 흡수가 아니라 삭제로 사라졌으므로 넷이
+  셋이 됐다. 남은 것은 가이드
   모델 사양 표와 관리자 캡션 템플릿 표(`app/admin/CaptionTemplateManagement.tsx:40-46`, 표 전체에
   1px 테두리 + `rounded-12` + `overflow-hidden`), 요금제 모달 표
   (`components/scenes/create/PricingModal.tsx:82-92`, `border-collapse: collapse` · caption-12 ·

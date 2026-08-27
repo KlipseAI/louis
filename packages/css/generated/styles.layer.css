@@ -934,8 +934,12 @@
 @layer louis.component {
   /* Banner Carousel — 허브 화면 최상단의 사진 배너.
    *
-   * 값은 전부 제품 정본(migration/product-evidence.lock.json 의 productCommit)의
-   * `apps/web/components/banners/TabBannerCarousel.tsx` 실측이다.
+   * 값의 출처는 제품 실측이다. **처음 잰 파일은 없어졌다** —
+   * `apps/web/components/banners/TabBannerCarousel.tsx` 는 제품 `6602fd24` 에서 삭제됐고, 캐러셀은
+   * `apps/web/components/scenes/AppHomeScene.tsx` 안으로 들어갔다. 지금 제품은 이 레시피를 **소비하는
+   * 쪽**이다(`appHomeSceneStyles.ts` 의 `bannerArrowButton` · `bannerControls` · `bannerDot` ·
+   * `bannerDots` · `updateBanner` 가 여기 클래스를 그대로 얹는다). 그래서 이 파일의 값은 더 이상
+   * 「제품을 따라 적은 것」이 아니라 **제품이 따라오는 정본**이다.
    *
    * **면이 사진이다.** 그래서 색이 `color-media-*`다 — 테마를 따라 뒤집히는 semantic 색을 쓰면
    * 라이트 테마 위의 어두운 사진에서 흰 글자에 흰 스크림이 깔린다. 제품이 같은 이유로 고정

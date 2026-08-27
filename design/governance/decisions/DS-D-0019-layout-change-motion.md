@@ -22,8 +22,18 @@ authority: normative
 
 1. **SegmentedControl** — 선택 표식이 세그먼트 폭을 따라간다. 미결로 남겼다.
 2. **BannerCarousel** — 제품(`KlipseAI/klipse-web`, 당시 `origin/main` 7e9c3b69 — **정본은 그 뒤 `design` 계열로 옮겼다**)의 점이 비활성 **7px**에서
-   활성 **20px**로 늘어난다(`TabBannerCarousel.tsx`의 `DOT_REST`/`DOT_ACTIVE`, `w-10` × `--spacing: 2px`).
-   전환은 `width 220ms cubic-bezier(0.4, 0, 0.2, 1)`이고 배경은 `160ms ease`다.
+   활성 **20px**로 늘어난다. 당시 근거는 `TabBannerCarousel.tsx@7e9c3b69`의 `DOT_REST`/`DOT_ACTIVE`
+   (`w-10` × `--spacing: 2px`)였고, 전환은 `width 220ms cubic-bezier(0.4, 0, 0.2, 1)` · 배경 `160ms ease`였다.
+
+   **값은 그대로이고 소유자가 바뀌었다(2026-08-27 확인).** 그 두 상수도, 그 파일도 지금 제품에 없다 —
+   `TabBannerCarousel.tsx`는 `6602fd24`에서 지워졌고 캐러셀은 `AppHomeScene.tsx`로 옮겨 갔다. 점의 7→20px는
+   이제 이 저장소가 소유한다: `packages/css/src/component/banner-carousel.css:241-259`가
+   `.louis-banner-carousel__dot` 7px와 `[aria-current="true"]` 20px를, 전환을
+   `--louis-motion-layout-change-*`(220ms · `cubic-bezier(0.4, 0, 0.2, 1)`)와
+   `--louis-motion-control-hover-duration`(160ms)으로 세운다. 제품은 그것을 그대로 소비한다
+   (`appHomeSceneStyles.ts:436-441`의 `bannerDot`). **활성이 클래스가 아니라 `aria-current="true"`인 것도
+   그 이사에서 바뀐 것이다**(DS-D-0004) — 제품이 `AppHomeScene.tsx:992`에서 그 훅을 건다.
+   이 결정이 근거로 삼은 수치는 무너지지 않았고, 오히려 **그 수치가 DS로 들어왔다.**
 
 **그 폭이 곧 "여기가 지금 몇 번째인가"다.** 점은 라벨이 없으므로 폭 말고 현재 위치를 말하는 것이
 없다.

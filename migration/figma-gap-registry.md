@@ -47,8 +47,8 @@ DS-F-007의 산출물이다. 배포 화면을 Klipse Design의 component·변수
 | 종류 | 화면 | 근거 |
 | --- | --- | --- |
 | **진행률 링 프로필 아바타** | 하이라이트 상세 · 비디오에디터 워크스페이스 | `components/navigation/Gnb.tsx:5322` |
-| **탭 배너 캐러셀** | 앱 홈 · 하이라이트 허브 | `components/banners/TabBannerCarousel.tsx:290` |
-| **배너 컨트롤 (화살표 + 진행 도트)** | 앱 홈 · 하이라이트 허브 | `components/banners/TabBannerCarousel.tsx:317` |
+| **탭 배너 캐러셀** — *해소. LOUIS `banner-carousel` 이 소유한다* | 앱 홈 | `components/scenes/appHomeSceneStyles.ts:913`(`updateBanner`) |
+| **배너 컨트롤 (화살표 + 진행 도트)** — *해소* | 앱 홈 | `components/scenes/appHomeSceneStyles.ts:415`(`bannerControls`) · `:394` · `:436` · `:443` |
 | **업로드 진행바 (determinate)** | 하이라이트 상세 · 숏폼 클립 편집 | `components/scenes/HighlightProjectScene.tsx:2652` |
 | **사이드바 브랜드 워드마크 행** | 앱 홈 · 노드캔버스 허브 | `components/navigation/Gnb.tsx:4377` |
 | **복합 내비 행 + 인셋 생성(+) 버튼** | 하이라이트 허브 · 비디오에디터 허브 | `components/navigation/Gnb.tsx:4743` |
@@ -192,6 +192,11 @@ Home의 마지막 구멍이다. **Avatar와 달리 지금 착수할 수 없다.*
 
 `TabBannerCarousel.tsx` **359줄**, 소비처 3(NodeCanvasHome · VideoEditScene · HighlightScene).
 `HomeBannerSlide.tsx`가 앱 홈 전용으로 따로 있다. 합 **4벌 · 2파일**.
+
+> **2026-08-27 후기.** 이 절 아래의 수치는 전부 그 시점의 기록이다. 제품은 `6602fd24` 에서
+> `TabBannerCarousel.tsx` 를 삭제했고 캐러셀은 앱 홈 하나만 남아 `AppHomeScene.tsx` 안으로 들어갔다.
+> 값의 소유자는 LOUIS `packages/css/src/component/banner-carousel.css` 이고 제품은 그것을 소비한다.
+> **선행 조건 넷은 결과적으로 전부 해소됐다.**
 
 | 축 | 제품 |
 | --- | --- |

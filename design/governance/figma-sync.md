@@ -248,14 +248,20 @@ static-alpha 정책 결정이 선행돼야 한다.
 
 | 항목 | 규모 | 왜 안 되나 |
 | --- | --- | --- |
-| `backdrop-filter` (뒤 배경 블러) | **65개 파일** | 뒤에 실제로 무엇이 있느냐에 따라 결과가 달라진다. 단색 채우기로 대체하면 다른 화면이 된다 |
-| 그라디언트 마스크 | **23개 파일** | 블러·이펙트에 알파 그라디언트를 씌우는 형태다. 레이어 마스크로는 강도가 점진적으로 변하는 구간이 재현되지 않는다 |
-| 테마를 따라가지 않는 그림자 | `--dropdown-ambient-shadow` | `:root`에만 정의되고 다크 재정의가 없다 — **다크에서도 같은 값이다**(`globals.css:63`). 다크용 변형을 새로 만들면 코드와 갈린다. 이름이 비슷한 `--dropdown-frame`도 정의가 둘이지만 **두 값이 바이트 동일**이라 결국 테마 무관이다 |
+| `backdrop-filter` (뒤 배경 블러) | **50개 파일** | 뒤에 실제로 무엇이 있느냐에 따라 결과가 달라진다. 단색 채우기로 대체하면 다른 화면이 된다 |
+| 그라디언트 마스크 | **17개 파일** | 블러·이펙트에 알파 그라디언트를 씌우는 형태다. 레이어 마스크로는 강도가 점진적으로 변하는 구간이 재현되지 않는다 |
+| 테마를 따라가지 않는 그림자 | `--louis-elevation-menu` | 드롭다운·메뉴·팝오버의 앰비언트 섀도우다. 제품의 옛 `--dropdown-ambient-shadow` 별칭은 P#1 에서 폐기됐고 지금은 제품이 LOUIS 정본을 직접 소비한다(`globals.css:59-62`). 정의가 한 벌이라 **다크에서도 같은 값이고**, 다크용 변형을 Figma 에서 새로 만들면 코드와 갈린다 |
 | `@layer` 밖 규칙의 우선순위 | — | 명시도와 무관하게 유틸리티를 이긴다. 옮길 때 `!`가 필요한 자리는 스타일 결정이 아니라 이 우선순위 때문이며, Figma에 대응 개념이 없다 |
 
 사용처 표본 — `backdrop-filter`: `app/admin/AdminClient.tsx` · `app/admin/BannerManagement.tsx` ·
-`app/admin/JobMonitor.tsx`. 마스크: `app/HomePageClient.tsx` ·
-`components/banners/TabBannerCarousel.tsx` · `app/mypage/upgrade/page.tsx`.
+`app/mypage/upgrade/page.tsx`. 마스크: `components/scenes/appHomeSceneStyles.ts`(배너 슬라이드의
+progressive blur) · `components/landing/navigation/Gnb.tsx` · `components/navigation/CommandPalette.tsx`.
+
+> **표본이 한 번 통째로 낡았다.** 앞선 판의 마스크 표본 셋(`app/HomePageClient.tsx` ·
+> `components/banners/TabBannerCarousel.tsx` · `app/mypage/upgrade/page.tsx`)은 배포본 `df414c24`
+> 에서 **한 곳도 마스크를 갖고 있지 않다.** 캐러셀 파일은 아예 없어졌고(`6602fd24`), 배너의 마스크는
+> `appHomeSceneStyles.ts` 의 `bannerSlide` 로 옮겨 갔다. 숫자와 표본은 배포본이 움직이면 같이 낡으므로
+> 재기준선 때 함께 다시 센다.
 
 막힌 자리는 근사치로 메우지 말고 기록한다 — 무엇이 없어서 raw로 그렸는지는
 [figma-gap-registry](../../migration/figma-gap-registry.md)가 소유한다.

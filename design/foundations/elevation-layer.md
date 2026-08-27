@@ -68,7 +68,9 @@ Elevation primitive, semantic elevation과 semantic layer는 단일 DTCG source 
 함께 사라진 것:
 
 - 공용 `Button`의 `primary`·`danger`가 갖던 베벨 2겹, `::before` 오버레이 이너섀도우, 그 층을 얹으려고
-  있던 `translateZ(0)` 스태킹 컨텍스트 (`components/ui/Button.tsx:83-96`)
+  있던 `translateZ(0)` 스태킹 컨텍스트 (`components/ui/Button.tsx@a3ed8e03:83-96` — **제품도 그 뒤
+  같은 층을 걷어냈다.** 배포본 `df414c24` 의 `Button.tsx` 는 69줄이고 `.louis-button` 을 소비하기만
+  한다. 좌표를 커밋에 묶어 두는 것은 그 선언이 실재했던 자리를 잃지 않기 위해서다)
 - 앱 메인 카드의 `::after` 베벨 링. 카드는 이제 `border-radius: 16px` + `--dropdown-frame`뿐이다
   (`globals.css:1345-1351`)
 - 비디오 에디터의 헤더 버튼·타임라인 표면이 쓰던 베벨 (`videoEditParts/vemClass.ts`)

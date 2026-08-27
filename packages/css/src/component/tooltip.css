@@ -41,7 +41,9 @@
 @keyframes louis-tooltip-enter {
   from {
     opacity: 0;
-    scale: 0.97;
+    /* 쉬는 배율은 `motion-scale-tooltip-rest` 가 소유한다. 0.97 을 리터럴로 적으면 그 토큰이
+     * 죽고 Figma 변수와 CSS 가 따로 움직인다. */
+    scale: var(--louis-motion-scale-tooltip-rest);
   }
 
   to {

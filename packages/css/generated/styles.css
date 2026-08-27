@@ -3117,9 +3117,13 @@
   animation-name: louis-project-card-enter;
   animation-duration: var(--louis-motion-list-enter-duration);
   animation-timing-function: var(--louis-motion-list-enter-timing-function);
-  /* 곱셈 기호 앞뒤에 공백을 두지 않는다 — 저작 게이트의 전역 선택자 패턴(`\s*\s`)에 걸린다.
+  /* 항목당 지연은 `motion-list-stagger-step` 의 delay 축이다 — 36ms 를 리터럴로 적으면 그
+   * 토큰이 죽고 다음 사람이 두 자리를 따로 고쳐야 한다.
+   * 곱셈 기호 앞뒤에 공백을 두지 않는다 — 저작 게이트의 전역 선택자 패턴(`\s*\s`)에 걸린다.
    * CSS는 둘 다 같게 읽는다. */
-  animation-delay: calc(var(--louis-project-card-index, 0)*36ms);
+  animation-delay: calc(
+    var(--louis-project-card-index, 0)*var(--louis-motion-list-stagger-step-delay)
+  );
   animation-fill-mode: both;
 }
 
@@ -4476,7 +4480,9 @@
 @keyframes louis-tooltip-enter {
   from {
     opacity: 0;
-    scale: 0.97;
+    /* 쉬는 배율은 `motion-scale-tooltip-rest` 가 소유한다. 0.97 을 리터럴로 적으면 그 토큰이
+     * 죽고 Figma 변수와 CSS 가 따로 움직인다. */
+    scale: var(--louis-motion-scale-tooltip-rest);
   }
 
   to {

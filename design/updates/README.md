@@ -16,6 +16,36 @@ authority: normative
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
 
+## 2026-08-27 (102) — 이름이 값과 다른 토큰을 걷어낸다 (DS-D-0029)
+
+감사가 이름과 값이 어긋난 토큰 네 무리를 찾았다. 넷 다 소비처 0 이라 오늘 깨지는 화면이 없고,
+그래서 처음 집는 사람이 깨뜨린다 — [DS-D-0029](../governance/decisions/DS-D-0029-token-names-must-be-true.md).
+
+### Changed
+
+- **행간**: semantic 축 `type-line-height/*` → `type-line-height-percent/*`(9개). 값은 percent
+  (150·135·120)이며 Figma 가 `lineHeightPercent` 로 보관하기 때문이다. CSS 는 이제
+  `--louis-type-line-height-percent-body-14: 150` 을 발행한다. 참조 0 이던 비율 primitive 3종
+  (`line-height/tight`·`heading`·`body`)은 삭제. 규약은 [Typography](../foundations/typography.md)
+  「행간의 단위」가 소유한다. proposal 의 scope 도 `LINE_HEIGHT` 로 세웠다.
+- **Button**: `button-height`→`height-lg` · `height-sm`→`height-md` · `min-width-sm`→`min-width-md`
+  · `padding-inline`→`padding-inline-lg` · `padding-inline-sm`→`padding-inline-md`.
+  [DS-D-0027](../governance/decisions/DS-D-0027-control-size-ladder.md)이 alias 만 옮기고 이름을
+  두어 접미사 없는 `button-height` 가 40 인데 기본값은 32 였다.
+- **삭제 7개**: `footer-safe-bottom`(제품은 `env(safe-area-inset-bottom)` 이고 spacing primitive 로
+  모델링하는 것을 규범이 금지한다) · 이름이 거짓인 알파 6개(`gray-800-alpha-48/72` ·
+  `gray-900-alpha-08/12` · `gray-300-alpha-88` · `gray-500-alpha-88`).
+
+### Current impact
+
+- **resolved value 가 바뀐 토큰은 0 이다.** 렌더가 달라지는 화면이 없다.
+- `check-token-diff` 는 removal 30 · additive 14 · description 3 으로 breaking 이며 baseline 을
+  승인해 잠갔다(선례 `3bee005`).
+- Figma 변수 24개를 같은 작업에서 옮겼다(이름 14 · 삭제 10 · scope 3). 라이브 516 → 506.
+  `figma/readback.json` 재캡처와 `build-figma-snapshot` 을 같은 작업에서 돌렸고,
+  라이브 506행과 되읽기를 행 지문으로 대조해 어긋남이 **기존 float 정밀도 2행뿐**임을 확인했다.
+- 소비처가 없던 토큰만 건드렸으므로 **제품 저장소는 바뀌지 않는다.**
+
 ## 2026-08-25 (101) — 색 토큰을 SEED/Toss식 scale·semantic로 재구성한다 (DS-D-0024)
 
 색 시스템이 과복잡했다 — primitive 14계열(알파 5계열 포함), semantic 81역할, light/dark 3중

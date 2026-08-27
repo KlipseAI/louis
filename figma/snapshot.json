@@ -3,15 +3,15 @@
   "provenance": {
     "figmaFileKey": "OlYKERKOkgbxBEEoXGZW2c",
     "figmaFileName": "LOUIS",
-    "capturedAt": "2026-08-26",
-    "capturedBy": "use_figma 전수 캡처 + proposal 대조. 변수는 이름·값·alias 를 Figma 실물과 대조해 확인했다(FNV-1a 정본 해시 · 516행). scopes 문자열과 float 정밀도(예: line-height/heading 을 Figma 는 1.350000023841858 로 보관)는 Figma 쪽 저장 형태라 proposal 값을 쓴다 — 게이트가 보는 축이 아니다. components 41개는 use_figma 로 각 set 을 순회해 뜬 값이고, MediaCard·CarouselArrow 2개와 랜딩 4개(StepTile·FaqRow·NewsCard·GnbMenuItem)는 scripts/figma-readback-emit.mjs 가 낸 채취 코드로 떴다(2026-08-26). 그 emitter 로 Keycap·Badge 를 다시 떠 기존 값과 정규화 바이트 일치를 확인했다. Button·IconButton·Slider·ProjectCard 는 일치하지 않으며 사유는 emitter 머리말의 「알려진 어긋남」에 적었다 — 되읽기가 낡은 것이지 emitter 가 틀린 것이 아니다.",
+    "capturedAt": "2026-08-27",
+    "capturedBy": "use_figma 전수 캡처 + proposal 대조. 변수는 이름·값·alias 를 Figma 실물과 대조해 확인했다(FNV-1a 정본 해시 · 516행). scopes 문자열과 float 정밀도(예: line-height/heading 을 Figma 는 1.350000023841858 로 보관)는 Figma 쪽 저장 형태라 proposal 값을 쓴다 — 게이트가 보는 축이 아니다. components 41개는 use_figma 로 각 set 을 순회해 뜬 값이고, MediaCard·CarouselArrow 2개와 랜딩 4개(StepTile·FaqRow·NewsCard·GnbMenuItem)는 scripts/figma-readback-emit.mjs 가 낸 채취 코드로 떴다(2026-08-26). 그 emitter 로 Keycap·Badge 를 다시 떠 기존 값과 정규화 바이트 일치를 확인했다. Button·IconButton·Slider·ProjectCard 는 일치하지 않으며 사유는 emitter 머리말의 「알려진 어긋남」에 적었다 — 되읽기가 낡은 것이지 emitter 가 틀린 것이 아니다. 2026-08-27 DS-D-0029 재캡처: 변수 24개를 라이브에서 옮기고(이름 14 · 삭제 10) 되읽기 행을 같은 작업에서 맞췄다. 전수 덤프 대신 **행 지문 대조**로 확인했다 — 라이브에서 [이름, resolvedType, mode 값]을 mode 이름순으로 정규화해 행마다 FNV-1a 를 내고 되읽기에서 같은 방식으로 낸 집합과 맞췄다(응답 20KB 제한 때문에 전수 덤프는 잘린다). 라이브 506행 중 어긋난 것은 2행이고 둘 다 이 주석이 이미 예외로 적어 둔 float 정밀도다 — scale/tooltip-rest(Figma 0.9700000286102295 vs 0.97) · color/green-500-alpha/08(Figma 0.7765,0.5569 vs 0.776471,0.556863). scopes 열은 여전히 proposal 값이다.",
     "published": false,
-    "tokenSourceSha256": "1055028e7b4bd3929b3abaf8de7851cd18973c3b8a0ae9720916b82e1bbba1f9",
-    "proposalSha256": "99fc4cfc45d0436ea681d03555b1030d5ad5df64696b09765ae8eba6a651d601",
+    "tokenSourceSha256": "8896845b15db85a968b7640464d6c2a702d300f1dff7d581dc79b78c5df1390b",
+    "proposalSha256": "a82ee2cc0e500e5efd0621a33a2fb88cc9719a1e77d9ed6e4449b55c906881bb",
     "readback": {
-      "tokens": 516,
-      "canonicalLength": 51852,
-      "fnv1a32": "7c2d7a91",
+      "tokens": 506,
+      "canonicalLength": 50760,
+      "fnv1a32": "c890f292",
       "note": "변수는 readback.json의 되읽기 행을 tokenId 공간으로 옮긴 것이고, style과 component는 같은 되읽기의 style/component 절이다. canonical 해시는 컬렉션·이름·타입·mode 값을 정렬해 이은 문자열의 FNV-1a다.",
       "styles": {
         "text": 15,
@@ -31,14 +31,14 @@
         "Base"
       ],
       "defaultMode": "Base",
-      "variableCount": 181
+      "variableCount": 178
     },
     "Klipse Semantic": {
       "modes": [
         "Global"
       ],
       "defaultMode": "Global",
-      "variableCount": 144
+      "variableCount": 143
     },
     "Klipse Semantic Color": {
       "modes": [
@@ -46,7 +46,7 @@
         "Dark"
       ],
       "defaultMode": "Light",
-      "variableCount": 191
+      "variableCount": 185
     }
   },
   "variables": {
@@ -293,8 +293,8 @@
         }
       }
     },
-    "button-height": {
-      "figmaName": "button/height",
+    "button-height-lg": {
+      "figmaName": "button/height-lg",
       "resolvedType": "FLOAT",
       "valuesByMode": {
         "Global": {
@@ -302,8 +302,8 @@
         }
       }
     },
-    "button-height-sm": {
-      "figmaName": "button/height-sm",
+    "button-height-md": {
+      "figmaName": "button/height-md",
       "resolvedType": "FLOAT",
       "valuesByMode": {
         "Global": {
@@ -311,8 +311,8 @@
         }
       }
     },
-    "button-min-width-sm": {
-      "figmaName": "button/min-width-sm",
+    "button-min-width-md": {
+      "figmaName": "button/min-width-md",
       "resolvedType": "FLOAT",
       "valuesByMode": {
         "Global": {
@@ -320,8 +320,8 @@
         }
       }
     },
-    "button-padding-inline": {
-      "figmaName": "button/padding-inline",
+    "button-padding-inline-lg": {
+      "figmaName": "button/padding-inline-lg",
       "resolvedType": "FLOAT",
       "valuesByMode": {
         "Global": {
@@ -329,8 +329,8 @@
         }
       }
     },
-    "button-padding-inline-sm": {
-      "figmaName": "button/padding-inline-sm",
+    "button-padding-inline-md": {
+      "figmaName": "button/padding-inline-md",
       "resolvedType": "FLOAT",
       "valuesByMode": {
         "Global": {
@@ -1663,18 +1663,6 @@
         }
       }
     },
-    "color-gray-300-alpha-88": {
-      "figmaName": "color/gray/300-alpha/88",
-      "resolvedType": "COLOR",
-      "valuesByMode": {
-        "Dark": {
-          "alias": "color-palette-gray-300"
-        },
-        "Light": {
-          "alias": "color-palette-gray-700"
-        }
-      }
-    },
     "color-gray-400": {
       "figmaName": "color/gray/400",
       "resolvedType": "COLOR",
@@ -1689,18 +1677,6 @@
     },
     "color-gray-500": {
       "figmaName": "color/gray/500",
-      "resolvedType": "COLOR",
-      "valuesByMode": {
-        "Dark": {
-          "alias": "color-palette-gray-500"
-        },
-        "Light": {
-          "alias": "color-palette-gray-500"
-        }
-      }
-    },
-    "color-gray-500-alpha-88": {
-      "figmaName": "color/gray/500-alpha/88",
       "resolvedType": "COLOR",
       "valuesByMode": {
         "Dark": {
@@ -1747,30 +1723,6 @@
         }
       }
     },
-    "color-gray-800-alpha-48": {
-      "figmaName": "color/gray/800-alpha/48",
-      "resolvedType": "COLOR",
-      "valuesByMode": {
-        "Dark": {
-          "alias": "color-static-white-alpha-04"
-        },
-        "Light": {
-          "alias": "color-static-black-alpha-04"
-        }
-      }
-    },
-    "color-gray-800-alpha-72": {
-      "figmaName": "color/gray/800-alpha/72",
-      "resolvedType": "COLOR",
-      "valuesByMode": {
-        "Dark": {
-          "alias": "color-static-white-alpha-08"
-        },
-        "Light": {
-          "alias": "color-static-black-alpha-08"
-        }
-      }
-    },
     "color-gray-900": {
       "figmaName": "color/gray/900",
       "resolvedType": "COLOR",
@@ -1780,30 +1732,6 @@
         },
         "Light": {
           "alias": "color-palette-gray-100"
-        }
-      }
-    },
-    "color-gray-900-alpha-08": {
-      "figmaName": "color/gray/900-alpha/08",
-      "resolvedType": "COLOR",
-      "valuesByMode": {
-        "Dark": {
-          "alias": "color-static-black-alpha-08"
-        },
-        "Light": {
-          "alias": "color-static-white-alpha-04"
-        }
-      }
-    },
-    "color-gray-900-alpha-12": {
-      "figmaName": "color/gray/900-alpha/12",
-      "resolvedType": "COLOR",
-      "valuesByMode": {
-        "Dark": {
-          "alias": "color-static-black-alpha-12"
-        },
-        "Light": {
-          "alias": "color-static-white-alpha-04"
         }
       }
     },
@@ -4373,15 +4301,6 @@
         }
       }
     },
-    "footer-safe-bottom": {
-      "figmaName": "footer/safe-bottom",
-      "resolvedType": "FLOAT",
-      "valuesByMode": {
-        "Global": {
-          "alias": "space-0"
-        }
-      }
-    },
     "icon-size-lg": {
       "figmaName": "icon/size-lg",
       "resolvedType": "FLOAT",
@@ -4697,24 +4616,6 @@
         }
       }
     },
-    "line-height-body": {
-      "figmaName": "line-height/body",
-      "resolvedType": "FLOAT",
-      "valuesByMode": {
-        "Base": {
-          "value": 1.5
-        }
-      }
-    },
-    "line-height-heading": {
-      "figmaName": "line-height/heading",
-      "resolvedType": "FLOAT",
-      "valuesByMode": {
-        "Base": {
-          "value": 1.35
-        }
-      }
-    },
     "line-height-percent-120": {
       "figmaName": "line-height/percent-120",
       "resolvedType": "FLOAT",
@@ -4739,15 +4640,6 @@
       "valuesByMode": {
         "Base": {
           "value": 150
-        }
-      }
-    },
-    "line-height-tight": {
-      "figmaName": "line-height/tight",
-      "resolvedType": "FLOAT",
-      "valuesByMode": {
-        "Base": {
-          "value": 1.2
         }
       }
     },
@@ -5705,8 +5597,8 @@
         }
       }
     },
-    "type-line-height-body-14": {
-      "figmaName": "type-line-height/body-14",
+    "type-line-height-percent-body-14": {
+      "figmaName": "type-line-height-percent/body-14",
       "resolvedType": "FLOAT",
       "valuesByMode": {
         "Global": {
@@ -5714,8 +5606,8 @@
         }
       }
     },
-    "type-line-height-body-16": {
-      "figmaName": "type-line-height/body-16",
+    "type-line-height-percent-body-16": {
+      "figmaName": "type-line-height-percent/body-16",
       "resolvedType": "FLOAT",
       "valuesByMode": {
         "Global": {
@@ -5723,8 +5615,8 @@
         }
       }
     },
-    "type-line-height-body-20": {
-      "figmaName": "type-line-height/body-20",
+    "type-line-height-percent-body-20": {
+      "figmaName": "type-line-height-percent/body-20",
       "resolvedType": "FLOAT",
       "valuesByMode": {
         "Global": {
@@ -5732,8 +5624,8 @@
         }
       }
     },
-    "type-line-height-caption-12": {
-      "figmaName": "type-line-height/caption-12",
+    "type-line-height-percent-caption-12": {
+      "figmaName": "type-line-height-percent/caption-12",
       "resolvedType": "FLOAT",
       "valuesByMode": {
         "Global": {
@@ -5741,8 +5633,8 @@
         }
       }
     },
-    "type-line-height-heading-28": {
-      "figmaName": "type-line-height/heading-28",
+    "type-line-height-percent-heading-28": {
+      "figmaName": "type-line-height-percent/heading-28",
       "resolvedType": "FLOAT",
       "valuesByMode": {
         "Global": {
@@ -5750,8 +5642,8 @@
         }
       }
     },
-    "type-line-height-heading-36": {
-      "figmaName": "type-line-height/heading-36",
+    "type-line-height-percent-heading-36": {
+      "figmaName": "type-line-height-percent/heading-36",
       "resolvedType": "FLOAT",
       "valuesByMode": {
         "Global": {
@@ -5759,8 +5651,8 @@
         }
       }
     },
-    "type-line-height-heading-48": {
-      "figmaName": "type-line-height/heading-48",
+    "type-line-height-percent-heading-48": {
+      "figmaName": "type-line-height-percent/heading-48",
       "resolvedType": "FLOAT",
       "valuesByMode": {
         "Global": {
@@ -5768,8 +5660,8 @@
         }
       }
     },
-    "type-line-height-project-card-overlay": {
-      "figmaName": "type-line-height/project-card-overlay",
+    "type-line-height-percent-project-card-overlay": {
+      "figmaName": "type-line-height-percent/project-card-overlay",
       "resolvedType": "FLOAT",
       "valuesByMode": {
         "Global": {
@@ -5777,8 +5669,8 @@
         }
       }
     },
-    "type-line-height-tooltip": {
-      "figmaName": "type-line-height/tooltip",
+    "type-line-height-percent-tooltip": {
+      "figmaName": "type-line-height-percent/tooltip",
       "resolvedType": "FLOAT",
       "valuesByMode": {
         "Global": {

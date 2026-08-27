@@ -1,7 +1,7 @@
 {
   "$comment": "Figma Plugin API 되읽기 원본. 손으로 쓰지 않는다 — components 블록은 `node scripts/figma-readback-emit.mjs --components` 가 내는 플러그인 코드로 뜨고 `--merge` 로 병합한다(그 밖의 블록은 build-figma-snapshot.mjs 머리말의 절차). 2026-08-26 에 대상을 선행 라이브러리 bxGEp0km 에서 LOUIS OlYKERK 로 옮겼다(DS-D-0025 정정). 같은 날 DS 컴포넌트를 LOUIS 파일에 다시 세웠고 지금 components 는 43개다 — 이전 머리말의 「components 가 비어 있는 것은 사실이다」는 그 이관 시점의 기록이었고 지금은 더 이상 맞지 않는다. 은퇴 파일의 명세는 readback.retired-library.json 에 보존했다.",
-  "capturedAt": "2026-08-26",
-  "capturedBy": "use_figma 전수 캡처 + proposal 대조. 변수는 이름·값·alias 를 Figma 실물과 대조해 확인했다(FNV-1a 정본 해시 · 516행). scopes 문자열과 float 정밀도(예: line-height/heading 을 Figma 는 1.350000023841858 로 보관)는 Figma 쪽 저장 형태라 proposal 값을 쓴다 — 게이트가 보는 축이 아니다. components 41개는 use_figma 로 각 set 을 순회해 뜬 값이고, MediaCard·CarouselArrow 2개와 랜딩 4개(StepTile·FaqRow·NewsCard·GnbMenuItem)는 scripts/figma-readback-emit.mjs 가 낸 채취 코드로 떴다(2026-08-26). 그 emitter 로 Keycap·Badge 를 다시 떠 기존 값과 정규화 바이트 일치를 확인했다. Button·IconButton·Slider·ProjectCard 는 일치하지 않으며 사유는 emitter 머리말의 「알려진 어긋남」에 적었다 — 되읽기가 낡은 것이지 emitter 가 틀린 것이 아니다.",
+  "capturedAt": "2026-08-27",
+  "capturedBy": "use_figma 전수 캡처 + proposal 대조. 변수는 이름·값·alias 를 Figma 실물과 대조해 확인했다(FNV-1a 정본 해시 · 516행). scopes 문자열과 float 정밀도(예: line-height/heading 을 Figma 는 1.350000023841858 로 보관)는 Figma 쪽 저장 형태라 proposal 값을 쓴다 — 게이트가 보는 축이 아니다. components 41개는 use_figma 로 각 set 을 순회해 뜬 값이고, MediaCard·CarouselArrow 2개와 랜딩 4개(StepTile·FaqRow·NewsCard·GnbMenuItem)는 scripts/figma-readback-emit.mjs 가 낸 채취 코드로 떴다(2026-08-26). 그 emitter 로 Keycap·Badge 를 다시 떠 기존 값과 정규화 바이트 일치를 확인했다. Button·IconButton·Slider·ProjectCard 는 일치하지 않으며 사유는 emitter 머리말의 「알려진 어긋남」에 적었다 — 되읽기가 낡은 것이지 emitter 가 틀린 것이 아니다. 2026-08-27 DS-D-0029 재캡처: 변수 24개를 라이브에서 옮기고(이름 14 · 삭제 10) 되읽기 행을 같은 작업에서 맞췄다. 전수 덤프 대신 **행 지문 대조**로 확인했다 — 라이브에서 [이름, resolvedType, mode 값]을 mode 이름순으로 정규화해 행마다 FNV-1a 를 내고 되읽기에서 같은 방식으로 낸 집합과 맞췄다(응답 20KB 제한 때문에 전수 덤프는 잘린다). 라이브 506행 중 어긋난 것은 2행이고 둘 다 이 주석이 이미 예외로 적어 둔 float 정밀도다 — scale/tooltip-rest(Figma 0.9700000286102295 vs 0.97) · color/green-500-alpha/08(Figma 0.7765,0.5569 vs 0.776471,0.556863). scopes 열은 여전히 proposal 값이다.",
   "figmaFileKey": "OlYKERKOkgbxBEEoXGZW2c",
   "figmaFileName": "LOUIS",
   "rootNameFromApi": "Document",
@@ -2244,33 +2244,9 @@
           ]
         ],
         [
-          "line-height/body",
-          "FLOAT",
-          "",
-          [
-            [
-              "Base",
-              null,
-              1.5
-            ]
-          ]
-        ],
-        [
-          "line-height/heading",
-          "FLOAT",
-          "",
-          [
-            [
-              "Base",
-              null,
-              1.35
-            ]
-          ]
-        ],
-        [
           "line-height/percent-120",
           "FLOAT",
-          "",
+          "LINE_HEIGHT",
           [
             [
               "Base",
@@ -2282,7 +2258,7 @@
         [
           "line-height/percent-135",
           "FLOAT",
-          "",
+          "LINE_HEIGHT",
           [
             [
               "Base",
@@ -2294,24 +2270,12 @@
         [
           "line-height/percent-150",
           "FLOAT",
-          "",
+          "LINE_HEIGHT",
           [
             [
               "Base",
               null,
               150
-            ]
-          ]
-        ],
-        [
-          "line-height/tight",
-          "FLOAT",
-          "",
-          [
-            [
-              "Base",
-              null,
-              1.2
             ]
           ]
         ],
@@ -3020,7 +2984,7 @@
           ]
         ],
         [
-          "button/height",
+          "button/height-lg",
           "FLOAT",
           "WIDTH_HEIGHT",
           [
@@ -3032,7 +2996,7 @@
           ]
         ],
         [
-          "button/height-sm",
+          "button/height-md",
           "FLOAT",
           "WIDTH_HEIGHT",
           [
@@ -3044,7 +3008,7 @@
           ]
         ],
         [
-          "button/min-width-sm",
+          "button/min-width-md",
           "FLOAT",
           "WIDTH_HEIGHT",
           [
@@ -3056,7 +3020,7 @@
           ]
         ],
         [
-          "button/padding-inline",
+          "button/padding-inline-lg",
           "FLOAT",
           "WIDTH_HEIGHT",
           [
@@ -3068,7 +3032,7 @@
           ]
         ],
         [
-          "button/padding-inline-sm",
+          "button/padding-inline-md",
           "FLOAT",
           "WIDTH_HEIGHT",
           [
@@ -3129,18 +3093,6 @@
         ],
         [
           "footer/reveal-height",
-          "FLOAT",
-          "WIDTH_HEIGHT",
-          [
-            [
-              "Global",
-              "Klipse Primitive::spacing/0",
-              null
-            ]
-          ]
-        ],
-        [
-          "footer/safe-bottom",
           "FLOAT",
           "WIDTH_HEIGHT",
           [
@@ -4256,9 +4208,9 @@
           ]
         ],
         [
-          "type-line-height/body-14",
+          "type-line-height-percent/body-14",
           "FLOAT",
-          "",
+          "LINE_HEIGHT",
           [
             [
               "Global",
@@ -4268,9 +4220,9 @@
           ]
         ],
         [
-          "type-line-height/body-16",
+          "type-line-height-percent/body-16",
           "FLOAT",
-          "",
+          "LINE_HEIGHT",
           [
             [
               "Global",
@@ -4280,9 +4232,9 @@
           ]
         ],
         [
-          "type-line-height/body-20",
+          "type-line-height-percent/body-20",
           "FLOAT",
-          "",
+          "LINE_HEIGHT",
           [
             [
               "Global",
@@ -4292,9 +4244,9 @@
           ]
         ],
         [
-          "type-line-height/caption-12",
+          "type-line-height-percent/caption-12",
           "FLOAT",
-          "",
+          "LINE_HEIGHT",
           [
             [
               "Global",
@@ -4304,9 +4256,9 @@
           ]
         ],
         [
-          "type-line-height/heading-28",
+          "type-line-height-percent/heading-28",
           "FLOAT",
-          "",
+          "LINE_HEIGHT",
           [
             [
               "Global",
@@ -4316,9 +4268,9 @@
           ]
         ],
         [
-          "type-line-height/heading-36",
+          "type-line-height-percent/heading-36",
           "FLOAT",
-          "",
+          "LINE_HEIGHT",
           [
             [
               "Global",
@@ -4328,9 +4280,9 @@
           ]
         ],
         [
-          "type-line-height/heading-48",
+          "type-line-height-percent/heading-48",
           "FLOAT",
-          "",
+          "LINE_HEIGHT",
           [
             [
               "Global",
@@ -4340,9 +4292,9 @@
           ]
         ],
         [
-          "type-line-height/project-card-overlay",
+          "type-line-height-percent/project-card-overlay",
           "FLOAT",
-          "",
+          "LINE_HEIGHT",
           [
             [
               "Global",
@@ -4352,9 +4304,9 @@
           ]
         ],
         [
-          "type-line-height/tooltip",
+          "type-line-height-percent/tooltip",
           "FLOAT",
-          "",
+          "LINE_HEIGHT",
           [
             [
               "Global",
@@ -6052,23 +6004,6 @@
           ]
         ],
         [
-          "color/gray/300-alpha/88",
-          "COLOR",
-          "FRAME_FILL,SHAPE_FILL,STROKE_COLOR,TEXT_FILL",
-          [
-            [
-              "Dark",
-              "Klipse Primitive::color/palette-gray/300",
-              null
-            ],
-            [
-              "Light",
-              "Klipse Primitive::color/palette-gray/700",
-              null
-            ]
-          ]
-        ],
-        [
           "color/gray/400",
           "COLOR",
           "FRAME_FILL,SHAPE_FILL,STROKE_COLOR,TEXT_FILL",
@@ -6087,23 +6022,6 @@
         ],
         [
           "color/gray/500",
-          "COLOR",
-          "FRAME_FILL,SHAPE_FILL,STROKE_COLOR,TEXT_FILL",
-          [
-            [
-              "Dark",
-              "Klipse Primitive::color/palette-gray/500",
-              null
-            ],
-            [
-              "Light",
-              "Klipse Primitive::color/palette-gray/500",
-              null
-            ]
-          ]
-        ],
-        [
-          "color/gray/500-alpha/88",
           "COLOR",
           "FRAME_FILL,SHAPE_FILL,STROKE_COLOR,TEXT_FILL",
           [
@@ -6171,40 +6089,6 @@
           ]
         ],
         [
-          "color/gray/800-alpha/48",
-          "COLOR",
-          "FRAME_FILL,SHAPE_FILL,STROKE_COLOR,TEXT_FILL",
-          [
-            [
-              "Dark",
-              "Klipse Primitive::color/static-white-alpha/04",
-              null
-            ],
-            [
-              "Light",
-              "Klipse Primitive::color/static-black-alpha/04",
-              null
-            ]
-          ]
-        ],
-        [
-          "color/gray/800-alpha/72",
-          "COLOR",
-          "FRAME_FILL,SHAPE_FILL,STROKE_COLOR,TEXT_FILL",
-          [
-            [
-              "Dark",
-              "Klipse Primitive::color/static-white-alpha/08",
-              null
-            ],
-            [
-              "Light",
-              "Klipse Primitive::color/static-black-alpha/08",
-              null
-            ]
-          ]
-        ],
-        [
           "color/gray/900",
           "COLOR",
           "FRAME_FILL,SHAPE_FILL,STROKE_COLOR,TEXT_FILL",
@@ -6217,40 +6101,6 @@
             [
               "Light",
               "Klipse Primitive::color/palette-gray/100",
-              null
-            ]
-          ]
-        ],
-        [
-          "color/gray/900-alpha/08",
-          "COLOR",
-          "FRAME_FILL,SHAPE_FILL,STROKE_COLOR,TEXT_FILL",
-          [
-            [
-              "Dark",
-              "Klipse Primitive::color/static-black-alpha/08",
-              null
-            ],
-            [
-              "Light",
-              "Klipse Primitive::color/static-white-alpha/04",
-              null
-            ]
-          ]
-        ],
-        [
-          "color/gray/900-alpha/12",
-          "COLOR",
-          "FRAME_FILL,SHAPE_FILL,STROKE_COLOR,TEXT_FILL",
-          [
-            [
-              "Dark",
-              "Klipse Primitive::color/static-black-alpha/12",
-              null
-            ],
-            [
-              "Light",
-              "Klipse Primitive::color/static-white-alpha/04",
               null
             ]
           ]

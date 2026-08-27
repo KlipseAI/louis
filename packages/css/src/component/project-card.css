@@ -159,9 +159,10 @@
 
 /* **프로그레시브 블러.** 흐림을 칠하는 층이다.
  *
- * mask의 정지점은 **색이 아니라 알파 램프**다 — 흐림이 얼마나 남는지만 정한다. 그래서 semantic
- * 색 토큰이 아니라 `color-mix`로 검정의 불투명도를 직접 적는다. 여기에 색 토큰을 넣으면 테마에
- * 따라 흐림의 세기가 달라진다. */
+ * 반경과 마스크 곡선은 **이 파일이 소유하지 않는다** — base.css 의 `--louis-progressive-blur`
+ * 와 `--louis-progressive-blur-mask` 가 정본이고 MediaCard 의 정보 바가 같은 값을 쓴다. 왜
+ * 값으로 발행하고 클래스로 내지 않았는지도 그쪽 주석에 있다. 여기 남는 것은 **이 카드에서만
+ * 참인 것**뿐이다: 층의 위치와 반경 상속. */
 .louis-project-card-overlay::before {
   content: "";
   position: absolute;
@@ -169,15 +170,8 @@
   pointer-events: none;
   /* 반경을 물려받는다. 이 층이 사각형이면 위에서 깎은 모서리가 다시 채워진다. */
   border-radius: inherit;
-  backdrop-filter: blur(var(--louis-blur-surface));
-  mask-image: linear-gradient(
-    to top,
-    black 0%,
-    black 55%,
-    color-mix(in srgb, black 80%, transparent) 70%,
-    color-mix(in srgb, black 40%, transparent) 85%,
-    transparent 100%
-  );
+  backdrop-filter: var(--louis-progressive-blur);
+  mask-image: var(--louis-progressive-blur-mask);
 }
 
 .louis-project-card-overlay-content {

@@ -4547,37 +4547,11 @@ export const primitives = {
     "type": "number",
     "value": 100
   },
-  "line-height-body": {
-    "aliasTarget": null,
-    "cssProperties": {},
-    "deprecated": null,
-    "description": null,
-    "id": "line-height-body",
-    "mode": "base",
-    "rawValue": 1.5,
-    "sourcePath": "primitive.line-height.body",
-    "tier": "primitive",
-    "type": "number",
-    "value": 1.5
-  },
-  "line-height-heading": {
-    "aliasTarget": null,
-    "cssProperties": {},
-    "deprecated": null,
-    "description": null,
-    "id": "line-height-heading",
-    "mode": "base",
-    "rawValue": 1.35,
-    "sourcePath": "primitive.line-height.heading",
-    "tier": "primitive",
-    "type": "number",
-    "value": 1.35
-  },
   "line-height-percent-120": {
     "aliasTarget": null,
     "cssProperties": {},
     "deprecated": null,
-    "description": null,
+    "description": "행간 120% — Figma 의 PERCENT 단위 값이다. CSS 비율로 쓰려면 100 으로 나눈다(1.2).",
     "id": "line-height-percent-120",
     "mode": "base",
     "rawValue": 120,
@@ -4590,7 +4564,7 @@ export const primitives = {
     "aliasTarget": null,
     "cssProperties": {},
     "deprecated": null,
-    "description": null,
+    "description": "행간 135% — Figma 의 PERCENT 단위 값이다. CSS 비율로 쓰려면 100 으로 나눈다(1.35).",
     "id": "line-height-percent-135",
     "mode": "base",
     "rawValue": 135,
@@ -4603,7 +4577,7 @@ export const primitives = {
     "aliasTarget": null,
     "cssProperties": {},
     "deprecated": null,
-    "description": null,
+    "description": "행간 150% — Figma 의 PERCENT 단위 값이다. CSS 비율로 쓰려면 100 으로 나눈다(1.5).",
     "id": "line-height-percent-150",
     "mode": "base",
     "rawValue": 150,
@@ -4611,19 +4585,6 @@ export const primitives = {
     "tier": "primitive",
     "type": "number",
     "value": 150
-  },
-  "line-height-tight": {
-    "aliasTarget": null,
-    "cssProperties": {},
-    "deprecated": null,
-    "description": null,
-    "id": "line-height-tight",
-    "mode": "base",
-    "rawValue": 1.2,
-    "sourcePath": "primitive.line-height.tight",
-    "tier": "primitive",
-    "type": "number",
-    "value": 1.2
   },
   "radius-0": {
     "aliasTarget": null,
@@ -8531,20 +8492,20 @@ export const tokens = {
         "unit": "px"
       }
     },
-    "button-height": {
+    "button-height-lg": {
       "aliasTarget": {
         "id": "layout-control-height-lg",
         "mode": "global"
       },
       "cssProperties": {
-        "--louis-button-height": "40px"
+        "--louis-button-height-lg": "40px"
       },
       "deprecated": null,
       "description": null,
-      "id": "button-height",
+      "id": "button-height-lg",
       "mode": "global",
       "rawValue": "{semantic.global.layout.control-height-lg}",
-      "sourcePath": "semantic.global.button.height",
+      "sourcePath": "semantic.global.button.height-lg",
       "tier": "semantic",
       "type": "dimension",
       "value": {
@@ -8552,20 +8513,20 @@ export const tokens = {
         "unit": "px"
       }
     },
-    "button-height-sm": {
+    "button-height-md": {
       "aliasTarget": {
         "id": "layout-control-height-md",
         "mode": "global"
       },
       "cssProperties": {
-        "--louis-button-height-sm": "32px"
+        "--louis-button-height-md": "32px"
       },
       "deprecated": null,
       "description": null,
-      "id": "button-height-sm",
+      "id": "button-height-md",
       "mode": "global",
       "rawValue": "{semantic.global.layout.control-height-md}",
-      "sourcePath": "semantic.global.button.height-sm",
+      "sourcePath": "semantic.global.button.height-md",
       "tier": "semantic",
       "type": "dimension",
       "value": {
@@ -8573,20 +8534,20 @@ export const tokens = {
         "unit": "px"
       }
     },
-    "button-min-width-sm": {
+    "button-min-width-md": {
       "aliasTarget": {
         "id": "layout-control-minimum-width-md",
         "mode": "global"
       },
       "cssProperties": {
-        "--louis-button-min-width-sm": "48px"
+        "--louis-button-min-width-md": "48px"
       },
       "deprecated": null,
       "description": null,
-      "id": "button-min-width-sm",
+      "id": "button-min-width-md",
       "mode": "global",
       "rawValue": "{semantic.global.layout.control-minimum-width-md}",
-      "sourcePath": "semantic.global.button.min-width-sm",
+      "sourcePath": "semantic.global.button.min-width-md",
       "tier": "semantic",
       "type": "dimension",
       "value": {
@@ -8594,20 +8555,20 @@ export const tokens = {
         "unit": "px"
       }
     },
-    "button-padding-inline": {
+    "button-padding-inline-lg": {
       "aliasTarget": {
         "id": "space-control-lg",
         "mode": "global"
       },
       "cssProperties": {
-        "--louis-button-padding-inline": "16px"
+        "--louis-button-padding-inline-lg": "16px"
       },
       "deprecated": null,
       "description": null,
-      "id": "button-padding-inline",
+      "id": "button-padding-inline-lg",
       "mode": "global",
       "rawValue": "{semantic.global.spacing.control-lg}",
-      "sourcePath": "semantic.global.button.padding-inline",
+      "sourcePath": "semantic.global.button.padding-inline-lg",
       "tier": "semantic",
       "type": "dimension",
       "value": {
@@ -8615,20 +8576,20 @@ export const tokens = {
         "unit": "px"
       }
     },
-    "button-padding-inline-sm": {
+    "button-padding-inline-md": {
       "aliasTarget": {
         "id": "space-control-md",
         "mode": "global"
       },
       "cssProperties": {
-        "--louis-button-padding-inline-sm": "12px"
+        "--louis-button-padding-inline-md": "12px"
       },
       "deprecated": null,
       "description": null,
-      "id": "button-padding-inline-sm",
+      "id": "button-padding-inline-md",
       "mode": "global",
       "rawValue": "{semantic.global.spacing.control-md}",
-      "sourcePath": "semantic.global.button.padding-inline-sm",
+      "sourcePath": "semantic.global.button.padding-inline-md",
       "tier": "semantic",
       "type": "dimension",
       "value": {
@@ -9006,27 +8967,6 @@ export const tokens = {
       "mode": "global",
       "rawValue": "{primitive.spacing.0}",
       "sourcePath": "semantic.global.footer.reveal-height",
-      "tier": "semantic",
-      "type": "dimension",
-      "value": {
-        "value": 0,
-        "unit": "px"
-      }
-    },
-    "footer-safe-bottom": {
-      "aliasTarget": {
-        "id": "space-0",
-        "mode": "base"
-      },
-      "cssProperties": {
-        "--louis-footer-safe-bottom": "0px"
-      },
-      "deprecated": null,
-      "description": null,
-      "id": "footer-safe-bottom",
-      "mode": "global",
-      "rawValue": "{primitive.spacing.0}",
-      "sourcePath": "semantic.global.footer.safe-bottom",
       "tier": "semantic",
       "type": "dimension",
       "value": {
@@ -11431,164 +11371,164 @@ export const tokens = {
         "unit": "px"
       }
     },
-    "type-line-height-body-14": {
+    "type-line-height-percent-body-14": {
       "aliasTarget": {
         "id": "line-height-percent-150",
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-type-line-height-body-14": "150"
+        "--louis-type-line-height-percent-body-14": "150"
       },
       "deprecated": null,
       "description": null,
-      "id": "type-line-height-body-14",
+      "id": "type-line-height-percent-body-14",
       "mode": "global",
       "rawValue": "{primitive.line-height.percent-150}",
-      "sourcePath": "semantic.global.type-line-height.body-14",
+      "sourcePath": "semantic.global.type-line-height-percent.body-14",
       "tier": "semantic",
       "type": "number",
       "value": 150
     },
-    "type-line-height-body-16": {
+    "type-line-height-percent-body-16": {
       "aliasTarget": {
         "id": "line-height-percent-150",
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-type-line-height-body-16": "150"
+        "--louis-type-line-height-percent-body-16": "150"
       },
       "deprecated": null,
       "description": null,
-      "id": "type-line-height-body-16",
+      "id": "type-line-height-percent-body-16",
       "mode": "global",
       "rawValue": "{primitive.line-height.percent-150}",
-      "sourcePath": "semantic.global.type-line-height.body-16",
+      "sourcePath": "semantic.global.type-line-height-percent.body-16",
       "tier": "semantic",
       "type": "number",
       "value": 150
     },
-    "type-line-height-body-20": {
+    "type-line-height-percent-body-20": {
       "aliasTarget": {
         "id": "line-height-percent-150",
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-type-line-height-body-20": "150"
+        "--louis-type-line-height-percent-body-20": "150"
       },
       "deprecated": null,
       "description": null,
-      "id": "type-line-height-body-20",
+      "id": "type-line-height-percent-body-20",
       "mode": "global",
       "rawValue": "{primitive.line-height.percent-150}",
-      "sourcePath": "semantic.global.type-line-height.body-20",
+      "sourcePath": "semantic.global.type-line-height-percent.body-20",
       "tier": "semantic",
       "type": "number",
       "value": 150
     },
-    "type-line-height-caption-12": {
+    "type-line-height-percent-caption-12": {
       "aliasTarget": {
         "id": "line-height-percent-150",
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-type-line-height-caption-12": "150"
+        "--louis-type-line-height-percent-caption-12": "150"
       },
       "deprecated": null,
       "description": null,
-      "id": "type-line-height-caption-12",
+      "id": "type-line-height-percent-caption-12",
       "mode": "global",
       "rawValue": "{primitive.line-height.percent-150}",
-      "sourcePath": "semantic.global.type-line-height.caption-12",
+      "sourcePath": "semantic.global.type-line-height-percent.caption-12",
       "tier": "semantic",
       "type": "number",
       "value": 150
     },
-    "type-line-height-heading-28": {
+    "type-line-height-percent-heading-28": {
       "aliasTarget": {
         "id": "line-height-percent-135",
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-type-line-height-heading-28": "135"
+        "--louis-type-line-height-percent-heading-28": "135"
       },
       "deprecated": null,
       "description": null,
-      "id": "type-line-height-heading-28",
+      "id": "type-line-height-percent-heading-28",
       "mode": "global",
       "rawValue": "{primitive.line-height.percent-135}",
-      "sourcePath": "semantic.global.type-line-height.heading-28",
+      "sourcePath": "semantic.global.type-line-height-percent.heading-28",
       "tier": "semantic",
       "type": "number",
       "value": 135
     },
-    "type-line-height-heading-36": {
+    "type-line-height-percent-heading-36": {
       "aliasTarget": {
         "id": "line-height-percent-135",
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-type-line-height-heading-36": "135"
+        "--louis-type-line-height-percent-heading-36": "135"
       },
       "deprecated": null,
       "description": null,
-      "id": "type-line-height-heading-36",
+      "id": "type-line-height-percent-heading-36",
       "mode": "global",
       "rawValue": "{primitive.line-height.percent-135}",
-      "sourcePath": "semantic.global.type-line-height.heading-36",
+      "sourcePath": "semantic.global.type-line-height-percent.heading-36",
       "tier": "semantic",
       "type": "number",
       "value": 135
     },
-    "type-line-height-heading-48": {
+    "type-line-height-percent-heading-48": {
       "aliasTarget": {
         "id": "line-height-percent-135",
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-type-line-height-heading-48": "135"
+        "--louis-type-line-height-percent-heading-48": "135"
       },
       "deprecated": null,
       "description": null,
-      "id": "type-line-height-heading-48",
+      "id": "type-line-height-percent-heading-48",
       "mode": "global",
       "rawValue": "{primitive.line-height.percent-135}",
-      "sourcePath": "semantic.global.type-line-height.heading-48",
+      "sourcePath": "semantic.global.type-line-height-percent.heading-48",
       "tier": "semantic",
       "type": "number",
       "value": 135
     },
-    "type-line-height-project-card-overlay": {
+    "type-line-height-percent-project-card-overlay": {
       "aliasTarget": {
         "id": "line-height-percent-120",
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-type-line-height-project-card-overlay": "120"
+        "--louis-type-line-height-percent-project-card-overlay": "120"
       },
       "deprecated": null,
       "description": null,
-      "id": "type-line-height-project-card-overlay",
+      "id": "type-line-height-percent-project-card-overlay",
       "mode": "global",
       "rawValue": "{primitive.line-height.percent-120}",
-      "sourcePath": "semantic.global.type-line-height.project-card-overlay",
+      "sourcePath": "semantic.global.type-line-height-percent.project-card-overlay",
       "tier": "semantic",
       "type": "number",
       "value": 120
     },
-    "type-line-height-tooltip": {
+    "type-line-height-percent-tooltip": {
       "aliasTarget": {
         "id": "line-height-percent-150",
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-type-line-height-tooltip": "150"
+        "--louis-type-line-height-percent-tooltip": "150"
       },
       "deprecated": null,
       "description": null,
-      "id": "type-line-height-tooltip",
+      "id": "type-line-height-percent-tooltip",
       "mode": "global",
       "rawValue": "{primitive.line-height.percent-150}",
-      "sourcePath": "semantic.global.type-line-height.tooltip",
+      "sourcePath": "semantic.global.type-line-height-percent.tooltip",
       "tier": "semantic",
       "type": "number",
       "value": 150
@@ -14663,32 +14603,6 @@ export const tokens = {
         "alpha": 1
       }
     },
-    "color-gray-300-alpha-88": {
-      "aliasTarget": {
-        "id": "color-palette-gray-700",
-        "mode": "base"
-      },
-      "cssProperties": {
-        "--louis-color-gray-300-alpha-88": "color(srgb 0.341176 0.364706 0.407843 / 1)"
-      },
-      "deprecated": null,
-      "description": null,
-      "id": "color-gray-300-alpha-88",
-      "mode": "light",
-      "rawValue": "{primitive.color.palette-gray.700}",
-      "sourcePath": "semantic.light.color.gray.300-alpha.88",
-      "tier": "semantic",
-      "type": "color",
-      "value": {
-        "colorSpace": "srgb",
-        "components": [
-          0.341176,
-          0.364706,
-          0.407843
-        ],
-        "alpha": 1
-      }
-    },
     "color-gray-400": {
       "aliasTarget": {
         "id": "color-palette-gray-600",
@@ -14729,32 +14643,6 @@ export const tokens = {
       "mode": "light",
       "rawValue": "{primitive.color.palette-gray.500}",
       "sourcePath": "semantic.light.color.gray.500",
-      "tier": "semantic",
-      "type": "color",
-      "value": {
-        "colorSpace": "srgb",
-        "components": [
-          0.603922,
-          0.627451,
-          0.670588
-        ],
-        "alpha": 1
-      }
-    },
-    "color-gray-500-alpha-88": {
-      "aliasTarget": {
-        "id": "color-palette-gray-500",
-        "mode": "base"
-      },
-      "cssProperties": {
-        "--louis-color-gray-500-alpha-88": "color(srgb 0.603922 0.627451 0.670588 / 1)"
-      },
-      "deprecated": null,
-      "description": null,
-      "id": "color-gray-500-alpha-88",
-      "mode": "light",
-      "rawValue": "{primitive.color.palette-gray.500}",
-      "sourcePath": "semantic.light.color.gray.500-alpha.88",
       "tier": "semantic",
       "type": "color",
       "value": {
@@ -14845,58 +14733,6 @@ export const tokens = {
         "alpha": 1
       }
     },
-    "color-gray-800-alpha-48": {
-      "aliasTarget": {
-        "id": "color-static-black-alpha-04",
-        "mode": "base"
-      },
-      "cssProperties": {
-        "--louis-color-gray-800-alpha-48": "color(srgb 0 0 0 / 0.04)"
-      },
-      "deprecated": null,
-      "description": null,
-      "id": "color-gray-800-alpha-48",
-      "mode": "light",
-      "rawValue": "{primitive.color.static-black-alpha.04}",
-      "sourcePath": "semantic.light.color.gray.800-alpha.48",
-      "tier": "semantic",
-      "type": "color",
-      "value": {
-        "colorSpace": "srgb",
-        "components": [
-          0,
-          0,
-          0
-        ],
-        "alpha": 0.04
-      }
-    },
-    "color-gray-800-alpha-72": {
-      "aliasTarget": {
-        "id": "color-static-black-alpha-08",
-        "mode": "base"
-      },
-      "cssProperties": {
-        "--louis-color-gray-800-alpha-72": "color(srgb 0 0 0 / 0.08)"
-      },
-      "deprecated": null,
-      "description": null,
-      "id": "color-gray-800-alpha-72",
-      "mode": "light",
-      "rawValue": "{primitive.color.static-black-alpha.08}",
-      "sourcePath": "semantic.light.color.gray.800-alpha.72",
-      "tier": "semantic",
-      "type": "color",
-      "value": {
-        "colorSpace": "srgb",
-        "components": [
-          0,
-          0,
-          0
-        ],
-        "alpha": 0.08
-      }
-    },
     "color-gray-900": {
       "aliasTarget": {
         "id": "color-palette-gray-100",
@@ -14921,58 +14757,6 @@ export const tokens = {
           0.952941
         ],
         "alpha": 1
-      }
-    },
-    "color-gray-900-alpha-08": {
-      "aliasTarget": {
-        "id": "color-static-white-alpha-04",
-        "mode": "base"
-      },
-      "cssProperties": {
-        "--louis-color-gray-900-alpha-08": "color(srgb 1 1 1 / 0.04)"
-      },
-      "deprecated": null,
-      "description": null,
-      "id": "color-gray-900-alpha-08",
-      "mode": "light",
-      "rawValue": "{primitive.color.static-white-alpha.04}",
-      "sourcePath": "semantic.light.color.gray.900-alpha.08",
-      "tier": "semantic",
-      "type": "color",
-      "value": {
-        "colorSpace": "srgb",
-        "components": [
-          1,
-          1,
-          1
-        ],
-        "alpha": 0.04
-      }
-    },
-    "color-gray-900-alpha-12": {
-      "aliasTarget": {
-        "id": "color-static-white-alpha-04",
-        "mode": "base"
-      },
-      "cssProperties": {
-        "--louis-color-gray-900-alpha-12": "color(srgb 1 1 1 / 0.04)"
-      },
-      "deprecated": null,
-      "description": null,
-      "id": "color-gray-900-alpha-12",
-      "mode": "light",
-      "rawValue": "{primitive.color.static-white-alpha.04}",
-      "sourcePath": "semantic.light.color.gray.900-alpha.12",
-      "tier": "semantic",
-      "type": "color",
-      "value": {
-        "colorSpace": "srgb",
-        "components": [
-          1,
-          1,
-          1
-        ],
-        "alpha": 0.04
       }
     },
     "color-icon-input-glyph": {
@@ -19798,32 +19582,6 @@ export const tokens = {
         "alpha": 1
       }
     },
-    "color-gray-300-alpha-88": {
-      "aliasTarget": {
-        "id": "color-palette-gray-300",
-        "mode": "base"
-      },
-      "cssProperties": {
-        "--louis-color-gray-300-alpha-88": "color(srgb 0.835294 0.843137 0.866667 / 1)"
-      },
-      "deprecated": null,
-      "description": null,
-      "id": "color-gray-300-alpha-88",
-      "mode": "dark",
-      "rawValue": "{primitive.color.palette-gray.300}",
-      "sourcePath": "semantic.dark.color.gray.300-alpha.88",
-      "tier": "semantic",
-      "type": "color",
-      "value": {
-        "colorSpace": "srgb",
-        "components": [
-          0.835294,
-          0.843137,
-          0.866667
-        ],
-        "alpha": 1
-      }
-    },
     "color-gray-400": {
       "aliasTarget": {
         "id": "color-palette-gray-400",
@@ -19864,32 +19622,6 @@ export const tokens = {
       "mode": "dark",
       "rawValue": "{primitive.color.palette-gray.500}",
       "sourcePath": "semantic.dark.color.gray.500",
-      "tier": "semantic",
-      "type": "color",
-      "value": {
-        "colorSpace": "srgb",
-        "components": [
-          0.603922,
-          0.627451,
-          0.670588
-        ],
-        "alpha": 1
-      }
-    },
-    "color-gray-500-alpha-88": {
-      "aliasTarget": {
-        "id": "color-palette-gray-500",
-        "mode": "base"
-      },
-      "cssProperties": {
-        "--louis-color-gray-500-alpha-88": "color(srgb 0.603922 0.627451 0.670588 / 1)"
-      },
-      "deprecated": null,
-      "description": null,
-      "id": "color-gray-500-alpha-88",
-      "mode": "dark",
-      "rawValue": "{primitive.color.palette-gray.500}",
-      "sourcePath": "semantic.dark.color.gray.500-alpha.88",
       "tier": "semantic",
       "type": "color",
       "value": {
@@ -19980,58 +19712,6 @@ export const tokens = {
         "alpha": 1
       }
     },
-    "color-gray-800-alpha-48": {
-      "aliasTarget": {
-        "id": "color-static-white-alpha-04",
-        "mode": "base"
-      },
-      "cssProperties": {
-        "--louis-color-gray-800-alpha-48": "color(srgb 1 1 1 / 0.04)"
-      },
-      "deprecated": null,
-      "description": null,
-      "id": "color-gray-800-alpha-48",
-      "mode": "dark",
-      "rawValue": "{primitive.color.static-white-alpha.04}",
-      "sourcePath": "semantic.dark.color.gray.800-alpha.48",
-      "tier": "semantic",
-      "type": "color",
-      "value": {
-        "colorSpace": "srgb",
-        "components": [
-          1,
-          1,
-          1
-        ],
-        "alpha": 0.04
-      }
-    },
-    "color-gray-800-alpha-72": {
-      "aliasTarget": {
-        "id": "color-static-white-alpha-08",
-        "mode": "base"
-      },
-      "cssProperties": {
-        "--louis-color-gray-800-alpha-72": "color(srgb 1 1 1 / 0.08)"
-      },
-      "deprecated": null,
-      "description": null,
-      "id": "color-gray-800-alpha-72",
-      "mode": "dark",
-      "rawValue": "{primitive.color.static-white-alpha.08}",
-      "sourcePath": "semantic.dark.color.gray.800-alpha.72",
-      "tier": "semantic",
-      "type": "color",
-      "value": {
-        "colorSpace": "srgb",
-        "components": [
-          1,
-          1,
-          1
-        ],
-        "alpha": 0.08
-      }
-    },
     "color-gray-900": {
       "aliasTarget": {
         "id": "color-palette-gray-900",
@@ -20056,58 +19736,6 @@ export const tokens = {
           0.133333
         ],
         "alpha": 1
-      }
-    },
-    "color-gray-900-alpha-08": {
-      "aliasTarget": {
-        "id": "color-static-black-alpha-08",
-        "mode": "base"
-      },
-      "cssProperties": {
-        "--louis-color-gray-900-alpha-08": "color(srgb 0 0 0 / 0.08)"
-      },
-      "deprecated": null,
-      "description": null,
-      "id": "color-gray-900-alpha-08",
-      "mode": "dark",
-      "rawValue": "{primitive.color.static-black-alpha.08}",
-      "sourcePath": "semantic.dark.color.gray.900-alpha.08",
-      "tier": "semantic",
-      "type": "color",
-      "value": {
-        "colorSpace": "srgb",
-        "components": [
-          0,
-          0,
-          0
-        ],
-        "alpha": 0.08
-      }
-    },
-    "color-gray-900-alpha-12": {
-      "aliasTarget": {
-        "id": "color-static-black-alpha-12",
-        "mode": "base"
-      },
-      "cssProperties": {
-        "--louis-color-gray-900-alpha-12": "color(srgb 0 0 0 / 0.12)"
-      },
-      "deprecated": null,
-      "description": null,
-      "id": "color-gray-900-alpha-12",
-      "mode": "dark",
-      "rawValue": "{primitive.color.static-black-alpha.12}",
-      "sourcePath": "semantic.dark.color.gray.900-alpha.12",
-      "tier": "semantic",
-      "type": "color",
-      "value": {
-        "colorSpace": "srgb",
-        "components": [
-          0,
-          0,
-          0
-        ],
-        "alpha": 0.12
       }
     },
     "color-icon-input-glyph": {

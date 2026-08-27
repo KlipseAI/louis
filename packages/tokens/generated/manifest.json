@@ -2,23 +2,23 @@
   "artifacts": [
     {
       "path": "packages/tokens/generated/figma.tokens.json",
-      "sha256": "99fc4cfc45d0436ea681d03555b1030d5ad5df64696b09765ae8eba6a651d601"
+      "sha256": "a82ee2cc0e500e5efd0621a33a2fb88cc9719a1e77d9ed6e4449b55c906881bb"
     },
     {
       "path": "packages/tokens/generated/index.d.ts",
-      "sha256": "f2b597da9d936c28b4708235d5c64203f70a48dfb7cbe0dd49117dbd5fdf24e1"
+      "sha256": "6b52135232c82128a6990112b4d5394575ede43d5f788f11fa2887f3e1deb494"
     },
     {
       "path": "packages/tokens/generated/index.js",
-      "sha256": "516ac937d5110b524d03f91344959c09b46990c8faa851b1cd90a3cb035ae5ec"
+      "sha256": "da5fc13776be9ca1096ed05fe2577b5cfa9784a331cc8b81a4de0370cbd3bcdf"
     },
     {
       "path": "packages/tokens/generated/tokens.css",
-      "sha256": "48e95f78dd83b3edfac0293398b7ae17cc13919018413ebdba809a8279d3344d"
+      "sha256": "706ede1a06863a9ee8c4036049896dd70e200d68ec8fe8326aebff7534f632e8"
     },
     {
       "path": "packages/tokens/generated/tokens.json",
-      "sha256": "68460bf545b27197cce1039f85617a6622b89d9457dc9529e52c20ba6817283b"
+      "sha256": "3312f5169e449ad869532f653999ca370a6fe6440f7afaa34e78e87aead4e23d"
     }
   ],
   "contrastPairs": [
@@ -408,13 +408,13 @@
   },
   "source": {
     "path": "packages/tokens/src/klipse.tokens.json",
-    "sha256": "1055028e7b4bd3929b3abaf8de7851cd18973c3b8a0ae9720916b82e1bbba1f9"
+    "sha256": "8896845b15db85a968b7640464d6c2a702d300f1dff7d581dc79b78c5df1390b"
   },
   "themes": [
     "light",
     "dark"
   ],
-  "tokenCount": 789,
+  "tokenCount": 773,
   "tokens": [
     {
       "aliasTarget": {
@@ -977,18 +977,18 @@
         "mode": "global"
       },
       "cssProperties": {
-        "--louis-button-height": "40px"
+        "--louis-button-height-lg": "40px"
       },
       "deprecated": null,
       "description": null,
-      "id": "button-height",
+      "id": "button-height-lg",
       "mode": "global",
       "rawValue": "{semantic.global.layout.control-height-lg}",
       "resolvedValue": {
         "unit": "px",
         "value": 40
       },
-      "sourcePath": "semantic.global.button.height",
+      "sourcePath": "semantic.global.button.height-lg",
       "tier": "semantic",
       "type": "dimension"
     },
@@ -998,18 +998,18 @@
         "mode": "global"
       },
       "cssProperties": {
-        "--louis-button-height-sm": "32px"
+        "--louis-button-height-md": "32px"
       },
       "deprecated": null,
       "description": null,
-      "id": "button-height-sm",
+      "id": "button-height-md",
       "mode": "global",
       "rawValue": "{semantic.global.layout.control-height-md}",
       "resolvedValue": {
         "unit": "px",
         "value": 32
       },
-      "sourcePath": "semantic.global.button.height-sm",
+      "sourcePath": "semantic.global.button.height-md",
       "tier": "semantic",
       "type": "dimension"
     },
@@ -1019,18 +1019,18 @@
         "mode": "global"
       },
       "cssProperties": {
-        "--louis-button-min-width-sm": "48px"
+        "--louis-button-min-width-md": "48px"
       },
       "deprecated": null,
       "description": null,
-      "id": "button-min-width-sm",
+      "id": "button-min-width-md",
       "mode": "global",
       "rawValue": "{semantic.global.layout.control-minimum-width-md}",
       "resolvedValue": {
         "unit": "px",
         "value": 48
       },
-      "sourcePath": "semantic.global.button.min-width-sm",
+      "sourcePath": "semantic.global.button.min-width-md",
       "tier": "semantic",
       "type": "dimension"
     },
@@ -1040,18 +1040,18 @@
         "mode": "global"
       },
       "cssProperties": {
-        "--louis-button-padding-inline": "16px"
+        "--louis-button-padding-inline-lg": "16px"
       },
       "deprecated": null,
       "description": null,
-      "id": "button-padding-inline",
+      "id": "button-padding-inline-lg",
       "mode": "global",
       "rawValue": "{semantic.global.spacing.control-lg}",
       "resolvedValue": {
         "unit": "px",
         "value": 16
       },
-      "sourcePath": "semantic.global.button.padding-inline",
+      "sourcePath": "semantic.global.button.padding-inline-lg",
       "tier": "semantic",
       "type": "dimension"
     },
@@ -1061,18 +1061,18 @@
         "mode": "global"
       },
       "cssProperties": {
-        "--louis-button-padding-inline-sm": "12px"
+        "--louis-button-padding-inline-md": "12px"
       },
       "deprecated": null,
       "description": null,
-      "id": "button-padding-inline-sm",
+      "id": "button-padding-inline-md",
       "mode": "global",
       "rawValue": "{semantic.global.spacing.control-md}",
       "resolvedValue": {
         "unit": "px",
         "value": 12
       },
-      "sourcePath": "semantic.global.button.padding-inline-sm",
+      "sourcePath": "semantic.global.button.padding-inline-md",
       "tier": "semantic",
       "type": "dimension"
     },
@@ -6343,58 +6343,6 @@
     },
     {
       "aliasTarget": {
-        "id": "color-palette-gray-700",
-        "mode": "base"
-      },
-      "cssProperties": {
-        "--louis-color-gray-300-alpha-88": "color(srgb 0.341176 0.364706 0.407843 / 1)"
-      },
-      "deprecated": null,
-      "description": null,
-      "id": "color-gray-300-alpha-88",
-      "mode": "light",
-      "rawValue": "{primitive.color.palette-gray.700}",
-      "resolvedValue": {
-        "alpha": 1,
-        "colorSpace": "srgb",
-        "components": [
-          0.341176,
-          0.364706,
-          0.407843
-        ]
-      },
-      "sourcePath": "semantic.light.color.gray.300-alpha.88",
-      "tier": "semantic",
-      "type": "color"
-    },
-    {
-      "aliasTarget": {
-        "id": "color-palette-gray-300",
-        "mode": "base"
-      },
-      "cssProperties": {
-        "--louis-color-gray-300-alpha-88": "color(srgb 0.835294 0.843137 0.866667 / 1)"
-      },
-      "deprecated": null,
-      "description": null,
-      "id": "color-gray-300-alpha-88",
-      "mode": "dark",
-      "rawValue": "{primitive.color.palette-gray.300}",
-      "resolvedValue": {
-        "alpha": 1,
-        "colorSpace": "srgb",
-        "components": [
-          0.835294,
-          0.843137,
-          0.866667
-        ]
-      },
-      "sourcePath": "semantic.dark.color.gray.300-alpha.88",
-      "tier": "semantic",
-      "type": "color"
-    },
-    {
-      "aliasTarget": {
         "id": "color-palette-gray-600",
         "mode": "base"
       },
@@ -6494,58 +6442,6 @@
         ]
       },
       "sourcePath": "semantic.dark.color.gray.500",
-      "tier": "semantic",
-      "type": "color"
-    },
-    {
-      "aliasTarget": {
-        "id": "color-palette-gray-500",
-        "mode": "base"
-      },
-      "cssProperties": {
-        "--louis-color-gray-500-alpha-88": "color(srgb 0.603922 0.627451 0.670588 / 1)"
-      },
-      "deprecated": null,
-      "description": null,
-      "id": "color-gray-500-alpha-88",
-      "mode": "light",
-      "rawValue": "{primitive.color.palette-gray.500}",
-      "resolvedValue": {
-        "alpha": 1,
-        "colorSpace": "srgb",
-        "components": [
-          0.603922,
-          0.627451,
-          0.670588
-        ]
-      },
-      "sourcePath": "semantic.light.color.gray.500-alpha.88",
-      "tier": "semantic",
-      "type": "color"
-    },
-    {
-      "aliasTarget": {
-        "id": "color-palette-gray-500",
-        "mode": "base"
-      },
-      "cssProperties": {
-        "--louis-color-gray-500-alpha-88": "color(srgb 0.603922 0.627451 0.670588 / 1)"
-      },
-      "deprecated": null,
-      "description": null,
-      "id": "color-gray-500-alpha-88",
-      "mode": "dark",
-      "rawValue": "{primitive.color.palette-gray.500}",
-      "resolvedValue": {
-        "alpha": 1,
-        "colorSpace": "srgb",
-        "components": [
-          0.603922,
-          0.627451,
-          0.670588
-        ]
-      },
-      "sourcePath": "semantic.dark.color.gray.500-alpha.88",
       "tier": "semantic",
       "type": "color"
     },
@@ -6707,110 +6603,6 @@
     },
     {
       "aliasTarget": {
-        "id": "color-static-black-alpha-04",
-        "mode": "base"
-      },
-      "cssProperties": {
-        "--louis-color-gray-800-alpha-48": "color(srgb 0 0 0 / 0.04)"
-      },
-      "deprecated": null,
-      "description": null,
-      "id": "color-gray-800-alpha-48",
-      "mode": "light",
-      "rawValue": "{primitive.color.static-black-alpha.04}",
-      "resolvedValue": {
-        "alpha": 0.04,
-        "colorSpace": "srgb",
-        "components": [
-          0,
-          0,
-          0
-        ]
-      },
-      "sourcePath": "semantic.light.color.gray.800-alpha.48",
-      "tier": "semantic",
-      "type": "color"
-    },
-    {
-      "aliasTarget": {
-        "id": "color-static-white-alpha-04",
-        "mode": "base"
-      },
-      "cssProperties": {
-        "--louis-color-gray-800-alpha-48": "color(srgb 1 1 1 / 0.04)"
-      },
-      "deprecated": null,
-      "description": null,
-      "id": "color-gray-800-alpha-48",
-      "mode": "dark",
-      "rawValue": "{primitive.color.static-white-alpha.04}",
-      "resolvedValue": {
-        "alpha": 0.04,
-        "colorSpace": "srgb",
-        "components": [
-          1,
-          1,
-          1
-        ]
-      },
-      "sourcePath": "semantic.dark.color.gray.800-alpha.48",
-      "tier": "semantic",
-      "type": "color"
-    },
-    {
-      "aliasTarget": {
-        "id": "color-static-black-alpha-08",
-        "mode": "base"
-      },
-      "cssProperties": {
-        "--louis-color-gray-800-alpha-72": "color(srgb 0 0 0 / 0.08)"
-      },
-      "deprecated": null,
-      "description": null,
-      "id": "color-gray-800-alpha-72",
-      "mode": "light",
-      "rawValue": "{primitive.color.static-black-alpha.08}",
-      "resolvedValue": {
-        "alpha": 0.08,
-        "colorSpace": "srgb",
-        "components": [
-          0,
-          0,
-          0
-        ]
-      },
-      "sourcePath": "semantic.light.color.gray.800-alpha.72",
-      "tier": "semantic",
-      "type": "color"
-    },
-    {
-      "aliasTarget": {
-        "id": "color-static-white-alpha-08",
-        "mode": "base"
-      },
-      "cssProperties": {
-        "--louis-color-gray-800-alpha-72": "color(srgb 1 1 1 / 0.08)"
-      },
-      "deprecated": null,
-      "description": null,
-      "id": "color-gray-800-alpha-72",
-      "mode": "dark",
-      "rawValue": "{primitive.color.static-white-alpha.08}",
-      "resolvedValue": {
-        "alpha": 0.08,
-        "colorSpace": "srgb",
-        "components": [
-          1,
-          1,
-          1
-        ]
-      },
-      "sourcePath": "semantic.dark.color.gray.800-alpha.72",
-      "tier": "semantic",
-      "type": "color"
-    },
-    {
-      "aliasTarget": {
         "id": "color-palette-gray-100",
         "mode": "base"
       },
@@ -6858,110 +6650,6 @@
         ]
       },
       "sourcePath": "semantic.dark.color.gray.900",
-      "tier": "semantic",
-      "type": "color"
-    },
-    {
-      "aliasTarget": {
-        "id": "color-static-white-alpha-04",
-        "mode": "base"
-      },
-      "cssProperties": {
-        "--louis-color-gray-900-alpha-08": "color(srgb 1 1 1 / 0.04)"
-      },
-      "deprecated": null,
-      "description": null,
-      "id": "color-gray-900-alpha-08",
-      "mode": "light",
-      "rawValue": "{primitive.color.static-white-alpha.04}",
-      "resolvedValue": {
-        "alpha": 0.04,
-        "colorSpace": "srgb",
-        "components": [
-          1,
-          1,
-          1
-        ]
-      },
-      "sourcePath": "semantic.light.color.gray.900-alpha.08",
-      "tier": "semantic",
-      "type": "color"
-    },
-    {
-      "aliasTarget": {
-        "id": "color-static-black-alpha-08",
-        "mode": "base"
-      },
-      "cssProperties": {
-        "--louis-color-gray-900-alpha-08": "color(srgb 0 0 0 / 0.08)"
-      },
-      "deprecated": null,
-      "description": null,
-      "id": "color-gray-900-alpha-08",
-      "mode": "dark",
-      "rawValue": "{primitive.color.static-black-alpha.08}",
-      "resolvedValue": {
-        "alpha": 0.08,
-        "colorSpace": "srgb",
-        "components": [
-          0,
-          0,
-          0
-        ]
-      },
-      "sourcePath": "semantic.dark.color.gray.900-alpha.08",
-      "tier": "semantic",
-      "type": "color"
-    },
-    {
-      "aliasTarget": {
-        "id": "color-static-white-alpha-04",
-        "mode": "base"
-      },
-      "cssProperties": {
-        "--louis-color-gray-900-alpha-12": "color(srgb 1 1 1 / 0.04)"
-      },
-      "deprecated": null,
-      "description": null,
-      "id": "color-gray-900-alpha-12",
-      "mode": "light",
-      "rawValue": "{primitive.color.static-white-alpha.04}",
-      "resolvedValue": {
-        "alpha": 0.04,
-        "colorSpace": "srgb",
-        "components": [
-          1,
-          1,
-          1
-        ]
-      },
-      "sourcePath": "semantic.light.color.gray.900-alpha.12",
-      "tier": "semantic",
-      "type": "color"
-    },
-    {
-      "aliasTarget": {
-        "id": "color-static-black-alpha-12",
-        "mode": "base"
-      },
-      "cssProperties": {
-        "--louis-color-gray-900-alpha-12": "color(srgb 0 0 0 / 0.12)"
-      },
-      "deprecated": null,
-      "description": null,
-      "id": "color-gray-900-alpha-12",
-      "mode": "dark",
-      "rawValue": "{primitive.color.static-black-alpha.12}",
-      "resolvedValue": {
-        "alpha": 0.12,
-        "colorSpace": "srgb",
-        "components": [
-          0,
-          0,
-          0
-        ]
-      },
-      "sourcePath": "semantic.dark.color.gray.900-alpha.12",
       "tier": "semantic",
       "type": "color"
     },
@@ -15702,27 +15390,6 @@
     },
     {
       "aliasTarget": {
-        "id": "space-0",
-        "mode": "base"
-      },
-      "cssProperties": {
-        "--louis-footer-safe-bottom": "0px"
-      },
-      "deprecated": null,
-      "description": null,
-      "id": "footer-safe-bottom",
-      "mode": "global",
-      "rawValue": "{primitive.spacing.0}",
-      "resolvedValue": {
-        "unit": "px",
-        "value": 0
-      },
-      "sourcePath": "semantic.global.footer.safe-bottom",
-      "tier": "semantic",
-      "type": "dimension"
-    },
-    {
-      "aliasTarget": {
         "id": "space-24",
         "mode": "base"
       },
@@ -16405,33 +16072,7 @@
       "aliasTarget": null,
       "cssProperties": {},
       "deprecated": null,
-      "description": null,
-      "id": "line-height-body",
-      "mode": "base",
-      "rawValue": 1.5,
-      "resolvedValue": 1.5,
-      "sourcePath": "primitive.line-height.body",
-      "tier": "primitive",
-      "type": "number"
-    },
-    {
-      "aliasTarget": null,
-      "cssProperties": {},
-      "deprecated": null,
-      "description": null,
-      "id": "line-height-heading",
-      "mode": "base",
-      "rawValue": 1.35,
-      "resolvedValue": 1.35,
-      "sourcePath": "primitive.line-height.heading",
-      "tier": "primitive",
-      "type": "number"
-    },
-    {
-      "aliasTarget": null,
-      "cssProperties": {},
-      "deprecated": null,
-      "description": null,
+      "description": "행간 120% — Figma 의 PERCENT 단위 값이다. CSS 비율로 쓰려면 100 으로 나눈다(1.2).",
       "id": "line-height-percent-120",
       "mode": "base",
       "rawValue": 120,
@@ -16444,7 +16085,7 @@
       "aliasTarget": null,
       "cssProperties": {},
       "deprecated": null,
-      "description": null,
+      "description": "행간 135% — Figma 의 PERCENT 단위 값이다. CSS 비율로 쓰려면 100 으로 나눈다(1.35).",
       "id": "line-height-percent-135",
       "mode": "base",
       "rawValue": 135,
@@ -16457,25 +16098,12 @@
       "aliasTarget": null,
       "cssProperties": {},
       "deprecated": null,
-      "description": null,
+      "description": "행간 150% — Figma 의 PERCENT 단위 값이다. CSS 비율로 쓰려면 100 으로 나눈다(1.5).",
       "id": "line-height-percent-150",
       "mode": "base",
       "rawValue": 150,
       "resolvedValue": 150,
       "sourcePath": "primitive.line-height.percent-150",
-      "tier": "primitive",
-      "type": "number"
-    },
-    {
-      "aliasTarget": null,
-      "cssProperties": {},
-      "deprecated": null,
-      "description": null,
-      "id": "line-height-tight",
-      "mode": "base",
-      "rawValue": 1.2,
-      "resolvedValue": 1.2,
-      "sourcePath": "primitive.line-height.tight",
       "tier": "primitive",
       "type": "number"
     },
@@ -20934,15 +20562,15 @@
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-type-line-height-body-14": "150"
+        "--louis-type-line-height-percent-body-14": "150"
       },
       "deprecated": null,
       "description": null,
-      "id": "type-line-height-body-14",
+      "id": "type-line-height-percent-body-14",
       "mode": "global",
       "rawValue": "{primitive.line-height.percent-150}",
       "resolvedValue": 150,
-      "sourcePath": "semantic.global.type-line-height.body-14",
+      "sourcePath": "semantic.global.type-line-height-percent.body-14",
       "tier": "semantic",
       "type": "number"
     },
@@ -20952,15 +20580,15 @@
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-type-line-height-body-16": "150"
+        "--louis-type-line-height-percent-body-16": "150"
       },
       "deprecated": null,
       "description": null,
-      "id": "type-line-height-body-16",
+      "id": "type-line-height-percent-body-16",
       "mode": "global",
       "rawValue": "{primitive.line-height.percent-150}",
       "resolvedValue": 150,
-      "sourcePath": "semantic.global.type-line-height.body-16",
+      "sourcePath": "semantic.global.type-line-height-percent.body-16",
       "tier": "semantic",
       "type": "number"
     },
@@ -20970,15 +20598,15 @@
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-type-line-height-body-20": "150"
+        "--louis-type-line-height-percent-body-20": "150"
       },
       "deprecated": null,
       "description": null,
-      "id": "type-line-height-body-20",
+      "id": "type-line-height-percent-body-20",
       "mode": "global",
       "rawValue": "{primitive.line-height.percent-150}",
       "resolvedValue": 150,
-      "sourcePath": "semantic.global.type-line-height.body-20",
+      "sourcePath": "semantic.global.type-line-height-percent.body-20",
       "tier": "semantic",
       "type": "number"
     },
@@ -20988,15 +20616,15 @@
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-type-line-height-caption-12": "150"
+        "--louis-type-line-height-percent-caption-12": "150"
       },
       "deprecated": null,
       "description": null,
-      "id": "type-line-height-caption-12",
+      "id": "type-line-height-percent-caption-12",
       "mode": "global",
       "rawValue": "{primitive.line-height.percent-150}",
       "resolvedValue": 150,
-      "sourcePath": "semantic.global.type-line-height.caption-12",
+      "sourcePath": "semantic.global.type-line-height-percent.caption-12",
       "tier": "semantic",
       "type": "number"
     },
@@ -21006,15 +20634,15 @@
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-type-line-height-heading-28": "135"
+        "--louis-type-line-height-percent-heading-28": "135"
       },
       "deprecated": null,
       "description": null,
-      "id": "type-line-height-heading-28",
+      "id": "type-line-height-percent-heading-28",
       "mode": "global",
       "rawValue": "{primitive.line-height.percent-135}",
       "resolvedValue": 135,
-      "sourcePath": "semantic.global.type-line-height.heading-28",
+      "sourcePath": "semantic.global.type-line-height-percent.heading-28",
       "tier": "semantic",
       "type": "number"
     },
@@ -21024,15 +20652,15 @@
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-type-line-height-heading-36": "135"
+        "--louis-type-line-height-percent-heading-36": "135"
       },
       "deprecated": null,
       "description": null,
-      "id": "type-line-height-heading-36",
+      "id": "type-line-height-percent-heading-36",
       "mode": "global",
       "rawValue": "{primitive.line-height.percent-135}",
       "resolvedValue": 135,
-      "sourcePath": "semantic.global.type-line-height.heading-36",
+      "sourcePath": "semantic.global.type-line-height-percent.heading-36",
       "tier": "semantic",
       "type": "number"
     },
@@ -21042,15 +20670,15 @@
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-type-line-height-heading-48": "135"
+        "--louis-type-line-height-percent-heading-48": "135"
       },
       "deprecated": null,
       "description": null,
-      "id": "type-line-height-heading-48",
+      "id": "type-line-height-percent-heading-48",
       "mode": "global",
       "rawValue": "{primitive.line-height.percent-135}",
       "resolvedValue": 135,
-      "sourcePath": "semantic.global.type-line-height.heading-48",
+      "sourcePath": "semantic.global.type-line-height-percent.heading-48",
       "tier": "semantic",
       "type": "number"
     },
@@ -21060,15 +20688,15 @@
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-type-line-height-project-card-overlay": "120"
+        "--louis-type-line-height-percent-project-card-overlay": "120"
       },
       "deprecated": null,
       "description": null,
-      "id": "type-line-height-project-card-overlay",
+      "id": "type-line-height-percent-project-card-overlay",
       "mode": "global",
       "rawValue": "{primitive.line-height.percent-120}",
       "resolvedValue": 120,
-      "sourcePath": "semantic.global.type-line-height.project-card-overlay",
+      "sourcePath": "semantic.global.type-line-height-percent.project-card-overlay",
       "tier": "semantic",
       "type": "number"
     },
@@ -21078,15 +20706,15 @@
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-type-line-height-tooltip": "150"
+        "--louis-type-line-height-percent-tooltip": "150"
       },
       "deprecated": null,
       "description": null,
-      "id": "type-line-height-tooltip",
+      "id": "type-line-height-percent-tooltip",
       "mode": "global",
       "rawValue": "{primitive.line-height.percent-150}",
       "resolvedValue": 150,
-      "sourcePath": "semantic.global.type-line-height.tooltip",
+      "sourcePath": "semantic.global.type-line-height-percent.tooltip",
       "tier": "semantic",
       "type": "number"
     },

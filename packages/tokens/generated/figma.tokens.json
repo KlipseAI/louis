@@ -5587,42 +5587,6 @@
             }
           }
         },
-        "line-height-body": {
-          "$type": "number",
-          "fields": [],
-          "figmaName": "line-height/body",
-          "hiddenFromPublishing": true,
-          "losses": [],
-          "nativeVariableType": "FLOAT",
-          "representation": "variable",
-          "scopes": [],
-          "valuesByMode": {
-            "Base": {
-              "$value": 1.5,
-              "aliasTarget": null,
-              "resolvedValue": 1.5,
-              "sourcePath": "primitive.line-height.body"
-            }
-          }
-        },
-        "line-height-heading": {
-          "$type": "number",
-          "fields": [],
-          "figmaName": "line-height/heading",
-          "hiddenFromPublishing": true,
-          "losses": [],
-          "nativeVariableType": "FLOAT",
-          "representation": "variable",
-          "scopes": [],
-          "valuesByMode": {
-            "Base": {
-              "$value": 1.35,
-              "aliasTarget": null,
-              "resolvedValue": 1.35,
-              "sourcePath": "primitive.line-height.heading"
-            }
-          }
-        },
         "line-height-percent-120": {
           "$type": "number",
           "fields": [],
@@ -5631,9 +5595,12 @@
           "losses": [],
           "nativeVariableType": "FLOAT",
           "representation": "variable",
-          "scopes": [],
+          "scopes": [
+            "LINE_HEIGHT"
+          ],
           "valuesByMode": {
             "Base": {
+              "$description": "행간 120% — Figma 의 PERCENT 단위 값이다. CSS 비율로 쓰려면 100 으로 나눈다(1.2).",
               "$value": 120,
               "aliasTarget": null,
               "resolvedValue": 120,
@@ -5649,9 +5616,12 @@
           "losses": [],
           "nativeVariableType": "FLOAT",
           "representation": "variable",
-          "scopes": [],
+          "scopes": [
+            "LINE_HEIGHT"
+          ],
           "valuesByMode": {
             "Base": {
+              "$description": "행간 135% — Figma 의 PERCENT 단위 값이다. CSS 비율로 쓰려면 100 으로 나눈다(1.35).",
               "$value": 135,
               "aliasTarget": null,
               "resolvedValue": 135,
@@ -5667,31 +5637,16 @@
           "losses": [],
           "nativeVariableType": "FLOAT",
           "representation": "variable",
-          "scopes": [],
+          "scopes": [
+            "LINE_HEIGHT"
+          ],
           "valuesByMode": {
             "Base": {
+              "$description": "행간 150% — Figma 의 PERCENT 단위 값이다. CSS 비율로 쓰려면 100 으로 나눈다(1.5).",
               "$value": 150,
               "aliasTarget": null,
               "resolvedValue": 150,
               "sourcePath": "primitive.line-height.percent-150"
-            }
-          }
-        },
-        "line-height-tight": {
-          "$type": "number",
-          "fields": [],
-          "figmaName": "line-height/tight",
-          "hiddenFromPublishing": true,
-          "losses": [],
-          "nativeVariableType": "FLOAT",
-          "representation": "variable",
-          "scopes": [],
-          "valuesByMode": {
-            "Base": {
-              "$value": 1.2,
-              "aliasTarget": null,
-              "resolvedValue": 1.2,
-              "sourcePath": "primitive.line-height.tight"
             }
           }
         },
@@ -10735,10 +10690,10 @@
             }
           }
         },
-        "button-height": {
+        "button-height-lg": {
           "$type": "dimension",
           "fields": [],
-          "figmaName": "button/height",
+          "figmaName": "button/height-lg",
           "hiddenFromPublishing": false,
           "losses": [
             "Figma FLOAT는 DTCG 단위 의미를 직접 보존하지 않으므로 source metadata를 함께 검토해야 합니다."
@@ -10759,14 +10714,14 @@
                 "unit": "px",
                 "value": 40
               },
-              "sourcePath": "semantic.global.button.height"
+              "sourcePath": "semantic.global.button.height-lg"
             }
           }
         },
-        "button-height-sm": {
+        "button-height-md": {
           "$type": "dimension",
           "fields": [],
-          "figmaName": "button/height-sm",
+          "figmaName": "button/height-md",
           "hiddenFromPublishing": false,
           "losses": [
             "Figma FLOAT는 DTCG 단위 의미를 직접 보존하지 않으므로 source metadata를 함께 검토해야 합니다."
@@ -10787,14 +10742,14 @@
                 "unit": "px",
                 "value": 32
               },
-              "sourcePath": "semantic.global.button.height-sm"
+              "sourcePath": "semantic.global.button.height-md"
             }
           }
         },
-        "button-min-width-sm": {
+        "button-min-width-md": {
           "$type": "dimension",
           "fields": [],
-          "figmaName": "button/min-width-sm",
+          "figmaName": "button/min-width-md",
           "hiddenFromPublishing": false,
           "losses": [
             "Figma FLOAT는 DTCG 단위 의미를 직접 보존하지 않으므로 source metadata를 함께 검토해야 합니다."
@@ -10815,14 +10770,14 @@
                 "unit": "px",
                 "value": 48
               },
-              "sourcePath": "semantic.global.button.min-width-sm"
+              "sourcePath": "semantic.global.button.min-width-md"
             }
           }
         },
-        "button-padding-inline": {
+        "button-padding-inline-lg": {
           "$type": "dimension",
           "fields": [],
-          "figmaName": "button/padding-inline",
+          "figmaName": "button/padding-inline-lg",
           "hiddenFromPublishing": false,
           "losses": [
             "Figma FLOAT는 DTCG 단위 의미를 직접 보존하지 않으므로 source metadata를 함께 검토해야 합니다."
@@ -10843,14 +10798,14 @@
                 "unit": "px",
                 "value": 16
               },
-              "sourcePath": "semantic.global.button.padding-inline"
+              "sourcePath": "semantic.global.button.padding-inline-lg"
             }
           }
         },
-        "button-padding-inline-sm": {
+        "button-padding-inline-md": {
           "$type": "dimension",
           "fields": [],
-          "figmaName": "button/padding-inline-sm",
+          "figmaName": "button/padding-inline-md",
           "hiddenFromPublishing": false,
           "losses": [
             "Figma FLOAT는 DTCG 단위 의미를 직접 보존하지 않으므로 source metadata를 함께 검토해야 합니다."
@@ -10871,7 +10826,7 @@
                 "unit": "px",
                 "value": 12
               },
-              "sourcePath": "semantic.global.button.padding-inline-sm"
+              "sourcePath": "semantic.global.button.padding-inline-md"
             }
           }
         },
@@ -11356,34 +11311,6 @@
                 "value": 0
               },
               "sourcePath": "semantic.global.footer.reveal-height"
-            }
-          }
-        },
-        "footer-safe-bottom": {
-          "$type": "dimension",
-          "fields": [],
-          "figmaName": "footer/safe-bottom",
-          "hiddenFromPublishing": false,
-          "losses": [
-            "Figma FLOAT는 DTCG 단위 의미를 직접 보존하지 않으므로 source metadata를 함께 검토해야 합니다."
-          ],
-          "nativeVariableType": "FLOAT",
-          "representation": "variable",
-          "scopes": [
-            "WIDTH_HEIGHT"
-          ],
-          "valuesByMode": {
-            "Global": {
-              "$value": "{primitive.spacing.0}",
-              "aliasTarget": {
-                "id": "space-0",
-                "mode": "base"
-              },
-              "resolvedValue": {
-                "unit": "px",
-                "value": 0
-              },
-              "sourcePath": "semantic.global.footer.safe-bottom"
             }
           }
         },
@@ -14467,15 +14394,17 @@
             }
           }
         },
-        "type-line-height-body-14": {
+        "type-line-height-percent-body-14": {
           "$type": "number",
           "fields": [],
-          "figmaName": "type-line-height/body-14",
+          "figmaName": "type-line-height-percent/body-14",
           "hiddenFromPublishing": false,
           "losses": [],
           "nativeVariableType": "FLOAT",
           "representation": "variable",
-          "scopes": [],
+          "scopes": [
+            "LINE_HEIGHT"
+          ],
           "valuesByMode": {
             "Global": {
               "$value": "{primitive.line-height.percent-150}",
@@ -14484,19 +14413,21 @@
                 "mode": "base"
               },
               "resolvedValue": 150,
-              "sourcePath": "semantic.global.type-line-height.body-14"
+              "sourcePath": "semantic.global.type-line-height-percent.body-14"
             }
           }
         },
-        "type-line-height-body-16": {
+        "type-line-height-percent-body-16": {
           "$type": "number",
           "fields": [],
-          "figmaName": "type-line-height/body-16",
+          "figmaName": "type-line-height-percent/body-16",
           "hiddenFromPublishing": false,
           "losses": [],
           "nativeVariableType": "FLOAT",
           "representation": "variable",
-          "scopes": [],
+          "scopes": [
+            "LINE_HEIGHT"
+          ],
           "valuesByMode": {
             "Global": {
               "$value": "{primitive.line-height.percent-150}",
@@ -14505,19 +14436,21 @@
                 "mode": "base"
               },
               "resolvedValue": 150,
-              "sourcePath": "semantic.global.type-line-height.body-16"
+              "sourcePath": "semantic.global.type-line-height-percent.body-16"
             }
           }
         },
-        "type-line-height-body-20": {
+        "type-line-height-percent-body-20": {
           "$type": "number",
           "fields": [],
-          "figmaName": "type-line-height/body-20",
+          "figmaName": "type-line-height-percent/body-20",
           "hiddenFromPublishing": false,
           "losses": [],
           "nativeVariableType": "FLOAT",
           "representation": "variable",
-          "scopes": [],
+          "scopes": [
+            "LINE_HEIGHT"
+          ],
           "valuesByMode": {
             "Global": {
               "$value": "{primitive.line-height.percent-150}",
@@ -14526,19 +14459,21 @@
                 "mode": "base"
               },
               "resolvedValue": 150,
-              "sourcePath": "semantic.global.type-line-height.body-20"
+              "sourcePath": "semantic.global.type-line-height-percent.body-20"
             }
           }
         },
-        "type-line-height-caption-12": {
+        "type-line-height-percent-caption-12": {
           "$type": "number",
           "fields": [],
-          "figmaName": "type-line-height/caption-12",
+          "figmaName": "type-line-height-percent/caption-12",
           "hiddenFromPublishing": false,
           "losses": [],
           "nativeVariableType": "FLOAT",
           "representation": "variable",
-          "scopes": [],
+          "scopes": [
+            "LINE_HEIGHT"
+          ],
           "valuesByMode": {
             "Global": {
               "$value": "{primitive.line-height.percent-150}",
@@ -14547,19 +14482,21 @@
                 "mode": "base"
               },
               "resolvedValue": 150,
-              "sourcePath": "semantic.global.type-line-height.caption-12"
+              "sourcePath": "semantic.global.type-line-height-percent.caption-12"
             }
           }
         },
-        "type-line-height-heading-28": {
+        "type-line-height-percent-heading-28": {
           "$type": "number",
           "fields": [],
-          "figmaName": "type-line-height/heading-28",
+          "figmaName": "type-line-height-percent/heading-28",
           "hiddenFromPublishing": false,
           "losses": [],
           "nativeVariableType": "FLOAT",
           "representation": "variable",
-          "scopes": [],
+          "scopes": [
+            "LINE_HEIGHT"
+          ],
           "valuesByMode": {
             "Global": {
               "$value": "{primitive.line-height.percent-135}",
@@ -14568,19 +14505,21 @@
                 "mode": "base"
               },
               "resolvedValue": 135,
-              "sourcePath": "semantic.global.type-line-height.heading-28"
+              "sourcePath": "semantic.global.type-line-height-percent.heading-28"
             }
           }
         },
-        "type-line-height-heading-36": {
+        "type-line-height-percent-heading-36": {
           "$type": "number",
           "fields": [],
-          "figmaName": "type-line-height/heading-36",
+          "figmaName": "type-line-height-percent/heading-36",
           "hiddenFromPublishing": false,
           "losses": [],
           "nativeVariableType": "FLOAT",
           "representation": "variable",
-          "scopes": [],
+          "scopes": [
+            "LINE_HEIGHT"
+          ],
           "valuesByMode": {
             "Global": {
               "$value": "{primitive.line-height.percent-135}",
@@ -14589,19 +14528,21 @@
                 "mode": "base"
               },
               "resolvedValue": 135,
-              "sourcePath": "semantic.global.type-line-height.heading-36"
+              "sourcePath": "semantic.global.type-line-height-percent.heading-36"
             }
           }
         },
-        "type-line-height-heading-48": {
+        "type-line-height-percent-heading-48": {
           "$type": "number",
           "fields": [],
-          "figmaName": "type-line-height/heading-48",
+          "figmaName": "type-line-height-percent/heading-48",
           "hiddenFromPublishing": false,
           "losses": [],
           "nativeVariableType": "FLOAT",
           "representation": "variable",
-          "scopes": [],
+          "scopes": [
+            "LINE_HEIGHT"
+          ],
           "valuesByMode": {
             "Global": {
               "$value": "{primitive.line-height.percent-135}",
@@ -14610,19 +14551,21 @@
                 "mode": "base"
               },
               "resolvedValue": 135,
-              "sourcePath": "semantic.global.type-line-height.heading-48"
+              "sourcePath": "semantic.global.type-line-height-percent.heading-48"
             }
           }
         },
-        "type-line-height-project-card-overlay": {
+        "type-line-height-percent-project-card-overlay": {
           "$type": "number",
           "fields": [],
-          "figmaName": "type-line-height/project-card-overlay",
+          "figmaName": "type-line-height-percent/project-card-overlay",
           "hiddenFromPublishing": false,
           "losses": [],
           "nativeVariableType": "FLOAT",
           "representation": "variable",
-          "scopes": [],
+          "scopes": [
+            "LINE_HEIGHT"
+          ],
           "valuesByMode": {
             "Global": {
               "$value": "{primitive.line-height.percent-120}",
@@ -14631,19 +14574,21 @@
                 "mode": "base"
               },
               "resolvedValue": 120,
-              "sourcePath": "semantic.global.type-line-height.project-card-overlay"
+              "sourcePath": "semantic.global.type-line-height-percent.project-card-overlay"
             }
           }
         },
-        "type-line-height-tooltip": {
+        "type-line-height-percent-tooltip": {
           "$type": "number",
           "fields": [],
-          "figmaName": "type-line-height/tooltip",
+          "figmaName": "type-line-height-percent/tooltip",
           "hiddenFromPublishing": false,
           "losses": [],
           "nativeVariableType": "FLOAT",
           "representation": "variable",
-          "scopes": [],
+          "scopes": [
+            "LINE_HEIGHT"
+          ],
           "valuesByMode": {
             "Global": {
               "$value": "{primitive.line-height.percent-150}",
@@ -14652,7 +14597,7 @@
                 "mode": "base"
               },
               "resolvedValue": 150,
-              "sourcePath": "semantic.global.type-line-height.tooltip"
+              "sourcePath": "semantic.global.type-line-height-percent.tooltip"
             }
           }
         },
@@ -20142,57 +20087,6 @@
             }
           }
         },
-        "color-gray-300-alpha-88": {
-          "$type": "color",
-          "fields": [],
-          "figmaName": "color/gray/300-alpha/88",
-          "hiddenFromPublishing": false,
-          "losses": [],
-          "nativeVariableType": "COLOR",
-          "representation": "variable",
-          "scopes": [
-            "FRAME_FILL",
-            "SHAPE_FILL",
-            "STROKE_COLOR",
-            "TEXT_FILL"
-          ],
-          "valuesByMode": {
-            "Dark": {
-              "$value": "{primitive.color.palette-gray.300}",
-              "aliasTarget": {
-                "id": "color-palette-gray-300",
-                "mode": "base"
-              },
-              "resolvedValue": {
-                "alpha": 1,
-                "colorSpace": "srgb",
-                "components": [
-                  0.835294,
-                  0.843137,
-                  0.866667
-                ]
-              },
-              "sourcePath": "semantic.dark.color.gray.300-alpha.88"
-            },
-            "Light": {
-              "$value": "{primitive.color.palette-gray.700}",
-              "aliasTarget": {
-                "id": "color-palette-gray-700",
-                "mode": "base"
-              },
-              "resolvedValue": {
-                "alpha": 1,
-                "colorSpace": "srgb",
-                "components": [
-                  0.341176,
-                  0.364706,
-                  0.407843
-                ]
-              },
-              "sourcePath": "semantic.light.color.gray.300-alpha.88"
-            }
-          }
-        },
         "color-gray-400": {
           "$type": "color",
           "fields": [],
@@ -20292,57 +20186,6 @@
                 ]
               },
               "sourcePath": "semantic.light.color.gray.500"
-            }
-          }
-        },
-        "color-gray-500-alpha-88": {
-          "$type": "color",
-          "fields": [],
-          "figmaName": "color/gray/500-alpha/88",
-          "hiddenFromPublishing": false,
-          "losses": [],
-          "nativeVariableType": "COLOR",
-          "representation": "variable",
-          "scopes": [
-            "FRAME_FILL",
-            "SHAPE_FILL",
-            "STROKE_COLOR",
-            "TEXT_FILL"
-          ],
-          "valuesByMode": {
-            "Dark": {
-              "$value": "{primitive.color.palette-gray.500}",
-              "aliasTarget": {
-                "id": "color-palette-gray-500",
-                "mode": "base"
-              },
-              "resolvedValue": {
-                "alpha": 1,
-                "colorSpace": "srgb",
-                "components": [
-                  0.603922,
-                  0.627451,
-                  0.670588
-                ]
-              },
-              "sourcePath": "semantic.dark.color.gray.500-alpha.88"
-            },
-            "Light": {
-              "$value": "{primitive.color.palette-gray.500}",
-              "aliasTarget": {
-                "id": "color-palette-gray-500",
-                "mode": "base"
-              },
-              "resolvedValue": {
-                "alpha": 1,
-                "colorSpace": "srgb",
-                "components": [
-                  0.603922,
-                  0.627451,
-                  0.670588
-                ]
-              },
-              "sourcePath": "semantic.light.color.gray.500-alpha.88"
             }
           }
         },
@@ -20499,108 +20342,6 @@
             }
           }
         },
-        "color-gray-800-alpha-48": {
-          "$type": "color",
-          "fields": [],
-          "figmaName": "color/gray/800-alpha/48",
-          "hiddenFromPublishing": false,
-          "losses": [],
-          "nativeVariableType": "COLOR",
-          "representation": "variable",
-          "scopes": [
-            "FRAME_FILL",
-            "SHAPE_FILL",
-            "STROKE_COLOR",
-            "TEXT_FILL"
-          ],
-          "valuesByMode": {
-            "Dark": {
-              "$value": "{primitive.color.static-white-alpha.04}",
-              "aliasTarget": {
-                "id": "color-static-white-alpha-04",
-                "mode": "base"
-              },
-              "resolvedValue": {
-                "alpha": 0.04,
-                "colorSpace": "srgb",
-                "components": [
-                  1,
-                  1,
-                  1
-                ]
-              },
-              "sourcePath": "semantic.dark.color.gray.800-alpha.48"
-            },
-            "Light": {
-              "$value": "{primitive.color.static-black-alpha.04}",
-              "aliasTarget": {
-                "id": "color-static-black-alpha-04",
-                "mode": "base"
-              },
-              "resolvedValue": {
-                "alpha": 0.04,
-                "colorSpace": "srgb",
-                "components": [
-                  0,
-                  0,
-                  0
-                ]
-              },
-              "sourcePath": "semantic.light.color.gray.800-alpha.48"
-            }
-          }
-        },
-        "color-gray-800-alpha-72": {
-          "$type": "color",
-          "fields": [],
-          "figmaName": "color/gray/800-alpha/72",
-          "hiddenFromPublishing": false,
-          "losses": [],
-          "nativeVariableType": "COLOR",
-          "representation": "variable",
-          "scopes": [
-            "FRAME_FILL",
-            "SHAPE_FILL",
-            "STROKE_COLOR",
-            "TEXT_FILL"
-          ],
-          "valuesByMode": {
-            "Dark": {
-              "$value": "{primitive.color.static-white-alpha.08}",
-              "aliasTarget": {
-                "id": "color-static-white-alpha-08",
-                "mode": "base"
-              },
-              "resolvedValue": {
-                "alpha": 0.08,
-                "colorSpace": "srgb",
-                "components": [
-                  1,
-                  1,
-                  1
-                ]
-              },
-              "sourcePath": "semantic.dark.color.gray.800-alpha.72"
-            },
-            "Light": {
-              "$value": "{primitive.color.static-black-alpha.08}",
-              "aliasTarget": {
-                "id": "color-static-black-alpha-08",
-                "mode": "base"
-              },
-              "resolvedValue": {
-                "alpha": 0.08,
-                "colorSpace": "srgb",
-                "components": [
-                  0,
-                  0,
-                  0
-                ]
-              },
-              "sourcePath": "semantic.light.color.gray.800-alpha.72"
-            }
-          }
-        },
         "color-gray-900": {
           "$type": "color",
           "fields": [],
@@ -20649,108 +20390,6 @@
                 ]
               },
               "sourcePath": "semantic.light.color.gray.900"
-            }
-          }
-        },
-        "color-gray-900-alpha-08": {
-          "$type": "color",
-          "fields": [],
-          "figmaName": "color/gray/900-alpha/08",
-          "hiddenFromPublishing": false,
-          "losses": [],
-          "nativeVariableType": "COLOR",
-          "representation": "variable",
-          "scopes": [
-            "FRAME_FILL",
-            "SHAPE_FILL",
-            "STROKE_COLOR",
-            "TEXT_FILL"
-          ],
-          "valuesByMode": {
-            "Dark": {
-              "$value": "{primitive.color.static-black-alpha.08}",
-              "aliasTarget": {
-                "id": "color-static-black-alpha-08",
-                "mode": "base"
-              },
-              "resolvedValue": {
-                "alpha": 0.08,
-                "colorSpace": "srgb",
-                "components": [
-                  0,
-                  0,
-                  0
-                ]
-              },
-              "sourcePath": "semantic.dark.color.gray.900-alpha.08"
-            },
-            "Light": {
-              "$value": "{primitive.color.static-white-alpha.04}",
-              "aliasTarget": {
-                "id": "color-static-white-alpha-04",
-                "mode": "base"
-              },
-              "resolvedValue": {
-                "alpha": 0.04,
-                "colorSpace": "srgb",
-                "components": [
-                  1,
-                  1,
-                  1
-                ]
-              },
-              "sourcePath": "semantic.light.color.gray.900-alpha.08"
-            }
-          }
-        },
-        "color-gray-900-alpha-12": {
-          "$type": "color",
-          "fields": [],
-          "figmaName": "color/gray/900-alpha/12",
-          "hiddenFromPublishing": false,
-          "losses": [],
-          "nativeVariableType": "COLOR",
-          "representation": "variable",
-          "scopes": [
-            "FRAME_FILL",
-            "SHAPE_FILL",
-            "STROKE_COLOR",
-            "TEXT_FILL"
-          ],
-          "valuesByMode": {
-            "Dark": {
-              "$value": "{primitive.color.static-black-alpha.12}",
-              "aliasTarget": {
-                "id": "color-static-black-alpha-12",
-                "mode": "base"
-              },
-              "resolvedValue": {
-                "alpha": 0.12,
-                "colorSpace": "srgb",
-                "components": [
-                  0,
-                  0,
-                  0
-                ]
-              },
-              "sourcePath": "semantic.dark.color.gray.900-alpha.12"
-            },
-            "Light": {
-              "$value": "{primitive.color.static-white-alpha.04}",
-              "aliasTarget": {
-                "id": "color-static-white-alpha-04",
-                "mode": "base"
-              },
-              "resolvedValue": {
-                "alpha": 0.04,
-                "colorSpace": "srgb",
-                "components": [
-                  1,
-                  1,
-                  1
-                ]
-              },
-              "sourcePath": "semantic.light.color.gray.900-alpha.12"
             }
           }
         },

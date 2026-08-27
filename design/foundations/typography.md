@@ -34,6 +34,30 @@ Primitive와 semantic typography는 단일 DTCG source 안의 논리적 계층�
 - 컴포넌트가 임의 size/weight 조합을 새 role처럼 만들지 않는다.
 - source의 dimension은 값과 unit을 명시하며 generator가 px/rem을 추측하지 않는다.
 
+## 행간의 단위
+
+행간은 이 저장소에서 **두 가지 형태**로 산다. 어느 쪽인지는 **이름이 말한다.**
+
+| 형태 | 어디에 | 값의 뜻 | 예 |
+| --- | --- | --- | --- |
+| 비율 | composite `typography-*` 의 `line-height` field | CSS 무단위 배수 | `--louis-typography-body-sm-regular-line-height: 1.5` |
+| percent | `line-height/percent-*` · `type-line-height-percent/*` | Figma PERCENT 단위 | `--louis-type-line-height-percent-body-14: 150` |
+
+**percent 축이 따로 있는 이유는 Figma다.** Figma는 텍스트 행간을 `lineHeightPercent`로 보관하며,
+그 속성에 묶이는 변수는 1.5가 아니라 150이어야 한다. 두 형태는 같은 값의 두 표현이고 100배로
+환산된다.
+
+**percent 값을 CSS `line-height`에 그대로 넣지 않는다.** `line-height: 150`은 글자 크기의 150배다.
+CSS에서 행간이 필요하면 composite의 비율 field를 쓴다. percent 토큰을 CSS에서 쓸 일이 생기면
+`calc(<percent> / 100)`으로 환산하고, 그 자리를 규범에 적는다.
+
+**percent를 뜻하는 토큰은 이름에 `percent`를 담는다.** 담지 않은 행간 토큰은 비율이다. 이 규칙이
+서기 전에는 `type-line-height/body-14`가 150을 담고 있었고, 이름만 보고 CSS에 넣으면 즉시 깨졌다 —
+[DS-D-0029](../governance/decisions/DS-D-0029-token-names-must-be-true.md).
+
+**행간 변수의 Figma scope는 `LINE_HEIGHT`다.** scope가 비면 Figma의 어떤 속성 선택기에도 뜨지
+않아 발행돼 있어도 묶을 수 없다.
+
 ## Locale and font loading
 
 - P2 source는 공용 multi-script fallback 후보를 ordered font-family 배열로 보존한다. Validator는 trim된

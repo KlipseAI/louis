@@ -88,6 +88,39 @@
   backdrop-filter: blur(var(--louis-blur-glass)) saturate(130%);
 }
 
+/* 점진 블러 — 아래는 온전히 흐리고 위로 갈수록 흐림이 걷힌다.
+ *
+ * 사진 위에 글자 띠를 얹는 카드가 쓰는 레시피다. 균일한 흐림은 띠의 윗변이 사진 위에 직선으로
+ * 남아 「유리판을 올린 자국」이 보이는데, 흐림을 위로 걷으면 그 경계가 사라진다. 정본은
+ * ProjectCard 의 제목 띠이고 MediaCard 의 정보 바가 같은 것을 쓴다 — **두 소비처가 생겨서
+ * 여기로 올렸다.** 곡선과 반경이 두 벌이 되면 한쪽만 고쳐지고 둘이 갈린다.
+ *
+ * **반경과 곡선을 값으로 발행한다.** 클래스로 내지 않는 이유는 이 레시피가 놓이는 자리가
+ * 언제나 `::before` 이기 때문이다 — 마스크는 요소와 **자손 전부**에 걸리므로 띠 자체에 얹으면
+ * 위쪽 글자가 함께 지워진다. 흐림만 칠하는 층을 따로 두고 내용은 `position: relative` 로 그
+ * 위에 올린다. 의사요소는 마크업이 아니라 소비처 CSS 가 만드는 것이라 클래스로 건네줄 수 없다.
+ * `--louis-hairline-inset` 이 box-shadow 문자열을 값으로 발행하는 것과 같은 형태다.
+ *
+ * mask의 정지점은 **색이 아니라 알파 램프**다 — 흐림이 얼마나 남는지만 정한다. 그래서 semantic
+ * 색 토큰이 아니라 `color-mix`로 검정의 불투명도를 직접 적는다. 여기에 색 토큰을 넣으면 테마에
+ * 따라 흐림의 세기가 달라진다.
+ *
+ * 정지점의 뜻: 바닥에서 55%까지 온전히 흐리고 70% → 85% → 100% 로 흐림이 죽는다. 같은 값을
+ * `figma/components.measured.json` 의 `overlayMaskStops` 가 표로 갖고 있고, Figma 의
+ * BACKGROUND_BLUR PROGRESSIVE offset 은 거기서 **유도**된다(verify-figma-parity.mjs). 세 곳이
+ * 한 원천을 본다. */
+:root {
+  --louis-progressive-blur: blur(var(--louis-blur-surface));
+  --louis-progressive-blur-mask: linear-gradient(
+    to top,
+    black 0%,
+    black 55%,
+    color-mix(in srgb, black 80%, transparent) 70%,
+    color-mix(in srgb, black 40%, transparent) 85%,
+    transparent 100%
+  );
+}
+
 /* overlay가 놓이는 stacking 문맥. 숫자 z-index 대신 layer 토큰만 쓴다. */
 /* sticky 층 — 앱 셸의 navigation rail과 top chrome이 쓴다. 토큰만 있고 쓸 클래스가 없어
  * 셸을 짓는 사람이 숫자를 쓰게 되어 있었다 (DS-D-0018). */
@@ -2983,9 +3016,10 @@
 
 /* **프로그레시브 블러.** 흐림을 칠하는 층이다.
  *
- * mask의 정지점은 **색이 아니라 알파 램프**다 — 흐림이 얼마나 남는지만 정한다. 그래서 semantic
- * 색 토큰이 아니라 `color-mix`로 검정의 불투명도를 직접 적는다. 여기에 색 토큰을 넣으면 테마에
- * 따라 흐림의 세기가 달라진다. */
+ * 반경과 마스크 곡선은 **이 파일이 소유하지 않는다** — base.css 의 `--louis-progressive-blur`
+ * 와 `--louis-progressive-blur-mask` 가 정본이고 MediaCard 의 정보 바가 같은 값을 쓴다. 왜
+ * 값으로 발행하고 클래스로 내지 않았는지도 그쪽 주석에 있다. 여기 남는 것은 **이 카드에서만
+ * 참인 것**뿐이다: 층의 위치와 반경 상속. */
 .louis-project-card-overlay::before {
   content: "";
   position: absolute;
@@ -2993,15 +3027,8 @@
   pointer-events: none;
   /* 반경을 물려받는다. 이 층이 사각형이면 위에서 깎은 모서리가 다시 채워진다. */
   border-radius: inherit;
-  backdrop-filter: blur(var(--louis-blur-surface));
-  mask-image: linear-gradient(
-    to top,
-    black 0%,
-    black 55%,
-    color-mix(in srgb, black 80%, transparent) 70%,
-    color-mix(in srgb, black 40%, transparent) 85%,
-    transparent 100%
-  );
+  backdrop-filter: var(--louis-progressive-blur);
+  mask-image: var(--louis-progressive-blur-mask);
 }
 
 .louis-project-card-overlay-content {

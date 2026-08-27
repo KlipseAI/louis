@@ -1076,6 +1076,15 @@
       "generated": false
     },
     {
+      "id": "decision-token-names-must-be-true",
+      "path": "design/governance/decisions/DS-D-0029-token-names-must-be-true.md",
+      "title": "DS-D-0029 이름이 값과 다른 토큰은 없는 것보다 나쁘다",
+      "section": "governance",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
+    },
+    {
       "id": "governance-product-confirmations",
       "path": "design/governance/product-confirmations.md",
       "title": "제품 확인 대기 목록",
@@ -1279,6 +1288,7 @@
         "design/governance/decisions/DS-D-0026-alpha-scale.md",
         "design/governance/decisions/DS-D-0027-control-size-ladder.md",
         "design/governance/decisions/DS-D-0028-three-in-one-change.md",
+        "design/governance/decisions/DS-D-0029-token-names-must-be-true.md",
         "design/governance/product-confirmations.md",
         "design/updates/README.md"
       ]

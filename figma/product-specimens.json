@@ -342,122 +342,6 @@
       ]
     },
     {
-      "id": "banner-carousel/highlightTab",
-      "kind": "banner-carousel",
-      "label": "탭 배너 캐러셀(boxed) — 하이라이트 탭 소비처",
-      "jsx": "apps/web/components/banners/TabBannerCarousel.tsx:295-357",
-      "file": "apps/web/components/banners/TabBannerCarousel.tsx",
-      "node": {
-        "part": "CAROUSEL",
-        "tag": "section",
-        "children": [
-          {
-            "part": "TRACK",
-            "tag": "div",
-            "children": [
-              {
-                "part": "SLIDE",
-                "tag": "article",
-                "children": [
-                  {
-                    "part": "CONTENT",
-                    "tag": "div",
-                    "children": [
-                      {
-                        "part": "TEXT_GROUP",
-                        "tag": "div",
-                        "children": [
-                          {
-                            "part": "TITLE",
-                            "tag": "h2",
-                            "text": "하이라이트 베타 오픈"
-                          },
-                          {
-                            "part": "DESCRIPTION",
-                            "tag": "p",
-                            "text": "경기 영상에서 명장면을 자동으로 찾아 드려요."
-                          }
-                        ]
-                      }
-                    ]
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "part": "CONTROLS",
-            "tag": "div",
-            "children": [
-              {
-                "part": "ARROW_BUTTON",
-                "tag": "button"
-              },
-              {
-                "part": "DOTS",
-                "tag": "div",
-                "children": [
-                  {
-                    "part": "DOT",
-                    "tag": "button"
-                  },
-                  {
-                    "part": "DOT",
-                    "tag": "button"
-                  },
-                  {
-                    "part": "DOT",
-                    "tag": "button"
-                  }
-                ]
-              },
-              {
-                "part": "ARROW_BUTTON",
-                "tag": "button"
-              }
-            ]
-          }
-        ]
-      },
-      "host": [
-        {
-          "file": "apps/web/components/scenes/myPageSceneStyles.ts",
-          "part": "appSidebarMainLenisContent"
-        }
-      ]
-    },
-    {
-      "id": "banner-carousel/tabCarouselControls",
-      "kind": "banner-carousel",
-      "label": "공용 탭 배너 캐러셀 컨트롤 — 화살표·점 글래스 필",
-      "jsx": "apps/web/components/banners/TabBannerCarousel.tsx:321-355",
-      "file": "apps/web/components/banners/TabBannerCarousel.tsx",
-      "node": {
-        "part": "CONTROLS",
-        "tag": "div",
-        "children": [
-          {
-            "part": "ARROW_BUTTON",
-            "tag": "button"
-          },
-          {
-            "part": "DOTS",
-            "tag": "div"
-          },
-          {
-            "part": "ARROW_BUTTON",
-            "tag": "button"
-          }
-        ]
-      },
-      "host": [
-        {
-          "file": "apps/web/components/banners/TabBannerCarousel.tsx",
-          "part": "CAROUSEL"
-        }
-      ]
-    },
-    {
       "id": "button/adminModalCancel",
       "kind": "button",
       "label": "관리자 모달 취소 버튼 — MODAL_BUTTON_BASE 참조 합성",
@@ -3788,5 +3672,6 @@
   ],
   "$correctionLog": "첫 판에서 넷을 상상했다 — ① 모달 카드에 typography 클래스가 있다고 적었다(없다) ② 마이페이지 토스트에 toastText 자식이 있다고 적었다(없다. 토스트 자신이 글자를 갖는다) ③ 토스트 글자를 body-14-medium이라고 적었다(body-16-regular다) ④ 마이페이지 모달의 버튼 글자를 body-16이라고 적었다(그 소비처는 body-14다). 스크립트가 없는 상수를 만나면 죽는다 — ②가 그렇게 잡혔다. 나머지 셋은 JSX를 읽어 고쳤다. 2026-08-21 재기준선(6337ad54 → ada1b939)에서 하나를 더 뺐다 — 배포본이 `Button.tsx`의 `PRIMARY_HOOK`을 지웠다. hl-* 라우트의 CSS 모듈 훅이라 스타일을 정의한 적이 없고, 그 라우트가 삭제 예정이라 함께 사라졌다. 표본 둘의 parts에서 뺐고 값 변화는 없다.",
   "$inlineRule": "소비처가 인라인 style로 얹는 선언은 클래스를 이긴다. 그 값을 여기 적지 않고 **상수 이름만** 가리킨다(`inlineFrom`) — 값은 스크립트가 소스에서 꺼낸다.",
-  "$hostRule": "`host`는 제품에서 이 표본을 감싸는, **크기 계산을 바꾸는** 부모다. 표본을 부모 없이 재면 flex 문맥이 빠져 높이가 `여백+인라인상자`로 잡힌다 — 제품에서는 blockify되어 `여백+행간상자`다. 문맥 없이 잰 값은 실측이 아니다. 크기를 바꾸는 부모가 없는 것(position:fixed로 body에 포털되는 토스트·툴팁 등)은 `host: []`와 함께 `hostNone`에 **확인한 사유**를 적는다 — 비어 있는 것과 확인해서 없는 것은 다르다."
+  "$hostRule": "`host`는 제품에서 이 표본을 감싸는, **크기 계산을 바꾸는** 부모다. 표본을 부모 없이 재면 flex 문맥이 빠져 높이가 `여백+인라인상자`로 잡힌다 — 제품에서는 blockify되어 `여백+행간상자`다. 문맥 없이 잰 값은 실측이 아니다. 크기를 바꾸는 부모가 없는 것(position:fixed로 body에 포털되는 토스트·툴팁 등)은 `host: []`와 함께 `hostNone`에 **확인한 사유**를 적는다 — 비어 있는 것과 확인해서 없는 것은 다르다.",
+  "$retired": "2026-08-27 재기준선: `banner-carousel/highlightTab` · `banner-carousel/tabCarouselControls` 두 표본을 지웠다. 정본 파일 `apps/web/components/banners/TabBannerCarousel.tsx` 가 제품 `6602fd24` 에서 삭제됐고 소비처도 함께 사라졌다 — 캐러셀은 앱 홈 하나만 남아 `AppHomeScene.tsx` 안으로 들어갔고, 그 구조는 `banner-carousel/appHome` · `banner-carousel/appHomeControls` · `banner-carousel/appHomeFrame` 세 표본이 이미 갖고 있다. 구조를 옮긴 것이 아니라 **없어진 소비처를 지운 것**이다."
 }

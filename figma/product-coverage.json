@@ -10,7 +10,6 @@
     "--profile-ring-progress": "런타임 값이다. 진행률은 데이터가 정한다.",
     "--profile-ring-size": "지름은 DS가 padding으로 만든다(progress.md). 제품의 계산식을 그대로 옮기면 아바타 크기를 두 곳에 적게 된다.",
     "--tw-border-style": "Tailwind 내부 변수다. 제품이 이 컴포넌트에 대해 정한 값이 아니라 유틸리티 구현의 부산물이다.",
-    "--tw-content": "Tailwind가 `content`를 구현하는 내부 변수다. 제품이 이 컴포넌트에 대해 정한 값이 아니다.",
     "--tw-shadow": "위와 같다.",
     "-webkit-user-drag": "위와 같다.",
     "align-items": "위와 같다.",
@@ -26,6 +25,7 @@
     "animation-range-start": "위와 같다.",
     "animation-timeline": "위와 같다.",
     "animation-timing-function": "위와 같다.",
+    "aspect-ratio": "정사각 비율은 폭이 정해지면 높이가 따라온다는 뜻이고, 그 폭은 소비처가 정한다(위 `width` 사유). 비율 자체는 Figma 에서 프레임 크기로 나타난다.",
     "backdrop-filter": "흐림 반경은 components.measured.json의 backdropBlur가 고정하고 Figma는 BACKGROUND_BLUR effect로 같은 값을 갖는다.",
     "background-attachment": "`background` shorthand의 확장이다. 면 색과 이미지를 대조하므로 나머지는 중복이다.",
     "background-clip": "위와 같다.",
@@ -60,7 +60,6 @@
     "content": "의사요소를 존재하게 하는 관용구다(`content: ''`). 값이 아니라 스위치이며, 그 층이 무엇을 그리는지는 나머지 property가 말한다.",
     "cursor": "포인터 모양은 상호작용 가능성의 결과다. 누를 수 있는가는 role과 마크업이 말하고 커서는 그 부산물이다.",
     "display": "내부 배치 기법이다. 제품이 flex로 만든 결과를 DS가 grid로 만들어도 눈에 보이는 값이 같으면 같다 — 계약은 결과(간격·정렬·크기)에 둔다.",
-    "filter": "밝기·채도 변화로 상태를 표현하는 기법이다. DS는 상태를 색으로 바꾸므로 대응 값이 없다 — 각 문서의 Known deviations가 그 차이를 적는다.",
     "flex-basis": "남는 자리를 어떻게 나눌지는 소비처의 배치다.",
     "flex-direction": "위와 같다.",
     "flex-grow": "위와 같다.",
@@ -70,6 +69,11 @@
     "font-size": "타이포는 typography 토큰이 갖는다. 제품과 갈리는 자리(상단 바 제목 · 내비 항목 · 툴팁)는 EXPECT가 본다.",
     "font-weight": "위와 같다.",
     "grid-template-columns": "그리드 트랙은 Project Grid 패턴이 소유한다. 카드가 자기 열 수를 알지 못한다.",
+    "inline-size": "**논리 프로퍼티 이름이다.** 제품이 LOUIS 레시피를 소비하면서 같은 값을 `width` 가 아니라 이 이름으로 선언하게 됐다 — 사유는 `width` 와 한 글자도 다르지 않다. 폭은 소비처가 정한다. 탐침의 폭은 host 폭이지 제품 값이 아니다 — 폭이 계약인 자리(아이콘 버튼 · 캐러셀 화살표 · 점 · 링 · 다이얼로그)는 EXPECT가 본다.",
+    "inset-block-end": "위와 같다.",
+    "inset-block-start": "위치 오프셋이다. 무엇으로부터 얼마나 떨어지는지는 **얹히는 자리**가 정하고, 그 값이 계약인 자리는 EXPECT 가 따로 본다(MediaCard 의 배지 인셋이 그 경우다).",
+    "inset-inline-end": "위와 같다.",
+    "inset-inline-start": "위와 같다.",
     "isolation": "쌓임 문맥을 만드는 기법이다. 결과(무엇이 무엇 위에 칠해지는가)를 계약으로 두고 기법은 두지 않는다.",
     "justify-content": "위와 같다.",
     "justify-items": "위와 같다.",
@@ -81,15 +85,20 @@
     "margin-right": "위와 같다.",
     "margin-top": "바깥 여백은 이웃과의 관계이지 컴포넌트의 값이 아니다.",
     "max-height": "상한은 소비처가 정한다. 최대 폭처럼 제품 두 벌이 합의하는 자리만 계약으로 둔다.",
+    "max-inline-size": "**논리 프로퍼티 이름이다.** 제품이 LOUIS 레시피를 소비하면서 같은 값을 `max-width` 가 아니라 이 이름으로 선언하게 됐다 — 사유는 `max-width` 와 한 글자도 다르지 않다. 상한은 소비처가 정한다. `none`과 `100%`는 상한을 두지 않는다는 뜻이고, 제품 두 벌이 합의하는 자리(진행바 320 · 아이콘 버튼 32)만 계약이라 EXPECT가 본다.",
     "max-width": "상한은 소비처가 정한다. `none`과 `100%`는 상한을 두지 않는다는 뜻이고, 제품 두 벌이 합의하는 자리(진행바 320 · 아이콘 버튼 32)만 계약이라 EXPECT가 본다.",
+    "min-block-size": "**논리 프로퍼티 이름이다.** 제품이 LOUIS 레시피를 소비하면서 같은 값을 `min-height` 가 아니라 이 이름으로 선언하게 됐다 — 사유는 `min-height` 와 한 글자도 다르지 않다. 대부분 높이 계약과 같은 값이며 EXPECT가 height 또는 minHeight 중 하나를 본다. 둘 다 선언된 자리는 EXPECT가 minHeight를 본다.",
     "min-height": "대부분 높이 계약과 같은 값이며 EXPECT가 height 또는 minHeight 중 하나를 본다. 둘 다 선언된 자리는 EXPECT가 minHeight를 본다.",
+    "min-inline-size": "**논리 프로퍼티 이름이다.** 제품이 LOUIS 레시피를 소비하면서 같은 값을 `min-width` 가 아니라 이 이름으로 선언하게 됐다 — 사유는 `min-width` 와 한 글자도 다르지 않다. `min-width: 0`은 flex 자식이 줄어들 수 있게 하는 관용구다. 값이 아니라 기본값 해제이며, 폭이 계약인 자리는 EXPECT가 본다.",
     "min-width": "`min-width: 0`은 flex 자식이 줄어들 수 있게 하는 관용구다. 값이 아니라 기본값 해제이며, 폭이 계약인 자리는 EXPECT가 본다.",
     "opacity": "제품은 disabled를 opacity로 표현하고 DS는 색을 바꾼다(button.md). 상태 표현 방식의 차이라 값 대조가 성립하지 않는다.",
+    "overflow-wrap": "긴 낱말을 어디서 끊을지는 문서 전역 규칙이다(globals.css 의 `[data-page-root]`·본문 리셋). 컴포넌트가 정하는 값이 아니다.",
     "overflow-x": "잘림은 배치의 결과다. 넘침 자체는 figma-parity의 overflowingParts가 따로 본다.",
     "overflow-y": "위와 같다.",
     "pointer-events": "위와 같다.",
     "position": "배치는 소비처가 소유한다. 컴포넌트가 어디에 어떻게 놓이는지는 패턴 문서의 것이고, 같은 컴포넌트가 제품에서는 absolute·DS 데모에서는 static일 수 있다.",
     "right": "위와 같다.",
+    "scroll-snap-align": "스크롤 스냅은 **트랙**의 성질이지 카드의 성질이 아니다. 같은 카드가 그리드에 놓이면 이 선언이 아무 일도 하지 않는다 — Figma 에 대응 개념도 없다.",
     "text-align": "정렬은 배치의 결과다. 가운데 정렬 여부는 컴포넌트의 모양이 이미 말한다.",
     "text-decoration-color": "위와 같다.",
     "text-decoration-line": "링크의 밑줄 정책은 Foundations의 것이다.",
@@ -108,11 +117,14 @@
     "user-select": "위와 같다.",
     "white-space-collapse": "위와 같다.",
     "width": "폭은 소비처가 정한다. 탐침의 폭은 host 폭이지 제품 값이 아니다 — 폭이 계약인 자리(아이콘 버튼 · 캐러셀 화살표 · 점 · 링 · 다이얼로그)는 EXPECT가 본다.",
+    "word-break": "위와 같다. 한국어 줄바꿈 정책은 문서가 갖는다.",
     "z-index": "쌓임 순서는 layer 사다리가 소유한다(design/foundations/layering.md). 컴포넌트가 숫자를 직접 갖지 않는다."
   },
   "probeScope": {
     "badge": {
-      "background-color": "위와 같다."
+      "background-color": "위와 같다.",
+      "row-gap": "flex/grid 축 하나가 실제로 쓰이지 않아 0 으로 계산된 값이다. 간격이 계약인 축은 EXPECT 가 반대 축에서 본다.",
+      "column-gap": "flex/grid 축 하나가 실제로 쓰이지 않아 0 으로 계산된 값이다. 간격이 계약인 축은 EXPECT 가 반대 축에서 본다."
     },
     "carousel": {
       "max-width": "제품 캐러셀은 상한을 풀고 소비처가 폭을 정한다."
@@ -121,13 +133,28 @@
       "padding-bottom": "제품이 여백을 두지 않는 자리다. 크기가 고정이라 여백이 들어갈 곳이 없다 — 크기를 EXPECT가 본다.",
       "padding-left": "제품이 여백을 두지 않는 자리다. 크기가 고정이라 여백이 들어갈 곳이 없다 — 크기를 EXPECT가 본다.",
       "padding-right": "제품이 여백을 두지 않는 자리다. 크기가 고정이라 여백이 들어갈 곳이 없다 — 크기를 EXPECT가 본다.",
-      "padding-top": "제품이 여백을 두지 않는 자리다. 크기가 고정이라 여백이 들어갈 곳이 없다 — 크기를 EXPECT가 본다."
+      "padding-top": "제품이 여백을 두지 않는 자리다. 크기가 고정이라 여백이 들어갈 곳이 없다 — 크기를 EXPECT가 본다.",
+      ":state scale": "`:active` 의 눌림(scale 0.94)이다. 되읽기가 상태별 transform 을 담지 않아 대조할 반대편이 없다 — 모션 규범(DS-D-0019 계열)이 소유한다."
     },
     "carousel-content": {
-      "height": "배너 높이를 채우므로 배너의 값이다. EXPECT가 배너 높이를 본다."
+      "row-gap": "flex/grid 축 하나가 실제로 쓰이지 않아 0 으로 계산된 값이다. 간격이 계약인 축은 EXPECT 가 반대 축에서 본다.",
+      "column-gap": "flex/grid 축 하나가 실제로 쓰이지 않아 0 으로 계산된 값이다. 간격이 계약인 축은 EXPECT 가 반대 축에서 본다.",
+      "align-content": "콘텐츠를 세로 가운데 두는 배치다. Figma 는 auto-layout 정렬로 같은 뜻을 갖고 되읽기가 그것을 담지 않는다."
     },
     "carousel-controls": {
       "backdrop-filter": "위와 같다."
+    },
+    "carousel-controls-filled": {
+      "border-bottom-left-radius": "이 탐침은 높이 합만 세우려고 둔 CONTROLS의 짝이다. 기하는 carousel-controls가 대조한다.",
+      "border-bottom-right-radius": "이 탐침은 높이 합만 세우려고 둔 CONTROLS의 짝이다. 기하는 carousel-controls가 대조한다.",
+      "border-top-left-radius": "이 탐침은 높이 합만 세우려고 둔 CONTROLS의 짝이다. 기하는 carousel-controls가 대조한다.",
+      "border-top-right-radius": "이 탐침은 높이 합만 세우려고 둔 CONTROLS의 짝이다. 기하는 carousel-controls가 대조한다.",
+      "column-gap": "이 탐침은 높이 합만 세우려고 둔 CONTROLS의 짝이다. 기하는 carousel-controls가 대조한다.",
+      "row-gap": "이 탐침은 높이 합만 세우려고 둔 CONTROLS의 짝이다. 기하는 carousel-controls가 대조한다.",
+      "padding-bottom": "이 탐침은 높이 합만 세우려고 둔 CONTROLS의 짝이다. 기하는 carousel-controls가 대조한다.",
+      "padding-left": "이 탐침은 높이 합만 세우려고 둔 CONTROLS의 짝이다. 기하는 carousel-controls가 대조한다.",
+      "padding-right": "이 탐침은 높이 합만 세우려고 둔 CONTROLS의 짝이다. 기하는 carousel-controls가 대조한다.",
+      "padding-top": "이 탐침은 높이 합만 세우려고 둔 CONTROLS의 짝이다. 기하는 carousel-controls가 대조한다."
     },
     "carousel-dot-active": {
       "padding-bottom": "제품이 여백을 두지 않는 자리다. 크기가 고정이라 여백이 들어갈 곳이 없다 — 크기를 EXPECT가 본다.",
@@ -141,19 +168,12 @@
       "padding-right": "제품이 여백을 두지 않는 자리다. 크기가 고정이라 여백이 들어갈 곳이 없다 — 크기를 EXPECT가 본다.",
       "padding-top": "제품이 여백을 두지 않는 자리다. 크기가 고정이라 여백이 들어갈 곳이 없다 — 크기를 EXPECT가 본다."
     },
-    "checkbox": {
-      "accent-color": "네이티브 체크박스의 강조색이다. DS는 면과 표식을 직접 그린다(checkbox.md)."
-    },
-    "dialog-action": {
-      "background-color": "제품 모달의 확인 버튼은 danger 고정이다. DS Dialog는 액션의 variant를 소비처가 정한다.",
-      "border-bottom-left-radius": "위와 같다.",
-      "border-bottom-right-radius": "위와 같다.",
-      "border-top-left-radius": "제품 모달의 확인·취소 버튼이며 DS Dialog는 액션의 모양을 Button에 맡긴다. 버튼의 반경은 button 탐침이 본다.",
-      "border-top-right-radius": "위와 같다.",
-      "height": "위와 같다 — 제품 모달 버튼의 44는 Button 계단(40/32)에 없는 값이고 DS는 Button을 그대로 쓴다."
-    },
     "dialog-card": {
       "box-shadow": "glass dropdown frame이다. DS는 elevation 사다리를 쓴다(dialog.md)."
+    },
+    "dialog-card-mypage": {
+      "column-gap": "이 벌만 카드가 직접 flex 간격을 갖는다. 앱 홈 벌은 자식들이 margin으로 띄우고, DS는 body가 gap을 갖는다 — 같은 결과를 만드는 다른 기법이라 값이 대응하지 않는다.",
+      "row-gap": "위와 같다."
     },
     "dialog-overlay": {
       "background-color": "scrim 색은 overlay foundation이 소유한다(design/foundations/layering.md)."
@@ -161,8 +181,20 @@
     "empty-state": {
       "color": "빈 상태의 전경은 states 표가 소유한다."
     },
+    "faq-row-question": {
+      "appearance": "브라우저 기본 버튼 모양 해제다. 값이 아니라 기본값 제거이며 Figma 에 대응 개념이 없다."
+    },
     "icon-button": {
       "backdrop-filter": "제품 기본형의 글래스다. DS는 icon-button에 흐림을 두지 않는다 — icon-button.md의 Known deviations가 사유를 적는다."
+    },
+    "icon-button-card": {
+      "padding-bottom": "카드 위 more 버튼은 여백을 두지 않는다 — 28×28 고정이라 여백이 들어갈 곳이 없고, 그 크기를 EXPECT 가 본다.",
+      "padding-left": "카드 위 more 버튼은 여백을 두지 않는다 — 28×28 고정이라 여백이 들어갈 곳이 없고, 그 크기를 EXPECT 가 본다.",
+      "padding-right": "카드 위 more 버튼은 여백을 두지 않는다 — 28×28 고정이라 여백이 들어갈 곳이 없고, 그 크기를 EXPECT 가 본다.",
+      "padding-top": "카드 위 more 버튼은 여백을 두지 않는다 — 28×28 고정이라 여백이 들어갈 곳이 없고, 그 크기를 EXPECT 가 본다."
+    },
+    "inline-loading-slot-idle": {
+      "height": "닫힘 슬롯의 높이는 열림과 같은 `h-8` 이고 열림 탐침이 그 값을 대조한다. 닫힘에서 달라지는 것은 폭·여백·불투명도뿐이다."
     },
     "input-box": {
       "background-color": "위와 같다.",
@@ -172,6 +204,10 @@
       "border-top-color": "위와 같다.",
       "padding-bottom": "위와 같다.",
       "padding-top": "제품 입력은 상하 12를 직접 두고 DS는 min-block-size 40에서 높이를 만든다 — 여백이 아니라 높이가 계약이다(input.md)."
+    },
+    "media-card-info": {
+      "inset-inline-start": "정보 바가 카드 좌우 끝까지 붙는다는 뜻이다(`inset-x-0`). 폭은 카드가 정하고 EXPECT 가 그 폭을 본다.",
+      "inset-inline-end": "위와 같다."
     },
     "menu-item": {
       "background-color": "위와 같다.",
@@ -205,8 +241,21 @@
       "padding-right": "제품이 여백을 두지 않는 자리다. 크기가 고정이라 여백이 들어갈 곳이 없다 — 크기를 EXPECT가 본다.",
       "padding-top": "제품이 여백을 두지 않는 자리다. 크기가 고정이라 여백이 들어갈 곳이 없다 — 크기를 EXPECT가 본다."
     },
+    "news-card-featured": {
+      "grid-column-start": "피처드가 격자에서 2×2 를 차지한다는 선언이다. 그 결과인 698×324 를 EXPECT 가 대조하므로 span 자체를 따로 보지 않는다.",
+      "grid-column-end": "피처드가 격자에서 2×2 를 차지한다는 선언이다. 그 결과인 698×324 를 EXPECT 가 대조하므로 span 자체를 따로 보지 않는다.",
+      "grid-row-start": "피처드가 격자에서 2×2 를 차지한다는 선언이다. 그 결과인 698×324 를 EXPECT 가 대조하므로 span 자체를 따로 보지 않는다.",
+      "grid-row-end": "피처드가 격자에서 2×2 를 차지한다는 선언이다. 그 결과인 698×324 를 EXPECT 가 대조하므로 span 자체를 따로 보지 않는다."
+    },
+    "news-card-headline": {
+      "-webkit-line-clamp": "제목을 두 줄에서 자른다. 몇 줄이냐는 계약(Featured 축)이 이미 갖고 있고, 자르는 방식은 Figma 에 대응 개념이 없다.",
+      "-webkit-box-orient": "위 line-clamp 이 요구하는 짝 선언이다. 단독으로는 아무 뜻이 없다."
+    },
     "progress-bar-fill": {
-      "height": "트랙 높이를 채우므로 트랙의 값이다. EXPECT가 트랙을 본다."
+      "block-size": "채움 높이는 `block-size: 100%` 라 트랙이 정한다. 트랙 높이는 EXPECT 가 본다."
+    },
+    "progress-bar-track": {
+      "--louis-progress-value": "진행률이다. 런타임 데이터가 정하고 기하가 아니다."
     },
     "progress-ring": {
       "--profile-ring-fill": "색은 states 표가 소유한다(progress-ring.states.base).",
@@ -239,7 +288,13 @@
       "height": "비율에서 나오는 값이다. `overlayHeightRatio`가 계약이고 templates.measured.json이 화면 단위로 그것을 본다."
     },
     "project-card-preview": {
-      "background-color": "썸네일이 없을 때의 자리 색이며 소비처가 정한다."
+      "background-color": "썸네일이 없을 때의 자리 색이며 소비처가 정한다.",
+      "--louis-project-card-aspect-ratio": "LOUIS 레시피의 내부 변수다. 값은 위 `aspect-ratio` 로 나타나고 그 사유가 이미 있다."
+    },
+    "segmented-code-cell": {
+      "outline-style": "`outline-none` 이다 — 포커스 표현을 테두리 색으로 옮겼다는 뜻이고, 그 색은 계약의 stroke 항목이 갖는다.",
+      "--tw-outline-style": "Tailwind 가 `outline` 을 구현하는 내부 변수다. 제품이 이 컴포넌트에 대해 정한 값이 아니다.",
+      "text-transform": "입력 글자를 대문자로 보이게 한다. 쿠폰 코드 표기 규칙이고 기하가 아니다 — Figma 에는 예시 문구를 대문자로 적어 두는 것이 전부다."
     },
     "segmented-segment": {
       "padding-bottom": "위와 같다.",
@@ -268,6 +323,30 @@
     "sidebar-cta-current-light": {
       "box-shadow": "위와 같다.",
       "color": "제품의 --gray-000이 앱 셸 스코프 밖에서 해석되지 않아 값이 성립하지 않는다. 다크 탐침이 이 축을 본다."
+    },
+    "sidebar-cta-hover": {
+      "border-bottom-left-radius": "hover 탐침은 색만 대조한다. 기하는 펼침 탐침 sidebar-cta가 대조한다.",
+      "border-bottom-right-radius": "hover 탐침은 색만 대조한다. 기하는 펼침 탐침 sidebar-cta가 대조한다.",
+      "border-top-left-radius": "hover 탐침은 색만 대조한다. 기하는 펼침 탐침 sidebar-cta가 대조한다.",
+      "border-top-right-radius": "hover 탐침은 색만 대조한다. 기하는 펼침 탐침 sidebar-cta가 대조한다.",
+      "column-gap": "hover 탐침은 색만 대조한다. 기하는 펼침 탐침 sidebar-cta가 대조한다.",
+      "padding-block-end": "hover 탐침은 색만 대조한다. 기하는 펼침 탐침 sidebar-cta가 대조한다.",
+      "padding-block-start": "hover 탐침은 색만 대조한다. 기하는 펼침 탐침 sidebar-cta가 대조한다.",
+      "padding-inline-end": "hover 탐침은 색만 대조한다. 기하는 펼침 탐침 sidebar-cta가 대조한다.",
+      "padding-inline-start": "hover 탐침은 색만 대조한다. 기하는 펼침 탐침 sidebar-cta가 대조한다.",
+      "row-gap": "hover 탐침은 색만 대조한다. 기하는 펼침 탐침 sidebar-cta가 대조한다."
+    },
+    "sidebar-cta-hover-light": {
+      "border-bottom-left-radius": "hover 탐침은 색만 대조한다. 기하는 펼침 탐침 sidebar-cta가 대조한다.",
+      "border-bottom-right-radius": "hover 탐침은 색만 대조한다. 기하는 펼침 탐침 sidebar-cta가 대조한다.",
+      "border-top-left-radius": "hover 탐침은 색만 대조한다. 기하는 펼침 탐침 sidebar-cta가 대조한다.",
+      "border-top-right-radius": "hover 탐침은 색만 대조한다. 기하는 펼침 탐침 sidebar-cta가 대조한다.",
+      "column-gap": "hover 탐침은 색만 대조한다. 기하는 펼침 탐침 sidebar-cta가 대조한다.",
+      "padding-block-end": "hover 탐침은 색만 대조한다. 기하는 펼침 탐침 sidebar-cta가 대조한다.",
+      "padding-block-start": "hover 탐침은 색만 대조한다. 기하는 펼침 탐침 sidebar-cta가 대조한다.",
+      "padding-inline-end": "hover 탐침은 색만 대조한다. 기하는 펼침 탐침 sidebar-cta가 대조한다.",
+      "padding-inline-start": "hover 탐침은 색만 대조한다. 기하는 펼침 탐침 sidebar-cta가 대조한다.",
+      "row-gap": "hover 탐침은 색만 대조한다. 기하는 펼침 탐침 sidebar-cta가 대조한다."
     },
     "sidebar-cta-label-collapsed": {
       "padding-bottom": "제품이 여백을 두지 않는 자리다. 크기가 고정이라 여백이 들어갈 곳이 없다 — 크기를 EXPECT가 본다.",
@@ -320,63 +399,21 @@
       "border-bottom-left-radius": "원이다. 반경 대조가 의미를 갖지 않는다.",
       "border-bottom-right-radius": "원이다. 반경 대조가 의미를 갖지 않는다.",
       "border-top-left-radius": "원이다. 반경 대조는 의미가 없다.",
-      "border-top-right-radius": "원이다. 반경 대조가 의미를 갖지 않는다."
+      "border-top-right-radius": "원이다. 반경 대조가 의미를 갖지 않는다.",
+      "::after border-block-start-color": "도는 조각의 색이다. `currentcolor` 라 놓이는 자리마다 달라지고, 그래서 semantic 토큰으로 표현되지 않는다(spinner.css 머리말)."
     },
     "spinner-sm": {
       "border-bottom-left-radius": "원이다. 반경 대조가 의미를 갖지 않는다.",
       "border-bottom-right-radius": "원이다. 반경 대조가 의미를 갖지 않는다.",
       "border-top-left-radius": "위와 같다.",
-      "border-top-right-radius": "원이다. 반경 대조가 의미를 갖지 않는다."
+      "border-top-right-radius": "원이다. 반경 대조가 의미를 갖지 않는다.",
+      "::after border-block-start-color": "도는 조각의 색이다. `currentcolor` 라 놓이는 자리마다 달라지고, 그래서 semantic 토큰으로 표현되지 않는다(spinner.css 머리말)."
     },
     "toast": {
       "backdrop-filter": "흐림 반경은 EXPECT가 보지 않고 components.measured.json의 backdropBlur가 값을 고정한다. Figma는 BACKGROUND_BLUR effect로 같은 값을 갖는다."
     },
-    "tooltip": {
-      "background-color": "위와 같다.",
-      "box-shadow": "elevation-tooltip이 값을 갖고 figma-parity가 대조한다."
-    },
     "top-bar": {
       "max-width": "제품 상단 바는 상한을 풀고 셸이 폭을 정한다."
-    },
-    "dialog-card-mypage": {
-      "column-gap": "이 벌만 카드가 직접 flex 간격을 갖는다. 앱 홈 벌은 자식들이 margin으로 띄우고, DS는 body가 gap을 갖는다 — 같은 결과를 만드는 다른 기법이라 값이 대응하지 않는다.",
-      "row-gap": "위와 같다."
-    },
-    "carousel-controls-filled": {
-      "border-bottom-left-radius": "이 탐침은 높이 합만 세우려고 둔 CONTROLS의 짝이다. 기하는 carousel-controls가 대조한다.",
-      "border-bottom-right-radius": "이 탐침은 높이 합만 세우려고 둔 CONTROLS의 짝이다. 기하는 carousel-controls가 대조한다.",
-      "border-top-left-radius": "이 탐침은 높이 합만 세우려고 둔 CONTROLS의 짝이다. 기하는 carousel-controls가 대조한다.",
-      "border-top-right-radius": "이 탐침은 높이 합만 세우려고 둔 CONTROLS의 짝이다. 기하는 carousel-controls가 대조한다.",
-      "column-gap": "이 탐침은 높이 합만 세우려고 둔 CONTROLS의 짝이다. 기하는 carousel-controls가 대조한다.",
-      "row-gap": "이 탐침은 높이 합만 세우려고 둔 CONTROLS의 짝이다. 기하는 carousel-controls가 대조한다.",
-      "padding-bottom": "이 탐침은 높이 합만 세우려고 둔 CONTROLS의 짝이다. 기하는 carousel-controls가 대조한다.",
-      "padding-left": "이 탐침은 높이 합만 세우려고 둔 CONTROLS의 짝이다. 기하는 carousel-controls가 대조한다.",
-      "padding-right": "이 탐침은 높이 합만 세우려고 둔 CONTROLS의 짝이다. 기하는 carousel-controls가 대조한다.",
-      "padding-top": "이 탐침은 높이 합만 세우려고 둔 CONTROLS의 짝이다. 기하는 carousel-controls가 대조한다."
-    },
-    "sidebar-cta-hover": {
-      "border-bottom-left-radius": "hover 탐침은 색만 대조한다. 기하는 펼침 탐침 sidebar-cta가 대조한다.",
-      "border-bottom-right-radius": "hover 탐침은 색만 대조한다. 기하는 펼침 탐침 sidebar-cta가 대조한다.",
-      "border-top-left-radius": "hover 탐침은 색만 대조한다. 기하는 펼침 탐침 sidebar-cta가 대조한다.",
-      "border-top-right-radius": "hover 탐침은 색만 대조한다. 기하는 펼침 탐침 sidebar-cta가 대조한다.",
-      "column-gap": "hover 탐침은 색만 대조한다. 기하는 펼침 탐침 sidebar-cta가 대조한다.",
-      "row-gap": "hover 탐침은 색만 대조한다. 기하는 펼침 탐침 sidebar-cta가 대조한다.",
-      "padding-bottom": "hover 탐침은 색만 대조한다. 기하는 펼침 탐침 sidebar-cta가 대조한다.",
-      "padding-left": "hover 탐침은 색만 대조한다. 기하는 펼침 탐침 sidebar-cta가 대조한다.",
-      "padding-right": "hover 탐침은 색만 대조한다. 기하는 펼침 탐침 sidebar-cta가 대조한다.",
-      "padding-top": "hover 탐침은 색만 대조한다. 기하는 펼침 탐침 sidebar-cta가 대조한다."
-    },
-    "sidebar-cta-hover-light": {
-      "border-bottom-left-radius": "hover 탐침은 색만 대조한다. 기하는 펼침 탐침 sidebar-cta가 대조한다.",
-      "border-bottom-right-radius": "hover 탐침은 색만 대조한다. 기하는 펼침 탐침 sidebar-cta가 대조한다.",
-      "border-top-left-radius": "hover 탐침은 색만 대조한다. 기하는 펼침 탐침 sidebar-cta가 대조한다.",
-      "border-top-right-radius": "hover 탐침은 색만 대조한다. 기하는 펼침 탐침 sidebar-cta가 대조한다.",
-      "column-gap": "hover 탐침은 색만 대조한다. 기하는 펼침 탐침 sidebar-cta가 대조한다.",
-      "row-gap": "hover 탐침은 색만 대조한다. 기하는 펼침 탐침 sidebar-cta가 대조한다.",
-      "padding-bottom": "hover 탐침은 색만 대조한다. 기하는 펼침 탐침 sidebar-cta가 대조한다.",
-      "padding-left": "hover 탐침은 색만 대조한다. 기하는 펼침 탐침 sidebar-cta가 대조한다.",
-      "padding-right": "hover 탐침은 색만 대조한다. 기하는 펼침 탐침 sidebar-cta가 대조한다.",
-      "padding-top": "hover 탐침은 색만 대조한다. 기하는 펼침 탐침 sidebar-cta가 대조한다."
     }
   }
 }

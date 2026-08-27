@@ -1489,6 +1489,7 @@
           "dotHeight": 7,
           "dotRadius": 999,
           "radius": 0,
+          "$radius": "0. **제품 대조를 잃은 축이다.** bleed 로 갈리는 유일한 값인데, 제품이 6602fd24 에서 CAROUSEL_FULL_BLEED 를 파일과 함께 지운 뒤로 [data-bleed=\"full\"] 을 거는 자리가 한 곳도 없다. 셸에 우리 손으로 그 속성을 걸어 재면 제품 실측이 아니라 LOUIS 를 LOUIS 로 재는 것이라 탐침을 세우지 않았다. 값 자체는 packages/css/src/component/banner-carousel.css 의 [data-bleed=\"full\"] 규칙이 소유한다. 제품에 full-bleed 소비처가 다시 서면 탐침을 붙이고 이 주석을 지운다.",
           "controlGlyphCount": 1,
           "$controlGlyphCount": "1. 화살표/정지 글리프 1개",
           "dotsGap": 6
@@ -1563,6 +1564,263 @@
             "background": "color-bg-upgrade-current",
             "foreground": "color-fg-upgrade-current"
           }
+        }
+      }
+    },
+    "media-card": {
+      "$doc": "design/components/media-card.md",
+      "$source": "제품 apps/web/components/landing/system/MediaCard.tsx",
+      "$why": "제품이 정본이고 LOUIS recipe 가 없다. 값은 scripts/measure-product-components.mjs 가 제품 클래스를 제품 Tailwind 로 컴파일해 실브라우저에서 잰 것이다 — packages/react/test/component-geometry.browser.test.tsx 가 잴 코드가 없는 자리다.",
+      "sizes": {
+        "base": {
+          "width": 316,
+          "height": 316,
+          "radius": 12,
+          "paddingBlock": 0,
+          "paddingInline": 0,
+          "badgeHeight": 22,
+          "badgePaddingBlock": 2,
+          "badgePaddingInline": 4,
+          "badgeRadius": 999,
+          "badgeFontSize": 12,
+          "badgeLineHeight": 18,
+          "infoPaddingBlockStart": 40,
+          "infoPaddingBlockEnd": 16,
+          "infoPaddingInline": 16,
+          "infoGap": 4,
+          "nameRowGap": 8,
+          "titleFontSize": 20,
+          "titleLineHeight": 30,
+          "descriptionFontSize": 14,
+          "descriptionLineHeight": 21,
+          "badgeInset": 16
+        }
+      }
+    },
+    "carousel-arrow": {
+      "$doc": "design/components/carousel-arrow.md",
+      "$source": "제품 apps/web/components/landing/system/CarouselArrows.tsx",
+      "$why": "제품이 정본이고 LOUIS recipe 가 없다. 값은 scripts/measure-product-components.mjs 가 제품 클래스를 제품 Tailwind 로 컴파일해 실브라우저에서 잰 것이다 — packages/react/test/component-geometry.browser.test.tsx 가 잴 코드가 없는 자리다.",
+      "sizes": {
+        "base": {
+          "width": 32,
+          "height": 32,
+          "radius": 12,
+          "paddingBlock": 0,
+          "paddingInline": 0
+        }
+      }
+    },
+    "step-tile": {
+      "$doc": "design/components/step-tile.md",
+      "$source": "제품 apps/web/components/landing/sections/StepTiles.tsx",
+      "$why": "제품이 정본이고 LOUIS recipe 가 없다. 값은 scripts/measure-product-components.mjs 가 제품 클래스를 제품 Tailwind 로 컴파일해 실브라우저에서 잰 것이다 — packages/react/test/component-geometry.browser.test.tsx 가 잴 코드가 없는 자리다.",
+      "sizes": {
+        "base": {
+          "gap": 12,
+          "radius": 0,
+          "paddingBlock": 0,
+          "paddingInline": 0,
+          "tileRadius": 12,
+          "labelFontSize": 20,
+          "labelLineHeight": 30
+        }
+      }
+    },
+    "faq-row": {
+      "$doc": "design/components/faq-row.md",
+      "$source": "제품 apps/web/components/landing/sections/FAQ.tsx",
+      "$why": "제품이 정본이고 LOUIS recipe 가 없다. 값은 scripts/measure-product-components.mjs 가 제품 클래스를 제품 Tailwind 로 컴파일해 실브라우저에서 잰 것이다 — packages/react/test/component-geometry.browser.test.tsx 가 잴 코드가 없는 자리다. 닫힌 행 66 은 1024 이상에서만 참이다 — 질문 타입이 20 → 18 → 16 으로 내려간다. 탐침은 1440 폭에서 잰다.",
+      "sizes": {
+        "false": {
+          "radius": 12,
+          "paddingBlock": 0,
+          "paddingInline": 0,
+          "questionHeight": 66,
+          "questionPaddingBlock": 18,
+          "questionPaddingInline": 20,
+          "questionGap": 16,
+          "questionFontSize": 20,
+          "questionLineHeight": 30,
+          "iconFontSize": 20,
+          "iconHeight": 30
+        },
+        "true": {
+          "radius": 12,
+          "paddingBlock": 0,
+          "paddingInline": 0,
+          "questionHeight": 66,
+          "questionPaddingBlock": 18,
+          "questionPaddingInline": 20,
+          "questionGap": 16,
+          "questionFontSize": 20,
+          "questionLineHeight": 30,
+          "iconFontSize": 20,
+          "iconHeight": 30
+        }
+      }
+    },
+    "news-card": {
+      "$doc": "design/components/news-card.md",
+      "$source": "제품 apps/web/components/landing/sections/NewsCarousel.tsx 안의 NewsCard",
+      "$why": "제품이 정본이고 LOUIS recipe 가 없다. 값은 scripts/measure-product-components.mjs 가 제품 클래스를 제품 Tailwind 로 컴파일해 실브라우저에서 잰 것이다 — packages/react/test/component-geometry.browser.test.tsx 가 잴 코드가 없는 자리다. 폭·높이는 카드가 아니라 트랙 격자가 정한다(grid-auto-columns 347px · grid-template-rows repeat(2,160px) · gap 4). 탐침이 트랙을 조상으로 세워 격자가 계산하게 둔다 — 698 = 347×2 + 4, 324 = 160×2 + 4.",
+      "sizes": {
+        "false": {
+          "width": 347,
+          "height": 160,
+          "paddingBlock": 20,
+          "paddingInline": 16,
+          "radius": 12,
+          "bodyGap": 10,
+          "dateFontSize": 16,
+          "headlineFontSize": 20,
+          "headlineLineHeight": 30
+        },
+        "true": {
+          "width": 698,
+          "height": 324,
+          "paddingBlock": 20,
+          "paddingInline": 16,
+          "radius": 12,
+          "bodyGap": 10,
+          "dateFontSize": 16,
+          "headlineFontSize": 20,
+          "headlineLineHeight": 30
+        }
+      }
+    },
+    "gnb-menu-item": {
+      "$doc": "design/components/gnb-menu-item.md",
+      "$source": "제품 apps/web/components/landing/navigation/Gnb.tsx 의 MENU_LINK",
+      "$why": "제품이 정본이고 LOUIS recipe 가 없다. 값은 scripts/measure-product-components.mjs 가 제품 클래스를 제품 Tailwind 로 컴파일해 실브라우저에서 잰 것이다 — packages/react/test/component-geometry.browser.test.tsx 가 잴 코드가 없는 자리다. 여덟 변형의 기하가 완전히 같다 — 갈리는 것은 잉크 불투명도뿐이고 그 계약은 contract 의 opacity 블록이 갖는다. 폭 72 는 라벨이 정하므로 넣지 않는다($whyNotTextWidth).",
+      "sizes": {
+        "light/Default": {
+          "height": 28,
+          "paddingBlock": 0,
+          "paddingInline": 12,
+          "radius": 999,
+          "labelFontSize": 14,
+          "labelHeight": 21
+        },
+        "light/Hover": {
+          "height": 28,
+          "paddingBlock": 0,
+          "paddingInline": 12,
+          "radius": 999,
+          "labelFontSize": 14,
+          "labelHeight": 21
+        },
+        "light/Selected": {
+          "height": 28,
+          "paddingBlock": 0,
+          "paddingInline": 12,
+          "radius": 999,
+          "labelFontSize": 14,
+          "labelHeight": 21
+        },
+        "light/Disabled": {
+          "height": 28,
+          "paddingBlock": 0,
+          "paddingInline": 12,
+          "radius": 999,
+          "labelFontSize": 14,
+          "labelHeight": 21
+        },
+        "dark/Default": {
+          "height": 28,
+          "paddingBlock": 0,
+          "paddingInline": 12,
+          "radius": 999,
+          "labelFontSize": 14,
+          "labelHeight": 21
+        },
+        "dark/Hover": {
+          "height": 28,
+          "paddingBlock": 0,
+          "paddingInline": 12,
+          "radius": 999,
+          "labelFontSize": 14,
+          "labelHeight": 21
+        },
+        "dark/Selected": {
+          "height": 28,
+          "paddingBlock": 0,
+          "paddingInline": 12,
+          "radius": 999,
+          "labelFontSize": 14,
+          "labelHeight": 21
+        },
+        "dark/Disabled": {
+          "height": 28,
+          "paddingBlock": 0,
+          "paddingInline": 12,
+          "radius": 999,
+          "labelFontSize": 14,
+          "labelHeight": 21
+        }
+      }
+    },
+    "inline-loading-label": {
+      "$doc": "design/components/inline-loading-label.md",
+      "$source": "제품 apps/web/components/ui/InlineLoadingLabel.tsx",
+      "$why": "제품이 정본이고 LOUIS recipe 가 없다. 값은 scripts/measure-product-components.mjs 가 제품 클래스를 제품 Tailwind 로 컴파일해 실브라우저에서 잰 것이다 — packages/react/test/component-geometry.browser.test.tsx 가 잴 코드가 없는 자리다. Figma 가 프레임 itemSpacing 으로 그린 6·4 는 제품에서 슬롯의 margin-left 다(ml-3 · ml-2). 닫힘 변형에는 slot 키가 없다 — Figma 가 슬롯 레이어를 숨겨 되읽기에도 슬롯이 없고, 제품은 폭 0 + overflow-hidden 이다.",
+      "sizes": {
+        "md/false": {
+          "paddingBlock": 0,
+          "paddingInline": 0,
+          "radius": 0,
+          "gap": 0
+        },
+        "md/true": {
+          "paddingBlock": 0,
+          "paddingInline": 0,
+          "radius": 0,
+          "gap": 6,
+          "slot": 16
+        },
+        "sm/false": {
+          "paddingBlock": 0,
+          "paddingInline": 0,
+          "radius": 0,
+          "gap": 0
+        },
+        "sm/true": {
+          "paddingBlock": 0,
+          "paddingInline": 0,
+          "radius": 0,
+          "gap": 4,
+          "slot": 12
+        }
+      }
+    },
+    "segmented-code-input": {
+      "$doc": "design/components/segmented-code-input.md",
+      "$source": "제품 apps/web/components/ui/SegmentedCodeInput.tsx 의 BOX",
+      "$why": "제품이 정본이고 LOUIS recipe 가 없다. 값은 scripts/measure-product-components.mjs 가 제품 클래스를 제품 Tailwind 로 컴파일해 실브라우저에서 잰 것이다 — packages/react/test/component-geometry.browser.test.tsx 가 잴 코드가 없는 자리다. 묶음 폭 386 과 칸 사이 2 는 넣지 않는다 — 386 은 12칸이 상한 28 에 닿는 폭에서 나온 산술이고, 2 는 소비처 래퍼의 인라인 className(gap-1)이라 상수로 존재하지 않아 커밋에서 꺼낼 수 없다. 프레임 높이 36 은 칸 높이가 정한다.",
+      "sizes": {
+        "Default": {
+          "cellWidth": 28,
+          "cellHeight": 36,
+          "cellRadius": 8,
+          "borderWidth": 1,
+          "charFontSize": 16,
+          "charHeight": 24
+        },
+        "Focus": {
+          "cellWidth": 28,
+          "cellHeight": 36,
+          "cellRadius": 8,
+          "borderWidth": 1,
+          "charFontSize": 16,
+          "charHeight": 24
+        },
+        "Disabled": {
+          "cellWidth": 28,
+          "cellHeight": 36,
+          "cellRadius": 8,
+          "borderWidth": 1,
+          "charFontSize": 16,
+          "charHeight": 24
         }
       }
     }

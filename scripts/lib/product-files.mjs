@@ -33,4 +33,16 @@ export const PRODUCT_FILES = {
   // 6337ad54 재기준선: VEM_CLASS가 VideoEditModal.tsx에서 분리됐다(66d48071 리팩토링).
   vem: "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts",
   crop: "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/ClipCropModal.tsx",
+  // ── 랜딩 여섯 + ui 둘 ─────────────────────────────────────────────────────
+  // Figma 가 먼저 서고 LOUIS recipe 가 아직 없는 여덟이다. 계약에 `geometry` 를 붙이려면
+  // `figma/components.measured.json` 에 실측 정본이 있어야 하는데, 이 여덟은 LOUIS 컴포넌트가
+  // 아니라 **제품이 정본**이라 vitest 브라우저 테스트가 잴 대상이 없다. 그래서 여기 탐침으로 잰다.
+  landingMediaCard: "apps/web/components/landing/system/MediaCard.tsx",
+  landingCarouselArrows: "apps/web/components/landing/system/CarouselArrows.tsx",
+  landingStepTiles: "apps/web/components/landing/sections/StepTiles.tsx",
+  landingFaq: "apps/web/components/landing/sections/FAQ.tsx",
+  landingNews: "apps/web/components/landing/sections/NewsCarousel.tsx",
+  landingGnb: "apps/web/components/landing/navigation/Gnb.tsx",
+  inlineLoadingLabel: "apps/web/components/ui/InlineLoadingLabel.tsx",
+  segmentedCodeInput: "apps/web/components/ui/SegmentedCodeInput.tsx",
 };

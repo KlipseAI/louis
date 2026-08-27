@@ -606,6 +606,224 @@ const PROBES = [
     tag: "button",
     read: ["width", "height"],
   },
+
+  // ── Figma 선행 여덟 — 랜딩 여섯 + ui 둘 ──────────────────────────────────
+  // 계약(`verify-figma-parity.mjs`)이 이 여덟에 `geometry` 를 못 붙이고 있었다. 사유는 전부
+  // 같았다 — 「`figma/components.measured.json` 에 항목이 없어 대조할 실측 정본이 없다」.
+  // 이 여덟은 **제품이 정본**이라 LOUIS React 컴포넌트가 없고, 그래서
+  // `component-geometry.browser.test.tsx` 가 잴 대상이 없다. 여기서 제품을 직접 잰다.
+  //
+  // **폭은 대부분 재지 않는다.** 카드 폭·행 폭은 바깥 격자가 정하고 라벨 폭은 폰트가 정한다 —
+  // `components.measured.json` 의 `$whyNotTextWidth` 가 이미 정한 규칙이다. 격자가 정하는 폭은
+  // 격자를 조상으로 세울 수 있을 때만 잰다(`news-card` 가 그 경우다).
+  {
+    id: "media-card",
+    source: "MediaCard.tsx CARD + BOX.carousel",
+    from: ["landingMediaCard", "CARD", "carousel"],
+    read: ["width", "height", "borderTopLeftRadius", "paddingTop", "paddingLeft"],
+  },
+  {
+    id: "media-card-badge",
+    source: "MediaCard.tsx BADGE — 유리 배지 필",
+    from: ["landingMediaCard", "BADGE"],
+    tag: "span",
+    text: "New",
+    read: ["height", "paddingTop", "paddingLeft", "borderTopLeftRadius", "fontSize", "lineHeight"],
+  },
+  {
+    id: "media-card-info",
+    source: "MediaCard.tsx INFO — 흐린 정보 바",
+    from: ["landingMediaCard", "INFO"],
+    hostWidth: 316,
+    read: ["paddingTop", "paddingBottom", "paddingLeft", "paddingRight"],
+  },
+  {
+    id: "media-card-name-row",
+    source: "MediaCard.tsx NAME_ROW",
+    from: ["landingMediaCard", "NAME_ROW"],
+    text: "Kling",
+    read: ["columnGap", "height"],
+  },
+  {
+    id: "media-card-name",
+    source: "MediaCard.tsx NAME — type-body-20-medium",
+    from: ["landingMediaCard", "NAME"],
+    tag: "span",
+    text: "Kling",
+    read: ["fontSize", "lineHeight"],
+  },
+  {
+    id: "media-card-sub",
+    source: "MediaCard.tsx SUB — 정보 바의 두 줄 사이 간격은 이 요소의 margin-top 이다",
+    from: ["landingMediaCard", "SUB"],
+    tag: "p",
+    text: "설명",
+    read: ["marginTop", "fontSize", "lineHeight"],
+  },
+  {
+    id: "carousel-arrow-landing",
+    source: "CarouselArrows.tsx BUTTON — 랜딩 캐러셀 화살표 한 벌(쌍의 두 버튼이 같은 상수다)",
+    from: ["landingCarouselArrows", "BUTTON"],
+    tag: "button",
+    read: ["width", "height", "borderTopLeftRadius", "paddingTop", "paddingLeft"],
+  },
+  {
+    id: "step-tile",
+    source: "StepTiles.tsx CARD — 타일 + 캡션을 세로로 쌓는 li",
+    from: ["landingStepTiles", "CARD"],
+    read: ["rowGap", "paddingTop", "paddingLeft"],
+  },
+  {
+    id: "step-tile-face",
+    source: "StepTiles.tsx TILE — 내용 없는 정사각 면",
+    from: ["landingStepTiles", "TILE"],
+    read: ["borderTopLeftRadius"],
+  },
+  {
+    id: "step-tile-caption",
+    source: "StepTiles.tsx CAPTION — type-body-20-medium",
+    from: ["landingStepTiles", "CAPTION"],
+    tag: "p",
+    text: "업로드",
+    read: ["fontSize", "lineHeight"],
+  },
+  {
+    id: "faq-row",
+    source: "FAQ.tsx ITEM_CLASS — 채워진 행 알약",
+    from: ["landingFaq", "ITEM_CLASS"],
+    hostWidth: 1400,
+    read: ["borderTopLeftRadius", "paddingTop", "paddingLeft"],
+  },
+  {
+    id: "faq-row-question",
+    source: "FAQ.tsx QUESTION_CLASS + QUESTION_TEXT_CLASS 한 줄 — 닫힌 행의 높이는 이 버튼이 정한다",
+    from: ["landingFaq", "QUESTION_CLASS"],
+    tag: "button",
+    childFrom: ["landingFaq", "QUESTION_TEXT_CLASS"],
+    childTag: "span",
+    // 글자가 있어야 줄 높이 30 이 서고 닫힌 행 높이 66(18+30+18)이 나온다.
+    childText: "질문",
+    hostWidth: 1400,
+    read: ["paddingTop", "paddingLeft", "columnGap", "height"],
+  },
+  {
+    id: "faq-row-icon",
+    source: "FAQ.tsx ICON_CLASS — `+` 는 아이콘 인스턴스가 아니라 텍스트 노드다",
+    from: ["landingFaq", "ICON_CLASS"],
+    tag: "span",
+    text: "+",
+    read: ["fontSize", "lineHeight"],
+  },
+  {
+    id: "gnb-menu-item-label",
+    // 라벨 타이포는 `menuLinkClass()` 가 상수가 아니라 리터럴로 앞에 붙이는 전역 클래스다
+    // (`type-body-14-medium`). 상수가 없으니 `from` 으로 꺼낼 자리가 없고, 남은 것은 **후크
+    // 이름**뿐이다 — `.app-tooltip-chrome` 탐침과 같은 형태이며 수치는 globals.css 에 있다.
+    source: "landing/navigation/Gnb.tsx menuLinkClass() 가 앞에 붙이는 type-body-14-medium",
+    html: `<span class="type-body-14-medium">제품</span>`,
+    read: ["fontSize", "lineHeight"],
+  },
+  {
+    id: "segmented-code-char",
+    source: "SegmentedCodeInput.tsx 가 칸과 구분자에 함께 붙이는 type-body-16-medium",
+    html: `<span class="type-body-16-medium">A</span>`,
+    read: ["fontSize", "lineHeight"],
+  },
+  {
+    id: "faq-row-question-text",
+    source: "FAQ.tsx QUESTION_TEXT_CLASS",
+    from: ["landingFaq", "QUESTION_TEXT_CLASS"],
+    tag: "span",
+    text: "질문",
+    read: ["fontSize", "lineHeight"],
+  },
+  {
+    id: "news-card",
+    // 폭 347 · 높이 160 은 카드가 아니라 **트랙**이 정한다(`grid-auto-columns` ·
+    // `grid-template-rows`). 그래서 트랙을 조상으로 세우고 카드를 격자 칸에 앉힌다 —
+    // 값을 옮겨 적지 않고 격자가 계산하게 둔다.
+    source: "NewsCarousel.tsx CARD (조상 TRACK)",
+    from: ["landingNews", "CARD"],
+    wrapperFrom: [["landingNews", "TRACK"]],
+    hostWidth: 1400,
+    read: ["width", "height", "paddingTop", "paddingLeft", "borderTopLeftRadius"],
+  },
+  {
+    id: "news-card-featured",
+    // 피처드는 `col-span-2 row-span-2` 다. 698 = 347×2 + gap 4, 324 = 160×2 + 4 —
+    // 이 산술도 격자가 하게 둔다.
+    source: "NewsCarousel.tsx FEATURED_CARD (조상 TRACK)",
+    from: ["landingNews", "FEATURED_CARD"],
+    wrapperFrom: [["landingNews", "TRACK"]],
+    hostWidth: 1400,
+    read: ["width", "height", "paddingTop", "paddingLeft", "borderTopLeftRadius"],
+  },
+  {
+    id: "news-card-body",
+    source: "NewsCarousel.tsx BODY — 날짜 ↔ 제목 간격",
+    from: ["landingNews", "BODY"],
+    read: ["rowGap"],
+  },
+  {
+    id: "news-card-headline",
+    source: "NewsCarousel.tsx HEADLINE",
+    from: ["landingNews", "HEADLINE"],
+    tag: "p",
+    text: "소식",
+    read: ["fontSize", "lineHeight"],
+  },
+  {
+    id: "news-card-date",
+    source: "NewsCarousel.tsx DATE",
+    from: ["landingNews", "DATE"],
+    tag: "span",
+    text: "Feb 18, 2026",
+    read: ["fontSize"],
+  },
+  {
+    id: "gnb-menu-item",
+    source: "landing/navigation/Gnb.tsx MENU_LINK — menuLinkClass() 가 조립하는 알약",
+    from: ["landingGnb", "MENU_LINK"],
+    tag: "a",
+    text: "제품",
+    read: ["height", "paddingTop", "paddingLeft", "borderTopLeftRadius", "columnGap"],
+  },
+  {
+    id: "inline-loading-slot-md",
+    source: "InlineLoadingLabel.tsx SLOT_BASE + SLOT_MD + SLOT_ACTIVE_MD — 열림",
+    from: ["inlineLoadingLabel", "SLOT_BASE", "SLOT_MD", "SLOT_ACTIVE_MD"],
+    tag: "span",
+    read: ["width", "height", "marginLeft"],
+  },
+  {
+    id: "inline-loading-slot-sm",
+    source: "InlineLoadingLabel.tsx SLOT_BASE + SLOT_SM + SLOT_ACTIVE_SM — 열림",
+    from: ["inlineLoadingLabel", "SLOT_BASE", "SLOT_SM", "SLOT_ACTIVE_SM"],
+    tag: "span",
+    read: ["width", "height", "marginLeft"],
+  },
+  {
+    id: "inline-loading-slot-idle",
+    source: "InlineLoadingLabel.tsx SLOT_BASE + SLOT_MD + SLOT_IDLE — 닫힘(폭 0)",
+    from: ["inlineLoadingLabel", "SLOT_BASE", "SLOT_MD", "SLOT_IDLE"],
+    tag: "span",
+    read: ["width", "marginLeft"],
+  },
+  {
+    id: "inline-loading-root",
+    source: "InlineLoadingLabel.tsx ROOT — 여백 없는 배치 요소다",
+    from: ["inlineLoadingLabel", "ROOT"],
+    tag: "span",
+    text: "저장",
+    read: ["paddingTop", "paddingLeft", "columnGap", "borderTopLeftRadius"],
+  },
+  {
+    id: "segmented-code-cell",
+    source: "SegmentedCodeInput.tsx BOX — 칸 하나. 묶음 폭은 소비처가 정한다",
+    from: ["segmentedCodeInput", "BOX"],
+    tag: "input",
+    read: ["maxWidth", "height", "borderTopLeftRadius", "borderTopWidth"],
+  },
 ];
 
 // ── DS와 무엇을 어떻게 맞출지 ──────────────────────────────────────────────
@@ -646,9 +864,10 @@ const EXPECT = [
   ["toast", "paddingLeft", ["toast", "sizes", "base", "paddingInline"], "same"],
   ["toast", "borderTopLeftRadius", ["toast", "sizes", "base", "radius"], "same"],
   ["toast", "borderTopWidth", ["toast", "sizes", "base", "borderWidth"], "same"],
-  ["toast", "backdropFilter", ["toast", "sizes", "base", "backdropBlur"], "same"],
-  ["toast", "height", ["toast", "sizes", "base", "height"], "deviates",
-    "제품 48, DS 45. 제품 토스트는 글자 크기를 지정하지 않아 문서 기본 16/24를 물려받고 DS는 body-sm 14/21을 쓴다. 여백은 12/20으로 같다 — 높이 차이는 전부 타이포다."],
+  ["toast", "backdropFilter", ["toast", "sizes", "base", "backdropBlur"], "deviates",
+    "제품 10, DS 16. **재기준선에서 뒤집힌 축이다.** 그전에는 소비처가 인라인으로 blur(16)을 걸어 클래스의 10을 이겼고 DS는 그 16을 채택했다. 배포본 df414c24 에는 그 인라인이 없다 — 제품 소스가 「레시피는 16 인데 이 화면이 실제로 그리는 값은 10 이고, 외형을 바꾸지 않으려고 그대로 둔다」고 적어 두었다. 수렴 방향은 LOUIS 를 10 으로 내리는 쪽이며 그것은 CSS·기록·Figma 를 같이 움직이는 별도 변경이다."],
+  // 제품이 LOUIS `.louis-toast` 를 채택하면서 타이포까지 레시피를 따르게 돼 높이가 45 로 같아졌다.
+  ["toast", "height", ["toast", "sizes", "base", "height"], "same"],
 
   ["menu-panel", "borderTopLeftRadius", ["menu-popover", "sizes", "panel", "radius"], "same"],
   ["menu-panel", "paddingTop", ["menu-popover", "sizes", "panel", "paddingBlock"], "same"],
@@ -702,8 +921,10 @@ const EXPECT = [
   ["spinner-md", "height", ["spinner", "sizes", "md", "height"], "same"],
   ["spinner-md", "::after:borderTopWidth", ["spinner", "sizes", "md", "ringWidth"], "same"],
   ["spinner-sm", "width", ["spinner", "sizes", "sm", "width"], "same"],
-  ["spinner-sm", "::after:borderTopWidth", ["spinner", "sizes", "sm", "ringWidth"], "deviates",
-    "제품 2, DS 1. 제품 sm은 `after:border`(1px)를 적지만 같은 요소의 `after:border-2`가 Tailwind 정렬에서 이겨 실제로는 2px로 그려진다 — 12px 원에 2px 링이면 가운데가 거의 남지 않는다. DS는 의도한 1px을 그린다."],
+  // 편차가 사라졌다. 제품 `LoadingSpinner.tsx` 가 클래스 상수를 버리고 LOUIS `.louis-spinner` 를
+  // 그대로 소비하면서 sm 링이 `border-width-ring / 2` = 1px 로 서 있다 — Tailwind 정렬이 이기던
+  // `after:border-2` 자체가 없어졌다.
+  ["spinner-sm", "::after:borderTopWidth", ["spinner", "sizes", "sm", "ringWidth"], "same"],
 
   ["checkbox", "width", ["checkbox", "sizes", "base", "boxSize"], "same"],
   ["checkbox", "height", ["checkbox", "sizes", "base", "boxSize"], "same"],
@@ -800,8 +1021,10 @@ const EXPECT = [
   ["progress-ring", "width", ["progress-ring", "sizes", "base", "size"], "same"],
   ["progress-ring", "--profile-ring-width", ["progress-ring", "sizes", "base", "width"], "same"],
   ["progress-ring", "--profile-ring-gap", ["progress-ring", "sizes", "base", "gap"], "same"],
-  ["progress-bar-track", "borderTopLeftRadius", ["progress-bar", "sizes", "base", "radius"], "deviates",
-    "제품 3, DS 999(알약). 높이가 6이라 브라우저가 그리는 곡률은 둘 다 3으로 조여져 **결과가 같다.** 리터럴 3은 높이를 바꾸는 날 따라오지 않으므로 알약으로 적는다."],
+  // 편차가 사라졌다. `5261daea`(P#8)가 제품 진행바를 LOUIS `.louis-progress-bar` 로 옮기면서
+  // 리터럴 3 이 `--louis-radius-pill` 로 바뀌었다 — DS 가 적어 두었던 「알약으로 적는다」를
+  // 제품이 그대로 따라온 자리다.
+  ["progress-bar-track", "borderTopLeftRadius", ["progress-bar", "sizes", "base", "radius"], "same"],
 
   ["nav-row", "columnGap", ["app-shell-parts", "sizes", "navRow", "gap"], "same"],
 
@@ -859,8 +1082,7 @@ const EXPECT = [
   ["sidebar-cta-light", "columnGap", ["sidebar-cta", "sizes", "false", "gap"], "same"],
   ["sidebar-cta-collapsed", "borderTopLeftRadius", ["sidebar-cta", "sizes", "true", "radius"], "same"],
   ["progress-ring", "height", ["progress-ring", "sizes", "base", "size"], "same"],
-  ["progress-bar-fill", "borderTopLeftRadius", ["progress-bar", "sizes", "base", "radius"], "deviates",
-    "제품 3, DS 999(알약). 트랙과 같은 사유다 — 높이 6에서 결과가 같고 리터럴 3은 높이를 바꾸는 날 따라오지 않는다."],
+  ["progress-bar-fill", "borderTopLeftRadius", ["progress-bar", "sizes", "base", "radius"], "same"],
   ["segmented-segment", "borderTopWidth", ["segmented-control", "sizes", "md", "borderWidth"], "deviates",
     "제품 0, DS 0.5. hairline은 DS 전역 결정이다 — 눌리지 않은 세그먼트의 경계를 아주 얇게 남긴다."],
   ["slider-thumb-rail", "borderTopLeftRadius", ["slider", "sizes", "md/thumb", "railRadius"], "same"],
@@ -886,8 +1108,14 @@ const EXPECT = [
   ["carousel", "borderTopLeftRadius", ["banner-carousel", "sizes", "boxed", "radius"], "same"],
   ["carousel-content", "width", ["banner-carousel", "sizes", "boxed", "contentInline"], "same"],
   ["carousel-content", "width", ["banner-carousel", "sizes", "full", "contentInline"], "same"],
-  ["carousel-content", "paddingTop", ["banner-carousel", "sizes", "boxed", "contentBlockPadding"], "same"],
-  ["carousel-content", "paddingTop", ["banner-carousel", "sizes", "full", "contentBlockPadding"], "same"],
+  // **이사 중에 갈라진 축이다.** 옛 `CONTENT` 는 `.louis-banner-carousel__content` 를 소비해
+  // 위아래 24(`--louis-space-layout-section`) · 좌우 20(`--louis-space-media-inset`) 이었는데,
+  // `AppHomeScene` 으로 옮겨 간 `bannerContent` 는 레시피를 떼고 `[padding:20px]` 한 줄로
+  // 사방을 20 으로 만들었다. 좌우는 그대로이고 **위아래만 24 → 20 으로 내려갔다.**
+  ["carousel-content", "paddingTop", ["banner-carousel", "sizes", "boxed", "contentBlockPadding"], "deviates",
+    "제품 20, DS 24. 캐러셀이 AppHomeScene 으로 옮겨 가면서 콘텐츠가 LOUIS `__content` 레시피 소비를 그만두고 사방 20 을 직접 선언한다. 좌우 20 은 그대로다. 어느 쪽으로 수렴할지는 소유자 판정이다 — LOUIS 를 20 으로 내리든, 제품이 레시피를 다시 소비하든 CSS·기록·Figma 를 같이 움직여야 한다."],
+  ["carousel-content", "paddingTop", ["banner-carousel", "sizes", "full", "contentBlockPadding"], "deviates",
+    "boxed 와 같은 사유다 — 셸이 하나뿐이라 두 열이 같은 요소를 가리킨다."],
   ["carousel-content", "paddingLeft", ["banner-carousel", "sizes", "boxed", "contentInlinePadding"], "same"],
   ["carousel-content", "paddingLeft", ["banner-carousel", "sizes", "full", "contentInlinePadding"], "same"],
   ["carousel-controls", "paddingTop", ["banner-carousel", "sizes", "boxed", "controlsPadding"], "same"],
@@ -912,6 +1140,116 @@ const EXPECT = [
   ["carousel-dot-rest", "width", ["banner-carousel", "sizes", "full", "dotRestWidth"], "same"],
   ["carousel-dot-rest", "height", ["banner-carousel", "sizes", "boxed", "dotHeight"], "same"],
   ["carousel-dot-rest", "height", ["banner-carousel", "sizes", "full", "dotHeight"], "same"],
+
+  // ── Figma 선행 여덟 ───────────────────────────────────────────────────────
+  // 이 여덟의 기록은 **제품이 정본**이라 LOUIS 코드 테스트가 잴 대상이 없다. 그래서 대조 방향이
+  // 다른 컴포넌트와 반대다 — 「DS 가 옳은가」가 아니라 **「기록이 제품 그대로인가」**를 본다.
+  ["media-card", "width", ["media-card", "sizes", "base", "width"], "same"],
+  ["media-card", "height", ["media-card", "sizes", "base", "height"], "same"],
+  ["media-card", "borderTopLeftRadius", ["media-card", "sizes", "base", "radius"], "same"],
+  ["media-card", "paddingTop", ["media-card", "sizes", "base", "paddingBlock"], "same"],
+  ["media-card", "paddingLeft", ["media-card", "sizes", "base", "paddingInline"], "same"],
+  ["media-card-badge", "height", ["media-card", "sizes", "base", "badgeHeight"], "same"],
+  ["media-card-badge", "paddingTop", ["media-card", "sizes", "base", "badgePaddingBlock"], "same"],
+  ["media-card-badge", "paddingLeft", ["media-card", "sizes", "base", "badgePaddingInline"], "same"],
+  ["media-card-badge", "borderTopLeftRadius", ["media-card", "sizes", "base", "badgeRadius"], "same"],
+  ["media-card-badge", "fontSize", ["media-card", "sizes", "base", "badgeFontSize"], "same"],
+  ["media-card-badge", "lineHeight", ["media-card", "sizes", "base", "badgeLineHeight"], "same"],
+  ["media-card-info", "paddingTop", ["media-card", "sizes", "base", "infoPaddingBlockStart"], "same"],
+  ["media-card-info", "paddingBottom", ["media-card", "sizes", "base", "infoPaddingBlockEnd"], "same"],
+  ["media-card-info", "paddingLeft", ["media-card", "sizes", "base", "infoPaddingInline"], "same"],
+  ["media-card-sub", "marginTop", ["media-card", "sizes", "base", "infoGap"], "same"],
+  ["media-card-sub", "fontSize", ["media-card", "sizes", "base", "descriptionFontSize"], "same"],
+  ["media-card-sub", "lineHeight", ["media-card", "sizes", "base", "descriptionLineHeight"], "same"],
+  ["media-card-name-row", "columnGap", ["media-card", "sizes", "base", "nameRowGap"], "same"],
+  ["media-card-name", "fontSize", ["media-card", "sizes", "base", "titleFontSize"], "same"],
+  ["media-card-name", "lineHeight", ["media-card", "sizes", "base", "titleLineHeight"], "same"],
+  // Figma 의 TopBar(316×54, padding 16)는 제품에 없는 상자다. 그 16 은 배지가 카드 모서리에서
+  // 떨어진 거리이고, 54 는 16 + 배지 22 + 16 이다 — 상자를 지어내는 대신 그 거리를 잰다.
+  ["media-card-badge", "left", ["media-card", "sizes", "base", "badgeInset"], "same"],
+  ["media-card-badge", "top", ["media-card", "sizes", "base", "badgeInset"], "same"],
+
+  ["carousel-arrow-landing", "width", ["carousel-arrow", "sizes", "base", "width"], "same"],
+  ["carousel-arrow-landing", "height", ["carousel-arrow", "sizes", "base", "height"], "same"],
+  ["carousel-arrow-landing", "borderTopLeftRadius", ["carousel-arrow", "sizes", "base", "radius"], "same"],
+  ["carousel-arrow-landing", "paddingTop", ["carousel-arrow", "sizes", "base", "paddingBlock"], "same"],
+  ["carousel-arrow-landing", "paddingLeft", ["carousel-arrow", "sizes", "base", "paddingInline"], "same"],
+
+  ["step-tile", "rowGap", ["step-tile", "sizes", "base", "gap"], "same"],
+  ["step-tile", "borderTopLeftRadius", ["step-tile", "sizes", "base", "radius"], "same"],
+  ["step-tile", "paddingTop", ["step-tile", "sizes", "base", "paddingBlock"], "same"],
+  ["step-tile", "paddingLeft", ["step-tile", "sizes", "base", "paddingInline"], "same"],
+  ["step-tile-face", "borderTopLeftRadius", ["step-tile", "sizes", "base", "tileRadius"], "same"],
+  ["step-tile-caption", "fontSize", ["step-tile", "sizes", "base", "labelFontSize"], "same"],
+  ["step-tile-caption", "lineHeight", ["step-tile", "sizes", "base", "labelLineHeight"], "same"],
+
+  // FaqRow · NewsCard · GnbMenuItem · InlineLoadingLabel · SegmentedCodeInput 은 되읽기 키가
+  // 여럿이라 기록도 키마다 한 벌이다. 같은 값을 손으로 여러 번 적지 않고 한 벌을 펼친다 —
+  // 옮겨 적는 자리를 만들지 않는 것이 이 파일의 규범이다.
+  ...["false", "true"].flatMap((expanded) => [
+    ["faq-row", "borderTopLeftRadius", ["faq-row", "sizes", expanded, "radius"], "same"],
+    ["faq-row", "paddingTop", ["faq-row", "sizes", expanded, "paddingBlock"], "same"],
+    ["faq-row", "paddingLeft", ["faq-row", "sizes", expanded, "paddingInline"], "same"],
+    ["faq-row-question", "height", ["faq-row", "sizes", expanded, "questionHeight"], "same"],
+    ["faq-row-question", "paddingTop", ["faq-row", "sizes", expanded, "questionPaddingBlock"], "same"],
+    ["faq-row-question", "paddingLeft", ["faq-row", "sizes", expanded, "questionPaddingInline"], "same"],
+    ["faq-row-question", "columnGap", ["faq-row", "sizes", expanded, "questionGap"], "same"],
+    ["faq-row-question-text", "fontSize", ["faq-row", "sizes", expanded, "questionFontSize"], "same"],
+    ["faq-row-question-text", "lineHeight", ["faq-row", "sizes", expanded, "questionLineHeight"], "same"],
+    ["faq-row-icon", "fontSize", ["faq-row", "sizes", expanded, "iconFontSize"], "same"],
+    ["faq-row-icon", "lineHeight", ["faq-row", "sizes", expanded, "iconHeight"], "same"],
+  ]),
+
+  ...[["false", "news-card"], ["true", "news-card-featured"]].flatMap(([featured, probe]) => [
+    [probe, "width", ["news-card", "sizes", featured, "width"], "same"],
+    [probe, "height", ["news-card", "sizes", featured, "height"], "same"],
+    [probe, "paddingTop", ["news-card", "sizes", featured, "paddingBlock"], "same"],
+    [probe, "paddingLeft", ["news-card", "sizes", featured, "paddingInline"], "same"],
+    [probe, "borderTopLeftRadius", ["news-card", "sizes", featured, "radius"], "same"],
+    ["news-card-body", "rowGap", ["news-card", "sizes", featured, "bodyGap"], "same"],
+    ["news-card-date", "fontSize", ["news-card", "sizes", featured, "dateFontSize"], "same"],
+    ["news-card-headline", "fontSize", ["news-card", "sizes", featured, "headlineFontSize"], "same"],
+    ["news-card-headline", "lineHeight", ["news-card", "sizes", featured, "headlineLineHeight"], "same"],
+  ]),
+
+  ...["light", "dark"].flatMap((surface) =>
+    ["Default", "Hover", "Selected", "Disabled"].flatMap((state) => {
+      const key = surface + "/" + state;
+      return [
+        ["gnb-menu-item", "height", ["gnb-menu-item", "sizes", key, "height"], "same"],
+        ["gnb-menu-item", "paddingTop", ["gnb-menu-item", "sizes", key, "paddingBlock"], "same"],
+        ["gnb-menu-item", "paddingLeft", ["gnb-menu-item", "sizes", key, "paddingInline"], "same"],
+        ["gnb-menu-item", "borderTopLeftRadius", ["gnb-menu-item", "sizes", key, "radius"], "same"],
+        ["gnb-menu-item-label", "fontSize", ["gnb-menu-item", "sizes", key, "labelFontSize"], "same"],
+        ["gnb-menu-item-label", "lineHeight", ["gnb-menu-item", "sizes", key, "labelHeight"], "same"],
+      ];
+    }),
+  ),
+
+  ...[
+    ["md/false", "inline-loading-slot-idle"],
+    ["md/true", "inline-loading-slot-md"],
+    ["sm/false", "inline-loading-slot-idle"],
+    ["sm/true", "inline-loading-slot-sm"],
+  ].flatMap(([key, slotProbe]) => [
+    ["inline-loading-root", "paddingTop", ["inline-loading-label", "sizes", key, "paddingBlock"], "same"],
+    ["inline-loading-root", "paddingLeft", ["inline-loading-label", "sizes", key, "paddingInline"], "same"],
+    ["inline-loading-root", "borderTopLeftRadius", ["inline-loading-label", "sizes", key, "radius"], "same"],
+    [slotProbe, "marginLeft", ["inline-loading-label", "sizes", key, "gap"], "same"],
+    ...(key.endsWith("/true")
+      ? [[slotProbe, "width", ["inline-loading-label", "sizes", key, "slot"], "same"],
+         [slotProbe, "height", ["inline-loading-label", "sizes", key, "slot"], "same"]]
+      : []),
+  ]),
+
+  ...["Default", "Focus", "Disabled"].flatMap((state) => [
+    ["segmented-code-cell", "maxWidth", ["segmented-code-input", "sizes", state, "cellWidth"], "same"],
+    ["segmented-code-cell", "height", ["segmented-code-input", "sizes", state, "cellHeight"], "same"],
+    ["segmented-code-cell", "borderTopLeftRadius", ["segmented-code-input", "sizes", state, "cellRadius"], "same"],
+    ["segmented-code-cell", "borderTopWidth", ["segmented-code-input", "sizes", state, "borderWidth"], "same"],
+    ["segmented-code-char", "fontSize", ["segmented-code-input", "sizes", state, "charFontSize"], "same"],
+    ["segmented-code-char", "lineHeight", ["segmented-code-input", "sizes", state, "charHeight"], "same"],
+  ]),
 
   ["sidebar-header-row-collapsed", "minHeight", ["sidebar-brand", "sizes", "true", "height"], "same"],
   ["sidebar-logo-rail-collapsed", "minHeight", ["sidebar-brand", "sizes", "true", "markSize"], "same"],
@@ -1091,7 +1429,10 @@ try {
           const childClasses = childKeys
             .map((key) => extractClassList(sources[childAlias], key, FILES[childAlias]))
             .join(" ");
-          return "<" + childTag + ' class="' + childClasses + '"></' + childTag + ">";
+          return (
+            "<" + childTag + ' class="' + childClasses + '">' + (probe.childText ?? "") +
+            "</" + childTag + ">"
+          );
         })()
       : "";
     probe.html =

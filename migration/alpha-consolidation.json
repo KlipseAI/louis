@@ -20,64 +20,56 @@
   ],
   "visibleThresholdRelative": 0.15,
   "keep": [],
-  "productRef": "a3ed8e031214f67ac319c5ceaa7ad2808cf0d3a4",
-  "productCommit": "a3ed8e031214f67ac319c5ceaa7ad2808cf0d3a4",
+  "productRef": "df414c242399077128fb30695f188f4228275635",
+  "productCommit": "df414c242399077128fb30695f188f4228275635",
   "totals": {
-    "stops": 73,
-    "trueAlphaStops": 63,
-    "trueAlphaUses": 2470,
-    "movedUses": 1034,
-    "visibleUses": 79,
-    "reviewSites": 79
+    "stops": 40,
+    "trueAlphaStops": 32,
+    "trueAlphaUses": 1995,
+    "movedUses": 701,
+    "visibleUses": 2,
+    "reviewSites": 2
   },
   "inkLadder": [
     {
       "ink": "--gray-000-rgb",
-      "uses": 1174,
+      "uses": 946,
       "stops": [
         {
           "stop": 4,
-          "uses": 90
-        },
-        {
-          "stop": 6,
-          "uses": 97
+          "uses": 146
         },
         {
           "stop": 8,
-          "uses": 109
-        },
-        {
-          "stop": 10,
-          "uses": 137
+          "uses": 197
         },
         {
           "stop": 12,
-          "uses": 144
+          "uses": 118
         },
         {
           "stop": 16,
-          "uses": 55
+          "uses": 34
         },
         {
           "stop": 20,
-          "uses": 59
+          "uses": 46
         },
         {
           "stop": 25,
-          "uses": 39
+          "uses": 22
         },
         {
           "stop": 30,
-          "uses": 74
+          "uses": 72
         },
         {
           "stop": 40,
-          "uses": 112
+          "uses": 85
         },
         {
           "stop": 50,
-          "uses": 78
+          "uses": 71
         },
         {
           "stop": 60,
@@ -85,99 +77,83 @@
         },
         {
           "stop": 70,
-          "uses": 49
+          "uses": 35
         },
         {
           "stop": 80,
-          "uses": 35
+          "uses": 24
         }
       ]
     },
     {
       "ink": "--palette-gray-000-rgb",
-      "uses": 410,
+      "uses": 332,
       "stops": [
         {
           "stop": 4,
-          "uses": 13
-        },
-        {
-          "stop": 6,
-          "uses": 18
-        },
-        {
-          "stop": 8,
-          "uses": 45
-        },
-        {
-          "stop": 10,
-          "uses": 25
-        },
-        {
-          "stop": 12,
-          "uses": 41
-        },
-        {
-          "stop": 16,
-          "uses": 30
-        },
-        {
-          "stop": 20,
-          "uses": 44
-        },
-        {
-          "stop": 25,
-          "uses": 13
-        },
-        {
-          "stop": 30,
-          "uses": 37
-        },
-        {
-          "stop": 40,
-          "uses": 25
-        },
-        {
-          "stop": 50,
-          "uses": 13
-        },
-        {
-          "stop": 60,
           "uses": 22
         },
         {
+          "stop": 8,
+          "uses": 60
+        },
+        {
+          "stop": 12,
+          "uses": 24
+        },
+        {
+          "stop": 16,
+          "uses": 24
+        },
+        {
+          "stop": 20,
+          "uses": 37
+        },
+        {
+          "stop": 25,
+          "uses": 12
+        },
+        {
+          "stop": 30,
+          "uses": 41
+        },
+        {
+          "stop": 40,
+          "uses": 15
+        },
+        {
+          "stop": 50,
+          "uses": 11
+        },
+        {
+          "stop": 60,
+          "uses": 25
+        },
+        {
           "stop": 70,
-          "uses": 35
+          "uses": 23
         },
         {
           "stop": 80,
-          "uses": 49
+          "uses": 38
         }
       ]
     },
     {
       "ink": "--palette-gray-900-rgb",
-      "uses": 286,
+      "uses": 232,
       "stops": [
         {
           "stop": 4,
-          "uses": 26
-        },
-        {
-          "stop": 6,
-          "uses": 22
+          "uses": 35
         },
         {
           "stop": 8,
-          "uses": 47
-        },
-        {
-          "stop": 10,
-          "uses": 20
+          "uses": 58
         },
         {
           "stop": 12,
-          "uses": 38
+          "uses": 24
         },
         {
           "stop": 16,
@@ -197,29 +173,29 @@
         },
         {
           "stop": 40,
-          "uses": 13
-        },
-        {
-          "stop": 50,
-          "uses": 38
-        },
-        {
-          "stop": 60,
           "uses": 9
         },
         {
+          "stop": 50,
+          "uses": 33
+        },
+        {
+          "stop": 60,
+          "uses": 13
+        },
+        {
           "stop": 70,
-          "uses": 14
+          "uses": 19
         },
         {
           "stop": 80,
-          "uses": 33
+          "uses": 15
         }
       ]
     },
     {
       "ink": "--gray-900-rgb",
-      "uses": 63,
+      "uses": 44,
       "stops": [
         {
           "stop": 4,
@@ -227,23 +203,19 @@
         },
         {
           "stop": 6,
-          "uses": 2
+          "uses": 1
         },
         {
           "stop": 8,
-          "uses": 5
-        },
-        {
-          "stop": 10,
-          "uses": 3
+          "uses": 4
         },
         {
           "stop": 12,
-          "uses": 6
+          "uses": 5
         },
         {
           "stop": 16,
-          "uses": 3
+          "uses": 1
         },
         {
           "stop": 20,
@@ -255,15 +227,15 @@
         },
         {
           "stop": 30,
-          "uses": 5
+          "uses": 4
         },
         {
           "stop": 40,
-          "uses": 7
+          "uses": 4
         },
         {
           "stop": 50,
-          "uses": 6
+          "uses": 5
         },
         {
           "stop": 60,
@@ -271,58 +243,16 @@
         },
         {
           "stop": 70,
-          "uses": 11
+          "uses": 7
         },
         {
           "stop": 80,
-          "uses": 4
-        }
-      ]
-    },
-    {
-      "ink": "--accent-red-500-rgb",
-      "uses": 61,
-      "stops": [
-        {
-          "stop": 6,
-          "uses": 1
-        },
-        {
-          "stop": 8,
-          "uses": 1
-        },
-        {
-          "stop": 10,
-          "uses": 28
-        },
-        {
-          "stop": 12,
-          "uses": 13
-        },
-        {
-          "stop": 16,
-          "uses": 1
-        },
-        {
-          "stop": 20,
-          "uses": 13
-        },
-        {
-          "stop": 25,
           "uses": 2
-        },
-        {
-          "stop": 60,
-          "uses": 1
-        },
-        {
-          "stop": 80,
-          "uses": 1
         }
       ]
     },
     {
-      "ink": "--gray-100-rgb",
+      "ink": "--primary-500-rgb",
       "uses": 42,
       "stops": [
         {
@@ -330,124 +260,24 @@
           "uses": 3
         },
         {
-          "stop": 6,
-          "uses": 7
+          "stop": 12,
+          "uses": 3
         },
         {
-          "stop": 8,
-          "uses": 6
-        },
-        {
-          "stop": 10,
+          "stop": 16,
           "uses": 5
         },
         {
-          "stop": 12,
-          "uses": 8
-        },
-        {
           "stop": 20,
-          "uses": 2
-        },
-        {
-          "stop": 50,
-          "uses": 1
-        },
-        {
-          "stop": 60,
-          "uses": 1
-        },
-        {
-          "stop": 70,
-          "uses": 2
-        },
-        {
-          "stop": 80,
-          "uses": 7
-        }
-      ]
-    },
-    {
-      "ink": "--palette-gray-1000-rgb",
-      "uses": 38,
-      "stops": [
-        {
-          "stop": 6,
-          "uses": 2
-        },
-        {
-          "stop": 8,
-          "uses": 2
-        },
-        {
-          "stop": 10,
-          "uses": 2
-        },
-        {
-          "stop": 12,
-          "uses": 3
-        },
-        {
-          "stop": 16,
-          "uses": 4
-        },
-        {
-          "stop": 20,
-          "uses": 9
-        },
-        {
-          "stop": 25,
-          "uses": 4
-        },
-        {
-          "stop": 30,
-          "uses": 7
-        },
-        {
-          "stop": 40,
-          "uses": 1
-        },
-        {
-          "stop": 50,
-          "uses": 3
-        },
-        {
-          "stop": 70,
-          "uses": 1
-        }
-      ]
-    },
-    {
-      "ink": "--gray-1000-rgb",
-      "uses": 37,
-      "stops": [
-        {
-          "stop": 8,
-          "uses": 1
-        },
-        {
-          "stop": 12,
           "uses": 10
         },
         {
-          "stop": 16,
+          "stop": 30,
           "uses": 9
         },
         {
-          "stop": 20,
-          "uses": 3
-        },
-        {
-          "stop": 25,
-          "uses": 1
-        },
-        {
-          "stop": 30,
-          "uses": 1
-        },
-        {
           "stop": 40,
-          "uses": 1
+          "uses": 2
         },
         {
           "stop": 50,
@@ -455,21 +285,51 @@
         },
         {
           "stop": 60,
-          "uses": 6
+          "uses": 5
         },
         {
           "stop": 70,
-          "uses": 2
+          "uses": 1
         },
         {
           "stop": 80,
+          "uses": 2
+        }
+      ]
+    },
+    {
+      "ink": "--accent-red-500-rgb",
+      "uses": 37,
+      "stops": [
+        {
+          "stop": 4,
+          "uses": 1
+        },
+        {
+          "stop": 8,
+          "uses": 22
+        },
+        {
+          "stop": 12,
+          "uses": 6
+        },
+        {
+          "stop": 16,
+          "uses": 1
+        },
+        {
+          "stop": 20,
+          "uses": 6
+        },
+        {
+          "stop": 60,
           "uses": 1
         }
       ]
     },
     {
       "ink": "--palette-gray-100-rgb",
-      "uses": 31,
+      "uses": 29,
       "stops": [
         {
           "stop": 4,
@@ -493,11 +353,11 @@
         },
         {
           "stop": 50,
-          "uses": 7
+          "uses": 2
         },
         {
           "stop": 60,
-          "uses": 2
+          "uses": 7
         },
         {
           "stop": 70,
@@ -505,57 +365,37 @@
         },
         {
           "stop": 80,
-          "uses": 6
+          "uses": 4
         }
       ]
     },
     {
-      "ink": "--gray-800-rgb",
-      "uses": 28,
+      "ink": "--gray-100-rgb",
+      "uses": 29,
       "stops": [
         {
           "stop": 4,
-          "uses": 1
+          "uses": 9
         },
         {
-          "stop": 6,
-          "uses": 1
+          "stop": 8,
+          "uses": 10
         },
         {
           "stop": 12,
-          "uses": 1
-        },
-        {
-          "stop": 16,
-          "uses": 1
-        },
-        {
-          "stop": 25,
-          "uses": 1
-        },
-        {
-          "stop": 30,
-          "uses": 2
-        },
-        {
-          "stop": 40,
-          "uses": 2
-        },
-        {
-          "stop": 50,
-          "uses": 7
-        },
-        {
-          "stop": 60,
           "uses": 6
         },
         {
+          "stop": 60,
+          "uses": 1
+        },
+        {
           "stop": 70,
-          "uses": 5
+          "uses": 1
         },
         {
           "stop": 80,
-          "uses": 1
+          "uses": 2
         }
       ]
     },
@@ -577,7 +417,11 @@
         },
         {
           "stop": 50,
-          "uses": 7
+          "uses": 2
+        },
+        {
+          "stop": 60,
+          "uses": 5
         },
         {
           "stop": 70,
@@ -590,8 +434,38 @@
       ]
     },
     {
-      "ink": "--accent-mint-500-rgb",
-      "uses": 26,
+      "ink": "--gray-1000-rgb",
+      "uses": 28,
+      "stops": [
+        {
+          "stop": 8,
+          "uses": 1
+        },
+        {
+          "stop": 12,
+          "uses": 9
+        },
+        {
+          "stop": 16,
+          "uses": 8
+        },
+        {
+          "stop": 60,
+          "uses": 7
+        },
+        {
+          "stop": 70,
+          "uses": 2
+        },
+        {
+          "stop": 80,
+          "uses": 1
+        }
+      ]
+    },
+    {
+      "ink": "--gray-800-rgb",
+      "uses": 25,
       "stops": [
         {
           "stop": 4,
@@ -602,8 +476,50 @@
           "uses": 1
         },
         {
-          "stop": 10,
-          "uses": 7
+          "stop": 12,
+          "uses": 1
+        },
+        {
+          "stop": 16,
+          "uses": 1
+        },
+        {
+          "stop": 25,
+          "uses": 1
+        },
+        {
+          "stop": 30,
+          "uses": 2
+        },
+        {
+          "stop": 40,
+          "uses": 2
+        },
+        {
+          "stop": 50,
+          "uses": 6
+        },
+        {
+          "stop": 60,
+          "uses": 5
+        },
+        {
+          "stop": 70,
+          "uses": 5
+        }
+      ]
+    },
+    {
+      "ink": "--accent-green-500-rgb",
+      "uses": 24,
+      "stops": [
+        {
+          "stop": 4,
+          "uses": 1
+        },
+        {
+          "stop": 8,
+          "uses": 6
         },
         {
           "stop": 12,
@@ -611,65 +527,23 @@
         },
         {
           "stop": 16,
-          "uses": 5
+          "uses": 6
         },
         {
           "stop": 20,
-          "uses": 3
+          "uses": 2
         },
         {
           "stop": 25,
           "uses": 2
         },
         {
-          "stop": 40,
-          "uses": 1
-        },
-        {
           "stop": 50,
           "uses": 2
-        },
-        {
-          "stop": 70,
-          "uses": 1
-        },
-        {
-          "stop": 80,
-          "uses": 2
-        }
-      ]
-    },
-    {
-      "ink": "--accent-sky-500-rgb",
-      "uses": 25,
-      "stops": [
-        {
-          "stop": 12,
-          "uses": 1
-        },
-        {
-          "stop": 16,
-          "uses": 5
-        },
-        {
-          "stop": 20,
-          "uses": 7
-        },
-        {
-          "stop": 30,
-          "uses": 5
-        },
-        {
-          "stop": 40,
-          "uses": 1
-        },
-        {
-          "stop": 50,
-          "uses": 1
         },
         {
           "stop": 60,
-          "uses": 2
+          "uses": 1
         },
         {
           "stop": 70,
@@ -682,76 +556,46 @@
       ]
     },
     {
-      "ink": "--primary-500-rgb",
-      "uses": 19,
+      "ink": "--palette-gray-1000-rgb",
+      "uses": 21,
       "stops": [
         {
           "stop": 4,
           "uses": 1
         },
         {
-          "stop": 6,
+          "stop": 8,
           "uses": 2
         },
         {
           "stop": 12,
-          "uses": 2
+          "uses": 3
         },
         {
           "stop": 16,
-          "uses": 1
+          "uses": 2
         },
         {
           "stop": 20,
-          "uses": 3
+          "uses": 6
+        },
+        {
+          "stop": 25,
+          "uses": 1
         },
         {
           "stop": 30,
           "uses": 4
         },
         {
-          "stop": 40,
-          "uses": 1
-        },
-        {
-          "stop": 50,
-          "uses": 2
-        },
-        {
-          "stop": 60,
-          "uses": 2
-        },
-        {
-          "stop": 80,
-          "uses": 1
-        }
-      ]
-    },
-    {
-      "ink": "--palette-gray-700-rgb",
-      "uses": 16,
-      "stops": [
-        {
-          "stop": 40,
-          "uses": 1
-        },
-        {
-          "stop": 50,
-          "uses": 1
-        },
-        {
           "stop": 70,
           "uses": 2
-        },
-        {
-          "stop": 80,
-          "uses": 12
         }
       ]
     },
     {
       "ink": "--gray-300-rgb",
-      "uses": 16,
+      "uses": 15,
       "stops": [
         {
           "stop": 16,
@@ -763,51 +607,75 @@
         },
         {
           "stop": 30,
-          "uses": 1
-        },
-        {
-          "stop": 40,
-          "uses": 3
+          "uses": 4
         },
         {
           "stop": 50,
-          "uses": 4
+          "uses": 2
+        },
+        {
+          "stop": 60,
+          "uses": 3
+        },
+        {
+          "stop": 80,
+          "uses": 2
+        }
+      ]
+    },
+    {
+      "ink": "--palette-gray-700-rgb",
+      "uses": 14,
+      "stops": [
+        {
+          "stop": 50,
+          "uses": 1
         },
         {
           "stop": 60,
           "uses": 1
         },
         {
+          "stop": 70,
+          "uses": 2
+        },
+        {
           "stop": 80,
-          "uses": 3
+          "uses": 10
         }
       ]
     },
     {
       "ink": "--accent-yellow-500-rgb",
-      "uses": 16,
+      "uses": 14,
       "stops": [
         {
-          "stop": 10,
-          "uses": 5
+          "stop": 8,
+          "uses": 6
         },
         {
           "stop": 20,
-          "uses": 9
-        },
-        {
-          "stop": 40,
-          "uses": 1
+          "uses": 5
         },
         {
           "stop": 50,
-          "uses": 1
+          "uses": 3
+        }
+      ]
+    },
+    {
+      "ink": "--palette-gray-500-rgb",
+      "uses": 13,
+      "stops": [
+        {
+          "stop": 12,
+          "uses": 13
         }
       ]
     },
     {
       "ink": "--gray-700-rgb",
-      "uses": 14,
+      "uses": 11,
       "stops": [
         {
           "stop": 25,
@@ -819,7 +687,7 @@
         },
         {
           "stop": 60,
-          "uses": 3
+          "uses": 2
         },
         {
           "stop": 70,
@@ -827,26 +695,16 @@
         },
         {
           "stop": 80,
-          "uses": 7
-        }
-      ]
-    },
-    {
-      "ink": "--palette-gray-500-rgb",
-      "uses": 12,
-      "stops": [
-        {
-          "stop": 12,
-          "uses": 12
+          "uses": 5
         }
       ]
     },
     {
       "ink": "--accent-pink-500-rgb",
-      "uses": 11,
+      "uses": 9,
       "stops": [
         {
-          "stop": 10,
+          "stop": 8,
           "uses": 3
         },
         {
@@ -855,7 +713,7 @@
         },
         {
           "stop": 20,
-          "uses": 4
+          "uses": 2
         },
         {
           "stop": 30,
@@ -869,11 +727,11 @@
     },
     {
       "ink": "--gray-500-rgb",
-      "uses": 10,
+      "uses": 8,
       "stops": [
         {
           "stop": 30,
-          "uses": 3
+          "uses": 1
         },
         {
           "stop": 50,
@@ -908,28 +766,6 @@
       ]
     },
     {
-      "ink": "--char-count-overlay-rgb",
-      "uses": 8,
-      "stops": [
-        {
-          "stop": 8,
-          "uses": 2
-        },
-        {
-          "stop": 20,
-          "uses": 2
-        },
-        {
-          "stop": 50,
-          "uses": 2
-        },
-        {
-          "stop": 80,
-          "uses": 2
-        }
-      ]
-    },
-    {
       "ink": "--gray-600-rgb",
       "uses": 8,
       "stops": [
@@ -948,6 +784,28 @@
         {
           "stop": 30,
           "uses": 1
+        }
+      ]
+    },
+    {
+      "ink": "--char-count-overlay-rgb",
+      "uses": 8,
+      "stops": [
+        {
+          "stop": 8,
+          "uses": 2
+        },
+        {
+          "stop": 20,
+          "uses": 2
+        },
+        {
+          "stop": 50,
+          "uses": 2
+        },
+        {
+          "stop": 70,
+          "uses": 2
         }
       ]
     },
@@ -1002,34 +860,26 @@
       ]
     },
     {
-      "ink": "--accent-red-600-rgb",
-      "uses": 4,
-      "stops": [
-        {
-          "stop": 10,
-          "uses": 1
-        },
-        {
-          "stop": 16,
-          "uses": 1
-        },
-        {
-          "stop": 60,
-          "uses": 1
-        },
-        {
-          "stop": 80,
-          "uses": 1
-        }
-      ]
-    },
-    {
       "ink": "--gray-200-rgb",
       "uses": 4,
       "stops": [
         {
           "stop": 60,
           "uses": 4
+        }
+      ]
+    },
+    {
+      "ink": "--primary-400-rgb",
+      "uses": 4,
+      "stops": [
+        {
+          "stop": 16,
+          "uses": 3
+        },
+        {
+          "stop": 70,
+          "uses": 1
         }
       ]
     },
@@ -1056,7 +906,7 @@
       "uses": 4,
       "stops": [
         {
-          "stop": 10,
+          "stop": 8,
           "uses": 2
         },
         {
@@ -1084,16 +934,12 @@
       ]
     },
     {
-      "ink": "--banner-scrim-rgb",
-      "uses": 4,
+      "ink": "--primary-rgb",
+      "uses": 3,
       "stops": [
         {
-          "stop": 50,
-          "uses": 2
-        },
-        {
-          "stop": 80,
-          "uses": 2
+          "stop": 60,
+          "uses": 3
         }
       ]
     },
@@ -1130,21 +976,11 @@
       ]
     },
     {
-      "ink": "--primary-rgb",
-      "uses": 3,
-      "stops": [
-        {
-          "stop": 50,
-          "uses": 3
-        }
-      ]
-    },
-    {
-      "ink": "--banner-text-rgb",
+      "ink": "--accent-red-600-rgb",
       "uses": 2,
       "stops": [
         {
-          "stop": 70,
+          "stop": 60,
           "uses": 1
         },
         {
@@ -1164,29 +1000,15 @@
       ]
     },
     {
-      "ink": "--accent-sky-400-rgb",
+      "ink": "--theme-shadow-rgb",
       "uses": 2,
       "stops": [
+        {
+          "stop": 12,
+          "uses": 1
+        },
         {
           "stop": 16,
-          "uses": 1
-        },
-        {
-          "stop": 70,
-          "uses": 1
-        }
-      ]
-    },
-    {
-      "ink": "--accent-amber-500-rgb",
-      "uses": 2,
-      "stops": [
-        {
-          "stop": 10,
-          "uses": 1
-        },
-        {
-          "stop": 50,
           "uses": 1
         }
       ]
@@ -1216,40 +1038,16 @@
       ]
     },
     {
-      "ink": "--theme-shadow-rgb",
+      "ink": "--banner-scrim-rgb",
       "uses": 2,
       "stops": [
         {
-          "stop": 12,
+          "stop": 50,
           "uses": 1
         },
         {
-          "stop": 16,
+          "stop": 80,
           "uses": 1
-        }
-      ]
-    },
-    {
-      "ink": "--demo-primary-rgb",
-      "uses": 2,
-      "stops": [
-        {
-          "stop": 12,
-          "uses": 1
-        },
-        {
-          "stop": 30,
-          "uses": 1
-        }
-      ]
-    },
-    {
-      "ink": "--primary-400-rgb",
-      "uses": 2,
-      "stops": [
-        {
-          "stop": 16,
-          "uses": 2
         }
       ]
     },
@@ -1264,61 +1062,11 @@
       ]
     },
     {
-      "ink": "--accent-pink-300-rgb",
+      "ink": "--primary-200-rgb",
       "uses": 1,
       "stops": [
         {
-          "stop": 50,
-          "uses": 1
-        }
-      ]
-    },
-    {
-      "ink": "--accent-mint-300-rgb",
-      "uses": 1,
-      "stops": [
-        {
-          "stop": 50,
-          "uses": 1
-        }
-      ]
-    },
-    {
-      "ink": "--accent-mint-400-rgb",
-      "uses": 1,
-      "stops": [
-        {
-          "stop": 50,
-          "uses": 1
-        }
-      ]
-    },
-    {
-      "ink": "--accent-amber-300-rgb",
-      "uses": 1,
-      "stops": [
-        {
-          "stop": 50,
-          "uses": 1
-        }
-      ]
-    },
-    {
-      "ink": "--accent-amber-400-rgb",
-      "uses": 1,
-      "stops": [
-        {
-          "stop": 50,
-          "uses": 1
-        }
-      ]
-    },
-    {
-      "ink": "--x-rgb",
-      "uses": 1,
-      "stops": [
-        {
-          "stop": 12,
+          "stop": 40,
           "uses": 1
         }
       ]
@@ -1334,31 +1082,51 @@
       ]
     },
     {
-      "ink": "--accent-green-500-rgb",
+      "ink": "--accent-pink-300-rgb",
       "uses": 1,
       "stops": [
         {
-          "stop": 16,
+          "stop": 50,
           "uses": 1
         }
       ]
     },
     {
-      "ink": "--accent-ultra-400-rgb",
+      "ink": "--accent-green-300-rgb",
       "uses": 1,
       "stops": [
         {
-          "stop": 40,
+          "stop": 50,
           "uses": 1
         }
       ]
     },
     {
-      "ink": "--node-selection-accent-rgb",
+      "ink": "--accent-green-400-rgb",
       "uses": 1,
       "stops": [
         {
-          "stop": 80,
+          "stop": 50,
+          "uses": 1
+        }
+      ]
+    },
+    {
+      "ink": "--accent-yellow-300-rgb",
+      "uses": 1,
+      "stops": [
+        {
+          "stop": 50,
+          "uses": 1
+        }
+      ]
+    },
+    {
+      "ink": "--accent-yellow-400-rgb",
+      "uses": 1,
+      "stops": [
+        {
+          "stop": 50,
           "uses": 1
         }
       ]
@@ -1368,55 +1136,15 @@
     {
       "from": 0,
       "to": null,
-      "uses": 50,
+      "uses": 47,
       "note": "완전 투명 — 알파 스톱이 아니다. 접지 않는다."
-    },
-    {
-      "from": 1,
-      "to": 4,
-      "delta": 3,
-      "relative": 3,
-      "uses": 1,
-      "visible": true
-    },
-    {
-      "from": 1.5,
-      "to": 4,
-      "delta": 2.5,
-      "relative": 1.667,
-      "uses": 1,
-      "visible": true
-    },
-    {
-      "from": 2.5,
-      "to": 4,
-      "delta": 1.5,
-      "relative": 0.6,
-      "uses": 1,
-      "visible": true
-    },
-    {
-      "from": 3,
-      "to": 4,
-      "delta": 1,
-      "relative": 0.333,
-      "uses": 21,
-      "visible": true
-    },
-    {
-      "from": 3.5,
-      "to": 4,
-      "delta": 0.5,
-      "relative": 0.143,
-      "uses": 2,
-      "visible": false
     },
     {
       "from": 4,
       "to": 4,
       "delta": 0,
       "relative": 0,
-      "uses": 57,
+      "uses": 220,
       "visible": false
     },
     {
@@ -1424,23 +1152,15 @@
       "to": 4,
       "delta": 1,
       "relative": 0.2,
-      "uses": 55,
+      "uses": 2,
       "visible": true
-    },
-    {
-      "from": 6,
-      "to": 6,
-      "delta": 0,
-      "relative": 0,
-      "uses": 123,
-      "visible": false
     },
     {
       "from": 7,
       "to": 6,
       "delta": 1,
       "relative": 0.143,
-      "uses": 30,
+      "uses": 2,
       "visible": false
     },
     {
@@ -1448,23 +1168,7 @@
       "to": 8,
       "delta": 0,
       "relative": 0,
-      "uses": 214,
-      "visible": false
-    },
-    {
-      "from": 9,
-      "to": 8,
-      "delta": 1,
-      "relative": 0.111,
-      "uses": 10,
-      "visible": false
-    },
-    {
-      "from": 10,
-      "to": 10,
-      "delta": 0,
-      "relative": 0,
-      "uses": 239,
+      "uses": 379,
       "visible": false
     },
     {
@@ -1472,15 +1176,7 @@
       "to": 12,
       "delta": 0,
       "relative": 0,
-      "uses": 200,
-      "visible": false
-    },
-    {
-      "from": 13,
-      "to": 12,
-      "delta": 1,
-      "relative": 0.077,
-      "uses": 2,
+      "uses": 217,
       "visible": false
     },
     {
@@ -1488,15 +1184,7 @@
       "to": 12,
       "delta": 2,
       "relative": 0.143,
-      "uses": 86,
-      "visible": false
-    },
-    {
-      "from": 15,
-      "to": 16,
-      "delta": 1,
-      "relative": 0.067,
-      "uses": 17,
+      "uses": 2,
       "visible": false
     },
     {
@@ -1504,7 +1192,7 @@
       "to": 16,
       "delta": 0,
       "relative": 0,
-      "uses": 63,
+      "uses": 93,
       "visible": false
     },
     {
@@ -1512,7 +1200,7 @@
       "to": 16,
       "delta": 1,
       "relative": 0.059,
-      "uses": 3,
+      "uses": 2,
       "visible": false
     },
     {
@@ -1520,7 +1208,7 @@
       "to": 16,
       "delta": 2,
       "relative": 0.111,
-      "uses": 48,
+      "uses": 2,
       "visible": false
     },
     {
@@ -1528,7 +1216,7 @@
       "to": 20,
       "delta": 1,
       "relative": 0.053,
-      "uses": 8,
+      "uses": 2,
       "visible": false
     },
     {
@@ -1536,7 +1224,7 @@
       "to": 20,
       "delta": 0,
       "relative": 0,
-      "uses": 106,
+      "uses": 140,
       "visible": false
     },
     {
@@ -1544,7 +1232,7 @@
       "to": 20,
       "delta": 2,
       "relative": 0.091,
-      "uses": 71,
+      "uses": 1,
       "visible": false
     },
     {
@@ -1552,23 +1240,7 @@
       "to": 25,
       "delta": 1,
       "relative": 0.042,
-      "uses": 32,
-      "visible": false
-    },
-    {
-      "from": 25,
-      "to": 25,
-      "delta": 0,
-      "relative": 0,
-      "uses": 28,
-      "visible": false
-    },
-    {
-      "from": 26,
-      "to": 25,
-      "delta": 1,
-      "relative": 0.038,
-      "uses": 12,
+      "uses": 48,
       "visible": false
     },
     {
@@ -1576,15 +1248,7 @@
       "to": 30,
       "delta": 2,
       "relative": 0.071,
-      "uses": 58,
-      "visible": false
-    },
-    {
-      "from": 30,
-      "to": 30,
-      "delta": 0,
-      "relative": 0,
-      "uses": 25,
+      "uses": 73,
       "visible": false
     },
     {
@@ -1592,7 +1256,7 @@
       "to": 30,
       "delta": 1,
       "relative": 0.032,
-      "uses": 3,
+      "uses": 2,
       "visible": false
     },
     {
@@ -1600,7 +1264,7 @@
       "to": 30,
       "delta": 2,
       "relative": 0.063,
-      "uses": 18,
+      "uses": 85,
       "visible": false
     },
     {
@@ -1608,31 +1272,7 @@
       "to": 30,
       "delta": 4,
       "relative": 0.118,
-      "uses": 39,
-      "visible": false
-    },
-    {
-      "from": 35,
-      "to": 30,
-      "delta": 5,
-      "relative": 0.143,
-      "uses": 28,
-      "visible": false
-    },
-    {
-      "from": 36,
-      "to": 40,
-      "delta": 4,
-      "relative": 0.111,
-      "uses": 14,
-      "visible": false
-    },
-    {
-      "from": 38,
-      "to": 40,
-      "delta": 2,
-      "relative": 0.053,
-      "uses": 13,
+      "uses": 8,
       "visible": false
     },
     {
@@ -1640,7 +1280,7 @@
       "to": 40,
       "delta": 0,
       "relative": 0,
-      "uses": 82,
+      "uses": 120,
       "visible": false
     },
     {
@@ -1648,15 +1288,7 @@
       "to": 40,
       "delta": 2,
       "relative": 0.048,
-      "uses": 26,
-      "visible": false
-    },
-    {
-      "from": 44,
-      "to": 40,
-      "delta": 4,
-      "relative": 0.091,
-      "uses": 7,
+      "uses": 2,
       "visible": false
     },
     {
@@ -1664,7 +1296,7 @@
       "to": 40,
       "delta": 5,
       "relative": 0.111,
-      "uses": 34,
+      "uses": 2,
       "visible": false
     },
     {
@@ -1672,7 +1304,7 @@
       "to": 50,
       "delta": 4,
       "relative": 0.087,
-      "uses": 13,
+      "uses": 1,
       "visible": false
     },
     {
@@ -1680,7 +1312,7 @@
       "to": 50,
       "delta": 2,
       "relative": 0.042,
-      "uses": 30,
+      "uses": 147,
       "visible": false
     },
     {
@@ -1688,15 +1320,7 @@
       "to": 50,
       "delta": 0,
       "relative": 0,
-      "uses": 74,
-      "visible": false
-    },
-    {
-      "from": 52,
-      "to": 50,
-      "delta": 2,
-      "relative": 0.038,
-      "uses": 15,
+      "uses": 1,
       "visible": false
     },
     {
@@ -1704,15 +1328,7 @@
       "to": 50,
       "delta": 3,
       "relative": 0.057,
-      "uses": 8,
-      "visible": false
-    },
-    {
-      "from": 54,
-      "to": 50,
-      "delta": 4,
-      "relative": 0.074,
-      "uses": 5,
+      "uses": 2,
       "visible": false
     },
     {
@@ -1720,7 +1336,7 @@
       "to": 50,
       "delta": 5,
       "relative": 0.091,
-      "uses": 46,
+      "uses": 2,
       "visible": false
     },
     {
@@ -1728,31 +1344,7 @@
       "to": 60,
       "delta": 4,
       "relative": 0.071,
-      "uses": 36,
-      "visible": false
-    },
-    {
-      "from": 58,
-      "to": 60,
-      "delta": 2,
-      "relative": 0.034,
-      "uses": 21,
-      "visible": false
-    },
-    {
-      "from": 60,
-      "to": 60,
-      "delta": 0,
-      "relative": 0,
-      "uses": 82,
-      "visible": false
-    },
-    {
-      "from": 62,
-      "to": 60,
-      "delta": 2,
-      "relative": 0.032,
-      "uses": 14,
+      "uses": 161,
       "visible": false
     },
     {
@@ -1760,23 +1352,7 @@
       "to": 60,
       "delta": 4,
       "relative": 0.063,
-      "uses": 5,
-      "visible": false
-    },
-    {
-      "from": 65,
-      "to": 60,
-      "delta": 5,
-      "relative": 0.077,
-      "uses": 10,
-      "visible": false
-    },
-    {
-      "from": 68,
-      "to": 70,
-      "delta": 2,
-      "relative": 0.029,
-      "uses": 7,
+      "uses": 31,
       "visible": false
     },
     {
@@ -1784,7 +1360,7 @@
       "to": 70,
       "delta": 1,
       "relative": 0.014,
-      "uses": 3,
+      "uses": 2,
       "visible": false
     },
     {
@@ -1792,7 +1368,7 @@
       "to": 70,
       "delta": 0,
       "relative": 0,
-      "uses": 73,
+      "uses": 2,
       "visible": false
     },
     {
@@ -1800,31 +1376,7 @@
       "to": 70,
       "delta": 2,
       "relative": 0.028,
-      "uses": 44,
-      "visible": false
-    },
-    {
-      "from": 74,
-      "to": 70,
-      "delta": 4,
-      "relative": 0.054,
-      "uses": 19,
-      "visible": false
-    },
-    {
-      "from": 75,
-      "to": 70,
-      "delta": 5,
-      "relative": 0.067,
-      "uses": 1,
-      "visible": false
-    },
-    {
-      "from": 76,
-      "to": 80,
-      "delta": 4,
-      "relative": 0.053,
-      "uses": 11,
+      "uses": 119,
       "visible": false
     },
     {
@@ -1832,7 +1384,7 @@
       "to": 80,
       "delta": 2,
       "relative": 0.026,
-      "uses": 40,
+      "uses": 3,
       "visible": false
     },
     {
@@ -1840,305 +1392,60 @@
       "to": 80,
       "delta": 0,
       "relative": 0,
-      "uses": 70,
-      "visible": false
-    },
-    {
-      "from": 82,
-      "to": 80,
-      "delta": 2,
-      "relative": 0.024,
-      "uses": 22,
-      "visible": false
-    },
-    {
-      "from": 84,
-      "to": 80,
-      "delta": 4,
-      "relative": 0.048,
-      "uses": 15,
-      "visible": false
-    },
-    {
-      "from": 85,
-      "to": 80,
-      "delta": 5,
-      "relative": 0.059,
-      "uses": 8,
-      "visible": false
-    },
-    {
-      "from": 86,
-      "to": 80,
-      "delta": 6,
-      "relative": 0.07,
-      "uses": 21,
+      "uses": 122,
       "visible": false
     },
     {
       "from": 88,
       "to": null,
-      "uses": 96,
+      "uses": 242,
       "note": "불투명 잉크로 흡수 — solid role이 받는다."
     },
     {
       "from": 90,
       "to": null,
-      "uses": 78,
+      "uses": 4,
       "note": "불투명 잉크로 흡수 — solid role이 받는다."
     },
     {
       "from": 92,
       "to": null,
-      "uses": 89,
-      "note": "불투명 잉크로 흡수 — solid role이 받는다."
-    },
-    {
-      "from": 94,
-      "to": null,
-      "uses": 28,
+      "uses": 2,
       "note": "불투명 잉크로 흡수 — solid role이 받는다."
     },
     {
       "from": 95,
       "to": null,
-      "uses": 17,
+      "uses": 3,
       "note": "불투명 잉크로 흡수 — solid role이 받는다."
     },
     {
       "from": 96,
       "to": null,
-      "uses": 66,
-      "note": "불투명 잉크로 흡수 — solid role이 받는다."
-    },
-    {
-      "from": 97,
-      "to": null,
-      "uses": 1,
+      "uses": 99,
       "note": "불투명 잉크로 흡수 — solid role이 받는다."
     },
     {
       "from": 98,
       "to": null,
-      "uses": 9,
+      "uses": 2,
       "note": "불투명 잉크로 흡수 — solid role이 받는다."
     },
     {
       "from": 100,
       "to": null,
-      "uses": 414,
+      "uses": 325,
       "note": "불투명 잉크로 흡수 — solid role이 받는다."
     }
   ],
   "review": [
     {
-      "from": 1,
-      "to": 4,
-      "delta": 3,
-      "relative": 3,
-      "uses": 1,
-      "sites": [
-        {
-          "file": "components/scenes/appHomeSceneStyles.ts",
-          "line": 719,
-          "ink": "--gray-000-rgb"
-        }
-      ]
-    },
-    {
-      "from": 1.5,
-      "to": 4,
-      "delta": 2.5,
-      "relative": 1.667,
-      "uses": 1,
-      "sites": [
-        {
-          "file": "components/scenes/create/node-canvas-v2/nodes/videoEditParts/sequenceRuler.tsx",
-          "line": 189,
-          "ink": "--palette-gray-000-rgb"
-        }
-      ]
-    },
-    {
-      "from": 2.5,
-      "to": 4,
-      "delta": 1.5,
-      "relative": 0.6,
-      "uses": 1,
-      "sites": [
-        {
-          "file": "components/scenes/create/guide/NodeGuidePanel.tsx",
-          "line": 74,
-          "ink": "--palette-gray-900-rgb"
-        }
-      ]
-    },
-    {
-      "from": 3,
-      "to": 4,
-      "delta": 1,
-      "relative": 0.333,
-      "uses": 21,
-      "sites": [
-        {
-          "file": "app/admin/AdminClient.tsx",
-          "line": 190,
-          "ink": "--palette-gray-900-rgb"
-        },
-        {
-          "file": "app/admin/BannerManagement.tsx",
-          "line": 102,
-          "ink": "--gray-000-rgb"
-        },
-        {
-          "file": "app/admin/CaptionTemplateManagement.tsx",
-          "line": 59,
-          "ink": "--palette-gray-900-rgb"
-        },
-        {
-          "file": "app/admin/JobMonitor.tsx",
-          "line": 173,
-          "ink": "--palette-gray-900-rgb"
-        },
-        {
-          "file": "app/admin/TemplateManagement.tsx",
-          "line": 73,
-          "ink": "--gray-000-rgb"
-        },
-        {
-          "file": "app/admin/UsageByModelDashboard.tsx",
-          "line": 222,
-          "ink": "--palette-gray-900-rgb"
-        },
-        {
-          "file": "components/landing/demo-snapshots/StaticAnalyticsDemo.tsx",
-          "line": 74,
-          "ink": "--gray-000-rgb"
-        },
-        {
-          "file": "components/scenes/InstagramAnalyticsScene.tsx",
-          "line": 215,
-          "ink": "--gray-000-rgb"
-        },
-        {
-          "file": "components/scenes/YoutubeAnalyticsScene.tsx",
-          "line": 674,
-          "ink": "--gray-000-rgb"
-        },
-        {
-          "file": "components/scenes/archive/YoutubeVideoAnalyticsView.tsx",
-          "line": 173,
-          "ink": "--gray-000-rgb"
-        },
-        {
-          "file": "components/scenes/create/PhotoGrid.tsx",
-          "line": 89,
-          "ink": "--gray-000-rgb"
-        },
-        {
-          "file": "components/scenes/create/ShotCarousel.tsx",
-          "line": 121,
-          "ink": "--gray-000-rgb"
-        },
-        {
-          "file": "components/scenes/create/guide/GettingStartedPanel.tsx",
-          "line": 54,
-          "ink": "--palette-gray-900-rgb"
-        },
-        {
-          "file": "components/scenes/create/guide/NodeGuidePanel.tsx",
-          "line": 41,
-          "ink": "--palette-gray-900-rgb"
-        },
-        {
-          "file": "components/scenes/create/guide/NodeGuidePanel.tsx",
-          "line": 72,
-          "ink": "--gray-100-rgb"
-        },
-        {
-          "file": "components/scenes/create/guide/ShortcutsPanel.tsx",
-          "line": 34,
-          "ink": "--palette-gray-900-rgb"
-        },
-        {
-          "file": "components/scenes/create/node-canvas-v2/NodeCanvasAnalysisModal.tsx",
-          "line": 159,
-          "ink": "--gray-000-rgb"
-        },
-        {
-          "file": "components/scenes/create/node-canvas-v2/components/PromptVariantCompareModal.tsx",
-          "line": 107,
-          "ink": "--gray-000-rgb"
-        },
-        {
-          "file": "components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts",
-          "line": 2963,
-          "ink": "--gray-000-rgb"
-        },
-        {
-          "file": "components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts",
-          "line": 3614,
-          "ink": "--gray-000-rgb"
-        },
-        {
-          "file": "components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts",
-          "line": 3682,
-          "ink": "--gray-000-rgb"
-        }
-      ]
-    },
-    {
       "from": 5,
       "to": 4,
       "delta": 1,
       "relative": 0.2,
-      "uses": 55,
+      "uses": 2,
       "sites": [
-        {
-          "file": "app/admin/CaptionTemplateManagement.tsx",
-          "line": 65,
-          "ink": "--palette-gray-000-rgb"
-        },
-        {
-          "file": "app/admin/CaptionTemplateManagement.tsx",
-          "line": 80,
-          "ink": "--palette-gray-900-rgb"
-        },
-        {
-          "file": "app/admin/CaptionTemplateManagement.tsx",
-          "line": 93,
-          "ink": "--palette-gray-900-rgb"
-        },
-        {
-          "file": "app/admin/CouponManagement.tsx",
-          "line": 140,
-          "ink": "--gray-000-rgb"
-        },
-        {
-          "file": "app/inquiry/InquiryClient.tsx",
-          "line": 302,
-          "ink": "--palette-gray-900-rgb"
-        },
-        {
-          "file": "app/signup/page.tsx",
-          "line": 186,
-          "ink": "--gray-000-rgb"
-        },
-        {
-          "file": "components/highlight/HighlightTransitionProvider.tsx",
-          "line": 53,
-          "ink": "--palette-gray-100-rgb"
-        },
-        {
-          "file": "components/landing/demo-snapshots/StaticAnalyticsDemo.tsx",
-          "line": 71,
-          "ink": "--gray-000-rgb"
-        },
-        {
-          "file": "components/landing/demo-snapshots/StaticAnalyticsDemo.tsx",
-          "line": 737,
-          "ink": "--gray-000-rgb"
-        },
         {
           "file": "components/navigation/Gnb.tsx",
           "line": 138,
@@ -2148,226 +1455,6 @@
           "file": "components/navigation/Gnb.tsx",
           "line": 140,
           "ink": "--gray-800-rgb"
-        },
-        {
-          "file": "components/scenes/CreateScene.tsx",
-          "line": 154,
-          "ink": "--gray-900-rgb"
-        },
-        {
-          "file": "components/scenes/InstagramAnalyticsScene.tsx",
-          "line": 212,
-          "ink": "--gray-000-rgb"
-        },
-        {
-          "file": "components/scenes/VideoEditProjectPicker.tsx",
-          "line": 95,
-          "ink": "--palette-gray-000-rgb"
-        },
-        {
-          "file": "components/scenes/VideoEditProjectPicker.tsx",
-          "line": 95,
-          "ink": "--palette-gray-000-rgb"
-        },
-        {
-          "file": "components/scenes/YoutubeAnalyticsScene.tsx",
-          "line": 671,
-          "ink": "--gray-000-rgb"
-        },
-        {
-          "file": "components/scenes/analytics/PerformanceTab.tsx",
-          "line": 146,
-          "ink": "--gray-000-rgb"
-        },
-        {
-          "file": "components/scenes/archive/YoutubeVideoAnalyticsView.tsx",
-          "line": 97,
-          "ink": "--gray-000-rgb"
-        },
-        {
-          "file": "components/scenes/archive/YoutubeVideoAnalyticsView.tsx",
-          "line": 102,
-          "ink": "--gray-000-rgb"
-        },
-        {
-          "file": "components/scenes/archive/YoutubeVideoAnalyticsView.tsx",
-          "line": 411,
-          "ink": "--gray-000-rgb"
-        },
-        {
-          "file": "components/scenes/archive/YoutubeVideoAnalyticsView.tsx",
-          "line": 433,
-          "ink": "--gray-000-rgb"
-        },
-        {
-          "file": "components/scenes/create/PhotoGrid.tsx",
-          "line": 29,
-          "ink": "--gray-000-rgb"
-        },
-        {
-          "file": "components/scenes/create/PhotoGrid.tsx",
-          "line": 93,
-          "ink": "--gray-000-rgb"
-        },
-        {
-          "file": "components/scenes/create/PhotoGrid.tsx",
-          "line": 134,
-          "ink": "--gray-000-rgb"
-        },
-        {
-          "file": "components/scenes/create/ShotCarousel.tsx",
-          "line": 38,
-          "ink": "--gray-000-rgb"
-        },
-        {
-          "file": "components/scenes/create/guide/NodeGuidePanel.tsx",
-          "line": 60,
-          "ink": "--palette-gray-900-rgb"
-        },
-        {
-          "file": "components/scenes/create/guide/WorkflowRecipesPanel.tsx",
-          "line": 94,
-          "ink": "--palette-gray-900-rgb"
-        },
-        {
-          "file": "components/scenes/create/node-canvas-v2/index.tsx",
-          "line": 458,
-          "ink": "--primary-500-rgb"
-        },
-        {
-          "file": "components/scenes/create/node-canvas-v2/index.tsx",
-          "line": 472,
-          "ink": "--accent-mint-500-rgb"
-        },
-        {
-          "file": "components/scenes/create/node-canvas-v2/nodes/ColorPopover.tsx",
-          "line": 331,
-          "ink": "--gray-000-rgb"
-        },
-        {
-          "file": "components/scenes/create/node-canvas-v2/nodes/ColorPopover.tsx",
-          "line": 351,
-          "ink": "--gray-000-rgb"
-        },
-        {
-          "file": "components/scenes/create/node-canvas-v2/nodes/ColorPopover.tsx",
-          "line": 363,
-          "ink": "--gray-000-rgb"
-        },
-        {
-          "file": "components/scenes/create/node-canvas-v2/nodes/videoEditParts/inspectorPrimitives.tsx",
-          "line": 96,
-          "ink": "--gray-000-rgb"
-        },
-        {
-          "file": "components/scenes/create/node-canvas-v2/nodes/videoEditParts/inspectorPrimitives.tsx",
-          "line": 106,
-          "ink": "--gray-000-rgb"
-        },
-        {
-          "file": "components/scenes/create/node-canvas-v2/nodes/videoEditParts/inspectorPrimitives.tsx",
-          "line": 115,
-          "ink": "--gray-000-rgb"
-        },
-        {
-          "file": "components/scenes/create/node-canvas-v2/nodes/videoEditParts/inspectorPrimitives.tsx",
-          "line": 124,
-          "ink": "--gray-000-rgb"
-        },
-        {
-          "file": "components/scenes/create/node-canvas-v2/nodes/videoEditParts/sequenceRuler.tsx",
-          "line": 98,
-          "ink": "--palette-gray-000-rgb"
-        },
-        {
-          "file": "components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts",
-          "line": 816,
-          "ink": "--gray-000-rgb"
-        },
-        {
-          "file": "components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts",
-          "line": 970,
-          "ink": "--gray-000-rgb"
-        },
-        {
-          "file": "components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts",
-          "line": 1571,
-          "ink": "--gray-000-rgb"
-        },
-        {
-          "file": "components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts",
-          "line": 1879,
-          "ink": "--gray-000-rgb"
-        },
-        {
-          "file": "components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts",
-          "line": 2018,
-          "ink": "--gray-000-rgb"
-        },
-        {
-          "file": "components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts",
-          "line": 2034,
-          "ink": "--gray-000-rgb"
-        },
-        {
-          "file": "components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts",
-          "line": 2110,
-          "ink": "--palette-gray-000-rgb"
-        },
-        {
-          "file": "components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts",
-          "line": 2823,
-          "ink": "--gray-000-rgb"
-        },
-        {
-          "file": "components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts",
-          "line": 2863,
-          "ink": "--gray-000-rgb"
-        },
-        {
-          "file": "components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts",
-          "line": 2915,
-          "ink": "--gray-000-rgb"
-        },
-        {
-          "file": "components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts",
-          "line": 3062,
-          "ink": "--gray-000-rgb"
-        },
-        {
-          "file": "components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts",
-          "line": 3614,
-          "ink": "--gray-000-rgb"
-        },
-        {
-          "file": "components/scenes/highlightSceneStyles.ts",
-          "line": 157,
-          "ink": "--palette-gray-900-rgb"
-        },
-        {
-          "file": "components/scenes/highlightSceneStyles.ts",
-          "line": 1367,
-          "ink": "--palette-gray-900-rgb"
-        },
-        {
-          "file": "components/scenes/highlightSceneStyles.ts",
-          "line": 1395,
-          "ink": "--palette-gray-900-rgb"
-        },
-        {
-          "file": "components/scenes/highlightSceneStyles.ts",
-          "line": 2079,
-          "ink": "--palette-gray-900-rgb"
-        },
-        {
-          "file": "components/scenes/highlightSceneStyles.ts",
-          "line": 2161,
-          "ink": "--palette-gray-900-rgb"
-        },
-        {
-          "file": "components/ui/Button.tsx",
-          "line": 101,
-          "ink": "--palette-gray-900-rgb"
         }
       ]
     }

@@ -55,8 +55,10 @@ CSS에서 행간이 필요하면 composite의 비율 field를 쓴다. percent �
 서기 전에는 `type-line-height/body-14`가 150을 담고 있었고, 이름만 보고 CSS에 넣으면 즉시 깨졌다 —
 [DS-D-0029](../governance/decisions/DS-D-0029-token-names-must-be-true.md).
 
-**행간 변수의 Figma scope는 `LINE_HEIGHT`다.** scope가 비면 Figma의 어떤 속성 선택기에도 뜨지
-않아 발행돼 있어도 묶을 수 없다.
+**행간 변수의 Figma scope는 `LINE_HEIGHT`다.** proposal의 scope가 비면 `apply-variables`가 그 줄을
+건너뛰어 Figma 기본값 `ALL_SCOPES`가 남는다 — 안 뜨는 것이 아니라 **모서리 반경·간격 선택기에까지
+뜬다.** 좁히는 것이 이 규칙의 목적이다
+([DS-D-0029](../governance/decisions/DS-D-0029-token-names-must-be-true.md)).
 
 ## Locale and font loading
 

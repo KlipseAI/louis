@@ -2205,8 +2205,11 @@ function figmaScopesForToken(token) {
   if (token.type === "fontFamily") return ["FONT_FAMILY"];
   if (token.type === "fontWeight") return ["FONT_WEIGHT"];
   // 행간은 Figma 에 LINE_HEIGHT scope 가 있다. `$type: "number"` 라 위 갈래에 걸리지 않아
-  // scope 가 빈 배열로 나갔고, 그러면 Figma 의 어떤 속성 선택기에도 뜨지 않아 **바인딩 자체가
-  // 불가능**했다. 값은 PERCENT 단위이며 그 규약은 typography.md 가 소유한다.
+  // proposal 이 `scopes: []` 로 나갔다. **그것은 「바인딩이 안 된다」는 뜻이 아니다** —
+  // `apply-variables` 가 `if (spec.sc.length)` 로 빈 배열을 건너뛰므로 DS 가 이 축에 대해 아무
+  // 말도 하지 않았고, Figma 기본값 `ALL_SCOPES` 가 남아 150 이 모서리 반경·간격 선택기에까지
+  // 떴다. 넓은 것을 좁히는 것이 이 갈래의 목적이다(DS-D-0029). 값은 PERCENT 단위이며 그 규약은
+  // typography.md 가 소유한다.
   if (token.id.startsWith("line-height-") || token.id.startsWith("type-line-height-")) {
     return ["LINE_HEIGHT"];
   }

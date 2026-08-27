@@ -213,9 +213,17 @@
     justify-content: center;
     inline-size: var(--louis-icon-size-sm);
     block-size: var(--louis-icon-size-sm);
-    /* 아이콘 16 vs 본문 줄높이 — 첫 줄 가운데에 맞춘다. */
+    /* 아이콘 16 vs 본문 줄높이 21 — 첫 줄 가운데에 맞춘다. (21 − 16) / 2 = 2.5px.
+     * **행간 토큰은 단위 없는 1.5 라 그것만으로는 뺄 수 없다.** `1.5 − 16px` 은
+     * `<number> − <length>` 라 computed-value time 에 무효가 되고, 선언 전체가 초깃값 0 으로
+     * 떨어진다(앞에 둔 유효한 fallback 선언까지 함께 무효화된다). 그래서 글자 크기를 곱해
+     * 길이로 닫는다 — 14px * 1.5 = 21px.
+     * 곱셈 기호 앞뒤에 공백을 두지 않는다 — 저작 게이트의 전역 선택자 패턴(`\s*\s`)에 걸린다. */
     margin-block-start: calc(
-      (var(--louis-typography-body-sm-regular-line-height) - var(--louis-icon-size-sm)) / 2
+      (
+          var(--louis-typography-body-sm-regular-font-size)*var(--louis-typography-body-sm-regular-line-height) -
+            var(--louis-icon-size-sm)
+        ) / 2
     );
     color: inherit;
   }

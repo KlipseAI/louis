@@ -1601,7 +1601,7 @@
       "figma": "partial",
       "web": "partial",
       "docs": "done",
-      "note": "CSS 레시피(.louis-pane-divider)는 있고 React 표면은 없다. 창과 창 사이를 잡아 미는 구분자이며 축(Vertical/Horizontal)만 다르고 계약은 하나다. 보이는 트랙 4px 에 히트영역은 ::after 로 12px 까지 넓히고, 그립은 상태를 길이(60→80px)로 말한다. 비디오 에디터 구분자 셋의 실측에서 수렴했으나 제품은 아직 이 레시피를 소비하지 않는다. 키보드 조절과 24px 타깃 최소치는 미해결로 문서에 적혀 있다.",
+      "note": "CSS 레시피(.louis-pane-divider)는 있고 React 표면은 없다. 창과 창 사이를 잡아 미는 구분자이며 축(Vertical/Horizontal)만 다르고 계약은 하나다. 보이는 트랙 4px 에 히트영역은 ::after 로 12px 까지 넓히고, 그립은 상태를 길이(60→80px)로 말한다. 비디오 에디터 구분자 셋의 실측에서 수렴했고 제품이 그 셋을 이 레시피로 이관했다(핀 b7667d8a). 키보드 조절과 24px 타깃 최소치는 미해결로 문서에 적혀 있다.",
       "doc": "design/components/pane-divider.md",
       "figmaNames": [
         "PaneDivider"

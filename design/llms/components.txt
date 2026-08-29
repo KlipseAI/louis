@@ -91,7 +91,7 @@ Klipse 화면을 이루는 재사용 가능한 UI 단위다. 컴포넌트가 코
 | [Menu / Popover](../components/menu-popover.md) | `experimental` | `partial` | `partial` | `done` | public export와 실브라우저 acceptance test. Figma는 항목 set 5 variant와 패널 component 둘로 나뉜다 — 항목이 조립 단위이고 패널이 그것을 담는다. 제품 공용 정본은 --dropdown-* 토큰이며 면·간격·알파를 채택했다. 서브메뉴와 체크 상태가 남음 |
 | [News Card](../components/news-card.md) | `experimental` | `partial` | `not-ready` | `done` | 날짜 한 줄과 제목으로 소식 한 건을 적는 카드. 제품 구현(NewsCarousel.tsx 안의 NewsCard)이 정본인데 **export 되지 않는 파일 내부 함수**라 소비처가 한 자리뿐이다 — MediaCard·CarouselArrow 가 여러 곳에서 이미 쓰이던 것을 뒤늦게 이름 붙인 것과 출발점이 다르다. LOUIS recipe 는 없다. **색이 두 갈래다** — 보통 카드는 테마를 따르는 landing/panel-strong · gray/000 · landing/text-muted, 피처드는 사진 + 스크림 위라 고정 media-foreground-dark · palette-gray/500 이다. 열 폭 347 = (1400 − gap 4×3) ÷ 4 이고 피처드 698×324 는 두 열 두 행 + 간격이다. 카드 면이 시안 #171b22 가 아닌 것은 gray-900 이 라이트에서 랜딩 바닥과 바이트 동일이 되어 카드 경계가 사라지기 때문이다. **Featured 는 figma-component-authoring.md §2 개정으로 조건 축(false·true) 명부에 올랐다** — 프레임 자신의 고정 크기가 347×160 → 698×324 로 다시 쓰여(시험 2) BOOLEAN 으로 접히지 않는다. 스크림은 제품에서 한 겹 3정지점인데 Figma 는 두 겹이다 — 정지점에 변수를 묶으면 알파가 변수값으로 덮이기 때문이며 합성 곡선은 대조되지 않는다. 보통 카드 날짜의 라이트 대비 3.5:1(SC 1.4.3 결손)과 시안이 다섯 장을 같은 #9aa0ab 로 찍은 것을 두 갈래로 가른 것도 미해결이다. |
 | [Node Chip](../components/node-chip.md) | `experimental` | `partial` | `partial` | `done` | CSS 레시피(.louis-node-chip)는 있고 React 표면은 없다. Figma component set 6 variant(Shape × State). 캔버스 노드 크롬의 알약이며 4개 노드가 소비한다. 다크 disabled 대비 1.00:1 버그를 칩 전용 fg 토큰으로 고친 이력이 있다. |
-| [Pane Divider](../components/pane-divider.md) | `experimental` | `partial` | `partial` | `done` | CSS 레시피(.louis-pane-divider)는 있고 React 표면은 없다. 창과 창 사이를 잡아 미는 구분자이며 축(Vertical/Horizontal)만 다르고 계약은 하나다. 보이는 트랙 4px 에 히트영역은 ::after 로 12px 까지 넓히고, 그립은 상태를 길이(60→80px)로 말한다. 비디오 에디터 구분자 셋의 실측에서 수렴했으나 제품은 아직 이 레시피를 소비하지 않는다. 키보드 조절과 24px 타깃 최소치는 미해결로 문서에 적혀 있다. |
+| [Pane Divider](../components/pane-divider.md) | `experimental` | `partial` | `partial` | `done` | CSS 레시피(.louis-pane-divider)는 있고 React 표면은 없다. 창과 창 사이를 잡아 미는 구분자이며 축(Vertical/Horizontal)만 다르고 계약은 하나다. 보이는 트랙 4px 에 히트영역은 ::after 로 12px 까지 넓히고, 그립은 상태를 길이(60→80px)로 말한다. 비디오 에디터 구분자 셋의 실측에서 수렴했고 제품이 그 셋을 이 레시피로 이관했다(핀 b7667d8a). 키보드 조절과 24px 타깃 최소치는 미해결로 문서에 적혀 있다. |
 | [Progress](../components/progress.md) | `experimental` | `partial` | `partial` | `done` | determinate 진행률. **제품에 정본이 없어 접근성 계약부터 DS가 정했다**(DS-D-0022) — 배포본에 role="progressbar"가 1곳, <progress>가 0곳이다. 값을 갖는 것은 트랙이고 채움은 장식이다. 기하는 제품 셋이 합의하는 축(높이 6 · 알약 · 최대 폭 320)만 옮기고 색은 DS가 골랐다. 링은 제품 정본이 하나뿐이라 두께·간격·지름 식을 그대로 옮겼고, 지름을 계산하는 대신 padding으로 만들어 내용이 커지면 따라온다. indeterminate는 폭이 아니라 면 그라디언트를 흘린다 — loop 허용 property가 그렇다 |
 | [Project Card](../components/project-card.md) | `experimental` | `partial` | `partial` | `done` | public export 10종과 실브라우저 acceptance test 6건. 값은 제품 정의 4벌의 정본을 옮긴 것이다. 프로그레시브 블러의 첫 소비처이며, parity 게이트가 자손 기하·타이포·흐림·자식 순서를 대조한다. 구조는 제품과 다르다 — 프레임은 div이고 클릭 타깃이 카드 전체를 덮는 형제다 |
 | [Segmented Code Input](../components/segmented-code-input.md) | `experimental` | `partial` | `not-ready` | `done` | 쿠폰 코드처럼 한 글자씩 칸을 나눠 받는 입력 묶음. 제품 구현(components/ui/SegmentedCodeInput.tsx)이 정본이고 소비처는 쿠폰 등록 모달 한 자리다 — LOUIS recipe 는 없다. **칸이 아니라 묶음이 컴포넌트다**: 칸은 정본에서 이름 없는 input 이고 export 되지 않으며, flex-1 min-w-0 max-w-14 로 컨테이너에 맞춰 줄어든다(12칸을 고정폭으로 두면 360px 모달에서 넘친다는 이유가 주석에 있다). Figma 도 프레임 폭 386 만 고정했다 — 칸의 sizing mode 는 되읽기에 없어 채움인지 고정인지 확인되지 않는다 — 12*28 + 2*12 + 13*2 = 386 으로, 칸이 상한 28 에 닿는 폭이다. **칸 수 12 와 묶음 4 는 컴포넌트의 값이 아니라 COUPON_CODE_LENGTH · COUPON_CODE_GROUP_SIZE 다** — Figma 의 12칸은 한 소비처의 표본이다. **입력됨/빈칸과 오류는 축이 아니다** — 채워짐 규칙이 CSS 에 없고(상태 선택자가 :focus 와 :disabled 둘뿐), 오류는 형제 p role=alert 가 지는데 **제품에 FormMessage 컴포넌트는 없고** 그 p 는 인라인 마크업이라 form-message.md 의 정본(로그인 화면)과 색 단계도 여백도 role 도 다르다. **포커스 색이 세 곳에서 다르다** — 제품은 primary-400(#38a4ff) 72% 를 두 테마 모두 쓰는데 color/stroke-focus 는 모드마다 갈리고, 그래서 묶은 color/accent-primary 는 모드 불변이지만 값이 #0088ff 다. 더 나쁜 것은 **어느 후보도 라이트에서 대비 3:1 을 넘지 못한다**는 사실이다 — outline-none 에 1px 테두리 색만 바꾸는 조형이라 라이트 1.65:1 · 다크 2.58:1 이다(SC 1.4.11 결손). 칸 이름의 「번째 글자」가 i18n 밖에 박혀 있고, 기하는 components.measured.json 에 항목이 없어 대조되지 않는다. |
@@ -9629,7 +9629,7 @@ Figma 의 축은 이것과 이렇게 대응한다.
 | Web           | `partial`      | CSS recipe `packages/css/src/component/pane-divider.css`. React 컴포넌트 없음 |
 | Figma         | `partial`      | component set 2 variant (Orientation). publish 는 사람이 한다        |
 | Documentation | `done`         | 이 문서                                                     |
-| Maturity      | `experimental` | 제품이 아직 이 recipe 를 소비하지 않는다                     |
+| Maturity      | `experimental` | 제품이 소비한다. React 표면과 키보드 조절이 아직 없다        |
 
 #### 왜 있는가
 
@@ -9737,13 +9737,17 @@ Figma 의 축은 이것과 이렇게 대응한다.
 - Web source: `packages/css/src/component/pane-divider.css`
 - Public import: `@klipse-design/css` (`styles.layer.css`)
 - Figma component: `PaneDivider` (Orientation: vertical · horizontal). 축 어휘 개정 근거는 [figma-component-authoring](../governance/figma-component-authoring.md) 「2026-08-29 개정의 근거」
-- 제품 소비: **아직 없다.** 제품은 자기 클래스 문자열을 유지한다.
+- 제품 소비: `klipse-web` 의 비디오 에디터 구분자 셋(`vemClass.ts` 의 `assetsDivider` ·
+  `propertiesDivider` · `timelineDivider`). 핀 `b7667d8a`.
 
 #### Known deviations
 
-- **제품이 이 recipe 를 소비하지 않는다.** 제품 쪽은 같은 계약을 Tailwind 임의값 문자열로
-  갖고 있고(`vemClass.ts` 의 `PANE_DIVIDER_*` 상수), 값은 실측으로 일치하지만 **정본이 둘**이다.
-  이관 전까지 한쪽만 고쳐지는 위험이 남는다.
+- **그립 색이 라이트에서 조금 어두워졌다.** 이관 전 제품의 그립은 `--palette-gray-500` 을 읽었는데,
+  그 토큰이 라이트에서 `body` 스코프로 `#bcc0c9`(188 192 201) 로 덮여 있다(`Gnb.tsx` 의 적응형
+  회색). 레시피는 원시 토큰(`palette-gray/500` = 154 160 171)을 읽으므로 그 덮개를 타지 않는다.
+  결과적으로 **라이트에서만** 그립이 한 단계 어두워지고 다크는 그대로다 — 이 문서가 「라이트·
+  다크가 같은 값」이라고 적은 상태에 오히려 가까워졌다. 잡을 때만 보이는 알약이고 밝은 면 위에서
+  더 잘 보이므로 되돌리지 않았다.
 - **compact 에서 세로 구분자가 암묵 트랙을 만든다.** 제품 compact 격자가 `assets` ·
   `assets-divider` 영역 이름을 빼는데 그 요소들에는 719px 분기가 없다. 이것은 셸의 결함이며
   이 recipe 로는 고칠 수 없다.
@@ -9758,9 +9762,15 @@ Figma 의 축은 이것과 이렇게 대응한다.
 4×60 · 가로 하나가 60×4 이고 불투명도 0, active 에서 세로 4×80 · 가로 80×4 이고 불투명도 1 인
 것을 확인했다. 이 recipe 의 값은 그 실측에서 나왔다.
 
-없는 것 — `scripts/verify-figma-parity.mjs` 의 parity 계약, 실브라우저 acceptance test,
-`figma/components.measured.json` 항목. 셋 다 **제품이 이 recipe 를 소비한 뒤**에 의미가 생긴다.
-지금 걸면 제품이 아니라 이 파일 자신을 검사하게 된다.
+있는 것 — parity 계약(`scripts/verify-figma-parity.mjs`). 이 컴포넌트의 계약은 **불투명도**라
+`opacity` 를 자손 경로(`{ part: "Grip", value }`)로 적었고, 뒤집으면 게이트가 잡는다.
+`tamperComponentPartOpacity` canary 가 그 검출력을 고정한다.
+
+있는 것 — 이관 뒤 제품 실측(2026-08-29). 셋 다 idle 4×60 · 60×4 불투명도 0, active 4×80 ·
+80×4 불투명도 1, 놓으면 복귀. compact(375px)에서 세로는 셸이 숨기고 가로는 트랙 8px · 그립 48×4.
+
+없는 것 — 실브라우저 acceptance test 와 `figma/components.measured.json` 항목. 기하 대조는
+그 항목이 생겨야 걸 수 있고, 지금은 불투명도만 계약이 잡는다.
 
 #### Migration and changelog
 

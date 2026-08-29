@@ -18,7 +18,7 @@ summary: 창과 창 사이를 잡아 미는 구분자입니다.
 | Web           | `partial`      | CSS recipe `packages/css/src/component/pane-divider.css`. React 컴포넌트 없음 |
 | Figma         | `partial`      | component set 2 variant (Orientation). publish 는 사람이 한다        |
 | Documentation | `done`         | 이 문서                                                     |
-| Maturity      | `experimental` | 제품이 아직 이 recipe 를 소비하지 않는다                     |
+| Maturity      | `experimental` | 제품이 소비한다. React 표면과 키보드 조절이 아직 없다        |
 
 ## 왜 있는가
 
@@ -126,13 +126,17 @@ summary: 창과 창 사이를 잡아 미는 구분자입니다.
 - Web source: `packages/css/src/component/pane-divider.css`
 - Public import: `@klipse-design/css` (`styles.layer.css`)
 - Figma component: `PaneDivider` (Orientation: vertical · horizontal). 축 어휘 개정 근거는 [figma-component-authoring](../governance/figma-component-authoring.md) 「2026-08-29 개정의 근거」
-- 제품 소비: **아직 없다.** 제품은 자기 클래스 문자열을 유지한다.
+- 제품 소비: `klipse-web` 의 비디오 에디터 구분자 셋(`vemClass.ts` 의 `assetsDivider` ·
+  `propertiesDivider` · `timelineDivider`). 핀 `b7667d8a`.
 
 ## Known deviations
 
-- **제품이 이 recipe 를 소비하지 않는다.** 제품 쪽은 같은 계약을 Tailwind 임의값 문자열로
-  갖고 있고(`vemClass.ts` 의 `PANE_DIVIDER_*` 상수), 값은 실측으로 일치하지만 **정본이 둘**이다.
-  이관 전까지 한쪽만 고쳐지는 위험이 남는다.
+- **그립 색이 라이트에서 조금 어두워졌다.** 이관 전 제품의 그립은 `--palette-gray-500` 을 읽었는데,
+  그 토큰이 라이트에서 `body` 스코프로 `#bcc0c9`(188 192 201) 로 덮여 있다(`Gnb.tsx` 의 적응형
+  회색). 레시피는 원시 토큰(`palette-gray/500` = 154 160 171)을 읽으므로 그 덮개를 타지 않는다.
+  결과적으로 **라이트에서만** 그립이 한 단계 어두워지고 다크는 그대로다 — 이 문서가 「라이트·
+  다크가 같은 값」이라고 적은 상태에 오히려 가까워졌다. 잡을 때만 보이는 알약이고 밝은 면 위에서
+  더 잘 보이므로 되돌리지 않았다.
 - **compact 에서 세로 구분자가 암묵 트랙을 만든다.** 제품 compact 격자가 `assets` ·
   `assets-divider` 영역 이름을 빼는데 그 요소들에는 719px 분기가 없다. 이것은 셸의 결함이며
   이 recipe 로는 고칠 수 없다.
@@ -147,9 +151,15 @@ summary: 창과 창 사이를 잡아 미는 구분자입니다.
 4×60 · 가로 하나가 60×4 이고 불투명도 0, active 에서 세로 4×80 · 가로 80×4 이고 불투명도 1 인
 것을 확인했다. 이 recipe 의 값은 그 실측에서 나왔다.
 
-없는 것 — `scripts/verify-figma-parity.mjs` 의 parity 계약, 실브라우저 acceptance test,
-`figma/components.measured.json` 항목. 셋 다 **제품이 이 recipe 를 소비한 뒤**에 의미가 생긴다.
-지금 걸면 제품이 아니라 이 파일 자신을 검사하게 된다.
+있는 것 — parity 계약(`scripts/verify-figma-parity.mjs`). 이 컴포넌트의 계약은 **불투명도**라
+`opacity` 를 자손 경로(`{ part: "Grip", value }`)로 적었고, 뒤집으면 게이트가 잡는다.
+`tamperComponentPartOpacity` canary 가 그 검출력을 고정한다.
+
+있는 것 — 이관 뒤 제품 실측(2026-08-29). 셋 다 idle 4×60 · 60×4 불투명도 0, active 4×80 ·
+80×4 불투명도 1, 놓으면 복귀. compact(375px)에서 세로는 셸이 숨기고 가로는 트랙 8px · 그립 48×4.
+
+없는 것 — 실브라우저 acceptance test 와 `figma/components.measured.json` 항목. 기하 대조는
+그 항목이 생겨야 걸 수 있고, 지금은 불투명도만 계약이 잡는다.
 
 ## Migration and changelog
 

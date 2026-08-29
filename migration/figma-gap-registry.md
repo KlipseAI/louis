@@ -530,10 +530,19 @@ Spinner 레시피 5종, PaneDivider 6선언.
 | 14 | **Checkbox** (indeterminate) | 1/3 | **21벌 · 5레시피 · 14파일** | **web `partial` · figma `not-ready`**(2026-08-18). "4 파일"은 틀렸다. **제품에 정본이 있는데(globals.css의 `.app-native-checkbox`) 21벌 중 2벌만 쓴다** — 그 클래스가 cascade layer 밖이라 소비처가 이길 수 없어, 색 하나를 바꾸려면 선언을 베껴야 했다. 크기 20px만 채택하고 `accent-color`는 버렸다. `indeterminate`는 제품에 1벌뿐이다. **선택 안 한 테두리 대비가 SC 1.4.11에 미달하고 테두리 토큰 셋 중 어느 것도 라이트에서 3:1을 넘지 못한다**(실측 1.27 · 1.38 · 2.52) |
 | 15 | **SelectableListRow** | 2/3 | **3벌 — 등록부가 맞았다** | **web `partial` · figma `not-ready`**(2026-08-18). 아홉 번 만에 처음으로 수치가 맞았다. 셋이 합의하는 것은 골격(가로 flex · 선행 슬롯 · hover 면 · 전환 140ms)이고 선택 소유가 갈린다 — 하이라이트 2벌은 행의 면, 에디터 1벌은 안의 체크박스. 후자는 Checkbox가 소유한다. **다크에서 `background-inset`이 `surface`와 같은 색이라 표면 위 목록에서 선택 면이 사라져** 3px 선행 표식을 함께 그린다. 같은 위험이 SidebarNavItem에 남아 있다 |
 
-**에디터 전용이지만 그 화면의 뼈대인 것** — 5-pane grid · PaneDivider · InspectorField(33회) ·
-InspectorSection(22회) · TimeRuler · Playhead · TimelineClip · TrackLane. 이것 없이는 에디터가
+**에디터 전용이지만 그 화면의 뼈대인 것** — workspace grid · PaneDivider · InspectorField ·
+InspectorSection · TimeRuler · Playhead · TimelineClip · TrackLane. 이것 없이는 에디터가
 한 줄도 조립되지 않는다. `editor-workspace` pattern은 **규범 문서만 있고 Figma·Web 모두
 `not-ready`인 유일한 pattern**이다.
+
+> **위 수 셋이 틀렸다 — 2026-08-29 실측이 정정했다**
+> ([editor-skeleton-measured.md](editor-skeleton-measured.md)).
+> 「5-pane grid」는 **4-pane + 3-divider** 다(열 트랙 5개를 패널 수로 읽었다).
+> 「PaneDivider 6선언」은 **2 레시피 · 3벌** 이다(`assetsDivider` 와 `propertiesDivider` 의
+> 선언 26개가 바이트 단위로 같다). 「InspectorField 33 · InspectorSection 22」는 둘 합쳐
+> **71벌 · 7 레시피** 다. 네 부품 모두 **정본이 없고**(갈리는 축이 부품마다 14~18개),
+> 그래서 등록 전에 소유자 결정 다섯이 필요하다. 같은 문서가 결함 여섯도 함께 적었다 —
+> 그중 줌 상한 이중 정의는 프레임 그리드 모드를 도달 불가로 만든다.
 
 ---
 

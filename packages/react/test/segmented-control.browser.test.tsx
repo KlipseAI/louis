@@ -80,7 +80,11 @@ function Fixture({
   );
 }
 
-const SIZES: readonly SegmentedControlSize[] = ["lg", "md"];
+// `xs` 는 타입에는 있지만 `components.measured.json` 에 계약이 없다 — 즉 시스템이 파는 크기인데
+// 대조되지 않는다. 여기서 `readonly SegmentedControlSize[]` 로 넓게 선언하면 `size` 가 `xs` 를
+// 포함해 measured 색인이 타입 오류를 낸다. 넓힌 타입이 거짓이므로 **실제로 대조하는 둘로 좁힌다.**
+// `xs` 의 계약이 생기면 여기에 더한다.
+const SIZES = ["lg", "md"] as const satisfies readonly SegmentedControlSize[];
 
 for (const size of SIZES) {
   const spec = measured.components["segmented-control"].sizes[size];

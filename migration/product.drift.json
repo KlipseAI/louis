@@ -2,8 +2,8 @@
   "$comment": "생성물. scripts/measure-product-drift.mjs가 배포본에서 잰다. 직접 수정하지 않는다.",
   "$whyThisExists": "값을 직접 쓸 수 있는 축마다 드리프트가 번진다. 2026-08-21에 네 축에서 같은 자국이 **따로따로** 발견됐다 — 알파·radius·border-width·duration. 한 축씩 발견하는 방식으로는 다섯 번째를 놓친다. 전 축을 한 번에 재서 드러낸다.",
   "$howToRead": "coverage가 낮으면 DS 스케일이 좁거나 제품이 흩어진 것이다. topHasToken이 false면 **가장 흔한 값을 토큰으로 쓸 수 없다는 뜻**이며, 그 자체로 결함이다. topUsed/missingTop이 문서의 분포표를 생성한다 — 표를 손으로 세지 않는다.",
-  "productRef": "df414c242399077128fb30695f188f4228275635",
-  "productCommit": "df414c242399077128fb30695f188f4228275635",
+  "productRef": "a7d045e3c21da6174951826ab850dd9335111bd8",
+  "productCommit": "a7d045e3c21da6174951826ab850dd9335111bd8",
   "axes": [
     {
       "id": "alpha",
@@ -11,25 +11,25 @@
       "unit": "%",
       "productStops": 40,
       "dsStops": 14,
-      "uses": 2719,
-      "coveragePct": 47.6,
+      "uses": 2697,
+      "coveragePct": 47.9,
       "topValue": 8,
       "topUses": 379,
       "topHasToken": true,
       "missingTop": [
         {
           "value": 100,
-          "uses": 325,
-          "files": 48
+          "uses": 321,
+          "files": 46
         },
         {
           "value": 88,
-          "uses": 242,
+          "uses": 239,
           "files": 81
         },
         {
           "value": 56,
-          "uses": 161,
+          "uses": 159,
           "files": 69
         },
         {
@@ -39,12 +39,12 @@
         },
         {
           "value": 72,
-          "uses": 119,
-          "files": 57
+          "uses": 117,
+          "files": 56
         },
         {
           "value": 96,
-          "uses": 99,
+          "uses": 96,
           "files": 31
         },
         {
@@ -54,7 +54,7 @@
         },
         {
           "value": 28,
-          "uses": 73,
+          "uses": 72,
           "files": 36
         }
       ],
@@ -62,18 +62,18 @@
         {
           "value": 8,
           "uses": 379,
-          "files": 95,
+          "files": 96,
           "hasToken": true
         },
         {
           "value": 100,
-          "uses": 325,
-          "files": 48,
+          "uses": 321,
+          "files": 46,
           "hasToken": false
         },
         {
           "value": 88,
-          "uses": 242,
+          "uses": 239,
           "files": 81,
           "hasToken": false
         },
@@ -85,13 +85,13 @@
         },
         {
           "value": 12,
-          "uses": 217,
+          "uses": 216,
           "files": 83,
           "hasToken": true
         },
         {
           "value": 56,
-          "uses": 161,
+          "uses": 159,
           "files": 69,
           "hasToken": false
         },
@@ -127,10 +127,10 @@
       "unit": "px",
       "productStops": 21,
       "dsStops": 11,
-      "uses": 485,
-      "coveragePct": 84.1,
+      "uses": 479,
+      "coveragePct": 83.9,
       "topValue": 999,
-      "topUses": 130,
+      "topUses": 124,
       "topHasToken": true,
       "missingTop": [
         {
@@ -177,7 +177,7 @@
       "topUsed": [
         {
           "value": 999,
-          "uses": 130,
+          "uses": 124,
           "files": 29,
           "hasToken": true
         },
@@ -241,10 +241,10 @@
       "id": "border-width",
       "label": "테두리 두께",
       "unit": "px",
-      "productStops": 5,
+      "productStops": 4,
       "dsStops": 3,
-      "uses": 134,
-      "coveragePct": 92.5,
+      "uses": 133,
+      "coveragePct": 93.2,
       "topValue": 1,
       "topUses": 102,
       "topHasToken": true,
@@ -256,11 +256,6 @@
         },
         {
           "value": 4,
-          "uses": 1,
-          "files": 1
-        },
-        {
-          "value": 0.1,
           "uses": 1,
           "files": 1
         }
@@ -289,12 +284,6 @@
           "uses": 1,
           "files": 1,
           "hasToken": false
-        },
-        {
-          "value": 0.1,
-          "uses": 1,
-          "files": 1,
-          "hasToken": false
         }
       ]
     },
@@ -304,8 +293,8 @@
       "unit": "px",
       "productStops": 43,
       "dsStops": 27,
-      "uses": 901,
-      "coveragePct": 80.7,
+      "uses": 896,
+      "coveragePct": 80.6,
       "topValue": 8,
       "topUses": 214,
       "topHasToken": true,
@@ -355,19 +344,19 @@
         {
           "value": 8,
           "uses": 214,
-          "files": 45,
-          "hasToken": true
-        },
-        {
-          "value": 4,
-          "uses": 90,
-          "files": 11,
+          "files": 46,
           "hasToken": true
         },
         {
           "value": 12,
-          "uses": 89,
+          "uses": 87,
           "files": 16,
+          "hasToken": true
+        },
+        {
+          "value": 4,
+          "uses": 87,
+          "files": 10,
           "hasToken": true
         },
         {
@@ -378,13 +367,7 @@
         },
         {
           "value": 10,
-          "uses": 67,
-          "files": 9,
-          "hasToken": true
-        },
-        {
-          "value": 16,
-          "uses": 54,
+          "uses": 68,
           "files": 9,
           "hasToken": true
         },
@@ -392,6 +375,12 @@
           "value": 2,
           "uses": 53,
           "files": 10,
+          "hasToken": true
+        },
+        {
+          "value": 16,
+          "uses": 53,
+          "files": 9,
           "hasToken": true
         },
         {
@@ -420,8 +409,8 @@
       "unit": "ms",
       "productStops": 53,
       "dsStops": 16,
-      "uses": 1034,
-      "coveragePct": 60.8,
+      "uses": 1024,
+      "coveragePct": 60.4,
       "topValue": 180,
       "topUses": 173,
       "topHasToken": false,
@@ -476,19 +465,19 @@
         },
         {
           "value": 120,
-          "uses": 115,
-          "files": 44,
+          "uses": 107,
+          "files": 43,
           "hasToken": true
         },
         {
           "value": 140,
-          "uses": 102,
-          "files": 29,
+          "uses": 101,
+          "files": 28,
           "hasToken": true
         },
         {
           "value": 160,
-          "uses": 96,
+          "uses": 95,
           "files": 31,
           "hasToken": true
         },

@@ -20,32 +20,36 @@
   ],
   "visibleThresholdRelative": 0.15,
   "keep": [],
-  "productRef": "df414c242399077128fb30695f188f4228275635",
-  "productCommit": "df414c242399077128fb30695f188f4228275635",
+  "productRef": "a7d045e3c21da6174951826ab850dd9335111bd8",
+  "productCommit": "a7d045e3c21da6174951826ab850dd9335111bd8",
   "totals": {
     "stops": 40,
     "trueAlphaStops": 32,
-    "trueAlphaUses": 1995,
-    "movedUses": 701,
+    "trueAlphaUses": 1987,
+    "movedUses": 695,
     "visibleUses": 2,
     "reviewSites": 2
   },
   "inkLadder": [
     {
       "ink": "--gray-000-rgb",
-      "uses": 946,
+      "uses": 953,
       "stops": [
         {
           "stop": 4,
           "uses": 146
         },
         {
+          "stop": 6,
+          "uses": 1
+        },
+        {
           "stop": 8,
-          "uses": 197
+          "uses": 201
         },
         {
           "stop": 12,
-          "uses": 118
+          "uses": 119
         },
         {
           "stop": 16,
@@ -53,7 +57,7 @@
         },
         {
           "stop": 20,
-          "uses": 46
+          "uses": 47
         },
         {
           "stop": 25,
@@ -65,7 +69,7 @@
         },
         {
           "stop": 40,
-          "uses": 85
+          "uses": 86
         },
         {
           "stop": 50,
@@ -73,7 +77,7 @@
         },
         {
           "stop": 60,
-          "uses": 96
+          "uses": 95
         },
         {
           "stop": 70,
@@ -87,7 +91,7 @@
     },
     {
       "ink": "--palette-gray-000-rgb",
-      "uses": 332,
+      "uses": 328,
       "stops": [
         {
           "stop": 4,
@@ -95,7 +99,7 @@
         },
         {
           "stop": 8,
-          "uses": 60
+          "uses": 58
         },
         {
           "stop": 12,
@@ -131,7 +135,7 @@
         },
         {
           "stop": 70,
-          "uses": 23
+          "uses": 21
         },
         {
           "stop": 80,
@@ -141,7 +145,7 @@
     },
     {
       "ink": "--palette-gray-900-rgb",
-      "uses": 232,
+      "uses": 231,
       "stops": [
         {
           "stop": 4,
@@ -169,7 +173,7 @@
         },
         {
           "stop": 30,
-          "uses": 11
+          "uses": 10
         },
         {
           "stop": 40,
@@ -190,64 +194,6 @@
         {
           "stop": 80,
           "uses": 15
-        }
-      ]
-    },
-    {
-      "ink": "--gray-900-rgb",
-      "uses": 44,
-      "stops": [
-        {
-          "stop": 4,
-          "uses": 2
-        },
-        {
-          "stop": 6,
-          "uses": 1
-        },
-        {
-          "stop": 8,
-          "uses": 4
-        },
-        {
-          "stop": 12,
-          "uses": 5
-        },
-        {
-          "stop": 16,
-          "uses": 1
-        },
-        {
-          "stop": 20,
-          "uses": 1
-        },
-        {
-          "stop": 25,
-          "uses": 2
-        },
-        {
-          "stop": 30,
-          "uses": 4
-        },
-        {
-          "stop": 40,
-          "uses": 4
-        },
-        {
-          "stop": 50,
-          "uses": 5
-        },
-        {
-          "stop": 60,
-          "uses": 6
-        },
-        {
-          "stop": 70,
-          "uses": 7
-        },
-        {
-          "stop": 80,
-          "uses": 2
         }
       ]
     },
@@ -324,6 +270,60 @@
         {
           "stop": 60,
           "uses": 1
+        }
+      ]
+    },
+    {
+      "ink": "--gray-900-rgb",
+      "uses": 36,
+      "stops": [
+        {
+          "stop": 4,
+          "uses": 2
+        },
+        {
+          "stop": 6,
+          "uses": 1
+        },
+        {
+          "stop": 8,
+          "uses": 2
+        },
+        {
+          "stop": 12,
+          "uses": 3
+        },
+        {
+          "stop": 16,
+          "uses": 1
+        },
+        {
+          "stop": 25,
+          "uses": 2
+        },
+        {
+          "stop": 30,
+          "uses": 4
+        },
+        {
+          "stop": 40,
+          "uses": 3
+        },
+        {
+          "stop": 50,
+          "uses": 5
+        },
+        {
+          "stop": 60,
+          "uses": 4
+        },
+        {
+          "stop": 70,
+          "uses": 7
+        },
+        {
+          "stop": 80,
+          "uses": 2
         }
       ]
     },
@@ -557,7 +557,7 @@
     },
     {
       "ink": "--palette-gray-1000-rgb",
-      "uses": 21,
+      "uses": 19,
       "stops": [
         {
           "stop": 4,
@@ -586,10 +586,6 @@
         {
           "stop": 30,
           "uses": 4
-        },
-        {
-          "stop": 70,
-          "uses": 2
         }
       ]
     },
@@ -1136,7 +1132,7 @@
     {
       "from": 0,
       "to": null,
-      "uses": 47,
+      "uses": 43,
       "note": "완전 투명 — 알파 스톱이 아니다. 접지 않는다."
     },
     {
@@ -1154,6 +1150,14 @@
       "relative": 0.2,
       "uses": 2,
       "visible": true
+    },
+    {
+      "from": 6,
+      "to": 6,
+      "delta": 0,
+      "relative": 0,
+      "uses": 1,
+      "visible": false
     },
     {
       "from": 7,
@@ -1176,7 +1180,7 @@
       "to": 12,
       "delta": 0,
       "relative": 0,
-      "uses": 217,
+      "uses": 216,
       "visible": false
     },
     {
@@ -1248,7 +1252,7 @@
       "to": 30,
       "delta": 2,
       "relative": 0.071,
-      "uses": 73,
+      "uses": 72,
       "visible": false
     },
     {
@@ -1344,7 +1348,7 @@
       "to": 60,
       "delta": 4,
       "relative": 0.071,
-      "uses": 161,
+      "uses": 159,
       "visible": false
     },
     {
@@ -1352,7 +1356,7 @@
       "to": 60,
       "delta": 4,
       "relative": 0.063,
-      "uses": 31,
+      "uses": 30,
       "visible": false
     },
     {
@@ -1364,19 +1368,11 @@
       "visible": false
     },
     {
-      "from": 70,
-      "to": 70,
-      "delta": 0,
-      "relative": 0,
-      "uses": 2,
-      "visible": false
-    },
-    {
       "from": 72,
       "to": 70,
       "delta": 2,
       "relative": 0.028,
-      "uses": 119,
+      "uses": 117,
       "visible": false
     },
     {
@@ -1398,7 +1394,7 @@
     {
       "from": 88,
       "to": null,
-      "uses": 242,
+      "uses": 239,
       "note": "불투명 잉크로 흡수 — solid role이 받는다."
     },
     {
@@ -1422,7 +1418,7 @@
     {
       "from": 96,
       "to": null,
-      "uses": 99,
+      "uses": 96,
       "note": "불투명 잉크로 흡수 — solid role이 받는다."
     },
     {
@@ -1434,7 +1430,7 @@
     {
       "from": 100,
       "to": null,
-      "uses": 325,
+      "uses": 321,
       "note": "불투명 잉크로 흡수 — solid role이 받는다."
     }
   ],

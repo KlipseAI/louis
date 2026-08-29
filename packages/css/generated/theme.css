@@ -250,6 +250,10 @@
   --spacing-layout-inspector-control-height: var(--louis-layout-inspector-control-height);
   --spacing-layout-node-chip-height: var(--louis-layout-node-chip-height);
   --spacing-layout-node-chip-inset: var(--louis-layout-node-chip-inset);
+  --spacing-layout-pane-divider-grip-length: var(--louis-layout-pane-divider-grip-length);
+  --spacing-layout-pane-divider-grip-length-active: var(--louis-layout-pane-divider-grip-length-active);
+  --spacing-layout-pane-divider-grip-length-compact: var(--louis-layout-pane-divider-grip-length-compact);
+  --spacing-layout-pane-divider-track: var(--louis-layout-pane-divider-track);
   --spacing-layout-progress-bar-height: var(--louis-layout-progress-bar-height);
   --spacing-layout-progress-bar-max-inline-size: var(--louis-layout-progress-bar-max-inline-size);
   --spacing-layout-project-card-minimum: var(--louis-layout-project-card-minimum);
@@ -265,6 +269,7 @@
   --spacing-overlay-inset: var(--louis-space-overlay-inset);
   --spacing-overlay-item-content-gap: var(--louis-space-overlay-item-content-gap);
   --spacing-overlay-item-gap: var(--louis-space-overlay-item-gap);
+  --spacing-pane-divider-hit-slop: var(--louis-space-pane-divider-hit-slop);
   --spacing-progress-ring-gap: var(--louis-space-progress-ring-gap);
   --spacing-stack-md: var(--louis-space-stack-md);
   --spacing-stack-xs: var(--louis-space-stack-xs);

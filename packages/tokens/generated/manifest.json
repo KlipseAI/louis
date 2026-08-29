@@ -2,23 +2,23 @@
   "artifacts": [
     {
       "path": "packages/tokens/generated/figma.tokens.json",
-      "sha256": "0db11953c8ade32ee1da05ad846a575e28692543d42641076b5343d6628b2949"
+      "sha256": "c238aeaeade26ebdf0f21389d0fc50a543baf63d3b8064ffc15451d4c4fe8c9e"
     },
     {
       "path": "packages/tokens/generated/index.d.ts",
-      "sha256": "57fdecea724aef9884cd8b00a853147bfe104ae793416deb4bfeeca18d52ad93"
+      "sha256": "ca251ccd6edc74043e68ebb5780da92a8b7703a07987eb87d551a5f70a3a382a"
     },
     {
       "path": "packages/tokens/generated/index.js",
-      "sha256": "abc46445d9b5ef6c8bff50d50e0845b4043befb3c67221cfe9be74bf2139d403"
+      "sha256": "48fc3418e01703e8584e3b0d90ed262c6397159cd6b445b07e534185025aaa06"
     },
     {
       "path": "packages/tokens/generated/tokens.css",
-      "sha256": "a6b3e1e63550067a82b4c6b121315323b18029794b8f6c86b736d726af850935"
+      "sha256": "756b4afd7588a9797ca3dde84ac2e20d5fe80bd3fa5325b862932ca33a95acc3"
     },
     {
       "path": "packages/tokens/generated/tokens.json",
-      "sha256": "4e3e4f288b307d85918d6f2cf933cefc702d5bb11abac2c601044875e3c67ae0"
+      "sha256": "4fdbea7165f80f2692e644c157b9fb7d7895e96720d1c2dc70e593bcb7e3c6b0"
     }
   ],
   "contrastPairs": [
@@ -408,13 +408,13 @@
   },
   "source": {
     "path": "packages/tokens/src/klipse.tokens.json",
-    "sha256": "df92d3471a2fc09e454541aec4865f13ffcbf34f28e41c379003a285aede7892"
+    "sha256": "6d15f656bc8a6c01dacbcb3f1b7e941b41a78cc46d9d815642b1973afb88dfb1"
   },
   "themes": [
     "light",
     "dark"
   ],
-  "tokenCount": 764,
+  "tokenCount": 771,
   "tokens": [
     {
       "aliasTarget": {
@@ -15776,6 +15776,90 @@
     },
     {
       "aliasTarget": {
+        "id": "space-60",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-layout-pane-divider-grip-length": "60px"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "layout-pane-divider-grip-length",
+      "mode": "global",
+      "rawValue": "{primitive.spacing.60}",
+      "resolvedValue": {
+        "unit": "px",
+        "value": 60
+      },
+      "sourcePath": "semantic.global.layout.pane-divider-grip-length",
+      "tier": "semantic",
+      "type": "dimension"
+    },
+    {
+      "aliasTarget": {
+        "id": "space-80",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-layout-pane-divider-grip-length-active": "80px"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "layout-pane-divider-grip-length-active",
+      "mode": "global",
+      "rawValue": "{primitive.spacing.80}",
+      "resolvedValue": {
+        "unit": "px",
+        "value": 80
+      },
+      "sourcePath": "semantic.global.layout.pane-divider-grip-length-active",
+      "tier": "semantic",
+      "type": "dimension"
+    },
+    {
+      "aliasTarget": {
+        "id": "space-48",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-layout-pane-divider-grip-length-compact": "48px"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "layout-pane-divider-grip-length-compact",
+      "mode": "global",
+      "rawValue": "{primitive.spacing.48}",
+      "resolvedValue": {
+        "unit": "px",
+        "value": 48
+      },
+      "sourcePath": "semantic.global.layout.pane-divider-grip-length-compact",
+      "tier": "semantic",
+      "type": "dimension"
+    },
+    {
+      "aliasTarget": {
+        "id": "space-4",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-layout-pane-divider-track": "4px"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "layout-pane-divider-track",
+      "mode": "global",
+      "rawValue": "{primitive.spacing.4}",
+      "resolvedValue": {
+        "unit": "px",
+        "value": 4
+      },
+      "sourcePath": "semantic.global.layout.pane-divider-track",
+      "tier": "semantic",
+      "type": "dimension"
+    },
+    {
+      "aliasTarget": {
         "id": "space-6",
         "mode": "base"
       },
@@ -18823,6 +18907,25 @@
       "cssProperties": {},
       "deprecated": null,
       "description": null,
+      "id": "space-60",
+      "mode": "base",
+      "rawValue": {
+        "unit": "px",
+        "value": 60
+      },
+      "resolvedValue": {
+        "unit": "px",
+        "value": 60
+      },
+      "sourcePath": "primitive.spacing.60",
+      "tier": "primitive",
+      "type": "dimension"
+    },
+    {
+      "aliasTarget": null,
+      "cssProperties": {},
+      "deprecated": null,
+      "description": null,
       "id": "space-64",
       "mode": "base",
       "rawValue": {
@@ -18853,6 +18956,25 @@
         "value": 8
       },
       "sourcePath": "primitive.spacing.8",
+      "tier": "primitive",
+      "type": "dimension"
+    },
+    {
+      "aliasTarget": null,
+      "cssProperties": {},
+      "deprecated": null,
+      "description": null,
+      "id": "space-80",
+      "mode": "base",
+      "rawValue": {
+        "unit": "px",
+        "value": 80
+      },
+      "resolvedValue": {
+        "unit": "px",
+        "value": 80
+      },
+      "sourcePath": "primitive.spacing.80",
       "tier": "primitive",
       "type": "dimension"
     },
@@ -19101,6 +19223,27 @@
         "value": 2
       },
       "sourcePath": "semantic.global.spacing.overlay-item-gap",
+      "tier": "semantic",
+      "type": "dimension"
+    },
+    {
+      "aliasTarget": {
+        "id": "space-4",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-space-pane-divider-hit-slop": "4px"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "space-pane-divider-hit-slop",
+      "mode": "global",
+      "rawValue": "{primitive.spacing.4}",
+      "resolvedValue": {
+        "unit": "px",
+        "value": 4
+      },
+      "sourcePath": "semantic.global.spacing.pane-divider-hit-slop",
       "tier": "semantic",
       "type": "dimension"
     },

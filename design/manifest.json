@@ -599,6 +599,15 @@
       "generated": false
     },
     {
+      "id": "pane-divider",
+      "path": "design/components/pane-divider.md",
+      "title": "PaneDivider",
+      "section": "components",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
+    },
+    {
       "id": "patterns-overview",
       "path": "design/patterns/README.md",
       "title": "Patterns",
@@ -1094,6 +1103,15 @@
       "generated": false
     },
     {
+      "id": "decision-no-theme-branch-on-adaptive-ramp",
+      "path": "design/governance/decisions/DS-D-0031-no-theme-branch-on-adaptive-ramp.md",
+      "title": "DS-D-0031 적응형 램프를 테마 선택자 안에서 다시 선언하지 않는다",
+      "section": "governance",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
+    },
+    {
       "id": "governance-product-confirmations",
       "path": "design/governance/product-confirmations.md",
       "title": "제품 확인 대기 목록",
@@ -1214,7 +1232,8 @@
         "design/components/news-card.md",
         "design/components/gnb-menu-item.md",
         "design/components/inline-loading-label.md",
-        "design/components/segmented-code-input.md"
+        "design/components/segmented-code-input.md",
+        "design/components/pane-divider.md"
       ]
     },
     {
@@ -1299,6 +1318,7 @@
         "design/governance/decisions/DS-D-0028-three-in-one-change.md",
         "design/governance/decisions/DS-D-0029-token-names-must-be-true.md",
         "design/governance/decisions/DS-D-0030-no-duplicate-role-tokens.md",
+        "design/governance/decisions/DS-D-0031-no-theme-branch-on-adaptive-ramp.md",
         "design/governance/product-confirmations.md",
         "design/updates/README.md"
       ]
@@ -1572,6 +1592,19 @@
       "doc": "design/components/node-chip.md",
       "figmaNames": [
         "NodeChip"
+      ]
+    },
+    {
+      "id": "pane-divider",
+      "name": "Pane Divider",
+      "maturity": "experimental",
+      "figma": "partial",
+      "web": "partial",
+      "docs": "done",
+      "note": "CSS 레시피(.louis-pane-divider)는 있고 React 표면은 없다. 창과 창 사이를 잡아 미는 구분자이며 축(Vertical/Horizontal)만 다르고 계약은 하나다. 보이는 트랙 4px 에 히트영역은 ::after 로 12px 까지 넓히고, 그립은 상태를 길이(60→80px)로 말한다. 비디오 에디터 구분자 셋의 실측에서 수렴했으나 제품은 아직 이 레시피를 소비하지 않는다. 키보드 조절과 24px 타깃 최소치는 미해결로 문서에 적혀 있다.",
+      "doc": "design/components/pane-divider.md",
+      "figmaNames": [
+        "PaneDivider"
       ]
     },
     {

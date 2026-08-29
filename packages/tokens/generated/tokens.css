@@ -469,6 +469,10 @@
   --louis-layout-inspector-control-height: 28px;
   --louis-layout-node-chip-height: 32px;
   --louis-layout-node-chip-inset: 10px;
+  --louis-layout-pane-divider-grip-length: 60px;
+  --louis-layout-pane-divider-grip-length-active: 80px;
+  --louis-layout-pane-divider-grip-length-compact: 48px;
+  --louis-layout-pane-divider-track: 4px;
   --louis-layout-progress-bar-height: 6px;
   --louis-layout-progress-bar-max-inline-size: 320px;
   --louis-layout-project-card-minimum: 240px;
@@ -580,6 +584,7 @@
   --louis-space-overlay-inset: 6px;
   --louis-space-overlay-item-content-gap: 6px;
   --louis-space-overlay-item-gap: 2px;
+  --louis-space-pane-divider-hit-slop: 4px;
   --louis-space-progress-ring-gap: 2px;
   --louis-space-stack-md: 12px;
   --louis-space-stack-xs: 4px;

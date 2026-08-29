@@ -2356,7 +2356,6 @@
       }
     },
     "spacing": {
-      "$type": "dimension",
       "0": {
         "$value": {
           "value": 0,
@@ -2573,6 +2572,18 @@
           }
         }
       },
+      "60": {
+        "$value": {
+          "value": 60,
+          "unit": "px"
+        },
+        "$extensions": {
+          "com.klipse-design": {
+            "id": "space-60",
+            "tier": "primitive"
+          }
+        }
+      },
       "64": {
         "$value": {
           "value": 64,
@@ -2581,6 +2592,18 @@
         "$extensions": {
           "com.klipse-design": {
             "id": "space-64",
+            "tier": "primitive"
+          }
+        }
+      },
+      "80": {
+        "$value": {
+          "value": 80,
+          "unit": "px"
+        },
+        "$extensions": {
+          "com.klipse-design": {
+            "id": "space-80",
             "tier": "primitive"
           }
         }
@@ -2656,7 +2679,8 @@
             "tier": "primitive"
           }
         }
-      }
+      },
+      "$type": "dimension"
     },
     "radius": {
       "0": {
@@ -5304,6 +5328,46 @@
             }
           }
         },
+        "pane-divider-grip-length": {
+          "$value": "{primitive.spacing.60}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "layout-pane-divider-grip-length",
+              "tier": "semantic",
+              "mode": "global"
+            }
+          }
+        },
+        "pane-divider-grip-length-active": {
+          "$value": "{primitive.spacing.80}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "layout-pane-divider-grip-length-active",
+              "tier": "semantic",
+              "mode": "global"
+            }
+          }
+        },
+        "pane-divider-grip-length-compact": {
+          "$value": "{primitive.spacing.48}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "layout-pane-divider-grip-length-compact",
+              "tier": "semantic",
+              "mode": "global"
+            }
+          }
+        },
+        "pane-divider-track": {
+          "$value": "{primitive.spacing.4}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "layout-pane-divider-track",
+              "tier": "semantic",
+              "mode": "global"
+            }
+          }
+        },
         "progress-bar-height": {
           "$value": "{primitive.spacing.6}",
           "$extensions": {
@@ -5851,6 +5915,7 @@
         }
       },
       "spacing": {
+        "$type": "dimension",
         "control-lg": {
           "$value": "{primitive.spacing.16}",
           "$extensions": {
@@ -5951,6 +6016,16 @@
             }
           }
         },
+        "pane-divider-hit-slop": {
+          "$value": "{primitive.spacing.4}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "space-pane-divider-hit-slop",
+              "tier": "semantic",
+              "mode": "global"
+            }
+          }
+        },
         "progress-ring-gap": {
           "$value": "{primitive.spacing.2}",
           "$extensions": {
@@ -5990,8 +6065,7 @@
               "mode": "global"
             }
           }
-        },
-        "$type": "dimension"
+        }
       },
       "type": {
         "$type": "dimension",

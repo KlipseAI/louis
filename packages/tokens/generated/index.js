@@ -6145,6 +6145,25 @@ export const primitives = {
       "unit": "px"
     }
   },
+  "space-60": {
+    "aliasTarget": null,
+    "cssProperties": {},
+    "deprecated": null,
+    "description": null,
+    "id": "space-60",
+    "mode": "base",
+    "rawValue": {
+      "value": 60,
+      "unit": "px"
+    },
+    "sourcePath": "primitive.spacing.60",
+    "tier": "primitive",
+    "type": "dimension",
+    "value": {
+      "value": 60,
+      "unit": "px"
+    }
+  },
   "space-64": {
     "aliasTarget": null,
     "cssProperties": {},
@@ -6180,6 +6199,25 @@ export const primitives = {
     "type": "dimension",
     "value": {
       "value": 8,
+      "unit": "px"
+    }
+  },
+  "space-80": {
+    "aliasTarget": null,
+    "cssProperties": {},
+    "deprecated": null,
+    "description": null,
+    "id": "space-80",
+    "mode": "base",
+    "rawValue": {
+      "value": 80,
+      "unit": "px"
+    },
+    "sourcePath": "primitive.spacing.80",
+    "tier": "primitive",
+    "type": "dimension",
+    "value": {
+      "value": 80,
       "unit": "px"
     }
   },
@@ -9295,6 +9333,90 @@ export const tokens = {
         "unit": "px"
       }
     },
+    "layout-pane-divider-grip-length": {
+      "aliasTarget": {
+        "id": "space-60",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-layout-pane-divider-grip-length": "60px"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "layout-pane-divider-grip-length",
+      "mode": "global",
+      "rawValue": "{primitive.spacing.60}",
+      "sourcePath": "semantic.global.layout.pane-divider-grip-length",
+      "tier": "semantic",
+      "type": "dimension",
+      "value": {
+        "value": 60,
+        "unit": "px"
+      }
+    },
+    "layout-pane-divider-grip-length-active": {
+      "aliasTarget": {
+        "id": "space-80",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-layout-pane-divider-grip-length-active": "80px"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "layout-pane-divider-grip-length-active",
+      "mode": "global",
+      "rawValue": "{primitive.spacing.80}",
+      "sourcePath": "semantic.global.layout.pane-divider-grip-length-active",
+      "tier": "semantic",
+      "type": "dimension",
+      "value": {
+        "value": 80,
+        "unit": "px"
+      }
+    },
+    "layout-pane-divider-grip-length-compact": {
+      "aliasTarget": {
+        "id": "space-48",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-layout-pane-divider-grip-length-compact": "48px"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "layout-pane-divider-grip-length-compact",
+      "mode": "global",
+      "rawValue": "{primitive.spacing.48}",
+      "sourcePath": "semantic.global.layout.pane-divider-grip-length-compact",
+      "tier": "semantic",
+      "type": "dimension",
+      "value": {
+        "value": 48,
+        "unit": "px"
+      }
+    },
+    "layout-pane-divider-track": {
+      "aliasTarget": {
+        "id": "space-4",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-layout-pane-divider-track": "4px"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "layout-pane-divider-track",
+      "mode": "global",
+      "rawValue": "{primitive.spacing.4}",
+      "sourcePath": "semantic.global.layout.pane-divider-track",
+      "tier": "semantic",
+      "type": "dimension",
+      "value": {
+        "value": 4,
+        "unit": "px"
+      }
+    },
     "layout-progress-bar-height": {
       "aliasTarget": {
         "id": "space-6",
@@ -10948,6 +11070,27 @@ export const tokens = {
       "type": "dimension",
       "value": {
         "value": 2,
+        "unit": "px"
+      }
+    },
+    "space-pane-divider-hit-slop": {
+      "aliasTarget": {
+        "id": "space-4",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-space-pane-divider-hit-slop": "4px"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "space-pane-divider-hit-slop",
+      "mode": "global",
+      "rawValue": "{primitive.spacing.4}",
+      "sourcePath": "semantic.global.spacing.pane-divider-hit-slop",
+      "tier": "semantic",
+      "type": "dimension",
+      "value": {
+        "value": 4,
         "unit": "px"
       }
     },

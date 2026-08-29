@@ -2741,6 +2741,152 @@
   pointer-events: none;
 }
 
+/* Pane divider — 창과 창 사이를 미는 구분자
+ *
+ * 제품 정본은 비디오 에디터 워크스페이스의 세 구분자다(assets · properties · timeline).
+ * 실측(`migration/editor-skeleton-measured.md`)에서 셋이 한 계약으로 수렴한 뒤 그것을 채택했다.
+ * 그 전에는 세로 둘이 선언 25개를 바이트 단위로 복제하고 가로 하나만 다른 기하(84×5, hover 에
+ * 크기 변화 없음, active 가 no-op)를 쓰고 있었다.
+ *
+ * **트랙은 얇고 히트영역은 넓다.** 보이는 선은 4px 인데 잡을 수 있는 영역은 양쪽으로 4px 씩
+ * 넓혀 12px 이다 — 격자 거터(8px)를 2px 씩 넘어 이웃 패널 위로 올라탄다. 트랙을 두껍게 하면
+ * 레이아웃이 밀리므로 `::after` 로만 넓힌다.
+ *
+ * **그립은 상태를 길이로 말한다.** 쉴 때 60, 얹거나 잡으면 80 이다. 불투명도만 바꾸면 드래그
+ * 중인지 얹기만 한 것인지 구분되지 않는다 — 가로 구분자가 실제로 그 상태였고 잡아도 아무 반응이
+ * 없었다. 색은 라이트·다크가 같은 고정 팔레트라 테마 분기를 두지 않는다.
+ *
+ * **축은 방향만 바꾼다.** 세로(`--vertical`)는 길이가 block, 가로(`--horizontal`)는 inline 이다.
+ * 두 변형이 공유하지 않는 것은 그 축뿐이고 나머지 계약은 이 파일 하나가 소유한다.
+ *
+ * 소비처가 소유하는 것: `grid-area` 배치, 드래그 상태를 `data-louis-state="active"` 로 알리는
+ * 일, 포인터 이벤트와 클램프 범위, 더블클릭 리셋. 이 레시피는 **모양만** 소유한다.
+ *
+ * 아직 이 레시피가 담지 못하는 것 — 키보드 조절이다. `role="separator"` 에 `aria-valuenow`
+ * 와 방향키를 붙이는 일은 소비처의 몫이고, 제품은 아직 제공하지 않는다
+ * (`editor-workspace.md` 규범이 요구한다). 값을 여기서 정할 수 없어 표식만 남긴다.
+ */
+
+.louis-pane-divider {
+  position: relative;
+  margin: 0;
+  background: transparent;
+  /* 드래그 중 브라우저가 스크롤·줌으로 가로채지 않게 한다. */
+  touch-action: none;
+}
+
+/* 히트영역 — 보이는 트랙보다 넓다. 레이아웃에 영향을 주지 않도록 절대 배치한다. */
+.louis-pane-divider::after {
+  content: "";
+  position: absolute;
+}
+
+/* 그립 — 가운데 알약. 쉴 때는 보이지 않는다. */
+.louis-pane-divider::before {
+  content: "";
+  position: absolute;
+  inset-inline-start: 50%;
+  inset-block-start: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: var(--louis-radius-pill);
+  background: var(--louis-color-palette-gray-500);
+  opacity: 0;
+  z-index: var(--louis-layer-content);
+}
+
+.louis-pane-divider:hover::before,
+.louis-pane-divider[data-louis-state="active"]::before {
+  opacity: 1;
+}
+
+/* ── 세로 구분자 — 좌우로 민다 ───────────────────────────────────── */
+
+.louis-pane-divider--vertical {
+  inline-size: var(--louis-layout-pane-divider-track);
+  cursor: ew-resize;
+}
+
+.louis-pane-divider--vertical::after {
+  inset-block: 0;
+  inset-inline: calc(0px - var(--louis-space-pane-divider-hit-slop));
+  cursor: ew-resize;
+}
+
+.louis-pane-divider--vertical::before {
+  inline-size: var(--louis-layout-pane-divider-track);
+  block-size: var(--louis-layout-pane-divider-grip-length);
+  transition:
+    opacity var(--louis-motion-control-hover-duration) var(--louis-motion-control-hover-timing-function),
+    block-size var(--louis-motion-control-hover-duration) var(--louis-motion-control-hover-timing-function);
+}
+
+.louis-pane-divider--vertical:hover::before,
+.louis-pane-divider--vertical[data-louis-state="active"]::before {
+  block-size: var(--louis-layout-pane-divider-grip-length-active);
+}
+
+/* ── 가로 구분자 — 상하로 민다 ───────────────────────────────────── */
+
+.louis-pane-divider--horizontal {
+  block-size: var(--louis-layout-pane-divider-track);
+  cursor: ns-resize;
+}
+
+.louis-pane-divider--horizontal::after {
+  inset-inline: 0;
+  inset-block: calc(0px - var(--louis-space-pane-divider-hit-slop));
+  cursor: ns-resize;
+}
+
+.louis-pane-divider--horizontal::before {
+  block-size: var(--louis-layout-pane-divider-track);
+  inline-size: var(--louis-layout-pane-divider-grip-length);
+  transition:
+    opacity var(--louis-motion-control-hover-duration) var(--louis-motion-control-hover-timing-function),
+    inline-size var(--louis-motion-control-hover-duration) var(--louis-motion-control-hover-timing-function);
+}
+
+.louis-pane-divider--horizontal:hover::before,
+.louis-pane-divider--horizontal[data-louis-state="active"]::before {
+  inline-size: var(--louis-layout-pane-divider-grip-length-active);
+}
+
+/* 좁은 화면 — 가로 구분자는 트랙을 두 배로 키워 손가락으로 잡게 하고 그립은 짧게 줄인다.
+ * 세로 구분자는 compact 에서 소비처가 숨기는 것이 지금 제품 동작이며, 그 판정은 셸이 소유한다. */
+@media (max-width: 719px) {
+  .louis-pane-divider--horizontal {
+    block-size: calc(var(--louis-layout-pane-divider-track) + var(--louis-layout-pane-divider-track));
+  }
+
+  .louis-pane-divider--horizontal::before {
+    inline-size: var(--louis-layout-pane-divider-grip-length-compact);
+  }
+}
+
+/* 모션을 줄이면 길이 변화를 없애고 나타남만 남긴다. */
+@media (prefers-reduced-motion: reduce) {
+  .louis-pane-divider::before {
+    transition-duration: var(--louis-motion-reduced-duration);
+  }
+
+  .louis-pane-divider--vertical:hover::before,
+  .louis-pane-divider--vertical[data-louis-state="active"]::before {
+    block-size: var(--louis-layout-pane-divider-grip-length);
+  }
+
+  .louis-pane-divider--horizontal:hover::before,
+  .louis-pane-divider--horizontal[data-louis-state="active"]::before {
+    inline-size: var(--louis-layout-pane-divider-grip-length);
+  }
+}
+
+/* 강제 색 모드에서는 box-shadow·배경이 사라지므로 시스템 색 선으로 트랙을 되살린다. */
+@media (forced-colors: active) {
+  .louis-pane-divider::before {
+    background: CanvasText;
+  }
+}
+
 /* Progress — determinate·indeterminate 진행률.
  *
  * 접근성 계약은 [DS-D-0022](../../../../design/governance/decisions/DS-D-0022-determinate-progress-a11y.md)가

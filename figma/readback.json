@@ -2676,6 +2676,18 @@
           ]
         ],
         [
+          "spacing/60",
+          "FLOAT",
+          "GAP,WIDTH_HEIGHT",
+          [
+            [
+              "Base",
+              null,
+              60
+            ]
+          ]
+        ],
+        [
           "spacing/64",
           "FLOAT",
           "GAP,WIDTH_HEIGHT",
@@ -2696,6 +2708,18 @@
               "Base",
               null,
               8
+            ]
+          ]
+        ],
+        [
+          "spacing/80",
+          "FLOAT",
+          "GAP,WIDTH_HEIGHT",
+          [
+            [
+              "Base",
+              null,
+              80
             ]
           ]
         ],
@@ -3291,6 +3315,54 @@
             [
               "Global",
               "Klipse Primitive::spacing/10",
+              null
+            ]
+          ]
+        ],
+        [
+          "layout/pane-divider-grip-length",
+          "FLOAT",
+          "WIDTH_HEIGHT",
+          [
+            [
+              "Global",
+              "Klipse Primitive::spacing/60",
+              null
+            ]
+          ]
+        ],
+        [
+          "layout/pane-divider-grip-length-active",
+          "FLOAT",
+          "WIDTH_HEIGHT",
+          [
+            [
+              "Global",
+              "Klipse Primitive::spacing/80",
+              null
+            ]
+          ]
+        ],
+        [
+          "layout/pane-divider-grip-length-compact",
+          "FLOAT",
+          "WIDTH_HEIGHT",
+          [
+            [
+              "Global",
+              "Klipse Primitive::spacing/48",
+              null
+            ]
+          ]
+        ],
+        [
+          "layout/pane-divider-track",
+          "FLOAT",
+          "WIDTH_HEIGHT",
+          [
+            [
+              "Global",
+              "Klipse Primitive::spacing/4",
               null
             ]
           ]
@@ -4047,6 +4119,18 @@
             [
               "Global",
               "Klipse Primitive::spacing/2",
+              null
+            ]
+          ]
+        ],
+        [
+          "spacing/pane-divider-hit-slop",
+          "FLOAT",
+          "GAP,WIDTH_HEIGHT",
+          [
+            [
+              "Global",
+              "Klipse Primitive::spacing/4",
               null
             ]
           ]
@@ -11603,6 +11687,234 @@
           "INNER_SHADOW:0:0:0.5"
         ]
       }
+    },
+    "PaneDivider": {
+      "variantCount": 4,
+      "hasDescription": true,
+      "properties": {
+        "Orientation": {
+          "type": "VARIANT",
+          "options": [
+            "vertical",
+            "horizontal"
+          ]
+        },
+        "State": {
+          "type": "VARIANT",
+          "options": [
+            "Default",
+            "Hover"
+          ]
+        }
+      },
+      "binding": {
+        "boundFills": 4,
+        "rawFills": 0,
+        "boundStrokes": 0,
+        "rawStrokes": 0,
+        "textStyled": 0,
+        "textUnstyled": 0
+      },
+      "geometry": {
+        "vertical/Default": {
+          "slots": {},
+          "parts": {
+            "Grip": {
+              "width": [
+                4
+              ],
+              "height": [
+                60
+              ],
+              "cornerRadius": [
+                999
+              ],
+              "opacity": [
+                0
+              ]
+            }
+          },
+          "height": [
+            160
+          ],
+          "width": [
+            4
+          ],
+          "paddingBlock": [
+            0
+          ],
+          "paddingBlockEnd": [
+            0
+          ],
+          "paddingInline": [
+            0
+          ],
+          "paddingInlineEnd": [
+            0
+          ],
+          "itemSpacing": [
+            0
+          ],
+          "cornerRadius": [
+            0
+          ],
+          "layoutMode": [
+            "VERTICAL"
+          ],
+          "strokeWeight": [],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "vertical/Hover": {
+          "slots": {},
+          "parts": {
+            "Grip": {
+              "width": [
+                4
+              ],
+              "height": [
+                80
+              ],
+              "cornerRadius": [
+                999
+              ],
+              "opacity": [
+                1
+              ]
+            }
+          },
+          "height": [
+            160
+          ],
+          "width": [
+            4
+          ],
+          "paddingBlock": [
+            0
+          ],
+          "paddingBlockEnd": [
+            0
+          ],
+          "paddingInline": [
+            0
+          ],
+          "paddingInlineEnd": [
+            0
+          ],
+          "itemSpacing": [
+            0
+          ],
+          "cornerRadius": [
+            0
+          ],
+          "layoutMode": [
+            "VERTICAL"
+          ],
+          "strokeWeight": [],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "horizontal/Default": {
+          "slots": {},
+          "parts": {
+            "Grip": {
+              "width": [
+                60
+              ],
+              "height": [
+                4
+              ],
+              "cornerRadius": [
+                999
+              ],
+              "opacity": [
+                0
+              ]
+            }
+          },
+          "height": [
+            4
+          ],
+          "width": [
+            160
+          ],
+          "paddingBlock": [
+            0
+          ],
+          "paddingBlockEnd": [
+            0
+          ],
+          "paddingInline": [
+            0
+          ],
+          "paddingInlineEnd": [
+            0
+          ],
+          "itemSpacing": [
+            0
+          ],
+          "cornerRadius": [
+            0
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ],
+          "strokeWeight": [],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "horizontal/Hover": {
+          "slots": {},
+          "parts": {
+            "Grip": {
+              "width": [
+                80
+              ],
+              "height": [
+                4
+              ],
+              "cornerRadius": [
+                999
+              ],
+              "opacity": [
+                1
+              ]
+            }
+          },
+          "height": [
+            4
+          ],
+          "width": [
+            160
+          ],
+          "paddingBlock": [
+            0
+          ],
+          "paddingBlockEnd": [
+            0
+          ],
+          "paddingInline": [
+            0
+          ],
+          "paddingInlineEnd": [
+            0
+          ],
+          "itemSpacing": [
+            0
+          ],
+          "cornerRadius": [
+            0
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ],
+          "strokeWeight": [],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        }
+      },
+      "strokes": {},
+      "effects": {}
     },
     "ProgressBar": {
       "variantCount": 2,

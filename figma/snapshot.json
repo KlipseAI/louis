@@ -6,20 +6,20 @@
     "capturedAt": "2026-08-29",
     "capturedBy": "use_figma 전수 캡처 + proposal 대조. 변수는 이름·값·alias 를 Figma 실물과 대조해 확인했다(FNV-1a 정본 해시 · 516행). scopes 문자열과 float 정밀도(예: line-height/heading 을 Figma 는 1.350000023841858 로 보관)는 Figma 쪽 저장 형태라 proposal 값을 쓴다 — 게이트가 보는 축이 아니다. components 41개는 use_figma 로 각 set 을 순회해 뜬 값이고, MediaCard·CarouselArrow 2개와 랜딩 4개(StepTile·FaqRow·NewsCard·GnbMenuItem)는 scripts/figma-readback-emit.mjs 가 낸 채취 코드로 떴다(2026-08-26). 그 emitter 로 Keycap·Badge 를 다시 떠 기존 값과 정규화 바이트 일치를 확인했다. Button·IconButton·Slider·ProjectCard 는 일치하지 않으며 사유는 emitter 머리말의 「알려진 어긋남」에 적었다 — 되읽기가 낡은 것이지 emitter 가 틀린 것이 아니다. 2026-08-27 DS-D-0029 재캡처: 변수 24개를 라이브에서 옮기고(이름 14 · 삭제 10) 되읽기 행을 같은 작업에서 맞췄다. 전수 덤프 대신 **행 지문 대조**로 확인했다 — 라이브에서 [이름, resolvedType, mode 값]을 mode 이름순으로 정규화해 행마다 FNV-1a 를 내고 되읽기에서 같은 방식으로 낸 집합과 맞췄다(응답 20KB 제한 때문에 전수 덤프는 잘린다). 라이브 506행 중 어긋난 것은 2행이고 둘 다 이 주석이 이미 예외로 적어 둔 float 정밀도다 — scale/tooltip-rest(Figma 0.9700000286102295 vs 0.97) · color/green-500-alpha/08(Figma 0.7765,0.5569 vs 0.776471,0.556863). scopes 열은 여전히 proposal 값이다.",
     "published": false,
-    "tokenSourceSha256": "df92d3471a2fc09e454541aec4865f13ffcbf34f28e41c379003a285aede7892",
-    "proposalSha256": "0db11953c8ade32ee1da05ad846a575e28692543d42641076b5343d6628b2949",
+    "tokenSourceSha256": "6d15f656bc8a6c01dacbcb3f1b7e941b41a78cc46d9d815642b1973afb88dfb1",
+    "proposalSha256": "c238aeaeade26ebdf0f21389d0fc50a543baf63d3b8064ffc15451d4c4fe8c9e",
     "readback": {
-      "tokens": 497,
-      "canonicalLength": 50018,
-      "fnv1a32": "441439dd",
+      "tokens": 504,
+      "canonicalLength": 50571,
+      "fnv1a32": "c9c3cc4b",
       "note": "변수는 readback.json의 되읽기 행을 tokenId 공간으로 옮긴 것이고, style과 component는 같은 되읽기의 style/component 절이다. canonical 해시는 컬렉션·이름·타입·mode 값을 정렬해 이은 문자열의 FNV-1a다.",
       "styles": {
         "text": 15,
         "effect": 9
       },
       "components": {
-        "sets": 49,
-        "variants": 421
+        "sets": 50,
+        "variants": 425
       },
       "icons": 31,
       "templates": 1
@@ -31,14 +31,14 @@
         "Base"
       ],
       "defaultMode": "Base",
-      "variableCount": 178
+      "variableCount": 180
     },
     "Klipse Semantic": {
       "modes": [
         "Global"
       ],
       "defaultMode": "Global",
-      "variableCount": 134
+      "variableCount": 139
     },
     "Klipse Semantic Color": {
       "modes": [
@@ -4490,6 +4490,42 @@
         }
       }
     },
+    "layout-pane-divider-grip-length": {
+      "figmaName": "layout/pane-divider-grip-length",
+      "resolvedType": "FLOAT",
+      "valuesByMode": {
+        "Global": {
+          "alias": "space-60"
+        }
+      }
+    },
+    "layout-pane-divider-grip-length-active": {
+      "figmaName": "layout/pane-divider-grip-length-active",
+      "resolvedType": "FLOAT",
+      "valuesByMode": {
+        "Global": {
+          "alias": "space-80"
+        }
+      }
+    },
+    "layout-pane-divider-grip-length-compact": {
+      "figmaName": "layout/pane-divider-grip-length-compact",
+      "resolvedType": "FLOAT",
+      "valuesByMode": {
+        "Global": {
+          "alias": "space-48"
+        }
+      }
+    },
+    "layout-pane-divider-track": {
+      "figmaName": "layout/pane-divider-track",
+      "resolvedType": "FLOAT",
+      "valuesByMode": {
+        "Global": {
+          "alias": "space-4"
+        }
+      }
+    },
     "layout-progress-bar-height": {
       "figmaName": "layout/progress-bar-height",
       "resolvedType": "FLOAT",
@@ -5291,6 +5327,15 @@
         }
       }
     },
+    "space-60": {
+      "figmaName": "spacing/60",
+      "resolvedType": "FLOAT",
+      "valuesByMode": {
+        "Base": {
+          "value": 60
+        }
+      }
+    },
     "space-64": {
       "figmaName": "spacing/64",
       "resolvedType": "FLOAT",
@@ -5306,6 +5351,15 @@
       "valuesByMode": {
         "Base": {
           "value": 8
+        }
+      }
+    },
+    "space-80": {
+      "figmaName": "spacing/80",
+      "resolvedType": "FLOAT",
+      "valuesByMode": {
+        "Base": {
+          "value": 80
         }
       }
     },
@@ -5414,6 +5468,15 @@
       "valuesByMode": {
         "Global": {
           "alias": "space-2"
+        }
+      }
+    },
+    "space-pane-divider-hit-slop": {
+      "figmaName": "spacing/pane-divider-hit-slop",
+      "resolvedType": "FLOAT",
+      "valuesByMode": {
+        "Global": {
+          "alias": "space-4"
         }
       }
     },
@@ -9814,6 +9877,236 @@
           "INNER_SHADOW:0:0:0.5"
         ]
       }
+    },
+    "PaneDivider": {
+      "outsideParts": [],
+      "tokenId": "pane-divider",
+      "variantCount": 4,
+      "hasDescription": true,
+      "properties": {
+        "Orientation": {
+          "type": "VARIANT",
+          "options": [
+            "vertical",
+            "horizontal"
+          ]
+        },
+        "State": {
+          "type": "VARIANT",
+          "options": [
+            "Default",
+            "Hover"
+          ]
+        }
+      },
+      "binding": {
+        "boundFills": 4,
+        "rawFills": 0,
+        "boundStrokes": 0,
+        "rawStrokes": 0,
+        "textStyled": 0,
+        "textUnstyled": 0
+      },
+      "geometry": {
+        "horizontal/Default": {
+          "slots": {},
+          "parts": {
+            "Grip": {
+              "width": [
+                60
+              ],
+              "height": [
+                4
+              ],
+              "cornerRadius": [
+                999
+              ],
+              "opacity": [
+                0
+              ]
+            }
+          },
+          "height": [
+            4
+          ],
+          "width": [
+            160
+          ],
+          "paddingBlock": [
+            0
+          ],
+          "paddingBlockEnd": [
+            0
+          ],
+          "paddingInline": [
+            0
+          ],
+          "paddingInlineEnd": [
+            0
+          ],
+          "itemSpacing": [
+            0
+          ],
+          "cornerRadius": [
+            0
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ],
+          "strokeWeight": [],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "horizontal/Hover": {
+          "slots": {},
+          "parts": {
+            "Grip": {
+              "width": [
+                80
+              ],
+              "height": [
+                4
+              ],
+              "cornerRadius": [
+                999
+              ],
+              "opacity": [
+                1
+              ]
+            }
+          },
+          "height": [
+            4
+          ],
+          "width": [
+            160
+          ],
+          "paddingBlock": [
+            0
+          ],
+          "paddingBlockEnd": [
+            0
+          ],
+          "paddingInline": [
+            0
+          ],
+          "paddingInlineEnd": [
+            0
+          ],
+          "itemSpacing": [
+            0
+          ],
+          "cornerRadius": [
+            0
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ],
+          "strokeWeight": [],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "vertical/Default": {
+          "slots": {},
+          "parts": {
+            "Grip": {
+              "width": [
+                4
+              ],
+              "height": [
+                60
+              ],
+              "cornerRadius": [
+                999
+              ],
+              "opacity": [
+                0
+              ]
+            }
+          },
+          "height": [
+            160
+          ],
+          "width": [
+            4
+          ],
+          "paddingBlock": [
+            0
+          ],
+          "paddingBlockEnd": [
+            0
+          ],
+          "paddingInline": [
+            0
+          ],
+          "paddingInlineEnd": [
+            0
+          ],
+          "itemSpacing": [
+            0
+          ],
+          "cornerRadius": [
+            0
+          ],
+          "layoutMode": [
+            "VERTICAL"
+          ],
+          "strokeWeight": [],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "vertical/Hover": {
+          "slots": {},
+          "parts": {
+            "Grip": {
+              "width": [
+                4
+              ],
+              "height": [
+                80
+              ],
+              "cornerRadius": [
+                999
+              ],
+              "opacity": [
+                1
+              ]
+            }
+          },
+          "height": [
+            160
+          ],
+          "width": [
+            4
+          ],
+          "paddingBlock": [
+            0
+          ],
+          "paddingBlockEnd": [
+            0
+          ],
+          "paddingInline": [
+            0
+          ],
+          "paddingInlineEnd": [
+            0
+          ],
+          "itemSpacing": [
+            0
+          ],
+          "cornerRadius": [
+            0
+          ],
+          "layoutMode": [
+            "VERTICAL"
+          ],
+          "strokeWeight": [],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        }
+      },
+      "strokes": {},
+      "effects": {}
     },
     "ProgressBar": {
       "outsideParts": [],

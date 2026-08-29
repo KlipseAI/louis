@@ -119,6 +119,7 @@ const CAPTURE = {
   "GnbMenuItem": {"key":{"by":["Surface","State"]},"fields":["height","width","paddingBlock","paddingBlockEnd","paddingInline","paddingInlineEnd","itemSpacing","cornerRadius","layoutMode","strokeWeight","opacity"],"parts":{"Label":["width","height","fontSize","lineHeightPercent"]}},
   "NodeChip": {"key":{"by":["Shape"]},"slots":{"Glyph":"size"},"parts":{"Glyph":["width","height"],"Label":["width","height","fontSize"]},"effects":["self"]},
   "NewsCard": {"key":{"by":["Featured"]},"parts":{"Body":["width","height","paddingBlock","paddingBlockEnd","paddingInline","paddingInlineEnd","itemSpacing"],"Date":["width","height","fontSize"],"Headline":["width","height","fontSize","lineHeightPercent"]}},
+  "PaneDivider": {"key":{"by":["Orientation","State"]},"parts":{"Grip":["width","height","cornerRadius","opacity"]}},
   "ProgressBar": {"key":{"name":"base"},"parts":{"Fill":["width","height","cornerRadius","layoutMode"]}},
   "ProgressRing": {"key":{"name":"base"},"parts":{"Track":["width","height"],"Content":["width","height"]}},
   "ProjectCard": {"key":{"name":"base"},"parts":{"More":["width","height"],"Media":["width","height"],"Title overlay":["width","height","itemSpacing","paddingBlock","paddingBlockEnd","paddingInline","paddingInlineEnd","layoutMode"],"Eyebrow":["width","height","fontSize","lineHeightPercent"],"Title":["width","height","fontSize","lineHeightPercent"],"Meta":["width","height","fontSize","lineHeightPercent"],"Thumbnail":["width","height"],"Action":["width","height"],"Adornment":["width","height"]},"strokes":["self"],"effects":["Title overlay"],"childOrder":true},
@@ -531,6 +532,20 @@ function mergeVariables(resultPath) {
     process.exit(1);
   }
   let touched = 0;
+  let added = 0;
+  // 새 행의 scopes 는 여기서 읽는다(위 삽입 분기의 주석 참고). 갱신 경로는 이 표를 보지 않는다.
+  const proposalScopes = new Map();
+  {
+    const proposal = JSON.parse(
+      readFileSync(resolve(repoRoot, "packages/tokens/generated/figma.tokens.json"), "utf8"),
+    );
+    for (const [collName, coll] of Object.entries(proposal.collections ?? {})) {
+      for (const spec of Object.values(coll.variables ?? {})) {
+        if (!spec.figmaName) continue;
+        proposalScopes.set(`${collName}::${spec.figmaName}`, (spec.scopes ?? []).join(","));
+      }
+    }
+  }
   for (const [collName, rows] of Object.entries(incoming.rows ?? {})) {
     const target = readback.collections?.[collName];
     if (target === undefined) {
@@ -540,8 +555,37 @@ function mergeVariables(resultPath) {
     for (const row of rows) {
       const at = target.rows.findIndex((r) => r[0] === row[0]);
       if (at === -1) {
-        console.error(`[readback-emit] 되읽기에 없는 변수입니다: ${collName}::${row[0]}`);
-        process.exit(1);
+        /* **새 변수는 넣는다.** 예전에는 여기서 죽었다. 그러면 Figma 에 변수를 더한 날
+           되읽기를 갱신할 길이 이 스크립트에 없어져 — 손으로 고치는 것 말고는 — 되읽기가
+           영구히 낡고, parity 게이트가 낡은 사실을 성실하게 검증한다. 이 스크립트가 막으려던
+           바로 그 상태다. 형식 문제의 처방은 삭제가 아니라 형식 수정이다(DS-D-0030).
+
+           **이름은 이미 검증돼 있다** — 방출 코드가 Figma 에서 못 찾은 이름을 `missing` 으로
+           내고 위에서 걸러 죽는다. 그러므로 여기 도달한 행은 Figma 에 실재한다.
+
+           행 순서는 세 컬렉션 모두 figmaName 알파벳순이 불변식이라 그 자리에 꽂는다.
+
+           **scopes 는 Figma 가 아니라 proposal 에서 가져온다.** 아래 갱신 경로가 기존 행의
+           scopes 를 보존하는 이유와 같은 이유다 — 두 표기가 갈린다. 갈리는 방식이 둘이다:
+           COLOR 는 어휘가 다르고(`ALL_FILLS` ↔ `FRAME_FILL,SHAPE_FILL,…`), FLOAT 는 어휘는
+           같은데 **순서**가 다르다(Figma `WIDTH_HEIGHT,GAP` ↔ proposal `GAP,WIDTH_HEIGHT`).
+           새 행에는 보존할 이전 값이 없으므로 Figma 표기를 그대로 쓰면 같은 컬렉션 안에서
+           같은 축이 두 표기로 적힌다. proposal 을 읽으면 그 문제가 통째로 사라진다. */
+        const proposed = proposalScopes.get(`${collName}::${row[0]}`);
+        if (proposed === undefined) {
+          /* Figma 에는 있는데 토큰 정본이 모르는 변수다. 되읽기에 넣으면 「정본에 없는 것」이
+             정본 행세를 하게 되므로 멈춘다 — 지우든 정본에 더하든 사람이 정할 일이다. */
+          console.error(
+            `[readback-emit] 토큰 정본이 모르는 변수라 넣지 않습니다: ${collName}::${row[0]}\n` +
+              "  packages/tokens/generated/figma.tokens.json 에 해당 figmaName 이 없습니다.",
+          );
+          process.exit(1);
+        }
+        const insertAt = target.rows.findIndex((r) => r[0] > row[0]);
+        const placed = insertAt === -1 ? target.rows.length : insertAt;
+        target.rows.splice(placed, 0, [row[0], row[1], proposed, row[3]]);
+        added += 1;
+        continue;
       }
       /* **scopes 문자열은 덮어쓰지 않는다.** 되읽기의 `capturedBy` 가 「scopes 는 Figma 쪽 저장
          형태라 proposal 값을 쓴다 — 게이트가 보는 축이 아니다」로 정해 두었다. Figma 는 같은
@@ -558,7 +602,9 @@ function mergeVariables(resultPath) {
     }
   }
   writeFileSync(readbackFile, `${JSON.stringify(readback, null, 2)}\n`);
-  console.error(`[readback-emit] 변수 ${touched}개 행을 갱신했습니다.`);
+  console.error(
+    `[readback-emit] 변수 ${touched}개 행을 갱신하고 ${added}개를 새로 넣었습니다.`,
+  );
 }
 
 if (argv.includes("--components")) {

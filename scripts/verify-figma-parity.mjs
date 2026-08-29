@@ -427,6 +427,28 @@ const COMPONENT_CONTRACTS = [
     effects: { self: "INNER_SHADOW:0:0:0.5" },
   },
   {
+    id: "pane-divider",
+    figmaName: "PaneDivider",
+    figmaAhead:
+      "React 표면 없음 — packages/css/src/component/pane-divider.css 가 정본이다.",
+    variantProperties: {},
+    figmaOnlyProperties: {
+      Orientation: {
+        options: ["vertical", "horizontal"],
+        reason:
+          "축이 바뀌면 프레임 자신의 고정 크기가 전치되고(4×160 ↔ 160×4) 커서와 그립이 자라는 축도 함께 갈린다. BOOLEAN 으로는 어느 쪽도 못 그린다 — 근거는 figma-component-authoring.md 「2026-08-29 개정의 근거」.",
+      },
+      State: {
+        options: ["Default", "Hover"],
+        reason:
+          "CSS 상태라 코드에 prop 이 없다. active(`data-louis-state`)는 Hover 와 같은 모양이라 변형을 따로 두지 않는다 — 곱할 것이 없는 축은 열지 않는다.",
+      },
+    },
+    strokes: {},
+    // 그림자가 없다. 구분자는 면이 아니라 선이고, 그립은 배경색 하나로 선다.
+    effects: {},
+  },
+  {
     id: "tabs",
     figmaName: "TabItem",
     figmaAhead: "React 표면 없음 — packages/css/src/component/tabs.css 의 .louis-tabs__tab 이 정본이다.",

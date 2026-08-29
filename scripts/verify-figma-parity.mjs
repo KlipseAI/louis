@@ -447,6 +447,16 @@ const COMPONENT_CONTRACTS = [
     strokes: {},
     // 그림자가 없다. 구분자는 면이 아니라 선이고, 그립은 배경색 하나로 선다.
     effects: {},
+    /* **이 컴포넌트의 계약은 불투명도다.** 쉴 때 그립이 아예 보이지 않고(0) 얹으면 나타난다(1).
+       기하는 `components.measured.json` 에 항목이 없어 대조되지 않으므로, 계약이 실제로 잡는
+       것은 여기뿐이다. 값은 자손(`Grip`)에 있으므로 `part` 를 함께 적는다 — 루트만 읽던
+       비교기를 그 때문에 넓혔다. */
+    opacity: {
+      "vertical/Default": { part: "Grip", value: 0 },
+      "vertical/Hover": { part: "Grip", value: 1 },
+      "horizontal/Default": { part: "Grip", value: 0 },
+      "horizontal/Hover": { part: "Grip", value: 1 },
+    },
   },
   {
     id: "tabs",
@@ -2797,28 +2807,50 @@ function compareComponentOpacity(contract, got) {
   const plan = contract.opacity;
   if (plan === undefined) return issues;
   const geometry = got.geometry ?? {};
-  for (const [key, want] of Object.entries(plan)) {
+
+  /* **불투명도가 변형 루트에만 있는 것이 아니다.** GnbMenuItem 은 변형 자체의 불투명도가
+   * 계약이라 `fields` 로 뜨지만, PaneDivider 는 **자손 하나**(그립)의 불투명도가 계약이고
+   * 채취 명세가 그것을 `parts.Grip.opacity` 로 담는다. 루트만 읽으면 그 계약은 어디서도
+   * 대조되지 않는다 — 이 함수가 막으려던 바로 그 상태다.
+   * 그래서 계약 값을 숫자 또는 `{ part, value }` 둘 다 받는다. */
+  const normalize = (want) =>
+    want !== null && typeof want === "object" ? want : { part: null, value: want };
+  const readAt = (bag, part) =>
+    part === null ? bag.opacity : bag.parts?.[part]?.opacity;
+
+  const claimed = new Set();
+  for (const [key, rawWant] of Object.entries(plan)) {
+    const { part, value: want } = normalize(rawWant);
     const bag = geometry[key];
     if (bag === undefined) {
       issues.push(`${contract.figmaName}: 불투명도 계약의 키가 snapshot 에 없습니다 — ${key}`);
       continue;
     }
-    const values = bag.opacity;
+    claimed.add(`${key}\u0000${part ?? ""}`);
+    const where = part === null ? key : `${key} · ${part}`;
+    const values = readAt(bag, part);
     if (!Array.isArray(values) || values.length === 0) {
-      issues.push(`${contract.figmaName} ${key}: 불투명도가 되읽기에 없습니다. 채취 명세에 opacity 를 넣으세요.`);
+      issues.push(`${contract.figmaName} ${where}: 불투명도가 되읽기에 없습니다. 채취 명세에 opacity 를 넣으세요.`);
       continue;
     }
     if (values.length > 1) {
-      issues.push(`${contract.figmaName} ${key}: variant 마다 불투명도가 다릅니다 — [${values.join(", ")}]`);
+      issues.push(`${contract.figmaName} ${where}: variant 마다 불투명도가 다릅니다 — [${values.join(", ")}]`);
       continue;
     }
     if (Math.abs(values[0] - want) > 1e-4) {
-      issues.push(`${contract.figmaName} ${key}: 불투명도가 다릅니다 — 계약 ${want}, Figma ${values[0]}`);
+      issues.push(`${contract.figmaName} ${where}: 불투명도가 다릅니다 — 계약 ${want}, Figma ${values[0]}`);
     }
   }
-  for (const key of Object.keys(geometry)) {
-    if (plan[key] === undefined && Array.isArray(geometry[key].opacity) && geometry[key].opacity.length > 0) {
-      issues.push(`${contract.figmaName}: 되읽기에 불투명도가 있는데 계약에 없습니다 — ${key}`);
+
+  // 되읽기에 있는데 계약이 안 집은 불투명도는 전부 드러낸다 — 루트든 자손이든.
+  for (const [key, bag] of Object.entries(geometry)) {
+    const spots = [[null, bag.opacity]];
+    for (const [part, fields] of Object.entries(bag.parts ?? {})) spots.push([part, fields.opacity]);
+    for (const [part, values] of spots) {
+      if (!Array.isArray(values) || values.length === 0) continue;
+      if (claimed.has(`${key}\u0000${part ?? ""}`)) continue;
+      const where = part === null ? key : `${key} · ${part}`;
+      issues.push(`${contract.figmaName}: 되읽기에 불투명도가 있는데 계약에 없습니다 — ${where}`);
     }
   }
   return issues;

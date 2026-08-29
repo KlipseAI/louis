@@ -5974,9 +5974,9 @@
       "quotedLine": "\"relative z-[1] flex-[1_1_0] min-w-0 min-h-13 py-0 px-4\",",
       "productValue": "26px. `min-h-13` = min-height: calc(var(--spacing) * 13) = 13 × 2px = 26px. 트랙 MODE_SEGMENT(:158 `relative flex items-stretch p-[3px]`)는 높이 선언이 없어 flex line의 cross size가 가장 큰 항목의 가정 높이로 정해지는데, 버튼 내용은 type-caption-12-medium(12px × line-height 1.5 = 18px, globals.css:374-375) + py-0라 18px이고 min-height 26px가 이긴다. 트랙 높이는 26 + 2×3 = 32px",
       "dsFile": "packages/css/src/component/segmented-control.css",
-      "dsLine": 61,
-      "dsQuotedLine": "block-size: var(--louis-layout-inspector-control-height);",
-      "dsValue": "22px (선언 없음 — 파생값. 트랙 block-size 28px(--louis-layout-inspector-control-height, packages/css/generated/tokens.css:469) − 2×트랙 padding 3px(css:62), box-sizing: border-box(css:29) + align-items: stretch(css:31)). **감사 이후 sm 버킷이 xs 로 바뀌었다** — 트랙이 32 → 28 로 내려갔고 padding 도 control-xs(4)가 아니라 리터럴 3px 이다(css:58-59 가 사유를 적었다: 인스펙터 한 곳의 밀도를 위해 계단을 늘리지 않는다). 파생값은 24 → 22 로 움직였고 제품 26px 과는 여전히 다르다.",
+      "dsLine": 53,
+      "dsQuotedLine": "block-size: var(--louis-layout-control-height-md);",
+      "dsValue": "24px (선언 없음 — 파생값. 트랙 block-size 32px(--louis-layout-control-height-md, packages/css/generated/tokens.css:466) − 2×트랙 padding 4px(--louis-space-control-xs, css:39, md 규칙은 block-size 만 덮고 padding 은 base 에서 상속한다), box-sizing: border-box(css:30) + align-items: stretch(css:32). 테두리가 아니라 spread box-shadow 라 content box 를 줄이지 않는다). **감사 이후 사다리가 개명됐다** — ddc333a 가 sm → md, md → lg 로 한 칸씩 올렸고 값은 하나도 바뀌지 않았다(32 는 여전히 32). 따라서 파생값도 24 그대로다. 같은 파일의 xs(css:60-64, inspector-control-height 28 · padding 3px)는 82b0fef 가 sm 과 나란히 새로 더한 별개 축이고 대응물도 다르다(vemClass inspectorToggle*).",
       "matches": "다름",
       "mapClaimWrong": "매핑은 decision=derived / route=DS-내부만로 두고 \"CSS에 이 값을 적은 선언이 없다\"고 적었다. 그 문장은 **DS CSS에 대해서만 참**이고 제품에 대해서는 거짓이다 — 제품 세 벌이 전부 세그먼트 높이를 명시 선언한다: C(BgmNode) `min-h-13`=26px(:184), A(SegmentedToggle) `\"[height:28px]\"`=28px(myPageSceneStyles.ts:1067, 썸도 :1087에서 같은 28px). 제품-없음이 아니므로 $키 주석으로 해소하면 안 되고, DS 24 vs 제품 26(sm 벌) / 28(A)의 어긋남이 영구히 감춰진다.",
       "reason": "DS는 파생값 24가 맞다(32 − 2×4). 그러나 route가 요구한 대로 제품 선언을 찾았고 존재한다. sm 버킷의 대응물은 DS sm 타이포(fontSize 12 / lineHeight 18)와 정확히 일치하는 C(BgmNode, type-caption-12-medium = 12px/1.5=18px)이며, 매핑 스스로도 sm.segmentPaddingInline을 C로 보냈다. 적용 확인: :1174·:1187이 MODE_SEGMENT_BTN_ACTIVE / MODE_SEGMENT_BTN을 버튼에 얹고 둘 다 :197·:207에서 MODE_SEGMENT_BTN_BASE를 첫 항목으로 포함한다. 뒤에 오는 것은 text-* 색 유틸리티뿐이라 min-h를 덮지 않는다. 인라인 style 없음. 함께 얹힌 type-caption-12-medium(globals.css:1184-1189)은 font-size·line-height·letter-spacing·font-weight만 준다. 전역 리셋 `* { padding: 0 }`은 @layer base 안이라(globals.css:964-976) @layer utilities에 지고, globals.css의 레이어 밖 button 규칙은 outline만 건드린다(:995-1005). 값이 DS 24와 다르다 — (A3) DS 수정 후보다.",
@@ -8006,10 +8006,10 @@
     },
     {
       "date": "2026-08-29",
-      "why": "DS 가 감사 이후 또 바뀌어 dsQuotedLine 2건이 소스에서 사라졌다(verify-refutation-quotes 무효 2). 두 건 다 `--louis-layout-control-height-sm` 을 인용했는데 그 토큰은 이제 어느 파일에도 없다 — 사다리가 lg·md 로 줄었고 segmented-control 의 작은 벌은 xs(inspector-control-height 28px)로 갈아탔다. 2026-08-26 선례와 같게 제품 인용과 판정 근거는 손대지 않고 DS 쪽 좌표·값만 현재 사실로 갱신했다. matches 는 둘 다 바뀌지 않는다 — 32px 은 md 로 옮겨 살아 있고, segmented-control 의 파생값은 24 → 22 로 움직였지만 제품 26px 과 다른 것은 그대로다.",
+      "why": "DS 가 감사 이후 또 바뀌어 dsQuotedLine 2건이 소스에서 사라졌다(verify-refutation-quotes 무효 2). 두 건 다 `--louis-layout-control-height-sm` 을 인용했는데 그 토큰은 이제 없다 — ddc333a 가 컨트롤 사다리를 한 칸씩 개명했다(sm → md, md → lg). **값은 하나도 바뀌지 않았고 이름만 옮겼다.** 2026-08-26 선례와 같게 제품 인용과 판정 근거는 손대지 않고 DS 쪽 좌표만 현재 이름으로 다시 가리켰다. matches 는 둘 다 그대로다.",
       "axes": [
-        "input.sizes.sm.height (같음 유지 · sm → md 로 재지시)",
-        "segmented-control.sizes.sm.segmentHeight (다름 유지 · DS 파생값 24 → 22)"
+        "input.sizes.sm.height (같음 유지 · text-field.css:50 → :52, control-height-sm → -md)",
+        "segmented-control.sizes.sm.segmentHeight (다름 유지 · segmented-control.css:52 → :53, 파생값 24 그대로)"
       ]
     }
   ]

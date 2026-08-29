@@ -2036,6 +2036,7 @@ const TAMPERS = [
   tamperComponentBinding,
   tamperComponentHeight,
   tamperComponentOpacity,
+  tamperComponentPartOpacity,
   tamperComponentPadding,
   tamperComponentSlot,
   tamperComponentGeometryDrift,
@@ -3298,6 +3299,30 @@ function tamperComponentOpacity(document) {
     if (key === undefined) continue;
     geometry[key].opacity = [0.5];
     return `component 불투명도 변조 ${contract.figmaName}.${key}`;
+  }
+  return null;
+}
+
+/**
+ * 자손 불투명도의 검출력을 고정한다.
+ *
+ * 위 `tamperComponentOpacity` 는 **루트에 불투명도가 있는 계약만** 고른다. 계약값이 자손에
+ * 있는 컴포넌트(PaneDivider 의 그립)는 그 canary 가 통째로 건너뛰므로, 자손 경로가 아무것도
+ * 잡지 못해도 canary 수는 그대로다 — 실제로 확장 직전 상태에서 35종이 전부 통과했다.
+ * 「테스트의 테스트」가 비면 확장은 있으나 마나다.
+ */
+function tamperComponentPartOpacity(document) {
+  for (const contract of COMPONENT_CONTRACTS) {
+    if (contract.opacity === undefined) continue;
+    const geometry = document.components?.[contract.figmaName]?.geometry;
+    for (const [key, want] of Object.entries(contract.opacity)) {
+      const part = want !== null && typeof want === "object" ? want.part : null;
+      if (part === null) continue;
+      const values = geometry?.[key]?.parts?.[part]?.opacity;
+      if (!Array.isArray(values)) continue;
+      geometry[key].parts[part].opacity = [values[0] === 0.5 ? 0.25 : 0.5];
+      return `자손 불투명도 변조 ${contract.figmaName}.${key}.${part}`;
+    }
   }
   return null;
 }

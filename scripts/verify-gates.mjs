@@ -298,9 +298,14 @@ withCanary(
 withCanary(
   "design/governance/product-confirmations.md",
   (source) => {
+    /* **단 수를 고정하지 않는다.** 예전에는 `8단` 을 리터럴로 적었는데, 드리프트를 다시 재면
+       그 수가 움직여(2026-08-29 재측정에서 8 → 5) canary 가 자기 대상을 잃고 게이트 전체가
+       멈췄다. canary 는 「손으로 고치면 잡히는가」를 증명하는 장치지 측정값을 고정하는 장치가
+       아니다 — 행을 찾는 축은 지표 이름 하나로 충분하다. */
     const next = source.replace(
-      /\| border-width \| 8단 (\d+)회 \|/,
-      (match, uses) => "| border-width | 8단 " + (Number(uses) - 1) + "회 |",
+      /\| border-width \| (\d+)단 (\d+)회 \|/,
+      (match, steps, uses) =>
+        "| border-width | " + steps + "단 " + (Number(uses) - 1) + "회 |",
     );
     if (next === source) {
       errors.push("product-drift 표 canary가 대상 행을 찾지 못했습니다.");

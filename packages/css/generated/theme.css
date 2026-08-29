@@ -335,19 +335,13 @@
   /* Tailwind 4에 대응 namespace가 없다. 변수로만 내보내며 유틸리티는 생기지 않는다 —
    * `[z-index:var(--louis-layer-modal)]` 같은 임의값으로 쓴다. */
   --louis-app-gnb-main-card-padding-block-start: var(--louis-app-gnb-main-card-padding-block-start);
-  --louis-app-gnb-main-inline-padding: var(--louis-app-gnb-main-inline-padding);
   --louis-app-gnb-main-inline-padding-end: var(--louis-app-gnb-main-inline-padding-end);
   --louis-app-gnb-rail-below-chrome-gap: var(--louis-app-gnb-rail-below-chrome-gap);
   --louis-app-gnb-rail-padding-bottom: var(--louis-app-gnb-rail-padding-bottom);
   --louis-app-gnb-sidebar-logo-h: var(--louis-app-gnb-sidebar-logo-h);
   --louis-app-gnb-sidebar-logo-symbol-w: var(--louis-app-gnb-sidebar-logo-symbol-w);
   --louis-app-gnb-sidebar-logo-wordmark-w: var(--louis-app-gnb-sidebar-logo-wordmark-w);
-  --louis-app-gnb-sidebar-padding-x: var(--louis-app-gnb-sidebar-padding-x);
   --louis-app-shell-min-width: var(--louis-app-shell-min-width);
-  --louis-app-tooltip-font-size: var(--louis-app-tooltip-font-size);
-  --louis-app-tooltip-padding-block: var(--louis-app-tooltip-padding-block);
-  --louis-app-tooltip-padding-inline: var(--louis-app-tooltip-padding-inline);
-  --louis-app-tooltip-radius: var(--louis-app-tooltip-radius);
   --louis-border-width-default: var(--louis-border-width-default);
   --louis-border-width-hairline: var(--louis-border-width-hairline);
   --louis-border-width-ring: var(--louis-border-width-ring);
@@ -357,9 +351,6 @@
   --louis-button-padding-inline-lg: var(--louis-button-padding-inline-lg);
   --louis-button-padding-inline-md: var(--louis-button-padding-inline-md);
   --louis-button-radius: var(--louis-button-radius);
-  --louis-dropdown-item-radius: var(--louis-dropdown-item-radius);
-  --louis-dropdown-padding: var(--louis-dropdown-padding);
-  --louis-dropdown-radius: var(--louis-dropdown-radius);
   --louis-footer-reveal-height: var(--louis-footer-reveal-height);
   --louis-layer-content: var(--louis-layer-content);
   --louis-layer-critical: var(--louis-layer-critical);

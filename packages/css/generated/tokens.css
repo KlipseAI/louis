@@ -229,19 +229,13 @@
 [data-theme="light"] {
   color-scheme: light;
   --louis-app-gnb-main-card-padding-block-start: 0px;
-  --louis-app-gnb-main-inline-padding: 16px;
   --louis-app-gnb-main-inline-padding-end: 12px;
   --louis-app-gnb-rail-below-chrome-gap: 12px;
   --louis-app-gnb-rail-padding-bottom: 12px;
   --louis-app-gnb-sidebar-logo-h: 28px;
   --louis-app-gnb-sidebar-logo-symbol-w: 28px;
   --louis-app-gnb-sidebar-logo-wordmark-w: 96px;
-  --louis-app-gnb-sidebar-padding-x: 12px;
   --louis-app-shell-min-width: 960px;
-  --louis-app-tooltip-font-size: 12px;
-  --louis-app-tooltip-padding-block: 4px;
-  --louis-app-tooltip-padding-inline: 8px;
-  --louis-app-tooltip-radius: 8px;
   --louis-blur-glass: 16px;
   --louis-blur-panel: 12px;
   --louis-blur-surface: 10px;
@@ -440,9 +434,6 @@
   --louis-color-table-row-hover: color(srgb 0.972549 0.972549 0.976471 / 1);
   --louis-color-table-row-line: color(srgb 0.917647 0.921569 0.933333 / 1);
   --louis-color-vem-properties-label: color(srgb 0.466667 0.490196 0.537255 / 1);
-  --louis-dropdown-item-radius: 10px;
-  --louis-dropdown-padding: 6px;
-  --louis-dropdown-radius: 16px;
   --louis-elevation-focus-ring: 0px 0px 0px 3px color(srgb 0 0.533333 1 / 0.42);
   --louis-elevation-menu: 0px 8px 15px 0px color(srgb 0 0 0 / 0.04);
   --louis-elevation-modal: 0px 16px 48px -8px color(srgb 0 0 0 / 0.22);

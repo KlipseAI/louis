@@ -2,23 +2,23 @@
   "artifacts": [
     {
       "path": "packages/tokens/generated/figma.tokens.json",
-      "sha256": "a82ee2cc0e500e5efd0621a33a2fb88cc9719a1e77d9ed6e4449b55c906881bb"
+      "sha256": "0db11953c8ade32ee1da05ad846a575e28692543d42641076b5343d6628b2949"
     },
     {
       "path": "packages/tokens/generated/index.d.ts",
-      "sha256": "6b52135232c82128a6990112b4d5394575ede43d5f788f11fa2887f3e1deb494"
+      "sha256": "57fdecea724aef9884cd8b00a853147bfe104ae793416deb4bfeeca18d52ad93"
     },
     {
       "path": "packages/tokens/generated/index.js",
-      "sha256": "da5fc13776be9ca1096ed05fe2577b5cfa9784a331cc8b81a4de0370cbd3bcdf"
+      "sha256": "abc46445d9b5ef6c8bff50d50e0845b4043befb3c67221cfe9be74bf2139d403"
     },
     {
       "path": "packages/tokens/generated/tokens.css",
-      "sha256": "706ede1a06863a9ee8c4036049896dd70e200d68ec8fe8326aebff7534f632e8"
+      "sha256": "a6b3e1e63550067a82b4c6b121315323b18029794b8f6c86b736d726af850935"
     },
     {
       "path": "packages/tokens/generated/tokens.json",
-      "sha256": "3312f5169e449ad869532f653999ca370a6fe6440f7afaa34e78e87aead4e23d"
+      "sha256": "4e3e4f288b307d85918d6f2cf933cefc702d5bb11abac2c601044875e3c67ae0"
     }
   ],
   "contrastPairs": [
@@ -408,13 +408,13 @@
   },
   "source": {
     "path": "packages/tokens/src/klipse.tokens.json",
-    "sha256": "8896845b15db85a968b7640464d6c2a702d300f1dff7d581dc79b78c5df1390b"
+    "sha256": "df92d3471a2fc09e454541aec4865f13ffcbf34f28e41c379003a285aede7892"
   },
   "themes": [
     "light",
     "dark"
   ],
-  "tokenCount": 773,
+  "tokenCount": 764,
   "tokens": [
     {
       "aliasTarget": {
@@ -434,27 +434,6 @@
         "value": 0
       },
       "sourcePath": "semantic.global.app.gnb-main-card-padding-block-start",
-      "tier": "semantic",
-      "type": "dimension"
-    },
-    {
-      "aliasTarget": {
-        "id": "space-16",
-        "mode": "base"
-      },
-      "cssProperties": {
-        "--louis-app-gnb-main-inline-padding": "16px"
-      },
-      "deprecated": null,
-      "description": null,
-      "id": "app-gnb-main-inline-padding",
-      "mode": "global",
-      "rawValue": "{primitive.spacing.16}",
-      "resolvedValue": {
-        "unit": "px",
-        "value": 16
-      },
-      "sourcePath": "semantic.global.app.gnb-main-inline-padding",
       "tier": "semantic",
       "type": "dimension"
     },
@@ -586,27 +565,6 @@
     },
     {
       "aliasTarget": {
-        "id": "space-12",
-        "mode": "base"
-      },
-      "cssProperties": {
-        "--louis-app-gnb-sidebar-padding-x": "12px"
-      },
-      "deprecated": null,
-      "description": null,
-      "id": "app-gnb-sidebar-padding-x",
-      "mode": "global",
-      "rawValue": "{primitive.spacing.12}",
-      "resolvedValue": {
-        "unit": "px",
-        "value": 12
-      },
-      "sourcePath": "semantic.global.app.gnb-sidebar-padding-x",
-      "tier": "semantic",
-      "type": "dimension"
-    },
-    {
-      "aliasTarget": {
         "id": "space-960",
         "mode": "base"
       },
@@ -623,90 +581,6 @@
         "value": 960
       },
       "sourcePath": "semantic.global.app.shell-min-width",
-      "tier": "semantic",
-      "type": "dimension"
-    },
-    {
-      "aliasTarget": {
-        "id": "font-size-caption",
-        "mode": "base"
-      },
-      "cssProperties": {
-        "--louis-app-tooltip-font-size": "12px"
-      },
-      "deprecated": null,
-      "description": null,
-      "id": "app-tooltip-font-size",
-      "mode": "global",
-      "rawValue": "{primitive.font-size.caption}",
-      "resolvedValue": {
-        "unit": "px",
-        "value": 12
-      },
-      "sourcePath": "semantic.global.app.tooltip-font-size",
-      "tier": "semantic",
-      "type": "dimension"
-    },
-    {
-      "aliasTarget": {
-        "id": "space-4",
-        "mode": "base"
-      },
-      "cssProperties": {
-        "--louis-app-tooltip-padding-block": "4px"
-      },
-      "deprecated": null,
-      "description": null,
-      "id": "app-tooltip-padding-block",
-      "mode": "global",
-      "rawValue": "{primitive.spacing.4}",
-      "resolvedValue": {
-        "unit": "px",
-        "value": 4
-      },
-      "sourcePath": "semantic.global.app.tooltip-padding-block",
-      "tier": "semantic",
-      "type": "dimension"
-    },
-    {
-      "aliasTarget": {
-        "id": "space-8",
-        "mode": "base"
-      },
-      "cssProperties": {
-        "--louis-app-tooltip-padding-inline": "8px"
-      },
-      "deprecated": null,
-      "description": null,
-      "id": "app-tooltip-padding-inline",
-      "mode": "global",
-      "rawValue": "{primitive.spacing.8}",
-      "resolvedValue": {
-        "unit": "px",
-        "value": 8
-      },
-      "sourcePath": "semantic.global.app.tooltip-padding-inline",
-      "tier": "semantic",
-      "type": "dimension"
-    },
-    {
-      "aliasTarget": {
-        "id": "radius-8",
-        "mode": "base"
-      },
-      "cssProperties": {
-        "--louis-app-tooltip-radius": "8px"
-      },
-      "deprecated": null,
-      "description": null,
-      "id": "app-tooltip-radius",
-      "mode": "global",
-      "rawValue": "{primitive.radius.8}",
-      "resolvedValue": {
-        "unit": "px",
-        "value": 8
-      },
-      "sourcePath": "semantic.global.app.tooltip-radius",
       "tier": "semantic",
       "type": "dimension"
     },
@@ -14305,69 +14179,6 @@
       "sourcePath": "primitive.color.yellow.900",
       "tier": "primitive",
       "type": "color"
-    },
-    {
-      "aliasTarget": {
-        "id": "radius-10",
-        "mode": "base"
-      },
-      "cssProperties": {
-        "--louis-dropdown-item-radius": "10px"
-      },
-      "deprecated": null,
-      "description": null,
-      "id": "dropdown-item-radius",
-      "mode": "global",
-      "rawValue": "{primitive.radius.10}",
-      "resolvedValue": {
-        "unit": "px",
-        "value": 10
-      },
-      "sourcePath": "semantic.global.dropdown.item-radius",
-      "tier": "semantic",
-      "type": "dimension"
-    },
-    {
-      "aliasTarget": {
-        "id": "space-6",
-        "mode": "base"
-      },
-      "cssProperties": {
-        "--louis-dropdown-padding": "6px"
-      },
-      "deprecated": null,
-      "description": null,
-      "id": "dropdown-padding",
-      "mode": "global",
-      "rawValue": "{primitive.spacing.6}",
-      "resolvedValue": {
-        "unit": "px",
-        "value": 6
-      },
-      "sourcePath": "semantic.global.dropdown.padding",
-      "tier": "semantic",
-      "type": "dimension"
-    },
-    {
-      "aliasTarget": {
-        "id": "radius-16",
-        "mode": "base"
-      },
-      "cssProperties": {
-        "--louis-dropdown-radius": "16px"
-      },
-      "deprecated": null,
-      "description": null,
-      "id": "dropdown-radius",
-      "mode": "global",
-      "rawValue": "{primitive.radius.16}",
-      "resolvedValue": {
-        "unit": "px",
-        "value": 16
-      },
-      "sourcePath": "semantic.global.dropdown.radius",
-      "tier": "semantic",
-      "type": "dimension"
     },
     {
       "aliasTarget": null,

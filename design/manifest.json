@@ -1085,6 +1085,15 @@
       "generated": false
     },
     {
+      "id": "decision-no-duplicate-role-tokens",
+      "path": "design/governance/decisions/DS-D-0030-no-duplicate-role-tokens.md",
+      "title": "DS-D-0030 같은 역할을 두 이름으로 말하지 않는다",
+      "section": "governance",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
+    },
+    {
       "id": "governance-product-confirmations",
       "path": "design/governance/product-confirmations.md",
       "title": "제품 확인 대기 목록",
@@ -1289,6 +1298,7 @@
         "design/governance/decisions/DS-D-0027-control-size-ladder.md",
         "design/governance/decisions/DS-D-0028-three-in-one-change.md",
         "design/governance/decisions/DS-D-0029-token-names-must-be-true.md",
+        "design/governance/decisions/DS-D-0030-no-duplicate-role-tokens.md",
         "design/governance/product-confirmations.md",
         "design/updates/README.md"
       ]

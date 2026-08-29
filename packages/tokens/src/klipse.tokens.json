@@ -4760,16 +4760,6 @@
             }
           }
         },
-        "gnb-main-inline-padding": {
-          "$value": "{primitive.spacing.16}",
-          "$extensions": {
-            "com.klipse-design": {
-              "id": "app-gnb-main-inline-padding",
-              "tier": "semantic",
-              "mode": "global"
-            }
-          }
-        },
         "gnb-main-inline-padding-end": {
           "$value": "{primitive.spacing.12}",
           "$extensions": {
@@ -4830,61 +4820,11 @@
             }
           }
         },
-        "gnb-sidebar-padding-x": {
-          "$value": "{primitive.spacing.12}",
-          "$extensions": {
-            "com.klipse-design": {
-              "id": "app-gnb-sidebar-padding-x",
-              "tier": "semantic",
-              "mode": "global"
-            }
-          }
-        },
         "shell-min-width": {
           "$value": "{primitive.spacing.960}",
           "$extensions": {
             "com.klipse-design": {
               "id": "app-shell-min-width",
-              "tier": "semantic",
-              "mode": "global"
-            }
-          }
-        },
-        "tooltip-font-size": {
-          "$value": "{primitive.font-size.caption}",
-          "$extensions": {
-            "com.klipse-design": {
-              "id": "app-tooltip-font-size",
-              "tier": "semantic",
-              "mode": "global"
-            }
-          }
-        },
-        "tooltip-padding-block": {
-          "$value": "{primitive.spacing.4}",
-          "$extensions": {
-            "com.klipse-design": {
-              "id": "app-tooltip-padding-block",
-              "tier": "semantic",
-              "mode": "global"
-            }
-          }
-        },
-        "tooltip-padding-inline": {
-          "$value": "{primitive.spacing.8}",
-          "$extensions": {
-            "com.klipse-design": {
-              "id": "app-tooltip-padding-inline",
-              "tier": "semantic",
-              "mode": "global"
-            }
-          }
-        },
-        "tooltip-radius": {
-          "$value": "{primitive.radius.8}",
-          "$extensions": {
-            "com.klipse-design": {
-              "id": "app-tooltip-radius",
               "tier": "semantic",
               "mode": "global"
             }
@@ -5024,39 +4964,6 @@
           "$extensions": {
             "com.klipse-design": {
               "id": "button-radius",
-              "tier": "semantic",
-              "mode": "global"
-            }
-          }
-        }
-      },
-      "dropdown": {
-        "$type": "dimension",
-        "item-radius": {
-          "$value": "{primitive.radius.10}",
-          "$extensions": {
-            "com.klipse-design": {
-              "id": "dropdown-item-radius",
-              "tier": "semantic",
-              "mode": "global"
-            }
-          }
-        },
-        "padding": {
-          "$value": "{primitive.spacing.6}",
-          "$extensions": {
-            "com.klipse-design": {
-              "id": "dropdown-padding",
-              "tier": "semantic",
-              "mode": "global"
-            }
-          }
-        },
-        "radius": {
-          "$value": "{primitive.radius.16}",
-          "$extensions": {
-            "com.klipse-design": {
-              "id": "dropdown-radius",
               "tier": "semantic",
               "mode": "global"
             }

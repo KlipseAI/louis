@@ -16,6 +16,35 @@ authority: normative
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
 
+## 2026-08-29 (103) — 같은 역할을 두 이름으로 말하던 토큰 9개를 걷어낸다 (DS-D-0030)
+
+`8de65bb` 가 제품 티어 값을 들여오면서 이미 시스템에 있던 역할 토큰과 겹치는 것을 걸러내지
+못했다. 제품이 레거시 토큰 문서를 폐지하는 작업에서 **미러가 아니라 역할 토큰을 집으면서** 어느
+쪽이 정본인지 실증됐다 — [DS-D-0030](../governance/decisions/DS-D-0030-no-duplicate-role-tokens.md).
+
+### Removed
+
+- **`app/*` 여섯**: `gnb-main-inline-padding`(→ `layout-app-shell-content-inset`) ·
+  `gnb-sidebar-padding-x`(→ `layout-app-shell-sidebar-padding`) ·
+  `tooltip-padding-block`(→ `space-control-xs`) · `tooltip-padding-inline`(→ `space-control-sm`) ·
+  `tooltip-radius`(→ `radius-control-sm`) ·
+  `tooltip-font-size`(→ `typography-caption-regular-font-size`).
+  앞의 둘은 `migration/token-mapping.md` 확정 표와 DS-D-0018 이 이미 정본을 지목했고, 뒤의
+  넷은 `.louis-tooltip` 레시피가 읽는 손잡이다.
+- **`dropdown/*` 그룹 전체**: `radius`(→ `radius-overlay`) · `item-radius`(→ `radius-overlay-item`) ·
+  `padding`(→ `space-overlay-inset`). `.louis-menu` 가 셋 다 정본을 읽는다. 빈 그룹을 남기지
+  않으려고 노드째 지웠다. **`color/dropdown/*` 넷은 색이고 무관하다.**
+
+### Current impact
+
+값이 바뀌는 토큰이 없다 — 전부 alias 였고 정본이 같은 primitive 를 가리킨다. 렌더가 달라지는
+화면은 없고, 제품은 이미 정본을 소비하므로 핀을 올려도 바뀌지 않는다.
+
+소비처가 0 이던 나머지 33개는 **남겼다.** `type-line-height-percent/*` 는 DS-D-0029 가 Figma
+PERCENT 축으로 의도해 만든 것이고, `button/*` 은 DS-D-0029 가 막 개명한 블록이며, `node/*` 는
+LOUIS 에 캔버스 컴포넌트가 아직 없어 소비처가 생길 자리가 없다. 「지금 아무도 안 읽는다」는
+「앞으로도 아닐 것이다」와 다르다.
+
 ## 2026-08-27 (102) — 이름이 값과 다른 토큰을 걷어낸다 (DS-D-0029)
 
 감사가 이름과 값이 어긋난 토큰 네 무리를 찾았다. 넷 다 소비처 0 이라 오늘 깨지는 화면이 없고,

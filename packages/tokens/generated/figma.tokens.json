@@ -10130,34 +10130,6 @@
             }
           }
         },
-        "app-gnb-main-inline-padding": {
-          "$type": "dimension",
-          "fields": [],
-          "figmaName": "app/gnb-main-inline-padding",
-          "hiddenFromPublishing": false,
-          "losses": [
-            "Figma FLOAT는 DTCG 단위 의미를 직접 보존하지 않으므로 source metadata를 함께 검토해야 합니다."
-          ],
-          "nativeVariableType": "FLOAT",
-          "representation": "variable",
-          "scopes": [
-            "WIDTH_HEIGHT"
-          ],
-          "valuesByMode": {
-            "Global": {
-              "$value": "{primitive.spacing.16}",
-              "aliasTarget": {
-                "id": "space-16",
-                "mode": "base"
-              },
-              "resolvedValue": {
-                "unit": "px",
-                "value": 16
-              },
-              "sourcePath": "semantic.global.app.gnb-main-inline-padding"
-            }
-          }
-        },
         "app-gnb-main-inline-padding-end": {
           "$type": "dimension",
           "fields": [],
@@ -10326,34 +10298,6 @@
             }
           }
         },
-        "app-gnb-sidebar-padding-x": {
-          "$type": "dimension",
-          "fields": [],
-          "figmaName": "app/gnb-sidebar-padding-x",
-          "hiddenFromPublishing": false,
-          "losses": [
-            "Figma FLOAT는 DTCG 단위 의미를 직접 보존하지 않으므로 source metadata를 함께 검토해야 합니다."
-          ],
-          "nativeVariableType": "FLOAT",
-          "representation": "variable",
-          "scopes": [
-            "WIDTH_HEIGHT"
-          ],
-          "valuesByMode": {
-            "Global": {
-              "$value": "{primitive.spacing.12}",
-              "aliasTarget": {
-                "id": "space-12",
-                "mode": "base"
-              },
-              "resolvedValue": {
-                "unit": "px",
-                "value": 12
-              },
-              "sourcePath": "semantic.global.app.gnb-sidebar-padding-x"
-            }
-          }
-        },
         "app-shell-min-width": {
           "$type": "dimension",
           "fields": [],
@@ -10379,118 +10323,6 @@
                 "value": 960
               },
               "sourcePath": "semantic.global.app.shell-min-width"
-            }
-          }
-        },
-        "app-tooltip-font-size": {
-          "$type": "dimension",
-          "fields": [],
-          "figmaName": "app/tooltip-font-size",
-          "hiddenFromPublishing": false,
-          "losses": [
-            "Figma FLOAT는 DTCG 단위 의미를 직접 보존하지 않으므로 source metadata를 함께 검토해야 합니다."
-          ],
-          "nativeVariableType": "FLOAT",
-          "representation": "variable",
-          "scopes": [
-            "WIDTH_HEIGHT"
-          ],
-          "valuesByMode": {
-            "Global": {
-              "$value": "{primitive.font-size.caption}",
-              "aliasTarget": {
-                "id": "font-size-caption",
-                "mode": "base"
-              },
-              "resolvedValue": {
-                "unit": "px",
-                "value": 12
-              },
-              "sourcePath": "semantic.global.app.tooltip-font-size"
-            }
-          }
-        },
-        "app-tooltip-padding-block": {
-          "$type": "dimension",
-          "fields": [],
-          "figmaName": "app/tooltip-padding-block",
-          "hiddenFromPublishing": false,
-          "losses": [
-            "Figma FLOAT는 DTCG 단위 의미를 직접 보존하지 않으므로 source metadata를 함께 검토해야 합니다."
-          ],
-          "nativeVariableType": "FLOAT",
-          "representation": "variable",
-          "scopes": [
-            "WIDTH_HEIGHT"
-          ],
-          "valuesByMode": {
-            "Global": {
-              "$value": "{primitive.spacing.4}",
-              "aliasTarget": {
-                "id": "space-4",
-                "mode": "base"
-              },
-              "resolvedValue": {
-                "unit": "px",
-                "value": 4
-              },
-              "sourcePath": "semantic.global.app.tooltip-padding-block"
-            }
-          }
-        },
-        "app-tooltip-padding-inline": {
-          "$type": "dimension",
-          "fields": [],
-          "figmaName": "app/tooltip-padding-inline",
-          "hiddenFromPublishing": false,
-          "losses": [
-            "Figma FLOAT는 DTCG 단위 의미를 직접 보존하지 않으므로 source metadata를 함께 검토해야 합니다."
-          ],
-          "nativeVariableType": "FLOAT",
-          "representation": "variable",
-          "scopes": [
-            "WIDTH_HEIGHT"
-          ],
-          "valuesByMode": {
-            "Global": {
-              "$value": "{primitive.spacing.8}",
-              "aliasTarget": {
-                "id": "space-8",
-                "mode": "base"
-              },
-              "resolvedValue": {
-                "unit": "px",
-                "value": 8
-              },
-              "sourcePath": "semantic.global.app.tooltip-padding-inline"
-            }
-          }
-        },
-        "app-tooltip-radius": {
-          "$type": "dimension",
-          "fields": [],
-          "figmaName": "app/tooltip-radius",
-          "hiddenFromPublishing": false,
-          "losses": [
-            "Figma FLOAT는 DTCG 단위 의미를 직접 보존하지 않으므로 source metadata를 함께 검토해야 합니다."
-          ],
-          "nativeVariableType": "FLOAT",
-          "representation": "variable",
-          "scopes": [
-            "WIDTH_HEIGHT"
-          ],
-          "valuesByMode": {
-            "Global": {
-              "$value": "{primitive.radius.8}",
-              "aliasTarget": {
-                "id": "radius-8",
-                "mode": "base"
-              },
-              "resolvedValue": {
-                "unit": "px",
-                "value": 8
-              },
-              "sourcePath": "semantic.global.app.tooltip-radius"
             }
           }
         },
@@ -10855,90 +10687,6 @@
                 "value": 12
               },
               "sourcePath": "semantic.global.button.radius"
-            }
-          }
-        },
-        "dropdown-item-radius": {
-          "$type": "dimension",
-          "fields": [],
-          "figmaName": "dropdown/item-radius",
-          "hiddenFromPublishing": false,
-          "losses": [
-            "Figma FLOAT는 DTCG 단위 의미를 직접 보존하지 않으므로 source metadata를 함께 검토해야 합니다."
-          ],
-          "nativeVariableType": "FLOAT",
-          "representation": "variable",
-          "scopes": [
-            "WIDTH_HEIGHT"
-          ],
-          "valuesByMode": {
-            "Global": {
-              "$value": "{primitive.radius.10}",
-              "aliasTarget": {
-                "id": "radius-10",
-                "mode": "base"
-              },
-              "resolvedValue": {
-                "unit": "px",
-                "value": 10
-              },
-              "sourcePath": "semantic.global.dropdown.item-radius"
-            }
-          }
-        },
-        "dropdown-padding": {
-          "$type": "dimension",
-          "fields": [],
-          "figmaName": "dropdown/padding",
-          "hiddenFromPublishing": false,
-          "losses": [
-            "Figma FLOAT는 DTCG 단위 의미를 직접 보존하지 않으므로 source metadata를 함께 검토해야 합니다."
-          ],
-          "nativeVariableType": "FLOAT",
-          "representation": "variable",
-          "scopes": [
-            "WIDTH_HEIGHT"
-          ],
-          "valuesByMode": {
-            "Global": {
-              "$value": "{primitive.spacing.6}",
-              "aliasTarget": {
-                "id": "space-6",
-                "mode": "base"
-              },
-              "resolvedValue": {
-                "unit": "px",
-                "value": 6
-              },
-              "sourcePath": "semantic.global.dropdown.padding"
-            }
-          }
-        },
-        "dropdown-radius": {
-          "$type": "dimension",
-          "fields": [],
-          "figmaName": "dropdown/radius",
-          "hiddenFromPublishing": false,
-          "losses": [
-            "Figma FLOAT는 DTCG 단위 의미를 직접 보존하지 않으므로 source metadata를 함께 검토해야 합니다."
-          ],
-          "nativeVariableType": "FLOAT",
-          "representation": "variable",
-          "scopes": [
-            "WIDTH_HEIGHT"
-          ],
-          "valuesByMode": {
-            "Global": {
-              "$value": "{primitive.radius.16}",
-              "aliasTarget": {
-                "id": "radius-16",
-                "mode": "base"
-              },
-              "resolvedValue": {
-                "unit": "px",
-                "value": 16
-              },
-              "sourcePath": "semantic.global.dropdown.radius"
             }
           }
         },

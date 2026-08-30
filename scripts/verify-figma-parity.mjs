@@ -1915,7 +1915,6 @@ const COMPONENT_CONTRACTS = [
       // **계약값이 자손에 있는 첫 컴포넌트다.** root만 보면 여백·간격·흐림이 하나도 검증되지 않는다.
       parts: {
         // 썸네일 위 더보기. 면이 사진이라 media 색을 쓴다.
-        More: { fields: { width: "moreSize", height: "moreSize" } },
         Media: {
           fields: { width: "mediaSide", height: "mediaSide" },
         },
@@ -1954,7 +1953,11 @@ const COMPONENT_CONTRACTS = [
         },
         // 클릭 타깃과 슬롯은 **구조가 계약**이다. 크기보다 존재와 순서가 중요하다.
         Action: { fields: { width: "mediaSide", height: "mediaSide" } },
-        Adornment: {},
+        // **슬롯이 곧 더보기 버튼이다.** Figma 에 레이어는 하나이고, 문서·React API·이 계약이
+        // 모두 `Adornment` 라고 부른다. 한동안 Figma 만 `More` 로 어긋나 있었고 되읽기가 그
+        // 이름을 담고 있어 계약이 두 이름을 따로 셌다 — 2026-08-30 에 Figma 를 공개 API 이름으로
+        // 되돌리고 크기 대조를 이 한 줄로 합쳤다.
+        Adornment: { fields: { width: "moreSize", height: "moreSize" } },
         Thumbnail: {},
       },
       // 자식 순서가 계약이다 — 슬롯이 클릭 타깃 앞에 오면 슬롯 안의 컨트롤이 눌리지 않는다.

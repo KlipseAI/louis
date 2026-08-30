@@ -80,8 +80,12 @@ try {
     // **둘 다 토큰을 참조하므로 tokens.css 없이는 무효가 된다** — 이 게이트가 막으려는 바로 그
     // 실패다. 그래도 예외인 이유는 이름이 recipe라 소비자가 직접 쓰지 않고, 위 import 안내
     // 검사가 tokens.css 누락을 따로 잡기 때문이다.
+    // 마스크 곡선의 **방향 변형**도 같은 recipe다. 헤어라인이 `-block-start` / `-block-end` 로
+    // 방향을 갈랐듯, 점진 블러도 감쇠가 어느 모서리에서 시작하는지로 갈린다 — 카드 정보 바는
+    // 아래(무접미), 화면 위에 고정된 헤더 띠는 위(`-block-start`), 가로로 접히는 레이어 패널은
+    // 왼쪽(`-inline-start`)이다. 값은 같은 곡선이고 방향만 다르므로 예외 사유가 그대로 적용된다.
     const ROOT_RECIPE_ALLOW =
-      /^--louis-(hairline-inset(-block-(start|end))?|progressive-blur(-mask)?)$/;
+      /^--louis-(hairline-inset(-block-(start|end))?|progressive-blur(-mask(-(block|inline)-start)?)?)$/;
     for (const block of stylesCss.match(/:root\s*\{[^}]*\}/g) ?? []) {
       const leaked = [...block.matchAll(/(--louis-[a-z0-9-]+)\s*:/g)]
         .map((match) => match[1])

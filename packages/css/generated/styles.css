@@ -3787,10 +3787,10 @@
 
 /* 블록. 카드·미디어 자리를 대신할 때 쓴다.
  *
- * **기록에는 있는데 CSS 에 없던 모양이다.** figma/components.measured.json 의
- * `skeleton.sizes.block.radius` 가 16 을 계약으로 적어 두었는데 여기 규칙이 없어서 실제로는
- * base 의 8 이 그려지고 있었다 — 기록과 화면이 갈린 채 어느 게이트도 보지 않았다
- * (2026-08-30, verify-record-citations 가 사유의 "radius-card 16" 을 짚으며 드러났다). */
+ * **세 곳 중 CSS 에만 없던 모양이다.** Figma 의 Skeleton block 변형은 16 을 그리고 있었고
+ * `figma/components.measured.json` 도 16 을 계약으로 적어 두었는데, 여기 규칙이 없어서 실제로는
+ * base 의 8 이 그려졌다. 브라우저 테스트는 block 을 `sizes.base` 와 대조하고 있어 그 갈림을
+ * 볼 수 없었다 — 셋이 갈린 채 어느 게이트도 잡지 못했다 (2026-08-30). */
 .louis-skeleton[data-shape="block"] {
   border-radius: var(--louis-radius-project-card);
 }

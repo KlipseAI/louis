@@ -1247,7 +1247,7 @@
           "height": 120,
           "$height": "120px 블록 스켈레톤 높이",
           "radius": 16,
-          "$radius": "radius-project-card 16. 블록 스켈레톤은 카드 자리를 대신하므로 카드와 같은 반경을 쓴다. radius-card(12)를 가리키고 있었는데 그 토큰은 12라 사유와 값이 어긋나 있었다"
+          "$radius": "radius-project-card 16. 블록 스켈레톤은 카드 자리를 대신하므로 카드와 같은 반경을 쓴다. 사유가 radius-card 를 가리키고 있었는데 그 토큰은 12라 이름과 값이 어긋나 있었다 — 16 인 축의 이름은 2026-08-30 에 낸 radius-project-card 다"
         },
         "circle": {
           "width": 40,

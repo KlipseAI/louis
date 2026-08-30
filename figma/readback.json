@@ -3992,6 +3992,18 @@
           ]
         ],
         [
+          "radius/project-card",
+          "FLOAT",
+          "CORNER_RADIUS",
+          [
+            [
+              "Global",
+              "Klipse Primitive::radius/16",
+              null
+            ]
+          ]
+        ],
+        [
           "radius/table-header",
           "FLOAT",
           "CORNER_RADIUS",
@@ -12085,7 +12097,7 @@
         }
       },
       "binding": {
-        "boundFills": 12,
+        "boundFills": 10,
         "rawFills": 0,
         "boundStrokes": 2,
         "rawStrokes": 0,
@@ -12095,38 +12107,16 @@
       "geometry": {
         "base": {
           "slots": {},
-          "height": [
-            360
-          ],
-          "width": [
-            360
-          ],
-          "paddingBlock": [],
-          "paddingBlockEnd": [],
-          "paddingInline": [],
-          "paddingInlineEnd": [],
-          "itemSpacing": [],
-          "cornerRadius": [
-            12
-          ],
-          "layoutMode": [
-            "NONE"
-          ],
-          "strokeWeight": [
-            0.5
-          ],
-          "overflowingParts": [],
-          "offCenterMarks": [],
           "parts": {
-            "More": {
+            "Media": {
               "width": [
-                32
+                359
               ],
               "height": [
-                32
+                359
               ]
             },
-            "Media": {
+            "Thumbnail": {
               "width": [
                 359
               ],
@@ -12202,14 +12192,6 @@
                 120
               ]
             },
-            "Thumbnail": {
-              "width": [
-                359
-              ],
-              "height": [
-                359
-              ]
-            },
             "Action": {
               "width": [
                 359
@@ -12227,11 +12209,43 @@
               ]
             }
           },
+          "height": [
+            360
+          ],
+          "width": [
+            360
+          ],
+          "paddingBlock": [
+            0
+          ],
+          "paddingBlockEnd": [
+            0
+          ],
+          "paddingInline": [
+            0
+          ],
+          "paddingInlineEnd": [
+            0
+          ],
+          "itemSpacing": [
+            0
+          ],
+          "cornerRadius": [
+            16
+          ],
+          "layoutMode": [
+            "NONE"
+          ],
+          "strokeWeight": [
+            0.5
+          ],
           "childOrder": [
             "Media",
             "Action",
             "Adornment"
-          ]
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
         }
       },
       "strokes": {

@@ -64,9 +64,10 @@
 //   · `Slider` — `variantCount:12` 와 `State` 축은 있는데 `binding` 은 정확히 3분의 1이다
 //     (16/2/4 대 48/10/12). State 축이 생기기 전 4변형 시절의 수를 그대로 갖고 있다는 뜻이다.
 //     `overflowingParts` 에 `FocusRing` 이 없는 것도 같은 이유다.
-//   · `ProjectCard` — 자손 이름이 Figma 에서 `Adornment` → `More` 로 바뀌었고 `childOrder`
-//     계약(verify-figma-parity)이 아직 옛 이름을 본다. 비-오토레이아웃 프레임의 padding 을
-//     빈 배열로 담았는데 `VideoPlayer` 는 같은 상황에서 0 을 담았다 — 같은 축을 두 규칙으로 쟀다.
+//   · `ProjectCard` — **해소됐다(2026-08-30).** 자손 이름이 Figma 에서 `Adornment` → `More`
+//     로 어긋나 있었고 계약이 두 이름을 따로 셌다. Figma 를 공개 API 이름 `Adornment` 로
+//     되돌리고 계약을 한 줄로 합쳤다. 비-오토레이아웃 프레임의 padding 을 빈 배열로 담는데
+//     `VideoPlayer` 는 같은 상황에서 0 을 담는 것은 그대로 남아 있다 — 같은 축을 두 규칙으로 잰다.
 // 이 스크립트는 그 사실을 **드러내기만** 한다. 되읽기를 고치면 계약도 함께 움직이므로 별도
 // 판단이 필요하다.
 import { readFileSync, writeFileSync } from "node:fs";
@@ -122,7 +123,7 @@ const CAPTURE = {
   "PaneDivider": {"key":{"by":["Orientation","State"]},"parts":{"Grip":["width","height","cornerRadius","opacity"]}},
   "ProgressBar": {"key":{"name":"base"},"parts":{"Fill":["width","height","cornerRadius","layoutMode"]}},
   "ProgressRing": {"key":{"name":"base"},"parts":{"Track":["width","height"],"Content":["width","height"]}},
-  "ProjectCard": {"key":{"name":"base"},"parts":{"More":["width","height"],"Media":["width","height"],"Title overlay":["width","height","itemSpacing","paddingBlock","paddingBlockEnd","paddingInline","paddingInlineEnd","layoutMode"],"Eyebrow":["width","height","fontSize","lineHeightPercent"],"Title":["width","height","fontSize","lineHeightPercent"],"Meta":["width","height","fontSize","lineHeightPercent"],"Thumbnail":["width","height"],"Action":["width","height"],"Adornment":["width","height"]},"strokes":["self"],"effects":["Title overlay"],"childOrder":true},
+  "ProjectCard": {"key":{"name":"base"},"parts":{"Media":["width","height"],"Title overlay":["width","height","itemSpacing","paddingBlock","paddingBlockEnd","paddingInline","paddingInlineEnd","layoutMode"],"Eyebrow":["width","height","fontSize","lineHeightPercent"],"Title":["width","height","fontSize","lineHeightPercent"],"Meta":["width","height","fontSize","lineHeightPercent"],"Thumbnail":["width","height"],"Action":["width","height"],"Adornment":["width","height"]},"strokes":["self"],"effects":["Title overlay"],"childOrder":true},
   "SegmentedControl": {"key":{"by":["Size"]},"slots":{"Item 1":"size","Item 2":"size","Item 3":"size"},"parts":{"Item 1":["width","height"],"Item 2":["width","height"],"Item 3":["width","height"]},"effects":["self"]},
   "SegmentedControlItem": {"key":{"by":["Size"]},"parts":{"Label":["width","height","fontSize"],"FocusRing":["width","height"]},"strokes":["FocusRing"],"outsideParts":["FocusRing"]},
   "SegmentedCodeInput": {"key":{"by":["State"]},"parts":{"Cell 1":["width","height","cornerRadius"],"Separator":["width","height"],"Dash":["fontSize"],"Char":["height","fontSize"]},"strokes":["Cell 1"]},

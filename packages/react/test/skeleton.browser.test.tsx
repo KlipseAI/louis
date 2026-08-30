@@ -12,7 +12,10 @@ import "@klipse-design/css/tokens.css";
 import "@klipse-design/css/styles.css";
 
 const px = (v: string): number => Number.parseFloat(v);
-const spec = measured.components.skeleton.sizes.base;
+// **모양마다 자기 기록을 본다.** 그전에는 셋 다 `sizes.base` 하나와 대조해서, 기록의
+// `sizes.block.radius` · `sizes.text.radius` 가 무엇이든 이 테스트를 통과했다 — 실제로 기록이
+// block 을 16 이라고 적어 둔 채 CSS 는 8 을 그리고 있었고 아무도 몰랐다 (2026-08-30).
+const sizes = measured.components.skeleton.sizes;
 const motion = measured.components.skeleton.motion;
 
 function scope(): ParentNode {
@@ -98,7 +101,7 @@ test("모양 셋의 반경이 계약과 같다", async () => {
     );
     const r = px(getComputedStyle(skeleton()).borderTopLeftRadius);
     if (shape === "circle") expect(r, "원").toBeGreaterThanOrEqual(20);
-    else expect(r, `${shape} 반경`).toBe(spec.radius);
+    else expect(r, `${shape} 반경`).toBe(sizes[shape].radius);
   }
 });
 

@@ -138,6 +138,17 @@
       color-mix(in srgb, black 40%, transparent) 85%,
       transparent 100%
     );
+    /* 가로 방향. 왼쪽이 진하고 오른쪽으로 흐림이 죽는다 — 접힌 레이어 패널처럼 **가로로** 잘리는
+     * 목록이 쓴다. 제품 `NodeLayersPanel.tsx:85` 이 이 정지점을 `to right` 로 손수 적고 있었고,
+     * 값은 정본과 한 글자도 다르지 않았다. */
+    --louis-progressive-blur-mask-inline-start: linear-gradient(
+      to right,
+      black 0%,
+      black 55%,
+      color-mix(in srgb, black 80%, transparent) 70%,
+      color-mix(in srgb, black 40%, transparent) 85%,
+      transparent 100%
+    );
   }
 
   /* overlay가 놓이는 stacking 문맥. 숫자 z-index 대신 layer 토큰만 쓴다. */

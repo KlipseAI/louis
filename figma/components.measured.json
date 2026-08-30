@@ -675,7 +675,7 @@
           "overlayTopRadius": 0,
           "$overlayTopRadius": "위 두 모서리는 각지다. 띠는 카드 아래에 붙으므로 아래 두 모서리만 카드의 반경을 따른다.",
           "gridGap": 4,
-          "$gridGap": "4. 카드가 아니라 그리드의 값이지만 카드 없이 성립하지 않아 여기 둔다. 제품이 `97d33c05`(2026-08-26)에서 네 홈의 카드 그리드를 소유자 결정으로 4 로 통일했다(gap-2, 제품 --spacing: 2px). DS 토큰 layout-project-grid-gap 은 아직 12 라 이름과 값이 갈려 있다 — 토큰을 4 로 내리는 것은 소비처 확인이 필요한 별도 변경이다."
+          "$gridGap": "4. 카드가 아니라 그리드의 값이지만 카드 없이 성립하지 않아 여기 둔다. 제품이 `97d33c05`(2026-08-26)에서 네 홈의 카드 그리드를 소유자 결정으로 4 로 통일했다(gap-2, 제품 --spacing: 2px). DS 토큰 layout-project-grid-gap 도 같은 날 4 로 내렸다(소비처는 pattern/project-grid.css 한 곳) — 토큰·기록·Figma 변수 셋이 같은 값을 본다."
         }
       },
       "states": {

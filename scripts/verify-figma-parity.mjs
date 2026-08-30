@@ -1229,6 +1229,40 @@ const COMPONENT_CONTRACTS = [
     },
   },
   {
+    id: "menu-popover",
+    figmaName: "CompositePopover",
+    declaration: "packages/react/dist/popover/composite-popover.d.ts",
+    // MenuPanel과 같은 표면이고 variant 축도 없다. 갈리는 것은 두 값뿐이다 — inset 8(MenuPanel 6)
+    // 과 행 간격 8(MenuPanel 2). 이유는 hit-target이며 menu-popover.css의 해당 블록 주석과 Figma
+    // 컴포넌트 설명에 근거가 적혀 있다.
+    variantProperties: {},
+    strokes: {},
+    // 표면 effect는 MenuPanel과 **같다** — 두 kind는 같은 `.louis-popover`를 쓰고, ambient
+    // drop shadow 뒤에 generic inset 헤어라인을 조합한다 (DS-D-0023).
+    effects: { self: "DROP_SHADOW:8:15:0 + INNER_SHADOW:0:0:0.5" },
+    geometry: {
+      measuredId: "menu-popover",
+      sizeKey: "composite-popover",
+      fields: {
+        paddingBlock: "paddingBlock",
+        paddingBlockEnd: "paddingBlock",
+        paddingInline: "paddingInline",
+        paddingInlineEnd: "paddingInline",
+        itemSpacing: "gap",
+        cornerRadius: "radius",
+        // **MenuPanel과 달리 minWidth가 아니라 width를 본다.** Figma의 CompositePopover는
+        // minWidth가 `null`이고 240을 고정폭 프레임으로 그렸다(2026-08-30 되읽기). CSS의 240은
+        // min-inline-size의 하한이라 내용이 그보다 좁으면 렌더 폭이 정확히 그 하한이고, 그것이
+        // Figma가 그린 폭이다. 채취 명세가 minWidth를 담지 않는 이유는 같은 사실이다 —
+        // 빈 배열을 담으면 여기서 「값이 없습니다」가 된다(figma-readback-emit.mjs의 CAPTURE 주석).
+        width: "minWidth",
+        layoutMode: { literal: "VERTICAL" },
+      },
+      slots: {},
+      extraStrokeWeights: [],
+    },
+  },
+  {
     id: "input",
     figmaName: "TextField",
     propProperties: {

@@ -16,6 +16,47 @@ authority: normative
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
 
+## 2026-08-30 (106) — Figma 에만 서 있던 `CompositePopover` 를 되읽기·계약으로 닫는다
+
+바로 아래 (105) 가 Figma 에 표면을 세우고 문서·manifest·요약까지 붙였는데 **`figma/readback.json`
+재캡처와 parity 계약을 빠뜨렸다.** 그러면 게이트는 초록인 채로 어긋난다 — parity 는 되읽기를
+정본으로 읽으므로, 되읽기에 없는 컴포넌트는 검증 대상이 아니다. 이 저장소가
+[DS-D-0028](../governance/decisions/DS-D-0028-three-in-one-change.md) 로 경계하는 「거짓 초록」의 실제
+사례이고, 그것을 잡은 것은 `figma-live-check` 다:
+
+```
+[figma-live] Figma 에만 있습니다: CompositePopover (variant 1) — 되읽기를 다시 뜨고 계약·문서를 붙이세요.
+```
+
+### Added
+
+- **되읽기** — `scripts/figma-readback-emit.mjs` 의 `CAPTURE` 에 항목을 적고 `--components
+  --only CompositePopover` 로 떠서 `--merge` 했다(component 50 → 51). 실측값은 240×148 ·
+  padding 8 · itemSpacing 8 · radius 16 · VERTICAL 이고 effect 는 MenuPanel 과 **같다**
+  (`DROP_SHADOW:8:15:0 + INNER_SHADOW:0:0:0.5`). 바인딩은 fill 6 · text 2 가 전부 묶여 있다.
+- **실측 계약** — `figma/components.measured.json` 의 `menu-popover.sizes` 에
+  `composite-popover` 키. inset 8 · gap 8 · radius 16 · 기준폭 240.
+- **반대 방향** — `surface-geometry.browser.test.tsx` 가 그 값을 실브라우저에서 잰다. measured 만
+  더하면 「Figma 와 measured 는 서로 맞고 둘 다 코드와 틀린」 상태가 통과한다.
+- **parity 계약** — `verify-figma-parity.mjs` 에 `CompositePopover` 항목.
+
+### 이번에 드러난 것
+
+- **Figma 의 `minWidth` 는 `null` 이다.** 240 은 고정폭 프레임으로 그려져 `width` 에 있다. 그래서
+  채취 명세는 `minWidth` 를 담지 않고(빈 배열을 담으면 parity 가 「값이 없습니다」로 읽는다) 계약이
+  Figma `width` 를 CSS 하한(`--louis-popover-preferred-inline-size`)과 대조한다. MenuPanel 은
+  `minWidth` 가 160 으로 들어가 있어 그쪽을 본다 — 같은 표면인데 축이 갈리는 자리다.
+- **채취 절차를 MenuPanel 로 대조했다.** 새 명세로 MenuPanel 을 다시 떠 기존 되읽기 블록과 맞춰
+  보니 **값은 전부 같고** 빈 `parts: {}` 키의 유무만 달랐다. 되읽기 101개 기하 블록 중 10개가 그
+  키를 생략하고 2개가 빈 객체로 갖고 있다 — emitter 머리말이 적어 둔 「되읽기가 한 절차로
+  만들어지지 않았다」의 또 한 사례이며, parity 는 `parts ?? {}` 로 읽어 둘을 구분하지 않는다.
+
+### Changed
+
+- `menu-popover.md` 의 Availability `Figma` 행이 「패널 component는 남음」이라고 적고 있었다.
+  `MenuPanel` 은 그 전부터 서 있었고 이제 `CompositePopover` 까지 계약이 붙었으므로 고쳤다.
+  상태 판정 `partial` 은 그대로다 — 서브메뉴·체크 상태와 publish 가 남아 있다.
+
 ## 2026-08-30 (105) — 오버레이가 셸 램프를 상속해 구분선을 잃던 것을 고치고, composite-popover 표면을 세운다
 
 **앱 셸 화면에서만 프로필 팝오버의 구분선이 사라지고 있었다.** 패널은 `document.body` 로 포털되고

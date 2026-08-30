@@ -18,8 +18,8 @@
         "effect": 9
       },
       "components": {
-        "sets": 50,
-        "variants": 425
+        "sets": 51,
+        "variants": 426
       },
       "icons": 31,
       "templates": 1
@@ -7406,6 +7406,62 @@
         ]
       },
       "effects": {}
+    },
+    "CompositePopover": {
+      "outsideParts": [],
+      "tokenId": "menu-popover",
+      "variantCount": 1,
+      "hasDescription": true,
+      "properties": {},
+      "binding": {
+        "boundFills": 6,
+        "rawFills": 0,
+        "boundStrokes": 0,
+        "rawStrokes": 0,
+        "textStyled": 2,
+        "textUnstyled": 0
+      },
+      "geometry": {
+        "composite-popover": {
+          "slots": {},
+          "parts": {},
+          "height": [
+            148
+          ],
+          "width": [
+            240
+          ],
+          "paddingBlock": [
+            8
+          ],
+          "paddingBlockEnd": [
+            8
+          ],
+          "paddingInline": [
+            8
+          ],
+          "paddingInlineEnd": [
+            8
+          ],
+          "itemSpacing": [
+            8
+          ],
+          "cornerRadius": [
+            16
+          ],
+          "layoutMode": [
+            "VERTICAL"
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        }
+      },
+      "strokes": {},
+      "effects": {
+        "self": [
+          "DROP_SHADOW:8:15:0 + INNER_SHADOW:0:0:0.5"
+        ]
+      }
     },
     "Dialog": {
       "outsideParts": [],

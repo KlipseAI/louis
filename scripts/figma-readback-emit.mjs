@@ -64,6 +64,11 @@
 //   · `Slider` — `variantCount:12` 와 `State` 축은 있는데 `binding` 은 정확히 3분의 1이다
 //     (16/2/4 대 48/10/12). State 축이 생기기 전 4변형 시절의 수를 그대로 갖고 있다는 뜻이다.
 //     `overflowingParts` 에 `FocusRing` 이 없는 것도 같은 이유다.
+//   · `MenuPanel` — **값은 같고 형태만 다르다(2026-08-30 확인).** `CompositePopover` 를 등재하며
+//     같은 명세로 MenuPanel 을 다시 떠 대조했더니 기하·바인딩·effect 가 전부 일치하고 빈
+//     `parts: {}` 키의 유무만 달랐다. 되읽기 기하 블록 101개 중 10개가 그 키를 생략하고 2개가 빈
+//     객체로 갖고 있다 — 규칙이 여럿이었다는 또 한 증거다. parity 는 `parts ?? {}` 로 읽어 둘을
+//     구분하지 않으므로 검증력에는 영향이 없다.
 //   · `ProjectCard` — **해소됐다(2026-08-30).** 자손 이름이 Figma 에서 `Adornment` → `More`
 //     로 어긋나 있었고 계약이 두 이름을 따로 셌다. Figma 를 공개 API 이름 `Adornment` 로
 //     되돌리고 계약을 한 줄로 합쳤다. 비-오토레이아웃 프레임의 padding 을 빈 배열로 담는데
@@ -105,6 +110,11 @@ const CAPTURE = {
   "Button": {"key":{"by":["Size"]},"slots":{"LeftIcon":"size","RightIcon":"size","Spinner":"size"},"strokes":["LeftIcon.glyph","RightIcon.glyph","Spinner","self"]},
   "CarouselArrow": {"key":{"name":"base"},"parts":{"Caret":["width","height"],"glyph":["width","height"]},"strokes":["glyph"],"effects":["self"]},
   "Checkbox": {"key":{"name":"base"},"parts":{"Box":["width","height","cornerRadius"],"Check":["width","height"],"Dash":["width","height","cornerRadius"],"Label":["width","height","fontSize"]},"strokes":["Box","Check"]},
+  // CompositePopover 는 MenuPanel 과 같은 표면인데 **minWidth 를 담지 않는다.** Figma 의
+  // minWidth 가 `null` 이라(실측 2026-08-30) 채취하면 빈 배열이 되고, parity 는 빈 배열을
+  // 「값이 없습니다」로 읽어 담는 것 자체가 실패가 된다. 240 은 고정폭 프레임으로 그려져
+  // `width` 에 있으므로 계약이 그쪽을 CSS 하한과 대조한다(verify-figma-parity 의 계약 주석).
+  "CompositePopover": {"key":{"name":"composite-popover"},"fields":["height","width","paddingBlock","paddingBlockEnd","paddingInline","paddingInlineEnd","itemSpacing","cornerRadius","layoutMode"],"effects":["self"]},
   "Dialog": {"key":{"by":["Size"]},"parts":{"Footer":["paddingTop","paddingInline","paddingInlineEnd","paddingBottom","children"],"Actions":["itemSpacing","children","layoutMode","primaryAxisAlignItems"]},"strokes":["self"],"effects":["self"]},
   "EmptyState": {"key":{"name":"base"},"fields":["width","height","paddingBlock","paddingBlockEnd","paddingInline","paddingInlineEnd","itemSpacing","cornerRadius","layoutMode","strokeWeight"],"parts":{"Graphic":["width","height"],"Title":["width","height","fontSize","lineHeightPercent"],"Description":["width","height","fontSize","lineHeightPercent"],"Action":["width","height","paddingBlock","itemSpacing","layoutMode"]}},
   "FaqRow": {"key":{"by":["Expanded"]},"parts":{"Question":["width","height","paddingBlock","paddingBlockEnd","paddingInline","paddingInlineEnd","itemSpacing"],"QuestionText":["width","height","fontSize","lineHeightPercent"],"Icon":["width","height"],"Glyph":["fontSize"]}},

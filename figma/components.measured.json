@@ -480,6 +480,20 @@
           "$separatorMargin": "4px 구분선 마진",
           "separatorWidth": 1,
           "$separatorWidth": "1px 구분선 두께"
+        },
+        "composite-popover": {
+          "paddingBlock": 8,
+          "$paddingBlock": "space-control-sm 8. [data-kind=composite-popover]가 --louis-popover-inset을 이 값으로 덮는다. action menu의 space-overlay-inset 6과 갈리는 이유는 hit-target이다 — 44px 타겟이 시각 박스 바깥으로 넘쳐 패널 스크롤포트에 유령 스크롤바를 만들었다(scrollHeight 157 → 153 실측)",
+          "paddingInline": 8,
+          "$paddingInline": "space-control-sm 8. inset은 네 변이 같은 한 값이다",
+          "gap": 8,
+          "$gap": "space-control-sm 8. 임의의 컨트롤을 담으므로 행 간격이 메뉴 항목의 space-overlay-item-gap 2보다 넓다",
+          "borderWidth": 0,
+          "$borderWidth": "0. 경계는 border가 아니라 ambient 뒤에 조합한 inset 헤어라인이다 (DS-D-0023)",
+          "radius": 16,
+          "$radius": "radius-overlay 16. action menu와 같은 표면이라 곡률이 같다",
+          "minWidth": 240,
+          "$minWidth": "240px 기준폭. --louis-popover-preferred-inline-size가 min-inline-size의 하한이며, 내용이 그보다 좁으면 렌더 폭이 정확히 이 값이다. Figma는 그 폭을 고정폭 프레임으로 그렸고 프레임 자신의 minWidth는 null이다 — 계약이 Figma width를 이 값과 대조하는 이유"
         }
       },
       "states": {

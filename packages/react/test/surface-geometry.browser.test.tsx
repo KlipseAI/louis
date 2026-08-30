@@ -15,6 +15,10 @@ import {
   ActionMenuItem,
   ActionMenuTrigger,
   Button,
+  CompositePopover,
+  CompositePopoverContent,
+  CompositePopoverTitle,
+  CompositePopoverTrigger,
   Dialog,
   DialogActions,
   DialogFooter,
@@ -228,6 +232,42 @@ test("Menu 패널과 항목의 구조값이 components.measured.json과 같다",
   expect(px(itemStyle.paddingInlineStart), "item paddingInline").toBe(spec.itemPaddingInline);
   expect(px(itemStyle.columnGap), "item gap").toBe(spec.itemGap);
   expect(px(itemStyle.borderTopLeftRadius), "item radius").toBe(spec.itemRadius);
+});
+
+/**
+ * composite popover는 같은 `.louis-popover` 표면인데 두 값이 갈린다 — inset 8(action menu 6)과
+ * 행 간격 8(action menu 2). 그 갈림이 코드에 여전히 있는지를 여기서 잡는다. Figma 쪽은
+ * verify-figma-parity의 `CompositePopover` 계약이 같은 measured 값을 대조한다.
+ */
+test("composite popover 패널의 구조값이 components.measured.json과 같다", async () => {
+  const spec = measured.components["menu-popover"].sizes["composite-popover"];
+  await render(
+    <OverlayProvider>
+      <CompositePopover>
+        {/* 트리거는 자기 자신이 button이다. Button을 안에 넣으면 button 중첩이 된다. */}
+        <CompositePopoverTrigger data-testid="composite-trigger">프로필</CompositePopoverTrigger>
+        <CompositePopoverContent>
+          <CompositePopoverTitle>내 계정</CompositePopoverTitle>
+        </CompositePopoverContent>
+      </CompositePopover>
+    </OverlayProvider>,
+  );
+  await userEvent.click(find('[data-testid="composite-trigger"]'));
+  await expect
+    .poll(() => document.querySelector('.louis-popover[data-kind="composite-popover"]'))
+    .not.toBeNull();
+
+  const panel = find('.louis-popover[data-kind="composite-popover"]');
+  const style = getComputedStyle(panel);
+  expect(px(style.paddingBlockStart), "paddingBlock").toBe(spec.paddingBlock);
+  expect(px(style.paddingInlineStart), "paddingInline").toBe(spec.paddingInline);
+  expect(px(style.rowGap), "gap").toBe(spec.gap);
+  expect(px(style.borderTopLeftRadius), "radius").toBe(spec.radius);
+  expect(px(style.borderTopWidth), "borderWidth").toBe(spec.borderWidth);
+  // **offsetWidth를 쓴다.** enter 애니메이션의 scale 0.96이 걸려 있어 rect는 변환 후 크기를
+  // 돌려준다 — action menu 테스트가 같은 함정을 적어 두었다. 내용이 기준폭보다 좁으므로
+  // 렌더 폭은 정확히 min-inline-size의 하한이고, 그것이 Figma가 그린 프레임 폭이다.
+  expect(panel.offsetWidth, "minWidth").toBe(spec.minWidth);
 });
 
 /**

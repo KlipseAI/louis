@@ -15,7 +15,7 @@ summary: 트리거 옆에서 액션 목록이나 설정을 펼쳐 보여 줍니�
 | Surface       | 상태           | 근거                                                        |
 | ------------- | -------------- | ----------------------------------------------------------- |
 | Web           | `partial`      | `ActionMenu`·`CompositePopover` public export, 실브라우저 회귀 35건 |
-| Figma         | `partial`      | component set 5 variant (항목 상태). 패널 component는 남음. publish는 DS-F-008 |
+| Figma         | `partial`      | 항목 set 5 variant + 패널 component 셋(`MenuPanel`·`MenuSeparator`·`CompositePopover`)이 서 있고 셋 다 parity 계약이 붙었다. 서브메뉴·체크 상태와 publish(DS-F-008)가 남음 |
 | Documentation | `done`         | 이 문서                                                     |
 | Maturity      | `experimental` | 시각 회귀와 수동 screen-reader 검토가 아직 없음            |
 
@@ -313,8 +313,9 @@ Chromium에 얹어 두 문맥을 실측했다(2026-08-30).
 
 **아직 수렴하지 않은 것: 구분선 recipe.** [DS-D-0023](../governance/decisions/DS-D-0023-hairline-inset.md)은
 일반 0.5px stroke를 inset 헤어라인으로 통일했고 `.louis-menu__separator`가 그것을 쓴다
-(`menu-popover.css:239-249`). 제품 구분선은 아직 1px solid다(`Gnb.tsx:1115`). 채택하면 다크에서
-선이 `#575d68`(면 대비 38/255)에서 paper 10%(20/255)로 **옅어진다** — 라이트 결함을 고치는 일과
+([menu-popover.css:240-250](../../packages/css/src/component/menu-popover.css)).
+제품 구분선은 아직 1px solid다(`Gnb.tsx:1115`). 채택하면 다크에서 선이 `#575d68`(면 대비
+38/255)에서 paper 10%(20/255)로 **옅어진다** — 라이트 결함을 고치는 일과
 무관한 다크 변경이므로 여기서 하지 않고, 소유자 판정으로 남긴다.
 
 ### 세로 배치와 flip

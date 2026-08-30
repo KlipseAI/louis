@@ -8116,7 +8116,7 @@ DS의 duration·motion이 제품의 53단 중 60.4%만 덮는다.
 [product.drift.json](../../migration/product.drift.json)이 매 `verify`마다 다섯 축을 잰다.
 
 <!-- GENERATED:product-drift START -->
-배포본 `48f05c2a` 기준. **이 표는 생성물이다** — `scripts/measure-product-drift.mjs`가 매 `verify`마다 다시 잰다.
+배포본 `74a7303b` 기준. **이 표는 생성물이다** — `scripts/measure-product-drift.mjs`가 매 `verify`마다 다시 잰다.
 
 | 축 | 제품 | DS가 덮는 비율 | 최다값 | 결손 최다 |
 | --- | ---: | ---: | --- | --- |

@@ -1005,3 +1005,23 @@ owner의 지적이 맞았다 — **"제품에 정본이 없다"가 산문이었�
 우선순위는 실패가 먼저다.
 
 **TextNode는 이 정본에 없다.** 별도의 밝은 붉은 글자를 쓴다. 합류시킬지는 제품 판단이다.
+
+---
+
+## 「CSS 레시피는 있는데 Figma 에 없다」 다섯 건 — 실제로는 하나다 (2026-08-30)
+
+`packages/css/src/component/` 의 블록 클래스와 Figma 컴포넌트 50개를 대조하면 다섯이 뜬다.
+**셋은 결손이 아니다.** 대조만으로 목록을 만들면 그 셋이 할 일처럼 보이므로, 규범을 확인한
+결과를 여기 적어 둔다.
+
+| 클래스 | 판정 | 근거 |
+| --- | --- | --- |
+| `.louis-app-shell` | **진짜 결손 — 닫았다** | `DS · Templates` 의 `Pattern · AppShell`(982:175). 확장/접힘 두 상태. `figma-gap-registry` 의 앱 셸 조립 14건이 이것 하나로 함께 닫힌다 |
+| `.louis-icon` (Size 축) | **규범이 금지한다** | `foundations/iconography.md` Figma mapping: 「frame은 24×24 하나다. **크기 variant를 두지 않는다** — 두면 코드의 `IconSize`와 Figma variant가 두 정본이 된다」. 2026-08-30 에 이 항목을 결손으로 읽고 세트를 세웠다가 되돌렸다 |
+| `.louis-overlay-panel` | **그릴 것이 없다** | `--radix-popper-*` 를 재발행하는 **위치 계약**이다(overlay.css:11). 자기 기하·면·색이 없다. Figma 에 대응물이 있을 수 없다 |
+| `.louis-toast-region` · `__viewport` · `.louis-tooltip-positioner` | **그릴 것이 없다** | 같은 이유. 표면이 아니라 표면이 놓이는 자리를 계산하는 층이다 |
+| `composite-popover` kind | **진짜 결손 — 남아 있다** | `menu-popover.md:69` 이 「`kind` 는 prop 이 아니라 **별도 컴포넌트로 표현한다**」고 정했고 `:18` 이 「패널 component는 남음」이라고 적는다. Figma 의 `MenuPanel` 은 `action-menu` 쪽 하나뿐이다. 다만 `:295` 가 경고한다 — 패널 표면 색이 사이드바 유무로 갈리므로 **한 값으로 그리면 둘 중 하나에서 반드시 틀린다.** 그 갈림을 어떻게 표현할지가 먼저다 |
+
+**교훈.** 「레시피 목록 − Figma 목록」은 할 일 목록이 아니다. 세 가지가 섞여 있다 —
+진짜 결손 · 규범이 금지한 것 · 애초에 그릴 수 없는 것. 대조 결과에 규범을 붙이지 않으면
+금지된 것을 만들게 된다. 실제로 그렇게 됐다.

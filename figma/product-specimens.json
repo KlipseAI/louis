@@ -342,50 +342,6 @@
       ]
     },
     {
-      "id": "button/adminModalCancel",
-      "kind": "button",
-      "label": "관리자 모달 취소 버튼 — MODAL_BUTTON_BASE 참조 합성",
-      "jsx": "apps/web/app/admin/AdminClient.tsx:2139-2144",
-      "file": "apps/web/app/admin/AdminClient.tsx",
-      "node": {
-        "part": "MODAL_CANCEL",
-        "tag": "button",
-        "text": "취소"
-      },
-      "host": [
-        {
-          "file": "apps/web/app/admin/AdminClient.tsx",
-          "part": "MODAL_CARD"
-        },
-        {
-          "file": "apps/web/app/admin/AdminClient.tsx",
-          "part": "MODAL_ACTIONS"
-        }
-      ]
-    },
-    {
-      "id": "button/adminModalConfirm",
-      "kind": "button",
-      "label": "관리자 모달 확인 버튼 — MODAL_BUTTON_BASE 참조 합성",
-      "jsx": "apps/web/app/admin/AdminClient.tsx:2145-2152",
-      "file": "apps/web/app/admin/AdminClient.tsx",
-      "node": {
-        "part": "MODAL_CONFIRM",
-        "tag": "button",
-        "text": "지급"
-      },
-      "host": [
-        {
-          "file": "apps/web/app/admin/AdminClient.tsx",
-          "part": "MODAL_CARD"
-        },
-        {
-          "file": "apps/web/app/admin/AdminClient.tsx",
-          "part": "MODAL_ACTIONS"
-        }
-      ]
-    },
-    {
       "id": "button/gnbSidebarCta",
       "kind": "button",
       "label": "GNB 사이드바 CTA 버튼 — 라벨 스팬을 자식으로 갖는 민트 알약",
@@ -411,139 +367,6 @@
         {
           "file": "apps/web/components/navigation/Gnb.tsx",
           "part": "sidebarUpgradeTooltipHost"
-        }
-      ]
-    },
-    {
-      "id": "button/highlightStartOver",
-      "kind": "button",
-      "label": "공용 버튼 secondary(md) — 하이라이트 실패 화면 처음부터 버튼",
-      "jsx": "apps/web/components/scenes/HighlightProjectScene.tsx:2771-2773",
-      "file": "apps/web/components/ui/Button.tsx",
-      "node": {
-        "part": "SECONDARY",
-        "tag": "button",
-        "typography": "type-body-14-medium",
-        "children": [
-          {
-            "part": "LABEL",
-            "tag": "span",
-            "text": "처음부터 다시"
-          }
-        ],
-        "parts": [
-          "ROOT",
-          "SIZE_MD",
-          "BORDER_SECONDARY",
-          "SECONDARY"
-        ]
-      },
-      "host": [
-        {
-          "file": "apps/web/components/scenes/highlightSceneStyles.ts",
-          "part": "reviewActions"
-        }
-      ]
-    },
-    {
-      "id": "button/nodeCanvasHomeNew",
-      "kind": "button",
-      "label": "공용 버튼 primary sm — 노드캔버스 홈 새 캔버스(왼쪽 아이콘)",
-      "jsx": "apps/web/components/scenes/NodeCanvasHomeScene.tsx:1319-1326",
-      "file": "apps/web/components/ui/Button.tsx",
-      "node": {
-        "part": "PRIMARY",
-        "tag": "button",
-        "typography": "type-body-14-medium",
-        "children": [
-          {
-            "part": "ICON",
-            "tag": "span"
-          },
-          {
-            "part": "LABEL",
-            "tag": "span",
-            "text": "새 캔버스"
-          }
-        ],
-        "parts": [
-          "ROOT",
-          "SIZE_SM",
-          "BORDER_NONE",
-          "PRIMARY",
-          "LEFT_ICON_SM"
-        ]
-      },
-      "host": [
-        {
-          "file": "apps/web/components/scenes/NodeCanvasHomeScene.tsx",
-          "part": "ARCHIVE_SECTION_HEADER"
-        }
-      ]
-    },
-    {
-      "id": "button/shortsResultDownload",
-      "kind": "button",
-      "label": "공용 버튼 ghost(md) — 숏폼 결과 다운로드. 소비처가 전폭·소프트 배경 상수를 덧입힌다(jsxQuote 참조)",
-      "jsx": "apps/web/app/highlight/[projectId]/shorts/[shortId]/page.tsx:1334-1341",
-      "file": "apps/web/components/ui/Button.tsx",
-      "node": {
-        "part": "GHOST",
-        "tag": "button",
-        "typography": "type-body-14-medium",
-        "children": [
-          {
-            "part": "LABEL",
-            "tag": "span",
-            "text": "다운로드"
-          }
-        ],
-        "parts": [
-          "ROOT",
-          "SIZE_MD",
-          "BORDER_NONE",
-          "GHOST"
-        ]
-      },
-      "host": [
-        {
-          "file": "apps/web/app/highlight/[projectId]/shorts/[shortId]/page.tsx",
-          "part": "SHORT_RESULT_CARD"
-        },
-        {
-          "file": "apps/web/app/highlight/[projectId]/shorts/[shortId]/page.tsx",
-          "part": "SHORT_RESULT_ACTIONS"
-        }
-      ]
-    },
-    {
-      "id": "button/youtubeConnect",
-      "kind": "button",
-      "label": "공용 버튼 primary(md) — 유튜브 업로드 모달 연결 CTA",
-      "jsx": "apps/web/components/youtube/YoutubeUploadModal.tsx:1042-1048",
-      "file": "apps/web/components/ui/Button.tsx",
-      "node": {
-        "part": "PRIMARY",
-        "tag": "button",
-        "typography": "type-body-14-medium",
-        "children": [
-          {
-            "part": "LABEL",
-            "tag": "span",
-            "text": "연결하기"
-          }
-        ],
-        "parts": [
-          "ROOT",
-          "SIZE_MD",
-          "BORDER_NONE",
-          "PRIMARY"
-        ]
-      },
-      "host": [
-        {
-          "file": "apps/web/components/youtube/YoutubeUploadModal.tsx",
-          "part": "CONNECT_BOX"
         }
       ]
     },
@@ -681,73 +504,6 @@
         {
           "file": "apps/web/app/signup/page.tsx",
           "part": "LEGAL_AGREEMENT_ROW"
-        }
-      ]
-    },
-    {
-      "id": "checkbox/videoEditSourceRow",
-      "kind": "checkbox",
-      "label": "영상 편집 소스 고르기 체크박스 — 네이티브 입력 자신",
-      "jsx": "apps/web/components/scenes/VideoEditProjectPicker.tsx:499-505",
-      "jsxQuote": "                    className={SOURCE_ROW_CHECK}",
-      "file": "apps/web/components/scenes/VideoEditProjectPicker.tsx",
-      "node": {
-        "part": "SOURCE_ROW_CHECK",
-        "tag": "input"
-      },
-      "host": [
-        {
-          "file": "apps/web/components/scenes/VideoEditProjectPicker.tsx",
-          "part": "SOURCE_ROW"
-        }
-      ]
-    },
-    {
-      "id": "dialog/appHome",
-      "kind": "dialog",
-      "label": "삭제 확인 모달",
-      "jsx": "apps/web/components/scenes/AppHomeScene.tsx:1379-1410",
-      "file": "apps/web/components/scenes/appHomeSceneStyles.ts",
-      "node": {
-        "part": "modalCard",
-        "tag": "div",
-        "children": [
-          {
-            "part": "modalTitle",
-            "tag": "h3",
-            "typography": "type-body-16-semibold",
-            "text": "프로젝트를 삭제할까요?"
-          },
-          {
-            "part": "modalDescription",
-            "tag": "p",
-            "typography": "type-body-16-regular",
-            "text": "삭제하면 되돌릴 수 없습니다."
-          },
-          {
-            "part": "modalActions",
-            "tag": "div",
-            "children": [
-              {
-                "part": "modalCancel",
-                "tag": "button",
-                "typography": "type-body-16-medium",
-                "text": "취소"
-              },
-              {
-                "part": "modalConfirm",
-                "tag": "button",
-                "typography": "type-body-16-medium",
-                "text": "삭제"
-              }
-            ]
-          }
-        ]
-      },
-      "host": [
-        {
-          "file": "apps/web/components/scenes/appHomeSceneStyles.ts",
-          "part": "modalOverlay"
         }
       ]
     },
@@ -2105,30 +1861,6 @@
       ]
     },
     {
-      "id": "progress-bar/highlightUpload",
-      "kind": "progress-bar",
-      "label": "하이라이트 업로드 진행바",
-      "jsx": "apps/web/components/scenes/HighlightProjectScene.tsx:2650-2655",
-      "jsxQuote": "                  <div className={styles.progressBarTrack}>",
-      "file": "apps/web/components/scenes/highlightSceneStyles.ts",
-      "node": {
-        "part": "progressBarTrack",
-        "tag": "div",
-        "children": [
-          {
-            "part": "progressBarFill",
-            "tag": "div"
-          }
-        ]
-      },
-      "host": [
-        {
-          "file": "apps/web/components/scenes/highlightSceneStyles.ts",
-          "part": "statusCard"
-        }
-      ]
-    },
-    {
       "id": "progress-ring/gnbTopBar",
       "kind": "progress-ring",
       "label": "GNB 상단 바 프로필 크레딧 링 — 버튼의 ::after가 링을 그린다",
@@ -2270,7 +2002,7 @@
                 ]
               }
             ],
-            "inlineAt": "apps/web/components/scenes/AppHomeScene.tsx:1093"
+            "inlineAt": "apps/web/components/scenes/AppHomeScene.tsx:1127"
           }
         ]
       },
@@ -2371,7 +2103,7 @@
                 ]
               }
             ],
-            "inlineAt": "apps/web/components/scenes/NodeCanvasHomeScene.tsx:1392"
+            "inlineAt": "apps/web/components/scenes/NodeCanvasHomeScene.tsx:1480"
           }
         ]
       },
@@ -2576,58 +2308,6 @@
                 "tag": "span",
                 "typography": "type-caption-12-regular",
                 "text": "00:00 – 00:15 · 15s"
-              }
-            ]
-          }
-        ]
-      },
-      "host": [
-        {
-          "file": "apps/web/components/scenes/highlightSceneStyles.ts",
-          "part": "clipDetailList"
-        }
-      ]
-    },
-    {
-      "id": "selectable-list-row/highlightReviewClip",
-      "kind": "selectable-list-row",
-      "label": "하이라이트 검수 클립 행 — 체크박스가 있는 다중 선택 행",
-      "jsx": "apps/web/components/scenes/HighlightProjectScene.tsx:2922-2961",
-      "jsxQuote": "                                  className={`${styles.clipDetailListItem}${isActive ? ` ${styles.clipDetailListItemActive}` : \"\"}`}",
-      "file": "apps/web/components/scenes/highlightSceneStyles.ts",
-      "node": {
-        "part": "clipDetailListItem",
-        "tag": "div",
-        "children": [
-          {
-            "part": "segmentCheckbox",
-            "tag": "input"
-          },
-          {
-            "part": "clipDetailListThumb",
-            "tag": "div",
-            "children": [
-              {
-                "part": "clipVideo",
-                "tag": "video"
-              }
-            ]
-          },
-          {
-            "part": "clipDetailListInfo",
-            "tag": "div",
-            "children": [
-              {
-                "part": "clipDetailListTitle",
-                "tag": "p",
-                "typography": "type-body-14-medium",
-                "text": "결승 3점슛이 들어간 순간"
-              },
-              {
-                "part": "clipDetailListMeta",
-                "tag": "span",
-                "typography": "type-caption-12-regular",
-                "text": "00:12 – 00:27 · 점수 92"
               }
             ]
           }
@@ -2865,24 +2545,6 @@
       ]
     },
     {
-      "id": "slider/bgmNode",
-      "kind": "slider",
-      "label": "BGM 노드 range 슬라이더 (길이·볼륨·강도 공용)",
-      "jsx": "apps/web/components/scenes/create/node-canvas-v2/nodes/BgmNode.tsx:1429-1446",
-      "jsxQuote": "                                className={RANGE_SLIDER}",
-      "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/BgmNode.tsx",
-      "node": {
-        "part": "RANGE_SLIDER",
-        "tag": "input"
-      },
-      "host": [
-        {
-          "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/BgmNode.tsx",
-          "part": "SLIDER_DROPDOWN"
-        }
-      ]
-    },
-    {
       "id": "slider/colorPopover",
       "kind": "slider",
       "label": "컬러 팝오버 색상·투명도 슬라이더 행",
@@ -2925,126 +2587,6 @@
         {
           "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/ColorPopover.tsx",
           "part": "POPOVER"
-        }
-      ]
-    },
-    {
-      "id": "slider/highlightRefineOpacity",
-      "kind": "slider",
-      "label": "하이라이트 다듬기 위젯 불투명도 슬라이더",
-      "jsx": "apps/web/components/scenes/HighlightProjectScene.tsx:3570-3604",
-      "jsxQuote": "                <label className={styles.refinementExpandShellOpacity}>",
-      "file": "apps/web/components/scenes/highlightSceneStyles.ts",
-      "node": {
-        "part": "refinementExpandShellOpacity",
-        "tag": "label",
-        "children": [
-          {
-            "part": "refinementExpandShellOpacitySlider",
-            "tag": "input"
-          }
-        ]
-      },
-      "host": [
-        {
-          "file": "apps/web/components/scenes/highlightSceneStyles.ts",
-          "part": "refinementExpandShellControls"
-        }
-      ]
-    },
-    {
-      "id": "slider/ttsNode",
-      "kind": "slider",
-      "label": "TTS 노드 range 슬라이더 (속도·볼륨 공용)",
-      "jsx": "apps/web/components/scenes/create/node-canvas-v2/nodes/TtsNode.tsx:1349-1366",
-      "jsxQuote": "                        className={RANGE_SLIDER}",
-      "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/TtsNode.tsx",
-      "node": {
-        "part": "RANGE_SLIDER",
-        "tag": "input"
-      },
-      "host": [
-        {
-          "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/TtsNode.tsx",
-          "part": "SLIDER_DROPDOWN"
-        }
-      ]
-    },
-    {
-      "id": "spinner/editNodeProcess",
-      "kind": "spinner",
-      "label": "편집 노드 처리 중 스피너",
-      "jsx": "apps/web/components/scenes/create/node-canvas-v2/nodes/EditNode.tsx:1074-1074",
-      "jsxQuote": "                  <span className={PROCESS_BUTTON_SPINNER} aria-hidden />",
-      "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/EditNode.tsx",
-      "node": {
-        "part": "PROCESS_BUTTON_SPINNER",
-        "tag": "span"
-      },
-      "host": [
-        {
-          "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/EditNode.tsx",
-          "part": "PROCESS_BUTTON"
-        }
-      ]
-    },
-    {
-      "id": "spinner/gnbBackButton",
-      "kind": "spinner",
-      "label": "GNB 뒤로가기 스피너 — 슬롯이 링을 감싼다",
-      "jsx": "apps/web/components/navigation/Gnb.tsx:4108-4113",
-      "jsxQuote": "                      className={gnbStyles.backButtonLoading}",
-      "file": "apps/web/components/navigation/Gnb.tsx",
-      "node": {
-        "part": "backButtonLoading",
-        "tag": "span",
-        "children": [
-          {
-            "part": "projectSaveSpinner",
-            "tag": "span"
-          }
-        ]
-      },
-      "host": [
-        {
-          "file": "apps/web/components/navigation/Gnb.tsx",
-          "part": "iconButton"
-        }
-      ]
-    },
-    {
-      "id": "spinner/highlightScene",
-      "kind": "spinner",
-      "label": "하이라이트 히스토리 로딩 스피너",
-      "jsx": "apps/web/components/scenes/HighlightScene.tsx:116-118",
-      "jsxQuote": "  return <span className={styles.spinner} aria-hidden />;",
-      "file": "apps/web/components/scenes/highlightSceneStyles.ts",
-      "node": {
-        "part": "spinner",
-        "tag": "span"
-      },
-      "host": [
-        {
-          "file": "apps/web/components/scenes/highlightSceneStyles.ts",
-          "part": "historyLoading"
-        }
-      ]
-    },
-    {
-      "id": "spinner/highlightShorts",
-      "kind": "spinner",
-      "label": "숏폼 편집 로딩 스피너 — 같은 링을 옮겨 적은 둘째 벌",
-      "jsx": "apps/web/app/highlight/[projectId]/shorts/[shortId]/page.tsx:1053-1053",
-      "jsxQuote": "                <span className={SPINNER} aria-hidden />",
-      "file": "apps/web/app/highlight/[projectId]/shorts/[shortId]/page.tsx",
-      "node": {
-        "part": "SPINNER",
-        "tag": "span"
-      },
-      "host": [
-        {
-          "file": "apps/web/app/highlight/[projectId]/shorts/[shortId]/page.tsx",
-          "part": "STATUS_CARD"
         }
       ]
     },
@@ -3203,11 +2745,7 @@
             "typography": "type-body-16-regular",
             "text": "저장했어요"
           }
-        ],
-        "inlineFrom": {
-          "file": "apps/web/components/scenes/AppHomeScene.tsx",
-          "name": "floatingCtaBlurStyle"
-        }
+        ]
       },
       "host": [],
       "hostNone": "부모가 표본의 레이아웃을 만들지 못한다. 표본 자신이 position:fixed 라서 flex 컨테이너의 자식 항목(flex item)이 아니다 — display:flex·flex-direction:column·align-items:stretch 가 표본 크기 계산에 전혀 관여하지 않는다. 즉 이 부모 문맥을 넣어도 잰 값이 안 바뀐다."
@@ -3461,217 +2999,103 @@
           "part": "ANALYTICS_SCROLL_STACK"
         }
       ]
-    },
-    {
-      "id": "scene/staticHighlightDemo",
-      "kind": "scene",
-      "label": "랜딩 하이라이트 빈 상태 — 데모 패드·창 셸·StaticHighlightDemo 전체 합성",
-      "jsx": "apps/web/components/landing/demo-snapshots/EmptyProjectDemoPad.tsx:107-136; apps/web/components/landing/demo-snapshots/StaticHighlightDemo.tsx:27-99",
-      "file": "apps/web/components/landing/demo-snapshots/EmptyProjectDemoPad.tsx",
-      "liveOnly": true,
-      "node": {
-        "part": "PAD",
-        "tag": "div",
-        "children": [
-          {
-            "part": "SR_ONLY",
-            "tag": "p",
-            "text": "Klipse 하이라이트 화면 데모 — 아직 프로젝트가 없는 첫 화면을 보여줍니다."
-          },
-          {
-            "part": "WINDOW",
-            "tag": "div",
-            "children": [
-              {
-                "part": "TITLEBAR",
-                "tag": "div",
-                "children": [
-                  {
-                    "part": "DOTS",
-                    "tag": "span",
-                    "children": [
-                      {
-                        "part": "TITLEBAR_DOT_1",
-                        "tag": "span"
-                      },
-                      {
-                        "part": "TITLEBAR_DOT_2",
-                        "tag": "span"
-                      },
-                      {
-                        "part": "TITLEBAR_DOT_3",
-                        "tag": "span"
-                      }
-                    ]
-                  },
-                  {
-                    "part": "WINDOW_TITLE",
-                    "tag": "span",
-                    "typography": "type-caption-12-medium",
-                    "text": "Klipse — 하이라이트"
-                  }
-                ]
-              },
-              {
-                "part": "WINDOW_BODY",
-                "tag": "div",
-                "children": [
-                  {
-                    "part": "SCENE_HOST",
-                    "tag": "div",
-                    "children": [
-                      {
-                        "part": "SCENE_FIT",
-                        "tag": "div",
-                        "children": [
-                          {
-                            "file": "apps/web/components/landing/demo-snapshots/StaticHighlightDemo.tsx",
-                            "part": "STAGE",
-                            "tag": "div",
-                            "children": [
-                              {
-                                "file": "apps/web/components/scenes/highlightSceneStyles.ts",
-                                "part": "emptyHero",
-                                "tag": "div",
-                                "children": [
-                                  {
-                                    "part": "emptyHeroWordmark",
-                                    "tag": "img"
-                                  },
-                                  {
-                                    "part": "emptyHeroTagline",
-                                    "tag": "p",
-                                    "typography": "type-body-14-regular",
-                                    "text": "롱폼 영상에서 핵심 장면만 골라 짧은 클립을 자동으로 생성하고,\n원하는 클립 수까지 한 번에 골라 만들어 드립니다."
-                                  }
-                                ]
-                              },
-                              {
-                                "file": "apps/web/components/scenes/highlightSceneStyles.ts",
-                                "part": "uploadCard",
-                                "parts": [
-                                  "uploadCard",
-                                  "uploadCardEmpty"
-                                ],
-                                "tag": "section",
-                                "children": [
-                                  {
-                                    "part": "uploadDropZone",
-                                    "tag": "span",
-                                    "children": [
-                                      {
-                                        "part": "uploadGlyphMask",
-                                        "tag": "span"
-                                      },
-                                      {
-                                        "part": "uploadPrompt",
-                                        "tag": "span",
-                                        "typography": "type-body-16-regular",
-                                        "text": "롱폼 영상을 업로드해 주세요."
-                                      }
-                                    ]
-                                  },
-                                  {
-                                    "part": "uploadCardActions",
-                                    "tag": "div",
-                                    "children": [
-                                      {
-                                        "part": "themeRow",
-                                        "tag": "div",
-                                        "children": [
-                                          {
-                                            "part": "themeDropdownTrigger",
-                                            "tag": "span",
-                                            "typography": "type-caption-12-regular",
-                                            "children": [
-                                              {
-                                                "part": "themeDropdownLabel",
-                                                "tag": "span",
-                                                "text": "주제"
-                                              },
-                                              {
-                                                "part": "themeDropdownChevron",
-                                                "tag": "svg",
-                                                "children": [
-                                                  {
-                                                    "part": "themeDropdownChevronPath",
-                                                    "tag": "path"
-                                                  }
-                                                ]
-                                              }
-                                            ]
-                                          }
-                                        ]
-                                      },
-                                      {
-                                        "part": "generateCol",
-                                        "tag": "div",
-                                        "children": [
-                                          {
-                                            "file": "apps/web/components/scenes/create/node-canvas-v2/components/NodePromptGenerateButton.tsx",
-                                            "part": "ROOT",
-                                            "tag": "button",
-                                            "consumerClasses": [
-                                              {
-                                                "file": "apps/web/components/scenes/highlightSceneStyles.ts",
-                                                "part": "generateBtnHost"
-                                              }
-                                            ],
-                                            "children": [
-                                              {
-                                                "part": "OVERLAY_STROKE",
-                                                "tag": "span"
-                                              },
-                                              {
-                                                "part": "CONTENT",
-                                                "tag": "span",
-                                                "children": [
-                                                  {
-                                                    "part": "ICON",
-                                                    "tag": "svg",
-                                                    "children": [
-                                                      {
-                                                        "part": "ICON_PATH",
-                                                        "tag": "path"
-                                                      }
-                                                    ]
-                                                  }
-                                                ]
-                                              }
-                                            ]
-                                          }
-                                        ]
-                                      }
-                                    ]
-                                  }
-                                ]
-                              }
-                            ]
-                          }
-                        ]
-                      }
-                    ]
-                  }
-                ]
-              }
-            ]
-          }
-        ]
-      },
-      "host": [
-        {
-          "file": "apps/web/app/HomePageClient.tsx",
-          "part": "MEDIA_INTRO_SECTION"
-        },
-        {
-          "file": "apps/web/app/HomePageClient.tsx",
-          "part": "CONTAINER_WIDE"
-        }
-      ]
     }
   ],
   "$correctionLog": "첫 판에서 넷을 상상했다 — ① 모달 카드에 typography 클래스가 있다고 적었다(없다) ② 마이페이지 토스트에 toastText 자식이 있다고 적었다(없다. 토스트 자신이 글자를 갖는다) ③ 토스트 글자를 body-14-medium이라고 적었다(body-16-regular다) ④ 마이페이지 모달의 버튼 글자를 body-16이라고 적었다(그 소비처는 body-14다). 스크립트가 없는 상수를 만나면 죽는다 — ②가 그렇게 잡혔다. 나머지 셋은 JSX를 읽어 고쳤다. 2026-08-21 재기준선(6337ad54 → ada1b939)에서 하나를 더 뺐다 — 배포본이 `Button.tsx`의 `PRIMARY_HOOK`을 지웠다. hl-* 라우트의 CSS 모듈 훅이라 스타일을 정의한 적이 없고, 그 라우트가 삭제 예정이라 함께 사라졌다. 표본 둘의 parts에서 뺐고 값 변화는 없다.",
   "$inlineRule": "소비처가 인라인 style로 얹는 선언은 클래스를 이긴다. 그 값을 여기 적지 않고 **상수 이름만** 가리킨다(`inlineFrom`) — 값은 스크립트가 소스에서 꺼낸다.",
   "$hostRule": "`host`는 제품에서 이 표본을 감싸는, **크기 계산을 바꾸는** 부모다. 표본을 부모 없이 재면 flex 문맥이 빠져 높이가 `여백+인라인상자`로 잡힌다 — 제품에서는 blockify되어 `여백+행간상자`다. 문맥 없이 잰 값은 실측이 아니다. 크기를 바꾸는 부모가 없는 것(position:fixed로 body에 포털되는 토스트·툴팁 등)은 `host: []`와 함께 `hostNone`에 **확인한 사유**를 적는다 — 비어 있는 것과 확인해서 없는 것은 다르다.",
-  "$retired": "2026-08-27 재기준선: `banner-carousel/highlightTab` · `banner-carousel/tabCarouselControls` 두 표본을 지웠다. 정본 파일 `apps/web/components/banners/TabBannerCarousel.tsx` 가 제품 `6602fd24` 에서 삭제됐고 소비처도 함께 사라졌다 — 캐러셀은 앱 홈 하나만 남아 `AppHomeScene.tsx` 안으로 들어갔고, 그 구조는 `banner-carousel/appHome` · `banner-carousel/appHomeControls` · `banner-carousel/appHomeFrame` 세 표본이 이미 갖고 있다. 구조를 옮긴 것이 아니라 **없어진 소비처를 지운 것**이다."
+  "$retired": "2026-08-27 재기준선: `banner-carousel/highlightTab` · `banner-carousel/tabCarouselControls` 두 표본을 지웠다. 정본 파일 `apps/web/components/banners/TabBannerCarousel.tsx` 가 제품 `6602fd24` 에서 삭제됐고 소비처도 함께 사라졌다 — 캐러셀은 앱 홈 하나만 남아 `AppHomeScene.tsx` 안으로 들어갔고, 그 구조는 `banner-carousel/appHome` · `banner-carousel/appHomeControls` · `banner-carousel/appHomeFrame` 세 표본이 이미 갖고 있다. 구조를 옮긴 것이 아니라 **없어진 소비처를 지운 것**이다.",
+  "$retiredSpecimens": [
+    {
+      "id": "scene/staticHighlightDemo",
+      "retired": "2026-08-30",
+      "reason": "재던 UI(랜딩 창 셸 데모 패드)가 제품 8802565e 에서 삭제됐다. 표본이 지워진 파일을 가리킨 채 남아 verify-product-scenes 가 영구 빨강이었다. 랜딩에 합성 장면이 다시 서면 새 id 로 세운다."
+    },
+    {
+      "id": "button/adminModalCancel",
+      "retired": "2026-08-30",
+      "reason": "제품이 admin 표준 버튼을 LOUIS Button 으로 옮기며(912df59a) MODAL_CANCEL 상수를 지웠다. 그 자리는 button-* 탐침이 .louis-button 으로 잰다."
+    },
+    {
+      "id": "button/adminModalConfirm",
+      "retired": "2026-08-30",
+      "reason": "위와 같다(912df59a)."
+    },
+    {
+      "id": "button/highlightStartOver",
+      "retired": "2026-08-30",
+      "reason": "제품 Button.tsx 가 클래스 상수(SECONDARY·LABEL)를 버리고 .louis-button + data-variant 만 그린다. 그 자리는 button-* 탐침이 잰다."
+    },
+    {
+      "id": "button/nodeCanvasHomeNew",
+      "retired": "2026-08-30",
+      "reason": "위와 같다 — PRIMARY·ICON·LABEL 상수가 없어졌다."
+    },
+    {
+      "id": "button/shortsResultDownload",
+      "retired": "2026-08-30",
+      "reason": "위와 같다 — GHOST·LABEL 상수가 없어졌다."
+    },
+    {
+      "id": "button/youtubeConnect",
+      "retired": "2026-08-30",
+      "reason": "위와 같다 — PRIMARY·LABEL 상수가 없어졌다."
+    },
+    {
+      "id": "checkbox/videoEditSourceRow",
+      "retired": "2026-08-30",
+      "reason": "제품이 .louis-checkbox 를 채택하며 SOURCE_ROW_CHECK 상수를 지웠다(VideoEditProjectPicker.tsx:140-143 이 그 사실을 적는다). 그 자리는 checkbox 탐침이 잰다."
+    },
+    {
+      "id": "dialog/appHome",
+      "retired": "2026-08-30",
+      "reason": "대화상자 액션이 LOUIS Button 으로 옮겨가며(61ef0db1) modalCancel·modalConfirm 상수가 없어졌다."
+    },
+    {
+      "id": "progress-bar/highlightUpload",
+      "retired": "2026-08-30",
+      "reason": "진행바가 LOUIS 로 넘어가며(5261daea) progressBarTrack·progressBarFill 이 없어졌다. 그 자리는 progress-bar-* 탐침이 잰다."
+    },
+    {
+      "id": "selectable-list-row/highlightReviewClip",
+      "retired": "2026-08-30",
+      "reason": "segmentCheckbox 가 LOUIS checkbox 채택으로 없어졌다."
+    },
+    {
+      "id": "slider/bgmNode",
+      "retired": "2026-08-30",
+      "reason": "RANGE_SLIDER 상수가 없어졌다. 슬라이더는 slider-* 탐침이 제품의 두 맥락(패널 안/밖)으로 잰다."
+    },
+    {
+      "id": "slider/highlightRefineOpacity",
+      "retired": "2026-08-30",
+      "reason": "refinementExpandShellOpacitySlider 상수가 없어졌다."
+    },
+    {
+      "id": "slider/ttsNode",
+      "retired": "2026-08-30",
+      "reason": "RANGE_SLIDER 상수가 없어졌다."
+    },
+    {
+      "id": "spinner/editNodeProcess",
+      "retired": "2026-08-30",
+      "reason": "스피너가 LOUIS 로 넘어가며(cd2a6210) PROCESS_BUTTON_SPINNER 가 없어졌다. 그 자리는 spinner-md·spinner-sm 탐침이 잰다."
+    },
+    {
+      "id": "spinner/gnbBackButton",
+      "retired": "2026-08-30",
+      "reason": "위와 같다 — projectSaveSpinner 가 없어졌다."
+    },
+    {
+      "id": "spinner/highlightScene",
+      "retired": "2026-08-30",
+      "reason": "위와 같다 — spinner 상수가 없어졌다."
+    },
+    {
+      "id": "spinner/highlightShorts",
+      "retired": "2026-08-30",
+      "reason": "위와 같다 — SPINNER 가 없어졌다."
+    }
+  ],
+  "$retiredNote": "표본이 가리키던 제품 상수가 **LOUIS 채택으로 사라진** 자리다. 지운 것이 아니라 옮겨 간 것이며, 같은 자리를 이제 LOUIS 후크 탐침(measure-product-components.mjs)이 잰다. 표본을 남겨 두면 측정기가 「상수가 없습니다」로 죽고, 그 빨강이 환경 탓처럼 보인다 — 실제로 verify-product-variants 가 오래 그 상태였다."
 }

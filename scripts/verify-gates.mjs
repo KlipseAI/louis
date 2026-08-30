@@ -394,13 +394,16 @@ withCanary(
 withCanary(
   "figma/product-specimens.json",
   (source) => {
+    // **기존 liveOnly 표본을 본뜨지 않는다.** 그전에는 `scene/staticHighlightDemo` 를 복제했는데,
+    // 그 표본이 은퇴하자(2026-08-30, 재던 랜딩 데모가 제품에서 삭제됨) 본뜰 것이 없어 카나리아가
+    // 입력을 바꾸지 못했다 — **집합이 비면 검출력을 증명할 수 없는 카나리아**였다. 소유 목록에
+    // 없는 id 를 새로 지어 넣으면 집합이 비어 있어도 커버리지가 반드시 어긋난다.
     const catalog = JSON.parse(source);
-    const template = catalog.specimens.find((specimen) => specimen.id === "scene/staticHighlightDemo");
-    if (!template) return source;
     catalog.specimens.push({
-      ...template,
       id: "scene/unownedLiveOnlyCanary",
+      kind: "scene",
       label: "unowned liveOnly canary",
+      liveOnly: true,
     });
     return JSON.stringify(catalog, null, 2) + "\n";
   },

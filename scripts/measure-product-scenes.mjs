@@ -28,6 +28,28 @@ const unavailable = (reason) => {
 };
 
 if (!existsSync(resolve(productRoot, ".git"))) unavailable("제품 저장소가 없습니다: " + productRoot);
+
+// **잴 것이 있는지, 빌드를 요구하기 전에 본다.** 살아 있는 표본이 없는데 빌드 루트가 없다고
+// 실패하면 원인이 "환경이 없다"로 보이지만 사실은 "잴 것이 없다"다 — 유일한 표본이 가리키던
+// 랜딩 데모가 제품 `8802565e` 에서 지워졌는데 표본은 남아 있었고, 게이트는 환경 탓을 하며
+// 영구 빨강이었다(2026-08-30).
+//
+// **제품 저장소 확인보다 뒤에 둔다.** `verify-gate-split` 이 「제품/빌드 없이 exit 0 하면
+// 로컬 게이트가 조용히 꺼진 것」이라고 판정하고, 그 진단 문구를 직접 확인한다. 순서를 바꾸면
+// 그 메타 게이트가 깨진다 — 실제로 한 번 그렇게 만들었다가 잡혔다.
+{
+  const specimens = JSON.parse(readFileSync(specimenPath, "utf8")).specimens;
+  assertLiveProductSceneCoverage(specimens);
+  if (specimens.filter((entry) => entry.liveOnly).length === 0) {
+    console.log(
+      "[product-scenes] 잴 살아 있는 장면이 없습니다 — liveOnly 표본 0개. " +
+        "랜딩에 합성 장면이 다시 서면 scripts/lib/product-scene-contract.mjs 의 " +
+        "LIVE_PRODUCT_SCENE_IDS 에 id 를 넣어 되살립니다.",
+    );
+    process.exit(0);
+  }
+}
+
 if (!productBuildRoot) unavailable("KLIPSE_PRODUCT_BUILD_ROOT가 없습니다");
 if (!existsSync(resolve(productBuildRoot, ".git"))) {
   unavailable("빌드 저장소가 아닙니다: " + productBuildRoot);

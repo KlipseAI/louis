@@ -21,7 +21,7 @@ authority: normative
 | [Auth Two Panel](auth-two-panel.md) | `experimental` | `not-ready` | `not-ready` | `done` | 인증 화면 8개가 쓰는 2열 셸. **경로가 둘이다** — 5개는 공용 `AuthStatusCard`를 쓰고 3개는 같은 셸을 자기 파일에 복제한다. 전환점은 720px 하나이고 좁은 폭에서 폼 패널이 `display: contents`로 사라져 카드가 페이지 그리드의 정렬을 직접 받는다. 브랜드 면은 `#0093ff` 리터럴이라 테마 분기가 없다 |
 | [Status Result](status-result.md) | `experimental` | `not-ready` | `not-ready` | `done` | 결제·구독 결과 7화면의 콘텐츠 컬럼. **셸이 아니라 App Shell 카드 안이다.** 세로 리듬이 24px 하나뿐이고 처리 중에는 위에서 밀지 않고 카드 안 세로 중앙에 온다. 액션 버튼이 전폭이라 세로로 쌓인다. 900px 분기는 셸 경계가 아니라 이 화면 계열 전용이며 승인 여부가 blocker다 |
 | [Route Boundary](route-boundary.md) | `experimental` | `not-ready` | `not-ready` | `done` | 404 · 오류 · 최후 경계 셋. **셋 중 하나는 디자인 시스템을 쓸 수 없다** — 최후 경계는 루트 레이아웃이 실패한 뒤라 토큰도 i18n도 전역 CSS도 없고, 토큰을 참조하도록 「고치면」 그 화면이 막으려던 실패에 함께 휩쓸린다. 앞의 둘은 같은 뼈대를 공용 컴포넌트가 아니라 복제로 쓴다. 값은 전부 제품 인용이며 DS 계약이 아니다 |
-| [Project Grid](project-grid.md) | `experimental` | `not-ready` | `partial` | `done` | — |
+| [Project Grid](project-grid.md) | `experimental` | `partial` | `partial` | `done` | Figma 에 `DS · Templates` 의 `Pattern · ProjectGrid`(991:252)로 섰다(2026-08-30). **열 수를 viewport 표로 그리지 않았다** — 레시피가 `auto-fill minmax(240px, 1fr)` 이라 열 수는 container 폭에서 유도된다(`floor((W + 4) / 244)`). 문서 자신도 viewport 표는 호환 프로파일이고 container 가 좁으면 줄 수 있다고 적는다. 그래서 container 600·850·1116·1300 → 2·3·4·5열로 그렸고, 1116/4열은 `Template · AppHome` 의 격자와 같은 값이다. 상태 셋(Loading=Skeleton block · Error=Alert danger · Empty=EmptyState)도 함께 그렸다. **아직 없는 것**: section header(label·count·action)와 pagination/load-more sentinel. 그래서 `partial` 이다. |
 | [Editor Workspace](editor-workspace.md) | `experimental` | `not-ready` | `not-ready` | `done` | — |
 <!-- GENERATED:pattern-progress END -->
 <!-- prettier-ignore-end -->

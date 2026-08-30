@@ -5011,7 +5011,7 @@
       "axis": "nav-item-hover.backgroundColor",
       "product": "rgb(250 250 250 / 0.08)",
       "ds": "color-accent-ghost-hover",
-      "why": "제품 rgb(250 250 250 / 8%), DS rgb(255 255 255 / 8%). 제품은 잉크 램프(palette-gray-000 = 250)를 타고, DS ghost-hover 는 static-white 알파 램프(255)를 탄다. 어느 램프가 정본인지는 아직 정하지 않았다."
+      "why": "제품 rgb(250 250 250 / 8%), DS rgb(255 255 255 / 8%). 제품은 자기 잉크 램프(palette-gray-000 = 250)를, DS 는 DS-D-0024 가 정한 static-white 알파 램프(255)를 탄다. 제품이 LOUIS 세만틱을 직접 소비하는 후속 Phase 에서 닫힌다 — 그 결정문 3항이 그 이관을 예고한다."
     },
     {
       "axis": "nav-item-hover-light.backgroundColor",

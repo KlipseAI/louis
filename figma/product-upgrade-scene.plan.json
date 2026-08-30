@@ -1,0 +1,2832 @@
+{
+  "$comment": "Generated from migration/product.auth-fixture.json. Do not edit by hand.",
+  "$evidenceClass": "product-only measured upgrade card inventory plus desktop scene and mobile visible slice; not a normative design-system contract",
+  "productCommit": "a3ed8e031214f67ac319c5ceaa7ad2808cf0d3a4",
+  "currentPlanOutlineSource": {
+    "lines": [
+      {
+        "command": "git -C /Users/sejunki/klipse-web show a3ed8e031214f67ac319c5ceaa7ad2808cf0d3a4:apps/web/app/mypage/upgrade/page.tsx",
+        "path": "apps/web/app/mypage/upgrade/page.tsx",
+        "line": 210,
+        "quote": "  \"[outline:2px_solid_rgb(var(--accent-ultra-400-rgb)/42%)]\","
+      },
+      {
+        "command": "git -C /Users/sejunki/klipse-web show a3ed8e031214f67ac319c5ceaa7ad2808cf0d3a4:apps/web/app/mypage/upgrade/page.tsx",
+        "path": "apps/web/app/mypage/upgrade/page.tsx",
+        "line": 211,
+        "quote": "  \"[outline-offset:-2px]\","
+      }
+    ],
+    "figmaMapping": "The measured 2px solid outline with -2px offset is represented losslessly as a 2px INSIDE stroke. No exact local Figma color variable exists, so this remains a measured product-only fixed paint."
+  },
+  "figmaGlyphMeasurements": {
+    "$measurement": "use_figma temporary TextNode natural bounds; exact per-string typography; measured 2026-08-24 and nodes removed",
+    "desktop": {
+      "200": 37,
+      "Free": 71,
+      "35,900 KRW": 201,
+      "59,900 KRW": 201,
+      "89,900 KRW": 202,
+      "per month": 73,
+      "1,800": 50,
+      "3,000": 54,
+      "4,500": 54,
+      "credits": 62
+    },
+    "mobile": {
+      "Free": 55,
+      "35,900": 91,
+      "KRW": 61,
+      "per": 21,
+      "month": 40
+    }
+  },
+  "contexts": [
+    "desktop-1920x1080",
+    "mobile-402x874"
+  ],
+  "redirectContracts": [
+    {
+      "context": "desktop-1920x1080",
+      "requestedRoute": "/mypage/upgrade/checkout",
+      "finalPath": "/mypage/upgrade",
+      "redirected": true,
+      "treeEqualsCanonical": true
+    },
+    {
+      "context": "mobile-402x874",
+      "requestedRoute": "/mypage/upgrade/checkout",
+      "finalPath": "/mypage/upgrade",
+      "redirected": true,
+      "treeEqualsCanonical": true
+    }
+  ],
+  "component": {
+    "id": "product/upgrade-scene",
+    "pageId": "240:3529",
+    "pageName": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+    "sectionName": "O · product/Upgrade plans · measured desktop scene",
+    "cardSetName": "Product/Upgrade Plan Card",
+    "mobileVisibleCardSetName": "Product/Upgrade Plan Card Visible Slice",
+    "mainComponentName": "Product/Desktop Upgrade Main Surface",
+    "sceneComponentName": "Product/Desktop Upgrade Scene",
+    "mobileMainComponentName": "Product/Mobile Upgrade Main Surface",
+    "mobileSceneComponentName": "Product/Mobile Upgrade Scene",
+    "dependencies": {
+      "gnbSet": "Product/Gnb Desktop Shell",
+      "gnbVariant": "Current=Upgrade",
+      "topBarSet": "Product/Desktop App Top Bar",
+      "topBarVariant": "Content=Subscription, Breadcrumb=Trail, Back=True, Divider=On",
+      "mobileTopBarSet": "Product/Mobile App Top Bar",
+      "mobileTopBarVariant": "Width=Inset, Breadcrumb=Trail, Back=True, Divider=On",
+      "checkIcon": "icon/CheckCircle"
+    },
+    "page": {
+      "rect": {
+        "width": 1920,
+        "height": 1080
+      },
+      "background": [
+        0.9333333333333333,
+        0.9333333333333333,
+        0.9450980392156862,
+        1
+      ]
+    },
+    "main": {
+      "rect": {
+        "x": 280,
+        "y": 12,
+        "width": 1628,
+        "height": 1056
+      },
+      "width": 1628,
+      "height": 1056,
+      "background": [
+        0.9725490196078431,
+        0.9725490196078431,
+        0.9764705882352941,
+        1
+      ],
+      "radius": 16,
+      "effects": [
+        {
+          "type": "DROP_SHADOW",
+          "color": [
+            0.09019607843137255,
+            0.10588235294117647,
+            0.13333333333333333,
+            0.12
+          ],
+          "offset": {
+            "x": 0,
+            "y": 0
+          },
+          "radius": 0,
+          "spread": 0.5
+        }
+      ],
+      "topBar": {
+        "x": 0,
+        "y": 0,
+        "width": 1628,
+        "height": 53
+      },
+      "content": {
+        "x": 166,
+        "y": 53,
+        "width": 1300,
+        "height": 2251.5938
+      },
+      "headerTitle": {
+        "text": "Start free, upgrade or cancel anytime.",
+        "rect": {
+          "x": 166,
+          "y": 93,
+          "width": 820,
+          "height": 64.7969
+        },
+        "fontSize": 48,
+        "fontWeight": 500,
+        "lineHeight": 64.8,
+        "letterSpacing": -0.96,
+        "textAlign": "start",
+        "color": [
+          0,
+          0,
+          0,
+          1
+        ]
+      },
+      "headerBody": {
+        "text": "Monthly billed plans are available for one month from each billing date. After that, payment renews automatically on the same billing date each month.",
+        "rect": {
+          "x": 166,
+          "y": 175.7969,
+          "width": 686.25,
+          "height": 48
+        },
+        "fontSize": 16,
+        "fontWeight": 400,
+        "lineHeight": 24,
+        "letterSpacing": -0.16,
+        "textAlign": "start",
+        "color": [
+          0,
+          0,
+          0,
+          0.72
+        ]
+      },
+      "compareTitle": {
+        "text": "Compare Plans",
+        "rect": {
+          "x": 166,
+          "y": 875.7969,
+          "width": 1300,
+          "height": 64.7969
+        },
+        "fontSize": 48,
+        "fontWeight": 500,
+        "lineHeight": 64.8,
+        "letterSpacing": -0.96,
+        "textAlign": "center",
+        "color": [
+          0.9725490196078431,
+          0.9725490196078431,
+          0.9764705882352941,
+          1
+        ]
+      }
+    },
+    "cardGrid": {
+      "x": 166,
+      "y": 251.7969,
+      "width": 1300,
+      "height": 560
+    },
+    "cards": [
+      {
+        "plan": "Trial",
+        "route": "/mypage/upgrade",
+        "rect": {
+          "width": 316,
+          "height": 560
+        },
+        "position": {
+          "x": 166,
+          "y": 251.7969,
+          "width": 316,
+          "height": 560
+        },
+        "padding": {
+          "top": 16,
+          "right": 16,
+          "bottom": 16,
+          "left": 16
+        },
+        "radius": 24,
+        "background": [
+          0.9803921568627451,
+          0.9803921568627451,
+          0.9803921568627451,
+          1
+        ],
+        "effects": [
+          {
+            "type": "DROP_SHADOW",
+            "color": [
+              0.09019607843137255,
+              0.10588235294117647,
+              0.13333333333333333,
+              0.12
+            ],
+            "offset": {
+              "x": 0,
+              "y": 0
+            },
+            "radius": 0,
+            "spread": 0.5
+          }
+        ],
+        "outline": {
+          "width": 2,
+          "style": "solid",
+          "color": [
+            0.7254901960784313,
+            0.8823529411764706,
+            0.9686274509803922,
+            0.42
+          ],
+          "offset": -2,
+          "figmaMapping": "2px INSIDE stroke"
+        },
+        "texts": [
+          {
+            "text": "Trial",
+            "rect": {
+              "x": 16,
+              "y": 16,
+              "width": 284,
+              "height": 30
+            },
+            "fontSize": 20,
+            "fontWeight": 500,
+            "lineHeight": 30,
+            "letterSpacing": -0.2,
+            "textAlign": "start",
+            "color": [
+              0.19215686274509805,
+              0.21176470588235294,
+              0.25098039215686274,
+              1
+            ]
+          },
+          {
+            "text": "Free",
+            "rect": {
+              "x": 16,
+              "y": 56,
+              "width": 69.7969,
+              "height": 48.5938
+            },
+            "fontSize": 36,
+            "fontWeight": 500,
+            "lineHeight": 48.6,
+            "letterSpacing": -0.72,
+            "textAlign": "start",
+            "color": [
+              0.19215686274509805,
+              0.21176470588235294,
+              0.25098039215686274,
+              1
+            ],
+            "figmaWidth": 71
+          },
+          {
+            "text": "200",
+            "rect": {
+              "x": 16,
+              "y": 108.59370000000001,
+              "width": 35.9844,
+              "height": 30
+            },
+            "fontSize": 20,
+            "fontWeight": 500,
+            "lineHeight": 30,
+            "letterSpacing": -0.2,
+            "textAlign": "start",
+            "color": [
+              0.3411764705882353,
+              0.36470588235294116,
+              0.40784313725490196,
+              1
+            ],
+            "figmaWidth": 37
+          },
+          {
+            "text": "credits",
+            "rect": {
+              "x": 59.984399999999994,
+              "y": 108.59370000000001,
+              "width": 61.1406,
+              "height": 30
+            },
+            "fontSize": 20,
+            "fontWeight": 500,
+            "lineHeight": 30,
+            "letterSpacing": -0.2,
+            "textAlign": "start",
+            "color": [
+              0.3411764705882353,
+              0.36470588235294116,
+              0.40784313725490196,
+              1
+            ],
+            "figmaWidth": 62
+          },
+          {
+            "text": "Core features for trying Klipse",
+            "rect": {
+              "x": 16,
+              "y": 174.5937,
+              "width": 284,
+              "height": 21
+            },
+            "fontSize": 14,
+            "fontWeight": 500,
+            "lineHeight": 21,
+            "letterSpacing": -0.14,
+            "textAlign": "start",
+            "color": [
+              0.7372549019607844,
+              0.7529411764705882,
+              0.788235294117647,
+              1
+            ]
+          },
+          {
+            "text": "Up to 3 projects",
+            "rect": {
+              "x": 42,
+              "y": 203.5937,
+              "width": 258,
+              "height": 24
+            },
+            "fontSize": 16,
+            "fontWeight": 400,
+            "lineHeight": 24,
+            "letterSpacing": -0.16,
+            "textAlign": "start",
+            "color": [
+              0.6039215686274509,
+              0.6274509803921569,
+              0.6705882352941176,
+              1
+            ]
+          },
+          {
+            "text": "1 video editor upload, 2 imports",
+            "rect": {
+              "x": 42,
+              "y": 231.5937,
+              "width": 258,
+              "height": 24
+            },
+            "fontSize": 16,
+            "fontWeight": 400,
+            "lineHeight": 24,
+            "letterSpacing": -0.16,
+            "textAlign": "start",
+            "color": [
+              0.6039215686274509,
+              0.6274509803921569,
+              0.6705882352941176,
+              1
+            ]
+          },
+          {
+            "text": "AI video generation trial",
+            "rect": {
+              "x": 42,
+              "y": 259.59369999999996,
+              "width": 258,
+              "height": 24
+            },
+            "fontSize": 16,
+            "fontWeight": 400,
+            "lineHeight": 24,
+            "letterSpacing": -0.16,
+            "textAlign": "start",
+            "color": [
+              0.6039215686274509,
+              0.6274509803921569,
+              0.6705882352941176,
+              1
+            ]
+          },
+          {
+            "text": "Basic video cut editing",
+            "rect": {
+              "x": 42,
+              "y": 287.59369999999996,
+              "width": 258,
+              "height": 24
+            },
+            "fontSize": 16,
+            "fontWeight": 400,
+            "lineHeight": 24,
+            "letterSpacing": -0.16,
+            "textAlign": "start",
+            "color": [
+              0.6039215686274509,
+              0.6274509803921569,
+              0.6705882352941176,
+              1
+            ]
+          },
+          {
+            "text": "Highlight input videos up to 10 min",
+            "rect": {
+              "x": 42,
+              "y": 315.59369999999996,
+              "width": 258,
+              "height": 24
+            },
+            "fontSize": 16,
+            "fontWeight": 400,
+            "lineHeight": 24,
+            "letterSpacing": -0.16,
+            "textAlign": "start",
+            "color": [
+              0.6039215686274509,
+              0.6274509803921569,
+              0.6705882352941176,
+              1
+            ]
+          },
+          {
+            "text": "Watermark included",
+            "rect": {
+              "x": 42,
+              "y": 343.59369999999996,
+              "width": 258,
+              "height": 24
+            },
+            "fontSize": 16,
+            "fontWeight": 400,
+            "lineHeight": 24,
+            "letterSpacing": -0.16,
+            "textAlign": "start",
+            "color": [
+              0.6039215686274509,
+              0.6274509803921569,
+              0.6705882352941176,
+              1
+            ]
+          }
+        ],
+        "icons": [
+          {
+            "rect": {
+              "x": 16,
+              "y": 207.5937,
+              "width": 18,
+              "height": 18
+            },
+            "color": [
+              0,
+              0.7764705882352941,
+              0.5568627450980392,
+              1
+            ],
+            "asset": "/icons/CheckCircle.svg"
+          },
+          {
+            "rect": {
+              "x": 16,
+              "y": 235.5937,
+              "width": 18,
+              "height": 18
+            },
+            "color": [
+              0,
+              0.7764705882352941,
+              0.5568627450980392,
+              1
+            ],
+            "asset": "/icons/CheckCircle.svg"
+          },
+          {
+            "rect": {
+              "x": 16,
+              "y": 263.59369999999996,
+              "width": 18,
+              "height": 18
+            },
+            "color": [
+              0,
+              0.7764705882352941,
+              0.5568627450980392,
+              1
+            ],
+            "asset": "/icons/CheckCircle.svg"
+          },
+          {
+            "rect": {
+              "x": 16,
+              "y": 291.59369999999996,
+              "width": 18,
+              "height": 18
+            },
+            "color": [
+              0,
+              0.7764705882352941,
+              0.5568627450980392,
+              1
+            ],
+            "asset": "/icons/CheckCircle.svg"
+          },
+          {
+            "rect": {
+              "x": 16,
+              "y": 319.59369999999996,
+              "width": 18,
+              "height": 18
+            },
+            "color": [
+              0,
+              0.7764705882352941,
+              0.5568627450980392,
+              1
+            ],
+            "asset": "/icons/CheckCircle.svg"
+          },
+          {
+            "rect": {
+              "x": 16,
+              "y": 347.59369999999996,
+              "width": 18,
+              "height": 18
+            },
+            "color": [
+              0,
+              0.7764705882352941,
+              0.5568627450980392,
+              1
+            ],
+            "asset": "/icons/CheckCircle.svg"
+          }
+        ],
+        "action": {
+          "text": "Current plan",
+          "rect": {
+            "x": 16,
+            "y": 498.00000000000006,
+            "width": 284,
+            "height": 46
+          },
+          "radius": 12,
+          "fill": [
+            0.09019607843137255,
+            0.10588235294117647,
+            0.13333333333333333,
+            1
+          ],
+          "opacity": 0.92,
+          "label": {
+            "text": "Current plan",
+            "rect": {
+              "x": 16,
+              "y": 498.00000000000006,
+              "width": 284,
+              "height": 46
+            },
+            "fontSize": 16,
+            "fontWeight": 400,
+            "lineHeight": 24,
+            "letterSpacing": -0.16,
+            "textAlign": "center",
+            "color": [
+              0.9725490196078431,
+              0.9725490196078431,
+              0.9764705882352941,
+              1
+            ]
+          }
+        }
+      },
+      {
+        "plan": "Basic",
+        "route": "/mypage/upgrade",
+        "rect": {
+          "width": 316,
+          "height": 560
+        },
+        "position": {
+          "x": 494,
+          "y": 251.7969,
+          "width": 316,
+          "height": 560
+        },
+        "padding": {
+          "top": 16,
+          "right": 16,
+          "bottom": 16,
+          "left": 16
+        },
+        "radius": 24,
+        "background": [
+          0.9803921568627451,
+          0.9803921568627451,
+          0.9803921568627451,
+          1
+        ],
+        "effects": [
+          {
+            "type": "DROP_SHADOW",
+            "color": [
+              0.09019607843137255,
+              0.10588235294117647,
+              0.13333333333333333,
+              0.12
+            ],
+            "offset": {
+              "x": 0,
+              "y": 0
+            },
+            "radius": 0,
+            "spread": 0.5
+          }
+        ],
+        "outline": null,
+        "texts": [
+          {
+            "text": "Basic",
+            "rect": {
+              "x": 16,
+              "y": 16,
+              "width": 284,
+              "height": 30
+            },
+            "fontSize": 20,
+            "fontWeight": 500,
+            "lineHeight": 30,
+            "letterSpacing": -0.2,
+            "textAlign": "start",
+            "color": [
+              0.19215686274509805,
+              0.21176470588235294,
+              0.25098039215686274,
+              1
+            ]
+          },
+          {
+            "text": "35,900 KRW",
+            "rect": {
+              "x": 16,
+              "y": 56,
+              "width": 200.1719,
+              "height": 48.5938
+            },
+            "fontSize": 36,
+            "fontWeight": 500,
+            "lineHeight": 48.6,
+            "letterSpacing": -0.72,
+            "textAlign": "start",
+            "color": [
+              0.19215686274509805,
+              0.21176470588235294,
+              0.25098039215686274,
+              1
+            ],
+            "figmaWidth": 201
+          },
+          {
+            "text": "per month",
+            "rect": {
+              "x": 224.17190000000005,
+              "y": 76.59370000000001,
+              "width": 72.2344,
+              "height": 28
+            },
+            "fontSize": 16,
+            "fontWeight": 400,
+            "lineHeight": 24,
+            "letterSpacing": -0.16,
+            "textAlign": "start",
+            "color": [
+              0.7372549019607844,
+              0.7529411764705882,
+              0.788235294117647,
+              0.9
+            ],
+            "figmaWidth": 73
+          },
+          {
+            "text": "1,800",
+            "rect": {
+              "x": 16,
+              "y": 108.59370000000001,
+              "width": 49.1094,
+              "height": 30
+            },
+            "fontSize": 20,
+            "fontWeight": 500,
+            "lineHeight": 30,
+            "letterSpacing": -0.2,
+            "textAlign": "start",
+            "color": [
+              0.3411764705882353,
+              0.36470588235294116,
+              0.40784313725490196,
+              1
+            ],
+            "figmaWidth": 50
+          },
+          {
+            "text": "credits",
+            "rect": {
+              "x": 73.10940000000005,
+              "y": 108.59370000000001,
+              "width": 61.1406,
+              "height": 30
+            },
+            "fontSize": 20,
+            "fontWeight": 500,
+            "lineHeight": 30,
+            "letterSpacing": -0.2,
+            "textAlign": "start",
+            "color": [
+              0.3411764705882353,
+              0.36470588235294116,
+              0.40784313725490196,
+              1
+            ],
+            "figmaWidth": 62
+          },
+          {
+            "text": "Everything in Trial",
+            "rect": {
+              "x": 16,
+              "y": 174.5937,
+              "width": 284,
+              "height": 21
+            },
+            "fontSize": 14,
+            "fontWeight": 500,
+            "lineHeight": 21,
+            "letterSpacing": -0.14,
+            "textAlign": "start",
+            "color": [
+              0.7372549019607844,
+              0.7529411764705882,
+              0.788235294117647,
+              1
+            ]
+          },
+          {
+            "text": "Up to 12 projects",
+            "rect": {
+              "x": 42,
+              "y": 203.5937,
+              "width": 258,
+              "height": 24
+            },
+            "fontSize": 16,
+            "fontWeight": 400,
+            "lineHeight": 24,
+            "letterSpacing": -0.16,
+            "textAlign": "start",
+            "color": [
+              0.6039215686274509,
+              0.6274509803921569,
+              0.6705882352941176,
+              1
+            ]
+          },
+          {
+            "text": "5 video editor uploads, 5 imports",
+            "rect": {
+              "x": 42,
+              "y": 231.5937,
+              "width": 258,
+              "height": 24
+            },
+            "fontSize": 16,
+            "fontWeight": 400,
+            "lineHeight": 24,
+            "letterSpacing": -0.16,
+            "textAlign": "start",
+            "color": [
+              0.6039215686274509,
+              0.6274509803921569,
+              0.6705882352941176,
+              1
+            ]
+          },
+          {
+            "text": "All AI models unlocked",
+            "rect": {
+              "x": 42,
+              "y": 259.59369999999996,
+              "width": 258,
+              "height": 24
+            },
+            "fontSize": 16,
+            "fontWeight": 400,
+            "lineHeight": 24,
+            "letterSpacing": -0.16,
+            "textAlign": "start",
+            "color": [
+              0.6039215686274509,
+              0.6274509803921569,
+              0.6705882352941176,
+              1
+            ]
+          },
+          {
+            "text": "Text/image overlay, TTS",
+            "rect": {
+              "x": 42,
+              "y": 287.59369999999996,
+              "width": 258,
+              "height": 24
+            },
+            "fontSize": 16,
+            "fontWeight": 400,
+            "lineHeight": 24,
+            "letterSpacing": -0.16,
+            "textAlign": "start",
+            "color": [
+              0.6039215686274509,
+              0.6274509803921569,
+              0.6705882352941176,
+              1
+            ]
+          },
+          {
+            "text": "YouTube/Instagram upload, schedule & analytics",
+            "rect": {
+              "x": 42,
+              "y": 315.59369999999996,
+              "width": 258,
+              "height": 48
+            },
+            "fontSize": 16,
+            "fontWeight": 400,
+            "lineHeight": 24,
+            "letterSpacing": -0.16,
+            "textAlign": "start",
+            "color": [
+              0.6039215686274509,
+              0.6274509803921569,
+              0.6705882352941176,
+              1
+            ]
+          },
+          {
+            "text": "AI prompt & caption assist",
+            "rect": {
+              "x": 42,
+              "y": 367.59369999999996,
+              "width": 258,
+              "height": 24
+            },
+            "fontSize": 16,
+            "fontWeight": 400,
+            "lineHeight": 24,
+            "letterSpacing": -0.16,
+            "textAlign": "start",
+            "color": [
+              0.6039215686274509,
+              0.6274509803921569,
+              0.6705882352941176,
+              1
+            ]
+          },
+          {
+            "text": "Highlight input videos up to 30 min",
+            "rect": {
+              "x": 42,
+              "y": 395.59369999999996,
+              "width": 258,
+              "height": 24
+            },
+            "fontSize": 16,
+            "fontWeight": 400,
+            "lineHeight": 24,
+            "letterSpacing": -0.16,
+            "textAlign": "start",
+            "color": [
+              0.6039215686274509,
+              0.6274509803921569,
+              0.6705882352941176,
+              1
+            ]
+          },
+          {
+            "text": "Credit top-up available",
+            "rect": {
+              "x": 42,
+              "y": 423.59369999999996,
+              "width": 258,
+              "height": 24
+            },
+            "fontSize": 16,
+            "fontWeight": 400,
+            "lineHeight": 24,
+            "letterSpacing": -0.16,
+            "textAlign": "start",
+            "color": [
+              0.6039215686274509,
+              0.6274509803921569,
+              0.6705882352941176,
+              1
+            ]
+          },
+          {
+            "text": "No watermark",
+            "rect": {
+              "x": 42,
+              "y": 451.59369999999996,
+              "width": 258,
+              "height": 24
+            },
+            "fontSize": 16,
+            "fontWeight": 400,
+            "lineHeight": 24,
+            "letterSpacing": -0.16,
+            "textAlign": "start",
+            "color": [
+              0.6039215686274509,
+              0.6274509803921569,
+              0.6705882352941176,
+              1
+            ]
+          }
+        ],
+        "icons": [
+          {
+            "rect": {
+              "x": 16,
+              "y": 207.5937,
+              "width": 18,
+              "height": 18
+            },
+            "color": [
+              0,
+              0.7764705882352941,
+              0.5568627450980392,
+              1
+            ],
+            "asset": "/icons/CheckCircle.svg"
+          },
+          {
+            "rect": {
+              "x": 16,
+              "y": 235.5937,
+              "width": 18,
+              "height": 18
+            },
+            "color": [
+              0,
+              0.7764705882352941,
+              0.5568627450980392,
+              1
+            ],
+            "asset": "/icons/CheckCircle.svg"
+          },
+          {
+            "rect": {
+              "x": 16,
+              "y": 263.59369999999996,
+              "width": 18,
+              "height": 18
+            },
+            "color": [
+              0,
+              0.7764705882352941,
+              0.5568627450980392,
+              1
+            ],
+            "asset": "/icons/CheckCircle.svg"
+          },
+          {
+            "rect": {
+              "x": 16,
+              "y": 291.59369999999996,
+              "width": 18,
+              "height": 18
+            },
+            "color": [
+              0,
+              0.7764705882352941,
+              0.5568627450980392,
+              1
+            ],
+            "asset": "/icons/CheckCircle.svg"
+          },
+          {
+            "rect": {
+              "x": 16,
+              "y": 319.59369999999996,
+              "width": 18,
+              "height": 18
+            },
+            "color": [
+              0,
+              0.7764705882352941,
+              0.5568627450980392,
+              1
+            ],
+            "asset": "/icons/CheckCircle.svg"
+          },
+          {
+            "rect": {
+              "x": 16,
+              "y": 371.59369999999996,
+              "width": 18,
+              "height": 18
+            },
+            "color": [
+              0,
+              0.7764705882352941,
+              0.5568627450980392,
+              1
+            ],
+            "asset": "/icons/CheckCircle.svg"
+          },
+          {
+            "rect": {
+              "x": 16,
+              "y": 399.59369999999996,
+              "width": 18,
+              "height": 18
+            },
+            "color": [
+              0,
+              0.7764705882352941,
+              0.5568627450980392,
+              1
+            ],
+            "asset": "/icons/CheckCircle.svg"
+          },
+          {
+            "rect": {
+              "x": 16,
+              "y": 427.59369999999996,
+              "width": 18,
+              "height": 18
+            },
+            "color": [
+              0,
+              0.7764705882352941,
+              0.5568627450980392,
+              1
+            ],
+            "asset": "/icons/CheckCircle.svg"
+          },
+          {
+            "rect": {
+              "x": 16,
+              "y": 455.59369999999996,
+              "width": 18,
+              "height": 18
+            },
+            "color": [
+              0,
+              0.7764705882352941,
+              0.5568627450980392,
+              1
+            ],
+            "asset": "/icons/CheckCircle.svg"
+          }
+        ],
+        "action": {
+          "text": "Choose Basic",
+          "rect": {
+            "x": 16,
+            "y": 498.00000000000006,
+            "width": 284,
+            "height": 46
+          },
+          "radius": 12,
+          "fill": [
+            0.09019607843137255,
+            0.10588235294117647,
+            0.13333333333333333,
+            1
+          ],
+          "opacity": 1,
+          "label": {
+            "text": "Choose Basic",
+            "rect": {
+              "x": 16,
+              "y": 498.00000000000006,
+              "width": 284,
+              "height": 46
+            },
+            "fontSize": 16,
+            "fontWeight": 400,
+            "lineHeight": 24,
+            "letterSpacing": -0.16,
+            "textAlign": "center",
+            "color": [
+              0.9725490196078431,
+              0.9725490196078431,
+              0.9764705882352941,
+              1
+            ]
+          }
+        }
+      },
+      {
+        "plan": "Pro",
+        "route": "/mypage/upgrade",
+        "rect": {
+          "width": 316,
+          "height": 560
+        },
+        "position": {
+          "x": 822,
+          "y": 251.7969,
+          "width": 316,
+          "height": 560
+        },
+        "padding": {
+          "top": 16,
+          "right": 16,
+          "bottom": 16,
+          "left": 16
+        },
+        "radius": 24,
+        "background": [
+          0.9803921568627451,
+          0.9803921568627451,
+          0.9803921568627451,
+          1
+        ],
+        "effects": [
+          {
+            "type": "DROP_SHADOW",
+            "color": [
+              0.09019607843137255,
+              0.10588235294117647,
+              0.13333333333333333,
+              0.12
+            ],
+            "offset": {
+              "x": 0,
+              "y": 0
+            },
+            "radius": 0,
+            "spread": 0.5
+          }
+        ],
+        "outline": null,
+        "texts": [
+          {
+            "text": "Pro",
+            "rect": {
+              "x": 16,
+              "y": 16,
+              "width": 284,
+              "height": 30
+            },
+            "fontSize": 20,
+            "fontWeight": 500,
+            "lineHeight": 30,
+            "letterSpacing": -0.2,
+            "textAlign": "start",
+            "color": [
+              0.19215686274509805,
+              0.21176470588235294,
+              0.25098039215686274,
+              1
+            ]
+          },
+          {
+            "text": "59,900 KRW",
+            "rect": {
+              "x": 16,
+              "y": 56,
+              "width": 200.0781,
+              "height": 48.5938
+            },
+            "fontSize": 36,
+            "fontWeight": 500,
+            "lineHeight": 48.6,
+            "letterSpacing": -0.72,
+            "textAlign": "start",
+            "color": [
+              0.19215686274509805,
+              0.21176470588235294,
+              0.25098039215686274,
+              1
+            ],
+            "figmaWidth": 201
+          },
+          {
+            "text": "per month",
+            "rect": {
+              "x": 224.07809999999995,
+              "y": 76.59370000000001,
+              "width": 72.2344,
+              "height": 28
+            },
+            "fontSize": 16,
+            "fontWeight": 400,
+            "lineHeight": 24,
+            "letterSpacing": -0.16,
+            "textAlign": "start",
+            "color": [
+              0.7372549019607844,
+              0.7529411764705882,
+              0.788235294117647,
+              0.9
+            ],
+            "figmaWidth": 73
+          },
+          {
+            "text": "3,000",
+            "rect": {
+              "x": 16,
+              "y": 108.59370000000001,
+              "width": 52.9219,
+              "height": 30
+            },
+            "fontSize": 20,
+            "fontWeight": 500,
+            "lineHeight": 30,
+            "letterSpacing": -0.2,
+            "textAlign": "start",
+            "color": [
+              0.3411764705882353,
+              0.36470588235294116,
+              0.40784313725490196,
+              1
+            ],
+            "figmaWidth": 54
+          },
+          {
+            "text": "credits",
+            "rect": {
+              "x": 76.92190000000005,
+              "y": 108.59370000000001,
+              "width": 61.1406,
+              "height": 30
+            },
+            "fontSize": 20,
+            "fontWeight": 500,
+            "lineHeight": 30,
+            "letterSpacing": -0.2,
+            "textAlign": "start",
+            "color": [
+              0.3411764705882353,
+              0.36470588235294116,
+              0.40784313725490196,
+              1
+            ],
+            "figmaWidth": 62
+          },
+          {
+            "text": "Everything in Basic",
+            "rect": {
+              "x": 16,
+              "y": 174.5937,
+              "width": 284,
+              "height": 21
+            },
+            "fontSize": 14,
+            "fontWeight": 500,
+            "lineHeight": 21,
+            "letterSpacing": -0.14,
+            "textAlign": "start",
+            "color": [
+              0.7372549019607844,
+              0.7529411764705882,
+              0.788235294117647,
+              1
+            ]
+          },
+          {
+            "text": "Up to 24 projects",
+            "rect": {
+              "x": 42,
+              "y": 203.5937,
+              "width": 258,
+              "height": 24
+            },
+            "fontSize": 16,
+            "fontWeight": 400,
+            "lineHeight": 24,
+            "letterSpacing": -0.16,
+            "textAlign": "start",
+            "color": [
+              0.6039215686274509,
+              0.6274509803921569,
+              0.6705882352941176,
+              1
+            ]
+          },
+          {
+            "text": "7 video editor uploads, 7 imports",
+            "rect": {
+              "x": 42,
+              "y": 231.5937,
+              "width": 258,
+              "height": 24
+            },
+            "fontSize": 16,
+            "fontWeight": 400,
+            "lineHeight": 24,
+            "letterSpacing": -0.16,
+            "textAlign": "start",
+            "color": [
+              0.6039215686274509,
+              0.6274509803921569,
+              0.6705882352941176,
+              1
+            ]
+          },
+          {
+            "text": "Highlight input videos up to 120 min",
+            "rect": {
+              "x": 42,
+              "y": 259.59369999999996,
+              "width": 258,
+              "height": 24
+            },
+            "fontSize": 16,
+            "fontWeight": 400,
+            "lineHeight": 24,
+            "letterSpacing": -0.16,
+            "textAlign": "start",
+            "color": [
+              0.6039215686274509,
+              0.6274509803921569,
+              0.6705882352941176,
+              1
+            ]
+          },
+          {
+            "text": "3 concurrent jobs",
+            "rect": {
+              "x": 42,
+              "y": 287.59369999999996,
+              "width": 258,
+              "height": 24
+            },
+            "fontSize": 16,
+            "fontWeight": 400,
+            "lineHeight": 24,
+            "letterSpacing": -0.16,
+            "textAlign": "start",
+            "color": [
+              0.6039215686274509,
+              0.6274509803921569,
+              0.6705882352941176,
+              1
+            ]
+          },
+          {
+            "text": "Priority queue processing",
+            "rect": {
+              "x": 42,
+              "y": 315.59369999999996,
+              "width": 258,
+              "height": 24
+            },
+            "fontSize": 16,
+            "fontWeight": 400,
+            "lineHeight": 24,
+            "letterSpacing": -0.16,
+            "textAlign": "start",
+            "color": [
+              0.6039215686274509,
+              0.6274509803921569,
+              0.6705882352941176,
+              1
+            ]
+          }
+        ],
+        "icons": [
+          {
+            "rect": {
+              "x": 16,
+              "y": 207.5937,
+              "width": 18,
+              "height": 18
+            },
+            "color": [
+              0,
+              0.7764705882352941,
+              0.5568627450980392,
+              1
+            ],
+            "asset": "/icons/CheckCircle.svg"
+          },
+          {
+            "rect": {
+              "x": 16,
+              "y": 235.5937,
+              "width": 18,
+              "height": 18
+            },
+            "color": [
+              0,
+              0.7764705882352941,
+              0.5568627450980392,
+              1
+            ],
+            "asset": "/icons/CheckCircle.svg"
+          },
+          {
+            "rect": {
+              "x": 16,
+              "y": 263.59369999999996,
+              "width": 18,
+              "height": 18
+            },
+            "color": [
+              0,
+              0.7764705882352941,
+              0.5568627450980392,
+              1
+            ],
+            "asset": "/icons/CheckCircle.svg"
+          },
+          {
+            "rect": {
+              "x": 16,
+              "y": 291.59369999999996,
+              "width": 18,
+              "height": 18
+            },
+            "color": [
+              0,
+              0.7764705882352941,
+              0.5568627450980392,
+              1
+            ],
+            "asset": "/icons/CheckCircle.svg"
+          },
+          {
+            "rect": {
+              "x": 16,
+              "y": 319.59369999999996,
+              "width": 18,
+              "height": 18
+            },
+            "color": [
+              0,
+              0.7764705882352941,
+              0.5568627450980392,
+              1
+            ],
+            "asset": "/icons/CheckCircle.svg"
+          }
+        ],
+        "action": {
+          "text": "Choose Pro",
+          "rect": {
+            "x": 16,
+            "y": 498.00000000000006,
+            "width": 284,
+            "height": 46
+          },
+          "radius": 12,
+          "fill": [
+            0.09019607843137255,
+            0.10588235294117647,
+            0.13333333333333333,
+            1
+          ],
+          "opacity": 1,
+          "label": {
+            "text": "Choose Pro",
+            "rect": {
+              "x": 16,
+              "y": 498.00000000000006,
+              "width": 284,
+              "height": 46
+            },
+            "fontSize": 16,
+            "fontWeight": 400,
+            "lineHeight": 24,
+            "letterSpacing": -0.16,
+            "textAlign": "center",
+            "color": [
+              0.9725490196078431,
+              0.9725490196078431,
+              0.9764705882352941,
+              1
+            ]
+          }
+        }
+      },
+      {
+        "plan": "Max",
+        "route": "/mypage/upgrade",
+        "rect": {
+          "width": 316,
+          "height": 560
+        },
+        "position": {
+          "x": 1150,
+          "y": 251.7969,
+          "width": 316,
+          "height": 560
+        },
+        "padding": {
+          "top": 16,
+          "right": 16,
+          "bottom": 16,
+          "left": 16
+        },
+        "radius": 24,
+        "background": [
+          0.9803921568627451,
+          0.9803921568627451,
+          0.9803921568627451,
+          1
+        ],
+        "effects": [
+          {
+            "type": "DROP_SHADOW",
+            "color": [
+              0.09019607843137255,
+              0.10588235294117647,
+              0.13333333333333333,
+              0.12
+            ],
+            "offset": {
+              "x": 0,
+              "y": 0
+            },
+            "radius": 0,
+            "spread": 0.5
+          }
+        ],
+        "outline": null,
+        "texts": [
+          {
+            "text": "Max",
+            "rect": {
+              "x": 16,
+              "y": 16,
+              "width": 284,
+              "height": 30
+            },
+            "fontSize": 20,
+            "fontWeight": 500,
+            "lineHeight": 30,
+            "letterSpacing": -0.2,
+            "textAlign": "start",
+            "color": [
+              0.19215686274509805,
+              0.21176470588235294,
+              0.25098039215686274,
+              1
+            ]
+          },
+          {
+            "text": "89,900 KRW",
+            "rect": {
+              "x": 16,
+              "y": 56,
+              "width": 200.5,
+              "height": 48.5938
+            },
+            "fontSize": 36,
+            "fontWeight": 500,
+            "lineHeight": 48.6,
+            "letterSpacing": -0.72,
+            "textAlign": "start",
+            "color": [
+              0.19215686274509805,
+              0.21176470588235294,
+              0.25098039215686274,
+              1
+            ],
+            "figmaWidth": 202
+          },
+          {
+            "text": "per month",
+            "rect": {
+              "x": 224.5,
+              "y": 76.59370000000001,
+              "width": 72.2344,
+              "height": 28
+            },
+            "fontSize": 16,
+            "fontWeight": 400,
+            "lineHeight": 24,
+            "letterSpacing": -0.16,
+            "textAlign": "start",
+            "color": [
+              0.7372549019607844,
+              0.7529411764705882,
+              0.788235294117647,
+              0.9
+            ],
+            "figmaWidth": 73
+          },
+          {
+            "text": "4,500",
+            "rect": {
+              "x": 16,
+              "y": 108.59370000000001,
+              "width": 53.1406,
+              "height": 30
+            },
+            "fontSize": 20,
+            "fontWeight": 500,
+            "lineHeight": 30,
+            "letterSpacing": -0.2,
+            "textAlign": "start",
+            "color": [
+              0.3411764705882353,
+              0.36470588235294116,
+              0.40784313725490196,
+              1
+            ],
+            "figmaWidth": 54
+          },
+          {
+            "text": "credits",
+            "rect": {
+              "x": 77.14059999999995,
+              "y": 108.59370000000001,
+              "width": 61.1406,
+              "height": 30
+            },
+            "fontSize": 20,
+            "fontWeight": 500,
+            "lineHeight": 30,
+            "letterSpacing": -0.2,
+            "textAlign": "start",
+            "color": [
+              0.3411764705882353,
+              0.36470588235294116,
+              0.40784313725490196,
+              1
+            ],
+            "figmaWidth": 62
+          },
+          {
+            "text": "Everything in Pro",
+            "rect": {
+              "x": 16,
+              "y": 174.5937,
+              "width": 284,
+              "height": 21
+            },
+            "fontSize": 14,
+            "fontWeight": 500,
+            "lineHeight": 21,
+            "letterSpacing": -0.14,
+            "textAlign": "start",
+            "color": [
+              0.7372549019607844,
+              0.7529411764705882,
+              0.788235294117647,
+              1
+            ]
+          },
+          {
+            "text": "Unlimited projects",
+            "rect": {
+              "x": 42,
+              "y": 203.5937,
+              "width": 258,
+              "height": 24
+            },
+            "fontSize": 16,
+            "fontWeight": 400,
+            "lineHeight": 24,
+            "letterSpacing": -0.16,
+            "textAlign": "start",
+            "color": [
+              0.6039215686274509,
+              0.6274509803921569,
+              0.6705882352941176,
+              1
+            ]
+          },
+          {
+            "text": "10 video editor uploads, 10 imports",
+            "rect": {
+              "x": 42,
+              "y": 231.5937,
+              "width": 258,
+              "height": 24
+            },
+            "fontSize": 16,
+            "fontWeight": 400,
+            "lineHeight": 24,
+            "letterSpacing": -0.16,
+            "textAlign": "start",
+            "color": [
+              0.6039215686274509,
+              0.6274509803921569,
+              0.6705882352941176,
+              1
+            ]
+          },
+          {
+            "text": "10 highlight clip selections",
+            "rect": {
+              "x": 42,
+              "y": 259.59369999999996,
+              "width": 258,
+              "height": 24
+            },
+            "fontSize": 16,
+            "fontWeight": 400,
+            "lineHeight": 24,
+            "letterSpacing": -0.16,
+            "textAlign": "start",
+            "color": [
+              0.6039215686274509,
+              0.6274509803921569,
+              0.6705882352941176,
+              1
+            ]
+          },
+          {
+            "text": "Maximum monthly credits",
+            "rect": {
+              "x": 42,
+              "y": 287.59369999999996,
+              "width": 258,
+              "height": 24
+            },
+            "fontSize": 16,
+            "fontWeight": 400,
+            "lineHeight": 24,
+            "letterSpacing": -0.16,
+            "textAlign": "start",
+            "color": [
+              0.6039215686274509,
+              0.6274509803921569,
+              0.6705882352941176,
+              1
+            ]
+          }
+        ],
+        "icons": [
+          {
+            "rect": {
+              "x": 16,
+              "y": 207.5937,
+              "width": 18,
+              "height": 18
+            },
+            "color": [
+              0,
+              0.7764705882352941,
+              0.5568627450980392,
+              1
+            ],
+            "asset": "/icons/CheckCircle.svg"
+          },
+          {
+            "rect": {
+              "x": 16,
+              "y": 235.5937,
+              "width": 18,
+              "height": 18
+            },
+            "color": [
+              0,
+              0.7764705882352941,
+              0.5568627450980392,
+              1
+            ],
+            "asset": "/icons/CheckCircle.svg"
+          },
+          {
+            "rect": {
+              "x": 16,
+              "y": 263.59369999999996,
+              "width": 18,
+              "height": 18
+            },
+            "color": [
+              0,
+              0.7764705882352941,
+              0.5568627450980392,
+              1
+            ],
+            "asset": "/icons/CheckCircle.svg"
+          },
+          {
+            "rect": {
+              "x": 16,
+              "y": 291.59369999999996,
+              "width": 18,
+              "height": 18
+            },
+            "color": [
+              0,
+              0.7764705882352941,
+              0.5568627450980392,
+              1
+            ],
+            "asset": "/icons/CheckCircle.svg"
+          }
+        ],
+        "action": {
+          "text": "Choose Max",
+          "rect": {
+            "x": 16,
+            "y": 498.00000000000006,
+            "width": 284,
+            "height": 46
+          },
+          "radius": 12,
+          "fill": [
+            0.09019607843137255,
+            0.10588235294117647,
+            0.13333333333333333,
+            1
+          ],
+          "opacity": 1,
+          "label": {
+            "text": "Choose Max",
+            "rect": {
+              "x": 16,
+              "y": 498.00000000000006,
+              "width": 284,
+              "height": 46
+            },
+            "fontSize": 16,
+            "fontWeight": 400,
+            "lineHeight": 24,
+            "letterSpacing": -0.16,
+            "textAlign": "center",
+            "color": [
+              0.9725490196078431,
+              0.9725490196078431,
+              0.9764705882352941,
+              1
+            ]
+          }
+        }
+      }
+    ],
+    "mobile": {
+      "page": {
+        "rect": {
+          "width": 402,
+          "height": 874
+        },
+        "background": [
+          0.9333333333333333,
+          0.9333333333333333,
+          0.9450980392156862,
+          1
+        ]
+      },
+      "main": {
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": 402,
+          "height": 874
+        },
+        "width": 402,
+        "height": 874,
+        "background": [
+          0.9725490196078431,
+          0.9725490196078431,
+          0.9764705882352941,
+          1
+        ],
+        "radius": 16,
+        "effects": [
+          {
+            "type": "DROP_SHADOW",
+            "color": [
+              0.09019607843137255,
+              0.10588235294117647,
+              0.13333333333333333,
+              0.12
+            ],
+            "offset": {
+              "x": 0,
+              "y": 0
+            },
+            "radius": 0,
+            "spread": 0.5
+          }
+        ],
+        "topBar": {
+          "x": 16,
+          "y": 0,
+          "width": 370,
+          "height": 53
+        },
+        "content": {
+          "x": 16,
+          "y": 53,
+          "width": 370,
+          "height": 3297.375
+        },
+        "headerTitle": {
+          "text": "Start free, upgrade or cancel anytime.",
+          "rect": {
+            "x": 16,
+            "y": 77,
+            "width": 370,
+            "height": 194.3906
+          },
+          "fontSize": 48,
+          "fontWeight": 500,
+          "lineHeight": 64.8,
+          "letterSpacing": -0.96,
+          "textAlign": "start",
+          "color": [
+            0,
+            0,
+            0,
+            1
+          ]
+        },
+        "headerBody": {
+          "text": "Monthly billed plans are available for one month from each billing date. After that, payment renews automatically on the same billing date each month.",
+          "rect": {
+            "x": 16,
+            "y": 289.3906,
+            "width": 370,
+            "height": 84
+          },
+          "fontSize": 14,
+          "fontWeight": 400,
+          "lineHeight": 21,
+          "letterSpacing": -0.14,
+          "textAlign": "start",
+          "color": [
+            0,
+            0,
+            0,
+            0.72
+          ]
+        }
+      },
+      "cardGrid": {
+        "x": 16,
+        "y": 401.3906,
+        "width": 370,
+        "height": 1194.1875
+      },
+      "cards": [
+        {
+          "plan": "Trial",
+          "route": "/mypage/upgrade",
+          "viewport": "MobileVisibleSlice",
+          "rect": {
+            "width": 179,
+            "height": 693.5938
+          },
+          "position": {
+            "x": 16,
+            "y": 401.3906,
+            "width": 179,
+            "height": 693.5938
+          },
+          "visibleIntersection": {
+            "top": 0,
+            "bottom": 472.6094
+          },
+          "padding": {
+            "top": 12,
+            "right": 12,
+            "bottom": 12,
+            "left": 12
+          },
+          "radius": 16,
+          "background": [
+            0.9803921568627451,
+            0.9803921568627451,
+            0.9803921568627451,
+            1
+          ],
+          "effects": [
+            {
+              "type": "DROP_SHADOW",
+              "color": [
+                0.09019607843137255,
+                0.10588235294117647,
+                0.13333333333333333,
+                0.12
+              ],
+              "offset": {
+                "x": 0,
+                "y": 0
+              },
+              "radius": 0,
+              "spread": 0.5
+            }
+          ],
+          "outline": {
+            "width": 2,
+            "style": "solid",
+            "color": [
+              0.7254901960784313,
+              0.8823529411764706,
+              0.9686274509803922,
+              0.42
+            ],
+            "offset": -2,
+            "figmaMapping": "2px INSIDE stroke"
+          },
+          "texts": [
+            {
+              "text": "Trial",
+              "rect": {
+                "x": 12,
+                "y": 12,
+                "width": 155,
+                "height": 30
+              },
+              "fontSize": 20,
+              "fontWeight": 500,
+              "lineHeight": 30,
+              "letterSpacing": -0.2,
+              "textAlign": "start",
+              "color": [
+                0.19215686274509805,
+                0.21176470588235294,
+                0.25098039215686274,
+                1
+              ]
+            },
+            {
+              "text": "Free",
+              "rect": {
+                "x": 12,
+                "y": 52,
+                "width": 54.2813,
+                "height": 37.7969
+              },
+              "fontSize": 28,
+              "fontWeight": 500,
+              "lineHeight": 37.8,
+              "letterSpacing": -0.56,
+              "textAlign": "start",
+              "color": [
+                0.19215686274509805,
+                0.21176470588235294,
+                0.25098039215686274,
+                1
+              ],
+              "figmaWidth": 55
+            },
+            {
+              "text": "200",
+              "rect": {
+                "x": 12,
+                "y": 93.7969,
+                "width": 35.9844,
+                "height": 30
+              },
+              "fontSize": 20,
+              "fontWeight": 500,
+              "lineHeight": 30,
+              "letterSpacing": -0.2,
+              "textAlign": "start",
+              "color": [
+                0.3411764705882353,
+                0.36470588235294116,
+                0.40784313725490196,
+                1
+              ],
+              "figmaWidth": 37
+            },
+            {
+              "text": "credits",
+              "rect": {
+                "x": 55.984399999999994,
+                "y": 93.7969,
+                "width": 61.1406,
+                "height": 30
+              },
+              "fontSize": 20,
+              "fontWeight": 500,
+              "lineHeight": 30,
+              "letterSpacing": -0.2,
+              "textAlign": "start",
+              "color": [
+                0.3411764705882353,
+                0.36470588235294116,
+                0.40784313725490196,
+                1
+              ],
+              "figmaWidth": 62
+            },
+            {
+              "text": "Core features for trying Klipse",
+              "rect": {
+                "x": 12,
+                "y": 159.7969,
+                "width": 155,
+                "height": 42
+              },
+              "fontSize": 14,
+              "fontWeight": 500,
+              "lineHeight": 21,
+              "letterSpacing": -0.14,
+              "textAlign": "start",
+              "color": [
+                0.7372549019607844,
+                0.7529411764705882,
+                0.788235294117647,
+                1
+              ]
+            },
+            {
+              "text": "Up to 3 projects",
+              "rect": {
+                "x": 38,
+                "y": 209.7969,
+                "width": 129,
+                "height": 21
+              },
+              "fontSize": 14,
+              "fontWeight": 400,
+              "lineHeight": 21,
+              "letterSpacing": -0.14,
+              "textAlign": "start",
+              "color": [
+                0.6039215686274509,
+                0.6274509803921569,
+                0.6705882352941176,
+                1
+              ]
+            },
+            {
+              "text": "1 video editor upload, 2 imports",
+              "rect": {
+                "x": 38,
+                "y": 235.7969,
+                "width": 129,
+                "height": 42
+              },
+              "fontSize": 14,
+              "fontWeight": 400,
+              "lineHeight": 21,
+              "letterSpacing": -0.14,
+              "textAlign": "start",
+              "color": [
+                0.6039215686274509,
+                0.6274509803921569,
+                0.6705882352941176,
+                1
+              ]
+            },
+            {
+              "text": "AI video generation trial",
+              "rect": {
+                "x": 38,
+                "y": 281.7969,
+                "width": 129,
+                "height": 42
+              },
+              "fontSize": 14,
+              "fontWeight": 400,
+              "lineHeight": 21,
+              "letterSpacing": -0.14,
+              "textAlign": "start",
+              "color": [
+                0.6039215686274509,
+                0.6274509803921569,
+                0.6705882352941176,
+                1
+              ]
+            },
+            {
+              "text": "Basic video cut editing",
+              "rect": {
+                "x": 38,
+                "y": 327.7969,
+                "width": 129,
+                "height": 42
+              },
+              "fontSize": 14,
+              "fontWeight": 400,
+              "lineHeight": 21,
+              "letterSpacing": -0.14,
+              "textAlign": "start",
+              "color": [
+                0.6039215686274509,
+                0.6274509803921569,
+                0.6705882352941176,
+                1
+              ]
+            },
+            {
+              "text": "Highlight input videos up to 10 min",
+              "rect": {
+                "x": 38,
+                "y": 373.7969,
+                "width": 129,
+                "height": 42
+              },
+              "fontSize": 14,
+              "fontWeight": 400,
+              "lineHeight": 21,
+              "letterSpacing": -0.14,
+              "textAlign": "start",
+              "color": [
+                0.6039215686274509,
+                0.6274509803921569,
+                0.6705882352941176,
+                1
+              ]
+            },
+            {
+              "text": "Watermark included",
+              "rect": {
+                "x": 38,
+                "y": 419.7969,
+                "width": 129,
+                "height": 21
+              },
+              "fontSize": 14,
+              "fontWeight": 400,
+              "lineHeight": 21,
+              "letterSpacing": -0.14,
+              "textAlign": "start",
+              "color": [
+                0.6039215686274509,
+                0.6274509803921569,
+                0.6705882352941176,
+                1
+              ]
+            }
+          ],
+          "icons": [
+            {
+              "rect": {
+                "x": 12,
+                "y": 213.7969,
+                "width": 18,
+                "height": 18
+              },
+              "color": [
+                0,
+                0.7764705882352941,
+                0.5568627450980392,
+                1
+              ],
+              "asset": "/icons/CheckCircle.svg"
+            },
+            {
+              "rect": {
+                "x": 12,
+                "y": 239.7969,
+                "width": 18,
+                "height": 18
+              },
+              "color": [
+                0,
+                0.7764705882352941,
+                0.5568627450980392,
+                1
+              ],
+              "asset": "/icons/CheckCircle.svg"
+            },
+            {
+              "rect": {
+                "x": 12,
+                "y": 285.7969,
+                "width": 18,
+                "height": 18
+              },
+              "color": [
+                0,
+                0.7764705882352941,
+                0.5568627450980392,
+                1
+              ],
+              "asset": "/icons/CheckCircle.svg"
+            },
+            {
+              "rect": {
+                "x": 12,
+                "y": 331.7969,
+                "width": 18,
+                "height": 18
+              },
+              "color": [
+                0,
+                0.7764705882352941,
+                0.5568627450980392,
+                1
+              ],
+              "asset": "/icons/CheckCircle.svg"
+            },
+            {
+              "rect": {
+                "x": 12,
+                "y": 377.7969,
+                "width": 18,
+                "height": 18
+              },
+              "color": [
+                0,
+                0.7764705882352941,
+                0.5568627450980392,
+                1
+              ],
+              "asset": "/icons/CheckCircle.svg"
+            },
+            {
+              "rect": {
+                "x": 12,
+                "y": 423.7969,
+                "width": 18,
+                "height": 18
+              },
+              "color": [
+                0,
+                0.7764705882352941,
+                0.5568627450980392,
+                1
+              ],
+              "asset": "/icons/CheckCircle.svg"
+            }
+          ],
+          "actionMeasured": false
+        },
+        {
+          "plan": "Basic",
+          "route": "/mypage/upgrade",
+          "viewport": "MobileVisibleSlice",
+          "rect": {
+            "width": 179,
+            "height": 693.5938
+          },
+          "position": {
+            "x": 207,
+            "y": 401.3906,
+            "width": 179,
+            "height": 693.5938
+          },
+          "visibleIntersection": {
+            "top": 0,
+            "bottom": 472.6094
+          },
+          "padding": {
+            "top": 12,
+            "right": 12,
+            "bottom": 12,
+            "left": 12
+          },
+          "radius": 16,
+          "background": [
+            0.9803921568627451,
+            0.9803921568627451,
+            0.9803921568627451,
+            1
+          ],
+          "effects": [
+            {
+              "type": "DROP_SHADOW",
+              "color": [
+                0.09019607843137255,
+                0.10588235294117647,
+                0.13333333333333333,
+                0.12
+              ],
+              "offset": {
+                "x": 0,
+                "y": 0
+              },
+              "radius": 0,
+              "spread": 0.5
+            }
+          ],
+          "outline": null,
+          "texts": [
+            {
+              "text": "Basic",
+              "rect": {
+                "x": 12,
+                "y": 12,
+                "width": 155,
+                "height": 30
+              },
+              "fontSize": 20,
+              "fontWeight": 500,
+              "lineHeight": 30,
+              "letterSpacing": -0.2,
+              "textAlign": "start",
+              "color": [
+                0.19215686274509805,
+                0.21176470588235294,
+                0.25098039215686274,
+                1
+              ]
+            },
+            {
+              "text": "35,900 KRW",
+              "rect": {
+                "x": 12,
+                "y": 52,
+                "width": 104.5625,
+                "height": 75.5938
+              },
+              "fontSize": 28,
+              "fontWeight": 500,
+              "lineHeight": 37.8,
+              "letterSpacing": -0.56,
+              "textAlign": "start",
+              "color": [
+                0.19215686274509805,
+                0.21176470588235294,
+                0.25098039215686274,
+                1
+              ],
+              "$lineNaturalWidths": {
+                "35,900": 91,
+                "KRW": 61
+              }
+            },
+            {
+              "text": "per month",
+              "rect": {
+                "x": 124.5625,
+                "y": 81.59379999999999,
+                "width": 42.4375,
+                "height": 46
+              },
+              "fontSize": 14,
+              "fontWeight": 400,
+              "lineHeight": 21,
+              "letterSpacing": -0.14,
+              "textAlign": "start",
+              "color": [
+                0.7372549019607844,
+                0.7529411764705882,
+                0.788235294117647,
+                0.9
+              ],
+              "$lineNaturalWidths": {
+                "per": 21,
+                "month": 40
+              }
+            },
+            {
+              "text": "1,800",
+              "rect": {
+                "x": 12,
+                "y": 131.59380000000004,
+                "width": 49.1094,
+                "height": 30
+              },
+              "fontSize": 20,
+              "fontWeight": 500,
+              "lineHeight": 30,
+              "letterSpacing": -0.2,
+              "textAlign": "start",
+              "color": [
+                0.3411764705882353,
+                0.36470588235294116,
+                0.40784313725490196,
+                1
+              ],
+              "figmaWidth": 50
+            },
+            {
+              "text": "credits",
+              "rect": {
+                "x": 69.1094,
+                "y": 131.59380000000004,
+                "width": 61.1406,
+                "height": 30
+              },
+              "fontSize": 20,
+              "fontWeight": 500,
+              "lineHeight": 30,
+              "letterSpacing": -0.2,
+              "textAlign": "start",
+              "color": [
+                0.3411764705882353,
+                0.36470588235294116,
+                0.40784313725490196,
+                1
+              ],
+              "figmaWidth": 62
+            },
+            {
+              "text": "Everything in Trial",
+              "rect": {
+                "x": 12,
+                "y": 197.59380000000004,
+                "width": 155,
+                "height": 21
+              },
+              "fontSize": 14,
+              "fontWeight": 500,
+              "lineHeight": 21,
+              "letterSpacing": -0.14,
+              "textAlign": "start",
+              "color": [
+                0.7372549019607844,
+                0.7529411764705882,
+                0.788235294117647,
+                1
+              ]
+            },
+            {
+              "text": "Up to 12 projects",
+              "rect": {
+                "x": 38,
+                "y": 226.59380000000004,
+                "width": 129,
+                "height": 21
+              },
+              "fontSize": 14,
+              "fontWeight": 400,
+              "lineHeight": 21,
+              "letterSpacing": -0.14,
+              "textAlign": "start",
+              "color": [
+                0.6039215686274509,
+                0.6274509803921569,
+                0.6705882352941176,
+                1
+              ]
+            },
+            {
+              "text": "5 video editor uploads, 5 imports",
+              "rect": {
+                "x": 38,
+                "y": 252.59380000000004,
+                "width": 129,
+                "height": 42
+              },
+              "fontSize": 14,
+              "fontWeight": 400,
+              "lineHeight": 21,
+              "letterSpacing": -0.14,
+              "textAlign": "start",
+              "color": [
+                0.6039215686274509,
+                0.6274509803921569,
+                0.6705882352941176,
+                1
+              ]
+            },
+            {
+              "text": "All AI models unlocked",
+              "rect": {
+                "x": 38,
+                "y": 298.59380000000004,
+                "width": 129,
+                "height": 42
+              },
+              "fontSize": 14,
+              "fontWeight": 400,
+              "lineHeight": 21,
+              "letterSpacing": -0.14,
+              "textAlign": "start",
+              "color": [
+                0.6039215686274509,
+                0.6274509803921569,
+                0.6705882352941176,
+                1
+              ]
+            },
+            {
+              "text": "Text/image overlay, TTS",
+              "rect": {
+                "x": 38,
+                "y": 344.59380000000004,
+                "width": 129,
+                "height": 42
+              },
+              "fontSize": 14,
+              "fontWeight": 400,
+              "lineHeight": 21,
+              "letterSpacing": -0.14,
+              "textAlign": "start",
+              "color": [
+                0.6039215686274509,
+                0.6274509803921569,
+                0.6705882352941176,
+                1
+              ]
+            },
+            {
+              "text": "YouTube/Instagram upload, schedule & analytics",
+              "rect": {
+                "x": 38,
+                "y": 390.59380000000004,
+                "width": 129,
+                "height": 63
+              },
+              "fontSize": 14,
+              "fontWeight": 400,
+              "lineHeight": 21,
+              "letterSpacing": -0.14,
+              "textAlign": "start",
+              "color": [
+                0.6039215686274509,
+                0.6274509803921569,
+                0.6705882352941176,
+                1
+              ]
+            },
+            {
+              "text": "AI prompt & caption assist",
+              "rect": {
+                "x": 38,
+                "y": 457.59380000000004,
+                "width": 129,
+                "height": 42
+              },
+              "fontSize": 14,
+              "fontWeight": 400,
+              "lineHeight": 21,
+              "letterSpacing": -0.14,
+              "textAlign": "start",
+              "color": [
+                0.6039215686274509,
+                0.6274509803921569,
+                0.6705882352941176,
+                1
+              ]
+            }
+          ],
+          "icons": [
+            {
+              "rect": {
+                "x": 12,
+                "y": 230.59380000000004,
+                "width": 18,
+                "height": 18
+              },
+              "color": [
+                0,
+                0.7764705882352941,
+                0.5568627450980392,
+                1
+              ],
+              "asset": "/icons/CheckCircle.svg"
+            },
+            {
+              "rect": {
+                "x": 12,
+                "y": 256.59380000000004,
+                "width": 18,
+                "height": 18
+              },
+              "color": [
+                0,
+                0.7764705882352941,
+                0.5568627450980392,
+                1
+              ],
+              "asset": "/icons/CheckCircle.svg"
+            },
+            {
+              "rect": {
+                "x": 12,
+                "y": 302.59380000000004,
+                "width": 18,
+                "height": 18
+              },
+              "color": [
+                0,
+                0.7764705882352941,
+                0.5568627450980392,
+                1
+              ],
+              "asset": "/icons/CheckCircle.svg"
+            },
+            {
+              "rect": {
+                "x": 12,
+                "y": 348.59380000000004,
+                "width": 18,
+                "height": 18
+              },
+              "color": [
+                0,
+                0.7764705882352941,
+                0.5568627450980392,
+                1
+              ],
+              "asset": "/icons/CheckCircle.svg"
+            },
+            {
+              "rect": {
+                "x": 12,
+                "y": 394.59380000000004,
+                "width": 18,
+                "height": 18
+              },
+              "color": [
+                0,
+                0.7764705882352941,
+                0.5568627450980392,
+                1
+              ],
+              "asset": "/icons/CheckCircle.svg"
+            },
+            {
+              "rect": {
+                "x": 12,
+                "y": 461.59380000000004,
+                "width": 18,
+                "height": 18
+              },
+              "color": [
+                0,
+                0.7764705882352941,
+                0.5568627450980392,
+                1
+              ],
+              "asset": "/icons/CheckCircle.svg"
+            }
+          ],
+          "actionMeasured": false
+        }
+      ],
+      "evidenceBoundary": "Only nodes present in the 402x874 fixture are drawn. Pro, Max, and card actions were outside the measured viewport and are absent."
+    },
+    "bindings": {
+      "paletteCollection": "1 · Palette",
+      "paletteMode": "sidebar",
+      "semanticCollection": "2 · Semantic",
+      "semanticMode": "light-sidebar",
+      "primitiveCollection": "Klipse Primitive",
+      "primitiveMode": "Base",
+      "appBackground": {
+        "collection": "1 · Palette",
+        "name": "palette/gray-200"
+      },
+      "surface": {
+        "collection": "1 · Palette",
+        "name": "palette/gray-50"
+      },
+      "cardSurface": {
+        "collection": "1 · Palette",
+        "name": "palette/gray-000"
+      },
+      "black": {
+        "collection": "1 · Palette",
+        "name": "palette/gray-1000"
+      },
+      "gray900": {
+        "collection": "1 · Palette",
+        "name": "palette/gray-900"
+      },
+      "gray800": {
+        "collection": "1 · Palette",
+        "name": "palette/gray-800"
+      },
+      "gray700": {
+        "collection": "1 · Palette",
+        "name": "palette/gray-700"
+      },
+      "gray600": {
+        "collection": "1 · Palette",
+        "name": "palette/gray-600"
+      },
+      "gray500": {
+        "collection": "1 · Palette",
+        "name": "palette/gray-500"
+      },
+      "gray500a90": {
+        "collection": "2 · Semantic",
+        "name": "palette/gray-500 · a90"
+      },
+      "blackA72": {
+        "collection": "2 · Semantic",
+        "name": "gray/000 · a72"
+      },
+      "mint500": {
+        "collection": "1 · Palette",
+        "name": "accent/mint/500"
+      },
+      "radius12": {
+        "collection": "Klipse Primitive",
+        "name": "radius/12"
+      },
+      "radius16": {
+        "collection": "Klipse Primitive",
+        "name": "radius/16"
+      },
+      "radius24": {
+        "collection": "Klipse Primitive",
+        "name": "radius/24"
+      }
+    }
+  }
+}

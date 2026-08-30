@@ -332,11 +332,15 @@
       "padding-left": "제품이 여백을 두지 않는 자리다. 크기가 고정이라 여백이 들어갈 곳이 없다 — 크기를 EXPECT가 본다.",
       "padding-right": "제품이 여백을 두지 않는 자리다. 크기가 고정이라 여백이 들어갈 곳이 없다 — 크기를 EXPECT가 본다.",
       "padding-top": "제품이 여백을 두지 않는 자리다. 크기가 고정이라 여백이 들어갈 곳이 없다 — 크기를 EXPECT가 본다.",
-      "row-gap": "위와 같다."
+      "row-gap": "위와 같다.",
+      "--archive-card-index": "카드의 진입 stagger 순번이다. 런타임 데이터가 정하고 기하가 아니다."
     },
     "project-card-overlay": {
       "border-top-right-radius": "위 두 모서리는 각지다. 왼쪽을 EXPECT가 보고 오른쪽은 대칭이다.",
-      "height": "비율에서 나오는 값이다. `overlayHeightRatio`가 계약이고 templates.measured.json이 화면 단위로 그것을 본다."
+      "height": "비율에서 나오는 값이다. `overlayHeightRatio`가 계약이고 templates.measured.json이 화면 단위로 그것을 본다.",
+      "::before mask-image": "점진 블러의 감쇠 곡선이다. 정본은 LOUIS `--louis-progressive-blur-mask` 한 곳이고 Figma 램프는 `overlayMaskStops` 에서 유도된다 — 계산된 gradient 문자열을 여기서 또 대조하면 같은 사실을 세 번 세는 것이다.",
+      "block-size": "미디어 높이의 30%를 **하한**으로 쓴다(`min-block-size: 30%`). 측정 폭 360에서만 정확히 108이고 카드가 작아지면 내용이 이겨 더 커진다 — 고정 숫자로 대조할 축이 아니다. 사유는 기록의 `$overlayHeightRatio` 가 갖는다.",
+      "border-end-end-radius": "아래 두 모서리는 같은 값이고 왼쪽을 EXPECT 가 본다. 위 두 모서리가 0 이라 네 모서리 묶음으로는 합쳐지지 않는다."
     },
     "project-card-preview": {
       "background-color": "썸네일이 없을 때의 자리 색이며 소비처가 정한다.",

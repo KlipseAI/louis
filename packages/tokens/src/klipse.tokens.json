@@ -5813,16 +5813,6 @@
             }
           }
         },
-        "project-card": {
-          "$value": "{primitive.radius.16}",
-          "$extensions": {
-            "com.klipse-design": {
-              "id": "radius-project-card",
-              "tier": "semantic",
-              "mode": "global"
-            }
-          }
-        },
         "card-lg": {
           "$value": "{primitive.radius.20}",
           "$extensions": {

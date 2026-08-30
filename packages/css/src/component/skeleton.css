@@ -49,7 +49,7 @@
  * base 의 8 이 그려졌다. 브라우저 테스트는 block 을 `sizes.base` 와 대조하고 있어 그 갈림을
  * 볼 수 없었다 — 셋이 갈린 채 어느 게이트도 잡지 못했다 (2026-08-30). */
 .louis-skeleton[data-shape="block"] {
-  border-radius: var(--louis-radius-project-card);
+  border-radius: var(--louis-radius-overlay);
 }
 
 /* 원 모양. 아바타·아이콘 자리를 대신할 때 쓴다. */

@@ -13682,34 +13682,6 @@
             }
           }
         },
-        "radius-project-card": {
-          "$type": "dimension",
-          "fields": [],
-          "figmaName": "radius/project-card",
-          "hiddenFromPublishing": false,
-          "losses": [
-            "Figma FLOAT는 DTCG 단위 의미를 직접 보존하지 않으므로 source metadata를 함께 검토해야 합니다."
-          ],
-          "nativeVariableType": "FLOAT",
-          "representation": "variable",
-          "scopes": [
-            "CORNER_RADIUS"
-          ],
-          "valuesByMode": {
-            "Global": {
-              "$value": "{primitive.radius.16}",
-              "aliasTarget": {
-                "id": "radius-16",
-                "mode": "base"
-              },
-              "resolvedValue": {
-                "unit": "px",
-                "value": 16
-              },
-              "sourcePath": "semantic.global.radius.project-card"
-            }
-          }
-        },
         "radius-table-header": {
           "$type": "dimension",
           "fields": [],

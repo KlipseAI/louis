@@ -3992,18 +3992,6 @@
           ]
         ],
         [
-          "radius/project-card",
-          "FLOAT",
-          "CORNER_RADIUS",
-          [
-            [
-              "Global",
-              "Klipse Primitive::radius/16",
-              null
-            ]
-          ]
-        ],
-        [
           "radius/table-header",
           "FLOAT",
           "CORNER_RADIUS",
@@ -12231,7 +12219,7 @@
             0
           ],
           "cornerRadius": [
-            16
+            12
           ],
           "layoutMode": [
             "NONE"

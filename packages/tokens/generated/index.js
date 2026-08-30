@@ -10842,27 +10842,6 @@ export const tokens = {
         "unit": "px"
       }
     },
-    "radius-project-card": {
-      "aliasTarget": {
-        "id": "radius-16",
-        "mode": "base"
-      },
-      "cssProperties": {
-        "--louis-radius-project-card": "16px"
-      },
-      "deprecated": null,
-      "description": null,
-      "id": "radius-project-card",
-      "mode": "global",
-      "rawValue": "{primitive.radius.16}",
-      "sourcePath": "semantic.global.radius.project-card",
-      "tier": "semantic",
-      "type": "dimension",
-      "value": {
-        "value": 16,
-        "unit": "px"
-      }
-    },
     "radius-table-header": {
       "aliasTarget": {
         "id": "radius-4",

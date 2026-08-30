@@ -100,17 +100,25 @@ const PROBES = [
     tag: "button",
     read: ["width", "height", "borderTopLeftRadius"],
   },
+  // **손으로 적은 리터럴을 되읽고 있었다.** 이 탐침의 html 은 `[border-radius:16px]` 를 자기가
+  // 적어 두고 그 16 을 다시 읽었다 — 제품을 잰 적이 없다. 실제 `archiveCard` 는 반경을 선언하지
+  // 않고 `.louis-project-card` 에서 받는다(appHomeSceneStyles.ts:18-19). 제품 상수를 그대로
+  // 꺼내 쓴다. 2026-08-30 에 이 거짓 측정이 DS 반경 판정을 통째로 잘못된 방향으로 끌었다.
   {
     id: "project-card",
-    source: "apps/web/components/scenes/appHomeSceneStyles.ts archiveCard",
-    html: `<div class="[position:relative] [display:grid] [gap:12px] [row-gap:8px] [padding:0] [min-width:0] [border-radius:16px]"></div>`,
-    read: ["borderTopLeftRadius", "rowGap", "columnGap", "padding"],
+    source: "apps/web/components/scenes/appHomeSceneStyles.ts archiveCard (= .louis-project-card + 제품 유틸리티)",
+    from: ["appHome", "archiveCard"],
+    read: ["borderTopLeftRadius", "rowGap", "columnGap", "padding", "::before:borderTopLeftRadius"],
   },
+  // 위와 같은 거짓 측정이었다 — html 에 `[padding:16px] [border-radius:0_0_16px_16px]` 를 적어
+  // 두고 그 값을 되읽었다. 제품 상수는 `.louis-project-card-overlay` + `[height:30%]` 뿐이고
+  // 여백과 반경을 스스로 선언하지 않는다(appHomeSceneStyles.ts:298-300).
   {
     id: "project-card-overlay",
-    source: "apps/web/components/scenes/appHomeSceneStyles.ts archivePreviewTitleOverlay",
-    html: `<div class="[position:absolute] [height:30%] [padding:16px] [border-radius:0_0_16px_16px]"></div>`,
-    read: ["padding", "borderBottomLeftRadius", "height"],
+    source: "appHomeSceneStyles.ts archivePreviewTitleOverlay (= .louis-project-card-overlay + height)",
+    from: ["appHome", "archivePreviewTitleOverlay"],
+    read: ["padding", "borderBottomLeftRadius", "height",
+      "::before:borderTopLeftRadius", "::before:borderBottomLeftRadius"],
   },
   {
     id: "project-card-preview",
@@ -930,13 +938,14 @@ const EXPECT = [
   ["icon-button-card", "width", ["project-card", "sizes", "base", "moreSize"], "same"],
 
   ["project-card", "borderTopLeftRadius", ["project-card", "sizes", "base", "radius"], "same"],
-  // **카드 틀은 16인데 미디어 면만 12다.** 제품 `archivePreview` 가 면에 자기 반경을 직접
-  // 선언한다 — 틀보다 4px 더 조인다. LOUIS 레시피는 미디어 면에 반경을 주지 않고 틀의
-  // `overflow: hidden` 이 자르게 둔다(project-card.css:95-108 에 border-radius 가 없다). 그래서
-  // 이 축은 "같아야 하는데 다른" 것이 아니라 **제품 안의 불일치**다. 제품이 면의 선언을 지우면
-  // 이 행이 "편차가 사라졌다"로 실패하고, 그때 지우면 된다.
-  ["project-card-preview", "borderTopLeftRadius", ["project-card", "sizes", "base", "radius"], "deviates",
-    "제품 12, DS 16. 제품의 카드 **틀**은 16이고(면 12벌 중 10벌) 미디어 **면**만 12를 따로 선언한다 — 틀 안에서 면이 4px 더 조인다. DS는 면에 반경을 주지 않고 틀이 자르게 두므로 면의 유효 반경이 곧 틀의 16이다."],
+  // 진짜 상수를 재기 시작하자 드러난 축들이다. `::before` 는 헤어라인·흐림을 칠하는 층이고
+  // 카드의 반경을 그대로 따라야 모서리가 어긋나지 않는다.
+  ["project-card", "::before:borderTopLeftRadius", ["project-card", "sizes", "base", "radius"], "same"],
+  ["project-card-overlay", "::before:borderBottomLeftRadius", ["project-card", "sizes", "base", "radius"], "same"],
+  ["project-card-overlay", "::before:borderTopLeftRadius", ["project-card", "sizes", "base", "overlayTopRadius"], "same"],
+  // 미디어 면과 카드 틀은 **둘 다 12로 같다.** 한때 "틀 16 · 면 12" 로 적었는데 그 근거였던
+  // `project-card` 탐침이 자기 html 에 리터럴 16 을 적어 두고 되읽던 거짓 측정이었다.
+  ["project-card-preview", "borderTopLeftRadius", ["project-card", "sizes", "base", "radius"], "same"],
   ["project-card-overlay", "padding", ["project-card", "sizes", "base", "overlayPadding"], "same"],
 
   ["tooltip", "borderTopLeftRadius", ["tooltip", "sizes", "base", "radius"], "same"],

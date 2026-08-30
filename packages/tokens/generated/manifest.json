@@ -2,23 +2,23 @@
   "artifacts": [
     {
       "path": "packages/tokens/generated/figma.tokens.json",
-      "sha256": "6c1018f328ed1ed83dd43ba8857401465a8a0e08f9c88f1cfba083a9ec276b0e"
+      "sha256": "c238aeaeade26ebdf0f21389d0fc50a543baf63d3b8064ffc15451d4c4fe8c9e"
     },
     {
       "path": "packages/tokens/generated/index.d.ts",
-      "sha256": "9ece02a0e88734a740cce8f6ce5116f4d0c51e3fb5e13e4c202e0fa325871b04"
+      "sha256": "ca251ccd6edc74043e68ebb5780da92a8b7703a07987eb87d551a5f70a3a382a"
     },
     {
       "path": "packages/tokens/generated/index.js",
-      "sha256": "34576d24289ce427ae06ab57c32d7c7a596f5da7d8d1a5f466dd377a98994cef"
+      "sha256": "48fc3418e01703e8584e3b0d90ed262c6397159cd6b445b07e534185025aaa06"
     },
     {
       "path": "packages/tokens/generated/tokens.css",
-      "sha256": "dd2555a2398a802b307a4dfa1d714e83980038bf201009302daa3dc40cee37c3"
+      "sha256": "756b4afd7588a9797ca3dde84ac2e20d5fe80bd3fa5325b862932ca33a95acc3"
     },
     {
       "path": "packages/tokens/generated/tokens.json",
-      "sha256": "b3bbbadeded636cc0ae9ae24cb857b88c1bc1abc2599b27e8552583155ee44ae"
+      "sha256": "4fdbea7165f80f2692e644c157b9fb7d7895e96720d1c2dc70e593bcb7e3c6b0"
     }
   ],
   "contrastPairs": [
@@ -408,13 +408,13 @@
   },
   "source": {
     "path": "packages/tokens/src/klipse.tokens.json",
-    "sha256": "e0d599d49de8420d676bd7b4135778affb9dc3381a6d494b790853293ae0b254"
+    "sha256": "6d15f656bc8a6c01dacbcb3f1b7e941b41a78cc46d9d815642b1973afb88dfb1"
   },
   "themes": [
     "light",
     "dark"
   ],
-  "tokenCount": 772,
+  "tokenCount": 771,
   "tokens": [
     {
       "aliasTarget": {
@@ -17528,27 +17528,6 @@
         "value": 999
       },
       "sourcePath": "semantic.global.radius.pill",
-      "tier": "semantic",
-      "type": "dimension"
-    },
-    {
-      "aliasTarget": {
-        "id": "radius-16",
-        "mode": "base"
-      },
-      "cssProperties": {
-        "--louis-radius-project-card": "16px"
-      },
-      "deprecated": null,
-      "description": null,
-      "id": "radius-project-card",
-      "mode": "global",
-      "rawValue": "{primitive.radius.16}",
-      "resolvedValue": {
-        "unit": "px",
-        "value": 16
-      },
-      "sourcePath": "semantic.global.radius.project-card",
       "tier": "semantic",
       "type": "dimension"
     },

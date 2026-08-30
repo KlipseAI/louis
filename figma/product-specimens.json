@@ -2826,13 +2826,13 @@
       "id": "tooltip/upgradeTierFeature",
       "kind": "tooltip",
       "label": "업그레이드 요금제 기능 툴팁",
-      "jsx": "apps/web/app/mypage/upgrade/page.tsx:619",
-      "jsxQuote": "                            {detail && <span className={`app-tooltip-chrome ${TIER_FEATURE_TIP}`}>{detail}</span>}",
+      "jsx": "apps/web/app/mypage/upgrade/page.tsx:605",
+      "jsxQuote": "                            {detail && <span className={`louis-tooltip ${TIER_FEATURE_TIP}`}>{detail}</span>}",
       "file": "apps/web/app/mypage/upgrade/page.tsx",
       "node": {
         "part": "TIER_FEATURE_TIP",
         "tag": "span",
-        "typography": "app-tooltip-chrome",
+        "typography": "louis-tooltip",
         "text": "매달 크레딧 1,200개가 충전됩니다"
       },
       "host": [

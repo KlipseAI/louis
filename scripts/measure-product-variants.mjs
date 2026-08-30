@@ -82,11 +82,71 @@ const productRefForList = productRef;
 const git = (args) =>
   execFileSync("git", args, { cwd: productRoot, encoding: "utf8", maxBuffer: 128 * 1024 * 1024 });
 const commit = git(["rev-parse", productRef]).trim();
+// 제품 `tailwind.css` 의 머리말은 `@import "tailwindcss"` 를 **설명하려고** 인용한다. 주석을 남긴
+// 채 import 제거 정규식을 돌리면 그 인용에서 매칭이 시작되고 `[^;]*;` 가 다음 세미콜론까지
+// 삼킨다 — `74a7303b` 에서는 그 세미콜론이 **`@layer theme, base, components;`** 의 것이라
+// 순서 선언이 통째로 사라졌다. 그러면 문서에 남는 첫 선언이 `@layer utilities;` 가 되어
+// **utilities 가 가장 낮은 레이어**가 되고, `globals.css` 의 `* { padding: 0 }` 리셋이 유틸리티를
+// 이긴다. 빨개지지 않는다 — 이 게이트는 같은 하네스로 다시 재서 같은 답을 얻으므로 초록인 채로
+// 여백 축이 조용히 전부 0 으로 잡혔다(2026-08-30, 표본 139개 → 30개).
+//
+// 그전 진입 CSS(`a3ed8e03`)에서는 같은 삼킴이 순서 선언 **하나만** 지워 문서가
+// 「선언 없음 = 등장 순서」로 떨어졌고, 그 순서가 우연히 옳았다. 그래서 이 버그는 제품이
+// `@layer utilities;` 를 따로 선언하는 날까지 잠복했다.
+// 같은 사유가 scripts/measure-product-components.mjs 의 normalize 에도 적혀 있다.
 const normalize = (source) =>
-  source.replace(/@import\s+["'][^"']+["'][^;]*;/g, "").replace(/@theme\s+(?:inline\s+)?\{/g, ":root {");
+  source
+    .replace(/\/\*[\s\S]*?\*\//g, "")
+    .replace(/@import\s+["'][^;]*;/g, "")
+    .replace(/@theme\s+(?:inline\s+)?\{/g, ":root {");
+
+/**
+ * **주석을 같은 길이의 공백으로 바꾼다.** 지우지 않고 덮어쓰는 이유는 인덱스와 줄 번호를
+ * 그대로 두기 위해서다 — 아래 추출기는 `source` 위의 위치로 상수 본문을 자르고 `line` 을 센다.
+ *
+ * 제품은 LOUIS 채택을 배열 원소 앞 블록 주석으로 적는다. 그 주석에는 `,` 도 `[` 도 들어간다:
+ * 실제로 `NodeCanvasHomeScene.tsx` 의 `ARCHIVE_PREVIEW_TITLE_OVERLAY` 가 그렇다 — 주석 안의
+ * 「… 아래 두 모서리 16 반경, 그리고 …」의 쉼표가 원소를 가른다.
+ * 주석을 남긴 채 원소를 쉼표로 쪼개면 그 쉼표가 원소를 갈라 **뒤따르는 클래스 리터럴이 조각
+ * 안에 묻히고**, 조각은 문자열로도 식별자로도 안 보여 통째로 버려진다. 그러면 그 부품은
+ * 클래스 없이 렌더되어 **브라우저 기본값**으로 측정된다 — 배너 화살표·점의 면이 UA
+ * `buttonface` rgb(107, 107, 107)로, 컨트롤 알약과 카드 제목 띠의 여백이 0으로 잡혔다.
+ * 2026-08-30 기준 이렇게 버려지던 원소가 259개다. 어느 게이트도 빨개지지 않는다 —
+ * 같은 하네스가 다시 재서 같은 답을 낸다.
+ */
+function blankComments(text) {
+  let out = "";
+  let quote = null;
+  for (let i = 0; i < text.length; i += 1) {
+    const ch = text[i];
+    if (quote) {
+      out += ch;
+      if (ch === "\\") { out += text[i + 1] ?? ""; i += 1; }
+      else if (ch === quote) quote = null;
+      continue;
+    }
+    if (ch === '"' || ch === "'" || ch === "`") { quote = ch; out += ch; continue; }
+    if (ch === "/" && text[i + 1] === "*") {
+      const end = text.indexOf("*/", i + 2);
+      const stop = end === -1 ? text.length : end + 2;
+      for (let j = i; j < stop; j += 1) out += text[j] === "\n" ? "\n" : " ";
+      i = stop - 1;
+      continue;
+    }
+    if (ch === "/" && text[i + 1] === "/") {
+      let j = i;
+      while (j < text.length && text[j] !== "\n") { out += " "; j += 1; }
+      i = j - 1;
+      continue;
+    }
+    out += ch;
+  }
+  return out;
+}
 
 /** `key: [...].join(" ")` 와 `const KEY = [...].join(" ")` 를 모두 읽는다. */
-function extractAll(source) {
+function extractAll(rawSource) {
+  const source = blankComments(rawSource);
   const found = [];
   const pattern = /(?:^|\n)(?:\s{2}|const\s+)([A-Za-z_][A-Za-z0-9_]*)\s*[:=]\s*(?=\[|")/g;
   let match;
@@ -362,7 +422,15 @@ try {
     }
   }
   const utilities = compiled.build([...tokens]);
+  // **레이어 순서를 문서 맨 앞에 못 박는다.** 제품에서는 `tailwind.css` 가
+  // theme → base → components → LOUIS → utilities 순으로 선언하는데, 그 순서의 LOUIS 구간은
+  // `@import "@klipse-design/css/layers.css"` 가 갖고 있고 위 `normalize` 가 그 import 를 지운다.
+  // 지우고 나면 LOUIS 레이어가 컴파일 시트에서 처음 등장하며 **utilities 뒤에** 붙어, 제품과
+  // 반대로 LOUIS 가 호출부 유틸리티를 이기는 문서가 된다. 이름을 손으로 적지 않고 컴파일
+  // 산출물이 실제로 선언한 LOUIS 순서를 꺼내 쓴다.
+  const louisLayerOrder = /@layer\s+(louis\.[^;]*);/.exec(utilities)?.[1] ?? "";
   const productCss = [
+    "@layer theme, base, components" + (louisLayerOrder ? ", " + louisLayerOrder : "") + ", utilities;",
     productFontFace(productRoot, commit),
     normalize(tailwindEntry),
     git(["show", commit + ":apps/web/app/globals.css"]),

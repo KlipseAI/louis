@@ -104,10 +104,21 @@ const px = (v) => {
   return m ? Math.round(parseFloat(m[1]) * 100) / 100 : 0;
 };
 const round3 = (n) => Math.round(n * 1000) / 1000;
+// **표기가 두 가지 섞여 있다.** 브라우저는 `rgb()`/`rgba()` 로도, `color(srgb 0.980392 …)`
+// (0~1 정규화 + 슬래시 알파)로도 돌려준다. 제품이 LOUIS 토큰으로 색을 단일화한 뒤 후자가
+// 790곳에 나타났고, `rgb()` 만 읽던 이 파서는 그것을 통째로 null 로 떨궈 `fg`·`bc` 를 지웠다.
+// 같은 결함과 같은 수정이 scripts/lib/figma-tree-spec.mjs(다른 브랜치)에도 있다.
 const colorOf = (v) => {
-  const m = /^rgba?\(\s*([\d.]+)[,\s]+([\d.]+)[,\s]+([\d.]+)(?:[,/\s]+([\d.]+))?\s*\)$/.exec((v ?? "").trim());
-  if (!m) return null;
-  return [round3(+m[1] / 255), round3(+m[2] / 255), round3(+m[3] / 255), m[4] === undefined ? 1 : round3(+m[4])];
+  const raw = (v ?? "").trim();
+  const m = /^rgba?\(\s*([\d.]+)[,\s]+([\d.]+)[,\s]+([\d.]+)(?:[,/\s]+([\d.]+))?\s*\)$/.exec(raw);
+  if (m) {
+    return [round3(+m[1] / 255), round3(+m[2] / 255), round3(+m[3] / 255), m[4] === undefined ? 1 : round3(+m[4])];
+  }
+  const srgb = /^color\(srgb\s+([\d.]+)\s+([\d.]+)\s+([\d.]+)(?:\s*\/\s*([\d.]+))?\s*\)$/.exec(raw);
+  if (srgb) {
+    return [round3(+srgb[1]), round3(+srgb[2]), round3(+srgb[3]), srgb[4] === undefined ? 1 : round3(+srgb[4])];
+  }
+  return null;
 };
 // **그라디언트는 `background-color`가 아니라 `background-image`에 있다.**
 // 공용 Button의 primary가 그렇다 — backgroundColor는 rgba(0,0,0,0)으로 나와서
@@ -126,7 +137,9 @@ const gradientOf = (v) => {
   }
   const stops = [];
   for (const part of parts) {
-    const m = /^(rgba?\([^)]*\)|#[0-9a-fA-F]{3,8})\s*([\d.]+)%?$/.exec(part);
+    // 정지점 색도 `color(srgb …)` 로 나온다 — `rgb()`/`#hex` 만 받으면 정지점이 둘 미만이 되어
+    // **그라디언트가 통째로 null 이 된다.** insight-card 의 막대 채움 6곳이 그렇게 사라졌다.
+    const m = /^(rgba?\([^)]*\)|color\(srgb[^)]*\)|#[0-9a-fA-F]{3,8})\s*([\d.]+)%?$/.exec(part);
     if (!m) continue;
     const c = colorOf(m[1]);
     if (!c) continue;

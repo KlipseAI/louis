@@ -74,9 +74,16 @@ const css = STYLESHEETS.map((path) => normalize(git(["show", commit + ":" + path
 // 같게 번역한다. 번역하지 않으면 `--spacing: 2px` 같은 값이 통째로 사라져 **없는 것처럼 보인다** —
 // 실제로 첫 판이 그랬고, 제품이 2px 격자를 쓴다는 사실이 게이트에서 지워져 있었다.
 // 해석할 수 없는 `@import`(tailwindcss 패키지)는 버린다. 인용된 변수는 전부 제품 자신의 선언이다.
+// **주석을 먼저 지운다.** 제품 머리말은 `@import "tailwindcss"` 를 설명하려고 인용하는데,
+// 주석을 남긴 채 import 제거 정규식을 돌리면 그 인용에서 매칭이 시작되고 `[^;]*;` 가 줄을
+// 넘어 다음 세미콜론까지 삼킨다 — 인용 뒤에 오는 **진짜 선언**이 통째로 사라진다.
+// 여기서는 삼킨 것이 `@layer` 순서 선언뿐이라 변수 값은 살아남았지만, 제품이 그 자리에 선언을
+// 하나 추가하면 조용히 없어진다. scripts/measure-product-variants.mjs 에서는 같은 삼킴이
+// 실제로 여백 축을 전부 0 으로 만들었다.
 function normalize(source) {
   return source
-    .replace(/@import\s+["'][^"']+["'][^;]*;/g, "")
+    .replace(/\/\*[\s\S]*?\*\//g, "")
+    .replace(/@import\s+["'][^;]*;/g, "")
     .replace(/@theme\s+(?:inline\s+)?\{/g, ":root {");
 }
 

@@ -16,6 +16,118 @@ authority: normative
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
 
+## 2026-08-30 (107) — 제품 화면 이식 파이프라인을 정본으로 들인다
+
+작업이 2026-08-23 에 두 갈래로 갈렸다. 정본은 DS 컴포넌트와 Decision 을 쌓았고, 갈래
+(`figma-product-pages`)는 **제품 화면을 Figma 로 그리는 파이프라인 전체**를 만들었다 — 측정 →
+FILL/HUG/FIXED/ABSOLUTE 판정 → Auto Layout 계층 → 플러그인 런너(`scripts/build-figma-app-screens.mjs`),
+`scripts/build-figma-product-*.mjs` 8종, `scripts/measure-product-auth-fixture.mjs` ·
+`scripts/measure-product-sidebar-states.mjs`, `scripts/lib/figma-tree-spec.mjs`, 그리고 그것을 지키는
+게이트 10종이다.
+
+**정본에는 제품 화면 보드(Figma 페이지 01~05, 라우트 46개)를 지키는 게이트가 하나도 없었다.**
+보드는 Figma 에 서 있는데 저장소가 그것을 검증하지 못하는 상태였고, 갈래에만 있던 게이트는 정본
+CI 에서 한 번도 돌지 않았다. 이 저장소의 목적이 「LOUIS 저장소만으로 제품과 똑같이 구현할 수
+있는지 확인하는 것」이므로 그 파이프라인은 정본에 있어야 한다. 저장소 규칙도 feature 브랜치를
+두지 않는다. 그래서 갈래를 접고 `main` 하나로 되돌린다.
+
+아래 세 소절은 갈래에 기록돼 있던 항목을 **날짜·수치·Figma 노드 id 를 그대로 둔 채** 옮긴 것이다.
+갈래가 쓰던 번호 (100)·(101)·(102) 는 정본의 같은 번호와 내용이 달라 충돌하므로 번호를 떼고
+날짜로만 둔다. 정본의 (100)~(106) 은 그대로다.
+
+### 2026-08-24 — `/pricing` 전체 페이지를 883개 제품 측정 노드에서 컴포넌트로 조립한다
+
+고정 제품 커밋 `a3ed8e031214f67ac319c5ceaa7ad2808cf0d3a4`의 `/pricing`을 light/en-US에서
+desktop 1920×1080과 mobile 402×874로 렌더했다. 기존 상위 경계 측정에 그치지 않고 각 문맥의
+`main[data-page-root]` 하위 883개 노드에 geometry, computed style, asset URL, SVG path와 직접 텍스트의
+실제 브라우저 줄 조각을 기록한다. 모바일 가격의 `35,900`/`KRW`, `per`/`month`와 비교표의 줄바꿈을
+Figma 글꼴 엔진에 추측시키지 않는다.
+
+#### Figma 산출물
+
+- section `443:6508` — `P · product/Pricing · measured full-page components and scenes`
+- full-page set `443:9424`: desktop `443:7960`(1920×4615.296875), mobile `443:8657`(402×5097.90625)
+- component set: Public Global Navigation 2, Public Footer 2, Pricing Plan Card 8,
+  Pricing Credit Pack 6, Pricing FAQ Item 14, Pricing Compare Column 8 variants
+- 각 full-page scene은 navigation 1 + plan 4 + credit 3 + compare 4 + FAQ 7 + footer 1 =
+  20개 instance로 조립한다. 화면 내부에 마스터 복제본을 두지 않는다.
+
+첫 스크린샷에서 Figma 자연 글자 폭 때문에 가격·표 라벨이 다시 감기는 문제와 CheckCircle 축소 표시를
+검사했다. 텍스트는 임의 여유값이 아니라 측정된 부모 행/셀의 가용 폭과 `Range.x`를 사용한다.
+CheckCircle은 18×18 개별 screenshot에서 원형 stroke와 check가 확인됐으며 SVG clip 정의의 surface paint는
+유지하고 보이는 두 stroke만 `accent/mint/500`에 묶는다. scene paint 감사 결과 visible solid 2,192개 중
+2,184개가 변수 바인딩이고, 허용된 4개는 두 scene의 footer brand-blue 고정 자산이며 그 밖의 unbound는 0이다.
+
+재현 코드는 연결기 50KB 한도를 넘지 않도록 shell, plan desktop/mobile, credit, FAQ,
+comparison desktop/mobile 각 2조각, scenes로 분할 생성한다. `check-figma-product-pricing-page`를
+`verify:product`의 제품 의존 게이트에 연결한다. 이 구현은 product-only 추출 후보이며 공통 값을 곧바로
+규범 디자인 시스템 토큰으로 승격하지 않는다.
+
+### 2026-08-24 — Upgrade를 desktop/mobile 제품 렌더와 맞추고 숨은 profile 링까지 측정한다
+
+고정 제품 커밋 `a3ed8e031214f67ac319c5ceaa7ad2808cf0d3a4`의 `/mypage/upgrade`를
+desktop 1920×1080과 mobile 402×874에서 다시 대조했다. Figma에는 desktop Trial/Basic/Pro/Max
+카드와 전체 scene, mobile viewport에 실제로 교차하는 Trial/Basic 카드 slice와 clipped scene을 만들었다.
+mobile viewport 밖의 Pro/Max/action은 측정 생성물에 없으므로 그리지 않았다.
+
+#### 제품 대조에서 잡은 두 누락
+
+- Trial current-plan 카드의 CSS `2px solid rgba(185,225,247,.42)` / `outline-offset:-2px`를 fixture가
+  기록하도록 outline 계산축을 추가했다. Figma에는 같은 시각 결과인 2px INSIDE stroke로 옮겼다.
+  정확히 일치하는 로컬 변수가 없어 근사 토큰을 만들지 않고 product-only 측정 paint로 남겼다.
+- 프로필 버튼의 `::after` 사용량 링은 DOM tree에 나타나지 않아 기존 상단 바에서 빠져 있었다.
+  전용 pseudo-element probe가 36×36, avatar 28×28, ring width/gap 2px, fixture progress 0%,
+  track `rgba(0,0,0,.20)`를 기록한다. 기존 `palette/gray-400`과 `gray/000 · a20`에 묶어 mobile/desktop
+  Top Bar 12개 변형을 재조정했다.
+
+#### Figma와 게이트
+
+- Upgrade desktop scene `417:2461`, mobile scene `422:2696`, mobile visible-slice set `422:2567`.
+- scene paint 감사: 706 visible = 699 variable-bound + Klipse brand fixed 1 + measured Trial outline 6.
+- Top Bar paint 감사: 98/98 variable-bound. 최종 readback에서 Pretendard 이탈 0, mobile 금지 콘텐츠 0,
+  두 scene의 viewport clip이 각각 1920×1080과 402×874로 확인됐다.
+- auth fixture, app-shell, product component/payment candidate hash와 Upgrade 생성물을 함께 갱신했다.
+
+Package/Web의 공개 상태와 제품 adoption은 바뀌지 않는다. 이 산출물은 제품과 Figma 사이의 product-only
+근거이며, 반복 계약을 normative design-system component/token으로 승격하는 일은 별도 검토를 거친다.
+
+### 2026-08-23 — 화면을 먼저 제품과 맞춘다: `/`·`/privacy`·`/terms` 6프레임
+
+디자인 시스템을 먼저 추상화하지 않았다. 제품 화면을 Figma에서 재현한 뒤 겹치는 부품을 추리는
+순서로 첫 수직 단면을 닫았다. 제품 저장소는 수정하지 않았고, 기준은 고정 커밋
+`a3ed8e031214f67ac319c5ceaa7ad2808cf0d3a4`의 clean production build다.
+
+#### Figma에 들어간 것
+
+- `/` 영문·라이트: desktop `359:2032`(1920×10527.140625), mobile `359:2986`(402×9033).
+- `/privacy`: desktop `350:17450`(1920×10557), mobile `350:18523`(402×12015).
+- `/terms`: desktop `350:19606`(1920×8896), mobile `350:20517`(402×11461).
+- hero의 흰 박스는 제품 원본 `klipse-wordmark-text-dark.svg` 벡터로 교체했다. desktop/mobile
+  표시 크기는 720×285.125 · 201×79.59375다.
+- `VideoEditorLandingCapture`는 component set `332:187`로 묶고 desktop/mobile main variant를
+  랜딩에 instance로 넣었다. 화면 안 복제본을 남기지 않는다.
+- desktop NodeCanvas는 최초 418px skeleton을 정본으로 삼지 않았다. 섹션을 실제로 스크롤해
+  hydration이 끝난 1880×756 상태를 캡처하고, 그 결과로 뒤의 8개 상위 section과 footer 경계를
+  다시 맞췄다.
+
+작업용 원본 캡처 6개는 검증 후 삭제했다. 페이지에는 정본 프레임과 component instance만 남는다.
+
+#### 측정 생성물도 함께 바뀐다
+
+`scripts/measure-product-scenes.mjs`가 이제 합성 장면뿐 아니라 `/`·`/privacy`·`/terms`를
+1920×1080·402×874 light/en-US에서 직접 잰다. `/`는 상위 section 8개, hero wordmark,
+hydrated NodeCanvas article, footer를 기록하고 법적 문서는 PAGE/INNER/뒤로가기/로고/h1을 기록한다.
+결과는 생성물 `migration/product.scenes.json.pages`에 들어가며 `verify-product-scenes`가 drift를
+byte-for-byte 막는다. hero SVG 원본 해시와 `Hero.tsx:54`의 exact source quote도 같은 생성물에
+들어간다.
+
+#### 상태를 올리지 않는 이유
+
+이 단면은 끝났지만 제품 전 화면은 아니다. `/pricing`과 나머지 라우트, StaticHighlightDemo의
+Figma component 조립, 겹치는 부품 전수 추출, 화면 전체 되읽기 대조가 남아 있다. 그러므로
+Landing Shell은 `figma: not-ready`를 유지한다. 이번 변경은 “완료 선언”이 아니라 앞으로 모든
+화면에 반복할 검증 가능한 작업 단위를 만든 것이다.
+
 ## 2026-08-30 (106) — Figma 에만 서 있던 `CompositePopover` 를 되읽기·계약으로 닫는다
 
 바로 아래 (105) 가 Figma 에 표면을 세우고 문서·manifest·요약까지 붙였는데 **`figma/readback.json`

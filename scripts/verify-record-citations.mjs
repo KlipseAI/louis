@@ -20,6 +20,8 @@
 //   없는 이름  토큰처럼 생긴 이름을 인용했는데 그런 토큰이 없다. 계단 이름 무리(`-lg`/`-md`)의
 //              한 칸을 가리키는 것도 여기 걸린다.
 //   틀린 값    `"<토큰> <숫자>"` 꼴로 적었는데 그 토큰의 실제 값이 그 숫자가 아니다.
+//   틀린 주장  **산문 한가운데**에서 토큰의 값을 틀리게 말한다. 시작 형태만 보던 때,
+//              토큰을 4 로 내려놓고 같은 사유에 "그 토큰은 아직 12" 라고 남긴 채 통과했다.
 //
 // 산문이 계열 이름만 부르는 것(`typography-body-sm`처럼 실제 토큰들의 접두사)은 통과시킨다 —
 // 그건 오기가 아니라 무리를 가리키는 정상적인 말이다.
@@ -85,6 +87,32 @@ export function auditRecord(components) {
         checked.push(where + " → " + name);
       }
 
+      // **산문 한가운데의 값 주장도 본다.** 시작 형태만 보던 때, 나는 토큰을 4 로 내려놓고
+      // 같은 사유에 "DS 토큰 layout-project-grid-gap 은 **아직 12**" 라고 남겼다 — 한 변경
+      // 안에서 값과 산문이 갈렸고 게이트는 통과했다(2026-08-30). 토큰 이름 뒤 25자 안에
+      // 처음 나오는 수는 그 토큰에 대한 주장으로 본다. 창을 좁게 두는 것은 "이 토큰을 쓰는
+      // 3곳" 같은 무관한 수를 끌어들이지 않기 위해서다.
+      for (const near of value.matchAll(NAME)) {
+        const cited = near[1].replace(/[.,)]+$/, "");
+        if (!TOKENS.has(cited)) continue;
+        // **문장·괄호 경계를 넘지 않는다.** `24(radius-overlay-lg). 20을 쓰던 이유가…` 처럼
+        // 값이 이름 **앞**에 오는 괄호 인용에서는 뒤의 수가 그 토큰의 값이 아니다. 경계
+        // 문자를 만나기 전에 나오는 수만 그 토큰에 대한 주장으로 본다.
+        const window = value.slice(near.index + near[1].length, near.index + near[1].length + 25);
+        const bounded = /^[^.,()]*/.exec(window)[0];
+        const claim = /^[^0-9]{0,12}?(-?\d+(?:\.\d+)?)\s*(?:px|ms|%)?/.exec(bounded);
+        if (!claim) continue;
+        const tokenValue = numberOf(TOKENS.get(cited));
+        const claimed = numberOf(claim[1]);
+        if (tokenValue === null || claimed === null) continue;
+        if (tokenValue !== claimed) {
+          failures.push(
+            where + ': 산문이 "' + cited + " … " + claim[1] + '" 라고 말하는데 그 토큰의 값은 ' +
+              TOKENS.get(cited) + " 입니다.",
+          );
+        }
+      }
+
       // `"<토큰> <숫자>"` 로 시작하는 주석은 그 숫자가 토큰의 값이어야 한다.
       const leading = /^([a-z0-9-]+)\s+(-?[\d.]+)\b/.exec(value);
       if (!leading) continue;
@@ -138,6 +166,16 @@ if (!process.argv.includes("--no-canary")) {
         return clone;
       },
     ],
+    [
+      "산문 한가운데에서 값을 틀리게 말하기",
+      (components) => {
+        const clone = structuredClone(components);
+        // 시작 형태는 그대로 두고 문장 안에서만 거짓을 말한다 — 앞의 두 카나리아가
+        // 잡지 못하는 자리이며, 2026-08-30 에 내가 실제로 저지른 형태다.
+        clone.button.sizes.md.$radius = "radius-control 12. 그런데 radius-control 은 아직 999 다";
+        return clone;
+      },
+    ],
   ];
   for (const [label, mutate] of TAMPERS) {
     const introduced = auditRecord(mutate(record.components)).failures.filter((f) => !baseline.has(f));
@@ -159,5 +197,5 @@ if (failures.length > 0) {
 
 console.log(
   "[record-citations] figma/components.measured.json의 `$` 사유가 인용한 기하·모션 토큰 " +
-    checked.length + "건이 **실재하고 값이 맞습니다** (canary 2종 통과).",
+    checked.length + "건이 **실재하고 값이 맞습니다** (canary 3종 통과).",
 );

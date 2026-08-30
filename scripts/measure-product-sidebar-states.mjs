@@ -41,8 +41,13 @@ const reservePort = async () => {
 const startServer = async () => {
   if (externalUrl) return { url: externalUrl, stop: async () => {} };
   const webRoot = resolve(fixtureRoot, "apps/web");
-  const nextCli = resolve(webRoot, "node_modules/next/dist/bin/next");
-  if (!existsSync(nextCli)) fail(`missing Next CLI: ${nextCli}`);
+  // `.npmrc` 의 `node-linker=hoisted` 때문에 `next` 는 저장소 루트에 실체화된다.
+  // `apps/web/node_modules/next` 만 보면 fixture 를 갖춰도 못 찾는다.
+  const nextCli = [
+    resolve(webRoot, "node_modules/next/dist/bin/next"),
+    resolve(fixtureRoot, "node_modules/next/dist/bin/next"),
+  ].find((candidate) => existsSync(candidate));
+  if (!nextCli) fail(`missing Next CLI: ${resolve(webRoot, "node_modules/next/dist/bin/next")} 또는 ${resolve(fixtureRoot, "node_modules/next/dist/bin/next")}`);
   const port = await reservePort();
   const url = `http://127.0.0.1:${port}`;
   const child = spawn(process.execPath, [nextCli, "dev", "--webpack", "-H", "127.0.0.1", "-p", String(port)], {
@@ -189,12 +194,12 @@ try {
     productCommit: commit,
     context: { id: "desktop-1920x1080-dark", viewport: { width: 1920, height: 1080 }, route: "/settings" },
     sourceEvidence: [
-      quote(1759, '    "[html[data-app-gnb-sidebar-collapsed=true]_&]:[width:var(--app-gnb-sidebar-logo-cube-px)]",'),
-      quote(1828, '    "[html[data-app-gnb-sidebar-collapsed=true]_&]:[width:var(--app-gnb-sidebar-logo-symbol-w)]",'),
-      quote(1830, '    "[html[data-app-gnb-sidebar-collapsed=true]_&]:[transform:translateX(_calc(_(_var(--app-gnb-sidebar-menu-hit-w)_-_var(--app-gnb-sidebar-logo-symbol-w)_)_/_2_)_)]",'),
-      quote(513, '    "[.gnb-menuSidebar_.gnb-menuLink:not(&)]:[color:var(--gray-300)]",'),
-      quote(519, '    "[color:var(--gray-000)]",'),
-      quote(529, '    "[html[data-theme=dark]_.gnb-menuSidebar_&]:[background-color:transparent]",'),
+      quote(1820, '    "[html[data-app-gnb-sidebar-collapsed=true]_&]:[width:var(--app-gnb-sidebar-logo-cube-px)]",'),
+      quote(1894, '    "[html[data-app-gnb-sidebar-collapsed=true]_&]:[width:var(--app-gnb-sidebar-logo-symbol-w)]",'),
+      quote(1896, '    "[html[data-app-gnb-sidebar-collapsed=true]_&]:[transform:translateX(_calc(_(_var(--app-gnb-sidebar-menu-hit-w)_-_var(--app-gnb-sidebar-logo-symbol-w)_)_/_2_)_)]",'),
+      quote(559, '    "[.gnb-menuSidebar_.gnb-menuLink:not(&)]:[color:var(--gray-300)]",'),
+      quote(565, '    "[color:var(--gray-000)]",'),
+      quote(575, '    "[html[data-theme=dark]_.gnb-menuSidebar_&]:[background-color:transparent]",'),
     ],
     states: { expanded, collapsed, activeCollapsedHome },
   };

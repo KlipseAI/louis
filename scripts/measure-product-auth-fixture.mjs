@@ -62,9 +62,22 @@ const assertCleanFixture = (stage) => {
 assertCleanFixture("측정 전");
 
 const webRoot = resolve(fixtureRoot, "apps/web");
-const nextCli = resolve(webRoot, "node_modules/next/dist/bin/next");
-if (!existsSync(nextCli)) {
-  unavailable("Next 개발 서버 실행 파일이 없습니다: " + nextCli);
+// 제품은 `.npmrc` 에 `node-linker=hoisted` 를 쓴다(첫 커밋부터). 그래서 `next` 는
+// **workspace 가 아니라 저장소 루트** `node_modules` 에 실체화된다 —
+// `apps/web/node_modules/next` 는 어느 시점에도 존재한 적이 없다. 한 자리만 보던 검사는
+// fixture 를 제대로 갖춰도 「실행 파일이 없습니다」로 죽었고, 그래서 이 게이트는
+// **한 번도 실제로 측정한 적이 없다.** 두 자리를 다 본다.
+const nextCli = [
+  resolve(webRoot, "node_modules/next/dist/bin/next"),
+  resolve(fixtureRoot, "node_modules/next/dist/bin/next"),
+].find((candidate) => existsSync(candidate));
+if (!nextCli) {
+  unavailable(
+    "Next 개발 서버 실행 파일이 없습니다: " +
+      resolve(webRoot, "node_modules/next/dist/bin/next") +
+      " 또는 " +
+      resolve(fixtureRoot, "node_modules/next/dist/bin/next"),
+  );
 }
 
 const CONTEXTS = [

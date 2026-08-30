@@ -66,19 +66,23 @@ const plan = {
   context: measurement.context,
   sourceEvidence: [
     ...measurement.sourceEvidence,
-    sourceQuote("apps/web/app/videoeditor/[projectId]/EditorProjectWorkspace.tsx", 116, '  "[padding:0_16px_16px]",'),
-    sourceQuote("apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts", 1308, '    "[grid-template-columns:var(--video-edit-assets-width,_236px)_4px_minmax(0,_1fr)_4px_var(--video-edit-properties-width,_324px)]",'),
-    sourceQuote("apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts", 1309, '    "[grid-template-rows:minmax(0,_1fr)_4px_var(--video-edit-timeline-height,_400px)]",'),
-    sourceQuote("apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts", 1316, '    "[column-gap:2px]",'),
-    sourceQuote("apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts", 1317, '    "[row-gap:2px]",'),
-    sourceQuote("apps/web/components/navigation/Gnb.tsx", 301, '    "[gap:4px]",'),
-    sourceQuote("apps/web/components/navigation/Gnb.tsx", 423, '    "[padding:8px_var(--mainchrome-pad-x)]",'),
-    sourceQuote("apps/web/app/videoeditor/[projectId]/EditorProjectWorkspace.tsx", 1055, '        <path'),
-    sourceQuote("apps/web/app/videoeditor/[projectId]/EditorProjectWorkspace.tsx", 1056, '          d="M19 12H5M5 12L11 6M5 12L11 18"'),
-    sourceQuote("apps/web/components/navigation/Gnb.tsx", 1871, '    "[html[data-app-gnb-sidebar-collapsed=true]_&]:[height:32px]",'),
-    sourceQuote("apps/web/components/navigation/Gnb.tsx", 1872, '    "[html[data-app-gnb-sidebar-collapsed=true]_&]:[padding:0_10px]",'),
-    sourceQuote("apps/web/components/navigation/Gnb.tsx", 1911, '    "[html[data-app-gnb-sidebar-collapsed=true]_&]:[text-overflow:ellipsis]",'),
-    sourceQuote("apps/web/components/navigation/Gnb.tsx", 1912, '    "[html[data-app-gnb-sidebar-collapsed=true]_&]:[font-size:var(--type-caption-12-size)]",'),
+    sourceQuote("apps/web/app/videoeditor/[projectId]/EditorProjectWorkspace.tsx", 117, '  "[padding:0_16px_16px]",'),
+    sourceQuote("apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts", 1200, '    "[grid-template-columns:var(--video-edit-assets-width,_236px)_4px_minmax(0,_1fr)_4px_var(--video-edit-properties-width,_324px)]",'),
+    sourceQuote("apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts", 1201, '    "[grid-template-rows:minmax(0,_1fr)_4px_var(--video-edit-timeline-height,_400px)]",'),
+    sourceQuote("apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts", 1208, '    "[column-gap:2px]",'),
+    sourceQuote("apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts", 1209, '    "[row-gap:2px]",'),
+    // 제품이 `mainChromeLeadingCluster` 의 인라인 선언을 걷고 LOUIS 레시피로 넘겼다(74a7303b).
+    // `[gap:4px]` 리터럴은 이제 제품에 없다 — 같은 4px 을
+    // `.louis-app-top-bar__leading { gap: var(--louis-space-control-xs) }`(app-shell.css:154-156)이
+    // 소유한다. 사라진 리터럴을 계속 인용하면 값이 아니라 **소유자**가 바뀐 사실이 지워진다.
+    sourceQuote("apps/web/components/navigation/Gnb.tsx", 308, '    "louis-app-top-bar__leading",'),
+    sourceQuote("apps/web/components/navigation/Gnb.tsx", 467, '    "[padding:8px_var(--mainchrome-pad-x)]",'),
+    sourceQuote("apps/web/app/videoeditor/[projectId]/EditorProjectWorkspace.tsx", 1050, '        <path'),
+    sourceQuote("apps/web/app/videoeditor/[projectId]/EditorProjectWorkspace.tsx", 1051, '          d="M19 12H5M5 12L11 6M5 12L11 18"'),
+    sourceQuote("apps/web/components/navigation/Gnb.tsx", 1944, '    "[html[data-app-gnb-sidebar-collapsed=true]_&]:[height:32px]",'),
+    sourceQuote("apps/web/components/navigation/Gnb.tsx", 1945, '    "[html[data-app-gnb-sidebar-collapsed=true]_&]:[padding:0_10px]",'),
+    sourceQuote("apps/web/components/navigation/Gnb.tsx", 1984, '    "[html[data-app-gnb-sidebar-collapsed=true]_&]:[text-overflow:ellipsis]",'),
+    sourceQuote("apps/web/components/navigation/Gnb.tsx", 1985, '    "[html[data-app-gnb-sidebar-collapsed=true]_&]:[font-size:var(--type-caption-12-size)]",'),
   ],
   figma: {
     pageId: "240:3529",

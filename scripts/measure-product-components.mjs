@@ -1165,12 +1165,10 @@ const EXPECT = [
   ["icon-button-card", "borderTopLeftRadius", ["project-card", "sizes", "base", "moreRadius"], "same"],
   ["project-card-overlay", "paddingTop", ["project-card", "sizes", "base", "overlayPadding"], "same"],
   ["project-card-overlay", "borderTopLeftRadius", ["project-card", "sizes", "base", "overlayTopRadius"], "same"],
-  // **거짓 측정이 가리고 있던 진짜 차이다.** 탐침이 자기 `[gap:12px]` 을 되읽는 동안 이 행은
-  // 12=12 로 초록이었다. 진짜 상수를 재니 제품은 `gap-2` 이고 제품의 `--spacing: 2px` 에서
-  // 그것은 4px 다. 어느 쪽이 정본인지는 아직 정하지 않았다 — 4 는 카드 사이가 거의 붙는
-  // 값이라 이관 과정에서 단위가 어긋났을 가능성이 있고, 그 판정은 화면을 봐야 한다.
-  ["project-grid", "columnGap", ["project-card", "sizes", "base", "gridGap"], "deviates",
-    "제품 4, DS 12. 제품 `archiveGrid` 는 `gap-2` 이고 제품 스케일(--spacing: 2px)에서 4px 다. DS 는 layout-project-grid-gap 12 를 쓴다. **판정 대기** — 2026-08-30 에 탐침의 거짓 리터럴을 걷어내면서 처음 드러났다."],
+  // 탐침이 자기 `[gap:12px]` 을 되읽는 동안 이 행은 12=12 로 초록이었다. 진짜 상수를 재니
+  // 제품은 `gap-2`(4px)였고, 그것은 이관 사고가 아니라 `97d33c05`(2026-08-26)의 소유자
+  // 결정이다 — 네 홈의 카드 그리드를 4 로 통일했다. 기록을 그 결정에 맞춘다.
+  ["project-grid", "columnGap", ["project-card", "sizes", "base", "gridGap"], "same"],
   ["carousel-content", "height", ["banner-carousel", "sizes", "boxed", "height"], "same"],
   ["carousel-arrow", "borderTopLeftRadius", ["banner-carousel", "sizes", "boxed", "arrowRadius"], "same"],
   ["carousel-controls", "borderTopLeftRadius", ["banner-carousel", "sizes", "boxed", "controlsRadius"], "same"],

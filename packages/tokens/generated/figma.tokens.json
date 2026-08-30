@@ -11996,14 +11996,14 @@
           ],
           "valuesByMode": {
             "Global": {
-              "$value": "{primitive.spacing.12}",
+              "$value": "{primitive.spacing.4}",
               "aliasTarget": {
-                "id": "space-12",
+                "id": "space-4",
                 "mode": "base"
               },
               "resolvedValue": {
                 "unit": "px",
-                "value": 12
+                "value": 4
               },
               "sourcePath": "semantic.global.layout.project-grid-gap"
             }

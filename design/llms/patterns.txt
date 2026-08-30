@@ -2197,6 +2197,37 @@ body-portal floating UI, raw layer 숫자와 sidebar overlap 위험은 해결 �
 
 비규범 provenance는 [`KP-EDITOR-001`](../../migration/product-baseline.md)에 있다.
 
+#### 면 색 — 이 패턴은 토큰이 없어 제품을 그대로 인용한다 (2026-08-30)
+
+에디터의 바닥과 패널 면은 **LOUIS 시맨틱으로 표현할 수 없다.** 값이 이렇다.
+
+| | 라이트 | 다크 |
+| --- | --- | --- |
+| 워크스페이스 바닥 | `#f1f1f3` (`--palette-gray-100`) | `#313640` (`--palette-gray-800`) |
+| 패널 넷 (assets · preview · properties · timeline) | `#e3e4e8` (`--palette-gray-200`) | `#171b22` (`--palette-gray-900`) |
+
+**패널이 바닥보다 어둡다 — 두 테마 모두.** 일반 시맨틱 `bg-canvas`/`bg-surface` 는 그 반대를
+전제한다(표면이 바닥 위로 뜬다: 라이트 `#fafafa` · 다크 `#313640`). 그래서 그 둘을 갖다 붙이면
+**밝기 관계가 통째로 뒤집힌다.**
+
+Figma 변수를 전수 조회해 확인했다.
+
+- 바닥 짝(`#f1f1f3` / `#313640`)을 가진 변수는 셋 있으나 전부 다른 역할 이름이다 —
+  `color/bg-menu` · `color/table-header-surface` · `color/dropdown/surface-bg`. 이름이 참이어야
+  한다는 [DS-D-0029](../governance/decisions/DS-D-0029-token-names-must-be-true.md) 때문에 쓸 수 없다.
+- **패널 짝(`#e3e4e8` / `#171b22`)을 가진 변수는 하나도 없다.**
+
+그래서 `Pattern · EditorWorkspace` 의 면은 변수 바인딩이 아니라 **제품 인용 리터럴**이고,
+프레임 이름에 다크 짝을 적어 둔다. 보드가 라이트로 그려지므로 리터럴은 라이트 값이다.
+
+**이 패턴을 `done` 으로 올리려면 선행 판정이 필요하다** — 에디터 바닥·패널에 semantic 두 개를
+세울 것인가, 아니면 이 축을 영구히 제품 인용으로 둘 것인가. 세운다면 두 값이 램프를 타지 않는
+고정 팔레트 조합이라 light/dark 두 mode 를 갖는 semantic 이어야 한다.
+
+**제품을 시맨틱 쪽으로 뒤집는 선택은 하지 않았다.** 그것은 라이트·다크 양쪽에서 눈에 보이는
+외형 변경이고, 이 문서 어디에도 「패널이 바닥 위로 떠야 한다」는 규범이 없다. 소유자 판정으로
+남긴다(2026-08-30, 소유자가 「Figma 를 제품에 맞춘다」를 택했다).
+
 #### Pre-implementation blockers
 
 - route와 dialog를 명시적으로 분리한 workspace API가 없다.

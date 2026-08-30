@@ -1558,13 +1558,14 @@
       "figma": "partial",
       "web": "partial",
       "docs": "done",
-      "note": "public export와 실브라우저 acceptance test. Figma는 항목 set 5 variant와 패널 component 둘로 나뉜다 — 항목이 조립 단위이고 패널이 그것을 담는다. 제품 공용 정본은 --dropdown-* 토큰이며 면·간격·알파를 채택했다. 서브메뉴와 체크 상태가 남음",
+      "note": "public export와 실브라우저 acceptance test. Figma는 항목 set 5 variant와 패널 component 둘로 나뉜다 — 항목이 조립 단위이고 패널이 그것을 담는다. composite-popover 표면은 별도 component 로 섰다(2026-08-30, inset 8 · gap 8 · 기준폭 240). 제품 공용 정본은 --dropdown-* 토큰이며 면·간격·알파를 채택했다. 서브메뉴와 체크 상태가 남고, .louis-popover__title(heading-sm 28px)은 소비처가 0이라 값 재확인이 남았다",
       "doc": "design/components/menu-popover.md",
       "figmaName": "Menu",
       "figmaNames": [
         "Menu",
         "MenuPanel",
-        "MenuSeparator"
+        "MenuSeparator",
+        "CompositePopover"
       ]
     },
     {

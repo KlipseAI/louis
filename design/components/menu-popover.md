@@ -278,21 +278,44 @@ body로 떨어진다. 따라서 exit 모션 동안 화면에는 패널이 보이
 - 위치 계산 전에는 보이지 않아야 한다. CSS의 임시 `top/right`를 한 프레임 노출하지 않는다.
 - Tooltip은 포인터를 막지 않는다. 장식 pseudo-element도 항상 `pointer-events:none`이다.
 
-- **Portal host 선택이 테마 램프 상속을 바꾼다.** 제품의 프로필 팝오버는 전용 overlay root가 아니라
-  `document.body`로 포털된다(`Gnb.tsx:4011`, `Gnb.tsx:4037`, `Gnb.tsx:5347`, `Gnb.tsx:5373`). 앱 셸 라이트
-  램프가 바로 그 `body`에 얹히므로(`Gnb.tsx:1972-2000`, 선택자
-  `html[data-theme=light] body:has(.gnb-wrapperSidebar)`) 패널이 램프를 **상속한다.** 이 문서가 규범으로
-  요구하는 별도 overlay root로 옮기면 패널은 램프 밖으로 나가고 라이트 표면과 구분선 색이 함께 바뀐다.
-  **host를 먼저 정하지 않고 색부터 옮기면 라이트가 한 계단 어긋난다.**
+- **팝오버는 앱 셸 램프를 상속한다 — 그런데 표면은 이미 램프 밖으로 나갔다.** 프로필 팝오버는 전용
+  overlay root가 아니라 `document.body`로 포털되고(`Gnb.tsx:4109`, `Gnb.tsx:5445`), 앱 셸 라이트 램프가
+  바로 그 `body`에 얹힌다(`Gnb.tsx:2043-2070`, 선택자 `html[data-theme=light] body:has(.gnb-wrapperSidebar)`).
+  램프가 재매핑하는 것은 **고정 팔레트 `--palette-gray-100…600`과 `--app-page-bg`·`--background`뿐**이다.
 
-| 라이트 상태 | Panel surface | 내부 구분선 |
-| --- | --- | --- |
-| 사이드바 있음(램프 안) | **`#f8f8f9`** — 패널은 `--dropdown-surface-bg`를 소비하고(`Gnb.tsx:1273`), 램프가 `--palette-gray-100`을 재매핑하면서 `--dropdown-surface-bg`도 직접 재선언한다(`Gnb.tsx:1972`, `Gnb.tsx:1979`, `Gnb.tsx:2000`) | **`#eeeef1`** — `--profile-line-color: var(--palette-gray-200)`(`Gnb.tsx:1293`) 위에 램프 재매핑이 얹힌다(`Gnb.tsx:1974`, `Gnb.tsx:1981`) |
-| 사이드바 없음(램프 밖) | **`#f1f1f3`** — `--dropdown-surface-bg: rgb(var(--palette-gray-100-rgb))`(`globals.css:600`, `globals.css:24`) | **`#e3e4e8`** — `--palette-gray-200`(`Gnb.tsx:1293`, `globals.css:28`) |
-| 다크(램프 없음) | **`#313640`** — `--palette-gray-800`(`globals.css:101`) | **`#575d68`** — `--palette-gray-700`(`Gnb.tsx:1286`, `globals.css:34`) |
+  패널 표면은 `--louis-color-bg-menu`를 소비한다(`Gnb.tsx:1338`). 그 토큰은 생성된 CSS에서 리터럴
+  `color(srgb 0.945098 0.945098 0.952941)`이라 팔레트 별칭을 밟지 않는다 — **램프가 닿지 않는다.**
+  그러므로 라이트 표면은 사이드바 유무와 무관하게 `#f1f1f3` 하나다.
 
-Specification 표의 `Panel surface` 행은 라이트 값을 하나만 담는다. 램프를 상속하는 한 라이트는 두 값으로
-갈리므로, 한 값으로 그린 Figma 표면은 사이드바가 있는 화면과 없는 화면 중 하나에서 반드시 틀린다.
+**한때 이 자리에 「라이트 표면이 두 값으로 갈리므로 한 값으로 그린 Figma 표면은 반드시 틀린다」고
+적혀 있었다.** 그 판단은 패널이 `--dropdown-surface-bg`를 소비하던 때의 것이고, 그 변수는 제품에
+**더 이상 존재하지 않는다**(2026-08-30 제품 전수 확인: 0건). LOUIS 채택이 표면을
+램프 밖으로 꺼내면서 분기가 사라졌다. 그 문단이 `composite-popover`를 막고 있었으므로 함께 푼다.
+
+### 갈림은 표면이 아니라 구분선에 남아 있었다
+
+표면만 옮기고 구분선은 팔레트에 남은 **반쪽 이관**이 실제 결함을 만들었다. 빌드된 제품 CSS를
+Chromium에 얹어 두 문맥을 실측했다(2026-08-30).
+
+| 라이트 문맥 | Panel surface | 내부 구분선 | 표면–구분선 차 |
+| --- | --- | --- | ---: |
+| 사이드바 있음(램프 안) | `#f1f1f3` | `#eeeef1` | **3/255 — 사라진다** |
+| 사이드바 없음(램프 밖) | `#f1f1f3` | `#e3e4e8` | 14/255 |
+
+**같은 컴포넌트가 앱 셸 화면에서만 구분선을 잃고 있었다.** 다크는 램프가 라이트 전용이고
+`--palette-gray-700`이 재매핑 대상도 아니라 영향이 없다(`#313640` 면에 `#575d68` 선).
+
+고친 방향은 [DS-D-0010](../governance/decisions/DS-D-0010-token-coverage.md) §3이 이미 정해 두었다 —
+「`body:has(...)` 같은 런타임 조건으로 갈리는 값은 새 mode를 만들지 않고 **소비 계층이 mode를 다시
+적용해 해결한다**」. 그래서 램프가 덮는 제품 별칭 대신 LOUIS 프리미티브를 직접 부른다
+(`Gnb.tsx:1366`, `--louis-color-palette-gray-200`). 램프는 셸 부품을 위해 그대로 둔다 —
+`app-shell-parts.md`가 사이드바 색을 램프에서 읽는다고 적고 있다.
+
+**아직 수렴하지 않은 것: 구분선 recipe.** [DS-D-0023](../governance/decisions/DS-D-0023-hairline-inset.md)은
+일반 0.5px stroke를 inset 헤어라인으로 통일했고 `.louis-menu__separator`가 그것을 쓴다
+(`menu-popover.css:239-249`). 제품 구분선은 아직 1px solid다(`Gnb.tsx:1115`). 채택하면 다크에서
+선이 `#575d68`(면 대비 38/255)에서 paper 10%(20/255)로 **옅어진다** — 라이트 결함을 고치는 일과
+무관한 다크 변경이므로 여기서 하지 않고, 소유자 판정으로 남긴다.
 
 ### 세로 배치와 flip
 

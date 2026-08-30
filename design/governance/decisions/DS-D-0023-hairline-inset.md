@@ -42,6 +42,13 @@ Tooltip/ProjectCard는 CSS `border`, SegmentedControl은 바깥 spread box-shado
 
 **일반 0.5px stroke의 Web 표현은 단일 semantic 색을 참조하는 inset box-shadow recipe다.**
 
+> **값이 옮겨졌다 — 이 절의 10%는 더 이상 유효하지 않다(2026-08-30 확인).**
+> [DS-D-0026](DS-D-0026-alpha-scale.md)이 알파를 16단(`4 8 12 16 20 24 28 32 · 40 48 …`)으로
+> 축약하면서 **10 단계가 사다리에서 빠졌다.** `color-static-black-alpha-10`은 그때 지워졌고
+> `color-stroke-hairline`은 `.08`로 옮겨졌다(커밋 `3bee005`). 오늘 발행되는 값은 라이트
+> `color(srgb 0 0 0 / 0.08)`이다. 2%p 이동은 그 결정이 명시한 「최대 4%p」 허용 안에 있다.
+> 아래 본문은 판정 당시의 근거로 남기고, **참조할 값은 토큰이지 이 문단이 아니다.**
+
 1. **신규 semantic `color-stroke-hairline`.** light → `{primitive.color.black-alpha.10}`,
    dark → `{primitive.color.paper-alpha.10}`. 실측값이 순수 black 10%(`rgba(0,0,0,0.1)`)이므로
    `ink-alpha.10`(#171b22, `rgba(23,27,34,0.1)`)이 아니라 순수 black이 필요했고, black-alpha 계열에

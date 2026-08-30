@@ -1829,11 +1829,11 @@
       "id": "app-shell",
       "name": "App Shell",
       "maturity": "experimental",
-      "figma": "not-ready",
+      "figma": "partial",
       "web": "partial",
       "docs": "done",
       "doc": "design/patterns/app-shell.md",
-      "note": "공용 composition `AppShell`이 섰다(2026-08-18). 레일과 본문이 **같은 상태 원천**으로 자리를 예약해 어떤 접힘 상태에서도 겹치지 않고, primary scroll root가 하나이며 상단 크롬이 그 안에 sticky로 있다. page·workspace variant를 한 composition에 둔다. 실브라우저 acceptance test 8건. Figma 표현과 제품 소비 증거는 없다. compact drawer의 focus trap은 inert로 뒤를 죽이는 데까지이며 trap 자체는 아직 없다"
+      "note": "공용 composition `AppShell`이 섰다(2026-08-18). 레일과 본문이 **같은 상태 원천**으로 자리를 예약해 어떤 접힘 상태에서도 겹치지 않고, primary scroll root가 하나이며 상단 크롬이 그 안에 sticky로 있다. page·workspace variant를 한 composition에 둔다. 실브라우저 acceptance test 8건. Figma 에 `DS · Templates` 페이지의 `Pattern · AppShell`(982:175)로 **섰다**(2026-08-30) — 확장(레일 280)·접힘(56) 두 상태이고 레일·상단 크롬·본문의 자리와 여백(outer-gap 12 · sidebar-padding 12 · content-inset 16)을 부품 인스턴스로 조립한다. **아직 없는 것**: workspace variant · compact drawer(모바일) · global overlay root · skip link. 그래서 `partial` 이다. 제품 소비 증거는 여전히 없다. compact drawer의 focus trap은 inert로 뒤를 죽이는 데까지이며 trap 자체는 아직 없다"
     },
     {
       "id": "landing-shell",

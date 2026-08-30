@@ -8278,6 +8278,27 @@ export const tokens = {
         "unit": "px"
       }
     },
+    "blur-header": {
+      "aliasTarget": {
+        "id": "blur-12",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-blur-header": "12px"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "blur-header",
+      "mode": "global",
+      "rawValue": "{primitive.blur.12}",
+      "sourcePath": "semantic.global.blur.header",
+      "tier": "semantic",
+      "type": "dimension",
+      "value": {
+        "value": 12,
+        "unit": "px"
+      }
+    },
     "blur-panel": {
       "aliasTarget": {
         "id": "blur-12",

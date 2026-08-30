@@ -84,7 +84,7 @@ try {
     // 레이어 패널(`-inline-start`). 앞의 둘은 값이 다르고 셋째는 카드와 같은 값의 방향 변형이다.
     // 셋 다 같은 recipe 이므로 예외 사유가 그대로 적용된다.
     const ROOT_RECIPE_ALLOW =
-      /^--louis-(hairline-inset(-block-(start|end))?|progressive-blur(-mask(-(header|inline-start))?)?)$/;
+      /^--louis-(hairline-inset(-block-(start|end))?|progressive-blur(-header|-mask(-(header|inline-start))?)?)$/;
     for (const block of stylesCss.match(/:root\s*\{[^}]*\}/g) ?? []) {
       const leaked = [...block.matchAll(/(--louis-[a-z0-9-]+)\s*:/g)]
         .map((match) => match[1])

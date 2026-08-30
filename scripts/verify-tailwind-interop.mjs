@@ -10,7 +10,7 @@ import { materializeDsPackage } from "./lib/ds-package-shim.mjs";
 // `--color-*` · `--radius-*` · `--text-*` · `--font-*`. DS의 theme.css도 그 네 namespace를 쓴다.
 //
 // 그래서 **불러오는 순서가 계약이다.** DS를 먼저 불러오면 제품의 reset이 DS 값을 지우는데,
-// 오류가 나지 않는다 — 유틸리티가 **조용히 생성되지 않는다.** `bg-action-primary`가 아무것도
+// 오류가 나지 않는다 — 유틸리티가 **조용히 생성되지 않는다.** `bg-accent-primary`가 아무것도
 // 하지 않는 클래스가 된다. 가장 나쁜 실패 모양이라 게이트로 잡는다.
 //
 // Tailwind는 **제품 저장소의 것을 쓴다.** DS는 Tailwind에 의존하지 않는다(DS-D-0004·DS-D-0013).
@@ -23,7 +23,11 @@ const { ref: productRef, source: productRefSource } = resolveProductRef();
 const themePath = resolve(repoRoot, "packages/css/generated/theme.css");
 
 // 제품의 reset이 지우는 namespace에서 하나씩 뽑는다. 전부 DS theme.css가 발행하는 이름이다.
-const PROBES = ["bg-action-primary", "text-foreground-primary", "rounded-card", "rounded-control"];
+// **이름이 개명되면 여기도 따라와야 한다.** `bg-accent-primary` · `text-foreground-primary` 를
+// 시험하고 있었는데, DS-D-0024 가 semantic prefix 를 SEED 식으로 바꾸면서 `action-*` → `accent-*` ·
+// `foreground-*` → `fg-*` 가 됐다. theme.css 가 더 이상 그 이름을 내지 않으니 이 게이트는
+// **개명 이후 계속 빨간 채였다** — 상호작용이 깨져서가 아니라 없는 이름을 물어서다(2026-08-30 확인).
+const PROBES = ["bg-accent-primary", "text-fg-primary", "rounded-card", "rounded-control"];
 // reset과 무관한 대조군 — 순서를 바꿔도 살아 있어야 실험이 성립한다.
 const CONTROLS = ["p-3", "gap-3"];
 
@@ -64,7 +68,7 @@ const productTheme = execFileSync("git", ["show", productRef + ":apps/web/app/ta
   // 계약 자체는 살아 있다. 다만 **강제 지점이 옮겨졌다** — 예전에는 소비자가 부르는 순서였고,
   // 지금은 제품 진입 CSS 안에서 DS import가 자기 `@theme inline` 블록 **뒤에** 놓이는 위치다.
   // 제품 주석이 그 실측을 그대로 적는다(앞에 두면 `--color-*: initial`이 DS 색을 지워
-  // `bg-action-primary`·`rounded-control`이 생성되지 않는다).
+  // `bg-accent-primary`·`rounded-control`이 생성되지 않는다).
   //
   // 그래서 실험에서는 제품이 스스로 부르는 DS theme을 걷어내고, 우리가 두 순서로 직접 붙인다.
   // 이렇게 해야 이 게이트가 재려던 것(제품 reset이 DS를 지우는가)을 계속 잰다.

@@ -2,8 +2,8 @@
   "$comment": "생성물. scripts/measure-product-variants.mjs가 제품의 경쟁 정의를 이름 패턴으로 찾아 실제로 렌더하고 값이 같은 것끼리 묶는다. 직접 수정하지 않는다.",
   "$whyThisExists": "\"제품에 정본이 없다\"가 산문이었다 — 한 벌만 재고 나머지는 세지 않은 채 그렇게 적었다. 여기서는 몇 벌이 몇 묶음으로 갈리는지가 수로 남고, Figma의 Inventory 페이지가 그것을 나란히 그린다. 정본을 고르는 일은 눈으로 비교하는 일이어야 한다.",
   "$howToRead": "groups는 사용 횟수가 많은 순이다. rank 1이 가장 널리 쓰이는 벌이며 정본 후보다. members가 여럿이면 그 벌들이 값까지 동일하다는 뜻이다.",
-  "productRef": "a7d045e3c21da6174951826ab850dd9335111bd8",
-  "productCommit": "a7d045e3c21da6174951826ab850dd9335111bd8",
+  "productRef": "48f05c2aaca649255e77b366b1497ca53bab42bb",
+  "productCommit": "48f05c2aaca649255e77b366b1497ca53bab42bb",
   "axes": [
     "height",
     "minHeight",
@@ -748,7 +748,7 @@
         "part": "updateBanner",
         "parts": null,
         "tag": "section",
-        "line": 911,
+        "line": 914,
         "text": "",
         "values": {
           "height": "360px",
@@ -796,7 +796,7 @@
             "part": "bannerTrack",
             "parts": null,
             "tag": "div",
-            "line": 550,
+            "line": 553,
             "text": "",
             "values": {
               "height": "360px",
@@ -940,7 +940,7 @@
                         "part": "bannerTitle",
                         "parts": null,
                         "tag": "h1",
-                        "line": 543,
+                        "line": 546,
                         "text": "영상 제작을 더 빠르게",
                         "values": {
                           "height": "48.5938px",
@@ -1750,7 +1750,7 @@
         "part": "updateBanner",
         "parts": null,
         "tag": "section",
-        "line": 911,
+        "line": 914,
         "text": "",
         "values": {
           "height": "360px",
@@ -1798,7 +1798,7 @@
             "part": "bannerTrack",
             "parts": null,
             "tag": "div",
-            "line": 550,
+            "line": 553,
             "text": "",
             "values": {
               "height": "360px",
@@ -3381,7 +3381,7 @@
         "part": "emptyState",
         "parts": null,
         "tag": "section",
-        "line": 655,
+        "line": 658,
         "text": "",
         "values": {
           "height": "360px",
@@ -3429,7 +3429,7 @@
             "part": "emptyTitle",
             "parts": null,
             "tag": "h2",
-            "line": 666,
+            "line": 669,
             "text": "아직 프로젝트가 없어요",
             "values": {
               "height": "30px",
@@ -3478,7 +3478,7 @@
             "part": "emptyDescription",
             "parts": null,
             "tag": "p",
-            "line": 641,
+            "line": 644,
             "text": "첫 영상을 만들어 보세요.",
             "values": {
               "height": "24px",
@@ -11710,7 +11710,7 @@
                         "part": "cardDraftThumbnail",
                         "parts": null,
                         "tag": "div",
-                        "line": 564,
+                        "line": 567,
                         "text": "",
                         "values": {
                           "height": "90px",
@@ -16881,7 +16881,7 @@
         "part": "toast",
         "parts": null,
         "tag": "div",
-        "line": 881,
+        "line": 884,
         "text": "",
         "values": {
           "height": "48px",
@@ -16929,7 +16929,7 @@
             "part": "toastText",
             "parts": null,
             "tag": "span",
-            "line": 906,
+            "line": 909,
             "text": "저장했어요",
             "values": {
               "height": "auto",
@@ -18509,7 +18509,7 @@
             {
               "id": "toast/apps/web/components/scenes/appHomeSceneStyles.ts.toast",
               "file": "apps/web/components/scenes/appHomeSceneStyles.ts",
-              "line": 881,
+              "line": 884,
               "name": "toast",
               "uses": 100
             },
@@ -18645,7 +18645,7 @@
             {
               "id": "dialog/apps/web/components/scenes/appHomeSceneStyles.ts.modalCard",
               "file": "apps/web/components/scenes/appHomeSceneStyles.ts",
-              "line": 786,
+              "line": 789,
               "name": "modalCard",
               "uses": 5
             }

@@ -2,23 +2,23 @@
   "artifacts": [
     {
       "path": "packages/tokens/generated/figma.tokens.json",
-      "sha256": "11bf721be7b1d4fa936e4ba525ae830eb676519c534dd97063f16da1075b7c07"
+      "sha256": "ac3140b15181e333498aae9978d5024ccce1f8adae44b6bd98ff8e5a931657a7"
     },
     {
       "path": "packages/tokens/generated/index.d.ts",
-      "sha256": "29f435602d5a2ef889b3cea9415a6d72bc2f255a834a1c6c3a42eece2db9c5e1"
+      "sha256": "5aa97b885f99a340acd263a79ef9a10212b1527476c18a99c44fcbba145b029f"
     },
     {
       "path": "packages/tokens/generated/index.js",
-      "sha256": "f3e9d536cc641aca89922c6ffade74fae03638e2eb32c1ca0a56d00b82ad97fc"
+      "sha256": "26bdadacf375c3cb0db936a1ed755c9aab5e2e11b89c41bf3df848541939c9ce"
     },
     {
       "path": "packages/tokens/generated/tokens.css",
-      "sha256": "a57d6efb85ca7ab72a604fb12ab20dd4269eff42c1140e337abab59d296c540c"
+      "sha256": "4e952dc81f948d4e8c0df4a24be05a9bc53eee4ae46772257553d61676595d73"
     },
     {
       "path": "packages/tokens/generated/tokens.json",
-      "sha256": "277c917110b82ecafac634430171d9032eee0a2a4fa4ef4500a48980b865212c"
+      "sha256": "20dcc1488ca01b50f6365f5ab43b4ca46c727557cf32f39efb1ed6748a5b9dc0"
     }
   ],
   "contrastPairs": [
@@ -408,13 +408,13 @@
   },
   "source": {
     "path": "packages/tokens/src/klipse.tokens.json",
-    "sha256": "ce4d54796b57b4c6573beacef116766cfb435e49e5119318154b9ce684874b5d"
+    "sha256": "c7dcd503bde53ca6a5102173ba795d97b4a35b1ba595bea23604f2aa191371c9"
   },
   "themes": [
     "light",
     "dark"
   ],
-  "tokenCount": 771,
+  "tokenCount": 772,
   "tokens": [
     {
       "aliasTarget": {
@@ -659,6 +659,27 @@
         "value": 16
       },
       "sourcePath": "semantic.global.blur.glass",
+      "tier": "semantic",
+      "type": "dimension"
+    },
+    {
+      "aliasTarget": {
+        "id": "blur-12",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-blur-header": "12px"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "blur-header",
+      "mode": "global",
+      "rawValue": "{primitive.blur.12}",
+      "resolvedValue": {
+        "unit": "px",
+        "value": 12
+      },
+      "sourcePath": "semantic.global.blur.header",
       "tier": "semantic",
       "type": "dimension"
     },

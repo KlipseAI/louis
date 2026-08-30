@@ -4867,6 +4867,16 @@
             }
           }
         },
+        "header": {
+          "$value": "{primitive.blur.12}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "blur-header",
+              "tier": "semantic",
+              "mode": "global"
+            }
+          }
+        },
         "panel": {
           "$value": "{primitive.blur.12}",
           "$extensions": {

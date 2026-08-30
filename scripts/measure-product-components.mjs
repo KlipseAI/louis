@@ -126,10 +126,12 @@ const PROBES = [
     from: ["appHome", "archivePreview"],
     read: ["borderTopLeftRadius"],
   },
+  // 여기도 자기 html 의 `[gap:12px]` 을 되읽고 있었다. 제품 상수는 `gap-2` 이고
+  // 제품의 `--spacing: 2px` 에서 그것은 **4px** 다 — 리터럴이 실제의 세 배를 말하고 있었다.
   {
     id: "project-grid",
     source: "apps/web/components/scenes/appHomeSceneStyles.ts archiveGrid",
-    html: `<div class="[display:grid] [grid-template-columns:repeat(2,_1fr)] [gap:12px] min-[1200px]:[grid-template-columns:repeat(4,_1fr)]"></div>`,
+    from: ["appHome", "archiveGrid"],
     read: ["columnGap", "rowGap", "gridTemplateColumns"],
   },
   // **제품 툴팁이 두 벌이다.** `.app-tooltip-chrome` 은 제품에서 사라졌고(0회) 그 자리를 LOUIS
@@ -1163,7 +1165,12 @@ const EXPECT = [
   ["icon-button-card", "borderTopLeftRadius", ["project-card", "sizes", "base", "moreRadius"], "same"],
   ["project-card-overlay", "paddingTop", ["project-card", "sizes", "base", "overlayPadding"], "same"],
   ["project-card-overlay", "borderTopLeftRadius", ["project-card", "sizes", "base", "overlayTopRadius"], "same"],
-  ["project-grid", "columnGap", ["project-card", "sizes", "base", "gridGap"], "same"],
+  // **거짓 측정이 가리고 있던 진짜 차이다.** 탐침이 자기 `[gap:12px]` 을 되읽는 동안 이 행은
+  // 12=12 로 초록이었다. 진짜 상수를 재니 제품은 `gap-2` 이고 제품의 `--spacing: 2px` 에서
+  // 그것은 4px 다. 어느 쪽이 정본인지는 아직 정하지 않았다 — 4 는 카드 사이가 거의 붙는
+  // 값이라 이관 과정에서 단위가 어긋났을 가능성이 있고, 그 판정은 화면을 봐야 한다.
+  ["project-grid", "columnGap", ["project-card", "sizes", "base", "gridGap"], "deviates",
+    "제품 4, DS 12. 제품 `archiveGrid` 는 `gap-2` 이고 제품 스케일(--spacing: 2px)에서 4px 다. DS 는 layout-project-grid-gap 12 를 쓴다. **판정 대기** — 2026-08-30 에 탐침의 거짓 리터럴을 걷어내면서 처음 드러났다."],
   ["carousel-content", "height", ["banner-carousel", "sizes", "boxed", "height"], "same"],
   ["carousel-arrow", "borderTopLeftRadius", ["banner-carousel", "sizes", "boxed", "arrowRadius"], "same"],
   ["carousel-controls", "borderTopLeftRadius", ["banner-carousel", "sizes", "boxed", "controlsRadius"], "same"],
@@ -1943,6 +1950,54 @@ const sameColor = (a, b) =>
   a !== null && b !== null && a.every((value, index) => Math.abs(value - b[index]) < 0.004);
 const showColor = (parsed, raw) =>
   parsed ? "rgb(" + parsed.slice(0, 3).map((v) => Math.round(v * 255)).join(" ") + " / " + parsed[3] + ")" : String(raw);
+
+// ── 탐침이 자기가 적은 값을 되읽지 못하게 한다 ────────────────────────────
+// **2026-08-30 에 세 곳에서 이 일이 벌어졌다.** `project-card` 는 html 에
+// `[border-radius:16px]`, `project-card-overlay` 는 `[padding:16px] [border-radius:0_0_16px_16px]`,
+// `project-grid` 는 `[gap:12px]` 를 적어 두고 **그 리터럴을 다시 읽어** DS와 대조했다. 제품을
+// 잰 적이 없으므로 제품이 무엇을 그리든 초록이었고, 실제로 카드 반경은 12(기록 16), 그리드
+// 간격은 4(기록 12)였다. 그 거짓 값 위에서 반경 판정을 내려 토큰·CSS·기록·Figma 를 전부 잘못된
+// 방향으로 옮겼다가 되돌렸다.
+//
+// `html`은 제품에 공용 상수가 없을 때만 쓰는 탈출구다(클래스 후크 이름만 적는 용도). 그 html 이
+// **대조하는 축의 값을 스스로 적고 있으면** 그것은 측정이 아니라 자기 확인이다.
+const SELF_MEASURED = {
+  borderTopLeftRadius: /border-radius|rounded/,
+  borderBottomLeftRadius: /border-radius|rounded/,
+  borderTopWidth: /\bborder\b/,
+  padding: /\bpadding\b/,
+  paddingTop: /\bpadding\b/,
+  paddingLeft: /\bpadding\b/,
+  height: /\bheight\b|\bh-\[/,
+  width: /\bwidth\b|\bw-\[/,
+  minWidth: /min-width|min-w-/,
+  columnGap: /\bgap\b|\bgap-/,
+  rowGap: /\bgap\b|\bgap-/,
+  fontSize: /font-size|\btext-\[/,
+  lineHeight: /line-height|leading-/,
+  backdropFilter: /backdrop-filter/,
+};
+{
+  const byId = new Map(PROBES.map((probe) => [probe.id, probe]));
+  const selfMeasured = [];
+  for (const [probeId, property, path] of EXPECT) {
+    const probe = byId.get(probeId);
+    if (!probe || !probe.html || probe.from) continue;
+    const axis = property.replace(/^::[a-z-]+:/, "");
+    const pattern = SELF_MEASURED[axis];
+    if (pattern && pattern.test(probe.html)) {
+      selfMeasured.push(
+        probeId + "." + property + ": 탐침이 자기 html 에 이 축의 값을 적어 두고 그것을 되읽습니다 — " +
+          "제품을 재지 않으므로 " + path.join(".") + " 대조가 아무것도 증명하지 않습니다.",
+      );
+    }
+  }
+  if (selfMeasured.length > 0) {
+    console.error("[product-components] 자기가 적은 값을 되읽는 탐침 " + selfMeasured.length + "건입니다:");
+    for (const item of selfMeasured) console.error("[product-components]   " + item);
+    process.exit(1);
+  }
+}
 
 const deviations = [];
 const compared = [];

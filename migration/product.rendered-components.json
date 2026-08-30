@@ -99,10 +99,10 @@
       "id": "project-grid",
       "source": "apps/web/components/scenes/appHomeSceneStyles.ts archiveGrid",
       "hover": false,
-      "from": null,
+      "from": "apps/web/components/scenes/appHomeSceneStyles.ts → archiveGrid",
       "doc": "default",
       "wrapper": null,
-      "html": "<div class=\"[display:grid] [grid-template-columns:repeat(2,_1fr)] [gap:12px] min-[1200px]:[grid-template-columns:repeat(4,_1fr)]\"></div>"
+      "html": "<div class=\"tw-ah-007 [margin-top:0] [display:grid] [grid-template-columns:repeat(2,_1fr)] gap-2 min-[720px]:[grid-template-columns:repeat(3,_1fr)] min-[1200px]:[grid-template-columns:repeat(4,_1fr)] min-[1800px]:[grid-template-columns:repeat(5,_1fr)]\"></div>"
     },
     {
       "id": "tooltip",
@@ -1030,9 +1030,9 @@
       "borderTopLeftRadius": "12px"
     },
     "project-grid": {
-      "columnGap": "12px",
-      "rowGap": "12px",
-      "gridTemplateColumns": "81px 81px 81px 81px"
+      "columnGap": "4px",
+      "rowGap": "4px",
+      "gridTemplateColumns": "87px 87px 87px 87px"
     },
     "tooltip": {
       "paddingTop": "4px",
@@ -2132,10 +2132,11 @@
       "position": "relative"
     },
     "project-grid": {
-      "column-gap": "12px",
+      "column-gap": "4px",
       "display": "grid",
-      "grid-template-columns": "81px 81px 81px 81px",
-      "row-gap": "12px"
+      "grid-template-columns": "87px 87px 87px 87px",
+      "margin-top": "0px",
+      "row-gap": "4px"
     },
     "tooltip": {
       "background-attachment": "scroll",
@@ -5017,6 +5018,12 @@
       "product": "rgb(228 229 233 / 0.48)",
       "ds": "color-accent-ghost-hover",
       "why": "라이트만 갈린다. 제품은 재매핑된 palette-gray-300을 50%로 덮고(rgb 228 229 233 / 0.5) DS는 ink 8%를 쓴다 — 면 계열에 매는 것과 잉크에 매는 것의 차이다. `action-ghost-hover`는 SelectableListRow와 공유하는 토큰이라 사이드바 하나 때문에 옮기지 않는다. 다크는 rgb(250 250 250 / 0.1)로 정확히 같다."
+    },
+    {
+      "axis": "project-grid.columnGap",
+      "product": 4,
+      "ds": 12,
+      "why": "제품 4, DS 12. 제품 `archiveGrid` 는 `gap-2` 이고 제품 스케일(--spacing: 2px)에서 4px 다. DS 는 layout-project-grid-gap 12 를 쓴다. **판정 대기** — 2026-08-30 에 탐침의 거짓 리터럴을 걷어내면서 처음 드러났다."
     },
     {
       "axis": "nav-row.borderTopLeftRadius",

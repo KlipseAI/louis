@@ -11,8 +11,14 @@
  * 다시 계산한다"고 요구하는 것이 이것이다.
  *
  * 제품은 지금 breakpoint로 열 수를 고정한다(2 / 3@720 / 4@1200 / 5@1800). 그 값들은 규범이
- * **migration compatibility profile**로 남겨 둔 것이고 container 폭으로 환산하면 같은 결과가
- * 나온다 — 브라우저 테스트가 그 환산을 대조한다.
+ * **migration compatibility profile**로 남겨 둔 것이고, 정본은 아직 그쪽이다 — 이 규칙의 환산은
+ * profile을 재현하지 못한다. 240 / 4면 한 열이 244px씩 들어가므로 720px에서 2열(profile 3),
+ * 1800px에서 7열(profile 5)이고, 맞는 곳은 1200px(4열)뿐이다. 카드 최소 폭을 되튜닝해도
+ * 720px의 3열과 1800px의 5열을 하나의 값으로 만족시킬 수 없다.
+ *
+ * 브라우저 테스트는 이 어긋남을 보지 못한다 — 대조 폭을 같은 토큰에서 유도해
+ * (`want * 최소 + (want - 1) * gap`) 공식의 자기 일관성만 재고, profile의 720 / 1200 / 1800을
+ * 넣어 보지 않는다. 판정은 design/patterns/project-grid.md의 blocker에 있다.
  *
  * ## 1열 fallback이 공짜로 따라온다
  *

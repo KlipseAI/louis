@@ -55,6 +55,11 @@ const SCREENS = [
   { route: "/mypage/upgrade/fail", desktop: "183:743", mobile: "183:881" },
   { route: "/mypage/topup/success", desktop: "183:1427", mobile: "183:1565" },
   { route: "/mypage/topup/fail", desktop: "183:1606", mobile: "183:1736" },
+  // `/highlight/[projectId]?__phase=…` 6개는 **측정은 됐지만 여기 없다.** 이 목록의 항목은
+  // 보드에 이미 있는 대상 프레임 id를 들어야 하는데(`renderer:388`이 `getNodeByIdAsync`로 찾고,
+  // 없으면 던진다) 하이라이트 상세의 phase 프레임은 아직 보드에 없다. 프레임을 만드는 것은
+  // Figma 쪽 작업이라 측정과 같은 걸음에 할 수 없다 — 프레임이 생기면 여기에 id와 함께 더하면
+  // 그때부터 런너가 나온다. 키에 `[`·`]`·`?`가 있어도 파일명은 아래에서 정리한다.
 ];
 
 const CONTEXTS = [
@@ -290,7 +295,13 @@ const manifest = [];
 for (const entry of screens) {
   const slimSpec = slim(entry.spec);
   const { head, chunks } = splitSpec(slimSpec);
+  // **파일명에 위험한 글자를 남기지 않는다.** 화면 키는 이제 route가 아니라 상태라서
+  // `?`·`[`·`]`가 들어올 수 있다(`/highlight/[projectId]?__phase=upload`). 셸 글롭이 대괄호를
+  // 문자 클래스로, `?`를 한 글자 와일드카드로 읽으므로 `figma/app-screens.*`를 다루는 명령이
+  // 조용히 빗나간다. 점도 뺀다 — 파일명 구획자(`app-screens.<slug>.<문맥>.<번호>.draw.js`)다.
+  // 지금 SCREENS 12개의 키는 `[a-z-]`뿐이라 결과가 한 글자도 바뀌지 않는다.
   const slug = entry.route.replace(/^\//, "").replace(/\//g, "-")
+    .replace(/[^A-Za-z0-9_-]+/g, "-")
     + "." + (entry.context.startsWith("desktop") ? "desktop" : "mobile");
   const files = [];
 

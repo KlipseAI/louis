@@ -159,8 +159,14 @@ DS 쪽 정본이고, 제품의 이 자리는 **결함으로 기록한다.**
 
 - **알파 값이 제품 안에서도 한 값이 아니다.** 실측한 자리는 8%/9%였고 다른 자리는 다를 수 있다.
   한 값으로 고정한 이유는 자리표시의 진하기가 화면마다 달라야 할 근거가 없기 때문이다.
-- **Figma component set이 없다.** 흐름이 `background-position` 애니메이션이라 Figma에서는 정지
-  상태만 표현된다.
+- **흐름이 `background-position` 애니메이션이라 Figma에서는 정지 상태만 표현된다.** component
+  set 자체는 있다 — 위 Availability 표대로 `text`·`block`·`circle` 세 마스터를 가진 세트다.
+  (2026-08-30 정정: 이 자리에 「Figma component set이 없다」고 적혀 있었고 같은 문서 Availability
+  표와 정면으로 어긋났다. 세트는 `figma/readback.json`의 `components.Skeleton`에 세 shape로
+  들어 있다.)
+- **Figma는 `currentColor`를 표현하지 못한다.** 문서용으로 `fg-primary` 8%를 쓴다. 실제로는 놓이는
+  자리의 글자색이 된다 — 위 「면 색을 고르지 않는다」가 정본이고 Figma 값은 그 대역이다.
+  [Spinner](spinner.md)의 Known deviations가 같은 편차를 같은 이유로 적는다.
 - **텍스트 여러 줄 묶음이 없다.** 마지막 줄을 짧게 하는 것은 호출부가 `inline-size`로 정한다.
 
 ## Acceptance tests

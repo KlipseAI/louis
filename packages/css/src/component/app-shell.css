@@ -301,7 +301,11 @@
   color: var(--louis-color-fg-upgrade);
   /* 안쪽 1px 링과 아주 얕은 드롭. 배포본에 실제로 그려지는데 DS에는 아예 없었고, 규범 문서의
    * "Effects: 없다"는 사유가 아니라 누락의 결과 서술이었다. 반전 pill이 사이드바 면에서
-   * 떨어져 보이게 하는 것이 이 그림자의 일이다. */
+   * 떨어져 보이게 하는 것이 이 그림자의 일이다.
+   *
+   * **드롭 알파는 라이트 4% · 다크 12%다.** 라이트가 6%였는데 배포본에 6%는 없다 —
+   * `sidebarUpgradeButtonActive`의 `:not(&)` 형제 규칙이 라이트 4%를 그린다. 기록된 편차가
+   * 아니라 실측 오차여서 2026-08-30에 토큰을 4%로 내렸다(`app-shell-parts.md` Effects). */
   box-shadow: var(--louis-elevation-upgrade);
   text-align: center;
   cursor: pointer;
@@ -438,7 +442,15 @@
   display: flex;
   flex-direction: column;
   gap: var(--louis-space-overlay-item-gap);
+  /* 사방 12px이다. 배포본의 레일도 네 변이 12인데 **하단만 단축 `padding`이 준다** — 사이드바
+   * 변형이 위·좌·우만 다시 선언해서, 클래스 목록만 보면 하단이 0으로 읽힌다. 브라우저 실측은
+   * 네 변 모두 12다(`migration/product.sidebar-states.json`). */
   padding: var(--louis-space-control-md);
+  /* **배포본의 데스크톱 레일은 투명하다.** 셸 바닥 위에 그대로 얹히고 밝은 면은 본문 카드 쪽이며,
+   * 면을 칠하는 선언은 ≤719px 드로어에만 있다. 여기 면은 그래서 제품과 갈리는 값이다 —
+   * `app-shell-parts.md` Known deviations가 소유한다. 지금 걷어내지 않는 이유는 아래 ≤719px
+   * 블록에 면 선언이 없어서 드로어가 scrim 위에서 비치기 때문이고, 드로어 면을 제품처럼 칠하는 데
+   * 필요한 라이트 `#eeeef1`에 아직 이름이 없다. */
   background-color: var(--louis-color-bg-surface);
   overflow: hidden;
   transition:

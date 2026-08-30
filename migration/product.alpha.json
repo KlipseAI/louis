@@ -2,8 +2,8 @@
   "$comment": "생성물. scripts/measure-product-alpha.mjs가 배포본에서 센다. 직접 수정하지 않는다.",
   "$whyThisExists": "DS-D-0010 원칙 1은 「정의가 아니라 실사용을 승격한다. 승격 근거에는 사용 화면과 빈도를 남긴다」인데, 알파 축을 10단으로 정규화하기로 한 그 10단이 실사용 빈도에서 나온 것인지 확인할 데이터가 없었다. 여기 수치가 그 근거다.",
   "$method": "`rgb(var(--*-rgb) / N%)`과 Tailwind 임의 값 `_/_` 형태를 센다. rgba 리터럴은 토큰이 아니므로 따로 센다. (highlight-standalone)은 DS-D-0010 §5에 따라 제외한다.",
-  "productRef": "74a7303b16b1a9aa352b0c2103b48898e8e3abae",
-  "productCommit": "74a7303b16b1a9aa352b0c2103b48898e8e3abae",
+  "productRef": "ae8fd6278481a5e86cd324ba86a1d44fe978b788",
+  "productCommit": "ae8fd6278481a5e86cd324ba86a1d44fe978b788",
   "totals": {
     "tokenAlphaUses": 2697,
     "distinctStops": 40,

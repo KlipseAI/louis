@@ -85,6 +85,24 @@ const CONTEXTS = [
   { id: "mobile-402x874", width: 402, height: 874 },
 ];
 
+// fixture 의 Supabase 는 `http://127.0.0.1:9` 로 막혀 있으므로 이 id 로 조회되는 프로젝트는 없다.
+// 값 자체에 뜻이 없다는 것을 이름으로 적어 둔다 — 생성물의 `localApiResponses` 에
+// `/api/highlight/project/fixture-no-such-project 401` 로 그대로 남아, 이 화면들이 실데이터가
+// 아니라는 사실이 읽는 쪽에 드러난다.
+const HIGHLIGHT_FIXTURE_PROJECT_ID = "fixture-no-such-project";
+
+// **라우트가 아니라 「화면 상태」를 잰다.**
+//
+// 그전에는 항목이 라우트 문자열이라 **라우트당 한 상태**밖에 잴 수 없었다. 제품
+// `/highlight/[projectId]` 는 phase 가 8개인데 그중 기본 진입 하나만 재고 나머지 일곱은
+// 이 저장소에 존재조차 하지 않았다 — 재지 못한 것은 Figma 에도 그려지지 않고 게이트도 붙지 않는다.
+//
+// 그래서 항목은 **문자열 또는 객체**다.
+//   문자열 — 종전 그대로. 화면 키·파일 패턴·열 URL 이 모두 그 문자열이다.
+//   객체   — 그 셋을 갈라 적는다.
+//     pattern  `apps/web/app<pattern>/page.tsx` 존재 확인에 쓴다. 동적 세그먼트를 **그대로** 둔다.
+//     url      실제로 열 경로. 동적 세그먼트를 구체값으로 바꾸고 필요하면 쿼리를 붙인다.
+//     id       생성물의 화면 키. 같은 라우트의 상태들을 구분한다.
 const ROUTES = [
   "/archive",
   "/settings",
@@ -102,7 +120,53 @@ const ROUTES = [
   "/mypage/topup/success",
   "/mypage/topup/fail",
   "/explore",
+  // `/highlight/[projectId]` 의 phase 상태들. 제품이 `ae8fd627` 에서 넣은 개발 전용
+  // `?__phase=<이름>` 후크로 연다(`HighlightProjectScene.tsx:128`, 게이트는 인증 바이패스와
+  // 같은 `NEXT_PUBLIC_DEV_AUTH_BYPASS` — 이 스크립트가 이미 자식 서버에 넘긴다).
+  //
+  // **여덟 중 여섯만 채택했다.** 실제로 열어 재고 판정한 결과다(desktop 1920×1080, 가시 노드 수):
+  //   셸만 그려진 상태 = 87노드. 그 위에 무엇이 얹히는지가 판정 기준이다.
+  //     loading 90 · uploading 93 · upload 100 · analyzing 91 · extracting 91 · failed 94
+  //   여섯은 그 단계의 내용이 **전부** 상태 크롬이라 데이터 없이도 제품과 같은 화면이 나온다.
+  //
+  // 채택하지 않은 둘:
+  //   reviewed  101노드. 카드 머리(제목·「Start over」·「Extract clips」)는 나오지만 이 단계의
+  //             본체인 **세그먼트 목록이 비어 있다** — 화면이 스스로 `Clips (0/0)` 이라고 적는다.
+  //             `segments` 는 `/api/highlight/project/<id>` 응답에서 오는데 fixture 에서 401 이다.
+  //   completed 87노드 = 셸만. 클립 그리드가 `clips` 를 도는데 비어서 **아무것도 그려지지 않는다**
+  //             (`viewMode: "detail"` 쪽은 클립이 없으면 아예 `null` 을 낸다).
+  //             `clips` 도 같은 401 응답에서 온다.
+  //   둘 다 fixture 에 세그먼트·클립 시드가 생겨야 잴 수 있다. 빈 상태를 채택하면 Figma 에
+  //   빈 화면이 정본으로 굳는다.
+  //
+  // `?__phase=upload` 는 쿼리 없이 연 것과 같은 화면이지만(둘 다 100노드·같은 텍스트) 그것은
+  // 데이터가 없어 `upload` 로 떨어지기 때문이다. 데이터가 생기면 갈라지므로 **상태 이름으로**
+  // 적는다 — 기본 진입은 상태가 아니라 데이터에 따라 달라지는 결과다.
+  ...["loading", "uploading", "upload", "analyzing", "extracting", "failed"].map((phase) => ({
+    pattern: "/highlight/[projectId]",
+    url: "/highlight/" + HIGHLIGHT_FIXTURE_PROJECT_ID + "?__phase=" + phase,
+    id: "/highlight/[projectId]?__phase=" + phase,
+  })),
 ];
+
+// 문자열·객체 항목을 하나의 모양으로 편다. `expectedSearch` 는 redirect 판정에 쓴다 —
+// 「의도한 search 로 끝났는가」를 물어야 하므로 빈 문자열을 못박을 수 없다.
+const SCREEN_SPECS = ROUTES.map((entry) => {
+  const spec = typeof entry === "string" ? { pattern: entry } : entry;
+  const url = spec.url ?? spec.pattern;
+  const target = new URL(url, "http://fixture.invalid");
+  return {
+    id: spec.id ?? url,
+    pattern: spec.pattern,
+    url,
+    expectedPath: target.pathname,
+    expectedSearch: target.search,
+  };
+});
+// 키가 겹치면 뒤 항목이 앞 항목을 조용히 덮어써 화면 하나가 사라진다.
+const duplicateId = SCREEN_SPECS.map((spec) => spec.id)
+  .find((id, index, all) => all.indexOf(id) !== index);
+if (duplicateId) unavailable("화면 키가 중복입니다: " + duplicateId);
 
 const STYLE_AXES = [
   "display", "position", "top", "right", "bottom", "left", "zIndex",
@@ -145,9 +209,11 @@ const sourceQuote = (path, line) => ({
   quote: sourceLine(path, line),
 });
 
-const routeFiles = ROUTES.map((route) => ({
-  route,
-  path: "apps/web/app" + route + "/page.tsx",
+// 파일 확인에는 **패턴**을 쓴다. 열 URL 은 동적 세그먼트가 구체값으로 바뀌어 있어 경로가 되지
+// 않는다(`/highlight/fixture-no-such-project` 라는 디렉터리는 없다).
+const routeFiles = SCREEN_SPECS.map((spec) => ({
+  route: spec.id,
+  path: "apps/web/app" + spec.pattern + "/page.tsx",
 }));
 for (const routeFile of routeFiles) {
   try {
@@ -176,9 +242,15 @@ const reservePort = async () => {
 const startFixtureServer = async () => {
   const port = await reservePort();
   const url = "http://127.0.0.1:" + port;
+  // **`--webpack` 을 명시한다.** Next 16 부터 `next dev` 의 기본 번들러가 Turbopack 인데,
+  // 제품은 배포를 `next build --webpack` 으로 만든다(apps/web/package.json). 번들러가 다르면
+  // 재는 대상이 배포본과 달라지고, 실제로 이 fixture 에서 Turbopack 은 30분이 지나도 포트를
+  // 열지 않아 측정이 통째로 멈췄다(2026-08-30). 형제 게이트
+  // `measure-product-sidebar-states.mjs:53` 은 처음부터 `--webpack` 을 넘기고 있었다 —
+  // 이 스크립트만 기본값이 바뀐 것을 따라가지 못했다.
   const child = spawn(
     process.execPath,
-    [nextCli, "dev", "-H", "127.0.0.1", "-p", String(port)],
+    [nextCli, "dev", "--webpack", "-H", "127.0.0.1", "-p", String(port)],
     {
       cwd: webRoot,
       env: {
@@ -266,7 +338,7 @@ try {
   browser = await chromium.launch({ headless: true });
   for (const contextSpec of CONTEXTS) {
     screens[contextSpec.id] = {};
-    for (const route of ROUTES) {
+    for (const spec of SCREEN_SPECS) {
       const context = await browser.newContext({
         viewport: { width: contextSpec.width, height: contextSpec.height },
         colorScheme: "light",
@@ -315,7 +387,7 @@ try {
           }
         });
 
-        await page.goto(fixtureServer.url + route, {
+        await page.goto(fixtureServer.url + spec.url, {
           waitUntil: "domcontentloaded",
           timeout: 60_000,
         });
@@ -363,7 +435,7 @@ try {
           await delay(150);
         }
         if (stableCount < 6) {
-          throw new Error("[product-auth-fixture] 화면이 안정화되지 않았습니다: " + route);
+          throw new Error("[product-auth-fixture] 화면이 안정화되지 않았습니다: " + spec.id);
         }
         await page.evaluate(async () => { await document.fonts.ready; });
 
@@ -617,21 +689,29 @@ try {
         if (missing.length > 0) {
           throw new Error(
             "[product-auth-fixture] 선언 스타일이 없는 측정 노드가 있습니다(경로 스킴 불일치 의심): " +
-              missing.length + "개, 예: " + missing.slice(0, 3).join(", ") + " (" + route + ")",
+              missing.length + "개, 예: " + missing.slice(0, 3).join(", ") + " (" + spec.id + ")",
           );
         }
         if (attached === 0) {
-          throw new Error("[product-auth-fixture] 선언 스타일이 하나도 붙지 않았습니다 (" + route + ")");
+          throw new Error("[product-auth-fixture] 선언 스타일이 하나도 붙지 않았습니다 (" + spec.id + ")");
         }
 
         const uniqueRecords = (records) => [...new Map(records
           .map((entry) => [JSON.stringify(entry), entry])).values()]
           .sort((left, right) => JSON.stringify(left).localeCompare(JSON.stringify(right)));
-        screens[contextSpec.id][route] = {
-          requestedRoute: route,
+        screens[contextSpec.id][spec.id] = {
+          requestedRoute: spec.id,
+          // 화면 키가 라우트가 아니게 되면서 **무엇을 열었는지**가 키에서 복원되지 않는다.
+          // 동적 세그먼트를 무엇으로 채웠는지는 여기에만 남으므로 다를 때만 함께 적는다.
+          ...(spec.url === spec.id ? {} : { requestedUrl: spec.url }),
           ...measured,
+          // 「요청한 곳과 다른 데 도착했다」를 잡는 canary다. search 를 빈 문자열로 못박으면
+          // 의도한 쿼리(`?__phase=…`)까지 redirect 로 잡히므로 **의도한 search 와** 견준다.
+          // 의도와 다른 search 로 끝나면 여전히 redirect 다 — OAuth 리턴 쿼리를 비우는
+          // `middleware.ts:190` 같은 이동이 조용히 통과하지 않는다.
           redirected:
-            measured.finalPath !== route || measured.finalSearch !== "",
+            measured.finalPath !== spec.expectedPath ||
+            measured.finalSearch !== spec.expectedSearch,
           localApiResponses: uniqueRecords(localResponses),
           localApiFailures: uniqueRecords(localFailures),
         };
@@ -664,8 +744,8 @@ const internStyle = (entry) => {
   entry.styleRef = styleRef;
 };
 for (const contextSpec of CONTEXTS) {
-  for (const route of ROUTES) {
-    const screen = screens[contextSpec.id][route];
+  for (const spec of SCREEN_SPECS) {
+    const screen = screens[contextSpec.id][spec.id];
     for (const heading of screen.headings) internStyle(heading);
     for (const node of screen.tree) internStyle(node);
     for (const overlay of screen.overlays) {
@@ -676,8 +756,8 @@ for (const contextSpec of CONTEXTS) {
 
 const screenAliases = CONTEXTS.map((contextSpec) => ({
   context: contextSpec.id,
-  aliases: ROUTES
-    .map((route) => screens[contextSpec.id][route])
+  aliases: SCREEN_SPECS
+    .map((spec) => screens[contextSpec.id][spec.id])
     .filter((screen) => screen.redirected)
     .map((screen) => ({
       requestedRoute: screen.requestedRoute,
@@ -689,8 +769,8 @@ const screenAliases = CONTEXTS.map((contextSpec) => ({
 const repeatedSubtreesByContext = {};
 for (const contextSpec of CONTEXTS) {
   const groups = new Map();
-  for (const route of ROUTES) {
-    const screen = screens[contextSpec.id][route];
+  for (const spec of SCREEN_SPECS) {
+    const screen = screens[contextSpec.id][spec.id];
     // redirect source를 함께 넣으면 archive/settings 등 화면 전체가 “반복 component”처럼 부풀려진다.
     // 실제 최종 route에서 한 번만 후보를 찾고 redirect는 screenAliases로 따로 기록한다.
     if (screen.redirected) continue;
@@ -726,7 +806,7 @@ for (const contextSpec of CONTEXTS) {
         groups.set(serialized, group);
       }
       group.roots.push({
-        route,
+        route: spec.id,
         path: root.path,
         tag: root.tag,
         rect: root.rect,
@@ -760,7 +840,7 @@ const payload = JSON.stringify({
     "인증 후 페이지 완료 판정",
   ],
   $method:
-    "fixture checkout의 clean HEAD가 productCommit인지 확인하고 NEXT_PUBLIC_DEV_AUTH_BYPASS=1인 Next development server를 임시 localhost 포트에 직접 띄운다. Supabase URL은 연결되지 않는 localhost endpoint로 고정한다. 각 route는 격리된 light/en-US 브라우저 문맥에서 열고 외부 요청을 차단한다. 3초 이상 기다린 뒤 path·theme·locale·height·root text·element/dialog count가 6회 연속 안정되면 app root와 외부 dialog 중 viewport와 교차하는 노드의 geometry·computed styles·SVG vector 속성, heading·landmark, localhost API status를 기록한다. 동일 computed-style 객체는 무손실 style table로 정규화한다. 이 fixture의 실패·빈 상태는 의도적으로 보존한다.",
+    "fixture checkout의 clean HEAD가 productCommit인지 확인하고 NEXT_PUBLIC_DEV_AUTH_BYPASS=1인 Next development server를 임시 localhost 포트에 직접 띄운다. Supabase URL은 연결되지 않는 localhost endpoint로 고정한다. 각 화면은 격리된 light/en-US 브라우저 문맥에서 열고 외부 요청을 차단한다. 측정 단위는 route가 아니라 **화면 상태**다 — 한 route의 여러 상태는 URL 쿼리로 구분해 각각 잰다. `/highlight/[projectId]`의 phase는 제품의 development-only 후크 `?__phase=<이름>`으로 연다(같은 NEXT_PUBLIC_DEV_AUTH_BYPASS 게이트). 데이터가 있어야 본문이 나오는 phase(reviewed·completed)는 fixture에 시드가 없어 빈 화면이 되므로 채택하지 않았다. 3초 이상 기다린 뒤 path·theme·locale·height·root text·element/dialog count가 6회 연속 안정되면 app root와 외부 dialog 중 viewport와 교차하는 노드의 geometry·computed styles·SVG vector 속성, heading·landmark, localhost API status를 기록한다. 동일 computed-style 객체는 무손실 style table로 정규화한다. 이 fixture의 실패·빈 상태는 의도적으로 보존한다.",
   productRef,
   productRefSource,
   productCommit: commit,
@@ -806,6 +886,12 @@ const payload = JSON.stringify({
     sourceQuote("apps/web/components/auth/AuthProvider.tsx", 348),
     sourceQuote("apps/web/components/auth/AuthProvider.tsx", 349),
     sourceQuote("apps/web/components/auth/AuthProvider.tsx", 350),
+    // phase 강제 후크. 인증 바이패스와 **같은 플래그**를 쓴다는 것이 이 두 줄에 있다 —
+    // 새 환경변수가 늘지 않았고, 운영에선 NODE_ENV 게이트로 켜지지 않는다.
+    sourceQuote("apps/web/components/scenes/HighlightProjectScene.tsx", 128),
+    sourceQuote("apps/web/components/scenes/HighlightProjectScene.tsx", 129),
+    sourceQuote("apps/web/components/scenes/HighlightProjectScene.tsx", 130),
+    sourceQuote("apps/web/components/scenes/HighlightProjectScene.tsx", 878),
   ],
   screens,
 }, null, 2) + "\n";
@@ -833,5 +919,5 @@ if (checkOnly) {
 
 console.log(
   "[product-auth-fixture] " + (checkOnly ? "checked" : "built") + ": " +
-    ROUTES.length + " routes · " + CONTEXTS.length + "문맥 @ " + commit.slice(0, 8),
+    SCREEN_SPECS.length + " screens · " + CONTEXTS.length + "문맥 @ " + commit.slice(0, 8),
 );

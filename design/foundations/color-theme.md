@@ -52,15 +52,22 @@ token이 아니라 리터럴·이미지·mode 불변 값으로 칠해졌으면 �
 | `--gray-000` (semantic) | `#000000` | `#fafafa` |
 | `--palette-gray-000` (primitive) | `#fafafa` | `#fafafa` |
 
-제품 정본 — auth 브랜드 패널의 면은 `#0093ff` 리터럴에 `/footer-logo-bg.svg`를 얹고 테마 분기가 없다
-(`AuthStatusCard.tsx:31-34` · `login/page.tsx:43-47` · `app/signup/page.tsx:36-39`). 그 위 슬로건 전경은
-`text-palette-gray-000`, 즉 두 mode 모두 `#fafafa`다(`AuthStatusCard.tsx:46` · `login/page.tsx:64` ·
+제품 정본 — auth 브랜드 패널의 면은 `bg-accent-primary`에 `/footer-logo-bg.svg`를 얹고 테마 분기가 없다
+(`AuthStatusCard.tsx:27-30` · `login/page.tsx:43-47` · `app/signup/page.tsx:37-40`). 그 위 슬로건 전경은
+`text-fg-inverse`, 즉 두 mode 모두 `#fafafa`다(`AuthStatusCard.tsx:41` · `login/page.tsx:63` ·
 `app/signup/page.tsx:51`). 같은 부류로 노드 캔버스 카드 외곽선도 semantic이 아니라 `--palette-gray-600-rgb` /
-`--palette-gray-000-rgb`을 쓴다(`components/scenes/create/node-canvas-v2/index.tsx:352-353`). 브랜드 면 색
-`#0093ff` 자체는 토큰화 대상이 아니다 — 리터럴로 남긴다.
+`--palette-gray-000-rgb`을 쓴다(`components/scenes/create/node-canvas-v2/index.tsx:352-353`).
+
+**이 두 축은 2026-08-24 배포본에서 이미 위 결손을 메웠다.** 예전에는 면이 `bg-[#0093ff]` 리터럴이고
+전경이 `text-palette-gray-000` primitive 별칭이었으며, 이 문단도 「브랜드 면 색 `#0093ff` 자체는 토큰화
+대상이 아니다 — 리터럴로 남긴다」고 적고 있었다. 지금은 둘 다 **light/dark 두 mode가 같은 값인 semantic**
+이다 — `--louis-color-accent-primary`는 양쪽 `#0088ff`, `--louis-color-fg-inverse`는 양쪽 `#fafafa`다.
+`#0093ff`는 배포본 코드에 더는 없고 `/node-canvas.svg` 같은 자산 안에만 남아 있다. 다만 `color-media-*`
+계열의 일반화는 여전히 결손이다 — 코브랜드 면(`/aws/signup`의 `#ff9900`)은 아직 리터럴이다
+(`aws/signup/page.tsx:89`).
 
 **규칙은 「항상 고정을 써라」가 아니다.** 같은 카드 안에서 축이 갈린다 — 면이 테마를 따르는 폼 패널의
-제목은 시맨틱 `text-gray-000`이 맞다(`AuthStatusCard.tsx:81`). 면이 고정이면 전경도 고정, 면이 테마를
+제목은 시맨틱 `text-fg-primary`가 맞다(`AuthStatusCard.tsx:78`). 면이 고정이면 전경도 고정, 면이 테마를
 따르면 전경도 따른다.
 
 **이걸 모르면 틀린다.** 슬로건 색을 이름만 보고 `--gray-000`에 매핑하면 라이트 테마에서 파란 면 위 글자가

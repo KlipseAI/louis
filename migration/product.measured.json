@@ -676,7 +676,7 @@
         },
         "구분선 (separator)": {
           "product": "카드 메뉴에는 없음. 프로필 팝오버만 height 1px, margin 4px 10px, background dark #575d68 / light #e3e4e8",
-          "ds": "border-block-start 1px solid var(--louis-color-stroke-subtle) (dark #575D68 / light #E3E4E8), margin-block 4px, margin-inline 0",
+          "ds": "box-shadow: var(--louis-hairline-inset-block-start) (\uc0c9 var(--louis-color-stroke-hairline) \u2014 light 0 0 0 / 8%, dark 1 1 1 / 8%), block-size var(--louis-border-width-hairline) = 0.5px, margin-block 4px, margin-inline 0",
           "match": "different",
           "evidence": "apps/web/components/navigation/Gnb.tsx:1033,1034,1035,1036,1037,1286,1293",
           "status": "accepted-deviation",

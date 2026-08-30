@@ -2,8 +2,8 @@
   "$comment": "생성물. scripts/measure-product-variants.mjs가 제품의 경쟁 정의를 이름 패턴으로 찾아 실제로 렌더하고 값이 같은 것끼리 묶는다. 직접 수정하지 않는다.",
   "$whyThisExists": "\"제품에 정본이 없다\"가 산문이었다 — 한 벌만 재고 나머지는 세지 않은 채 그렇게 적었다. 여기서는 몇 벌이 몇 묶음으로 갈리는지가 수로 남고, Figma의 Inventory 페이지가 그것을 나란히 그린다. 정본을 고르는 일은 눈으로 비교하는 일이어야 한다.",
   "$howToRead": "groups는 사용 횟수가 많은 순이다. rank 1이 가장 널리 쓰이는 벌이며 정본 후보다. members가 여럿이면 그 벌들이 값까지 동일하다는 뜻이다.",
-  "productRef": "74a7303b16b1a9aa352b0c2103b48898e8e3abae",
-  "productCommit": "74a7303b16b1a9aa352b0c2103b48898e8e3abae",
+  "productRef": "ae8fd6278481a5e86cd324ba86a1d44fe978b788",
+  "productCommit": "ae8fd6278481a5e86cd324ba86a1d44fe978b788",
   "axes": [
     "height",
     "minHeight",
@@ -642,7 +642,7 @@
         "part": "profileMenuItemBadge",
         "parts": null,
         "tag": "span",
-        "line": 1138,
+        "line": 1142,
         "text": "",
         "values": {
           "height": "22px",
@@ -690,7 +690,7 @@
             "part": "profileMenuItemBadgeText",
             "parts": null,
             "tag": "span",
-            "line": 1164,
+            "line": 1168,
             "text": "프로",
             "values": {
               "height": "auto",
@@ -1856,7 +1856,7 @@
         "part": "sidebarUpgradeButton",
         "parts": null,
         "tag": "button",
-        "line": 1931,
+        "line": 1943,
         "text": "",
         "values": {
           "height": "41px",
@@ -1904,7 +1904,7 @@
             "part": "sidebarUpgradeLabel",
             "parts": null,
             "tag": "span",
-            "line": 1978,
+            "line": 1990,
             "text": "보관함",
             "values": {
               "height": "21px",
@@ -3748,7 +3748,7 @@
         "part": "sidebarHeaderRow",
         "parts": null,
         "tag": "div",
-        "line": 1831,
+        "line": 1843,
         "text": "",
         "values": {
           "height": "40px",
@@ -3796,7 +3796,7 @@
             "part": "sidebarLogoHit",
             "parts": null,
             "tag": "a",
-            "line": 1842,
+            "line": 1854,
             "text": "",
             "values": {
               "height": "40px",
@@ -3844,7 +3844,7 @@
                 "part": "sidebarLogoRail",
                 "parts": null,
                 "tag": "div",
-                "line": 1881,
+                "line": 1893,
                 "text": "",
                 "values": {
                   "height": "28px",
@@ -3892,7 +3892,7 @@
                     "part": "sidebarBrandCrop",
                     "parts": null,
                     "tag": "div",
-                    "line": 1809,
+                    "line": 1821,
                     "text": "",
                     "values": {
                       "height": "28px",
@@ -3940,7 +3940,7 @@
                         "part": "logo",
                         "parts": null,
                         "tag": "img",
-                        "line": 266,
+                        "line": 270,
                         "text": "",
                         "values": {
                           "height": "28px",
@@ -4004,7 +4004,7 @@
         "part": "menuLink",
         "parts": null,
         "tag": "div",
-        "line": 499,
+        "line": 503,
         "text": "",
         "values": {
           "height": "32px",
@@ -4052,7 +4052,7 @@
             "part": "menuSidebarCreateNavPart",
             "parts": null,
             "tag": "button",
-            "line": 798,
+            "line": 802,
             "text": "",
             "values": {
               "height": "32px",
@@ -4100,7 +4100,7 @@
                 "part": "menuLinkInner",
                 "parts": null,
                 "tag": "span",
-                "line": 626,
+                "line": 630,
                 "text": "",
                 "values": {
                   "height": "21px",
@@ -4148,7 +4148,7 @@
                     "part": "menuLinkIconMask",
                     "parts": null,
                     "tag": "span",
-                    "line": 610,
+                    "line": 614,
                     "text": "",
                     "values": {
                       "height": "20px",
@@ -4197,7 +4197,7 @@
                     "part": "menuLinkLabel",
                     "parts": null,
                     "tag": "span",
-                    "line": 650,
+                    "line": 654,
                     "text": "노드 캔버스",
                     "values": {
                       "height": "21px",
@@ -4250,7 +4250,7 @@
             "part": "menuSidebarCreateAddonInset",
             "parts": null,
             "tag": "button",
-            "line": 764,
+            "line": 768,
             "text": "",
             "values": {
               "height": "24px",
@@ -4308,7 +4308,7 @@
         "part": "menuLink",
         "parts": null,
         "tag": "a",
-        "line": 499,
+        "line": 503,
         "text": "",
         "values": {
           "height": "32px",
@@ -4356,7 +4356,7 @@
             "part": "menuLinkInner",
             "parts": null,
             "tag": "span",
-            "line": 626,
+            "line": 630,
             "text": "",
             "values": {
               "height": "21px",
@@ -4404,7 +4404,7 @@
                 "part": "menuLinkIconMask",
                 "parts": null,
                 "tag": "span",
-                "line": 610,
+                "line": 614,
                 "text": "",
                 "values": {
                   "height": "20px",
@@ -4453,7 +4453,7 @@
                 "part": "menuLinkLabel",
                 "parts": null,
                 "tag": "span",
-                "line": 650,
+                "line": 654,
                 "text": "홈",
                 "values": {
                   "height": "21px",
@@ -4513,7 +4513,7 @@
         "part": "profileTrigger",
         "parts": null,
         "tag": "button",
-        "line": 1426,
+        "line": 1438,
         "text": "",
         "values": {
           "height": "36px",
@@ -4561,7 +4561,7 @@
             "part": "profileImage",
             "parts": null,
             "tag": "img",
-            "line": 1048,
+            "line": 1052,
             "text": "",
             "values": {
               "height": "28px",
@@ -4619,7 +4619,7 @@
         "part": "menuSidebarOuter",
         "parts": null,
         "tag": "div",
-        "line": 845,
+        "line": 849,
         "text": "",
         "values": {
           "height": "34px",
@@ -4667,7 +4667,7 @@
             "part": "menuSidebar",
             "parts": null,
             "tag": "ul",
-            "line": 714,
+            "line": 718,
             "text": "",
             "values": {
               "height": "34px",
@@ -4715,7 +4715,7 @@
                 "part": "menuSidebarEyebrowRow",
                 "parts": null,
                 "tag": "li",
-                "line": 825,
+                "line": 829,
                 "text": "",
                 "values": {
                   "height": "34px",
@@ -4763,7 +4763,7 @@
                     "part": "menuSidebarEyebrow",
                     "parts": null,
                     "tag": "span",
-                    "line": 818,
+                    "line": 822,
                     "text": "분석",
                     "values": {
                       "height": "18px",
@@ -11306,7 +11306,7 @@
         "part": "profileTrigger",
         "parts": null,
         "tag": "button",
-        "line": 1426,
+        "line": 1438,
         "text": "",
         "values": {
           "height": "36px",
@@ -11354,7 +11354,7 @@
             "part": "profileImage",
             "parts": null,
             "tag": "img",
-            "line": 1048,
+            "line": 1052,
             "text": "",
             "values": {
               "height": "28px",
@@ -11412,7 +11412,7 @@
         "part": "profileTrigger",
         "parts": null,
         "tag": "button",
-        "line": 1426,
+        "line": 1438,
         "text": "",
         "values": {
           "height": "32px",
@@ -11460,7 +11460,7 @@
             "part": "profileImage",
             "parts": null,
             "tag": "img",
-            "line": 1048,
+            "line": 1052,
             "text": "",
             "values": {
               "height": "24px",
@@ -14013,7 +14013,7 @@
                 "part": "withdrawalButton",
                 "parts": null,
                 "tag": "button",
-                "line": 1276,
+                "line": 1284,
                 "text": "환불 요청",
                 "values": {
                   "height": "24px",
@@ -16713,7 +16713,7 @@
         "part": "settingsRowNameInput",
         "parts": null,
         "tag": "input",
-        "line": 916,
+        "line": 920,
         "text": "",
         "values": {
           "height": "34px",
@@ -16987,7 +16987,7 @@
         "part": "toast",
         "parts": null,
         "tag": "div",
-        "line": 1185,
+        "line": 1193,
         "text": "저장했어요",
         "values": {
           "height": "50px",
@@ -17367,7 +17367,7 @@
         "part": "projectHeader",
         "parts": null,
         "tag": "div",
-        "line": 1625,
+        "line": 1637,
         "text": "",
         "values": {
           "height": "72px",
@@ -17464,7 +17464,7 @@
             "part": "projectTitle",
             "parts": null,
             "tag": "span",
-            "line": 1758,
+            "line": 1770,
             "text": "프로젝트 이름",
             "values": {
               "height": "24px",
@@ -17513,7 +17513,7 @@
             "part": "projectActions",
             "parts": null,
             "tag": "div",
-            "line": 1467,
+            "line": 1479,
             "text": "",
             "values": {
               "height": "32px",
@@ -17561,7 +17561,7 @@
                 "part": "projectHeaderActionsShell",
                 "parts": null,
                 "tag": "div",
-                "line": 1639,
+                "line": 1651,
                 "text": "",
                 "values": {
                   "height": "32px",
@@ -17609,7 +17609,7 @@
                     "part": "projectMenuAnchor",
                     "parts": null,
                     "tag": "div",
-                    "line": 1685,
+                    "line": 1697,
                     "text": "",
                     "values": {
                       "height": "32px",
@@ -18477,7 +18477,7 @@
         {
           "rank": 1,
           "members": 2,
-          "uses": 200,
+          "uses": 204,
           "values": {
             "height": "45px",
             "minHeight": "0px",
@@ -18511,21 +18511,21 @@
               "file": "apps/web/components/scenes/appHomeSceneStyles.ts",
               "line": 884,
               "name": "toast",
-              "uses": 100
+              "uses": 102
             },
             {
               "id": "toast/apps/web/components/scenes/highlightSceneStyles.ts.toast",
               "file": "apps/web/components/scenes/highlightSceneStyles.ts",
               "line": 2068,
               "name": "toast",
-              "uses": 100
+              "uses": 102
             }
           ]
         },
         {
           "rank": 2,
           "members": 1,
-          "uses": 100,
+          "uses": 102,
           "values": {
             "height": "50px",
             "minHeight": "0px",
@@ -18557,9 +18557,9 @@
             {
               "id": "toast/apps/web/components/scenes/myPageSceneStyles.ts.toast",
               "file": "apps/web/components/scenes/myPageSceneStyles.ts",
-              "line": 1185,
+              "line": 1193,
               "name": "toast",
-              "uses": 100
+              "uses": 102
             }
           ]
         },
@@ -18822,7 +18822,7 @@
             {
               "id": "icon-button/apps/web/components/navigation/Gnb.tsx.mobileMenuCloseButton",
               "file": "apps/web/components/navigation/Gnb.tsx",
-              "line": 878,
+              "line": 882,
               "name": "mobileMenuCloseButton",
               "uses": 2
             }
@@ -18951,7 +18951,7 @@
             {
               "id": "text-field/apps/web/components/navigation/Gnb.tsx.projectInlineRenameInput",
               "file": "apps/web/components/navigation/Gnb.tsx",
-              "line": 1667,
+              "line": 1679,
               "name": "projectInlineRenameInput",
               "uses": 3
             }
@@ -18992,7 +18992,7 @@
             {
               "id": "text-field/apps/web/components/navigation/Gnb.tsx.projectGnbTitleInput",
               "file": "apps/web/components/navigation/Gnb.tsx",
-              "line": 1531,
+              "line": 1543,
               "name": "projectGnbTitleInput",
               "uses": 2
             },
@@ -19300,7 +19300,7 @@
             {
               "id": "text-field/apps/web/components/scenes/myPageSceneStyles.ts.settingsRowNameInput",
               "file": "apps/web/components/scenes/myPageSceneStyles.ts",
-              "line": 916,
+              "line": 920,
               "name": "settingsRowNameInput",
               "uses": 0
             }
@@ -20016,7 +20016,7 @@
             {
               "id": "selectable-list-row/apps/web/components/navigation/Gnb.tsx.profileMenuItem",
               "file": "apps/web/components/navigation/Gnb.tsx",
-              "line": 1117,
+              "line": 1121,
               "name": "profileMenuItem",
               "uses": 9
             }
@@ -20057,7 +20057,7 @@
             {
               "id": "selectable-list-row/apps/web/components/navigation/Gnb.tsx.projectDropdownItem",
               "file": "apps/web/components/navigation/Gnb.tsx",
-              "line": 1505,
+              "line": 1517,
               "name": "projectDropdownItem",
               "uses": 6
             }
@@ -20398,7 +20398,7 @@
             {
               "id": "badge/apps/web/components/navigation/Gnb.tsx.profileMenuItemBadge",
               "file": "apps/web/components/navigation/Gnb.tsx",
-              "line": 1138,
+              "line": 1142,
               "name": "profileMenuItemBadge",
               "uses": 2
             }

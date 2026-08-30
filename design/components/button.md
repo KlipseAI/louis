@@ -61,7 +61,7 @@ import "@klipse-design/css/styles.css";
 > (`button.css`: lg 16→14, md 12→10). Figma 불리언은 가시성만 바꾸고 padding은 못 바꾼다 —
 > 불리언으로 두면 표현할 수 없는 상태가 생긴다. 그래서 Variant×Size×State×Icon = 5×2×5×4 = 200이다.
 | `variant`    | `primary`, `secondary`, `ghost`, `danger` | `primary` | 강조와 의미                                     |
-| `size`       | `md`, `sm`                                | `md`      | 시각 크기; hit area 계약은 별도 유지            |
+| `size`       | `lg`, `md`                                | `md`      | 시각 크기; hit area 계약은 별도 유지            |
 | `loading`    | boolean                                   | `false`   | 중복 실행 차단, `aria-busy`, progress indicator |
 | `leftIcon`   | ReactNode                                 | —         | 라벨 앞 보조 아이콘                             |
 | `rightIcon`  | ReactNode                                 | —         | 라벨 뒤 보조 아이콘                             |
@@ -192,17 +192,25 @@ focus-visible 링은 브라우저가 그리므로 Figma variant로 두지 않는
 `packages/react/test/component-geometry.browser.test.tsx`가, Figma가 이 값과 같은지는 parity
 게이트가 매 실행 검증한다.
 
-| 항목        | md                                  | sm                                  |
+| 항목        | lg                                  | md                                  |
 | ----------- | ----------------------------------- | ----------------------------------- |
-| 높이        | `layout-control-height-md` 40px     | `layout-control-height-sm` 32px     |
-| 최소 폭     | 없음                                | `layout-control-minimum-width-sm` 48px |
+| 높이        | `layout-control-height-lg` 40px     | `layout-control-height-md` 32px     |
+| 최소 폭     | `layout-control-minimum-width-md` 48px | `layout-control-minimum-width-md` 48px |
 | padding     | 0 / `space-control-lg` 16px         | 0 / `space-control-md` 12px         |
-| gap         | `space-control-sm` 8px              | `space-control-xs` 4px              |
+| gap         | `space-control-xs` 4px              | `space-control-xs` 4px              |
 | 헤어라인 (secondary만, inset) | `border-width-hairline` 0.5px | `border-width-hairline` 0.5px |
 | radius      | `radius-control` 12px               | `radius-control` 12px               |
 | 타이포      | `body-sm-medium` 14px / 21px        | `body-sm-medium` 14px / 21px        |
 | spinner     | 18px (`1em` + border 2)             | 18px (`1em` + border 2)             |
-| 아이콘 슬롯 | `icon-size-md` 20px                 | `icon-size-sm` 16px                 |
+| 아이콘 슬롯 | `icon-size-sm` 16px                 | `icon-size-sm` 16px                 |
+
+**열 이름은 [DS-D-0027](../governance/decisions/DS-D-0027-control-size-ladder.md)의 사다리다 —
+`lg`(40) · `md`(32)이고 `sm`은 없다.** 2026-08-30까지 이 표는 그 결정 이전 이름(`md` 40 · `sm` 32)을
+달고 있어서, 같은 문서 안에서 `md`가 40과 32 두 값을 뜻했다. 이름을 옮기면서 세 행이 정본
+([`figma/components.measured.json`](../../figma/components.measured.json))과 어긋나 있던 것도 함께
+맞췄다 — 최소 폭은 **두 크기 모두** 48이고(`button.css`의 `lg`·`md` 둘 다 `min-inline-size`를 준다),
+gap과 아이콘 슬롯도 두 크기가 같은 값이다(`column-gap`은 둘 다 `space-control-xs`, 슬롯은 둘 다
+`icon-size-sm` 16 — 버튼이 32 단일이던 시절의 결정이 `lg`에도 그대로 남아 있다).
 
 **base에는 stroke가 없다.** 위 헤어라인 행은 `secondary` variant에만 적용된다 — `border-width-hairline`
 0.5px 두께의 `color-stroke-hairline` 색을 CSS `border`가 아니라 inset box-shadow로 그린다
@@ -302,10 +310,10 @@ focus-visible 링은 브라우저가 그리므로 Figma variant로 두지 않는
 - **노드 캔버스 중립 버튼의 면 색이 LOUIS에 없다.** 제품은 노드 카드에 붙는 보조 버튼용으로 별도 SSOT
   토큰군 `--node-chrome-btn-*`를 둔다(`globals.css:528-554`, 라이트 덮어쓰기 `:567-573`).
 
-  | 토큰 | 값 | LOUIS `sm` 대비 |
+  | 토큰 | 값 | LOUIS `md` 대비 |
   | --- | --- | --- |
-  | `--node-chrome-btn-h` | `32px` (`globals.css:542`) | 같다 (`layout-control-height-sm`) |
-  | `--node-chrome-btn-padding-x` | `10px` (`:543`) | 텍스트-only `sm` 12px와 다르고 **아이콘 동반 `sm` 10px와 같다**. 제품은 아이콘 유무와 무관하게 10 고정 |
+  | `--node-chrome-btn-h` | `32px` (`globals.css:542`) | 같다 (`layout-control-height-md`) |
+  | `--node-chrome-btn-padding-x` | `10px` (`:543`) | 텍스트-only `md` 12px와 다르고 **아이콘 동반 `md` 10px와 같다**. 제품은 아이콘 유무와 무관하게 10 고정 |
   | `--node-chrome-btn-radius` | `12px` (`:544`) | **같은 값이 아니라 그 토큰 자체다** — `var(--louis-radius-control)` |
   | `--node-chrome-btn-gap` | `4px` (`:547`) | **같은 값이 아니라 그 토큰 자체다** — `var(--louis-space-control-xs)` |
   | `--node-chrome-btn-bg` | 다크 `#777d89` (`:548`) / 라이트 `#f1f1f3` (`:568`) | **대응 토큰 없음** |
@@ -318,16 +326,26 @@ focus-visible 링은 브라우저가 그리므로 Figma variant로 두지 않는
   **토큰군 전부를 쓰는 소비처는 없다**(`:536-537`) — 헤더 액션은 치수만 쓰고 면은 투명 + hover
   틴트이며(`NodeHeaderActions.tsx:36-37`), 아이콘 전용 버튼은 정사각이라 `-padding-x`를 쓰지 않는다.
   면과 헤어라인을 전부 쓰는 대표 소비처는 메타 툴바 알약이다(`ImageNode.tsx:638-652`). 치수 축은 LOUIS
-  `sm`으로 그대로 재현되지만 **면 색 두 쌍이 없어 노드 카드 내부 버튼을 LOUIS만으로 칠할 수 없다.**
+  `md`로 그대로 재현되지만 **면 색 두 쌍이 없어 노드 카드 내부 버튼을 LOUIS만으로 칠할 수 없다.**
 - **제품의 결과 화면 액션은 전폭 앵커다.** 결제 결과 화면의 두 액션(`billing-success/page.tsx:136-146`
-  primary · `:148-158` secondary)은 높이 40px과 radius 12px까지 `md`와 같고 네 축이 다르다.
+  primary · `:148-158` secondary)은 높이 32px · padding `0 12px` · radius 12px까지 `md`와 같고
+  **세 축이 다르다.**
 
   | 축 | LOUIS `md` | 제품 결과 화면 액션 |
   | --- | --- | --- |
   | 폭 | 내용 폭 (고정 폭 없음) | `width: 100%` (`:137`·`:149`) |
-  | padding | `0 / space-control-lg` 16px | `0 / 20px` (`:137`·`:149`) |
   | 타이포 | `body-sm-medium` 14px / 21px | 14px **regular** — `--type-body-14-size` + `--type-weight-regular` 400 (`:139`·`:151`; 토큰 정의 `globals.css:318`·`:284`) |
   | 렌더 요소 | 네이티브 `<button>` | `next/link`의 `<a>` + `text-decoration: none !important` |
+
+  **높이와 padding은 다른 축이 아니다.** 2026-08-30까지 이 자리는 「높이 40px … 네 축이 다르다」와
+  padding 행 `0 / 20px`을 적고 있었는데, 배포본은 `h-16 py-0 px-6`(`--spacing: 2px` 기준 32px ·
+  0 12px)이라 `button-height-md` 32 · `button-padding-inline-md` 12와 같은 값이다. 20px은 LOUIS
+  어디에도 없는 값이었다.
+
+  **이 화면 라벨의 굵기는 [Status Result](../patterns/status-result.md) 패턴이 소유한다** — 그
+  문서의 「버튼 글자 `body-14` · `--type-weight-regular`」 행이 정본이고, 위 표의 `body-sm-medium`은
+  **컴포넌트 기본값**이다. 결과 화면은 컴포넌트를 쓰지 않으므로 둘은 충돌이 아니라 서로 다른 소유
+  범위다. Figma의 결과 화면 보드는 패턴 쪽(regular)을 따른다.
 
   **컨테이너의 gap은 가로가 아니라 세로 간격이다.** 컨테이너는 `display:flex; flex-wrap:wrap;
   gap:10px; margin-top:8px`이지만(`:134`) 자식이 전폭이라 **wrap 컨테이너 안에서도 절대 나란히 서지

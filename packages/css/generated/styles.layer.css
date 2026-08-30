@@ -624,7 +624,11 @@
     color: var(--louis-color-fg-upgrade);
     /* 안쪽 1px 링과 아주 얕은 드롭. 배포본에 실제로 그려지는데 DS에는 아예 없었고, 규범 문서의
      * "Effects: 없다"는 사유가 아니라 누락의 결과 서술이었다. 반전 pill이 사이드바 면에서
-     * 떨어져 보이게 하는 것이 이 그림자의 일이다. */
+     * 떨어져 보이게 하는 것이 이 그림자의 일이다.
+     *
+     * **드롭 알파는 라이트 4% · 다크 12%다.** 라이트가 6%였는데 배포본에 6%는 없다 —
+     * `sidebarUpgradeButtonActive`의 `:not(&)` 형제 규칙이 라이트 4%를 그린다. 기록된 편차가
+     * 아니라 실측 오차여서 2026-08-30에 토큰을 4%로 내렸다(`app-shell-parts.md` Effects). */
     box-shadow: var(--louis-elevation-upgrade);
     text-align: center;
     cursor: pointer;
@@ -761,7 +765,15 @@
     display: flex;
     flex-direction: column;
     gap: var(--louis-space-overlay-item-gap);
+    /* 사방 12px이다. 배포본의 레일도 네 변이 12인데 **하단만 단축 `padding`이 준다** — 사이드바
+     * 변형이 위·좌·우만 다시 선언해서, 클래스 목록만 보면 하단이 0으로 읽힌다. 브라우저 실측은
+     * 네 변 모두 12다(`migration/product.sidebar-states.json`). */
     padding: var(--louis-space-control-md);
+    /* **배포본의 데스크톱 레일은 투명하다.** 셸 바닥 위에 그대로 얹히고 밝은 면은 본문 카드 쪽이며,
+     * 면을 칠하는 선언은 ≤719px 드로어에만 있다. 여기 면은 그래서 제품과 갈리는 값이다 —
+     * `app-shell-parts.md` Known deviations가 소유한다. 지금 걷어내지 않는 이유는 아래 ≤719px
+     * 블록에 면 선언이 없어서 드로어가 scrim 위에서 비치기 때문이고, 드로어 면을 제품처럼 칠하는 데
+     * 필요한 라이트 `#eeeef1`에 아직 이름이 없다. */
     background-color: var(--louis-color-bg-surface);
     overflow: hidden;
     transition:
@@ -4812,8 +4824,14 @@
    * 다시 계산한다"고 요구하는 것이 이것이다.
    *
    * 제품은 지금 breakpoint로 열 수를 고정한다(2 / 3@720 / 4@1200 / 5@1800). 그 값들은 규범이
-   * **migration compatibility profile**로 남겨 둔 것이고 container 폭으로 환산하면 같은 결과가
-   * 나온다 — 브라우저 테스트가 그 환산을 대조한다.
+   * **migration compatibility profile**로 남겨 둔 것이고, 정본은 아직 그쪽이다 — 이 규칙의 환산은
+   * profile을 재현하지 못한다. 240 / 4면 한 열이 244px씩 들어가므로 720px에서 2열(profile 3),
+   * 1800px에서 7열(profile 5)이고, 맞는 곳은 1200px(4열)뿐이다. 카드 최소 폭을 되튜닝해도
+   * 720px의 3열과 1800px의 5열을 하나의 값으로 만족시킬 수 없다.
+   *
+   * 브라우저 테스트는 이 어긋남을 보지 못한다 — 대조 폭을 같은 토큰에서 유도해
+   * (`want * 최소 + (want - 1) * gap`) 공식의 자기 일관성만 재고, profile의 720 / 1200 / 1800을
+   * 넣어 보지 않는다. 판정은 design/patterns/project-grid.md의 blocker에 있다.
    *
    * ## 1열 fallback이 공짜로 따라온다
    *

@@ -2,8 +2,8 @@
   "$comment": "생성물. scripts/measure-product-drift.mjs가 배포본에서 잰다. 직접 수정하지 않는다.",
   "$whyThisExists": "값을 직접 쓸 수 있는 축마다 드리프트가 번진다. 2026-08-21에 네 축에서 같은 자국이 **따로따로** 발견됐다 — 알파·radius·border-width·duration. 한 축씩 발견하는 방식으로는 다섯 번째를 놓친다. 전 축을 한 번에 재서 드러낸다.",
   "$howToRead": "coverage가 낮으면 DS 스케일이 좁거나 제품이 흩어진 것이다. topHasToken이 false면 **가장 흔한 값을 토큰으로 쓸 수 없다는 뜻**이며, 그 자체로 결함이다. topUsed/missingTop이 문서의 분포표를 생성한다 — 표를 손으로 세지 않는다.",
-  "productRef": "74a7303b16b1a9aa352b0c2103b48898e8e3abae",
-  "productCommit": "74a7303b16b1a9aa352b0c2103b48898e8e3abae",
+  "productRef": "ae8fd6278481a5e86cd324ba86a1d44fe978b788",
+  "productCommit": "ae8fd6278481a5e86cd324ba86a1d44fe978b788",
   "axes": [
     {
       "id": "alpha",
@@ -125,12 +125,12 @@
       "id": "radius",
       "label": "모서리 반경",
       "unit": "px",
-      "productStops": 21,
+      "productStops": 20,
       "dsStops": 11,
-      "uses": 357,
-      "coveragePct": 78.4,
-      "topValue": 8,
-      "topUses": 82,
+      "uses": 209,
+      "coveragePct": 63.2,
+      "topValue": 12,
+      "topUses": 36,
       "topHasToken": true,
       "missingTop": [
         {
@@ -176,27 +176,15 @@
       ],
       "topUsed": [
         {
-          "value": 8,
-          "uses": 82,
-          "files": 5,
-          "hasToken": true
-        },
-        {
           "value": 12,
-          "uses": 80,
-          "files": 9,
+          "uses": 36,
+          "files": 8,
           "hasToken": true
         },
         {
           "value": 6,
           "uses": 30,
           "files": 3,
-          "hasToken": true
-        },
-        {
-          "value": 10,
-          "uses": 24,
-          "files": 4,
           "hasToken": true
         },
         {
@@ -210,6 +198,12 @@
           "uses": 20,
           "files": 1,
           "hasToken": false
+        },
+        {
+          "value": 10,
+          "uses": 16,
+          "files": 3,
+          "hasToken": true
         },
         {
           "value": 3,
@@ -233,6 +227,12 @@
           "value": 2,
           "uses": 10,
           "files": 3,
+          "hasToken": true
+        },
+        {
+          "value": 16,
+          "uses": 6,
+          "files": 2,
           "hasToken": true
         }
       ]

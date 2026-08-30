@@ -87,7 +87,9 @@ const plan = {
     sourceQuote(HIGHLIGHT, 2135, '    "[&:not(.tw-hs-188)]:[height:140px]!",'),
     sourceQuote(HIGHLIGHT, 2137, '    "[padding:8px]!",'),
     sourceQuote(HIGHLIGHT, 2138, '    "[gap:8px]!",'),
-    sourceQuote(HIGHLIGHT, 2139, '    "[border-radius:20px]!",'),
+    // 제품이 이 값을 LOUIS 로 넘겼다(`ae8fd627`) — 20px 은 그대로이고 소유자만 바뀌었다.
+    // `--louis-radius-card-lg: 20px`(tokens.css:568). 리터럴을 계속 인용하면 채택 사실이 지워진다.
+    sourceQuote(HIGHLIGHT, 2139, '    "[border-radius:var(--louis-radius-card-lg)]!",'),
   ],
   figma: {
     // 정본 파일 OlYKERKOkgbxBEEoXGZW2c. install id로 찾아 reconcile한다.

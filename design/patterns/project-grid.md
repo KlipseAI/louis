@@ -140,6 +140,15 @@ Container 기반 구현에서는 viewport가 경계 안에 있어도 expanded si
 로딩 표현은 [Loading](loading.md), 버튼과 focus 기준은
 [Inclusive Design](../foundations/inclusive-design.md)을 따른다.
 
+**Initial loading의 두 갈래 중 제품은 status 쪽을 골랐다 (2026-08-30 실측).** 위 표는 skeleton과
+"구체적인 loading status"를 나란히 허용하는데, 제품 소비처는 어느 쪽도 grid 구조를 세우지 않고
+가운데 정렬한 쉬머 낱말 하나를 쓴다 — 첫 로드는 `AppHomeScene.tsx`의 `archiveLoadingState`
+섹션(`aria-live="polite"`) 안에 `role="status"`와 `aria-label`을 단 `type-heading-28-medium` 낱말
+하나이고, 더 불러오기는 `NodeCanvasHomeScene.tsx`의 `ARCHIVE_LOADING_MORE_TEXT`가 같은
+그라디언트 sweep을 옮겨 적은 둘째 벌이다. 계약 위반은 아니지만 **Loading 패턴의 선택 기준은
+"구조가 정해진 카드·목록의 첫 로드 → Skeleton"이라 방향이 반대다.** 어느 쪽을 정본으로 삼을지는
+아직 판정되지 않았고, 정해지기 전에는 Figma의 이 자리를 옮기지 않는다.
+
 ## Responsive behavior
 
 | Mode        | Section header                                          | Grid                                      | Card actions                               |
@@ -174,6 +183,10 @@ refetch 순서는 공용 recipe로 가져오지 않는다.
 
 - P2 local RC에 `layout-project-card-minimum`과 `layout-project-grid-gap` 토큰은 있다. 이를 소비하는 container
   기반 공용 grid recipe와 실제 카드 content 실측은 아직 없다.
+- **`auto-fill` 환산과 migration compatibility profile이 아직 같은 답을 내지 않는다.** 240 / 4로는
+  720px에서 2열(profile 3), 1800px에서 7열(profile 5)이다. 하나의 카드 최소 폭으로는 양쪽을 동시에
+  만족시킬 수 없으므로, profile을 유지한 채 container 기반으로 가려면 열 수 상한을 함께 두는 등
+  공식 자체를 바꿔야 한다. 그 판정 전까지 정본은 profile이다.
 - link/button primary action과 overflow overlay test가 없다.
 - loading/error/empty state와 resize/refetch 안정성 contract가 구현되지 않았다.
 - Highlight history/clip variant의 visual regression이 없다.
@@ -206,8 +219,25 @@ grid-template-columns: repeat(
 
 **`auto-fill`이 grid 자신의 content box로 열 수를 계산한다.** 그래서 사이드바가 접혀 유효 폭이
 늘면 같은 viewport에서 열이 늘고, 좁은 패널 안에 놓이면 준다 — media query로는 그 둘을 구분할 수
-없다. 위의 compatibility profile은 container 폭으로 환산해 대조한다:
-열 수 = `floor((W + gap) / (최소 + gap))`.
+없다. 이 recipe의 열 수는 `floor((W + gap) / (최소 + gap))`이다.
+
+**그 환산은 위의 compatibility profile을 재현하지 못한다 — 정본은 profile 쪽이다.** 오늘의
+토큰 값(`layout-project-card-minimum` 240px · `layout-project-grid-gap` 4px,
+`packages/css/generated/tokens.css:479-480`)을 넣으면 한 열이 244px씩 들어가므로, 폭 720px에서
+`floor(724 / 244)` = 2열이고 profile은 3열, 폭 1800px에서 `floor(1804 / 244)` = 7열이고 profile은
+5열이다. 두 축이 맞는 곳은 1200px 구간(4열)뿐이다. 최소 폭을 되튜닝해도 풀리지 않는다 —
+720px에서 3열이 나오려면 `최소 + gap`이 241px 이하여야 하고 1800px에서 5열이 나오려면 301px
+이상이어야 해서, 하나의 최소 폭이 동시에 만족시킬 수 없다.
+
+profile은 승인된 값이고 제품이 그대로 구현하고 있다 — 제품 `appHomeSceneStyles.ts`의
+`archiveGrid`는 `repeat(2, 1fr)`에 `min-[720px]` 3열 · `min-[1200px]` 4열 · `min-[1800px]` 5열을
+얹은 고정 media query다. 그러므로 위 CSS는 **아직 profile을 만족하지 않는 구현안**이고, 둘을
+잇는 값은 미정이다. 위의 Pre-implementation blockers에 적어 두었다.
+
+**브라우저 테스트는 이 어긋남을 볼 수 없다.** `packages/react/test/project-grid.browser.test.tsx`는
+대조할 폭을 `want * 최소 + (want - 1) * gap`으로 **같은 토큰에서 유도**한다. 그래서 그 표는
+공식이 자기 자신과 일관된다는 것만 증명하고, profile의 720 / 1200 / 1800을 한 번도 넣어 보지
+않는다. 이 문단이 고쳐지기 전까지 그 테스트의 초록은 환산이 맞다는 증거가 아니었다.
 
 **`min(최소, 100%)`가 1열 fallback을 만든다.** 그것이 없으면 container가 카드 최소 폭보다 좁을 때
 track이 container를 넘어 가로 스크롤이 생긴다.

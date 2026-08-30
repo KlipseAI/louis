@@ -39,18 +39,28 @@ Landing Shell은 로그인 전 마케팅 화면의 껍데기다 — 홈 · 가�
 | 레일 | `display: grid` · `grid-template-columns: 1fr auto 1fr` · `align-items: center` · `min-height: 24px` |
 | 레일 전환 | `color 320ms ease` |
 | 레일 (≤719px) | `grid-template-columns: 1fr auto` — **가운데 열이 소멸한다** |
+| 레일 행 높이 | `min-height`는 하한일 뿐이고 실제 높이는 **최장 액션 컨트롤**이 정한다 — 32px(Button md · LanguageSelector compact) · **≤719px 38px**(햄버거) |
 | 1열 로고 | `justify-self: start` · 높이 24px · 폭 `calc(24px × 291 / 85)` = 82.16px |
 | 2열 메뉴 | `justify-self: center` · `flex` · `gap: 16px` · **≤719px `display: none`** |
 | 3열 액션 | `justify-self: end` · `inline-flex` · `gap: 8px` |
+| 3열 액션 · LanguageSelector compact | `36×32` · `padding: 0 8px` · `border-radius: 12px` · globe **20 단독**(라벨도 셰브런도 없다) |
 | 메뉴 링크 | 높이 `28px` · `padding-inline: 12px` · `border-radius: 999px` · 면 `transparent` |
 | 메뉴 링크 전환 | `color 320ms ease, opacity 200ms ease` |
 
-**헤더가 점유하는 높이는 48px이지만(12 + 24 + 12) 본문에서 예약되지 않는다.** 첫 섹션은 헤더
+**헤더가 점유하는 높이는 56px이지만(12 + 32 + 12) 본문에서 예약되지 않는다.** 첫 섹션은 헤더
 아래에서 시작하지 않고 **헤더 밑을 지나간다.** 앱 셸의 「레일이 자리를 예약한다」를 여기 적용하면
 첫 화면의 구도가 통째로 달라진다.
 
-근거: `landing/navigation/Gnb.tsx:70-75`(헤더) · `:78-82`(레일) · `:105-108`(로고) ·
-`:116-119`(메뉴) · `:121-129`(메뉴 링크) · `tailwind.css:164`(간격 기준).
+**가운데 32px은 레일의 `min-height: 24px`가 아니다.** 24px은 하한이고, 행 높이는 액션 열에서
+가장 큰 컨트롤이 정한다 — LOUIS Button md 32px(`packages/css/src/component/button.css:67-68` →
+`packages/css/generated/tokens.css:467`)와 LanguageSelector compact 32px이 나란히 선다.
+**≤719px에서는 상단 CTA가 숨고(`:337`) 햄버거 38px(`:347`)이 최장이 되어 점유 높이가 62px이다.**
+
+근거: `landing/navigation/Gnb.tsx:107-112`(헤더) · `:115-119`(레일) · `:148-151`(로고) ·
+`:159-162`(메뉴) · `:164-172`(메뉴 링크) · `:325`(3열 액션) · `:334-338`(상단 CTA) ·
+`:346-352`(햄버거) · `tailwind.css:164`(간격 기준). LanguageSelector compact 의 기하는 제품
+`LanguageSelector` 의 `TRIGGER`(높이 32) + `TRIGGER_COMPACT`(`padding: 0 8px` · `rounded-12`) +
+`ICON_COMPACT`(20)가 갖는다 — 그 파일은 아직 evidence lock 밖이라 줄 좌표로 인용하지 않는다.
 
 ## Blur plate
 
@@ -71,8 +81,9 @@ Landing Shell은 로그인 전 마케팅 화면의 껍데기다 — 홈 · 가�
 띠와 바이트 동일한 2스톱을 따로 들고 있었다. 반경은 카드 쪽 `blur-surface`(10px)와 **다른 것이
 계약**이라 `blur-header`(12px)로 이름을 따로 냈다 — 카드 것을 재사용하면 헤더가 2px 옅어진다.
 
-**120px은 헤더 점유 높이(48px)의 2.5배이고 뷰포트에 비례하지 않는다.** 마스크는 위에서 40%까지
-완전 불투명이고 거기서 아래로 선형 감쇠한다.
+**120px은 고정값이며 헤더 높이에서 유도되지 않는다.** 헤더 점유 높이(56px)의 배수도 아니고
+뷰포트에도 비례하지 않는다 — 어디에서도 계산되지 않는 숫자이므로 바꿀 때 따라 움직일 값이 없다.
+마스크는 위에서 40%까지 완전 불투명이고 거기서 아래로 선형 감쇠한다.
 
 **배너 캐러셀의 값을 여기 쓰지 마라.** 그쪽은 `blur(22px) saturate(125%)`에 5스톱 마스크라 흐림이
 두 배 가깝게 짙고 감쇠 곡선이 다르다.
@@ -115,12 +126,18 @@ Tone inversion 이 그 자리다.
 | --- | --- | --- |
 | 레일 전경 | `--gray-000` — 헤더 안에서 `#fafafa`로 복구 | `--gray-900` |
 | 로고 자산 | `klipse-dark.svg` | `klipse-light.svg` |
-| 메뉴 링크 | `gray-000` · 비활성 `opacity .7` / hover `.9` | `gray-900` · 비활성 `.5` / hover `.7` |
+| 메뉴 링크 | `palette-gray-000` · 비활성 `opacity .7` / hover `.9` | `palette-gray-900` · 비활성 `.65` / hover `.8` |
 | 상단 CTA | 면 `--gray-000` · 글자 `gray-900` | 면 `--gray-900` · 글자 `gray-100` |
 | 햄버거 | `gray-000` | `gray-900` |
 
 활성 링크는 **양쪽 모두 불투명 1**이다. 전환은 레일·햄버거가 `color 320ms ease`, 로고가
 `filter 320ms ease`다.
+
+**밝은 면 위 비활성 링크는 `.65` 아래로 내려갈 수 없다.** 시안 값 `.50`으로 그리면
+`palette-gray-900`이 랜딩 바닥(#f1f1f3)과 **3.23:1**이라 14px 본문 기준 AA(4.5)에 못 미친다 —
+비활성 컨트롤이 아니라 **누를 수 있는 내비게이션 링크**라 면제 대상이 아니다. `.65`는 5.11:1이고
+활성(1.00)과의 간격도 남는다. 어두운 면 위(흰 잉크)는 `.70`에서 이미 9.57:1이라 손대지 않는다 —
+**두 톤의 불투명도가 다른 것이 맞다.** 근거: `landing/navigation/Gnb.tsx:188-197`.
 
 **헤더 안에서 `--gray-000`을 팔레트 값으로 되돌린다.** 시맨틱 램프는 테마에서 뒤집히는데 랜딩
 헤더는 섹션 밝기로 판정하므로, 두 축이 겹치면 어두운 섹션 위에서 글자가 검게 나온다.
@@ -155,7 +172,9 @@ nav의 배경 층에 갇힌다.**
 **판정이 필요하다.** 이 관용구를 `layer-*`의 대응 항목으로 인정할지, 부채로 보고 오버레이를 위로
 올린 뒤 별도 닫기 버튼을 두게 할지. 정하지 않으면 화면을 조립할 때마다 다시 발명된다.
 
-근거: `landing/navigation/Gnb.tsx:64` · `:71` · `:79` · `:162` · `:164` · `:288` · `:796` · `:906`.
+근거: `landing/navigation/Gnb.tsx:863`(드롭다운 패널의 인라인 `zIndex: 2000`) · `:223`(같은 패널의
+클래스 `z-20` — 인라인이 이긴다) · `:108`(헤더 1001) · `:101`(blur plate 1000) · `:116`(`<nav>`의
+`relative` + `z-2`) · `:382-386`(풀스크린 메뉴 `fixed inset-0 z-[-1]`).
 
 ## Compact behavior
 
@@ -185,15 +204,20 @@ nav의 배경 층에 갇힌다.**
 
 | 축 | 값 | 근거 |
 | --- | --- | --- |
-| blur plate 높이 | `120px` | `landing/navigation/Gnb.tsx:64` |
-| blur plate 흐림 | `blur(12px)` | `:65` |
-| blur plate 마스크 | 2스톱 `40% → 100%` | `:66-67` |
-| 헤더 패딩 | `12px 12px 12px 20px` (≤450px `12px 16px`) | `:72` · `:74` |
-| 톤 전환 길이 | `320ms ease` | `:80` |
+| blur plate 높이 | `120px` | `landing/navigation/Gnb.tsx:101` |
+| blur plate 흐림 | `blur(12px)` | `:102` — **소비처다.** 값은 아래 |
+| blur plate 마스크 | 2스톱 `40% → 100%` | `:103-104` — **소비처다.** 값은 아래 |
+| 헤더 패딩 | `12px 12px 12px 20px` (≤450px `12px 16px`) | `:109` · `:111` |
+| 톤 전환 길이 | `320ms ease` | `:117` |
 | 감지 띠 | `rootMargin: -3% 0px -96% 0px` | `:653-657` |
 
-**흐림 12px은 DS의 blur primitive에 없다** — 현재 10px·12px 중 12px과 값이 같지만, 이 자리는
-`backdrop-filter`이고 DS 쪽은 표면 흐림이라 같은 축인지 판정이 필요하다.
+**흐림과 마스크 두 줄은 2026-08-30에 닫혔다.** 그날 이 자리가 자기 이름을 얻었다 —
+`--louis-blur-header`(12px, `packages/css/generated/tokens.css:240`)와
+`--louis-progressive-blur-header` · `--louis-progressive-blur-mask-header`
+(`packages/css/src/base.css`)다. 표면 흐림(`blur-surface` 10px)과 **같은 축으로 묶지 않은 것이
+판정의 내용**이다 — 화면에 고정된 띠는 뒤로 지나가는 것이 카드보다 크고 빨라 한 단 더 흐려야 한다.
+그래서 위 두 줄의 근거는 값이 아니라 **제품이 그 변수를 읽는 자리**를 가리킨다. 두 줄을 표에
+남겨 두는 이유는 값의 출처가 두 저장소에 걸쳐 있다는 사실 자체가 화면을 그릴 때 필요해서다.
 
 ## Accessibility
 

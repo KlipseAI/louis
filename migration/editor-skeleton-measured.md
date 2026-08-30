@@ -36,10 +36,14 @@ pattern 이며(`design/manifest.json`), 이 문서는 그것을 세우기 위한
 
 ### D-1. compact(≤719px)에서 assets 패널을 어디로 보내는가
 
-지금은 **아무 데도 안 보낸다.** `vemClass.ts:1184` 의 compact 격자가 `assets` · `assets-divider`
+지금은 **아무 데도 안 보낸다.** `vemClass.ts:1212` 의 compact 격자가 `assets` · `assets-divider`
 영역 이름을 아예 빼는데, 두 요소에는 719px 분기가 없어 **암묵 트랙으로 자동 배치**된다.
 `design/patterns/editor-workspace.md` 의 Compact 절이 명시적으로 금지한 실패 형태다.
 선택지: 탭 · 시트 · 드로어 · 접힘. 이건 제품 결정이다.
+
+**제안 — 탭(소유자 승인 대기).** Figma `1000:1274` 가 Assets · Preview · Timeline · Inspector
+넷을 탭으로 그렸다(2026-08-30). 같은 문구를 Figma `1040:13348` 에 주석으로 남겨 두었다.
+승인 전에는 제안이지 계약이 아니다 — 제품은 여전히 암묵 트랙에 흘린다.
 
 ### D-2. 디바이더 그립의 계약 — 세로 기준인가 가로 기준인가
 
@@ -93,16 +97,23 @@ pattern 이며(`design/manifest.json`), 이 문서는 그것을 세우기 위한
 
 ### 5-pane grid + PaneDivider
 
-- 트랙 두께 4px — 격자 트랙도 4px, 요소도 4px(vemClass.ts:1172·1173 ↔ :98 width:4px · :2554 width:4px · :3675 height:4px)
+> **2026-08-30 — 요소 쪽 좌표는 이력이다.** 세 구분자 레시피(`assetsDivider` ·
+> `propertiesDivider` · `timelineDivider`)는 이 실측 뒤 LOUIS `.louis-pane-divider` 로 접혔고
+> 제품에는 `grid-area` 와 클래스 이름만 남았다(vemClass.ts:46-49 주석 ·
+> `packages/css/src/component/pane-divider.css`). 격자 쪽 좌표(트랙 · 거터 · compact)만 현행으로
+> 맞췄다. `::before`/`::after` 기하를 가리키는 좌표는 2026-08-29 실측 시점의 것이므로 그대로
+> 두었다 — 값은 지금도 맞고, 소유자만 제품에서 LOUIS 로 옮겨 갔다.
+
+- 트랙 두께 4px — 격자 트랙도 4px, 요소도 4px(vemClass.ts:1200·1201 ↔ :98 width:4px · :2554 width:4px · :3675 height:4px)
 - 히트영역 12px — ::after inset:0_-4px(세로) / -4px_0(가로)로 좌우(상하) 4px씩 확장(vemClass.ts:104-105 · 2561-2562 · 3681-3682). 셋 다 동일
-- 거터 8px — column-gap:2px + 트랙 4px + 2px(vemClass.ts:1180-1181). 즉 12px 히트영역이 8px 거터를 양쪽 2px씩 넘어 이웃 패널 위로 올라탄다. 셋 다 동일
+- 거터 8px — column-gap:2px + 트랙 4px + 2px(vemClass.ts:1208 column-gap · :1209 row-gap). 즉 12px 히트영역이 8px 거터를 양쪽 2px씩 넘어 이웃 패널 위로 올라탄다. 셋 다 동일
 - 그립은 ::before 알약 하나 — border-radius:999px · background:var(--palette-gray-500) · transform:translate(-50%,-50%) · z-index:1 · opacity 0→1, 라이트/다크 같은 색(vemClass.ts:110-121 · 2567-2578 · 3686-3699)
 - 전환 120ms ease(vemClass.ts:119 · 2576 · 3695)
 - 면·레이아웃 골격 — background:transparent · touch-action:none · margin:0 · position:relative(vemClass.ts:97-102 · 2554-2559 · 3676-3680)
 - ARIA — role="separator" + aria-orientation + i18n aria-label + title 툴팁. 셋 다 동일 형태(VideoEditModal.tsx:11066-11077 · 11638-11649 · 13505-13516)
 - 조작 — 좌클릭 pointerdown → window pointermove/up/cancel, 더블클릭이 리셋(usePanelLayout.ts:90-137 · 141-176 · 178-213)
 - 활성 표시 방식 — *DividerActive 클래스를 usePanelLayout 상태로 토글(usePanelLayout.ts:44·49·51)
-- 패널 네 개의 면 계약 — border-radius:12px + box-shadow:var(--louis-hairline-inset)로 이미 LOUIS 토큰을 읽는다(vemClass.ts:139 assets · 1263 preview · 1364 timeline · 2774 properties)
+- 패널 네 개의 면 계약 — border-radius:12px + box-shadow:var(--louis-hairline-inset)로 이미 LOUIS 토큰을 읽는다(vemClass.ts:168 assets · 1291 preview · 1392 timeline · 2770 properties)
 
 ### InspectorField + InspectorSection
 
@@ -160,7 +171,9 @@ pattern 이며(`design/manifest.json`), 이 문서는 그것을 세우기 위한
 - divider/grip-color = var(--palette-gray-500) — 라이트·다크 같은 색. 시맨틱 gray 가 아니라 고정 팔레트다. LOUIS 로 옮길 때 시맨틱으로 바꾸면 두 테마 중 하나가 틀린다
 - divider/grip-radius = 999px — LOUIS radius 명부에 full/pill 역할이 없다(spacing-radius.md 는 control·surface·overlay·overlay-item 넷만 든다)
 - motion/divider-reveal = 120ms ease — LOUIS motion.md 에 120ms 는 overlay-exit 로만 존재한다(motion.md:53). 같은 숫자를 다른 역할로 재사용할지, 새 semantic recipe 를 만들지 판정 필요
-- pane 클램프 5조 = assets 200/236/420 · properties 324/324/520(최소=기본) · timeline 80/400 · preview 하한 폭 360 · preview 하한 높이 260~400. 임의 fallback 숫자가 아니라 modalConstants.ts:137-162 의 승인값이며 한 세트로 옮겨야 한다
+- pane 클램프 5조 = assets 200/236/420 · properties 324/324/520(최소=기본) · timeline 80/400 · preview 하한 폭 360 · preview 하한 높이 260~400. 임의 fallback 숫자가 아니라 modalConstants.ts:137-162 의 승인값이며 한 세트로 옮겨야 한다.
+  Figma 는 properties 폭을 324 로 맞춰 그렸고(`1000:1265`, modalConstants.ts:138-141 의 최소=기본),
+  **변수 바인딩은 여전히 없다** — 승인된 pane 폭 토큰이 생기면 그때 바인딩한다
 - compact divider 두께 8px + 거터 16px(row-gap 4 + 8 + 4) — 이 브레이크포인트에서만 히트영역 16px 과 거터가 정확히 맞는다
 
 ### InspectorField + InspectorSection (9)

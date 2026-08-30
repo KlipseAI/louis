@@ -150,7 +150,7 @@ AppTopBar는 상태 축이 **없다.** 대화형이 아니고 안의 슬롯이 �
   브레드크럼 구조를 소유하지 않는다.
 
 <!-- GENERATED:app-nav-labels START -->
-배포본 `74a7303b` 기준. **이 표는 생성물이다** — 경로 대응은 제품이 `appNavItemLabels`로 직접 선언한다.
+배포본 `ae8fd627` 기준. **이 표는 생성물이다** — 경로 대응은 제품이 `appNavItemLabels`로 직접 선언한다.
 
 | 라우트 | 한국어 | English | 경로로 유추 |
 | --- | --- | --- | --- |
@@ -351,13 +351,14 @@ mint를 두 번째로 틀린 이유가 중요하다. `sidebarUpgradeButton`은 �
 | 축 | 값 | 토큰 |
 | --- | ---: | --- |
 | 행 높이 | 32px | `layout-control-height-sm` |
-| 아이콘–라벨 간격 | 10px | 없음 — 제품 실측 (2026-08-21 조립 검증) |
+| 아이콘–라벨 간격 | 제품 10px · DS 8px | 없음 — 제품 실측 (2026-08-21 조립 검증). DS는 `space-control-sm`이고 10은 계단에 없다(아래 편차) |
 | 브랜드 행 → 목록 시작 | 32px | 없음 — 제품 `rail-below-chrome-gap` = (16−12)+20+8 |
 | 활성 인디케이터 면 | 라이트 `#e4e5e9`(시프트 후) · 다크 `#313640` · 반경 10px | 없음 — 제품 실측 |
 | 행 좌우 여백 | 4px | `space-control-xs` |
-| 행 간격 | 8px | `space-control-sm` — 배포본은 10이다(아래 편차) |
+| 목록 행 간격 | 4px | `space-control-xs` — 배포본 실측 |
 | 행 반경 | 10px | `radius-overlay-item` |
 | 아이콘 | 20px | `icon-size-md` |
+| 레일 패딩 | 12px 사방 | `space-control-md` — 배포본 실측(**하단도 12다**) |
 | 상단 바 높이 | 40px — **아래 각주** | `layout-app-shell-top-bar-height` |
 | 상단 바 좌우 여백 | 16px | `layout-app-shell-content-inset` |
 | 상단 바 선행 슬롯 | 32px | `IconButton` sm이 들어가는 자리 |
@@ -383,6 +384,24 @@ mint를 두 번째로 틀린 이유가 중요하다. `sidebarUpgradeButton`은 �
 **행 좌우 여백이 4px인 근거.** 배포본은 `main-inline-padding − sidebar-padding-x` = 16 − 12 = 4를 쓴다.
 행만 떼어 보면 좁지만 **행과 레일의 합이 계약이다** — 레일 12 + 행 4 = 16이 본문 좌측선과 맞는다.
 여기를 8로 두면 아이콘이 본문보다 4px 안쪽으로 들어가고, 사이드바와 본문이 어긋난 것처럼 보인다.
+
+**행 간격과 아이콘–라벨 간격은 다른 축이다.** 표의 「행 간격 8px · 배포본은 10이다」 행은
+2026-08-30까지 아이콘–라벨 축(`.louis-sidebar-nav-item`의 `gap`)의 값과 편차 문구를 축 이름만
+바꾼 채 달고 있었다. **목록의 행 간격은 4px이다** — 배포본 `Gnb.tsx:733`의 `[gap:4px]`이고
+(≤719px도 `Gnb.tsx:720`에서 같은 4px), 브라우저 실측
+`migration/product.sidebar-states.json`의 `sidebar.0.1.0`(목록 `ul`)이 `gap: 4px`다. 같은
+스냅샷에서 아이콘–라벨을 감싸는 `sidebar.0.1.0.0.0.0.0`이 `gap: 10px`으로 따로 잡힌다. 두 축을
+한 행에 묶어 두면 4를 8로 조립하게 된다.
+
+**레일 패딩은 사방 12px이고 하단도 12다.** 배포본에서 레일은 `gnb-wrapper`와
+`gnb-wrapperSidebar`를 함께 달고(`Gnb.tsx:4160`), 단축 `padding: 12px 24px`(`Gnb.tsx:2027`)가
+먼저 네 변을 정한 뒤 `wrapperSidebar`가 위·좌·우만 다시 선언한다(`Gnb.tsx:2042-2044`).
+**하단만 다시 선언되지 않는다** — 그래서 클래스 목록만 훑으면 「하단 0」으로 읽히는데, 단축이
+이미 12를 넣어 두었으므로 실제 값은 12다. 브라우저 실측이 그것을 확인한다 —
+`migration/product.sidebar-states.json`의 `sidebar` 노드가 `paddingTop`·`Right`·`Bottom`·`Left`
+모두 `12px`다. 레시피 `.louis-app-shell__rail`의 `padding: var(--louis-space-control-md)`가 이
+실측과 같으므로 **이 축은 편차가 아니다.** 데스크톱에서 CTA가 뷰포트 바닥에 붙어 보이는 것은
+패딩이 0이어서가 아니라 `.louis-sidebar-cta`의 `margin-block-start: auto` 때문이다.
 
 **브랜드 행은 40이고 그 안의 마크가 28이다.** 처음에는 행 자체를 24로 두었는데 그것은 아이콘 슬롯
 크기(`icon-size-lg`)를 행 높이로 착각한 것이었다. 배포본의 사이드바 헤더 행은 `min-height: 40`이고
@@ -477,6 +496,14 @@ bleed와 음수 마진 자체는 이 폭에서도 계속 걸려 있으므로 배
 실제로 그림자가 그려진다 — 반전 pill이 사이드바 면에서 떨어져 보이게 하는 일을 한다. 라이트는
 안쪽 링이 흰색 8%, 다크는 검정 8%로 뒤집힌다.
 
+**드롭은 `0 1px 2px` 검정이고 알파가 테마마다 다르다 — 라이트 4% · 다크 12%다.** 2026-08-30까지
+`elevation-upgrade`의 라이트 알파가 6%였는데 배포본에 6%는 없다(`Gnb.tsx:1967` 라이트 4% ·
+`Gnb.tsx:1972` 다크 12%). 6은 기록된 편차가 아니라 실측 오차였고, 토큰을 4%로 내려 맞췄다.
+**제품 화면은 이 수정으로 움직이지 않는다** — 배포본은 두 테마 모두 utilities 레이어에서 같은
+축을 다시 선언해 컴포넌트 레이어의 이 값을 덮는다. 움직이는 것은 LOUIS 자신의 소비처
+(`packages/css/src/component/app-shell.css`의 `.louis-sidebar-cta__button`)와 Figma effect
+style이다.
+
 내비 항목과 상단 바에는 없다. 그 둘은 사이드바 면 위에 그대로 놓인다.
 
 ## Implementation
@@ -555,6 +582,26 @@ bleed와 음수 마진 자체는 이 폭에서도 계속 걸려 있으므로 배
 - **compact 드로어의 layer 자리가 사다리에 없다.** 제품의 드로어(1400)와 scrim(1399)은 프로필
   popover(1100)보다 위인데 DS 사다리는 `sticky < popover`다. 드로어는 composition의 일부이며 그때
   판정한다.
+- **아이콘–라벨 간격이 8과 10으로 갈린다.** 배포본은 10이고(`Gnb.tsx:635`의
+  `gnb-menuLinkInner` `gap:10px`) 레시피 `.louis-sidebar-nav-item`은 `space-control-sm` 8을 쓴다.
+  10은 DS 간격 계단(4·8·12·16)에 없고 SelectableListRow와 같은 판단을 한다 — 한 컴포넌트를 위해
+  계단을 늘리지 않는다. 위 Specification의 「아래 편차」가 가리키는 것이 이 항목이다. **목록의 행
+  간격(4px)과 헷갈리지 않는다** — 그 축은 편차가 아니라 제품과 같다.
+- **레일이 면을 갖는지가 갈린다.** 레시피 `.louis-app-shell__rail`은
+  `background-color: var(--louis-color-bg-surface)`를 칠하는데, 배포본의 데스크톱 레일은
+  **투명하다**(`Gnb.tsx:2028` `[background:transparent]`, 브라우저 실측
+  `migration/product.sidebar-states.json`의 `sidebar` 노드 `backgroundColor: rgba(0, 0, 0, 0)`).
+  제품에서 레일은 셸 바닥 위에 그대로 얹히고 밝은 면은 본문 카드 쪽이며, 면을 칠하는 선언은
+  ≤719px 드로어에만 있다(`Gnb.tsx:2089-2090`). **값을 지금 걷어내지 않는 이유가 있다** — 레시피의
+  ≤719px 블록에는 면 선언이 따로 없어서 base에서 빼면 드로어가 scrim 위에서 비친다. 드로어 면을
+  제품처럼 칠하려면 라이트에서 `#eeeef1`이 필요한데 그 값에 이름이 없다(아래). 그 토큰이 서는 날
+  base의 면을 걷고 드로어 블록으로 옮긴다.
+- **시프트된 라이트 램프의 셸 바닥 `#eeeef1`에 토큰이 없다.** 위 「라이트 팔레트가 한 단계
+  밝아진다」의 결과로 배포본 셸 바닥과 ≤719px 드로어 면이 `#eeeef1`이 되는데, LOUIS primitive
+  램프에 그 값이 없다(`packages/css/generated/tokens.css`에 `#eeeef1`(238 238 241)이 0건이고,
+  이웃 계단은 `palette-gray-100` `#f1f1f3`과 `palette-gray-150` `#eaebee`다). 그래서 Figma는 이
+  면을 변수 없이 raw hex로 그린다. 선택지는 둘이다 — primitive를 세우거나, `.louis-app-shell`의 면을 `bg-canvas`가 아닌 셸
+  전용 역할 토큰으로 가르거나. **어느 쪽도 토큰 계약을 바꾸므로 소유자 판정이 남아 있다.**
 
 ## Acceptance tests
 

@@ -142,6 +142,13 @@ hover·focus·disabled 상태가 없다. **진행률은 누를 수 없는 것이
   수 없다. 제품에도 0곳이다.
 - **링에 indeterminate 표현이 없다.** 값 없는 링은 회전하는 호가 되어야 하는데, 그것은 Spinner와
   구분되지 않는다. 필요해지면 Spinner를 쓴다.
+- **Figma의 채움 비율은 마스터 폭에서만 맞는다.** Figma 마스터는 비율을 `Fill` 자식의 **고정
+  폭**으로 표현한다 — 트랙 320에 `determinate` 채움 192(60%)·`indeterminate` 128이고
+  (`figma/readback.json`의 `components.ProgressBar.geometry.base.parts.Fill`), 자식의 크기는
+  인스턴스에서 따라 늘지 않는다. **그래서 트랙 폭이 320이 아닌 자리에 인스턴스를 놓으면 채움
+  비율이 반드시 어긋난다.** 오늘의 규약은 「인스턴스는 폭 320에서만 쓴다」이며, 그 제약을 풀려면
+  `value`를 컴포넌트 프로퍼티로 세워 채움을 값에서 계산해야 한다. CSS 쪽에는 이 문제가 없다 —
+  채움이 `inline-size: %`라 트랙을 따라간다.
 
 ## Acceptance tests
 

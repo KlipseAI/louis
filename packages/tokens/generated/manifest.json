@@ -2,7 +2,7 @@
   "artifacts": [
     {
       "path": "packages/tokens/generated/figma.tokens.json",
-      "sha256": "ac3140b15181e333498aae9978d5024ccce1f8adae44b6bd98ff8e5a931657a7"
+      "sha256": "a1a11119caf8233a23b46dcfc5d8b2d7d1b76749389d815ceac148f868bc733b"
     },
     {
       "path": "packages/tokens/generated/index.d.ts",
@@ -10,15 +10,15 @@
     },
     {
       "path": "packages/tokens/generated/index.js",
-      "sha256": "26bdadacf375c3cb0db936a1ed755c9aab5e2e11b89c41bf3df848541939c9ce"
+      "sha256": "1a3ffd7f066969d14539f3298934c2808bea236f621673b3f00e36d885bf4d53"
     },
     {
       "path": "packages/tokens/generated/tokens.css",
-      "sha256": "4e952dc81f948d4e8c0df4a24be05a9bc53eee4ae46772257553d61676595d73"
+      "sha256": "e2786f2c976daa5ef32768b76ba338af5a7f813a831952237ffb92d453caf855"
     },
     {
       "path": "packages/tokens/generated/tokens.json",
-      "sha256": "20dcc1488ca01b50f6365f5ab43b4ca46c727557cf32f39efb1ed6748a5b9dc0"
+      "sha256": "dd4395760b013e82ec9b061074dd1a85fe218232e620f8bd060857f6c02278ae"
     }
   ],
   "contrastPairs": [
@@ -408,7 +408,7 @@
   },
   "source": {
     "path": "packages/tokens/src/klipse.tokens.json",
-    "sha256": "c7dcd503bde53ca6a5102173ba795d97b4a35b1ba595bea23604f2aa191371c9"
+    "sha256": "1afdd81d9add73938310f38aacfd4c509feb704b52a3dc9982be65796f391edb"
   },
   "themes": [
     "light",
@@ -14831,7 +14831,7 @@
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-elevation-upgrade": "inset 0px 0px 0px 1px color(srgb 0.980392 0.980392 0.980392 / 0.08), 0px 1px 2px 0px color(srgb 0 0 0 / 0.06)"
+        "--louis-elevation-upgrade": "inset 0px 0px 0px 1px color(srgb 0.980392 0.980392 0.980392 / 0.08), 0px 1px 2px 0px color(srgb 0 0 0 / 0.04)"
       },
       "deprecated": null,
       "description": null,
@@ -14873,7 +14873,7 @@
             "value": 2
           },
           "color": {
-            "alpha": 0.06,
+            "alpha": 0.04,
             "colorSpace": "srgb",
             "components": [
               0,
@@ -18439,7 +18439,7 @@
             "value": 2
           },
           "color": {
-            "alpha": 0.06,
+            "alpha": 0.04,
             "colorSpace": "srgb",
             "components": [
               0,
@@ -18497,7 +18497,7 @@
             "value": 2
           },
           "color": {
-            "alpha": 0.06,
+            "alpha": 0.04,
             "colorSpace": "srgb",
             "components": [
               0,

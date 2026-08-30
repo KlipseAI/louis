@@ -32,10 +32,17 @@ authority: normative
 | 축 | 값 |
 | --- | --- |
 | 아이콘 박스 | `64px` |
-| 아이콘 색 | 매체별 accent — Image `--accent-mint-500` · Video `--accent-sky-500` · Text `--accent-yellow-500` · Edit `--accent-violet-500` |
+| 아이콘 색 | 매체별 accent — Image `--accent-green-500`(`ImageNode.tsx:328`) · Video `--primary-500`(`VideoNode.tsx:240`) · Text `--accent-yellow-500`(`TextNode.tsx:321`) · Edit `--accent-violet-500`(`EditNode.tsx:375`) |
 | 셸 | `flex column` · 가운데 정렬 · `gap: 4px` · `width/height: 100%` · `min-height: 120px` |
 | 셸 기타 | `overflow: hidden` · `pointer-events: none` |
+| 캡션 | 아이콘 **다음에 오는 i18n 단계 라벨** — `type-body-14-medium` · 매체 accent(Image 는 다크 `--accent-green-100` / 라이트 `--accent-green-700`, `ImageNode.tsx:347-348`) |
 | 시맨틱 | **`role="status"` · `aria-live="polite"`** |
+
+**읽히는 것은 캡션이다.** 셸이 `role="status"`·`aria-live="polite"` 를 갖는데 그 안에서 텍스트를
+가진 자식은 캡션 하나뿐이다 — 아이콘은 `aria-hidden` 이다(`ImageNode.tsx:727-745`). 시맨틱만 계약하고
+캡션을 계약하지 않으면 **읽어 줄 문장이 없는 live region** 이 된다. Image 셸은 아이콘과 캡션 둘이
+전부이고, Edit 셸은 같은 두 자식에 진행 채움과 `role="progressbar"` 가 더 붙는다
+(`EditNode.tsx:568-593`).
 
 모션은 **2단이고 이어 붙는다.**
 

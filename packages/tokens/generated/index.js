@@ -5663,7 +5663,7 @@ export const primitives = {
             0,
             0
           ],
-          "alpha": 0.06,
+          "alpha": 0.04,
           "hex": "#000000"
         },
         "offsetX": {
@@ -5724,7 +5724,7 @@ export const primitives = {
             0,
             0
           ],
-          "alpha": 0.06
+          "alpha": 0.04
         },
         "offsetX": {
           "value": 0,
@@ -17120,7 +17120,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-elevation-upgrade": "inset 0px 0px 0px 1px color(srgb 0.980392 0.980392 0.980392 / 0.08), 0px 1px 2px 0px color(srgb 0 0 0 / 0.06)"
+        "--louis-elevation-upgrade": "inset 0px 0px 0px 1px color(srgb 0.980392 0.980392 0.980392 / 0.08), 0px 1px 2px 0px color(srgb 0 0 0 / 0.04)"
       },
       "deprecated": null,
       "description": null,
@@ -17167,7 +17167,7 @@ export const tokens = {
               0,
               0
             ],
-            "alpha": 0.06
+            "alpha": 0.04
           },
           "offsetX": {
             "value": 0,

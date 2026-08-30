@@ -1859,21 +1859,21 @@
       "id": "status-result",
       "name": "Status Result",
       "maturity": "experimental",
-      "figma": "not-ready",
+      "figma": "partial",
       "web": "not-ready",
       "docs": "done",
       "doc": "design/patterns/status-result.md",
-      "note": "결제·구독 결과 7화면의 콘텐츠 컬럼. **셸이 아니라 App Shell 카드 안이다.** 세로 리듬이 24px 하나뿐이고 처리 중에는 위에서 밀지 않고 카드 안 세로 중앙에 온다. 액션 버튼이 전폭이라 세로로 쌓인다. 900px 분기는 셸 경계가 아니라 이 화면 계열 전용이며 승인 여부가 blocker다"
+      "note": "결제·구독 결과 7화면의 콘텐츠 컬럼. **셸이 아니라 App Shell 카드 안이다.** 세로 리듬이 24px 하나뿐이고 처리 중에는 위에서 밀지 않고 카드 안 세로 중앙에 온다. 액션 버튼이 전폭이라 세로로 쌓인다. 900px 분기는 셸 경계가 아니라 이 화면 계열 전용이며 승인 여부가 blocker다 Figma 에 `DS · Templates` 의 `Pattern · StatusResult`(993:379)로 섰다(2026-08-30). Success·Failure 두 벌이고 **세로 간격이 24 하나뿐**인 것이 계약이라 컬럼 전체를 그 리듬으로만 세웠다. 폭 520(=min(520,100%)) · Alert 는 실패 화면에만 · 액션은 전폭 버튼 세로 쌓기 · Meta list 는 dt/dd 행이다. **아직 없는 것**: 900px 에서 meta 가 세로로 접히는 변형. 그래서 `partial` 이다."
     },
     {
       "id": "route-boundary",
       "name": "Route Boundary",
       "maturity": "experimental",
-      "figma": "not-ready",
+      "figma": "partial",
       "web": "not-ready",
       "docs": "done",
       "doc": "design/patterns/route-boundary.md",
-      "note": "404 · 오류 · 최후 경계 셋. **셋 중 하나는 디자인 시스템을 쓸 수 없다** — 최후 경계는 루트 레이아웃이 실패한 뒤라 토큰도 i18n도 전역 CSS도 없고, 토큰을 참조하도록 「고치면」 그 화면이 막으려던 실패에 함께 휩쓸린다. 앞의 둘은 같은 뼈대를 공용 컴포넌트가 아니라 복제로 쓴다. 값은 전부 제품 인용이며 DS 계약이 아니다"
+      "note": "404 · 오류 · 최후 경계 셋. **셋 중 하나는 디자인 시스템을 쓸 수 없다** — 최후 경계는 루트 레이아웃이 실패한 뒤라 토큰도 i18n도 전역 CSS도 없고, 토큰을 참조하도록 「고치면」 그 화면이 막으려던 실패에 함께 휩쓸린다. 앞의 둘은 같은 뼈대를 공용 컴포넌트가 아니라 복제로 쓴다. 값은 전부 제품 인용이며 DS 계약이 아니다 Figma 에 `DS · Templates` 의 `Pattern · RouteBoundary`(993:431)로 섰다(2026-08-30). 세 갈래를 그대로 그렸다 — 404 · 오류는 토큰과 공용 Button 을 쓰고, **최후 경계는 토큰을 쓰지 않는다**. 문서가 「루트 레이아웃이 실패한 뒤라 전역 CSS 도 i18n 도 로드되지 않았다」고 적으므로 그 프레임만 리터럴(#0a0a0a · #ededed · #a1a1a1 · 폭 420)로 그렸다 — 토큰으로 그렸다면 그림이 거짓말을 한다. **아직 없는 것**: ≤719px 좌우 패딩 16 변형. 그래서 `partial` 이다."
     },
     {
       "id": "project-grid",

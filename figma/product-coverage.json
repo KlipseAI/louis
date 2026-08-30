@@ -126,6 +126,42 @@
       "row-gap": "flex/grid 축 하나가 실제로 쓰이지 않아 0 으로 계산된 값이다. 간격이 계약인 축은 EXPECT 가 반대 축에서 본다.",
       "column-gap": "flex/grid 축 하나가 실제로 쓰이지 않아 0 으로 계산된 값이다. 간격이 계약인 축은 EXPECT 가 반대 축에서 본다."
     },
+    "button-lg": {
+      "row-gap": "row 방향 flex 이고 flex-wrap 이 없어 이 축이 놓이는 자리가 없다. base 의 `gap: control-sm`(8) 이 남긴 값이며 size 선택자는 column-gap 만 덮는다 (button.css:12,58-75). 눈에 닿는 축은 column-gap 이고 그쪽을 EXPECT 가 본다."
+    },
+    "button-lg-icon": {
+      "border-bottom-left-radius": "이 탐침은 **아이콘이 붙은 쪽 여백 하나만** 본다. 나머지 축은 같은 레시피를 그리는 button-lg · button-md 탐침이 이미 대조한다 — 여기서 또 보면 같은 값을 두 번 세는 것이다.",
+      "border-bottom-right-radius": "이 탐침은 **아이콘이 붙은 쪽 여백 하나만** 본다. 나머지 축은 같은 레시피를 그리는 button-lg · button-md 탐침이 이미 대조한다 — 여기서 또 보면 같은 값을 두 번 세는 것이다.",
+      "border-top-left-radius": "이 탐침은 **아이콘이 붙은 쪽 여백 하나만** 본다. 나머지 축은 같은 레시피를 그리는 button-lg · button-md 탐침이 이미 대조한다 — 여기서 또 보면 같은 값을 두 번 세는 것이다.",
+      "border-top-right-radius": "이 탐침은 **아이콘이 붙은 쪽 여백 하나만** 본다. 나머지 축은 같은 레시피를 그리는 button-lg · button-md 탐침이 이미 대조한다 — 여기서 또 보면 같은 값을 두 번 세는 것이다.",
+      "column-gap": "이 탐침은 **아이콘이 붙은 쪽 여백 하나만** 본다. 나머지 축은 같은 레시피를 그리는 button-lg · button-md 탐침이 이미 대조한다 — 여기서 또 보면 같은 값을 두 번 세는 것이다.",
+      "padding-block-end": "이 탐침은 **아이콘이 붙은 쪽 여백 하나만** 본다. 나머지 축은 같은 레시피를 그리는 button-lg · button-md 탐침이 이미 대조한다 — 여기서 또 보면 같은 값을 두 번 세는 것이다.",
+      "padding-block-start": "이 탐침은 **아이콘이 붙은 쪽 여백 하나만** 본다. 나머지 축은 같은 레시피를 그리는 button-lg · button-md 탐침이 이미 대조한다 — 여기서 또 보면 같은 값을 두 번 세는 것이다.",
+      "padding-inline-end": "이 탐침은 **아이콘이 붙은 쪽 여백 하나만** 본다. 나머지 축은 같은 레시피를 그리는 button-lg · button-md 탐침이 이미 대조한다 — 여기서 또 보면 같은 값을 두 번 세는 것이다.",
+      "row-gap": "row 방향 flex 이고 flex-wrap 이 없어 이 축이 놓이는 자리가 없다. base 의 `gap: control-sm`(8) 이 남긴 값이며 size 선택자는 column-gap 만 덮는다 (button.css:12,58-75). 눈에 닿는 축은 column-gap 이고 그쪽을 EXPECT 가 본다."
+    },
+    "button-md": {
+      "row-gap": "row 방향 flex 이고 flex-wrap 이 없어 이 축이 놓이는 자리가 없다. base 의 `gap: control-sm`(8) 이 남긴 값이며 size 선택자는 column-gap 만 덮는다 (button.css:12,58-75). 눈에 닿는 축은 column-gap 이고 그쪽을 EXPECT 가 본다."
+    },
+    "button-md-icon": {
+      "border-bottom-left-radius": "이 탐침은 **아이콘이 붙은 쪽 여백 하나만** 본다. 나머지 축은 같은 레시피를 그리는 button-lg · button-md 탐침이 이미 대조한다 — 여기서 또 보면 같은 값을 두 번 세는 것이다.",
+      "border-bottom-right-radius": "이 탐침은 **아이콘이 붙은 쪽 여백 하나만** 본다. 나머지 축은 같은 레시피를 그리는 button-lg · button-md 탐침이 이미 대조한다 — 여기서 또 보면 같은 값을 두 번 세는 것이다.",
+      "border-top-left-radius": "이 탐침은 **아이콘이 붙은 쪽 여백 하나만** 본다. 나머지 축은 같은 레시피를 그리는 button-lg · button-md 탐침이 이미 대조한다 — 여기서 또 보면 같은 값을 두 번 세는 것이다.",
+      "border-top-right-radius": "이 탐침은 **아이콘이 붙은 쪽 여백 하나만** 본다. 나머지 축은 같은 레시피를 그리는 button-lg · button-md 탐침이 이미 대조한다 — 여기서 또 보면 같은 값을 두 번 세는 것이다.",
+      "column-gap": "이 탐침은 **아이콘이 붙은 쪽 여백 하나만** 본다. 나머지 축은 같은 레시피를 그리는 button-lg · button-md 탐침이 이미 대조한다 — 여기서 또 보면 같은 값을 두 번 세는 것이다.",
+      "padding-block-end": "이 탐침은 **아이콘이 붙은 쪽 여백 하나만** 본다. 나머지 축은 같은 레시피를 그리는 button-lg · button-md 탐침이 이미 대조한다 — 여기서 또 보면 같은 값을 두 번 세는 것이다.",
+      "padding-block-start": "이 탐침은 **아이콘이 붙은 쪽 여백 하나만** 본다. 나머지 축은 같은 레시피를 그리는 button-lg · button-md 탐침이 이미 대조한다 — 여기서 또 보면 같은 값을 두 번 세는 것이다.",
+      "padding-inline-end": "이 탐침은 **아이콘이 붙은 쪽 여백 하나만** 본다. 나머지 축은 같은 레시피를 그리는 button-lg · button-md 탐침이 이미 대조한다 — 여기서 또 보면 같은 값을 두 번 세는 것이다.",
+      "row-gap": "row 방향 flex 이고 flex-wrap 이 없어 이 축이 놓이는 자리가 없다. base 의 `gap: control-sm`(8) 이 남긴 값이며 size 선택자는 column-gap 만 덮는다 (button.css:12,58-75). 눈에 닿는 축은 column-gap 이고 그쪽을 EXPECT 가 본다."
+    },
+    "button-secondary": {
+      "column-gap": "이 탐침은 **secondary 의 헤어라인 하나만** 본다. 기하는 같은 레시피의 button-md 탐침이 대조한다 (variant 는 크기를 바꾸지 않는다).",
+      "padding-block-end": "이 탐침은 **secondary 의 헤어라인 하나만** 본다. 기하는 같은 레시피의 button-md 탐침이 대조한다 (variant 는 크기를 바꾸지 않는다).",
+      "padding-block-start": "이 탐침은 **secondary 의 헤어라인 하나만** 본다. 기하는 같은 레시피의 button-md 탐침이 대조한다 (variant 는 크기를 바꾸지 않는다).",
+      "padding-inline-end": "이 탐침은 **secondary 의 헤어라인 하나만** 본다. 기하는 같은 레시피의 button-md 탐침이 대조한다 (variant 는 크기를 바꾸지 않는다).",
+      "padding-inline-start": "이 탐침은 **secondary 의 헤어라인 하나만** 본다. 기하는 같은 레시피의 button-md 탐침이 대조한다 (variant 는 크기를 바꾸지 않는다).",
+      "row-gap": "row 방향 flex 이고 flex-wrap 이 없어 이 축이 놓이는 자리가 없다. base 의 `gap: control-sm`(8) 이 남긴 값이며 size 선택자는 column-gap 만 덮는다 (button.css:12,58-75). 눈에 닿는 축은 column-gap 이고 그쪽을 EXPECT 가 본다."
+    },
     "carousel": {
       "max-width": "제품 캐러셀은 상한을 풀고 소비처가 폭을 정한다."
     },
@@ -167,6 +203,9 @@
       "padding-left": "제품이 여백을 두지 않는 자리다. 크기가 고정이라 여백이 들어갈 곳이 없다 — 크기를 EXPECT가 본다.",
       "padding-right": "제품이 여백을 두지 않는 자리다. 크기가 고정이라 여백이 들어갈 곳이 없다 — 크기를 EXPECT가 본다.",
       "padding-top": "제품이 여백을 두지 않는 자리다. 크기가 고정이라 여백이 들어갈 곳이 없다 — 크기를 EXPECT가 본다."
+    },
+    "checkbox": {
+      "appearance": "네이티브 체크박스의 기본 도색을 끄는 선언이다. 값이 아니라 스위치이며 DS 기록에 대응 축이 없다."
     },
     "dialog-card": {
       "box-shadow": "glass dropdown frame이다. DS는 elevation 사다리를 쓴다(dialog.md)."
@@ -214,7 +253,17 @@
       "color": "위와 같다."
     },
     "menu-panel": {
-      "background-color": "메뉴 면 색은 states 표가 소유하고 surface-states 테스트가 본다."
+      "background-color": "메뉴 면 색은 states 표가 소유하고 surface-states 테스트가 본다.",
+      "--louis-overlay-collision-padding": "`.louis-popover` 가 위치 계산에 쓰는 런타임 배관이다 — 화면 여유 폭·앵커 바닥값이라 기하 계약이 아니고, 값도 뷰포트에 따라 달라진다.",
+      "--louis-popover-anchor-floor": "`.louis-popover` 가 위치 계산에 쓰는 런타임 배관이다 — 화면 여유 폭·앵커 바닥값이라 기하 계약이 아니고, 값도 뷰포트에 따라 달라진다.",
+      "--louis-popover-available-inline-size": "`.louis-popover` 가 위치 계산에 쓰는 런타임 배관이다 — 화면 여유 폭·앵커 바닥값이라 기하 계약이 아니고, 값도 뷰포트에 따라 달라진다.",
+      "--louis-popover-inset": "`.louis-popover` 가 위치 계산에 쓰는 런타임 배관이다 — 화면 여유 폭·앵커 바닥값이라 기하 계약이 아니고, 값도 뷰포트에 따라 달라진다.",
+      "--louis-popover-preferred-inline-size": "`.louis-popover` 가 위치 계산에 쓰는 런타임 배관이다 — 화면 여유 폭·앵커 바닥값이라 기하 계약이 아니고, 값도 뷰포트에 따라 달라진다.",
+      "column-gap": "행 간격을 EXPECT 가 본다. 메뉴는 세로 쌓기라 열 간격이 놓이는 자리가 없다.",
+      "overscroll-behavior-x": "패널이 길어져 스크롤될 때의 거동이다. 크기 계약이 아니라 스크롤 동작이며 DS 기록에 대응 축이 없다.",
+      "overscroll-behavior-y": "패널이 길어져 스크롤될 때의 거동이다. 크기 계약이 아니라 스크롤 동작이며 DS 기록에 대응 축이 없다.",
+      "scroll-padding-block-end": "패널이 길어져 스크롤될 때의 거동이다. 크기 계약이 아니라 스크롤 동작이며 DS 기록에 대응 축이 없다.",
+      "scroll-padding-block-start": "패널이 길어져 스크롤될 때의 거동이다. 크기 계약이 아니라 스크롤 동작이며 DS 기록에 대응 축이 없다."
     },
     "nav-item": {
       "background-color": "선택·hover 면은 states 표가 소유하고 별도 탐침이 본다."
@@ -369,6 +418,13 @@
       "background-color": "면 알파는 components.measured.json의 surfaceAlpha가 고정하고 skeleton 테스트가 본다."
     },
     "slider-track-marker": {
+      "border-bottom-left-radius": "채움(range)의 반경이다. 표식은 그 위의 `::after`이고 그쪽 반경을 EXPECT가 본다.",
+      "border-bottom-right-radius": "채움(range)의 반경이다. 표식은 그 위의 `::after`이고 그쪽 반경을 EXPECT가 본다.",
+      "border-top-left-radius": "채움(range)의 반경이다. 표식은 그 위의 `::after`이고 그쪽 반경을 EXPECT가 본다.",
+      "border-top-right-radius": "채움(range)의 반경이다. 표식은 그 위의 `::after`이고 그쪽 반경을 EXPECT가 본다.",
+      "height": "레일을 채우는 표식이라 레일의 값이다. 표식의 실제 크기는 `::after`를 EXPECT가 본다."
+    },
+    "slider-track-marker-panel": {
       "border-bottom-left-radius": "채움(range)의 반경이다. 표식은 그 위의 `::after`이고 그쪽 반경을 EXPECT가 본다.",
       "border-bottom-right-radius": "채움(range)의 반경이다. 표식은 그 위의 `::after`이고 그쪽 반경을 EXPECT가 본다.",
       "border-top-left-radius": "채움(range)의 반경이다. 표식은 그 위의 `::after`이고 그쪽 반경을 EXPECT가 본다.",

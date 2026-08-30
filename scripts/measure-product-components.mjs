@@ -36,23 +36,55 @@ const FILES = PRODUCT_FILES;
 // 재는 대상. `from`은 제품 소스의 상수를 가리키고, `html`은 제품에 공용 상수가 없어
 // 클래스를 직접 적어야 하는 경우에만 쓴다(그 사유를 source에 적는다).
 const PROBES = [
+  // ── Button — **제품이 LOUIS 레시피로 넘어갔다** ────────────────────────────
+  // `Button.tsx` 는 이제 클래스 상수를 하나도 갖지 않고 `.louis-button` + `data-variant` ·
+  // `data-size` · `data-left-icon` 만 그린다 (Button.tsx:38-51). 그래서 `from` 으로 꺼낼 상수가
+  // 없고 남은 것은 **후크 이름**뿐이다 — `.louis-spinner` · `.louis-progress-bar` 탐침과 같은 형태다.
+  //
+  // **그전 탐침은 아무것도 아닌 것을 재고 있었다.** `--button-height` · `--button-padding-inline` ·
+  // `--button-height-sm` · `--button-min-width-sm` · `--button-padding-inline-sm` 을 읽었는데
+  // 제품이 채택 정리에서 그 다섯을 지웠다. **정의되지 않은 var()는 선언을 무효로 만들 뿐 실패하지
+  // 않아서** 탐침은 padding 0 · min-width 0 을 재면서도 조용히 돌았다. 지금 globals.css 에 남은
+  // `--button-height` 는 이름과 달리 버튼이 쓰지 않는다 — 하이라이트 refinement 입력창 전용이라고
+  // 제품 자신이 적어 두었다 (globals.css:65-68).
+  //
+  // 재는 대상은 제품이 핀으로 소비하는 그 LOUIS 판이다(ds-package-shim 이 제품 커밋에서 꺼낸다).
+  // 제품이 핀을 되돌리거나 `.louis-button` 을 떠나면 여기가 어긋난다.
+  {
+    id: "button-lg",
+    source: 'Button.tsx — size="lg". 제품이 .louis-button 을 그대로 소비한다 (인증 제출 CTA 6곳)',
+    html: `<button class="louis-button" data-variant="primary" data-size="lg">저장</button>`,
+    read: ["height", "paddingTop", "paddingLeft", "paddingRight", "borderTopLeftRadius", "columnGap", "minWidth"],
+  },
   {
     id: "button-md",
-    source: "apps/web/components/ui/Button.tsx ROOT + SIZE_MD",
-    html: `<button class="box-border relative inline-flex items-center justify-center rounded-[var(--button-radius)] whitespace-nowrap h-[var(--button-height)] py-0 px-[var(--button-padding-inline)] gap-4">저장</button>`,
-    read: ["height", "paddingLeft", "paddingRight", "borderTopLeftRadius", "columnGap"],
+    source: 'Button.tsx — size="md" 가 기본값이다 (DS-D-0027)',
+    html: `<button class="louis-button" data-variant="primary" data-size="md">저장</button>`,
+    read: ["height", "paddingTop", "paddingLeft", "paddingRight", "borderTopLeftRadius", "columnGap", "minWidth"],
+  },
+  // 아이콘이 붙은 쪽만 2px 좁다. `leftIcon` 이 있을 때만 `data-left-icon` 이 붙고 아이콘 span 이
+  // 함께 그려지므로 (Button.tsx:46,53-57) 탐침도 그대로 그린다.
+  {
+    id: "button-lg-icon",
+    source: 'Button.tsx — size="lg" + leftIcon. data-left-icon 이 붙은 쪽 여백만 좁아진다',
+    html: `<button class="louis-button" data-variant="primary" data-size="lg" data-left-icon="true"><span class="louis-button__icon"></span><span class="louis-button__label">저장</span></button>`,
+    read: ["paddingLeft"],
   },
   {
-    id: "button-sm",
-    source: "apps/web/components/ui/Button.tsx ROOT + SIZE_SM",
-    html: `<button class="box-border relative inline-flex items-center justify-center rounded-[var(--button-radius)] whitespace-nowrap h-[var(--button-height-sm)] min-w-[var(--button-min-width-sm)] py-0 px-[var(--button-padding-inline-sm)] gap-2">저장</button>`,
-    read: ["height", "paddingLeft", "paddingRight", "borderTopLeftRadius", "columnGap", "minWidth"],
+    id: "button-md-icon",
+    source: 'Button.tsx — size="md" + leftIcon',
+    html: `<button class="louis-button" data-variant="primary" data-size="md" data-left-icon="true"><span class="louis-button__icon"></span><span class="louis-button__label">저장</span></button>`,
+    read: ["paddingLeft"],
   },
+  // **secondary 의 헤어라인은 이제 테두리가 아니다.** 그전 탐침은 `[border:1px_solid_…]` 를 직접
+  // 적어 두고 그 1px 을 다시 읽었다 — 제품이 아니라 **자기가 적은 리터럴을 재고 있었다.** 지금
+  // 제품은 `border: 0` 인 `.louis-button[data-variant="secondary"]` 를 그리고 헤어라인은
+  // `--louis-hairline-inset` (inset box-shadow) 이 그린다 (button.css:115-121).
   {
-    id: "button-secondary-border",
-    source: "apps/web/components/ui/Button.tsx BORDER_SECONDARY",
-    html: `<button class="box-border [border:1px_solid_rgb(var(--palette-gray-900-rgb)/12%)] rounded-[var(--button-radius)] h-[var(--button-height)]">저장</button>`,
-    read: ["borderTopWidth", "borderTopColor"],
+    id: "button-secondary",
+    source: 'Button.tsx — variant="secondary". 헤어라인은 border 가 아니라 inset box-shadow 다',
+    html: `<button class="louis-button" data-variant="secondary" data-size="md">저장</button>`,
+    read: ["borderTopWidth", "borderTopLeftRadius", "height"],
   },
   {
     id: "icon-button",
@@ -92,11 +124,30 @@ const PROBES = [
     html: `<div class="[display:grid] [grid-template-columns:repeat(2,_1fr)] [gap:12px] min-[1200px]:[grid-template-columns:repeat(4,_1fr)]"></div>`,
     read: ["columnGap", "rowGap", "gridTemplateColumns"],
   },
+  // **제품 툴팁이 두 벌이다.** `.app-tooltip-chrome` 은 제품에서 사라졌고(0회) 그 자리를 LOUIS
+  // `.louis-tooltip` 이 이어받았다 — 소비처 6곳(ChromeTooltip.tsx:85 · ComposerBar.tsx:60 ·
+  // useAnalyticsBarTooltip.tsx:25 · analytics/shared.tsx:445 · YoutubeVideoAnalyticsView.tsx:870 ·
+  // mypage/upgrade/page.tsx:605). 그런데 **제품이 소유한 두 번째 툴팁이 아직 살아 있다** —
+  // `globals.css:1403` 의 `[data-tooltip]::after` 규칙이고 노드 핸들 다섯 파일이 쓴다.
+  // 한 벌만 재고 "제품 툴팁은 이렇다"고 적으면 그 갈림이 게이트 밖에 남는다(경쟁 정의 원칙).
   {
     id: "tooltip",
-    source: "globals.css .app-tooltip-chrome — 제품 툴팁 면·타이포 SSOT",
-    html: `<div class="app-tooltip-chrome">저장</div>`,
-    read: ["paddingTop", "paddingLeft", "borderTopLeftRadius", "borderTopWidth", "fontSize", "lineHeight", "height"],
+    source: "ChromeTooltip.tsx:85 외 5곳이 소비하는 LOUIS 정본 .louis-tooltip",
+    html: `<div class="louis-tooltip">저장</div>`,
+    read: ["paddingTop", "paddingLeft", "borderTopLeftRadius", "fontSize", "lineHeight", "height"],
+  },
+  {
+    // 테두리 축의 **소유자가 여기다.** `.louis-tooltip` 은 border 0 에 inset 헤어라인이고,
+    // 제품이 소유한 이 규칙만 `border: 1px solid var(--app-tooltip-border)` 를 그린다
+    // (globals.css:1411). 위 탐침에서 borderTopWidth 를 뺀 것은 축을 버린 것이 아니라
+    // **실제 소유자에게 옮긴 것**이다.
+    id: "tooltip-product",
+    source: "globals.css:1403 [data-tooltip]::after — 노드 핸들 다섯 파일이 쓰는 제품 소유 툴팁",
+    html: `<span data-tooltip="저장"></span>`,
+    read: [
+      "::after:paddingTop", "::after:paddingLeft", "::after:borderTopLeftRadius",
+      "::after:borderTopWidth", "::after:fontSize", "::after:lineHeight",
+    ],
   },
   {
     id: "toast",
@@ -135,10 +186,15 @@ const PROBES = [
     hostWidth: 1440,
     read: ["width", "paddingTop", "borderTopLeftRadius", "rowGap"],
   },
+  // `--dropdown-radius` · `--dropdown-padding` · `--dropdown-surface-bg` 는 제품에서 0회다.
+  // 폐기가 제품 자신에게 적혀 있다 — globals.css:59 「dropdown/menu/popover surface는 LOUIS
+  // 정본을 직접 소비한다 (P#1)」. 그 값들은 LOUIS 가 흡수했고(menu-popover.css:12,14) 제품은
+  // `.louis-popover` 를 직접 그린다. `creditHistorySortMenu` 를 고르는 이유는 얹는 것이
+  // `min-width` 와 collision shim 뿐이라 레시피 값이 그대로 드러나기 때문이다.
   {
     id: "menu-panel",
-    source: "globals.css --dropdown-radius / --dropdown-padding — 제품 드롭다운 면 SSOT",
-    html: `<div class="[border-radius:var(--dropdown-radius)] [padding:var(--dropdown-padding)] [background:var(--dropdown-surface-bg)]"></div>`,
+    source: "myPageSceneStyles.ts creditHistorySortMenu (= .louis-popover + collision shim)",
+    from: ["myPage", "creditHistorySortMenu"],
     read: ["borderTopLeftRadius", "paddingTop", "paddingLeft"],
   },
   {
@@ -183,10 +239,14 @@ const PROBES = [
     from: ["canvasEmpty", "ACTIONS_CLASS"],
     read: ["columnGap"],
   },
+  // **`AVATAR` 상수에는 이제 크기가 없다.** `UserCircleDefaultAvatar.tsx:13-14` 가 사유를 적는다
+  // — 자기 루트에 달고 있던 28px 을 호출부 셋이 전부 `!` 로 되받아 쳐서 함께 걷어냈고, 남은 것은
+  // `louis-avatar__fallback` + 색뿐이다. 그 상수를 재면 크기 선언이 없어 문서 폭(360)이 나온다 —
+  // 아무것도 아닌 것을 재고 있었다. 크기를 소유하는 것은 `.louis-avatar`(avatar.css:27-28)다.
   {
     id: "avatar",
-    source: "UserCircleDefaultAvatar.tsx AVATAR",
-    from: ["avatar", "AVATAR"],
+    source: "avatar.css .louis-avatar — 크기를 소유하는 쪽. AVATAR 상수는 폴백 글리프만 그린다",
+    html: `<span class="louis-avatar"></span>`,
     read: ["width", "height"],
   },
   {
@@ -216,11 +276,15 @@ const PROBES = [
     wrapper: [{ class: "louis-spinner", attrs: { "data-size": "sm" } }],
     read: ["width", "height", "::after:borderTopWidth"],
   },
+  // `.app-native-checkbox` 는 **정의와 소비처가 같은 변경에서 함께** 사라졌다 — 매달린 후크가
+  // 아니다(VideoEditProjectPicker.tsx:140-143 이 그 사실을 적어 둔다). 지금 제품이 그리는 것은
+  // LOUIS `.louis-checkbox__control` 이고 소비처가 16곳 넘는다. 클래스 없는 `<input>` 을 재던
+  // 그전 탐침은 브라우저 기본 13px 을 재고 있었다.
   {
     id: "checkbox",
-    source: "globals.css .app-native-checkbox — 제품 선택 목록 정본",
-    html: `<input type="checkbox" class="app-native-checkbox" />`,
-    read: ["width", "height"],
+    source: "VideoEditProjectPicker.tsx:493 외 다수가 소비하는 LOUIS 정본 .louis-checkbox__control",
+    html: `<input type="checkbox" class="louis-checkbox__control" />`,
+    read: ["width", "height", "borderTopLeftRadius"],
   },
   {
     id: "selectable-row",
@@ -500,6 +564,17 @@ const PROBES = [
     source: "VideoEditModal.tsx overlayRadixRange ::after — 채움 오른쪽 끝 표식",
     from: ["vem", "overlayRadixRange"],
     wrapper: ["vem-overlay-radix-root-full"],
+    read: ["::after:width", "::after:height"],
+  },
+  // 같은 표식을 **인스펙터 패널 안**에서도 잰다. 레일 높이는 맥락에 따라 20 · 28 로 갈리는데
+  // (slider-track-root · slider-track-root-panel) 표식도 함께 갈리는지는 아무도 확인한 적이
+  // 없었다 — DS 는 lg/track 과 md/track 에 같은 2×14 를 적어 두었고, 그 주장이 참인지 여기서
+  // 기계가 본다. 갈라지면 이 행이 실패한다.
+  {
+    id: "slider-track-marker-panel",
+    source: "VideoEditModal.tsx overlayRadixRange ::after (인스펙터 패널 안) — lg/track 맥락",
+    from: ["vem", "overlayRadixRange"],
+    wrapper: ["vem-propertiesPanel", "vem-overlay-radix-root-full"],
     read: ["::after:width", "::after:height"],
   },
   // **진행바도 LOUIS 로 넘어갔다.** `5261daea`(P#8)가 `highlightSceneStyles.ts` 의
@@ -831,20 +906,27 @@ const PROBES = [
 // 편차를 그냥 빼 두면 어느 날 제품이 DS 쪽으로 움직여도 아무도 모르고 사유만 낡는다.
 // 여기서는 편차가 사라지는 것도 실패다 — 사유를 지우라는 신호다.
 const EXPECT = [
+  // **계단이 개명됐다(DS-D-0027).** 구 md(40) → lg · 구 sm(32) → md 다. 기록은 `ddc333a` 에서
+  // 따라갔는데 여기 EXPECT 는 그대로 남아 없어진 `sizes.sm` 을 가리키고 있었다.
+  ["button-lg", "height", ["button", "sizes", "lg", "height"], "same"],
+  ["button-lg", "paddingTop", ["button", "sizes", "lg", "paddingBlock"], "same"],
+  ["button-lg", "paddingLeft", ["button", "sizes", "lg", "paddingInline"], "same"],
+  ["button-lg", "borderTopLeftRadius", ["button", "sizes", "lg", "radius"], "same"],
+  ["button-lg", "columnGap", ["button", "sizes", "lg", "gap"], "same"],
+  ["button-lg", "minWidth", ["button", "sizes", "lg", "minWidth"], "same"],
+  ["button-lg-icon", "paddingLeft", ["button", "sizes", "lg", "paddingInlineWithIcon"], "same"],
   ["button-md", "height", ["button", "sizes", "md", "height"], "same"],
   ["button-md", "paddingLeft", ["button", "sizes", "md", "paddingInline"], "same"],
   ["button-md", "borderTopLeftRadius", ["button", "sizes", "md", "radius"], "same"],
   ["button-md", "columnGap", ["button", "sizes", "md", "gap"], "same"],
-  ["button-sm", "height", ["button", "sizes", "sm", "height"], "same"],
-  ["button-sm", "paddingLeft", ["button", "sizes", "sm", "paddingInline"], "same"],
-  ["button-sm", "columnGap", ["button", "sizes", "sm", "gap"], "same"],
-  ["button-sm", "minWidth", ["button", "sizes", "sm", "minWidth"], "same"],
-  ["button-secondary-border", "borderTopWidth", ["button", "sizes", "md", "borderWidth"], "deviates",
-    "제품 1px, DS 0.5px. hairline은 DS 전역 결정이고 브라우저는 DPR 1에서 사용값을 1px로 올린다 — 레티나에서만 갈린다."],
+  ["button-md", "minWidth", ["button", "sizes", "md", "minWidth"], "same"],
+  ["button-md-icon", "paddingLeft", ["button", "sizes", "md", "paddingInlineWithIcon"], "same"],
+  ["button-secondary", "borderTopWidth", ["button", "sizes", "md", "borderWidth"], "deviates",
+    "제품 0, DS 0.5. **편차의 뜻이 바뀌었다.** 그전에는 제품이 1px 테두리를 그려 두께가 갈렸는데, 지금 제품은 LOUIS 레시피를 그대로 소비하고 그 레시피는 border 0 에 inset box-shadow 로 헤어라인을 그린다(button.css:115-121). 0.5 는 그 그림자의 spread 이지 레이아웃 두께가 아니라서 계산값 border-width 로는 잡히지 않는다. 이 행은 **레시피가 진짜 테두리로 돌아가면 실패하라고** 남긴다."],
 
-  ["icon-button", "width", ["icon-button", "sizes", "sm", "width"], "same"],
-  ["icon-button", "height", ["icon-button", "sizes", "sm", "height"], "same"],
-  ["icon-button", "borderTopLeftRadius", ["icon-button", "sizes", "sm", "radius"], "same"],
+  ["icon-button", "width", ["icon-button", "sizes", "md", "width"], "same"],
+  ["icon-button", "height", ["icon-button", "sizes", "md", "height"], "same"],
+  ["icon-button", "borderTopLeftRadius", ["icon-button", "sizes", "md", "radius"], "same"],
   ["icon-button-card", "width", ["project-card", "sizes", "base", "moreSize"], "same"],
 
   ["project-card", "borderTopLeftRadius", ["project-card", "sizes", "base", "radius"], "same"],
@@ -857,8 +939,14 @@ const EXPECT = [
   ["tooltip", "fontSize", ["tooltip", "sizes", "base", "fontSize"], "same"],
   ["tooltip", "lineHeight", ["tooltip", "sizes", "base", "lineHeight"], "same"],
   ["tooltip", "height", ["tooltip", "sizes", "base", "height"], "same"],
-  ["tooltip", "borderTopWidth", ["tooltip", "sizes", "base", "borderWidth"], "deviates",
-    "제품 1px, DS 0.5px. 위 button과 같은 hairline 결정이다."],
+  ["tooltip-product", "::after:borderTopWidth", ["tooltip", "sizes", "base", "borderWidth"], "deviates",
+    "제품 1px, DS 0.5px. 위 button과 같은 hairline 결정이다. **재는 자리가 옮겨졌다** — LOUIS `.louis-tooltip` 은 border 0 에 inset 헤어라인이라 이 축을 갖지 않고, 진짜 1px 테두리는 제품이 아직 소유한 `[data-tooltip]::after`(globals.css:1411)가 그린다."],
+  // 두 툴팁이 같은 면을 그리는지도 기계가 본다. 갈라지면 여기가 실패한다.
+  ["tooltip-product", "::after:borderTopLeftRadius", ["tooltip", "sizes", "base", "radius"], "same"],
+  ["tooltip-product", "::after:paddingTop", ["tooltip", "sizes", "base", "paddingBlock"], "same"],
+  ["tooltip-product", "::after:paddingLeft", ["tooltip", "sizes", "base", "paddingInline"], "same"],
+  ["tooltip-product", "::after:fontSize", ["tooltip", "sizes", "base", "fontSize"], "same"],
+  ["tooltip-product", "::after:lineHeight", ["tooltip", "sizes", "base", "lineHeight"], "same"],
 
   ["toast", "paddingTop", ["toast", "sizes", "base", "paddingBlock"], "same"],
   ["toast", "paddingLeft", ["toast", "sizes", "base", "paddingInline"], "same"],
@@ -870,6 +958,10 @@ const EXPECT = [
   ["toast", "height", ["toast", "sizes", "base", "height"], "same"],
 
   ["menu-panel", "borderTopLeftRadius", ["menu-popover", "sizes", "panel", "radius"], "same"],
+  // 새 탐침이 드러낸 축이다. 그전 탐침은 손으로 적은 세 선언만 갖고 있어 간격·반경이 보이지 않았다.
+  ["menu-panel", "rowGap", ["menu-popover", "sizes", "panel", "gap"], "same"],
+  ["avatar", "borderTopLeftRadius", ["avatar", "sizes", "md", "radius"], "same"],
+  ["checkbox", "borderTopLeftRadius", ["checkbox", "sizes", "base", "radius"], "same"],
   ["menu-panel", "paddingTop", ["menu-popover", "sizes", "panel", "paddingBlock"], "same"],
   ["menu-panel", "paddingLeft", ["menu-popover", "sizes", "panel", "paddingInline"], "same"],
   ["menu-item", "paddingTop", ["menu-popover", "sizes", "panel", "itemPaddingBlock"], "same"],
@@ -897,9 +989,12 @@ const EXPECT = [
   ["dialog-card", "borderTopWidth", ["dialog", "sizes", "compact", "borderWidth"], "deviates",
     "제품 0, DS 0.5. 제품 모달은 그림자만으로 면을 띄우는데 DS는 라이트 테마에서 그림자가 약해 테두리를 남긴다."],
 
-  ["input-box", "paddingLeft", ["input", "sizes", "md", "paddingInline"], "same"],
-  ["input-box", "borderTopLeftRadius", ["input", "sizes", "md", "radius"], "same"],
-  ["input-box", "borderTopWidth", ["input", "sizes", "md", "borderWidth"], "deviates",
+  // **계단 개명 후 이 자리는 lg 다.** 제품의 최다 계열인 인증 입력이 좌우 16 을 두는데 그것이
+  // 곧 `space-control-lg` 이고, 개명 전에는 그 단이 md 라 불렸다. md(12)와 대조하고 있어서
+  // 실패하던 행이다.
+  ["input-box", "paddingLeft", ["input", "sizes", "lg", "paddingInline"], "same"],
+  ["input-box", "borderTopLeftRadius", ["input", "sizes", "lg", "radius"], "same"],
+  ["input-box", "borderTopWidth", ["input", "sizes", "lg", "borderWidth"], "deviates",
     "제품 1px, DS 0.5px. hairline 결정이다."],
 
   ["empty-state", "paddingTop", ["empty-state", "sizes", "base", "paddingBlock"], "same"],
@@ -936,15 +1031,17 @@ const EXPECT = [
   ["selectable-row", "borderTopLeftRadius", ["selectable-list-row", "sizes", "base", "radius"], "deviates",
     "제품 14, DS 10. radius-overlay-item 10을 쓴다 — 메뉴 항목·사이드바 항목과 같은 반경이어야 목록 행끼리 어긋나지 않는다."],
 
-  ["segmented-track", "paddingTop", ["segmented-control", "sizes", "md", "trackPadding"], "same"],
-  ["segmented-track", "borderTopLeftRadius", ["segmented-control", "sizes", "md", "trackRadius"], "same"],
-  ["segmented-segment", "paddingLeft", ["segmented-control", "sizes", "md", "segmentPaddingInline"], "same"],
-  ["segmented-segment", "borderTopLeftRadius", ["segmented-control", "sizes", "md", "segmentRadius"], "same"],
-  ["segmented-thumb", "borderTopLeftRadius", ["segmented-control", "sizes", "md", "segmentRadius"], "same"],
-  ["segmented-thumb", "top", ["segmented-control", "sizes", "md", "trackPadding"], "same"],
-  ["segmented-segment", "height", ["segmented-control", "sizes", "md", "segmentHeight"], "deviates",
+  // 여기도 lg 다 — 아래 사유가 이미 "트랙을 40에 맞추고"라고 적고 있는데, 40 인 단의 이름이
+  // 개명으로 md 에서 lg 로 바뀌었다. 사유는 그대로 참이고 가리키는 곳만 틀려 있었다.
+  ["segmented-track", "paddingTop", ["segmented-control", "sizes", "lg", "trackPadding"], "same"],
+  ["segmented-track", "borderTopLeftRadius", ["segmented-control", "sizes", "lg", "trackRadius"], "same"],
+  ["segmented-segment", "paddingLeft", ["segmented-control", "sizes", "lg", "segmentPaddingInline"], "same"],
+  ["segmented-segment", "borderTopLeftRadius", ["segmented-control", "sizes", "lg", "segmentRadius"], "same"],
+  ["segmented-thumb", "borderTopLeftRadius", ["segmented-control", "sizes", "lg", "segmentRadius"], "same"],
+  ["segmented-thumb", "top", ["segmented-control", "sizes", "lg", "trackPadding"], "same"],
+  ["segmented-segment", "height", ["segmented-control", "sizes", "lg", "segmentHeight"], "deviates",
     "제품 28, DS 32. 제품 트랙은 28+4+4 = 36으로 control 계단(40/32) 어디에도 없다. DS는 트랙을 40에 맞추고 padding 4를 빼 32를 얻는다 — 세그먼티드가 다른 control과 한 줄에 설 수 있어야 한다."],
-  ["segmented-track", "columnGap", ["segmented-control", "sizes", "md", "segmentGap"], "deviates",
+  ["segmented-track", "columnGap", ["segmented-control", "sizes", "lg", "segmentGap"], "deviates",
     "제품 2, DS 8. 제품은 thumb가 세그먼트 폭을 그대로 덮으므로 간격이 거의 필요 없다. DS는 thumb가 세그먼트 안에 놓여 간격이 눌린 세그먼트의 경계를 만든다."],
 
   ["skeleton", "borderTopLeftRadius", ["skeleton", "sizes", "base", "radius"], "deviates",
@@ -979,17 +1076,23 @@ const EXPECT = [
   // Slider — 제품에 정본이 없다는 것은 사실이지만 "그래서 아무것도 재지 않는다"는 틀렸다.
   // thumb형은 DS 기하에 가장 가까운 ClipCropModal 벌, track형은 최다 사용(8곳) VideoEditModal 벌을
   // 골랐다. 고른 이유가 곧 판정이고, 나머지 벌과 어긋나는 것은 제품 안의 불일치다.
-  ["slider-thumb-rail", "height", ["slider", "sizes", "md/thumb", "railHeight"], "same"],
-  ["slider-thumb-handle", "width", ["slider", "sizes", "md/thumb", "thumbInline"], "same"],
-  ["slider-thumb-handle", "height", ["slider", "sizes", "md/thumb", "thumbBlock"], "same"],
-  ["slider-thumb-handle", "borderTopWidth", ["slider", "sizes", "md/thumb", "thumbBorderWidth"], "same"],
-  ["slider-track-root-panel", "height", ["slider", "sizes", "md/track", "railHeight"], "same"],
-  ["slider-track-root", "height", ["slider", "sizes", "sm/track", "railHeight"], "same"],
+  // **두 축이 한꺼번에 밀렸다.** 하나는 계단 개명(구 md → lg), 다른 하나는 제품의 두 맥락이다 —
+  // 같은 상수 `overlayRadixRootFull` 이 인스펙터 패널 **안에서 28**, **밖에서 20** 으로 선다.
+  // DS 는 그 둘을 lg/track(28) · md/track(20) 으로 나눠 적어 두었는데 EXPECT 는 패널 안쪽을
+  // md 로, 바깥쪽을 없어진 sm 으로 가리키고 있었다.
+  ["slider-thumb-rail", "height", ["slider", "sizes", "lg/thumb", "railHeight"], "same"],
+  ["slider-thumb-handle", "width", ["slider", "sizes", "lg/thumb", "thumbInline"], "same"],
+  ["slider-thumb-handle", "height", ["slider", "sizes", "lg/thumb", "thumbBlock"], "same"],
+  ["slider-thumb-handle", "borderTopWidth", ["slider", "sizes", "lg/thumb", "thumbBorderWidth"], "same"],
+  ["slider-track-root-panel", "height", ["slider", "sizes", "lg/track", "railHeight"], "same"],
+  ["slider-track-root", "height", ["slider", "sizes", "md/track", "railHeight"], "same"],
   ["slider-track-marker", "::after:width", ["slider", "sizes", "md/track", "thumbInline"], "same"],
   ["slider-track-marker", "::after:height", ["slider", "sizes", "md/track", "thumbBlock"], "same"],
-  ["slider-thumb-root", "height", ["slider", "sizes", "md/thumb", "height"], "deviates",
+  ["slider-track-marker-panel", "::after:width", ["slider", "sizes", "lg/track", "thumbInline"], "same"],
+  ["slider-track-marker-panel", "::after:height", ["slider", "sizes", "lg/track", "thumbBlock"], "same"],
+  ["slider-thumb-root", "height", ["slider", "sizes", "lg/thumb", "height"], "deviates",
     "제품 24, DS 40. thumb형 세 벌이 16·24·28로 갈려 컨트롤 높이의 정본이 없다. DS는 control 계단(40/32)을 따라 슬라이더가 다른 컨트롤과 한 줄에 설 수 있게 한다."],
-  ["slider-track-root-panel", "height", ["slider", "sizes", "md/track", "height"], "deviates",
+  ["slider-track-root-panel", "height", ["slider", "sizes", "lg/track", "height"], "deviates",
     "제품 28, DS 40. 제품에서 28은 레일 높이인 동시에 컨트롤 높이다 — 레일이 컨트롤을 꽉 채운다. DS는 같은 28 레일을 40 컨트롤 안에 넣어 위아래 6px씩을 손잡이 여유로 남긴다."],
 
   ["sidebar-cta", "backgroundColor", ["sidebar-cta", "states", "base", "Default", "background"], "same"],
@@ -1032,11 +1135,9 @@ const EXPECT = [
   // 아래는 "제품이 선언했는데 대조하지 않던" 축이다. 열거 게이트를 붙이기 전까지 이 자리들은
   // 게이트가 초록인 채로 비어 있었다.
   ["button-md", "paddingTop", ["button", "sizes", "md", "paddingBlock"], "same"],
-  ["button-sm", "paddingTop", ["button", "sizes", "sm", "paddingBlock"], "same"],
-  ["button-sm", "borderTopLeftRadius", ["button", "sizes", "sm", "radius"], "same"],
-  ["button-secondary-border", "borderTopLeftRadius", ["button", "sizes", "md", "radius"], "same"],
-  ["button-secondary-border", "height", ["button", "sizes", "md", "height"], "same"],
-  ["icon-button", "maxWidth", ["icon-button", "sizes", "sm", "width"], "same"],
+  ["button-secondary", "borderTopLeftRadius", ["button", "sizes", "md", "radius"], "same"],
+  ["button-secondary", "height", ["button", "sizes", "md", "height"], "same"],
+  ["icon-button", "maxWidth", ["icon-button", "sizes", "md", "width"], "same"],
   ["icon-button-card", "height", ["project-card", "sizes", "base", "moreSize"], "same"],
   ["icon-button-card", "borderTopLeftRadius", ["project-card", "sizes", "base", "moreRadius"], "same"],
   ["project-card-overlay", "paddingTop", ["project-card", "sizes", "base", "overlayPadding"], "same"],
@@ -1083,12 +1184,13 @@ const EXPECT = [
   ["sidebar-cta-collapsed", "borderTopLeftRadius", ["sidebar-cta", "sizes", "true", "radius"], "same"],
   ["progress-ring", "height", ["progress-ring", "sizes", "base", "size"], "same"],
   ["progress-bar-fill", "borderTopLeftRadius", ["progress-bar", "sizes", "base", "radius"], "same"],
-  ["segmented-segment", "borderTopWidth", ["segmented-control", "sizes", "md", "borderWidth"], "deviates",
-    "제품 0, DS 0.5. hairline은 DS 전역 결정이다 — 눌리지 않은 세그먼트의 경계를 아주 얇게 남긴다."],
-  ["slider-thumb-rail", "borderTopLeftRadius", ["slider", "sizes", "md/thumb", "railRadius"], "same"],
-  ["slider-thumb-handle", "borderTopLeftRadius", ["slider", "sizes", "md/thumb", "thumbRadius"], "same"],
+  ["segmented-segment", "borderTopWidth", ["segmented-control", "sizes", "lg", "borderWidth"], "deviates",
+    "제품 0, DS 0.5. **레시피도 진짜 테두리를 그리지 않는다.** segmented-control.css:41,49 는 border 0 에 `--louis-hairline-inset`(inset box-shadow) 으로 트랙 경계를 그린다 — border 를 쓰면 border-box 안쪽이 줄어 세그먼트 높이가 32 에서 밀리기 때문이다. 0.5 는 그 그림자의 spread 이고 계산값 border-width 로는 잡히지 않는다. 이 행은 레시피가 진짜 테두리로 돌아가면 실패하라고 남긴다."],
+  ["slider-thumb-rail", "borderTopLeftRadius", ["slider", "sizes", "lg/thumb", "railRadius"], "same"],
+  ["slider-thumb-handle", "borderTopLeftRadius", ["slider", "sizes", "lg/thumb", "thumbRadius"], "same"],
   ["slider-track-marker", "::after:borderTopLeftRadius", ["slider", "sizes", "md/track", "thumbRadius"], "same"],
-  ["segmented-thumb", "height", ["segmented-control", "sizes", "md", "segmentHeight"], "deviates",
+  ["slider-track-marker-panel", "::after:borderTopLeftRadius", ["slider", "sizes", "lg/track", "thumbRadius"], "same"],
+  ["segmented-thumb", "height", ["segmented-control", "sizes", "lg", "segmentHeight"], "deviates",
     "제품 28, DS 32. 세그먼트와 같은 사유다 — 제품 트랙 36은 control 계단에 없다."],
 
   // ── 배너 캐러셀 ───────────────────────────────────────────────────────────
@@ -1749,23 +1851,59 @@ const measuredFile = JSON.parse(readFileSync(resolve(repoRoot, "figma/components
 // ── 색 대조 ────────────────────────────────────────────────────────────────
 // 기하만 맞추고 색을 넘기면 "제품과 같다"고 말할 수 없다. measured가 색을 **토큰 이름**으로 적으므로
 // 생성된 tokens.css에서 그 이름의 값을 테마별로 꺼내 제품이 렌더한 색과 맞춘다.
-const tokensCss = readFileSync(resolve(repoRoot, "packages/css/generated/tokens.css"), "utf8");
-function readTokenBlock(source, marker) {
-  const start = source.indexOf(marker);
-  if (start < 0) throw new Error("tokens.css에서 " + marker + "를 찾지 못했습니다.");
-  const open = source.indexOf("{", start);
-  const close = source.indexOf("\n}", open);
+// **대조표는 렌더와 같은 판에서 온다.** 그전에는 `repoRoot` 의 생성물을 읽었는데, 렌더는
+// `materializeDsPackage` 가 꺼낸 **제품이 고정한 핀** 판을 쓴다. 지금은 두 판이 바이트 같아
+// 결과가 우연히 맞았지만, 갈리는 순간 조용히 틀린 대조를 한다 — 이 게이트가 잡으라고 만들어진
+// 바로 그 병이다. 핀 판이 있으면 그쪽을, 없으면 워킹트리를 읽는다.
+const pinnedTokensCss = join(workspace, "@klipse-design", "css", "tokens.css");
+const tokensCss = readFileSync(
+  existsSync(pinnedTokensCss) ? pinnedTokensCss : resolve(repoRoot, "packages/css/generated/tokens.css"),
+  "utf8",
+);
+// **`:root` 를 문자열로 찾으면 안 된다.** tokens.css 의 첫 `:root` 블록은 **프리미티브 전용**
+// 이고, 시맨틱 라이트는 그 뒤 `:root,\n[data-theme="light"] {` 블록에 있다. `indexOf(":root")`
+// 는 첫 블록에서 멈추므로 light 맵에 시맨틱 토큰이 **한 개도 들어오지 않았다** — 라이트 탐침의
+// 색 대조 6건이 전부 "토큰이 light 테마에 없습니다"로 죽어 있었고, 그것은 DS 결손이 아니라
+// 여기 버그였다(2026-08-30 실측). 형제 스크립트 `verify-token-gates.mjs:366` 은 처음부터
+// 올바른 정규식을 쓰고 있었다 — 규약을 어긴 것은 이 파일뿐이다.
+//
+// 프리미티브는 두 테마 모두에 깔린다(다크 블록은 시맨틱만 덮는다). 그래서 테마 맵은
+// **프리미티브 ∪ 해당 테마 시맨틱**이다.
+function readTokenBlock(source, pattern, label) {
+  const body = pattern.exec(source)?.[1];
+  if (body === undefined) throw new Error("tokens.css에서 " + label + " 블록을 찾지 못했습니다.");
   const map = new Map();
-  for (const line of source.slice(open, close).split("\n")) {
+  for (const line of body.split("\n")) {
     const match = /^\s*(--louis-[a-z0-9-]+):\s*(.+);\s*$/.exec(line);
     if (match) map.set(match[1], match[2].trim());
   }
   return map;
 }
+const PRIMITIVE_TOKENS = readTokenBlock(tokensCss, /^:root \{$([\s\S]*?)^\}$/m, "프리미티브 :root");
+const LIGHT_SEMANTIC = readTokenBlock(
+  tokensCss,
+  /^:root,\n\[data-theme="light"\] \{$([\s\S]*?)^\}$/m,
+  '시맨틱 라이트 :root, [data-theme="light"]',
+);
+const DARK_SEMANTIC = readTokenBlock(
+  tokensCss,
+  /^\[data-theme="dark"\] \{$([\s\S]*?)^\}$/m,
+  '시맨틱 다크 [data-theme="dark"]',
+);
 const THEME_TOKENS = {
-  light: readTokenBlock(tokensCss, ":root"),
-  dark: readTokenBlock(tokensCss, '[data-theme="dark"]'),
+  light: new Map([...PRIMITIVE_TOKENS, ...LIGHT_SEMANTIC]),
+  dark: new Map([...PRIMITIVE_TOKENS, ...DARK_SEMANTIC]),
 };
+// **위 버그가 되살아나면 여기서 죽는다.** 다크 블록은 시맨틱만 **덮으므로**, 다크에 있는 키는
+// 라이트에도 반드시 있어야 한다. 라이트를 프리미티브 블록에서 읽으면 이 불변식이 통째로 깨진다
+// — 이름 하나를 손으로 적어 두는 것보다 구조를 확인하는 쪽이 이름이 바뀌어도 살아남는다.
+const lightGaps = [...DARK_SEMANTIC.keys()].filter((key) => !LIGHT_SEMANTIC.has(key));
+if (lightGaps.length > 0) {
+  throw new Error(
+    "다크에만 있고 라이트에 없는 시맨틱 토큰 " + lightGaps.length + "건입니다 — tokens.css 블록 " +
+      "구조가 바뀌었거나 라이트 블록을 잘못 읽고 있습니다: " + lightGaps.slice(0, 5).join(", "),
+  );
+}
 function parseColor(value) {
   if (!value) return null;
   const srgb = /^color\(srgb\s+([\d.]+)\s+([\d.]+)\s+([\d.]+)(?:\s*\/\s*([\d.]+))?\)$/.exec(value);
@@ -2156,6 +2294,14 @@ const walkMeasured = (node, path) => {
 };
 for (const [name, spec] of Object.entries(measuredFile.components)) walkMeasured(spec, [name]);
 
+// **네 갈래를 한 번에 낸다.** 그전에는 각 갈래가 스스로 `process.exit(1)`을 불렀고, 그래서
+// 맨 앞 갈래가 걸리면 뒤의 세 갈래는 **한 줄도 찍히지 않았다.** 실제로 그 때문에 "미대조 22건"이
+// 문제의 전부처럼 보였고 그 뒤에 가려져 있던 대조 실패 42건은 보이지 않았다. 갈래별로 끊으면
+// 고칠 때마다 새 실패가 튀어나와 몇 번을 돌려야 전체를 알 수 있는지 알 수 없다.
+// 이제 전부 찍고 마지막에 한 번만 나간다.
+let failed = false;
+const listLimit = process.env.LOUIS_LIST_ALL ? Number.POSITIVE_INFINITY : 20;
+
 const debt = JSON.parse(readFileSync(debtPath, "utf8"));
 const owed = new Set(debt.values);
 const grown = unverified.filter((entry) => !owed.has(entry));
@@ -2165,15 +2311,15 @@ if (grown.length > 0) {
     "[product-components] 제품 대조도 사유도 없는 값이 새로 " + grown.length + "개 생겼습니다. " +
       "EXPECT에 대조 행을 넣거나 `$" + "키` 주석으로 왜 그 값인지 적으세요.",
   );
-  for (const entry of grown.slice(0, 20)) console.error("[product-components]   " + entry);
-  process.exit(1);
+  for (const entry of grown.slice(0, listLimit)) console.error("[product-components]   " + entry);
+  failed = true;
 }
 if (settled.length > 0) {
   console.error(
     "[product-components] 빚 " + settled.length + "건이 해소됐습니다. figma/unverified-values.json에서 지우세요:",
   );
-  for (const entry of settled.slice(0, 20)) console.error("[product-components]   " + entry);
-  process.exit(1);
+  for (const entry of settled.slice(0, listLimit)) console.error("[product-components]   " + entry);
+  failed = true;
 }
 
 if (unclassified.length > 0) {
@@ -2184,13 +2330,16 @@ if (unclassified.length > 0) {
   const limit = process.env.LOUIS_LIST_ALL ? unclassified.length : 60;
   for (const item of unclassified.slice(0, limit)) console.error("[product-components]   " + item);
   if (unclassified.length > limit) console.error("[product-components]   … 외 " + (unclassified.length - limit) + "건");
-  process.exit(1);
+  failed = true;
 }
 
 if (mismatches.length > 0) {
+  console.error("[product-components] DS 기록과 제품 렌더가 어긋난 축 " + mismatches.length + "건입니다:");
   for (const mismatch of mismatches) console.error("[product-components] " + mismatch);
-  process.exit(1);
+  failed = true;
 }
+
+if (failed) process.exit(1);
 
 const payload =
   JSON.stringify(

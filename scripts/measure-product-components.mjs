@@ -930,7 +930,13 @@ const EXPECT = [
   ["icon-button-card", "width", ["project-card", "sizes", "base", "moreSize"], "same"],
 
   ["project-card", "borderTopLeftRadius", ["project-card", "sizes", "base", "radius"], "same"],
-  ["project-card-preview", "borderTopLeftRadius", ["project-card", "sizes", "base", "radius"], "same"],
+  // **카드 틀은 16인데 미디어 면만 12다.** 제품 `archivePreview` 가 면에 자기 반경을 직접
+  // 선언한다 — 틀보다 4px 더 조인다. LOUIS 레시피는 미디어 면에 반경을 주지 않고 틀의
+  // `overflow: hidden` 이 자르게 둔다(project-card.css:95-108 에 border-radius 가 없다). 그래서
+  // 이 축은 "같아야 하는데 다른" 것이 아니라 **제품 안의 불일치**다. 제품이 면의 선언을 지우면
+  // 이 행이 "편차가 사라졌다"로 실패하고, 그때 지우면 된다.
+  ["project-card-preview", "borderTopLeftRadius", ["project-card", "sizes", "base", "radius"], "deviates",
+    "제품 12, DS 16. 제품의 카드 **틀**은 16이고(면 12벌 중 10벌) 미디어 **면**만 12를 따로 선언한다 — 틀 안에서 면이 4px 더 조인다. DS는 면에 반경을 주지 않고 틀이 자르게 두므로 면의 유효 반경이 곧 틀의 16이다."],
   ["project-card-overlay", "padding", ["project-card", "sizes", "base", "overlayPadding"], "same"],
 
   ["tooltip", "borderTopLeftRadius", ["tooltip", "sizes", "base", "radius"], "same"],
@@ -1115,7 +1121,13 @@ const EXPECT = [
   ["empty-state-actions", "columnGap", ["empty-state", "sizes", "base", "actionGap"], "same"],
   ["project-card-overlay", "borderBottomLeftRadius", ["project-card", "sizes", "base", "radius"], "same"],
 
-  ["nav-item-hover", "backgroundColor", ["app-shell-parts", "states", "navItem", "Hover", "background"], "same"],
+  // **LOUIS 안에서 두 잉크 가문이 섞인다.** 제품의 호버는 자기 잉크 램프를 타고 내려와
+  // `palette-gray-000`(250)에 닿는데, DS `accent-ghost-hover` 는 `static-white-alpha-08`(255)을
+  // 쓴다. LOUIS 자신도 불투명 `gray-000` 은 250, 알파 램프의 같은 칸은 255다 — 두 램프가
+  // 서로 다른 흰색을 밑에 깔고 있다. 8% 알파에서 눈에 잡히는 차이는 아니지만 **이름이 같은
+  // 값이 두 곳에서 다른 것**이라 소유자 판정이 필요하다(2026-08-30 제기).
+  ["nav-item-hover", "backgroundColor", ["app-shell-parts", "states", "navItem", "Hover", "background"], "deviates",
+    "제품 rgb(250 250 250 / 8%), DS rgb(255 255 255 / 8%). 제품은 잉크 램프(palette-gray-000 = 250)를 타고, DS ghost-hover 는 static-white 알파 램프(255)를 탄다. 어느 램프가 정본인지는 아직 정하지 않았다."],
   ["nav-item-hover-light", "backgroundColor", ["app-shell-parts", "states", "navItem", "Hover", "background"], "deviates",
     "라이트만 갈린다. 제품은 재매핑된 palette-gray-300을 50%로 덮고(rgb 228 229 233 / 0.5) DS는 ink 8%를 쓴다 — 면 계열에 매는 것과 잉크에 매는 것의 차이다. `action-ghost-hover`는 SelectableListRow와 공유하는 토큰이라 사이드바 하나 때문에 옮기지 않는다. 다크는 rgb(250 250 250 / 0.1)로 정확히 같다."],
 

@@ -246,7 +246,9 @@
     },
     "media-card-info": {
       "inset-inline-start": "정보 바가 카드 좌우 끝까지 붙는다는 뜻이다(`inset-x-0`). 폭은 카드가 정하고 EXPECT 가 그 폭을 본다.",
-      "inset-inline-end": "위와 같다."
+      "inset-inline-end": "위와 같다.",
+      "::before --tw-content": "Tailwind 가 `content-[\"\"]` 를 세우려고 두는 내부 변수다. 값이 빈 문자열이고 기하가 아니다.",
+      "::before mask-image": "점진 블러의 감쇠 곡선이다. 정본은 LOUIS `--louis-progressive-blur-mask` 한 곳이고, Figma 쪽 램프는 `figma/components.measured.json` 의 `overlayMaskStops` 에서 `verify-figma-parity.mjs` 가 유도한다 — 계산된 gradient 문자열을 여기서 다시 대조하면 같은 사실을 세 번 세는 것이다."
     },
     "menu-item": {
       "background-color": "위와 같다.",

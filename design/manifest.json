@@ -1839,11 +1839,11 @@
       "id": "landing-shell",
       "name": "Landing Shell",
       "maturity": "experimental",
-      "figma": "not-ready",
+      "figma": "partial",
       "web": "not-ready",
       "docs": "done",
       "doc": "design/patterns/landing-shell.md",
-      "note": "로그인 전 마케팅 화면의 껍데기. **App Shell과 정반대 모델이다** — 레일이 자리를 예약하지 않고 헤더가 콘텐츠 위에 뜬다. 가독성은 헤더가 아니라 **120px 고정 blur plate**가 만든다. 톤 반전은 다섯 부품이 한 덩어리로 뒤집히고 판정은 뷰포트 상단 3~4% 띠만 본다. 값은 전부 제품 인용이며 DS 계약이 아니다 — 음수 오버레이 관용구 · blur 축 · 톤 반전을 mode로 볼지 세 blocker가 열려 있다. StaticHighlightDemo의 고정 빌드 실측 입력은 준비됐지만 Figma 조립·되읽기 대조가 끝나지 않아 `figma: not-ready`를 유지한다"
+      "note": "로그인 전 마케팅 화면의 껍데기. **App Shell과 정반대 모델이다** — 레일이 자리를 예약하지 않고 헤더가 콘텐츠 위에 뜬다. 가독성은 헤더가 아니라 **120px 고정 blur plate**가 만든다. 톤 반전은 다섯 부품이 한 덩어리로 뒤집히고 판정은 뷰포트 상단 3~4% 띠만 본다. 값은 전부 제품 인용이며 DS 계약이 아니다 — 음수 오버레이 관용구 · blur 축 · 톤 반전을 mode로 볼지 세 blocker가 열려 있다. StaticHighlightDemo의 고정 빌드 실측 입력은 준비됐지만 Figma 조립·되읽기 대조가 끝나지 않아 `figma: not-ready`를 유지한다 Figma 에 `DS · Templates` 의 `Pattern · LandingShell`(999:457)로 섰다(2026-08-30). 두 벌은 화면 폭이다 — ≥720 은 레일이 `1fr auto 1fr`(로고·메뉴·액션), ≤719 는 `1fr auto` 로 **가운데 열이 소멸한다**. Blur plate 는 고정 120px 이고 **면을 깔지 않았다** — 문서가 「스크림이 없다. 헤더에 반투명 면을 깔면 배포본과 다르다」고 적기 때문이다. 흐림은 Figma `BACKGROUND_BLUR` PROGRESSIVE 로 그렸고 반경을 `blur/header` 변수에 묶었다. offset 은 추측하지 않고 저장소의 유도식(`verify-figma-parity.mjs` `progressiveBlurFrom`)이 쓰는 좌표계로 옮겼다 — 마스크 `to bottom, black 40% → transparent 100%` 는 `startOffset 0.5,1` · `endOffset 0.5,0.4` 다. 본문이 헤더 밑을 지나가는 것(자리를 예약하지 않는 것)도 그림으로 드러난다. **아직 없는 것**: 720px 미만 전용 fullscreen menu · Tone inversion 다섯 축 · ≤450px 패딩 변형. 그래서 `partial` 이다."
     },
     {
       "id": "auth-two-panel",

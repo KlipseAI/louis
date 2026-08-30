@@ -61,10 +61,15 @@ Landing Shell은 로그인 전 마케팅 화면의 껍데기다 — 홈 · 가�
 | 배치 | `position: fixed` · `top/left/right: 0` · `height: **120px**` (고정) |
 | 층 | `z-index: 1000` — 헤더(1001) 바로 아래 |
 | 포인터 | `pointer-events: none` |
-| 흐림 | `backdrop-filter: blur(12px)` |
-| 마스크 | `linear-gradient(to bottom, rgb(0 0 0) 40%, rgb(0 0 0 / 0%) 100%)` — **2스톱** |
+| 흐림 | `var(--louis-progressive-blur-header)` = `blur(12px)` |
+| 마스크 | `var(--louis-progressive-blur-mask-header)` = `linear-gradient(to bottom, black 40%, transparent 100%)` — **2스톱** |
 | 접두사 | 표준과 `-webkit-`를 **둘 다** 내보낸다 |
 | DOM | `<div aria-hidden="true">` 하나. 자식이 없다 |
+
+**값은 LOUIS 가 갖는다**(2026-08-30). 그전에는 흐림 반경과 곡선을 제품이 숫자와 리터럴로
+적고 있었다 — 같은 곡선이 제품 다섯 군데에 베껴져 있었고, 그중 `CreativeMediaClient` 는 이
+띠와 바이트 동일한 2스톱을 따로 들고 있었다. 반경은 카드 쪽 `blur-surface`(10px)와 **다른 것이
+계약**이라 `blur-header`(12px)로 이름을 따로 냈다 — 카드 것을 재사용하면 헤더가 2px 옅어진다.
 
 **120px은 헤더 점유 높이(48px)의 2.5배이고 뷰포트에 비례하지 않는다.** 마스크는 위에서 40%까지
 완전 불투명이고 거기서 아래로 선형 감쇠한다.
@@ -72,7 +77,13 @@ Landing Shell은 로그인 전 마케팅 화면의 껍데기다 — 홈 · 가�
 **배너 캐러셀의 값을 여기 쓰지 마라.** 그쪽은 `blur(22px) saturate(125%)`에 5스톱 마스크라 흐림이
 두 배 가깝게 짙고 감쇠 곡선이 다르다.
 
-근거: `landing/navigation/Gnb.tsx:63-68` · `:700`.
+근거: `landing/navigation/Gnb.tsx:100-105`(상수) · `:737`(소비처) · LOUIS `packages/css/src/base.css`(두 토큰).
+
+**한때 스크림이 깔려 있었다.** 제품 `66baeb6f`(2026-08-27)가 대비를 벌려고 페이지 바닥색 88%
+베일을 이 판에 깔았다 — 위 「스크림이 없다」를 어긴 상태였고, 88% 불투명 판이 흐림을 덮어
+progressive blur 가 보이지 않았다. 2026-08-30 소유자 결정으로 걷어내 규범으로 돌아왔다.
+그 베일이 풀던 문제(어두운 사진 위 메뉴 글자 1.52:1)는 **닫히지 않았다** — 아래
+Tone inversion 이 그 자리다.
 
 ## Tone inversion
 

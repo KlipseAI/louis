@@ -1819,11 +1819,11 @@
       "id": "loading",
       "name": "Loading",
       "maturity": "beta",
-      "figma": "not-ready",
+      "figma": "partial",
       "web": "partial",
       "docs": "done",
       "doc": "design/patterns/loading.md",
-      "note": "**새 CSS가 없다** — 컴포넌트가 아니라 경계다. 부품은 Spinner와 Skeleton이 소유하고 이 패턴은 무엇을 언제 쓰는가와 **누가 로딩을 알리는가**를 정한다: 영역이 aria-busy를 갖고 자리표시는 전부 aria-hidden이다(여덟 개가 각각 읽히면 같은 말이 여덟 번 들린다). 실브라우저 5건이 그 합성을 대조한다. determinate progress는 접근성 계약이 선행이라 아직 두 갈래만 소유한다"
+      "note": "**새 CSS가 없다** — 컴포넌트가 아니라 경계다. 부품은 Spinner와 Skeleton이 소유하고 이 패턴은 무엇을 언제 쓰는가와 **누가 로딩을 알리는가**를 정한다: 영역이 aria-busy를 갖고 자리표시는 전부 aria-hidden이다(여덟 개가 각각 읽히면 같은 말이 여덟 번 들린다). 실브라우저 5건이 그 합성을 대조한다. determinate progress는 접근성 계약이 선행이라 아직 두 갈래만 소유한다 Figma 에 `DS · Templates` 의 `Pattern · Loading`(996:411)로 섰다(2026-08-30). **선택 기준 여섯을 나란히** 그렸다 — 상황이 표현을 정한다는 것이 이 패턴의 내용이기 때문이다: InlineLoadingLabel · Spinner+문구 · Skeleton · Determinate progress · 지속 상태(indeterminate + 문구) · 생성 중 셸(아이콘 64 · `color/node-image-icon` 바인딩). 여섯 다 기존 컴포넌트 인스턴스다. **문서가 경고한 「네 keyframe 이름을 네 흐름으로 보고 각각 만들면 틀린다」는 지켰다** — 흐름은 하나이고 여기서 나눈 것은 흐름이 아니라 상황이다. **아직 없는 것**: 스윕·호흡 모션 자체(Figma 가 표현하지 못한다. Skeleton 과 같은 한계) 와 시머 텍스트 레시피(`background-clip: text`). 그래서 `partial` 이다."
     },
     {
       "id": "app-shell",

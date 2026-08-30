@@ -42,6 +42,16 @@
   animation-iteration-count: infinite;
 }
 
+/* 블록. 카드·미디어 자리를 대신할 때 쓴다.
+ *
+ * **기록에는 있는데 CSS 에 없던 모양이다.** figma/components.measured.json 의
+ * `skeleton.sizes.block.radius` 가 16 을 계약으로 적어 두었는데 여기 규칙이 없어서 실제로는
+ * base 의 8 이 그려지고 있었다 — 기록과 화면이 갈린 채 어느 게이트도 보지 않았다
+ * (2026-08-30, verify-record-citations 가 사유의 "radius-card 16" 을 짚으며 드러났다). */
+.louis-skeleton[data-shape="block"] {
+  border-radius: var(--louis-radius-project-card);
+}
+
 /* 원 모양. 아바타·아이콘 자리를 대신할 때 쓴다. */
 .louis-skeleton[data-shape="circle"] {
   border-radius: var(--louis-radius-pill);

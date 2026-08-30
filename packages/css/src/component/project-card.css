@@ -28,7 +28,7 @@
    * inset 헤어라인은 레이아웃을 건드리지 않으며 제품 5103ffeb과 같은 표현이다 — full-bleed
    * 썸네일이 있는 카드에서는 미디어가 그 가장자리를 덮을 수 있다(제품과 동일한 결과). */
   box-shadow: var(--louis-hairline-inset);
-  border-radius: var(--louis-radius-card);
+  border-radius: var(--louis-radius-project-card);
   background: none;
   overflow: hidden;
   text-align: start;
@@ -161,8 +161,8 @@
    * 그래도 **남긴다.** 라이브러리는 소비처가 카드를 자를 것이라고 가정할 수 없다 — 여기서
    * 깎으면 조상이 무엇이든 띠의 모서리가 카드를 따라간다. 사유를 「필수」에서 「자족」으로
    * 고쳐 적을 뿐 값은 그대로다. */
-  border-end-start-radius: var(--louis-radius-card);
-  border-end-end-radius: var(--louis-radius-card);
+  border-end-start-radius: var(--louis-radius-project-card);
+  border-end-end-radius: var(--louis-radius-project-card);
 }
 
 /* **프로그레시브 블러.** 흐림을 칠하는 층이다.

@@ -1849,11 +1849,11 @@
       "id": "auth-two-panel",
       "name": "Auth Two Panel",
       "maturity": "experimental",
-      "figma": "not-ready",
+      "figma": "partial",
       "web": "not-ready",
       "docs": "done",
       "doc": "design/patterns/auth-two-panel.md",
-      "note": "인증 화면 8개가 쓰는 2열 셸. **경로가 둘이다** — 5개는 공용 `AuthStatusCard`를 쓰고 3개는 같은 셸을 자기 파일에 복제한다. 전환점은 720px 하나이고 좁은 폭에서 폼 패널이 `display: contents`로 사라져 카드가 페이지 그리드의 정렬을 직접 받는다. 브랜드 면은 `#0093ff` 리터럴이라 테마 분기가 없다"
+      "note": "인증 화면 8개가 쓰는 2열 셸. **경로가 둘이다** — 5개는 공용 `AuthStatusCard`를 쓰고 3개는 같은 셸을 자기 파일에 복제한다. 전환점은 720px 하나이고 좁은 폭에서 폼 패널이 `display: contents`로 사라져 카드가 페이지 그리드의 정렬을 직접 받는다. 브랜드 면은 `#0093ff` 리터럴이라 테마 분기가 없다 Figma 에 `DS · Templates` 의 `Pattern · AuthTwoPanel`(997:1220)로 섰다(2026-08-30). 문서가 요구한 대로 **하나로 그렸다** — 제품에는 공용 `AuthStatusCard` 를 쓰는 5벌과 같은 셸을 자기 파일에 복제한 3벌이 있는데, 그 복제는 그림이 아니라 알려진 부채다. 두 벌은 화면 폭이다: ≥720 2열(brand + form) · ≤719 1열(brand 는 그려지지 않고 로고 링크가 대신 선다). **브랜드 면은 `#0093ff` 리터럴로 칠했다** — 문서가 「시맨틱 토큰이 아니라 리터럴이고 라이트/다크 어느 쪽에서도 같은 파랑」이라고 적으므로 변수에 묶으면 그림이 거짓말을 한다. 카드 세로 간격이 8 → 28 로 세 배 반이 되는 것도 두 벌의 대비로 드러난다. `6svh`·`18ch` 는 px 토큰으로 승격되지 않으므로 대표값(54 · 280)으로 그렸다. **아직 없는 것**: 배경 SVG(`footer-logo-bg.svg`, `100% 100%` 로 늘어나는 것이 의도된 동작) 와 ≥1200 에서 슬로건이 heading-48 로 승급하는 변형. 그래서 `partial` 이다."
     },
     {
       "id": "status-result",

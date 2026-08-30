@@ -5,7 +5,9 @@
 - Product repository: `klipse-web` at `/Users/sejunki/klipse-web`
   (`KlipseAI/klipse-web`, user-confirmed 2026-08-15 — **AWS 전환을 마친 최신 저장소**)
 - Product branch: `design`
-- Product commit: `086f4a62` (2026-08-14)
+- Product commit: 여기에 적지 않는다 — 기준 커밋의 정본은
+  [`migration/product-evidence.lock.json`](product-evidence.lock.json)의 `productCommit`이다.
+  (이 기준선을 처음 기록한 2026-08-14 시점의 커밋은 `086f4a62` 였다 — 기록이지 현재 기준이 아니다.)
 
 **2026-08-15 정정.** 그 전까지 이 문서는 `sniperfactory-official/klipse`의 `louis` 브랜치
 (`0d188651`, 2026-08-04)를 가리키고 있었다. 저장소도 조직도 다르고 열흘 오래된 것이었다.

@@ -90,17 +90,26 @@
 상태의 보증이 아니다. 재측정 전까지 참고값으로만 쓴다. 등급을 손으로 고치지 않는다 — 고칠
 것은 이 파일이 아니라 **`klipse-web` 기준으로 다시 돌린 측정 결과**다.
 
-### klipse-web 대조 (2026-08-22)
+### klipse-web 대조 (2026-08-22 · 2026-08-30 재확인)
 
-`git ls-tree design` 로 센 실제 화면은 **52개**다 — `page.tsx` 49 + `not-found`·`error`·`global-error` 3.
-Figma 이식 보드의 항목 48개와의 차이는 아래가 전부다.
+**화면 수를 이 산문에 박지 않는다.** 기준 커밋은
+[`migration/product-evidence.lock.json`](../product-evidence.lock.json) 의 `productCommit` 이고,
+그 커밋의 실제 화면 수는 아래 명령이 낸다.
 
 ```
-52 − /explore · /mypage                              (redirect 한 줄 · 렌더 DOM 0)   −2
-   − /docs/{nodecanvas,videoeditor,highlight}        (정본이 klipse-docs 레포)       −3
-   + /nodecanvas?project=                            (라우트가 아니라 에디터 상태)     +1
- = 48
+git -C <제품 저장소> ls-tree -r --name-only <productCommit> -- apps/web/app \
+  | grep -E '/(page|not-found|error|global-error)\.tsx$' | wc -l
 ```
+
+2026-08-30 기준 **49개**(`page.tsx` 46 + `not-found`·`error`·`global-error` 3)이고,
+Figma 이식 보드의 항목 48개와의 차이는 둘뿐이다.
+
+- `/explore` · `/mypage` — `redirect` 한 줄이라 렌더 DOM 이 0이다 (−2)
+- `/nodecanvas?project=` — 라우트가 아니라 에디터 상태다 (+1)
+
+한때 여기 셋째 항으로 적혔던 `/docs/{nodecanvas,videoeditor,highlight}` −3 은 이제 해당이
+없다 — 제품이 `ca56540c` 「/docs 를 제품에서 제거한다」에서 그 경로를 지워, 위 49 에
+애초부터 들어 있지 않다.
 
 즉 **보드는 `klipse-web` 에서 화면을 그리는 라우트를 하나도 빠뜨리지 않았다.**
 

@@ -23,7 +23,9 @@ authority: reference
 >   잡았다** — 재기준선을 뜨려는 순간 「배포본에 없는 파일을 인용합니다」로 멈췄다. 아래 인용은
 >   그 시점의 기록이므로 좌표를 현재로 옮기지 않는다.
 >
-> **본류는 그대로다 — 빚 359건을 0으로 만드는 일이다.**
+> **2026-08-30 갱신 — 본류였던 「빚을 0으로」는 끝났다.** 빚의 정본은
+> `figma/unverified-values.json` 의 `$count` 이고 그 수는 **0**이다(`9736ca0`). 아래 「한 문장」과
+> (A) 절은 그 소진 과정의 기록으로 읽는다 — 남은 일은 (B) 이후다.
 
 이 문서 하나만 읽고 이어받을 수 있게 쓴다. 무엇이 왜 이렇게 됐는지, 지금 어디까지 왔는지,
 다음에 무엇을 어떤 순서로 해야 하는지, 그리고 **하지 말아야 할 것**이 들어 있다.
@@ -32,7 +34,8 @@ authority: reference
 
 DS의 값 대부분이 **제품을 확인하지 않고 정해졌고**, Figma와 브라우저 테스트는 그 값과만
 맞춰 왔기 때문에 게이트가 초록인 채로 셋 다 제품과 달랐다. 그것을 기계가 잡도록 방향을
-뒤집는 중이고, 남은 빚이 **359건**이다.
+뒤집는 중이었고, **남은 빚의 정본은 `figma/unverified-values.json` 의 `$count`** 다 —
+이 문서를 쓰던 2026-08-19 에 359였고 지금은 0이다.
 
 ## 왜 이렇게 됐나
 
@@ -56,15 +59,16 @@ Figma  ←── figma/components.measured.json ──→  브라우저 테스�
 
 | 게이트 | 무엇을 막나 |
 | --- | --- |
-| `scripts/measure-product-components.mjs` | 제품 클래스를 제품 Tailwind로 컴파일해 실브라우저에서 재고 DS와 대조한다. **210축**. 축마다 `same`(같아야) 또는 `deviates`(달라야 하고 사유가 있어야) |
+| `scripts/measure-product-components.mjs` | 제품 클래스를 제품 Tailwind로 컴파일해 실브라우저에서 재고 DS와 대조한다. 축마다 `same`(같아야) 또는 `deviates`(달라야 하고 사유가 있어야). **축 수는 `pnpm verify-product-components` 출력이 낸다** — 이 자리에 적혀 있던 210은 아래 (A) 첫 배치에서 이미 움직였다 |
 | 같은 파일 · 열거 | 제품이 그 요소에 대해 **선언한 property를 전부 열거**하고 분류되지 않은 것이 있으면 실패. 기본·hover·의사요소가 **빠짐없이 분류**돼야 한다 — 건수는 `pnpm verify-product-components` 출력이 낸다 |
-| 같은 파일 · 빚 명부 | `figma/unverified-values.json`. 제품 대조도 사유도 없는 DS 값 **359건**. 명부에 없는 새 값도, 해소됐는데 명부에 남은 값도 실패 — **줄기만 한다** |
+| 같은 파일 · 빚 명부 | `figma/unverified-values.json`. 제품 대조도 사유도 없는 DS 값의 명부이며 **건수는 그 파일의 `$count` 가 소유한다**(작성 시점 359 · 지금 0). 명부에 없는 새 값도, 해소됐는데 명부에 남은 값도 실패 — **줄기만 한다** |
 | `scripts/measure-product-variants.mjs` | 제품의 경쟁 정의를 이름 패턴으로 전부 찾아 렌더하고 값이 같은 것끼리 묶는다. 표본 트리는 **모든 노드**를 잰다 |
 | `scripts/verify-figma-parity.mjs` | Figma ↔ 기록. 변조 canary 34종 |
 
-`pnpm verify`는 27단계다(`verify:ci` 13 + `verify:product` 14). hosted CI 는 `verify:ci` 13개만
-돌므로 **CI 초록은 전량 통과가 아니다.** 나머지 14개는 제품 저장소가 있는 로컬에서만 증명된다.
-테스트는 774건.
+`pnpm verify`는 `verify:ci` 와 `verify:product` 두 갈래의 합이다. **단계 수를 여기 적지 않는다 —
+정본은 `package.json` 의 그 두 스크립트다**(2026-08-30 기준 15 + 25 = 40). hosted CI 는 `verify:ci`
+갈래만 돌므로 **CI 초록은 전량 통과가 아니다.** `verify:product` 갈래는 제품 저장소가 있는
+로컬에서만 증명된다. 테스트 건수는 `pnpm test` 출력이 낸다.
 
 ## 흔들리던 게이트 둘을 고쳤다 (2026-08-19)
 
@@ -299,11 +303,16 @@ Figma **Product inventory** 페이지에 표본이 그려져 있다. 값은 전�
   표본에 넣어야 그릴 수 있다. 카드에 그렇게 적혀 있다.
 - **컴포넌트화는 아직이다** — 지금은 프레임이다. 합치기 결정이 끝난 종류부터
   COMPONENT_SET으로 올리는 것이 다음 단계다. 확정된 것: 모달=appHome(빨간 삭제 버튼),
-  아이콘 버튼=iconButton(Gnb.tsx:191). `migration/consolidation-choices.json`에 있다.
+  아이콘 버튼=iconButton(Gnb.tsx:196). `migration/consolidation-choices.json`에 있다.
 
 ## 다음 순서
 
-### (A) 빚 359건을 0으로 — 가장 중요하다
+### (A) 빚을 0으로 — **끝났다**
+
+> **완료.** `figma/unverified-values.json` 의 `$count` 가 정본이고 지금 **0**이다
+> (`9736ca0` 「resolve all unverified debts」). 아래 (A1)~(A3)은 그 소진 절차의 기록이며,
+> 같은 부류의 빚이 다시 생기면 그대로 다시 쓴다. 건수는 어느 쪽도 이 문서가 아니라
+> 그 JSON 과 `pnpm verify-product-components` 출력이 소유한다.
 
 **(A1) 끝났다.** `migration/unverified-value-map.json`을 읽는다.
 

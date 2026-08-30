@@ -39,27 +39,67 @@ klipse-design-system                    klipse-web
 
 DS 토큰 하나를 바꾸면 CSS 변수와 Tailwind 유틸리티가 함께 바뀌고, 제품은 그것을 소비만 한다.
 
-## 지금 상태 — 채택이 실제로 켜졌다 (2026-08-21 실측)
+## 지금 상태 — 채택이 실제로 켜졌다
 
 **이 문서의 아래 「단계」는 복사본(vendoring) 시절 기록이다. 제품은 그 단계를 지나 git dependency로
 넘어갔고, 지금은 이 저장소를 커밋 SHA로 고정해 받는다.**
 
-klipse-web `design` 브랜치(`a3ed8e03`) 실측:
+klipse-web `design` 브랜치 실측. **기준 커밋을 이 문장에 박지 않는다** — 정본은
+[`migration/product-evidence.lock.json`](product-evidence.lock.json)의 `productCommit`이고,
+제품 값은 `git -C <제품 저장소> show <그 커밋>:<경로>`로만 읽는다.
 
 | 축 | 값 |
 | --- | --- |
-| 의존성 선언 | `"@klipse-design/css": "github:KlipseAI/louis#bf62eba7…&path:/packages/css"` |
-| 고정된 DS 커밋 | `bf62eba7` — 「Checkbox를 세운다」 |
-| 진입 CSS가 부르는 것 | `@klipse-design/css/tokens.css`(레이어 밖) · `@klipse-design/css/theme.css`(`layer(theme)`) |
+| 의존성 선언 | 제품 `apps/web/package.json`의 `"@klipse-design/css"` 항목이 정본이다 — `github:KlipseAI/louis#<SHA>&path:/packages/css` |
+| 고정된 DS 커밋 | 위 선언의 SHA 그 자체다. 2026-08-30 기준 `425a9c3d` 「헤더 띠의 흐림 반경에 이름을 준다」 |
+| 진입 CSS가 부르는 것 | 제품 `apps/web/app/tailwind.css`가 정본이다 — `layers.css` · `tokens.css`(`layer(louis.tokens)`) · `styles.layer.css` · `theme.css`(`layer(theme)`). `globals.css`는 DS를 부르지 않는다(주석으로만 언급한다) |
 | 순서 | theme import가 제품 자신의 `@theme inline` 블록 **뒤**에 온다 — 앞에 두면 `--color-*: initial`이 DS 색을 지운다(아래 실측과 같은 함정) |
-| 이름 충돌 | 0건 (제품 144 · DS 154) |
+| 이름 충돌 | **0건이 아니다** — `--color-gray-000`~`-1000` 램프가 양쪽 `@theme`에 같은 이름으로 있다(아래 「이름 충돌은 0건이 아니다」) |
 
-이 두 줄은 `origin/main`에 **없다.** 그래서 제품 값을 읽을 때 정본이 `design`이다 —
+위 표의 **의존성 선언도 진입 CSS의 DS import도 `origin/main`에는 하나도 없다** —
+`git -C <제품 저장소> show origin/main:apps/web/package.json | grep klipse-design`과
+`… show origin/main:apps/web/app/tailwind.css | grep klipse-design`이 둘 다 빈손이다.
+그래서 제품 값을 읽을 때 정본이 `design`이다 —
 [읽기 함정](../design/foundations/product-reading-traps.md)의 「정본은 `design` 브랜치다」 참조.
+
+### 이름 충돌은 0건이 아니다
+
+제품 `@theme inline` 블록과 DS `theme.css`가 **같은 이름 열한 개**를 정의한다 —
+`--color-gray-000` · `-100` · `-200` · `-300` · `-400` · `-500` · `-600` · `-700` · `-800` ·
+`-900` · `-1000`. 값으로 제품은 `var(--gray-*)`를, DS는 `var(--louis-color-gray-*)`를 가리킨다.
+
+위 「순서」대로 DS import가 뒤에 오므로 **DS 정의가 이긴다.** 제품이 고정한 커밋의 진입 CSS를
+제품 자신의 tailwindcss로 컴파일해 확인했다 — `text-gray-000`이
+`color: var(--louis-color-gray-000)`으로 나온다. 제품의 `--color-gray-000: var(--gray-000)` 줄은
+죽어 있다.
+
+**색 자체는 어긋나지 않는다.** 라이트·다크 양쪽에서 제품 `--gray-*` 사슬과 DS
+`--louis-color-gray-*`가 같은 값으로 떨어진다(제품 팔레트가 이미 LOUIS 원색을 받는다).
+어긋나는 것은 **제품이 좁은 범위에 거는 재정의**다. 제품 `globals.css`는
+`[data-landing-walkthrough-dark]` · `[data-landing-walkthrough-light]` ·
+`[data-page-root] #pricing-faq` 세 곳에서 `--gray-*`를 다시 정의하는데, DS `tokens.css`에는
+`:root` · `[data-theme="light"]` · `[data-theme="dark"]`밖에 없다. 그 범위 안에서
+`text-gray-000` 같은 **유틸리티는 제품 재정의를 더 이상 따라가지 않는다.** 같은 자리에
+`text-[rgb(var(--gray-000-rgb)/50%)]`처럼 변수를 직접 적은 것은 따라간다 — 같은 화면에서 두
+표기가 갈라진다는 뜻이다.
+
+가장 뾰족한 자리는 가격 페이지 FAQ다. `globals.css:1610`의 `[data-page-root] #pricing-faq`
+블록은 「이 규칙이 죽으면 다크에서 가격 FAQ 글자가 사라진다」는 주석과 함께 `--gray-000`을
+어두운 잉크로 되돌리는데, 그 안에서 `FAQ.tsx:35`(제목)와 `FAQ.tsx:57`(질문)은 `text-gray-000`
+**유틸리티**를 쓴다. 위 컴파일 결과대로면 그 둘은 재정의를 지나친다. **브라우저에서 재지
+않았다** — CSS 사슬만 따라간 추론이다. 제품 쪽에서 실측할 거리로 남긴다.
+
+이 칸이 오래 「0건」이었던 이유는 **그것을 지키는 게이트가 없어서**다.
+`verify-tailwind-interop`은 불러오는 **순서만** 본다 — 제품 reset이 DS를 지우는가만 재고, 이름이
+겹치는지는 묻지 않는다. 다시 세려면 제품 `@theme inline` 블록과 DS
+`packages/css/generated/theme.css`에서 `--…:` 선언 이름을 뽑아 교집합을 낸다.
 
 ### 핀이 낡는다는 사실을 게이트가 안다
 
-이 저장소 HEAD는 그 핀보다 **147커밋 앞서** 있고 `packages/css`가 4,000줄 넘게 달라졌다.
+이 저장소 HEAD는 그 핀보다 앞서 있고 `packages/css`도 이미 갈라져 있다. **거리를 여기 적지
+않는다** — `git rev-list --count <핀>..HEAD`와 `git diff --shortstat <핀>..HEAD -- packages/css`가
+그 자리에서 낸다. (여기 적어 두면 이 저장소에 커밋이 하나 쌓일 때마다 낡는다 — 「2026-08-30
+기준 54커밋」으로 박아 둔 값이 **같은 날 안에** 55가 됐다.)
 그래서 `measure-product-components.mjs`는 제품 CSS를 컴파일할 때 **HEAD가 아니라 제품이 고정한
 커밋의 생성물**을 꺼내 쓴다. HEAD를 쓰면 제품에 없는 DS로 재게 되고, 그것이 바로 이 저장소가
 `product-ref.mjs`에서 경계하는 「게이트가 초록인 채로 값이 낡는」 실패다. 게이트 로그가 매번
@@ -93,6 +133,7 @@ klipse-web `design` 브랜치(`a3ed8e03`) 실측:
 확인하고 뒤로 옮겼다.
 
 이름 충돌은 0건이다(klipse-web 144개 · DS 154개). 기존 화면은 아무것도 바뀌지 않는다.
+**그때 값이다 — 지금은 0건이 아니다.** 위 「[이름 충돌은 0건이 아니다](#이름-충돌은-0건이-아니다)」.
 
 **원격이 생겼다(2026-08-18, `git@github.com:KlipseAI/louis.git`, private).** 두 파일을 지우고
 git dependency로 바꾸는 길이 열렸다 — import 경로 두 줄이다. 다만 private 저장소를 의존성으로
@@ -179,3 +220,6 @@ CI에서는 건너뛴다.
 DS `theme.css`의 변수 183개와 제품 `tailwind.css`의 144개를 이름으로 대조하니 **겹치는 것이 0개**다.
 DS는 `--spacing-<이름>`(예: `--spacing-control-md`)을 쓰고 제품의 격자 곱수는 `--spacing`이라
 서로 건드리지 않는다. **간격이 두 배로 틀어질 위험은 없다** — 재기 전에는 그럴 줄 알았다.
+
+간격에 대한 이 판정은 그대로다. **색 이름은 그때 값이다** — 지금은 `--color-gray-*` 램프가
+겹친다. 위 「[이름 충돌은 0건이 아니다](#이름-충돌은-0건이-아니다)」.

@@ -39,7 +39,7 @@ Motion primitive와 semantic recipe는 단일 DTCG source 안의 논리적 계�
 ## Easing 원본
 
 primitive의 `timingFunction`은 제품이 선언한 커브 둘에서 왔다. Figma로 옮기는 사람이 커브를 새로
-고르지 않도록 원본을 여기 적는다(`globals.css:15-18`).
+고르지 않도록 원본을 여기 적는다(`globals.css:21-24`).
 
 | 제품 변수 | 값 | 이 커브를 받는 primitive |
 | --- | --- | --- |

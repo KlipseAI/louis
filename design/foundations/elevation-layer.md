@@ -38,41 +38,77 @@ Elevation primitive, semantic elevation과 semantic layer는 단일 DTCG source 
 
 ## 프레임 — 글래스는 폐지됐다
 
-제품은 드롭다운·카드·팝오버의 외곽을 **하나의 토큰**으로 소유한다. 정의는 `:root` 한 곳뿐이고
-**0.5px 헤어라인 한 겹**이다.
+제품은 드롭다운·카드·팝오버의 외곽을 **하나의 recipe**로 소유한다. **0.5px 헤어라인 한 겹**인 것은
+그대로다. 다만 그 정의는 이제 제품이 아니라 **LOUIS에 있다** — 제품 `:root`에는 선언이 없고 소비처가
+`var(--louis-hairline-inset)`을 직접 읽는다
+([DS-D-0023](../governance/decisions/DS-D-0023-hairline-inset.md)).
+
+**`--dropdown-*` 프레임 토큰은 제품에서 사라졌다.** P#1이 호환 별칭을 걷어냈고, 제품 주석이 그 교체를
+직접 적는다(`globals.css:59-62`).
+
+| 있었던 이름 | 마지막으로 존재하던 좌표 | 지금 그 자리 |
+| --- | --- | --- |
+| `--dropdown-frame` | `globals.css@2b59479f:63` | `var(--louis-hairline-inset)` — `globals.css:1324` · `1341` |
+| `--dropdown-ambient-shadow` | `globals.css@2b59479f:67` | `var(--louis-elevation-menu)` — `globals.css:526` |
+| `--dropdown-frame-on-dark` | `globals.css@5ffc4431:61` | **없다.** 헤어라인 한 벌로 합쳐졌고 이름 자체가 제품 게이트의 legacy 목록에 올랐다 |
+
+지금 발행되는 값은 LOUIS 토큰이다.
 
 | 토큰 | 값 | 좌표 |
 | --- | --- | --- |
-| `--dropdown-frame` | `0px 0px 0px 0.5px rgb(var(--palette-gray-900-rgb) / 12%)` | `globals.css:57` |
-| `--dropdown-frame-on-dark` | `0px 0px 0px 0.5px rgb(var(--palette-gray-000-rgb) / 16%)` | `globals.css:59` |
-| `--dropdown-ambient-shadow` | `0px 8px 15px 0px rgba(0, 0, 0, 0.04)` | `globals.css:63` |
+| `--louis-hairline-inset` | `inset 0 0 0 var(--louis-border-width-hairline) var(--louis-color-stroke-hairline)` | [base.css:21-22](../../packages/css/src/base.css) |
+| `--louis-elevation-menu` | `0px 8px 15px 0px color(srgb 0 0 0 / 0.04)` | [tokens.css:439](../../packages/tokens/generated/tokens.css) |
 
-**라이트에서도 값이 같다.** 라이트 스코프가 `--dropdown-frame`을 재선언하지만 `:root`와 **바이트 동일**하다
-(`globals.css:577`). 테마로 뒤집히는 축이 아니다.
+**옮기면서 두 가지가 바뀌었다. 옛 서술을 그대로 옮기면 둘 다 틀린다.**
 
-`--dropdown-frame-on-dark`는 앱 테마와 무관하게 **늘 어두운 표면** 위에 얹는 칩 전용이다 — 잉크가 흰색이라
-라이트 카드 위에 쓰면 흰 테두리가 뜬다. 소비처는 셋뿐이다(`VideoPlayer` · `CanvasOnboardingHints` ·
-`CreativeMediaClient`).
+- **바깥 링이 아니라 `inset`이다.** 옛 `--dropdown-frame`은 `0 0 0 0.5px …` 바깥 spread 링이었다.
+  지금은 안쪽으로 그리고, 제품 게이트가 `0_0_0_0.5px`를 legacy 패턴으로 잡아 되돌아오는 것을 막는다
+  (제품 `check-tailwind-theme.mjs`의 `legacyHairlinePatterns`). blur가 `0`이라 드롭섀도우가 아니라
+  **선**인 것은 같다.
+- **테마로 뒤집힌다.** 옛 판은 「라이트에서도 값이 같다」고 적었고 그때는 맞았다. 지금 색은
+  `--louis-color-stroke-hairline` 하나에서 오고, 그 토큰이 라이트 `color(srgb 0 0 0 / 0.08)` ·
+  다크 `color(srgb 1 1 1 / 0.08)`로 갈린다
+  ([tokens.css:424](../../packages/tokens/generated/tokens.css) · `863`).
+  **「테마 무관」으로 읽고 한 값만 그리면 한쪽이 틀린다.**
 
-앰비언트 그림자는 **프레임 토큰에 넣지 않는다.** 프레임은 카드·패널·버튼까지 83곳이 공유하므로 그림자를
-섞으면 전부에 번진다. 필요한 표면에서만 앞에 조합한다 — `box-shadow: var(--dropdown-ambient-shadow), var(--dropdown-frame)`.
+`--dropdown-frame-on-dark`는 앱 테마와 무관하게 **늘 어두운 표면** 위에 얹는 칩 전용이었다 — 잉크가
+흰색이라 라이트 카드 위에 쓰면 흰 테두리가 떴다. 소비처는 셋뿐이었다(`VideoPlayer` ·
+`CanvasOnboardingHints` · `CreativeMediaClient`). 헤어라인 색이 테마를 따라가게 되면서 그 역할이
+사라졌고 `5103ffeb`가 셋을 모두 헤어라인 recipe로 옮겼다. **되살리지 마라** — 제품 게이트가 이름만
+보고 실패시킨다.
+
+앰비언트 그림자는 **헤어라인에 넣지 않는다.** 헤어라인은 카드·패널·버튼까지 제품 66개 파일 163곳이
+공유하므로 그림자를 섞으면 전부에 번진다. 필요한 표면에서만 앞에 조합한다 —
+`box-shadow: var(--louis-elevation-menu), var(--louis-hairline-inset)`(`globals.css:526`).
 
 ### 글래스 5겹과 베벨은 제품에서 제거됐다
 
 이전 판은 `--glass-dropdown-frame`(검정 외곽 링 + 좌우 검정 엣지 ±1.25px + 상하 흰 림 inset = **5겹**)과
 `--glass-bevel-highlight`/`-shade`/`--glass-inner-shadow-rgb` 계열을 문서화했다. **그 토큰들은 지금 제품에
-하나도 없다** — `git grep glass` 가 0건이다. `globals.css` 주석이 직접 적는다:
+하나도 없다** — `git grep -- "--glass-"` 가 0건이다. **`git grep glass` 로 세지 마라.** 낱말은 남아 있어
+30건 넘게 걸린다(`GlassConfirmModal` 과 그 호출부, `AppHomeScene`·`NodeCanvasHomeScene` 이 실제로 쓰는
+`louis-glass-surface`, `MagnifyingGlass.svg`). 사라진 것은 **토큰**이지 이름이 아니다.
+
+그 판단은 제품 주석이 직접 적어 두었지만 **그 주석도 지금은 없다.** `globals.css@5ffc4431:56-57` 에
+있었고, `5103ffeb`(unify hairline strokes)가 `--dropdown-frame` 을 헤어라인 recipe로 합치면서 주석째
+지웠다:
 
 > 글래스(검정 링 + 좌우 엣지 + 흰 림 5겹)를 걷어냈다 — **디자인 시스템이 글래스 섀도우 개념을 두지 않는다.**
+
+**제품에 남은 글래스 주석은 값보다 낡았다.** `globals.css:522-524`는 `--node-meta-dropdown-shadow`를
+아직도 「글래스 프레임 그림자 — 외곽 드롭 + 검정 ring/좌우 엣지 + 상하 흰 림 inset」이라 설명하지만, 바로
+아래 값(`:525-526`)은 이미 `var(--louis-elevation-menu), var(--louis-hairline-inset)` **두 겹**이다.
 
 함께 사라진 것:
 
 - 공용 `Button`의 `primary`·`danger`가 갖던 베벨 2겹, `::before` 오버레이 이너섀도우, 그 층을 얹으려고
-  있던 `translateZ(0)` 스태킹 컨텍스트 (`components/ui/Button.tsx@a3ed8e03:83-96` — **제품도 그 뒤
-  같은 층을 걷어냈다.** 배포본 `df414c24` 의 `Button.tsx` 는 69줄이고 `.louis-button` 을 소비하기만
-  한다. 좌표를 커밋에 묶어 두는 것은 그 선언이 실재했던 자리를 잃지 않기 위해서다)
-- 앱 메인 카드의 `::after` 베벨 링. 카드는 이제 `border-radius: 16px` + `--dropdown-frame`뿐이다
-  (`globals.css:1345-1351`)
+  있던 `translateZ(0)` 스태킹 컨텍스트. 선언이 실재했던 자리는 제거 커밋 `9cc62f86`(「글래스를 걷어낸다」)
+  **직전**인 `components/ui/Button.tsx@d7be4831:94-99`(primary)와 `Button.tsx@d7be4831:129`(danger)다.
+  제거 **뒤**인 `@a3ed8e03:88-89`는 선언이 아니라 제거를 기록한 주석이니 근거로 쓰지 마라.
+  배포본 `df414c24` 의 `Button.tsx` 는 68줄이고 `.louis-button` 을 소비하기만 한다. 좌표를 커밋에 묶어
+  두는 것은 그 선언이 실재했던 자리를 잃지 않기 위해서다
+- 앱 메인 카드의 `::after` 베벨 링. 카드는 이제 `border-radius: 16px` + `var(--louis-hairline-inset)`
+  뿐이다(`globals.css:1319-1324`). 그 자리를 잡고 있던 `--dropdown-frame`은 지금 제품에 없다
 - 비디오 에디터의 헤더 버튼·타임라인 표면이 쓰던 베벨 (`videoEditParts/vemClass.ts`)
 
 **이 자리를 5겹으로 되돌리지 마라.** 옛 문서나 `origin/main`을 근거로 다시 그리면 폐지된 개념이 살아난다 —
@@ -85,8 +121,8 @@ Elevation primitive, semantic elevation과 semantic layer는 단일 DTCG source 
 
 | 소비처 | 좌표 |
 | --- | --- |
-| 노드 사이드 버튼 | `node-canvas-v2/nodes/NodeSideButtons.tsx:146-148` |
-| 비디오 에디터 `confirmBtn`(내보내기) | `videoEditParts/vemClass.ts` |
+| 노드 사이드 버튼 | `node-canvas-v2/nodes/NodeSideButtons.tsx:147-148` |
+| 비디오 에디터 `confirmBtn`(내보내기) | `videoEditParts/vemClass.ts:533-534` (선언은 `:505`) |
 
 Button 주석이 「이너섀도우는 **노드 사이드 버튼에만** 남는다」고 적지만 `confirmBtn`이 같은 층을 자기
 클래스에 직접 들고 있다 — **주석보다 값이 정본이다.**

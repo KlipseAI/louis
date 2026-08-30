@@ -120,20 +120,20 @@ DS-D-0010은 `[data-page-root]` 같은 DOM 상태 스코프를 토큰 축이 아
 대응 `-rgb` 11개를 전부 팔레트 원시값으로 못 박아, 라이트 테마를 켠 사용자에게도 랜딩이 항상 검정
 배경·흰 글자였다. 그 위에서 랜딩 홈만 다시 밝은 램프로 뒤집고 그 안의 몇몇 섹션이 또 되돌리는
 **세 겹**이 쌓여 있었다. 배포본 `df414c24`는 세 겹을 다 걷어냈다 — 그 사유가 제품 소스 주석에 그대로
-적혀 있다(`globals.css:1518-1525`). **랜딩은 이제 테마를 따른다.**
+적혀 있다(`globals.css:1534-1541`). **랜딩은 이제 테마를 따른다.**
 
 - 랜딩·마케팅 트리 루트 `[data-page-root]`가 지금 세우는 것은 **면 계열 여섯**뿐이고, 값은 전부 LOUIS의
   `landing-*` 시맨틱에서 온다 — `--page-bg`·`--panel`·`--panel-strong`·`--line`·`--text-soft`·
-  `--text-muted`가 각각 `var(--louis-color-landing-*)`이다(`globals.css:1526-1538`). 회색 램프는 손대지
+  `--text-muted`가 각각 `var(--louis-color-landing-*)`이다(`globals.css:1543-1548`). 회색 램프는 손대지
   않으므로 `html[data-theme]`가 세운 값이 그대로 흐른다.
 - **알파를 여기서 다시 계산하지 않는 것이 규칙이다.** `landing-*`는 테마별 값이 이미 정의돼 있고
   (light `#f1f1f3` / dark `#000000` 등), 소비 스코프가 알파를 다시 쓰면 정본이 둘이 된다. 이것이 랜딩
   섹션들이 `bg-gray-900` 대신 `var(--panel-strong)`을 쓰는 이유이기도 하다.
-- 블록은 **`@layer components` 안**에 있다(`globals.css:1160`이 그 레이어를 연다). 파일 끝에 있는 것은
+- 블록은 **`@layer components` 안**에 있다(`globals.css:1176`이 그 레이어를 연다). 파일 끝에 있는 것은
   마케팅 훅을 한곳에 모으려는 조직상의 선택이고 **캐스케이드 승패에 의존하지 않는다** — 사유가
-  `globals.css:1513-1515`에 있다. 앞선 판이 「`@layer` 밖에 두어 상속을 이긴다」고 적었던 것은 그때의
+  `globals.css:1529-1531`에 있다. 앞선 판이 「`@layer` 밖에 두어 상속을 이긴다」고 적었던 것은 그때의
   구조였고 지금은 아니다.
-- 요소 자신은 `background: var(--page-bg); color: var(--gray-000)`을 갖는다(`globals.css:1536-1537`).
+- 요소 자신은 `background: var(--page-bg); color: var(--gray-000)`을 갖는다(`globals.css:1552-1553`).
   `background`가 단축인 채로 남아 있는 것도 계약이다 — 가격 페이지가 「이 단축이 `background-clip` 등
   롱핸드를 초기화한다」를 근거로 삼고 있다.
 
@@ -144,10 +144,10 @@ DS-D-0010은 `[data-page-root]` 같은 DOM 상태 스코프를 토큰 축이 아
 | `--panel-strong` | — | — | `var(--louis-color-landing-panel-strong)` (light `rgb(0 0 0/8%)` · dark `rgb(255 255 255/8%)`) |
 
 램프를 건드리는 예외는 **하나만 남았다.** `[data-page-root] #pricing-faq`가 `--gray-000`·
-`--gray-000-rgb`·`--text-soft`를 검정 램프로 복구한다(`globals.css:1591-1595`) — 가격 페이지 FAQ가 흰
+`--gray-000-rgb`·`--text-soft`를 검정 램프로 복구한다(`globals.css:1610-1614`) — 가격 페이지 FAQ가 흰
 카드 위에 서기 때문이다. 랜딩 FAQ는 `id`가 `faq`라 걸리지 않는다. 색이 아닌 예외로
 `[data-page-root] [data-reveal]`이 진입 애니메이션을 무력화하는 규칙이 함께 있다
-(`globals.css:1581-1585`).
+(`globals.css:1597-1601`).
 
 **이걸 모르면 틀린다 — 방향이 반대다.** 랜딩·가격 화면을 **다크 전용**으로 그리면 틀린다. Figma 시안이
 다크 렌더일 뿐이고 제품은 두 테마를 다 그린다. 라이트에서 무너지는 자리는 램프 인덱스를 대칭으로

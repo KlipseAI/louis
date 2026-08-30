@@ -279,8 +279,8 @@ body로 떨어진다. 따라서 exit 모션 동안 화면에는 패널이 보이
 - Tooltip은 포인터를 막지 않는다. 장식 pseudo-element도 항상 `pointer-events:none`이다.
 
 - **팝오버는 앱 셸 램프를 상속한다 — 그런데 표면은 이미 램프 밖으로 나갔다.** 프로필 팝오버는 전용
-  overlay root가 아니라 `document.body`로 포털되고(`Gnb.tsx:4109`, `Gnb.tsx:5445`), 앱 셸 라이트 램프가
-  바로 그 `body`에 얹힌다(`Gnb.tsx:2043-2070`, 선택자 `html[data-theme=light] body:has(.gnb-wrapperSidebar)`).
+  overlay root가 아니라 `document.body`로 포털되고(`Gnb.tsx:4101`, `Gnb.tsx:5437`), 앱 셸 라이트 램프가
+  바로 그 `body`에 얹힌다(`Gnb.tsx:2035-2062`, 선택자 `html[data-theme=light] body:has(.gnb-wrapperSidebar)`).
   램프가 재매핑하는 것은 **고정 팔레트 `--palette-gray-100…600`과 `--app-page-bg`·`--background`뿐**이다.
 
   패널 표면은 `--louis-color-bg-menu`를 소비한다(`Gnb.tsx:1338`). 그 토큰은 생성된 CSS에서 리터럴
@@ -308,7 +308,10 @@ Chromium에 얹어 두 문맥을 실측했다(2026-08-30).
 고친 방향은 [DS-D-0010](../governance/decisions/DS-D-0010-token-coverage.md) §3이 이미 정해 두었다 —
 「`body:has(...)` 같은 런타임 조건으로 갈리는 값은 새 mode를 만들지 않고 **소비 계층이 mode를 다시
 적용해 해결한다**」. 그래서 램프가 덮는 제품 별칭 대신 LOUIS 프리미티브를 직접 부른다
-(`Gnb.tsx:1366`, `--louis-color-palette-gray-200`). 램프는 셸 부품을 위해 그대로 둔다 —
+(`Gnb.tsx@c1543b74:1370`, `--louis-color-palette-gray-200`). **이 고침은 evidence lock 이 고정한
+배포본 뒤에 들어갔다** — 고정본의 같은 자리는 아직 램프가 덮는 제품 별칭
+`--palette-gray-200`(`Gnb.tsx:1358`)이라, 락을 갱신하기 전에는 현재형 좌표로 적을 수 없다.
+램프는 셸 부품을 위해 그대로 둔다 —
 `app-shell-parts.md`가 사이드바 색을 램프에서 읽는다고 적고 있다.
 
 **아직 수렴하지 않은 것: 구분선 recipe.** [DS-D-0023](../governance/decisions/DS-D-0023-hairline-inset.md)은
@@ -422,9 +425,24 @@ Chromium에 얹어 두 문맥을 실측했다(2026-08-30).
 | Reduced motion | transform 제거, 짧은 opacity 또는 즉시 전환            | motion preference          |
 | Layer          | `layer-popover`, 숫자 리터럴 금지                      | nested overlay stack       |
 
-표의 값 대부분은 제품의 공용 토큰(`--dropdown-*`)에서 채택했다. 채택/편차 판정과 근거는
-[`migration/product.measured.json`](../../migration/product.measured.json)에 있고 게이트가 매 실행
-확인한다.
+표 18행 중 **채택 당시** 제품의 공용 토큰이던 `--dropdown-*`에서 온 것은 **다섯 행**이다 —
+Panel surface(`--dropdown-surface-bg`) · Panel radius(`--dropdown-radius`) ·
+Panel padding(`--dropdown-padding`) · Item radius(`--dropdown-item-radius`) ·
+Elevation(`--dropdown-ambient-shadow`). 나머지 열세 행은 그 계열 출신이 아니다. Panel border의
+헤어라인도 채택 시점엔 그 계열이 아니었다 — 그때 그 자리 이름은 `--glass-dropdown-frame`이고
+(`globals.css@086f4a62:63`), `--dropdown-frame`으로 바뀐 것은 글래스 폐지 뒤다.
+
+그 이름들은 지금 제품에 없다. **P#1이 걷어낸 것은 여섯**이고
+(`globals.css@2b59479f:63`·`67`·`70`·`71`·`72`·`87` — frame · ambient-shadow · radius · padding ·
+item-radius · surface-bg), 일곱 번째 `--dropdown-frame-on-dark`는 그보다 하루 앞선 헤어라인 통일이
+이미 지웠다(`globals.css@5ffc4431:61`). 값은 LOUIS 토큰이 소유한다
+([Product reading traps](../foundations/product-reading-traps.md) 2절의 대응표).
+
+채택/편차 판정과 근거는 [`migration/product.measured.json`](../../migration/product.measured.json)에
+있고 게이트가 매 실행 확인한다. **다만 그 34축이 이 표를 다 덮지는 않는다** — `Panel radius`와
+`Item radius`는 축 자체가 없어 그 대조에 걸리지 않는다. 34축 중 `adopted`는 10개이고
+24개가 `accepted-deviation`이며, `--dropdown-*`를 근거로 명시한 축은 「패널 padding (inset)」
+하나뿐이다(컴포넌트 `canon.paths`도 `--dropdown-radius/-padding/-item-radius/-surface-bg` 넷을 든다).
 
 **항목 높이는 제품(37px)을 따른다.** 예전엔 min-block-size로 44px(AAA target-size) floor를 강제해
 제품을 의도적으로 따르지 않았으나, 제품 외형 수렴 결정으로 floor를 제거했다 — WCAG 2.5.8 AA(24px)는
@@ -433,29 +451,45 @@ Chromium에 얹어 두 문맥을 실측했다(2026-08-30).
 이미 인정하던 대비 결함을 해소한다** — 이전 `color-fg-danger`는 중립 표면 위에서
 무너졌다.
 
-### 제품 계열 분기와 파생 규칙
+### 제품 계열 분기는 사라졌다 — 두 계열이 정본 하나로 수렴했다
 
-**제품의 메뉴 표면은 두 계열이다.** A계열은 지역 변수 `--menu-pad`로 패딩을 선언하고 아이템 곡률을 거기서
-파생시킨다. B계열은 전역 `--dropdown-*`을 그대로 쓴다. 위 표의 한 줄짜리 값은 B계열만 담고 있다.
+**앞선 판은 제품의 메뉴 표면이 두 계열이라고 적었다.** A계열은 지역 변수 `--menu-pad`로 패딩을
+선언하고 아이템 곡률을 거기서 파생시키며, B계열은 전역 `--dropdown-*`을 그대로 쓴다는 서술이었다.
+**배포본 `74a7303b`에는 둘 다 없다.**
 
-| Part | A계열(사이드 메뉴 표면) | B계열(노드 더보기) | 근거 |
+- `--menu-pad`는 제품 트리 전체에 **한 건도 없다.**
+- `--dropdown-padding` · `--dropdown-radius` · `--dropdown-item-radius`도 없다 — 이 셋을 포함한
+  **여섯**을 P#1이 걷어냈고(`globals.css@2b59479f:63`·`67`·`70`·`71`·`72`·`87`), 일곱 번째
+  `--dropdown-frame-on-dark`는 그 하루 전에 이미 없어졌다(`globals.css@5ffc4431:61`)
+  ([Product reading traps](../foundations/product-reading-traps.md) 2절).
+  그래서 이 세 축의 **제품 좌표는 지운다. 가리킬 선언이 없다.**
+
+지금은 A계열이던 자리와 B계열이던 자리가 **같은 LOUIS 정본**을 소비한다 — 표면은 `.louis-popover`,
+항목은 `.louis-menu__item`이다. 제품 소스가 그 수렴을 주석으로 직접 적는다
+(`Toolbar.tsx:118-120` 「제품 표면 패딩 4는 정본 inset 6으로 수렴한다」 ·
+`NodeMoreMenu.tsx:53-57` 「기존 min-w-70(140)은 정본 160으로」).
+
+| Part | 지금 값 | 소유자 | 근거 |
 | --- | --- | --- | --- |
-| Panel padding | **4px** — `--menu-pad: 4px` 선언 후 `padding: var(--menu-pad)` | **6px** — `var(--dropdown-padding)` | `EditNode.tsx:330`, `Toolbar.tsx:124`, `AnalyticsAccountMoreMenu.tsx:66` / `NodeMoreMenu.tsx:55`, `globals.css:85` |
-| Item radius | **12px** — 리터럴이 아니라 파생값 `calc(var(--dropdown-radius) - var(--menu-pad, 4px))` = 16 − 4 | **10px** — `var(--dropdown-item-radius)` | `EditNode.tsx:342`, `Toolbar.tsx:136` / `NodeMoreMenu.tsx:65`, `globals.css:86` |
-| Panel radius | 16px — `var(--dropdown-radius)` | 같다 | `EditNode.tsx:329`, `NodeMoreMenu.tsx:55`, `globals.css:84` |
-| Panel 최소 폭 | **160px** — `min-w-80`, `--spacing: 2px` | **140px** — `min-w-70` | `EditNode.tsx:333`, `Toolbar.tsx:127`, `AnalyticsAccountMoreMenu.tsx:69`, `tailwind.css:164` / `NodeMoreMenu.tsx:54` |
+| Panel padding | **6px** — `--louis-space-overlay-inset` | `.louis-popover` | [menu-popover.css:13](../../packages/css/src/component/menu-popover.css)·`30` |
+| Panel radius | **16px** — `--louis-radius-overlay` | `.louis-popover` | [menu-popover.css:36](../../packages/css/src/component/menu-popover.css) |
+| Item radius | **10px** — `--louis-radius-overlay-item`. **파생값이 아니라 토큰이다** | `.louis-menu__item` | [tokens.css:574](../../packages/tokens/generated/tokens.css) |
+| Panel 최소 폭 | **160px** | `.louis-popover` | [menu-popover.css:15](../../packages/css/src/component/menu-popover.css)·`42-45` |
 
-**A계열의 아이템 곡률은 패널 패딩에 연동된 파생값이다.** 12px를 리터럴로 박으면 패딩을 6px로 바꿨을 때
-안쪽 모서리가 어긋난다. 값보다 먼저 `item radius = panel radius − panel padding` 규칙을 옮긴다 — 토큰
-모델이 이 파생을 표현하지 못하면 A계열은 재현되지 않는다. A계열은 여러 파일이 같은 두 줄을 복제한다
-(`EditNode.tsx:330`·`342`, `Toolbar.tsx:124`·`136`, `AnalyticsAccountMoreMenu.tsx:66`·`79`, `CanvasZoomControl.tsx:70`,
-`NodeSideButtons.tsx:253`, `TextNode.tsx:180`).
+**「item radius = panel radius − panel padding」 파생 규칙은 이제 옮길 것이 없다.** 그 규칙은 A계열
+전용이었고 A계열이 사라졌다. 다만 두 값의 관계를 정본이 계속 지키고 있다는 사실은 남는다 — LOUIS가
+composite popover의 inset을 8px로 올리면서 「안쪽 곡률 16 − 8 = 8px이 item radius 10px보다 작아져
+모서리가 뚫린다」를 근거로 action menu 쪽 inset을 따로 둔 것이 그 기록이다
+([menu-popover.css:60-71](../../packages/css/src/component/menu-popover.css)).
 
-Known deviations의 「panel padding이 6px이 아니라 4px이다」는 **DS 구현측 대체 사유**이고, 제품의 4px +
-파생 12px 계열은 그와 별개로 존재한다. 둘을 같은 사실로 합치면 아이템 곡률이 10px로 굳어 A계열이 사라진다.
+수렴한 소비처: `EditNode.tsx:326`·`329`, `Toolbar.tsx:121`·`125`,
+`AnalyticsAccountMoreMenu.tsx:63`·`66`, `NodeMoreMenu.tsx:58`·`67`, `CanvasZoomControl.tsx:65`,
+`NodeSideButtons.tsx:250`, `TextNode.tsx:184`·`187`.
 
-계열에 속하지 않는 폭 예외 둘이 더 있다. 160px 하나로 통일해 그리면 노드 더보기 메뉴가 20px 넓어지고,
-Responsive behavior의 「기본 200px 권장」은 제품 어느 계열과도 맞지 않는다.
+Known deviations의 「panel padding이 6px이 아니라 4px이다」도 함께 해소됐다 — 지금 정본과 제품이
+**둘 다 6px**이다.
+
+폭 예외 하나는 남는다. Responsive behavior의 「기본 200px 권장」은 제품 어느 자리와도 맞지 않는다.
 
 | 사용처 | Panel 최소 폭 | 근거 |
 | --- | ---: | --- |
@@ -468,15 +502,15 @@ Anatomy 6번 안의 선행 아이콘 칩이다. 위 표에는 행이 없다.
 
 | 속성 | 값 | 근거 |
 | --- | --- | --- |
-| 치수 | **20×20px** — `w-10 h-10`, `--spacing: 2px` | `EditNode.tsx:358`, `Toolbar.tsx:152`, `tailwind.css:164` |
-| 정렬·수축 | flex 중앙 정렬(`items-center justify-center`) + `shrink-0` | `EditNode.tsx:358-359`, `Toolbar.tsx:152-153` |
-| 곡률 | **5px 리터럴** — `rounded-[5px]`. radius 스케일(2·4·6·8·10·12·14·16·20·24)에 없다 | `EditNode.tsx:358`, `Toolbar.tsx:152`, `tailwind.css:169-180` |
-| 면(다크) | `rgb(var(--gray-700-rgb)/100%)` = **#575d68** | `EditNode.tsx:359`, `Toolbar.tsx:153`, `globals.css:49`, `globals.css:684` |
-| 면(라이트) | 의미 토큰이 아니라 `rgb(var(--palette-gray-200-rgb)/100%)`를 직접 지정한다. 해석값은 램프 밖 **#e3e4e8**, 사이드바 램프 안 **#eeeef1** — §Portal and layer rules의 램프 표와 같은 갈림이다 | `EditNode.tsx:360`, `Toolbar.tsx:154`, `globals.css:44`, `Gnb.tsx:1981` |
+| 치수 | **20×20px** — `w-10 h-10`, `--spacing: 2px` | `EditNode.tsx:333`, `Toolbar.tsx:129`, `tailwind.css:164` |
+| 정렬·수축 | flex 중앙 정렬은 이제 `.louis-menu__item-icon` 이 소유하고, 제품은 `shrink-0` 만 얹는다 | `EditNode.tsx:333-334`, `Toolbar.tsx:129-130` |
+| 곡률 | **5px 리터럴** — `rounded-[5px]`. radius 스케일(2·4·6·8·10·12·14·16·20·24)에 없다 | `EditNode.tsx:333`, `Toolbar.tsx:129`, `tailwind.css:169-180` |
+| 면(다크) | `rgb(var(--gray-700-rgb)/100%)` = **#575d68** | `EditNode.tsx:334`, `Toolbar.tsx:130`, `globals.css:55`(팔레트 채널), `globals.css:660`(다크 램프) |
+| 면(라이트) | 의미 토큰이 아니라 `rgb(var(--palette-gray-200-rgb)/100%)`를 직접 지정한다. 해석값은 램프 밖 **#e3e4e8**, 사이드바 램프 안 **#eeeef1** — §Portal and layer rules의 램프 표와 같은 갈림이다 | `EditNode.tsx:335`, `Toolbar.tsx:131`, `globals.css:50`, `Gnb.tsx:2044` |
 | 내부 아이콘 | 15px | `Toolbar.tsx:161`, `Toolbar.tsx:364`, `Toolbar.tsx:380` |
 
 **라이트에서 의미 토큰을 쓰면 칩이 한 계단 어두워진다.** 라이트에서 `--gray-700-rgb`는
-`--palette-gray-300-rgb`(#d5d7dd)로 뒤집혀 있다(`globals.css:727`, `globals.css:817`). 그래서 제품은 라이트
+`--palette-gray-300-rgb`(#d5d7dd)로 뒤집혀 있다(`globals.css:702`, 워크스루 라이트 `globals.css:790`). 그래서 제품은 라이트
 면만 팔레트를 직접 지정한다 — 다크 값을 의미 토큰으로 그대로 옮기면 칩이 라벨보다 무거워진다.
 
 5px 곡률은 governance/product-confirmations.md의 「모서리 반경 — 토큰 없는 값 상위」 표가 이미 15회·11파일로

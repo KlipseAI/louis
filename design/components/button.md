@@ -117,7 +117,7 @@ Button은 토글이 아니므로 `pressed`(`aria-pressed`)를 갖지 않는다 �
 variant 축이 되는데, 그 축을 세울 근거가 하나뿐이다.
 
 근거: `Button.tsx@a3ed8e03:82-83`(scale 상수) · `:105`·`:110`(secondary) · `:116`·`:120`(ghost) ·
-`globals.css:40`·`:51`(기준색).
+`globals.css:46`·`:57`(기준색).
 
 **알파 표기법이 계약이다.** 제품은 `rgb(var(--x-rgb) / 5%)` 임의값을 쓰고 Tailwind의 `/5` 단축을
 쓰지 않는다 — 단축은 `color-mix()`로 컴파일돼 **결과 색이 달라진다.** 파일 주석이 그 이유를 적어
@@ -269,8 +269,8 @@ focus-visible 링은 브라우저가 그리므로 Figma variant로 두지 않는
 - **앞의 대비표는 앱 셸 밖의 값이다.** 사이드바가 있는 화면의 라이트에서 `secondary`·`ghost`의 라벨색은
   `#777d89`가 아니라 **`#9aa0ab`**다. 제품 Button이 시맨틱을 거치지 않고 `text-palette-gray-600` 원
   팔레트를 직접 읽고(`Button.tsx@a3ed8e03:104`·`:115`), `gnb-wrapperSidebar`가 `html[data-theme=light] body:has(&)`로
-  그 이름을 `#9aa0ab`로 덮는다(`Gnb.tsx:1978`, rgb 미러 `:1985` = `154 160 171`; 전역 정의는
-  `globals.css:33`). 셀렉터가 `body:has(&)`라 **버튼이 사이드바 안에 있든 밖에 있든 화면 전체에 걸린다.**
+  그 이름을 `#9aa0ab`로 덮는다(`Gnb.tsx:2041`, rgb 미러 `:2048` = `154 160 171`; 전역 정의는
+  `globals.css:39`). 셀렉터가 `body:has(&)`라 **버튼이 사이드바 안에 있든 밖에 있든 화면 전체에 걸린다.**
   재매핑 범위는 라벨까지다 — 테두리 `1px solid rgb(23 27 34 / 12%)`와 hover 면은 `--palette-gray-900-rgb`를
   읽는데 그 이름은 재매핑 대상이 아니라 전역과 같다. 앱 셸 실면 위 계산 대비는 카드 `#f8f8f9` 위 ≈2.5,
   페이지 바닥 `#eeeef1` 위 ≈2.3으로 **표의 4.13보다 더 낮다.** 앱 셸 화면의 대비를 4.13으로 읽으면 틀린다.
@@ -281,8 +281,8 @@ focus-visible 링은 브라우저가 그리므로 Figma variant로 두지 않는
 
   | 겹 | 제품 값 | 근거 |
   | --- | --- | --- |
-  | 면 | `linear-gradient(90deg, var(--primary-450) 0%, var(--primary-500) 50%, var(--primary-450) 100%)` | `Button.tsx@a3ed8e03:89` · `globals.css:513-518` |
-  | 베벨 페어 (요소 자신의 `box-shadow`) | `inset 0 1px 1px rgb(250 250 250 / 25%), inset 0 -1px 1px rgb(250 250 250 / 25%)` | `Button.tsx@a3ed8e03:91` · `globals.css:55-58`·`:53`·`:40` |
+  | 면 | `linear-gradient(90deg, var(--primary-450) 0%, var(--primary-500) 50%, var(--primary-450) 100%)` | `Button.tsx@a3ed8e03:89` · `globals.css:481-486` |
+  | 베벨 페어 (요소 자신의 `box-shadow`) | `inset 0 1px 1px rgb(250 250 250 / 25%), inset 0 -1px 1px rgb(250 250 250 / 25%)` | `Button.tsx@a3ed8e03:91` · `globals.css:26`·`:46` |
   | 글로우 (별도 `::before`) | `inset 0 0 8px 0 rgb(250 250 250 / 100%)` + `mix-blend-mode: overlay` + `pointer-events: none` | `Button.tsx@a3ed8e03:93-96` |
 
   **글로우를 베벨과 같은 `box-shadow` 목록에 합치면 틀린다.** 합치는 순간 `mix-blend-mode`를 걸
@@ -300,24 +300,24 @@ focus-visible 링은 브라우저가 그리므로 Figma variant로 두지 않는
   [`migration/product.measured.json`](../../migration/product.measured.json)의 「disabled 표현」 축에
   accepted-deviation으로 있다.
 - **노드 캔버스 중립 버튼의 면 색이 LOUIS에 없다.** 제품은 노드 카드에 붙는 보조 버튼용으로 별도 SSOT
-  토큰군 `--node-chrome-btn-*`를 둔다(`globals.css:562-589`).
+  토큰군 `--node-chrome-btn-*`를 둔다(`globals.css:528-554`, 라이트 덮어쓰기 `:567-573`).
 
   | 토큰 | 값 | LOUIS `sm` 대비 |
   | --- | --- | --- |
-  | `--node-chrome-btn-h` | `32px` (`globals.css:576`) | 같다 (`layout-control-height-sm`) |
-  | `--node-chrome-btn-padding-x` | `10px` (`:577`) | 텍스트-only `sm` 12px와 다르고 **아이콘 동반 `sm` 10px와 같다**. 제품은 아이콘 유무와 무관하게 10 고정 |
-  | `--node-chrome-btn-radius` | `12px` (`:578`) | 같다 (`radius-control`) |
-  | `--node-chrome-btn-gap` | `4px` (`:581`) | 같다 (`space-control-xs`) |
-  | `--node-chrome-btn-bg` | 다크 `#777d89` (`:582`) / 라이트 `#f1f1f3` (`:611`) | **대응 토큰 없음** |
-  | `--node-chrome-btn-border` | `0.5px solid` — 다크 `#575d68` (`:583`) / 라이트 `#eaebee` (`:612`) | 두께는 같고(`border-width-hairline`) **색은 없음** |
-  | `--node-chrome-btn-bg-hover` | 다크 `color-mix(in srgb, var(--palette-gray-000) 8%, var(--node-chrome-btn-bg))` (`:585-589`) / 라이트 `--palette-gray-1000` 5% (`:613-617`) | **없음** |
+  | `--node-chrome-btn-h` | `32px` (`globals.css:542`) | 같다 (`layout-control-height-sm`) |
+  | `--node-chrome-btn-padding-x` | `10px` (`:543`) | 텍스트-only `sm` 12px와 다르고 **아이콘 동반 `sm` 10px와 같다**. 제품은 아이콘 유무와 무관하게 10 고정 |
+  | `--node-chrome-btn-radius` | `12px` (`:544`) | **같은 값이 아니라 그 토큰 자체다** — `var(--louis-radius-control)` |
+  | `--node-chrome-btn-gap` | `4px` (`:547`) | **같은 값이 아니라 그 토큰 자체다** — `var(--louis-space-control-xs)` |
+  | `--node-chrome-btn-bg` | 다크 `#777d89` (`:548`) / 라이트 `#f1f1f3` (`:568`) | **대응 토큰 없음** |
+  | ~~`--node-chrome-btn-border`~~ | **제품에 없다.** 테두리 토큰은 폐지됐고 알약은 `[box-shadow:var(--louis-hairline-inset)]`을 직접 얹는다(`ImageNode.tsx:641`) | 이제 LOUIS 정본을 그대로 쓴다 |
+  | `--node-chrome-btn-bg-hover` | 다크 `color-mix(in srgb, var(--palette-gray-000) 8%, var(--node-chrome-btn-bg))` (`:550-554`) / 라이트 `--palette-gray-1000` 5% (`:569-573`) | **없음** |
 
   대상은 메타 툴바 알약(모델·길이·볼륨·비율), 메타 아이콘 버튼, 카드 헤더 액션(다운로드·삭제), 업로드
-  노드 툴바 버튼이다(`globals.css:564-566`). 프라이머리 그라디언트 버튼(생성 FAB·`processButton`·
-  `uploadPillButton`)과 세그먼트 컨트롤은 비대상이고 각자 고유 크롬을 갖는다(`:567-568`).
-  **토큰군 전부를 쓰는 소비처는 없다**(`:570-571`) — 헤더 액션은 치수만 쓰고 면은 투명 + hover
+  노드 툴바 버튼이다(`globals.css:530-532`). 프라이머리 그라디언트 버튼(생성 FAB·`processButton`·
+  `uploadPillButton`)과 세그먼트 컨트롤은 비대상이고 각자 고유 크롬을 갖는다(`:533-534`).
+  **토큰군 전부를 쓰는 소비처는 없다**(`:536-537`) — 헤더 액션은 치수만 쓰고 면은 투명 + hover
   틴트이며(`NodeHeaderActions.tsx:36-37`), 아이콘 전용 버튼은 정사각이라 `-padding-x`를 쓰지 않는다.
-  면과 테두리를 전부 쓰는 대표 소비처는 메타 툴바 알약이다(`ImageNode.tsx:646-653`). 치수 축은 LOUIS
+  면과 헤어라인을 전부 쓰는 대표 소비처는 메타 툴바 알약이다(`ImageNode.tsx:638-652`). 치수 축은 LOUIS
   `sm`으로 그대로 재현되지만 **면 색 두 쌍이 없어 노드 카드 내부 버튼을 LOUIS만으로 칠할 수 없다.**
 - **제품의 결과 화면 액션은 전폭 앵커다.** 결제 결과 화면의 두 액션(`billing-success/page.tsx:136-146`
   primary · `:148-158` secondary)은 높이 40px과 radius 12px까지 `md`와 같고 네 축이 다르다.
@@ -326,7 +326,7 @@ focus-visible 링은 브라우저가 그리므로 Figma variant로 두지 않는
   | --- | --- | --- |
   | 폭 | 내용 폭 (고정 폭 없음) | `width: 100%` (`:137`·`:149`) |
   | padding | `0 / space-control-lg` 16px | `0 / 20px` (`:137`·`:149`) |
-  | 타이포 | `body-sm-medium` 14px / 21px | 14px **regular** — `--type-body-14-size` + `--type-weight-regular` 400 (`:139`·`:151`; 토큰 정의 `globals.css:370`·`:344`) |
+  | 타이포 | `body-sm-medium` 14px / 21px | 14px **regular** — `--type-body-14-size` + `--type-weight-regular` 400 (`:139`·`:151`; 토큰 정의 `globals.css:318`·`:284`) |
   | 렌더 요소 | 네이티브 `<button>` | `next/link`의 `<a>` + `text-decoration: none !important` |
 
   **컨테이너의 gap은 가로가 아니라 세로 간격이다.** 컨테이너는 `display:flex; flex-wrap:wrap;
@@ -337,7 +337,7 @@ focus-visible 링은 브라우저가 그리므로 Figma variant로 두지 않는
   공통에, primary는 면 `--gray-000` → hover 90% → active 82% · 글자 `--gray-900`, secondary는 면 페이퍼
   8% → hover 14% → active 18% · 글자 `--gray-000`이고 둘 다 active에서 `scale(0.98)`이다. `!important`가
   필요한 이유는 레이어 **밖** 전역 `a { color: inherit; text-decoration: none }`가 `@layer utilities`를
-  무조건 이기기 때문이다(`globals.css:1007-1010`).
+  무조건 이기기 때문이다(`globals.css:988-991`).
 - **인증 화면 버튼은 대부분 넘어왔다 — 남은 것은 상태 카드의 secondary 하나다.** 이 항목은 원래
   「어떤 인증 화면도 공용 Button을 import 하지 않는다」였는데 **그 명제가 뒤집혔다.** 배포본
   `df414c24` 에서 로그인 제출 CTA 는 LOUIS `Button` 이고(`login/page.tsx:542-554`,

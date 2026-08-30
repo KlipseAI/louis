@@ -9,11 +9,15 @@ summary: 켜짐과 꺼짐을 독립적으로 고릅니다.
 
 독립적인 켜짐/꺼짐을 고른다. 여럿을 동시에 고를 수 있다.
 
-**제품에 공용 정본이 있는데 21벌 중 2벌만 쓴다.** `globals.css:1013`의 `.app-native-checkbox`
-(20×20 · `accent-color`)이고, 이유를 제품이 스스로 적어 두었다 — 그 클래스가 **cascade layer
-밖**이라 `@layer utilities` 안의 어떤 유틸리티도 이길 수 없어서, 색 하나를 바꾸려는 소비처가
-클래스를 떼고 선언을 통째로 베껴야 했다. 갈라지는 축은
-[`product.measured.json`](../../migration/product.measured.json)이 사유와 함께 갖는다.
+**제품의 옛 공용 정본은 사라졌고 LOUIS가 그 자리를 받았다.** `.app-native-checkbox`
+(20×20 · `accent-color`)는 `globals.css@77b9a26e:990-1001`이 마지막이고 배포본 `74a7303b`에는
+없다. 지워진 이유를 제품이 직접 적는다 — 「그 전역 클래스는 소비처가 0이 되어 globals.css 에서
+삭제했다」(`VideoEditProjectPicker.tsx:139-148`).
+
+그 클래스가 21벌 중 2벌에서만 쓰이던 원인도 같은 주석이 적는다: 클래스가 **cascade layer 밖**이라
+`@layer utilities` 안의 어떤 유틸리티도 이길 수 없어서, 색 하나를 바꾸려는 소비처가 클래스를 떼고
+선언을 통째로 베껴야 했다. **LOUIS `.louis-checkbox__control`은 레이어 안에 있어 그 함정이 없다** —
+제품이 그것을 채택 사유로 적는다.
 
 ## Availability
 
@@ -85,22 +89,27 @@ summary: 켜짐과 꺼짐을 독립적으로 고릅니다.
 
 ## 제품 변형
 
-배포본에 크기가 다른 두 벌이 있다. 둘 다 **네이티브 `<input type="checkbox">`**이고 `accent-color`로
-색을 준다 — 커스텀 박스를 그리지 않는다.
+**앞선 판의 「배포본에 두 벌이 있고 둘 다 `accent-color`로 색을 준다」는 더 이상 맞지 않는다.**
+배포본 `74a7303b`에서 두 벌 모두 LOUIS `.louis-checkbox__control`을 소비하고, `accent-color`는
+**두 벌 다 지워졌다** — `appearance: none`이 되면서 의미가 없어졌기 때문이다
+(`CreditConfirmModal.tsx:54-59`). 커스텀 박스를 그리지 않던 것도 바뀌었다: 면·헤어라인·체크
+표시·포커스 링을 정본이 그린다.
 
-| 변형 | 상자 | 라벨 행 | 소비처 |
-| --- | --- | --- | --- |
-| 공용 정본 `.app-native-checkbox` | `20 × 20` · `margin: 0` · `cursor: pointer` · `accent-color: --palette-gray-900` · `flex-shrink: 0` | — | 21벌 중 2벌 |
-| 확인 모달 「이 세션에서 다시 보지 않기」 | **`14 × 14`** · `margin: 0` · `cursor: pointer` · `accent-color: --gray-000` | `flex` · `align-items: center` · `gap: 8px` · `margin: 16px 0 20px` · 색 `rgb(var(--gray-000-rgb) / 60%)` · `cursor: pointer` · `user-select: none` · `body-14-regular` | **2곳** — 크레딧 차감 확인 · 노드 삭제 확인 |
+| 변형 | 상자 | 소비처 |
+| --- | --- | --- |
+| ~~`.app-native-checkbox`~~ | `20 × 20` · `accent-color: --palette-gray-900`(다크 `--palette-gray-000`) | **없다** — 소비처 0이 되어 삭제됨 (`globals.css@77b9a26e:990-1001`) |
+| 20px — LOUIS 정본 | `.louis-checkbox__control`, 20×20 | 비디오 편집 프로젝트 선택 (`VideoEditProjectPicker.tsx:139-149`) |
+| 14px — 확인 모달 「이 세션에서 다시 보지 않기」 | `.louis-checkbox__control w-7 h-7 rounded-6` — `--spacing: 2px`라 `w-7` = **14px** | **2곳** — 크레딧 차감 확인 · 노드 삭제 확인 |
 
-**두 벌의 `accent-color` 성격이 다르다.** 공용 정본은 팔레트(`--palette-gray-900`)라 테마에서
-고정이고, 14px 변형은 시맨틱(`--gray-000`)이라 **테마에서 반전된다.** 한쪽으로 통일하면 한
-테마에서 체크 표시가 배경에 묻힌다.
+**남은 크기 편차는 20 대 14 하나다.** 색 축은 사라졌다 — 선택 면이 두 테마 모두
+`accent-primary` 하나로 모였다고 제품이 적는다(`VideoEditProjectPicker.tsx:145-147`). 앞선 판이
+적었던 「두 벌의 `accent-color` 성격이 다르다(팔레트 대 시맨틱)」는 그 축이 있던 시절의 서술이고
+지금은 해당하지 않는다.
 
 라벨 행의 위 여백 16px은 제목–설명 간격(8px)의 **두 배**다 — 코드가 그 의도를 주석으로 갖고 있다.
 
-근거: `globals.css:1013-1020` · `CreditConfirmModal.tsx:46-53`·`:121-129` ·
-`NodeDeleteConfirmModal.tsx:72-80`·`:84-92`.
+근거: `CreditConfirmModal.tsx:47`·`:54-59`·`:129` · `NodeDeleteConfirmModal.tsx:74`·`:86` ·
+`VideoEditProjectPicker.tsx:139-149`.
 
 ## Hierarchy와 variants
 

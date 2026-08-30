@@ -11,11 +11,13 @@ summary: 노드 카드의 메타 값을 알약 하나로 보여 주고 눌러서
 드롭다운을 연다.
 
 **제품 정본은 `--node-chrome-btn-*` 계열이다** — 높이 32 · 좌우 패딩 10 · 반경 12 · 사이 간격 4,
-다크 면 `palette-gray-600`, 라이트 면 `palette-gray-100`(`globals.css:559-571` · `:589-590`).
-그 값을 그대로 채택했다. **바꾼 것은 경계 하나다** — 제품은 `--node-chrome-btn-border`로 진짜
-`border`(다크 gray-700 · 라이트 gray-150 0.5px)를 그렸고, 여기서는 generic inset 헤어라인으로
-바꿨다([DS-D-0023](../governance/decisions/DS-D-0023-hairline-inset.md)). 그래서 LOUIS 토큰에는
-`-border`에 대응하는 항목이 없다.
+다크 면 `palette-gray-600`, 라이트 면 `palette-gray-100`(`globals.css:542-548` · 라이트 덮어쓰기 `:568`).
+그 값을 그대로 채택했다. **바꾼 것은 경계 하나였고, 제품이 따라왔다** — 제품은 한때
+`--node-chrome-btn-border`로 진짜 `border`(다크 gray-700 · 라이트 gray-150 0.5px)를 그렸고 LOUIS는
+generic inset 헤어라인을 택했다([DS-D-0023](../governance/decisions/DS-D-0023-hairline-inset.md)).
+배포본 `74a7303b`에는 **그 토큰이 없다** — 소비처가 `[box-shadow:var(--louis-hairline-inset)]`을
+직접 쓰고(`ImageNode.tsx:641`), 이름은 제품 게이트의 legacy 목록에 올라 되살리면 실패한다. 두 쪽이
+같은 해를 쓰므로 이 축은 더 이상 편차가 아니다. LOUIS 토큰에 `-border` 대응 항목이 없는 것은 그대로다.
 
 **한 벌이 아니라 네 벌이었다.** 메타 알약을 그리는 파일은 `nodes/VideoNode.tsx` ·
 `nodes/ImageNode.tsx` · `nodes/BgmNode.tsx` · `nodes/TtsNode.tsx` 넷이고, 채택 이전 커밋에서
@@ -332,10 +334,10 @@ Known deviations.
 - **높이 32와 반경 12가 `layout-control-height-md`·`radius-control`과 값이 같은데 전용 토큰으로
   섰다.** 값이 같은 토큰이 둘이면 한쪽만 움직였을 때 아무도 모른다. 레시피가 분리 이유를 적어
   두지 않았다 — **확인되지 않았다.**
-- **인용 좌표를 고정할 수 없다.** `migration/product-evidence.lock.json`이 채택 **이전** 커밋에
-  걸려 있어서, 위 본문의 `globals.css:559-571`·`nodes/VideoNode.tsx:626-645`는 이관 전 원본을
-  가리킨다. 현재 소비 자리(4개 파일 루트 16자리)는 락 밖이라 줄 번호를 적지 않았다 — 적으면
-  게이트는 통과하면서 엉뚱한 줄을 가리킨다.
+- ~~**인용 좌표를 고정할 수 없다.**~~ **해소됐다.** 이 항목은 `product-evidence.lock.json`이 채택
+  **이전** 커밋에 걸려 있어 본문 좌표가 이관 전 원본을 가리킨다고 적었다. 락의 `productCommit`이
+  `74a7303b`로 올라가면서 그 전제가 사라졌다 — 락이 가리키는 판본이 곧 채택 후 상태이고, 위 본문
+  좌표는 그 판본을 직접 가리킨다.
 
 ## Acceptance tests
 

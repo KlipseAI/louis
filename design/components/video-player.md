@@ -14,7 +14,7 @@ summary: 영상을 재생하고, 그 위에서 재생 위치를 잡습니다.
 자리(`PublishFlow`)도 같은 조형으로 통합해 **스킨 축을 없앴다** — 두 벌을 유지할 근거가
 「예전에 그렇게 만들었다」뿐이었다.
 
-**제품에 구현이 하나뿐이고 소비처가 여덟이다**(`VideoPlayer.tsx`, 972줄).
+**제품에 구현이 하나뿐이고 소비처가 여덟이다**(`VideoPlayer.tsx`, 834줄 — 측정 당시 973줄에서 줄었다).
 갈래를 고를 필요가 없어 치수·색을 그 파일에서 그대로 가져왔다. Badge 가 65벌에서 축을 골라야
 했던 상황의 정반대다.
 
@@ -22,7 +22,7 @@ summary: 영상을 재생하고, 그 위에서 재생 위치를 잡습니다.
 
 | Surface       | 상태           | 근거                                                          |
 | ------------- | -------------- | -------------------------------------------------------------- |
-| Web           | `partial`      | 제품 구현이 정본이다. **LOUIS recipe 는 없다** — `packages/css/src/component` 에 `video-player.css` 가 없고 `packages/react/src` 에도 표면이 없다 |
+| Web           | `not-ready`    | 제품 구현이 정본이다. **LOUIS recipe 는 없다** — `packages/css/src/component` 에 `video-player.css` 가 없고 `packages/react/src` 에도 표면이 없다. 제품 파일이 LOUIS 에서 받는 것은 `--louis-hairline-inset` 한 줄뿐이다. 근거가 이렇게 적히는 자리는 이 저장소에서 전부 `not-ready` 이므로 2026-08-30 에 `partial` 에서 내렸다 |
 | Figma         | `partial`      | `MediaScrubber` 2 variant(State, ON_HOVER 프로토타입) · `VideoPlayer` 4 variant(Chrome × Tone) + BOOLEAN 슬롯 3 · INSTANCE_SWAP 1 |
 | Documentation | `done`         | 이 문서                                                        |
 | Maturity      | `experimental` | Figma 가 코드보다 앞서 있다. LOUIS recipe 가 서면 승격한다      |

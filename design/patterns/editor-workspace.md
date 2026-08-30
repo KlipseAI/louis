@@ -146,15 +146,15 @@ compact 호환 경계는 [Responsive Layout](../foundations/responsive-layout.md
 
 | CSS variable | 해결값 | 지배하는 자리 |
 | --- | --- | --- |
-| `--node-side-handle-size` | `28px` | 사이드 버튼·핸들 한 변 — `globals.css:521` |
-| `--node-side-handle-radius` | `8px` | 그 크롬의 모서리 — `globals.css:522` |
-| `--node-side-gap` | `10px` | 카드 패딩 박스 ↔ 컨트롤 열 **수평** 간격 — `globals.css:532` |
-| `--node-side-stack-gap` | `8px` | 같은 열 컨트롤끼리 **세로** 간격 — `globals.css:534` |
-| `--node-side-ctrl` | `var(--node-side-handle-size, 28px)` | 레일 계산이 참조하는 한 변 — `globals.css:535` |
-| `--node-side-leading-offset` | `calc(gap + ctrl)` = **38px** | 카드 왼쪽 테두리 ↔ 좌 레일 바깥선 — `globals.css:536` |
-| `--node-handle-outbound-slot` | `calc(100% + gap)` | 우 출력 `left:`·좌 레일 `right:` 공통식 — `globals.css:537` |
+| `--node-side-handle-size` | `28px` | 사이드 버튼·핸들 한 변 — `globals.css:489` |
+| `--node-side-handle-radius` | `8px` | 그 크롬의 모서리 — `globals.css:490` |
+| `--node-side-gap` | `10px` | 카드 패딩 박스 ↔ 컨트롤 열 **수평** 간격 — `globals.css:498` |
+| `--node-side-stack-gap` | `8px` | 같은 열 컨트롤끼리 **세로** 간격 — `globals.css:500` |
+| `--node-side-ctrl` | `var(--node-side-handle-size, 28px)` | 레일 계산이 참조하는 한 변 — `globals.css:501` |
+| `--node-side-leading-offset` | `calc(gap + ctrl)` = **38px** | 카드 왼쪽 테두리 ↔ 좌 레일 바깥선 — `globals.css:502` |
+| `--node-handle-outbound-slot` | `calc(100% + gap)` | 우 출력 `left:`·좌 레일 `right:` 공통식 — `globals.css:503` |
 
-규범 주석은 `globals.css:526-531`에 있다. 캔버스 셸이 같은 이름으로 덮어쓸 수 있게 열어 두었으나 현재
+규범 주석은 `globals.css:492-497`에 있다. 캔버스 셸이 같은 이름으로 덮어쓸 수 있게 열어 두었으나 현재
 재정의하는 곳은 없다.
 
 ### 레일 배치
@@ -242,7 +242,8 @@ compact 호환 경계는 [Responsive Layout](../foundations/responsive-layout.md
 **한 색으로 옮기면 일곱 중 여섯이 틀린다.**
 
 근거: `components/scenes/create/node-canvas-v2/index.tsx:347-359` ·
-`globals.css:33`·`:48`(다크 기준색) · `:20`·`:40`(라이트 기준색).
+`globals.css:661`(다크 램프 `--gray-800-rgb`)·`:56`(`--palette-gray-800-rgb`) ·
+`:48`(라이트 `--palette-gray-100-rgb`)·`:30`(`--palette-gray-100`).
 
 ### 같은 숫자가 CSS 밖에 두 벌 더 있다
 
@@ -265,11 +266,15 @@ compact 호환 경계는 [Responsive Layout](../foundations/responsive-layout.md
 
 ### 알려진 어긋남
 
-`--node-handle-chrome-transition`(= `background 0.13s ease, color 0.13s ease, transform 0.1s ease`,
-`globals.css:523-524`)은 이름과 달리 사이드 컨트롤 shell이 소비하지 않는다. shell은 `filter` · `color` ·
-`border-color`를 각각 `0.13s ease`로 직접 선언한다. 두 목록이 겹치는 것은 `color 0.13s ease` 하나뿐이고,
-토큰의 `background`·`transform`은 shell에 없으며 shell의 `filter`·`border-color`는 토큰에 없다.
-**이 토큰에서 사이드 컨트롤의 전환 사양을 읽으면 틀린다.** 승격 전에 둘 중 어느 쪽이 계약인지 정한다.
+**이 어긋남은 제품이 해소했다 — 토큰을 없애는 쪽으로.** 앞선 판은
+`--node-handle-chrome-transition`(= `background 0.13s ease, color 0.13s ease, transform 0.1s ease`)이
+이름과 달리 사이드 컨트롤 shell과 겹치지 않는다고 적고 「승격 전에 둘 중 어느 쪽이 계약인지 정한다」로
+남겨 두었다. 배포본 `74a7303b`에 **그 토큰은 선언이 하나도 없다.** 지금은 전환을 토큰으로 두지
+않는다는 것 자체가 규범이고, 제품 주석이 그것을 직접 적는다 — 「전환은 토큰이 아니라 소비처
+유틸리티에 직접 적는다 — 셸은 `filter/color/border-color 0.13s ease`, 아이콘 스케일만
+`transform 0.1s ease`」(`globals.css:435-436`).
+
+**그래서 승격할 전환 토큰이 없다.** 사이드 컨트롤의 전환 사양은 소비처 유틸리티에서 읽는다.
 
 핸들 shell/facet 2층 골격을 포함한 비규범 근거는
 [`legacy-design-system.md` §6.9](../../migration/legacy-design-system.md)에 있다.

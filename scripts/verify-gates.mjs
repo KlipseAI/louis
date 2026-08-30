@@ -248,7 +248,23 @@ withCanary(
 // 세 가지가 실제로 잡히는지 증명한다: 모호한 이름 · 파일 길이를 넘는 줄 · 락에 없는 파일.
 withCanary(
   "design/patterns/app-shell.md",
-  (source) => source.replace("`Gnb.tsx:2015`", "`Gnb.tsx:999999`"),
+  (source) => {
+    /* **줄 번호를 고정하지 않는다.** 예전에는 `` `Gnb.tsx:2015` `` 를 리터럴로 적었는데,
+       제품이 움직여 그 좌표를 재앵커링하는 순간(2026-08-30 재앵커링에서 2015 → 2077)
+       canary 가 자기 대상을 잃고 **게이트 전체가 멈췄다.** 바로 아래 product-drift 표
+       canary 가 같은 사고를 겪고 같은 처방을 적어 두었다 — canary 는 「손으로 고치면
+       잡히는가」를 증명하는 장치지 좌표를 고정하는 장치가 아니다.
+       이 문서에는 Gnb.tsx 인용이 여럿이므로 **첫 건**을 범위 밖으로 밀면 충분하다. */
+    let hit = false;
+    const next = source.replace(/`Gnb\.tsx:(\d+)`/, () => {
+      hit = true;
+      return "`Gnb.tsx:999999`";
+    });
+    if (!hit) {
+      errors.push("citation line out of range canary가 Gnb.tsx 인용을 찾지 못했습니다.");
+    }
+    return next;
+  },
   "citation line out of range",
   "scripts/verify-citations.mjs",
   "인용합니다",

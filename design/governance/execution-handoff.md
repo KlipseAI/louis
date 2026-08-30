@@ -24,8 +24,9 @@ authority: normative
 > `pnpm verify` 가 `verify:product` 첫 게이트에서 exit 1 로 죽는다.
 >
 > **2026-08-19 — 이어받는 사람은 [제품 실측 대조 인계서](handoff-2026-08-19-product-parity.md)를
-> 먼저 읽는다.** 아래 큐보다 그것이 앞선다. DS 값 359건이 제품을 확인하지 않고 정해져 있고,
-> 그것을 0으로 만드는 일이 지금의 본류다. 그 문서에 절대 하지 말 것과 다음 순서가 있다.
+> 먼저 읽는다.** 아래 큐보다 그것이 앞선다. DS 값이 제품을 확인하지 않고 정해져 있던 **빚의
+> 정본은 `figma/unverified-values.json`의 `$count`이며, 그 수는 지금 0이다** — 그 인계서의 (A)
+> 절이 소진 과정의 기록이다. 그 문서에 절대 하지 말 것과 다음 순서가 있다.
 
 이 문서는 Claude Code Opus 5를 포함한 후속 작업자가 Klipse Design의 P3–P5를 중단 없이 이어가기 위한
 실행 계약이다. 특정 모델의 기억이나 대화 기록에 의존하지 않는다. 실제 상태는 항상
@@ -268,7 +269,7 @@ Icon Button 의 정본으로 지목됐던 제품의 공유 UI 패키지는 Turbo
 
 | 축 | 상태 |
 | --- | --- |
-| GOV 트랙 | `DS-GOV-000`이 `partial` — 원격 done. **hosted CI 는 `verify:ci` 13개만 돌고 2026-08-22 부터 결제로 정지.** owner 승인과 publish 권한 남음 |
+| GOV 트랙 | `DS-GOV-000`이 `partial` — 원격 done. **hosted CI 는 `verify:ci` 갈래만 돌고 2026-08-22 부터 결제로 정지.** 두 갈래의 단계 수는 `package.json`의 `verify:ci`·`verify:product`가 소유한다 — 표에 박지 않는다. owner 승인과 publish 권한 남음 |
 | `DS-F-000`~`DS-F-005` | `done` |
 | `DS-P3-002a` · `002`(1단계) · `003` · `009a` · `013` | `done` |
 | `DS-P3-001` | `in-progress`. Decision 6종을 다 썼고 owner 확인만 남았다 |
@@ -281,6 +282,10 @@ Icon Button 의 정본으로 지목됐던 제품의 공유 UI 패키지는 Turbo
 **이 표에 수를 다시 박지 마라.** 한때 여기에 Decision 18종 · component 18개 · Figma 19/29/210/22 ·
 브라우저 632건이 적혀 있었고 **여섯 개가 전부 낡았다.** 손으로 유지되는 수는 「무엇이 남았는가」의
 판단을 직접 틀리게 한다. 수가 필요하면 위 명령을 그 자리에서 돌린다.
+**2026-08-30에 하나가 더 빠졌다 — GOV 행이 싣고 있던 「`verify:ci` 13개」다.** 실측에서 두 갈래
+어느 쪽도 그 수가 아니었다. 게이트 수의 정본은 `package.json`의 `verify:ci`·`verify:product` 두
+스크립트다. **산문에서 그 수를 보거든 고쳐 쓰지 말고 그 자리에서 `package.json`을 연다** — 같은
+수가 이 저장소의 문서군에 여러 벌 실려 있었고, 한 자리만 고치면 나머지가 그것을 되살린다.
 
 **"카탈로그가 닫혔다"는 틀린 요약이었다(2026-08-18 정정).** 닫힌 것은 gap registry의 **합산
 우선순위 15종**이다 — 여러 화면에 걸치는 공용 부품 목록. **화면별 세부 부품은 그 목록에 처음부터
@@ -687,9 +692,11 @@ gap registry 1순위로 추가됐다.
   install → 브라우저 설치 → build → check → verify → `--require-tracked` → 실브라우저 회귀가
   전부 통과한 초록 실행이 있다. 초록에 이르기까지 네 번 실패했고 그 넷이 전부 로컬에서
   보이지 않던 것이었다.
-  **다만 「hosted CI done」은 두 가지를 오해하게 한다.** ① 러너가 도는 것은 `verify:ci` 13개이지
-  전량이 아니다(나머지 14개는 제품 저장소가 필요하다). ② **2026-08-22 기준 러너는 GitHub 결제
-  문제로 멈춰 있다** — 판별법은 [계정 이전 인계서 3절](handoff-2026-08-22-account-transfer.md)
+  **다만 「hosted CI done」은 두 가지를 오해하게 한다.** ① 러너가 도는 것은 `verify:ci` 갈래이지
+  전량이 아니다(`verify:product` 갈래는 제품 저장소가 필요하다). 두 갈래의 단계 수를 여기 적지
+  않는다 — `package.json`의 그 두 스크립트가 정본이고, 손으로 적은 수는 게이트가 늘 때마다
+  낡는다. ② **2026-08-22 기준 러너는 GitHub 결제 문제로 멈춰 있다** — 판별법은
+  [계정 이전 인계서 3절](handoff-2026-08-22-account-transfer.md)
 - repository owner 승인 — 미해소
 - registry, docs hosting과 Figma publish 권한 — 미해소
 
@@ -1252,9 +1259,10 @@ alpha·radius·border-width·duration을 함께 재고 `verify-product-drift`가
 배포본에서 세어 보니 세 축의 상태가 서로 다르다.
 
 **elevation — 결손 없다.** semantic 8종(`focus-ring`·`modal`·`popover`·`surface`·`toast`·
-`menu`·`tooltip`·`upgrade`)과 primitive 11종이 이미 있고, 제품의 그림자 토큰
-(`app-tooltip-shadow`·`dropdown-ambient-shadow`·`node-meta-dropdown-shadow` 등)이 그 안에 든다.
-추가할 것이 없다.
+`menu`·`tooltip`·`upgrade`)과 primitive 11종이 이미 있고, 그때 제품의 그림자 토큰이던
+`app-tooltip-shadow`·`dropdown-ambient-shadow`·`node-meta-dropdown-shadow` 등이 그 안에 들었다.
+추가할 것이 없다. (`--dropdown-ambient-shadow`는 그 뒤 P#1이 걷어냈고 제품이 `--louis-elevation-menu`를
+직접 소비한다 — 이 절의 판정은 그대로다.)
 
 **border-width — 최다 사용값에 토큰이 없었다.** 실사용은 `1px` **142회** · `2px` 25 · `0.5px` 20 ·
 `1.5px` 10이고(총 203회) LOUIS에는 `hairline`(0.5)과 `ring`(2)뿐이었다. **가장 많이 쓰이는 1px이

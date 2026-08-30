@@ -1411,7 +1411,7 @@
       "name": "Breadcrumb",
       "figmaName": "Breadcrumb",
       "doc": "design/components/breadcrumb.md",
-      "note": "제품 전수 인벤토리에서 확인. 앱 상단 페이지 내비(Gnb.tsx:5335-5352) — 부모는 48% 로 흐리고 현재는 aria-current 가 소유한다. LOUIS recipe 는 아직 없다.",
+      "note": "제품 전수 인벤토리에서 확인. 앱 상단 페이지 내비(Gnb.tsx:5335-5365) — 부모는 48% 로 흐리고(Gnb.tsx:333-335) 현재는 aria-current 가 소유한다. LOUIS recipe 는 아직 없다.",
       "maturity": "experimental",
       "figma": "partial",
       "web": "not-ready",
@@ -1530,7 +1530,7 @@
         "InlineLoadingLabel"
       ],
       "doc": "design/components/inline-loading-label.md",
-      "note": "버튼·행 안의 라벨 한 줄과 그 옆에서 열리고 닫히는 스피너 자리. 제품 구현(InlineLoadingLabel.tsx)이 정본이고 소비처가 13개 파일 · 20개 호출부다 — LOUIS recipe 는 없다. **이 컴포넌트가 로딩 표현 규범의 집행 장치다** — 제품 저장소 docs/design/loading-states.md 가 정한 「말줄임표가 아니라 스피너」를 런타임에 강제한다: 스피너를 붙이고 로딩 문구의 꼬리 ... 와 … 를 앞뒤 공백까지 떼어낸다. 제품 i18n 에는 아직 `가입 중...`·`Saving...`·`保存中...` 처럼 말줄임표가 박힌 자리가 여럿이라 이 방어가 실제로 일하고 있다. **닫힘 → 열림에서 네 프로퍼티가 함께 움직인다** — 폭 0→16(md)·0→12(sm), 왼쪽 여백 0→6·0→4, 불투명도 0→1, scale 0.85→1. 전환이 두 짝으로 갈려 있다(폭·여백 200ms cubic-bezier(0.22,1,0.36,1) · 불투명도·transform 180ms ease). 링은 스스로 그리지 않고 LOUIS .louis-spinner 레시피를 그대로 소비하며 제품 게이트가 그 소비를 클래스 문자열로 고정한다. **Figma 는 닫힌 변형에서 슬롯 레이어를 숨긴다** — 프레임을 0 폭으로 만들 수 없어서이고, 그래서 되읽기의 md/false·sm/false 에 slots 가 비어 있다(제품은 폭 0 + overflow-hidden). 결과적으로 닫힘 폭 0 을 어떤 게이트도 대조하지 않는다. 꼬리 말줄임표 제거는 Figma 에 표현되지 않는다. **축 이름 Loading 을 figma-component-authoring.md §2 의 조건 축 명부에 올렸다** — 프레임이 자기 itemSpacing 을 0 ↔ 6·4 로 다시 쓰고(시험 2) 닫힘과 열림 사이에 Smart Animate 를 걸어야 해(시험 3) BOOLEAN 으로 그릴 수 없다. 명부가 여섯에서 일곱이 됐고, Button 의 Loading 은 여전히 판정 전이다. 타이포를 Figma 가 14/150% 로 고정하는데 제품은 소유하지 않고 감싸는 컨트롤에서 물려받는다. 상태 전달을 이 컴포넌트가 하지 않는다 — 슬롯이 aria-hidden 이고 role·aria-live·aria-busy 가 없으며, aria-busy 를 건 호출부는 20 중 셋뿐이다(Spinner 의 reduce 대체 계약이 나머지 열일곱에서 성립하지 않는다). 기하 실측이 없고(components.measured.json 에 항목 없음) 증거 락이 링을 자체 유틸리티로 그리던 옛 판을 가리킨다.",
+      "note": "버튼·행 안의 라벨 한 줄과 그 옆에서 열리고 닫히는 스피너 자리. 제품 구현(InlineLoadingLabel.tsx)이 정본이고 소비처가 13개 파일 · 20개 호출부다 — LOUIS recipe 는 없다. **이 컴포넌트가 로딩 표현 규범의 집행 장치다** — 제품 저장소 docs/design/loading-states.md 가 정한 「말줄임표가 아니라 스피너」를 런타임에 강제한다: 스피너를 붙이고 로딩 문구의 꼬리 ... 와 … 를 앞뒤 공백까지 떼어낸다. 제품 i18n 에는 아직 `가입 중...`·`Saving...`·`保存中...` 처럼 말줄임표가 박힌 자리가 여럿이라 이 방어가 실제로 일하고 있다. **닫힘 → 열림에서 네 프로퍼티가 함께 움직인다** — 폭 0→16(md)·0→12(sm), 왼쪽 여백 0→6·0→4, 불투명도 0→1, scale 0.85→1. 전환이 두 짝으로 갈려 있다(폭·여백 200ms cubic-bezier(0.22,1,0.36,1) · 불투명도·transform 180ms ease). 링은 스스로 그리지 않고 LOUIS .louis-spinner 레시피를 그대로 소비하며 제품 게이트가 그 소비를 클래스 문자열로 고정한다. **Figma 는 닫힌 변형에서 슬롯 레이어를 숨긴다** — 프레임을 0 폭으로 만들 수 없어서이고, 그래서 되읽기의 md/false·sm/false 에 slots 가 비어 있다(제품은 폭 0 + overflow-hidden). 결과적으로 닫힘 폭 0 을 어떤 게이트도 대조하지 않는다. 꼬리 말줄임표 제거는 Figma 에 표현되지 않는다. **축 이름 Loading 을 figma-component-authoring.md §2 의 조건 축 명부에 올렸다** — 프레임이 자기 itemSpacing 을 0 ↔ 6·4 로 다시 쓰고(시험 2) 닫힘과 열림 사이에 Smart Animate 를 걸어야 해(시험 3) BOOLEAN 으로 그릴 수 없다. 명부가 여섯에서 일곱이 됐고, Button 의 Loading 은 여전히 판정 전이다. 타이포를 Figma 가 14/150% 로 고정하는데 제품은 소유하지 않고 감싸는 컨트롤에서 물려받는다. 상태 전달을 이 컴포넌트가 하지 않는다 — 슬롯이 aria-hidden 이고 role·aria-live·aria-busy 가 없으며, aria-busy 를 건 호출부는 20 중 셋뿐이다(Spinner 의 reduce 대체 계약이 나머지 열일곱에서 성립하지 않는다). 기하는 `figma/components.measured.json` 의 `inline-loading-label` 이 md/sm × 닫힘/열림 네 벌로 고정한다 — padding·radius 는 0 이고 열림의 gap 6·4 와 slot 16·12 가 들어 있다(닫힘 두 벌에 slot 키가 없는 것은 위에 적은 Figma 사정 그대로다). 증거 락도 낡지 않았다 — 고정한 blob 이 링을 `.louis-spinner` 로 그리는 현재 판이다.",
       "maturity": "experimental",
       "figma": "partial",
       "web": "not-ready",
@@ -1576,7 +1576,7 @@
       "figma": "partial",
       "web": "partial",
       "docs": "done",
-      "note": "public export와 실브라우저 acceptance test. Figma는 항목 set 5 variant와 패널 component 둘로 나뉜다 — 항목이 조립 단위이고 패널이 그것을 담는다. composite-popover 표면은 별도 component 로 섰다(2026-08-30, inset 8 · gap 8 · 기준폭 240). 제품 공용 정본은 --dropdown-* 토큰이며 면·간격·알파를 채택했다. 서브메뉴와 체크 상태가 남고, .louis-popover__title(heading-sm 28px)은 소비처가 0이라 값 재확인이 남았다",
+      "note": "public export와 실브라우저 acceptance test. Figma는 항목 set 5 variant와 패널 component 둘로 나뉜다 — 항목이 조립 단위이고 패널이 그것을 담는다. composite-popover 표면은 별도 component 로 섰다(2026-08-30, inset 8 · gap 8 · 기준폭 240). 면·간격·알파는 채택 당시 제품 공용 정본이던 --dropdown-* 토큰에서 가져왔다 — 그 일곱 이름은 P#1 이후 제품에 없고 지금은 제품이 LOUIS 정본을 직접 소비한다. 서브메뉴와 체크 상태가 남고, .louis-popover__title(heading-sm 28px)은 소비처가 0이라 값 재확인이 남았다",
       "doc": "design/components/menu-popover.md",
       "figmaName": "Menu",
       "figmaNames": [
@@ -1659,7 +1659,7 @@
         "SegmentedCodeInput"
       ],
       "doc": "design/components/segmented-code-input.md",
-      "note": "쿠폰 코드처럼 한 글자씩 칸을 나눠 받는 입력 묶음. 제품 구현(components/ui/SegmentedCodeInput.tsx)이 정본이고 소비처는 쿠폰 등록 모달 한 자리다 — LOUIS recipe 는 없다. **칸이 아니라 묶음이 컴포넌트다**: 칸은 정본에서 이름 없는 input 이고 export 되지 않으며, flex-1 min-w-0 max-w-14 로 컨테이너에 맞춰 줄어든다(12칸을 고정폭으로 두면 360px 모달에서 넘친다는 이유가 주석에 있다). Figma 도 프레임 폭 386 만 고정했다 — 칸의 sizing mode 는 되읽기에 없어 채움인지 고정인지 확인되지 않는다 — 12*28 + 2*12 + 13*2 = 386 으로, 칸이 상한 28 에 닿는 폭이다. **칸 수 12 와 묶음 4 는 컴포넌트의 값이 아니라 COUPON_CODE_LENGTH · COUPON_CODE_GROUP_SIZE 다** — Figma 의 12칸은 한 소비처의 표본이다. **입력됨/빈칸과 오류는 축이 아니다** — 채워짐 규칙이 CSS 에 없고(상태 선택자가 :focus 와 :disabled 둘뿐), 오류는 형제 p role=alert 가 지는데 **제품에 FormMessage 컴포넌트는 없고** 그 p 는 인라인 마크업이라 form-message.md 의 정본(로그인 화면)과 색 단계도 여백도 role 도 다르다. **포커스 색이 세 곳에서 다르다** — 제품은 primary-400(#38a4ff) 72% 를 두 테마 모두 쓰는데 color/stroke-focus 는 모드마다 갈리고, 그래서 묶은 color/accent-primary 는 모드 불변이지만 값이 #0088ff 다. 더 나쁜 것은 **어느 후보도 라이트에서 대비 3:1 을 넘지 못한다**는 사실이다 — outline-none 에 1px 테두리 색만 바꾸는 조형이라 라이트 1.65:1 · 다크 2.58:1 이다(SC 1.4.11 결손). 칸 이름의 「번째 글자」가 i18n 밖에 박혀 있고, 기하는 components.measured.json 에 항목이 없어 대조되지 않는다.",
+      "note": "쿠폰 코드처럼 한 글자씩 칸을 나눠 받는 입력 묶음. 제품 구현(components/ui/SegmentedCodeInput.tsx)이 정본이고 소비처는 쿠폰 등록 모달 한 자리다 — LOUIS recipe 는 없다. **칸이 아니라 묶음이 컴포넌트다**: 칸은 정본에서 이름 없는 input 이고 export 되지 않으며, flex-1 min-w-0 max-w-14 로 컨테이너에 맞춰 줄어든다(12칸을 고정폭으로 두면 360px 모달에서 넘친다는 이유가 주석에 있다). Figma 도 프레임 폭 386 만 고정했다 — 칸의 sizing mode 는 되읽기에 없어 채움인지 고정인지 확인되지 않는다 — 12*28 + 2*12 + 13*2 = 386 으로, 칸이 상한 28 에 닿는 폭이다. **칸 수 12 와 묶음 4 는 컴포넌트의 값이 아니라 COUPON_CODE_LENGTH · COUPON_CODE_GROUP_SIZE 다** — Figma 의 12칸은 한 소비처의 표본이다. **입력됨/빈칸과 오류는 축이 아니다** — 채워짐 규칙이 CSS 에 없고(상태 선택자가 :focus 와 :disabled 둘뿐), 오류는 형제 p role=alert 가 지는데 **제품에 FormMessage 컴포넌트는 없고** 그 p 는 인라인 마크업이라 form-message.md 의 정본(로그인 화면)과 색 단계도 여백도 role 도 다르다. **포커스 색이 세 곳에서 다르다** — 제품은 primary-400(#38a4ff) 72% 를 두 테마 모두 쓰는데 color/stroke-focus 는 모드마다 갈리고, 그래서 묶은 color/accent-primary 는 모드 불변이지만 값이 #0088ff 다. 더 나쁜 것은 **어느 후보도 라이트에서 대비 3:1 을 넘지 못한다**는 사실이다 — outline-none 에 1px 테두리 색만 바꾸는 조형이라 라이트 1.65:1 · 다크 2.58:1 이다(SC 1.4.11 결손). 칸 이름의 「번째 글자」가 i18n 밖에 박혀 있다. 기하는 `figma/components.measured.json` 의 `segmented-code-input` 이 칸 하나로 고정한다 — 칸 상한폭 28 × 높이 36 · radius 8 · border 1 · 글자 16/24 를 Default·Focus·Disabled 세 벌에 같은 값으로 둔다(28 은 고정폭이 아니라 max-width 이고 제품 탐침도 `maxWidth` 를 읽는다). 글자 16/24 는 뷰포트 무조건이 아니다 — globals.css 의 `@media (max-width: 450px)` 가 `--type-body-16-size` 를 body-14 스케일로 내리는데 measured.json 에 그 축이 없다. 묶음 폭 386 과 칸 사이 2 는 **일부러 뺐다** — 386 은 12칸이 상한 28 에 닿는 폭에서 나온 산술이고, 2 는 **소비처가 아니라 정본 자기 루트 래퍼**(SegmentedCodeInput.tsx:135 의 `flex w-full items-center gap-1`)의 인라인 className 이라 BOX·SEPARATOR 같은 이름 붙은 상수가 아니어서 측정 스크립트가 커밋에서 꺼낼 수 없다 — 유일한 소비처(SubscriptionScene.tsx)의 래퍼는 `flex justify-center py-4` 이고 모달 카드에도 gap 유틸리티가 없다. **같은 오기가 `figma/components.measured.json` 의 `$why` 에 아직 남아 있어 그 파일에서 같은 정정이 필요하다**.",
       "maturity": "experimental",
       "figma": "partial",
       "web": "not-ready",
@@ -1694,7 +1694,7 @@
       "figma": "not-planned",
       "web": "not-planned",
       "docs": "not-planned",
-      "note": "**고르기는 Menu가 소유한다**(2026-08-18 판정). 제품 실측에서 네이티브 <select> 12벌이 전부 /admin 아래이고 배포 화면(Home·Highlight·Editor)에는 0벌이다 — 제품은 트리거 + 메뉴 패널로 고르며 그 파일이 11개다. DS에는 이미 ActionMenu와 CompositePopover가 있어 그 자리를 덮는다. gap registry 우선순위 1~15 어디에도 들지 않은 이유도 같다. 관리자 도구는 이 저장소의 소비 surface가 아니다. 수요가 생기면 Decision으로 이 판정을 뒤집고 다시 연다"
+      "note": "**고르기는 Menu가 소유한다**(2026-08-18 판정). 제품 실측에서 네이티브 <select> 는 **14벌 / 5파일**이고(2026-08-30 에 제품 74a7303b 에서 다시 셌다 — /admin 의 4파일 13벌 + /creative-media-admin 의 1파일 1벌. 앞서 적은 「12벌이 전부 /admin」은 수도 범위도 틀렸다. `<select` 문자열은 18건이지만 그중 넷은 이 판정을 인용한 주석이다), 배포 화면(Home·Highlight·Editor)에는 0벌이다 — 제품은 트리거 + 메뉴 패널로 고르며 그 파일이 11개다. DS에는 이미 ActionMenu와 CompositePopover가 있어 그 자리를 덮는다. gap registry 우선순위 1~15 어디에도 들지 않은 이유도 같다. 관리자 도구는 이 저장소의 소비 surface가 아니다. 수요가 생기면 Decision으로 이 판정을 뒤집고 다시 연다"
     },
     {
       "id": "selectable-list-row",
@@ -1823,9 +1823,9 @@
       "name": "Video Player",
       "maturity": "experimental",
       "figma": "partial",
-      "web": "partial",
+      "web": "not-ready",
       "docs": "done",
-      "note": "제품 구현(VideoPlayer.tsx)이 정본이고 소비처가 8곳이다. LOUIS recipe 는 아직 없다 — Figma 가 코드보다 앞서 있는 자리다. **스킨 축을 없앴다** — 두 벌 중 하나만 8곳 중 7곳에서 쓰였고 나머지 한 자리도 같은 조형으로 통합했다(제품·Figma 동시 반영). Figma 는 둘로 나뉜다: 포인터 이벤트를 혼자 소유하는 MediaScrubber(2 variant, ON_HOVER 프로토타입)와 그것을 조립하는 VideoPlayer(4 variant, Chrome × Tone). tone=bright 가 유리 틴트가 아니라 잉크만 뒤집는다는 함정을 문서에 적어 두었다.",
+      "note": "제품 구현(VideoPlayer.tsx)이 정본이고 소비처가 8곳이다. LOUIS recipe 는 아직 없다 — Figma 가 코드보다 앞서 있는 자리다. **Web 을 `partial` 에서 `not-ready` 로 내렸다**(2026-08-30 재판정): `packages/css/src/component` 에 `video-player.css` 가 없고 `packages/react/src` 에도 표면이 없다. 제품 파일이 LOUIS 에서 받는 것은 `--louis-hairline-inset` 한 줄뿐이다. recipe 없이 Figma 만 선 자리는 이 저장소에서 전부 `not-ready` 이고(carousel-arrow · faq-row · media-card 등 열둘), video-player 만 `partial` 로 어긋나 있었다 — 문서의 근거 칸도 이미 「LOUIS recipe 는 없다」라고 적고 있었다. **스킨 축을 없앴다** — 두 벌 중 하나만 8곳 중 7곳에서 쓰였고 나머지 한 자리도 같은 조형으로 통합했다(제품·Figma 동시 반영). Figma 는 둘로 나뉜다: 포인터 이벤트를 혼자 소유하는 MediaScrubber(2 variant, ON_HOVER 프로토타입)와 그것을 조립하는 VideoPlayer(4 variant, Chrome × Tone). tone=bright 가 유리 틴트가 아니라 잉크만 뒤집는다는 함정을 문서에 적어 두었다.",
       "doc": "design/components/video-player.md",
       "figmaNames": [
         "MediaScrubber",
@@ -1963,7 +1963,7 @@
     },
     {
       "path": "migration/component-parity.md",
-      "purpose": "제품 배포 코드와 DS 구현의 시각 계약을 축별로 실측 대조한 비규범 기록. 205축 중 143건 격차. DS↔제품을 재는 게이트가 없다는 사실의 증거이며 값 재조정의 입력",
+      "purpose": "제품 배포 코드와 DS 구현의 시각 계약을 축별로 실측 대조한 2026-08-15 기준선(제품 086f4a62)의 비규범 기록. 205축 중 143건 격차. 그 뒤 제품이 LOUIS를 채택해 여섯 절이 절마다 다른 정도로 낡았고 포커스 축 둘은 판정이 뒤집혔으므로, 문서 머리의 무효 범위 배너를 먼저 읽는다. 현재형 대조는 migration/product.measured.json의 187축이 verify-product-parity 게이트 아래에서 맡는다",
       "authority": "reference"
     },
     {

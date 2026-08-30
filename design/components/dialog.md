@@ -271,7 +271,7 @@ Figma에서 제품 화면을 그릴 때는 아래를 쓴다.
 **제품 실측이 아니라 DS 계약**이고, 제품이 그것을 소비한다.
 
 **뷰포트 450px 이하에서 위 표의 16px이 전부 14px로 내려간다.** 제품이 `--type-body-16-size`를
-`--type-body-14-size`로 재정의하기 때문이다(`globals.css:838-842`). `line-height`와
+`--type-body-14-size`로 재정의하기 때문이다(`globals.css:810-814`). `line-height`와
 `letter-spacing`은 따라 내려가지 않는다. 결과는 모바일 폭에서 **제목·설명·액션 라벨·부속이 전부
 14px**이 되어 위계가 굵기에만 남는 것이다. 450은 [Responsive Layout](../foundations/responsive-layout.md)의
 다섯 단계에 없는 별도 경계다 — **다섯 단계만 보고 그리면 이 층이 통째로 빠진다.**
@@ -390,18 +390,24 @@ host의 두 번째 직속 자식이 되고, primitive의 중첩 격리가 자기
   box-shadow(`--louis-hairline-inset`)를 한 겹 더 쓴다([DS-D-0023](../governance/decisions/DS-D-0023-hairline-inset.md)).
   Menu 패널과 같은 판단이다.
 
-  **이제 제품과 같은 계약이다 — border가 아니라 box-shadow 헤어라인이다.** 다만 구성은 다르다.
-  배포본 확인 모달은 `border` 선언이 아예 없고 경계를
-  `box-shadow: var(--dropdown-frame)` **0.5px 헤어라인 한 겹으로만** 만든다(`GlassConfirmModal.tsx:56`).
-  드롭다운이 함께 쓰는 `--dropdown-ambient-shadow`는 붙이지 않으므로 **드롭 섀도우가 한 겹도 없다** —
-  DS는 `elevation-modal` 뒤에 헤어라인을 조합해 앰비언트와 헤어라인을 함께 갖는다는 점이 다르다.
-  이름이 `Glass*`인데도 `backdrop-filter: none`과 `-webkit-backdrop-filter: none`을 명시해 흐림까지 끈다
-  (`GlassConfirmModal.tsx:55`). **이름을 믿고 Figma에 블러를 넣으면 틀린다** — 이름의 `Glass`는 이미 제품이 걷어낸 개념의 잔재다.
-- **제품 모달의 면은 시맨틱이 아니라 palette 직접 참조 두 벌이다.** 다크 `--palette-gray-800` `#313640`,
-  라이트 `--palette-gray-100` `#f1f1f3`이고 둘 다 불투명 100%다(`GlassConfirmModal.tsx:54-55`).
-  `--gray-*`는 테마마다 뒤집히지만 `--palette-*`는 뒤집히지 않아, 제품은 라이트 분기
-  (`html[data-theme=light]`)를 한 줄 더 써서 두 값을 손으로 갈라 적는다. **면을 시맨틱 토큰 하나로
-  옮기면 그 토큰의 반전 방향이 이 두 값과 맞지 않아 한쪽 테마가 통째로 틀린다.**
+  **이제 제품과 같은 계약이고, 구성도 같아졌다.** 배포본 확인 모달은 `border` 선언도 자기
+  `box-shadow` 선언도 없고 `.louis-dialog__surface`를 그대로 소비한다
+  (`GlassConfirmModal.tsx:161`, 루트는 `:152`). 경계는 그 recipe의
+  `box-shadow: var(--louis-elevation-modal), var(--louis-hairline-inset)`
+  ([dialog.css:85](../../packages/css/src/component/dialog.css))에서 온다 — 앰비언트와 헤어라인을
+  함께 갖는다.
+
+  **이전 판은 여기가 갈린다고 적었다. 그 판정은 더 이상 유효하지 않다.** 근거였던
+  `box-shadow: var(--dropdown-frame)` 한 겹은 `GlassConfirmModal.tsx@3c9a1a44:57`에 있었고,
+  「`--dropdown-ambient-shadow`를 붙이지 않아 드롭 섀도우가 한 겹도 없다」는 그 줄을 읽은 판정이었다.
+  **두 토큰은 지금 제품에 없고** 그 자리를 LOUIS 정본이 받는다 —
+  [읽기 함정](../foundations/product-reading-traps.md) 2번의 `--dropdown-*` 대응표를 보라.
+- **제품 모달의 면도 LOUIS 정본이 소유한다.** `.louis-dialog__surface`의
+  `background: var(--louis-color-bg-overlay)`이고, 라이트 `color(srgb 0.980392 0.980392 0.980392 / 1)` ·
+  다크 `color(srgb 0.192157 0.211765 0.25098 / 1)`이다
+  ([tokens.css:292](../../packages/tokens/generated/tokens.css) · `731`). 이전 판이 적었던
+  「palette 직접 참조 두 벌을 손으로 갈라 적는다」(`GlassConfirmModal.tsx@3c9a1a44:54-55`)는 그때의
+  구성이고, 지금 제품 파일에는 그 두 줄이 없다.
 - **Anatomy 3번 Positioner가 별도 DOM 노드가 아니다.** Dialog는 anchored가 아니라 positioner를 쓰지
   않는다. 그 역할은 overlay root가 grid 정렬과 padding으로 직접 소유한다.
 - **dialog surface가 자손 `position: fixed`의 containing block이다.** enter transform과

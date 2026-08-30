@@ -9,6 +9,53 @@ authority: reference
 DS 구현이 **제품 배포 코드와 실제로 얼마나 다른가**를 축별로 잰 비규범 기록이다. 규범이 아니며
 DS가 무엇을 채택할지는 각 컴포넌트 규범과 owner 판정이 정한다.
 
+## 무효 범위 (2026-08-30)
+
+**아래 205축은 2026-08-15 기준선을 잰 것이고, 그 뒤 제품이 LOUIS를 채택했다.**
+현재 근거 기준선은 `migration/product-evidence.lock.json`의 `74a7303b`이며, 거기서 `louis-`를
+**소비하는** 제품 파일이 **138개**다 — `apps/web` 안에서 `louis-`가 grep되는 파일은 144개지만
+그중 6개(게이트 스크립트 `check-louis-literals`·`check-rendering`·`check-tailwind-theme`·
+`check-typography`, `louis-literal-baseline.json`, `apps/web/package.json`)는 이름을 언급할 뿐
+클래스를 소비하지 않는다(저장소 전체 grep은 150개). 아래 여섯 절이 공유하던 전제 —「제품에
+공용 구현이 없고 화면마다 벌이 갈린다」— 가 절마다 **다른 정도로** 무너졌다. 좌표가 밀린 것이
+아니라 **판정이 뒤집힌 축이 둘 있다**(Button·Icon Button의 포커스).
+
+**아래 좌표의 줄번호는 어느 한 커밋 기준이 아니다.** 205축은 옛 원격
+`sniperfactory-official/klipse`의 `louis` 브랜치를 잰 것이고(아래 「기준선 정정」 절), 2026-08-15에
+klipse-web에서 다시 대조할 때 **내용만 맞추고 줄번호는 옮기지 않았다.** `product.measured.json`이
+`086f4a62`로 고정하는 것은 그 재대조 시점이지 이 문서 좌표의 출처가 아니다. 두 저장소에서 내용이
+같았던 `.tsx`·`.module.css` 좌표는 `086f4a62`에서 그대로 열리지만(`Button.tsx`·`HomePageClient.tsx`·
+`HighlightCreateModal.tsx`·`hl/page.module.css` 확인) **`globals.css` 좌표는 열리지 않는다** —
+`--button-*` 6개는 문서의 80-87이 아니라 88-95(**−8**), `.app-tooltip-chrome`은 1497-1508이 아니라
+1479-1490(**+18**)이라 한 파일 안에서 밀림의 방향까지 갈린다. 그러니 `globals.css` 줄번호는
+**내용으로 찾아라.** 아래에서 `@086f4a62:` 를 단 좌표만이 그 커밋에서 실제로 열리는 것이고,
+그것들은 제품에서 사라진 대상의 과거형 표기다.
+
+**대신 볼 것.** 현재형 대조는 [`migration/product.measured.json`](product.measured.json)이 맡는다 —
+187축을 `scripts/verify-product-parity.mjs` 게이트 아래에서 유지하며, 축마다 status가 없거나
+`gap`이면 실패한다. 이 문서는 그 게이트가 **왜 필요했는지**의 기록으로 남긴다.
+
+**여전히 유효한 것**: 「왜 이 문서가 생겼나」·「측정 방법」·「한계」 세 절. 방법(조사자 하나가
+주장하고 다른 조사자가 반증)과 이 문서가 드러낸 사실(게이트 없이 DS가 제품과 벌어졌다)은
+기준선이 움직여도 바뀌지 않는다. 다만 「왜 이 문서가 생겼나」의 **「DS ↔ 제품을 재는 게이트는
+하나도 없다」는 집필 시점의 상태다** — 그 구멍은 이 문서가 낳은 `verify-product-parity`가 막았고,
+「한계」가 필요하다고 적은 게이트가 바로 그것이다.
+
+**절 단위 판정** — 제품 `74a7303b`에서 확인했다.
+
+| 절 | 무엇이 무효인가 | 아직 서 있는 것 |
+| --- | --- | --- |
+| **Button** | **이 절이 인쇄하는 축 행 35개의 제품 열이 전부 무효**(집계표의 「측정 축 44」가 아니라 「확인된 격차 35」가 실제 행 수다). 근거 열은 **26행이 `Button.tsx`, 5행이 `globals.css`의 `--button-*`**이고 **나머지 4행은 둘 다 아니다** — 배경 danger(`--accent-red-500`) · 전경 secondary(`--palette-gray-600`) · font-family(`--type-font-family`) · focus-visible. 앞의 셋이 가리키는 토큰은 `74a7303b`에도 살아 있으므로(각각 globals.css:219 · :39 · :281), 그 네 행이 무효인 이유는 「이제 LOUIS가 버튼의 색·타입·포커스를 소유한다」는 별개 근거지 근거 파일이 사라져서가 아니다. 공용 `Button.tsx`는 루트 `<button>`에 `.louis-button` + `.louis-focus-ring`만 붙이고(내부 span에는 `.louis-button__icon`·`.louis-button__label`을 낸다) — 축들이 대조하던 Tailwind 상수(`ROOT`·`SIZE_MD`·`PRIMARY` 등)가 그 파일에 없다. variant는 4에서 **5**로 늘었고(`inverse` 추가) size 축은 `md`/`sm`에서 `lg`/`md`로 바뀌었다. `globals.css`의 `--button-height-sm`·`--button-padding-inline-sm`·`--button-min-width-sm`·`--button-padding-inline`은 삭제됐고 `--button-radius`(:64)·`--button-height`(:68)만 남았는데 **후자를 버튼이 읽지 않는다**(globals.css:65-67 주석이 그렇게 적는다). 9벌 중 `(highlight-standalone)` 벌은 라우트 그룹째 사라졌다(제품에 `.module.css` 0개). **focus-visible 축은 판정 역전** — 전역 규칙이 `button:focus:not(:focus-visible)`(globals.css:981)로 좁혀져 `:focus-visible`을 살려 두고, 공용 Button이 `.louis-focus-ring`을 직접 붙인다 | 9벌 목록 중 ad-hoc 다섯(appHomeSceneStyles · highlightSceneStyles · myPageSceneStyles · ComposerBar · NodePromptGenerateButton)은 파일이 그대로 있다 — 다만 축의 「DS」 열이 그것들을 재지 않았다 |
+| **Icon Button** | 전제 「제품에 공용 아이콘 버튼 프리미티브가 없다」가 무효 — `components/ui/IconButton.tsx`가 새로 생겼고 `.louis-icon-button` + `.louis-focus-ring`을 붙인다(086f4a62에는 없던 파일이다). **focus ring 축의 `product-missing` 판정 역전** | ad-hoc 20벌 조사 자체. 기준으로 삼은 `gnb-iconButton`은 그대로 있다(줄만 191→196으로 밀렸다) |
+| **Menu / Popover** | 전제 「제품에서 공용인 것은 CSS 변수 6개가 전부다」가 무효 — `--dropdown-ambient-shadow`·`--dropdown-radius`·`--dropdown-padding`·`--dropdown-item-radius`·`--dropdown-surface-bg`·`--glass-dropdown-frame` 여섯이 `globals.css`에서 **전부 사라졌다.** P#1에서 별칭을 폐기하고 LOUIS 오버레이 토큰을 직접 소비한다. **34축의 「rows의 기준」이던 `appHomeSceneStyles.ts`도 넘어갔다** — `archiveDropdown`이 `.louis-popover`를, `archiveDropdownItem`이 `.louis-menu__item`을 통째로 문다(제품 주석: 「표면(면·라운드·그림자·패딩·항목 간격)은 LOUIS 정본 `.louis-popover`가 소유한다」·「항목은 `.louis-menu__item`이 소유(패딩·라운드·색·hover·font)」). 그래서 「패널 padding 6px」·「패널 gap 2px」·「패널 그림자」·「패널 배경」·「패널 border」·「항목 radius 10px」처럼 **표면에 닿는 축의 제품 열은 지금 무효**다 | 표면 밖 값은 그대로다 — min-width 160(`--louis-popover-preferred-inline-size:160px`)·`z-index:1100`·`top:calc(100% + 8px)`·130ms 닫힘 전이. 벌이 여럿으로 갈려 있다는 조사도 서 있다. 다만 **ad-hoc 목록은 「대부분」이 아니라 거의 전부가 넘어갔다** — 19벌 목록의 제품 파일 중 `HighlightCreateModal.tsx`는 `74a7303b`에 아예 없고(98c421ea에서 삭제), 나머지는 전부 `louis-menu`/`louis-popover`를 문다 |
+| **Dialog** | 축들의 기준이던 `GlassConfirmModal.tsx`가 `.louis-overlay-panel` + `.louis-dialog`를 채택했다(:152) — 표면·반경·배경·그림자·스크림 축의 제품 열이 무효다. **`padding` 축도 무효**다: 제품 열이 적은 「header/body/footer 분리 없음」이 깨져 지금은 `.louis-dialog__header`/`__heading`/`__title`/`__description`/`__body`/`__footer`를 쓴다(:168-182). (22축 표에 「헤더」라는 축은 없다 — 헤더에 닿는 서술은 `padding` 축 한 문장뿐이다.) | **`닫기 버튼` 축은 무효가 아니다** — 그 축의 요지 「확인 모달 계열(GlassConfirmModal·ConfirmModal·CreateProjectModal)에는 닫기 버튼이 아예 없다」는 `74a7303b`에서도 참이다(GlassConfirmModal에 `louis-dialog__close` 0건). 이 축에서 어긋난 것은 근거 좌표와 값이다 — `PricingModal.tsx:52`는 지금 헤더 상수 줄이고 `PRICING_MODAL_CLOSE_BUTTON`은 :58부터이며, 색이 `rgb(gray-000/60%)`가 아니라 **56%**다(`w-10 h-10`=20×20와 `rounded-4`는 문서대로). 14벌이 같은 셸을 파일마다 복제한다는 조사도 서 있다(단 `HighlightCreateModal.tsx`는 삭제됐다). Escape 핸들러 부재는 GlassConfirmModal에서 지금도 확인된다(`escape` 문자열 0건) |
+| **Tooltip** | shared로 적은 `.app-tooltip-chrome`이 **없어졌다**(`apps/web` 전체 0건). 옮겨간 곳은 `ChromeTooltip.tsx` 하나가 아니다 — `.louis-tooltip`을 무는 제품 파일이 **6개**다(`ChromeTooltip.tsx` · `create/ComposerBar.tsx` · `app/mypage/upgrade/page.tsx` · `scenes/analytics/shared.tsx` · `scenes/analytics/useAnalyticsBarTooltip.tsx` · `scenes/archive/YoutubeVideoAnalyticsView.tsx`). 14벌 목록의 `HomePageClient.tsx (TIER_FEATURE_TIP)`은 옮겨간 게 아니라 **없어졌다** — 파일은 남았으나 109줄로 줄었고 `tooltip`/`TIP` 문자열이 0건이다 | ad-hoc 조사 중 `inspectorPrimitives.tsx`(Radix) · `myPageSceneStyles.ts` · `VideoEditModal.tsx` · `SubscriptionScene.tsx` · `VideoPlayer.tsx`는 그대로다. `[data-tooltip]::after` 전역 SSOT도 살아 있고 지금 **globals.css:1403**이다(문서가 적은 1511은 `086f4a62`에서도 열리지 않는다 — 위 좌표 경고 참조). **`--app-tooltip-*`가 전부 LOUIS 별칭인 것은 아니다** — space/radius/motion은 직행 별칭이고(:333-334 · :339 · :342-346), 타이포 4개는 제품 `--type-caption-12-*`/`--type-weight-*`를 한 번 거치지만(그중 LOUIS에 닿는 것은 `-size`뿐), 색·그림자(:672-676 다크 · :716-720 라이트)는 `--palette-gray-*` 위에 제품이 직접 쓴 조합이고 `--app-tooltip-shadow: 0 12px 24px …`는 어떤 LOUIS elevation 토큰의 별칭도 아니다. 그래서 이 절의 그림자·극성 축은 지금도 서 있다 |
+| **Toast** | 「공용 Toast 컴포넌트 없음」이 무효 — **여섯 자리**가 `.louis-toast`를 조합한다: `appHomeSceneStyles.ts:886` · `highlightSceneStyles.ts:2070` · `NodeCanvasHomeScene.tsx:543` · `CreateScene.tsx:181` · `VideoEditScene.tsx:430` · `EditorProjectWorkspace.tsx:219`. **그중 `appHomeSceneStyles.ts`가 14축 전체의 「rows의 기준」이고 `highlightSceneStyles.ts`가 2번째 벌**이라, 무효 범위가 전제 하나가 아니라 축의 기준 자체에 닿는다. LOUIS로 넘어간 것은 패딩(12/20)·반경(16)·글자색(fg-on-inverse) 셋이고, 제품이 남긴 것은 위치·스택(z-index 1300)·등장 애니메이션·면 색(gray-800/200 72%)·그림자·`backdrop-filter` 10px·`max-inline-size:none`이다(`CreateScene`은 `inline-flex`·`gap-6`도 남겼다) | **「ad-hoc 9벌 조사」는 서 있지 않다** — 9벌 중 6벌이 위 여섯이다. 남은 것은 `myPageSceneStyles.ts` · `inquiry/InquiryClient.tsx` · `/admin` 인라인 배너 7벌뿐이고(셋 다 `louis-toast` 0건), `/admin` 벌이 같은 이름의 다른 물건이라는 지적이 온전히 남는다 |
+
+「집계」표의 **제품 구현 벌 수** 열도 같은 이유로 낡았다. **다시 세지 않았다** — 205축 값을 손으로
+재측정하는 것은 이 배너의 일이 아니다. 그 일은 `product.measured.json`의 187축이 게이트 아래에서
+한다.
+
 ## 왜 이 문서가 생겼나
 
 DS의 게이트는 전부 **DS 내부 일관성**만 본다 — 코드 ↔ Figma, 토큰 ↔ 생성물. **DS ↔ 제품을 재는
@@ -49,7 +96,7 @@ DS의 게이트는 전부 **DS 내부 일관성**만 본다 — 코드 ↔ Figma
 - `apps/web/components/scenes/VideoEditScene.tsx` — ad-hoc — HISTORY_MORE_BUTTON:301(w-16 h-16=32×32, r var(--button-radius)), HISTORY_DROPDOWN_ITEM:365. editor(비디오 편집) 목록 화면 전용 상수
 - `apps/web/components/scenes/create/ComposerBar.tsx` — ad-hoc — 한 파일에 BUTTON 상수 11벌. VIEW_MODE_BUTTON_BASE:77(h-15=30px/px-6=12px/r999), ASSET_FOOTER_BUTTON:138(h-16=32px/px-6/r999), DURATION_TRIGGER:148(h-16/px-4=8px/r999), COMPOSER_SEGMENT_BUTTON_BASE:256(h-16/r999)
 - `apps/web/components/scenes/create/node-canvas-v2/components/NodePromptGenerateButton.tsx` — ad-hoc(준공용) — CHROME:21 / ROOT:35(min-w-16 h-16 px-4 = 32h/8pad, r var(--button-radius)). 공용 Button primary의 그라디언트·이너섀도우가 이 버튼을 베낀 것(SSOT 역전). active는 0.95로 공용 Button(0.98)과 다름
-- `apps/web/app/(highlight-standalone)/hl/page.module.css:55` — style-object(라우트 오버라이드) — --node-prompt-generate-gradient: #FFDD00. 이 라우트에서만 공용 Button primary가 노란 단색이 된다
+- `apps/web/app/(highlight-standalone)/hl/page.module.css@086f4a62:55` — **제품에서 사라졌다**(라우트 그룹째 삭제, `74a7303b`에 `.module.css` 0개). style-object(라우트 오버라이드)로 --node-prompt-generate-gradient: #FFDD00 을 두어, 이 라우트에서만 공용 Button primary가 노란 단색이 됐었다
 
 격차 35건.
 
@@ -190,7 +237,7 @@ DS의 게이트는 전부 **DS 내부 일관성**만 본다 — 코드 ↔ Figma
 - `apps/web/components/scenes/create/node-canvas-v2/nodes/TextNode.tsx:179-191` — ad-hoc — 위와 같은 --menu-pad:4px 계열
 - `apps/web/components/scenes/create/node-canvas-v2/nodes/ColorPopover.tsx:252-256` — ad-hoc — nested color picker 팝오버
 - `apps/web/components/scenes/create/node-canvas-v2/nodes/YoutubeNode.tsx:503-504` — ad-hoc — 노드 메뉴 표면
-- `apps/web/components/scenes/HighlightCreateModal.tsx:34` — ad-hoc — --dropdown-radius/surface-bg를 모달 표면에 전용
+- `apps/web/components/scenes/HighlightCreateModal.tsx@086f4a62:34` — **제품에서 사라졌다**(98c421ea에서 파일째 삭제). ad-hoc — --dropdown-radius/surface-bg 를 모달 표면에 전용했었다
 - `apps/web/components/scenes/create/CustomDropdown.tsx:53,114` — ad-hoc — --dropdown-surface-bg/item-radius만 부분 차용한 listbox
 
 격차 34건.
@@ -260,7 +307,7 @@ DS의 게이트는 전부 **DS 내부 일관성**만 본다 — 코드 ↔ Figma
 - `apps/web/components/scenes/create/PricingModal.tsx` — ad-hoc (720px 카드 + 헤더/닫기 버튼)
 - `apps/web/components/scenes/create/ImageCropModal.tsx` — ad-hoc (radius 10px 벌)
 - `apps/web/components/scenes/create/node-canvas-v2/nodes/CropModal.tsx` — ad-hoc (radius 16px, 2px border 벌)
-- `apps/web/components/scenes/HighlightCreateModal.tsx` — ad-hoc (--dropdown-radius/--dropdown-surface-bg 토큰 벌, 스크림 색 계열이 다름)
+- `apps/web/components/scenes/HighlightCreateModal.tsx@086f4a62` — **제품에서 사라졌다**(98c421ea에서 파일째 삭제). ad-hoc (--dropdown-radius/--dropdown-surface-bg 토큰 벌, 스크림 색 계열이 다름)
 - `apps/web/components/youtube/YoutubeUploadModal.tsx` — ad-hoc (스크림 55% + blur 8px 벌)
 - `apps/web/components/scenes/create/NodeCanvasGuideModal.tsx` — ad-hoc (fullscreen 벌, radius 0)
 - `apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx` — style-object (vem.* 클래스 상수 객체. DS가 Workspace로 분리하라고 규정한 docked editor를 modal shell로 구현)
@@ -314,7 +361,7 @@ DS의 게이트는 전부 **DS 내부 일관성**만 본다 — 코드 ↔ Figma
 
 제품 구현 **14벌**.
 
-- `apps/web/app/globals.css:1497-1508 (.app-tooltip-chrome)` — shared (global CSS class SSOT — surface + typography). 6 call sites compose it: ChromeTooltip.tsx:85, ComposerBar.tsx:60, HomePageClient.tsx:1039, mypage/upgrade/page.tsx:623, analytics/shared.tsx:445, analytics/useAnalyticsBarTooltip.tsx:25, archive/YoutubeVideoAnalyticsView.tsx:880
+- `apps/web/app/globals.css:1497-1508 (.app-tooltip-chrome)` — shared (global CSS class SSOT — surface + typography). 6 call sites compose it: ChromeTooltip.tsx:85, ComposerBar.tsx:60, HomePageClient.tsx@086f4a62:1039(현재 없음), mypage/upgrade/page.tsx:623, analytics/shared.tsx:445, analytics/useAnalyticsBarTooltip.tsx:25, archive/YoutubeVideoAnalyticsView.tsx:880
 - `apps/web/components/scenes/create/node-canvas-v2/components/ChromeTooltip.tsx:93-309` — shared React component (behavior/portal/placement/delay). 13 files import it. Surface delegated to .app-tooltip-chrome. No arrow.
 - `apps/web/app/globals.css:1511-1549 ([data-tooltip]:not([data-tooltip=""])::after)` — shared global pseudo-element SSOT (node side handles). 6 files consume it; each supplies only the offset.
 - `apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/inspectorPrimitives.tsx:131-166, 396-412` — ad-hoc (Radix @radix-ui/react-tooltip). Re-declares the surface from --app-tooltip-* with `!`. Only implementation with an arrow (10x5).
@@ -322,8 +369,8 @@ DS의 게이트는 전부 **DS 내부 일관성**만 본다 — 코드 ↔ Figma
 - `apps/web/components/scenes/analytics/useAnalyticsBarTooltip.tsx:24-57` — ad-hoc portal hook — composes .app-tooltip-chrome but adds own min-height 32px, gap 10px, z-1200, own close delay 90ms / exit 150ms.
 - `apps/web/components/scenes/analytics/shared.tsx:71-78` — ad-hoc chart tooltip — composes .app-tooltip-chrome, own z-2 and translate(-50%,-140%) motion vars.
 - `apps/web/components/scenes/archive/YoutubeVideoAnalyticsView.tsx:454-462, 880` — ad-hoc chart tooltip — near-duplicate of analytics/shared.tsx:71.
-- `apps/web/app/HomePageClient.tsx:521-529 (TIER_FEATURE_TIP)` — ad-hoc style-object — composes .app-tooltip-chrome, own width 260px, own z-10, 6px offset.
-- `apps/web/app/mypage/upgrade/page.tsx:267-272 (TIER_FEATURE_TIP)` — ad-hoc style-object — near-verbatim duplicate of HomePageClient.tsx:521 (only the w-\[260px\] line placement differs).
+- `apps/web/app/HomePageClient.tsx@086f4a62:521-529 (TIER_FEATURE_TIP)` — **제품에서 사라졌다**(`74a7303b`의 이 파일은 109줄이고 `TIER_FEATURE_TIP`·`tooltip` 0건). ad-hoc style-object로 .app-tooltip-chrome 을 조합하고 own width 260px, own z-10, 6px offset 을 얹었었다.
+- `apps/web/app/mypage/upgrade/page.tsx:267-272 (TIER_FEATURE_TIP)` — ad-hoc style-object — near-verbatim duplicate of HomePageClient.tsx@086f4a62:521 (only the w-\[260px\] line placement differs).
 - `apps/web/components/scenes/create/ComposerBar.tsx:59-69 (SHOT_MODE_TOOLTIP)` — ad-hoc CSS-hover tooltip — composes .app-tooltip-chrome, 6px offset, zero open delay.
 - `apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx:909-940` — ad-hoc — borrows --app-tooltip-padding/radius/type but overrides bg to accent-red-500 96%, own z-10002, own CSS-triangle arrow.
 - `apps/web/components/scenes/SubscriptionScene.tsx:754-757` — ad-hoc — role="tooltip" span pointing at myPageSceneStyles.ts:696.

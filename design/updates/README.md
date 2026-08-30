@@ -8,10 +8,19 @@ authority: normative
 
 > **⚠ 이 문서의 과거 항목 중 글래스 섀도우 서술은 더 이상 유효하지 않다.**
 > 제품이 `--glass-dropdown-frame`(5겹) · `--glass-bevel-*` · `--glass-inner-shadow-rgb`를 **걷어냈다**.
-> 지금은 `--dropdown-frame`(0.5px 헤어라인 한 겹) 하나이고 라이트/다크 값이 같다 —
-> [Elevation & Layer](../foundations/elevation-layer.md) 「프레임 — 글래스는 폐지됐다」가 정본이다.
-> 아래 항목들은 **그 시점의 기록**이므로 고치지 않고 남긴다. 현재 값의 근거로 인용하지 마라.
-> 정본 브랜치도 `origin/main`에서 **`design`**으로 바뀌었다
+>
+> **그 뒤를 받았던 `--dropdown-*` 계열 일곱도 지금은 제품에 없다.** `--dropdown-frame` ·
+> `--dropdown-frame-on-dark` · `--dropdown-ambient-shadow` · `--dropdown-surface-bg` ·
+> `--dropdown-radius` · `--dropdown-padding` · `--dropdown-item-radius`를 P#1이 걷어냈고, 지금은
+> 제품이 LOUIS 정본(`--louis-hairline-inset` · `--louis-elevation-menu` · `--louis-color-bg-menu` ·
+> `--louis-radius-overlay` / `-item` · `--louis-space-overlay-inset`)을 직접 소비한다.
+> 헤어라인 색은 **라이트/다크로 갈린다** — 아래 항목 중 「라이트/다크 값이 같다」고 적은 것들은
+> `--dropdown-frame` 시절의 기록이다.
+> [Elevation & Layer](../foundations/elevation-layer.md) 「프레임 — 글래스는 폐지됐다」와
+> [읽기 함정](../foundations/product-reading-traps.md) 2절의 대응표가 정본이다.
+>
+> 아래 항목들은 **그 시점의 기록**이므로 고치지 않고 남긴다. 현재 값의 근거로 인용하지 마라 —
+> **토큰 이름도 마찬가지다.** 정본 브랜치도 `origin/main`에서 **`design`**으로 바뀌었다
 > ([읽기 함정](../foundations/product-reading-traps.md) 참조).
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.

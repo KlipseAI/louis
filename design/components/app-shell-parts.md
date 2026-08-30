@@ -85,9 +85,9 @@ summary: 앱 셸을 이루는 사이드바 행과 상단 바입니다.
 **4px을 따로 지어내지 않는다.** Specification의 행 좌우 여백 4px과 **같은 식에서 나온 같은 값**이다.
 두 자리가 한 식을 공유하므로 한쪽만 8로 두면 구획 라벨이 아이콘 시작선에서 밀려난다.
 
-근거: `Gnb.tsx:737-742`(라벨) · `Gnb.tsx:744-751`(행) · `Gnb.tsx:4601-4612`(마크업) ·
-`globals.css:126`·`:128`(두 인셋 변수) · `globals.css:374-375`(caption-12) ·
-`Gnb.tsx:1978`(앱 셸 라이트 램프) · `globals.css:31`.
+근거: `Gnb.tsx:818-823`(라벨) · `Gnb.tsx:825-832`(행) · `Gnb.tsx:4665-4676`(마크업) ·
+`globals.css:103`·`:105`(두 인셋 변수) · `globals.css:322-324`(caption-12) ·
+`Gnb.tsx:2041`(앱 셸 라이트 램프) · `globals.css:31`.
 
 ## Properties
 
@@ -127,8 +127,10 @@ Current로 넘어갈 때 일어나는 변화가 하나 사라진다.
 농도는 전경색을 바꾸는 것이 아니라 마스크 슬롯의 `opacity`다. 색을 한 단계 옅은 토큰으로 바꿔 흉내내면
 hover에서 전경이 바뀔 때 값이 어긋난다.
 
-근거: `Gnb.tsx:567-568`(20×20) · `:570`(`currentColor`) · `:571`(`opacity:0.92`) ·
-`:580`(활성에서 `1`) · 라벨 `Gnb.tsx:597-616`에 `opacity` 선언 0건.
+근거: 20×20은 이제 제품이 아니라 LOUIS `.louis-sidebar-nav-item__icon`(`icon-size-md` = 20px)이
+소유하고 제품은 그 클래스를 얹기만 한다(`Gnb.tsx:607-612`). 농도는 그대로 제품 선언이다 —
+`Gnb.tsx:614`(`currentColor`) · `:615`(`opacity:0.92`) · `:624`(활성에서 `1`) ·
+라벨 `Gnb.tsx:650-668`에 `opacity` 선언 0건.
 
 AppTopBar는 상태 축이 **없다.** 대화형이 아니고 안의 슬롯이 자기 상태를 갖는다.
 
@@ -200,9 +202,9 @@ AppTopBar는 상태 축이 **없다.** 대화형이 아니고 안의 슬롯이 �
 선택 축에 속하는지는 별개 축이고, 검색 행과 구획 라벨 행은 그 축 밖이다. 이 둘을 내비 항목으로 그리면
 활성 인디케이터가 갈 수 있는 자리가 둘 늘어난다.
 
-근거: `Gnb.tsx:2069-2090`(아이콘 대응과 행 배열) · `Gnb.tsx:2282-2283`·`Gnb.tsx:4596-4598`(숨김 필터) ·
-`Gnb.tsx:4557-4595`(검색 행. 주석이 「내비 항목이 아니므로 인디케이터 대상 아님」이라 적는다) ·
-`Gnb.tsx:4565-4573` · `app-paths.ts:6`·`:32-37` · `middleware.ts:183` · 라벨 `ko.ts:1228`·`en.ts:1241`.
+근거: `Gnb.tsx:2131-2152`(아이콘 대응과 행 배열) · `Gnb.tsx:2347-2348`·`Gnb.tsx:4660-4662`(숨김 필터) ·
+`Gnb.tsx:4621-4659`(검색 행. 주석이 「내비 항목이 아니므로 인디케이터 대상 아님」이라 적는다) ·
+`Gnb.tsx:4629-4637` · `app-paths.ts:6`·`:32-37` · `middleware.ts:183` · 라벨 `ko.ts:1228`·`en.ts:1241`.
 
 ## 복합 내비 행
 
@@ -258,10 +260,10 @@ AppTopBar는 상태 축이 **없다.** 대화형이 아니고 안의 슬롯이 �
 `fill="none"`. 텍스트 「+」 글자가 아니므로 폰트를 바꿔도 두께가 따라오지 않는다(버튼에 남아 있는
 `font-size`·`font-weight` 선언은 사문이다).
 
-근거: `Gnb.tsx:683-707`(액션 버튼) · `Gnb.tsx:708-715`(행) · `Gnb.tsx:2126-2151`(글리프) ·
-`Gnb.tsx:1974-1975`(앱 셸 라이트 램프) · `globals.css:33-34`(다크) ·
-`Gnb.tsx:2079-2090`(행 배열) · `Gnb.tsx:4673-4688`(노드 캔버스 모달) ·
-`Gnb.tsx:2631-2645`(비디오 에디터 즉시 생성) · `Gnb.tsx:4762-4804`(하이라이트 = 일반 행 + 베타 칩).
+근거: `Gnb.tsx:764-788`(액션 버튼) · `Gnb.tsx:789-796`(행) · `Gnb.tsx:2188-2213`(글리프) ·
+`Gnb.tsx:2037-2038`(앱 셸 라이트 램프) · `globals.css:33-34`(다크) ·
+`Gnb.tsx:2141-2152`(행 배열) · `Gnb.tsx:4737-4752`(노드 캔버스 모달) ·
+`Gnb.tsx:2696-2710`(비디오 에디터 즉시 생성) · `Gnb.tsx:4826-4868`(하이라이트 = 일반 행 + 베타 칩).
 
 ## Sidebar brand와 CTA
 
@@ -284,8 +286,13 @@ CTA**를 갖는다. 바닥 자리는 하나이고 화면에 따라 "홈"이 되�
 | 접힘(크롭) | **23.7176px** | `calc(28px × 72 / 85)` |
 
 마크 높이 28px은 `--app-gnb-sidebar-logo-h`와 동기이고, 로고 자산의 viewBox는 **291 × 85**, 그 안의 좌측
-결합 마크(큐브) 영역은 **72 × 72**다. 96px은 그 비례에서 나와 렌더에 직접 들어가며
-`--app-gnb-sidebar-logo-wordmark-w: 96px`가 같은 값을 리터럴로 고정한다.
+결합 마크(큐브) 영역은 **72 × 72**다. 96px은 그 비례에서 나와 렌더에 직접 들어간다.
+
+**제품 CSS에는 이 폭의 토큰이 없다.** LOUIS는 `app-gnb-sidebar-logo-wordmark-w`(96px)를 발행하지만
+배포본 `74a7303b`의 제품 트리에 `--app-gnb-sidebar-logo-wordmark-w` 선언은 **한 건도 없다** —
+96px은 CSS 리터럴이 아니라 JS 상수
+`SIDEBAR_WORDMARK_FULL_W = logoWordmarkWidthForHeight(SIDEBAR_LOGO_H)`에서 나온다. 앞선 판이
+「같은 값을 리터럴로 고정한다」고 적은 CSS 좌표는 지운다 — 가리킬 선언이 없다.
 
 **접힘은 워드마크를 0으로 줄이는 것이 아니라 크롭이다.** 감싼 상자의 `width`가
 `--app-gnb-sidebar-logo-cube-px`(= `calc(28px * 72 / 85)` = 23.7176px)로 좁아지고 `overflow: hidden`이
@@ -297,9 +304,9 @@ CTA**를 갖는다. 바닥 자리는 하나이고 화면에 따라 "홈"이 되�
 `--app-gnb-sidebar-logo-symbol-w: 28px`이고 제품 주석이 「큐브 그림체보다 넓을 수 있음」을 명시한다.
 23.72(그림) ≠ 28(자리)을 구분해 그린다 — 한 값으로 뭉치면 접힌 레일에서 로고가 아이콘 열과 어긋난다.
 
-근거: `Gnb.tsx:2250`(`SIDEBAR_LOGO_H = 28`) · `Gnb.tsx:2251`·`brandLogoMetrics.ts:1-4`·`:10-12`(폭 산출) ·
-`Gnb.tsx:2442`·`Gnb.tsx:4390`(렌더) · `globals.css:136`·`:138`·`:139`·`:140-141` ·
-`Gnb.tsx:1835`(접힘 정렬 폭 소비) · `Gnb.tsx:1755-1769`(크롭, 특히 `:1763`·`:1766`·`:1767`).
+근거: `Gnb.tsx:2315`(`SIDEBAR_LOGO_H = 28`) · `Gnb.tsx:2316`·`brandLogoMetrics.ts:1-4`·`:10-12`(폭 산출) ·
+`Gnb.tsx:2507`·`Gnb.tsx:4454`(렌더) · `globals.css:116`·`:118`·`:121` ·
+`Gnb.tsx:1894`(접힘 정렬 폭 소비) · `Gnb.tsx:1809-1823`(크롭, 특히 `:1817`·`:1820`·`:1821`).
 
 **CTA에는 아이콘이 없고 색은 반전 solid pill이다.** 처음에는 plus 글리프와 브랜드 파랑, 다음에는
 mint 16%로 고쳤는데 셋 다 배포본에 없는 것이었다. 마크업은 라벨 `<span>` 하나뿐이고, 면과 글자는
@@ -409,16 +416,16 @@ badge.md가 적은 제품 높이 분포(19·22·26)에 24가 없다는 것이 �
 
 | | 글자 | 면 |
 | --- | --- | --- |
-| light | `--palette-gray-600`(앱 셸 램프 `#9aa0ab`) | `rgb(var(--palette-gray-500-rgb) / 14%)` = `rgb(188 192 201 / 14%)` |
-| dark | `--palette-gray-400`(`#bcc0c9`) | `rgb(var(--gray-000-rgb) / 14%)` |
+| light | `--palette-gray-600`(앱 셸 램프 `#9aa0ab`) | `rgb(var(--palette-gray-500-rgb) / 12%)` = `rgb(188 192 201 / 12%)` |
+| dark | `--palette-gray-400`(`#bcc0c9`) | `rgb(var(--gray-000-rgb) / 12%)` |
 
-라이트는 **면 램프 500의 14%**, 다크는 **잉크의 14%**다. 한쪽 축으로 통일하면 다른 쪽이 사라지거나 뜬다.
+라이트는 **면 램프 500의 12%**, 다크는 **잉크의 12%**다. 한쪽 축으로 통일하면 다른 쪽이 사라지거나 뜬다.
 라이트 값이 앱 셸 램프에서 나오므로 Known deviations의 `body:has(&)` 재매핑을 함께 읽어야 값이 맞는다.
 배치는 `flex-shrink: 0` · 사이드바 안에서 `margin-left: auto`로 행 끝에 붙고 · 접힘에서 `display: none`과
 `aria-hidden`이다.
 
-근거: `Gnb.tsx:178-190`(칩) · `Gnb.tsx:4793-4801`(하이라이트 행에서만 렌더) · `globals.css:374-375` ·
-`Gnb.tsx:1978`·`:1984` · `globals.css:31` · 문구 `ko.ts:1212`·`en.ts:1225`.
+근거: `Gnb.tsx:183-195`(칩) · `Gnb.tsx:4857-4865`(하이라이트 행에서만 렌더) · `globals.css:322-324` ·
+`Gnb.tsx:2041`·`:2047` · `globals.css:31` · 문구 `ko.ts:1212`·`en.ts:1225`.
 
 **상단 바 좌우 여백 16px은 카드 안 변종에 맞지 않는다.** 본문 카드 안에 놓이는 상단 바는 카드 안쪽
 인셋을 음수 좌우 마진으로 상쇄해 **카드 모서리까지 풀블리드**하고, 자기 좌우 패딩은
@@ -456,8 +463,8 @@ bleed와 음수 마진 자체는 이 폭에서도 계속 걸려 있으므로 배
 `layout-app-shell-content-inset`은 본문 인셋이고 카드 안 상단 바의 8px은 다른 축이다 — 이 편차를 계약
 으로 승격하려면 별도 semantic token이 필요하다.
 
-근거: `Gnb.tsx:417`·`:421`-`:424`·`:426`·`:428`·`:434`·`:435` ·
-`globals.css:128`·`:130`·`:413-418` · `appHomeSceneStyles.ts:799`·`:805` ·
+근거: `Gnb.tsx:458`·`:462`-`:465`·`:467`·`:469`·`:475`·`:476` ·
+`globals.css:105`·`:108`·`:365-371` · `appHomeSceneStyles.ts:799`·`:805` ·
 `myPageSceneStyles.ts:58`·`:59`·`:60` · 반례 `mypage/topup/success/page.tsx:56-58`·`:63`·`:64`·`:66`.
 
 ## Effects
@@ -486,7 +493,7 @@ bleed와 음수 마진 자체는 이 폭에서도 계속 걸려 있으므로 배
 
   | 변수 | 식 | 폴백 | 소비처 |
   | --- | --- | --- | --- |
-  | `--mainchrome-divider-progress` | `scrollTop <= 0 ? 0 : min(1, scrollTop / 12)` | 없음 | 경계선 (`Gnb.tsx:428` · `432`) |
+  | `--mainchrome-divider-progress` | `scrollTop <= 0 ? 0 : min(1, scrollTop / 12)` | 없음 | 경계선 (`Gnb.tsx:469` · `473`) |
   | `--header-progress` | `clamp(0, scrollTop / 120, 1)` | `0` | 아래 참조 |
 
   **12px에서 경계선이 완전히 나타난다.** 0에서만 0이고 그 위는 즉시 램프에 올라탄다 —
@@ -504,9 +511,9 @@ bleed와 음수 마진 자체는 이 폭에서도 계속 걸려 있으므로 배
   | AppTopBar 경계선 | 값 | 근거 |
   | --- | --- | --- |
   | 주입 있음 · `scrollTop = 0` | 경계선 없음(알파 0%) | `useMainChromeHeaderScrollProgress.ts:34-37` |
-  | 주입 있음 · `scrollTop ≥ 12px` | 100% — 라이트 `--palette-gray-200`, 그 밖 `rgb(var(--gray-000-rgb) / 8%)`를 `color-mix`로 보간 | `Gnb.tsx:428` · `:432` |
+  | 주입 있음 · `scrollTop ≥ 12px` | 100% — 라이트 `--palette-gray-200`, 그 밖 `rgb(var(--gray-000-rgb) / 8%)`를 `color-mix`로 보간 | `Gnb.tsx:469` · `:473` |
   | 주입 **없음**(그 밖의 화면) | 정지 상태에서도 100% | 폴백 `1` |
-  | 전환 | `border-bottom-color 120ms ease` | `Gnb.tsx:429` |
+  | 전환 | `border-bottom-color 120ms ease` | `Gnb.tsx:470` |
 
   **이 표는 `Gnb.tsx`가 소유한 스크롤 진행률 구현을 그대로 인용한 것이라 LOUIS 소스가 손댈 수 없다.**
   LOUIS 자체 `data-divider` 레시피는 이제 `border-bottom`이 아니라 방향성 inset 헤어라인

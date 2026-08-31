@@ -1892,7 +1892,7 @@
       "web": "not-ready",
       "docs": "done",
       "doc": "design/patterns/status-result.md",
-      "note": "결제·구독 결과 7화면의 콘텐츠 컬럼. **셸이 아니라 App Shell 카드 안이다.** 세로 리듬이 24px 하나뿐이고 처리 중에는 위에서 밀지 않고 카드 안 세로 중앙에 온다. 액션 버튼이 전폭이라 세로로 쌓인다. 900px 분기는 셸 경계가 아니라 이 화면 계열 전용이며 승인 여부가 blocker다 Figma 에 `DS · Templates` 의 `Pattern · StatusResult`(993:379)로 섰다(2026-08-30). Success·Failure·Processing 세 벌이고(Processing 컬럼 1056:13368 은 2026-08-30 에 더했다 — 문서가 「처리 중에는 위에서 밀지 않고 카드 안 세로 중앙에 온다」고 계약하므로 상태 하나가 아니라 컬럼 하나가 필요하다) **세로 간격이 24 하나뿐**인 것이 계약이라 컬럼 전체를 그 리듬으로만 세웠다. 폭 520(=min(520,100%)) · Alert 는 실패 화면에만 · 액션은 전폭 버튼 세로 쌓기 · Meta list 는 dt/dd 행이다. **아직 없는 것**: 900px 에서 meta 가 세로로 접히는 변형. 그래서 `partial` 이다."
+      "note": "결제·구독 결과 7화면의 콘텐츠 컬럼. **셸이 아니라 App Shell 카드 안이다.** 세로 리듬이 24px 하나뿐이고 처리 중에는 위에서 밀지 않고 카드 안 세로 중앙에 온다. 액션 버튼이 전폭이라 세로로 쌓인다. 900px 분기는 셸 경계가 아니라 이 화면 계열 전용이며 승인 여부가 blocker다 Figma 에 `DS · Templates` 의 `Pattern · StatusResult`(993:379)로 섰다(2026-08-30). Success·Failure·Processing 세 벌이고(Processing 컬럼 1056:13368 은 2026-08-30 에 더했다 — 문서가 「처리 중에는 위에서 밀지 않고 카드 안 세로 중앙에 온다」고 계약하므로 상태 하나가 아니라 컬럼 하나가 필요하다) **세로 간격이 24 하나뿐**인 것이 계약이라 컬럼 전체를 그 리듬으로만 세웠다. 폭 520(=min(520,100%)) · Alert 는 **성공 라우트에만**(2026-08-31 정정 — 붉은 배너가 실재하는 자리는 billing-success 하나이고 실패 세 화면에는 없다. Failure 에 그려 두었던 배너를 Success 의 설명 다음 · Meta list 앞으로 옮겼다) · 액션은 전폭 버튼 세로 쌓기(높이 32 = md. 2026-08-31 에 lg 40 에서 내렸다 — 배포본이 `h-16` 이다) · Meta list 는 dt/dd 행이다. **아직 없는 것**: 900px 에서 meta 가 세로로 접히는 변형. 그래서 `partial` 이다. 2026-08-31 에 `figma/templates.measured.json` 의 `templates.status-result` 로 **기계 대조되는 계약이 섰다**(수치 15축 + 구조 5축)."
     },
     {
       "id": "route-boundary",

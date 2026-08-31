@@ -3710,15 +3710,35 @@ function firstTemplateName(document) {
   return Object.keys(document.templates ?? {}).sort()[0];
 }
 
+/**
+ * template 수치 축 하나를 흔들어 compareTemplates의 값 대조가 살아 있는지 증명한다.
+ *
+ * 이전 판은 `overlayHeightRatio`를 **이름으로 박아** 두었다. 그 필드는 `home`에만 있어서,
+ * 그 필드가 없는 template이 알파벳 앞에 서는 순간(2026-08-31 `app-shell`) 변조가 아무것도
+ * 바꾸지 않는 no-op이 됐다 — canary가 조용히 무력해지는 바로 그 실패다. 이름 대신
+ * **계약에 실제로 있는 첫 수치 축**을 고른다. template이 늘어도 따라온다.
+ */
 function tamperTemplateField(document) {
   const name = firstTemplateName(document);
   if (name === undefined) return null;
-  document.templates[name].overlayHeightRatio = 0.5;
-  return `template 오버레이 비율 변조 ${name}`;
+  const template = document.templates[name];
+  const contract = templateMeasured.templates?.[name] ?? {};
+  const field = Object.keys(contract).find(
+    (key) => !key.startsWith("$") && Number.isFinite(template[key]),
+  );
+  if (field === undefined) return null;
+  template[field] += 1;
+  return `template 수치 변조 ${name}.${field}`;
 }
 
+/**
+ * 정사각 관계는 그것을 **선언한** template에만 있다. 첫 template을 무턱대고 집으면
+ * `cardWidth`가 없는 패턴에서 `undefined + 40`이 되어 변조가 사라진다.
+ */
 function tamperTemplateSquare(document) {
-  const name = firstTemplateName(document);
+  const name = Object.keys(document.templates ?? {})
+    .sort()
+    .find((key) => templateMeasured.templates?.[key]?.cardSquare?.value === true);
   if (name === undefined) return null;
   document.templates[name].cardHeight = document.templates[name].cardWidth + 40;
   return `template 카드 정사각 위반 ${name}`;

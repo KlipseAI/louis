@@ -5,6 +5,176 @@
   "measuredAt": "2026-08-19",
   "$status": "2026-08-19: 앱 홈 템플릿을 **다시 세웠다.** 2026-08-18에 내린 이유였던 부품 넷(브랜드 워드마크 · 하단 CTA · 복합 내비 행 · 사용량 링)이 전부 섰고 아이콘도 카탈로그에 있다. 이번에는 지어낸 부품이 없다 — 사이드바 다섯 행이 배포본의 다섯 행과 같고 라벨·아이콘이 전부 다르다.",
   "templates": {
+    "loading": {
+      "$screen": "로딩 패턴 자체. 화면이 아니라 **경계**다 — 어떤 상황에 무엇을 쓰는가의 카탈로그다. Figma 프레임 「Pattern · Loading」 노드 996:411, 페이지 「DS · Templates」. 여섯 셀이 문서의 「선택 기준」 여섯 줄과 1:1로 선다.",
+      "$scopeNote": "**부품 축은 여기 없다.** Spinner 지름·Skeleton 곡률·ProgressBar 높이·InlineLoadingLabel 슬롯 폭은 이미 figma/components.measured.json 의 spinner · skeleton · progress-bar · inline-loading-label 이 소유하고 component 대조로 검증된다. 같은 축을 패턴에도 적으면 한 값이 두 곳에서 갈린다(app-shell 계약이 같은 이유로 부품 축을 뺐다). 이 계약이 소유하는 것은 둘뿐이다 — ① **어떤 부품이 카탈로그에 서야 하는가**(어느 컴포넌트도 「나를 여기 써라」를 말할 수 없다), ② **생성 중 셸** — 미디어 생성의 여섯 번째 표현으로, 대응하는 컴포넌트가 카탈로그에 아예 없어 이 패턴 말고는 소유자가 없다.",
+      "situationCount": {
+        "value": 6,
+        "evidence": "design/patterns/loading.md 「선택 기준」 표가 여섯 줄이고, 여섯 줄이 각각 제품에 실물을 갖는다 — InlineLoadingLabel(apps/web/components/ui/InlineLoadingLabel.tsx, 탐침 inline-loading-root) · LoadingSpinner(.louis-spinner, 탐침 spinner-md) · Skeleton(myPageSceneStyles.ts skeletonBlock, 탐침 skeleton) · ProgressBar determinate·indeterminate(HighlightProjectScene.tsx 의 .louis-progress-bar, 탐침 progress-bar-track/-fill) · 생성 중 셸(ImageNode.tsx:726-746). 다섯 개로 줄이면 여섯 번째 표현이 카탈로그에서 사라지고, 일곱 번째를 늘리면 문서에 없는 갈래가 선다."
+      },
+      "requiredParts": {
+        "value": [
+          "InlineLoadingLabel",
+          "ProgressBar",
+          "Skeleton",
+          "Spinner",
+          "icon/image"
+        ],
+        "evidence": "여섯 셀의 Stage 에 **직접** 놓인 인스턴스의 컴포넌트 세트 이름이다(중첩된 것은 세지 않는다 — InlineLoadingLabel 안의 Spinner 가 그렇다). 다섯 부품 모두 제품 소비처가 있다: InlineLoadingLabel ← apps/web/components/ui/InlineLoadingLabel.tsx(탐침 inline-loading-root · inline-loading-slot-md/sm/idle) · Spinner ← LoadingSpinner.tsx 가 .louis-spinner 를 그대로 소비(탐침 spinner-md · spinner-sm) · Skeleton ← myPageSceneStyles.ts skeletonBlock 이 .louis-skeleton 을 소비(탐침 skeleton) · ProgressBar ← HighlightProjectScene.tsx 의 .louis-progress-bar(탐침 progress-bar-track · progress-bar-fill) · icon/image ← 생성 중 셸의 매체 아이콘(ImageNode.tsx:736 `<ImageIcon size={64} strokeScreenPx={2} />`). 부품이 하나 빠지면 그 상황에 무엇을 쓰는지 그림이 말하지 않게 된다."
+      },
+      "genShellParts": {
+        "value": [
+          "Icon",
+          "Caption"
+        ],
+        "evidence": "순서가 있는 목록이다. ImageNode.tsx:726-746 의 셸은 자식이 정확히 둘이고 **아이콘이 먼저, 캡션이 다음**이다(:732-737 아이콘 span, :738-744 캡션 span). VideoNode.tsx:961-975 · TextNode.tsx:642-653 · EditNode.tsx:570-586 이 같은 둘이다(Edit 만 진행 채움이 더 붙는다). **읽히는 것은 캡션 하나뿐이다** — 셸이 role=\"status\" · aria-live=\"polite\" 인데(ImageNode.tsx:729-730) 아이콘은 aria-hidden 이다(:733). 캡션을 빼면 읽어 줄 문장이 없는 live region 이 된다."
+      },
+      "genShellIconBox": {
+        "value": 64,
+        "evidence": "ImageNode.tsx:327 MEDIA_ICON_IMAGE 의 `w-32 h-32` — 제품의 --spacing 이 2px 이라 32 × 2 = 64px 이고, :736 의 `<ImageIcon size={64} strokeScreenPx={2} />` 가 SVG 쪽에서 같은 값을 다시 말한다. VideoNode.tsx:240 · TextNode.tsx:320 · EditNode.tsx:375 가 같은 `w-32 h-32` 이고 각 노드의 아이콘도 size={64} 다(VideoNode.tsx:968 · TextNode.tsx:647 · EditNode.tsx:580)."
+      },
+      "genShellIconSquare": {
+        "value": true,
+        "evidence": "같은 `w-32 h-32` 한 줄이 두 변을 함께 정한다(ImageNode.tsx:327). 폭만 맞추고 높이를 흘리면 breathe 루프의 scale 이 타원을 부풀린다."
+      },
+      "genShellStackGap": {
+        "value": 4,
+        "evidence": "ImageNode.tsx:317 MEDIA_ROOT 의 `gap-2` — --spacing 2px 이므로 4px 이다. VideoNode.tsx:228 · TextNode.tsx:306 · EditNode.tsx:363 이 같은 `gap-2` 다. 아이콘 아래변과 캡션 윗변 사이의 실효 간격으로 잰다(Figma 는 Stage 의 itemSpacing 으로 만든다 — 계약은 간격만 재고 만드는 방법은 묻지 않는다)."
+      },
+      "genShellCentered": {
+        "value": true,
+        "evidence": "ImageNode.tsx:317 MEDIA_ROOT 의 `flex flex-col items-center justify-center` — 두 축 모두 가운데다. VideoNode.tsx:228 · TextNode.tsx:306 · EditNode.tsx:363 이 같다. 한 축만 가운데로 두면 셸이 자리의 위쪽에 붙어 미디어가 도착할 때 튄다."
+      },
+      "genShellCaptionSize": {
+        "value": 14,
+        "evidence": "ImageNode.tsx:741 의 `type-body-14-medium`. apps/web/app/globals.css:318 --type-body-14-size: var(--louis-type-body-14-size) 이고 packages/tokens/generated/tokens.css:594 에서 14px 이다. 네 노드가 같은 클래스를 쓴다 — VideoNode.tsx:973 · TextNode.tsx:651 · EditNode.tsx:584."
+      },
+      "genShellCaptionWeight": {
+        "value": 500,
+        "evidence": "같은 `type-body-14-medium` 의 medium 이다. apps/web/app/globals.css:285 --type-weight-medium: var(--louis-type-weight-medium) 이고 packages/tokens/generated/tokens.css:610 에서 500 이다. Figma 텍스트 노드의 fontWeight 를 그대로 읽어 견준다 — 서체 스타일 이름(\"Medium\")이 아니라 수로 재야 두 매체가 같은 축을 말한다."
+      },
+      "genShellCaptionLineHeightPercent": {
+        "value": 150,
+        "evidence": "apps/web/app/globals.css:319 --type-body-14-line-height: 1.5. 캡션은 단계 문구가 바뀌며 길이가 변하는 자리라(ImageNode.tsx:706 IMAGE_GENERATING_STEP_MS 가 네 단계를 돌린다) 행간이 어긋나면 두 줄이 될 때 아이콘과의 간격 4 가 무너진다."
+      },
+      "genShellCaptionAlign": {
+        "value": "CENTER",
+        "evidence": "ImageNode.tsx:346 MEDIA_CAPTION_IMAGE 의 `text-center`(같은 줄의 `max-w-[92%]` 가 두 줄 접힘을 허용하므로 정렬이 실제로 보이는 축이다). 셸 자체의 가운데 정렬과 **다른 축**이다 — 셸이 가운데여도 두 줄짜리 캡션은 정렬이 왼쪽이면 왼쪽 정렬로 접힌다."
+      }
+    },
+    "app-shell": {
+      "$screen": "앱 셸 패턴 자체. 화면이 아니라 조립 계약이다 — Figma 프레임 세 개(Expanded · Collapsed · Compact · drawer open)가 한 패턴을 이룬다. 노드 982:175, 페이지 「DS · Templates」.",
+      "$scopeNote": "**부품 축은 여기 없다.** navItem 높이·반경·좌우 여백, topBar 높이·여백, 브랜드 행 40/28/4, CTA 40·12·14·10·8 은 이미 figma/components.measured.json 의 app-shell-parts · sidebar-brand · sidebar-cta 가 소유하고 component 대조로 검증된다. 같은 축을 패턴에도 적으면 한 값이 두 곳에서 갈린다. 이 계약이 소유하는 것은 **부품들 사이의 관계** — 레일 폭·여백·항목 간격, 본문 offset 과 폭, 카드 바깥 여백과 안쪽 인셋, compact 분기, 그리고 구조다.",
+      "sceneWidth": {
+        "value": 1440,
+        "evidence": "재조립 뷰포트 선택값. 제품 데스크톱 하한은 globals.css:130 --app-shell-min-width(= --louis-app-shell-min-width, 960px)이고 1440 은 그 위 임의 지점이다. templates.home 과 같은 폭을 일부러 쓴다 — 폭이 다르면 본문 1148 을 home 의 그리드 폭 1116 과 맞대 볼 수 없다."
+      },
+      "railWidth": {
+        "value": 280,
+        "evidence": "globals.css:123 --app-gnb-sidebar-width: min(280px, calc(100vw - 120px)). :130 의 하한 960 때문에 데스크톱에서는 상수 280 이다. LOUIS layout-app-shell-sidebar-width 와 같은 값."
+      },
+      "railWidthCollapsed": {
+        "value": 56,
+        "evidence": "globals.css:359-363 — html[data-app-gnb-sidebar-collapsed=\"true\"] 가 폭을 2 × --app-gnb-sidebar-padding-x + --app-gnb-sidebar-menu-hit-w 로 덮는다. hit-w 는 :110-112 의 (16 − 12) + 20 + 8 = 32 이므로 24 + 32 = 56. 그 32 는 브라우저 실측으로도 확인된다 — migration/product.rendered-components.json rendered.nav-item-collapsed.width = 32px."
+      },
+      "railPaddingInline": {
+        "value": 12,
+        "evidence": "globals.css:103 --app-gnb-sidebar-padding-x: var(--louis-layout-app-shell-sidebar-padding) = 12px. 레일이 좌우에 그대로 쓴다 — Gnb.tsx:2043-2044 wrapperSidebar padding-left/right."
+      },
+      "railPaddingTop": {
+        "value": 12,
+        "evidence": "Gnb.tsx:2042 wrapperSidebar padding-top: var(--app-gnb-safe-top). globals.css:80 에서 max(12px, env(safe-area-inset-top, 0px)) 이고 노치 없는 데스크톱에서 12."
+      },
+      "railPaddingBottom": {
+        "value": 0,
+        "evidence": "Gnb.tsx:2042-2044 wrapperSidebar 는 상·좌·우만 선언하고 하단 패딩이 없다. 레일 높이는 :2038 height:100dvh 이고 그 안에서 navSidebar 가 flex:1 1 auto 로 늘어나므로(Gnb.tsx:1860 부근) CTA 는 뷰포트 바닥에 붙는다. **본문 카드의 하단 12 와 다르다** — 레일과 카드의 아래쪽 정렬선이 어긋난 것이 제품의 현재 모습이고, 12 로 그리면 제품과 다른 화면을 정본이라고 우기게 된다."
+      },
+      "railItemGap": {
+        "value": 4,
+        "evidence": "Gnb.tsx:733 menuSidebar 의 [gap:4px]. 사이드바 항목 사이 세로 간격이다(≤719px 드로어도 :720 에서 같은 4)."
+      },
+      "brandToNavGap": {
+        "value": 12,
+        "evidence": "Gnb.tsx:857 menuSidebarOuter 의 margin-top: var(--app-gnb-rail-below-chrome-gap) — globals.css:95 에서 12px. 브랜드 행 아래와 첫 항목 위 사이의 실효 간격이며 레일의 항목 간격 4 와 **다른 값**이다. Figma 는 이 12 를 레일 gap 4 + BrandGap 프레임 4 + gap 4 로 만든다 — 그래서 계약은 간격의 합을 재고 부품 구성은 묻지 않는다."
+      },
+      "mainWidth": {
+        "value": 1148,
+        "evidence": "appHomeSceneStyles.ts:849-850 — margin-left: var(--app-gnb-sidebar-width); width: calc(100% − var(--app-gnb-sidebar-width)) 이므로 트랙은 1440 − 280 = 1160 이고, :854 padding-right: var(--app-gnb-main-inline-padding-end) 12 를 빼면 카드가 1148 이다. templates.home 의 카드 폭 계산이 쓰는 본문 폭 1116 과도 맞는다 — 1148 − 2 × 16(안쪽 인셋) = 1116."
+      },
+      "mainWidthCollapsed": {
+        "value": 1372,
+        "evidence": "같은 두 줄(appHomeSceneStyles.ts:849-850)이 접힘에서는 56 을 뺀다 — 1440 − 56 − 12 = 1372. offset 과 폭이 **한 변수**를 읽는다는 것이 이 축의 요점이다(패턴 문서 「sidebar 폭 변경 중 main offset과 main width를 따로 지연시키지 않는다」)."
+      },
+      "mainOuterGapTop": {
+        "value": 12,
+        "evidence": "appHomeSceneStyles.ts:852 padding-top: var(--app-gnb-safe-top) → globals.css:80 max(12px, env(...)) = 12."
+      },
+      "mainOuterGapRight": {
+        "value": 12,
+        "evidence": "appHomeSceneStyles.ts:854 padding-right: var(--app-gnb-main-inline-padding-end) → globals.css:108 12px."
+      },
+      "mainOuterGapBottom": {
+        "value": 12,
+        "evidence": "appHomeSceneStyles.ts:855 padding-bottom: var(--app-gnb-rail-padding-bottom) → globals.css:98 12px. 셋이 같은 12 지만 **서로 다른 변수를 문다** — 패턴 문서가 outer-gap 토큰이 「부분만 대응한다」고 적은 이유다."
+      },
+      "mainCardRadius": {
+        "value": 16,
+        "evidence": "globals.css:1340 .appMainCardChrome { border-radius: 16px } (:1323 은 같은 값의 appMainCardChromeSurface). templates.home 의 mainCardRadius 와 같은 값이다."
+      },
+      "mainContentInset": {
+        "value": 16,
+        "evidence": "globals.css:105 --app-gnb-main-inline-padding: var(--louis-layout-app-shell-content-inset) = 16px. 카드 안쪽 좌우 인셋이며 레일 12 + 항목 4 = 16 이 이 선과 만난다."
+      },
+      "compactSceneWidth": {
+        "value": 375,
+        "evidence": "compact 상태의 재조립 뷰포트 선택값. 제품 compact 분기는 globals.css:365 @media (max-width: 719px) 이고 375 는 그 안의 임의 지점이다. 폭 자체가 제품 근거를 갖는 값은 아니지만, 아래 compactRailReserve · compactDrawerWidth 가 이 폭을 전제로 풀린다."
+      },
+      "compactRailReserve": {
+        "value": 0,
+        "evidence": "globals.css:376-379 — :root 와 collapsed 양쪽에서 --app-gnb-sidebar-width: 0px. 그래서 appHomeSceneStyles.ts:849-850 의 margin-left 와 width 가 전폭이 된다. 패턴 문서 「compact mode에서 sidebar reserve는 0이고 main surface는 전폭이다」."
+      },
+      "compactMainOuterGap": {
+        "value": 0,
+        "evidence": "appHomeSceneStyles.ts:857-859 — ≤719px 에서 씬 루트가 padding-top/right/bottom 을 하드 0 으로 덮는다. globals.css:368-370 의 토큰 값(16 · 0)이 아니라 **이 세 줄**이 이긴다. 데스크톱의 12 를 모바일 시안에 그대로 그리면 틀린다."
+      },
+      "compactDrawerWidth": {
+        "value": 280,
+        "evidence": "Gnb.tsx:2076-2077 — @media (max-width:719px) 에서 wrapperSidebar 의 width/max-width 가 min(280px, calc(100vw − 40px)). 375 뷰포트에서 min(280, 335) = 280 이다. 드로어는 접힘 선호와 무관하게 라벨을 가진 펼침 내비다(패턴 문서 「Compact navigation」)."
+      },
+      "compactCardRadius": {
+        "value": 0,
+        "evidence": "globals.css:1384-1390 — @media (max-width: 719px) 에서 .appMainCardChrome / .appMainCardChromeSurface 가 border-radius: 0 · box-shadow: none · overflow: visible 이 된다. 패턴 문서가 「모바일 시안에 카드 프레임을 그리면 틀린다」고 명시한 자리다."
+      },
+      "compactContentInset": {
+        "value": 16,
+        "evidence": "globals.css:368 — ≤719px 에서 --app-gnb-main-inline-padding: 16px. 카드 크롬은 사라지지만 본문 좌우 인셋 16 은 남는다(같은 블록 주석: 「모바일 드로어 셸 — 카드 크롬은 없고 본문 좌우 인셋만 16px 유지」)."
+      },
+      "stateFrames": {
+        "value": [
+          "Collapsed",
+          "Compact · drawer open",
+          "Expanded"
+        ],
+        "evidence": "제품 셸이 실제로 갖는 세 갈래다 — 펼침(globals.css:123), 접힘(:359-363 html[data-app-gnb-sidebar-collapsed=\"true\"]), compact 오프캔버스 드로어(:365-380 · Gnb.tsx:2076-2087). 하나라도 빠지면 그 상태의 치수를 아무도 대조하지 않는다. 이름은 Figma 프레임 이름이며 정렬해서 본다."
+      },
+      "requiredParts": {
+        "value": [
+          "BrandGap",
+          "Card",
+          "Chrome",
+          "Content",
+          "CtaSpacer",
+          "Drawer",
+          "Main",
+          "Rail",
+          "Scrim",
+          "SidebarBrand",
+          "SidebarCta",
+          "SidebarNavItem"
+        ],
+        "evidence": "패턴 문서 Anatomy 의 부품이 세 상태 프레임 안에 실제로 서 있는지 본다. 이름은 세 상태 프레임 **안쪽 깊이 3까지**의 노드 이름을 「 · 」 앞에서 자른 집합이다(INSTANCE 내부는 세지 않는다 — 그것은 component 계약의 몫). Rail=Navigation rail · SidebarBrand=Brand/home · SidebarNavItem=Primary navigation · SidebarCta=Account/plan actions · Scrim=Mobile navigation scrim · Drawer=compact 오프캔버스 레일 · Main=Main surface · Card=appMainCardChrome(globals.css:1336) · Chrome=Top chrome · Content=primary scroll root. BrandGap·CtaSpacer 는 장식이 아니라 관계를 만드는 자리다 — 앞은 brandToNavGap 12 를, 뒤는 CTA 를 레일 바닥에 붙이는 신축 공간을 만든다(Gnb.tsx:1860 부근 navSidebar flex:1 1 auto)."
+      }
+    },
     "home": {
       "$screen": "앱 홈, route /archive, scene AppHomeScene",
       "sceneWidth": {
@@ -101,9 +271,704 @@
         "evidence": "2026-08-26 갱신 — aspect-ratio 1 이라 폭과 같다.",
         "$was": 270
       }
+    },
+    "project-grid": {
+      "$pattern": "Project Grid 패턴 자체. 화면이 아니라 조립 계약이다 — Figma 프레임 「Pattern · ProjectGrid」(노드 991:252, 페이지 「DS · Templates」) 안의 열 밴드 넷이 한 패턴을 이룬다. 되읽기는 ProjectCard 인스턴스가 실제로 선 프레임만 밴드로 세고 Grid 폭 오름차순으로 정렬한다 — 상태 프레임(Loading · Error · Empty)은 카드가 없어 저절로 빠진다.",
+      "$scopeNote": "**카드 자체의 축은 여기 없다.** 반경 12 · 오버레이 여백 16 · 오버레이 비율 · 정사각 · 더보기 버튼은 figma/components.measured.json 의 project-card 가 소유하고 component 대조가 검증한다. 이 계약이 소유하는 것은 **카드들 사이의 관계** — 열 수 네 갈래, 트랙 간격, 트랙이 같은 폭인지, 격자가 컨테이너를 채우는지, 그리고 4열 밴드에서 본문 폭 ↔ 카드 폭의 산술이다. 산술 축(containerWidthWide · cardWidthWide)이 이 패턴과 templates.home 을 잇는다 — 한쪽에서만 gap 이나 본문 폭이 바뀌면 거기서 갈린다.",
+      "$skipped": [
+        "**뷰포트 경계 720 · 1200 · 1800** — 제품 근거는 확실하지만(appHomeSceneStyles.ts:103-105) Figma 밴드는 컨테이너 폭으로 서 있어 같은 좌표계가 아니다. design/patterns/project-grid.md 가 auto-fill 환산과 compatibility profile 이 아직 한 답을 내지 못한다고 적어 두었다. 좌표계를 정하기 전에 숫자를 옮기면 정본이 둘이 된다.",
+        "**stateFrames** — app-shell 은 세 상태가 전부 제품 분기라 세울 수 있었다. 여기는 셋 중 하나가 제품과 **반대**다. Figma 「Loading — 같은 열 수, 카드 자리에 Skeleton」에 대응하는 제품 면은 격자를 세우지 않고 가운데 정렬한 쉬머 낱말 하나다(AppHomeScene.tsx:1026 archiveLoadingState). 문서가 그 어긋남을 2026-08-30 실측으로 적고 「정해지기 전에는 Figma 의 이 자리를 옮기지 않는다」고 판정을 미뤘으므로 계약에 넣지 않고 프레임도 건드리지 않았다. 「Error — 격자를 비우고 Alert 하나」는 대응하는 제품 면을 앱 홈에서 찾지 못했다 — 근거 없는 축은 넣지 않는다.",
+        "**섹션 헤더** — 라벨 ↔ 액션 gap 16 과 헤더 아래 8 은 제품 근거가 있지만(appHomeSceneStyles.ts:385-392 archiveSectionHeader) Figma 「Pattern · ProjectGrid」에 섹션 헤더 프레임이 없다. 없는 것을 계약하면 이번 변경이 게이트를 빨갛게 만든다. 다음 사람이 헤더를 세우면 그때 축이 된다.",
+        "**섹션 상단 40** — templates.home.sectionPaddingTop 이 이미 소유한다(archiveSection margin-top:40px).",
+        "**카드 최소 폭 240(layout-project-card-minimum)** — LOUIS `.louis-project-grid` 의 auto-fill 이 쓰는 값이고 제품 소비처 넷은 아무도 그것으로 열을 세지 않는다. 문서가 그 환산이 profile 을 재현하지 못한다고 적어 두었다. profile 이 정본이므로 계약은 열 수 쪽을 잡는다."
+      ],
+      "columnBands": {
+        "value": 4,
+        "evidence": "제품 격자는 media query 로 네 갈래다 — 기본 · min-[720px] · min-[1200px] · min-[1800px](apps/web/components/scenes/appHomeSceneStyles.ts:101-105 archiveGrid). 밴드가 하나 빠지면 그 구간의 열 수를 아무도 대조하지 않는다."
+      },
+      "columnsCompact": {
+        "value": 2,
+        "evidence": "appHomeSceneStyles.ts:101 `[grid-template-columns:repeat(2,_1fr)]` 이 기본값이라 ≤719px 구간이 2열이다. 하이라이트 히스토리도 같은 표를 쓴다(highlightSceneStyles.ts:838). design/patterns/project-grid.md 의 migration compatibility profile `≤719px → 2열` 과 같다."
+      },
+      "columnsRegular": {
+        "value": 3,
+        "evidence": "appHomeSceneStyles.ts:103 `min-[720px]:[grid-template-columns:repeat(3,_1fr)]` — 720–1199 구간. highlightSceneStyles.ts:840 도 같다."
+      },
+      "columnsWide": {
+        "value": 4,
+        "evidence": "appHomeSceneStyles.ts:104 `min-[1200px]:[grid-template-columns:repeat(4,_1fr)]` — 1200–1799 구간. **브라우저 실측이 잡은 구간이 여기다** — migration/product.rendered-components.json rendered.project-grid.gridTemplateColumns 가 트랙 넷(`87px 87px 87px 87px`)이다. highlightSceneStyles.ts:841 도 같다."
+      },
+      "columnsExtraWide": {
+        "value": 5,
+        "evidence": "appHomeSceneStyles.ts:105 `min-[1800px]:[grid-template-columns:repeat(5,_1fr)]` — ≥1800 구간. highlightSceneStyles.ts:842 도 같다. 문서가 「wide/extra-wide 에서 3열만 보이면 실패다」라고 적은 자리이며, 이 밴드가 사라지면 그 실패를 아무도 보지 못한다."
+      },
+      "trackGap": {
+        "value": 4,
+        "evidence": "브라우저 실측 — migration/product.rendered-components.json rendered.project-grid 의 columnGap 과 rowGap 이 둘 다 4px. 선언은 appHomeSceneStyles.ts:102 `gap-2`(제품 --spacing: 2px → 4px)이고 highlightSceneStyles.ts:839 historyGrid 도 같다. **네 소비처가 한 값은 아니다** — 하이라이트 clipGrid 는 8px 다(highlightSceneStyles.ts:245). 이 계약이 잡는 것은 앱 홈·하이라이트 히스토리가 쓰는 4 다. components.measured.json 의 project-card.gridGap 은 같은 값을 **기록만 하고 어떤 계약도 대조하지 않는다**(verify-figma-parity 의 project-card geometry 는 width·height·cornerRadius 와 parts 뿐이다). 그 파일 스스로 「카드가 아니라 그리드의 값」이라 적었으므로 대조 소유자는 여기다. 되읽기는 밴드마다 인접 카드 사이 간격을 모아 유일값을 본다 — 한 밴드만 어긋나도 배열이 되어 실패한다."
+      },
+      "tracksEqual": {
+        "value": true,
+        "evidence": "`repeat(N, 1fr)` 은 모든 트랙이 같은 폭이다(appHomeSceneStyles.ts:101-105). 실측도 네 트랙이 전부 87px 로 같다(rendered.project-grid.gridTemplateColumns). 문서 「같은 상태에서 카드는 동일한 column track 을 사용하고, 마지막 행이 덜 차더라도 앞선 카드 폭을 임의로 늘리지 않는다」."
+      },
+      "gridFillsContainer": {
+        "value": true,
+        "evidence": "archiveGrid 에 max-width 가 없고 트랙이 1fr 뿐이라(appHomeSceneStyles.ts:97-106 전체) 격자는 본문 상자의 가용 폭을 그대로 쓴다. 문서 「Grid 는 shell content box 안의 가용 폭을 모두 사용한다 · max-width 로 전체 grid 를 3열 폭에 가두지 않는다」. 되읽기는 밴드마다 Grid 폭이 밴드 폭과 같은지 본다."
+      },
+      "containerWidthWide": {
+        "value": 1116,
+        "evidence": "4열 밴드의 컨테이너 폭이며 **제품에서 온 유일한 밴드 폭**이다 — templates.app-shell 의 mainWidth 1148 에서 좌우 인셋 mainContentInset 16 을 빼면 1116 이고, templates.home 의 cardWidth 계산이 쓰는 본문 폭도 같은 1116 이다. 나머지 세 밴드 폭(600 · 850 · 1300)은 Figma 가 고른 임의값이라 계약에 넣지 않았다."
+      },
+      "cardWidthWide": {
+        "value": 276,
+        "evidence": "(1116 − 3 × 4) / 4 = 276. templates.home.cardWidth 와 같은 값이고 같은 근거를 쓴다(2026-08-26 에 gap 이 12→4 로 내려가면서 270→276 이 된 그 값). 이 축이 패턴과 화면 템플릿을 잇는 마디다 — gap 이나 본문 폭이 한쪽에서만 바뀌면 여기서 갈린다."
+      },
+      "requiredParts": {
+        "value": [
+          "Grid",
+          "ProjectCard"
+        ],
+        "evidence": "열 밴드가 실제로 격자와 카드로 서 있는지 본다. 제품에서 격자는 archiveGrid 를 얹은 <section>(AppHomeScene.tsx:1059-1063)이고 카드는 그 자식 <article>(:1094, archiveCard = `.louis-project-card`)이다. 이름은 열 밴드 프레임 안쪽 **깊이 2까지**의 프레임·인스턴스 이름 집합이며 캡션 TEXT 는 세지 않는다. 카드가 인스턴스가 아니라 사각형으로 그려지거나 격자가 한 겹 사라지면 여기서 걸린다."
+      }
+    },
+    "status-result": {
+      "$pattern": "Status Result 패턴 자체. 화면이 아니라 조립 계약이다 — Figma 프레임 「Pattern · StatusResult」(노드 993:379, 페이지 「DS · Templates」) 안의 상태 프레임 셋(Success · Processing · Failure)이 한 패턴을 이룬다. 제품에서 결제·구독 결과 7화면이 이 컬럼을 복제해 쓴다.",
+      "$scopeNote": "**셸의 축은 여기 없다.** 이 컬럼은 App Shell 메인 카드 **안**에 들어가고 카드 폭·인셋·곡률은 templates.app-shell 이 소유한다. 이 계약이 소유하는 것은 **카드 안 컬럼의 관계** — 컬럼 폭과 세로 리듬 하나, 컬럼이 아무것도 그리지 않는다는 것, Alert·Meta list·Actions 의 여백과 간격, 그리고 부품이 어느 상태에 서는가다. 버튼의 padding 12 · radius 12 · 글자 14 는 figma/components.measured.json 의 button.md 가 소유하므로 넣지 않았다 — 패턴이 갖는 것은 **어느 칸을 쓰는가**(높이 32 = md)뿐이다. 반대로 붉은 배너는 components.measured.json 에 alert 항목이 없고 문서가 「이 화면의 배너는 .louis-alert 레시피를 쓰지 않는다」고 적으므로 대조 소유자가 여기다.",
+      "$skipped": [
+        "**상단 오프셋 `clamp(56px, 10vh, 120px)`(≤900px 56)** — 제품 근거는 확실하지만(billing-success/page.tsx:78-79) Figma 의 상태 프레임은 App Shell 카드 안이 아니라 사양 보드 위에 서 있어 그 오프셋을 잴 좌표계가 없다. 카드 안에 넣기 전에 숫자를 옮기면 그림이 재현하지 못하는 값을 계약하는 것이 된다.",
+        "**900px 분기(meta 행이 세로로 접히고 dd 가 좌측 정렬)** — 제품 근거는 있으나(billing-success/page.tsx:125-126·135) Figma 에 그 변형 프레임이 없다(design/patterns/README.md 가 「아직 없는 것: 900px 에서 meta 가 세로로 접히는 변형」이라 적는다). 없는 것을 계약하면 이번 변경이 게이트를 빨갛게 만든다. 다음 사람이 그 프레임을 세우면 그때 축이 된다.",
+        "**meta 행의 dt ↔ dd 간격 16** — 행이 `justify-content: space-between` 이라 이 gap 은 최소 간격으로만 작동하고, Figma 는 `primaryAxisAlignItems`가 `SPACE_BETWEEN`이면 `itemSpacing`을 렌더에 반영하지 않는다. 문서가 「CSS 가 정본이고 Figma 는 대조 대상이 아니다」라고 못박은 축이다.",
+        "**타이포(제목 36/48.6/medium · 설명 16/24 · dt·dd 14/21)** — 타입 스케일이 소유한다. 실측은 있지만(rendered.status-title-product · status-description-product) 여기에 또 적으면 정본이 둘이 된다.",
+        "**색(배너 면 8% · 테두리 16%, primary 시맨틱 ↔ secondary 팔레트 잉크)** — 변수 바인딩이 따로 검증되므로 넣지 않는다."
+      ],
+      "columnWidth": {
+        "value": 520,
+        "evidence": "브라우저 실측 — migration/product.rendered-components.json rendered.status-card-product.width 520px. 선언은 apps/web/app/mypage/upgrade/billing-success/page.tsx:77 `w-[min(520px,100%)]` 이고 결과 화면 일곱이 같은 상수를 복제한다(upgrade/fail:72 · upgrade/billing-fail:72 · upgrade/billing-change-fail:72 · upgrade/billing-change-success:75 · topup/success:77 · topup/fail:72). 되읽기는 상태 프레임 셋의 폭이 한 값인지 본다."
+      },
+      "columnGap": {
+        "value": 24,
+        "evidence": "실측 rendered.status-card-product.rowGap 24px. 선언은 같은 :77 의 `gap-12`(제품 --spacing: 2px → 24). **세로 리듬이 이 하나뿐**인 것이 이 패턴의 내용이다 — 부품마다 다른 간격을 두면 여기서 걸린다. 되읽기는 세 상태 프레임의 itemSpacing 을 모아 유일값을 본다."
+      },
+      "columnPadding": {
+        "value": 0,
+        "evidence": "STATUS_CARD(billing-success/page.tsx:77)에 padding 선언이 없다 — `w-[min(520px,100%)] self-center flex flex-col gap-12` 가 전부다. 문서 Layout contract 「면 · 테두리 · 곡률 · 패딩 — 없다. 컬럼은 투명하다」."
+      },
+      "columnPaintCount": {
+        "value": 0,
+        "evidence": "같은 상수에 배경·테두리 클래스가 없다(:77). 면과 곡률은 바깥 App Shell 메인 카드가 갖는다 — **컬럼에 카드를 또 그리면 배포본에 없는 이중 면이 된다**(문서 Layout contract). 되읽기는 상태 프레임의 fills + strokes 개수를 센다."
+      },
+      "alertPaddingBlock": {
+        "value": 12,
+        "evidence": "실측 rendered.status-alert-product.paddingTop 12px. 선언은 billing-success/page.tsx:113 `py-6`(→12)."
+      },
+      "alertPaddingInline": {
+        "value": 16,
+        "evidence": "실측 rendered.status-alert-product.paddingLeft 16px. 선언은 :113 `px-8`(→16)."
+      },
+      "alertRadius": {
+        "value": 12,
+        "evidence": "실측 rendered.status-alert-product.borderTopLeftRadius 12px. 선언은 :115 `rounded-12`. 체크아웃 오류 배너(.louis-alert, 반경 20)와 **다른 벌**이며 문서가 「두 벌은 통일 대상이 아니다」라고 적는다."
+      },
+      "alertBorderWidth": {
+        "value": 1,
+        "evidence": "실측 rendered.status-alert-product.borderTopWidth 1px. 선언은 :114 `[border:1px_solid_rgb(var(--accent-red-500-rgb)/16%)]`. 노드 인라인 오류 배너의 0.5px 과 다른 값이라 한쪽으로 통일하지 않는다(문서 Alert 절)."
+      },
+      "metaRowGap": {
+        "value": 0,
+        "evidence": "실측 rendered.status-meta-list-product 의 rowGap·columnGap 이 둘 다 0px. 선언은 :120 `flex flex-col gap-0`. 행 사이의 리듬을 만드는 것은 간격이 아니라 아래의 구분선이다."
+      },
+      "metaRowPaddingBlock": {
+        "value": 12,
+        "evidence": "선언 :122 `[&>div]:py-6`(→12). 행 규칙은 자손 변형이라 dl 탐침이 그 값을 직접 재지 못한다 — 탐침이 담아 둔 요소 html(product.rendered-components.json probes 의 status-meta-list-product)에 이 클래스가 그대로 실려 있다."
+      },
+      "metaRowDividerWidth": {
+        "value": 1,
+        "evidence": "선언 :123 `[&>div]:[border-bottom:1px_solid_rgb(var(--gray-000-rgb)/8%)]`. 되읽기는 마지막이 아닌 행의 아래 획 두께를 모아 유일값을 본다."
+      },
+      "metaLastRowDivider": {
+        "value": 0,
+        "evidence": "선언 :124 `[&>div:last-child]:[border-bottom:none]`. 문서 acceptance test 4 「메타 행의 마지막 구분선이 없다」 — 마지막 행에 선이 남으면 목록이 상자로 읽힌다."
+      },
+      "actionsGap": {
+        "value": 10,
+        "evidence": "실측 rendered.status-actions-product 의 columnGap·rowGap 이 둘 다 10px. 선언은 :138 `flex flex-wrap gap-5`(→10). 컬럼의 24 와 **다른 값**이며 문서가 「아직 토큰이 없는 축」으로 적어 둔 자리다."
+      },
+      "actionsGapTop": {
+        "value": 8,
+        "evidence": "실측 rendered.status-actions-product.marginTop 8px. 선언은 같은 :138 `mt-4`(→8). 컬럼 리듬 24 **위에 얹히므로** meta 와 첫 버튼 사이 실효 간격은 32 다 — Figma 는 그것을 컬럼 gap 24 + Actions 프레임 paddingTop 8 로 만든다. 그래서 계약은 이 축을 Actions 의 안쪽 위 여백으로 잰다."
+      },
+      "actionButtonHeight": {
+        "value": 32,
+        "evidence": "실측 rendered.status-button-primary-product.height · status-button-secondary-product.height 가 둘 다 32px. 선언은 :141 `h-16`(→32)이고 실패 화면 셋도 같은 상수 모양이다(upgrade/fail:112 · billing-fail:112 · topup/fail:112). **이 축은 Button 사다리가 아니라 패턴이 어느 칸을 쓰는가다** — LOUIS 의 md(32)이며 lg(40)가 아니다(문서 2026-08-30 정정: 「40px 은 사다리에서 사라진 값이 아니라 lg 칸이며 이 화면이 쓰는 칸이 아니다」). 칸을 고르면 padding 12 · radius 12 는 components.measured.json button.md 가 소유한다."
+      },
+      "actionButtonFillsColumn": {
+        "value": true,
+        "evidence": "선언 :141 `w-full`. 실측 폭도 컬럼과 같다. 문서 「버튼이 전폭이라 flex-wrap 과 함께 세로로 쌓인다 — 결과 화면의 액션은 나란한 한 쌍이 아니라 위아래 목록이다」. 되읽기는 모든 액션 버튼의 폭이 컬럼 폭과 같은지 본다."
+      },
+      "processingCentered": {
+        "value": true,
+        "evidence": "선언 :82 `STATUS_CARD_LOADING = \"[flex:1_1_auto] justify-center mt-0\"` 가 기본 상태의 상단 오프셋(:78-79 `mt-[clamp(56px,10vh,120px)]`)을 `mt-0` 으로 덮는다 — **처리 중에는 위에서 밀지 않고 카드 안에서 세로 중앙에 온다**(:421 이 두 상수를 상호배타로 붙인다). 브라우저 탐침이 이 상태를 재지 못하는 이유도 그 상호배타다(product.rendered-components.json probes 의 status-card-product: 「상태 수식자 IDLE/LOADING 은 상호배타라 뺐다」). 되읽기는 Processing 프레임 자식들의 세로 중심이 프레임 중심과 같은지 본다."
+      },
+      "stateFrames": {
+        "value": [
+          "Failure",
+          "Processing",
+          "Success"
+        ],
+        "evidence": "제품 결과 화면이 실제로 갖는 세 갈래다 — 성공(billing-success · billing-change-success · topup/success), 실패(upgrade/fail · billing-fail · billing-change-fail · topup/fail), 처리 중(billing-success/page.tsx:421 의 loading 분기). 하나라도 빠지면 그 상태의 치수를 아무도 대조하지 않는다. 이름은 Figma 프레임 이름이며 정렬해서 본다."
+      },
+      "successParts": {
+        "value": [
+          "Actions",
+          "Alert",
+          "Meta list"
+        ],
+        "evidence": "**붉은 배너가 실재하는 자리는 성공 라우트 하나다** — billing-success/page.tsx:437·441 이 `error`·`subscriptionError` 를 STATUS_ALERT_ERROR 로 띄운다(결제는 통과했는데 구독 반영에서 오류가 잡힌 경우). 순서도 계약이라 :435-436 제목·설명 **다음**, :445 Meta list **앞**이다. 이름은 상태 프레임 **직계 자식 중 TEXT 가 아닌 것**의 집합이며 「 · 」 앞에서 자른다 — 제목·설명은 TEXT 라 세지 않는다(부품 이름이 아니라 문구를 이름으로 갖는다)."
+      },
+      "failureParts": {
+        "value": [
+          "Actions",
+          "Meta list"
+        ],
+        "evidence": "**실패 세 화면에는 배너가 없다.** upgrade/fail · billing-fail · topup/fail 어디에도 accent-red 배너 상수가 없고(세 파일 모두 109 STATUS_ACTIONS · 112 버튼 상수까지가 전부다) 사유(code · message · orderId)는 Meta list 행이 담는다(upgrade/fail/page.tsx:162 `<dl className={STATUS_META_LIST}>`). 문서의 2026-08-30 정정이 그대로 이 축이다 — 「「실패 화면 전용」으로 읽으면 실패 화면에 없는 부품을 그리게 된다」."
+      }
+    },
+    "route-boundary": {
+      "$pattern": "Route Boundary 패턴 자체. 화면이 아니라 조립 계약이다 — Figma 프레임 「Pattern · RouteBoundary」(노드 993:431, 페이지 「DS · Templates」) 안의 프레임 넷(404 · 오류 · 최후 경계 · ≤719px 변형)이 한 패턴을 이룬다. 제품 근거는 배포본 ae8fd627 의 세 파일이다 — app/not-found-content.tsx · app/error.tsx · app/global-error.tsx.",
+      "$scopeNote": "**Button 의 치수는 여기 없다.** CTA 의 색·높이·여백·곡률은 figma/components.measured.json 의 button 이 소유하고 제품은 `<Button variant=\"primary\">` 를 그대로 쓴다 — 패턴이 갖는 것은 **어느 칸을 쓰는가**(높이 32 = md)와 **그 자리가 공용 Button 인가**(ctaIsSharedButton)뿐이다. 이 계약이 소유하는 것은 페이지 여백 세 축과 좁은 화면 분기, 콘텐츠 컬럼의 폭·정렬·세로 리듬 둘, 404 와 오류가 같은 뼈대라는 것, 그리고 **최후 경계가 그 시스템 밖에 있다는 사실**이다. 마지막 것이 이 패턴의 내용이다 — global-error.tsx 는 루트 레이아웃이 실패한 뒤에 뜨므로 토큰도 전역 CSS 도 공용 Button 도 쓸 수 없고, 그 값들을 토큰으로 바꾸면 화면이 자기가 막으려던 실패에 함께 휩쓸린다. 그래서 계약은 그 화면의 인라인 리터럴을 **리터럴 그대로** 잠그고 lastResortSharedButton: false 로 「여기는 INSTANCE 가 아니다」를 못 박는다.",
+      "$skipped": [
+        "**색 전부**(루트 면·전경 `var(--background)`/`var(--foreground)`, 설명 잉크 다크 64% ↔ 라이트 56%, 최후 경계의 `#0a0a0a`·`#ededed`·`#a1a1a1`) — 변수 바인딩이 따로 검증된다. 실측은 있다(rendered.route-404-description-product 0.64 · route-404-description-light-product 0.56 — 문서 Layout contract 가 적어 둔 62%/58% 는 **틀렸고 제품이 이긴다**). 다만 최후 경계는 변수를 물면 **안 되는** 자리라 색 대조 자체가 이 축의 형태를 갖지 않는다.",
+        "**404·오류의 타이포**(제목 36/48.6/medium · 설명 16/24) — type-heading-36-medium · type-body-16-regular 이 소유한다. 실측은 있으나(rendered.route-404-title-product · route-404-description-product) 여기 또 적으면 정본이 둘이 된다. 반대로 최후 경계의 24·15·160% 는 **스케일 밖 리터럴이라 소유자가 없어** 계약에 넣었다.",
+        "**설명 상한 `max-w-[36ch]`** — 실측이 343.125px(rendered.route-404-description-product.maxWidth)인 폰트 메트릭 파생값이다. Figma 의 같은 자리는 344 라 계약으로 잠그면 0.875px 때문에 영원히 빨갛다. ch 를 재현할 방법이 Figma 에 없다.",
+        "**루트 높이 `min-h-[100svh]`(최후 경계는 `100vh`)** — 계산값이 뷰포트라 제품 값이 아니라 문서 높이를 기록하게 된다. 브라우저 탐침도 같은 이유로 이 축을 빼 두었다(product.rendered-components.json 의 route-404-page-product 주석). Figma 프레임 높이 560 은 사양 보드의 선택값이지 제품 값이 아니다.",
+        "**최후 경계의 폰트 패밀리** — 제품은 시스템 스택(`system-ui, -apple-system, …`, global-error.tsx:30-31)이고 Figma 는 그것을 「SF Pro」 한 이름으로 세워 두었다. Figma 쪽 대역이지 제품 값이 아니라 대조 축이 될 수 없다.",
+        "**최후 경계 버튼 라벨의 15/500**(global-error.tsx:61-62) — 근거는 있으나 넣지 않았다. 여백 10·24 와 곡률 8 만으로 이 자리가 공용 Button 밖이라는 것이 이미 드러나고, 라벨 타이포까지 넣으면 인라인 리터럴을 축마다 옮겨 적게 된다.",
+        "**설명의 `pre-line` 개행**(문서 Acceptance test 2) — 렌더 축이지 기하가 아니다. Figma 의 TEXT 는 줄바꿈을 문자열 안에 갖고 있어 「white-space 가 살아 있는가」를 물을 대상이 없다."
+      ],
+      "pagePaddingTop": {
+        "value": 24,
+        "evidence": "실측 rendered.route-404-page-product.paddingTop 24px, route-error-page-product 동일. 선언은 not-found-content.tsx:23 `pt-12`(제품 --spacing: 2px → 24)이고 error.tsx:25 가 같은 상수를 자기 파일에 또 적는다. 되읽기는 프레임 넷의 위 여백을 모아 유일값을 본다 — 최후 경계도 24 라서 이 축은 넷이 한 값이다."
+      },
+      "pagePaddingBottom": {
+        "value": 32,
+        "evidence": "실측 rendered.route-404-page-product.paddingBottom 32px. 선언은 :23 `pb-16`(→32). **위 24 · 아래 32 로 세로가 비대칭인 것**이 이 패턴의 내용이다 — 콘텐츠가 세로 가운데라 위아래를 같게 두면 시각 중심이 아래로 처진다. 최후 경계는 네 변이 24 라 이 축은 셸을 쓰는 세 벌만 본다."
+      },
+      "pagePaddingInline": {
+        "value": 20,
+        "evidence": "실측 rendered.route-404-page-product 의 paddingLeft·paddingRight 가 둘 다 20px. 선언은 :23 `px-10`(→20). 되읽기는 404·오류 두 프레임의 좌우 네 값을 모아 유일값을 본다."
+      },
+      "narrowPagePaddingInline": {
+        "value": 16,
+        "evidence": "선언 not-found-content.tsx:25 · error.tsx:27 `[@media(max-width:719px)]:px-8`(→16). **이 축의 근거는 실측이 아니라 선언이다** — 브라우저 탐침은 hostWidth 1440 한 폭에서만 재므로 미디어 쿼리 분기가 계산값에 나타나지 않는다. 문서 Acceptance test 5 가 그대로 이 축이고, Figma 는 그것을 별도 프레임(「≤719px — 좌우 패딩 16px」, 폭 480)으로 세워 두었다."
+      },
+      "pageCentersContent": {
+        "value": true,
+        "evidence": "선언 :22 `flex flex-col items-center justify-center`. 세 화면 모두 같다(error.tsx:24 · global-error.tsx:23-27 의 alignItems·justifyContent). 되읽기는 프레임 넷의 primaryAxisAlignItems·counterAxisAlignItems 가 전부 CENTER 인지 본다 — 한 프레임이라도 위로 붙어 있으면 이 패턴이 아니다."
+      },
+      "contentWidth": {
+        "value": 440,
+        "evidence": "실측 rendered.route-404-content-product.width 440px, route-error-content-product 동일. 선언은 :29 `w-[min(100%,440px)]` 이고, 탐침이 hostWidth 1440 을 주는 이유도 그 min() 때문이다 — host 가 좁으면 100% 쪽이 이겨 host 폭을 재게 된다. 되읽기는 셸을 쓰는 세 프레임(404 · 오류 · ≤719px 변형)의 Content 폭을 모아 유일값을 본다."
+      },
+      "contentPaintCount": {
+        "value": 0,
+        "evidence": "CONTENT(:28-30)에 배경·테두리·곡률 클래스가 없다 — `w-[min(100%,440px)] flex flex-col items-center text-center gap-6` 가 전부다. **컬럼에 면을 그리면 배포본에 없는 카드가 생긴다.** 되읽기는 Content 프레임 넷의 fills + strokes 개수를 센다."
+      },
+      "contentTextAlign": {
+        "value": "CENTER",
+        "evidence": "실측 rendered.route-404-content-product.textAlign \"center\". 선언은 :29 `items-center text-center`. 문서가 Accessibility 절에서 「설명이 text-align: center 다 — 긴 문구도 가운데 정렬된다」로 그 결과까지 적어 둔 축이다. Figma 는 auto-layout 의 counterAxisAlignItems 로 같은 것을 표현한다."
+      },
+      "contentStackGap": {
+        "value": 12,
+        "evidence": "실측 rendered.route-404-content-product 의 rowGap·columnGap 이 둘 다 12px. 선언은 :29 `gap-6`(→12). 최후 경계도 같은 12 다 — 제목이 `margin: \"0 0 12px\"`(global-error.tsx:37)로 같은 리듬을 손으로 적는다. **시스템을 못 쓰는 화면이 값은 맞춰 두었다는 사실**이 이 축이고, 되읽기는 프레임 넷의 Text 프레임 itemSpacing 을 모아 유일값을 본다."
+      },
+      "ctaGapTop": {
+        "value": 24,
+        "evidence": "제목·설명 덩어리와 CTA 사이의 **실효 간격**이다. 제품에서는 두 선언이 겹쳐 만들어진다 — CONTENT 의 `gap-6`(12, :29) 위에 PAGE_CTA 의 `mt-6!`(12, :46)이 얹혀 12 + 12 = 24 다(실측 rendered.route-404-content-product.rowGap 12px + route-404-cta-product.marginTop 12px). 최후 경계는 설명의 `margin: \"0 0 24px\"`(global-error.tsx:45)로 같은 24 를 한 번에 적는다. Figma auto-layout 에는 gap 과 margin 이 겹치는 자리가 없으므로 **두 값을 합친 실효 간격 하나**로 잰다 — Content 프레임의 itemSpacing 24 이고, 12 쪽은 그 안의 Text 프레임이 contentStackGap 으로 갖는다. status-result 의 actionsGapTop 과 같은 형태다.",
+        "$note": "이 축이 24 인 한 CTA 의 `mt-6!` 는 살아 있다. 제품 주석이 그 `!` 를 「레이어 밖 Button 모듈이 유틸리티를 이기므로 간격이 조용히 죽지 않게 못 박았다」로 설명한다(not-found-content.tsx:44-45) — important 가 빠지면 이 값이 12 로 내려앉는다."
+      },
+      "ctaIsSharedButton": {
+        "value": true,
+        "evidence": "선언 not-found-content.tsx:59-65 · error.tsx:72 `<Button variant=\"primary\">`. 두 파일의 주석이 「색·높이·곡률·그림자는 Button 이 소유한다 … 자체 배경을 가진 클래스를 같이 주면 명시도가 같아 블루가 덮인다」로 그 경계를 못 박는다(:41-45). 되읽기는 셸을 쓰는 세 프레임의 CTA 노드가 전부 INSTANCE 인지 본다 — 프레임으로 그려 두면 Button 이 바뀌어도 이 화면만 안 따라온다."
+      },
+      "ctaButtonHeight": {
+        "value": 32,
+        "evidence": "두 파일 모두 `size` 를 넘기지 않으므로 Button 의 기본값 md 다(Button.tsx:29 `size = \"md\"`, 「lg 는 화면의 주인공이 되는 제출 CTA … 그 밖에는 전부 md 다」 DS-D-0027). 실측 rendered.button-md.height 32px. **이 축은 Button 사다리가 아니라 패턴이 어느 칸을 쓰는가다** — 칸을 고르면 여백 12 · 곡률 12 는 components.measured.json 의 button.md 가 소유한다."
+      },
+      "errorLinkGap": {
+        "value": 12,
+        "evidence": "**오류 화면에만 있는 넷째 부품이다.** error.tsx:75-77 이 CTA 뒤에 `<Link href=\"/\" className={DESCRIPTION}>` 를 하나 더 두고, 그 링크에는 `mt` 가 없으므로 CONTENT 의 `gap-6`(12) 만 받는다. 그 요소가 실재한다는 증거는 실측에 따로 있다 — rendered.route-error-description-link-product 는 같은 DESCRIPTION 상수가 `<a>` 에 걸려 전역 `a { text-decoration: none }` 과 만나는 것을 잰 유일한 자리다(textDecorationLine \"none\"). 404 에는 이 부품이 없다."
+      },
+      "duplicateSkeletonMatches": {
+        "value": true,
+        "evidence": "**404 와 오류는 공용 컴포넌트가 아니라 복제다** — `ROOT` · `CONTENT` · `TITLE` · `DESCRIPTION` · `PAGE_CTA` 다섯 상수를 두 파일이 각자 자기 파일에 적고(not-found-content.tsx:21-46 ↔ error.tsx:23-48), 배포본 ae8fd627 에서 그 다섯은 바이트까지 같다. 실측도 두 벌이 같은 값을 낸다(route-404-page/content/title/description/cta ↔ route-error-*). 문서 Acceptance test 1 「404와 오류가 같은 뼈대를 그린다」가 여기서 주장이 아니라 대조가 된다. 되읽기는 두 프레임의 여백 넷 · Content 폭 · 리듬 둘을 이어 붙여 같은지 본다 — **한쪽만 고친 날 여기서 걸린다.** 복제를 공용으로 합칠 것인가는 문서가 열어 둔 blocker 이며, 합쳐지면 이 축은 저절로 참이 된다."
+      },
+      "lastResortContentWidth": {
+        "value": 420,
+        "evidence": "global-error.tsx:36 `<div style={{ maxWidth: 420 }}>`. **앞의 둘(440)과 다르고, 그 어긋남이 문서가 열어 둔 blocker 다**(「최후 경계의 해결값을 앞의 둘과 맞출 것인가」). 계약은 판정을 앞질러 440 으로 적지 않는다 — 지금 제품 값은 420 이고, 맞추기로 결정되면 제품이 먼저 바뀐 뒤 이 값이 따라간다. 이 화면에 브라우저 실측이 없는 이유는 measure-product-components.mjs 가 적어 두었다: 클래스가 없는 인라인 화면이라 제품 Tailwind 로 컴파일할 상수가 없고, 제품 CSS 를 깐 문서에서 재면 그 화면의 유일한 계약(「전역 CSS 없이 렌더된다」)을 어긴 조건에서 재는 것이 된다."
+      },
+      "lastResortPagePadding": {
+        "value": 24,
+        "evidence": "global-error.tsx:33 `padding: \"24px\"` — 네 변이 한 값이다. 앞의 둘은 위 24 · 좌우 20 · 아래 32 로 셋이 갈리므로 **여백을 한 값으로 축약한 것 자체가 이 화면이 다른 자리라는 표시**다. 되읽기는 최후 경계 프레임의 네 변을 모아 유일값을 본다."
+      },
+      "lastResortSharedButton": {
+        "value": false,
+        "evidence": "**이 패턴의 핵심 구조 계약이다.** global-error.tsx 의 import 는 Sentry 와 useEffect 둘뿐이고(:3-4) 공용 Button 을 들이지 않는다 — CTA 는 인라인 style 만 가진 맨 `<button type=\"button\">`(:52-67)이다. 루트 레이아웃이 실패한 뒤라 컴포넌트도 토큰도 쓸 수 없기 때문이며, 문서가 「디자인 시스템이 닿지 않는 자리가 있다는 사실 자체가 계약이다」로 적는다. 되읽기는 이 자리가 INSTANCE 가 **아닌지** 본다 — 누군가 Figma 에서 이 버튼을 공용 Button 인스턴스로 바꿔 두면 그림이 제품에 없는 의존을 주장하게 된다."
+      },
+      "lastResortButtonPaddingBlock": {
+        "value": 10,
+        "evidence": "global-error.tsx:56 `padding: \"10px 24px\"` 의 첫 값. 공용 Button 의 md(높이 32 · 좌우 12)와 다른 칸이며 같게 만들 수 없다 — LOUIS 를 참조하는 순간 이 화면이 막으려던 실패에 함께 휩쓸린다."
+      },
+      "lastResortButtonPaddingInline": {
+        "value": 24,
+        "evidence": "global-error.tsx:56 `padding: \"10px 24px\"` 의 둘째 값. button.md 의 좌우 12(rendered.button-md.paddingLeft)와 다르다."
+      },
+      "lastResortButtonRadius": {
+        "value": 8,
+        "evidence": "global-error.tsx:57 `borderRadius: 8`. LOUIS radius-* 를 물지 않은 리터럴이고 공용 Button 의 12(rendered.button-md.borderTopLeftRadius)와도 다르다. **제품의 pnpm check-louis-literals 가 잡을 수 없는 자리다** — 그 게이트가 보는 것은 CSS 이고 이것은 인라인 style 객체다. 그래서 이 값을 지키는 것은 이 계약뿐이다."
+      },
+      "lastResortTitleSize": {
+        "value": 24,
+        "evidence": "global-error.tsx:37 `fontSize: 24, fontWeight: 600`. **타입 스케일 밖 값이다** — heading 은 48 · 36 · 28 뿐이라 24 를 가리키는 토큰이 없고(제품 CLAUDE.md 가 `type-heading-24-*` 를 「존재하지 않는다」로 못 박는다), 그래서 이 축은 스케일이 아니라 패턴이 소유한다. 앞의 둘이 쓰는 heading-36 과 어긋나 있고 그 판정은 문서의 blocker 로 열려 있다."
+      },
+      "lastResortDescriptionSize": {
+        "value": 15,
+        "evidence": "global-error.tsx:41-42 `fontSize: 15`. body 는 20 · 16 · 14 뿐이라 15 도 스케일 밖이다 — 앞의 둘은 같은 문단을 16 으로 그린다(rendered.route-404-description-product.fontSize 16px)."
+      },
+      "lastResortDescriptionLineHeightPercent": {
+        "value": 160,
+        "evidence": "global-error.tsx:43 `lineHeight: 1.6`. 앞의 둘의 body-16 은 24/16 = 150% 다(rendered.route-404-description-product 16px/24px). 되읽기는 Figma 의 PERCENT 값을 반올림해 본다 — Figma 는 160 을 160.0000023841858 로 보관한다."
+      },
+      "boundaryFrames": {
+        "value": [
+          "404",
+          "≤719px — 좌우 패딩 16px",
+          "오류",
+          "최후 경계 · 토큰 밖"
+        ],
+        "evidence": "문서가 세는 세 갈래(404 · 오류 · 최후 경계)에 좁은 화면 변형 하나를 더한 넷이다. 셋만 두면 narrowPagePaddingInline 을 잴 프레임이 없고, 최후 경계를 빼면 「시스템 밖」이 그림에 없어 아무도 대조하지 않는다. 이름은 Figma 프레임 이름이며 정렬해서 본다."
+      }
+    },
+    "auth-two-panel": {
+      "$screen": "로그인 전 인증 화면의 껍데기 자체. 화면이 아니라 조립 계약이다 — Figma 프레임 둘(「≥1200px — 2열 (1440)」 · 「≤719px — 1열」)이 한 패턴을 이룬다. 노드 997:1220, 페이지 「DS · Templates」. 8화면이 이 껍데기를 쓰고 그중 셋(/login · /signup · /aws/signup)은 공용 AuthStatusCard 를 쓰지 않고 같은 상수를 자기 파일에 복제한다.",
+      "$scopeNote": "**색 축은 여기 없다.** 브랜드 면 · 슬로건 전경 · eyebrow 네 축은 이미 LOUIS 시맨틱으로 서 있고 색은 변수 바인딩이 따로 검증된다. **부품 축도 여기 없다** — 카드 안의 TextField · Button 치수는 figma/components.measured.json 이 소유하고 component 대조로 검증된다. 이 계약이 소유하는 것은 **부품들 사이의 관계와 구조** — 페이지 열 구성, 두 패널의 여백·곡률·배치, 카드 폭과 세로 리듬, eyebrow 알약의 기하, 그리고 720px 경계에서 무엇이 서고 무엇이 사라지는가다. **복제 셋이 갈린 축은 계약이 아니다** — 좁은 폭 페이지 패딩 16, /login 의 카드 간격 28 과 그 전용 음수 마진, 제목 letter-spacing 0 덧대기, 로고 높이 72, /signup 의 gap-7 14 는 전부 문서가 「알려진 부채」로 적는 것이고 공용 벌 하나를 정본으로 그린다.",
+      "stateFrames": {
+        "value": [
+          "≤719px — 1열 (Brand panel 은 그려지지 않는다)",
+          "≥1200px — 2열 (1440) · 720~1199px 에서는 슬로건만 heading-36"
+        ],
+        "evidence": "제품이 실제로 갖는 두 갈래다. **전환점은 720px 하나뿐이고**(apps/web/components/auth/AuthStatusCard.tsx:15 grid-template-columns · :16 place-items · :22-23 브랜드 패널 hidden→flex · :46-47 폼 패널 contents→grid · :55 카드 간격 · :60 로고 링크 hidden) 그 밖의 분기는 슬로건 타입 스케일 하나다(:42 [@media(min-width:1200px)]:text-heading-48). 넓은 쪽을 ≥1200 으로 그려 승급한 슬로건까지 한 프레임에서 재게 한다 — 720~1199 는 슬로건 타입만 :112 의 type-heading-36-medium 으로 남고 나머지 축이 전부 같아서 프레임을 셋으로 늘려도 대조할 새 값이 없다. 이름은 Figma 프레임 이름이며 정렬해서 본다."
+      },
+      "sceneWidth": {
+        "value": 1440,
+        "evidence": "재조립 뷰포트 선택값. 제품 분기는 720 과 1200 둘뿐이고(apps/web/components/auth/AuthStatusCard.tsx:15-17 · :42) 1440 은 1200 위의 임의 지점이다. templates.home · templates.app-shell 과 같은 폭을 일부러 쓴다 — 폭이 다르면 세 패턴의 본문 폭을 맞대 볼 수 없다."
+      },
+      "narrowSceneWidth": {
+        "value": 480,
+        "evidence": "≤719px 상태의 재조립 뷰포트 선택값. 제품의 좁은 폭 가지는 720px 미만 전부이고(apps/web/components/auth/AuthStatusCard.tsx:14-17 의 base 규칙이 그대로 남는 구간) 480 은 그 안의 임의 지점이다. 폭 자체가 제품 근거를 갖는 값은 아니지만 아래 narrowColumns · cardGapNarrow · narrowHasLogoLink 가 이 폭을 전제로 풀린다."
+      },
+      "pagePadding": {
+        "value": 20,
+        "evidence": "실측 migration/product.rendered-components.json rendered.auth-page-root-product.paddingTop · paddingLeft 20px. 선언은 apps/web/components/auth/AuthStatusCard.tsx:14 `p-10` 이고 :16 이 ≥720 에서 같은 `p-10` 을 다시 적어 **두 상태가 한 값**이다 — 되읽기가 프레임 둘의 네 변을 모아 유일값을 보는 이유다. 제품 --spacing: 2px 이라 p-10 은 40 이 아니라 20 이다. 복제 셋만 16 으로 갈리고 그것은 부채다."
+      },
+      "pageColumns": {
+        "value": 2,
+        "evidence": "apps/web/components/auth/AuthStatusCard.tsx:15 [@media(min-width:720px)]:[grid-template-columns:minmax(0,1fr)_minmax(0,1fr)] — ≥720 에서 열이 둘이다. 문서 Acceptance test 1(720px 경계에서 1열 ↔ 2열이 갈린다)이 기계로 서는 자리다."
+      },
+      "narrowColumns": {
+        "value": 1,
+        "evidence": "apps/web/components/auth/AuthStatusCard.tsx:14 의 base 는 열 선언 없이 `grid place-items-center` 뿐이라 한 열이다. 좁은 폭에서 브랜드 패널이 그려지지 않으므로(:22) 그 한 열에 폼 카드만 선다."
+      },
+      "pageColumnGap": {
+        "value": 20,
+        "evidence": "실측 rendered.auth-page-root-product.columnGap · rowGap 20px. 선언 apps/web/components/auth/AuthStatusCard.tsx:17 [@media(min-width:720px)]:gap-10."
+      },
+      "columnsEqual": {
+        "value": true,
+        "evidence": "apps/web/components/auth/AuthStatusCard.tsx:15 두 트랙이 모두 minmax(0, 1fr) 이라 폭이 같다. 문서가 「`minmax(0, 1fr)`을 `1fr`로 바꾸면 안 된다」고 적은 축의 **관측 가능한 결과**다 — 최소 크기를 0 으로 눌러야 긴 슬로건이 자기 열을 밀지 않는데, 밀리면 두 열의 폭이 어긋나 여기서 드러난다."
+      },
+      "brandPanelPadding": {
+        "value": 20,
+        "evidence": "실측 rendered.auth-brand-panel-product.paddingTop · paddingLeft 20px. 선언 apps/web/components/auth/AuthStatusCard.tsx:26 [@media(min-width:720px)]:p-10."
+      },
+      "brandPanelRadius": {
+        "value": 12,
+        "evidence": "실측 rendered.auth-brand-panel-product.borderTopLeftRadius 12px. 선언 apps/web/components/auth/AuthStatusCard.tsx:27 [@media(min-width:720px)]:rounded-control — 제품의 rounded-control 이 --louis-radius-control(12px)을 문다."
+      },
+      "brandPanelLayoutMode": {
+        "value": "VERTICAL",
+        "evidence": "apps/web/components/auth/AuthStatusCard.tsx:24 [@media(min-width:720px)]:flex-col."
+      },
+      "brandPanelMainAxisAlign": {
+        "value": "SPACE_BETWEEN",
+        "evidence": "apps/web/components/auth/AuthStatusCard.tsx:25 [@media(min-width:720px)]:justify-between. 내용이 상단 심볼과 하단 슬로건 둘뿐이라(:105-114) 이 한 축이 패널의 세로 구성을 전부 정한다 — 가운데 정렬로 바꾸면 슬로건이 바닥에서 떨어진다."
+      },
+      "brandPanelCrossAxisAlign": {
+        "value": "MIN",
+        "evidence": "apps/web/components/auth/AuthStatusCard.tsx:24 [@media(min-width:720px)]:items-start."
+      },
+      "brandBgFillsPanel": {
+        "value": true,
+        "evidence": "실측 rendered.auth-brand-panel-product.backgroundSize `100% 100%`. 선언 apps/web/components/auth/AuthStatusCard.tsx:28-29 [background-image:url(/footer-logo-bg.svg)] · [background-size:100%_100%]. **비율을 유지하지 않고 패널을 꽉 채운다** — 의도된 동작이므로 배경 인스턴스의 폭·높이가 패널과 같아야 한다. 작게 놓이면 Figma 에서만 여백이 생기고 제품에는 없는 그림이 된다."
+      },
+      "brandSymbolHeight": {
+        "value": 28,
+        "evidence": "apps/web/components/auth/AuthStatusCard.tsx:105-111 <BrandLogo themeMode=\"dark\" width={logoWordmarkWidthForHeight(28)} height={28} className={BRAND_SYMBOL} /> — :109 가 높이다. 폭은 높이에서 유도되므로(apps/web/components/ui/brandLogoMetrics.ts:9-12, 291×85 viewBox → 96) 계약은 높이 하나만 소유한다. 실측은 이 축을 주지 못한다 — 탐침이 상수 문자열만 컴파일해 재고 BrandLogo 의 width/height 속성은 그 경로에 없다."
+      },
+      "sloganFontSize": {
+        "value": 48,
+        "evidence": "실측 rendered.auth-brand-slogan-product.fontSize 48px. 선언 apps/web/components/auth/AuthStatusCard.tsx:42 [@media(min-width:1200px)]:text-heading-48 이고 이 프레임이 ≥1200 상태라 승급한 쪽을 잰다. 720~1199 에서는 :112 의 type-heading-36-medium 이 남는다."
+      },
+      "sloganLineHeightPercent": {
+        "value": 135,
+        "evidence": "실측 rendered.auth-brand-slogan-product.lineHeight 64.8px ÷ fontSize 48px = 135%. Figma 는 행간을 퍼센트로 적으므로 비율로 옮긴다 — px 로 적으면 타입 스케일이 바뀔 때 두 정본이 갈린다."
+      },
+      "sloganLetterSpacingPercent": {
+        "value": -2,
+        "evidence": "실측 rendered.auth-brand-slogan-product.letterSpacing -0.96px ÷ fontSize 48px = -2%. 문서가 「타입이 heading-48로 승급한다(size · line-height · letter-spacing 셋 다)」고 적은 셋째 축이다."
+      },
+      "formPanelPaddingInline": {
+        "value": 32,
+        "evidence": "apps/web/components/auth/AuthStatusCard.tsx:50 [@media(min-width:720px)]:[padding:clamp(32px,6svh,72px)_32px] 의 **좌우 항**. 리터럴 32 라 뷰포트를 타지 않는다. 세로 항은 6svh 가 들어 있어 계약에 넣지 않는다."
+      },
+      "cardWidth": {
+        "value": 400,
+        "evidence": "실측 rendered.auth-card-product.width 400px. 선언 apps/web/components/auth/AuthStatusCard.tsx:55 `w-[min(100%,400px)]` 이고, 탐침이 host 1440 을 주는 이유도 그 min() 이다 — host 가 좁으면 100% 쪽이 이겨 host 폭을 재게 된다. 되읽기는 두 상태 프레임의 카드 폭을 모아 유일값을 본다: 좁은 폭에서도 400 이 상한이고 480 프레임 안에서는 그 상한이 드러난다."
+      },
+      "cardCrossAxisAlign": {
+        "value": "CENTER",
+        "evidence": "실측 rendered.auth-card-product.justifyItems `center`. 선언 apps/web/components/auth/AuthStatusCard.tsx:55 justify-items-center. 같은 줄의 text-align: center 는 텍스트 축이라 여기서 보지 않는다."
+      },
+      "cardGapWide": {
+        "value": 24,
+        "evidence": "실측 rendered.auth-card-product.rowGap 24px(탐침 host 1440 → ≥720 가지). 선언 apps/web/components/auth/AuthStatusCard.tsx:55 [@media(min-width:720px)]:gap-12. 8화면 중 7 이 24 이고 /login 만 gap-14 = 28 인데 그것은 복제 부채다 — 그 28 때문에 /login 에만 하단 링크 음수 마진이 따라온다."
+      },
+      "cardGapNarrow": {
+        "value": 8,
+        "evidence": "선언 apps/web/components/auth/AuthStatusCard.tsx:55 의 base `gap-4`. 브라우저는 ≥720 가지만 쟀지만 **그 실측이 이 값을 고정한다** — 같은 줄의 gap-12 가 24px 로 나왔으므로 --spacing 은 2px 이고, 따라서 gap-4 는 8 이다. 문서 「세로 간격이 세 배가 된다」(8 → 24)가 이 두 축의 관계다."
+      },
+      "eyebrowMinHeight": {
+        "value": 30,
+        "evidence": "실측 rendered.auth-eyebrow-product.minHeight 30px. 선언 apps/web/components/auth/AuthStatusCard.tsx:70 min-h-[30px]. :72 가 py-0 이라 세로 여백이 없고 높이는 이 하한이 정한다 — 되읽기가 프레임 높이를 그대로 이 축으로 읽는 이유다."
+      },
+      "eyebrowPaddingInline": {
+        "value": 12,
+        "evidence": "실측 rendered.auth-eyebrow-product.paddingLeft 12px. 선언 apps/web/components/auth/AuthStatusCard.tsx:72 px-6(2px 격자 → 12)."
+      },
+      "eyebrowRadius": {
+        "value": 999,
+        "evidence": "실측 rendered.auth-eyebrow-product.borderTopLeftRadius 999px. 선언 apps/web/components/auth/AuthStatusCard.tsx:70 rounded-pill → --louis-radius-pill 999px. **9999 가 아니다** — 문서가 「원본이 9999px이므로 바꾸지 않는다」는 옛 단서를 닫은 축이고, 제품은 999 를 그린다."
+      },
+      "eyebrowBorderWidth": {
+        "value": 1,
+        "evidence": "실측 rendered.auth-eyebrow-product.borderTopWidth 1px. 선언 apps/web/components/auth/AuthStatusCard.tsx:71 border border-stroke-subtle. **이 알약은 LOUIS .louis-badge 를 채택하지 않는다**(:63-73 주석) — 정본 배지는 면으로 상태를 말하는 채워진 형태이고 이것은 테두리로만 서므로, 테두리가 사라지면 부품이 사라진다. 되읽기는 stroke 가 실제로 있을 때만 두께를 담는다 — 획 없는 프레임도 strokeWeight 가 1 로 읽혀 거짓 초록이 되기 때문이다."
+      },
+      "formHeaderGap": {
+        "value": 8,
+        "evidence": "실측 rendered.auth-form-header-product.rowGap 8px. 선언 apps/web/components/auth/AuthStatusCard.tsx:76 `grid gap-4 justify-items-center`. 카드 간격과 다른 축이다 — 제목과 설명은 한 덩어리라 넓은 폭에서도 8 로 붙어 있다."
+      },
+      "formHeaderCrossAxisAlign": {
+        "value": "CENTER",
+        "evidence": "실측 rendered.auth-form-header-product.justifyItems `center`. 선언 apps/web/components/auth/AuthStatusCard.tsx:76 justify-items-center."
+      },
+      "descriptionMaxWidth": {
+        "value": 340,
+        "evidence": "실측 rendered.auth-description-product.maxWidth 340px. 선언 apps/web/components/auth/AuthStatusCard.tsx:80 max-w-[340px]. 카드 폭 400 보다 좁은 것이 요점이다 — 설명만 한 단계 안으로 들어와 제목보다 짧은 행을 만든다."
+      },
+      "formChildrenGap": {
+        "value": 10,
+        "evidence": "실측 rendered.auth-children-product.rowGap 10px. 선언 apps/web/components/auth/AuthStatusCard.tsx:85 `grid w-full gap-5`. **카드 간격과 별개 축이다** — /login · /signup 은 gap-7 = 14 로 갈리지만 그것은 복제 부채다."
+      },
+      "logoLinkHeight": {
+        "value": 56,
+        "evidence": "apps/web/components/auth/AuthStatusCard.tsx:120-124 <BrandLogo width={logoWordmarkWidthForHeight(56)} height={56} /> — :123 이 높이다. 폭 192 는 높이에서 유도되므로(brandLogoMetrics.ts:9-12) 계약에 따로 넣지 않는다. /login 만 72 로 갈리고 그것은 복제 부채다."
+      },
+      "wideHasBrandPanel": {
+        "value": true,
+        "evidence": "apps/web/components/auth/AuthStatusCard.tsx:22-23 `hidden` + [@media(min-width:720px)]:flex — 브랜드 패널은 ≥720 에서만 그려진다."
+      },
+      "narrowHasBrandPanel": {
+        "value": false,
+        "evidence": "apps/web/components/auth/AuthStatusCard.tsx:22 `hidden` — 좁은 폭에서 **DOM 에는 남지만 그려지지 않는다.** display: none 이라 접근성 트리에서도 사라진다. Figma 에는 그려지는 것만 서므로 ≤719 프레임에 브랜드 패널이 있으면 안 된다 — 있으면 제품에 없는 화면을 정본이라고 우기게 된다."
+      },
+      "wideHasLogoLink": {
+        "value": false,
+        "evidence": "실측 rendered.auth-logo-link-product.display `none`(탐침 host 1440). 선언 apps/web/components/auth/AuthStatusCard.tsx:60 [@media(min-width:720px)]:hidden — 넓은 폭에서는 좌 패널의 브랜드 심볼이 그 역할을 한다."
+      },
+      "narrowHasLogoLink": {
+        "value": true,
+        "evidence": "apps/web/components/auth/AuthStatusCard.tsx:59-60 — 로고 링크는 base 에서 보이고 ≥720 에서만 숨는다. 이 축과 위 셋이 함께 문서 Acceptance test 5(로고 링크와 브랜드 심볼이 동시에 보이지 않고, 동시에 사라지지도 않는다)를 기계로 세운다: 넓은 쪽은 심볼만, 좁은 쪽은 링크만."
+      },
+      "requiredParts": {
+        "value": [
+          "Brand panel",
+          "Brand panel 배경",
+          "Brand slogan",
+          "Brand symbol",
+          "Eyebrow",
+          "Form (children)",
+          "Form card",
+          "Form header",
+          "Form panel",
+          "Logo link"
+        ],
+        "evidence": "문서 Anatomy 의 부품이 두 상태 프레임 안에 실제로 서 있는지 본다. 이름은 상태 프레임 **안쪽 깊이 2까지**의 노드 이름을 「 · 」 앞에서 자른 집합의 합집합이다(INSTANCE 내부는 세지 않는다 — 그것은 component 계약의 몫이라 TextField · Button 이 여기 없다). 제품 대응: Brand panel=apps/web/components/auth/AuthStatusCard.tsx:20-31 BRAND_PANEL aside · Brand panel 배경=:28-29 background-image /footer-logo-bg.svg · Brand symbol=:105-111 BrandLogo themeMode=\"dark\" · Brand slogan=:33-43 BRAND_SLOGAN p · Form panel=:45-51 FORM_PANEL · Form card=:53-55 CARD · Logo link=:57-61 LOGO_LINK · Eyebrow=:63-73 EYEBROW span · Form header=:76 FORM_HEADER · Form (children)=:85 CHILDREN. 열 개가 문서 Anatomy 표의 아홉 줄 + 브랜드 배경이며, 넓은 쪽에 Logo link 가 없고 좁은 쪽에 Brand panel 계열이 없어 **합집합으로만 열 개가 된다** — 어느 한 프레임만으로는 이 목록이 서지 않는다."
+      }
+    },
+    "landing-shell": {
+      "$screen": "랜딩 셸 패턴 자체. 화면이 아니라 조립 계약이다 — Figma 프레임 두 개(「≥720px」·「≤719px — 가운데 열이 소멸한다」)가 한 패턴을 이룬다. 노드 999:457, 페이지 「DS · Templates」.",
+      "$scopeNote": "**부품 축은 최소한만 여기 있다.** 상단 CTA 의 32·12 는 figma/components.measured.json 의 button(md)이 이미 소유하고 component 대조로 검증되므로 적지 않는다 — 같은 값을 두 곳에 적으면 한 값이 갈린다(app-shell 계약이 부품 축을 뺀 것과 같은 이유). 이 계약이 소유하는 것은 **앱 셸과 정반대인 관계** — 헤더가 자리를 예약하지 않고 뜬다는 것, 블러 판이 헤더 높이에서 유도되지 않는다는 것, 그리고 720px 에서 가운데 열이 소멸하고 상단 CTA 가 햄버거로 갈린다는 것이다. 메뉴 링크(28·12·999)와 햄버거(38·10)는 예외로 여기 있다 — 랜딩 전용 컨트롤이라 카탈로그에 component 가 없고, 여기 없으면 어느 게이트도 그 값을 보지 않는다. **색은 없다** — 톤 반전 다섯은 변수 바인딩 대조의 몫이다.",
+      "sceneWidth": {
+        "value": 1440,
+        "evidence": "재조립 뷰포트 선택값. 랜딩 헤더는 `width:100%` 라(apps/web/components/landing/navigation/Gnb.tsx:108) 폭 자체가 제품 근거를 갖는 값은 아니다. templates.home · app-shell 과 같은 1440 을 일부러 쓴다 — 폭이 다르면 railWidth 1408 을 두 셸의 본문 폭과 나란히 볼 수 없다."
+      },
+      "compactSceneWidth": {
+        "value": 480,
+        "evidence": "compact 상태의 재조립 뷰포트 선택값. 제품 분기는 apps/web/components/landing/navigation/Gnb.tsx:118 `@media(max-width:719px)` 이고 480 은 그 안의 임의 지점이다. **450 초과여야 한다** — :111 의 `@media(max-width:450px)` 가 헤더 패딩을 `12px 16px` 로 덮으므로 375 로 잡으면 headerPaddingLeft 20 이 무너진다."
+      },
+      "blurPlateHeight": {
+        "value": 120,
+        "evidence": "apps/web/components/landing/navigation/Gnb.tsx:101 HEADER_BLUR 의 `h-[120px]`. 브라우저 실측으로도 확인된다 — migration/product.rendered-components.json rendered.landing-header-blur-product.height = 120px. **헤더 점유 높이 56 에서 유도되지 않는 고정값**이고 뷰포트에도 비례하지 않는다(design/patterns/landing-shell.md 「Blur plate」)."
+      },
+      "headerPaddingTop": {
+        "value": 12,
+        "evidence": "apps/web/components/landing/navigation/Gnb.tsx:109 WRAPPER `[padding:12px_12px_12px_20px]`. 실측 landing-header-wrapper-product.paddingTop = 12px."
+      },
+      "headerPaddingRight": {
+        "value": 12,
+        "evidence": "같은 줄(apps/web/components/landing/navigation/Gnb.tsx:109). 실측 landing-header-wrapper-product.paddingRight = 12px."
+      },
+      "headerPaddingBottom": {
+        "value": 12,
+        "evidence": "같은 줄(apps/web/components/landing/navigation/Gnb.tsx:109). 실측 landing-header-wrapper-product.paddingBottom = 12px."
+      },
+      "headerPaddingLeft": {
+        "value": 20,
+        "evidence": "같은 줄(apps/web/components/landing/navigation/Gnb.tsx:109) — **좌우가 다르다.** 로고 쪽만 20 이다. 실측 landing-header-wrapper-product.paddingLeft = 20px. ≤450px 에서는 :111 이 `12px 16px` 로 덮지만 compactSceneWidth 480 은 그 밖이다."
+      },
+      "headerHeight": {
+        "value": 56,
+        "evidence": "12 + 32 + 12. 가운데 32 는 레일의 `min-h-12`(= 24, apps/web/components/landing/navigation/Gnb.tsx:116)가 아니라 **액션 열의 최장 컨트롤**이 정한다 — 상단 CTA 가 LOUIS Button md 이고 그 높이는 packages/css/src/component/button.css:67-68 → packages/css/generated/tokens.css:467 `--louis-layout-control-height-md: 32px` 다. **이 56 은 본문에서 예약되지 않는다**(:108 `fixed`) — 앱 셸의 「레일이 자리를 예약한다」를 여기 적용하면 첫 화면의 구도가 통째로 달라진다."
+      },
+      "compactHeaderHeight": {
+        "value": 62,
+        "evidence": "12 + 38 + 12. ≤719px 에서 상단 CTA 가 숨고(apps/web/components/landing/navigation/Gnb.tsx:337 TOPBAR_CTA 의 `[@media(max-width:719px)]:[display:none]!`) 햄버거 38 이 최장이 되어 행이 6 커진다. 데스크톱의 56 을 모바일 시안에 그대로 그리면 틀린다."
+      },
+      "railWidth": {
+        "value": 1408,
+        "evidence": "1440 − 20 − 12. 레일은 헤더의 유일한 자식이고 헤더는 패딩만 갖는다(apps/web/components/landing/navigation/Gnb.tsx:107-112). 폭을 따로 재는 이유는 **좌우가 다른 패딩이 실제로 적용됐는지**가 이 한 값에 드러나기 때문이다 — 20/12 를 16/16 으로 그려도 합이 같아 헤더 폭으로는 안 잡힌다."
+      },
+      "compactRailWidth": {
+        "value": 448,
+        "evidence": "480 − 20 − 12. 같은 두 패딩이 compact 에서도 유지된다(:110 의 ≤450px 분기 밖)."
+      },
+      "railHeight": {
+        "value": 32,
+        "evidence": "레일의 `min-h-12` 는 24 이지만(apps/web/components/landing/navigation/Gnb.tsx:116) **하한일 뿐**이고 실제 행 높이는 액션 열의 최장 컨트롤이 정한다 — Button md 32(button.css:67-68)와 LanguageSelector compact 32 가 나란히 선다. 24 로 그리면 3열 정렬선이 전부 어긋난다."
+      },
+      "compactRailHeight": {
+        "value": 38,
+        "evidence": "apps/web/components/landing/navigation/Gnb.tsx:347 HAMBURGER 의 `w-19 h-19` — 제품 --spacing 은 2px 이므로 Tailwind 숫자는 두 배가 아니라 절반이다, 19 × 2 = 38. 상단 CTA 가 :337 에서 숨으므로 햄버거가 최장이 된다."
+      },
+      "railColumnCount": {
+        "value": 3,
+        "evidence": "apps/web/components/landing/navigation/Gnb.tsx:116 NAV 의 `[grid-template-columns:1fr_auto_1fr]` — 로고 / 가운데 메뉴 / 우측 액션. 실측 landing-header-rail-product.display = grid."
+      },
+      "compactRailColumnCount": {
+        "value": 2,
+        "evidence": "apps/web/components/landing/navigation/Gnb.tsx:118 `[@media(max-width:719px)]:[grid-template-columns:1fr_auto]!` — **가운데 열이 소멸한다.** 메뉴는 접히는 것이 아니라 :161 `[@media(max-width:719px)]:[display:none]!` 로 DOM 에서 사라진다(실측 landing-header-menu-product 는 ≥720 에서만 잡힌다). 앱 셸이 「이름은 남긴다」로 처리하는 것과 다르다."
+      },
+      "menuGap": {
+        "value": 16,
+        "evidence": "apps/web/components/landing/navigation/Gnb.tsx:160 MENU 의 `gap-8` — 제품 --spacing 은 2px 이므로 Tailwind 숫자는 두 배가 아니라 절반이다, 8 × 2 = 16. 실측 landing-header-menu-product.columnGap = 16px."
+      },
+      "menuItemCount": {
+        "value": 5,
+        "evidence": "apps/web/components/landing/navigation/Gnb.tsx:588-591 menuItems 넷(쇼케이스 · 문서 · 가격 · 문의)에 :827 의 「리소스」 커뮤니티 드롭다운 트리거 `<li>` 하나가 붙어 다섯이다. 넷으로 그리면 드롭다운 트리거가 사라지고, 여섯으로 늘리면 배포본에 없는 항목이 시안에 선다."
+      },
+      "menuLinkHeight": {
+        "value": 28,
+        "evidence": "apps/web/components/landing/navigation/Gnb.tsx:165 MENU_LINK 의 `h-14` — 제품 --spacing 은 2px 이므로 Tailwind 숫자는 두 배가 아니라 절반이다, 14 × 2 = 28. 실측 landing-menu-link-black-product.height = 28px. 레일 행 32 보다 **작은 것이 계약**이다."
+      },
+      "menuLinkPaddingInline": {
+        "value": 12,
+        "evidence": "apps/web/components/landing/navigation/Gnb.tsx:165 MENU_LINK 의 `px-6` → 12. 실측 landing-menu-link-black-product.paddingLeft = 12px."
+      },
+      "menuLinkRadius": {
+        "value": 999,
+        "evidence": "apps/web/components/landing/navigation/Gnb.tsx:166 MENU_LINK 의 `rounded-pill`. 실측 landing-menu-link-black-product.borderTopLeftRadius = 999px. 높이 28 의 절반(14)이 아니라 999 다 — 알약이 아니라 **알약 토큰**을 문다."
+      },
+      "actionsGap": {
+        "value": 8,
+        "evidence": "apps/web/components/landing/navigation/Gnb.tsx:325 ACTIONS 의 `gap-4` — 제품 --spacing 은 2px 이므로 Tailwind 숫자는 두 배가 아니라 절반이다, 4 × 2 = 8. 실측 landing-header-actions-product.columnGap = 8px. 두 상태가 같은 상수를 쓰므로 compact 도 8 이다."
+      },
+      "actionParts": {
+        "value": [
+          "Button",
+          "LanguageSelector"
+        ],
+        "evidence": "≥720px 액션 열의 부품이다 — LanguageSelector compact + 상단 CTA(apps/web/components/landing/navigation/Gnb.tsx:325 주석 · :334-338). 햄버거는 :346-352 의 `[display:none]` 때문에 여기 없다. 이름은 Figma 노드 이름을 「 · 」 앞에서 자른 집합이다."
+      },
+      "compactActionParts": {
+        "value": [
+          "Hamburger",
+          "LanguageSelector"
+        ],
+        "evidence": "≤719px 에서 **한 부품이 다른 부품으로 바뀐다** — 상단 CTA 가 apps/web/components/landing/navigation/Gnb.tsx:337 로 숨고 햄버거가 :351 `[@media(max-width:719px)]:[display:inline-flex]!` 로 나타난다. 둘 다 그리거나 둘 다 빼면 compactHeaderHeight 62 의 근거가 사라진다."
+      },
+      "logoHeight": {
+        "value": 24,
+        "evidence": "apps/web/components/landing/navigation/Gnb.tsx:151 LOGO_STACK 의 `h-12` — 제품 --spacing 은 2px 이므로 Tailwind 숫자는 두 배가 아니라 절반이다, 12 × 2 = 24. 두 상태가 같다."
+      },
+      "hamburgerSize": {
+        "value": 38,
+        "evidence": "apps/web/components/landing/navigation/Gnb.tsx:347 HAMBURGER 의 `w-19 h-19` → 38 × 38. compact 전용이다."
+      },
+      "hamburgerRadius": {
+        "value": 10,
+        "evidence": "apps/web/components/landing/navigation/Gnb.tsx:348 HAMBURGER 의 `rounded-10`."
+      },
+      "requiredParts": {
+        "value": [
+          "Actions",
+          "Blur plate",
+          "Col 1",
+          "Col 3",
+          "Header wrapper",
+          "Logo",
+          "Menu list",
+          "Rail",
+          "첫 섹션"
+        ],
+        "evidence": "design/patterns/landing-shell.md 「Anatomy」의 부품이 두 상태 프레임 안에 실제로 서 있는지 본다. 이름은 두 상태 프레임 **안쪽 깊이 3까지**의 FRAME·INSTANCE 이름을 「 · 」 앞에서 자른 집합이다(INSTANCE 내부는 세지 않는다 — 그것은 component 계약의 몫). Blur plate=apps/web/components/landing/navigation/Gnb.tsx:100-105 · Header wrapper=:107-112 · Rail=:115-119 · Col 1/Col 3=:116 의 `1fr auto 1fr` 양 끝 · Menu list=:159-162 · Logo=:148-151 · Actions=:325. **첫 섹션**은 장식이 아니라 이 패턴의 뜻 자체다 — 헤더가 `fixed`(:108)라 첫 섹션이 헤더 **밑을 지나가고**, 그 프레임이 없으면 앱 셸과 정반대인 이 모델을 아무도 대조하지 않는다(문서 「Acceptance tests」 1번). 「Fullscreen menu」는 뺐다 — 아래 $skipped 참조."
+      },
+      "stateFrames": {
+        "value": [
+          "≤719px — 가운데 열이 소멸한다",
+          "≥720px"
+        ],
+        "evidence": "제품 셸이 실제로 갖는 두 갈래다 — 기본과 apps/web/components/landing/navigation/Gnb.tsx:118 의 `@media(max-width:719px)`. 하나라도 빠지면 그 상태의 치수를 아무도 대조하지 않는다. 이름은 Figma 프레임 이름이며 정렬해서 본다."
+      },
+      "$skipped": {
+        "Fullscreen menu": "문서 「Anatomy」·「Compact behavior」가 소유를 주장하고 제품 실측도 있다(rendered.landing-mobile-menu-product · -panel-product: padding 78/18/28 · gap 2 · z −1 · opacity 220ms). 그런데 **Figma 프레임 999:457 이 열린 메뉴 상태를 모델링하지 않는다** — 세 번째 상태 프레임을 세우는 것은 계약을 적는 일이 아니라 시안을 새로 그리는 일이라 이번 추가에서 뺐다. 다음 사람이 그 프레임을 세우면 위 실측이 그대로 계약이 된다.",
+        "LanguageSelector compact 36×32 · r12 · pad 0 8": "Figma 에는 서 있지만(1040:13356) 값의 출처가 제품 `LanguageSelector` 의 TRIGGER / TRIGGER_COMPACT / ICON_COMPACT 이고 **그 파일은 아직 evidence lock 밖이다**(문서 「Layout contract」가 줄 좌표를 인용하지 않는 것과 같은 이유). 폭 36 도 8 + 20 + 8 로 유도한 값이라 직접 잰 적이 없다. component 계약이 서면 그쪽이 소유한다.",
+        "logoWidth 82.16": "apps/web/components/landing/navigation/Gnb.tsx:151 이 `w-[calc(24px_*_291_/_85)]` 로 워드마크 뷰박스 비율(291:85)에서 유도한다 — 82.164…px 다. Figma 는 82 로 놓여 있고, 0.16px 을 맞추자고 게이트를 세우면 프레임을 만질 때마다 깨진다. 높이 24 만 계약에 넣는다 — 비율은 자산이 갖는다.",
+        "톤 반전 다섯 · 스크림 없음": "레일 전경 · 로고 자산 · 메뉴 링크 · 상단 CTA · 햄버거가 함께 뒤집히는 것은 **색 축**이라 변수 바인딩 대조가 본다. 「스크림이 없다」도 헤더 면의 색이므로 같다. 다만 비활성 링크 불투명도 0.65 하한(apps/web/components/landing/navigation/Gnb.tsx:197 · 밝은 면 위 5.11:1)은 어느 게이트도 보지 않는다 — 색 대조가 알파를 곱해 재지 않기 때문이다.",
+        "z 층 2000 · 1001 · 1000 · 2 · −1": "문서가 「semantic layer 를 쓰지 않고 실수를 직접 쓴다」고 **부채로 기록한 축**이다. 부채를 계약으로 굳히면 고칠 때 게이트가 반대로 막는다. layer-* 판정이 난 뒤에 넣는다."
+      }
+    },
+    "editor-workspace": {
+      "$pattern": "Editor Workspace 패턴 자체. 화면이 아니라 조립 계약이다 — Figma 프레임 「Pattern · EditorWorkspace」(노드 1000:1252, 페이지 「DS · Templates」) 안의 「Regular — route/docked workspace」가 정본이고, 제품 대응면은 비디오 에디터의 docked 셸이다(apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts). 되읽기는 그 프레임 하나만 재고 Compact 프레임은 손대지 않는다.",
+      "$scopeNote": "**부품 축은 여기 없다.** 구분자의 두께 원본·그립 길이·히트영역·전환은 LOUIS `.louis-pane-divider` 레시피가 소유하고(packages/css/src/component/pane-divider.css), 제품 소비처는 grid-area 만 얹는다고 주석이 직접 적는다(vemClass.ts:44-59). 이 계약이 소유하는 것은 **pane 들 사이의 관계** — 다섯 트랙의 폭과 순서, 거터 2 와 구분자 4 가 다른 값이라는 것, timeline 이 자기 행을 갖고 장면 폭 전체를 차지한다는 것, 그리고 네 pane 이 같은 반경을 쓴다는 것이다. **색은 없다** — 이 패턴의 면 색은 LOUIS 시맨틱으로 표현할 수 없어 문서가 제품 인용 리터럴로 판정했고(design/patterns/editor-workspace.md 「면 색」, 2026-08-30), 색 축은 변수 바인딩 대조의 몫이다. **값은 lock 커밋 ae8fd627 에서 읽었다** — 제품 작업 트리는 그 뒤 09a3d9f3 에서 세 폭을 236/324/400 → 317/240/332 로 옮겼지만, 이 저장소의 정본은 migration/product-evidence.lock.json 의 productCommit 이고 실측 파일도 거기에 고정되어 있다. 핀을 올리는 것은 별도 작업이다.",
+      "sceneWidth": {
+        "value": 1440,
+        "evidence": "재조립 뷰포트 선택값이자 **실측 문서 폭**이다. 가운데 트랙이 `minmax(0,_1fr)` 이라(vemClass.ts:1200) 폭은 컨테이너에서 온다 — 실측 migration/product.rendered-components.json rendered.editor-workspace-grid-product.gridTemplateColumns 가 `236px 4px 864px 4px 324px` 로 풀렸고 트랙 합 1432 + 거터 2×4 = **1440** 이다. templates.home · app-shell · landing-shell 과 같은 1440 을 일부러 쓴다 — 폭이 다르면 previewWidth 864 를 그 셸들의 본문 폭과 나란히 볼 수 없다."
+      },
+      "assetsWidth": {
+        "value": 236,
+        "evidence": "vemClass.ts:1200 modalBody 의 첫 트랙 `var(--video-edit-assets-width,_236px)`. 실측 rendered.editor-workspace-grid-product.gridTemplateColumns 의 첫 트랙 = 236px. **고정 트랙이고 늘어나는 것은 preview 뿐이다** — 비율로 그리면 좁은 폭에서 에셋이 먼저 찌그러진다."
+      },
+      "previewWidth": {
+        "value": 864,
+        "evidence": "실측 rendered.editor-workspace-grid-product.gridTemplateColumns 의 가운데 트랙 = 864px. 선언은 vemClass.ts:1200 의 `minmax(0,_1fr)` 이라 **다섯 트랙 중 유일하게 남은 자리를 흡수하는 트랙**이고, 1440 − 236 − 324 − 2×4 − 4×2 = 864 로 나머지 다섯 축과 맞물린다. 이 한 값이 어긋나면 폭·거터·구분자 중 하나가 틀렸다는 뜻이다."
+      },
+      "propertiesWidth": {
+        "value": 324,
+        "evidence": "vemClass.ts:1200 의 다섯째 트랙 `var(--video-edit-properties-width,_324px)` 이고 pane 자신이 같은 변수를 세 폭 분기에서 다시 쓴다(:2760 · :2788 · :2792 — 셋 다 324). 실측 rendered.editor-properties-panel-product.width = 324px."
+      },
+      "dividerThickness": {
+        "value": 4,
+        "evidence": "vemClass.ts:1200 의 열 트랙 둘과 :1201 의 행 트랙 하나가 모두 리터럴 `4px` 다 — **자리를 예약하는 쪽이 이 패턴이다.** 구분자 자신의 두께는 LOUIS 가 `--louis-layout-pane-divider-track` 로 주고(pane-divider.css:62 · :88) 제품 소비처는 grid-area 만 얹는다(vemClass.ts:154-156 · 2579-2581 · 3669-3671). 둘이 같아야 그립이 트랙 한가운데 선다 — 실측 rendered.editor-pane-divider-vertical-product.width = 4px, -horizontal-product.height = 4px. 되읽기는 구분자 셋을 모아 유일값을 본다."
+      },
+      "columnGap": {
+        "value": 2,
+        "evidence": "vemClass.ts:1208 `[column-gap:2px]`. 실측 rendered.editor-workspace-grid-product.columnGap = 2px. **구분자 4 와 다른 값이다** — pane 사이 실제 빈틈은 2 + 4 + 2 = 8 이고, 8 을 한 gap 으로 접으면 구분자가 설 자리가 사라진다."
+      },
+      "rowGap": {
+        "value": 2,
+        "evidence": "vemClass.ts:1209 `[row-gap:2px]`. 실측 rendered.editor-workspace-grid-product.rowGap = 2px. compact 에서는 4 로 갈리지만(:1213) 그 갈래는 계약에 없다 — $skipped 참조."
+      },
+      "timelineHeight": {
+        "value": 400,
+        "evidence": "vemClass.ts:1201 의 셋째 행 트랙 `var(--video-edit-timeline-height,_400px)` 이고 pane 자신도 같은 변수를 다시 쓴다(:1383). 실측 rendered.editor-workspace-grid-product.gridTemplateRows = `0px 4px 400px` 이고 rendered.editor-timeline-pane-product.height = 400px. **첫 트랙이 0px 인 것이 timeline 은 고정이고 상단 작업 행이 `minmax(0,_1fr)` 이라는 증거다** — 빈 문서라 남은 높이가 0 이었다. 그래서 상단 작업 행 높이는 계약하지 않는다."
+      },
+      "paneRadius": {
+        "value": 12,
+        "evidence": "네 pane 이 같은 `[border-radius:12px]` 한 줄을 각자 적는다 — vemClass.ts:166(assets) · :1289(preview) · :1390(timeline) · :2768(properties). 실측도 넷 다 borderTopLeftRadius = 12px(rendered.editor-assets-panel-product · -preview-pane-product · -timeline-pane-product · -properties-panel-product). 되읽기는 넷을 모아 유일값을 본다 — 한 pane 만 어긋나도 배열이 되어 실패한다."
+      },
+      "topRowOrder": {
+        "value": [
+          "Assets",
+          "PaneDivider",
+          "Preview",
+          "PaneDivider",
+          "Properties"
+        ],
+        "evidence": "vemClass.ts:1202 grid-template-areas 의 첫 행 `'assets assets-divider preview properties-divider panel'` 순서 그대로다. 실측 rendered.editor-workspace-grid-product.gridTemplateAreas 가 같은 문자열. **집합이 아니라 순서다** — requiredParts 는 다섯이 있는지만 보므로 properties 를 왼쪽에 그려도 통과한다."
+      },
+      "requiredParts": {
+        "value": [
+          "Assets",
+          "PaneDivider",
+          "Preview",
+          "Properties",
+          "Timeline"
+        ],
+        "evidence": "design/patterns/editor-workspace.md 「Anatomy」의 다섯(Assets · Preview · Properties/inspector · Timeline · Pane dividers)이고 제품 격자가 같은 다섯에 자리를 준다 — vemClass.ts:1202 의 area 이름 assets · preview · panel · timeline 과 구분자 셋(assets-divider · properties-divider · divider). 되읽기는 Regular 프레임의 자식과 「상단 작업 행」의 자식을 펴서 유일 이름을 정렬한다. 하나가 빠지면 그 pane 이 어디에 서는지 그림이 말하지 않게 된다."
+      },
+      "regularRowCount": {
+        "value": 3,
+        "evidence": "vemClass.ts:1201 의 행 트랙이 셋이다 — 상단 작업 행 · 가로 구분자 · timeline. 실측 gridTemplateRows 도 값 셋. 넷이 되면 문서에 없는 작업 행이 선 것이고, 둘이 되면 timeline 이 상단 행 안으로 들어간 것이다."
+      },
+      "fullWidthRows": {
+        "value": [
+          "PaneDivider",
+          "Timeline"
+        ],
+        "evidence": "vemClass.ts:1202 의 둘째·셋째 행이 각각 `divider` 와 `timeline` 을 다섯 열에 걸쳐 반복한다 — **가로 구분자와 timeline 은 장면 폭 전체를 차지한다.** 되읽기는 Regular 의 자식 중 폭이 sceneWidth 와 같은 것을 이름으로 모은다(상단 작업 행은 제외한다 — 그 행은 트랙을 나누는 쪽이다). timeline 을 preview 열 아래에만 두면 이 목록에서 빠져 실패한다."
+      },
+      "$skipped": [
+        "**compact(≤719px) 전체** — 제품 분기는 열 하나 · 행 넷 · 거터 8/4/0 이고(vemClass.ts:1210-1215) **areas 에 assets 가 없다**(`'preview' 'divider' 'timeline' 'panel'`). Figma 「Compact」 프레임은 그 결손을 메우려는 탭 진입점 **제안**이고 캔버스가 스스로 「D-1 제안, 소유자 승인 대기」라 적어 두었다(노드 1040:13348). 승인 전 제안을 계약으로 굳히면 제품에 없는 형태가 정본이 된다. 문서도 이것을 「Pre-implementation blockers」로 남겼다.",
+        "**Modal · Constrained** — 문서 「Responsive matrix」는 네 mode 를 적지만 Figma 에는 두 프레임이 없고 캔버스가 그 사실을 적어 두었다(노드 1040:13350). 없는 프레임은 계약하지 않는다.",
+        "**면 색** — design/patterns/editor-workspace.md 「면 색」(2026-08-30)이 바닥 `#f1f1f3`/`#313640` 과 패널 `#e3e4e8`/`#171b22` 를 **LOUIS 시맨틱으로 표현할 수 없다**고 판정하고 제품 인용 리터럴로 두었다. 패널이 바닥보다 어두워 `bg-canvas`/`bg-surface` 의 전제가 뒤집힌다. semantic 을 세울지 영구 인용으로 둘지는 소유자 판정 대기다.",
+        "**pane 안쪽 패딩 16** — Figma 네 pane 이 갖고 있으나 제품 pane 은 패딩이 없다(vemClass.ts:158-176 assetsPanel 이 선언하지 않고 실측 rendered.editor-assets-panel-product 에도 padding 이 없다). 여백은 pane 안 내용물이 각자 갖는다.",
+        "**상단 작업 행 높이 · preview 최소 높이 400** — 상단 행은 `minmax(0,_1fr)` 이라 컨테이너 높이에서 온다(실측 첫 행이 0px 인 이유). `min-height:400px` 는 pane 이 아니라 그 안의 캔버스 면 축이고(rendered.editor-preview-area-product) Figma 에 대응 프레임이 없다.",
+        "**구분자 그립 길이 60 · 히트영역 · 전환** — LOUIS `.louis-pane-divider` 레시피가 소유한다(pane-divider.css:73-74 · 99-100). components.measured.json 에 pane-divider 계약이 아직 없지만, 없다고 해서 패턴이 부품 축을 가져오면 계약이 설 때 정본이 둘이 된다."
+      ]
     }
   },
   "$updates": [
+    {
+      "date": "2026-08-31",
+      "why": "패턴 계약 넷째. route-boundary 는 라우트가 실패했을 때 나오는 세 화면인데 계약이 0 이라 페이지 여백·콘텐츠 폭·세로 리듬이 갈려도 어떤 게이트도 말하지 않았다. 이 패턴이 소유하는 것은 부품 치수가 아니라 **경계 화면의 뼈대**이므로 여백 세 축과 좁은 화면 분기, 컬럼 폭·정렬·리듬 둘, 404 와 오류가 복제라는 것, 그리고 **최후 경계가 시스템 밖이라는 사실**만 담았다. CTA 의 색·높이·여백·곡률은 components.measured.json 의 button 이 이미 소유하므로 패턴은 어느 칸인가(32 = md)와 그 자리가 INSTANCE 인가만 갖는다. 최후 경계의 인라인 리터럴(420 · 24 · 10/24 · 8 · 24 · 15 · 160%)은 소유자가 아무도 없어 — 제품의 check-louis-literals 도 check-typography 도 인라인 style 객체를 보지 않는다 — 이 계약이 그 값들을 지키는 유일한 자리다. Figma 실물은 24축이 전부 제품과 같아 **고칠 것이 없었다.** 계약이 없었을 뿐이다.",
+      "fields": [
+        "templates.route-boundary 신설 — 수치 18축 + 정렬 1축(contentTextAlign) + 구조 5축(pageCentersContent · ctaIsSharedButton · duplicateSkeletonMatches · lastResortSharedButton · boundaryFrames)",
+        "Figma 수정 0건"
+      ]
+    },
+    {
+      "date": "2026-08-31",
+      "why": "패턴 계약 셋째. status-result 는 Figma 에 상태 프레임 셋이 이미 서 있는데 계약이 없어 컬럼 폭·리듬·배너·액션이 갈려도 아무도 말하지 않았다. 이 패턴이 소유하는 것은 App Shell 카드 **안 컬럼의 관계**이므로 컬럼 폭·세로 리듬 하나·컬럼이 아무것도 그리지 않는다는 것, Alert·Meta list·Actions 의 여백과 간격, 그리고 부품이 어느 상태에 서는가만 담았다. 버튼 치수는 components.measured.json 의 button 이 이미 소유하므로 패턴은 **어느 칸을 쓰는가**(높이 32)만 갖는다. Figma 실물은 두 자리가 제품과 어긋나 **Figma 를 고쳤다.**",
+      "fields": [
+        "templates.status-result 신설 — 수치 15축 + 구조 5축(actionButtonFillsColumn · processingCentered · stateFrames · successParts · failureParts)",
+        "actionButtonHeight: Figma 40 → 32 (제품이 이겼다 — 액션 버튼 넷의 Size 를 lg → md 로 내렸다)",
+        "Alert 위치: Figma 는 Failure 에 두었으나 제품의 붉은 배너는 성공 라우트에만 있다 — 배너를 Success 의 설명 다음·Meta list 앞으로 옮겼다(제품이 이겼다)"
+      ]
+    },
+    {
+      "date": "2026-08-31",
+      "why": "패턴 계약 둘째. project-grid 는 Figma 에 열 밴드 넷이 이미 서 있는데 계약이 없어 열 수·간격·트랙이 갈려도 아무도 말하지 않았다. 이 패턴이 소유하는 것은 카드 치수가 아니라 **카드들 사이의 관계**이므로 열 수 네 갈래, 트랙 간격, 트랙 균등, 격자가 컨테이너를 채우는지, 그리고 4열 밴드의 본문 폭 ↔ 카드 폭 산술만 담았다. 카드 치수는 components.measured.json 의 project-card 가 이미 소유한다. Figma 실물은 열 수·간격·산술이 전부 제품과 같아 **고칠 것이 없었다** — 어긋난 자리(Loading 프레임의 Skeleton)는 문서가 판정을 미뤄 둔 곳이라 계약에 넣지 않고 그대로 두었다.",
+      "fields": [
+        "templates.project-grid 신설 — 수치 9축 + 구조 2축(tracksEqual · requiredParts)",
+        "Figma 수정 0건"
+      ]
+    },
+    {
+      "date": "2026-08-31",
+      "why": "패턴 8개에 계약이 0이었다. 컴포넌트 31종은 Figma 와 기계 대조되는데 패턴은 문서·CSS·Figma 가 갈라져도 어떤 게이트도 말하지 않았다. app-shell 부터 세운다 — 이 패턴이 소유하는 것은 부품 치수가 아니라 **부품 사이의 관계**이므로 레일 폭·여백·간격, 본문 offset 과 폭, 카드 바깥 여백과 안쪽 인셋, compact 분기, 그리고 구조 둘(stateFrames · requiredParts)만 담았다. 부품 치수는 components.measured.json 이 이미 소유한다.",
+      "fields": [
+        "templates.app-shell 신설 — 수치 20축 + 구조 2축",
+        "compactCardRadius: Figma 16 → 0 (제품이 이겼다)"
+      ]
+    },
     {
       "date": "2026-08-26",
       "why": "제품이 바뀌어 template 계약이 낡았다. 소유자 요청으로 프로젝트 카드 간격을 4, 곡률을 12 로 내렸고 그에 따라 카드 폭이 재계산된다. 낡은 값으로 Figma 를 그리면 제품과 다른 화면을 정본이라고 우기게 된다.",

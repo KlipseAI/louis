@@ -37,6 +37,9 @@
   /* 사진은 소비처가 인라인으로 넣는다. 여기서 기본값을 선언해 두면 사진이 없는 슬라이드에서도
    * 스크림 레이어가 온전히 성립한다. */
   --louis-banner-image: none;
+  /* 위·아래 흐림 밴드가 차지하는 높이. 배너가 커지면 밴드도 같이 커야 해서 %다.
+   * 소비처가 사진 구도에 맞춰 되튜닝할 수 있는 자리이기도 하다. */
+  --louis-banner-blur-band: 20%;
   position: absolute;
   inset: 0;
   display: flex;
@@ -44,17 +47,16 @@
   /* `backdrop-filter`는 합성 레이어로 올라가 조상의 클립도 자기 radius도 무시한 사각형으로
    * 그려진다. radius와 overflow를 같은 요소에 얹어 실제 클립을 강제한다. */
   overflow: hidden;
-  /* **스크림이 사진과 같은 층에 있다.** 예전에는 `::after`로 얹었는데, 그것과 콘텐츠가 둘 다
-   * positioned이고 z-index가 없어 트리 순서대로 칠해졌다 — `::after`가 마지막이라 **스크림이
-   * 제목과 설명 위에 칠해졌다.** 배포본은 스크림을 슬라이드 자신의 background-image 첫 레이어로
-   * 두어 구조적으로 그 상태가 될 수 없게 한다. 숫자 z-index를 새로 들이지 않고 같은 결과를 얻는다. */
-  background-image: linear-gradient(
-      to right,
-      color-mix(in srgb, var(--louis-banner-scrim) 78%, transparent) 0%,
-      color-mix(in srgb, var(--louis-banner-scrim) 46%, transparent) 30%,
-      transparent 60%
-    ),
-    var(--louis-banner-image, none);
+  /* **좌→우 스크림이 사라졌다.**
+   *
+   * 그 어둠(78% → 46% → 0)은 왼쪽에 놓인 글자의 대비를 만들려고 있었다. 글자가 가운데로
+   * 오면서 그것은 대비가 아니라 **사진을 한쪽만 어둡게 만드는 일**이 됐다. 이제 사진만 남기고,
+   * 글자 대비는 `data-tone`(밝은 사진 → 어두운 글자)이 혼자 책임진다.
+   *
+   * 스크림이 `::after`가 아니라 background-image 첫 레이어였던 이유는 「스크림이 제목 위에
+   * 칠해지지 않게」였다. 스크림이 없어지면서 그 방어도 함께 없어졌다 — 대신 흐림 층을 `::after`가
+   * 아니라 `::before` 하나로 유지하는 것이 같은 일을 한다(아래 주석). */
+  background-image: var(--louis-banner-image, none);
   background-repeat: no-repeat;
   background-size: cover;
   background-position: 68% center;
@@ -73,45 +75,60 @@
   pointer-events: auto;
 }
 
-/* 스크림은 글자 쪽(좌)에서 사진 쪽(우)으로 걷힌다. 톤의 **반대 극**이라 글자와 항상 대비된다. */
+/* 톤은 글자색 하나만 정한다. 스크림이 걷히면서 `--louis-banner-scrim` 도 함께 사라졌다 —
+ * 값이 아니라 **쓰는 곳이** 없어진 것이다. `color-media-scrim-*` 토큰은 다른 소비처가 쓸 수
+ * 있게 그대로 둔다. */
 .louis-banner-carousel__slide[data-tone="bright"] {
   --louis-banner-text: var(--louis-color-media-foreground-bright);
-  --louis-banner-scrim: var(--louis-color-media-scrim-bright);
 }
 
 .louis-banner-carousel__slide[data-tone="dark"] {
   --louis-banner-text: var(--louis-color-media-foreground-dark);
-  --louis-banner-scrim: var(--louis-color-media-scrim-dark);
 }
 
-/* progressive blur — 글자 쪽만 흐리고 사진 쪽으로 갈수록 걷힌다. */
+/* progressive blur — **위·아래 두 밴드다.** 바깥 가장자리가 가장 진하고 가운데로 올수록 걷힌다.
+ *
+ * 밴드가 둘인데 층은 **하나**다. `::before` 와 `::after` 로 하나씩 두면 `::after` 가 콘텐츠
+ * 뒤에 와서 제목 위에 칠해진다 — 예전 스크림이 정확히 그 이유로 `::after` 를 떠났다. 숫자
+ * z-index 를 새로 들이지 않고 그 상태를 구조적으로 막는 방법이 이것이다: 마스크를 두 겹으로
+ * 쌓고, 각 겹을 `mask-size` 로 20% 높이로 자른 뒤 `mask-position` 으로 위·아래에 붙인다.
+ * 겹치지 않으므로 `mask-composite` 의 기본값 `add` 가 그대로 맞다.
+ *
+ * 곡선은 둘 다 base.css 정본이다 — 아래는 `--louis-progressive-blur-mask`(to top), 위는 그
+ * 거울상인 `--louis-progressive-blur-mask-block-start`(to bottom). 두 밴드가 대칭이라는 말은
+ * 이 둘의 정지점이 같다는 뜻이고, 그래서 여기에는 정지점이 한 줄도 적히지 않는다. */
 .louis-banner-carousel__slide::before {
   content: "";
   position: absolute;
   inset: 0;
   backdrop-filter: blur(22px) saturate(125%);
-  /* mask는 색이 아니라 알파만 쓴다. 그래서 `currentcolor`를 섞어 raw 리터럴을 피한다 —
-   * 어떤 색을 넣어도 결과가 같고, 토큰 게이트의 규칙은 그대로 지킨다. */
-  mask-image: linear-gradient(
-    to right,
-    currentcolor 0%,
-    color-mix(in srgb, currentcolor 92%, transparent) 24%,
-    color-mix(in srgb, currentcolor 52%, transparent) 50%,
-    color-mix(in srgb, currentcolor 18%, transparent) 68%,
-    transparent 82%
-  );
+  mask-image: var(--louis-progressive-blur-mask-block-start),
+    var(--louis-progressive-blur-mask);
+  mask-repeat: no-repeat;
+  mask-size:
+    100% var(--louis-banner-blur-band),
+    100% var(--louis-banner-blur-band);
+  mask-position:
+    top,
+    bottom;
   pointer-events: none;
 }
 
 /* ── 콘텐츠 ─────────────────────────────────────────────────────────────── */
 
+/* **본문은 배너 한가운데다.** 540px 상자를 왼쪽에 붙이던 배치가 가운데로 옮겨졌다.
+ * 세 줄이 각자 다른 축을 맡는다 — `margin-inline: auto` 가 상자를, `align-items: center` 가
+ * 상자 안의 항목을, `text-align: center` 가 줄바꿈된 글줄을 가운데로 둔다. 하나만 빠져도
+ * 왼쪽으로 되돌아간다. 세로 가운데는 `__text` 의 `margin-block: auto` 가 계속 맡는다. */
 .louis-banner-carousel__content {
   position: relative;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
   justify-content: flex-start;
+  text-align: center;
   inline-size: min(540px, 100%);
+  margin-inline: auto;
   block-size: 100%;
   padding-block: var(--louis-space-layout-section);
   padding-inline: var(--louis-space-media-inset);
@@ -126,6 +143,8 @@
 
 .louis-banner-carousel__text {
   margin-block: auto;
+  /* 가운데 정렬은 상자를 max-content 로 줄인다 — 좁은 폭에서 글줄이 상자를 넘지 않게 막는다. */
+  max-inline-size: 100%;
   display: flex;
   flex-direction: column;
   gap: var(--louis-space-overlay-inset);
@@ -187,17 +206,42 @@
 /* ── 컨트롤 ──────────────────────────────────────────────────────────────────
  * 숫자 z-index를 쓰지 않는다. 슬라이드보다 뒤에 오는 DOM 순서가 곧 칠 순서다. */
 
+/* **하단 가운데다. 알약은 변형으로 내려갔다.**
+ *
+ * 글자가 가운데로 오면서 우하단 알약은 화면에서 혼자 다른 축을 보게 됐다. 기본은 인디케이터만
+ * 하단 가운데에 두는 배치이고, 알약(면 + 흐림 + 화살표)은 `data-controls="pill"` 로 남는다 —
+ * 화살표를 함께 내는 소비처가 여전히 있다.
+ *
+ * 가운데로 세우려고 좌우를 다 잡는다(`inset-inline: 0`). `left: 50%` + `translate` 로 세우면
+ * 자식 폭이 바뀔 때 반 픽셀이 남고, 알약 변형으로 갈 때 되돌릴 선언이 하나 더 생긴다. */
 .louis-banner-carousel__controls {
   position: absolute;
-  inset-inline-end: var(--louis-space-control-lg);
+  inset-inline: 0;
   inset-block-end: var(--louis-space-control-lg);
-  display: inline-flex;
+  display: flex;
   align-items: center;
+  justify-content: center;
   gap: var(--louis-space-control-sm);
+  /* 좌우를 다 잡은 대가로 투명한 띠가 배너 아래를 가로지른다. 클릭은 자식만 받게 해서
+   * 그 띠가 슬라이드의 클릭을 훔치지 않게 한다. */
+  pointer-events: none;
+}
+
+/* 자식은 이름으로 되살린다. `> *` 로 쓰면 전역 선택자 금지에 걸리고, 무엇이 클릭을 받는지도
+ * 목록에서 사라진다. */
+.louis-banner-carousel__controls .louis-banner-carousel__arrow,
+.louis-banner-carousel__controls .louis-banner-carousel__dots {
+  pointer-events: auto;
+}
+
+.louis-banner-carousel__controls[data-controls="pill"] {
+  inset-inline: auto var(--louis-space-control-lg);
+  display: inline-flex;
   padding: var(--louis-space-control-xs);
   border-radius: var(--louis-radius-pill);
   background-color: var(--louis-color-media-control-surface);
   backdrop-filter: blur(var(--louis-blur-panel)) saturate(130%);
+  pointer-events: auto;
 }
 
 .louis-banner-carousel__arrow {
@@ -237,28 +281,41 @@
 .louis-banner-carousel__dots {
   display: inline-flex;
   align-items: center;
-  gap: var(--louis-space-overlay-inset);
+  gap: var(--louis-space-control-xs);
 }
 
-/* **폭이 상태다.** 점에는 라벨이 없어 폭 말고 현재 위치를 말하는 것이 없다(DS-D-0019).
- * `scale`로 늘리면 두께와 반경까지 함께 늘어나 7px 알약이 20px 자리에서 찌그러진다. */
+/* **밝기가 상태다.** 세 칸의 폭이 같고 활성 칸만 밝다 — DS-D-0019 의 「폭이 상태다」를
+ * 뒤집는다(DS-D-0033).
+ *
+ * 폭으로 말하던 시절에는 활성 칸이 7 → 20px 로 늘었다. 칸이 늘어나면 옆 칸들이 밀려
+ * 인디케이터 전체가 슬라이드마다 좌우로 흔들리는데, 그것을 가운데 정렬 배너에서 보면
+ * 자리가 고정된 다른 요소들과 어긋난다. 폭을 고정하고 밝기로 말하면 그 흔들림이 없어진다.
+ * 보조기술은 폭도 밝기도 읽지 않으므로 `aria-selected` 가 상태를 갖는 계약은 그대로다.
+ *
+ * `::before` 는 장식이 아니라 **탭 타깃**이다. 보이는 막대는 2px 이라 그대로는 누를 수 없다 —
+ * 레이아웃 기하를 건드리지 않고 위아래로 8px 씩 넓혀 18px 짜리 타깃을 만든다. 옛 7px 점도
+ * 좁기는 했지만 이 값은 그보다 더 좁아서, 넓히지 않으면 폭 고정이 접근성 후퇴가 된다. */
 .louis-banner-carousel__dot {
-  inline-size: 7px;
-  block-size: 7px;
+  position: relative;
+  inline-size: 30px;
+  block-size: 2px;
   padding: 0;
   border: 0;
   border-radius: var(--louis-radius-pill);
   background-color: var(--louis-color-media-indicator-rest);
   cursor: pointer;
-  transition:
-    inline-size var(--louis-motion-layout-change-duration)
-      var(--louis-motion-layout-change-timing-function),
-    background-color var(--louis-motion-control-hover-duration)
-      var(--louis-motion-control-hover-timing-function);
+  transition: background-color var(--louis-motion-control-hover-duration)
+    var(--louis-motion-control-hover-timing-function);
+}
+
+.louis-banner-carousel__dot::before {
+  content: "";
+  position: absolute;
+  inset-block: -8px;
+  inset-inline: 0;
 }
 
 .louis-banner-carousel__dot[aria-current="true"] {
-  inline-size: 20px;
   background-color: var(--louis-color-media-indicator-active);
 }
 

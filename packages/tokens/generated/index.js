@@ -15074,17 +15074,17 @@ export const tokens = {
     },
     "color-media-indicator-rest": {
       "aliasTarget": {
-        "id": "color-static-white-alpha-48",
+        "id": "color-static-white-alpha-28",
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-media-indicator-rest": "color(srgb 1 1 1 / 0.48)"
+        "--louis-color-media-indicator-rest": "color(srgb 1 1 1 / 0.28)"
       },
       "deprecated": null,
       "description": null,
       "id": "color-media-indicator-rest",
       "mode": "light",
-      "rawValue": "{primitive.color.static-white-alpha.48}",
+      "rawValue": "{primitive.color.static-white-alpha.28}",
       "sourcePath": "semantic.light.color.media-indicator-rest",
       "tier": "semantic",
       "type": "color",
@@ -15095,7 +15095,7 @@ export const tokens = {
           1,
           1
         ],
-        "alpha": 0.48
+        "alpha": 0.28
       }
     },
     "color-media-scrim-bright": {
@@ -20053,17 +20053,17 @@ export const tokens = {
     },
     "color-media-indicator-rest": {
       "aliasTarget": {
-        "id": "color-static-white-alpha-48",
+        "id": "color-static-white-alpha-28",
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-media-indicator-rest": "color(srgb 1 1 1 / 0.48)"
+        "--louis-color-media-indicator-rest": "color(srgb 1 1 1 / 0.28)"
       },
       "deprecated": null,
       "description": null,
       "id": "color-media-indicator-rest",
       "mode": "dark",
-      "rawValue": "{primitive.color.static-white-alpha.48}",
+      "rawValue": "{primitive.color.static-white-alpha.28}",
       "sourcePath": "semantic.dark.color.media-indicator-rest",
       "tier": "semantic",
       "type": "color",
@@ -20074,7 +20074,7 @@ export const tokens = {
           1,
           1
         ],
-        "alpha": 0.48
+        "alpha": 0.28
       }
     },
     "color-media-scrim-bright": {

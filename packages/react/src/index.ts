@@ -56,7 +56,7 @@ export type { EmptyStateHeadingLevel, EmptyStateProps } from "./empty-state/empt
 export { BannerCarousel } from "./banner-carousel/banner-carousel.js";
 export { ProgressBar, ProgressRing } from "./progress/progress.js";
 export type { ProgressBarProps, ProgressRingProps } from "./progress/progress.js";
-export type { BannerCarouselBleed, BannerCarouselProps, BannerCarouselSlide, BannerTone } from "./banner-carousel/banner-carousel.js";
+export type { BannerCarouselBleed, BannerCarouselControls, BannerCarouselProps, BannerCarouselSlide, BannerTone } from "./banner-carousel/banner-carousel.js";
 export { SegmentedControl, SegmentedControlItem } from "./segmented-control/segmented-control.js";
 export type {
   SegmentedControlItemProps,

@@ -1175,7 +1175,7 @@ export declare const tokens: Readonly<{
   readonly "color-media-foreground-bright": TokenRecord<"color-media-foreground-bright", "light", "semantic", { readonly id: "color-palette-gray-900"; readonly mode: "base" }>;
   readonly "color-media-foreground-dark": TokenRecord<"color-media-foreground-dark", "light", "semantic", { readonly id: "color-palette-gray-000"; readonly mode: "base" }>;
   readonly "color-media-indicator-active": TokenRecord<"color-media-indicator-active", "light", "semantic", { readonly id: "color-palette-gray-000"; readonly mode: "base" }>;
-  readonly "color-media-indicator-rest": TokenRecord<"color-media-indicator-rest", "light", "semantic", { readonly id: "color-static-white-alpha-48"; readonly mode: "base" }>;
+  readonly "color-media-indicator-rest": TokenRecord<"color-media-indicator-rest", "light", "semantic", { readonly id: "color-static-white-alpha-28"; readonly mode: "base" }>;
   readonly "color-media-scrim-bright": TokenRecord<"color-media-scrim-bright", "light", "semantic", { readonly id: "color-palette-gray-000"; readonly mode: "base" }>;
   readonly "color-media-scrim-dark": TokenRecord<"color-media-scrim-dark", "light", "semantic", { readonly id: "color-static-black"; readonly mode: "base" }>;
   readonly "color-node-audio-accent": TokenRecord<"color-node-audio-accent", "light", "semantic", { readonly id: "color-pink-500"; readonly mode: "base" }>;
@@ -1365,7 +1365,7 @@ export declare const tokens: Readonly<{
   readonly "color-media-foreground-bright": TokenRecord<"color-media-foreground-bright", "dark", "semantic", { readonly id: "color-palette-gray-900"; readonly mode: "base" }>;
   readonly "color-media-foreground-dark": TokenRecord<"color-media-foreground-dark", "dark", "semantic", { readonly id: "color-palette-gray-000"; readonly mode: "base" }>;
   readonly "color-media-indicator-active": TokenRecord<"color-media-indicator-active", "dark", "semantic", { readonly id: "color-palette-gray-000"; readonly mode: "base" }>;
-  readonly "color-media-indicator-rest": TokenRecord<"color-media-indicator-rest", "dark", "semantic", { readonly id: "color-static-white-alpha-48"; readonly mode: "base" }>;
+  readonly "color-media-indicator-rest": TokenRecord<"color-media-indicator-rest", "dark", "semantic", { readonly id: "color-static-white-alpha-28"; readonly mode: "base" }>;
   readonly "color-media-scrim-bright": TokenRecord<"color-media-scrim-bright", "dark", "semantic", { readonly id: "color-palette-gray-000"; readonly mode: "base" }>;
   readonly "color-media-scrim-dark": TokenRecord<"color-media-scrim-dark", "dark", "semantic", { readonly id: "color-static-black"; readonly mode: "base" }>;
   readonly "color-node-audio-accent": TokenRecord<"color-node-audio-accent", "dark", "semantic", { readonly id: "color-pink-500"; readonly mode: "base" }>;

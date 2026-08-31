@@ -154,6 +154,25 @@
     color-mix(in srgb, black 40%, transparent) 85%,
     transparent 100%
   );
+  /* **위에서 아래로. 카드 곡선의 거울상이다.**
+   *
+   * 접미사 없는 `--louis-progressive-blur-mask` 는 `to top` — 띠의 **끝쪽**에 붙어 안으로
+   * 걷힌다. 이름을 붙이자면 block-end 쪽이다. 그 짝이 없어서, 위 가장자리에 붙는 띠는
+   * `-header` 를 빌려 쓰거나 곡선을 손으로 베껴 적는 수밖에 없었다. 둘 다 틀린다 — `-header`
+   * 는 40% 에서 곧장 0 으로 내려가는 **다른 곡선**이고(위 주석), 베껴 적으면 정지점이 두
+   * 군데가 된다.
+   *
+   * 배너가 위·아래 두 밴드를 같은 세기로 쓰면서 짝이 실제로 필요해졌다. 정지점은 카드 곡선과
+   * 한 글자도 다르지 않고 방향만 뒤집는다 — 두 밴드가 대칭이라는 것이 곧 이 값이 같다는 뜻이다.
+   * `-inline-start` 가 `to right` 인 것과 같은 규칙으로, 붙는 변의 이름을 접미사로 쓴다. */
+  --louis-progressive-blur-mask-block-start: linear-gradient(
+    to bottom,
+    black 0%,
+    black 55%,
+    color-mix(in srgb, black 80%, transparent) 70%,
+    color-mix(in srgb, black 40%, transparent) 85%,
+    transparent 100%
+  );
 }
 
 /* overlay가 놓이는 stacking 문맥. 숫자 z-index 대신 layer 토큰만 쓴다. */

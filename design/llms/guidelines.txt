@@ -4,7 +4,7 @@
 
 - System maturity: experimental
 - Coverage: exhaustive
-- Documents: 48
+- Documents: 49
 - Purpose: 개발, 콘텐츠, 거버넌스와 adoption 계약
 
 ## Sources
@@ -56,6 +56,7 @@
 - design/governance/decisions/DS-D-0029-token-names-must-be-true.md
 - design/governance/decisions/DS-D-0030-no-duplicate-role-tokens.md
 - design/governance/decisions/DS-D-0031-no-theme-branch-on-adaptive-ramp.md
+- design/governance/decisions/DS-D-0033-brightness-is-state.md
 - design/governance/product-confirmations.md
 - design/updates/README.md
 
@@ -122,7 +123,7 @@ Figma library는 아직 `not-ready`다. 시스템 전체 maturity도 `experiment
 | 항목 | 현재 값 |
 | --- | --- |
 | System maturity | `experimental` |
-| Normative documents | 113 |
+| Normative documents | 114 |
 | Generated documents | 5 |
 | Components | 40 |
 | Patterns | 8 |
@@ -8091,6 +8092,84 @@ Figma 변수 9개를 같은 작업에서 지운다(`app/gnb-main-inline-padding`
 §3 의 되튜닝은 **미결**로 남는다. `gray/000-alpha/*` 다크 끝이 `gray/000` 과 어긋난 상태이며,
 그것을 고치기 전에는 제품이 이 사다리를 채택하지 않는다.
 
+## DS-D-0033 가운데 놓인 인디케이터는 폭이 아니라 밝기로 상태를 말한다
+
+- Source: design/governance/decisions/DS-D-0033-brightness-is-state.md
+- Maturity: experimental
+
+### DS-D-0033 가운데 놓인 인디케이터는 폭이 아니라 밝기로 상태를 말한다
+
+- Status: accepted
+- Date: 2026-08-31
+- Owners: repository owner
+- Affects: `.louis-banner-carousel__dot`, `color-media-indicator-rest`,
+  [DS-D-0019](../governance/decisions/DS-D-0019-layout-change-motion.md)의 배너 적용분
+
+#### Context
+
+배너 캐러셀의 인디케이터는 폭으로 상태를 말했다. 7px 점이 활성일 때 20px로 늘어나고, 그 전환에
+`motion-layout-change`(220ms)를 쓰라고 [DS-D-0019](../governance/decisions/DS-D-0019-layout-change-motion.md)가 넷째
+lifecycle을 열었다. 근거는 「점에는 라벨이 없어 폭 말고 현재 위치를 말하는 것이 없다」였다.
+
+그 근거는 **컨트롤이 우하단 알약 안에 있을 때** 성립했다. 알약은 오른쪽 끝에 고정돼 있고, 안에서
+칸 하나가 13px 늘어나면 그만큼 왼쪽으로 자란다 — 알약의 오른쪽 변은 움직이지 않으므로 화면에서는
+아무것도 흔들리지 않는다.
+
+2026-08-31 배너가 가운데 정렬로 바뀌며 컨트롤도 **하단 가운데**로 옮겼다. 가운데 정렬은 폭이
+바뀌면 **양쪽이 동시에 움직인다.** 세 칸 중 어느 칸이 활성이냐에 따라 묶음 전체 폭이 13px
+달라지고, 그 절반인 6.5px씩 좌우로 번갈아 밀린다. 자동 넘김이 5.5초마다 도는 화면에서 그것은
+가만히 있어야 할 것이 계속 움직이는 것으로 보인다.
+
+되튜닝하며 실측한 시안(Figma page 14, 아카이브 배너)이 이미 답을 갖고 있었다. 세 칸의 폭이
+30px로 같고, 활성 칸만 흰색 100%이며 나머지는 비친다.
+
+#### Decision
+
+##### 1. 가운데 정렬된 인디케이터는 밝기가 상태다
+
+폭을 고정하고 `background-color`로 상태를 말한다. 활성은 `color-media-indicator-active`(불투명),
+쉬는 칸은 `color-media-indicator-rest`(알파 28%)다. 전환은 색만 바뀌므로 layout-change가 아니라
+`motion-control-hover`(160ms)를 쓴다.
+
+##### 2. DS-D-0019는 폐기되지 않는다 — 적용 범위가 좁아진다
+
+`layout-change` lifecycle 자체는 유효하다. 크기가 실제로 상태인 컨트롤(사이드바 접힘, tabs의
+지시선)이 계속 쓴다. **배너 인디케이터가 그 목록에서 빠지는 것**이 이 Decision의 전부다.
+
+##### 3. 보조기술 계약은 그대로다
+
+폭도 밝기도 보조기술은 읽지 않는다. `aria-selected`와 `aria-current`가 상태를 갖는 계약은
+바뀌지 않는다 — 시각과 의미가 각자 자기 축으로 말한다.
+
+##### 4. 2px 막대는 탭 타깃을 따로 갖는다
+
+막대의 두께가 2px이면 **보이는 것이 곧 누를 수 있는 것이 아니다.** `::before`로 위아래 8px씩
+넓혀 18px 타깃을 만든다. 레이아웃 기하는 건드리지 않는다. 이 조항이 없으면 폭 고정이 접근성
+후퇴가 된다 — 옛 7px 점도 좁았지만 2px는 그보다 더 좁다.
+
+#### Consequences
+
+- `color-media-indicator-rest`가 `static-white-alpha.48`에서 `.28`로 내려간다. 이 토큰의
+  소비처는 배너 인디케이터 하나뿐이라 다른 화면에 영향이 없다.
+- 시안의 30%와 2pp 어긋난다. 알파 사다리에 30이 없고 가장 가까운 칸이 28이다
+  ([DS-D-0026](../governance/decisions/DS-D-0026-alpha-scale.md)). 2px 막대에서 그 차이는 보이지 않으며, 사다리를 벗어나
+  새 원시값을 내는 것이 더 큰 비용이다.
+- 인디케이터의 `transition`에서 `inline-size`가 빠진다. reduced-motion 블록은 그대로 유효하다.
+- `banner-carousel.md`의 「폭이 상태다」 절이 「밝기가 상태다」로 바뀌고, acceptance test 1과 8이
+  같이 바뀐다.
+
+#### Alternatives considered
+
+**폭을 유지하고 컨트롤만 가운데로.** 흔들림이 그대로 남는다. 가운데 정렬이 밀림을 드러내는
+것이지 만드는 것이 아니므로, 배치를 되돌리지 않는 한 해결되지 않는다.
+
+**활성 칸만 늘리되 묶음 폭을 고정(빈 자리 예약).** 흔들림은 없어지지만 칸 사이 간격이 상태에
+따라 달라진다 — 흔들림을 다른 흔들림으로 바꾸는 것이고, 시안과도 다르다.
+
+**시안의 30%를 그대로 쓰려고 원시값 `static-white-alpha.30`을 연다.** 사다리는 4 간격으로
+28·32를 이미 갖고 있다. 한 소비처의 2pp를 위해 칸을 늘리면 사다리가 「필요할 때마다 늘어나는
+것」이 되어 [DS-D-0026](../governance/decisions/DS-D-0026-alpha-scale.md)이 무의미해진다.
+
 ## 제품 확인 대기 목록
 
 - Source: design/governance/product-confirmations.md
@@ -8410,6 +8489,75 @@ DS 쪽 정본은 [Motion](../foundations/motion.md)의 감소-모션 계약이�
 > ([읽기 함정](../foundations/product-reading-traps.md) 참조).
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
+
+#### 2026-08-31 (108) — 배너 캐러셀을 가운데 정렬로 되튜닝한다
+
+제품 아카이브 배너가 Figma page 14 시안으로 바뀌었고([klipse-web `design`](https://github.com/KlipseAI/klipse-web)
+76e289f7 · 5832587b · 0dfb144e), 그 픽셀로 LOUIS 정본을 따라 세운다
+([DS-D-0028](../governance/decisions/DS-D-0028-three-in-one-change.md) 「세 곳 동시 반영」).
+
+| 자리 | 이전 | 지금 |
+| --- | --- | --- |
+| 본문 | 왼쪽 540px 상자, 좌측 정렬 | 배너 가운데, `text-align: center` |
+| 배경 | 좌→우 스크림(78 → 46 → 0) + 사진 | 사진 한 겹 |
+| progressive blur | 좌→우 한 방향, 5스톱 | 위·아래 20% 밴드 두 겹, 곡선은 base.css 정본 |
+| 컨트롤 | 우하단 글래스 알약 + 화살표 | 하단 가운데 인디케이터 (알약은 `controls="pill"`) |
+| 인디케이터 | 7px 점, 활성 폭 20px | 30×2 막대, 활성만 밝다 |
+
+##### 스크림이 사라진 이유와 그 대가
+
+좌→우 스크림은 **왼쪽에 놓인 글자의 대비 장치**였다. 글자가 가운데로 오면서 그것은 대비가 아니라
+사진을 한쪽만 어둡게 만드는 일이 됐다.
+
+대신 글자 대비를 `tone` 하나가 책임진다. **그 책임은 얇아질 수 있다** — 제품 실측에서
+`hero-main-bg.webp` 슬라이드의 설명 글자 대비가 중앙값 2.49:1까지 내려갔다(WCAG AA 4.5:1 미달).
+사진을 고르는 쪽이 그것을 책임지며, 필요하면 소비처가 가운데에 자기 스크림을 얹는다. DS는 한쪽
+방향으로만 걷히는 스크림을 다시 들이지 않는다.
+
+##### 밴드가 둘인데 층은 하나다 — 새 토큰
+
+`::before`와 `::after`로 밴드를 하나씩 두면 `::after`가 콘텐츠 **뒤**에 와서 제목 위에 칠해진다.
+예전 스크림이 정확히 그 이유로 `::after`를 떠났었다. 숫자 z-index를 새로 들이지 않고 그 상태를
+막는 방법으로, 마스크를 두 겹 쌓고 `mask-size`로 각각 20% 높이로 잘라 위·아래에 붙였다.
+
+위 밴드의 곡선을 위해 **`--louis-progressive-blur-mask-block-start`** 를 base.css에 낸다.
+접미사 없는 `--louis-progressive-blur-mask`(`to top`)의 거울상이며 정지점이 한 글자도 다르지 않다 —
+두 밴드가 대칭이라는 말이 곧 이 값이 같다는 뜻이다. 그전에는 이 방향의 곡선이 이름을 갖지 못해
+`-header`(다른 감쇠)를 빌리거나 정지점을 손으로 베끼는 수밖에 없었다.
+
+##### 폭이 상태였던 것이 밝기로 — DS-D-0033
+
+[DS-D-0033](../governance/decisions/DS-D-0033-brightness-is-state.md)가
+[DS-D-0019](../governance/decisions/DS-D-0019-layout-change-motion.md)의 배너 적용분을 뒤집는다.
+7 → 20px로 늘어나는 칸은 옆 칸을 민다. 컨트롤이 우하단 알약 안에 있을 때는 오른쪽 변이 고정돼
+그 밀림이 보이지 않았지만, 하단 **가운데**로 오면서 밀림이 곧 좌우 흔들림이 됐다 — 5.5초마다
+가운데축이 움직인다. 폭을 고정하고 밝기로 말해 그것을 없앤다.
+
+`layout-change` lifecycle 자체는 유효하다. 배너 인디케이터가 그 목록에서 빠질 뿐이다.
+
+##### 토큰 값 하나가 움직인다
+
+| 토큰 | 이전 | 지금 |
+| --- | --- | --- |
+| `color-media-indicator-rest` | `static-white-alpha.48` | `static-white-alpha.28` |
+
+시안은 30%인데 알파 사다리에 30이 없다. 가장 가까운 칸이 28이고, 2px 막대에서 2pp 차이는 보이지
+않는다 — 한 소비처를 위해 사다리 칸을 늘리는 것이
+[DS-D-0026](../governance/decisions/DS-D-0026-alpha-scale.md)을 무의미하게 만든다.
+
+이 토큰의 소비처는 배너 인디케이터 하나뿐이라 다른 화면에 영향이 없다.
+
+**Migration.** `color-media-indicator-rest`를 직접 읽는 코드는 값이 48% → 28%로 내려간 것만
+반영하면 된다. 이름·타입·모드 구성은 그대로이므로 참조를 고칠 자리는 없다. 토큰 diff 분류는
+`rawValue` · `value` · `aliasTarget` 각 2건(light · dark)이며 그 외는 0이고,
+[releases.md](../governance/releases.md) 「의도적 breaking과 baseline 갱신」 절차대로
+`packages/tokens/baseline/manifest.json`을 같은 변경 단위에서 갱신했다.
+
+##### API 변경
+
+`BannerCarousel`에 `controls?: "indicator" | "pill"`이 생긴다. 기본은 `indicator`이고, 화살표는
+`pill`에서만 그린다. **정지 버튼은 배치와 무관하게 그린다** — 배치는 장식이고 자동으로 움직이는
+것을 멈출 수 있어야 하는 것(WCAG 2.2.2)은 계약이다.
 
 #### 2026-08-30 (107) — 제품 화면 이식 파이프라인을 정본으로 들인다
 

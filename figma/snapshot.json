@@ -6,12 +6,12 @@
     "capturedAt": "2026-08-29",
     "capturedBy": "use_figma 전수 캡처 + proposal 대조. 변수는 이름·값·alias 를 Figma 실물과 대조해 확인했다(FNV-1a 정본 해시 · 516행). scopes 문자열과 float 정밀도(예: line-height/heading 을 Figma 는 1.350000023841858 로 보관)는 Figma 쪽 저장 형태라 proposal 값을 쓴다 — 게이트가 보는 축이 아니다. components 41개는 use_figma 로 각 set 을 순회해 뜬 값이고, MediaCard·CarouselArrow 2개와 랜딩 4개(StepTile·FaqRow·NewsCard·GnbMenuItem)는 scripts/figma-readback-emit.mjs 가 낸 채취 코드로 떴다(2026-08-26). 그 emitter 로 Keycap·Badge 를 다시 떠 기존 값과 정규화 바이트 일치를 확인했다. Button·IconButton·Slider·ProjectCard 는 일치하지 않으며 사유는 emitter 머리말의 「알려진 어긋남」에 적었다 — 되읽기가 낡은 것이지 emitter 가 틀린 것이 아니다. 2026-08-27 DS-D-0029 재캡처: 변수 24개를 라이브에서 옮기고(이름 14 · 삭제 10) 되읽기 행을 같은 작업에서 맞췄다. 전수 덤프 대신 **행 지문 대조**로 확인했다 — 라이브에서 [이름, resolvedType, mode 값]을 mode 이름순으로 정규화해 행마다 FNV-1a 를 내고 되읽기에서 같은 방식으로 낸 집합과 맞췄다(응답 20KB 제한 때문에 전수 덤프는 잘린다). 라이브 506행 중 어긋난 것은 2행이고 둘 다 이 주석이 이미 예외로 적어 둔 float 정밀도다 — scale/tooltip-rest(Figma 0.9700000286102295 vs 0.97) · color/green-500-alpha/08(Figma 0.7765,0.5569 vs 0.776471,0.556863). scopes 열은 여전히 proposal 값이다. 2026-08-29 PaneDivider 등재: 새 component set 하나를 `--components --only PaneDivider` 채취 코드로 떠 `--merge` 했고(49 → 50), 새 변수 7개 행을 `--variables`/`--merge-variables` 로 넣었다(497 → 504 · scopes 는 규칙대로 proposal 값). **이 기록은 전수가 아니다** — 위 열거(41 + 2 + 4)가 47 이라 InlineLoadingLabel · SegmentedCodeInput 두 개는 채취 경로가 적혀 있지 않다. 다음 사람이 이 문단을 명부로 읽지 않도록 적어 둔다.",
     "published": false,
-    "tokenSourceSha256": "1afdd81d9add73938310f38aacfd4c509feb704b52a3dc9982be65796f391edb",
-    "proposalSha256": "a1a11119caf8233a23b46dcfc5d8b2d7d1b76749389d815ceac148f868bc733b",
+    "tokenSourceSha256": "023e6096f7c0fc6169a7de8ca4a314092fdac8aaa01dbc84b40cd4f0c3ed4d87",
+    "proposalSha256": "45c9a878c91a99284467948b4ddf6f8c6095f902ea09c47691d4a72ad848d9a2",
     "readback": {
       "tokens": 505,
       "canonicalLength": 50639,
-      "fnv1a32": "edaa51b0",
+      "fnv1a32": "4e1ad294",
       "note": "변수는 readback.json의 되읽기 행을 tokenId 공간으로 옮긴 것이고, style과 component는 같은 되읽기의 style/component 절이다. canonical 해시는 컬렉션·이름·타입·mode 값을 정렬해 이은 문자열의 FNV-1a다.",
       "styles": {
         "text": 15,
@@ -1990,11 +1990,11 @@
       "figmaName": "color/media-indicator-rest",
       "resolvedType": "COLOR",
       "valuesByMode": {
-        "Dark": {
-          "alias": "color-static-white-alpha-48"
-        },
         "Light": {
-          "alias": "color-static-white-alpha-48"
+          "alias": "color-static-white-alpha-28"
+        },
+        "Dark": {
+          "alias": "color-static-white-alpha-28"
         }
       }
     },
@@ -6609,6 +6609,12 @@
         "Description": {
           "type": "TEXT"
         },
+        "HasWordmark": {
+          "type": "BOOLEAN"
+        },
+        "HasCta": {
+          "type": "BOOLEAN"
+        },
         "Tone": {
           "type": "VARIANT",
           "options": [
@@ -6622,16 +6628,10 @@
             "boxed",
             "full"
           ]
-        },
-        "HasWordmark": {
-          "type": "BOOLEAN"
-        },
-        "HasCta": {
-          "type": "BOOLEAN"
         }
       },
       "binding": {
-        "boundFills": 28,
+        "boundFills": 32,
         "rawFills": 0,
         "boundStrokes": 0,
         "rawStrokes": 0,
@@ -6658,36 +6658,16 @@
             },
             "Controls": {
               "width": [
-                162
+                134
               ],
               "height": [
-                36
-              ],
-              "cornerRadius": [
-                999
+                28
               ],
               "itemSpacing": [
                 8
-              ],
-              "paddingLeft": [
-                4
               ]
             },
-            "ArrowPrevious": {
-              "width": [
-                28
-              ],
-              "height": [
-                28
-              ],
-              "cornerRadius": [
-                999
-              ],
-              "children": [
-                1
-              ]
-            },
-            "ArrowNext": {
+            "PlaybackToggle": {
               "width": [
                 28
               ],
@@ -6703,10 +6683,10 @@
             },
             "DotActive": {
               "width": [
-                20
+                30
               ],
               "height": [
-                7
+                2
               ],
               "cornerRadius": [
                 999
@@ -6714,27 +6694,13 @@
             },
             "DotRest1": {
               "width": [
-                7
+                30
               ],
               "height": [
-                7
+                2
               ],
               "cornerRadius": [
                 999
-              ]
-            },
-            "PlaybackToggle": {
-              "width": [
-                28
-              ],
-              "height": [
-                28
-              ],
-              "cornerRadius": [
-                999
-              ],
-              "children": [
-                1
               ]
             }
           },
@@ -6773,36 +6739,16 @@
             },
             "Controls": {
               "width": [
-                162
+                134
               ],
               "height": [
-                36
-              ],
-              "cornerRadius": [
-                999
+                28
               ],
               "itemSpacing": [
                 8
-              ],
-              "paddingLeft": [
-                4
               ]
             },
-            "ArrowPrevious": {
-              "width": [
-                28
-              ],
-              "height": [
-                28
-              ],
-              "cornerRadius": [
-                999
-              ],
-              "children": [
-                1
-              ]
-            },
-            "ArrowNext": {
+            "PlaybackToggle": {
               "width": [
                 28
               ],
@@ -6818,10 +6764,10 @@
             },
             "DotActive": {
               "width": [
-                20
+                30
               ],
               "height": [
-                7
+                2
               ],
               "cornerRadius": [
                 999
@@ -6829,27 +6775,13 @@
             },
             "DotRest1": {
               "width": [
-                7
+                30
               ],
               "height": [
-                7
+                2
               ],
               "cornerRadius": [
                 999
-              ]
-            },
-            "PlaybackToggle": {
-              "width": [
-                28
-              ],
-              "height": [
-                28
-              ],
-              "cornerRadius": [
-                999
-              ],
-              "children": [
-                1
               ]
             }
           },

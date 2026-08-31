@@ -11,9 +11,9 @@
   "commit": "a89fc0d518a150d8941d72c97b6881df952810ff",
   "$counts": {
     "axes": 285,
-    "survived": 231,
-    "rejected": 54,
-    "voidedByQuoteCheck": 15,
+    "survived": 228,
+    "rejected": 39,
+    "voidedByQuoteCheck": 18,
     "productLineCorrected": 161,
     "dsLineCorrected": 0
   },
@@ -1033,8 +1033,8 @@
     },
     {
       "path": "banner-carousel.sizes.full.dotActiveWidth",
-      "survived": true,
-      "verdict": "확인",
+      "survived": false,
+      "verdict": "기각(인용 무효)",
       "theme": "n-a",
       "productConstant": "DOT_ACTIVE",
       "productFile": "apps/web/components/banners/TabBannerCarousel.tsx",
@@ -1045,8 +1045,8 @@
       "dsLine": 257,
       "dsQuotedLine": "inline-size: 20px;",
       "dsValue": "20px (.louis-banner-carousel__dot[aria-current=\"true\"])",
-      "matches": "같음",
-      "mapClaimWrong": "",
+      "matches": "다름",
+      "mapClaimWrong": "DS 쪽 값이 2026-08-31 DS-D-0033 으로 옮겨졌다 — 인디케이터가 7px 점(활성 폭 20px)에서 30×2px 막대로 바뀌었고, 상태를 폭이 아니라 밝기로 말한다. 이 축이 확인했던 것은 「제품 a89fc0d5 의 7/20px 과 DS 가 같다」였고 DS 가 움직인 지금 그 문장은 참이 아니다. 제품도 같은 날 같은 값으로 옮겼지만(klipse-web design 0dfb144e) 이 기록의 제품 인용은 a89fc0d5 에 고정돼 있어 그 이동을 담을 수 없다. 인용을 찾지 못한 확인은 확인이 아니므로 기각으로 되돌린다.",
       "reason": "DOT_ACTIVE는 337줄 `className={`${DOT} ${activeIndex === index ? DOT_ACTIVE : DOT_REST}`}`에서 활성 점에만 붙는다 — 인라인 style 없음. tailwind.css:164 `--spacing: 2px;`이고 `--spacing-*`/`--container-*` 재정의가 없어 `w-10` = calc(2px × 10) = 20px. DOT(149줄)에는 폭 선언이 없고 DOT_REST(`w-[7px]`)와 DOT_ACTIVE는 삼항으로 배타적이라 유틸리티 충돌이 없다. DOT의 `p-0 [border:0]`이 있어 preflight 없는 이 저장소의 content-box 기본에서도 총 20px이고, 버튼 UA 기본 padding/border도 이 두 선언이 지운다. 테마 변형·!important 없음. appHomeSceneStyles.ts:486 bannerDotActive `[width:20px]`도 같다. DS 20px과 같다. (선택자는 DS가 `aria-current=\"true\"`, 제품이 `role=\"tab\"` + `aria-selected`로 다르지만 값은 같다.)",
       "commands": [
         "git show 7e9c3b6946a71431479aef69d16baac5c53128b2:apps/web/components/banners/TabBannerCarousel.tsx | awk 'NR==149||NR==154||NR==155||NR==337{printf \"%d|%s|\\n\", NR, $0}'",
@@ -1058,8 +1058,8 @@
     },
     {
       "path": "banner-carousel.sizes.full.dotHeight",
-      "survived": true,
-      "verdict": "확인",
+      "survived": false,
+      "verdict": "기각(인용 무효)",
       "theme": "n-a",
       "productConstant": "DOT",
       "productFile": "apps/web/components/banners/TabBannerCarousel.tsx",
@@ -1070,8 +1070,8 @@
       "dsLine": 243,
       "dsQuotedLine": "block-size: 7px;",
       "dsValue": "7px (.louis-banner-carousel__dot)",
-      "matches": "같음",
-      "mapClaimWrong": "부차 인용의 줄 번호가 하나 어긋난다. 매핑은 \"appHomeSceneStyles.ts:473 bannerDot `[height:7px]`\"라고 적었으나 473줄은 `[width:7px]`이고 `[height:7px]`은 474줄이다. 값 7px 자체는 맞고 주 인용(TabBannerCarousel.tsx:149)은 정확하다.",
+      "matches": "다름",
+      "mapClaimWrong": "부차 인용의 줄 번호가 하나 어긋난다. 매핑은 \"appHomeSceneStyles.ts:473 bannerDot `[height:7px]`\"라고 적었으나 473줄은 `[width:7px]`이고 `[height:7px]`은 474줄이다. 값 7px 자체는 맞고 주 인용(TabBannerCarousel.tsx:149)은 정확하다. DS 쪽 값이 2026-08-31 DS-D-0033 으로 옮겨졌다 — 인디케이터가 7px 점(활성 폭 20px)에서 30×2px 막대로 바뀌었고, 상태를 폭이 아니라 밝기로 말한다. 이 축이 확인했던 것은 「제품 a89fc0d5 의 7/20px 과 DS 가 같다」였고 DS 가 움직인 지금 그 문장은 참이 아니다. 제품도 같은 날 같은 값으로 옮겼지만(klipse-web design 0dfb144e) 이 기록의 제품 인용은 a89fc0d5 에 고정돼 있어 그 이동을 담을 수 없다. 인용을 찾지 못한 확인은 확인이 아니므로 기각으로 되돌린다.",
       "reason": "DOT은 337줄에서 DOT_ACTIVE/DOT_REST와 함께 붙고 인라인 style이 없다. `h-[7px]`는 임의값이라 `--spacing: 2px` 격자와 무관하게 7px이고, 같은 문자열의 `p-0 [border:0]`이 preflight 없는 환경의 버튼 UA padding/border를 지우므로 content-box여도 총 7px이다. 폭 유틸리티(w-10 / w-[7px])는 높이를 건드리지 않아 활성/비활성 어느 쪽에서도 높이가 7px로 같다. globals.css에 이 요소를 덮는 !important나 비레이어 선언이 없고(모듈 CSS는 import되지 않는다) 테마 변형도 없다. appHomeSceneStyles.ts:474 `[height:7px]`가 원본 CSS로 같은 값을 확인해 준다. DS 7px과 같다.",
       "commands": [
         "git show 7e9c3b6946a71431479aef69d16baac5c53128b2:apps/web/components/banners/TabBannerCarousel.tsx | awk 'NR==148||NR==149||NR==337{printf \"%d|%s|\\n\", NR, $0}'",
@@ -1108,8 +1108,8 @@
     },
     {
       "path": "banner-carousel.sizes.full.dotRestWidth",
-      "survived": true,
-      "verdict": "확인",
+      "survived": false,
+      "verdict": "기각(인용 무효)",
       "theme": "n-a",
       "productConstant": "DOT_REST",
       "productFile": "apps/web/components/banners/TabBannerCarousel.tsx",
@@ -1120,8 +1120,8 @@
       "dsLine": 242,
       "dsQuotedLine": "inline-size: 7px;",
       "dsValue": "7 (`.louis-banner-carousel__dot` 기본 폭; 활성은 256줄 `[aria-current=\"true\"]`에서 20px로 덮는다. figma/components.measured.json:1151 \"dotRestWidth\": 7)",
-      "matches": "같음",
-      "mapClaimWrong": "주 인용(TabBannerCarousel.tsx:154, DOT_REST, w-[7px])은 정확하다. 보조 인용 `appHomeSceneStyles.ts:472`만 한 줄 어긋난다 — 472는 `\"tw-ah-039\",`이고 `\"[width:7px]\",`는 473이다.",
+      "matches": "다름",
+      "mapClaimWrong": "주 인용(TabBannerCarousel.tsx:154, DOT_REST, w-[7px])은 정확하다. 보조 인용 `appHomeSceneStyles.ts:472`만 한 줄 어긋난다 — 472는 `\"tw-ah-039\",`이고 `\"[width:7px]\",`는 473이다. DS 쪽 값이 2026-08-31 DS-D-0033 으로 옮겨졌다 — 인디케이터가 7px 점(활성 폭 20px)에서 30×2px 막대로 바뀌었고, 상태를 폭이 아니라 밝기로 말한다. 이 축이 확인했던 것은 「제품 a89fc0d5 의 7/20px 과 DS 가 같다」였고 DS 가 움직인 지금 그 문장은 참이 아니다. 제품도 같은 날 같은 값으로 옮겼지만(klipse-web design 0dfb144e) 이 기록의 제품 인용은 a89fc0d5 에 고정돼 있어 그 이동을 담을 수 없다. 인용을 찾지 못한 확인은 확인이 아니므로 기각으로 되돌린다.",
       "reason": "(2) 상수 존재: 154줄에 DOT_REST가 그대로 있다. (3) 적용: 337줄에서 `activeIndex === index ? DOT_ACTIVE : DOT_REST`로 비활성 점에만 붙는다. DS와 구조가 뒤집혀 있다 — DS는 기본이 7px이고 활성이 덮지만, 제품은 기본 DOT에 폭 선언이 아예 없고(149줄은 `h-[7px]`, 높이다) 폭을 DOT_REST/DOT_ACTIVE가 나눠 갖는다. 그래도 비활성 점의 최종 폭은 w-[7px] 하나뿐이라 값은 같다. 인라인 style 없음, globals.css에 겹치는 규칙 없음. (4) 계산: `w-[7px]`은 임의값이라 --spacing과 무관하게 7px이다(tailwindcss 4.3.3 컴파일 결과 `.w-\\[7px\\] { width: 7px; }`). (5) DS 7 = 제품 7px.",
       "commands": [
         "git show 7e9c3b6946a71431479aef69d16baac5c53128b2:apps/web/components/banners/TabBannerCarousel.tsx | sed -n '110,200p'",

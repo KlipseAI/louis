@@ -8276,7 +8276,7 @@ DS-D-0027의 개명(구 `md`→`lg`, 구 `sm`→`md`)이 토큰과 React 타입�
 
 | 파일 | 줄 | 지금 적힌 것 | 실제 |
 | --- | --- | --- | --- |
-| `design/components/icon-button.md` | 68–69 · 121 · 123 · 148 | 한 변이 `layout-control-height-sm` 32 | 그 토큰은 24다. 게다가 `icon-button.css`는 `lg`·`md` 둘 다 32로 낸다 — 문서의 40×40이 CSS에 없다 |
+| `design/components/icon-button.md` | 68–69 · 121 · 123 · 148 | 한 변을 32 라 적고 그 근거로 `layout-control-height-sm` 을 든다 | 그 토큰은 24다. 게다가 `icon-button.css`는 `lg`·`md` 둘 다 32로 낸다 — 문서의 40×40이 CSS에 없다 |
 | `design/components/text-field.md` | 67 · 124 · 126 | 축이 `md` \| `sm` | React는 `"lg" \| "md"` |
 | `design/components/segmented-control.md` | 70 · 130 · 132 | 축이 `md` \| `sm` | React는 `"lg" \| "md" \| "xs"` |
 | `design/components/slider.md` | 62 · 127 · 129 | 축이 `md` \| `sm` | React는 `"lg" \| "md"` |

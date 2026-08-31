@@ -1358,7 +1358,7 @@
       "component": "segmented-control",
       "path": "segmented-control.sizes.sm.trackHeight",
       "decision": "product-none",
-      "reason": "제품은 트랙 높이를 어느 벌에서도 선언하지 않는다 — 세그먼트 높이와 트랙 padding에서 36px(A) · 32px(C) · 38px(D)이 결과로 떨어질 뿐이다. DS는 작은 컨트롤도 같은 줄의 Button·Text Field와 어긋나지 않도록 트랙 높이를 `layout-control-height-sm`으로 직접 세운다."
+      "reason": "제품은 트랙 높이를 어느 벌에서도 선언하지 않는다 — 세그먼트 높이와 트랙 padding에서 36px(A) · 32px(C) · 38px(D)이 결과로 떨어질 뿐이다. DS는 작은 컨트롤도 같은 줄의 Button·Text Field와 어긋나지 않도록 트랙 높이를 `layout-control-height-md`으로 직접 세운다."
     },
     {
       "component": "segmented-control",

@@ -164,7 +164,7 @@ variant 축이 없다. 카드의 강조는 카드가 아니라 **썸네일**이 
 
 | 축 | 값 | 토큰 |
 | --- | ---: | --- |
-| 반경 | 16px | `radius-card` |
+| 반경 | 12px | `radius-card` |
 | 오버레이 높이 하한 | 미디어의 30% | — |
 | 헤어라인 (inset) | 0.5px | `border-width-hairline` + `color-stroke-hairline` |
 | 미디어 배경 | — | `color-bg-canvas` |

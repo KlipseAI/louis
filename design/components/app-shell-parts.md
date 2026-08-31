@@ -276,7 +276,7 @@ CTA**를 갖는다. 바닥 자리는 하나이고 화면에 따라 "홈"이 되�
 | --- | --- |
 | `SidebarBrand` | 행 최소 높이 `layout-app-shell-top-bar-height`(40) · 마크 레일 `layout-app-shell-brand-mark-height`(28) · 워드마크 최대 폭 240 |
 | `SidebarNavRow` | `gap` `space-control-xs` · 항목이 남는 자리를 먹고 액션은 옆에 선다 |
-| `SidebarCta` | `margin-block-start: auto`로 바닥에 붙는다 · 버튼 최소 높이 `layout-control-height-md` · **아이콘 슬롯이 없다** |
+| `SidebarCta` | `margin-block-start: auto`로 바닥에 붙는다 · 버튼 최소 높이 `layout-control-height-lg` · **아이콘 슬롯이 없다** |
 
 **브랜드 워드마크의 렌더 폭은 96px이다 — 위 표의 「최대 폭 240」은 실제의 2.5배다.**
 
@@ -350,7 +350,7 @@ mint를 두 번째로 틀린 이유가 중요하다. `sidebarUpgradeButton`은 �
 
 | 축 | 값 | 토큰 |
 | --- | ---: | --- |
-| 행 높이 | 32px | `layout-control-height-sm` |
+| 행 높이 | 32px | `layout-control-height-md` |
 | 아이콘–라벨 간격 | 제품 10px · DS 8px | 없음 — 제품 실측 (2026-08-21 조립 검증). DS는 `space-control-sm`이고 10은 계단에 없다(아래 편차) |
 | 브랜드 행 → 목록 시작 | 32px | 없음 — 제품 `rail-below-chrome-gap` = (16−12)+20+8 |
 | 활성 인디케이터 면 | 라이트 `#e4e5e9`(시프트 후) · 다크 `#313640` · 반경 10px | 없음 — 제품 실측 |
@@ -363,7 +363,7 @@ mint를 두 번째로 틀린 이유가 중요하다. `sidebarUpgradeButton`은 �
 | 상단 바 좌우 여백 | 16px | `layout-app-shell-content-inset` |
 | 상단 바 선행 슬롯 | 32px | `IconButton` sm이 들어가는 자리 |
 | 상단 바 후행 슬롯 | 36px | `ProgressRing`이 아바타를 감싼 크기 |
-| CTA 버튼 높이 | 40px → 접힘 32px | `layout-control-height-md` → `-sm` |
+| CTA 버튼 높이 | 40px → 접힘 32px | `layout-control-height-lg` → `-md` |
 | CTA 좌우 여백 | 14px → 접힘 10px | 제품 실측 |
 | CTA 반경 | 12px | `radius-control` |
 | CTA 면 · 글자 | 반전 solid | `background-upgrade` · `foreground-upgrade` |
@@ -413,7 +413,7 @@ fixed 변종 36px, 사이드바 헤더 행 `min-height: 40px`. `globals.css`의 
 계산하므로 **정렬의 기준이 40**이고 나머지 둘은 그 안에 담기는 내용의 결과다.
 [DS-D-0018](../governance/decisions/DS-D-0018-app-shell-geometry.md)이 이 판정을 소유한다.
 
-`layout-control-height-md`가 같은 40px이지만 쓰지 않는다. 값이 같은 것과 의미가 같은 것은 별개이며,
+`layout-control-height-lg`가 같은 40px이지만 쓰지 않는다. 값이 같은 것과 의미가 같은 것은 별개이며,
 버튼 높이를 바꾸는 날 상단 바가 같이 움직이면 안 된다.
 
 **하이라이트 행의 trailing은 Badge가 아니다.** API 예시의 `trailing={<Badge>3</Badge>}`는 슬롯 자리를

@@ -1017,6 +1017,662 @@ const PROBES = [
     text: "요금제로 돌아가기",
     read: ["height", "paddingLeft", "borderTopLeftRadius", "fontSize", "fontWeight"],
   },
+  // ── 인증 두 패널(auth-two-panel) — **이 패턴도 한 축도 재지 않았다** ─────────────────
+  //
+  // `design/patterns/auth-two-panel.md` 가 로그인 전 여덟 화면의 껍데기를 계약하는데 그 값은
+  // 전부 사람이 배포본을 읽고 옮겨 적은 인용이다(문서 스스로 「그 전까지 이 문서의 값은 제품
+  // 인용이며 DS 계약이 아니다」라고 적는다). status-result 와 같은 침묵이었고, 그래서 Figma 에
+  // 이 패턴을 세웠을 때 갈린 축들이 게이트를 통과했다.
+  //
+  // **정본은 공용 벌 `AuthStatusCard.tsx` 다.** 복제 셋(`/login` · `/signup` · `/aws/signup`)은
+  // 같은 셸을 자기 파일에 다시 적었고 이미 갈렸다 — 갈린 값은 아래 각 탐침의 사유에 적는다.
+  // 복제본을 따로 탐침으로 세우지 않는 것은 문서가 그것을 「복제 부채이지 이 패턴의 계약이
+  // 아니다」로 이미 판정했기 때문이다. 정본이 움직이면 여기가 소리를 내고, 복제가 움직이면
+  // 사유와 어긋난다.
+  //
+  // **재는 것은 전부 ≥720px 가지다.** 하네스 문서는 1440×900 하나뿐이고 `@media` 는 host 폭이
+  // 아니라 그 뷰포트로 판정된다. 그래서 브랜드 패널이 `flex` 로 서고 슬로건은 1200px 승급까지
+  // 받은 값으로 잡힌다. 좁은 폭 가지(브랜드 패널 사라짐 · 폼 패널 `display: contents` · 카드
+  // 간격 8px)는 이 하네스가 아직 재지 못한다 — 그 사실을 사유에도 적어 둔다.
+  //
+  // **EXPECT 대조는 eyebrow ↔ badge 다섯 축뿐이다.** `figma/components.measured.json` 에
+  // `auth-two-panel` 기록이 없어(31종 목록에 패턴이 하나도 없다) 나머지 축은 대조할 DS 값이
+  // 없다. 계약을 지어내면 제품을 베낀 값을 DS 라고 부르게 되므로, 그 축들은 제품 값을 기록만
+  // 하고 분류는 `figma/product-coverage.json` 이 「DS 가 아직 소유하지 않는다」로 받는다.
+  {
+    id: "auth-page-root-product",
+    source: "AuthStatusCard.tsx PAGE — 인증 화면 페이지 루트. 720px 에서 1열 ↔ 2열이 갈린다",
+    from: ["authStatusCard", "PAGE"],
+    // 2열 격자가 실제로 서야 열 사이 간격이 제 뜻대로 잡힌다 — host 360 이면 두 열이 한 칸에 눌린다.
+    hostWidth: 1440,
+    // `min-h-[100svh]` 와 `grid-template-columns` 는 **읽지 않는다.** 계산값이 각각 뷰포트 높이와
+    // host 폭에서 나오므로 기록하면 하네스가 만든 수(900 · 690)를 제품 값으로 남기게 된다.
+    read: ["paddingTop", "paddingLeft", "columnGap", "rowGap", "backgroundColor"],
+  },
+  {
+    id: "auth-brand-panel-product",
+    source: "AuthStatusCard.tsx BRAND_PANEL — 좌측 브랜드 면. 마크업이 aside 다(AuthStatusCard.tsx:110)",
+    from: ["authStatusCard", "BRAND_PANEL"],
+    tag: "aside",
+    hostWidth: 1440,
+    read: ["paddingTop", "paddingLeft", "borderTopLeftRadius", "backgroundColor", "backgroundSize"],
+  },
+  {
+    id: "auth-brand-slogan-product",
+    source: "AuthStatusCard.tsx BRAND_SLOGAN — 하단 슬로건(p). 1200px 에서 타입이 승급한다",
+    from: ["authStatusCard", "BRAND_SLOGAN"],
+    tag: "p",
+    // 제품이 `messages.footer.tagline` 로 넣는 그 문장이다(ko.ts:540). 폭이 18ch 라 글자가 필요하다.
+    text: "AI 영상 제작의 모든 순간을 하나의 워크스페이스로.",
+    hostWidth: 1440,
+    read: ["fontSize", "lineHeight", "letterSpacing", "maxWidth", "color", "marginTop"],
+  },
+  {
+    id: "auth-card-product",
+    source: "AuthStatusCard.tsx CARD — 폼 카드. min(100%,400px) 이라 400 이 드러나도록 host 를 1440 으로 준다",
+    from: ["authStatusCard", "CARD"],
+    hostWidth: 1440,
+    read: ["width", "rowGap", "columnGap", "justifyItems", "textAlign"],
+  },
+  {
+    id: "auth-eyebrow-product",
+    source: "AuthStatusCard.tsx EYEBROW — 면 없이 테두리로만 서는 알약 라벨(span). .louis-badge 를 채택하지 않는다",
+    from: ["authStatusCard", "EYEBROW"],
+    tag: "span",
+    text: "이메일 인증",
+    read: ["minHeight", "paddingTop", "paddingLeft", "borderTopLeftRadius", "borderTopWidth", "backgroundColor", "color"],
+  },
+  {
+    id: "auth-title-product",
+    source: "AuthStatusCard.tsx TITLE — h1. 타이포는 JSX 가 붙이는 전역 type-heading-28-medium 이 갖고, 이 상수는 여백과 잉크만 선언한다",
+    from: ["authStatusCard", "TITLE"],
+    tag: "h1",
+    text: "이메일을 확인해 주세요",
+    read: ["marginTop", "color"],
+  },
+  {
+    id: "auth-description-product",
+    source: "AuthStatusCard.tsx DESCRIPTION — p. 상한 340px 은 공용 벌만 갖는다",
+    from: ["authStatusCard", "DESCRIPTION"],
+    tag: "p",
+    text: "받은 편지함에서 인증 링크를 눌러 주세요.",
+    hostWidth: 1440,
+    read: ["maxWidth", "marginTop", "marginBottom", "color"],
+  },
+  {
+    id: "auth-form-header-product",
+    source: "AuthStatusCard.tsx FORM_HEADER — 제목 + 설명 한 덩어리",
+    from: ["authStatusCard", "FORM_HEADER"],
+    read: ["rowGap", "columnGap", "justifyItems"],
+  },
+  {
+    id: "auth-children-product",
+    source: "AuthStatusCard.tsx CHILDREN — 폼 본문 래퍼. 카드 간격과 별개 축이다",
+    from: ["authStatusCard", "CHILDREN"],
+    // `w-full` 의 계산값은 host 폭이라 읽지 않는다 — 제품 값이 아니라 문서 폭을 재게 된다.
+    read: ["rowGap", "columnGap"],
+  },
+  // 로고 링크는 `next/link` 가 그리는 **`<a>`** 다(AuthStatusCard.tsx:118). `button` 으로 재면
+  // 레이어 밖 전역 `a` 규칙과의 다툼이 사라져 제품에 없는 값을 재게 된다(status 액션 버튼과 같은 이유).
+  // ≥720px 에서는 `display: none` 이라 기하가 아니라 여백·전이만 재진다.
+  {
+    id: "auth-logo-link-product",
+    source: "AuthStatusCard.tsx LOGO_LINK — 좁은 폭 전용 로고 링크(a). 1440 문서에서는 숨어 있다",
+    from: ["authStatusCard", "LOGO_LINK"],
+    tag: "a",
+    attrs: { href: "#" },
+    text: "Klipse",
+    read: ["marginBottom", "display", "transitionProperty", "transitionDuration", "transitionTimingFunction"],
+  },
+  // ── 라우트 경계(route-boundary) — **이 패턴도 한 축도 재지 않았다** ─────────────────────
+  //
+  // `design/patterns/route-boundary.md` 가 404 · 오류 · 최후 경계 셋을 계약하는데 실측 하네스가
+  // 이 계열을 한 축도 재지 않았다. status-result · auth-two-panel 과 같은 침묵이고, 그래서
+  // Figma 에 그렸을 때 제품과 갈린 축들이 게이트를 통과했다.
+  //
+  // **두 벌을 다 잰다.** 404 와 오류는 공용 컴포넌트가 아니라 복제다 — `ROOT` · `CONTENT` ·
+  // `TITLE` · `DESCRIPTION` · `PAGE_CTA` 다섯 상수를 두 파일이 각자 자기 파일에 적고, 배포본
+  // `ae8fd627` 에서 그 다섯은 두 파일이 바이트까지 같다. 한 벌만 재면 한쪽만 고친 날 게이트가
+  // 침묵한다. 문서의 Acceptance test 1(「404와 오류가 같은 뼈대를 그린다」)이 주장이 아니라
+  // 실측이 되는 자리다 — status 액션 버튼 둘을 함께 잰 것과 같은 형태다.
+  //
+  // **셋째인 `global-error.tsx` 는 여기서 잴 수 없다 — 그 사실 자체가 그 화면의 계약이다.**
+  // 루트 레이아웃이 실패한 뒤에 뜨는 최후 경계라 토큰도 전역 CSS 도 i18n 도 없이 인라인 style
+  // 객체만 쓴다(global-error.tsx:19-73). 이 하네스는 **제품 클래스 문자열을 제품 Tailwind 로
+  // 컴파일해** 재는 장치라 클래스가 없는 화면에는 붙일 상수가 없고, `inlineFrom` 으로 style
+  // 객체만 꺼내 올리면 제품 CSS 가 깔린 문서 위에서 재게 되어 그 화면의 유일한 계약(「전역 CSS
+  // 없이 렌더된다」)을 어긴 조건에서 재는 것이 된다. 값을 손으로 옮겨 적는 것도 답이 아니다 —
+  // 그것은 측정이 아니라 인용이고 이 파일이 뒤집으려던 방향이다. 그래서 재지 않는다.
+  //
+  // **EXPECT 행이 하나도 없는 것은 빠뜨린 것이 아니다.** `figma/components.measured.json` 에
+  // `route-boundary` 기록이 없다 — 31종이 전부 컴포넌트이고 패턴은 하나도 없다. 게다가 이 패턴은
+  // `experimental` 이고 승격 조건 셋(404·오류 복제를 합칠 것인가 · 최후 경계의 해결값을 맞출
+  // 것인가 · `--background`/`--foreground` 를 LOUIS 이름으로 세울 것인가)이 전부 열려 있다.
+  // 대조할 DS 값이 없는데 계약을 지어내면 제품을 베낀 값을 DS 라고 부르게 되므로, 탐침은 제품
+  // 값을 **기록만** 하고 분류는 `figma/product-coverage.json` 이 「DS 가 아직 소유하지 않는다」로
+  // 받는다. 승격되어 기록이 서는 날 그 사유를 EXPECT 행으로 바꾸면 된다.
+  //
+  // **CTA 는 이 화면이 여백만 갖는다.** 색·높이·곡률·그림자는 공용 Button 이 소유하고(제품
+  // 소스가 그렇게 적어 두었다), 그쪽은 `button-md` · `button-lg` 탐침이 이미 `.louis-button` 을
+  // 그려 재고 있다. 여기서 다시 재면 같은 축을 두 자리에서 관리하게 된다.
+  //
+  // 콘텐츠 컬럼은 `min(100%,440px)` 라 host 가 좁으면 100% 쪽이 이겨 **host 폭을 재게 된다.**
+  // 440 이 드러나도록 host 를 1440 으로 준다(status-card · auth-card 와 같은 이유).
+  {
+    id: "route-404-page-product",
+    source: "not-found-content.tsx ROOT — 404 페이지 루트(main). 위 24 · 좌우 20 · 아래 32 로 세 축이 다르다",
+    from: ["notFoundBoundary", "ROOT"],
+    tag: "main",
+    hostWidth: 1440,
+    // `min-h-[100svh]` 는 읽지 않는다 — 계산값이 하네스 뷰포트(900)라 제품 값이 아니라 문서
+    // 높이를 기록하게 된다(auth-page-root 와 같은 이유).
+    read: ["paddingTop", "paddingRight", "paddingBottom", "paddingLeft", "backgroundColor", "color"],
+  },
+  {
+    id: "route-404-content-product",
+    source: "not-found-content.tsx CONTENT — 콘텐츠 컬럼. 세로 리듬이 gap 하나뿐이다",
+    from: ["notFoundBoundary", "CONTENT"],
+    hostWidth: 1440,
+    read: ["width", "rowGap", "columnGap", "textAlign"],
+  },
+  {
+    id: "route-404-title-product",
+    source: "not-found-content.tsx TITLE — h1. 타이포는 전역 type-heading-36-medium 이 갖고 이 상수는 여백과 잉크만 선언한다",
+    from: ["notFoundBoundary", "TITLE"],
+    tag: "h1",
+    text: "페이지를 찾을 수 없습니다",
+    read: ["fontSize", "lineHeight", "fontWeight", "letterSpacing", "marginTop", "color"],
+  },
+  {
+    id: "route-404-description-product",
+    source: "not-found-content.tsx DESCRIPTION — p. 개행이 살아나는 pre-line 문단이고 상한이 36ch 다",
+    from: ["notFoundBoundary", "DESCRIPTION"],
+    tag: "p",
+    text: "요청하신 페이지가 존재하지 않거나\n이동되었을 수 있습니다.",
+    read: ["fontSize", "lineHeight", "maxWidth", "marginTop", "color", "whiteSpace"],
+  },
+  // 라이트 분기는 킬스위치가 아니라 평범한 후손 셀렉터라(`[html[data-theme=light]_&]`) 다크
+  // 문서에서는 아예 매칭되지 않는다 — 같은 상수를 라이트 문서에서 한 번 더 재야 그 값이 기록에
+  // 남는다. 문서의 Acceptance test 3(설명 잉크가 테마로 갈린다)이 실측이 되는 자리다.
+  {
+    id: "route-404-description-light-product",
+    source: "not-found-content.tsx DESCRIPTION — 라이트 문서에서 같은 상수. 잉크만 다른 값을 받는다",
+    from: ["notFoundBoundary", "DESCRIPTION"],
+    tag: "p",
+    doc: "light",
+    text: "요청하신 페이지가 존재하지 않거나\n이동되었을 수 있습니다.",
+    read: ["color", "fontSize", "lineHeight", "maxWidth"],
+  },
+  // CTA 는 공용 Button 이 그리는 **`button`** 이다(not-found-content.tsx:61-67). 제품이 이 상수에
+  // `!` 를 붙인 이유가 마크업에 있다 — 레이어 밖 Button 모듈이 유틸리티를 이기므로 여백이
+  // 조용히 죽지 않게 못 박았다. 태그를 바꿔 재면 그 다툼이 사라진다.
+  {
+    id: "route-404-cta-product",
+    source: "not-found-content.tsx PAGE_CTA — 공용 Button(primary) 위에 얹히는 여백만. 색·높이·곡률은 button-md 탐침이 잰다",
+    from: ["notFoundBoundary", "PAGE_CTA"],
+    tag: "button",
+    text: "홈으로 이동",
+    read: ["marginTop"],
+  },
+  {
+    id: "route-error-page-product",
+    source: "error.tsx ROOT — 오류 페이지 루트(main). 404 의 복제이며 두 벌이 갈리는지를 이 쌍이 본다",
+    from: ["errorBoundary", "ROOT"],
+    tag: "main",
+    hostWidth: 1440,
+    read: ["paddingTop", "paddingRight", "paddingBottom", "paddingLeft", "backgroundColor", "color"],
+  },
+  {
+    id: "route-error-content-product",
+    source: "error.tsx CONTENT — 오류 화면 콘텐츠 컬럼. 404 의 복제다",
+    from: ["errorBoundary", "CONTENT"],
+    hostWidth: 1440,
+    read: ["width", "rowGap", "columnGap", "textAlign"],
+  },
+  {
+    id: "route-error-title-product",
+    source: "error.tsx TITLE — h1. 404 의 복제다",
+    from: ["errorBoundary", "TITLE"],
+    tag: "h1",
+    text: "문제가 발생했습니다",
+    read: ["fontSize", "lineHeight", "fontWeight", "letterSpacing", "marginTop", "color"],
+  },
+  {
+    id: "route-error-description-product",
+    source: "error.tsx DESCRIPTION — p. 404 의 복제다",
+    from: ["errorBoundary", "DESCRIPTION"],
+    tag: "p",
+    text: "일시적인 오류로 페이지를 표시할 수 없습니다.\n잠시 후 다시 시도해 주세요.",
+    read: ["fontSize", "lineHeight", "maxWidth", "marginTop", "color", "whiteSpace"],
+  },
+  {
+    id: "route-error-description-light-product",
+    source: "error.tsx DESCRIPTION — 라이트 문서에서 같은 상수",
+    from: ["errorBoundary", "DESCRIPTION"],
+    tag: "p",
+    doc: "light",
+    text: "일시적인 오류로 페이지를 표시할 수 없습니다.\n잠시 후 다시 시도해 주세요.",
+    read: ["color", "fontSize", "lineHeight", "maxWidth"],
+  },
+  // **오류 화면은 같은 DESCRIPTION 상수를 `next/link` 가 그리는 `<a>` 에도 건다**
+  // (error.tsx:82). 그래서 이 한 벌은 문단과 링크 두 요소를 겸하고, 링크 쪽은 레이어 안 유틸리티가
+  // 레이어 밖이 아니라 `@layer base` 의 전역 `a { color: inherit; text-decoration: none }`
+  // (globals.css:988)와 만난다. `button` 이나 `p` 로 재면 그 만남이 사라져 제품에 없는 값을
+  // 재게 된다 — status 액션 버튼에서 실제로 겪은 함정이라 태그를 마크업에서 확인해 정했다.
+  {
+    id: "route-error-description-link-product",
+    source: "error.tsx DESCRIPTION — 같은 상수를 걸친 홈 링크(a). 전역 a 규칙과 만나는 유일한 자리다",
+    from: ["errorBoundary", "DESCRIPTION"],
+    tag: "a",
+    attrs: { href: "#" },
+    text: "홈으로 돌아가기",
+    read: ["color", "textDecorationLine", "fontSize", "lineHeight", "maxWidth", "marginTop"],
+  },
+  {
+    id: "route-error-cta-product",
+    source: "error.tsx PAGE_CTA — 공용 Button(primary) 위에 얹히는 여백만. 404 의 복제다",
+    from: ["errorBoundary", "PAGE_CTA"],
+    tag: "button",
+    text: "다시 시도",
+    read: ["marginTop"],
+  },
+  // ── 랜딩 셸(landing-shell) — **이 패턴도 지금까지 거의 아무것도 재지 않았다** ────────────
+  //
+  // `design/patterns/landing-shell.md` 가 로그인 전 마케팅 화면 일곱의 껍데기를 계약하는데,
+  // 실측 하네스가 이 계열에서 재던 것은 메뉴 링크 한 벌(`gnb-menu-item`)뿐이었다. 흐림 띠 ·
+  // 헤더 래퍼 · 레일 · 메뉴 열 · 액션 열 · 모바일 메뉴는 **한 축도 재지 않았다.** 그래서 Figma
+  // 에 그렸을 때 제품과 갈린 축들이 게이트를 통과했다 — status-result · auth-two-panel ·
+  // route-boundary 와 같은 침묵이다.
+  //
+  // **파일을 헷갈리면 안 된다.** 랜딩 GNB 는 `components/landing/navigation/Gnb.tsx` 이고
+  // 앱 GNB(`components/navigation/Gnb.tsx`, 위 `gnb` 별칭)와 **다른 파일**이다. 두 셸은 문서가
+  // 「정반대 모델」이라고 적을 만큼 다르다 — 앱 레일은 자리를 예약하고 랜딩 헤더는 콘텐츠 위에
+  // 뜬다. `from` 의 별칭은 `landingGnb` 다.
+  //
+  // **EXPECT 행이 메뉴 링크 톤 한 벌에만 붙는 것은 빠뜨린 것이 아니다.**
+  // `figma/components.measured.json` 의 31종은 전부 컴포넌트이고 `landing-shell` 기록은 없다 —
+  // 띠 · 래퍼 · 레일 · 메뉴 열 · 액션 열 · 모바일 메뉴는 대조할 DS 값이 아예 없다. 문서 스스로
+  // 승격 조건에서 「그 전까지 이 문서의 값은 제품 인용이며 DS 계약이 아니다」로 끝나고 blocker
+  // 셋(음수 오버레이 관용구 · blur plate 의 축 · 톤 반전을 mode 로 볼 것인가)이 열려 있다.
+  // 대조할 값이 없는데 계약을 지어내면 **제품을 베낀 값을 DS 라고 부르는 것**이 되므로, 그
+  // 축들은 제품 값을 **기록만** 하고 분류는 `figma/product-coverage.json` 이 「DS 가 이 축을
+  // 아직 소유하지 않는다」로 받는다. 승격되어 기록이 서는 날 그 사유를 EXPECT 행으로 바꾼다.
+  //
+  // **≤719px · ≤450px 분기는 이 하네스가 재지 못한다.** 열거도 hover 수집도
+  // `window.matchMedia(...).matches` 로 거르는데 컨텍스트 뷰포트가 1440 고정이라 그 미디어 규칙은
+  // 애초에 스타일시트에서 열거되지 않는다. 아래 값은 전부 **데스크톱 폭에서의 제품 값**이고,
+  // 레일의 2열 붕괴 · 가운데 메뉴 소거 · 모바일 메뉴 `display:block` · ≤450px 헤더 패딩은 여기
+  // 기록에 없다. 없는 것을 있는 척 적지 않으려고 사실을 여기 적어 둔다.
+  {
+    id: "landing-header-blur-product",
+    source: "landing/navigation/Gnb.tsx:100-105 HEADER_BLUR — 헤더 뒤 고정 120px 점진 흐림 판. 값은 LOUIS 두 토큰이 갖고 제품은 소비만 한다",
+    from: ["landingGnb", "HEADER_BLUR"],
+    tag: "div",
+    // 마스크는 표준과 `-webkit-` 두 줄이 같은 값을 선언한다. 계산값은 한 줄만 읽는다 —
+    // 두 줄을 다 읽으면 같은 값이 두 이름으로 기록에 남는다. 접두사 쌍의 존재 자체는
+    // product-coverage 의 `-webkit-mask-image` 사유가 받는다.
+    read: [
+      "height",
+      "position",
+      "top",
+      "left",
+      "right",
+      "zIndex",
+      "pointerEvents",
+      "backdropFilter",
+      "maskImage",
+    ],
+  },
+  {
+    id: "landing-header-wrapper-product",
+    source: "landing/navigation/Gnb.tsx:107-112 WRAPPER — position:fixed 투명 껍데기. 패딩만 갖는다",
+    from: ["landingGnb", "WRAPPER"],
+    tag: "header",
+    // `w-full` 은 읽지 않는다. fixed 요소의 컨테이닝 블록은 뷰포트라 host 폭과 무관하게
+    // 하네스 뷰포트(1440)를 재게 된다 — 제품 값이 아니라 계측 장치의 폭이다
+    // (`min-h-[100svh]` 를 읽지 않는 route-404-page-product 와 같은 이유).
+    read: [
+      "paddingTop",
+      "paddingRight",
+      "paddingBottom",
+      "paddingLeft",
+      "backgroundColor",
+      "position",
+      "top",
+      "left",
+      "zIndex",
+    ],
+  },
+  {
+    id: "landing-header-rail-product",
+    source: "landing/navigation/Gnb.tsx:115-119 NAV — 3열 그리드 레일(톤 수식자 NAV_LIGHT/NAV_BLACK 은 상호배타라 뺐다)",
+    from: ["landingGnb", "NAV"],
+    tag: "nav",
+    // `grid-template-columns` 는 읽지 않는다. 계산값이 `1fr auto 1fr` 이 아니라 host 폭을 나눈
+    // 사용값(px 셋)이라 기록에 남는 순간 **host 폭이 제품 값인 척**하게 된다. 트랙 구성 자체는
+    // 분류가 받는다.
+    read: [
+      "minHeight",
+      "display",
+      "alignItems",
+      "position",
+      "zIndex",
+      "transitionProperty",
+      "transitionDuration",
+      "transitionTimingFunction",
+    ],
+  },
+  {
+    id: "landing-header-menu-product",
+    source: "landing/navigation/Gnb.tsx:159-162 MENU — 가운데 앵커 메뉴 열(ul)",
+    from: ["landingGnb", "MENU"],
+    // **`ul` 이다.** 제품 마크업(:758)이 `<ul>` 에 이 상수를 건다. `div` 로 재면 `@layer base`
+    // 의 전역 목록 리셋과의 만남이 사라져 `list-style` · 여백이 제품에 없는 값으로 잡힌다 —
+    // `next/link` 의 `<a>` 를 `button` 으로 재면 안 되는 것과 같은 함정이다.
+    tag: "ul",
+    read: ["columnGap", "rowGap", "justifySelf", "display", "alignItems", "listStyleType"],
+  },
+  // 메뉴 링크의 **기하**는 위 `gnb-menu-item` 이 이미 재고 DS `gnb-menu-item` 기록과 대조된다.
+  // 여기서 한 벌 더 세우는 것은 **톤이 기하를 움직이지 않는다**는 것이 주장이 아니라 실측이
+  // 되게 하려는 것이다 — DS 기록의 `$why` 가 「여덟 변형의 기하가 완전히 같다」고 적는데, 그
+  // 문장을 지금까지 확인한 자리가 없었다. 그래서 아래 네 기하 축은 EXPECT 로 DS 와 대조하고,
+  // 톤이 실제로 바꾸는 두 축(잉크·불투명도)은 기록만 한다.
+  //
+  // **불투명도에는 대조할 DS 값이 없다.** 같은 `$why` 가 「갈리는 것은 잉크 불투명도뿐이고 그
+  // 계약은 contract 의 opacity 블록이 갖는다」로 그 축을 문서 쪽에 넘겨 두었고,
+  // `components.measured.json` 의 `gnb-menu-item` 에는 `sizes` 만 있고 `states` 도 opacity 도
+  // 없다. 없는 값을 지어내지 않고 분류로 받는다.
+  //
+  // 검은 톤(밝은 섹션 위)을 고른 이유는 그쪽이 **AA 경계**라서다 — 문서가 0.65 아래로 내려가면
+  // `palette-gray-900` 이 랜딩 바닥과 3.23:1 이 되어 미달이라고 적는다. 실측이 그 숫자를 지킨다.
+  {
+    id: "landing-menu-link-black-product",
+    source: "landing/navigation/Gnb.tsx menuLinkClass(false, true) — MENU_LINK(:164-172) + MENU_LINK_TONE_BLACK(:182) + MENU_LINK_OPACITY_BLACK(:197)",
+    from: ["landingGnb", "MENU_LINK", "MENU_LINK_TONE_BLACK", "MENU_LINK_OPACITY_BLACK"],
+    // 제품은 이 클래스를 `next/link` 의 `<a>`(:791) 와 `<span>`(:764) 에 건다. 링크가 다수이고
+    // 전역 `a` 규칙과 만나는 쪽이므로 `a` 로 잰다.
+    tag: "a",
+    text: "가격",
+    read: [
+      "height",
+      "paddingTop",
+      "paddingLeft",
+      "borderTopLeftRadius",
+      "color",
+      "opacity",
+      "backgroundColor",
+    ],
+  },
+  {
+    id: "landing-header-actions-product",
+    source: "landing/navigation/Gnb.tsx:325 ACTIONS — 우측 액션 열(LanguageSelector compact + 상단 CTA + 햄버거)",
+    from: ["landingGnb", "ACTIONS"],
+    tag: "div",
+    read: ["columnGap", "rowGap", "justifySelf", "display", "alignItems"],
+  },
+  {
+    id: "landing-mobile-menu-product",
+    source: "landing/navigation/Gnb.tsx:382-386 MOBILE_MENU — 풀스크린 메뉴의 껍데기(열림/닫힘 수식자는 상호배타라 뺐다)",
+    from: ["landingGnb", "MOBILE_MENU"],
+    tag: "div",
+    // **여기 `display` 는 `none` 으로 잡힌다. 그것이 데스크톱 폭에서의 제품 값이다.**
+    // `display:block` 은 `@media(max-width:719px)` 안에 있고 하네스 뷰포트가 1440 이라 그 규칙은
+    // 열거되지도 계산되지도 않는다(위 머리말). 음수 층(-1)과 전환은 미디어 밖이라 그대로 잡힌다.
+    read: ["display", "position", "top", "left", "right", "bottom", "zIndex", "transitionProperty", "transitionDuration"],
+  },
+  {
+    id: "landing-mobile-menu-panel-product",
+    source: "landing/navigation/Gnb.tsx:392-398 MOBILE_MENU_INNER — 풀스크린 메뉴의 면. 흐림 없이 불투명 100% 다",
+    from: ["landingGnb", "MOBILE_MENU_INNER"],
+    tag: "div",
+    // **라이트 문서로 한 벌 더 재지 않는다.** 이 면은 `palette-gray-100 ↔ palette-gray-900` 으로
+    // 테마를 따르는데, 하네스는 모든 문서에 `wrapperSidebar` 표식(bodyMarker)을 깔아 둔다 —
+    // 그 표식이 `html[data-theme=light] body:has(&)` 로 **라이트 팔레트를 한 단 밝게 재매핑한다**
+    // (앱 GNB Gnb.tsx 의 `--palette-gray-100:#f8f8f9`). 랜딩에는 사이드바가 없으므로 라이트
+    // 문서에서 잰 값은 **랜딩이 한 번도 보여 주지 않는 색**이 된다. 다크 한 벌만 재고 라이트
+    // 분기는 재지 않은 채로 둔다 — 오염된 값을 기록에 남기는 것보다 낫다.
+    // `h-full` 도 읽지 않는다. 100% 가 host 높이(360)를 재게 된다.
+    read: [
+      "paddingTop",
+      "paddingRight",
+      "paddingBottom",
+      "paddingLeft",
+      "rowGap",
+      "columnGap",
+      "backgroundColor",
+      "borderTopLeftRadius",
+      "borderTopWidth",
+      "overflowY",
+      "display",
+      "flexDirection",
+    ],
+  },
+  // ── 편집 워크스페이스(editor-workspace) ───────────────────────────────────
+  // `design/patterns/editor-workspace.md` 가 pane 구조 — 바닥 · assets · preview · properties ·
+  // timeline · divider — 를 계약하는데 **실측 하네스가 이 계열을 한 축도 재지 않았다.**
+  // status-result · auth-two-panel · route-boundary 와 같은 침묵이다. Figma 에
+  // `Pattern · EditorWorkspace` 를 세웠을 때 제품과 갈린 축들이 게이트를 통과했다.
+  //
+  // **모드는 다크 문서 한 벌, modal 모드로 고정한다.** 이 계열의 여섯 면은 전부
+  // `[html[data-theme=light]_&]:` 분기를 갖는다 — 다크에서 `--palette-gray-900`(면) ·
+  // `--palette-gray-800`(바닥)을 쓰고 라이트에서 각각 `--palette-gray-200` · `--palette-gray-100`
+  // 으로 바꿔 든다. 라이트 문서를 따로 세우지 않는 대신 그 분기 조건을 각 축 사유에 적는다.
+  // 다크 문서에서는 `html[data-theme=light] …` 규칙이 `element.matches()` 를 통과하지 못해
+  // 열거되지도 않으므로, 여기 분류되는 축은 전부 **다크에서 실제로 계산된 값**이다.
+  //
+  // **`.vem-modalShellDocked` 는 붙이지 않는다.** 그것은 route(docked) ↔ modal 을 가르는
+  // 상호배타 수식자다(VideoEditModal.tsx:11020-11025 — `portalContainer` 유무). 붙이면 route
+  // 모드를, 빼면 modal 모드를 잰다. 한 요소에 둘을 함께 걸 수 없으므로 규칙대로 뺀다.
+  //
+  // **pane 치수는 셸이 인라인 변수로 준다.** `--video-edit-assets-width` ·
+  // `--video-edit-properties-width` · `--video-edit-timeline-height` 셋은 리사이즈 상태에서
+  // 나와 `VideoEditModal.tsx:11036-11039` 에서 셸 요소의 style 로 걸린다. 탐침에는 그 조상이
+  // 없으므로 **레시피가 적어 둔 폴백**(236 · 324 · 400)이 드러난다 — 그것이 제품의 기본값이고,
+  // 사용자가 끌지 않은 첫 진입에서 화면에 서는 값이다.
+  {
+    id: "editor-workspace-floor-product",
+    source: "vemClass.ts modal — 워크스페이스 바닥. pane 여섯이 이 면 위에 격자로 선다",
+    from: ["vem", "modal"],
+    tag: "div",
+    hostWidth: 1440,
+    read: [
+      "backgroundColor",
+      "boxShadow",
+      "borderTopLeftRadius",
+      "padding",
+      "display",
+      "flexDirection",
+      "position",
+      "zIndex",
+      "overflowX",
+      "overflowY",
+      "touchAction",
+    ],
+  },
+  {
+    id: "editor-workspace-grid-product",
+    source: "vemClass.ts modalBody — 여섯 면을 배치하는 격자. 트랙 폭과 거터가 여기서 정해진다",
+    from: ["vem", "modalBody"],
+    tag: "div",
+    // 격자 트랙이 실제 폭으로 풀리게 host 를 데스크톱 폭으로 준다. `minmax(0, 1fr)` 인 preview
+    // 칸이 host 폭에 따라 달라지므로 이 값이 없으면 트랙 문자열이 제품에 없는 수로 잡힌다.
+    hostWidth: 1440,
+    read: [
+      "display",
+      "gridTemplateColumns",
+      "gridTemplateRows",
+      "gridTemplateAreas",
+      "columnGap",
+      "rowGap",
+      "alignItems",
+      "overflowX",
+      "overflowY",
+    ],
+  },
+  {
+    id: "editor-assets-panel-product",
+    source: "vemClass.ts assetsPanel — 좌측 에셋 pane (AssetPanel.tsx:170 의 div)",
+    from: ["vem", "assetsPanel"],
+    tag: "div",
+    // 이 면은 폭을 스스로 선언하지 않는다 — 격자 트랙(`--video-edit-assets-width`, 폴백 236)이
+    // 정한다. host 를 그 폴백에 맞춰 실제 배치 폭에서 재게 한다.
+    hostWidth: 236,
+    read: [
+      "backgroundColor",
+      "boxShadow",
+      "borderTopLeftRadius",
+      "display",
+      "flexDirection",
+      "minWidth",
+      "minHeight",
+      "overflowX",
+      "overflowY",
+    ],
+  },
+  {
+    id: "editor-preview-pane-product",
+    source: "vemClass.ts modalLeft — 가운데 preview pane 껍데기 (VideoEditModal.tsx:11117 의 div)",
+    from: ["vem", "modalLeft"],
+    tag: "div",
+    hostWidth: 1440,
+    read: [
+      "backgroundColor",
+      "boxShadow",
+      "borderTopLeftRadius",
+      "display",
+      "flexDirection",
+      "minWidth",
+      "minHeight",
+      "overflowX",
+      "overflowY",
+    ],
+  },
+  {
+    id: "editor-preview-area-product",
+    source: "vemClass.ts previewArea — 그 껍데기 안의 캔버스 면. 점 격자 배경이 이 면의 계약이다",
+    from: ["vem", "previewArea"],
+    tag: "div",
+    hostWidth: 1440,
+    // `previewAreaEmpty` · `previewAreaPanning` · `previewAreaPanReady` 셋은 붙이지 않는다 —
+    // 시퀀스가 비었는지(11120) · 패닝 중인지에 따라 갈리는 상호배타 상태 수식자다.
+    read: [
+      "backgroundColor",
+      "backgroundImage",
+      "backgroundSize",
+      "minHeight",
+      "display",
+      "flexDirection",
+      "alignItems",
+      "justifyContent",
+      "position",
+      "overflowX",
+      "overflowY",
+    ],
+  },
+  {
+    id: "editor-properties-panel-product",
+    source: "vemClass.ts propertiesPanel — 우측 속성 pane. 제품 마크업은 <aside> 다 (VideoEditModal.tsx:13510)",
+    from: ["vem", "propertiesPanel"],
+    // **`div` 로 재면 안 된다.** 제품이 `<aside>` 로 그린다. 전역 리셋이 태그별로 갈리는 자리를
+    // 잃지 않도록 마크업을 열어 확인하고 태그를 맞춘다 — `next/link` 의 `<a>` 를 `button` 으로
+    // 재면 안 되는 것과 같은 함정이다.
+    tag: "aside",
+    hostWidth: 1440,
+    // `panelDndActive` 는 붙이지 않는다 — 파일 드래그 중에만 걸리는 상호배타 상태이고, 그것이
+    // 걸리면 `&:not(.vem-panel-dnd-active)` 의 헤어라인이 사라진다.
+    read: [
+      "width",
+      "backgroundColor",
+      "boxShadow",
+      "borderTopLeftRadius",
+      "display",
+      "flexDirection",
+      "position",
+      "color",
+      "backdropFilter",
+      "borderLeftWidth",
+      "overflowX",
+      "overflowY",
+    ],
+  },
+  {
+    id: "editor-timeline-pane-product",
+    source: "vemClass.ts modalTimelineWorkbench — 하단 timeline pane (VideoEditModal.tsx:11647)",
+    from: ["vem", "modalTimelineWorkbench"],
+    tag: "div",
+    hostWidth: 1440,
+    // `modalTimelineWorkbenchResizing`(드래그 중 transition 제거) · `panelDndActive` 둘 다
+    // 상호배타 상태라 뺐다.
+    read: [
+      "height",
+      "backgroundColor",
+      "boxShadow",
+      "borderTopLeftRadius",
+      "display",
+      "flexDirection",
+      "alignItems",
+      "minWidth",
+      "minHeight",
+      "overflowX",
+      "overflowY",
+      "transitionProperty",
+      "transitionDuration",
+      "transitionTimingFunction",
+    ],
+  },
+  // ── pane divider 둘 — **여기만 LOUIS 레시피를 직접 소비한다** ─────────────
+  // 제품 상수는 `grid-area` 하나에 `louis-pane-divider` + 축 수식자를 얹은 것이 전부다.
+  // 그래서 아래 축 대부분은 제품이 아니라 **제품이 핀으로 소비하는 LOUIS 판**이 정한다
+  // (`packages/css/src/component/pane-divider.css`). 열거는 요소가 실제로 지닌 클래스를 겨누는
+  // 규칙을 세므로 그 LOUIS 선언까지 함께 잡힌다 — 핀이 움직이면 여기가 어긋난다.
+  //
+  // `data-louis-state="active"` 는 붙이지 않는다. 드래그 중에만 서는 상호배타 상태다.
+  {
+    id: "editor-pane-divider-vertical-product",
+    source: "vemClass.ts assetsDivider — 세로 구분자(assets ↔ preview). louis-pane-divider--vertical",
+    from: ["vem", "assetsDivider"],
+    tag: "div",
+    hostWidth: 1440,
+    read: [
+      "width",
+      "backgroundColor",
+      "position",
+      "marginTop",
+      "cursor",
+      "touchAction",
+      "::before:width",
+      "::before:height",
+      "::before:borderTopLeftRadius",
+      "::before:backgroundColor",
+      "::before:opacity",
+      "::before:zIndex",
+      "::after:insetBlockStart",
+      "::after:insetInlineStart",
+    ],
+  },
+  {
+    id: "editor-pane-divider-horizontal-product",
+    source: "vemClass.ts timelineDivider — 가로 구분자(preview 행 ↔ timeline 행). louis-pane-divider--horizontal",
+    from: ["vem", "timelineDivider"],
+    tag: "div",
+    hostWidth: 1440,
+    read: [
+      "height",
+      "backgroundColor",
+      "position",
+      "marginTop",
+      "cursor",
+      "touchAction",
+      "::before:width",
+      "::before:height",
+      "::before:borderTopLeftRadius",
+      "::before:backgroundColor",
+      "::before:opacity",
+      "::before:zIndex",
+      "::after:insetBlockStart",
+      "::after:insetInlineStart",
+    ],
+  },
 ];
 
 // ── DS와 무엇을 어떻게 맞출지 ──────────────────────────────────────────────
@@ -1517,6 +2173,39 @@ const EXPECT = [
   ["sidebar-header-row-collapsed", "width", ["sidebar-brand", "sizes", "true", "width"], "same"],
   ["sidebar-cta", "width", ["sidebar-cta", "sizes", "false", "width"], "same"],
   ["sidebar-cta-collapsed", "width", ["sidebar-cta", "sizes", "true", "width"], "same"],
+
+  // ── 인증 eyebrow ↔ LOUIS badge — **채택하지 않기로 한 결정을 게이트가 지킨다** ──────────
+  // `auth-two-panel` 패턴에는 DS 기록이 없지만(components.measured.json 31종이 전부 컴포넌트다),
+  // eyebrow 는 예외적으로 대조할 상대가 있다 — 제품 소스와 문서가 **`.louis-badge` 를 채택하지
+  // 않는다**고 명시적으로 적었기 때문이다(AuthStatusCard.tsx:63-73 · auth-two-panel.md).
+  // 그 결정은 축마다 값이 갈린다는 뜻이고, 편차를 적어 두지 않으면 어느 날 한쪽이 다른 쪽으로
+  // 흡수돼도 아무도 모른 채 사유만 낡는다. `.louis-menu__item` 을 소비하지 않는 프로필 팝오버를
+  // menu-popover 기록에 편차로 매단 것과 같은 형태다.
+  ["auth-eyebrow-product", "minHeight", ["badge", "sizes", "base", "height"], "deviates",
+    "제품 30, DS 26. DS 배지는 상하 여백 4 + caption-12 행간 18 로 26 이 되는 **채워진** 형태이고, eyebrow 는 여백 없이 `min-height: 30` 으로 서는 알약 라벨이다. 같은 높이를 다른 방법으로 세운 자리라 값이 갈린다."],
+  ["auth-eyebrow-product", "paddingTop", ["badge", "sizes", "base", "paddingBlock"], "deviates",
+    "제품 0, DS 4. 위 높이의 뒷면이다 — 배지는 여백이 높이를 만들고 eyebrow 는 `min-height` 가 만들어 세로 여백을 아예 0 으로 둔다(`py-0`)."],
+  ["auth-eyebrow-product", "paddingLeft", ["badge", "sizes", "base", "paddingInline"], "deviates",
+    "제품 12, DS 8. 곡률이 999 라 좌우가 8 이면 라운드와 글자가 부딪힌다. 알약 형태가 가로 여백을 한 칸 넓게 요구하는 자리다."],
+  ["auth-eyebrow-product", "borderTopLeftRadius", ["badge", "sizes", "base", "radius"], "deviates",
+    "제품 999(`rounded-pill`), DS 8(`radius-control-sm`). **badge 기록이 이 갈림을 이미 인정한다** — `$note` 가 「알약(999px) 무리는 증감·개수를 담는 다른 물건이라 여기 축으로 접지 않았다」고 적는다. 그 문장이 참인 동안 이 행은 편차로 남는다."],
+  ["auth-eyebrow-product", "borderTopWidth", ["badge", "sizes", "base", "borderWidth"], "deviates",
+    "제품 1, DS 0. DS 배지는 면과 글자로만 톤을 전달해 테두리를 두지 않는데(`$borderWidth`), eyebrow 는 면이 `bg-surface` 라 **테두리가 유일한 윤곽**이다. 테두리를 지우면 라벨이 배경에서 사라진다."],
+  // ── 랜딩 메뉴 링크의 톤 한 벌 ↔ DS gnb-menu-item — **「기하가 같다」를 실측으로 바꾼다** ──
+  // DS 기록의 `$why` 가 「여덟 변형의 기하가 완전히 같다 — 갈리는 것은 잉크 불투명도뿐」이라고
+  // 적는데, 그 문장을 확인한 자리가 없었다. 위 `gnb-menu-item` 탐침은 톤 없는 `MENU_LINK`
+  // 한 벌만 재므로 **톤을 얹으면 기하가 움직이는지**를 본 적이 없다. 검은 톤 벌을 같은 계약에
+  // 매달아 그 문장을 게이트가 지키게 한다. 어느 날 톤 상수가 여백이나 높이를 건드리면 여기서
+  // 터진다.
+  //
+  // 대조 상대를 `light/Default` 로 잡은 것은 이름의 뜻 때문이다 — DS 의 light/dark 는 테마가
+  // 아니라 **밑에 깔린 면**이고, 검은 톤은 밝은 면 위에서만 켜진다(landing-shell.md Tone
+  // inversion). 여덟 칸의 값이 전부 같아 어느 칸을 골라도 숫자는 같지만, 의미가 맞는 칸을
+  // 고르지 않으면 어느 날 칸별로 값이 갈릴 때 틀린 칸과 비교하게 된다.
+  ["landing-menu-link-black-product", "height", ["gnb-menu-item", "sizes", "light/Default", "height"], "same"],
+  ["landing-menu-link-black-product", "paddingTop", ["gnb-menu-item", "sizes", "light/Default", "paddingBlock"], "same"],
+  ["landing-menu-link-black-product", "paddingLeft", ["gnb-menu-item", "sizes", "light/Default", "paddingInline"], "same"],
+  ["landing-menu-link-black-product", "borderTopLeftRadius", ["gnb-menu-item", "sizes", "light/Default", "radius"], "same"],
 ];
 
 // **대조하기로 한 축은 반드시 읽는다.** EXPECT에 행을 넣고 probe의 read에 넣는 것을 잊으면

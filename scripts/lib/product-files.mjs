@@ -55,4 +55,27 @@ export const PRODUCT_FILES = {
   // 벌이다 — 붉은 배너(`STATUS_ALERT_ERROR`)가 **실재하는 라우트가 여기 하나뿐**이라
   // (status-result.md 의 2026-08-30 정정) 다른 화면을 골랐다면 그 부품을 잴 수 없다.
   statusResult: "apps/web/app/mypage/upgrade/billing-success/page.tsx",
+  // ── 인증 두 패널(auth-two-panel) ─────────────────────────────────────────
+  // `design/patterns/auth-two-panel.md` 가 로그인 전 여덟 화면의 껍데기를 계약하는데 **실측
+  // 하네스가 이 계열도 한 축도 재지 않았다.** status-result 와 같은 침묵이다 — Figma 에
+  // `Pattern · AuthTwoPanel` 을 세웠을 때 제품과 갈린 축들이 게이트를 통과했다.
+  //
+  // 여덟 화면 중 다섯(`/reset-password` · `/reset-password/new` · `/signup/check-email` ·
+  // `/signup/expired` · `/signup/verified`)이 이 공용 벌을 쓰고, 셋(`/login` · `/signup` ·
+  // `/aws/signup`)은 같은 셸을 자기 파일에 복제해 두었다. **정본은 공용 벌이다** — 복제 셋은
+  // 문서가 「복제 부채이지 이 패턴의 계약이 아니다」라고 이미 판정했고, 갈린 값은 탐침 사유와
+  // figma/product-coverage.json 에 적는다. 복제 셋 세 파일은 문서 인용으로 이미 lock 에 있다.
+  authStatusCard: "apps/web/components/auth/AuthStatusCard.tsx",
+  // ── 라우트 경계(route-boundary) ───────────────────────────────────────────
+  // `design/patterns/route-boundary.md` 가 404 · 오류 · 최후 경계 셋을 계약하는데 **실측 하네스가
+  // 이 계열도 한 축도 재지 않았다.** status-result · auth-two-panel 과 같은 침묵이다.
+  //
+  // 두 파일을 **둘 다** 건다. 404 와 오류는 공용 컴포넌트가 아니라 복제이고(`ROOT` · `CONTENT` ·
+  // `TITLE` · `DESCRIPTION` · `PAGE_CTA` 다섯 상수를 각자 자기 파일에 적는다), 한 벌만 걸면
+  // 한쪽만 고친 날 게이트가 침묵한다.
+  //
+  // 셋째인 `apps/web/app/global-error.tsx` 는 여기 없다. 그 화면은 클래스를 하나도 갖지 않아
+  // 이 하네스가 꺼낼 상수가 없다 — 사유는 measure-product-components.mjs 의 탐침 머리말에 있다.
+  notFoundBoundary: "apps/web/app/not-found-content.tsx",
+  errorBoundary: "apps/web/app/error.tsx",
 };

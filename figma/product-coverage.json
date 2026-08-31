@@ -545,6 +545,177 @@
       "border-top-right-radius": "네 모서리가 12px 로 같은 축이다. 대조할 DS 값이 없어 top-left 와 함께 기록만 한다.",
       "border-bottom-left-radius": "네 모서리가 12px 로 같은 축이다. 대조할 DS 값이 없어 top-left 와 함께 기록만 한다.",
       "border-bottom-right-radius": "네 모서리가 12px 로 같은 축이다. 대조할 DS 값이 없어 top-left 와 함께 기록만 한다."
+    },
+    "auth-page-root-product": {
+      "padding-top": "페이지 루트의 바깥 여백 20px 이다 — `p-10` 이고 제품 격자가 `--spacing: 2px` 라 40 이 아니다. **DS 가 이 축을 아직 소유하지 않는다** — `figma/components.measured.json` 에 `auth-two-panel` 기록이 없고(31종이 전부 컴포넌트이며 패턴 계약은 0이다) `design/patterns/auth-two-panel.md` 는 `experimental` 이라 스스로 「그 전까지 이 문서의 값은 제품 인용이며 DS 계약이 아니다」라고 적는다. 대조할 DS 값이 없으므로 탐침이 제품 값을 기록만 하고, 승격되어 기록이 서는 날 EXPECT 행으로 옮긴다. 복제 셋(`/login` · `/signup` · `/aws/signup`)은 ≤719px 에서 16px(`p-8`)로 갈리는데, 이 하네스의 문서는 1440×900 하나뿐이라 그 좁은 폭 가지를 재지 못한다.",
+      "padding-bottom": "위 여백과 같은 20px 이다. 카드가 세로 가운데에 놓이므로 위아래가 같아야 중심이 맞는다 — 값이 갈리면 카드가 한쪽으로 밀린다. 대조할 DS 값이 없어 기록만 한다.",
+      "padding-left": "가로 바깥 여백 20px 이다. 넓은 폭에서는 브랜드 열과 화면 왼쪽 가장자리 사이가 이 값이다. 대조할 DS 값이 없어 기록만 한다.",
+      "padding-right": "왼쪽과 대칭인 20px 이고, 넓은 폭에서는 폼 열과 오른쪽 가장자리 사이가 된다. 대조할 DS 값이 없어 기록만 한다.",
+      "column-gap": "두 열 사이 간격 20px(`gap-10`)이다 — 브랜드 열과 폼 열을 벌리는, 이 요소에서 **실제로 쓰이는** 간격 축이다. **DS 가 이 축을 아직 소유하지 않는다** — `figma/components.measured.json` 에 `auth-two-panel` 기록이 없고(31종이 전부 컴포넌트이며 패턴 계약은 0이다) `design/patterns/auth-two-panel.md` 는 `experimental` 이라 스스로 「그 전까지 이 문서의 값은 제품 인용이며 DS 계약이 아니다」라고 적는다. 대조할 DS 값이 없으므로 탐침이 제품 값을 기록만 하고, 승격되어 기록이 서는 날 EXPECT 행으로 옮긴다.",
+      "row-gap": "`gap-10` 이 두 축을 함께 선언한 것이고 값은 20px 로 같다. ≥720px 에서 격자가 1행 2열이라 행 사이가 없고, 좁은 폭에서는 셀이 하나뿐이라 이 축은 어느 가지에서도 쓰이지 않는다. 대조할 DS 값이 없어 기록만 한다."
+    },
+    "auth-brand-panel-product": {
+      "padding-top": "브랜드 면 안쪽 여백 20px 이다. 패널이 `justify-content: space-between` 이라 이 값이 상단 심볼의 실효 위치를 정한다. **DS 가 이 축을 아직 소유하지 않는다** — `figma/components.measured.json` 에 `auth-two-panel` 기록이 없고(31종이 전부 컴포넌트이며 패턴 계약은 0이다) `design/patterns/auth-two-panel.md` 는 `experimental` 이라 스스로 「그 전까지 이 문서의 값은 제품 인용이며 DS 계약이 아니다」라고 적는다. 대조할 DS 값이 없으므로 탐침이 제품 값을 기록만 하고, 승격되어 기록이 서는 날 EXPECT 행으로 옮긴다.",
+      "padding-bottom": "위와 같은 20px 이고, `space-between` 의 반대쪽 끝이라 하단 슬로건의 위치를 정한다. 대조할 DS 값이 없어 기록만 한다.",
+      "padding-left": "가로 안쪽 여백 20px 이다. 슬로건이 `max-width: 18ch` 로 접히므로 줄바꿈 위치가 이 값에 걸린다. 대조할 DS 값이 없어 기록만 한다.",
+      "padding-right": "왼쪽과 대칭인 20px 이다. 배경 SVG 는 `background-size: 100% 100%` 라 여백과 무관하게 패널 전체를 채운다. 대조할 DS 값이 없어 기록만 한다.",
+      "border-top-left-radius": "브랜드 면의 곡률 12px 이다 — `rounded-control` 이므로 **이름은 이미 LOUIS(`--louis-radius-control`)인데 대조할 기록이 없다.** components.measured.json 은 컴포넌트별 `radius` 만 갖고 이 패턴 면을 소유하는 항목이 없다. **DS 가 이 축을 아직 소유하지 않는다** — `figma/components.measured.json` 에 `auth-two-panel` 기록이 없고(31종이 전부 컴포넌트이며 패턴 계약은 0이다) `design/patterns/auth-two-panel.md` 는 `experimental` 이라 스스로 「그 전까지 이 문서의 값은 제품 인용이며 DS 계약이 아니다」라고 적는다. 대조할 DS 값이 없으므로 탐침이 제품 값을 기록만 하고, 승격되어 기록이 서는 날 EXPECT 행으로 옮긴다. `/aws/signup` 복제본은 같은 12 를 `rounded-12` 리터럴로 적어 값이 아니라 이름이 갈린다(aws/signup/page.tsx:89).",
+      "border-top-right-radius": "네 모서리가 12px 로 같은 축이다. 브랜드 면은 페이지 여백 안에 떠 있는 카드라 오른쪽 위도 깎인다. 대조할 DS 값이 없어 기록만 한다.",
+      "border-bottom-left-radius": "네 모서리가 12px 로 같은 축이다. `overflow: hidden` 이 배경 SVG 를 이 곡률로 잘라 낸다. 대조할 DS 값이 없어 기록만 한다.",
+      "border-bottom-right-radius": "네 모서리가 12px 로 같은 축이다. 위 세 모서리와 하나라도 갈리면 잘린 배경이 어긋나 보인다. 대조할 DS 값이 없어 기록만 한다."
+    },
+    "auth-card-product": {
+      "row-gap": "폼 카드의 세로 리듬 24px(`gap-12`)이다. 좁은 폭에서는 8px(`gap-4`)이고 이 문서가 1440 이라 넓은 폭 값을 잰다 — **세 배가 되는 것이 이 패턴의 규칙**이다. **DS 가 이 축을 아직 소유하지 않는다** — `figma/components.measured.json` 에 `auth-two-panel` 기록이 없고(31종이 전부 컴포넌트이며 패턴 계약은 0이다) `design/patterns/auth-two-panel.md` 는 `experimental` 이라 스스로 「그 전까지 이 문서의 값은 제품 인용이며 DS 계약이 아니다」라고 적는다. 대조할 DS 값이 없으므로 탐침이 제품 값을 기록만 하고, 승격되어 기록이 서는 날 EXPECT 행으로 옮긴다. `/login` 복제본만 28px(`gap-14`)로 갈리고, 그 화면에서만 하단 링크에 음수 마진 보정이 따라온다.",
+      "column-gap": "`gap-12` 가 두 축을 함께 선언한 것이고 값은 24px 로 같다. 카드는 1열 격자라 가로 축은 쓰이지 않는다. 대조할 DS 값이 없어 기록만 한다."
+    },
+    "auth-form-header-product": {
+      "row-gap": "제목과 설명 사이 간격 8px(`gap-4`)이다. **카드 세로 간격(24)과 별개 축**이라 함께 움직이지 않는다. **DS 가 이 축을 아직 소유하지 않는다** — `figma/components.measured.json` 에 `auth-two-panel` 기록이 없고(31종이 전부 컴포넌트이며 패턴 계약은 0이다) `design/patterns/auth-two-panel.md` 는 `experimental` 이라 스스로 「그 전까지 이 문서의 값은 제품 인용이며 DS 계약이 아니다」라고 적는다. 대조할 DS 값이 없으므로 탐침이 제품 값을 기록만 하고, 승격되어 기록이 서는 날 EXPECT 행으로 옮긴다. `/login` · `/signup` 복제본은 이 덩어리를 ≤719px 에서 통째로 숨기고, `/aws/signup` 은 12px(`gap-6`)에 `w-full` · `mb-4` 를 더해 갈린다.",
+      "column-gap": "같은 `gap-4` 선언의 가로 축이고 값은 8px 로 같다. 제목·설명이 세로로 쌓이는 1열 격자라 쓰이지 않는다. 대조할 DS 값이 없어 기록만 한다."
+    },
+    "auth-children-product": {
+      "row-gap": "폼 본문 래퍼의 간격 10px(`gap-5`)이다. 문서가 「카드 간격과 별개 축이다」라고 못 박는 자리이며, 카드 24 · 헤더 8 과 함께 이 화면에 **세 개의 서로 다른 세로 리듬**이 있다는 뜻이다. **DS 가 이 축을 아직 소유하지 않는다** — `figma/components.measured.json` 에 `auth-two-panel` 기록이 없고(31종이 전부 컴포넌트이며 패턴 계약은 0이다) `design/patterns/auth-two-panel.md` 는 `experimental` 이라 스스로 「그 전까지 이 문서의 값은 제품 인용이며 DS 계약이 아니다」라고 적는다. 대조할 DS 값이 없으므로 탐침이 제품 값을 기록만 하고, 승격되어 기록이 서는 날 EXPECT 행으로 옮긴다. 복제 셋은 이 자리를 `FORM = \"w-full grid gap-7\"` 로 적어 14px 로 갈린다.",
+      "column-gap": "같은 `gap-5` 선언의 가로 축이고 값은 10px 로 같다. 폼 요소가 전폭으로 세로로 쌓여 가로로 나란히 놓이는 일이 없다. 대조할 DS 값이 없어 기록만 한다."
+    },
+    "route-404-page-product": {
+      "padding-top": "페이지 루트의 위 여백 24px 이다(`pt-12`, 제품의 `--spacing: 2px`). **DS 가 이 축을 아직 소유하지 않는다** — figma/components.measured.json 의 31종은 전부 컴포넌트이고 `route-boundary` 기록이 없다. design/patterns/route-boundary.md 는 `experimental` 이라 스스로 「그 전까지 이 문서의 값은 제품 인용이며 DS 계약이 아니다」라고 적고, 승격 조건 셋(복제 통합 · 최후 경계 해결값 · `--background`/`--foreground` 의 LOUIS 이름)이 전부 열려 있다. 대조할 DS 값이 없으므로 탐침이 제품 값을 기록만 하고, 승격되어 기록이 서는 날 EXPECT 행으로 옮긴다.",
+      "padding-bottom": "아래 여백 32px 이다(`pb-16`). 위(24)와 값이 달라 대칭 묶음이 덮지 못하므로 따로 분류한다 — 이 화면은 위아래가 같은 상자가 아니다. **DS 가 이 축을 아직 소유하지 않는다** — figma/components.measured.json 의 31종은 전부 컴포넌트이고 `route-boundary` 기록이 없다. design/patterns/route-boundary.md 는 `experimental` 이라 스스로 「그 전까지 이 문서의 값은 제품 인용이며 DS 계약이 아니다」라고 적고, 승격 조건 셋(복제 통합 · 최후 경계 해결값 · `--background`/`--foreground` 의 LOUIS 이름)이 전부 열려 있다. 대조할 DS 값이 없으므로 탐침이 제품 값을 기록만 하고, 승격되어 기록이 서는 날 EXPECT 행으로 옮긴다.",
+      "padding-inline-start": "좌우 여백 20px 이다(`px-10`). 좁은 폭 가지(`[@media(max-width:719px)]:px-8` = 16px)는 이 하네스가 재지 못한다 — 문서가 1440×900 하나뿐이고 `@media` 는 host 폭이 아니라 그 뷰포트로 판정되기 때문이다. 지금 기록에 남는 것은 ≥720px 가지의 20px 이다. **DS 가 이 축을 아직 소유하지 않는다** — figma/components.measured.json 의 31종은 전부 컴포넌트이고 `route-boundary` 기록이 없다. design/patterns/route-boundary.md 는 `experimental` 이라 스스로 「그 전까지 이 문서의 값은 제품 인용이며 DS 계약이 아니다」라고 적고, 승격 조건 셋(복제 통합 · 최후 경계 해결값 · `--background`/`--foreground` 의 LOUIS 이름)이 전부 열려 있다. 대조할 DS 값이 없으므로 탐침이 제품 값을 기록만 하고, 승격되어 기록이 서는 날 EXPECT 행으로 옮긴다.",
+      "padding-inline-end": "같은 `px-10` 이 만든 반대편이고 값도 20px 로 같다. 위 start 와 함께 기록만 하며, 좁은 폭 16px 가지를 재지 못하는 것도 같다."
+    },
+    "route-404-content-product": {
+      "row-gap": "콘텐츠 컬럼의 유일한 세로 리듬 12px 이다(`gap-6`). 제목·설명·CTA 사이를 이 한 축이 전부 정한다(route-boundary.md Layout contract). **DS 가 이 축을 아직 소유하지 않는다** — figma/components.measured.json 의 31종은 전부 컴포넌트이고 `route-boundary` 기록이 없다. design/patterns/route-boundary.md 는 `experimental` 이라 스스로 「그 전까지 이 문서의 값은 제품 인용이며 DS 계약이 아니다」라고 적고, 승격 조건 셋(복제 통합 · 최후 경계 해결값 · `--background`/`--foreground` 의 LOUIS 이름)이 전부 열려 있다. 대조할 DS 값이 없으므로 탐침이 제품 값을 기록만 하고, 승격되어 기록이 서는 날 EXPECT 행으로 옮긴다.",
+      "column-gap": "같은 `gap-6` 이 함께 선언한 가로 축이고 값도 12px 다. 컬럼이 `flex-col` 이라 가로로 나란히 놓이는 일이 없어 이 축은 쓰이지 않는다. 대조할 DS 값이 없어 기록만 한다."
+    },
+    "route-error-page-product": {
+      "padding-top": "오류 화면 루트의 위 여백 24px 이다. **404 의 복제 절반이다.** 두 파일이 같은 이름의 상수를 각자 적고 있어(route-boundary.md 「공용 컴포넌트가 아니라 복제다」) 한 벌만 재면 한쪽만 고친 날 게이트가 침묵한다. 두 벌을 함께 재는 것은 「둘이 같다」가 주장이 아니라 실측이 되게 하려는 것이다. **DS 가 이 축을 아직 소유하지 않는다** — figma/components.measured.json 의 31종은 전부 컴포넌트이고 `route-boundary` 기록이 없다. design/patterns/route-boundary.md 는 `experimental` 이라 스스로 「그 전까지 이 문서의 값은 제품 인용이며 DS 계약이 아니다」라고 적고, 승격 조건 셋(복제 통합 · 최후 경계 해결값 · `--background`/`--foreground` 의 LOUIS 이름)이 전부 열려 있다. 대조할 DS 값이 없으므로 탐침이 제품 값을 기록만 하고, 승격되어 기록이 서는 날 EXPECT 행으로 옮긴다.",
+      "padding-bottom": "아래 여백 32px 이다. 404 쪽과 같은 값이지만 **다른 파일의 다른 선언**이라 각자 기록해야 갈림이 드러난다. 위(24)와 값이 달라 대칭 묶음도 덮지 못한다.",
+      "padding-inline-start": "좌우 여백 20px 이다. 좁은 폭 가지(`[@media(max-width:719px)]:px-8` = 16px)는 이 하네스가 재지 못한다 — 문서가 1440×900 하나뿐이고 `@media` 는 host 폭이 아니라 그 뷰포트로 판정되기 때문이다. 지금 기록에 남는 것은 ≥720px 가지의 20px 이다. 404 쪽과 같은 값이며, 그 「같음」을 실측으로 유지하는 것이 이 쌍의 목적이다.",
+      "padding-inline-end": "같은 `px-10` 의 반대편이고 값도 20px 다. 404 쪽 네 축과 함께 두 벌이 어긋나는 날 소리를 내라고 기록만 한다."
+    },
+    "route-error-content-product": {
+      "row-gap": "오류 화면 콘텐츠 컬럼의 세로 리듬 12px 이다. **404 의 복제 절반이다.** 두 파일이 같은 이름의 상수를 각자 적고 있어(route-boundary.md 「공용 컴포넌트가 아니라 복제다」) 한 벌만 재면 한쪽만 고친 날 게이트가 침묵한다. 두 벌을 함께 재는 것은 「둘이 같다」가 주장이 아니라 실측이 되게 하려는 것이다. **DS 가 이 축을 아직 소유하지 않는다** — figma/components.measured.json 의 31종은 전부 컴포넌트이고 `route-boundary` 기록이 없다. design/patterns/route-boundary.md 는 `experimental` 이라 스스로 「그 전까지 이 문서의 값은 제품 인용이며 DS 계약이 아니다」라고 적고, 승격 조건 셋(복제 통합 · 최후 경계 해결값 · `--background`/`--foreground` 의 LOUIS 이름)이 전부 열려 있다. 대조할 DS 값이 없으므로 탐침이 제품 값을 기록만 하고, 승격되어 기록이 서는 날 EXPECT 행으로 옮긴다.",
+      "column-gap": "같은 `gap-6` 이 함께 선언한 가로 축이고 값도 12px 다. 이 컬럼도 `flex-col` 이라 쓰이지 않는다. 대조할 DS 값이 없어 기록만 한다."
+    },
+    "landing-header-blur-product": {
+      "height": "120. **DS 가 이 축을 아직 소유하지 않는다** — `figma/components.measured.json` 의 31종은 전부 컴포넌트이고 `landing-shell` 기록이 한 줄도 없다 — 대조할 DS 값이 아예 없다. landing-shell.md 스스로 이 값을 「아직 토큰이 없는 축」 표에 올려 두었고, 「120px 은 고정값이며 헤더 높이에서 유도되지 않는다 — 점유 높이(56)의 배수도 아니고 뷰포트에도 비례하지 않는다」고 적는다. 어디에서도 계산되지 않는 숫자라 지금은 제품 값을 기록만 한다.",
+      "mask-image": "감쇠 곡선은 **LOUIS `--louis-progressive-blur-mask-header` 가 이미 소유한다**(2026-08-30, packages/css/src/base.css). 제품은 그 이름을 읽기만 하므로 두 저장소가 갈릴 여지가 없고, 실제로 이 탐침이 잰 값도 그 토큰이 편 2스톱이다. 다만 **그 값을 담은 컴포넌트 기록이 없어** EXPECT 가 가리킬 경로가 없다 — `figma/components.measured.json` 의 31종은 전부 컴포넌트이고 `landing-shell` 기록이 한 줄도 없다 — 대조할 DS 값이 아예 없다. 토큰이 정본인 축이라 여기서는 제품이 그 토큰을 실제로 편 결과를 기록만 한다."
+    },
+    "landing-header-wrapper-product": {
+      "padding-top": "12. **DS 가 이 축을 아직 소유하지 않는다** — `figma/components.measured.json` 의 31종은 전부 컴포넌트이고 `landing-shell` 기록이 한 줄도 없다 — 대조할 DS 값이 아예 없다. landing-shell.md 가 헤더 패딩을 「아직 토큰이 없는 축」 표에 올려 두었다. 이 12 는 레일 행(32)과 함께 헤더 점유 높이 56 을 만드는 위쪽 몫이다.",
+      "padding-bottom": "12. 위쪽 12 와 짝을 이루는 아래쪽 몫이고, 둘이 같아야 레일 행이 헤더 안에서 가운데 선다. 대칭 묶음이 이 축을 덮어 주지 않는 것은 **네 값 중 왼쪽만 20 이라 형제 넷이 한 값이 아니기 때문**이다 — 값이 다르면 각자 분류하는 것이 이 게이트의 규칙이다. 대조할 DS 값은 없다(`figma/components.measured.json` 의 31종은 전부 컴포넌트이고 `landing-shell` 기록이 한 줄도 없다 — 대조할 DS 값이 아예 없다.).",
+      "padding-right": "12. 액션 열이 화면 오른쪽 끝에서 떨어지는 거리다. 왼쪽(20)과 다른 값이라 좌우가 비대칭이고, 그래서 대칭 묶음으로 접히지 않는다. 대조할 DS 값은 없다(`figma/components.measured.json` 의 31종은 전부 컴포넌트이고 `landing-shell` 기록이 한 줄도 없다 — 대조할 DS 값이 아예 없다.).",
+      "padding-left": "20. **좌우 비대칭이 이 헤더의 실제 모습이다** — 오른쪽 12 에 대해 왼쪽만 20 이다. 제품 소스도 문서도 그 8px 차이의 이유를 적어 두지 않았으므로 여기서 지어내지 않고 사실만 남긴다. landing-shell.md 는 이 네 값을 `12px 12px 12px 20px` 한 줄로 인용하며 「아직 토큰이 없는 축」에 두었다."
+    },
+    "landing-header-menu-product": {
+      "column-gap": "16(`gap-8` × --spacing 2px). 앵커 링크 사이 간격이며 **실제로 쓰이는 축**이다. 대조할 DS 값이 없다 — `figma/components.measured.json` 의 31종은 전부 컴포넌트이고 `landing-shell` 기록이 한 줄도 없다 — 대조할 DS 값이 아예 없다. 메뉴 링크 자체는 `gnb-menu-item` 기록이 있지만 그 기록은 링크 한 벌의 기하만 갖고 **링크들을 늘어놓는 열은 갖지 않는다**($why 가 「폭 72 는 라벨이 정하므로 넣지 않는다」로 열 축을 명시적으로 뺐다).",
+      "row-gap": "16. **쓰이지 않는 축이다.** 제품이 `gap-8` 단축으로 두 축을 함께 선언하는데 이 열은 `flex` 한 줄이고 `flex-wrap` 을 켜지 않아 줄이 나뉘지 않는다 — 값은 열거되지만 화면에 나타나는 자리가 없다. 나타나지 않는 값을 DS 계약으로 올릴 수는 없다.",
+      "justify-self": "center. **부모 격자가 정하는 자리다.** 이 값은 메뉴가 스스로 갖는 모양이 아니라 레일의 3열 중 가운데 칸에서 어디에 붙을지이며, 레일이 2열로 바뀌면(≤719px) 이 열은 아예 사라진다. 컴포넌트가 자기 배치를 소유하지 않는다는 `align-self` 사유와 같은 계열이고, 대조할 DS 값도 없다(`figma/components.measured.json` 의 31종은 전부 컴포넌트이고 `landing-shell` 기록이 한 줄도 없다 — 대조할 DS 값이 아예 없다.).",
+      "list-style-type": "none. `[list-style:none]` 이 펴는 세 longhand 중 하나다. 시맨틱하게 `<ul>` 을 쓰되 불릿을 지우는 리셋이며, **보조기술에 목록으로 남기려고 태그를 유지한 결과**이지 시각 계약이 아니다. DS 기록에는 목록 마커 축 자체가 없다.",
+      "list-style-position": "outside. 같은 단축이 함께 펴는 축인데 **마커가 `none` 이라 그릴 것이 없어 값이 화면에 나타나지 않는다.** 브라우저 기본값이기도 하다 — 제품이 고른 값이 아니라 단축이 초기화한 값이다.",
+      "list-style-image": "none. 같은 단축의 셋째 축이다. 이미지 마커는 제품이 한 번도 쓰지 않으며, 여기 `none` 은 「마커 이미지를 두지 않는다」는 초기값 복원이다. 마커를 지운 이유는 위 `list-style-type` 에 적었다."
+    },
+    "landing-header-actions-product": {
+      "column-gap": "8(`gap-4`). 언어 글로브 · 상단 CTA · 햄버거 사이 간격이며 **실제로 쓰이는 축**이다. `app-shell-parts` 의 `topBar.gap` 도 8 이지만 **그 기록을 대조 상대로 삼지 않는다** — 앱 셸 상단 바와 랜딩 액션 열은 문서가 「정반대 모델」이라고 적을 만큼 다른 표면이고, 값이 우연히 같다는 이유로 다른 표면의 계약에 매달면 어느 한쪽이 움직일 때 틀린 곳이 터진다. 랜딩 쪽 기록은 아직 없다(`figma/components.measured.json` 의 31종은 전부 컴포넌트이고 `landing-shell` 기록이 한 줄도 없다 — 대조할 DS 값이 아예 없다.).",
+      "row-gap": "8. **쓰이지 않는 축이다.** `gap-4` 단축이 두 축을 함께 선언하지만 이 열은 `inline-flex` 한 줄이고 줄바꿈을 켜지 않는다 — 줄이 하나뿐이라 줄 사이 간격이 나타날 자리가 없다.",
+      "justify-self": "flex-end(`justify-self-end`). **부모 격자가 정하는 자리다** — 3열 레일의 오른쪽 칸에서 끝으로 붙는다는 뜻이고, 액션 열이 스스로 갖는 모양이 아니다. ≤719px 에서 가운데 열이 사라져도 이 값은 그대로이며 칸 번호만 2 로 바뀐다. 대조할 DS 값은 없다(`figma/components.measured.json` 의 31종은 전부 컴포넌트이고 `landing-shell` 기록이 한 줄도 없다 — 대조할 DS 값이 아예 없다.)."
+    },
+    "landing-mobile-menu-panel-product": {
+      "padding-top": "78. 고정 헤더가 덮는 자리를 비우는 몫이다 — 헤더 점유 높이는 ≤719px 에서 62(12 + 햄버거 38 + 12)이고 그보다 16 더 내려 첫 항목이 헤더에 붙지 않게 한다. **DS 가 이 축을 아직 소유하지 않는다**(`figma/components.measured.json` 의 31종은 전부 컴포넌트이고 `landing-shell` 기록이 한 줄도 없다 — 대조할 DS 값이 아예 없다.).",
+      "padding-left": "18. 좌우 몫이며 헤더 래퍼의 좌 20 · 우 12 와도, 항목 자신의 좌우 12 와도 다른 셋째 값이다. 이 어긋남을 지금 판정할 근거가 없다 — landing-shell.md 는 이 줄을 배포본 인용으로만 적고 승격 조건이 열려 있다(`figma/components.measured.json` 의 31종은 전부 컴포넌트이고 `landing-shell` 기록이 한 줄도 없다 — 대조할 DS 값이 아예 없다.).",
+      "padding-right": "18. 왼쪽과 같은 값이지만 **대칭 묶음이 접어 주지 않는다** — 위 78 · 아래 28 이 달라 네 형제가 한 값이 아니기 때문이다. 좌우가 같다는 사실 자체는 이 면이 전면을 채우는 오버레이라 어느 한쪽으로 치우칠 이유가 없다는 뜻이다.",
+      "padding-bottom": "28. **`calc(28px + env(safe-area-inset-bottom, 0px))` 의 하한이다** — 하네스는 세이프에어리어가 없는 데스크톱 크로미움이라 `env()` 가 0 으로 풀려 28 만 남는다. 노치 기기에서는 이보다 커지므로 이 28 은 **고정값이 아니라 하한**으로 읽어야 한다. 대조할 DS 값도 없다(`figma/components.measured.json` 의 31종은 전부 컴포넌트이고 `landing-shell` 기록이 한 줄도 없다 — 대조할 DS 값이 아예 없다.).",
+      "row-gap": "2(`gap-1`). 세로로 쌓인 메뉴 항목 사이 간격이며 **실제로 쓰이는 축**이다. 항목이 자기 세로 여백 11 을 갖고 있어 이 2 는 행 사이를 겨우 벌리는 실낱이다. 대조할 DS 값이 없다(`figma/components.measured.json` 의 31종은 전부 컴포넌트이고 `landing-shell` 기록이 한 줄도 없다 — 대조할 DS 값이 아예 없다.).",
+      "column-gap": "2. **쓰이지 않는 축이다.** `gap-1` 단축이 두 축을 함께 선언하지만 이 면은 `flex-col` 이라 열이 하나뿐이고 열 사이 간격이 나타날 자리가 없다.",
+      "height": "360. **제품 값이 아니라 계측 장치의 값이다.** 제품은 `h-full` 로 100% 를 선언하고 실제 높이는 조상인 `MOBILE_MENU`(`fixed inset-0`)가, 즉 뷰포트가 정한다. 이 탐침은 그 조상 없이 host 안에 홀로 서므로 host 높이 360 을 그대로 잰다 — 그래서 `read` 에서도 뺐다. 100% 를 계약으로 올릴 수 있는 값이 아니다.",
+      "border-top-left-radius": "0. `[border-radius:0]` 한 줄이 네 귀를 함께 0 으로 둔다. 이 면은 `inset:0` 오버레이의 안쪽이라 **화면 네 귀와 그대로 만나고**, 귀를 깎으면 그 틈으로 뒤 페이지가 비친다. **DS 가 이 축을 아직 소유하지 않는다**(`figma/components.measured.json` 의 31종은 전부 컴포넌트이고 `landing-shell` 기록이 한 줄도 없다 — 대조할 DS 값이 아예 없다.).",
+      "border-top-right-radius": "0. 같은 선언의 오른쪽 위 귀다. 네 값이 모두 0 이라 대칭 묶음의 조건은 만족하지만, **형제 중 대조된 축이 하나도 없어** 묶음이 접어 줄 상대가 없다 — 그래서 네 귀가 각자 분류된다.",
+      "border-bottom-left-radius": "0. 아래 두 귀는 세이프에어리어 몫 아래에서 화면 바닥과 만난다. 위 두 귀와 값이 같은 것이 계약이며(전면 오버레이), 어느 한 귀만 깎이는 형태는 이 면에 없다.",
+      "border-bottom-right-radius": "0. 넷째 귀다. 이 면이 곡률을 갖는 순간 「불투명 100% 로 전면을 덮는다」는 문서의 규범이 깨지므로 넷이 함께 0 인 것이 그 규범의 형태다."
+    },
+    "editor-workspace-floor-product": {
+      "border-top-left-radius": "0. **레시피가 적은 24 가 아니다.** 상수는 base 로 `border-radius: var(--louis-radius-overlay-lg)`(=24) 를 적지만 같은 요소의 `&:not(.vem-modalShellDocked)` 가 `border-radius:0` 으로 덮는다 — 특이도 (0,2,0) 이 base (0,1,0) 을 이긴다. docked 는 route 모드(`portalContainer` 가 있을 때)에서만 붙으므로 **modal 모드에서 base 24 는 도달하지 않는다.** DS 가 이 축을 아직 소유하지 않는다 — `figma/components.measured.json` 의 31종은 전부 컴포넌트이고 `editor-workspace` 패턴 기록도 `pane-divider` 레시피 기록도 한 줄이 없다(2026-08-31 확인). 대조할 DS 값이 없어 기록만 한다.",
+      "border-top-right-radius": "0. 같은 `:not(docked)` 단축이 네 귀를 함께 0 으로 둔다. modal 모드의 바닥은 `modalRoot`(fixed inset:0) 안에서 `width:100%`·`height:100%` 로 뷰포트를 가득 채우므로 **화면 네 귀와 직접 만난다** — 곡률을 두면 그 틈으로 뒤 페이지가 비친다. 대칭 묶음이 이 축을 접어 주지 않는 것은 형제 넷 중 대조된 축이 하나도 없기 때문이다.",
+      "border-bottom-left-radius": "0. 아래 두 귀도 같은 이유로 0 이다. route(docked) 모드에서는 `modalShellDocked` 가 다시 `border-radius:0` 을 적어 **두 모드가 같은 형태로 수렴한다** — 즉 24 는 어느 모드에서도 화면에 서지 않는다. 그 사실을 지금 판정하지 않고 값만 남긴다.",
+      "border-bottom-right-radius": "0. 넷째 귀다. 네 값이 같아 대칭 묶음의 조건 자체는 만족하지만 접어 줄 상대(대조된 형제)가 없어 각자 분류된다. DS 가 이 축을 아직 소유하지 않는다 — `figma/components.measured.json` 의 31종은 전부 컴포넌트이고 `editor-workspace` 패턴 기록도 `pane-divider` 레시피 기록도 한 줄이 없다(2026-08-31 확인). 대조할 DS 값이 없어 기록만 한다.",
+      "padding-top": "8. 바닥이 pane 격자를 감싸는 몫이다. `:not(docked)` 가 덮는 것은 margin(16→0) 뿐이고 padding 은 base 8 이 그대로 산다 — 그래서 **modal 모드에서 pane 은 화면 가장자리에서 8px 안쪽에 선다.** DS 가 이 축을 아직 소유하지 않는다 — `figma/components.measured.json` 의 31종은 전부 컴포넌트이고 `editor-workspace` 패턴 기록도 `pane-divider` 레시피 기록도 한 줄이 없다(2026-08-31 확인). 대조할 DS 값이 없어 기록만 한다.",
+      "padding-right": "8. 오른쪽 몫이며 위와 같은 8 이다. 이 대칭이 계약인 이유는 바닥이 격자를 **가운데 두는 액자**라서다 — 한쪽만 다르면 pane 열이 화면 중심에서 밀린다. 형제 중 대조된 축이 없어 묶음으로 접히지 않는다.",
+      "padding-bottom": "8. 아래 몫이다. 타임라인 pane 이 바닥 맨 아래 행이라 이 8 이 곧 **타임라인과 화면 밑변 사이의 거리**다. route 모드에서는 `modalShellDocked` 가 `padding:0` 으로 덮어 셸 크롬이 그 몫을 대신 갖는다 — 그것이 두 모드의 실제 분기다.",
+      "padding-left": "8. 왼쪽 몫이며 에셋 pane 과 화면 왼쪽 변 사이의 거리다. 네 값이 8 로 같은 것을 확인한 자리가 지금까지 없었고(이 계열은 한 축도 재지 않았다), 그 사실을 실측으로 고정한다.",
+      "height": "360. **제품 값이 아니라 계측 장치의 값이다.** 제품은 `:not(docked)` 에서 `height:100%` 를 선언하고 실제 높이는 조상인 `modalRoot`(`position:fixed; inset:0`), 즉 뷰포트가 정한다. 이 탐침에는 그 조상이 없어 하네스 host 의 고정 높이 360 이 잡힌다. 값을 재지 않는 것보다 「무엇이 정하는지」를 적어 두는 편이 낫다."
+    },
+    "editor-workspace-grid-product": {
+      "column-gap": "2. pane 열 사이 거터다. 구분자 트랙 4 와 합치면 **pane 가장자리 사이가 2+4+2 = 8px** 이고, 이것이 LOUIS `pane-divider.css` 머리말이 「격자 거터(8px)를 2px 씩 넘어 이웃 패널 위로 올라탄다」로 가리키는 그 8 이다 — 히트영역 12(트랙 4 + 슬롭 4×2)가 8 을 좌우 2 씩 넘는다. 레시피가 소비처의 거터를 가정하고 있는데 그 가정을 제품에서 확인한 자리가 지금까지 없었다. DS 가 이 축을 아직 소유하지 않는다 — `figma/components.measured.json` 의 31종은 전부 컴포넌트이고 `editor-workspace` 패턴 기록도 `pane-divider` 레시피 기록도 한 줄이 없다(2026-08-31 확인). 대조할 DS 값이 없어 기록만 한다.",
+      "row-gap": "2. 같은 `column-gap:2px`/`row-gap:2px` 짝의 세로 몫이며 **실제로 쓰이는 축이다** — 격자가 3행(작업행 · 구분자행 · 타임라인행)이라 행 사이 간격이 두 번 나타난다. 가로 구분자의 히트영역이 위아래로 4 씩 넘는 것도 이 2 를 근거로 한다.",
+      "grid-template-areas": "\"assets assets-divider preview properties-divider panel\" / \"divider ×5\" / \"timeline ×5\" — `editor-workspace.md` 의 Regular 레시피(assets · divider · preview · divider · properties, 하단 timeline)를 이름으로 적은 것이다. **문서가 산문으로만 적던 배치를 여기서 기계가 읽는 값으로 고정한다.** DS 가 이 축을 아직 소유하지 않는다 — `figma/components.measured.json` 의 31종은 전부 컴포넌트이고 `editor-workspace` 패턴 기록도 `pane-divider` 레시피 기록도 한 줄이 없다(2026-08-31 확인). 대조할 DS 값이 없어 기록만 한다.",
+      "grid-template-rows": "\"0px 4px 400px\" — **첫 트랙 0px 은 계측 장치의 값이다.** 제품 선언은 `minmax(0,1fr) 4px var(--video-edit-timeline-height, 400px)` 이고, 하네스 host 높이가 360 인데 셋째 트랙이 400 고정이라 `1fr` 이 0 으로 눌렸다. 실제 화면에서는 셸이 뷰포트 높이를 가지므로 첫 트랙이 남는 높이를 전부 갖는다. **4px(구분자 트랙)과 400px(타임라인 기본 높이)은 제품 값이다** — 400 은 셸이 인라인으로 주는 `--video-edit-timeline-height` 의 레시피 폴백이고 사용자가 끌지 않은 첫 진입에서 서는 값이다.",
+      "height": "360. `height:100%` 가 host 를 잰 값이다. 격자의 실제 높이는 조상인 바닥(`modal`)이 정하고, 바닥의 높이는 다시 뷰포트가 정한다 — 위 `editor-workspace-floor-product · height` 와 같은 사슬의 아래쪽 끝이다."
+    },
+    "editor-assets-panel-product": {
+      "border-top-left-radius": "12. pane 면의 모서리다. 네 pane(assets · preview · properties · timeline)이 **전부 같은 12** 를 리터럴로 적는다 — 바닥의 24(도달하지 않는 값)와도, LOUIS 반경 계단의 overlay-lg 24 와도 다른 층이다. DS 가 이 축을 아직 소유하지 않는다 — `figma/components.measured.json` 의 31종은 전부 컴포넌트이고 `editor-workspace` 패턴 기록도 `pane-divider` 레시피 기록도 한 줄이 없다(2026-08-31 확인). 대조할 DS 값이 없어 기록만 한다.",
+      "border-top-right-radius": "12. 같은 `border-radius:12px` 단축이 네 귀를 함께 정한다. pane 은 바닥 위에 떠 있는 판이라 네 귀가 모두 노출되고, 그래서 한 귀만 다른 형태가 이 면에는 없다. 형제 중 대조된 축이 없어 대칭 묶음이 접어 주지 않는다.",
+      "border-bottom-left-radius": "12. 아래 두 귀도 같은 12 다. 이 값은 `--louis-radius-*` 계단 어느 이름도 경유하지 않는 **리터럴**이라, 계단이 움직여도 pane 은 따라가지 않는다. 그 어긋남을 지금 판정하지 않고 사실만 남긴다.",
+      "border-bottom-right-radius": "12. 넷째 귀다. `@media(max-width:719px)` 에서도 같은 12 를 다시 적어 compact 로 내려가도 곡률이 유지된다(그 규칙은 1440 폭 문서에서 열거되지 않는다). DS 가 이 축을 아직 소유하지 않는다 — `figma/components.measured.json` 의 31종은 전부 컴포넌트이고 `editor-workspace` 패턴 기록도 `pane-divider` 레시피 기록도 한 줄이 없다(2026-08-31 확인). 대조할 DS 값이 없어 기록만 한다.",
+      "grid-column-start": "`assets`. **배치는 이 면이 아니라 셸의 격자가 소유한다.** `editor-workspace.md` 의 「Editor must not own — shell geometry」가 그것이고, 상수는 `grid-area:assets` 한 줄로 자기 칸 이름만 말한다. 칸의 실제 폭은 `editor-workspace-grid-product · grid-template-columns` 가 갖는다. 컴포넌트가 스스로 갖는 모양이 아니므로 대조할 DS 값이 있을 수 없다.",
+      "grid-column-end": "`assets`. `grid-area` 단축이 펴는 네 longhand 중 둘째다. 이름 하나로 4 방향을 지정했으므로 start 와 end 가 같은 이름이고, 그 이름이 격자의 `grid-template-areas` 에 있는 한 칸을 통째로 가리킨다 — span 계산이 아니라 이름 참조다.",
+      "grid-row-start": "`assets`. 같은 단축의 셋째 longhand다. 에셋 pane 이 격자에서 **한 칸만 차지**한다는 뜻이며, 행 방향으로 늘어나는 형태(타임라인 행처럼 5열을 덮는 것)와 구분된다.",
+      "grid-row-end": "`assets`. 넷째 longhand다. 넷이 한 이름으로 같아 대칭처럼 보이지만 `SYMMETRY` 묶음에 grid 계열이 없고 대조된 형제도 없어 각자 분류된다. 값은 셸이 정하는 것이라 이 면의 계약이 아니다."
+    },
+    "editor-preview-pane-product": {
+      "border-top-left-radius": "12. pane 면의 모서리다. 네 pane(assets · preview · properties · timeline)이 **전부 같은 12** 를 리터럴로 적는다 — 바닥의 24(도달하지 않는 값)와도, LOUIS 반경 계단의 overlay-lg 24 와도 다른 층이다. DS 가 이 축을 아직 소유하지 않는다 — `figma/components.measured.json` 의 31종은 전부 컴포넌트이고 `editor-workspace` 패턴 기록도 `pane-divider` 레시피 기록도 한 줄이 없다(2026-08-31 확인). 대조할 DS 값이 없어 기록만 한다.",
+      "border-top-right-radius": "12. 같은 `border-radius:12px` 단축이 네 귀를 함께 정한다. pane 은 바닥 위에 떠 있는 판이라 네 귀가 모두 노출되고, 그래서 한 귀만 다른 형태가 이 면에는 없다. 형제 중 대조된 축이 없어 대칭 묶음이 접어 주지 않는다.",
+      "border-bottom-left-radius": "12. 아래 두 귀도 같은 12 다. 이 값은 `--louis-radius-*` 계단 어느 이름도 경유하지 않는 **리터럴**이라, 계단이 움직여도 pane 은 따라가지 않는다. 그 어긋남을 지금 판정하지 않고 사실만 남긴다.",
+      "border-bottom-right-radius": "12. 넷째 귀다. `@media(max-width:719px)` 에서도 같은 12 를 다시 적어 compact 로 내려가도 곡률이 유지된다(그 규칙은 1440 폭 문서에서 열거되지 않는다). DS 가 이 축을 아직 소유하지 않는다 — `figma/components.measured.json` 의 31종은 전부 컴포넌트이고 `editor-workspace` 패턴 기록도 `pane-divider` 레시피 기록도 한 줄이 없다(2026-08-31 확인). 대조할 DS 값이 없어 기록만 한다.",
+      "grid-column-start": "`preview`. **배치는 이 면이 아니라 셸의 격자가 소유한다.** `editor-workspace.md` 의 「Editor must not own — shell geometry」가 그것이고, 상수는 `grid-area:preview` 한 줄로 자기 칸 이름만 말한다. 칸의 실제 폭은 `editor-workspace-grid-product · grid-template-columns` 가 갖는다. 컴포넌트가 스스로 갖는 모양이 아니므로 대조할 DS 값이 있을 수 없다.",
+      "grid-column-end": "`preview`. `grid-area` 단축이 펴는 네 longhand 중 둘째다. 이름 하나로 4 방향을 지정했으므로 start 와 end 가 같은 이름이고, 그 이름이 격자의 `grid-template-areas` 에 있는 한 칸을 통째로 가리킨다 — span 계산이 아니라 이름 참조다.",
+      "grid-row-start": "`preview`. 같은 단축의 셋째 longhand다. 프리뷰 pane 이 격자에서 **한 칸만 차지**한다는 뜻이며, 행 방향으로 늘어나는 형태(타임라인 행처럼 5열을 덮는 것)와 구분된다.",
+      "grid-row-end": "`preview`. 넷째 longhand다. 넷이 한 이름으로 같아 대칭처럼 보이지만 `SYMMETRY` 묶음에 grid 계열이 없고 대조된 형제도 없어 각자 분류된다. 값은 셸이 정하는 것이라 이 면의 계약이 아니다."
+    },
+    "editor-properties-panel-product": {
+      "border-top-left-radius": "12. pane 면의 모서리다. 네 pane(assets · preview · properties · timeline)이 **전부 같은 12** 를 리터럴로 적는다 — 바닥의 24(도달하지 않는 값)와도, LOUIS 반경 계단의 overlay-lg 24 와도 다른 층이다. DS 가 이 축을 아직 소유하지 않는다 — `figma/components.measured.json` 의 31종은 전부 컴포넌트이고 `editor-workspace` 패턴 기록도 `pane-divider` 레시피 기록도 한 줄이 없다(2026-08-31 확인). 대조할 DS 값이 없어 기록만 한다.",
+      "border-top-right-radius": "12. 같은 `border-radius:12px` 단축이 네 귀를 함께 정한다. pane 은 바닥 위에 떠 있는 판이라 네 귀가 모두 노출되고, 그래서 한 귀만 다른 형태가 이 면에는 없다. 형제 중 대조된 축이 없어 대칭 묶음이 접어 주지 않는다.",
+      "border-bottom-left-radius": "12. 아래 두 귀도 같은 12 다. 이 값은 `--louis-radius-*` 계단 어느 이름도 경유하지 않는 **리터럴**이라, 계단이 움직여도 pane 은 따라가지 않는다. 그 어긋남을 지금 판정하지 않고 사실만 남긴다.",
+      "border-bottom-right-radius": "12. 넷째 귀다. `@media(max-width:719px)` 에서도 같은 12 를 다시 적어 compact 로 내려가도 곡률이 유지된다(그 규칙은 1440 폭 문서에서 열거되지 않는다). DS 가 이 축을 아직 소유하지 않는다 — `figma/components.measured.json` 의 31종은 전부 컴포넌트이고 `editor-workspace` 패턴 기록도 `pane-divider` 레시피 기록도 한 줄이 없다(2026-08-31 확인). 대조할 DS 값이 없어 기록만 한다.",
+      "grid-column-start": "`panel`. **배치는 이 면이 아니라 셸의 격자가 소유한다.** `editor-workspace.md` 의 「Editor must not own — shell geometry」가 그것이고, 상수는 `grid-area:panel` 한 줄로 자기 칸 이름만 말한다. 칸의 실제 폭은 `editor-workspace-grid-product · grid-template-columns` 가 갖는다. 컴포넌트가 스스로 갖는 모양이 아니므로 대조할 DS 값이 있을 수 없다.",
+      "grid-column-end": "`panel`. `grid-area` 단축이 펴는 네 longhand 중 둘째다. 이름 하나로 4 방향을 지정했으므로 start 와 end 가 같은 이름이고, 그 이름이 격자의 `grid-template-areas` 에 있는 한 칸을 통째로 가리킨다 — span 계산이 아니라 이름 참조다.",
+      "grid-row-start": "`panel`. 같은 단축의 셋째 longhand다. 속성 pane 이 격자에서 **한 칸만 차지**한다는 뜻이며, 행 방향으로 늘어나는 형태(타임라인 행처럼 5열을 덮는 것)와 구분된다.",
+      "grid-row-end": "`panel`. 넷째 longhand다. 넷이 한 이름으로 같아 대칭처럼 보이지만 `SYMMETRY` 묶음에 grid 계열이 없고 대조된 형제도 없어 각자 분류된다. 값은 셸이 정하는 것이라 이 면의 계약이 아니다.",
+      "height": "360. **계측 장치의 값이다.** 제품은 base 로 `height:auto`·`max-height:100%` 를 적고, `@media(min-width:1280px) and (min-height:760px)`(하네스 1440×900 에서 참)에서 `height:100%`·`max-height:none` 으로 바꾼다. 그 100% 가 host 360 을 잰 것이다 — 실제 높이는 격자의 작업행이 정한다.",
+      "overscroll-behavior-x": "contain. 패널 안에서 스크롤이 끝에 닿아도 뒤 페이지로 넘어가지 않게 가둔다. `editor-workspace.md` 의 「editor scroll 은 workspace 내부 pane 이 소유하고 body/main page scroll 과 경쟁하지 않는다」를 구현한 축이다. **가로 축은 이 패널에서 쓰이지 않는다** — `overflow-x:hidden` 이라 가로로 스크롤될 자리가 없고, 값은 단축 `overscroll-behavior:contain` 이 함께 편 것이다. DS 가 이 축을 아직 소유하지 않는다 — `figma/components.measured.json` 의 31종은 전부 컴포넌트이고 `editor-workspace` 패턴 기록도 `pane-divider` 레시피 기록도 한 줄이 없다(2026-08-31 확인). 대조할 DS 값이 없어 기록만 한다.",
+      "overscroll-behavior-y": "contain. **실제로 쓰이는 축이다** — 속성 패널은 세로로 긴 폼이라 안쪽 `propertiesPanelInner` 가 넘치면 여기서 스크롤이 멈춘다. route(docked) 모드에서는 `.vem-modalShellDocked &` 가 `overscroll-behavior:none` 으로 덮어 셸이 스크롤 사슬을 통째로 끊는다 — 그 분기는 조상이 없는 이 탐침에서 열거되지 않는다."
+    },
+    "editor-timeline-pane-product": {
+      "border-top-left-radius": "12. pane 면의 모서리다. 네 pane(assets · preview · properties · timeline)이 **전부 같은 12** 를 리터럴로 적는다 — 바닥의 24(도달하지 않는 값)와도, LOUIS 반경 계단의 overlay-lg 24 와도 다른 층이다. DS 가 이 축을 아직 소유하지 않는다 — `figma/components.measured.json` 의 31종은 전부 컴포넌트이고 `editor-workspace` 패턴 기록도 `pane-divider` 레시피 기록도 한 줄이 없다(2026-08-31 확인). 대조할 DS 값이 없어 기록만 한다.",
+      "border-top-right-radius": "12. 같은 `border-radius:12px` 단축이 네 귀를 함께 정한다. pane 은 바닥 위에 떠 있는 판이라 네 귀가 모두 노출되고, 그래서 한 귀만 다른 형태가 이 면에는 없다. 형제 중 대조된 축이 없어 대칭 묶음이 접어 주지 않는다.",
+      "border-bottom-left-radius": "12. 아래 두 귀도 같은 12 다. 이 값은 `--louis-radius-*` 계단 어느 이름도 경유하지 않는 **리터럴**이라, 계단이 움직여도 pane 은 따라가지 않는다. 그 어긋남을 지금 판정하지 않고 사실만 남긴다.",
+      "border-bottom-right-radius": "12. 넷째 귀다. `@media(max-width:719px)` 에서도 같은 12 를 다시 적어 compact 로 내려가도 곡률이 유지된다(그 규칙은 1440 폭 문서에서 열거되지 않는다). DS 가 이 축을 아직 소유하지 않는다 — `figma/components.measured.json` 의 31종은 전부 컴포넌트이고 `editor-workspace` 패턴 기록도 `pane-divider` 레시피 기록도 한 줄이 없다(2026-08-31 확인). 대조할 DS 값이 없어 기록만 한다.",
+      "grid-column-start": "`timeline`. **배치는 이 면이 아니라 셸의 격자가 소유한다.** `editor-workspace.md` 의 「Editor must not own — shell geometry」가 그것이고, 상수는 `grid-area:timeline` 한 줄로 자기 칸 이름만 말한다. 칸의 실제 폭은 `editor-workspace-grid-product · grid-template-columns` 가 갖는다. 컴포넌트가 스스로 갖는 모양이 아니므로 대조할 DS 값이 있을 수 없다.",
+      "grid-column-end": "`timeline`. `grid-area` 단축이 펴는 네 longhand 중 둘째다. 이름 하나로 4 방향을 지정했으므로 start 와 end 가 같은 이름이고, 그 이름이 격자의 `grid-template-areas` 에 있는 한 칸을 통째로 가리킨다 — span 계산이 아니라 이름 참조다.",
+      "grid-row-start": "`timeline`. 같은 단축의 셋째 longhand다. 타임라인 pane 이 격자에서 **한 칸만 차지**한다는 뜻이며, 행 방향으로 늘어나는 형태(타임라인 행처럼 5열을 덮는 것)와 구분된다.",
+      "grid-row-end": "`timeline`. 넷째 longhand다. 넷이 한 이름으로 같아 대칭처럼 보이지만 `SYMMETRY` 묶음에 grid 계열이 없고 대조된 형제도 없어 각자 분류된다. 값은 셸이 정하는 것이라 이 면의 계약이 아니다.",
+      "height": "400. **제품 값이다.** `height: var(--video-edit-timeline-height, 400px)` 의 폴백이며, 셸이 리사이즈 상태에서 계산한 값을 `VideoEditModal.tsx:11037` 에서 인라인으로 주기 전의 기본 높이다 — 사용자가 가로 구분자를 끌지 않은 첫 진입에서 화면에 서는 높이가 이것이다. 위 `grid-template-rows` 의 셋째 트랙 400 과 같은 원천이다. DS 가 이 축을 아직 소유하지 않는다 — `figma/components.measured.json` 의 31종은 전부 컴포넌트이고 `editor-workspace` 패턴 기록도 `pane-divider` 레시피 기록도 한 줄이 없다(2026-08-31 확인). 대조할 DS 값이 없어 기록만 한다."
+    },
+    "editor-pane-divider-vertical-product": {
+      "::before border-top-left-radius": "999. 그립(가운데 알약)의 곡률이며 **LOUIS `--louis-radius-pill` 이 정한다**(`packages/css/src/component/pane-divider.css`). 제품 상수는 `louis-pane-divider` 후크만 얹고 이 값을 적지 않는다 — 즉 이 축의 SSOT 는 제품이 아니라 제품이 핀으로 소비하는 LOUIS 판이다. DS 가 이 축을 아직 소유하지 않는다 — `figma/components.measured.json` 의 31종은 전부 컴포넌트이고 `editor-workspace` 패턴 기록도 `pane-divider` 레시피 기록도 한 줄이 없다(2026-08-31 확인). 대조할 DS 값이 없어 기록만 한다.",
+      "::before border-top-right-radius": "999. 같은 `border-radius: var(--louis-radius-pill)` 한 줄이 네 귀를 함께 정한다. 알약 형태는 그립이 세로 축으로 길이를 바꿀 때(쉴 때 60 → 얹거나 잡으면 80) 끝이 항상 반원으로 남게 하려는 것이며, 네 귀가 같아야 그 성질이 성립한다.",
+      "::before border-bottom-left-radius": "999. 999 는 `radius-full` 의 관용 표기이고 실제 그림은 짧은 변(inline-size 4px)의 절반에서 클램프된다 — 그래서 4×60 알약의 끝이 정확히 반원이다. 대칭 묶음이 접어 주지 않는 것은 형제 중 대조된 축이 하나도 없기 때문이다.",
+      "::before border-bottom-right-radius": "999. 넷째 귀다. LOUIS 레시피가 이 그립을 「상태를 길이로 말한다」로 규정하는데, 그 문장이 성립하려면 **곡률은 상태에 따라 변하지 않아야** 한다 — 네 귀가 한 값으로 고정된 것이 그 규범의 형태다. `data-louis-state=\"active\"` 는 상호배타 상태라 이 탐침에 붙이지 않았다.",
+      "grid-column-start": "`assets-divider`. **배치는 셸의 격자가 소유한다.** 제품 상수가 이 요소에 대해 스스로 적는 것은 `grid-area` 하나뿐이고, 나머지 모양은 전부 LOUIS 레시피에서 온다. 칸의 실제 치수는 `editor-workspace-grid-product` 의 트랙이 갖는다.",
+      "grid-column-end": "`assets-divider`. `grid-area` 단축이 펴는 둘째 longhand다. 이름 참조라 start·end 가 같고, 구분자는 격자에서 **한 칸을 통째로 차지하는 트랙 자체**다 — 이웃 pane 사이에 끼워 넣은 요소가 아니라 트랙에 배치된 요소라는 뜻이다.",
+      "grid-row-start": "`assets-divider`. 셋째 longhand다. 이 구분자가 세로 임을 격자 이름이 말한다. LOUIS 레시피는 「소비처가 소유하는 것: `grid-area` 배치」라고 그 경계를 이미 적어 두었고, 이 값이 그 문장의 실측이다.",
+      "grid-row-end": "`assets-divider`. 넷째 longhand다. 넷이 한 이름이라 값은 같지만 grid 계열은 `SYMMETRY` 묶음에 없고 대조된 형제도 없어 각자 분류된다. 셸이 정하는 값이므로 DS 계약의 대상이 아니다.",
+      "::before block-size": "60. 그립의 길이이며 LOUIS `--louis-layout-pane-divider-grip-length` 가 정한다(60px). 얹거나 잡으면 `-active`(80px)로 늘어나지만 그 두 상태는 상호배타라 이 탐침에 붙이지 않았다 — 여기 60 은 **쉬는 상태의 길이**다. 제품은 이 값을 적지 않고 후크만 얹는다. DS 가 이 축을 아직 소유하지 않는다 — `figma/components.measured.json` 의 31종은 전부 컴포넌트이고 `editor-workspace` 패턴 기록도 `pane-divider` 레시피 기록도 한 줄이 없다(2026-08-31 확인). 대조할 DS 값이 없어 기록만 한다."
+    },
+    "editor-pane-divider-horizontal-product": {
+      "::before border-top-left-radius": "999. 그립(가운데 알약)의 곡률이며 **LOUIS `--louis-radius-pill` 이 정한다**(`packages/css/src/component/pane-divider.css`). 제품 상수는 `louis-pane-divider` 후크만 얹고 이 값을 적지 않는다 — 즉 이 축의 SSOT 는 제품이 아니라 제품이 핀으로 소비하는 LOUIS 판이다. DS 가 이 축을 아직 소유하지 않는다 — `figma/components.measured.json` 의 31종은 전부 컴포넌트이고 `editor-workspace` 패턴 기록도 `pane-divider` 레시피 기록도 한 줄이 없다(2026-08-31 확인). 대조할 DS 값이 없어 기록만 한다.",
+      "::before border-top-right-radius": "999. 같은 `border-radius: var(--louis-radius-pill)` 한 줄이 네 귀를 함께 정한다. 알약 형태는 그립이 가로 축으로 길이를 바꿀 때(쉴 때 60 → 얹거나 잡으면 80) 끝이 항상 반원으로 남게 하려는 것이며, 네 귀가 같아야 그 성질이 성립한다.",
+      "::before border-bottom-left-radius": "999. 999 는 `radius-full` 의 관용 표기이고 실제 그림은 짧은 변(block-size 4px)의 절반에서 클램프된다 — 그래서 4×60 알약의 끝이 정확히 반원이다. 대칭 묶음이 접어 주지 않는 것은 형제 중 대조된 축이 하나도 없기 때문이다.",
+      "::before border-bottom-right-radius": "999. 넷째 귀다. LOUIS 레시피가 이 그립을 「상태를 길이로 말한다」로 규정하는데, 그 문장이 성립하려면 **곡률은 상태에 따라 변하지 않아야** 한다 — 네 귀가 한 값으로 고정된 것이 그 규범의 형태다. `data-louis-state=\"active\"` 는 상호배타 상태라 이 탐침에 붙이지 않았다.",
+      "grid-column-start": "`divider`. **배치는 셸의 격자가 소유한다.** 제품 상수가 이 요소에 대해 스스로 적는 것은 `grid-area` 하나뿐이고, 나머지 모양은 전부 LOUIS 레시피에서 온다. 칸의 실제 치수는 `editor-workspace-grid-product` 의 트랙이 갖는다.",
+      "grid-column-end": "`divider`. `grid-area` 단축이 펴는 둘째 longhand다. 이름 참조라 start·end 가 같고, 구분자는 격자에서 **한 칸을 통째로 차지하는 트랙 자체**다 — 이웃 pane 사이에 끼워 넣은 요소가 아니라 트랙에 배치된 요소라는 뜻이다.",
+      "grid-row-start": "`divider`. 셋째 longhand다. 이 구분자가 가로 임을 격자 이름이 말한다. LOUIS 레시피는 「소비처가 소유하는 것: `grid-area` 배치」라고 그 경계를 이미 적어 두었고, 이 값이 그 문장의 실측이다.",
+      "grid-row-end": "`divider`. 넷째 longhand다. 넷이 한 이름이라 값은 같지만 grid 계열은 `SYMMETRY` 묶음에 없고 대조된 형제도 없어 각자 분류된다. 셸이 정하는 값이므로 DS 계약의 대상이 아니다.",
+      "::before block-size": "4. 가로 구분자에서는 그립의 **두께**가 트랙과 같은 4 다(`--louis-layout-pane-divider-track`). 세로 구분자의 같은 축이 길이(60)인 것과 대비되며, 축이 뒤바뀌는 것이 `--vertical` ↔ `--horizontal` 두 변형이 공유하지 않는 유일한 것이라고 LOUIS 레시피가 적어 두었다 — 그 문장을 여기서 실측이 확인한다.",
+      "block-size": "4. 가로 구분자의 트랙 두께이며 LOUIS `--louis-layout-pane-divider-track`(4px) 이 정한다. 논리 property 라 `height` 축으로 접히지 않고 따로 잡힌다. `@media(max-width:719px)` 에서 두 배(8)로 커지지만 그 규칙은 1440 폭 문서에서 열거되지 않는다. DS 가 이 축을 아직 소유하지 않는다 — `figma/components.measured.json` 의 31종은 전부 컴포넌트이고 `editor-workspace` 패턴 기록도 `pane-divider` 레시피 기록도 한 줄이 없다(2026-08-31 확인). 대조할 DS 값이 없어 기록만 한다."
     }
   }
 }

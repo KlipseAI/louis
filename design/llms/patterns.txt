@@ -43,7 +43,7 @@
 | [Auth Two Panel](../patterns/auth-two-panel.md) | `experimental` | `partial` | `not-ready` | `done` | 인증 화면 8개가 쓰는 2열 셸. **경로가 둘이다** — 5개는 공용 `AuthStatusCard`를 쓰고 3개는 같은 셸을 자기 파일에 복제한다. 전환점은 720px 하나이고 좁은 폭에서 폼 패널이 `display: contents`로 사라져 카드가 페이지 그리드의 정렬을 직접 받는다. 브랜드 면은 `bg-accent-primary`(`--louis-color-accent-primary` · `#0088ff`)라 테마 분기가 없다 — 2026-08-24 배포본까지는 `#0093ff` 리터럴이었다 Figma 에 `DS · Templates` 의 `Pattern · AuthTwoPanel`(997:1220)로 섰다(2026-08-30). 문서가 요구한 대로 **하나로 그렸다** — 제품에는 공용 `AuthStatusCard` 를 쓰는 5벌과 같은 셸을 자기 파일에 복제한 3벌이 있는데, 그 복제는 그림이 아니라 알려진 부채다. 두 벌은 화면 폭이다: ≥720 2열(brand + form) · ≤719 1열(brand 는 그려지지 않고 로고 링크가 대신 선다). **브랜드 면은 `#0093ff` 리터럴로 칠했다** — 그릴 당시 문서가 「시맨틱 토큰이 아니라 리터럴이고 라이트/다크 어느 쪽에서도 같은 파랑」이라고 적었기 때문이다. **그 근거는 사라졌다** — 제품은 2026-08-24 부터 `bg-accent-primary` 이고 문서도 그렇게 고쳤으므로 이제는 `color/accent/primary` 에 묶는 것이 맞다. 카드 세로 간격이 8 → 24 로 세 배가 되는 것도 두 벌의 대비로 드러난다(제품 `AuthStatusCard.tsx` 의 카드가 `gap-4` → ≥720px `gap-12`, `--spacing: 2px` 기준 8 → 24 다. 28 은 `/login` 한 화면만 쓰는 값이다). `6svh`·`18ch` 는 px 토큰으로 승격되지 않으므로 대표값(54 · 373)으로 그렸다 — 슬로건 폭은 heading-36 기준 280 이었는데 아래의 heading-48 승급 변형을 세우면서 18ch 를 그 스케일로 다시 환산했다(280 × 48 / 36). **배경 SVG(`footer-logo-bg.svg`, `100% 100%` 로 늘어나는 것이 의도된 동작)와 ≥1200 에서 슬로건이 heading-48 로 승급하는 변형은 2026-08-30 에 들어갔다**(1040:13423 · 997:1224) — 앞서 「아직 없는 것」으로 적혀 있던 둘이다. **아직 없는 것**: 같은 셸을 자기 파일에 복제한 3벌(위의 알려진 부채). 그리고 브랜드 면 fill 이 아직 `#0093ff` 리터럴이라 제품과 어긋나 있다. 그래서 `partial` 이다. |
 | [Status Result](../patterns/status-result.md) | `experimental` | `partial` | `not-ready` | `done` | 결제·구독 결과 7화면의 콘텐츠 컬럼. **셸이 아니라 App Shell 카드 안이다.** 세로 리듬이 24px 하나뿐이고 처리 중에는 위에서 밀지 않고 카드 안 세로 중앙에 온다. 액션 버튼이 전폭이라 세로로 쌓인다. 900px 분기는 셸 경계가 아니라 이 화면 계열 전용이며 승인 여부가 blocker다 Figma 에 `DS · Templates` 의 `Pattern · StatusResult`(993:379)로 섰다(2026-08-30). Success·Failure·Processing 세 벌이고(Processing 컬럼 1056:13368 은 2026-08-30 에 더했다 — 문서가 「처리 중에는 위에서 밀지 않고 카드 안 세로 중앙에 온다」고 계약하므로 상태 하나가 아니라 컬럼 하나가 필요하다) **세로 간격이 24 하나뿐**인 것이 계약이라 컬럼 전체를 그 리듬으로만 세웠다. 폭 520(=min(520,100%)) · Alert 는 실패 화면에만 · 액션은 전폭 버튼 세로 쌓기 · Meta list 는 dt/dd 행이다. **아직 없는 것**: 900px 에서 meta 가 세로로 접히는 변형. 그래서 `partial` 이다. |
 | [Route Boundary](../patterns/route-boundary.md) | `experimental` | `partial` | `not-ready` | `done` | 404 · 오류 · 최후 경계 셋. **셋 중 하나는 디자인 시스템을 쓸 수 없다** — 최후 경계는 루트 레이아웃이 실패한 뒤라 토큰도 i18n도 전역 CSS도 없고, 토큰을 참조하도록 「고치면」 그 화면이 막으려던 실패에 함께 휩쓸린다. 앞의 둘은 같은 뼈대를 공용 컴포넌트가 아니라 복제로 쓴다. 값은 전부 제품 인용이며 DS 계약이 아니다 Figma 에 `DS · Templates` 의 `Pattern · RouteBoundary`(993:431)로 섰다(2026-08-30). 세 갈래를 그대로 그렸다 — 404 · 오류는 토큰과 공용 Button 을 쓰고, **최후 경계는 토큰을 쓰지 않는다**. 문서가 「루트 레이아웃이 실패한 뒤라 전역 CSS 도 i18n 도 로드되지 않았다」고 적으므로 그 프레임만 리터럴(#0a0a0a · #ededed · #a1a1a1 · 폭 420)로 그렸다 — 토큰으로 그렸다면 그림이 거짓말을 한다. **아직 없는 것**: ≤719px 좌우 패딩 16 변형. 그래서 `partial` 이다. |
-| [Project Grid](../patterns/project-grid.md) | `experimental` | `partial` | `partial` | `done` | Figma 에 `DS · Templates` 의 `Pattern · ProjectGrid`(991:252)로 섰다(2026-08-30). **열 수를 viewport 표로 그리지 않았다** — 레시피가 `auto-fill minmax(240px, 1fr)` 이라 열 수는 container 폭에서 유도된다(`floor((W + 4) / 244)`). 문서 자신도 viewport 표는 호환 프로파일이고 container 가 좁으면 줄 수 있다고 적는다. 그래서 container 600·850·1116·1300 → 2·3·4·5열로 그렸고, 1116/4열은 `Template · AppHome` 의 격자와 같은 값이다. 상태 셋(Loading=Skeleton block · Error=Alert danger · Empty=EmptyState)도 함께 그렸다. **아직 없는 것**: section header(label·count·action)와 pagination/load-more sentinel. 그래서 `partial` 이다. |
+| [Project Grid](../patterns/project-grid.md) | `experimental` | `partial` | `partial` | `done` | Figma 에 `DS · Templates` 의 `Pattern · ProjectGrid`(991:252)로 섰다(2026-08-30). **열 수를 viewport 표로 그리지 않았다** — 레시피가 `auto-fill minmax(240px, 1fr)` 이라 열 수는 container 폭에서 유도된다(`floor((W + 6) / 246)`). 문서 자신도 viewport 표는 호환 프로파일이고 container 가 좁으면 줄 수 있다고 적는다. 그래서 container 600·850·1116·1300 → 2·3·4·5열로 그렸고, 1116/4열은 `Template · AppHome` 의 격자와 같은 값이다. 상태 셋(Loading=Skeleton block · Error=Alert danger · Empty=EmptyState)도 함께 그렸다. **아직 없는 것**: section header(label·count·action)와 pagination/load-more sentinel. 그래서 `partial` 이다. |
 | [Editor Workspace](../patterns/editor-workspace.md) | `experimental` | `partial` | `not-ready` | `done` | Figma 에 `DS · Templates` 의 `Pattern · EditorWorkspace`(1000:1252)로 섰다(2026-08-30). Regular 은 레시피 그대로 `assets · divider · preview · divider · properties` 상단 행 + 가로 divider + 하단 timeline 이고, 구분자는 전부 `PaneDivider` 인스턴스다. Compact 는 한 열이며 **assets 에도 명시적 진입점**을 두었다(문서가 「숨은 implicit grid track 에 우연히 배치하는 구현을 허용하지 않는다」고 적는다). **pane 폭과 timeline 높이는 예시로 표시했다** — 문서가 「임의 fallback 숫자를 토큰으로 승격하지 않는다」고 하고 실제로 승인된 pane 폭 토큰이 없으므로, 숫자를 그려 넣으면 없는 계약을 만드는 것이 된다. 계약인 것은 구조와 순서다. **아직 없는 것**: Modal editor mode(backdrop · inert · focus trap) · Constrained mode · 캔버스 노드 사이드 컨트롤(`28 · 10 · 8 · 38 · 476` 한 세트). 그래서 `partial` 이다. |
 <!-- GENERATED:pattern-progress END -->
 <!-- prettier-ignore-end -->
@@ -1788,7 +1788,7 @@ refetch 순서는 공용 recipe로 가져오지 않는다.
 
 - P2 local RC에 `layout-project-card-minimum`과 `layout-project-grid-gap` 토큰은 있다. 이를 소비하는 container
   기반 공용 grid recipe와 실제 카드 content 실측은 아직 없다.
-- **`auto-fill` 환산과 migration compatibility profile이 아직 같은 답을 내지 않는다.** 240 / 4로는
+- **`auto-fill` 환산과 migration compatibility profile이 아직 같은 답을 내지 않는다.** 240 / 6으로는
   720px에서 2열(profile 3), 1800px에서 7열(profile 5)이다. 하나의 카드 최소 폭으로는 양쪽을 동시에
   만족시킬 수 없으므로, profile을 유지한 채 container 기반으로 가려면 열 수 상한을 함께 두는 등
   공식 자체를 바꿔야 한다. 그 판정 전까지 정본은 profile이다.
@@ -1827,12 +1827,15 @@ grid-template-columns: repeat(
 없다. 이 recipe의 열 수는 `floor((W + gap) / (최소 + gap))`이다.
 
 **그 환산은 위의 compatibility profile을 재현하지 못한다 — 정본은 profile 쪽이다.** 오늘의
-토큰 값(`layout-project-card-minimum` 240px · `layout-project-grid-gap` 4px,
-`packages/css/generated/tokens.css:479-480`)을 넣으면 한 열이 244px씩 들어가므로, 폭 720px에서
-`floor(724 / 244)` = 2열이고 profile은 3열, 폭 1800px에서 `floor(1804 / 244)` = 7열이고 profile은
+토큰 값(`layout-project-card-minimum` 240px · `layout-project-grid-gap` 6px,
+`packages/tokens/generated/tokens.css:480-481`)을 넣으면 한 열이 246px씩 들어가므로, 폭 720px에서
+`floor(726 / 246)` = 2열이고 profile은 3열, 폭 1800px에서 `floor(1806 / 246)` = 7열이고 profile은
 5열이다. 두 축이 맞는 곳은 1200px 구간(4열)뿐이다. 최소 폭을 되튜닝해도 풀리지 않는다 —
-720px에서 3열이 나오려면 `최소 + gap`이 241px 이하여야 하고 1800px에서 5열이 나오려면 301px
+720px에서 3열이 나오려면 `최소 + gap`이 242px 이하여야 하고 1800px에서 5열이 나오려면 302px
 이상이어야 해서, 하나의 최소 폭이 동시에 만족시킬 수 없다.
+
+gap 을 4px 에서 6px 로 올려도 이 엇갈림은 그대로다 — 네 구간의 답(2·4·7열과 profile 3·4·5)이
+바뀌지 않는다. **gap 은 이 blocker 의 원인이 아니다.**
 
 profile은 승인된 값이고 제품이 그대로 구현하고 있다 — 제품 `appHomeSceneStyles.ts`의
 `archiveGrid`는 `repeat(2, 1fr)`에 `min-[720px]` 3열 · `min-[1200px]` 4열 · `min-[1800px]` 5열을

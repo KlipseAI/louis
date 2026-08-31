@@ -1932,7 +1932,7 @@
       "web": "partial",
       "docs": "done",
       "doc": "design/patterns/project-grid.md",
-      "note": "Figma 에 `DS · Templates` 의 `Pattern · ProjectGrid`(991:252)로 섰다(2026-08-30). **열 수를 viewport 표로 그리지 않았다** — 레시피가 `auto-fill minmax(240px, 1fr)` 이라 열 수는 container 폭에서 유도된다(`floor((W + 4) / 244)`). 문서 자신도 viewport 표는 호환 프로파일이고 container 가 좁으면 줄 수 있다고 적는다. 그래서 container 600·850·1116·1300 → 2·3·4·5열로 그렸고, 1116/4열은 `Template · AppHome` 의 격자와 같은 값이다. 상태 셋(Loading=Skeleton block · Error=Alert danger · Empty=EmptyState)도 함께 그렸다. **아직 없는 것**: section header(label·count·action)와 pagination/load-more sentinel. 그래서 `partial` 이다."
+      "note": "Figma 에 `DS · Templates` 의 `Pattern · ProjectGrid`(991:252)로 섰다(2026-08-30). **열 수를 viewport 표로 그리지 않았다** — 레시피가 `auto-fill minmax(240px, 1fr)` 이라 열 수는 container 폭에서 유도된다(`floor((W + 6) / 246)`). 문서 자신도 viewport 표는 호환 프로파일이고 container 가 좁으면 줄 수 있다고 적는다. 그래서 container 600·850·1116·1300 → 2·3·4·5열로 그렸고, 1116/4열은 `Template · AppHome` 의 격자와 같은 값이다. 상태 셋(Loading=Skeleton block · Error=Alert danger · Empty=EmptyState)도 함께 그렸다. **아직 없는 것**: section header(label·count·action)와 pagination/load-more sentinel. 그래서 `partial` 이다."
     },
     {
       "id": "editor-workspace",

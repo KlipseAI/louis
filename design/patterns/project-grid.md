@@ -183,7 +183,7 @@ refetch 순서는 공용 recipe로 가져오지 않는다.
 
 - P2 local RC에 `layout-project-card-minimum`과 `layout-project-grid-gap` 토큰은 있다. 이를 소비하는 container
   기반 공용 grid recipe와 실제 카드 content 실측은 아직 없다.
-- **`auto-fill` 환산과 migration compatibility profile이 아직 같은 답을 내지 않는다.** 240 / 4로는
+- **`auto-fill` 환산과 migration compatibility profile이 아직 같은 답을 내지 않는다.** 240 / 6으로는
   720px에서 2열(profile 3), 1800px에서 7열(profile 5)이다. 하나의 카드 최소 폭으로는 양쪽을 동시에
   만족시킬 수 없으므로, profile을 유지한 채 container 기반으로 가려면 열 수 상한을 함께 두는 등
   공식 자체를 바꿔야 한다. 그 판정 전까지 정본은 profile이다.
@@ -222,12 +222,15 @@ grid-template-columns: repeat(
 없다. 이 recipe의 열 수는 `floor((W + gap) / (최소 + gap))`이다.
 
 **그 환산은 위의 compatibility profile을 재현하지 못한다 — 정본은 profile 쪽이다.** 오늘의
-토큰 값(`layout-project-card-minimum` 240px · `layout-project-grid-gap` 4px,
-`packages/css/generated/tokens.css:479-480`)을 넣으면 한 열이 244px씩 들어가므로, 폭 720px에서
-`floor(724 / 244)` = 2열이고 profile은 3열, 폭 1800px에서 `floor(1804 / 244)` = 7열이고 profile은
+토큰 값(`layout-project-card-minimum` 240px · `layout-project-grid-gap` 6px,
+`packages/tokens/generated/tokens.css:480-481`)을 넣으면 한 열이 246px씩 들어가므로, 폭 720px에서
+`floor(726 / 246)` = 2열이고 profile은 3열, 폭 1800px에서 `floor(1806 / 246)` = 7열이고 profile은
 5열이다. 두 축이 맞는 곳은 1200px 구간(4열)뿐이다. 최소 폭을 되튜닝해도 풀리지 않는다 —
-720px에서 3열이 나오려면 `최소 + gap`이 241px 이하여야 하고 1800px에서 5열이 나오려면 301px
+720px에서 3열이 나오려면 `최소 + gap`이 242px 이하여야 하고 1800px에서 5열이 나오려면 302px
 이상이어야 해서, 하나의 최소 폭이 동시에 만족시킬 수 없다.
+
+gap 을 4px 에서 6px 로 올려도 이 엇갈림은 그대로다 — 네 구간의 답(2·4·7열과 profile 3·4·5)이
+바뀌지 않는다. **gap 은 이 blocker 의 원인이 아니다.**
 
 profile은 승인된 값이고 제품이 그대로 구현하고 있다 — 제품 `appHomeSceneStyles.ts`의
 `archiveGrid`는 `repeat(2, 1fr)`에 `min-[720px]` 3열 · `min-[1200px]` 4열 · `min-[1800px]` 5열을

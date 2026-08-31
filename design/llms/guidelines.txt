@@ -8766,6 +8766,45 @@ DS 쪽 정본은 [Motion](../foundations/motion.md)의 감소-모션 계약이�
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
 
+#### 2026-08-31 (109) — 카드 격자 간격을 4px 에서 6px 로 되튜닝한다
+
+제품의 카드 격자가 랜딩과 어긋나 있었다. 랜딩의 세 캐러셀은 이미 6px(`gap-3`, `--spacing: 2px`)
+인데 앱의 프로젝트 격자 네 곳은 4px 였다. 같은 「카드가 나란히 놓인 줄」이 화면에 따라 다른
+간격으로 보이던 것이므로, **넓은 쪽인 6px 로 모은다.**
+
+새 토큰을 만들지 않았다. 이 관계에는 이미 이름이 있다 — `layout-project-grid-gap` 이고, 값만
+`{primitive.spacing.4}` → `{primitive.spacing.6}` 으로 옮겼다. 소비처가 없어서 값이 놀고 있던
+토큰에 제품을 붙이는 변경이기도 하다.
+
+| 자리 | 이전 | 지금 |
+| --- | --- | --- |
+| `layout-project-grid-gap` | 4px | **6px** |
+| 앱 프로젝트 격자 4곳 | `gap-2` 리터럴 | `gap-layout-project-grid-gap` (토큰) |
+| 랜딩 최신 소식 트랙 | `gap-2` + 열 347px | `gap-3` + 열 346px |
+| 크리에이터 미디어 카드 격자 2곳 | `gap-2` | `gap-3` |
+
+**토큰을 쓰는 자리와 `gap-3` 을 쓰는 자리를 갈랐다.** 프로젝트 격자 네 곳(archive home ·
+NodeCanvas hub · Video Editor history · Highlight history)만 토큰을 소비한다 — 이 넷이
+[Project Grid](../patterns/project-grid.md) 의 compatibility profile 이 말하는 그 격자이고,
+capacity 산술이 이 토큰을 참조하기 때문이다. 랜딩과 이벤트 페이지의 카드 줄은 같은 6px 이지만
+프로젝트 격자가 아니므로 primitive 스케일(`gap-3`)로 적는다. 값이 같다고 이름을 빌려 쓰면
+다음에 프로젝트 격자만 되튜닝할 때 관계없는 화면이 함께 움직인다.
+
+랜딩 최신 소식 트랙은 열 폭도 같이 움직였다. 열 폭이 `(1400 − gap×3) ÷ 4` 로 잡혀 있어서다 —
+gap 이 4일 때 347px 였고 6이면 345.5px 라 격자에 떨어지지 않는다. **346px 로 올림했다.** 4열 합이
+1402px 로 콘텐츠 폭보다 2px 넓지만 트랙이 `w-max` 로 가로 스크롤하는 자리라 잘리는 것이 없고,
+오히려 347 이 홀수라 2px 격자 밖이던 것이 346 으로 격자에 올라온다. 스냅 간격도 351 → 352 다.
+
+capacity 산술의 숫자가 함께 바뀌었다(한 열 244 → 246px, `floor((W + 4) / 244)` →
+`floor((W + 6) / 246)`). **결론은 그대로다** — `auto-fill` 환산과 profile 이 엇갈리는 구간
+(720px·1800px)이 gap 을 올려도 같은 답을 낸다. gap 은 그 blocker 의 원인이 아니었다.
+
+[Releases](../governance/releases.md) 「의도적 breaking과 baseline 갱신」 절차대로 이 항목을 먼저
+쓰고, `node scripts/diff-tokens.mjs` 로 breaking 이 `layout-project-grid-gap` 하나뿐인지 확인한 뒤
+`packages/tokens/baseline/manifest.json` 을 같은 변경 단위에서 갱신했다. 같은 diff 에
+`layout-control-height-sm` 이 additive 로 하나 남아 있었는데, 이번 변경 이전부터 baseline 이
+따라오지 못하고 있던 것이라 함께 흡수했다.
+
 #### 2026-08-31 (108) — 배너 캐러셀을 가운데 정렬로 되튜닝한다
 
 제품 아카이브 배너가 Figma page 14 시안으로 바뀌었고([klipse-web `design`](https://github.com/KlipseAI/klipse-web)

@@ -9524,22 +9524,22 @@ export const tokens = {
     },
     "layout-project-grid-gap": {
       "aliasTarget": {
-        "id": "space-4",
+        "id": "space-6",
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-layout-project-grid-gap": "4px"
+        "--louis-layout-project-grid-gap": "6px"
       },
       "deprecated": null,
       "description": null,
       "id": "layout-project-grid-gap",
       "mode": "global",
-      "rawValue": "{primitive.spacing.4}",
+      "rawValue": "{primitive.spacing.6}",
       "sourcePath": "semantic.global.layout.project-grid-gap",
       "tier": "semantic",
       "type": "dimension",
       "value": {
-        "value": 4,
+        "value": 6,
         "unit": "px"
       }
     },

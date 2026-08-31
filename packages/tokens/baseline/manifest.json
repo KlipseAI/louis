@@ -2,23 +2,23 @@
   "artifacts": [
     {
       "path": "packages/tokens/generated/figma.tokens.json",
-      "sha256": "45c9a878c91a99284467948b4ddf6f8c6095f902ea09c47691d4a72ad848d9a2"
+      "sha256": "6167a86964072aa3ec60be1d44f6469085fd9bb3b9c1419a496b3a9d1b6e16fe"
     },
     {
       "path": "packages/tokens/generated/index.d.ts",
-      "sha256": "354c8c4d8a59670e05d887ad1912fd4ff444ffc81ca0e6f41279192ae4e90d43"
+      "sha256": "67290a3a01d74cc9ea6ce009790cbb9668bb2d0c16356f663b9e0abb4d69cfbc"
     },
     {
       "path": "packages/tokens/generated/index.js",
-      "sha256": "cb04a2dba578095ba45ef607ed0d4494066e4608e830e4665e18736ea04e2d4d"
+      "sha256": "1b79ea56aa5ee2ca7d1309b97ad7e18b89779a3cb10554d8eb9279c5c73fb3f5"
     },
     {
       "path": "packages/tokens/generated/tokens.css",
-      "sha256": "b6394a519e08fc2fa480f62808119514cbf8b4d233aefede7c2bda4211e53ba8"
+      "sha256": "1239d6546e18d45bf1cb26eae8a788cdd4f4722e0d64f065997523291b1ac103"
     },
     {
       "path": "packages/tokens/generated/tokens.json",
-      "sha256": "f0bc95272abe7ee2ed20e303b3d496b57265e5b38d27c0cdb839df6e2cdf4a45"
+      "sha256": "17924c66cb0001811f2a90e082c3262d90dd0418ceb46c07f9d5549ca989fb9a"
     }
   ],
   "contrastPairs": [
@@ -408,13 +408,13 @@
   },
   "source": {
     "path": "packages/tokens/src/klipse.tokens.json",
-    "sha256": "023e6096f7c0fc6169a7de8ca4a314092fdac8aaa01dbc84b40cd4f0c3ed4d87"
+    "sha256": "5cdf18578b03989c9abff277abd91f1a6c74b075fa9832d42c28741ae4fb75d8"
   },
   "themes": [
     "light",
     "dark"
   ],
-  "tokenCount": 772,
+  "tokenCount": 773,
   "tokens": [
     {
       "aliasTarget": {
@@ -15692,6 +15692,27 @@
     },
     {
       "aliasTarget": {
+        "id": "space-24",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-layout-control-height-sm": "24px"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "layout-control-height-sm",
+      "mode": "global",
+      "rawValue": "{primitive.spacing.24}",
+      "resolvedValue": {
+        "unit": "px",
+        "value": 24
+      },
+      "sourcePath": "semantic.global.layout.control-height-sm",
+      "tier": "semantic",
+      "type": "dimension"
+    },
+    {
+      "aliasTarget": {
         "id": "space-44",
         "mode": "base"
       },
@@ -15944,20 +15965,20 @@
     },
     {
       "aliasTarget": {
-        "id": "space-4",
+        "id": "space-6",
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-layout-project-grid-gap": "4px"
+        "--louis-layout-project-grid-gap": "6px"
       },
       "deprecated": null,
       "description": null,
       "id": "layout-project-grid-gap",
       "mode": "global",
-      "rawValue": "{primitive.spacing.4}",
+      "rawValue": "{primitive.spacing.6}",
       "resolvedValue": {
         "unit": "px",
-        "value": 4
+        "value": 6
       },
       "sourcePath": "semantic.global.layout.project-grid-gap",
       "tier": "semantic",

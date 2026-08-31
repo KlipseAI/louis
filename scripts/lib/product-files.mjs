@@ -45,4 +45,14 @@ export const PRODUCT_FILES = {
   landingGnb: "apps/web/components/landing/navigation/Gnb.tsx",
   inlineLoadingLabel: "apps/web/components/ui/InlineLoadingLabel.tsx",
   segmentedCodeInput: "apps/web/components/ui/SegmentedCodeInput.tsx",
+  // ── 결제 결과 화면(status-result) ─────────────────────────────────────────
+  // `design/patterns/status-result.md` 가 계약하는 콘텐츠 컬럼인데 **실측 하네스가 이 계열을
+  // 한 축도 재지 않았다.** 그래서 Figma 에 `Pattern · StatusResult` 를 세웠을 때 제품과
+  // 갈린 축들이 게이트를 통과했다 — 재지 않는 자리는 갈라져도 조용하다.
+  //
+  // 일곱 화면(업그레이드 성공·실패 · 정기결제 성공·실패 · 결제수단 변경 성공·실패 · 충전
+  // 성공·실패)이 같은 이름의 상수를 각자 복제해 들고 있고, 그중 이 파일이 가장 많이 가진
+  // 벌이다 — 붉은 배너(`STATUS_ALERT_ERROR`)가 **실재하는 라우트가 여기 하나뿐**이라
+  // (status-result.md 의 2026-08-30 정정) 다른 화면을 골랐다면 그 부품을 잴 수 없다.
+  statusResult: "apps/web/app/mypage/upgrade/billing-success/page.tsx",
 };

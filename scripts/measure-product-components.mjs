@@ -935,6 +935,88 @@ const PROBES = [
     tag: "input",
     read: ["maxWidth", "height", "borderTopLeftRadius", "borderTopWidth"],
   },
+  // ── 결제 결과 화면(status-result) — **이 패턴은 지금까지 아무것도 재지 않았다** ────────
+  //
+  // `design/patterns/status-result.md` 가 결제·구독 결과 일곱 화면의 콘텐츠 컬럼을 계약하는데,
+  // 그 값은 전부 **사람이 배포본을 읽고 옮겨 적은 인용**이었다(문서 스스로 「그 전까지 이 문서의
+  // 값은 제품 인용이며 DS 계약이 아니다」라고 적는다). 그래서 Figma 에 `Pattern · StatusResult`
+  // 를 세웠을 때 제품과 갈린 축들이 게이트를 통과했다 — 프로필 팝오버와 같은 침묵이다.
+  //
+  // **여기 EXPECT 행이 하나도 없는 것은 빠뜨린 것이 아니다.** `figma/components.measured.json`
+  // 에 `status-result` 계약이 없다 — 이 패턴은 아직 `experimental` 이고 승격 조건(900px 경계
+  // 승인 · secondary 팔레트 잉크 판정 · 폭/간격/오프셋의 semantic token 화)이 열려 있다.
+  // 대조할 DS 값이 없는데 계약을 지어내면 **제품을 베낀 값을 DS 라고 부르는 것**이 되고, 그것은
+  // 이 하네스가 뒤집으려던 방향 그대로다. 그래서 탐침은 제품 값을 **기록만** 하고, 분류는
+  // `figma/product-coverage.json` 이 「DS 가 이 축을 아직 소유하지 않는다」로 받는다.
+  // 승격되어 기록이 서는 날 그 사유를 EXPECT 행으로 바꾸면 된다.
+  //
+  // 컬럼 폭은 호스트가 좁으면 `min(520px,100%)` 의 100% 쪽이 이겨 **호스트 폭을 재게 된다.**
+  // 520 이 실제로 드러나도록 host 를 1440 으로 준다(dialog-card 와 같은 이유).
+  {
+    id: "status-card-product",
+    source: "billing-success/page.tsx STATUS_CARD — 결과 화면 콘텐츠 컬럼(상태 수식자 IDLE/LOADING 은 상호배타라 뺐다)",
+    from: ["statusResult", "STATUS_CARD"],
+    tag: "section",
+    hostWidth: 1440,
+    read: ["rowGap", "width"],
+  },
+  {
+    id: "status-title-product",
+    source: "billing-success/page.tsx STATUS_TITLE — h1. 크기·행간·굵기를 요소가 직접 선언한다",
+    from: ["statusResult", "STATUS_TITLE"],
+    tag: "h1",
+    text: "결제가 완료되었어요",
+    read: ["fontSize", "lineHeight", "fontWeight", "marginTop"],
+  },
+  {
+    id: "status-description-product",
+    source: "billing-success/page.tsx STATUS_DESCRIPTION — p. 개행이 살아나는 pre-line 문단",
+    from: ["statusResult", "STATUS_DESCRIPTION"],
+    tag: "p",
+    text: "구독이 시작되었습니다.",
+    read: ["fontSize", "lineHeight", "marginTop"],
+  },
+  {
+    id: "status-alert-product",
+    source: "billing-success/page.tsx STATUS_ALERT_ERROR — 결과 처리 오류 배너. 제품에서 실재하는 라우트가 이 화면 하나뿐이다",
+    from: ["statusResult", "STATUS_ALERT_ERROR"],
+    text: "구독 반영에 실패했어요",
+    read: ["paddingTop", "paddingLeft", "borderTopLeftRadius", "borderTopWidth", "fontSize", "lineHeight"],
+  },
+  {
+    id: "status-meta-list-product",
+    source: "billing-success/page.tsx STATUS_META_LIST — dl. 행·dt·dd 규칙은 자손 변형이라 이 요소가 아니라 자식이 받는다",
+    from: ["statusResult", "STATUS_META_LIST"],
+    tag: "dl",
+    read: ["rowGap", "columnGap", "marginTop"],
+  },
+  {
+    id: "status-actions-product",
+    source: "billing-success/page.tsx STATUS_ACTIONS — 전폭 버튼이 세로로 쌓이는 액션 묶음",
+    from: ["statusResult", "STATUS_ACTIONS"],
+    read: ["columnGap", "rowGap", "marginTop"],
+  },
+  // 액션은 `next/link` 가 그리는 **`<a>`** 다(page.tsx:501·510·515). 상수가 `no-underline!` 와
+  // `text-gray-900!` 로 레이어 밖 전역 `a` 규칙과 다투므로(파일 머리말 규칙 3) 태그를 button 으로
+  // 바꿔 재면 그 다툼이 사라져 제품에 없는 값을 재게 된다.
+  {
+    id: "status-button-primary-product",
+    source: "billing-success/page.tsx STATUS_BUTTON_PRIMARY — 전폭 primary 액션(a)",
+    from: ["statusResult", "STATUS_BUTTON_PRIMARY"],
+    tag: "a",
+    attrs: { href: "#" },
+    text: "보관함으로 가기",
+    read: ["height", "paddingLeft", "borderTopLeftRadius", "fontSize", "fontWeight"],
+  },
+  {
+    id: "status-button-secondary-product",
+    source: "billing-success/page.tsx STATUS_BUTTON_SECONDARY — 전폭 secondary 액션(a). 면이 팔레트 잉크라 두 테마에서 고정된다",
+    from: ["statusResult", "STATUS_BUTTON_SECONDARY"],
+    tag: "a",
+    attrs: { href: "#" },
+    text: "요금제로 돌아가기",
+    read: ["height", "paddingLeft", "borderTopLeftRadius", "fontSize", "fontWeight"],
+  },
 ];
 
 // ── DS와 무엇을 어떻게 맞출지 ──────────────────────────────────────────────

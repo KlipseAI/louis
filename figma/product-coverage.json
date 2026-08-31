@@ -500,6 +500,51 @@
       "border-bottom-left-radius": "네 모서리가 같은 축이다. EXPECT 가 top-left 에서 본다.",
       "border-bottom-right-radius": "네 모서리가 같은 축이다. EXPECT 가 top-left 에서 본다.",
       "border-top-right-radius": "네 모서리가 같은 축이다. EXPECT 가 top-left 에서 본다."
+    },
+    "status-card-product": {
+      "row-gap": "컬럼의 유일한 세로 리듬 24px 이다(status-result.md 「세로 간격 24px 하나뿐」). **DS 가 이 축을 아직 소유하지 않는다** — figma/components.measured.json 에 `status-result` 기록이 없고 design/patterns/status-result.md 는 `experimental` 이라 스스로 「이 문서의 값은 제품 인용이며 DS 계약이 아니다」라고 적는다. 대조할 DS 값이 없으므로 탐침이 제품 값을 기록만 하고, 승격되어 기록이 서는 날 EXPECT 행으로 옮긴다.",
+      "column-gap": "`gap-12` 이 두 축을 함께 선언한 것이고 컬럼은 세로 배치라 가로 축은 쓰이지 않는다. 값은 세로 리듬과 같은 24px 이다. **DS 가 이 축을 아직 소유하지 않는다** — figma/components.measured.json 에 `status-result` 기록이 없고 design/patterns/status-result.md 는 `experimental` 이라 스스로 「이 문서의 값은 제품 인용이며 DS 계약이 아니다」라고 적는다. 대조할 DS 값이 없으므로 탐침이 제품 값을 기록만 하고, 승격되어 기록이 서는 날 EXPECT 행으로 옮긴다."
+    },
+    "status-alert-product": {
+      "padding-block-start": "결과 처리 오류 배너의 세로 여백 12px 이다. **DS 가 이 축을 아직 소유하지 않는다** — figma/components.measured.json 에 `status-result` 기록이 없고 design/patterns/status-result.md 는 `experimental` 이라 스스로 「이 문서의 값은 제품 인용이며 DS 계약이 아니다」라고 적는다. 대조할 DS 값이 없으므로 탐침이 제품 값을 기록만 하고, 승격되어 기록이 서는 날 EXPECT 행으로 옮긴다. 값이 다른 붉은 배너가 LOUIS 에 또 있지만(체크아웃 오류 배너) 이 화면은 `.louis-alert` 를 소비하지 않고, 그 정본도 components.measured.json 에는 없다.",
+      "padding-block-end": "위와 같은 축이다 — 위아래 여백이 12px 로 같다. 대조할 DS 값이 없어 기록만 한다.",
+      "padding-inline-start": "배너의 가로 여백 16px 이다. **DS 가 이 축을 아직 소유하지 않는다** — figma/components.measured.json 에 `status-result` 기록이 없고 design/patterns/status-result.md 는 `experimental` 이라 스스로 「이 문서의 값은 제품 인용이며 DS 계약이 아니다」라고 적는다. 대조할 DS 값이 없으므로 탐침이 제품 값을 기록만 하고, 승격되어 기록이 서는 날 EXPECT 행으로 옮긴다.",
+      "padding-inline-end": "위와 같은 축이다 — 좌우 여백이 16px 로 같다. 대조할 DS 값이 없어 기록만 한다.",
+      "border-top-left-radius": "배너 곡률 12px 이다. **DS 가 이 축을 아직 소유하지 않는다** — figma/components.measured.json 에 `status-result` 기록이 없고 design/patterns/status-result.md 는 `experimental` 이라 스스로 「이 문서의 값은 제품 인용이며 DS 계약이 아니다」라고 적는다. 대조할 DS 값이 없으므로 탐침이 제품 값을 기록만 하고, 승격되어 기록이 서는 날 EXPECT 행으로 옮긴다.",
+      "border-top-right-radius": "네 모서리가 12px 로 같은 축이다. 대조할 DS 값이 없어 top-left 와 함께 기록만 한다.",
+      "border-bottom-left-radius": "네 모서리가 12px 로 같은 축이다. 대조할 DS 값이 없어 top-left 와 함께 기록만 한다.",
+      "border-bottom-right-radius": "네 모서리가 12px 로 같은 축이다. 대조할 DS 값이 없어 top-left 와 함께 기록만 한다."
+    },
+    "status-meta-list-product": {
+      "row-gap": "`gap-0` 이다 — 행 사이 간격을 gap 이 아니라 각 행의 세로 패딩(12px)과 구분선이 만든다(status-result.md Meta list 표). 0 은 빠뜨린 값이 아니라 명시된 부재다. **DS 가 이 축을 아직 소유하지 않는다** — figma/components.measured.json 에 `status-result` 기록이 없고 design/patterns/status-result.md 는 `experimental` 이라 스스로 「이 문서의 값은 제품 인용이며 DS 계약이 아니다」라고 적는다. 대조할 DS 값이 없으므로 탐침이 제품 값을 기록만 하고, 승격되어 기록이 서는 날 EXPECT 행으로 옮긴다.",
+      "column-gap": "위와 같은 선언이 만든 가로 축이다. 행 배치·구분선·dt/dd 는 `[&>div]`·`[&_dt]` 자손 변형이라 이 요소(dl)가 아니라 자식이 받는다 — 그래서 이 탐침의 열거에 나오지 않는다. 대조할 DS 값이 없어 기록만 한다."
+    },
+    "status-actions-product": {
+      "row-gap": "액션 묶음의 간격 10px 이다. 버튼이 전폭이라 실제로 쓰이는 것은 이 세로 축이다(status-result.md 가 「아직 토큰이 없는 축」 표에 액션 간격 10px 을 적어 둔다). **DS 가 이 축을 아직 소유하지 않는다** — figma/components.measured.json 에 `status-result` 기록이 없고 design/patterns/status-result.md 는 `experimental` 이라 스스로 「이 문서의 값은 제품 인용이며 DS 계약이 아니다」라고 적는다. 대조할 DS 값이 없으므로 탐침이 제품 값을 기록만 하고, 승격되어 기록이 서는 날 EXPECT 행으로 옮긴다.",
+      "column-gap": "`gap-5` 이 두 축을 함께 선언한 것이고 값은 10px 로 같다. 전폭 버튼이라 가로로 나란히 놓이는 일이 없어 이 축은 쓰이지 않는다. 대조할 DS 값이 없어 기록만 한다.",
+      "flex-wrap": "전폭 버튼이 세로로 쌓이게 만드는 배치 규칙이다 — 기하 수치가 아니라 배치이고, DS 가 이 패턴을 아직 소유하지 않아 대조할 기록이 없다. status-result.md 의 Acceptance test 6 이 그 결과(세로 쌓임)를 문장으로만 계약한다."
+    },
+    "status-button-primary-product": {
+      "height": "전폭 액션 버튼의 높이 32px 이다. **`.louis-button` 을 소비하지 않는 별벌 컨트롤**이라 `button.sizes.md` 계약이 이 요소를 지배하지 않는다 — 값이 그 칸(32)과 같지만, 같다고 EXPECT 로 묶으면 제품이 이 화면만 바꿔도 Button 계약이 깨진 것처럼 읽힌다. **DS 가 이 축을 아직 소유하지 않는다** — figma/components.measured.json 에 `status-result` 기록이 없고 design/patterns/status-result.md 는 `experimental` 이라 스스로 「이 문서의 값은 제품 인용이며 DS 계약이 아니다」라고 적는다. 대조할 DS 값이 없으므로 탐침이 제품 값을 기록만 하고, 승격되어 기록이 서는 날 EXPECT 행으로 옮긴다.",
+      "padding-block-start": "세로 여백 0 이다 — 높이가 타깃을 잡는다. 대조할 DS 값이 없어 기록만 한다.",
+      "padding-block-end": "위와 같은 축이다. 대조할 DS 값이 없어 기록만 한다.",
+      "padding-inline-start": "가로 여백 12px 이다. 위 height 와 같은 이유로 button 계약과 묶지 않는다. **DS 가 이 축을 아직 소유하지 않는다** — figma/components.measured.json 에 `status-result` 기록이 없고 design/patterns/status-result.md 는 `experimental` 이라 스스로 「이 문서의 값은 제품 인용이며 DS 계약이 아니다」라고 적는다. 대조할 DS 값이 없으므로 탐침이 제품 값을 기록만 하고, 승격되어 기록이 서는 날 EXPECT 행으로 옮긴다.",
+      "padding-inline-end": "좌우 여백이 12px 로 같은 축이다. 대조할 DS 값이 없어 기록만 한다.",
+      "border-top-left-radius": "버튼 곡률 12px 이다. **DS 가 이 축을 아직 소유하지 않는다** — figma/components.measured.json 에 `status-result` 기록이 없고 design/patterns/status-result.md 는 `experimental` 이라 스스로 「이 문서의 값은 제품 인용이며 DS 계약이 아니다」라고 적는다. 대조할 DS 값이 없으므로 탐침이 제품 값을 기록만 하고, 승격되어 기록이 서는 날 EXPECT 행으로 옮긴다.",
+      "border-top-right-radius": "네 모서리가 12px 로 같은 축이다. 대조할 DS 값이 없어 top-left 와 함께 기록만 한다.",
+      "border-bottom-left-radius": "네 모서리가 12px 로 같은 축이다. 대조할 DS 값이 없어 top-left 와 함께 기록만 한다.",
+      "border-bottom-right-radius": "네 모서리가 12px 로 같은 축이다. 대조할 DS 값이 없어 top-left 와 함께 기록만 한다."
+    },
+    "status-button-secondary-product": {
+      "height": "primary 와 같은 상수 모양의 두 번째 벌이다(높이 32px). 두 벌을 함께 재는 것은 「둘이 같다」가 주장이 아니라 실측이 되게 하려는 것이다 — 경쟁 정의 원칙. **DS 가 이 축을 아직 소유하지 않는다** — figma/components.measured.json 에 `status-result` 기록이 없고 design/patterns/status-result.md 는 `experimental` 이라 스스로 「이 문서의 값은 제품 인용이며 DS 계약이 아니다」라고 적는다. 대조할 DS 값이 없으므로 탐침이 제품 값을 기록만 하고, 승격되어 기록이 서는 날 EXPECT 행으로 옮긴다.",
+      "padding-block-start": "세로 여백 0 이다. 대조할 DS 값이 없어 기록만 한다.",
+      "padding-block-end": "위와 같은 축이다. 대조할 DS 값이 없어 기록만 한다.",
+      "padding-inline-start": "가로 여백 12px 이다. **DS 가 이 축을 아직 소유하지 않는다** — figma/components.measured.json 에 `status-result` 기록이 없고 design/patterns/status-result.md 는 `experimental` 이라 스스로 「이 문서의 값은 제품 인용이며 DS 계약이 아니다」라고 적는다. 대조할 DS 값이 없으므로 탐침이 제품 값을 기록만 하고, 승격되어 기록이 서는 날 EXPECT 행으로 옮긴다.",
+      "padding-inline-end": "좌우 여백이 12px 로 같은 축이다. 대조할 DS 값이 없어 기록만 한다.",
+      "border-top-left-radius": "버튼 곡률 12px 이다. **DS 가 이 축을 아직 소유하지 않는다** — figma/components.measured.json 에 `status-result` 기록이 없고 design/patterns/status-result.md 는 `experimental` 이라 스스로 「이 문서의 값은 제품 인용이며 DS 계약이 아니다」라고 적는다. 대조할 DS 값이 없으므로 탐침이 제품 값을 기록만 하고, 승격되어 기록이 서는 날 EXPECT 행으로 옮긴다.",
+      "border-top-right-radius": "네 모서리가 12px 로 같은 축이다. 대조할 DS 값이 없어 top-left 와 함께 기록만 한다.",
+      "border-bottom-left-radius": "네 모서리가 12px 로 같은 축이다. 대조할 DS 값이 없어 top-left 와 함께 기록만 한다.",
+      "border-bottom-right-radius": "네 모서리가 12px 로 같은 축이다. 대조할 DS 값이 없어 top-left 와 함께 기록만 한다."
     }
   }
 }

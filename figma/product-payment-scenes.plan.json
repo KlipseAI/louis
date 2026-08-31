@@ -1,12 +1,12 @@
 {
   "$comment": "Generated from migration/product.auth-fixture.json. Do not edit by hand.",
   "$evidenceClass": "product-only measured Figma composition; not a normative design-system contract",
-  "productCommit": "a3ed8e031214f67ac319c5ceaa7ad2808cf0d3a4",
+  "productCommit": "ae8fd6278481a5e86cd324ba86a1d44fe978b788",
   "context": "desktop-1920x1080",
   "sourceCandidates": [
     {
-      "id": "subtree-52d9ec85500e",
-      "nodeCount": 86,
+      "id": "subtree-b99c9f9ca497",
+      "nodeCount": 87,
       "roots": [
         {
           "route": "/mypage/upgrade/billing-change-fail",
@@ -33,11 +33,11 @@
       ],
       "routeCount": 2,
       "occurrenceCount": 2,
-      "score": 172
+      "score": 174
     },
     {
-      "id": "subtree-5aa2dd10161d",
-      "nodeCount": 82,
+      "id": "subtree-4066df48bad5",
+      "nodeCount": 83,
       "roots": [
         {
           "route": "/mypage/upgrade/billing-change-success",
@@ -64,11 +64,11 @@
       ],
       "routeCount": 2,
       "occurrenceCount": 2,
-      "score": 164
+      "score": 166
     },
     {
-      "id": "subtree-201c9e9375a9",
-      "nodeCount": 24,
+      "id": "subtree-af4ef3c26765",
+      "nodeCount": 25,
       "roots": [
         {
           "route": "/mypage/upgrade/billing-change-fail",
@@ -95,11 +95,11 @@
       ],
       "routeCount": 2,
       "occurrenceCount": 2,
-      "score": 48
+      "score": 50
     },
     {
-      "id": "subtree-7bba430c44a0",
-      "nodeCount": 20,
+      "id": "subtree-77de3059c30d",
+      "nodeCount": 21,
       "roots": [
         {
           "route": "/mypage/upgrade/billing-change-success",
@@ -126,7 +126,7 @@
       ],
       "routeCount": 2,
       "occurrenceCount": 2,
-      "score": 40
+      "score": 42
     }
   ],
   "component": {
@@ -196,7 +196,7 @@
           "x": 554,
           "y": 161,
           "width": 520,
-          "height": 237.5938
+          "height": 229.5938
         }
       },
       {
@@ -218,7 +218,7 @@
           "x": 554,
           "y": 161,
           "width": 520,
-          "height": 217.1875
+          "height": 209.1875
         }
       },
       {
@@ -240,7 +240,7 @@
           "x": 554,
           "y": 161,
           "width": 520,
-          "height": 217.1875
+          "height": 209.1875
         }
       }
     ],
@@ -249,8 +249,8 @@
       "sceneSetName": "Product/Mobile Payment Result Scene",
       "sourceCandidates": [
         {
-          "id": "subtree-73a30a28794e",
-          "nodeCount": 27,
+          "id": "subtree-9640dfc0e390",
+          "nodeCount": 28,
           "roots": [
             {
               "route": "/mypage/upgrade/billing-change-fail",
@@ -266,6 +266,37 @@
             {
               "route": "/mypage/topup/fail",
               "path": "body.1",
+              "tag": "div",
+              "rect": {
+                "x": 0,
+                "y": 0,
+                "width": 402,
+                "height": 874
+              }
+            }
+          ],
+          "routeCount": 2,
+          "occurrenceCount": 2,
+          "score": 56
+        },
+        {
+          "id": "subtree-9704504060de",
+          "nodeCount": 27,
+          "roots": [
+            {
+              "route": "/mypage/upgrade/billing-change-fail",
+              "path": "body.1.0",
+              "tag": "div",
+              "rect": {
+                "x": 0,
+                "y": 0,
+                "width": 402,
+                "height": 874
+              }
+            },
+            {
+              "route": "/mypage/topup/fail",
+              "path": "body.1.0",
               "tag": "div",
               "rect": {
                 "x": 0,
@@ -280,12 +311,12 @@
           "score": 54
         },
         {
-          "id": "subtree-d79fa46213b4",
+          "id": "subtree-ae47ccf88a5d",
           "nodeCount": 26,
           "roots": [
             {
               "route": "/mypage/upgrade/billing-change-fail",
-              "path": "body.1.0",
+              "path": "body.1.0.0",
               "tag": "div",
               "rect": {
                 "x": 0,
@@ -296,7 +327,7 @@
             },
             {
               "route": "/mypage/topup/fail",
-              "path": "body.1.0",
+              "path": "body.1.0.0",
               "tag": "div",
               "rect": {
                 "x": 0,
@@ -311,66 +342,35 @@
           "score": 52
         },
         {
-          "id": "subtree-70ba76fddd21",
+          "id": "subtree-8efeaf2c546f",
           "nodeCount": 25,
           "roots": [
             {
               "route": "/mypage/upgrade/billing-change-fail",
-              "path": "body.1.0.0",
-              "tag": "div",
+              "path": "body.1.0.0.1",
+              "tag": "main",
               "rect": {
                 "x": 0,
                 "y": 0,
                 "width": 402,
-                "height": 874
+                "height": 810
               }
             },
             {
               "route": "/mypage/topup/fail",
-              "path": "body.1.0.0",
-              "tag": "div",
+              "path": "body.1.0.0.1",
+              "tag": "main",
               "rect": {
                 "x": 0,
                 "y": 0,
                 "width": 402,
-                "height": 874
+                "height": 810
               }
             }
           ],
           "routeCount": 2,
           "occurrenceCount": 2,
           "score": 50
-        },
-        {
-          "id": "subtree-9be5ba2fce8c",
-          "nodeCount": 24,
-          "roots": [
-            {
-              "route": "/mypage/upgrade/billing-change-fail",
-              "path": "body.1.0.0.1",
-              "tag": "main",
-              "rect": {
-                "x": 0,
-                "y": 0,
-                "width": 402,
-                "height": 810
-              }
-            },
-            {
-              "route": "/mypage/topup/fail",
-              "path": "body.1.0.0.1",
-              "tag": "main",
-              "rect": {
-                "x": 0,
-                "y": 0,
-                "width": 402,
-                "height": 810
-              }
-            }
-          ],
-          "routeCount": 2,
-          "occurrenceCount": 2,
-          "score": 48
         }
       ],
       "page": {
@@ -424,7 +424,7 @@
             "x": 16,
             "y": 109,
             "width": 370,
-            "height": 320.1875
+            "height": 312.1875
           }
         },
         {
@@ -446,7 +446,7 @@
             "x": 16,
             "y": 109,
             "width": 370,
-            "height": 283.7813
+            "height": 275.7813
           }
         },
         {
@@ -468,7 +468,7 @@
             "x": 16,
             "y": 109,
             "width": 370,
-            "height": 262.7813
+            "height": 254.7813
           }
         }
       ]

@@ -440,6 +440,22 @@ try {
         await page.evaluate(async () => { await document.fonts.ready; });
 
         const measured = await page.evaluate(({ styleAxes, pseudoStyleAxes }) => {
+          // **읽기 직전에 애니메이션을 얼린다.** 회전 중인 요소의 `getBoundingClientRect()` 는
+          // 잰 순간의 각도를 담는다 — 16×16 스피너는 축 정렬 경계가 16×(|cos|+|sin|) 이라
+          // 16 과 22.63 사이를 오간다. 실측: `?__phase=analyzing` 의 스피너가 한 번은
+          // 22.4858, 다시 재니 22.6087 이었고 그래서 `--check` 가 실패했다.
+          //
+          // 안정화 지문(경로·텍스트·요소 수·scrollHeight)은 이것을 잡지 못한다. 소수점
+          // 아래 기하만 흔들리기 때문이다.
+          //
+          // 끝나는 애니메이션은 끝으로, 끝나지 않는 것은 0s 로 세운다. `finish()` 가 무한
+          // 애니메이션에서 던지는 것으로 둘을 가른다 — `measure-product-variants.mjs:470` ·
+          // `measure-product-scenes.mjs:425` 가 같은 이유로 쓰는 방법이다. 그리고 **같은
+          // evaluate 안에서** 해야 한다: 따로 호출해 얼리면 스타일 재계산이 그것을 되돌려
+          // 다시 흐른다(변이 게이트가 실측으로 확인한 함정).
+          for (const animation of document.getAnimations()) {
+            try { animation.finish(); } catch { animation.currentTime = 0; }
+          }
           const cleanText = (value) => (value ?? "").replace(/\s+/g, " ").trim();
           const roundInPage = (value) => Math.round(value * 10_000) / 10_000;
           const rectOf = (node) => {

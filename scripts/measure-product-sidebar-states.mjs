@@ -194,12 +194,12 @@ try {
     productCommit: commit,
     context: { id: "desktop-1920x1080-dark", viewport: { width: 1920, height: 1080 }, route: "/settings" },
     sourceEvidence: [
-      quote(1820, '    "[html[data-app-gnb-sidebar-collapsed=true]_&]:[width:var(--app-gnb-sidebar-logo-cube-px)]",'),
-      quote(1894, '    "[html[data-app-gnb-sidebar-collapsed=true]_&]:[width:var(--app-gnb-sidebar-logo-symbol-w)]",'),
-      quote(1896, '    "[html[data-app-gnb-sidebar-collapsed=true]_&]:[transform:translateX(_calc(_(_var(--app-gnb-sidebar-menu-hit-w)_-_var(--app-gnb-sidebar-logo-symbol-w)_)_/_2_)_)]",'),
-      quote(559, '    "[.gnb-menuSidebar_.gnb-menuLink:not(&)]:[color:var(--gray-300)]",'),
-      quote(565, '    "[color:var(--gray-000)]",'),
-      quote(575, '    "[html[data-theme=dark]_.gnb-menuSidebar_&]:[background-color:transparent]",'),
+      quote(1832, '    "[html[data-app-gnb-sidebar-collapsed=true]_&]:[width:var(--app-gnb-sidebar-logo-cube-px)]",'),
+      quote(1906, '    "[html[data-app-gnb-sidebar-collapsed=true]_&]:[width:var(--app-gnb-sidebar-logo-symbol-w)]",'),
+      quote(1908, '    "[html[data-app-gnb-sidebar-collapsed=true]_&]:[transform:translateX(_calc(_(_var(--app-gnb-sidebar-menu-hit-w)_-_var(--app-gnb-sidebar-logo-symbol-w)_)_/_2_)_)]",'),
+      quote(563, '    "[.gnb-menuSidebar_.gnb-menuLink:not(&)]:[color:var(--gray-300)]",'),
+      quote(569, '    "[color:var(--gray-000)]",'),
+      quote(579, '    "[html[data-theme=dark]_.gnb-menuSidebar_&]:[background-color:transparent]",'),
     ],
     states: { expanded, collapsed, activeCollapsedHome },
   };

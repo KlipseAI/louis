@@ -29,11 +29,21 @@ const relRect = (entry, rootRect) => ({
   height: entry.rect.height,
 });
 const candidates = fixture.componentCandidateAudit.repeatedSubtreesByContext[context];
+// 후보 id 는 정규화한 서브트리의 sha256 이라, 서브트리가 한 노드라도 달라지면 id 가 통째로
+// 바뀐다. 제품 a3ed8e03 → ae8fd627 사이에 아바타가 LOUIS `.louis-avatar` 를 채택하면서
+// 감싸는 span 이 하나 늘었고(`UserCircleDefaultAvatar.tsx` 의 박스가 `.louis-avatar__fallback`
+// 로 내려가고 호출부가 `.louis-avatar` 박스를 갖는다 — `components/navigation/Gnb.tsx:1054`),
+// 결제 결과 화면 상단 바의 아바타를 포함하는 네 후보가 전부 노드 +1 · id 변경이 되었다.
+// 짝(route pair)과 root path 로 옛 후보를 새 후보에 대응시킨 결과:
+//   subtree-52d9ec85500e(86, body.1, fail 짝)        → subtree-b99c9f9ca497(87)
+//   subtree-5aa2dd10161d(82, body.1, success 짝)     → subtree-4066df48bad5(83)
+//   subtree-201c9e9375a9(24, body.1.0.0.1, fail)     → subtree-af4ef3c26765(25)
+//   subtree-7bba430c44a0(20, body.1.0.0.1, success)  → subtree-77de3059c30d(21)
 const candidateContracts = [
-  ["subtree-52d9ec85500e", 86, 2],
-  ["subtree-5aa2dd10161d", 82, 2],
-  ["subtree-201c9e9375a9", 24, 2],
-  ["subtree-7bba430c44a0", 20, 2],
+  ["subtree-b99c9f9ca497", 87, 2],
+  ["subtree-4066df48bad5", 83, 2],
+  ["subtree-af4ef3c26765", 25, 2],
+  ["subtree-77de3059c30d", 21, 2],
 ].map(([id, nodeCount, routeCount]) => {
   const candidate = candidates.find((entry) => entry.id === id);
   if (!candidate || candidate.nodeCount !== nodeCount || candidate.routeCount !== routeCount) {
@@ -42,11 +52,17 @@ const candidateContracts = [
   return candidate;
 });
 const mobileCandidates = fixture.componentCandidateAudit.repeatedSubtreesByContext["mobile-402x874"];
+// 모바일도 같은 아바타 span 한 개 때문에 네 후보가 전부 노드 +1 · id 변경이다.
+// 넷 다 fail 짝(billing-change-fail · topup/fail)이고 root path 로 대응한다:
+//   subtree-73a30a28794e(27, body.1)       → subtree-9640dfc0e390(28)
+//   subtree-d79fa46213b4(26, body.1.0)     → subtree-9704504060de(27)
+//   subtree-70ba76fddd21(25, body.1.0.0)   → subtree-ae47ccf88a5d(26)
+//   subtree-9be5ba2fce8c(24, body.1.0.0.1) → subtree-8efeaf2c546f(25)
 const mobileCandidateContracts = [
-  ["subtree-73a30a28794e", 27, 2],
-  ["subtree-d79fa46213b4", 26, 2],
-  ["subtree-70ba76fddd21", 25, 2],
-  ["subtree-9be5ba2fce8c", 24, 2],
+  ["subtree-9640dfc0e390", 28, 2],
+  ["subtree-9704504060de", 27, 2],
+  ["subtree-ae47ccf88a5d", 26, 2],
+  ["subtree-8efeaf2c546f", 25, 2],
 ].map(([id, nodeCount, routeCount]) => {
   const candidate = mobileCandidates.find((entry) => entry.id === id);
   if (!candidate || candidate.nodeCount !== nodeCount || candidate.routeCount !== routeCount) {

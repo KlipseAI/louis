@@ -175,9 +175,15 @@ const assertProfileVisual = (spec) => {
 
 const candidates = fixture.componentCandidateAudit.repeatedSubtreesByContext[context];
 const candidateContracts = [
-  ["subtree-80b5c31c3514", 5, 12],
-  ["subtree-2c2025d948a9", 14, 4],
-  ["subtree-9fb50e18369c", 13, 4],
+  // 제품 ae8fd627 에서 두 가지가 함께 움직였다. (1) 기본 아바타가 LOUIS `.louis-avatar`
+  // 박스 안으로 들어가 `button > span > span > svg > path` 가 되면서 세 후보 모두 노드가
+  // 하나씩 늘었다(기하는 픽셀 그대로). (2) `?__phase=` 하이라이트 6개 화면이 실측 대상에
+  // 들어오면서 같은 상단바를 공유해 routeCount 가 12 → 18 이 됐다. subtree id 는 내용
+  // 해시에 styleRef(등장 순서 인덱스)가 섞여 있어, 화면이 늘면 내용이 같아도 전부 다시
+  // 계산된다 — 옛 id 와 새 id 는 roots(route+path) 집합으로 이어 붙였다.
+  ["subtree-857f79f6b860", 6, 18],
+  ["subtree-23685ca94502", 15, 4],
+  ["subtree-46530c2862d2", 14, 4],
 ].map(([id, nodeCount, routeCount]) => {
   const candidate = candidates.find((entry) => entry.id === id);
   if (!candidate || candidate.nodeCount !== nodeCount || candidate.routeCount !== routeCount) {
@@ -298,12 +304,15 @@ if (
 
 const desktopCandidates = fixture.componentCandidateAudit.repeatedSubtreesByContext["desktop-1920x1080"];
 const desktopCandidateContracts = [
-  ["subtree-53fc052b1377", 5, 12],
-  ["subtree-dadf2a2fbd77", 14, 4],
-  ["subtree-66d7e03eea07", 13, 4],
-  ["subtree-8a189a16b13a", 16, 3],
-  ["subtree-36775db94d9d", 15, 3],
-  ["subtree-5293ac01577e", 5, 3],
+  // 모바일과 같은 두 가지 이유로 옮겨졌다. 아바타 래퍼 한 겹(+1 node)과 `?__phase=` 6개
+  // 화면(+6 routes). `subtree-3d697148af7a` 만 5/3 그대로인 것은 그 후보가 프로필 아래가
+  // 아니라 결제 상태 본문이라 아바타 래퍼가 닿지 않기 때문이다.
+  ["subtree-c20d72818d96", 6, 18],
+  ["subtree-879b4352e58c", 15, 4],
+  ["subtree-5d6846b9186f", 14, 4],
+  ["subtree-d8984197b054", 17, 3],
+  ["subtree-3ff7886200e5", 16, 3],
+  ["subtree-3d697148af7a", 5, 3],
 ].map(([id, nodeCount, routeCount]) => {
   const candidate = desktopCandidates.find((entry) => entry.id === id);
   if (!candidate || candidate.nodeCount !== nodeCount || candidate.routeCount !== routeCount) {
@@ -373,14 +382,18 @@ const measuredDesktopVariants = desktopVariantInputs.map(desktopTopBarSpec);
 for (const spec of [...measuredMobileVariants, ...measuredDesktopVariants]) assertProfileVisual(spec);
 const avatarSourcePath = "apps/web/components/navigation/UserCircleDefaultAvatar.tsx";
 const ringSourcePath = "apps/web/components/navigation/Gnb.tsx";
-const avatarSource = sourceQuote(avatarSourcePath, 13, '  "text-palette-gray-400",');
+// 13 → 22. `AVATAR` 배열 머리의 `inline-flex … w-14 h-14` 가 `louis-avatar__fallback`
+// 한 줄로 바뀌고 그 위에 9줄짜리 주석이 붙으면서 밀렸다. 인용 줄 자체는 그대로다.
+const avatarSource = sourceQuote(avatarSourcePath, 22, '  "text-palette-gray-400",');
+// `profileTrigger` 블록이 통째로 82줄 아래로 밀렸다(1358 → 1440). 인용 문자열은 여섯 줄
+// 모두 ae8fd627 에서 글자 하나 안 바뀌었다.
 const ringSourceLines = [
-  [1358, '    "[--profile-avatar-size:28px]",'],
-  [1361, '    "[--profile-ring-track:rgb(var(--gray-000-rgb)_/_20%)]",'],
-  [1362, '    "[--profile-ring-gap:2px]",'],
-  [1363, '    "[--profile-ring-width:2px]",'],
-  [1390, '    "[&::after]:[background:conic-gradient(_from_0deg,_var(--profile-ring-fill)_0_var(--profile-ring-progress),_var(--profile-ring-track)_var(--profile-ring-progress)_100%_)]",'],
-  [1392, '    "[&::after]:[mask:radial-gradient(_farthest-side,_transparent_calc(100%_-_var(--profile-ring-width)),_#000_calc(100%_-_var(--profile-ring-width))_)]",'],
+  [1440, '    "[--profile-avatar-size:28px]",'],
+  [1443, '    "[--profile-ring-track:rgb(var(--gray-000-rgb)_/_20%)]",'],
+  [1444, '    "[--profile-ring-gap:2px]",'],
+  [1445, '    "[--profile-ring-width:2px]",'],
+  [1472, '    "[&::after]:[background:conic-gradient(_from_0deg,_var(--profile-ring-fill)_0_var(--profile-ring-progress),_var(--profile-ring-track)_var(--profile-ring-progress)_100%_)]",'],
+  [1474, '    "[&::after]:[mask:radial-gradient(_farthest-side,_transparent_calc(100%_-_var(--profile-ring-width)),_#000_calc(100%_-_var(--profile-ring-width))_)]",'],
 ].map(([line, quote]) => sourceQuote(ringSourcePath, line, quote));
 
 const plan = {
@@ -414,17 +427,26 @@ const plan = {
       surface: { collection: "1 · Palette", name: "palette/gray-800" },
       $darkSurfaceSource: sourceQuote(
         "apps/web/components/navigation/Gnb.tsx",
-        430,
+        // 430 → 478. 같은 문자열이 파일에 세 번(478 · 1325 · 1981) 나오므로 감싸는 블록으로
+        // 골랐다 — 478 만 `mainChromeTopBarInPanel:` 안에 있고, 나머지 둘은
+        // `profileOnlyContainer` · `sidebarUpgradeButtonActive` 다.
+        478,
         '    "[html[data-theme=dark]_&]:[background:var(--palette-gray-800)]",',
       ),
       divider: { collection: "2 · Semantic", name: "gray/000" },
       dividerOpacity: 0.08,
       profile: { collection: "2 · Semantic", name: "app/avatar-default-ink" },
       profileRingTrack: { collection: "2 · Semantic", name: "gray/000 · a20" },
-      current: { collection: "2 · Semantic", name: "gray/000 · a78" },
-      parent: { collection: "2 · Semantic", name: "gray/000 · a52" },
-      control: { collection: "2 · Semantic", name: "gray/000 · a65" },
-      separator: { collection: "2 · Semantic", name: "gray/000 · a36" },
+      // 알파 넷이 제품 `d673f976`「색 알파를 LOUIS 16단 스케일로 스냅」에서 옮겨졌다.
+      // 실측이 그대로 따라왔으므로 변수 이름도 따라간다 — 78→80 · 52→48 · 65→64 · 36→32.
+      // 출처는 `Gnb.tsx@ae8fd627` 의 `mainChromePageNavCurrent`(334) ·
+      // `mainChromePageNavParent`(339) · `mainChromePageNavSep`(348) · 아이콘 버튼(387).
+      // 이 이름들이 Figma `2 · Semantic` 에 아직 없다면 러너는 실패한다 — 이 저장소에서
+      // 확인할 방법이 없어 Figma 쪽 확인은 남겨 둔다.
+      current: { collection: "2 · Semantic", name: "gray/000 · a80" },
+      parent: { collection: "2 · Semantic", name: "gray/000 · a48" },
+      control: { collection: "2 · Semantic", name: "gray/000 · a64" },
+      separator: { collection: "2 · Semantic", name: "gray/000 · a32" },
       spacing4: { collection: "Klipse Primitive", name: "spacing/4" },
       spacing8: { collection: "Klipse Primitive", name: "spacing/8" },
       spacing16: { collection: "Klipse Primitive", name: "spacing/16" },

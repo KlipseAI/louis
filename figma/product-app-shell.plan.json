@@ -2,49 +2,49 @@
   "$comment": "Generated from migration/product.auth-fixture.json. Do not edit by hand.",
   "$evidenceClass": "product-only measured Figma candidate; not a normative design-system contract",
   "$figmaGlyphMeasurement": "Measured 2026-08-24 in OlYKERKOkgbxBEEoXGZW2c with temporary Pretendard Medium 14/21/-0.14 and 16/24/-0.16 text nodes; nodes were removed after reading natural WIDTH_AND_HEIGHT bounds. Product rects remain authoritative for placement and containers.",
-  "productCommit": "a3ed8e031214f67ac319c5ceaa7ad2808cf0d3a4",
+  "productCommit": "ae8fd6278481a5e86cd324ba86a1d44fe978b788",
   "profileVisualSource": {
     "avatar": {
-      "command": "git -C /Users/sejunki/klipse-web show a3ed8e031214f67ac319c5ceaa7ad2808cf0d3a4:apps/web/components/navigation/UserCircleDefaultAvatar.tsx",
+      "command": "git -C /Users/sejunki/klipse-web show ae8fd6278481a5e86cd324ba86a1d44fe978b788:apps/web/components/navigation/UserCircleDefaultAvatar.tsx",
       "path": "apps/web/components/navigation/UserCircleDefaultAvatar.tsx",
-      "line": 13,
+      "line": 22,
       "quote": "  \"text-palette-gray-400\","
     },
     "ring": [
       {
-        "command": "git -C /Users/sejunki/klipse-web show a3ed8e031214f67ac319c5ceaa7ad2808cf0d3a4:apps/web/components/navigation/Gnb.tsx",
+        "command": "git -C /Users/sejunki/klipse-web show ae8fd6278481a5e86cd324ba86a1d44fe978b788:apps/web/components/navigation/Gnb.tsx",
         "path": "apps/web/components/navigation/Gnb.tsx",
-        "line": 1358,
+        "line": 1440,
         "quote": "    \"[--profile-avatar-size:28px]\","
       },
       {
-        "command": "git -C /Users/sejunki/klipse-web show a3ed8e031214f67ac319c5ceaa7ad2808cf0d3a4:apps/web/components/navigation/Gnb.tsx",
+        "command": "git -C /Users/sejunki/klipse-web show ae8fd6278481a5e86cd324ba86a1d44fe978b788:apps/web/components/navigation/Gnb.tsx",
         "path": "apps/web/components/navigation/Gnb.tsx",
-        "line": 1361,
+        "line": 1443,
         "quote": "    \"[--profile-ring-track:rgb(var(--gray-000-rgb)_/_20%)]\","
       },
       {
-        "command": "git -C /Users/sejunki/klipse-web show a3ed8e031214f67ac319c5ceaa7ad2808cf0d3a4:apps/web/components/navigation/Gnb.tsx",
+        "command": "git -C /Users/sejunki/klipse-web show ae8fd6278481a5e86cd324ba86a1d44fe978b788:apps/web/components/navigation/Gnb.tsx",
         "path": "apps/web/components/navigation/Gnb.tsx",
-        "line": 1362,
+        "line": 1444,
         "quote": "    \"[--profile-ring-gap:2px]\","
       },
       {
-        "command": "git -C /Users/sejunki/klipse-web show a3ed8e031214f67ac319c5ceaa7ad2808cf0d3a4:apps/web/components/navigation/Gnb.tsx",
+        "command": "git -C /Users/sejunki/klipse-web show ae8fd6278481a5e86cd324ba86a1d44fe978b788:apps/web/components/navigation/Gnb.tsx",
         "path": "apps/web/components/navigation/Gnb.tsx",
-        "line": 1363,
+        "line": 1445,
         "quote": "    \"[--profile-ring-width:2px]\","
       },
       {
-        "command": "git -C /Users/sejunki/klipse-web show a3ed8e031214f67ac319c5ceaa7ad2808cf0d3a4:apps/web/components/navigation/Gnb.tsx",
+        "command": "git -C /Users/sejunki/klipse-web show ae8fd6278481a5e86cd324ba86a1d44fe978b788:apps/web/components/navigation/Gnb.tsx",
         "path": "apps/web/components/navigation/Gnb.tsx",
-        "line": 1390,
+        "line": 1472,
         "quote": "    \"[&::after]:[background:conic-gradient(_from_0deg,_var(--profile-ring-fill)_0_var(--profile-ring-progress),_var(--profile-ring-track)_var(--profile-ring-progress)_100%_)]\","
       },
       {
-        "command": "git -C /Users/sejunki/klipse-web show a3ed8e031214f67ac319c5ceaa7ad2808cf0d3a4:apps/web/components/navigation/Gnb.tsx",
+        "command": "git -C /Users/sejunki/klipse-web show ae8fd6278481a5e86cd324ba86a1d44fe978b788:apps/web/components/navigation/Gnb.tsx",
         "path": "apps/web/components/navigation/Gnb.tsx",
-        "line": 1392,
+        "line": 1474,
         "quote": "    \"[&::after]:[mask:radial-gradient(_farthest-side,_transparent_calc(100%_-_var(--profile-ring-width)),_#000_calc(100%_-_var(--profile-ring-width))_)]\","
       }
     ]
@@ -52,8 +52,8 @@
   "context": "mobile-402x874",
   "sourceCandidates": [
     {
-      "id": "subtree-80b5c31c3514",
-      "nodeCount": 5,
+      "id": "subtree-857f79f6b860",
+      "nodeCount": 6,
       "roots": [
         {
           "route": "/archive",
@@ -186,15 +186,81 @@
             "width": 36,
             "height": 36
           }
+        },
+        {
+          "route": "/highlight/[projectId]?__phase=loading",
+          "path": "body.1.0.0.1.0.0.0.2",
+          "tag": "div",
+          "rect": {
+            "x": 350,
+            "y": 8,
+            "width": 36,
+            "height": 36
+          }
+        },
+        {
+          "route": "/highlight/[projectId]?__phase=uploading",
+          "path": "body.1.0.0.1.0.0.0.2",
+          "tag": "div",
+          "rect": {
+            "x": 350,
+            "y": 8,
+            "width": 36,
+            "height": 36
+          }
+        },
+        {
+          "route": "/highlight/[projectId]?__phase=upload",
+          "path": "body.1.0.0.1.0.0.0.2",
+          "tag": "div",
+          "rect": {
+            "x": 350,
+            "y": 8,
+            "width": 36,
+            "height": 36
+          }
+        },
+        {
+          "route": "/highlight/[projectId]?__phase=analyzing",
+          "path": "body.1.0.0.1.0.0.0.2",
+          "tag": "div",
+          "rect": {
+            "x": 350,
+            "y": 8,
+            "width": 36,
+            "height": 36
+          }
+        },
+        {
+          "route": "/highlight/[projectId]?__phase=extracting",
+          "path": "body.1.0.0.1.0.0.0.2",
+          "tag": "div",
+          "rect": {
+            "x": 350,
+            "y": 8,
+            "width": 36,
+            "height": 36
+          }
+        },
+        {
+          "route": "/highlight/[projectId]?__phase=failed",
+          "path": "body.1.0.0.1.0.0.0.2",
+          "tag": "div",
+          "rect": {
+            "x": 350,
+            "y": 8,
+            "width": 36,
+            "height": 36
+          }
         }
       ],
-      "routeCount": 12,
-      "occurrenceCount": 12,
-      "score": 60
+      "routeCount": 18,
+      "occurrenceCount": 18,
+      "score": 108
     },
     {
-      "id": "subtree-2c2025d948a9",
-      "nodeCount": 14,
+      "id": "subtree-23685ca94502",
+      "nodeCount": 15,
       "roots": [
         {
           "route": "/mypage/upgrade/billing-change-success",
@@ -232,6 +298,59 @@
         {
           "route": "/mypage/topup/fail",
           "path": "body.1.0.0.1.0",
+          "tag": "div",
+          "rect": {
+            "x": 16,
+            "y": 0,
+            "width": 370,
+            "height": 53
+          }
+        }
+      ],
+      "routeCount": 4,
+      "occurrenceCount": 4,
+      "score": 60
+    },
+    {
+      "id": "subtree-46530c2862d2",
+      "nodeCount": 14,
+      "roots": [
+        {
+          "route": "/mypage/upgrade/billing-change-success",
+          "path": "body.1.0.0.1.0.0",
+          "tag": "div",
+          "rect": {
+            "x": 16,
+            "y": 0,
+            "width": 370,
+            "height": 53
+          }
+        },
+        {
+          "route": "/mypage/upgrade/billing-change-fail",
+          "path": "body.1.0.0.1.0.0",
+          "tag": "div",
+          "rect": {
+            "x": 16,
+            "y": 0,
+            "width": 370,
+            "height": 53
+          }
+        },
+        {
+          "route": "/mypage/topup/success",
+          "path": "body.1.0.0.1.0.0",
+          "tag": "div",
+          "rect": {
+            "x": 16,
+            "y": 0,
+            "width": 370,
+            "height": 53
+          }
+        },
+        {
+          "route": "/mypage/topup/fail",
+          "path": "body.1.0.0.1.0.0",
           "tag": "div",
           "rect": {
             "x": 16,
@@ -244,59 +363,6 @@
       "routeCount": 4,
       "occurrenceCount": 4,
       "score": 56
-    },
-    {
-      "id": "subtree-9fb50e18369c",
-      "nodeCount": 13,
-      "roots": [
-        {
-          "route": "/mypage/upgrade/billing-change-success",
-          "path": "body.1.0.0.1.0.0",
-          "tag": "div",
-          "rect": {
-            "x": 16,
-            "y": 0,
-            "width": 370,
-            "height": 53
-          }
-        },
-        {
-          "route": "/mypage/upgrade/billing-change-fail",
-          "path": "body.1.0.0.1.0.0",
-          "tag": "div",
-          "rect": {
-            "x": 16,
-            "y": 0,
-            "width": 370,
-            "height": 53
-          }
-        },
-        {
-          "route": "/mypage/topup/success",
-          "path": "body.1.0.0.1.0.0",
-          "tag": "div",
-          "rect": {
-            "x": 16,
-            "y": 0,
-            "width": 370,
-            "height": 53
-          }
-        },
-        {
-          "route": "/mypage/topup/fail",
-          "path": "body.1.0.0.1.0.0",
-          "tag": "div",
-          "rect": {
-            "x": 16,
-            "y": 0,
-            "width": 370,
-            "height": 53
-          }
-        }
-      ],
-      "routeCount": 4,
-      "occurrenceCount": 4,
-      "score": 52
     }
   ],
   "component": {
@@ -320,9 +386,9 @@
         "name": "palette/gray-800"
       },
       "$darkSurfaceSource": {
-        "command": "git -C /Users/sejunki/klipse-web show a3ed8e031214f67ac319c5ceaa7ad2808cf0d3a4:apps/web/components/navigation/Gnb.tsx",
+        "command": "git -C /Users/sejunki/klipse-web show ae8fd6278481a5e86cd324ba86a1d44fe978b788:apps/web/components/navigation/Gnb.tsx",
         "path": "apps/web/components/navigation/Gnb.tsx",
-        "line": 430,
+        "line": 478,
         "quote": "    \"[html[data-theme=dark]_&]:[background:var(--palette-gray-800)]\","
       },
       "divider": {
@@ -340,19 +406,19 @@
       },
       "current": {
         "collection": "2 · Semantic",
-        "name": "gray/000 · a78"
+        "name": "gray/000 · a80"
       },
       "parent": {
         "collection": "2 · Semantic",
-        "name": "gray/000 · a52"
+        "name": "gray/000 · a48"
       },
       "control": {
         "collection": "2 · Semantic",
-        "name": "gray/000 · a65"
+        "name": "gray/000 · a64"
       },
       "separator": {
         "collection": "2 · Semantic",
-        "name": "gray/000 · a36"
+        "name": "gray/000 · a32"
       },
       "spacing4": {
         "collection": "Klipse Primitive",
@@ -496,7 +562,7 @@
               0,
               0,
               0,
-              0.78
+              0.8
             ],
             "figmaBounds": {
               "width": 38,
@@ -629,7 +695,7 @@
               0,
               0,
               0,
-              0.78
+              0.8
             ],
             "figmaBounds": {
               "width": 52,
@@ -762,7 +828,7 @@
               0,
               0,
               0,
-              0.52
+              0.48
             ],
             "figmaBounds": {
               "width": 58,
@@ -785,7 +851,7 @@
               0,
               0,
               0,
-              0.36
+              0.32
             ],
             "figmaBounds": {
               "width": 5,
@@ -808,7 +874,7 @@
               0,
               0,
               0,
-              0.78
+              0.8
             ],
             "figmaBounds": {
               "width": 114,
@@ -941,7 +1007,7 @@
               0,
               0,
               0,
-              0.78
+              0.8
             ],
             "figmaBounds": {
               "width": 55,
@@ -1074,7 +1140,7 @@
               0,
               0,
               0,
-              0.52
+              0.48
             ],
             "figmaBounds": {
               "width": 79,
@@ -1097,7 +1163,7 @@
               0,
               0,
               0,
-              0.36
+              0.32
             ],
             "figmaBounds": {
               "width": 5,
@@ -1120,7 +1186,7 @@
               0,
               0,
               0,
-              0.78
+              0.8
             ],
             "figmaBounds": {
               "width": 79,
@@ -1258,7 +1324,7 @@
               0,
               0,
               0,
-              0.52
+              0.48
             ],
             "figmaBounds": {
               "width": 79,
@@ -1281,7 +1347,7 @@
               0,
               0,
               0,
-              0.36
+              0.32
             ],
             "figmaBounds": {
               "width": 5,
@@ -1304,7 +1370,7 @@
               0,
               0,
               0,
-              0.78
+              0.8
             ],
             "figmaBounds": {
               "width": 79,
@@ -1320,8 +1386,8 @@
       "componentSetName": "Product/Desktop App Top Bar",
       "sourceCandidates": [
         {
-          "id": "subtree-53fc052b1377",
-          "nodeCount": 5,
+          "id": "subtree-c20d72818d96",
+          "nodeCount": 6,
           "roots": [
             {
               "route": "/archive",
@@ -1454,15 +1520,81 @@
                 "width": 36,
                 "height": 36
               }
+            },
+            {
+              "route": "/highlight/[projectId]?__phase=loading",
+              "path": "body.1.0.0.1.0.0.0.2",
+              "tag": "div",
+              "rect": {
+                "x": 1864,
+                "y": 20,
+                "width": 36,
+                "height": 36
+              }
+            },
+            {
+              "route": "/highlight/[projectId]?__phase=uploading",
+              "path": "body.1.0.0.1.0.0.0.2",
+              "tag": "div",
+              "rect": {
+                "x": 1864,
+                "y": 20,
+                "width": 36,
+                "height": 36
+              }
+            },
+            {
+              "route": "/highlight/[projectId]?__phase=upload",
+              "path": "body.1.0.0.1.0.0.0.2",
+              "tag": "div",
+              "rect": {
+                "x": 1864,
+                "y": 20,
+                "width": 36,
+                "height": 36
+              }
+            },
+            {
+              "route": "/highlight/[projectId]?__phase=analyzing",
+              "path": "body.1.0.0.1.0.0.0.2",
+              "tag": "div",
+              "rect": {
+                "x": 1864,
+                "y": 20,
+                "width": 36,
+                "height": 36
+              }
+            },
+            {
+              "route": "/highlight/[projectId]?__phase=extracting",
+              "path": "body.1.0.0.1.0.0.0.2",
+              "tag": "div",
+              "rect": {
+                "x": 1864,
+                "y": 20,
+                "width": 36,
+                "height": 36
+              }
+            },
+            {
+              "route": "/highlight/[projectId]?__phase=failed",
+              "path": "body.1.0.0.1.0.0.0.2",
+              "tag": "div",
+              "rect": {
+                "x": 1864,
+                "y": 20,
+                "width": 36,
+                "height": 36
+              }
             }
           ],
-          "routeCount": 12,
-          "occurrenceCount": 12,
-          "score": 60
+          "routeCount": 18,
+          "occurrenceCount": 18,
+          "score": 108
         },
         {
-          "id": "subtree-dadf2a2fbd77",
-          "nodeCount": 14,
+          "id": "subtree-879b4352e58c",
+          "nodeCount": 15,
           "roots": [
             {
               "route": "/mypage/upgrade/billing-change-success",
@@ -1505,6 +1637,59 @@
                 "x": 304,
                 "y": 12,
                 "width": 1580,
+                "height": 53
+              }
+            }
+          ],
+          "routeCount": 4,
+          "occurrenceCount": 4,
+          "score": 60
+        },
+        {
+          "id": "subtree-5d6846b9186f",
+          "nodeCount": 14,
+          "roots": [
+            {
+              "route": "/mypage/upgrade/billing-change-success",
+              "path": "body.1.0.0.1.0.0",
+              "tag": "div",
+              "rect": {
+                "x": 280,
+                "y": 12,
+                "width": 1628,
+                "height": 53
+              }
+            },
+            {
+              "route": "/mypage/upgrade/billing-change-fail",
+              "path": "body.1.0.0.1.0.0",
+              "tag": "div",
+              "rect": {
+                "x": 280,
+                "y": 12,
+                "width": 1628,
+                "height": 53
+              }
+            },
+            {
+              "route": "/mypage/topup/success",
+              "path": "body.1.0.0.1.0.0",
+              "tag": "div",
+              "rect": {
+                "x": 280,
+                "y": 12,
+                "width": 1628,
+                "height": 53
+              }
+            },
+            {
+              "route": "/mypage/topup/fail",
+              "path": "body.1.0.0.1.0.0",
+              "tag": "div",
+              "rect": {
+                "x": 280,
+                "y": 12,
+                "width": 1628,
                 "height": 53
               }
             }
@@ -1514,61 +1699,8 @@
           "score": 56
         },
         {
-          "id": "subtree-66d7e03eea07",
-          "nodeCount": 13,
-          "roots": [
-            {
-              "route": "/mypage/upgrade/billing-change-success",
-              "path": "body.1.0.0.1.0.0",
-              "tag": "div",
-              "rect": {
-                "x": 280,
-                "y": 12,
-                "width": 1628,
-                "height": 53
-              }
-            },
-            {
-              "route": "/mypage/upgrade/billing-change-fail",
-              "path": "body.1.0.0.1.0.0",
-              "tag": "div",
-              "rect": {
-                "x": 280,
-                "y": 12,
-                "width": 1628,
-                "height": 53
-              }
-            },
-            {
-              "route": "/mypage/topup/success",
-              "path": "body.1.0.0.1.0.0",
-              "tag": "div",
-              "rect": {
-                "x": 280,
-                "y": 12,
-                "width": 1628,
-                "height": 53
-              }
-            },
-            {
-              "route": "/mypage/topup/fail",
-              "path": "body.1.0.0.1.0.0",
-              "tag": "div",
-              "rect": {
-                "x": 280,
-                "y": 12,
-                "width": 1628,
-                "height": 53
-              }
-            }
-          ],
-          "routeCount": 4,
-          "occurrenceCount": 4,
-          "score": 52
-        },
-        {
-          "id": "subtree-8a189a16b13a",
-          "nodeCount": 16,
+          "id": "subtree-d8984197b054",
+          "nodeCount": 17,
           "roots": [
             {
               "route": "/mypage/upgrade/billing-success",
@@ -1600,6 +1732,48 @@
                 "x": 304,
                 "y": 12,
                 "width": 1580,
+                "height": 53
+              }
+            }
+          ],
+          "routeCount": 3,
+          "occurrenceCount": 3,
+          "score": 51
+        },
+        {
+          "id": "subtree-3ff7886200e5",
+          "nodeCount": 16,
+          "roots": [
+            {
+              "route": "/mypage/upgrade/billing-success",
+              "path": "body.1.0.0.1.0.0",
+              "tag": "div",
+              "rect": {
+                "x": 280,
+                "y": 12,
+                "width": 1628,
+                "height": 53
+              }
+            },
+            {
+              "route": "/mypage/upgrade/billing-fail",
+              "path": "body.1.0.0.1.0.0",
+              "tag": "div",
+              "rect": {
+                "x": 280,
+                "y": 12,
+                "width": 1628,
+                "height": 53
+              }
+            },
+            {
+              "route": "/mypage/upgrade/fail",
+              "path": "body.1.0.0.1.0.0",
+              "tag": "div",
+              "rect": {
+                "x": 280,
+                "y": 12,
+                "width": 1628,
                 "height": 53
               }
             }
@@ -1609,49 +1783,7 @@
           "score": 48
         },
         {
-          "id": "subtree-36775db94d9d",
-          "nodeCount": 15,
-          "roots": [
-            {
-              "route": "/mypage/upgrade/billing-success",
-              "path": "body.1.0.0.1.0.0",
-              "tag": "div",
-              "rect": {
-                "x": 280,
-                "y": 12,
-                "width": 1628,
-                "height": 53
-              }
-            },
-            {
-              "route": "/mypage/upgrade/billing-fail",
-              "path": "body.1.0.0.1.0.0",
-              "tag": "div",
-              "rect": {
-                "x": 280,
-                "y": 12,
-                "width": 1628,
-                "height": 53
-              }
-            },
-            {
-              "route": "/mypage/upgrade/fail",
-              "path": "body.1.0.0.1.0.0",
-              "tag": "div",
-              "rect": {
-                "x": 280,
-                "y": 12,
-                "width": 1628,
-                "height": 53
-              }
-            }
-          ],
-          "routeCount": 3,
-          "occurrenceCount": 3,
-          "score": 45
-        },
-        {
-          "id": "subtree-5293ac01577e",
+          "id": "subtree-3d697148af7a",
           "nodeCount": 5,
           "roots": [
             {
@@ -1824,7 +1956,7 @@
                 0,
                 0,
                 0,
-                0.78
+                0.8
               ],
               "figmaBounds": {
                 "width": 43,
@@ -1957,7 +2089,7 @@
                 0,
                 0,
                 0,
-                0.78
+                0.8
               ],
               "figmaBounds": {
                 "width": 60,
@@ -2090,7 +2222,7 @@
                 0,
                 0,
                 0,
-                0.52
+                0.48
               ],
               "figmaBounds": {
                 "width": 66,
@@ -2113,7 +2245,7 @@
                 0,
                 0,
                 0,
-                0.36
+                0.32
               ],
               "figmaBounds": {
                 "width": 6,
@@ -2136,7 +2268,7 @@
                 0,
                 0,
                 0,
-                0.78
+                0.8
               ],
               "figmaBounds": {
                 "width": 130,
@@ -2269,7 +2401,7 @@
                 0,
                 0,
                 0,
-                0.78
+                0.8
               ],
               "figmaBounds": {
                 "width": 63,
@@ -2402,7 +2534,7 @@
                 0,
                 0,
                 0,
-                0.52
+                0.48
               ],
               "figmaBounds": {
                 "width": 91,
@@ -2425,7 +2557,7 @@
                 0,
                 0,
                 0,
-                0.36
+                0.32
               ],
               "figmaBounds": {
                 "width": 6,
@@ -2448,7 +2580,7 @@
                 0,
                 0,
                 0,
-                0.78
+                0.8
               ],
               "figmaBounds": {
                 "width": 90,
@@ -2586,7 +2718,7 @@
                 0,
                 0,
                 0,
-                0.52
+                0.48
               ],
               "figmaBounds": {
                 "width": 91,
@@ -2609,7 +2741,7 @@
                 0,
                 0,
                 0,
-                0.36
+                0.32
               ],
               "figmaBounds": {
                 "width": 6,
@@ -2632,7 +2764,7 @@
                 0,
                 0,
                 0,
-                0.78
+                0.8
               ],
               "figmaBounds": {
                 "width": 90,

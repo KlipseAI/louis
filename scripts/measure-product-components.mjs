@@ -86,6 +86,32 @@ const PROBES = [
     html: `<button class="louis-button" data-variant="secondary" data-size="md">저장</button>`,
     read: ["borderTopWidth", "borderTopLeftRadius", "height"],
   },
+  // ── 프로필 팝오버 — **제품의 유일한 composite popover 인데 한 번도 재지 않았다** ────────
+  //
+  // 2026-08-30 감사에서 드러났다. LOUIS 의 composite-popover 규격은 세 군데서 왔다 — 표면과 항목
+  // 높이는 제품 **노드 캔버스 메뉴** 실측, 여백 8 과 간격 8 은 **LOUIS 자기 브라우저 테스트**
+  // (`menu-pointer.browser.test.tsx` 의 유령 스크롤바 케이스)에서 유도한 값이다. 프로필 팝오버는
+  // 그 셋 중 어디에도 없었다.
+  //
+  // 그래서 Figma 에 `CompositePopover` 를 세울 때 제품과 7 축이 갈렸는데 **게이트가 아무 말도
+  // 하지 않았다** — 재지 않는 자리는 갈라져도 조용하다. 여기 등록해 그 침묵을 끝낸다.
+  //
+  // 8px 의 근거가 이 패널에는 성립하지 않는다는 것도 함께 남긴다: LOUIS 가 막으려던 유령
+  // 스크롤바는 `.louis-hit-target` 이 44px 타깃을 시각 박스 밖으로 넓힐 때 생기는데, 제품
+  // 패널은 `overflow: hidden` 이라 스크롤 컨테이너가 아니고 그 유틸도 쓰지 않는다.
+  {
+    id: "composite-popover-product",
+    source: "Gnb.tsx profilePopover — 제품의 프로필 팝오버 패널",
+    from: ["gnb", "profilePopover"],
+    read: ["paddingTop", "paddingLeft", "borderTopLeftRadius", "width"],
+  },
+  {
+    id: "composite-popover-item-product",
+    source: "Gnb.tsx profileMenuItem — 그 패널 안의 항목 한 줄",
+    from: ["gnb", "profileMenuItem"],
+    tag: "button",
+    read: ["height", "paddingLeft", "columnGap", "borderTopLeftRadius"],
+  },
   {
     id: "icon-button",
     source: "Gnb.tsx iconButton — 제품에 공용 IconButton은 없고 이것이 가장 많이 쓰인 벌이다",
@@ -952,6 +978,22 @@ const EXPECT = [
 
   ["tooltip", "borderTopLeftRadius", ["tooltip", "sizes", "base", "radius"], "same"],
   ["tooltip", "paddingTop", ["tooltip", "sizes", "base", "paddingBlock"], "same"],
+  // ── 프로필 팝오버 — 제품의 유일한 composite popover. 2026-08-30 에 처음 등록했다. ──────
+  // **여기서 갈리는 값이 곧 Figma 가 제품과 다른 이유다.** 어느 쪽으로 수렴할지는 소유자 판정이고,
+  // 그때까지 이 행들이 그 차이를 계속 소리 내어 말한다.
+  ["composite-popover-product", "borderTopLeftRadius", ["menu-popover", "sizes", "composite-popover", "radius"], "same"],
+  ["composite-popover-product", "width", ["menu-popover", "sizes", "composite-popover", "minWidth"], "same"],
+  ["composite-popover-product", "paddingTop", ["menu-popover", "sizes", "composite-popover", "paddingBlock"], "deviates",
+    "제품 6, DS 8. **DS 의 8 은 제품에서 온 값이 아니다** — LOUIS 자기 브라우저 테스트(`menu-pointer.browser.test.tsx` 의 유령 스크롤바 케이스)에서 유도했다. 그 근거는 이 패널에 성립하지 않는다: 제품 패널은 `overflow: hidden` 이라 스크롤 컨테이너가 아니고 `.louis-hit-target` 도 쓰지 않는다. 제품이 쓰는 6 은 DS 의 기본 패널 값(`panel.paddingBlock`)과 같다."],
+  ["composite-popover-product", "paddingLeft", ["menu-popover", "sizes", "composite-popover", "paddingInline"], "deviates",
+    "위와 같은 축이다."],
+  ["composite-popover-item-product", "borderTopLeftRadius", ["menu-popover", "sizes", "panel", "itemRadius"], "same"],
+  ["composite-popover-item-product", "height", ["menu-popover", "sizes", "panel", "itemHeight"], "deviates",
+    "제품 40, DS 37. DS 의 37 은 제품 수렴 결정으로 정해졌지만 그때 잰 것은 **노드 캔버스 메뉴**였다. 프로필 팝오버는 그 이관에 들어가지 않아 40 으로 남았다."],
+  ["composite-popover-item-product", "paddingLeft", ["menu-popover", "sizes", "panel", "itemPaddingInline"], "deviates",
+    "제품 10, DS 12. 위 높이와 같은 원인 — 이 패널은 `.louis-menu__item` 을 소비하지 않는다."],
+  ["composite-popover-item-product", "columnGap", ["menu-popover", "sizes", "panel", "itemGap"], "deviates",
+    "제품 10, DS 6. 위와 같은 원인이다."],
   ["tooltip", "paddingLeft", ["tooltip", "sizes", "base", "paddingInline"], "same"],
   ["tooltip", "fontSize", ["tooltip", "sizes", "base", "fontSize"], "same"],
   ["tooltip", "lineHeight", ["tooltip", "sizes", "base", "lineHeight"], "same"],

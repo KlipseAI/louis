@@ -70,7 +70,14 @@ await Promise.all([
   figma.loadFontAsync({ family: "Pretendard", style: "SemiBold" }),
 ]);
 const weightStyle = { 400: "Regular", 500: "Medium", 600: "SemiBold" };
-const colorVariable = (rgba) => {
+// 실측 색 → 로컬 Figma 변수. **없으면 던지지 않고 실측 고정 페인트로 떨어진다.**
+// 이 계획이 이미 아웃라인에 대해 쓰는 정책과 같다("No exact local Figma color variable
+// exists, so this remains a measured product-only fixed paint"). 던지게 두면 제품이 색을
+// 하나 바꿀 때마다 러너 전체가 Figma 안에서 죽고, 그걸 피하려면 존재하는지 확인도 못 한
+// 변수 이름을 지어내야 한다 — 둘 다 이 저장소의 규칙(값을 지어내지 않는다)에 어긋난다.
+// 여기 적힌 이름들은 형제 계획(product-checkout-status · product-payment-scenes ·
+// product-components)이 같은 컬렉션에서 이미 쓰고 있는 것만 남긴다.
+const colorPaint = (rgba) => {
   const key = `${Math.round(rgba[0] * 255)},${Math.round(rgba[1] * 255)},${Math.round(rgba[2] * 255)},${Math.round(rgba[3] * 1000) / 1000}`;
   const byColor = {
     "0,0,0,1": V.black,
@@ -82,12 +89,14 @@ const colorVariable = (rgba) => {
     "154,160,171,1": V.gray600,
     "188,192,201,1": V.gray500,
     "188,192,201,0.9": V.gray500a90,
+    "227,228,232,1": V.gray200,
+    "241,241,243,1": V.gray100,
     "248,248,249,1": V.surface,
     "250,250,250,1": V.cardSurface,
   };
   const variable = byColor[key];
-  if (!variable) throw new Error(`No measured variable binding for color ${key}`);
-  return variable;
+  if (variable) return setPaint(variable);
+  return { type: "SOLID", color: { r: rgba[0], g: rgba[1], b: rgba[2] }, opacity: rgba[3] };
 };
 const makeFixedText = (spec, name, rect = spec.rect) => {
   const text = figma.createText();
@@ -102,7 +111,7 @@ const makeFixedText = (spec, name, rect = spec.rect) => {
   text.x = rect.x;
   text.y = rect.y;
   text.textAlignHorizontal = spec.textAlign === "center" ? "CENTER" : spec.textAlign === "right" ? "RIGHT" : "LEFT";
-  text.fills = [setPaint(colorVariable(spec.color))];
+  text.fills = [colorPaint(spec.color)];
   return text;
 };
 const bindIconPaints = (instance, variable) => {
@@ -207,7 +216,7 @@ if (!cardSet) {
     action.cornerRadius = spec.action.radius;
     bindCorners(action, V.radius12);
     action.opacity = spec.action.opacity;
-    action.fills = [setPaint(colorVariable(spec.action.fill))];
+    action.fills = [colorPaint(spec.action.fill)];
     const labelSpec = { ...spec.action.label, textAlign: "center" };
     const label = makeFixedText(labelSpec, "label", { x: 0, y: 0, width: spec.action.rect.width, height: spec.action.rect.height });
     label.textAlignVertical = "CENTER";

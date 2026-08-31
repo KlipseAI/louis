@@ -477,6 +477,29 @@
     },
     "top-bar": {
       "max-width": "제품 상단 바는 상한을 풀고 셸이 폭을 정한다."
+    },
+    "composite-popover-product": {
+      "padding-bottom": "위아래 여백이 같은 축이다. EXPECT 가 padding-top 에서 본다.",
+      "padding-right": "좌우 여백이 같은 축이다. EXPECT 가 padding-left 에서 본다.",
+      "border-bottom-left-radius": "네 모서리가 같은 축이다. EXPECT 가 top-left 에서 본다.",
+      "border-bottom-right-radius": "네 모서리가 같은 축이다. EXPECT 가 top-left 에서 본다.",
+      "border-top-right-radius": "네 모서리가 같은 축이다. EXPECT 가 top-left 에서 본다.",
+      "transform-origin": "열림 모션의 기준점이다. DS 는 origin 을 앵커로만 규정하고 좌표를 계약하지 않는다.",
+      "--profile-line-color": "패널이 자식에게 넘기는 지역 변수다. 값 자체는 구분선 축에서 보고, 변수 선언은 계약이 아니다.",
+      "--profile-muted-color": "위와 같다 — 지역 변수 선언.",
+      "--profile-subtle-color": "위와 같다 — 지역 변수 선언.",
+      "--profile-soft-color": "위와 같다 — 지역 변수 선언.",
+      "--profile-chip-bg": "위와 같다 — 지역 변수 선언.",
+      "--profile-chip-bg-strong": "위와 같다 — 지역 변수 선언."
+    },
+    "composite-popover-item-product": {
+      "padding-top": "제품은 세로 여백 0 으로 두고 높이로 타깃을 잡는다. 그 높이를 EXPECT 가 본다.",
+      "padding-bottom": "위와 같다.",
+      "padding-right": "좌우 여백이 같은 축이다. EXPECT 가 padding-left 에서 본다.",
+      "row-gap": "가로 배치라 세로 축은 쓰이지 않는다. 간격은 column-gap 에서 본다.",
+      "border-bottom-left-radius": "네 모서리가 같은 축이다. EXPECT 가 top-left 에서 본다.",
+      "border-bottom-right-radius": "네 모서리가 같은 축이다. EXPECT 가 top-left 에서 본다.",
+      "border-top-right-radius": "네 모서리가 같은 축이다. EXPECT 가 top-left 에서 본다."
     }
   }
 }

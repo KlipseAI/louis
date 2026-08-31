@@ -1,10 +1,10 @@
 {
   "$comment": "Generated from migration/product.auth-fixture.json. Do not edit by hand.",
   "$evidenceClass": "product-only measured Figma candidate; not a normative design-system contract",
-  "productCommit": "a3ed8e031214f67ac319c5ceaa7ad2808cf0d3a4",
+  "productCommit": "ae8fd6278481a5e86cd324ba86a1d44fe978b788",
   "context": "desktop-1920x1080",
   "sourceCandidate": {
-    "id": "subtree-7fba13f6a8a4",
+    "id": "subtree-637e0dc9bf4a",
     "nodeCount": 47,
     "roots": [
       {
@@ -180,7 +180,7 @@
           1
         ],
         "activeIconOpacity": 1,
-        "$note": "No new visual value: Gnb.tsx:4605-4606 applies the common isSidebarMenuHrefActive result and Gnb.tsx:513/519 supplies the shared inactive/active colours at pinned commit a3ed8e031214f67ac319c5ceaa7ad2808cf0d3a4."
+        "$note": "No new visual value: Gnb.tsx:4691-4692 applies the common isSidebarMenuHrefActive result and Gnb.tsx:563/569 supplies the shared inactive/active colours at pinned commit ae8fd6278481a5e86cd324ba86a1d44fe978b788."
       },
       {
         "current": "VideoEditor",
@@ -193,7 +193,7 @@
           1
         ],
         "activeIconOpacity": 1,
-        "$note": "No new visual value: Gnb.tsx:4605-4606 applies the common isSidebarMenuHrefActive result and Gnb.tsx:513/519 supplies the shared inactive/active colours at pinned commit a3ed8e031214f67ac319c5ceaa7ad2808cf0d3a4."
+        "$note": "No new visual value: Gnb.tsx:4691-4692 applies the common isSidebarMenuHrefActive result and Gnb.tsx:563/569 supplies the shared inactive/active colours at pinned commit ae8fd6278481a5e86cd324ba86a1d44fe978b788."
       },
       {
         "current": "Highlight",
@@ -206,7 +206,7 @@
           1
         ],
         "activeIconOpacity": 1,
-        "$note": "No new visual value: Gnb.tsx:4605-4606 applies the common isSidebarMenuHrefActive result and Gnb.tsx:513/519 supplies the shared inactive/active colours at pinned commit a3ed8e031214f67ac319c5ceaa7ad2808cf0d3a4."
+        "$note": "No new visual value: Gnb.tsx:4691-4692 applies the common isSidebarMenuHrefActive result and Gnb.tsx:563/569 supplies the shared inactive/active colours at pinned commit ae8fd6278481a5e86cd324ba86a1d44fe978b788."
       }
     ],
     "rows": [
@@ -233,9 +233,9 @@
           "lineHeight": 21,
           "letterSpacing": -0.14,
           "color": [
-            0.3411764705882353,
-            0.36470588235294116,
-            0.40784313725490196,
+            0.341176,
+            0.364706,
+            0.407843,
             1
           ]
         },
@@ -248,9 +248,9 @@
           },
           "asset": "/icons/MagnifyingGlass.svg",
           "color": [
-            0.3411764705882353,
-            0.36470588235294116,
-            0.40784313725490196,
+            0.341176,
+            0.364706,
+            0.407843,
             1
           ],
           "opacity": 0.92
@@ -286,9 +286,9 @@
           "lineHeight": 21,
           "letterSpacing": -0.14,
           "color": [
-            0.3411764705882353,
-            0.36470588235294116,
-            0.40784313725490196,
+            0.341176,
+            0.364706,
+            0.407843,
             1
           ]
         },
@@ -301,9 +301,9 @@
           },
           "asset": "/icons/House.svg",
           "color": [
-            0.3411764705882353,
-            0.36470588235294116,
-            0.40784313725490196,
+            0.341176,
+            0.364706,
+            0.407843,
             1
           ],
           "opacity": 0.92
@@ -339,9 +339,9 @@
           "lineHeight": 21,
           "letterSpacing": 0,
           "color": [
-            0.3411764705882353,
-            0.36470588235294116,
-            0.40784313725490196,
+            0.341176,
+            0.364706,
+            0.407843,
             1
           ]
         },
@@ -354,9 +354,9 @@
           },
           "asset": "/icons/Graph.svg",
           "color": [
-            0.3411764705882353,
-            0.36470588235294116,
-            0.40784313725490196,
+            0.341176,
+            0.364706,
+            0.407843,
             1
           ],
           "opacity": 0.92
@@ -413,9 +413,9 @@
           "lineHeight": 21,
           "letterSpacing": 0,
           "color": [
-            0.3411764705882353,
-            0.36470588235294116,
-            0.40784313725490196,
+            0.341176,
+            0.364706,
+            0.407843,
             1
           ]
         },
@@ -428,9 +428,9 @@
           },
           "asset": "/icons/MagicWand.svg",
           "color": [
-            0.3411764705882353,
-            0.36470588235294116,
-            0.40784313725490196,
+            0.341176,
+            0.364706,
+            0.407843,
             1
           ],
           "opacity": 0.92
@@ -487,9 +487,9 @@
           "lineHeight": 21,
           "letterSpacing": -0.14,
           "color": [
-            0.3411764705882353,
-            0.36470588235294116,
-            0.40784313725490196,
+            0.341176,
+            0.364706,
+            0.407843,
             1
           ]
         },
@@ -502,9 +502,9 @@
           },
           "asset": "/highlight_symbol.svg",
           "color": [
-            0.3411764705882353,
-            0.36470588235294116,
-            0.40784313725490196,
+            0.341176,
+            0.364706,
+            0.407843,
             1
           ],
           "opacity": 0.92
@@ -548,7 +548,7 @@
             0.7372549019607844,
             0.7529411764705882,
             0.788235294117647,
-            0.14
+            0.12
           ],
           "padding": {
             "top": 3,
@@ -617,9 +617,9 @@
           "lineHeight": 21,
           "letterSpacing": -0.14,
           "color": [
-            0.3411764705882353,
-            0.36470588235294116,
-            0.40784313725490196,
+            0.341176,
+            0.364706,
+            0.407843,
             1
           ]
         },
@@ -632,9 +632,9 @@
           },
           "asset": "/icons/youtube.svg",
           "color": [
-            0.3411764705882353,
-            0.36470588235294116,
-            0.40784313725490196,
+            0.341176,
+            0.364706,
+            0.407843,
             1
           ],
           "opacity": 0.92
@@ -752,21 +752,21 @@
     },
     "darkThemeSource": {
       "inactive": {
-        "command": "git -C /Users/sejunki/klipse-web show a3ed8e031214f67ac319c5ceaa7ad2808cf0d3a4:apps/web/components/navigation/Gnb.tsx",
+        "command": "git -C /Users/sejunki/klipse-web show ae8fd6278481a5e86cd324ba86a1d44fe978b788:apps/web/components/navigation/Gnb.tsx",
         "path": "apps/web/components/navigation/Gnb.tsx",
-        "line": 513,
+        "line": 563,
         "quote": "    \"[.gnb-menuSidebar_.gnb-menuLink:not(&)]:[color:var(--gray-300)]\","
       },
       "active": {
-        "command": "git -C /Users/sejunki/klipse-web show a3ed8e031214f67ac319c5ceaa7ad2808cf0d3a4:apps/web/components/navigation/Gnb.tsx",
+        "command": "git -C /Users/sejunki/klipse-web show ae8fd6278481a5e86cd324ba86a1d44fe978b788:apps/web/components/navigation/Gnb.tsx",
         "path": "apps/web/components/navigation/Gnb.tsx",
-        "line": 519,
+        "line": 569,
         "quote": "    \"[color:var(--gray-000)]\","
       },
       "activeIndicator": {
-        "command": "git -C /Users/sejunki/klipse-web show a3ed8e031214f67ac319c5ceaa7ad2808cf0d3a4:apps/web/components/navigation/Gnb.tsx",
+        "command": "git -C /Users/sejunki/klipse-web show ae8fd6278481a5e86cd324ba86a1d44fe978b788:apps/web/components/navigation/Gnb.tsx",
         "path": "apps/web/components/navigation/Gnb.tsx",
-        "line": 523,
+        "line": 573,
         "quote": "    \"[html[data-theme=dark]_&]:[background-color:var(--palette-gray-800)]\","
       }
     },
@@ -775,7 +775,7 @@
       "componentSetName": "Product/Gnb Upgrade CTA",
       "sourceCandidates": [
         {
-          "id": "subtree-bf514c7b7b96",
+          "id": "subtree-fe34aa819557",
           "nodeCount": 59,
           "roots": [
             {
@@ -850,7 +850,7 @@
           "score": 354
         },
         {
-          "id": "subtree-e4dcecc90d80",
+          "id": "subtree-103b6e563038",
           "nodeCount": 59,
           "roots": [
             {
@@ -920,9 +920,9 @@
           "gap": 8,
           "radius": 12,
           "fill": [
-            0.09019607843137255,
-            0.10588235294117647,
-            0.13333333333333333,
+            0.090196,
+            0.105882,
+            0.133333,
             1
           ],
           "color": [
@@ -953,7 +953,7 @@
                 0,
                 0,
                 0,
-                0.06
+                0.04
               ],
               "offset": {
                 "x": 0,
@@ -1178,14 +1178,80 @@
                 "width": 256,
                 "height": 40
               }
+            },
+            {
+              "route": "/highlight/[projectId]?__phase=loading",
+              "path": "body.1.0.0.0.0.0",
+              "tag": "div",
+              "rect": {
+                "x": 12,
+                "y": 12,
+                "width": 256,
+                "height": 40
+              }
+            },
+            {
+              "route": "/highlight/[projectId]?__phase=uploading",
+              "path": "body.1.0.0.0.0.0",
+              "tag": "div",
+              "rect": {
+                "x": 12,
+                "y": 12,
+                "width": 256,
+                "height": 40
+              }
+            },
+            {
+              "route": "/highlight/[projectId]?__phase=upload",
+              "path": "body.1.0.0.0.0.0",
+              "tag": "div",
+              "rect": {
+                "x": 12,
+                "y": 12,
+                "width": 256,
+                "height": 40
+              }
+            },
+            {
+              "route": "/highlight/[projectId]?__phase=analyzing",
+              "path": "body.1.0.0.0.0.0",
+              "tag": "div",
+              "rect": {
+                "x": 12,
+                "y": 12,
+                "width": 256,
+                "height": 40
+              }
+            },
+            {
+              "route": "/highlight/[projectId]?__phase=extracting",
+              "path": "body.1.0.0.0.0.0",
+              "tag": "div",
+              "rect": {
+                "x": 12,
+                "y": 12,
+                "width": 256,
+                "height": 40
+              }
+            },
+            {
+              "route": "/highlight/[projectId]?__phase=failed",
+              "path": "body.1.0.0.0.0.0",
+              "tag": "div",
+              "rect": {
+                "x": 12,
+                "y": 12,
+                "width": 256,
+                "height": 40
+              }
             }
           ],
-          "routeCount": 12,
-          "occurrenceCount": 12,
-          "score": 72
+          "routeCount": 18,
+          "occurrenceCount": 18,
+          "score": 108
         },
         {
-          "id": "subtree-bf514c7b7b96",
+          "id": "subtree-fe34aa819557",
           "nodeCount": 59,
           "roots": [
             {
@@ -1260,7 +1326,7 @@
           "score": 354
         },
         {
-          "id": "subtree-e4dcecc90d80",
+          "id": "subtree-103b6e563038",
           "nodeCount": 59,
           "roots": [
             {
@@ -1354,7 +1420,7 @@
           "asset": "/klipse-light.svg",
           "darkAsset": "/klipse-dark.svg",
           "darkAssetSource": {
-            "command": "git -C /Users/sejunki/klipse-web show a3ed8e031214f67ac319c5ceaa7ad2808cf0d3a4:apps/web/components/ui/BrandLogo.tsx",
+            "command": "git -C /Users/sejunki/klipse-web show ae8fd6278481a5e86cd324ba86a1d44fe978b788:apps/web/components/ui/BrandLogo.tsx",
             "path": "apps/web/components/ui/BrandLogo.tsx",
             "line": 97,
             "quote": "        src=\"/klipse-dark.svg\""
@@ -1424,7 +1490,7 @@
       "componentSetName": "Product/Payment Result Content",
       "sourceCandidates": [
         {
-          "id": "subtree-eca01d4c1ecf",
+          "id": "subtree-a1f0d8b59b32",
           "nodeCount": 9,
           "roots": [
             {
@@ -1435,7 +1501,7 @@
                 "x": 834,
                 "y": 173,
                 "width": 520,
-                "height": 237.5938
+                "height": 229.5938
               }
             },
             {
@@ -1446,7 +1512,7 @@
                 "x": 834,
                 "y": 173,
                 "width": 520,
-                "height": 237.5938
+                "height": 229.5938
               }
             }
           ],
@@ -1455,7 +1521,7 @@
           "score": 18
         },
         {
-          "id": "subtree-6431e73e726b",
+          "id": "subtree-198dbf4bbdd0",
           "nodeCount": 9,
           "roots": [
             {
@@ -1466,7 +1532,7 @@
                 "x": 16,
                 "y": 109,
                 "width": 370,
-                "height": 320.1875
+                "height": 312.1875
               }
             },
             {
@@ -1477,7 +1543,7 @@
                 "x": 16,
                 "y": 109,
                 "width": 370,
-                "height": 320.1875
+                "height": 312.1875
               }
             }
           ],
@@ -1486,7 +1552,7 @@
           "score": 18
         },
         {
-          "id": "subtree-d1aea0da5d0f",
+          "id": "subtree-5a97e6ce252e",
           "nodeCount": 5,
           "roots": [
             {
@@ -1497,7 +1563,7 @@
                 "x": 834,
                 "y": 173,
                 "width": 520,
-                "height": 217.1875
+                "height": 209.1875
               }
             },
             {
@@ -1508,7 +1574,7 @@
                 "x": 834,
                 "y": 173,
                 "width": 520,
-                "height": 217.1875
+                "height": 209.1875
               }
             }
           ],
@@ -1524,7 +1590,7 @@
           "route": "/mypage/upgrade/billing-change-fail",
           "rect": {
             "width": 520,
-            "height": 237.5938
+            "height": 229.5938
           },
           "gap": 24,
           "background": [
@@ -1580,14 +1646,14 @@
               "x": 0,
               "y": 197.5938,
               "width": 520,
-              "height": 40
+              "height": 32
             },
             "radius": 12,
             "padding": {
               "top": 0,
-              "right": 20,
+              "right": 12,
               "bottom": 0,
-              "left": 20
+              "left": 12
             },
             "fill": [
               0,
@@ -1601,7 +1667,7 @@
                 "x": 0,
                 "y": 197.5938,
                 "width": 520,
-                "height": 40
+                "height": 32
               },
               "fontFamily": "pretendard",
               "fontSize": 14,
@@ -1609,9 +1675,9 @@
               "lineHeight": 21,
               "letterSpacing": -0.16,
               "color": [
-                0.9725490196078431,
-                0.9725490196078431,
-                0.9764705882352941,
+                0.945098,
+                0.945098,
+                0.952941,
                 1
               ],
               "textAlign": "start"
@@ -1684,7 +1750,7 @@
           "route": "/mypage/upgrade/billing-change-fail",
           "rect": {
             "width": 370,
-            "height": 320.1875
+            "height": 312.1875
           },
           "gap": 24,
           "background": [
@@ -1740,14 +1806,14 @@
               "x": 0,
               "y": 280.1875,
               "width": 370,
-              "height": 40
+              "height": 32
             },
             "radius": 12,
             "padding": {
               "top": 0,
-              "right": 20,
+              "right": 12,
               "bottom": 0,
-              "left": 20
+              "left": 12
             },
             "fill": [
               0,
@@ -1761,7 +1827,7 @@
                 "x": 0,
                 "y": 280.1875,
                 "width": 370,
-                "height": 40
+                "height": 32
               },
               "fontFamily": "pretendard",
               "fontSize": 14,
@@ -1769,9 +1835,9 @@
               "lineHeight": 21,
               "letterSpacing": -0.14,
               "color": [
-                0.9725490196078431,
-                0.9725490196078431,
-                0.9764705882352941,
+                0.945098,
+                0.945098,
+                0.952941,
                 1
               ],
               "textAlign": "start"
@@ -1844,7 +1910,7 @@
           "route": "/mypage/upgrade/billing-change-success",
           "rect": {
             "width": 520,
-            "height": 217.1875
+            "height": 209.1875
           },
           "gap": 24,
           "background": [
@@ -1900,14 +1966,14 @@
               "x": 0,
               "y": 177.1875,
               "width": 520,
-              "height": 40
+              "height": 32
             },
             "radius": 12,
             "padding": {
               "top": 0,
-              "right": 20,
+              "right": 12,
               "bottom": 0,
-              "left": 20
+              "left": 12
             },
             "fill": [
               0,
@@ -1921,7 +1987,7 @@
                 "x": 0,
                 "y": 177.1875,
                 "width": 520,
-                "height": 40
+                "height": 32
               },
               "fontFamily": "pretendard",
               "fontSize": 14,
@@ -1929,9 +1995,9 @@
               "lineHeight": 21,
               "letterSpacing": -0.16,
               "color": [
-                0.9725490196078431,
-                0.9725490196078431,
-                0.9764705882352941,
+                0.945098,
+                0.945098,
+                0.952941,
                 1
               ],
               "textAlign": "start"
@@ -1944,7 +2010,7 @@
           "route": "/mypage/upgrade/billing-change-success",
           "rect": {
             "width": 370,
-            "height": 283.7813
+            "height": 275.7813
           },
           "gap": 24,
           "background": [
@@ -2000,14 +2066,14 @@
               "x": 0,
               "y": 243.7813,
               "width": 370,
-              "height": 40
+              "height": 32
             },
             "radius": 12,
             "padding": {
               "top": 0,
-              "right": 20,
+              "right": 12,
               "bottom": 0,
-              "left": 20
+              "left": 12
             },
             "fill": [
               0,
@@ -2021,7 +2087,7 @@
                 "x": 0,
                 "y": 243.7813,
                 "width": 370,
-                "height": 40
+                "height": 32
               },
               "fontFamily": "pretendard",
               "fontSize": 14,
@@ -2029,9 +2095,9 @@
               "lineHeight": 21,
               "letterSpacing": -0.14,
               "color": [
-                0.9725490196078431,
-                0.9725490196078431,
-                0.9764705882352941,
+                0.945098,
+                0.945098,
+                0.952941,
                 1
               ],
               "textAlign": "start"
@@ -2044,7 +2110,7 @@
           "route": "/mypage/topup/success",
           "rect": {
             "width": 520,
-            "height": 217.1875
+            "height": 209.1875
           },
           "gap": 24,
           "background": [
@@ -2100,14 +2166,14 @@
               "x": 0,
               "y": 177.1875,
               "width": 520,
-              "height": 40
+              "height": 32
             },
             "radius": 12,
             "padding": {
               "top": 0,
-              "right": 20,
+              "right": 12,
               "bottom": 0,
-              "left": 20
+              "left": 12
             },
             "fill": [
               0,
@@ -2121,7 +2187,7 @@
                 "x": 0,
                 "y": 177.1875,
                 "width": 520,
-                "height": 40
+                "height": 32
               },
               "fontFamily": "pretendard",
               "fontSize": 14,
@@ -2129,9 +2195,9 @@
               "lineHeight": 21,
               "letterSpacing": -0.16,
               "color": [
-                0.9725490196078431,
-                0.9725490196078431,
-                0.9764705882352941,
+                0.945098,
+                0.945098,
+                0.952941,
                 1
               ],
               "textAlign": "start"
@@ -2144,7 +2210,7 @@
           "route": "/mypage/topup/success",
           "rect": {
             "width": 370,
-            "height": 262.7813
+            "height": 254.7813
           },
           "gap": 24,
           "background": [
@@ -2200,14 +2266,14 @@
               "x": 0,
               "y": 222.7813,
               "width": 370,
-              "height": 40
+              "height": 32
             },
             "radius": 12,
             "padding": {
               "top": 0,
-              "right": 20,
+              "right": 12,
               "bottom": 0,
-              "left": 20
+              "left": 12
             },
             "fill": [
               0,
@@ -2221,7 +2287,7 @@
                 "x": 0,
                 "y": 222.7813,
                 "width": 370,
-                "height": 40
+                "height": 32
               },
               "fontFamily": "pretendard",
               "fontSize": 14,
@@ -2229,9 +2295,9 @@
               "lineHeight": 21,
               "letterSpacing": -0.14,
               "color": [
-                0.9725490196078431,
-                0.9725490196078431,
-                0.9764705882352941,
+                0.945098,
+                0.945098,
+                0.952941,
                 1
               ],
               "textAlign": "start"

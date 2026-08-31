@@ -12,10 +12,22 @@ const checkOnly = process.argv.includes("--check");
 const styles = new Map(fixture.computedStyles.map((entry) => [entry.id, entry.value]));
 const fail = (message) => { throw new Error(`[figma-product-checkout-status] ${message}`); };
 const px = (value) => Number(/^(-?[\d.]+)px$/.exec(value ?? "")?.[1] ?? 0);
+// **브라우저는 색을 두 표기로 직렬화한다.** 배경·글자는 `rgb()`/`rgba()`(0~255)로 나오지만
+// 테두리와 일부 색은 `color(srgb 0.341176 0.364706 0.407843)`(0~1 정규화 + 슬래시 알파)로 나온다.
+// 값 범위가 다르므로 255로 나누는 경로와 **분기**해야 한다 — 나누면 1/255 로 뭉개진다.
+// 같은 처방을 scripts/build-figma-inventory.mjs 의 colorOf() 와
+// scripts/lib/figma-tree-spec.mjs 의 cssColorToHex() 가 이미 쓴다.
 const color = (value) => {
-  const match = /^rgba?\(\s*([\d.]+)[,\s]+([\d.]+)[,\s]+([\d.]+)(?:[,/\s]+([\d.]+))?\s*\)$/.exec(value ?? "");
-  if (!match) fail(`unsupported color ${value}`);
-  return [Number(match[1]) / 255, Number(match[2]) / 255, Number(match[3]) / 255, match[4] === undefined ? 1 : Number(match[4])];
+  const raw = String(value ?? "").trim();
+  const legacy = /^rgba?\(\s*([\d.]+)[,\s]+([\d.]+)[,\s]+([\d.]+)(?:[,/\s]+([\d.]+))?\s*\)$/.exec(raw);
+  if (legacy) {
+    return [Number(legacy[1]) / 255, Number(legacy[2]) / 255, Number(legacy[3]) / 255, legacy[4] === undefined ? 1 : Number(legacy[4])];
+  }
+  const modern = /^color\(srgb\s+([\d.]+)\s+([\d.]+)\s+([\d.]+)(?:\s*\/\s*([\d.]+))?\s*\)$/.exec(raw);
+  if (modern) {
+    return [Number(modern[1]), Number(modern[2]), Number(modern[3]), modern[4] === undefined ? 1 : Number(modern[4])];
+  }
+  return fail(`unsupported color ${value}`);
 };
 const screen = (context, route) => fixture.screens[context]?.[route] ?? fail(`missing screen ${context} ${route}`);
 const node = (context, route, path) => screen(context, route).tree.find((entry) => entry.path === path) ?? fail(`missing node ${context} ${route} ${path}`);

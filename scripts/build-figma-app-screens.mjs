@@ -55,6 +55,17 @@ const SCREENS = [
   { route: "/mypage/upgrade/fail", desktop: "183:743", mobile: "183:881" },
   { route: "/mypage/topup/success", desktop: "183:1427", mobile: "183:1565" },
   { route: "/mypage/topup/fail", desktop: "183:1606", mobile: "183:1736" },
+  // `/highlight/[projectId]` 의 phase 상태 여섯. 프레임은 §20 배치 산식으로 새로 세웠다
+  // (섹션 `255:1856`, 항목 index 3~8 → x 8560 / 160 / 2960 / 5760 / 8560 / 160,
+  //  rowTop 240 · 2140 · 3840). 측정은 개발 전용 `?__phase=` 후크가 연다.
+  // `reviewed` · `completed` 는 fixture 에 세그먼트·클립 시드가 없어 빈 화면이 되므로 재지 않는다
+  //  — `measure-product-auth-fixture.mjs` 의 ROUTES 주석에 노드 수와 함께 사유가 있다.
+  { route: "/highlight/[projectId]?__phase=loading", desktop: "1064:3132", mobile: "1064:3133" },
+  { route: "/highlight/[projectId]?__phase=uploading", desktop: "1064:3134", mobile: "1064:3135" },
+  { route: "/highlight/[projectId]?__phase=upload", desktop: "1064:3136", mobile: "1064:3137" },
+  { route: "/highlight/[projectId]?__phase=analyzing", desktop: "1064:3138", mobile: "1064:3139" },
+  { route: "/highlight/[projectId]?__phase=extracting", desktop: "1064:3140", mobile: "1064:3141" },
+  { route: "/highlight/[projectId]?__phase=failed", desktop: "1064:3142", mobile: "1064:3143" },
   // `/highlight/[projectId]?__phase=…` 6개는 **측정은 됐지만 여기 없다.** 이 목록의 항목은
   // 보드에 이미 있는 대상 프레임 id를 들어야 하는데(`renderer:388`이 `getNodeByIdAsync`로 찾고,
   // 없으면 던진다) 하이라이트 상세의 phase 프레임은 아직 보드에 없다. 프레임을 만드는 것은

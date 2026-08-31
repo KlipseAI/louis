@@ -41,18 +41,37 @@ const px = (value) => {
   const match = /^(-?[\d.]+)px$/.exec(value ?? "");
   return match ? Number(match[1]) : 0;
 };
+// 색 표기가 두 가지다. 제품이 `--palette-gray-1000: #000000` 을
+// `var(--louis-color-static-black)` 로 옮기면서(a3ed8e03..74a7303b) 상속되는 `color` 가
+// LOUIS 별칭을 거치게 됐고, Chromium 은 그 계산값을 legacy `rgb()` 가 아니라
+// `color(srgb …)` 로 직렬화한다. 칠은 그대로다 — `rgb(87, 93, 104)` 와
+// `color(srgb 0.341176 0.364706 0.407843)` 는 87/255 = 0.341176 으로 같은 색이다.
+// 실측 fixture 안에서 두 표기가 섞여 있으므로(586개 style 중 476개가 새 표기) 둘 다 읽는다.
+// srgb 채널은 이미 0..1 이라 255로 나누지 않는다 — 되돌려 곱했다가 다시 나누면 없던
+// 값을 지어내는 셈이 된다.
 const rgba = (value) => {
-  const match =
+  const legacy =
     /^rgba?\(\s*([\d.]+)[,\s]+([\d.]+)[,\s]+([\d.]+)(?:[,/\s]+([\d.]+))?\s*\)$/.exec(
       value ?? "",
     );
-  if (!match) fail(`unsupported color ${value}`);
-  return [Number(match[1]) / 255, Number(match[2]) / 255, Number(match[3]) / 255, match[4] === undefined ? 1 : Number(match[4])];
+  if (legacy) {
+    return [Number(legacy[1]) / 255, Number(legacy[2]) / 255, Number(legacy[3]) / 255, legacy[4] === undefined ? 1 : Number(legacy[4])];
+  }
+  const srgb =
+    /^color\(srgb\s+(-?[\d.]+)\s+(-?[\d.]+)\s+(-?[\d.]+)(?:\s*\/\s*([\d.]+))?\s*\)$/.exec(
+      value ?? "",
+    );
+  if (srgb) {
+    return [Number(srgb[1]), Number(srgb[2]), Number(srgb[3]), srgb[4] === undefined ? 1 : Number(srgb[4])];
+  }
+  fail(`unsupported color ${value}`);
 };
 const shadows = (value) => {
   if (!value || value === "none") return [];
   const result = [];
-  const pattern = /(rgba?\([^)]*\))\s+(-?[\d.]+)px\s+(-?[\d.]+)px\s+(-?[\d.]+)px\s+(-?[\d.]+)px(?:\s+(inset))?/g;
+  // 위 `rgba` 와 같은 이유로 `color(srgb …)` 도 받는다. 두 표기 모두 괄호 중첩이 없어
+  // `[^)]*` 로 끝까지 집힌다.
+  const pattern = /((?:rgba?|color)\([^)]*\))\s+(-?[\d.]+)px\s+(-?[\d.]+)px\s+(-?[\d.]+)px\s+(-?[\d.]+)px(?:\s+(inset))?/g;
   for (const match of value.matchAll(pattern)) {
     result.push({
       type: match[6] === "inset" ? "INNER_SHADOW" : "DROP_SHADOW",
@@ -166,14 +185,34 @@ const betaStyle = style(betaNode);
 const sectionNode = byText(routes.default.route, "Analytics");
 const sectionStyle = style(sectionNode);
 const sectionRowStyle = style(rowNodes[5]);
+/* 후보 id 는 **내용 주소가 아니다.** `measure-product-auth-fixture.mjs:755` 가 styleRef 를
+   `"s" + computedStyles.length` — 첫 등장 순서의 자리번호 — 로 붙이고, 후보 해시는 그 문자열을
+   그대로 넣는다(`:812`). 그래서 style table 앞쪽에 항목이 하나 늘기만 해도 뒤따르는 번호가
+   밀려 같은 subtree 의 id 가 바뀐다. 사이드바 47노드 중 실제로 번호가 밀린 건 둘(s84→s85,
+   s85→s86)뿐인데 id 는 통째로 갈렸다.
+
+   a3ed8e03 → ae8fd627 판정(전부 (가) 정상 변화, 제품 소스에서 확인):
+   - 이 fixture 는 lock 이 48f05c2a·74a7303b 를 지나는 동안 a3ed8e03 에 머물러 있었다.
+     그래서 이번 재측정이 따라잡는 구간은 커밋 5개가 아니라 25개다.
+   - 사이드바 행이 `.louis-sidebar-nav-item` 으로 이관됐다(Gnb.tsx, a3ed8e03..74a7303b):
+     `gap: normal→8px`, `min-width: auto→0px`, `text-align: center→start`.
+   - 행 끝 슬롯 배경 `rgb(var(--palette-gray-500-rgb) / 14%)` → `/ 12%`(Gnb.tsx:155→158).
+   - 색 표기가 `rgb()` → `color(srgb …)` 로 바뀌었다. 위 `rgba` 주석 참고 — 칠은 그대로다.
+   구조는 그대로다: 47노드·10route·같은 root path·rect 차이 0. route 집합도 문자 그대로 같다.
+   그래서 이름만 새로 못박는다. 값을 따라가는 게 아니라 **같은 것의 새 이름**을 적는 것이다. */
 const candidate = fixture.componentCandidateAudit.repeatedSubtreesByContext[contextName].find(
-  (entry) => entry.id === "subtree-7fba13f6a8a4",
+  (entry) => entry.id === "subtree-637e0dc9bf4a",
 );
 if (!candidate || candidate.nodeCount !== 47 || candidate.routeCount !== 10) {
   fail("measured repeated sidebar candidate changed; inspect before regenerating Figma");
 }
 
-const headerCandidates = ["subtree-bf514c7b7b96", "subtree-e4dcecc90d80"].map((id) =>
+/* 위와 같은 자리번호 밀림이다. route 집합이 옛 후보와 문자 그대로 같음을 확인했다 —
+   fe34aa819557 은 settings·subscription·billing-change-success/fail·topup-success/fail 6개,
+   103b6e563038 은 upgrade·billing-success·billing-fail·upgrade-fail 4개.
+   제품이 더한 `?__phase=` 6개는 60노드짜리 별도 후보(subtree-19636a6ae1fa)로 따로 묶였고
+   이 생성기는 그것을 쓰지 않는다. 헤더 두 벌은 여전히 각각 59노드다. */
+const headerCandidates = ["subtree-fe34aa819557", "subtree-103b6e563038"].map((id) =>
   fixture.componentCandidateAudit.repeatedSubtreesByContext[contextName].find((entry) => entry.id === id),
 );
 if (
@@ -240,10 +279,15 @@ const upgradeSpec = (route, state) => {
     },
   };
 };
+/* 브랜드 후보만 id 가 살아남았다 — 6노드의 styleRef 가 style table 맨 앞이라 번호가 밀리지
+   않았기 때문이다. 대신 routeCount 가 12 → 18 로 늘었다. 늘어난 6개는 제품이 더한 개발 전용
+   후크 `?__phase=`(HighlightProjectScene.tsx, 74a7303b..ae8fd627)로 열리는 하이라이트 상세
+   6단계이고, 그 화면들도 같은 브랜드 블록을 그대로 그린다. 후보가 넓어진 것이지 바뀐 게
+   아니다 — 앞 12개 route 는 순서까지 그대로다. */
 const brandCandidate = fixture.componentCandidateAudit.repeatedSubtreesByContext[contextName].find(
   (entry) => entry.id === "subtree-08a5cfbcf527",
 );
-if (!brandCandidate || brandCandidate.nodeCount !== 6 || brandCandidate.routeCount !== 12) {
+if (!brandCandidate || brandCandidate.nodeCount !== 6 || brandCandidate.routeCount !== 18) {
   fail("measured Gnb brand candidate changed; inspect before regenerating Figma");
 }
 const navNode = node("/settings", `${headerPath}.0`);
@@ -365,7 +409,21 @@ const paymentResultSpec = (context, route, outcome, viewport) => {
   return spec;
 };
 const repeatedCandidates = fixture.componentCandidateAudit.repeatedSubtreesByContext;
-const resultCandidateIds = ["subtree-eca01d4c1ecf", "subtree-6431e73e726b", "subtree-d1aea0da5d0f"];
+/* 셋 다 자리번호 밀림으로 이름만 갈렸다(eca01d4c1ecf→a1f0d8b59b32, 6431e73e726b→198dbf4bbdd0,
+   d1aea0da5d0f→5a97e6ce252e). route 집합·root path(body.1.0.0.1.1)·노드 수 모두 그대로다.
+   다만 이 화면의 CTA 는 **기하가 실제로 바뀌었다**: 40px 높이·20px 좌우 패딩 → 32px·12px.
+   제품 소스에서 확인 — `app/mypage/upgrade/billing-change-fail/page.tsx` 의
+   `STATUS_BUTTON_PRIMARY` 가 `h-20 px-10` → `h-16 px-6` 이다(a3ed8e03..74a7303b,
+   `--spacing: 2px` 격자라 40→32·20→12). 의도된 제품 변화이므로 생성기가 따라간다.
+
+   같은 CTA 의 **글자색은 옛 기준선 쪽이 설명되지 않는다.** 옛 실측은 #f8f8f9(palette-gray-50),
+   새 실측은 #f1f1f3(palette-gray-100)인데, 버튼 클래스는 두 커밋 모두 `text-gray-900!` 이고
+   `html[data-theme="light"]` 는 두 커밋 모두 `--gray-900: var(--palette-gray-100)` 다
+   (globals.css). 즉 **새 값이 제품 소스와 맞고 옛 값이 어긋난다** — 이 재생성이 낡은 값을
+   굳히는 게 아니라 되돌리는 쪽이다. 옛 fixture 가 자기가 적은 커밋과 다른 트리에서 측정된
+   것으로 보이나(lock 이력의 「락은 움직이는 ref 를 가리킨다」와 같은 계열), fixture 는 이
+   작업자에게 읽기 전용이라 원인까지는 확정하지 못했다. */
+const resultCandidateIds = ["subtree-a1f0d8b59b32", "subtree-198dbf4bbdd0", "subtree-5a97e6ce252e"];
 const resultCandidates = resultCandidateIds.map(
   (id) =>
     repeatedCandidates[contextName].find((entry) => entry.id === id) ??
@@ -436,7 +494,7 @@ const plan = {
         activeRow: "NodeCanvas",
         activeColor: rgba(style(byText(routes.home.route, "Home")).color),
         activeIconOpacity: iconForText(routes.home.route, "Home").opacity,
-        $note: "No new visual value: Gnb.tsx:4605-4606 applies the common isSidebarMenuHrefActive result and Gnb.tsx:513/519 supplies the shared inactive/active colours at pinned commit a3ed8e031214f67ac319c5ceaa7ad2808cf0d3a4.",
+        $note: "No new visual value: Gnb.tsx:4691-4692 applies the common isSidebarMenuHrefActive result and Gnb.tsx:563/569 supplies the shared inactive/active colours at pinned commit ae8fd6278481a5e86cd324ba86a1d44fe978b788.",
       },
       {
         current: "VideoEditor",
@@ -444,7 +502,7 @@ const plan = {
         activeRow: "VideoEditor",
         activeColor: rgba(style(byText(routes.home.route, "Home")).color),
         activeIconOpacity: iconForText(routes.home.route, "Home").opacity,
-        $note: "No new visual value: Gnb.tsx:4605-4606 applies the common isSidebarMenuHrefActive result and Gnb.tsx:513/519 supplies the shared inactive/active colours at pinned commit a3ed8e031214f67ac319c5ceaa7ad2808cf0d3a4.",
+        $note: "No new visual value: Gnb.tsx:4691-4692 applies the common isSidebarMenuHrefActive result and Gnb.tsx:563/569 supplies the shared inactive/active colours at pinned commit ae8fd6278481a5e86cd324ba86a1d44fe978b788.",
       },
       {
         current: "Highlight",
@@ -452,7 +510,7 @@ const plan = {
         activeRow: "Highlight",
         activeColor: rgba(style(byText(routes.home.route, "Home")).color),
         activeIconOpacity: iconForText(routes.home.route, "Home").opacity,
-        $note: "No new visual value: Gnb.tsx:4605-4606 applies the common isSidebarMenuHrefActive result and Gnb.tsx:513/519 supplies the shared inactive/active colours at pinned commit a3ed8e031214f67ac319c5ceaa7ad2808cf0d3a4.",
+        $note: "No new visual value: Gnb.tsx:4691-4692 applies the common isSidebarMenuHrefActive result and Gnb.tsx:563/569 supplies the shared inactive/active colours at pinned commit ae8fd6278481a5e86cd324ba86a1d44fe978b788.",
       },
     ],
     rows: [
@@ -540,17 +598,17 @@ const plan = {
     darkThemeSource: {
       inactive: sourceQuote(
         "apps/web/components/navigation/Gnb.tsx",
-        513,
+        563,
         '    "[.gnb-menuSidebar_.gnb-menuLink:not(&)]:[color:var(--gray-300)]",',
       ),
       active: sourceQuote(
         "apps/web/components/navigation/Gnb.tsx",
-        519,
+        569,
         '    "[color:var(--gray-000)]",',
       ),
       activeIndicator: sourceQuote(
         "apps/web/components/navigation/Gnb.tsx",
-        523,
+        573,
         '    "[html[data-theme=dark]_&]:[background-color:var(--palette-gray-800)]",',
       ),
     },

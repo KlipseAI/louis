@@ -1,7 +1,7 @@
 {
   "$comment": "Generated from migration/product.auth-fixture.json. Do not edit by hand.",
   "$evidenceClass": "product-only measured Figma component and composition; not a normative design-system contract",
-  "productCommit": "a3ed8e031214f67ac319c5ceaa7ad2808cf0d3a4",
+  "productCommit": "ae8fd6278481a5e86cd324ba86a1d44fe978b788",
   "figmaGlyphMeasurements": {
     "$measurement": "use_figma temporary TextNode natural bounds; measured 2026-08-24 and nodes removed",
     "-0.16": {
@@ -47,7 +47,7 @@
         "kind": "alert",
         "rect": {
           "width": 520,
-          "height": 338.1875
+          "height": 322.1875
         },
         "gap": 24,
         "title": {
@@ -97,7 +97,7 @@
             "x": 0,
             "y": 248.1875,
             "width": 520,
-            "height": 90
+            "height": 74
           },
           "gap": 10,
           "marginTop": 8,
@@ -108,14 +108,14 @@
                 "x": 0,
                 "y": 248.1875,
                 "width": 520,
-                "height": 40
+                "height": 32
               },
               "radius": 12,
               "padding": {
                 "top": 0,
-                "right": 20,
+                "right": 12,
                 "bottom": 0,
-                "left": 20
+                "left": 12
               },
               "fill": [
                 0.9803921568627451,
@@ -129,7 +129,7 @@
                   "x": 0,
                   "y": 248.1875,
                   "width": 520,
-                  "height": 40
+                  "height": 32
                 },
                 "fontFamily": "pretendard",
                 "fontSize": 14,
@@ -149,16 +149,16 @@
               "text": "Try again",
               "rect": {
                 "x": 0,
-                "y": 298.1875,
+                "y": 290.1875,
                 "width": 520,
-                "height": 40
+                "height": 32
               },
               "radius": 12,
               "padding": {
                 "top": 0,
-                "right": 20,
+                "right": 12,
                 "bottom": 0,
-                "left": 20
+                "left": 12
               },
               "fill": [
                 0,
@@ -170,9 +170,9 @@
                 "text": "Try again",
                 "rect": {
                   "x": 0,
-                  "y": 298.1875,
+                  "y": 290.1875,
                   "width": 520,
-                  "height": 40
+                  "height": 32
                 },
                 "fontFamily": "pretendard",
                 "fontSize": 14,
@@ -180,9 +180,9 @@
                 "lineHeight": 21,
                 "letterSpacing": -0.16,
                 "color": [
-                  0.9725490196078431,
-                  0.9725490196078431,
-                  0.9764705882352941,
+                  0.945098,
+                  0.945098,
+                  0.952941,
                   1
                 ],
                 "textAlign": "start"
@@ -254,7 +254,7 @@
         "kind": "details",
         "rect": {
           "width": 520,
-          "height": 381.5938
+          "height": 365.5938
         },
         "gap": 24,
         "title": {
@@ -304,7 +304,7 @@
             "x": 0,
             "y": 291.5938,
             "width": 520,
-            "height": 90
+            "height": 74
           },
           "gap": 10,
           "marginTop": 8,
@@ -315,14 +315,14 @@
                 "x": 0,
                 "y": 291.5938,
                 "width": 520,
-                "height": 40
+                "height": 32
               },
               "radius": 12,
               "padding": {
                 "top": 0,
-                "right": 20,
+                "right": 12,
                 "bottom": 0,
-                "left": 20
+                "left": 12
               },
               "fill": [
                 0,
@@ -336,7 +336,7 @@
                   "x": 0,
                   "y": 291.5938,
                   "width": 520,
-                  "height": 40
+                  "height": 32
                 },
                 "fontFamily": "pretendard",
                 "fontSize": 14,
@@ -344,9 +344,9 @@
                 "lineHeight": 21,
                 "letterSpacing": -0.16,
                 "color": [
-                  0.9725490196078431,
-                  0.9725490196078431,
-                  0.9764705882352941,
+                  0.945098,
+                  0.945098,
+                  0.952941,
                   1
                 ],
                 "textAlign": "start"
@@ -356,16 +356,16 @@
               "text": "Go to archive",
               "rect": {
                 "x": 0,
-                "y": 341.5938,
+                "y": 333.5938,
                 "width": 520,
-                "height": 40
+                "height": 32
               },
               "radius": 12,
               "padding": {
                 "top": 0,
-                "right": 20,
+                "right": 12,
                 "bottom": 0,
-                "left": 20
+                "left": 12
               },
               "fill": [
                 0.9803921568627451,
@@ -377,9 +377,9 @@
                 "text": "Go to archive",
                 "rect": {
                   "x": 0,
-                  "y": 341.5938,
+                  "y": 333.5938,
                   "width": 520,
-                  "height": 40
+                  "height": 32
                 },
                 "fontFamily": "pretendard",
                 "fontSize": 14,
@@ -535,7 +535,7 @@
         "kind": "details",
         "rect": {
           "width": 520,
-          "height": 427.5938
+          "height": 411.5938
         },
         "gap": 24,
         "title": {
@@ -585,7 +585,7 @@
             "x": 0,
             "y": 337.5938,
             "width": 520,
-            "height": 90
+            "height": 74
           },
           "gap": 10,
           "marginTop": 8,
@@ -596,14 +596,14 @@
                 "x": 0,
                 "y": 337.5938,
                 "width": 520,
-                "height": 40
+                "height": 32
               },
               "radius": 12,
               "padding": {
                 "top": 0,
-                "right": 20,
+                "right": 12,
                 "bottom": 0,
-                "left": 20
+                "left": 12
               },
               "fill": [
                 0,
@@ -617,7 +617,7 @@
                   "x": 0,
                   "y": 337.5938,
                   "width": 520,
-                  "height": 40
+                  "height": 32
                 },
                 "fontFamily": "pretendard",
                 "fontSize": 14,
@@ -625,9 +625,9 @@
                 "lineHeight": 21,
                 "letterSpacing": -0.16,
                 "color": [
-                  0.9725490196078431,
-                  0.9725490196078431,
-                  0.9764705882352941,
+                  0.945098,
+                  0.945098,
+                  0.952941,
                   1
                 ],
                 "textAlign": "start"
@@ -637,16 +637,16 @@
               "text": "Go to archive",
               "rect": {
                 "x": 0,
-                "y": 387.5938,
+                "y": 379.5938,
                 "width": 520,
-                "height": 40
+                "height": 32
               },
               "radius": 12,
               "padding": {
                 "top": 0,
-                "right": 20,
+                "right": 12,
                 "bottom": 0,
-                "left": 20
+                "left": 12
               },
               "fill": [
                 0.9803921568627451,
@@ -658,9 +658,9 @@
                 "text": "Go to archive",
                 "rect": {
                   "x": 0,
-                  "y": 387.5938,
+                  "y": 379.5938,
                   "width": 520,
-                  "height": 40
+                  "height": 32
                 },
                 "fontFamily": "pretendard",
                 "fontSize": 14,
@@ -876,7 +876,7 @@
         "kind": "alert",
         "rect": {
           "width": 370,
-          "height": 425.7813
+          "height": 409.7813
         },
         "gap": 24,
         "title": {
@@ -926,7 +926,7 @@
             "x": 0,
             "y": 335.7813,
             "width": 370,
-            "height": 90
+            "height": 74
           },
           "gap": 10,
           "marginTop": 8,
@@ -937,14 +937,14 @@
                 "x": 0,
                 "y": 335.7813,
                 "width": 370,
-                "height": 40
+                "height": 32
               },
               "radius": 12,
               "padding": {
                 "top": 0,
-                "right": 20,
+                "right": 12,
                 "bottom": 0,
-                "left": 20
+                "left": 12
               },
               "fill": [
                 0.9803921568627451,
@@ -958,7 +958,7 @@
                   "x": 0,
                   "y": 335.7813,
                   "width": 370,
-                  "height": 40
+                  "height": 32
                 },
                 "fontFamily": "pretendard",
                 "fontSize": 14,
@@ -978,16 +978,16 @@
               "text": "Try again",
               "rect": {
                 "x": 0,
-                "y": 385.7813,
+                "y": 377.7813,
                 "width": 370,
-                "height": 40
+                "height": 32
               },
               "radius": 12,
               "padding": {
                 "top": 0,
-                "right": 20,
+                "right": 12,
                 "bottom": 0,
-                "left": 20
+                "left": 12
               },
               "fill": [
                 0,
@@ -999,9 +999,9 @@
                 "text": "Try again",
                 "rect": {
                   "x": 0,
-                  "y": 385.7813,
+                  "y": 377.7813,
                   "width": 370,
-                  "height": 40
+                  "height": 32
                 },
                 "fontFamily": "pretendard",
                 "fontSize": 14,
@@ -1009,9 +1009,9 @@
                 "lineHeight": 21,
                 "letterSpacing": -0.14,
                 "color": [
-                  0.9725490196078431,
-                  0.9725490196078431,
-                  0.9764705882352941,
+                  0.945098,
+                  0.945098,
+                  0.952941,
                   1
                 ],
                 "textAlign": "start"
@@ -1083,7 +1083,7 @@
         "kind": "details",
         "rect": {
           "width": 370,
-          "height": 516.1875
+          "height": 500.1875
         },
         "gap": 24,
         "title": {
@@ -1133,7 +1133,7 @@
             "x": 0,
             "y": 426.1875,
             "width": 370,
-            "height": 90
+            "height": 74
           },
           "gap": 10,
           "marginTop": 8,
@@ -1144,14 +1144,14 @@
                 "x": 0,
                 "y": 426.1875,
                 "width": 370,
-                "height": 40
+                "height": 32
               },
               "radius": 12,
               "padding": {
                 "top": 0,
-                "right": 20,
+                "right": 12,
                 "bottom": 0,
-                "left": 20
+                "left": 12
               },
               "fill": [
                 0,
@@ -1165,7 +1165,7 @@
                   "x": 0,
                   "y": 426.1875,
                   "width": 370,
-                  "height": 40
+                  "height": 32
                 },
                 "fontFamily": "pretendard",
                 "fontSize": 14,
@@ -1173,9 +1173,9 @@
                 "lineHeight": 21,
                 "letterSpacing": -0.14,
                 "color": [
-                  0.9725490196078431,
-                  0.9725490196078431,
-                  0.9764705882352941,
+                  0.945098,
+                  0.945098,
+                  0.952941,
                   1
                 ],
                 "textAlign": "start"
@@ -1185,16 +1185,16 @@
               "text": "Go to archive",
               "rect": {
                 "x": 0,
-                "y": 476.1875,
+                "y": 468.1875,
                 "width": 370,
-                "height": 40
+                "height": 32
               },
               "radius": 12,
               "padding": {
                 "top": 0,
-                "right": 20,
+                "right": 12,
                 "bottom": 0,
-                "left": 20
+                "left": 12
               },
               "fill": [
                 0.9803921568627451,
@@ -1206,9 +1206,9 @@
                 "text": "Go to archive",
                 "rect": {
                   "x": 0,
-                  "y": 476.1875,
+                  "y": 468.1875,
                   "width": 370,
-                  "height": 40
+                  "height": 32
                 },
                 "fontFamily": "pretendard",
                 "fontSize": 14,
@@ -1364,7 +1364,7 @@
         "kind": "details",
         "rect": {
           "width": 370,
-          "height": 599.1875
+          "height": 583.1875
         },
         "gap": 24,
         "title": {
@@ -1414,7 +1414,7 @@
             "x": 0,
             "y": 509.1875,
             "width": 370,
-            "height": 90
+            "height": 74
           },
           "gap": 10,
           "marginTop": 8,
@@ -1425,14 +1425,14 @@
                 "x": 0,
                 "y": 509.1875,
                 "width": 370,
-                "height": 40
+                "height": 32
               },
               "radius": 12,
               "padding": {
                 "top": 0,
-                "right": 20,
+                "right": 12,
                 "bottom": 0,
-                "left": 20
+                "left": 12
               },
               "fill": [
                 0,
@@ -1446,7 +1446,7 @@
                   "x": 0,
                   "y": 509.1875,
                   "width": 370,
-                  "height": 40
+                  "height": 32
                 },
                 "fontFamily": "pretendard",
                 "fontSize": 14,
@@ -1454,9 +1454,9 @@
                 "lineHeight": 21,
                 "letterSpacing": -0.14,
                 "color": [
-                  0.9725490196078431,
-                  0.9725490196078431,
-                  0.9764705882352941,
+                  0.945098,
+                  0.945098,
+                  0.952941,
                   1
                 ],
                 "textAlign": "start"
@@ -1466,16 +1466,16 @@
               "text": "Go to archive",
               "rect": {
                 "x": 0,
-                "y": 559.1875,
+                "y": 551.1875,
                 "width": 370,
-                "height": 40
+                "height": 32
               },
               "radius": 12,
               "padding": {
                 "top": 0,
-                "right": 20,
+                "right": 12,
                 "bottom": 0,
-                "left": 20
+                "left": 12
               },
               "fill": [
                 0.9803921568627451,
@@ -1487,9 +1487,9 @@
                 "text": "Go to archive",
                 "rect": {
                   "x": 0,
-                  "y": 559.1875,
+                  "y": 551.1875,
                   "width": 370,
-                  "height": 40
+                  "height": 32
                 },
                 "fontFamily": "pretendard",
                 "fontSize": 14,
@@ -1741,7 +1741,7 @@
           "x": 554,
           "y": 161,
           "width": 520,
-          "height": 338.1875
+          "height": 322.1875
         }
       },
       {
@@ -1785,7 +1785,7 @@
           "x": 554,
           "y": 161,
           "width": 520,
-          "height": 381.5938
+          "height": 365.5938
         }
       },
       {
@@ -1829,7 +1829,7 @@
           "x": 554,
           "y": 161,
           "width": 520,
-          "height": 427.5938
+          "height": 411.5938
         }
       },
       {
@@ -1873,7 +1873,7 @@
           "x": 16,
           "y": 109,
           "width": 370,
-          "height": 425.7813
+          "height": 409.7813
         }
       },
       {
@@ -1917,7 +1917,7 @@
           "x": 16,
           "y": 109,
           "width": 370,
-          "height": 516.1875
+          "height": 500.1875
         }
       },
       {
@@ -1961,7 +1961,7 @@
           "x": 16,
           "y": 109,
           "width": 370,
-          "height": 599.1875
+          "height": 583.1875
         }
       }
     ],

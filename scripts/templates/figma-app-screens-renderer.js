@@ -48,6 +48,25 @@ for (const style of ["Regular", "Medium", "SemiBold", "Bold"]) {
 // `2 · Semantic=dark` 를 못박아 두었지만, 그러면 사이드바 라벨이 `#d5d7dd` 로 나와 밝은 페이지 위에서
 // 읽히지 않는다. 제품 실측은 사이드바 **배경 투명 + 라벨 `#575d68`** 이다(light 테마).
 // 장면 컴포넌트 쪽이 현재 측정과 어긋나 있는 것이므로 측정을 따른다.
+// ⚠ **아래 두 줄이 가리키는 컬렉션은 이 파일에 존재하지 않는다 (2026-08-31 실측).**
+//
+// 살아 있는 LOUIS Figma(`OlYKERKOkgbxBEEoXGZW2c`)의 변수 컬렉션은 셋뿐이다 —
+// `Klipse Primitive[Base]` · `Klipse Semantic[Global]` · `Klipse Semantic Color[Light/Dark]`.
+// `1 · Palette` 도 `2 · Semantic` 도 없다. 위 주석의 매핑은 **다른 파일**(은퇴 중인 옛
+// 라이브러리로 추정) 기준으로 쓰인 것이다. 그래서 `APP_MODES` 의 모드 고정은 **아무 일도 하지
+// 않고**, 색 탐색은 `Klipse Semantic Color` 의 첫 모드로 떨어진다.
+//
+// 드러난 방식: `?__phase=` 화면 12장을 그릴 때 두 프레임이 `unboundColors: ["eeeef1"]` 을
+// 돌려줬다. `#eeeef1` 은 사이드바가 있는 화면의 페이지 배경인데 **LOUIS 어디에도 그 값이 없다** —
+// `tokens.css` 에도, Figma 변수 전 컬렉션·전 모드에도 0건이다(가장 가까운
+// `palette-gray-150` = `#eaebee` 로 값이 다르다). 즉 앱 셸 화면 36장이 그 면을 리터럴로 칠하고
+// 있고 테마를 따라가지 않는다.
+//
+// 근본 원인은 값 하나가 빠진 것이 아니라 **구조**다. 제품은 사이드바가 있는 화면에서 회색 램프를
+// 통째로 재매핑하는데(`product-reading-traps.md` 「라이트 회색 램프가 두 벌」), 지금 Figma 변수에는
+// 그 램프를 담을 모드가 없다 — `Klipse Semantic Color` 는 Light/Dark 둘뿐이다.
+// **고치려면 모드 구조를 정해야 한다.** 값을 하나 끼워 넣는 것으로는 닫히지 않으므로 여기서
+// 하지 않고 사실만 적는다. 이 주석을 지우기 전에 그 판정이 먼저다.
 const APP_MODES = { "2 · Semantic": "light-sidebar", "1 · Palette": "sidebar" };
 // 앱 토큰(2 · Semantic / 1 · Palette)을 먼저 본다 — 앱 화면이 실제로 쓰는 층이다.
 const PREFERRED_COLLECTIONS = ["2 · Semantic", "1 · Palette", "Klipse Semantic Color", "Klipse Primitive"];

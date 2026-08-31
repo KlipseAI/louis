@@ -1,10 +1,15 @@
 import type { JSX, ReactNode, Ref } from "react";
 import { createContext, useContext, useId } from "react";
 
-/* xs 는 비디오 에디터 인스펙터의 조밀한 속성 행이다. CSS 정본(segmented-control.css:60)에는
- * 처음부터 있었는데 이 타입에만 없어, **CSS 가 지원하는 축을 타입이 금지하는** 상태였다.
- * 제품은 클래스를 직접 붙여 그 축을 쓰고 있었고 Figma 에도 xs 가 있다 — 타입을 넓혀 셋을 맞춘다. */
-export type SegmentedControlSize = "lg" | "md" | "xs";
+/* 앞의 셋이 컨트롤 높이 사다리다 — lg(40) · md(32) · sm(24). sm 은 편집 표면의 도구 줄에서만
+ * 쓰며 DS-D-0032 가 열었다.
+ *
+ * **`xs` 는 사다리가 아니다.** 비디오 에디터 인스펙터의 조밀한 속성 행 전용이고
+ * `layout-inspector-control-height`(28)를 읽는 컴포넌트 지역 예외다. CSS 정본에는 처음부터
+ * 있었는데 이 타입에만 없어 **CSS 가 지원하는 축을 타입이 금지하는** 상태였고, 제품은 클래스를
+ * 직접 붙여 그 축을 쓰고 있었다 — 그래서 넓혔다. 그 28 이 이제 sm(24)보다 커서 이름이 순서를
+ * 거짓말하므로 **맨 뒤에 둔다.** 이름을 옮길지 28 을 사다리에 들일지는 DS-D-0032 의 미결이다. */
+export type SegmentedControlSize = "lg" | "md" | "sm" | "xs";
 
 interface SegmentedControlContextValue {
   readonly name: string;

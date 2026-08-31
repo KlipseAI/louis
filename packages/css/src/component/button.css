@@ -72,6 +72,56 @@
   column-gap: var(--louis-space-control-xs);
 }
 
+/* sm: h-24 · px-8 · gap-4 · min-w-48 · radius-8 · caption 12/500 — 편집 표면의 도구 줄이다
+ * (DS-D-0032). 캔버스·타임라인·에셋 패널처럼 한 줄에 컨트롤이 여럿 서고 화면의 주인공이
+ * 컨트롤이 아닌 자리에서만 쓴다. 폼·대화상자·본문 흐름에는 쓰지 않는다 — 그 자리에서 24는
+ * 누르기 어렵고 md가 이미 맞다.
+ *
+ * **높이 말고는 전부 새 값이라 근거를 값마다 남긴다.** 이 칸이 lg·md와 다른 것은 두 가지다.
+ *
+ * 1. **radius가 사다리를 따라간다.** lg·md는 둘 다 `radius-control`(12)인데 sm은 8이다.
+ *    12를 24 높이에 그대로 쓰면 곡률이 높이의 절반이라 모서리가 알약처럼 읽힌다. 8은
+ *    지어낸 값이 아니라 디자인 실측이고(아래), 마침 `radius-control-sm`이 이미 그 값으로
+ *    있다 — tooltip·slider·project-card가 쓰는 이름이다. 새 토큰을 만들지 않는다.
+ * 2. **타이포가 이 칸에서만 갈라진다.** base의 `body-sm-medium`(14/21)을 24 안에 넣으면
+ *    행 높이 21에 위아래 여유가 1.5px씩뿐이라 라벨이 상자에 갇힌다. caption(12/18)이면
+ *    3px씩 남는다. 「타이포는 size 축이 아니다」는 lg·md 사이에서 참이고 그대로 두지만,
+ *    sm에서는 디자인이 12를 재서 준다 — 유도가 아니라 실측이다.
+ *
+ *    **font-family·weight까지 caption 세트로 받는 이유**는 스케일 반쪽만 갈아타면
+ *    나중에 caption의 weight가 움직였을 때 이 자리만 조용히 어긋나기 때문이다. 지금은
+ *    두 세트의 family·weight가 같은 값이라 결과가 바뀌지 않는다.
+ *
+ * 실측 출처: Figma `OlYKERKOkgbxBEEoXGZW2c` Page 14 `1087:2383`(비디오에디터)의 「가져오기」
+ * 버튼 `1087:2429` — 58×24, padding-inline 8, radius 8, Pretendard Medium 12 / 150%,
+ * stroke 0.5. padding 8은 사다리 비례(lg 16 → md 12 → sm 8)로도 같은 값이 나와 두 근거가
+ * 일치한다.
+ *
+ * 재지 않아 **기존 사다리에서 그대로 이어받는 값**: 최소 폭 48(`control-minimum-width-md` —
+ * lg·md가 이미 같은 토큰을 읽는다. 칸별 최소 폭이라는 축은 이 시스템에 없다. 실측한 「가져오기」가
+ * 58이라 이 바닥은 닿지도 않는다), gap 4(`space-control-xs` — lg·md 공통, 실측 자리에 아이콘이
+ * 없어 잴 것이 없었다), 아이콘 슬롯 16(`icon-size-sm` — 사다리가 슬롯을 나눈 적이 없다.
+ * 16 슬롯은 라벨 행 높이 18보다 작아 아이콘이 붙어도 높이가 24에서 자라지 않는다).
+ *
+ * **44px 타깃은 여기서도 `.louis-hit-target`이 지킨다** — Button은 크기와 무관하게 항상 그
+ * 클래스를 단다(button.tsx). 다만 시각 상자와 타깃의 차이가 이 칸에서 가장 커서 위아래로
+ * 10px씩((44 − 24) / 2) 튀어나온다. lg는 2px, md는 6px이다. 도구 줄에서 sm 버튼을 세로로
+ * 겹쳐 쌓을 때 그 간격을 20px 아래로 두면 인접 타깃이 겹친다 — dialog가 `space-control-sm`으로
+ * 액션 사이를 벌려 둔 것과 같은 형태의 함정이다. */
+.louis-button[data-size="sm"] {
+  min-block-size: var(--louis-layout-control-height-sm);
+  min-inline-size: var(--louis-layout-control-minimum-width-md);
+  padding-block: 0;
+  padding-inline: var(--louis-space-control-sm);
+  column-gap: var(--louis-space-control-xs);
+  border-radius: var(--louis-radius-control-sm);
+  font-family: var(--louis-typography-caption-medium-font-family);
+  font-size: var(--louis-typography-caption-medium-font-size);
+  font-weight: var(--louis-typography-caption-medium-font-weight);
+  line-height: var(--louis-typography-caption-medium-line-height);
+  letter-spacing: var(--louis-typography-caption-medium-letter-spacing);
+}
+
 /* 아이콘이 붙은 쪽만 2px 줄여 광학 균형을 맞춘다 (제품 Button.tsx:73-77). 아이콘의 자체 시각
  * 여백 때문에 텍스트-only 대비 그 쪽 padding이 넓어 보인다. */
 .louis-button[data-size="lg"][data-left-icon="true"] {
@@ -88,6 +138,17 @@
 
 .louis-button[data-size="md"][data-right-icon="true"] {
   padding-inline-end: calc(var(--louis-space-control-md) - 2px);
+}
+
+/* sm도 같은 보정을 받는다. 8 − 2 = 6으로 2px 격자 위에 남는다. 보정폭은 칸마다 비례하지 않고
+ * 상수 2px이다 — lg·md가 이미 그렇고, 아이콘의 시각 여백은 슬롯 크기(세 칸 모두 16)를 따라가지
+ * 버튼 높이를 따라가지 않기 때문이다. */
+.louis-button[data-size="sm"][data-left-icon="true"] {
+  padding-inline-start: calc(var(--louis-space-control-sm) - 2px);
+}
+
+.louis-button[data-size="sm"][data-right-icon="true"] {
+  padding-inline-end: calc(var(--louis-space-control-sm) - 2px);
 }
 
 /* variant — 값은 제품 배포 코드에서 채택했다. 채택/편차 판정은
@@ -210,6 +271,10 @@
  * 기본(20px) 아이콘을 넣으면 높이가 28이 아니라 30이 됐다 — 같은 줄의 버튼들이 아이콘 유무로
  * 어긋난다. 높이가 호출부에 따라 달라지는 것은 컨트롤이 아니다.
  *
+ * **이 실측의 `sm`은 지금의 `sm`(24)이 아니다.** 사다리가 개명되기 전(DS-D-0027) 이름이며
+ * 그때 28이었다 — 위 문장의 28이 그 값이다. 실측 자체는 여전히 유효하다: 슬롯 크기를 버튼이
+ * 소유하지 않으면 아이콘이 높이를 밀어 올린다는 사실은 세 칸 모두에서 같다.
+ *
  * Iconography의 "글리프 크기는 아이콘이 소유한다"에 대한 의도적 예외이며 사유는
  * design/components/button.md의 Known deviations에 있다. 컨테이너 크기를 컨트롤이 소유한다는
  * 같은 문서의 규칙과는 어긋나지 않는다. */
@@ -218,7 +283,9 @@
   flex: none;
   align-items: center;
   justify-content: center;
-  /* 버튼이 32 단일이라 아이콘도 16(icon-size-sm) 단일이다. */
+  /* 사다리가 세 칸(40 · 32 · 24)이 된 뒤에도 슬롯은 16(icon-size-sm) 단일이다 — 사다리가
+   * 아이콘 슬롯을 나눈 적이 없다. sm에서도 16이 라벨 행 높이 18보다 작아 아이콘이 붙어도
+   * 높이가 24에서 자라지 않는다. */
   inline-size: var(--louis-icon-size-sm);
   block-size: var(--louis-icon-size-sm);
 }

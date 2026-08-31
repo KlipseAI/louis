@@ -3,7 +3,10 @@ import type { ButtonHTMLAttributes, JSX, ReactNode, Ref } from "react";
 /* inverse — 인증 플로우 제출 CTA. 페이지를 반전시킨 면이다. button.css 의 같은 이름 변형이
    소유하며 제품 apps/web/components/ui/Button.tsx 도 같은 집합을 쓴다. */
 export type ButtonVariant = "primary" | "secondary" | "ghost" | "danger" | "inverse";
-export type ButtonSize = "lg" | "md";
+/* sm — 편집 표면의 도구 줄에서만 쓴다 (DS-D-0032). 24는 44px 최소 타깃에 미달하지만 Button은
+   크기와 무관하게 .louis-hit-target을 달아 타깃을 별도로 지킨다. 폼·대화상자·본문 흐름에는
+   md를 쓴다. */
+export type ButtonSize = "lg" | "md" | "sm";
 
 export interface ButtonProps
   extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, "type"> {

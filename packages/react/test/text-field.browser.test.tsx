@@ -34,7 +34,8 @@ function tokenValue(id: string, property: "background-color" | "color"): string 
   return value;
 }
 
-const SIZES: readonly TextFieldSize[] = ["lg", "md"];
+// 세 칸 전부 돈다. 한 칸만 재면 사다리가 아니라 그 칸 하나의 값이 맞는지만 보게 된다.
+const SIZES: readonly TextFieldSize[] = ["lg", "md", "sm"];
 
 for (const size of SIZES) {
   const spec = measured.components.input.sizes[size];
@@ -76,6 +77,43 @@ for (const size of SIZES) {
     expect(px(getComputedStyle(find(".louis-text-field")).rowGap), "stackGap").toBe(spec.stackGap);
   });
 }
+
+test("사다리가 이름 순서대로 내려간다 — lg > md > sm", async () => {
+  // DS-D-0027이 만든 문제가 정확히 이것이었다. 같은 32를 md·sm 두 이름이 가리켰고, 이름이
+  // 실물보다 많아 고르는 쪽이 손해를 봤다. DS-D-0032가 sm(24)을 더하면서 세 이름이 세 높이를
+  // 갖는데, 그 대응이 깨지는 것은 값 하나만 어긋나도 되는 일이라 매 실행 확인한다.
+  await render(
+    <div style={{ inlineSize: "320px" }}>
+      <TextField label="큰" size="lg" />
+      <TextField label="보통" size="md" />
+      <TextField label="작은" size="sm" />
+    </div>,
+  );
+  const [lg, md, sm] = [...document.querySelectorAll(".louis-text-field__box")] as HTMLElement[];
+  if (lg === undefined || md === undefined || sm === undefined) {
+    throw new Error("세 칸을 찾지 못했습니다");
+  }
+  expect(lg.offsetHeight, "lg").toBe(40);
+  expect(md.offsetHeight, "md").toBe(32);
+  expect(sm.offsetHeight, "sm").toBe(24);
+  expect(lg.offsetHeight, "lg > md").toBeGreaterThan(md.offsetHeight);
+  expect(md.offsetHeight, "md > sm").toBeGreaterThan(sm.offsetHeight);
+});
+
+test("sm이 알약이 되지 않는다 — 반경이 높이의 절반보다 작다", async () => {
+  // radius-control 12를 그대로 물려받으면 24 높이에서 12 = 높이/2라 필드가 알약이 된다.
+  // size는 크기만 바꾸는 축인데 모양까지 바뀌므로 sm만 radius-control-sm으로 내려간다.
+  // 이 어긋남은 계산값을 봐야 보인다 — 토큰 이름만 읽으면 둘 다 "control 반경"이다.
+  await render(
+    <div style={{ inlineSize: "320px" }}>
+      <TextField label="작은" size="sm" />
+    </div>,
+  );
+  const box = find(".louis-text-field__box");
+  const radius = px(getComputedStyle(box).borderTopLeftRadius);
+  expect(radius, "measured 계약과 같다").toBe(measured.components.input.sizes.sm.radius);
+  expect(radius * 2, "높이보다 작다 — 알약이 아니다").toBeLessThan(box.offsetHeight);
+});
 
 test("states 표가 코드와 같다 — 모든 상태가 generic 헤어라인이다", async () => {
   // DS-D-0023: invalid/disabled의 stroke 색 축을 없앴다. 세 상태가 같은 generic 헤어라인 inset을

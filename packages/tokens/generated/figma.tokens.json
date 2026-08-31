@@ -11673,6 +11673,34 @@
             }
           }
         },
+        "layout-control-height-sm": {
+          "$type": "dimension",
+          "fields": [],
+          "figmaName": "layout/control-height-sm",
+          "hiddenFromPublishing": false,
+          "losses": [
+            "Figma FLOAT는 DTCG 단위 의미를 직접 보존하지 않으므로 source metadata를 함께 검토해야 합니다."
+          ],
+          "nativeVariableType": "FLOAT",
+          "representation": "variable",
+          "scopes": [
+            "WIDTH_HEIGHT"
+          ],
+          "valuesByMode": {
+            "Global": {
+              "$value": "{primitive.spacing.24}",
+              "aliasTarget": {
+                "id": "space-24",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "unit": "px",
+                "value": 24
+              },
+              "sourcePath": "semantic.global.layout.control-height-sm"
+            }
+          }
+        },
         "layout-control-hit-target-minimum": {
           "$type": "dimension",
           "fields": [],

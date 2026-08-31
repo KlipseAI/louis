@@ -5288,6 +5288,16 @@
             }
           }
         },
+        "control-height-sm": {
+          "$value": "{primitive.spacing.24}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "layout-control-height-sm",
+              "tier": "semantic",
+              "mode": "global"
+            }
+          }
+        },
         "control-hit-target-minimum": {
           "$value": "{primitive.spacing.44}",
           "$extensions": {

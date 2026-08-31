@@ -9249,6 +9249,27 @@ export const tokens = {
         "unit": "px"
       }
     },
+    "layout-control-height-sm": {
+      "aliasTarget": {
+        "id": "space-24",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-layout-control-height-sm": "24px"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "layout-control-height-sm",
+      "mode": "global",
+      "rawValue": "{primitive.spacing.24}",
+      "sourcePath": "semantic.global.layout.control-height-sm",
+      "tier": "semantic",
+      "type": "dimension",
+      "value": {
+        "value": 24,
+        "unit": "px"
+      }
+    },
     "layout-control-hit-target-minimum": {
       "aliasTarget": {
         "id": "space-44",

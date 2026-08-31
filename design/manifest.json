@@ -1130,6 +1130,15 @@
       "generated": false
     },
     {
+      "id": "decision-control-size-ladder-sm",
+      "path": "design/governance/decisions/DS-D-0032-control-size-ladder-sm.md",
+      "title": "DS-D-0032 컨트롤 크기 사다리에 sm(24)을 더한다",
+      "section": "governance",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
+    },
+    {
       "id": "governance-product-confirmations",
       "path": "design/governance/product-confirmations.md",
       "title": "제품 확인 대기 목록",
@@ -1337,6 +1346,7 @@
         "design/governance/decisions/DS-D-0029-token-names-must-be-true.md",
         "design/governance/decisions/DS-D-0030-no-duplicate-role-tokens.md",
         "design/governance/decisions/DS-D-0031-no-theme-branch-on-adaptive-ramp.md",
+        "design/governance/decisions/DS-D-0032-control-size-ladder-sm.md",
         "design/governance/product-confirmations.md",
         "design/updates/README.md"
       ]

@@ -14,6 +14,9 @@ import "@klipse-design/css/tokens.css";
 import "@klipse-design/css/styles.css";
 
 type SizeKey = "lg" | "md";
+/* Button만 sm(24)을 갖는다 (DS-D-0032). IconButton은 아직 lg·md 둘 다 32라 이 축이 없다 —
+   두 루프가 같은 배열을 돌면 없는 크기를 요구하게 되므로 배열을 나눈다. */
+type ButtonSizeKey = SizeKey | "sm";
 
 const px = (value: string): number => Number.parseFloat(value);
 const rect = (node: Element): DOMRect => node.getBoundingClientRect();
@@ -39,8 +42,9 @@ function Isolated({ children }: { children: ReactNode }): JSX.Element {
 }
 
 const SIZES: readonly SizeKey[] = ["lg", "md"];
+const BUTTON_SIZES: readonly ButtonSizeKey[] = ["lg", "md", "sm"];
 
-for (const size of SIZES) {
+for (const size of BUTTON_SIZES) {
   const spec = measured.components.button.sizes[size];
 
   test(`Button ${size}의 구조값이 components.measured.json과 같다`, async () => {

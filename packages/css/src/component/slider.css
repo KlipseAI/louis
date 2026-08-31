@@ -42,7 +42,8 @@
 }
 
 /* 실제 컨트롤. 높이는 TextField·Button과 같은 계단이다 — 인스펙터에서 나란히 서는 컨트롤이
- * 서로 다른 높이를 가지면 줄이 어긋난다. */
+ * 서로 다른 높이를 가지면 줄이 어긋난다. **lg와 sm만 그 계단의 토큰을 읽는다** — md는 리터럴
+ * 16이고, 그 사유와 그것이 지금 만드는 순서 문제는 아래 sm 블록에 있다. */
 .louis-slider__control {
   /* 채움 비율. **토큰이 아니라 이 컴포넌트의 지역 변수다.** 값에서만 나오는 수라 CSS가 알 수
    * 없고 컴포넌트가 인라인으로 덮어쓴다. 기본값을 여기 두는 이유는 CSS만 로드한 소비자(정적
@@ -64,12 +65,56 @@
   touch-action: none;
 }
 
-/* sm은 노드 캔버스의 메타 드롭다운처럼 **밀도가 촘촘한 인스펙터**에 쓰인다. 제품의 그 슬라이더는
- * 컨트롤 박스가 레일 두께(4px)에 붙어 있어, control-height-md(32px)을 쓰면 드롭다운 한 칸이
- * 28px씩 두꺼워진다 — 실제로 그렇게 보였다. 썸(12px)이 잘리지 않는 최소치인 16px로 낮춰
- * 제품 밀도를 유지한다. md(40px)는 폼 안에 놓이는 슬라이더의 넉넉한 타깃을 그대로 둔다. */
+/* md(16)는 노드 캔버스의 메타 드롭다운처럼 **밀도가 촘촘한 인스펙터**에 쓰인다. 제품의 그
+ * 슬라이더는 컨트롤 박스가 레일 두께(4px)에 붙어 있어, control-height-md(32px)을 쓰면 드롭다운
+ * 한 칸이 28px씩 두꺼워진다 — 실제로 그렇게 보였다. 썸(12px)이 잘리지 않는 최소치인 16px로
+ * 낮춰 제품 밀도를 유지한다. lg(40)는 폼 안에 놓이는 슬라이더의 넉넉한 타깃을 그대로 둔다.
+ *
+ * 이 문단은 DS-D-0027 개명(구 sm→md, 구 md→lg) 전에 쓰였고 그때 함께 옮겨지지 않아
+ * 「sm은…」「md(40px)는…」으로 남아 있었다. **값은 하나도 바뀌지 않았고 이름만 바로잡았다.** */
 .louis-slider[data-size="md"] .louis-slider__control {
   block-size: 16px;
+}
+
+/* sm(24) — DS-D-0032가 연 세 번째 칸이고, 이 컴포넌트에서는 **실측값이다.** 새 비디오 에디터의
+ * 인스펙터 불투명도 슬라이더가 정확히 이 기하다 (Figma OlYKERKOkgbxBEEoXGZW2c, 프레임
+ * 1087:2383 「비디오에디터」):
+ *
+ *   1087:2510  슬롯   140×24  ← 컨트롤 높이 24
+ *   1087:2513  레일    80×4   ← 그 슬롯 안에서 y=10, 즉 (24 − 4) / 2 로 세로 가운데
+ *   1087:2515  썸      12×12  ← 레일 기준 y=−4, 즉 (4 − 12) / 2
+ *
+ * 레일 4는 기본 선언과 같아 sm 전용 규칙이 필요 없고, 썸만 기본 16에서 12로 내린다. 둘 다
+ * 아래에서 그 계산을 그대로 쓴다.
+ *
+ * ## 이 칸이 md(16)보다 크다 — 이름이 순서를 거짓말한다
+ *
+ * lg(40) > sm(24) > md(16)이다. md가 사다리 값(32)이 아니라 리터럴 16이기 때문이며,
+ * DS-D-0027이 「한 컴포넌트만 옮기면 함정이 생긴다」고 적은 그 함정은 이 컴포넌트에서 이미
+ * 열려 있었다. sm을 여는 일이 그것을 **만든 것이 아니라 보이게 만들었다.**
+ *
+ * 여기서 md를 32로 되돌리지 않는 이유는 하나다 — 16이라는 판정을 소유한 기록이
+ * migration/product.measured.json이고, 그 기록을 함께 옮기지 않은 채 CSS만 바꾸면 게이트는
+ * 초록인데 근거가 사라진다. 편차로 적고 미결로 남긴다 (design/components/slider.md의
+ * Known deviations). */
+.louis-slider[data-size="sm"] .louis-slider__control {
+  block-size: var(--louis-layout-control-height-sm);
+}
+
+/* sm의 라벨만 caption(12)으로 내린다. 두 근거가 같은 값을 가리킨다.
+ * **실측** — 위 인스펙터 행의 라벨 「불투명도」(1087:2509)와 값 「100」(1087:2512)이 12px/150%다.
+ * **선례** — SegmentedControl이 밀도가 낮은 칸에서 같은 `typography-caption-medium`으로
+ * 내려간다(segmented-control.css의 md·xs).
+ *
+ * 굵기는 옮기지 않는다. lg·md가 쓰는 medium(500)을 그대로 두고 **크기 계단만** 바꾼다 —
+ * 디자인의 그 라벨은 Regular(400)이지만 그것은 호출부가 행에 직접 그린 글자이지 이 컴포넌트가
+ * 소유하는 stack 라벨이 아니다. */
+.louis-slider[data-size="sm"] .louis-slider__label {
+  font-family: var(--louis-typography-caption-medium-font-family);
+  font-size: var(--louis-typography-caption-medium-font-size);
+  font-weight: var(--louis-typography-caption-medium-font-weight);
+  line-height: var(--louis-typography-caption-medium-line-height);
+  letter-spacing: var(--louis-typography-caption-medium-letter-spacing);
 }
 
 /* 포커스 링은 **컨트롤 전체**가 받는다. 네이티브 range는 input 자신이 포커스 대상이라 링이
@@ -169,6 +214,20 @@
   block-size: 12px;
 }
 
+/* sm의 썸도 12다 — **md와 같은 값이지만 유도한 것이 아니라 실측이다.** 위 1087:2515가 12×12이며,
+ * 레일 위 위치도 같은 계산(4 − 12) / 2 = −4로 실측과 맞는다. 선택자를 md와 **묶지 않는다** —
+ * 테스트가 CSSOM의 selectorText를 문자열로 대조하므로 그룹 선택자는 어느 쪽으로도 잡히지 않는다. */
+.louis-slider[data-size="sm"] .louis-slider__control::-webkit-slider-thumb {
+  inline-size: 12px;
+  block-size: 12px;
+  margin-block-start: calc((4px - 12px) / 2);
+}
+
+.louis-slider[data-size="sm"] .louis-slider__control::-moz-range-thumb {
+  inline-size: 12px;
+  block-size: 12px;
+}
+
 .louis-slider__control:disabled::-webkit-slider-runnable-track {
   background: var(--louis-color-stroke-subtle);
 }
@@ -223,6 +282,23 @@
   block-size: 20px;
 }
 
+/* sm의 막대는 md와 같은 20이다. **새 수를 유도한 것이 아니라 이미 잰 둘 중 하나를 고른 것이다.**
+ * 28과 20은 제품 인스펙터의 두 실측값이고(패널 28, 패널 밖 20) 둘 사이에 이을 비례가 없다 —
+ * 컨트롤 높이가 40→16으로 24 줄 때 막대는 28→20으로 8만 줄어서 비율도 차분도 성립하지 않는다.
+ * 그래서 세 번째 수를 지어내는 대신, DS-D-0032가 sm에 배정한 자리(편집 표면의 도구 줄 = 패널
+ * 밖)에 해당하는 20을 쓴다. 표식 14가 들어가는 하한이기도 하다.
+ *
+ * **디자인에는 track 변형의 sm 실측이 없다.** 위 프레임의 슬라이더 둘(인스펙터 불투명도,
+ * 타임라인 줌)이 모두 thumb 변형이다. */
+.louis-slider[data-variant="track"][data-size="sm"] .louis-slider__control::-webkit-slider-runnable-track {
+  block-size: 20px;
+}
+
+.louis-slider[data-variant="track"][data-size="sm"] .louis-slider__control::-moz-range-track,
+.louis-slider[data-variant="track"][data-size="sm"] .louis-slider__control::-moz-range-progress {
+  block-size: 20px;
+}
+
 .louis-slider[data-variant="track"] .louis-slider__control::-webkit-slider-thumb {
   inline-size: 2px;
   block-size: 14px;
@@ -243,5 +319,10 @@
 }
 
 .louis-slider[data-variant="track"][data-size="md"] .louis-slider__control::-webkit-slider-thumb {
+  margin-block-start: calc((20px - 14px) / 2);
+}
+
+/* 막대가 md와 같은 20이므로 표식을 올리는 양도 같다. */
+.louis-slider[data-variant="track"][data-size="sm"] .louis-slider__control::-webkit-slider-thumb {
   margin-block-start: calc((20px - 14px) / 2);
 }

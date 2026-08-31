@@ -53,10 +53,43 @@
   block-size: var(--louis-layout-control-height-md);
 }
 
+/* sm — DS-D-0032 가 연 사다리의 세 번째 칸. **편집 표면의 도구 줄에서만** 쓴다. 이 칸이 실재하는
+ * 이유는 비디오 에디터(Figma `1087:2383`)의 필터 탭 `1087:2432` 이고, 그 다섯 세그먼트가
+ * `1087:2433`·`2435`·`2437`·`2439`·`2441` 이다.
+ *
+ * **패딩 2px 은 취향이 아니라 두 제약이 남긴 유일한 값이다.**
+ *   - 아래(≤3) — 세그먼트가 caption 행 높이 18px 을 담아야 한다. lg·md 의 상수 4 를 그대로 쓰면
+ *     세그먼트가 24 − 8 = 16 이 되어 라벨이 선택 면을 1px 씩 뚫고 나온다.
+ *   - 위(≥2) — 트랙의 inset 헤어라인은 padding 상자 안쪽에 그려지고 자식은 그 위에 칠해진다.
+ *     0 으로 두면 양 끝 세그먼트가 선택됐을 때 헤어라인 세 변이 가려진다. 다크에서 `bg-inset` 이
+ *     `bg-surface` 와 같은 색이라(아래 Implementation) 그 헤어라인이 트랙의 유일한 경계다.
+ *   2px 격자에서 그 사이에 있는 값은 2 하나뿐이다. 3 은 홀수이고 세그먼트가 정확히 18 이라 여유가
+ *   0 이 된다.
+ *
+ * **반경 8 은 실측이다.** 이 화면의 24 높이 컨트롤이 전부 반경 8 이다 — 가져오기 `1087:2429`,
+ * 필터 탭 세그먼트, 70% 줌 칩 `1087:2482`, 트랙 레인 토글 `1087:2583` 외 8 — 마지막 것은
+ * 24×24 정사각이라 IconButton 자리인데 거기서도 8 이다. 24 에서 `radius-control`(12)은 한 변의
+ * 절반이라 알약이 된다.
+ *
+ * **디자인의 필터 탭에는 트랙이 없다** — 다섯 세그먼트가 24 높이에 그대로 서고 선택은 글자색
+ * 하나로만 전달된다. 그 전달 방식은 이 컴포넌트가 제품 B 계열로 이미 기각한 것이라(아래 selected)
+ * 따르지 않고, **기하만 실측을 채택했다.** 그래서 디자인의 세그먼트는 24 인데 여기 세그먼트는
+ * 트랙 안쪽의 20 이다. */
+.louis-segmented-control[data-size="sm"] {
+  block-size: var(--louis-layout-control-height-sm);
+  padding: 2px;
+  border-radius: var(--louis-radius-control-sm);
+}
+
 /* xs — 비디오 에디터 인스펙터의 조밀한 속성 행에서 쓴다. 제품 정본(vemClass inspectorToggle*)이
  * 트랙 28 · 패딩 3 · 반경 10 · 세그먼트 22를 쓴다. 트랙 패딩 3px은 DS 간격 계단(4·8·12)에 없는
  * 값이라 반경 계산(10 − 3 = 7)도 계단 밖이 된다 — 인스펙터 한 곳의 밀도를 위해 계단을 늘리지
- * 않고, 이 축에서만 리터럴로 고정하고 사유를 남긴다. */
+ * 않고, 이 축에서만 리터럴로 고정하고 사유를 남긴다.
+ *
+ * **이 칸은 사다리가 아니다.** 위의 sm 이 서면서 `xs`(28)가 `sm`(24)보다 커져 같은 `data-size`
+ * 축 안에서 이름이 순서를 거짓말한다. 값의 문제는 없다 — 이것은 `layout-inspector-control-height`
+ * 를 읽는 컴포넌트 지역 예외이고 컨트롤 높이 사다리의 칸이 아니다. 이름을 사다리 밖으로 옮길지
+ * 28 을 사다리에 들일지는 DS-D-0032 가 미결로 남긴 판정이며 여기서 열지 않는다. */
 .louis-segmented-control[data-size="xs"] {
   block-size: var(--louis-layout-inspector-control-height);
   padding: 3px;
@@ -102,6 +135,27 @@
 
 .louis-segmented-control[data-size="md"] .louis-segmented-control__segment {
   padding-inline: var(--louis-space-control-sm);
+  font-family: var(--louis-typography-caption-medium-font-family);
+  font-size: var(--louis-typography-caption-medium-font-size);
+  font-weight: var(--louis-typography-caption-medium-font-weight);
+  line-height: var(--louis-typography-caption-medium-line-height);
+  letter-spacing: var(--louis-typography-caption-medium-letter-spacing);
+}
+
+/* **좌우 여백 8 은 실측이라 md 와 같다.** 이 컴포넌트의 세그먼트 여백은 트랙이 아니라 세그먼트
+ * 높이를 따라와서 lg(32)→12 · md(24)→8 로 한 칸씩 내려왔고, 그 비례만 이으면 sm 은 4 가 된다.
+ * 그런데 디자인이 24 칸의 탭 좌우를 8 로 그렸다(`1087:2433` 외 4, padL=padR=8) — **비례보다
+ * 실측이 앞선다.** 4 로 깎으면 "비디오"·"이미지" 같은 세 글자 라벨이 서로 붙는다.
+ *
+ * **타이포는 caption 에서 멈춘다.** md 와 같은 12/1.5 이고 이것은 선택이 아니다 — 타입 스케일의
+ * 마지막 칸이 caption(12)이라 아래가 없다. 디자인 실측도 같은 값이다(12px Pretendard Medium,
+ * line-height 150%). 두 근거가 같은 곳을 가리킨다. */
+.louis-segmented-control[data-size="sm"] .louis-segmented-control__segment {
+  padding-inline: var(--louis-space-control-sm);
+  /* 트랙 반경 8 에서 패딩 2 를 뺀 6. 계단에 없는 값이지만 지어낸 값도 아니다 — 이 컴포넌트의
+   * 파생식(바깥 − padding)이 낸 결과이며, xs 의 7 과 같은 성질이다. 두 값이 따로 움직이면 선택
+   * 면의 모서리가 트랙 모서리를 뚫거나 안으로 밀린다. */
+  border-radius: 6px;
   font-family: var(--louis-typography-caption-medium-font-family);
   font-size: var(--louis-typography-caption-medium-font-size);
   font-weight: var(--louis-typography-caption-medium-font-weight);

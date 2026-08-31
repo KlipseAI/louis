@@ -14,26 +14,54 @@ function iconButtonIn(root: ParentNode = document): HTMLButtonElement {
   return found as HTMLButtonElement;
 }
 
-test("md·sm 모두 32×32 정사각이다 (md 40 폐지)", async () => {
+test("lg·md가 32×32, sm이 24×24 정사각이다", async () => {
+  // lg와 md는 아직 같은 32다 — 아이콘 버튼에 40을 쓰는 자리가 제품에 없어 축만 남겨 두었다.
+  // sm(24)은 DS-D-0032가 연 세 번째 칸이고, 여기서 값이 실제로 갈린다.
   await render(
     <div>
+      <IconButton label="크게" size="lg" data-testid="lg">
+        <IconTrashSimple />
+      </IconButton>
       <IconButton label="삭제" data-testid="md">
         <IconTrashSimple />
       </IconButton>
-      <IconButton label="닫기" size="md" data-testid="sm">
+      <IconButton label="닫기" size="sm" data-testid="sm">
         <IconX />
       </IconButton>
     </div>,
   );
   for (const [testId, side] of [
+    ["lg", 32],
     ["md", 32],
-    ["sm", 32],
+    ["sm", 24],
   ] as [string, number][]) {
     const node = document.querySelector(`[data-testid="${testId}"]`);
     if (node === null) throw new Error(`${testId}를 찾지 못했습니다`);
     const box = node.getBoundingClientRect();
     expect(box.width, `${testId} width`).toBe(side);
     expect(box.height, `${testId} height`).toBe(side);
+  }
+});
+
+test("sm의 반경이 8px이고 lg·md는 12px다", async () => {
+  // 24 정사각에서 radius-control(12)은 한 변의 절반이라 원이 된다. 디자인이 잰 값도 8이다.
+  await render(
+    <div>
+      <IconButton label="삭제" data-testid="md">
+        <IconTrashSimple />
+      </IconButton>
+      <IconButton label="닫기" size="sm" data-testid="sm">
+        <IconX />
+      </IconButton>
+    </div>,
+  );
+  for (const [testId, radius] of [
+    ["md", "12px"],
+    ["sm", "8px"],
+  ] as [string, string][]) {
+    const node = document.querySelector(`[data-testid="${testId}"]`);
+    if (node === null) throw new Error(`${testId}를 찾지 못했습니다`);
+    expect(getComputedStyle(node).borderTopLeftRadius, `${testId} radius`).toBe(radius);
   }
 });
 
@@ -50,6 +78,24 @@ test("시각 크기와 무관하게 히트 영역이 44×44 이상이다", async
   expect(Number.parseFloat(after.height)).toBeGreaterThanOrEqual(44);
   // 시각 크기는 그대로 32여야 한다 — 히트 영역이 레이아웃을 밀지 않는다.
   expect(button.getBoundingClientRect().width).toBe(32);
+});
+
+test("sm에서도 히트 영역이 44×44 이상이고 레이아웃은 24로 남는다", async () => {
+  // 세 칸 중 시각 크기와 히트 영역의 간격이 가장 큰 자리다(24 ↔ 44). 이 장치가 빠지면 sm은
+  // 사다리의 칸이 아니라 그냥 작은 버튼이 된다 — DS-D-0032가 sm의 조건으로 못박은 것이다.
+  await render(
+    <IconButton label="레인 숨기기" size="sm">
+      <IconX />
+    </IconButton>,
+  );
+  const button = iconButtonIn();
+  expect(button.classList.contains("louis-hit-target")).toBe(true);
+  const after = getComputedStyle(button, "::after");
+  expect(Number.parseFloat(after.width)).toBeGreaterThanOrEqual(44);
+  expect(Number.parseFloat(after.height)).toBeGreaterThanOrEqual(44);
+  const box = button.getBoundingClientRect();
+  expect(box.width).toBe(24);
+  expect(box.height).toBe(24);
 });
 
 test("label이 accessible name으로 정확히 한 번 노출된다", async () => {
@@ -130,7 +176,9 @@ test("부모 color 변경이 글리프에 반영된다", async () => {
   expect(getComputedStyle(path).stroke).toBe("rgb(0, 136, 255)");
 });
 
-test("두 size의 글리프 계산 박스가 모두 16px다", async () => {
+test("세 size의 글리프 계산 박스가 모두 16px다", async () => {
+  // 아이콘은 컨테이너와 독립이다(iconography.md Size model). sm에서도 갈라지지 않는다 —
+  // 디자인이 그린 14는 icon-size 계단(16·20·24)에 없어 새 원시 토큰을 요구한다.
   await render(
     <div>
       <IconButton label="a" size="lg" data-testid="lg">
@@ -139,9 +187,12 @@ test("두 size의 글리프 계산 박스가 모두 16px다", async () => {
       <IconButton label="b" data-testid="md">
         <IconX />
       </IconButton>
+      <IconButton label="c" size="sm" data-testid="sm">
+        <IconX />
+      </IconButton>
     </div>,
   );
-  for (const testId of ["lg", "md"]) {
+  for (const testId of ["lg", "md", "sm"]) {
     const glyph = document
       .querySelector(`[data-testid="${testId}"]`)
       ?.querySelector(".louis-icon-button__glyph");

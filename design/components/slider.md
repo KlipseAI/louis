@@ -18,8 +18,8 @@ summary: 정해진 범위 안에서 값 하나를 고릅니다.
 
 | Surface       | 상태           | 근거                                                                                 |
 | ------------- | -------------- | ------------------------------------------------------------------------------------ |
-| Web           | `partial`      | public export와 실브라우저 acceptance test 16건이 두 motion context에서 각각 돈다; visual regression, Figma component와 제품 소비 증거 없음 |
-| Figma         | `partial`      | component set 4 variant(Size×Variant). 복합 키 `{size}/{variant}`로 그룹을 나눠 parity 게이트가 variant별 기하를 각각 대조한다. raw fill·stroke 0. publish는 DS-F-008 |
+| Web           | `partial`      | public export와 실브라우저 acceptance test 19건이 두 motion context에서 각각 돈다(`sm`이 크기별 3건을 더했다); visual regression, Figma component와 제품 소비 증거 없음 |
+| Figma         | `partial`      | component set이 아직 4 variant(Size×Variant)다. 코드와 계약은 DS-D-0032로 `sm`이 더해져 **6**이며, Figma는 다음 단계다 — 그동안 `verify-figma-parity`가 slider에서 빨갛고 그것이 이 변경의 정확한 상태다. 복합 키 `{size}/{variant}`로 그룹을 나눠 parity 게이트가 variant별 기하를 각각 대조한다. raw fill·stroke 0. publish는 DS-F-008 |
 | Documentation | `done`         | 이 문서                                                                              |
 | Maturity      | `experimental` | 규범과 구현이 같은 변경 단위에서 처음 선다                                           |
 
@@ -59,7 +59,7 @@ summary: 정해진 범위 안에서 값 하나를 고릅니다.
 | prop | 값 | 기본 | 뜻 |
 | --- | --- | --- | --- |
 | `label` | ReactNode | 없음 | 시각 라벨. 없으면 `aria-label`이 필수다 |
-| `size` | `md` \| `sm` | `md` | 컨트롤 높이. 레일 두께는 바뀌지 않는다 |
+| `size` | `lg` \| `md` \| `sm` | `lg` | 컨트롤 높이. 레일 두께는 바뀌지 않는다. **값의 순서가 이름의 순서와 다르다** — 아래 Specification |
 | `variant` | `thumb` \| `track` | `thumb` | 아래 Hierarchy와 variants |
 | `min` / `max` / `step` | number | `0` / `100` / `1` | 범위와 눈금 |
 | `value` | number | 없음 | 주면 controlled가 된다 |
@@ -124,18 +124,18 @@ states 표를 두지 않는다. 칠해지는 면(레일·채움·썸)이 전부 
 
 ## Specification
 
-| 축 | md | sm | 토큰 |
-| --- | ---: | ---: | --- |
-| 컨트롤 높이 | 40px | 32px | `layout-control-height-md` / `-sm` |
-| 레일 두께 | 4px | 4px | 리터럴 |
-| 레일 반경 | 999px | 999px | `radius-pill` |
-| 썸 지름 | 16px | 12px | 리터럴 |
-| 썸 테두리 | 2px | 2px | `border-width-ring` |
-| `track` 막대 높이 | 28px | 20px | 리터럴 |
-| `track` 막대 반경 | 8px | 8px | `radius-control-sm` |
-| `track` 표식 | 2×14px | 2×14px | 리터럴 |
-| stack 간격 | 4px | 4px | `space-control-xs` |
-| 라벨 타이포 | 14/1.5 | 14/1.5 | `typography-body-sm-medium` |
+| 축 | lg | md | sm | 토큰 |
+| --- | ---: | ---: | ---: | --- |
+| 컨트롤 높이 | 40px | 16px | 24px | `layout-control-height-lg` / 리터럴 / `-sm` |
+| 레일 두께 | 4px | 4px | 4px | 리터럴 |
+| 레일 반경 | 999px | 999px | 999px | `radius-pill` |
+| 썸 지름 | 16px | 12px | 12px | 리터럴 |
+| 썸 테두리 | 2px | 2px | 2px | `border-width-ring` |
+| `track` 막대 높이 | 28px | 20px | 20px | 리터럴 |
+| `track` 막대 반경 | 8px | 8px | 8px | `radius-control-sm` |
+| `track` 표식 | 2×14px | 2×14px | 2×14px | 리터럴 |
+| stack 간격 | 4px | 4px | 4px | `space-control-xs` |
+| 라벨 타이포 | 14/1.5 | 14/1.5 | 12/1.5 | `typography-body-sm-medium` / 〃 / `typography-caption-medium` |
 
 리터럴이 남아 있는 이유는 소비처가 이 컴포넌트 하나뿐이기 때문이다 —
 [Spacing & Radius](../foundations/spacing-radius.md)가 "두 개 이상의 사용처"를 승격 조건으로 둔다.
@@ -143,6 +143,31 @@ Spinner의 16/12px과 같은 판정이다.
 
 컨트롤 높이가 Button·Text Field와 같은 계단인 이유는 하나다 — 인스펙터에서 나란히 서는 컨트롤이
 서로 다른 높이를 가지면 줄이 어긋난다. 제품 슬라이더는 8·12·16·24·28px로 흩어져 있다.
+
+### `sm`(24)은 어디서 나왔나
+
+DS-D-0027이 사다리를 두 칸으로 세우면서 24를 기각한 사유는 "제품에 24 높이 컨트롤이 없다"
+하나였고, 새 비디오 에디터 디자인이 그 전제를 없앴다. [DS-D-0032](../governance/decisions/DS-D-0032-control-size-ladder-sm.md)가
+세 번째 칸을 열었고, **이 컴포넌트에서는 그 칸이 유도값이 아니라 실측이다.** Figma
+`OlYKERKOkgbxBEEoXGZW2c`의 프레임 `1087:2383`(비디오에디터) 인스펙터에 불투명도 슬라이더가 있다.
+
+| 잰 것 | 노드 | 값 | 이 문서의 축 |
+| --- | --- | ---: | --- |
+| 슬롯 | `1087:2510` | 140×24 | 컨트롤 높이 24 |
+| 레일 | `1087:2513` | 80×4, 슬롯 안 `y=10` | 레일 두께 4, `(24 − 4) / 2`로 세로 가운데 |
+| 썸 | `1087:2515` | 12×12, 레일 기준 `y=−4` | 썸 지름 12, `(4 − 12) / 2` |
+| 라벨·값 글자 | `1087:2509` · `1087:2512` | 12px / 150% | 라벨 타이포 caption 12/1.5 |
+
+같은 프레임의 타임라인 줌 슬라이더(`1087:2572` 레일 100×4, `1087:2577` 썸 12×12)도 레일과 썸이
+같은 값이다. **둘 다 `thumb` 변형이라 `track` 변형의 `sm` 실측은 없다** — 막대 20px은 재서 얻은
+수가 아니라 이미 잰 둘 중 하나를 고른 것이다. 28(패널)과 20(패널 밖)은 제품 인스펙터의 두 실측값이고
+그 사이에 이을 비례가 없어서(높이가 40→16으로 24 줄 때 막대는 28→20으로 8만 준다) 세 번째 수를
+유도하지 않았다. `sm`이 서는 자리가 편집 표면의 도구 줄, 즉 패널 밖이므로 20을 쓴다. 표식 14px이
+들어가는 하한이기도 하다.
+
+라벨 타이포만 크기 축을 갖는 이유도 두 근거가 같은 값을 가리켰기 때문이다 — 위 실측의 12/150%와,
+Segmented Control이 밀도가 낮은 칸에서 같은 `typography-caption-medium`으로 내려가는 선례다.
+**굵기는 옮기지 않는다.** `medium`(500)은 세 칸이 같고 size는 굵기 축이 아니다.
 
 ## Effects
 
@@ -175,14 +200,31 @@ Spinner의 16/12px과 같은 판정이다.
   `.louis-hit-target`의 `::after`로 44를 채우지만 range input은 `::before`/`::after`가 트랙·썸에
   배정돼 그 유틸리티를 쓸 수 없다. Text Field도 같은 40px이며, 레일이 가로 전체를 차지해 실제
   타깃 면적은 크다.
+- **`sm`(24)은 그 미달이 가장 크고, DS-D-0032가 요구한 보정을 할 수 없다.** 그 결정은
+  「`sm`은 `.louis-hit-target`을 반드시 함께 붙인다」를 사다리 계약으로 적었는데, 이 컴포넌트는
+  위와 같은 이유로 그 유틸리티를 쓸 수 없다 — `::after`가 이미 트랙·썸의 것이다. 그래서 24에서
+  세로 타깃은 24px 그대로이고 44에 20px 모자란다. 완화하는 사실 둘: 레일이 가로 전체를 차지해
+  면적은 넓고, 네이티브 range라 레일 어디를 눌러도 값이 그 지점으로 간다. **해결하지 않고
+  편차로 적는다** — 고치려면 컨트롤을 감싸는 요소가 타깃을 대신 갖는 구조 변경이 필요하고,
+  그것은 이 변경의 범위가 아니다.
+- **`size`의 값 순서가 이름 순서와 다르다 — `lg`(40) > `sm`(24) > `md`(16).** `md`만 사다리 토큰이
+  아니라 리터럴 16이기 때문이다. DS-D-0027이 「한 컴포넌트만 옮기면 `Button size="md"`는 32인데
+  `TextField size="md"`는 40인 함정이 생긴다」고 적은 그 함정은 이 컴포넌트에 **이미 열려 있었고**,
+  `sm`(24)을 여는 일이 그것을 만든 것이 아니라 보이게 만들었다. 이번에 `md`를 32로 되돌리지 않은
+  이유는 16이라는 판정을 소유한 기록이
+  [`product.measured.json`](../../migration/product.measured.json)이고, 그 기록을 함께 옮기지 않은 채
+  CSS와 계약만 바꾸면 게이트는 초록인데 근거가 사라지기 때문이다. **미결이다** — 다음에 이
+  컴포넌트를 여는 사람이 둘 중 하나를 판정한다: `md`를 사다리로 되돌리고 16을 사다리 밖 이름으로
+  옮기거나, 16을 버린다. 새 디자인이 같은 자리(인스펙터 슬라이더)를 24로 그렸으므로 16의 소비처가
+  남아 있는지가 그 판정의 첫 질문이다.
 - **제품과 거의 모든 축이 다르다.** 정본이 없으므로 "다르다"가 결함이 아니다. 각 축의 판정은
   [`product.measured.json`](../../migration/product.measured.json)의 `slider`에 있다.
 - **범위(두 손잡이) 선택이 없다.** 제품에 0벌이라 이번 범위가 아니다.
 
 ## Acceptance tests
 
-1. md/sm의 컨트롤 높이·stack 간격·라벨 타이포가 `components.measured.json`과 같다.
-2. md/sm의 레일 두께·썸 지름·썸 테두리 토큰 선언이 `components.measured.json`과 같다.
+1. lg/md/sm의 컨트롤 높이·stack 간격·라벨 타이포가 `components.measured.json`과 같다.
+2. lg/md/sm의 레일 두께·썸 지름·썸 테두리 토큰 선언이 `components.measured.json`과 같다.
 3. `track` 변형의 막대 높이와 표식 크기 선언이 `components.measured.json`과 같다.
 4. `track` 변형의 썸이 `width:0`·`height:0`·`opacity`·`pointer-events`로 지워지지 않는다.
 5. `--louis-slider-fill`이 값을 따라가고 min에서 `0%`, max에서 `100%`다.

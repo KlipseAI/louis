@@ -80,11 +80,12 @@ function Fixture({
   );
 }
 
-// `xs` 는 타입에는 있지만 `components.measured.json` 에 계약이 없다 — 즉 시스템이 파는 크기인데
-// 대조되지 않는다. 여기서 `readonly SegmentedControlSize[]` 로 넓게 선언하면 `size` 가 `xs` 를
-// 포함해 measured 색인이 타입 오류를 낸다. 넓힌 타입이 거짓이므로 **실제로 대조하는 둘로 좁힌다.**
-// `xs` 의 계약이 생기면 여기에 더한다.
-const SIZES = ["lg", "md"] as const satisfies readonly SegmentedControlSize[];
+// 컨트롤 높이 사다리의 세 칸이다 — lg(40) · md(32) · sm(24). `xs` 는 타입에는 있지만
+// `components.measured.json` 에 계약이 없다(사다리가 아니라 인스펙터 전용 지역 예외다) — 즉
+// 시스템이 파는 크기인데 대조되지 않는다. 여기서 `readonly SegmentedControlSize[]` 로 넓게
+// 선언하면 `size` 가 `xs` 를 포함해 measured 색인이 타입 오류를 낸다. 넓힌 타입이 거짓이므로
+// **실제로 대조하는 셋으로 좁힌다.** `xs` 의 계약이 생기면 여기에 더한다.
+const SIZES = ["lg", "md", "sm"] as const satisfies readonly SegmentedControlSize[];
 
 for (const size of SIZES) {
   const spec = measured.components["segmented-control"].sizes[size];
@@ -120,14 +121,31 @@ for (const size of SIZES) {
   });
 }
 
-test("세그먼트 반경이 바깥 반경에서 padding을 뺀 값이다", async () => {
-  // 중첩한 모서리가 어긋나지 않으려면 안쪽 = 바깥 − padding이어야 한다. 두 값이 따로 움직이면
-  // 선택 면의 모서리가 트랙 모서리를 뚫거나 안쪽으로 밀린다.
-  await render(<Fixture />);
-  const track = getComputedStyle(find(".louis-segmented-control"));
-  const segment = getComputedStyle(find(".louis-segmented-control__segment"));
-  expect(px(segment.borderTopLeftRadius)).toBe(
-    px(track.borderTopLeftRadius) - px(track.paddingTop),
+// **세 칸 모두에서 돈다.** lg·md는 12 − 4 = 8로 두 값 다 토큰이지만, sm은 8 − 2 = 6이라 안쪽이
+// 리터럴이다 — 리터럴은 토큰이 움직여도 따라가지 않으므로, 파생식이 깨지는 것을 잡는 단언이
+// 여기밖에 없다.
+for (const size of SIZES) {
+  test(`${size}의 세그먼트 반경이 바깥 반경에서 padding을 뺀 값이다`, async () => {
+    // 중첩한 모서리가 어긋나지 않으려면 안쪽 = 바깥 − padding이어야 한다. 두 값이 따로 움직이면
+    // 선택 면의 모서리가 트랙 모서리를 뚫거나 안쪽으로 밀린다.
+    await render(<Fixture size={size} />);
+    const track = getComputedStyle(find(".louis-segmented-control"));
+    const segment = getComputedStyle(find(".louis-segmented-control__segment"));
+    expect(px(segment.borderTopLeftRadius)).toBe(
+      px(track.borderTopLeftRadius) - px(track.paddingTop),
+    );
+  });
+}
+
+test("sm의 세그먼트가 caption 행 높이보다 낮지 않다", async () => {
+  // **이것이 sm에서 트랙 padding을 4로 두지 못한 이유다.** 4면 세그먼트가 24 − 8 = 16인데 caption
+  // 행 높이는 18이라 라벨이 선택 면을 위아래로 1px씩 뚫고 나온다. 선언은 정상이고 기하 대조도
+  // 통과하므로(높이는 measured와 같다) 이 관계를 직접 재지 않으면 아무 게이트도 잡지 못한다.
+  await render(<Fixture size="sm" />);
+  const segment = find(".louis-segmented-control__segment");
+  const label = find(".louis-segmented-control__label");
+  expect(segment.offsetHeight, "세그먼트 높이").toBeGreaterThanOrEqual(
+    px(getComputedStyle(label).lineHeight),
   );
 });
 

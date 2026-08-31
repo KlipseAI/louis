@@ -7,7 +7,14 @@ import type {
 } from "react";
 import { useId, useState } from "react";
 
-export type SliderSize = "lg" | "md";
+/**
+ * 컨트롤 크기 사다리(DS-D-0027 · DS-D-0032)의 이름 축이다.
+ *
+ * **값의 순서가 이름의 순서와 다르다** — lg(40) > sm(24) > md(16)이다. md만 사다리 토큰이
+ * 아니라 리터럴 16이며, 사유와 미결 상태는 `packages/css/src/component/slider.css`의 sm 블록과
+ * `design/components/slider.md`의 Known deviations에 있다.
+ */
+export type SliderSize = "lg" | "md" | "sm";
 
 /**
  * `thumb`은 얇은 레일 위의 손잡이, `track`은 굵은 막대를 채우는 형태다.

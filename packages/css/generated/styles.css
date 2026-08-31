@@ -1378,6 +1378,56 @@
   column-gap: var(--louis-space-control-xs);
 }
 
+/* sm: h-24 · px-8 · gap-4 · min-w-48 · radius-8 · caption 12/500 — 편집 표면의 도구 줄이다
+ * (DS-D-0032). 캔버스·타임라인·에셋 패널처럼 한 줄에 컨트롤이 여럿 서고 화면의 주인공이
+ * 컨트롤이 아닌 자리에서만 쓴다. 폼·대화상자·본문 흐름에는 쓰지 않는다 — 그 자리에서 24는
+ * 누르기 어렵고 md가 이미 맞다.
+ *
+ * **높이 말고는 전부 새 값이라 근거를 값마다 남긴다.** 이 칸이 lg·md와 다른 것은 두 가지다.
+ *
+ * 1. **radius가 사다리를 따라간다.** lg·md는 둘 다 `radius-control`(12)인데 sm은 8이다.
+ *    12를 24 높이에 그대로 쓰면 곡률이 높이의 절반이라 모서리가 알약처럼 읽힌다. 8은
+ *    지어낸 값이 아니라 디자인 실측이고(아래), 마침 `radius-control-sm`이 이미 그 값으로
+ *    있다 — tooltip·slider·project-card가 쓰는 이름이다. 새 토큰을 만들지 않는다.
+ * 2. **타이포가 이 칸에서만 갈라진다.** base의 `body-sm-medium`(14/21)을 24 안에 넣으면
+ *    행 높이 21에 위아래 여유가 1.5px씩뿐이라 라벨이 상자에 갇힌다. caption(12/18)이면
+ *    3px씩 남는다. 「타이포는 size 축이 아니다」는 lg·md 사이에서 참이고 그대로 두지만,
+ *    sm에서는 디자인이 12를 재서 준다 — 유도가 아니라 실측이다.
+ *
+ *    **font-family·weight까지 caption 세트로 받는 이유**는 스케일 반쪽만 갈아타면
+ *    나중에 caption의 weight가 움직였을 때 이 자리만 조용히 어긋나기 때문이다. 지금은
+ *    두 세트의 family·weight가 같은 값이라 결과가 바뀌지 않는다.
+ *
+ * 실측 출처: Figma `OlYKERKOkgbxBEEoXGZW2c` Page 14 `1087:2383`(비디오에디터)의 「가져오기」
+ * 버튼 `1087:2429` — 58×24, padding-inline 8, radius 8, Pretendard Medium 12 / 150%,
+ * stroke 0.5. padding 8은 사다리 비례(lg 16 → md 12 → sm 8)로도 같은 값이 나와 두 근거가
+ * 일치한다.
+ *
+ * 재지 않아 **기존 사다리에서 그대로 이어받는 값**: 최소 폭 48(`control-minimum-width-md` —
+ * lg·md가 이미 같은 토큰을 읽는다. 칸별 최소 폭이라는 축은 이 시스템에 없다. 실측한 「가져오기」가
+ * 58이라 이 바닥은 닿지도 않는다), gap 4(`space-control-xs` — lg·md 공통, 실측 자리에 아이콘이
+ * 없어 잴 것이 없었다), 아이콘 슬롯 16(`icon-size-sm` — 사다리가 슬롯을 나눈 적이 없다.
+ * 16 슬롯은 라벨 행 높이 18보다 작아 아이콘이 붙어도 높이가 24에서 자라지 않는다).
+ *
+ * **44px 타깃은 여기서도 `.louis-hit-target`이 지킨다** — Button은 크기와 무관하게 항상 그
+ * 클래스를 단다(button.tsx). 다만 시각 상자와 타깃의 차이가 이 칸에서 가장 커서 위아래로
+ * 10px씩((44 − 24) / 2) 튀어나온다. lg는 2px, md는 6px이다. 도구 줄에서 sm 버튼을 세로로
+ * 겹쳐 쌓을 때 그 간격을 20px 아래로 두면 인접 타깃이 겹친다 — dialog가 `space-control-sm`으로
+ * 액션 사이를 벌려 둔 것과 같은 형태의 함정이다. */
+.louis-button[data-size="sm"] {
+  min-block-size: var(--louis-layout-control-height-sm);
+  min-inline-size: var(--louis-layout-control-minimum-width-md);
+  padding-block: 0;
+  padding-inline: var(--louis-space-control-sm);
+  column-gap: var(--louis-space-control-xs);
+  border-radius: var(--louis-radius-control-sm);
+  font-family: var(--louis-typography-caption-medium-font-family);
+  font-size: var(--louis-typography-caption-medium-font-size);
+  font-weight: var(--louis-typography-caption-medium-font-weight);
+  line-height: var(--louis-typography-caption-medium-line-height);
+  letter-spacing: var(--louis-typography-caption-medium-letter-spacing);
+}
+
 /* 아이콘이 붙은 쪽만 2px 줄여 광학 균형을 맞춘다 (제품 Button.tsx:73-77). 아이콘의 자체 시각
  * 여백 때문에 텍스트-only 대비 그 쪽 padding이 넓어 보인다. */
 .louis-button[data-size="lg"][data-left-icon="true"] {
@@ -1394,6 +1444,17 @@
 
 .louis-button[data-size="md"][data-right-icon="true"] {
   padding-inline-end: calc(var(--louis-space-control-md) - 2px);
+}
+
+/* sm도 같은 보정을 받는다. 8 − 2 = 6으로 2px 격자 위에 남는다. 보정폭은 칸마다 비례하지 않고
+ * 상수 2px이다 — lg·md가 이미 그렇고, 아이콘의 시각 여백은 슬롯 크기(세 칸 모두 16)를 따라가지
+ * 버튼 높이를 따라가지 않기 때문이다. */
+.louis-button[data-size="sm"][data-left-icon="true"] {
+  padding-inline-start: calc(var(--louis-space-control-sm) - 2px);
+}
+
+.louis-button[data-size="sm"][data-right-icon="true"] {
+  padding-inline-end: calc(var(--louis-space-control-sm) - 2px);
 }
 
 /* variant — 값은 제품 배포 코드에서 채택했다. 채택/편차 판정은
@@ -1516,6 +1577,10 @@
  * 기본(20px) 아이콘을 넣으면 높이가 28이 아니라 30이 됐다 — 같은 줄의 버튼들이 아이콘 유무로
  * 어긋난다. 높이가 호출부에 따라 달라지는 것은 컨트롤이 아니다.
  *
+ * **이 실측의 `sm`은 지금의 `sm`(24)이 아니다.** 사다리가 개명되기 전(DS-D-0027) 이름이며
+ * 그때 28이었다 — 위 문장의 28이 그 값이다. 실측 자체는 여전히 유효하다: 슬롯 크기를 버튼이
+ * 소유하지 않으면 아이콘이 높이를 밀어 올린다는 사실은 세 칸 모두에서 같다.
+ *
  * Iconography의 "글리프 크기는 아이콘이 소유한다"에 대한 의도적 예외이며 사유는
  * design/components/button.md의 Known deviations에 있다. 컨테이너 크기를 컨트롤이 소유한다는
  * 같은 문서의 규칙과는 어긋나지 않는다. */
@@ -1524,7 +1589,9 @@
   flex: none;
   align-items: center;
   justify-content: center;
-  /* 버튼이 32 단일이라 아이콘도 16(icon-size-sm) 단일이다. */
+  /* 사다리가 세 칸(40 · 32 · 24)이 된 뒤에도 슬롯은 16(icon-size-sm) 단일이다 — 사다리가
+   * 아이콘 슬롯을 나눈 적이 없다. sm에서도 16이 라벨 행 높이 18보다 작아 아이콘이 붙어도
+   * 높이가 24에서 자라지 않는다. */
   inline-size: var(--louis-icon-size-sm);
   block-size: var(--louis-icon-size-sm);
 }
@@ -2145,6 +2212,25 @@
   block-size: var(--louis-layout-control-height-md);
 }
 
+/* sm: 24×24. DS-D-0032 가 연 사다리의 세 번째 칸이며, **편집 표면의 도구 줄에서만** 쓴다 —
+ * 폼·대화상자·본문 흐름은 md 다. lg·md 와 달리 이 칸은 base 와 값이 갈리므로 실제로 나뉜다.
+ *
+ * **반경이 `radius-control`(12)이 아니라 `radius-control-sm`(8)인 것이 이 칸의 유일한 재판정이다.**
+ * 두 근거가 같은 값을 가리킨다.
+ *   - 디자인 실측 — 비디오 에디터(Figma `1087:2383`)의 트랙 레인 토글 `1087:2583`·`2586`·`2590`·
+ *     `2604`·`2611` 이 전부 24×24 에 반경 8 이다. 같은 화면의 나머지 24 컨트롤(가져오기 `1087:2429`,
+ *     필터 탭 `1087:2433`, 70% 줌 칩 `1087:2482`)도 같은 8 이라 이 값은 이 자리 하나의 취향이 아니다.
+ *   - 기하 — 24 정사각에서 12 는 한 변의 절반이라 **완전한 원**이 된다. radius-control 은 32 에서
+ *     모서리를 깎는 값이지 형태를 바꾸는 값이 아니었는데, 24 에서 그대로 쓰면 아이콘 버튼만
+ *     알약 언어로 갈아탄다.
+ *
+ * 글리프는 여기서 바꾸지 않는다 — base 의 icon-size-sm(16) 을 세 칸이 공유한다(아래 __glyph 참조). */
+.louis-icon-button[data-size="sm"] {
+  inline-size: var(--louis-layout-control-height-sm);
+  block-size: var(--louis-layout-control-height-sm);
+  border-radius: var(--louis-radius-control-sm);
+}
+
 /* variant — Button과 같은 네 축. 새 시각 언어를 만들지 않는다. */
 .louis-icon-button[data-variant="primary"] {
   background: var(--louis-color-accent-primary);
@@ -2226,7 +2312,10 @@
 /* disabled secondary는 별도 테두리 색을 두지 않는다 — enabled의 generic 헤어라인을 유지하고
  * 상태는 foreground 색이 전달한다 (DS-D-0023, 이전엔 color-stroke-subtle border였다). */
 
-/* 글리프는 컨테이너와 독립이다. 두 size에서 같은 20px을 쓴다 (iconography.md Size model). */
+/* 글리프는 컨테이너와 독립이다. 세 size가 같은 16px을 쓴다 (iconography.md Size model).
+ * sm(24)에서도 갈라지지 않는 이유: 그 규칙 자체가 lg·md 를 같은 16 에 두고 있고, 디자인이 그린
+ * 14 는 icon-size 계단(16·20·24·64)에 없어서 새 원시 토큰을 만들어야 한다 —
+ * icon-button.md 의 Known deviations 에 그 2px 을 적어 두었다. */
 .louis-icon-button__glyph {
   display: inline-flex;
   flex: none;
@@ -3493,10 +3582,43 @@
   block-size: var(--louis-layout-control-height-md);
 }
 
+/* sm — DS-D-0032 가 연 사다리의 세 번째 칸. **편집 표면의 도구 줄에서만** 쓴다. 이 칸이 실재하는
+ * 이유는 비디오 에디터(Figma `1087:2383`)의 필터 탭 `1087:2432` 이고, 그 다섯 세그먼트가
+ * `1087:2433`·`2435`·`2437`·`2439`·`2441` 이다.
+ *
+ * **패딩 2px 은 취향이 아니라 두 제약이 남긴 유일한 값이다.**
+ *   - 아래(≤3) — 세그먼트가 caption 행 높이 18px 을 담아야 한다. lg·md 의 상수 4 를 그대로 쓰면
+ *     세그먼트가 24 − 8 = 16 이 되어 라벨이 선택 면을 1px 씩 뚫고 나온다.
+ *   - 위(≥2) — 트랙의 inset 헤어라인은 padding 상자 안쪽에 그려지고 자식은 그 위에 칠해진다.
+ *     0 으로 두면 양 끝 세그먼트가 선택됐을 때 헤어라인 세 변이 가려진다. 다크에서 `bg-inset` 이
+ *     `bg-surface` 와 같은 색이라(아래 Implementation) 그 헤어라인이 트랙의 유일한 경계다.
+ *   2px 격자에서 그 사이에 있는 값은 2 하나뿐이다. 3 은 홀수이고 세그먼트가 정확히 18 이라 여유가
+ *   0 이 된다.
+ *
+ * **반경 8 은 실측이다.** 이 화면의 24 높이 컨트롤이 전부 반경 8 이다 — 가져오기 `1087:2429`,
+ * 필터 탭 세그먼트, 70% 줌 칩 `1087:2482`, 트랙 레인 토글 `1087:2583` 외 8 — 마지막 것은
+ * 24×24 정사각이라 IconButton 자리인데 거기서도 8 이다. 24 에서 `radius-control`(12)은 한 변의
+ * 절반이라 알약이 된다.
+ *
+ * **디자인의 필터 탭에는 트랙이 없다** — 다섯 세그먼트가 24 높이에 그대로 서고 선택은 글자색
+ * 하나로만 전달된다. 그 전달 방식은 이 컴포넌트가 제품 B 계열로 이미 기각한 것이라(아래 selected)
+ * 따르지 않고, **기하만 실측을 채택했다.** 그래서 디자인의 세그먼트는 24 인데 여기 세그먼트는
+ * 트랙 안쪽의 20 이다. */
+.louis-segmented-control[data-size="sm"] {
+  block-size: var(--louis-layout-control-height-sm);
+  padding: 2px;
+  border-radius: var(--louis-radius-control-sm);
+}
+
 /* xs — 비디오 에디터 인스펙터의 조밀한 속성 행에서 쓴다. 제품 정본(vemClass inspectorToggle*)이
  * 트랙 28 · 패딩 3 · 반경 10 · 세그먼트 22를 쓴다. 트랙 패딩 3px은 DS 간격 계단(4·8·12)에 없는
  * 값이라 반경 계산(10 − 3 = 7)도 계단 밖이 된다 — 인스펙터 한 곳의 밀도를 위해 계단을 늘리지
- * 않고, 이 축에서만 리터럴로 고정하고 사유를 남긴다. */
+ * 않고, 이 축에서만 리터럴로 고정하고 사유를 남긴다.
+ *
+ * **이 칸은 사다리가 아니다.** 위의 sm 이 서면서 `xs`(28)가 `sm`(24)보다 커져 같은 `data-size`
+ * 축 안에서 이름이 순서를 거짓말한다. 값의 문제는 없다 — 이것은 `layout-inspector-control-height`
+ * 를 읽는 컴포넌트 지역 예외이고 컨트롤 높이 사다리의 칸이 아니다. 이름을 사다리 밖으로 옮길지
+ * 28 을 사다리에 들일지는 DS-D-0032 가 미결로 남긴 판정이며 여기서 열지 않는다. */
 .louis-segmented-control[data-size="xs"] {
   block-size: var(--louis-layout-inspector-control-height);
   padding: 3px;
@@ -3542,6 +3664,27 @@
 
 .louis-segmented-control[data-size="md"] .louis-segmented-control__segment {
   padding-inline: var(--louis-space-control-sm);
+  font-family: var(--louis-typography-caption-medium-font-family);
+  font-size: var(--louis-typography-caption-medium-font-size);
+  font-weight: var(--louis-typography-caption-medium-font-weight);
+  line-height: var(--louis-typography-caption-medium-line-height);
+  letter-spacing: var(--louis-typography-caption-medium-letter-spacing);
+}
+
+/* **좌우 여백 8 은 실측이라 md 와 같다.** 이 컴포넌트의 세그먼트 여백은 트랙이 아니라 세그먼트
+ * 높이를 따라와서 lg(32)→12 · md(24)→8 로 한 칸씩 내려왔고, 그 비례만 이으면 sm 은 4 가 된다.
+ * 그런데 디자인이 24 칸의 탭 좌우를 8 로 그렸다(`1087:2433` 외 4, padL=padR=8) — **비례보다
+ * 실측이 앞선다.** 4 로 깎으면 "비디오"·"이미지" 같은 세 글자 라벨이 서로 붙는다.
+ *
+ * **타이포는 caption 에서 멈춘다.** md 와 같은 12/1.5 이고 이것은 선택이 아니다 — 타입 스케일의
+ * 마지막 칸이 caption(12)이라 아래가 없다. 디자인 실측도 같은 값이다(12px Pretendard Medium,
+ * line-height 150%). 두 근거가 같은 곳을 가리킨다. */
+.louis-segmented-control[data-size="sm"] .louis-segmented-control__segment {
+  padding-inline: var(--louis-space-control-sm);
+  /* 트랙 반경 8 에서 패딩 2 를 뺀 6. 계단에 없는 값이지만 지어낸 값도 아니다 — 이 컴포넌트의
+   * 파생식(바깥 − padding)이 낸 결과이며, xs 의 7 과 같은 성질이다. 두 값이 따로 움직이면 선택
+   * 면의 모서리가 트랙 모서리를 뚫거나 안으로 밀린다. */
+  border-radius: 6px;
   font-family: var(--louis-typography-caption-medium-font-family);
   font-size: var(--louis-typography-caption-medium-font-size);
   font-weight: var(--louis-typography-caption-medium-font-weight);
@@ -3887,7 +4030,8 @@
 }
 
 /* 실제 컨트롤. 높이는 TextField·Button과 같은 계단이다 — 인스펙터에서 나란히 서는 컨트롤이
- * 서로 다른 높이를 가지면 줄이 어긋난다. */
+ * 서로 다른 높이를 가지면 줄이 어긋난다. **lg와 sm만 그 계단의 토큰을 읽는다** — md는 리터럴
+ * 16이고, 그 사유와 그것이 지금 만드는 순서 문제는 아래 sm 블록에 있다. */
 .louis-slider__control {
   /* 채움 비율. **토큰이 아니라 이 컴포넌트의 지역 변수다.** 값에서만 나오는 수라 CSS가 알 수
    * 없고 컴포넌트가 인라인으로 덮어쓴다. 기본값을 여기 두는 이유는 CSS만 로드한 소비자(정적
@@ -3909,12 +4053,56 @@
   touch-action: none;
 }
 
-/* sm은 노드 캔버스의 메타 드롭다운처럼 **밀도가 촘촘한 인스펙터**에 쓰인다. 제품의 그 슬라이더는
- * 컨트롤 박스가 레일 두께(4px)에 붙어 있어, control-height-md(32px)을 쓰면 드롭다운 한 칸이
- * 28px씩 두꺼워진다 — 실제로 그렇게 보였다. 썸(12px)이 잘리지 않는 최소치인 16px로 낮춰
- * 제품 밀도를 유지한다. md(40px)는 폼 안에 놓이는 슬라이더의 넉넉한 타깃을 그대로 둔다. */
+/* md(16)는 노드 캔버스의 메타 드롭다운처럼 **밀도가 촘촘한 인스펙터**에 쓰인다. 제품의 그
+ * 슬라이더는 컨트롤 박스가 레일 두께(4px)에 붙어 있어, control-height-md(32px)을 쓰면 드롭다운
+ * 한 칸이 28px씩 두꺼워진다 — 실제로 그렇게 보였다. 썸(12px)이 잘리지 않는 최소치인 16px로
+ * 낮춰 제품 밀도를 유지한다. lg(40)는 폼 안에 놓이는 슬라이더의 넉넉한 타깃을 그대로 둔다.
+ *
+ * 이 문단은 DS-D-0027 개명(구 sm→md, 구 md→lg) 전에 쓰였고 그때 함께 옮겨지지 않아
+ * 「sm은…」「md(40px)는…」으로 남아 있었다. **값은 하나도 바뀌지 않았고 이름만 바로잡았다.** */
 .louis-slider[data-size="md"] .louis-slider__control {
   block-size: 16px;
+}
+
+/* sm(24) — DS-D-0032가 연 세 번째 칸이고, 이 컴포넌트에서는 **실측값이다.** 새 비디오 에디터의
+ * 인스펙터 불투명도 슬라이더가 정확히 이 기하다 (Figma OlYKERKOkgbxBEEoXGZW2c, 프레임
+ * 1087:2383 「비디오에디터」):
+ *
+ *   1087:2510  슬롯   140×24  ← 컨트롤 높이 24
+ *   1087:2513  레일    80×4   ← 그 슬롯 안에서 y=10, 즉 (24 − 4) / 2 로 세로 가운데
+ *   1087:2515  썸      12×12  ← 레일 기준 y=−4, 즉 (4 − 12) / 2
+ *
+ * 레일 4는 기본 선언과 같아 sm 전용 규칙이 필요 없고, 썸만 기본 16에서 12로 내린다. 둘 다
+ * 아래에서 그 계산을 그대로 쓴다.
+ *
+ * ## 이 칸이 md(16)보다 크다 — 이름이 순서를 거짓말한다
+ *
+ * lg(40) > sm(24) > md(16)이다. md가 사다리 값(32)이 아니라 리터럴 16이기 때문이며,
+ * DS-D-0027이 「한 컴포넌트만 옮기면 함정이 생긴다」고 적은 그 함정은 이 컴포넌트에서 이미
+ * 열려 있었다. sm을 여는 일이 그것을 **만든 것이 아니라 보이게 만들었다.**
+ *
+ * 여기서 md를 32로 되돌리지 않는 이유는 하나다 — 16이라는 판정을 소유한 기록이
+ * migration/product.measured.json이고, 그 기록을 함께 옮기지 않은 채 CSS만 바꾸면 게이트는
+ * 초록인데 근거가 사라진다. 편차로 적고 미결로 남긴다 (design/components/slider.md의
+ * Known deviations). */
+.louis-slider[data-size="sm"] .louis-slider__control {
+  block-size: var(--louis-layout-control-height-sm);
+}
+
+/* sm의 라벨만 caption(12)으로 내린다. 두 근거가 같은 값을 가리킨다.
+ * **실측** — 위 인스펙터 행의 라벨 「불투명도」(1087:2509)와 값 「100」(1087:2512)이 12px/150%다.
+ * **선례** — SegmentedControl이 밀도가 낮은 칸에서 같은 `typography-caption-medium`으로
+ * 내려간다(segmented-control.css의 md·xs).
+ *
+ * 굵기는 옮기지 않는다. lg·md가 쓰는 medium(500)을 그대로 두고 **크기 계단만** 바꾼다 —
+ * 디자인의 그 라벨은 Regular(400)이지만 그것은 호출부가 행에 직접 그린 글자이지 이 컴포넌트가
+ * 소유하는 stack 라벨이 아니다. */
+.louis-slider[data-size="sm"] .louis-slider__label {
+  font-family: var(--louis-typography-caption-medium-font-family);
+  font-size: var(--louis-typography-caption-medium-font-size);
+  font-weight: var(--louis-typography-caption-medium-font-weight);
+  line-height: var(--louis-typography-caption-medium-line-height);
+  letter-spacing: var(--louis-typography-caption-medium-letter-spacing);
 }
 
 /* 포커스 링은 **컨트롤 전체**가 받는다. 네이티브 range는 input 자신이 포커스 대상이라 링이
@@ -4014,6 +4202,20 @@
   block-size: 12px;
 }
 
+/* sm의 썸도 12다 — **md와 같은 값이지만 유도한 것이 아니라 실측이다.** 위 1087:2515가 12×12이며,
+ * 레일 위 위치도 같은 계산(4 − 12) / 2 = −4로 실측과 맞는다. 선택자를 md와 **묶지 않는다** —
+ * 테스트가 CSSOM의 selectorText를 문자열로 대조하므로 그룹 선택자는 어느 쪽으로도 잡히지 않는다. */
+.louis-slider[data-size="sm"] .louis-slider__control::-webkit-slider-thumb {
+  inline-size: 12px;
+  block-size: 12px;
+  margin-block-start: calc((4px - 12px) / 2);
+}
+
+.louis-slider[data-size="sm"] .louis-slider__control::-moz-range-thumb {
+  inline-size: 12px;
+  block-size: 12px;
+}
+
 .louis-slider__control:disabled::-webkit-slider-runnable-track {
   background: var(--louis-color-stroke-subtle);
 }
@@ -4068,6 +4270,23 @@
   block-size: 20px;
 }
 
+/* sm의 막대는 md와 같은 20이다. **새 수를 유도한 것이 아니라 이미 잰 둘 중 하나를 고른 것이다.**
+ * 28과 20은 제품 인스펙터의 두 실측값이고(패널 28, 패널 밖 20) 둘 사이에 이을 비례가 없다 —
+ * 컨트롤 높이가 40→16으로 24 줄 때 막대는 28→20으로 8만 줄어서 비율도 차분도 성립하지 않는다.
+ * 그래서 세 번째 수를 지어내는 대신, DS-D-0032가 sm에 배정한 자리(편집 표면의 도구 줄 = 패널
+ * 밖)에 해당하는 20을 쓴다. 표식 14가 들어가는 하한이기도 하다.
+ *
+ * **디자인에는 track 변형의 sm 실측이 없다.** 위 프레임의 슬라이더 둘(인스펙터 불투명도,
+ * 타임라인 줌)이 모두 thumb 변형이다. */
+.louis-slider[data-variant="track"][data-size="sm"] .louis-slider__control::-webkit-slider-runnable-track {
+  block-size: 20px;
+}
+
+.louis-slider[data-variant="track"][data-size="sm"] .louis-slider__control::-moz-range-track,
+.louis-slider[data-variant="track"][data-size="sm"] .louis-slider__control::-moz-range-progress {
+  block-size: 20px;
+}
+
 .louis-slider[data-variant="track"] .louis-slider__control::-webkit-slider-thumb {
   inline-size: 2px;
   block-size: 14px;
@@ -4088,6 +4307,11 @@
 }
 
 .louis-slider[data-variant="track"][data-size="md"] .louis-slider__control::-webkit-slider-thumb {
+  margin-block-start: calc((20px - 14px) / 2);
+}
+
+/* 막대가 md와 같은 20이므로 표식을 올리는 양도 같다. */
+.louis-slider[data-variant="track"][data-size="sm"] .louis-slider__control::-webkit-slider-thumb {
   margin-block-start: calc((20px - 14px) / 2);
 }
 
@@ -4510,6 +4734,49 @@
 .louis-text-field[data-size="md"] .louis-text-field__box {
   min-block-size: var(--louis-layout-control-height-md);
   padding-inline: var(--louis-space-control-md);
+}
+
+/* sm — h-24. DS-D-0032 가 연 사다리의 세 번째 칸이고, **편집 표면의 도구 줄에서만** 쓴다.
+ * 폼·대화상자·본문 흐름은 md 다 — 그 자리에서 24 는 누르기 어렵고 md 가 이미 맞다.
+ *
+ * **이 칸은 lg→md 의 비례로 전부 나오지 않는다.** 여백은 나오지만(16 → 12 → 8) 반경과 글자
+ * 크기는 나오지 않고, 둘 다 디자인 실측으로 정했다. 잰 자리는 새 비디오 에디터 화면의 24 높이
+ * 컨트롤들이다 — 가져오기 버튼 · 필터 탭 · 줌 칩, 그리고 이 컴포넌트에 가장 가까운 자리인
+ * 인스펙터의 불투명도 값 박스(40×24). 값은 figma/components.measured.json 의 input.sizes.sm 이
+ * 노드 번호와 함께 갖는다.
+ *
+ * **`.louis-hit-target` 을 붙이지 않는다 — 붙일 수 없다.** DS-D-0032 는 sm 에 그것을 반드시
+ * 함께 붙이라고 적었지만, 그 유틸은 `::after` 절대배치 오버레이라 필드 위를 덮어 캐럿 배치와
+ * 드래그 선택을 가로챈다. Button·IconButton 만 쓰는 이유가 그것이다(button.tsx:49,
+ * icon-button.tsx:65). 그래서 24 높이 필드는 44px(AAA)에 미달한 채 남는다 — WCAG 2.2 AA 의
+ * 24×24 는 만족한다. 해결이 아니라 알려진 편차이며 text-field.md 가 그 사실을 갖는다. */
+.louis-text-field[data-size="sm"] .louis-text-field__box {
+  min-block-size: var(--louis-layout-control-height-sm);
+  /* 사다리 비례(control-lg 16 → control-md 12 → control-sm 8)와 실측이 같은 값을 준다 —
+   * 글자를 담은 24 자리 넷이 전부 좌우 8 이다. 나머지 둘은 아이콘만 든 정사각이라 여백이 0 이고
+   * 이 판정에 쓰지 않았다. */
+  padding-inline: var(--louis-space-control-sm);
+  /* **radius-control(12)을 물려받지 않는다.** 24 높이에서 12 는 높이의 절반이라 필드가 알약이
+   * 된다 — 크기만 바꾸는 축이 모양까지 바꿔 버린다. 잰 넷 중 셋이 반경 8 이고, IconButton 도 sm
+   * 에서 같은 토큰을 고른다. 값 박스 하나만 6 인데 6 에는 semantic 이름이 없고 같은 줄에 선 형제
+   * 컨트롤들과도 갈린다 — 그 편차는 design/components/text-field.md 가 적는다. */
+  border-radius: var(--louis-radius-control-sm);
+}
+
+/* **값 타이포가 이 칸에서만 내려간다.** lg·md 는 「타이포는 size 축이 아니다」로 둘 다
+ * body-sm(14/21)이지만, 24 안에서 그 행 높이는 위아래 여유를 1.5px 씩만 남긴다. DS-D-0032 는
+ * 이 판정을 「재야 알 수 있는 값」이라며 컴포넌트로 넘겼고, 실측이 12 로 답한다 — 그 화면의 24
+ * 높이 컨트롤은 값도 라벨도 칩도 전부 12/150% 다. 그래서 여기서는 사다리 비례가 아니라 실측을
+ * 따른다.
+ *
+ * **라벨과 메시지는 건드리지 않는다.** 둘 다 박스 밖이라 24 에 걸리지 않고, 24 위에 선 시각
+ * 라벨을 디자인에서 재지 못했다. 사다리 비례로는 lg·md 가 같으므로 sm 도 같다. */
+.louis-text-field[data-size="sm"] .louis-text-field__control {
+  font-family: var(--louis-typography-caption-regular-font-family);
+  font-size: var(--louis-typography-caption-regular-font-size);
+  font-weight: var(--louis-typography-caption-regular-font-weight);
+  line-height: var(--louis-typography-caption-regular-line-height);
+  letter-spacing: var(--louis-typography-caption-regular-letter-spacing);
 }
 
 /* **`:focus-within`이 받는다.** `<input>`에 걸면 링이 글자 주위에만 뜨고 슬롯이 밖에 남는다.

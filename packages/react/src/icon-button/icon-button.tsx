@@ -1,5 +1,9 @@
 import type { ButtonHTMLAttributes, JSX, ReactNode, Ref } from "react";
-export type IconButtonSize = "lg" | "md";
+/**
+ * 컨트롤 크기 사다리(DS-D-0027 · DS-D-0032). `sm` 은 **편집 표면의 도구 줄 전용**이다 —
+ * 폼·대화상자·본문 흐름에는 쓰지 않는다. 히트 영역은 세 칸 모두 44 다.
+ */
+export type IconButtonSize = "lg" | "md" | "sm";
 
 /**
  * **Button 의 다섯 축이 아니라 넷이다.** `inverse` 는 아이콘 버튼에 없다 — icon-button.css 에
@@ -23,7 +27,10 @@ export interface IconButtonProps
   readonly label: string;
   /** 강조와 의미. Button과 같은 축을 쓴다. */
   readonly variant?: IconButtonVariant;
-  /** 한 변의 길이. md 40, sm 32. 히트 영역은 크기와 무관하게 44 이상이다. */
+  /**
+   * 한 변의 길이. lg·md 32, sm 24. 히트 영역은 크기와 무관하게 44 이상이다 —
+   * `.louis-hit-target` 이 시각 박스 밖으로 넓히므로 호출부가 따로 감싸지 않는다.
+   */
   readonly size?: IconButtonSize;
   /** 토글일 때만 준다. 주지 않으면 `aria-pressed` 속성 자체가 붙지 않는다. */
   readonly pressed?: boolean;

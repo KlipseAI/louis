@@ -2,23 +2,23 @@
   "artifacts": [
     {
       "path": "packages/tokens/generated/figma.tokens.json",
-      "sha256": "a1a11119caf8233a23b46dcfc5d8b2d7d1b76749389d815ceac148f868bc733b"
+      "sha256": "1bfe1e1d7b9115b059f51904b20d608854a1342fe001d66d6042c9d7a621e641"
     },
     {
       "path": "packages/tokens/generated/index.d.ts",
-      "sha256": "5aa97b885f99a340acd263a79ef9a10212b1527476c18a99c44fcbba145b029f"
+      "sha256": "4a472633cf19bf035e75e97b0b93419a37eb951c5efedb9f82c46db4447b9637"
     },
     {
       "path": "packages/tokens/generated/index.js",
-      "sha256": "1a3ffd7f066969d14539f3298934c2808bea236f621673b3f00e36d885bf4d53"
+      "sha256": "76a052fdeb3eec46f10e3f235e34713c9f7f728ffb9f72a20a54416dd3eb911f"
     },
     {
       "path": "packages/tokens/generated/tokens.css",
-      "sha256": "e2786f2c976daa5ef32768b76ba338af5a7f813a831952237ffb92d453caf855"
+      "sha256": "17f934b591daec7943c3102e9d9ce17ed01bf8947782fbf918d60df5026524ff"
     },
     {
       "path": "packages/tokens/generated/tokens.json",
-      "sha256": "dd4395760b013e82ec9b061074dd1a85fe218232e620f8bd060857f6c02278ae"
+      "sha256": "9820484cae19950a92ac320969362a083566140d3867c4b456fce56b7c23d1e6"
     }
   ],
   "contrastPairs": [
@@ -408,13 +408,13 @@
   },
   "source": {
     "path": "packages/tokens/src/klipse.tokens.json",
-    "sha256": "1afdd81d9add73938310f38aacfd4c509feb704b52a3dc9982be65796f391edb"
+    "sha256": "4c969b66aa10efd8b669d4c3a0476b9dbd377340ad7fd0eac8d4855c516a39b3"
   },
   "themes": [
     "light",
     "dark"
   ],
-  "tokenCount": 772,
+  "tokenCount": 773,
   "tokens": [
     {
       "aliasTarget": {
@@ -15687,6 +15687,27 @@
         "value": 32
       },
       "sourcePath": "semantic.global.layout.control-height-md",
+      "tier": "semantic",
+      "type": "dimension"
+    },
+    {
+      "aliasTarget": {
+        "id": "space-24",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-layout-control-height-sm": "24px"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "layout-control-height-sm",
+      "mode": "global",
+      "rawValue": "{primitive.spacing.24}",
+      "resolvedValue": {
+        "unit": "px",
+        "value": 24
+      },
+      "sourcePath": "semantic.global.layout.control-height-sm",
       "tier": "semantic",
       "type": "dimension"
     },

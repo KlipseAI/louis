@@ -60,8 +60,10 @@ import "@klipse-design/css/styles.css";
 > **아이콘은 불리언이 아니라 `Icon` 축이다.** 아이콘이 붙은 쪽 padding이 2px 줄기 때문이다
 > (`button.css`: lg 16→14, md 12→10). Figma 불리언은 가시성만 바꾸고 padding은 못 바꾼다 —
 > 불리언으로 두면 표현할 수 없는 상태가 생긴다. 그래서 Variant×Size×State×Icon = 5×2×5×4 = 200이다.
+> **이 200은 오늘의 Figma 값이다** — 코드는 [DS-D-0032](../governance/decisions/DS-D-0032-control-size-ladder-sm.md)로
+> `sm`을 열었지만 Figma component set은 아직 두 칸이다. Figma가 따라오는 날 5×3×5×4 = 300이 된다.
 | `variant`    | `primary`, `secondary`, `ghost`, `danger` | `primary` | 강조와 의미                                     |
-| `size`       | `lg`, `md`                                | `md`      | 시각 크기; hit area 계약은 별도 유지            |
+| `size`       | `lg`, `md`, `sm`                          | `md`      | 시각 크기; hit area 계약은 별도 유지            |
 | `loading`    | boolean                                   | `false`   | 중복 실행 차단, `aria-busy`, progress indicator |
 | `leftIcon`   | ReactNode                                 | —         | 라벨 앞 보조 아이콘                             |
 | `rightIcon`  | ReactNode                                 | —         | 라벨 뒤 보조 아이콘                             |
@@ -128,6 +130,26 @@ variant 축이 되는데, 그 축을 세울 근거가 하나뿐이다.
 `color-accent-secondary-hover` 토큰은 **아직 없다** — 추가 여부가 판정 대상이고 그때까지는 위
 실측값을 정본으로 둔다.
 
+## Size
+
+컨트롤 높이 사다리는 세 칸이다 — `lg`(40) · `md`(32) · `sm`(24). 값과 쓰임새는
+[DS-D-0027](../governance/decisions/DS-D-0027-control-size-ladder.md)과
+[DS-D-0032](../governance/decisions/DS-D-0032-control-size-ladder-sm.md)가 소유하고, Button은
+그 사다리를 따라가는 다섯 컴포넌트 중 하나다.
+
+| Size | 높이 | 쓰는 곳 |
+| --- | ---: | --- |
+| `lg` | 40 | 화면의 주인공이 되는 제출 CTA — 로그인·회원가입 |
+| `md` | 32 | 그 밖의 전부. 기본값이다 |
+| `sm` | 24 | 편집 표면의 도구 줄 — 캔버스·타임라인·에셋 패널처럼 한 줄에 컨트롤이 여럿 서고, 화면의 주인공이 컨트롤이 아니라 편집 대상인 자리 |
+
+**`sm`을 폼·대화상자·본문 흐름에 쓰지 않는다.** 그 자리에서 24는 누르기 어렵고 `md`가 이미
+맞다. 도구 줄이 24를 감당하는 것은 사용자가 그 줄을 **보면서** 쓰기 때문이지 24가 일반적으로
+충분해서가 아니다.
+
+`sm`은 사다리에서 유일하게 **곡률과 타이포가 갈라지는 칸**이다 — radius 8, caption 12/18.
+둘 다 디자인 실측이며 근거는 아래 Specification에 있다.
+
 ## Content
 
 - 결과를 예측할 수 있는 짧은 동사형 라벨을 쓴다: `저장`, `업로드`, `삭제`.
@@ -141,6 +163,13 @@ variant 축이 되는데, 그 축을 세울 근거가 하나뿐이다.
 - disabled처럼 보이지만 동작하는 요소를 만들지 않는다.
 - loading 중 현재 focus를 제거하지 않는다.
 - 주요 액션 hit area는 44×44 CSS px 이상을 목표로 한다.
+- **`sm`(24)은 44px 최소 타깃에 시각 크기로 미달한다 — `.louis-hit-target`이 이를 덮는다.**
+  Button은 크기와 무관하게 항상 그 클래스를 달고(`button.tsx`), 그 `::after`가
+  `max(100%, layout-control-hit-target-minimum)`으로 타깃을 44까지 넓힌다. 시각 크기와 hit
+  area의 분리는 사다리 전체의 계약이지만 이 칸에서 그 차이가 가장 커서, 타깃이 시각 상자
+  위아래로 **10px씩** 튀어나온다(`lg`는 2px, `md`는 6px). 도구 줄에서 `sm` 버튼을 세로로 쌓을
+  때 간격을 20px 아래로 두면 인접 타깃이 겹친다 — Dialog가 액션 사이를 `space-control-sm`으로
+  벌려 둔 것과 같은 형태의 함정이다. **이것은 해결된 문제가 아니라 호출부가 지켜야 하는 조건이다.**
 - `aria-disabled`를 사용하면 click과 keyboard activation을 모두 명시적으로 차단한다.
 
 ## Acceptance tests
@@ -151,8 +180,10 @@ variant 축이 되는데, 그 축을 세울 근거가 하나뿐이다.
 - light/dark/high contrast에서 focus-visible이 보인다.
 - KO/EN/JA 긴 라벨, 200% zoom, 320px container에서 핵심 텍스트가 사라지지 않는다.
 - reduced-motion에서 active/loading 의미가 유지된다.
-- **아이콘 유무로 높이가 달라지지 않는다.** md·sm 모두에서 `leftIcon`/`rightIcon`을 준 버튼과
+- **아이콘 유무로 높이가 달라지지 않는다.** 세 크기 모두에서 `leftIcon`/`rightIcon`을 준 버튼과
   주지 않은 버튼의 높이가 같다.
+- **`sm`에서 시각 높이가 24이고 hit target은 44 이상이다.**
+- **타이포가 갈라지는 칸은 `sm` 하나다** — `lg`·`md`는 14/21, `sm`은 12/18.
 - 구조값이 [`figma/components.measured.json`](../../figma/components.measured.json)과 일치한다.
 
 ## Implementation
@@ -168,7 +199,7 @@ variant 축이 되는데, 그 축을 세울 근거가 하나뿐이다.
 | 코드 | Figma | 비고 |
 | --- | --- | --- |
 | `variant` | `Variant` (primary/secondary/ghost/danger) | 옵션 집합을 parity 게이트가 `ButtonVariant`와 대조한다 |
-| `size` | `Size` (md/sm) | `ButtonSize`와 대조한다 |
+| `size` | `Size` (lg/md) | `ButtonSize`와 대조한다. **지금 어긋나 있다** — 코드는 `sm`을 포함해 셋이고 Figma는 둘이다. `verify-figma-parity`가 그 차이를 낸다 (DS-D-0032, 세 곳 중 Figma 미반영) |
 | `loading` | `State=Loading` | boolean prop이 Figma에서는 state variant다 |
 | `disabled` | `State=Disabled` | 같은 이유 |
 | — | `State=Hover`, `State=Active` | 코드에서는 CSS 상태다. Figma에 CSS 상태가 없어 variant로 둔다 |
@@ -192,25 +223,50 @@ focus-visible 링은 브라우저가 그리므로 Figma variant로 두지 않는
 `packages/react/test/component-geometry.browser.test.tsx`가, Figma가 이 값과 같은지는 parity
 게이트가 매 실행 검증한다.
 
-| 항목        | lg                                  | md                                  |
-| ----------- | ----------------------------------- | ----------------------------------- |
-| 높이        | `layout-control-height-lg` 40px     | `layout-control-height-md` 32px     |
-| 최소 폭     | `layout-control-minimum-width-md` 48px | `layout-control-minimum-width-md` 48px |
-| padding     | 0 / `space-control-lg` 16px         | 0 / `space-control-md` 12px         |
-| gap         | `space-control-xs` 4px              | `space-control-xs` 4px              |
-| 헤어라인 (secondary만, inset) | `border-width-hairline` 0.5px | `border-width-hairline` 0.5px |
-| radius      | `radius-control` 12px               | `radius-control` 12px               |
-| 타이포      | `body-sm-medium` 14px / 21px        | `body-sm-medium` 14px / 21px        |
-| spinner     | 18px (`1em` + border 2)             | 18px (`1em` + border 2)             |
-| 아이콘 슬롯 | `icon-size-sm` 16px                 | `icon-size-sm` 16px                 |
+| 항목        | lg                                  | md                                  | sm                                  |
+| ----------- | ----------------------------------- | ----------------------------------- | ----------------------------------- |
+| 높이        | `layout-control-height-lg` 40px     | `layout-control-height-md` 32px     | `layout-control-height-sm` 24px     |
+| 최소 폭     | `layout-control-minimum-width-md` 48px | `layout-control-minimum-width-md` 48px | `layout-control-minimum-width-md` 48px |
+| padding     | 0 / `space-control-lg` 16px         | 0 / `space-control-md` 12px         | 0 / `space-control-sm` 8px          |
+| padding (아이콘 쪽) | 14px                        | 10px                                | 6px                                 |
+| gap         | `space-control-xs` 4px              | `space-control-xs` 4px              | `space-control-xs` 4px              |
+| 헤어라인 (secondary만, inset) | `border-width-hairline` 0.5px | `border-width-hairline` 0.5px | `border-width-hairline` 0.5px |
+| radius      | `radius-control` 12px               | `radius-control` 12px               | **`radius-control-sm` 8px**         |
+| 타이포      | `body-sm-medium` 14px / 21px        | `body-sm-medium` 14px / 21px        | **`caption-medium` 12px / 18px**    |
+| spinner     | 18px (`1em` + border 2)             | 18px (`1em` + border 2)             | 16px (`1em` + border 2)             |
+| 아이콘 슬롯 | `icon-size-sm` 16px                 | `icon-size-sm` 16px                 | `icon-size-sm` 16px                 |
 
-**열 이름은 [DS-D-0027](../governance/decisions/DS-D-0027-control-size-ladder.md)의 사다리다 —
-`lg`(40) · `md`(32)이고 `sm`은 없다.** 2026-08-30까지 이 표는 그 결정 이전 이름(`md` 40 · `sm` 32)을
+**열 이름은 [DS-D-0027](../governance/decisions/DS-D-0027-control-size-ladder.md)과
+[DS-D-0032](../governance/decisions/DS-D-0032-control-size-ladder-sm.md)의 사다리다 —
+`lg`(40) · `md`(32) · `sm`(24).** 2026-08-30까지 이 표는 DS-D-0027 이전 이름(`md` 40 · `sm` 32)을
 달고 있어서, 같은 문서 안에서 `md`가 40과 32 두 값을 뜻했다. 이름을 옮기면서 세 행이 정본
 ([`figma/components.measured.json`](../../figma/components.measured.json))과 어긋나 있던 것도 함께
-맞췄다 — 최소 폭은 **두 크기 모두** 48이고(`button.css`의 `lg`·`md` 둘 다 `min-inline-size`를 준다),
-gap과 아이콘 슬롯도 두 크기가 같은 값이다(`column-gap`은 둘 다 `space-control-xs`, 슬롯은 둘 다
+맞췄다 — 최소 폭은 **세 크기 모두** 48이고(`button.css`의 세 칸 모두 `min-inline-size`를 준다),
+gap과 아이콘 슬롯도 세 크기가 같은 값이다(`column-gap`은 셋 다 `space-control-xs`, 슬롯은 셋 다
 `icon-size-sm` 16 — 버튼이 32 단일이던 시절의 결정이 `lg`에도 그대로 남아 있다).
+
+### `sm` 열의 값은 어디서 왔나
+
+**높이 24만 [DS-D-0032](../governance/decisions/DS-D-0032-control-size-ladder-sm.md)가 준다.**
+나머지는 근거를 값마다 남긴다. 실측 출처는 Figma `OlYKERKOkgbxBEEoXGZW2c` Page 14 프레임
+`1087:2383`(비디오에디터)의 「가져오기」 버튼 `1087:2429`이며, 그 자리가 이 문서에서 `sm` Button에
+해당하는 유일한 자리다.
+
+| 값 | 근거 | 상세 |
+| --- | --- | --- |
+| padding 8 | **실측 + 비례가 일치** | `1087:2429`의 padding-inline이 8이다. 사다리 비례(lg 16 → md 12 → sm 8, 높이가 8 내려갈 때 여백이 4 내려간다)로도 같은 값이 나온다 |
+| radius 8 | **실측** | `1087:2429`의 `cornerRadius`가 8이다. `lg`·`md`의 `radius-control` 12를 24 높이에 그대로 쓰면 곡률이 높이의 절반이라 알약으로 읽힌다. 8은 `radius-control-sm`으로 이미 있는 이름이다 — tooltip·slider·project-card가 쓴다 |
+| 타이포 12/18 | **실측** | `1087:2429`의 텍스트가 Pretendard Medium 12 / 150%다. `caption-medium`과 크기·굵기·행 높이가 일치한다. 14/21을 24에 넣으면 위아래 여유가 1.5px씩뿐이고 12/18이면 3px씩 남는다 |
+| padding (아이콘 쪽) 6 | **기존 규칙** | 보정폭은 칸마다 비례하지 않고 상수 2px이다(`lg` 16→14, `md` 12→10). 8 − 2 = 6으로 2px 격자 위에 남는다 |
+| 최소 폭 48 | **기존 사다리** | 칸별 최소 폭이라는 축은 이 시스템에 없다 — `lg`·`md`가 같은 `control-minimum-width-md`를 읽는다(DS-D-0032). 실측한 「가져오기」가 58이라 이 바닥에 닿지도 않는다 |
+| gap 4 | **기존 사다리** | **재지 않았다.** 디자인의 그 자리에 아이콘이 없어 잴 것이 없었다. 사다리가 gap을 나눈 적이 없어 `lg`·`md` 공통값을 잇는다 |
+| 아이콘 슬롯 16 | **기존 사다리** | **재지 않았다.** 같은 이유다. 16은 라벨 행 높이 18보다 작아 아이콘이 붙어도 높이가 24에서 자라지 않는다 |
+| spinner 16 | **파생** | `1em` + `border-width-ring` 2 × 2. 폰트 크기를 따라가므로 12 → 16이 자동으로 나온다. CSS에 새 규칙이 없다 |
+
+**타이포의 letter-spacing만 실측과 갈린다.** 디자인 파일은 −2%(−0.24px)를 쓰고 LOUIS의
+`caption-medium`은 −1%(−0.12px)다. 이것은 `sm` 축의 문제가 아니라 그 Figma 파일 전체가 −2%를
+쓰는 것이며, `lg`·`md`가 읽는 `body-sm-medium`도 같은 −1% 규칙 위에 있다. **스케일을 따르고
+실측을 채택하지 않았다** — 한 칸만 자간 규칙을 벗어나면 그 규칙이 규칙이 아니게 된다.
 
 **base에는 stroke가 없다.** 위 헤어라인 행은 `secondary` variant에만 적용된다 — `border-width-hairline`
 0.5px 두께의 `color-stroke-hairline` 색을 CSS `border`가 아니라 inset box-shadow로 그린다
@@ -225,11 +281,15 @@ gap과 아이콘 슬롯도 두 크기가 같은 값이다(`column-gap`은 둘 �
 - **높이가 `height`가 아니라 `min-block-size`다.** 일반 라벨에서는 제품과 정확히 같은 40/32가
   나오고, KO/EN/JA 긴 라벨이나 200% 확대에서는 잘리는 대신 자란다. 제품은 `nowrap`이라 그 경우
   라벨이 넘친다.
-- **타이포가 size 축이 아니다.** 제품과 같이 md·sm 모두 14px/21px를 쓴다. 이전 DS는 sm에서
-  caption 12px로 줄여 제품과 달랐다.
+- **타이포가 `lg`·`md` 사이에서는 size 축이 아니다.** 제품과 같이 둘 다 14px/21px를 쓴다.
+  이전 DS는 작은 쪽에서 caption 12px로 줄여 제품과 달랐다. **`sm`은 예외이며 12px/18px다** —
+  제품에 대응하는 자리가 없고(제품에 24 컨트롤이 없다) 디자인이 12를 재서 준다. 「size가 글자
+  크기를 바꾸지 않는다」는 제품에서 채택한 두 칸 사이의 사실이지, 사다리 전체의 규칙이 아니다.
 
-아이콘이 붙은 쪽은 padding을 2px 줄인다(md 16→14, sm 12→10). 아이콘의 자체 시각 여백 때문에
-텍스트-only 대비 그 쪽이 넓어 보이는 것을 보정하는 것이며 제품과 같다.
+아이콘이 붙은 쪽은 padding을 2px 줄인다(`lg` 16→14, `md` 12→10, `sm` 8→6). 아이콘의 자체 시각
+여백 때문에 텍스트-only 대비 그 쪽이 넓어 보이는 것을 보정하는 것이며 `lg`·`md`는 제품과 같다.
+2026-08-30까지 이 문장은 DS-D-0027 이전 이름으로 `md 16→14, sm 12→10`이라 적혀 있었다 — `sm`이
+실재하는 값을 갖게 된 지금 그 이름은 **있는 크기를 틀린 값으로** 가리킨다.
 
 ## Known deviations
 

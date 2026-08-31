@@ -162,6 +162,40 @@ test("hit target이 44px 이상이다", async () => {
   expect(Number.parseFloat(after.height)).toBeGreaterThanOrEqual(44);
 });
 
+// sm(24)에서 시각 상자와 타깃의 차이가 사다리에서 가장 크다 — 20px이다 (DS-D-0032). 여기가
+// 무너지면 sm은 「사다리의 한 칸」이 아니라 그냥 접근성이 나쁜 작은 버튼이 된다.
+test("sm에서도 hit target이 44px 이상이다 — 시각 24와 타깃이 분리돼 있다", async () => {
+  await render(<Button size="sm">가져오기</Button>);
+  const button = buttonIn();
+  expect(Math.round(button.getBoundingClientRect().height), "시각 높이").toBe(24);
+  const after = getComputedStyle(button, "::after");
+  expect(Number.parseFloat(after.width)).toBeGreaterThanOrEqual(44);
+  expect(Number.parseFloat(after.height)).toBeGreaterThanOrEqual(44);
+});
+
+// 타이포가 갈라지는 유일한 칸이다. lg·md는 14/21로 같고 sm만 caption 12/18을 읽는다.
+// 라벨 행 높이 18이 24 안에 들어가는 것이 이 칸이 성립하는 조건이라 값으로 못을 박는다.
+test("sm만 caption 12/18을 쓰고 lg·md는 14/21로 같다", async () => {
+  const seen: Record<string, [number, number]> = {};
+  for (const size of ["lg", "md", "sm"] as const) {
+    const host = document.createElement("div");
+    document.body.append(host);
+    try {
+      await render(<Button size={size}>가져오기</Button>, { container: host });
+      const style = getComputedStyle(buttonIn(host));
+      seen[size] = [
+        Number.parseFloat(style.fontSize),
+        Number.parseFloat(style.lineHeight),
+      ];
+    } finally {
+      host.remove();
+    }
+  }
+  expect(seen.lg).toEqual([14, 21]);
+  expect(seen.md).toEqual([14, 21]);
+  expect(seen.sm).toEqual([12, 18]);
+});
+
 test("320px 컨테이너에서 KO/EN/JA 긴 라벨이 잘리지 않는다", async () => {
   const labels = [
     "새 프로젝트를 만들고 하이라이트를 자동으로 생성합니다",

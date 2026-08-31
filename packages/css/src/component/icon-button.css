@@ -40,6 +40,25 @@
   block-size: var(--louis-layout-control-height-md);
 }
 
+/* sm: 24×24. DS-D-0032 가 연 사다리의 세 번째 칸이며, **편집 표면의 도구 줄에서만** 쓴다 —
+ * 폼·대화상자·본문 흐름은 md 다. lg·md 와 달리 이 칸은 base 와 값이 갈리므로 실제로 나뉜다.
+ *
+ * **반경이 `radius-control`(12)이 아니라 `radius-control-sm`(8)인 것이 이 칸의 유일한 재판정이다.**
+ * 두 근거가 같은 값을 가리킨다.
+ *   - 디자인 실측 — 비디오 에디터(Figma `1087:2383`)의 트랙 레인 토글 `1087:2583`·`2586`·`2590`·
+ *     `2604`·`2611` 이 전부 24×24 에 반경 8 이다. 같은 화면의 나머지 24 컨트롤(가져오기 `1087:2429`,
+ *     필터 탭 `1087:2433`, 70% 줌 칩 `1087:2482`)도 같은 8 이라 이 값은 이 자리 하나의 취향이 아니다.
+ *   - 기하 — 24 정사각에서 12 는 한 변의 절반이라 **완전한 원**이 된다. radius-control 은 32 에서
+ *     모서리를 깎는 값이지 형태를 바꾸는 값이 아니었는데, 24 에서 그대로 쓰면 아이콘 버튼만
+ *     알약 언어로 갈아탄다.
+ *
+ * 글리프는 여기서 바꾸지 않는다 — base 의 icon-size-sm(16) 을 세 칸이 공유한다(아래 __glyph 참조). */
+.louis-icon-button[data-size="sm"] {
+  inline-size: var(--louis-layout-control-height-sm);
+  block-size: var(--louis-layout-control-height-sm);
+  border-radius: var(--louis-radius-control-sm);
+}
+
 /* variant — Button과 같은 네 축. 새 시각 언어를 만들지 않는다. */
 .louis-icon-button[data-variant="primary"] {
   background: var(--louis-color-accent-primary);
@@ -121,7 +140,10 @@
 /* disabled secondary는 별도 테두리 색을 두지 않는다 — enabled의 generic 헤어라인을 유지하고
  * 상태는 foreground 색이 전달한다 (DS-D-0023, 이전엔 color-stroke-subtle border였다). */
 
-/* 글리프는 컨테이너와 독립이다. 두 size에서 같은 20px을 쓴다 (iconography.md Size model). */
+/* 글리프는 컨테이너와 독립이다. 세 size가 같은 16px을 쓴다 (iconography.md Size model).
+ * sm(24)에서도 갈라지지 않는 이유: 그 규칙 자체가 lg·md 를 같은 16 에 두고 있고, 디자인이 그린
+ * 14 는 icon-size 계단(16·20·24·64)에 없어서 새 원시 토큰을 만들어야 한다 —
+ * icon-button.md 의 Known deviations 에 그 2px 을 적어 두었다. */
 .louis-icon-button__glyph {
   display: inline-flex;
   flex: none;

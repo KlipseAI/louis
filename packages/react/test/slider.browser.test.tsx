@@ -63,12 +63,18 @@ function declared(selector: string, property: string): string {
   throw new Error(`선언을 찾지 못했습니다: ${selector} { ${property} }`);
 }
 
-const SIZES: readonly SliderSize[] = ["lg", "md"];
-// 기본(속성 없음)이 lg 다 — md 만 `[data-size="md"]` 로 덮는다. 계단 개명(sm→md, md→lg,
+const SIZES: readonly SliderSize[] = ["lg", "md", "sm"];
+// 기본(속성 없음)이 lg 다 — md 와 sm 만 `[data-size=...]` 로 덮는다. 계단 개명(sm→md, md→lg,
 // DS-D-0027) 전에는 기본이 md 였고 이 삼항이 그때 방향 그대로 남아 lg 와 md 의 기대값이
 // 서로 바뀌어 있었다.
+//
+// **선택자를 하나로 묶을 수 없다.** 아래 declared() 가 CSSOM 의 selectorText 를 문자열로
+// 대조하므로 `[data-size="md"], [data-size="sm"]` 같은 그룹 규칙은 어느 쪽으로도 잡히지 않는다.
+// CSS 쪽도 같은 이유로 md 와 sm 을 따로 적는다.
 const sizeScope = (size: SliderSize): string =>
-  size === "lg" ? ".louis-slider__control" : '.louis-slider[data-size="md"] .louis-slider__control';
+  size === "lg"
+    ? ".louis-slider__control"
+    : `.louis-slider[data-size="${size}"] .louis-slider__control`;
 
 // **measured의 키가 `{size}/{variant}` 복합이다.** Variant 축이 레일 두께와 썸 크기를 바꾸므로
 // size 하나로 묶으면 두 값이 한 항목에 섞여 어느 쪽이 어느 변형의 것인지 사라진다.
@@ -95,8 +101,8 @@ for (const size of SIZES) {
   test(`Slider ${size}의 레일·썸 선언이 components.measured.json과 같다`, async () => {
     await render(<Slider label="투명도" size={size} />);
 
-    // 레일 두께는 크기 축을 갖지 않는다 — 두 크기가 같은 4px이고 CSS에 sm 재정의가 없다.
-    // 그래서 두 크기 모두 기본 선언을 읽는다. 썸만 크기별 규칙이 있다.
+    // 레일 두께는 크기 축을 갖지 않는다 — 세 크기가 같은 4px이고 CSS에 크기별 재정의가 없다.
+    // 그래서 세 크기 모두 기본 선언을 읽는다. 썸만 크기별 규칙이 있다.
     const rail = ".louis-slider__control::-webkit-slider-runnable-track";
     const thumb = `${sizeScope(size)}::-webkit-slider-thumb`;
     expect(px(declared(rail, "block-size")), "railHeight").toBe(spec.railHeight);
@@ -105,7 +111,7 @@ for (const size of SIZES) {
 
     // 썸 테두리는 리터럴이 아니라 링 토큰이다. 선언이 그 토큰을 가리키는지와, 그 토큰이
     // 계약값으로 계산되는지를 따로 본다 — 둘 중 하나만 보면 조용히 갈라진다.
-    // 테두리도 크기 축을 갖지 않는다. sm 규칙은 크기만 덮으므로 선언은 기본 규칙에 있다.
+    // 테두리도 크기 축을 갖지 않는다. md·sm 규칙은 크기만 덮으므로 선언은 기본 규칙에 있다.
     expect(
       declared(".louis-slider__control::-webkit-slider-thumb", "border"),
       "thumb border는 링 토큰을 쓴다",
@@ -122,7 +128,7 @@ for (const size of SIZES) {
     const barSelector =
       size === "lg"
         ? '.louis-slider[data-variant="track"] .louis-slider__control::-webkit-slider-runnable-track'
-        : '.louis-slider[data-variant="track"][data-size="md"] .louis-slider__control::-webkit-slider-runnable-track';
+        : `.louis-slider[data-variant="track"][data-size="${size}"] .louis-slider__control::-webkit-slider-runnable-track`;
     expect(px(declared(barSelector, "block-size")), "railHeight").toBe(trackSpec.railHeight);
 
     const grip =

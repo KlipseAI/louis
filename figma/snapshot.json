@@ -6,12 +6,12 @@
     "capturedAt": "2026-08-29",
     "capturedBy": "use_figma 전수 캡처 + proposal 대조. 변수는 이름·값·alias 를 Figma 실물과 대조해 확인했다(FNV-1a 정본 해시 · 516행). scopes 문자열과 float 정밀도(예: line-height/heading 을 Figma 는 1.350000023841858 로 보관)는 Figma 쪽 저장 형태라 proposal 값을 쓴다 — 게이트가 보는 축이 아니다. components 41개는 use_figma 로 각 set 을 순회해 뜬 값이고, MediaCard·CarouselArrow 2개와 랜딩 4개(StepTile·FaqRow·NewsCard·GnbMenuItem)는 scripts/figma-readback-emit.mjs 가 낸 채취 코드로 떴다(2026-08-26). 그 emitter 로 Keycap·Badge 를 다시 떠 기존 값과 정규화 바이트 일치를 확인했다. Button·IconButton·Slider·ProjectCard 는 일치하지 않으며 사유는 emitter 머리말의 「알려진 어긋남」에 적었다 — 되읽기가 낡은 것이지 emitter 가 틀린 것이 아니다. 2026-08-27 DS-D-0029 재캡처: 변수 24개를 라이브에서 옮기고(이름 14 · 삭제 10) 되읽기 행을 같은 작업에서 맞췄다. 전수 덤프 대신 **행 지문 대조**로 확인했다 — 라이브에서 [이름, resolvedType, mode 값]을 mode 이름순으로 정규화해 행마다 FNV-1a 를 내고 되읽기에서 같은 방식으로 낸 집합과 맞췄다(응답 20KB 제한 때문에 전수 덤프는 잘린다). 라이브 506행 중 어긋난 것은 2행이고 둘 다 이 주석이 이미 예외로 적어 둔 float 정밀도다 — scale/tooltip-rest(Figma 0.9700000286102295 vs 0.97) · color/green-500-alpha/08(Figma 0.7765,0.5569 vs 0.776471,0.556863). scopes 열은 여전히 proposal 값이다. 2026-08-29 PaneDivider 등재: 새 component set 하나를 `--components --only PaneDivider` 채취 코드로 떠 `--merge` 했고(49 → 50), 새 변수 7개 행을 `--variables`/`--merge-variables` 로 넣었다(497 → 504 · scopes 는 규칙대로 proposal 값). **이 기록은 전수가 아니다** — 위 열거(41 + 2 + 4)가 47 이라 InlineLoadingLabel · SegmentedCodeInput 두 개는 채취 경로가 적혀 있지 않다. 다음 사람이 이 문단을 명부로 읽지 않도록 적어 둔다.",
     "published": false,
-    "tokenSourceSha256": "023e6096f7c0fc6169a7de8ca4a314092fdac8aaa01dbc84b40cd4f0c3ed4d87",
-    "proposalSha256": "45c9a878c91a99284467948b4ddf6f8c6095f902ea09c47691d4a72ad848d9a2",
+    "tokenSourceSha256": "bdcf89b41777abb09678752f1f751f822a16276b6028c42d9de73cb3e0730785",
+    "proposalSha256": "808862d3c5a080039211e84df3e62022d155351012183f5c761e80db2c437ea6",
     "readback": {
-      "tokens": 505,
-      "canonicalLength": 50639,
-      "fnv1a32": "4e1ad294",
+      "tokens": 506,
+      "canonicalLength": 50724,
+      "fnv1a32": "d83a055b",
       "note": "변수는 readback.json의 되읽기 행을 tokenId 공간으로 옮긴 것이고, style과 component는 같은 되읽기의 style/component 절이다. canonical 해시는 컬렉션·이름·타입·mode 값을 정렬해 이은 문자열의 FNV-1a다.",
       "styles": {
         "text": 15,
@@ -19,10 +19,10 @@
       },
       "components": {
         "sets": 51,
-        "variants": 426
+        "variants": 559
       },
       "icons": 31,
-      "templates": 1
+      "templates": 9
     }
   },
   "collections": {
@@ -38,7 +38,7 @@
         "Global"
       ],
       "defaultMode": "Global",
-      "variableCount": 140
+      "variableCount": 141
     },
     "Klipse Semantic Color": {
       "modes": [
@@ -4454,6 +4454,15 @@
         }
       }
     },
+    "layout-control-height-sm": {
+      "figmaName": "layout/control-height-sm",
+      "resolvedType": "FLOAT",
+      "valuesByMode": {
+        "Global": {
+          "alias": "space-24"
+        }
+      }
+    },
     "layout-control-hit-target-minimum": {
       "figmaName": "layout/control-hit-target-minimum",
       "resolvedType": "FLOAT",
@@ -6955,7 +6964,7 @@
     "Button": {
       "outsideParts": [],
       "tokenId": "button",
-      "variantCount": 200,
+      "variantCount": 300,
       "hasDescription": true,
       "properties": {
         "Label": {
@@ -6980,8 +6989,9 @@
         "Size": {
           "type": "VARIANT",
           "options": [
+            "md",
             "lg",
-            "md"
+            "sm"
           ]
         },
         "State": {
@@ -7005,32 +7015,37 @@
         }
       },
       "binding": {
-        "boundFills": 82,
+        "boundFills": 492,
         "rawFills": 0,
-        "boundStrokes": 260,
+        "boundStrokes": 0,
         "rawStrokes": 0,
-        "textStyled": 50,
+        "textStyled": 300,
         "textUnstyled": 0
       },
       "geometry": {
         "lg": {
           "slots": {
+            "Spinner": [
+              "16x16"
+            ],
             "LeftIcon": [
               "16x16"
             ],
             "RightIcon": [
               "16x16"
-            ],
-            "Spinner": [
-              "18x18"
             ]
           },
+          "parts": {},
           "height": [
             40
           ],
           "width": [
-            58,
-            51
+            57,
+            79,
+            75,
+            93,
+            99,
+            119
           ],
           "paddingBlock": [
             0
@@ -7039,13 +7054,16 @@
             0
           ],
           "paddingInline": [
-            16
+            16,
+            14
           ],
           "paddingInlineEnd": [
-            16
+            16,
+            14
           ],
           "itemSpacing": [
-            4
+            4,
+            6
           ],
           "cornerRadius": [
             12
@@ -7053,31 +7071,33 @@
           "layoutMode": [
             "HORIZONTAL"
           ],
-          "strokeWeight": [
-            2,
-            0.5
-          ],
+          "strokeWeight": [],
           "overflowingParts": [],
           "offCenterMarks": []
         },
         "md": {
           "slots": {
+            "Spinner": [
+              "16x16"
+            ],
             "LeftIcon": [
               "16x16"
             ],
             "RightIcon": [
               "16x16"
-            ],
-            "Spinner": [
-              "18x18"
             ]
           },
+          "parts": {},
           "height": [
             32
           ],
           "width": [
-            50,
-            43
+            49,
+            71,
+            67,
+            85,
+            91,
+            111
           ],
           "paddingBlock": [
             0
@@ -7086,13 +7106,16 @@
             0
           ],
           "paddingInline": [
-            12
+            12,
+            10
           ],
           "paddingInlineEnd": [
-            12
+            12,
+            10
           ],
           "itemSpacing": [
-            4
+            4,
+            6
           ],
           "cornerRadius": [
             12
@@ -7100,28 +7123,63 @@
           "layoutMode": [
             "HORIZONTAL"
           ],
-          "strokeWeight": [
-            2,
-            0.5
+          "strokeWeight": [],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "sm": {
+          "slots": {
+            "Spinner": [
+              "16x16"
+            ],
+            "LeftIcon": [
+              "16x16"
+            ],
+            "RightIcon": [
+              "16x16"
+            ]
+          },
+          "parts": {},
+          "height": [
+            24
           ],
+          "width": [
+            48,
+            57,
+            55,
+            73,
+            75,
+            93
+          ],
+          "paddingBlock": [
+            0
+          ],
+          "paddingBlockEnd": [
+            0
+          ],
+          "paddingInline": [
+            8,
+            6
+          ],
+          "paddingInlineEnd": [
+            8,
+            6
+          ],
+          "itemSpacing": [
+            4
+          ],
+          "cornerRadius": [
+            8
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ],
+          "strokeWeight": [],
           "overflowingParts": [],
           "offCenterMarks": []
         }
       },
-      "strokes": {
-        "LeftIcon.glyph": [
-          "1.5|CENTER"
-        ],
-        "RightIcon.glyph": [
-          "1.5|CENTER"
-        ],
-        "Spinner": [
-          "2|INSIDE"
-        ],
-        "self": [
-          "0.5|INSIDE"
-        ]
-      },
+      "strokes": {},
       "effects": {}
     },
     "CarouselArrow": {
@@ -8554,7 +8612,7 @@
     "IconButton": {
       "outsideParts": [],
       "tokenId": "icon-button",
-      "variantCount": 40,
+      "variantCount": 60,
       "hasDescription": true,
       "properties": {
         "Glyph": {
@@ -8572,8 +8630,9 @@
         "Size": {
           "type": "VARIANT",
           "options": [
+            "md",
             "lg",
-            "md"
+            "sm"
           ]
         },
         "State": {
@@ -8588,9 +8647,9 @@
         }
       },
       "binding": {
-        "boundFills": 46,
+        "boundFills": 54,
         "rawFills": 0,
-        "boundStrokes": 110,
+        "boundStrokes": 15,
         "rawStrokes": 0,
         "textStyled": 0,
         "textUnstyled": 0
@@ -8602,6 +8661,7 @@
               "16x16"
             ]
           },
+          "parts": {},
           "height": [
             32
           ],
@@ -8630,7 +8690,6 @@
             "HORIZONTAL"
           ],
           "strokeWeight": [
-            1.5,
             0.5
           ],
           "overflowingParts": [],
@@ -8642,6 +8701,7 @@
               "16x16"
             ]
           },
+          "parts": {},
           "height": [
             32
           ],
@@ -8670,7 +8730,46 @@
             "HORIZONTAL"
           ],
           "strokeWeight": [
-            1.5,
+            0.5
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "sm": {
+          "slots": {
+            "Glyph": [
+              "16x16"
+            ]
+          },
+          "parts": {},
+          "height": [
+            24
+          ],
+          "width": [
+            24
+          ],
+          "paddingBlock": [
+            0
+          ],
+          "paddingBlockEnd": [
+            0
+          ],
+          "paddingInline": [
+            0
+          ],
+          "paddingInlineEnd": [
+            0
+          ],
+          "itemSpacing": [
+            0
+          ],
+          "cornerRadius": [
+            8
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ],
+          "strokeWeight": [
             0.5
           ],
           "overflowingParts": [],
@@ -8678,9 +8777,6 @@
         }
       },
       "strokes": {
-        "Glyph.glyph": [
-          "1.5|CENTER"
-        ],
         "self": [
           "0.5|INSIDE"
         ]
@@ -10684,7 +10780,7 @@
     "SegmentedControl": {
       "outsideParts": [],
       "tokenId": "segmented-control",
-      "variantCount": 6,
+      "variantCount": 8,
       "hasDescription": true,
       "properties": {
         "Segment3": {
@@ -10695,7 +10791,8 @@
           "options": [
             "lg",
             "md",
-            "xs"
+            "xs",
+            "sm"
           ]
         },
         "Disabled": {
@@ -10707,7 +10804,7 @@
         }
       },
       "binding": {
-        "boundFills": 12,
+        "boundFills": 16,
         "rawFills": 0,
         "boundStrokes": 0,
         "rawStrokes": 0,
@@ -10753,8 +10850,6 @@
               ]
             }
           },
-          "overflowingParts": [],
-          "offCenterMarks": [],
           "height": [
             40
           ],
@@ -10782,7 +10877,9 @@
           "layoutMode": [
             "HORIZONTAL"
           ],
-          "strokeWeight": []
+          "strokeWeight": [],
+          "overflowingParts": [],
+          "offCenterMarks": []
         },
         "md": {
           "slots": {
@@ -10822,8 +10919,6 @@
               ]
             }
           },
-          "overflowingParts": [],
-          "offCenterMarks": [],
           "height": [
             32
           ],
@@ -10851,7 +10946,78 @@
           "layoutMode": [
             "HORIZONTAL"
           ],
-          "strokeWeight": []
+          "strokeWeight": [],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "sm": {
+          "slots": {
+            "Item 1": [
+              "60x20"
+            ],
+            "Item 2": [
+              "60x20"
+            ],
+            "Item 3": [
+              "60x20"
+            ]
+          },
+          "parts": {
+            "Item 1": {
+              "width": [
+                60
+              ],
+              "height": [
+                20
+              ]
+            },
+            "Item 2": {
+              "width": [
+                60
+              ],
+              "height": [
+                20
+              ]
+            },
+            "Item 3": {
+              "width": [
+                60
+              ],
+              "height": [
+                20
+              ]
+            }
+          },
+          "height": [
+            24
+          ],
+          "width": [
+            184
+          ],
+          "paddingBlock": [
+            2
+          ],
+          "paddingBlockEnd": [
+            2
+          ],
+          "paddingInline": [
+            2
+          ],
+          "paddingInlineEnd": [
+            2
+          ],
+          "itemSpacing": [
+            0
+          ],
+          "cornerRadius": [
+            8
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ],
+          "strokeWeight": [],
+          "overflowingParts": [],
+          "offCenterMarks": []
         },
         "xs": {
           "slots": {
@@ -10891,8 +11057,6 @@
               ]
             }
           },
-          "overflowingParts": [],
-          "offCenterMarks": [],
           "height": [
             28
           ],
@@ -10920,7 +11084,9 @@
           "layoutMode": [
             "HORIZONTAL"
           ],
-          "strokeWeight": []
+          "strokeWeight": [],
+          "overflowingParts": [],
+          "offCenterMarks": []
         }
       },
       "strokes": {},
@@ -11816,19 +11982,25 @@
       "effects": {}
     },
     "Slider": {
-      "outsideParts": [],
+      "outsideParts": [
+        "FocusRing"
+      ],
       "tokenId": "slider",
-      "variantCount": 12,
+      "variantCount": 18,
       "hasDescription": true,
       "properties": {
         "Label": {
           "type": "TEXT"
         },
+        "HasLabel": {
+          "type": "BOOLEAN"
+        },
         "Size": {
           "type": "VARIANT",
           "options": [
+            "md",
             "lg",
-            "md"
+            "sm"
           ]
         },
         "Variant": {
@@ -11837,9 +12009,6 @@
             "thumb",
             "track"
           ]
-        },
-        "HasLabel": {
-          "type": "BOOLEAN"
         },
         "State": {
           "type": "VARIANT",
@@ -11851,11 +12020,11 @@
         }
       },
       "binding": {
-        "boundFills": 16,
+        "boundFills": 72,
         "rawFills": 0,
-        "boundStrokes": 2,
+        "boundStrokes": 15,
         "rawStrokes": 0,
-        "textStyled": 4,
+        "textStyled": 18,
         "textUnstyled": 0
       },
       "geometry": {
@@ -11939,7 +12108,9 @@
           "strokeWeight": [
             2
           ],
-          "overflowingParts": [],
+          "overflowingParts": [
+            "FocusRing"
+          ],
           "offCenterMarks": []
         },
         "lg/track": {
@@ -12019,8 +12190,12 @@
           "layoutMode": [
             "VERTICAL"
           ],
-          "strokeWeight": [],
-          "overflowingParts": [],
+          "strokeWeight": [
+            2
+          ],
+          "overflowingParts": [
+            "FocusRing"
+          ],
           "offCenterMarks": []
         },
         "md/thumb": {
@@ -12103,7 +12278,9 @@
           "strokeWeight": [
             2
           ],
-          "overflowingParts": [],
+          "overflowingParts": [
+            "FocusRing"
+          ],
           "offCenterMarks": []
         },
         "md/track": {
@@ -12183,8 +12360,184 @@
           "layoutMode": [
             "VERTICAL"
           ],
-          "strokeWeight": [],
-          "overflowingParts": [],
+          "strokeWeight": [
+            2
+          ],
+          "overflowingParts": [
+            "Rail",
+            "Fill",
+            "FocusRing"
+          ],
+          "offCenterMarks": []
+        },
+        "sm/thumb": {
+          "slots": {},
+          "parts": {
+            "Label": {
+              "width": [
+                30
+              ],
+              "height": [
+                18
+              ],
+              "fontSize": [
+                12
+              ],
+              "lineHeightPercent": [
+                150
+              ]
+            },
+            "Control": {
+              "width": [
+                240
+              ],
+              "height": [
+                24
+              ]
+            },
+            "Rail": {
+              "width": [
+                240
+              ],
+              "height": [
+                4
+              ]
+            },
+            "Fill": {
+              "width": [
+                96
+              ],
+              "height": [
+                4
+              ]
+            },
+            "Thumb": {
+              "width": [
+                12
+              ],
+              "height": [
+                12
+              ]
+            }
+          },
+          "height": [
+            46
+          ],
+          "width": [
+            240
+          ],
+          "paddingBlock": [
+            0
+          ],
+          "paddingBlockEnd": [
+            0
+          ],
+          "paddingInline": [
+            0
+          ],
+          "paddingInlineEnd": [
+            0
+          ],
+          "itemSpacing": [
+            4
+          ],
+          "cornerRadius": [
+            0
+          ],
+          "layoutMode": [
+            "VERTICAL"
+          ],
+          "strokeWeight": [
+            2
+          ],
+          "overflowingParts": [
+            "FocusRing"
+          ],
+          "offCenterMarks": []
+        },
+        "sm/track": {
+          "slots": {},
+          "parts": {
+            "Label": {
+              "width": [
+                30
+              ],
+              "height": [
+                18
+              ],
+              "fontSize": [
+                12
+              ],
+              "lineHeightPercent": [
+                150
+              ]
+            },
+            "Control": {
+              "width": [
+                240
+              ],
+              "height": [
+                24
+              ]
+            },
+            "Rail": {
+              "width": [
+                240
+              ],
+              "height": [
+                20
+              ]
+            },
+            "Fill": {
+              "width": [
+                96
+              ],
+              "height": [
+                20
+              ]
+            },
+            "Thumb": {
+              "width": [
+                2
+              ],
+              "height": [
+                14
+              ]
+            }
+          },
+          "height": [
+            46
+          ],
+          "width": [
+            240
+          ],
+          "paddingBlock": [
+            0
+          ],
+          "paddingBlockEnd": [
+            0
+          ],
+          "paddingInline": [
+            0
+          ],
+          "paddingInlineEnd": [
+            0
+          ],
+          "itemSpacing": [
+            4
+          ],
+          "cornerRadius": [
+            0
+          ],
+          "layoutMode": [
+            "VERTICAL"
+          ],
+          "strokeWeight": [
+            2
+          ],
+          "overflowingParts": [
+            "FocusRing"
+          ],
           "offCenterMarks": []
         }
       },
@@ -13260,7 +13613,7 @@
     "TextField": {
       "outsideParts": [],
       "tokenId": "input",
-      "variantCount": 10,
+      "variantCount": 15,
       "hasDescription": true,
       "properties": {
         "Label": {
@@ -13284,11 +13637,18 @@
         "SuffixGlyph": {
           "type": "INSTANCE_SWAP"
         },
+        "HasLabel": {
+          "type": "BOOLEAN"
+        },
+        "HasMessage": {
+          "type": "BOOLEAN"
+        },
         "Size": {
           "type": "VARIANT",
           "options": [
+            "md",
             "lg",
-            "md"
+            "sm"
           ]
         },
         "State": {
@@ -13300,26 +13660,34 @@
             "Disabled",
             "Placeholder"
           ]
-        },
-        "HasLabel": {
-          "type": "BOOLEAN"
-        },
-        "HasMessage": {
-          "type": "BOOLEAN"
         }
       },
       "binding": {
-        "boundFills": 32,
+        "boundFills": 60,
         "rawFills": 0,
-        "boundStrokes": 10,
+        "boundStrokes": 18,
         "rawStrokes": 0,
-        "textStyled": 24,
+        "textStyled": 45,
         "textUnstyled": 0
       },
       "geometry": {
         "lg": {
           "slots": {},
           "parts": {
+            "Label": {
+              "height": [
+                21
+              ],
+              "width": [
+                320
+              ],
+              "fontSize": [
+                14
+              ],
+              "lineHeightPercent": [
+                150
+              ]
+            },
             "Box": {
               "height": [
                 40
@@ -13341,20 +13709,6 @@
               ],
               "layoutMode": [
                 "HORIZONTAL"
-              ]
-            },
-            "Label": {
-              "height": [
-                21
-              ],
-              "width": [
-                320
-              ],
-              "fontSize": [
-                14
-              ],
-              "lineHeightPercent": [
-                150
               ]
             },
             "Value": {
@@ -13423,6 +13777,20 @@
         "md": {
           "slots": {},
           "parts": {
+            "Label": {
+              "height": [
+                21
+              ],
+              "width": [
+                320
+              ],
+              "fontSize": [
+                14
+              ],
+              "lineHeightPercent": [
+                150
+              ]
+            },
             "Box": {
               "height": [
                 32
@@ -13444,20 +13812,6 @@
               ],
               "layoutMode": [
                 "HORIZONTAL"
-              ]
-            },
-            "Label": {
-              "height": [
-                21
-              ],
-              "width": [
-                320
-              ],
-              "fontSize": [
-                14
-              ],
-              "lineHeightPercent": [
-                150
               ]
             },
             "Value": {
@@ -13491,6 +13845,109 @@
           },
           "height": [
             87
+          ],
+          "width": [
+            328
+          ],
+          "paddingBlock": [
+            4
+          ],
+          "paddingBlockEnd": [
+            4
+          ],
+          "paddingInline": [
+            4
+          ],
+          "paddingInlineEnd": [
+            4
+          ],
+          "itemSpacing": [
+            4
+          ],
+          "cornerRadius": [
+            0
+          ],
+          "layoutMode": [
+            "VERTICAL"
+          ],
+          "strokeWeight": [
+            0.5,
+            2
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "sm": {
+          "slots": {},
+          "parts": {
+            "Label": {
+              "height": [
+                21
+              ],
+              "width": [
+                320
+              ],
+              "fontSize": [
+                14
+              ],
+              "lineHeightPercent": [
+                150
+              ]
+            },
+            "Box": {
+              "height": [
+                24
+              ],
+              "width": [
+                320
+              ],
+              "paddingInline": [
+                8
+              ],
+              "paddingInlineEnd": [
+                8
+              ],
+              "itemSpacing": [
+                8
+              ],
+              "cornerRadius": [
+                8
+              ],
+              "layoutMode": [
+                "HORIZONTAL"
+              ]
+            },
+            "Value": {
+              "height": [
+                18
+              ],
+              "width": [
+                304
+              ],
+              "fontSize": [
+                12
+              ],
+              "lineHeightPercent": [
+                150
+              ]
+            },
+            "Message": {
+              "height": [
+                18
+              ],
+              "width": [
+                320
+              ],
+              "fontSize": [
+                12
+              ],
+              "lineHeightPercent": [
+                150
+              ]
+            }
+          },
+          "height": [
+            79
           ],
           "width": [
             328
@@ -14683,6 +15140,167 @@
     }
   },
   "templates": {
+    "app-shell": {
+      "sceneWidth": 1440,
+      "railWidth": 280,
+      "railWidthCollapsed": 56,
+      "railPaddingInline": 12,
+      "railPaddingTop": 12,
+      "railPaddingBottom": 0,
+      "railItemGap": 4,
+      "brandToNavGap": 12,
+      "mainWidth": 1148,
+      "mainWidthCollapsed": 1372,
+      "mainOuterGapTop": 12,
+      "mainOuterGapRight": 12,
+      "mainOuterGapBottom": 12,
+      "mainCardRadius": 16,
+      "mainContentInset": 16,
+      "compactSceneWidth": 375,
+      "compactRailReserve": 0,
+      "compactMainOuterGap": 0,
+      "compactDrawerWidth": 280,
+      "compactCardRadius": 0,
+      "compactContentInset": 16,
+      "stateFrames": [
+        "Collapsed",
+        "Compact · drawer open",
+        "Expanded"
+      ],
+      "requiredParts": [
+        "BrandGap",
+        "Card",
+        "Chrome",
+        "Content",
+        "CtaSpacer",
+        "Drawer",
+        "Main",
+        "Rail",
+        "Scrim",
+        "SidebarBrand",
+        "SidebarCta",
+        "SidebarNavItem"
+      ],
+      "overlayHeightRatio": null,
+      "overlayLineHeightPercent": []
+    },
+    "auth-two-panel": {
+      "stateFrames": [
+        "≤719px — 1열 (Brand panel 은 그려지지 않는다)",
+        "≥1200px — 2열 (1440) · 720~1199px 에서는 슬로건만 heading-36"
+      ],
+      "requiredParts": [
+        "Brand panel",
+        "Brand panel 배경",
+        "Brand slogan",
+        "Brand symbol",
+        "Eyebrow",
+        "Form (children)",
+        "Form card",
+        "Form header",
+        "Form panel",
+        "Logo link"
+      ],
+      "wideHasBrandPanel": true,
+      "narrowHasBrandPanel": false,
+      "wideHasLogoLink": false,
+      "narrowHasLogoLink": true,
+      "sceneWidth": 1440,
+      "narrowSceneWidth": 480,
+      "pagePadding": [
+        20
+      ],
+      "pageColumns": 2,
+      "narrowColumns": 1,
+      "pageColumnGap": 20,
+      "columnsEqual": true,
+      "brandPanelPadding": [
+        20
+      ],
+      "brandPanelRadius": 12,
+      "brandPanelLayoutMode": "VERTICAL",
+      "brandPanelMainAxisAlign": "SPACE_BETWEEN",
+      "brandPanelCrossAxisAlign": "MIN",
+      "brandBgFillsPanel": true,
+      "brandSymbolHeight": 28,
+      "sloganFontSize": 48,
+      "sloganLineHeightPercent": 135,
+      "sloganLetterSpacingPercent": -2,
+      "formPanelPaddingInline": [
+        32
+      ],
+      "cardWidth": [
+        400
+      ],
+      "cardCrossAxisAlign": [
+        "CENTER"
+      ],
+      "cardGapWide": 24,
+      "cardGapNarrow": 8,
+      "eyebrowMinHeight": [
+        30
+      ],
+      "eyebrowPaddingInline": [
+        12
+      ],
+      "eyebrowRadius": [
+        999
+      ],
+      "eyebrowBorderWidth": [
+        1
+      ],
+      "formHeaderGap": [
+        8
+      ],
+      "formHeaderCrossAxisAlign": [
+        "CENTER"
+      ],
+      "descriptionMaxWidth": [
+        340
+      ],
+      "formChildrenGap": [
+        10
+      ],
+      "logoLinkHeight": 56,
+      "overlayHeightRatio": null,
+      "overlayLineHeightPercent": []
+    },
+    "editor-workspace": {
+      "sceneWidth": 1440,
+      "assetsWidth": 236,
+      "previewWidth": 864,
+      "propertiesWidth": 324,
+      "dividerThickness": [
+        4
+      ],
+      "columnGap": 2,
+      "rowGap": 2,
+      "timelineHeight": 400,
+      "paneRadius": [
+        12
+      ],
+      "topRowOrder": [
+        "Assets",
+        "PaneDivider",
+        "Preview",
+        "PaneDivider",
+        "Properties"
+      ],
+      "requiredParts": [
+        "Assets",
+        "PaneDivider",
+        "Preview",
+        "Properties",
+        "Timeline"
+      ],
+      "regularRowCount": 3,
+      "fullWidthRows": [
+        "PaneDivider",
+        "Timeline"
+      ],
+      "overlayHeightRatio": null,
+      "overlayLineHeightPercent": []
+    },
     "home": {
       "sceneWidth": 1440,
       "sidebarWidth": 280,
@@ -14715,6 +15333,217 @@
       "navLabelsDistinct": 6,
       "cardTitlesDistinct": 8,
       "placeholderLabelsAllowed": 0
+    },
+    "landing-shell": {
+      "sceneWidth": 1440,
+      "compactSceneWidth": 480,
+      "blurPlateHeight": [
+        120
+      ],
+      "headerPaddingTop": [
+        12
+      ],
+      "headerPaddingRight": [
+        12
+      ],
+      "headerPaddingBottom": [
+        12
+      ],
+      "headerPaddingLeft": [
+        20
+      ],
+      "headerHeight": 56,
+      "compactHeaderHeight": 62,
+      "railWidth": 1408,
+      "compactRailWidth": 448,
+      "railHeight": 32,
+      "compactRailHeight": 38,
+      "railColumnCount": 3,
+      "compactRailColumnCount": 2,
+      "menuGap": 16,
+      "menuItemCount": 5,
+      "menuLinkHeight": [
+        28
+      ],
+      "menuLinkPaddingInline": [
+        12
+      ],
+      "menuLinkRadius": [
+        999
+      ],
+      "actionsGap": [
+        8
+      ],
+      "actionParts": [
+        "Button",
+        "LanguageSelector"
+      ],
+      "compactActionParts": [
+        "Hamburger",
+        "LanguageSelector"
+      ],
+      "logoHeight": [
+        24
+      ],
+      "hamburgerSize": [
+        38
+      ],
+      "hamburgerRadius": 10,
+      "requiredParts": [
+        "Actions",
+        "Blur plate",
+        "Col 1",
+        "Col 3",
+        "Header wrapper",
+        "Logo",
+        "Menu list",
+        "Rail",
+        "첫 섹션"
+      ],
+      "stateFrames": [
+        "≤719px — 가운데 열이 소멸한다",
+        "≥720px"
+      ],
+      "overlayHeightRatio": null,
+      "overlayLineHeightPercent": []
+    },
+    "loading": {
+      "situationCount": 6,
+      "requiredParts": [
+        "InlineLoadingLabel",
+        "ProgressBar",
+        "Skeleton",
+        "Spinner",
+        "icon/image"
+      ],
+      "genShellParts": [
+        "Icon",
+        "Caption"
+      ],
+      "genShellIconBox": 64,
+      "genShellIconSquare": true,
+      "genShellStackGap": 4,
+      "genShellCentered": true,
+      "genShellCaptionSize": 14,
+      "genShellCaptionWeight": 500,
+      "genShellCaptionLineHeightPercent": 150,
+      "genShellCaptionAlign": "CENTER",
+      "overlayHeightRatio": null,
+      "overlayLineHeightPercent": []
+    },
+    "project-grid": {
+      "columnBands": 4,
+      "columnsCompact": 2,
+      "columnsRegular": 3,
+      "columnsWide": 4,
+      "columnsExtraWide": 5,
+      "trackGap": [
+        4
+      ],
+      "tracksEqual": true,
+      "gridFillsContainer": true,
+      "containerWidthWide": 1116,
+      "cardWidthWide": 276,
+      "requiredParts": [
+        "Grid",
+        "ProjectCard"
+      ],
+      "overlayHeightRatio": null,
+      "overlayLineHeightPercent": []
+    },
+    "route-boundary": {
+      "pagePaddingTop": [
+        24
+      ],
+      "pagePaddingBottom": [
+        32
+      ],
+      "pagePaddingInline": [
+        20
+      ],
+      "narrowPagePaddingInline": [
+        16
+      ],
+      "pageCentersContent": true,
+      "contentWidth": [
+        440
+      ],
+      "contentPaintCount": [
+        0
+      ],
+      "contentTextAlign": [
+        "CENTER"
+      ],
+      "contentStackGap": [
+        12
+      ],
+      "ctaGapTop": [
+        24
+      ],
+      "ctaIsSharedButton": true,
+      "ctaButtonHeight": [
+        32
+      ],
+      "errorLinkGap": 12,
+      "duplicateSkeletonMatches": true,
+      "lastResortContentWidth": 420,
+      "lastResortPagePadding": [
+        24
+      ],
+      "lastResortSharedButton": false,
+      "lastResortButtonPaddingBlock": [
+        10
+      ],
+      "lastResortButtonPaddingInline": [
+        24
+      ],
+      "lastResortButtonRadius": 8,
+      "lastResortTitleSize": 24,
+      "lastResortDescriptionSize": 15,
+      "lastResortDescriptionLineHeightPercent": 160,
+      "boundaryFrames": [
+        "404",
+        "≤719px — 좌우 패딩 16px",
+        "오류",
+        "최후 경계 · 토큰 밖"
+      ],
+      "overlayHeightRatio": null,
+      "overlayLineHeightPercent": []
+    },
+    "status-result": {
+      "columnWidth": 520,
+      "columnGap": 24,
+      "columnPadding": 0,
+      "columnPaintCount": 0,
+      "alertPaddingBlock": 12,
+      "alertPaddingInline": 16,
+      "alertRadius": 12,
+      "alertBorderWidth": 1,
+      "metaRowGap": 0,
+      "metaRowPaddingBlock": 12,
+      "metaRowDividerWidth": 1,
+      "metaLastRowDivider": 0,
+      "actionsGap": 10,
+      "actionsGapTop": 8,
+      "actionButtonHeight": 32,
+      "actionButtonFillsColumn": true,
+      "processingCentered": true,
+      "stateFrames": [
+        "Failure",
+        "Processing",
+        "Success"
+      ],
+      "successParts": [
+        "Actions",
+        "Alert",
+        "Meta list"
+      ],
+      "failureParts": [
+        "Actions",
+        "Meta list"
+      ],
+      "overlayHeightRatio": null,
+      "overlayLineHeightPercent": []
     }
   },
   "iconInstances": {},

@@ -4,7 +4,7 @@
 
 - System maturity: experimental
 - Coverage: exhaustive
-- Documents: 50
+- Documents: 51
 - Purpose: 개발, 콘텐츠, 거버넌스와 adoption 계약
 
 ## Sources
@@ -58,6 +58,7 @@
 - design/governance/decisions/DS-D-0031-no-theme-branch-on-adaptive-ramp.md
 - design/governance/decisions/DS-D-0032-control-size-ladder-sm.md
 - design/governance/decisions/DS-D-0033-brightness-is-state.md
+- design/governance/decisions/DS-D-0034-ink-paper-roles.md
 - design/governance/product-confirmations.md
 - design/updates/README.md
 
@@ -124,7 +125,7 @@ Figma library는 아직 `not-ready`다. 시스템 전체 maturity도 `experiment
 | 항목 | 현재 값 |
 | --- | --- |
 | System maturity | `experimental` |
-| Normative documents | 115 |
+| Normative documents | 116 |
 | Generated documents | 5 |
 | Components | 40 |
 | Patterns | 8 |
@@ -8374,6 +8375,76 @@ lifecycle을 열었다. 근거는 「점에는 라벨이 없어 폭 말고 현�
 **시안의 30%를 그대로 쓰려고 원시값 `static-white-alpha.30`을 연다.** 사다리는 4 간격으로
 28·32를 이미 갖고 있다. 한 소비처의 2pp를 위해 칸을 늘리면 사다리가 「필요할 때마다 늘어나는
 것」이 되어 [DS-D-0026](../governance/decisions/DS-D-0026-alpha-scale.md)이 무의미해진다.
+
+## DS-D-0034 잉크와 종이는 역할이다 — 대비로 강제한다
+
+- Source: design/governance/decisions/DS-D-0034-ink-paper-roles.md
+- Maturity: experimental
+
+### DS-D-0034 잉크와 종이는 역할이다 — 대비로 강제한다
+
+- Status: accepted
+- Date: 2026-08-31
+- Owners: repository owner
+- Affects: `--gray-000` … `--gray-1000` 의 사용 규범,
+  제품의 대비 게이트 `check-contrast`(신설),
+  `design/foundations/color-theme.md`
+
+#### Context
+
+이 시스템의 `--gray-*` 는 **잉크(000) → 종이(1000)** 축이고 테마마다 통째로 뒤집힌다.
+라이트에서 `gray-000` 은 흰 면이 아니라 **검정**이다. 이름이 밝기를 말하지 않고 **역할**을
+말한다는 뜻인데, 이름만 보면 반대로 읽힌다.
+
+2026-08-31 하루에 같은 실수가 **세 화면에서** 났다.
+
+| 화면 | 무엇을 반대로 썼나 | 대비 |
+| --- | --- | --- |
+| `/mypage/upgrade` | 면과 글자가 서로 다른 색 시스템을 따라감 | 1.22 |
+| `/pricing` FAQ | 밝게 고정된 바닥 위에 밝은 잉크 | 1.08 |
+| 플랜 비교표 | 종이 쪽 `gray-900` 을 **글자색**으로 씀 | 1.42 |
+
+셋 다 **값은 전부 유효한 토큰이고, 클래스도 실재하며, 빌드도 통과했다.** 화면만 안 보였다.
+사람이 브라우저에서 재기 전까지 아무 게이트도 이것을 묻지 않았다.
+
+#### Decision
+
+**역할로 고른다. 밝기로 고르지 않는다.**
+
+| 역할 | 토큰 |
+| --- | --- |
+| 면(종이) | `gray-900` · `gray-1000` |
+| 제목(잉크) | `gray-000` ~ `gray-200` |
+| 보조 글자 | `gray-300` |
+| 본문에 쓰지 않는다 | `gray-400` 이하 — 라이트 흰 면에서 3.67 이하로 내려간다 |
+
+`gray-500` 은 램프의 **가운데**라 어느 끝에도 붙지 않는다. 두 테마에서 값이 같고, 그래서
+지수를 대칭으로 뒤집는 변환에서 혼자 제자리에 남는다 — 흰 면 위 2.33, 검은 면 위에서도
+비슷하게 낮다. **본문 글자로 쓰지 않는다.**
+
+**그리고 이것을 대비로 강제한다.** 제품이 `check-contrast` 를 갖는다 — 헤드리스 Chromium 에서
+전경과 배경을 바닥까지 알파 합성한 뒤 WCAG 상대휘도로 재고, 경로·테마별 위반 수를 래칫으로
+얼린다. 규범만 적어 두는 것으로는 오늘 같은 날이 다시 온다.
+
+#### 래퍼에서 램프를 못 박아 고치려 하지 마라
+
+이 실수를 고치려고 래퍼에서 `--gray-*` 를 고정 팔레트로 덮는 시도가 두 번 있었고
+(`PRICING_DECK` · `[data-page-root] #pricing-faq`) **둘 다 반쪽만 들었다.**
+
+`@theme inline` 이 빌드 시점에 값을 접어 넣어 `.text-gray-000` 은
+`color: var(--louis-color-gray-000)` 로 컴파일된다. 즉 그런 핀은 `bg-*`·`text-*` **유틸리티에
+닿지 않고**, `[color:rgb(var(--gray-000-rgb)/50%)]` 처럼 임의값으로 직접 적은 자리에만 걸린다.
+그래서 한 컴포넌트 안에서 **면은 A 시스템, 글자는 B 시스템**을 따라가게 된다 — 가격 카드가
+라이트에서 「흰 면에 흰 글자」가 된 경로가 정확히 이것이다.
+
+고칠 자리는 래퍼가 아니라 **역할을 잘못 고른 그 선언**이다.
+
+#### Why this is not DS-D-0031
+
+[DS-D-0031](../governance/decisions/DS-D-0031-no-theme-branch-on-adaptive-ramp.md)은 「적응형 램프에 테마 분기를 달지
+마라」다 — 램프가 이미 뒤집히는데 그 위에 `html[data-theme=…]` 를 또 얹지 말라는 뜻이다.
+이 결정은 그 앞 단계다: **뒤집히는 축에서 어느 끝을 고를 것인가.** 분기를 달지 않아도 끝을
+반대로 고르면 화면은 똑같이 무너진다.
 
 ## 제품 확인 대기 목록
 

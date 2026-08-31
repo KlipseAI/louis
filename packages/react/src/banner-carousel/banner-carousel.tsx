@@ -23,6 +23,18 @@ export interface BannerCarouselSlide {
 /** 컨테이너가 반경을 갖는지. `full`은 화면 폭까지 각지게 흘린다. */
 export type BannerCarouselBleed = "boxed" | "full";
 
+/**
+ * 하단 컨트롤의 배치.
+ *
+ * `indicator`(기본)는 하단 **가운데**에 인디케이터만 둔다 — 배너 본문이 가운데 정렬이라
+ * 컨트롤도 같은 축을 본다. `pill`은 우하단 글래스 알약 안에 이전·다음 화살표까지 넣는 옛 배치로,
+ * 화살표가 필요한 소비처가 쓴다.
+ *
+ * **자동 넘김 정지 버튼은 배치와 무관하다.** 움직이는 것은 멈출 수 있어야 하고(WCAG 2.2.2)
+ * 그것은 장식이 아니라 계약이라, `autoAdvanceMs > 0`이면 두 배치 모두에서 그려진다.
+ */
+export type BannerCarouselControls = "indicator" | "pill";
+
 export interface BannerCarouselProps {
   readonly slides: readonly BannerCarouselSlide[];
   /**
@@ -34,6 +46,8 @@ export interface BannerCarouselProps {
   readonly label: string;
   /** `boxed`는 카드 반경, `full`은 각지게. 기본은 `boxed`. */
   readonly bleed?: BannerCarouselBleed;
+  /** 하단 컨트롤 배치. 기본은 `indicator`(하단 가운데, 화살표 없음). */
+  readonly controls?: BannerCarouselControls;
   /** 자동 넘김 간격(ms). `0`이면 넘기지 않는다. */
   readonly autoAdvanceMs?: number;
   readonly index?: number;
@@ -74,6 +88,7 @@ export function BannerCarousel({
   slides,
   label,
   bleed = "boxed",
+  controls = "indicator",
   autoAdvanceMs = DEFAULT_AUTO_ADVANCE_MS,
   index,
   onIndexChange,
@@ -124,6 +139,7 @@ export function BannerCarousel({
 
   if (count === 0) return null;
 
+  // `pill` 배치에서만 쓰인다. 기본 배치에는 화살표가 없고 인디케이터가 직접 자리를 지정한다.
   const step = (delta: number) => goTo((activeIndex + delta + count) % count);
 
   return (
@@ -184,15 +200,17 @@ export function BannerCarousel({
       })}
 
       {count > 1 ? (
-        <div className="louis-banner-carousel__controls">
-          <button
-            type="button"
-            className="louis-banner-carousel__arrow"
-            onClick={() => step(-1)}
-            aria-label="이전 배너"
-          >
-            <ArrowGlyph direction="start" />
-          </button>
+        <div className="louis-banner-carousel__controls" data-controls={controls}>
+          {controls === "pill" ? (
+            <button
+              type="button"
+              className="louis-banner-carousel__arrow"
+              onClick={() => step(-1)}
+              aria-label="이전 배너"
+            >
+              <ArrowGlyph direction="start" />
+            </button>
+          ) : null}
           {autoAdvanceMs > 0 ? (
             <button
               type="button"
@@ -223,14 +241,16 @@ export function BannerCarousel({
               />
             ))}
           </div>
-          <button
-            type="button"
-            className="louis-banner-carousel__arrow"
-            onClick={() => step(1)}
-            aria-label="다음 배너"
-          >
-            <ArrowGlyph direction="end" />
-          </button>
+          {controls === "pill" ? (
+            <button
+              type="button"
+              className="louis-banner-carousel__arrow"
+              onClick={() => step(1)}
+              aria-label="다음 배너"
+            >
+              <ArrowGlyph direction="end" />
+            </button>
+          ) : null}
         </div>
       ) : null}
     </section>

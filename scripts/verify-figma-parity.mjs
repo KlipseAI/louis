@@ -1629,23 +1629,24 @@ const COMPONENT_CONTRACTS = [
             paddingTop: "contentBlockPadding",
           },
         },
+        // 알약이 `controls="pill"` 변형으로 내려가면서 **반경과 패딩 축이 사라졌다** — 기본 배치의
+        // 컨트롤은 면도 반경도 패딩도 없다. 남는 것은 묶음의 크기와 간격뿐이다. Figma 는 기본
+        // 배치만 모델링한다(변형 축을 열면 variant 가 4에서 8로 늘어난다 — 아직 열지 않았다).
         Controls: {
           fields: {
             width: "controlsWidth",
             height: "controlsHeight",
-            cornerRadius: "controlsRadius",
             itemSpacing: "controlsGap",
-            paddingLeft: "controlsPadding",
           },
         },
-        ArrowPrevious: { fields: { width: "arrowSize", height: "arrowSize", cornerRadius: "arrowRadius", children: "controlGlyphCount" } },
         // 제품에 없는 부품이다. 자동으로 움직이는 것은 멈출 수 있어야 한다(WCAG 2.2.2).
+        // 화살표 둘은 `pill` 변형에만 남아 기본 배치의 계약에서 빠졌다.
         PlaybackToggle: { fields: { width: "arrowSize", height: "arrowSize", cornerRadius: "arrowRadius", children: "controlGlyphCount" } },
-        ArrowNext: { fields: { width: "arrowSize", height: "arrowSize", cornerRadius: "arrowRadius", children: "controlGlyphCount" } },
-        // **폭이 상태다**(DS-D-0019). 같은 부품의 두 값이라면 합성 키를 쓰겠지만, 활성과 비활성은
-        // 서로 다른 자리에 동시에 존재하므로 이름을 갈라 둘 다 대조한다.
-        DotActive: { fields: { width: "dotActiveWidth", height: "dotHeight", cornerRadius: "dotRadius" } },
-        DotRest1: { fields: { width: "dotRestWidth", height: "dotHeight", cornerRadius: "dotRadius" } },
+        // **밝기가 상태다**(DS-D-0033). 폭이 상태이던 시절에는 활성과 비활성의 폭이 달라 이름을
+        // 갈라 두 값을 대조했다. 지금은 폭이 같으므로 같은 키를 본다 — 두 부품이 서로 다른 자리에
+        // 동시에 존재한다는 사실은 그대로라 이름은 갈라 둔다.
+        DotActive: { fields: { width: "dotWidth", height: "dotHeight", cornerRadius: "dotRadius" } },
+        DotRest1: { fields: { width: "dotWidth", height: "dotHeight", cornerRadius: "dotRadius" } },
       },
     },
   },

@@ -6332,13 +6332,13 @@
           "FRAME_FILL,SHAPE_FILL,STROKE_COLOR,TEXT_FILL",
           [
             [
-              "Dark",
-              "Klipse Primitive::color/static-white-alpha/48",
+              "Light",
+              "Klipse Primitive::color/static-white-alpha/28",
               null
             ],
             [
-              "Light",
-              "Klipse Primitive::color/static-white-alpha/48",
+              "Dark",
+              "Klipse Primitive::color/static-white-alpha/28",
               null
             ]
           ]
@@ -8474,6 +8474,12 @@
         "Description": {
           "type": "TEXT"
         },
+        "HasWordmark": {
+          "type": "BOOLEAN"
+        },
+        "HasCta": {
+          "type": "BOOLEAN"
+        },
         "Tone": {
           "type": "VARIANT",
           "options": [
@@ -8487,16 +8493,10 @@
             "boxed",
             "full"
           ]
-        },
-        "HasWordmark": {
-          "type": "BOOLEAN"
-        },
-        "HasCta": {
-          "type": "BOOLEAN"
         }
       },
       "binding": {
-        "boundFills": 28,
+        "boundFills": 32,
         "rawFills": 0,
         "boundStrokes": 0,
         "rawStrokes": 0,
@@ -8523,36 +8523,16 @@
             },
             "Controls": {
               "width": [
-                162
+                134
               ],
               "height": [
-                36
-              ],
-              "cornerRadius": [
-                999
+                28
               ],
               "itemSpacing": [
                 8
-              ],
-              "paddingLeft": [
-                4
               ]
             },
-            "ArrowPrevious": {
-              "width": [
-                28
-              ],
-              "height": [
-                28
-              ],
-              "cornerRadius": [
-                999
-              ],
-              "children": [
-                1
-              ]
-            },
-            "ArrowNext": {
+            "PlaybackToggle": {
               "width": [
                 28
               ],
@@ -8568,10 +8548,10 @@
             },
             "DotActive": {
               "width": [
-                20
+                30
               ],
               "height": [
-                7
+                2
               ],
               "cornerRadius": [
                 999
@@ -8579,27 +8559,13 @@
             },
             "DotRest1": {
               "width": [
-                7
+                30
               ],
               "height": [
-                7
+                2
               ],
               "cornerRadius": [
                 999
-              ]
-            },
-            "PlaybackToggle": {
-              "width": [
-                28
-              ],
-              "height": [
-                28
-              ],
-              "cornerRadius": [
-                999
-              ],
-              "children": [
-                1
               ]
             }
           },
@@ -8638,36 +8604,16 @@
             },
             "Controls": {
               "width": [
-                162
+                134
               ],
               "height": [
-                36
-              ],
-              "cornerRadius": [
-                999
+                28
               ],
               "itemSpacing": [
                 8
-              ],
-              "paddingLeft": [
-                4
               ]
             },
-            "ArrowPrevious": {
-              "width": [
-                28
-              ],
-              "height": [
-                28
-              ],
-              "cornerRadius": [
-                999
-              ],
-              "children": [
-                1
-              ]
-            },
-            "ArrowNext": {
+            "PlaybackToggle": {
               "width": [
                 28
               ],
@@ -8683,10 +8629,10 @@
             },
             "DotActive": {
               "width": [
-                20
+                30
               ],
               "height": [
-                7
+                2
               ],
               "cornerRadius": [
                 999
@@ -8694,27 +8640,13 @@
             },
             "DotRest1": {
               "width": [
-                7
+                30
               ],
               "height": [
-                7
+                2
               ],
               "cornerRadius": [
                 999
-              ]
-            },
-            "PlaybackToggle": {
-              "width": [
-                28
-              ],
-              "height": [
-                28
-              ],
-              "cornerRadius": [
-                999
-              ],
-              "children": [
-                1
               ]
             }
           },

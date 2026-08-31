@@ -25,6 +25,75 @@ authority: normative
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
 
+## 2026-08-31 (108) — 배너 캐러셀을 가운데 정렬로 되튜닝한다
+
+제품 아카이브 배너가 Figma page 14 시안으로 바뀌었고([klipse-web `design`](https://github.com/KlipseAI/klipse-web)
+76e289f7 · 5832587b · 0dfb144e), 그 픽셀로 LOUIS 정본을 따라 세운다
+([DS-D-0028](../governance/decisions/DS-D-0028-three-in-one-change.md) 「세 곳 동시 반영」).
+
+| 자리 | 이전 | 지금 |
+| --- | --- | --- |
+| 본문 | 왼쪽 540px 상자, 좌측 정렬 | 배너 가운데, `text-align: center` |
+| 배경 | 좌→우 스크림(78 → 46 → 0) + 사진 | 사진 한 겹 |
+| progressive blur | 좌→우 한 방향, 5스톱 | 위·아래 20% 밴드 두 겹, 곡선은 base.css 정본 |
+| 컨트롤 | 우하단 글래스 알약 + 화살표 | 하단 가운데 인디케이터 (알약은 `controls="pill"`) |
+| 인디케이터 | 7px 점, 활성 폭 20px | 30×2 막대, 활성만 밝다 |
+
+### 스크림이 사라진 이유와 그 대가
+
+좌→우 스크림은 **왼쪽에 놓인 글자의 대비 장치**였다. 글자가 가운데로 오면서 그것은 대비가 아니라
+사진을 한쪽만 어둡게 만드는 일이 됐다.
+
+대신 글자 대비를 `tone` 하나가 책임진다. **그 책임은 얇아질 수 있다** — 제품 실측에서
+`hero-main-bg.webp` 슬라이드의 설명 글자 대비가 중앙값 2.49:1까지 내려갔다(WCAG AA 4.5:1 미달).
+사진을 고르는 쪽이 그것을 책임지며, 필요하면 소비처가 가운데에 자기 스크림을 얹는다. DS는 한쪽
+방향으로만 걷히는 스크림을 다시 들이지 않는다.
+
+### 밴드가 둘인데 층은 하나다 — 새 토큰
+
+`::before`와 `::after`로 밴드를 하나씩 두면 `::after`가 콘텐츠 **뒤**에 와서 제목 위에 칠해진다.
+예전 스크림이 정확히 그 이유로 `::after`를 떠났었다. 숫자 z-index를 새로 들이지 않고 그 상태를
+막는 방법으로, 마스크를 두 겹 쌓고 `mask-size`로 각각 20% 높이로 잘라 위·아래에 붙였다.
+
+위 밴드의 곡선을 위해 **`--louis-progressive-blur-mask-block-start`** 를 base.css에 낸다.
+접미사 없는 `--louis-progressive-blur-mask`(`to top`)의 거울상이며 정지점이 한 글자도 다르지 않다 —
+두 밴드가 대칭이라는 말이 곧 이 값이 같다는 뜻이다. 그전에는 이 방향의 곡선이 이름을 갖지 못해
+`-header`(다른 감쇠)를 빌리거나 정지점을 손으로 베끼는 수밖에 없었다.
+
+### 폭이 상태였던 것이 밝기로 — DS-D-0033
+
+[DS-D-0033](../governance/decisions/DS-D-0033-brightness-is-state.md)가
+[DS-D-0019](../governance/decisions/DS-D-0019-layout-change-motion.md)의 배너 적용분을 뒤집는다.
+7 → 20px로 늘어나는 칸은 옆 칸을 민다. 컨트롤이 우하단 알약 안에 있을 때는 오른쪽 변이 고정돼
+그 밀림이 보이지 않았지만, 하단 **가운데**로 오면서 밀림이 곧 좌우 흔들림이 됐다 — 5.5초마다
+가운데축이 움직인다. 폭을 고정하고 밝기로 말해 그것을 없앤다.
+
+`layout-change` lifecycle 자체는 유효하다. 배너 인디케이터가 그 목록에서 빠질 뿐이다.
+
+### 토큰 값 하나가 움직인다
+
+| 토큰 | 이전 | 지금 |
+| --- | --- | --- |
+| `color-media-indicator-rest` | `static-white-alpha.48` | `static-white-alpha.28` |
+
+시안은 30%인데 알파 사다리에 30이 없다. 가장 가까운 칸이 28이고, 2px 막대에서 2pp 차이는 보이지
+않는다 — 한 소비처를 위해 사다리 칸을 늘리는 것이
+[DS-D-0026](../governance/decisions/DS-D-0026-alpha-scale.md)을 무의미하게 만든다.
+
+이 토큰의 소비처는 배너 인디케이터 하나뿐이라 다른 화면에 영향이 없다.
+
+**Migration.** `color-media-indicator-rest`를 직접 읽는 코드는 값이 48% → 28%로 내려간 것만
+반영하면 된다. 이름·타입·모드 구성은 그대로이므로 참조를 고칠 자리는 없다. 토큰 diff 분류는
+`rawValue` · `value` · `aliasTarget` 각 2건(light · dark)이며 그 외는 0이고,
+[releases.md](../governance/releases.md) 「의도적 breaking과 baseline 갱신」 절차대로
+`packages/tokens/baseline/manifest.json`을 같은 변경 단위에서 갱신했다.
+
+### API 변경
+
+`BannerCarousel`에 `controls?: "indicator" | "pill"`이 생긴다. 기본은 `indicator`이고, 화살표는
+`pill`에서만 그린다. **정지 버튼은 배치와 무관하게 그린다** — 배치는 장식이고 자동으로 움직이는
+것을 멈출 수 있어야 하는 것(WCAG 2.2.2)은 계약이다.
+
 ## 2026-08-30 (107) — 제품 화면 이식 파이프라인을 정본으로 들인다
 
 작업이 2026-08-23 에 두 갈래로 갈렸다. 정본은 DS 컴포넌트와 Decision 을 쌓았고, 갈래

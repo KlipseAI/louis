@@ -21075,13 +21075,13 @@
           ],
           "valuesByMode": {
             "Dark": {
-              "$value": "{primitive.color.static-white-alpha.48}",
+              "$value": "{primitive.color.static-white-alpha.28}",
               "aliasTarget": {
-                "id": "color-static-white-alpha-48",
+                "id": "color-static-white-alpha-28",
                 "mode": "base"
               },
               "resolvedValue": {
-                "alpha": 0.48,
+                "alpha": 0.28,
                 "colorSpace": "srgb",
                 "components": [
                   1,
@@ -21092,13 +21092,13 @@
               "sourcePath": "semantic.dark.color.media-indicator-rest"
             },
             "Light": {
-              "$value": "{primitive.color.static-white-alpha.48}",
+              "$value": "{primitive.color.static-white-alpha.28}",
               "aliasTarget": {
-                "id": "color-static-white-alpha-48",
+                "id": "color-static-white-alpha-28",
                 "mode": "base"
               },
               "resolvedValue": {
-                "alpha": 0.48,
+                "alpha": 0.28,
                 "colorSpace": "srgb",
                 "components": [
                   1,

@@ -13,8 +13,8 @@ summary: 허브 화면 맨 위에서 사진 배너를 돌려 보여 줍니다.
 
 | Surface       | 상태           | 근거                                                                 |
 | ------------- | -------------- | -------------------------------------------------------------------- |
-| Web           | `partial`      | public export와 실브라우저 acceptance test 10건이 두 motion context에서 각각 돈다; visual regression, Figma component와 제품 소비 증거 없음 |
-| Figma         | `partial`      | component set 4 variant(Tone × Bleed)에 기하 계약이 붙었고 parity가 매 실행 대조한다; publish 전 |
+| Web           | `partial`      | public export와 실브라우저 acceptance test 17건이 두 motion context에서 각각 돈다; 제품이 컨트롤·인디케이터 레시피를 실제로 소비한다(`appHomeSceneStyles.ts`); visual regression 없음 |
+| Figma         | `partial`      | component set 4 variant(Tone × Bleed)에 기하 계약이 붙었고 parity가 매 실행 대조한다; 2026-08-31 재조정분(가운데 본문 · 하단 가운데 막대)이 반영됐다; `controls="pill"` 변형은 아직 모델링하지 않았고 publish 전 |
 | Documentation | `done`         | 이 문서                                                              |
 | Maturity      | `experimental` | 규범과 구현이 같은 변경 단위에서 처음 선다                           |
 
@@ -30,6 +30,20 @@ summary: 허브 화면 맨 위에서 사진 배너를 돌려 보여 줍니다.
 **무엇으로 판정할지는 이 컴포넌트가 소유하지 않는다.** 제품은 이미지를 런타임에 샘플링하고, DS는
 결과를 `tone` prop으로 받기만 한다. 샘플링을 흡수하면 DS가 이미지 로딩과 CORS를 떠안게 되고,
 그것은 배너의 계약이 아니다.
+
+## 본문은 가운데다. 스크림은 없다
+
+제목·설명·CTA가 배너 **한가운데**에 선다. 왼쪽 540px 상자에 붙이던 배치는 좌→우 스크림
+(78% → 46% → 0)과 한 몸이었다 — 그 어둠은 왼쪽에 놓인 글자의 대비를 만드는 장치였다.
+
+글자가 가운데로 오면서 그 스크림은 대비가 아니라 **사진을 한쪽만 어둡게 만드는 일**이 됐다.
+그래서 함께 걷었다. 이제 배경은 사진 한 겹이고, 글자 대비는 `tone`(밝은 사진 → 어두운 글자)이
+혼자 책임진다.
+
+**그 책임이 얇아질 수 있다는 것을 여기 적어 둔다.** 사진 한 장 안에서 밝기가 크게 갈리면 톤 하나로
+고른 글자색이 일부 구간에서 대비를 잃는다. 제품 실측에서 실제로 그런 사진이 있었다(중앙값 2.49:1).
+사진을 고르는 쪽이 그것을 책임지며, 필요하면 소비처가 가운데에 자기 스크림을 얹는다 — DS는 한쪽
+방향으로만 걷히는 스크림을 다시 들이지 않는다.
 
 ## 높이는 소비처가 정한다
 
@@ -53,13 +67,15 @@ DS가 기본 높이를 정하지 않는 이유는 배너의 세로 크기가 화
   slides={[{ id, imageUrl, tone, title, description, wordmark }]}
   label="홈 배너"
   bleed="boxed"
+  controls="indicator"
   autoAdvanceMs={5500}
 />
 ```
 
 ## Anatomy
 
-컨테이너 → 슬라이드(배경 · 스크림 · progressive blur · 콘텐츠) → 컨트롤(화살표 · 점 · 화살표).
+컨테이너 → 슬라이드(사진 · progressive blur 밴드 · 콘텐츠) → 컨트롤(인디케이터, `pill`이면
+화살표와 알약 면까지).
 
 ## Properties
 
@@ -68,6 +84,7 @@ DS가 기본 높이를 정하지 않는 이유는 배너의 세로 크기가 화
 | `slides` | `BannerCarouselSlide[]` | 비면 아무것도 그리지 않는다 |
 | `label` | `string` | **필수.** 영역 자체의 이름 |
 | `bleed` | `boxed`(기본) · `full` | 카드 반경 또는 각지게 |
+| `controls` | `indicator`(기본) · `pill` | 하단 가운데 인디케이터만, 또는 우하단 알약 + 화살표 |
 | `autoAdvanceMs` | `number`(기본 5500) | `0`이면 넘기지 않는다 |
 | `index` · `onIndexChange` | `number` · `(n) => void` | 제어 모드 |
 
@@ -76,7 +93,11 @@ DS가 기본 높이를 정하지 않는 이유는 배너의 세로 크기가 화
 
 ## Hierarchy와 variants
 
-variant 축은 `bleed` 하나다. 톤은 variant가 아니라 **슬라이드마다 다른 데이터**다.
+variant 축은 `bleed`와 `controls` 둘이다. 톤은 variant가 아니라 **슬라이드마다 다른 데이터**다.
+
+`controls`는 배치만 가른다 — 인디케이터의 모양(30×2 막대)은 두 배치에서 같다. `pill`이 남아 있는
+이유는 화살표가 필요한 소비처가 여전히 있기 때문이고, 기본이 `indicator`인 이유는 본문이 가운데
+정렬이라 컨트롤도 같은 축을 보아야 하기 때문이다.
 
 ## States
 
@@ -111,22 +132,35 @@ variant 축은 `bleed` 하나다. 톤은 variant가 아니라 **슬라이드마�
 | --- | --- |
 | 컨테이너 반경 | `radius-card`(16) · `bleed="full"`은 0 |
 | 슬라이드 전환 | `motion-crossfade-enter`(420) + `motion-zoom-settle`(680), 비활성 `scale(1.012)` |
-| progressive blur | `blur(22px) saturate(125%)` + 5스톱 mask |
-| 콘텐츠 | `min(540px, 100%)`, padding `layout-section` / `media-inset` |
+| progressive blur | `blur(22px) saturate(125%)` + 위·아래 밴드 각 20%(`--louis-banner-blur-band`) |
+| blur mask | 아래 `progressive-blur-mask`(to top) · 위 `progressive-blur-mask-block-start`(to bottom) |
+| 콘텐츠 | `min(540px, 100%)` 가운데, padding `layout-section` / `media-inset` |
 | 제목 · 설명 | `heading-md-medium` · `body-md-regular`(72%) |
 | stagger | `motion-stagger-1/2/3`(40 · 80 · 150ms), 나갈 때 지연 0 |
-| 컨트롤 | `radius-pill`, `media-control-surface`, `blur-panel` |
-| 화살표 | 28×28, `media-control-foreground`, hover `media-control-hover` |
-| 점 | 7px, 활성 폭 20px, `motion-layout-change`(220) |
+| 컨트롤 | 하단 가운데, `space-control-lg`(16) 띄움, 간격 `space-control-sm`(8) |
+| 컨트롤 `pill` | 우하단 `space-control-lg`(16), `radius-pill`, `media-control-surface`, `blur-panel` |
+| 화살표 | 28×28, `media-control-foreground`, hover `media-control-hover` — `pill`에서만 그린다 |
+| 인디케이터 | 30×2, 간격 `space-control-xs`(4), `radius-pill`, 탭 타깃 18(`::before` ∓8) |
+| 인디케이터 색 | 쉼 `media-indicator-rest`(28%) · 활성 `media-indicator-active`, `motion-control-hover`(160) |
 | 자동 넘김 | 5,500ms |
 
-## 폭이 상태다
+## 밝기가 상태다
 
-점에는 라벨이 없어 **폭 말고 현재 위치를 말하는 것이 없다**([DS-D-0019](../governance/decisions/DS-D-0019-layout-change-motion.md)).
-`scale`로 늘리면 두께와 반경까지 함께 늘어나 7px 알약이 20px 자리에서 찌그러진다.
+세 칸의 폭이 같고 **활성 칸만 밝다**([DS-D-0033](../governance/decisions/DS-D-0033-brightness-is-state.md)).
 
-그런데 **폭은 보조기술이 읽지 않는다.** 그래서 `aria-selected`가 함께 상태를 갖는다 — 시각과
-의미가 각자 자기 축으로 말하며, 어느 한쪽만으로는 계약이 성립하지 않는다.
+그전에는 폭이 상태였다 — 7px 점이 활성일 때 20px로 늘었고, 그 근거가
+[DS-D-0019](../governance/decisions/DS-D-0019-layout-change-motion.md)였다. 늘어난 칸은 옆 칸을
+민다. 컨트롤이 우하단에 있을 때는 그 밀림이 오른쪽 끝에 고정된 알약 안에서 흡수됐지만, 컨트롤이
+**하단 가운데**로 오면서 밀림이 곧 인디케이터 전체의 좌우 흔들림이 됐다 — 슬라이드가 바뀔 때마다
+가운데축이 움직인다. 폭을 고정하고 밝기로 말하면 그 흔들림이 사라진다.
+
+바뀌지 않은 것도 적어 둔다. **폭도 밝기도 보조기술은 읽지 않는다.** 그래서 `aria-selected`가
+함께 상태를 갖는 계약은 그대로다 — 시각과 의미가 각자 자기 축으로 말하며, 어느 한쪽만으로는
+계약이 성립하지 않는다.
+
+막대가 2px라 **보이는 것이 곧 누를 수 있는 것이 아니다.** `::before`로 위아래 8px씩 넓혀 18px
+타깃을 만든다. 옛 7px 점도 좁았지만 2px는 그보다 더 좁아서, 넓히지 않으면 폭 고정이 접근성
+후퇴가 된다.
 
 ## Accessibility
 
@@ -142,20 +176,31 @@ variant 축은 `bleed` 하나다. 톤은 variant가 아니라 **슬라이드마�
   Dialog·ProjectCard가 같은 방식이다. 결과는 같다.
 - **reduced-motion에서 progressive blur도 지운다.** 제품과 같다. 흐림 자체가 합성 부담이다.
 - **정지 버튼이 있다. 제품에는 없다.** 자동으로 움직이는 것은 멈출 수 있어야 하고(WCAG 2.2.2),
-  이 저장소는 제품의 과거 UI 부채를 공용 규범으로 복사하지 않는다. 그 결과 컨트롤 폭이 제품보다
-  36px 넓다(28 버튼 + 8 간격) — **의도적으로 다른 값**이다.
+  이 저장소는 제품의 과거 UI 부채를 공용 규범으로 복사하지 않는다. `controls="indicator"`에서도
+  그린다 — 배치는 장식이고 정지는 계약이다. 그 결과 컨트롤 폭이 제품보다 36px 넓다
+  (28 버튼 + 8 간격) — **의도적으로 다른 값**이다.
+- **쉬는 인디케이터가 28%다. Figma 시안은 30%다.** 알파 사다리에 30이 없고 가장 가까운 칸이
+  28이다([DS-D-0026](../governance/decisions/DS-D-0026-alpha-scale.md)). 2pp 차이는 2px 막대에서
+  보이지 않으며, 사다리를 벗어나 새 원시값을 내는 것이 더 큰 비용이다.
 
 ## Acceptance tests
 
 실브라우저에서 `packages/react/test/banner-carousel.browser.test.tsx`가 확인한다.
 
-1. 점의 활성 폭 20px · 비활성 7px, 높이는 둘 다 7px.
-2. `aria-selected`와 `aria-current`가 폭과 함께 상태를 갖는다.
+1. 인디케이터 세 칸의 폭이 모두 30px · 높이 2px이고, 쉬는 칸만 알파 0.28이다.
+2. `aria-selected`와 `aria-current`가 밝기와 함께 상태를 갖는다.
 3. 비활성 슬라이드가 DOM에 남고 `aria-hidden`이며 `pointer-events: none`이다.
 4. 톤 색이 라이트와 다크에서 같다.
-5. 화살표와 점이 슬라이드를 바꾼다.
+5. 화살표(`controls="pill"`)와 인디케이터가 슬라이드를 바꾼다.
 6. 슬라이드가 하나면 컨트롤을 그리지 않는다.
 7. `bleed="full"`이면 반경이 0이다.
-8. 모션이 문맥에 따라 갈린다 — 기본에서 점 220ms · 슬라이드 420/680ms, reduced-motion에서 0.
+8. 모션이 문맥에 따라 갈린다 — 기본에서 인디케이터 160ms · 슬라이드 420/680ms, reduced-motion에서 0.
 9. 정지 버튼이 `aria-pressed`와 라벨을 함께 바꾼다.
 10. `autoAdvanceMs={0}`이면 정지 버튼을 그리지 않는다 — 멈출 것이 없는 버튼은 거짓말이다.
+11. 배경에 스크림이 없다 — `background-image`가 사진 한 겹이다.
+12. 흐림이 한 층이다 — `::after`에 `backdrop-filter`가 없어 제목 위에 칠해질 자리가 없다.
+13. 흐림 밴드가 위·아래 20%이고 가운데는 걸리지 않는다(reduced-motion에서는 밴드 자체가 없다).
+14. 2px 막대의 탭 타깃이 위아래로 8px씩 넓다.
+15. 컨트롤이 배너 가운데축 위에 있고 하단에서 16px 띄며, 투명한 띠가 클릭을 훔치지 않는다.
+16. 본문이 좌우 같은 여백으로 가운데 선다.
+17. `controls="pill"`이 화살표 둘과 알약 면을 되살리고 우하단으로 돌아간다.

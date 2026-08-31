@@ -2,23 +2,23 @@
   "artifacts": [
     {
       "path": "packages/tokens/generated/figma.tokens.json",
-      "sha256": "1bfe1e1d7b9115b059f51904b20d608854a1342fe001d66d6042c9d7a621e641"
+      "sha256": "808862d3c5a080039211e84df3e62022d155351012183f5c761e80db2c437ea6"
     },
     {
       "path": "packages/tokens/generated/index.d.ts",
-      "sha256": "4a472633cf19bf035e75e97b0b93419a37eb951c5efedb9f82c46db4447b9637"
+      "sha256": "aa422c430b514ce9db608302f660c1f6734c3545cba2cd66da3b46f4c38851c0"
     },
     {
       "path": "packages/tokens/generated/index.js",
-      "sha256": "76a052fdeb3eec46f10e3f235e34713c9f7f728ffb9f72a20a54416dd3eb911f"
+      "sha256": "9dba5100ddfd3a9baada4e9653c2c2a27b40c8e30db6ddaf4117a7090545e88b"
     },
     {
       "path": "packages/tokens/generated/tokens.css",
-      "sha256": "17f934b591daec7943c3102e9d9ce17ed01bf8947782fbf918d60df5026524ff"
+      "sha256": "12c870a1a0b2c8882c53e0a2ba94de650cfe7e07acb8e546d4c0bcb0cd24a5a9"
     },
     {
       "path": "packages/tokens/generated/tokens.json",
-      "sha256": "9820484cae19950a92ac320969362a083566140d3867c4b456fce56b7c23d1e6"
+      "sha256": "2ad15b54ed2bcf6f118267efdd57aac2d5e8a327e0eccd17536f8c0b76e8fe13"
     }
   ],
   "contrastPairs": [
@@ -408,7 +408,7 @@
   },
   "source": {
     "path": "packages/tokens/src/klipse.tokens.json",
-    "sha256": "4c969b66aa10efd8b669d4c3a0476b9dbd377340ad7fd0eac8d4855c516a39b3"
+    "sha256": "bdcf89b41777abb09678752f1f751f822a16276b6028c42d9de73cb3e0730785"
   },
   "themes": [
     "light",
@@ -7548,19 +7548,19 @@
     },
     {
       "aliasTarget": {
-        "id": "color-static-white-alpha-48",
+        "id": "color-static-white-alpha-28",
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-media-indicator-rest": "color(srgb 1 1 1 / 0.48)"
+        "--louis-color-media-indicator-rest": "color(srgb 1 1 1 / 0.28)"
       },
       "deprecated": null,
       "description": null,
       "id": "color-media-indicator-rest",
       "mode": "light",
-      "rawValue": "{primitive.color.static-white-alpha.48}",
+      "rawValue": "{primitive.color.static-white-alpha.28}",
       "resolvedValue": {
-        "alpha": 0.48,
+        "alpha": 0.28,
         "colorSpace": "srgb",
         "components": [
           1,
@@ -7574,19 +7574,19 @@
     },
     {
       "aliasTarget": {
-        "id": "color-static-white-alpha-48",
+        "id": "color-static-white-alpha-28",
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-media-indicator-rest": "color(srgb 1 1 1 / 0.48)"
+        "--louis-color-media-indicator-rest": "color(srgb 1 1 1 / 0.28)"
       },
       "deprecated": null,
       "description": null,
       "id": "color-media-indicator-rest",
       "mode": "dark",
-      "rawValue": "{primitive.color.static-white-alpha.48}",
+      "rawValue": "{primitive.color.static-white-alpha.28}",
       "resolvedValue": {
-        "alpha": 0.48,
+        "alpha": 0.28,
         "colorSpace": "srgb",
         "components": [
           1,

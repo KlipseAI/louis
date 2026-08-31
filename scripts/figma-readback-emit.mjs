@@ -105,7 +105,7 @@ const CAPTURE = {
   "AppTopBar": {"key":{"name":"topBar"},"slots":{"LeadingSlot":"present","TrailingSlot":"present"},"parts":{"Leading":["height"],"Trailing":["height"]}},
   "Avatar": {"key":{"by":["Size"]},"slots":{"Fallback":"size"},"parts":{"Fallback":["width","height"]}},
   "Badge": {"key":{"name":"base"},"slots":{"Icon":"size","Dot":"size"},"parts":{"Label":["fontSize"]}},
-  "BannerCarousel": {"key":{"by":["Bleed"]},"fields":["width","height","cornerRadius","layoutMode","strokeWeight"],"parts":{"Content":["width","height","paddingLeft","paddingTop"],"Controls":["width","height","cornerRadius","itemSpacing","paddingLeft"],"ArrowPrevious":["width","height","cornerRadius","children"],"ArrowNext":["width","height","cornerRadius","children"],"DotActive":["width","height","cornerRadius"],"DotRest1":["width","height","cornerRadius"],"PlaybackToggle":["width","height","cornerRadius","children"]}},
+  "BannerCarousel": {"key":{"by":["Bleed"]},"fields":["width","height","cornerRadius","layoutMode","strokeWeight"],"parts":{"Content":["width","height","paddingLeft","paddingTop"],"Controls":["width","height","itemSpacing"],"DotActive":["width","height","cornerRadius"],"DotRest1":["width","height","cornerRadius"],"PlaybackToggle":["width","height","cornerRadius","children"]}},
   "Breadcrumb": {"key":{"by":["Kind"]},"parts":{"Current":["width","height","fontSize"],"Parent":["width","height","fontSize"],"Separator":["width","height","fontSize"]}},
   "Button": {"key":{"by":["Size"]},"slots":{"LeftIcon":"size","RightIcon":"size","Spinner":"size"},"strokes":["LeftIcon.glyph","RightIcon.glyph","Spinner","self"]},
   "CarouselArrow": {"key":{"name":"base"},"parts":{"Caret":["width","height"],"glyph":["width","height"]},"strokes":["glyph"],"effects":["self"]},

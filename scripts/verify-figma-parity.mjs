@@ -1247,6 +1247,45 @@ const COMPONENT_CONTRACTS = [
     effects: {},
     figmaAhead: "세그먼트 하나를 Figma 에서 별도 set 으로 뽑았다 — 상호작용과 프로토타입을 받는 단위다. 코드에서는 SegmentedControl 안의 label 이라 독립 선언이 없다.",
     variantProperties: {},
+    // **기하를 붙인다(2026-09-01).** SegmentedControl 계약이 「기하 대조는 세그먼트 쪽이 갖는다」고
+    // 위임하고 있었는데 **받는 쪽이 비어 있었다** — 두 계약 다 geometry 가 없어 lg·md·sm·xs 네 칸이
+    // 통째로 대조 밖이었다. 위임 문장을 참으로 만든다.
+    //
+    // 여기서 대조하는 것은 **lg·md 둘뿐이고, 그 둘은 이미 맞는다**(measured segmentHeight/Radius/
+    // PaddingInline = 32/8/12 · 24/8/8, Figma 도 같다). 나머지 둘은 값 판정이 선행한다:
+    //   · `sm` — measured 에 있고(20/6/8) CSS·React·브라우저 테스트도 판다. **Figma Item 에만 없다**
+    //     (18변형 = lg·md·xs × 6상태). 여기 넣으면 「기하가 snapshot 에 없습니다」가 되므로 뺐다 —
+    //     Figma 에 sm 여섯 변형을 세우는 것이 닫는 방법이다.
+    //   · `xs` — measured 에 아예 없다(인스펙터 전용 지역 예외라 계약을 세운 적이 없다). 게다가
+    //     세 곳이 갈린다: 제품 정본(`migration/product-screens/10.10.md:823-824`)이 세그먼트 22/r8/
+    //     padding 0 10, CSS 가 22/r7(트랙 10 − padding 3 파생식)/padding-inline 8, Figma Item 이
+    //     **28**/r8/8 이다. Figma 의 28 은 트랙 높이를 그대로 쓴 것이라 padding 3 과 양립하지 않는다.
+    //     값을 고르는 것은 DS-D-0032 가 미결로 남긴 판정에 딸린 일이라 여기서 열지 않는다.
+    geometry: {
+      measuredId: "segmented-control",
+      sizeKeys: ["lg", "md"],
+      fields: {
+        height: "segmentHeight",
+        cornerRadius: "segmentRadius",
+        paddingInline: "segmentPaddingInline",
+        paddingInlineEnd: "segmentPaddingInline",
+        paddingBlock: { literal: 0 },
+        paddingBlockEnd: { literal: 0 },
+        layoutMode: { literal: "HORIZONTAL" },
+      },
+      slots: {},
+      parts: {
+        // 라벨 **폭은 담지 않는다** — 글꼴 렌더링에 달려 있어 브라우저와 Figma 가 원래 다르다
+        // (`components.measured.json` 의 `$whyNotTextWidth` 와 같은 이유).
+        Label: { fields: { height: "lineHeight", fontSize: "fontSize" } },
+        // 포커스 링은 **선언만 한다.** 계약이 선언하지 않은 자손이 snapshot 에 있으면 실패이므로
+        // 자리는 있어야 하는데, 링 상자는 세그먼트 + `outline-offset` × 2 라 measured 에 그 합을
+        // 담은 값이 없고 fields 규칙은 상수를 더하지 못한다. 링의 계약은 위 `strokes` 가
+        // 두께 2 · OUTSIDE 로 이미 잡는다.
+        FocusRing: { fields: {} },
+      },
+      extraStrokeWeights: [],
+    },
     figmaOnlyProperties: {
       Label: { type: "TEXT", reason: "세그먼트 라벨." },
       Size: { options: ["lg", "md", "xs"], reason: "컨트롤의 size 를 세그먼트가 물려받는다." },
@@ -1497,6 +1536,12 @@ const COMPONENT_CONTRACTS = [
     effects: { self: "INNER_SHADOW:0:0:0.5" },
     // 기하 대조는 **세그먼트 쪽(SegmentedControlItem)** 이 갖는다. 트랙은 인스턴스를 담기만 하고
     // measured 에 xs 단이 없어(제품 인스펙터 전용) 여기서 대조하면 그 단이 통째로 빠진다.
+    //
+    // **이 위임은 2026-09-01 까지 받는 쪽이 비어 있었다.** SegmentedControlItem 계약에도 geometry 가
+    // 없어 두 계약을 합쳐도 대조되는 칸이 0 이었다. 지금은 Item 이 lg·md 를 대조한다(그 주석에
+    // sm·xs 를 왜 못 넣는지 적었다). 트랙 자신의 축(trackHeight·trackPadding·trackRadius)은 여전히
+    // 어느 계약도 보지 않는다 — 라이브 xs 트랙이 padding 4 · radius 12(= md 값)라 CSS 의 3 · 10 과
+    // 어긋나 있고, 그것을 게이트로 올리려면 measured 에 xs 단을 세우는 판정이 먼저다.
   },
   {
     id: "selectable-list-row",

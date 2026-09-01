@@ -4200,13 +4200,43 @@ Figma는 INNER_SHADOW로 대응한다 — 이전 OUTSIDE stroke에서 바뀐 것
   **이름이 순서를 거짓말한다.** 이름을 사다리 밖으로 옮길지 28을 사다리에 들일지는 DS-D-0032가
   미결로 남긴 판정이며 이 변경에서 열지 않았다. 타입에서는 `xs`를 맨 뒤에 두어 앞 셋이 사다리임을
   드러낸다.
-- **Figma의 `Size` variant에 `sm`이 없다.** Figma는 `lg`·`md`·`xs` 셋이고 코드는 넷이다.
-  `verify-figma-parity`가 정확히 그 한 줄로 빨갛다 —
-  `SegmentedControl.Size — 코드 [lg, md, sm, xs], Figma=[lg, md, xs]`. 같은 이유로
-  `scripts/verify-figma-parity.mjs`의 `SegmentedControlItem.Size` 선언도 아직 셋이다. `sm`을
-  라이브러리에 그리는 것은 이 변경 단위 밖이며, 그때까지 이 축은 빨갛다 —
+
+  **그 판정의 조건은 이미 충족됐다(2026-09-01 확인).** DS-D-0032는 「SegmentedControl이 `sm`을
+  구현하는 날 … 그날 판정을 함께 한다」고 미뤘는데, `sm`을 구현한 것이 **DS-D-0032 자신의
+  커밋**(`014ae55`)이다. CSS `[data-size="sm"]`(`segmented-control.css:78`) · 타입
+  `"lg" | "md" | "sm" | "xs"` · `components.measured.json`의 `sizes.sm` · 브라우저 테스트의
+  `SIZES` 넷이 모두 그 커밋에서 섰다. 미룬 날이 이미 지났다는 뜻이며, 판정은 미래가 아니라
+  **밀린 것**이다.
+- **`xs` 칸이 세 곳에서 서로 다르다.** 이름 문제와 별개로 값이 갈려 있다.
+
+  | 축 | 제품 정본 | LOUIS CSS | Figma |
+  | --- | --- | --- | --- |
+  | 트랙 높이 · padding · 반경 | 28 · 3 · 10 | 28 · 3 · 10 | 28 · **4** · **12** |
+  | 세그먼트 높이 | 22 | 22 | **28** |
+  | 세그먼트 반경 | 8 | **7** | 8 |
+  | 세그먼트 좌우 여백 | 10 | **8** | **8** |
+
+  제품 정본은 `migration/product-screens/10.10.md:823-824`(`inspectorToggleGroup` ·
+  `inspectorToggleBtn`)다. CSS의 7은 「트랙 반경 10 − padding 3」이라는 파생식에서 나온 값인데
+  제품과 Figma는 둘 다 8을 그린다 — **파생식이 정본을 이겼다.** Figma 트랙의 4 · 12는 `md`의
+  값을 그대로 물려받은 것이고, 세그먼트 28은 트랙 높이를 그대로 쓴 것이라 padding 3과 양립하지
+  않는다(28 + 3×2 = 34 ≠ 28).
+
+  **어느 게이트도 이 칸을 보지 않는다.** `components.measured.json`에 `xs` 단이 아예 없어
+  (`grep -c '"xs"'` → 0) 브라우저 테스트도 `SIZES`에서 빼 두었고, parity 계약도 `xs`를 대조하지
+  않는다. 닫는 순서는 **값 확정 → measured에 `xs` 단 추가 → 두 계약에 그 단 부착 → Figma 수정 →
+  브라우저 테스트 `SIZES`에 추가**이며, 첫 단계가 위 이름 판정과 같은 자리에서 나야 한다.
+- **`SegmentedControlItem`의 `Size`에만 `sm`이 없다.** 트랙 쪽은 그 뒤 Figma에 그려져
+  `SegmentedControl.Size`가 `[lg, md, xs, sm]` 넷이 됐고 parity의 그 줄은 닫혔다. **세그먼트
+  set은 아직 셋이다** — 18변형 = `lg`·`md`·`xs` × 6상태. 그래서 `sm` 여섯 변형이 Figma에 없고,
+  `verify-figma-parity.mjs`의 `SegmentedControlItem.Size` 선언도 셋으로 적혀 있다. 계약이 실재를
+  그대로 적고 있으므로 **게이트는 초록이다** — 결손이 계약 안에 기록돼 보이지 않는 형태다.
+  기하 대조도 같은 이유로 `lg`·`md` 둘만 걸었다(그 계약 주석에 사유가 있다). Figma에 `sm`
+  여섯 변형을 세우면 `sizeKeys`에 `sm`을 더해 셋이 된다 —
   [DS-D-0028](../governance/decisions/DS-D-0028-three-in-one-change.md) 규칙 1의 세 곳 중 Figma가
-  아직 움직이지 않았다는 뜻이고, **그것이 이 변경의 정확한 상태다.**
+  세그먼트 쪽에서만 아직 움직이지 않았다는 뜻이다.
+  (2026-09-01 정정: 이 항목은 「Figma의 `Size` variant에 `sm`이 없다 … 이 축은 빨갛다」고 적고
+  있었는데, 트랙이 그려진 뒤로 두 문장 다 사실이 아니었다.)
 
 #### Acceptance tests
 

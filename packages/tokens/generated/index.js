@@ -12259,6 +12259,58 @@ export const tokens = {
         "alpha": 1
       }
     },
+    "color-accent-danger-secondary": {
+      "aliasTarget": {
+        "id": "color-red-alpha-12",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-accent-danger-secondary": "color(srgb 1 0.294118 0.34902 / 0.12)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-accent-danger-secondary",
+      "mode": "light",
+      "rawValue": "{primitive.color.red-alpha.12}",
+      "sourcePath": "semantic.light.color.accent-danger-secondary",
+      "tier": "semantic",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.294118,
+          0.34902
+        ],
+        "alpha": 0.12
+      }
+    },
+    "color-accent-danger-secondary-hover": {
+      "aliasTarget": {
+        "id": "color-red-alpha-24",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-accent-danger-secondary-hover": "color(srgb 1 0.294118 0.34902 / 0.24)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-accent-danger-secondary-hover",
+      "mode": "light",
+      "rawValue": "{primitive.color.red-alpha.24}",
+      "sourcePath": "semantic.light.color.accent-danger-secondary-hover",
+      "tier": "semantic",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.294118,
+          0.34902
+        ],
+        "alpha": 0.24
+      }
+    },
     "color-accent-ghost-hover": {
       "aliasTarget": {
         "id": "color-static-black-alpha-08",
@@ -17236,6 +17288,58 @@ export const tokens = {
           0.34902
         ],
         "alpha": 1
+      }
+    },
+    "color-accent-danger-secondary": {
+      "aliasTarget": {
+        "id": "color-red-alpha-12",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-accent-danger-secondary": "color(srgb 1 0.294118 0.34902 / 0.12)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-accent-danger-secondary",
+      "mode": "dark",
+      "rawValue": "{primitive.color.red-alpha.12}",
+      "sourcePath": "semantic.dark.color.accent-danger-secondary",
+      "tier": "semantic",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.294118,
+          0.34902
+        ],
+        "alpha": 0.12
+      }
+    },
+    "color-accent-danger-secondary-hover": {
+      "aliasTarget": {
+        "id": "color-red-alpha-24",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-accent-danger-secondary-hover": "color(srgb 1 0.294118 0.34902 / 0.24)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-accent-danger-secondary-hover",
+      "mode": "dark",
+      "rawValue": "{primitive.color.red-alpha.24}",
+      "sourcePath": "semantic.dark.color.accent-danger-secondary-hover",
+      "tier": "semantic",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.294118,
+          0.34902
+        ],
+        "alpha": 0.24
       }
     },
     "color-accent-ghost-hover": {

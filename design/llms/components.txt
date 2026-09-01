@@ -244,7 +244,7 @@ React `Button` 은 `<button>` 만 그린다. 그래서 이 경우에는 **클래
 | `secondary` | 취소·대안           | primary를 보조                                     |
 | `ghost`     | 툴바·저강조 액션    | 면이 없어도 발견 가능한 위치에서 사용              |
 | `danger`    | 삭제·초기화         | 결과를 구체적으로 설명하고 필요하면 확인 단계 제공 |
-| `danger-secondary` | 확인 모달의 파괴 액션 | 취소와 나란히 서는 자리. solid `danger`와 같은 화면에 함께 두지 않는다 |
+| `danger-secondary` | 확인 모달·목록 행의 파괴 액션 | 취소·편집과 나란히 서는 자리. solid `danger`와 같은 화면에 함께 두지 않는다 |
 
 강조 수준을 색만으로 결정하지 않고, 같은 영역에 경쟁하는 primary를 여러 개 두지 않는다.
 
@@ -488,14 +488,20 @@ gap과 아이콘 슬롯도 세 크기가 같은 값이다(`column-gap`은 셋 �
   | `secondary` | `#777d89` | 흰 배경 | **4.13** |
   | `ghost` | `#777d89` | 흰 배경 | **4.13** |
   | `danger` | `#fafafa` | `#ff4b59` | **3.14** |
-  | `danger-secondary` | `#b72431` | `#ffe5e8` | 5.32 (다크 `#ff6f7c` on `#541119` 5.31) — **미달 아님** |
+  | `danger-secondary` | `#ff4b59` | red 12% 알파 | **2.54 ~ 3.27** (`bg-raised` 다크에서 **1.93**) |
 
-  Figma의 `danger-secondary` 60칸은 `danger` 60칸을 복제해 fill을 `color/bg-danger`,
-  라벨을 `color/fg-danger-on-surface`로 다시 묶어 만들었다(2026-09-01). Disabled는 복제 그대로
-  `bg-inset`·`fg-disabled`다 — CSS와 같다. **Hover는 Figma가 Default와 같은 칸이다.** CSS의
-  `opacity: 0.85`를 Figma가 모델링하지 않기 때문인데, 이는 `danger`도 전부터 같아서 새로 생긴
-  어긋남이 아니다. `figma/snapshot.json`의 Button 항목(variantCount 300)은 이 변경 전 되읽기라
-  낡았다 — snapshot은 손으로 고치지 않는 evidence이므로 다음 전수 캡처에서 갱신한다.
+  `danger-secondary`의 미달은 위 셋과 성격이 다르다 — **고를 수 있었는데 고른 것이다.**
+  2026-09-01에 `bg-danger`+`fg-danger-on-surface`(라이트 5.32 · 다크 5.31, 통과)로 먼저 세웠고,
+  소유자가 제품 어드민이 쓰던 레드 알파 디자인(`ADMIN_BUTTON_DANGER_SOFT`)으로 뒤집었다.
+  올리려면 라벨을 `fg-danger-on-surface`로 되돌리는 것이 그 축이다. 실효값은 면마다 다르다 —
+  다이얼로그 면 라이트 2.73 · 다크 3.27, 어드민 카드 바닥 라이트 2.54, `bg-raised` 다크 1.93.
+
+  Figma의 `danger-secondary` 60칸은 `danger` 60칸을 복제해 만들었다(2026-09-01). Disabled는
+  복제 그대로 `bg-inset`·`fg-disabled`다 — CSS와 같다. **Hover는 Figma가 Default와 같은 칸이다.**
+  CSS의 hover(면 한 단 진하게)를 Figma가 모델링하지 않기 때문인데, `danger`의 `opacity: 0.85`도
+  전부터 같아서 새로 생긴 어긋남이 아니다. `figma/snapshot.json`의 Button 항목(variantCount 300)은
+  이 변경 전 되읽기라 낡았다 — snapshot은 손으로 고치지 않는 evidence이므로 다음 전수 캡처에서
+  갱신한다.
 
   이 미달은 제품이 이미 갖고 있는 것이고 DS가 그것을 그대로 재현한다. 해소하려면 면을 어둡게
   하거나(primary는 `blue.700` 6.12, secondary는 `neutral.700` 6.35) 라벨을 18.66px bold 이상으로

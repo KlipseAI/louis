@@ -20,6 +20,8 @@
 
   /* 색 — bg-*, text-*, border-* 유틸리티가 된다 */
   --color-accent-danger: var(--louis-color-accent-danger);
+  --color-accent-danger-secondary: var(--louis-color-accent-danger-secondary);
+  --color-accent-danger-secondary-hover: var(--louis-color-accent-danger-secondary-hover);
   --color-accent-ghost-hover: var(--louis-color-accent-ghost-hover);
   --color-accent-green-500-alpha-08: var(--louis-color-accent-green-500-alpha-08);
   --color-accent-inverse: var(--louis-color-accent-inverse);

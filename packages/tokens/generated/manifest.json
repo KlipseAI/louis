@@ -2,23 +2,23 @@
   "artifacts": [
     {
       "path": "packages/tokens/generated/figma.tokens.json",
-      "sha256": "6167a86964072aa3ec60be1d44f6469085fd9bb3b9c1419a496b3a9d1b6e16fe"
+      "sha256": "7681568f8207a4c0cdc018ed56131df3613666c9acc55c60291aea30b1edacee"
     },
     {
       "path": "packages/tokens/generated/index.d.ts",
-      "sha256": "67290a3a01d74cc9ea6ce009790cbb9668bb2d0c16356f663b9e0abb4d69cfbc"
+      "sha256": "3d8de7c52859f3a1c94fc00e451c6f77ab6ccfe3b3928241cc3a7a01add660b6"
     },
     {
       "path": "packages/tokens/generated/index.js",
-      "sha256": "1b79ea56aa5ee2ca7d1309b97ad7e18b89779a3cb10554d8eb9279c5c73fb3f5"
+      "sha256": "9643b8afca8e7fbdafa4c0c37dc979c6e65d66c0996c7525d5174f5ecc645374"
     },
     {
       "path": "packages/tokens/generated/tokens.css",
-      "sha256": "1239d6546e18d45bf1cb26eae8a788cdd4f4722e0d64f065997523291b1ac103"
+      "sha256": "ac6a2f6a8ed05e3b28161a9ae391e720ec0f2703c677c76c528bccf677bb86ab"
     },
     {
       "path": "packages/tokens/generated/tokens.json",
-      "sha256": "17924c66cb0001811f2a90e082c3262d90dd0418ceb46c07f9d5549ca989fb9a"
+      "sha256": "cde8b4e0b55aed0c6ec963103750f8fa72511bffb36804a05cc2ba1119f11830"
     }
   ],
   "contrastPairs": [
@@ -408,13 +408,13 @@
   },
   "source": {
     "path": "packages/tokens/src/klipse.tokens.json",
-    "sha256": "5cdf18578b03989c9abff277abd91f1a6c74b075fa9832d42c28741ae4fb75d8"
+    "sha256": "61ffba77c4337861a6d647b74ea7edc424927c4bbb8d4af7ae6d8d75c84fbd77"
   },
   "themes": [
     "light",
     "dark"
   ],
-  "tokenCount": 773,
+  "tokenCount": 777,
   "tokens": [
     {
       "aliasTarget": {
@@ -1041,6 +1041,110 @@
         ]
       },
       "sourcePath": "semantic.dark.color.accent-danger",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-red-alpha-12",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-accent-danger-secondary": "color(srgb 1 0.294118 0.34902 / 0.12)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-accent-danger-secondary",
+      "mode": "light",
+      "rawValue": "{primitive.color.red-alpha.12}",
+      "resolvedValue": {
+        "alpha": 0.12,
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.294118,
+          0.34902
+        ]
+      },
+      "sourcePath": "semantic.light.color.accent-danger-secondary",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-red-alpha-12",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-accent-danger-secondary": "color(srgb 1 0.294118 0.34902 / 0.12)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-accent-danger-secondary",
+      "mode": "dark",
+      "rawValue": "{primitive.color.red-alpha.12}",
+      "resolvedValue": {
+        "alpha": 0.12,
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.294118,
+          0.34902
+        ]
+      },
+      "sourcePath": "semantic.dark.color.accent-danger-secondary",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-red-alpha-24",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-accent-danger-secondary-hover": "color(srgb 1 0.294118 0.34902 / 0.24)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-accent-danger-secondary-hover",
+      "mode": "light",
+      "rawValue": "{primitive.color.red-alpha.24}",
+      "resolvedValue": {
+        "alpha": 0.24,
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.294118,
+          0.34902
+        ]
+      },
+      "sourcePath": "semantic.light.color.accent-danger-secondary-hover",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-red-alpha-24",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-accent-danger-secondary-hover": "color(srgb 1 0.294118 0.34902 / 0.24)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-accent-danger-secondary-hover",
+      "mode": "dark",
+      "rawValue": "{primitive.color.red-alpha.24}",
+      "resolvedValue": {
+        "alpha": 0.24,
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.294118,
+          0.34902
+        ]
+      },
+      "sourcePath": "semantic.dark.color.accent-danger-secondary-hover",
       "tier": "semantic",
       "type": "color"
     },

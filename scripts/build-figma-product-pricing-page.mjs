@@ -3,13 +3,15 @@ import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { transformSync } from "esbuild";
 import { atomicWriteBatch } from "./lib/atomic-output.mjs";
+import { loadProductSceneEvidence } from "./lib/product-scene-evidence.mjs";
 
 const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), "..");
-const evidencePath = resolve(repoRoot, "migration/product.scenes.json");
 const planPath = resolve(repoRoot, "figma/product-pricing-page.plan.json");
 const templatePath = resolve(repoRoot, "scripts/templates/figma-product-pricing-renderer.js");
 const checkOnly = process.argv.includes("--check");
-const evidence = JSON.parse(readFileSync(evidencePath, "utf8"));
+// 생성물을 그냥 읽지 않는다 — **어느 제품 커밋의 증거인지 확인하고 읽는다.**
+// scripts/lib/product-scene-evidence.mjs 에 사유가 있다.
+const evidence = loadProductSceneEvidence("figma-product-pricing-page");
 const template = readFileSync(templatePath, "utf8");
 const fail = (message) => { throw new Error(`[figma-product-pricing-page] ${message}`); };
 const px = (value) => Number(/^(-?[\d.]+)px$/.exec(value ?? "")?.[1] ?? 0);

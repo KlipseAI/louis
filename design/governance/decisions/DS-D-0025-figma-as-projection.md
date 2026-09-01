@@ -142,16 +142,23 @@ publish를 미뤄 온 근거는 타당했다 — 미발행이라 rename 99건(DS
 
 ## 후속
 
-- **게이트가 은퇴 파일을 가리킨다.** `readback.json`·`snapshot.json`·`verify-figma-parity` 는 아직
-  `bxGEp0km…` 를 읽는다. 지금 대상을 옮기면 LOUIS 파일에는 DS 컴포넌트가 0 개이고 변수도 34 개
-  적어 게이트가 즉시 red 가 된다. 해소 순서는 **컴포넌트 레이어를 LOUIS 에 세운다 → 변수 정리 →
-  readback 대상 이전 → 선행 파일 폐기**. `figma-sync.md` 「게이트가 은퇴 파일을 가리킨다」가 소유한다.
+- ~~**게이트가 은퇴 파일을 가리킨다.**~~ **해소됨 (2026-08-26, 확인 2026-09-01).** 이 항목은
+  「지금 대상을 옮기면 … 게이트가 즉시 red 가 된다」를 근거로 이전을 미뤘는데, **같은 날 이 문서의
+  「정정」 절이 그 미룸을 뒤집었다** — red 를 감수하고 먼저 옮기는 편이 정직하다. 실제로 그렇게 했다.
+  지금 `readback.json`·`snapshot.json` 은 LOUIS 를 가리키고, `verify-figma-parity` 는 파일 키를
+  스스로 갖지 않으므로(`scripts/verify-figma-parity.mjs:16` 이 `figma/snapshot.json` 만 읽는다)
+  함께 옮겨졌다. 확인 명령은 `figma-sync.md` 「게이트가 은퇴 파일을 가리켰다 (해소됨)」 에 있다.
+  남은 것은 **선행 파일 폐기** 하나이고 소유자 행동이다.
 
-- **LOUIS 파일에 DS 컴포넌트 레이어가 없다.** 현행 파일의 컴포넌트는 `Product/*` 화면 조립 27 세트와
-  logo·tile·icon 326 개뿐이고 DS 프리미티브는 0 개다. CSS 레시피 27 종을 여기에 세워야 A 모델의
-  "시스템이 이렇게 생겼다" 가 성립한다. 그중 `alert`·`node-chip`·`switch`·`table`·`tabs` 다섯은
-  선행 라이브러리에도 없고 `figma/components.measured.json` 에 실측 스펙조차 없다 — CSS·토큰에서
-  도출해야 한다.
+- ~~**LOUIS 파일에 DS 컴포넌트 레이어가 없다.**~~ **해소됨 (확인 2026-09-01).** 「DS 프리미티브는
+  0 개」와 「`alert`·`node-chip`·`switch`·`table`·`tabs` 다섯은 선행 라이브러리에도 없다」는 둘 다
+  더 이상 참이 아니다 — 다섯이 전부 LOUIS 파일에 서 있다
+  (`node -e 'const c=Object.keys(require("./figma/readback.json").components);console.log(c.length, ["Alert","NodeChip","Switch","Table","Tabs"].every(n=>c.includes(n)))'`
+  → `51 true`). 예측대로 CSS·토큰에서 도출해 세웠다.
+  **그 대가가 하나 남는다** — `figma/components.measured.json` 의 실측 스펙은 여전히 31 종뿐이고
+  이 다섯은 거기 없다(같은 명령 꼴로 `require("./figma/components.measured.json").components`).
+  즉 다섯은 Figma 에 있지만 **코드 실측과 대조되는 축이 없다.** 그 결손은 `verify-figma-parity`
+  계약의 geometry 미부착으로 나타난다.
 - **선행 라이브러리는 Plugin API 로 열리지 않는다.** 2026-08-26 기준 `bxGEp0km…` 는
   `get_metadata`(읽기)는 되는데 `use_figma` 가 `User does not have permission to access this file
   using MCP` 로 거부한다. LOUIS 파일과 미러는 정상 동작한다. **은퇴 대상이므로 이 접근을 회복하려

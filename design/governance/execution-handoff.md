@@ -1169,12 +1169,18 @@ Button은 쌍으로 써서 성립하지만 Menu의 danger item은 이 공백을 
 현재 수는 `pnpm verify-figma-parity` 출력이 낸다. 막힘을 전제로 다시 조사하지 마라.
 
 처음에는 Figma 이전을 끝내야 열린다고 적었으나 그것은 틀렸다. `verify-figma-parity`가 보는 것은
-`figma/snapshot.json`이고, 그것은 `figma/readback.json`의 투영이며, readback은 **이전 라이브러리**
-(`bxGEp0km5zluMJGulaTvFW`)를 가리킨다. 따라서 필요한 것은 다음 둘뿐이다.
+`figma/snapshot.json`이고, 그것은 `figma/readback.json`의 투영이다. 따라서 필요한 것은 다음 둘뿐이다.
 
-1. 이전 라이브러리에 새 토큰을 적용한다 — `figma/apply-variables.*.js`가 그 경로다.
-2. readback의 **변수 구간만** 다시 뜬다. style·component·icon은 그 파일에서 바뀌지 않았으므로
+1. **LOUIS 파일**에 새 토큰을 적용한다 — `figma/apply-variables.*.js`가 그 경로다.
+2. readback의 **변수 구간만** 다시 뜬다. style·component·icon은 그 작업으로 바뀌지 않으므로
    전면 재덤프가 필요 없다. 절차는 `build-figma-snapshot.mjs` 헤더 (1)에 코드까지 있다.
+
+> **정정 (2026-09-01).** 이 문단은 「readback 은 **이전 라이브러리**
+> (`bxGEp0km5zluMJGulaTvFW`)를 가리킨다 → 이전 라이브러리에 새 토큰을 적용한다」고 적고 있었다.
+> 2026-08-26 에 대상이 LOUIS 로 옮겨졌으므로 둘 다 거짓이고, **그대로 따르면 은퇴 파일에 토큰을
+> 써 넣고 게이트는 꿈쩍도 하지 않는다** — 이 목록에서 가장 위험한 종류의 낡음이라 문장을 고쳤다.
+> 확인: `node -e 'console.log(require("./figma/readback.json").figmaFileKey)'` →
+> `OlYKERKOkgbxBEEoXGZW2c`. 이력은 `figma-sync.md` 「게이트가 은퇴 파일을 가리켰다 (해소됨)」.
 
 **component·icon 이전은 별개 트랙이다.** 그것을 기다릴 이유가 없다.
 

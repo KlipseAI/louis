@@ -42,7 +42,7 @@ authority: reference
 | 없는 것 | 없으면 벌어지는 일 | 갖추는 법 |
 | --- | --- | --- |
 | 제품 저장소 `klipse-web` | **`pnpm verify` 가 `verify:product` 첫 게이트에서 exit 1 로 죽는다** (`fatal: cannot change to …`). 제품을 읽는 게이트 14개 중 6개가 그렇게 죽고, 8개는 `SKIPPED` 를 찍고 exit 0 하는데 **앞의 6개가 먼저 죽어 거기까지 가지도 못한다**(2026-08-23 실측) | clone 후 `export KLIPSE_PRODUCT_REPO=<경로>`. **`design` 브랜치를 fetch 했는지 확인한다** — 저장소 기본 브랜치는 `dev` 이고 `origin/main` 은 두 세대 낡았다 |
-| Figma 파일 권한 | 조립도 검증도 못 한다 | **파일이 둘이고 역할이 다르다.** DS 정본 라이브러리 `bxGEp0km5zluMJGulaTvFW`(변수·style·component, `verify-figma-parity` 대상)와 제품 화면 이식 보드 `OlYKERKOkgbxBEEoXGZW2c`. 둘 다 쓰기 권한이 필요하다. 제품 미러 `CNORJOONt4z0a4Bl22Kjuu` 는 **읽기 전용**이다 |
+| Figma 파일 권한 | 조립도 검증도 못 한다 | **파일이 둘이고 역할이 다르다.** ~~DS 정본 라이브러리 `bxGEp0km5zluMJGulaTvFW`(변수·style·component, `verify-figma-parity` 대상)와 제품 화면 이식 보드 `OlYKERKOkgbxBEEoXGZW2c`~~ — **역할이 뒤집혔다(머리말 참조).** 지금 필요한 쓰기 권한은 **`OlYKERKOkgbxBEEoXGZW2c`(LOUIS)** 하나다. 그 파일이 DS 컴포넌트·변수·style 과 제품 화면 보드를 함께 갖고 `verify-figma-parity` 대상이기도 하다(2026-08-26 이전). `bxGEp0km…` 는 은퇴 진행 중이고 Plugin API 로 열리지도 않는다([DS-D-0025](decisions/DS-D-0025-figma-as-projection.md) 후속). 제품 미러 `CNORJOONt4z0a4Bl22Kjuu` 는 **읽기 전용**이다 |
 | `klipse-docs` 저장소 | `/docs` 화면을 `klipse-web` 기준으로 그리게 된다 — 틀린다 | `/docs` 를 건드릴 때만 필요하다 |
 | 원저자 맥의 `~/klipse-design-transplant` | 아래 2절 참조 | **이미 옮겼다.** 다시 만들 필요 없다 |
 
@@ -172,18 +172,24 @@ annotation 문구가 「결제 실패 **또는** spending limit」으로 둘을 
 
 **파일이 둘이다. 섞지 마라.** 2026-08-22 에 Figma 에서 직접 세었다.
 
-| | `bxGEp0km5zluMJGulaTvFW` (DS 정본 라이브러리) | `OlYKERKOkgbxBEEoXGZW2c` (제품 화면 이식 보드) |
+| | `bxGEp0km5zluMJGulaTvFW` (~~DS 정본 라이브러리~~ → 은퇴 중) | `OlYKERKOkgbxBEEoXGZW2c` (~~제품 화면 이식 보드~~ → **LOUIS**) |
 | --- | --- | --- |
 | 페이지 | Cover · Foundations · Components · Patterns · Templates · Product inventory | 여정 순 8페이지 |
 | collection | `Klipse Primitive` · `Klipse Semantic` · `Klipse Semantic Color` | `1 · Palette` · `2 · Semantic`(4모드) · `3 · Scale` |
 | 변수 · text · effect | 345 · 15 · 8 | 299 · 46 · 4 |
-| 게이트 대상 | `verify-figma-parity` · `readback.json` · `snapshot.json` | 없음(보드는 게이트 밖) |
+| 게이트 대상 | ~~`verify-figma-parity` · `readback.json` · `snapshot.json`~~ (2026-08-26 이후 아님) | **`verify-figma-parity` · `readback.json` · `snapshot.json`** |
+
+> **이 표의 「역할」 두 줄은 뒤집혔다(2026-08-26).** 게이트 대상은 오른쪽으로 옮겼고, 그 이력은
+> `figma-sync.md` 「게이트가 은퇴 파일을 가리켰다 (해소됨)」 이 소유한다. **수 네 칸(345·15·8 /
+> 299·46·4)과 collection 이름은 2026-08-22 실측 그대로 둔다** — 갈라진 시점의 기록이라 여기서
+> 고치면 그 시점이 사라진다. 현재 값은 `figma/readback.json` 에서 읽는다.
 
 **collection 이름 체계가 달라 그냥 옮길 수 없다.** `figma-sync.md` 가 「이전 중」이라 적은
 작업은 끝나지 않았고, 그 사이 이식 보드가 독자 구조로 자랐다. 옮기려면 매핑을 먼저 정한다.
 
-이식 보드는 8페이지 · 21섹션 · **95프레임** · 컴포넌트 319개 · 인스턴스 907개다.
-검산식은 `48개 × 2 − 1(print 는 반응형 분기 없음) = 95` 다.
+이식 보드는 8페이지 · 21섹션 · 컴포넌트 319개 · 인스턴스 907개다(2026-08-22 실측).
+프레임 수는 **한 수가 아니라 두 축의 합**이다 — `figma-screen-assembly.md` 「상시 검산식」이 소유한다.
+여기 있던 「95프레임」은 라우트 축만 센 값이라 보드 전체와 어긋난다.
 
 - 페이지는 사용자 여정 순이다(획득 → 가입 → 제작 → 결제 → 운영 + 자산 + 보류).
 - 섹션 이름이 `§10.N.n · 라우트 글롭 · 한국어 이름 · 등급` 을 담아

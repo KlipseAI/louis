@@ -38,7 +38,7 @@ Figma에는 역할이 다른 **파일 셋**이 있다. 섞지 않는다. **쓰�
 | 역할 | File key | 소유 | 쓰기 |
 | --- | --- | --- | --- |
 | **LOUIS — 현행 작업 파일** | `OlYKERKOkgbxBEEoXGZW2c` — Figma 상 이름 **"LOUIS"** | 이 저장소 | 허용. **소유자가 「LOUIS 피그마」라고 부르는 파일이 이것이다.** 제품 화면 8페이지 + 자산 + DS 변수 사본. DS 컴포넌트 레이어는 여기에 만든다 |
-| 선행 라이브러리 (은퇴 진행 중) | `bxGEp0km5zluMJGulaTvFW` — "Klipse Design System — Library" | 이 저장소 | 조건부. DS 컴포넌트 26개와 변수 378개가 여기 남아 있고 `verify-figma-parity` · `readback.json` · `snapshot.json` 이 **아직 이 파일을 가리킨다** — 아래 「게이트가 은퇴 파일을 가리킨다」 참조 |
+| 선행 라이브러리 (은퇴 진행 중) | `bxGEp0km5zluMJGulaTvFW` — "Klipse Design System — Library" | 이 저장소 | 조건부. DS 컴포넌트 26개와 변수 378개가 여기 남아 있다. **게이트는 더 이상 이 파일을 보지 않는다** — 2026-08-26 에 대상을 LOUIS 로 옮겼다(`node -e 'console.log(require("./figma/readback.json").figmaFileKey)'` → `OlYKERKOkgbxBEEoXGZW2c`). 이 행이 남는 이유는 폐기가 아직 안 끝났기 때문이다 — 아래 「게이트가 은퇴 파일을 가리켰다 (해소됨)」 참조 |
 | 제품 미러 reference | `CNORJOONt4z0a4Bl22Kjuu` — "Klipse 3.0" | 제품/디자인 작업자 | **금지.** 읽기 전용 evidence ([KP-FIGMA-001](../../migration/product-baseline.md)) |
 
 **어느 파일이 LOUIS 인지 헷갈리지 마라.** 이 문서는 오래도록 `bxGEp0km…` 을 「정본 라이브러리」로
@@ -135,7 +135,31 @@ static-alpha 정책 결정이 선행돼야 한다.
 4. 같은 열거를 모달 밖으로 넓힌다 — 이 절이 모달만 다루는 것은 거기서 시작했기 때문이지
    그것만 부족해서가 아니다.
 
-### 게이트가 은퇴 파일을 가리킨다 (미해결)
+### 게이트가 은퇴 파일을 가리켰다 (해소됨 2026-08-26 — 5단계 중 1~4)
+
+> **해소 확인 (2026-09-01).** 이 절은 아래 5단계를 적으면서 「그 전까지 이 절을 지우지 않는다」는
+> 조건을 스스로 달아 두었다. **그 조건이 충족됐다.** 그래도 지우지 않고 이력으로 남긴다 —
+> 「red 를 감수하고 먼저 옮기는 편이 정직하다」는 판단이 어떻게 뒤집혀 나왔는지가 다음에 같은
+> 상황을 만났을 때 쓰는 재료이고, 이 저장소는 판정의 이력을 보존한다.
+>
+> 확인은 세 축이다. **수를 이 표에서 읽지 말고 명령을 다시 돌려라** — 산 숫자를 산문에 적으면
+> 반드시 낡는다(`figma/readback.json` 머리말이 같은 함정을 이미 기록한다: 「43 인 채로
+> 47·49·50 을 지나왔다」).
+>
+> | 확인 | 명령 | 2026-09-01 결과 |
+> | --- | --- | --- |
+> | 되읽기의 대상 파일 | `node -e 'const r=require("./figma/readback.json");console.log(r.figmaFileKey,r.capturedAt)'` | `OlYKERKOkgbxBEEoXGZW2c 2026-08-29` |
+> | 스냅숏의 대상 파일 | `node -e 'console.log(require("./figma/snapshot.json").provenance.figmaFileKey)'` | `OlYKERKOkgbxBEEoXGZW2c` |
+> | 「DS 컴포넌트 0 개」 | `node -e 'console.log(Object.keys(require("./figma/readback.json").components).length)'` | `51` |
+>
+> `verify-figma-parity` 는 파일 키를 스스로 갖지 않는다 — `scripts/verify-figma-parity.mjs:16` 이
+> `figma/snapshot.json` 만 읽으므로, 스냅숏이 옮겨간 순간 게이트도 함께 옮겨졌다. 「게이트를 돌린다」에
+> 별도 조치가 없었던 이유가 이것이다.
+>
+> **남은 것은 5 단계(선행 파일 폐기) 하나이고, 소유자 행동이다.** 그때까지 위 「운영 파일」 표의
+> 선행 라이브러리 행은 남는다.
+
+**아래는 2026-08-26 당시의 기록이다 — 현재 상태가 아니다.** 문장은 그때 쓴 그대로 둔다.
 
 `readback.json` · `snapshot.json` · `verify-figma-parity` 는 여전히 `bxGEp0km…` 를 읽는다.
 **이것은 의도가 아니라 미완결이다.** 그대로 두면 게이트는 아무도 안 쓰는 파일에 대해 green 을 낸다.
@@ -151,16 +175,22 @@ static-alpha 정책 결정이 선행돼야 한다.
 **변수를 먼저 옮기고, 게이트를 LOUIS 파일로 돌린 뒤, 컴포넌트를 세운다.**
 
 1. LOUIS 파일의 `Klipse*` 동결 해제 → `apply-variables.*.js` 로 토큰 전량 동기화
-   ([DS-D-0025 정정](decisions/DS-D-0025-figma-as-projection.md#정정-2026-08-26-같은-날))
-2. `readback.json` 을 LOUIS 파일에서 다시 뜨고 snapshot 재생성 → parity 대상 이전
+   ([DS-D-0025 정정](decisions/DS-D-0025-figma-as-projection.md#정정-2026-08-26-같은-날)) — **완료**
+2. `readback.json` 을 LOUIS 파일에서 다시 뜨고 snapshot 재생성 → parity 대상 이전 — **완료**
 3. 이 시점에 parity 는 **컴포넌트 0 개 때문에 red 로 남는다. 의도된 상태다** — 지금 상태의
-   정직한 표현이며, 컴포넌트를 세우면서 줄어든다
-4. 컴포넌트 레이어 구축([figma-component-authoring](figma-component-authoring.md))
-5. 선행 파일 폐기
+   정직한 표현이며, 컴포넌트를 세우면서 줄어든다 — **지나갔다.** 이 red 는 컴포넌트를 세우면서
+   실제로 사라졌다
+4. 컴포넌트 레이어 구축([figma-component-authoring](figma-component-authoring.md)) — **완료**
+5. 선행 파일 폐기 — **남았다(소유자 행동)**
 
 그 전까지 이 절을 지우지 않는다.
 
 **이전은 끝나지 않았고, 두 파일은 지금 서로 다른 것이 됐다(2026-08-22 실측).**
+
+> **이 절의 수는 2026-08-22 실측이다 — 그 뒤로 전부 움직였다.** LOUIS 열의 collection 이름
+> 체계(`1 · Palette` …)는 「변수 컬렉션 — 다섯이고, 각자 하는 일이 있다」 절이, 변수·style 수는
+> `figma/readback.json` 이 정본이다(`node -e 'const r=require("./figma/readback.json");console.log(Object.keys(r.collections).length, Object.keys(r.styles.text).length, Object.keys(r.styles.effect).length)'`).
+> 표를 지우지 않는 것은 **두 파일이 언제 갈라졌는지**가 이 표에만 남아 있기 때문이다.
 
 2026-08-21에 새 파일 `OlYKERKOkgbxBEEoXGZW2c`를 `SEJUNKI` 팀에 만들고 변수 258개와 style
 23개를 옮겼다. 그 뒤 그 파일에서 **제품 화면 이식**이 진행되면서 파일의 성격이 갈렸다.
@@ -176,8 +206,9 @@ static-alpha 정책 결정이 선행돼야 한다.
 **collection 이름 체계가 서로 다르다.** 한쪽에서 다른 쪽으로 그냥 옮길 수 없고, 옮기려면
 매핑을 먼저 결정해야 한다.
 
-`readback.json`·`snapshot.json`과 `verify-figma-parity`는 **선행 라이브러리
-`bxGEp0km5zluMJGulaTvFW`를 가리킨다 — 위 「게이트가 은퇴 파일을 가리킨다」가 그 미완결을 소유한다.**
+`readback.json`·`snapshot.json`과 `verify-figma-parity`는 그때 **선행 라이브러리
+`bxGEp0km5zluMJGulaTvFW`를 가리켰다.** 2026-08-26 에 셋 다 LOUIS 로 옮겼다 — 위
+「게이트가 은퇴 파일을 가리켰다 (해소됨)」 이 그 이력을 소유한다.
 현행 작업 파일은 `OlYKERKOkgbxBEEoXGZW2c`("LOUIS")이고 제품 화면 조립 규약은
 [figma-screen-assembly](figma-screen-assembly.md)와 `klipse-figma-transplant` 스킬이 소유한다.
 **둘을 섞지 마라 — 어느 파일에 쓰는지 먼저 확인한다.**

@@ -7,8 +7,14 @@
 > Library")는 **버린다.** 아래에서 처음에 bxGEp0에 만든 신규 7 컴포넌트는 **LOUIS의 `Components` 페이지로
 > 다시 만들어 이전 완료**(LOUIS의 `Klipse Semantic Color` 토큰에 이름으로 바인딩). LOUIS는 그 토큰 컬렉션
 > (`color/bg-surface`·`accent-primary`·`fg-success`·`fg-danger` 등)을 이미 갖고 있어 이전이 깨끗했다.
-> **미해결:** 기존 57 컴포넌트(Button 등)는 아직 bxGEp0에만 있다 — LOUIS로 옮길지, LOUIS에서 새로 세울지
-> owner 결정 필요.
+> ~~**미해결:** 기존 57 컴포넌트(Button 등)는 아직 bxGEp0에만 있다 — LOUIS로 옮길지, LOUIS에서 새로
+> 세울지 owner 결정 필요.~~ **결정났다 — 「LOUIS에서 새로 세운다」이고, 세우는 일도 끝났다
+> (2026-08-26 ~ 08-29, 확인 2026-09-01).** LOUIS 파일의 DS 컴포넌트 set 수는
+> `node -e 'console.log(Object.keys(require("./figma/readback.json").components).length)'` 로 읽는다
+> (2026-09-01 에 51). **여기에 51 을 박아 두지 않는 이유**는 `figma/readback.json` 머리말이 적은
+> 그대로다 — 산 숫자를 산문에 적으면 반드시 낡는다(그 파일은 43 인 채로 47·49·50 을 지나왔다).
+> 두 파일의 컴포넌트 집합은 **같지 않다** — 옮긴 것이 아니라 다시 세웠으므로 57 ↔ 51 을 차이로 읽지
+> 마라. 선행 파일에만 남은 명세는 `figma/readback.retired-library.json` 이 보존한다.
 
 ## 실측 진단 (라이브 감사)
 

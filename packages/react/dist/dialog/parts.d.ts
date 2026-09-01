@@ -41,6 +41,11 @@ export declare function DialogCancel({ closeOnActivate, onClick, children, ref, 
  *
  * 기본값이 `closeOnActivate: false`인 이유는 async action이 기본이기 때문이다 — 저장이 끝나기
  * 전에 닫으면 오류를 보여줄 곳이 사라진다. 소비자가 완료 후 `close("confirm")`을 부른다.
+ *
+ * **톤이 Button variant로 내려가는 유일한 자리다**(DS-D-0041). `neutral`은 Button 어휘에 없는
+ * 낱말이라 여기서 `primary`로 옮긴다 — 제품의 `GlassConfirmModal`이 하는 것과 같은 매핑이고
+ * (`variant={confirmVariant === "danger" ? "danger" : "primary"}`, 앵커 `ae8fd627`),
+ * 톤이 바꾸는 선언은 이 한 줄이 전부다.
  */
 export declare function DialogConfirm({ closeOnActivate, onClick, children, ref, ...rest }: DialogConfirmProps): JSX.Element;
 //# sourceMappingURL=parts.d.ts.map

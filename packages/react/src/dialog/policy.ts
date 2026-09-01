@@ -1,7 +1,7 @@
 import type {
-  DialogConfirmVariant,
   DialogInitialFocus,
   DialogSize,
+  DialogTone,
   DialogVariant,
 } from "./types.js";
 
@@ -10,7 +10,7 @@ export interface DialogVariantPolicy {
   readonly dismissible: boolean;
   readonly closeOnBackdrop: boolean;
   readonly size: DialogSize;
-  readonly confirmVariant: DialogConfirmVariant;
+  readonly tone: DialogTone;
 }
 
 export const DIALOG_VARIANT_POLICY: Readonly<
@@ -22,7 +22,7 @@ export const DIALOG_VARIANT_POLICY: Readonly<
     dismissible: true,
     closeOnBackdrop: true,
     size: "compact",
-    confirmVariant: "primary",
+    tone: "neutral",
   },
   // Pointer "danger-confirm은 backdrop click을 취소와 동일시하지 않는다"
   "danger-confirm": {
@@ -30,7 +30,9 @@ export const DIALOG_VARIANT_POLICY: Readonly<
     dismissible: true,
     closeOnBackdrop: false,
     size: "compact",
-    confirmVariant: "danger",
+    // **variant 이름 자체가 톤의 근거다.** danger-confirm이 danger 톤을 기본으로 갖지 않으면
+    // 파괴적 확인 창을 부르면서 확인 버튼만 중립으로 남는 조합이 기본값이 된다.
+    tone: "danger",
   },
   // Variants "첫 유효 필드" / Pointer "데이터 입력 task는 동일시하지 않는다"
   task: {
@@ -38,7 +40,7 @@ export const DIALOG_VARIANT_POLICY: Readonly<
     dismissible: true,
     closeOnBackdrop: false,
     size: "medium",
-    confirmVariant: "primary",
+    tone: "neutral",
   },
   // 편집 중 backdrop 오클릭은 데이터 손실이다.
   "media-workbench": {
@@ -46,14 +48,14 @@ export const DIALOG_VARIANT_POLICY: Readonly<
     dismissible: true,
     closeOnBackdrop: false,
     size: "large",
-    confirmVariant: "primary",
+    tone: "neutral",
   },
   sheet: {
     initialFocus: { kind: "safe-action" },
     dismissible: true,
     closeOnBackdrop: true,
     size: "medium",
-    confirmVariant: "primary",
+    tone: "neutral",
   },
 };
 
@@ -62,7 +64,7 @@ export interface DialogPolicyOverrides {
   readonly dismissible?: boolean;
   readonly closeOnBackdrop?: boolean;
   readonly size?: DialogSize;
-  readonly confirmVariant?: DialogConfirmVariant;
+  readonly tone?: DialogTone;
   readonly busy?: boolean;
 }
 
@@ -89,7 +91,7 @@ export function resolveDialogPolicy(
     dismissible,
     closeOnBackdrop,
     size: overrides.size ?? base.size,
-    confirmVariant: overrides.confirmVariant ?? base.confirmVariant,
+    tone: overrides.tone ?? base.tone,
     // dismissible은 영구 정책이므로 primitive closeOnEscape에 그대로 간다.
     // busy는 일시 잠금이라 dismissLocked가 따로 막는다 — 두 축을 여기서 합치면
     // busy가 풀렸을 때 closeOnEscape가 되돌아오지 않는 경로가 생긴다.

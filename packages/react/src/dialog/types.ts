@@ -14,7 +14,28 @@ export type DialogVariant =
   | "sheet";
 
 export type DialogSize = "compact" | "medium" | "large" | "fullscreen";
-export type DialogConfirmVariant = "primary" | "danger";
+
+/**
+ * 확인 대화상자의 **의미 톤**. 값은 둘뿐이다 (DS-D-0041).
+ *
+ * 제품이 쓰는 것이 둘이다 — 앵커 `ae8fd627`의 `ConfirmModal.tsx:31`과
+ * `node-canvas-v2/components/GlassConfirmModal.tsx:34`가 둘 다
+ * `confirmVariant?: "primary" | "danger"`를 갖는다. `Tone` 어휘의 나머지 셋
+ * (`info`·`success`·`warning`)은 확인 창에 쓰이는 자리가 없다 — 쓰지 않는 계단은
+ * 사다리가 아니다(DS-D-0027·DS-D-0030).
+ *
+ * **이름이 `confirmVariant`가 아니라 `tone`인 이유.** 이 축은 Figma에 `Tone`으로 서고,
+ * `figma-component-authoring.md` §2의 닫힌 어휘가 `Tone`의 값을
+ * `neutral`·`info`·`success`·`warning`·`danger`로 못박는다. `primary`는 그 표에서
+ * `Variant`(강조 단계)의 낱말이다. 그리고 `verify-figma-parity`는 variant 축의 옵션 집합을
+ * **이 union과 글자 그대로 대조**하므로, 코드가 `"primary"`라고 적으면 Figma도 `Tone=primary`가
+ * 되어 어휘 표와 어긋난다. `ToastTone = "neutral" | "danger"`가 같은 자리의 선례다.
+ *
+ * **톤이 소유하는 선언은 하나다** — `DialogConfirm`이 그리는 Button의 `variant`.
+ * 제품의 두 확인 모달에서도 그 prop이 바꾸는 것은 확인 버튼의 `variant` 하나뿐이고,
+ * 표면 색·아이콘·배치는 갈리지 않는다. `neutral`은 Button의 `primary`로 내려간다.
+ */
+export type DialogTone = "neutral" | "danger";
 
 /**
  * 규범 어휘 5종. Menu의 `OverlayCloseReason`과 **의도적으로 별개**다.
@@ -63,7 +84,7 @@ export interface DialogProps {
   readonly dismissible?: boolean;
   readonly closeOnBackdrop?: boolean;
   readonly busy?: boolean;
-  readonly confirmVariant?: DialogConfirmVariant;
+  readonly tone?: DialogTone;
   /** 기본 안내는 Dialog가 스스로 낸다. 이것은 소비자의 **추가** 훅이다. */
   readonly onDismissBlocked?: (reason: DialogDismissBlockedReason) => void;
   /** 차단 안내 문구. 생략하면 Dialog의 기본 문구를 쓴다. */
@@ -124,7 +145,7 @@ export interface DialogCancelProps extends DialogButtonBase {
   readonly ref?: Ref<HTMLButtonElement>;
 }
 
-/** variant는 Root의 `confirmVariant`가, loading은 `busy`가 정한다. */
+/** Button의 variant는 Root의 `tone`이, loading은 `busy`가 정한다. */
 export interface DialogConfirmProps extends DialogButtonBase {
   /** 기본 false. async action은 소비자가 완료 후 `close("confirm")`한다. */
   readonly closeOnActivate?: boolean;

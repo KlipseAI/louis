@@ -18,7 +18,6 @@ export type {
   DialogCloseProps,
   DialogCloseReason,
   DialogConfirmProps,
-  DialogConfirmVariant,
   DialogDescriptionProps,
   DialogDismissBlockedReason,
   DialogFooterProps,
@@ -30,5 +29,6 @@ export type {
   DialogSize,
   DialogSurfaceProps,
   DialogTitleProps,
+  DialogTone,
   DialogVariant,
 } from "./types.js";

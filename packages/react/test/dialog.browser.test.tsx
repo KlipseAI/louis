@@ -18,6 +18,7 @@ import {
   DialogTitle,
   OverlayProvider,
   type DialogCloseReason,
+  type DialogTone,
   type DialogVariant,
 } from "@klipse-design/react";
 import "@klipse-design/css/tokens.css";
@@ -29,6 +30,7 @@ import "@klipse-design/css/styles.css";
 
 interface HarnessProps {
   readonly variant?: DialogVariant;
+  readonly tone?: DialogTone;
   readonly dismissible?: boolean;
   readonly busy?: boolean;
   readonly closeOnBackdrop?: boolean;
@@ -41,6 +43,7 @@ interface HarnessProps {
 
 function Harness({
   variant = "task",
+  tone,
   dismissible,
   busy,
   closeOnBackdrop,
@@ -72,6 +75,7 @@ function Harness({
       <Dialog
         open={open}
         variant={variant}
+        {...(tone === undefined ? {} : { tone })}
         {...(dismissible === undefined ? {} : { dismissible })}
         {...(busy === undefined ? {} : { busy })}
         {...(closeOnBackdrop === undefined ? {} : { closeOnBackdrop })}
@@ -171,6 +175,64 @@ test("danger-confirm의 초기 focus는 footer 순서와 무관하게 취소다"
   await vi.waitFor(() => {
     expect(activeId()).toBe("cancel");
   });
+});
+
+// --- Tone (DS-D-0041) ----------------------------------------------------
+//
+// 톤이 소유하는 선언은 **확인 버튼의 variant 하나**다. 그 사실을 계산 스타일로 잰다 —
+// `data-variant` 속성만 보면 "속성은 붙었는데 색은 안 바뀐" 경우를 통과시킨다. 실제로
+// 이 저장소는 계산 스타일이 아니라 클래스만 보다가 어긋난 자리를 여러 번 겪었다.
+
+/** 같은 문서 안에 참조 Button을 세워 색을 **비교**한다. 토큰 리터럴을 테스트에 적으면 정본이 둘이 된다. */
+function referenceBackground(variant: "primary" | "danger"): string {
+  const probe = document.createElement("button");
+  probe.className = "louis-button";
+  probe.setAttribute("data-variant", variant);
+  probe.setAttribute("data-size", "md");
+  document.body.append(probe);
+  const value = getComputedStyle(probe).backgroundColor;
+  probe.remove();
+  return value;
+}
+
+test("danger-confirm의 확인 버튼은 danger 톤으로 칠해진다", async () => {
+  const screen = await render(<Harness variant="danger-confirm" />);
+  await userEvent.click(screen.getByTestId("trigger"));
+  const confirm = screen.getByTestId("confirm").element() as HTMLElement;
+
+  expect(confirm.getAttribute("data-variant")).toBe("danger");
+  const danger = referenceBackground("danger");
+  const primary = referenceBackground("primary");
+  // 두 참조가 같으면 이 시험은 아무것도 말하지 않는다 — 먼저 그것부터 확인한다.
+  expect(danger).not.toBe(primary);
+  expect(getComputedStyle(confirm).backgroundColor).toBe(danger);
+});
+
+test("neutral 톤은 Button primary로 내려간다", async () => {
+  const screen = await render(<Harness variant="confirm" />);
+  await userEvent.click(screen.getByTestId("trigger"));
+  const confirm = screen.getByTestId("confirm").element() as HTMLElement;
+
+  // 코드 어휘는 neutral이고 Button 어휘에는 그 낱말이 없다. 매핑이 끊기면 여기서 잡힌다.
+  expect(confirm.getAttribute("data-variant")).toBe("primary");
+  expect(getComputedStyle(confirm).backgroundColor).toBe(referenceBackground("primary"));
+});
+
+test("tone prop은 variant 기본값을 덮는다", async () => {
+  const screen = await render(<Harness variant="task" tone="danger" />);
+  await userEvent.click(screen.getByTestId("trigger"));
+  const confirm = screen.getByTestId("confirm").element() as HTMLElement;
+
+  expect(getComputedStyle(confirm).backgroundColor).toBe(referenceBackground("danger"));
+});
+
+test("취소 버튼은 톤을 따라가지 않는다", async () => {
+  const screen = await render(<Harness variant="danger-confirm" />);
+  await userEvent.click(screen.getByTestId("trigger"));
+  const cancel = screen.getByTestId("cancel").element() as HTMLElement;
+
+  // 톤이 액션 행 전체를 물들이면 안전한 액션이 파괴적으로 보인다.
+  expect(cancel.getAttribute("data-variant")).toBe("secondary");
 });
 
 test("media-workbench의 초기 focus는 dialog surface다", async () => {

@@ -1,10 +1,10 @@
-import type { DialogConfirmVariant, DialogInitialFocus, DialogSize, DialogVariant } from "./types.js";
+import type { DialogInitialFocus, DialogSize, DialogTone, DialogVariant } from "./types.js";
 export interface DialogVariantPolicy {
     readonly initialFocus: DialogInitialFocus;
     readonly dismissible: boolean;
     readonly closeOnBackdrop: boolean;
     readonly size: DialogSize;
-    readonly confirmVariant: DialogConfirmVariant;
+    readonly tone: DialogTone;
 }
 export declare const DIALOG_VARIANT_POLICY: Readonly<Record<DialogVariant, DialogVariantPolicy>>;
 export interface DialogPolicyOverrides {
@@ -12,7 +12,7 @@ export interface DialogPolicyOverrides {
     readonly dismissible?: boolean;
     readonly closeOnBackdrop?: boolean;
     readonly size?: DialogSize;
-    readonly confirmVariant?: DialogConfirmVariant;
+    readonly tone?: DialogTone;
     readonly busy?: boolean;
 }
 export interface DialogEffectivePolicy extends DialogVariantPolicy {

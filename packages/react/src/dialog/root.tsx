@@ -34,7 +34,7 @@ export function Dialog({
   dismissible,
   closeOnBackdrop,
   busy = false,
-  confirmVariant,
+  tone,
   onDismissBlocked,
   dismissBlockedMessage,
   children,
@@ -45,7 +45,7 @@ export function Dialog({
     ...(dismissible === undefined ? {} : { dismissible }),
     ...(closeOnBackdrop === undefined ? {} : { closeOnBackdrop }),
     ...(size === undefined ? {} : { size }),
-    ...(confirmVariant === undefined ? {} : { confirmVariant }),
+    ...(tone === undefined ? {} : { tone }),
     busy,
   });
 

@@ -7,13 +7,13 @@ import { DialogContextProvider } from "./context.js";
 import { resolveDialogPolicy } from "./policy.js";
 import { toDialogCloseReason } from "./reason.js";
 const DEFAULT_BLOCKED_MESSAGE = "지금은 이 창을 닫을 수 없습니다.";
-export function Dialog({ open, onOpenChange, variant = "task", size, initialFocus, returnFocus, dismissible, closeOnBackdrop, busy = false, confirmVariant, onDismissBlocked, dismissBlockedMessage, children, ref, }) {
+export function Dialog({ open, onOpenChange, variant = "task", size, initialFocus, returnFocus, dismissible, closeOnBackdrop, busy = false, tone, onDismissBlocked, dismissBlockedMessage, children, ref, }) {
     const policy = resolveDialogPolicy(variant, {
         ...(initialFocus === undefined ? {} : { initialFocus }),
         ...(dismissible === undefined ? {} : { dismissible }),
         ...(closeOnBackdrop === undefined ? {} : { closeOnBackdrop }),
         ...(size === undefined ? {} : { size }),
-        ...(confirmVariant === undefined ? {} : { confirmVariant }),
+        ...(tone === undefined ? {} : { tone }),
         busy,
     });
     const cardRef = useRef(null);

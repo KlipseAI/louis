@@ -596,7 +596,9 @@
           "$surfaceInset": "16(space-layout-gutter). 배포본 모달 두 벌(앱 홈 · 마이페이지)이 전수 16이다.",
           "footerInset": 8,
           "$footerPaddingTop": "24. 배포본 modalActions의 `margin-top: 24`다. 8로 두고 있었는데 그것은 제품을 재지 않고 control 간격을 빌려 쓴 값이었다.",
-          "$footerInset": "8. 배포본은 액션 행에 `margin: -8px`을 걸어 카드의 16 여백 밖으로 되밀어 낸다 — 결과가 8이고 제목·설명은 16에 남는다. 음수 마진 대신 여백을 직접 적어 같은 결과를 만든다."
+          "$footerInset": "8. 배포본은 액션 행에 `margin: -8px`을 걸어 카드의 16 여백 밖으로 되밀어 낸다 — 결과가 8이고 제목·설명은 16에 남는다. 음수 마진 대신 여백을 직접 적어 같은 결과를 만든다.",
+          "radiusBottom": 24,
+          "$radiusBottom": "아래 두 모서리. 이 셋은 화면 가운데 떠 있으므로 네 모서리가 같다 — `radius` 와 같은 값이다. 따로 적는 이유는 sheet 가 아래를 0 으로 깎기 때문이고, 그 축을 계약이 보지 않으면 sheet 칸의 곡률이 아무것도 대조되지 않은 채 남는다(2026-09-01 에 실제로 그랬다)."
         },
         "medium": {
           "width": 480,
@@ -622,7 +624,9 @@
           "$surfaceInset": "24(space-layout-section). 제품에는 360 모달 한 벌뿐이라 이 둘은 DS가 정한 값이다 — compact만 좁힌다.",
           "footerInset": 8,
           "$footerPaddingTop": "24. 배포본 modalActions의 `margin-top: 24`다. 8로 두고 있었는데 그것은 제품을 재지 않고 control 간격을 빌려 쓴 값이었다.",
-          "$footerInset": "8. 배포본은 액션 행에 `margin: -8px`을 걸어 카드의 16 여백 밖으로 되밀어 낸다 — 결과가 8이고 제목·설명은 16에 남는다. 음수 마진 대신 여백을 직접 적어 같은 결과를 만든다."
+          "$footerInset": "8. 배포본은 액션 행에 `margin: -8px`을 걸어 카드의 16 여백 밖으로 되밀어 낸다 — 결과가 8이고 제목·설명은 16에 남는다. 음수 마진 대신 여백을 직접 적어 같은 결과를 만든다.",
+          "radiusBottom": 16,
+          "$radiusBottom": "아래 두 모서리. 이 셋은 화면 가운데 떠 있으므로 네 모서리가 같다 — `radius` 와 같은 값이다. 따로 적는 이유는 sheet 가 아래를 0 으로 깎기 때문이고, 그 축을 계약이 보지 않으면 sheet 칸의 곡률이 아무것도 대조되지 않은 채 남는다(2026-09-01 에 실제로 그랬다)."
         },
         "large": {
           "width": 720,
@@ -648,7 +652,37 @@
           "$surfaceInset": "24(space-layout-section). 제품에는 360 모달 한 벌뿐이라 이 둘은 DS가 정한 값이다 — compact만 좁힌다.",
           "footerInset": 8,
           "$footerPaddingTop": "24. 배포본 modalActions의 `margin-top: 24`다. 8로 두고 있었는데 그것은 제품을 재지 않고 control 간격을 빌려 쓴 값이었다.",
-          "$footerInset": "8. 배포본은 액션 행에 `margin: -8px`을 걸어 카드의 16 여백 밖으로 되밀어 낸다 — 결과가 8이고 제목·설명은 16에 남는다. 음수 마진 대신 여백을 직접 적어 같은 결과를 만든다."
+          "$footerInset": "8. 배포본은 액션 행에 `margin: -8px`을 걸어 카드의 16 여백 밖으로 되밀어 낸다 — 결과가 8이고 제목·설명은 16에 남는다. 음수 마진 대신 여백을 직접 적어 같은 결과를 만든다.",
+          "radiusBottom": 16,
+          "$radiusBottom": "아래 두 모서리. 이 셋은 화면 가운데 떠 있으므로 네 모서리가 같다 — `radius` 와 같은 값이다. 따로 적는 이유는 sheet 가 아래를 0 으로 깎기 때문이고, 그 축을 계약이 보지 않으면 sheet 칸의 곡률이 아무것도 대조되지 않은 채 남는다(2026-09-01 에 실제로 그랬다)."
+        },
+        "sheet": {
+          "width": 480,
+          "$width": "480px. **sheet 의 surface 는 고정 폭이 아니다** — `inline-size: 100%` 이고 root 의 `padding-inline` 이 0 이라 폭이 곧 뷰포트다. 480 은 Figma 가 그린 좁은 화면의 대표값이고, 되재기 브라우저 테스트도 480 뷰포트로 몰아 두 매체가 같은 화면을 말하게 한다. medium 의 480 과 수가 같은 것은 우연이 아니다 — 정책이 sheet 의 size 를 medium 으로 준다.",
+          "paddingBlock": 20,
+          "$paddingBlock": "**뷰포트 위쪽 여백이다.** `[data-variant=\"sheet\"]` 는 `padding-inline` 과 `padding-block-end` 만 0 으로 덮고 위쪽 gutter 는 남긴다 — 시트가 화면 꼭대기까지 차오르지 않게 하는 상한이다.",
+          "paddingInline": 0,
+          "$paddingInline": "0. 시트는 좌우로 화면을 꽉 채운다 — `.louis-dialog[data-variant=\"sheet\"] { padding-inline: 0 }`.",
+          "borderWidth": 0.5,
+          "$borderWidth": "0.5px. hairline 선언 토큰",
+          "radius": 16,
+          "$radius": "radius-overlay 16. sheet 의 size 가 medium 이라 위쪽 곡률은 medium 과 같다. Figma 가 24 로 그리고 있었고(2026-09-01 실측) 코드가 정본이므로 Figma 를 16 으로 맞췄다.",
+          "radiusBottom": 0,
+          "$radiusBottom": "0. 시트는 뷰포트 바닥에 붙으므로 아래 두 모서리를 깎는다 — `border-end-start-radius: 0` · `border-end-end-radius: 0`.",
+          "gap": 8,
+          "$gap": "space-control-sm 8 (header/body 사이 간격). medium 과 같다 — sheet 는 곡률과 정착 위치만 바꾼다.",
+          "footerPaddingTop": 24,
+          "$footerPaddingTop": "24. `.louis-dialog__footer` 는 variant 로 갈리지 않는다 — medium 과 같은 값이다.",
+          "actionsGap": 8,
+          "$actionsGap": "space-control-sm 8 (액션 버튼 사이 간격)",
+          "actionCount": 2,
+          "$actionCount": "기본 액션 수 2 (취소/확인)",
+          "footerChildren": 1,
+          "$footerChildren": "기본 푸터 자식 1 (Actions 행)",
+          "surfaceInset": 24,
+          "$surfaceInset": "24(space-layout-section). size 가 medium 이므로 medium 과 같다.",
+          "footerInset": 8,
+          "$footerInset": "8. medium 과 같다 — 액션 행은 variant 로 갈리지 않는다."
         }
       },
       "states": {
@@ -663,7 +697,9 @@
           }
         }
       },
-      "$footer": "확인 대화상자는 Footer와 액션 둘이 있어야 성립한다. Figma 세트에 그것이 없어서 **디자이너가 확인 대화상자를 만들 수 없었다**(2026-08-18 실무 감사). 값은 코드의 dialog.css와 같다 — Footer는 padding-block-start가 space-control-sm이고 Actions는 오른쪽 정렬에 같은 gap이다."
+      "$footer": "확인 대화상자는 Footer와 액션 둘이 있어야 성립한다. Figma 세트에 그것이 없어서 **디자이너가 확인 대화상자를 만들 수 없었다**(2026-08-18 실무 감사). 값은 코드의 dialog.css와 같다 — Footer는 padding-block-start가 space-control-sm이고 Actions는 오른쪽 정렬에 같은 gap이다.",
+      "$tone": "Tone 축(neutral · danger)은 **자기 기하를 하나도 갖지 않는다**(DS-D-0041). 바꾸는 선언은 `DialogConfirm` 이 그리는 Button 의 variant 하나이고, 그 면·전경 값은 이 파일의 `button.states.danger`(background color-accent-danger · foreground color-fg-on-danger)가 이미 소유한다 — 여기에 다시 적으면 정본이 둘이 된다. 제품 실측: 앵커 ae8fd627 의 `ConfirmModal.tsx:135` 이 `variant={confirmVariant}` 를, `node-canvas-v2/components/GlassConfirmModal.tsx` 가 `variant={confirmVariant === \"danger\" ? \"danger\" : \"primary\"}` 를 그대로 넘기고, 그 밖에 갈리는 선언이 없다. Figma 에서 danger 칸을 compact 에만 그리는 근거도 같은 실측이다 — 두 모달이 둘 다 `data-size=\"compact\"` 다.",
+      "$sheet": "**sheet 는 `DialogSize` 가 아니라 `DialogVariant` 다.** Figma 의 `Size` 축이 그 하나를 함께 담고 있어서 여기 size 키로 선다 — 계약(`verify-figma-parity`)의 dialog 항목이 그 사정을 적는다. 이 칸이 2026-09-01 까지 이 파일에 없었고, 그 동안 되읽기의 sheet 기하는 **아무것과도 대조되지 않았다.** 되읽기가 낡아 sheet 버킷 자체가 담기지 않았기 때문이다."
     },
     "project-card": {
       "$doc": "design/components/project-card.md",

@@ -69,21 +69,38 @@ const hairlineColor = (): string => {
   return value;
 };
 
-// measured가 값을 가진 size만 돈다. DialogSize에는 measured에 없는 것도 있어 그 타입으로 색인하면
-// 계약이 없는 size를 조용히 넘기게 된다.
-const DIALOG_SIZES = ["compact", "medium", "large"] as const;
+// measured가 값을 가진 칸만 돈다. DialogSize에는 measured에 없는 것도 있어(fullscreen) 그 타입으로
+// 색인하면 계약이 없는 size를 조용히 넘기게 된다.
+//
+// **`sheet`는 size가 아니라 variant다.** Figma의 `Size` 축이 그 하나를 함께 담고 있어 measured에
+// size 키로 서 있고, 코드에서는 `variant="sheet"`로 켠다(정책이 size를 medium으로 준다). 그래서
+// 이 표는 「measured 키 → 그 칸을 켜는 prop」이다. 키만 훑으면 sheet를 `size="sheet"`로 켜려다
+// 타입이 막고, 막힌 김에 빼면 그 칸이 Figma 한 방향으로만 걸린다.
+//
+// **뷰포트도 칸마다 다르다.** compact·medium·large의 surface는 `min(폭, 100%)`라 넓은 뷰포트가
+// 필요하지만, sheet의 surface는 `inline-size: 100%`이고 root의 `padding-inline`이 0이라
+// **폭이 곧 뷰포트다.** Figma가 480으로 그린 것은 좁은 화면의 대표값이므로, 같은 뜻이 되도록
+// 여기서도 480 뷰포트로 몬다. 1280에서 재면 1280이 나오고 그것은 계약이 틀린 게 아니라
+// 두 매체가 다른 화면을 말하는 것이다.
+const DIALOG_CASES = [
+  { key: "compact", props: { size: "compact" }, viewport: 1280 },
+  { key: "medium", props: { size: "medium" }, viewport: 1280 },
+  { key: "large", props: { size: "large" }, viewport: 1280 },
+  { key: "sheet", props: { variant: "sheet" }, viewport: 480 },
+] as const;
 
-for (const size of DIALOG_SIZES) {
+for (const { key, props, viewport } of DIALOG_CASES) {
+  const size = key;
   const spec = measured.components.dialog.sizes[size];
 
   test(`Dialog ${size}의 구조값이 components.measured.json과 같다`, async () => {
     // surface 폭은 `min(size, 100%)`다. 기본 test viewport가 좁아서 늘 100%가 이기면 세 size가
     // 전부 같은 폭으로 읽혀 계약을 전혀 검증하지 못한다 — 실제로 medium과 large가 같은 366.52로
     // 나왔다. 의도한 폭이 나올 만큼 넓힌다.
-    await page.viewport(1280, 900);
+    await page.viewport(viewport, 900);
     await render(
       <OverlayProvider>
-        <Dialog open size={size} onOpenChange={() => {}}>
+        <Dialog open {...props} onOpenChange={() => {}}>
           <DialogSurface>
             <DialogHeader>
               <DialogTitle>제목</DialogTitle>
@@ -105,6 +122,9 @@ for (const size of DIALOG_SIZES) {
     // 변환 후 크기를 돌려준다 — 세 size가 전부 정확히 98%로 읽혔다. offsetWidth는 레이아웃 폭이다.
     expect(surface.offsetWidth, "width").toBe(spec.width);
     expect(px(style.borderTopLeftRadius), "radius").toBe(spec.radius);
+    // **아래 모서리를 따로 본다.** sheet는 뷰포트 바닥에 붙어 아래 둘을 0으로 깎는다. 위 한
+    // 모서리만 재면 그 축이 코드 쪽에서 아무 데도 걸리지 않는다.
+    expect(px(style.borderBottomLeftRadius), "radiusBottom").toBe(spec.radiusBottom);
     expect(declaredBorderWidth(), "borderWidth").toBe(spec.borderWidth);
     // **실제로 border가 아니라 modal elevation 뒤에 조합한 inset 헤어라인이다 (DS-D-0023).**
     expect(style.borderTopWidth, "border 제거").toBe("0px");

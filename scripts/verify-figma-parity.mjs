@@ -317,7 +317,16 @@ const COMPONENT_CONTRACTS = [
     figmaName: "Dialog",
     propProperties: { Title: "children", Description: "children" },
     declaration: "packages/react/dist/dialog/types.d.ts",
-    variantProperties: {},
+    // **확인 대화상자는 Dialog 의 한 톤이다 — ConfirmDialog 를 따로 세우지 않는다**(DS-D-0041).
+    // 제품의 확인 모달 두 벌이 이미 `confirmVariant?: "primary" | "danger"` 로 「같은 Dialog 의
+    // 톤 차이」를 모델링하고 있었고(앵커 ae8fd627 의 `ConfirmModal.tsx:31` ·
+    // `node-canvas-v2/components/GlassConfirmModal.tsx:34`), 코드가 정본이므로(DS-D-0025)
+    // projection 인 Figma 가 그것을 둘로 가를 수 없다.
+    //
+    // **축이지 중첩 인스턴스가 아니다.** 푸터 Button 인스턴스에서 `Variant` 를 danger 로 고르게
+    // 하는 길이 있지만, 이 게이트가 읽는 것은 component set 의 property 목록이고 중첩 노출은 그
+    // 목록에 없다 — 계약이 되지 못하는 표현은 대조되지 않는 표현이다(DS-D-0035).
+    variantProperties: { Tone: "DialogTone" },
     figmaOnlyProperties: {
       HasClose: { type: "BOOLEAN", reason: "닫기 버튼이 없는 대화상자가 있다 — 결정을 강제하는 확인 창이다. 코드에서는 onClose의 유무다." },
       Size: {
@@ -335,7 +344,12 @@ const COMPONENT_CONTRACTS = [
         paddingInline: ["surfaceInset", "borderWidth"],
         paddingInlineEnd: ["surfaceInset", "borderWidth"],
         itemSpacing: "gap",
-        cornerRadius: "radius",
+        // **모서리를 둘로 나눠 본다.** sheet 는 뷰포트 바닥에 붙어 아래 두 모서리가 0 이라
+        // 네 모서리가 갈리고, 그러면 Figma 의 `cornerRadius` 가 `mixed` 가 되어 되읽기에
+        // 빈 배열로 떨어진다 — 그 칸의 곡률이 **아무것과도 대조되지 않는다.** 좌우는
+        // 대칭이므로 왼쪽 두 모서리만 건다.
+        topLeftRadius: "radius",
+        bottomLeftRadius: "radiusBottom",
         layoutMode: { literal: "VERTICAL" },
       },
       slots: {},

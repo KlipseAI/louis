@@ -9317,7 +9317,7 @@
       }
     },
     "Dialog": {
-      "variantCount": 4,
+      "variantCount": 5,
       "hasDescription": true,
       "properties": {
         "Title": {
@@ -9325,6 +9325,9 @@
         },
         "Description": {
           "type": "TEXT"
+        },
+        "HasClose": {
+          "type": "BOOLEAN"
         },
         "Size": {
           "type": "VARIANT",
@@ -9335,23 +9338,60 @@
             "sheet"
           ]
         },
-        "HasClose": {
-          "type": "BOOLEAN"
+        "Tone": {
+          "type": "VARIANT",
+          "options": [
+            "neutral",
+            "danger"
+          ]
         }
       },
       "binding": {
-        "boundFills": 9,
+        "boundFills": 20,
         "rawFills": 0,
-        "boundStrokes": 3,
+        "boundStrokes": 5,
         "rawStrokes": 0,
-        "textStyled": 6,
+        "textStyled": 10,
         "textUnstyled": 0
       },
       "geometry": {
         "compact": {
           "slots": {},
+          "parts": {
+            "Footer": {
+              "paddingTop": [
+                24
+              ],
+              "paddingInline": [
+                8
+              ],
+              "paddingInlineEnd": [
+                8
+              ],
+              "paddingBottom": [
+                8
+              ],
+              "children": [
+                1
+              ]
+            },
+            "Actions": {
+              "itemSpacing": [
+                8
+              ],
+              "children": [
+                2
+              ],
+              "layoutMode": [
+                "HORIZONTAL"
+              ],
+              "primaryAxisAlignItems": [
+                "MAX"
+              ]
+            }
+          },
           "height": [
-            232
+            240
           ],
           "width": [
             360
@@ -9371,7 +9411,10 @@
           "itemSpacing": [
             8
           ],
-          "cornerRadius": [
+          "topLeftRadius": [
+            24
+          ],
+          "bottomLeftRadius": [
             24
           ],
           "layoutMode": [
@@ -9381,7 +9424,10 @@
             0.5
           ],
           "overflowingParts": [],
-          "offCenterMarks": [],
+          "offCenterMarks": []
+        },
+        "medium": {
+          "slots": {},
           "parts": {
             "Footer": {
               "paddingTop": [
@@ -9414,12 +9460,9 @@
                 "MAX"
               ]
             }
-          }
-        },
-        "medium": {
-          "slots": {},
+          },
           "height": [
-            199
+            207
           ],
           "width": [
             480
@@ -9439,7 +9482,10 @@
           "itemSpacing": [
             8
           ],
-          "cornerRadius": [
+          "topLeftRadius": [
+            16
+          ],
+          "bottomLeftRadius": [
             16
           ],
           "layoutMode": [
@@ -9449,7 +9495,10 @@
             0.5
           ],
           "overflowingParts": [],
-          "offCenterMarks": [],
+          "offCenterMarks": []
+        },
+        "large": {
+          "slots": {},
           "parts": {
             "Footer": {
               "paddingTop": [
@@ -9482,12 +9531,9 @@
                 "MAX"
               ]
             }
-          }
-        },
-        "large": {
-          "slots": {},
+          },
           "height": [
-            199
+            207
           ],
           "width": [
             720
@@ -9507,7 +9553,10 @@
           "itemSpacing": [
             8
           ],
-          "cornerRadius": [
+          "topLeftRadius": [
+            16
+          ],
+          "bottomLeftRadius": [
             16
           ],
           "layoutMode": [
@@ -9517,7 +9566,10 @@
             0.5
           ],
           "overflowingParts": [],
-          "offCenterMarks": [],
+          "offCenterMarks": []
+        },
+        "sheet": {
+          "slots": {},
           "parts": {
             "Footer": {
               "paddingTop": [
@@ -9550,7 +9602,42 @@
                 "MAX"
               ]
             }
-          }
+          },
+          "height": [
+            320
+          ],
+          "width": [
+            480
+          ],
+          "paddingBlock": [
+            24.5
+          ],
+          "paddingBlockEnd": [
+            24.5
+          ],
+          "paddingInline": [
+            24.5
+          ],
+          "paddingInlineEnd": [
+            24.5
+          ],
+          "itemSpacing": [
+            8
+          ],
+          "topLeftRadius": [
+            16
+          ],
+          "bottomLeftRadius": [
+            0
+          ],
+          "layoutMode": [
+            "VERTICAL"
+          ],
+          "strokeWeight": [
+            0.5
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
         }
       },
       "strokes": {

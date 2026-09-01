@@ -157,6 +157,70 @@ withCanary(
   "계약의 대조 범위 밖입니다",
 );
 
+// ── 표면 커버리지 래칫 ────────────────────────────────────────────────────
+// `verify-figma-parity` 는 계약 51 ↔ Figma 51 을 양방향으로 잠근 **닫힌 집합**이라 계약
+// 밖의 제품 표면은 아무리 빠져 있어도 초록이다. 그 바깥을 세는 게이트가 실제로 빨개지는지
+// 세 방향에서 확인한다 — 사유 없는 표면이 새로 생겼을 때 · Figma 에 없는 이름을 적었을 때 ·
+// 사유가 낱말 하나일 때. 넷째 방향(사유를 붙이면 조용해진다)은 canary 로 쓸 수 없다.
+// canary 는 실패만 단언하기 때문이다 — 그 방향은 결정 문서의 음성 시험 기록이 갖는다.
+withCanary(
+  "migration/product.surfaces.json",
+  (source) => {
+    const ledger = JSON.parse(source);
+    ledger.surfaces["apps/web/components/scenes/CanaryScene.tsx#CanaryScene"] = {
+      file: "apps/web/components/scenes/CanaryScene.tsx",
+      binding: "named",
+      louis: [],
+      figma: null,
+      reason: null,
+    };
+    // 열거기가 다시 뽑았을 때와 같은 상태로 만든다. counts 를 함께 옮기지 않으면
+    // 요약 불일치가 먼저 잡혀 래칫 자체를 시험하지 못한다.
+    ledger.counts.total += 1;
+    ledger.counts.unclassified += 1;
+    return JSON.stringify(ledger, null, 2) + "\n";
+  },
+  "figma surface coverage new unclassified surface",
+  "scripts/check-figma-surface-coverage.mjs",
+  "사유 없는 표면이",
+);
+
+withCanary(
+  "migration/product.surfaces.json",
+  (source) =>
+    source.replace('"figma": "Button"', '"figma": "ButtonThatIsNotInFigma"'),
+  "figma surface coverage unknown figma name",
+  "scripts/check-figma-surface-coverage.mjs",
+  "figma 이름이",
+);
+
+withCanary(
+  "migration/product.surfaces.json",
+  (source) => {
+    const ledger = JSON.parse(source);
+    const id = Object.keys(ledger.surfaces).find(
+      (key) => ledger.surfaces[key].figma === null && ledger.surfaces[key].reason !== null,
+    );
+    ledger.surfaces[id].reason = "없음";
+    return JSON.stringify(ledger, null, 2) + "\n";
+  },
+  "figma surface coverage one-word reason",
+  "scripts/check-figma-surface-coverage.mjs",
+  "자 이상의 사유가 필요합니다",
+);
+
+withCanary(
+  "migration/product.surfaces.json",
+  (source) => {
+    const ledger = JSON.parse(source);
+    ledger.counts.mapped += 1;
+    return JSON.stringify(ledger, null, 2) + "\n";
+  },
+  "figma surface coverage self-reported counts",
+  "scripts/check-figma-surface-coverage.mjs",
+  "다시 센 값",
+);
+
 withCanary(
   "design/components/button.md",
   (source) =>

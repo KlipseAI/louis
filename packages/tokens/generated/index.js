@@ -6889,9 +6889,9 @@ export const primitives = {
         "unit": "ms"
       },
       "timingFunction": [
-        0.16,
+        0.19,
         1,
-        0.3,
+        0.22,
         1
       ]
     },
@@ -6908,9 +6908,9 @@ export const primitives = {
         "unit": "ms"
       },
       "timingFunction": [
-        0.16,
+        0.19,
         1,
-        0.3,
+        0.22,
         1
       ]
     }
@@ -10158,7 +10158,7 @@ export const tokens = {
       "cssProperties": {
         "--louis-motion-reveal-enter-duration": "720ms",
         "--louis-motion-reveal-enter-delay": "0ms",
-        "--louis-motion-reveal-enter-timing-function": "cubic-bezier(0.16, 1, 0.3, 1)"
+        "--louis-motion-reveal-enter-timing-function": "cubic-bezier(0.19, 1, 0.22, 1)"
       },
       "deprecated": null,
       "description": null,
@@ -10178,9 +10178,9 @@ export const tokens = {
           "unit": "ms"
         },
         "timingFunction": [
-          0.16,
+          0.19,
           1,
-          0.3,
+          0.22,
           1
         ]
       }

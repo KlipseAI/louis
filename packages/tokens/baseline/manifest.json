@@ -2,7 +2,7 @@
   "artifacts": [
     {
       "path": "packages/tokens/generated/figma.tokens.json",
-      "sha256": "1a809785988b82022bb81191b01481e3920b288ffe4a5a0d40181ff467f1a6f9"
+      "sha256": "7d3cd12104b0c83d82e9bb19fa8465eec528c2d4a343faf834e8685ed9edc53d"
     },
     {
       "path": "packages/tokens/generated/index.d.ts",
@@ -10,15 +10,15 @@
     },
     {
       "path": "packages/tokens/generated/index.js",
-      "sha256": "4ccb7ca8352dc00c2121577db1ca13d332ece4a43e8a3a41530e0aa883440c45"
+      "sha256": "d269d5ca9881f4e0ee57a49718fa544a16a5fcb046cc2467d3185979f06f95d8"
     },
     {
       "path": "packages/tokens/generated/tokens.css",
-      "sha256": "28c93548dfd3a44329ae4d473eb09defbcac9a3d95abcc209c967aa350f1ebeb"
+      "sha256": "0d6cb83b662f5e57f1c30763adcc5d68f4133724fae67841abb01d4648344439"
     },
     {
       "path": "packages/tokens/generated/tokens.json",
-      "sha256": "26c1e6928d30740989381f73b5dd21c1b1053410c8678dfd98df6dec32e5da26"
+      "sha256": "6b6ab7932ce7a59c94a2edb997d75d40eae65cd1ae27857d0910f69fa2ab2c2e"
     }
   ],
   "contrastPairs": [
@@ -419,7 +419,7 @@
   },
   "source": {
     "path": "packages/tokens/src/klipse.tokens.json",
-    "sha256": "f61635e083b3b8704c3af60696dacc746ae1686ddc5eacfaffdb4065121f2c37"
+    "sha256": "7f3d7b0b4b4eb771064542bd98cd17a2606a9e1cedbd844e816dff42edcadb4e"
   },
   "themes": [
     "light",
@@ -16751,7 +16751,7 @@
       "cssProperties": {
         "--louis-motion-reveal-enter-delay": "0ms",
         "--louis-motion-reveal-enter-duration": "720ms",
-        "--louis-motion-reveal-enter-timing-function": "cubic-bezier(0.16, 1, 0.3, 1)"
+        "--louis-motion-reveal-enter-timing-function": "cubic-bezier(0.19, 1, 0.22, 1)"
       },
       "deprecated": null,
       "description": null,
@@ -16768,9 +16768,9 @@
           "value": 720
         },
         "timingFunction": [
-          0.16,
+          0.19,
           1,
-          0.3,
+          0.22,
           1
         ]
       },
@@ -20194,9 +20194,9 @@
           "value": 720
         },
         "timingFunction": [
-          0.16,
+          0.19,
           1,
-          0.3,
+          0.22,
           1
         ]
       },
@@ -20210,9 +20210,9 @@
           "value": 720
         },
         "timingFunction": [
-          0.16,
+          0.19,
           1,
-          0.3,
+          0.22,
           1
         ]
       },

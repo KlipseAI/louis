@@ -1,11 +1,28 @@
 # @klipse-design/react
 
-P3에서 접근 가능한 headless behavior와 styled React 컴포넌트를 제공한다. 현재 manifest의 Web
-상태가 `not-ready`인 이유는 이 패키지에 배포 가능한 구현과 테스트가 아직 없기 때문이다.
+접근 가능한 headless behavior와 styled React 컴포넌트를 제공한다. 각 컴포넌트는 pointer,
+keyboard, focus, disabled/loading, high contrast, reduced motion 계약을 실브라우저 테스트로
+충족한 뒤 manifest에서 `partial` 또는 `done`으로 승격한다.
 
-첫 구현 순서는 Button → Menu/Popover → Dialog다. 각 컴포넌트는 pointer, keyboard, focus,
-disabled/loading, high contrast, reduced motion 계약을 충족한 뒤 `partial` 또는 `done`으로
-승격한다.
+## 설치
+
+**npm 레지스트리에 있지 않다.** sha로 고정한 git 설치가 정본 경로다
+([DS-D-0036](../../design/governance/decisions/DS-D-0036-git-install-distribution.md)).
+
+```json
+"@klipse-design/css": "github:KlipseAI/louis#<sha>&path:/packages/css",
+"@klipse-design/react": "github:KlipseAI/louis#<sha>&path:/packages/react"
+```
+
+**두 줄의 `<sha>`는 같아야 한다.** git 설치는 semver 범위를 보지 않으므로 css와 react의 호환은
+sha 하나로만 표현된다. CSS의 exit duration과 React의 타이머가 갈라지면 Dialog가 닫히는 순간이
+어긋난다([DS-D-0006](../../design/governance/decisions/DS-D-0006-versioning-peer-contract.md)).
+
+`@klipse-design/css`는 required peer다. npm은 peer를 자동 설치하려다 레지스트리에서 찾지 못해
+죽고, pnpm은 경고만 낸다 — 어느 쪽이든 **css를 함께 적어야 한다**.
+
+배포물은 ESM 전용이다. TypeScript 소비자는 `moduleResolution`이 `bundler`(또는 `node16` +
+`"type": "module"`)여야 한다.
 
 ## 아이콘 찾기
 

@@ -1166,6 +1166,15 @@
       "generated": false
     },
     {
+      "id": "decision-git-install-distribution",
+      "path": "design/governance/decisions/DS-D-0036-git-install-distribution.md",
+      "title": "DS-D-0036 정본 배포 경로는 git 설치다",
+      "section": "governance",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
+    },
+    {
       "id": "governance-product-confirmations",
       "path": "design/governance/product-confirmations.md",
       "title": "제품 확인 대기 목록",
@@ -1377,6 +1386,7 @@
         "design/governance/decisions/DS-D-0033-brightness-is-state.md",
         "design/governance/decisions/DS-D-0034-ink-paper-roles.md",
         "design/governance/decisions/DS-D-0035-figma-done-without-publish.md",
+        "design/governance/decisions/DS-D-0036-git-install-distribution.md",
         "design/governance/product-confirmations.md",
         "design/updates/README.md"
       ]

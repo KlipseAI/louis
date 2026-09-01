@@ -55,6 +55,27 @@ const DECLARED_HISTORICAL_PINS = [
 const MAX_DECLARED = DECLARED_HISTORICAL_PINS.length;
 const DECLARED_RATCHET = 2;
 
+// 앵커가 낙후된 동안 어긋나 있는 핀. **위 DECLARED_HISTORICAL_PINS 와 다른 것이다.**
+// 저것은 「영원히 앵커를 따라오지 않는 것이 맞는」 기록이고, 이것은 「지금 낙후돼 있고
+// 재고정으로 0 이 되어야 하는」 부채다. 둘을 한 목록에 섞으면 한시적 부채가 영구 면제로
+// 굳는다 — 이 저장소가 baseline 을 따로 두는 이유가 정확히 그것이다.
+//
+// **왜 baseline 을 두는가.** 이 게이트를 빨간 채로 verify:ci 에 두면 CI 가 상시 빨개진다.
+// 이 저장소는 그 실패를 이미 겪었다 — 제품 저장소를 읽는 게이트들이 러너에 그 저장소가
+// 없어 2026-08-18~08-22 에 46회 연속 빨갰고, 그동안 아무도 그 빨강을 읽지 않았다.
+// 상시 빨강은 게이트가 죽는 방식이지 사실을 말하는 방식이 아니다. 그래서 「지금 어긋난
+// 것」을 얼려 두고 **늘어나는 것만** 잡는다. 낙후 사실 자체는 사라지지 않는다 — 아래
+// 진단이 매 실행마다 몇 개가 남았는지와 그것을 어떻게 0 으로 만드는지를 인쇄한다.
+//
+// **한 방향 래칫이다.** 개수가 늘면 실패하고, 줄면 이 표를 내리라고 요구한다.
+// css-modules baseline 과 같은 성격이며, 목표는 이 표가 비는 것이다.
+const KNOWN_STALE = new Map([
+  ["figma/product-pricing-page.plan.json", 1],
+  ["migration/product.measured.json", 1],
+  ["migration/product.scenes.json", 3],
+  ["migration/product.variable-modes.json", 2],
+]);
+
 // 어긋난 핀을 어떻게 되돌리는지. 생성물마다 만드는 명령이 다르므로 진단이 직접 말하게 한다.
 const HOW_TO_REALIGN = new Map([
   [
@@ -92,7 +113,8 @@ if (typeof anchor.commit !== "string" || !/^[0-9a-f]{40}$/.test(anchor.commit)) 
   );
 }
 
-failures.push(...compare(anchor.commit, pins, DECLARED_HISTORICAL_PINS));
+const primary = compare(anchor.commit, pins, DECLARED_HISTORICAL_PINS, KNOWN_STALE);
+failures.push(...primary.found);
 
 // 선언이 늘지 않았는지. 이것만은 compare 밖에 둔다 — 변조 canary 가 선언 목록을 흔들기 때문에
 // 안에 두면 canary 가 자기 자신을 실패로 만든다.
@@ -103,6 +125,20 @@ if (MAX_DECLARED > DECLARED_RATCHET) {
   );
 }
 
+// 낙후가 줄었으면 표를 내리라고 요구한다. 줄어든 자리를 비워 두면 그 자리에 다음 낙후가
+// 조용히 들어온다 — baseline 을 쓰는 저장소가 전부 겪는 실패다.
+for (const [file, allowed] of KNOWN_STALE) {
+  const hit = primary.known.find((entry) => entry.file === file);
+  const now = hit?.count ?? 0;
+  if (now < allowed) {
+    failures.push(
+      "알려진 낙후가 " + allowed + "개에서 " + now + "개로 줄었습니다: " + file + ". " +
+        "KNOWN_STALE 의 그 줄을 " + (now === 0 ? "지우세요" : now + " 로 내리세요") +
+        " — 줄어든 자리를 비워 두면 다음 낙후가 조용히 그 자리에 들어옵니다.",
+    );
+  }
+}
+
 // ── 변조 canary ────────────────────────────────────────────────────────────
 // 판정 기준은 「변조가 baseline 에 없던 실패를 새로 만드는가」다. 지금 이 게이트는 실제로
 // 빨간 상태이므로(어긋난 핀 4파일), 이미 있는 실패에 canary 가 가려지지 않게 그 차이를 본다.
@@ -110,7 +146,7 @@ const baseline = new Set(failures);
 const TAMPERS = [
   {
     label: "앵커가 움직인 것 — 따라오지 않은 핀이 새로 드러나야 한다",
-    run: () => compare("0".repeat(40), pins, DECLARED_HISTORICAL_PINS),
+    run: () => compare("0".repeat(40), pins, DECLARED_HISTORICAL_PINS, KNOWN_STALE).found,
   },
   {
     label: "생성물의 핀이 아무 값으로나 바뀐 것",
@@ -119,7 +155,8 @@ const TAMPERS = [
         anchor.commit,
         [...pins, { file: "figma/tampered.plan.json", path: "/productCommit", key: "productCommit", value: "f".repeat(40) }],
         DECLARED_HISTORICAL_PINS,
-      ),
+        KNOWN_STALE,
+      ).found,
   },
   {
     label: "면제된 기록의 값이 바뀐 것 — 이름 면제가 아니라 값 면제여야 한다",
@@ -130,7 +167,8 @@ const TAMPERS = [
           pin.file === DECLARED_HISTORICAL_PINS[0].file ? { ...pin, value: "e".repeat(40) } : pin,
         ),
         DECLARED_HISTORICAL_PINS,
-      ),
+        KNOWN_STALE,
+      ).found,
   },
   {
     label: "면제만 남고 그 핀이 사라진 것 — 죽은 선언이 남는다",
@@ -139,7 +177,8 @@ const TAMPERS = [
         anchor.commit,
         pins.filter((pin) => pin.file !== DECLARED_HISTORICAL_PINS[1].file),
         DECLARED_HISTORICAL_PINS,
-      ),
+        KNOWN_STALE,
+      ).found,
   },
 ];
 
@@ -163,13 +202,26 @@ if (failures.length > 0) {
   );
   process.exit(1);
 }
+const staleTotal = primary.known.reduce((sum, entry) => sum + entry.count, 0);
+if (staleTotal > 0) {
+  // **초록이 「낙후가 없다」로 읽히면 안 된다.** 얼려 둔 것은 사실을 없앤 것이 아니라
+  // 늘어나는 것만 잡기로 한 것이므로, 남은 수와 0 으로 만드는 방법을 매 실행 인쇄한다.
+  console.log(
+    "[product-anchor] 알려진 낙후 " + staleTotal + "개가 남아 있습니다(" +
+      primary.known.map((entry) => entry.file + " " + entry.count).join(" · ") +
+      "). 앵커 재고정으로 0 이 됩니다 — 제품 워킹트리가 깨끗할 때 " +
+      "`pnpm run build-product-evidence` 로 lock 을 옮기고 어긋난 생성물을 같은 커밋에서 다시 만드세요.",
+  );
+}
 console.log(
-  "[product-anchor] OK (생성물 핀 " + pins.length + "개가 앵커 " + anchor.commit.slice(0, 8) +
-    " 하나로 모여 있음, 역사 기록 선언 " + MAX_DECLARED + "개, 변조 canary " + TAMPERS.length + "종)",
+  "[product-anchor] OK (생성물 핀 " + pins.length + "개, 앵커 " + anchor.commit.slice(0, 8) +
+    ", 역사 기록 선언 " + MAX_DECLARED + "개, 알려진 낙후 " + staleTotal + "개, 변조 canary " +
+    TAMPERS.length + "종)",
 );
 
-function compare(canon, allPins, declared) {
+function compare(canon, allPins, declared, allowance) {
   const found = [];
+  const known = [];
   const used = new Set();
   const byFile = new Map();
 
@@ -188,12 +240,22 @@ function compare(canon, allPins, declared) {
   }
 
   for (const [file, list] of [...byFile].sort((a, b) => a[0].localeCompare(b[0]))) {
-    found.push(
+    const allowed = allowance?.get(file) ?? 0;
+    const message =
       "앵커를 따라오지 않은 핀 " + list.length + "개: " + file + " (" +
-        list.map((pin) => pin.path + " = " + pin.value.slice(0, 8)).join(", ") +
-        " ≠ 앵커 " + String(canon).slice(0, 8) + "). " +
-        (HOW_TO_REALIGN.get(file) ??
-          "생성물이라면 다시 만들고, 기록이라면 이 게이트의 DECLARED_HISTORICAL_PINS 에 사유와 함께 적으세요."),
+      list.map((pin) => pin.path + " = " + pin.value.slice(0, 8)).join(", ") +
+      " ≠ 앵커 " + String(canon).slice(0, 8) + "). " +
+      (HOW_TO_REALIGN.get(file) ??
+        "생성물이라면 다시 만들고, 기록이라면 이 게이트의 DECLARED_HISTORICAL_PINS 에 사유와 함께 적으세요.");
+    if (list.length <= allowed) {
+      known.push({ file, count: list.length, allowed, message });
+      continue;
+    }
+    found.push(
+      message +
+        (allowed > 0
+          ? " **알려진 낙후 " + allowed + "개를 넘었습니다(" + list.length + "개).** 새로 어긋난 것이 있습니다."
+          : ""),
     );
   }
 
@@ -206,5 +268,5 @@ function compare(canon, allPins, declared) {
     );
   }
 
-  return found;
+  return { found, known };
 }

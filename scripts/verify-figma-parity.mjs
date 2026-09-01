@@ -1202,12 +1202,12 @@ const COMPONENT_CONTRACTS = [
     // `menu-popover.css:240-250` 이 `block-size: var(--louis-border-width-hairline)`(0.5px)로 두께를,
     // `box-shadow: var(--louis-hairline-inset-block-start)` 로 선을 나눠 낸다(DS-D-0023). 1 은 제품이
     // `a3ed8e0` 에서 쓰던 값이고 `components.measured.json` 에도 그 값이 코드 실측 자리에 들어와
-    // 있었다(같은 커밋에서 0.5 로 고쳤다). Figma 는 아직 1 을 그린다 — 아래 라이브 편차 참조.
+    // 있었다(같은 커밋에서 0.5 로 고쳤다).
     figmaAhead:
       "menu-popover.css:240-250 이 정본이다. 두께 0.5(border-width-hairline) + 방향성 inset 헤어라인 한 겹이라 " +
-      "variant 축이 없다. **라이브 Figma 의 MenuSeparator 는 높이 1 이다** — DS-D-0023 §7 이 " +
-      "「실측 두께 토큰은 0.5 로 유지한다」이므로 Figma 쪽이 어긋나 있다. geometry 를 계약에 붙이면 " +
-      "그 어긋남이 게이트로 올라온다.",
+      "variant 축이 없다. 라이브 Figma 도 같은 커밋에서 높이 0.5 · fill color/stroke-hairline 으로 옮겼고 " +
+      "되읽기가 그 값을 담는다 — DS-D-0023 §7 의 「실측 두께 토큰은 0.5 로 유지한다」와 맞는다. " +
+      "아래 geometry 가 그 축을 게이트로 잡는다.",
     variantProperties: {},
     figmaOnlyProperties: {},
     // **두께를 계약에 붙인다(2026-09-01).** 이 계약은 그동안 geometry 가 없어 Figma 가 1 을

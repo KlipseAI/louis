@@ -24,7 +24,6 @@ jobs:
         with:
           node-version: 22
 
-      - name: Enable pnpm
         run: corepack enable
 
       # P3부터 devDependencies가 생긴다. lockfile을 고정해 clean checkout 재현성을 지킨다.

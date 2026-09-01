@@ -41,7 +41,7 @@ test("spinner의 loop recipe가 토큰에서 온다", async () => {
       저장
     </Button>,
   );
-  const spinner = find(".louis-button__spinner");
+  const spinner = find(".louis-spinner__ring");
   const style = getComputedStyle(spinner);
 
   // 리터럴이던 자리다. 토큰을 바꾸면 여기가 따라와야 한다.
@@ -62,7 +62,7 @@ test("reduced-motion에서 회전이 멈추고 진행은 aria가 남긴다", asy
       저장
     </Button>,
   );
-  const spinner = find(".louis-button__spinner");
+  const spinner = find(".louis-spinner__ring");
   const iteration = getComputedStyle(spinner).animationIterationCount;
 
   if (__LOUIS_REDUCED_MOTION__) {

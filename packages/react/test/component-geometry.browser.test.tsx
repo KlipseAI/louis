@@ -84,7 +84,7 @@ for (const size of BUTTON_SIZES) {
     expect(px(style.fontSize), "fontSize").toBe(spec.fontSize);
     expect(px(style.lineHeight), "lineHeight").toBe(spec.lineHeight);
 
-    const spinner = loading.querySelector(".louis-button__spinner");
+    const spinner = loading.querySelector(".louis-spinner");
     const slot = withIcon.querySelector(".louis-button__icon");
     if (spinner === null || slot === null) throw new Error("spinner/icon 슬롯이 없습니다");
     expect(round(rect(spinner).width), "spinner").toBe(spec.spinner);

@@ -1,5 +1,7 @@
 import type { ButtonHTMLAttributes, JSX, ReactNode, Ref } from "react";
 
+import { Spinner } from "../spinner/spinner.js";
+
 /* inverse — 인증 플로우 제출 CTA. 페이지를 반전시킨 면이다. button.css 의 같은 이름 변형이
    소유하며 제품 apps/web/components/ui/Button.tsx 도 같은 집합을 쓴다. */
 export type ButtonVariant = "primary" | "secondary" | "ghost" | "danger" | "inverse";
@@ -79,7 +81,15 @@ export function Button({
         onClick?.(event);
       }}
     >
-      {loading ? <span className="louis-button__spinner" aria-hidden="true" /> : null}
+      {/* **Button은 자기 링을 그리지 않는다.** 이전 구현(`.louis-button__spinner`)은 트랙 없이
+          위쪽 테두리만 비우는 옛 DS 표현이었고, `spinner.css`가 그 표현을 「제품과 달랐고 편차로
+          선언된 적도 없다」고 이미 적어 두었다 — Spinner만 고쳐지고 Button이 따라가지 않은 흔적이다.
+          링의 정본은 Spinner 하나다.
+
+          `size`는 md(16) 고정이다. 아이콘 슬롯이 lg·md·sm 세 칸 모두 16이므로(button.css의
+          `.louis-button__icon`) 같은 자리에 같은 크기가 선다 — 스피너만 글자를 따라 줄어들 이유가 없다.
+          `label`을 주지 않아 장식이 된다. 진행 중이라는 사실은 이 버튼의 `aria-busy`가 이미 알린다. */}
+      {loading ? <Spinner size="md" /> : null}
       {leftIcon !== undefined && !loading ? (
         <span className="louis-button__icon" aria-hidden="true">
           {leftIcon}

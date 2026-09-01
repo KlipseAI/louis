@@ -153,7 +153,7 @@ Button 계약으로 해결할 수 있는지 먼저 확인한다.
 | Surface       | 상태           | 근거                                                      |
 | ------------- | -------------- | --------------------------------------------------------- |
 | Web           | `partial`      | public export와 acceptance test 11건; 아래 남은 증거 참조 |
-| Figma         | `partial`      | library draft의 component set 300 variant; 기하 parity 대조 통과, **스피너 슬롯만 미결**(아래) |
+| Figma         | `partial`      | library draft의 component set 300 variant; 기하·슬롯 parity 대조 통과 (남은 것은 stroke 역할 미채취) |
 | Documentation | `done`         | 이 문서                                                   |
 | Maturity      | `experimental` | 제품 소비 증거와 visual regression이 아직 없음            |
 
@@ -274,28 +274,31 @@ Button 판정으로 읽지 않는다.
 렌더되지 않는다**(`leftIcon !== undefined && !loading`). `rightIcon`에는 그 조건이 없어 loading에도
 남는다 — 비대칭이 의도다. spinner가 왼쪽 아이콘 자리를 대신하기 때문이다.
 
-**2026-09-01 라이브 전수 순회에서 셋이 나왔고, 셋 다 `verify-figma-parity`가 보지 못하는
-자리다.** 게이트는 size별 기하 집계와 슬롯 크기만 대조하고 **자식 순서와 칸별 가시성은 대조하지
-않는다**. 둘은 같은 날 고쳤고 하나가 남았다.
+**2026-09-01 라이브 전수 순회에서 셋이 나왔고 셋 다 닫혔다.** 게이트는 size별 기하 집계와 슬롯
+크기만 대조하고 **자식 순서와 칸별 가시성은 대조하지 않아**, 앞의 둘은 순회로만 보였다.
 
 | 실측 | 규모 | 처리 |
 | --- | --- | --- |
-| spinner가 맨 **뒤**에 섰다 (`LeftIcon \| Label \| RightIcon \| Spinner`) | 60칸 | **고침** — 맨 앞으로 |
-| loading인데 leftIcon이 **보였다**, 그래서 왼쪽 padding도 줄어든 채였다 | 30칸 | **고침** — 숨김 + padding을 base로 |
-| spinner 크기 16×16(획 1) | lg·md 200칸 | **미결** — 아래 |
+| spinner가 맨 **뒤**에 섰다 (`LeftIcon \| Label \| RightIcon \| Spinner`) | 60칸 | Figma를 맨 앞으로 |
+| loading인데 leftIcon이 **보였고** 왼쪽 padding도 줄어든 채였다 | 30칸 | Figma에서 숨김 + padding을 base로 |
+| spinner가 16인데 계약은 lg·md 18이었다 | lg·md 200칸 | **코드를 고쳤다** — 아래 |
 
-**고친 둘은 저장소 파일을 하나도 움직이지 않았다.** `readback.json`의 Button 기하는 size별 값
+**앞의 둘은 저장소 파일을 하나도 움직이지 않았다.** `readback.json`의 Button 기하는 size별 값
 집계라, 칸 30개의 왼쪽 padding이 14에서 16으로 옮겨가도 lg의 집합은 여전히 `{14, 16}`이다.
 자식 순서와 가시성은 애초에 담기지 않는다. **되읽기가 안 움직였다는 것이 「바뀐 것이 없다」는
 뜻이 아니다** — 이 종류는 라이브 순회로만 보인다.
 
-남은 하나는 그렇게 단순하지 않다 — 코드의
-loading indicator는 Spinner 컴포넌트가 아니라 Button이 소유한 별도 레시피(`button.css`의
-`.louis-button__spinner`)이고 크기가 글자를 따라가는데(`1em` + ring 2×2 → lg·md 18 · sm 16),
-Figma는 그 자리를 **Spinner 컴포넌트의 인스턴스**로 그리고 있다. Spinner의 사다리에 18은 없다.
-인스턴스를 18로 늘리면 코드 어디에도 없는 획 두께가 나오고, 16으로 두면 계약과 어긋난다.
-**Button이 Spinner 컴포넌트를 소비하도록 코드를 바꾸는 쪽이 남은 선택지**이며 소유자 결정이
-필요하다. 결정 전까지 `verify-figma-parity`의 Button 슬롯 2줄은 열린 채로 둔다.
+**세 번째는 Figma가 아니라 코드가 틀렸다.** Button은 링을 자기가 그리고 있었다 —
+`.louis-button__spinner`는 `1em` 정사각에 테두리를 두르고 위쪽만 비우는, **트랙 없는 옛 DS
+표현**이다. `spinner.css`가 그 표현을 이미 「제품과 다른 표현이었고 편차로 선언된 적도 없었다」고
+적어 두고 Spinner를 트랙 + 진행 두 겹으로 고쳤는데, **Button만 옛 표현에 남아 있었다.** 한
+시스템에 링이 두 벌이었고 둘이 서로 달랐다. 크기 18도 그 잔재다 — `1em`이라 글자를 따라가서,
+아이콘 슬롯이 세 칸 모두 16인 것과 어긋나는 유일한 자리가 됐다.
+
+`button.tsx`가 `<Spinner size="md" />`를 렌더한다. 링 규칙은 `spinner.css`가 소유하고, 크기는
+세 칸 모두 16으로 아이콘 슬롯과 같은 자리에 같은 크기가 선다. **Figma는 처음부터 Spinner
+인스턴스를 놓고 있었으므로 손대지 않았다** — 이 건은 Figma가 정답을 들고 있었고 코드가 따라간
+경우다.
 
 ##### 제품 실측 — hover 면과 active scale
 

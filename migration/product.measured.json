@@ -343,7 +343,7 @@
         },
         "loading / progress indicator": {
           "product": "없음 — loading prop도 spinner 요소도 ButtonProps(157-166)에 존재하지 않는다",
-          "ds": "data-loading=true + .louis-button__spinner (1em 정사각, border 2px currentColor, radius 999px, 1s linear infinite), label opacity 0.6, aria-busy (button.css:125-127,159-182)",
+          "ds": "data-loading=true + Spinner 컴포넌트(.louis-spinner 16 정사각, 트랙 + 진행 두 겹, motion-spin 700ms linear infinite), label opacity 0.6, aria-busy. **2026-09-01 이전에는 Button이 자기 링(.louis-button__spinner, 1em 정사각에 트랙 없는 테두리)을 그렸다** — spinner.css가 이미 폐기한 옛 표현이라 Spinner 소비로 옮겼다",
           "match": "product-missing",
           "evidence": "apps/web/components/ui/Button.tsx:157",
           "status": "accepted-deviation",
@@ -676,7 +676,7 @@
         },
         "구분선 (separator)": {
           "product": "카드 메뉴에는 없음. 프로필 팝오버만 height 1px, margin 4px 10px, background dark #575d68 / light #e3e4e8",
-          "ds": "box-shadow: var(--louis-hairline-inset-block-start) (\uc0c9 var(--louis-color-stroke-hairline) \u2014 light 0 0 0 / 8%, dark 1 1 1 / 8%), block-size var(--louis-border-width-hairline) = 0.5px, margin-block 4px, margin-inline 0",
+          "ds": "box-shadow: var(--louis-hairline-inset-block-start) (색 var(--louis-color-stroke-hairline) — light 0 0 0 / 8%, dark 1 1 1 / 8%), block-size var(--louis-border-width-hairline) = 0.5px, margin-block 4px, margin-inline 0",
           "match": "different",
           "evidence": "apps/web/components/navigation/Gnb.tsx:1033,1034,1035,1036,1037,1286,1293",
           "status": "accepted-deviation",

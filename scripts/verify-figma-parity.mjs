@@ -76,7 +76,10 @@ const COMPONENT_CONTRACTS = [
     id: "button",
     strokes: {
       self: { weight: "borderWidth", align: "INSIDE" },
-      Spinner: { weight: 2, align: "INSIDE" },
+      // **Spinner 역할은 없다.** 여기에는 `Spinner: { weight: 2 }`가 있었고, 그것은 폐지된
+      // `.louis-button__spinner`의 `border: 2px`를 가리키고 있었다. 지금 링은 Spinner 컴포넌트가
+      // 그리고, Figma에서도 코드에서도 **테두리가 아니라 채워진 호(arc)**다 — 두께는 안쪽
+      // 반지름이 정한다(16 지름에 innerRadius 0.75 → 벽 2px). 잴 stroke 자체가 없다.
       "LeftIcon.glyph": { weight: "icon", align: "CENTER" },
       "RightIcon.glyph": { weight: "icon", align: "CENTER" },
     },
@@ -94,7 +97,7 @@ const COMPONENT_CONTRACTS = [
       Icon: {
         options: ["left", "right", "both", "none"],
         reason:
-          "코드에서 leftIcon/rightIcon은 ReactNode prop이고 있으면 그린다. Figma에서 불리언으로 두면 아이콘이 붙은 쪽 padding 보정(-2px, button.css:78-91)을 표현할 수 없다 — 불리언은 가시성만 바꾼다. 그래서 variant 축으로 쪼갰고 5×2×5×4 = 200이다.",
+          "코드에서 leftIcon/rightIcon은 ReactNode prop이고 있으면 그린다. Figma에서 불리언으로 두면 아이콘이 붙은 쪽 padding 보정(-2px, button.css:78-91)을 표현할 수 없다 — 불리언은 가시성만 바꾼다. 그래서 variant 축으로 쪼갰고 5×3×5×4 = 300이다.",
       },
       State: {
         options: ["Default", "Hover", "Active", "Disabled", "Loading"],

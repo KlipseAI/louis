@@ -2,23 +2,23 @@
   "artifacts": [
     {
       "path": "packages/tokens/generated/figma.tokens.json",
-      "sha256": "6167a86964072aa3ec60be1d44f6469085fd9bb3b9c1419a496b3a9d1b6e16fe"
+      "sha256": "1a809785988b82022bb81191b01481e3920b288ffe4a5a0d40181ff467f1a6f9"
     },
     {
       "path": "packages/tokens/generated/index.d.ts",
-      "sha256": "67290a3a01d74cc9ea6ce009790cbb9668bb2d0c16356f663b9e0abb4d69cfbc"
+      "sha256": "0432492a76b16634f74ebc1f15e812eb68ab35f00c6f772a6296b2223b6aa7f4"
     },
     {
       "path": "packages/tokens/generated/index.js",
-      "sha256": "1b79ea56aa5ee2ca7d1309b97ad7e18b89779a3cb10554d8eb9279c5c73fb3f5"
+      "sha256": "4ccb7ca8352dc00c2121577db1ca13d332ece4a43e8a3a41530e0aa883440c45"
     },
     {
       "path": "packages/tokens/generated/tokens.css",
-      "sha256": "1239d6546e18d45bf1cb26eae8a788cdd4f4722e0d64f065997523291b1ac103"
+      "sha256": "28c93548dfd3a44329ae4d473eb09defbcac9a3d95abcc209c967aa350f1ebeb"
     },
     {
       "path": "packages/tokens/generated/tokens.json",
-      "sha256": "17924c66cb0001811f2a90e082c3262d90dd0418ceb46c07f9d5549ca989fb9a"
+      "sha256": "26c1e6928d30740989381f73b5dd21c1b1053410c8678dfd98df6dec32e5da26"
     }
   ],
   "contrastPairs": [
@@ -261,6 +261,13 @@
       ]
     },
     {
+      "motion": "motion-reveal-enter",
+      "properties": [
+        "opacity",
+        "translate"
+      ]
+    },
+    {
       "motion": "motion-list-enter",
       "properties": [
         "opacity",
@@ -355,6 +362,10 @@
       "reduced": "motion-reduced"
     },
     {
+      "motion": "motion-reveal-enter",
+      "reduced": "motion-reduced"
+    },
+    {
       "motion": "motion-list-enter",
       "reduced": "motion-reduced"
     },
@@ -408,13 +419,13 @@
   },
   "source": {
     "path": "packages/tokens/src/klipse.tokens.json",
-    "sha256": "5cdf18578b03989c9abff277abd91f1a6c74b075fa9832d42c28741ae4fb75d8"
+    "sha256": "f61635e083b3b8704c3af60696dacc746ae1686ddc5eacfaffdb4065121f2c37"
   },
   "themes": [
     "light",
     "dark"
   ],
-  "tokenCount": 773,
+  "tokenCount": 781,
   "tokens": [
     {
       "aliasTarget": {
@@ -1041,6 +1052,110 @@
         ]
       },
       "sourcePath": "semantic.dark.color.accent-danger",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-red-alpha-12",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-accent-danger-secondary": "color(srgb 1 0.294118 0.34902 / 0.12)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-accent-danger-secondary",
+      "mode": "light",
+      "rawValue": "{primitive.color.red-alpha.12}",
+      "resolvedValue": {
+        "alpha": 0.12,
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.294118,
+          0.34902
+        ]
+      },
+      "sourcePath": "semantic.light.color.accent-danger-secondary",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-red-alpha-12",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-accent-danger-secondary": "color(srgb 1 0.294118 0.34902 / 0.12)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-accent-danger-secondary",
+      "mode": "dark",
+      "rawValue": "{primitive.color.red-alpha.12}",
+      "resolvedValue": {
+        "alpha": 0.12,
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.294118,
+          0.34902
+        ]
+      },
+      "sourcePath": "semantic.dark.color.accent-danger-secondary",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-red-alpha-24",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-accent-danger-secondary-hover": "color(srgb 1 0.294118 0.34902 / 0.24)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-accent-danger-secondary-hover",
+      "mode": "light",
+      "rawValue": "{primitive.color.red-alpha.24}",
+      "resolvedValue": {
+        "alpha": 0.24,
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.294118,
+          0.34902
+        ]
+      },
+      "sourcePath": "semantic.light.color.accent-danger-secondary-hover",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-red-alpha-24",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-accent-danger-secondary-hover": "color(srgb 1 0.294118 0.34902 / 0.24)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-accent-danger-secondary-hover",
+      "mode": "dark",
+      "rawValue": "{primitive.color.red-alpha.24}",
+      "resolvedValue": {
+        "alpha": 0.24,
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.294118,
+          0.34902
+        ]
+      },
+      "sourcePath": "semantic.dark.color.accent-danger-secondary-hover",
       "tier": "semantic",
       "type": "color"
     },
@@ -3225,6 +3340,58 @@
         ]
       },
       "sourcePath": "semantic.dark.color.bg-surface",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-static-white-alpha-72",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-bg-surface-translucent": "color(srgb 1 1 1 / 0.72)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-bg-surface-translucent",
+      "mode": "light",
+      "rawValue": "{primitive.color.static-white-alpha.72}",
+      "resolvedValue": {
+        "alpha": 0.72,
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          1,
+          1
+        ]
+      },
+      "sourcePath": "semantic.light.color.bg-surface-translucent",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-static-black-alpha-72",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-bg-surface-translucent": "color(srgb 0 0 0 / 0.72)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-bg-surface-translucent",
+      "mode": "dark",
+      "rawValue": "{primitive.color.static-black-alpha.72}",
+      "resolvedValue": {
+        "alpha": 0.72,
+        "colorSpace": "srgb",
+        "components": [
+          0,
+          0,
+          0
+        ]
+      },
+      "sourcePath": "semantic.dark.color.bg-surface-translucent",
       "tier": "semantic",
       "type": "color"
     },
@@ -16578,6 +16745,41 @@
     },
     {
       "aliasTarget": {
+        "id": "transition-reveal-enter",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-motion-reveal-enter-delay": "0ms",
+        "--louis-motion-reveal-enter-duration": "720ms",
+        "--louis-motion-reveal-enter-timing-function": "cubic-bezier(0.16, 1, 0.3, 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "motion-reveal-enter",
+      "mode": "global",
+      "rawValue": "{primitive.transition.reveal-enter}",
+      "resolvedValue": {
+        "delay": {
+          "unit": "ms",
+          "value": 0
+        },
+        "duration": {
+          "unit": "ms",
+          "value": 720
+        },
+        "timingFunction": [
+          0.16,
+          1,
+          0.3,
+          1
+        ]
+      },
+      "sourcePath": "semantic.global.motion.reveal-enter",
+      "tier": "semantic",
+      "type": "transition"
+    },
+    {
+      "aliasTarget": {
         "id": "scale-tooltip-rest",
         "mode": "base"
       },
@@ -19972,6 +20174,49 @@
         ]
       },
       "sourcePath": "primitive.transition.reduced",
+      "tier": "primitive",
+      "type": "transition"
+    },
+    {
+      "aliasTarget": null,
+      "cssProperties": {},
+      "deprecated": null,
+      "description": null,
+      "id": "transition-reveal-enter",
+      "mode": "base",
+      "rawValue": {
+        "delay": {
+          "unit": "ms",
+          "value": 0
+        },
+        "duration": {
+          "unit": "ms",
+          "value": 720
+        },
+        "timingFunction": [
+          0.16,
+          1,
+          0.3,
+          1
+        ]
+      },
+      "resolvedValue": {
+        "delay": {
+          "unit": "ms",
+          "value": 0
+        },
+        "duration": {
+          "unit": "ms",
+          "value": 720
+        },
+        "timingFunction": [
+          0.16,
+          1,
+          0.3,
+          1
+        ]
+      },
+      "sourcePath": "primitive.transition.reveal-enter",
       "tier": "primitive",
       "type": "transition"
     },

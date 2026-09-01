@@ -167,6 +167,10 @@
           "reduced": "motion-reduced"
         },
         {
+          "motion": "motion-reveal-enter",
+          "reduced": "motion-reduced"
+        },
+        {
           "motion": "motion-list-enter",
           "reduced": "motion-reduced"
         },
@@ -329,6 +333,13 @@
             "inline-size"
           ],
           "lifecycle": "layout-change"
+        },
+        {
+          "motion": "motion-reveal-enter",
+          "properties": [
+            "opacity",
+            "translate"
+          ]
         },
         {
           "motion": "motion-list-enter",
@@ -4413,6 +4424,30 @@
           }
         }
       },
+      "reveal-enter": {
+        "$value": {
+          "duration": {
+            "value": 720,
+            "unit": "ms"
+          },
+          "delay": {
+            "value": 0,
+            "unit": "ms"
+          },
+          "timingFunction": [
+            0.16,
+            1,
+            0.3,
+            1
+          ]
+        },
+        "$extensions": {
+          "com.klipse-design": {
+            "id": "transition-reveal-enter",
+            "tier": "primitive"
+          }
+        }
+      },
       "reduced": {
         "$value": {
           "duration": {
@@ -5589,6 +5624,16 @@
           "$extensions": {
             "com.klipse-design": {
               "id": "motion-overlay-exit",
+              "tier": "semantic",
+              "mode": "global"
+            }
+          }
+        },
+        "reveal-enter": {
+          "$value": "{primitive.transition.reveal-enter}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "motion-reveal-enter",
               "tier": "semantic",
               "mode": "global"
             }

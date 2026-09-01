@@ -240,6 +240,13 @@ export const metadata = Object.freeze({
       "lifecycle": "layout-change"
     },
     {
+      "motion": "motion-reveal-enter",
+      "properties": [
+        "opacity",
+        "translate"
+      ]
+    },
+    {
       "motion": "motion-list-enter",
       "properties": [
         "opacity",
@@ -331,6 +338,10 @@ export const metadata = Object.freeze({
     },
     {
       "motion": "motion-shell-collapse",
+      "reduced": "motion-reduced"
+    },
+    {
+      "motion": "motion-reveal-enter",
       "reduced": "motion-reduced"
     },
     {
@@ -6861,6 +6872,49 @@ export const primitives = {
       ]
     }
   },
+  "transition-reveal-enter": {
+    "aliasTarget": null,
+    "cssProperties": {},
+    "deprecated": null,
+    "description": null,
+    "id": "transition-reveal-enter",
+    "mode": "base",
+    "rawValue": {
+      "duration": {
+        "value": 720,
+        "unit": "ms"
+      },
+      "delay": {
+        "value": 0,
+        "unit": "ms"
+      },
+      "timingFunction": [
+        0.16,
+        1,
+        0.3,
+        1
+      ]
+    },
+    "sourcePath": "primitive.transition.reveal-enter",
+    "tier": "primitive",
+    "type": "transition",
+    "value": {
+      "duration": {
+        "value": 720,
+        "unit": "ms"
+      },
+      "delay": {
+        "value": 0,
+        "unit": "ms"
+      },
+      "timingFunction": [
+        0.16,
+        1,
+        0.3,
+        1
+      ]
+    }
+  },
   "transition-shell-collapse": {
     "aliasTarget": null,
     "cssProperties": {},
@@ -10092,6 +10146,41 @@ export const tokens = {
           0.2,
           0,
           0,
+          1
+        ]
+      }
+    },
+    "motion-reveal-enter": {
+      "aliasTarget": {
+        "id": "transition-reveal-enter",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-motion-reveal-enter-duration": "720ms",
+        "--louis-motion-reveal-enter-delay": "0ms",
+        "--louis-motion-reveal-enter-timing-function": "cubic-bezier(0.16, 1, 0.3, 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "motion-reveal-enter",
+      "mode": "global",
+      "rawValue": "{primitive.transition.reveal-enter}",
+      "sourcePath": "semantic.global.motion.reveal-enter",
+      "tier": "semantic",
+      "type": "transition",
+      "value": {
+        "duration": {
+          "value": 720,
+          "unit": "ms"
+        },
+        "delay": {
+          "value": 0,
+          "unit": "ms"
+        },
+        "timingFunction": [
+          0.16,
+          1,
+          0.3,
           1
         ]
       }

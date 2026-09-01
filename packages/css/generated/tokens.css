@@ -527,6 +527,9 @@
   --louis-motion-reduced-delay: 0ms;
   --louis-motion-reduced-duration: 0ms;
   --louis-motion-reduced-timing-function: cubic-bezier(0.2, 0, 0, 1);
+  --louis-motion-reveal-enter-delay: 0ms;
+  --louis-motion-reveal-enter-duration: 720ms;
+  --louis-motion-reveal-enter-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
   --louis-motion-scale-tooltip-rest: 0.97;
   --louis-motion-shell-collapse-delay: 0ms;
   --louis-motion-shell-collapse-duration: 320ms;

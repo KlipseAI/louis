@@ -22,7 +22,7 @@
     "./icons/manifest.json": "./dist/icons/manifest.json"
   },
   "peerDependencies": {
-    "@klipse-design/css": "workspace:^",
+    "@klipse-design/css": "*",
     "@types/react": "^19.0.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
@@ -40,5 +40,8 @@
     "@radix-ui/react-focus-scope": "^1.1.16",
     "@radix-ui/react-popper": "^1.3.7",
     "@radix-ui/react-portal": "^1.1.17"
+  },
+  "devDependencies": {
+    "@klipse-design/css": "workspace:*"
   }
 }

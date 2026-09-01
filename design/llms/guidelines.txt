@@ -4,7 +4,7 @@
 
 - System maturity: experimental
 - Coverage: exhaustive
-- Documents: 54
+- Documents: 58
 - Purpose: 개발, 콘텐츠, 거버넌스와 adoption 계약
 
 ## Sources
@@ -62,6 +62,10 @@
 - design/governance/decisions/DS-D-0035-figma-done-without-publish.md
 - design/governance/decisions/DS-D-0036-git-install-distribution.md
 - design/governance/decisions/DS-D-0037-product-surface-denominator.md
+- design/governance/decisions/DS-D-0038-icons-are-an-asset-axis.md
+- design/governance/decisions/DS-D-0039-pattern-boards-count-as-coverage.md
+- design/governance/decisions/DS-D-0040-state-is-a-variant-axis.md
+- design/governance/decisions/DS-D-0041-dialog-tone-axis.md
 - design/governance/product-confirmations.md
 - design/updates/README.md
 
@@ -128,7 +132,7 @@ Figma library는 아직 `not-ready`다. 시스템 전체 maturity도 `experiment
 | 항목 | 현재 값 |
 | --- | --- |
 | System maturity | `experimental` |
-| Normative documents | 119 |
+| Normative documents | 123 |
 | Generated documents | 5 |
 | Components | 40 |
 | Patterns | 8 |
@@ -9121,6 +9125,622 @@ canary 는 실패만 단언하므로 **다섯째 방향은 손으로 시험하�
 
 `needed` 160건의 순위 목록과 `unclear` 12건의 질문은 원장이 소유한다 — 문서로 옮겨 적으면
 그 사본이 낡고, 낡았다는 사실을 재는 자가 없다는 것이 이 결정이 처음부터 막으려던 것이다.
+
+## DS-D-0038 아이콘은 에셋 축이다 — 컴포넌트 커버리지의 분모가 아니다
+
+- Source: design/governance/decisions/DS-D-0038-icons-are-an-asset-axis.md
+- Maturity: experimental
+
+### DS-D-0038 아이콘은 에셋 축이다 — 컴포넌트 커버리지의 분모가 아니다
+
+- Status: accepted
+- Date: 2026-09-01
+- Owners: repository owner (판단 위임), design system maintainer
+- Affects: `decision-product-surface-denominator`, `decision-icon-size-axis`,
+  `decision-icon-source`, `governance-figma-sync`
+
+#### Context
+
+[DS-D-0037](../governance/decisions/DS-D-0037-product-surface-denominator.md)이 제품 표면의 **분모**를 세웠다 — 표면 하나 =
+모듈 최상위의 PascalCase React 컴포넌트 하나, 앵커에서 400종. 그런데 분모가 서는 것과 **그 분모를
+무엇으로 채우는가**는 다른 질문이고, 후자가 미결로 남아 원장의 대량이 네 개의 규칙 질문에
+매달려 있었다. 그중 하나가 「아이콘 세트를 컴포넌트 축에 넣는가」다.
+
+이 질문에는 `unclear` 표면이 하나도 걸려 있지 않다. 대신 `scoped` 를 대량으로 움직인다.
+
+```sh
+node -e "const j=require('./migration/product.surfaces.json');let i=0,n=0,c=0;
+for (const [k,v] of Object.entries(j.surfaces)) { if (v.verdict!=='scoped') continue;
+  if (k.includes('node-canvas-v2')) c++;
+  if (/아이콘|글리프/.test(v.reason)) { i++; if (k.includes('node-canvas-v2')) n++; } }
+console.log(i,n,c)"
+# → 74 52 84
+```
+
+`scoped` 213 중 **74건**이 「이건 아이콘이라 다른 축이 소유한다」를 사유로 갖고, 그중 **52건**이
+노드 캔버스 도메인에 몰려 있다 — 그 도메인 `scoped` 84 의 62%다. 이 질문의 답이 뒤집히면
+그 74건이 통째로 `needed` 가 된다.
+
+**소유자가 판단을 위임했다.** 네 축 모두에 대해 「실무적으로 추천해 달라」였고, 그 위임의 결과가
+이 문서를 포함한 넷이다. 출처가 실측이 아니라 **위임받은 판정**이라는 것을 남겨 둔다 — 다음
+사람이 이것을 뒤집을 때 반박해야 할 대상은 측정값이 아니라 아래의 논거다.
+
+##### 왜 넷을 한 문서에 묶지 않았나
+
+위임받은 판정은 넷이고, 문서도 넷이다([DS-D-0038](../governance/decisions/DS-D-0038-icons-are-an-asset-axis.md) ·
+[DS-D-0039](../governance/decisions/DS-D-0039-pattern-boards-count-as-coverage.md) ·
+[DS-D-0040](../governance/decisions/DS-D-0040-state-is-a-variant-axis.md) ·
+[DS-D-0041](../governance/decisions/DS-D-0041-dialog-tone-axis.md)). 기준은 **되돌릴 때 무엇이 함께 흔들리는가** 하나다.
+
+넷은 서로를 전제하지 않는다. 「패턴 보드를 센다」를 뒤집어도 「아이콘은 에셋이다」는 그대로 서고,
+「Dialog 에 톤 축을 연다」를 뒤집어도 표면을 가르는 규칙은 움직이지 않는다. 한 문서에 묶으면
+하나를 뒤집을 때 나머지 셋의 근거 문단까지 `superseded` 표시 아래로 들어가고, 그러면 여전히
+유효한 판정이 폐기된 문서 안에서만 읽히게 된다. 이 저장소가 그 상태를 이미 한 번 겪었다 —
+[DS-D-0035](../governance/decisions/DS-D-0035-figma-done-without-publish.md)가 [DS-D-0025](../governance/decisions/DS-D-0025-figma-as-projection.md)
+의 결론이 아니라 **거기 붙어 있던 부작용 한 줄**만 뒤집으면서, 두 판단이 한 문장에 묶여 있던
+탓에 어느 쪽이 살아 있는지 읽어 내는 데 문서 전체를 다시 읽어야 했다.
+
+①②가 「무엇을 표면 대응으로 세는가」의 두 면이라는 것은 맞다. 그러나 두 면은 **분모의 구성**(①)과
+**분자의 자격**(②)이라 움직이는 수가 다르다 — ①을 뒤집으면 `scoped` 74가 `needed` 로 가고
+커버리지의 분모(대상 대비)가 커지며, ②를 뒤집으면 분자가 줄어든다. 같이 흔들리지 않는 둘이다.
+
+#### Decision
+
+**아이콘은 컴포넌트 축에 넣지 않는다. 현재 구조를 유지하고, 그것을 커버리지 어휘로 못박는다.**
+
+아이콘은 컴포넌트가 아니라 **에셋**이다. 근거 셋.
+
+1. **축이 없다.** 컴포넌트를 컴포넌트로 만드는 것은 variant/state 축이다 — 같은 것이 조건에 따라
+   다르게 그려지고, 그 갈래를 계약이 잠근다. 아이콘에는 그 축이 없다.
+   [DS-D-0021](../governance/decisions/DS-D-0021-icon-size-axis.md)이 그것을 이미 판정했다 — 크기 variant조차 만들지 않고
+   24 하나를 `rescale` 로 놓는다. 축이 없는 것을 축 있는 것들과 같은 분모에 넣으면 그 분모는
+   더 이상 「축을 몇 개나 계약했나」를 재지 못한다.
+2. **개수의 자릿수가 다르다.** 지금 파일에 컴포넌트 51 · 아이콘 31 이고, 승격 대기 중인 제품
+   글리프만 200 대다. 아이콘을 분모에 넣는 순간 커버리지는 「아이콘을 몇 개 올렸나」가 되고,
+   화면 층이 비어 있다는 사실은 그 수 아래로 사라진다. DS-D-0037 이 분모를 고를 때 정본 컴포넌트
+   12개 안을 버린 이유가 정확히 이것이다 — **문제가 없는 축만 재게 되는 단위를 고르면 안 된다.**
+3. **이미 갈라져 있다.** 이 결정은 새 구조를 만들지 않는다. `figma/readback.json` 이
+   `components` 와 `icons` 를 서로 다른 사전에 담고, Figma 페이지도 `DS · Components` 와
+   `DS · Icons` 로 다르며, 게이트도 `scripts/verify-figma-parity.mjs`(컴포넌트)와
+   `scripts/verify-icon-gates.mjs`(아이콘·출처·고지)로 둘이다. 구조가 이미 그렇게 서 있는데
+   커버리지 어휘만 그것을 모르고 있었다.
+
+##### Linear 의 선례
+
+참고 파일 `IWohxdWtibbqKNKayhhkLN`("Linear Design System (Community)")도 같은 자리에서 같은
+선택을 했다. 페이지는 하나이고 그 안을 section 20개로 나누는데, 아이콘은 **크기별로 section 이
+따로다** — `Icons - 16px`(symbol 199개) · `Icons - 24px`(2) · `Icons - Other`(4). 컨트롤
+프리미티브 section(Input Fields · Buttons · Toggle & Checkbox · Tooltips · Keys)과 완전히 분리돼
+있다. 크기가 variant 축이 아니라 **section 이 다르다.**
+
+수는 2026-09-01 에 그 파일을 `get_metadata` 로 읽어 얻었다. **읽기 전용 참고이며 이 저장소의
+어떤 게이트도 그 파일을 재지 않는다** — 다시 확인하려면 그 파일을 직접 열어야 하고, 낡았을
+가능성은 여기 적힌 다른 수들과 다르게 아무도 잡아 주지 않는다.
+
+#### 이 결정이 덮지 않는 것 — 글리프 스트로크 정리는 별건이다
+
+**여기를 잘못 읽으면 실제 결함이 숨는다.** 「아이콘은 컴포넌트 커버리지 밖」은
+「아이콘 쪽에 할 일이 없다」가 **아니다.**
+
+지금 아이콘 축 안에 미결이 둘 있다.
+
+- **제품 글리프의 상자와 획이 갈려 있다.** 24 와 32 두 상자에 스트로크가 2 · 2.2 · 2.25 · 2.4 로
+  흩어져 있고, 이 저장소의 정본은 24 상자에 1.5 다(DS-D-0021 이 그 값을 `rescale` 규칙으로
+  잠갔다). 즉 제품에서 오는 글리프를 그대로 올리면 정본 규칙을 어긴 아이콘이 세트에 섞인다.
+- **`90 · ASSETS` 의 `.glyph/` 계열 중 무엇을 `icon/` 정본으로 승격하는가**가 정해지지 않았다.
+  승격 판정은 [DS-D-0008](../governance/decisions/DS-D-0008-icon-source.md)의 출처·고지 요건을 통과해야 한다.
+
+둘 다 **아이콘 축 안에서** 하는 일이고 이 결정은 그것을 닫지 않는다. 「범위 밖」이 「없어도 된다」로
+읽히는 것이 DS-D-0037 이 `needed` 판정을 연 바로 그 이유였다 — 미등록을 사유에 적으면 사유로
+둔갑해 범위 밖으로 세어진다. 같은 둔갑을 이 결정이 만들지 않도록, 위 둘은 **아이콘 축의 미결로
+남아 있음을 여기 명시한다.**
+
+#### Alternatives
+
+- **아이콘을 컴포넌트 축에 넣는다.** 커버리지 한 수로 전부를 재는 단순함이 이득이다. 대가는
+  위 실측 그대로다 — `scoped` 74 가 `needed` 로 뒤집히고, 그중 52 가 한 도메인에 몰려 있어
+  「무엇을 먼저 그리는가」 목록의 앞자리를 아이콘이 차지한다. 아이콘은 `rescale` 규칙만 지키면
+  기계적으로 올라가는 일이라, 그 목록의 앞자리에 있어야 할 이유가 없다.
+- **아이콘을 분모에서 아예 지운다**(원장에서 그 표면들을 삭제). 커버리지가 즉시 예뻐진다. 그래서
+  `check-figma-surface-coverage` 가 `TOTAL_FLOOR` 로 그 길을 이미 막아 두었다 — 분모를 지워서
+  수를 올리는 것은 이 저장소가 명시적으로 금한 동작이다. 그리고 지운 것은 재지 않는 것이다.
+- **아이콘용 세 번째 커버리지 수를 만든다.** 표면 축에 아이콘 커버리지를 더 찍는 안이다.
+  `verify-icon-gates` 가 이미 아이콘 축을 재고 있으므로 같은 것을 두 곳에서 세게 되고,
+  두 수가 갈리는 날 어느 쪽이 참인지 판정할 자가 없다.
+
+#### Consequences
+
+- 원장의 아이콘 계열 74건은 `scoped` 로 남는다. 사유는 이미 「다른 축이 소유한다」로 적혀 있으므로
+  문구를 고칠 것이 없다.
+- 커버리지 두 수(전체 대비 · 대상 대비)는 이 결정으로 움직이지 않는다.
+- `verify-icon-gates` 가 아이콘 축의 유일한 게이트로 남는다. 아이콘이 컴포넌트 커버리지에
+  세어지지 않는 대신, **그 게이트가 빨개지는 것이 아이콘 축의 유일한 신호**라는 뜻이다.
+
+#### Rollout and verification
+
+이 결정은 현행 구조를 문장으로 굳히는 것이라 게이트·원장·Figma 어느 쪽도 바꾸지 않는다.
+검증은 문서 축만 돈다.
+
+- `pnpm check` — manifest ↔ 문서 정합, 생성물 최신
+- `node ./scripts/verify-doc-paths.mjs` · `node ./scripts/verify-record-citations.mjs`
+- `pnpm verify:ci`
+
+**아직 하지 않은 것**(이 결정 밖의 별건이며 아이콘 축이 소유한다):
+제품 글리프의 상자·획 정리, `.glyph/` 계열의 `icon/` 승격 판정.
+
+## DS-D-0039 패턴 보드도 표면 대응으로 센다 — 컴포넌트 대응과 나눠 찍는 조건으로
+
+- Source: design/governance/decisions/DS-D-0039-pattern-boards-count-as-coverage.md
+- Maturity: experimental
+
+### DS-D-0039 패턴 보드도 표면 대응으로 센다 — 컴포넌트 대응과 나눠 찍는 조건으로
+
+- Status: accepted
+- Date: 2026-09-01
+- Owners: repository owner (판단 위임), design system maintainer
+- Affects: `decision-product-surface-denominator`, `decision-figma-done-without-publish`,
+  `governance-figma-sync`
+
+#### Context
+
+[DS-D-0037](../governance/decisions/DS-D-0037-product-surface-denominator.md)의 `figma` 판정은 「그 Figma 컴포넌트 「인」
+표면」이다. 그 문장에 **컴포넌트만** 적혀 있어서, Figma 에 이미 서 있는데 컴포넌트가 아닌 것으로
+서 있는 표면은 적을 자리가 없었다.
+
+원장의 `unclear` 12건 중 셋이 그 자리에서 멈춰 있다.
+
+```sh
+node -e "const j=require('./migration/product.surfaces.json');
+for (const [k,v] of Object.entries(j.surfaces))
+  if (v.verdict==='unclear' && /template|템플릿|패턴 보드/.test(v.reason)) console.log(k)"
+# → components/auth/AuthStatusCard.tsx#AuthStatusCard
+#   components/landing/system/SectionShell.tsx#SectionShell
+#   components/navigation/Gnb.tsx#Gnb          (식별자에서 제품 트리 접두는 뗐다)
+```
+
+`Gnb.tsx#Gnb` 는 앱 셸 전체다 — 5,639줄에 레일·브랜드 행·내비 행·업그레이드 CTA·상단 바·프로필
+팝오버·저장 상태가 다 들어 있다. **이것을 「컴포넌트 하나」로 세울 수는 없다.** 그런데 Figma 에는
+이미 있다 — `figma/readback.json` 의 `templates` 에 `app-shell` 이 상태 프레임과 `requiredParts`
+목록을 갖고 서 있고, 그 부품 열은 SidebarBrand · SidebarCta · SidebarNavItem 처럼 컴포넌트로
+따로 서 있다. `AuthStatusCard` 는 한 발 더 나가 있다 — `scripts/lib/product-files.mjs` 가 그 파일을
+`auth-two-panel` 패턴의 **실측 정본**으로 고정한다. 디자인은 이미 Figma 에 있는데
+`figma` 필드에 적을 수 있는 이름이 없어서 세 표면이 `unclear` 에 앉아 있었다.
+
+**그리고 게이트는 이미 그것을 허용하고 있었다.** `scripts/check-figma-surface-coverage.mjs` 의
+판정 어휘는 되읽기의 `components` 와 `templates` 의 **합집합**이고, 주석이 「컴포넌트 51 +
+템플릿 9」라고 적는다. 규칙이 문서 어디에도 없어서 아무도 쓰지 않았을 뿐이다. 세 표면이
+이미 열려 있는 문 앞에서 기다리고 있었다.
+
+**소유자가 판단을 위임했다** — 「실무적으로 추천해 달라」. 출처가 측정이 아니라 위임받은
+판정이라는 것을 남겨 둔다.
+
+#### Decision
+
+**패턴 보드를 `figma` 판정의 정당한 대상으로 인정한다. 단, 커버리지를 컴포넌트 대응과 패턴
+대응으로 나눠 찍는 것을 조건으로 한다.**
+
+세지 않으면 `Gnb.tsx#Gnb` 같은 표면은 영원히 `needed` 로 남는다. 그런데 그 자리의 진실은
+「그려야 한다」가 아니라 「이미 그려져 있는데 셈할 어휘가 없다」이고, `needed` 목록은 전자로
+읽힌다. **읽는 사람을 틀리게 만드는 판정은 판정이 아니다.**
+
+##### 나눠 찍지 않으면 안 되는 이유 — 패턴 대응은 컴포넌트 대응보다 약한 증거다
+
+셋이 다르다.
+
+1. **닫히는 방향이 하나뿐이다.** 컴포넌트 대응은 `scripts/verify-figma-parity.mjs` 의
+   `COMPONENT_CONTRACTS` 가 계약 ↔ Figma 를 양방향으로 잠그고,
+   [DS-D-0035](../governance/decisions/DS-D-0035-figma-done-without-publish.md)의 (a)(b)(c) 를 통과하면 `done` 까지 간다.
+   패턴은 **여덟 전부 `figma: partial`** 이다.
+
+   ```sh
+   node -e "const m=require('./design/manifest.json');
+   console.log(m.patterns.map(p=>p.id+':'+p.figma).join(' '))"
+   ```
+
+   DS-D-0035 가 그 이유를 이미 적었다 — 패턴의 대조 상대인 `figma/templates.measured.json` 은
+   제품을 고정 커밋에서 잰 값인데 그 앵커가 제품보다 낙후돼 있어 (c)의 「지금 코드가 그 값을
+   만든다」가 서지 않는다. **패턴 대응은 지금 구조상 `done` 에 도달할 수 없는 대응이다.**
+2. **부품에 key 가 없다.** 패턴 보드가 계약하는 것은 `requiredParts` — 부품 **이름의 목록**이다.
+   `auth-two-panel` 은 「이 화면에 Form card 가 있다」를 말하지만 「그 Form card 가 어느
+   컴포넌트인가」는 말하지 않는다. 인스턴스로 집어다 쓸 대상이 없으므로, 그 자리를 다시 그리는
+   사람은 매번 새로 그린다. 컴포넌트 대응이 주는 것 — **재사용** — 이 여기에는 없다.
+3. **n:1 이다.** 컴포넌트 대응은 표면 하나가 세트 하나를 가리키는 1:1 이지만, 패턴 보드 하나는
+   여러 표면이 가리킬 수 있다. 그러면 대응 수는 오르는데 **그려진 것은 하나도 늘지 않는다.**
+
+셋을 합치면 결론 하나다 — 패턴 대응은 「Figma 에 있다」를 말할 자격은 있지만
+「컴포넌트로 서 있다」와 같은 무게로 세면 커버리지가 실제보다 두껍게 보인다. 그래서
+**한 수로 합치지 않는다.**
+
+##### 어떻게 나눠 찍는가
+
+`figma` 판정 안에서 **어느 사전의 이름인가**로 가른다. 게이트가 이미 두 사전을 합집합으로 만들고
+있으므로, 합치기 전에 어느 쪽에서 왔는지를 기억하면 된다 — 새 판정값도, 사람이 적는 새 필드도
+필요 없다.
+
+인쇄는 이렇게 갈린다.
+
+    Figma 표면 커버리지: 표면 N종 · 대응 M (컴포넌트 a · 패턴 b) · 전체 대비 …% · 대상 대비 …%
+
+`mapped` 래칫(정확히 일치)은 합계에 그대로 걸고, **컴포넌트 대응 수에도 같은 래칫을 건다.**
+합계만 잠그면 컴포넌트 대응을 패턴 대응으로 바꿔치기해도 수가 유지되어 후퇴가 보이지 않는다.
+
+##### 「9종」이 두 수다 — 판정 어휘는 되읽기 쪽 9다
+
+이 결정을 쓰다가 드러난 별건의 결손을 함께 적는다.
+
+```sh
+node -e "const r=require('./figma/readback.json'), m=require('./design/manifest.json');
+const t=Object.keys(r.templates), p=m.patterns.map(x=>x.id);
+console.log(t.length, p.length, t.filter(x=>!p.includes(x)))"
+# → 9 8 [ 'home' ]
+```
+
+되읽기의 `templates` 는 아홉인데 `design/manifest.json` 의 `patterns` 는 여덟이고, `home` 이
+카탈로그에 없다. 어느 수를 쓰느냐로 「패턴 커버리지」의 분모가 달라지므로 **판정의 어휘는
+되읽기 쪽 아홉**으로 못박는다 — 게이트가 실제로 읽는 사전이 그것이고, 여기서 카탈로그 쪽을
+정본으로 삼으면 게이트가 통과시키는 이름을 규범이 금하는 상태가 된다.
+
+`home` 이 카탈로그에 없는 것은 이 결정이 드러낸 결손이지 이 결정이 만든 것이 아니다.
+아래 「아직 하지 않은 것」에 남긴다.
+
+#### Alternatives
+
+- **51 컴포넌트만 센다(현행 문언).** 「대응」의 뜻이 하나로 유지되는 것이 이득이다. 대가는
+  `Gnb.tsx#Gnb` 를 비롯한 화면 표면이 `needed` 에 영구히 앉는 것이고, 그것은 할 일 목록을
+  **틀린 항목으로 오염시킨다.** 「무엇을 그려야 하는가」의 답에 이미 그려진 것이 섞이면 목록의
+  신뢰가 통째로 깎인다.
+- **패턴을 억지로 `scoped` 로 넘긴다.** 원장이 `Gnb` 사유에서 이미 반박했다 — 「정하기 전에 억지로
+  scoped 로 넘기면 제품에서 가장 큰 화면 표면이 원장에서 사라진다.」 분모에서 빠지는 것이 아니라
+  **재지 않는 것으로 바뀐다.**
+- **앱 셸을 컴포넌트 하나로 세운다.** `figma-component-authoring` §9 가 이미 반대 방향을 정했다 —
+  부품 먼저, 조립은 그다음. 그리고 부품 열 종은 실제로 이미 서 있다. 남은 것은 조립이고,
+  조립을 담는 그릇이 패턴 보드다.
+- **새 판정값 `pattern` 을 연다.** 판정 어휘가 다섯이 되고 래칫이 하나 늘며,
+  `figma`(정확히 일치) 래칫이 둘로 갈린다. 얻는 것은 같은데 어휘 표와 게이트와 원장 머리말이
+  전부 움직인다. `figma` 안에서 이름의 출처로 가르는 쪽이 작다 — **그 정보는 이미 되읽기가
+  갖고 있고 사람이 새로 적을 것이 없다.**
+- **합계 한 수만 찍는다.** 게이트 변경이 거의 없어 싸다. 그런데 그러면 「패턴으로 퉁쳤다」가
+  정확히 숨는다 — 이 저장소가 손으로 센 원장에서 당한 실패, 그리고 DS-D-0037 이 판정 축을
+  넷으로 연 이유가 같은 모양이다. **한 수는 언제나 두 가지를 섞을 자리를 만든다.**
+
+#### Consequences
+
+- `Gnb.tsx#Gnb` 는 `app-shell` 로, `AuthStatusCard` 는 `auth-two-panel` 로 확정된다. 셋째인
+  `SectionShell` 은 **이 결정으로 풀리지 않는다** — 원장이 요구한 「landing-section」 규격이
+  되읽기의 `templates` 에 없기 때문이다. 규격을 세우면 `figma`, 세우지 않기로 하면 `needed` 이며
+  그 판정은 여기 없다.
+- 두 표면이 옮겨 가면 `mapped` 가 오르고 `unclear` 가 준다. `check-figma-surface-coverage` 의
+  `MAPPED_BASELINE` 은 **오를 때도 실패**하도록 되어 있으므로(이득을 잠그라는 요구다) 같은
+  변경에서 함께 올려야 한다.
+- 「대상 대비」 비율이 두 방향으로 움직인다 — 분자가 오르고, `unclear` 가 줄어도 분모는 그대로다
+  (`scoped` 만 분모에서 빠진다). 두 수를 함께 읽는 습관이 여기서 실제로 필요해진다.
+
+#### Rollout and verification
+
+**이 변경에서 한 것은 결정을 문서로 세운 것뿐이다.** 아래는 이 결정이 요구하지만 아직 하지 않은
+일이고, 지어내지 않고 그대로 적는다.
+
+1. 원장 `migration/product.surfaces.json` 의 `$verdictRule`·`$howToUse` 에 「패턴 보드 이름도
+   `figma` 에 적을 수 있다」를 더한다. 그 두 문자열은 게이트가 존재와 길이를 검사하는 자리이므로,
+   규칙이 파일 밖에만 있으면 다음 사람은 규칙을 보지 못한다.
+2. `scripts/check-figma-surface-coverage.mjs` 가 대응을 컴포넌트/패턴으로 갈라 세고 갈라 찍게
+   한다. 컴포넌트 대응 수에 래칫을 함께 건다.
+3. `Gnb.tsx#Gnb` · `AuthStatusCard` 를 `figma` 로 재판정하고 `MAPPED_BASELINE` 을 올린다.
+4. 되읽기에 있는 `home` 이 `design/manifest.json` 의 `patterns` 에 없는 것을 해소한다 —
+   카탈로그에 세우거나, 왜 패턴이 아닌지를 적는다.
+
+검증은 그때 `pnpm check` · `node ./scripts/verify-doc-paths.mjs` ·
+`node ./scripts/verify-record-citations.mjs` · `pnpm verify:ci` 로 돈다. 이 문서만 들어간 지금은
+같은 넷이 문서 축에서만 돈다.
+
+## DS-D-0040 상태는 표면 하나의 축이다 — 골격이 바뀔 때만 표면이 갈린다
+
+- Source: design/governance/decisions/DS-D-0040-state-is-a-variant-axis.md
+- Maturity: experimental
+
+### DS-D-0040 상태는 표면 하나의 축이다 — 골격이 바뀔 때만 표면이 갈린다
+
+- Status: accepted
+- Date: 2026-09-01
+- Owners: repository owner (판단 위임), design system maintainer
+- Affects: `decision-product-surface-denominator`, `governance-figma-component-authoring`
+
+#### Context
+
+[DS-D-0037](../governance/decisions/DS-D-0037-product-surface-denominator.md)은 「한 컴포넌트의 여러 시각 상태는 표면
+1개로 센다」를 한 줄로 적었다. **판정 규칙 없이 적었다.** 그래서 원장에 그 줄을 어떻게 적용하는지가
+남았고, `scoped` 27건이 그 미결에 매달렸다.
+
+그리고 그 한 줄은 실제로는 두 가지를 말하고 있었다. 열거기는 로딩 상태를 **별 표면으로
+열거한다** — 모듈 최상위의 PascalCase 컴포넌트이므로 분모에 든다. 접히는 것은 열거가 아니라
+**판정**이다. 원장이 스켈레톤 일곱을 「부모 표면의 loading 상태」라는 사유로 `scoped` 에 둔 것이
+그 접기이고, 그 접기의 기준이 어디에도 없었다.
+
+```sh
+node -e "const j=require('./migration/product.surfaces.json');
+for (const [k,v] of Object.entries(j.surfaces))
+  if (v.verdict==='scoped' && /Skeleton/.test(k)) console.log(k.split('#')[1])"
+# → StaticCreateDemoSkeleton ChartSkeleton ContentTableSkeleton MetricCardsSkeleton
+#   ReportKpiRowSkeleton ReportPrimaryBlockSkeleton PickerSkeleton
+```
+
+**소유자가 판단을 위임했고** 이렇게 정했다 — 「상태는 원칙적으로 표면 1개의 variant 축이되,
+골격 자체가 다르면 별 표면이다.」 근거는 둘이다. Figma variant 가 정확히 그 일을 하려고 있는
+기능이고, 상태를 별 컴포넌트로 세우면 같은 카드가 셋으로 갈려 하나를 고칠 때 셋을 고쳐야 한다.
+
+이 문서가 하는 일은 그 판정에 **다음 사람이 기계적으로 적용할 수 있는 시험**을 붙이는 것이다.
+「골격이 다르다」는 그대로는 판정이 아니라 느낌이다.
+
+#### Decision
+
+**상태는 표면 하나의 축이다.** 별 표면이 되는 길은 둘뿐이고, 아래 시험을 통과해야 한다.
+
+본 상태를 그리는 자리와 그 상태를 그리는 자리를 나란히 놓고 셋을 묻는다.
+
+| # | 무엇을 묻나 | 걸리면 |
+| --- | --- | --- |
+| 1 | **자식 구성** — 자식의 *집합*이 다른가. 본 상태에 없던 **종류**의 자식이 들어오거나, 같은 자식이 **다른 개수로** 반복되는가 | **별 표면** |
+| 2 | **배치** — 자식 구성은 같은데 놓이는 방식만 다른가(축 전치 · 열 수 · 정렬) | **축이다** (단독으로는 표면을 가르지 않는다) |
+| 3 | **자리의 주인** — 본 상태를 소유한 표면이 원장에 **있는가**. 없다면(화면이 인라인으로 그린다) 그 상태는 붙을 축이 없다 | **별 표면** |
+
+정리하면 이렇다.
+
+> **자식 구성이 다르거나(1), 붙일 표면이 없으면(3) 별 표면이다. 배치만 다르거나(2) 색·불투명도·
+> 문구·글리프만 다르면 표면 하나의 축이다.**
+
+자식이 **감춰지는 것**은 1에 해당하지 않는다. 그것은 오토레이아웃의 정상 결과이고,
+`figma-component-authoring` §2 가 이미 그 구분을 갖고 있다.
+
+##### 두 층을 섞지 마라
+
+이 시험은 **표면을 몇 개로 셀 것인가**를 정한다. 표면이 하나로 정해진 다음에
+[figma-component-authoring](../governance/figma-component-authoring.md) §2 의 네 시험이
+**그 축이 VARIANT 인가 BOOLEAN 인가**를 정한다. 순서가 있다.
+
+섞으면 「BOOLEAN 으로 못 그리니까 별 컴포넌트」라는 잘못된 추론이 나온다. 네 시험은 축의
+*형태*를 정하는 것이지 축의 *존재*를 부정하지 않는다 — §2 가 연 조건 축 일곱(`Checked` ·
+`Selected` · `Invalid` · `Expanded` · `Featured` · `Collapsed` · `Loading`)이 전부 「BOOLEAN 으로
+못 그리지만 한 컴포넌트의 축」인 자리다.
+
+##### 시험을 실제로 돌린 셋
+
+**`ContentTableSkeleton` → 축.** 섹션 카드·안쪽 패널·표 행 격자를 그대로 두고 셀의 내용만
+시머로 바꾼다. 자식의 종류도 개수도 같고(1 통과), 배치도 같으며(2), 본 상태의 주인이
+`ContentTable.tsx#AnalyticsContentTable` 하나로 지목된다(3 통과). 원장의 현재 판정과 같다.
+
+**`ReportKpiRowSkeleton` → 별 표면.** 이것은 KPI 카드 **넷의 행**을 자기 프레임 안에 갖는다.
+그런데 본 상태의 그 행은 어느 표면도 소유하지 않는다 — 화면이 인라인으로 그린다. 시험 3에
+걸린다. **축은 표면에 붙는 것이고, 붙일 표면이 없으면 붙일 데가 없다.** 원장은 이것을
+`AnalyticsOverviewTab` 의 로딩으로 접어 두었는데, 그러면 그 탭 표면의 `Loading` 축이 카드 넷의
+행 골격을 통째로 갖게 된다. 소유자가 「합성 스켈레톤」이라고 부른 것이 정확히 이 모양이다.
+
+**`SelectionChrome` → 별 표면.** 원장의 `unclear` 하나다. 노드 선택 테두리인데 단일 선택은 부모
+곡률을 상속하고 그룹 선택은 고정 곡률의 사각형이며, **그룹 선택은 어느 노드에도 속하지 않는다.**
+시험 3에 걸린다 — 각 노드의 `Selected` 상태 축으로만 두면 그룹 선택을 그릴 자리가 아예 없다.
+
+##### 경계 사례 — 규칙이 답을 주지만 그 답이 다른 문을 두드린다
+
+`PhotoGrid.tsx#ImageStrip` 과 `PhotoSection` 이다. 원장의 `unclear` 이고, 사유가 이미
+「소유자가 한 번 정해 주면 이 도메인 밖에서도 반복해 쓸 수 있다」고 적어 둔 자리다.
+
+내용이 같다 — 메인 이미지 블록 + 참조 슬롯 행 + 태그 칩. 다른 것은 배치다(2열 그리드 ↔ 가로
+스트립, 고정 flex-basis, 참조 행의 모서리가 더 작다). **시험 2만 걸린다 → 표면 하나 +
+`Layout` 축이다.**
+
+이것이 경계인 이유는 두 가지다.
+
+- **모서리가 함께 바뀐다.** 그것은 배치가 아니라 스타일이라 「2만 걸린다」는 판정이 흔들려
+  보인다. 흔들리지 않는다 — 스타일 차이는 §2 의 시험 1에 걸려 그 축을 BOOLEAN 으로 못 쓰게
+  만들 뿐, 표면을 가르지 않는다. **두 층을 섞지 마라**가 여기서 실제로 값을 한다.
+- **`Layout` 은 축 어휘 표에 없는 이름이다.** 그러면 §2 의 「표에 없는 축을 새로 만들려면 이
+  문서를 먼저 고친다」가 발동한다. 즉 이 규칙이 낸 답은 **다음 사람에게 다른 문서의 일을
+  만든다.** 그것이 결함이 아니라 설계다 — 축 어휘가 닫혀 있는 이유가 그것이고,
+  PaneDivider 의 `Orientation` 이 같은 경로로 열렸다.
+
+**선례가 그 방향을 지지한다.** PaneDivider 는 기하가 90° 전치되는데도(4×60 ↔ 60×4) 컴포넌트
+하나의 `Orientation` 축이다. 배치가 그만큼 바뀌어도 표면은 갈리지 않았다.
+
+##### 왜 전수를 채우지 않는가
+
+축을 연다는 것이 그 축의 모든 조합을 그린다는 뜻은 아니다. 참고 파일
+`IWohxdWtibbqKNKayhhkLN`("Linear Design System (Community)")의 Button 이 그 예다 — 축 다섯
+(Hierarchy 4 · State 4 · Size 4 · Icon 2 · Destructive 2)의 전수는 256인데 **실제 variant 는 28**
+이고, 격자에 빈 칸이 눈에 띄게 많다. `Destructive=True` 는 Primary/Medium 에만, `State` 는 셋만,
+Banner 는 Small 만 있다. 쓰는 조합만 그렸다.
+
+이 저장소의 같은 규범이 「쓰지 않는 계단은 사다리가 아니다」다
+([DS-D-0027](../governance/decisions/DS-D-0027-control-size-ladder.md) · [DS-D-0030](../governance/decisions/DS-D-0030-no-duplicate-role-tokens.md)).
+Linear 수는 2026-09-01 에 그 파일을 `get_metadata` 로 읽어 얻었고, **이 저장소의 게이트가 재지
+않는 참고**다.
+
+#### Alternatives
+
+- **상태마다 컴포넌트를 세운다.** 각 상태를 독립적으로 그릴 수 있는 것이 이득이다. 대가는
+  소유자가 지목한 그대로 — 같은 카드가 셋으로 갈려 하나를 고칠 때 셋을 고쳐야 하고, 셋이 갈리는
+  날 어느 것이 정본인지 판정할 자가 없다. 그리고 Figma variant 가 정확히 이 문제를 위해 있다.
+- **골격 판정 없이 「상태는 언제나 축」으로 못박는다.** 규칙이 가장 짧다. 그런데 `SelectionChrome`
+  의 그룹 선택과 합성 스켈레톤은 **붙을 표면이 없어서** 그리지 못하게 된다. 규칙이 짧아진 대신
+  표현할 수 없는 것이 생기는 교환이고, 이 저장소는 같은 교환을 Button 의 `Icon` 축에서 이미
+  반대로 판정했다(200 변형이 되더라도 표현 못 하는 것보다 낫다).
+- **원장에서 상태 컴포넌트를 열거하지 않는다.** 열거기가 AST 에서 내는 것을 사람이 걸러 내는
+  일이라, DS-D-0037 이 없애려던 「손으로 타이핑한 목록」이 열거기 안으로 되돌아온다.
+
+#### Consequences
+
+- 원장의 상태 계열 판정에 적용할 기준이 생겼다. 시험을 돌리면 지금 `scoped` 인 것 일부가
+  `needed` 로 뒤집힌다 — 합성 스켈레톤 계열과 `SelectionChrome` 이 그 후보다.
+- `needed` 가 느는 것은 후퇴가 아니다. DS-D-0037 이 그 래칫을 일부러 열어 둔 이유가 이것이고,
+  이 결정은 그 판단의 첫 소비자다.
+- `unclear` 12 중 둘(`SelectionChrome` · `ImageStrip`)에 답할 규칙이 생겼다. **이 문서가 그 둘을
+  원장에서 옮기지는 않는다** — 아래 참조.
+
+#### Rollout and verification
+
+**이 변경에서 한 것은 규칙을 문서로 세운 것뿐이다.** 요구되지만 아직 하지 않은 일을 적는다.
+
+1. 원장 `migration/product.surfaces.json` 의 상태 계열 판정을 이 시험으로 다시 돌린다.
+   뒤집히는 것은 `needed` 로 옮기고 `weight` 를 붙인다.
+2. `SelectionChrome`(별 표면) · `ImageStrip`(표면 하나 + `Layout` 축)을 `unclear` 에서 내린다.
+3. `ImageStrip` 이 요구하는 `Layout` 축 어휘를
+   [figma-component-authoring](../governance/figma-component-authoring.md) §2 표에 올린다 — 축 어휘가 닫혀
+   있으므로 그 문서를 먼저 고쳐야 그릴 수 있다.
+
+검증: `pnpm check` · `node ./scripts/verify-doc-paths.mjs` ·
+`node ./scripts/verify-record-citations.mjs` · `pnpm verify:ci`.
+
+## DS-D-0041 확인 대화상자는 Dialog 의 톤이다 — ConfirmDialog 를 세우지 않는다
+
+- Source: design/governance/decisions/DS-D-0041-dialog-tone-axis.md
+- Maturity: experimental
+
+### DS-D-0041 확인 대화상자는 Dialog 의 톤이다 — ConfirmDialog 를 세우지 않는다
+
+- Status: accepted
+- Date: 2026-09-01
+- Owners: repository owner (판단 위임), design system maintainer
+- Affects: `decision-product-surface-denominator`, `governance-figma-component-authoring`,
+  `decision-figma-done-without-publish`
+
+#### Context
+
+원장의 `unclear` 하나가 이 갈림길에 있다 — `ConfirmModal`. 사유가 「이 도메인 모달 대부분이 같은
+갈림길을 공유한다」고 적는다. 셸은 이미 `.louis-dialog` 정본 그대로라 Dialog 대응으로 볼 수도
+있는데, 파괴적 확인과 본문의 비용 줄이 Figma Dialog 의 축(`Size` · `HasClose` · `Title` ·
+`Description`)에 없다.
+
+**제품 실측이 답의 절반을 이미 갖고 있었다.**
+
+```sh
+git -C <제품 저장소> grep -n confirmVariant ae8fd627
+```
+
+`ConfirmModal` 과 `GlassConfirmModal` 이 **둘 다** `confirmVariant?: "primary" | "danger"` 를
+갖는다. 그 prop 이 하는 일은 확인 버튼의 `variant` 하나이고, 그 밖에 갈리는 선언이 없다. 즉
+**제품이 이미 「같은 Dialog 의 톤 차이」로 모델링했다.** 그리고 이 저장소의 정본 판정은
+[DS-D-0025](../governance/decisions/DS-D-0025-figma-as-projection.md) 그대로 코드가 정본이고 Figma 가 projection 이다 —
+제품이 한 벌로 쓰는 것을 Figma 가 두 벌로 세우면 projection 이 원본보다 갈라진다.
+
+둘 다 셸은 `data-size="compact"` 이고, **둘 다 닫기 버튼이 없다.**
+
+**소유자가 판단을 위임했다** — 「실무적으로 추천해 달라」. 그 위임의 답이 「Dialog 에 `Tone` 축과
+`dismissible` 축을 연다. ConfirmDialog 를 새로 세우지 않는다」였다.
+
+#### Decision
+
+1. **ConfirmDialog 를 새 컴포넌트로 세우지 않는다.** 확인 대화상자는 Dialog 의 한 톤이다.
+2. **Dialog 에 `Tone` 축을 연다. 값은 `neutral` · `danger` 둘뿐이다.**
+3. **「닫기 버튼이 없다」에는 새 축을 만들지 않는다 — 이미 `HasClose` 가 그 계약이다.**
+
+##### 3은 위임받은 판정문과 이름이 다르다 — 이유를 적는다
+
+위임받은 문장은 「`dismissible` 축을 함께 연다」였다. **그 자리에 축이 이미 서 있다.**
+`figma/readback.json` 의 Dialog 는 `HasClose` BOOLEAN 을 갖고, `scripts/verify-figma-parity.mjs` 의
+계약이 그 축의 사유까지 적어 두었다 — 「닫기 버튼이 없는 대화상자가 있다 — 결정을 강제하는
+확인 창이다. 코드에서는 onClose의 유무다.」 위임받은 판정이 요구한 계약이 **낱말 그대로** 거기
+있다.
+
+새 이름을 열면 같은 뜻에 이름이 둘이 된다. `figma-component-authoring` §2 가 그것을 금하고
+(`Current` 는 `Selected` 의 두 번째 어휘이므로 쓰지 않는다),
+[DS-D-0030](../governance/decisions/DS-D-0030-no-duplicate-role-tokens.md)이 토큰 축에서 같은 규범을 갖는다.
+**판정의 내용은 그대로 채택하고 이름만 이미 있는 것을 쓴다.**
+
+실측이 그 판정의 뒷절도 좁힌다. 위임문은 「닫기 버튼 없음 **+ 액션 고정**」을 계약으로 들었는데,
+두 확인 모달의 backdrop 클릭은 **닫는다** — 겉면의 클릭 처리가 취소를 부른다. 잠기는 것은
+`cancelDisabled`/`confirmDisabled` 가 켜져 있는 동안뿐이고 그것은 축이 아니라 버튼의 disabled 다.
+그래서 지금 계약이 다른 것은 「닫기 버튼의 유무」 하나이고, `HasClose` 가 이미 그것이다.
+나중에 backdrop 이 실제로 잠기는 확인 창이 생기면 그때 그것이 새 축이고, 그 근거는 실측이지
+이 결정이 아니다.
+
+##### 왜 축이어야 하는가 — 중첩 인스턴스로 두지 않는 이유
+
+Figma 는 중첩 인스턴스의 property 를 부모에서 노출할 수 있다. 그러니 Dialog 에 축을 열지 않고
+푸터의 Button 인스턴스에서 `Variant` 를 `danger` 로 고르게 하는 길이 있다. 실제로 그쪽이
+컴포넌트 하나의 변형 수를 늘리지 않는다.
+
+**버리는 이유는 게이트다.** `verify-figma-parity` 가 읽는 것은 component set 의 property 목록이고,
+중첩 노출은 그 목록에 없다 — **게이트가 그 톤 차이를 아예 재지 않는다.** 계약이 되지 못하는
+표현은 이 저장소에서 대조되지 않는 표현이고, DS-D-0035 가 그 자리를 이미 막았다: 한 방향만
+걸린 채로 유지된 초록은 아무것도 말하지 않는다.
+
+##### 왜 두 값뿐인가 — 조합을 전수로 채우지 않는다
+
+`Tone` 어휘는 다섯이지만(`neutral` · `info` · `success` · `warning` · `danger`) 제품이 쓰는 것은
+둘이다. 그리고 교차도 채우지 않는다 — 두 확인 모달이 **둘 다 `compact`** 이므로 `Tone=danger` 는
+그 칸에만 그린다. Dialog 의 현재 변형은 넷이고, 전수 교차(넷 × 둘 = 여덟)가 아니라 **다섯**이 된다.
+
+**선례가 둘이다.** 이 저장소 쪽은 「쓰지 않는 계단은 사다리가 아니다」
+([DS-D-0027](../governance/decisions/DS-D-0027-control-size-ladder.md) · [DS-D-0030](../governance/decisions/DS-D-0030-no-duplicate-role-tokens.md))
+이고, 밖은 참고 파일 `IWohxdWtibbqKNKayhhkLN`("Linear Design System (Community)")의 Button 이다.
+
+Linear 의 Button variant 이름은 이렇게 생겼다.
+
+    Hierarchy=Primary, State=Default, Size=Large, Icon=None, Destructive=False
+
+**파괴적 동작이 별 컴포넌트가 아니라 boolean 축이다.** 그리고 그 5축의 전수는
+4 × 4 × 4 × 2 × 2 = 256인데 **실제 variant 는 28**이다 — `Destructive=True` 는 Primary/Medium 에만
+있고, 격자에 빈 칸이 눈에 띄게 많다. 축을 여는 것과 조합을 채우는 것은 별개다.
+
+수는 2026-09-01 에 그 파일을 `get_metadata` 로 읽어 얻었다. **읽기 전용 참고이며 이 저장소의
+게이트가 재지 않는다.**
+
+우리가 boolean 대신 `Tone` 을 쓰는 이유는 어휘 표다 — §2 의 `Tone` 이 이미 의미 톤을 담는 축이고,
+`Destructive` 라는 새 이름을 열면 그 표에 뜻이 겹치는 칸이 하나 더 생긴다.
+
+##### Radix · Material 이 AlertDialog 를 따로 두는 것과 다른 축이다
+
+Radix 와 Material 이 AlertDialog 를 별 컴포넌트로 두는 이유는 **시각이 아니라 역할**이다 —
+`role="alertdialog"` 는 보조기술에 「사용자의 응답을 기다리는 중요한 메시지」임을 알리고, 그에 따라
+포커스와 알림 처리가 달라진다. 색·톤과는 무관하고, 빨간 버튼이 있는지 없는지와도 무관하다.
+
+이 결정은 **Figma 컴포넌트를 몇 개로 세우는가**를 정한다. 두 축을 한 판정으로 묶으면
+「빨간 버튼이 있으니 alertdialog」 같은 잘못된 대응이 생기고, 반대로 「alertdialog 가 필요하니
+컴포넌트를 나눠야 한다」는 잘못된 요구가 생긴다. **둘은 서로를 함의하지 않는다.**
+
+접근성 역할이 필요해지면 **prop 으로** 연다. Figma 에는 그것을 그릴 자리가 없고, 억지로 축을
+만들면 되읽기에 담기지 않는 축이 된다 — 그런 축의 처리는 PaneDivider 의 `compact` 판정이 이미
+정했다(축으로 만들지 않고 규범 문서가 값을 소유한다). 제품의 현재 마크업은 확인 모달에서도
+`role="dialog"` 이며, 그것을 `alertdialog` 로 옮길지는 접근성 축의 별건이고 이 결정은 정하지 않는다.
+
+#### Alternatives
+
+- **ConfirmDialog 를 별 컴포넌트로 세운다.** 확인 창의 계약(액션 둘 · 닫기 없음 · 제목+설명)을
+  한 곳에 고정할 수 있는 것이 이득이다. 대가가 셋이다. 제품이 한 벌로 쓰는 것을 둘로 갈라
+  projection 이 원본보다 갈라진다. 셸이 문자 그대로 같은 레시피라 값이 갈리는 날 어느 쪽이
+  정본인지 판정할 자가 없다. 그리고 51 계약이 52가 되면서 두 세트의 기하 계약이 같은 값을
+  중복으로 갖는다 — DS-D-0030 이 토큰 축에서 금한 모양이다.
+- **`Tone` 대신 `Destructive` boolean 을 연다**(Linear 와 같은 이름). 뜻이 정확하고 값이 둘이다.
+  그런데 §2 의 축 어휘 표에 `Tone` 이 이미 있고, 새 이름을 열면 「의미 톤」을 부르는 축이 둘이
+  된다. 그리고 나중에 `warning` 확인 창이 생기면 boolean 으로는 그릴 수 없어 결국 `Tone` 으로
+  옮겨야 한다.
+- **아무것도 하지 않고 `ConfirmModal` 을 `needed` 로 둔다.** 정직해 보이지만 틀렸다 — 셸은 이미
+  대응이 있고, 없는 것은 축 하나다. `needed` 로 적으면 「이 화면을 통째로 그려야 한다」로 읽힌다.
+
+#### Consequences
+
+- `ConfirmModal` 은 Dialog 대응으로 확정될 수 있고, 같은 셸을 쓰는 create 도메인 모달들이 같은
+  경로를 탄다. **이 문서가 원장을 옮기지는 않는다** — 아래 참조.
+- Dialog 의 변형이 넷에서 다섯이 된다. 조합 예산(§5)에 걸리지 않는다 — 라이브 분포의 중앙값이
+  셋이고 최대가 Button 300 이다.
+- `Tone` 을 Figma 에 여는 것은 **코드 타입을 먼저 늘리는 일**이다. §10 이 그 순서를 정한다 —
+  variant 축의 옵션 집합을 코드에서 읽어 대조하므로, 코드에 없는 값을 Figma 에 늘리면 게이트가
+  잡는다. `figmaOnlyProperties` 로 선언해 우회할 수는 있지만 그것은 **코드에 대응이 없는 축**에
+  쓰는 자리이고, 여기서는 제품에 `confirmVariant` 가 실재하므로 그 우회가 사실을 왜곡한다.
+
+#### Rollout and verification
+
+**이 변경에서 한 것은 결정을 문서로 세운 것뿐이다.** 요구되지만 아직 하지 않은 일을 적는다.
+규칙 1(세 곳을 같이 바꾼다, [DS-D-0028](../governance/decisions/DS-D-0028-three-in-one-change.md))이 걸리는 작업이다.
+
+1. LOUIS Dialog 의 코드 타입에 톤 축을 연다(값 둘). §10 의 순서상 이것이 먼저다.
+2. Figma Dialog set 에 `Tone` 축을 더한다 — `danger` 는 `compact` 칸에만 그린다. 같은 작업에서
+   `figma:fetch` 로 되읽기를 다시 뜬다. 미루면 게이트가 낡은 캡처를 보고 거짓 초록을 낸다.
+3. `verify-figma-parity` 의 dialog 계약에 그 축을 선언한다. 선언하지 않은 property 는 실패다.
+4. 원장에서 `ConfirmModal` 을 `unclear` 에서 내리고, 같은 셸을 쓰는 create 도메인 모달을 함께
+   재판정한다. `MAPPED_BASELINE` 이 따라 움직인다.
+
+검증은 그때 `pnpm run verify-figma-parity` · `pnpm check` ·
+`node ./scripts/verify-doc-paths.mjs` · `node ./scripts/verify-record-citations.mjs` ·
+`pnpm verify:ci` 로 돈다. 이 문서만 들어간 지금은 뒤의 넷이 문서 축에서만 돈다.
 
 ## 제품 확인 대기 목록
 

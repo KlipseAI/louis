@@ -1184,6 +1184,42 @@
       "generated": false
     },
     {
+      "id": "decision-icons-are-an-asset-axis",
+      "path": "design/governance/decisions/DS-D-0038-icons-are-an-asset-axis.md",
+      "title": "DS-D-0038 아이콘은 에셋 축이다 — 컴포넌트 커버리지의 분모가 아니다",
+      "section": "governance",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
+    },
+    {
+      "id": "decision-pattern-boards-count-as-coverage",
+      "path": "design/governance/decisions/DS-D-0039-pattern-boards-count-as-coverage.md",
+      "title": "DS-D-0039 패턴 보드도 표면 대응으로 센다 — 컴포넌트 대응과 나눠 찍는 조건으로",
+      "section": "governance",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
+    },
+    {
+      "id": "decision-state-is-a-variant-axis",
+      "path": "design/governance/decisions/DS-D-0040-state-is-a-variant-axis.md",
+      "title": "DS-D-0040 상태는 표면 하나의 축이다 — 골격이 바뀔 때만 표면이 갈린다",
+      "section": "governance",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
+    },
+    {
+      "id": "decision-dialog-tone-axis",
+      "path": "design/governance/decisions/DS-D-0041-dialog-tone-axis.md",
+      "title": "DS-D-0041 확인 대화상자는 Dialog 의 톤이다 — ConfirmDialog 를 세우지 않는다",
+      "section": "governance",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
+    },
+    {
       "id": "governance-product-confirmations",
       "path": "design/governance/product-confirmations.md",
       "title": "제품 확인 대기 목록",
@@ -1397,6 +1433,10 @@
         "design/governance/decisions/DS-D-0035-figma-done-without-publish.md",
         "design/governance/decisions/DS-D-0036-git-install-distribution.md",
         "design/governance/decisions/DS-D-0037-product-surface-denominator.md",
+        "design/governance/decisions/DS-D-0038-icons-are-an-asset-axis.md",
+        "design/governance/decisions/DS-D-0039-pattern-boards-count-as-coverage.md",
+        "design/governance/decisions/DS-D-0040-state-is-a-variant-axis.md",
+        "design/governance/decisions/DS-D-0041-dialog-tone-axis.md",
         "design/governance/product-confirmations.md",
         "design/updates/README.md"
       ]

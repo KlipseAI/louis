@@ -16,26 +16,31 @@ description: Klipse 제품 화면을 Figma 보드로 옮기거나 고칠 때 쓴
 | 필요한 것 | 없으면 | 갖추는 법 |
 | --- | --- | --- |
 | 제품 저장소 `klipse-web` | 제품을 읽을 수 없다 = 값을 지어내게 된다 | clone 한 뒤 `export KLIPSE_PRODUCT_REPO=<경로>`. **`design` 브랜치를 fetch 했는지 확인한다** — 기본 브랜치는 `dev` 다 |
-| Figma 파일 접근 권한 | 조립도 검증도 못 한다 | **파일이 셋이고 역할이 다르다.** **LOUIS(현행 작업 파일)** `OlYKERKOkgbxBEEoXGZW2c`(이 스킬의 대상, 쓰기 — 소유자가 「LOUIS 피그마」라 부르는 파일이 이것이다) · 선행 라이브러리 `bxGEp0km5zluMJGulaTvFW`(DS 컴포넌트 26개와 변수 378개가 남아 있고 `verify-figma-parity` 가 아직 이 파일을 가리킨다 — **은퇴 진행 중**) · 제품 미러 `CNORJOONt4z0a4Bl22Kjuu`(**읽기 전용**). 두 파일은 collection 이름 체계가 달라 섞으면 안 된다 — `design/governance/figma-sync.md` 「운영 파일」·「게이트가 은퇴 파일을 가리킨다」 참조 |
+| Figma 파일 접근 권한 | 조립도 검증도 못 한다 | **파일이 셋이고 역할이 다르다.** **LOUIS(현행 작업 파일)** `OlYKERKOkgbxBEEoXGZW2c`(이 스킬의 대상, 쓰기 — 소유자가 「LOUIS 피그마」라 부르는 파일이 이것이다) · 선행 라이브러리 `bxGEp0km5zluMJGulaTvFW`(DS 컴포넌트 26개와 변수 378개가 남아 있다. **게이트는 2026-08-26 부터 이 파일을 보지 않는다** — `verify-figma-parity` 는 `figma/snapshot.json` 만 읽고 그 스냅숏의 대상은 LOUIS 다. **은퇴 진행 중**이며 남은 것은 폐기 하나) · 제품 미러 `CNORJOONt4z0a4Bl22Kjuu`(**읽기 전용**). 두 파일은 collection 이름 체계가 달라 섞으면 안 된다 — `design/governance/figma-sync.md` 「운영 파일」·「게이트가 은퇴 파일을 가리켰다 (해소됨)」 참조 |
 | `klipse-docs` 저장소 | `/docs` 화면을 `klipse-web` 기준으로 그리게 된다(틀린다) | `/docs` 를 건드릴 때만 필요하다 |
 | Node 22 + pnpm 10 | 게이트를 못 돌린다 | `corepack enable` → `pnpm install --frozen-lockfile` → `pnpm exec playwright install --with-deps chromium`. **브라우저 바이너리는 lockfile 에 없다** — 빠뜨리면 `verify-test-harness` 가 죽는다(`.github/workflows/ci.yml:34-39`) |
 
 **경로를 절대경로로 박지 마라.** 이 저장소의 스크립트는 제품 저장소를
 `process.env.KLIPSE_PRODUCT_REPO ?? "/Users/sejunki/klipse-web"` 로 찾는다. 그 기본값은
 원저자의 맥에만 있다. 환경변수를 세우지 않으면 **`pnpm verify` 가 `verify:product` 첫 게이트에서
-exit 1 로 죽는다**(`fatal: cannot change to …`). 제품을 읽는 게이트 14개 중 6개가 그렇게 죽고,
-8개는 `SKIPPED` 를 찍고 exit 0 하지만 앞의 6개가 먼저 죽어 거기까지 가지 않는다.
+exit 1 로 죽는다**(`fatal: cannot change to …`). 제품을 읽는 게이트 중 몇 개는 그렇게 죽고
+나머지는 `SKIPPED` 를 찍지만, 먼저 죽는 것이 있어 거기까지 가지 않는다.
 
 ```bash
 export KLIPSE_PRODUCT_REPO=~/klipse-web
-pnpm verify            # 27단계 전량. 위 환경변수가 없으면 첫 게이트에서 exit 1 로 죽는다
-pnpm verify:ci         # 13단계. 제품 저장소 없이 도는 것만 (hosted CI 가 이걸 돈다)
+pnpm verify            # 전량. 위 환경변수가 없으면 첫 게이트에서 exit 1 로 죽는다
+pnpm verify:ci         # 제품 저장소 없이 도는 것만 (hosted CI 가 이걸 돈다)
 pnpm clean-room        # 러너 재현: 커밋된 HEAD 만 clone + 새 설치
 ```
 
 **`pnpm verify` 가 exit 1 이면 제품 저장소부터 의심하라.** 그리고 `pnpm verify:ci` 가 초록인 것은
-게이트 13개가 통과했다는 뜻이지 전량 통과가 아니다. 배분과 근거는
+그 사슬이 통과했다는 뜻이지 전량 통과가 아니다. 배분과 근거는
 `scripts/verify-gate-split.mjs` 헤더에 있다.
+
+**단계 수는 여기에 박지 않는다.** 이 자리에 적혀 있던 「27단계 / 13단계 / 게이트 13개」는
+2026-08-22 값이었고 그 뒤로 계속 움직였다 — 낡은 수는 「CI 가 절반을 돈다」는 잘못된 안심을 준다.
+세는 명령은 `node scripts/verify-gate-split.mjs` 이고, 그 게이트가 두 사슬의 단계 수를 직접
+인쇄한다(2026-09-01 기준 `verify:ci` 16 · `verify:product` 25).
 
 ## 0. 시작 전에 반드시 읽는다
 

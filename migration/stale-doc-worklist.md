@@ -20,7 +20,9 @@
 > 그리고 이 감사 자체가 2026-08-22 기준이라 **여기 인용된 수도 이미 낡았다** — 예컨대
 > 「게이트 26개」는 그 뒤로 두 번 더 움직였다. **게이트 수의 정본은 `package.json`의
 > `verify:ci`·`verify:product` 두 스크립트이며, 산문에 다시 박지 않는다**(2026-08-30 기준
-> `verify:ci` 15 + `verify:product` 25 = 40).
+> `verify:ci` 15 + `verify:product` 25 = 40 — 2026-09-01 에 `verify-product-anchor` 가 들어와
+> 16 + 25 = 41 이 됐다. 세는 명령은 `node scripts/verify-gate-split.mjs`, 그 게이트가 두 사슬의
+> 단계 수를 직접 인쇄한다).
 >
 > **재발 방지로 게이트가 하나 섰다** — `verify-doc-paths` 가 문서의 저장소 경로 인용을 매
 > `verify:ci` 마다 확인한다. 이 목록이 잡았던 부류 중 「없는 파일을 가리킨다」는 이제 기계가 잡는다.
@@ -155,6 +157,25 @@
 **낡음** — DS-F-000 절이 라이브러리 파일 `bxGEp0km5zluMJGulaTvFW` 를 Foundations / Components / Templates 3개 페이지로 못박고, DS-F-003(502행)·DS-F-005(551행)·DS-F-006(571행)·DS-F-007(589행)이 전부 「지정 파일의 그 페이지들」에 쓰라고 지시한다
 
 **근거** — 부분 반박이 있으니 그대로 지우면 안 된다. DS-F-000 은 머리말이 「(2026-08-14 완료)」인 완료 기록이고 소유권을 `figma-sync.md` 로 넘기는데, 그 문서(18-29행)는 지금도 `bxGEp0km5zluMJGulaTvFW` 를 운영 파일 표에 싣고 「이전 중이다(2026-08-21) … `readback.json`·`snapshot.json` 은 이전 파일을 계속 가리킨다 … 이전이 끝나야 운영 파일을 바꾼다」고 스스로 밝힌다. `figma/readback.json` 을 직접 열어 `"figmaFileKey": "bxGEp0km5zluMJGulaTvFW"`, `"capturedAt": "2026-08-21"` 를 확인했다. 즉 파일 키는 parity 기준선으로 아직 살아 있다. 그럼에도 확정한다 — 낡은 것은 하류의 **지시문**이다. 지금 쓰기 대상 보드는 `OlYKERKOkgbxBEEoXGZW2c` 이고(handoff-2026-08-22:39,121, SKILL:17) 그 보드는 8페이지 · 21섹션 · 95프레임 · 컴포넌트 319개에 페이지가 사용자 여정 순이라 **「Templates 페이지」가 아예 없다**. 플레이북은 이 이전을 단 한 번도 언급하지 않는다.
+
+**정정 (2026-09-01)** — 위 근거의 두 문장이 그 뒤로 거짓이 됐다. 판정(「낡은 것은 하류의
+지시문이다」)은 그대로 서지만, 근거로 든 사실은 이렇게 바뀌었다.
+
+- 「`figma/readback.json` 을 직접 열어 `"figmaFileKey": "bxGEp0km5zluMJGulaTvFW"`,
+  `"capturedAt": "2026-08-21"` 를 확인했다 … 파일 키는 parity 기준선으로 아직 살아 있다」 →
+  **아니다.** 2026-08-26 에 대상을 LOUIS 로 옮겼다
+  (`node -e 'const r=require("./figma/readback.json");console.log(r.figmaFileKey,r.capturedAt)'`
+  → `OlYKERKOkgbxBEEoXGZW2c 2026-08-29`). 이력은
+  `design/governance/figma-sync.md` 「게이트가 은퇴 파일을 가리켰다 (해소됨)」 이 소유한다.
+  같은 문장이 인용한 `figma-sync.md` 「운영 파일」 표도 그때 함께 고쳤다.
+- 「그 보드는 8페이지 · 21섹션 · 95프레임」 → **95 는 라우트 축만 센 값이다.** 보드에는
+  `/highlight/[projectId]` 의 `__phase` 상태 프레임 12 개가 더 있다
+  (`node -e 'const s=require("./figma/app-screens.plan.json").screens;console.log(s.filter(x=>x.route.includes("__phase")).length)'`
+  → `12`). 두 항을 나누어 세는 규칙은
+  `design/governance/figma-screen-assembly.md` 「상시 검산식」이 소유한다.
+
+**「Templates 페이지가 아예 없다」는 여전히 참이고, 이 항목의 판정을 떠받치는 것은 그쪽이다** —
+정정된 두 사실은 판정을 흔들지 않는다.
 
 **고침** — 검사자 fix 를 수정해서 적용한다 — DS-F-000 의 완료 기록 문장은 그대로 두고, ① `figma-sync.md` 운영 파일 표를 먼저 갱신한 뒤 ② DS-F-003·005·006·007 의 「지정 파일의 Foundations/Components/Templates 페이지」를 실제 보드 구조로 바꾸거나, Figma 실행 절차 전체를 `figma-screen-assembly.md` + `klipse-figma-transplant` SKILL 로 위임하고 이 절들을 폐기한다.
 

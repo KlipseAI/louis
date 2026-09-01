@@ -6,10 +6,10 @@
 >
 > - **「커밋하지 마라」(원문 :150)는 무효다.** AWS 이사는 2026-08-22 에 끝났고 이 저장소는 커밋 중이다. 그대로 따르면 작업을 통째로 잃는다.
 > - **「`--glass-dropdown-frame` 은 5겹」은 무효다.** 제품이 글래스를 걷어냈다 — `git show design:apps/web/app/globals.css | grep -c glass` = **0**. 지금은 `--dropdown-frame` 0.5px 헤어라인 한 겹이고 정본은 `design/foundations/elevation-layer.md` 다.
-> - **「게이트 10개 + 카나리아 4종」은 무효다.** 지금은 게이트 27개(`verify:ci` 13 + `verify:product` 14) · 카나리아 27종이다.
+> - **「게이트 10개 + 카나리아 4종」은 무효다.** 게이트 수는 계속 움직이므로 여기 박지 않는다 — `node scripts/verify-gate-split.mjs` 가 두 사슬의 단계 수를 인쇄한다(2026-09-01 기준 `verify:ci` 16 + `verify:product` 25 = 41). 이 줄에 적혀 있던 「27개(13 + 14)」는 2026-08-22 값이었다.
 > - **「앱 화면에는 변수를 바인딩하지 말고 해결값을 직접 입력하라」는 무효다.** 컬렉션 구조는 `DS-D-0007` 이 확정했고 앱 셸 램프 대기 사유는 `DS-D-0010` Open questions #2 에서 닫혔다.
 > - **「쿠키 없는 첫 방문은 영어」는 부정확하다.** 쿠키가 없으면 Accept-Language 협상(ko/ja/en)을 하고, 지원 언어가 없을 때만 `en` 이다.
-> - 그릴 대상 Figma 파일이 이 문서에 없다. 라이브러리 파일은 `OlYKERKOkgbxBEEoXGZW2c` 이고 **이미 8페이지·95프레임이 채워져 있다** — 백지에서 시작하지 않는다.
+> - 그릴 대상 Figma 파일이 이 문서에 없다. 라이브러리 파일은 `OlYKERKOkgbxBEEoXGZW2c` 이고 **이미 채워져 있다** — 백지에서 시작하지 않는다. (여기 있던 「95프레임」은 라우트 축만 센 값이라 지웠다. 두 항으로 나누어 세는 규칙은 `design/governance/figma-screen-assembly.md` 「상시 검산식」이 소유한다.)
 >
 > 나머지 경로(`~/klipse`, `~/klipse-design-transplant`, `apps/web/…`, `design/pages/…`)도
 > 이 저장소에 없다. 값이 필요하면 `migration/product-screens/10.*.md` 와 `design/**` 를 본다.

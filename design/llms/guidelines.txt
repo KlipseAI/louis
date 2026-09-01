@@ -491,6 +491,51 @@ low 30. 우선순위는 원장의 `weight` 가 소유하고, needed 판정에 we
 열거기의 수가 갈리면 열거기가 이긴다 — 손으로 센 원장은 낡고, 낡았다는 사실을 재는 자가
 없다는 것이 애초에 이 열거기를 세운 이유다.
 
+##### 기록 — Linear 식 「화면 section」이 Page 14 의 세 번째 길이다 (미결)
+
+**여기 적힌 것은 규칙이 아니라 기록이다.** 어느 길로 갈지는 소유자가 정한다.
+
+참고 파일 `IWohxdWtibbqKNKayhhkLN`("Linear Design System (Community)")의 「화면」 section 은
+**완성 목업이 아니라 그 화면 전용 컴포넌트의 집이다.** `Issue Page`(3289×2648)는 symbol 78 +
+frame 21 이고, 직속 자식이 `_Issue Close Button` · `_Issue Header` · `State=Default`/`State=Hover`
+같은 **variant** 들이다. 화면을 한 장 그려 둔 것이 아니라, 그 화면에서만 쓰는 부품을 컴포넌트로
+세워 section 으로 묶고 밖에서 안 쓰는 것에 `_` 를 붙였다(그 접두사 관행은
+[figma-component-authoring](../governance/figma-component-authoring.md) 끝의 기록이 소유한다).
+`Navigation Sidebar` 도 같다 — 사이드바 전용 세트 53개다. 수는 2026-09-01 에 그 파일을
+`get_metadata` 로 읽어 얻었고, **읽기 전용 참고라 이 저장소의 어떤 게이트도 재지 않는다.**
+
+**우리 제품 시안 캔버스 Page 14 는 정반대다.** 2026-09-01 정렬 감사의 항목
+`page14-not-built-on-louis` 가 실측을 갖고 있다 — 인스턴스 116개가 **전부 파일 밖 원격
+컴포넌트**이고(`remote=true` · `ownerPage=null`), Page 14 의 `Button` 은 DS 의 `Button` 과 다른
+컴포넌트이며, `libraries_added_to_file` 이 비어 있다. 즉 LOUIS 의 산출물이 아니라 **완성 목업**이다.
+(그 감사 항목은 아직 이 저장소에 파일로 들어와 있지 않다. 이 문단이 현재 유일한 저장소 안 흔적이다.)
+
+그 항목이 적은 길은 둘이었다.
+
+| 길 | 무엇을 하나 | 대가 |
+| --- | --- | --- |
+| (가) 재조립 | 보드를 DS 컴포넌트와 LOUIS 컬렉션 변수로 다시 세운다 | 화면 전용 부품까지 공용 라이브러리로 올라간다 |
+| (나) 정본에서 내린다 | 이 캔버스를 정본에서 빼고 여정 페이지를 정본으로 선언한다 | `figma/components.measured.json` 이 DS-D-0032 실측 출처로 이 캔버스를 인용하는 **세 자리**가 근거를 잃는다 |
+
+**Linear 방식이 세 번째 길이다.** 캔버스를 공용으로 재조립하지도, 정본에서 내리지도 않고,
+**그 화면에서만 쓰는 부품을 그 페이지 안에 컴포넌트로 세운다.** 밖에서 안 쓰는 것에는 `_` 를
+붙인다.
+
+- (가)와 다른 점 — 화면 전용 부품을 `DS · Components` 로 올리지 않는다. 한 화면에서만 쓰는 것을
+  억지로 공용으로 만들면 공용 목록이 화면 부품으로 부풀고, 그 부품들은 두 번째 소비처가 없어
+  「쓰지 않는 계단」이 된다.
+- (나)와 다른 점 — 캔버스가 정본에서 내려가지 않으므로 위 세 인용 자리가 그대로 산다.
+
+**걸리는 것 둘.**
+
+1. `scripts/verify-figma-parity.mjs` 가 계약 ↔ Figma 를 닫힌 집합으로 잠그므로, 새 component set 은
+   「계약에 없는 component set이 있습니다」로 실패한다. `_` 접두사 기록과 같은 문제이고 같은
+   해법을 요구한다 — 계약에 내부 부품 종류를 만들거나 계약 밖으로 빼는 규칙이 함께 서야 한다.
+2. [DS-D-0039](../governance/decisions/DS-D-0039-pattern-boards-count-as-coverage.md)가 연 「패턴 보드 대응」과
+   이 길은 **다른 축이다.** 패턴 보드는 `requiredParts` 로 계약된 규격이고, 화면 section 은 부품의
+   집이다. 한 화면이 둘 다 가질 수도 있으므로, 세 번째 길을 택하면 커버리지에서 어느 쪽으로 세는지를
+   함께 정해야 한다.
+
 ##### 변수 컬렉션 정리 — `1 · Palette` 은퇴 (2026-08-26)
 
 파일에 컬렉션이 여섯이었다. 셋은 DS 정본(`Klipse Primitive`·`Semantic`·`Semantic Color`,
@@ -1373,6 +1418,37 @@ hover·focus·selected 를 **컨테이너의 variant** 로 두면 두 가지가 
 outline-offset 이 없으므로 **요소보다 각 변 2px 큰 사각형에 2px OUTSIDE stroke** 를 둔다.
 반지름도 따라간다 — 요소 반지름 + 2. 요소에 바로 stroke 를 걸면 딱 붙은 각진 상자가 되고,
 그건 브라우저가 그리는 것과 다르다.
+
+#### 기록 — Linear 의 `_` 접두사 관행 (도입하지 않았다)
+
+**여기 적힌 것은 규칙이 아니라 기록이다.** 도입 여부는 소유자가 정한다. 고치지 말고 읽어라.
+
+참고 파일 `IWohxdWtibbqKNKayhhkLN`("Linear Design System (Community)")는 **밖에서 인스턴스로 쓰지
+않는 내부 부품을 이름으로 표시한다** — `_Dropdown Options` · `_Search Box` · `_Priority` ·
+`_Assignee` · `_Issue Header` · `_Activity Logs` · `_Key`. `Issue Page` section 하나에서 내부 부품
+29 · 공개 79 로 갈린다. 수는 2026-09-01 에 그 파일을 `get_metadata` 로 읽어 얻었고, **읽기 전용
+참고라 이 저장소의 어떤 게이트도 그것을 재지 않는다.**
+
+**우리에게 없는 것이 그 구분이다.** 원장 `migration/product.surfaces.json` 은 `scoped`(범위 밖)와
+`figma`(대응)를 이미 가르지만, 그 구분은 **Figma 이름 안에서는 보이지 않는다.** 파일을 연 사람은
+Assets 목록에서 세트를 평평하게 보고, 어느 것이 다른 자리에서 집어다 쓰라고 만든 것이고 어느 것이
+한 컨테이너가 조립해 쓰는 자식인지 이름이 말하지 않는다. `SegmentedControlItem` 처럼 컨테이너가
+소비하는 자식이 지금도 여럿이다.
+
+**도입하면 걸리는 것 — 이름 규칙 하나가 아니라 게이트 어휘의 확장이다.**
+
+- `scripts/verify-figma-parity.mjs` 는 계약 ↔ Figma 를 **양방향으로 잠근 닫힌 집합**이다.
+  이름을 바꾸면 계약의 `figmaName` 을 같은 변경에서 바꿔야 하고, `_` 를 붙인 **새** 내부 부품을
+  만들면 「계약에 없는 component set이 있습니다」로 실패한다.
+- 그래서 이 관행을 들이려면 계약에 「내부 부품」이라는 종류를 만들거나, 내부 부품을 계약 밖으로
+  빼는 규칙이 **함께** 서야 한다. 후자는 위험하다 — 계약 밖은 곧 대조 밖이고, 그 순간 그 부품은
+  값이 갈려도 아무도 모른다.
+- 되읽기·snapshot·`figma/component-summaries.json`·컴포넌트 문서의 이름이 한 줄로 이어져 있으므로
+  개명은 그 줄 전체를 움직인다.
+
+**무엇을 다시 이름 지어야 하는지는 여기서 세지 않는다.** 세는 순간 이 기록이 결정이 된다.
+후보를 세우려면 먼저 「밖에서 인스턴스로 소비되는가」를 컴포넌트마다 판정해야 하고, 그 판정의
+근거는 이 저장소 안에 이미 있다 — 각 컴포넌트 문서의 「언제 쓰지 않나」와 계약의 조립 관계다.
 
 ## Figma Screen Assembly
 

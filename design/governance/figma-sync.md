@@ -100,6 +100,51 @@ low 30. 우선순위는 원장의 `weight` 가 소유하고, needed 판정에 we
 열거기의 수가 갈리면 열거기가 이긴다 — 손으로 센 원장은 낡고, 낡았다는 사실을 재는 자가
 없다는 것이 애초에 이 열거기를 세운 이유다.
 
+### 기록 — Linear 식 「화면 section」이 Page 14 의 세 번째 길이다 (미결)
+
+**여기 적힌 것은 규칙이 아니라 기록이다.** 어느 길로 갈지는 소유자가 정한다.
+
+참고 파일 `IWohxdWtibbqKNKayhhkLN`("Linear Design System (Community)")의 「화면」 section 은
+**완성 목업이 아니라 그 화면 전용 컴포넌트의 집이다.** `Issue Page`(3289×2648)는 symbol 78 +
+frame 21 이고, 직속 자식이 `_Issue Close Button` · `_Issue Header` · `State=Default`/`State=Hover`
+같은 **variant** 들이다. 화면을 한 장 그려 둔 것이 아니라, 그 화면에서만 쓰는 부품을 컴포넌트로
+세워 section 으로 묶고 밖에서 안 쓰는 것에 `_` 를 붙였다(그 접두사 관행은
+[figma-component-authoring](figma-component-authoring.md) 끝의 기록이 소유한다).
+`Navigation Sidebar` 도 같다 — 사이드바 전용 세트 53개다. 수는 2026-09-01 에 그 파일을
+`get_metadata` 로 읽어 얻었고, **읽기 전용 참고라 이 저장소의 어떤 게이트도 재지 않는다.**
+
+**우리 제품 시안 캔버스 Page 14 는 정반대다.** 2026-09-01 정렬 감사의 항목
+`page14-not-built-on-louis` 가 실측을 갖고 있다 — 인스턴스 116개가 **전부 파일 밖 원격
+컴포넌트**이고(`remote=true` · `ownerPage=null`), Page 14 의 `Button` 은 DS 의 `Button` 과 다른
+컴포넌트이며, `libraries_added_to_file` 이 비어 있다. 즉 LOUIS 의 산출물이 아니라 **완성 목업**이다.
+(그 감사 항목은 아직 이 저장소에 파일로 들어와 있지 않다. 이 문단이 현재 유일한 저장소 안 흔적이다.)
+
+그 항목이 적은 길은 둘이었다.
+
+| 길 | 무엇을 하나 | 대가 |
+| --- | --- | --- |
+| (가) 재조립 | 보드를 DS 컴포넌트와 LOUIS 컬렉션 변수로 다시 세운다 | 화면 전용 부품까지 공용 라이브러리로 올라간다 |
+| (나) 정본에서 내린다 | 이 캔버스를 정본에서 빼고 여정 페이지를 정본으로 선언한다 | `figma/components.measured.json` 이 DS-D-0032 실측 출처로 이 캔버스를 인용하는 **세 자리**가 근거를 잃는다 |
+
+**Linear 방식이 세 번째 길이다.** 캔버스를 공용으로 재조립하지도, 정본에서 내리지도 않고,
+**그 화면에서만 쓰는 부품을 그 페이지 안에 컴포넌트로 세운다.** 밖에서 안 쓰는 것에는 `_` 를
+붙인다.
+
+- (가)와 다른 점 — 화면 전용 부품을 `DS · Components` 로 올리지 않는다. 한 화면에서만 쓰는 것을
+  억지로 공용으로 만들면 공용 목록이 화면 부품으로 부풀고, 그 부품들은 두 번째 소비처가 없어
+  「쓰지 않는 계단」이 된다.
+- (나)와 다른 점 — 캔버스가 정본에서 내려가지 않으므로 위 세 인용 자리가 그대로 산다.
+
+**걸리는 것 둘.**
+
+1. `scripts/verify-figma-parity.mjs` 가 계약 ↔ Figma 를 닫힌 집합으로 잠그므로, 새 component set 은
+   「계약에 없는 component set이 있습니다」로 실패한다. `_` 접두사 기록과 같은 문제이고 같은
+   해법을 요구한다 — 계약에 내부 부품 종류를 만들거나 계약 밖으로 빼는 규칙이 함께 서야 한다.
+2. [DS-D-0039](decisions/DS-D-0039-pattern-boards-count-as-coverage.md)가 연 「패턴 보드 대응」과
+   이 길은 **다른 축이다.** 패턴 보드는 `requiredParts` 로 계약된 규격이고, 화면 section 은 부품의
+   집이다. 한 화면이 둘 다 가질 수도 있으므로, 세 번째 길을 택하면 커버리지에서 어느 쪽으로 세는지를
+   함께 정해야 한다.
+
 ### 변수 컬렉션 정리 — `1 · Palette` 은퇴 (2026-08-26)
 
 파일에 컬렉션이 여섯이었다. 셋은 DS 정본(`Klipse Primitive`·`Semantic`·`Semantic Color`,

@@ -24,6 +24,7 @@ jobs:
         with:
           node-version: 22
 
+      - name: Enable pnpm
         run: corepack enable
 
       # P3부터 devDependencies가 생긴다. lockfile을 고정해 clean checkout 재현성을 지킨다.
@@ -44,17 +45,15 @@ jobs:
       - name: Check generated artifact drift
         run: pnpm check
 
-      # **`verify` 가 아니라 `verify:ci` 다.** 게이트 27개 중 14개는 제품 저장소
-      # (`klipse-web`)를 읽는다. 러너에는 그 저장소가 없다 — 그래서 이 단계가
+      # **`verify` 가 아니라 `verify:ci` 다.** 게이트 일부는 제품 저장소(`klipse-web`)를
+      # 읽는다. 러너에는 그 저장소가 없다 — 그래서 이 단계가
       # 2026-08-18T04:12~08-22T06:55 에 46회 연속 빨갰다(`verify-citations.mjs:27`).
       #
-      # **이 CI 가 초록인 것은 게이트 13개가 통과했다는 뜻이다.** 27개가 아니다.
-      # 여기서 돌지 않는 14개: verify-gates(인용 좌표 카나리아 3개) · verify-citations ·
-      # verify-refutation-quotes ·
-      # verify-product-alpha · verify-alpha-consolidation · verify-product-drift ·
-      # verify-app-nav-labels · verify-product-evidence · verify-product-render ·
-      # verify-product-components · verify-product-variants · verify-specimen-context ·
-      # check-figma-inventory · verify-tailwind-interop.
+      # **여기서 돌지 않는 것은 `verify:product` 사슬 전체다.** 수와 이름을 이 주석에
+      # 박지 않는다 — 정본은 `package.json` 의 두 스크립트이고, 세는 명령은
+      # `node scripts/verify-gate-split.mjs` 다(2026-09-01 기준 CI 16 · 로컬 25 = 41).
+      # 여기 있던 「27개 중 14개」·「초록은 13개가 통과했다는 뜻」은 2026-08-22 값이었고,
+      # 낡은 수는 「CI 가 절반은 돈다」는 잘못된 안심을 준다.
       #
       # 뒤의 7개는 2026-08-22 전까지 이 단계 안에 있었다. 제품 저장소가 없으면 `SKIPPED` 를
       # 찍고 **exit 0** 했기 때문에 초록에 섞여 보이지 않았다. 조용한 exit 0 은 게이트가

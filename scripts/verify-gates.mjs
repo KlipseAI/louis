@@ -221,6 +221,55 @@ withCanary(
   "다시 센 값",
 );
 
+// ── verdict 축 카나리아 셋 (2026-09-01) ───────────────────────────────────
+// 판정을 넷으로 가른 뒤에 새로 생긴 빠져나갈 구멍 셋을 막는다. 셋 다 「게이트가 조용히
+// 통과한다」가 실패 모드다 — 빨개지는 것을 봐야 축이 실재한다.
+
+// 어휘 밖의 낱말은 어느 버킷에도 안 들어가므로 아무 래칫에도 잡히지 않는다.
+// counts.scoped 를 함께 내려서 요약 불일치가 먼저 잡히지 않게 한다 — 그래야 어휘 검사만
+// 시험된다.
+withCanary(
+  "migration/product.surfaces.json",
+  (source) => {
+    const ledger = JSON.parse(source);
+    const id = Object.keys(ledger.surfaces).find((key) => ledger.surfaces[key].verdict === "scoped");
+    ledger.surfaces[id].verdict = "maybe";
+    ledger.counts.scoped -= 1;
+    return JSON.stringify(ledger, null, 2) + "\n";
+  },
+  "figma surface coverage verdict outside vocabulary",
+  "scripts/check-figma-surface-coverage.mjs",
+  "판정 어휘 밖입니다",
+);
+
+// 순서 없는 「필요」 목록은 400줄짜리 벽이라 무엇을 먼저 그릴지 답하지 못한다.
+withCanary(
+  "migration/product.surfaces.json",
+  (source) => {
+    const ledger = JSON.parse(source);
+    const id = Object.keys(ledger.surfaces).find((key) => ledger.surfaces[key].verdict === "needed");
+    ledger.surfaces[id].weight = null;
+    return JSON.stringify(ledger, null, 2) + "\n";
+  },
+  "figma surface coverage needed without weight",
+  "scripts/check-figma-surface-coverage.mjs",
+  "weight 가 high/medium/low 중 하나로 필요합니다",
+);
+
+// 넷으로 가른 근거가 파일에서 사라지면 다음 사람은 needed 를 다시 scoped 에 섞는다 —
+// 미등록이 사유로 둔갑하는 바로 그 자리로 되돌아간다.
+withCanary(
+  "migration/product.surfaces.json",
+  (source) => {
+    const ledger = JSON.parse(source);
+    delete ledger.$verdictRule;
+    return JSON.stringify(ledger, null, 2) + "\n";
+  },
+  "figma surface coverage missing verdict rule",
+  "scripts/check-figma-surface-coverage.mjs",
+  "판정 규칙($verdictRule)이 없습니다",
+);
+
 withCanary(
   "design/components/button.md",
   (source) =>

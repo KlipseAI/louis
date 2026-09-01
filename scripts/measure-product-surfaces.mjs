@@ -197,8 +197,13 @@ if (duplicate) {
 }
 
 // ── 분류는 사람이 소유한다 ─────────────────────────────────────────────────
-// 열거는 기계가, 분류는 사람이. 다시 뽑을 때 사람이 적은 `figma`·`reason` 을 그대로
-// 물려받는다. 사라진 표면의 분류는 함께 사라진다 — 없는 표면에 대한 사유는 거짓말이다.
+// 열거는 기계가, 분류는 사람이. 다시 뽑을 때 사람이 적은 `verdict`·`figma`·`reason`·`weight`
+// 를 그대로 물려받는다. 사라진 표면의 분류는 함께 사라진다 — 없는 표면에 대한 사유는
+// 거짓말이다.
+//
+// **`verdict` 를 물려받지 않으면 판정 400건이 다음 재측정에서 통째로 사라진다.** 이 목록은
+// 앵커가 움직일 때마다 다시 뽑히므로, 사람이 적은 축을 캐리 목록에 넣는 것이 곧 그 축을
+// 보존하는 유일한 장치다.
 const previous = existsSync(outPath) ? JSON.parse(readFileSync(outPath, "utf8")) : {};
 const carried = previous.surfaces ?? {};
 
@@ -209,20 +214,27 @@ for (const surface of found) {
     file: surface.file,
     binding: surface.binding,
     louis: surface.louis,
+    verdict: before.verdict ?? null,
     figma: before.figma ?? null,
     reason: before.reason ?? null,
+    // needed 에만 붙는 우선순위. 「무엇을 먼저 그리는가」가 needed 목록의 유일한 쓸모라
+    // 판정과 같은 자리에 둔다. 다른 판정에서는 null 이고 게이트가 그것을 강제한다.
+    weight: before.weight ?? null,
   };
 }
 
 const dropped = Object.keys(carried).filter((id) => !(id in surfaces));
-const mapped = Object.values(surfaces).filter((s) => s.figma !== null).length;
-const scoped = Object.values(surfaces).filter((s) => s.figma === null && s.reason !== null).length;
-const unclassified = found.length - mapped - scoped;
+const tally = (verdict) => Object.values(surfaces).filter((s) => s.verdict === verdict).length;
+const mapped = tally("figma");
+const scoped = tally("scoped");
+const needed = tally("needed");
+const unclear = tally("unclear");
+const unclassified = found.length - mapped - scoped - needed - unclear;
 
 const output = {
   $comment:
     "생성물. scripts/measure-product-surfaces.mjs 가 앵커 커밋의 제품 트리에서 열거한다. " +
-    "`figma` 와 `reason` 만 사람이 적고, 나머지 필드는 다시 뽑을 때 덮어쓴다.",
+    "`verdict`·`figma`·`reason`·`weight` 만 사람이 적고, 나머지 필드는 다시 뽑을 때 덮어쓴다.",
   $whyThisExists:
     "verify-figma-parity 는 계약 51 ↔ Figma 51 을 양방향으로 잠근 닫힌 집합이라, 계약에 " +
     "선언되지 않은 제품 표면은 아무리 많이 빠져 있어도 초록이 나온다. 제품 트리를 열거하는 " +
@@ -233,10 +245,18 @@ const output = {
     "식별자는 `<경로>#<이름>` 이고 줄 번호를 쓰지 않는다. 고른 근거와 버린 후보 셋(클래스 " +
     "문자열 3455개 · 정본 컴포넌트 12개 · 라우트×시각영역)은 열거기 머리말에 적었다.",
   $howToUse:
-    "새 표면이 나타나면 둘 중 하나를 한다 — 대응하는 Figma 컴포넌트 이름을 `figma` 에 적거나, " +
-    "왜 대응물이 없어도 되는지를 `reason` 에 20자 이상으로 적는다. **사유 없이 넘기는 길은 " +
-    "없다.** 둘 다 비어 있으면 그 표면은 `unclassified` 로 세어지고, " +
-    "check-figma-surface-coverage 의 래칫이 그 수가 늘어나는 것을 막는다.",
+    "새 표면이 나타나면 `verdict` 를 넷 중 하나로 적고 `reason` 에 20자 이상의 근거를 붙인다 — " +
+    "figma(대응이 있다: 이름을 `figma` 에 적는다) · scoped(범위 밖이다) · " +
+    "needed(Figma 에 세워야 하는데 아직 없다: `weight` 로 우선순위를 적는다) · " +
+    "unclear(소유자 판단이 필요하다). **사유 없이 넘기는 길은 없다.** verdict 가 비면 그 표면은 " +
+    "`unclassified` 로 세어지고, check-figma-surface-coverage 의 래칫이 그 수가 늘어나는 것을 막는다.",
+  $verdictRule:
+    "판정은 넷이다. 셋이 아니라 넷인 이유는 「Figma 에 세워야 하는데 아직 없다」를 적을 자리가 " +
+    "없었기 때문이다 — 그것을 `reason` 에 적으면 미등록이 사유로 둔갑해 `scoped`(범위 밖)로 " +
+    "세어졌고, 커버리지가 올라간 것처럼 보였다. `needed` 는 그 둔갑을 막는 축이고, " +
+    "`unclear` 는 소유자 판단 대기 목록이다. 래칫의 방향도 판정마다 다르다 — " +
+    "unclassified 는 늘면 실패(아무도 안 본 표면), needed 는 늘어도 실패하지 않는다(발견이지 " +
+    "후퇴가 아니다), unclear 는 세기만 한다.",
   $upperBound:
     "이 수는 상한이 아니라 하한이다 — 다른 함수 안에서 정의된 컴포넌트(앵커에서 2개)와 " +
     "camelCase 렌더 헬퍼(14개)는 세지 않는다. `louis` 도 하한이다: 클래스 맵 파일을 " +
@@ -245,14 +265,16 @@ const output = {
   productCommit: commit,
   tree: TREE,
   filesScanned: files.length,
-  counts: { total: found.length, mapped, scoped, unclassified },
+  // `mapped` 는 verdict === "figma" 의 수다. 이름을 유지하는 이유는 그것이 커버리지의
+  // 분자이고, 이 이름을 읽는 게이트·카나리아가 이미 있기 때문이다.
+  counts: { total: found.length, mapped, scoped, needed, unclear, unclassified },
   surfaces,
 };
 
 const body = JSON.stringify(output, null, 2) + "\n";
 const line =
-  `표면 ${found.length}종 · Figma 대응 ${mapped} · 범위 밖 ${scoped} · 미분류 ${unclassified}` +
-  ` · 파일 ${files.length} @ ${commit.slice(0, 8)}`;
+  `표면 ${found.length}종 · Figma 대응 ${mapped} · 범위 밖 ${scoped} · 필요 ${needed}` +
+  ` · 판단대기 ${unclear} · 미분류 ${unclassified} · 파일 ${files.length} @ ${commit.slice(0, 8)}`;
 
 if (check) {
   if (!existsSync(outPath)) {

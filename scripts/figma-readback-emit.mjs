@@ -73,6 +73,14 @@
 //     `parts: {}` 키의 유무만 달랐다. 되읽기 기하 블록 101개 중 10개가 그 키를 생략하고 2개가 빈
 //     객체로 갖고 있다 — 규칙이 여럿이었다는 또 한 증거다. parity 는 `parts ?? {}` 로 읽어 둘을
 //     구분하지 않으므로 검증력에는 영향이 없다.
+//   · `MenuSeparator` — **해소됐다(2026-09-01).** 되읽기가 `height:[1]` 을 들고 있었는데 CSS 는
+//     `block-size: var(--louis-border-width-hairline)` = 0.5 를 그린다. 1 은 제품이 `a3ed8e0` 에서
+//     쓰던 값이고, DS-D-0023 §7 이 「실측 두께 토큰은 0.5 로 유지한다」이므로 틀린 쪽은 Figma 였다.
+//     라이브 `764:754` 를 0.5 로 줄이고 fill 바인딩도 `color/stroke-subtle` → `color/stroke-hairline`
+//     으로 옮겼다 — 색 역시 DS-D-0023 이 generic 헤어라인으로 통일한 축인데 Figma 만 옛 색을
+//     들고 있었다(`menu-popover.css:243-245` 가 그 이관을 적고 있다). 되읽기·snapshot 을 같은
+//     작업에서 다시 떴다. `strokes:{}`·`effects:{}` 두 키가 새로 생기는데 이 명세에 두 축이 없어
+//     빈 객체가 되는 것이며, 없던 것은 채취 규칙이 아니라 옛 되읽기의 생략이다.
 //   · `ProjectCard` — **해소됐다(2026-08-30).** 자손 이름이 Figma 에서 `Adornment` → `More`
 //     로 어긋나 있었고 계약이 두 이름을 따로 셌다. Figma 를 공개 API 이름 `Adornment` 로
 //     되돌리고 계약을 한 줄로 합쳤다. 비-오토레이아웃 프레임의 padding 을 빈 배열로 담는데
@@ -138,7 +146,12 @@ const CAPTURE = {
   "MediaScrubber": {"key":{"name":"base"},"parts":{"Track":["width","height"],"Thumb":["width","height"]}},
   "Menu": {"key":{"name":"panel"}},
   "MenuPanel": {"key":{"name":"panel"},"fields":["height","width","paddingBlock","paddingBlockEnd","paddingInline","paddingInlineEnd","itemSpacing","cornerRadius","minWidth","layoutMode"],"effects":["self"]},
-  "MenuSeparator": {"key":{"name":"default"}},
+  // 키가 `panel` 인 것은 **대조 상대의 자리 이름**이다(2026-09-01). 구분선에는 size 축이 없지만
+  // 그 실측값은 `components.measured.json` 의 `menu-popover.sizes.panel` 안에
+  // `separatorWidth`·`separatorMargin` 으로 산다 — parity 는 되읽기와 measured 가 **같은 키**를
+  // 쓸 때만 둘을 만나게 하므로, `default` 로 두면 계약에 geometry 를 붙이는 순간
+  // 「기하가 snapshot 에 없습니다」가 된다. MenuPanel 이 같은 이유로 같은 키를 쓴다.
+  "MenuSeparator": {"key":{"name":"panel"}},
   "GnbMenuItem": {"key":{"by":["Surface","State"]},"fields":["height","width","paddingBlock","paddingBlockEnd","paddingInline","paddingInlineEnd","itemSpacing","cornerRadius","layoutMode","strokeWeight","opacity"],"parts":{"Label":["width","height","fontSize","lineHeightPercent"]}},
   "NodeChip": {"key":{"by":["Shape"]},"slots":{"Glyph":"size"},"parts":{"Glyph":["width","height"],"Label":["width","height","fontSize"]},"effects":["self"]},
   "NewsCard": {"key":{"by":["Featured"]},"parts":{"Body":["width","height","paddingBlock","paddingBlockEnd","paddingInline","paddingInlineEnd","itemSpacing"],"Date":["width","height","fontSize"],"Headline":["width","height","fontSize","lineHeightPercent"]}},

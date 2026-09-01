@@ -1189,9 +1189,33 @@ const COMPONENT_CONTRACTS = [
   {
     id: "menu-popover",
     figmaName: "MenuSeparator",
-    figmaAhead: "menu-popover.css:239-251 이 정본이다. 1px 선 하나라 코드 선언이 없다.",
+    // **두 번 틀렸던 문장이다(2026-09-01 정정).** 「1px」도 「코드 선언이 없다」도 사실이 아니다 —
+    // `menu-popover.css:240-250` 이 `block-size: var(--louis-border-width-hairline)`(0.5px)로 두께를,
+    // `box-shadow: var(--louis-hairline-inset-block-start)` 로 선을 나눠 낸다(DS-D-0023). 1 은 제품이
+    // `a3ed8e0` 에서 쓰던 값이고 `components.measured.json` 에도 그 값이 코드 실측 자리에 들어와
+    // 있었다(같은 커밋에서 0.5 로 고쳤다). Figma 는 아직 1 을 그린다 — 아래 라이브 편차 참조.
+    figmaAhead:
+      "menu-popover.css:240-250 이 정본이다. 두께 0.5(border-width-hairline) + 방향성 inset 헤어라인 한 겹이라 " +
+      "variant 축이 없다. **라이브 Figma 의 MenuSeparator 는 높이 1 이다** — DS-D-0023 §7 이 " +
+      "「실측 두께 토큰은 0.5 로 유지한다」이므로 Figma 쪽이 어긋나 있다. geometry 를 계약에 붙이면 " +
+      "그 어긋남이 게이트로 올라온다.",
     variantProperties: {},
     figmaOnlyProperties: {},
+    // **두께를 계약에 붙인다(2026-09-01).** 이 계약은 그동안 geometry 가 없어 Figma 가 1 을
+    // 그리든 0.5 를 그리든 초록이었다 — 실제로 1 이었고 넷 중 어느 게이트도 잡지 못했다.
+    // 폭 200 은 담지 않는다. CSS 에 inline-size 선언이 없고(패널이 폭을 정한다) Figma 의 200 은
+    // 정지 상태를 그리려고 세운 표본 치수다 — `unverified-value-map.json` 의
+    // `skeleton.sizes.text.width` 가 같은 이유로 `product-none` 이다.
+    geometry: {
+      measuredId: "menu-popover",
+      sizeKey: "panel",
+      fields: {
+        height: "separatorWidth",
+        layoutMode: { literal: "NONE" },
+      },
+      slots: {},
+      extraStrokeWeights: [],
+    },
   },
   {
     id: "form-message",

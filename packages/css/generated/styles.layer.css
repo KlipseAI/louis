@@ -2689,7 +2689,14 @@
     border: 0;
     /* 한 면 divider — 방향성 inset 헤어라인 (DS-D-0023). box-shadow가 그려질 박스가 있어야 하므로
      * 선 두께만큼 block-size를 준다. 이전엔 border-block-start가 선이자 높이였고 색은
-     * color-stroke-subtle이었다 — generic 10% 헤어라인으로 통일했다. */
+     * color-stroke-subtle이었다 — generic 헤어라인으로 통일했다(라이트 black 8% · 다크 white 8%.
+     * 이 자리는 「10%」라고 적혀 있었는데 `color-stroke-hairline`은 커밋 `3bee005`에서 .08로
+     * 옮겨졌다 — DS-D-0023의 발행 값 주석과 같다. 2026-09-01 정정).
+     *
+     * **세 곳 중 Figma만 옛 값을 들고 있었다(2026-09-01 해소).** 라이브 MenuSeparator는 높이 1에
+     * fill이 `color/stroke-subtle`이었다 — 두께는 제품이 a3ed8e0에서 쓰던 1px, 색은 이 주석이
+     * 「이전엔」이라 부르는 바로 그 색이다. 둘 다 옮겼고, 두께는 이제 verify-figma-parity의
+     * MenuSeparator 계약이 `menu-popover.sizes.panel.separatorWidth`와 대조한다. */
     block-size: var(--louis-border-width-hairline);
     box-shadow: var(--louis-hairline-inset-block-start);
     margin-block: var(--louis-space-control-xs);

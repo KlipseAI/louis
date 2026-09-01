@@ -11400,11 +11400,11 @@
         "textUnstyled": 0
       },
       "geometry": {
-        "default": {
+        "panel": {
           "slots": {},
           "parts": {},
           "height": [
-            1
+            0.5
           ],
           "width": [
             200
@@ -11434,7 +11434,9 @@
           "overflowingParts": [],
           "offCenterMarks": []
         }
-      }
+      },
+      "strokes": {},
+      "effects": {}
     },
     "NewsCard": {
       "variantCount": 2,

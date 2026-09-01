@@ -13,6 +13,7 @@ import {
   ActionMenu,
   ActionMenuContent,
   ActionMenuItem,
+  ActionMenuSeparator,
   ActionMenuTrigger,
   Button,
   CompositePopover,
@@ -202,6 +203,8 @@ test("Menu 패널과 항목의 구조값이 components.measured.json과 같다",
         </ActionMenuTrigger>
         <ActionMenuContent>
           <ActionMenuItem>이름 바꾸기</ActionMenuItem>
+          <ActionMenuSeparator />
+          <ActionMenuItem>삭제</ActionMenuItem>
         </ActionMenuContent>
       </ActionMenu>
     </OverlayProvider>,
@@ -232,6 +235,16 @@ test("Menu 패널과 항목의 구조값이 components.measured.json과 같다",
   expect(px(itemStyle.paddingInlineStart), "item paddingInline").toBe(spec.itemPaddingInline);
   expect(px(itemStyle.columnGap), "item gap").toBe(spec.itemGap);
   expect(px(itemStyle.borderTopLeftRadius), "item radius").toBe(spec.itemRadius);
+
+  // **구분선은 기록에 값이 있는데 아무도 재지 않던 축이다.** 그 사이 기록은 1 을, CSS 는
+  // `border-width-hairline`(0.5)을 말하고 있었고 넷 중 어느 게이트도 둘을 만나게 하지 않았다.
+  // `offsetHeight` 는 정수로 반올림하므로 0.5 를 볼 수 없다 — computed 값으로 잰다.
+  const separator = find(".louis-menu__separator");
+  const separatorStyle = getComputedStyle(separator);
+  expect(px(separatorStyle.blockSize), "separator 두께").toBe(spec.separatorWidth);
+  expect(px(separatorStyle.marginBlockStart), "separator margin").toBe(spec.separatorMargin);
+  // 두께만 있고 선이 없으면 빈 자리다 — 선은 방향성 inset 헤어라인이 그린다 (DS-D-0023).
+  expect(separatorStyle.boxShadow, "separator inset 헤어라인").toContain("inset");
 });
 
 /**

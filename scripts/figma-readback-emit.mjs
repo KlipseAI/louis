@@ -126,7 +126,12 @@ const CAPTURE = {
   // `effects:["self"]` 는 secondary 의 헤어라인을 담는다 — 규범이 stroke 가 아니라 INNER_SHADOW 로
   // 그리라고 정했고(design/governance/figma-component-authoring.md, DS-D-0023) 라이브 300변형 중
   // secondary 60개가 그것을 갖고 있는데 담는 자리가 없어 계약 밖이었다.
-  "Button": {"key":{"by":["Size"]},"slots":{"LeftIcon":"size","RightIcon":"size","Spinner":"size"},"strokes":["Spinner","self"],"effects":["self"]},
+  // `childOrder` 를 켠다(2026-09-01). 2026-09-01 감사에서 Loading 60칸의 Spinner 가 맨 뒤에 서
+  // 있었는데(코드는 button.tsx:82 가 맨 앞에 그린다) **되읽기가 자식 순서를 담지 않아 게이트가
+  // 초록이었다.** 라이브 전수 순회로만 드러났다. 기능은 이미 있었고 Button 에서 꺼져 있었을 뿐이다.
+  // 켜기 위해 300칸의 순서를 `Spinner | LeftIcon | Label | RightIcon` 하나로 통일했다 — 숨은
+  // Spinner 도 「그려진다면 설 자리」에 두어야 한 키에 한 값이 담긴다.
+  "Button": {"key":{"by":["Size"]},"slots":{"LeftIcon":"size","RightIcon":"size","Spinner":"size"},"strokes":["Spinner","self"],"effects":["self"],"childOrder":true},
   "CarouselArrow": {"key":{"name":"base"},"parts":{"Caret":["width","height"],"glyph":["width","height"]},"strokes":["glyph"],"effects":["self"]},
   "Checkbox": {"key":{"name":"base"},"parts":{"Box":["width","height","cornerRadius"],"Check":["width","height"],"Dash":["width","height","cornerRadius"],"Label":["width","height","fontSize"]},"strokes":["Box","Check"]},
   // CompositePopover 는 MenuPanel 과 같은 표면인데 **minWidth 를 담지 않는다.** Figma 의

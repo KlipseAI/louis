@@ -274,8 +274,26 @@ Button 판정으로 읽지 않는다.
 렌더되지 않는다**(`leftIcon !== undefined && !loading`). `rightIcon`에는 그 조건이 없어 loading에도
 남는다 — 비대칭이 의도다. spinner가 왼쪽 아이콘 자리를 대신하기 때문이다.
 
-**2026-09-01 라이브 전수 순회에서 셋이 나왔고 셋 다 닫혔다.** 게이트는 size별 기하 집계와 슬롯
-크기만 대조하고 **자식 순서와 칸별 가시성은 대조하지 않아**, 앞의 둘은 순회로만 보였다.
+**2026-09-01 라이브 전수 순회에서 셋이 나왔고 셋 다 닫혔다.** 그때 게이트는 size별 기하 집계와
+슬롯 크기만 대조했고 **자식 순서도 칸별 가시성도 보지 않아**, 앞의 둘은 순회로만 보였다.
+
+**그중 자식 순서는 같은 날 게이트로 닫았다.** 채취기에 `childOrder` 가 이미 있었고 Button 에서
+꺼져 있었을 뿐이다(ProjectCard · SidebarNavRow 가 이미 쓰고 있었다). 켜면서 300칸의 순서를
+`Spinner | LeftIcon | Label | RightIcon` 하나로 통일했고 — 숨은 Spinner 도 「그려진다면 설
+자리」에 둔다 — `verify-figma-parity` 에 그 배열을 계약으로 걸었다. 옛 순서를 되읽기에 넣으면
+게이트가 이렇게 말한다:
+
+```
+Button lg: 자식 순서가 다릅니다 — 계약 [Spinner, LeftIcon, Label, RightIcon],
+                                  Figma [LeftIcon, Label, RightIcon, Spinner]
+```
+
+**칸별 가시성은 아직 못 본다.** 되읽기가 보이는 슬롯만 담고 게이트도 계약에 선언된 슬롯의
+존재만 확인하므로, 「Loading 인데 LeftIcon 이 보인다」는 계약에 없는 슬롯이 **더** 있는 경우라
+잡히지 않는다. 이걸 닫으려면 채취 키를 `{"by":["Size","State"]}` 로 열어야 하는데, 그러면
+`components.measured.json` 의 `button.sizes` 도 같은 15키가 돼야 하고(되읽기와 measured 는 같은
+키를 쓴다는 것이 이 게이트의 불변식이다) `button.sizes.<size>.<field>` 를 이름으로 가리키는
+33곳을 함께 옮겨야 한다. 별건으로 남긴다.
 
 | 실측 | 규모 | 처리 |
 | --- | --- | --- |

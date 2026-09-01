@@ -155,6 +155,15 @@ const COMPONENT_CONTRACTS = [
       slots: { LeftIcon: "iconSlot", RightIcon: "iconSlot", Spinner: "spinner" },
       // 보이는 테두리 외에 허용되는 stroke 두께. spinner 링은 테두리가 아니다.
       extraStrokeWeights: [2],
+      // **자식 순서가 계약이다.** `button.tsx`가 spinner를 맨 앞에 그린다(leftIcon·label보다
+      // 먼저). loading이면 leftIcon은 렌더되지 않으므로 그 자리를 spinner가 대신한다.
+      //
+      // 2026-09-01 감사에서 Loading 60칸의 spinner가 **맨 뒤에** 서 있었는데 게이트는 초록이었다 —
+      // 되읽기가 자식 순서를 담지 않아 라이브 전수 순회로만 드러났다. 기능(`childOrder`)은 이미
+      // 있었고 Button에서 꺼져 있었을 뿐이다. 켜면서 300칸의 순서를 하나로 통일했다.
+      // **숨은 Spinner도 맨 앞에 둔다** — 「그려진다면 설 자리」에 두어야 한 size 키에 한 값이
+      // 담기고, 그래야 이 배열 하나로 300칸을 묶을 수 있다.
+      childOrder: ["Spinner", "LeftIcon", "Label", "RightIcon"],
     },
   },
   {

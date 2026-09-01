@@ -336,6 +336,10 @@ const KNOWN_PRODUCT_STEPS = [
   "verify-specimen-context",
   "check-figma-inventory",
   "verify-tailwind-interop",
+  // 앵커 커밋의 제품 트리를 열거해 「표면」 목록을 뽑는 열거기. 이 저장소 밖을 읽으므로
+  // 로컬 전용이다 — 그 목록을 **읽기만** 하는 래칫(check-figma-surface-coverage)은 반대로
+  // verify:ci 에 있다.
+  "verify-product-surfaces",
   // 완성된 제품 페이지에서만 성립하는 liveOnly 합성 장면 측정기.
   "verify-product-scenes",
   // 제품이 명시한 development-only auth bypass로 보호 route의 실패/빈 기본 상태를 재는 측정기.

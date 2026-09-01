@@ -1,0 +1,2943 @@
+{
+  "$comment": "생성물. scripts/measure-product-surfaces.mjs 가 앵커 커밋의 제품 트리에서 열거한다. `figma` 와 `reason` 만 사람이 적고, 나머지 필드는 다시 뽑을 때 덮어쓴다.",
+  "$whyThisExists": "verify-figma-parity 는 계약 51 ↔ Figma 51 을 양방향으로 잠근 닫힌 집합이라, 계약에 선언되지 않은 제품 표면은 아무리 많이 빠져 있어도 초록이 나온다. 제품 트리를 열거하는 코드가 이 저장소에 0건이었고 figma-sync.md 는 「커버리지 열거기가 아직 없다. 그래서 손으로 세어 기록한다」고 적었다. 손으로 센 원장은 반드시 낡는다.",
+  "$granularityRule": "표면 하나 = 모듈 최상위에 정의된, JSX 를 돌려주는 PascalCase React 컴포넌트 하나. 식별자는 `<경로>#<이름>` 이고 줄 번호를 쓰지 않는다. 고른 근거와 버린 후보 셋(클래스 문자열 3455개 · 정본 컴포넌트 12개 · 라우트×시각영역)은 열거기 머리말에 적었다.",
+  "$howToUse": "새 표면이 나타나면 둘 중 하나를 한다 — 대응하는 Figma 컴포넌트 이름을 `figma` 에 적거나, 왜 대응물이 없어도 되는지를 `reason` 에 20자 이상으로 적는다. **사유 없이 넘기는 길은 없다.** 둘 다 비어 있으면 그 표면은 `unclassified` 로 세어지고, check-figma-surface-coverage 의 래칫이 그 수가 늘어나는 것을 막는다.",
+  "$upperBound": "이 수는 상한이 아니라 하한이다 — 다른 함수 안에서 정의된 컴포넌트(앵커에서 2개)와 camelCase 렌더 헬퍼(14개)는 세지 않는다. `louis` 도 하한이다: 클래스 맵 파일을 import 해서 쓰는 컴포넌트는 자기 본문에 louis 이름을 갖지 않는다.",
+  "productRef": "ae8fd6278481a5e86cd324ba86a1d44fe978b788",
+  "productCommit": "ae8fd6278481a5e86cd324ba86a1d44fe978b788",
+  "tree": "apps/web",
+  "filesScanned": 282,
+  "counts": {
+    "total": 400,
+    "mapped": 10,
+    "scoped": 2,
+    "unclassified": 388
+  },
+  "surfaces": {
+    "apps/web/app/admin/AdminClient.tsx#AdminClient": {
+      "file": "apps/web/app/admin/AdminClient.tsx",
+      "binding": "default",
+      "louis": [
+        "louis-popover"
+      ],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/app/admin/AdminClient.tsx#PlanBadge": {
+      "file": "apps/web/app/admin/AdminClient.tsx",
+      "binding": "local",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/app/admin/BannerManagement.tsx#BannerManagement": {
+      "file": "apps/web/app/admin/BannerManagement.tsx",
+      "binding": "default",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/app/admin/BlogManagement.tsx#BlogManagement": {
+      "file": "apps/web/app/admin/BlogManagement.tsx",
+      "binding": "default",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/app/admin/CaptionTemplateManagement.tsx#CaptionTemplateManagement": {
+      "file": "apps/web/app/admin/CaptionTemplateManagement.tsx",
+      "binding": "default",
+      "louis": [
+        "louis-checkbox",
+        "louis-segmented",
+        "louis-segmented-control",
+        "louis-slider",
+        "louis-slider-fill"
+      ],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/app/admin/CaptionTemplateManagement.tsx#PreviewTextImg": {
+      "file": "apps/web/app/admin/CaptionTemplateManagement.tsx",
+      "binding": "local",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/app/admin/CouponManagement.tsx#CouponManagement": {
+      "file": "apps/web/app/admin/CouponManagement.tsx",
+      "binding": "default",
+      "louis": [
+        "louis-popover"
+      ],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/app/admin/coupons/[id]/print/page.tsx#CouponPrintPage": {
+      "file": "apps/web/app/admin/coupons/[id]/print/page.tsx",
+      "binding": "default",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/app/admin/InquiryManagement.tsx#InquiryManagement": {
+      "file": "apps/web/app/admin/InquiryManagement.tsx",
+      "binding": "default",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/app/admin/JobMonitor.tsx#JobMonitor": {
+      "file": "apps/web/app/admin/JobMonitor.tsx",
+      "binding": "default",
+      "louis": [
+        "louis-alert"
+      ],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/app/admin/JobMonitor.tsx#PromptText": {
+      "file": "apps/web/app/admin/JobMonitor.tsx",
+      "binding": "local",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/app/admin/page.tsx#AdminPage": {
+      "file": "apps/web/app/admin/page.tsx",
+      "binding": "default",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/app/admin/ProductMetricsDashboard.tsx#ProductMetricsDashboard": {
+      "file": "apps/web/app/admin/ProductMetricsDashboard.tsx",
+      "binding": "default",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/app/admin/RefundManagement.tsx#RefundManagement": {
+      "file": "apps/web/app/admin/RefundManagement.tsx",
+      "binding": "default",
+      "louis": [
+        "louis-checkbox"
+      ],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/app/admin/TemplateManagement.tsx#TemplateManagement": {
+      "file": "apps/web/app/admin/TemplateManagement.tsx",
+      "binding": "default",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/app/admin/UsageByModelDashboard.tsx#UsageByModelDashboard": {
+      "file": "apps/web/app/admin/UsageByModelDashboard.tsx",
+      "binding": "default",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/app/analytics/instagram/page.tsx#InstagramAnalyticsPage": {
+      "file": "apps/web/app/analytics/instagram/page.tsx",
+      "binding": "default",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/app/analytics/youtube/page.tsx#YoutubeAnalyticsPage": {
+      "file": "apps/web/app/analytics/youtube/page.tsx",
+      "binding": "default",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/app/archive/page.tsx#HomePage": {
+      "file": "apps/web/app/archive/page.tsx",
+      "binding": "default",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/app/aws/signup/page.tsx#AwsSignupPage": {
+      "file": "apps/web/app/aws/signup/page.tsx",
+      "binding": "default",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/app/blog/[slug]/page.tsx#BlogPostPage": {
+      "file": "apps/web/app/blog/[slug]/page.tsx",
+      "binding": "default",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/app/blog/page.tsx#BlogPage": {
+      "file": "apps/web/app/blog/page.tsx",
+      "binding": "default",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/app/creative-media-admin/page.tsx#CreativeMediaAdminPage": {
+      "file": "apps/web/app/creative-media-admin/page.tsx",
+      "binding": "default",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/app/creative-media/page.tsx#CreativeMediaPage": {
+      "file": "apps/web/app/creative-media/page.tsx",
+      "binding": "default",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/app/data-deletion-status/page.tsx#DataDeletionStatusPage": {
+      "file": "apps/web/app/data-deletion-status/page.tsx",
+      "binding": "default",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/app/error.tsx#Error": {
+      "file": "apps/web/app/error.tsx",
+      "binding": "default",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/app/global-error.tsx#GlobalError": {
+      "file": "apps/web/app/global-error.tsx",
+      "binding": "default",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/app/highlight/[projectId]/page.tsx#HighlightProjectPage": {
+      "file": "apps/web/app/highlight/[projectId]/page.tsx",
+      "binding": "default",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/app/highlight/[projectId]/shorts/[shortId]/CaptionColorPanel.tsx#CaptionColorPanel": {
+      "file": "apps/web/app/highlight/[projectId]/shorts/[shortId]/CaptionColorPanel.tsx",
+      "binding": "default",
+      "louis": [
+        "louis-slider",
+        "louis-slider-fill"
+      ],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/app/highlight/[projectId]/shorts/[shortId]/CaptionColorPanel.tsx#Swatch": {
+      "file": "apps/web/app/highlight/[projectId]/shorts/[shortId]/CaptionColorPanel.tsx",
+      "binding": "local",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/app/highlight/[projectId]/shorts/[shortId]/page.tsx#HighlightShortPage": {
+      "file": "apps/web/app/highlight/[projectId]/shorts/[shortId]/page.tsx",
+      "binding": "default",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/app/highlight/[projectId]/shorts/[shortId]/page.tsx#LayoutThumb": {
+      "file": "apps/web/app/highlight/[projectId]/shorts/[shortId]/page.tsx",
+      "binding": "local",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/app/highlight/HighlightWorkspace.tsx#HighlightWorkspace": {
+      "file": "apps/web/app/highlight/HighlightWorkspace.tsx",
+      "binding": "default",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/app/highlight/page.tsx#HighlightPage": {
+      "file": "apps/web/app/highlight/page.tsx",
+      "binding": "default",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/app/HomePageClient.tsx#LandingContent": {
+      "file": "apps/web/app/HomePageClient.tsx",
+      "binding": "local",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/app/HomePageClient.tsx#Page": {
+      "file": "apps/web/app/HomePageClient.tsx",
+      "binding": "default",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/app/inquiry/InquiryClient.tsx#InquiryClient": {
+      "file": "apps/web/app/inquiry/InquiryClient.tsx",
+      "binding": "default",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/app/inquiry/InquiryClient.tsx#InquiryFormBody": {
+      "file": "apps/web/app/inquiry/InquiryClient.tsx",
+      "binding": "local",
+      "louis": [
+        "louis-alert"
+      ],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/app/inquiry/page.tsx#InquiryPage": {
+      "file": "apps/web/app/inquiry/page.tsx",
+      "binding": "default",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/app/layout.tsx#RootLayout": {
+      "file": "apps/web/app/layout.tsx",
+      "binding": "default",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/app/login/page.tsx#LoginPage": {
+      "file": "apps/web/app/login/page.tsx",
+      "binding": "default",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/app/louis-render-contract/page.tsx#RenderContractPage": {
+      "file": "apps/web/app/louis-render-contract/page.tsx",
+      "binding": "default",
+      "louis": [],
+      "figma": null,
+      "reason": "RENDER_CONTRACT_ENABLED=1 인 로컬/CI 서버에서만 열리는 격리 계약 화면이다(파일 자신의 머리말이 그렇게 적는다). 제품이 사용자에게 그리는 표면이 아니라 이 저장소의 실측 하네스가 계산 스타일을 읽으려고 세운 fixture 이므로, Figma 에 대응물을 두면 없는 제품 화면을 그리게 된다."
+    },
+    "apps/web/app/louis-render-contract/RenderContractClient.tsx#RenderContractClient": {
+      "file": "apps/web/app/louis-render-contract/RenderContractClient.tsx",
+      "binding": "default",
+      "louis": [
+        "louis-dialog",
+        "louis-hairline-inset",
+        "louis-overlay-mode",
+        "louis-overlay-panel",
+        "louis-state",
+        "louis-text",
+        "louis-text-field"
+      ],
+      "figma": null,
+      "reason": "RENDER_CONTRACT_ENABLED=1 인 로컬/CI 서버에서만 열리는 격리 계약 화면이다(파일 자신의 머리말이 그렇게 적는다). 제품이 사용자에게 그리는 표면이 아니라 이 저장소의 실측 하네스가 계산 스타일을 읽으려고 세운 fixture 이므로, Figma 에 대응물을 두면 없는 제품 화면을 그리게 된다."
+    },
+    "apps/web/app/mypage/topup/fail/page.tsx#TopupFailPage": {
+      "file": "apps/web/app/mypage/topup/fail/page.tsx",
+      "binding": "default",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/app/mypage/topup/success/page.tsx#TopupSuccessPage": {
+      "file": "apps/web/app/mypage/topup/success/page.tsx",
+      "binding": "default",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/app/mypage/upgrade/billing-change-fail/page.tsx#BillingChangeFailPage": {
+      "file": "apps/web/app/mypage/upgrade/billing-change-fail/page.tsx",
+      "binding": "default",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/app/mypage/upgrade/billing-change-success/page.tsx#BillingChangeSuccessPage": {
+      "file": "apps/web/app/mypage/upgrade/billing-change-success/page.tsx",
+      "binding": "default",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/app/mypage/upgrade/billing-fail/page.tsx#BillingUpgradeFailPage": {
+      "file": "apps/web/app/mypage/upgrade/billing-fail/page.tsx",
+      "binding": "default",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/app/mypage/upgrade/billing-success/page.tsx#BillingUpgradeSuccessPage": {
+      "file": "apps/web/app/mypage/upgrade/billing-success/page.tsx",
+      "binding": "default",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/app/mypage/upgrade/checkout/page.tsx#CheckoutContent": {
+      "file": "apps/web/app/mypage/upgrade/checkout/page.tsx",
+      "binding": "local",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/app/mypage/upgrade/checkout/page.tsx#UpgradeCheckoutPage": {
+      "file": "apps/web/app/mypage/upgrade/checkout/page.tsx",
+      "binding": "default",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/app/mypage/upgrade/fail/page.tsx#UpgradeFailPage": {
+      "file": "apps/web/app/mypage/upgrade/fail/page.tsx",
+      "binding": "default",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/app/mypage/upgrade/page.tsx#UpgradePlanPage": {
+      "file": "apps/web/app/mypage/upgrade/page.tsx",
+      "binding": "default",
+      "louis": [
+        "louis-alert",
+        "louis-tooltip"
+      ],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/app/mypage/upgrade/TossPaymentWindowPanel.tsx#TossPaymentWindowPanel": {
+      "file": "apps/web/app/mypage/upgrade/TossPaymentWindowPanel.tsx",
+      "binding": "default",
+      "louis": [
+        "louis-alert"
+      ],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/app/nodecanvas/NodeCanvasWorkspace.tsx#NodeCanvasWorkspace": {
+      "file": "apps/web/app/nodecanvas/NodeCanvasWorkspace.tsx",
+      "binding": "default",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/app/nodecanvas/NodeCanvasWorkspace.tsx#NodeCanvasWorkspaceInner": {
+      "file": "apps/web/app/nodecanvas/NodeCanvasWorkspace.tsx",
+      "binding": "local",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/app/nodecanvas/page.tsx#NodeCanvasPage": {
+      "file": "apps/web/app/nodecanvas/page.tsx",
+      "binding": "default",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/app/not-found-content.tsx#NotFoundContent": {
+      "file": "apps/web/app/not-found-content.tsx",
+      "binding": "default",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/app/not-found.tsx#NotFound": {
+      "file": "apps/web/app/not-found.tsx",
+      "binding": "default",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/app/page.tsx#HomePage": {
+      "file": "apps/web/app/page.tsx",
+      "binding": "default",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/app/pricing/page.tsx#PricingPage": {
+      "file": "apps/web/app/pricing/page.tsx",
+      "binding": "default",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/app/privacy/page.tsx#PrivacyPage": {
+      "file": "apps/web/app/privacy/page.tsx",
+      "binding": "default",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/app/recover/page.tsx#RecoverPage": {
+      "file": "apps/web/app/recover/page.tsx",
+      "binding": "default",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/app/reset-password/new/page.tsx#ResetPasswordNewPage": {
+      "file": "apps/web/app/reset-password/new/page.tsx",
+      "binding": "default",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/app/reset-password/page.tsx#ResetPasswordPage": {
+      "file": "apps/web/app/reset-password/page.tsx",
+      "binding": "default",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/app/settings/page.tsx#SettingsPage": {
+      "file": "apps/web/app/settings/page.tsx",
+      "binding": "default",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/app/signup/check-email/page.tsx#SignupCheckEmailPage": {
+      "file": "apps/web/app/signup/check-email/page.tsx",
+      "binding": "default",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/app/signup/check-email/SignupCheckEmailClient.tsx#SignupCheckEmailClient": {
+      "file": "apps/web/app/signup/check-email/SignupCheckEmailClient.tsx",
+      "binding": "default",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/app/signup/expired/page.tsx#SignupExpiredPage": {
+      "file": "apps/web/app/signup/expired/page.tsx",
+      "binding": "default",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/app/signup/page.tsx#SignupPage": {
+      "file": "apps/web/app/signup/page.tsx",
+      "binding": "default",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/app/signup/verified/page.tsx#SignupVerifiedPage": {
+      "file": "apps/web/app/signup/verified/page.tsx",
+      "binding": "default",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/app/subscription/page.tsx#SubscriptionPage": {
+      "file": "apps/web/app/subscription/page.tsx",
+      "binding": "default",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/app/templates/[slug]/page.tsx#TemplateDetailPage": {
+      "file": "apps/web/app/templates/[slug]/page.tsx",
+      "binding": "default",
+      "louis": [
+        "louis-alert"
+      ],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/app/templates/page.tsx#TemplatesPage": {
+      "file": "apps/web/app/templates/page.tsx",
+      "binding": "default",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/app/terms/page.tsx#TermsPage": {
+      "file": "apps/web/app/terms/page.tsx",
+      "binding": "default",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/app/videoeditor/[projectId]/EditorProjectWorkspace.tsx#EditorProjectWorkspace": {
+      "file": "apps/web/app/videoeditor/[projectId]/EditorProjectWorkspace.tsx",
+      "binding": "default",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/app/videoeditor/[projectId]/page.tsx#EditorProjectPage": {
+      "file": "apps/web/app/videoeditor/[projectId]/page.tsx",
+      "binding": "default",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/app/videoeditor/page.tsx#VideoEditorPage": {
+      "file": "apps/web/app/videoeditor/page.tsx",
+      "binding": "default",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/app/videoeditor/VideoEditorWorkspace.tsx#VideoEditorWorkspace": {
+      "file": "apps/web/app/videoeditor/VideoEditorWorkspace.tsx",
+      "binding": "default",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/analytics/GoogleAnalytics.tsx#GoogleAnalytics": {
+      "file": "apps/web/components/analytics/GoogleAnalytics.tsx",
+      "binding": "default",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/auth/AuthProvider.tsx#AuthProvider": {
+      "file": "apps/web/components/auth/AuthProvider.tsx",
+      "binding": "named",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/auth/AuthStatusCard.tsx#AuthStatusCard": {
+      "file": "apps/web/components/auth/AuthStatusCard.tsx",
+      "binding": "default",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/banners/HomeBannerSlide.tsx#HomeBannerSlide": {
+      "file": "apps/web/components/banners/HomeBannerSlide.tsx",
+      "binding": "named",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/blog/BlogComments.tsx#BlogComments": {
+      "file": "apps/web/components/blog/BlogComments.tsx",
+      "binding": "default",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/blog/BlogShell.tsx#BlogShell": {
+      "file": "apps/web/components/blog/BlogShell.tsx",
+      "binding": "default",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/blog/MarkdownContent.tsx#MarkdownContent": {
+      "file": "apps/web/components/blog/MarkdownContent.tsx",
+      "binding": "default",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/creative-media/CreativeMediaAdminClient.tsx#ActiveBadge": {
+      "file": "apps/web/components/creative-media/CreativeMediaAdminClient.tsx",
+      "binding": "local",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/creative-media/CreativeMediaAdminClient.tsx#CreativeMediaAdminClient": {
+      "file": "apps/web/components/creative-media/CreativeMediaAdminClient.tsx",
+      "binding": "default",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/creative-media/CreativeMediaAdminClient.tsx#EventEditor": {
+      "file": "apps/web/components/creative-media/CreativeMediaAdminClient.tsx",
+      "binding": "local",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/creative-media/CreativeMediaAdminClient.tsx#EventFields": {
+      "file": "apps/web/components/creative-media/CreativeMediaAdminClient.tsx",
+      "binding": "local",
+      "louis": [
+        "louis-checkbox"
+      ],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/creative-media/CreativeMediaAdminClient.tsx#Field": {
+      "file": "apps/web/components/creative-media/CreativeMediaAdminClient.tsx",
+      "binding": "local",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/creative-media/CreativeMediaAdminClient.tsx#Stat": {
+      "file": "apps/web/components/creative-media/CreativeMediaAdminClient.tsx",
+      "binding": "local",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/creative-media/CreativeMediaAdminClient.tsx#TemplateEditor": {
+      "file": "apps/web/components/creative-media/CreativeMediaAdminClient.tsx",
+      "binding": "local",
+      "louis": [
+        "louis-checkbox"
+      ],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/creative-media/CreativeMediaAdminClient.tsx#TemplateOrderList": {
+      "file": "apps/web/components/creative-media/CreativeMediaAdminClient.tsx",
+      "binding": "local",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/creative-media/CreativeMediaClient.tsx#BoothHeader": {
+      "file": "apps/web/components/creative-media/CreativeMediaClient.tsx",
+      "binding": "local",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/creative-media/CreativeMediaClient.tsx#BoothMenu": {
+      "file": "apps/web/components/creative-media/CreativeMediaClient.tsx",
+      "binding": "local",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/creative-media/CreativeMediaClient.tsx#CloseIcon": {
+      "file": "apps/web/components/creative-media/CreativeMediaClient.tsx",
+      "binding": "local",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/creative-media/CreativeMediaClient.tsx#CreativeMediaClient": {
+      "file": "apps/web/components/creative-media/CreativeMediaClient.tsx",
+      "binding": "default",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/creative-media/CreativeMediaClient.tsx#CreativeMediaClosed": {
+      "file": "apps/web/components/creative-media/CreativeMediaClient.tsx",
+      "binding": "named",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/creative-media/CreativeMediaClient.tsx#MenuIcon": {
+      "file": "apps/web/components/creative-media/CreativeMediaClient.tsx",
+      "binding": "local",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/creative-media/CreativeMediaClient.tsx#PhotoIcon": {
+      "file": "apps/web/components/creative-media/CreativeMediaClient.tsx",
+      "binding": "local",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/creative-media/CreativeMediaClient.tsx#Shell": {
+      "file": "apps/web/components/creative-media/CreativeMediaClient.tsx",
+      "binding": "local",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/generation/GenerationProvider.tsx#GenerationProvider": {
+      "file": "apps/web/components/generation/GenerationProvider.tsx",
+      "binding": "default",
+      "louis": [
+        "louis-blur-surface",
+        "louis-radius-pill"
+      ],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/highlight/HighlightTransitionProvider.tsx#HighlightTransitionProvider": {
+      "file": "apps/web/components/highlight/HighlightTransitionProvider.tsx",
+      "binding": "named",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/highlight/HighlightUploadProvider.tsx#HighlightUploadProvider": {
+      "file": "apps/web/components/highlight/HighlightUploadProvider.tsx",
+      "binding": "default",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/instagram/InstagramConnectionProvider.tsx#InstagramConnectionProvider": {
+      "file": "apps/web/components/instagram/InstagramConnectionProvider.tsx",
+      "binding": "named",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/landing/demo-snapshots/StaticCreateDemo.dynamic.tsx#StaticCreateDemoSkeleton": {
+      "file": "apps/web/components/landing/demo-snapshots/StaticCreateDemo.dynamic.tsx",
+      "binding": "local",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/landing/demo-snapshots/StaticCreateDemo.tsx#ChevronLeftIcon": {
+      "file": "apps/web/components/landing/demo-snapshots/StaticCreateDemo.tsx",
+      "binding": "local",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/landing/demo-snapshots/StaticCreateDemo.tsx#ChevronRightIcon": {
+      "file": "apps/web/components/landing/demo-snapshots/StaticCreateDemo.tsx",
+      "binding": "local",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/landing/demo-snapshots/StaticCreateDemo.tsx#StaticCreateDemo": {
+      "file": "apps/web/components/landing/demo-snapshots/StaticCreateDemo.tsx",
+      "binding": "default",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/landing/navigation/Gnb.tsx#Gnb": {
+      "file": "apps/web/components/landing/navigation/Gnb.tsx",
+      "binding": "default",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/landing/sections/BlogComingSoon.tsx#BlogComingSoon": {
+      "file": "apps/web/components/landing/sections/BlogComingSoon.tsx",
+      "binding": "default",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/landing/sections/CapabilitiesShowcaseParts.tsx#LazyDemo": {
+      "file": "apps/web/components/landing/sections/CapabilitiesShowcaseParts.tsx",
+      "binding": "named",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/landing/sections/CapabilitiesShowcaseParts.tsx#StageCard": {
+      "file": "apps/web/components/landing/sections/CapabilitiesShowcaseParts.tsx",
+      "binding": "named",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/landing/sections/CreatorProgram.tsx#CreatorProgram": {
+      "file": "apps/web/components/landing/sections/CreatorProgram.tsx",
+      "binding": "default",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/landing/sections/FAQ.tsx#FAQ": {
+      "file": "apps/web/components/landing/sections/FAQ.tsx",
+      "binding": "default",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/landing/sections/FeatureCarousel.tsx#BrandGlyph": {
+      "file": "apps/web/components/landing/sections/FeatureCarousel.tsx",
+      "binding": "local",
+      "louis": [
+        "louis-color-media-foreground-dark"
+      ],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/landing/sections/FeatureCarousel.tsx#FeatureCarousel": {
+      "file": "apps/web/components/landing/sections/FeatureCarousel.tsx",
+      "binding": "default",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/landing/sections/Footer.tsx#Footer": {
+      "file": "apps/web/components/landing/sections/Footer.tsx",
+      "binding": "default",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/landing/sections/Hero.tsx#Hero": {
+      "file": "apps/web/components/landing/sections/Hero.tsx",
+      "binding": "default",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/landing/sections/ModelCarousel.tsx#BrandGlyph": {
+      "file": "apps/web/components/landing/sections/ModelCarousel.tsx",
+      "binding": "local",
+      "louis": [
+        "louis-color-media-foreground-dark"
+      ],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/landing/sections/ModelCarousel.tsx#ModelCarousel": {
+      "file": "apps/web/components/landing/sections/ModelCarousel.tsx",
+      "binding": "default",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/landing/sections/NewsCarousel.tsx#NewsCard": {
+      "file": "apps/web/components/landing/sections/NewsCarousel.tsx",
+      "binding": "local",
+      "louis": [],
+      "figma": "NewsCard",
+      "reason": "scripts/lib/product-files.mjs 의 PRODUCT_FILES 가 이 파일을 Figma 컴포넌트의 실측 정본으로 고정한다(landingNews)."
+    },
+    "apps/web/components/landing/sections/NewsCarousel.tsx#NewsCarousel": {
+      "file": "apps/web/components/landing/sections/NewsCarousel.tsx",
+      "binding": "default",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/landing/sections/PricingSection.tsx#PlanComparisonTable": {
+      "file": "apps/web/components/landing/sections/PricingSection.tsx",
+      "binding": "named",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/landing/sections/PricingSection.tsx#PricingSection": {
+      "file": "apps/web/components/landing/sections/PricingSection.tsx",
+      "binding": "default",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/landing/sections/StepTiles.tsx#StepTiles": {
+      "file": "apps/web/components/landing/sections/StepTiles.tsx",
+      "binding": "default",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/landing/sections/TemplateGrid.tsx#Logo": {
+      "file": "apps/web/components/landing/sections/TemplateGrid.tsx",
+      "binding": "local",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/landing/sections/TemplateGrid.tsx#TemplateGrid": {
+      "file": "apps/web/components/landing/sections/TemplateGrid.tsx",
+      "binding": "default",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/landing/sections/Testimonials.tsx#Testimonials": {
+      "file": "apps/web/components/landing/sections/Testimonials.tsx",
+      "binding": "default",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/landing/system/Carousel.tsx#Carousel": {
+      "file": "apps/web/components/landing/system/Carousel.tsx",
+      "binding": "default",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/landing/system/Carousel.tsx#CarouselHeader": {
+      "file": "apps/web/components/landing/system/Carousel.tsx",
+      "binding": "named",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/landing/system/CarouselArrows.tsx#Caret": {
+      "file": "apps/web/components/landing/system/CarouselArrows.tsx",
+      "binding": "local",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/landing/system/CarouselArrows.tsx#CarouselArrows": {
+      "file": "apps/web/components/landing/system/CarouselArrows.tsx",
+      "binding": "default",
+      "louis": [],
+      "figma": "CarouselArrow",
+      "reason": "scripts/lib/product-files.mjs 의 PRODUCT_FILES 가 이 파일을 Figma 컴포넌트의 실측 정본으로 고정한다(landingCarouselArrows)."
+    },
+    "apps/web/components/landing/system/I18nProvider.tsx#I18nProvider": {
+      "file": "apps/web/components/landing/system/I18nProvider.tsx",
+      "binding": "default",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/landing/system/LanguageSelector.tsx#LanguageSelector": {
+      "file": "apps/web/components/landing/system/LanguageSelector.tsx",
+      "binding": "default",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/landing/system/MediaCard.tsx#MediaCard": {
+      "file": "apps/web/components/landing/system/MediaCard.tsx",
+      "binding": "default",
+      "louis": [],
+      "figma": "MediaCard",
+      "reason": "scripts/lib/product-files.mjs 의 PRODUCT_FILES 가 이 파일을 Figma 컴포넌트의 실측 정본으로 고정한다(landingMediaCard)."
+    },
+    "apps/web/components/landing/system/SectionShell.tsx#SectionShell": {
+      "file": "apps/web/components/landing/system/SectionShell.tsx",
+      "binding": "default",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/legal/LegalDocumentBackButton.tsx#LegalDocumentBackButton": {
+      "file": "apps/web/components/legal/LegalDocumentBackButton.tsx",
+      "binding": "default",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/legal/LegalDocumentPage.tsx#LegalDocumentPage": {
+      "file": "apps/web/components/legal/LegalDocumentPage.tsx",
+      "binding": "default",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/legal/LegalMarkdownBody.tsx#LegalMarkdownBody": {
+      "file": "apps/web/components/legal/LegalMarkdownBody.tsx",
+      "binding": "default",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/navigation/CommandPalette.tsx#ChevronGlyph": {
+      "file": "apps/web/components/navigation/CommandPalette.tsx",
+      "binding": "local",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/navigation/CommandPalette.tsx#CloseGlyph": {
+      "file": "apps/web/components/navigation/CommandPalette.tsx",
+      "binding": "local",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/navigation/CommandPalette.tsx#CommandPalette": {
+      "file": "apps/web/components/navigation/CommandPalette.tsx",
+      "binding": "named",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/navigation/CommandPalette.tsx#KeyArrowGlyph": {
+      "file": "apps/web/components/navigation/CommandPalette.tsx",
+      "binding": "local",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/navigation/CommandPalette.tsx#KeyEnterGlyph": {
+      "file": "apps/web/components/navigation/CommandPalette.tsx",
+      "binding": "local",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/navigation/CommandPalette.tsx#SearchGlyph": {
+      "file": "apps/web/components/navigation/CommandPalette.tsx",
+      "binding": "local",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/navigation/Gnb.tsx#AppNavIcon": {
+      "file": "apps/web/components/navigation/Gnb.tsx",
+      "binding": "local",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/navigation/Gnb.tsx#Gnb": {
+      "file": "apps/web/components/navigation/Gnb.tsx",
+      "binding": "default",
+      "louis": [
+        "louis-blur-surface"
+      ],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/navigation/Gnb.tsx#GnbProfileAvatar": {
+      "file": "apps/web/components/navigation/Gnb.tsx",
+      "binding": "local",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/navigation/Gnb.tsx#GnbWordmarkLogo": {
+      "file": "apps/web/components/navigation/Gnb.tsx",
+      "binding": "local",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/navigation/Gnb.tsx#NavPlusGlyph": {
+      "file": "apps/web/components/navigation/Gnb.tsx",
+      "binding": "local",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/navigation/InfoCircleIcon.tsx#InfoCircleIcon": {
+      "file": "apps/web/components/navigation/InfoCircleIcon.tsx",
+      "binding": "named",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/navigation/ProjectSaveCloudGlyph.tsx#CloudArrowUpSvg": {
+      "file": "apps/web/components/navigation/ProjectSaveCloudGlyph.tsx",
+      "binding": "local",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/navigation/ProjectSaveCloudGlyph.tsx#CloudCheckSvg": {
+      "file": "apps/web/components/navigation/ProjectSaveCloudGlyph.tsx",
+      "binding": "local",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/navigation/ProjectSaveCloudGlyph.tsx#CloudWarningSvg": {
+      "file": "apps/web/components/navigation/ProjectSaveCloudGlyph.tsx",
+      "binding": "local",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/navigation/ProjectSaveCloudGlyph.tsx#ProjectSaveCloudGlyph": {
+      "file": "apps/web/components/navigation/ProjectSaveCloudGlyph.tsx",
+      "binding": "named",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/navigation/UserCircleDefaultAvatar.tsx#UserCircleDefaultAvatar": {
+      "file": "apps/web/components/navigation/UserCircleDefaultAvatar.tsx",
+      "binding": "named",
+      "louis": [],
+      "figma": "Avatar",
+      "reason": "migration/product.measured.json 의 canon.paths 가 이 파일을 제품 정본으로 지목한다(components.avatar)."
+    },
+    "apps/web/components/PastDueBanner.tsx#PastDueBanner": {
+      "file": "apps/web/components/PastDueBanner.tsx",
+      "binding": "default",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/projects/CreateProjectModal.tsx#CreateProjectModal": {
+      "file": "apps/web/components/projects/CreateProjectModal.tsx",
+      "binding": "default",
+      "louis": [
+        "louis-dialog",
+        "louis-overlay-mode",
+        "louis-overlay-panel",
+        "louis-state",
+        "louis-text",
+        "louis-text-field"
+      ],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/analytics/AnalyticsAccountMoreMenu.tsx#AnalyticsAccountMoreMenu": {
+      "file": "apps/web/components/scenes/analytics/AnalyticsAccountMoreMenu.tsx",
+      "binding": "named",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/analytics/AnalyticsMainScrollRegion.tsx#AnalyticsMainScrollRegion": {
+      "file": "apps/web/components/scenes/analytics/AnalyticsMainScrollRegion.tsx",
+      "binding": "named",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/analytics/AnalyticsPlatformTabs.tsx#AnalyticsPlatformTabs": {
+      "file": "apps/web/components/scenes/analytics/AnalyticsPlatformTabs.tsx",
+      "binding": "named",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/analytics/AudienceTab.tsx#AnalyticsAudienceTab": {
+      "file": "apps/web/components/scenes/analytics/AudienceTab.tsx",
+      "binding": "named",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/analytics/ContentTable.tsx#AnalyticsContentTable": {
+      "file": "apps/web/components/scenes/analytics/ContentTable.tsx",
+      "binding": "named",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/analytics/OverviewTab.tsx#AnalyticsOverviewTab": {
+      "file": "apps/web/components/scenes/analytics/OverviewTab.tsx",
+      "binding": "named",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/analytics/PerformanceTab.tsx#AnalyticsPerformanceTab": {
+      "file": "apps/web/components/scenes/analytics/PerformanceTab.tsx",
+      "binding": "named",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/analytics/shared.tsx#AnalyticsStatePanel": {
+      "file": "apps/web/components/scenes/analytics/shared.tsx",
+      "binding": "named",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/analytics/shared.tsx#AreaChart": {
+      "file": "apps/web/components/scenes/analytics/shared.tsx",
+      "binding": "named",
+      "louis": [
+        "louis-tooltip"
+      ],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/analytics/shared.tsx#ChartSkeleton": {
+      "file": "apps/web/components/scenes/analytics/shared.tsx",
+      "binding": "named",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/analytics/shared.tsx#ContentTableSkeleton": {
+      "file": "apps/web/components/scenes/analytics/shared.tsx",
+      "binding": "named",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/analytics/shared.tsx#InsufficientNotice": {
+      "file": "apps/web/components/scenes/analytics/shared.tsx",
+      "binding": "named",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/analytics/shared.tsx#KpiSparkline": {
+      "file": "apps/web/components/scenes/analytics/shared.tsx",
+      "binding": "named",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/analytics/shared.tsx#MetricCardsSkeleton": {
+      "file": "apps/web/components/scenes/analytics/shared.tsx",
+      "binding": "named",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/analytics/shared.tsx#ReportKpiRowSkeleton": {
+      "file": "apps/web/components/scenes/analytics/shared.tsx",
+      "binding": "named",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/analytics/shared.tsx#ReportPrimaryBlockSkeleton": {
+      "file": "apps/web/components/scenes/analytics/shared.tsx",
+      "binding": "named",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/analytics/shared.tsx#SidebarTabIcon": {
+      "file": "apps/web/components/scenes/analytics/shared.tsx",
+      "binding": "named",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/AppHomeScene.tsx#AppHomeScene": {
+      "file": "apps/web/components/scenes/AppHomeScene.tsx",
+      "binding": "default",
+      "louis": [
+        "louis-banner",
+        "louis-glass-surface"
+      ],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/archive/PlatformSection.tsx#PlatformSection": {
+      "file": "apps/web/components/scenes/archive/PlatformSection.tsx",
+      "binding": "named",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/archive/YoutubeVideoAnalyticsView.tsx#YoutubeVideoAnalyticsView": {
+      "file": "apps/web/components/scenes/archive/YoutubeVideoAnalyticsView.tsx",
+      "binding": "named",
+      "louis": [
+        "louis-tooltip"
+      ],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/ArchiveRailScrollShell.tsx#ArchiveRailScrollShell": {
+      "file": "apps/web/components/scenes/ArchiveRailScrollShell.tsx",
+      "binding": "named",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/ComposerBar.tsx#ComposerBar": {
+      "file": "apps/web/components/scenes/create/ComposerBar.tsx",
+      "binding": "default",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/ConfirmModal.tsx#ConfirmModal": {
+      "file": "apps/web/components/scenes/create/ConfirmModal.tsx",
+      "binding": "default",
+      "louis": [
+        "louis-dialog",
+        "louis-overlay-mode",
+        "louis-overlay-panel",
+        "louis-state"
+      ],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/CustomDropdown.tsx#CustomDropdown": {
+      "file": "apps/web/components/scenes/create/CustomDropdown.tsx",
+      "binding": "default",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/guide/FAQPanel.tsx#FAQPanel": {
+      "file": "apps/web/components/scenes/create/guide/FAQPanel.tsx",
+      "binding": "default",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/guide/GettingStartedPanel.tsx#GettingStartedPanel": {
+      "file": "apps/web/components/scenes/create/guide/GettingStartedPanel.tsx",
+      "binding": "default",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/guide/GettingStartedPanel.tsx#PipelineArrow": {
+      "file": "apps/web/components/scenes/create/guide/GettingStartedPanel.tsx",
+      "binding": "local",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/guide/GettingStartedPanel.tsx#WalkthroughChunkLoading": {
+      "file": "apps/web/components/scenes/create/guide/GettingStartedPanel.tsx",
+      "binding": "local",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/guide/ModelSpecPanel.tsx#ModelSpecPanel": {
+      "file": "apps/web/components/scenes/create/guide/ModelSpecPanel.tsx",
+      "binding": "default",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/guide/NodeGuidePanel.tsx#NodeGuidePanel": {
+      "file": "apps/web/components/scenes/create/guide/NodeGuidePanel.tsx",
+      "binding": "default",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/guide/ShortcutsPanel.tsx#ShortcutsPanel": {
+      "file": "apps/web/components/scenes/create/guide/ShortcutsPanel.tsx",
+      "binding": "default",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/guide/WorkflowRecipesPanel.tsx#WorkflowRecipesPanel": {
+      "file": "apps/web/components/scenes/create/guide/WorkflowRecipesPanel.tsx",
+      "binding": "default",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/ImageCropModal.tsx#ImageCropModal": {
+      "file": "apps/web/components/scenes/create/ImageCropModal.tsx",
+      "binding": "named",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/ImageLightbox.tsx#ImageLightbox": {
+      "file": "apps/web/components/scenes/create/ImageLightbox.tsx",
+      "binding": "default",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/node-canvas-v2/components/ActionButton.tsx#ActionButton": {
+      "file": "apps/web/components/scenes/create/node-canvas-v2/components/ActionButton.tsx",
+      "binding": "named",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/node-canvas-v2/components/CanvasBackground.tsx#CanvasBackground": {
+      "file": "apps/web/components/scenes/create/node-canvas-v2/components/CanvasBackground.tsx",
+      "binding": "named",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/node-canvas-v2/components/CanvasEmptyState.tsx#CanvasEmptyState": {
+      "file": "apps/web/components/scenes/create/node-canvas-v2/components/CanvasEmptyState.tsx",
+      "binding": "named",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/node-canvas-v2/components/CanvasOnboardingHints.tsx#CanvasConnectHint": {
+      "file": "apps/web/components/scenes/create/node-canvas-v2/components/CanvasOnboardingHints.tsx",
+      "binding": "named",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/node-canvas-v2/components/CanvasOnboardingHints.tsx#CanvasFirstNodeHint": {
+      "file": "apps/web/components/scenes/create/node-canvas-v2/components/CanvasOnboardingHints.tsx",
+      "binding": "named",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/node-canvas-v2/components/CanvasOnboardingHints.tsx#CanvasNextStepHint": {
+      "file": "apps/web/components/scenes/create/node-canvas-v2/components/CanvasOnboardingHints.tsx",
+      "binding": "named",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/node-canvas-v2/components/CanvasZoomControl.tsx#CanvasZoomControl": {
+      "file": "apps/web/components/scenes/create/node-canvas-v2/components/CanvasZoomControl.tsx",
+      "binding": "named",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/node-canvas-v2/components/ChromeTooltip.tsx#ChromeTooltip": {
+      "file": "apps/web/components/scenes/create/node-canvas-v2/components/ChromeTooltip.tsx",
+      "binding": "named",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/node-canvas-v2/components/CreditConfirmModal.tsx#CreditConfirmModal": {
+      "file": "apps/web/components/scenes/create/node-canvas-v2/components/CreditConfirmModal.tsx",
+      "binding": "named",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/node-canvas-v2/components/GlassConfirmModal.tsx#GlassConfirmModal": {
+      "file": "apps/web/components/scenes/create/node-canvas-v2/components/GlassConfirmModal.tsx",
+      "binding": "named",
+      "louis": [
+        "louis-dialog",
+        "louis-overlay-mode",
+        "louis-overlay-panel",
+        "louis-state"
+      ],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/node-canvas-v2/components/MetaDropdownPanel.tsx#MetaDropdownPanel": {
+      "file": "apps/web/components/scenes/create/node-canvas-v2/components/MetaDropdownPanel.tsx",
+      "binding": "named",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/node-canvas-v2/components/NodeContextMenu.tsx#NodeContextMenu": {
+      "file": "apps/web/components/scenes/create/node-canvas-v2/components/NodeContextMenu.tsx",
+      "binding": "named",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/node-canvas-v2/components/NodeDeleteConfirmModal.tsx#NodeDeleteConfirmModal": {
+      "file": "apps/web/components/scenes/create/node-canvas-v2/components/NodeDeleteConfirmModal.tsx",
+      "binding": "named",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/node-canvas-v2/components/NodeHeaderActions.tsx#NodeHeaderActions": {
+      "file": "apps/web/components/scenes/create/node-canvas-v2/components/NodeHeaderActions.tsx",
+      "binding": "named",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/node-canvas-v2/components/NodeLayersPanel.tsx#NodeLayersPanel": {
+      "file": "apps/web/components/scenes/create/node-canvas-v2/components/NodeLayersPanel.tsx",
+      "binding": "named",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/node-canvas-v2/components/NodeLayersPanel.tsx#RowLeading": {
+      "file": "apps/web/components/scenes/create/node-canvas-v2/components/NodeLayersPanel.tsx",
+      "binding": "local",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/node-canvas-v2/components/NodeLayersPanel.tsx#SidebarToggleIcon": {
+      "file": "apps/web/components/scenes/create/node-canvas-v2/components/NodeLayersPanel.tsx",
+      "binding": "local",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/node-canvas-v2/components/NodeMoreMenu.tsx#NodeMoreMenu": {
+      "file": "apps/web/components/scenes/create/node-canvas-v2/components/NodeMoreMenu.tsx",
+      "binding": "named",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/node-canvas-v2/components/NodePromptGenerateButton.tsx#NodePromptGenerateButton": {
+      "file": "apps/web/components/scenes/create/node-canvas-v2/components/NodePromptGenerateButton.tsx",
+      "binding": "named",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/node-canvas-v2/components/NodePromptInputCopyButton.tsx#NodePromptInputCopyButton": {
+      "file": "apps/web/components/scenes/create/node-canvas-v2/components/NodePromptInputCopyButton.tsx",
+      "binding": "named",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/node-canvas-v2/components/NodePromptResizeHandle.tsx#NodePromptResizeHandle": {
+      "file": "apps/web/components/scenes/create/node-canvas-v2/components/NodePromptResizeHandle.tsx",
+      "binding": "named",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/node-canvas-v2/components/NodeTitleEditableLabel.tsx#NodeTitleEditableLabel": {
+      "file": "apps/web/components/scenes/create/node-canvas-v2/components/NodeTitleEditableLabel.tsx",
+      "binding": "named",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/node-canvas-v2/components/PageMetaDropdownPanel.tsx#PageMetaDropdownPanel": {
+      "file": "apps/web/components/scenes/create/node-canvas-v2/components/PageMetaDropdownPanel.tsx",
+      "binding": "named",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/node-canvas-v2/components/PaneContextMenu.tsx#Item": {
+      "file": "apps/web/components/scenes/create/node-canvas-v2/components/PaneContextMenu.tsx",
+      "binding": "local",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/node-canvas-v2/components/PaneContextMenu.tsx#PaneContextMenu": {
+      "file": "apps/web/components/scenes/create/node-canvas-v2/components/PaneContextMenu.tsx",
+      "binding": "named",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/node-canvas-v2/components/PlanGateModal.tsx#PlanGateModal": {
+      "file": "apps/web/components/scenes/create/node-canvas-v2/components/PlanGateModal.tsx",
+      "binding": "named",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/node-canvas-v2/components/PreviewConnectionLine.tsx#PreviewConnectionLine": {
+      "file": "apps/web/components/scenes/create/node-canvas-v2/components/PreviewConnectionLine.tsx",
+      "binding": "named",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/node-canvas-v2/components/ProjectVideosPopover.tsx#ProjectVideosPopover": {
+      "file": "apps/web/components/scenes/create/node-canvas-v2/components/ProjectVideosPopover.tsx",
+      "binding": "named",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/node-canvas-v2/components/PromptLinkedImageStrip.tsx#PromptLinkedImageStrip": {
+      "file": "apps/web/components/scenes/create/node-canvas-v2/components/PromptLinkedImageStrip.tsx",
+      "binding": "named",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/node-canvas-v2/components/PromptVariantCompareModal.tsx#PromptVariantCompareModal": {
+      "file": "apps/web/components/scenes/create/node-canvas-v2/components/PromptVariantCompareModal.tsx",
+      "binding": "named",
+      "louis": [
+        "louis-dialog",
+        "louis-overlay-mode",
+        "louis-overlay-panel",
+        "louis-state"
+      ],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/node-canvas-v2/components/SmartGuideOverlay.tsx#SmartGuideOverlay": {
+      "file": "apps/web/components/scenes/create/node-canvas-v2/components/SmartGuideOverlay.tsx",
+      "binding": "named",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/node-canvas-v2/components/Toolbar.tsx#CanvasToolbar": {
+      "file": "apps/web/components/scenes/create/node-canvas-v2/components/Toolbar.tsx",
+      "binding": "named",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/node-canvas-v2/components/WalkthroughGenerateCursor.tsx#WalkthroughGenerateCursor": {
+      "file": "apps/web/components/scenes/create/node-canvas-v2/components/WalkthroughGenerateCursor.tsx",
+      "binding": "named",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/node-canvas-v2/components/YoutubeSchedulePickers.tsx#YoutubeScheduleDatePopover": {
+      "file": "apps/web/components/scenes/create/node-canvas-v2/components/YoutubeSchedulePickers.tsx",
+      "binding": "named",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/node-canvas-v2/components/YoutubeSchedulePickers.tsx#YoutubeScheduleTimePopover": {
+      "file": "apps/web/components/scenes/create/node-canvas-v2/components/YoutubeSchedulePickers.tsx",
+      "binding": "named",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/node-canvas-v2/edges/DeletableEdge.tsx#DeletableEdge": {
+      "file": "apps/web/components/scenes/create/node-canvas-v2/edges/DeletableEdge.tsx",
+      "binding": "named",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/node-canvas-v2/edges/V2EdgeLayers.tsx#V2EdgeLayers": {
+      "file": "apps/web/components/scenes/create/node-canvas-v2/edges/V2EdgeLayers.tsx",
+      "binding": "named",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/node-canvas-v2/icons/AlignLeftSimpleIcon.tsx#AlignLeftSimpleIcon": {
+      "file": "apps/web/components/scenes/create/node-canvas-v2/icons/AlignLeftSimpleIcon.tsx",
+      "binding": "named",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/node-canvas-v2/icons/AlignRightSimpleIcon.tsx#AlignRightSimpleIcon": {
+      "file": "apps/web/components/scenes/create/node-canvas-v2/icons/AlignRightSimpleIcon.tsx",
+      "binding": "named",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/node-canvas-v2/icons/ArrowUpSimpleIcon.tsx#ArrowUpSimpleIcon": {
+      "file": "apps/web/components/scenes/create/node-canvas-v2/icons/ArrowUpSimpleIcon.tsx",
+      "binding": "named",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/node-canvas-v2/icons/CheckCircleIcon.tsx#CheckCircleIcon": {
+      "file": "apps/web/components/scenes/create/node-canvas-v2/icons/CheckCircleIcon.tsx",
+      "binding": "named",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/node-canvas-v2/icons/ImageIcon.tsx#ImageIcon": {
+      "file": "apps/web/components/scenes/create/node-canvas-v2/icons/ImageIcon.tsx",
+      "binding": "named",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/node-canvas-v2/icons/InstagramIcon.tsx#InstagramIcon": {
+      "file": "apps/web/components/scenes/create/node-canvas-v2/icons/InstagramIcon.tsx",
+      "binding": "named",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/node-canvas-v2/icons/LightbulbIcon.tsx#LightbulbIcon": {
+      "file": "apps/web/components/scenes/create/node-canvas-v2/icons/LightbulbIcon.tsx",
+      "binding": "named",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/node-canvas-v2/icons/MagicWandIcon.tsx#MagicWandIcon": {
+      "file": "apps/web/components/scenes/create/node-canvas-v2/icons/MagicWandIcon.tsx",
+      "binding": "named",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/node-canvas-v2/icons/MagnifyingGlassIcon.tsx#MagnifyingGlassIcon": {
+      "file": "apps/web/components/scenes/create/node-canvas-v2/icons/MagnifyingGlassIcon.tsx",
+      "binding": "named",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/node-canvas-v2/icons/MonitorArrowUpIcon.tsx#MonitorArrowUpIcon": {
+      "file": "apps/web/components/scenes/create/node-canvas-v2/icons/MonitorArrowUpIcon.tsx",
+      "binding": "named",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/node-canvas-v2/icons/MusicNotesSimpleIcon.tsx#MusicNotesSimpleIcon": {
+      "file": "apps/web/components/scenes/create/node-canvas-v2/icons/MusicNotesSimpleIcon.tsx",
+      "binding": "named",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/node-canvas-v2/icons/SparkleIcon.tsx#SparkleIcon": {
+      "file": "apps/web/components/scenes/create/node-canvas-v2/icons/SparkleIcon.tsx",
+      "binding": "named",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/node-canvas-v2/icons/TemplateIcon.tsx#TemplateIcon": {
+      "file": "apps/web/components/scenes/create/node-canvas-v2/icons/TemplateIcon.tsx",
+      "binding": "named",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/node-canvas-v2/icons/TextIcon.tsx#TextIcon": {
+      "file": "apps/web/components/scenes/create/node-canvas-v2/icons/TextIcon.tsx",
+      "binding": "named",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/node-canvas-v2/icons/UploadSimpleIcon.tsx#UploadSimpleIcon": {
+      "file": "apps/web/components/scenes/create/node-canvas-v2/icons/UploadSimpleIcon.tsx",
+      "binding": "named",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/node-canvas-v2/icons/UserSoundIcon.tsx#UserSoundIcon": {
+      "file": "apps/web/components/scenes/create/node-canvas-v2/icons/UserSoundIcon.tsx",
+      "binding": "named",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/node-canvas-v2/icons/VideoCameraIcon.tsx#VideoCameraIcon": {
+      "file": "apps/web/components/scenes/create/node-canvas-v2/icons/VideoCameraIcon.tsx",
+      "binding": "named",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/node-canvas-v2/icons/WaveformIcon.tsx#WaveformIcon": {
+      "file": "apps/web/components/scenes/create/node-canvas-v2/icons/WaveformIcon.tsx",
+      "binding": "named",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/node-canvas-v2/icons/YoutubeIcon.tsx#YoutubeIcon": {
+      "file": "apps/web/components/scenes/create/node-canvas-v2/icons/YoutubeIcon.tsx",
+      "binding": "named",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/node-canvas-v2/index.tsx#NodeCanvasV2": {
+      "file": "apps/web/components/scenes/create/node-canvas-v2/index.tsx",
+      "binding": "default",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/node-canvas-v2/index.tsx#NodeCanvasV2Inner": {
+      "file": "apps/web/components/scenes/create/node-canvas-v2/index.tsx",
+      "binding": "local",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/node-canvas-v2/lib/nodeToolbarGlyphs.tsx#ToolbarChevronDown": {
+      "file": "apps/web/components/scenes/create/node-canvas-v2/lib/nodeToolbarGlyphs.tsx",
+      "binding": "named",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/node-canvas-v2/lib/nodeToolbarGlyphs.tsx#ToolbarIconAspectOutputFrame": {
+      "file": "apps/web/components/scenes/create/node-canvas-v2/lib/nodeToolbarGlyphs.tsx",
+      "binding": "named",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/node-canvas-v2/lib/nodeToolbarGlyphs.tsx#ToolbarIconChevronLeft": {
+      "file": "apps/web/components/scenes/create/node-canvas-v2/lib/nodeToolbarGlyphs.tsx",
+      "binding": "named",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/node-canvas-v2/lib/nodeToolbarGlyphs.tsx#ToolbarIconCopy": {
+      "file": "apps/web/components/scenes/create/node-canvas-v2/lib/nodeToolbarGlyphs.tsx",
+      "binding": "named",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/node-canvas-v2/lib/nodeToolbarGlyphs.tsx#ToolbarIconCopyCheck": {
+      "file": "apps/web/components/scenes/create/node-canvas-v2/lib/nodeToolbarGlyphs.tsx",
+      "binding": "named",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/node-canvas-v2/lib/nodeToolbarGlyphs.tsx#ToolbarIconCrop": {
+      "file": "apps/web/components/scenes/create/node-canvas-v2/lib/nodeToolbarGlyphs.tsx",
+      "binding": "named",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/node-canvas-v2/lib/nodeToolbarGlyphs.tsx#ToolbarIconDotsThreeVertical": {
+      "file": "apps/web/components/scenes/create/node-canvas-v2/lib/nodeToolbarGlyphs.tsx",
+      "binding": "named",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/node-canvas-v2/lib/nodeToolbarGlyphs.tsx#ToolbarIconDownload": {
+      "file": "apps/web/components/scenes/create/node-canvas-v2/lib/nodeToolbarGlyphs.tsx",
+      "binding": "named",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/node-canvas-v2/lib/nodeToolbarGlyphs.tsx#ToolbarIconExternalLink": {
+      "file": "apps/web/components/scenes/create/node-canvas-v2/lib/nodeToolbarGlyphs.tsx",
+      "binding": "named",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/node-canvas-v2/lib/nodeToolbarGlyphs.tsx#ToolbarIconOutputFitMode": {
+      "file": "apps/web/components/scenes/create/node-canvas-v2/lib/nodeToolbarGlyphs.tsx",
+      "binding": "named",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/node-canvas-v2/lib/nodeToolbarGlyphs.tsx#ToolbarIconPencil": {
+      "file": "apps/web/components/scenes/create/node-canvas-v2/lib/nodeToolbarGlyphs.tsx",
+      "binding": "named",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/node-canvas-v2/lib/nodeToolbarGlyphs.tsx#ToolbarIconRegenerate": {
+      "file": "apps/web/components/scenes/create/node-canvas-v2/lib/nodeToolbarGlyphs.tsx",
+      "binding": "named",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/node-canvas-v2/lib/nodeToolbarGlyphs.tsx#ToolbarIconTrashSimple": {
+      "file": "apps/web/components/scenes/create/node-canvas-v2/lib/nodeToolbarGlyphs.tsx",
+      "binding": "named",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/node-canvas-v2/lib/nodeToolbarGlyphs.tsx#ToolbarIconUnlink": {
+      "file": "apps/web/components/scenes/create/node-canvas-v2/lib/nodeToolbarGlyphs.tsx",
+      "binding": "named",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/node-canvas-v2/NodeCanvasAnalysisModal.tsx#NodeCanvasAnalysisModal": {
+      "file": "apps/web/components/scenes/create/node-canvas-v2/NodeCanvasAnalysisModal.tsx",
+      "binding": "named",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/node-canvas-v2/nodes/BgmNode.tsx#BgmNode": {
+      "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/BgmNode.tsx",
+      "binding": "default",
+      "louis": [
+        "louis-color-accent-primary",
+        "louis-segmented",
+        "louis-segmented-control",
+        "louis-slider",
+        "louis-slider-fill"
+      ],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/node-canvas-v2/nodes/BgmNode.tsx#LoopIcon": {
+      "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/BgmNode.tsx",
+      "binding": "local",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/node-canvas-v2/nodes/BgmNode.tsx#MicIcon": {
+      "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/BgmNode.tsx",
+      "binding": "local",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/node-canvas-v2/nodes/BgmNode.tsx#PauseIcon": {
+      "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/BgmNode.tsx",
+      "binding": "local",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/node-canvas-v2/nodes/BgmNode.tsx#PlayIcon": {
+      "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/BgmNode.tsx",
+      "binding": "local",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/node-canvas-v2/nodes/ColorPopover.tsx#CloseIcon": {
+      "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/ColorPopover.tsx",
+      "binding": "local",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/node-canvas-v2/nodes/ColorPopover.tsx#ColorPopover": {
+      "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/ColorPopover.tsx",
+      "binding": "named",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/node-canvas-v2/nodes/ColorPopover.tsx#ColorSwatchButton": {
+      "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/ColorPopover.tsx",
+      "binding": "named",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/node-canvas-v2/nodes/ColorPopover.tsx#EyedropperIcon": {
+      "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/ColorPopover.tsx",
+      "binding": "local",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/node-canvas-v2/nodes/CropModal.tsx#BatchCropModal": {
+      "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/CropModal.tsx",
+      "binding": "named",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/node-canvas-v2/nodes/CropModal.tsx#CropModal": {
+      "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/CropModal.tsx",
+      "binding": "named",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/node-canvas-v2/nodes/CropModal.tsx#CropModalInner": {
+      "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/CropModal.tsx",
+      "binding": "local",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/node-canvas-v2/nodes/EditNode.tsx#EditNode": {
+      "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/EditNode.tsx",
+      "binding": "named",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/node-canvas-v2/nodes/EditNode.tsx#ProcessingState": {
+      "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/EditNode.tsx",
+      "binding": "local",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/node-canvas-v2/nodes/ImageNode.tsx#GeneratingState": {
+      "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/ImageNode.tsx",
+      "binding": "local",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/node-canvas-v2/nodes/ImageNode.tsx#ImageNode": {
+      "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/ImageNode.tsx",
+      "binding": "named",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/node-canvas-v2/nodes/ImageNode.tsx#ImagePlaceholder": {
+      "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/ImageNode.tsx",
+      "binding": "local",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/node-canvas-v2/nodes/InstagramNode.tsx#InstagramNode": {
+      "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/InstagramNode.tsx",
+      "binding": "named",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/node-canvas-v2/nodes/NodeSideButtons.tsx#NodeSideButtons": {
+      "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/NodeSideButtons.tsx",
+      "binding": "named",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/node-canvas-v2/nodes/NodeSideButtons.tsx#NodeSubMenu": {
+      "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/NodeSideButtons.tsx",
+      "binding": "local",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/node-canvas-v2/nodes/NodeSideButtons.tsx#TargetButton": {
+      "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/NodeSideButtons.tsx",
+      "binding": "local",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/node-canvas-v2/nodes/SectionNode.tsx#SectionNode": {
+      "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/SectionNode.tsx",
+      "binding": "named",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/node-canvas-v2/nodes/TextNode.tsx#LlmResponseArea": {
+      "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/TextNode.tsx",
+      "binding": "local",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/node-canvas-v2/nodes/TextNode.tsx#TextNode": {
+      "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/TextNode.tsx",
+      "binding": "named",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/node-canvas-v2/nodes/TtsNode.tsx#PauseIcon": {
+      "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/TtsNode.tsx",
+      "binding": "local",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/node-canvas-v2/nodes/TtsNode.tsx#PlayIcon": {
+      "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/TtsNode.tsx",
+      "binding": "local",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/node-canvas-v2/nodes/TtsNode.tsx#TtsNode": {
+      "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/TtsNode.tsx",
+      "binding": "default",
+      "louis": [
+        "louis-slider-fill"
+      ],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx#VideoEditModal": {
+      "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx",
+      "binding": "named",
+      "louis": [
+        "louis-state"
+      ],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/AssetPanel.tsx#AssetPanel": {
+      "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/AssetPanel.tsx",
+      "binding": "named",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/AudioClipInspector.tsx#AudioClipInspector": {
+      "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/AudioClipInspector.tsx",
+      "binding": "named",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/AudioClipWaveform.tsx#AudioClipWaveform": {
+      "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/AudioClipWaveform.tsx",
+      "binding": "named",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/ClipCropModal.tsx#ClipCropModal": {
+      "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/ClipCropModal.tsx",
+      "binding": "named",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/clipFilmstrip.tsx#ClipVideoFrame": {
+      "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/clipFilmstrip.tsx",
+      "binding": "named",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/clipFilmstrip.tsx#ClipVideoFrameStrip": {
+      "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/clipFilmstrip.tsx",
+      "binding": "named",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/clipFilmstrip.tsx#TimelineClipTiles": {
+      "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/clipFilmstrip.tsx",
+      "binding": "named",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/ClipInspector.tsx#ClipInspector": {
+      "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/ClipInspector.tsx",
+      "binding": "named",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/CompositionInspector.tsx#CompositionInspector": {
+      "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/CompositionInspector.tsx",
+      "binding": "named",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/effectsTabRow.tsx#VideoEditEffectsTabRow": {
+      "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/effectsTabRow.tsx",
+      "binding": "named",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/inspectorPrimitives.tsx#InspectorMetric": {
+      "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/inspectorPrimitives.tsx",
+      "binding": "named",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/inspectorPrimitives.tsx#InspectorPill": {
+      "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/inspectorPrimitives.tsx",
+      "binding": "named",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/inspectorPrimitives.tsx#ModalTooltip": {
+      "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/inspectorPrimitives.tsx",
+      "binding": "named",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/inspectorPrimitives.tsx#NumberInput": {
+      "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/inspectorPrimitives.tsx",
+      "binding": "named",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/OverlayInspector.tsx#OverlayInspector": {
+      "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/OverlayInspector.tsx",
+      "binding": "named",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/OverlayTextPreviewImg.tsx#OverlayTextPreviewImg": {
+      "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/OverlayTextPreviewImg.tsx",
+      "binding": "named",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/PreviewOverlayLayer.tsx#PreviewOverlayLayer": {
+      "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/PreviewOverlayLayer.tsx",
+      "binding": "named",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/sequenceRuler.tsx#PremiereSequenceRuler": {
+      "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/sequenceRuler.tsx",
+      "binding": "named",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/sequenceRuler.tsx#SequenceGridLines": {
+      "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/sequenceRuler.tsx",
+      "binding": "named",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/volumeIcons.tsx#VolumeOffIcon": {
+      "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/volumeIcons.tsx",
+      "binding": "named",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/volumeIcons.tsx#VolumeOnIcon": {
+      "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/volumeIcons.tsx",
+      "binding": "named",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoModelMenu.tsx#ProviderGlyph": {
+      "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoModelMenu.tsx",
+      "binding": "local",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoModelMenu.tsx#VideoModelMenu": {
+      "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoModelMenu.tsx",
+      "binding": "named",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoNode.tsx#IconSpeakerHigh": {
+      "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoNode.tsx",
+      "binding": "local",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoNode.tsx#IconSpeakerX": {
+      "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoNode.tsx",
+      "binding": "local",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoNode.tsx#VideoGeneratingState": {
+      "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoNode.tsx",
+      "binding": "local",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoNode.tsx#VideoNode": {
+      "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoNode.tsx",
+      "binding": "named",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoNode.tsx#VideoPlaceholder": {
+      "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoNode.tsx",
+      "binding": "local",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/node-canvas-v2/nodes/YoutubeNode.tsx#ScheduleGlyphCalendar": {
+      "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/YoutubeNode.tsx",
+      "binding": "local",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/node-canvas-v2/nodes/YoutubeNode.tsx#ScheduleGlyphClock": {
+      "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/YoutubeNode.tsx",
+      "binding": "local",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/node-canvas-v2/nodes/YoutubeNode.tsx#YoutubeNode": {
+      "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/YoutubeNode.tsx",
+      "binding": "named",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/node-canvas-v2/WalkthroughImageToVideoPromptConnectOverlay.tsx#WalkthroughImageToVideoPromptConnectOverlay": {
+      "file": "apps/web/components/scenes/create/node-canvas-v2/WalkthroughImageToVideoPromptConnectOverlay.tsx",
+      "binding": "named",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/node-canvas-v2/WalkthroughTextToImageConnectOverlay.tsx#WalkthroughTextToImageConnectOverlay": {
+      "file": "apps/web/components/scenes/create/node-canvas-v2/WalkthroughTextToImageConnectOverlay.tsx",
+      "binding": "named",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/node-canvas-v2/WalkthroughVideoPromptToVideoConnectOverlay.tsx#WalkthroughVideoPromptToVideoConnectOverlay": {
+      "file": "apps/web/components/scenes/create/node-canvas-v2/WalkthroughVideoPromptToVideoConnectOverlay.tsx",
+      "binding": "named",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/node-canvas-v2/WalkthroughVideoToYoutubeButtonPressOverlay.tsx#WalkthroughVideoToYoutubeButtonPressOverlay": {
+      "file": "apps/web/components/scenes/create/node-canvas-v2/WalkthroughVideoToYoutubeButtonPressOverlay.tsx",
+      "binding": "named",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/node-canvas-v2/WalkthroughVideoToYoutubeConnectOverlay.tsx#WalkthroughVideoToYoutubeConnectOverlay": {
+      "file": "apps/web/components/scenes/create/node-canvas-v2/WalkthroughVideoToYoutubeConnectOverlay.tsx",
+      "binding": "named",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/node-canvas/primitives.tsx#MinusIcon": {
+      "file": "apps/web/components/scenes/create/node-canvas/primitives.tsx",
+      "binding": "named",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/node-canvas/primitives.tsx#ModeEyebrowIcon": {
+      "file": "apps/web/components/scenes/create/node-canvas/primitives.tsx",
+      "binding": "named",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/node-canvas/primitives.tsx#OutputEyebrowIcon": {
+      "file": "apps/web/components/scenes/create/node-canvas/primitives.tsx",
+      "binding": "named",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/node-canvas/primitives.tsx#PlusIcon": {
+      "file": "apps/web/components/scenes/create/node-canvas/primitives.tsx",
+      "binding": "named",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/node-canvas/primitives.tsx#PromptEyebrowIcon": {
+      "file": "apps/web/components/scenes/create/node-canvas/primitives.tsx",
+      "binding": "named",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/node-canvas/primitives.tsx#ReferencesEyebrowIcon": {
+      "file": "apps/web/components/scenes/create/node-canvas/primitives.tsx",
+      "binding": "named",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/node-canvas/primitives.tsx#SelectionChrome": {
+      "file": "apps/web/components/scenes/create/node-canvas/primitives.tsx",
+      "binding": "named",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/node-canvas/primitives.tsx#SettingsEyebrowIcon": {
+      "file": "apps/web/components/scenes/create/node-canvas/primitives.tsx",
+      "binding": "named",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/node-canvas/primitives.tsx#ShotEyebrowIcon": {
+      "file": "apps/web/components/scenes/create/node-canvas/primitives.tsx",
+      "binding": "named",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/node-canvas/primitives.tsx#SourceEyebrowIcon": {
+      "file": "apps/web/components/scenes/create/node-canvas/primitives.tsx",
+      "binding": "named",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/node-canvas/primitives.tsx#SwitchArrowsIcon": {
+      "file": "apps/web/components/scenes/create/node-canvas/primitives.tsx",
+      "binding": "named",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/node-canvas/primitives.tsx#ToolIcon": {
+      "file": "apps/web/components/scenes/create/node-canvas/primitives.tsx",
+      "binding": "named",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/node-canvas/primitives.tsx#TrashIcon": {
+      "file": "apps/web/components/scenes/create/node-canvas/primitives.tsx",
+      "binding": "named",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/node-canvas/primitives.tsx#XIcon": {
+      "file": "apps/web/components/scenes/create/node-canvas/primitives.tsx",
+      "binding": "named",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/NodeCanvasGuideModal.tsx#NodeCanvasGuideModal": {
+      "file": "apps/web/components/scenes/create/NodeCanvasGuideModal.tsx",
+      "binding": "named",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/PhotoGrid.tsx#ImageStrip": {
+      "file": "apps/web/components/scenes/create/PhotoGrid.tsx",
+      "binding": "named",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/PhotoGrid.tsx#PhotoSection": {
+      "file": "apps/web/components/scenes/create/PhotoGrid.tsx",
+      "binding": "named",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/PhotoGrid.tsx#ReferenceSlotRow": {
+      "file": "apps/web/components/scenes/create/PhotoGrid.tsx",
+      "binding": "local",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/PricingModal.tsx#PricingModal": {
+      "file": "apps/web/components/scenes/create/PricingModal.tsx",
+      "binding": "named",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/ProjectHeader.tsx#NodeCanvasHeaderMark": {
+      "file": "apps/web/components/scenes/create/ProjectHeader.tsx",
+      "binding": "local",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/ProjectHeader.tsx#ProjectHeader": {
+      "file": "apps/web/components/scenes/create/ProjectHeader.tsx",
+      "binding": "default",
+      "louis": [
+        "louis-spinner"
+      ],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/ProjectHeader.tsx#ProjectVideosIcon": {
+      "file": "apps/web/components/scenes/create/ProjectHeader.tsx",
+      "binding": "local",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/PublishFlow.tsx#PublishFlow": {
+      "file": "apps/web/components/scenes/create/PublishFlow.tsx",
+      "binding": "default",
+      "louis": [
+        "louis-focus-ring",
+        "louis-switch"
+      ],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/ReferenceTagChips.tsx#ReferenceTagChips": {
+      "file": "apps/web/components/scenes/create/ReferenceTagChips.tsx",
+      "binding": "default",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/create/ShotCarousel.tsx#ShotCarousel": {
+      "file": "apps/web/components/scenes/create/ShotCarousel.tsx",
+      "binding": "default",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/CreateScene.tsx#CreateScene": {
+      "file": "apps/web/components/scenes/CreateScene.tsx",
+      "binding": "default",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/ExploreScene.tsx#ExploreScene": {
+      "file": "apps/web/components/scenes/ExploreScene.tsx",
+      "binding": "default",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/HighlightProjectScene.tsx#ClipRefinementChat": {
+      "file": "apps/web/components/scenes/HighlightProjectScene.tsx",
+      "binding": "local",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/HighlightProjectScene.tsx#CompositeSegmentPreview": {
+      "file": "apps/web/components/scenes/HighlightProjectScene.tsx",
+      "binding": "local",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/HighlightProjectScene.tsx#GenerateSparkleGlyph": {
+      "file": "apps/web/components/scenes/HighlightProjectScene.tsx",
+      "binding": "local",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/HighlightProjectScene.tsx#HighlightProjectScene": {
+      "file": "apps/web/components/scenes/HighlightProjectScene.tsx",
+      "binding": "default",
+      "louis": [
+        "louis-progress",
+        "louis-progress-bar",
+        "louis-progress-value",
+        "louis-segmented",
+        "louis-segmented-control",
+        "louis-selectable-list-row",
+        "louis-slider",
+        "louis-slider-fill"
+      ],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/HighlightProjectScene.tsx#SegmentPreview": {
+      "file": "apps/web/components/scenes/HighlightProjectScene.tsx",
+      "binding": "local",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/HighlightScene.tsx#HighlightScene": {
+      "file": "apps/web/components/scenes/HighlightScene.tsx",
+      "binding": "default",
+      "louis": [
+        "louis-project-card-adornment"
+      ],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/HighlightScene.tsx#UploadGlyph": {
+      "file": "apps/web/components/scenes/HighlightScene.tsx",
+      "binding": "local",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/HomeCreateNewMenu.tsx#HomeCreateNewMenu": {
+      "file": "apps/web/components/scenes/HomeCreateNewMenu.tsx",
+      "binding": "named",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/InstagramAnalyticsScene.tsx#IgAreaChartBlock": {
+      "file": "apps/web/components/scenes/InstagramAnalyticsScene.tsx",
+      "binding": "local",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/InstagramAnalyticsScene.tsx#InstagramAnalyticsScene": {
+      "file": "apps/web/components/scenes/InstagramAnalyticsScene.tsx",
+      "binding": "default",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/NodeCanvasHomeScene.tsx#NodeCanvasHomeScene": {
+      "file": "apps/web/components/scenes/NodeCanvasHomeScene.tsx",
+      "binding": "default",
+      "louis": [
+        "louis-glass-surface"
+      ],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/SegmentedToggle.tsx#SegmentedToggle": {
+      "file": "apps/web/components/scenes/SegmentedToggle.tsx",
+      "binding": "named",
+      "louis": [],
+      "figma": "SegmentedControl",
+      "reason": "migration/product.measured.json 의 canon.paths 가 이 파일을 제품 정본으로 지목한다(components.segmented-control)."
+    },
+    "apps/web/components/scenes/SettingsScene.tsx#SettingsScene": {
+      "file": "apps/web/components/scenes/SettingsScene.tsx",
+      "binding": "default",
+      "louis": [
+        "louis-radius-pill"
+      ],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/SettingsScene.tsx#SkeletonBlock": {
+      "file": "apps/web/components/scenes/SettingsScene.tsx",
+      "binding": "local",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/SubscriptionScene.tsx#SkeletonBlock": {
+      "file": "apps/web/components/scenes/SubscriptionScene.tsx",
+      "binding": "local",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/SubscriptionScene.tsx#SubscriptionScene": {
+      "file": "apps/web/components/scenes/SubscriptionScene.tsx",
+      "binding": "default",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/VideoEditProjectPicker.tsx#FinderChevronRightGlyph": {
+      "file": "apps/web/components/scenes/VideoEditProjectPicker.tsx",
+      "binding": "local",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/VideoEditProjectPicker.tsx#FinderFolderGlyph": {
+      "file": "apps/web/components/scenes/VideoEditProjectPicker.tsx",
+      "binding": "local",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/VideoEditProjectPicker.tsx#PickerSkeleton": {
+      "file": "apps/web/components/scenes/VideoEditProjectPicker.tsx",
+      "binding": "local",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/VideoEditProjectPicker.tsx#SourceThumbnail": {
+      "file": "apps/web/components/scenes/VideoEditProjectPicker.tsx",
+      "binding": "local",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/VideoEditProjectPicker.tsx#VideoEditProjectPickerContent": {
+      "file": "apps/web/components/scenes/VideoEditProjectPicker.tsx",
+      "binding": "named",
+      "louis": [
+        "louis-checkbox"
+      ],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/VideoEditProjectPicker.tsx#VideoPosterThumb": {
+      "file": "apps/web/components/scenes/VideoEditProjectPicker.tsx",
+      "binding": "local",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/VideoEditScene.tsx#VideoEditScene": {
+      "file": "apps/web/components/scenes/VideoEditScene.tsx",
+      "binding": "default",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/scenes/YoutubeAnalyticsScene.tsx#YoutubeAnalyticsScene": {
+      "file": "apps/web/components/scenes/YoutubeAnalyticsScene.tsx",
+      "binding": "default",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/signup/SignupLegalModal.tsx#SignupLegalModal": {
+      "file": "apps/web/components/signup/SignupLegalModal.tsx",
+      "binding": "default",
+      "louis": [
+        "louis-dialog",
+        "louis-overlay-mode",
+        "louis-overlay-panel",
+        "louis-state"
+      ],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/templates/CopyPromptButton.tsx#CopyPromptButton": {
+      "file": "apps/web/components/templates/CopyPromptButton.tsx",
+      "binding": "default",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/templates/TemplateResultCarousel.tsx#TemplateResultCarousel": {
+      "file": "apps/web/components/templates/TemplateResultCarousel.tsx",
+      "binding": "default",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/templates/TemplateShell.tsx#TemplateShell": {
+      "file": "apps/web/components/templates/TemplateShell.tsx",
+      "binding": "default",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/theme/ThemeProvider.tsx#ThemeProvider": {
+      "file": "apps/web/components/theme/ThemeProvider.tsx",
+      "binding": "default",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/ui/AwsWordmark.tsx#AwsWordmark": {
+      "file": "apps/web/components/ui/AwsWordmark.tsx",
+      "binding": "default",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/ui/BrandLogo.tsx#BrandLogo": {
+      "file": "apps/web/components/ui/BrandLogo.tsx",
+      "binding": "default",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/ui/BrandSymbolMark.tsx#BrandSymbolMark": {
+      "file": "apps/web/components/ui/BrandSymbolMark.tsx",
+      "binding": "default",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/ui/Button.tsx#Button": {
+      "file": "apps/web/components/ui/Button.tsx",
+      "binding": "named",
+      "louis": [
+        "louis-button",
+        "louis-focus-ring"
+      ],
+      "figma": "Button",
+      "reason": "migration/product.measured.json 의 canon.paths 가 이 파일을 제품 정본으로 지목한다(components.button). 마크업이 `louis-button` 을 직접 물어 코드 정본과도 이어진다."
+    },
+    "apps/web/components/ui/GlobeIcon.tsx#GlobeIcon": {
+      "file": "apps/web/components/ui/GlobeIcon.tsx",
+      "binding": "named",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/ui/IconButton.tsx#IconButton": {
+      "file": "apps/web/components/ui/IconButton.tsx",
+      "binding": "named",
+      "louis": [
+        "louis-focus-ring",
+        "louis-icon",
+        "louis-icon-button"
+      ],
+      "figma": "IconButton",
+      "reason": "마크업이 `louis-icon-button` 을 직접 문다 — 그 recipe 가 Figma IconButton 의 코드 정본이다."
+    },
+    "apps/web/components/ui/InlineLoadingLabel.tsx#InlineLoadingLabel": {
+      "file": "apps/web/components/ui/InlineLoadingLabel.tsx",
+      "binding": "default",
+      "louis": [
+        "louis-spinner"
+      ],
+      "figma": "InlineLoadingLabel",
+      "reason": "scripts/lib/product-files.mjs 의 PRODUCT_FILES 가 이 파일을 Figma 컴포넌트의 실측 정본으로 고정한다(inlineLoadingLabel). 마크업이 `louis-spinner` 를 함께 문다."
+    },
+    "apps/web/components/ui/LoadingSpinner.tsx#LoadingSpinner": {
+      "file": "apps/web/components/ui/LoadingSpinner.tsx",
+      "binding": "named",
+      "louis": [
+        "louis-spinner"
+      ],
+      "figma": "Spinner",
+      "reason": "마크업이 `louis-spinner` 를 직접 문다 — 그 recipe 가 Figma Spinner 의 코드 정본이다."
+    },
+    "apps/web/components/ui/SegmentedCodeInput.tsx#SegmentedCodeInput": {
+      "file": "apps/web/components/ui/SegmentedCodeInput.tsx",
+      "binding": "default",
+      "louis": [],
+      "figma": "SegmentedCodeInput",
+      "reason": "scripts/lib/product-files.mjs 의 PRODUCT_FILES 가 이 파일을 Figma 컴포넌트의 실측 정본으로 고정한다(segmentedCodeInput)."
+    },
+    "apps/web/components/ui/VideoPlayer.tsx#VideoPlayer": {
+      "file": "apps/web/components/ui/VideoPlayer.tsx",
+      "binding": "default",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/youtube/YoutubeConnectionProvider.tsx#YoutubeConnectionProvider": {
+      "file": "apps/web/components/youtube/YoutubeConnectionProvider.tsx",
+      "binding": "named",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/youtube/YoutubeUploadModal.tsx#YoutubeStylePlayer": {
+      "file": "apps/web/components/youtube/YoutubeUploadModal.tsx",
+      "binding": "local",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    },
+    "apps/web/components/youtube/YoutubeUploadModal.tsx#YoutubeUploadModal": {
+      "file": "apps/web/components/youtube/YoutubeUploadModal.tsx",
+      "binding": "named",
+      "louis": [],
+      "figma": null,
+      "reason": null
+    }
+  }
+}

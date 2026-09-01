@@ -1,0 +1,37 @@
+import { type JSX, type ReactNode } from "react";
+export type ToastTone = "neutral" | "danger";
+export interface ToastInput {
+    /** 한 줄. live region이 읽는 것이므로 문자열만 받는다. */
+    readonly message: string;
+    readonly tone?: ToastTone;
+    /** 자동 소멸까지. 0이면 스스로 사라지지 않는다. */
+    readonly duration?: number;
+}
+export interface ToastHandle {
+    /** 이 toast를 지운다. 이미 사라졌으면 아무 일도 하지 않는다. */
+    (): void;
+}
+export interface ToastContextValue {
+    readonly toast: (input: ToastInput | string) => ToastHandle;
+    /** 모두 지운다. 라우트 전환처럼 문맥이 바뀔 때 쓴다. */
+    readonly dismissAll: () => void;
+}
+/** 동시에 보이는 최대 개수. 초과분은 자리가 날 때까지 기다린다. */
+export declare const TOAST_VISIBLE_LIMIT = 3;
+export declare function useToast(): ToastContextValue;
+export interface ToastProviderProps {
+    readonly children: ReactNode;
+    /** 기본 자동 소멸 시간. 개별 toast가 덮어쓸 수 있다. */
+    readonly duration?: number;
+}
+/**
+ * design/components/toast.md의 계약을 구현한다.
+ *
+ * live region 둘을 **처음부터** 렌더한다. 보조 기술은 region이 존재한 뒤의 변화만 감지하므로,
+ * toast가 생길 때 region을 함께 만들면 그 첫 메시지가 읽히지 않는다.
+ *
+ * polite와 assertive를 **별도 region**에 둔다. 하나의 region에서 `aria-live`를 바꾸면 그 시점의
+ * 변경이 유실된다.
+ */
+export declare function ToastProvider({ children, duration, }: ToastProviderProps): JSX.Element;
+//# sourceMappingURL=toast.d.ts.map

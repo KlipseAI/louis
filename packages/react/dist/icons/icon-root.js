@@ -1,0 +1,20 @@
+import { jsx as _jsx } from "react/jsx-runtime";
+/**
+ * [Iconography](../../../../design/foundations/iconography.md)의 계약을 구현한다.
+ *
+ * 크기는 CSS 클래스와 `data-size`가 소유한다. `width`/`height` 속성을 직접 쓰면 속성이
+ * 표현 선언보다 세서 소비자가 CSS로 이길 수 없다.
+ *
+ * 색은 언제나 `currentColor`다. 아이콘은 자기 색을 정하지 않고 부모의 `color`를 상속한다.
+ * 상태 색은 부모가 semantic token으로 주며, "색 외의 신호를 함께 제공한다"(color-theme.md)는
+ * 그대로 유지된다.
+ *
+ * hook도 상태도 없으므로 `"use client"`를 붙이지 않는다 — React Server Component에서 그대로
+ * 렌더된다. 아이콘 하나 때문에 소비자 트리가 client boundary로 넘어가지 않는다.
+ */
+export function IconRoot({ size = "md", label, className, name, children, ...rest }) {
+    // 기본값은 장식이다. label이 없으면 accessibility tree에서 사라진다.
+    const decorative = label === undefined;
+    return (_jsx("svg", { ...rest, className: className === undefined ? "louis-icon" : `louis-icon ${className}`, viewBox: "0 0 24 24", fill: "none", "data-louis-icon": name, "data-size": size, ...(decorative ? { "aria-hidden": true } : { role: "img", "aria-label": label }), children: children }));
+}
+//# sourceMappingURL=icon-root.js.map

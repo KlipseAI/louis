@@ -1,5 +1,17 @@
 node_modules/
 dist/
+# `packages/react/dist` 만 예외로 커밋한다.
+#
+# 제품은 이 패키지를 npm 레지스트리가 아니라
+# `github:KlipseAI/louis#<sha>&path:/packages/react` 로 설치한다(DS-D-0036).
+# git 설치는 `npm publish` 도 `prepare` 도 거치지 않으므로 **커밋되지 않은 파일은
+# 소비자에게 존재하지 않는다** — 2026-09-01 실측: clean clone 에서 `npm pack` 하면
+# README·THIRD-PARTY-NOTICES·package.json 3개만 담긴다.
+# `packages/css/generated` 와 `packages/tokens/generated` 가 커밋되는 것과 같은 이유다.
+# 최신인지는 `pnpm run check:react` 가 지킨다.
+!/packages/react/dist/
+# 그 게이트가 비교용으로 쓰는 재빌드 출력. 산출물이 아니다.
+/packages/react/.dist-check/
 coverage/
 .turbo/
 .DS_Store

@@ -1,0 +1,51 @@
+import type { InputHTMLAttributes, JSX, ReactNode, Ref } from "react";
+/**
+ * 컨트롤 높이 사다리의 세 칸 (DS-D-0027 · DS-D-0032). `lg` 40 · `md` 32 · `sm` 24.
+ *
+ * `sm`은 **편집 표면의 도구 줄 전용**이다 — 캔버스·타임라인·에셋 패널처럼 한 줄에 컨트롤이
+ * 여럿 서고 화면의 주인공이 컨트롤이 아니라 편집 대상인 자리. 폼·대화상자·본문 흐름에서는
+ * 쓰지 않는다.
+ */
+export type TextFieldSize = "lg" | "md" | "sm";
+export interface TextFieldProps extends Omit<InputHTMLAttributes<HTMLInputElement>, "size" | "type" | "prefix"> {
+    /**
+     * 시각 라벨. 생략하면 `aria-label`을 반드시 주어야 한다.
+     *
+     * 제품의 대부분의 필드는 시각 라벨이 없고 placeholder가 그 역할을 대신한다. placeholder는
+     * 입력을 시작하면 사라지므로 라벨이 될 수 없다 — 그 구조는 옮기지 않는다.
+     */
+    readonly label?: ReactNode;
+    /**
+     * 시각 크기.
+     *
+     * **`sm`(24)에서는 글자 크기와 반경도 함께 내려간다** — lg·md는 둘 다 body-sm 14와
+     * `radius-control`을 쓰지만, 24 안에서 14는 위아래 여유가 1.5px씩뿐이고 반경 12는 높이의
+     * 절반이라 필드가 알약이 된다. 두 값 다 디자인 실측이며 사유는 text-field.css에 있다.
+     *
+     * **hit target은 크기를 따라가지 못한다.** Button·IconButton과 달리 이 컴포넌트는
+     * `.louis-hit-target`을 쓸 수 없어(오버레이가 캐럿과 드래그 선택을 가로챈다) `sm`은 44px
+     * 최소 타겟에 미달한다. 알려진 편차이며 design/components/text-field.md가 갖는다.
+     */
+    readonly size?: TextFieldSize;
+    /** 필드 아래 한 줄. `invalid`일 때는 오류 문구가 되고 `aria-describedby`로 연결된다. */
+    readonly description?: ReactNode;
+    /** 오류 상태. **색만으로 알리지 않는다** — 이 값이 참이면 description이 오류 문구가 된다. */
+    readonly invalid?: boolean;
+    readonly prefix?: ReactNode;
+    readonly suffix?: ReactNode;
+    /** 텍스트 입력만 다룬다. checkbox·radio·file은 각자 다른 컴포넌트다. */
+    readonly type?: "text" | "email" | "password" | "search" | "tel" | "url";
+    /** 바깥 stack에 붙는다. 박스가 아니라 라벨·필드·메시지를 담는 세로 stack이다. */
+    readonly className?: string;
+    readonly ref?: Ref<HTMLInputElement>;
+}
+/**
+ * design/components/text-field.md의 계약을 구현한다.
+ *
+ * **시각적 필드는 `<input>`이 아니라 감싸는 박스다.** 접두 아이콘과 접미 버튼을 필드 안에 두려면
+ * `<input>` 하나로는 안 되고, 포커스 링도 박스가 `:focus-within`으로 받아야 슬롯까지 함께 둘린다.
+ *
+ * id는 컴포넌트가 발급한다. 호출부가 만들면 같은 화면에 필드가 여럿일 때 겹친다.
+ */
+export declare function TextField({ label, size, description, invalid, prefix, suffix, type, className, id, disabled, ...rest }: TextFieldProps): JSX.Element;
+//# sourceMappingURL=text-field.d.ts.map

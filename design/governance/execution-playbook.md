@@ -20,9 +20,11 @@ authority: normative
 **목표 A — SEED 수준의 운영 사이클.** 제품이 version이 고정된 공개 package를 소비하고, token →
 CSS → React → docs → release → adoption의 전체 사이클이 검증 게이트와 함께 반복 가능해야 한다.
 
-**목표 B — Figma 재조립 능력.** published Klipse Design Figma library의 variables, styles,
-component만으로 Klipse 제품의 실제 배포 화면을 detach 없이 재조립할 수 있어야 한다. SEED가
-Figma library에 token, icon, component와 화면 template을 함께 제공하는 것과 같은 상태다.
+**목표 B — Figma 재조립 능력.** LOUIS Figma 파일의 variables, styles, component만으로 Klipse
+제품의 실제 배포 화면을 detach 없이 재조립할 수 있어야 한다. SEED가 Figma library에 token, icon,
+component와 화면 template을 함께 제공하는 것과 같은 상태다. **게시는 이 목표의 조건이 아니다** —
+같은 파일 안에서는 미게시 component도 인스턴스가 되고, 게시가 필요해지는 것은 파일이 갈라지거나
+외부 소비자가 생길 때다([DS-D-0035](decisions/DS-D-0035-figma-done-without-publish.md)).
 
 ### 최종 판정표
 
@@ -35,7 +37,7 @@ Figma library에 token, icon, component와 화면 template을 함께 제공하�
 | 2 | clean-checkout hosted CI에서 build/check/verify 통과 | hosted CI run 링크 |
 | 3 | manifest 의 `not-planned` 아닌 모든 component·pattern 의 Web 상태가 실제 구현·테스트 근거를 가짐 | manifest + 테스트 결과 |
 | 4 | 검색 가능한 공개 docs site와 stable llms.txt URL | hosted docs URL |
-| 5 | published Figma library의 variables/styles/components가 코드와 parity 검증됨 | library key/version, parity report |
+| 5 | LOUIS Figma 파일의 variables/styles/components가 코드와 **두 방향으로** parity 검증됨 — 게시는 조건이 아니다([DS-D-0035](decisions/DS-D-0035-figma-done-without-publish.md)) | parity report, `figma/components.measured.json` ↔ 브라우저 테스트 |
 | 6 | 인스코프 배포 화면이 library instance만으로 Figma에서 재조립됨 — 대상과 등급은 `migration/product-screens/` 가 소유한다 | template 파일, gap 0 또는 승인된 gap 목록 |
 | 7 | Klipse 제품의 핵심 route가 versioned package를 소비하고 legacy 신규 참조 0 | 제품 integration PR, rollback 검증 |
 | 8 | breaking change에 changelog, migration, deprecation window 운영 | Updates, deprecation 대장 |
@@ -632,7 +634,10 @@ Updates 항목.
 3. publish 직후 snapshot을 다시 덤프해 published 상태를 기록하고, library key/version을
    figma-sync.md와 manifest에 기록한다.
 4. rollback runbook을 작성한다: Figma library 버전 복원 절차와 코드 쪽 대응(어느 release와 짝인지).
-5. 이 시점에만 관련 항목의 `figma: done` 승격이 가능하다.
+5. ~~이 시점에만 관련 항목의 `figma: done` 승격이 가능하다.~~ **철회 —
+   [DS-D-0035](decisions/DS-D-0035-figma-done-without-publish.md).** `done` 은 게시가 아니라 대조로
+   판정한다. 이 작업 전체가 다시 필요해지는 것은 파일이 갈라지거나(DS-F-009) 외부 소비자가 생길
+   때이고, **그 시점에 published library key/version 이 `done` 의 추가 조건으로 되살아난다.**
 6. publish 이후 SEED식 3-파일 분리(Foundations/Components/Templates)가 필요해지면 별도 작업
    `DS-F-009`로 다룬다. 파일 분리는 Figma 파일 재작성이 필요한 breaking이므로 수요가 확인되기
    전에는 단일 파일 구조를 유지한다.

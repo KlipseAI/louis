@@ -304,7 +304,9 @@ progressive blur) · `components/landing/navigation/Gnb.tsx` · `components/navi
 
 - published Klipse Design library: `not-ready` — **미달이 아니라 선택이다.**
   [DS-D-0025](decisions/DS-D-0025-figma-as-projection.md)가 Figma를 참조용 projection으로 확정했고
-  발행하지 않기로 했다. publish를 남은 과제로 적지 않는다
+  발행하지 않기로 했다. publish를 남은 과제로 적지 않는다. **그리고 카탈로그의 `figma` 상태는
+  이 선택과 무관해졌다** — [DS-D-0035](decisions/DS-D-0035-figma-done-without-publish.md)가
+  `done` 을 게시가 아니라 대조로 다시 정의했다
 - library 파일: collection 3개(`Klipse Primitive` · `Klipse Semantic` · `Klipse Semantic Color`).
   **수는 이 문서가 갖지 않는다** — `pnpm verify-figma-parity` 출력과 `figma/snapshot.json` 이 낸다.
   publish하지 않음
@@ -381,10 +383,18 @@ P2는 review 가능한 proposal까지만 소유한다. 실제 library evidence�
 
 P2 private release-candidate와 proposal만으로는 `figma: not-ready`를 유지한다.
 `figma: partial`에는 review 가능한 P3 library draft와 stable variable/component key가 필요하다.
-`figma: done`에는 published library, token/variant parity check, usage guidance와 owner가 필요하다.
-**이 저장소는 `done`을 추구하지 않는다** — [DS-D-0025](decisions/DS-D-0025-figma-as-projection.md)가
-발행하지 않기로 했으므로 첫 조건이 의도적으로 충족되지 않는다. parity check는 발행과 무관하게
-계속 강제된다.
+`figma: done`에는 **게시가 아니라 대조**가 필요하다. 조건은
+[DS-D-0035](decisions/DS-D-0035-figma-done-without-publish.md)가 셋으로 다시 적었다 —
+(a) 같은 파일 안에서 인스턴스로 소비 가능한 component set(readback 등재 · description),
+(b) `verify-figma-parity`가 지키는 variant/state parity(미선언 property는 실패),
+(c) 계약 ↔ `figma/components.measured.json` ↔ 브라우저 테스트로 닫히는 **두 방향** 기하 evidence.
+`scripts/verify-figma-done.mjs`가 manifest에 대고 그 셋을 다시 계산하므로, 정의는 문장이 아니라
+게이트다.
+
+**published library key/version은 사라진 조건이 아니라 시점이 다른 조건이다** — 파일이
+갈라지거나(DS-F-009) 외부 소비자가 생기면 되살아난다. 그 전까지 publish를 남은 과제로 적지
+않는다는 [DS-D-0025](decisions/DS-D-0025-figma-as-projection.md)의 판단은 그대로다. parity check는
+발행과 무관하게 계속 강제된다.
 
 credential이나 plugin session이 없는 CI에서도 catalog가 정직해야 하므로, Figma 연결 실패를
 `done`으로 캐시하지 않는다.

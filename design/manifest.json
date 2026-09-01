@@ -1157,6 +1157,15 @@
       "generated": false
     },
     {
+      "id": "decision-figma-done-without-publish",
+      "path": "design/governance/decisions/DS-D-0035-figma-done-without-publish.md",
+      "title": "DS-D-0035 `figma: done` 은 게시가 아니라 대조로 정의한다",
+      "section": "governance",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
+    },
+    {
       "id": "governance-product-confirmations",
       "path": "design/governance/product-confirmations.md",
       "title": "제품 확인 대기 목록",
@@ -1367,6 +1376,7 @@
         "design/governance/decisions/DS-D-0032-control-size-ladder-sm.md",
         "design/governance/decisions/DS-D-0033-brightness-is-state.md",
         "design/governance/decisions/DS-D-0034-ink-paper-roles.md",
+        "design/governance/decisions/DS-D-0035-figma-done-without-publish.md",
         "design/governance/product-confirmations.md",
         "design/updates/README.md"
       ]

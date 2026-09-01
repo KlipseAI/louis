@@ -213,7 +213,7 @@ pnpm clean-room
 | Web `partial`   | public API 후보와 핵심 test가 있으나 release, 호환성 또는 consumer 근거 부족 |
 | Web `done`      | package public export, 접근성/interaction/browser test와 release evidence    |
 | Figma `partial` | Figma 파일 안의 reviewable library draft(variable/component)와 stable key, draft↔proposal parity report — proposal JSON만으로는 불충분 |
-| Figma `done`    | published library key/version, variant/state parity와 검증 evidence          |
+| Figma `done`    | 같은 파일 안에서 인스턴스로 소비 가능한 component set, 게이트가 지키는 variant/state parity, **두 방향** 기하 evidence(계약 ↔ `components.measured.json` ↔ 브라우저 테스트). **게시는 조건이 아니다** — [DS-D-0035](decisions/DS-D-0035-figma-done-without-publish.md) |
 | Docs `done`     | 규범, API, 상태, 접근성, responsive/content, 실행 example과 migration        |
 | `beta`          | 제한된 adoption이 가능하고 breaking change에 migration을 제공                |
 | `stable`        | Web/Figma/Docs 완료와 실제 제품 adoption/rollback evidence                   |
@@ -227,8 +227,10 @@ P3는 다음 세 경계로 나눈다.
 - **P3 catalog coverage:** manifest의 Input, Tooltip, Toast, Empty State와 Loading까지 각 규범과
   필요한 구현 상태를 정직하게 제공. **`select` 는 범위 밖이다** — 「고르기는 Menu 가 소유한다」로
   판정이 끝났고 manifest 가 `not-planned` 다(아래 (1d))
-- **P3 complete:** public release, hosted CI, published Figma variable/component, 호환성·접근성 증거와 owner
-  승인
+- **P3 complete:** public release, hosted CI, **parity 검증된** Figma variable/component, 호환성·접근성
+  증거와 owner 승인. 여기서 「published」를 걷어낸 근거는
+  [DS-D-0035](decisions/DS-D-0035-figma-done-without-publish.md)다 — 소비자가 같은 파일 안에 있는
+  동안 게시는 검증을 대신하지 못한다
 
 Core RC는 P3 전체 완료가 아니다.
 
@@ -875,7 +877,8 @@ checkout에서 root 명령이 통과한다.
 둘 다 DS-P3-014가 해소한다.
 
 **`done` 승격에 남은 것:** visual regression(hosted CI 후), 수동 screen-reader review, SSR/hydration,
-published Figma component(DS-F-006), 제품 사용처 2곳.
+제품 사용처 2곳. ~~published Figma component(DS-F-006)~~ **해소** — Button 은 Figma `done` 이다
+([DS-D-0035](decisions/DS-D-0035-figma-done-without-publish.md)).
 
 **의존성:** DS-P3-003
 

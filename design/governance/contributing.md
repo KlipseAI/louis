@@ -48,7 +48,11 @@ P2 token 변경은 다음을 같은 PR에서 다룬다.
 - pattern의 `docs: done` 문서에는 선택 기준, ownership/state lifecycle, responsive,
   accessibility와 acceptance tests가 있다.
 - `web: done`은 public export, tests, accessibility와 release evidence가 있을 때만 사용한다.
-- `figma: done`은 published library component와 code parity 검증이 있을 때만 사용한다.
+- `figma: done`은 **게시가 아니라 대조**로 판정한다([DS-D-0035](decisions/DS-D-0035-figma-done-without-publish.md)) —
+  같은 파일 안에서 인스턴스로 소비 가능한 component set, `verify-figma-parity`가 지키는 variant/state
+  parity, 그리고 **두 방향** 기하 evidence(계약이 `figma/components.measured.json`을 가리키고, 그 실측값을
+  코드가 여전히 만드는지 재는 브라우저 테스트가 있다)가 전부 있을 때만 사용한다. published library
+  key/version은 파일이 갈라지거나 외부 소비자가 생기는 시점에 다시 조건이 된다.
 - breaking change는 migration과 deprecation window를 제공한다.
 - 생성 파일과 source가 일치한다.
 - CSS의 semantic output과 JS·JSON·Figma proposal·manifest의 primitive/semantic token graph가 같은

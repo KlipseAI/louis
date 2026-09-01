@@ -17,7 +17,7 @@ Klipse Design은 문서 모음이 아니라 제품이 소비하는 계약과 배
 | 행동·사용 규범      | `design/` normative docs              | component/pattern proposer |
 | Token values        | `packages/tokens/src/` (P2)           | token maintainer           |
 | Web API             | `packages/css`, `packages/react` (P3) | package maintainer         |
-| Figma library       | published Klipse Design library (P3)  | design maintainer          |
+| Figma library       | LOUIS Figma 파일의 library 계층 (P3) — 게시는 정본의 조건이 아니다([DS-D-0035](decisions/DS-D-0035-figma-done-without-publish.md)) | design maintainer |
 | 제품 route evidence | 각 소비 제품 저장소                   | product owner              |
 | Generated docs      | build scripts                         | generator owner            |
 

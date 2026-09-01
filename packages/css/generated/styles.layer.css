@@ -2038,16 +2038,29 @@
     min-inline-size: 0;
   }
 
+  /* **body-lg-semibold(20/600)다. heading이 아니다.**
+   *
+   * 여기는 오래 heading-md(36px)였는데 그 값이 렌더된 적이 한 번도 없다 — 제품 모달 6곳이
+   * 전부 호출부에서 `text-body-*`로 덮고 있었고, Tailwind utilities 레이어가 이 레이어를 이기므로
+   * 조용히 성립했다. 덮는 쪽이 만장일치면 어긋난 쪽은 레시피다.
+   *
+   * 36이 나온 경위는 heading 스케일에 28 아래 칸이 없다는 것이다(sm 28 · md 36 · lg 48).
+   * 슬롯 이름이 `__title`이라 heading을 찾아갔고, 맞는 칸이 없으니 처음부터 어긋날 수밖에 없었다.
+   * 모달 제목 크기는 heading이 아니라 body 계열에 있다 — `body-lg-semibold`가 그 칸이다.
+   * compact(360px) 카드에서 28 이상은 「채팅을 삭제할까요?」 한 줄이 접힌다.
+   *
+   * weight가 medium이 아니라 semibold인 것도 제품을 따른 것이다 — 호출부 6곳이 전부
+   * `font-semibold`를 함께 얹고 있었다. */
   .louis-dialog__title {
     margin: 0;
     color: var(--louis-color-fg-primary);
     overflow-wrap: break-word;
     word-break: keep-all;
-    font-family: var(--louis-typography-heading-md-medium-font-family);
-    font-size: var(--louis-typography-heading-md-medium-font-size);
-    font-weight: var(--louis-typography-heading-md-medium-font-weight);
-    line-height: var(--louis-typography-heading-md-medium-line-height);
-    letter-spacing: var(--louis-typography-heading-md-medium-letter-spacing);
+    font-family: var(--louis-typography-body-lg-semibold-font-family);
+    font-size: var(--louis-typography-body-lg-semibold-font-size);
+    font-weight: var(--louis-typography-body-lg-semibold-font-weight);
+    line-height: var(--louis-typography-body-lg-semibold-line-height);
+    letter-spacing: var(--louis-typography-body-lg-semibold-letter-spacing);
   }
 
   .louis-dialog__description {

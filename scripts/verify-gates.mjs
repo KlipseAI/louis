@@ -115,6 +115,34 @@ withCanary(
   "--check",
 );
 
+// DS-D-0035 의 `figma: done` 조건. `alert` 은 계약에 geometry 가 없어 조건 (c) 가 서지 않는
+// 항목이라, 승격 여부와 무관하게 항상 이 canary 의 재료가 된다.
+withCanary(
+  "design/manifest.json",
+  (source) => {
+    const manifest = JSON.parse(source);
+    manifest.components.find((item) => item.id === "alert").figma = "done";
+    return JSON.stringify(manifest, null, 2) + "\n";
+  },
+  "figma done without two-way evidence",
+  "scripts/verify-figma-done.mjs",
+  "geometry 가 없습니다",
+);
+
+// **빈 목록으로 조용히 통과하는 경로**를 막는다. 계약 배열을 못 읽으면 검사할 것이 0개가 되어
+// exit 0 이 되는데, 그것이 이 저장소가 가장 비싸게 배운 실패 방식이다.
+withCanary(
+  "scripts/verify-figma-parity.mjs",
+  (source) =>
+    source.replace(
+      "const COMPONENT_CONTRACTS = [",
+      "const COMPONENT_CONTRACTS_RENAMED = [",
+    ),
+  "figma done contract source missing",
+  "scripts/verify-figma-done.mjs",
+  "COMPONENT_CONTRACTS 를 읽지 못했습니다",
+);
+
 withCanary(
   "design/components/button.md",
   (source) =>

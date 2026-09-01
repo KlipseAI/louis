@@ -1566,6 +1566,14 @@ const COMPONENT_CONTRACTS = [
         Label: { fields: { fontSize: "labelFontSize" } },
         Control: { fields: { height: "height" } },
         // 굵은 막대는 레일이고 얇은 표식은 썸이다 — 두 변형이 **같은 부품의 다른 값**을 갖는다.
+        //
+        // **`md/track`에서만 레일이 컨트롤보다 두껍다** — railHeight 20 > height 16. 두 값 다
+        // 계약이고(막대는 제품 인스펙터 실측, 컨트롤 16은 slider.md가 미결로 갖는 리터럴) 어느
+        // 쪽도 여기서 못 바꾼다. 그 결과 Figma에서 막대가 프레임 밖으로 (20 − 16) / 2 = 2px
+        // 아래로 나갔고, 컨트롤 프레임이 `clipsContent`라 실제로 잘려 보였다(2026-09-01 실측:
+        // 세 State 전부). 라이브를 고쳤다 — 컨트롤의 클립을 끄고 변형 프레임에 아래 padding 2를
+        // 줘서 막대의 삐져나온 만큼을 프레임이 품는다. 그래서 `md/track`만 높이가 41이 아니라
+        // 43이다. 이 계약은 프레임 높이도 padding도 보지 않으므로 여기서 걸리지 않는다.
         Rail: { fields: { height: "railHeight" } },
         Fill: { fields: { height: "railHeight" } },
         Thumb: { fields: { width: "thumbInline", height: "thumbBlock" } },

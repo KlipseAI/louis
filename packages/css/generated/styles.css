@@ -1574,6 +1574,21 @@
   color: var(--louis-color-fg-on-danger);
 }
 
+/* danger-secondary — 파괴적 동작의 **보조** 표현이다. solid danger 와 같은 자리에 쓰지 않는다:
+ * solid 는 그 화면의 주인공인 파괴 CTA, 이쪽은 확인 모달처럼 **취소와 나란히 서는** 자리다.
+ *
+ * 면·글자를 새 색으로 짓지 않고 이미 있는 alert 짝을 읽는다 — `bg-danger` 는 alert 의 면,
+ * `fg-danger-on-surface` 는 그 면 위 글자로 이미 정의돼 있고 역할이 같다(DS-D-0030: 같은 역할을
+ * 두 이름으로 말하지 않는다).
+ *
+ * **대비가 solid 보다 낫다.** solid 는 `#fafafa` on `#ff4b59` = 3.14:1 로 AA 미달인데(라벨이
+ * 자기 면 위에서 흐리다), 이쪽은 라이트 `#b72431` on `#ffe5e8` = 5.32:1 ·
+ * 다크 `#ff6f7c` on `#541119` = 5.31:1 로 두 테마 다 통과한다. */
+.louis-button[data-variant="danger-secondary"] {
+  background: var(--louis-color-bg-danger);
+  color: var(--louis-color-fg-danger-on-surface);
+}
+
 /* hover — hover에서만 기능을 드러내지 않는다. 면 강조만 바꾼다.
  *
  * 제품은 secondary·ghost의 hover를 **알파 오버레이**로 준다(5% / 8%). 면 위에 얹히므로 배경이
@@ -1593,7 +1608,10 @@
 
 /* 제품은 danger hover를 opacity 0.85로 준다 (Button.tsx:130). 색 토큰을 새로 만들지 않고
  * 같은 방식을 쓴다 — motion 규범이 허용하는 property이기도 하다. */
-.louis-button:where(:not([aria-disabled="true"]):not(:disabled)):hover[data-variant="danger"] {
+.louis-button:where(:not([aria-disabled="true"]):not(:disabled)):hover:where(
+    [data-variant="danger"],
+    [data-variant="danger-secondary"]
+  ) {
   opacity: 0.85;
 }
 
@@ -1634,8 +1652,18 @@
   color: var(--louis-color-fg-disabled);
 }
 
-.louis-button:disabled:where([data-variant="primary"], [data-variant="danger"], [data-variant="inverse"]),
-.louis-button[aria-disabled="true"]:where([data-variant="primary"], [data-variant="danger"], [data-variant="inverse"]) {
+.louis-button:disabled:where(
+    [data-variant="primary"],
+    [data-variant="danger"],
+    [data-variant="danger-secondary"],
+    [data-variant="inverse"]
+  ),
+.louis-button[aria-disabled="true"]:where(
+    [data-variant="primary"],
+    [data-variant="danger"],
+    [data-variant="danger-secondary"],
+    [data-variant="inverse"]
+  ) {
   background: var(--louis-color-bg-inset);
 }
 

@@ -88,7 +88,7 @@ React `Button` 은 `<button>` 만 그린다. 그래서 이 경우에는 **클래
 > 불리언으로 두면 표현할 수 없는 상태가 생긴다. 그래서 Variant×Size×State×Icon = 5×2×5×4 = 200이다.
 > **이 200은 오늘의 Figma 값이다** — 코드는 [DS-D-0032](../governance/decisions/DS-D-0032-control-size-ladder-sm.md)로
 > `sm`을 열었지만 Figma component set은 아직 두 칸이다. Figma가 따라오는 날 5×3×5×4 = 300이 된다.
-| `variant`    | `primary`, `secondary`, `ghost`, `danger` | `primary` | 강조와 의미                                     |
+| `variant`    | `primary`, `secondary`, `ghost`, `danger`, `danger-secondary` | `primary` | 강조와 의미                     |
 | `size`       | `lg`, `md`, `sm`                          | `md`      | 시각 크기; hit area 계약은 별도 유지            |
 | `loading`    | boolean                                   | `false`   | 중복 실행 차단, `aria-busy`, progress indicator |
 | `leftIcon`   | ReactNode                                 | —         | 라벨 앞 보조 아이콘                             |
@@ -105,6 +105,7 @@ React `Button` 은 `<button>` 만 그린다. 그래서 이 경우에는 **클래
 | `secondary` | 취소·대안           | primary를 보조                                     |
 | `ghost`     | 툴바·저강조 액션    | 면이 없어도 발견 가능한 위치에서 사용              |
 | `danger`    | 삭제·초기화         | 결과를 구체적으로 설명하고 필요하면 확인 단계 제공 |
+| `danger-secondary` | 확인 모달의 파괴 액션 | 취소와 나란히 서는 자리. solid `danger`와 같은 화면에 함께 두지 않는다 |
 
 강조 수준을 색만으로 결정하지 않고, 같은 영역에 경쟁하는 primary를 여러 개 두지 않는다.
 
@@ -224,7 +225,7 @@ variant 축이 되는데, 그 축을 세울 근거가 하나뿐이다.
 
 | 코드 | Figma | 비고 |
 | --- | --- | --- |
-| `variant` | `Variant` (primary/secondary/ghost/danger) | 옵션 집합을 parity 게이트가 `ButtonVariant`와 대조한다 |
+| `variant` | `Variant` (primary/secondary/ghost/danger) | 옵션 집합을 parity 게이트가 `ButtonVariant`와 대조한다. **지금 어긋나 있다** — 코드는 `danger-secondary`를 포함해 여섯이고 Figma는 다섯이다(세 곳 중 Figma 미반영, `size`의 `sm`과 같은 상태다) |
 | `size` | `Size` (lg/md) | `ButtonSize`와 대조한다. **지금 어긋나 있다** — 코드는 `sm`을 포함해 셋이고 Figma는 둘이다. `verify-figma-parity`가 그 차이를 낸다 (DS-D-0032, 세 곳 중 Figma 미반영) |
 | `loading` | `State=Loading` | boolean prop이 Figma에서는 state variant다 |
 | `disabled` | `State=Disabled` | 같은 이유 |
@@ -348,6 +349,7 @@ gap과 아이콘 슬롯도 세 크기가 같은 값이다(`column-gap`은 셋 �
   | `secondary` | `#777d89` | 흰 배경 | **4.13** |
   | `ghost` | `#777d89` | 흰 배경 | **4.13** |
   | `danger` | `#fafafa` | `#ff4b59` | **3.14** |
+  | `danger-secondary` | `#b72431` | `#ffe5e8` | 5.32 (다크 `#ff6f7c` on `#541119` 5.31) — **미달 아님** |
 
   이 미달은 제품이 이미 갖고 있는 것이고 DS가 그것을 그대로 재현한다. 해소하려면 면을 어둡게
   하거나(primary는 `blue.700` 6.12, secondary는 `neutral.700` 6.35) 라벨을 18.66px bold 이상으로

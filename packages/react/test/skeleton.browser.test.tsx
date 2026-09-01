@@ -105,6 +105,20 @@ test("모양 셋의 반경이 계약과 같다", async () => {
   }
 });
 
+test("text 의 기본 높이가 계약과 같다 — 인라인 blockSize 없이 잰다", async () => {
+  // **이 축은 다른 테스트가 전부 가리고 있었다.** 위 테스트들이 `style={{ blockSize: … }}` 로
+  // 높이를 직접 주기 때문에 CSS 의 `block-size` 가 무효 선언이어도 아무도 몰랐다 — 실제로
+  // `block-size: var(--louis-typography-body-sm-regular-line-height)` 는 무단위 `1.5` 라
+  // computed-value time 에 버려졌고, 브라우저는 빈 div 의 높이 **0px** 을 그렸다 (2026-09-01).
+  // 그래서 여기서는 인라인 높이를 주지 않는다.
+  await render(
+    <div data-louis-fixture>
+      <Skeleton shape="text" style={{ inlineSize: "120px" }} />
+    </div>,
+  );
+  expect(px(getComputedStyle(skeleton()).blockSize), "text 기본 높이").toBe(sizes.text.height);
+});
+
 test("읽히지 않는다", async () => {
   // 로딩을 알리는 것은 감싸는 영역의 일이다. 스켈레톤마다 읽히면 소음이 된다.
   await render(

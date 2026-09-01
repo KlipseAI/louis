@@ -11,15 +11,15 @@
   },
   "$productNoneTrap": "`product-none` 54건은 함정이 다르다 — 사유의 질은 `derived`보다 훨씬 낫지만(제품이 대신 무엇을 하는지를 적고 파일·줄이나 탐색 범위를 밝힌다) **전부 부정 존재 명제다.** 인용은 있는 자리를 가리킬 뿐 없음을 증명하지 못한다. 탐침이 가리키는 그 요소에 대한 주장이면 `measure-product-components.mjs`의 선언 열거가 이미 강제하고 있으니 사유를 `figma/product-coverage.json`으로 옮긴다. 제품 정의 전체에 대한 주장(\"29벌을 훑었을 때 하나도 없다\")이면 `measure-product-variants.mjs`에 이름 패턴을 넣어 기계가 다시 세게 한다. 인계서 (A2\")를 본다.",
   "$counts": {
-    "product-has": 244,
-    "derived": 61,
+    "product-has": 245,
+    "derived": 60,
     "product-none": 54
   },
   "$derivedRouteCounts": {
     "제품-없음": 13,
     "제품-주장": 14,
     "DS-내부만": 27,
-    "충돌-기록됨": 7
+    "충돌-기록됨": 6
   },
   "$coverage": {
     "명부": 359,
@@ -1902,9 +1902,13 @@
     {
       "component": "skeleton",
       "path": "skeleton.sizes.text.height",
-      "decision": "derived",
-      "route": "충돌-기록됨",
-      "reason": "글자 줄을 대신하므로 대신할 글자의 행간이 곧 높이다 — skeleton.css가 `block-size: var(--louis-typography-body-sm-regular-line-height)`로 typography 축을 그대로 받으며 따로 세운 값이 아니다. (다만 기록된 16px은 그 식에서 나오지 않는다: 생성된 토큰이 단위 없는 `1.5`라 `block-size`가 무효 선언으로 버려지고, 14px × 1.5 = 21px과도 맞지 않는다 — 이 어긋남은 사람이 판정해야 한다.)"
+      "decision": "product-has",
+      "productConstant": "analytics SKELETON_BLOCK_SM",
+      "productFile": "/Users/sejunki/klipse-web/apps/web/components/scenes/analytics/shared.tsx",
+      "productLine": 187,
+      "productSelector": "`w-[min(100%,140px)] h-8` — 제품 `--spacing: 2px` 이므로 h-8 = 16px. AudienceTab.tsx:75 · PerformanceTab.tsx:313 이 같은 값을 되풀이한다",
+      "productValue": "16px",
+      "reason": "해소됨(2026-09-01). 이전 판정은 `derived` 였고 사유가 「대신할 글자의 행간이 곧 높이다」였는데, 그 사유는 기록과 맞은 적이 없다 — 행간을 길이로 닫으면 14px × 1.5 = 21px 이고 기록 셋은 전부 16 이다(Figma readback `Skeleton.geometry.text.height`=[16], components.measured `text.height`=16, 제품 h-8=16px). 어긋남이 보이지 않았던 이유는 CSS 선언이 무효였기 때문이다: 토큰이 단위 없는 `1.5` 라 `block-size` 가 computed-value time 에 버려져 브라우저가 0px 을 그리고 있었고, 브라우저 테스트가 인라인 blockSize 로 그 축을 가리고 있었다. 파생 사유를 폐기하고 skeleton.css 에 16px 리터럴을 적었으며, 인라인 높이를 주지 않는 acceptance test 를 추가해 축을 열었다."
     },
     {
       "component": "skeleton",

@@ -4069,10 +4069,31 @@
     border-radius: var(--louis-radius-pill);
   }
 
-  /* 글자 줄. 마지막 줄이 짧은 것은 호출부가 inline-size로 정한다 — 문단마다 다르다. */
+  /* 글자 줄. 마지막 줄이 짧은 것은 호출부가 inline-size로 정한다 — 문단마다 다르다.
+   *
+   * **높이는 행간에서 파생되지 않는다 — 그 사유 문장을 폐기했다 (2026-09-01).**
+   * 여기는 `block-size: var(--louis-typography-body-sm-regular-line-height)` 였다. 그 토큰은
+   * 단위 없는 `1.5` 라(`generated/tokens.css:653`) `block-size` 로는 타입이 맞지 않아 선언이
+   * computed-value time 에 통째로 버려졌고, 규칙 본문에 다른 높이가 없어 브라우저는 빈 div 의
+   * **0px** 을 그렸다. 브라우저 실측이 `blockSize:"0px"` 이었다. Alert 의 아이콘 광학 정렬이
+   * 같은 함정에 빠졌던 자리다(`alert.css:66-72`) — 거기서는 글자 크기를 곱해 길이로 닫았다.
+   *
+   * 여기서는 그 수선을 쓰지 않는다. 닫아 보면 14px * 1.5 = **21px** 인데 세 곳의 기록은 전부
+   * 16 이다 — `figma/readback.json#/components/Skeleton/geometry/text/height` = [16],
+   * `figma/components.measured.json#/components/skeleton/sizes/text/height` = 16, 제품의 작은
+   * 스켈레톤 줄도 `h-8`(제품 `--spacing: 2px` 이므로 16px)이다
+   * (`apps/web/components/scenes/analytics/shared.tsx:187` · `AudienceTab.tsx:75` ·
+   * `PerformanceTab.tsx:313`). 21 을 그리면 셋 다 어긋난다. 즉 「대신할 글자의 행간이 곧
+   * 높이다」라는 사유가 애초에 기록과 맞은 적이 없었고, 무효 선언이 그 어긋남을 가리고 있었다.
+   *
+   * 그래서 16 을 리터럴로 적는다. 이 값과 같은 토큰은 여럿 있지만(`icon-size-sm`,
+   * `space-control-lg`, `radius-overlay`) 어느 것도 「글자 한 줄이 차지하는 높이」를 뜻하지
+   * 않는다 — 뜻이 다른 토큰을 값이 같다는 이유로 빌리면 그쪽이 움직일 때 여기가 따라 움직인다.
+   * `migration/unverified-value-map.json` 의 `skeleton.sizes.text.height` 항목이 이 어긋남을
+   * 「충돌-기록됨」으로 남겨 두고 사람 판정을 기다리고 있었다. */
   .louis-skeleton[data-shape="text"] {
     border-radius: var(--louis-radius-control-sm);
-    block-size: var(--louis-typography-body-sm-regular-line-height);
+    block-size: 16px;
   }
 
   @keyframes louis-shimmer {

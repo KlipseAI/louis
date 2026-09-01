@@ -13,7 +13,7 @@ summary: 아직 오지 않은 내용의 자리를 지킵니다.
 
 | Surface       | 상태           | 근거                                                                 |
 | ------------- | -------------- | -------------------------------------------------------------------- |
-| Web           | `partial`      | public export와 실브라우저 acceptance test 5건이 두 motion context에서 각각 돈다; visual regression, Figma component와 제품 소비 증거 없음 |
+| Web           | `partial`      | public export와 실브라우저 acceptance test 6건이 두 motion context에서 각각 돈다; visual regression, Figma component와 제품 소비 증거 없음 |
 | Figma         | `partial`      | component set 3 shape(text·block·circle). Figma는 흐름을 표현하지 못해 정지 상태만 그린다; publish 전 |
 | Documentation | `done`         | 이 문서                                                              |
 | Maturity      | `experimental` | 규범과 구현이 같은 변경 단위에서 처음 선다                           |
@@ -99,7 +99,7 @@ summary: 아직 오지 않은 내용의 자리를 지킵니다.
 | 면 | `currentcolor` 8% | 제품 값 그대로 |
 | 하이라이트 | `currentcolor` 9% | 제품 값 그대로 |
 | 반경 | `radius-control-sm` 8px (`circle`은 `radius-pill`) | — |
-| `text` 높이 | `typography-body-sm-regular`의 line-height | 글자 줄을 대신하므로 |
+| `text` 높이 | `16px` 리터럴 | Figma·기록·제품 셋이 16이다 — 아래 Known deviations 1번 |
 | 흐름 | `motion-shimmer` 1600ms | 아래 |
 
 ## 흐름은 `background-position`이다
@@ -167,6 +167,17 @@ DS 쪽 정본이고, 제품의 이 자리는 **결함으로 기록한다.**
 - **Figma는 `currentColor`를 표현하지 못한다.** 문서용으로 `fg-primary` 8%를 쓴다. 실제로는 놓이는
   자리의 글자색이 된다 — 위 「면 색을 고르지 않는다」가 정본이고 Figma 값은 그 대역이다.
   [Spinner](spinner.md)의 Known deviations가 같은 편차를 같은 이유로 적는다.
+- **`text` 높이가 행간에서 파생되지 않는다 — 그 사유를 폐기했다(2026-09-01).** 여기는
+  `block-size: var(--louis-typography-body-sm-regular-line-height)` 였고, 그 토큰이 단위 없는
+  `1.5`라 `block-size`로는 타입이 맞지 않아 선언이 통째로 버려졌다. 규칙 본문에 다른 높이가 없어
+  브라우저는 빈 div의 **0px**을 그렸다(실측 `blockSize:"0px"`). [Alert](alert.md)의 아이콘 광학
+  정렬이 같은 함정에 빠졌던 자리이고 거기서는 글자 크기를 곱해 길이로 닫았는데, 여기서는 그
+  수선을 쓰지 않았다 — 닫으면 14 × 1.5 = **21px**인데 세 곳의 기록이 전부 16이기 때문이다
+  (`figma/readback.json`의 `Skeleton.geometry.text.height` · `figma/components.measured.json`의
+  `skeleton.sizes.text.height` · 제품의 작은 스켈레톤 줄 `h-8` = 16px,
+  `components/scenes/analytics/shared.tsx:187`). 사유 문장이 기록과 맞은 적이 없었고 무효 선언이
+  그것을 가리고 있었다. 16을 리터럴로 적는다 — 값이 같은 토큰은 여럿 있지만 어느 것도 「글자 한
+  줄이 차지하는 높이」를 뜻하지 않는다.
 - **텍스트 여러 줄 묶음이 없다.** 마지막 줄을 짧게 하는 것은 호출부가 `inline-size`로 정한다.
 
 ## Acceptance tests
@@ -177,4 +188,6 @@ DS 쪽 정본이고, 제품의 이 자리는 **결함으로 기록한다.**
 4. 흐름이 공용 `louis-shimmer` keyframe이고 `motion-shimmer` 토큰을 쓰며 **`transform`을 쓰지 않는다.**
 5. reduced-motion에서 duration이 reduced 토큰이 되고 반복이 1회가 된다.
 6. 모양 셋의 반경이 계약과 같다.
-7. `aria-hidden`이다.
+7. **`text`의 기본 높이가 계약과 같다** — 인라인 `blockSize` 없이 잰다. 다른 케이스들이 전부
+   인라인 높이를 주고 있어서 이 축만 가려져 있었다.
+8. `aria-hidden`이다.

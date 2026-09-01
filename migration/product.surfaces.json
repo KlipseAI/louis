@@ -12,10 +12,10 @@
   "filesScanned": 282,
   "counts": {
     "total": 400,
-    "mapped": 18,
+    "mapped": 19,
     "scoped": 211,
     "needed": 161,
-    "unclear": 10,
+    "unclear": 9,
     "unclassified": 0
   },
   "surfaces": {
@@ -1727,9 +1727,9 @@
         "louis-overlay-panel",
         "louis-state"
       ],
-      "verdict": "unclear",
-      "figma": null,
-      "reason": "셸(backdrop · surface · header/body/footer · data-size=compact)이 이미 LOUIS `.louis-dialog` 정본 그대로라 Dialog 대응으로 볼 수도 있다. 그런데 `confirmVariant=\"danger\"` 파괴적 확인과 tokenCost 본문 줄은 Figma Dialog 의 축(Size · HasClose · Title · Description)에 없다. 소유자가 「Dialog 에 Tone/Destructive 축을 더한다」와 「ConfirmDialog 를 별 컴포넌트로 세운다」 중 하나를 정해 주면 풀린다. 이 도메인 모달 대부분이 같은 갈림길을 공유한다.",
+      "verdict": "figma",
+      "figma": "Dialog",
+      "reason": "셸이 LOUIS `.louis-dialog` 정본 그대로다 — `louis-overlay-panel louis-dialog` · `__backdrop` · `__surface` · `__header` · `__heading` · `__title` · `__description` · `__body` · `__footer` · `__actions`, `data-size=\"compact\"`. `GlassConfirmModal`(이미 `figma` → Dialog)과 같은 판정 근거이며, 이 파일이 더하는 것은 마운트 기반 수명(rAF 두 번 → open, 200ms 타이머 → unmount)뿐이다. **막고 있던 것은 축 하나였고 DS-D-0041 이 그것을 열었다** — `confirmVariant=\"danger\"` 는 이제 Dialog 의 `Tone` 축이다(`Tone=danger` 는 compact 칸에만 그린다). `tokenCost` 본문 줄은 축이 아니라 `__body` 슬롯의 콘텐츠다 — `CreditConfirmModal` 의 크레딧 내역 박스를 `scoped` 로 판정한 것과 같은 규칙이고, 그 규칙이 이미 `GlassConfirmModal` 의 `children` 을 Dialog 대응에서 빼지 않았다.",
       "weight": null
     },
     "apps/web/components/scenes/create/CustomDropdown.tsx#CustomDropdown": {

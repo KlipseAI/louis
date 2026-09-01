@@ -80,16 +80,20 @@ const readJson = (relative) => JSON.parse(readFileSync(resolve(repoRoot, relativ
 const LEDGER = "migration/product.surfaces.json";
 const READBACK = "figma/readback.json";
 
-// 2026-09-01 실측(DS-D-0039 · DS-D-0040 적용 후). 표면 400종 중 figma 18 · scoped 211 ·
-// needed 161 · unclear 10 · 미분류 0. 미분류를 새 위반으로 늘리려고 이 수를 올리지 마라 —
-// 이 저장소의 baseline 규칙이다.
+// 2026-09-01 실측(DS-D-0039 · DS-D-0040 · DS-D-0041 적용 후). 표면 400종 중 figma 19 ·
+// scoped 211 · needed 161 · unclear 9 · 미분류 0. 미분류를 새 위반으로 늘리려고 이 수를
+// 올리지 마라 — 이 저장소의 baseline 규칙이다.
 const UNCLASSIFIED_BASELINE = 0;
-// 대응 합계. 컴포넌트 15 + 패턴 3(app-shell ← Gnb · auth-two-panel ← AuthStatusCard ·
+// 대응 합계. 컴포넌트 16 + 패턴 3(app-shell ← Gnb · auth-two-panel ← AuthStatusCard ·
 // landing-shell ← landing/navigation/Gnb).
-const MAPPED_BASELINE = 18;
+//
+// 16번째 컴포넌트 대응은 `create/ConfirmModal`이다. DS-D-0041 이 Dialog 에 `Tone` 축을 열어
+// 그 표면을 `unclear` 에서 내렸다 — 셸은 이미 `.louis-dialog` 정본이었고 막고 있던 것이
+// 파괴적 확인의 축 하나였다.
+const MAPPED_BASELINE = 19;
 // **합계와 따로 잠근다.** 컴포넌트 대응을 패턴 대응으로 바꿔치기하면 합계는 그대로인데
 // 재사용할 인스턴스가 사라진다 — 이 수가 그 후퇴를 잡는 유일한 그물이다.
-const MAPPED_COMPONENT_BASELINE = 15;
+const MAPPED_COMPONENT_BASELINE = 16;
 const TOTAL_FLOOR = 400;
 
 // 판정 어휘. 여기 없는 낱말은 판정이 아니라 오타이고, 오타는 조용히 `unclassified` 밖으로

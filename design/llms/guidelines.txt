@@ -7556,7 +7556,7 @@ publish를 미뤄 온 근거는 타당했다 — 미발행이라 rename 99건(DS
    전제가 틀렸다 — 「승격 조건이 published library를 요구한다」는 **정의**의 사실이지 Figma의
    사실이 아니었고(같은 파일 안에서는 미발행 component도 인스턴스가 된다. 이 문서의 Context가
    적은 「**다른 파일이** 소비할 수 없다」가 바로 그 경계다), 정의를 고치는 편이 옳았다.
-   지금 상태는 `not-ready`가 아니라 `partial` 39 + `done` 18이다.
+   지금 상태는 `not-ready`가 아니라 `partial` 22 + `done` 17이다.
    **발행하지 않는다는 본 결정과, catalog·문서에서 publish를 남은 과제로 적지 않는다는 규칙은
    그대로 선다.**
 2. **「제품 screen은 published library component instance를 소비한다」 규칙은 목표에서 내린다.**
@@ -8652,7 +8652,7 @@ lifecycle을 열었다. 근거는 「점에는 라벨이 없어 폭 말고 현�
 | --- | --- | --- |
 | (a) 소비 가능 | component set 이 LOUIS 파일 안에 서 있고, `figma/readback.json` 의 `components` 에 등재되며 description 을 갖는다 | `verify-figma-parity` 의 「component set 이 snapshot 에 없습니다」·「description 이 없습니다」 |
 | (b) parity 가 게이트로 지켜진다 | `scripts/verify-figma-parity.mjs` 의 `COMPONENT_CONTRACTS` 에 그 이름이 있고, Figma 의 **모든** property 가 계약에 선언돼 있다 | 같은 게이트. variant 축은 코드 타입 union 과, Figma 전용 축은 사유가 붙은 선언과 대조하고, **선언되지 않은 property 는 실패**다 |
-| (c) evidence 가 두 방향이다 | 계약에 `geometry` 가 붙어 `figma/components.measured.json` 의 실측값을 가리키고, **그 실측값을 코드가 여전히 만드는지 재는 브라우저 테스트가 있다** | 앞쪽은 `verify-figma-parity`, 뒤쪽은 `packages/react/test/*.browser.test.tsx` |
+| (c) evidence 가 두 방향이고 **좁혀지지 않았다** | 계약에 `geometry` 가 붙어 `figma/components.measured.json` 의 실측값을 가리키고, **그 실측값을 코드가 여전히 만드는지 재는 브라우저 테스트가 있으며**, 계약의 대조 범위가 되읽기의 기하 키를 전부 덮는다 | 앞쪽은 `verify-figma-parity`, 뒤쪽은 `packages/react/test/*.browser.test.tsx`, 범위는 `scripts/verify-figma-done.mjs` |
 
 **(c) 의 뒷절이 이 정의의 무게다.** `figma/components.measured.json` 은 머리말이 스스로
 「두 방향이 다 걸려야 코드-Figma 격차가 조용히 벌어지지 않는다」고 적는 파일이다. 한 방향만
@@ -8708,31 +8708,43 @@ DS-D-0025 의 본체(A 모델 — 코드가 정본, Figma 는 projection, 발행
 
 #### Consequences
 
-##### 39 개를 다시 판정했다 — `done` 18 · `partial` 21
+##### 39 개를 다시 판정했다 — `done` 17 · `partial` 22
 
 일괄 승격하지 않았다. 컴포넌트마다 (a)(b)(c) 를 각각 확인했고, 서지 않으면 무엇이 없어서
 `partial` 인지 manifest 의 `note` 에 적었다.
 
-`done` 18: Avatar · Badge · Button · Checkbox · Dialog · EmptyState · IconButton · TextField(input) ·
-Menu/Popover · Progress · ProjectCard · SegmentedControlItem · SelectableListRow · Skeleton ·
-Slider · Spinner · Toast · Tooltip.
+`done` 17: Avatar · Badge · Button · Checkbox · Dialog · EmptyState · IconButton · TextField(input) ·
+Menu/Popover · Progress · ProjectCard · SelectableListRow · Skeleton · Slider · Spinner · Toast ·
+Tooltip.
 
-`partial` 로 남은 21 은 전부 **(c) 에서 걸린다.** (a)(b) 는 51 개 계약 전부가 이미 만족한다 —
+`partial` 로 남은 22 는 전부 **(c) 에서 걸린다.** (a)(b) 는 51 개 계약 전부가 이미 만족한다 —
 description 이 없는 set 0, raw fill/stroke 를 가진 set 0, 미선언 property 0.
 
 | 왜 아직 `partial` 인가 | 수 | 누가 |
 | --- | ---: | --- |
 | 계약에 `geometry` 가 없다 — Figma 치수가 코드 실측과 **한 번도 만나지 않는다** | 11 | alert · breadcrumb · form-message · keycap · node-chip · pane-divider · segmented-control · switch · table · tabs · video-player |
 | `geometry` 는 있으나 **역방향 브라우저 테스트가 없다** — 기록과 Figma 만 맞으면 초록이다 | 10 | app-shell-parts(SidebarBrand·SidebarCta) · banner-carousel · carousel-arrow · faq-row · gnb-menu-item · inline-loading-label · media-card · news-card · segmented-code-input · step-tile |
+| 둘 다 있으나 **대조 범위가 좁혀져 있다** | 1 | segmented-control-item |
 
 두 번째 줄의 열 중 여덟(carousel-arrow · faq-row · gnb-menu-item · inline-loading-label ·
 media-card · news-card · segmented-code-input · step-tile)은 LOUIS 에 코드가 아직 없는
 `figmaAhead` 계약이다. 그쪽의 (c) 는 **LOUIS 레시피가 서야 열린다** — Figma 를 더 그려서 닫히는
 결손이 아니다.
 
-`segmented-control` 과 `segmented-control-item` 이 갈린 것은 오기가 아니다. Item 은 계약이
-`segmented-control` 실측에 붙어 있고 그 실측을 `segmented-control.browser.test.tsx` 가 되재지만,
-부모 set 은 `geometry` 자체가 비어 있다. 갈린 상태가 결손의 위치를 정확히 가리킨다.
+##### 셋째 줄은 손으로 읽다가 나왔고, 그래서 게이트를 넓혔다
+
+`segmented-control-item` 은 (a)(b)(c) 를 형식적으로 전부 만족한다 — 계약에 `geometry` 가 붙었고
+그 실측을 `segmented-control.browser.test.tsx` 가 되잰다. **그런데 계약이 `sizeKeys: ["lg", "md"]`
+로 대조 범위를 좁혀 놓았고, Figma set 은 `xs` 를 함께 그린다.** 그 `xs` 는 제품 정본·CSS·Figma
+세 곳이 서로 다른 값을 갖는 미결 축이라(계약 주석이 그 셋을 나란히 적어 두었다) 대조 밖에 있는
+것이 의도된 상태다. **붙어 있음과 덮고 있음은 다르다.**
+
+첫 판정에서 이것을 `done` 으로 셌다가 계약을 읽고 되돌렸고, 같은 변경에서 `verify-figma-done` 에
+「되읽기의 기하 키를 계약이 전부 덮는가」를 더했다. 손으로만 잡히는 축을 그대로 두면 다음 승격에서
+같은 실수가 난다. 나머지 16 개는 이 축에서도 빈틈이 없다.
+
+`segmented-control` 과 `segmented-control-item` 이 둘 다 `partial` 인 사유는 서로 다르다 — 부모는
+`geometry` 자체가 비어 있고, 자식은 있으나 좁다. manifest 의 `note` 가 그 차이를 갖는다.
 
 ##### 패턴 8 은 전부 `partial` 로 남는다
 

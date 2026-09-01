@@ -15,7 +15,7 @@ summary: 아이콘 하나로 뜻이 분명할 때 라벨 없이 액션을 담습
 | Surface       | 상태           | 근거                                                      |
 | ------------- | -------------- | --------------------------------------------------------- |
 | Web           | `partial`      | public export와 acceptance test; visual regression과 제품 소비 증거 없음 |
-| Figma         | `partial`      | component set 40 variant (Variant 4 × Size 2 × State 5). **Size 축이 코드보다 한 칸 적다** — sm이 아직 없다. publish는 DS-F-008 |
+| Figma         | `done`      | component set(Variant·Size·State). Size 는 `sm` 까지 세 칸으로 코드와 같다(DS-D-0032). 기하는 양방향이다 — `component-geometry.browser.test.tsx` 가 코드 쪽에서 같은 실측을 되잰다. 게시 없이 판정한다([DS-D-0035](../governance/decisions/DS-D-0035-figma-done-without-publish.md)) |
 | Documentation | `done`         | 이 문서                                                   |
 | Maturity      | `experimental` | 규범과 구현이 같은 변경 단위에서 처음 선다                |
 

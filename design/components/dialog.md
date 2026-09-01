@@ -16,7 +16,7 @@ summary: 결정을 받거나 짧은 작업을 마칠 때 맥락 위에 띄우는
 | Surface       | 상태           | 근거                                           |
 | ------------- | -------------- | ---------------------------------------------- |
 | Web           | `partial`      | `Dialog` compound public export, 실브라우저 회귀 15건 |
-| Figma         | `partial`      | component set 3 variant (Size). fullscreen 제외. publish는 DS-F-008 |
+| Figma         | `done`      | component set(Size). `fullscreen` 은 표면이 뷰포트 자체라 고정 폭 variant 로 그릴 수 없어 **사유와 함께 Figma 축에서 뺐고**, 반대로 `sheet` 는 Figma 에만 있다 — 둘 다 계약이 선언한다. 기하는 양방향이다 — `surface-geometry.browser.test.tsx` 가 코드 쪽에서 같은 실측을 되잰다. 게시 없이 판정한다([DS-D-0035](../governance/decisions/DS-D-0035-figma-done-without-publish.md)) |
 | Documentation | `done`         | 이 문서                                        |
 | Maturity      | `experimental` | 시각 회귀와 수동 screen-reader 검토가 아직 없음 |
 
@@ -435,7 +435,8 @@ Web `done`과 `stable`에는 다음이 남아 있다.
 - `env(safe-area-inset-*)`와 `100dvh`의 실기 확인
 - virtual keyboard 추종 정책 확정
 - `sheet`·`fullscreen`·`media-workbench`의 responsive 실측
-- published Figma component와 parity report (DS-F-006-dialog)
+- ~~published Figma component와 parity report (DS-F-006-dialog)~~ **해소** — Figma는 `done`이다
+  ([DS-D-0035](../governance/decisions/DS-D-0035-figma-done-without-publish.md))
 - 위 Known deviations 중 토큰 부재 4건의 해소 (DS-P3-014)
 
 ## Extraction baseline

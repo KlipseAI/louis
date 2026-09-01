@@ -19,7 +19,7 @@ summary: 정해진 범위 안에서 값 하나를 고릅니다.
 | Surface       | 상태           | 근거                                                                                 |
 | ------------- | -------------- | ------------------------------------------------------------------------------------ |
 | Web           | `partial`      | public export와 실브라우저 acceptance test 19건이 두 motion context에서 각각 돈다(`sm`이 크기별 3건을 더했다); visual regression, Figma component와 제품 소비 증거 없음 |
-| Figma         | `partial`      | component set이 아직 4 variant(Size×Variant)다. 코드와 계약은 DS-D-0032로 `sm`이 더해져 **6**이며, Figma는 다음 단계다 — 그동안 `verify-figma-parity`가 slider에서 빨갛고 그것이 이 변경의 정확한 상태다. 복합 키 `{size}/{variant}`로 그룹을 나눠 parity 게이트가 variant별 기하를 각각 대조한다. raw fill·stroke 0. publish는 DS-F-008 |
+| Figma         | `done`      | component set(Size·Variant·State). DS-D-0032 의 `sm` 이 Figma 에도 서서 코드 축과 같아졌다. 복합 키 `{size}/{variant}` 로 그룹을 나눠 variant별 기하를 각각 대조하고 raw fill·stroke 0 이다. 기하는 양방향이다 — `slider.browser.test.tsx` 가 코드 쪽에서 같은 실측을 되잰다. 게시 없이 판정한다([DS-D-0035](../governance/decisions/DS-D-0035-figma-done-without-publish.md)) |
 | Documentation | `done`         | 이 문서                                                                              |
 | Maturity      | `experimental` | 규범과 구현이 같은 변경 단위에서 처음 선다                                           |
 

@@ -15,7 +15,7 @@ summary: 포인터나 초점이 머무를 때 짧은 설명을 덧붙입니다.
 | Surface       | 상태           | 근거                                                      |
 | ------------- | -------------- | --------------------------------------------------------- |
 | Web           | `partial`      | public export와 acceptance test; visual regression과 제품 소비 증거 없음 |
-| Figma         | `partial`      | component set 4 variant (Side). publish는 DS-F-008        |
+| Figma         | `done`      | component set(Side). 계약이 모든 property 를 pin 한다. 기하는 양방향이다 — `surface-geometry.browser.test.tsx` 가 코드 쪽에서 같은 실측을 되잰다. 게시 없이 판정한다([DS-D-0035](../governance/decisions/DS-D-0035-figma-done-without-publish.md)) |
 | Documentation | `done`         | 이 문서                                                   |
 | Maturity      | `experimental` | 규범과 구현이 같은 변경 단위에서 처음 선다                |
 

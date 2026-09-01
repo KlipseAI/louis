@@ -64,7 +64,7 @@ publish를 미뤄 온 근거는 타당했다 — 미발행이라 rename 99건(DS
    전제가 틀렸다 — 「승격 조건이 published library를 요구한다」는 **정의**의 사실이지 Figma의
    사실이 아니었고(같은 파일 안에서는 미발행 component도 인스턴스가 된다. 이 문서의 Context가
    적은 「**다른 파일이** 소비할 수 없다」가 바로 그 경계다), 정의를 고치는 편이 옳았다.
-   지금 상태는 `not-ready`가 아니라 `partial` 39 + `done` 18이다.
+   지금 상태는 `not-ready`가 아니라 `partial` 22 + `done` 17이다.
    **발행하지 않는다는 본 결정과, catalog·문서에서 publish를 남은 과제로 적지 않는다는 규칙은
    그대로 선다.**
 2. **「제품 screen은 published library component instance를 소비한다」 규칙은 목표에서 내린다.**

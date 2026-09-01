@@ -15,7 +15,7 @@ Button 계약으로 해결할 수 있는지 먼저 확인한다.
 | Surface       | 상태           | 근거                                                      |
 | ------------- | -------------- | --------------------------------------------------------- |
 | Web           | `partial`      | public export와 acceptance test 11건; 아래 남은 증거 참조 |
-| Figma         | `partial`      | library draft의 component set 300 variant; 기하·슬롯 parity 대조 통과 (남은 것은 stroke 역할 미채취) |
+| Figma         | `done`      | component set(Variant·Size·State·Icon). 계약이 모든 property 를 pin 하고 기하·슬롯·stroke·effect 를 대조한다. 기하는 양방향이다 — `component-geometry.browser.test.tsx` 가 코드 쪽에서 같은 실측을 되잰다. 게시 없이 판정한다([DS-D-0035](../governance/decisions/DS-D-0035-figma-done-without-publish.md)) |
 | Documentation | `done`         | 이 문서                                                   |
 | Maturity      | `experimental` | 제품 소비 증거와 visual regression이 아직 없음            |
 
@@ -545,5 +545,7 @@ Web `done`과 `stable`에는 다음이 남아 있다.
 - visual regression fixture (hosted CI 확보 후, DS-D-0005 2단계)
 - 수동 keyboard·screen-reader review 기록
 - SSR render와 hydration 검증
-- published Figma component와 parity report (DS-F-006)
+- ~~published Figma component와 parity report (DS-F-006)~~ **해소** — Figma는 `done`이다
+  ([DS-D-0035](../governance/decisions/DS-D-0035-figma-done-without-publish.md)). 게시는 파일이
+  갈라지거나 외부 소비자가 생기는 시점의 조건이다
 - 두 개 이상의 제품 사용처

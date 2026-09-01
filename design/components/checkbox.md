@@ -24,7 +24,7 @@ summary: 켜짐과 꺼짐을 독립적으로 고릅니다.
 | Surface       | 상태           | 근거                                                                                 |
 | ------------- | -------------- | ------------------------------------------------------------------------------------ |
 | Web           | `partial`      | public export와 실브라우저 acceptance test 14건이 두 motion context에서 각각 돈다; visual regression, Figma component와 제품 소비 증거 없음 |
-| Figma         | `partial`      | component set 4 variant(State). parity 게이트가 Box·Check·Dash·Label을 자손으로 대조하며 raw fill·stroke 0이다. publish는 DS-F-008 |
+| Figma         | `done`      | component set(State). 계약이 모든 property 를 pin 하고 Box·Check·Dash·Label 을 자손으로 대조하며 raw fill·stroke 0 이다. 기하는 양방향이다 — `checkbox.browser.test.tsx` 가 코드 쪽에서 같은 실측을 되잰다. 게시 없이 판정한다([DS-D-0035](../governance/decisions/DS-D-0035-figma-done-without-publish.md)) |
 | Documentation | `done`         | 이 문서                                                                              |
 | Maturity      | `experimental` | 규범과 구현이 같은 변경 단위에서 처음 선다                                           |
 

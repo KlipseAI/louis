@@ -18,7 +18,7 @@ master-detail의 좌측 열에서 하나를 고른다.
 | Surface       | 상태           | 근거                                                                                 |
 | ------------- | -------------- | ------------------------------------------------------------------------------------ |
 | Web           | `partial`      | public export와 실브라우저 acceptance test 12건이 두 motion context에서 각각 돈다; visual regression, Figma component와 제품 소비 증거 없음 |
-| Figma         | `partial`      | component set 3 variant(State). parity 게이트가 Marker·Text·Title·Meta·Media·Trailing을 자손으로 대조하며 raw fill 0이다. publish는 DS-F-008 |
+| Figma         | `done`      | component set(State). 계약이 모든 property 를 pin 하고 Marker·Text·Title·Meta·Media·Trailing 을 자손으로 대조하며 raw fill 0 이다. 기하는 양방향이다 — `selectable-list-row.browser.test.tsx` 가 코드 쪽에서 같은 실측을 되잰다. 게시 없이 판정한다([DS-D-0035](../governance/decisions/DS-D-0035-figma-done-without-publish.md)) |
 | Documentation | `done`         | 이 문서                                                                              |
 | Maturity      | `experimental` | 규범과 구현이 같은 변경 단위에서 처음 선다                                           |
 

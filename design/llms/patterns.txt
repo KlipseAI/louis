@@ -168,7 +168,10 @@ Web과 Figma 구현은 아직 `not-ready`다. 기존 제품의 spinner, inline l
 - 공용 Spinner, Skeleton과 Button loading API가 없다.
 - live region과 `aria-busy` 조합 test가 없다.
 - reduced-motion recipe와 progress semantics가 package로 배포되지 않는다.
-- published Figma loading state가 없다.
+- Figma loading state 가 template 축으로 대조되지 않는다 — 패턴의 대조 상대인
+  `figma/templates.measured.json` 은 고정 커밋의 제품 실측이라 「지금 코드가 그 값을 만든다」가
+  서지 않는다. **게시 여부는 이 결손과 무관하다**
+  ([DS-D-0035](../governance/decisions/DS-D-0035-figma-done-without-publish.md)).
 
 #### Acceptance tests
 

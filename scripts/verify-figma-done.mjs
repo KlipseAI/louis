@@ -67,6 +67,15 @@ function parseContracts(source) {
     figmaName: entry.match(/^ {4}figmaName: "([^"]+)"/m)?.[1] ?? null,
     hasGeometry: /^ {4}geometry:/m.test(entry),
     measuredId: entry.match(/measuredId: "([^"]+)"/)?.[1] ?? null,
+    // 계약은 `sizeKey`/`sizeKeys` 로 대조 범위를 **좁힐 수 있다.** 좁힌 만큼은 재지 않는 축이다.
+    sizeKeys:
+      entry
+        .match(/sizeKeys: \[([^\]]*)\]/)?.[1]
+        .match(/"([^"]+)"/g)
+        ?.map((quoted) => quoted.slice(1, -1)) ??
+      (entry.match(/sizeKey: "([^"]+)"/)?.[1] === undefined
+        ? null
+        : [entry.match(/sizeKey: "([^"]+)"/)[1]]),
   }));
 }
 
@@ -162,6 +171,22 @@ function judge(item) {
         `(c) ${name}: ${contract.measuredId} 의 실측값을 코드가 여전히 만드는지 재는 ` +
           `브라우저 테스트가 없습니다. 한 방향만 걸려 있으면 기록과 Figma 를 같이 옮겨 ` +
           "초록을 유지할 수 있습니다",
+      );
+    }
+    // **범위가 좁혀졌는지 본다.** geometry 가 붙어 있어도 계약이 `sizeKeys` 로 일부만 고르면
+    // 나머지 칸은 대조 밖이다 — SegmentedControlItem 이 `lg`·`md` 만 걸고 `xs` 를 두고 있었고,
+    // 그 `xs` 는 제품·CSS·Figma 세 곳이 서로 다른 값을 갖는 미결 축이다. 붙어 있음과 덮고 있음은
+    // 다르므로 여기서 가른다.
+    const compared =
+      contract.sizeKeys ??
+      Object.keys(measured.components[contract.measuredId].sizes ?? {});
+    const captured = Object.keys(readback.components[name].geometry ?? {});
+    const uncovered = captured.filter((key) => !compared.includes(key));
+    if (uncovered.length > 0) {
+      reasons.push(
+        `(c) ${name}: 되읽기의 기하 키 ${uncovered.join("·")} 이(가) 계약의 대조 범위 밖입니다 ` +
+          `— 계약은 ${compared.join("·")} 만 겁니다. 대조되지 않는 칸은 Figma 가 무슨 값을 ` +
+          "그리든 초록입니다",
       );
     }
   }

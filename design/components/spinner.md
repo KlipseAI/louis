@@ -22,7 +22,7 @@ gap registry가 적은 "레시피 5종 · Skeleton 0종"은 둘 다 틀렸다. �
 | Surface       | 상태           | 근거                                                          |
 | ------------- | -------------- | -------------------------------------------------------------- |
 | Web           | `partial`      | public export와 실브라우저 acceptance test 8건이 두 motion context에서 각각 돈다 |
-| Figma         | `partial`      | component set 2 variant(Size). parity 게이트가 Track·Arc를 자손으로 대조한다. publish는 DS-F-008 |
+| Figma         | `done`      | component set(Size). 계약이 모든 property 를 pin 하고 Track·Arc 를 자손으로 대조한다. 기하는 양방향이다 — `spinner.browser.test.tsx` 가 코드 쪽에서 같은 실측을 되잰다. 게시 없이 판정한다([DS-D-0035](../governance/decisions/DS-D-0035-figma-done-without-publish.md)) |
 | Documentation | `done`         | 이 문서                                                        |
 | Maturity      | `experimental` | 규범과 구현이 같은 변경 단위에서 처음 선다                     |
 

@@ -17,7 +17,7 @@ authority: normative
 | Surface       | 상태           | 근거 |
 | ------------- | -------------- | --- |
 | Web           | `partial`      | public export와 실브라우저 acceptance test 8건이 두 motion context에서 각각 돈다; visual regression과 제품 소비 증거 없음 |
-| Figma         | `partial`      | component set 둘 — ProgressBar(State 2) · ProgressRing. Figma는 conic 각도의 런타임 값을 표현하지 못해 한 지점만 그린다; publish 전 |
+| Figma         | `done`      | component set 둘 — ProgressBar(State) · ProgressRing. Figma 는 conic 각도의 런타임 값을 표현하지 못해 한 지점만 그린다. 기하는 양방향이다 — `progress.browser.test.tsx` 가 코드 쪽에서 같은 실측을 되잰다. 게시 없이 판정한다([DS-D-0035](../governance/decisions/DS-D-0035-figma-done-without-publish.md)) |
 | Documentation | `done`         | 이 문서 |
 | Maturity      | `experimental` | 규범과 구현이 같은 변경 단위에서 처음 선다 |
 

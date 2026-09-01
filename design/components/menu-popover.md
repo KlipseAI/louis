@@ -15,7 +15,7 @@ summary: 트리거 옆에서 액션 목록이나 설정을 펼쳐 보여 줍니�
 | Surface       | 상태           | 근거                                                        |
 | ------------- | -------------- | ----------------------------------------------------------- |
 | Web           | `partial`      | `ActionMenu`·`CompositePopover` public export, 실브라우저 회귀 35건 |
-| Figma         | `partial`      | 항목 set 5 variant + 패널 component 셋(`MenuPanel`·`MenuSeparator`·`CompositePopover`)이 서 있고 셋 다 parity 계약이 붙었다. 서브메뉴·체크 상태와 publish(DS-F-008)가 남음 |
+| Figma         | `done`      | 항목 set(State) + 패널 component 셋(`MenuPanel`·`MenuSeparator`·`CompositePopover`). 넷 다 계약이 모든 property 를 pin 하고 기하가 붙었다. 기하는 양방향이다 — `surface-geometry.browser.test.tsx` 가 코드 쪽에서 같은 실측을 되잰다(구분선 두께 0.5 포함). 서브메뉴·체크 상태는 아직 Figma 에 없다. 게시 없이 판정한다([DS-D-0035](../governance/decisions/DS-D-0035-figma-done-without-publish.md)) |
 | Documentation | `done`         | 이 문서                                                     |
 | Maturity      | `experimental` | 시각 회귀와 수동 screen-reader 검토가 아직 없음            |
 
@@ -626,7 +626,8 @@ Web `done`과 `stable`에는 다음이 남아 있다.
 - 수동 keyboard·screen-reader review 기록
 - SSR render와 hydration 검증
 - `Shift+Tab` 역방향 이탈과 scroll·resize·zoom anchor 추종 검증
-- published Figma component와 parity report (DS-F-006-menu-popover)
+- ~~published Figma component와 parity report (DS-F-006-menu-popover)~~ **해소** — Figma는 `done`이다
+  ([DS-D-0035](../governance/decisions/DS-D-0035-figma-done-without-publish.md))
 - 위 Known deviations 중 한국어 typeahead와 RTL의 해소
 
 ## Extraction baseline
@@ -666,7 +667,9 @@ non-modal에서 Tab으로 focus가 빠져나가 닫히는 경로의 reason은 **
 - ~~composite popover의 initial/return focus와 Tab 정책이 구현되지 않았다.~~ **해소(DS-P3-006).**
   위 §Focus가 variant별 매핑과 reason별 return focus를 소유한다.
 - ~~Menu·Popover의 public export가 없다.~~ **해소(DS-P3-006).**
-- published Figma component와 Web parity evidence가 없다(DS-F-006-menu-popover).
+- ~~published Figma component와 Web parity evidence가 없다(DS-F-006-menu-popover).~~ **해소.**
+  네 set 이 계약으로 pin 됐고 기하가 양방향이다
+  ([DS-D-0035](../governance/decisions/DS-D-0035-figma-done-without-publish.md)).
 
 ## Migration
 

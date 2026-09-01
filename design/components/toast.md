@@ -15,7 +15,7 @@ summary: 방금 한 일의 결과를 짧게 알리고 스스로 사라집니다.
 | Surface       | 상태           | 근거                                                      |
 | ------------- | -------------- | --------------------------------------------------------- |
 | Web           | `partial`      | public export와 acceptance test; visual regression과 제품 소비 증거 없음 |
-| Figma         | `partial`      | component set 2 variant (Tone). publish는 DS-F-008        |
+| Figma         | `done`      | component set(Tone). 계약이 모든 property 를 pin 한다. 기하는 양방향이다 — `surface-geometry.browser.test.tsx` 가 코드 쪽에서 같은 실측을 되잰다. 게시 없이 판정한다([DS-D-0035](../governance/decisions/DS-D-0035-figma-done-without-publish.md)) |
 | Documentation | `done`         | 이 문서                                                   |
 | Maturity      | `experimental` | 규범과 구현이 같은 변경 단위에서 처음 선다                |
 

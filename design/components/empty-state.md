@@ -28,7 +28,7 @@ summary: 보여 줄 것이 없을 때 그 사실과 다음 행동을 안내합�
 | Surface       | 상태           | 근거                                                          |
 | ------------- | -------------- | -------------------------------------------------------------- |
 | Web           | `partial`      | public export와 실브라우저 acceptance test 7건; visual regression과 제품 소비 증거 없음 |
-| Figma         | `partial`      | component 하나. parity 게이트가 Graphic·Title·Description·Action을 자손으로 대조한다. publish는 DS-F-008 |
+| Figma         | `done`      | component 하나. 계약이 모든 property 를 pin 하고 Graphic·Title·Description·Action 을 자손으로 대조한다. 기하는 양방향이다 — `empty-state.browser.test.tsx` 가 코드 쪽에서 같은 실측을 되잰다. 게시 없이 판정한다([DS-D-0035](../governance/decisions/DS-D-0035-figma-done-without-publish.md)) |
 | Documentation | `done`         | 이 문서                                                        |
 | Maturity      | `experimental` | 규범과 구현이 같은 변경 단위에서 처음 선다                     |
 

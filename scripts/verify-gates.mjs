@@ -143,6 +143,20 @@ withCanary(
   "COMPONENT_CONTRACTS 를 읽지 못했습니다",
 );
 
+// **좁혀진 대조 범위.** geometry 가 붙어 있어도 계약이 size 키 일부만 고르면 나머지 칸은 Figma 가
+// 무슨 값을 그리든 초록이다. Button 의 계약에 `sizeKeys` 를 심어 그 좁힘이 잡히는지 본다.
+withCanary(
+  "scripts/verify-figma-parity.mjs",
+  (source) =>
+    source.replace(
+      '      measuredId: "button",',
+      '      measuredId: "button",\n      sizeKeys: ["md"],',
+    ),
+  "figma done narrowed geometry coverage",
+  "scripts/verify-figma-done.mjs",
+  "계약의 대조 범위 밖입니다",
+);
+
 withCanary(
   "design/components/button.md",
   (source) =>

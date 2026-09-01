@@ -116,14 +116,20 @@ const COMPONENT_CONTRACTS = [
     // (border가 실재하는 컴포넌트에서는 접는 것이 맞다. 그 계약은 각자 갖는다.)
     geometry: {
       measuredId: "button",
-      // readback 기하 필드 → 기대값. 문자열이면 measured의 키, 배열이면 그 키들의 합, 그 외는 리터럴.
+      // readback 기하 필드 → 기대값. 문자열이면 measured의 키, 배열이면 그 키들의 합,
+      // `{ set: [키…] }`이면 한 size 안에 그 값들이 **모두** 나타나는 것이 계약이고, 그 외는 리터럴.
       // Button은 폭이 라벨에 달려 있으므로 width를 보지 않는다.
+      //
+      // **padding이 `set`인 이유는 `Icon` 축이 그것을 바꾸는 것이 설계이기 때문이다.** 아이콘이
+      // 붙은 쪽만 2px 줄어 광학 균형을 맞춘다(button.css:128-152, button.md의 Properties 주석).
+      // 그래서 한 size 안에 16과 14가 정상적으로 공존하고, 그것을 「variant마다 다릅니다」로
+      // 잡으면 게이트가 자기 규범(figma-component-authoring.md §2의 조건 축)을 위반으로 읽는다.
       fields: {
         height: "height",
         paddingBlock: "paddingBlock",
         paddingBlockEnd: "paddingBlock",
-        paddingInline: "paddingInline",
-        paddingInlineEnd: "paddingInline",
+        paddingInline: { set: ["paddingInline", "paddingInlineWithIcon"] },
+        paddingInlineEnd: { set: ["paddingInline", "paddingInlineWithIcon"] },
         itemSpacing: "gap",
         cornerRadius: "radius",
         layoutMode: { literal: "HORIZONTAL" },
@@ -2669,6 +2675,17 @@ function compareComponentGeometry(contract, got) {
         expected[field] = spec[rule];
       } else if (Array.isArray(rule)) {
         expected[field] = rule.reduce((total, key) => total + spec[key], 0);
+      } else if (Array.isArray(rule?.set)) {
+        // 한 축이 이 필드를 바꾸는 것이 계약인 경우. 대조는 **집합 상등**이다 — 선언한 값이
+        // 전부 나타나야 하고 그 밖의 값은 없어야 한다. **어느 칸이 어느 값을 갖는지는 보지
+        // 않는다** — snapshot이 size별로 값을 모아 두기 때문이고, 칸별 대조는 되읽기가 칸을
+        // 보존해야 가능하다. 그래서 두 값이 서로 뒤바뀐 칸은 이 게이트가 잡지 못한다.
+        const members = rule.set.map((key) => spec[key]);
+        expected[field] = members.some(
+          (value) => value === undefined || Number.isNaN(value),
+        )
+          ? undefined
+          : { set: members };
       } else {
         expected[field] = rule.literal;
       }
@@ -2683,6 +2700,20 @@ function compareComponentGeometry(contract, got) {
       const values = actual[field];
       if (!Array.isArray(values) || values.length === 0) {
         issues.push(`${contract.figmaName} ${size}: ${field}가 없습니다.`);
+        continue;
+      }
+      if (want !== null && typeof want === "object" && Array.isArray(want.set)) {
+        const sort = (list) => [...new Set(list)].sort((a, b) => a - b);
+        const got = sort(values);
+        const wantSet = sort(want.set);
+        if (
+          got.length !== wantSet.length ||
+          got.some((value, index) => value !== wantSet[index])
+        ) {
+          issues.push(
+            `${contract.figmaName} ${size}: ${field}의 값 집합이 다릅니다 — 코드 실측 {${wantSet.join(", ")}}, Figma {${got.join(", ")}}`,
+          );
+        }
         continue;
       }
       if (values.length > 1) {

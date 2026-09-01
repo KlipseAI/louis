@@ -16,9 +16,12 @@
 //
 // 조용한 exit 0 은 게이트가 죽는 가장 나쁜 방식이다. 빨간 것보다 나쁘다 — 아무도 안 본다.
 import { execSync, spawnSync } from "node:child_process";
-import { readFileSync } from "node:fs";
+import { mkdirSync, mkdtempSync, readFileSync, rmSync } from "node:fs";
+import { tmpdir } from "node:os";
 import { resolve, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
+import { EXIT_NOT_MEASURED } from "./lib/gate-exit.mjs";
+import { LIVE_PRODUCT_SCENE_IDS } from "./lib/product-scene-contract.mjs";
 
 const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const read = (p) => readFileSync(resolve(repoRoot, p), "utf8");
@@ -101,6 +104,61 @@ if (!unavailableSceneOutput.includes("제품 저장소가 없습니다")) {
     "verify-product-scenes의 전제조건 실패 진단을 확인하지 못했습니다: " +
       unavailableSceneOutput.trim().slice(0, 240),
   );
+}
+
+// **「잴 것이 없다」가 「통과」와 다른 코드로 끝나는지 직접 확인한다.**
+//
+// 위 검사는 *환경이 없을 때*를 본다. 이건 그 반대 — 환경은 갖췄는데 표본이 0개일 때다.
+// 2026-09-01 까지 그 경로는 전용 문구를 찍고 `exit 0` 했고, `&&` 사슬과 아래 단계 계수는
+// 종료코드만 보므로 **표본 0개·route 0개를 재고 초록**이었다(원장 `scenes-gate-measures-nothing`).
+//
+// 제품 저장소가 없는 러너에서도 이 경로를 때리려고, `.git` 만 있는 **가짜 제품 저장소**를
+// 만들어 준다. 표본 검사는 어떤 git 명령보다 앞에 있으므로 이것으로 충분하다 —
+// 반대로 말하면, 누군가 그 순서를 뒤집으면 여기서 잡힌다.
+const fakeProductRoot = mkdtempSync(resolve(tmpdir(), "gate-split-fake-product-"));
+mkdirSync(resolve(fakeProductRoot, ".git"));
+let emptySampleScene;
+try {
+  emptySampleScene = spawnSync(
+    process.execPath,
+    ["scripts/measure-product-" + "scenes.mjs", "--check"],
+    {
+      cwd: repoRoot,
+      env: {
+        ...process.env,
+        KLIPSE_PRODUCT_REPO: fakeProductRoot,
+        KLIPSE_PRODUCT_BUILD_ROOT: "/nonexistent-product-scenes-build",
+      },
+      encoding: "utf8",
+    },
+  );
+} finally {
+  rmSync(fakeProductRoot, { recursive: true, force: true });
+}
+const emptySampleOutput =
+  String(emptySampleScene.stdout ?? "") + String(emptySampleScene.stderr ?? "");
+if (LIVE_PRODUCT_SCENE_IDS.length === 0) {
+  if (emptySampleScene.status !== EXIT_NOT_MEASURED) {
+    errors.push(
+      "liveOnly 표본이 0개인데 verify-product-scenes가 NOT_MEASURED(" + EXIT_NOT_MEASURED +
+        ")로 끝나지 않았습니다(status=" + emptySampleScene.status + "). " +
+        "재지 않은 것은 통과가 아닙니다: " + emptySampleOutput.trim().slice(0, 240),
+    );
+  }
+  if (!emptySampleOutput.includes("NOT_MEASURED")) {
+    errors.push(
+      "verify-product-scenes의 「재지 않았습니다」 진단을 확인하지 못했습니다: " +
+        emptySampleOutput.trim().slice(0, 240),
+    );
+  }
+} else if (emptySampleScene.status === 0) {
+  // 표본이 다시 생겼다면 이 경로는 빌드 루트가 없어서 UNAVAILABLE(1)로 끝나야 한다.
+  errors.push(
+    "verify-product-scenes가 빌드 산출물 없이 exit 0 했습니다. 로컬 게이트는 조용히 꺼질 수 없습니다.",
+  );
+}
+if (/SKIP/i.test(emptySampleOutput)) {
+  errors.push("verify-product-scenes가 SKIP을 출력했습니다. 검증 불가는 실패여야 합니다.");
 }
 
 const unavailableAuthFixture = spawnSync(

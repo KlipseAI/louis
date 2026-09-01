@@ -9,8 +9,12 @@
 // `GettingStartedPanel` 안에 있어 인증 뒤에 있고, `CapabilitiesShowcaseParts` 는 아무도
 // import 하지 않는 고아다.
 //
-// 목록을 비우면 게이트는 "잴 것이 없다"고 말하고 통과한다 — **조용히 초록이 되는 것이 아니라
-// 비었다는 사실을 매번 찍는다.** 랜딩에 합성 장면이 다시 서면 여기에 id 를 넣어 되살린다.
+// **비어 있으면 게이트는 통과하지 않는다.** 예전에는 "잴 것이 없다"고 찍고 `exit 0` 했는데,
+// 그 문구를 읽는 것은 사람뿐이었다 — `package.json` 의 `&&` 사슬도 `verify-gate-split` 의 단계
+// 계수도 종료코드만 보므로 `verify-product-scenes` 는 **표본 0개를 재고 초록**이었다
+// (2026-09-01 원장 `scenes-gate-measures-nothing`). 지금은 `EXIT_NOT_MEASURED`(2)로 끝난다:
+// 「측정 불가」(1)와도, 「통과」(0)와도 다른 코드다. 랜딩에 합성 장면이 다시 서면 여기에 id 를
+// 넣어 되살린다.
 export const LIVE_PRODUCT_SCENE_IDS = Object.freeze([]);
 
 export function assertLiveProductSceneCoverage(specimens) {

@@ -8,6 +8,7 @@ import { fileURLToPath } from "node:url";
 import { chromium } from "playwright";
 import { atomicWriteBatch } from "./lib/atomic-output.mjs";
 import { captureDeclaredStyles } from "./lib/declared-styles.mjs";
+import { notMeasured, unavailable } from "./lib/gate-exit.mjs";
 import { assertLiveProductSceneCoverage } from "./lib/product-scene-contract.mjs";
 import { resolveProductRef } from "./lib/product-ref.mjs";
 
@@ -23,17 +24,30 @@ const productBuildRoot = process.env.KLIPSE_PRODUCT_BUILD_ROOT;
 const checkOnly = process.argv.includes("--check");
 const { ref: productRef } = resolveProductRef();
 
-const unavailable = (reason) => {
-  console.error("[product-scenes] 측정 불가 (" + reason + ")");
-  process.exit(1);
-};
+const cannotMeasure = (reason) => unavailable("product-scenes", reason);
 
-if (!existsSync(resolve(productRoot, ".git"))) unavailable("제품 저장소가 없습니다: " + productRoot);
+if (!existsSync(resolve(productRoot, ".git"))) {
+  cannotMeasure("제품 저장소가 없습니다: " + productRoot);
+}
+
+const CONTEXTS = [
+  { id: "desktop-1920x1080", width: 1920, height: 1080 },
+  { id: "mobile-402x874", width: 402, height: 874 },
+];
+const PAGE_ROUTES = ["/", "/pricing", "/privacy", "/terms"];
+const GENERIC_PAGE_ROUTES = [
+  "/docs", "/docs/highlight", "/docs/nodecanvas", "/docs/videoeditor",
+  "/blog", "/templates", "/templates/filter", "/inquiry", "/data-deletion-status",
+  "/login", "/signup", "/signup/check-email", "/signup/expired", "/signup/verified",
+  "/recover", "/reset-password", "/reset-password/new", "/aws/signup",
+];
+const MEASURED_ROUTES = [...PAGE_ROUTES, ...GENERIC_PAGE_ROUTES];
 
 // **잴 것이 있는지, 빌드를 요구하기 전에 본다.** 살아 있는 표본이 없는데 빌드 루트가 없다고
 // 실패하면 원인이 "환경이 없다"로 보이지만 사실은 "잴 것이 없다"다 — 유일한 표본이 가리키던
 // 랜딩 데모가 제품 `8802565e` 에서 지워졌는데 표본은 남아 있었고, 게이트는 환경 탓을 하며
-// 영구 빨강이었다(2026-08-30).
+// 영구 빨강이었다(2026-08-30). 두 사정을 종료코드로도 가른다 — 1 = UNAVAILABLE(환경이 없다),
+// 2 = NOT_MEASURED(환경은 있는데 잴 것이 없다). scripts/lib/gate-exit.mjs 참조.
 //
 // **제품 저장소 확인보다 뒤에 둔다.** `verify-gate-split` 이 「제품/빌드 없이 exit 0 하면
 // 로컬 게이트가 조용히 꺼진 것」이라고 판정하고, 그 진단 문구를 직접 확인한다. 순서를 바꾸면
@@ -42,18 +56,30 @@ if (!existsSync(resolve(productRoot, ".git"))) unavailable("제품 저장소가 
   const specimens = JSON.parse(readFileSync(specimenPath, "utf8")).specimens;
   assertLiveProductSceneCoverage(specimens);
   if (specimens.filter((entry) => entry.liveOnly).length === 0) {
-    console.log(
-      "[product-scenes] 잴 살아 있는 장면이 없습니다 — liveOnly 표본 0개. " +
+    // **`exit 0` 이 아니다.** 예전에는 여기서 전용 문구를 찍고 통과했다. 문구는 사람이 읽으라고
+    // 있었지만 `package.json` 의 `&&` 사슬도 `verify-gate-split` 의 단계 계수도 **종료코드만**
+    // 본다 — 그래서 `verify-product-scenes` 는 표본 0개·route 0개를 재고 초록이었다
+    // (2026-09-01 원장 `scenes-gate-measures-nothing`). 재지 않은 것은 통과가 아니다.
+    //
+    // **잃는 것은 합성 장면 하나가 아니다.** 이 return 뒤에는 concrete route 측정이 통째로
+    // 있다. 표본이 비면 그것까지 같이 죽고, 그동안 migration/product.scenes.json 은 갱신되지
+    // 않은 채 scripts/build-figma-product-pricing-page.mjs 의 증거로 계속 소비된다. 그래서
+    // 무엇을 못 쟀는지 숫자로 적는다 — 「랜딩 데모가 지워졌다」로 읽고 넘어가지 않게 한다.
+    notMeasured(
+      "product-scenes",
+      "liveOnly 표본이 0개입니다. 합성 장면 " + CONTEXTS.length + "문맥과 함께 " +
+        "concrete route " + MEASURED_ROUTES.length + "개 × " + CONTEXTS.length + "문맥, " +
+        "그리고 guest outcome route 측정까지 **한 건도 돌지 않습니다** — 같은 return 뒤에 있습니다. " +
         "랜딩에 합성 장면이 다시 서면 scripts/lib/product-scene-contract.mjs 의 " +
-        "LIVE_PRODUCT_SCENE_IDS 에 id 를 넣어 되살립니다.",
+        "LIVE_PRODUCT_SCENE_IDS 에 id 를 넣어 되살립니다. 표본 없이 route 만 재려면 " +
+        "이 측정기를 장면 축과 route 축으로 갈라야 합니다(원장 scenes-gate-measures-nothing).",
     );
-    process.exit(0);
   }
 }
 
-if (!productBuildRoot) unavailable("KLIPSE_PRODUCT_BUILD_ROOT가 없습니다");
+if (!productBuildRoot) cannotMeasure("KLIPSE_PRODUCT_BUILD_ROOT가 없습니다");
 if (!existsSync(resolve(productBuildRoot, ".git"))) {
-  unavailable("빌드 저장소가 아닙니다: " + productBuildRoot);
+  cannotMeasure("빌드 저장소가 아닙니다: " + productBuildRoot);
 }
 
 const gitAt = (cwd, args, encoding = "utf8") =>
@@ -74,7 +100,7 @@ const buildStatus = gitAt(productBuildRoot, [
   "--untracked-files=all",
 ]).trim();
 if (buildStatus) {
-  unavailable(
+  cannotMeasure(
     "빌드 저장소가 dirty입니다. 고정 커밋의 clean checkout에서 다시 빌드하세요: " +
       buildStatus.split("\n")[0],
   );
@@ -101,18 +127,6 @@ if (new Set(declaredParts).size !== declaredParts.length) {
   process.exit(1);
 }
 
-const CONTEXTS = [
-  { id: "desktop-1920x1080", width: 1920, height: 1080 },
-  { id: "mobile-402x874", width: 402, height: 874 },
-];
-const PAGE_ROUTES = ["/", "/pricing", "/privacy", "/terms"];
-const GENERIC_PAGE_ROUTES = [
-  "/docs", "/docs/highlight", "/docs/nodecanvas", "/docs/videoeditor",
-  "/blog", "/templates", "/templates/filter", "/inquiry", "/data-deletion-status",
-  "/login", "/signup", "/signup/check-email", "/signup/expired", "/signup/verified",
-  "/recover", "/reset-password", "/reset-password/new", "/aws/signup",
-];
-const MEASURED_ROUTES = [...PAGE_ROUTES, ...GENERIC_PAGE_ROUTES];
 const pageInventoryCommand =
   "git ls-tree -r --name-only " + commit + " -- apps/web/app";
 const productPageFiles = gitAt(productRoot, [
@@ -204,7 +218,7 @@ for (const required of [
   resolve(standaloneRoot, ".next/static"),
   resolve(standaloneRoot, "public"),
 ]) {
-  if (!existsSync(required)) unavailable("standalone 제품 빌드 산출물이 없습니다: " + required);
+  if (!existsSync(required)) cannotMeasure("standalone 제품 빌드 산출물이 없습니다: " + required);
 }
 
 const requiredFilesBytes = readFileSync(requiredFilesPath);
@@ -214,7 +228,7 @@ const standaloneRequiredFiles = JSON.parse(standaloneRequiredFilesBytes.toString
 const buildRelease = requiredFiles.config?.env?._sentryRelease;
 const standaloneRelease = standaloneRequiredFiles.config?.env?._sentryRelease;
 if (buildRelease !== commit || standaloneRelease !== commit) {
-  unavailable(
+  cannotMeasure(
     "빌드 영수증의 release commit이 고정 커밋과 다릅니다: build=" + buildRelease +
       " standalone=" + standaloneRelease + " expected=" + commit,
   );
@@ -222,7 +236,7 @@ if (buildRelease !== commit || standaloneRelease !== commit) {
 const buildId = readFileSync(buildIdPath, "utf8").trim();
 const standaloneBuildId = readFileSync(standaloneBuildIdPath, "utf8").trim();
 if (!buildId || buildId !== standaloneBuildId) {
-  unavailable("원본과 standalone의 BUILD_ID가 다릅니다: " + buildId + " != " + standaloneBuildId);
+  cannotMeasure("원본과 standalone의 BUILD_ID가 다릅니다: " + buildId + " != " + standaloneBuildId);
 }
 
 // clean 상태는 측정 시점의 checkout만 증명한다. 오래되거나 다른 작업 트리에서 복사한 .next도
@@ -262,13 +276,13 @@ for (const mapPath of sourceMapPaths) {
     if (!match || typeof map.sourcesContent?.[index] !== "string") continue;
     const proof = match[1];
     if (map.sourcesContent[index] !== proof.expected) {
-      unavailable("빌드 sourcemap의 소스가 고정 커밋과 다릅니다: " + proof.path);
+      cannotMeasure("빌드 sourcemap의 소스가 고정 커밋과 다릅니다: " + proof.path);
     }
     proof.matched = true;
   }
 }
 for (const proof of buildSourceBySuffix.values()) {
-  if (!proof.matched) unavailable("빌드 sourcemap에서 고정 소스 근거를 찾지 못했습니다: " + proof.path);
+  if (!proof.matched) cannotMeasure("빌드 sourcemap에서 고정 소스 근거를 찾지 못했습니다: " + proof.path);
 }
 
 const buildEvidence = {

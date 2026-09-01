@@ -4,7 +4,7 @@
 
 - System maturity: experimental
 - Coverage: exhaustive
-- Documents: 53
+- Documents: 54
 - Purpose: 개발, 콘텐츠, 거버넌스와 adoption 계약
 
 ## Sources
@@ -61,6 +61,7 @@
 - design/governance/decisions/DS-D-0034-ink-paper-roles.md
 - design/governance/decisions/DS-D-0035-figma-done-without-publish.md
 - design/governance/decisions/DS-D-0036-git-install-distribution.md
+- design/governance/decisions/DS-D-0037-product-surface-denominator.md
 - design/governance/product-confirmations.md
 - design/updates/README.md
 
@@ -127,7 +128,7 @@ Figma library는 아직 `not-ready`다. 시스템 전체 maturity도 `experiment
 | 항목 | 현재 값 |
 | --- | --- |
 | System maturity | `experimental` |
-| Normative documents | 118 |
+| Normative documents | 119 |
 | Generated documents | 5 |
 | Components | 40 |
 | Patterns | 8 |
@@ -448,9 +449,18 @@ Figma 작업의 목표는 **제품에 있는 디자인을 하나도 빠짐없이
 게이트의 시야 밖이라, 아무리 많이 빠져 있어도 green 이 나온다.
 
 `figma/product-coverage.json` 이 이미 반대 방향을 보여 준다 — 「제품이 선언한 것을 기계가
-열거하고 분류되지 않은 것을 나열한다」. Figma 커버리지도 그 방향이어야 하는데 **아직 그런
-열거기가 없다.** 그래서 아래처럼 손으로 세어 기록한다. 세는 방법을 자동화하기 전까지는
-이 절이 유일한 커버리지 원장이다.
+열거하고 분류되지 않은 것을 나열한다」. Figma 커버리지도 그 방향이어야 한다.
+
+**2026-09-01: 그 열거기가 섰다.** `migration/product.surfaces.json` 이 앵커 커밋의 제품
+트리를 기계로 열거한 원장이고, 분모의 입자도 규칙은
+[DS-D-0037](../governance/decisions/DS-D-0037-product-surface-denominator.md)이 소유한다 — 표면 하나 =
+모듈 최상위의 PascalCase React 컴포넌트 하나. 첫 실측은 **표면 400종 · Figma 대응 10 ·
+범위 밖 2 · 미분류 388** 이다. `check-figma-surface-coverage` 가 그 수를 래칫으로 잠근다:
+사유 없는 표면이 늘면 실패하고, 줄면 baseline 을 내리라고 요구한다.
+
+**아래의 손으로 센 표는 그래서 더 이상 유일한 커버리지 원장이 아니다.** 손으로 센 수와
+열거기의 수가 갈리면 열거기가 이긴다 — 손으로 센 원장은 낡고, 낡았다는 사실을 재는 자가
+없다는 것이 애초에 이 열거기를 세운 이유다.
 
 ##### 변수 컬렉션 정리 — `1 · Palette` 은퇴 (2026-08-26)
 
@@ -8921,6 +8931,124 @@ pack과 clone의 pack이 달라진다** — 그 어긋남이 정확히 이 결�
 - 커밋된 `dist`의 무게나 diff 소음이 실제 작업을 방해하기 시작하면 sourcemap 제외를 재검토한다 —
   단, 워킹트리 pack과 clone pack이 같아야 한다는 조건은 유지한다.
 - 저장소 밖 소비자가 둘 이상 생기면 sha 고정 대신 버전 범위가 필요해지므로 DS-D-0006 Rollout을 연다.
+
+## DS-D-0037 제품 표면의 분모는 React 컴포넌트 정의다
+
+- Source: design/governance/decisions/DS-D-0037-product-surface-denominator.md
+- Maturity: experimental
+
+### DS-D-0037 제품 표면의 분모는 React 컴포넌트 정의다
+
+- Status: accepted
+- Date: 2026-09-01
+- Owners: repository owner, design system maintainer
+- Affects: `governance-figma-sync`, `decision-figma-as-projection`,
+  `decision-figma-done-without-publish`
+
+#### Context
+
+소유자의 목표는 「제품에 있는 디자인을 하나도 빠짐없이 Figma 에 컴포넌트로 세우는 것」이다.
+그런데 그 목표를 재는 자가 없었다.
+
+`verify-figma-parity` 는 계약 51 ↔ Figma 51 을 **양방향으로 잠근 닫힌 집합**이다
+(`COMPONENT_CONTRACTS` → snapshot, snapshot → 계약). 두 방향 모두 계약 안에서만 돈다.
+계약에 선언되지 않은 제품 표면은 **아무리 많이 빠져 있어도 green** 이 나온다.
+제품 트리를 열거하는 코드는 이 저장소에 0건이었고,
+`scripts/verify-product-parity.mjs` 는 머리말에서 「제품 저장소는 이 저장소 밖에 있으므로
+게이트가 직접 읽지 않는다」고 못박는다.
+
+[figma-sync.md](../governance/figma-sync.md) 는 그 공백을 스스로 적었다 — 「Figma 커버리지도 그 방향이어야
+하는데 **아직 그런 열거기가 없다.** 그래서 아래처럼 손으로 세어 기록한다.」
+손으로 센 원장은 반드시 낡는다. 2026-09-01 전수 감사가 그것을 확인했다: 제품 표면
+「179종」이라는 수는 생성기가 손으로 타이핑한 리터럴이었고 파일 읽기가 0건이었으며,
+13행이 각각 80·57·44개 파일을 한 「종」으로 삼키고 있었다.
+**입자도 규칙이 서기 전에는 어떤 비율도 비율이 아니다.**
+
+방향은 이 저장소 안에 이미 있다. `figma/product-coverage.json` 이 CSS property 축에서
+같은 일을 한다 — 「제품이 선언한 것을 **기계가 열거**하고 분류되지 않은 것을 나열한다.
+사유 없이 넘기는 길은 없다.」 이 결정은 그 모양을 **표면 축**으로 옮긴다.
+
+#### Decision
+
+**표면 하나 = 모듈 최상위에 정의된, JSX 를 돌려주는 PascalCase React 컴포넌트 하나.**
+식별자는 `<제품 상대 경로>#<컴포넌트 이름>` 이며 줄 번호를 쓰지 않는다.
+
+이 단위를 고른 근거는 셋이다.
+
+1. **Figma 가 「컴포넌트」라고 부르는 것과 1:1 인 유일한 단위다.** 이름이 붙은, 재사용되는
+   시각 단위. 클래스 문자열은 그 안의 **레이어**이고, 라우트는 그것들의 **합성**이다.
+2. **기계가 낸다.** AST 에서 나오므로 손으로 타이핑한 목록이 될 수 없다 — 감사가 지적한
+   결함이 여기서 막힌다. 이름으로 키를 잡으므로 줄이 밀려도 같은 표면이다.
+3. **화면 층이 보인다.** 감사의 판정은 「컨트롤 층은 거의 맞고 화면 층은 거의 비었다」였다.
+   화면 층을 세지 못하는 단위를 고르면 문제가 없는 축만 재게 된다.
+
+열거는 기계가, **분류는 사람이** 한다. 각 표면은 대응하는 Figma 컴포넌트 이름(`figma`)을
+갖거나, 왜 대응물이 없어도 되는지의 사유(`reason`, 20자 이상)를 갖는다. 둘 다 없으면
+`unclassified` 로 세어지고 래칫이 그 수가 늘어나는 것을 막는다.
+**사유 없이 넘기는 길은 없다.**
+
+#### Alternatives
+
+세 후보를 실측해서 버렸다. 수는 앵커 커밋 `ae8fd627` 의 제품 트리 기준이다.
+
+| 후보 | 실측 | 버린 이유 |
+| --- | ---: | --- |
+| 클래스 문자열 상수 하나 = 표면 하나 | **3455** (맵 키 441 + `const` 3014) | 한 컴포넌트 **안의 레이어**다 — `archiveCard` 옆에 `archiveCardTitle`·`archiveCardMeta` 가 나란히 선다. 3455개를 Figma 컴포넌트로 만들라는 뜻이 되는데 아무도 그런 뜻이 아니다. 게다가 15개 파일은 인라인 `className` 리터럴로만 칠해서 이 단위로는 보이지도 않는다. **버리지 않고 표면 안의 증거(`louis` 필드)로 남겼다.** |
+| 정본 컴포넌트(`components/ui/*.tsx`) = 표면 하나 | **12 파일** | 컨트롤 층뿐이다. 감사가 「거의 맞다」고 판정한 축만 분모로 삼으면 커버리지가 100%에 가깝게 나오고, 정작 비어 있는 화면 층은 분모 밖에 남는다. |
+| 라우트 × 시각 영역 | — | 「시각 영역」의 경계는 기계가 그을 수 없다. 매번 사람이 그으면 그것이 곧 손으로 타이핑한 목록이고, 이 열거기가 없애려는 바로 그 물건이다. |
+
+#### Consequences
+
+앵커에서 **표면 400종**이 나왔다(`.tsx` 282개). 초기 판정은
+**Figma 대응 10 · 범위 밖 2 · 미분류 388** 이고, 미분류 388을 baseline 으로 얼렸다.
+
+**2.5% 는 커버리지의 실패가 아니라 커버리지가 처음으로 측정된 값이다.** 그전에는 이 수가
+존재하지 않았다. 다음 사람이 할 일은 이 수를 줄이는 것 하나뿐이다.
+
+대응 10은 전부 이 저장소 안의 근거로 이었다 — `migration/product.measured.json` 의
+`canon.paths` 가 지목하는 셋(Button · SegmentedControl · Avatar), `scripts/lib/product-files.mjs`
+의 `PRODUCT_FILES` 가 Figma 컴포넌트의 실측 정본으로 고정한 넷(InlineLoadingLabel ·
+SegmentedCodeInput · MediaCard · CarouselArrow · NewsCard), 마크업이 LOUIS recipe 를 직접 무는
+둘(IconButton ← `louis-icon-button`, Spinner ← `louis-spinner`).
+범위 밖 2는 `RENDER_CONTRACT_ENABLED=1` 에서만 열리는 격리 계약 화면이다 — 제품이 사용자에게
+그리는 표면이 아니라 이 저장소의 실측 하네스가 세운 fixture 다.
+
+**이 수는 상한이 아니라 하한이다.** 다른 함수 안에서 정의된 컴포넌트(2개)와 camelCase 렌더
+헬퍼(14개)는 세지 않으며, 한 컴포넌트의 여러 시각 상태는 표면 1개로 센다(상태 축은
+`verify-figma-parity` 의 계약이 따로 잠근다). `louis` 필드도 하한이다 — 클래스 맵 파일을
+import 해서 쓰는 컴포넌트는 자기 본문에 louis 이름을 갖지 않는다.
+
+**한 번에 전부 덮지 않았다.** 이 저장소가 실패한 방식이 그것이다 — 227건을 1차 판정하고
+64건만 반증해 상한이 불명확한 수를 남겼다. 여기서는 규칙·열거기·래칫만 세운다.
+
+#### Rollout and verification
+
+두 게이트로 갈랐다. 레인은 `scripts/verify-gate-split.mjs` 5번의 판정을 그대로 따랐다 —
+제품 저장소를 아는 스크립트는 러너에서 실패하거나 조용히 `SKIPPED` 되므로 `verify:ci` 에
+둘 수 없다.
+
+| 게이트 | 읽는 것 | 레인 |
+| --- | --- | --- |
+| `verify-product-surfaces` | 앵커 커밋의 제품 트리 | `verify:product` (로컬 전용) |
+| `check-figma-surface-coverage` | 위 생성물 + `figma/readback.json` | **`verify:ci`** (러너에서 실제로 돈다) |
+
+열거기는 워킹트리가 아니라 **앵커(`migration/product-evidence.lock.json` 의 `productCommit`)**
+에서 읽는다. `scripts/lib/product-ref.mjs` 가 이미 적어 둔 규칙이다 — 움직이는 ref 를 따라가면
+같은 명령이 어제와 다른 값을 낸다.
+
+래칫의 방향: `unclassified` 는 정확히 일치해야 한다(늘면 사유 없는 표면이 새로 생긴 것,
+줄면 baseline 을 내리라고 요구한다). `mapped` 도 정확히 일치해야 한다(떨어지면 커버리지 후퇴,
+오르면 올려라). `total` 은 바닥만 지킨다 — 분모를 지워서 커버리지를 올리는 길을 막는 그물이다.
+
+**검출력을 네 방향에서 확인했다.** `scripts/verify-gates.mjs` 에 canary 4종을 더했다
+(36 → 40): 사유 없는 표면이 새로 생겼을 때 · `figma/readback.json` 에 없는 이름을 적었을 때 ·
+사유가 낱말 하나일 때 · 파일이 자기 `counts` 를 속일 때. 넷 다 예상 진단으로 빨개진다.
+
+canary 는 실패만 단언하므로 **다섯째 방향은 손으로 시험하고 여기 기록한다** — 존재하지 않는
+가짜 표면 한 줄(`…/scenes/FakeScene.tsx#FakeScene`)을 원장에 사유 없이 넣으면
+`사유 없는 표면이 1개 늘었습니다 (388 → 389)` 로 `exit 1` 하고, 같은 자리에 20자 이상의 사유를
+붙이면 `표면 401종 · 대응 10(2.5%) · 범위 밖 3 · 사유 없음 388` 으로 `exit 0` 한다.
+**빨개지는 것과 조용해지는 것을 둘 다 봤다.**
 
 ## 제품 확인 대기 목록
 

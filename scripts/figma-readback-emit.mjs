@@ -57,13 +57,17 @@
 // **알려진 어긋남(2026-08-26, 이 스크립트를 처음 돌려 확인).** 되읽기 41개 항목은 한 절차로
 // 만들어지지 않았다. 서로 **양립하지 않는 규칙**이 섞여 있어서 어떤 emitter 도 41개를 전부
 // 재현할 수 없다. 확인된 것:
-//   · `Button` — `strokes.self = 0.5|INSIDE` 와 `Spinner = 2|INSIDE` 를 담고 있는데 Figma 의
-//     Button 변형 200개 중 stroke 를 가진 노드는 글리프 벡터(1.5|CENTER)뿐이다. secondary 의
-//     헤어라인은 DS-D-0023 대로 `INNER_SHADOW:0:0:0.5` 로 옮겨졌는데 되읽기의 effects 는 비어
-//     있다. `IconButton` 도 같은 시기 값(self 0.5|INSIDE)을 그대로 갖고 있다.
-//   · `Slider` — `variantCount:12` 와 `State` 축은 있는데 `binding` 은 정확히 3분의 1이다
-//     (16/2/4 대 48/10/12). State 축이 생기기 전 4변형 시절의 수를 그대로 갖고 있다는 뜻이다.
-//     `overflowingParts` 에 `FocusRing` 이 없는 것도 같은 이유다.
+//   · `Button` — **해소됐다(2026-09-01).** 되읽기 쪽은 이 emitter 로 다시 떠서 `strokes:{}` 가
+//     됐는데(라이브 300변형 중 stroke 를 가진 노드가 없다) 계약이 `strokes.self = borderWidth|INSIDE`
+//     를 그대로 들고 있어 parity 가 「Figma 에 없습니다」로 빨갰다. **틀린 쪽은 계약이었다** —
+//     secondary 60개의 헤어라인은 규범(figma-component-authoring.md 「헤어라인은 stroke 가 아니라
+//     INNER_SHADOW 로 그린다」, DS-D-0023)대로 `INNER_SHADOW:0:0:0.5` 로 서 있다. 그 값을 담을
+//     자리가 채취 명세에 없어 계약 밖이었으므로 `effects:["self"]` 를 열고 계약을 stroke 에서
+//     effect 로 옮겼다. `IconButton` 은 같은 CSS(`border:0` + inset box-shadow)를 stroke 0.5|INSIDE
+//     로 그리고 있어 **규범과 어긋난 채 초록이다** — 기법을 맞추는 것은 소유자 판정으로 남긴다.
+//   · `Slider` — `variantCount:12` 와 `binding` 3분의 1은 그 뒤 되읽기가 갱신되며 해소됐다(18변형).
+//     `outsideParts:["FocusRing"]` 이 이 명세에 없어 다시 뜨면 사라지던 것은 2026-09-01 에 명세에
+//     적어 닫았다 — 포커스 링은 `outline-offset: 2` 라 각 변 2px 밖에 서는 것이 계약이다.
 //   · `MenuPanel` — **값은 같고 형태만 다르다(2026-08-30 확인).** `CompositePopover` 를 등재하며
 //     같은 명세로 MenuPanel 을 다시 떠 대조했더니 기하·바인딩·effect 가 전부 일치하고 빈
 //     `parts: {}` 키의 유무만 달랐다. 되읽기 기하 블록 101개 중 10개가 그 키를 생략하고 2개가 빈
@@ -107,7 +111,14 @@ const CAPTURE = {
   "Badge": {"key":{"name":"base"},"slots":{"Icon":"size","Dot":"size"},"parts":{"Label":["fontSize"]}},
   "BannerCarousel": {"key":{"by":["Bleed"]},"fields":["width","height","cornerRadius","layoutMode","strokeWeight"],"parts":{"Content":["width","height","paddingLeft","paddingTop"],"Controls":["width","height","itemSpacing"],"DotActive":["width","height","cornerRadius"],"DotRest1":["width","height","cornerRadius"],"PlaybackToggle":["width","height","cornerRadius","children"]}},
   "Breadcrumb": {"key":{"by":["Kind"]},"parts":{"Current":["width","height","fontSize"],"Parent":["width","height","fontSize"],"Separator":["width","height","fontSize"]}},
-  "Button": {"key":{"by":["Size"]},"slots":{"LeftIcon":"size","RightIcon":"size","Spinner":"size"},"strokes":["LeftIcon.glyph","RightIcon.glyph","Spinner","self"]},
+  // `LeftIcon.glyph`·`RightIcon.glyph` 를 뺐다(2026-09-01). 역할 이름은 규칙 2 대로 **그 노드의
+  // 이름**이라 점이 든 경로는 어떤 노드와도 맞지 않고, 맞더라도 규칙 1 이 INSTANCE 에서 멈추므로
+  // 아이콘 인스턴스 안의 벡터에는 닿지 않는다. 글리프 획의 정본은 아이콘 manifest 이고
+  // verify-figma-parity 의 compareIcons 가 아이콘 component 31개에서 1.5 를 직접 잰다.
+  // `effects:["self"]` 는 secondary 의 헤어라인을 담는다 — 규범이 stroke 가 아니라 INNER_SHADOW 로
+  // 그리라고 정했고(design/governance/figma-component-authoring.md, DS-D-0023) 라이브 300변형 중
+  // secondary 60개가 그것을 갖고 있는데 담는 자리가 없어 계약 밖이었다.
+  "Button": {"key":{"by":["Size"]},"slots":{"LeftIcon":"size","RightIcon":"size","Spinner":"size"},"strokes":["Spinner","self"],"effects":["self"]},
   "CarouselArrow": {"key":{"name":"base"},"parts":{"Caret":["width","height"],"glyph":["width","height"]},"strokes":["glyph"],"effects":["self"]},
   "Checkbox": {"key":{"name":"base"},"parts":{"Box":["width","height","cornerRadius"],"Check":["width","height"],"Dash":["width","height","cornerRadius"],"Label":["width","height","fontSize"]},"strokes":["Box","Check"]},
   // CompositePopover 는 MenuPanel 과 같은 표면인데 **minWidth 를 담지 않는다.** Figma 의
@@ -119,7 +130,8 @@ const CAPTURE = {
   "EmptyState": {"key":{"name":"base"},"fields":["width","height","paddingBlock","paddingBlockEnd","paddingInline","paddingInlineEnd","itemSpacing","cornerRadius","layoutMode","strokeWeight"],"parts":{"Graphic":["width","height"],"Title":["width","height","fontSize","lineHeightPercent"],"Description":["width","height","fontSize","lineHeightPercent"],"Action":["width","height","paddingBlock","itemSpacing","layoutMode"]}},
   "FaqRow": {"key":{"by":["Expanded"]},"parts":{"Question":["width","height","paddingBlock","paddingBlockEnd","paddingInline","paddingInlineEnd","itemSpacing"],"QuestionText":["width","height","fontSize","lineHeightPercent"],"Icon":["width","height"],"Glyph":["fontSize"]}},
   "FormMessage": {"key":{"by":["Tone"]},"parts":{"Message":["width","height","fontSize"]}},
-  "IconButton": {"key":{"by":["Size"]},"slots":{"Glyph":"size"},"strokes":["self","Glyph.glyph"]},
+  // `Glyph.glyph` 를 뺐다(2026-09-01) — Button 과 같은 이유다. 위 Button 주석이 근거를 갖는다.
+  "IconButton": {"key":{"by":["Size"]},"slots":{"Glyph":"size"},"strokes":["self"]},
   "InlineLoadingLabel": {"key":{"by":["Size","Loading"]},"slots":{"Slot":"size"},"parts":{"Label":["width","height","fontSize","lineHeightPercent"],"Slot":["width","height"]}},
   "Keycap": {"key":{"by":["Kind"]},"parts":{"Label":["width","height","fontSize"]},"effects":["self"]},
   "MediaCard": {"key":{"name":"base"},"slots":{"Glyph":"size"},"parts":{"TopBar":["width","height","paddingBlock","paddingBlockEnd","paddingInline","paddingInlineEnd"],"Badge":["height","paddingBlock","paddingBlockEnd","paddingInline","paddingInlineEnd","cornerRadius"],"BadgeLabel":["fontSize","lineHeightPercent"],"InfoBar":["width","height","paddingBlock","paddingBlockEnd","paddingInline","paddingInlineEnd","itemSpacing","layoutMode"],"NameRow":["height","itemSpacing"],"Title":["fontSize","lineHeightPercent"],"Description":["fontSize","lineHeightPercent"]},"effects":["Badge","InfoBar"]},

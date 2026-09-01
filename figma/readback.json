@@ -8893,11 +8893,10 @@
           ],
           "width": [
             57,
-            79,
+            77,
             75,
             93,
-            99,
-            119
+            95
           ],
           "paddingBlock": [
             0
@@ -8944,11 +8943,10 @@
           ],
           "width": [
             49,
-            71,
+            69,
             67,
             85,
-            91,
-            111
+            87
           ],
           "paddingBlock": [
             0
@@ -8998,8 +8996,7 @@
             57,
             55,
             73,
-            75,
-            93
+            75
           ],
           "paddingBlock": [
             0
@@ -9030,7 +9027,11 @@
         }
       },
       "strokes": {},
-      "effects": {}
+      "effects": {
+        "self": [
+          "INNER_SHADOW:0:0:0.5"
+        ]
+      }
     },
     "CarouselArrow": {
       "variantCount": 6,

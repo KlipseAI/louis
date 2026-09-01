@@ -74,17 +74,32 @@ function progressiveBlurFrom(measuredId, sizeKey, blurVariable) {
 const COMPONENT_CONTRACTS = [
   {
     id: "button",
-    strokes: {
-      self: { weight: "borderWidth", align: "INSIDE" },
-      // **Spinner 역할은 없다.** 여기에는 `Spinner: { weight: 2 }`가 있었고, 그것은 폐지된
-      // `.louis-button__spinner`의 `border: 2px`를 가리키고 있었다. 지금 링은 Spinner 컴포넌트가
-      // 그리고, Figma에서도 코드에서도 **테두리가 아니라 채워진 호(arc)**다 — 두께는 안쪽
-      // 반지름이 정한다(16 지름에 innerRadius 0.75 → 벽 2px). 잴 stroke 자체가 없다.
-      "LeftIcon.glyph": { weight: "icon", align: "CENTER" },
-      "RightIcon.glyph": { weight: "icon", align: "CENTER" },
-    },
-    // owner 결정: 이 버튼들에는 이너섀도우를 쓰지 않는다. 글래스 섀도우 개념 자체를 없앴다.
-    effects: {},
+    // **Button에는 stroke가 하나도 없는 것이 계약이다.** 여기에는 `self: { weight: "borderWidth" }`가
+    // 있었고 그것이 게이트를 빨갛게 만들고 있었다 — 라이브 300변형 중 stroke를 가진 노드가 없기
+    // 때문이다. **틀린 쪽은 Figma가 아니라 이 계약이었다.** `button.css:18`이 `border: 0`이고
+    // secondary의 헤어라인은 레이아웃을 건드리지 않는 inset box-shadow인데(DS-D-0023),
+    // `design/governance/figma-component-authoring.md`의 「헤어라인은 stroke가 아니라 INNER_SHADOW로
+    // 그린다」가 그 기법을 규범으로 못 박아 두었다. 빈 객체로 두면 역할 대조는 사라져도
+    // compareComponentStrokes의 역방향 검사(`계약에 없는 stroke`)는 그대로 돌아, stroke가 하나라도
+    // 생기면 잡힌다.
+    //
+    // **Spinner 역할도 없다.** 여기에는 `Spinner: { weight: 2 }`가 있었고, 그것은 폐지된
+    // `.louis-button__spinner`의 `border: 2px`를 가리키고 있었다. 지금 링은 Spinner 컴포넌트가
+    // 그리고, Figma에서도 코드에서도 **테두리가 아니라 채워진 호(arc)**다 — 두께는 안쪽
+    // 반지름이 정한다(16 지름에 innerRadius 0.75 → 벽 2px). 잴 stroke 자체가 없다.
+    //
+    // **글리프 획도 여기서 재지 않는다.** `LeftIcon.glyph`·`RightIcon.glyph`가 있었는데 그 역할은
+    // 되읽기가 만들 수 없다 — 채취 규칙 2가 역할 이름을 **노드 이름**으로 정의해 점이 든 경로가
+    // 어떤 노드와도 맞지 않고, 규칙 1이 INSTANCE에서 멈춰 아이콘 인스턴스 안의 벡터에 닿지도
+    // 않는다(`scripts/figma-readback-emit.mjs` 머리말). 획의 정본은 아이콘 manifest이고
+    // compareIcons가 아이콘 component 31개에서 1.5를 직접 잰다 — 여기에 두면 정본이 둘이 된다.
+    strokes: {},
+    // secondary 60변형의 헤어라인. CSS는 `box-shadow: var(--louis-hairline-inset)` =
+    // `inset 0 0 0 0.5px stroke-hairline`이고(`base.css:21-22`), 규범이 요구하는 Figma 대응물이
+    // spread 0.5의 inner shadow다. 라이브 실측이 그렇게 서 있는데 채취 명세에 담는 자리가 없어
+    // 계약 밖이었다 — 이너섀도우를 안 쓴다고 적어 둔 옛 `effects: {}`는 폐지된 글래스 섀도우를
+    // 가리킨 문장이지 헤어라인을 가리킨 것이 아니다. offsetY 0 · blur 0 · spread 0.5.
+    effects: { self: "INNER_SHADOW:0:0:0.5" },
     figmaName: "Button",
     iconSlots: ["LeftIconGlyph", "RightIconGlyph"],
     declaration: "packages/react/dist/button/button.d.ts",
@@ -144,9 +159,15 @@ const COMPONENT_CONTRACTS = [
   },
   {
     id: "icon-button",
+    // `Glyph.glyph`를 뺐다 — Button과 같은 이유다. 되읽기가 만들 수 없는 역할이고(채취 규칙 1·2),
+    // 글리프 획의 정본은 아이콘 manifest이며 compareIcons가 그것을 직접 잰다.
+    //
+    // **`self`는 남긴다.** 라이브가 실제로 0.5|INSIDE stroke를 변수에 물려 갖고 있다. 다만 이것은
+    // Button과 같은 CSS(`icon-button.css:23` `border: 0` + secondary의 inset box-shadow)를 **다른
+    // 기법으로** 그린 것이고, 규범은 헤어라인을 INNER_SHADOW로 그리라고 정한다. 기법을 어느 쪽으로
+    // 통일할지는 소유자 판정이므로 여기서는 실재를 계약으로 적어 둔다.
     strokes: {
       self: { weight: "borderWidth", align: "INSIDE" },
-      "Glyph.glyph": { weight: "icon", align: "CENTER" },
     },
     effects: {},
     figmaName: "IconButton",
@@ -177,10 +198,12 @@ const COMPONENT_CONTRACTS = [
         layoutMode: { literal: "HORIZONTAL" },
       },
       slots: { Glyph: "glyph" },
+      // `allowGlyphStroke: true`가 있었다. 「글리프 instance가 보이므로 그 안의 vector stroke가
+      // 함께 읽힌다」는 전제였는데 **읽히지 않는다** — 되읽기는 VECTOR의 stroke를 두께 집합에서
+      // 빼고(채취 규칙 3) INSTANCE 내부로 들어가지도 않는다(규칙 1). 실측이 그것을 확인해 준다:
+      // 세 size 모두 `strokeWeight: [0.5]`로, 아이콘 1.5는 애초에 들어온 적이 없다. 남겨 두면
+      // 허용 집합만 넓히고 아무것도 설명하지 않는다.
       extraStrokeWeights: [],
-      // 글리프 instance가 보이므로 그 안의 vector stroke가 함께 읽힌다. 두께의 정본은 아이콘
-      // manifest이며 여기에 숫자를 복사하지 않는다 — 복사하면 두 정본이 생긴다.
-      allowGlyphStroke: true,
     },
   },
   {
@@ -3575,7 +3598,9 @@ function tamperComponentDescription(document) {
   return null;
 }
 
-/** stroke 두께 변조. 버튼 테두리를 spinner와 같은 2px로 바꿔도 잡혀야 한다. */
+/** stroke 두께 변조. 헤어라인 테두리를 2px로 바꿔도 잡혀야 한다.
+ * 첫 후보는 stroke 역할이 남아 있는 계약이며 지금은 IconButton이다 — Button은 stroke가
+ * 하나도 없는 것이 계약이라(위 button 항목) 이 카나리아가 집을 역할이 없다. */
 function tamperComponentStrokeWeight(document) {
   for (const contract of COMPONENT_CONTRACTS) {
     const strokes = document.components?.[contract.figmaName]?.strokes;

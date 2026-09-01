@@ -136,17 +136,22 @@ Button 판정으로 읽지 않는다.
 렌더되지 않는다**(`leftIcon !== undefined && !loading`). `rightIcon`에는 그 조건이 없어 loading에도
 남는다 — 비대칭이 의도다. spinner가 왼쪽 아이콘 자리를 대신하기 때문이다.
 
-**미결 셋 — 2026-09-01 라이브 전수 순회에서 나왔고, 셋 다 `verify-figma-parity`가 보지 못하는
+**2026-09-01 라이브 전수 순회에서 셋이 나왔고, 셋 다 `verify-figma-parity`가 보지 못하는
 자리다.** 게이트는 size별 기하 집계와 슬롯 크기만 대조하고 **자식 순서와 칸별 가시성은 대조하지
-않는다**. 아래는 Figma 쪽 실측이다.
+않는다**. 둘은 같은 날 고쳤고 하나가 남았다.
 
-| 미결 | 실측 | 규모 |
+| 실측 | 규모 | 처리 |
 | --- | --- | --- |
-| spinner가 맨 **뒤**에 선다 | 60개 Loading 칸 전부 `LeftIcon \| Label \| RightIcon \| Spinner` | 60칸 |
-| loading인데 leftIcon이 **보인다** | `Icon=left`·`Icon=both`의 Loading 칸 | 30칸 |
-| spinner 크기 | 300칸 전부 16×16(획 1) | lg·md 200칸 |
+| spinner가 맨 **뒤**에 섰다 (`LeftIcon \| Label \| RightIcon \| Spinner`) | 60칸 | **고침** — 맨 앞으로 |
+| loading인데 leftIcon이 **보였다**, 그래서 왼쪽 padding도 줄어든 채였다 | 30칸 | **고침** — 숨김 + padding을 base로 |
+| spinner 크기 16×16(획 1) | lg·md 200칸 | **미결** — 아래 |
 
-앞의 둘은 코드가 계약이므로 Figma가 따라와야 한다. **세 번째는 그렇게 단순하지 않다** — 코드의
+**고친 둘은 저장소 파일을 하나도 움직이지 않았다.** `readback.json`의 Button 기하는 size별 값
+집계라, 칸 30개의 왼쪽 padding이 14에서 16으로 옮겨가도 lg의 집합은 여전히 `{14, 16}`이다.
+자식 순서와 가시성은 애초에 담기지 않는다. **되읽기가 안 움직였다는 것이 「바뀐 것이 없다」는
+뜻이 아니다** — 이 종류는 라이브 순회로만 보인다.
+
+남은 하나는 그렇게 단순하지 않다 — 코드의
 loading indicator는 Spinner 컴포넌트가 아니라 Button이 소유한 별도 레시피(`button.css`의
 `.louis-button__spinner`)이고 크기가 글자를 따라가는데(`1em` + ring 2×2 → lg·md 18 · sm 16),
 Figma는 그 자리를 **Spinner 컴포넌트의 인스턴스**로 그리고 있다. Spinner의 사다리에 18은 없다.

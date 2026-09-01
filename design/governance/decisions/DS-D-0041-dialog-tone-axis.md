@@ -6,7 +6,7 @@ authority: normative
 
 # DS-D-0041 확인 대화상자는 Dialog 의 톤이다 — ConfirmDialog 를 세우지 않는다
 
-- Status: accepted
+- Status: accepted (rollout 완료 2026-09-01)
 - Date: 2026-09-01
 - Owners: repository owner (판단 위임), design system maintainer
 - Affects: `decision-product-surface-denominator`, `governance-figma-component-authoring`,
@@ -139,16 +139,43 @@ Radix 와 Material 이 AlertDialog 를 별 컴포넌트로 두는 이유는 **�
 
 ## Rollout and verification
 
-**이 변경에서 한 것은 결정을 문서로 세운 것뿐이다.** 요구되지만 아직 하지 않은 일을 적는다.
-규칙 1(세 곳을 같이 바꾼다, [DS-D-0028](DS-D-0028-three-in-one-change.md))이 걸리는 작업이다.
+**2026-09-01 에 네 항목이 전부 들어갔다.** 아래는 무엇이 어떻게 닫혔는지의 기록이다.
 
-1. LOUIS Dialog 의 코드 타입에 톤 축을 연다(값 둘). §10 의 순서상 이것이 먼저다.
-2. Figma Dialog set 에 `Tone` 축을 더한다 — `danger` 는 `compact` 칸에만 그린다. 같은 작업에서
-   `figma:fetch` 로 되읽기를 다시 뜬다. 미루면 게이트가 낡은 캡처를 보고 거짓 초록을 낸다.
-3. `verify-figma-parity` 의 dialog 계약에 그 축을 선언한다. 선언하지 않은 property 는 실패다.
-4. 원장에서 `ConfirmModal` 을 `unclear` 에서 내리고, 같은 셸을 쓰는 create 도메인 모달을 함께
-   재판정한다. `MAPPED_BASELINE` 이 따라 움직인다.
+1. **코드 타입** — `DialogConfirmVariant = "primary" | "danger"` 를
+   **`DialogTone = "neutral" | "danger"`** 로 옮기고 prop 을 `confirmVariant` → `tone` 으로 바꿨다.
+   이 문서가 이름까지는 정하지 않았는데, §10 이 강제한다 — 게이트가 variant 축의 옵션 집합을
+   코드 union 과 **글자 그대로** 대조하므로, 코드가 `"primary"` 를 들고 있으면 Figma 도
+   `Tone=primary` 가 되어 §2 의 `Tone` 어휘(`primary` 는 `Variant` 의 낱말이다)와 어긋난다.
+   `ToastTone = "neutral" | "danger"` 가 같은 자리의 선례다. 공개 API 가 바뀌므로
+   `packages/react/api-surface.json` 과 [Updates 110](../../updates/README.md) 의 migration note 가
+   같은 변경 단위에 있다. **화면은 바뀌지 않는다** — `neutral` 이 Button 의 `primary` 로 내려간다.
+2. **Figma** — `Dialog` 세트의 네 변형이 `Tone=neutral` 이 되고 `Size=compact, Tone=danger`
+   하나가 섰다(변형 4 → 5). 같은 작업에서 되읽기를 다시 떠 병합했고
+   `node scripts/figma-live-check.mjs --check` 가 Dialog 에 대해 어긋남 0 이다.
+3. **계약** — `variantProperties: { Tone: "DialogTone" }`. `figmaOnlyProperties` 로 우회하지
+   않았다 — 이 문서 Consequences 가 그 우회를 금한 그대로다.
+4. **원장** — `ConfirmModal` 이 `unclear` → `figma`(Dialog). `MAPPED_BASELINE` 18 → 19,
+   `MAPPED_COMPONENT_BASELINE` 15 → 16. create 도메인의 나머지(`CreditConfirmModal` ·
+   `NodeDeleteConfirmModal` · `PlanGateModal`)는 이미 `GlassConfirmModal` 조립의 `scoped` 였고
+   판정이 바뀌지 않는다.
 
-검증은 그때 `pnpm run verify-figma-parity` · `pnpm check` ·
-`node ./scripts/verify-doc-paths.mjs` · `node ./scripts/verify-record-citations.mjs` ·
-`pnpm verify:ci` 로 돈다. 이 문서만 들어간 지금은 뒤의 넷이 문서 축에서만 돈다.
+브라우저 테스트 넷이 새 축의 **계산 스타일**을 잰다(`packages/react/test/dialog.browser.test.tsx`).
+`data-variant` 속성만 보면 「속성은 붙었는데 색은 안 바뀐」 경우를 통과시키므로, 같은 문서에 참조
+Button 을 세워 `backgroundColor` 를 비교하고 **두 참조가 서로 다른지부터** 확인한다.
+
+### 되읽기를 다시 뜨자 드러난 것 — 이 결정이 부른 것이 아니다
+
+낡은 캡처가 가리고 있던 Figma 결함 둘을 같은 작업에서 고쳤다. 고치지 않으면 정직한 되읽기가
+게이트를 빨갛게 만들고, 안 뜨면 이 저장소가 세 번 겪은 거짓 초록이 네 번째가 된다.
+
+- 다섯 변형 모두 `Close` 가 카드 밖(좌하단, 프레임 아래 24px)에 놓여 있었다 →
+  `.louis-dialog__header` 가 두는 **우상단 inset** 으로 옮겼다.
+- `sheet` 의 위쪽 곡률이 24 였다 → 정책이 sheet 의 size 를 medium 으로 주므로 코드 값은
+  `radius-overlay` 16 이다. Figma 를 코드에 맞췄다.
+
+그리고 `sheet` 칸 자체가 `figma/components.measured.json` 에 없어 **곡률이 아무것과도 대조되지
+않고 있었다.** 채취 명세와 계약을 `cornerRadius` 에서 `topLeftRadius`·`bottomLeftRadius` 로 옮기고
+`sheet` 칸과 `radiusBottom` 을 실측 근거와 함께 적어 닫았다.
+
+검증: `pnpm build` · `pnpm check` · `pnpm test`(830) · `pnpm verify:ci`(19단계) 전부 0,
+`node scripts/figma-live-check.mjs --check` 는 Dialog 어긋남 0.

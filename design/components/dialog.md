@@ -64,6 +64,40 @@ summary: 결정을 받거나 짧은 작업을 마칠 때 맥락 위에 띄우는
 | `media-workbench` | 현재 화면 위에서 임시로 여는 큰 편집 작업 | dialog surface(이름이 먼저 읽힌다)   |
 | `sheet`           | 작은 화면에서 변환된 modal task           | 닫기 또는 첫 필드                    |
 
+### Tone — 확인 대화상자는 별 컴포넌트가 아니다
+
+`tone`은 확인 액션의 **의미 톤**이고 값은 `neutral`·`danger` 둘뿐이다([DS-D-0041](../governance/decisions/DS-D-0041-dialog-tone-axis.md)).
+variant가 기본값을 정한다 — `danger-confirm`만 `danger`이고 나머지 넷은 `neutral`이다.
+
+**톤이 소유하는 선언은 하나다.** `DialogConfirm`이 그리는 Button의 `variant`. 표면 색·아이콘·
+배치·초기 포커스는 갈리지 않는다 — 그것들은 `variant`와 `size`가 소유한다. 제품 실측이 근거다:
+앵커 `ae8fd627`의 `ConfirmModal.tsx:135`가 `variant={confirmVariant}`를, `node-canvas-v2/
+components/GlassConfirmModal.tsx`가 `variant={confirmVariant === "danger" ? "danger" : "primary"}`를
+확인 버튼에 그대로 넘기고 **그 밖에 갈리는 선언이 없다.**
+
+**ConfirmDialog를 따로 세우지 않는다.** 제품이 한 벌로 쓰는 것을 Figma가 둘로 세우면 projection이
+원본보다 갈라진다([DS-D-0025](../governance/decisions/DS-D-0025-figma-as-projection.md)). 셸이
+문자 그대로 같은 레시피라, 값이 갈리는 날 어느 쪽이 정본인지 판정할 자가 없다.
+
+**이름이 `confirmVariant`가 아닌 이유.** 이 축은 Figma에 `Tone`으로 서고
+[figma-component-authoring §2](../governance/figma-component-authoring.md)의 닫힌 어휘가 `Tone`의
+값을 `neutral`·`info`·`success`·`warning`·`danger`로 못박는다. `primary`는 그 표에서 `Variant`
+(강조 단계)의 낱말이다. 그리고 `verify-figma-parity`는 variant 축의 옵션 집합을 **코드 union과
+글자 그대로** 대조하므로, 코드가 `"primary"`를 쓰면 Figma도 `Tone=primary`가 되어 어휘가 무너진다.
+`ToastTone = "neutral" | "danger"`가 같은 자리의 선례다.
+
+**`info`·`success`·`warning`은 열지 않는다.** 제품이 쓰는 확인 톤이 둘이다 — 쓰지 않는 계단은
+사다리가 아니다([DS-D-0027](../governance/decisions/DS-D-0027-control-size-ladder.md) ·
+[DS-D-0030](../governance/decisions/DS-D-0030-no-duplicate-role-tokens.md)).
+
+**Figma에서는 `Tone=danger`를 `compact` 칸에만 그린다.** 제품의 확인 모달 두 벌이 둘 다
+`data-size="compact"`라 나머지 칸에는 근거가 없다. 그래서 세트는 4×2=8이 아니라 **5 변형**이다.
+축을 여는 것과 조합을 채우는 것은 별개다.
+
+**접근성 역할(`role="alertdialog"`)은 이 축이 정하지 않는다.** 그것은 보조기술 통보의 문제이고
+색·톤과 무관하다 — 빨간 버튼이 있는지 없는지가 `alertdialog`인지를 함의하지 않는다. 제품의 현재
+마크업은 확인 모달에서도 `role="dialog"`다. 필요해지면 prop으로 연다.
+
 `docked`, `standalone`, `route`는 Dialog variant가 아니다. 공유해야 하는 것은 editor body이며, modal wrapper와
 workspace wrapper는 분리한다.
 
@@ -131,7 +165,7 @@ Dialog가 Workspace로 변장하는 통로가 된다.
 | `dismissible`      | `boolean`                                    | `true`       | Escape/닫기 버튼 허용                                     |
 | `closeOnBackdrop`  | `boolean`                                    | variant 기반 | danger·busy 상태에서는 보통 false                         |
 | `busy`             | `boolean`                                    | `false`      | 중복 실행·dismiss 차단, `aria-busy`                       |
-| `confirmVariant`   | `primary`, `danger`                          | `primary`    | 액션 의미                                                 |
+| `tone`             | `neutral`, `danger`                          | variant 기반 | 확인 액션의 의미 톤. `neutral`은 Button `primary`로 내려간다 |
 | `size`             | `compact`, `medium`, `large`, `fullscreen`   | variant 기반 | content 요구에 따른 크기                                  |
 | `onDismissBlocked` | `(reason) => void`                           | 없음         | **추가** 훅. 기본 안내는 Dialog가 스스로 제공한다         |
 

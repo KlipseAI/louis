@@ -25,6 +25,56 @@ authority: normative
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
 
+## 2026-09-01 (110) — Dialog 의 `confirmVariant` 를 `tone` 으로 바꾼다 (breaking)
+
+**확인 대화상자는 Dialog 의 한 톤이다. `ConfirmDialog` 를 따로 세우지 않는다**
+([DS-D-0041](../governance/decisions/DS-D-0041-dialog-tone-axis.md)).
+
+| 자리 | 이전 | 지금 |
+| --- | --- | --- |
+| `DialogProps` | `confirmVariant?: "primary" \| "danger"` | **`tone?: "neutral" \| "danger"`** |
+| 타입 이름 | `DialogConfirmVariant` | **`DialogTone`** |
+| `DialogVariantPolicy` | `confirmVariant` | **`tone`** |
+| Figma `Dialog` | `Size` · `HasClose` · `Title` · `Description` | **`Tone` 축 추가**(변형 4 → 5) |
+
+### Migration
+
+```diff
+- <Dialog open confirmVariant="danger" … >
++ <Dialog open tone="danger" … >
+```
+
+`primary` → `neutral` 로만 읽으면 된다. `danger` 는 그대로다. **화면은 하나도 바뀌지 않는다** —
+`neutral` 은 확인 버튼의 `variant="primary"` 로 내려간다.
+
+`variant` 로 기본값이 정해지는 것도 그대로다. `danger-confirm` 만 `danger` 이고 나머지 넷은
+`neutral` 이다. 대부분의 소비처는 prop 을 넘기지 않으므로 고칠 것이 없다.
+
+### 왜 이름을 바꿨나
+
+축이 Figma 에 `Tone` 으로 서는데,
+[figma-component-authoring §2](../governance/figma-component-authoring.md) 의 닫힌 어휘가 `Tone` 의
+값을 `neutral`·`info`·`success`·`warning`·`danger` 로 못박는다. `primary` 는 그 표에서
+`Variant`(강조 단계)의 낱말이다. 그리고 `verify-figma-parity` 는 variant 축의 옵션 집합을 **코드
+union 과 글자 그대로** 대조하므로, 코드가 `"primary"` 를 들고 있으면 Figma 도 `Tone=primary` 가
+되어 어휘가 무너진다. `ToastTone = "neutral" | "danger"` 가 같은 자리의 선례다.
+
+`Tone` 에 `info`·`success`·`warning` 은 열지 않았고, Figma 에서 `Tone=danger` 는 **compact 칸에만**
+그린다 — 제품의 확인 모달 두 벌이 둘 다 `data-size="compact"` 라 나머지 칸에는 근거가 없다.
+
+### 같은 작업에서 함께 고친 Figma 결함 둘
+
+되읽기를 다시 뜨자 낡은 캡처가 가리고 있던 것이 드러났다. 둘 다 이 변경 전부터 있던 것이다.
+
+- **닫기 버튼이 카드 밖에 있었다.** 다섯 변형 모두 `Close` 가 좌하단(프레임 아래로 24px)에
+  놓여 있었다. `.louis-dialog__header` 가 두는 자리인 **우상단 inset** 으로 옮겼다.
+- **sheet 의 위쪽 곡률이 24 였다.** 정책이 sheet 의 size 를 medium 으로 주므로 코드 값은
+  `radius-overlay` 16 이다. Figma 를 16 으로 맞췄고, 아래 두 모서리 0 은 그대로다.
+
+`figma/components.measured.json` 에 `sheet` 칸과 `radiusBottom` 이 없어서 그 곡률이 **아무것과도
+대조되지 않고 있었다.** 되읽기 채취 명세와 계약을 `cornerRadius` 에서 `topLeftRadius` ·
+`bottomLeftRadius` 로 옮겨 그 구멍을 닫았다.
+
 ## 2026-08-31 (109) — 카드 격자 간격을 4px 에서 6px 로 되튜닝한다
 
 제품의 카드 격자가 랜딩과 어긋나 있었다. 랜딩의 세 캐러셀은 이미 6px(`gap-3`, `--spacing: 2px`)

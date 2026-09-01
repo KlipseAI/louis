@@ -219,6 +219,37 @@ const PACK_CONTRACT = {
   "packages/css": { must: ["generated/styles.css", "generated/tokens.css", "generated/layers.css"], mustNot: ["src/", "test/"] },
   "packages/react": { must: ["dist/index.js", "dist/index.d.ts", "THIRD-PARTY-NOTICES.md"], mustNot: ["src/", "test/", "tsconfig"] },
 };
+// **`workspace:` 는 소비자에게 그대로 건너간다.**
+// 이 저장소는 npm 레지스트리가 아니라 git 으로 배포된다 —
+// `github:KlipseAI/louis#<sha>&path:/packages/<name>` (DS-D-0036). `pnpm publish` 만이
+// `workspace:` 를 실제 버전으로 바꿔 주는데 git 설치는 그 단계를 거치지 않으므로, 프로토콜이
+// 적힌 채로 소비자의 resolver 에 도착한다. 2026-09-01 실측:
+// `npm install klipse-design-react-0.0.0.tgz` → `EUNSUPPORTEDPROTOCOL Unsupported URL Type
+// "workspace:": workspace:^`. 설치가 아예 되지 않았다.
+//
+// devDependencies 는 뺀다 — 소비자는 의존성의 devDependencies 를 설치하지 않으므로 거기 있는
+// `workspace:*` 는 소비자의 resolver 에 닿지 않는다. `packages/react` 가 `@klipse-design/css`
+// 를 그렇게 잡고 있고, 그것이 workspace 링크를 유지하면서 peer 범위를 소비 가능하게 두는
+// 방법이다(peer 자체는 DS-D-0006 대로 required 로 남는다).
+{
+  const CONSUMER_FACING_FIELDS = ["dependencies", "peerDependencies", "optionalDependencies"];
+  for (const dir of Object.keys(PACK_CONTRACT)) {
+    const manifest = JSON.parse(readFileSync(join(process.cwd(), dir, "package.json"), "utf8"));
+    for (const field of CONSUMER_FACING_FIELDS) {
+      for (const [name, spec] of Object.entries(manifest[field] ?? {})) {
+        if (typeof spec === "string" && spec.startsWith("workspace:")) {
+          failures.push(
+            `${dir}: ${field}.${name} 가 \`${spec}\` 입니다. git 설치에서는 이 프로토콜이 해소되지 ` +
+              "않아 소비자의 설치가 실패합니다. 실제 범위(`*` 등)로 적고, workspace 링크가 필요하면 " +
+              "devDependencies 로 잡으세요.",
+          );
+        }
+      }
+    }
+  }
+  positives.push("소비자에게 가는 의존성 필드에 workspace: 프로토콜 없음");
+}
+
 for (const [dir, contract] of Object.entries(PACK_CONTRACT)) {
   let listed;
   try {
@@ -237,8 +268,23 @@ for (const [dir, contract] of Object.entries(PACK_CONTRACT)) {
     const hit = listed.find((f) => f.startsWith(banned));
     if (hit !== undefined) failures.push(`${dir}: 배포물에 들어가면 안 되는 ${hit}가 있습니다.`);
   }
+
+  // **배포물은 전부 git 에 있어야 한다.**
+  // 위 계약은 *이 워킹트리에서* 무엇이 담기는지만 본다. 배포 경로가 git 이므로 소비자가
+  // 실제로 받는 것은 워킹트리가 아니라 **커밋된 것**이다. 둘이 갈리면 여기서는 초록이고
+  // 소비자에게서만 빨갛다 — `packages/react` 가 정확히 그 상태로 오래 있었다(2026-09-01
+  // 실측: clean clone 에서 pack 하면 253개가 아니라 3개가 담겼다).
+  const trackedRaw = execFileSync("git", ["ls-files", "-z", "--", dir], { encoding: "utf8" });
+  const tracked = new Set(trackedRaw.split("\0").filter(Boolean));
+  const untracked = listed.filter((f) => !tracked.has(`${dir}/${f}`));
+  if (untracked.length > 0) {
+    failures.push(
+      `${dir}: 배포물 ${untracked.length}개가 git 에 없습니다(예: ${untracked.slice(0, 3).join(", ")}). ` +
+        "git 설치 소비자에게는 존재하지 않는 파일입니다.",
+    );
+  }
 }
-positives.push("release dry-run 3패키지 (담길 것 확인, 금지 경로 없음)");
+positives.push("release dry-run 3패키지 (담길 것 확인, 금지 경로 없음, 전부 git 추적됨)");
 
 // ── 공개 API 표면 ───────────────────────────────────────────────────────────
 // 심볼이 사라지거나 이름이 바뀌면 breaking이다. 토큰 baseline과 같은 규율로 고정한다 —

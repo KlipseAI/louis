@@ -153,3 +153,51 @@ Linear 수는 2026-09-01 에 그 파일을 `get_metadata` 로 읽어 얻었고, 
 
 검증: `pnpm check` · `node ./scripts/verify-doc-paths.mjs` ·
 `node ./scripts/verify-record-citations.mjs` · `pnpm verify:ci`.
+
+### 2026-09-01 후속 — 1 이 들어갔고 규칙이 원장 안으로 들어갔다. 2·3 은 남는다
+
+**규칙이 파일 안으로 들어갔다.** 원장에 `$stateRule` 이 생겼고 `$verdictRule` 옆에 놓였다.
+`check-figma-surface-coverage` 가 그 존재와 길이를 검사하며, 지우면 실패한다 —
+`verify-gates` 의 카나리아 `figma surface coverage missing state rule` 이 그 빨강을 증명한다.
+규칙이 문장으로만 있으면 다음 사람이 다르게 적용한다는 것이 이 결정의 전제였다.
+
+**시험을 원장의 상태 계열 판정 스물하나에 다시 돌렸다.** 「상태 축」이라고 부를 수 있는
+`scoped` 를 사유로 걸러 전부 제품 코드(앵커 `ae8fd627`)와 대조했다. 뒤집힌 것은 **둘**이다.
+
+- `analytics/shared.tsx#ReportKpiRowSkeleton` → **`needed`(medium).** 이 문서가 예고한
+  그대로 시험 ③에 걸린다. 확인한 것이 하나 더 있다 — 스켈레톤 카드는 `REPORT_KPI_CARD` 인데
+  실물 카드는 `KPI_CARD_V2`(바깥 헤더 + 안쪽 흰 박스 `KPI_CARD_INNER` + 스파크라인 슬롯)라
+  **같은 카드의 로딩 상태가 아예 아니다.**
+- `node-canvas-v2/nodes/TextNode.tsx#LlmResponseArea` → **`needed`(high).** 시험 ①에 걸린다.
+  네 갈래가 자식의 집합을 서로 바꾸고, 그중 변형 선택 갈래는 `LLM_VARIANT_CARD` 를
+  `variants.map` 으로 **N개** 반복한다 — 본 상태에 없던 종류의 자식이고 개수가 데이터로
+  정해진다. 그 카드를 소유한 표면도 따로 없다.
+
+**나머지 열아홉은 축으로 남았다.** 노드의 생성/처리/빈 미디어 상태 다섯
+(`ImageNode#GeneratingState` · `ImageNode#ImagePlaceholder` · `VideoNode#VideoGeneratingState` ·
+`VideoNode#VideoPlaceholder` · `EditNode#ProcessingState`)은 노드 프레임을 그대로 두고 결과
+미디어 슬롯의 내용만 바꾼다 — 시험 ①②③ 모두 통과한다. `EditNode#ProcessingState` 의 진행
+막대는 새 자식처럼 보이지만 Figma `ProgressBar` 정본이 이미 있어 그 State 변형이 인스턴스로
+담는다. `ChartSkeleton` · `ContentTableSkeleton` · `ReportPrimaryBlockSkeleton` ·
+`PickerSkeleton` 은 부모 표면이 원장에 있고 컨테이너 사슬이 같다.
+
+판정은 그대로 두고 **사유만 실측으로 고친 것이 둘** 있다.
+
+- `MetricCardsSkeleton` — 시험 ③으로 보면 별 표면이 될 자리인데 **앵커에서 한 번도 렌더되지
+  않는다.** 유일한 호출부가 `ReportPrimaryBlockSkeleton` 의 `metricCardsCount > 0 &&` 이고,
+  그 컴포넌트의 호출 네 곳(`OverviewTab:242,243` · `InstagramAnalyticsScene:1214,1215`)이 전부
+  `metricCardsCount={0}` 을 넘긴다. 그리지 않는 것을 Figma 에 세울 수는 없다. 호출부가 0 이
+  아닌 값을 넘기는 날 뒤집힌다 — 그 조건을 사유에 적어 두었다.
+- `ReportPrimaryBlockSkeleton` — 축으로 남지만 실물과 갈린 두 축을 사유에 남겼다. 스켈레톤은
+  블록 맨 위에 `SKELETON_BLOCK_EYEBROW` 를 하나 더 그리고, 실물이 갖는 안쪽 흰 박스
+  (`PRIMARY_INNER_PANEL`)를 그리지 않는다. Loading 축을 그릴 때 어느 쪽이 정본인지 먼저
+  정해야 한다.
+
+**위 Context 의 `node -e` 출력은 이 재판정 이전 상태다.** 지금 다시 돌리면 일곱이 아니라
+여섯이 나온다.
+
+**2·3 은 하지 않았다.** `SelectionChrome` 과 `ImageStrip` 은 `unclear` 에 그대로 있다. 둘을
+함께 내리려면 `ImageStrip` 이 요구하는 `Layout` 축을
+[figma-component-authoring](../figma-component-authoring.md) §2 의 축 어휘 표에 먼저 올려야
+하고(어휘가 닫혀 있다), 그 문서 변경 없이 `SelectionChrome` 만 옮기면 이 결정이 한 쌍으로
+판정한 것을 반쪽만 실행하는 셈이 된다.

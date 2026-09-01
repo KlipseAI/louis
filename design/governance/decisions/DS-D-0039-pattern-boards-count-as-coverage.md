@@ -163,3 +163,41 @@ console.log(t.length, p.length, t.filter(x=>!p.includes(x)))"
 검증은 그때 `pnpm check` · `node ./scripts/verify-doc-paths.mjs` ·
 `node ./scripts/verify-record-citations.mjs` · `pnpm verify:ci` 로 돈다. 이 문서만 들어간 지금은
 같은 넷이 문서 축에서만 돈다.
+
+### 2026-09-01 후속 — 1·2·3 이 들어갔다. 4 는 남는다
+
+같은 날 뒤이은 변경이 위 목록의 1·2·3 을 실행했다. **위 Context 의 `node -e` 출력은 그 이전
+상태이고, 지금 다시 돌리면 세 이름 중 `SectionShell` 하나만 남는다** — 나머지 둘이 `figma` 로
+내려갔기 때문이다. 출력을 고치지 않고 남기는 이유는 그것이 이 결정을 만든 실측이기 때문이다.
+
+- 원장에 규칙이 들어갔다. `$verdictRule` 이 어휘가 components 51 **와** templates 9 둘 다임을
+  적고, `$howToUse` 가 「되읽기에 없는 이름은 실패한다」를 적는다.
+- 게이트가 갈라 센다. `componentVocabulary` / `patternVocabulary` 를 따로 들고
+  `mappedComponent` / `mappedPattern` 을 따로 세며, 두 사전에 같은 이름이 나타나면 멈춘다
+  (지금은 PascalCase ↔ kebab-case 라 겹치지 않는다). `MAPPED_COMPONENT_BASELINE = 15` 가
+  합계와 **따로** 걸려, 컴포넌트 대응을 패턴 대응으로 바꿔치기해 합계를 유지하는 길을 막는다.
+  카나리아 셋이 `verify-gates` 에 들어갔다(없는 패턴 이름 · 컴포넌트→패턴 바꿔치기 ·
+  `$stateRule` 삭제).
+- 재판정은 **셋**이다. 이 문서가 이름을 댄 둘(`Gnb#Gnb` → `app-shell` ·
+  `AuthStatusCard` → `auth-two-panel`)에 더해
+  `components/landing/navigation/Gnb.tsx#Gnb` → `landing-shell` 이 함께 내려갔다. 셋째는 이
+  문서가 예상하지 못한 자리다 — 그 표면은 `unclear` 가 아니라 `needed`(high) 였고, 「Figma 에
+  서 있는 것은 GnbMenuItem 하나뿐이라 바 자체가 없다」가 사유였다. 그 사유가 성립한 것은
+  **어휘가 컴포넌트 51 뿐이던 동안**이다. `design/patterns/landing-shell.md` 의 Anatomy 여섯이
+  그 파일의 구성 그대로이고, 되읽기 값도 그 문서의 Layout contract 와 축마다 일치하며
+  (headerHeight 56 · compactHeaderHeight 62 · railColumnCount 3 → compact 2 · menuGap 16 ·
+  menuItemCount 5 · menuLinkHeight 28 · menuLinkRadius 999 · actionsGap 8 · hamburgerSize 38 ·
+  blurPlateHeight 120), `measure-product-components.mjs` 의 landing-shell 탐침 여덟이 전부
+  `from: ["landingGnb", …]` 로 같은 파일을 읽는다. **이름이 닮아서가 아니라 같은 파일을 재고
+  있어서 옮겼다.**
+- `MAPPED_BASELINE` 은 15 → **18**, `MAPPED_COMPONENT_BASELINE` 은 **15**(움직이지 않았다).
+  게이트 요약: 표면 400종 · 대응 18 = 컴포넌트 15 + 패턴 3 · 전체 대비 4.5% · 대상 대비
+  9.5%(대상 189) · 범위 밖 211 · 필요 161 · 판단 대기 10 · 사유 없음 0.
+
+**4 는 하지 않았다.** 되읽기의 `home` 이 `design/manifest.json` 의 `patterns` 에 없는 것은
+그대로다. 이 변경이 그것을 건드리지 않은 이유는 판정 어휘가 **되읽기 쪽 아홉**으로 이미
+못박혀 있어 게이트가 통과시키는 이름과 규범이 금하는 이름이 갈리지 않기 때문이다 —
+카탈로그의 결손은 남지만 거짓 초록을 만들지는 않는다.
+
+`SectionShell` 은 예고대로 `unclear` 에 남았다. 「landing-section」 규격이 되읽기의 `templates`
+에 없고, 그 규격을 세울지는 이 결정이 답하지 않는다.

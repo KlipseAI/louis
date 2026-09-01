@@ -4,6 +4,7 @@ import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { chromium } from "playwright";
 import { atomicWriteBatch } from "./lib/atomic-output.mjs";
+import { notMeasured, unavailable } from "./lib/gate-exit.mjs";
 import { resolveProductRef } from "./lib/product-ref.mjs";
 
 // product.measured.json의 축들은 제품 소스의 **줄**을 인용한다. 줄 읽기는 cascade를 모른다 —
@@ -18,13 +19,12 @@ const productRoot = process.env.KLIPSE_PRODUCT_REPO ?? "/Users/sejunki/klipse-we
 // 측정 대상은 근거 lock이 고정한 커밋이다 — `origin/main`을 따라가면 같은 명령이
 // 어제와 다른 값을 낸다. scripts/lib/product-ref.mjs에 사유가 있다.
 const { ref: productRef, source: productRefSource } = resolveProductRef();
-// 제품이 app/layout.tsx에서 싣는 순서 그대로다 — tailwind.css가 먼저이고 그 안에서
-// keyframes.css를 @import한 뒤 globals.css가 온다. 순서를 바꾸면 cascade가 달라진다.
-const STYLESHEETS = [
-  "apps/web/app/tailwind.css",
-  "apps/web/app/keyframes.css",
-  "apps/web/app/globals.css",
-];
+// 제품 app/layout.tsx가 싣는 **진입점 두 개**다(`import "./tailwind.css"` → `import
+// "./globals.css"`). keyframes.css와 LOUIS CSS는 tailwind.css의 `@import`로 들어오므로 여기
+// 적지 않는다 — 아래 inlineImports가 선언된 자리 그대로 이어 붙인다. 순서를 바꾸면 cascade가
+// 달라진다.
+const STYLESHEETS = ["apps/web/app/tailwind.css", "apps/web/app/globals.css"];
+const LOUIS_PACKAGE = "@klipse-design/css";
 const checkOnly = process.argv.includes("--check");
 
 // 제품이 실제로 갈라지는 축들. 하나라도 빠지면 "한 값"으로 보이는 것이 사실은 여럿이다.
@@ -36,17 +36,10 @@ const CONTEXTS = [
 ];
 
 if (!existsSync(resolve(productRoot, ".git"))) {
-  // hosted CI에는 제품 저장소가 없다. 건너뛰되 **건너뛰었다고 출력한다** — 조용한 통과는 통과가 아니다.
-  const message =
-    "[product-render] " +
-    (checkOnly ? "SKIPPED" : "제품 저장소가 없습니다") +
-    " (" + productRoot + ")";
-  if (checkOnly) {
-    console.log(message + ". 렌더 실측은 로컬에서 확인해야 합니다.");
-    process.exit(0);
-  }
-  console.error(message);
-  process.exit(1);
+  // **`--check`에서도 exit 0 하지 않는다.** 예전에는 여기서 `SKIPPED`를 찍고 통과했다. 이
+  // 게이트는 `verify:product`에만 있어 hosted CI에서는 아예 돌지 않으므로 "러너 배려"가 필요
+  // 없었고, 남은 효과는 제품 저장소가 없는 로컬에서 **조용히 초록**이 되는 것뿐이었다.
+  unavailable("product-render", "제품 저장소가 없습니다: " + productRoot);
 }
 
 const measured = JSON.parse(readFileSync(measuredPath, "utf8"));
@@ -60,7 +53,16 @@ for (const [componentId, component] of Object.entries(measured.components)) {
     for (const name of names) variables.add(name);
     // 변수가 **값을 직접 담을 때만** 대조한다. "40px (고정. --button-height)"는 담고,
     // "4px (gap-2 × --spacing:2px)"나 "calc(var(--button-radius) - 2px)"는 파생식이라 담지 않는다.
-    const direct = text.match(/(\d+(?:\.\d+)?)px\s*(?:기본)?\((?:고정\.\s*)?(--[a-z0-9-]+)\)/);
+    //
+    // **변수명 뒤에서 괄호가 바로 닫히기를 요구하지 않는다.** 예전 정규식은 `(--이름\)` 이라
+    // 적어서, 이 저장소가 즐겨 쓰는 「값 + 근거」 주석이 통째로 탈락했다 —
+    // "32px (고정. --button-height — md 40 폐지, 32 단일)" 과
+    // "12px (--button-padding-inline — 16 폐지, sm 과 동일 사양)" 두 축이 그랬고, 그중
+    // `--button-height` 는 브라우저가 실제로 `32px` 로 푼다. 즉 **대조할 수 있는 것을 스스로
+    // 버리고 있었다**(2026-09-01 원장 `product-render-zero-comparisons`).
+    // 이제 변수명 뒤에 `)` 또는 근거를 여는 `—` 가 오면 받는다. `·`(값이 여럿) 이나
+    // `,`(나열)로 이어지는 것은 여전히 받지 않는다 — 한 값이 아니기 때문이다.
+    const direct = text.match(/(\d+(?:\.\d+)?)px\s*(?:기본)?\(\s*(?:고정\.\s*)?(--[a-z0-9-]+)\s*[—)]/);
     if (direct && typeof axis.productValue === "number" && Number.parseFloat(direct[1]) === axis.productValue) {
       numericExpectations.push({ componentId, axisName, variable: direct[2], expected: axis.productValue });
     }
@@ -68,23 +70,113 @@ for (const [componentId, component] of Object.entries(measured.components)) {
 }
 
 const commit = git(["rev-parse", productRef]).trim();
-const css = STYLESHEETS.map((path) => normalize(git(["show", commit + ":" + path]))).join("\n\n");
+
+// **제품이 `@import` 로 부르는 것을 실제로 이어 붙인다.**
+//
+// 예전에는 `@import` 를 전부 지웠다. 그 결과 이 하네스는 제품 팔레트를 **하나도 갖지 못했다** —
+// `--palette-gray-000: var(--louis-color-palette-gray-000)` 처럼 제품의 시맨틱 토큰은 거의 전부
+// LOUIS 토큰을 가리키는데, 그 정의는 `@klipse-design/css/tokens.css` 안에 있기 때문이다.
+// 2026-09-01 실측: 인용된 변수 33개 중 브라우저가 값을 준 것은 **2개**(`--button-height`,
+// `--spacing`, 둘 다 리터럴)뿐이었고 나머지 31개는 빈 문자열이었다. 그런데 게이트는 그 31개를
+// ":root 밖 스코프" 라고 **사실인 양** 인쇄했다. 재지 못한 것을 사실로 적는 것이 이 게이트가
+// 가진 가장 나쁜 성질이었다.
+//
+// LOUIS 커밋은 추측하지 않는다 — 제품 `apps/web/package.json` 이 SHA 로 고정해 받으므로 그
+// SHA 를 읽어 **이 저장소의 같은 커밋**에서 파일을 꺼낸다. 제품이 실제로 설치한 바이트와 같고,
+// 재현도 보장된다(`node_modules` 를 읽으면 기계마다 달라진다).
+const louisCommit = resolveLouisPin();
+const includeOrder = [];
+const unresolvedImports = [];
+const css = translateTheme(
+  STYLESHEETS.map((path) => inlineImports(stripComments(git(["show", commit + ":" + path])), path))
+    .join("\n\n"),
+);
+
+function stripComments(source) {
+  return source.replace(/\/\*[\s\S]*?\*\//g, "");
+}
 
 // 브라우저는 Tailwind의 at-rule을 모른다. Tailwind v4가 `@theme`의 선언을 `:root`로 내보내므로
 // 같게 번역한다. 번역하지 않으면 `--spacing: 2px` 같은 값이 통째로 사라져 **없는 것처럼 보인다** —
 // 실제로 첫 판이 그랬고, 제품이 2px 격자를 쓴다는 사실이 게이트에서 지워져 있었다.
-// 해석할 수 없는 `@import`(tailwindcss 패키지)는 버린다. 인용된 변수는 전부 제품 자신의 선언이다.
-// **주석을 먼저 지운다.** 제품 머리말은 `@import "tailwindcss"` 를 설명하려고 인용하는데,
-// 주석을 남긴 채 import 제거 정규식을 돌리면 그 인용에서 매칭이 시작되고 `[^;]*;` 가 줄을
-// 넘어 다음 세미콜론까지 삼킨다 — 인용 뒤에 오는 **진짜 선언**이 통째로 사라진다.
-// 여기서는 삼킨 것이 `@layer` 순서 선언뿐이라 변수 값은 살아남았지만, 제품이 그 자리에 선언을
-// 하나 추가하면 조용히 없어진다. scripts/measure-product-variants.mjs 에서는 같은 삼킴이
-// 실제로 여백 축을 전부 0 으로 만들었다.
-function normalize(source) {
-  return source
-    .replace(/\/\*[\s\S]*?\*\//g, "")
-    .replace(/@import\s+["'][^;]*;/g, "")
-    .replace(/@theme\s+(?:inline\s+)?\{/g, ":root {");
+function translateTheme(source) {
+  return source.replace(/@theme\s+(?:inline\s+)?\{/g, ":root {");
+}
+
+function resolveLouisPin() {
+  const manifest = JSON.parse(git(["show", commit + ":apps/web/package.json"]));
+  const spec =
+    manifest.dependencies?.[LOUIS_PACKAGE] ?? manifest.devDependencies?.[LOUIS_PACKAGE];
+  if (!spec) {
+    unavailable("product-render", "제품 apps/web/package.json 에 " + LOUIS_PACKAGE + " 의존성이 없습니다.");
+  }
+  const sha = /#([0-9a-f]{40})/.exec(spec)?.[1];
+  if (!sha) {
+    unavailable(
+      "product-render",
+      "제품이 고정한 LOUIS SHA 를 읽지 못했습니다: " + spec +
+        " (github:KlipseAI/louis#<40자 SHA>&path:/packages/css 형식을 기대합니다)",
+    );
+  }
+  try {
+    execFileSync("git", ["cat-file", "-e", sha + "^{commit}"], { cwd: repoRoot, stdio: "ignore" });
+  } catch {
+    unavailable(
+      "product-render",
+      "제품이 고정한 LOUIS 커밋이 이 저장소에 없습니다: " + sha + " — `git fetch origin` 후 다시 실행하세요.",
+    );
+  }
+  return sha;
+}
+
+// `function` 선언이라야 한다. 아래 세 헬퍼는 파일 위쪽의 top-level `const css = ...` 에서
+// 불리므로, `const` 화살표로 적으면 TDZ 로 죽는다.
+function louisSource(file) {
+  return stripComments(execFileSync("git", ["show", louisCommit + ":packages/css/generated/" + file], {
+    cwd: repoRoot,
+    encoding: "utf8",
+    maxBuffer: 64 * 1024 * 1024,
+  }));
+}
+
+// **주석을 먼저 지운 뒤 부른다.** 제품 머리말은 `@import "tailwindcss"` 를 설명하려고 인용하는데,
+// 주석을 남긴 채 이 정규식을 돌리면 그 인용에서 매칭이 시작된다. scripts/measure-product-variants.mjs
+// 에서는 같은 삼킴이 실제로 여백 축을 전부 0 으로 만들었다.
+// 정규식을 **함수 안에 리터럴로** 둔다. 이 함수는 자기를 재귀 호출하는데, `/g` 정규식 객체를
+// 공유하면 안쪽 replace 가 바깥쪽 순회의 lastIndex 를 건드려 import 를 건너뛴다. 리터럴은
+// 평가할 때마다 새 객체가 되므로 재귀가 안전하다.
+function inlineImports(source, originPath, seen = new Set()) {
+  return source.replace(/@import\s+(?:"([^"]+)"|'([^']+)')\s*(?:layer\(([^)]*)\))?\s*;/g, (_whole, doubleQuoted, singleQuoted, layerName) => {
+    const spec = doubleQuoted ?? singleQuoted;
+    let key = null;
+    let body = null;
+    if (spec.startsWith("./")) {
+      const path = originPath.slice(0, originPath.lastIndexOf("/")) + "/" + spec.slice(2);
+      key = path;
+      if (seen.has(key)) return "/* 이미 포함됨: " + spec + " */";
+      seen.add(key);
+      body = inlineImports(stripComments(git(["show", commit + ":" + path])), path, seen);
+    } else if (spec.startsWith(LOUIS_PACKAGE + "/")) {
+      const file = spec.slice(LOUIS_PACKAGE.length + 1);
+      key = LOUIS_PACKAGE + "/" + file + "@" + louisCommit.slice(0, 8);
+      if (seen.has(key)) return "/* 이미 포함됨: " + spec + " */";
+      seen.add(key);
+      body = louisSource(file);
+    } else if (spec === "tailwindcss" || spec.startsWith("tailwindcss/")) {
+      // Tailwind 자신의 배포 CSS는 이 저장소에 없다. 인용된 변수는 전부 제품이나 LOUIS의
+      // 선언이므로 빼도 값은 바뀌지 않는다 — 다만 **뺐다는 사실을 생성물에 적는다.**
+      if (!unresolvedImports.includes(spec)) unresolvedImports.push(spec);
+      return "/* 해석하지 않음: " + spec + " */";
+    } else {
+      // 새 `@import` 가 조용히 사라지지 않게 한다. 값이 통째로 비는 사고가 바로 그렇게 났다.
+      throw new Error(
+        "[product-render] 알 수 없는 @import 입니다: " + spec + " (" + originPath + "). " +
+          "해석 규칙을 scripts/measure-product-render.mjs 의 inlineImports 에 추가하세요.",
+      );
+    }
+    includeOrder.push(key);
+    return layerName ? "@layer " + layerName + " {\n" + body + "\n}\n" : body;
+  });
 }
 
 const names = [...variables].sort();
@@ -144,10 +236,15 @@ const payload =
       $whyThisExists:
         "product.measured.json의 축들은 제품 소스의 줄을 인용한다. 줄 읽기는 cascade와 media query를 모른다. 여기 값은 브라우저가 실제로 푼 값이며, 문맥이 갈리면 문맥마다 다르게 기록된다.",
       $method:
-        "제품 서버를 띄우지 않는다. 배포본의 정적 stylesheet만 git show로 읽어 빈 문서에 올리고 :root의 계산값을 읽는다.",
+        "제품 서버를 띄우지 않는다. 배포본의 정적 stylesheet만 git show로 읽어 빈 문서에 올리고 :root의 계산값을 읽는다. 제품이 @import로 부르는 keyframes.css와 LOUIS CSS는 선언된 자리에 그대로 이어 붙인다 — LOUIS는 제품 apps/web/package.json이 SHA로 고정한 커밋에서 꺼낸다.",
       productRef,
       productCommit: commit,
       stylesheets: STYLESHEETS,
+      louisCommit,
+      $includeOrderNote:
+        "제품 진입점 두 개에서 시작해 @import를 실제로 이어 붙인 순서. 이 목록이 비면 하네스는 제품 팔레트를 갖지 못하고, 인용된 변수는 값이 아니라 빈 문자열로 돌아온다.",
+      includeOrder,
+      unresolvedImports,
       contexts: CONTEXTS,
       variables: names,
       rendered,
@@ -159,6 +256,61 @@ const payload =
     null,
     2,
   ) + "\n";
+
+// 기록된 숫자와 브라우저가 푼 값이 어긋나면 실패한다. 줄 읽기로 적은 수를 브라우저가 반증하는
+// 경로이며, 이 게이트의 존재 이유다.
+//
+// **생성물 대조보다 먼저 둔다.** 순서를 뒤집으면 「아무것도 대조하지 못했다」는 판정이
+// 생성물이 낡았다는 판정 뒤에 숨는다 — 재지 못한 게이트가 "값이 다릅니다"라고 말하게 되고,
+// 갱신하면 조용히 초록이 된다. 잰 것이 있는지가 먼저다.
+const mismatches = [];
+const scoped = [];
+for (const expectation of numericExpectations) {
+  const value = rendered["dark-desktop"][expectation.variable];
+  if (!value) {
+    // :root에서 풀리지 않았다 = 전역 토큰이 아니다. 요소 스코프가 소유하거나(예:
+    // `--profile-avatar-size` 는 Gnb.tsx 가 클래스로 세운다) 제품에서 아예 사라졌다는 뜻이며,
+    // 어느 쪽이든 이 변수를 "제품 전역 정본"으로 인용하면 안 된다는 신호다. 하네스가 이 둘을
+    // 가르지는 못하므로 "스코프가 소유한다"고 단정하지 않는다.
+    scoped.push(expectation.componentId + "/" + expectation.axisName + " (" + expectation.variable + ")");
+    continue;
+  }
+  const parsed = Number.parseFloat(value);
+  if (!Number.isFinite(parsed) || parsed !== expectation.expected) {
+    mismatches.push(
+      expectation.componentId +
+        "/" +
+        expectation.axisName +
+        ": product.measured.json은 " +
+        expectation.expected +
+        "이라 적었는데 브라우저는 " +
+        value +
+        "을 풀었습니다 (" +
+        expectation.variable +
+        ")",
+    );
+  }
+}
+if (mismatches.length > 0) {
+  for (const mismatch of mismatches) console.error("[product-render] " + mismatch);
+  process.exit(1);
+}
+
+// **대조가 0건이면 초록일 수 없다.** 이 게이트는 스스로 "기록된 숫자를 브라우저가 반증하는
+// 경로이며, 이 게이트의 존재 이유"라고 적어 놓고, 2026-09-01 실측에서는 그 대조를 **0건**
+// 수행하면서 exit 0 했다(원장 `product-render-zero-comparisons`). 인용을 하나도 대조하지
+// 못했다면 재지 않은 것이므로 NOT_MEASURED 다 — 통과가 아니다.
+const comparedCount = numericExpectations.length - scoped.length;
+if (comparedCount === 0) {
+  notMeasured(
+    "product-render",
+    "브라우저가 대조한 인용이 0건입니다(추출 " + numericExpectations.length + "건 중 " +
+      scoped.length + "건이 :root 에서 풀리지 않았습니다). " +
+      "product.measured.json 의 인용 형식이 바뀌었거나(추출 정규식), 제품 CSS 를 잇는 " +
+      "@import 해석이 깨졌습니다(includeOrder 가 비었는지 보세요).",
+  );
+}
+
 
 if (checkOnly) {
   let current = "";
@@ -193,39 +345,6 @@ if (checkOnly) {
   atomicWriteBatch([{ absolute: outputPath, expected: payload }]);
 }
 
-// 기록된 숫자와 브라우저가 푼 값이 어긋나면 실패한다. 줄 읽기로 적은 수를 브라우저가 반증하는
-// 경로이며, 이 게이트의 존재 이유다.
-const mismatches = [];
-const scoped = [];
-for (const expectation of numericExpectations) {
-  const value = rendered["dark-desktop"][expectation.variable];
-  if (!value) {
-    // :root에 없다 = 전역 토큰이 아니라 특정 스코프가 소유한다. 실패가 아니라 사실이며,
-    // 이 변수를 "제품 전역 정본"으로 인용하면 안 된다는 신호다.
-    scoped.push(expectation.componentId + "/" + expectation.axisName + " (" + expectation.variable + ")");
-    continue;
-  }
-  const parsed = Number.parseFloat(value);
-  if (!Number.isFinite(parsed) || parsed !== expectation.expected) {
-    mismatches.push(
-      expectation.componentId +
-        "/" +
-        expectation.axisName +
-        ": product.measured.json은 " +
-        expectation.expected +
-        "이라 적었는데 브라우저는 " +
-        value +
-        "을 풀었습니다 (" +
-        expectation.variable +
-        ")",
-    );
-  }
-}
-if (mismatches.length > 0) {
-  for (const mismatch of mismatches) console.error("[product-render] " + mismatch);
-  process.exit(1);
-}
-
 // rem 환산 기준이 문맥마다 갈리면 「4.5rem = N px」라고 한 줄로 적을 수 없다. 갈리면 실패시킨다.
 const remBases = new Set(CONTEXTS.map((context) => rootMetrics[context.id].remPx));
 if (remBases.size !== 1) {
@@ -248,7 +367,8 @@ console.log(
     CONTEXTS.length +
     " @ " +
     commit.slice(0, 8) +
-    " · 기록된 수 " + (numericExpectations.length - scoped.length) + "건을 브라우저가 확인" +
+    " · 이어 붙인 stylesheet " + includeOrder.length + "개(LOUIS @" + louisCommit.slice(0, 8) + ")" +
+    " · 기록된 수 " + comparedCount + "건을 브라우저가 확인" +
     " · **1rem = " + remPx + "px** (4.5rem = " + remPx * 4.5 + "px)" +
     (scoped.length > 0 ? " · :root 밖 스코프 " + scoped.length + "건(" + scoped.join(", ") + ")" : "") +
     (varying.length > 0 ? " · 문맥에 따라 갈리는 변수 " + varying.length + "개: " + varying.join(" ") : ""),

@@ -13403,6 +13403,32 @@ export const tokens = {
         "alpha": 1
       }
     },
+    "color-bg-surface-translucent": {
+      "aliasTarget": {
+        "id": "color-static-white-alpha-72",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-bg-surface-translucent": "color(srgb 1 1 1 / 0.72)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-bg-surface-translucent",
+      "mode": "light",
+      "rawValue": "{primitive.color.static-white-alpha.72}",
+      "sourcePath": "semantic.light.color.bg-surface-translucent",
+      "tier": "semantic",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          1,
+          1
+        ],
+        "alpha": 0.72
+      }
+    },
     "color-bg-upgrade": {
       "aliasTarget": {
         "id": "color-palette-gray-900",
@@ -18432,6 +18458,32 @@ export const tokens = {
           0.25098
         ],
         "alpha": 1
+      }
+    },
+    "color-bg-surface-translucent": {
+      "aliasTarget": {
+        "id": "color-static-black-alpha-72",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-bg-surface-translucent": "color(srgb 0 0 0 / 0.72)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-bg-surface-translucent",
+      "mode": "dark",
+      "rawValue": "{primitive.color.static-black-alpha.72}",
+      "sourcePath": "semantic.dark.color.bg-surface-translucent",
+      "tier": "semantic",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          0,
+          0,
+          0
+        ],
+        "alpha": 0.72
       }
     },
     "color-bg-upgrade": {

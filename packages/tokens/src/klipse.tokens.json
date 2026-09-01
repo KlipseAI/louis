@@ -6803,6 +6803,16 @@
             }
           }
         },
+        "bg-surface-translucent": {
+          "$value": "{primitive.color.static-white-alpha.72}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-bg-surface-translucent",
+              "tier": "semantic",
+              "mode": "light"
+            }
+          }
+        },
         "bg-upgrade": {
           "$value": "{primitive.color.palette-gray.900}",
           "$extensions": {
@@ -8734,6 +8744,16 @@
           "$extensions": {
             "com.klipse-design": {
               "id": "color-bg-surface",
+              "tier": "semantic",
+              "mode": "dark"
+            }
+          }
+        },
+        "bg-surface-translucent": {
+          "$value": "{primitive.color.static-black-alpha.72}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-bg-surface-translucent",
               "tier": "semantic",
               "mode": "dark"
             }

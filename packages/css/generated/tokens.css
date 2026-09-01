@@ -295,6 +295,7 @@
   --louis-color-bg-raised: color(srgb 0.980392 0.980392 0.980392 / 1);
   --louis-color-bg-success: color(srgb 0.898039 1 0.968627 / 1);
   --louis-color-bg-surface: color(srgb 0.980392 0.980392 0.980392 / 1);
+  --louis-color-bg-surface-translucent: color(srgb 1 1 1 / 0.72);
   --louis-color-bg-upgrade: color(srgb 0.090196 0.105882 0.133333 / 1);
   --louis-color-bg-upgrade-current: color(srgb 0.972549 0.972549 0.976471 / 1);
   --louis-color-bg-upgrade-hover: color(srgb 0.192157 0.211765 0.25098 / 1);
@@ -737,6 +738,7 @@
   --louis-color-bg-raised: color(srgb 0.341176 0.364706 0.407843 / 1);
   --louis-color-bg-success: color(srgb 0 0.298039 0.223529 / 1);
   --louis-color-bg-surface: color(srgb 0.192157 0.211765 0.25098 / 1);
+  --louis-color-bg-surface-translucent: color(srgb 0 0 0 / 0.72);
   --louis-color-bg-upgrade: color(srgb 0.945098 0.945098 0.952941 / 1);
   --louis-color-bg-upgrade-current: color(srgb 0.192157 0.211765 0.25098 / 1);
   --louis-color-bg-upgrade-hover: color(srgb 0.890196 0.894118 0.909804 / 1);

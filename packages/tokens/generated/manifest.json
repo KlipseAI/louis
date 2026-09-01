@@ -2,23 +2,23 @@
   "artifacts": [
     {
       "path": "packages/tokens/generated/figma.tokens.json",
-      "sha256": "7681568f8207a4c0cdc018ed56131df3613666c9acc55c60291aea30b1edacee"
+      "sha256": "19451b15e67ea586c46a10e50c380f68bf90561c61a6a5fea932a8637d60ca9e"
     },
     {
       "path": "packages/tokens/generated/index.d.ts",
-      "sha256": "3d8de7c52859f3a1c94fc00e451c6f77ab6ccfe3b3928241cc3a7a01add660b6"
+      "sha256": "0fb345f9ed411e6221f9b36e3627559c5c428ffd2b3de827b79adda8354b76e6"
     },
     {
       "path": "packages/tokens/generated/index.js",
-      "sha256": "9643b8afca8e7fbdafa4c0c37dc979c6e65d66c0996c7525d5174f5ecc645374"
+      "sha256": "a805400e3e52437dfdd0e0e9f62075d2a0da88470649cded15c72922699030f0"
     },
     {
       "path": "packages/tokens/generated/tokens.css",
-      "sha256": "ac6a2f6a8ed05e3b28161a9ae391e720ec0f2703c677c76c528bccf677bb86ab"
+      "sha256": "2f3f4142be61a61b48799be3dc3dabbff67f6270521f4c210affda89f0010455"
     },
     {
       "path": "packages/tokens/generated/tokens.json",
-      "sha256": "cde8b4e0b55aed0c6ec963103750f8fa72511bffb36804a05cc2ba1119f11830"
+      "sha256": "7e72336015f89dcd5a6cebd4457b32e507e9422e9b5c35ea8b9bdf487430ecc6"
     }
   ],
   "contrastPairs": [
@@ -408,13 +408,13 @@
   },
   "source": {
     "path": "packages/tokens/src/klipse.tokens.json",
-    "sha256": "61ffba77c4337861a6d647b74ea7edc424927c4bbb8d4af7ae6d8d75c84fbd77"
+    "sha256": "a1ff50cc1fad35485194a456ef1dac78a18c5e535a93556ff8bceacade931510"
   },
   "themes": [
     "light",
     "dark"
   ],
-  "tokenCount": 777,
+  "tokenCount": 779,
   "tokens": [
     {
       "aliasTarget": {
@@ -3329,6 +3329,58 @@
         ]
       },
       "sourcePath": "semantic.dark.color.bg-surface",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-static-white-alpha-72",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-bg-surface-translucent": "color(srgb 1 1 1 / 0.72)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-bg-surface-translucent",
+      "mode": "light",
+      "rawValue": "{primitive.color.static-white-alpha.72}",
+      "resolvedValue": {
+        "alpha": 0.72,
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          1,
+          1
+        ]
+      },
+      "sourcePath": "semantic.light.color.bg-surface-translucent",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-static-black-alpha-72",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-bg-surface-translucent": "color(srgb 0 0 0 / 0.72)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-bg-surface-translucent",
+      "mode": "dark",
+      "rawValue": "{primitive.color.static-black-alpha.72}",
+      "resolvedValue": {
+        "alpha": 0.72,
+        "colorSpace": "srgb",
+        "components": [
+          0,
+          0,
+          0
+        ]
+      },
+      "sourcePath": "semantic.dark.color.bg-surface-translucent",
       "tier": "semantic",
       "type": "color"
     },

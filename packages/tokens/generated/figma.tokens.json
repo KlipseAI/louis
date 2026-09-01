@@ -17744,6 +17744,57 @@
             }
           }
         },
+        "color-bg-surface-translucent": {
+          "$type": "color",
+          "fields": [],
+          "figmaName": "color/bg-surface-translucent",
+          "hiddenFromPublishing": false,
+          "losses": [],
+          "nativeVariableType": "COLOR",
+          "representation": "variable",
+          "scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL",
+            "STROKE_COLOR",
+            "TEXT_FILL"
+          ],
+          "valuesByMode": {
+            "Dark": {
+              "$value": "{primitive.color.static-black-alpha.72}",
+              "aliasTarget": {
+                "id": "color-static-black-alpha-72",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 0.72,
+                "colorSpace": "srgb",
+                "components": [
+                  0,
+                  0,
+                  0
+                ]
+              },
+              "sourcePath": "semantic.dark.color.bg-surface-translucent"
+            },
+            "Light": {
+              "$value": "{primitive.color.static-white-alpha.72}",
+              "aliasTarget": {
+                "id": "color-static-white-alpha-72",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 0.72,
+                "colorSpace": "srgb",
+                "components": [
+                  1,
+                  1,
+                  1
+                ]
+              },
+              "sourcePath": "semantic.light.color.bg-surface-translucent"
+            }
+          }
+        },
         "color-bg-upgrade": {
           "$type": "color",
           "fields": [],

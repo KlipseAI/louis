@@ -2,8 +2,9 @@
   "$comment": "생성물. scripts/measure-product-surfaces.mjs 가 앵커 커밋의 제품 트리에서 열거한다. `verdict`·`figma`·`reason`·`weight` 만 사람이 적고, 나머지 필드는 다시 뽑을 때 덮어쓴다.",
   "$whyThisExists": "verify-figma-parity 는 계약 51 ↔ Figma 51 을 양방향으로 잠근 닫힌 집합이라, 계약에 선언되지 않은 제품 표면은 아무리 많이 빠져 있어도 초록이 나온다. 제품 트리를 열거하는 코드가 이 저장소에 0건이었고 figma-sync.md 는 「커버리지 열거기가 아직 없다. 그래서 손으로 세어 기록한다」고 적었다. 손으로 센 원장은 반드시 낡는다.",
   "$granularityRule": "표면 하나 = 모듈 최상위에 정의된, JSX 를 돌려주는 PascalCase React 컴포넌트 하나. 식별자는 `<경로>#<이름>` 이고 줄 번호를 쓰지 않는다. 고른 근거와 버린 후보 셋(클래스 문자열 3455개 · 정본 컴포넌트 12개 · 라우트×시각영역)은 열거기 머리말에 적었다.",
-  "$howToUse": "새 표면이 나타나면 `verdict` 를 넷 중 하나로 적고 `reason` 에 20자 이상의 근거를 붙인다 — figma(대응이 있다: 이름을 `figma` 에 적는다) · scoped(범위 밖이다) · needed(Figma 에 세워야 하는데 아직 없다: `weight` 로 우선순위를 적는다) · unclear(소유자 판단이 필요하다). **사유 없이 넘기는 길은 없다.** verdict 가 비면 그 표면은 `unclassified` 로 세어지고, check-figma-surface-coverage 의 래칫이 그 수가 늘어나는 것을 막는다.",
-  "$verdictRule": "판정은 넷이다. 셋이 아니라 넷인 이유는 「Figma 에 세워야 하는데 아직 없다」를 적을 자리가 없었기 때문이다 — 그것을 `reason` 에 적으면 미등록이 사유로 둔갑해 `scoped`(범위 밖)로 세어졌고, 커버리지가 올라간 것처럼 보였다. `needed` 는 그 둔갑을 막는 축이고, `unclear` 는 소유자 판단 대기 목록이다. 래칫의 방향도 판정마다 다르다 — unclassified 는 늘면 실패(아무도 안 본 표면), needed 는 늘어도 실패하지 않는다(발견이지 후퇴가 아니다), unclear 는 세기만 한다.",
+  "$howToUse": "새 표면이 나타나면 `verdict` 를 넷 중 하나로 적고 `reason` 에 20자 이상의 근거를 붙인다 — figma(대응이 있다: 이름을 `figma` 에 적는다) · scoped(범위 밖이다) · needed(Figma 에 세워야 하는데 아직 없다: `weight` 로 우선순위를 적는다) · unclear(소유자 판단이 필요하다). **사유 없이 넘기는 길은 없다.** verdict 가 비면 그 표면은 `unclassified` 로 세어지고, check-figma-surface-coverage 의 래칫이 그 수가 늘어나는 것을 막는다. `figma` 에 적는 이름은 되읽기(figma/readback.json)의 components 51 «또는» templates 9 중 하나다 — 패턴 보드 대응도 대응으로 센다(DS-D-0039). 되읽기에 없는 이름은 실패한다.",
+  "$verdictRule": "판정은 넷이다. 셋이 아니라 넷인 이유는 「Figma 에 세워야 하는데 아직 없다」를 적을 자리가 없었기 때문이다 — 그것을 `reason` 에 적으면 미등록이 사유로 둔갑해 `scoped`(범위 밖)로 세어졌고, 커버리지가 올라간 것처럼 보였다. `needed` 는 그 둔갑을 막는 축이고, `unclear` 는 소유자 판단 대기 목록이다. 래칫의 방향도 판정마다 다르다 — unclassified 는 늘면 실패(아무도 안 본 표면), needed 는 늘어도 실패하지 않는다(발견이지 후퇴가 아니다), unclear 는 세기만 한다. `figma` 의 어휘는 되읽기의 components 51 «와» templates 9 둘 다다 — 패턴 보드 대응도 대응으로 센다(DS-D-0039). 세지 않으면 Gnb(앱 셸) 처럼 이미 그려져 있는 표면이 「그려야 한다」 목록에 영구히 앉아 그 목록을 틀린 항목으로 오염시킨다. 대신 게이트가 컴포넌트 대응과 패턴 대응을 갈라 세고 갈라 찍는다 — 패턴 대응은 약한 증거이기 때문이다. 계약이 부품 «이름»의 목록이라 집어다 쓸 인스턴스가 없고, 패턴 여덟은 전부 figma: partial 이라 done 에 닿지 못하며, 패턴 하나를 여러 표면이 가리킬 수 있어(n:1) 대응 수는 오르는데 그려진 것은 하나도 늘지 않는다. 합계만 잠그면 컴포넌트 대응을 패턴 대응으로 바꿔치기해도 수가 유지되므로 컴포넌트 대응 수에도 같은 래칫을 건다.",
+  "$stateRule": "상태는 표면 하나의 축이다 — 별 표면이 되는 길은 둘뿐이다(DS-D-0040). ① 자식 구성: 본 상태에 없던 «종류»의 자식이 들어오거나 같은 자식이 «다른 개수»로 반복되면 별 표면이다. ③ 자리의 주인: 본 상태를 소유한 표면이 이 원장에 없으면(화면이 인라인으로 그린다) 붙을 축이 없으므로 별 표면이다. ② 배치만 다르거나(축 전치·열 수·정렬) 색·불투명도·문구·글리프만 다르면 표면 하나의 축이므로 scoped 로 남는다. 자식이 «감춰지는» 것은 ①이 아니다 — 오토레이아웃의 정상 결과다. 순서가 있다: 이 시험이 표면을 몇 개로 셀지를 먼저 정하고, 그 축이 VARIANT 인가 BOOLEAN 인가는 design/governance/figma-component-authoring.md §2 가 그다음에 정한다. 두 층을 섞으면 「BOOLEAN 으로 못 그리니까 별 컴포넌트」라는 잘못된 추론이 나온다. 축을 연다고 조합을 전수로 채우는 것도 아니다 — 쓰지 않는 계단은 사다리가 아니다(DS-D-0027 · DS-D-0030).",
   "$upperBound": "이 수는 상한이 아니라 하한이다 — 다른 함수 안에서 정의된 컴포넌트(앵커에서 2개)와 camelCase 렌더 헬퍼(14개)는 세지 않는다. `louis` 도 하한이다: 클래스 맵 파일을 import 해서 쓰는 컴포넌트는 자기 본문에 louis 이름을 갖지 않는다.",
   "productRef": "ae8fd6278481a5e86cd324ba86a1d44fe978b788",
   "productCommit": "ae8fd6278481a5e86cd324ba86a1d44fe978b788",
@@ -11,10 +12,10 @@
   "filesScanned": 282,
   "counts": {
     "total": 400,
-    "mapped": 15,
-    "scoped": 213,
-    "needed": 160,
-    "unclear": 12,
+    "mapped": 18,
+    "scoped": 211,
+    "needed": 161,
+    "unclear": 10,
     "unclassified": 0
   },
   "surfaces": {
@@ -785,9 +786,9 @@
       "file": "apps/web/components/auth/AuthStatusCard.tsx",
       "binding": "default",
       "louis": [],
-      "verdict": "unclear",
-      "figma": null,
-      "reason": "로그인 전 여덟 화면 중 다섯이 쓰는 두 패널 셸이다(좌측 브랜드 패널 + 우측 카드: eyebrow 알약 · heading-28 제목 · body-16 설명 · children 슬롯). Figma 에는 이미 대응물이 있는데 그것이 51개 «컴포넌트»가 아니라 readback 의 templates 에 있는 auth-two-panel «패턴 보드»이고, scripts/lib/product-files.mjs 가 이 파일을 바로 그 패턴의 실측 정본(authStatusCard)으로 고정한다. 즉 디자인은 이미 Figma 에 서 있으나 figma 필드에 적을 수 있는 이름이 없다. 소유자가 「템플릿(패턴 보드) 9종이 표면 대응으로 셈되는가, 아니면 51 컴포넌트만인가」를 정하면 이 표면은 곧바로 figma 또는 needed 로 확정된다. 덧붙여 EYEBROW 상수는 LOUIS Badge 를 의도적으로 채택하지 않은 자리라(주석에 여덟 축이 갈린다고 적혀 있다) 컴포넌트로 세운다면 Badge 변형이 아니라 별도 알약 라벨이어야 한다.",
+      "verdict": "figma",
+      "figma": "auth-two-panel",
+      "reason": "로그인 전 여덟 화면 중 다섯이 쓰는 두 패널 셸이다(좌측 브랜드 패널 + 우측 카드: eyebrow 알약 · heading-28 제목 · body-16 설명 · children 슬롯). Figma 대응물은 51개 «컴포넌트» 가 아니라 되읽기 templates 의 auth-two-panel «패턴 보드»이고, scripts/lib/product-files.mjs 의 PRODUCT_FILES.authStatusCard 가 이 파일을 바로 그 패턴의 실측 정본으로 고정한다. DS-D-0039 가 패턴 보드를 대응으로 세기로 정해 unclear 에서 내려왔다. 셸까지만 계약이라는 점은 그대로다 — requiredParts 의 폼 자리는 `Form (children)` 슬롯이고, 그 슬롯을 채우는 플로팅 라벨 입력 벌은 별 표면으로 needed 에 남아 있다.",
       "weight": null
     },
     "apps/web/components/banners/HomeBannerSlide.tsx#HomeBannerSlide": {
@@ -1053,10 +1054,10 @@
       "file": "apps/web/components/landing/navigation/Gnb.tsx",
       "binding": "default",
       "louis": [],
-      "verdict": "needed",
-      "figma": null,
-      "reason": "Figma 에 서 있는 것은 GnbMenuItem(항목) 하나뿐이고 바 자체가 없다 — 프로그레시브 블러 헤더 · 로고 · 3열 그리드 · light/black 두 톤 · 상단 CTA · 커뮤니티 드롭다운 · 719px 아래 풀스크린 모바일 메뉴가 전부 이 표면에 있다. AppTopBar 는 앱 셸용이라 다른 벌이다. 마케팅 라우트 넷(랜딩·가격·블로그·템플릿)이 공유한다.",
-      "weight": "high"
+      "verdict": "figma",
+      "figma": "landing-shell",
+      "reason": "마케팅 라우트 넷(랜딩·가격·블로그·템플릿)이 공유하는 랜딩 헤더다. 51개 컴포넌트에는 GnbMenuItem(항목) 하나뿐이라 「바 자체가 없다」로 needed 였는데, 바는 되읽기 templates 의 landing-shell «패턴 보드»로 이미 서 있다 — design/patterns/landing-shell.md 의 Anatomy 여섯(Blur plate · Header wrapper · Nav rail · Menu list · Actions · Fullscreen menu)이 이 파일의 구성 그대로이고, 되읽기 값도 그 문서의 Layout contract 와 축마다 일치한다(headerHeight 56 · compactHeaderHeight 62 · railColumnCount 3 → compact 2 · menuGap 16 · menuItemCount 5 · menuLinkHeight 28 · menuLinkPaddingInline 12 · menuLinkRadius 999 · actionsGap 8 · hamburgerSize 38 · blurPlateHeight 120). scripts/measure-product-components.mjs 의 landing-shell 탐침 여덟이 전부 `from: [\"landingGnb\", …]` 로 이 파일을 읽는다 — 이름이 닮아서가 아니라 같은 파일을 재고 있다. 남는 것은 톤 반전(light/black)과 커뮤니티 드롭다운이 보드의 stateFrames 둘(≤719 · ≥720)에 없다는 것이고, 그것이 패턴 대응이 컴포넌트 대응보다 약한 증거인 이유다(DS-D-0039).",
+      "weight": null
     },
     "apps/web/components/landing/sections/BlogComingSoon.tsx#BlogComingSoon": {
       "file": "apps/web/components/landing/sections/BlogComingSoon.tsx",
@@ -1401,9 +1402,9 @@
       "louis": [
         "louis-blur-surface"
       ],
-      "verdict": "unclear",
-      "figma": null,
-      "reason": "앱 셸 전체다(5639줄) — 레일 · 브랜드 행 · 내비 행 · 업그레이드 CTA · 상단 바 · 프로필 팝오버(크레딧 바 + 링 게이지) · 프로젝트 저장 상태. 이 조립은 Figma 에 이미 있는데 51개 «컴포넌트» 가 아니라 templates 의 app-shell «템플릿»이고(1440 씬 · 레일 280/56 · Collapsed·Compact drawer open·Expanded 세 상태 프레임 · requiredParts 12), 부품은 SidebarBrand · SidebarCta · SidebarNavItem · SidebarNavRow · AppTopBar · Avatar · Menu · MenuPanel · ProgressRing · ProgressBar 로 이미 서 있으며 이 파일의 클래스 맵이 그 LOUIS recipe 들을 직접 문다. 그래서 「이미 있다」와 「셸이라 범위 밖」과 「컴포넌트로는 없다」가 전부 성립한다. AuthStatusCard 와 같은 축이다 — 소유자가 템플릿을 대응으로 셈할지 정하면 풀린다. 정하기 전에 억지로 scoped 로 넘기면 제품에서 가장 큰 화면 표면이 원장에서 사라진다.",
+      "verdict": "figma",
+      "figma": "app-shell",
+      "reason": "앱 셸 전체다(5639줄) — 레일 · 브랜드 행 · 내비 행 · 업그레이드 CTA · 상단 바 · 프로필 팝오버(크레딧 바 + 링 게이지) · 프로젝트 저장 상태. 이 조립은 Figma 에 이미 있는데 51개 «컴포넌트» 가 아니라 templates 의 app-shell «패턴 보드»이고(1440 씬 · 레일 280/56 · Collapsed·Compact drawer open·Expanded 세 상태 프레임 · requiredParts 12), 부품은 SidebarBrand · SidebarCta · SidebarNavItem · AppTopBar · Avatar · Menu · MenuPanel · ProgressRing · ProgressBar 로 이미 서 있다. DS-D-0039 가 패턴 보드를 대응으로 세기로 정해 이 표면이 unclear 에서 내려왔다 — 「컴포넌트 하나」로는 세울 수 없고 그것이 이 판정의 이유다. scripts/lib/product-files.mjs 의 PRODUCT_FILES.gnb 가 이 파일을 그 패턴의 실측 정본으로 고정한다. 패턴 대응은 컴포넌트 대응보다 약한 증거이므로(부품에 key 가 없어 집어다 쓸 인스턴스가 없다) 게이트가 두 수를 갈라 찍는다.",
       "weight": null
     },
     "apps/web/components/navigation/Gnb.tsx#GnbProfileAvatar": {
@@ -1637,17 +1638,17 @@
       "louis": [],
       "verdict": "scoped",
       "figma": null,
-      "reason": "지표 카드 행(metricCards)의 로딩 상태다. 그 행의 실물은 애널리틱스 씬 본문이 인라인으로 그리므로, 이 표면은 부모 표면(YoutubeAnalyticsScene·InstagramAnalyticsScene 의 지표 카드 행)의 상태 축에 속한다.",
+      "reason": "지표 카드 행의 로딩 상태다. DS-D-0040 의 시험 ③으로 보면 별 표면이 될 자리인데(그 행의 실물은 애널리틱스 씬 본문이 인라인으로 그린다) **앵커에서 이 표면은 한 번도 렌더되지 않는다** — 유일한 호출부가 ReportPrimaryBlockSkeleton 의 `metricCardsCount > 0 &&` 이고, 그 컴포넌트의 호출 네 곳(OverviewTab:242,243 · InstagramAnalyticsScene:1214,1215)이 전부 `metricCardsCount={0}` 을 넘긴다. 그리지 않는 것을 Figma 에 세울 수는 없으므로 범위 밖으로 둔다. 호출부가 0 이 아닌 값을 넘기는 날 이 판정은 needed 로 뒤집힌다.",
       "weight": null
     },
     "apps/web/components/scenes/analytics/shared.tsx#ReportKpiRowSkeleton": {
       "file": "apps/web/components/scenes/analytics/shared.tsx",
       "binding": "named",
       "louis": [],
-      "verdict": "scoped",
+      "verdict": "needed",
       "figma": null,
-      "reason": "KPI 카드 4열 행의 로딩 상태다. 실물은 apps/web/components/scenes/analytics/OverviewTab.tsx#AnalyticsOverviewTab 의 KPI 카드 행이므로 그 표면의 loading 상태로 다룬다.",
-      "weight": null
+      "reason": "KPI 카드 «넷의 행»을 자기 프레임 안에 갖는 합성 스켈레톤이다. DS-D-0040 의 시험 ③에 걸린다 — 본 상태의 그 행을 소유한 표면이 이 원장에 없다. 실물은 OverviewTab(:344 REPORT_KPI_ROW) · PerformanceTab · InstagramAnalyticsScene 이 각자 인라인으로 그리고, KpiCard 도 KpiRow 도 표면으로 서 있지 않다. 골격도 실제로 다르다 — 스켈레톤 카드는 REPORT_KPI_CARD 인데 실물 카드는 KPI_CARD_V2 로 바깥 헤더 + 안쪽 흰 박스(KPI_CARD_INNER) + 스파크라인 슬롯을 갖는다. 부모 탭의 Loading 축으로 접으면 그 탭 표면이 카드 넷의 행 골격을 통째로 갖게 된다. §2 의 4번(대시보드 카드 계열 정본 1벌)과 함께 닫힌다.",
+      "weight": "medium"
     },
     "apps/web/components/scenes/analytics/shared.tsx#ReportPrimaryBlockSkeleton": {
       "file": "apps/web/components/scenes/analytics/shared.tsx",
@@ -1655,7 +1656,7 @@
       "louis": [],
       "verdict": "scoped",
       "figma": null,
-      "reason": "지표 차트 카드의 로딩 상태로, 카드 곡률·패딩·헤더 자리를 그대로 두고 내용만 시머로 바꾼다. 부모 표면 apps/web/components/scenes/InstagramAnalyticsScene.tsx#IgAreaChartBlock 의 loading 상태다.",
+      "reason": "지표 차트 카드의 로딩 상태다. DS-D-0040 의 세 시험을 돌리면 축으로 남는다 — 블록 래퍼(REPORT_PRIMARY_BLOCK) · 헤더 행 · 지표 행 · 차트 자리의 순서가 실물과 같고(①), 배치도 같으며(②), 부모 표면 apps/web/components/scenes/InstagramAnalyticsScene.tsx#IgAreaChartBlock 이 원장에 있다(③). 실물과 갈린 두 축은 수렴 부채로 여기 남긴다 — 스켈레톤은 블록 맨 위에 SKELETON_BLOCK_EYEBROW 를 하나 더 그리고, 실물이 갖는 안쪽 흰 박스(PRIMARY_INNER_PANEL)를 그리지 않는다. 값을 채우면 사라질 차이가 아니라 실제로 다른 면이므로 Figma 에 Loading 축을 그릴 때 어느 쪽이 정본인지 먼저 정해야 한다.",
       "weight": null
     },
     "apps/web/components/scenes/analytics/shared.tsx#SidebarTabIcon": {
@@ -2705,10 +2706,10 @@
       "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/TextNode.tsx",
       "binding": "local",
       "louis": [],
-      "verdict": "scoped",
+      "verdict": "needed",
       "figma": null,
-      "reason": "`…/nodes/TextNode.tsx#TextNode` 의 LLM 결과 영역(스트리밍 본문 + 변형 카드 + 복사/글자수 행)이다. 부모 노드의 모드 변형 안에서만 존재하고 다른 곳에서 재사용되지 않는다.",
-      "weight": null
+      "reason": "텍스트 노드의 LLM 결과 영역이다. DS-D-0040 의 시험 ①에 걸린다 — 네 갈래가 자식의 «집합»을 서로 바꾼다: 생성 중(시머 면 + 64px 글리프 + 캡션) · 오류(LLM_ERROR 문단) · 변형 선택(LLM_VARIANT_CARD 를 variants.map 으로 «N개» 반복 + 스타일 배지 + 확장 글리프) · 결과(높이 자동확장 textarea + 복사/글자수 행). 그중 변형 카드는 본 상태에 없던 종류의 자식이고 개수가 데이터로 정해진다. 그 카드를 소유한 표면도 따로 없다 — PromptVariantCompareModal 은 카드가 아니라 2열 비교 본문이다. 부모 TextNode 의 State 축으로 접으면 그 축이 반복 목록을 통째로 갖게 되므로 별 표면이다. §2 의 1번(노드 카드 한 벌 + 타입 축)과 같은 삽에서 그린다.",
+      "weight": "high"
     },
     "apps/web/components/scenes/create/node-canvas-v2/nodes/TextNode.tsx#TextNode": {
       "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/TextNode.tsx",

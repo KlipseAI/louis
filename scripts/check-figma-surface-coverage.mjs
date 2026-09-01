@@ -38,6 +38,23 @@
 // `mapped` 도 정확히 일치해야 한다 — 떨어지면 커버리지가 후퇴한 것이고, 오르면 올려라.
 // `total` 은 바닥만 지킨다. 표면을 통째로 지워서 분모를 줄이는 길을 막는 두 번째 그물이다.
 //
+// ── 왜 「대응」이 한 수가 아닌가 (2026-09-01, DS-D-0039) ──────────────────
+// `figma` 에 적을 수 있는 이름은 되읽기의 `components` 51 **와** `templates` 9 둘 다다 —
+// 패턴 보드 대응도 대응으로 센다. 세지 않으면 `Gnb`(앱 셸 5,639줄)처럼 **이미 그려져 있는데
+// 셈할 어휘가 없는** 표면이 「그려야 한다」 목록에 영구히 앉아 그 목록을 틀린 항목으로
+// 오염시킨다. 읽는 사람을 틀리게 만드는 판정은 판정이 아니다.
+//
+// **그런데 두 대응은 무게가 다르다.** 컴포넌트 대응은 `verify-figma-parity` 가 계약 ↔ Figma 를
+// 양방향으로 잠그고 DS-D-0035 의 (a)(b)(c) 를 통과하면 `done` 까지 가지만, 패턴은 여덟 전부
+// `figma: partial` 이라 지금 구조상 `done` 에 닿지 못한다. 패턴이 계약하는 것은
+// `requiredParts` — 부품 **이름의 목록**이라 집어다 쓸 인스턴스가 없고(재사용이 없다),
+// 패턴 하나를 여러 표면이 가리킬 수 있어(n:1) 대응 수는 오르는데 그려진 것은 하나도 늘지
+// 않는다.
+//
+// 그래서 **한 수로 합치지 않는다.** 합계에 래칫을 걸고, **컴포넌트 대응 수에도 같은 래칫을
+// 건다** — 합계만 잠그면 컴포넌트 대응을 패턴 대응으로 바꿔치기해도 수가 유지되어 후퇴가
+// 보이지 않는다. 인쇄도 갈라서, 한 수만 읽고도 「패턴으로 퉁쳤다」를 놓치지 않게 한다.
+//
 // **`needed` 는 늘어도 실패시키지 않는다.** 늘어난 것은 후퇴가 아니라 발견이다 — 아직
 // 안 본 표면을 열어 보고 「이건 그려야 한다」를 적은 결과이고, 그것을 실패로 만들면 다음
 // 사람은 열어 보지 않는 쪽을 고른다. 줄어드는 방향이 목표이므로 수만 인쇄한다.
@@ -63,11 +80,16 @@ const readJson = (relative) => JSON.parse(readFileSync(resolve(repoRoot, relativ
 const LEDGER = "migration/product.surfaces.json";
 const READBACK = "figma/readback.json";
 
-// 2026-09-01 실측(판정 병합 후). 표면 400종 중 figma 15 · scoped 213 · needed 160 ·
-// unclear 12 · 미분류 0. 미분류를 새 위반으로 늘리려고 이 수를 올리지 마라 —
+// 2026-09-01 실측(DS-D-0039 · DS-D-0040 적용 후). 표면 400종 중 figma 18 · scoped 211 ·
+// needed 161 · unclear 10 · 미분류 0. 미분류를 새 위반으로 늘리려고 이 수를 올리지 마라 —
 // 이 저장소의 baseline 규칙이다.
 const UNCLASSIFIED_BASELINE = 0;
-const MAPPED_BASELINE = 15;
+// 대응 합계. 컴포넌트 15 + 패턴 3(app-shell ← Gnb · auth-two-panel ← AuthStatusCard ·
+// landing-shell ← landing/navigation/Gnb).
+const MAPPED_BASELINE = 18;
+// **합계와 따로 잠근다.** 컴포넌트 대응을 패턴 대응으로 바꿔치기하면 합계는 그대로인데
+// 재사용할 인스턴스가 사라진다 — 이 수가 그 후퇴를 잡는 유일한 그물이다.
+const MAPPED_COMPONENT_BASELINE = 15;
 const TOTAL_FLOOR = 400;
 
 // 판정 어휘. 여기 없는 낱말은 판정이 아니라 오타이고, 오타는 조용히 `unclassified` 밖으로
@@ -87,14 +109,29 @@ const errors = [];
 const ledger = readJson(LEDGER);
 const readback = readJson(READBACK);
 
-// Figma 어휘. 컴포넌트 51 + 템플릿 9. 여기에 없는 이름을 적는 것은 「있다고 적었지만
+// Figma 어휘. 컴포넌트 51 + 패턴 보드 9. 여기에 없는 이름을 적는 것은 「있다고 적었지만
 // 파일에 없다」는 뜻이고, 그것이 원장을 낡게 만드는 방식 그 자체다.
-const vocabulary = new Set([
-  ...Object.keys(readback.components ?? {}),
-  ...Object.keys(readback.templates ?? {}),
-]);
-if (vocabulary.size === 0) {
-  errors.push(READBACK + " 에서 Figma 컴포넌트·템플릿 이름을 하나도 읽지 못했습니다.");
+//
+// **두 사전을 합치지 않고 따로 든다.** 합집합 하나로 만들면 대응이 어느 쪽에서 왔는지가
+// 그 자리에서 사라지고, 그러면 컴포넌트 대응과 패턴 대응을 갈라 셀 수 없다(DS-D-0039).
+// 사람이 새로 적을 필드는 없다 — 그 정보는 이미 되읽기가 갖고 있다.
+const componentVocabulary = new Set(Object.keys(readback.components ?? {}));
+const patternVocabulary = new Set(Object.keys(readback.templates ?? {}));
+if (componentVocabulary.size === 0) {
+  errors.push(READBACK + " 에서 Figma 컴포넌트 이름을 하나도 읽지 못했습니다.");
+}
+if (patternVocabulary.size === 0) {
+  errors.push(READBACK + " 에서 Figma 패턴 보드(templates) 이름을 하나도 읽지 못했습니다.");
+}
+// 두 사전에 같은 이름이 있으면 그 대응이 어느 쪽인지 기계가 정할 수 없고, 갈라 센 두 수가
+// 조용히 어긋난다. 지금은 겹치지 않으므로(PascalCase ↔ kebab-case) 겹치는 날 멈춘다.
+for (const name of componentVocabulary) {
+  if (patternVocabulary.has(name)) {
+    errors.push(
+      READBACK + ": `" + name + "` 이 components 와 templates 양쪽에 있습니다. " +
+        "대응을 컴포넌트/패턴으로 가를 수 없으므로 한쪽 이름을 바꾸세요.",
+    );
+  }
 }
 
 // 규칙이 파일 안에 남아 있는지. 입자도 규칙이 사라지면 이 수들은 다시 의미를 잃는다 —
@@ -111,11 +148,24 @@ if (typeof ledger.$verdictRule !== "string" || ledger.$verdictRule.length < 40) 
   );
 }
 
+// 상태 축 규칙도 같은 이유로 파일 안에 있어야 한다(DS-D-0040). 「한 컴포넌트의 여러 시각
+// 상태는 표면 1개」는 규칙 없이 적으면 판정이 아니라 느낌이다 — 이 저장소는 그 한 줄만 두고
+// `scoped` 27건을 그 미결에 매달아 둔 적이 있다. 규칙이 사라지면 다음 사람은 합성 스켈레톤을
+// 다시 부모의 Loading 축으로 접거나, 반대로 상태마다 컴포넌트를 세워 같은 카드를 셋으로 가른다.
+if (typeof ledger.$stateRule !== "string" || ledger.$stateRule.length < 40) {
+  errors.push(
+    LEDGER + " 에 상태 축 규칙($stateRule)이 없습니다. 「골격이 다르면 별 표면」의 시험이 " +
+      "파일 안에 없으면 상태 판정은 사람마다 달라집니다.",
+  );
+}
+
 const surfaces = ledger.surfaces ?? {};
 const ids = Object.keys(surfaces);
 if (ids.length === 0) errors.push(LEDGER + " 에 표면이 하나도 없습니다.");
 
 let mapped = 0;
+let mappedComponent = 0;
+let mappedPattern = 0;
 let scoped = 0;
 let needed = 0;
 let unclear = 0;
@@ -198,11 +248,18 @@ for (const id of ids) {
   }
 
   if (verdict === "figma") {
-    if (typeof surface.figma !== "string" || !vocabulary.has(surface.figma)) {
+    const name = typeof surface.figma === "string" ? surface.figma : null;
+    const isComponent = name !== null && componentVocabulary.has(name);
+    const isPattern = name !== null && patternVocabulary.has(name);
+    if (!isComponent && !isPattern) {
       errors.push(
-        at + ": figma 이름이 " + READBACK + " 에 없습니다: " + String(surface.figma) +
-          ". 되읽기에 없는 이름은 「Figma 에 있다」의 근거가 되지 못합니다.",
+        at + ": figma 이름이 " + READBACK + " 의 components 51 에도 templates 9 에도 없습니다: " +
+          String(surface.figma) + ". 되읽기에 없는 이름은 「Figma 에 있다」의 근거가 되지 못합니다.",
       );
+    } else if (isComponent) {
+      mappedComponent += 1;
+    } else {
+      mappedPattern += 1;
     }
     mapped += 1;
     continue;
@@ -261,6 +318,22 @@ if (mapped < MAPPED_BASELINE) {
   );
 }
 
+// 합계와 «따로» 잠근다. 대응 하나를 컴포넌트에서 패턴으로 옮기면 합계는 움직이지 않지만
+// 집어다 쓸 인스턴스가 사라진다 — 그 교환이 조용히 지나가는 것을 막는 자리다.
+if (mappedComponent < MAPPED_COMPONENT_BASELINE) {
+  errors.push(
+    "컴포넌트 대응이 " + (MAPPED_COMPONENT_BASELINE - mappedComponent) + "개 줄었습니다 " +
+      "(" + MAPPED_COMPONENT_BASELINE + " → " + mappedComponent + "). 패턴 대응이 대신 늘어 " +
+      "합계가 유지되더라도 후퇴입니다 — 패턴 보드에는 집어다 쓸 인스턴스가 없습니다(DS-D-0039).",
+  );
+} else if (mappedComponent > MAPPED_COMPONENT_BASELINE) {
+  errors.push(
+    "컴포넌트 대응이 " + (mappedComponent - MAPPED_COMPONENT_BASELINE) + "개 늘었습니다 " +
+      "(" + MAPPED_COMPONENT_BASELINE + " → " + mappedComponent + "). 이 파일의 " +
+      "MAPPED_COMPONENT_BASELINE 을 " + mappedComponent + " 로 올려 이득을 잠그세요.",
+  );
+}
+
 if (ids.length < TOTAL_FLOOR) {
   errors.push(
     "표면 총수가 바닥 아래로 내려갔습니다 (" + TOTAL_FLOOR + " → " + ids.length + "). " +
@@ -280,16 +353,30 @@ if (errors.length > 0) {
 const target = ids.length - scoped;
 const percentAll = ((mapped / ids.length) * 100).toFixed(1);
 const percentTarget = target > 0 ? ((mapped / target) * 100).toFixed(1) : "0.0";
+const percentComponentAll = ((mappedComponent / ids.length) * 100).toFixed(1);
+const percentComponentTarget =
+  target > 0 ? ((mappedComponent / target) * 100).toFixed(1) : "0.0";
 console.log(
   "Figma 표면 커버리지: 표면 " + ids.length + "종 · 대응 " + mapped +
+    " = 컴포넌트 " + mappedComponent + " + 패턴 " + mappedPattern +
     " (전체 대비 " + percentAll + "% · 대상 대비 " + percentTarget + "% / 대상 " + target + ") · " +
     "범위 밖 " + scoped + " · 필요 " + needed +
     "(high " + neededByWeight.high + " · medium " + neededByWeight.medium +
     " · low " + neededByWeight.low + ") · 판단 대기 " + unclear +
     " · 사유 없음 " + unclassified + ".",
 );
+// 패턴 대응을 뺀 수를 나란히 찍는다. 첫 줄만 읽어도 대응 합계 안에 패턴이 몇인지는 보이지만,
+// **비율까지 갈라 두지 않으면** 「대상 대비 N%」 한 수만 인용돼 컴포넌트 커버리지로 읽힌다 —
+// 이 저장소가 손으로 센 원장에서 당한 실패가 정확히 그 모양이다.
+console.log(
+  "  컴포넌트 대응만 세면 " + mappedComponent +
+    " (전체 대비 " + percentComponentAll + "% · 대상 대비 " + percentComponentTarget + "%). " +
+    "패턴 " + mappedPattern + "건은 보드 대응이라 「Figma 에 있다」까지이고 " +
+    "「컴포넌트로 서 있다」가 아니다 — 부품에 key 가 없어 집어다 쓸 인스턴스가 없다(DS-D-0039).",
+);
 console.log(
   "  필요 " + needed + "건은 늘어도 실패하지 않는다 — 발견이지 후퇴가 아니다. 줄이는 것이 목표다. " +
     "판단 대기 " + unclear + "건은 소유자만 줄일 수 있다. " +
-    "입자도 규칙은 " + LEDGER + " 의 $granularityRule, 판정 규칙은 $verdictRule 이 소유한다.",
+    "입자도 규칙은 " + LEDGER + " 의 $granularityRule, 판정 규칙은 $verdictRule, " +
+    "상태 축 규칙은 $stateRule 이 소유한다.",
 );

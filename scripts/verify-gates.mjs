@@ -270,6 +270,45 @@ withCanary(
   "판정 규칙($verdictRule)이 없습니다",
 );
 
+// ── 패턴 대응 카나리아 셋 (2026-09-01, DS-D-0039 · DS-D-0040) ─────────────
+// 대응 어휘가 컴포넌트 51 에서 **컴포넌트 51 + 패턴 보드 9** 로 넓어졌고, 상태 축 규칙이
+// 원장 안으로 들어왔다. 넓어진 문마다 빠져나갈 구멍이 하나씩 생긴다 — 셋을 막는다.
+
+// 패턴 이름도 되읽기에 실재해야 한다. 컴포넌트 이름만 검증하고 패턴은 통과시키면
+// 「패턴 보드에 있다」가 아무 문자열이나 적어도 되는 자리가 된다 — 원장이 낡는 바로 그 방식이다.
+withCanary(
+  "migration/product.surfaces.json",
+  (source) =>
+    source.replace('"figma": "app-shell"', '"figma": "app-shell-that-is-not-in-figma"'),
+  "figma surface coverage unknown pattern name",
+  "scripts/check-figma-surface-coverage.mjs",
+  "figma 이름이",
+);
+
+// **합계는 그대로인데 후퇴한 경우.** 컴포넌트 대응 하나를 패턴 대응으로 바꾸면 `mapped` 는
+// 18 에서 움직이지 않지만 집어다 쓸 인스턴스가 하나 사라진다. 합계 래칫만 있으면 조용하다.
+withCanary(
+  "migration/product.surfaces.json",
+  (source) => source.replace('"figma": "Tooltip"', '"figma": "app-shell"'),
+  "figma surface coverage component mapping swapped for pattern",
+  "scripts/check-figma-surface-coverage.mjs",
+  "컴포넌트 대응이",
+);
+
+// 상태 축 규칙이 파일에서 사라지면 「골격이 다르면 별 표면」의 시험이 사라진다 — 다음 사람은
+// 합성 스켈레톤을 다시 부모의 Loading 축으로 접거나, 반대로 상태마다 컴포넌트를 세운다.
+withCanary(
+  "migration/product.surfaces.json",
+  (source) => {
+    const ledger = JSON.parse(source);
+    delete ledger.$stateRule;
+    return JSON.stringify(ledger, null, 2) + "\n";
+  },
+  "figma surface coverage missing state rule",
+  "scripts/check-figma-surface-coverage.mjs",
+  "상태 축 규칙($stateRule)이 없습니다",
+);
+
 withCanary(
   "design/components/button.md",
   (source) =>

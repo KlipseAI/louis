@@ -39,6 +39,7 @@ if (!existsSync(resolve(productRoot, ".git"))) {
 }
 
 const actual = readTree(lock.productRef);
+const behind = countBehind(lock.productCommit, lock.productRef);
 if (actual) failures.push(...compare(actual));
 
 // 변조 canary. 판정 기준은 "변조가 baseline에 없던 실패를 새로 만드는가"다 — 이미 실패가 있는
@@ -140,6 +141,85 @@ if (actual) {
       );
     }
   }
+
+  // ── 앵커 이후 제품에 **새로 생긴** 파일 ──────────────────────────────────
+  //
+  // 위의 두 검사는 「lock 에 있는 파일」과 「인용된 파일」만 본다. 둘 다 이미 이름을 아는
+  // 파일이라, 제품에 **새 파일이 생기는 것**에는 구조상 침묵한다. 2026-09-01 원장
+  // `lock-anchor-hides-143-files` 가 그것을 셌다: 앵커 이후 바뀐 제품 `.tsx` 67개 중 43개가
+  // 어떤 게이트에도 보이지 않고, 그중 새로 만들어진 것들은 lock 에 이름이 없으므로
+  // **영원히** 보이지 않는다. 낡은 앵커가 낡았다는 사실 자체를 아무도 재지 않았다.
+  //
+  // 그래서 절대수 래칫을 둔다. 허용치는 0 이다 — baseline 을 두면 그 숫자만큼의 낙후가
+  // 숨을 자리가 생기고, 이 저장소가 baseline 을 절대 위로 재생성하지 않는 이유와 같다.
+  // 0 은 도달 불가능한 값이 아니다: `pnpm run build-product-evidence` 가 lock 을 다시 박는
+  // 순간 앵커와 배포 ref 가 같아져 이 수는 정의상 0 이 된다(아래 두 번째 canary 가 그것을
+  // 매 실행 증명한다).
+  //
+  // 세는 대상을 `.tsx`/`.css` 로 한정한 것은 의도다. 같은 구간의 신규 파일 전체는 API
+  // 라우트·설정·스크립트를 포함해 훨씬 크고, 이 저장소가 재는 것은 화면의 모양이다.
+  //
+  // **지금 이 수를 0 으로 만들려고 앵커를 옮기지 말 것.** 재고정은 제품 워킹트리가 깨끗할 때
+  // lock 갱신과 한 커밋으로 하는 별건이다 — 더러운 워킹트리에서 뜬 실측은 오염된다.
+  const NEW_FILE_ALLOWANCE = 0;
+  const anchorTree = readTree(lock.productCommit);
+  if (anchorTree) {
+    const watchable = (file) =>
+      file.startsWith("apps/web/") && /\.(tsx|css)$/.test(file);
+    const collectUnseen = (deployed, anchored) =>
+      [...deployed.keys()]
+        .filter((file) => watchable(file) && !anchored.has(file) && !locked.has(file))
+        .sort();
+    const describeUnseen = (unseen) => {
+      if (unseen.length <= NEW_FILE_ALLOWANCE) return [];
+      const shown = unseen.slice(0, 12);
+      const rest = unseen.length - shown.length;
+      return [
+        "앵커 이후 제품에 새로 생긴 " +
+          unseen.length +
+          "개의 .tsx/.css 가 lock 밖에 있습니다(허용 " +
+          NEW_FILE_ALLOWANCE +
+          "개). 이 파일들은 이 저장소의 어떤 게이트에도 보이지 않습니다 — 이름이 없으므로 " +
+          "blob 대조도 인용 대조도 닿지 않습니다: " +
+          shown.join(", ") +
+          (rest > 0 ? " 외 " + rest + "개" : "") +
+          ". 앵커 " +
+          lock.productCommit.slice(0, 8) +
+          " 가 배포 ref `" +
+          lock.productRef +
+          "` 보다 " +
+          (behind === null ? "여러" : behind) +
+          "커밋 낡았다는 뜻입니다. `pnpm run build-product-evidence` 로 lock 을 다시 박으면 " +
+          "이 수는 0 이 됩니다 — 다만 재고정은 제품 워킹트리가 깨끗할 때 하는 별건입니다.",
+      ];
+    };
+
+    const unseen = collectUnseen(actual, anchorTree);
+    const unseenFailures = describeUnseen(unseen);
+    failures.push(...unseenFailures);
+
+    // canary 둘. 하나는 검출력을, 하나는 **초록에 도달할 수 있음**을 증명한다.
+    // 두 번째가 없으면 이 래칫은 구조상 영원히 빨간 게이트와 구별되지 않는다.
+    const unseenBaseline = new Set(unseenFailures);
+    const tampered = new Map(actual);
+    tampered.set("apps/web/components/this-file-was-added-after-the-anchor.tsx", "0".repeat(40));
+    const introduced = describeUnseen(collectUnseen(tampered, anchorTree)).filter(
+      (item) => !unseenBaseline.has(item),
+    );
+    if (introduced.length === 0) {
+      failures.push(
+        unseenBaseline.size === 0
+          ? "canary가 변조를 잡지 못했습니다: 앵커 이후 새로 생긴 파일"
+          : "canary의 검출력을 증명하지 못했습니다 — 기존 실패에 가려집니다: 앵커 이후 새로 생긴 파일",
+      );
+    }
+    if (collectUnseen(actual, actual).length !== 0) {
+      failures.push(
+        "재고정 직후에도 이 래칫이 0 이 되지 않습니다. 허용치 0 이 도달 불가능한 값이라면 " +
+          "그것은 낙후가 아니라 계산이 틀린 것입니다.",
+      );
+    }
+  }
 }
 
 for (const failure of failures) console.error("[product-evidence] " + failure);
@@ -183,6 +263,21 @@ function compare(tree) {
       );
   }
   return found;
+}
+
+// 앵커가 배포 ref 보다 몇 커밋 뒤인지. 진단에만 쓰므로 실패하면 조용히 null 을 준다 —
+// 여기서 게이트를 죽이면 정작 세려던 낙후를 못 보고 끝난다.
+function countBehind(from, to) {
+  try {
+    return Number(
+      execFileSync("git", ["rev-list", "--count", from + ".." + to], {
+        cwd: productRoot,
+        encoding: "utf8",
+      }).trim(),
+    );
+  } catch {
+    return null;
+  }
 }
 
 function readTree(ref) {

@@ -921,8 +921,8 @@ scale 넷을 200ms · 180ms 로 전이시키므로 닫힘과 열림 사이에 Sm
 
 **이름이 열렸다는 것이 「`Loading` 은 늘 축」이라는 뜻은 아니다.** 이 표는 **어휘**를 여는 것이고,
 축이냐 BOOLEAN 이냐는 컴포넌트마다 네 시험이 정한다. 라벨을 감추고 스피너를 보이기만 하고
-프레임이 자기 값을 다시 쓰지 않으면 그 자리는 여전히 BOOLEAN 이다 — Button 이 그 판정을 아직
-받지 않았다(아래 「이 개정이 남긴 결손」 3).
+프레임이 자기 값을 다시 쓰지 않으면 그 자리는 여전히 BOOLEAN 이다 — **Button 은 2026-09-01 에
+그 판정을 받았고 조건 축이 아니라 `State` 값으로 남았다**(아래 「이 개정이 남긴 결손」 3).
 
 ##### 조건을 `State` 값으로 접어도 되는 때
 
@@ -1031,7 +1031,8 @@ Slider 의 `thumb`/`track` 이 `Variant` 축에 들어가 있다. 부품은 vari
 
 ##### 이 개정이 남긴 결손
 
-규칙은 섰지만 **대조되지 않은 것**이 넷 있다. 지어내지 않고 여기 적어 둔다.
+규칙은 섰지만 **대조되지 않은 것**이 넷 있었다. 지어내지 않고 여기 적어 둔다.
+**3 은 2026-09-01 에 닫혔다** — 항목을 지우지 않고 판정을 이어 붙인다.
 
 1. **`Surface` 값의 방향이 확인되지 않았다.** 위에서 `light` 를 「밝은 면 위」로 못박았지만,
    GnbMenuItem 의 두 변형 중 어느 쪽이 어느 색에 묶여 있는지는 되읽기로 알 수 없다 —
@@ -1040,12 +1041,28 @@ Slider 의 `thumb`/`track` 이 `Variant` 축에 들어가 있다. 부품은 vari
 2. **MediaCard `Badge` 축 폐기는 Figma 재작업을 요구한다.** 이 문서는 판정만 내렸고 파일은
    손대지 않았다. `Badge` VARIANT 3값을 지우고 `Badge` BOOLEAN + `BadgeLabel` TEXT 로 다시
    세우는 작업, 그리고 그 컴포넌트를 쓰는 인스턴스의 재바인딩이 남는다.
-3. **Button `Loading` 이 가시성만 바꾸는지 대조하지 않았다.** 라벨을 감추고 스피너를 보이는
+3. ~~**Button `Loading` 이 가시성만 바꾸는지 대조하지 않았다.**~~ 라벨을 감추고 스피너를 보이는
    것뿐이면 BOOLEAN 이 맞지만, 그 상태에서 padding·gap 이 다시 쓰이는지 확인하지 않았다.
-   **이 결손은 2026-08-27 에도 남아 있다.** 같은 날 InlineLoadingLabel 이 `Loading` 을 조건 축
-   명부에 올렸지만 그것은 **그 컴포넌트의 실측**(프레임 `itemSpacing` 0 ↔ 6·4)에서 나온 판정이고,
-   Button 의 되읽기에는 `State=Loading` 의 padding·gap 이 담겨 있지 않다. 이름이 열린 것을 Button
-   판정으로 읽지 마라.
+   같은 날 InlineLoadingLabel 이 `Loading` 을 조건 축 명부에 올렸지만 그것은 **그 컴포넌트의
+   실측**(프레임 `itemSpacing` 0 ↔ 6·4)에서 나온 판정이고, Button 의 되읽기에는 `State=Loading`
+   의 padding·gap 이 담겨 있지 않았다. 이름이 열린 것을 Button 판정으로 읽지 마라.
+
+   **2026-09-01 판정 — `State` 값으로 유지한다. 조건 축이 아니다.** 근거 둘.
+
+   - **접기 시험을 통과한다.** `button.tsx` 가 loading 에 `aria-disabled="true"` 를 붙이고,
+     `button.css` 의 hover·active 규칙이 전부 `:where(:not([aria-disabled="true"]):not(:disabled))`
+     로 막혀 있다. loading 이 켜진 채로 `Hover`·`Active` 가 시각적으로 달라지지 않는다 —
+     조건이 상호작용을 흡수한다.
+   - **시험 2(기하)에 걸리지 않는다.** `[data-loading="true"]` 가 바꾸는 선언은 라벨
+     `opacity: 0.6` **하나뿐**이다(`button.css` 의 `[data-loading="true"]` 규칙). 프레임이 자기 padding·gap 을 다시 쓰지
+     않는다. `column-gap` 은 lg·md·sm 세 칸 모두 `space-control-xs`(4) 단일이다.
+
+   **시험에 걸린 것처럼 보이게 만든 것은 Figma 였다.** 라이브 300칸을 전수로 읽으니 `itemSpacing`
+   6 이 정확히 40 칸 — `State=Loading` × `Size∈{lg, md}` × variant 5 × icon 4 — 에 있었고, 코드에
+   근거가 없는 값이었다(4 도 8 도 아니다). 같은 날 40 칸을 4 로 옮기고 되읽기를 맞췄다.
+   **되읽기에 `State=Loading` 의 padding·gap 이 담겨 있지 않다는 위 문장은 여전히 참이다** —
+   snapshot 은 size 별 집계라 칸을 보존하지 않는다. 이번 판정은 되읽기가 아니라 **라이브 전수
+   순회**로 냈다. 다음에 같은 종류의 결손을 닫을 때도 집계로는 닫히지 않는다.
 4. **`Mode` 축의 값 명부가 ProgressBar 하나에서 나왔다.** 두 번째 소비처가 생기기 전까지
    `determinate`·`indeterminate` 밖의 값은 근거가 없다. 그리고 Switch 는 `Disabled` 를 조건
    축으로 갖고 `State` 축이 아예 없다 — 상호작용 상태는 `State` 가 소유하므로 어긋나지만,

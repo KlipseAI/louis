@@ -1699,20 +1699,20 @@
               "$value": {
                 "colorSpace": "srgb",
                 "components": [
-                  0.890196,
-                  0.894118,
-                  0.909804
+                  0.815686,
+                  0.819608,
+                  0.835294
                 ],
-                "hex": "#e3e4e8"
+                "hex": "#d0d1d5"
               },
               "aliasTarget": null,
               "resolvedValue": {
                 "alpha": 1,
                 "colorSpace": "srgb",
                 "components": [
-                  0.890196,
-                  0.894118,
-                  0.909804
+                  0.815686,
+                  0.819608,
+                  0.835294
                 ]
               },
               "sourcePath": "primitive.color.palette-gray.200"
@@ -1738,20 +1738,20 @@
               "$value": {
                 "colorSpace": "srgb",
                 "components": [
-                  0.792157,
-                  0.803922,
-                  0.827451
+                  0.694118,
+                  0.705882,
+                  0.729412
                 ],
-                "hex": "#cacdd3"
+                "hex": "#b1b4ba"
               },
               "aliasTarget": null,
               "resolvedValue": {
                 "alpha": 1,
                 "colorSpace": "srgb",
                 "components": [
-                  0.792157,
-                  0.803922,
-                  0.827451
+                  0.694118,
+                  0.705882,
+                  0.729412
                 ]
               },
               "sourcePath": "primitive.color.palette-gray.300"
@@ -1777,20 +1777,20 @@
               "$value": {
                 "colorSpace": "srgb",
                 "components": [
-                  0.698039,
-                  0.713725,
-                  0.74902
+                  0.580392,
+                  0.596078,
+                  0.627451
                 ],
-                "hex": "#b2b6bf"
+                "hex": "#9498a0"
               },
               "aliasTarget": null,
               "resolvedValue": {
                 "alpha": 1,
                 "colorSpace": "srgb",
                 "components": [
-                  0.698039,
-                  0.713725,
-                  0.74902
+                  0.580392,
+                  0.596078,
+                  0.627451
                 ]
               },
               "sourcePath": "primitive.color.palette-gray.400"
@@ -1816,20 +1816,20 @@
               "$value": {
                 "colorSpace": "srgb",
                 "components": [
-                  0.603922,
-                  0.627451,
-                  0.670588
+                  0.466667,
+                  0.486275,
+                  0.529412
                 ],
-                "hex": "#9aa0ab"
+                "hex": "#777c87"
               },
               "aliasTarget": null,
               "resolvedValue": {
                 "alpha": 1,
                 "colorSpace": "srgb",
                 "components": [
-                  0.603922,
-                  0.627451,
-                  0.670588
+                  0.466667,
+                  0.486275,
+                  0.529412
                 ]
               },
               "sourcePath": "primitive.color.palette-gray.500"
@@ -1855,20 +1855,20 @@
               "$value": {
                 "colorSpace": "srgb",
                 "components": [
-                  0.458824,
-                  0.482353,
-                  0.521569
+                  0.360784,
+                  0.384314,
+                  0.423529
                 ],
-                "hex": "#757b85"
+                "hex": "#5c626c"
               },
               "aliasTarget": null,
               "resolvedValue": {
                 "alpha": 1,
                 "colorSpace": "srgb",
                 "components": [
-                  0.458824,
-                  0.482353,
-                  0.521569
+                  0.360784,
+                  0.384314,
+                  0.423529
                 ]
               },
               "sourcePath": "primitive.color.palette-gray.600"
@@ -1894,20 +1894,20 @@
               "$value": {
                 "colorSpace": "srgb",
                 "components": [
-                  0.321569,
-                  0.341176,
-                  0.380392
+                  0.266667,
+                  0.286275,
+                  0.32549
                 ],
-                "hex": "#525761"
+                "hex": "#444953"
               },
               "aliasTarget": null,
               "resolvedValue": {
                 "alpha": 1,
                 "colorSpace": "srgb",
                 "components": [
-                  0.321569,
-                  0.341176,
-                  0.380392
+                  0.266667,
+                  0.286275,
+                  0.32549
                 ]
               },
               "sourcePath": "primitive.color.palette-gray.700"
@@ -1933,20 +1933,20 @@
               "$value": {
                 "colorSpace": "srgb",
                 "components": [
+                  0.172549,
                   0.192157,
-                  0.211765,
-                  0.25098
+                  0.231373
                 ],
-                "hex": "#313640"
+                "hex": "#2c313b"
               },
               "aliasTarget": null,
               "resolvedValue": {
                 "alpha": 1,
                 "colorSpace": "srgb",
                 "components": [
+                  0.172549,
                   0.192157,
-                  0.211765,
-                  0.25098
+                  0.231373
                 ]
               },
               "sourcePath": "primitive.color.palette-gray.800"
@@ -16064,9 +16064,9 @@
                 "alpha": 1,
                 "colorSpace": "srgb",
                 "components": [
-                  0.698039,
-                  0.713725,
-                  0.74902
+                  0.580392,
+                  0.596078,
+                  0.627451
                 ]
               },
               "sourcePath": "semantic.dark.color.accent-secondary-foreground"
@@ -16081,9 +16081,9 @@
                 "alpha": 1,
                 "colorSpace": "srgb",
                 "components": [
-                  0.458824,
-                  0.482353,
-                  0.521569
+                  0.360784,
+                  0.384314,
+                  0.423529
                 ]
               },
               "sourcePath": "semantic.light.color.accent-secondary-foreground"
@@ -16778,9 +16778,9 @@
                 "alpha": 1,
                 "colorSpace": "srgb",
                 "components": [
-                  0.458824,
-                  0.482353,
-                  0.521569
+                  0.360784,
+                  0.384314,
+                  0.423529
                 ]
               },
               "sourcePath": "semantic.dark.color.app.avatar-default-ink"
@@ -16795,9 +16795,9 @@
                 "alpha": 1,
                 "colorSpace": "srgb",
                 "components": [
-                  0.698039,
-                  0.713725,
-                  0.74902
+                  0.580392,
+                  0.596078,
+                  0.627451
                 ]
               },
               "sourcePath": "semantic.light.color.app.avatar-default-ink"
@@ -16880,9 +16880,9 @@
                 "alpha": 1,
                 "colorSpace": "srgb",
                 "components": [
-                  0.321569,
-                  0.341176,
-                  0.380392
+                  0.266667,
+                  0.286275,
+                  0.32549
                 ]
               },
               "sourcePath": "semantic.dark.color.app.nav-create-btn-bg"
@@ -16897,9 +16897,9 @@
                 "alpha": 1,
                 "colorSpace": "srgb",
                 "components": [
-                  0.890196,
-                  0.894118,
-                  0.909804
+                  0.815686,
+                  0.819608,
+                  0.835294
                 ]
               },
               "sourcePath": "semantic.light.color.app.nav-create-btn-bg"
@@ -16982,9 +16982,9 @@
                 "alpha": 1,
                 "colorSpace": "srgb",
                 "components": [
-                  0.890196,
-                  0.894118,
-                  0.909804
+                  0.815686,
+                  0.819608,
+                  0.835294
                 ]
               },
               "sourcePath": "semantic.dark.color.app.tooltip-bg"
@@ -16999,9 +16999,9 @@
                 "alpha": 1,
                 "colorSpace": "srgb",
                 "components": [
+                  0.172549,
                   0.192157,
-                  0.211765,
-                  0.25098
+                  0.231373
                 ]
               },
               "sourcePath": "semantic.light.color.app.tooltip-bg"
@@ -17390,9 +17390,9 @@
                 "alpha": 1,
                 "colorSpace": "srgb",
                 "components": [
+                  0.172549,
                   0.192157,
-                  0.211765,
-                  0.25098
+                  0.231373
                 ]
               },
               "sourcePath": "semantic.dark.color.bg-inset"
@@ -17441,9 +17441,9 @@
                 "alpha": 1,
                 "colorSpace": "srgb",
                 "components": [
-                  0.890196,
-                  0.894118,
-                  0.909804
+                  0.815686,
+                  0.819608,
+                  0.835294
                 ]
               },
               "sourcePath": "semantic.dark.color.bg-inverse"
@@ -17458,9 +17458,9 @@
                 "alpha": 1,
                 "colorSpace": "srgb",
                 "components": [
+                  0.172549,
                   0.192157,
-                  0.211765,
-                  0.25098
+                  0.231373
                 ]
               },
               "sourcePath": "semantic.light.color.bg-inverse"
@@ -17543,9 +17543,9 @@
                 "alpha": 1,
                 "colorSpace": "srgb",
                 "components": [
+                  0.172549,
                   0.192157,
-                  0.211765,
-                  0.25098
+                  0.231373
                 ]
               },
               "sourcePath": "semantic.dark.color.bg-menu"
@@ -17594,9 +17594,9 @@
                 "alpha": 1,
                 "colorSpace": "srgb",
                 "components": [
+                  0.172549,
                   0.192157,
-                  0.211765,
-                  0.25098
+                  0.231373
                 ]
               },
               "sourcePath": "semantic.dark.color.bg-overlay"
@@ -17645,9 +17645,9 @@
                 "alpha": 1,
                 "colorSpace": "srgb",
                 "components": [
-                  0.321569,
-                  0.341176,
-                  0.380392
+                  0.266667,
+                  0.286275,
+                  0.32549
                 ]
               },
               "sourcePath": "semantic.dark.color.bg-raised"
@@ -17747,9 +17747,9 @@
                 "alpha": 1,
                 "colorSpace": "srgb",
                 "components": [
+                  0.172549,
                   0.192157,
-                  0.211765,
-                  0.25098
+                  0.231373
                 ]
               },
               "sourcePath": "semantic.dark.color.bg-surface"
@@ -17900,9 +17900,9 @@
                 "alpha": 1,
                 "colorSpace": "srgb",
                 "components": [
+                  0.172549,
                   0.192157,
-                  0.211765,
-                  0.25098
+                  0.231373
                 ]
               },
               "sourcePath": "semantic.dark.color.bg-upgrade-current"
@@ -17951,9 +17951,9 @@
                 "alpha": 1,
                 "colorSpace": "srgb",
                 "components": [
-                  0.890196,
-                  0.894118,
-                  0.909804
+                  0.815686,
+                  0.819608,
+                  0.835294
                 ]
               },
               "sourcePath": "semantic.dark.color.bg-upgrade-hover"
@@ -17968,9 +17968,9 @@
                 "alpha": 1,
                 "colorSpace": "srgb",
                 "components": [
+                  0.172549,
                   0.192157,
-                  0.211765,
-                  0.25098
+                  0.231373
                 ]
               },
               "sourcePath": "semantic.light.color.bg-upgrade-hover"
@@ -18308,9 +18308,9 @@
                 "alpha": 1,
                 "colorSpace": "srgb",
                 "components": [
+                  0.172549,
                   0.192157,
-                  0.211765,
-                  0.25098
+                  0.231373
                 ]
               },
               "sourcePath": "semantic.dark.color.dropdown.surface-bg"
@@ -18461,9 +18461,9 @@
                 "alpha": 1,
                 "colorSpace": "srgb",
                 "components": [
-                  0.458824,
-                  0.482353,
-                  0.521569
+                  0.360784,
+                  0.384314,
+                  0.423529
                 ]
               },
               "sourcePath": "semantic.dark.color.fg-disabled"
@@ -18478,9 +18478,9 @@
                 "alpha": 1,
                 "colorSpace": "srgb",
                 "components": [
-                  0.603922,
-                  0.627451,
-                  0.670588
+                  0.466667,
+                  0.486275,
+                  0.529412
                 ]
               },
               "sourcePath": "semantic.light.color.fg-disabled"
@@ -18869,9 +18869,9 @@
                 "alpha": 1,
                 "colorSpace": "srgb",
                 "components": [
-                  0.792157,
-                  0.803922,
-                  0.827451
+                  0.694118,
+                  0.705882,
+                  0.729412
                 ]
               },
               "sourcePath": "semantic.dark.color.fg-secondary"
@@ -18886,9 +18886,9 @@
                 "alpha": 1,
                 "colorSpace": "srgb",
                 "components": [
-                  0.321569,
-                  0.341176,
-                  0.380392
+                  0.266667,
+                  0.286275,
+                  0.32549
                 ]
               },
               "sourcePath": "semantic.light.color.fg-secondary"
@@ -18971,9 +18971,9 @@
                 "alpha": 1,
                 "colorSpace": "srgb",
                 "components": [
-                  0.698039,
-                  0.713725,
-                  0.74902
+                  0.580392,
+                  0.596078,
+                  0.627451
                 ]
               },
               "sourcePath": "semantic.dark.color.fg-tertiary"
@@ -18988,9 +18988,9 @@
                 "alpha": 1,
                 "colorSpace": "srgb",
                 "components": [
-                  0.458824,
-                  0.482353,
-                  0.521569
+                  0.360784,
+                  0.384314,
+                  0.423529
                 ]
               },
               "sourcePath": "semantic.light.color.fg-tertiary"
@@ -20195,9 +20195,9 @@
                 "alpha": 1,
                 "colorSpace": "srgb",
                 "components": [
-                  0.890196,
-                  0.894118,
-                  0.909804
+                  0.815686,
+                  0.819608,
+                  0.835294
                 ]
               },
               "sourcePath": "semantic.dark.color.gray.200"
@@ -20212,9 +20212,9 @@
                 "alpha": 1,
                 "colorSpace": "srgb",
                 "components": [
+                  0.172549,
                   0.192157,
-                  0.211765,
-                  0.25098
+                  0.231373
                 ]
               },
               "sourcePath": "semantic.light.color.gray.200"
@@ -20246,9 +20246,9 @@
                 "alpha": 1,
                 "colorSpace": "srgb",
                 "components": [
-                  0.792157,
-                  0.803922,
-                  0.827451
+                  0.694118,
+                  0.705882,
+                  0.729412
                 ]
               },
               "sourcePath": "semantic.dark.color.gray.300"
@@ -20263,9 +20263,9 @@
                 "alpha": 1,
                 "colorSpace": "srgb",
                 "components": [
-                  0.321569,
-                  0.341176,
-                  0.380392
+                  0.266667,
+                  0.286275,
+                  0.32549
                 ]
               },
               "sourcePath": "semantic.light.color.gray.300"
@@ -20297,9 +20297,9 @@
                 "alpha": 1,
                 "colorSpace": "srgb",
                 "components": [
-                  0.698039,
-                  0.713725,
-                  0.74902
+                  0.580392,
+                  0.596078,
+                  0.627451
                 ]
               },
               "sourcePath": "semantic.dark.color.gray.400"
@@ -20314,9 +20314,9 @@
                 "alpha": 1,
                 "colorSpace": "srgb",
                 "components": [
-                  0.458824,
-                  0.482353,
-                  0.521569
+                  0.360784,
+                  0.384314,
+                  0.423529
                 ]
               },
               "sourcePath": "semantic.light.color.gray.400"
@@ -20348,9 +20348,9 @@
                 "alpha": 1,
                 "colorSpace": "srgb",
                 "components": [
-                  0.603922,
-                  0.627451,
-                  0.670588
+                  0.466667,
+                  0.486275,
+                  0.529412
                 ]
               },
               "sourcePath": "semantic.dark.color.gray.500"
@@ -20365,9 +20365,9 @@
                 "alpha": 1,
                 "colorSpace": "srgb",
                 "components": [
-                  0.603922,
-                  0.627451,
-                  0.670588
+                  0.466667,
+                  0.486275,
+                  0.529412
                 ]
               },
               "sourcePath": "semantic.light.color.gray.500"
@@ -20399,9 +20399,9 @@
                 "alpha": 1,
                 "colorSpace": "srgb",
                 "components": [
-                  0.458824,
-                  0.482353,
-                  0.521569
+                  0.360784,
+                  0.384314,
+                  0.423529
                 ]
               },
               "sourcePath": "semantic.dark.color.gray.600"
@@ -20416,9 +20416,9 @@
                 "alpha": 1,
                 "colorSpace": "srgb",
                 "components": [
-                  0.698039,
-                  0.713725,
-                  0.74902
+                  0.580392,
+                  0.596078,
+                  0.627451
                 ]
               },
               "sourcePath": "semantic.light.color.gray.600"
@@ -20450,9 +20450,9 @@
                 "alpha": 1,
                 "colorSpace": "srgb",
                 "components": [
-                  0.321569,
-                  0.341176,
-                  0.380392
+                  0.266667,
+                  0.286275,
+                  0.32549
                 ]
               },
               "sourcePath": "semantic.dark.color.gray.700"
@@ -20467,9 +20467,9 @@
                 "alpha": 1,
                 "colorSpace": "srgb",
                 "components": [
-                  0.792157,
-                  0.803922,
-                  0.827451
+                  0.694118,
+                  0.705882,
+                  0.729412
                 ]
               },
               "sourcePath": "semantic.light.color.gray.700"
@@ -20501,9 +20501,9 @@
                 "alpha": 1,
                 "colorSpace": "srgb",
                 "components": [
+                  0.172549,
                   0.192157,
-                  0.211765,
-                  0.25098
+                  0.231373
                 ]
               },
               "sourcePath": "semantic.dark.color.gray.800"
@@ -20518,9 +20518,9 @@
                 "alpha": 1,
                 "colorSpace": "srgb",
                 "components": [
-                  0.890196,
-                  0.894118,
-                  0.909804
+                  0.815686,
+                  0.819608,
+                  0.835294
                 ]
               },
               "sourcePath": "semantic.light.color.gray.800"
@@ -21623,9 +21623,9 @@
                 "alpha": 1,
                 "colorSpace": "srgb",
                 "components": [
-                  0.698039,
-                  0.713725,
-                  0.74902
+                  0.580392,
+                  0.596078,
+                  0.627451
                 ]
               },
               "sourcePath": "semantic.dark.color.node-chip-fg-disabled"
@@ -21640,9 +21640,9 @@
                 "alpha": 1,
                 "colorSpace": "srgb",
                 "components": [
-                  0.603922,
-                  0.627451,
-                  0.670588
+                  0.466667,
+                  0.486275,
+                  0.529412
                 ]
               },
               "sourcePath": "semantic.light.color.node-chip-fg-disabled"
@@ -21674,9 +21674,9 @@
                 "alpha": 1,
                 "colorSpace": "srgb",
                 "components": [
-                  0.458824,
-                  0.482353,
-                  0.521569
+                  0.360784,
+                  0.384314,
+                  0.423529
                 ]
               },
               "sourcePath": "semantic.dark.color.node-chip-surface"
@@ -21725,9 +21725,9 @@
                 "alpha": 1,
                 "colorSpace": "srgb",
                 "components": [
-                  0.603922,
-                  0.627451,
-                  0.670588
+                  0.466667,
+                  0.486275,
+                  0.529412
                 ]
               },
               "sourcePath": "semantic.dark.color.node-chip-surface-hover"
@@ -21776,9 +21776,9 @@
                 "alpha": 1,
                 "colorSpace": "srgb",
                 "components": [
-                  0.458824,
-                  0.482353,
-                  0.521569
+                  0.360784,
+                  0.384314,
+                  0.423529
                 ]
               },
               "sourcePath": "semantic.dark.color.node.chrome-btn-bg"
@@ -24275,9 +24275,9 @@
                 "alpha": 1,
                 "colorSpace": "srgb",
                 "components": [
-                  0.458824,
-                  0.482353,
-                  0.521569
+                  0.360784,
+                  0.384314,
+                  0.423529
                 ]
               },
               "sourcePath": "semantic.dark.color.stroke-default"
@@ -24292,9 +24292,9 @@
                 "alpha": 1,
                 "colorSpace": "srgb",
                 "components": [
-                  0.792157,
-                  0.803922,
-                  0.827451
+                  0.694118,
+                  0.705882,
+                  0.729412
                 ]
               },
               "sourcePath": "semantic.light.color.stroke-default"
@@ -24428,9 +24428,9 @@
                 "alpha": 1,
                 "colorSpace": "srgb",
                 "components": [
-                  0.603922,
-                  0.627451,
-                  0.670588
+                  0.466667,
+                  0.486275,
+                  0.529412
                 ]
               },
               "sourcePath": "semantic.dark.color.stroke-strong"
@@ -24445,9 +24445,9 @@
                 "alpha": 1,
                 "colorSpace": "srgb",
                 "components": [
-                  0.603922,
-                  0.627451,
-                  0.670588
+                  0.466667,
+                  0.486275,
+                  0.529412
                 ]
               },
               "sourcePath": "semantic.light.color.stroke-strong"
@@ -24479,9 +24479,9 @@
                 "alpha": 1,
                 "colorSpace": "srgb",
                 "components": [
-                  0.321569,
-                  0.341176,
-                  0.380392
+                  0.266667,
+                  0.286275,
+                  0.32549
                 ]
               },
               "sourcePath": "semantic.dark.color.stroke-subtle"
@@ -24496,9 +24496,9 @@
                 "alpha": 1,
                 "colorSpace": "srgb",
                 "components": [
-                  0.890196,
-                  0.894118,
-                  0.909804
+                  0.815686,
+                  0.819608,
+                  0.835294
                 ]
               },
               "sourcePath": "semantic.light.color.stroke-subtle"
@@ -24887,9 +24887,9 @@
                 "alpha": 1,
                 "colorSpace": "srgb",
                 "components": [
+                  0.172549,
                   0.192157,
-                  0.211765,
-                  0.25098
+                  0.231373
                 ]
               },
               "sourcePath": "semantic.dark.color.table-header-surface"
@@ -24938,9 +24938,9 @@
                 "alpha": 1,
                 "colorSpace": "srgb",
                 "components": [
+                  0.172549,
                   0.192157,
-                  0.211765,
-                  0.25098
+                  0.231373
                 ]
               },
               "sourcePath": "semantic.dark.color.table-row-hover"
@@ -24989,9 +24989,9 @@
                 "alpha": 1,
                 "colorSpace": "srgb",
                 "components": [
-                  0.321569,
-                  0.341176,
-                  0.380392
+                  0.266667,
+                  0.286275,
+                  0.32549
                 ]
               },
               "sourcePath": "semantic.dark.color.table-row-line"
@@ -25040,9 +25040,9 @@
                 "alpha": 1,
                 "colorSpace": "srgb",
                 "components": [
-                  0.698039,
-                  0.713725,
-                  0.74902
+                  0.580392,
+                  0.596078,
+                  0.627451
                 ]
               },
               "sourcePath": "semantic.dark.color.vem.properties-label"
@@ -25057,9 +25057,9 @@
                 "alpha": 1,
                 "colorSpace": "srgb",
                 "components": [
-                  0.458824,
-                  0.482353,
-                  0.521569
+                  0.360784,
+                  0.384314,
+                  0.423529
                 ]
               },
               "sourcePath": "semantic.light.color.vem.properties-label"

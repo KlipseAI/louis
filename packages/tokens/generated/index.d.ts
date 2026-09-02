@@ -1114,7 +1114,7 @@ export declare const tokens: Readonly<{
   readonly "color-bg-inset": TokenRecord<"color-bg-inset", "light", "semantic", { readonly id: "color-palette-gray-150"; readonly mode: "base" }>;
   readonly "color-bg-inverse": TokenRecord<"color-bg-inverse", "light", "semantic", { readonly id: "color-palette-gray-800"; readonly mode: "base" }>;
   readonly "color-bg-inverse-translucent": TokenRecord<"color-bg-inverse-translucent", "light", "semantic", { readonly id: "color-static-black-alpha-72"; readonly mode: "base" }>;
-  readonly "color-bg-menu": TokenRecord<"color-bg-menu", "light", "semantic", { readonly id: "color-palette-gray-100"; readonly mode: "base" }>;
+  readonly "color-bg-menu": TokenRecord<"color-bg-menu", "light", "semantic", { readonly id: "color-palette-gray-050"; readonly mode: "base" }>;
   readonly "color-bg-overlay": TokenRecord<"color-bg-overlay", "light", "semantic", { readonly id: "color-palette-gray-000"; readonly mode: "base" }>;
   readonly "color-bg-raised": TokenRecord<"color-bg-raised", "light", "semantic", { readonly id: "color-palette-gray-000"; readonly mode: "base" }>;
   readonly "color-bg-success": TokenRecord<"color-bg-success", "light", "semantic", { readonly id: "color-green-100"; readonly mode: "base" }>;
@@ -1195,9 +1195,9 @@ export declare const tokens: Readonly<{
   readonly "color-node-audio-surface": TokenRecord<"color-node-audio-surface", "light", "semantic", { readonly id: "color-pink-200"; readonly mode: "base" }>;
   readonly "color-node-canvas-dot": TokenRecord<"color-node-canvas-dot", "light", "semantic", { readonly id: "color-static-black-alpha-12"; readonly mode: "base" }>;
   readonly "color-node-chip-fg-disabled": TokenRecord<"color-node-chip-fg-disabled", "light", "semantic", { readonly id: "color-palette-gray-500"; readonly mode: "base" }>;
-  readonly "color-node-chip-surface": TokenRecord<"color-node-chip-surface", "light", "semantic", { readonly id: "color-palette-gray-150"; readonly mode: "base" }>;
-  readonly "color-node-chip-surface-hover": TokenRecord<"color-node-chip-surface-hover", "light", "semantic", { readonly id: "color-palette-gray-200"; readonly mode: "base" }>;
-  readonly "color-node-chrome-btn-bg": TokenRecord<"color-node-chrome-btn-bg", "light", "semantic", { readonly id: "color-palette-gray-100"; readonly mode: "base" }>;
+  readonly "color-node-chip-surface": TokenRecord<"color-node-chip-surface", "light", "semantic", { readonly id: "color-palette-gray-100"; readonly mode: "base" }>;
+  readonly "color-node-chip-surface-hover": TokenRecord<"color-node-chip-surface-hover", "light", "semantic", { readonly id: "color-palette-gray-150"; readonly mode: "base" }>;
+  readonly "color-node-chrome-btn-bg": TokenRecord<"color-node-chrome-btn-bg", "light", "semantic", { readonly id: "color-palette-gray-050"; readonly mode: "base" }>;
   readonly "color-node-edit-accent": TokenRecord<"color-node-edit-accent", "light", "semantic", { readonly id: "color-violet-500"; readonly mode: "base" }>;
   readonly "color-node-edit-icon": TokenRecord<"color-node-edit-icon", "light", "semantic", { readonly id: "color-violet-500"; readonly mode: "base" }>;
   readonly "color-node-edit-surface": TokenRecord<"color-node-edit-surface", "light", "semantic", { readonly id: "color-violet-200"; readonly mode: "base" }>;

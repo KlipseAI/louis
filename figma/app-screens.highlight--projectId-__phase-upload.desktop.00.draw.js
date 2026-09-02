@@ -26,7 +26,8 @@ const P={"route":"/highlight/[projectId]?__phase=upload","context":"desktop-1920
 // 측정된 색은 **LOUIS에 이미 있는 변수**에 붙인다(새 변수를 만들지 않는다). 값이 맞는 변수가 없으면
 // 리터럴로 칠하고 `unboundColors`로 돌려 공백을 드러낸다. 텍스트는 **이미 있는 텍스트 스타일**을 건다.
 // 인스턴스 노드에는 색·타이포를 걸지 않는다 — 컴포넌트가 제 색을 갖고 있고, 덮어쓰면 시스템 쪽 수정이
-// 화면에 전파되지 않는다.
+// 화면에 전파되지 않는다. **라벨은 예외가 아니라 다른 일이다** — 컴포넌트가 스스로 연 TEXT 속성을
+// 채우는 것이라 전파를 끊지 않는다. 채우지 않으면 마스터 기본 라벨이 화면에 남는다.
 
 const MODE = { V: "VERTICAL", H: "HORIZONTAL", G: "GRID" };
 const SIZE = { F: "FILL", H: "HUG", A: "FIXED" };
@@ -207,6 +208,10 @@ const applyPaint = (node, spec) => {
 // ── 셸·본문 컴포넌트 ──────────────────────────────────────────────────────
 // 세트나 variant가 없으면 조용히 도형으로 떨어지지 않고 던진다 — 조용한 실패는 24화면에 퍼진다.
 const componentCache = new Map();
+// **TEXT 속성 키는 파일이 소유한다.** Figma 는 이름 뒤에 인스턴스 id 를 붙여(`Label#123:4`)
+// 키를 만들고, 그 꼬리는 파일마다·컴포넌트마다 다르다. 되읽기는 꼬리를 잘라 담으므로
+// (`figma-readback-emit.mjs:351`) 생성기가 아는 것은 «이름»뿐이다. 실제 키는 여기서 읽는다.
+const textPropKeysBySet = new Map();
 const findVariant = async (setName, variantName) => {
   const key = `${setName}|${variantName}`;
   if (componentCache.has(key)) return componentCache.get(key);
@@ -217,6 +222,8 @@ const findVariant = async (setName, variantName) => {
     if (set) break;
   }
   if (!set) throw new Error(`컴포넌트 세트를 찾지 못했습니다: ${setName}`);
+  textPropKeysBySet.set(setName, Object.keys(set.componentPropertyDefinitions || {})
+    .filter((raw) => set.componentPropertyDefinitions[raw].type === "TEXT"));
   // **이름은 축의 «순서»까지 맞아야 하는데, 생성기는 그 순서를 알 수 없다.**
   // 낱개 정본 프리미티브의 variant 이름은 되읽기의 `componentPropertyDefinitions` 순서로
   // 조립된다(`figma-component-substitution.mjs`). 그 순서가 파일의 실제 순서와 한 칸이라도
@@ -287,6 +294,18 @@ const buildNode = (spec, parent) => {
   } else if (spec.i) {
     // 셸·본문 자리 — 도형 대신 컴포넌트 인스턴스. 크기·배치는 아래 공통 경로가 그대로 건다.
     node = componentCache.get(`${spec.i[0]}|${spec.i[1]}`).createInstance();
+    // **라벨은 「인스턴스에 색·타이포를 걸지 않는다」에 걸리지 않는다.** 그 규칙은 컴포넌트가
+    // «정한» 값(면 색·글꼴)을 화면이 덮어써서 시스템 쪽 수정이 전파되지 않게 되는 것을 막는다.
+    // 라벨은 반대다 — 컴포넌트가 **스스로 연 TEXT 속성**이고, 채우지 않으면 마스터 기본값
+    // 「버튼」이 그대로 나온다. 실측: `/settings` 데스크톱 Button 7개가 그렇게 되어 HUG 폭이
+    // 49px 로 접혔다. 크기·배치보다 **먼저** 채워야 뒤따르는 HUG 가 제 글자를 문다.
+    if (spec.i[2] != null) {
+      const keys = textPropKeysBySet.get(spec.i[0]) || [];
+      if (keys.length !== 1) {
+        throw new Error(`${spec.i[0]} 의 TEXT 속성이 ${keys.length}개입니다(${keys.join(" | ") || "없음"}) — 라벨 «${spec.i[2]}» 를 어디에 넣을지 정할 수 없습니다.`);
+      }
+      node.setProperties({ [keys[0]]: String(spec.i[2]) });
+    }
   } else {
     node = figma.createFrame();
     node.fills = [];
@@ -321,7 +340,7 @@ const buildNode = (spec, parent) => {
     node.clipsContent = Boolean(spec.c);
   }
   node.name = spec.i
-    ? `shell/${spec.i[0]} · ${spec.i[1]}`
+    ? `shell/${spec.i[0]} · ${spec.i[1]}` + (spec.i[2] == null ? "" : ` · ${spec.i[2]}`)
     : (spec.w ? "pending " : "") + spec.t + (spec.x ? " " + String(spec.x).slice(0, 18) : "") + " " + spec.s;
 
   if (parent && node.parent !== parent) parent.appendChild(node);

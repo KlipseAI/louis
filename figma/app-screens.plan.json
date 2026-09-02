@@ -95,7 +95,8 @@
           {
             "path": "body.1.0.0.1.0.0.1.0.0.0.2",
             "set": "Button",
-            "variant": "Variant=primary, Size=md, State=Default, Icon=none"
+            "variant": "Variant=primary, Size=md, State=Default, Icon=none",
+            "label": "Start a new project"
           }
         ],
         "skipped": []
@@ -1200,7 +1201,8 @@
                                                 "instance": {
                                                   "set": "Button",
                                                   "variant": "Variant=primary, Size=md, State=Default, Icon=none",
-                                                  "why": "제품이 Button.tsx 에서 `.louis-button[data-size=md]` 를 그대로 문다(DS-D-0027 의 기본값). 제품 레시피 probe `button-md` 의 height·paddingTop·paddingLeft·paddingRight·borderTopLeftRadius·columnGap·minWidth 가 측정과 모두 같고, 되읽기 Button/md 의 기하가 맞는다."
+                                                  "why": "제품이 Button.tsx 에서 `.louis-button[data-size=md]` 를 그대로 문다(DS-D-0027 의 기본값). 제품 레시피 probe `button-md` 의 height·paddingTop·paddingLeft·paddingRight·borderTopLeftRadius·columnGap·minWidth 가 측정과 모두 같고, 되읽기 Button/md 의 기하가 맞는다.",
+                                                  "label": "Start a new project"
                                                 }
                                               }
                                             ]
@@ -1915,7 +1917,8 @@
           {
             "path": "body.1.0.0.1.0.0.1.0.0.0.2",
             "set": "Button",
-            "variant": "Variant=primary, Size=md, State=Default, Icon=none"
+            "variant": "Variant=primary, Size=md, State=Default, Icon=none",
+            "label": "Start a new project"
           }
         ],
         "skipped": []
@@ -2933,7 +2936,8 @@
                                                 "instance": {
                                                   "set": "Button",
                                                   "variant": "Variant=primary, Size=md, State=Default, Icon=none",
-                                                  "why": "제품이 Button.tsx 에서 `.louis-button[data-size=md]` 를 그대로 문다(DS-D-0027 의 기본값). 제품 레시피 probe `button-md` 의 height·paddingTop·paddingLeft·paddingRight·borderTopLeftRadius·columnGap·minWidth 가 측정과 모두 같고, 되읽기 Button/md 의 기하가 맞는다."
+                                                  "why": "제품이 Button.tsx 에서 `.louis-button[data-size=md]` 를 그대로 문다(DS-D-0027 의 기본값). 제품 레시피 probe `button-md` 의 height·paddingTop·paddingLeft·paddingRight·borderTopLeftRadius·columnGap·minWidth 가 측정과 모두 같고, 되읽기 Button/md 의 기하가 맞는다.",
+                                                  "label": "Start a new project"
                                                 }
                                               }
                                             ]
@@ -3653,37 +3657,44 @@
           {
             "path": "body.1.0.0.1.0.1.1.1.0",
             "set": "Button",
-            "variant": "Variant=secondary, Size=md, State=Default, Icon=none"
+            "variant": "Variant=secondary, Size=md, State=Default, Icon=none",
+            "label": "Change photo"
           },
           {
             "path": "body.1.0.0.1.0.1.4.1.0",
             "set": "Button",
-            "variant": "Variant=secondary, Size=md, State=Default, Icon=none"
+            "variant": "Variant=secondary, Size=md, State=Default, Icon=none",
+            "label": "Update username"
           },
           {
             "path": "body.1.0.0.1.0.1.5.1.0",
             "set": "Button",
-            "variant": "Variant=secondary, Size=md, State=Default, Icon=none"
+            "variant": "Variant=secondary, Size=md, State=Default, Icon=none",
+            "label": "Manage subscription"
           },
           {
             "path": "body.1.0.0.1.0.1.6.1.0",
             "set": "Button",
-            "variant": "Variant=secondary, Size=md, State=Default, Icon=none"
+            "variant": "Variant=secondary, Size=md, State=Default, Icon=none",
+            "label": "Change payment method"
           },
           {
             "path": "body.1.0.0.1.0.1.9.1.0",
             "set": "Button",
-            "variant": "Variant=secondary, Size=md, State=Default, Icon=none"
+            "variant": "Variant=secondary, Size=md, State=Default, Icon=none",
+            "label": "Go"
           },
           {
             "path": "body.1.0.0.1.0.1.10.1.0",
             "set": "Button",
-            "variant": "Variant=secondary, Size=md, State=Default, Icon=none"
+            "variant": "Variant=secondary, Size=md, State=Default, Icon=none",
+            "label": "Change password"
           },
           {
             "path": "body.1.0.0.1.0.1.11.1.0",
             "set": "Button",
-            "variant": "Variant=secondary, Size=md, State=Default, Icon=none"
+            "variant": "Variant=secondary, Size=md, State=Default, Icon=none",
+            "label": "Sign out"
           }
         ],
         "skipped": []
@@ -5065,7 +5076,8 @@
                                     "instance": {
                                       "set": "Button",
                                       "variant": "Variant=secondary, Size=md, State=Default, Icon=none",
-                                      "why": "제품이 Button.tsx 에서 `.louis-button[data-size=md]` 를 그대로 문다(DS-D-0027 의 기본값). 제품 레시피 probe `button-md` 의 height·paddingTop·paddingLeft·paddingRight·borderTopLeftRadius·columnGap·minWidth 가 측정과 모두 같고, 되읽기 Button/md 의 기하가 맞는다."
+                                      "why": "제품이 Button.tsx 에서 `.louis-button[data-size=md]` 를 그대로 문다(DS-D-0027 의 기본값). 제품 레시피 probe `button-md` 의 height·paddingTop·paddingLeft·paddingRight·borderTopLeftRadius·columnGap·minWidth 가 측정과 모두 같고, 되읽기 Button/md 의 기하가 맞는다.",
+                                      "label": "Change photo"
                                     }
                                   }
                                 ]
@@ -5537,7 +5549,8 @@
                                     "instance": {
                                       "set": "Button",
                                       "variant": "Variant=secondary, Size=md, State=Default, Icon=none",
-                                      "why": "제품이 Button.tsx 에서 `.louis-button[data-size=md]` 를 그대로 문다(DS-D-0027 의 기본값). 제품 레시피 probe `button-md` 의 height·paddingTop·paddingLeft·paddingRight·borderTopLeftRadius·columnGap·minWidth 가 측정과 모두 같고, 되읽기 Button/md 의 기하가 맞는다."
+                                      "why": "제품이 Button.tsx 에서 `.louis-button[data-size=md]` 를 그대로 문다(DS-D-0027 의 기본값). 제품 레시피 probe `button-md` 의 height·paddingTop·paddingLeft·paddingRight·borderTopLeftRadius·columnGap·minWidth 가 측정과 모두 같고, 되읽기 Button/md 의 기하가 맞는다.",
+                                      "label": "Update username"
                                     }
                                   }
                                 ]
@@ -5880,7 +5893,8 @@
                                     "instance": {
                                       "set": "Button",
                                       "variant": "Variant=secondary, Size=md, State=Default, Icon=none",
-                                      "why": "제품이 Button.tsx 에서 `.louis-button[data-size=md]` 를 그대로 문다(DS-D-0027 의 기본값). 제품 레시피 probe `button-md` 의 height·paddingTop·paddingLeft·paddingRight·borderTopLeftRadius·columnGap·minWidth 가 측정과 모두 같고, 되읽기 Button/md 의 기하가 맞는다."
+                                      "why": "제품이 Button.tsx 에서 `.louis-button[data-size=md]` 를 그대로 문다(DS-D-0027 의 기본값). 제품 레시피 probe `button-md` 의 height·paddingTop·paddingLeft·paddingRight·borderTopLeftRadius·columnGap·minWidth 가 측정과 모두 같고, 되읽기 Button/md 의 기하가 맞는다.",
+                                      "label": "Manage subscription"
                                     }
                                   }
                                 ]
@@ -6223,7 +6237,8 @@
                                     "instance": {
                                       "set": "Button",
                                       "variant": "Variant=secondary, Size=md, State=Default, Icon=none",
-                                      "why": "제품이 Button.tsx 에서 `.louis-button[data-size=md]` 를 그대로 문다(DS-D-0027 의 기본값). 제품 레시피 probe `button-md` 의 height·paddingTop·paddingLeft·paddingRight·borderTopLeftRadius·columnGap·minWidth 가 측정과 모두 같고, 되읽기 Button/md 의 기하가 맞는다."
+                                      "why": "제품이 Button.tsx 에서 `.louis-button[data-size=md]` 를 그대로 문다(DS-D-0027 의 기본값). 제품 레시피 probe `button-md` 의 height·paddingTop·paddingLeft·paddingRight·borderTopLeftRadius·columnGap·minWidth 가 측정과 모두 같고, 되읽기 Button/md 의 기하가 맞는다.",
+                                      "label": "Change payment method"
                                     }
                                   }
                                 ]
@@ -8209,7 +8224,8 @@
                                     "instance": {
                                       "set": "Button",
                                       "variant": "Variant=secondary, Size=md, State=Default, Icon=none",
-                                      "why": "제품이 Button.tsx 에서 `.louis-button[data-size=md]` 를 그대로 문다(DS-D-0027 의 기본값). 제품 레시피 probe `button-md` 의 height·paddingTop·paddingLeft·paddingRight·borderTopLeftRadius·columnGap·minWidth 가 측정과 모두 같고, 되읽기 Button/md 의 기하가 맞는다."
+                                      "why": "제품이 Button.tsx 에서 `.louis-button[data-size=md]` 를 그대로 문다(DS-D-0027 의 기본값). 제품 레시피 probe `button-md` 의 height·paddingTop·paddingLeft·paddingRight·borderTopLeftRadius·columnGap·minWidth 가 측정과 모두 같고, 되읽기 Button/md 의 기하가 맞는다.",
+                                      "label": "Go"
                                     }
                                   }
                                 ]
@@ -8423,7 +8439,8 @@
                                     "instance": {
                                       "set": "Button",
                                       "variant": "Variant=secondary, Size=md, State=Default, Icon=none",
-                                      "why": "제품이 Button.tsx 에서 `.louis-button[data-size=md]` 를 그대로 문다(DS-D-0027 의 기본값). 제품 레시피 probe `button-md` 의 height·paddingTop·paddingLeft·paddingRight·borderTopLeftRadius·columnGap·minWidth 가 측정과 모두 같고, 되읽기 Button/md 의 기하가 맞는다."
+                                      "why": "제품이 Button.tsx 에서 `.louis-button[data-size=md]` 를 그대로 문다(DS-D-0027 의 기본값). 제품 레시피 probe `button-md` 의 height·paddingTop·paddingLeft·paddingRight·borderTopLeftRadius·columnGap·minWidth 가 측정과 모두 같고, 되읽기 Button/md 의 기하가 맞는다.",
+                                      "label": "Change password"
                                     }
                                   }
                                 ]
@@ -8637,7 +8654,8 @@
                                     "instance": {
                                       "set": "Button",
                                       "variant": "Variant=secondary, Size=md, State=Default, Icon=none",
-                                      "why": "제품이 Button.tsx 에서 `.louis-button[data-size=md]` 를 그대로 문다(DS-D-0027 의 기본값). 제품 레시피 probe `button-md` 의 height·paddingTop·paddingLeft·paddingRight·borderTopLeftRadius·columnGap·minWidth 가 측정과 모두 같고, 되읽기 Button/md 의 기하가 맞는다."
+                                      "why": "제품이 Button.tsx 에서 `.louis-button[data-size=md]` 를 그대로 문다(DS-D-0027 의 기본값). 제품 레시피 probe `button-md` 의 height·paddingTop·paddingLeft·paddingRight·borderTopLeftRadius·columnGap·minWidth 가 측정과 모두 같고, 되읽기 Button/md 의 기하가 맞는다.",
+                                      "label": "Sign out"
                                     }
                                   }
                                 ]
@@ -9019,22 +9037,26 @@
           {
             "path": "body.1.0.0.1.0.1.1.1.0",
             "set": "Button",
-            "variant": "Variant=secondary, Size=md, State=Default, Icon=none"
+            "variant": "Variant=secondary, Size=md, State=Default, Icon=none",
+            "label": "Change photo"
           },
           {
             "path": "body.1.0.0.1.0.1.4.1.0",
             "set": "Button",
-            "variant": "Variant=secondary, Size=md, State=Default, Icon=none"
+            "variant": "Variant=secondary, Size=md, State=Default, Icon=none",
+            "label": "Update username"
           },
           {
             "path": "body.1.0.0.1.0.1.5.1.0",
             "set": "Button",
-            "variant": "Variant=secondary, Size=md, State=Default, Icon=none"
+            "variant": "Variant=secondary, Size=md, State=Default, Icon=none",
+            "label": "Manage subscription"
           },
           {
             "path": "body.1.0.0.1.0.1.6.1.0",
             "set": "Button",
-            "variant": "Variant=secondary, Size=md, State=Default, Icon=none"
+            "variant": "Variant=secondary, Size=md, State=Default, Icon=none",
+            "label": "Change payment method"
           }
         ],
         "skipped": []
@@ -10332,7 +10354,8 @@
                                     "instance": {
                                       "set": "Button",
                                       "variant": "Variant=secondary, Size=md, State=Default, Icon=none",
-                                      "why": "제품이 Button.tsx 에서 `.louis-button[data-size=md]` 를 그대로 문다(DS-D-0027 의 기본값). 제품 레시피 probe `button-md` 의 height·paddingTop·paddingLeft·paddingRight·borderTopLeftRadius·columnGap·minWidth 가 측정과 모두 같고, 되읽기 Button/md 의 기하가 맞는다."
+                                      "why": "제품이 Button.tsx 에서 `.louis-button[data-size=md]` 를 그대로 문다(DS-D-0027 의 기본값). 제품 레시피 probe `button-md` 의 height·paddingTop·paddingLeft·paddingRight·borderTopLeftRadius·columnGap·minWidth 가 측정과 모두 같고, 되읽기 Button/md 의 기하가 맞는다.",
+                                      "label": "Change photo"
                                     }
                                   }
                                 ]
@@ -10873,7 +10896,8 @@
                                     "instance": {
                                       "set": "Button",
                                       "variant": "Variant=secondary, Size=md, State=Default, Icon=none",
-                                      "why": "제품이 Button.tsx 에서 `.louis-button[data-size=md]` 를 그대로 문다(DS-D-0027 의 기본값). 제품 레시피 probe `button-md` 의 height·paddingTop·paddingLeft·paddingRight·borderTopLeftRadius·columnGap·minWidth 가 측정과 모두 같고, 되읽기 Button/md 의 기하가 맞는다."
+                                      "why": "제품이 Button.tsx 에서 `.louis-button[data-size=md]` 를 그대로 문다(DS-D-0027 의 기본값). 제품 레시피 probe `button-md` 의 height·paddingTop·paddingLeft·paddingRight·borderTopLeftRadius·columnGap·minWidth 가 측정과 모두 같고, 되읽기 Button/md 의 기하가 맞는다.",
+                                      "label": "Update username"
                                     }
                                   }
                                 ]
@@ -11216,7 +11240,8 @@
                                     "instance": {
                                       "set": "Button",
                                       "variant": "Variant=secondary, Size=md, State=Default, Icon=none",
-                                      "why": "제품이 Button.tsx 에서 `.louis-button[data-size=md]` 를 그대로 문다(DS-D-0027 의 기본값). 제품 레시피 probe `button-md` 의 height·paddingTop·paddingLeft·paddingRight·borderTopLeftRadius·columnGap·minWidth 가 측정과 모두 같고, 되읽기 Button/md 의 기하가 맞는다."
+                                      "why": "제품이 Button.tsx 에서 `.louis-button[data-size=md]` 를 그대로 문다(DS-D-0027 의 기본값). 제품 레시피 probe `button-md` 의 height·paddingTop·paddingLeft·paddingRight·borderTopLeftRadius·columnGap·minWidth 가 측정과 모두 같고, 되읽기 Button/md 의 기하가 맞는다.",
+                                      "label": "Manage subscription"
                                     }
                                   }
                                 ]
@@ -11559,7 +11584,8 @@
                                     "instance": {
                                       "set": "Button",
                                       "variant": "Variant=secondary, Size=md, State=Default, Icon=none",
-                                      "why": "제품이 Button.tsx 에서 `.louis-button[data-size=md]` 를 그대로 문다(DS-D-0027 의 기본값). 제품 레시피 probe `button-md` 의 height·paddingTop·paddingLeft·paddingRight·borderTopLeftRadius·columnGap·minWidth 가 측정과 모두 같고, 되읽기 Button/md 의 기하가 맞는다."
+                                      "why": "제품이 Button.tsx 에서 `.louis-button[data-size=md]` 를 그대로 문다(DS-D-0027 의 기본값). 제품 레시피 probe `button-md` 의 height·paddingTop·paddingLeft·paddingRight·borderTopLeftRadius·columnGap·minWidth 가 측정과 모두 같고, 되읽기 Button/md 의 기하가 맞는다.",
+                                      "label": "Change payment method"
                                     }
                                   }
                                 ]
@@ -12837,12 +12863,14 @@
           {
             "path": "body.1.0.0.1.0.1.1.0.0.0.0.2.0",
             "set": "Button",
-            "variant": "Variant=secondary, Size=md, State=Default, Icon=none"
+            "variant": "Variant=secondary, Size=md, State=Default, Icon=none",
+            "label": "Change plan"
           },
           {
             "path": "body.1.0.0.1.0.1.1.0.0.1.0.2.0",
             "set": "Button",
-            "variant": "Variant=secondary, Size=md, State=Default, Icon=none"
+            "variant": "Variant=secondary, Size=md, State=Default, Icon=none",
+            "label": "Redeem a coupon"
           }
         ],
         "skipped": [
@@ -14850,7 +14878,8 @@
                                                         "instance": {
                                                           "set": "Button",
                                                           "variant": "Variant=secondary, Size=md, State=Default, Icon=none",
-                                                          "why": "제품이 Button.tsx 에서 `.louis-button[data-size=md]` 를 그대로 문다(DS-D-0027 의 기본값). 제품 레시피 probe `button-md` 의 height·paddingTop·paddingLeft·paddingRight·borderTopLeftRadius·columnGap·minWidth 가 측정과 모두 같고, 되읽기 Button/md 의 기하가 맞는다."
+                                                          "why": "제품이 Button.tsx 에서 `.louis-button[data-size=md]` 를 그대로 문다(DS-D-0027 의 기본값). 제품 레시피 probe `button-md` 의 height·paddingTop·paddingLeft·paddingRight·borderTopLeftRadius·columnGap·minWidth 가 측정과 모두 같고, 되읽기 Button/md 의 기하가 맞는다.",
+                                                          "label": "Change plan"
                                                         }
                                                       }
                                                     ]
@@ -16121,7 +16150,8 @@
                                                         "instance": {
                                                           "set": "Button",
                                                           "variant": "Variant=secondary, Size=md, State=Default, Icon=none",
-                                                          "why": "제품이 Button.tsx 에서 `.louis-button[data-size=md]` 를 그대로 문다(DS-D-0027 의 기본값). 제품 레시피 probe `button-md` 의 height·paddingTop·paddingLeft·paddingRight·borderTopLeftRadius·columnGap·minWidth 가 측정과 모두 같고, 되읽기 Button/md 의 기하가 맞는다."
+                                                          "why": "제품이 Button.tsx 에서 `.louis-button[data-size=md]` 를 그대로 문다(DS-D-0027 의 기본값). 제품 레시피 probe `button-md` 의 height·paddingTop·paddingLeft·paddingRight·borderTopLeftRadius·columnGap·minWidth 가 측정과 모두 같고, 되읽기 Button/md 의 기하가 맞는다.",
+                                                          "label": "Redeem a coupon"
                                                         }
                                                       }
                                                     ]
@@ -17110,7 +17140,8 @@
           {
             "path": "body.1.0.0.1.0.1.1.0.0.0.0.2.0",
             "set": "Button",
-            "variant": "Variant=secondary, Size=md, State=Default, Icon=none"
+            "variant": "Variant=secondary, Size=md, State=Default, Icon=none",
+            "label": "Change plan"
           }
         ],
         "skipped": []
@@ -18318,7 +18349,8 @@
                                                     "instance": {
                                                       "set": "Button",
                                                       "variant": "Variant=secondary, Size=md, State=Default, Icon=none",
-                                                      "why": "제품이 Button.tsx 에서 `.louis-button[data-size=md]` 를 그대로 문다(DS-D-0027 의 기본값). 제품 레시피 probe `button-md` 의 height·paddingTop·paddingLeft·paddingRight·borderTopLeftRadius·columnGap·minWidth 가 측정과 모두 같고, 되읽기 Button/md 의 기하가 맞는다."
+                                                      "why": "제품이 Button.tsx 에서 `.louis-button[data-size=md]` 를 그대로 문다(DS-D-0027 의 기본값). 제품 레시피 probe `button-md` 의 height·paddingTop·paddingLeft·paddingRight·borderTopLeftRadius·columnGap·minWidth 가 측정과 모두 같고, 되읽기 Button/md 의 기하가 맞는다.",
+                                                      "label": "Change plan"
                                                     }
                                                   }
                                                 ]
@@ -63556,12 +63588,14 @@
           {
             "path": "body.1.0.0.1.0.1.0.1.2.0",
             "set": "Button",
-            "variant": "Variant=secondary, Size=md, State=Default, Icon=none"
+            "variant": "Variant=secondary, Size=md, State=Default, Icon=none",
+            "label": "Start over"
           },
           {
             "path": "body.1.0.0.1.0.1.0.1.2.1",
             "set": "Button",
-            "variant": "Variant=primary, Size=md, State=Default, Icon=none"
+            "variant": "Variant=primary, Size=md, State=Default, Icon=none",
+            "label": "Retry with new file"
           }
         ],
         "skipped": [
@@ -65384,7 +65418,8 @@
                                         "instance": {
                                           "set": "Button",
                                           "variant": "Variant=secondary, Size=md, State=Default, Icon=none",
-                                          "why": "제품이 Button.tsx 에서 `.louis-button[data-size=md]` 를 그대로 문다(DS-D-0027 의 기본값). 제품 레시피 probe `button-md` 의 height·paddingTop·paddingLeft·paddingRight·borderTopLeftRadius·columnGap·minWidth 가 측정과 모두 같고, 되읽기 Button/md 의 기하가 맞는다."
+                                          "why": "제품이 Button.tsx 에서 `.louis-button[data-size=md]` 를 그대로 문다(DS-D-0027 의 기본값). 제품 레시피 probe `button-md` 의 height·paddingTop·paddingLeft·paddingRight·borderTopLeftRadius·columnGap·minWidth 가 측정과 모두 같고, 되읽기 Button/md 의 기하가 맞는다.",
+                                          "label": "Start over"
                                         }
                                       },
                                       {
@@ -65469,7 +65504,8 @@
                                         "instance": {
                                           "set": "Button",
                                           "variant": "Variant=primary, Size=md, State=Default, Icon=none",
-                                          "why": "제품이 Button.tsx 에서 `.louis-button[data-size=md]` 를 그대로 문다(DS-D-0027 의 기본값). 제품 레시피 probe `button-md` 의 height·paddingTop·paddingLeft·paddingRight·borderTopLeftRadius·columnGap·minWidth 가 측정과 모두 같고, 되읽기 Button/md 의 기하가 맞는다."
+                                          "why": "제품이 Button.tsx 에서 `.louis-button[data-size=md]` 를 그대로 문다(DS-D-0027 의 기본값). 제품 레시피 probe `button-md` 의 height·paddingTop·paddingLeft·paddingRight·borderTopLeftRadius·columnGap·minWidth 가 측정과 모두 같고, 되읽기 Button/md 의 기하가 맞는다.",
+                                          "label": "Retry with new file"
                                         }
                                       }
                                     ]
@@ -65507,12 +65543,14 @@
           {
             "path": "body.1.0.0.1.0.1.0.1.2.0",
             "set": "Button",
-            "variant": "Variant=secondary, Size=md, State=Default, Icon=none"
+            "variant": "Variant=secondary, Size=md, State=Default, Icon=none",
+            "label": "Start over"
           },
           {
             "path": "body.1.0.0.1.0.1.0.1.2.1",
             "set": "Button",
-            "variant": "Variant=primary, Size=md, State=Default, Icon=none"
+            "variant": "Variant=primary, Size=md, State=Default, Icon=none",
+            "label": "Retry with new file"
           }
         ],
         "skipped": [
@@ -67252,7 +67290,8 @@
                                         "instance": {
                                           "set": "Button",
                                           "variant": "Variant=secondary, Size=md, State=Default, Icon=none",
-                                          "why": "제품이 Button.tsx 에서 `.louis-button[data-size=md]` 를 그대로 문다(DS-D-0027 의 기본값). 제품 레시피 probe `button-md` 의 height·paddingTop·paddingLeft·paddingRight·borderTopLeftRadius·columnGap·minWidth 가 측정과 모두 같고, 되읽기 Button/md 의 기하가 맞는다."
+                                          "why": "제품이 Button.tsx 에서 `.louis-button[data-size=md]` 를 그대로 문다(DS-D-0027 의 기본값). 제품 레시피 probe `button-md` 의 height·paddingTop·paddingLeft·paddingRight·borderTopLeftRadius·columnGap·minWidth 가 측정과 모두 같고, 되읽기 Button/md 의 기하가 맞는다.",
+                                          "label": "Start over"
                                         }
                                       },
                                       {
@@ -67337,7 +67376,8 @@
                                         "instance": {
                                           "set": "Button",
                                           "variant": "Variant=primary, Size=md, State=Default, Icon=none",
-                                          "why": "제품이 Button.tsx 에서 `.louis-button[data-size=md]` 를 그대로 문다(DS-D-0027 의 기본값). 제품 레시피 probe `button-md` 의 height·paddingTop·paddingLeft·paddingRight·borderTopLeftRadius·columnGap·minWidth 가 측정과 모두 같고, 되읽기 Button/md 의 기하가 맞는다."
+                                          "why": "제품이 Button.tsx 에서 `.louis-button[data-size=md]` 를 그대로 문다(DS-D-0027 의 기본값). 제품 레시피 probe `button-md` 의 height·paddingTop·paddingLeft·paddingRight·borderTopLeftRadius·columnGap·minWidth 가 측정과 모두 같고, 되읽기 Button/md 의 기하가 맞는다.",
+                                          "label": "Retry with new file"
                                         }
                                       }
                                     ]
@@ -67367,7 +67407,7 @@
       "files": [
         {
           "file": "figma/app-screens.archive.desktop.00.draw.js",
-          "bytes": 28719
+          "bytes": 30576
         }
       ]
     },
@@ -67379,7 +67419,7 @@
       "files": [
         {
           "file": "figma/app-screens.archive.mobile.00.draw.js",
-          "bytes": 28502
+          "bytes": 30359
         }
       ]
     },
@@ -67391,7 +67431,7 @@
       "files": [
         {
           "file": "figma/app-screens.settings.desktop.00.draw.js",
-          "bytes": 34132
+          "bytes": 36080
         }
       ]
     },
@@ -67403,7 +67443,7 @@
       "files": [
         {
           "file": "figma/app-screens.settings.mobile.00.draw.js",
-          "bytes": 31331
+          "bytes": 33245
         }
       ]
     },
@@ -67415,7 +67455,7 @@
       "files": [
         {
           "file": "figma/app-screens.subscription.desktop.00.draw.js",
-          "bytes": 32080
+          "bytes": 33947
         }
       ]
     },
@@ -67427,7 +67467,7 @@
       "files": [
         {
           "file": "figma/app-screens.subscription.mobile.00.draw.js",
-          "bytes": 29026
+          "bytes": 30875
         }
       ]
     },
@@ -67439,7 +67479,7 @@
       "files": [
         {
           "file": "figma/app-screens.analytics-youtube.desktop.00.draw.js",
-          "bytes": 28840
+          "bytes": 30675
         }
       ]
     },
@@ -67451,7 +67491,7 @@
       "files": [
         {
           "file": "figma/app-screens.analytics-youtube.mobile.00.draw.js",
-          "bytes": 28631
+          "bytes": 30466
         }
       ]
     },
@@ -67463,7 +67503,7 @@
       "files": [
         {
           "file": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
-          "bytes": 30538
+          "bytes": 32373
         }
       ]
     },
@@ -67475,7 +67515,7 @@
       "files": [
         {
           "file": "figma/app-screens.mypage-upgrade.mobile.00.draw.js",
-          "bytes": 32161
+          "bytes": 33996
         }
       ]
     },
@@ -67487,7 +67527,7 @@
       "files": [
         {
           "file": "figma/app-screens.mypage-upgrade-billing-success.desktop.00.draw.js",
-          "bytes": 27832
+          "bytes": 29667
         }
       ]
     },
@@ -67499,7 +67539,7 @@
       "files": [
         {
           "file": "figma/app-screens.mypage-upgrade-billing-success.mobile.00.draw.js",
-          "bytes": 27618
+          "bytes": 29453
         }
       ]
     },
@@ -67511,7 +67551,7 @@
       "files": [
         {
           "file": "figma/app-screens.mypage-upgrade-billing-fail.desktop.00.draw.js",
-          "bytes": 28401
+          "bytes": 30236
         }
       ]
     },
@@ -67523,7 +67563,7 @@
       "files": [
         {
           "file": "figma/app-screens.mypage-upgrade-billing-fail.mobile.00.draw.js",
-          "bytes": 28160
+          "bytes": 29995
         }
       ]
     },
@@ -67535,7 +67575,7 @@
       "files": [
         {
           "file": "figma/app-screens.mypage-upgrade-billing-change-success.desktop.00.draw.js",
-          "bytes": 27483
+          "bytes": 29318
         }
       ]
     },
@@ -67547,7 +67587,7 @@
       "files": [
         {
           "file": "figma/app-screens.mypage-upgrade-billing-change-success.mobile.00.draw.js",
-          "bytes": 27274
+          "bytes": 29109
         }
       ]
     },
@@ -67559,7 +67599,7 @@
       "files": [
         {
           "file": "figma/app-screens.mypage-upgrade-billing-change-fail.desktop.00.draw.js",
-          "bytes": 27726
+          "bytes": 29561
         }
       ]
     },
@@ -67571,7 +67611,7 @@
       "files": [
         {
           "file": "figma/app-screens.mypage-upgrade-billing-change-fail.mobile.00.draw.js",
-          "bytes": 27503
+          "bytes": 29338
         }
       ]
     },
@@ -67583,7 +67623,7 @@
       "files": [
         {
           "file": "figma/app-screens.mypage-upgrade-fail.desktop.00.draw.js",
-          "bytes": 28704
+          "bytes": 30539
         }
       ]
     },
@@ -67595,7 +67635,7 @@
       "files": [
         {
           "file": "figma/app-screens.mypage-upgrade-fail.mobile.00.draw.js",
-          "bytes": 28448
+          "bytes": 30283
         }
       ]
     },
@@ -67607,7 +67647,7 @@
       "files": [
         {
           "file": "figma/app-screens.mypage-topup-success.desktop.00.draw.js",
-          "bytes": 27437
+          "bytes": 29272
         }
       ]
     },
@@ -67619,7 +67659,7 @@
       "files": [
         {
           "file": "figma/app-screens.mypage-topup-success.mobile.00.draw.js",
-          "bytes": 27228
+          "bytes": 29063
         }
       ]
     },
@@ -67631,7 +67671,7 @@
       "files": [
         {
           "file": "figma/app-screens.mypage-topup-fail.desktop.00.draw.js",
-          "bytes": 27692
+          "bytes": 29527
         }
       ]
     },
@@ -67643,7 +67683,7 @@
       "files": [
         {
           "file": "figma/app-screens.mypage-topup-fail.mobile.00.draw.js",
-          "bytes": 27469
+          "bytes": 29304
         }
       ]
     },
@@ -67655,7 +67695,7 @@
       "files": [
         {
           "file": "figma/app-screens.highlight--projectId-__phase-loading.desktop.00.draw.js",
-          "bytes": 28054
+          "bytes": 29889
         }
       ]
     },
@@ -67667,7 +67707,7 @@
       "files": [
         {
           "file": "figma/app-screens.highlight--projectId-__phase-loading.mobile.00.draw.js",
-          "bytes": 27850
+          "bytes": 29685
         }
       ]
     },
@@ -67679,7 +67719,7 @@
       "files": [
         {
           "file": "figma/app-screens.highlight--projectId-__phase-uploading.desktop.00.draw.js",
-          "bytes": 28587
+          "bytes": 30422
         }
       ]
     },
@@ -67691,7 +67731,7 @@
       "files": [
         {
           "file": "figma/app-screens.highlight--projectId-__phase-uploading.mobile.00.draw.js",
-          "bytes": 28381
+          "bytes": 30216
         }
       ]
     },
@@ -67703,7 +67743,7 @@
       "files": [
         {
           "file": "figma/app-screens.highlight--projectId-__phase-upload.desktop.00.draw.js",
-          "bytes": 29714
+          "bytes": 31549
         }
       ]
     },
@@ -67715,7 +67755,7 @@
       "files": [
         {
           "file": "figma/app-screens.highlight--projectId-__phase-upload.mobile.00.draw.js",
-          "bytes": 29506
+          "bytes": 31341
         }
       ]
     },
@@ -67727,7 +67767,7 @@
       "files": [
         {
           "file": "figma/app-screens.highlight--projectId-__phase-analyzing.desktop.00.draw.js",
-          "bytes": 28356
+          "bytes": 30191
         }
       ]
     },
@@ -67739,7 +67779,7 @@
       "files": [
         {
           "file": "figma/app-screens.highlight--projectId-__phase-analyzing.mobile.00.draw.js",
-          "bytes": 28150
+          "bytes": 29985
         }
       ]
     },
@@ -67751,7 +67791,7 @@
       "files": [
         {
           "file": "figma/app-screens.highlight--projectId-__phase-extracting.desktop.00.draw.js",
-          "bytes": 28348
+          "bytes": 30183
         }
       ]
     },
@@ -67763,7 +67803,7 @@
       "files": [
         {
           "file": "figma/app-screens.highlight--projectId-__phase-extracting.mobile.00.draw.js",
-          "bytes": 28142
+          "bytes": 29977
         }
       ]
     },
@@ -67775,7 +67815,7 @@
       "files": [
         {
           "file": "figma/app-screens.highlight--projectId-__phase-failed.desktop.00.draw.js",
-          "bytes": 28743
+          "bytes": 30613
         }
       ]
     },
@@ -67787,7 +67827,7 @@
       "files": [
         {
           "file": "figma/app-screens.highlight--projectId-__phase-failed.mobile.00.draw.js",
-          "bytes": 28538
+          "bytes": 30408
         }
       ]
     }

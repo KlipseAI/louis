@@ -54,11 +54,20 @@ const SURFACES = "migration/product.surfaces.json";
 const READBACK = "figma/readback.json";
 const PLAN = "figma/app-screens.plan.json";
 
-// 2026-09-02 실측(앵커 ae8fd627 의 보드 36장). 원시 933 중 후보 214 · 구조 667 ·
-// 사유 없음 0. **새 위반을 받아들이려고 이 수를 올리지 마라** — 이 저장소의 baseline 규칙이다.
-const REPLACEABLE_BASELINE = 97;
+// 2026-09-02 실측(앵커 ae8fd627 의 보드 36장). 원시 933 중 후보 214 · 구조 667 · 사유 없음 0
+// 에서 시작했고, 그때 인스턴스 43 · 대체가능 97 이었다.
+//
+// **같은 날 생성기가 정본 프리미티브를 인스턴스로 놓기 시작해 35자리가 옮겨 갔다** —
+// `.louis-button` 20(secondary 16 · primary 4) · `.louis-avatar` 15. 판정은 기하가 아니라
+// 「제품이 그 자리에서 무는 클래스」다(`figma-component-substitution.mjs` 의
+// LOUIS_PRIMITIVE_SITES). 그래서 인스턴스 43 → 78, 대체가능 97 → 62 이고 **후보 214 는
+// 그대로다** — 판정 규칙을 푼 것이 아니라 같은 후보가 다른 칸으로 옮겨 간 것이기 때문이다.
+// (규칙을 풀어 수를 예쁘게 만들면 candidates 가 함께 떨어지고 CANDIDATE_FLOOR 가 잡는다.)
+//
+// **새 위반을 받아들이려고 이 수를 올리지 마라** — 이 저장소의 baseline 규칙이다.
+const REPLACEABLE_BASELINE = 62;
 const UNCLASSIFIED_BASELINE = 0;
-const INSTANCE_FLOOR = 43;
+const INSTANCE_FLOOR = 78;
 const CANDIDATE_FLOOR = 214;
 const BOARD_FLOOR = 36;
 

@@ -217,7 +217,30 @@ const findVariant = async (setName, variantName) => {
     if (set) break;
   }
   if (!set) throw new Error(`컴포넌트 세트를 찾지 못했습니다: ${setName}`);
-  const variant = set.children.find((child) => child.name === variantName);
+  // **이름은 축의 «순서»까지 맞아야 하는데, 생성기는 그 순서를 알 수 없다.**
+  // 낱개 정본 프리미티브의 variant 이름은 되읽기의 `componentPropertyDefinitions` 순서로
+  // 조립된다(`figma-component-substitution.mjs`). 그 순서가 파일의 실제 순서와 한 칸이라도
+  // 다르면 문자열 비교는 실패하는데, 가리키는 variant 는 실재한다 — 없는 것과 못 찾은 것을
+  // 같은 실패로 만들면 다음 사람이 없는 축을 만들러 간다. 그래서 축=값 «집합»으로 한 번 더 본다.
+  const axesOf = (name) => {
+    const pairs = String(name).split(",").map((part) => part.trim()).filter(Boolean);
+    const bag = {};
+    for (const pair of pairs) {
+      const at = pair.indexOf("=");
+      if (at < 0) return null;
+      bag[pair.slice(0, at).trim()] = pair.slice(at + 1).trim();
+    }
+    return bag;
+  };
+  const sameAxes = (a, b) => {
+    if (!a || !b) return false;
+    const keys = Object.keys(a);
+    if (keys.length !== Object.keys(b).length) return false;
+    return keys.every((key) => b[key] === a[key]);
+  };
+  const wanted = axesOf(variantName);
+  const variant = set.children.find((child) => child.name === variantName)
+    ?? set.children.find((child) => sameAxes(wanted, axesOf(child.name)));
   if (!variant) {
     throw new Error(`variant를 찾지 못했습니다: ${setName} · ${variantName} (있는 것: ${set.children.map((child) => child.name).join(" | ")})`);
   }

@@ -6739,7 +6739,7 @@
           }
         },
         "bg-canvas": {
-          "$value": "{primitive.color.palette-gray.100}",
+          "$value": "{primitive.color.palette-gray.050}",
           "$extensions": {
             "com.klipse-design": {
               "id": "color-bg-canvas",
@@ -6769,7 +6769,7 @@
           }
         },
         "bg-inset": {
-          "$value": "{primitive.color.palette-gray.150}",
+          "$value": "{primitive.color.palette-gray.100}",
           "$extensions": {
             "com.klipse-design": {
               "id": "color-bg-inset",
@@ -6799,7 +6799,7 @@
           }
         },
         "bg-menu": {
-          "$value": "{primitive.color.palette-gray.000}",
+          "$value": "{primitive.color.palette-gray.050}",
           "$extensions": {
             "com.klipse-design": {
               "id": "color-bg-menu",
@@ -6869,7 +6869,7 @@
           }
         },
         "bg-upgrade-current": {
-          "$value": "{primitive.color.palette-gray.050}",
+          "$value": "{primitive.color.palette-gray.000}",
           "$extensions": {
             "com.klipse-design": {
               "id": "color-bg-upgrade-current",
@@ -7209,7 +7209,7 @@
           }
         },
         "node-chip-surface": {
-          "$value": "{primitive.color.palette-gray.100}",
+          "$value": "{primitive.color.palette-gray.050}",
           "$extensions": {
             "com.klipse-design": {
               "id": "color-node-chip-surface",
@@ -7219,7 +7219,7 @@
           }
         },
         "node-chip-surface-hover": {
-          "$value": "{primitive.color.palette-gray.150}",
+          "$value": "{primitive.color.palette-gray.100}",
           "$extensions": {
             "com.klipse-design": {
               "id": "color-node-chip-surface-hover",
@@ -7539,7 +7539,7 @@
           }
         },
         "table-header-surface": {
-          "$value": "{primitive.color.palette-gray.100}",
+          "$value": "{primitive.color.palette-gray.050}",
           "$extensions": {
             "com.klipse-design": {
               "id": "color-table-header-surface",
@@ -7549,7 +7549,7 @@
           }
         },
         "table-row-hover": {
-          "$value": "{primitive.color.palette-gray.050}",
+          "$value": "{primitive.color.palette-gray.000}",
           "$extensions": {
             "com.klipse-design": {
               "id": "color-table-row-hover",
@@ -7606,7 +7606,7 @@
             }
           },
           "nav-create-btn-bg": {
-            "$value": "{primitive.color.palette-gray.200}",
+            "$value": "{primitive.color.palette-gray.150}",
             "$extensions": {
               "com.klipse-design": {
                 "id": "color-app-nav-create-btn-bg",
@@ -7616,7 +7616,7 @@
             }
           },
           "page-bg": {
-            "$value": "{primitive.color.palette-gray.100}",
+            "$value": "{primitive.color.palette-gray.050}",
             "$extensions": {
               "com.klipse-design": {
                 "id": "color-app-page-bg",
@@ -7720,7 +7720,7 @@
             }
           },
           "surface-bg": {
-            "$value": "{primitive.color.palette-gray.100}",
+            "$value": "{primitive.color.palette-gray.050}",
             "$extensions": {
               "com.klipse-design": {
                 "id": "color-dropdown-surface-bg",
@@ -8090,7 +8090,7 @@
             }
           },
           "chrome-btn-bg": {
-            "$value": "{primitive.color.palette-gray.100}",
+            "$value": "{primitive.color.palette-gray.050}",
             "$extensions": {
               "com.klipse-design": {
                 "id": "color-node-chrome-btn-bg",
@@ -8364,7 +8364,7 @@
         },
         "surface": {
           "background": {
-            "$value": "{primitive.color.palette-gray.100}",
+            "$value": "{primitive.color.palette-gray.050}",
             "$extensions": {
               "com.klipse-design": {
                 "id": "color-surface-background",

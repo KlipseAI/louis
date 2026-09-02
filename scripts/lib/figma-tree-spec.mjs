@@ -165,6 +165,41 @@ function splitOwnText(node, children) {
   return [...children.slice(0, at), textChild, ...children.slice(at)];
 }
 
+/**
+ * **SVG 글리프의 정체 서명 — 측정값을 그대로 잇는다.**
+ *
+ * 측정기는 `<svg>` 의 `viewBox` 와 자손 도형의 기하 속성(`d`·`points`·`cx`…)을 담는다
+ * (`measure-product-auth-fixture.mjs` 의 `vectorAttributes`). 그런데 아래 변환기는 그 자손을
+ * 「스스로 그릴 것이 없는 노드」로 보아 버린다(`droppedEmpty`) — `<path>` 에는 배경도 테두리도
+ * 글자도 없기 때문이다. 그래서 Figma 로 가는 spec 에 아이콘이 **크기만 있는 빈 상자**로 남았고,
+ * 보드 원장은 어느 아이콘인지 고를 수 없어 그 자리를 `blocked` 로 세었다.
+ *
+ * 서명은 **측정값 그대로**다. 반올림도 좌표 정규화도 하지 않는다 — 서명이 같다는 것은 「비슷한
+ * 그림」이 아니라 「같은 소스에서 나왔다」를 뜻해야 하고, 값을 뭉개면 서로 다른 글리프가 한 서명
+ * 으로 접혀 거기 붙는 이름이 짐작이 된다. 이름을 붙이는 일은 여기가 아니라 손으로 읽은
+ * 조인표(`scripts/lib/figma-glyph-identity.mjs`)가 한다.
+ */
+const VECTOR_GEOMETRY = Object.freeze([
+  "d", "points", "x1", "y1", "x2", "y2", "cx", "cy", "r", "rx", "ry",
+  "x", "y", "width", "height", "pathLength", "fill-rule", "clip-rule", "href",
+]);
+
+export function glyphSignature(node, childrenOf) {
+  if (node.tag !== "svg") return null;
+  const parts = [String(node.vector?.viewBox ?? "")];
+  const walk = (current) => {
+    for (const child of childrenOf.get(current.path) ?? []) {
+      const geometry = VECTOR_GEOMETRY
+        .filter((name) => child.vector?.[name] != null)
+        .map((name) => `${name}=${child.vector[name]}`);
+      parts.push(`${child.tag}(${geometry.join(" ")})`);
+      walk(child);
+    }
+  };
+  walk(node);
+  return parts.join("|");
+}
+
 export function toFigmaTreeSpec(tree, options = {}) {
   const rootPath = options.rootPath ?? "main";
   const contextId = options.contextId ?? null;
@@ -215,6 +250,9 @@ export function toFigmaTreeSpec(tree, options = {}) {
       paints: hasOwnPaint(node),
       // rect는 FIXED 축 크기와 검증용이다. FILL/HUG 축은 Figma가 계산한다.
       rect: node.rect,
+      // **아이콘의 정체.** `<svg>` 일 때만. 자손 도형은 바로 아래에서 버려지므로, 버리기 전에
+      // 서명을 떠서 붙인다. 이것이 없으면 아이콘은 크기만 남은 빈 상자가 된다.
+      glyph: glyphSignature(node, childrenOf),
       sizing,
       // **색·테두리·radius·그림자·불투명도.** 측정에 없는 값은 담지 않는다.
       paint: paintOf(style),

@@ -101,9 +101,19 @@ const PLAN = "figma/app-screens.plan.json";
 //   · 제품 레시피 상자가 어긋난 자리 1 — `/settings` 「Delete account」의 padding-inline 이
 //     14 다(`.louis-button[data-size=md]` 는 12). DS-D-0043 이 이미 실측해 적어 둔 자리다.
 //
+// **아이콘 축이 열리며 여섯 자리가 다시 갈렸다(2026-09-02).** `blocked` 6 은 「LOUIS 아이콘
+// 31종이 서 있는데 payload 가 정체를 버려 고를 수 없다」였는데, 정체를 버린 곳은 축약이 아니라
+// 트리 변환이었다(`<path>` 를 「스스로 그릴 것이 없는 노드」로 지웠다). 측정에는 `d` 가 그대로
+// 있어 지우기 앞에서 서명만 뜨면 됐다. 이름이 붙자 여섯이 갈린다 — **bespoke 60 → 64**
+// (배너 캐러셀 화살표 넷: LOUIS `icon/caret-left`·`icon/caret-right` 가 있지만 제품이 그것을
+// 물지 않고 24 상자 1.8 획의 인라인 글리프를 그린다. 정본은 24 상자 1.5 획 — DS-D-0021) ·
+// **missing 68 → 70**(아바타 대체 글리프 둘: LOUIS 31종에 사람 그림은 `user-sound` 뿐이다) ·
+// **blocked 8 → 2**(남은 둘은 ProgressBar 의 State 축이고 그쪽은 진짜로 측정이 잃은 축이다).
+// **후보 214 · 구조 667 · 총수 881 은 그대로다** — 또 한 번, 같은 후보가 다른 칸으로 갔다.
+//
 // **새 위반을 받아들이려고 이 수를 올리지 마라** — 이 저장소의 baseline 규칙이다.
 const REPLACEABLE_BASELINE = 0;
-const BESPOKE_BASELINE = 60; // 하락만 잠근다(상승은 발견)
+const BESPOKE_BASELINE = 64; // 하락만 잠근다(상승은 발견)
 const UNCLASSIFIED_BASELINE = 0;
 const INSTANCE_FLOOR = 78;
 const CANDIDATE_FLOOR = 214;
@@ -127,6 +137,7 @@ const REQUIRED_RULES = [
   ["$candidateRule", "무엇이 컴포넌트 후보인가 — 분모의 정의"],
   ["$verdictRule", "판정을 다섯으로 가른 근거"],
   ["$bespokeRule", "bespoke 를 기계가 판정하는 방법과 그 조인표의 임자"],
+  ["$glyphRule", "아이콘 정체를 어디서 뜨고 이름을 누가 소유하는가"],
   ["$primitiveSiteSource", "정본 자리·제외 목록과 레시피 상자를 어디서 읽는가"],
   ["$denominatorRule", "비율의 분모에서 구조를 뺀 근거"],
   ["$pruningRule", "대체 가능 노드의 자손을 세지 않는 근거"],
@@ -161,6 +172,13 @@ const componentVocabulary = new Set(Object.keys(readback.components ?? {}));
 if (componentVocabulary.size === 0) {
   errors.push(READBACK + " 에서 Figma 컴포넌트 이름을 하나도 읽지 못했습니다.");
 }
+// **아이콘 사전은 컴포넌트 사전과 다르다.** DS-D-0038 이 아이콘을 컴포넌트 축 밖으로 갈라
+// 두었고 되읽기도 `components` 와 `icons` 를 서로 다른 사전에 담는다. 둘을 합쳐서 보면
+// 「LOUIS 에 있다」의 근거가 어느 축의 것인지 알 수 없어진다.
+const iconVocabulary = new Set(Object.keys(readback.icons ?? {}));
+if (iconVocabulary.size === 0) {
+  errors.push(READBACK + " 에서 Figma 아이콘 이름을 하나도 읽지 못했습니다.");
+}
 const rules = Array.isArray(ledger.matchRules) ? ledger.matchRules : [];
 if (rules.length === 0) errors.push(LEDGER + " 에 대응 규칙(matchRules)이 없습니다. 규칙이 없으면 대체 가능은 언제나 0 입니다.");
 for (const rule of rules) {
@@ -183,6 +201,7 @@ const recounted = { total: 0, instance: 0, replaceable: 0, bespoke: 0, blocked: 
 const unclassifiedIds = [];
 const byComponent = {};
 const bespokeByComponent = {};
+const bespokeByIcon = {};
 
 for (const id of ids) {
   const node = nodes[id];
@@ -209,28 +228,55 @@ for (const id of ids) {
     errors.push(at + ": " + node.verdict + " 에는 후보 조항(candidateClause)이 " + [...CLAUSES].join("/") +
       " 중 하나로 필요합니다: " + String(clause));
   }
+  // **이름을 대는 축이 둘이다.** 컴포넌트(`component`, 사전은 되읽기의 `components`)와
+  // 아이콘(`icon`, 사전은 `icons`). 둘을 한 칸에 접으면 「LOUIS 에 있다」의 근거가 어느 축의
+  // 것인지 사라진다 — DS-D-0038 이 두 축을 갈라 둔 이유가 그것이다. 한 노드가 둘 다 대는 일은
+  // 없다: 아이콘 자리는 `b-vector` 조항이고 컴포넌트 자리는 나머지 셋이다.
+  const hasComponent = typeof node.component === "string" && node.component.length > 0;
+  const hasIcon = typeof node.icon === "string" && node.icon.length > 0;
+  if (hasComponent && hasIcon) {
+    errors.push(at + ": 한 자리가 컴포넌트(" + node.component + ")와 아이콘(" + node.icon +
+      ") 이름을 둘 다 댔습니다. 두 축은 사전이 다릅니다.");
+  }
   if (NAMES_A_LOUIS_COMPONENT.has(node.verdict) || node.verdict === "instance") {
-    // `blocked` 중 아이콘 정체를 잃은 자리(`icon-identity-lost`)는 **어느 컴포넌트인지 자체를
-    // 모르는 것**이 판정의 내용이라 이름이 없다. 그 하나만 예외로 두고 나머지는 이름을 요구한다.
-    const mayLackComponent = node.verdict === "blocked" && node.component === undefined;
-    if (!mayLackComponent && (typeof node.component !== "string" || node.component.length === 0)) {
-      errors.push(at + ": " + node.verdict + " 인데 어느 컴포넌트인지 적혀 있지 않습니다.");
-    } else if (NAMES_A_LOUIS_COMPONENT.has(node.verdict) && !mayLackComponent) {
-      if (!componentVocabulary.has(node.component)) {
+    // 이름 없이 통과하는 자리는 하나다 — `blocked` 중 **어느 것인지 모르는 것 자체가 판정의
+    // 내용**인 자리. 아이콘 여섯이 여기 있었지만 서명을 이어 닫혔고(2026-09-02), 지금 남은
+    // blocked 둘은 ProgressBar 라 이름이 있다. 예외를 지우지 않는 이유는 그 길이 다시 열릴 수
+    // 있어서다 — 측정이 축을 잃는 방식은 아이콘 말고도 있다(ProgressBar 의 State 가 그렇다).
+    const mayLackName = node.verdict === "blocked" && !hasComponent && !hasIcon;
+    if (!mayLackName && !hasComponent && !hasIcon) {
+      errors.push(at + ": " + node.verdict + " 인데 어느 컴포넌트·아이콘인지 적혀 있지 않습니다.");
+    } else if (NAMES_A_LOUIS_COMPONENT.has(node.verdict) && !mayLackName) {
+      if (hasComponent && !componentVocabulary.has(node.component)) {
         errors.push(at + ": 되읽기에 없는 컴포넌트를 대응으로 적었습니다: " + node.component);
       }
-      const key = node.component + "/" + String(node.size);
-      if (node.verdict === "replaceable") byComponent[key] = (byComponent[key] ?? 0) + 1;
-      if (node.verdict === "bespoke") bespokeByComponent[key] = (bespokeByComponent[key] ?? 0) + 1;
+      if (hasIcon && !iconVocabulary.has(node.icon)) {
+        errors.push(at + ": 되읽기에 없는 아이콘을 대응으로 적었습니다: " + node.icon);
+      }
+      if (hasComponent) {
+        const key = node.component + "/" + String(node.size);
+        if (node.verdict === "replaceable") byComponent[key] = (byComponent[key] ?? 0) + 1;
+        if (node.verdict === "bespoke") bespokeByComponent[key] = (bespokeByComponent[key] ?? 0) + 1;
+      }
+      if (hasIcon && node.verdict === "bespoke") bespokeByIcon[node.icon] = (bespokeByIcon[node.icon] ?? 0) + 1;
     }
+  }
+  // **미보유 아이콘도 이름을 대야 한다 — 다만 «없다»는 이름이다.** LOUIS 대응이 없다는 판정이라
+  // `icon` 칸은 비지만, 어느 그림인지(`glyph`)는 반드시 적혀 있어야 한다. 없으면 다음 사람은
+  // 「무엇을 세워야 하는가」를 보드를 열어 눈으로 찾아야 한다.
+  if (node.candidateClause === "b-vector" && (typeof node.glyph !== "string" || node.glyph.length === 0)) {
+    errors.push(at + ": 아이콘 자리인데 어느 글리프인지(glyph) 적혀 있지 않습니다. " +
+      "이름은 figma/app-screens.plan.json 의 productGlyphs 가 소유합니다.");
   }
   // **bespoke 는 근거를 가리켜야 한다.** 「제품이 안 문다」는 판정을 사유 문장만으로 두면
   // 다음 사람이 손으로 아무 자리나 이 칸에 넣을 수 있다 — DS-D-0043 의 목록 중 어느 항목이
   // 그렇게 말했는지(`site` 또는 `probe`)가 함께 적혀야 조인이 검증 가능해진다.
-  if (node.verdict === "bespoke" && typeof node.site !== "string" && typeof node.probe !== "string") {
+  if (node.verdict === "bespoke" && typeof node.site !== "string"
+      && typeof node.probe !== "string" && typeof node.glyph !== "string") {
     errors.push(
-      at + ": bespoke 인데 근거가 된 정본 자리(site)도 제외 probe(probe)도 적혀 있지 않습니다. " +
-        "DS-D-0043 의 목록과 조인한 결과라야 이 판정이 검증 가능합니다.",
+      at + ": bespoke 인데 근거가 된 정본 자리(site)도 제외 probe(probe)도 아이콘 글리프(glyph)도 " +
+        "적혀 있지 않습니다. DS-D-0043 의 목록이나 아이콘 조인표와 조인한 결과라야 이 판정이 " +
+        "검증 가능합니다.",
     );
   }
   if (node.verdict === "unclassified") unclassifiedIds.push(id);
@@ -251,7 +297,8 @@ for (const key of Object.keys(recounted)) {
 // 대응 집계도 다시 센다. 여기가 어긋나면 「무엇을 인스턴스로 바꿔야 하는가」의 목록이 틀린다.
 // **bespoke 집계도 같이 센다** — 그쪽은 「무엇을 지금 바꾸면 «안» 되는가」의 목록이라, 틀리면
 // 다음 사람이 바꾸면 안 되는 자리를 바꾼다.
-for (const [field, recount] of [["byComponent", byComponent], ["bespokeByComponent", bespokeByComponent]]) {
+for (const [field, recount] of [["byComponent", byComponent], ["bespokeByComponent", bespokeByComponent],
+  ["bespokeByIcon", bespokeByIcon]]) {
   const stored = ledger[field] ?? {};
   for (const key of new Set([...Object.keys(recount), ...Object.keys(stored)])) {
     if (stored[key] !== recount[key]) {
@@ -408,7 +455,8 @@ console.log(
     (recounted.replaceable === 0 ? " — 지금은 없다." : ": " + tally(byComponent) + "."),
 );
 console.log(
-  "  제품bespoke " + recounted.bespoke + "개는 **지금 바꾸면 안 된다**: " + tally(bespokeByComponent) +
+  "  제품bespoke " + recounted.bespoke + "개는 **지금 바꾸면 안 된다**: " +
+    tally({ ...bespokeByComponent, ...bespokeByIcon }) +
     ". LOUIS 에 컴포넌트는 있지만 제품이 그 자리에서 정본 클래스를 물지 않는다(DS-D-0043) — " +
     "Figma 에서만 인스턴스로 바꾸면 Figma 가 제품보다 더 「정본」이 되어 두 축이 어긋난다. " +
     "이 칸은 제품이 정본을 물기 시작하면 열린다. **그것이 되어야 하는가는 이 축의 질문이 " +
@@ -416,7 +464,8 @@ console.log(
 );
 console.log(
   "  미보유 " + recounted.missing + " · 막힘 " + recounted.blocked +
-    "(대응은 있는데 측정이 고를 정보를 잃었다 — 아이콘 정체 · ProgressBar 의 State 축) · " +
+    "(대응은 있는데 측정이 고를 정보를 잃었다 — 남은 것은 ProgressBar 의 State 축뿐이다. " +
+    "아이콘 정체 여섯은 서명을 이어 닫혔고 bespoke 4 · 미보유 2 로 갈렸다) · " +
     "제품bespoke " + recounted.bespoke + " 는 늘어도 실패하지 않는다 — 발견이지 후퇴가 아니다. " +
     "bespoke 는 «줄 때» 잠근다(BESPOKE_BASELINE).",
 );

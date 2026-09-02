@@ -107,6 +107,7 @@ withCanary(
 );
 
 // ── 화면 보드 구성 래칫 카나리아 열 (2026-09-02) ─────────────────────────
+// (같은 날 아이콘 정체 축이 열리며 셋이 더 붙었다 — ⑪⑫⑬ 은 커버리지 카나리아 바로 위에 있다.)
 // `check-figma-app-screens` 는 런너가 생성물과 byte-for-byte 같은지만 본다 — 보드 «안»이
 // 인스턴스인지 손으로 그린 도형인지는 한 글자도 보지 않는다. 그 바깥을 세는 게이트가 실제로
 // 빨개지는지 열 방향에서 확인한다. 열 다 실패 모드가 「게이트가 조용히 통과한다」다.
@@ -243,7 +244,12 @@ withCanary(
   "migration/figma-board-composition.json",
   (source) => {
     const ledger = JSON.parse(source);
-    const id = Object.keys(ledger.nodes).find((key) => ledger.nodes[key].verdict === "bespoke");
+    // **컴포넌트 쪽 bespoke 를 고른다.** 이 칸에는 아이콘 쪽 bespoke 도 앉아 있는데(그쪽은
+    // `component`·`size` 대신 `icon`·`glyph` 를 든다) 아래 집계 조작이 그것을 만나면
+    // `undefined/undefined` 를 건드리게 되어 카나리아가 재려던 것을 못 잰다.
+    const id = Object.keys(ledger.nodes).find(
+      (key) => ledger.nodes[key].verdict === "bespoke" && ledger.nodes[key].component,
+    );
     const node = ledger.nodes[id];
     ledger.nodes[id] = { ...node, verdict: "replaceable" };
     ledger.counts.bespoke -= 1;
@@ -266,7 +272,9 @@ withCanary(
   "migration/figma-board-composition.json",
   (source) => {
     const ledger = JSON.parse(source);
-    const id = Object.keys(ledger.nodes).find((key) => ledger.nodes[key].verdict === "bespoke");
+    const id = Object.keys(ledger.nodes).find(
+      (key) => ledger.nodes[key].verdict === "bespoke" && ledger.nodes[key].component,
+    );
     const node = ledger.nodes[id];
     ledger.nodes[id] = {
       board: node.board,
@@ -295,7 +303,9 @@ withCanary(
   "migration/figma-board-composition.json",
   (source) => {
     const ledger = JSON.parse(source);
-    const id = Object.keys(ledger.nodes).find((key) => ledger.nodes[key].verdict === "bespoke");
+    const id = Object.keys(ledger.nodes).find(
+      (key) => ledger.nodes[key].verdict === "bespoke" && ledger.nodes[key].component,
+    );
     const node = { ...ledger.nodes[id] };
     delete node.site;
     delete node.probe;
@@ -322,6 +332,65 @@ withCanary(
   "board composition primitive site table lost a verdict",
   "scripts/measure-figma-board-composition.mjs",
   "정본 자리 목록에도 제외 목록에도 없습니다",
+  "--check",
+);
+
+// ── 아이콘 정체 카나리아 셋 (2026-09-02) ─────────────────────────────────
+// 아이콘 자리는 오랫동안 `blocked` 한 칸이었고 그 칸에는 잠글 것이 없었다 — 「모른다」가
+// 판정이었기 때문이다. 이름이 붙자 그 자리도 bespoke·missing 으로 갈렸고, 갈린 순간부터
+// **틀린 이름을 조용히 놓는 길**이 생긴다. 셋 다 실패 모드가 「게이트가 조용히 통과한다」다.
+
+// ⑪ **아이콘 bespoke 인데 근거(glyph)가 없다.** 컴포넌트 쪽 ⑨와 같은 구멍의 아이콘 판이다.
+//    근거 칸이 비면 「제품이 이 아이콘을 물지 않는다」가 사유 문장만으로 서게 된다.
+withCanary(
+  "migration/figma-board-composition.json",
+  (source) => {
+    const ledger = JSON.parse(source);
+    const id = Object.keys(ledger.nodes).find(
+      (key) => ledger.nodes[key].verdict === "bespoke" && ledger.nodes[key].icon,
+    );
+    const node = { ...ledger.nodes[id] };
+    delete node.glyph;
+    ledger.nodes[id] = node;
+    return JSON.stringify(ledger, null, 2) + "\n";
+  },
+  "board composition icon bespoke without a joined glyph",
+  "scripts/check-figma-board-composition.mjs",
+  "아이콘 자리인데 어느 글리프인지",
+);
+
+// ⑫ **되읽기에 없는 아이콘 이름을 댔다.** 「LOUIS 에 이 아이콘이 있다」는 주장은 되읽기의
+//    `icons` 사전으로만 설 수 있다. 사전을 안 보면 이름은 짐작이 되고, 짐작한 이름이 붙은
+//    자리는 「지금 바꾸면 안 된다」가 아니라 「무엇을 세워야 하는가」를 잘못 가리킨다.
+withCanary(
+  "migration/figma-board-composition.json",
+  (source) => {
+    const ledger = JSON.parse(source);
+    const id = Object.keys(ledger.nodes).find((key) => ledger.nodes[key].icon);
+    const name = ledger.nodes[id].icon;
+    ledger.nodes[id] = { ...ledger.nodes[id], icon: "icon/chevron-left" };
+    ledger.bespokeByIcon["icon/chevron-left"] = ledger.bespokeByIcon[name];
+    delete ledger.bespokeByIcon[name];
+    return JSON.stringify(ledger, null, 2) + "\n";
+  },
+  "board composition icon name outside the readback dictionary",
+  "scripts/check-figma-board-composition.mjs",
+  "되읽기에 없는 아이콘을 대응으로 적었습니다",
+);
+
+// ⑬ **조인표에서 글리프가 사라졌다.** 생성기는 서명을 못 이으면 던지지만, 계획 파일 쪽
+//    목록만 지워지면 열거기는 이름은 있는데 판정이 없는 자리를 만난다. 조용히 넘기면
+//    아이콘 자리가 사유 없이 사라진다 — 던지는지 확인한다.
+withCanary(
+  "figma/app-screens.plan.json",
+  (source) => {
+    const plan = JSON.parse(source);
+    plan.productGlyphs = plan.productGlyphs.filter((glyph) => glyph.id !== "chevron-left");
+    return JSON.stringify(plan, null, 2) + "\n";
+  },
+  "board composition glyph join table lost an entry",
+  "scripts/measure-figma-board-composition.mjs",
+  "조인표에 없습니다",
   "--check",
 );
 

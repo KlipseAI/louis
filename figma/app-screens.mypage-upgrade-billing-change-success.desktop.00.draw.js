@@ -341,7 +341,10 @@ const buildNode = (spec, parent) => {
   }
   node.name = spec.i
     ? `shell/${spec.i[0]} · ${spec.i[1]}` + (spec.i[2] == null ? "" : ` · ${spec.i[2]}`)
-    : (spec.w ? "pending " : "") + spec.t + (spec.x ? " " + String(spec.x).slice(0, 18) : "") + " " + spec.s;
+    // **아이콘은 이름으로 부른다.** `v` 가 없던 동안 보드의 svg 자리는 전부 `svg AA` 라
+    // 서로 구분되지 않았고, 어느 그림인지는 보드를 열어 눈으로 세는 수밖에 없었다.
+    : (spec.w ? "pending " : "") + spec.t + (spec.v ? " " + spec.v : "")
+      + (spec.x ? " " + String(spec.x).slice(0, 18) : "") + " " + spec.s;
 
   if (parent && node.parent !== parent) parent.appendChild(node);
   const parentAuto = parent && "layoutMode" in parent && parent.layoutMode && parent.layoutMode !== "NONE";

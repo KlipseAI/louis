@@ -29,6 +29,7 @@ import {
   LOUIS_PRIMITIVE_EXCLUSIONS,
   LOUIS_PRIMITIVE_SITES,
 } from "./lib/figma-component-substitution.mjs";
+import { glyphBySignature, PRODUCT_GLYPHS } from "./lib/figma-glyph-identity.mjs";
 import { normalizeAuthFixtureTree, toFigmaTreeSpec } from "./lib/figma-tree-spec.mjs";
 
 const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), "..");
@@ -180,6 +181,11 @@ const slim = (node) => ({
   // **인스턴스에는 색·타이포를 싣지 않는다.** 컴포넌트가 이미 제 색을 갖고 있고,
   // 덮어쓰면 디자인 시스템 쪽 수정이 화면에 전파되지 않는다. 라벨은 여기 해당하지 않는다 —
   // 컴포넌트가 **스스로 연 슬롯**을 채우는 것이지 컴포넌트가 정한 값을 덮는 것이 아니다.
+  // **아이콘의 정체.** `<svg>` 자리는 크기·색만으로는 「20×20 회색 상자」와 구분되지 않는다.
+  // 서명 자체를 싣지 않고 이름만 싣는 이유는 payload 예산이다 — 서명 하나가 최대 900바이트라
+  // 39자리면 조각이 갈라진다. 서명 ↔ 이름의 조인은 생성 시점에 끝내고(`glyphIdOf`), 감사본
+  // (`plan.json` 의 `productGlyphs`)이 그 표를 통째로 들고 있어 원장이 되짚을 수 있다.
+  ...(node.glyphId ? { v: node.glyphId } : {}),
   ...(node.instance ? {} : paintKeys(node)),
   ...(node.instance ? {} : typographyKeys(node)),
   ...(node.children.length ? { k: node.children.map(slim) } : {}),
@@ -246,6 +252,37 @@ let totalNodes = 0;
 let totalUnresolved = 0;
 let totalShells = 0;
 let totalShellGaps = 0;
+let totalGlyphs = 0;
+
+/**
+ * **`<svg>` 자리에 이름을 붙인다.** 서명은 `glyphSignature`(figma-tree-spec.mjs)가 측정에서
+ * 떴고, 이름은 손으로 읽은 조인표가 소유한다(figma-glyph-identity.mjs). 여기서는 잇기만 한다.
+ *
+ * **서명이 표에 없으면 던진다.** 조용히 이름 없이 두면 보드에 「20×20 회색 상자」가 하나 더
+ * 늘고, 원장은 그것을 `blocked` 로 세면서 「생성기가 정체를 버렸다」는 이미 틀린 사유를 붙인다.
+ * 새 아이콘이 들어오면 표에 한 줄을 적는 것이 이 게이트가 요구하는 일이다.
+ */
+function applyGlyphIdentity(spec, where) {
+  let count = 0;
+  const walk = (node) => {
+    if (node.instance) return;
+    if (node.glyph != null) {
+      const glyph = glyphBySignature(node.glyph);
+      if (!glyph) {
+        fail(
+          `아이콘 서명이 조인표에 없습니다(${where} · ${node.path}): ${node.glyph.slice(0, 120)}… — ` +
+          "`scripts/lib/figma-glyph-identity.mjs` 의 PRODUCT_GLYPHS 에 이름·대응·사유를 적으세요. " +
+          "이름 없이 두면 그 자리는 보드에서 크기만 남은 상자가 됩니다.",
+        );
+      }
+      node.glyphId = glyph.id;
+      count += 1;
+    }
+    for (const child of node.children ?? []) walk(child);
+  };
+  walk(spec);
+  return count;
+}
 const paintStats = { fills: 0, gradients: 0, strokes: 0, radii: 0, shadows: 0, texts: 0, textStyled: 0, textLiteral: new Set() };
 
 for (const screen of SCREENS) {
@@ -274,6 +311,10 @@ for (const screen of SCREENS) {
       styleOf: (path) => styleByPath.get(path) ?? null,
       evidence: { recipes, readback },
     });
+    // **아이콘 정체를 서명 ↔ 이름 조인표에 댄다.** 인스턴스 치환 «뒤에» 돌린다 — 셸 안으로
+    // 사라진 글리프는 payload 에 나오지 않으므로 이름을 붙일 일도 없다.
+    const glyphs = applyGlyphIdentity(spec, `${screen.route} @ ${context.id}`);
+    totalGlyphs += glyphs;
     totalNodes += stats.kept;
     totalUnresolved += stats.unresolved.length;
     totalShells += shells.applied.length;
@@ -332,6 +373,11 @@ const plan = {
     component: site.component, size: site.size, why: site.why,
   })),
   louisPrimitiveExclusions: LOUIS_PRIMITIVE_EXCLUSIONS,
+  // **아이콘 조인표도 생성물에 싣는다 — 정본 자리 목록과 같은 이유다.** 보드 원장은 payload 의
+  // `v`(이름)만 보고 「LOUIS 에 대응이 있는가」를 판정해야 하는데, 목록을 그쪽에 다시 적으면
+  // 두 벌이 되어 반드시 어긋난다. 서명까지 통째로 싣는 이유는 감사다 — 이름이 어느 그림에
+  // 붙었는지 확인하려면 서명이 있어야 한다.
+  productGlyphs: PRODUCT_GLYPHS,
   paint: { ...paintStats, textLiteral: [...paintStats.textLiteral].sort() },
   screens,
 };
@@ -413,5 +459,5 @@ if (checkOnly) {
 
 console.log(
   `[figma-app-screens] ${checkOnly ? "checked" : "built"} @ ${fixture.productCommit.slice(0, 8)}: ` +
-  `${screens.length} screens · ${totalNodes} nodes · UNRESOLVED ${totalUnresolved} · 인스턴스 ${totalShells}(공백 ${totalShellGaps}) · 면 ${paintStats.fills}+${paintStats.gradients}g/${paintStats.strokes}/${paintStats.radii}/${paintStats.shadows} · 텍스트 ${paintStats.textStyled}/${paintStats.texts} 스타일 매칭 · 런너 ${SCREENS.length}개`,
+  `${screens.length} screens · ${totalNodes} nodes · UNRESOLVED ${totalUnresolved} · 인스턴스 ${totalShells}(공백 ${totalShellGaps}) · 아이콘 ${totalGlyphs} · 면 ${paintStats.fills}+${paintStats.gradients}g/${paintStats.strokes}/${paintStats.radii}/${paintStats.shadows} · 텍스트 ${paintStats.textStyled}/${paintStats.texts} 스타일 매칭 · 런너 ${SCREENS.length}개`,
 );

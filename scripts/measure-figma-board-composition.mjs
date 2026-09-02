@@ -51,11 +51,17 @@
 // ── 판정이 왜 셋이 아니라 다섯인가 ───────────────────────────────────────
 //
 // 처음 설계는 셋이었다 — replaceable(대응이 있다) · structural(컴포넌트가 아닌 게 맞다) ·
-// missing(컴포넌트여야 하는데 LOUIS 에 없다). **그 모델에는 svg 를 적을 자리가 없다.**
-// LOUIS 에는 아이콘 31종이 «있다». 그런데 draw payload 는 축약할 때 아이콘의 정체(path·이름)를
-// 버려서 어느 아이콘인지 기계가 고를 수 없다. 이것을 `replaceable` 로 세면 「지금 인스턴스로
-// 바꾸면 된다」는 거짓말이 되고(무엇으로 바꿀지 모른다), `missing` 으로 세면 「LOUIS 에 없다」는
+// missing(컴포넌트여야 하는데 LOUIS 에 없다). **그 모델에는 svg 를 적을 자리가 없었다.**
+// LOUIS 에는 아이콘 31종이 «있다». 그런데 draw payload 는 아이콘의 정체를 나르지 않아 어느
+// 아이콘인지 기계가 고를 수 없었다. 이것을 `replaceable` 로 세면 「지금 인스턴스로 바꾸면
+// 된다」는 거짓말이 되고(무엇으로 바꿀지 모른다), `missing` 으로 세면 「LOUIS 에 없다」는
 // 거짓말이 된다(31종이 있다). 어느 쪽으로 접든 읽는 사람이 틀린 일을 하게 된다. → `blocked`.
+//
+// **그 여섯 자리는 2026-09-02 에 닫혔다(아이콘 축).** 정체를 버린 곳은 축약(`slim`)이 아니라
+// 트리 변환이었다 — `<path>` 는 배경도 글자도 없어서 「스스로 그릴 것이 없는 노드」로 지워졌다.
+// 측정 fixture 에는 `d` 가 그대로 있으므로 지우기 «앞»에서 서명을 뜨면 된다. 이제 svg 자리는
+// 이름(`v`)을 달고 오고, 판정은 손으로 읽은 조인표를 인용한다($glyphRule). 남은 `blocked` 는
+// ProgressBar 둘뿐이고 그쪽은 진짜로 측정이 축을 잃은 자리다.
 //
 // **넷도 모자랐다(2026-09-02, DS-D-0043 이 예고한 빈칸).** 넷째 칸까지 세운 뒤 남은
 // 대체 가능 62 를 열어 보니 대부분이 「지금 바꿀 수 있는 것」이 아니었다:
@@ -77,7 +83,9 @@
 //                안 된다. 열리는 조건은 Figma 가 아니라 제품이 정본을 물기 시작하는 것이고,
 //                그것은 표면 원장(`migration/product.surfaces.json`)의 `needed` 가 세는 질문이다.
 //   blocked      대응은 있는데 **측정이 그것을 고를 정보를 잃었다.** 고칠 곳은 Figma 가 아니라
-//                생성기다 — `build-figma-app-screens.mjs` 의 축약이 아이콘 정체를 실어야 한다.
+//                측정·생성 쪽이다. 아이콘 여섯은 생성 쪽이라 닫혔고(서명을 잇는 것으로 끝났다),
+//                남은 ProgressBar 둘은 측정 쪽이다 — 계산 스타일에 `aria-valuenow` 가 없고
+//                `__fill` 은 진행 0% 라 트리에서 지워져, State 축을 고를 정보가 아예 없다.
 //   missing      컴포넌트여야 하는데 LOUIS 에 그 축이 없다. 세워야 할 것의 목록이다.
 //   structural   컴포넌트가 아닌 것이 맞다. 분모 밖이며, 유형별 사유를 갖는다.
 //
@@ -180,6 +188,40 @@ if (primitiveSites.length === 0) {
 if (primitiveExclusions.length === 0) {
   fail("런너 계획에 louisPrimitiveExclusions 가 없습니다. 제외 사유가 없으면 판정에 근거가 없습니다.");
 }
+// ── 아이콘 조인표 (같은 결로 빌려 온다) ──────────────────────────────────
+// 원본은 `scripts/lib/figma-glyph-identity.mjs` 의 `PRODUCT_GLYPHS` 이고 생성기가 계획 파일에
+// 그대로 싣는다. 여기서 다시 적지 않는 이유는 위와 같다 — 두 벌이 되면 반드시 어긋난다.
+// payload 는 이름(`v`)만 나르므로, 「LOUIS 에 대응이 있는가」와 사유는 이 표에서만 나온다.
+const productGlyphs = Array.isArray(plan.productGlyphs) ? plan.productGlyphs : [];
+if (productGlyphs.length === 0) {
+  fail(
+    "런너 계획에 productGlyphs 가 없습니다. 조인표가 비면 모든 아이콘이 이름 없는 도형으로 " +
+    "떨어지고, 원장은 다시 「생성기가 정체를 버렸다」는 낡은 사유를 붙이게 됩니다.",
+  );
+}
+const GLYPH_VERDICTS = new Set(["replaceable", "bespoke", "missing"]);
+const glyphById = new Map();
+for (const glyph of productGlyphs) {
+  if (typeof glyph.id !== "string" || !GLYPH_VERDICTS.has(glyph.verdict) || typeof glyph.why !== "string") {
+    fail(`아이콘 조인표의 항목 ${String(glyph.id)} 에 id·verdict·why 가 갖춰져 있지 않습니다.`);
+  }
+  // `missing` 은 「LOUIS 에 대응이 없다」이고 나머지 둘은 「있다」다. 이름 칸과 판정이 어긋나면
+  // 원장은 있는 것을 없다고, 없는 것을 있다고 말하게 된다.
+  if ((glyph.louis == null) !== (glyph.verdict === "missing")) {
+    fail(
+      `아이콘 ${glyph.id} 의 판정(${glyph.verdict})과 대응 이름(${String(glyph.louis)})이 ` +
+      "어긋납니다 — missing 은 대응이 없다는 뜻이고 나머지는 있다는 뜻입니다.",
+    );
+  }
+  if (glyph.louis != null && !readback.icons?.[glyph.louis]) {
+    fail(
+      `아이콘 조인표가 되읽기에 없는 아이콘을 가리킵니다: ${glyph.louis}. ` +
+      "「LOUIS 에 있다」는 되읽기의 icons 사전으로만 말할 수 있습니다.",
+    );
+  }
+  glyphById.set(glyph.id, glyph);
+}
+
 const EXCLUSION_VERDICTS = new Set(["bespoke", "blocked"]);
 for (const exclusion of primitiveExclusions) {
   if (typeof exclusion.component !== "string" || !EXCLUSION_VERDICTS.has(exclusion.verdict)) {
@@ -473,6 +515,7 @@ const nodes = {};
 const counts = { total: 0, instance: 0, replaceable: 0, bespoke: 0, blocked: 0, missing: 0, structural: 0, unclassified: 0 };
 const byComponent = {};
 const bespokeByComponent = {};
+const bespokeByIcon = {};
 const byInstanceSet = {};
 const structuralByKind = {};
 const missingByReason = {};
@@ -569,13 +612,29 @@ for (const name of files) {
       }
 
       if (clause === "b-vector") {
-        record(path, node, "blocked", {
-          rule: "icon-identity-lost",
+        // **아이콘은 이름으로 판정한다.** payload 의 `v` 는 측정 서명(viewBox + 자손 도형의 기하)
+        // 을 손으로 읽은 조인표에 댄 결과다. 이름이 없다는 것은 생성기가 서명을 못 이었다는 뜻인데,
+        // 생성기는 그때 던지므로 여기까지 올 수 없다 — 그래도 조용히 통과시키지 않는다.
+        const glyph = node.v ? glyphById.get(node.v) : null;
+        if (!glyph) {
+          fail(
+            `아이콘 자리 ${payload.route}@${payload.context}#${path} 의 이름(${String(node.v)})이 ` +
+            "조인표에 없습니다. `scripts/lib/figma-glyph-identity.mjs` 에 이름·대응·사유를 적고 " +
+            "런너를 다시 뽑으세요 — 이름 없는 아이콘을 세는 길은 이 파일에 없습니다.",
+          );
+        }
+        record(path, node, glyph.verdict, {
+          rule: `glyph-${glyph.verdict}`,
           candidateClause: clause,
-          reason:
-            "LOUIS 아이콘 31종이 컴포넌트로 서 있는데, draw payload 의 축약(slim)이 아이콘의 " +
-            "정체(path·이름)를 버려서 어느 것인지 고를 수 없다. 고칠 곳은 Figma 가 아니라 생성기다.",
+          glyph: glyph.id,
+          ...(glyph.louis == null ? {} : { icon: glyph.louis }),
+          reason: glyph.why,
         });
+        if (glyph.verdict === "bespoke") bespokeByIcon[glyph.louis] = (bespokeByIcon[glyph.louis] ?? 0) + 1;
+        if (glyph.verdict === "missing") missingByReason[clause] = (missingByReason[clause] ?? 0) + 1;
+        // 자손을 세지 않는 것은 replaceable·bespoke 와 같은 이유이고, `missing` 이어도 마찬가지다
+        // — 아이콘의 «안»은 도형이 아니라 그림 하나이고, 그것을 세면 같은 그림을 두 번 센다.
+        // (지금 payload 에 svg 의 자식은 애초에 없다. `<path>` 는 트리 변환이 지운다.)
         return;
       }
 
@@ -645,7 +704,9 @@ const output = {
     "없다) · structural(컴포넌트가 아닌 것이 맞다). 셋이 아니라 넷이 된 이유는 svg 를 적을 자리가 " +
     "없었기 때문이다 — LOUIS 에 아이콘 31종이 있으므로 missing 이 아니고, payload 가 정체를 " +
     "버려서 어느 것인지 고를 수 없으므로 replaceable 도 아니다. 어느 쪽으로 접든 읽는 사람이 " +
-    "틀린 일을 하게 된다. blocked 가 고칠 곳은 Figma 가 아니라 생성기다. 넷이 다섯이 된 이유도 " +
+    "틀린 일을 하게 된다. blocked 가 고칠 곳은 Figma 가 아니라 측정·생성 쪽이다 — 아이콘 여섯은 " +
+    "서명을 이어 닫혔고($glyphRule), 남은 둘(ProgressBar)은 측정이 State 축을 잃은 자리다. " +
+    "넷이 다섯이 된 이유도 " +
     "같은 모양이다 — 제품이 지역 스타일로 그리는 자리를 replaceable 로 세면 「지금 바꾸면 " +
     "된다」가 거짓이 되고(바꾸면 Figma 가 제품보다 더 정본이 되어 두 축이 어긋난다), missing 으로 " +
     "세면 「LOUIS 에 없다」가 거짓이 되며, structural 로 세면 사람이 누르는 것을 도형이라 " +
@@ -689,6 +750,21 @@ const output = {
     "SegmentedControl·SegmentedControlItem·Avatar·ProgressBar)뿐이다 — 나머지 45종의 대응은 " +
     "아직 규칙이 없어서 missing 이나 structural 로 앉아 있을 수 있다. 규칙을 더하면 " +
     "replaceable 이나 bespoke 가 올라가고, 그때 게이트가 baseline 을 움직이라고 요구한다.",
+  $glyphRule:
+    "svg 자리는 이름으로 판정한다. 측정 fixture 는 `<svg>` 의 viewBox 와 자손 도형의 기하 " +
+    "속성(d·points·cx…)을 담는데, 트리 변환이 `<path>` 를 「스스로 그릴 것이 없는 노드」로 보아 " +
+    "지워서 Figma 로 가는 spec 에는 크기만 남았다. 그래서 서명을 뜨는 곳을 그 지우기 «앞»으로 " +
+    "옮겼고(figma-tree-spec.mjs 의 glyphSignature), 서명 ↔ 이름 조인표는 " +
+    "scripts/lib/figma-glyph-identity.mjs 가 소유해 figma/app-screens.plan.json 의 " +
+    "productGlyphs 로 실린다. 이름 붙이기는 손으로 읽는다 — LOUIS 아이콘 31종은 line·polyline·" +
+    "circle·rect 로 그려져 있고 제품 글리프는 전부 path 라 문자열이 같은 기하가 0 건이고, " +
+    "측정 트리에 아이콘 이름·클래스가 없으며, 24 상자 1.8 획인 글리프가 여덟 중 넷이라 " +
+    "크기+획으로도 갈리지 않는다. 서명이 표에 없으면 생성기가 던진다. 판정은 이 표를 인용한다 — " +
+    "여덟 중 replaceable 은 0 이다: 둘(chevron-left·chevron-right)은 LOUIS 에 같은 뜻의 아이콘이 " +
+    "있지만 제품이 그것을 물지 않고 24 상자 1.8 획의 인라인 글리프를 그려 bespoke 이고(정본은 " +
+    "24 상자 1.5 획 — DS-D-0021), 나머지 여섯은 LOUIS 31종에 대응 그림이 없어 missing 이다. " +
+    "이 갈림은 DS-D-0038 이 아이콘 축의 미결로 남겨 둔 「제품 글리프의 상자·획 정리」와 " +
+    "「.glyph/ 의 icon/ 승격」에 매달려 있다.",
   $primitiveSiteSource:
     "정본 자리·제외 목록은 figma/app-screens.plan.json 의 louisPrimitiveSites · " +
     "louisPrimitiveExclusions 에서 읽고, 제품 레시피 상자는 " +
@@ -709,6 +785,7 @@ const output = {
   byInstanceSet,
   byComponent,
   bespokeByComponent,
+  bespokeByIcon,
   structuralByKind,
   missingByCandidateClause: missingByReason,
   matchRules: MATCH_RULES.map((rule) => ({

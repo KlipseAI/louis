@@ -7209,7 +7209,7 @@
           }
         },
         "node-chip-surface": {
-          "$value": "{primitive.color.palette-gray.100}",
+          "$value": "{primitive.color.palette-gray.150}",
           "$extensions": {
             "com.klipse-design": {
               "id": "color-node-chip-surface",
@@ -7219,7 +7219,7 @@
           }
         },
         "node-chip-surface-hover": {
-          "$value": "{primitive.color.palette-gray.150}",
+          "$value": "{primitive.color.palette-gray.200}",
           "$extensions": {
             "com.klipse-design": {
               "id": "color-node-chip-surface-hover",

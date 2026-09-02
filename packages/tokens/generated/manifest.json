@@ -2,23 +2,23 @@
   "artifacts": [
     {
       "path": "packages/tokens/generated/figma.tokens.json",
-      "sha256": "8b33b3f1a0457f7ec904768c70016b34b7bab7d5e7ca62406f30f5ff791e3ced"
+      "sha256": "507aa094d4538859cb6068d1c6f1a6f2a891927de6854a016ffe603e513859c4"
     },
     {
       "path": "packages/tokens/generated/index.d.ts",
-      "sha256": "ea086fbaf6f87296e5cd9ba79df1fb1cfe33e00d333535c566fae843057e9f22"
+      "sha256": "be8b4e33d1ea312c0aa9cc39c69289f8b3fa6f4a13a734343e8848c5705bec21"
     },
     {
       "path": "packages/tokens/generated/index.js",
-      "sha256": "5ee7568da8e65043aacb55fc03d97e0dc5cce743cf9a251bd66974236f3a9ba2"
+      "sha256": "7e9a97b687e233d29f7c1167263ae6494489fe040f47701977caa0789324cc05"
     },
     {
       "path": "packages/tokens/generated/tokens.css",
-      "sha256": "02ba6b1d668dd55bde0f11140ece9ff972618303d92734bfc9536d71f9ed2ca2"
+      "sha256": "c4fda648c36f482f41b9384003d0e28ccf6b39e84328591ac7be50fbb30be212"
     },
     {
       "path": "packages/tokens/generated/tokens.json",
-      "sha256": "9dcc90e4b6e96507b0c5a987941346a83541d1939615744a310ba13e0e9bc27b"
+      "sha256": "bb74eca7c035e5f58cf22823631ecc72c1f3a320aba01292eeee92b4fbc3f529"
     }
   ],
   "contrastPairs": [
@@ -419,7 +419,7 @@
   },
   "source": {
     "path": "packages/tokens/src/klipse.tokens.json",
-    "sha256": "fe7a68f3b280fec1624c989ac57e2fd4eebb6ca2edf6a28c43e57f4382170a8f"
+    "sha256": "850070d17162a08f282e2b2e817727c3ae58fc193f0094974f4557eaa4742059"
   },
   "themes": [
     "light",
@@ -8131,24 +8131,24 @@
     },
     {
       "aliasTarget": {
-        "id": "color-palette-gray-100",
+        "id": "color-palette-gray-150",
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-node-chip-surface": "color(srgb 0.866667 0.870588 0.882353 / 1)"
+        "--louis-color-node-chip-surface": "color(srgb 0.811765 0.815686 0.831373 / 1)"
       },
       "deprecated": null,
       "description": null,
       "id": "color-node-chip-surface",
       "mode": "light",
-      "rawValue": "{primitive.color.palette-gray.100}",
+      "rawValue": "{primitive.color.palette-gray.150}",
       "resolvedValue": {
         "alpha": 1,
         "colorSpace": "srgb",
         "components": [
-          0.866667,
-          0.870588,
-          0.882353
+          0.811765,
+          0.815686,
+          0.831373
         ]
       },
       "sourcePath": "semantic.light.color.node-chip-surface",
@@ -8183,24 +8183,24 @@
     },
     {
       "aliasTarget": {
-        "id": "color-palette-gray-150",
+        "id": "color-palette-gray-200",
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-node-chip-surface-hover": "color(srgb 0.811765 0.815686 0.831373 / 1)"
+        "--louis-color-node-chip-surface-hover": "color(srgb 0.756863 0.764706 0.776471 / 1)"
       },
       "deprecated": null,
       "description": null,
       "id": "color-node-chip-surface-hover",
       "mode": "light",
-      "rawValue": "{primitive.color.palette-gray.150}",
+      "rawValue": "{primitive.color.palette-gray.200}",
       "resolvedValue": {
         "alpha": 1,
         "colorSpace": "srgb",
         "components": [
-          0.811765,
-          0.815686,
-          0.831373
+          0.756863,
+          0.764706,
+          0.776471
         ]
       },
       "sourcePath": "semantic.light.color.node-chip-surface-hover",

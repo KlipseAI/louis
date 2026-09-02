@@ -1641,45 +1641,6 @@
             }
           }
         },
-        "color-palette-gray-050": {
-          "$type": "color",
-          "fields": [],
-          "figmaName": "color/palette-gray/050",
-          "hiddenFromPublishing": true,
-          "losses": [],
-          "nativeVariableType": "COLOR",
-          "representation": "variable",
-          "scopes": [
-            "FRAME_FILL",
-            "SHAPE_FILL",
-            "STROKE_COLOR",
-            "TEXT_FILL"
-          ],
-          "valuesByMode": {
-            "Base": {
-              "$value": {
-                "colorSpace": "srgb",
-                "components": [
-                  0.972549,
-                  0.972549,
-                  0.976471
-                ],
-                "hex": "#f8f8f9"
-              },
-              "aliasTarget": null,
-              "resolvedValue": {
-                "alpha": 1,
-                "colorSpace": "srgb",
-                "components": [
-                  0.972549,
-                  0.972549,
-                  0.976471
-                ]
-              },
-              "sourcePath": "primitive.color.palette-gray.050"
-            }
-          }
-        },
         "color-palette-gray-100": {
           "$type": "color",
           "fields": [],
@@ -1699,62 +1660,23 @@
               "$value": {
                 "colorSpace": "srgb",
                 "components": [
-                  0.945098,
-                  0.945098,
-                  0.952941
+                  0.933333,
+                  0.937255,
+                  0.945098
                 ],
-                "hex": "#f1f1f3"
+                "hex": "#eeeff1"
               },
               "aliasTarget": null,
               "resolvedValue": {
                 "alpha": 1,
                 "colorSpace": "srgb",
                 "components": [
-                  0.945098,
-                  0.945098,
-                  0.952941
+                  0.933333,
+                  0.937255,
+                  0.945098
                 ]
               },
               "sourcePath": "primitive.color.palette-gray.100"
-            }
-          }
-        },
-        "color-palette-gray-150": {
-          "$type": "color",
-          "fields": [],
-          "figmaName": "color/palette-gray/150",
-          "hiddenFromPublishing": true,
-          "losses": [],
-          "nativeVariableType": "COLOR",
-          "representation": "variable",
-          "scopes": [
-            "FRAME_FILL",
-            "SHAPE_FILL",
-            "STROKE_COLOR",
-            "TEXT_FILL"
-          ],
-          "valuesByMode": {
-            "Base": {
-              "$value": {
-                "colorSpace": "srgb",
-                "components": [
-                  0.917647,
-                  0.921569,
-                  0.933333
-                ],
-                "hex": "#eaebee"
-              },
-              "aliasTarget": null,
-              "resolvedValue": {
-                "alpha": 1,
-                "colorSpace": "srgb",
-                "components": [
-                  0.917647,
-                  0.921569,
-                  0.933333
-                ]
-              },
-              "sourcePath": "primitive.color.palette-gray.150"
             }
           }
         },
@@ -1816,20 +1738,20 @@
               "$value": {
                 "colorSpace": "srgb",
                 "components": [
-                  0.835294,
-                  0.843137,
-                  0.866667
+                  0.792157,
+                  0.803922,
+                  0.827451
                 ],
-                "hex": "#d5d7dd"
+                "hex": "#cacdd3"
               },
               "aliasTarget": null,
               "resolvedValue": {
                 "alpha": 1,
                 "colorSpace": "srgb",
                 "components": [
-                  0.835294,
-                  0.843137,
-                  0.866667
+                  0.792157,
+                  0.803922,
+                  0.827451
                 ]
               },
               "sourcePath": "primitive.color.palette-gray.300"
@@ -17026,9 +16948,9 @@
                 "alpha": 1,
                 "colorSpace": "srgb",
                 "components": [
-                  0.945098,
-                  0.945098,
-                  0.952941
+                  0.933333,
+                  0.937255,
+                  0.945098
                 ]
               },
               "sourcePath": "semantic.light.color.app.page-bg"
@@ -17332,9 +17254,9 @@
                 "alpha": 1,
                 "colorSpace": "srgb",
                 "components": [
-                  0.945098,
-                  0.945098,
-                  0.952941
+                  0.933333,
+                  0.937255,
+                  0.945098
                 ]
               },
               "sourcePath": "semantic.light.color.bg-canvas"
@@ -17476,18 +17398,18 @@
               "sourcePath": "semantic.dark.color.bg-inset"
             },
             "Light": {
-              "$value": "{primitive.color.palette-gray.150}",
+              "$value": "{primitive.color.palette-gray.100}",
               "aliasTarget": {
-                "id": "color-palette-gray-150",
+                "id": "color-palette-gray-100",
                 "mode": "base"
               },
               "resolvedValue": {
                 "alpha": 1,
                 "colorSpace": "srgb",
                 "components": [
-                  0.917647,
-                  0.921569,
-                  0.933333
+                  0.933333,
+                  0.937255,
+                  0.945098
                 ]
               },
               "sourcePath": "semantic.light.color.bg-inset"
@@ -17638,9 +17560,9 @@
                 "alpha": 1,
                 "colorSpace": "srgb",
                 "components": [
-                  0.945098,
-                  0.945098,
-                  0.952941
+                  0.933333,
+                  0.937255,
+                  0.945098
                 ]
               },
               "sourcePath": "semantic.light.color.bg-menu"
@@ -17927,9 +17849,9 @@
                 "alpha": 1,
                 "colorSpace": "srgb",
                 "components": [
-                  0.945098,
-                  0.945098,
-                  0.952941
+                  0.933333,
+                  0.937255,
+                  0.945098
                 ]
               },
               "sourcePath": "semantic.dark.color.bg-upgrade"
@@ -17986,18 +17908,18 @@
               "sourcePath": "semantic.dark.color.bg-upgrade-current"
             },
             "Light": {
-              "$value": "{primitive.color.palette-gray.050}",
+              "$value": "{primitive.color.palette-gray.000}",
               "aliasTarget": {
-                "id": "color-palette-gray-050",
+                "id": "color-palette-gray-000",
                 "mode": "base"
               },
               "resolvedValue": {
                 "alpha": 1,
                 "colorSpace": "srgb",
                 "components": [
-                  0.972549,
-                  0.972549,
-                  0.976471
+                  0.980392,
+                  0.980392,
+                  0.980392
                 ]
               },
               "sourcePath": "semantic.light.color.bg-upgrade-current"
@@ -18403,9 +18325,9 @@
                 "alpha": 1,
                 "colorSpace": "srgb",
                 "components": [
-                  0.945098,
-                  0.945098,
-                  0.952941
+                  0.933333,
+                  0.937255,
+                  0.945098
                 ]
               },
               "sourcePath": "semantic.light.color.dropdown.surface-bg"
@@ -18947,9 +18869,9 @@
                 "alpha": 1,
                 "colorSpace": "srgb",
                 "components": [
-                  0.835294,
-                  0.843137,
-                  0.866667
+                  0.792157,
+                  0.803922,
+                  0.827451
                 ]
               },
               "sourcePath": "semantic.dark.color.fg-secondary"
@@ -19108,18 +19030,18 @@
               "sourcePath": "semantic.dark.color.fg-upgrade"
             },
             "Light": {
-              "$value": "{primitive.color.palette-gray.050}",
+              "$value": "{primitive.color.palette-gray.000}",
               "aliasTarget": {
-                "id": "color-palette-gray-050",
+                "id": "color-palette-gray-000",
                 "mode": "base"
               },
               "resolvedValue": {
                 "alpha": 1,
                 "colorSpace": "srgb",
                 "components": [
-                  0.972549,
-                  0.972549,
-                  0.976471
+                  0.980392,
+                  0.980392,
+                  0.980392
                 ]
               },
               "sourcePath": "semantic.light.color.fg-upgrade"
@@ -19210,18 +19132,18 @@
               "sourcePath": "semantic.dark.color.fg-upgrade-hover"
             },
             "Light": {
-              "$value": "{primitive.color.palette-gray.050}",
+              "$value": "{primitive.color.palette-gray.000}",
               "aliasTarget": {
-                "id": "color-palette-gray-050",
+                "id": "color-palette-gray-000",
                 "mode": "base"
               },
               "resolvedValue": {
                 "alpha": 1,
                 "colorSpace": "srgb",
                 "components": [
-                  0.972549,
-                  0.972549,
-                  0.976471
+                  0.980392,
+                  0.980392,
+                  0.980392
                 ]
               },
               "sourcePath": "semantic.light.color.fg-upgrade-hover"
@@ -20171,9 +20093,9 @@
                 "alpha": 1,
                 "colorSpace": "srgb",
                 "components": [
-                  0.945098,
-                  0.945098,
-                  0.952941
+                  0.933333,
+                  0.937255,
+                  0.945098
                 ]
               },
               "sourcePath": "semantic.dark.color.gray.100"
@@ -20324,9 +20246,9 @@
                 "alpha": 1,
                 "colorSpace": "srgb",
                 "components": [
-                  0.835294,
-                  0.843137,
-                  0.866667
+                  0.792157,
+                  0.803922,
+                  0.827451
                 ]
               },
               "sourcePath": "semantic.dark.color.gray.300"
@@ -20545,9 +20467,9 @@
                 "alpha": 1,
                 "colorSpace": "srgb",
                 "components": [
-                  0.835294,
-                  0.843137,
-                  0.866667
+                  0.792157,
+                  0.803922,
+                  0.827451
                 ]
               },
               "sourcePath": "semantic.light.color.gray.700"
@@ -20647,9 +20569,9 @@
                 "alpha": 1,
                 "colorSpace": "srgb",
                 "components": [
-                  0.945098,
-                  0.945098,
-                  0.952941
+                  0.933333,
+                  0.937255,
+                  0.945098
                 ]
               },
               "sourcePath": "semantic.light.color.gray.900"
@@ -20800,9 +20722,9 @@
                 "alpha": 1,
                 "colorSpace": "srgb",
                 "components": [
-                  0.945098,
-                  0.945098,
-                  0.952941
+                  0.933333,
+                  0.937255,
+                  0.945098
                 ]
               },
               "sourcePath": "semantic.light.color.landing.page-bg"
@@ -21769,9 +21691,9 @@
                 "alpha": 1,
                 "colorSpace": "srgb",
                 "components": [
-                  0.945098,
-                  0.945098,
-                  0.952941
+                  0.933333,
+                  0.937255,
+                  0.945098
                 ]
               },
               "sourcePath": "semantic.light.color.node-chip-surface"
@@ -21811,18 +21733,18 @@
               "sourcePath": "semantic.dark.color.node-chip-surface-hover"
             },
             "Light": {
-              "$value": "{primitive.color.palette-gray.150}",
+              "$value": "{primitive.color.palette-gray.100}",
               "aliasTarget": {
-                "id": "color-palette-gray-150",
+                "id": "color-palette-gray-100",
                 "mode": "base"
               },
               "resolvedValue": {
                 "alpha": 1,
                 "colorSpace": "srgb",
                 "components": [
-                  0.917647,
-                  0.921569,
-                  0.933333
+                  0.933333,
+                  0.937255,
+                  0.945098
                 ]
               },
               "sourcePath": "semantic.light.color.node-chip-surface-hover"
@@ -21871,9 +21793,9 @@
                 "alpha": 1,
                 "colorSpace": "srgb",
                 "components": [
-                  0.945098,
-                  0.945098,
-                  0.952941
+                  0.933333,
+                  0.937255,
+                  0.945098
                 ]
               },
               "sourcePath": "semantic.light.color.node.chrome-btn-bg"
@@ -24370,9 +24292,9 @@
                 "alpha": 1,
                 "colorSpace": "srgb",
                 "components": [
-                  0.835294,
-                  0.843137,
-                  0.866667
+                  0.792157,
+                  0.803922,
+                  0.827451
                 ]
               },
               "sourcePath": "semantic.light.color.stroke-default"
@@ -24676,9 +24598,9 @@
                 "alpha": 1,
                 "colorSpace": "srgb",
                 "components": [
-                  0.945098,
-                  0.945098,
-                  0.952941
+                  0.933333,
+                  0.937255,
+                  0.945098
                 ]
               },
               "sourcePath": "semantic.light.color.surface.background"
@@ -24982,9 +24904,9 @@
                 "alpha": 1,
                 "colorSpace": "srgb",
                 "components": [
-                  0.945098,
-                  0.945098,
-                  0.952941
+                  0.933333,
+                  0.937255,
+                  0.945098
                 ]
               },
               "sourcePath": "semantic.light.color.table-header-surface"
@@ -25024,18 +24946,18 @@
               "sourcePath": "semantic.dark.color.table-row-hover"
             },
             "Light": {
-              "$value": "{primitive.color.palette-gray.050}",
+              "$value": "{primitive.color.palette-gray.000}",
               "aliasTarget": {
-                "id": "color-palette-gray-050",
+                "id": "color-palette-gray-000",
                 "mode": "base"
               },
               "resolvedValue": {
                 "alpha": 1,
                 "colorSpace": "srgb",
                 "components": [
-                  0.972549,
-                  0.972549,
-                  0.976471
+                  0.980392,
+                  0.980392,
+                  0.980392
                 ]
               },
               "sourcePath": "semantic.light.color.table-row-hover"
@@ -25075,18 +24997,18 @@
               "sourcePath": "semantic.dark.color.table-row-line"
             },
             "Light": {
-              "$value": "{primitive.color.palette-gray.150}",
+              "$value": "{primitive.color.palette-gray.100}",
               "aliasTarget": {
-                "id": "color-palette-gray-150",
+                "id": "color-palette-gray-100",
                 "mode": "base"
               },
               "resolvedValue": {
                 "alpha": 1,
                 "colorSpace": "srgb",
                 "components": [
-                  0.917647,
-                  0.921569,
-                  0.933333
+                  0.933333,
+                  0.937255,
+                  0.945098
                 ]
               },
               "sourcePath": "semantic.light.color.table-row-line"

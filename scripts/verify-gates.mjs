@@ -106,6 +106,129 @@ withCanary(
   "--check",
 );
 
+// ── 화면 보드 구성 래칫 카나리아 여섯 (2026-09-02) ───────────────────────
+// `check-figma-app-screens` 는 런너가 생성물과 byte-for-byte 같은지만 본다 — 보드 «안»이
+// 인스턴스인지 손으로 그린 도형인지는 한 글자도 보지 않는다. 그 바깥을 세는 게이트가 실제로
+// 빨개지는지 여섯 방향에서 확인한다. 여섯 다 실패 모드가 「게이트가 조용히 통과한다」다.
+
+// ① 손으로 그린 것이 늘었다. 목표가 0 인 수라 오르는 것이 곧 후퇴다.
+withCanary(
+  "migration/figma-board-composition.json",
+  (source) => {
+    const ledger = JSON.parse(source);
+    const id = Object.keys(ledger.nodes).find((key) => ledger.nodes[key].verdict === "structural");
+    ledger.nodes[id] = {
+      ...ledger.nodes[id],
+      verdict: "replaceable",
+      rule: "button",
+      component: "Button",
+      size: "md",
+      candidateClause: "a-interactive",
+      reason: "카나리아 — LOUIS Button 과 높이·반경이 맞는 라벨 컨트롤로 바꿔 놓았다.",
+    };
+    ledger.counts.structural -= 1;
+    ledger.counts.replaceable += 1;
+    ledger.byComponent["Button/md"] += 1;
+    return JSON.stringify(ledger, null, 2) + "\n";
+  },
+  "board composition replaceable rose",
+  "scripts/check-figma-board-composition.mjs",
+  "대체 가능한 도형이",
+);
+
+// ② **인스턴스를 도형으로 바꿔치기했다.** 이것이 이 게이트가 없으면 완전히 조용한 교환이다 —
+// 런너 파일은 여전히 생성물과 같고, 보드도 여전히 «있다».
+withCanary(
+  "migration/figma-board-composition.json",
+  (source) => {
+    const ledger = JSON.parse(source);
+    const id = Object.keys(ledger.nodes).find((key) => ledger.nodes[key].verdict === "instance");
+    ledger.nodes[id] = {
+      board: ledger.nodes[id].board,
+      tag: ledger.nodes[id].tag,
+      rect: ledger.nodes[id].rect,
+      verdict: "structural",
+      rule: "surface",
+      reason: "카나리아 — 인스턴스를 손으로 그린 면으로 되돌려 놓았다.",
+    };
+    ledger.counts.instance -= 1;
+    ledger.counts.structural += 1;
+    return JSON.stringify(ledger, null, 2) + "\n";
+  },
+  "board composition instance traded for a drawn shape",
+  "scripts/check-figma-board-composition.mjs",
+  "보드의 인스턴스가",
+);
+
+// ③ 후보를 구조로 재분류해 분모를 줄였다. 비율은 오르는데 그림은 한 장도 안 바뀐 경우다.
+withCanary(
+  "migration/figma-board-composition.json",
+  (source) => {
+    const ledger = JSON.parse(source);
+    const id = Object.keys(ledger.nodes).find((key) => ledger.nodes[key].verdict === "missing");
+    const node = { ...ledger.nodes[id], verdict: "structural", rule: "surface",
+      reason: "카나리아 — 후보를 구조로 옮겨 분모를 줄여 놓았다." };
+    delete node.candidateClause;
+    ledger.nodes[id] = node;
+    ledger.counts.missing -= 1;
+    ledger.counts.structural += 1;
+    return JSON.stringify(ledger, null, 2) + "\n";
+  },
+  "board composition candidate reclassified as structural",
+  "scripts/check-figma-board-composition.mjs",
+  "컴포넌트 후보가 바닥 아래로",
+);
+
+// ④ 규칙이 못 본 모양이 새로 생겼다. 그것부터 판정하지 않으면 분모가 흐려진다.
+withCanary(
+  "migration/figma-board-composition.json",
+  (source) => {
+    const ledger = JSON.parse(source);
+    const id = Object.keys(ledger.nodes).find((key) => ledger.nodes[key].verdict === "structural");
+    const node = { ...ledger.nodes[id], verdict: "unclassified", rule: "none",
+      reason: "카나리아 — 어느 후보 조항에도 어느 구조 유형에도 맞지 않는 자리로 두었다." };
+    delete node.candidateClause;
+    ledger.nodes[id] = node;
+    ledger.counts.structural -= 1;
+    ledger.counts.unclassified += 1;
+    return JSON.stringify(ledger, null, 2) + "\n";
+  },
+  "board composition new unclassified shape",
+  "scripts/check-figma-board-composition.mjs",
+  "규칙이 보지 못한 모양이",
+);
+
+// ⑤ 분모의 정의가 파일에서 사라졌다. 규칙 없는 수는 비율이 아니다 — DS-D-0037 이 표면 축에서
+// 겪은 실패가 그것이다.
+withCanary(
+  "migration/figma-board-composition.json",
+  (source) => {
+    const ledger = JSON.parse(source);
+    delete ledger.$candidateRule;
+    return JSON.stringify(ledger, null, 2) + "\n";
+  },
+  "board composition missing candidate rule",
+  "scripts/check-figma-board-composition.mjs",
+  "$candidateRule 가 없습니다",
+);
+
+// ⑥ 되읽기에 없는 이름을 대응으로 적었다. 「LOUIS 에 있다」가 아무 문자열이나 적어도 되는
+// 자리가 되면 원장은 그날부터 낡는다.
+withCanary(
+  "migration/figma-board-composition.json",
+  (source) => {
+    const ledger = JSON.parse(source);
+    // **matchRules 가 아니라 노드를 고른다.** 규칙 목록에도 같은 필드가 있어 문자열 치환으로
+    // 바꾸면 규칙 검사가 먼저 걸리고, 노드 쪽 어휘 검사는 시험되지 않은 채 지나간다.
+    const id = Object.keys(ledger.nodes).find((key) => ledger.nodes[key].verdict === "replaceable");
+    ledger.nodes[id] = { ...ledger.nodes[id], component: "ComponentThatIsNotInLouis" };
+    return JSON.stringify(ledger, null, 2) + "\n";
+  },
+  "board composition unknown component name",
+  "scripts/check-figma-board-composition.mjs",
+  "되읽기에 없는 컴포넌트를 대응으로 적었습니다",
+);
+
 withCanary(
   "design/components/button.md",
   (source) => source.replace("status: experimental", "status: stable"),

@@ -21760,18 +21760,18 @@
               "sourcePath": "semantic.dark.color.node-chip-surface"
             },
             "Light": {
-              "$value": "{primitive.color.palette-gray.000}",
+              "$value": "{primitive.color.palette-gray.050}",
               "aliasTarget": {
-                "id": "color-palette-gray-000",
+                "id": "color-palette-gray-050",
                 "mode": "base"
               },
               "resolvedValue": {
                 "alpha": 1,
                 "colorSpace": "srgb",
                 "components": [
-                  0.980392,
-                  0.980392,
-                  0.980392
+                  0.921569,
+                  0.92549,
+                  0.933333
                 ]
               },
               "sourcePath": "semantic.light.color.node-chip-surface"
@@ -21811,18 +21811,18 @@
               "sourcePath": "semantic.dark.color.node-chip-surface-hover"
             },
             "Light": {
-              "$value": "{primitive.color.palette-gray.050}",
+              "$value": "{primitive.color.palette-gray.100}",
               "aliasTarget": {
-                "id": "color-palette-gray-050",
+                "id": "color-palette-gray-100",
                 "mode": "base"
               },
               "resolvedValue": {
                 "alpha": 1,
                 "colorSpace": "srgb",
                 "components": [
-                  0.921569,
-                  0.92549,
-                  0.933333
+                  0.866667,
+                  0.870588,
+                  0.882353
                 ]
               },
               "sourcePath": "semantic.light.color.node-chip-surface-hover"

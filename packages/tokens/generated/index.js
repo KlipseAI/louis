@@ -15470,18 +15470,44 @@ export const tokens = {
     },
     "color-node-chip-surface": {
       "aliasTarget": {
-        "id": "color-palette-gray-100",
+        "id": "color-palette-gray-050",
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-node-chip-surface": "color(srgb 0.866667 0.870588 0.882353 / 1)"
+        "--louis-color-node-chip-surface": "color(srgb 0.921569 0.92549 0.933333 / 1)"
       },
       "deprecated": null,
       "description": null,
       "id": "color-node-chip-surface",
       "mode": "light",
-      "rawValue": "{primitive.color.palette-gray.100}",
+      "rawValue": "{primitive.color.palette-gray.050}",
       "sourcePath": "semantic.light.color.node-chip-surface",
+      "tier": "semantic",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.921569,
+          0.92549,
+          0.933333
+        ],
+        "alpha": 1
+      }
+    },
+    "color-node-chip-surface-hover": {
+      "aliasTarget": {
+        "id": "color-palette-gray-100",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-node-chip-surface-hover": "color(srgb 0.866667 0.870588 0.882353 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-node-chip-surface-hover",
+      "mode": "light",
+      "rawValue": "{primitive.color.palette-gray.100}",
+      "sourcePath": "semantic.light.color.node-chip-surface-hover",
       "tier": "semantic",
       "type": "color",
       "value": {
@@ -15490,32 +15516,6 @@ export const tokens = {
           0.866667,
           0.870588,
           0.882353
-        ],
-        "alpha": 1
-      }
-    },
-    "color-node-chip-surface-hover": {
-      "aliasTarget": {
-        "id": "color-palette-gray-150",
-        "mode": "base"
-      },
-      "cssProperties": {
-        "--louis-color-node-chip-surface-hover": "color(srgb 0.811765 0.815686 0.831373 / 1)"
-      },
-      "deprecated": null,
-      "description": null,
-      "id": "color-node-chip-surface-hover",
-      "mode": "light",
-      "rawValue": "{primitive.color.palette-gray.150}",
-      "sourcePath": "semantic.light.color.node-chip-surface-hover",
-      "tier": "semantic",
-      "type": "color",
-      "value": {
-        "colorSpace": "srgb",
-        "components": [
-          0.811765,
-          0.815686,
-          0.831373
         ],
         "alpha": 1
       }

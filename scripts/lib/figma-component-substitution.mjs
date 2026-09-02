@@ -330,6 +330,55 @@ function variantAxesOf(readback, component) {
     .map(([name, definition]) => [name, definition.options ?? []]);
 }
 
+/**
+ * **인스턴스가 노출한 TEXT 슬롯.** 되읽기의 `properties` 에서 `type === "TEXT"` 인 것만 뽑는다.
+ * 세트 이름을 여기 적지 않는 이유는 variant 축과 같다 — 손으로 적으면 LOUIS 가 슬롯을 하나 더
+ * 여는 날 조용히 낡는다.
+ *
+ * 되읽기에 **없는** 세트(`Product/*` 장면 컴포넌트)는 `null` 이다. 「슬롯이 없다」와 「모른다」는
+ * 다르지만 결과는 같아야 한다 — 저 세트들은 라벨을 덮어쓸 일이 애초에 없기 때문이다. 셸은
+ * 라벨을 variant 축(`Content=Settings`)이 나르고, 본문 블록은 **텍스트가 글자 그대로 같을 때만**
+ * 치환하므로(`CONTENT_COMPONENTS.texts`) 덮어쓸 차이가 정의상 0 이다.
+ */
+function textSlotsOf(readback, set) {
+  const entry = readback.components?.[set];
+  if (!entry) return null;
+  return Object.entries(entry.properties ?? {})
+    .filter(([, definition]) => definition.type === "TEXT")
+    .map(([name]) => name);
+}
+
+/**
+ * **치환하면서 자식 텍스트를 버리지 않는다.**
+ *
+ * 인스턴스로 판정한 노드는 `children` 을 비운다 — 컴포넌트가 제 속을 그리기 때문이다. 그런데
+ * 버려지는 자식 안에 **컴포넌트가 알 수 없는 것**이 하나 있다: 그 자리의 라벨이다. 실측 사고
+ * (2026-09-02): `/settings` 데스크톱의 Button 7개가 전부 마스터 기본 라벨 「버튼」으로 나왔고,
+ * HUG 가 그 글자를 물어 폭이 113.3·136.95·156.55·184.3·48·138.67·75.27 에서 49 로 접혔다.
+ * payload 에 라벨이 처음부터 없었으므로 렌더러는 고칠 수단이 없었다.
+ *
+ * 그래서 세트가 TEXT 슬롯을 «노출한» 경우에만 서브트리의 텍스트를 실어 보낸다. 슬롯이 없으면
+ * 아무것도 싣지 않는다(지금과 같다).
+ *
+ * 슬롯이 둘 이상이거나 텍스트 수가 슬롯 수와 다르면 **던진다.** 어느 텍스트가 어느 슬롯인지는
+ * 측정에 없는 정보이고, 짐작해서 채우면 화면이 제품과 다른 글자를 말한다. 조용히 넘기면
+ * 마스터 기본 라벨로 되돌아가 이 결함이 그대로 재발한다.
+ */
+function instanceLabel(node, set, readback) {
+  const slots = textSlotsOf(readback, set);
+  if (!slots || slots.length === 0) return null;
+  const texts = textsOf(node).filter(Boolean);
+  if (texts.length === 0) return null;
+  if (slots.length !== 1 || texts.length !== 1) {
+    throw new Error(
+      `[figma-app-screens] ${set} 의 TEXT 슬롯 ${slots.length}개(${slots.join("·")})와 ` +
+      `측정 텍스트 ${texts.length}개(${texts.join(" | ")})를 짝지을 수 없습니다: ${node.path}. ` +
+      "어느 글자가 어느 슬롯인지는 측정에 없습니다 — 짝을 정하는 규칙을 먼저 세우세요.",
+    );
+  }
+  return texts[0];
+}
+
 /** 되읽기의 기하는 같은 size 에 여러 값을 들 수 있다(라벨 길이만큼 다른 너비). */
 const geometryFits = (values, value) =>
   Array.isArray(values) && values.some((candidate) => Math.abs(candidate - value) <= 0.5);
@@ -418,9 +467,11 @@ export function applyComponentInstances(spec, { route, context, viewport, styleO
       skipped.push({ path: node.path, set, variant, reason: "컴포넌트 세트에 없는 조합" });
       return false;
     }
-    node.instance = { set, variant, why };
+    // **자식을 비우기 «전»에** 라벨을 건진다 — 비운 뒤에는 셀 텍스트가 없다.
+    const label = instanceLabel(node, set, evidence.readback);
+    node.instance = { set, variant, why, ...(label == null ? {} : { label }) };
     node.children = [];
-    applied.push({ path: node.path, set, variant });
+    applied.push({ path: node.path, set, variant, ...(label == null ? {} : { label }) });
     return true;
   };
 

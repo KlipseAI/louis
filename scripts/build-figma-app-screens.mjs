@@ -172,9 +172,14 @@ const slim = (node) => ({
   } : {}),
   ...(node.clipsContent ? { c: 1 } : {}),
   // 셸 자리는 자식 대신 컴포넌트 variant 참조만 싣는다.
-  ...(node.instance ? { i: [node.instance.set, node.instance.variant] } : {}),
+  // **세 번째 칸은 라벨이다** — 컴포넌트가 노출한 TEXT 슬롯을 채울 글자. 라벨이 없는 인스턴스
+  // (Gnb Shell · Top Bar · 본문 블록)는 두 칸 그대로라 payload 가 한 바이트도 바뀌지 않는다.
+  ...(node.instance ? { i: node.instance.label == null
+    ? [node.instance.set, node.instance.variant]
+    : [node.instance.set, node.instance.variant, node.instance.label] } : {}),
   // **인스턴스에는 색·타이포를 싣지 않는다.** 컴포넌트가 이미 제 색을 갖고 있고,
-  // 덮어쓰면 디자인 시스템 쪽 수정이 화면에 전파되지 않는다.
+  // 덮어쓰면 디자인 시스템 쪽 수정이 화면에 전파되지 않는다. 라벨은 여기 해당하지 않는다 —
+  // 컴포넌트가 **스스로 연 슬롯**을 채우는 것이지 컴포넌트가 정한 값을 덮는 것이 아니다.
   ...(node.instance ? {} : paintKeys(node)),
   ...(node.instance ? {} : typographyKeys(node)),
   ...(node.children.length ? { k: node.children.map(slim) } : {}),

@@ -19,7 +19,7 @@
       },
       "components": {
         "sets": 51,
-        "variants": 560
+        "variants": 620
       },
       "icons": 31,
       "templates": 9
@@ -6964,7 +6964,7 @@
     "Button": {
       "outsideParts": [],
       "tokenId": "button",
-      "variantCount": 300,
+      "variantCount": 360,
       "hasDescription": true,
       "properties": {
         "Label": {
@@ -6983,7 +6983,8 @@
             "secondary",
             "ghost",
             "danger",
-            "inverse"
+            "inverse",
+            "danger-secondary"
           ]
         },
         "Size": {
@@ -7015,11 +7016,11 @@
         }
       },
       "binding": {
-        "boundFills": 492,
+        "boundFills": 612,
         "rawFills": 0,
         "boundStrokes": 0,
         "rawStrokes": 0,
-        "textStyled": 300,
+        "textStyled": 360,
         "textUnstyled": 0
       },
       "geometry": {

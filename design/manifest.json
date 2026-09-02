@@ -1256,6 +1256,15 @@
       "generated": false
     },
     {
+      "id": "decision-bespoke-is-a-fifth-verdict",
+      "path": "design/governance/decisions/DS-D-0046-bespoke-is-a-fifth-verdict.md",
+      "title": "DS-D-0046 「제품이 정본을 물지 않는다」는 다섯째 판정이다 — 대체 가능이 아니다",
+      "section": "governance",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
+    },
+    {
       "id": "governance-product-confirmations",
       "path": "design/governance/product-confirmations.md",
       "title": "제품 확인 대기 목록",
@@ -1477,6 +1486,7 @@
         "design/governance/decisions/DS-D-0043-canonical-site-is-what-the-product-bites.md",
         "design/governance/decisions/DS-D-0044-coverage-targets-and-denominators.md",
         "design/governance/decisions/DS-D-0045-danger-secondary-variant.md",
+        "design/governance/decisions/DS-D-0046-bespoke-is-a-fifth-verdict.md",
         "design/governance/product-confirmations.md",
         "design/updates/README.md"
       ]

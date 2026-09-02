@@ -85,11 +85,15 @@ React `Button` 은 `<button>` 만 그린다. 그래서 이 경우에는 **클래
 
 > **아이콘은 불리언이 아니라 `Icon` 축이다.** 아이콘이 붙은 쪽 padding이 2px 줄기 때문이다
 > (`button.css`: lg 16→14, md 12→10). Figma 불리언은 가시성만 바꾸고 padding은 못 바꾼다 —
-> 불리언으로 두면 표현할 수 없는 상태가 생긴다. 그래서 Variant×Size×State×Icon = 5×3×5×4 = 300이다.
+> 불리언으로 두면 표현할 수 없는 상태가 생긴다. 그래서 Variant×Size×State×Icon = 6×3×5×4 = 360이다.
 > **Figma가 따라왔다** — [DS-D-0032](../governance/decisions/DS-D-0032-control-size-ladder-sm.md)가
 > 코드에 `sm`을 연 뒤 component set도 세 칸이 됐고, 2026-09-01 라이브 전수 순회에서 300칸을 셌다.
 > (이 문단은 그 전까지 `5×2×5×4 = 200`을 「오늘의 Figma 값」으로 적고 있었다 — 낡은 값이었다.)
-| `variant`    | `primary`, `secondary`, `ghost`, `danger` | `primary` | 강조와 의미                                     |
+> **2026-09-02 에 `danger-secondary` 가 열리면서 5→6 이 되어 360이다**
+> ([DS-D-0045](../governance/decisions/DS-D-0045-danger-secondary-variant.md)). 이번에는 코드가
+> Figma 를 따라갔다 — 소유자가 그 60칸을 먼저 그려 두었다. **수를 다시 세는 명령**은
+> [Figma component authoring](../governance/figma-component-authoring.md) §5 가 소유한다.
+| `variant`    | `primary`, `secondary`, `ghost`, `danger`, `danger-secondary`, `inverse` | `primary` | 강조와 의미                                     |
 | `size`       | `lg`, `md`, `sm`                          | `md`      | 시각 크기; hit area 계약은 별도 유지            |
 | `loading`    | boolean                                   | `false`   | 중복 실행 차단, `aria-busy`, progress indicator |
 | `leftIcon`   | ReactNode                                 | —         | 라벨 앞 보조 아이콘                             |
@@ -106,8 +110,34 @@ React `Button` 은 `<button>` 만 그린다. 그래서 이 경우에는 **클래
 | `secondary` | 취소·대안           | primary를 보조                                     |
 | `ghost`     | 툴바·저강조 액션    | 면이 없어도 발견 가능한 위치에서 사용              |
 | `danger`    | 삭제·초기화         | 결과를 구체적으로 설명하고 필요하면 확인 단계 제공 |
+| `danger-secondary` | 같은 파괴적 액션인데 **그 화면의 주인공이 아닐 때** | 면이 연하다(빨강 12%). 확인 창의 최종 확인 버튼에는 쓰지 않는다 |
+| `inverse`   | 인증 플로우 제출 CTA | 페이지를 반전시킨 면. 좌측 브랜드 아트워크와 경쟁하지 않게 브랜드색을 쓰지 않는다 |
 
 강조 수준을 색만으로 결정하지 않고, 같은 영역에 경쟁하는 primary를 여러 개 두지 않는다.
+
+### `danger`와 `danger-secondary`를 언제 갈라 쓰는가
+
+**둘의 차이는 위험의 크기가 아니라 «그 액션이 화면의 주인공인가»다.** 파괴적이라는 사실은 둘 다
+빨강으로 전달하고, 갈리는 것은 **면의 무게**뿐이다 — 꽉 찬 빨강은 그 영역에서 눈이 가장 먼저 닿는
+자리를 가져가고, 12% 빨강은 그 자리를 다른 것에 내준다.
+
+| 쓰는 곳 | 고르는 것 | 이유 |
+| --- | --- | --- |
+| 확인 대화상자의 최종 확인 버튼(「삭제」) | `danger` | 그 창은 이 액션 하나를 위해 열렸다. 주인공이 맞다 |
+| 되돌릴 수 없는 계정 조치의 제출 버튼 | `danger` | 화면이 그 액션으로 끝난다 |
+| 목록 행·카드·툴바에 여럿 나란히 서는 삭제 | `danger-secondary` | 꽉 찬 빨강이 여러 개면 어느 것도 강조가 아니게 되고, 목록의 주인공은 항목이지 삭제가 아니다 |
+| 설정 화면 한 구역의 파괴적 액션 옆에 `secondary` 취소가 서는 자리 | `danger-secondary` | 그 구역이 화면의 일부일 뿐이라면 꽉 찬 면이 구역 밖까지 시선을 끈다 |
+
+**한 영역에 `danger`를 둘 두지 않는다** — `primary`에 건 것과 같은 규칙이다. 파괴적 액션이 여럿인
+영역에서는 **전부 `danger-secondary`로 내리고**, 그중 하나가 정말 주인공이면 그것만 `danger`로
+올린다.
+
+**`secondary`로 대신하지 않는다.** 면 없는 회색 버튼은 「보조 액션」을 말할 뿐 파괴적이라는 사실을
+말하지 않는다. 그 자리에 필요한 것은 강조를 낮추는 것이지 의미를 지우는 것이 아니다.
+
+**`ghost`와도 다르다.** `ghost`는 면이 아예 없어 hover 전에는 클릭 대상인지도 약하게 읽힌다.
+`danger-secondary`는 쉬는 상태에서도 면이 있다 — 아래 States 표의 「hover에서만 기능을 드러내지
+않음」을 파괴적 액션에서 특히 지켜야 하기 때문이다.
 
 ## States
 
@@ -214,6 +244,34 @@ variant 축이 되는데, 그 축을 세울 근거가 하나뿐이다.
 `color-accent-secondary-hover` 토큰은 **아직 없다** — 추가 여부가 판정 대상이고 그때까지는 위
 실측값을 정본으로 둔다.
 
+### `danger-secondary`의 면 — 이 표에서 유일하게 Figma가 정본인 칸
+
+위 값들이 전부 **제품 배포 코드 실측**인데, `danger-secondary`만 그럴 수가 없다. 제품에 연한
+danger 버튼이 없기 때문이다 — 앵커의 `variant="danger"` 열여섯 자리가 전부 꽉 찬 danger 이고
+(`Button.tsx:3`의 타입에 그 값 자체가 없다), 가장 가까운 알파 빨강 면은 `Gnb.tsx:1174-1176`의
+프로필 메뉴 항목인데 **버튼이 아니고 8%라 사다리부터 다르다.** 그래서 이 칸은 소유자가 Figma에
+그려 둔 60칸을 읽었다([DS-D-0045](../governance/decisions/DS-D-0045-danger-secondary-variant.md)).
+
+| 상태 | 면 | 글자 |
+| --- | --- | --- |
+| Default · Active · Loading\* | `color-accent-danger-secondary` (빨강 12%) | `color-accent-danger` |
+| Hover | `color-accent-danger-secondary-hover` (빨강 24%) | `color-accent-danger` |
+| Disabled | `color-bg-inset` | `color-fg-disabled` |
+
+\* **Loading의 면은 Figma가 아니라 코드가 정한다.** Figma의 Loading 칸은 Default와 바이트 동일한데
+코드는 `loading`에 `aria-disabled`를 걸어 Disabled와 같은 중성 면을 준다. 같은 어긋남이 `primary`
+와 `danger`에도 있으므로 이 variant가 만든 것이 아니고, 위 States의 「Loading은 독립 축이 아니라
+State의 값이다」가 그 이유를 소유한다.
+
+**hover가 `opacity`가 아닌 이유.** `danger`·`inverse`는 hover를 `opacity: 0.85`로 준다. 알파 면에
+같은 장치를 쓰면 12% × 0.85 = 10.2%로 **오히려 연해져** hover가 반대 방향으로 간다. Figma가 12%와
+24%를 명시적으로 나눠 그린 것도 같은 이유로 읽는다. 이 두 값은 `color-alert-danger-surface`(12%)·
+`color-alert-danger-stroke`(24%)와 값이 같지만 이름이 alert 소유라 재사용하지 않았다 —
+[DS-D-0029](../governance/decisions/DS-D-0029-token-names-must-be-true.md)의 「이름이 참이어야 한다」다.
+
+**테두리가 없다.** `secondary`가 갖는 generic 헤어라인(inset box-shadow)을 이 variant는 갖지
+않는다 — Figma 60칸의 `strokes`와 `effects`가 전부 비어 있다. 면만으로 경계를 만든다.
+
 ## Size
 
 컨트롤 높이 사다리는 세 칸이다 — `lg`(40) · `md`(32) · `sm`(24). 값과 쓰임새는
@@ -276,14 +334,14 @@ variant 축이 되는데, 그 축을 세울 근거가 하나뿐이다.
 - CSS recipe: `packages/css/src/component/button.css`
 - Public import: `import { Button } from "@klipse-design/react"`
 - Tests: `packages/react/test/button.browser.test.tsx` (실브라우저 11건)
-- Figma component: library draft의 `Button` set (40 variant, publish 전)
+- Figma component: library draft의 `Button` set (360 variant, publish 전 — 게시 없이 판정한다, DS-D-0035)
 
 ### 코드 prop ↔ Figma property
 
 | 코드 | Figma | 비고 |
 | --- | --- | --- |
-| `variant` | `Variant` (primary/secondary/ghost/danger) | 옵션 집합을 parity 게이트가 `ButtonVariant`와 대조한다 |
-| `size` | `Size` (lg/md) | `ButtonSize`와 대조한다. **지금 어긋나 있다** — 코드는 `sm`을 포함해 셋이고 Figma는 둘이다. `verify-figma-parity`가 그 차이를 낸다 (DS-D-0032, 세 곳 중 Figma 미반영) |
+| `variant` | `Variant` (primary/secondary/ghost/danger/danger-secondary/inverse) | 옵션 집합을 parity 게이트가 `ButtonVariant`와 대조한다. **`danger-secondary`는 Figma가 먼저였다** — 소유자가 그린 60칸을 코드가 따라갔다(DS-D-0045) |
+| `size` | `Size` (lg/md/sm) | `ButtonSize`와 대조한다. **이 줄은 2026-09-02까지 「지금 어긋나 있다 — Figma는 둘이다」라고 적고 있었고 그것은 낡은 기록이었다** — DS-D-0032의 `sm`은 그 뒤 Figma에 반영됐고 되읽기의 `Size` 옵션이 셋이다 |
 | `loading` | `State=Loading` | boolean prop이 Figma에서는 state variant다 |
 | `disabled` | `State=Disabled` | 같은 이유 |
 | — | `State=Hover`, `State=Active` | 코드에서는 CSS 상태다. Figma에 CSS 상태가 없어 variant로 둔다 |

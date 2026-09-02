@@ -1247,6 +1247,15 @@
       "generated": false
     },
     {
+      "id": "decision-danger-secondary-variant",
+      "path": "design/governance/decisions/DS-D-0045-danger-secondary-variant.md",
+      "title": "DS-D-0045 연한 danger 는 Button 의 여섯 번째 variant 다 — 이 축만 Figma 가 정본이다",
+      "section": "governance",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
+    },
+    {
       "id": "governance-product-confirmations",
       "path": "design/governance/product-confirmations.md",
       "title": "제품 확인 대기 목록",
@@ -1467,6 +1476,7 @@
         "design/governance/decisions/DS-D-0042-board-composition-denominator.md",
         "design/governance/decisions/DS-D-0043-canonical-site-is-what-the-product-bites.md",
         "design/governance/decisions/DS-D-0044-coverage-targets-and-denominators.md",
+        "design/governance/decisions/DS-D-0045-danger-secondary-variant.md",
         "design/governance/product-confirmations.md",
         "design/updates/README.md"
       ]

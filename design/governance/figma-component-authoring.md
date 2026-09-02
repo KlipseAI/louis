@@ -281,23 +281,44 @@ description 에 이유를 적는다. 조합이 늘면 유지 비용이 곱으로
 정본인 척 남는다.
 
 **이 문단은 2026-09-01 까지 「Button 은 4 × 2 × 5 = 40 으로 현재 최대다」라고 적고 있었다.**
-라이브 실측은 **300**(5 × 3 × 5 × 4)이다 — 7.5 배이고, 규범이 요구한 description 사유도 그때까지
-비어 있었다. 예산 문장이 축이 열리는 것을 따라가지 못하면 상한이 아니라 **낡은 기록**이 된다.
+그날 라이브 실측은 **300**(5 × 3 × 5 × 4)이었다 — 7.5 배이고, 규범이 요구한 description 사유도
+그때까지 비어 있었다. 예산 문장이 축이 열리는 것을 따라가지 못하면 상한이 아니라 **낡은 기록**이
+된다.
 
-라이브 분포(51 set · 559 변형):
+**그리고 하루 만에 그 300 도 낡았다.** 2026-09-02 에 `Variant` 에 `danger-secondary` 가 열리면서
+Button 은 **360**(6 × 3 × 5 × 4)이 됐다([DS-D-0045](decisions/DS-D-0045-danger-secondary-variant.md)).
+아래 표는 그래서 **수와 함께 세는 명령**을 적는다 — 수는 다시 낡지만 명령은 낡지 않는다.
+
+```sh
+node -e "const d=require('./figma/readback.json');
+const e=Object.entries(d.components).map(([k,v])=>[k,v.variantCount??0]).sort((a,b)=>b[1]-a[1]);
+const t=e.reduce((a,[,n])=>a+n,0), ns=e.map(([,n])=>n).sort((a,b)=>a-b);
+const x=e.filter(([k])=>k!=='Button');
+console.log('set',e.length,'변형',t,'중앙값',ns[Math.floor(ns.length/2)],
+            'Button 제외 평균',(x.reduce((a,[,n])=>a+n,0)/x.length).toFixed(1));
+console.log(e.slice(0,4));"
+```
+
+라이브 분포(2026-09-02 기준 51 set · 620 변형 — 위 명령의 출력이다):
 
 | | 값 |
 | --- | --- |
 | 중앙값 | 3 |
 | Button 제외 평균 | 5.2 |
-| 1위 Button | 300 (전체의 54%) |
+| 1위 Button | 360 (전체의 58%) |
 | 2위 IconButton | 60 |
 | 3위 Slider · SegmentedControlItem | 18 |
 
 **Button 은 이상치다.** 다만 줄일 수 있는 것은 값이 아니라 **교차**다 — 2026-09-01 감사에서
 `Icon` 을 BOOLEAN 으로 내리는 안, `both` 를 지우는 안, `State` 축을 스펙시멘 보드로 옮기는 안이
-전부 반박됐다(각각 Figma 에 음수 margin 이 없다 · `both` 가 유일 기하다 · 이 파일의 300칸을 만드는
+전부 반박됐다(각각 Figma 에 음수 margin 이 없다 · `both` 가 유일 기하다 · 이 파일의 칸을 만드는
 생성기가 저장소에 없다). 사유는 Button 의 Figma description 이 소유한다.
+
+**`danger-secondary` 는 그 예산 안에서 축을 «연» 사례이지 교차를 늘린 사례가 아니다.** 값 하나가
+늘어 60칸이 붙었고, 그 60칸은 기하를 하나도 새로 만들지 않는다 — `danger` 와 60 조합 전부에서
+기하 차이가 0 이다. 예산이 막아야 하는 것은 「쓰이지 않는 조합이 정본인 척 남는 것」인데, 이 축은
+소유자가 직접 그려 둔 스펙이라 그 위험이 없다. 대신 이 문단이 그은 선은 그대로다 — 다음에 축을
+하나 더 열면 곱이 다시 60씩 늘어난다.
 
 ## 6. 설명은 필수
 

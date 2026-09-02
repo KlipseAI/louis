@@ -131,7 +131,14 @@ const CAPTURE = {
   // 초록이었다.** 라이브 전수 순회로만 드러났다. 기능은 이미 있었고 Button 에서 꺼져 있었을 뿐이다.
   // 켜기 위해 300칸의 순서를 `Spinner | LeftIcon | Label | RightIcon` 하나로 통일했다 — 숨은
   // Spinner 도 「그려진다면 설 자리」에 두어야 한 키에 한 값이 담긴다.
-  "Button": {"key":{"by":["Size"]},"slots":{"LeftIcon":"size","RightIcon":"size","Spinner":"size"},"strokes":["Spinner","self"],"effects":["self"],"childOrder":true},
+  // `fields` 를 손으로 적는 이유는 **`minWidth` 하나 때문**이다(2026-09-02). DEFAULT_FIELDS 에는
+  // 그 축이 없어 되읽기가 최소 폭을 담은 적이 없었고, 그래서 `button.css` 가 lg·md·sm 세 칸
+  // 전부에 거는 `min-inline-size: control-minimum-width-md`(48)를 Figma 마스터가 갖고 있지
+  // 않아도 게이트가 초록이었다. 드러난 방식은 게이트가 아니라 화면 보드다 — `/settings` 의
+  // 「Go」가 제품 48 · Figma 42 로 어긋났다(라벨이 짧아 HUG 가 바닥에 닿는 유일한 자리였다).
+  // 나머지는 DEFAULT_FIELDS 와 같은 목록·같은 순서이고, `minWidth` 는 MenuPanel 이 이미 쓰는
+  // 자리(cornerRadius 다음)에 넣는다.
+  "Button": {"key":{"by":["Size"]},"fields":["height","width","paddingBlock","paddingBlockEnd","paddingInline","paddingInlineEnd","itemSpacing","cornerRadius","minWidth","layoutMode","strokeWeight"],"slots":{"LeftIcon":"size","RightIcon":"size","Spinner":"size"},"strokes":["Spinner","self"],"effects":["self"],"childOrder":true},
   "CarouselArrow": {"key":{"name":"base"},"parts":{"Caret":["width","height"],"glyph":["width","height"]},"strokes":["glyph"],"effects":["self"]},
   "Checkbox": {"key":{"name":"base"},"parts":{"Box":["width","height","cornerRadius"],"Check":["width","height"],"Dash":["width","height","cornerRadius"],"Label":["width","height","fontSize"]},"strokes":["Box","Check"]},
   // CompositePopover 는 MenuPanel 과 같은 표면인데 **minWidth 를 담지 않는다.** Figma 의

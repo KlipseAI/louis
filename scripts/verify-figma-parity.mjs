@@ -150,6 +150,20 @@ const COMPONENT_CONTRACTS = [
         paddingInlineEnd: { set: ["paddingInline", "paddingInlineWithIcon"] },
         itemSpacing: "gap",
         cornerRadius: "radius",
+        // **최소 폭은 세 size 공통 계약이다** — `button.css` 의 lg·md·sm 세 블록이 전부
+        // `min-inline-size: var(--louis-layout-control-minimum-width-md)`(48)를 건다. 칸별
+        // 최소 폭이라는 축은 이 시스템에 없다(DS-D-0032).
+        //
+        // **폭을 보지 않는 이 계약에서 `minWidth` 만은 본다.** 위 주석이 총 폭을 뺀 이유는
+        // 라벨 폭이 글꼴 렌더링에 달려 브라우저와 Figma 가 원래 다르기 때문인데, 최소 폭은
+        // 라벨이 아니라 **DS 가 정한 바닥**이라 그 사유가 걸리지 않는다.
+        //
+        // 2026-09-02 에 열었다. 그전까지 되읽기에 이 축이 없어(DEFAULT_FIELDS 에 `minWidth` 가
+        // 없다) Figma 마스터의 lg·md 240칸이 `minWidth: null` 인 채로 게이트가 초록이었다.
+        // 드러난 것은 게이트가 아니라 화면 보드다 — `/settings` 의 「Go」가 제품 48 · Figma 42 였다.
+        // 라벨이 짧아 HUG 가 바닥에 닿는 자리가 그것뿐이라, 마스터를 고치지 않으면 다음에 짧은
+        // 라벨이 하나 더 생길 때 같은 자리에서 다시 어긋난다.
+        minWidth: "minWidth",
         layoutMode: { literal: "HORIZONTAL" },
       },
       slots: { LeftIcon: "iconSlot", RightIcon: "iconSlot", Spinner: "spinner" },

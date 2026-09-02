@@ -864,11 +864,11 @@
           "$value": {
             "colorSpace": "srgb",
             "components": [
+              0.972549,
               0.980392,
-              0.980392,
-              0.980392
+              1.0
             ],
-            "hex": "#fafafa"
+            "hex": "#f8faff"
           },
           "$extensions": {
             "com.klipse-design": {
@@ -877,15 +877,32 @@
             }
           }
         },
+        "050": {
+          "$value": {
+            "colorSpace": "srgb",
+            "components": [
+              0.905882,
+              0.92549,
+              0.964706
+            ],
+            "hex": "#e7ecf6"
+          },
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-palette-gray-050",
+              "tier": "primitive"
+            }
+          }
+        },
         "100": {
           "$value": {
             "colorSpace": "srgb",
             "components": [
-              0.866667,
+              0.85098,
               0.870588,
-              0.878431
+              0.909804
             ],
-            "hex": "#dddee0"
+            "hex": "#d9dee8"
           },
           "$extensions": {
             "com.klipse-design": {
@@ -894,15 +911,32 @@
             }
           }
         },
+        "150": {
+          "$value": {
+            "colorSpace": "srgb",
+            "components": [
+              0.796078,
+              0.815686,
+              0.854902
+            ],
+            "hex": "#cbd0da"
+          },
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-palette-gray-150",
+              "tier": "primitive"
+            }
+          }
+        },
         "200": {
           "$value": {
             "colorSpace": "srgb",
             "components": [
-              0.756863,
-              0.760784,
-              0.776471
+              0.745098,
+              0.764706,
+              0.8
             ],
-            "hex": "#c1c2c6"
+            "hex": "#bec3cc"
           },
           "$extensions": {
             "com.klipse-design": {
@@ -915,11 +949,11 @@
           "$value": {
             "colorSpace": "srgb",
             "components": [
-              0.647059,
+              0.639216,
               0.658824,
-              0.682353
+              0.694118
             ],
-            "hex": "#a5a8ae"
+            "hex": "#a3a8b1"
           },
           "$extensions": {
             "com.klipse-design": {
@@ -932,11 +966,11 @@
           "$value": {
             "colorSpace": "srgb",
             "components": [
-              0.541176,
+              0.537255,
               0.556863,
-              0.588235
+              0.592157
             ],
-            "hex": "#8a8e96"
+            "hex": "#898e97"
           },
           "$extensions": {
             "com.klipse-design": {
@@ -951,9 +985,9 @@
             "components": [
               0.439216,
               0.458824,
-              0.501961
+              0.494118
             ],
-            "hex": "#707580"
+            "hex": "#70757e"
           },
           "$extensions": {
             "com.klipse-design": {
@@ -966,11 +1000,11 @@
           "$value": {
             "colorSpace": "srgb",
             "components": [
-              0.341176,
+              0.345098,
               0.364706,
-              0.403922
+              0.396078
             ],
-            "hex": "#575d67"
+            "hex": "#585d65"
           },
           "$extensions": {
             "com.klipse-design": {
@@ -983,11 +1017,11 @@
           "$value": {
             "colorSpace": "srgb",
             "components": [
-              0.25098,
+              0.254902,
               0.270588,
-              0.309804
+              0.301961
             ],
-            "hex": "#40454f"
+            "hex": "#41454d"
           },
           "$extensions": {
             "com.klipse-design": {
@@ -1000,11 +1034,11 @@
           "$value": {
             "colorSpace": "srgb",
             "components": [
-              0.164706,
+              0.168627,
               0.184314,
-              0.223529
+              0.215686
             ],
-            "hex": "#2a2f39"
+            "hex": "#2b2f37"
           },
           "$extensions": {
             "com.klipse-design": {
@@ -6735,7 +6769,7 @@
           }
         },
         "bg-inset": {
-          "$value": "{primitive.color.palette-gray.100}",
+          "$value": "{primitive.color.palette-gray.150}",
           "$extensions": {
             "com.klipse-design": {
               "id": "color-bg-inset",
@@ -6835,7 +6869,7 @@
           }
         },
         "bg-upgrade-current": {
-          "$value": "{primitive.color.palette-gray.000}",
+          "$value": "{primitive.color.palette-gray.050}",
           "$extensions": {
             "com.klipse-design": {
               "id": "color-bg-upgrade-current",
@@ -7005,7 +7039,7 @@
           }
         },
         "fg-upgrade": {
-          "$value": "{primitive.color.palette-gray.000}",
+          "$value": "{primitive.color.palette-gray.050}",
           "$extensions": {
             "com.klipse-design": {
               "id": "color-fg-upgrade",
@@ -7025,7 +7059,7 @@
           }
         },
         "fg-upgrade-hover": {
-          "$value": "{primitive.color.palette-gray.000}",
+          "$value": "{primitive.color.palette-gray.050}",
           "$extensions": {
             "com.klipse-design": {
               "id": "color-fg-upgrade-hover",
@@ -7185,7 +7219,7 @@
           }
         },
         "node-chip-surface-hover": {
-          "$value": "{primitive.color.palette-gray.200}",
+          "$value": "{primitive.color.palette-gray.150}",
           "$extensions": {
             "com.klipse-design": {
               "id": "color-node-chip-surface-hover",
@@ -7515,7 +7549,7 @@
           }
         },
         "table-row-hover": {
-          "$value": "{primitive.color.palette-gray.000}",
+          "$value": "{primitive.color.palette-gray.050}",
           "$extensions": {
             "com.klipse-design": {
               "id": "color-table-row-hover",
@@ -7525,7 +7559,7 @@
           }
         },
         "table-row-line": {
-          "$value": "{primitive.color.palette-gray.100}",
+          "$value": "{primitive.color.palette-gray.150}",
           "$extensions": {
             "com.klipse-design": {
               "id": "color-table-row-line",

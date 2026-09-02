@@ -1220,6 +1220,15 @@
       "generated": false
     },
     {
+      "id": "decision-board-composition-denominator",
+      "path": "design/governance/decisions/DS-D-0042-board-composition-denominator.md",
+      "title": "DS-D-0042 화면 보드의 분모는 «컴포넌트 후보»다 — 도형 전수가 아니다",
+      "section": "governance",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
+    },
+    {
       "id": "governance-product-confirmations",
       "path": "design/governance/product-confirmations.md",
       "title": "제품 확인 대기 목록",
@@ -1437,6 +1446,7 @@
         "design/governance/decisions/DS-D-0039-pattern-boards-count-as-coverage.md",
         "design/governance/decisions/DS-D-0040-state-is-a-variant-axis.md",
         "design/governance/decisions/DS-D-0041-dialog-tone-axis.md",
+        "design/governance/decisions/DS-D-0042-board-composition-denominator.md",
         "design/governance/product-confirmations.md",
         "design/updates/README.md"
       ]

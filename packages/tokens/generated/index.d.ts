@@ -1191,7 +1191,7 @@ export declare const tokens: Readonly<{
   readonly "color-node-audio-surface": TokenRecord<"color-node-audio-surface", "light", "semantic", { readonly id: "color-pink-200"; readonly mode: "base" }>;
   readonly "color-node-canvas-dot": TokenRecord<"color-node-canvas-dot", "light", "semantic", { readonly id: "color-static-black-alpha-12"; readonly mode: "base" }>;
   readonly "color-node-chip-fg-disabled": TokenRecord<"color-node-chip-fg-disabled", "light", "semantic", { readonly id: "color-palette-gray-500"; readonly mode: "base" }>;
-  readonly "color-node-chip-surface": TokenRecord<"color-node-chip-surface", "light", "semantic", { readonly id: "color-palette-gray-100"; readonly mode: "base" }>;
+  readonly "color-node-chip-surface": TokenRecord<"color-node-chip-surface", "light", "semantic", { readonly id: "color-palette-gray-000"; readonly mode: "base" }>;
   readonly "color-node-chip-surface-hover": TokenRecord<"color-node-chip-surface-hover", "light", "semantic", { readonly id: "color-palette-gray-100"; readonly mode: "base" }>;
   readonly "color-node-chrome-btn-bg": TokenRecord<"color-node-chrome-btn-bg", "light", "semantic", { readonly id: "color-palette-gray-100"; readonly mode: "base" }>;
   readonly "color-node-edit-accent": TokenRecord<"color-node-edit-accent", "light", "semantic", { readonly id: "color-violet-500"; readonly mode: "base" }>;

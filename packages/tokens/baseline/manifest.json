@@ -2,23 +2,23 @@
   "artifacts": [
     {
       "path": "packages/tokens/generated/figma.tokens.json",
-      "sha256": "44b65b3122905715c53429648a2ec6e4ef4ec746a0ed69a2fbd3af1f863387b3"
+      "sha256": "da45f5790e1336682876ee492022fab12816b0b413310db4ffaab22a3dcfbda0"
     },
     {
       "path": "packages/tokens/generated/index.d.ts",
-      "sha256": "357e551426603e6d74ce937b691eefc6f6273006da6e889147b9879d57a66814"
+      "sha256": "ce13d9562d373cfffa874506e3afab002e67ee40f1fd905ee3476075fd14f835"
     },
     {
       "path": "packages/tokens/generated/index.js",
-      "sha256": "922aae61dfa44da7ad4b7ea8e0fffd9d341bf9aa0ca22fd974e027aa36b630c2"
+      "sha256": "ac936b90f78b802b51d26b1bf0f5dd87183a31b4cb9db3d3008a1e1f400ecd37"
     },
     {
       "path": "packages/tokens/generated/tokens.css",
-      "sha256": "fe836148cdcb8c6d722b19fedb8be2d88794c498a43180980025f06b731422eb"
+      "sha256": "737f12914f35e03f45db54baa6f2748b0d115a50681ca3dd9b97e5c1eac6d91d"
     },
     {
       "path": "packages/tokens/generated/tokens.json",
-      "sha256": "96c0402d26972196f76cde465b17dfb2679d6ccb8e51e5ef859f0ee3711ee9ac"
+      "sha256": "69597cc44b92bece61e28d9c257f1bda17f92b885e4c51935a1f05d0bcdd0c6c"
     }
   ],
   "contrastPairs": [
@@ -419,7 +419,7 @@
   },
   "source": {
     "path": "packages/tokens/src/klipse.tokens.json",
-    "sha256": "1521e221385c5e2eaacc877dca23ccdedd44fc11a011ff714b70778336475ee2"
+    "sha256": "1acd2d128601c13764ff93881478df08e840212993ef93f5f16488cb7706f0ec"
   },
   "themes": [
     "light",
@@ -8131,24 +8131,24 @@
     },
     {
       "aliasTarget": {
-        "id": "color-palette-gray-100",
+        "id": "color-palette-gray-000",
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-node-chip-surface": "color(srgb 0.866667 0.870588 0.878431 / 1)"
+        "--louis-color-node-chip-surface": "color(srgb 0.980392 0.980392 0.980392 / 1)"
       },
       "deprecated": null,
       "description": null,
       "id": "color-node-chip-surface",
       "mode": "light",
-      "rawValue": "{primitive.color.palette-gray.100}",
+      "rawValue": "{primitive.color.palette-gray.000}",
       "resolvedValue": {
         "alpha": 1,
         "colorSpace": "srgb",
         "components": [
-          0.866667,
-          0.870588,
-          0.878431
+          0.980392,
+          0.980392,
+          0.980392
         ]
       },
       "sourcePath": "semantic.light.color.node-chip-surface",

@@ -362,6 +362,10 @@ const KNOWN_PRODUCT_STEPS = [
   "check-figma-product-sidebar-states",
   // `/highlight` 5열 카드 그리드의 Auto Layout reconcile renderer를 생성하는 드리프트 게이트.
   "check-figma-product-highlight-hub",
+  // 제품이 `var()` 로 푸는 LOUIS 토큰 이름을 앵커에서 열거하는 열거기. 죽은 토큰을 세는
+  // 래칫(check-coverage-targets)은 반대로 verify:ci 에 있다 — 원장이 제품 쪽 절반만 나르고
+  // LOUIS 쪽 절반은 CI 가 매번 다시 계산하기 때문이다.
+  "verify-louis-token-usage",
 ];
 // verify-gates 가 --no-product 로 건너뛰겠다고 선언한 카나리아는, 제품이 있는 곳에서
 // 반드시 다시 돌아야 한다. 선언만 하고 verify:product 에 전체 verify-gates 가 없으면

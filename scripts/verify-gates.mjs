@@ -229,6 +229,133 @@ withCanary(
   "되읽기에 없는 컴포넌트를 대응으로 적었습니다",
 );
 
+// ── 커버리지 목표 래칫 카나리아 아홉 (2026-09-02) ────────────────────────
+// `check-coverage-targets` 는 목표가 선언된 지표를 한 표에 모으고, **임자가 없던 넷**을
+// 잠근다(needed · unclear · manifest done · 죽은 토큰). 그 넷은 여기서 카나리아를 심기 전까지
+// 이 저장소에서 한 번도 잠긴 적이 없는 수라, 「게이트가 조용히 통과한다」가 기본값이었다.
+
+// ① 세워야 할 표면이 줄었는데 잠그지 않았다. 어디로 갔는지(그렸다/미뤘다/범위 밖으로
+//    옮겼다) 적지 않으면 그 자리는 조용히 되돌아온다.
+withCanary(
+  "migration/product.surfaces.json",
+  (source) => {
+    const ledger = JSON.parse(source);
+    ledger.counts.needed -= 1;
+    return JSON.stringify(ledger, null, 2) + "\n";
+  },
+  "coverage targets needed fell without locking",
+  "scripts/check-coverage-targets.mjs",
+  "세워야 할 표면이",
+);
+
+// ② **범위 밖 바구니가 총수와 무관하게 커졌다.** `needed` 를 줄이는 가장 쉬운 길이고,
+//    이 그물이 없으면 아무것도 그리지 않고 「진척」을 만들 수 있다.
+withCanary(
+  "migration/product.surfaces.json",
+  (source) => {
+    const ledger = JSON.parse(source);
+    ledger.counts.scoped += 1;
+    ledger.counts.needed -= 1;
+    return JSON.stringify(ledger, null, 2) + "\n";
+  },
+  "coverage targets needed reclassified as out of scope",
+  "scripts/check-coverage-targets.mjs",
+  "범위 밖(scoped)이",
+);
+
+// ③ 소유자만 줄일 수 있는 수가 줄었는데 잠그지 않았다.
+withCanary(
+  "migration/product.surfaces.json",
+  (source) => {
+    const ledger = JSON.parse(source);
+    ledger.counts.unclear -= 1;
+    return JSON.stringify(ledger, null, 2) + "\n";
+  },
+  "coverage targets unclear fell without locking",
+  "scripts/check-coverage-targets.mjs",
+  "판단 대기가",
+);
+
+// ④ **done → partial 강등.** `verify-figma-done` 은 done 인 항목만 검사하므로 강등하면
+//    오히려 «조용해진다» — 이 게이트가 없으면 후퇴가 초록으로 보인다.
+withCanary(
+  "design/manifest.json",
+  (source) => {
+    const manifest = JSON.parse(source);
+    manifest.components.find((item) => item.figma === "done").figma = "partial";
+    return JSON.stringify(manifest, null, 2) + "\n";
+  },
+  "coverage targets figma done demoted to partial",
+  "scripts/check-coverage-targets.mjs",
+  "manifest 의 figma:done 이",
+);
+
+// ⑤ 아무도 쓰지 않는 토큰을 새로 만들었다. DS-D-0029 — 이름은 참이어야 한다.
+withCanary(
+  "packages/css/generated/tokens.css",
+  (source) => source.replace(":root {\n", ":root {\n  --louis-canary-unused-token: 0px;\n"),
+  "coverage targets dead token added",
+  "scripts/check-coverage-targets.mjs",
+  "죽은 토큰이 1개 늘었습니다",
+);
+
+// ⑥ 죽은 토큰이 줄었는데 잠그지 않았다. `--louis-color-blue-350` 은 앵커에서 LOUIS 도
+//    제품도 `var()` 로 풀지 않는 이름이다 — 누군가 그것을 쓰기 시작하면 이 카나리아가
+//    「예상 진단을 내지 않았습니다」로 시끄럽게 실패한다(조용히 통과하지 않는다).
+withCanary(
+  "migration/louis-token-usage.json",
+  (source) => {
+    const ledger = JSON.parse(source);
+    ledger.productRefs = [...ledger.productRefs, "--louis-color-blue-350"].sort();
+    return JSON.stringify(ledger, null, 2) + "\n";
+  },
+  "coverage targets dead token count fell without locking",
+  "scripts/check-coverage-targets.mjs",
+  "죽은 토큰이 1개 줄었습니다",
+);
+
+// ⑦ 제품이 LOUIS 에 없는 이름을 `var()` 로 문다. 브라우저에서는 조용히 빈 값이 된다.
+withCanary(
+  "migration/louis-token-usage.json",
+  (source) => {
+    const ledger = JSON.parse(source);
+    ledger.productRefs = [...ledger.productRefs, "--louis-name-that-louis-does-not-have"].sort();
+    return JSON.stringify(ledger, null, 2) + "\n";
+  },
+  "coverage targets dangling product token reference",
+  "scripts/check-coverage-targets.mjs",
+  "끊어진 참조",
+);
+
+// ⑧ 원장들이 서로 다른 제품 커밋을 잰다. 각 게이트는 자기 원장만 보므로 **전부 초록인 채**
+//    한 표에 두 앵커의 수가 나란히 찍힐 수 있다.
+withCanary(
+  "migration/louis-token-usage.json",
+  (source) => {
+    const ledger = JSON.parse(source);
+    ledger.productCommit = "0".repeat(40);
+    return JSON.stringify(ledger, null, 2) + "\n";
+  },
+  "coverage targets ledgers on different anchors",
+  "scripts/check-coverage-targets.mjs",
+  "productCommit",
+);
+
+// ⑨ **빌려 쓰는 수의 임자가 verify:ci 에서 빠졌다.** 표는 그대로 인쇄되지만 그 수는 그때부터
+//    아무에게도 잠기지 않는다 — 대시보드만 남고 게이트는 사라지는, 가장 조용한 실패다.
+withCanary(
+  "package.json",
+  (source) => {
+    const manifest = JSON.parse(source);
+    manifest.scripts["verify:ci"] = manifest.scripts["verify:ci"]
+      .replace(" && pnpm run check-figma-surface-coverage", "");
+    return JSON.stringify(manifest, null, 2) + "\n";
+  },
+  "coverage targets owning gate dropped from verify:ci",
+  "scripts/check-coverage-targets.mjs",
+  "verify:ci 사슬에",
+);
+
 withCanary(
   "design/components/button.md",
   (source) => source.replace("status: experimental", "status: stable"),

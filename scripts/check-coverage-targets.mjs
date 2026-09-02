@@ -1,0 +1,392 @@
+#!/usr/bin/env node
+// **목표가 선언된 지표를 한 자리에서 인쇄하고, 아무도 잠그지 않던 것들을 잠근다.**
+//
+// 왜 있나: 소유자가 2026-09-02 에 「모든 지표를 100% 로」를 선언했다. 그때 지표들은
+// 흩어져 있었고 방향이 없었다 — `needed` 161 은 게이트가 「늘어도 실패하지 않는다」로
+// 인쇄하고, `manifest partial` 22 는 verify-figma-done 이 세지만 목표가 없으며,
+// **죽은 토큰은 아무 게이트도 세지 않았다.** 목표 없는 수는 대시보드가 아니라 소음이다.
+//
+// ── 왜 `report-` 가 아니라 `check-` 인가 ──────────────────────────────────
+// 브리프는 `report-coverage-targets` 라는 이름을 제안했지만, 이 저장소의 이름 관례에서
+// `report-` 는 없고 `check-`/`verify-` 뿐이며 **그 둘은 실패한다.** 그리고 실패하지 않는
+// 리포트는 아무도 안 본다 — hosted CI 가 46회 연속 빨갛도록 아무도 못 본 사고가 이 저장소의
+// 출발점이다(verify-gate-split 머리말). 이름이 「보고서」라고 말하면 다음 사람은 이 파일을
+// 읽지 않고 지나갈 것이므로, 이름과 동작을 맞춘다.
+//
+// ── 무엇을 잠그고 무엇을 잠그지 않는가 ────────────────────────────────────
+// **이미 임자가 있는 수는 여기서 다시 잠그지 않는다.** 표면 대응은
+// `check-figma-surface-coverage` 가, 보드 인스턴스·대체가능은 `check-figma-board-composition`
+// 이 이미 양방향으로 잠근다. 같은 수에 래칫을 둘 걸면 baseline 이 두 곳에 살고 반드시
+// 어긋난다. 여기서는 그 수들을 **목표·방향과 함께 인쇄하고 임자를 이름으로 가리킨다.**
+//
+// 대신 **임자가 없던 넷을 잠근다** — `needed` · `unclear` · manifest `done` · 죽은 토큰.
+//
+// ── `needed` 에 래칫을 걸 수 있는가 (브리프의 질문) ───────────────────────
+// 「새 제품 표면이 생겨 늘었다」와 「세우기를 미뤄 늘었다」를 **구분할 수 없다.** 표면 총수가
+// 함께 올랐는지를 보면 첫 경우는 가려지지만, 총수가 그대로인 채 `needed` 가 오르는 경우가
+// 남는다: `scoped → needed`(「범위 밖이라 했는데 사실 그려야 한다」)는 **발견**이고,
+// `figma → needed`(「그렸다고 했는데 아니었다」)는 후퇴다. 두 이동은 같은 +1 로 보인다.
+//
+// 그런데 **후퇴 쪽은 이미 다른 그물에 걸린다** — `figma → needed` 는 `mapped` 를 떨어뜨리고
+// MAPPED_BASELINE 이 그것을 실패시킨다. 그래서 상승을 실패로 만들면 잡히는 것은 발견뿐이고,
+// 발견을 벌하면 다음 사람은 열어 보지 않는 쪽을 고른다. **상승은 자유로 둔다.**
+//
+// 대신 **하락을 잠근다.** `needed` 가 줄 수 있는 길은 셋이다 — Figma 에 세웠다(mapped 상승,
+// 이득이므로 잠근다) · 판단 대기로 미뤘다(`unclear` 상승, 미룬 것은 기록돼야 한다) ·
+// **범위 밖으로 옮겼다**(`scoped` 상승, 이것이 유일한 부정 경로다). 셋 다 baseline 을 손으로
+// 내리게 만들어 「무엇이 어디로 갔는가」를 적게 한다.
+//
+// 그 셋 중 마지막을 위해 **`scoped` 에 천장을 건다**: 범위 밖 바구니는 표면 총수가 늘어난
+// 만큼만 커질 수 있다. 총수가 그대로인데 `scoped` 가 오르면 무언가를 그 안으로 옮긴 것이고,
+// 그 바구니가 이 원장에서 **것들이 사라지는 자리**이므로 매번 손으로 적게 만든다.
+// (소유자 지시: 「`scoped` 211 — 분모 밖 — 사유가 지킨다」. 사유가 지키려면 들어가는 것이
+// 보여야 한다.)
+//
+// ── 죽은 토큰: 양방향, 목표 0 ─────────────────────────────────────────────
+// 여기에는 「발견」이 없다. 선언된 토큰 전수는 기계가 결정적으로 열거하므로, 수가 오르는
+// 길은 둘뿐이다 — 아무도 안 쓰는 토큰을 새로 만들었거나(DS-D-0029: 이름은 참이어야 한다),
+// 마지막 소비자를 지웠거나. 둘 다 들어야 할 소식이다. 목표는 **지워서 0** 이지, 제품에
+// 억지로 쓰게 해서 0 이 아니다.
+import { readFileSync, readdirSync, statSync } from "node:fs";
+import { dirname, join, resolve } from "node:path";
+import { fileURLToPath } from "node:url";
+
+const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), "..");
+const read = (relative) => readFileSync(resolve(repoRoot, relative), "utf8");
+const readJson = (relative) => JSON.parse(read(relative));
+
+const SURFACES = "migration/product.surfaces.json";
+const BOARD = "migration/figma-board-composition.json";
+const TOKEN_USAGE = "migration/louis-token-usage.json";
+const MANIFEST = "design/manifest.json";
+const TOKENS_CSS = "packages/css/generated/tokens.css";
+// **소비자가 아니다 — 대조군이다.** 같은 토큰 원천에서 생성되므로 토큰이 존재한다는
+// 이유만으로 참조한다. 이것을 소비로 세면 죽은 토큰이 얼마나 «내려가는지»를 함께 인쇄해,
+// 정의를 느슨하게 푸는 것만으로 수가 좋아지는 폭을 읽는 사람이 보게 한다.
+const THEME_CSS = "packages/css/generated/theme.css";
+const AUTHORED_CSS = ["packages/css/src", "packages/react/src"];
+
+// ── baseline ──────────────────────────────────────────────────────────────
+// 2026-09-02 실측. **새 위반을 받아들이려고 이 수를 움직이지 마라** — 이 저장소의 규칙이다.
+// 각 수의 방향은 아래 래칫 절이 소유한다.
+const NEEDED_BASELINE = 161; // 하락만 잠근다(상승은 발견)
+const UNCLEAR_BASELINE = 9; // 하락만 잠근다(소유자만 줄일 수 있다)
+const SCOPED_BASELINE = 211; // 표면 총수가 오른 만큼만 오를 수 있다
+const SURFACE_TOTAL_BASELINE = 400; // 위 천장의 기준점
+const MANIFEST_DONE_FLOOR = 17; // 바닥. 오르면 올려 이득을 잠근다
+const DEAD_TOKEN_BASELINE = 318; // 양방향, 목표 0
+
+// 이 게이트가 «빌려 쓰는» 수의 임자들. 하나라도 verify:ci 사슬에서 빠지면 여기 인쇄되는
+// 수가 아무에게도 잠기지 않은 채 대시보드에만 남는다 — 그것이 가장 조용한 실패다.
+const OWNING_GATES = [
+  ["check-figma-surface-coverage", "표면 대응·사유없음·표면 총수"],
+  ["check-figma-board-composition", "보드 인스턴스·대체가능·후보 수"],
+  ["verify-figma-done", "manifest figma:done 의 (a)(b)(c)"],
+];
+
+const errors = [];
+
+// ── 0. 빌린 수의 임자가 실제로 도는가 ─────────────────────────────────────
+const scripts = readJson("package.json").scripts;
+const expand = (name, seen = new Set()) => {
+  if (seen.has(name) || scripts[name] === undefined) return [];
+  seen.add(name);
+  const refs = [...scripts[name].matchAll(/pnpm run ([\w:-]+)/g)].map((m) => m[1]);
+  return refs.length === 0 ? [name] : refs.flatMap((r) => expand(r, seen));
+};
+const ciSteps = new Set(expand("verify:ci"));
+for (const [gate, owns] of OWNING_GATES) {
+  if (!ciSteps.has(gate)) {
+    errors.push(
+      "이 게이트가 인쇄하는 수의 임자 `" + gate + "`(" + owns + ")가 verify:ci 사슬에 " +
+        "없습니다. 임자가 빠지면 아래 표는 아무도 잠그지 않는 수를 보여 주는 장식이 됩니다.",
+    );
+  }
+}
+
+// ── 1. 세 원장이 같은 앵커를 보는가 ───────────────────────────────────────
+// 각 게이트는 자기 원장만 본다 — 원장들이 **서로 다른 제품 커밋**을 재고 있어도 전부 초록이다.
+// 한 표에 나란히 찍는 순간 그것이 결함이 되므로 여기서 잠근다.
+const surfaces = readJson(SURFACES);
+const board = readJson(BOARD);
+const tokenUsage = readJson(TOKEN_USAGE);
+const anchors = [
+  [SURFACES, surfaces.productCommit],
+  [BOARD, board.productCommit],
+  [TOKEN_USAGE, tokenUsage.productCommit],
+];
+const anchor = anchors[0][1];
+for (const [where, commit] of anchors) {
+  if (commit !== anchor) {
+    errors.push(
+      where + " 의 productCommit(" + String(commit).slice(0, 8) + ")이 " + anchors[0][0] +
+        " 의 " + String(anchor).slice(0, 8) + " 와 다릅니다. 서로 다른 앵커의 수를 한 표에 " +
+        "나란히 찍으면 그 표는 어느 제품도 설명하지 않습니다.",
+    );
+  }
+}
+
+// ── 2. 죽은 토큰 ──────────────────────────────────────────────────────────
+// **원장은 제품 쪽 절반만 나른다.** LOUIS 쪽은 CI 에서 볼 수 있으므로 매번 다시 계산한다.
+const tokensCss = read(TOKENS_CSS);
+const declared = new Map();
+for (const m of tokensCss.matchAll(/^\s*(--louis-[a-z0-9-]+)\s*:\s*([^;]*);/gm)) {
+  declared.set(m[1], m[2]);
+}
+if (declared.size === 0) {
+  errors.push(TOKENS_CSS + " 에서 토큰 선언을 하나도 읽지 못했습니다. 셀 것이 없으면 통과가 아닙니다.");
+}
+
+const walk = (dir, out = []) => {
+  for (const entry of readdirSync(resolve(repoRoot, dir))) {
+    const rel = join(dir, entry);
+    if (statSync(resolve(repoRoot, rel)).isDirectory()) walk(rel, out);
+    else if (/\.(css|ts|tsx)$/.test(rel)) out.push(rel);
+  }
+  return out;
+};
+const authored = AUTHORED_CSS.flatMap((dir) => walk(dir)).map((f) => read(f)).join("\n");
+const louisRefs = new Set();
+for (const m of authored.matchAll(/var\(\s*(--louis-[a-z0-9-]+)/g)) louisRefs.add(m[1]);
+// 컴포넌트가 자기 안에서 세우는 손잡이. 토큰 패키지의 이름이 아니므로 선언 사전과 가른다 —
+// 제품이 `var()` 로 무는 이름이 둘 중 어디에도 없으면 그것은 **끊어진 참조**다.
+const localKnobs = new Set();
+for (const m of authored.replace(/var\(\s*--louis-[a-z0-9-]+/g, "").matchAll(/(--louis-[a-z0-9-]+)\s*:/g)) {
+  localKnobs.add(m[1]);
+}
+if (louisRefs.size === 0) {
+  errors.push(AUTHORED_CSS.join("·") + " 에서 `var(--louis-*)` 를 하나도 읽지 못했습니다.");
+}
+
+const productRefs = new Set(tokenUsage.productRefs ?? []);
+if (productRefs.size === 0) {
+  errors.push(TOKEN_USAGE + " 에 제품 참조가 하나도 없습니다. `pnpm run measure-louis-token-usage` 로 다시 뽑으세요.");
+}
+
+// 별칭 사슬을 따라간다. `A: var(B)` 에서 A 가 살아 있으면 B 도 산다. 이것이 없으면
+// 「지워도 된다」가 거짓이 되어, 그 말을 믿고 지운 사람이 살아 있는 값을 부순다.
+const live = new Set();
+const stack = [...louisRefs, ...productRefs].filter((name) => declared.has(name));
+while (stack.length > 0) {
+  const name = stack.pop();
+  if (live.has(name)) continue;
+  live.add(name);
+  for (const m of (declared.get(name) ?? "").matchAll(/var\(\s*(--louis-[a-z0-9-]+)/g)) {
+    if (declared.has(m[1]) && !live.has(m[1])) stack.push(m[1]);
+  }
+}
+const dead = [...declared.keys()].filter((name) => !live.has(name));
+const dangling = [...productRefs].filter((name) => !declared.has(name) && !localKnobs.has(name));
+// 계열별 집계. 「무엇부터 지우는가」를 정하는 데 쓰는 유일한 실마리다.
+const familyTally = {};
+for (const name of dead) {
+  const family = name.split("-").slice(0, 4).join("-");
+  familyTally[family] = (familyTally[family] ?? 0) + 1;
+}
+const deadFamilies = Object.entries(familyTally)
+  .sort((a, z) => z[1] - a[1])
+  .map(([family, count]) => family + "-* " + count)
+  .join(" · ");
+const TOKENS_USAGE_HINT = TOKEN_USAGE + " 에서 사라진 제품 참조";
+
+// 대조군. `theme.css` 를 소비자로 셌을 때의 죽은 토큰 수를 **같은 코드로** 다시 낸다 —
+// 정의를 느슨하게 풀면 수가 얼마나 좋아지는지를 인쇄하려는 것이지, 그 정의를 쓰려는 것이 아니다.
+const themeRefs = new Set();
+for (const m of read(THEME_CSS).matchAll(/var\(\s*(--louis-[a-z0-9-]+)/g)) {
+  if (declared.has(m[1])) themeRefs.add(m[1]);
+}
+const liveIfThemeCounted = new Set();
+const themeStack = [...louisRefs, ...productRefs, ...themeRefs].filter((name) => declared.has(name));
+while (themeStack.length > 0) {
+  const name = themeStack.pop();
+  if (liveIfThemeCounted.has(name)) continue;
+  liveIfThemeCounted.add(name);
+  for (const m of (declared.get(name) ?? "").matchAll(/var\(\s*(--louis-[a-z0-9-]+)/g)) {
+    if (declared.has(m[1]) && !liveIfThemeCounted.has(m[1])) themeStack.push(m[1]);
+  }
+}
+const deadIfThemeCounted = declared.size - liveIfThemeCounted.size;
+
+// ── 3. manifest ───────────────────────────────────────────────────────────
+const manifest = readJson(MANIFEST);
+const tally = (items) => {
+  const out = {};
+  for (const item of items) out[String(item.figma)] = (out[String(item.figma)] ?? 0) + 1;
+  return out;
+};
+const componentFigma = tally(manifest.components);
+const patternFigma = tally(manifest.patterns);
+const done = componentFigma.done ?? 0;
+const partial = componentFigma.partial ?? 0;
+const notPlanned = componentFigma["not-planned"] ?? 0;
+const doneTarget = manifest.components.length - notPlanned;
+
+// ── 4. 수가 실제로 수인가 ─────────────────────────────────────────────────
+// 원장의 키가 사라지면 `undefined` 가 조용히 흘러 「0 → 목표 0, 달성」으로 인쇄된다.
+const surfaceCounts = surfaces.counts ?? {};
+const boardCounts = board.counts ?? {};
+const numbers = {
+  "표면 total": surfaceCounts.total,
+  "표면 mapped": surfaceCounts.mapped,
+  "표면 scoped": surfaceCounts.scoped,
+  "표면 needed": surfaceCounts.needed,
+  "표면 unclear": surfaceCounts.unclear,
+  "보드 instance": boardCounts.instance,
+  "보드 replaceable": boardCounts.replaceable,
+};
+for (const [what, value] of Object.entries(numbers)) {
+  if (!Number.isFinite(value)) {
+    errors.push(
+      what + " 를 원장에서 수로 읽지 못했습니다(" + String(value) + "). 키가 사라지면 " +
+        "이 표는 「0 → 목표 0, 달성」을 인쇄합니다.",
+    );
+  }
+}
+
+if (errors.length === 0) {
+  // ── 래칫 (임자가 없던 넷) ───────────────────────────────────────────────
+  const needed = surfaceCounts.needed;
+  const unclear = surfaceCounts.unclear;
+  const scoped = surfaceCounts.scoped;
+  const total = surfaceCounts.total;
+
+  if (needed < NEEDED_BASELINE) {
+    errors.push(
+      "세워야 할 표면이 " + (NEEDED_BASELINE - needed) + "개 줄었습니다 (" + NEEDED_BASELINE +
+        " → " + needed + "). 이득을 잠그세요 — 이 파일의 NEEDED_BASELINE 을 " + needed +
+        " 로 내리고, 그것이 어디로 갔는지 적으세요(Figma 에 세웠다 / 판단 대기로 미뤘다 / " +
+        "범위 밖으로 옮겼다). 내리지 않으면 그 자리는 다음에 조용히 되돌아옵니다.",
+    );
+  }
+  if (unclear < UNCLEAR_BASELINE) {
+    errors.push(
+      "판단 대기가 " + (UNCLEAR_BASELINE - unclear) + "개 줄었습니다 (" + UNCLEAR_BASELINE +
+        " → " + unclear + "). 소유자만 줄일 수 있는 수이므로 반드시 잠급니다 — " +
+        "UNCLEAR_BASELINE 을 " + unclear + " 로 내리세요.",
+    );
+  }
+  // 범위 밖 바구니는 표면 총수가 늘어난 만큼만 커질 수 있다.
+  const allowedScoped = SCOPED_BASELINE + Math.max(0, total - SURFACE_TOTAL_BASELINE);
+  if (scoped > allowedScoped) {
+    errors.push(
+      "범위 밖(scoped)이 " + (scoped - allowedScoped) + "개 늘었습니다 (" + SCOPED_BASELINE +
+        " → " + scoped + ", 표면 총수는 " + SURFACE_TOTAL_BASELINE + " → " + total + "). " +
+        "총수가 늘어난 만큼을 넘는 증가는 새 표면이 아니라 **있던 것을 범위 밖으로 옮긴 것**입니다. " +
+        "범위 밖은 이 원장에서 것들이 사라지는 자리이므로, 옮겼다면 SCOPED_BASELINE 을 " + scoped +
+        " 로 올리고 무엇을 왜 옮겼는지 적으세요.",
+    );
+  } else if (scoped < SCOPED_BASELINE) {
+    errors.push(
+      "범위 밖이 " + (SCOPED_BASELINE - scoped) + "개 줄었습니다 (" + SCOPED_BASELINE + " → " +
+        scoped + "). 분모가 넓어진 것이므로 SCOPED_BASELINE 을 " + scoped + " 로 내려 " +
+        "그 상태를 새 기준으로 잠그세요.",
+    );
+  }
+
+  if (done < MANIFEST_DONE_FLOOR) {
+    errors.push(
+      "manifest 의 figma:done 이 " + (MANIFEST_DONE_FLOOR - done) + "개 줄었습니다 (" +
+        MANIFEST_DONE_FLOOR + " → " + done + "). done → partial 강등은 verify-figma-done 이 " +
+        "보지 못합니다 — 그 게이트는 done 인 항목만 검사하므로, 강등하면 오히려 조용해집니다.",
+    );
+  } else if (done > MANIFEST_DONE_FLOOR) {
+    errors.push(
+      "manifest 의 figma:done 이 " + (done - MANIFEST_DONE_FLOOR) + "개 늘었습니다 (" +
+        MANIFEST_DONE_FLOOR + " → " + done + "). MANIFEST_DONE_FLOOR 를 " + done +
+        " 로 올려 이득을 잠그세요.",
+    );
+  }
+
+  if (dead.length > DEAD_TOKEN_BASELINE) {
+    // **어느 이름이 «새로» 죽었는지는 말하지 않는다.** baseline 이 수 하나라 그것을 알 수
+    // 없고, 「새로 죽은 자리」라며 죽은 목록의 앞 몇 개를 찍으면 그것은 거짓말이다 —
+    // 이 저장소가 낡은 수로 데었던 것과 같은 종류의 거짓이다. 대신 «어디를 보라»를 적는다.
+    errors.push(
+      "죽은 토큰이 " + (dead.length - DEAD_TOKEN_BASELINE) + "개 늘었습니다 (" +
+        DEAD_TOKEN_BASELINE + " → " + dead.length + "). 아무도 쓰지 않는 이름을 새로 만들었거나 " +
+        "마지막 소비자를 지웠습니다 — DS-D-0029(이름은 참이어야 한다).\n" +
+        "      어느 이름인지는 이 게이트가 알지 못한다(baseline 이 수 하나다). " +
+        "직전 커밋과 대조할 곳은 셋이다 — " + TOKENS_CSS + " 의 새 선언 · " +
+        AUTHORED_CSS.join("·") + " 에서 사라진 `var()` · " + TOKENS_USAGE_HINT + ".\n" +
+        "      지금 죽어 있는 " + dead.length + "개의 계열: " + deadFamilies,
+    );
+  } else if (dead.length < DEAD_TOKEN_BASELINE) {
+    errors.push(
+      "죽은 토큰이 " + (DEAD_TOKEN_BASELINE - dead.length) + "개 줄었습니다 (" +
+        DEAD_TOKEN_BASELINE + " → " + dead.length + "). 이득을 잠그세요 — " +
+        "DEAD_TOKEN_BASELINE 을 " + dead.length + " 로 내립니다.",
+    );
+  }
+
+  if (dangling.length > 0) {
+    errors.push(
+      "제품이 `var()` 로 무는데 LOUIS 에 그 이름이 없습니다(끊어진 참조 " + dangling.length +
+        "): " + dangling.slice(0, 5).join(", ") + ". 토큰 선언에도, 컴포넌트가 세우는 " +
+        "손잡이에도 없는 이름은 브라우저에서 조용히 빈 값이 됩니다.",
+    );
+  }
+}
+
+if (errors.length > 0) {
+  console.error("커버리지 목표 게이트 실패:");
+  for (const error of errors) console.error("  - " + error);
+  process.exit(1);
+}
+
+// ── 인쇄 ──────────────────────────────────────────────────────────────────
+// **수를 산문에 박지 않는다.** 아래 모든 값은 방금 계산했거나 원장에서 읽은 것이고,
+// 목표·방향만 이 파일이 소유한다.
+const pct = (numerator, denominator) =>
+  (denominator > 0 ? ((numerator / denominator) * 100).toFixed(1) : "0.0") + "%";
+const surfaceTarget = surfaceCounts.total - surfaceCounts.scoped;
+const boardTarget = boardCounts.instance + boardCounts.replaceable;
+
+const rows = [
+  ["표면 needed (세워야 할 것)", String(surfaceCounts.needed), "0", "↓ 하락만 잠금", "이 게이트"],
+  ["표면 unclear (판단 대기)", String(surfaceCounts.unclear), "0", "↓ 하락만 잠금", "이 게이트"],
+  ["표면 대응 (대상 대비)", pct(surfaceCounts.mapped, surfaceTarget) + " (" + surfaceCounts.mapped + "/" + surfaceTarget + ")", "100%", "↑ 양방향", "check-figma-surface-coverage"],
+  ["표면 scoped (분모 밖)", String(surfaceCounts.scoped), "— 분모 밖", "총수만큼만 상승", "이 게이트"],
+  ["보드 인스턴스 비율", pct(boardCounts.instance, boardTarget) + " (" + boardCounts.instance + "/" + boardTarget + ")", "100%", "↑ 바닥", "check-figma-board-composition"],
+  ["보드 replaceable", String(boardCounts.replaceable), "0", "↓ 양방향", "check-figma-board-composition"],
+  ["manifest 컴포넌트 done", done + "/" + doneTarget, String(doneTarget), "↑ 바닥", "이 게이트 + verify-figma-done"],
+  ["manifest 컴포넌트 partial", String(partial), "0", "↓ done 의 나머지", "파생"],
+  ["죽은 토큰", String(dead.length) + "/" + declared.size, "0", "↓ 양방향", "이 게이트"],
+];
+// 한글은 터미널에서 두 칸을 쓴다. 코드 포인트 수로 채우면 표가 어긋나고, 어긋난 표는
+// 읽히지 않는다 — 이 게이트의 산출물은 «읽히는» 표 하나다.
+const displayWidth = (text) =>
+  [...text].reduce(
+    (sum, ch) => sum + (/[\u1100-\u115F\u2E80-\uA4CF\uAC00-\uD7A3\uF900-\uFAFF\uFE30-\uFE6F\uFF00-\uFF60\uFFE0-\uFFE6]/.test(ch) ? 2 : 1),
+    0,
+  );
+const header = ["지표", "현재", "목표", "방향", "래칫 임자"];
+const table = [header, ...rows];
+const widths = header.map((_, column) => Math.max(...table.map((row) => displayWidth(row[column]))));
+const line = (cells) =>
+  "  " + cells.map((cell, index) => cell + " ".repeat(widths[index] - displayWidth(cell))).join("  ").trimEnd();
+
+console.log("커버리지 목표 (앵커 " + String(anchor).slice(0, 8) + "):");
+for (const row of table) console.log(line(row));
+
+console.log(
+  "  · 죽은 토큰의 정의: `packages/css/generated/tokens.css` 의 선언 " + declared.size +
+    " 중, LOUIS 저작 CSS(" + louisRefs.size + "종 참조)와 제품 앵커(" + productRefs.size +
+    "종 참조) 어느 쪽도 `var()` 로 풀지 않는 것 — 별칭 사슬을 따라간 뒤. " +
+    "`theme.css` 는 소비자로 세지 않는다(같은 원천에서 생성돼 토큰이 있다는 이유만으로 " +
+    themeRefs.size + "종을 참조한다 — 세면 죽은 토큰이 " + dead.length + " → " +
+    deadIfThemeCounted + " 로 «내려간다»). " +
+    "제품 쪽 절반은 " + TOKEN_USAGE + " 가 나르고, 나머지는 방금 다시 계산했다.",
+);
+console.log(
+  "  · 100% 가 의미 없는 자리: 범위 밖 " + surfaceCounts.scoped + "건은 분모 밖이다 — " +
+    "Provider·훅·레이아웃 래퍼를 Figma 에 그리는 일이 된다. " +
+    "패턴 " + (patternFigma.partial ?? 0) + "건의 `partial` 도 목표가 없다 — DS-D-0035 는 " +
+    "컴포넌트 축만 정의했고, 패턴의 done 은 정의 자체가 아직 없다(verify-figma-done 이 " +
+    "패턴의 done 을 거부한다). 정의를 넓히기 전에는 이 수는 0 이 될 수 없다.",
+);
+console.log(
+  "  · 상승이 자유인 수: 표면 needed·unclear, 보드 blocked·missing. 늘어난 것은 발견이지 " +
+    "후퇴가 아니고, 발견을 벌하면 다음 사람은 열어 보지 않는 쪽을 고른다. " +
+    "후퇴 경로는 각각 다른 그물이 잡는다 — figma→needed 는 MAPPED_BASELINE, " +
+    "needed→scoped 는 위의 scoped 천장이 잡는다.",
+);

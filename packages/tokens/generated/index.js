@@ -15054,17 +15054,17 @@ export const tokens = {
     },
     "color-landing-text-muted": {
       "aliasTarget": {
-        "id": "color-static-black-alpha-56",
+        "id": "color-static-black-alpha-64",
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-landing-text-muted": "color(srgb 0 0 0 / 0.56)"
+        "--louis-color-landing-text-muted": "color(srgb 0 0 0 / 0.64)"
       },
       "deprecated": null,
       "description": null,
       "id": "color-landing-text-muted",
       "mode": "light",
-      "rawValue": "{primitive.color.static-black-alpha.56}",
+      "rawValue": "{primitive.color.static-black-alpha.64}",
       "sourcePath": "semantic.light.color.landing.text-muted",
       "tier": "semantic",
       "type": "color",
@@ -15075,7 +15075,7 @@ export const tokens = {
           0,
           0
         ],
-        "alpha": 0.56
+        "alpha": 0.64
       }
     },
     "color-landing-text-soft": {
@@ -20111,17 +20111,17 @@ export const tokens = {
     },
     "color-landing-text-muted": {
       "aliasTarget": {
-        "id": "color-static-white-alpha-56",
+        "id": "color-static-white-alpha-64",
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-landing-text-muted": "color(srgb 1 1 1 / 0.56)"
+        "--louis-color-landing-text-muted": "color(srgb 1 1 1 / 0.64)"
       },
       "deprecated": null,
       "description": null,
       "id": "color-landing-text-muted",
       "mode": "dark",
-      "rawValue": "{primitive.color.static-white-alpha.56}",
+      "rawValue": "{primitive.color.static-white-alpha.64}",
       "sourcePath": "semantic.dark.color.landing.text-muted",
       "tier": "semantic",
       "type": "color",
@@ -20132,7 +20132,7 @@ export const tokens = {
           1,
           1
         ],
-        "alpha": 0.56
+        "alpha": 0.64
       }
     },
     "color-landing-text-soft": {

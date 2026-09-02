@@ -20927,13 +20927,13 @@
           ],
           "valuesByMode": {
             "Dark": {
-              "$value": "{primitive.color.static-white-alpha.56}",
+              "$value": "{primitive.color.static-white-alpha.64}",
               "aliasTarget": {
-                "id": "color-static-white-alpha-56",
+                "id": "color-static-white-alpha-64",
                 "mode": "base"
               },
               "resolvedValue": {
-                "alpha": 0.56,
+                "alpha": 0.64,
                 "colorSpace": "srgb",
                 "components": [
                   1,
@@ -20944,13 +20944,13 @@
               "sourcePath": "semantic.dark.color.landing.text-muted"
             },
             "Light": {
-              "$value": "{primitive.color.static-black-alpha.56}",
+              "$value": "{primitive.color.static-black-alpha.64}",
               "aliasTarget": {
-                "id": "color-static-black-alpha-56",
+                "id": "color-static-black-alpha-64",
                 "mode": "base"
               },
               "resolvedValue": {
-                "alpha": 0.56,
+                "alpha": 0.64,
                 "colorSpace": "srgb",
                 "components": [
                   0,

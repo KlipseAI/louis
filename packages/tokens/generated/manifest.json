@@ -2,23 +2,23 @@
   "artifacts": [
     {
       "path": "packages/tokens/generated/figma.tokens.json",
-      "sha256": "7d3cd12104b0c83d82e9bb19fa8465eec528c2d4a343faf834e8685ed9edc53d"
+      "sha256": "fd0ab4d67aff3d638ff3e97c6bb8b55b9279bf64fd5ca32e703d9a57f2cf90d4"
     },
     {
       "path": "packages/tokens/generated/index.d.ts",
-      "sha256": "0432492a76b16634f74ebc1f15e812eb68ab35f00c6f772a6296b2223b6aa7f4"
+      "sha256": "ea086fbaf6f87296e5cd9ba79df1fb1cfe33e00d333535c566fae843057e9f22"
     },
     {
       "path": "packages/tokens/generated/index.js",
-      "sha256": "d269d5ca9881f4e0ee57a49718fa544a16a5fcb046cc2467d3185979f06f95d8"
+      "sha256": "0226dcbdbe044b92cdfea9bb1a9e865b3a8f62472f4bc1efda148b19226c291b"
     },
     {
       "path": "packages/tokens/generated/tokens.css",
-      "sha256": "0d6cb83b662f5e57f1c30763adcc5d68f4133724fae67841abb01d4648344439"
+      "sha256": "dba5c374aa8e66f01b1648a0af127e2d4d05b8b3d805cfec9cc6285fff8fdb93"
     },
     {
       "path": "packages/tokens/generated/tokens.json",
-      "sha256": "6b6ab7932ce7a59c94a2edb997d75d40eae65cd1ae27857d0910f69fa2ab2c2e"
+      "sha256": "339646c9160f0629dc602cd22176ca7904c69da7950c9ebdb72e15388a37bff4"
     }
   ],
   "contrastPairs": [
@@ -419,7 +419,7 @@
   },
   "source": {
     "path": "packages/tokens/src/klipse.tokens.json",
-    "sha256": "7f3d7b0b4b4eb771064542bd98cd17a2606a9e1cedbd844e816dff42edcadb4e"
+    "sha256": "e9be5d4aaf18a015a2e29de6e07c2a65f2ebc37e82a61fc6809e53d59d45ab40"
   },
   "themes": [
     "light",
@@ -7299,19 +7299,19 @@
     },
     {
       "aliasTarget": {
-        "id": "color-static-black-alpha-56",
+        "id": "color-static-black-alpha-64",
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-landing-text-muted": "color(srgb 0 0 0 / 0.56)"
+        "--louis-color-landing-text-muted": "color(srgb 0 0 0 / 0.64)"
       },
       "deprecated": null,
       "description": null,
       "id": "color-landing-text-muted",
       "mode": "light",
-      "rawValue": "{primitive.color.static-black-alpha.56}",
+      "rawValue": "{primitive.color.static-black-alpha.64}",
       "resolvedValue": {
-        "alpha": 0.56,
+        "alpha": 0.64,
         "colorSpace": "srgb",
         "components": [
           0,
@@ -7325,19 +7325,19 @@
     },
     {
       "aliasTarget": {
-        "id": "color-static-white-alpha-56",
+        "id": "color-static-white-alpha-64",
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-landing-text-muted": "color(srgb 1 1 1 / 0.56)"
+        "--louis-color-landing-text-muted": "color(srgb 1 1 1 / 0.64)"
       },
       "deprecated": null,
       "description": null,
       "id": "color-landing-text-muted",
       "mode": "dark",
-      "rawValue": "{primitive.color.static-white-alpha.56}",
+      "rawValue": "{primitive.color.static-white-alpha.64}",
       "resolvedValue": {
-        "alpha": 0.56,
+        "alpha": 0.64,
         "colorSpace": "srgb",
         "components": [
           1,

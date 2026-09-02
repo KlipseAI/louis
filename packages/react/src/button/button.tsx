@@ -1,15 +1,7 @@
 import type { ButtonHTMLAttributes, JSX, ReactNode, Ref } from "react";
 
-import { Spinner } from "../spinner/spinner.js";
-
 /* inverse — 인증 플로우 제출 CTA. 페이지를 반전시킨 면이다. button.css 의 같은 이름 변형이
-   소유하며 제품 apps/web/components/ui/Button.tsx 도 같은 집합을 쓴다.
-
-   danger-secondary — 꽉 찬 danger 옆에 서는 연한 danger(red-alpha 12%/24% 면 + 빨간 글자)다.
-   **제품에는 아직 이 자리가 없다** — 앵커 ae8fd627 의 variant="danger" 16곳이 전부 꽉 찬 danger 이고,
-   가장 가까운 알파 빨강 면(Gnb 프로필 메뉴 8%)은 버튼이 아니라 메뉴 항목이다. 그래서 이 값만은
-   제품이 아니라 소유자가 Figma 에 그려 둔 명시적 새 스펙에서 왔다(DS-D-0045, button set 672:552 의
-   60칸 전수 실측). 언제 갈라 쓰는지는 design/components/button.md 가 소유한다. */
+   소유하며 제품 apps/web/components/ui/Button.tsx 도 같은 집합을 쓴다. */
 export type ButtonVariant =
   | "primary"
   | "secondary"
@@ -93,15 +85,7 @@ export function Button({
         onClick?.(event);
       }}
     >
-      {/* **Button은 자기 링을 그리지 않는다.** 이전 구현(`.louis-button__spinner`)은 트랙 없이
-          위쪽 테두리만 비우는 옛 DS 표현이었고, `spinner.css`가 그 표현을 「제품과 달랐고 편차로
-          선언된 적도 없다」고 이미 적어 두었다 — Spinner만 고쳐지고 Button이 따라가지 않은 흔적이다.
-          링의 정본은 Spinner 하나다.
-
-          `size`는 md(16) 고정이다. 아이콘 슬롯이 lg·md·sm 세 칸 모두 16이므로(button.css의
-          `.louis-button__icon`) 같은 자리에 같은 크기가 선다 — 스피너만 글자를 따라 줄어들 이유가 없다.
-          `label`을 주지 않아 장식이 된다. 진행 중이라는 사실은 이 버튼의 `aria-busy`가 이미 알린다. */}
-      {loading ? <Spinner size="md" /> : null}
+      {loading ? <span className="louis-button__spinner" aria-hidden="true" /> : null}
       {leftIcon !== undefined && !loading ? (
         <span className="louis-button__icon" aria-hidden="true">
           {leftIcon}

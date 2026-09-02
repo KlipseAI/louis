@@ -30,6 +30,7 @@
   --color-accent-primary: var(--louis-color-accent-primary);
   --color-accent-primary-active: var(--louis-color-accent-primary-active);
   --color-accent-primary-hover: var(--louis-color-accent-primary-hover);
+  --color-accent-secondary: var(--louis-color-accent-secondary);
   --color-accent-secondary-foreground: var(--louis-color-accent-secondary-foreground);
   --color-accent-secondary-hover: var(--louis-color-accent-secondary-hover);
   --color-alert-danger-foreground: var(--louis-color-alert-danger-foreground);
@@ -64,6 +65,7 @@
   --color-bg-raised: var(--louis-color-bg-raised);
   --color-bg-success: var(--louis-color-bg-success);
   --color-bg-surface: var(--louis-color-bg-surface);
+  --color-bg-surface-translucent: var(--louis-color-bg-surface-translucent);
   --color-bg-upgrade: var(--louis-color-bg-upgrade);
   --color-bg-upgrade-current: var(--louis-color-bg-upgrade-current);
   --color-bg-upgrade-hover: var(--louis-color-bg-upgrade-hover);
@@ -382,6 +384,7 @@
   --louis-motion-overlay-enter: var(--louis-motion-overlay-enter);
   --louis-motion-overlay-exit: var(--louis-motion-overlay-exit);
   --louis-motion-reduced: var(--louis-motion-reduced);
+  --louis-motion-reveal-enter: var(--louis-motion-reveal-enter);
   --louis-motion-scale-tooltip-rest: var(--louis-motion-scale-tooltip-rest);
   --louis-motion-shell-collapse: var(--louis-motion-shell-collapse);
   --louis-motion-shimmer: var(--louis-motion-shimmer);

@@ -1,5 +1,4 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
-import { Spinner } from "../spinner/spinner.js";
 /**
  * design/components/button.md의 계약을 구현한다.
  *
@@ -24,6 +23,6 @@ export function Button({ variant = "primary", size = "md", loading = false, left
                 return;
             }
             onClick?.(event);
-        }, children: [loading ? _jsx(Spinner, { size: "md" }) : null, leftIcon !== undefined && !loading ? (_jsx("span", { className: "louis-button__icon", "aria-hidden": "true", children: leftIcon })) : null, _jsx("span", { className: "louis-button__label", children: children }), rightIcon !== undefined ? (_jsx("span", { className: "louis-button__icon", "aria-hidden": "true", children: rightIcon })) : null] }));
+        }, children: [loading ? _jsx("span", { className: "louis-button__spinner", "aria-hidden": "true" }) : null, leftIcon !== undefined && !loading ? (_jsx("span", { className: "louis-button__icon", "aria-hidden": "true", children: leftIcon })) : null, _jsx("span", { className: "louis-button__label", children: children }), rightIcon !== undefined ? (_jsx("span", { className: "louis-button__icon", "aria-hidden": "true", children: rightIcon })) : null] }));
 }
 //# sourceMappingURL=button.js.map

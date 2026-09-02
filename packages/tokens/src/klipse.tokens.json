@@ -167,6 +167,10 @@
           "reduced": "motion-reduced"
         },
         {
+          "motion": "motion-reveal-enter",
+          "reduced": "motion-reduced"
+        },
+        {
           "motion": "motion-list-enter",
           "reduced": "motion-reduced"
         },
@@ -329,6 +333,13 @@
             "inline-size"
           ],
           "lifecycle": "layout-change"
+        },
+        {
+          "motion": "motion-reveal-enter",
+          "properties": [
+            "opacity",
+            "translate"
+          ]
         },
         {
           "motion": "motion-list-enter",
@@ -870,11 +881,11 @@
           "$value": {
             "colorSpace": "srgb",
             "components": [
-              0.972549,
-              0.972549,
-              0.976471
+              0.921569,
+              0.92549,
+              0.933333
             ],
-            "hex": "#f8f8f9"
+            "hex": "#ebecee"
           },
           "$extensions": {
             "com.klipse-design": {
@@ -887,11 +898,11 @@
           "$value": {
             "colorSpace": "srgb",
             "components": [
-              0.945098,
-              0.945098,
-              0.952941
+              0.866667,
+              0.870588,
+              0.882353
             ],
-            "hex": "#f1f1f3"
+            "hex": "#dddee1"
           },
           "$extensions": {
             "com.klipse-design": {
@@ -904,11 +915,11 @@
           "$value": {
             "colorSpace": "srgb",
             "components": [
-              0.917647,
-              0.921569,
-              0.933333
+              0.811765,
+              0.815686,
+              0.831373
             ],
-            "hex": "#eaebee"
+            "hex": "#cfd0d4"
           },
           "$extensions": {
             "com.klipse-design": {
@@ -921,11 +932,11 @@
           "$value": {
             "colorSpace": "srgb",
             "components": [
-              0.890196,
-              0.894118,
-              0.909804
+              0.756863,
+              0.764706,
+              0.776471
             ],
-            "hex": "#e3e4e8"
+            "hex": "#c1c3c6"
           },
           "$extensions": {
             "com.klipse-design": {
@@ -938,11 +949,11 @@
           "$value": {
             "colorSpace": "srgb",
             "components": [
-              0.835294,
-              0.843137,
-              0.866667
+              0.647059,
+              0.658824,
+              0.678431
             ],
-            "hex": "#d5d7dd"
+            "hex": "#a5a8ad"
           },
           "$extensions": {
             "com.klipse-design": {
@@ -955,11 +966,11 @@
           "$value": {
             "colorSpace": "srgb",
             "components": [
-              0.737255,
-              0.752941,
-              0.788235
+              0.545098,
+              0.556863,
+              0.576471
             ],
-            "hex": "#bcc0c9"
+            "hex": "#8b8e93"
           },
           "$extensions": {
             "com.klipse-design": {
@@ -972,11 +983,11 @@
           "$value": {
             "colorSpace": "srgb",
             "components": [
-              0.603922,
-              0.627451,
-              0.670588
+              0.447059,
+              0.458824,
+              0.482353
             ],
-            "hex": "#9aa0ab"
+            "hex": "#72757b"
           },
           "$extensions": {
             "com.klipse-design": {
@@ -989,11 +1000,11 @@
           "$value": {
             "colorSpace": "srgb",
             "components": [
-              0.466667,
-              0.490196,
-              0.537255
+              0.34902,
+              0.360784,
+              0.388235
             ],
-            "hex": "#777d89"
+            "hex": "#595c63"
           },
           "$extensions": {
             "com.klipse-design": {
@@ -1006,11 +1017,11 @@
           "$value": {
             "colorSpace": "srgb",
             "components": [
-              0.341176,
-              0.364706,
-              0.407843
+              0.258824,
+              0.270588,
+              0.298039
             ],
-            "hex": "#575d68"
+            "hex": "#42454c"
           },
           "$extensions": {
             "com.klipse-design": {
@@ -1023,11 +1034,11 @@
           "$value": {
             "colorSpace": "srgb",
             "components": [
-              0.192157,
-              0.211765,
-              0.25098
+              0.172549,
+              0.184314,
+              0.215686
             ],
-            "hex": "#313640"
+            "hex": "#2c2f37"
           },
           "$extensions": {
             "com.klipse-design": {
@@ -4413,6 +4424,30 @@
           }
         }
       },
+      "reveal-enter": {
+        "$value": {
+          "duration": {
+            "value": 720,
+            "unit": "ms"
+          },
+          "delay": {
+            "value": 0,
+            "unit": "ms"
+          },
+          "timingFunction": [
+            0.19,
+            1,
+            0.22,
+            1
+          ]
+        },
+        "$extensions": {
+          "com.klipse-design": {
+            "id": "transition-reveal-enter",
+            "tier": "primitive"
+          }
+        }
+      },
       "reduced": {
         "$value": {
           "duration": {
@@ -5594,6 +5629,16 @@
             }
           }
         },
+        "reveal-enter": {
+          "$value": "{primitive.transition.reveal-enter}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "motion-reveal-enter",
+              "tier": "semantic",
+              "mode": "global"
+            }
+          }
+        },
         "reduced": {
           "$value": "{primitive.transition.reduced}",
           "$extensions": {
@@ -6563,8 +6608,18 @@
             }
           }
         },
+        "accent-secondary": {
+          "$value": "{primitive.color.static-black-alpha.08}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-accent-secondary",
+              "tier": "semantic",
+              "mode": "light"
+            }
+          }
+        },
         "accent-secondary-hover": {
-          "$value": "{primitive.color.static-black-alpha.04}",
+          "$value": "{primitive.color.static-black-alpha.12}",
           "$extensions": {
             "com.klipse-design": {
               "id": "color-accent-secondary-hover",
@@ -6754,7 +6809,7 @@
           }
         },
         "bg-menu": {
-          "$value": "{primitive.color.palette-gray.100}",
+          "$value": "{primitive.color.palette-gray.050}",
           "$extensions": {
             "com.klipse-design": {
               "id": "color-bg-menu",
@@ -6798,6 +6853,16 @@
           "$extensions": {
             "com.klipse-design": {
               "id": "color-bg-surface",
+              "tier": "semantic",
+              "mode": "light"
+            }
+          }
+        },
+        "bg-surface-translucent": {
+          "$value": "{primitive.color.static-white-alpha.72}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-bg-surface-translucent",
               "tier": "semantic",
               "mode": "light"
             }
@@ -7154,7 +7219,7 @@
           }
         },
         "node-chip-surface": {
-          "$value": "{primitive.color.palette-gray.100}",
+          "$value": "{primitive.color.palette-gray.050}",
           "$extensions": {
             "com.klipse-design": {
               "id": "color-node-chip-surface",
@@ -7164,7 +7229,7 @@
           }
         },
         "node-chip-surface-hover": {
-          "$value": "{primitive.color.palette-gray.150}",
+          "$value": "{primitive.color.palette-gray.100}",
           "$extensions": {
             "com.klipse-design": {
               "id": "color-node-chip-surface-hover",
@@ -8003,7 +8068,7 @@
             }
           },
           "text-muted": {
-            "$value": "{primitive.color.static-black-alpha.56}",
+            "$value": "{primitive.color.static-black-alpha.64}",
             "$extensions": {
               "com.klipse-design": {
                 "id": "color-landing-text-muted",
@@ -8035,7 +8100,7 @@
             }
           },
           "chrome-btn-bg": {
-            "$value": "{primitive.color.palette-gray.100}",
+            "$value": "{primitive.color.palette-gray.050}",
             "$extensions": {
               "com.klipse-design": {
                 "id": "color-node-chrome-btn-bg",
@@ -8499,8 +8564,18 @@
             }
           }
         },
-        "accent-secondary-hover": {
+        "accent-secondary": {
           "$value": "{primitive.color.static-white-alpha.08}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-accent-secondary",
+              "tier": "semantic",
+              "mode": "dark"
+            }
+          }
+        },
+        "accent-secondary-hover": {
+          "$value": "{primitive.color.static-white-alpha.12}",
           "$extensions": {
             "com.klipse-design": {
               "id": "color-accent-secondary-hover",
@@ -8734,6 +8809,16 @@
           "$extensions": {
             "com.klipse-design": {
               "id": "color-bg-surface",
+              "tier": "semantic",
+              "mode": "dark"
+            }
+          }
+        },
+        "bg-surface-translucent": {
+          "$value": "{primitive.color.static-black-alpha.72}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-bg-surface-translucent",
               "tier": "semantic",
               "mode": "dark"
             }
@@ -9939,7 +10024,7 @@
             }
           },
           "text-muted": {
-            "$value": "{primitive.color.static-white-alpha.56}",
+            "$value": "{primitive.color.static-white-alpha.64}",
             "$extensions": {
               "com.klipse-design": {
                 "id": "color-landing-text-muted",

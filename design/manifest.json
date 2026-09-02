@@ -1229,6 +1229,24 @@
       "generated": false
     },
     {
+      "id": "decision-canonical-site-is-what-the-product-bites",
+      "path": "design/governance/decisions/DS-D-0043-canonical-site-is-what-the-product-bites.md",
+      "title": "DS-D-0043 보드에 인스턴스를 놓는 자리는 «제품이 무는 클래스»가 정한다 — 기하가 아니다",
+      "section": "governance",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
+    },
+    {
+      "id": "decision-coverage-targets-and-denominators",
+      "path": "design/governance/decisions/DS-D-0044-coverage-targets-and-denominators.md",
+      "title": "DS-D-0044 모든 지표의 목표는 100% 다 — 분모에서 빠지는 것과 «지워서» 0 이 되는 것",
+      "section": "governance",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
+    },
+    {
       "id": "governance-product-confirmations",
       "path": "design/governance/product-confirmations.md",
       "title": "제품 확인 대기 목록",
@@ -1447,6 +1465,8 @@
         "design/governance/decisions/DS-D-0040-state-is-a-variant-axis.md",
         "design/governance/decisions/DS-D-0041-dialog-tone-axis.md",
         "design/governance/decisions/DS-D-0042-board-composition-denominator.md",
+        "design/governance/decisions/DS-D-0043-canonical-site-is-what-the-product-bites.md",
+        "design/governance/decisions/DS-D-0044-coverage-targets-and-denominators.md",
         "design/governance/product-confirmations.md",
         "design/updates/README.md"
       ]

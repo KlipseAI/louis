@@ -16117,6 +16117,57 @@
             }
           }
         },
+        "color-accent-secondary": {
+          "$type": "color",
+          "fields": [],
+          "figmaName": "color/accent-secondary",
+          "hiddenFromPublishing": false,
+          "losses": [],
+          "nativeVariableType": "COLOR",
+          "representation": "variable",
+          "scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL",
+            "STROKE_COLOR",
+            "TEXT_FILL"
+          ],
+          "valuesByMode": {
+            "Dark": {
+              "$value": "{primitive.color.static-white-alpha.08}",
+              "aliasTarget": {
+                "id": "color-static-white-alpha-08",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 0.08,
+                "colorSpace": "srgb",
+                "components": [
+                  1,
+                  1,
+                  1
+                ]
+              },
+              "sourcePath": "semantic.dark.color.accent-secondary"
+            },
+            "Light": {
+              "$value": "{primitive.color.static-black-alpha.08}",
+              "aliasTarget": {
+                "id": "color-static-black-alpha-08",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 0.08,
+                "colorSpace": "srgb",
+                "components": [
+                  0,
+                  0,
+                  0
+                ]
+              },
+              "sourcePath": "semantic.light.color.accent-secondary"
+            }
+          }
+        },
         "color-accent-secondary-foreground": {
           "$type": "color",
           "fields": [],
@@ -16184,13 +16235,13 @@
           ],
           "valuesByMode": {
             "Dark": {
-              "$value": "{primitive.color.static-white-alpha.08}",
+              "$value": "{primitive.color.static-white-alpha.12}",
               "aliasTarget": {
-                "id": "color-static-white-alpha-08",
+                "id": "color-static-white-alpha-12",
                 "mode": "base"
               },
               "resolvedValue": {
-                "alpha": 0.08,
+                "alpha": 0.12,
                 "colorSpace": "srgb",
                 "components": [
                   1,
@@ -16201,13 +16252,13 @@
               "sourcePath": "semantic.dark.color.accent-secondary-hover"
             },
             "Light": {
-              "$value": "{primitive.color.static-black-alpha.04}",
+              "$value": "{primitive.color.static-black-alpha.12}",
               "aliasTarget": {
-                "id": "color-static-black-alpha-04",
+                "id": "color-static-black-alpha-12",
                 "mode": "base"
               },
               "resolvedValue": {
-                "alpha": 0.04,
+                "alpha": 0.12,
                 "colorSpace": "srgb",
                 "components": [
                   0,

@@ -2,23 +2,23 @@
   "artifacts": [
     {
       "path": "packages/tokens/generated/figma.tokens.json",
-      "sha256": "75bafe89c4362ece14fc5ffc27d41d37ec38c4ba52dffe80a741e950d87cc375"
+      "sha256": "d74971a985b8aba1d50ec7bfbfcd5c06def64a88edb2911429a5954796f86e00"
     },
     {
       "path": "packages/tokens/generated/index.d.ts",
-      "sha256": "cd6c4fda6b8447514b32685f454946a8d4ff249d137e5093d3df99304bf783b0"
+      "sha256": "ba57edd63d74bb52bb04c57a48014ab1d169777f9e64b3c878325722febef817"
     },
     {
       "path": "packages/tokens/generated/index.js",
-      "sha256": "cf76cd885b5cf1785e16f1ae7a747fb44fcfe60319cb26a6453ae6a011d4d25f"
+      "sha256": "6c58cfae69c31144eee085b0cce42f915aac1d012b4294ddaddc40d782dc2b8a"
     },
     {
       "path": "packages/tokens/generated/tokens.css",
-      "sha256": "ba1a4ce6821d520c180b644de7c72e4df5f7f9c75721442aefce325a43a86cd6"
+      "sha256": "e0398a61c5b2e6e980b4d7566dc65e02a05f5c7c41e66de901d6b965a9fc3743"
     },
     {
       "path": "packages/tokens/generated/tokens.json",
-      "sha256": "2077b8b656b6f8ea468d4f642a1a26e93648b30832f6a34e40360ad57b97faee"
+      "sha256": "3b92a411e6c7132de159b244c4bb997a5f0f407da085602964de040fa63d6e42"
     }
   ],
   "contrastPairs": [
@@ -419,13 +419,13 @@
   },
   "source": {
     "path": "packages/tokens/src/klipse.tokens.json",
-    "sha256": "4129658fa104a68468c4e68fc10a7f575e38bb765518bc9514cbf4a550cb1cbb"
+    "sha256": "75f028b7fc23d8b7c08ac660da5416cbc4bd648bfe2ae4bec552e1ff6f90b811"
   },
   "themes": [
     "light",
     "dark"
   ],
-  "tokenCount": 781,
+  "tokenCount": 783,
   "tokens": [
     {
       "aliasTarget": {
@@ -1577,6 +1577,58 @@
     },
     {
       "aliasTarget": {
+        "id": "color-static-black-alpha-08",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-accent-secondary": "color(srgb 0 0 0 / 0.08)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-accent-secondary",
+      "mode": "light",
+      "rawValue": "{primitive.color.static-black-alpha.08}",
+      "resolvedValue": {
+        "alpha": 0.08,
+        "colorSpace": "srgb",
+        "components": [
+          0,
+          0,
+          0
+        ]
+      },
+      "sourcePath": "semantic.light.color.accent-secondary",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-static-white-alpha-08",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-accent-secondary": "color(srgb 1 1 1 / 0.08)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-accent-secondary",
+      "mode": "dark",
+      "rawValue": "{primitive.color.static-white-alpha.08}",
+      "resolvedValue": {
+        "alpha": 0.08,
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          1,
+          1
+        ]
+      },
+      "sourcePath": "semantic.dark.color.accent-secondary",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
         "id": "color-palette-gray-600",
         "mode": "base"
       },
@@ -1629,19 +1681,19 @@
     },
     {
       "aliasTarget": {
-        "id": "color-static-black-alpha-04",
+        "id": "color-static-black-alpha-12",
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-accent-secondary-hover": "color(srgb 0 0 0 / 0.04)"
+        "--louis-color-accent-secondary-hover": "color(srgb 0 0 0 / 0.12)"
       },
       "deprecated": null,
       "description": null,
       "id": "color-accent-secondary-hover",
       "mode": "light",
-      "rawValue": "{primitive.color.static-black-alpha.04}",
+      "rawValue": "{primitive.color.static-black-alpha.12}",
       "resolvedValue": {
-        "alpha": 0.04,
+        "alpha": 0.12,
         "colorSpace": "srgb",
         "components": [
           0,
@@ -1655,19 +1707,19 @@
     },
     {
       "aliasTarget": {
-        "id": "color-static-white-alpha-08",
+        "id": "color-static-white-alpha-12",
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-accent-secondary-hover": "color(srgb 1 1 1 / 0.08)"
+        "--louis-color-accent-secondary-hover": "color(srgb 1 1 1 / 0.12)"
       },
       "deprecated": null,
       "description": null,
       "id": "color-accent-secondary-hover",
       "mode": "dark",
-      "rawValue": "{primitive.color.static-white-alpha.08}",
+      "rawValue": "{primitive.color.static-white-alpha.12}",
       "resolvedValue": {
-        "alpha": 0.08,
+        "alpha": 0.12,
         "colorSpace": "srgb",
         "components": [
           1,

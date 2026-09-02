@@ -6608,8 +6608,18 @@
             }
           }
         },
+        "accent-secondary": {
+          "$value": "{primitive.color.static-black-alpha.08}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-accent-secondary",
+              "tier": "semantic",
+              "mode": "light"
+            }
+          }
+        },
         "accent-secondary-hover": {
-          "$value": "{primitive.color.static-black-alpha.04}",
+          "$value": "{primitive.color.static-black-alpha.12}",
           "$extensions": {
             "com.klipse-design": {
               "id": "color-accent-secondary-hover",
@@ -8554,8 +8564,18 @@
             }
           }
         },
-        "accent-secondary-hover": {
+        "accent-secondary": {
           "$value": "{primitive.color.static-white-alpha.08}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-accent-secondary",
+              "tier": "semantic",
+              "mode": "dark"
+            }
+          }
+        },
+        "accent-secondary-hover": {
+          "$value": "{primitive.color.static-white-alpha.12}",
           "$extensions": {
             "com.klipse-design": {
               "id": "color-accent-secondary-hover",

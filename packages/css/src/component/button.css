@@ -171,10 +171,11 @@
   color: var(--louis-color-fg-on-accent-inverse);
 }
 
-/* 제품의 secondary·ghost는 **면이 없다.** 이전 DS는 secondary에 surface 면과 불투명 테두리를
- * 두어 제품과 달랐다 (Button.tsx:106,117). */
+/* secondary 는 잉크 8% 면을 갖는다 — 라이트에서 검정 8%, 다크에서 흰색 8%. 팔레트 칸을
+ * 짚지 않고 알파로 두는 이유는 이 버튼이 카드·패널·바닥 어느 면 위에도 서기 때문이다.
+ * 바탕이 한 칸 움직여도 관계가 그대로 따라온다. ghost 는 여전히 면이 없다. */
 .louis-button[data-variant="secondary"] {
-  background: transparent;
+  background: var(--louis-color-accent-secondary);
   /* generic 10% inset 헤어라인 (DS-D-0023). 이전엔 color-stroke-control(반투명 12%) border였다 —
    * 모든 일반 0.5px stroke를 단일 색·두께로 통일했다. */
   box-shadow: var(--louis-hairline-inset);

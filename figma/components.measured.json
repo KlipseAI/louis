@@ -214,8 +214,41 @@
             "foreground": "color-fg-disabled",
             "$foreground": "disabled 전경 토큰"
           }
+        },
+        "danger-secondary": {
+          "Default": {
+            "background": "color-accent-danger-secondary",
+            "$background": "accent danger secondary 토큰 (red-alpha 12%). Figma Default 칸 60/3 의 fill 이 이 변수에 물려 있다",
+            "foreground": "color-accent-danger",
+            "$foreground": "accent danger 토큰. 꽉 찬 danger 가 fg-on-danger(흰 글자)인 자리에 여기서는 빨간 글자가 선다 — 면과 글자 두 축이 danger 와 갈리는 전부다"
+          },
+          "Hover": {
+            "background": "color-accent-danger-secondary-hover",
+            "$background": "accent danger secondary hover 토큰 (red-alpha 24%). **danger 처럼 opacity 로 주지 않는다** — Figma 가 12% 와 24% 를 명시적으로 나눠 그렸고, 알파 면에 opacity 0.85 를 곱하면 10.2% 로 오히려 연해진다",
+            "foreground": "color-accent-danger",
+            "$foreground": "accent danger 토큰. hover 는 면만 바꾼다"
+          },
+          "Active": {
+            "background": "color-accent-danger-secondary",
+            "$background": "accent danger secondary 토큰. Figma Active 칸이 Default 와 바이트 동일해 면 규칙을 따로 두지 않는다 — 눌림은 공통 scale 0.98 이 전달한다",
+            "foreground": "color-accent-danger",
+            "$foreground": "accent danger 토큰"
+          },
+          "Disabled": {
+            "background": "color-bg-inset",
+            "$background": "inset 배경 토큰. Figma Disabled 칸이 danger 의 Disabled 와 바이트 동일하다(#e3e4e8)",
+            "foreground": "color-fg-disabled",
+            "$foreground": "disabled 전경 토큰"
+          },
+          "Loading": {
+            "background": "color-bg-inset",
+            "$background": "inset 배경 토큰. **여기만 Figma 와 갈린다** — Figma 의 Loading 칸은 Default 와 바이트 동일해 면을 회색으로 바꾸지 않는데, 코드는 loading 에 aria-disabled 를 걸어 disabled 와 같은 면을 준다. 아래 $statesNote 가 그 계약을 소유하고, 같은 어긋남이 primary·danger 에도 있다 — 이 variant 가 만든 것이 아니다",
+            "foreground": "color-fg-disabled",
+            "$foreground": "disabled 전경 토큰"
+          }
         }
       },
+      "$dangerSecondaryNote": "danger-secondary 는 이 표에서 유일하게 **Figma 가 정본인 칸**이다. 나머지 variant 의 값은 제품 배포 코드에서 채택했는데(migration/product.measured.json), 제품에는 연한 danger 버튼이 없다 — 앵커 ae8fd627 의 variant=\"danger\" 16곳이 전부 꽉 찬 danger 이고 가장 가까운 알파 빨강 면인 Gnb.tsx:1174-1176 은 버튼이 아니라 메뉴 항목에 8% 다(사다리부터 다르다). 소유자가 Figma 에 그려 둔 명시적 새 스펙이라 그쪽을 읽었다(DS-D-0045). 실측은 Figma OlYKERKOkgbxBEEoXGZW2c 의 Button set 672:552 에서 Variant=danger-secondary 60칸(Size 3 × State 5 × Icon 4)을 전수로 읽은 것이며 누락·중복 0 이다. 면은 Default/Active/Loading 이 color/accent-danger-secondary(red-alpha 12%), Hover 가 color/accent-danger-secondary-hover(24%), Disabled 가 color/bg-inset 이고, 글자는 non-disabled 가 color/accent-danger, Disabled 가 color/fg-disabled 다. stroke 와 effect 는 60칸 전부 비어 있어 secondary 의 헤어라인을 갖지 않는다. 기하는 danger 와 60 조합 전부에서 같아 sizes 표에 새 칸이 없다.",
       "$statesNote": "Loading이 Disabled와 같은 면인 것은 사실이다 — button.tsx가 loading일 때 aria-disabled=\"true\"를 붙이고(중복 실행 차단), CSS의 disabled 규칙이 그것을 함께 잡는다. Loading을 Disabled와 가르는 것은 면이 아니라 spinner의 존재와 라벨 opacity 0.6이다. 처음 만든 Figma set은 Loading을 variant의 기본 면으로 그려 틀렸고, 이 표가 그것을 잡았다.",
       "$borderWidthNote": "borderWidth 0.5는 secondary 헤어라인의 **두께**이지 레이아웃 값이 아니다 — CSS는 border 0이고 inset box-shadow로 그린다. padding에 더하지 않는다."
     },

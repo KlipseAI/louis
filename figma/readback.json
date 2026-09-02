@@ -4474,6 +4474,40 @@
           ]
         ],
         [
+          "color/accent-danger-secondary",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL,STROKE_COLOR,TEXT_FILL",
+          [
+            [
+              "Light",
+              "Klipse Primitive::color/red-alpha/12",
+              null
+            ],
+            [
+              "Dark",
+              "Klipse Primitive::color/red-alpha/12",
+              null
+            ]
+          ]
+        ],
+        [
+          "color/accent-danger-secondary-hover",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL,STROKE_COLOR,TEXT_FILL",
+          [
+            [
+              "Light",
+              "Klipse Primitive::color/red-alpha/24",
+              null
+            ],
+            [
+              "Dark",
+              "Klipse Primitive::color/red-alpha/24",
+              null
+            ]
+          ]
+        ],
+        [
           "color/accent-ghost-hover",
           "COLOR",
           "FRAME_FILL,SHAPE_FILL,STROKE_COLOR,TEXT_FILL",

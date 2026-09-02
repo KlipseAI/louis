@@ -6463,6 +6463,26 @@
             }
           }
         },
+        "accent-danger-secondary": {
+          "$value": "{primitive.color.red-alpha.12}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-accent-danger-secondary",
+              "tier": "semantic",
+              "mode": "light"
+            }
+          }
+        },
+        "accent-danger-secondary-hover": {
+          "$value": "{primitive.color.red-alpha.24}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-accent-danger-secondary-hover",
+              "tier": "semantic",
+              "mode": "light"
+            }
+          }
+        },
         "accent-ghost-hover": {
           "$value": "{primitive.color.static-black-alpha.08}",
           "$extensions": {
@@ -8374,6 +8394,26 @@
           "$extensions": {
             "com.klipse-design": {
               "id": "color-accent-danger",
+              "tier": "semantic",
+              "mode": "dark"
+            }
+          }
+        },
+        "accent-danger-secondary": {
+          "$value": "{primitive.color.red-alpha.12}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-accent-danger-secondary",
+              "tier": "semantic",
+              "mode": "dark"
+            }
+          }
+        },
+        "accent-danger-secondary-hover": {
+          "$value": "{primitive.color.red-alpha.24}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-accent-danger-secondary-hover",
               "tier": "semantic",
               "mode": "dark"
             }

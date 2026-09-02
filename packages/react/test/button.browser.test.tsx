@@ -249,10 +249,16 @@ const ALLOWED_VIOLATIONS: Readonly<Record<string, readonly string[]>> = {
   secondary: ["color-contrast"],
   ghost: ["color-contrast"],
   danger: ["color-contrast"],
+  /* danger-secondary/color-contrast — 실측 2.82:1 이다(axe: #ff4b59 글자, 12% 면이 흰 바닥에
+   * 합성된 #ffe9eb, 14px normal 이라 기준 4.5). **네 variant 가 이미 4.5 에 미달한 그 판정의
+   * 연장이다** — 같은 빨강(accent-danger)을 꽉 찬 면에서는 글자 뒤에 두고 여기서는 글자로 쓰는데,
+   * 4.5 를 넘기려면 red.500 자체를 어둡게 내려야 하고 그것은 이 variant 가 아니라 팔레트의 결정이다.
+   * 소유자가 Figma 에 그린 값이 정본이므로 색을 임의로 바꾸지 않는다(DS-D-0045). */
+  "danger-secondary": ["color-contrast"],
 };
 
 test("variant마다 접근성 위반이 없다 (알려진 것 제외)", async () => {
-  for (const variant of ["primary", "secondary", "ghost", "danger"] as const) {
+  for (const variant of ["primary", "secondary", "ghost", "danger", "danger-secondary"] as const) {
     const host = document.createElement("div");
     document.body.append(host);
     try {
@@ -290,5 +296,93 @@ test("좁은 flex 컨테이너에서 라벨이 글자 단위로 쪼개지지 않
     // 한 단어짜리 라벨은 아무리 좁아도 한 줄이어야 한다. overflow-wrap이 min-content를
     // 낮추면 flex가 버튼을 글자 폭까지 줄여 "pri/ma/ry"가 된다.
     expect(lines).toBe(1);
+  }
+});
+
+/** 토큰의 계산값을 얻는다. 이름이 아니라 값으로 비교하기 위한 것이다. */
+function tokenBackground(id: string): string {
+  const probe = document.createElement("div");
+  probe.style.backgroundColor = `var(--louis-${id})`;
+  document.body.append(probe);
+  const value = getComputedStyle(probe).backgroundColor;
+  probe.remove();
+  return value;
+}
+
+function tokenColor(id: string): string {
+  const probe = document.createElement("div");
+  probe.style.color = `var(--louis-${id})`;
+  document.body.append(probe);
+  const value = getComputedStyle(probe).color;
+  probe.remove();
+  return value;
+}
+
+/**
+ * 계산색의 알파를 읽는다. Chromium 은 `rgba(r, g, b, a)` 로도
+ * `color(srgb r g b / a)` 로도 낼 수 있어 둘 다 받는다. 어느 쪽도 아니면 **던진다** —
+ * 파싱에 실패했는데 1 을 돌려주면 사다리 단언이 조용히 통과한다.
+ */
+function alphaOf(computed: string): number {
+  const rgba = /^rgba?\(([^)]*)\)$/.exec(computed)?.[1];
+  if (rgba !== undefined) {
+    const parts = rgba.split(/[\s,/]+/).filter((part) => part.length > 0);
+    const alpha = parts[3];
+    return alpha === undefined ? 1 : Number.parseFloat(alpha);
+  }
+  const srgb = /\/\s*([0-9.]+)\s*\)$/.exec(computed)?.[1];
+  if (srgb !== undefined) return Number.parseFloat(srgb);
+  if (/^color\(/.test(computed)) return 1;
+  throw new Error(`계산색을 해석하지 못했습니다: ${computed}`);
+}
+
+/**
+ * danger-secondary — 연한 danger 의 면 사다리.
+ *
+ * `component-states.browser.test.tsx` 가 다섯 State 를 `figma/components.measured.json` 의 표와
+ * 대조하는데, 그것은 **표가 가리키는 토큰과 같은 값인지**만 본다. 표와 CSS 가 함께 틀리면 통과한다.
+ * 여기서는 표를 거치지 않고 **variant 끼리의 관계**를 직접 단언한다 — Figma 60칸 실측이 말한 것은
+ * 「꽉 찬 danger 와 다른 면」과 「hover 가 default 보다 진하다」 두 가지이고, 그 둘은 토큰 이름이
+ * 아니라 값의 관계다(DS-D-0045).
+ */
+test("danger-secondary는 danger와 다른 면을 쓰고 hover에서 더 진해진다", async () => {
+  const host = document.createElement("div");
+  document.body.append(host);
+  try {
+    await render(
+      <>
+        <Button variant="danger">삭제</Button>
+        <Button variant="danger-secondary">삭제</Button>
+      </>,
+      { container: host },
+    );
+    const [solid, tonal] = [...host.querySelectorAll("button.louis-button")];
+    if (solid === undefined || tonal === undefined) {
+      throw new Error("두 버튼을 찾지 못했습니다");
+    }
+
+    const solidStyle = getComputedStyle(solid);
+    const tonalDefault = getComputedStyle(tonal).backgroundColor;
+
+    // 면 — 토큰 값과 같고, 꽉 찬 danger 와 다르다.
+    expect(tonalDefault).toBe(tokenBackground("color-accent-danger-secondary"));
+    expect(tonalDefault).not.toBe(solidStyle.backgroundColor);
+
+    // 글자 — 꽉 찬 쪽은 fg-on-danger(흰 글자), 연한 쪽은 accent-danger(빨간 글자)다.
+    expect(getComputedStyle(tonal).color).toBe(tokenColor("color-accent-danger"));
+    expect(getComputedStyle(tonal).color).not.toBe(solidStyle.color);
+
+    // 헤어라인이 없다 — secondary 와 갈리는 자리다. Figma 60칸의 effects 가 전부 비어 있다.
+    expect(getComputedStyle(tonal).boxShadow).toBe("none");
+
+    // hover — opacity 가 아니라 면 토큰을 바꾼다. 알파가 12% → 24% 로 **올라가야** 한다.
+    await userEvent.hover(tonal);
+    const tonalHover = getComputedStyle(tonal).backgroundColor;
+    expect(tonalHover).toBe(tokenBackground("color-accent-danger-secondary-hover"));
+    expect(getComputedStyle(tonal).opacity).toBe("1");
+    expect(alphaOf(tonalHover)).toBeGreaterThan(alphaOf(tonalDefault));
+    await userEvent.unhover(tonal);
+  } finally {
+    host.remove();
   }
 });

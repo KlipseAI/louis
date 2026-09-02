@@ -15500,6 +15500,108 @@
             }
           }
         },
+        "color-accent-danger-secondary": {
+          "$type": "color",
+          "fields": [],
+          "figmaName": "color/accent-danger-secondary",
+          "hiddenFromPublishing": false,
+          "losses": [],
+          "nativeVariableType": "COLOR",
+          "representation": "variable",
+          "scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL",
+            "STROKE_COLOR",
+            "TEXT_FILL"
+          ],
+          "valuesByMode": {
+            "Dark": {
+              "$value": "{primitive.color.red-alpha.12}",
+              "aliasTarget": {
+                "id": "color-red-alpha-12",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 0.12,
+                "colorSpace": "srgb",
+                "components": [
+                  1,
+                  0.294118,
+                  0.34902
+                ]
+              },
+              "sourcePath": "semantic.dark.color.accent-danger-secondary"
+            },
+            "Light": {
+              "$value": "{primitive.color.red-alpha.12}",
+              "aliasTarget": {
+                "id": "color-red-alpha-12",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 0.12,
+                "colorSpace": "srgb",
+                "components": [
+                  1,
+                  0.294118,
+                  0.34902
+                ]
+              },
+              "sourcePath": "semantic.light.color.accent-danger-secondary"
+            }
+          }
+        },
+        "color-accent-danger-secondary-hover": {
+          "$type": "color",
+          "fields": [],
+          "figmaName": "color/accent-danger-secondary-hover",
+          "hiddenFromPublishing": false,
+          "losses": [],
+          "nativeVariableType": "COLOR",
+          "representation": "variable",
+          "scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL",
+            "STROKE_COLOR",
+            "TEXT_FILL"
+          ],
+          "valuesByMode": {
+            "Dark": {
+              "$value": "{primitive.color.red-alpha.24}",
+              "aliasTarget": {
+                "id": "color-red-alpha-24",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 0.24,
+                "colorSpace": "srgb",
+                "components": [
+                  1,
+                  0.294118,
+                  0.34902
+                ]
+              },
+              "sourcePath": "semantic.dark.color.accent-danger-secondary-hover"
+            },
+            "Light": {
+              "$value": "{primitive.color.red-alpha.24}",
+              "aliasTarget": {
+                "id": "color-red-alpha-24",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 0.24,
+                "colorSpace": "srgb",
+                "components": [
+                  1,
+                  0.294118,
+                  0.34902
+                ]
+              },
+              "sourcePath": "semantic.light.color.accent-danger-secondary-hover"
+            }
+          }
+        },
         "color-accent-ghost-hover": {
           "$type": "color",
           "fields": [],

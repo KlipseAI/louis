@@ -17,8 +17,11 @@ import "@klipse-design/css/styles.css";
 
 type Paint = { background: string | null; foreground: string; border?: string };
 type Variant = "primary" | "secondary" | "ghost" | "danger";
+/** Button 에만 있는 축. IconButton 에는 danger-secondary 를 그릴 규칙이 icon-button.css 에 없다. */
+type ButtonVariantUnderTest = Variant | "danger-secondary";
 
 const VARIANTS: readonly Variant[] = ["primary", "secondary", "ghost", "danger"];
+const BUTTON_VARIANTS: readonly ButtonVariantUnderTest[] = [...VARIANTS, "danger-secondary"];
 const TRANSPARENT = "rgba(0, 0, 0, 0)";
 
 /** 토큰의 계산값을 얻는다. 이름이 아니라 값으로 비교하기 위한 것이다. */
@@ -60,7 +63,10 @@ const iconStates = measured.components["icon-button"].states as Record<
   Variant,
   Record<string, Paint>
 >;
-const buttonStates = measured.components.button.states as Record<Variant, Record<string, Paint>>;
+const buttonStates = measured.components.button.states as Record<
+  ButtonVariantUnderTest,
+  Record<string, Paint>
+>;
 
 for (const variant of VARIANTS) {
   test(`IconButton ${variant}의 상태별 토큰이 states 표와 같다`, async () => {
@@ -116,7 +122,7 @@ for (const variant of VARIANTS) {
   });
 }
 
-for (const variant of VARIANTS) {
+for (const variant of BUTTON_VARIANTS) {
   test(`Button ${variant}의 상태별 토큰이 states 표와 같다`, async () => {
     const spec = buttonStates[variant];
 
@@ -170,8 +176,11 @@ test("states 표가 Figma set의 State 축을 빠짐없이 덮는다", () => {
   for (const [component, states] of Object.entries(expectations)) {
     const table = (
       component === "button" ? buttonStates : iconStates
-    ) as Record<Variant, Record<string, Paint>>;
-    for (const variant of VARIANTS) {
+    ) as Record<ButtonVariantUnderTest, Record<string, Paint>>;
+    // Button 은 variant 축이 여섯이고 IconButton 은 넷이다 — 두 표를 같은 목록으로 훑으면
+    // Button 에만 있는 danger-secondary 의 다섯 칸을 아무도 안 본다.
+    const variants = component === "button" ? BUTTON_VARIANTS : VARIANTS;
+    for (const variant of variants) {
       expect(Object.keys(table[variant]).sort(), `${component}/${variant}`).toEqual(
         [...states].sort(),
       );

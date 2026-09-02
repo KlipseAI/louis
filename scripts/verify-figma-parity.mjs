@@ -75,7 +75,7 @@ const COMPONENT_CONTRACTS = [
   {
     id: "button",
     // **Button에는 stroke가 하나도 없는 것이 계약이다.** 여기에는 `self: { weight: "borderWidth" }`가
-    // 있었고 그것이 게이트를 빨갛게 만들고 있었다 — 라이브 300변형 중 stroke를 가진 노드가 없기
+    // 있었고 그것이 게이트를 빨갛게 만들고 있었다 — 라이브 전 변형(2026-09-01 당시 300, danger-secondary 가 열린 뒤 360) 중 stroke를 가진 노드가 없기
     // 때문이다. **틀린 쪽은 Figma가 아니라 이 계약이었다.** `button.css:18`이 `border: 0`이고
     // secondary의 헤어라인은 레이아웃을 건드리지 않는 inset box-shadow인데(DS-D-0023),
     // `design/governance/figma-component-authoring.md`의 「헤어라인은 stroke가 아니라 INNER_SHADOW로
@@ -112,7 +112,7 @@ const COMPONENT_CONTRACTS = [
       Icon: {
         options: ["left", "right", "both", "none"],
         reason:
-          "코드에서 leftIcon/rightIcon은 ReactNode prop이고 있으면 그린다. Figma에서 불리언으로 두면 아이콘이 붙은 쪽 padding 보정(-2px, button.css:78-91)을 표현할 수 없다 — 불리언은 가시성만 바꾼다. 그래서 variant 축으로 쪼갰고 5×3×5×4 = 300이다.",
+          "코드에서 leftIcon/rightIcon은 ReactNode prop이고 있으면 그린다. Figma에서 불리언으로 두면 아이콘이 붙은 쪽 padding 보정(-2px, button.css:78-91)을 표현할 수 없다 — 불리언은 가시성만 바꾼다. 그래서 variant 축으로 쪼갰고 6×3×5×4 = 360이다(danger-secondary 가 열리기 전에는 5×…=300이었다, DS-D-0045).",
       },
       State: {
         options: ["Default", "Hover", "Active", "Disabled", "Loading"],

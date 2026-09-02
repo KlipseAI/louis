@@ -1,5 +1,5 @@
 import type { ButtonHTMLAttributes, JSX, ReactNode, Ref } from "react";
-export type ButtonVariant = "primary" | "secondary" | "ghost" | "danger" | "inverse";
+export type ButtonVariant = "primary" | "secondary" | "ghost" | "danger" | "danger-secondary" | "inverse";
 export type ButtonSize = "lg" | "md" | "sm";
 export interface ButtonProps extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, "type"> {
     /** 강조와 의미. 한 영역에 경쟁하는 primary를 여러 개 두지 않는다. */

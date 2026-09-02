@@ -17551,18 +17551,18 @@
               "sourcePath": "semantic.dark.color.bg-menu"
             },
             "Light": {
-              "$value": "{primitive.color.palette-gray.100}",
+              "$value": "{primitive.color.palette-gray.000}",
               "aliasTarget": {
-                "id": "color-palette-gray-100",
+                "id": "color-palette-gray-000",
                 "mode": "base"
               },
               "resolvedValue": {
                 "alpha": 1,
                 "colorSpace": "srgb",
                 "components": [
-                  0.866667,
-                  0.870588,
-                  0.878431
+                  0.980392,
+                  0.980392,
+                  0.980392
                 ]
               },
               "sourcePath": "semantic.light.color.bg-menu"
@@ -21682,18 +21682,18 @@
               "sourcePath": "semantic.dark.color.node-chip-surface"
             },
             "Light": {
-              "$value": "{primitive.color.palette-gray.000}",
+              "$value": "{primitive.color.palette-gray.100}",
               "aliasTarget": {
-                "id": "color-palette-gray-000",
+                "id": "color-palette-gray-100",
                 "mode": "base"
               },
               "resolvedValue": {
                 "alpha": 1,
                 "colorSpace": "srgb",
                 "components": [
-                  0.980392,
-                  0.980392,
-                  0.980392
+                  0.866667,
+                  0.870588,
+                  0.878431
                 ]
               },
               "sourcePath": "semantic.light.color.node-chip-surface"
@@ -21733,18 +21733,18 @@
               "sourcePath": "semantic.dark.color.node-chip-surface-hover"
             },
             "Light": {
-              "$value": "{primitive.color.palette-gray.100}",
+              "$value": "{primitive.color.palette-gray.200}",
               "aliasTarget": {
-                "id": "color-palette-gray-100",
+                "id": "color-palette-gray-200",
                 "mode": "base"
               },
               "resolvedValue": {
                 "alpha": 1,
                 "colorSpace": "srgb",
                 "components": [
-                  0.866667,
-                  0.870588,
-                  0.878431
+                  0.756863,
+                  0.760784,
+                  0.776471
                 ]
               },
               "sourcePath": "semantic.light.color.node-chip-surface-hover"

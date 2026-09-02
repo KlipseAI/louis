@@ -6765,7 +6765,7 @@
           }
         },
         "bg-menu": {
-          "$value": "{primitive.color.palette-gray.100}",
+          "$value": "{primitive.color.palette-gray.000}",
           "$extensions": {
             "com.klipse-design": {
               "id": "color-bg-menu",
@@ -7175,7 +7175,7 @@
           }
         },
         "node-chip-surface": {
-          "$value": "{primitive.color.palette-gray.000}",
+          "$value": "{primitive.color.palette-gray.100}",
           "$extensions": {
             "com.klipse-design": {
               "id": "color-node-chip-surface",
@@ -7185,7 +7185,7 @@
           }
         },
         "node-chip-surface-hover": {
-          "$value": "{primitive.color.palette-gray.100}",
+          "$value": "{primitive.color.palette-gray.200}",
           "$extensions": {
             "com.klipse-design": {
               "id": "color-node-chip-surface-hover",

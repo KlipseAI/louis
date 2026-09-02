@@ -13300,26 +13300,26 @@ export const tokens = {
     },
     "color-bg-menu": {
       "aliasTarget": {
-        "id": "color-palette-gray-100",
+        "id": "color-palette-gray-000",
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-bg-menu": "color(srgb 0.866667 0.870588 0.878431 / 1)"
+        "--louis-color-bg-menu": "color(srgb 0.980392 0.980392 0.980392 / 1)"
       },
       "deprecated": null,
       "description": null,
       "id": "color-bg-menu",
       "mode": "light",
-      "rawValue": "{primitive.color.palette-gray.100}",
+      "rawValue": "{primitive.color.palette-gray.000}",
       "sourcePath": "semantic.light.color.bg-menu",
       "tier": "semantic",
       "type": "color",
       "value": {
         "colorSpace": "srgb",
         "components": [
-          0.866667,
-          0.870588,
-          0.878431
+          0.980392,
+          0.980392,
+          0.980392
         ],
         "alpha": 1
       }
@@ -15406,44 +15406,18 @@ export const tokens = {
     },
     "color-node-chip-surface": {
       "aliasTarget": {
-        "id": "color-palette-gray-000",
+        "id": "color-palette-gray-100",
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-node-chip-surface": "color(srgb 0.980392 0.980392 0.980392 / 1)"
+        "--louis-color-node-chip-surface": "color(srgb 0.866667 0.870588 0.878431 / 1)"
       },
       "deprecated": null,
       "description": null,
       "id": "color-node-chip-surface",
       "mode": "light",
-      "rawValue": "{primitive.color.palette-gray.000}",
-      "sourcePath": "semantic.light.color.node-chip-surface",
-      "tier": "semantic",
-      "type": "color",
-      "value": {
-        "colorSpace": "srgb",
-        "components": [
-          0.980392,
-          0.980392,
-          0.980392
-        ],
-        "alpha": 1
-      }
-    },
-    "color-node-chip-surface-hover": {
-      "aliasTarget": {
-        "id": "color-palette-gray-100",
-        "mode": "base"
-      },
-      "cssProperties": {
-        "--louis-color-node-chip-surface-hover": "color(srgb 0.866667 0.870588 0.878431 / 1)"
-      },
-      "deprecated": null,
-      "description": null,
-      "id": "color-node-chip-surface-hover",
-      "mode": "light",
       "rawValue": "{primitive.color.palette-gray.100}",
-      "sourcePath": "semantic.light.color.node-chip-surface-hover",
+      "sourcePath": "semantic.light.color.node-chip-surface",
       "tier": "semantic",
       "type": "color",
       "value": {
@@ -15452,6 +15426,32 @@ export const tokens = {
           0.866667,
           0.870588,
           0.878431
+        ],
+        "alpha": 1
+      }
+    },
+    "color-node-chip-surface-hover": {
+      "aliasTarget": {
+        "id": "color-palette-gray-200",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-node-chip-surface-hover": "color(srgb 0.756863 0.760784 0.776471 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-node-chip-surface-hover",
+      "mode": "light",
+      "rawValue": "{primitive.color.palette-gray.200}",
+      "sourcePath": "semantic.light.color.node-chip-surface-hover",
+      "tier": "semantic",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.756863,
+          0.760784,
+          0.776471
         ],
         "alpha": 1
       }

@@ -2,23 +2,23 @@
   "artifacts": [
     {
       "path": "packages/tokens/generated/figma.tokens.json",
-      "sha256": "da45f5790e1336682876ee492022fab12816b0b413310db4ffaab22a3dcfbda0"
+      "sha256": "b735cb90b020d386681624514a7b8b3aa6fe0b6fd0302025a07d99b95a1e7875"
     },
     {
       "path": "packages/tokens/generated/index.d.ts",
-      "sha256": "ce13d9562d373cfffa874506e3afab002e67ee40f1fd905ee3476075fd14f835"
+      "sha256": "fb1e3529b96e801ac045ec3e37d32091c60238dd560e243c4590d43ce59e863e"
     },
     {
       "path": "packages/tokens/generated/index.js",
-      "sha256": "ac936b90f78b802b51d26b1bf0f5dd87183a31b4cb9db3d3008a1e1f400ecd37"
+      "sha256": "7085550774d78369cd9acb01eb7d36c748726ead8d0a62d8cc8aad35d31bb00e"
     },
     {
       "path": "packages/tokens/generated/tokens.css",
-      "sha256": "737f12914f35e03f45db54baa6f2748b0d115a50681ca3dd9b97e5c1eac6d91d"
+      "sha256": "edd79c4a10305cdc1568dfbf220334abcc15f2caaeed8bbba4d58a5e3b9b2165"
     },
     {
       "path": "packages/tokens/generated/tokens.json",
-      "sha256": "69597cc44b92bece61e28d9c257f1bda17f92b885e4c51935a1f05d0bcdd0c6c"
+      "sha256": "9d5b8970b5002ed6e832ef3f11dc34e4befa67c440fa3c162a28fd2c60c458b5"
     }
   ],
   "contrastPairs": [
@@ -419,7 +419,7 @@
   },
   "source": {
     "path": "packages/tokens/src/klipse.tokens.json",
-    "sha256": "1acd2d128601c13764ff93881478df08e840212993ef93f5f16488cb7706f0ec"
+    "sha256": "6669ef2719f2849a320b53be33d4d21611f9a8171d9eddd5f60e27460328cbac"
   },
   "themes": [
     "light",
@@ -3085,24 +3085,24 @@
     },
     {
       "aliasTarget": {
-        "id": "color-palette-gray-100",
+        "id": "color-palette-gray-000",
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-bg-menu": "color(srgb 0.866667 0.870588 0.878431 / 1)"
+        "--louis-color-bg-menu": "color(srgb 0.980392 0.980392 0.980392 / 1)"
       },
       "deprecated": null,
       "description": null,
       "id": "color-bg-menu",
       "mode": "light",
-      "rawValue": "{primitive.color.palette-gray.100}",
+      "rawValue": "{primitive.color.palette-gray.000}",
       "resolvedValue": {
         "alpha": 1,
         "colorSpace": "srgb",
         "components": [
-          0.866667,
-          0.870588,
-          0.878431
+          0.980392,
+          0.980392,
+          0.980392
         ]
       },
       "sourcePath": "semantic.light.color.bg-menu",
@@ -8131,24 +8131,24 @@
     },
     {
       "aliasTarget": {
-        "id": "color-palette-gray-000",
+        "id": "color-palette-gray-100",
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-node-chip-surface": "color(srgb 0.980392 0.980392 0.980392 / 1)"
+        "--louis-color-node-chip-surface": "color(srgb 0.866667 0.870588 0.878431 / 1)"
       },
       "deprecated": null,
       "description": null,
       "id": "color-node-chip-surface",
       "mode": "light",
-      "rawValue": "{primitive.color.palette-gray.000}",
+      "rawValue": "{primitive.color.palette-gray.100}",
       "resolvedValue": {
         "alpha": 1,
         "colorSpace": "srgb",
         "components": [
-          0.980392,
-          0.980392,
-          0.980392
+          0.866667,
+          0.870588,
+          0.878431
         ]
       },
       "sourcePath": "semantic.light.color.node-chip-surface",
@@ -8183,24 +8183,24 @@
     },
     {
       "aliasTarget": {
-        "id": "color-palette-gray-100",
+        "id": "color-palette-gray-200",
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-node-chip-surface-hover": "color(srgb 0.866667 0.870588 0.878431 / 1)"
+        "--louis-color-node-chip-surface-hover": "color(srgb 0.756863 0.760784 0.776471 / 1)"
       },
       "deprecated": null,
       "description": null,
       "id": "color-node-chip-surface-hover",
       "mode": "light",
-      "rawValue": "{primitive.color.palette-gray.100}",
+      "rawValue": "{primitive.color.palette-gray.200}",
       "resolvedValue": {
         "alpha": 1,
         "colorSpace": "srgb",
         "components": [
-          0.866667,
-          0.870588,
-          0.878431
+          0.756863,
+          0.760784,
+          0.776471
         ]
       },
       "sourcePath": "semantic.light.color.node-chip-surface-hover",

@@ -185,15 +185,235 @@ function mobileTopBarVariant(bar, viewportWidth) {
   return `Width=${width}, Breadcrumb=${breadcrumb}, Back=${back}, Divider=On`;
 }
 
+
+// ─────────────────────────────────────────────────────────────────────────────
+// **정본 프리미티브 자리 — 「제품이 무는 클래스」가 판정한다, 기하가 아니다**
+// ─────────────────────────────────────────────────────────────────────────────
+//
+// 위의 셸·본문 치환은 «화면 하나만큼 큰» 덩어리를 다룬다. 그 아래 낱개 컨트롤(버튼·아바타…)은
+// 지금까지 전부 도형으로 그려졌다. 2026-09-02 실측: 보드 36장의 인스턴스 43 · 원시 도형 933.
+//
+// ## 왜 기하만으로는 고를 수 없는가 (실측으로 두 번 틀렸다)
+//
+// `measure-figma-board-composition.mjs` 는 「높이 32 + 반경 12 면 LOUIS Button」으로 대응을
+// 판정한다. 그 규칙을 그대로 생성기에 쓰면 **제품이 정본을 물지 않는 자리까지 인스턴스로 바뀐다**:
+//
+//   · `/settings` 의 테마·언어 세그먼트 12칸은 높이 28 · 반경 8 로 SegmentedControlItem 과
+//     기하가 같지만, 제품은 그 자리에서 `.louis-segmented-control` 을 물지 않는다 —
+//     `migration/product.rendered-components.json` 의 probe `segmented-segment` 가
+//     출처를 `myPageSceneStyles.ts settingsToggleBtn` 으로 적고 있다(제품 지역 스타일).
+//   · `/settings` 의 「Delete account」는 높이 32 · 반경 12 로 Button 과 기하가 같지만
+//     padding-inline 이 14 이고 column-gap 이 0 이다. `.louis-button[data-size=md]` 는
+//     12 / 4 다 — 다른 레시피다.
+//
+// 제품이 기준이다(DS-D-0037 이 표면 축에서 세운 것과 같은 원칙). 제품이 bespoke 로 그리는 자리를
+// Figma 에서만 정본으로 바꾸면 두 축이 어긋나고, 그 자리는 표면 원장의 `needed` 로 이미 잡혀 있다.
+//
+// ## 그래서 판정을 양쪽에서 읽는다 — 두 값 다 실행 시점에 읽고, 여기에 베끼지 않는다
+//
+//   제품 쪽 `migration/product.rendered-components.json`
+//     probe 하나가 「제품 소스의 클래스 문자열을 제품 Tailwind 로 컴파일해 실브라우저에서 잰
+//     상자」다. `rendered[probe]` 의 **모든** 축(높이·padding·gap·반경·최소폭)이 측정 노드의
+//     계산 스타일과 문자열까지 같을 때만 「이 자리는 그 레시피다」라고 말한다. 축 이름이 양쪽
+//     다 camelCase 라 단위 해석 없이 그대로 비교한다.
+//   Figma 쪽 `figma/readback.json`
+//     그 컴포넌트의 그 size 가 실재하고 기하가 맞는지, 그리고 variant 이름을 무엇으로 적어야
+//     하는지를 준다. LOUIS 가 제품에서 멀어지면 여기서 어긋나 **치환을 포기한다** — 어긋난 채로
+//     인스턴스를 심는 것이 가장 나쁘다(화면은 조용히 시스템과 다른 값을 그린다).
+//
+// ## variant 문자열을 손으로 적지 않는다
+//
+// 되읽기의 `properties` 에서 VARIANT 축만 **정의 순서대로** 뽑아 조립하고, 값이 그 축의
+// options 에 없으면 던진다. 손으로 적으면 LOUIS 가 축을 하나 더 여는 날 조용히 낡는다.
+// (`figma-readback-emit.mjs:348` 가 `componentPropertyDefinitions` 를 그 순서로 담는다.)
+
+/**
+ * **정본 프리미티브 자리 목록.**
+ *
+ * `probe` 는 제품 레시피 원장의 항목 id 다. `canonical` 이 아닌 probe 는 여기 없다 — 예를 들어
+ * `icon-button`(출처 `Gnb.tsx iconButton`)과 `segmented-segment`(출처
+ * `myPageSceneStyles.ts settingsToggleBtn`)는 제품 지역 스타일이라 대응을 만들지 않는다.
+ * 그 자리들이 **정본이 되어야 하는가**는 Figma 축이 아니라 제품 축의 질문이고, 표면 원장이 센다.
+ *
+ * `element` 는 probe 의 html 이 실제로 쓰는 태그다. 기하만 보면 28×28 원형 자리에 사이드바의
+ * 원형 «버튼»까지 걸린다(실측: 아바타 상자에 36자리가 걸리는데 그 중 다수가 `<button>` 이다).
+ */
+export const LOUIS_PRIMITIVE_SITES = Object.freeze([
+  {
+    id: "button-md",
+    probe: "button-md",
+    element: "button",
+    component: "Button",
+    size: "md",
+    why: "제품이 Button.tsx 에서 `.louis-button[data-size=md]` 를 그대로 문다(DS-D-0027 의 기본값).",
+  },
+  {
+    id: "button-lg",
+    probe: "button-lg",
+    element: "button",
+    component: "Button",
+    size: "lg",
+    why: "제품이 Button.tsx 에서 `.louis-button[data-size=lg]` 를 문다 — 인증 제출 CTA 자리다.",
+  },
+  {
+    id: "avatar",
+    probe: "avatar",
+    element: "span",
+    component: "Avatar",
+    size: "md",
+    why: "제품이 `.louis-avatar` 를 그대로 문다. 크기를 소유하는 쪽이 그 클래스다.",
+  },
+]);
+
+/**
+ * **여기 없는 probe 를 자리로 쓰지 않는 이유.** 목록에 없다는 것이 「대응이 없다」는 뜻이 아니라
+ * 「제품이 그 자리에서 정본을 물지 않는다」는 뜻이므로, 지우지 말고 사유와 함께 남긴다.
+ */
+export const LOUIS_PRIMITIVE_EXCLUSIONS = Object.freeze([
+  { probe: "icon-button", reason: "출처가 `Gnb.tsx iconButton` 이다 — 제품 지역 스타일이지 `.louis-icon-button` 이 아니다." },
+  { probe: "icon-button-card", reason: "출처가 `appHomeSceneStyles.ts archiveMoreButton` 이다 — 카드 위 more 버튼의 지역 스타일이다." },
+  { probe: "segmented-track", reason: "출처가 `myPageSceneStyles.ts settingsToggleWrap` 이다 — `/settings` 토글은 `.louis-segmented-control` 을 물지 않는다." },
+  { probe: "segmented-segment", reason: "출처가 `myPageSceneStyles.ts settingsToggleBtn` 이다 — 같은 이유로 SegmentedControlItem 자리가 아니다." },
+  {
+    probe: "progress-bar-track",
+    reason:
+      "제품은 `.louis-progress-bar` 를 그대로 물지만 LOUIS ProgressBar 의 VARIANT 축은 " +
+      "State(determinate·indeterminate) 하나뿐이고 **측정에 그 축을 고를 정보가 없다** — " +
+      "계산 스타일에는 aria-valuenow 가 없고, `__fill` 은 진행 0% 라 보이지 않아 트리에서 " +
+      "지워졌다. 지어내면 화면이 제품과 다른 상태를 말하게 된다.",
+  },
+]);
+
+const isTransparent = (color) => /^(transparent|rgba\(0,\s*0,\s*0,\s*0\))$/.test(String(color ?? "").trim());
+
+/** 그림자에서 색을 걷어내고 기하만 남긴다. 헤어라인 색은 테마를 따라가지만 기하는 따라가지 않는다. */
+const shadowGeometry = (value) => {
+  if (!value || value === "none") return null;
+  return String(value)
+    .replace(/(rgba?|color)\([^)]*\)/g, "")
+    .trim()
+    .replace(/\s+/g, " ");
+};
+
+/**
+ * **Button 의 `Variant` 축.** 제품 레시피 원장이 실제로 잰 두 벌(primary·secondary)에만 답한다.
+ * 나머지(ghost·danger·inverse)는 원장에 probe 가 없어 «비교할 값이 없다» — 지어내지 않고
+ * null 을 돌려 치환을 포기한다. 그 자리가 나오면 원장에 probe 를 더하는 것이 먼저다.
+ *
+ * primary 는 면 색을 문자열까지 대조한다(accent 는 테마를 따라가지 않는다). secondary 는 면이
+ * 투명이고 헤어라인 inset 그림자를 갖는데, 그 **색은 테마를 따라가므로**(라이트 검정 8% ·
+ * 다크 흰색 8%) 기하만 대조한다.
+ */
+function buttonVariantOf(style, declared) {
+  const primary = declared["button-md"]?.["background-color"];
+  const secondaryShadow = shadowGeometry(declared["button-secondary"]?.["box-shadow"]);
+  if (!primary || !secondaryShadow) {
+    throw new Error("[figma-app-screens] 제품 레시피 원장에 button-md/button-secondary 의 면 값이 없습니다.");
+  }
+  if (style.backgroundColor === primary) return "primary";
+  if (isTransparent(style.backgroundColor) && shadowGeometry(style.boxShadow) === secondaryShadow) return "secondary";
+  return null;
+}
+
+/** 노드(혹은 자손)에 벡터가 있는가 — Button 의 아이콘 슬롯 판정에 쓴다. */
+function hasVector(node) {
+  if (node.tag === "svg") return true;
+  return (node.children ?? []).some(hasVector);
+}
+
+/** 되읽기에서 VARIANT 축만 정의 순서대로 뽑는다. Figma 가 variant 이름을 짓는 순서다. */
+function variantAxesOf(readback, component) {
+  const entry = readback.components?.[component];
+  if (!entry) throw new Error(`[figma-app-screens] 되읽기에 컴포넌트가 없습니다: ${component}`);
+  return Object.entries(entry.properties ?? {})
+    .filter(([, definition]) => definition.type === "VARIANT")
+    .map(([name, definition]) => [name, definition.options ?? []]);
+}
+
+/** 되읽기의 기하는 같은 size 에 여러 값을 들 수 있다(라벨 길이만큼 다른 너비). */
+const geometryFits = (values, value) =>
+  Array.isArray(values) && values.some((candidate) => Math.abs(candidate - value) <= 0.5);
+
+/**
+ * 자리 하나를 노드에 대본다. 맞으면 `{ set, variant, why }`, 아니면 `null` 또는 사유가 붙은 보류.
+ * 제품 상자 → Figma 기하 → variant 축 순서로 좁힌다. 어느 단계든 어긋나면 도형으로 남긴다.
+ */
+function matchLouisPrimitive(site, node, style, evidence) {
+  if (node.tag !== site.element) return null;
+  const box = evidence.recipes.rendered?.[site.probe];
+  // 제품 상자 — 원장이 잰 **모든** 축이 문자열까지 같아야 한다.
+  for (const [axis, expected] of Object.entries(box)) {
+    if (style[axis] !== expected) return null;
+  }
+  // Figma 기하 — 같은 size 가 실재하고 높이·반경이 맞아야 한다. 어긋나면 LOUIS 가 제품에서
+  // 멀어진 것이고, 그때 인스턴스를 심으면 화면이 조용히 시스템과 다른 값을 그린다.
+  const geometry = evidence.readback.components?.[site.component]?.geometry?.[site.size];
+  if (!geometry) return { skip: `되읽기에 ${site.component}/${site.size} 의 기하가 없습니다.` };
+  if (!geometryFits(geometry.height, Math.round(node.rect.height * 100) / 100)) {
+    return { skip: `${site.component}/${site.size} 의 되읽기 높이(${geometry.height}) 가 측정 ${round(node.rect.height)} 와 다릅니다.` };
+  }
+  // variant 축을 하나씩 채운다. 채우지 못한 축이 하나라도 있으면 치환하지 않는다.
+  const decided = {};
+  for (const [axis, options] of variantAxesOf(evidence.readback, site.component)) {
+    let value = null;
+    if (axis === "Size") value = site.size;
+    else if (axis === "State") value = "Default";
+    else if (axis === "Icon") value = hasVector(node) ? null : "none";
+    else if (axis === "Variant" && site.component === "Button") value = buttonVariantOf(style, evidence.recipes.declared ?? {});
+    if (value === null) {
+      return {
+        skip:
+          `${site.component} 의 ${axis} 축을 측정에서 판정하지 못했습니다` +
+          (axis === "Icon" ? " — 아이콘이 붙은 레시피는 padding 이 2px 좁아 다른 상자다(probe `button-md-icon`)." : "."),
+      };
+    }
+    if (!options.includes(value)) {
+      return { skip: `${site.component} 의 ${axis} 에 ${value} 가 없습니다(있는 것: ${options.join("/")}).` };
+    }
+    decided[axis] = value;
+  }
+  const variant = Object.entries(decided).map(([axis, value]) => `${axis}=${value}`).join(", ");
+  return {
+    set: site.component,
+    variant,
+    why:
+      `${site.why} 제품 레시피 probe \`${site.probe}\` 의 ${Object.keys(box).join("·")} 가 ` +
+      `측정과 모두 같고, 되읽기 ${site.component}/${site.size} 의 기하가 맞는다.`,
+  };
+}
+
 /** 셸 자리를 인스턴스로 바꾼다. spec을 제자리에서 수정하고 적용·보류 목록을 돌려준다. */
-export function applyComponentInstances(spec, { route, context, viewport }) {
+export function applyComponentInstances(spec, { route, context, viewport, styleOf, evidence }) {
   const desktop = context.startsWith("desktop");
+  // **증거가 없으면 조용히 넘어가지 않는다.** 낱개 컨트롤 치환이 소리 없이 꺼지면 보드 36장이
+  // 도형으로 되돌아가고, `check-figma-app-screens` 는 그 교환을 한 글자도 보지 못한다.
+  if (typeof styleOf !== "function") throw new Error("[figma-app-screens] styleOf(path) 가 필요합니다.");
+  if (!evidence?.recipes || !evidence?.readback) {
+    throw new Error("[figma-app-screens] 제품 레시피 원장과 Figma 되읽기가 모두 필요합니다.");
+  }
+  // **없는 probe 를 가리키는 자리는 설정 오류이지 노드마다 판정할 일이 아니다.** 노드마다
+  // 「probe 가 없다」를 보류로 쌓으면 실제 실패(치환이 통째로 꺼진 것)가 보류 수백 줄에 묻힌다.
+  // 화면을 걷기 전에 한 번 확인하고 던진다.
+  for (const site of LOUIS_PRIMITIVE_SITES) {
+    const box = evidence.recipes.rendered?.[site.probe];
+    if (!box || Object.keys(box).length === 0) {
+      throw new Error(
+        `[figma-app-screens] 정본 자리 ${site.id} 가 가리키는 제품 레시피 probe 가 원장에 ` +
+        `없거나 비어 있습니다: ${site.probe}`,
+      );
+    }
+  }
   const applied = [];
   const skipped = [];
 
   const substitute = (node, set, variant, why) => {
     if (!variant) { skipped.push({ path: node.path, set, reason: "variant 축을 판정하지 못했다" }); return false; }
-    const known = VARIANTS[set] ?? CONTENT_COMPONENTS.filter((entry) => entry.set === set).map((entry) => entry.variant);
+    // 낱개 정본 프리미티브의 variant 는 **되읽기에서 조립한 것**이라 여기 목록에 없다 —
+    // 축과 options 를 되읽기가 이미 확인했으므로 다시 확인할 목록이 없다(있으면 두 벌이 된다).
+    const known = VARIANTS[set]
+      ?? (LOUIS_PRIMITIVE_SITES.some((site) => site.component === set)
+        ? [variant]
+        : CONTENT_COMPONENTS.filter((entry) => entry.set === set).map((entry) => entry.variant));
     if (!known.includes(variant)) {
       skipped.push({ path: node.path, set, variant, reason: "컴포넌트 세트에 없는 조합" });
       return false;
@@ -234,6 +454,18 @@ export function applyComponentInstances(spec, { route, context, viewport }) {
     if (content) {
       if (substitute(node, content.set, content.variant,
         `텍스트 ${content.texts.length}개 일치 + rect ${round(node.rect.width)}×${round(node.rect.height)} — 기존 본문 컴포넌트`)) return;
+    }
+    // 낱개 정본 프리미티브. 셸·본문보다 **뒤에** 본다 — 셸 안의 버튼은 셸 컴포넌트가 이미
+    // 소유하고 있어서, 먼저 보면 같은 픽셀을 두 겹으로 인스턴스화하게 된다.
+    const style = styleOf(node.path);
+    if (style) {
+      for (const site of LOUIS_PRIMITIVE_SITES) {
+        const hit = matchLouisPrimitive(site, node, style, evidence);
+        if (!hit) continue;
+        if (hit.skip) { skipped.push({ path: node.path, set: site.component, reason: hit.skip }); break; }
+        if (substitute(node, hit.set, hit.variant, hit.why)) return;
+        break;
+      }
     }
     for (const child of node.children ?? []) walk(child);
   };

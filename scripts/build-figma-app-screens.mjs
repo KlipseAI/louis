@@ -24,17 +24,35 @@ import { readFileSync, readdirSync, rmSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { atomicWriteBatch } from "./lib/atomic-output.mjs";
-import { applyComponentInstances } from "./lib/figma-component-substitution.mjs";
+import {
+  applyComponentInstances,
+  LOUIS_PRIMITIVE_EXCLUSIONS,
+  LOUIS_PRIMITIVE_SITES,
+} from "./lib/figma-component-substitution.mjs";
 import { normalizeAuthFixtureTree, toFigmaTreeSpec } from "./lib/figma-tree-spec.mjs";
 
 const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const fixturePath = resolve(repoRoot, "migration/product.auth-fixture.json");
+// **낱개 정본 프리미티브 치환의 두 증거.** 어느 쪽도 여기 상수로 베끼지 않는다 —
+// 제품이 무는 레시피는 제품 원장이, LOUIS 의 size·variant 축은 되읽기가 소유한다.
+const recipesPath = resolve(repoRoot, "migration/product.rendered-components.json");
+const readbackPath = resolve(repoRoot, "figma/readback.json");
 const planPath = resolve(repoRoot, "figma/app-screens.plan.json");
 const templatePath = resolve(repoRoot, "scripts/templates/figma-app-screens-renderer.js");
 const checkOnly = process.argv.includes("--check");
 const fail = (message) => { throw new Error(`[figma-app-screens] ${message}`); };
 
 const fixture = JSON.parse(readFileSync(fixturePath, "utf8"));
+const recipes = JSON.parse(readFileSync(recipesPath, "utf8"));
+const readback = JSON.parse(readFileSync(readbackPath, "utf8"));
+// 제품 원장과 측정 fixture 가 같은 커밋을 봐야 한다. 어긋나면 「제품이 이 자리에서 무는
+// 클래스」를 어제의 제품에서 읽고 오늘의 화면에 심는 것이 된다.
+if (recipes.productCommit !== fixture.productCommit) {
+  fail(
+    `제품 레시피 원장의 커밋(${String(recipes.productCommit).slice(0, 8)})이 측정 fixture 의 ` +
+    `${String(fixture.productCommit).slice(0, 8)} 와 다릅니다.`,
+  );
+}
 
 // LOUIS(OlYKERKOkgbxBEEoXGZW2c)의 대상 프레임. 라이브에서 읽어 확인한 install id다.
 // 별칭 route(`/mypage`→`/settings`, `/explore`→`/archive`, `/checkout`→`/upgrade`)는 제외한다 —
@@ -238,10 +256,18 @@ for (const screen of SCREENS) {
     });
     // **이미 있는 컴포넌트는 다시 그리지 않는다.** 셸(사이드바·상단 바)과 본문 블록(결제 결과·
     // 체크아웃 상태·요금제 카드)을 잘라내고 인스턴스를 심는다(판정 근거는 figma-component-substitution.mjs).
+    // **계산 스타일을 경로로 되찾는다.** `toFigmaTreeSpec` 는 색·기하를 파싱해 담지만 그
+    // 과정에서 판정에 필요한 축(min-width·column-gap·box-shadow)이 사라진다 —
+    // `parseBoxShadow` 는 `color(srgb …)` 표기를 아예 읽지 못해 헤어라인이 통째로 없어진다.
+    // 그래서 spec 이 들고 있는 `path` 로 fixture 의 원래 계산 스타일을 다시 본다.
+    const styleById = new Map(fixture.computedStyles.map((entry) => [entry.id, entry.value]));
+    const styleByPath = new Map(measured.tree.map((node) => [node.path, styleById.get(node.styleRef)]));
     const shells = applyComponentInstances(spec, {
       route: screen.route,
       context: context.id,
       viewport: { width: measured.rootRect.width, height: measured.rootRect.height },
+      styleOf: (path) => styleByPath.get(path) ?? null,
+      evidence: { recipes, readback },
     });
     totalNodes += stats.kept;
     totalUnresolved += stats.unresolved.length;
@@ -293,6 +319,14 @@ const plan = {
   totalUnresolved,
   totalShellInstances: totalShells,
   totalShellGaps,
+  // **낱개 정본 프리미티브의 판정 근거를 생성물에 남긴다.** 목록에 «없는» 것이 곧 판정이라
+  // (「제품이 그 자리에서 정본을 물지 않는다」), 사유가 코드에만 있으면 보드를 읽는 사람은
+  // 그것이 누락인지 결정인지 구분할 수 없다.
+  louisPrimitiveSites: LOUIS_PRIMITIVE_SITES.map((site) => ({
+    id: site.id, probe: site.probe, element: site.element,
+    component: site.component, size: site.size, why: site.why,
+  })),
+  louisPrimitiveExclusions: LOUIS_PRIMITIVE_EXCLUSIONS,
   paint: { ...paintStats, textLiteral: [...paintStats.textLiteral].sort() },
   screens,
 };

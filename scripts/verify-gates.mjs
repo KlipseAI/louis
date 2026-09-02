@@ -106,10 +106,15 @@ withCanary(
   "--check",
 );
 
-// ── 화면 보드 구성 래칫 카나리아 여섯 (2026-09-02) ───────────────────────
+// ── 화면 보드 구성 래칫 카나리아 열 (2026-09-02) ─────────────────────────
 // `check-figma-app-screens` 는 런너가 생성물과 byte-for-byte 같은지만 본다 — 보드 «안»이
 // 인스턴스인지 손으로 그린 도형인지는 한 글자도 보지 않는다. 그 바깥을 세는 게이트가 실제로
-// 빨개지는지 여섯 방향에서 확인한다. 여섯 다 실패 모드가 「게이트가 조용히 통과한다」다.
+// 빨개지는지 열 방향에서 확인한다. 열 다 실패 모드가 「게이트가 조용히 통과한다」다.
+//
+// ⑦~⑩ 은 다섯째 판정 `bespoke` 를 연 걸음(DS-D-0046)이 함께 세운 것이다. 그 칸은 「제품이
+// 이 자리에서 정본 클래스를 물지 않는다」를 뜻하고, 잘못 다루면 **바꾸면 안 되는 자리를
+// 바꾸라고 시키거나**(⑦) **분모를 조용히 좁힌다**(⑧). ⑨⑩ 은 그 판정이 근거 없이 손으로
+// 적히는 길을 막는다.
 
 // ① 손으로 그린 것이 늘었다. 목표가 0 인 수라 오르는 것이 곧 후퇴다.
 withCanary(
@@ -220,13 +225,104 @@ withCanary(
     const ledger = JSON.parse(source);
     // **matchRules 가 아니라 노드를 고른다.** 규칙 목록에도 같은 필드가 있어 문자열 치환으로
     // 바꾸면 규칙 검사가 먼저 걸리고, 노드 쪽 어휘 검사는 시험되지 않은 채 지나간다.
-    const id = Object.keys(ledger.nodes).find((key) => ledger.nodes[key].verdict === "replaceable");
+    // **`bespoke` 를 고른다** — 2026-09-02 에 `replaceable` 이 0 이 되면서 그 칸에는 고를
+    // 노드가 없어졌다. 어휘 검사는 「LOUIS 컴포넌트 이름을 적는 판정」 셋 모두에 걸린다.
+    const id = Object.keys(ledger.nodes).find((key) => ledger.nodes[key].verdict === "bespoke");
     ledger.nodes[id] = { ...ledger.nodes[id], component: "ComponentThatIsNotInLouis" };
     return JSON.stringify(ledger, null, 2) + "\n";
   },
   "board composition unknown component name",
   "scripts/check-figma-board-composition.mjs",
   "되읽기에 없는 컴포넌트를 대응으로 적었습니다",
+);
+
+// ⑦ **바꾸면 안 되는 자리를 「지금 바꿀 수 있는 것」으로 되돌려 놓았다.** 이 게이트가 없으면
+//    원장이 다시 「대체가능 N개가 지금 바꿀 수 있는 것이다」를 인쇄하고, 그 말을 믿은 사람이
+//    제품이 물지 않는 자리를 Figma 에서 인스턴스로 바꾼다 — 두 축이 어긋나는 바로 그 사고다.
+withCanary(
+  "migration/figma-board-composition.json",
+  (source) => {
+    const ledger = JSON.parse(source);
+    const id = Object.keys(ledger.nodes).find((key) => ledger.nodes[key].verdict === "bespoke");
+    const node = ledger.nodes[id];
+    ledger.nodes[id] = { ...node, verdict: "replaceable" };
+    ledger.counts.bespoke -= 1;
+    ledger.counts.replaceable += 1;
+    const key = node.component + "/" + node.size;
+    ledger.bespokeByComponent[key] -= 1;
+    if (ledger.bespokeByComponent[key] === 0) delete ledger.bespokeByComponent[key];
+    ledger.byComponent[key] = (ledger.byComponent[key] ?? 0) + 1;
+    return JSON.stringify(ledger, null, 2) + "\n";
+  },
+  "board composition bespoke turned back into replaceable",
+  "scripts/check-figma-board-composition.mjs",
+  "대체 가능한 도형이",
+);
+
+// ⑧ bespoke 가 줄었는데 잠그지 않았다. 줄어드는 길은 둘이고(제품이 정본을 물기 시작했다 /
+//    판정을 풀어 다른 칸으로 흘렸다) 둘은 완전히 다른 소식이라, 손으로 적지 않고 지나가면
+//    안 된다. `missing` 으로 흘리는 것이 여기서 잡히는 대표적 경로다.
+withCanary(
+  "migration/figma-board-composition.json",
+  (source) => {
+    const ledger = JSON.parse(source);
+    const id = Object.keys(ledger.nodes).find((key) => ledger.nodes[key].verdict === "bespoke");
+    const node = ledger.nodes[id];
+    ledger.nodes[id] = {
+      board: node.board,
+      tag: node.tag,
+      rect: node.rect,
+      verdict: "missing",
+      rule: "unmatched-a-interactive",
+      candidateClause: node.candidateClause,
+      reason: "카나리아 — 제품이 물지 않는 자리를 「LOUIS 에 없다」로 흘려 놓았다.",
+    };
+    ledger.counts.bespoke -= 1;
+    ledger.counts.missing += 1;
+    const key = node.component + "/" + node.size;
+    ledger.bespokeByComponent[key] -= 1;
+    if (ledger.bespokeByComponent[key] === 0) delete ledger.bespokeByComponent[key];
+    return JSON.stringify(ledger, null, 2) + "\n";
+  },
+  "board composition bespoke fell without locking the gain",
+  "scripts/check-figma-board-composition.mjs",
+  "제품이 정본을 물지 않는 자리(bespoke)가",
+);
+
+// ⑨ bespoke 인데 근거가 없다. 「제품이 안 문다」가 사유 문장만으로 서면 다음 사람이 손으로
+//    아무 자리나 이 칸에 넣을 수 있고, 그 순간 이 칸이 것들을 숨기는 자리가 된다.
+withCanary(
+  "migration/figma-board-composition.json",
+  (source) => {
+    const ledger = JSON.parse(source);
+    const id = Object.keys(ledger.nodes).find((key) => ledger.nodes[key].verdict === "bespoke");
+    const node = { ...ledger.nodes[id] };
+    delete node.site;
+    delete node.probe;
+    ledger.nodes[id] = node;
+    return JSON.stringify(ledger, null, 2) + "\n";
+  },
+  "board composition bespoke without a joined site or probe",
+  "scripts/check-figma-board-composition.mjs",
+  "bespoke 인데 근거가 된 정본 자리",
+);
+
+// ⑩ **조인표에서 판정이 사라졌다.** 열거기는 정본 자리·제외 목록과 조인해 bespoke 를 낸다.
+//    목록에서 한 항목이 빠지면 「판정 없는 자리」가 생기는데, 그때 조용히 replaceable 로
+//    접히면 다시 바꾸면 안 되는 자리를 바꾸라고 시키게 된다 — 던지는지 확인한다.
+withCanary(
+  "figma/app-screens.plan.json",
+  (source) => {
+    const plan = JSON.parse(source);
+    plan.louisPrimitiveExclusions = plan.louisPrimitiveExclusions.filter(
+      (entry) => entry.component !== "IconButton",
+    );
+    return JSON.stringify(plan, null, 2) + "\n";
+  },
+  "board composition primitive site table lost a verdict",
+  "scripts/measure-figma-board-composition.mjs",
+  "정본 자리 목록에도 제외 목록에도 없습니다",
+  "--check",
 );
 
 // ── 커버리지 목표 래칫 카나리아 아홉 (2026-09-02) ────────────────────────

@@ -80,7 +80,7 @@ const DEAD_TOKEN_BASELINE = 318; // 양방향, 목표 0
 // 수가 아무에게도 잠기지 않은 채 대시보드에만 남는다 — 그것이 가장 조용한 실패다.
 const OWNING_GATES = [
   ["check-figma-surface-coverage", "표면 대응·사유없음·표면 총수"],
-  ["check-figma-board-composition", "보드 인스턴스·대체가능·후보 수"],
+  ["check-figma-board-composition", "보드 인스턴스·대체가능·bespoke·후보 수"],
   ["verify-figma-done", "manifest figma:done 의 (a)(b)(c)"],
 ];
 
@@ -233,6 +233,9 @@ const numbers = {
   "표면 unclear": surfaceCounts.unclear,
   "보드 instance": boardCounts.instance,
   "보드 replaceable": boardCounts.replaceable,
+  "보드 bespoke": boardCounts.bespoke,
+  "보드 blocked": boardCounts.blocked,
+  "보드 missing": boardCounts.missing,
 };
 for (const [what, value] of Object.entries(numbers)) {
   if (!Number.isFinite(value)) {
@@ -340,14 +343,23 @@ const pct = (numerator, denominator) =>
   (denominator > 0 ? ((numerator / denominator) * 100).toFixed(1) : "0.0") + "%";
 const surfaceTarget = surfaceCounts.total - surfaceCounts.scoped;
 const boardTarget = boardCounts.instance + boardCounts.replaceable;
+// **후보 전체.** 목표의 분모(인스턴스+대체가능)만 찍으면 대체가능이 0 이 되는 순간 표가
+// 「100%, 달성」을 인쇄한다 — bespoke·미보유·막힘이 그대로 앉아 있는데도. 대조군을 나란히
+// 찍는 것이 이 표가 거짓 초록이 되지 않는 유일한 방법이다(보드 게이트가 두 비율을 함께
+// 인쇄하는 것과 같은 근거다).
+const boardCandidates =
+  boardCounts.instance + boardCounts.replaceable + boardCounts.bespoke
+  + boardCounts.blocked + boardCounts.missing;
 
 const rows = [
   ["표면 needed (세워야 할 것)", String(surfaceCounts.needed), "0", "↓ 하락만 잠금", "이 게이트"],
   ["표면 unclear (판단 대기)", String(surfaceCounts.unclear), "0", "↓ 하락만 잠금", "이 게이트"],
   ["표면 대응 (대상 대비)", pct(surfaceCounts.mapped, surfaceTarget) + " (" + surfaceCounts.mapped + "/" + surfaceTarget + ")", "100%", "↑ 양방향", "check-figma-surface-coverage"],
   ["표면 scoped (분모 밖)", String(surfaceCounts.scoped), "— 분모 밖", "총수만큼만 상승", "이 게이트"],
-  ["보드 인스턴스 비율", pct(boardCounts.instance, boardTarget) + " (" + boardCounts.instance + "/" + boardTarget + ")", "100%", "↑ 바닥", "check-figma-board-composition"],
+  ["보드 인스턴스 (지금 바꿀 수 있는 것 대비)", pct(boardCounts.instance, boardTarget) + " (" + boardCounts.instance + "/" + boardTarget + ")", "100%", "↑ 바닥", "check-figma-board-composition"],
+  ["보드 인스턴스 (후보 전체 대비)", pct(boardCounts.instance, boardCandidates) + " (" + boardCounts.instance + "/" + boardCandidates + ")", "100%", "↑ 파생 (분모는 후보 바닥)", "check-figma-board-composition"],
   ["보드 replaceable", String(boardCounts.replaceable), "0", "↓ 양방향", "check-figma-board-composition"],
+  ["보드 bespoke (제품이 정본을 안 문다)", String(boardCounts.bespoke), "0", "↓ 하락만 잠금", "check-figma-board-composition"],
   ["manifest 컴포넌트 done", done + "/" + doneTarget, String(doneTarget), "↑ 바닥", "이 게이트 + verify-figma-done"],
   ["manifest 컴포넌트 partial", String(partial), "0", "↓ done 의 나머지", "파생"],
   ["죽은 토큰", String(dead.length) + "/" + declared.size, "0", "↓ 양방향", "이 게이트"],
@@ -385,8 +397,22 @@ console.log(
     "패턴의 done 을 거부한다). 정의를 넓히기 전에는 이 수는 0 이 될 수 없다.",
 );
 console.log(
-  "  · 상승이 자유인 수: 표면 needed·unclear, 보드 blocked·missing. 늘어난 것은 발견이지 " +
+  "  · 보드 인스턴스가 두 줄인 이유: 위 줄의 분모는 «지금 바꿀 수 있는 것»(인스턴스+대체가능)이라 " +
+    "대체가능이 " + boardCounts.replaceable + " 이면 그 비율은 정의상 100% 다 — 「보드가 " +
+    "끝났다」가 아니다. 아직 " + boardCounts.bespoke + " 개가 bespoke(제품이 그 자리에서 정본 " +
+    "클래스를 물지 않는다 — DS-D-0043·DS-D-0046), " + boardCounts.missing + " 개가 미보유, " +
+    boardCounts.blocked + " 개가 막힘이다. 아래 줄이 그것을 센다.",
+);
+console.log(
+  "  · 보드 bespoke 를 0 으로 만드는 것은 **Figma 축의 일이 아니다.** 그 자리를 Figma 에서만 " +
+    "인스턴스로 바꾸면 Figma 가 제품보다 더 「정본」이 되어 두 축이 어긋난다. 열리는 조건은 " +
+    "제품이 그 자리에서 정본 클래스를 물기 시작하는 것이고, **그것이 되어야 하는가는 위의 " +
+    "표면 needed 가 세는 질문이다** — 이 표에서 두 줄이 만나는 유일한 자리다.",
+);
+console.log(
+  "  · 상승이 자유인 수: 표면 needed·unclear, 보드 bespoke·blocked·missing. 늘어난 것은 발견이지 " +
     "후퇴가 아니고, 발견을 벌하면 다음 사람은 열어 보지 않는 쪽을 고른다. " +
     "후퇴 경로는 각각 다른 그물이 잡는다 — figma→needed 는 MAPPED_BASELINE, " +
-    "needed→scoped 는 위의 scoped 천장이 잡는다.",
+    "needed→scoped 는 위의 scoped 천장이, replaceable→bespoke 는 REPLACEABLE_BASELINE 의 " +
+    "양방향 래칫이 잡는다(그 baseline 이 0 이라 옮길 것이 애초에 없다).",
 );

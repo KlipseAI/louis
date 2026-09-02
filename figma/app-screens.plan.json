@@ -38,22 +38,37 @@
   "louisPrimitiveExclusions": [
     {
       "probe": "icon-button",
+      "component": "IconButton",
+      "sizes": "*",
+      "verdict": "bespoke",
       "reason": "출처가 `Gnb.tsx iconButton` 이다 — 제품 지역 스타일이지 `.louis-icon-button` 이 아니다."
     },
     {
       "probe": "icon-button-card",
-      "reason": "출처가 `appHomeSceneStyles.ts archiveMoreButton` 이다 — 카드 위 more 버튼의 지역 스타일이다."
+      "component": "IconButton",
+      "sizes": "*",
+      "verdict": "bespoke",
+      "reason": "출처가 `appHomeSceneStyles.ts archiveMoreButton` 이다 — 카드 위 more 버튼의 지역 스타일이다. 클래스 이름에 `louis-` 가 붙어 있지만(`.louis-project-card-more`) 그것은 **ProjectCard 의 부품**이지 IconButton 프리미티브가 아니다 — 그래서 「probe 의 html 에 `louis-` 가 있는가」 같은 문자열 시험으로는 이 목록을 대신할 수 없다."
     },
     {
       "probe": "segmented-track",
+      "component": "SegmentedControl",
+      "sizes": "*",
+      "verdict": "bespoke",
       "reason": "출처가 `myPageSceneStyles.ts settingsToggleWrap` 이다 — `/settings` 토글은 `.louis-segmented-control` 을 물지 않는다."
     },
     {
       "probe": "segmented-segment",
+      "component": "SegmentedControlItem",
+      "sizes": "*",
+      "verdict": "bespoke",
       "reason": "출처가 `myPageSceneStyles.ts settingsToggleBtn` 이다 — 같은 이유로 SegmentedControlItem 자리가 아니다."
     },
     {
       "probe": "progress-bar-track",
+      "component": "ProgressBar",
+      "sizes": "*",
+      "verdict": "blocked",
       "reason": "제품은 `.louis-progress-bar` 를 그대로 물지만 LOUIS ProgressBar 의 VARIANT 축은 State(determinate·indeterminate) 하나뿐이고 **측정에 그 축을 고를 정보가 없다** — 계산 스타일에는 aria-valuenow 가 없고, `__fill` 은 진행 0% 라 보이지 않아 트리에서 지워졌다. 지어내면 화면이 제품과 다른 상태를 말하게 된다."
     }
   ],

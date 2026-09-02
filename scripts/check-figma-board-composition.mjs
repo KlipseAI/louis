@@ -18,17 +18,39 @@
 //
 // ── 래칫의 방향 (판정마다 다르다) ─────────────────────────────────────────
 //
-//   replaceable   **양방향.** 목표는 0 이다. 늘면 손으로 그린 것이 늘어난 것이고, 줄면
-//                 이득을 잠그라고 요구한다. 잠그지 않으면 그 자리는 다음에 조용히 되돌아온다.
+//   replaceable   **양방향.** 목표는 0 이고 2026-09-02 에 0 이 되었다. 늘면 손으로 그린 것이
+//                 늘어난 것이고, 줄면 이득을 잠그라고 요구한다.
+//   bespoke       **하락만 잠근다.** 상승은 발견이다(아직 안 본 자리를 열어 보고 「제품이 여기서
+//                 정본을 물지 않는다」를 적은 결과다). 하락은 둘 중 하나인데 둘 다 손으로 적혀야
+//                 한다 — 제품이 정본을 물기 시작해 인스턴스가 되었거나(이득), 판정을 느슨하게
+//                 풀어 다른 칸으로 흘려보냈거나. `check-figma-surface-coverage` 의 `needed` 와
+//                 같은 모양이다.
 //   unclassified  **양방향, 목표 0.** 규칙이 못 본 모양이 새로 생기면 그것부터 판정해야 한다.
 //   instance      **바닥.** 떨어질 수 없다. 오르면 baseline 을 올려 이득을 잠근다.
-//   candidates    **바닥.** 후보(instance+replaceable+blocked+missing)를 구조로 재분류해서
+//   candidates    **바닥.** 후보(instance+replaceable+bespoke+blocked+missing)를 구조로 재분류해서
 //                 분모를 줄이는 길을 막는 그물이다. 이것이 없으면 「대체 가능이 줄었다」를
 //                 판정 규칙을 느슨하게 푸는 것만으로 만들어 낼 수 있다.
 //   blocked·missing  **세기만 한다.** 늘어난 것은 후퇴가 아니라 발견이다 — 아직 안 본 모양을
 //                 열어 보고 「이건 컴포넌트여야 한다」를 적은 결과이고, 그것을 실패로 만들면
 //                 다음 사람은 열어 보지 않는 쪽을 고른다(`check-figma-surface-coverage` 의
 //                 `needed` 와 같은 판단이다).
+//
+// ── `bespoke` 에 `scoped` 같은 천장이 필요한가 (판정: 필요 없다) ──────────
+//
+// 부정 경로는 하나다 — **`replaceable` 을 `bespoke` 로 옮겨 목표의 분모를 좁히는 것.** 인스턴스
+// 비율의 분모가 `instance + replaceable` 이므로, 대체 가능을 다른 칸으로 흘리면 그림은 한 장도
+// 안 바뀐 채 비율이 오른다. `check-coverage-targets` 의 `scoped` 천장이 막는 것과 같은 모양이다.
+//
+// 그런데 그 문은 **이미 두 겹으로 잠겨 있다.** ① `REPLACEABLE_BASELINE` 은 양방향이라 어떤
+// 하락도 실패하고, 손으로 baseline 을 내리면서 「어디로 갔는지」를 적게 만든다. ② 그 baseline 이
+// 지금 0 이므로 옮길 것이 애초에 없다 — 옮기려면 먼저 replaceable 을 올려야 하고 그 순간
+// ①에 걸린다. 같은 문에 자물쇠를 하나 더 다는 대신, **하락을 잠그는 쪽**을 골랐다.
+//
+// 잠기지 않는 이동이 하나 남는다: `missing ↔ bespoke`. 둘 다 목표의 분모 밖이고 둘 다 상승이
+// 자유라 서로 오갈 수 있다. 이것을 열어 두는 이유는 두 칸이 **같은 성격**이기 때문이다 —
+// 어느 쪽도 「지금 Figma 에서 할 일」이 아니고, 둘 다 다른 축(LOUIS 를 세운다 / 제품이 정본을
+// 문다)의 질문으로 넘어간다. 다만 그 이동은 `bespoke` 하락 잠금과 `INSTANCE_FLOOR` 어느 쪽에도
+// 안 걸리므로, 여기 적어 다음 사람이 알고 하게 한다.
 //
 // ── 왜 비율을 둘 인쇄하는가 ───────────────────────────────────────────────
 // 목표(인스턴스 비율 100%)의 분모는 **인스턴스 + 대체 가능**이다. 구조를 분모에 넣으면
@@ -64,15 +86,37 @@ const PLAN = "figma/app-screens.plan.json";
 // 그대로다** — 판정 규칙을 푼 것이 아니라 같은 후보가 다른 칸으로 옮겨 간 것이기 때문이다.
 // (규칙을 풀어 수를 예쁘게 만들면 candidates 가 함께 떨어지고 CANDIDATE_FLOOR 가 잡는다.)
 //
+// **다섯째 칸을 연 뒤(2026-09-02, DS-D-0046) 62 가 다시 갈렸다.** 원장이 「대체가능 62 가 지금
+// 바꿀 수 있는 것이다」로 인쇄하던 것이 거짓이었다 — 그 62 중 60 은 제품이 지역 스타일로 그리는
+// 자리라 Figma 에서만 인스턴스로 바꾸면 두 축이 어긋난다(DS-D-0043). 판정을 DS-D-0043 의
+// 정본 자리·제외 목록과 조인해 다시 내리니 **replaceable 62 → 0 · bespoke 0 → 60 ·
+// blocked 6 → 8** 이고, **후보 214 와 구조 667 은 그대로다** — 판정 규칙을 푼 것이 아니라 같은
+// 후보가 다른 칸으로 옮겨 갔기 때문이다. 옮겨 간 62의 내역:
+//   · 제외 목록이 이미 사유를 적어 둔 자리 41 — IconButton 27(probe `icon-button` ·
+//     `icon-button-card`, 둘 다 제품 지역 스타일) · SegmentedControlItem 12(probe
+//     `segmented-segment`) → bespoke, ProgressBar 2(probe `progress-bar-track`) → **blocked**
+//     (제품은 `.louis-progress-bar` 를 물지만 측정에 State 축을 고를 정보가 없다).
+//   · 정본 자리는 있는데 요소가 다른 자리 20 — `<a>` 로 그린 결제 CTA. `button-md` 의 요소는
+//     `<button>` 이다.
+//   · 제품 레시피 상자가 어긋난 자리 1 — `/settings` 「Delete account」의 padding-inline 이
+//     14 다(`.louis-button[data-size=md]` 는 12). DS-D-0043 이 이미 실측해 적어 둔 자리다.
+//
 // **새 위반을 받아들이려고 이 수를 올리지 마라** — 이 저장소의 baseline 규칙이다.
-const REPLACEABLE_BASELINE = 62;
+const REPLACEABLE_BASELINE = 0;
+const BESPOKE_BASELINE = 60; // 하락만 잠근다(상승은 발견)
 const UNCLASSIFIED_BASELINE = 0;
 const INSTANCE_FLOOR = 78;
 const CANDIDATE_FLOOR = 214;
 const BOARD_FLOOR = 36;
 
 // 판정 어휘. 여기 없는 낱말은 판정이 아니라 오타이고, 오타는 어느 래칫에도 잡히지 않는다.
-const VERDICTS = new Set(["instance", "replaceable", "blocked", "missing", "structural", "unclassified"]);
+const VERDICTS = new Set([
+  "instance", "replaceable", "bespoke", "blocked", "missing", "structural", "unclassified",
+]);
+// LOUIS 컴포넌트 이름을 적는 판정. 이 셋은 「LOUIS 에 그 컴포넌트가 있다」를 주장하므로 이름이
+// 되읽기에 실재해야 한다. `instance` 는 여기 없다 — 그쪽 이름은 `Product/*` 장면 세트라
+// 되읽기 어휘가 아니다.
+const NAMES_A_LOUIS_COMPONENT = new Set(["replaceable", "bespoke", "blocked"]);
 // 후보 조항. 분모를 정하는 것이 이 넷이라, 여기 없는 낱말이 들어오면 분모가 흐려진다.
 const CLAUSES = new Set(["a-interactive", "b-vector", "c-painted-mark", "d-control-group"]);
 // 사유의 최소 길이. `check-figma-surface-coverage` 의 MINIMUM_REASON 과 같은 값이다 —
@@ -81,7 +125,9 @@ const MINIMUM_REASON = 20;
 // 규칙 문서가 파일 안에 살아 있어야 한다. 규칙이 사라지면 이 수들은 비율이 아니라 그냥 수다.
 const REQUIRED_RULES = [
   ["$candidateRule", "무엇이 컴포넌트 후보인가 — 분모의 정의"],
-  ["$verdictRule", "판정을 넷으로 가른 근거"],
+  ["$verdictRule", "판정을 다섯으로 가른 근거"],
+  ["$bespokeRule", "bespoke 를 기계가 판정하는 방법과 그 조인표의 임자"],
+  ["$primitiveSiteSource", "정본 자리·제외 목록과 레시피 상자를 어디서 읽는가"],
   ["$denominatorRule", "비율의 분모에서 구조를 뺀 근거"],
   ["$pruningRule", "대체 가능 노드의 자손을 세지 않는 근거"],
   ["$overlapRule", "제품 표면 원장과 겹치지 않는 근거"],
@@ -133,9 +179,10 @@ const nodes = ledger.nodes ?? {};
 const ids = Object.keys(nodes);
 if (ids.length === 0) errors.push(LEDGER + " 에 노드가 하나도 없습니다. 셀 것이 없으면 통과가 아닙니다.");
 
-const recounted = { total: 0, instance: 0, replaceable: 0, blocked: 0, missing: 0, structural: 0, unclassified: 0 };
+const recounted = { total: 0, instance: 0, replaceable: 0, bespoke: 0, blocked: 0, missing: 0, structural: 0, unclassified: 0 };
 const unclassifiedIds = [];
 const byComponent = {};
+const bespokeByComponent = {};
 
 for (const id of ids) {
   const node = nodes[id];
@@ -162,15 +209,29 @@ for (const id of ids) {
     errors.push(at + ": " + node.verdict + " 에는 후보 조항(candidateClause)이 " + [...CLAUSES].join("/") +
       " 중 하나로 필요합니다: " + String(clause));
   }
-  if (node.verdict === "replaceable" || node.verdict === "instance") {
-    if (typeof node.component !== "string" || node.component.length === 0) {
+  if (NAMES_A_LOUIS_COMPONENT.has(node.verdict) || node.verdict === "instance") {
+    // `blocked` 중 아이콘 정체를 잃은 자리(`icon-identity-lost`)는 **어느 컴포넌트인지 자체를
+    // 모르는 것**이 판정의 내용이라 이름이 없다. 그 하나만 예외로 두고 나머지는 이름을 요구한다.
+    const mayLackComponent = node.verdict === "blocked" && node.component === undefined;
+    if (!mayLackComponent && (typeof node.component !== "string" || node.component.length === 0)) {
       errors.push(at + ": " + node.verdict + " 인데 어느 컴포넌트인지 적혀 있지 않습니다.");
-    } else if (node.verdict === "replaceable") {
+    } else if (NAMES_A_LOUIS_COMPONENT.has(node.verdict) && !mayLackComponent) {
       if (!componentVocabulary.has(node.component)) {
         errors.push(at + ": 되읽기에 없는 컴포넌트를 대응으로 적었습니다: " + node.component);
       }
-      byComponent[node.component + "/" + String(node.size)] = (byComponent[node.component + "/" + String(node.size)] ?? 0) + 1;
+      const key = node.component + "/" + String(node.size);
+      if (node.verdict === "replaceable") byComponent[key] = (byComponent[key] ?? 0) + 1;
+      if (node.verdict === "bespoke") bespokeByComponent[key] = (bespokeByComponent[key] ?? 0) + 1;
     }
+  }
+  // **bespoke 는 근거를 가리켜야 한다.** 「제품이 안 문다」는 판정을 사유 문장만으로 두면
+  // 다음 사람이 손으로 아무 자리나 이 칸에 넣을 수 있다 — DS-D-0043 의 목록 중 어느 항목이
+  // 그렇게 말했는지(`site` 또는 `probe`)가 함께 적혀야 조인이 검증 가능해진다.
+  if (node.verdict === "bespoke" && typeof node.site !== "string" && typeof node.probe !== "string") {
+    errors.push(
+      at + ": bespoke 인데 근거가 된 정본 자리(site)도 제외 probe(probe)도 적혀 있지 않습니다. " +
+        "DS-D-0043 의 목록과 조인한 결과라야 이 판정이 검증 가능합니다.",
+    );
   }
   if (node.verdict === "unclassified") unclassifiedIds.push(id);
   recounted[node.verdict] += 1;
@@ -188,12 +249,17 @@ for (const key of Object.keys(recounted)) {
   }
 }
 // 대응 집계도 다시 센다. 여기가 어긋나면 「무엇을 인스턴스로 바꿔야 하는가」의 목록이 틀린다.
-for (const key of new Set([...Object.keys(byComponent), ...Object.keys(ledger.byComponent ?? {})])) {
-  if ((ledger.byComponent ?? {})[key] !== byComponent[key]) {
-    errors.push(
-      LEDGER + " 의 byComponent." + key + " (" + String((ledger.byComponent ?? {})[key]) + ") 가 " +
-        "다시 센 값 " + String(byComponent[key]) + " 와 다릅니다.",
-    );
+// **bespoke 집계도 같이 센다** — 그쪽은 「무엇을 지금 바꾸면 «안» 되는가」의 목록이라, 틀리면
+// 다음 사람이 바꾸면 안 되는 자리를 바꾼다.
+for (const [field, recount] of [["byComponent", byComponent], ["bespokeByComponent", bespokeByComponent]]) {
+  const stored = ledger[field] ?? {};
+  for (const key of new Set([...Object.keys(recount), ...Object.keys(stored)])) {
+    if (stored[key] !== recount[key]) {
+      errors.push(
+        LEDGER + " 의 " + field + "." + key + " (" + String(stored[key]) + ") 가 " +
+          "다시 센 값 " + String(recount[key]) + " 와 다릅니다.",
+      );
+    }
   }
 }
 
@@ -218,7 +284,8 @@ if (surfaceShaped.length > 0) {
 }
 
 // ── 래칫 ──────────────────────────────────────────────────────────────────
-const candidates = recounted.instance + recounted.replaceable + recounted.blocked + recounted.missing;
+const candidates =
+  recounted.instance + recounted.replaceable + recounted.bespoke + recounted.blocked + recounted.missing;
 
 if (recounted.replaceable > REPLACEABLE_BASELINE) {
   errors.push(
@@ -232,6 +299,20 @@ if (recounted.replaceable > REPLACEABLE_BASELINE) {
       "(" + REPLACEABLE_BASELINE + " → " + recounted.replaceable + "). 이득을 잠그세요 — " +
       "이 파일의 REPLACEABLE_BASELINE 을 " + recounted.replaceable + " 로 내립니다. " +
       "내리지 않으면 그 자리는 다음에 조용히 되돌아옵니다.",
+  );
+}
+
+// **하락만 잠근다.** 상승은 발견이다 — 아직 안 본 자리를 열어 보고 「제품이 여기서 정본을
+// 물지 않는다」를 적은 결과이고, 그것을 실패로 만들면 다음 사람은 열어 보지 않는 쪽을 고른다.
+// 하락은 이득(제품이 정본을 물기 시작해 인스턴스가 되었다)일 수도, 판정을 푼 것일 수도 있으므로
+// 손으로 적게 한다.
+if (recounted.bespoke < BESPOKE_BASELINE) {
+  errors.push(
+    "제품이 정본을 물지 않는 자리(bespoke)가 " + (BESPOKE_BASELINE - recounted.bespoke) +
+      "개 줄었습니다 (" + BESPOKE_BASELINE + " → " + recounted.bespoke + "). 줄어드는 길은 " +
+      "둘입니다 — 제품이 그 자리에서 정본을 물기 시작했거나(이득), 판정을 느슨하게 풀어 다른 " +
+      "칸으로 흘려보냈거나. 이 파일의 BESPOKE_BASELINE 을 " + recounted.bespoke +
+      " 로 내리고 어느 쪽인지 적으세요.",
   );
 }
 
@@ -291,13 +372,25 @@ const target = recounted.instance + recounted.replaceable;
 const pct = (numerator, denominator) => (denominator > 0 ? ((numerator / denominator) * 100).toFixed(1) : "0.0");
 console.log(
   "화면 보드 구성: 보드 " + boardCount + "장 · 인스턴스 " + recounted.instance +
-    " / 대체가능 " + recounted.replaceable + " / 구조 " + recounted.structural +
+    " / 대체가능 " + recounted.replaceable + " / 제품bespoke " + recounted.bespoke +
+    " / 구조 " + recounted.structural +
     " / 미보유 " + recounted.missing + " / 막힘 " + recounted.blocked +
     " / 사유없음 " + recounted.unclassified +
     " · 인스턴스 비율 " + pct(recounted.instance, target) + "% (목표 100%, 분모 " + target +
     " = 인스턴스+대체가능) · 후보 전체 대비 " + pct(recounted.instance, candidates) +
     "% (분모 " + candidates + ").",
 );
+// **100% 가 「보드가 끝났다」는 뜻이 아니다.** 목표의 분모는 «지금 바꿀 수 있는 것»이라
+// 대체가능이 0 이면 비율은 정의상 100% 가 된다 — 그런데 그 옆에 bespoke·missing·blocked 가
+// 그대로 앉아 있다. 이 문장이 없으면 다음 사람은 첫 줄만 읽고 이 축을 닫는다.
+if (recounted.replaceable === 0 && recounted.bespoke + recounted.missing + recounted.blocked > 0) {
+  console.log(
+    "  ※ 인스턴스 비율 100% 는 「보드가 끝났다」가 아니다 — 분모가 «지금 바꿀 수 있는 것»이라 " +
+      "대체가능이 0 이면 정의상 100% 다. 남아 있는 것은 후보 전체 대비 " +
+      pct(recounted.instance, candidates) + "% 쪽이 센다: 제품bespoke " + recounted.bespoke +
+      " · 미보유 " + recounted.missing + " · 막힘 " + recounted.blocked + ".",
+  );
+}
 // **구조는 분모 밖이다** — 그 판단이 이 수 전체를 좌우하므로 이유를 매번 함께 찍는다.
 console.log(
   "  구조 " + recounted.structural + "개는 분모에서 뺐다: 칠 없는 auto-layout 프레임 · 자기가 " +
@@ -305,10 +398,25 @@ console.log(
     "컴포넌트로 만들면 재사용 계약이 없는 껍데기가 된다(Linear 도 Issue Page 안에 frame 21 개를 " +
     "그대로 둔다). 후보 규칙은 " + LEDGER + " 의 $candidateRule 이 소유한다.",
 );
+// **여기가 2026-09-02 까지 거짓말을 인쇄하던 자리다.** 「대체가능 62개가 지금 바꿀 수 있는
+// 것이다」로 찍었는데 그 62 중 60 은 바꾸면 «안» 되는 자리였다(제품이 지역 스타일로 그린다).
+// 그래서 두 줄로 가른다 — 지금 하는 일과, 지금 하면 안 되는 일.
+const tally = (counted) =>
+  Object.entries(counted).sort((a, z) => z[1] - a[1]).map(([k, v]) => k + " " + v).join(" · ");
 console.log(
-  "  대체가능 " + recounted.replaceable + "개가 지금 바꿀 수 있는 것이다: " +
-    Object.entries(byComponent).sort((a, z) => z[1] - a[1]).map(([k, v]) => k + " " + v).join(" · ") +
-    ". 미보유 " + recounted.missing + " · 막힘 " + recounted.blocked +
-    "(대응은 있는데 payload 가 아이콘 정체를 버려 고를 수 없다)은 늘어도 실패하지 않는다 — " +
-    "발견이지 후퇴가 아니다.",
+  "  대체가능 " + recounted.replaceable + "개가 지금 바꿀 수 있는 것이다" +
+    (recounted.replaceable === 0 ? " — 지금은 없다." : ": " + tally(byComponent) + "."),
+);
+console.log(
+  "  제품bespoke " + recounted.bespoke + "개는 **지금 바꾸면 안 된다**: " + tally(bespokeByComponent) +
+    ". LOUIS 에 컴포넌트는 있지만 제품이 그 자리에서 정본 클래스를 물지 않는다(DS-D-0043) — " +
+    "Figma 에서만 인스턴스로 바꾸면 Figma 가 제품보다 더 「정본」이 되어 두 축이 어긋난다. " +
+    "이 칸은 제품이 정본을 물기 시작하면 열린다. **그것이 되어야 하는가는 이 축의 질문이 " +
+    "아니라 표면 원장(migration/product.surfaces.json)의 `needed` 가 세는 질문이다.**",
+);
+console.log(
+  "  미보유 " + recounted.missing + " · 막힘 " + recounted.blocked +
+    "(대응은 있는데 측정이 고를 정보를 잃었다 — 아이콘 정체 · ProgressBar 의 State 축) · " +
+    "제품bespoke " + recounted.bespoke + " 는 늘어도 실패하지 않는다 — 발견이지 후퇴가 아니다. " +
+    "bespoke 는 «줄 때» 잠근다(BESPOKE_BASELINE).",
 );

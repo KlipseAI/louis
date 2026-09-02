@@ -268,14 +268,61 @@ export const LOUIS_PRIMITIVE_SITES = Object.freeze([
 /**
  * **여기 없는 probe 를 자리로 쓰지 않는 이유.** 목록에 없다는 것이 「대응이 없다」는 뜻이 아니라
  * 「제품이 그 자리에서 정본을 물지 않는다」는 뜻이므로, 지우지 말고 사유와 함께 남긴다.
+ *
+ * ── 왜 `component`·`sizes`·`verdict` 를 함께 적는가 (2026-09-02) ─────────────
+ *
+ * 이 목록은 처음에 **생성기만** 읽었다. 생성기에게는 「이 probe 를 자리로 쓰지 않는다」만
+ * 있으면 되므로 `probe` + `reason` 두 칸으로 충분했다. 그런데 보드 원장
+ * (`measure-figma-board-composition.mjs`)이 같은 판정을 필요로 하면서 칸이 모자랐다 —
+ * 원장은 도형을 «어느 LOUIS 컴포넌트의 어느 size 자리인가»로 부르고 probe 이름을 모른다.
+ * 조인할 칸이 없으면 원장은 목록을 **다시 손으로** 적게 되고, 두 벌이 된 목록은 반드시 어긋난다.
+ *
+ * `verdict` 는 **제외 사유가 한 종류가 아니기 때문에** 필요하다. 넷은 「제품이 정본을 물지
+ * 않는다」(지역 스타일)이지만 `progress-bar-track` 하나는 「제품은 무는데 측정이 variant 축을
+ * 고를 정보를 잃었다」다. 둘을 같은 낱말로 적으면 읽는 사람이 틀린 일을 하러 간다 — 앞의 것은
+ * 제품이 바뀌어야 열리고, 뒤의 것은 측정이 바뀌어야 열린다. (`blocked` 를 연 것과 같은 근거다.)
+ *
+ * `sizes: "*"` 는 「그 컴포넌트의 어느 size 도 이 판정을 받는다」다. size 를 좁혀 적으면
+ * 나머지 size 는 자리도 제외도 아닌 «판정 없는» 상태가 되고, 보드 원장은 그것을 만나면 던진다.
  */
 export const LOUIS_PRIMITIVE_EXCLUSIONS = Object.freeze([
-  { probe: "icon-button", reason: "출처가 `Gnb.tsx iconButton` 이다 — 제품 지역 스타일이지 `.louis-icon-button` 이 아니다." },
-  { probe: "icon-button-card", reason: "출처가 `appHomeSceneStyles.ts archiveMoreButton` 이다 — 카드 위 more 버튼의 지역 스타일이다." },
-  { probe: "segmented-track", reason: "출처가 `myPageSceneStyles.ts settingsToggleWrap` 이다 — `/settings` 토글은 `.louis-segmented-control` 을 물지 않는다." },
-  { probe: "segmented-segment", reason: "출처가 `myPageSceneStyles.ts settingsToggleBtn` 이다 — 같은 이유로 SegmentedControlItem 자리가 아니다." },
+  {
+    probe: "icon-button",
+    component: "IconButton",
+    sizes: "*",
+    verdict: "bespoke",
+    reason: "출처가 `Gnb.tsx iconButton` 이다 — 제품 지역 스타일이지 `.louis-icon-button` 이 아니다.",
+  },
+  {
+    probe: "icon-button-card",
+    component: "IconButton",
+    sizes: "*",
+    verdict: "bespoke",
+    reason:
+      "출처가 `appHomeSceneStyles.ts archiveMoreButton` 이다 — 카드 위 more 버튼의 지역 " +
+      "스타일이다. 클래스 이름에 `louis-` 가 붙어 있지만(`.louis-project-card-more`) 그것은 " +
+      "**ProjectCard 의 부품**이지 IconButton 프리미티브가 아니다 — 그래서 「probe 의 html 에 " +
+      "`louis-` 가 있는가」 같은 문자열 시험으로는 이 목록을 대신할 수 없다.",
+  },
+  {
+    probe: "segmented-track",
+    component: "SegmentedControl",
+    sizes: "*",
+    verdict: "bespoke",
+    reason: "출처가 `myPageSceneStyles.ts settingsToggleWrap` 이다 — `/settings` 토글은 `.louis-segmented-control` 을 물지 않는다.",
+  },
+  {
+    probe: "segmented-segment",
+    component: "SegmentedControlItem",
+    sizes: "*",
+    verdict: "bespoke",
+    reason: "출처가 `myPageSceneStyles.ts settingsToggleBtn` 이다 — 같은 이유로 SegmentedControlItem 자리가 아니다.",
+  },
   {
     probe: "progress-bar-track",
+    component: "ProgressBar",
+    sizes: "*",
+    verdict: "blocked",
     reason:
       "제품은 `.louis-progress-bar` 를 그대로 물지만 LOUIS ProgressBar 의 VARIANT 축은 " +
       "State(determinate·indeterminate) 하나뿐이고 **측정에 그 축을 고를 정보가 없다** — " +
@@ -283,6 +330,57 @@ export const LOUIS_PRIMITIVE_EXCLUSIONS = Object.freeze([
       "지워졌다. 지어내면 화면이 제품과 다른 상태를 말하게 된다.",
   },
 ]);
+
+/**
+ * **축약(slim) payload 가 제품 레시피 상자의 어느 축을 볼 수 있는가.**
+ *
+ * 생성기는 실브라우저 계산 스타일 전체를 갖고 상자를 «문자열까지» 대조한다(DS-D-0043).
+ * 보드 원장은 그럴 수 없다 — 원장이 읽는 것은 `figma/app-screens.*.draw.js` 의 축약 트리이고,
+ * 그 트리에 남아 있는 상자 축은 아래 일곱뿐이다. 그래서 **원장의 상자 시험은 생성기의
+ * 부분집합**이며, 그 사실을 여기 한 곳에 적어 둔다: 목록을 두 곳에 두면 어긋나고, 아예 안
+ * 적으면 「전부 대조했다」로 읽힌다.
+ *
+ * 보이지 않는 축(`min-width`·면 색·그림자 …)은 **시험하지 않는다.** 「보이지 않으니 같다」로
+ * 접으면 상자 시험이 조용히 통과 도장이 된다 — 그래서 원장은 어느 축을 실제로 댔는지 사유에
+ * 함께 적는다.
+ *
+ * 슬림 키는 `build-figma-app-screens.mjs` 의 `slim()` 이 소유한다:
+ *   r=[너비,높이] · d=반경(네 모서리 같을 때만 수) · l=[모드,간격,위,오른,아래,왼,…]
+ */
+export const SLIM_RECIPE_AXES = Object.freeze({
+  height: (node) => node.r?.[1],
+  borderTopLeftRadius: (node) => (typeof node.d === "number" ? node.d : undefined),
+  paddingTop: (node) => node.l?.[2],
+  paddingRight: (node) => node.l?.[3],
+  paddingBottom: (node) => node.l?.[4],
+  paddingLeft: (node) => node.l?.[5],
+  // Figma 의 itemSpacing 은 주축 간격 하나다. 가로 배치면 column-gap, 세로면 row-gap 이다.
+  columnGap: (node) => (node.l?.[0] === "H" ? node.l?.[1] : undefined),
+  rowGap: (node) => (node.l?.[0] === "V" ? node.l?.[1] : undefined),
+});
+
+/**
+ * **축약 노드를 제품 레시피 상자에 대본다.** 볼 수 있는 축만 댄다.
+ * 돌려주는 것은 `{ checked, mismatch }` — `mismatch` 가 null 이면 «보이는 축은 모두 같다»이지
+ * 「상자가 같다」가 아니다. 그 구분이 사라지면 원장이 근거보다 센 말을 하게 된다.
+ */
+export function slimRecipeBoxDiff(box, node) {
+  const checked = [];
+  let mismatch = null;
+  for (const [axis, pick] of Object.entries(SLIM_RECIPE_AXES)) {
+    const expected = box?.[axis];
+    if (expected === undefined) continue;
+    const actual = pick(node);
+    if (actual === undefined) continue;
+    const wanted = Number.parseFloat(String(expected));
+    if (!Number.isFinite(wanted)) continue;
+    checked.push(axis);
+    if (mismatch === null && Math.abs(wanted - actual) > 0.5) {
+      mismatch = { axis, expected: String(expected), actual };
+    }
+  }
+  return { checked, mismatch };
+}
 
 const isTransparent = (color) => /^(transparent|rgba\(0,\s*0,\s*0,\s*0\))$/.test(String(color ?? "").trim());
 

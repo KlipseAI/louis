@@ -48,16 +48,34 @@
 // 계약이 없는 껍데기가 된다. **구조는 분모 밖이다** — 그리고 그 사실이 이 파일의 가장 큰
 // 판단이므로, 구조에도 유형별 사유를 붙여 세어 인쇄한다. 사유 없이 넘어가는 길은 없다.
 //
-// ── 판정이 왜 셋이 아니라 넷인가 ─────────────────────────────────────────
+// ── 판정이 왜 셋이 아니라 다섯인가 ───────────────────────────────────────
 //
 // 처음 설계는 셋이었다 — replaceable(대응이 있다) · structural(컴포넌트가 아닌 게 맞다) ·
 // missing(컴포넌트여야 하는데 LOUIS 에 없다). **그 모델에는 svg 를 적을 자리가 없다.**
 // LOUIS 에는 아이콘 31종이 «있다». 그런데 draw payload 는 축약할 때 아이콘의 정체(path·이름)를
 // 버려서 어느 아이콘인지 기계가 고를 수 없다. 이것을 `replaceable` 로 세면 「지금 인스턴스로
 // 바꾸면 된다」는 거짓말이 되고(무엇으로 바꿀지 모른다), `missing` 으로 세면 「LOUIS 에 없다」는
-// 거짓말이 된다(31종이 있다). 어느 쪽으로 접든 읽는 사람이 틀린 일을 하게 된다.
+// 거짓말이 된다(31종이 있다). 어느 쪽으로 접든 읽는 사람이 틀린 일을 하게 된다. → `blocked`.
+//
+// **넷도 모자랐다(2026-09-02, DS-D-0043 이 예고한 빈칸).** 넷째 칸까지 세운 뒤 남은
+// 대체 가능 62 를 열어 보니 대부분이 「지금 바꿀 수 있는 것」이 아니었다:
+//   · `IconButton/md` 27 — 이 기하를 재는 probe 는 `icon-button`(출처 `Gnb.tsx iconButton`)과
+//     `icon-button-card`(출처 `appHomeSceneStyles.ts archiveMoreButton`) 둘뿐이고 **둘 다
+//     제품 지역 스타일**이다. `.louis-icon-button` 을 무는 probe 가 원장에 없다.
+//   · `SegmentedControlItem/xs` 12 — probe `segmented-segment` 의 출처가
+//     `myPageSceneStyles.ts settingsToggleBtn` 이다.
+//   · `Button/md` 21 — 20 은 `<a>` 로 그린 결제 CTA 이고(정본 자리 `button-md` 의 요소는
+//     `<button>` 이다), 1 은 `/settings` 의 「Delete account」로 padding-inline 이 14 다
+//     (`.louis-button[data-size=md]` 는 12).
+// 이것들을 `replaceable` 로 세는 것은 **읽는 사람에게 하면 안 되는 일을 시키는 것**이다.
+// 그 자리를 Figma 에서만 인스턴스로 바꾸면 Figma 가 제품보다 더 「정본」이 되고 두 축이
+// 어긋난다(DS-D-0043). `missing` 도 아니다 — LOUIS 에 그 컴포넌트는 이미 서 있다.
+// `structural` 은 더욱 아니다 — 사람이 누르는 것이라 상태 축을 갖는다. → `bespoke`.
 //
 //   replaceable  LOUIS 대응이 있고 **지금** 인스턴스로 놓을 수 있다. 이 수가 0 이 되는 것이 목표다.
+//   bespoke      LOUIS 대응은 있는데 **제품이 그 자리에서 정본을 물지 않는다.** 지금 바꾸면
+//                안 된다. 열리는 조건은 Figma 가 아니라 제품이 정본을 물기 시작하는 것이고,
+//                그것은 표면 원장(`migration/product.surfaces.json`)의 `needed` 가 세는 질문이다.
 //   blocked      대응은 있는데 **측정이 그것을 고를 정보를 잃었다.** 고칠 곳은 Figma 가 아니라
 //                생성기다 — `build-figma-app-screens.mjs` 의 축약이 아이콘 정체를 실어야 한다.
 //   missing      컴포넌트여야 하는데 LOUIS 에 그 축이 없다. 세워야 할 것의 목록이다.
@@ -65,6 +83,31 @@
 //
 // (`check-figma-surface-coverage` 가 축을 둘에서 넷으로 연 것과 같은 이유다 — 적을 자리가 없는
 // 판정은 다른 판정으로 «둔갑»하고, 둔갑한 수는 커버리지를 올라간 것처럼 보이게 한다.)
+//
+// ── bespoke 는 기계가 판정한다 — 사유는 손으로 적힌 것을 «빌려» 온다 ──────
+//
+// 판정 기준은 DS-D-0043 이 이미 정했다: 「제품이 그 자리에서 정본 클래스를 무는가」. 그 판정을
+// 담고 있는 것은 생성기의 `LOUIS_PRIMITIVE_SITES` · `LOUIS_PRIMITIVE_EXCLUSIONS` 이고,
+// 둘 다 생성물 `figma/app-screens.plan.json` 에 실려 있다. **그래서 이 열거기는 목록을 다시
+// 적지 않고 그 생성물과 조인한다** — 조인 키는 (컴포넌트, size, 태그)다.
+//
+// **자동 문자열 시험은 쓸 수 없다(실측으로 확인했다).** 「probe 의 html 이 `.louis-` 를
+// 가리키는가」로 접으면 `icon-button-card` 를 놓친다 — 그 probe 의 클래스는
+// `.louis-project-card-more` 로 `louis-` 로 시작하지만 그것은 **ProjectCard 의 부품**이지
+// IconButton 프리미티브가 아니다. 어느 `louis-` 이름이 «프리미티브»인지는 사람이 읽어야 알고,
+// 그 읽기의 결과가 저 두 목록이다. 그래서 **판정은 자동, 사유는 손으로 적힌 것을 인용**이다.
+//
+// 조인이 세 갈래로 갈린다.
+//   (1) (컴포넌트, size, 태그)가 정본 자리와 맞는다 → 제품 레시피 상자를 댄다.
+//       축약 트리가 볼 수 있는 축만 댄다(`SLIM_RECIPE_AXES`). 어긋나면 bespoke(어느 축이
+//       얼마나 어긋났는지 적는다), 다 맞으면 replaceable.
+//   (2) 그 컴포넌트·size 의 정본 자리는 있는데 **태그가 다르다** → bespoke. 결제 CTA 20개가
+//       여기다: 정본 자리 `button-md` 의 요소는 `<button>` 이고 이것들은 `<a>` 다.
+//   (3) 정본 자리가 아예 없다 → 제외 목록에서 그 컴포넌트를 찾아 **적힌 판정과 사유를 쓴다.**
+//       제외 다섯 중 넷은 `bespoke`(제품 지역 스타일)이고 `progress-bar-track` 하나는
+//       `blocked` 다 — 제품은 `.louis-progress-bar` 를 물지만 측정에 State 축을 고를 정보가
+//       없다. 둘을 한 낱말로 접으면 읽는 사람이 틀린 문을 두드린다.
+//   (4) 자리도 제외도 없다 → **던진다.** 판정 없이 넘어가는 길은 이 파일에 없다.
 //
 // ── `needed` 161 과 겹치는가 (실제로 대조했다) ────────────────────────────
 //
@@ -98,11 +141,15 @@ import { readFileSync, readdirSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { atomicWriteBatch } from "./lib/atomic-output.mjs";
+import { slimRecipeBoxDiff } from "./lib/figma-component-substitution.mjs";
 
 const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const figmaDir = resolve(repoRoot, "figma");
 const planPath = resolve(repoRoot, "figma/app-screens.plan.json");
 const readbackPath = resolve(repoRoot, "figma/readback.json");
+// 제품 레시피 원장. **상자를 여기서 읽는다 — 베끼지 않는다.** DS-D-0043 이 생성기에서 세운
+// 규칙과 같은 값을 봐야 하고, 값을 옮겨 적는 순간 제품이 움직인 날 조용히 낡는다.
+const recipesPath = resolve(repoRoot, "migration/product.rendered-components.json");
 const OUT = "migration/figma-board-composition.json";
 const outPath = resolve(repoRoot, OUT);
 const checkOnly = process.argv.includes("--check");
@@ -111,6 +158,42 @@ const fail = (message) => { throw new Error(`${TAG} ${message}`); };
 
 const plan = JSON.parse(readFileSync(planPath, "utf8"));
 const readback = JSON.parse(readFileSync(readbackPath, "utf8"));
+const recipes = JSON.parse(readFileSync(recipesPath, "utf8"));
+if (recipes.productCommit !== plan.productCommit) {
+  fail(
+    `제품 레시피 원장의 productCommit(${String(recipes.productCommit).slice(0, 8)}) 이 ` +
+    `런너 계획의 ${String(plan.productCommit).slice(0, 8)} 와 다릅니다. 어제의 제품 상자로 ` +
+    "오늘의 보드를 판정하게 됩니다.",
+  );
+}
+
+// ── 정본 자리 조인표 (DS-D-0043 의 판정을 빌려 온다) ──────────────────────
+// **여기서 목록을 다시 적지 않는다.** 원본은 `scripts/lib/figma-component-substitution.mjs` 의
+// `LOUIS_PRIMITIVE_SITES` · `LOUIS_PRIMITIVE_EXCLUSIONS` 이고, 생성기가 그것을 계획 파일에
+// 그대로 싣는다(`check-figma-app-screens` 가 byte-for-byte 잠근다). 목록이 두 벌이 되면
+// 반드시 어긋나고, 어긋난 판정은 「제품이 문다」를 근거 없이 말하게 된다.
+const primitiveSites = Array.isArray(plan.louisPrimitiveSites) ? plan.louisPrimitiveSites : [];
+const primitiveExclusions = Array.isArray(plan.louisPrimitiveExclusions) ? plan.louisPrimitiveExclusions : [];
+if (primitiveSites.length === 0) {
+  fail("런너 계획에 louisPrimitiveSites 가 없습니다. 조인표가 비면 모든 자리가 bespoke 로 접힙니다.");
+}
+if (primitiveExclusions.length === 0) {
+  fail("런너 계획에 louisPrimitiveExclusions 가 없습니다. 제외 사유가 없으면 판정에 근거가 없습니다.");
+}
+const EXCLUSION_VERDICTS = new Set(["bespoke", "blocked"]);
+for (const exclusion of primitiveExclusions) {
+  if (typeof exclusion.component !== "string" || !EXCLUSION_VERDICTS.has(exclusion.verdict)) {
+    fail(
+      `제외 목록의 항목 ${String(exclusion.probe)} 에 component/verdict 가 없습니다. ` +
+      "제외 사유는 한 종류가 아니므로(지역 스타일 ↔ 측정이 축을 잃음) 판정을 함께 적어야 합니다.",
+    );
+  }
+}
+const sitesFor = (component, size) =>
+  primitiveSites.filter((site) => site.component === component && site.size === size);
+const exclusionsFor = (component, size) =>
+  primitiveExclusions.filter((entry) =>
+    entry.component === component && (entry.sizes === "*" || (entry.sizes ?? []).includes(size)));
 
 // ── payload 스키마 ────────────────────────────────────────────────────────
 // `build-figma-app-screens.mjs` 의 `slim()` 이 내는 축약 트리다. 여기서 쓰는 키만 적는다:
@@ -261,6 +344,111 @@ function applyRule(rule, node, context) {
 }
 
 /**
+ * **정본 자리 판정 — 「제품이 그 자리에서 정본 클래스를 무는가」(DS-D-0043).**
+ *
+ * 대응 규칙이 「이 도형은 LOUIS X 의 y 자리 기하다」까지 말한 뒤에 부른다. 기하가 맞는 것과
+ * 제품이 그 정본을 무는 것은 **다른 질문**이고, 앞의 것만 보고 `replaceable` 이라 부른 것이
+ * 2026-09-02 까지 이 원장이 인쇄하던 거짓말이다(대체가능 62 중 60이 바꾸면 안 되는 자리였다).
+ *
+ * 돌려주는 것은 `{ verdict, entry }` 이고 verdict 는 replaceable · bespoke · blocked 중 하나다.
+ * 어느 갈래에도 들지 못하면 **던진다** — 판정 없이 넘어가는 길은 이 파일에 없다.
+ */
+function canonicalVerdict(rule, size, node) {
+  const sites = sitesFor(rule.component, size);
+
+  if (sites.length > 0) {
+    const site = sites.find((candidate) => candidate.element === node.t);
+    if (!site) {
+      // (2) 자리는 있는데 태그가 다르다. 결제 CTA 20개가 여기다 — 정본 자리의 요소는
+      //     `<button>` 이고 이것들은 `<a>` 다. 요소가 다르면 제품이 무는 클래스도 다르다.
+      return {
+        verdict: "bespoke",
+        entry: {
+          rule: "primitive-site-element-mismatch",
+          site: sites.map((candidate) => candidate.id).join("/"),
+          reason:
+            `${rule.component}/${size} 의 정본 자리는 ` +
+            `${sites.map((candidate) => `\`${candidate.id}\`(<${candidate.element}>)`).join(" · ")} 인데 ` +
+            `이 도형은 <${node.t}> 다. 제품이 그 자리에서 무는 요소가 아니므로 인스턴스로 ` +
+            "바꾸면 Figma 가 제품보다 더 「정본」이 된다(DS-D-0043).",
+        },
+      };
+    }
+    // (1) 제품 레시피 상자를 댄다. 축약 트리가 볼 수 있는 축만 댄다 — 어느 축을 실제로 댔는지
+    //     사유에 함께 적는다. 「보이지 않으니 같다」로 접으면 상자 시험이 통과 도장이 된다.
+    const box = recipes.rendered?.[site.probe];
+    if (!box || Object.keys(box).length === 0) {
+      fail(`제품 레시피 원장에 정본 자리 ${site.id} 의 probe 가 없거나 비어 있습니다: ${site.probe}`);
+    }
+    const { checked, mismatch } = slimRecipeBoxDiff(box, node);
+    if (checked.length === 0) {
+      fail(
+        `정본 자리 ${site.id} 의 상자를 축약 트리에서 한 축도 대보지 못했습니다. ` +
+        "댄 축이 없는데 통과시키면 상자 시험은 통과 도장일 뿐입니다.",
+      );
+    }
+    if (mismatch) {
+      return {
+        verdict: "bespoke",
+        entry: {
+          rule: "primitive-recipe-box-mismatch",
+          site: site.id,
+          probe: site.probe,
+          reason:
+            `제품 레시피 probe \`${site.probe}\` 의 ${mismatch.axis} 는 ${mismatch.expected} 인데 ` +
+            `이 도형은 ${mismatch.actual} 다 — 제품이 그 자리에서 무는 상자가 아니다. ` +
+            `축약 트리로 댄 축: ${checked.join("·")}.`,
+        },
+      };
+    }
+    return {
+      verdict: "replaceable",
+      entry: {
+        rule: rule.id,
+        site: site.id,
+        probe: site.probe,
+        reason:
+          `${rule.why} 되읽기의 ${rule.component}/${size} 와 ${rule.keys.join("·")} 가 맞고, ` +
+          `제품이 그 자리에서 정본을 문다(정본 자리 \`${site.id}\` — ${site.why}) — ` +
+          `레시피 상자 ${checked.join("·")} 가 모두 같다.`,
+      },
+    };
+  }
+
+  // (3) 정본 자리가 없다. 제외 목록이 «없다는 것 자체가 판정»이라고 적어 둔 자리다.
+  const exclusions = exclusionsFor(rule.component, size);
+  if (exclusions.length > 0) {
+    // 제외가 둘 이상이면(IconButton 이 그렇다 — probe 둘이 같은 기하를 잰다) 사유를 모두 싣는다.
+    // 하나만 싣고 나머지를 버리면 「다른 probe 는 정본일 수도 있다」가 조용히 남는다.
+    const verdicts = new Set(exclusions.map((entry) => entry.verdict));
+    if (verdicts.size > 1) {
+      fail(
+        `${rule.component}/${size} 의 제외 사유가 서로 다른 판정을 말합니다: ${[...verdicts].join("/")}. ` +
+        "한 자리가 두 판정을 가질 수는 없습니다.",
+      );
+    }
+    return {
+      verdict: exclusions[0].verdict,
+      entry: {
+        rule: "primitive-site-excluded",
+        probe: exclusions.map((entry) => entry.probe).join("/"),
+        reason:
+          `${rule.component}/${size} 기하를 재는 probe 는 ` +
+          `${exclusions.map((entry) => `\`${entry.probe}\``).join(" · ")} 이고 정본 자리 목록에 없다. ` +
+          exclusions.map((entry) => entry.reason).join(" "),
+      },
+    };
+  }
+
+  // (4) 자리도 제외도 없다.
+  return fail(
+    `${rule.component}/${size} 가 정본 자리 목록에도 제외 목록에도 없습니다(도형 <${node.t}>). ` +
+    "DS-D-0043 이 요구하는 판정이 없는 자리입니다 — `scripts/lib/figma-component-substitution.mjs` 의 " +
+    "LOUIS_PRIMITIVE_SITES 에 자리를 더하거나, LOUIS_PRIMITIVE_EXCLUSIONS 에 사유와 판정을 적으세요.",
+  );
+}
+
+/**
  * **구조 판정.** 후보가 아닌 노드에 유형별 사유를 붙인다. 유형이 하나도 맞지 않으면
  * `unclassified` 로 남긴다 — 「나머지는 전부 구조」라는 기본값을 두면 규칙이 못 보는 것이
  * 조용히 구조로 흘러들고, 그것이 곧 사유 없이 넘어가는 길이다.
@@ -282,8 +470,9 @@ const STRUCTURAL_KINDS = [
 
 const boards = [];
 const nodes = {};
-const counts = { total: 0, instance: 0, replaceable: 0, blocked: 0, missing: 0, structural: 0, unclassified: 0 };
+const counts = { total: 0, instance: 0, replaceable: 0, bespoke: 0, blocked: 0, missing: 0, structural: 0, unclassified: 0 };
 const byComponent = {};
+const bespokeByComponent = {};
 const byInstanceSet = {};
 const structuralByKind = {};
 const missingByReason = {};
@@ -303,7 +492,7 @@ for (const name of files) {
     context: payload.context,
     frameId: payload.frameId,
     file: `figma/${name}`,
-    counts: { total: 0, instance: 0, replaceable: 0, blocked: 0, missing: 0, structural: 0, unclassified: 0 },
+    counts: { total: 0, instance: 0, replaceable: 0, bespoke: 0, blocked: 0, missing: 0, structural: 0, unclassified: 0 },
   };
 
   // 전수(가지치기 전). 소유자가 손으로 센 43/933 과 같은 축이라 원장에 함께 남긴다 —
@@ -360,16 +549,23 @@ for (const name of files) {
       for (const rule of MATCH_RULES) {
         const size = applyRule(rule, node, context);
         if (size === null) continue;
-        record(path, node, "replaceable", {
-          rule: rule.id,
+        // 기하는 맞았다. 이제 **제품이 그 자리에서 정본을 무는가**를 묻는다 — 그 답이
+        // replaceable · bespoke · blocked 를 가른다(DS-D-0043).
+        const { verdict, entry } = canonicalVerdict(rule, size, node);
+        record(path, node, verdict, {
+          ...entry,
           component: rule.component,
           size,
           candidateClause: clause,
-          reason: `${rule.why} 되읽기의 ${rule.component}/${size} 와 ${rule.keys.join("·")} 가 맞는다.`,
         });
         const key = `${rule.component}/${size}`;
-        byComponent[key] = (byComponent[key] ?? 0) + 1;
-        return; // 인스턴스로 바뀌면 자손은 컴포넌트 안으로 사라진다
+        if (verdict === "replaceable") byComponent[key] = (byComponent[key] ?? 0) + 1;
+        if (verdict === "bespoke") bespokeByComponent[key] = (bespokeByComponent[key] ?? 0) + 1;
+        // **bespoke 도 자손을 세지 않는다 — replaceable 과 같은 이유다.** 이것은 컴포넌트가
+        // 될 자리이고 다만 «아직» 정본이 아닐 뿐이라, 제품이 정본을 물기 시작하면 자손은
+        // 컴포넌트 안으로 사라진다. 여기서 자손을 세면 62자리를 옮기는 것만으로 total 과
+        // structural 이 함께 튀어 「판정을 옮겼을 뿐인데 원장이 통째로 달라졌다」가 된다.
+        return;
       }
 
       if (clause === "b-vector") {
@@ -425,7 +621,8 @@ for (const name of files) {
 // 대조군으로 나란히 찍는다. 하나만 찍으면 둘 중 어느 쪽으로든 속일 수 있다
 // (`check-figma-surface-coverage` 가 「대상 대비 / 전체 대비」를 둘 다 찍는 것과 같은 이유다).
 const target = counts.instance + counts.replaceable;
-const candidates = counts.instance + counts.replaceable + counts.blocked + counts.missing;
+const candidates =
+  counts.instance + counts.replaceable + counts.bespoke + counts.blocked + counts.missing;
 const pct = (numerator, denominator) => (denominator > 0 ? Number(((numerator / denominator) * 100).toFixed(1)) : 0);
 
 const output = {
@@ -442,19 +639,38 @@ const output = {
     "그 밖의 모든 것은 구조이며 분모 밖이다 — Figma 의 FRAME·TEXT·IMAGE 가 정본이고, 컴포넌트로 " +
     "만들면 재사용 계약이 없는 껍데기가 된다. Linear 의 Issue Page 도 frame 21 개를 그대로 둔다.",
   $verdictRule:
-    "판정은 넷이다. replaceable(대응이 있고 지금 인스턴스로 놓을 수 있다) · blocked(대응은 " +
+    "판정은 다섯이다. replaceable(대응이 있고 지금 인스턴스로 놓을 수 있다) · bespoke(대응은 " +
+    "있는데 제품이 그 자리에서 정본을 물지 않아 지금 바꾸면 안 된다) · blocked(대응은 " +
     "있는데 측정이 그것을 고를 정보를 잃었다) · missing(컴포넌트여야 하는데 LOUIS 에 그 축이 " +
-    "없다) · structural(컴포넌트가 아닌 것이 맞다). 셋이 아니라 넷인 이유는 svg 를 적을 자리가 " +
+    "없다) · structural(컴포넌트가 아닌 것이 맞다). 셋이 아니라 넷이 된 이유는 svg 를 적을 자리가 " +
     "없었기 때문이다 — LOUIS 에 아이콘 31종이 있으므로 missing 이 아니고, payload 가 정체를 " +
     "버려서 어느 것인지 고를 수 없으므로 replaceable 도 아니다. 어느 쪽으로 접든 읽는 사람이 " +
-    "틀린 일을 하게 된다. blocked 가 고칠 곳은 Figma 가 아니라 생성기다.",
+    "틀린 일을 하게 된다. blocked 가 고칠 곳은 Figma 가 아니라 생성기다. 넷이 다섯이 된 이유도 " +
+    "같은 모양이다 — 제품이 지역 스타일로 그리는 자리를 replaceable 로 세면 「지금 바꾸면 " +
+    "된다」가 거짓이 되고(바꾸면 Figma 가 제품보다 더 정본이 되어 두 축이 어긋난다), missing 으로 " +
+    "세면 「LOUIS 에 없다」가 거짓이 되며, structural 로 세면 사람이 누르는 것을 도형이라 " +
+    "부르게 된다. bespoke 가 열리는 조건은 Figma 가 아니라 제품이 정본을 물기 시작하는 것이고, " +
+    "그것은 표면 원장의 needed 가 세는 질문이다.",
+  $bespokeRule:
+    "bespoke 판정은 손으로 적지 않고 DS-D-0043 의 목록과 조인해서 낸다. 조인 키는 (컴포넌트, " +
+    "size, 태그)이고, 원본은 scripts/lib/figma-component-substitution.mjs 의 " +
+    "LOUIS_PRIMITIVE_SITES · LOUIS_PRIMITIVE_EXCLUSIONS 이며 생성물 figma/app-screens.plan.json " +
+    "에 실려 있다(check-figma-app-screens 가 byte-for-byte 잠근다). 갈래는 넷이다 — " +
+    "(1) 자리가 있고 태그도 맞으면 제품 레시피 상자를 대고(축약 트리가 볼 수 있는 축만), " +
+    "어긋나면 bespoke · 다 맞으면 replaceable · (2) 자리는 있는데 태그가 다르면 bespoke · " +
+    "(3) 자리가 없으면 제외 목록에 적힌 판정(bespoke 또는 blocked)과 사유를 쓴다 · " +
+    "(4) 자리도 제외도 없으면 던진다. 자동 문자열 시험(「probe 의 html 이 louis- 를 " +
+    "가리키는가」)은 쓸 수 없다 — icon-button-card 의 클래스는 .louis-project-card-more 로 " +
+    "louis- 로 시작하지만 그것은 ProjectCard 의 부품이지 IconButton 프리미티브가 아니다. " +
+    "어느 louis- 이름이 프리미티브인지는 사람이 읽어야 알고, 그 읽기의 결과가 저 두 목록이다. " +
+    "그래서 판정은 자동이고 사유는 손으로 적힌 것을 인용한다.",
   $denominatorRule:
     "instance 비율의 분모는 instance + replaceable 이다. 구조를 분모에 넣으면 컴포넌트가 될 " +
     "생각이 없는 프레임을 못 된 것으로 세어 비율이 영원히 낮게 나온다. 그 분모만 찍으면 " +
     "blocked·missing 을 밖에 두어 수를 예쁘게 만들 수 있으므로, 후보 전체 대비를 대조군으로 " +
     "함께 찍는다.",
   $pruningRule:
-    "replaceable 로 판정된 노드의 자손은 세지 않는다 — 인스턴스로 바뀌면 자손은 컴포넌트 안으로 " +
+    "replaceable·bespoke 로 판정된 노드의 자손은 세지 않는다 — 인스턴스로 바뀌면 자손은 컴포넌트 안으로 " +
     "사라지고, 따로 세면 같은 픽셀을 두 번 센다(payload 가 인스턴스의 자식을 비워 두는 것과 같은 " +
     "이유다). missing 은 반대로 자손을 센다: 무엇이 안으로 들어갈지 아직 정해지지 않았으므로 " +
     "미리 지우면 분모가 근거 없이 줄어든다. 그래서 total 은 가지치기 전 전수보다 작다.",
@@ -472,7 +688,13 @@ const output = {
     "이 수는 하한이다. 대응 규칙 6개가 보는 것은 LOUIS 51종 중 6종(Button·IconButton·" +
     "SegmentedControl·SegmentedControlItem·Avatar·ProgressBar)뿐이다 — 나머지 45종의 대응은 " +
     "아직 규칙이 없어서 missing 이나 structural 로 앉아 있을 수 있다. 규칙을 더하면 " +
-    "replaceable 이 올라가고, 그때 게이트가 baseline 을 올리라고 요구한다.",
+    "replaceable 이나 bespoke 가 올라가고, 그때 게이트가 baseline 을 움직이라고 요구한다.",
+  $primitiveSiteSource:
+    "정본 자리·제외 목록은 figma/app-screens.plan.json 의 louisPrimitiveSites · " +
+    "louisPrimitiveExclusions 에서 읽고, 제품 레시피 상자는 " +
+    "migration/product.rendered-components.json 의 rendered[probe] 에서 읽는다. 어느 값도 이 " +
+    "열거기에 베끼지 않는다 — 베낀 목록은 제품이나 LOUIS 가 움직인 날 조용히 낡고, 그때부터 " +
+    "이 원장은 「제품이 문다」를 근거 없이 말하게 된다.",
   productCommit: plan.productCommit,
   figmaFileKey: plan.figmaFileKey,
   boardCount: boards.length,
@@ -486,6 +708,7 @@ const output = {
   },
   byInstanceSet,
   byComponent,
+  bespokeByComponent,
   structuralByKind,
   missingByCandidateClause: missingByReason,
   matchRules: MATCH_RULES.map((rule) => ({
@@ -499,7 +722,7 @@ const body = JSON.stringify(output, null, 2) + "\n";
 const line =
   `보드 ${boards.length} · 원시 전수 ${rawNodesBeforePruning} → 분류 ${counts.total}(가지치기 후 원시 ` +
   `${counts.total - counts.instance} + 인스턴스 ${counts.instance}) · ` +
-  `대체가능 ${counts.replaceable} / 막힘 ${counts.blocked} / ` +
+  `대체가능 ${counts.replaceable} / 제품bespoke ${counts.bespoke} / 막힘 ${counts.blocked} / ` +
   `미보유 ${counts.missing} / 구조 ${counts.structural} / 사유없음 ${counts.unclassified} · ` +
   `인스턴스 비율 ${output.ratio.instanceOverTarget}% (목표 100%, 분모 ${target}) · ` +
   `후보 전체 대비 ${output.ratio.instanceOverCandidates}% (분모 ${candidates}) @ ${String(plan.productCommit).slice(0, 8)}`;

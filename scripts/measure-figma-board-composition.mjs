@@ -333,7 +333,10 @@ const MATCH_RULES = [
   {
     id: "segmented-control-item",
     component: "SegmentedControlItem",
-    sizes: ["md", "xs", "lg"],
+    // `settings` 는 2026-09-03 에 붙었다 — DS-D-0048 정정. **앞에 둔다**: 28 높이·반경 8 은
+    // `xs` 와 높이가 같아 두 규칙이 같은 노드를 물 수 있고, 그때 좌우 여백 12(=제품)인 자리를
+    // 좌우 8 인 `xs` 로 부르면 틀린 이름이 붙는다.
+    sizes: ["settings", "md", "xs", "lg"],
     keys: ["height", "cornerRadius"],
     why: "같은 기하의 형제 버튼이 둘 이상인 라벨 버튼 — 하나짜리는 세그먼트가 아니라 그냥 버튼이다.",
     shape: (node, context) =>
@@ -343,7 +346,9 @@ const MATCH_RULES = [
   {
     id: "segmented-control",
     component: "SegmentedControl",
-    sizes: ["sm", "xs", "md", "lg"],
+    // 높이 36 · 반경 12 인 묶음이 `settings` 다(DS-D-0048 정정). 다른 넷과 높이가 겹치지 않아
+    // 순서는 결과를 바꾸지 않지만, 이 축에서 유일하게 «파생»인 높이라 눈에 띄게 앞에 적는다.
+    sizes: ["settings", "sm", "xs", "md", "lg"],
     keys: ["height", "cornerRadius"],
     why: "칠해진 컨트롤 묶음 — 묶음의 패딩·간격·선택 표시를 나르는 것은 묶음 컴포넌트다.",
     shape: (node) => !isControl(node) && isPainted(node)

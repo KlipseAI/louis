@@ -111,12 +111,30 @@ const PLAN = "figma/app-screens.plan.json";
 // **blocked 8 → 2**(남은 둘은 ProgressBar 의 State 축이고 그쪽은 진짜로 측정이 잃은 축이다).
 // **후보 214 · 구조 667 · 총수 881 은 그대로다** — 또 한 번, 같은 후보가 다른 칸으로 갔다.
 //
+// **2026-09-03 — `SegmentedControl/settings` 가 서면서 셋이 움직였다.**
+// bespoke **64 → 56** · missing **70 → 62** · 후보 **214 → 198** · 총수 **881 → 865**.
+// 네 수가 함께 내려간 이유는 하나다 — **matchRules 가 문 자리의 자손은 세지 않는다**
+// (`$pruningRule`). 36 높이 묶음 넷이 이제 `SegmentedControl/settings` 로 매치되므로 그 안의
+// 세그먼트 버튼들이 분모에서 컴포넌트 안으로 들어갔다.
+//
+// 사라진 16 이 무엇이었는지 이름으로 적는다. 직전 원장의 `bespokeByComponent` 는
+// `{IconButton/md: 27, Button/md: 21, SegmentedControlItem/xs: 12}` 였고 지금은
+// `{IconButton/md: 27, Button/md: 21, SegmentedControl/settings: 4}` 다 —
+// **`SegmentedControlItem/xs` 열둘이 통째로 없어졌다.** 그 열둘은 `/settings`·`/subscription`
+// 토글의 세그먼트였고, `xs` 로 불린 것은 높이 28 이 우연히 같았기 때문이다(좌우 여백은 제품
+// 12 · `xs` 8 로 갈렸다). **이름이 틀렸던 자리이고, 규칙에 `settings` 를 «앞에» 둔 이유가
+// 그것이다.** 나머지 넷은 missing 이던 트랙 자신이다.
+//
+// 그러므로 이 하락은 「판정을 느슨하게 풀어 흘려보낸 것」이 아니라 **분모가 옳아진 것**이다.
+// 넷은 여전히 bespoke 다 — 제품 `settingsToggleWrap` 이 `.louis-segmented-control` 을 물지
+// 않으므로 그 자리가 정본을 무는 날 replaceable 로 올라간다.
+//
 // **새 위반을 받아들이려고 이 수를 올리지 마라** — 이 저장소의 baseline 규칙이다.
 const REPLACEABLE_BASELINE = 0;
-const BESPOKE_BASELINE = 64; // 하락만 잠근다(상승은 발견)
+const BESPOKE_BASELINE = 56; // 하락만 잠근다(상승은 발견)
 const UNCLASSIFIED_BASELINE = 0;
 const INSTANCE_FLOOR = 78;
-const CANDIDATE_FLOOR = 214;
+const CANDIDATE_FLOOR = 198;
 const BOARD_FLOOR = 36;
 
 // 판정 어휘. 여기 없는 낱말은 판정이 아니라 오타이고, 오타는 어느 래칫에도 잡히지 않는다.

@@ -6628,6 +6628,16 @@
             }
           }
         },
+        "accent-secondary-selected": {
+          "$value": "{primitive.color.static.white}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-accent-secondary-selected",
+              "tier": "semantic",
+              "mode": "light"
+            }
+          }
+        },
         "alert-danger-foreground": {
           "$value": "{primitive.color.red.700}",
           "$extensions": {
@@ -8493,6 +8503,16 @@
           "$extensions": {
             "com.klipse-design": {
               "id": "color-accent-secondary-hover",
+              "tier": "semantic",
+              "mode": "dark"
+            }
+          }
+        },
+        "accent-secondary-selected": {
+          "$value": "{primitive.color.static-white-alpha.20}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-accent-secondary-selected",
               "tier": "semantic",
               "mode": "dark"
             }

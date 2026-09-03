@@ -1430,8 +1430,8 @@
             "$foreground": "주 전경 color-fg-primary"
           },
           "Selected": {
-            "background": "color-bg-raised",
-            "$background": "선택 세그먼트 배경 color-bg-raised",
+            "background": "color-accent-secondary-selected",
+            "$background": "선택 세그먼트 배경 color-accent-secondary-selected (트랙과 같은 잉크 축)",
             "foreground": "color-fg-primary",
             "$foreground": "주 전경 color-fg-primary"
           },

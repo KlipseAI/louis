@@ -12686,6 +12686,32 @@ export const tokens = {
         "alpha": 0.12
       }
     },
+    "color-accent-secondary-selected": {
+      "aliasTarget": {
+        "id": "color-static-white",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-accent-secondary-selected": "color(srgb 1 1 1 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-accent-secondary-selected",
+      "mode": "light",
+      "rawValue": "{primitive.color.static.white}",
+      "sourcePath": "semantic.light.color.accent-secondary-selected",
+      "tier": "semantic",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          1,
+          1
+        ],
+        "alpha": 1
+      }
+    },
     "color-alert-danger-foreground": {
       "aliasTarget": {
         "id": "color-red-700",
@@ -17559,6 +17585,32 @@ export const tokens = {
           1
         ],
         "alpha": 0.12
+      }
+    },
+    "color-accent-secondary-selected": {
+      "aliasTarget": {
+        "id": "color-static-white-alpha-20",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-accent-secondary-selected": "color(srgb 1 1 1 / 0.2)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-accent-secondary-selected",
+      "mode": "dark",
+      "rawValue": "{primitive.color.static-white-alpha.20}",
+      "sourcePath": "semantic.dark.color.accent-secondary-selected",
+      "tier": "semantic",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          1,
+          1
+        ],
+        "alpha": 0.2
       }
     },
     "color-alert-danger-foreground": {

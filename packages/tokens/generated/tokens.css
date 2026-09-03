@@ -264,6 +264,7 @@
   --louis-color-accent-secondary: color(srgb 0 0 0 / 0.08);
   --louis-color-accent-secondary-foreground: color(srgb 0.34902 0.360784 0.388235 / 1);
   --louis-color-accent-secondary-hover: color(srgb 0 0 0 / 0.12);
+  --louis-color-accent-secondary-selected: color(srgb 1 1 1 / 1);
   --louis-color-alert-danger-foreground: color(srgb 0.717647 0.141176 0.192157 / 1);
   --louis-color-alert-danger-stroke: color(srgb 1 0.294118 0.34902 / 0.24);
   --louis-color-alert-danger-surface: color(srgb 1 0.294118 0.34902 / 0.12);
@@ -703,6 +704,7 @@
   --louis-color-accent-secondary: color(srgb 1 1 1 / 0.08);
   --louis-color-accent-secondary-foreground: color(srgb 0.545098 0.556863 0.576471 / 1);
   --louis-color-accent-secondary-hover: color(srgb 1 1 1 / 0.12);
+  --louis-color-accent-secondary-selected: color(srgb 1 1 1 / 0.2);
   --louis-color-alert-danger-foreground: color(srgb 1 0.898039 0.909804 / 1);
   --louis-color-alert-danger-stroke: color(srgb 1 0.294118 0.34902 / 0.24);
   --louis-color-alert-danger-surface: color(srgb 1 0.294118 0.34902 / 0.12);

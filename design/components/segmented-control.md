@@ -95,7 +95,7 @@ variant 축이 없다. 세그먼트 컨트롤은 강조 단계를 갖지 않는�
 | --- | --- |
 | Default | 면 없음(트랙 색이 보인다), 전경 `color-fg-secondary` |
 | Hover | 전경 `color-fg-primary`. **면은 바뀌지 않는다** |
-| Selected | 면 `color-bg-raised`, 전경 `color-fg-primary` |
+| Selected | 면 `color-accent-secondary-selected`, 전경 `color-fg-primary` |
 | Disabled | 전경 `color-fg-disabled`, `cursor: not-allowed` |
 | Focus | 세그먼트가 공유 링을 받는다 |
 
@@ -217,11 +217,17 @@ Figma는 INNER_SHADOW로 대응한다 — 이전 OUTSIDE stroke에서 바뀐 것
 
 ## Implementation
 
-- 트랙 면 `color-bg-inset`과 선택 면 `color-bg-raised`는 **한 테마에서 죽지 않는
-  유일한 짝이다.** 다크에서 `inset`·`surface`·`menu`·`overlay` 넷이 같은 색이고 라이트에서
-  `raised`·`overlay`·`surface` 셋이 같다.
-- 트랙에 헤어라인을 두는 이유도 같다 — 다크에서 `inset`이 `surface`와 같아, 표면 위에 놓인
-  트랙이 테두리 없이는 보이지 않는다.
+- 트랙 면과 선택 면은 **둘 다 잉크 알파다** — 트랙 `color-accent-secondary`(8%), 선택
+  `color-accent-secondary-selected`. 처음에는 불투명 `color-bg-inset` ↔ `color-bg-raised`
+  였는데, 그 짝은 **불투명 조합으로 남은 유일한 하나**였을 뿐 좋은 짝이 아니었다: 다크에서
+  `inset`·`surface`·`menu`·`overlay` 넷이 같은 색이고 라이트에서 `raised`·`overlay`·`surface`
+  셋이 같아 고를 수 있는 것이 그것뿐이었다.
+- **불투명 썸을 알파 트랙과 짝지으면 얹히는 면에 따라 무너진다.** 알파 트랙은 호스트를 따라
+  움직이는데 불투명 썸은 고정이라 둘의 거리가 호스트마다 달라진다 — 다크 `bg-surface` 위에서
+  ΔL\* 10.8 이던 것이 `bg-menu` 위에서 2.8 이 됐고, 뒤쪽이 제품의 프로필 팝오버였다. 선택 면을
+  같은 잉크 축으로 옮겨 두 면이 함께 움직이게 했다.
+- 트랙에 헤어라인을 두는 이유는 남는다 — 8% 잉크는 얹히는 표면과 가까워, 표면 위에 놓인
+  트랙이 테두리 없이는 경계를 잃는다.
 - 세그먼트의 `flex`는 `1 1 auto`다. `1 1 0`으로 두면 기준 크기가 0이라 **여유가 있는데도 라벨이
   잘린다.**
 - `<fieldset>`의 기본 여백·테두리를 스스로 지운다. reset은 opt-in이라 소비자가 켜지 않을 수 있다.

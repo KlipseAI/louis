@@ -111,8 +111,8 @@
         },
         "secondary": {
           "Default": {
-            "background": null,
-            "$background": "투명 배경",
+            "background": "color-accent-secondary",
+            "$background": "secondary 8% 잉크 면 토큰",
             "foreground": "color-accent-secondary-foreground",
             "$foreground": "action secondary foreground 토큰",
             "border": "color-stroke-hairline",
@@ -135,16 +135,16 @@
             "$border": "generic 헤어라인 (color-stroke-hairline, DS-D-0023)"
           },
           "Disabled": {
-            "background": null,
-            "$background": "투명 배경",
+            "background": "color-accent-secondary",
+            "$background": "secondary 8% 잉크 면 토큰",
             "foreground": "color-fg-disabled",
             "$foreground": "disabled 전경 토큰",
             "border": "color-stroke-hairline",
             "$border": "generic 헤어라인 (color-stroke-hairline, DS-D-0023)"
           },
           "Loading": {
-            "background": null,
-            "$background": "투명 배경",
+            "background": "color-accent-secondary",
+            "$background": "secondary 8% 잉크 면 토큰",
             "foreground": "color-fg-disabled",
             "$foreground": "disabled 전경 토큰",
             "border": "color-stroke-hairline",

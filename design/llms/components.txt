@@ -1991,7 +1991,7 @@ Klipse의 홈과 허브 화면은 전부 이 카드의 격자다. 제품에는 �
 | Surface       | 상태           | 근거                                                            |
 | ------------- | -------------- | --------------------------------------------------------------- |
 | Web           | `partial`      | public export 10종과 실브라우저 acceptance test 6건; visual regression과 제품 소비 증거 없음 |
-| Figma         | `done`      | component set(State). 계약이 자손 기하·타이포·흐림·자식 순서를 대조하고 변조 canary 7종이 검출력을 고정한다. 기하는 양방향이다 — `surface-geometry.browser.test.tsx` 가 코드 쪽에서 같은 실측을 되잰다. 게시 없이 판정한다([DS-D-0035](../governance/decisions/DS-D-0035-figma-done-without-publish.md)) |
+| Figma         | `done`      | component set(State: Default·Hover·Renaming). 계약이 자손 기하·타이포·흐림·자식 순서를 대조하고 변조 canary 7종이 검출력을 고정한다. 기하는 양방향이다 — `surface-geometry.browser.test.tsx` 가 코드 쪽에서 같은 실측을 되잰다. 게시 없이 판정한다([DS-D-0035](../governance/decisions/DS-D-0035-figma-done-without-publish.md)) |
 | Documentation | `done`         | 이 문서                                                          |
 | Maturity      | `experimental` | 규범과 구현이 같은 변경 단위에서 처음 선다                       |
 
@@ -2063,6 +2063,11 @@ variant 축이 없다. 카드의 강조는 카드가 아니라 **썸네일**이 
 `ProjectCardAdornment` 안의 별도 컴포넌트가 표현하며 카드 자신의 축으로 두지 않는다 — 제품의 네
 벌이 이미 그렇게 하고 있고, 카드에 상태 축을 만들면 화면마다 다른 상태 어휘가 카드로 새어 들어온다.
 
+**Figma 의 `State`(Default·Hover·Renaming)는 이 문장과 어긋나지 않는다.** 코드에서 읽어 낼
+variant 축이 없다는 뜻이고, 그 셋은 CSS 상태이지 prop 이 아니라 계약이 `figmaOnlyProperties`
+로 등재한다 — Figma 에 CSS 상태를 담을 자리가 없어서 생기는 축이다
+([DS-D-0041](../governance/decisions/DS-D-0041-dialog-tone-axis.md) Consequences).
+
 #### States
 
 | state | 표현 |
@@ -2071,6 +2076,7 @@ variant 축이 없다. 카드의 강조는 카드가 아니라 **썸네일**이 
 | Hover | 카드 자신은 바뀌지 않는다. 슬롯 안의 컨트롤이 드러난다 |
 | Active | `scale(0.975)`. `:has(.louis-project-card-action:active)`로 **클릭 타깃만** 본다 — 프레임에 직접 걸면 슬롯의 버튼을 눌러도 카드가 줄어든다 |
 | Focus visible | 링은 프레임에 그린다. 투명한 클릭 타깃에만 링이 뜨면 무엇이 선택됐는지 모른다 |
+| Renaming | 제목 한 줄이 `<span>`에서 `<input>`으로 바뀐다. **카드의 다른 값은 하나도 움직이지 않는다** — 띠 높이·세 줄 폭·여백·간격·헤어라인이 그대로다. Figma `State=Renaming`이 이 상태이며 `Rename` 부품이 그 상자다 ([DS-D-0050](../governance/decisions/DS-D-0050-renaming-is-a-card-state.md)) |
 
 **hover에서 카드 면을 바꾸지 않는다.** 카드의 대부분은 썸네일이고 그 위에 어떤 강조를 얹어도
 이미지에 따라 결과가 달라진다. 제품 네 벌도 hover에서 면을 바꾸지 않는다.
@@ -2122,6 +2128,20 @@ variant 축이 없다. 카드의 강조는 카드가 아니라 **썸네일**이 
 
 **이름 변경에 크롬이 없는 이유** — 테두리나 면이 생기면 글자가 밀려 "다른 곳으로 갔다"처럼 보인다.
 
+**제품 네 벌이 이 상자에서 2 대 2 로 갈린다** (앵커 `ae8fd627` 실측, 2026-09-03).
+
+| 벌 | 정본 채택 | 반경 | 밑줄 |
+| --- | --- | ---: | --- |
+| 앱 홈 `appHomeSceneStyles.ts:340` | `louis-project-card-rename` | 2 | 없음 |
+| 노드캔버스 홈 `NodeCanvasHomeScene.tsx:398` | `louis-project-card-rename` | 2 | 없음 |
+| 하이라이트 허브 `highlightSceneStyles.ts:1036` | **얹지 않는다** | 0 | `1px solid palette-gray-400` (다크 `gray-500`) |
+| 비디오 에디터 허브 `VideoEditScene.tsx:395` | 얹지 않는다 | 0 | 같은 선언 |
+
+**정본의 반경 8(`radius-control-sm`)을 쓰는 벌은 하나도 없다.** 밑줄 두 벌의 비채택 사유는
+제품 주석에 낱말 그대로 있다 — 「정본의 `border: 0` 과 `border-radius: 8`(밑줄 끝이 말려
+올라간다)을 둘 다 되돌려야 한다」. 밑줄을 축으로 여는 것과 반경을 옮기는 것은 **둘 다 어느
+쌍이 정본인지의 판정을 먼저 요구**하므로 DS-D-0050 이 열어 둔 채 남겼다.
+
 #### Accessibility
 
 - 클릭 타깃이 네이티브 `<a>`/`<button>`이다. 제품의 네 벌은 전부 `<article>`에 `onClick`을 걸어
@@ -2147,6 +2167,7 @@ variant 축이 없다. 카드의 강조는 카드가 아니라 **썸네일**이 
 | 배경 흐림 | 10px | `blur-surface` |
 | 제목 | body-md-medium | `typography-body-md-medium` |
 | Eyebrow·Meta | body-sm-regular | `typography-body-sm-regular` |
+| 이름 변경 반경 | 8px | `radius-control-sm` |
 | 누름 | `scale(0.975)` | — |
 
 `overflow: hidden` 카드에서 inset 헤어라인은 제품 `5103ffeb`과 같은 결과다 — full-bleed 썸네일이

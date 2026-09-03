@@ -11,7 +11,7 @@
     "readback": {
       "tokens": 503,
       "canonicalLength": 50211,
-      "fnv1a32": "1178c9f8",
+      "fnv1a32": "89735a8a",
       "note": "변수는 readback.json의 되읽기 행을 tokenId 공간으로 옮긴 것이고, style과 component는 같은 되읽기의 style/component 절이다. canonical 해시는 컬렉션·이름·타입·mode 값을 정렬해 이은 문자열의 FNV-1a다.",
       "styles": {
         "text": 15,
@@ -1858,11 +1858,11 @@
       "figmaName": "color/landing/page-bg",
       "resolvedType": "COLOR",
       "valuesByMode": {
+        "Light": {
+          "alias": "color-palette-gray-050"
+        },
         "Dark": {
           "alias": "color-static-black"
-        },
-        "Light": {
-          "alias": "color-palette-gray-100"
         }
       }
     },

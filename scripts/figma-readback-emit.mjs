@@ -195,7 +195,7 @@ const CAPTURE = {
   "TableCell": {"key":{"by":["Align"]},"parts":{"Label":["width","height","fontSize"]},"strokes":["self"]},
   "TableHeaderCell": {"key":{"by":["Align"]},"parts":{"Label":["width","height","fontSize"]}},
   "Tabs": {"key":{"name":"base"},"slots":{"TabItem":"size"},"parts":{"TabItem":["width","height"]}},
-  "TextField": {"key":{"by":["Size"]},"parts":{"Box":["height","width","paddingInline","paddingInlineEnd","itemSpacing","cornerRadius","layoutMode"],"Label":["height","width","fontSize","lineHeightPercent"],"Value":["height","width","fontSize","lineHeightPercent"],"Message":["height","width","fontSize","lineHeightPercent"]},"strokes":["Box"]},
+  "TextField": {"key":{"by":["Size","LabelBehavior"]},"parts":{"Box":["height","width","paddingBlock","paddingBlockEnd","paddingInline","paddingInlineEnd","itemSpacing","cornerRadius","layoutMode"],"Label":["height","width","fontSize","lineHeightPercent"],"Value":["height","width","fontSize","lineHeightPercent"],"Message":["height","width","fontSize","lineHeightPercent"]},"strokes":["Box"]},
   "Toast": {"key":{"name":"base"},"effects":["self"]},
   "Tooltip": {"key":{"name":"base"},"parts":{"Arrow":["width","height"]},"strokes":["self"],"effects":["self"],"outsideParts":["Arrow"]},
   "VideoPlayer": {"key":{"name":"base"},"parts":{"Video (placeholder)":["width","height"],"Scrim (opacity 0)":["width","height"],"Center chrome":["width","height"],"Bottom chrome":["width","height"]},"strokes":["Vector"],"effects":["Skip back 10s","Play","Skip forward 10s","Progress pill","Expand"]},

@@ -1402,7 +1402,11 @@ const COMPONENT_CONTRACTS = [
       // 없었다(2026-08-18 실무 감사). Boolean으로 켜고 INSTANCE_SWAP으로 글리프를 고른다.
       Prefix: "prefix", Suffix: "suffix", PrefixGlyph: "prefix", SuffixGlyph: "suffix", Label: "label", Message: "description" },
     declaration: "packages/react/dist/text-field/text-field.d.ts",
-    variantProperties: { Size: "TextFieldSize" },
+    // **LabelBehavior 는 figmaOnlyProperties 가 아니라 여기 있다.** 코드에 `TextFieldLabelBehavior`
+    // 유니온이 실재하므로 게이트가 옵션 집합을 글자 그대로 대조할 수 있고, figmaOnly 로 빼는 것은
+    // 「코드에 대응이 없는 축」의 자리라 사실을 왜곡한다 — DS-D-0041 이 Dialog 의 Tone 에서 같은
+    // 판정을 내렸다 (DS-D-0049).
+    variantProperties: { Size: "TextFieldSize", LabelBehavior: "TextFieldLabelBehavior" },
     figmaOnlyProperties: {
       HasLabel: { type: "BOOLEAN", reason: "라벨 없는 필드가 실재한다 — 검색창이 그것이다." },
       HasMessage: { type: "BOOLEAN", reason: "도움말·오류 문구의 유무. 있고 없고에 따라 아래 여백이 달라진다." },
@@ -1418,18 +1422,35 @@ const COMPONENT_CONTRACTS = [
     effects: {},
     geometry: {
       measuredId: "input",
-      // size가 두 개이므로 sizeKey를 두지 않는다 — measured의 md/sm을 그대로 돈다.
-      fields: {},
+      // sizeKey를 두지 않는다 — measured의 키를 그대로 돈다. 그 키는 이제 `{Size}/{LabelBehavior}`
+      // 복합이고(`lg/stacked` · `md/stacked` · `sm/stacked` · `lg/floating`), 되읽기도 같은
+      // 축으로 담는다(figma-readback-emit.mjs 의 key.by). floating 이 lg 에만 있으므로 격자는
+      // 넷이다 — 조합을 전수로 채우지 않는다 (DS-D-0049).
+      fields: {
+        // **프레임 폭이 계약에 들어온다.** measured 가 328 을 `$frameWidth` 사유(focus 링 4px이
+        // 잘리지 않게 프레임을 넓힌다)와 함께 갖고 있었는데 **어느 게이트도 재지 않았다** —
+        // 링을 안으로 당기는 회귀가 조용히 통과했을 자리다.
+        width: "frameWidth",
+      },
       slots: {},
       // Focus 링의 2px. **테두리가 아니다** — CSS에서는 outline이고 Figma에 outline이 없어
       // 바깥으로 나가는 stroke로 그린다. 값은 border-width-ring과 같다.
       extraStrokeWeights: [2],
       parts: {
-        // 프레임이 박스보다 좌우 4씩 넓다 — focus 링이 잘리지 않게.
-        Box: { fields: { width: "boxWidth" } },
         Box: {
           fields: {
             height: "height",
+            // **프레임이 박스보다 좌우 4씩 넓다 — focus 링이 잘리지 않게.** 이 줄은 원래 바로
+            // 위에 `Box: { fields: { width: "boxWidth" } }` 로 따로 서 있었는데, 같은 객체에
+            // `Box` 키가 둘이라 **먼저 쓴 쪽이 조용히 버려지고 있었다.** measured 는 세 칸
+            // 모두 `boxWidth` 320 을 `$boxWidth` 사유와 함께 갖는데 그 값이 어디서도 대조되지
+            // 않았다. 한 키로 합쳐 되살린다 (DS-D-0049).
+            width: "boxWidth",
+            // Figma 에는 자식 margin 이 없다. CSS 는 위 여백 12 + control 의 margin 8 로
+            // 라벨 행을 만드는데, Figma 는 그 둘을 Box 의 paddingTop 하나에 접어 20 으로
+            // 그린다. 그 접기를 계약이 선언한다 — stacked 은 두 항이 다 0 이라 0 이다.
+            paddingBlock: ["paddingBlock", "labelRow"],
+            paddingBlockEnd: "paddingBlock",
             paddingInline: "paddingInline",
             paddingInlineEnd: "paddingInline",
             itemSpacing: "gap",
@@ -1437,7 +1458,10 @@ const COMPONENT_CONTRACTS = [
             layoutMode: { literal: "HORIZONTAL" },
           },
         },
-        Label: { fields: { fontSize: "labelFontSize" } },
+        // **한 축이 이 필드를 바꾸는 것이 계약이다.** floating 에서 라벨은 쉴 때 14, 떠오르면
+        // 12 이고 되읽기는 size 별로 값을 모으므로 한 칸에 둘이 함께 담긴다. stacked 은 두
+        // 근거가 같은 값이라 집합이 {14} 하나로 접힌다.
+        Label: { fields: { fontSize: { set: ["labelFontSize", "labelFloatedFontSize"] } } },
         Value: { fields: { fontSize: "fontSize" } },
         Message: { fields: { fontSize: "messageFontSize" } },
       },
@@ -2920,7 +2944,16 @@ function compareComponentGeometry(contract, got) {
         let want;
         if (typeof rule === "string") want = spec[rule];
         else if (Array.isArray(rule)) want = rule.reduce((total, key) => total + spec[key], 0);
-        else want = rule.literal;
+        else if (Array.isArray(rule?.set)) {
+          // **root와 같은 `set` 규칙.** 위 주석이 「규칙은 root의 fields와 같다」고 적는데
+          // 실제로는 여기에 `set`이 없었다 — root에만 나중에 붙었고 이 자리는 따라오지
+          // 않았다. 그래서 「한 축이 이 자손의 필드를 바꾼다」를 계약으로 적을 수 없었고,
+          // 적으면 "근거 값이 없습니다"로 떨어졌다. 주석이 참이 되도록 맞춘다 (DS-D-0049).
+          const members = rule.set.map((key) => spec[key]);
+          want = members.some((value) => value === undefined || Number.isNaN(value))
+            ? undefined
+            : { set: members };
+        } else want = rule.literal;
         if (want === undefined || Number.isNaN(want)) {
           issues.push(
             `${COMPONENTS_MEASURED_PATH}의 ${plan.measuredId}.${size}에 ${partName}.${field}의 근거 값이 없습니다.`,
@@ -2930,6 +2963,22 @@ function compareComponentGeometry(contract, got) {
         const values = part[field];
         if (!Array.isArray(values) || values.length === 0) {
           issues.push(`${contract.figmaName} ${size}: ${partName}.${field}가 없습니다.`);
+          continue;
+        }
+        if (want !== null && typeof want === "object" && Array.isArray(want.set)) {
+          // 대조는 **집합 상등**이다. 어느 변형이 어느 값을 갖는지는 보지 않는다 — 되읽기가
+          // size별로 값을 모으기 때문이고, root의 같은 규칙이 이미 그 한계를 적어 두었다.
+          const sort = (list) => [...new Set(list)].sort((a, b) => a - b);
+          const gotSet = sort(values);
+          const wantSet = sort(want.set);
+          if (
+            gotSet.length !== wantSet.length ||
+            gotSet.some((value, index) => value !== wantSet[index])
+          ) {
+            issues.push(
+              `${contract.figmaName} ${size}: ${partName}.${field}의 값 집합이 다릅니다 — 코드 실측 {${wantSet.join(", ")}}, Figma {${gotSet.join(", ")}}`,
+            );
+          }
           continue;
         }
         if (values.length > 1) {

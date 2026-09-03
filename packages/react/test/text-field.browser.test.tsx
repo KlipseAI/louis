@@ -38,7 +38,8 @@ function tokenValue(id: string, property: "background-color" | "color"): string 
 const SIZES: readonly TextFieldSize[] = ["lg", "md", "sm"];
 
 for (const size of SIZES) {
-  const spec = measured.components.input.sizes[size];
+  // measured 의 키는 `{Size}/{LabelBehavior}` 복합이다 (DS-D-0049).
+  const spec = measured.components.input.sizes[`${size}/stacked`];
 
   test(`TextField ${size}의 구조값이 components.measured.json과 같다`, async () => {
     await render(
@@ -111,7 +112,7 @@ test("sm이 알약이 되지 않는다 — 반경이 높이의 절반보다 작�
   );
   const box = find(".louis-text-field__box");
   const radius = px(getComputedStyle(box).borderTopLeftRadius);
-  expect(radius, "measured 계약과 같다").toBe(measured.components.input.sizes.sm.radius);
+  expect(radius, "measured 계약과 같다").toBe(measured.components.input.sizes["sm/stacked"].radius);
   expect(radius * 2, "높이보다 작다 — 알약이 아니다").toBeLessThan(box.offsetHeight);
 });
 
@@ -270,11 +271,17 @@ test("floating 의 높이는 여백과 값이 만든다 — 12 + 8 + 21 + 12", a
   );
   const box = find(".louis-text-field__box");
   const style = getComputedStyle(box);
-  expect(px(style.paddingBlockStart), "위 여백 = space-control-md").toBe(12);
-  expect(px(style.paddingBlockEnd), "아래 여백 = space-control-md").toBe(12);
-  expect(px(getComputedStyle(find(".louis-text-field__control")).marginBlockStart), "라벨 행 = space-control-sm").toBe(8);
-  expect(round(px(getComputedStyle(find(".louis-text-field__control")).lineHeight)), "값 행 = body-sm 21").toBe(21);
-  expect(box.offsetHeight, "12 + 8 + 21 + 12").toBe(53);
+  const spec = measured.components.input.sizes["lg/floating"];
+  expect(px(style.paddingBlockStart), "위 여백 = space-control-md").toBe(spec.paddingBlock);
+  expect(px(style.paddingBlockEnd), "아래 여백 = space-control-md").toBe(spec.paddingBlock);
+  const control = getComputedStyle(find(".louis-text-field__control"));
+  expect(px(control.marginBlockStart), "라벨 행 = space-control-sm").toBe(spec.labelRow);
+  expect(round(px(control.lineHeight)), "값 행 = body-sm 21").toBe(spec.lineHeight);
+  // 합이 measured 의 height 다. 네 항 중 하나만 어긋나도 여기서 갈린다.
+  expect(spec.paddingBlock * 2 + spec.labelRow + spec.lineHeight, "네 항의 합").toBe(spec.height);
+  expect(box.offsetHeight, "12 + 8 + 21 + 12").toBe(spec.height);
+  expect(px(style.paddingInlineStart), "좌우 여백").toBe(spec.paddingInline);
+  expect(px(style.borderTopLeftRadius), "반경").toBe(spec.radius);
 });
 
 test("floating 이 stacked 의 나머지 값을 하나도 다시 쓰지 않는다", async () => {
@@ -319,46 +326,48 @@ test("라벨이 값과 포커스에 따라 떠오르고, 색은 포커스만 따
 
   // 쉼 — 세로 중앙, body-sm 14, secondary.
   const restingTop = top();
-  expect(fontSize(), "쉴 때 14").toBe(14);
+  const floatSpec = measured.components.input.sizes["lg/floating"];
+  expect(fontSize(), "쉴 때 14").toBe(floatSpec.labelFontSize);
   expect(getComputedStyle(label).color, "쉴 때 secondary").toBe(secondary);
 
   // 포커스 — 떠오르고 색이 primary 가 된다.
   await userEvent.click(control);
-  await expect.poll(fontSize, { timeout: 2000 }).toBe(12);
+  await expect.poll(fontSize, { timeout: 2000 }).toBe(floatSpec.labelFloatedFontSize);
   expect(top(), "떠오르면 위로 간다").toBeLessThan(restingTop);
-  expect(round(top()), "떠오른 자리 = space-control-md 12").toBe(12);
+  expect(round(top()), "떠오른 자리 = space-control-sm 8").toBe(8);
   expect(getComputedStyle(label).color, "포커스면 primary").toBe(primary);
-  // 떠오른 라벨의 행 상자는 글자 높이와 같아야 값을 파고들지 않는다.
-  expect(round(px(getComputedStyle(label).lineHeight)), "행 높이 = 글자 높이").toBe(12);
+  // 행간은 caption 토큰 그대로다 — 리터럴 1 로 덮으면 Figma text style 연결이 끊긴다.
+  expect(round(px(getComputedStyle(label).lineHeight)), "행 높이 = caption 18").toBe(18);
 
   // 값이 있고 포커스가 없다 — 자리는 떠 있고 색은 secondary 로 돌아온다.
   await userEvent.type(control, "a@b.co");
   await userEvent.click(document.body);
   await expect.poll(() => getComputedStyle(label).color, { timeout: 2000 }).toBe(secondary);
-  expect(fontSize(), "값이 있으면 떠 있다").toBe(12);
-  expect(round(top()), "값이 있으면 떠 있다 — 자리").toBe(12);
+  expect(fontSize(), "값이 있으면 떠 있다").toBe(floatSpec.labelFloatedFontSize);
+  expect(round(top()), "값이 있으면 떠 있다 — 자리").toBe(8);
 });
 
-test("떠오른 라벨이 값 글자를 파고들지 않는다", async () => {
-  // `line-height: 1` 을 고른 이유가 이 한 줄이다. caption 의 1.5(18px)면 라벨 상자가 12..30 이
-  // 되어 값의 글자를 3px 넘게 덮는다.
+test("떠오른 라벨의 글자가 값의 글자와 닿지 않는다", async () => {
+  // 이 관계가 `inset-block-start: 8` 을 고른 유일한 이유다. caption 행간(18px)을 그대로 쓰면서
+  // 12 에 놓으면 라벨 글자가 15..27 이 되어 값 글자(23.5..)를 3.5px 파고든다. 8 로 당기면
+  // 11..23 이고 값과 0.5px 를 두고 비켜선다 — 제품이 `line-height: 1` + `top: 12` 로 얻는
+  // 12..24 와 1px 안이다.
   //
-  // **control 의 사각형과 비교하면 안 된다.** 그 상자는 행 높이 21 이라 글자(14) 위아래로
-  // 3.5px 씩의 반-행간을 품는다 — 상자끼리 재면 글자가 멀쩡한데도 겹쳤다고 나온다. 실제로
-  // 이 테스트의 첫 판이 그렇게 틀렸다(라벨 아래 24 vs 상자 위 20.5). 재야 하는 것은 **글자 띠**다.
+  // **상자끼리 재면 안 된다.** 행 상자는 글자 위아래로 반-행간을 품는다 — 재야 하는 것은 글자 띠다.
   await render(
     <div style={{ inlineSize: "320px" }}>
       <TextField label="이메일" labelBehavior="floating" defaultValue="a@b.co" />
     </div>,
   );
-  const label = find(".louis-text-field__label").getBoundingClientRect();
-  const control = find(".louis-text-field__control");
-  const style = getComputedStyle(control);
-  const halfLeading = (px(style.lineHeight) - px(style.fontSize)) / 2;
-  const glyphTop = control.getBoundingClientRect().top + halfLeading;
-  // 제품의 같은 구성은 정확히 맞닿는다(라벨 아래 25 · 글자 위 25). 여기서는 body-sm 의
-  // 반-행간이 3.5 라 0.5px 만 겹친다 — 12 라벨의 하강부 여백 안이고 글자끼리는 닿지 않는다.
-  expect(label.bottom - glyphTop, "글자 띠를 1px 넘게 파고들지 않는다").toBeLessThanOrEqual(1);
+  const band = (node: HTMLElement): { top: number; bottom: number } => {
+    const style = getComputedStyle(node);
+    const half = (px(style.lineHeight) - px(style.fontSize)) / 2;
+    const rect = node.getBoundingClientRect();
+    return { top: rect.top + half, bottom: rect.bottom - half };
+  };
+  const label = band(find(".louis-text-field__label"));
+  const value = band(find(".louis-text-field__control"));
+  expect(label.bottom, "라벨 글자가 값 글자 위에서 끝난다").toBeLessThanOrEqual(value.top);
 });
 
 test("stacked 에서는 라벨이 박스 밖의 형제로 남는다", async () => {

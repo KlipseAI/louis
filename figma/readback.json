@@ -15441,7 +15441,7 @@
       "effects": {}
     },
     "TextField": {
-      "variantCount": 15,
+      "variantCount": 20,
       "hasDescription": true,
       "properties": {
         "Label": {
@@ -15488,18 +15488,25 @@
             "Disabled",
             "Placeholder"
           ]
+        },
+        "LabelBehavior": {
+          "type": "VARIANT",
+          "options": [
+            "stacked",
+            "floating"
+          ]
         }
       },
       "binding": {
-        "boundFills": 60,
+        "boundFills": 80,
         "rawFills": 0,
-        "boundStrokes": 18,
+        "boundStrokes": 24,
         "rawStrokes": 0,
-        "textStyled": 45,
+        "textStyled": 60,
         "textUnstyled": 0
       },
       "geometry": {
-        "lg": {
+        "lg/stacked": {
           "slots": {},
           "parts": {
             "Label": {
@@ -15522,6 +15529,12 @@
               ],
               "width": [
                 320
+              ],
+              "paddingBlock": [
+                0
+              ],
+              "paddingBlockEnd": [
+                0
               ],
               "paddingInline": [
                 16
@@ -15602,7 +15615,7 @@
           "overflowingParts": [],
           "offCenterMarks": []
         },
-        "md": {
+        "md/stacked": {
           "slots": {},
           "parts": {
             "Label": {
@@ -15625,6 +15638,12 @@
               ],
               "width": [
                 320
+              ],
+              "paddingBlock": [
+                0
+              ],
+              "paddingBlockEnd": [
+                0
               ],
               "paddingInline": [
                 12
@@ -15705,7 +15724,7 @@
           "overflowingParts": [],
           "offCenterMarks": []
         },
-        "sm": {
+        "sm/stacked": {
           "slots": {},
           "parts": {
             "Label": {
@@ -15728,6 +15747,12 @@
               ],
               "width": [
                 320
+              ],
+              "paddingBlock": [
+                0
+              ],
+              "paddingBlockEnd": [
+                0
               ],
               "paddingInline": [
                 8
@@ -15776,6 +15801,117 @@
           },
           "height": [
             79
+          ],
+          "width": [
+            328
+          ],
+          "paddingBlock": [
+            4
+          ],
+          "paddingBlockEnd": [
+            4
+          ],
+          "paddingInline": [
+            4
+          ],
+          "paddingInlineEnd": [
+            4
+          ],
+          "itemSpacing": [
+            4
+          ],
+          "cornerRadius": [
+            0
+          ],
+          "layoutMode": [
+            "VERTICAL"
+          ],
+          "strokeWeight": [
+            0.5,
+            2
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "lg/floating": {
+          "slots": {},
+          "parts": {
+            "Box": {
+              "height": [
+                53
+              ],
+              "width": [
+                320
+              ],
+              "paddingBlock": [
+                20
+              ],
+              "paddingBlockEnd": [
+                12
+              ],
+              "paddingInline": [
+                16
+              ],
+              "paddingInlineEnd": [
+                16
+              ],
+              "itemSpacing": [
+                8
+              ],
+              "cornerRadius": [
+                12
+              ],
+              "layoutMode": [
+                "HORIZONTAL"
+              ]
+            },
+            "Value": {
+              "height": [
+                21
+              ],
+              "width": [
+                288
+              ],
+              "fontSize": [
+                14
+              ],
+              "lineHeightPercent": [
+                150
+              ]
+            },
+            "Label": {
+              "height": [
+                18,
+                21
+              ],
+              "width": [
+                288
+              ],
+              "fontSize": [
+                12,
+                14
+              ],
+              "lineHeightPercent": [
+                150
+              ]
+            },
+            "Message": {
+              "height": [
+                18
+              ],
+              "width": [
+                320
+              ],
+              "fontSize": [
+                12
+              ],
+              "lineHeightPercent": [
+                150
+              ]
+            }
+          },
+          "height": [
+            83
           ],
           "width": [
             328

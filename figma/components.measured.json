@@ -971,7 +971,7 @@
       "$source": "packages/react/src/text-field/text-field.tsx, packages/css/src/component/text-field.css",
       "$note": "제품에 공용 구현이 없다(no-canon). 정의 약 40벌이 다섯 계열로 갈리고 계열 사이에 합의가 없어 값은 DS가 정했다. 기하는 Button과 같은 계단을 쓴다 — 같은 화면에 나란히 서는 컨트롤이 서로 다른 높이를 갖지 않게 하려는 것이다. **시각적 필드는 <input>이 아니라 감싸는 박스다**(제품의 최대 계열인 인증 9벌과 같은 구조). 폭은 호출부가 정하므로 계약에 두지 않는다.",
       "sizes": {
-        "lg": {
+        "lg/stacked": {
           "height": 40,
           "paddingInline": 16,
           "gap": 8,
@@ -992,9 +992,15 @@
           "frameWidth": 328,
           "$frameWidth": "328. focus 링 4px 여백 포함",
           "boxWidth": 320,
-          "$boxWidth": "320. 측정용 필드 폭"
+          "$boxWidth": "320. 측정용 필드 폭",
+          "paddingBlock": 0,
+          "$paddingBlock": "0. stacked 의 박스는 세로 여백이 없다 — 높이는 min-block-size 와 align-items:center 가 만든다. Figma 의 Box 도 paddingTop/Bottom 이 0 이다",
+          "labelRow": 0,
+          "$labelRow": "0. 떠오른 라벨이 앉을 행. stacked 에는 그 행이 없다 — 라벨이 박스 밖이다. 계약이 Figma 의 paddingTop 을 paddingBlock + labelRow 로 접으므로 두 칸 다 값을 가져야 한다",
+          "labelFloatedFontSize": 14,
+          "$labelFloatedFontSize": "labelFontSize 와 같다. stacked 에서 라벨은 떠오르지 않으므로 두 상태가 없고, 계약의 집합 대조가 {14} 한 값으로 접는다"
         },
-        "md": {
+        "md/stacked": {
           "height": 32,
           "$height": "layout-control-height-md 32",
           "paddingInline": 12,
@@ -1018,9 +1024,15 @@
           "frameWidth": 328,
           "$frameWidth": "328. focus 링 4px 여백 포함",
           "boxWidth": 320,
-          "$boxWidth": "320. 측정용 필드 폭"
+          "$boxWidth": "320. 측정용 필드 폭",
+          "paddingBlock": 0,
+          "$paddingBlock": "0. stacked 의 박스는 세로 여백이 없다 — 높이는 min-block-size 와 align-items:center 가 만든다. Figma 의 Box 도 paddingTop/Bottom 이 0 이다",
+          "labelRow": 0,
+          "$labelRow": "0. 떠오른 라벨이 앉을 행. stacked 에는 그 행이 없다 — 라벨이 박스 밖이다. 계약이 Figma 의 paddingTop 을 paddingBlock + labelRow 로 접으므로 두 칸 다 값을 가져야 한다",
+          "labelFloatedFontSize": 14,
+          "$labelFloatedFontSize": "labelFontSize 와 같다. stacked 에서 라벨은 떠오르지 않으므로 두 상태가 없고, 계약의 집합 대조가 {14} 한 값으로 접는다"
         },
-        "sm": {
+        "sm/stacked": {
           "height": 24,
           "$height": "layout-control-height-sm 24. DS-D-0032가 연 세 번째 칸이며 편집 표면의 도구 줄 전용이다. CSS는 min-block-size라 긴 값이나 200% 확대에서 자란다",
           "paddingInline": 8,
@@ -1047,7 +1059,45 @@
           "$boxWidth": "320. 측정용 필드 폭",
           "$noMinWidth": "최소 폭 계약을 열지 않는다. 이 컴포넌트는 어느 칸에서도 최소 폭을 선언하지 않고(min-inline-size: 0) 폭은 호출부가 정한다. DS-D-0032도 sm 칸의 최소 폭 토큰을 만들지 않기로 했다",
           "$noIconSlot": "아이콘 슬롯 크기 계약도 열지 않는다. 어도먼트는 호출부가 넣은 아이콘 크기를 그대로 받으며 lg·md에도 이 축이 없다 — Button만 iconSlot을 갖는다",
-          "$measuredFrom": "Figma OlYKERKOkgbxBEEoXGZW2c, page 14 (791:12834), frame 1087:2383 「비디오에디터」를 읽기 전용으로 쟀다. **이 화면에 TextField로 확정된 24 높이 자리는 없다** — 가장 가까운 것이 인스펙터 불투명도의 40×24 값 박스 1087:2511이고, DS-D-0032가 센 여섯 자리에 그것은 들어 있지 않다. 32 높이 대조군은 내보내기 버튼 1087:2403 (좌우 12 · 반경 12 · 글자 14/150%)이다"
+          "$measuredFrom": "Figma OlYKERKOkgbxBEEoXGZW2c, page 14 (791:12834), frame 1087:2383 「비디오에디터」를 읽기 전용으로 쟀다. **이 화면에 TextField로 확정된 24 높이 자리는 없다** — 가장 가까운 것이 인스펙터 불투명도의 40×24 값 박스 1087:2511이고, DS-D-0032가 센 여섯 자리에 그것은 들어 있지 않다. 32 높이 대조군은 내보내기 버튼 1087:2403 (좌우 12 · 반경 12 · 글자 14/150%)이다",
+          "paddingBlock": 0,
+          "$paddingBlock": "0. stacked 의 박스는 세로 여백이 없다 — 높이는 min-block-size 와 align-items:center 가 만든다. Figma 의 Box 도 paddingTop/Bottom 이 0 이다",
+          "labelRow": 0,
+          "$labelRow": "0. 떠오른 라벨이 앉을 행. stacked 에는 그 행이 없다 — 라벨이 박스 밖이다. 계약이 Figma 의 paddingTop 을 paddingBlock + labelRow 로 접으므로 두 칸 다 값을 가져야 한다",
+          "labelFloatedFontSize": 14,
+          "$labelFloatedFontSize": "labelFontSize 와 같다. stacked 에서 라벨은 떠오르지 않으므로 두 상태가 없고, 계약의 집합 대조가 {14} 한 값으로 접는다"
+        },
+        "lg/floating": {
+          "height": 53,
+          "$height": "53. **선언값이 아니라 합이다** — space-control-md 12(위 여백) + space-control-sm 8(라벨 행) + body-sm 행 높이 21(값) + space-control-md 12(아래 여백). 네 항이 전부 토큰이고 CSS 는 높이를 선언하지 않는다(min-block-size control-height-lg 40 을 물려받지만 53 이 이미 넘어 바닥으로만 남는다). 제품 인증 일곱 벌의 같은 구성은 58 인데, 그 5px 은 값 타이포가 body-16(행 24)이기 때문이며 이 축이 만든 어긋남이 아니다 — 이 컴포넌트의 값은 제품을 옮긴 것이 아니라 DS 가 정한다는 $note 그대로다. 브라우저 테스트가 네 항과 합을 함께 잰다",
+          "paddingBlock": 12,
+          "$paddingBlock": "space-control-md 12. 위아래가 같다 — 위쪽의 라벨 행 8 은 padding 이 아니라 control 의 margin-block-start 다. Figma 에는 자식 margin 이 없어 Box 의 paddingTop 이 12 + 8 = 20 이고, 계약이 그 접기를 선언한다",
+          "labelRow": 8,
+          "$labelRow": "space-control-sm 8. 떠오른 라벨이 앉을 행이며 CSS 에서는 control 의 margin-block-start 다. 제품 인증 일곱 벌이 전부 이 값(mt-4 = 8)을 쓴다",
+          "paddingInline": 16,
+          "$paddingInline": "space-control-lg 16. stacked lg 와 같다 — 이 축은 좌우 여백을 다시 쓰지 않는다. 제품 일곱 벌도 16(px-8)이다",
+          "gap": 8,
+          "$gap": "space-control-sm 8. stacked 와 같다. 슬롯(비밀번호 표시 토글·지우기 버튼)과 값 사이",
+          "borderWidth": 0.5,
+          "$borderWidth": "0.5px. hairline 선언 토큰. stacked 와 같다",
+          "radius": 12,
+          "$radius": "radius-control 12. stacked lg 와 같고 제품 일곱 벌도 12 다",
+          "fontSize": 14,
+          "$fontSize": "body-sm 14. stacked 와 같다 — 라벨의 자리가 값의 크기를 바꾸지 않는다",
+          "lineHeight": 21,
+          "$lineHeight": "body-sm 행 높이 21px. 높이 53 의 네 항 중 하나다",
+          "labelFontSize": 14,
+          "$labelFontSize": "14. **쉬고 있을 때**의 라벨이다(State=Placeholder) — body-sm-medium 그대로이고 박스의 세로 중앙에 앉아 placeholder 처럼 읽힌다",
+          "labelFloatedFontSize": 12,
+          "$labelFloatedFontSize": "12. **떠올랐을 때**의 라벨이다(State 의 나머지 넷) — caption 12/150% Medium. Figma 는 typography/caption-medium style 이 셋을 한 번에 주고, CSS 는 caption 의 크기·행간 토큰을 쓰고 굵기는 __label 의 medium 을 물려받는다. 계약은 이 둘을 **집합**으로 대조한다 — 되읽기가 size 별로 값을 모으므로 한 칸에 두 값이 함께 담긴다",
+          "messageFontSize": 12,
+          "$messageFontSize": "caption-12 12px 도움말/에러. stacked 와 같다",
+          "stackGap": 4,
+          "$stackGap": "space-control-xs 4. 박스와 메시지 사이. 라벨은 박스 안이라 이 stack 에 없다",
+          "frameWidth": 328,
+          "$frameWidth": "328. focus 링 4px 여백 포함. stacked 와 같다",
+          "boxWidth": 320,
+          "$boxWidth": "320. 측정용 필드 폭. stacked 와 같다"
         }
       },
       "states": {
@@ -1079,7 +1129,8 @@
         }
       },
       "$statesNote": "Hover는 축에 없다. 제품의 필드도 대부분 hover에서 아무것도 바꾸지 않고, 필드의 어포던스는 보이는 테두리와 텍스트 커서가 맡는다. Focus는 색이 아니라 outline이라 states 표(면·전경·테두리)로 표현되지 않는다 — 브라우저 테스트가 따로 대조한다.",
-      "$frameWidth": "Figma variant 프레임이 좌우 4씩 넓다. focus 링이 박스 바깥 4px(outline 2 + offset 2)에 있어서, 프레임이 320이면 링이 잘려 offset이 0으로 보였다. **링을 안으로 당기지 않고 내용을 좁힌다** — 당기면 offset이 거짓이 된다."
+      "$frameWidth": "Figma variant 프레임이 좌우 4씩 넓다. focus 링이 박스 바깥 4px(outline 2 + offset 2)에 있어서, 프레임이 320이면 링이 잘려 offset이 0으로 보였다. **링을 안으로 당기지 않고 내용을 좁힌다** — 당기면 offset이 거짓이 된다.",
+      "$labelBehaviorNote": "키가 `{Size}/{LabelBehavior}` 복합인 이유는 한 size 안에서 두 라벨 동작이 서로 다른 기하를 갖기 때문이다(InlineLoadingLabel 의 `{Size}/{Loading}` 이 같은 형태다). **floating 은 lg 에만 있다** — 제품이 인증 화면에서 lg 만 쓰고(DS-D-0027), md·sm 의 floating 은 잰 자리가 없어 지어내야 한다. 조합을 전수로 채우지 않는 판정은 DS-D-0041 의 `Tone=danger` 가 compact 에만 선 것과 같은 자리다 (DS-D-0049)."
     },
     "empty-state": {
       "$doc": "design/components/empty-state.md",

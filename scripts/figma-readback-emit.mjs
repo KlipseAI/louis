@@ -211,6 +211,7 @@ function usage(message) {
       "  node scripts/figma-readback-emit.mjs --spec [--only Name1,Name2]",
       "  node scripts/figma-readback-emit.mjs --variables --only color/a,color/b",
       "  node scripts/figma-readback-emit.mjs --merge-variables <결과.json>",
+      "  node scripts/figma-readback-emit.mjs --remove-variables 'Klipse Primitive::color/a,…'",
     ].join("\n"),
   );
   process.exit(message ? 1 : 0);
@@ -661,6 +662,41 @@ function mergeVariables(resultPath) {
   );
 }
 
+/** 되읽기에서 **행을 뺀다.** 라이브에서 지워진 변수를 되읽기에 남겨 두지 않기 위한 길이다.
+ *
+ * `--merge-variables` 는 갱신과 삽입만 한다 — 방출 코드가 라이브에 없는 이름을 `missing` 으로
+ * 내고 거기서 죽으므로, **라이브에 없는 행은 이 스크립트로 지울 방법이 아예 없었다.** 그래서
+ * 삭제만 손으로 하게 되고, 손이 들어가는 순간 되읽기가 조용히 낡는다 — 이 파일 머리말이 막으려던
+ * 바로 그 상태다(DS-D-0030). 이름은 컬렉션이 갈리는 축(`border-width/hairline` 은 Primitive 와
+ * Semantic 양쪽에 있다)이라 `컬렉션::이름` 으로만 받는다. */
+function removeVariables(spec) {
+  const readbackFile = resolve(repoRoot, READBACK_PATH);
+  const readback = JSON.parse(readFileSync(readbackFile, "utf8"));
+  let removed = 0;
+  for (const entry of spec) {
+    const at = entry.indexOf("::");
+    if (at === -1) usage(`--remove-variables 는 '컬렉션::이름' 형식이 필요합니다: ${entry}`);
+    const collName = entry.slice(0, at);
+    const varName = entry.slice(at + 2);
+    const target = readback.collections?.[collName];
+    if (target === undefined) {
+      console.error(`[readback-emit] 되읽기에 없는 컬렉션입니다: ${collName}`);
+      process.exit(1);
+    }
+    const row = target.rows.findIndex((r) => r[0] === varName);
+    if (row === -1) {
+      /* 이미 없는 행을 지우라고 한 것은 대상을 잘못 짚었다는 뜻이다 — 조용히 넘기면 오타가
+         「지웠다」로 보고된다. */
+      console.error(`[readback-emit] 되읽기에 없는 변수입니다: ${entry}`);
+      process.exit(1);
+    }
+    target.rows.splice(row, 1);
+    removed += 1;
+  }
+  writeFileSync(readbackFile, `${JSON.stringify(readback, null, 2)}\n`);
+  console.error(`[readback-emit] 변수 ${removed}개 행을 뺐습니다.`);
+}
+
 if (argv.includes("--components")) {
   process.stdout.write(pluginSource(selectedSpec()));
 } else if (argv.includes("--spec")) {
@@ -673,6 +709,12 @@ if (argv.includes("--components")) {
   const path = argv[argv.indexOf("--merge-variables") + 1];
   if (!path) usage("--merge-variables 뒤에 결과 파일 경로가 필요합니다.");
   mergeVariables(path);
+} else if (argv.includes("--remove-variables")) {
+  const list = argv[argv.indexOf("--remove-variables") + 1];
+  if (!list) usage("--remove-variables 뒤에 '컬렉션::이름' 목록이 필요합니다.");
+  const spec = list.split(",").map((n) => n.trim()).filter(Boolean);
+  if (spec.length === 0) usage("--remove-variables 뒤에 '컬렉션::이름' 목록이 필요합니다.");
+  removeVariables(spec);
 } else if (argv.includes("--merge")) {
   const path = argv[argv.indexOf("--merge") + 1];
   if (!path) usage("--merge 뒤에 결과 파일 경로가 필요합니다.");

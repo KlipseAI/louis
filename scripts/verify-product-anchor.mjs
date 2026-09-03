@@ -69,12 +69,67 @@ const DECLARED_RATCHET = 2;
 //
 // **한 방향 래칫이다.** 개수가 늘면 실패하고, 줄면 이 표를 내리라고 요구한다.
 // css-modules baseline 과 같은 성격이며, 목표는 이 표가 비는 것이다.
+//
+// **2026-09-03 정정.** 이 표는 「앵커 재고정으로 0 이 된다」고 적고 있었는데, 그날 실제로
+// 재고정을 했고(`ae8fd627` → `5a67d692`) **넷 다 그대로 남았다.** 남은 이유가 넷 다 다르고,
+// 넷 다 lock 을 옮기는 것과 무관하다 —
+//   product.scenes.json          측정기가 NOT_MEASURED 다(liveOnly 표본 0). 앵커와 무관하다.
+//   product-pricing-page.plan    위의 그림자다. 장면 증거가 서야 열린다.
+//   product.variable-modes.json  제품을 브라우저에 올려 문맥별 해결값을 뽑아야 한다.
+//   product.measured.json        손으로 쓴 파일이고, 핀을 옮기기 전에 파일 안의 모순을
+//                                사람이 판정해야 한다(아래 HOW_TO_REALIGN).
+// 진단이 「재고정하면 된다」고 말하는 동안은 다음 사람이 lock 만 다시 박고 넘어간다.
 const KNOWN_STALE = new Map([
   ["figma/product-pricing-page.plan.json", 1],
   ["migration/product.measured.json", 1],
   ["migration/product.scenes.json", 3],
   ["migration/product.variable-modes.json", 2],
 ]);
+
+// ── fixture 축 ────────────────────────────────────────────────────────────
+// **이 저장소는 지금 제품을 두 방법으로 잰다. 재고정이 그 둘을 갈라 놓았다.**
+//
+// 2026-09-03 에 앵커를 `ae8fd627` → `5a67d692` 로 옮겼다(제품 `origin/design`). 옮길 수 있었던
+// 것은 **git 트리만 읽는** 원장들이다 — 근거 lock · 인용 620건 · alpha · drift · nav-labels ·
+// render · 표면 · LOUIS 토큰 사용. 제품 저장소만 있으면 다시 뜬다.
+//
+// 따라오지 못한 것은 **측정 fixture 를 거치는** 원장들이다. `product.auth-fixture.json` 과
+// `product.sidebar-states.json` 은 「lock 커밋에 고정된 clean 클론 + standalone 빌드 +
+// Playwright」를 요구하고(`KLIPSE_PRODUCT_FIXTURE_ROOT`), 그 fixture 는 `KLIPSE_PRODUCT_FIXTURE_ROOT` 가 가리키는 clean 클론에
+// `ae8fd627` 로 서 있다. 그 위에 `build-figma-app-screens` 가 계획을 얹고, 보드 원장과 화면
+// 계획 여덟이 그 계획을 읽는다. 그래서 이 열넷은 **한 매듭**이며, 앵커만 옮기면 생성기들이
+// 「어제의 제품 상자로 오늘의 보드를 판정한다」로 스스로 멈춘다 — 그렇게 멈추는 것이 맞다.
+//
+// **KNOWN_STALE 과 섞지 않는 이유.** 저것은 「앵커 재고정으로 0 이 되는」 부채다. 이 열넷은
+// 재고정으로 0 이 되지 않는다 — fixture 를 새 커밋에 다시 세워야 0 이 된다. 고치는 방법이
+// 다른 것을 한 목록에 넣으면 진단이 거짓말을 한다.
+//
+// **여기 없는 것과 갈라야 한다.** 처음 이 표를 세울 때 `figma/inventory-plan.json` ·
+// `figma/product-highlight-hub.plan.json` · `migration/product.variants.json` 도 함께 넣었는데,
+// 그 셋의 생성기는 fixture 가 아니라 **lock 을 읽는다**. 낡아 보인 것은 아직 다시 만들지
+// 않아서였을 뿐이고, 실제로 다시 만드니 세 파일 다 새 앵커로 따라왔다(그 과정에서 제품이
+// 배너 화살표를 지우고 어드민 토스트를 `AdminAlert` 로, 크레딧 내역을 표로 바꾼 것이
+// 드러났다). **「낡아 보인다」와 「따라올 수 없다」는 다르다** — 생성기가 무엇을 읽는지
+// 확인하지 않고 이 표에 넣으면 옮길 수 있는 것을 영구 면제로 굳힌다.
+//
+// **개수가 아니라 값으로 잠근다.** 파일당 개수만 세면 그 안의 핀이 아무 값으로나 바뀌어도
+// 조용하다. 그래서 fixture 커밋을 여기 적고, 그 값과 다른 핀은 개수와 무관하게 실패시킨다.
+const FIXTURE_COMMIT = "ae8fd6278481a5e86cd324ba86a1d44fe978b788";
+const FIXTURE_AXIS = new Map([
+  ["figma/app-screens.plan.json", 1],
+  ["figma/product-app-shell.plan.json", 1],
+  ["figma/product-checkout-status.plan.json", 1],
+  ["figma/product-components.plan.json", 1],
+  ["figma/product-payment-scenes.plan.json", 1],
+  ["figma/product-sidebar-states.plan.json", 1],
+  ["figma/product-upgrade-scene.plan.json", 1],
+  ["migration/figma-board-composition.json", 1],
+  ["migration/product.auth-fixture.json", 2],
+  ["migration/product.rendered-components.json", 2],
+  ["migration/product.sidebar-states.json", 1],
+]);
+// 한 방향 래칫. fixture 를 새 앵커에 세우면 이 표는 통째로 사라진다.
+const FIXTURE_AXIS_RATCHET = 13;
 
 // 어긋난 핀을 어떻게 되돌리는지. 생성물마다 만드는 명령이 다르므로 진단이 직접 말하게 한다.
 const HOW_TO_REALIGN = new Map([
@@ -96,7 +151,7 @@ const HOW_TO_REALIGN = new Map([
     "migration/product.measured.json",
     "이 파일은 손으로 쓴다. 핀을 앵커에 맞추기 전에 **파일 안의 모순부터 판정해야 한다** — " +
       "`productCommit` 은 086f4a62(2026-08-14)인데 같은 파일의 `$reanchoredNote` 는 " +
-      "2026-08-30 에 기준선을 a7d045e3 로 옮겼다고 적고, lock 은 ae8fd627 을 고정한다. " +
+      "2026-08-30 에 기준선을 a7d045e3 로 옮겼다고 적고, lock 은 이제 5a67d692 를 고정한다. " +
       "세 값이 서로 다르다. 인용 187건이 실제로 어느 커밋에서 지켜지고 있는지는 " +
       "verify-product-evidence 가 lock 기준으로 재고 있으므로, 핀도 그쪽으로 모으는 것이 " +
       "일관되지만 그것은 소유자 판정이다.",
@@ -113,7 +168,8 @@ if (typeof anchor.commit !== "string" || !/^[0-9a-f]{40}$/.test(anchor.commit)) 
   );
 }
 
-const primary = compare(anchor.commit, pins, DECLARED_HISTORICAL_PINS, KNOWN_STALE);
+const FIXTURE = { commit: FIXTURE_COMMIT, files: FIXTURE_AXIS };
+const primary = compare(anchor.commit, pins, DECLARED_HISTORICAL_PINS, KNOWN_STALE, FIXTURE);
 failures.push(...primary.found);
 
 // 선언이 늘지 않았는지. 이것만은 compare 밖에 둔다 — 변조 canary 가 선언 목록을 흔들기 때문에
@@ -139,6 +195,25 @@ for (const [file, allowed] of KNOWN_STALE) {
   }
 }
 
+for (const [file, allowed] of FIXTURE_AXIS) {
+  const hit = primary.onFixtureAxis.find((entry) => entry.file === file);
+  const now = hit?.count ?? 0;
+  if (now < allowed) {
+    failures.push(
+      "fixture 축 핀이 " + allowed + "개에서 " + now + "개로 줄었습니다: " + file + ". " +
+        "FIXTURE_AXIS 의 그 줄을 " + (now === 0 ? "지우세요" : now + " 로 내리세요") +
+        " — 줄어든 자리를 비워 두면 다음 낙후가 조용히 그 자리에 들어옵니다.",
+    );
+  }
+}
+const fixtureTotal = primary.onFixtureAxis.reduce((sum, entry) => sum + entry.count, 0);
+if (fixtureTotal > FIXTURE_AXIS_RATCHET) {
+  failures.push(
+    "fixture 축 핀이 " + FIXTURE_AXIS_RATCHET + "개에서 " + fixtureTotal + "개로 늘었습니다. " +
+      "이 표는 줄어들기만 합니다 — fixture 를 새 앵커에 세우면 통째로 사라집니다.",
+  );
+}
+
 // ── 변조 canary ────────────────────────────────────────────────────────────
 // 판정 기준은 「변조가 baseline 에 없던 실패를 새로 만드는가」다. 지금 이 게이트는 실제로
 // 빨간 상태이므로(어긋난 핀 4파일), 이미 있는 실패에 canary 가 가려지지 않게 그 차이를 본다.
@@ -146,7 +221,7 @@ const baseline = new Set(failures);
 const TAMPERS = [
   {
     label: "앵커가 움직인 것 — 따라오지 않은 핀이 새로 드러나야 한다",
-    run: () => compare("0".repeat(40), pins, DECLARED_HISTORICAL_PINS, KNOWN_STALE).found,
+    run: () => compare("0".repeat(40), pins, DECLARED_HISTORICAL_PINS, KNOWN_STALE, FIXTURE).found,
   },
   {
     label: "생성물의 핀이 아무 값으로나 바뀐 것",
@@ -156,6 +231,7 @@ const TAMPERS = [
         [...pins, { file: "figma/tampered.plan.json", path: "/productCommit", key: "productCommit", value: "f".repeat(40) }],
         DECLARED_HISTORICAL_PINS,
         KNOWN_STALE,
+        FIXTURE,
       ).found,
   },
   {
@@ -168,6 +244,22 @@ const TAMPERS = [
         ),
         DECLARED_HISTORICAL_PINS,
         KNOWN_STALE,
+        FIXTURE,
+      ).found,
+  },
+  {
+    label: "fixture 축 파일의 핀이 다른 커밋으로 바뀐 것 — 이름 면제가 아니라 값 면제여야 한다",
+    run: () =>
+      compare(
+        anchor.commit,
+        pins.map((pin) =>
+          FIXTURE_AXIS.has(pin.file) && samePin(pin.value, FIXTURE_COMMIT)
+            ? { ...pin, value: "d".repeat(40) }
+            : pin,
+        ),
+        DECLARED_HISTORICAL_PINS,
+        KNOWN_STALE,
+        FIXTURE,
       ).found,
   },
   {
@@ -178,6 +270,7 @@ const TAMPERS = [
         pins.filter((pin) => pin.file !== DECLARED_HISTORICAL_PINS[1].file),
         DECLARED_HISTORICAL_PINS,
         KNOWN_STALE,
+        FIXTURE,
       ).found,
   },
 ];
@@ -203,14 +296,25 @@ if (failures.length > 0) {
   process.exit(1);
 }
 const staleTotal = primary.known.reduce((sum, entry) => sum + entry.count, 0);
+if (fixtureTotal > 0) {
+  // **초록이 「이 저장소가 한 제품을 잰다」로 읽히면 안 된다.** 지금은 둘을 잰다.
+  console.log(
+    "[product-anchor] fixture 축 " + fixtureTotal + "개가 " + FIXTURE_COMMIT.slice(0, 8) +
+      " 에 남아 있습니다(" + primary.onFixtureAxis.map((e) => e.file + " " + e.count).join(" · ") +
+      "). 이것들은 앵커 재고정으로 움직이지 않습니다 — `KLIPSE_PRODUCT_FIXTURE_ROOT` 의 clean 클론을 " +
+      anchor.commit.slice(0, 8) + " 로 다시 세우고(clean 체크아웃 + standalone 빌드) " +
+      "`KLIPSE_PRODUCT_FIXTURE_ROOT=... pnpm run measure-product-auth-fixture` 부터 다시 도세요.",
+  );
+}
 if (staleTotal > 0) {
   // **초록이 「낙후가 없다」로 읽히면 안 된다.** 얼려 둔 것은 사실을 없앤 것이 아니라
   // 늘어나는 것만 잡기로 한 것이므로, 남은 수와 0 으로 만드는 방법을 매 실행 인쇄한다.
   console.log(
     "[product-anchor] 알려진 낙후 " + staleTotal + "개가 남아 있습니다(" +
       primary.known.map((entry) => entry.file + " " + entry.count).join(" · ") +
-      "). 앵커 재고정으로 0 이 됩니다 — 제품 워킹트리가 깨끗할 때 " +
-      "`pnpm run build-product-evidence` 로 lock 을 옮기고 어긋난 생성물을 같은 커밋에서 다시 만드세요.",
+      "). **lock 을 다시 박는 것으로는 0 이 되지 않습니다** — 2026-09-03 재고정에서 넷 다 " +
+      "그대로 남았고, 남은 이유가 넷 다 다릅니다. 파일별 되돌리는 법은 위 진단이 이름으로 " +
+      "지목할 때 함께 인쇄됩니다(KNOWN_STALE 머리말도 같은 것을 적습니다).",
   );
 }
 console.log(
@@ -219,9 +323,10 @@ console.log(
     TAMPERS.length + "종)",
 );
 
-function compare(canon, allPins, declared, allowance) {
+function compare(canon, allPins, declared, allowance, fixture) {
   const found = [];
   const known = [];
+  const onFixtureAxis = [];
   const used = new Set();
   const byFile = new Map();
 
@@ -240,6 +345,29 @@ function compare(canon, allPins, declared, allowance) {
   }
 
   for (const [file, list] of [...byFile].sort((a, b) => a[0].localeCompare(b[0]))) {
+    // fixture 축은 개수가 아니라 **값**으로 잠근다 — 그 커밋이 아닌 핀은 개수와 무관하게 실패다.
+    const fixtureAllowed = fixture?.files.get(file) ?? 0;
+    if (fixtureAllowed > 0) {
+      const offAxis = list.filter((pin) => !samePin(pin.value, fixture.commit));
+      if (offAxis.length > 0) {
+        found.push(
+          "fixture 축으로 선언된 파일에 그 커밋이 아닌 핀 " + offAxis.length + "개: " + file +
+            " (" + offAxis.map((pin) => pin.path + " = " + pin.value.slice(0, 8)).join(", ") +
+            " ≠ fixture " + fixture.commit.slice(0, 8) + "). 이 파일은 fixture 를 다시 세워야 " +
+            "움직입니다 — 손으로 핀만 옮기면 원장이 없는 측정을 가리키게 됩니다.",
+        );
+      }
+      const onAxis = list.length - offAxis.length;
+      if (onAxis > fixtureAllowed) {
+        found.push(
+          "fixture 축 핀이 " + fixtureAllowed + "개에서 " + onAxis + "개로 늘었습니다: " + file +
+            ". 새 생성물이 낡은 fixture 를 물었거나 선언이 낡았습니다.",
+        );
+      } else if (onAxis > 0) {
+        onFixtureAxis.push({ file, count: onAxis, allowed: fixtureAllowed });
+      }
+      continue;
+    }
     const allowed = allowance?.get(file) ?? 0;
     const message =
       "앵커를 따라오지 않은 핀 " + list.length + "개: " + file + " (" +
@@ -268,5 +396,5 @@ function compare(canon, allPins, declared, allowance) {
     );
   }
 
-  return { found, known };
+  return { found, known, onFixtureAxis };
 }

@@ -50,6 +50,7 @@
 import { readFileSync, readdirSync, statSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
+import { readAnchor } from "./lib/product-anchor.mjs";
 
 const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const read = (relative) => readFileSync(resolve(repoRoot, relative), "utf8");
@@ -71,14 +72,34 @@ const AUTHORED_CSS = ["packages/css/src", "packages/react/src"];
 const TOKEN_SOURCE = "packages/tokens/src/klipse.tokens.json";
 
 // ── baseline ──────────────────────────────────────────────────────────────
-// 2026-09-02 실측. **새 위반을 받아들이려고 이 수를 움직이지 마라** — 이 저장소의 규칙이다.
-// 각 수의 방향은 아래 래칫 절이 소유한다.
-const NEEDED_BASELINE = 161; // 하락만 잠근다(상승은 발견)
-const UNCLEAR_BASELINE = 9; // 하락만 잠근다(소유자만 줄일 수 있다)
-const SCOPED_BASELINE = 211; // 표면 총수가 오른 만큼만 오를 수 있다
-const SURFACE_TOTAL_BASELINE = 400; // 위 천장의 기준점
+// 2026-09-03 실측(앵커 `ae8fd627` → `5a67d692` 재고정 직후). **새 위반을 받아들이려고 이 수를
+// 움직이지 마라** — 이 저장소의 규칙이다. 각 수의 방향은 아래 래칫 절이 소유한다.
+//
+// 이번에 내린 넷은 전부 **재고정이 드러낸 이득**이지 정의를 푼 결과가 아니다.
+//   needed 161 → 158  랜딩 캐러셀 셋이 제품에서 사라졌다(FeatureCarousel#BrandGlyph ·
+//                     ModelCarousel#BrandGlyph · TemplateGrid#Logo). Figma 에 세운 것이
+//                     아니라 세울 자리가 없어진 것이므로 이득의 종류가 다르다 — 그래서
+//                     여기 적는다.
+//   scoped 211 → 210  같은 삭제(FeatureCarousel#FeatureCarousel).
+//   총수 400 → 434    새 앵커에서 표면 38개가 «처음» 보였다. 27개는 옛 앵커에 파일조차
+//                     없던 자리다 — `--diff-filter=A` 로 생긴 것은 lock 에 이름이 없어
+//                     구조상 영원히 안 보였다(원장 `lock-anchor-hides-143-files`).
+//                     전부 `unclear`(소유자 판단 대기)로 들어갔다. unclear 9 → 47 은
+//                     상승이므로 UNCLEAR_BASELINE 은 그대로 둔다 — 미룬 것을 baseline 에
+//                     새겨 넣으면 그것이 새 바닥이 된다.
+//   죽은 토큰 98 → 95 앵커가 못 보던 제품 소비처가 드러났다. `color-bg-raised` 가 그
+//                     대표였고 아래 ANCHOR_BLIND_TOKENS 가 비게 된 이유다.
+const NEEDED_BASELINE = 158; // 하락만 잠근다(상승은 발견)
+// 9 → 47. **미룬 것을 받아들이려고 올리는 것이 아니라, 래칫이 물게 하려고 올린다.** 재고정으로
+// 드러난 38개가 판단 대기로 들어오자 실제 수가 47 이 됐는데 baseline 이 9 에 남아 있으면 그
+// 사이 38칸에서는 수가 줄어도 아무도 적지 않는다 — verify-gates 의 canary
+// (`coverage targets unclear fell without locking`)가 실제로 눈이 멀어 그것을 증명했다.
+// 방향과 목표는 그대로다(↓ · 0). 소유자가 판정할 때마다 이 수를 함께 내린다.
+const UNCLEAR_BASELINE = 47; // 하락만 잠근다(소유자만 줄일 수 있다)
+const SCOPED_BASELINE = 210; // 표면 총수가 오른 만큼만 오를 수 있다
+const SURFACE_TOTAL_BASELINE = 434; // 위 천장의 기준점
 const MANIFEST_DONE_FLOOR = 17; // 바닥. 오르면 올려 이득을 잠근다
-const DEAD_TOKEN_BASELINE = 98; // 양방향, 목표 0. 단위는 **원천 토큰**이다 — DS-D-0047
+const DEAD_TOKEN_BASELINE = 95; // 양방향, 목표 0. 단위는 **원천 토큰**이다 — DS-D-0047
 
 // ── 앵커가 못 보는 소비자 ─────────────────────────────────────────────────
 // **낡은 앵커 때문에 죽어 «보이는» 토큰.** 원장(`migration/louis-token-usage.json`)은 제품
@@ -95,19 +116,16 @@ const DEAD_TOKEN_BASELINE = 98; // 양방향, 목표 0. 단위는 **원천 토�
 // **verify-product-anchor 의 `KNOWN_STALE` 과 같은 성격이다** — 영구 면제가 아니라
 // 재고정으로 0 이 되어야 하는 한시적 부채이고, 한 방향 래칫이다(늘면 실패, 줄면 내리라고
 // 요구한다). 목표는 이 표가 비는 것이며, 비는 길은 하나다 — 제품 앵커 재고정.
-const ANCHOR_BLIND_TOKENS = new Map([
-  [
-    "color-bg-raised",
-    "제품이 지금 여섯 자리에서 `bg-[var(--louis-color-bg-raised)]` 로 푼다 — " +
-      "apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx · TossPaymentWindowPanel.tsx(2) · " +
-      "billing-fail/page.tsx · billing-success/page.tsx · fail/page.tsx. " +
-      "그리고 apps/web/app/admin/AdminSection.tsx 가 「바닥보다 확실히 밝은 유일한 단」이라고 " +
-      "적는다. LOUIS 쪽 마지막 소비자는 SegmentedControl 의 선택 면이었고 origin/main 50d01679 " +
-      "가 그것을 `accent-secondary-selected` 로 옮겼다(알파 트랙과 짝이 무너져서) — 그래서 " +
-      "**LOUIS 안에서만** 소비자가 0 이 됐다. 앵커 ae8fd627 은 제품의 이 여섯 자리보다 이르다.",
-  ],
-]);
-const ANCHOR_BLIND_RATCHET = 1;
+// **비어 있는 것이 맞다(2026-09-03).** 여기에는 `color-bg-raised` 한 줄이 앉아 있었다 —
+// 제품이 여섯 자리에서 실제로 그것을 푸는데 원장이 `ae8fd627` 에서 읽혀 죽은 것처럼 보였다.
+// 앵커를 `5a67d692` 로 옮기자 그 소비처가 보였고, 위 anchorBlindStale 검사가 「이제 죽어
+// 보이지 않는다」로 그 줄을 지우라고 요구했다. 낙후를 면제로 적어 두면 그 면제는 낙후가
+// 사라진 뒤에도 남아 다음 것을 조용히 통과시킨다 — 그래서 비운다.
+//
+// 다시 채워야 한다면 그것은 앵커가 또 낡았다는 뜻이고, 답은 여기 한 줄을 더하는 것이 아니라
+// `pnpm run build-product-evidence` 로 앵커를 옮기는 것이다.
+const ANCHOR_BLIND_TOKENS = new Map([]);
+const ANCHOR_BLIND_RATCHET = 0;
 
 
 // 이 게이트가 «빌려 쓰는» 수의 임자들. 하나라도 verify:ci 사슬에서 빠지면 여기 인쇄되는
@@ -141,23 +159,80 @@ for (const [gate, owns] of OWNING_GATES) {
 // ── 1. 세 원장이 같은 앵커를 보는가 ───────────────────────────────────────
 // 각 게이트는 자기 원장만 본다 — 원장들이 **서로 다른 제품 커밋**을 재고 있어도 전부 초록이다.
 // 한 표에 나란히 찍는 순간 그것이 결함이 되므로 여기서 잠근다.
+//
+// **기준은 원장끼리의 합의가 아니라 lock 이다.** 그전까지 이 절은 `anchors[0]`(표면 원장)을
+// 기준으로 나머지를 재고 있었는데, 그러면 셋이 **똑같이 낡아도** 초록이다 — 정본이 무엇인지를
+// 표 안에서만 정했기 때문이다. 정본 앵커는 `migration/product-evidence.lock.json` 하나이고
+// (scripts/lib/product-anchor.mjs 머리말), 그것을 읽어 재면 「셋이 사이좋게 과거를 잰다」가
+// 실패가 된다.
+//
+// ── 재고정이 갈라 놓은 축 ─────────────────────────────────────────────────
+// 2026-09-03 재고정에서 앵커를 `ae8fd627` → `5a67d692` 로 옮겼고 **전부가 따라오지는 못했다.**
+// 갈린 기준은 취향이 아니라 **측정 방법**이다.
+//   · git 트리만 읽는 원장(표면·토큰 사용·alpha·drift·nav-labels·render)은 제품 저장소만
+//     있으면 다시 뜬다. 전부 옮겼다.
+//   · 보드 축은 `figma/app-screens.plan.json` 을 읽고, 그 계획은 `product.auth-fixture.json`
+//     이 서야 만들어진다 — clean 클론 + standalone 빌드 + Playwright 다. 그 fixture 는
+//     `KLIPSE_PRODUCT_FIXTURE_ROOT` 의 clean 클론에 `ae8fd627` 로 고정돼 있고, 세우는 것은 별건이다.
+// 그래서 「전부 같아야 한다」를 「**갈린 것은 이름과 커밋으로 선언돼 있어야 한다**」로 바꾼다.
+// 선언은 줄어들기만 하는 래칫이고(늘리는 것은 소유자 판정), 낙후는 아래 표에 함께 인쇄된다 —
+// 초록이 「원장들이 같은 제품을 잰다」로 읽히면 안 되기 때문이다.
+const DECLARED_LAGGING_LEDGERS = new Map([
+  [
+    BOARD,
+    {
+      commit: "ae8fd6278481a5e86cd324ba86a1d44fe978b788",
+      reason:
+        "보드 원장은 `figma/app-screens.plan.json` 을 읽고, 그 계획은 측정 fixture" +
+        "(`product.auth-fixture.json` — clean 클론 + standalone 빌드 + Playwright)가 서야 " +
+        "만들어진다. fixture 가 ae8fd627 에 고정돼 있어 앵커만 옮기면 생성기가 " +
+        "「어제의 제품 상자로 오늘의 보드를 판정한다」로 멈춘다. 같은 이유로 " +
+        "`migration/product.rendered-components.json` 도 함께 남는다 — 그 둘은 한 매듭이다.",
+    },
+  ],
+]);
+const LAGGING_RATCHET = 1;
+
 const surfaces = readJson(SURFACES);
 const board = readJson(BOARD);
 const tokenUsage = readJson(TOKEN_USAGE);
+const anchor = readAnchor().commit;
 const anchors = [
   [SURFACES, surfaces.productCommit],
   [BOARD, board.productCommit],
   [TOKEN_USAGE, tokenUsage.productCommit],
 ];
-const anchor = anchors[0][1];
+const lagging = [];
 for (const [where, commit] of anchors) {
-  if (commit !== anchor) {
-    errors.push(
-      where + " 의 productCommit(" + String(commit).slice(0, 8) + ")이 " + anchors[0][0] +
-        " 의 " + String(anchor).slice(0, 8) + " 와 다릅니다. 서로 다른 앵커의 수를 한 표에 " +
-        "나란히 찍으면 그 표는 어느 제품도 설명하지 않습니다.",
-    );
+  const declared = DECLARED_LAGGING_LEDGERS.get(where);
+  if (commit === anchor) {
+    // 선언이 남아 있는데 실제로는 따라왔다 → 죽은 선언이다. 지우게 만든다.
+    if (declared) {
+      errors.push(
+        where + " 는 이제 정본 앵커 " + anchor.slice(0, 8) + " 를 잽니다. " +
+          "DECLARED_LAGGING_LEDGERS 의 그 줄을 지우세요 — 죽은 선언은 다음 낙후를 조용히 " +
+          "통과시킵니다.",
+      );
+    }
+    continue;
   }
+  if (declared && declared.commit === commit) {
+    lagging.push([where, commit, declared.reason]);
+    continue;
+  }
+  errors.push(
+    where + " 의 productCommit(" + String(commit).slice(0, 8) + ")이 정본 앵커 " +
+      anchor.slice(0, 8) + "(migration/product-evidence.lock.json)와 다릅니다" +
+      (declared ? " — 선언된 값은 " + declared.commit.slice(0, 8) + " 입니다" : "") +
+      ". 서로 다른 앵커의 수를 한 표에 나란히 찍으면 그 표는 어느 제품도 설명하지 않습니다. " +
+      "다시 뜨거나, 뜰 수 없는 이유를 DECLARED_LAGGING_LEDGERS 에 커밋과 함께 적으세요.",
+  );
+}
+if (DECLARED_LAGGING_LEDGERS.size > LAGGING_RATCHET) {
+  errors.push(
+    "낙후로 선언된 원장이 " + LAGGING_RATCHET + "개에서 " + DECLARED_LAGGING_LEDGERS.size +
+      "개로 늘었습니다. 이 목록은 줄어들기만 합니다.",
+  );
 }
 
 // ── 2. 죽은 토큰 ──────────────────────────────────────────────────────────
@@ -508,6 +583,13 @@ const line = (cells) =>
   "  " + cells.map((cell, index) => cell + " ".repeat(widths[index] - displayWidth(cell))).join("  ").trimEnd();
 
 console.log("커버리지 목표 (앵커 " + String(anchor).slice(0, 8) + "):");
+for (const [where, commit, reason] of lagging) {
+  console.log(
+    "  · **" + where + " 는 " + String(commit).slice(0, 8) + " 를 잰다** — 정본 앵커보다 " +
+      "낡았고 그렇게 선언돼 있다. 이 줄이 있는 동안 위 표의 «보드» 행은 다른 제품의 수다. " +
+      reason,
+  );
+}
 for (const row of table) console.log(line(row));
 
 console.log(
@@ -528,9 +610,11 @@ console.log(
     "(프리미티브 팔레트 + 적응형 회색 램프 + 타이포 스케일 — 완결된 것이 값이다) · " +
     "Figma 전용 축 " + excluded.figmaOnlyAxis.length + "(`type-line-height-percent/*`, " +
     "DS-D-0029 §1 이 일부러 만들었고 CSS 소비 0 이 설계된 상태다) · " +
-    "앵커가 못 보는 소비자 " + excluded.anchorBlind.length + "(" +
-    (excluded.anchorBlind.join(" · ") || "없음") + " — 제품이 지금 쓰는데 원장이 그보다 이른 " +
-    "앵커에서 읽혀 안 보인다. 재고정하면 0 이 된다). " +
+    "앵커가 못 보는 소비자 " + excluded.anchorBlind.length +
+    (excluded.anchorBlind.length === 0
+      ? "(2026-09-03 재고정으로 비었다 — 그전엔 `color-bg-raised` 가 여기 있었다)"
+      : "(" + excluded.anchorBlind.join(" · ") + " — 제품이 지금 쓰는데 원장이 그보다 이른 " +
+        "앵커에서 읽혀 안 보인다. 재고정하면 0 이 된다)") + ". " +
     "원천에 id 가 없는 죽은 이름 " + orphanDeadNames.length + "종은 «빼지 않고» 세었다.",
 );
 console.log(

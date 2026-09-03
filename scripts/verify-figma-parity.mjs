@@ -1298,9 +1298,14 @@ const COMPONENT_CONTRACTS = [
     //     padding 0 10, CSS 가 22/r7(트랙 10 − padding 3 파생식)/padding-inline 8, Figma Item 이
     //     **28**/r8/8 이다. Figma 의 28 은 트랙 높이를 그대로 쓴 것이라 padding 3 과 양립하지 않는다.
     //     값을 고르는 것은 DS-D-0032 가 미결로 남긴 판정에 딸린 일이라 여기서 열지 않는다.
+    // **`settings` 를 붙인다(2026-09-03).** 소유자가 「제품의 36 이 정본」이라고 판정해
+    // DS-D-0048 의 미결이 닫혔고, CSS·React·measured 에 그 칸이 섰다. 여기 넣는 이유는
+    // 하나다 — 넣지 않으면 새 칸이 **게이트 밖에서** 산다. 위 sm 의 사연이 그것을 보여 준다:
+    // 값은 CSS·React·브라우저 테스트에 다 있는데 Figma Item 에만 없어 계약에서 뺐고, 그
+    // 상태가 계속 부채로 남았다. `settings` 는 Figma 변형을 함께 세워 그 길을 피한다.
     geometry: {
       measuredId: "segmented-control",
-      sizeKeys: ["lg", "md"],
+      sizeKeys: ["lg", "md", "settings"],
       fields: {
         height: "segmentHeight",
         cornerRadius: "segmentRadius",
@@ -1321,11 +1326,24 @@ const COMPONENT_CONTRACTS = [
         // 두께 2 · OUTSIDE 로 이미 잡는다.
         FocusRing: { fields: {} },
       },
-      extraStrokeWeights: [],
+      // 포커스 링의 2px. **테두리가 아니다** — CSS 에서는 outline 이고 Figma 에 outline 이 없어
+      // 바깥으로 나가는 stroke 로 그린다. TextField 가 같은 자리에 같은 값을 갖는다.
+      //
+      // **2026-09-03 에 드러났다.** 이 줄이 비어 있어도 초록이었던 이유는 되읽기 쪽이었다 —
+      // Item 의 되읽기 항목은 `figma-readback-emit.mjs` 가 생기기 전에 뜬 것이라 `strokeWeight`
+      // 가 빈 배열이었고(그 스크립트 머리말의 「알려진 어긋남」이 말하는 것이 이 종류다),
+      // 게이트는 없는 두께를 성실히 통과시켰다. `settings` 를 세우며 emitter 로 다시 뜨자
+      // lg·md 까지 함께 걸렸다 — **새 칸이 만든 실패가 아니라 새 칸이 드러낸 실패다.**
+      extraStrokeWeights: [2],
     },
     figmaOnlyProperties: {
       Label: { type: "TEXT", reason: "세그먼트 라벨." },
-      Size: { options: ["lg", "md", "xs"], reason: "컨트롤의 size 를 세그먼트가 물려받는다." },
+      Size: {
+        options: ["lg", "md", "xs", "settings"],
+        reason:
+          "컨트롤의 size 를 세그먼트가 물려받는다. `sm` 은 여전히 빠져 있다 — 코드에는 있고 " +
+          "Figma Item 에만 없는 부채이고, 위 geometry 주석이 그 사연을 갖는다.",
+      },
       State: {
         options: ["Default", "Hover", "Selected", "Focus", "Disabled", "SelectedDisabled"],
         reason: "segmented-control.css:124·130·136·158·163. hover 는 글자색만, selected 는 면+글자, focus 는 outline, disabled 는 글자만 흐리게.",

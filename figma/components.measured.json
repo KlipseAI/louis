@@ -793,8 +793,8 @@
           "moreSize": 32,
           "moreRadius": 12,
           "$moreRadius": "radius-control 12. 제품의 카드 위 more 버튼이 --button-radius를 그대로 쓴다.",
-   "renameRadius": 8,
-   "$renameRadius": "radius-control-sm 8. 이름 변경 상자가 갖는 **유일한 값**이다 — 크롬이 없어(테두리도 면도 없다) 폭·높이·여백이 전부 제목 자리에서 물려받는 파생값이고, 남는 선언은 반경 하나뿐이다. 그 반경은 초점 표시(:focus-visible outline)의 모양을 정한다. **제품 네 벌 중 이 값을 쓰는 것은 없다**(앵커 ae8fd627 실측): 앱 홈(appHomeSceneStyles.ts:340 archivePreviewTitleRenameInput)과 노드캔버스 홈(NodeCanvasHomeScene.tsx:398)은 정본을 얹고 반경만 2 로 덮으며, 하이라이트 허브(highlightSceneStyles.ts:1036 historyRenameInput)와 비디오 에디터 허브(VideoEditScene.tsx:395 HISTORY_RENAME_INPUT)는 정본을 **얹지 않고** 밑줄(border-bottom 1px)에 반경 0 이다. 두 벌씩 갈리므로 어느 쪽이 정본인지는 제품 픽셀을 움직일 수 있는 사람만 고를 수 있다(DS-D-0050). 그때까지 Figma 는 CSS 를 그대로 비춘다 — 정본이 8 이므로 8 이다.",
+          "renameRadius": 8,
+          "$renameRadius": "radius-control-sm 8. 이름 변경 상자가 갖는 **유일한 값**이다 — 크롬이 없어(테두리도 면도 없다) 폭·높이·여백이 전부 제목 자리에서 물려받는 파생값이고, 남는 선언은 반경 하나뿐이다. 그 반경은 초점 표시(:focus-visible outline)의 모양을 정한다. **제품 네 벌 중 이 값을 쓰는 것은 없다**(앵커 ae8fd627 실측): 앱 홈(appHomeSceneStyles.ts:340 archivePreviewTitleRenameInput)과 노드캔버스 홈(NodeCanvasHomeScene.tsx:398)은 정본을 얹고 반경만 2 로 덮으며, 하이라이트 허브(highlightSceneStyles.ts:1036 historyRenameInput)와 비디오 에디터 허브(VideoEditScene.tsx:395 HISTORY_RENAME_INPUT)는 정본을 **얹지 않고** 밑줄(border-bottom 1px)에 반경 0 이다. 두 벌씩 갈리므로 어느 쪽이 정본인지는 제품 픽셀을 움직일 수 있는 사람만 고를 수 있다(DS-D-0050). 그때까지 Figma 는 CSS 를 그대로 비춘다 — 정본이 8 이므로 8 이다.",
           "overlayTopRadius": 0,
           "$overlayTopRadius": "위 두 모서리는 각지다. 띠는 카드 아래에 붙으므로 아래 두 모서리만 카드의 반경을 따른다.",
           "gridGap": 4,
@@ -1351,7 +1351,7 @@
       "$doc": "design/components/segmented-control.md",
       "$source": "packages/react/src/segmented-control/segmented-control.tsx, packages/css/src/component/segmented-control.css",
       "$note": "제품에 공용 구현이 **둘**인데 서로 아무것도 공유하지 않는다 — `SegmentedToggle` 컴포넌트(스스로 SSOT라고 적혀 있다, 3벌)와 `useSegmentedControlThumb` 훅(4벌, 스타일은 복붙). 트랙 padding 4↔3, 트랙 반경 12↔8, 썸 반경 8↔6, easing 셋이 다르다. 정본을 `SegmentedToggle`로 잡고 기하는 이 저장소의 control 계단에 맞췄다.",
-      "$canon": "SegmentedToggle의 반경 12/8과 padding 4, 헤어라인 트랙 테두리를 채택했다. 높이만 control 계단(40/32/24)을 따른다 — 제품 A는 36px이고 그 값은 이 저장소의 어떤 컨트롤과도 맞지 않는다. 세 번째 칸 24(sm)는 제품이 아니라 새 비디오 에디터 디자인에서 왔고 그 칸만 반경·padding 이 갈린다.",
+      "$canon": "SegmentedToggle의 반경 12/8과 padding 4, 헤어라인 트랙 테두리를 채택했다. **높이는 두 갈래다.** lg·md·sm(40/32/24)은 control 계단을 따르고, `settings` 칸은 제품의 36 을 그대로 받는다 — 2026-09-03 에 소유자가 「제품의 36 이 정본」이라고 판정했고 DS-D-0048 의 정정 절이 그 판정을 갖는다. 그 전까지 이 자리에는 「높이만 control 계단을 따른다 — 제품 A는 36px이고 그 값은 이 저장소의 어떤 컨트롤과도 맞지 않는다」가 적혀 있었고, DS-D-0048 이 36 을 기각할 때 근거로 인용한 것이 그 문장이다. **판정이 바뀌었으므로 여기도 바꾼다** — 문장을 남겨 두면 게이트가 아니라 기록이 거짓을 나른다. 세 번째 칸 24(sm)는 제품이 아니라 새 비디오 에디터 디자인에서 왔고 그 칸만 반경·padding 이 갈린다.",
       "sizes": {
         "lg": {
           "trackHeight": 40,
@@ -1413,6 +1413,29 @@
           "$lineHeight": "caption-12 line-height 18px. 디자인도 150% 다",
           "borderWidth": 0.5,
           "$borderWidth": "0.5px. hairline 선언 토큰"
+        },
+        "settings": {
+          "$size": "사다리가 아니라 **컴포넌트 지역 예외**다(`xs` 가 간 길). 설정·구독 화면의 토글에서 쓴다 — 제품 정본은 `apps/web/components/scenes/myPageSceneStyles.ts` 의 `settingsToggleWrap`·`settingsToggleBtn`·`settingsToggleThumb` 이고, 그 파일이 스스로 SSOT 라 적는다. 소비처는 SettingsScene 의 KOR/ENG·시스템/라이트/다크 토글, 구독 화면의 크레딧 이력 카테고리 필터, 프로필 팝오버의 테마 토글이다. **이름이 쓰임새인 것은 일부러다** — 사다리 어휘로 부르면 40·36·32·28·24 다섯 값에 순서를 다시 매겨야 하고, 이 축에는 이미 순서를 거짓말하는 `xs` 가 있어 거짓이 둘로 는다. 쓰임새 이름은 순서를 주장하지 않는다.",
+          "trackHeight": 36,
+          "$trackHeight": "**선언된 값이 아니라 파생값이다.** 제품에도 트랙 높이 선언이 없다 — `settingsToggleWrap` 은 padding 4 만 갖고 높이를 적지 않는다. 4 + 28 + 4 = 36. CSS 도 같은 모양으로 옮겼다(`block-size: auto`). 36 을 직접 적으면 세그먼트와 트랙이 따로 움직인다",
+          "trackPadding": 4,
+          "$trackPadding": "space-control-xs 4. lg 와 같다",
+          "trackRadius": 12,
+          "$trackRadius": "radius-control 12. lg 와 같고 제품 `settingsToggleWrap` 도 `var(--louis-radius-control)` 를 직접 읽는다",
+          "segmentHeight": 28,
+          "$segmentHeight": "layout-settings-segment-height 28. **이 칸이 선언하는 유일한 기하다.** 제품 `settingsToggleBtn` 의 `[height:28px]` 이고 썸도 같은 28 이다. 같은 28 을 갖는 layout-inspector-control-height 를 재사용하지 않은 이유는 뜻이 다르기 때문이다 — 저것은 트랙 높이이고 이것은 트랙 안의 칸 높이다",
+          "segmentRadius": 8,
+          "$segmentRadius": "radius-control-sm 8. 바깥 12 − padding 4 의 파생식이 낸 값이고 제품도 `var(--louis-radius-control-sm)` 를 직접 읽는다",
+          "segmentPaddingInline": 12,
+          "$segmentPaddingInline": "space-control-md 12. 제품 `settingsToggleBtn` 의 `[padding:0_12px]` 이고 lg 와 같다",
+          "segmentGap": 8,
+          "$segmentGap": "space-control-sm 8. lg 와 같다 — 글리프를 담는 세그먼트의 아이콘·라벨 사이다(제품은 4 를 쓰지만 그것은 라벨 안쪽 span 의 값이라 이 축이 아니다)",
+          "fontSize": 14,
+          "$fontSize": "body-sm 14px. 제품이 `type-body-14-medium` 을 붙인다",
+          "lineHeight": 21,
+          "$lineHeight": "body-sm line-height 21px",
+          "borderWidth": 0.5,
+          "$borderWidth": "0.5px. hairline 선언 토큰. 제품도 `var(--louis-hairline-inset)` 를 직접 읽는다"
         }
       },
       "states": {

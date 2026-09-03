@@ -176,7 +176,11 @@ const CAPTURE = {
   "PaneDivider": {"key":{"by":["Orientation","State"]},"parts":{"Grip":["width","height","cornerRadius","opacity"]}},
   "ProgressBar": {"key":{"name":"base"},"parts":{"Fill":["width","height","cornerRadius","layoutMode"]}},
   "ProgressRing": {"key":{"name":"base"},"parts":{"Track":["width","height"],"Content":["width","height"]}},
-  "ProjectCard": {"key":{"name":"base"},"parts":{"Media":["width","height"],"Title overlay":["width","height","itemSpacing","paddingBlock","paddingBlockEnd","paddingInline","paddingInlineEnd","layoutMode"],"Eyebrow":["width","height","fontSize","lineHeightPercent"],"Title":["width","height","fontSize","lineHeightPercent"],"Meta":["width","height","fontSize","lineHeightPercent"],"Thumbnail":["width","height"],"Action":["width","height"],"Adornment":["width","height"]},"strokes":["self"],"effects":["Title overlay"],"childOrder":true},
+  // `Rename` 은 **반경 하나만** 담는다(2026-09-03, DS-D-0050). 이름 변경 상자는 크롬이 없어
+  // (테두리도 면도 없다) 담을 값이 반경뿐이고, 폭·높이는 오버레이 안쪽 폭과 글자 metrics 에서
+  // 나오는 파생값이라 담으면 계약이 되지 않은 채 스냅숏에만 앉는다. 부품이 `State=Renaming`
+  // 한 변형에만 있으므로 값 배열은 길이 1 이다.
+  "ProjectCard": {"key":{"name":"base"},"parts":{"Media":["width","height"],"Title overlay":["width","height","itemSpacing","paddingBlock","paddingBlockEnd","paddingInline","paddingInlineEnd","layoutMode"],"Eyebrow":["width","height","fontSize","lineHeightPercent"],"Title":["width","height","fontSize","lineHeightPercent"],"Meta":["width","height","fontSize","lineHeightPercent"],"Thumbnail":["width","height"],"Action":["width","height"],"Adornment":["width","height"],"Rename":["cornerRadius"]},"strokes":["self"],"effects":["Title overlay"],"childOrder":true},
   "SegmentedControl": {"key":{"by":["Size"]},"slots":{"Item 1":"size","Item 2":"size","Item 3":"size"},"parts":{"Item 1":["width","height"],"Item 2":["width","height"],"Item 3":["width","height"]},"effects":["self"]},
   "SegmentedControlItem": {"key":{"by":["Size"]},"parts":{"Label":["width","height","fontSize"],"FocusRing":["width","height"]},"strokes":["FocusRing"],"outsideParts":["FocusRing"]},
   "SegmentedCodeInput": {"key":{"by":["State"]},"parts":{"Cell 1":["width","height","cornerRadius"],"Separator":["width","height"],"Dash":["fontSize"],"Char":["height","fontSize"]},"strokes":["Cell 1"]},

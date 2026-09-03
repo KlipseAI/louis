@@ -2082,13 +2082,18 @@ const COMPONENT_CONTRACTS = [
       Title: { type: "TEXT", reason: "ProjectCardTitle의 children." },
       Meta: { type: "TEXT", reason: "ProjectCardMeta의 children." },
       State: {
-        options: ["Default", "Hover"],
+        options: ["Default", "Hover", "Renaming"],
         reason:
           "더보기 버튼이 **호버에서만 드러난다** — `.louis-project-card-more`는 `opacity: 0`이고 " +
           "`.louis-project-card:hover`와 `:focus-within`이 1로 올린다(project-card.css:322·331·342). " +
           "Figma에는 CSS 상태가 없으므로 Button의 State와 같은 이유로 variant로 둔다. " +
           "축이 없으면 기본 변형 하나만 남는데, 그러면 **더보기 버튼이 있다는 사실 자체를 볼 수 없다** — " +
-          "항상 보이게 그리면 반대로 거짓이 된다. 2026-08-26 소유자 지적으로 추가했다.",
+          "항상 보이게 그리면 반대로 거짓이 된다. 2026-08-26 소유자 지적으로 추가했다. " +
+          "`Renaming`은 2026-09-03에 붙였다(DS-D-0050) — `ProjectCardRename`이 CSS와 React에는 " +
+          "있는데 Figma에는 **부품 자체가 없었고**, 그래서 시안에서는 카드에 이름을 바꾸는 자리가 " +
+          "있다는 사실을 볼 수 없었다. 코드에 `ProjectCardRename`이 실재하지만 그것은 **부품이지 " +
+          "variant prop이 아니다** — 카드의 타입 alias에서 읽어 낼 축이 없으므로 여기 " +
+          "figmaOnly로 둔다(DS-D-0041 Consequences).",
       },
     },
     declaration: "packages/react/dist/project-card/project-card.d.ts",
@@ -2163,6 +2168,12 @@ const COMPONENT_CONTRACTS = [
         // 이름을 담고 있어 계약이 두 이름을 따로 셌다 — 2026-08-30 에 Figma 를 공개 API 이름으로
         // 되돌리고 크기 대조를 이 한 줄로 합쳤다.
         Adornment: { fields: { width: "moreSize", height: "moreSize" } },
+        // **`State=Renaming`에만 있는 자손이다.** 되읽기는 값을 배열로 모으므로 한 변형에만
+        // 있어도 길이 1이 되고, 세 변형이 같은 `base` 키에 담기므로 여기 한 줄로 대조된다.
+        // 대조하는 값이 반경 하나뿐인 이유는 이 상자에 **크롬이 없기** 때문이다 — 폭·높이는
+        // 제목 자리에서 물려받는 파생값이고, 담기만 하고 대조하지 않으면 스냅숏에 값이
+        // 앉은 채 아무도 보지 않는 자리가 된다.
+        Rename: { fields: { cornerRadius: "renameRadius" } },
         Thumbnail: {},
       },
       // 자식 순서가 계약이다 — 슬롯이 클릭 타깃 앞에 오면 슬롯 안의 컨트롤이 눌리지 않는다.

@@ -19,7 +19,7 @@
       },
       "components": {
         "sets": 51,
-        "variants": 625
+        "variants": 626
       },
       "icons": 31,
       "templates": 9
@@ -10430,7 +10430,7 @@
     "ProjectCard": {
       "outsideParts": [],
       "tokenId": "project-card",
-      "variantCount": 2,
+      "variantCount": 3,
       "hasDescription": true,
       "properties": {
         "Eyebrow": {
@@ -10446,17 +10446,18 @@
           "type": "VARIANT",
           "options": [
             "Default",
-            "Hover"
+            "Hover",
+            "Renaming"
           ]
         }
       },
       "binding": {
-        "boundFills": 10,
+        "boundFills": 15,
         "rawFills": 0,
-        "boundStrokes": 2,
+        "boundStrokes": 3,
         "rawStrokes": 0,
         "textStyled": 0,
-        "textUnstyled": 6
+        "textUnstyled": 9
       },
       "geometry": {
         "base": {
@@ -10560,6 +10561,11 @@
               ],
               "height": [
                 32
+              ]
+            },
+            "Rename": {
+              "cornerRadius": [
+                8
               ]
             }
           },

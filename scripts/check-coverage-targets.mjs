@@ -89,14 +89,26 @@ const TOKEN_SOURCE = "packages/tokens/src/klipse.tokens.json";
 //                     새겨 넣으면 그것이 새 바닥이 된다.
 //   죽은 토큰 98 → 95 앵커가 못 보던 제품 소비처가 드러났다. `color-bg-raised` 가 그
 //                     대표였고 아래 ANCHOR_BLIND_TOKENS 가 비게 된 이유다.
-const NEEDED_BASELINE = 158; // 하락만 잠근다(상승은 발견)
-// 9 → 47. **미룬 것을 받아들이려고 올리는 것이 아니라, 래칫이 물게 하려고 올린다.** 재고정으로
-// 드러난 38개가 판단 대기로 들어오자 실제 수가 47 이 됐는데 baseline 이 9 에 남아 있으면 그
-// 사이 38칸에서는 수가 줄어도 아무도 적지 않는다 — verify-gates 의 canary
-// (`coverage targets unclear fell without locking`)가 실제로 눈이 멀어 그것을 증명했다.
-// 방향과 목표는 그대로다(↓ · 0). 소유자가 판정할 때마다 이 수를 함께 내린다.
-const UNCLEAR_BASELINE = 47; // 하락만 잠근다(소유자만 줄일 수 있다)
-const SCOPED_BASELINE = 210; // 표면 총수가 오른 만큼만 오를 수 있다
+// 158 → 179. 상승은 발견이라 게이트가 실패시키지 않지만, **baseline 을 158 에 두면 그
+// 사이 21칸이 눈먼 구간이 된다** — needed 가 179 에서 160 으로 떨어져도 아무 래칫도 물지
+// 않는다. UNCLEAR 를 9 → 47 로 올린 것과 똑같은 이유이고, verify-gates 의 canary
+// (`coverage targets needed fell without locking`)가 그것을 강제한다: 그 canary 는
+// counts.needed 를 1 내리고 실패를 기다리는데, baseline 이 낡으면 canary 자신이 눈이 먼다.
+const NEEDED_BASELINE = 179; // 하락만 잠근다(상승은 발견)
+// 9 → 47 → 5. 47 로 올렸던 것은 미룬 것을 받아들여서가 아니라 래칫이 물게 하려는 것이었다
+// (재고정으로 드러난 38개가 판단 대기로 들어왔다). 2026-09-03 에 그 47 을 네 도메인이
+// 나눠 판정해 43 이 내려갔고 — figma 6 · scoped 15 · needed 22 — 5 만 남았다.
+// **내리는 방향은 이득 잠금이므로 필수다.** 남은 5 는 소유자 판정 대기다: 고정 다크 스코프를
+// 분모에 남길 것인가(CreativeMediaClient) 한 건과, 이번 배정에서 어느 도메인에도 걸리지
+// 않아 아무도 열어 보지 않은 네 자리(HomePageClient#LandingContent ·
+// nodeToolbarGlyphs#ToolbarIconVideoFrame · node-canvas/primitives#SelectionChrome ·
+// PhotoGrid#ImageStrip). 방향과 목표는 그대로다(↓ · 0).
+const UNCLEAR_BASELINE = 5; // 하락만 잠근다(소유자만 줄일 수 있다)
+// 210 → 225. 표면 총수는 434 그대로이므로 이 상승은 천장이 허락한 것이 아니라 **판정이
+// 만든 것이다** — unclear 15 건이 「그릴 것이 없다」로 내려갔다(부모의 조각 · 순수 배치
+// 래퍼 · defs · 사용자 콘텐츠 슬롯). 그 15 건은 needed 에서 옮겨 온 것이 아니라 판단 대기에서
+// 온 것이라, `needed` 를 범위 밖으로 밀어 진척을 꾸미는 canary ② 의 경로와 다르다.
+const SCOPED_BASELINE = 225; // 표면 총수가 오른 만큼만 오를 수 있다
 const SURFACE_TOTAL_BASELINE = 434; // 위 천장의 기준점
 const MANIFEST_DONE_FLOOR = 17; // 바닥. 오르면 올려 이득을 잠근다
 const DEAD_TOKEN_BASELINE = 95; // 양방향, 목표 0. 단위는 **원천 토큰**이다 — DS-D-0047

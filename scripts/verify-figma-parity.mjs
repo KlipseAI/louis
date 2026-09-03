@@ -2188,10 +2188,25 @@ const COMPONENT_CONTRACTS = [
         Adornment: { fields: { width: "moreSize", height: "moreSize" } },
         // **`State=Renaming`에만 있는 자손이다.** 되읽기는 값을 배열로 모으므로 한 변형에만
         // 있어도 길이 1이 되고, 세 변형이 같은 `base` 키에 담기므로 여기 한 줄로 대조된다.
-        // 대조하는 값이 반경 하나뿐인 이유는 이 상자에 **크롬이 없기** 때문이다 — 폭·높이는
-        // 제목 자리에서 물려받는 파생값이고, 담기만 하고 대조하지 않으면 스냅숏에 값이
-        // 앉은 채 아무도 보지 않는 자리가 된다.
-        Rename: { fields: { cornerRadius: "renameRadius" } },
+        //
+        // 2026-09-03 소유자 판정으로 **밑줄형이 정본이 됐다**(DS-D-0051). 그래서 대조가 반경
+        // 하나에서 셋으로 는다 — 반경 0, 글자와 선 사이 여유 2(auto-layout의 itemSpacing),
+        // 그리고 선 자체의 두께 1(아래 `Underline`).
+        //
+        // **선을 stroke가 아니라 면으로 그리는 이유**는 되읽기에 있다. Figma에서 한 변만
+        // stroke를 두면 `node.strokeWeight`가 `figma.mixed`가 되고, emitter가
+        // `typeof node.strokeWeight === "number"`로 거른다(figma-readback-emit.mjs:447).
+        // 그러면 선이 그려져 있어도 스냅숏에 아무 값도 남지 않아 **어느 게이트도 그것을 보지
+        // 못한다.** 높이 1의 면은 `parts`로 그대로 잡히고 root의 헤어라인 계약
+        // (`strokeWeight: [0.5]`)도 건드리지 않는다 — DS-D-0050이 초점 링을 stroke로 그리지
+        // 않기로 한 것과 같은 자리다.
+        Rename: {
+          fields: {
+            cornerRadius: "renameRadius",
+            itemSpacing: "renameUnderlineGap",
+          },
+        },
+        Underline: { fields: { height: "renameUnderlineWidth" } },
         Thumbnail: {},
       },
       // 자식 순서가 계약이다 — 슬롯이 클릭 타깃 앞에 오면 슬롯 안의 컨트롤이 눌리지 않는다.

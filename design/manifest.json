@@ -1301,6 +1301,15 @@
       "generated": false
     },
     {
+      "id": "decision-rename-underline-is-canonical",
+      "path": "design/governance/decisions/DS-D-0051-rename-underline-is-canonical.md",
+      "title": "DS-D-0051 이름변경 상자는 밑줄형이다 — 소유자가 2 대 2 를 갈랐다",
+      "section": "governance",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
+    },
+    {
       "id": "governance-product-confirmations",
       "path": "design/governance/product-confirmations.md",
       "title": "제품 확인 대기 목록",
@@ -1527,6 +1536,7 @@
         "design/governance/decisions/DS-D-0048-thirty-six-is-not-a-control-height.md",
         "design/governance/decisions/DS-D-0049-label-placement-is-an-axis.md",
         "design/governance/decisions/DS-D-0050-renaming-is-a-card-state.md",
+        "design/governance/decisions/DS-D-0051-rename-underline-is-canonical.md",
         "design/governance/product-confirmations.md",
         "design/updates/README.md"
       ]

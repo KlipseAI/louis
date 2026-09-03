@@ -3664,24 +3664,52 @@
     outline-offset: 2px;
   }
 
-  /* ── 인라인 이름 변경 ────────────────────────────────────────────────────────
-   * 제목 자리에서 그대로 바뀐다. 크롬이 없어야 자리가 흔들리지 않는다 — 테두리나 면이 생기면
-   * 글자가 밀려 "다른 곳으로 갔다"처럼 보인다.
+  /* ── 인라인 이름 변경 ────────────────────────────────────────────────
+   * 제목 자리에서 그대로 바뀌고, **밑줄 하나만 그린다.** 면도 둘레 테두리도 없다 — 상자가
+   * 생기면 글자가 안쪽으로 밀려 "다른 곳으로 갔다"처럼 보이고, 아무것도 안 그리면 이 줄을
+   * 고칠 수 있다는 사실이 보이지 않는다. 밑줄은 그 둘 사이에서 글자를 안 밀면서 필드임만 말한다.
+   *
+   * **제품 네 벌을 밑줄로 통일하기로 소유자가 판정했다**(DS-D-0051, 2026-09-03). 그 전에는
+   * 하이라이트·비디오 에디터 허브 둘이 밑줄을 직접 그리고(이 정본을 얹지 않았다) 앱 홈·노드캔버스
+   * 홈 둘이 이 정본을 얹고 반경만 2 로 덮었다.
+   *
+   * 반경은 **0** 이다. 밑줄이 정본이 된 순간 사정이 바뀐다 — 반경을 주면 **밑줄 끝이 말려
+   * 올라간다**(제품 주석의 낱말 그대로다). 정본이 쓰던 8(`radius-control-sm`)은 제품 네 벌 중
+   * 어느 벌도 쓰지 않았다 — 쓰지 않는 계단은 재고다(DS-D-0030).
+   *
+   * `border` 단축을 쓰지 않고 네 변을 롱핸드로 적는다. 제품은 `border: none` 뒤에 `border-bottom`
+   * 단축을 두어 선언 순서에 기대고 있고, 그 순서 의존은 Tailwind 정렬에서 실제로 뒤집힌 적이 있다.
    */
 
   .louis-project-card-rename {
     inline-size: 100%;
     padding: 0;
+    /* 글자와 선 사이의 내림획 여유. 제품 두 벌이 `padding: 0 0 2px` 로 같다. */
+    padding-block-end: var(--louis-space-underline-gap);
     margin: 0;
-    border: 0;
+    border-block-start: 0;
+    border-inline: 0;
+    border-block-end: var(--louis-border-width-default) solid
+      var(--louis-color-stroke-underline);
     background-color: transparent;
     color: inherit;
     font: inherit;
-    border-radius: var(--louis-radius-control-sm);
+    border-radius: 0;
   }
 
+  /* **밑줄은 초점 표시가 아니다.** 밑줄은 이 줄이 필드라는 뜻이고 초점이 없을 때도 그대로
+   * 있다. 제품의 밑줄 두 벌은 초점 표시가 없는데, 그것은 호출부가 상자를 띄우자마자 초점을
+   * 넘겨 두 상태가 항상 같이 오기 때문이지 둘을 가를 필요가 없다는 뜻이 아니다. 이 상자를 초점 없이
+   * 띄우는 소비처에서는 그 둘이 구별되지 않으므로 링을 남긴다. 소유자 판정은 **시각을 밑줄로
+   * 통일하라**였지 키보드 위치를 지우라가 아니다.
+   *
+   * 링 두께를 `border-width-hairline`(0.5)에서 `border-width-ring`(2)로 올린다. **밑줄이 생기면서
+   * 0.5px 링이 그 밑줄과 헷갈리기 때문이다** — 상자 2px 바깥에 나란히 놓인 또 하나의 가는 선이
+   * 되어, 초점이 들었는지가 "선이 하나인가 둘인가"로 읽힌다. 2 는 이 파일의 형제인
+   * `.louis-project-card-more:focus-visible` 과 base 의 `.louis-focus-ring` 이 이미 쓰는 값이고,
+   * 그래서 이 줄은 새 표현이 아니라 **원래의 공용 표현으로 되돌아간 것**이다. */
   .louis-project-card-rename:focus-visible {
-    outline: var(--louis-border-width-hairline) solid var(--louis-color-stroke-focus);
+    outline: var(--louis-border-width-ring) solid var(--louis-color-stroke-focus);
     outline-offset: 2px;
   }
 

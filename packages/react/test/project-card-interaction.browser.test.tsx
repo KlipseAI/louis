@@ -79,7 +79,7 @@ test("index를 주면 그만큼 지연된다", async () => {
   }
 });
 
-test("이름 변경 입력에 크롬이 없다 — 자리가 흔들리지 않는다", async () => {
+test("이름 변경 입력은 밑줄 하나만 그린다 — 글자를 밀지 않는다", async () => {
   await mount(
     <ProjectCard>
       <ProjectCardRename label="프로젝트 이름" defaultValue="여름 여행" />
@@ -87,15 +87,39 @@ test("이름 변경 입력에 크롬이 없다 — 자리가 흔들리지 않는
   );
   const input = scope().querySelector<HTMLInputElement>(".louis-project-card-rename")!;
   const style = getComputedStyle(input);
+  const size = measured.components["project-card"].sizes.base;
+
+  // **글자를 미는 크롬은 여전히 없다.** 위·좌·우 테두리와 면과 위쪽 여백이 0이라 밑줄을 켜도
+  // 글자의 시작점이 움직이지 않는다 — 이것이 "다른 곳으로 갔다"를 막는 조건이다.
   expect(px(style.borderTopWidth)).toBe(0);
+  expect(px(style.borderLeftWidth)).toBe(0);
+  expect(px(style.borderRightWidth)).toBe(0);
   expect(style.backgroundColor).toBe("rgba(0, 0, 0, 0)");
   expect(px(style.paddingTop)).toBe(0);
   expect(input.getAttribute("aria-label")).toBe("프로젝트 이름");
 
-  // **크롬이 없으므로 이 상자가 선언하는 값은 반경 하나뿐이고, 그래서 그 하나를 여기서 잰다.**
-  // Figma 의 `State=Renaming` 안 `Rename` 부품이 같은 계약값을 대조하므로(DS-D-0050) 이 줄이
-  // 그 대조의 코드 쪽 절반이다 — 없으면 measured 와 Figma 만 서로를 보고 CSS 는 아무도 안 본다.
-  expect(px(style.borderTopLeftRadius), "renameRadius").toBe(
-    measured.components["project-card"].sizes.base.renameRadius,
+  // **소유자 판정으로 밑줄형이 정본이다**(DS-D-0051). Figma 의 `State=Renaming` 안 `Rename`
+  // 부품과 그 아래 `Underline` 이 같은 계약값을 대조하므로 이 셋이 그 대조의 코드 쪽 절반이다 —
+  // 없으면 measured 와 Figma 만 서로를 보고 CSS 는 아무도 안 본다.
+  expect(px(style.borderBottomWidth), "renameUnderlineWidth").toBe(
+    size.renameUnderlineWidth,
   );
+  expect(px(style.paddingBottom), "renameUnderlineGap").toBe(size.renameUnderlineGap);
+  expect(px(style.borderTopLeftRadius), "renameRadius").toBe(size.renameRadius);
+
+  // **반경 0 은 밑줄이 정본이 된 결과다.** 반경이 남아 있으면 선 끝이 말려 올라간다 — 제품
+  // 두 벌이 정본을 얹지 않은 사유가 낱말 그대로 그것이었다. 네 모서리를 전부 잰다.
+  expect(px(style.borderBottomLeftRadius)).toBe(0);
+  expect(px(style.borderBottomRightRadius)).toBe(0);
+  expect(px(style.borderTopRightRadius)).toBe(0);
+
+  // **선 색은 리터럴이 아니라 토큰에서 온다.** 변수의 선언 문자열을 그대로 비교하면 아무것도
+  // 검증하지 않으므로(그 문자열은 자기 자신이다) 같은 토큰을 물린 탐침의 **계산된** 색과 맞춘다 —
+  // 둘이 같은 직렬화를 거치므로 이 대조는 "밑줄이 이 토큰에서 온다"를 실제로 말한다.
+  const probe = document.createElement("span");
+  probe.style.color = "var(--louis-color-stroke-underline)";
+  // `<input>` 은 void 요소라 자식을 못 받는다. 형제로 붙여도 같은 트리에서 같은 변수를 본다.
+  input.parentElement!.append(probe);
+  expect(style.borderBottomColor).toBe(getComputedStyle(probe).color);
+  probe.remove();
 });

@@ -4232,6 +4232,18 @@
           ]
         ],
         [
+          "spacing/underline-gap",
+          "FLOAT",
+          "GAP,WIDTH_HEIGHT",
+          [
+            [
+              "Global",
+              "Klipse Primitive::spacing/2",
+              null
+            ]
+          ]
+        ],
+        [
           "type-line-height-percent/body-14",
           "FLOAT",
           "LINE_HEIGHT",
@@ -7468,6 +7480,23 @@
             [
               "Light",
               "Klipse Primitive::color/static-white-alpha/12",
+              null
+            ]
+          ]
+        ],
+        [
+          "color/stroke-underline",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL,STROKE_COLOR,TEXT_FILL",
+          [
+            [
+              "Light",
+              "Klipse Primitive::color/palette-gray/400",
+              null
+            ],
+            [
+              "Dark",
+              "Klipse Primitive::color/palette-gray/500",
               null
             ]
           ]
@@ -12272,7 +12301,7 @@
         }
       },
       "binding": {
-        "boundFills": 15,
+        "boundFills": 16,
         "rawFills": 0,
         "boundStrokes": 3,
         "rawStrokes": 0,
@@ -12385,7 +12414,15 @@
             },
             "Rename": {
               "cornerRadius": [
-                8
+                0
+              ],
+              "itemSpacing": [
+                2
+              ]
+            },
+            "Underline": {
+              "height": [
+                1
               ]
             }
           },

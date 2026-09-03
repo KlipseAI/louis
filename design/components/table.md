@@ -15,7 +15,7 @@ summary: 여러 항목을 행과 열로 늘어놓고 값끼리 비교하게 합�
 헤어라인·반경·`z-[1]` 까지 손으로 재현한 랜딩 스냅샷 1벌, 치수가 맞지 않아 **명시적으로 채택을
 거부한** 가이드 모델 사양 표 1벌(`ModelSpecPanel.tsx:42`), 그리고 아직 검토되지 않은 관리자 캡션
 템플릿 표와 요금제 모달 표 2벌. **여섯 중 거부 기록이 있는 것은 그 하나뿐이다** — 관리자 사용자
-목록(`JobMonitor.tsx:171`)도 같은 거부를 적었지만 그것은 `<table>` 이 아니라 div 스택이라 여섯에
+목록(`JobMonitor.tsx:62`)도 같은 거부를 적었지만 그것은 `<table>` 이 아니라 div 스택이라 여섯에
 들어 있지 않다.
 
 **이 레시피는 골격만 소유한다.** 여백과 타이포는 두 소비처가 전부 유틸리티로 되돌린다 — 아래
@@ -40,7 +40,7 @@ Known deviations 첫 항목이 그 실측이다.
 쓰지 않는 자리.
 
 - **목록이 표가 아닐 때.** 항목 하나가 값 하나이고 세로 스택으로 나열되는 것은 목록이다. 관리자
-  사용자 목록(`app/admin/JobMonitor.tsx:165-172`)이 그 자리이며, 그 파일이 "표가 아니라 div
+  사용자 목록(`app/admin/JobMonitor.tsx:56-63`)이 그 자리이며, 그 파일이 "표가 아니라 div
   스택이라 정본이 요구하는 thead/tbody/tr/td 골격이 없다"고 스스로 적어 두었다.
 - **열 폭을 데이터가 정해야 할 때.** 이 레시피는 `table-layout: fixed` 다. 폭을 주지 않은 열이
   균등 분할되므로 `nowrap` 셀이 넘친다. 가이드의 모델 사양 표
@@ -117,7 +117,7 @@ deviations.
 | `InstagramAnalyticsScene.tsx:586,605` | 8/12 | 10/12 |
 | 랜딩 스냅샷 `StaticAnalyticsDemo.tsx@a3ed8e03:508-509,531-532` — **없어졌다**(↓) | 8/12 | 10/12 |
 | 가이드 모델 사양 `ModelSpecPanel.tsx:52-53` | 8/12 | 8/12 |
-| 관리자 캡션 템플릿 `CaptionTemplateManagement.tsx:45,54` | 10/14 | 10/14 |
+| 관리자 캡션 템플릿 `CaptionTemplateManagement.tsx@ae8fd627:45,54` — **`louis-table` 로 넘어갔다**(↓) | 10/14 | 10/14 |
 | 요금제 모달 `PricingModal.tsx:90,95` | 5/8 | 6/8 |
 
 **같은 값을 쓰는 것은 둘이 아니라 셋이다** — 랜딩 스냅샷이 대시보드 둘과 같은 8/12·10/12 다.
@@ -364,10 +364,14 @@ CSS 에 있는 상태는 **하나뿐이다.**
   (`StaticAnalyticsDemo.tsx@a3ed8e03:503-521`)이 같은 기하를 손으로 재현해 흡수 후보였는데 **그 파일
   자체가 없어졌다**(랜딩 개편 `8802565e`) — 후보 하나가 흡수가 아니라 삭제로 사라졌으므로 넷이
   셋이 됐다. 남은 것은 가이드
-  모델 사양 표와 관리자 캡션 템플릿 표(`app/admin/CaptionTemplateManagement.tsx:40-46`, 표 전체에
+  모델 사양 표와 관리자 캡션 템플릿 표(`app/admin/CaptionTemplateManagement.tsx@ae8fd627:40-46`, 표 전체에
   1px 테두리 + `rounded-12` + `overflow-hidden`), 요금제 모달 표
   (`components/scenes/create/PricingModal.tsx:82-92`, `border-collapse: collapse` · caption-12 ·
   uppercase 헤더)는 계약이 다르다.
+
+  **앵커를 `5a67d692` 로 옮기며 후보가 하나 더 줄었다(↓).** 관리자 캡션 템플릿 표는 손수 기하를
+  버리고 `louis-table` 을 문다(`app/admin/CaptionTemplateManagement.tsx:52`·`:54`) — 흡수가 아니라
+  **제품이 스스로 정본으로 넘어온** 경우다. 셋이 둘이 됐고, 위 벌 표의 그 행도 함께 옮겼다.
 
 ## Acceptance tests
 

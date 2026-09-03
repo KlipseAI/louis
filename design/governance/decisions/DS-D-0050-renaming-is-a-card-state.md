@@ -26,10 +26,10 @@ authority: normative
 
 | 자리 | 선언 |
 | --- | --- |
-| `AppHomeScene.tsx:1127` | `aspectRatio: "1 / 1"` |
-| `HighlightScene.tsx:1294` | `aspectRatio: "1 / 1"` |
-| `VideoEditScene.tsx:761` | `aspectRatio: "1 / 1"` |
-| `NodeCanvasHomeScene.tsx:1480` | `aspectRatio: "1 / 1"` |
+| `AppHomeScene.tsx:1091` | `aspectRatio: "1 / 1"` |
+| `HighlightScene.tsx:1313` | `aspectRatio: "1 / 1"` |
+| `VideoEditScene.tsx:773` | `aspectRatio: "1 / 1"` |
+| `NodeCanvasHomeScene.tsx:1498` | `aspectRatio: "1 / 1"` |
 
 네 벌이 전수 정사각이고, 그 값은 정본의 기본값(`--louis-project-card-aspect-ratio: 1`)과
 같다. 9:16 은 이 그리드가 아니라 애널리틱스의 인기 콘텐츠 목록과 `ContentTable` 의 영상 셀에
@@ -41,9 +41,9 @@ authority: normative
 | 벌 | 프레임 | 제목 띠 | 더보기 | 모서리 슬롯 |
 | --- | --- | --- | --- | --- |
 | 앱 홈 (`appHomeSceneStyles.ts:18`) | `louis-project-card` | 정본 | 정본 | 앵커라 얹지 않음(사유 기록됨) |
-| 노드캔버스 홈 (`NodeCanvasHomeScene.tsx:261`) | `louis-project-card` | 정본 | 정본 | 앵커라 얹지 않음 |
-| 하이라이트 허브 (`highlightSceneStyles.ts:721`) | `louis-project-card` | 정본 | 정본 | **정본**(`:946`, top-start 상태 칩) |
-| 비디오 에디터 허브 (`VideoEditScene.tsx:224`) | **자체** | 자체 | 자체(`:298`) | 자체(`:271`) |
+| 노드캔버스 홈 (`NodeCanvasHomeScene.tsx:264`) | `louis-project-card` | 정본 | 정본 | 앵커라 얹지 않음 |
+| 하이라이트 허브 (`highlightSceneStyles.ts:725`) | `louis-project-card` | 정본 | 정본 | **정본**(`:946`, top-start 상태 칩) |
+| 비디오 에디터 허브 (`VideoEditScene.tsx:230`) | **자체** | 자체 | 자체(`:298`) | 자체(`:271`) |
 
 제목 오버레이와 더보기는 **CSS·React·Figma 셋 다에 이미 서 있다.** 넷째 벌만 정본을 하나도
 물지 않는데, 그 반경은 `rounded-12` 로 정본 `radius-card`(12)와 **같다** — 값이 갈린 것이
@@ -65,9 +65,9 @@ authority: normative
 | 벌 | 정본 채택 | 반경 | 밑줄 |
 | --- | --- | ---: | --- |
 | 앱 홈 (`appHomeSceneStyles.ts:340`) | `louis-project-card-rename` | **2** | 없음 |
-| 노드캔버스 홈 (`NodeCanvasHomeScene.tsx:398`) | `louis-project-card-rename` | **2** | 없음 |
-| 하이라이트 허브 (`highlightSceneStyles.ts:1036`) | **얹지 않는다** | 0 | `border-bottom: 1px solid palette-gray-400` (다크 `gray-500`) |
-| 비디오 에디터 허브 (`VideoEditScene.tsx:395`) | 얹지 않는다(프레임부터 자체) | 0 | 같은 선언 |
+| 노드캔버스 홈 (`NodeCanvasHomeScene.tsx:401`) | `louis-project-card-rename` | **2** | 없음 |
+| 하이라이트 허브 (`highlightSceneStyles.ts:1040`) | **얹지 않는다** | 0 | `border-bottom: 1px solid palette-gray-400` (다크 `gray-500`) |
+| 비디오 에디터 허브 (`VideoEditScene.tsx:401`) | 얹지 않는다(프레임부터 자체) | 0 | 같은 선언 |
 
 두 쌍이 각각 글자 그대로 같고, **정본의 반경 8(`radius-control-sm`)을 쓰는 벌은 하나도
 없다.** 하이라이트의 비채택 사유는 제품 주석에 낱말 그대로 있다 — 「정본의 `border: 0` 과

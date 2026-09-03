@@ -122,7 +122,7 @@ workspace wrapper는 분리한다.
 8. **Nested overlay host** — Select, Popover, Tooltip을 같은 modal branch에 연결한다.
 
 **Body는 슬롯이다.** 배포본 확인 모달 셸은 설명 `<p>`와 액션 행 **사이**에 children을 그대로
-끼운다(`GlassConfirmModal.tsx:179`). 소비처가 넣는 것은 설명 아래·액션 위에 앉고, 설명과 액션
+끼운다(`GlassConfirmModal.tsx:193`). 소비처가 넣는 것은 설명 아래·액션 위에 앉고, 설명과 액션
 사이의 간격은 children이 있는 순간 children의 마진이 결정한다 — 셸은 그 간격을 소유하지 않는다.
 **셸에 고정 간격이 있다고 가정하고 Figma에 그리면 내용이 든 벌에서 어긋난다.**
 
@@ -297,7 +297,8 @@ Figma에서 제품 화면을 그릴 때는 아래를 쓴다.
 | 액션 라벨 | `type-body-16-medium` | 16 / 500 / 1.5 / -0.01em | 버튼 variant가 소유 |
 | 부속(내역 행·체크박스 라벨) | `type-body-14-*` | 14 / 400·600 / 1.5 / -0.01em | 라벨 60% · 값 100% |
 
-근거는 `GlassConfirmModal.tsx:170`(제목 — `text-body-16 font-semibold`)과 `:173`(설명)이다.
+근거는 `GlassConfirmModal.tsx:173`(제목 — `text-body-20 font-semibold`)과 `:176`(설명)이다.
+**제목 타이포는 `5a67d692` 재고정에서 `text-body-16` → `text-body-20` 으로 올라갔다** — 위 표의 제목 행은 재감사 대상이다.
 **나머지는 제품이 더는 갖고 있지 않다.** 배포본 `df414c24` 의 이 셸은 `.louis-dialog__*` 와 LOUIS
 `Button` 만 그리고, 색·제목→설명 간격(8px)·부속 타이포는 전부
 [dialog.css](../../packages/css/src/component/dialog.css) 가 소유한다 — 옛 좌표(`a3ed8e03` 의 `:286`
@@ -305,7 +306,7 @@ Figma에서 제품 화면을 그릴 때는 아래를 쓴다.
 **제품 실측이 아니라 DS 계약**이고, 제품이 그것을 소비한다.
 
 **뷰포트 450px 이하에서 위 표의 16px이 전부 14px로 내려간다.** 제품이 `--type-body-16-size`를
-`--type-body-14-size`로 재정의하기 때문이다(`globals.css:810-814`). `line-height`와
+`--type-body-14-size`로 재정의하기 때문이다(`globals.css:804-808`). `line-height`와
 `letter-spacing`은 따라 내려가지 않는다. 결과는 모바일 폭에서 **제목·설명·액션 라벨·부속이 전부
 14px**이 되어 위계가 굵기에만 남는 것이다. 450은 [Responsive Layout](../foundations/responsive-layout.md)의
 다섯 단계에 없는 별도 경계다 — **다섯 단계만 보고 그리면 이 층이 통째로 빠진다.**
@@ -325,7 +326,7 @@ Figma 세트에 이것이 없어서 디자이너가 확인 대화상자를 만�
 
 **제품의 액션 행은 오른쪽 정렬이 아니다.** 배포본 확인 모달은 액션 행에 `justify-*`를 두지 않고
 버튼 둘에 각각 `flex: 1`을 줘 **1:1로 균등 분할**한다. 취소·확인·danger 셋이 같은 기반 클래스를
-공유하므로 세 벌 전부 같은 폭이다(`GlassConfirmModal.tsx:89` · `:94`). 360px 카드에서 각 버튼은
+공유하므로 세 벌 전부 같은 폭이다(`GlassConfirmModal.tsx:92` · `:94`). 360px 카드에서 각 버튼은
 (360 − 16 − 8) ÷ 2 ≈ 168px이다 — 카드 패딩이 좌우 16이어도 액션 행이 `-8px`로 되밀어 실효
 인셋이 8+8이기 때문이다. 버튼 곡률은 카드 24에서 인셋 8을 뺀 16이라 카드와 동심이다(`:95`).
 
@@ -426,7 +427,7 @@ host의 두 번째 직속 자식이 되고, primitive의 중첩 격리가 자기
 
   **이제 제품과 같은 계약이고, 구성도 같아졌다.** 배포본 확인 모달은 `border` 선언도 자기
   `box-shadow` 선언도 없고 `.louis-dialog__surface`를 그대로 소비한다
-  (`GlassConfirmModal.tsx:161`, 루트는 `:152`). 경계는 그 recipe의
+  (`GlassConfirmModal.tsx:164`, 루트는 `:152`). 경계는 그 recipe의
   `box-shadow: var(--louis-elevation-modal), var(--louis-hairline-inset)`
   ([dialog.css:85](../../packages/css/src/component/dialog.css))에서 온다 — 앰비언트와 헤어라인을
   함께 갖는다.

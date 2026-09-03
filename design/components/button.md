@@ -147,7 +147,7 @@ Button은 토글이 아니므로 `pressed`(`aria-pressed`)를 갖지 않는다 �
 variant 축이 되는데, 그 축을 세울 근거가 하나뿐이다.
 
 근거: `Button.tsx@a3ed8e03:82-83`(scale 상수) · `:105`·`:110`(secondary) · `:116`·`:120`(ghost) ·
-`globals.css:46`·`:57`(기준색).
+`globals.css:42`·`:57`(기준색).
 
 **알파 표기법이 계약이다.** 제품은 `rgb(var(--x-rgb) / 5%)` 임의값을 쓰고 Tailwind의 `/5` 단축을
 쓰지 않는다 — 단축은 `color-mix()`로 컴파일돼 **결과 색이 달라진다.** 파일 주석이 그 이유를 적어
@@ -405,7 +405,7 @@ gap과 아이콘 슬롯도 세 크기가 같은 값이다(`column-gap`은 셋 �
 
   | 겹 | 제품 값 | 근거 |
   | --- | --- | --- |
-  | 면 | `linear-gradient(90deg, var(--primary-450) 0%, var(--primary-500) 50%, var(--primary-450) 100%)` | `Button.tsx@a3ed8e03:89` · `globals.css:481-486` |
+  | 면 | `linear-gradient(90deg, var(--primary-450) 0%, var(--primary-500) 50%, var(--primary-450) 100%)` | `Button.tsx@a3ed8e03:89` · `globals.css:475-480` |
   | 베벨 페어 (요소 자신의 `box-shadow`) | `inset 0 1px 1px rgb(250 250 250 / 25%), inset 0 -1px 1px rgb(250 250 250 / 25%)` | `Button.tsx@a3ed8e03:91` · `globals.css:26`·`:46` |
   | 글로우 (별도 `::before`) | `inset 0 0 8px 0 rgb(250 250 250 / 100%)` + `mix-blend-mode: overlay` + `pointer-events: none` | `Button.tsx@a3ed8e03:93-96` |
 
@@ -424,33 +424,33 @@ gap과 아이콘 슬롯도 세 크기가 같은 값이다(`column-gap`은 셋 �
   [`migration/product.measured.json`](../../migration/product.measured.json)의 「disabled 표현」 축에
   accepted-deviation으로 있다.
 - **노드 캔버스 중립 버튼의 면 색이 LOUIS에 없다.** 제품은 노드 카드에 붙는 보조 버튼용으로 별도 SSOT
-  토큰군 `--node-chrome-btn-*`를 둔다(`globals.css:528-554`, 라이트 덮어쓰기 `:567-573`).
+  토큰군 `--node-chrome-btn-*`를 둔다(`globals.css:522-548`, 라이트 덮어쓰기 `:567-573`).
 
   | 토큰 | 값 | LOUIS `md` 대비 |
   | --- | --- | --- |
-  | `--node-chrome-btn-h` | `32px` (`globals.css:542`) | 같다 (`layout-control-height-md`) |
+  | `--node-chrome-btn-h` | `32px` (`globals.css:536`) | 같다 (`layout-control-height-md`) |
   | `--node-chrome-btn-padding-x` | `10px` (`:543`) | 텍스트-only `md` 12px와 다르고 **아이콘 동반 `md` 10px와 같다**. 제품은 아이콘 유무와 무관하게 10 고정 |
   | `--node-chrome-btn-radius` | `12px` (`:544`) | **같은 값이 아니라 그 토큰 자체다** — `var(--louis-radius-control)` |
   | `--node-chrome-btn-gap` | `4px` (`:547`) | **같은 값이 아니라 그 토큰 자체다** — `var(--louis-space-control-xs)` |
   | `--node-chrome-btn-bg` | 다크 `#777d89` (`:548`) / 라이트 `#f1f1f3` (`:568`) | **대응 토큰 없음** |
-  | ~~`--node-chrome-btn-border`~~ | **제품에 없다.** 테두리 토큰은 폐지됐고 알약은 `[box-shadow:var(--louis-hairline-inset)]`을 직접 얹는다(`ImageNode.tsx:641`) | 이제 LOUIS 정본을 그대로 쓴다 |
+  | ~~`--node-chrome-btn-border`~~ | **제품에 없다.** 테두리 토큰은 폐지됐고 알약은 `[box-shadow:var(--louis-hairline-inset)]`을 직접 얹는다(`ImageNode.tsx:645`) | 이제 LOUIS 정본을 그대로 쓴다 |
   | `--node-chrome-btn-bg-hover` | 다크 `color-mix(in srgb, var(--palette-gray-000) 8%, var(--node-chrome-btn-bg))` (`:550-554`) / 라이트 `--palette-gray-1000` 5% (`:569-573`) | **없음** |
 
   대상은 메타 툴바 알약(모델·길이·볼륨·비율), 메타 아이콘 버튼, 카드 헤더 액션(다운로드·삭제), 업로드
-  노드 툴바 버튼이다(`globals.css:530-532`). 프라이머리 그라디언트 버튼(생성 FAB·`processButton`·
+  노드 툴바 버튼이다(`globals.css:524-526`). 프라이머리 그라디언트 버튼(생성 FAB·`processButton`·
   `uploadPillButton`)과 세그먼트 컨트롤은 비대상이고 각자 고유 크롬을 갖는다(`:533-534`).
   **토큰군 전부를 쓰는 소비처는 없다**(`:536-537`) — 헤더 액션은 치수만 쓰고 면은 투명 + hover
   틴트이며(`NodeHeaderActions.tsx:36-37`), 아이콘 전용 버튼은 정사각이라 `-padding-x`를 쓰지 않는다.
-  면과 헤어라인을 전부 쓰는 대표 소비처는 메타 툴바 알약이다(`ImageNode.tsx:638-652`). 치수 축은 LOUIS
+  면과 헤어라인을 전부 쓰는 대표 소비처는 메타 툴바 알약이다(`ImageNode.tsx:642-656`). 치수 축은 LOUIS
   `md`로 그대로 재현되지만 **면 색 두 쌍이 없어 노드 카드 내부 버튼을 LOUIS만으로 칠할 수 없다.**
-- **제품의 결과 화면 액션은 전폭 앵커다.** 결제 결과 화면의 두 액션(`billing-success/page.tsx:136-146`
+- **제품의 결과 화면 액션은 전폭 앵커다.** 결제 결과 화면의 두 액션(`billing-success/page.tsx:140-150`
   primary · `:148-158` secondary)은 높이 32px · padding `0 12px` · radius 12px까지 `md`와 같고
   **세 축이 다르다.**
 
   | 축 | LOUIS `md` | 제품 결과 화면 액션 |
   | --- | --- | --- |
   | 폭 | 내용 폭 (고정 폭 없음) | `width: 100%` (`:137`·`:149`) |
-  | 타이포 | `body-sm-medium` 14px / 21px | 14px **regular** — `--type-body-14-size` + `--type-weight-regular` 400 (`:139`·`:151`; 토큰 정의 `globals.css:318`·`:284`) |
+  | 타이포 | `body-sm-medium` 14px / 21px | 14px **regular** — `--type-body-14-size` + `--type-weight-regular` 400 (`:139`·`:151`; 토큰 정의 `globals.css:312`·`:284`) |
   | 렌더 요소 | 네이티브 `<button>` | `next/link`의 `<a>` + `text-decoration: none !important` |
 
   **높이와 padding은 다른 축이 아니다.** 2026-08-30까지 이 자리는 「높이 40px … 네 축이 다르다」와
@@ -471,7 +471,7 @@ gap과 아이콘 슬롯도 세 크기가 같은 값이다(`column-gap`은 셋 �
   공통에, primary는 면 `--gray-000` → hover 90% → active 82% · 글자 `--gray-900`, secondary는 면 페이퍼
   8% → hover 14% → active 18% · 글자 `--gray-000`이고 둘 다 active에서 `scale(0.98)`이다. `!important`가
   필요한 이유는 레이어 **밖** 전역 `a { color: inherit; text-decoration: none }`가 `@layer utilities`를
-  무조건 이기기 때문이다(`globals.css:988-991`).
+  무조건 이기기 때문이다(`globals.css:982-985`).
 - **인증 화면 버튼은 대부분 넘어왔다 — 남은 것은 상태 카드의 secondary 하나다.** 이 항목은 원래
   「어떤 인증 화면도 공용 Button을 import 하지 않는다」였는데 **그 명제가 뒤집혔다.** 배포본
   `df414c24` 에서 로그인 제출 CTA 는 LOUIS `Button` 이고(`login/page.tsx:542-554`,

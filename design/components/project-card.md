@@ -160,9 +160,9 @@ variant 축이 없다는 뜻이고, 그 셋은 CSS 상태이지 prop 이 아니�
 | 벌 | 정본 채택 | 반경 | 밑줄 |
 | --- | --- | ---: | --- |
 | 앱 홈 `appHomeSceneStyles.ts:340` | `louis-project-card-rename` | 2 | 없음 |
-| 노드캔버스 홈 `NodeCanvasHomeScene.tsx:398` | `louis-project-card-rename` | 2 | 없음 |
-| 하이라이트 허브 `highlightSceneStyles.ts:1036` | **얹지 않는다** | 0 | `1px solid palette-gray-400` (다크 `gray-500`) |
-| 비디오 에디터 허브 `VideoEditScene.tsx:395` | 얹지 않는다 | 0 | 같은 선언 |
+| 노드캔버스 홈 `NodeCanvasHomeScene.tsx:401` | `louis-project-card-rename` | 2 | 없음 |
+| 하이라이트 허브 `highlightSceneStyles.ts:1040` | **얹지 않는다** | 0 | `1px solid palette-gray-400` (다크 `gray-500`) |
+| 비디오 에디터 허브 `VideoEditScene.tsx:401` | 얹지 않는다 | 0 | 같은 선언 |
 
 **정본의 반경 8(`radius-control-sm`)을 쓰는 벌은 하나도 없다.** 밑줄 두 벌의 비채택 사유는
 제품 주석에 낱말 그대로 있다 — 「정본의 `border: 0` 과 `border-radius: 8`(밑줄 끝이 말려

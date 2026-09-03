@@ -32,14 +32,14 @@ authority: normative
 | 축 | 값 |
 | --- | --- |
 | 아이콘 박스 | `64px` |
-| 아이콘 색 | 매체별 accent — Image `--accent-green-500`(`ImageNode.tsx:328`) · Video `--primary-500`(`VideoNode.tsx:240`) · Text `--accent-yellow-500`(`TextNode.tsx:321`) · Edit `--accent-violet-500`(`EditNode.tsx:375`) |
+| 아이콘 색 | 매체별 accent — Image `--accent-green-500`(`ImageNode.tsx:332`) · Video `--primary-500`(`VideoNode.tsx:240`) · Text `--accent-yellow-500`(`TextNode.tsx:321`) · Edit `--accent-violet-500`(`EditNode.tsx:375`) |
 | 셸 | `flex column` · 가운데 정렬 · `gap: 4px` · `width/height: 100%` · `min-height: 120px` |
 | 셸 기타 | `overflow: hidden` · `pointer-events: none` |
-| 캡션 | 아이콘 **다음에 오는 i18n 단계 라벨** — `type-body-14-medium` · 매체 accent(Image 는 다크 `--accent-green-100` / 라이트 `--accent-green-700`, `ImageNode.tsx:347-348`) |
+| 캡션 | 아이콘 **다음에 오는 i18n 단계 라벨** — `type-body-14-medium` · 매체 accent(Image 는 다크 `--accent-green-100` / 라이트 `--accent-green-700`, `ImageNode.tsx:351-352`) |
 | 시맨틱 | **`role="status"` · `aria-live="polite"`** |
 
 **읽히는 것은 캡션이다.** 셸이 `role="status"`·`aria-live="polite"` 를 갖는데 그 안에서 텍스트를
-가진 자식은 캡션 하나뿐이다 — 아이콘은 `aria-hidden` 이다(`ImageNode.tsx:727-745`). 시맨틱만 계약하고
+가진 자식은 캡션 하나뿐이다 — 아이콘은 `aria-hidden` 이다(`ImageNode.tsx:731-749`). 시맨틱만 계약하고
 캡션을 계약하지 않으면 **읽어 줄 문장이 없는 live region** 이 된다. Image 셸은 아이콘과 캡션 둘이
 전부이고, Edit 셸은 같은 두 자식에 진행 채움과 `role="progressbar"` 가 더 붙는다
 (`EditNode.tsx:568-593`).
@@ -69,7 +69,7 @@ authority: normative
 **판정이 필요하다.** loop에 `transform` 축과 overshoot recipe를 추가할지, 이 표현을 제품 전용으로
 둘지. 정하지 않으면 화면을 조립할 때마다 곡선을 지어내게 된다.
 
-근거: `nodes/ImageNode.tsx:324-330` · `keyframes.css:410`·`:422`.
+근거: `nodes/ImageNode.tsx:328-334` · `keyframes.css:410`·`:422`.
 
 ## 시간과 피드백
 
@@ -173,30 +173,30 @@ Spinner와 Skeleton 모두 반복이 **1회로 끝난다**(DS-D-0016 — loop는
 
 | keyframe | 좌표 | 소비처 |
 | --- | --- | --- |
-| `archiveLoadingSweep` | `keyframes.css:497-500` | `NodeCanvasHomeScene.tsx:161` · `VideoEditScene.tsx:166` · `EditorProjectWorkspace.tsx:145` · `appHomeSceneStyles.ts:154` |
-| `archiveLoadingMoreShimmer` | `keyframes.css:503-506` | `NodeCanvasHomeScene.tsx:224` (더 불러오기) |
+| `archiveLoadingSweep` | `keyframes.css:497-500` | `NodeCanvasHomeScene.tsx:162` · `VideoEditScene.tsx:170` · `EditorProjectWorkspace.tsx:151` · `appHomeSceneStyles.ts:154` |
+| `archiveLoadingMoreShimmer` | `keyframes.css:503-506` | `NodeCanvasHomeScene.tsx:227` (더 불러오기) |
 | `projectLoadingSweep` | `keyframes.css:661-664` | `components/scenes/CreateScene.tsx:141` |
-| `statusLoadingSweep` | `keyframes.css:772-779` | `mypage/upgrade/billing-success/page.tsx:91` · `mypage/upgrade/billing-change-success/page.tsx:89` · `mypage/topup/success/page.tsx:91` |
+| `statusLoadingSweep` | `keyframes.css:772-779` | `mypage/upgrade/billing-success/page.tsx:95` · `mypage/upgrade/billing-change-success/page.tsx:93` · `mypage/topup/success/page.tsx:95` |
 
 네 벌의 본문은 `from { background-position: 0% 50% }` → `to { background-position: -100% 50% }` 로
 같다. **네 이름을 네 개의 다른 흐름으로 보고 Figma에 각각 만들면 틀린다. 하나다.**
 
-**레시피.** 목록 첫 로딩(`components/scenes/NodeCanvasHomeScene.tsx:152-163`) 기준이며 나머지
+**레시피.** 목록 첫 로딩(`components/scenes/NodeCanvasHomeScene.tsx:153-164`) 기준이며 나머지
 소비처가 같은 값을 복제한다.
 
 | 축 | 값 | 근거 |
 | --- | --- | --- |
-| 컨테이너 최소 높이 | **480px** | `NodeCanvasHomeScene.tsx:153` |
+| 컨테이너 최소 높이 | **480px** | `NodeCanvasHomeScene.tsx:156` |
 | 컨테이너 패딩 | **80px 0** (`py-40 px-0`, `--spacing: 2px`) | 같은 줄 |
 | 컨테이너 정렬 | `flex items-center justify-center` | 같은 줄 |
-| 라벨 타이포 | **`type-heading-28-medium`** | `NodeCanvasHomeScene.tsx:1287` |
-| 라벨 표시 | `inline-block` · `color: transparent` | `NodeCanvasHomeScene.tsx:156` |
-| 배경 크기 · 시작 위치 | `200% 100%` · `0% 50%` | `NodeCanvasHomeScene.tsx:158` |
-| 클립 | `background-clip: text` + `-webkit-background-clip: text` | `NodeCanvasHomeScene.tsx:159` |
-| 흐름 | **`2.2s` · `linear` · `infinite`** | `NodeCanvasHomeScene.tsx:161` |
+| 라벨 타이포 | **`type-heading-28-medium`** | `NodeCanvasHomeScene.tsx:1302` |
+| 라벨 표시 | `inline-block` · `color: transparent` | `NodeCanvasHomeScene.tsx:159` |
+| 배경 크기 · 시작 위치 | `200% 100%` · `0% 50%` | `NodeCanvasHomeScene.tsx:159` |
+| 클립 | `background-clip: text` + `-webkit-background-clip: text` | `NodeCanvasHomeScene.tsx:160` |
+| 흐름 | **`2.2s` · `linear` · `infinite`** | `NodeCanvasHomeScene.tsx:162` |
 
 그라디언트는 9정지점이고 **전부 한 색의 알파 변주다** — 면 색을 고르지 않는다는 Skeleton의 판정과
-같은 자리다(`NodeCanvasHomeScene.tsx:157`).
+같은 자리다(`NodeCanvasHomeScene.tsx:158`).
 
 ```
 linear-gradient(90deg,
@@ -212,23 +212,23 @@ linear-gradient(90deg,
 
 **색 축은 자리마다 하나만 다르다.** 첫 로딩 시머는 다크 표면을 전제로 `--gray-000-rgb` 하나만 쓴다.
 「더 불러오기」 시머만 라이트에서 `--palette-gray-900-rgb` 를 쓰고 `html[data-theme=dark]` 에서
-`--palette-gray-000-rgb` 로 갈아끼운다(`NodeCanvasHomeScene.tsx:220`, `NodeCanvasHomeScene.tsx:225`).
+`--palette-gray-000-rgb` 로 갈아끼운다(`NodeCanvasHomeScene.tsx:223`, `NodeCanvasHomeScene.tsx:225`).
 둘을 한 색으로 합치면 라이트 테마에서 더 불러오기 문구가 배경에 묻힌다.
 
 **reduced-motion에서 그라디언트가 남는다.** 제품은 애니메이션만 끄고 그라디언트는 그대로 둔다 —
-`NodeCanvasHomeScene.tsx:162` 와 `VideoEditScene.tsx:167` 은 미디어 쿼리로, 결제 상태 화면은
-`motion-reduce:animate-none` 으로 같은 결과를 낸다(`mypage/upgrade/billing-success/page.tsx:91`).
+`NodeCanvasHomeScene.tsx:163` 와 `VideoEditScene.tsx:171` 은 미디어 쿼리로, 결제 상태 화면은
+`motion-reduce:animate-none` 으로 같은 결과를 낸다(`mypage/upgrade/billing-success/page.tsx:95`).
 글자가 계속 `color: transparent` 이므로 정지한 그라디언트가 글자를 그린다. 위 「reduced-motion」의
 **1회로 끝난다**와 다르다 — 시머 텍스트는 1회를 돌지 않고 **0프레임에서 멈추고**, 그 자리에서 글자가
 20%~88% 알파로 얼룩진 채 남는다. 규범화할 때 이 얼룩을 허용할지 균일 알파로 떨어뜨릴지 판정이
 필요하다.
 
 **자리표시가 읽힌다.** `<section aria-live="polite">` 안의 `<span role="status" aria-label={…}>`
-구조다(`NodeCanvasHomeScene.tsx:1285-1289`). 영역 구조는 위 「누가 로딩을 알리는가」와 같지만
+구조다(`NodeCanvasHomeScene.tsx:1300-1304`). 영역 구조는 위 「누가 로딩을 알리는가」와 같지만
 **자리표시가 `aria-hidden` 이 아니라 읽히는 텍스트**라는 점이 Skeleton과 다르다. 시머 텍스트에
 「자리표시는 장식이다」를 그대로 적용하면 로딩 문구가 통째로 사라진다. 결제 상태 화면은 더 나아가
 **로딩 동안 제목·설명·오류·메타·액션을 렌더하지 않고 이 단어 하나만 남긴다**
-(`mypage/upgrade/billing-success/page.tsx:419-427`) — 카드 안의 장식이 아니라 화면 전체의 상태다.
+(`mypage/upgrade/billing-success/page.tsx:423-431`) — 카드 안의 장식이 아니라 화면 전체의 상태다.
 
 **흐름 값이 정본과 다르다.**
 

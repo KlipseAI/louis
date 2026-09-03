@@ -303,7 +303,7 @@ Figma **Product inventory** 페이지에 표본이 그려져 있다. 값은 전�
   표본에 넣어야 그릴 수 있다. 카드에 그렇게 적혀 있다.
 - **컴포넌트화는 아직이다** — 지금은 프레임이다. 합치기 결정이 끝난 종류부터
   COMPONENT_SET으로 올리는 것이 다음 단계다. 확정된 것: 모달=appHome(빨간 삭제 버튼),
-  아이콘 버튼=iconButton(Gnb.tsx:196). `migration/consolidation-choices.json`에 있다.
+  아이콘 버튼=iconButton(Gnb.tsx:197). `migration/consolidation-choices.json`에 있다.
 
 ## 다음 순서
 
@@ -399,14 +399,14 @@ DS 캐스케이드에 대한 참인 진술이지 **제품을 확인한 진술이
   secondary·ghost만 덮는다) Default의 `background-danger`가 그대로 남는다. 제품
   `overlayDeleteBtn`은 **반대다** — 평소 `background:transparent` · `color:gray-400 92%`이고
   hover에서만 `accent-red-600 88%`를 채우고 전경을 `palette-gray-000 95%`로 뒤집는다
-  (`apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts:1519`,
+  (`apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts:1671`,
   `klipse-web` `origin/design`). 극성이 반대이므로 어느 쪽을 정본으로 삼을지 판정이 필요하다.
 - `icon-button.states.secondary.Hover.foreground` — 확인했다. 제품 `backButton`은 hover에서
   전경을 올린다(`[&:hover]:[color:var(--palette-gray-900)]`, 다크는
   `[html[data-theme=dark]_&:hover]:[color:var(--palette-gray-000)]`,
   `apps/web/components/scenes/highlightSceneStyles.ts:9-38`). DS는 hover에서 면만 바꾼다.
 - `icon-button.states.ghost.Hover.foreground` — 사유에 상수가 빠져 있어 찾아 뒀다.
-  `projectImportBackBtn`이다(`apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts:2556`).
+  `projectImportBackBtn`이다(`apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts:2752`).
   평소 `background:transparent` · `color:gray-000 78%`이고 hover에서 전경을 `100%`로 올리면서
   면도 `gray-000 8%`로 함께 얹는다 — DS는 hover에서 면만 바꾸고 전경을 그대로 둔다.
   (같은 파일의 `alignButton`(4행)과 `assetRailBtnActive`(143행)도 hover 전경을 100%로 올리지만

@@ -224,7 +224,7 @@ static-alpha 정책 결정이 선행돼야 한다.
 
 빠진 것 중 확실한 하나: **파괴적 확인(삭제)이 없다.** 제품의 확인 모달 두 벌이 모두
 `confirmVariant?: "primary" | "danger"` 를 갖는데(`ConfirmModal.tsx:31`,
-`GlassConfirmModal.tsx:35`) Figma 에는 그 축이 없다. 계약도 `Size` 하나만 선언한다 —
+`GlassConfirmModal.tsx:37`) Figma 에는 그 축이 없다. 계약도 `Size` 하나만 선언한다 —
 **축을 늘리려면 `COMPONENT_CONTRACTS` 를 먼저 고친다**([figma-component-authoring](figma-component-authoring.md) 10절).
 
 ### 다음에 할 일
@@ -381,7 +381,7 @@ static-alpha 정책 결정이 선행돼야 한다.
 | --- | --- | --- |
 | `backdrop-filter` (뒤 배경 블러) | **50개 파일** | 뒤에 실제로 무엇이 있느냐에 따라 결과가 달라진다. 단색 채우기로 대체하면 다른 화면이 된다 |
 | 그라디언트 마스크 | **17개 파일** | 블러·이펙트에 알파 그라디언트를 씌우는 형태다. 레이어 마스크로는 강도가 점진적으로 변하는 구간이 재현되지 않는다 |
-| 테마를 따라가지 않는 그림자 | `--louis-elevation-menu` | 드롭다운·메뉴·팝오버의 앰비언트 섀도우다. 제품의 옛 `--dropdown-ambient-shadow` 별칭은 P#1 에서 폐기됐고 지금은 제품이 LOUIS 정본을 직접 소비한다(`globals.css:59-62`). 정의가 한 벌이라 **다크에서도 같은 값이고**, 다크용 변형을 Figma 에서 새로 만들면 코드와 갈린다 |
+| 테마를 따라가지 않는 그림자 | `--louis-elevation-menu` | 드롭다운·메뉴·팝오버의 앰비언트 섀도우다. 제품의 옛 `--dropdown-ambient-shadow` 별칭은 P#1 에서 폐기됐고 지금은 제품이 LOUIS 정본을 직접 소비한다(`globals.css:53-56`). 정의가 한 벌이라 **다크에서도 같은 값이고**, 다크용 변형을 Figma 에서 새로 만들면 코드와 갈린다 |
 | `@layer` 밖 규칙의 우선순위 | — | 명시도와 무관하게 유틸리티를 이긴다. 옮길 때 `!`가 필요한 자리는 스타일 결정이 아니라 이 우선순위 때문이며, Figma에 대응 개념이 없다 |
 
 사용처 표본 — `backdrop-filter`: `app/admin/AdminClient.tsx` · `app/admin/BannerManagement.tsx` ·

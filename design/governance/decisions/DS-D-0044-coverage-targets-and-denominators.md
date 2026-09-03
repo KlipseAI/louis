@@ -99,9 +99,9 @@ hosted CI 가 46회 연속 빨갛도록 아무도 못 본 사고가 이 저장�
 반대다:
 
 ```
-제품 app/globals.css:65
+제품 app/globals.css:59
   「이름과 달리 버튼이 쓰지 않는다 — LOUIS Button 은 자기 `--louis-layout-control-height-md` …」
-제품 app/videoeditor/[projectId]/EditorProjectWorkspace.tsx:155
+제품 app/videoeditor/[projectId]/EditorProjectWorkspace.tsx:161
   「LOUIS 이름을 붙이지 않는다. … `--louis-blur-toast` 는 …」
 ```
 

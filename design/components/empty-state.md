@@ -162,8 +162,8 @@ variant 축이 없다. 빈 상태의 강조는 시각이 아니라 **행동 유�
   | --- | --- | --- |
   | 배경 | `var(--dashboard-chip-bg-strong)` | `shared.tsx:125` |
   | 테두리 | `1px solid var(--dashboard-input-border)` | `shared.tsx:126-127` |
-  | 반경 | 12px (`--radius-12`, `tailwind.css:175`) | `shared.tsx:124` |
-  | 패딩 | 20px (`p-10`, 격자 2px는 `tailwind.css:164`) | `shared.tsx:124` |
+  | 반경 | 12px (`--radius-12`, `tailwind.css:173`) | `shared.tsx:124` |
+  | 패딩 | 20px (`p-10`, 격자 2px는 `tailwind.css:162`) | `shared.tsx:124` |
   | 블록 간격 | 6px (`gap-3`) | `shared.tsx:124` |
   | 제목 | `type-body-16-semibold` · `text-gray-000` | `shared.tsx:562` · `shared.tsx:137` |
   | 본문 | `type-body-14-regular` · `var(--dashboard-muted-color)`, 줄높이만 16 계열로 덮어쓴다 | `shared.tsx:565` · `shared.tsx:138-141` |

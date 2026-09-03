@@ -78,7 +78,7 @@ authority: normative
 
 **「실패 전용」이 아니었다(2026-08-30 정정).** 이 배너가 실재하는 자리는 **성공 라우트 하나**다 —
 정기결제 성공 화면이 결제는 통과했는데 구독 반영에서 오류가 잡혔을 때 그 사유를 이 배너로 띄운다
-(`billing-success/page.tsx:433`, 상수 선언은 같은 파일 :108). 반대로 업그레이드 실패 · 정기결제
+(`billing-success/page.tsx:437`, 상수 선언은 같은 파일 :108). 반대로 업그레이드 실패 · 정기결제
 실패 · 결제수단 변경 실패 세 화면에는 **배너가 없고** code · message · orderId 를 아래 Meta list
 행으로 보여 준다. 「실패 화면 전용」으로 읽으면 실패 화면에 없는 부품을 그리게 된다.
 
@@ -141,7 +141,7 @@ SPACE_BETWEEN 컨테이너의 간격을 0으로 센다([Figma 화면 조립](../
 
 **버튼 높이·패딩이 낡아 있었다(2026-08-30 정정 — `40px` · `0 20px`).** 배포본은 결과 화면 전부
 `h-16 py-0 px-6`이고, 이 문서 첫머리의 환산 기준(`--spacing: 2px`)으로 **32px · `0 12px`**이다
-(`billing-success/page.tsx:137`·149, 업그레이드 실패 화면도 같은 상수 모양이다). 두 값은 LOUIS 의
+(`billing-success/page.tsx:141`·149, 업그레이드 실패 화면도 같은 상수 모양이다). 두 값은 LOUIS 의
 `button-height-md`(32px) · `button-padding-inline-md`(12px)와 같고, `0 20px`은 LOUIS 어디에도 없는
 값이었다. 40px 은 사다리에서 사라진 값이 아니라 `lg` 칸이며
 ([DS-D-0027](../governance/decisions/DS-D-0027-control-size-ladder.md)), 이 화면이 쓰는 칸이 아니다.

@@ -86,7 +86,7 @@ authority: normative
 **의도된 것인지 잔재인지는 제품이 판정해야 한다** — 그 전까지 이 값을 「호버 전용」으로 읽지
 않는다.
 
-근거: `GlassConfirmModal.tsx:96-98`(base) · `:105`(취소) · `:111`(primary) · `:119`(danger).
+근거: `GlassConfirmModal.tsx:99-101`(base) · `:105`(취소) · `:111`(primary) · `:119`(danger).
 
 ## Figma에서의 표현
 

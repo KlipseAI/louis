@@ -56,9 +56,9 @@ Landing Shell은 로그인 전 마케팅 화면의 껍데기다 — 홈 · 가�
 `packages/css/generated/tokens.css:467`)와 LanguageSelector compact 32px이 나란히 선다.
 **≤719px에서는 상단 CTA가 숨고(`:337`) 햄버거 38px(`:347`)이 최장이 되어 점유 높이가 62px이다.**
 
-근거: `landing/navigation/Gnb.tsx:107-112`(헤더) · `:115-119`(레일) · `:148-151`(로고) ·
+근거: `landing/navigation/Gnb.tsx:108-113`(헤더) · `:115-119`(레일) · `:148-151`(로고) ·
 `:159-162`(메뉴) · `:164-172`(메뉴 링크) · `:325`(3열 액션) · `:334-338`(상단 CTA) ·
-`:346-352`(햄버거) · `tailwind.css:164`(간격 기준). LanguageSelector compact 의 기하는 제품
+`:346-352`(햄버거) · `tailwind.css:162`(간격 기준). LanguageSelector compact 의 기하는 제품
 `LanguageSelector` 의 `TRIGGER`(높이 32) + `TRIGGER_COMPACT`(`padding: 0 8px` · `rounded-12`) +
 `ICON_COMPACT`(20)가 갖는다 — 그 파일은 아직 evidence lock 밖이라 줄 좌표로 인용하지 않는다.
 
@@ -88,7 +88,7 @@ Landing Shell은 로그인 전 마케팅 화면의 껍데기다 — 홈 · 가�
 **배너 캐러셀의 값을 여기 쓰지 마라.** 그쪽은 `blur(22px) saturate(125%)`에 5스톱 마스크라 흐림이
 두 배 가깝게 짙고 감쇠 곡선이 다르다.
 
-근거: `landing/navigation/Gnb.tsx:100-105`(상수) · `:737`(소비처) · LOUIS `packages/css/src/base.css`(두 토큰).
+근거: `landing/navigation/Gnb.tsx:101-106`(상수) · `:737`(소비처) · LOUIS `packages/css/src/base.css`(두 토큰).
 
 **한때 스크림이 깔려 있었다.** 제품 `66baeb6f`(2026-08-27)가 대비를 벌려고 페이지 바닥색 88%
 베일을 이 판에 깔았다 — 위 「스크림이 없다」를 어긴 상태였고, 88% 불투명 판이 흐림을 덮어
@@ -137,12 +137,12 @@ Tone inversion 이 그 자리다.
 `palette-gray-900`이 랜딩 바닥(#f1f1f3)과 **3.23:1**이라 14px 본문 기준 AA(4.5)에 못 미친다 —
 비활성 컨트롤이 아니라 **누를 수 있는 내비게이션 링크**라 면제 대상이 아니다. `.65`는 5.11:1이고
 활성(1.00)과의 간격도 남는다. 어두운 면 위(흰 잉크)는 `.70`에서 이미 9.57:1이라 손대지 않는다 —
-**두 톤의 불투명도가 다른 것이 맞다.** 근거: `landing/navigation/Gnb.tsx:188-197`.
+**두 톤의 불투명도가 다른 것이 맞다.** 근거: `landing/navigation/Gnb.tsx:189-198`.
 
 **헤더 안에서 `--gray-000`을 팔레트 값으로 되돌린다.** 시맨틱 램프는 테마에서 뒤집히는데 랜딩
 헤더는 섹션 밝기로 판정하므로, 두 축이 겹치면 어두운 섹션 위에서 글자가 검게 나온다.
 
-근거: `landing/navigation/Gnb.tsx:86-103` · `:370-375` · `:399-400` · `:611` · `:622-627` ·
+근거: `landing/navigation/Gnb.tsx:87-104` · `:370-375` · `:399-400` · `:611` · `:622-627` ·
 `:653-657` · `:666-672` · `:702` · `:706-710` · `:131-151` · `:246-248` · `:259-260`.
 
 ## Layer order
@@ -172,7 +172,7 @@ nav의 배경 층에 갇힌다.**
 **판정이 필요하다.** 이 관용구를 `layer-*`의 대응 항목으로 인정할지, 부채로 보고 오버레이를 위로
 올린 뒤 별도 닫기 버튼을 두게 할지. 정하지 않으면 화면을 조립할 때마다 다시 발명된다.
 
-근거: `landing/navigation/Gnb.tsx:863`(드롭다운 패널의 인라인 `zIndex: 2000`) · `:223`(같은 패널의
+근거: `landing/navigation/Gnb.tsx:870`(드롭다운 패널의 인라인 `zIndex: 2000`) · `:223`(같은 패널의
 클래스 `z-20` — 인라인이 이긴다) · `:108`(헤더 1001) · `:101`(blur plate 1000) · `:116`(`<nav>`의
 `relative` + `z-2`) · `:382-386`(풀스크린 메뉴 `fixed inset-0 z-[-1]`).
 
@@ -196,7 +196,7 @@ nav의 배경 층에 갇힌다.**
 **메뉴는 슬라이드하지 않는다 — 불투명도만 바뀐다.** 앱 셸의 드로어(`transform` 320ms)와 다르다.
 상단 패딩 78px이 헤더 자리를 비운다.
 
-근거: `landing/navigation/Gnb.tsx:287-303`.
+근거: `landing/navigation/Gnb.tsx:288-304`.
 
 ## 아직 토큰이 없는 축
 
@@ -204,7 +204,7 @@ nav의 배경 층에 갇힌다.**
 
 | 축 | 값 | 근거 |
 | --- | --- | --- |
-| blur plate 높이 | `120px` | `landing/navigation/Gnb.tsx:101` |
+| blur plate 높이 | `120px` | `landing/navigation/Gnb.tsx:102` |
 | blur plate 흐림 | `blur(12px)` | `:102` — **소비처다.** 값은 아래 |
 | blur plate 마스크 | 2스톱 `40% → 100%` | `:103-104` — **소비처다.** 값은 아래 |
 | 헤더 패딩 | `12px 12px 12px 20px` (≤450px `12px 16px`) | `:109` · `:111` |

@@ -11,12 +11,12 @@ summary: 노드 카드의 메타 값을 알약 하나로 보여 주고 눌러서
 드롭다운을 연다.
 
 **제품 정본은 `--node-chrome-btn-*` 계열이다** — 높이 32 · 좌우 패딩 10 · 반경 12 · 사이 간격 4,
-다크 면 `palette-gray-600`, 라이트 면 `palette-gray-100`(`globals.css:542-548` · 라이트 덮어쓰기 `:568`).
+다크 면 `palette-gray-600`, 라이트 면 `palette-gray-100`(`globals.css:536-542` · 라이트 덮어쓰기 `:568`).
 그 값을 그대로 채택했다. **바꾼 것은 경계 하나였고, 제품이 따라왔다** — 제품은 한때
 `--node-chrome-btn-border`로 진짜 `border`(다크 gray-700 · 라이트 gray-150 0.5px)를 그렸고 LOUIS는
 generic inset 헤어라인을 택했다([DS-D-0023](../governance/decisions/DS-D-0023-hairline-inset.md)).
 배포본 `74a7303b`에는 **그 토큰이 없다** — 소비처가 `[box-shadow:var(--louis-hairline-inset)]`을
-직접 쓰고(`ImageNode.tsx:641`), 이름은 제품 게이트의 legacy 목록에 올라 되살리면 실패한다. 두 쪽이
+직접 쓰고(`ImageNode.tsx:645`), 이름은 제품 게이트의 legacy 목록에 올라 되살리면 실패한다. 두 쪽이
 같은 해를 쓰므로 이 축은 더 이상 편차가 아니다. LOUIS 토큰에 `-border` 대응 항목이 없는 것은 그대로다.
 
 **한 벌이 아니라 네 벌이었다.** 메타 알약을 그리는 파일은 `nodes/VideoNode.tsx` ·

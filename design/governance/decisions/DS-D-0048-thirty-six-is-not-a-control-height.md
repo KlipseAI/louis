@@ -40,14 +40,14 @@ authority: normative
 
 | 축 | 값 | 좌표 |
 | --- | --- | --- |
-| 아바타 한 변 | `28px` | `Gnb.tsx:1440` |
-| 링과 아바타 사이 | `2px` | `Gnb.tsx:1444` |
-| 링 두께 | `2px` | `Gnb.tsx:1445` |
-| 한 변 | `avatar + (gap + width) × 2` = **36** | `Gnb.tsx:1446` |
-| 반경 | `0` | `Gnb.tsx:1461` |
-| 면 | `transparent` | `Gnb.tsx:1462` |
-| 그림자 | `none` | `Gnb.tsx:1463` |
-| 링 자신 | `::after` 의 conic-gradient, 반경은 알약 | `Gnb.tsx:1470` |
+| 아바타 한 변 | `28px` | `Gnb.tsx:1452` |
+| 링과 아바타 사이 | `2px` | `Gnb.tsx:1456` |
+| 링 두께 | `2px` | `Gnb.tsx:1457` |
+| 한 변 | `avatar + (gap + width) × 2` = **36** | `Gnb.tsx:1458` |
+| 반경 | `0` | `Gnb.tsx:1473` |
+| 면 | `transparent` | `Gnb.tsx:1474` |
+| 그림자 | `none` | `Gnb.tsx:1475` |
+| 링 자신 | `::after` 의 conic-gradient, 반경은 알약 | `Gnb.tsx:1482` |
 
 **원장 자신이 이것을 이미 증명하고 있었다.** 열다섯 노드의 **직계 자식이 전부
 `Avatar/Size=md` 28×28 인스턴스다**(`byInstanceSet` 의 `Avatar: 15`). 즉 이 자리는 「대응이 없는
@@ -64,12 +64,12 @@ authority: normative
 
 | 축 | 값 | 좌표 |
 | --- | --- | --- |
-| 트랙 패딩 | `4px` | `myPageSceneStyles.ts:1004` |
-| 트랙 반경 | `radius-control`(12) | `myPageSceneStyles.ts:1005` |
-| 세그먼트 높이 | `28px` | `myPageSceneStyles.ts:969` |
-| 세그먼트 좌우 | `0 12px` | `myPageSceneStyles.ts:970` |
-| 세그먼트 반경 | `radius-control-sm`(8) | `myPageSceneStyles.ts:972` |
-| 썸 | `top: 4` · 높이 `28` · 반경 8 | `myPageSceneStyles.ts:987`·`989`·`990` |
+| 트랙 패딩 | `4px` | `myPageSceneStyles.ts:978` |
+| 트랙 반경 | `radius-control`(12) | `myPageSceneStyles.ts:979` |
+| 세그먼트 높이 | `28px` | `myPageSceneStyles.ts:942` |
+| 세그먼트 좌우 | `0 12px` | `myPageSceneStyles.ts:943` |
+| 세그먼트 반경 | `radius-control-sm`(8) | `myPageSceneStyles.ts:945` |
+| 썸 | `top: 4` · 높이 `28` · 반경 8 | `myPageSceneStyles.ts:960`·`989`·`990` |
 | 트랙 높이 | `4 + 28 + 4` = **36** | 선언 없음(파생) |
 
 패딩 4 · 트랙 반경 12 · 세그먼트 반경 8 · 세그먼트 좌우 12 · 타이포 14 는 **LOUIS `lg` 와

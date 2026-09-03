@@ -146,15 +146,15 @@ compact 호환 경계는 [Responsive Layout](../foundations/responsive-layout.md
 
 | CSS variable | 해결값 | 지배하는 자리 |
 | --- | --- | --- |
-| `--node-side-handle-size` | `28px` | 사이드 버튼·핸들 한 변 — `globals.css:489` |
-| `--node-side-handle-radius` | `8px` | 그 크롬의 모서리 — `globals.css:490` |
-| `--node-side-gap` | `10px` | 카드 패딩 박스 ↔ 컨트롤 열 **수평** 간격 — `globals.css:498` |
-| `--node-side-stack-gap` | `8px` | 같은 열 컨트롤끼리 **세로** 간격 — `globals.css:500` |
-| `--node-side-ctrl` | `var(--node-side-handle-size, 28px)` | 레일 계산이 참조하는 한 변 — `globals.css:501` |
-| `--node-side-leading-offset` | `calc(gap + ctrl)` = **38px** | 카드 왼쪽 테두리 ↔ 좌 레일 바깥선 — `globals.css:502` |
-| `--node-handle-outbound-slot` | `calc(100% + gap)` | 우 출력 `left:`·좌 레일 `right:` 공통식 — `globals.css:503` |
+| `--node-side-handle-size` | `28px` | 사이드 버튼·핸들 한 변 — `globals.css:483` |
+| `--node-side-handle-radius` | `8px` | 그 크롬의 모서리 — `globals.css:484` |
+| `--node-side-gap` | `10px` | 카드 패딩 박스 ↔ 컨트롤 열 **수평** 간격 — `globals.css:492` |
+| `--node-side-stack-gap` | `8px` | 같은 열 컨트롤끼리 **세로** 간격 — `globals.css:494` |
+| `--node-side-ctrl` | `var(--node-side-handle-size, 28px)` | 레일 계산이 참조하는 한 변 — `globals.css:495` |
+| `--node-side-leading-offset` | `calc(gap + ctrl)` = **38px** | 카드 왼쪽 테두리 ↔ 좌 레일 바깥선 — `globals.css:496` |
+| `--node-handle-outbound-slot` | `calc(100% + gap)` | 우 출력 `left:`·좌 레일 `right:` 공통식 — `globals.css:497` |
 
-규범 주석은 `globals.css:492-497`에 있다. 캔버스 셸이 같은 이름으로 덮어쓸 수 있게 열어 두었으나 현재
+규범 주석은 `globals.css:486-491`에 있다. 캔버스 셸이 같은 이름으로 덮어쓸 수 있게 열어 두었으나 현재
 재정의하는 곳은 없다.
 
 ### 레일 배치
@@ -241,8 +241,8 @@ compact 호환 경계는 [Responsive Layout](../foundations/responsive-layout.md
 [DS-D-0010](../governance/decisions/DS-D-0010-token-coverage.md)의 선택 액센트 절이 소유한다.
 **한 색으로 옮기면 일곱 중 여섯이 틀린다.**
 
-근거: `components/scenes/create/node-canvas-v2/index.tsx:347-359` ·
-`globals.css:661`(다크 램프 `--gray-800-rgb`)·`:56`(`--palette-gray-800-rgb`) ·
+근거: `components/scenes/create/node-canvas-v2/index.tsx:353-365` ·
+`globals.css:655`(다크 램프 `--gray-800-rgb`)·`:56`(`--palette-gray-800-rgb`) ·
 `:48`(라이트 `--palette-gray-100-rgb`)·`:30`(`--palette-gray-100`).
 
 ### 같은 숫자가 CSS 밖에 두 벌 더 있다
@@ -272,7 +272,7 @@ compact 호환 경계는 [Responsive Layout](../foundations/responsive-layout.md
 남겨 두었다. 배포본 `74a7303b`에 **그 토큰은 선언이 하나도 없다.** 지금은 전환을 토큰으로 두지
 않는다는 것 자체가 규범이고, 제품 주석이 그것을 직접 적는다 — 「전환은 토큰이 아니라 소비처
 유틸리티에 직접 적는다 — 셸은 `filter/color/border-color 0.13s ease`, 아이콘 스케일만
-`transform 0.1s ease`」(`globals.css:435-436`).
+`transform 0.1s ease`」(`globals.css:429-430`).
 
 **그래서 승격할 전환 토큰이 없다.** 사이드 컨트롤의 전환 사양은 소비처 유틸리티에서 읽는다.
 

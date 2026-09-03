@@ -146,8 +146,8 @@ container 기반이어야 하지만 기준 viewport와 기본 shell 상태에서
 line-height(`1.35`)와 letter-spacing(`-0.02em`)이 같은 값이라 **선언값이 실제로 달라지는 것은
 size(36px → 48px)뿐이다.** 나머지 둘은 상대 단위라 계산된 px만 size를 따라 커진다. 「셋 다
 바뀐다」로 읽고 line-height·letter-spacing을 별도 토큰 변화로 취급하면 안 된다. 타입스케일 토큰
-`globals.css:298-300`(heading-48) · `:302-304`(heading-36), 단일 유틸리티가 세 프로퍼티를 함께
-내보내는 근거는 `tailwind.css:187-189`.
+`globals.css:292-294`(heading-48) · `:302-304`(heading-36), 단일 유틸리티가 세 프로퍼티를 함께
+내보내는 근거는 `tailwind.css:185-187`.
 
 근거(배포본 a9ead58b): 2열 분할 `AuthStatusCard.tsx:19` · `login/page.tsx:25` ·
 `app/signup/page.tsx:24`. 브랜드 패널 소거 `AuthStatusCard.tsx:26` · `login/page.tsx:33` ·

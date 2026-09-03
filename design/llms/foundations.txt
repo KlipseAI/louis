@@ -147,7 +147,7 @@ token이 아니라 리터럴·이미지·mode 불변 값으로 칠해졌으면 �
 (`AuthStatusCard.tsx:27-30` · `login/page.tsx:43-47` · `app/signup/page.tsx:37-40`). 그 위 슬로건 전경은
 `text-fg-inverse`, 즉 두 mode 모두 `#fafafa`다(`AuthStatusCard.tsx:41` · `login/page.tsx:63` ·
 `app/signup/page.tsx:51`). 같은 부류로 노드 캔버스 카드 외곽선도 semantic이 아니라 `--palette-gray-600-rgb` /
-`--palette-gray-000-rgb`을 쓴다(`components/scenes/create/node-canvas-v2/index.tsx:352-353`).
+`--palette-gray-000-rgb`을 쓴다(`components/scenes/create/node-canvas-v2/index.tsx:358-359`).
 
 **이 두 축은 2026-08-24 배포본에서 이미 위 결손을 메웠다.** 예전에는 면이 `bg-[#0093ff]` 리터럴이고
 전경이 `text-palette-gray-000` primitive 별칭이었으며, 이 문단도 「브랜드 면 색 `#0093ff` 자체는 토큰화
@@ -218,20 +218,20 @@ DS-D-0010은 `[data-page-root]` 같은 DOM 상태 스코프를 토큰 축이 아
 대응 `-rgb` 11개를 전부 팔레트 원시값으로 못 박아, 라이트 테마를 켠 사용자에게도 랜딩이 항상 검정
 배경·흰 글자였다. 그 위에서 랜딩 홈만 다시 밝은 램프로 뒤집고 그 안의 몇몇 섹션이 또 되돌리는
 **세 겹**이 쌓여 있었다. 배포본 `df414c24`는 세 겹을 다 걷어냈다 — 그 사유가 제품 소스 주석에 그대로
-적혀 있다(`globals.css:1534-1541`). **랜딩은 이제 테마를 따른다.**
+적혀 있다(`globals.css:1598-1605`). **랜딩은 이제 테마를 따른다.**
 
 - 랜딩·마케팅 트리 루트 `[data-page-root]`가 지금 세우는 것은 **면 계열 여섯**뿐이고, 값은 전부 LOUIS의
   `landing-*` 시맨틱에서 온다 — `--page-bg`·`--panel`·`--panel-strong`·`--line`·`--text-soft`·
-  `--text-muted`가 각각 `var(--louis-color-landing-*)`이다(`globals.css:1543-1548`). 회색 램프는 손대지
+  `--text-muted`가 각각 `var(--louis-color-landing-*)`이다(`globals.css:1607-1612`). 회색 램프는 손대지
   않으므로 `html[data-theme]`가 세운 값이 그대로 흐른다.
 - **알파를 여기서 다시 계산하지 않는 것이 규칙이다.** `landing-*`는 테마별 값이 이미 정의돼 있고
   (light `#f1f1f3` / dark `#000000` 등), 소비 스코프가 알파를 다시 쓰면 정본이 둘이 된다. 이것이 랜딩
   섹션들이 `bg-gray-900` 대신 `var(--panel-strong)`을 쓰는 이유이기도 하다.
-- 블록은 **`@layer components` 안**에 있다(`globals.css:1176`이 그 레이어를 연다). 파일 끝에 있는 것은
+- 블록은 **`@layer components` 안**에 있다(`globals.css:1170`이 그 레이어를 연다). 파일 끝에 있는 것은
   마케팅 훅을 한곳에 모으려는 조직상의 선택이고 **캐스케이드 승패에 의존하지 않는다** — 사유가
-  `globals.css:1529-1531`에 있다. 앞선 판이 「`@layer` 밖에 두어 상속을 이긴다」고 적었던 것은 그때의
+  `globals.css:1593-1595`에 있다. 앞선 판이 「`@layer` 밖에 두어 상속을 이긴다」고 적었던 것은 그때의
   구조였고 지금은 아니다.
-- 요소 자신은 `background: var(--page-bg); color: var(--gray-000)`을 갖는다(`globals.css:1552-1553`).
+- 요소 자신은 `background: var(--page-bg); color: var(--gray-000)`을 갖는다(`globals.css:1616-1617`).
   `background`가 단축인 채로 남아 있는 것도 계약이다 — 가격 페이지가 「이 단축이 `background-clip` 등
   롱핸드를 초기화한다」를 근거로 삼고 있다.
 
@@ -254,7 +254,7 @@ DS-D-0010은 `[data-page-root]` 같은 DOM 상태 스코프를 토큰 축이 아
 3.92:1 로 살아 있었다. **램프를 래퍼에서 못 박아 고치려는 시도는 이 이유로 성립하지 않는다.**
 
 색이 아닌 예외로 `[data-page-root] [data-reveal]` 이 진입 애니메이션을 무력화하는 규칙은
-그대로 있다(`globals.css:1597-1601`).
+그대로 있다(`globals.css:1662-1666`).
 
 **이걸 모르면 틀린다 — 방향이 반대다.** 랜딩·가격 화면을 **다크 전용**으로 그리면 틀린다. Figma 시안이
 다크 렌더일 뿐이고 제품은 두 테마를 다 그린다. 라이트에서 무너지는 자리는 램프 인덱스를 대칭으로
@@ -276,15 +276,15 @@ DS-D-0010은 `[data-page-root]` 같은 DOM 상태 스코프를 토큰 축이 아
 
 | 매체 | 아이콘 (두 mode 공통) | 캡션 dark | 캡션 light | 근거 |
 | --- | --- | --- | --- | --- |
-| Image | `--accent-mint-500` `#00c68e` | `#e5fff7` | `#008f67` | `ImageNode.tsx:326` · `ImageNode.tsx:345-346` |
+| Image | `--accent-mint-500` `#00c68e` | `#e5fff7` | `#008f67` | `ImageNode.tsx:330` · `ImageNode.tsx:349-350` |
 | Video | `--accent-sky-500` `#0ea5e9` | `#e0f5ff` | `#0369a1` | `VideoNode.tsx:240` · `VideoNode.tsx:261-262` |
 | Text | `--accent-yellow-500` `#ffb200` | `#fff5d6` | `#b87600` | `TextNode.tsx:332` · `TextNode.tsx:346-347` |
 | Edit | `--accent-violet-500` `#6055ff` | `#ebe8ff` | `#3528b8` | `EditNode.tsx:400` · `EditNode.tsx:416-417` |
 
 - **캡션은 색을 두 곳에 같은 값으로 선언한다.** `color`와 `--caption-tone` 둘 다다. 쉬머가
   `background-clip: text` + `-webkit-text-fill-color: transparent`로 그려져 `color`가 무효화되므로
-  (`ImageNode.tsx:349-351`), `color`만 고치면 화면이 바뀌지 않는다. 감속 모션 분기는
-  `-webkit-text-fill-color`를 `--caption-tone`에서 되돌린다(`ImageNode.tsx:353`). 네 노드가 같은 패턴이다.
+  (`ImageNode.tsx:353-355`), `color`만 고치면 화면이 바뀌지 않는다. 감속 모션 분기는
+  `-webkit-text-fill-color`를 `--caption-tone`에서 되돌린다(`ImageNode.tsx:357`). 네 노드가 같은 패턴이다.
 - Tts/Bgm(audio) 노드에는 이 생성 중 아이콘·캡션 accent가 없다. audio는 영역 차오름으로 진행을 표시한다.
 
 **토큰 결손 두 건.** LOUIS에 `color-sky-*` 램프가 없다 — `color-blue-500`(`#0088ff`)은 제품 sky-500
@@ -311,8 +311,8 @@ DS-D-0010은 `[data-page-root]` 같은 DOM 상태 스코프를 토큰 축이 아
 | 전경 | `var(--accent-red-500)` `#ff4b59` | `color-accent-danger` |
 
 기하는 반경 12px · 패딩 12px 16px · 타이포 body-14(14px / 1.5) · `margin: 0`이고 세로 간격은 부모 컬럼이
-준다(`billing-success/page.tsx:108-113`). 한 화면에 같은 상수로 두 박스가 연달아 설 수 있다
-(`billing-success/page.tsx:432-438`).
+준다(`billing-success/page.tsx:112-117`). 한 화면에 같은 상수로 두 박스가 연달아 설 수 있다
+(`billing-success/page.tsx:436-442`).
 
 **이걸 모르면 틀리는 것 둘.** 첫째, 면을 `color-bg-danger`로 매핑하면 안 된다 — 그 토큰은 light
 `#ffe5e8` · dark `#541119`로 뒤집히는 불투명 값이고, 제품 값은 뒤 배경이 비치는 red-500 8% 알파다.
@@ -613,12 +613,12 @@ Elevation primitive, semantic elevation과 semantic layer는 단일 DTCG source 
 ([DS-D-0023](../governance/decisions/DS-D-0023-hairline-inset.md)).
 
 **`--dropdown-*` 프레임 토큰은 제품에서 사라졌다.** P#1이 호환 별칭을 걷어냈고, 제품 주석이 그 교체를
-직접 적는다(`globals.css:59-62`).
+직접 적는다(`globals.css:53-56`).
 
 | 있었던 이름 | 마지막으로 존재하던 좌표 | 지금 그 자리 |
 | --- | --- | --- |
-| `--dropdown-frame` | `globals.css@2b59479f:63` | `var(--louis-hairline-inset)` — `globals.css:1324` · `1341` |
-| `--dropdown-ambient-shadow` | `globals.css@2b59479f:67` | `var(--louis-elevation-menu)` — `globals.css:526` |
+| `--dropdown-frame` | `globals.css@2b59479f:63` | `var(--louis-hairline-inset)` — `globals.css:1430` · `1341` |
+| `--dropdown-ambient-shadow` | `globals.css@2b59479f:67` | `var(--louis-elevation-menu)` — `globals.css:520` |
 | `--dropdown-frame-on-dark` | `globals.css@5ffc4431:61` | **없다.** 헤어라인 한 벌로 합쳐졌고 이름 자체가 제품 게이트의 legacy 목록에 올랐다 |
 
 지금 발행되는 값은 LOUIS 토큰이다.
@@ -648,7 +648,7 @@ Elevation primitive, semantic elevation과 semantic layer는 단일 DTCG source 
 
 앰비언트 그림자는 **헤어라인에 넣지 않는다.** 헤어라인은 카드·패널·버튼까지 제품 66개 파일 163곳이
 공유하므로 그림자를 섞으면 전부에 번진다. 필요한 표면에서만 앞에 조합한다 —
-`box-shadow: var(--louis-elevation-menu), var(--louis-hairline-inset)`(`globals.css:526`).
+`box-shadow: var(--louis-elevation-menu), var(--louis-hairline-inset)`(`globals.css:520`).
 
 ##### 글래스 5겹과 베벨은 제품에서 제거됐다
 
@@ -664,7 +664,7 @@ Elevation primitive, semantic elevation과 semantic layer는 단일 DTCG source 
 
 > 글래스(검정 링 + 좌우 엣지 + 흰 림 5겹)를 걷어냈다 — **디자인 시스템이 글래스 섀도우 개념을 두지 않는다.**
 
-**제품에 남은 글래스 주석은 값보다 낡았다.** `globals.css:522-524`는 `--node-meta-dropdown-shadow`를
+**제품에 남은 글래스 주석은 값보다 낡았다.** `globals.css:516-518`는 `--node-meta-dropdown-shadow`를
 아직도 「글래스 프레임 그림자 — 외곽 드롭 + 검정 ring/좌우 엣지 + 상하 흰 림 inset」이라 설명하지만, 바로
 아래 값(`:525-526`)은 이미 `var(--louis-elevation-menu), var(--louis-hairline-inset)` **두 겹**이다.
 
@@ -677,7 +677,7 @@ Elevation primitive, semantic elevation과 semantic layer는 단일 DTCG source 
   배포본 `df414c24` 의 `Button.tsx` 는 68줄이고 `.louis-button` 을 소비하기만 한다. 좌표를 커밋에 묶어
   두는 것은 그 선언이 실재했던 자리를 잃지 않기 위해서다
 - 앱 메인 카드의 `::after` 베벨 링. 카드는 이제 `border-radius: 16px` + `var(--louis-hairline-inset)`
-  뿐이다(`globals.css:1319-1324`). 그 자리를 잡고 있던 `--dropdown-frame`은 지금 제품에 없다
+  뿐이다(`globals.css:1330-1335`·`:1421-1431`). 그 자리를 잡고 있던 `--dropdown-frame`은 지금 제품에 없다
 - 비디오 에디터의 헤더 버튼·타임라인 표면이 쓰던 베벨 (`videoEditParts/vemClass.ts`)
 
 **이 자리를 5겹으로 되돌리지 마라.** 옛 문서나 `origin/main`을 근거로 다시 그리면 폐지된 개념이 살아난다 —
@@ -691,7 +691,7 @@ Elevation primitive, semantic elevation과 semantic layer는 단일 DTCG source 
 | 소비처 | 좌표 |
 | --- | --- |
 | 노드 사이드 버튼 | `node-canvas-v2/nodes/NodeSideButtons.tsx:147-148` |
-| 비디오 에디터 `confirmBtn`(내보내기) | `videoEditParts/vemClass.ts:533-534` (선언은 `:505`) |
+| 비디오 에디터 `confirmBtn`(내보내기) | `videoEditParts/vemClass.ts:737-738` (선언은 `:505`) |
 
 Button 주석이 「이너섀도우는 **노드 사이드 버튼에만** 남는다」고 적지만 `confirmBtn`이 같은 층을 자기
 클래스에 직접 들고 있다 — **주석보다 값이 정본이다.**
@@ -953,14 +953,14 @@ primitive의 `timingFunction`은 제품이 선언한 커브 둘에서 왔다. Fi
   표면은 `opacity 200ms` + `transform 260ms`로 채널을 나눈다. 셋을 한 recipe로 그리면 하나는 틀린다.
 - **제품 모달은 한 recipe가 아니라 채널 셋이다.** `GlassConfirmModal`은 카드에
   `transform 320ms cubic-bezier(0.22, 1, 0.36, 1)` · `opacity 220ms ease` · `filter 320ms ease`를 따로
-  걸고(`GlassConfirmModal.tsx:61-65`), 스크림은 `background 260ms cubic-bezier(0.22, 1, 0.36, 1)`으로
+  걸고(`GlassConfirmModal.tsx:64-68`), 스크림은 `background 260ms cubic-bezier(0.22, 1, 0.36, 1)`으로
   palette gray-900 알파 `0%` → `50%`를 덮는다(`:42-49`). 카드 시작값은
   `translate3d(0, 16px, 0) scale(0.96, 0.96)` · `saturate(88%) blur(1px)`, 끝값은
   `translate3d(0, 0, 0) scale(1)` · `saturate(100%) blur(0)`이다(`:67-77`). **`modal-enter` 하나로
   접으면 카드가 균질하게 떠올라 제품과 갈린다** — 세 채널이 서로 다른 시각에 끝나는 것이 이 모션의
   성격이다.
 - **오프셋과 scale은 클래스가 아니라 인라인 변수가 정한다.** 실제 값은 `translate-y 16px` ·
-  `scale 0.96 / 0.96`이며(`GlassConfirmModal.tsx:122-127`) 클래스에 적힌 fallback `0.24` · `0.16`
+  `scale 0.96 / 0.96`이며(`GlassConfirmModal.tsx:125-130`) 클래스에 적힌 fallback `0.24` · `0.16`
   (`:69`)은 항상 덮여 닿지 않는다. **클래스만 읽고 0.24로 그리면 틀린다.**
 - **`filter`는 어떤 recipe의 허용 property에도 없고, 스크림의 `background`도 modal recipe에는 없다.**
   `modal-enter`·`modal-exit`가 허용하는 property는 `opacity`·`translate`·`scale` 셋뿐이다
@@ -969,12 +969,12 @@ primitive의 `timingFunction`은 제품이 선언한 커브 둘에서 왔다. Fi
   스크림 배경 전이는 현재 token model이 재현 대상으로 삼지 않는 채널이다. Figma proposal로도
   넘어가지 않는다.
 - **제품 모달의 unmount timer가 시각 transition보다 짧다.** `CLOSE_MS = 280`인데 카드의 최장 전환은
-  320ms다(`GlassConfirmModal.tsx:32`, `:63`, `:188-191`) — 퇴장의 마지막 40ms가 잘린다. 위 Token
+  320ms다(`GlassConfirmModal.tsx:34`, `:63`, `:188-191`) — 퇴장의 마지막 40ms가 잘린다. 위 Token
   model의 「unmount timer와 interaction lock은 시각 transition과 같은 resolved recipe를 읽는다」가
   금지하는 형태 그대로다.
 - reduced motion은 양쪽 다 제품이 선언한다. 팝오버는 `transform:none` + `transition: opacity 120ms ease`
   (`MetaDropdownPanel.tsx:36-39`), 모달은 스크림·카드 모두 `transition:none`
-  (`GlassConfirmModal.tsx:45`, `:64`)이다.
+  (`GlassConfirmModal.tsx:48`, `:64`)이다.
 
 #### Acceptance tests
 
@@ -1245,7 +1245,7 @@ breaking이므로**(DS-D-0006) 글리프 이름과 심볼은 이제 공개 계�
 **의도된 것인지 잔재인지는 제품이 판정해야 한다** — 그 전까지 이 값을 「호버 전용」으로 읽지
 않는다.
 
-근거: `GlassConfirmModal.tsx:96-98`(base) · `:105`(취소) · `:111`(primary) · `:119`(danger).
+근거: `GlassConfirmModal.tsx:99-101`(base) · `:105`(취소) · `:111`(primary) · `:119`(danger).
 
 #### Figma에서의 표현
 
@@ -1500,8 +1500,8 @@ container 기반이어야 하지만 기준 viewport와 기본 shell 상태에서
 line-height(`1.35`)와 letter-spacing(`-0.02em`)이 같은 값이라 **선언값이 실제로 달라지는 것은
 size(36px → 48px)뿐이다.** 나머지 둘은 상대 단위라 계산된 px만 size를 따라 커진다. 「셋 다
 바뀐다」로 읽고 line-height·letter-spacing을 별도 토큰 변화로 취급하면 안 된다. 타입스케일 토큰
-`globals.css:298-300`(heading-48) · `:302-304`(heading-36), 단일 유틸리티가 세 프로퍼티를 함께
-내보내는 근거는 `tailwind.css:187-189`.
+`globals.css:292-294`(heading-48) · `:302-304`(heading-36), 단일 유틸리티가 세 프로퍼티를 함께
+내보내는 근거는 `tailwind.css:185-187`.
 
 근거(배포본 a9ead58b): 2열 분할 `AuthStatusCard.tsx:19` · `login/page.tsx:25` ·
 `app/signup/page.tsx:24`. 브랜드 패널 소거 `AuthStatusCard.tsx:26` · `login/page.tsx:33` ·
@@ -1582,26 +1582,26 @@ Tailwind는 소스 스캔으로 CSS를 내보낸다. 그래서 **어떤 배리�
 
 | 무엇 | 값 | 근거 |
 | --- | --- | --- |
-| 베이스 정의 — 화면에 안 나온다 | `background: rgb(var(--accent-green-500-rgb) / 16%)` · `color: var(--accent-green-700)` | `Gnb.tsx:1938-1939` |
-| light 실제 | `background: var(--palette-gray-900)` · `color: var(--palette-gray-100)` | `Gnb.tsx:1953-1954` |
-| light hover | `background: var(--palette-gray-800)` | `Gnb.tsx:1956` |
-| dark 실제 | `background: var(--palette-gray-100)` · `color: var(--palette-gray-900)` | `Gnb.tsx:1958-1959` |
-| dark hover | `background: var(--palette-gray-200)` | `Gnb.tsx:1961` |
+| 베이스 정의 — 화면에 안 나온다 | `background: rgb(var(--accent-green-500-rgb) / 16%)` · `color: var(--accent-green-700)` | `Gnb.tsx:1950-1951` |
+| light 실제 | `background: var(--palette-gray-900)` · `color: var(--palette-gray-100)` | `Gnb.tsx:1965-1966` |
+| light hover | `background: var(--palette-gray-800)` | `Gnb.tsx:1968` |
+| dark 실제 | `background: var(--palette-gray-100)` · `color: var(--palette-gray-900)` | `Gnb.tsx:1970-1971` |
+| dark hover | `background: var(--palette-gray-200)` | `Gnb.tsx:1973` |
 
-덮는 쪽은 `sidebarUpgradeButtonActive`(`Gnb.tsx:1951`)이고, 그 목록의 규칙들이
+덮는 쪽은 `sidebarUpgradeButtonActive`(`Gnb.tsx:1963`)이고, 그 목록의 규칙들이
 `html[data-theme=*] .gnb-sidebarUpgradeButton:not(&)` — **자기 자신이 아니라 비활성 형제**를
 겨눈다. **정의는 민트색(`accent-green` 계열이 이 색이다)인데 배포 화면은 검정/흰색이다.** 정의만 읽고
 옮기면 존재한 적 없는 민트 버튼을 그린다.
 
 같은 형태가 GNB 메뉴 링크에도 있다 — `menuLinkActive`가
 `.gnb-menu:not(.gnb-menuSidebar) .gnb-menuLink:not(&)`로 비활성 링크의 색을 덮는다
-(`Gnb.tsx:554-556`).
+(`Gnb.tsx:555-557`).
 
 **대응.** 이 패턴은 `:not(&)`로 검색된다. 값을 정하기 전에 대상 클래스로 그 검색을 한 번 돌리고,
 걸리면 베이스가 아니라 덮는 쪽을 값으로 삼는다. 렌더를 재면 애초에 걸리지 않는다.
 
 **값으로 grep하지 마라 — 같은 파일에 글자까지 같은 쌍둥이가 있다.** 위 베이스 두 줄
-(`Gnb.tsx:1938-1939`)은 `mobileMenuUpgradeButton`의 `Gnb.tsx:990-991`과 **바이트 동일**이라 값
+(`Gnb.tsx:1950-1951`)은 `mobileMenuUpgradeButton`의 `Gnb.tsx:991-992`과 **바이트 동일**이라 값
 검색의 첫 히트가 엉뚱한 블록에 걸린다. 두 블록은 의미도 다르다 — 모바일 쪽에는 `:not(&)`로 덮는
 형제가 없어(`.gnb-mobileMenuUpgradeButton`은 파일에 한 번만 나온다) 그 민트가 **실제로 렌더된다**.
 위 표가 말하는 「존재한 적 없는 민트 버튼」은 사이드바 쪽 하나뿐이다. 값이 아니라 **키 이름으로**
@@ -1616,7 +1616,7 @@ Tailwind는 소스 스캔으로 CSS를 내보낸다. 그래서 **어떤 배리�
 | --- | --- | --- |
 | `--louis-hairline-inset` | **드롭섀도우가 아니다.** blur가 `0`인 0.5px `inset` **선**이다 | [base.css:21-22](../../packages/css/src/base.css) |
 | `--louis-elevation-menu` | 드롭섀도우 (`0px 8px 15px 0px color(srgb 0 0 0 / 0.04)`) | [tokens.css:439](../../packages/tokens/generated/tokens.css) |
-| `--node-meta-dropdown-shadow` | **한 이름에 두 종류** — 위 둘의 합이다 | `globals.css:525-526` |
+| `--node-meta-dropdown-shadow` | **한 이름에 두 종류** — 위 둘의 합이다 | `globals.css:519-520` |
 
 헤어라인을 보통의 드롭섀도우로 읽고 blur를 주면 선이 번져 사라진다. blur `0` · 두께 `0.5px`이라
 **테두리를 그리는 그림자**다. 바깥이 아니라 **안쪽(`inset`)** 으로 그린다 — 바깥 spread 링
@@ -1640,7 +1640,7 @@ Tailwind는 소스 스캔으로 CSS를 내보낸다. 그래서 **어떤 배리�
 | `--dropdown-item-radius` | `var(--louis-radius-overlay-item)` |
 | `--dropdown-padding` | `var(--louis-space-overlay-inset)` |
 
-근거는 제품 주석이 직접 적는다(`globals.css:59-62`) — 다만 그 주석이 열거하는 것은 **일곱 중
+근거는 제품 주석이 직접 적는다(`globals.css:53-56`) — 다만 그 주석이 열거하는 것은 **일곱 중
 여섯**이다(프레임 · 앰비언트 · 라운드 · 항목 라운드 · 표면 · 패딩). `--dropdown-frame-on-dark`가
 **없다**는 근거는 그 주석이 아니라 `5103ffeb`(소비처 셋을 헤어라인 recipe로 이관)와 제품 게이트의
 legacy 목록(`check-tailwind-theme.mjs:239`)이다.
@@ -1664,11 +1664,11 @@ legacy 목록(`check-tailwind-theme.mjs:239`)이다.
 | light | `--app-page-bg` → `--gray-900` → `--palette-gray-100` = `#f1f1f3` | `--palette-gray-100` = `#f1f1f3` | **같다** |
 | dark | `--app-page-bg` → `--gray-900` → `--palette-gray-900` = `#171b22` | `--palette-gray-800` = `#313640` | 다르다 |
 
-근거: 라이트 `globals.css:709`·`692`, 다크 `globals.css:667`·`650`, 팔레트 `globals.css:30`·`42`·`43`,
-카드 면 `globals.css:1345-1351`.
+근거: 라이트 `globals.css:703`·`692`, 다크 `globals.css:661`·`650`, 팔레트 `globals.css:28`·`42`·`43`,
+카드 면 `globals.css:1354-1360`.
 
 라이트에서 카드의 경계는 색이 아니라 **`box-shadow: var(--louis-hairline-inset)`와
-`border-radius: 16px`**로만 난다(`globals.css:1319-1324`). 면 색으로 카드를 찾으면 **카드가 통째로
+`border-radius: 16px`**로만 난다(`globals.css:1330-1335`·`:1421-1431`). 면 색으로 카드를 찾으면 **카드가 통째로
 빠진다.** 그 선은 0.5px `color(srgb 0 0 0 / 0.08)` 한 겹이라 더 잘 놓친다. (이 자리를 잡고 있던
 `--dropdown-frame`은 지금 제품에 없다 — 2절을 보라.)
 
@@ -1683,10 +1683,10 @@ legacy 목록(`check-tailwind-theme.mjs:239`)이다.
   | ≥720px | `--palette-gray-200` = `#eeeef1` | `--palette-gray-100` = `#f8f8f9` | **다르다 — 한 계단** |
   | ≤719px | `--palette-gray-100` = `#f8f8f9` | `#f8f8f9` | 같다 |
 
-  근거: `appHomeSceneStyles.ts:900`·`909` (상수 `scene`), `NodeCanvasHomeScene.tsx:105-107`.
+  근거: `appHomeSceneStyles.ts:894`·`909` (상수 `scene`), `NodeCanvasHomeScene.tsx:106-108`.
   두 씬이 같은 규칙을 쓴다. **`--app-page-bg`는 데스크톱 페이지 바닥을 칠하지 않는다** —
-  그것은 카드 안 상단 바와 모바일 드로어가 읽는다(`Gnb.tsx:468`·`2068`). 사이드바는 반대로 이
-  변수를 라이트에서 **다시 정의하는** 쪽이다(`Gnb.tsx:2050`).
+  그것은 카드 안 상단 바와 모바일 드로어가 읽는다(`Gnb.tsx:469`·`2068`). 사이드바는 반대로 이
+  변수를 라이트에서 **다시 정의하는** 쪽이다(`Gnb.tsx:2061`).
 
   다크는 씬 루트에 데스크톱 규칙이 없어 `--app-page-bg`(`#171b22`)가 남고 카드는 `#313640`이라
   원래부터 다르다.
@@ -1694,7 +1694,7 @@ legacy 목록(`check-tailwind-theme.mjs:239`)이다.
   **그래서 앱 셸 화면에서는 면 색으로 카드를 찾을 수 있고, 랜딩에서는 못 찾는다.** 반대로
   **앱 셸에 랜딩의 「같은 색」 규칙을 적용하면 페이지 바닥이 한 계단 밝게 나온다.**
 - **719px 이하에서는 경계가 아예 없다.** `border-radius: 0` · `box-shadow: none`이 되어
-  (`globals.css:1384-1390`) 카드가 페이지에 완전히 녹는다. 좁은 폭 화면에 카드 테두리를 그리면
+  (`globals.css:1433-1439`) 카드가 페이지에 완전히 녹는다. 좁은 폭 화면에 카드 테두리를 그리면
   틀린다.
 
 **다크는 ≥720px 에서만 갈린다.** 이 절의 다크 서술(「다크는 씬 루트에 데스크톱 규칙이 없어
@@ -1708,8 +1708,8 @@ legacy 목록(`check-tailwind-theme.mjs:239`)이다.
 | ≥720px | `--app-page-bg` = `#171b22` | `--palette-gray-800` = `#313640` | 다르다 |
 | ≤719px | `--palette-gray-800` = `#313640` | `#313640` | **같다** |
 
-근거: `appHomeSceneStyles.ts:910` · `myPageSceneStyles.ts:569` · `NodeCanvasHomeScene.tsx:106`
-— 세 씬이 같은 규칙을 쓴다. 카드 면 `globals.css:1349-1351`, 팔레트 `globals.css:42`.
+근거: `appHomeSceneStyles.ts:904` · `myPageSceneStyles.ts:549` · `NodeCanvasHomeScene.tsx:107`
+— 세 씬이 같은 규칙을 쓴다. 카드 면 `globals.css:1358-1360`, 팔레트 `globals.css:38`.
 
 **그래서 ≤719px 에서 경계가 사라지는 것은 반경·그림자 때문만이 아니다.** 배경이 카드 면색으로
 함께 이동하므로 **면 색으로도 카드를 찾을 수 없다.** 다크 모바일 프레임을 데스크톱
@@ -1740,42 +1740,42 @@ legacy 목록(`check-tailwind-theme.mjs:239`)이다.
 
 **라이트 값이 `html[data-theme="light"]` 블록에 있다고 가정하면 틀린다.** 노드 크롬 계열의 라이트
 정의는 `html[data-theme="light"]:not(:has([data-landing-walkthrough-dark])), [data-landing-walkthrough-light]`
-라는 **부정 게이트가 붙은 별도 규칙**이 소유한다(`globals.css:557-558`). 문서 안에
+라는 **부정 게이트가 붙은 별도 규칙**이 소유한다(`globals.css:551-552`). 문서 안에
 `data-landing-walkthrough-dark` 요소가 **하나라도** 있으면 문서 전체가 라이트여도 이 블록이
-통째로 꺼지고 `:root` 값(`globals.css:548` — 노드 크롬 버튼 면 `palette-gray-600`)으로 되돌아간다.
+통째로 꺼지고 `:root` 값(`globals.css:542` — 노드 크롬 버튼 면 `palette-gray-600`)으로 되돌아간다.
 
 오염 범위는 토큰 하나가 아니다. 같은 셀렉터가 `@custom-variant light` 정의에도 들어 있어
-(`tailwind.css:263`) **모든 `light:` 유틸리티가 함께 꺼진다** — 툴바·줌 컨트롤·노드 카드의
+(`tailwind.css:261`) **모든 `light:` 유틸리티가 함께 꺼진다** — 툴바·줌 컨트롤·노드 카드의
 라이트 값이 전부 다크로 측정된다.
 
 | 축 | 라이트 셀렉터 | 게이트 | 근거 |
 | --- | --- | --- | --- |
-| 노드 크롬 버튼 면 — `--node-chrome-btn-bg` · `-hover` | `html[data-theme="light"]:not(:has(…)), [data-landing-walkthrough-light]` | **있다** | `globals.css:567-573` |
-| 모든 `light:` 유틸리티 | 같은 셀렉터 | **있다** | `tailwind.css:263` |
-| 페이지 바닥 · `--gray-*` 반전 | `html[data-theme="light"]` | **없다** | `globals.css:679`(→`692`·`709`) |
+| 노드 크롬 버튼 면 — `--node-chrome-btn-bg` · `-hover` | `html[data-theme="light"]:not(:has(…)), [data-landing-walkthrough-light]` | **있다** | `globals.css:561-567` |
+| 모든 `light:` 유틸리티 | 같은 셀렉터 | **있다** | `tailwind.css:261` |
+| 페이지 바닥 · `--gray-*` 반전 | `html[data-theme="light"]` | **없다** | `globals.css:673`(→`692`·`709`) |
 
 **두 축의 폭이 달라서 한쪽만 뒤집힌다.** 게이트가 풀린 라이트 문서에서도 페이지 바닥은 라이트
 (`--app-page-bg` → `--gray-900` → `--palette-gray-100`)로 간다 — 그 매핑을 소유하는
 `html[data-theme="light"]` 블록에는 부정 게이트가 없기 때문이다. 반면 부정 게이트가 소유한 축은
-`:root` 값(`--node-chrome-btn-bg: var(--palette-gray-600)`, `globals.css:548`)으로 되돌아가 다크에
+`:root` 값(`--node-chrome-btn-bg: var(--palette-gray-600)`, `globals.css:542`)으로 되돌아가 다크에
 남는다. 어느 테마에도 없는 조합이 나온다. 3번이 다루는 「한 계단 밀림」은 두 면이 함께 이동하는
 전면 이동이지만, 여기서는 한 축만 움직이는 **부분 반전**이다.
 
 **이 자리의 예였던 확인 모달의 패널 면은 제품에서 사라졌다(2026-08-30 정정).** 라이트 분기
 `[html[data-theme=light]_&]:bg-[rgb(var(--palette-gray-100-rgb)/100%)]`
 (`GlassConfirmModal.tsx@3c9a1a44:55`)는 `1285e9b7`의 LOUIS 셸 채택과 함께 지워졌고, 지금 그 모달의
-면은 `louis-overlay-panel louis-dialog`가 소유한다(`GlassConfirmModal.tsx:152`) — 라이트 분기 자체가
-없다. 컴포넌트 쪽에 같은 모양이 남아 있는 자리는 `AdminClient.tsx:117`이고, 그 파일 주석
-(`AdminClient.tsx:24-25`)이 「킬스위치가 아니라 평범한 `html[data-theme=light] .foo` 후손 셀렉터」라고
+면은 `louis-overlay-panel louis-dialog`가 소유한다(`GlassConfirmModal.tsx:155`) — 라이트 분기 자체가
+없다. 컴포넌트 쪽에 같은 모양이 남아 있는 자리는 `AdminClient.tsx:131`이고, 그 파일 주석
+(`AdminClient.tsx:38-39`)이 「킬스위치가 아니라 평범한 `html[data-theme=light] .foo` 후손 셀렉터」라고
 직접 적는다. 다만 admin은 워크스루 데모가 없는 화면이라 부분 반전이 실제로 일어나는 자리는 아니다.
 
 **프레임은 이제 이 게이트를 타지 않는다 — 이 절이 프레임을 예로 들고 있었다.** 그때 예였던
 `--dropdown-frame` · `--dropdown-surface-bg`는 제품에 없고(2절), 후속인 `--louis-hairline-inset`의
 색은 LOUIS가 `[data-theme="light"]` / `[data-theme="dark"]`에서 부정 게이트 **없이** 선언한다
 ([tokens.css:424](../../packages/tokens/generated/tokens.css) · `863`). `--node-meta-dropdown-shadow`도
-다섯 스코프(`globals.css:525`·`565`·`713`·`757`·`800`)가 전부 **같은 합성**
+다섯 스코프(`globals.css:519`·`565`·`713`·`757`·`800`)가 전부 **같은 합성**
 (`var(--louis-elevation-menu), var(--louis-hairline-inset)`)이라 스코프가 바뀌어도 값이 움직이지
-않는다. 앱 카드(`globals.css:1324`·`1341`)도 같다. **부분 반전을 프레임에서 찾으면 없다.**
+않는다. 앱 카드(`globals.css:1430`·`1341`)도 같다. **부분 반전을 프레임에서 찾으면 없다.**
 
 **이 함정만 이 문서의 우산 규칙에 걸리지 않는다.** 렌더된 값을 재도 소용이 없다 — 워크스루
 데모가 켜진 문서에서는 **렌더된 값 자체가 다크로 나오기** 때문이다.
@@ -1798,12 +1798,12 @@ Tailwind 임의 변형 셀렉터 문자열이다. 짝인 `-light`는 같은 파�
 있다.** 버그가 아니라 의도다 — 맞춰서 고치지 않는다.
 
 랜딩 커뮤니티 드롭다운이 그 형태다. 패널은 `createPortal(…, document.body)`로
-`[data-page-root]` 밖에 놓인다(`landing/navigation/Gnb.tsx:849`·`868`). **1번이 인용하는
+`[data-page-root]` 밖에 놓인다(`landing/navigation/Gnb.tsx:856`·`868`). **1번이 인용하는
 `Gnb.tsx`와는 다른 파일이다** — 이쪽은 랜딩 GNB다.
 
 - **표면은 클래스가 소유한다.** LOUIS 정본 `.louis-popover`(면 `--louis-color-bg-menu`) 위에
   `html[data-theme=dark] &`가 `var(--palette-gray-100)`으로 **라이트를 못박는다**
-  (`landing/navigation/Gnb.tsx:259-265`, 다크 핀은 `:264`). 이 핀이 붙어 있던 자리의 옛 이름은
+  (`landing/navigation/Gnb.tsx:260-266`, 다크 핀은 `:264`). 이 핀이 붙어 있던 자리의 옛 이름은
   `--dropdown-surface-bg`였다(`landing/navigation/Gnb.tsx@2b59479f:193`).
 - **프레임은 `html`에서 상속된다.** 지금은 `var(--louis-hairline-inset)`이고, 색
   `--louis-color-stroke-hairline`이 LOUIS의 `[data-theme="light"]` / `[data-theme="dark"]`에서
@@ -1811,7 +1811,7 @@ Tailwind 임의 변형 셀렉터 문자열이다. 짝인 `-light`는 같은 파�
 
 **결과.** 이 드롭다운은 표면이 다크에서 라이트로 못박히는데 **프레임은 상속된 다크를 따른다** —
 밝은 면 위에 다크(흰색 8%) 헤어라인이 얹힌다. 제품 주석 자신이 이 핀을 「근거가 남아 있지 않다」고
-적고 별건으로 남겨 두었다(`landing/navigation/Gnb.tsx:250-258`).
+적고 별건으로 남겨 두었다(`landing/navigation/Gnb.tsx:251-259`).
 
 **이전 판은 여기서 「프레임은 갈리지 않는다 — 테마 무관」이라고 적었다. 지금은 갈린다.** 그 판정은
 `--dropdown-frame`이 라이트/다크에 바이트 동일하게 선언되던 때의 것이고, 그 토큰은 제품에 없다.
@@ -1819,7 +1819,7 @@ Tailwind 임의 변형 셀렉터 문자열이다. 짝인 `-light`는 같은 파�
 
 | 축 | 다크 | 라이트 | 근거 |
 | --- | --- | --- | --- |
-| 패널 면 | `--palette-gray-100`으로 **못박힘**(핀) | `--louis-color-bg-menu` | `landing/navigation/Gnb.tsx:264` |
+| 패널 면 | `--palette-gray-100`으로 **못박힘**(핀) | `--louis-color-bg-menu` | `landing/navigation/Gnb.tsx:265` |
 | 프레임 | `color(srgb 1 1 1 / 0.08)` | `color(srgb 0 0 0 / 0.08)` | [tokens.css:863](../../packages/tokens/generated/tokens.css) · `424` |
 | 라운드 · 패딩 | `--louis-radius-overlay` 16px · `--louis-space-overlay-inset` 6px | 같다 — 테마 무관 | [tokens.css:573](../../packages/tokens/generated/tokens.css) · `585` |
 | 항목 라운드 | `--louis-radius-overlay-item` 10px | 같다 — 테마 무관 | [tokens.css:574](../../packages/tokens/generated/tokens.css) |

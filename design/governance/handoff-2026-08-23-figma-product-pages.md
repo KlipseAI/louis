@@ -959,12 +959,12 @@ Home에서 측정된 token-bound active paint를 제품의 공통 `isSidebarMenu
 - cards `29:19`, `29:24`, `29:29`, `29:34`, `29:39`: 각 309.6×309.6, 한 행 5열
 - fixed upload `134:588`: main의 ABSOLUTE child, x620/y908, 400×140
 - 제품 인용:
-  - `highlightSceneStyles.ts:877` `    "[display:grid]",`
-  - `highlightSceneStyles.ts:879` `    "[gap:12px]",`
-  - `highlightSceneStyles.ts:882` `    "min-[1800px]:[grid-template-columns:repeat(5,_1fr)]",`
-  - `highlightSceneStyles.ts:1094` `    "[width:100%]",`
-  - `highlightSceneStyles.ts:1096` `    "[margin:40px_auto_0]",`
-  - `highlightSceneStyles.ts:1097` `    "[padding-bottom:200px]",`
+  - `highlightSceneStyles.ts:881` `    "[display:grid]",`
+  - `highlightSceneStyles.ts:883` `    "[gap:12px]",`
+  - `highlightSceneStyles.ts:886` `    "min-[1800px]:[grid-template-columns:repeat(5,_1fr)]",`
+  - `highlightSceneStyles.ts:1098` `    "[width:100%]",`
+  - `highlightSceneStyles.ts:1100` `    "[margin:40px_auto_0]",`
+  - `highlightSceneStyles.ts:1101` `    "[padding-bottom:200px]",`
 - screenshot QA에서 5개 카드가 한 행으로 정렬되고 fixed upload가 하단 중앙에 유지됨을 확인했다.
 - **미완료:** 이 Highlight 구조는 아직 전용 plan/renderer로 생성되지 않았다. 다음 에이전트는 현재 node IDs를
   기준으로 전용 generator를 만들거나 기존 product scene generator에 편입해야 한다. 라이브 Figma만 보고
@@ -981,8 +981,8 @@ button과 label viewport를 별도로 가진다.
 - 새 master `500:5344` · `Product/Gnb Collapsed Upgrade CTA`
 - rail 5 variants의 instance: `500:5347`, `500:5350`, `500:5353`, `500:5356`, `500:5359`
 - 기존 왜곡 instance는 숨김 처리했다.
-- 제품 인용은 `Gnb.tsx:1941-1947`(collapsed width/height/padding/gap)와
-  `Gnb.tsx:1981-1987`(collapsed label max-width/caption typography)다. 실측 당시 fixture 는
+- 제품 인용은 `Gnb.tsx:1953-1959`(collapsed width/height/padding/gap)와
+  `Gnb.tsx:1993-1999`(collapsed label max-width/caption typography)다. 실측 당시 fixture 는
   `a3ed8e03` 이었고, 좌표는 evidence lock 이 고정한 배포본 기준으로 옮겼다 — 값은 그대로다.
 - **미완료:** `scripts/measure-product-sidebar-states.mjs`의 `styleAxes`에는 font/line-height/letter-spacing/
   text-overflow/white-space를 추가했지만, 한도 인계 시점에 JSON 재측정과 sidebar-state builder/renderer 반영은
@@ -1018,7 +1018,7 @@ button과 label viewport를 별도로 가진다.
   dev server를 띄운다.
 - collapsed CTA 실측: 버튼 32×32 · radius 12 · padding-inline 10 · bg `rgb(241,241,243)` · text `rgb(23,27,34)`;
   라벨 span은 clip 12×18 viewport(x22/y1043) 안에서 Pretendard Medium 12/18 · ls −0.12 · text-overflow ellipsis ·
-  white-space nowrap. 근거: `Gnb.tsx:1944`(height 32), `:1945`(padding 0 10px), `:1984`(ellipsis), `:1985`(caption font).
+  white-space nowrap. 근거: `Gnb.tsx:1956`(height 32), `:1945`(padding 0 10px), `:1984`(ellipsis), `:1985`(caption font).
 - **2. 생성기 수정.** builder가 collapsed CTA의 **라벨 child**(`sidebar.0.2.0.0.0`)를 잡도록 했고
   `measurements.collapsed.upgrade.label = { rect, style, text }`를 plan에 넣었다. renderer는 이제 expanded CTA를
   `resize(32,32)`하지 않고 **전용 master `Product/Gnb Collapsed Upgrade CTA`를 find-or-create**해 그 인스턴스를 놓는다.
@@ -1073,16 +1073,16 @@ pinned `a3ed8e03` 소스를 워크플로(6 에이전트, 전원 refuted=false·h
 올바르다. 상세 계약과 인용은 세션 scratchpad `step5-source-contracts.md`에 있다. 핵심:
 
 - **`38:3` /nodecanvas?project= — 검증 완료, 변경 없음.** 공통 GNB 없음이 소스로 증명된다:
-  `nodecanvas/layout.tsx`(7행 `return children;`)은 passthrough, Gnb 사이드바는 `Gnb.tsx:3497-3500`에서 `!isCreateVariant`로
+  `nodecanvas/layout.tsx`(7행 `return children;`)은 passthrough, Gnb 사이드바는 `Gnb.tsx:3420-3423`에서 `!isCreateVariant`로
   꺼진다. 전면 캔버스(`CreateScene.tsx:620` `h-[100svh] overflow-hidden`, `:518` main `p-0`), 상단 고정
   ProjectHeader(`CreateScene.tsx:147` `fixed top-0 ... z-[1001] py-4 px-6`, 2열 그리드 `create/ProjectHeader.tsx`(57행)),
-  하단 중앙 떠 있는 toolbar + 우하단 zoom(`node-canvas-v2/index.tsx:501-502/513`). **라이브 `38:3`이 이와
+  하단 중앙 떠 있는 toolbar + 우하단 zoom(`node-canvas-v2/index.tsx:507-508/513`). **라이브 `38:3`이 이와
   정확히 일치**(readback + 스크린샷 `step5-nodecanvas-38-3.png`: 브랜드 셸·프로필·레이어 패널 오버레이·
   하단 툴바·줌·노드 4). GNB/topbar 교체는 이 화면에 하면 안 된다.
 - **`220:3452` /highlight/[projectId] — 공통 GNB 셸, 손수 만든 셸을 교체해야 함.** 공통 GNB present:
   `HighlightProjectScene.tsx:2352-2355` `{!hideGnb && <Gnb currentPath="/highlight">}` (default hideGnb=false).
   editor rail 없음. body는 `margin-left:var(--app-gnb-sidebar-width)` + `margin-right:var(--app-gnb-main-inline-padding-end=12px)`.
-  top bar = GNB mainChromeTopBar(`Gnb.tsx:434-451`): toggle 32+breadcrumb `clipsBreadcrumb`(좌) | headerSlot 포털(중) |
+  top bar = GNB mainChromeTopBar(`Gnb.tsx:435-452`): toggle 32+breadcrumb `clipsBreadcrumb`(좌) | headerSlot 포털(중) |
   back button(arrow `d="M19 12H5M5 12L11 6M5 12L11 18"`, `:2374`)+프로필(우). 라이브 `220:3484` main card는
   x280 **w1852 오버플로**(정상은 1628 = 1920−280−12).
 - **`221:3234` /highlight/[projectId]/shorts/[shortId] — 공통 GNB 셸, 같은 처리.** shorts

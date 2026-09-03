@@ -56,7 +56,7 @@ token이 아니라 리터럴·이미지·mode 불변 값으로 칠해졌으면 �
 (`AuthStatusCard.tsx:27-30` · `login/page.tsx:43-47` · `app/signup/page.tsx:37-40`). 그 위 슬로건 전경은
 `text-fg-inverse`, 즉 두 mode 모두 `#fafafa`다(`AuthStatusCard.tsx:41` · `login/page.tsx:63` ·
 `app/signup/page.tsx:51`). 같은 부류로 노드 캔버스 카드 외곽선도 semantic이 아니라 `--palette-gray-600-rgb` /
-`--palette-gray-000-rgb`을 쓴다(`components/scenes/create/node-canvas-v2/index.tsx:352-353`).
+`--palette-gray-000-rgb`을 쓴다(`components/scenes/create/node-canvas-v2/index.tsx:358-359`).
 
 **이 두 축은 2026-08-24 배포본에서 이미 위 결손을 메웠다.** 예전에는 면이 `bg-[#0093ff]` 리터럴이고
 전경이 `text-palette-gray-000` primitive 별칭이었으며, 이 문단도 「브랜드 면 색 `#0093ff` 자체는 토큰화
@@ -127,20 +127,20 @@ DS-D-0010은 `[data-page-root]` 같은 DOM 상태 스코프를 토큰 축이 아
 대응 `-rgb` 11개를 전부 팔레트 원시값으로 못 박아, 라이트 테마를 켠 사용자에게도 랜딩이 항상 검정
 배경·흰 글자였다. 그 위에서 랜딩 홈만 다시 밝은 램프로 뒤집고 그 안의 몇몇 섹션이 또 되돌리는
 **세 겹**이 쌓여 있었다. 배포본 `df414c24`는 세 겹을 다 걷어냈다 — 그 사유가 제품 소스 주석에 그대로
-적혀 있다(`globals.css:1534-1541`). **랜딩은 이제 테마를 따른다.**
+적혀 있다(`globals.css:1598-1605`). **랜딩은 이제 테마를 따른다.**
 
 - 랜딩·마케팅 트리 루트 `[data-page-root]`가 지금 세우는 것은 **면 계열 여섯**뿐이고, 값은 전부 LOUIS의
   `landing-*` 시맨틱에서 온다 — `--page-bg`·`--panel`·`--panel-strong`·`--line`·`--text-soft`·
-  `--text-muted`가 각각 `var(--louis-color-landing-*)`이다(`globals.css:1543-1548`). 회색 램프는 손대지
+  `--text-muted`가 각각 `var(--louis-color-landing-*)`이다(`globals.css:1607-1612`). 회색 램프는 손대지
   않으므로 `html[data-theme]`가 세운 값이 그대로 흐른다.
 - **알파를 여기서 다시 계산하지 않는 것이 규칙이다.** `landing-*`는 테마별 값이 이미 정의돼 있고
   (light `#f1f1f3` / dark `#000000` 등), 소비 스코프가 알파를 다시 쓰면 정본이 둘이 된다. 이것이 랜딩
   섹션들이 `bg-gray-900` 대신 `var(--panel-strong)`을 쓰는 이유이기도 하다.
-- 블록은 **`@layer components` 안**에 있다(`globals.css:1176`이 그 레이어를 연다). 파일 끝에 있는 것은
+- 블록은 **`@layer components` 안**에 있다(`globals.css:1170`이 그 레이어를 연다). 파일 끝에 있는 것은
   마케팅 훅을 한곳에 모으려는 조직상의 선택이고 **캐스케이드 승패에 의존하지 않는다** — 사유가
-  `globals.css:1529-1531`에 있다. 앞선 판이 「`@layer` 밖에 두어 상속을 이긴다」고 적었던 것은 그때의
+  `globals.css:1593-1595`에 있다. 앞선 판이 「`@layer` 밖에 두어 상속을 이긴다」고 적었던 것은 그때의
   구조였고 지금은 아니다.
-- 요소 자신은 `background: var(--page-bg); color: var(--gray-000)`을 갖는다(`globals.css:1552-1553`).
+- 요소 자신은 `background: var(--page-bg); color: var(--gray-000)`을 갖는다(`globals.css:1616-1617`).
   `background`가 단축인 채로 남아 있는 것도 계약이다 — 가격 페이지가 「이 단축이 `background-clip` 등
   롱핸드를 초기화한다」를 근거로 삼고 있다.
 
@@ -163,7 +163,7 @@ DS-D-0010은 `[data-page-root]` 같은 DOM 상태 스코프를 토큰 축이 아
 3.92:1 로 살아 있었다. **램프를 래퍼에서 못 박아 고치려는 시도는 이 이유로 성립하지 않는다.**
 
 색이 아닌 예외로 `[data-page-root] [data-reveal]` 이 진입 애니메이션을 무력화하는 규칙은
-그대로 있다(`globals.css:1597-1601`).
+그대로 있다(`globals.css:1662-1666`).
 
 **이걸 모르면 틀린다 — 방향이 반대다.** 랜딩·가격 화면을 **다크 전용**으로 그리면 틀린다. Figma 시안이
 다크 렌더일 뿐이고 제품은 두 테마를 다 그린다. 라이트에서 무너지는 자리는 램프 인덱스를 대칭으로
@@ -185,15 +185,15 @@ DS-D-0010은 `[data-page-root]` 같은 DOM 상태 스코프를 토큰 축이 아
 
 | 매체 | 아이콘 (두 mode 공통) | 캡션 dark | 캡션 light | 근거 |
 | --- | --- | --- | --- | --- |
-| Image | `--accent-mint-500` `#00c68e` | `#e5fff7` | `#008f67` | `ImageNode.tsx:326` · `ImageNode.tsx:345-346` |
+| Image | `--accent-mint-500` `#00c68e` | `#e5fff7` | `#008f67` | `ImageNode.tsx:330` · `ImageNode.tsx:349-350` |
 | Video | `--accent-sky-500` `#0ea5e9` | `#e0f5ff` | `#0369a1` | `VideoNode.tsx:240` · `VideoNode.tsx:261-262` |
 | Text | `--accent-yellow-500` `#ffb200` | `#fff5d6` | `#b87600` | `TextNode.tsx:332` · `TextNode.tsx:346-347` |
 | Edit | `--accent-violet-500` `#6055ff` | `#ebe8ff` | `#3528b8` | `EditNode.tsx:400` · `EditNode.tsx:416-417` |
 
 - **캡션은 색을 두 곳에 같은 값으로 선언한다.** `color`와 `--caption-tone` 둘 다다. 쉬머가
   `background-clip: text` + `-webkit-text-fill-color: transparent`로 그려져 `color`가 무효화되므로
-  (`ImageNode.tsx:349-351`), `color`만 고치면 화면이 바뀌지 않는다. 감속 모션 분기는
-  `-webkit-text-fill-color`를 `--caption-tone`에서 되돌린다(`ImageNode.tsx:353`). 네 노드가 같은 패턴이다.
+  (`ImageNode.tsx:353-355`), `color`만 고치면 화면이 바뀌지 않는다. 감속 모션 분기는
+  `-webkit-text-fill-color`를 `--caption-tone`에서 되돌린다(`ImageNode.tsx:357`). 네 노드가 같은 패턴이다.
 - Tts/Bgm(audio) 노드에는 이 생성 중 아이콘·캡션 accent가 없다. audio는 영역 차오름으로 진행을 표시한다.
 
 **토큰 결손 두 건.** LOUIS에 `color-sky-*` 램프가 없다 — `color-blue-500`(`#0088ff`)은 제품 sky-500
@@ -220,8 +220,8 @@ DS-D-0010은 `[data-page-root]` 같은 DOM 상태 스코프를 토큰 축이 아
 | 전경 | `var(--accent-red-500)` `#ff4b59` | `color-accent-danger` |
 
 기하는 반경 12px · 패딩 12px 16px · 타이포 body-14(14px / 1.5) · `margin: 0`이고 세로 간격은 부모 컬럼이
-준다(`billing-success/page.tsx:108-113`). 한 화면에 같은 상수로 두 박스가 연달아 설 수 있다
-(`billing-success/page.tsx:432-438`).
+준다(`billing-success/page.tsx:112-117`). 한 화면에 같은 상수로 두 박스가 연달아 설 수 있다
+(`billing-success/page.tsx:436-442`).
 
 **이걸 모르면 틀리는 것 둘.** 첫째, 면을 `color-bg-danger`로 매핑하면 안 된다 — 그 토큰은 light
 `#ffe5e8` · dark `#541119`로 뒤집히는 불투명 값이고, 제품 값은 뒤 배경이 비치는 red-500 8% 알파다.

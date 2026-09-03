@@ -1601,7 +1601,7 @@
       "name": "Breadcrumb",
       "figmaName": "Breadcrumb",
       "doc": "design/components/breadcrumb.md",
-      "note": "제품 전수 인벤토리에서 확인. 앱 상단 페이지 내비(Gnb.tsx:5335-5365) — 부모는 48% 로 흐리고(Gnb.tsx:333-335) 현재는 aria-current 가 소유한다. LOUIS recipe 는 아직 없다. 2026-09-01 DS-D-0035 재판정: Figma 는 `partial` 로 남는다 — 계약에 geometry 가 없어 Figma 치수가 코드 실측과 한 번도 만나지 않는다.",
+      "note": "제품 전수 인벤토리에서 확인. 앱 상단 페이지 내비(Gnb.tsx:5258-5288) — 부모는 48% 로 흐리고(Gnb.tsx:334-336) 현재는 aria-current 가 소유한다. LOUIS recipe 는 아직 없다. 2026-09-01 DS-D-0035 재판정: Figma 는 `partial` 로 남는다 — 계약에 geometry 가 없어 Figma 치수가 코드 실측과 한 번도 만나지 않는다.",
       "maturity": "experimental",
       "figma": "partial",
       "web": "not-ready",

@@ -279,11 +279,11 @@ body로 떨어진다. 따라서 exit 모션 동안 화면에는 패널이 보이
 - Tooltip은 포인터를 막지 않는다. 장식 pseudo-element도 항상 `pointer-events:none`이다.
 
 - **팝오버는 앱 셸 램프를 상속한다 — 그런데 표면은 이미 램프 밖으로 나갔다.** 프로필 팝오버는 전용
-  overlay root가 아니라 `document.body`로 포털되고(`Gnb.tsx:4101`, `Gnb.tsx:5437`), 앱 셸 라이트 램프가
-  바로 그 `body`에 얹힌다(`Gnb.tsx:2035-2062`, 선택자 `html[data-theme=light] body:has(.gnb-wrapperSidebar)`).
+  overlay root가 아니라 `document.body`로 포털되고(`Gnb.tsx:4024`, `Gnb.tsx:5360`), 앱 셸 라이트 램프가
+  바로 그 `body`에 얹힌다(`Gnb.tsx:2047-2072`, 선택자 `html[data-theme=light] body:has(.gnb-wrapperSidebar)`).
   램프가 재매핑하는 것은 **고정 팔레트 `--palette-gray-100…600`과 `--app-page-bg`·`--background`뿐**이다.
 
-  패널 표면은 `--louis-color-bg-menu`를 소비한다(`Gnb.tsx:1338`). 그 토큰은 생성된 CSS에서 리터럴
+  패널 표면은 `--louis-color-bg-menu`를 소비한다(`Gnb.tsx:1350`). 그 토큰은 생성된 CSS에서 리터럴
   `color(srgb 0.945098 0.945098 0.952941)`이라 팔레트 별칭을 밟지 않는다 — **램프가 닿지 않는다.**
   그러므로 라이트 표면은 사이드바 유무와 무관하게 `#f1f1f3` 하나다.
 
@@ -310,14 +310,14 @@ Chromium에 얹어 두 문맥을 실측했다(2026-08-30).
 적용해 해결한다**」. 그래서 램프가 덮는 제품 별칭 대신 LOUIS 프리미티브를 직접 부른다
 (`Gnb.tsx@c1543b74:1370`, `--louis-color-palette-gray-200`). **이 고침은 evidence lock 이 고정한
 배포본 뒤에 들어갔다** — 고정본의 같은 자리는 아직 램프가 덮는 제품 별칭
-`--palette-gray-200`(`Gnb.tsx:1358`)이라, 락을 갱신하기 전에는 현재형 좌표로 적을 수 없다.
+`--palette-gray-200`(`Gnb.tsx:1370`)이라, 락을 갱신하기 전에는 현재형 좌표로 적을 수 없다.
 램프는 셸 부품을 위해 그대로 둔다 —
 `app-shell-parts.md`가 사이드바 색을 램프에서 읽는다고 적고 있다.
 
 **아직 수렴하지 않은 것: 구분선 recipe.** [DS-D-0023](../governance/decisions/DS-D-0023-hairline-inset.md)은
 일반 0.5px stroke를 inset 헤어라인으로 통일했고 `.louis-menu__separator`가 그것을 쓴다
 ([menu-popover.css:240-250](../../packages/css/src/component/menu-popover.css)).
-제품 구분선은 아직 1px solid다(`Gnb.tsx:1115`). 채택하면 다크에서 선이 `#575d68`(면 대비
+제품 구분선은 아직 1px solid다(`Gnb.tsx:1116`). 채택하면 다크에서 선이 `#575d68`(면 대비
 38/255)에서 paper 10%(20/255)로 **옅어진다** — 라이트 결함을 고치는 일과
 무관한 다크 변경이므로 여기서 하지 않고, 소유자 판정으로 남긴다.
 
@@ -509,15 +509,15 @@ Anatomy 6번 안의 선행 아이콘 칩이다. 위 표에는 행이 없다.
 
 | 속성 | 값 | 근거 |
 | --- | --- | --- |
-| 치수 | **20×20px** — `w-10 h-10`, `--spacing: 2px` | `EditNode.tsx:333`, `Toolbar.tsx:129`, `tailwind.css:164` |
+| 치수 | **20×20px** — `w-10 h-10`, `--spacing: 2px` | `EditNode.tsx:333`, `Toolbar.tsx:129`, `tailwind.css:162` |
 | 정렬·수축 | flex 중앙 정렬은 이제 `.louis-menu__item-icon` 이 소유하고, 제품은 `shrink-0` 만 얹는다 | `EditNode.tsx:333-334`, `Toolbar.tsx:129-130` |
-| 곡률 | **5px 리터럴** — `rounded-[5px]`. radius 스케일(2·4·6·8·10·12·14·16·20·24)에 없다 | `EditNode.tsx:333`, `Toolbar.tsx:129`, `tailwind.css:169-180` |
-| 면(다크) | `rgb(var(--gray-700-rgb)/100%)` = **#575d68** | `EditNode.tsx:334`, `Toolbar.tsx:130`, `globals.css:55`(팔레트 채널), `globals.css:660`(다크 램프) |
-| 면(라이트) | 의미 토큰이 아니라 `rgb(var(--palette-gray-200-rgb)/100%)`를 직접 지정한다. 해석값은 램프 밖 **#e3e4e8**, 사이드바 램프 안 **#eeeef1** — §Portal and layer rules의 램프 표와 같은 갈림이다 | `EditNode.tsx:335`, `Toolbar.tsx:131`, `globals.css:50`, `Gnb.tsx:2044` |
+| 곡률 | **5px 리터럴** — `rounded-[5px]`. radius 스케일(2·4·6·8·10·12·14·16·20·24)에 없다 | `EditNode.tsx:333`, `Toolbar.tsx:129`, `tailwind.css:167-178` |
+| 면(다크) | `rgb(var(--gray-700-rgb)/100%)` = **#575d68** | `EditNode.tsx:334`, `Toolbar.tsx:130`, `globals.css:49`(팔레트 채널), `globals.css:654`(다크 램프) |
+| 면(라이트) | 의미 토큰이 아니라 `rgb(var(--palette-gray-200-rgb)/100%)`를 직접 지정한다. 해석값은 램프 밖 **#e3e4e8**, 사이드바 램프 안 **#eeeef1** — §Portal and layer rules의 램프 표와 같은 갈림이다 | `EditNode.tsx:335`, `Toolbar.tsx:131`, `globals.css:44`, `Gnb.tsx:2056` |
 | 내부 아이콘 | 15px | `Toolbar.tsx:161`, `Toolbar.tsx:364`, `Toolbar.tsx:380` |
 
 **라이트에서 의미 토큰을 쓰면 칩이 한 계단 어두워진다.** 라이트에서 `--gray-700-rgb`는
-`--palette-gray-300-rgb`(#d5d7dd)로 뒤집혀 있다(`globals.css:702`, 워크스루 라이트 `globals.css:790`). 그래서 제품은 라이트
+`--palette-gray-300-rgb`(#d5d7dd)로 뒤집혀 있다(`globals.css:696`, 워크스루 라이트 `globals.css:784`). 그래서 제품은 라이트
 면만 팔레트를 직접 지정한다 — 다크 값을 의미 토큰으로 그대로 옮기면 칩이 라벨보다 무거워진다.
 
 5px 곡률은 governance/product-confirmations.md의 「모서리 반경 — 토큰 없는 값 상위」 표가 이미 15회·11파일로
@@ -531,7 +531,7 @@ Anatomy 6번 안의 선행 아이콘 칩이다. 위 표에는 행이 없다.
   (`EditNode.tsx:341`). 6px로 그리면 20px 칩이 라벨에 붙는다.
 - **`Anchor offset`은 8px 단일값이 아니다.** 노드 메타 드롭다운은 **4px**
   (`META_DROPDOWN_DEFAULT_VERTICAL_GAP_PX`, `metaDropdownViewport.ts:5`; 앵커 `BgmNode.tsx:244`,
-  `ImageNode.tsx:583`, `TtsNode.tsx:404`, `VideoNode.tsx:463`, `YoutubeNode.tsx:497`), 캔버스 툴바와 줌
+  `ImageNode.tsx:587`, `TtsNode.tsx:404`, `VideoNode.tsx:463`, `YoutubeNode.tsx:497`), 캔버스 툴바와 줌
   컨트롤은 **8px**이다(`Toolbar.tsx:353`, `Toolbar.tsx:417`, `Toolbar.tsx:511`, `CanvasZoomControl.tsx:167`,
   `Toolbar.tsx:110`, `CanvasZoomControl.tsx:52`). 8px 하나로 그리면 노드 메타 드롭다운이 트리거에서 4px
   떠서 붙는다.

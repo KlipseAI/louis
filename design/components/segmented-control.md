@@ -210,9 +210,9 @@ xs는 10 − 3 = 7. 중첩한 모서리가 어긋나지 않는다. lg·md의 두
 
 **노드 카드 안 8px 인셋 박스는 파생식을 따르지 않는다.** 제품의 노드 카드는 바깥 24px · 테두리
 2px · 경계에 닿는 면 22px(`--node-outer-radius` · `--node-inner-radius`,
-`node-canvas-v2/index.tsx:308-312`)까지 첫째 식을 지키지만, 그 안에서 8px 인셋된 박스는 기하
+`node-canvas-v2/index.tsx:314-318`)까지 첫째 식을 지키지만, 그 안에서 8px 인셋된 박스는 기하
 동심값 22 − 8 = 14px이 아니라 `--node-input-radius` **16px**을 쓴다. 한 자리의 사고가 아니다 —
-프롬프트 입력 셸(사방 8px 인셋, `nodes/ImageNode.tsx:385-387`)과 오디오 결과 카드(부모 미디어
+프롬프트 입력 셸(사방 8px 인셋, `nodes/ImageNode.tsx:389-391`)과 오디오 결과 카드(부모 미디어
 밴드가 8px 인셋 `nodes/BgmNode.tsx:139`, 반경 `nodes/BgmNode.tsx:401`)가 같은 16px이다. 노드
 계열 전체의 관용이다.
 
@@ -282,7 +282,7 @@ Figma는 INNER_SHADOW로 대응한다 — 이전 OUTSIDE stroke에서 바뀐 것
 
   **그 판정의 조건은 이미 충족됐다(2026-09-01 확인).** DS-D-0032는 「SegmentedControl이 `sm`을
   구현하는 날 … 그날 판정을 함께 한다」고 미뤘는데, `sm`을 구현한 것이 **DS-D-0032 자신의
-  커밋**(`014ae55`)이다. CSS `[data-size="sm"]`(`segmented-control.css:78`) · 타입
+  커밋**(`014ae55`)이다. CSS `[data-size="sm"]`(`packages/css/src/component/segmented-control.css:83`) · 타입
   `"lg" | "md" | "sm" | "xs"` · `components.measured.json`의 `sizes.sm` · 브라우저 테스트의
   `SIZES` 넷이 모두 그 커밋에서 섰다. 미룬 날이 이미 지났다는 뜻이며, 판정은 미래가 아니라
   **밀린 것**이다.
@@ -319,7 +319,7 @@ Figma는 INNER_SHADOW로 대응한다 — 이전 OUTSIDE stroke에서 바뀐 것
 
 - **제품 정본의 트랙은 36 이고 이 컴포넌트에는 그 칸이 없다.** 위 Specification 이 「높이만 control
   계단을 따른다」로 적은 그 갈림이며, 2026-09-03 에 자리와 값을 실측했다. 제품 A(`SegmentedToggle`)는
-  트랙 높이를 **선언하지 않는다** — 패딩 4(`myPageSceneStyles.ts:1004`)와 세그먼트 28(`:969`)이
+  트랙 높이를 **선언하지 않는다** — 패딩 4(`myPageSceneStyles.ts:978`)와 세그먼트 28(`:969`)이
   `4 + 28 + 4 = 36` 을 만든다. 나머지는 `lg` 와 글자 그대로 같다: 트랙 반경 12(`:1005`) · 세그먼트
   반경 8(`:972`) · 세그먼트 좌우 12(`:970`) · 타이포 14(`SegmentedToggle.tsx:52`). **갈리는 것은
   세그먼트 높이 하나뿐이다**(제품 28 ↔ LOUIS 32).

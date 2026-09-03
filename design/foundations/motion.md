@@ -110,14 +110,14 @@ primitive의 `timingFunction`은 제품이 선언한 커브 둘에서 왔다. Fi
   표면은 `opacity 200ms` + `transform 260ms`로 채널을 나눈다. 셋을 한 recipe로 그리면 하나는 틀린다.
 - **제품 모달은 한 recipe가 아니라 채널 셋이다.** `GlassConfirmModal`은 카드에
   `transform 320ms cubic-bezier(0.22, 1, 0.36, 1)` · `opacity 220ms ease` · `filter 320ms ease`를 따로
-  걸고(`GlassConfirmModal.tsx:61-65`), 스크림은 `background 260ms cubic-bezier(0.22, 1, 0.36, 1)`으로
+  걸고(`GlassConfirmModal.tsx:64-68`), 스크림은 `background 260ms cubic-bezier(0.22, 1, 0.36, 1)`으로
   palette gray-900 알파 `0%` → `50%`를 덮는다(`:42-49`). 카드 시작값은
   `translate3d(0, 16px, 0) scale(0.96, 0.96)` · `saturate(88%) blur(1px)`, 끝값은
   `translate3d(0, 0, 0) scale(1)` · `saturate(100%) blur(0)`이다(`:67-77`). **`modal-enter` 하나로
   접으면 카드가 균질하게 떠올라 제품과 갈린다** — 세 채널이 서로 다른 시각에 끝나는 것이 이 모션의
   성격이다.
 - **오프셋과 scale은 클래스가 아니라 인라인 변수가 정한다.** 실제 값은 `translate-y 16px` ·
-  `scale 0.96 / 0.96`이며(`GlassConfirmModal.tsx:122-127`) 클래스에 적힌 fallback `0.24` · `0.16`
+  `scale 0.96 / 0.96`이며(`GlassConfirmModal.tsx:125-130`) 클래스에 적힌 fallback `0.24` · `0.16`
   (`:69`)은 항상 덮여 닿지 않는다. **클래스만 읽고 0.24로 그리면 틀린다.**
 - **`filter`는 어떤 recipe의 허용 property에도 없고, 스크림의 `background`도 modal recipe에는 없다.**
   `modal-enter`·`modal-exit`가 허용하는 property는 `opacity`·`translate`·`scale` 셋뿐이다
@@ -126,12 +126,12 @@ primitive의 `timingFunction`은 제품이 선언한 커브 둘에서 왔다. Fi
   스크림 배경 전이는 현재 token model이 재현 대상으로 삼지 않는 채널이다. Figma proposal로도
   넘어가지 않는다.
 - **제품 모달의 unmount timer가 시각 transition보다 짧다.** `CLOSE_MS = 280`인데 카드의 최장 전환은
-  320ms다(`GlassConfirmModal.tsx:32`, `:63`, `:188-191`) — 퇴장의 마지막 40ms가 잘린다. 위 Token
+  320ms다(`GlassConfirmModal.tsx:34`, `:63`, `:188-191`) — 퇴장의 마지막 40ms가 잘린다. 위 Token
   model의 「unmount timer와 interaction lock은 시각 transition과 같은 resolved recipe를 읽는다」가
   금지하는 형태 그대로다.
 - reduced motion은 양쪽 다 제품이 선언한다. 팝오버는 `transform:none` + `transition: opacity 120ms ease`
   (`MetaDropdownPanel.tsx:36-39`), 모달은 스크림·카드 모두 `transition:none`
-  (`GlassConfirmModal.tsx:45`, `:64`)이다.
+  (`GlassConfirmModal.tsx:48`, `:64`)이다.
 
 ## Acceptance tests
 

@@ -1274,6 +1274,15 @@
       "generated": false
     },
     {
+      "id": "decision-thirty-six-is-not-a-control-height",
+      "path": "design/governance/decisions/DS-D-0048-thirty-six-is-not-a-control-height.md",
+      "title": "DS-D-0048 36 은 컨트롤 높이가 아니다 — 링이 만든 36 과 트랙이 만든 36 을 나눠 판정한다",
+      "section": "governance",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
+    },
+    {
       "id": "governance-product-confirmations",
       "path": "design/governance/product-confirmations.md",
       "title": "제품 확인 대기 목록",
@@ -1497,6 +1506,7 @@
         "design/governance/decisions/DS-D-0045-danger-secondary-variant.md",
         "design/governance/decisions/DS-D-0046-bespoke-is-a-fifth-verdict.md",
         "design/governance/decisions/DS-D-0047-dead-token-unit-and-denominator.md",
+        "design/governance/decisions/DS-D-0048-thirty-six-is-not-a-control-height.md",
         "design/governance/product-confirmations.md",
         "design/updates/README.md"
       ]

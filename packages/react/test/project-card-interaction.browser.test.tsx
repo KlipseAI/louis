@@ -9,6 +9,7 @@ import { ProjectCard, ProjectCardMore, ProjectCardRename } from "@klipse-design/
 import "@klipse-design/css/layers.css";
 import "@klipse-design/css/tokens.css";
 import "@klipse-design/css/styles.css";
+import measured from "../../../figma/components.measured.json" with { type: "json" };
 
 const px = (value: string): number => Number.parseFloat(value);
 
@@ -90,4 +91,11 @@ test("이름 변경 입력에 크롬이 없다 — 자리가 흔들리지 않는
   expect(style.backgroundColor).toBe("rgba(0, 0, 0, 0)");
   expect(px(style.paddingTop)).toBe(0);
   expect(input.getAttribute("aria-label")).toBe("프로젝트 이름");
+
+  // **크롬이 없으므로 이 상자가 선언하는 값은 반경 하나뿐이고, 그래서 그 하나를 여기서 잰다.**
+  // Figma 의 `State=Renaming` 안 `Rename` 부품이 같은 계약값을 대조하므로(DS-D-0050) 이 줄이
+  // 그 대조의 코드 쪽 절반이다 — 없으면 measured 와 Figma 만 서로를 보고 CSS 는 아무도 안 본다.
+  expect(px(style.borderTopLeftRadius), "renameRadius").toBe(
+    measured.components["project-card"].sizes.base.renameRadius,
+  );
 });

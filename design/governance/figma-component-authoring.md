@@ -46,6 +46,7 @@ Figma 컴포넌트를 만들거나 고칠 때 지키는 규칙. 기준선은 이
 | `Mode` | `determinate` · `indeterminate` | **작동 방식.** 같은 컴포넌트가 서로 다른 원리로 도는 것. 진행률을 아는 막대와 모르는 막대는 상태가 아니라 다른 기계다 |
 | `Direction` | `prev` · `next` | **방향.** 기하는 그대로고 글리프의 향만 바뀐다. 값은 **트랙의 진행 방향**이지 화살표가 가리키는 쪽(`left`/`right`)이 아니다 — 세로 트랙이 생겨도 이름이 산다 |
 | `Surface` | `light` · `dark` | **아래 깔린 면의 밝기.** 테마가 아니다 — 경계는 「`Surface` 는 테마가 아니다」가 정한다. 값은 잉크가 아니라 **면**을 가리킨다: `light` = 밝은 면 위 = 어두운 잉크 |
+| `LabelBehavior` | `stacked` · `floating` | **라벨이 어디 사는가.** `stacked` 은 라벨이 컨트롤 **위**의 형제이고 움직이지 않는다. `floating` 은 라벨이 컨트롤 **안**에서 placeholder 노릇을 하다가 값이나 포커스가 오면 떠오른다. 조건 축이 아니다 — 「지금 떠 있는가」는 `State` 가 담고(`Placeholder` 가 쉼), 이 축은 **디자이너가 고르는** 것이라 `Size` 와 같은 종류다 |
 | `Orientation` | `vertical` · `horizontal` | **긴 축이 어디로 놓이나.** `Direction` 과 다르다 — `Direction` 은 기하가 그대로고 향만 바뀌지만 여기서는 **기하가 90° 전치된다**(4×60 ↔ 60×4). 축이 바뀌면 커서와 전환 프로퍼티도 함께 바뀐다 |
 | 조건 축 (`Expanded` 등) | `false` · `true` | BOOLEAN 으로 그릴 수 없는 조건 하나. 축 이름은 아래 명부에 있는 것만 쓴다 |
 
@@ -94,6 +95,15 @@ Switch 의 `Checked` 와 SidebarNavItem 의 `Collapsed` 가 이미 그렇게 서
 
 이 일곱 밖의 조건 이름을 쓰려면 이 표를 먼저 늘린다. `Current` 는 `Selected` 의 두 번째
 어휘이므로 **쓰지 않는다** — 같은 뜻에 이름이 둘이면 두 벌이 된다.
+
+**`LabelBehavior` 는 2026-09-03 에 열렸다** ([DS-D-0049](decisions/DS-D-0049-label-placement-is-an-axis.md)).
+근거는 제품 인증 일곱 벌의 실측이다 — 기하가 일곱 벌 모두 같고 정본과 갈리는 것은 라벨의 자리
+하나다. **조건 축(`Floating: false|true`)으로 열지 않은 이유를 함께 적는다.** 조건 축의 값들
+(`Checked` · `Selected` · `Expanded` · `Loading`)은 전부 **그 순간 참인지**를 말하는데 라벨의
+자리는 순간이 아니라 고르는 것이고, `Floating` 이라는 이름은 이 파일 안에서 이미 다른 뜻으로
+쓰인다(원장의 「캔버스 하단 플로팅 툴바」). **`Mode` 를 늘리지 않은 이유도 적는다** — 뜻은
+맞지만 `determinate`·`indeterminate` 와 겹치지 않는 두 번째 쌍이 한 이름 아래 놓여, 같은 이름에
+두 뜻이 된다.
 
 **`Loading` 은 2026-08-27 에 열렸다.** 근거는 InlineLoadingLabel 실측이다 — 네 변형의 되읽기에서
 프레임 `itemSpacing` 이 닫힘 0, 열림 md 6 · sm 4 로 **프레임 자신이 자기 값을 다시 쓴다**(시험 2).

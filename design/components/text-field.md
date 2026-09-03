@@ -20,7 +20,7 @@ summary: 한 줄 텍스트를 입력받습니다.
 | Surface       | 상태           | 근거                                                        |
 | ------------- | -------------- | ------------------------------------------------------------ |
 | Web           | `partial`      | public export와 실브라우저 acceptance test 8건; visual regression과 제품 소비 증거 없음 |
-| Figma         | `done`      | component set(Size·State). 계약이 모든 property 를 pin 하고 Box·Label·Value·Message 를 자손으로 대조한다. 기하는 양방향이다 — `text-field.browser.test.tsx` 가 코드 쪽에서 같은 실측을 되잰다. 게시 없이 판정한다([DS-D-0035](../governance/decisions/DS-D-0035-figma-done-without-publish.md)) |
+| Figma         | `done`      | component set(Size·State·LabelBehavior, 20 variant). 계약이 모든 property 를 pin 하고 Box·Label·Value·Message 를 자손으로 대조한다. 기하는 양방향이다 — `text-field.browser.test.tsx` 가 코드 쪽에서 같은 실측을 되잰다. 게시 없이 판정한다([DS-D-0035](../governance/decisions/DS-D-0035-figma-done-without-publish.md)) |
 | Documentation | `done`         | 이 문서                                                      |
 | Maturity      | `experimental` | 규범과 구현이 같은 변경 단위에서 처음 선다                   |
 
@@ -55,7 +55,10 @@ summary: 한 줄 텍스트를 입력받습니다.
 ## Anatomy
 
 1. **Stack** — 라벨·박스·메시지를 세로로 담는다.
-2. **Label** — 시각 라벨. `htmlFor`로 입력에 연결된다.
+2. **Label** — 시각 라벨. `htmlFor`로 입력에 연결된다. **`labelBehavior="floating"`에서는 이
+   노드가 Stack이 아니라 Box 안으로, 그리고 Control 뒤로 옮겨 간다** — 떠오름 규칙이
+   `input ~ label`이고 `~`는 앞선 형제를 보지 못한다. 시각 위치는 절대배치가 정하므로 순서가
+   화면을 바꾸지 않고, `htmlFor` 연결도 순서와 무관하다.
 3. **Box** — **시각적 필드.** 높이·여백·헤어라인(inset)·반경·배경을 소유하고 포커스 링을 받는다.
 4. **Prefix / Suffix** — 박스 안의 슬롯. 아이콘과 버튼이 들어간다.
 5. **Control** — 실제 `<input>`. 박스가 시각을 소유하므로 여기는 비어 있다.
@@ -70,6 +73,7 @@ summary: 한 줄 텍스트를 입력받습니다.
 | --- | --- | --- | --- |
 | `label` | ReactNode | 없음 | 시각 라벨. 없으면 `aria-label`이 필수다 |
 | `size` | `lg` \| `md` \| `sm` | `lg` | 시각 크기. `lg`·`md`는 글자 크기가 같고 `sm`만 내려간다 |
+| `labelBehavior` | `stacked` \| `floating` | `stacked` | 라벨이 어디 사는가. `floating`은 `lg`에서만 그려진다 ([DS-D-0049](../governance/decisions/DS-D-0049-label-placement-is-an-axis.md)) |
 | `description` | ReactNode | 없음 | 필드 아래 한 줄. `invalid`면 오류 문구가 된다 |
 | `invalid` | boolean | `false` | 오류 상태 |
 | `prefix` / `suffix` | ReactNode | 없음 | 박스 안의 슬롯 |
@@ -79,8 +83,22 @@ summary: 한 줄 텍스트를 입력받습니다.
 
 ## Hierarchy와 variants
 
-variant 축이 없다. 필드는 강조 단계를 갖지 않는다 — 한 폼 안에서 어떤 필드가 다른 필드보다
+**강조 축이 없다.** 필드는 강조 단계를 갖지 않는다 — 한 폼 안에서 어떤 필드가 다른 필드보다
 "주요"하다는 표현은 시각이 아니라 순서와 라벨이 맡는다.
+
+**크기 말고 있는 축은 `LabelBehavior` 하나다**([DS-D-0049](../governance/decisions/DS-D-0049-label-placement-is-an-axis.md)).
+`stacked`(기본)에서 라벨은 박스 위의 형제이고 움직이지 않는다 — 제품의 `/admin` 여덟 화면이 이
+형태다. `floating`에서 라벨은 박스 안에서 placeholder 노릇을 하다가 값이 들어오거나 포커스가
+오면 떠오른다 — 제품의 인증 일곱 벌이 이 형태다.
+
+**「떠 있는가 앉아 있는가」는 축이 아니라 상태다.** 그것을 정하는 것은 값의 유무와 포커스이고
+CSS가 판정한다(`:not(:placeholder-shown)` · `:focus`). Figma에서는 `State`가 그 자리를 갖는다 —
+`Placeholder`가 쉼이고 나머지 넷이 떠오른 상태다.
+
+**`floating`은 `lg`에만 있다.** [DS-D-0027](../governance/decisions/DS-D-0027-control-size-ladder.md)이
+`lg`의 쓰임을 「화면의 주인공이 되는 제출 CTA — 로그인·회원가입」으로 못 박았고 플로팅 라벨이
+사는 곳이 바로 그 화면이다. md·sm 플로팅은 제품에 잰 자리가 없다 — 그리면 값을 지어내는 일이
+된다. 그래서 변형은 전수 30이 아니라 20이다.
 
 ## States
 
@@ -150,6 +168,47 @@ variant 축이 없다. 필드는 강조 단계를 갖지 않는다 — 한 폼 �
 기하가 Button과 같은 계단인 이유는 하나다 — 같은 화면에 나란히 서는 컨트롤이 서로 다른 높이를
 갖지 않게 하려는 것이다. 제품은 30·34·44·48px이 섞여 있다.
 
+### `floating`의 값은 어디서 왔나
+
+**여기서는 제품이 정본이다** — 이 컴포넌트의 다른 값과 반대다. 앵커 `ae8fd627`에서 일곱 벌을
+쟀고 **기하가 일곱 벌 모두 글자 그대로 같았다.** 다섯 계열이 합의하지 못한 컴포넌트에서 한
+계열이 스스로 합의한 유일한 자리다.
+
+| 축 | `lg/floating` | 어디서 | 제품 일곱 벌 |
+| --- | ---: | --- | --- |
+| 높이 | 53px | **선언하지 않는다** — 아래 합 | 58 (값 타이포가 body-16이라 행이 24) |
+| 위·아래 여백 | 12px | `space-control-md` | 12 (`py-6`) |
+| 라벨 행 | 8px | `space-control-sm`, control의 `margin-block-start` | 8 (`mt-4`) |
+| 값 행 | 21px | body-sm 행 높이 | 24 (body-16) |
+| 좌우 여백 | 16px | `space-control-lg` — `lg/stacked`와 같다 | 16 (`px-8`) |
+| 반경 | 12px | `radius-control` — `lg/stacked`와 같다 | 12 |
+| 라벨 좌측 | 16px | `space-control-lg` — 박스 좌우 여백과 같다 | 16 (`left-8`) |
+| 쉬는 라벨 | 세로 중앙 · 14/1.5 | `typography-body-sm-medium` | 세로 중앙 · 16/1.5 |
+| 떠오른 라벨 | `top: 8` · 12/1.5 | `space-control-sm` + `typography-caption-*` | `top: 12` · 12/**1** |
+
+**높이는 네 항의 합이다** — 12 + 8 + 21 + 12 = 53. CSS는 높이를 쓰지 않고 여백과 값이 만든다.
+`min-block-size`(`layout-control-height-lg` 40)는 그대로 물려받지만 53이 이미 넘어 바닥으로만
+남는다. 제품의 58과의 5px 차이는 **값 타이포**에서 나오며 이 축이 만든 어긋남이 아니다.
+
+**떠오른 라벨의 시작점만 제품과 다르다 — 옮긴 것은 자리가 아니라 글자의 자리다.** 제품은
+`line-height: 1` + `top: 12`로 글자를 12..24에 앉힌다. 여기서는 행간을 리터럴 1로 덮을 수 없다:
+Figma text style은 all-or-nothing이라 행간 하나만 덮어도 style 연결이 끊기고, 그 자리를 메우는
+`textStyleExempt`는 **변형마다 하나씩**을 세므로 스무 변형 중 다섯만 면제할 방법이 없다. 그래서
+caption의 행간 토큰(1.5 → 18px)을 그대로 쓰고 시작점을 8로 당겨 글자를 같은 자리에 놓는다 —
+`8 + (18−12)/2 = 11`부터 23까지이고 제품의 12..24와 1px 안이다. 값의 글자는
+`20 + (21−14)/2 = 23.5`부터라 닿지 않는다. 두 값 다 토큰이고 리터럴이 남지 않는다.
+
+**슬롯은 라벨 행이 아니라 값 행에 선다**(`align-items: flex-end`). 위쪽 8은 라벨의 자리이므로
+가운데 정렬이면 control의 `margin-block-start`가 중앙 계산에 먹혀 그 행이 사라진다.
+
+**색은 포커스만 따른다 — 떠오름과 다른 조건이다.** 값이 들어와 라벨이 떠 있어도 포커스가 없으면
+`color-fg-secondary`로 남고, 포커스에서만 `color-fg-primary`가 된다. 제품 일곱 벌이 전부 두
+조건을 갈라 두었다(`focused || value`가 자리를, `focused`가 색을 정한다).
+
+**`floating`의 라벨은 label이 아니라 placeholder의 색 역할을 받는다.** `stacked`의 라벨은
+`color-fg-primary`인데 여기서는 `color-fg-secondary`다 — 쉴 때 그 자리가 placeholder의 자리이기
+때문이다. placeholder 자신은 투명이다(라벨이 그 일을 한다).
+
 ### `sm`의 값은 어디서 왔나
 
 세 칸 중 `sm`만 **높이 말고도 갈리는 축이 둘 있다.** 어느 값이 실측이고 어느 값이 비례인지
@@ -213,10 +272,28 @@ variant 축이 없다. 필드는 강조 단계를 갖지 않는다 — 한 폼 �
   값을 하나 지어내는 것이 된다.
 - **`sm`의 반경 8은 이 컴포넌트를 잰 값이 아니다.** 디자인의 24 자리 여섯은 8이고 가장 가까운
   값 박스만 6이다. 판정 근거는 위 「`sm`의 값은 어디서 왔나」에 있다.
-- **Figma에 `sm` variant가 없다.** [DS-D-0028](../governance/decisions/DS-D-0028-three-in-one-change.md)
-  규칙 1의 세 곳 중 LOUIS만 움직였다. `verify-figma-parity`가 코드 타입 `TextFieldSize`에서 축을
-  읽으므로 **그 게이트는 지금 빨갛고, 그것이 이 변경의 정확한 상태다.** 위 Availability 표의
-  「component set 8 variant」도 Figma가 따라온 뒤에 갱신된다.
+- ~~**Figma에 `sm` variant가 없다.**~~ **해소됐다.** Figma의 `Size`는
+  `["md","lg","sm"]` 셋이고 `verify-figma-parity`는 초록이다. 이 문장은 결손이 메워진 뒤에도
+  남아 있었고 **어느 게이트도 잡지 않았다** — 문서의 낡은 주장은 게이트의 시야 밖이다.
+  2026-09-03에 되읽기와 parity 두 증거로 고쳤다(icon-button.md의 「Figma에 sm이 없다」가
+  2026-09-02에 같은 형태로 고쳐졌고, 그때 「다른 컴포넌트 문서에도 있는지는 훑지 않았다」고
+  남긴 그 자리다).
+- **`floating`의 색 셋은 제품 다수파를 따랐고, 소수파 둘이 남는다.** 포커스 테두리·링과 쉬는
+  라벨의 색이 일곱 벌 중 다섯에서 40%/40%인데, 설정의 인증 모달만 **24%/32%**이고
+  `/aws/signup`은 브랜드 팔레트(`--aws-navy-input-focus` · `palette-gray-600`)를 쓴다. 다수파를
+  정본으로 삼았고 두 소수파는 이 축에 담지 않는다 — 후자는 표면 원장이 이미 「브랜드 변형을
+  변형 축으로 넣을지 별도 화면으로 둘지」를 열어 둔 별건이다.
+- **`floating`이 제품 인증 화면과 픽셀로 맞지는 않는다.** 정본과 그 계열이 갈리는 선언은 다섯인데
+  (높이·내부 배치 · 1px 12% 테두리 · 4% 알파 면 · inset 링 · 값 타이포 16) **이 축이 담는 것은
+  첫째 하나뿐이다.** 나머지 넷은 인증 계열이 정본과 갈리는 기존의 스킨 차이이고, 이 컴포넌트의
+  값이 제품을 옮긴 것이 아니라 DS가 정한다는 위 머리말 그대로다.
+- **결합 입력이 없다.** 인증 일곱 벌 중 넷은 상자 둘을 위/아래로 이어 붙인다 — 곡률이 갈리고
+  `margin-bottom: -1px`로 테두리를 겹치며 포커스가 `z-index`를 1 → 2로 올려 이웃의 테두리 위로
+  올라온다. 이 축은 그것을 담지 않으므로 표면 원장의 다섯은 그대로 `needed`다.
+- **`floating`에서 `label`은 사실상 필수인데 타입이 강제하지 않는다.** 라벨이 placeholder의
+  자리를 대신하므로 없으면 필드에 보이는 이름이 하나도 남지 않는다. `TextFieldProps`가
+  인터페이스여서 판별 유니온으로 바꾸면 이 타입을 확장하는 바깥 코드가 깨진다 — 계약은 이
+  문서와 브라우저 테스트가 갖는다.
 - **컨트롤 테두리 정본은 이제 닫혔다.** 이전엔 `color-stroke-control`을 썼는데 IconButton은 같은
   자리에 `color-stroke-default`를 써서 저장소 안 정본이 정해지지 않은 채였다. [DS-D-0023](../governance/decisions/DS-D-0023-hairline-inset.md)이
   모든 일반 0.5px stroke를 단일 `color-stroke-hairline` generic 헤어라인으로 통일해 (2b)를 닫았다 —
@@ -235,5 +312,15 @@ variant 축이 없다. 필드는 강조 단계를 갖지 않는다 — 한 폼 �
 8. `invalid`가 아니면 메시지가 `role="alert"`이 **아니다.**
 9. 사다리가 이름 순서대로 내려간다 — lg 40 > md 32 > sm 24. 이름이 순서를 거짓말하는 상태를
    막는다(DS-D-0027이 고친 문제가 정확히 그것이었다).
-10. `sm`의 반경이 높이의 절반보다 작다 — 필드가 알약이 되지 않는다. 토큰 이름만 읽으면 둘 다
+10. `floating`의 높이가 네 항의 합과 같다 — 12 + 8 + 21 + 12 = 53. 네 항을 각각 재고 합도 잰다.
+11. `floating`이 `stacked`의 반경·좌우 여백·슬롯 간격·헤어라인·면을 **하나도 다시 쓰지 않는다.**
+    둘을 나란히 세워 계산값을 대조한다 — 이 축이 축인 근거가 그것이다.
+12. 라벨이 값과 포커스에 따라 떠오르고 **색은 포커스만 따른다.** 값이 든 채 포커스를 잃으면
+    자리는 떠 있고 색은 secondary로 돌아온다.
+13. 떠오른 라벨의 **글자 띠**가 값의 글자 띠와 닿지 않는다. 상자끼리 재면 반-행간 때문에 거짓
+    실패가 난다.
+14. `stacked`에서 라벨이 박스 밖의 형제로 남고 흐름에 있다(`position: static`).
+15. `floating`이 placeholder를 스스로 채우고(`" "`) 숨기며, `stacked`은 손대지 않는다.
+16. `floating`의 라벨도 `htmlFor`로 입력에 이어져 있다 — DOM에서 input **뒤**로 옮겨 갔다.
+17. `sm`의 반경이 높이의 절반보다 작다 — 필드가 알약이 되지 않는다. 토큰 이름만 읽으면 둘 다
     「control 반경」이라 계산값을 봐야 보인다.

@@ -25,6 +25,73 @@ authority: normative
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
 
+## 2026-09-03 (111) — TextField 에 `LabelBehavior` 축을 연다 — 플로팅 라벨 (DS-D-0049)
+
+제품 인증 화면의 **플로팅 라벨 입력 상자**를 세웠다. 표면 원장의 `needed` 다섯이 「그 슬롯을
+채우는 실제 폼 벌은 51개 어디에도 없다」로 같은 문장을 공유하던 자리다.
+
+**먼저 쟀다.** 앵커 `ae8fd627` 에서 일곱 벌을 읽었고(`/login` · `/signup` · `/recover` ·
+`/reset-password` · `/reset-password/new` · `/aws/signup` · 설정의 인증 모달) **기하가 일곱 벌
+모두 글자 그대로 같았다** — 여백 12/16 · 반경 12 · 값의 위 여백 8 · 라벨 좌측 16 · 떠오른 라벨
+`top: 12` · 쉬는 라벨은 세로 중앙. 갈리는 것은 색 셋뿐이고 다섯이 한 값(40%/40%)에 모인다.
+
+정본과 갈리는 선언은 다섯인데(높이·내부 배치 · 테두리 · 면 · 링 · 값 타이포) **플로팅 라벨이
+만든 것은 첫째 하나뿐이다.** 그래서 새 컴포넌트가 아니라 축이다 — 반경·좌우 여백·슬롯 간격·
+헤어라인·면을 하나도 다시 쓰지 않으며 브라우저 테스트가 그것을 `stacked` 와의 계산값 비교로
+잰다. 판정 기준은 [DS-D-0041](../governance/decisions/DS-D-0041-dialog-tone-axis.md) 이 Dialog 의
+`Tone` 에서 쓴 것을 그대로 적용했다.
+
+### Migration
+
+**깨지는 것이 없다.** `labelBehavior` 의 기본값이 `stacked` 이고 그것이 지금까지의 동작이다.
+
+```diff
++ <TextField label="이메일" type="email" labelBehavior="floating" />
+```
+
+`floating` 에서는 `label` 이 사실상 필수다 — 라벨이 placeholder 의 자리를 대신하므로 없으면
+필드에 보이는 이름이 하나도 남지 않는다. placeholder 는 컴포넌트가 알아서 채우고 숨긴다.
+
+### 축 어휘가 하나 늘었다
+
+`figma-component-authoring` §2 의 닫힌 표에 `LabelBehavior`(`stacked`·`floating`)를 더했다.
+`Mode` 를 늘리지 않은 이유와 조건 축 `Floating: false|true` 로 열지 않은 이유를 그 자리에
+함께 적었다 — 전자는 `determinate`·`indeterminate` 와 겹치지 않는 두 번째 쌍이 한 이름 아래
+놓이기 때문이고, 후자는 라벨의 자리가 「그 순간 참인지」가 아니라 **고르는 것**이기 때문이다.
+
+**「떠 있는가 앉아 있는가」에는 축을 만들지 않았다.** `State` 가 이미 그 계약이다 —
+`Placeholder` 가 쉼이고 나머지 넷이 떠오른 상태다. 그 덕에 변형이 15 → **20** 으로 그쳤다
+(`floating` 은 `lg` 에만 있다 — 제품이 그 자리에서 `lg` 만 쓴다).
+
+### 되읽기 키가 복합이 됐다
+
+`{Size}` 에서 `{Size}/{LabelBehavior}` 로 바뀌었다(`lg/stacked` · `md/stacked` · `sm/stacked` ·
+`lg/floating`). `InlineLoadingLabel` 의 `{Size}/{Loading}` 이 같은 형태의 선례다. 한 size 안에서
+두 라벨 동작이 서로 다른 기하를 갖기 때문이고, 그 전에는 담을 자리가 없었다.
+
+### 이 작업이 드러낸 「초록인데 재고 있지 않던」 자리 넷
+
+이 변경이 부른 것이 아니라 이 변경이 지나가며 걸린 것이다.
+
+1. **`boxWidth` 320 이 어디서도 대조되지 않고 있었다** — 계약의 `parts` 에 `Box` 키가 둘이라
+   먼저 쓴 쪽이 조용히 버려졌다.
+2. **`frameWidth` 328 도 마찬가지** — 「focus 링 4px 이 잘리지 않게」라는 사유까지 실측에 있는데
+   계약의 `fields` 가 비어 있었다.
+3. **`parts` 의 규칙이 「root 와 같다」는 주석과 달랐다** — `set` 이 root 에만 있었다.
+4. **Figma 의 `Placeholder` 값 색이 코드와 달랐다** — Figma `fg-tertiary` / CSS `fg-secondary`.
+   `states` 표가 그 상태를 담지 않아 게이트 시야 밖이었다.
+
+넷 다 같은 변경에서 닫았다. 그리고 `text-field.md` 의 「Figma 에 `sm` variant 가 없다」도 이미
+해소된 낡은 문장이었다 — `icon-button.md` 에서 2026-09-02 에 같은 형태를 고치며 「다른 컴포넌트
+문서에도 있는지는 훑지 않았다」고 남긴 그 자리다.
+
+### 닫히지 않은 것
+
+**원장 다섯은 그대로 `needed` 다.** 남은 부품은 **결합 입력**이다 — 상자 둘을 위/아래로 이어
+붙이고 포커스가 `z-index` 를 올려 이웃의 테두리 위로 올라오는 형태이며 일곱 벌 중 넷이 쓴다.
+비밀번호 표시 토글과 지우기 버튼은 `prefix`/`suffix` 슬롯이 이미 받는다. 제품 채택도 별건이다 —
+인증 계열의 스킨 넷을 어느 쪽으로 수렴시킬지는 제품 픽셀을 움직일 수 있는 사람의 몫이다.
+
 ## 2026-09-01 (110) — Dialog 의 `confirmVariant` 를 `tone` 으로 바꾼다 (breaking)
 
 **확인 대화상자는 Dialog 의 한 톤이다. `ConfirmDialog` 를 따로 세우지 않는다**

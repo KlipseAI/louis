@@ -1283,6 +1283,15 @@
       "generated": false
     },
     {
+      "id": "decision-label-placement-is-an-axis",
+      "path": "design/governance/decisions/DS-D-0049-label-placement-is-an-axis.md",
+      "title": "DS-D-0049 라벨의 자리는 TextField 의 축이다 — 플로팅 라벨 필드를 따로 세우지 않는다",
+      "section": "governance",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
+    },
+    {
       "id": "governance-product-confirmations",
       "path": "design/governance/product-confirmations.md",
       "title": "제품 확인 대기 목록",
@@ -1507,6 +1516,7 @@
         "design/governance/decisions/DS-D-0046-bespoke-is-a-fifth-verdict.md",
         "design/governance/decisions/DS-D-0047-dead-token-unit-and-denominator.md",
         "design/governance/decisions/DS-D-0048-thirty-six-is-not-a-control-height.md",
+        "design/governance/decisions/DS-D-0049-label-placement-is-an-axis.md",
         "design/governance/product-confirmations.md",
         "design/updates/README.md"
       ]

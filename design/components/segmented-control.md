@@ -20,7 +20,7 @@ summary: 한 줄에 놓인 두셋 중 하나를 고릅니다.
 | Surface       | 상태           | 근거                                                                                   |
 | ------------- | -------------- | -------------------------------------------------------------------------------------- |
 | Web           | `partial`      | public export와 실브라우저 acceptance test 14건이 두 motion context에서 각각 돈다; visual regression과 제품 소비 증거 없음 |
-| Figma         | `partial`      | component set 3 variant(Size: lg·md·xs) — 코드는 넷이라 `sm`이 아직 없다. parity 게이트가 Track·Segment·Segment-Selected·Label을 자손으로 대조하며 raw fill·stroke 0이다. publish는 DS-F-008 |
+| Figma         | `partial`      | 트랙 set 10 variant(Size: lg·md·sm·xs·settings × Disabled) · 세그먼트 set 24 variant(Size: lg·md·xs·settings × State 6). **세그먼트 쪽에 `sm`이 아직 없다** — 코드·CSS·브라우저 테스트에는 있고 Figma Item 에만 빠진 부채이며 verify-figma-parity 의 SegmentedControlItem 계약 주석이 그 사연을 갖는다. parity 게이트가 lg·md·settings 세 칸의 기하를 Label·FocusRing까지 대조하며 raw fill·stroke 0이다. publish는 DS-F-008 |
 | Documentation | `done`         | 이 문서                                                                                |
 | Maturity      | `experimental` | 규범과 구현이 같은 변경 단위에서 처음 선다                                             |
 
@@ -67,7 +67,7 @@ summary: 한 줄에 놓인 두셋 중 하나를 고릅니다.
 | `label` | string | **필수** | 그룹 이름. `<legend>`가 되고 화면에서는 숨는다 |
 | `value` | string | **필수** | 현재 값. 항상 controlled다 |
 | `onValueChange` | `(value: string) => void` | **필수** | 값이 바뀔 때 |
-| `size` | `lg` \| `md` \| `sm` \| `xs` | `lg` | 트랙 높이·반경·padding·타이포 |
+| `size` | `lg` \| `md` \| `sm` \| `xs` \| `settings` | `lg` | 트랙 높이·반경·padding·타이포 |
 | `disabled` | boolean | `false` | 그룹 전체를 비활성한다 |
 
 `SegmentedControlItem`은 `value`와 `disabled`를 받는다.
@@ -80,6 +80,13 @@ summary: 한 줄에 놓인 두셋 중 하나를 고릅니다.
 
 **`xs`는 사다리가 아니다.** 비디오 에디터 인스펙터의 조밀한 속성 행 전용이며
 `layout-inspector-control-height`(28)를 읽는 이 컴포넌트의 지역 예외다. 아래 Known deviations.
+
+**`settings`도 사다리가 아니다.** 설정·구독 화면의 토글 전용이고, 소유자가 2026-09-03 에
+「제품의 36 이 정본」이라고 판정하면서 열렸다([DS-D-0048](../governance/decisions/DS-D-0048-thirty-six-is-not-a-control-height.md)
+의 정정 절). **이름이 밀도가 아니라 쓰임새인 것은 일부러다** — `lg`·`md`·`sm`은 순서를 주장하는
+어휘라, 36 을 그 어휘로 부르면 40·36·32·28·24 다섯 값에 이름을 다시 매겨야 하고 이 축에는 이미
+순서를 거짓말하는 `xs`가 있다. 쓰임새 이름은 순서를 아무것도 주장하지 않으므로 그 거짓에
+더해지지 않는다.
 
 **비제어 모드가 없다.** 세그먼트 컨트롤의 값은 거의 언제나 화면의 다른 부분을 다시 그리는
 입력이라 호출부가 이미 그 값을 갖고 있다. 내부 상태를 두면 두 곳에 같은 값이 산다.
@@ -148,8 +155,21 @@ variant 축이 없다. 세그먼트 컨트롤은 강조 단계를 갖지 않는�
 | 슬롯 간격 | 8px | 8px | 8px | `space-control-sm` |
 | 타이포 | 14/1.5 | 12/1.5 | 12/1.5 | `typography-body-sm-medium` / `typography-caption-medium` |
 
+이 표는 **사다리 세 칸만** 담는다. 사다리 밖 두 칸(`xs`·`settings`)은 바로 아래 문단이 갖는다 —
+표에 열을 더하면 다섯 칸이 한 계단처럼 읽혀 이름이 주장하지 않는 순서를 표가 대신 주장한다.
+
 사다리 밖의 `xs`는 트랙 28px(`layout-inspector-control-height`) · padding 3px · 트랙 반경
 10px(`radius-inspector-control`) · 세그먼트 22px · 세그먼트 반경 7px이고 나머지는 `md`와 같다.
+
+사다리 밖의 `settings`는 **세그먼트 28px(`layout-settings-segment-height`) 하나만 선언하고
+나머지 다섯 축을 `lg`에서 그대로 물려받는다** — padding 4 · 트랙 반경 12 · 세그먼트 반경 8 ·
+좌우 12 · 타이포 14. 트랙 36px 은 선언이 아니라 `4 + 28 + 4` 의 결과이며, CSS 는 그것을
+`block-size: auto` 로 적는다.
+
+**그 파생이 이 칸의 요점이다.** 제품 정본(`myPageSceneStyles.ts` 의 `settingsToggleWrap`)에도
+트랙 높이 선언이 없다 — 36 은 아무도 고르지 않았고 패딩과 세그먼트가 만든 값이다. 36 을 직접
+적으면 두 값이 따로 움직여, 세그먼트를 고칠 때 트랙이 따라오지 않는다. 브라우저 테스트가 그
+파생식과 「선언되지 않았음」을 둘 다 단언한다.
 
 **세그먼트 반경은 바깥 반경에서 padding을 뺀 값이다** — lg·md는 12 − 4 = 8, sm은 8 − 2 = 6,
 xs는 10 − 3 = 7. 중첩한 모서리가 어긋나지 않는다. lg·md의 두 값은 기존 토큰이라 새 토큰이 필요

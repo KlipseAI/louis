@@ -3804,6 +3804,12 @@
   .louis-segmented-control__segment {
     position: relative;
     box-sizing: border-box;
+    /* **네이티브 `<button>` 의 UA 면을 스스로 지운다.** 선택 면은 아래 `[data-selected]` 규칙이
+     * 얹고 비선택은 트랙이 비쳐야 하는데, 여기서 `background` 를 선언하지 않으면 리셋을 켜지
+     * 않은 소비자에서 `buttonface`(밝은 회색)가 그대로 남는다. 다크에서 그 회색이 선택 면보다
+     * 밝아 **비선택 쪽이 더 도드라져 보였다.** 리셋은 opt-in 이므로 컴포넌트가 스스로 지운다 —
+     * `border` 를 0 으로 잡는 것과 같은 이유이고, 소비자가 preflight 를 끄든 켜든 성립한다. */
+    background: transparent;
     display: inline-flex;
     /* **기준 크기가 `auto`다.** `1 1 0`으로 두면 기준이 0이라 여유가 있는데도 라벨이 잘린다 —
      * 워크샵에서 "시스템"이 "시…"로 나오는 것을 보고 찾았다. 내용 기준으로 두면 좁을 때만

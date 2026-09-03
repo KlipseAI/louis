@@ -193,13 +193,23 @@ try {
     $evidenceClass: "product-only measured Figma candidate; dark desktop app shell interaction state",
     productCommit: commit,
     context: { id: "desktop-1920x1080-dark", viewport: { width: 1920, height: 1080 }, route: "/settings" },
+    // **줄 번호는 앵커를 따라 옮긴다 — 인용문 자체는 그대로다.**
+    // 2026-09-03 재고정(`ae8fd627` → `5a67d692`)에서 `Gnb.tsx` 가 5639 → 5562 줄로 줄면서
+    // 여섯 인용의 위치만 밀렸다. 여섯 문자열은 새 커밋에도 **글자 그대로** 있고, 옮긴 자리는
+    // 두 덩어리에서 각각 일정하다 — 로고 블록 +12(1832→1844 · 1906→1918 · 1908→1920),
+    // 메뉴 블록 +1(563→564 · 569→570 · 579→580).
+    //
+    // 569 만 문자열이 유일하지 않다(`"[color:var(--gray-000)]",` 는 새 커밋에 13번 나온다).
+    // 그래서 문자열 검색이 아니라 **형제로** 고정했다: 564 · 570 · 580 은 한 선언 배열 안의
+    // 같은 블록이고(562 부터 세어 3 · 9 · 19 번째 줄), 위아래가 `.gnb-menuSidebar` 규칙으로
+    // 둘러싸여 있다. 문자열만 보고 517 이나 917 을 집으면 다른 컴포넌트의 색을 근거로 삼는다.
     sourceEvidence: [
-      quote(1832, '    "[html[data-app-gnb-sidebar-collapsed=true]_&]:[width:var(--app-gnb-sidebar-logo-cube-px)]",'),
-      quote(1906, '    "[html[data-app-gnb-sidebar-collapsed=true]_&]:[width:var(--app-gnb-sidebar-logo-symbol-w)]",'),
-      quote(1908, '    "[html[data-app-gnb-sidebar-collapsed=true]_&]:[transform:translateX(_calc(_(_var(--app-gnb-sidebar-menu-hit-w)_-_var(--app-gnb-sidebar-logo-symbol-w)_)_/_2_)_)]",'),
-      quote(563, '    "[.gnb-menuSidebar_.gnb-menuLink:not(&)]:[color:var(--gray-300)]",'),
-      quote(569, '    "[color:var(--gray-000)]",'),
-      quote(579, '    "[html[data-theme=dark]_.gnb-menuSidebar_&]:[background-color:transparent]",'),
+      quote(1844, '    "[html[data-app-gnb-sidebar-collapsed=true]_&]:[width:var(--app-gnb-sidebar-logo-cube-px)]",'),
+      quote(1918, '    "[html[data-app-gnb-sidebar-collapsed=true]_&]:[width:var(--app-gnb-sidebar-logo-symbol-w)]",'),
+      quote(1920, '    "[html[data-app-gnb-sidebar-collapsed=true]_&]:[transform:translateX(_calc(_(_var(--app-gnb-sidebar-menu-hit-w)_-_var(--app-gnb-sidebar-logo-symbol-w)_)_/_2_)_)]",'),
+      quote(564, '    "[.gnb-menuSidebar_.gnb-menuLink:not(&)]:[color:var(--gray-300)]",'),
+      quote(570, '    "[color:var(--gray-000)]",'),
+      quote(580, '    "[html[data-theme=dark]_.gnb-menuSidebar_&]:[background-color:transparent]",'),
     ],
     states: { expanded, collapsed, activeCollapsedHome },
   };

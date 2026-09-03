@@ -1947,7 +1947,15 @@
   --louis-dialog-viewport-gutter: 20px;
   --louis-dialog-inline-size: 480px;
   --louis-dialog-surface-inset: var(--louis-space-layout-section);
-  --louis-dialog-surface-radius: var(--louis-radius-overlay);
+  /* **안쪽 버튼에서 유도한다.** 푸터의 액션은 `radius-control`(12)이고 푸터 여백이
+   * `space-control-sm`(8)이라, 두 모서리가 동심이 되려면 바깥이 12 + 8 = 20 이어야 한다.
+   * 값을 20 으로 적지 않고 두 입력의 합으로 두는 이유는, 버튼 곡률이나 여백이 움직이면
+   * 이 값이 따라와야 하기 때문이다 — 상수로 적으면 그때 조용히 어긋난다.
+   * (`radius-overlay`(16)이던 시절에는 안쪽 모서리가 바깥보다 완만해 액션 행이 상자
+   * 모서리에서 떠 보였다.) */
+  --louis-dialog-surface-radius: calc(
+    var(--louis-radius-control) + var(--louis-space-control-sm)
+  );
 
   position: fixed;
   inset: 0;
@@ -2137,6 +2145,25 @@
   padding: var(--louis-space-control-sm);
   padding-block-start: var(--louis-space-layout-section);
 }
+/* **본문이 없는 모달.** 확인만 묻는 대화(삭제 확인 등)는 `__body` 에 넣을 것이 없다.
+ * 빈 채로 두면 위아래 패딩 8+8 이 그대로 남아 설명과 액션 사이가 48 이 된다 —
+ * 헤더 아래 8 + 빈 본문 16 + 푸터 위 24.
+ *
+ * 상자를 접고, 그 자리를 푸터가 대신 갖게 한다. 접기만 하면 8 + 24 = 32 인데 그것도 넓다:
+ * 본문이 있을 때의 24 는 「설명과 **콘텐츠**」 사이의 값이고, 본문이 없으면 그 24 는
+ * 「설명과 **버튼**」 사이가 되어 뜻이 달라진다. 후자는 한 칸 좁은 16 이라
+ * 합이 8 + 16 = 24 다.
+ *
+ * `:empty` 를 쓰는 이유는 호출부가 분기하지 않아도 되기 때문이다 — 소비자가 조건부로
+ * `__body` 를 그리거나 말거나 하면 모달마다 규칙이 갈린다. React 가 `{children}` 에
+ * undefined 를 넣으면 자식 노드가 하나도 없어 `:empty` 가 그대로 맞는다. */
+.louis-dialog__body:empty {
+  display: none;
+}
+
+.louis-dialog__body:empty + .louis-dialog__footer {
+  padding-block-start: var(--louis-space-control-lg);
+}
 
 .louis-dialog__actions {
   display: flex;
@@ -2162,10 +2189,11 @@
 .louis-dialog[data-size="compact"] {
   --louis-dialog-inline-size: 360px;
   --louis-dialog-surface-inset: var(--louis-space-layout-gutter);
-  /* **24다.** 토큰이 없다는 이유로 20(`radius-card-lg`)을 빌려 쓰고 있었는데, 그것은 값을 제품이
-   * 아니라 토큰 계단이 정하게 둔 것이다. 배포본의 모달 두 벌(앱 홈 · 마이페이지)이 **전수 24로
-   * 일치**하므로 계단에 `radius-overlay-lg`를 세우고 그 값을 쓴다. */
-  --louis-dialog-surface-radius: var(--louis-radius-overlay-lg);
+  /* **곡률을 덮지 않는다.** 한때 24였다 — 배포본 모달 두 벌(앱 홈 · 마이페이지)이 전수 24로
+   * 일치한다는 실측 근거였다. 소유자가 그 값을 무르고 「안쪽 버튼에서 유도한다」로 바꿨다
+   * (2026-09-03): 푸터 여백은 크기와 무관하게 `space-control-sm`(8)이고 액션은
+   * `radius-control`(12)이므로, compact 도 바깥이 20 이어야 두 모서리가 동심이 된다.
+   * 위 기본값이 그 합이라 여기서 다시 적을 것이 없다. */
 }
 
 .louis-dialog[data-size="large"] {

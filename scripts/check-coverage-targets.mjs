@@ -94,7 +94,7 @@ const TOKEN_SOURCE = "packages/tokens/src/klipse.tokens.json";
 // 않는다. UNCLEAR 를 9 → 47 로 올린 것과 똑같은 이유이고, verify-gates 의 canary
 // (`coverage targets needed fell without locking`)가 그것을 강제한다: 그 canary 는
 // counts.needed 를 1 내리고 실패를 기다리는데, baseline 이 낡으면 canary 자신이 눈이 먼다.
-const NEEDED_BASELINE = 179; // 하락만 잠근다(상승은 발견)
+const NEEDED_BASELINE = 180; // 하락만 잠근다(상승은 발견)
 // 9 → 47 → 5. 47 로 올렸던 것은 미룬 것을 받아들여서가 아니라 래칫이 물게 하려는 것이었다
 // (재고정으로 드러난 38개가 판단 대기로 들어왔다). 2026-09-03 에 그 47 을 네 도메인이
 // 나눠 판정해 43 이 내려갔고 — figma 6 · scoped 15 · needed 22 — 5 만 남았다.
@@ -103,12 +103,19 @@ const NEEDED_BASELINE = 179; // 하락만 잠근다(상승은 발견)
 // 않아 아무도 열어 보지 않은 네 자리(HomePageClient#LandingContent ·
 // nodeToolbarGlyphs#ToolbarIconVideoFrame · node-canvas/primitives#SelectionChrome ·
 // PhotoGrid#ImageStrip). 방향과 목표는 그대로다(↓ · 0).
-const UNCLEAR_BASELINE = 5; // 하락만 잠근다(소유자만 줄일 수 있다)
+const UNCLEAR_BASELINE = 2; // 하락만 잠근다(소유자만 줄일 수 있다)
 // 210 → 225. 표면 총수는 434 그대로이므로 이 상승은 천장이 허락한 것이 아니라 **판정이
 // 만든 것이다** — unclear 15 건이 「그릴 것이 없다」로 내려갔다(부모의 조각 · 순수 배치
 // 래퍼 · defs · 사용자 콘텐츠 슬롯). 그 15 건은 needed 에서 옮겨 온 것이 아니라 판단 대기에서
 // 온 것이라, `needed` 를 범위 밖으로 밀어 진척을 꾸미는 canary ② 의 경로와 다르다.
-const SCOPED_BASELINE = 225; // 표면 총수가 오른 만큼만 오를 수 있다
+// 225 → 227. 총수가 그대로인데 오른 것이므로 **판정이 만든 이동**이다. 둘 다 판단 대기에서
+// 왔고 이미 내려진 결정을 적용한 것이지 새로 고른 것이 아니다 —
+//   nodeToolbarGlyphs#ToolbarIconVideoFrame : 인라인 SVG 글리프라 아이콘 축(DS-D-0038).
+//     이 원장에 같은 사유의 scoped 가 이미 77건 있다.
+//   PhotoGrid#ImageStrip : 부모 PhotoSection(needed)과 자식 구성이 같고 배치만 다르다(DS-D-0040).
+// 셋째 SelectionChrome 은 반대 방향으로 갔다(unclear → needed) — 그룹 형태가 어느 노드에도
+// 속하지 않아 부모의 상태 축으로는 놓을 자리가 없기 때문이고, 그래서 NEEDED_BASELINE 이 +1 이다.
+const SCOPED_BASELINE = 227; // 표면 총수가 오른 만큼만 오를 수 있다
 const SURFACE_TOTAL_BASELINE = 434; // 위 천장의 기준점
 const MANIFEST_DONE_FLOOR = 17; // 바닥. 오르면 올려 이득을 잠근다
 const DEAD_TOKEN_BASELINE = 95; // 양방향, 목표 0. 단위는 **원천 토큰**이다 — DS-D-0047

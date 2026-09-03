@@ -78,7 +78,7 @@ const UNCLEAR_BASELINE = 9; // 하락만 잠근다(소유자만 줄일 수 있�
 const SCOPED_BASELINE = 211; // 표면 총수가 오른 만큼만 오를 수 있다
 const SURFACE_TOTAL_BASELINE = 400; // 위 천장의 기준점
 const MANIFEST_DONE_FLOOR = 17; // 바닥. 오르면 올려 이득을 잠근다
-const DEAD_TOKEN_BASELINE = 106; // 양방향, 목표 0. 단위는 **원천 토큰**이다 — DS-D-0047
+const DEAD_TOKEN_BASELINE = 98; // 양방향, 목표 0. 단위는 **원천 토큰**이다 — DS-D-0047
 
 // 이 게이트가 «빌려 쓰는» 수의 임자들. 하나라도 verify:ci 사슬에서 빠지면 여기 인쇄되는
 // 수가 아무에게도 잠기지 않은 채 대시보드에만 남는다 — 그것이 가장 조용한 실패다.

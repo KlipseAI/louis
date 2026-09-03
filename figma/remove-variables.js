@@ -3,27 +3,29 @@
 // 라이브 라이브러리에서 지운다. apply 가 semantic 의 alias 를 새 정본으로 이미 재지정한 뒤라야
 // 안전하다 — 그 전에 지우면 아직 이 변수를 가리키는 alias 가 깨진다.
 //
-// 대상(DS-D-0030): 같은 역할을 두 이름으로 말하던 미러 9개. 제품이 미러가 아니라 역할 토큰을
-// 집으면서 어느 쪽이 정본인지 실증됐다 — app/gnb 둘은 layout-app-shell-* 로, app/tooltip 넷은
-// space-control-*·radius-control-sm·typography-caption-regular-* 로, dropdown 셋은
-// radius-overlay·radius-overlay-item·space-overlay-inset 로 간다. 값은 하나도 바뀌지 않는다.
-// verify-figma-parity(:1343)가 proposal 이 선언하지 않은 변수를 실패로 보므로 반드시 지운다.
+// 대상(DS-D-0047): 역할 이름을 가졌는데 아무도 그 역할을 쓰지 않는 여덟. 세 그룹을 통째로 지운다.
+// `color/dropdown/*` 넷은 DS-D-0030 이 같은 그룹의 기하 셋을 지우며 「색이고 대상이 아니다」로
+// 남겼던 나머지다 — 그 유예는 「그 결정의 범위 밖」이라는 뜻이었지 「남긴다」가 아니었고,
+// 이제 일곱 이름 전체가 제품에서 사라진 것이 실증됐다(menu-popover.md, 앵커 ae8fd627 에서 참조 0).
+// `color/surface/*` 셋과 `color/vem/properties-label` 은 `color/bg-canvas`·`color/fg-tertiary` 와
+// 별칭 대상까지 같은 방치된 미러다. 값은 하나도 바뀌지 않는다 — check-token-diff 가 removal 16 ·
+// value/aliasTarget 0 을 냈다. verify-figma-parity(:1343)와 check-figma-snapshot 이 proposal 이
+// 선언하지 않은 변수를 실패로 보므로 반드시 지운다.
 //
-// **`color/dropdown/*` 넷은 색이고 대상이 아니다.** 이름이 비슷해 휩쓸리기 쉬우니 적어 둔다.
+// 지우기 전에 확인한 것: 이 여덟을 alias 로 가리키는 다른 변수 0건(2026-09-03 라이브 전수).
 // idempotent — 이미 없으면 건너뛴다.
 //
-// 앞선 대상(DS-D-0024 의 `color/inverse-alpha/{dark,light}-70`)은 2026-08-25 에 적용을 마쳤고
-// 라이브에 없다. 이 도구는 규칙이 아니라 목록 기반이라, 새 삭제가 필요할 때 목록을 갈아 끼운다.
+// 앞선 대상(DS-D-0024 의 `color/inverse-alpha/{dark,light}-70`, DS-D-0030 의 미러 9개)은 적용을
+// 마쳤고 라이브에 없다. 이 도구는 규칙이 아니라 목록 기반이라, 새 삭제가 필요할 때 목록을 갈아 끼운다.
 const REMOVE = [
-  "app/gnb-main-inline-padding",
-  "app/gnb-sidebar-padding-x",
-  "app/tooltip-font-size",
-  "app/tooltip-padding-block",
-  "app/tooltip-padding-inline",
-  "app/tooltip-radius",
-  "dropdown/radius",
-  "dropdown/item-radius",
-  "dropdown/padding",
+  "color/dropdown/ambient-ink",
+  "color/dropdown/frame-ink",
+  "color/dropdown/frame-ink-on-dark",
+  "color/dropdown/surface-bg",
+  "color/surface/background",
+  "color/surface/foreground",
+  "color/surface/primary-on",
+  "color/vem/properties-label",
 ];
 const report = { removed: [], notFound: [], blocked: [] };
 const all = await figma.variables.getLocalVariablesAsync();

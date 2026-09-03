@@ -72,10 +72,6 @@
   --color-bg-warning: var(--louis-color-bg-warning);
   --color-brand-logo-ink: var(--louis-color-brand-logo-ink);
   --color-dim-modal: var(--louis-color-dim-modal);
-  --color-dropdown-ambient-ink: var(--louis-color-dropdown-ambient-ink);
-  --color-dropdown-frame-ink: var(--louis-color-dropdown-frame-ink);
-  --color-dropdown-frame-ink-on-dark: var(--louis-color-dropdown-frame-ink-on-dark);
-  --color-dropdown-surface-bg: var(--louis-color-dropdown-surface-bg);
   --color-fg-danger: var(--louis-color-fg-danger);
   --color-fg-danger-on-surface: var(--louis-color-fg-danger-on-surface);
   --color-fg-disabled: var(--louis-color-fg-disabled);
@@ -198,16 +194,12 @@
   --color-stroke-strong: var(--louis-color-stroke-strong);
   --color-stroke-subtle: var(--louis-color-stroke-subtle);
   --color-stroke-tooltip: var(--louis-color-stroke-tooltip);
-  --color-surface-background: var(--louis-color-surface-background);
-  --color-surface-foreground: var(--louis-color-surface-foreground);
-  --color-surface-primary-on: var(--louis-color-surface-primary-on);
   --color-switch-off-track: var(--louis-color-switch-off-track);
   --color-switch-on-track: var(--louis-color-switch-on-track);
   --color-switch-thumb: var(--louis-color-switch-thumb);
   --color-table-header-surface: var(--louis-color-table-header-surface);
   --color-table-row-hover: var(--louis-color-table-row-hover);
   --color-table-row-line: var(--louis-color-table-row-line);
-  --color-vem-properties-label: var(--louis-color-vem-properties-label);
 
   /* 곡률 — rounded-* 유틸리티가 된다 */
   --radius-alert: var(--louis-radius-alert);

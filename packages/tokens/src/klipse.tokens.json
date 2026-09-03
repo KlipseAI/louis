@@ -7698,48 +7698,6 @@
             }
           }
         },
-        "dropdown": {
-          "ambient-ink": {
-            "$value": "{primitive.color.static-black-alpha.04}",
-            "$extensions": {
-              "com.klipse-design": {
-                "id": "color-dropdown-ambient-ink",
-                "tier": "semantic",
-                "mode": "light"
-              }
-            }
-          },
-          "frame-ink": {
-            "$value": "{primitive.color.static-black-alpha.12}",
-            "$extensions": {
-              "com.klipse-design": {
-                "id": "color-dropdown-frame-ink",
-                "tier": "semantic",
-                "mode": "light"
-              }
-            }
-          },
-          "frame-ink-on-dark": {
-            "$value": "{primitive.color.static-white-alpha.16}",
-            "$extensions": {
-              "com.klipse-design": {
-                "id": "color-dropdown-frame-ink-on-dark",
-                "tier": "semantic",
-                "mode": "light"
-              }
-            }
-          },
-          "surface-bg": {
-            "$value": "{primitive.color.palette-gray.100}",
-            "$extensions": {
-              "com.klipse-design": {
-                "id": "color-dropdown-surface-bg",
-                "tier": "semantic",
-                "mode": "light"
-              }
-            }
-          }
-        },
         "gray": {
           "000": {
             "$value": "{primitive.color.static.black}",
@@ -8366,50 +8324,6 @@
             "$extensions": {
               "com.klipse-design": {
                 "id": "color-scrollbar-thumb-hover",
-                "tier": "semantic",
-                "mode": "light"
-              }
-            }
-          }
-        },
-        "surface": {
-          "background": {
-            "$value": "{primitive.color.palette-gray.100}",
-            "$extensions": {
-              "com.klipse-design": {
-                "id": "color-surface-background",
-                "tier": "semantic",
-                "mode": "light"
-              }
-            }
-          },
-          "foreground": {
-            "$value": "{primitive.color.static.black}",
-            "$extensions": {
-              "com.klipse-design": {
-                "id": "color-surface-foreground",
-                "tier": "semantic",
-                "mode": "light"
-              }
-            }
-          },
-          "primary-on": {
-            "$value": "{primitive.color.static.black}",
-            "$extensions": {
-              "com.klipse-design": {
-                "id": "color-surface-primary-on",
-                "tier": "semantic",
-                "mode": "light"
-              }
-            }
-          }
-        },
-        "vem": {
-          "properties-label": {
-            "$value": "{primitive.color.palette-gray.600}",
-            "$extensions": {
-              "com.klipse-design": {
-                "id": "color-vem-properties-label",
                 "tier": "semantic",
                 "mode": "light"
               }
@@ -9654,48 +9568,6 @@
             }
           }
         },
-        "dropdown": {
-          "ambient-ink": {
-            "$value": "{primitive.color.static-black-alpha.04}",
-            "$extensions": {
-              "com.klipse-design": {
-                "id": "color-dropdown-ambient-ink",
-                "tier": "semantic",
-                "mode": "dark"
-              }
-            }
-          },
-          "frame-ink": {
-            "$value": "{primitive.color.static-black-alpha.12}",
-            "$extensions": {
-              "com.klipse-design": {
-                "id": "color-dropdown-frame-ink",
-                "tier": "semantic",
-                "mode": "dark"
-              }
-            }
-          },
-          "frame-ink-on-dark": {
-            "$value": "{primitive.color.static-white-alpha.16}",
-            "$extensions": {
-              "com.klipse-design": {
-                "id": "color-dropdown-frame-ink-on-dark",
-                "tier": "semantic",
-                "mode": "dark"
-              }
-            }
-          },
-          "surface-bg": {
-            "$value": "{primitive.color.palette-gray.800}",
-            "$extensions": {
-              "com.klipse-design": {
-                "id": "color-dropdown-surface-bg",
-                "tier": "semantic",
-                "mode": "dark"
-              }
-            }
-          }
-        },
         "gray": {
           "000": {
             "$value": "{primitive.color.palette-gray.000}",
@@ -10322,50 +10194,6 @@
             "$extensions": {
               "com.klipse-design": {
                 "id": "color-scrollbar-thumb-hover",
-                "tier": "semantic",
-                "mode": "dark"
-              }
-            }
-          }
-        },
-        "surface": {
-          "background": {
-            "$value": "{primitive.color.palette-gray.900}",
-            "$extensions": {
-              "com.klipse-design": {
-                "id": "color-surface-background",
-                "tier": "semantic",
-                "mode": "dark"
-              }
-            }
-          },
-          "foreground": {
-            "$value": "{primitive.color.palette-gray.000}",
-            "$extensions": {
-              "com.klipse-design": {
-                "id": "color-surface-foreground",
-                "tier": "semantic",
-                "mode": "dark"
-              }
-            }
-          },
-          "primary-on": {
-            "$value": "{primitive.color.palette-gray.000}",
-            "$extensions": {
-              "com.klipse-design": {
-                "id": "color-surface-primary-on",
-                "tier": "semantic",
-                "mode": "dark"
-              }
-            }
-          }
-        },
-        "vem": {
-          "properties-label": {
-            "$value": "{primitive.color.palette-gray.400}",
-            "$extensions": {
-              "com.klipse-design": {
-                "id": "color-vem-properties-label",
                 "tier": "semantic",
                 "mode": "dark"
               }

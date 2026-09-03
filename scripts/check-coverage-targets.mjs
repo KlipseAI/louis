@@ -80,6 +80,36 @@ const SURFACE_TOTAL_BASELINE = 400; // 위 천장의 기준점
 const MANIFEST_DONE_FLOOR = 17; // 바닥. 오르면 올려 이득을 잠근다
 const DEAD_TOKEN_BASELINE = 98; // 양방향, 목표 0. 단위는 **원천 토큰**이다 — DS-D-0047
 
+// ── 앵커가 못 보는 소비자 ─────────────────────────────────────────────────
+// **낡은 앵커 때문에 죽어 «보이는» 토큰.** 원장(`migration/louis-token-usage.json`)은 제품
+// 워킹트리가 아니라 **앵커에서** 읽는다(measure-louis-token-usage 머리말: 「워킹트리에서
+// 읽으면 같은 명령이 어제와 다른 값을 낸다」). 그래서 앵커 이후에 제품이 새로 쓰기 시작한
+// 이름은 원장에 없고, 이 게이트에는 **마지막 소비자를 지운 것과 똑같이 보인다.**
+//
+// 두 경우를 수 하나로는 가를 수 없으므로 **이름과 근거로 가른다.** 여기 적히는 것은
+// 「지금 제품이 실제로 `var()` 로 푸는데 앵커가 그 커밋보다 이르다」뿐이고, 근거는 제품
+// 파일 경로다. 근거가 틀리면 다음 사람이 그 경로를 열어 바로 반증할 수 있다 —
+// DEAD_TOKEN_BASELINE 을 98 → 99 로 올리는 것과 다른 점이 정확히 그것이다. 수를 올리면
+// 무엇이 늘었는지가 영원히 사라지고, 그 자리에 진짜 죽은 토큰이 들어와도 조용하다.
+//
+// **verify-product-anchor 의 `KNOWN_STALE` 과 같은 성격이다** — 영구 면제가 아니라
+// 재고정으로 0 이 되어야 하는 한시적 부채이고, 한 방향 래칫이다(늘면 실패, 줄면 내리라고
+// 요구한다). 목표는 이 표가 비는 것이며, 비는 길은 하나다 — 제품 앵커 재고정.
+const ANCHOR_BLIND_TOKENS = new Map([
+  [
+    "color-bg-raised",
+    "제품이 지금 여섯 자리에서 `bg-[var(--louis-color-bg-raised)]` 로 푼다 — " +
+      "apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx · TossPaymentWindowPanel.tsx(2) · " +
+      "billing-fail/page.tsx · billing-success/page.tsx · fail/page.tsx. " +
+      "그리고 apps/web/app/admin/AdminSection.tsx 가 「바닥보다 확실히 밝은 유일한 단」이라고 " +
+      "적는다. LOUIS 쪽 마지막 소비자는 SegmentedControl 의 선택 면이었고 origin/main 50d01679 " +
+      "가 그것을 `accent-secondary-selected` 로 옮겼다(알파 트랙과 짝이 무너져서) — 그래서 " +
+      "**LOUIS 안에서만** 소비자가 0 이 됐다. 앵커 ae8fd627 은 제품의 이 여섯 자리보다 이르다.",
+  ],
+]);
+const ANCHOR_BLIND_RATCHET = 1;
+
+
 // 이 게이트가 «빌려 쓰는» 수의 임자들. 하나라도 verify:ci 사슬에서 빠지면 여기 인쇄되는
 // 수가 아무에게도 잠기지 않은 채 대시보드에만 남는다 — 그것이 가장 조용한 실패다.
 const OWNING_GATES = [
@@ -229,7 +259,7 @@ const isLadderRung = (id, tier) =>
   tier === "primitive" || /^color-gray-\d/.test(id) || /^typography-/.test(id);
 const isFigmaOnlyAxis = (id) => /^type-line-height-percent-/.test(id);
 const deadTokens = []; // 지울 수 있고, 지워야 하는 것
-const excluded = { emittedForm: [], ladderRung: [], figmaOnlyAxis: [] };
+const excluded = { emittedForm: [], ladderRung: [], figmaOnlyAxis: [], anchorBlind: [] };
 for (const [id, names] of emittedById) {
   const deadNames = names.filter((name) => deadSet.has(name));
   if (deadNames.length === 0) continue;
@@ -237,8 +267,15 @@ for (const [id, names] of emittedById) {
   if (deadNames.length < names.length) { excluded.emittedForm.push(id); continue; }
   if (isLadderRung(id, tierById.get(id))) { excluded.ladderRung.push(id); continue; }
   if (isFigmaOnlyAxis(id)) { excluded.figmaOnlyAxis.push(id); continue; }
+  // 앵커가 못 보는 소비자. **분모에서 빼지 않는다** — 아래에서 따로 인쇄하고 래칫한다.
+  if (ANCHOR_BLIND_TOKENS.has(id)) { excluded.anchorBlind.push(id); continue; }
   deadTokens.push(id);
 }
+// 표에 적힌 이름이 «실제로 죽어 보이지 않게» 되면 — 앵커를 재고정했거나 LOUIS 가 다시
+// 쓰기 시작했거나 — 그 줄은 이제 거짓이다. 지우라고 요구한다. 면제가 조용히 남는 것이
+// 이 저장소가 baseline 을 따로 두는 이유다.
+const anchorBlindStale = [...ANCHOR_BLIND_TOKENS.keys()]
+  .filter((id) => !excluded.anchorBlind.includes(id));
 // 원천에 id 가 없는 죽은 이름은 토큰 하나로 친다 — 되짚을 근거가 없는 것을 조용히 빼면
 // 생성기가 새기 시작해도 수가 그대로다.
 const orphanDeadNames = dead.filter((name) => idOfName(name) === null);
@@ -368,6 +405,30 @@ if (errors.length === 0) {
     );
   }
 
+  // 앵커가 못 보는 소비자 표의 래칫. **수가 아니라 이름으로 잠근다.**
+  if (excluded.anchorBlind.length > ANCHOR_BLIND_RATCHET) {
+    errors.push(
+      "앵커가 못 보는 소비자가 " + (excluded.anchorBlind.length - ANCHOR_BLIND_RATCHET) +
+        "개 늘었습니다 (" + ANCHOR_BLIND_RATCHET + " → " + excluded.anchorBlind.length +
+        "). 이 표는 한 방향 래칫이라 늘지 않습니다 — 늘려야 한다고 판단했다면 그것은 " +
+        "코드 변경이 아니라 소유자 판정입니다.",
+    );
+  } else if (excluded.anchorBlind.length < ANCHOR_BLIND_RATCHET) {
+    errors.push(
+      "앵커가 못 보는 소비자가 " + (ANCHOR_BLIND_RATCHET - excluded.anchorBlind.length) +
+        "개 줄었습니다 (" + ANCHOR_BLIND_RATCHET + " → " + excluded.anchorBlind.length +
+        "). 이득을 잠그세요 — ANCHOR_BLIND_RATCHET 을 " + excluded.anchorBlind.length +
+        " 로 내리고, 더는 참이 아닌 줄을 ANCHOR_BLIND_TOKENS 에서 지웁니다.",
+    );
+  }
+  if (anchorBlindStale.length > 0) {
+    errors.push(
+      "ANCHOR_BLIND_TOKENS 에 적힌 " + anchorBlindStale.join(" · ") + " 이(가) 이제 죽어 보이지 " +
+        "않습니다. 앵커를 재고정했거나 LOUIS 가 다시 씁니다 — 어느 쪽이든 그 줄은 거짓이므로 " +
+        "표에서 지우고 ANCHOR_BLIND_RATCHET 을 함께 내리세요.",
+    );
+  }
+
   if (deadTokenCount > DEAD_TOKEN_BASELINE) {
     // **어느 이름이 «새로» 죽었는지는 말하지 않는다.** baseline 이 수 하나라 그것을 알 수
     // 없고, 「새로 죽은 자리」라며 죽은 목록의 앞 몇 개를 찍으면 그것은 거짓말이다 —
@@ -466,7 +527,10 @@ console.log(
     "정의상 도달 불가가 된다) · 사다리의 빈 칸 " + excluded.ladderRung.length +
     "(프리미티브 팔레트 + 적응형 회색 램프 + 타이포 스케일 — 완결된 것이 값이다) · " +
     "Figma 전용 축 " + excluded.figmaOnlyAxis.length + "(`type-line-height-percent/*`, " +
-    "DS-D-0029 §1 이 일부러 만들었고 CSS 소비 0 이 설계된 상태다). " +
+    "DS-D-0029 §1 이 일부러 만들었고 CSS 소비 0 이 설계된 상태다) · " +
+    "앵커가 못 보는 소비자 " + excluded.anchorBlind.length + "(" +
+    (excluded.anchorBlind.join(" · ") || "없음") + " — 제품이 지금 쓰는데 원장이 그보다 이른 " +
+    "앵커에서 읽혀 안 보인다. 재고정하면 0 이 된다). " +
     "원천에 id 가 없는 죽은 이름 " + orphanDeadNames.length + "종은 «빼지 않고» 세었다.",
 );
 console.log(

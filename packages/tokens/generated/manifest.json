@@ -2,23 +2,23 @@
   "artifacts": [
     {
       "path": "packages/tokens/generated/figma.tokens.json",
-      "sha256": "a9d648382a51bb8461fab0c85f944bfee6cf922eb1d0efd129bf35534ae0dfca"
+      "sha256": "6d1b37fcf14e9c38d95d84b4290077a8c8894904801cb01f61d2a487de9e5f69"
     },
     {
       "path": "packages/tokens/generated/index.d.ts",
-      "sha256": "ff352fb217a6fa402a9a2ecd3ca519b03c71367edbb5e68c9b95692aca4872d1"
+      "sha256": "f770abd97690562a29927c853d42a2e4bcf7767f7183d8ac32d99f146d860ba9"
     },
     {
       "path": "packages/tokens/generated/index.js",
-      "sha256": "7edbd81e8abaa25b923c64fddc5397ddea9e017280c0598fcd9c6cf507f65133"
+      "sha256": "ec88b816cbd1e5b34cd46e9d45cb846a235342ea9d8ffb64ebe8b18b2f37ddc6"
     },
     {
       "path": "packages/tokens/generated/tokens.css",
-      "sha256": "99b9b5a54086116f40d405439d6c4469d605db1a72ad46345aa222f4315488b6"
+      "sha256": "e5ca0630d73d276c90697eb40087bf6bdf161d230efb8c797f92bb3f103eb036"
     },
     {
       "path": "packages/tokens/generated/tokens.json",
-      "sha256": "d58a14690d40bf5e6084c9c5b7b838037bf82691f3e0aacc57d1fc53566eb721"
+      "sha256": "42e806423d85347b18eda619042becfacc4875bde038efc875244e2c165c63ce"
     }
   ],
   "contrastPairs": [
@@ -419,13 +419,13 @@
   },
   "source": {
     "path": "packages/tokens/src/klipse.tokens.json",
-    "sha256": "263f53aeee078b238ecbbbadfdaecd41989f621edc8b9f45a8d2e543f0785eff"
+    "sha256": "9165a21f37683ebffb54d6fed1f18373daf631fe46afb5d5f7eaca0751ae6cb2"
   },
   "themes": [
     "light",
     "dark"
   ],
-  "tokenCount": 769,
+  "tokenCount": 770,
   "tokens": [
     {
       "aliasTarget": {
@@ -15836,6 +15836,27 @@
         "value": 6
       },
       "sourcePath": "semantic.global.layout.project-grid-gap",
+      "tier": "semantic",
+      "type": "dimension"
+    },
+    {
+      "aliasTarget": {
+        "id": "space-28",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-layout-settings-segment-height": "28px"
+      },
+      "deprecated": null,
+      "description": "설정·구독 화면의 세그먼티드 토글이 쓰는 **세그먼트** 높이. 같은 28 이지만 inspector-control-height 와 뜻이 다르다 — 저것은 트랙 높이이고 이것은 트랙 «안»의 칸 높이다. 트랙은 이 값에서 파생한다(4 + 28 + 4 = 36). DS-D-0048 정정.",
+      "id": "layout-settings-segment-height",
+      "mode": "global",
+      "rawValue": "{primitive.spacing.28}",
+      "resolvedValue": {
+        "unit": "px",
+        "value": 28
+      },
+      "sourcePath": "semantic.global.layout.settings-segment-height",
       "tier": "semantic",
       "type": "dimension"
     },

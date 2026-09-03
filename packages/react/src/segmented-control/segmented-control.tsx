@@ -9,7 +9,16 @@ import { createContext, useContext, useId } from "react";
  * 있었는데 이 타입에만 없어 **CSS 가 지원하는 축을 타입이 금지하는** 상태였고, 제품은 클래스를
  * 직접 붙여 그 축을 쓰고 있었다 — 그래서 넓혔다. 그 28 이 이제 sm(24)보다 커서 이름이 순서를
  * 거짓말하므로 **맨 뒤에 둔다.** 이름을 옮길지 28 을 사다리에 들일지는 DS-D-0032 의 미결이다. */
-export type SegmentedControlSize = "lg" | "md" | "sm" | "xs";
+export type SegmentedControlSize = "lg" | "md" | "sm" | "xs" | "settings";
+
+/* `settings` 도 사다리가 아니다 — `xs` 와 같은 컴포넌트 지역 예외이고, 설정·구독 화면의
+ * 토글에서 쓴다. 트랙 36 은 **선언된 값이 아니라 파생값**이다: 이 칸이 정하는 것은 세그먼트
+ * 28(`layout-settings-segment-height`)이고 트랙은 패딩 4 를 더해 hug 한다. 제품이 그렇게
+ * 만들고 있어서 그대로 옮겼다.
+ *
+ * **이름이 쓰임새인 것은 일부러다.** 사다리 어휘로 부르면 이 축의 이름이 순서를 두 번
+ * 거짓말하게 된다(`xs` 가 이미 한 번 한다). 쓰임새 이름은 순서를 주장하지 않아 그 거짓에
+ * 더해지지 않는다 — DS-D-0048 정정이 그 판정을 갖는다. */
 
 interface SegmentedControlContextValue {
   readonly name: string;

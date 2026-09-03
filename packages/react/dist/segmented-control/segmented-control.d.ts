@@ -1,5 +1,5 @@
 import type { JSX, ReactNode, Ref } from "react";
-export type SegmentedControlSize = "lg" | "md" | "sm" | "xs";
+export type SegmentedControlSize = "lg" | "md" | "sm" | "xs" | "settings";
 export interface SegmentedControlProps {
     /**
      * 그룹 이름. **필수다.**

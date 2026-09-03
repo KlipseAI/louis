@@ -5363,6 +5363,17 @@
             }
           }
         },
+        "settings-segment-height": {
+          "$value": "{primitive.spacing.28}",
+          "$description": "설정·구독 화면의 세그먼티드 토글이 쓰는 **세그먼트** 높이. 같은 28 이지만 inspector-control-height 와 뜻이 다르다 — 저것은 트랙 높이이고 이것은 트랙 «안»의 칸 높이다. 트랙은 이 값에서 파생한다(4 + 28 + 4 = 36). DS-D-0048 정정.",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "layout-settings-segment-height",
+              "tier": "semantic",
+              "mode": "global"
+            }
+          }
+        },
         "node-chip-height": {
           "$value": "{primitive.spacing.32}",
           "$extensions": {

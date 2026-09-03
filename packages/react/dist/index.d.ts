@@ -33,7 +33,7 @@ export type { SliderProps, SliderSize, SliderVariant } from "./slider/slider.js"
 export { Spinner } from "./spinner/spinner.js";
 export type { SpinnerProps, SpinnerSize } from "./spinner/spinner.js";
 export { TextField } from "./text-field/text-field.js";
-export type { TextFieldProps, TextFieldSize } from "./text-field/text-field.js";
+export type { TextFieldLabelBehavior, TextFieldProps, TextFieldSize, } from "./text-field/text-field.js";
 export { ToastProvider, useToast, TOAST_VISIBLE_LIMIT } from "./toast/toast.js";
 export type { ToastContextValue, ToastHandle, ToastInput, ToastProviderProps, ToastTone } from "./toast/toast.js";
 export { OverlayProvider } from "./anchored/overlay-provider.js";

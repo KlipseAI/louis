@@ -7,6 +7,18 @@ import type { InputHTMLAttributes, JSX, ReactNode, Ref } from "react";
  * 쓰지 않는다.
  */
 export type TextFieldSize = "lg" | "md" | "sm";
+/**
+ * 라벨이 어디 사는가 (DS-D-0049). **크기·유효성과 직교하는 별개의 축이다.**
+ *
+ * - `stacked` — 라벨이 박스 **위**의 형제이고 움직이지 않는다. 기본값이며 제품의 `/admin`
+ *   여덟 화면이 이 형태를 쓴다(`louis-text-field__label` 을 그대로 붙인다).
+ * - `floating` — 라벨이 박스 **안**에서 placeholder 노릇을 하다가, 값이 들어오거나 포커스가
+ *   오면 떠오른다. 제품의 인증 일곱 벌이 이 형태이고 기하가 일곱 벌 모두 같다.
+ *
+ * 「떠 있는가 앉아 있는가」는 이 축이 아니다 — 값과 포커스가 정하는 **상태**이고 CSS 가
+ * 판정한다. Figma 에서는 이미 있는 `State` 축이 그 자리를 갖는다(`Placeholder` 가 쉼).
+ */
+export type TextFieldLabelBehavior = "stacked" | "floating";
 export interface TextFieldProps extends Omit<InputHTMLAttributes<HTMLInputElement>, "size" | "type" | "prefix"> {
     /**
      * 시각 라벨. 생략하면 `aria-label`을 반드시 주어야 한다.
@@ -27,6 +39,15 @@ export interface TextFieldProps extends Omit<InputHTMLAttributes<HTMLInputElemen
      * 최소 타겟에 미달한다. 알려진 편차이며 design/components/text-field.md가 갖는다.
      */
     readonly size?: TextFieldSize;
+    /**
+     * 라벨의 자리. 기본값 `stacked`.
+     *
+     * **`floating` 에서는 `label` 이 사실상 필수다** — 라벨이 placeholder 의 자리를 대신하므로
+     * 없으면 필드에 보이는 이름이 하나도 남지 않는다. 타입으로 강제하지 않는 이유는
+     * `TextFieldProps` 가 인터페이스여서 판별 유니온으로 바꾸면 이 타입을 확장하는 바깥 코드가
+     * 깨지기 때문이고, 그 계약은 design/components/text-field.md 와 브라우저 테스트가 갖는다.
+     */
+    readonly labelBehavior?: TextFieldLabelBehavior;
     /** 필드 아래 한 줄. `invalid`일 때는 오류 문구가 되고 `aria-describedby`로 연결된다. */
     readonly description?: ReactNode;
     /** 오류 상태. **색만으로 알리지 않는다** — 이 값이 참이면 description이 오류 문구가 된다. */
@@ -47,5 +68,5 @@ export interface TextFieldProps extends Omit<InputHTMLAttributes<HTMLInputElemen
  *
  * id는 컴포넌트가 발급한다. 호출부가 만들면 같은 화면에 필드가 여럿일 때 겹친다.
  */
-export declare function TextField({ label, size, description, invalid, prefix, suffix, type, className, id, disabled, ...rest }: TextFieldProps): JSX.Element;
+export declare function TextField({ label, size, labelBehavior, description, invalid, prefix, suffix, type, className, id, disabled, placeholder, ...rest }: TextFieldProps): JSX.Element;
 //# sourceMappingURL=text-field.d.ts.map

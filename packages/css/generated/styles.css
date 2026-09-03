@@ -5028,6 +5028,130 @@
   color: var(--louis-color-fg-danger);
 }
 
+/* ── 플로팅 라벨 — `data-label-behavior="floating"` (DS-D-0049) ──────────────
+ *
+ * ## 무엇이 다른가 — 라벨이 어디 사는가 하나다
+ *
+ * `stacked`(기본값)에서 라벨은 박스 **위**의 형제이고 움직이지 않는다. `floating`에서 라벨은
+ * 박스 **안**으로 들어가 placeholder 노릇을 하다가, 값이 들어오거나 포커스가 오면 떠오른다.
+ * 그래서 박스는 라벨이 떠오를 자리를 **미리 비워 두어야** 하고, 그것이 아래의 `padding-block`
+ * 과 control 의 `margin-block-start` 다. 나머지(반경·좌우 여백·헤어라인·면·슬롯·메시지)는
+ * `stacked` 와 **글자 그대로 같다** — 이 축은 그 값들을 하나도 다시 쓰지 않는다.
+ *
+ * ## 근거 — 제품 인증 일곱 벌의 기하가 같다
+ *
+ * 앵커 `ae8fd627` 에서 일곱 벌을 쟀다. `/login` · `/signup` · `/recover` ·
+ * `/reset-password` · `/reset-password/new` · `/aws/signup` · `myPageSceneStyles`(설정의 인증
+ * 모달). **기하가 일곱 벌 모두 글자 그대로 같다** — 박스 여백 12/16 · 반경 12 · 값의
+ * `margin-top` 8 · 라벨 좌측 16 · 떠오른 라벨 `top` 12 · 쉬는 라벨은 세로 중앙 ·
+ * `transform-origin: left top`. 갈리는 것은 색 셋뿐이고 다섯이 한 값에 모인다.
+ * 그 표와 소수파(24%/32%)의 좌표는 design/components/text-field.md 가 갖는다.
+ *
+ * ## 높이는 선언하지 않는다 — 여백과 값이 만든다
+ *
+ * 53 = `space-control-md` 12 + `space-control-sm` 8 + body-sm 행 높이 21 + `space-control-md` 12.
+ * 네 항이 전부 토큰이다. 제품의 같은 구성이 58 인 것은 값 타이포가 body-16(행 24)이기 때문이고,
+ * 그 5px 은 **이 축이 만든 어긋남이 아니라** 이미 기록된 계열 차이다(제품에 공용 구현이 없어
+ * 값을 DS 가 정한다는 이 파일 머리말 그대로다).
+ *
+ * `min-block-size`(control-height-lg 40)는 그대로 물려받는다. 53 이 이미 넘으므로 바닥으로만
+ * 남고, 긴 값이나 200% 확대에서 자라는 성질도 그대로다.
+ */
+.louis-text-field[data-label-behavior="floating"] .louis-text-field__box {
+  /* 라벨이 절대배치로 박스 안에 앉는다. */
+  position: relative;
+  /* **`center` 가 아니라 `flex-end`.** 위쪽 8 은 라벨이 떠오를 자리이지 값의 자리가 아니다 —
+   * 가운데 정렬이면 control 의 `margin-block-start` 가 중앙 계산에 먹혀 그 자리가 사라진다.
+   * 접두·접미 슬롯도 이 정렬을 따라 **라벨 행이 아니라 값 행에 선다**(비밀번호 표시 토글과
+   * 지우기 버튼이 그 슬롯이다). */
+  align-items: flex-end;
+  padding-block: var(--louis-space-control-md);
+}
+
+.louis-text-field[data-label-behavior="floating"] .louis-text-field__control {
+  /* 떠오른 라벨이 앉을 행. 이 값이 없으면 라벨이 값 위에 겹친다. */
+  margin-block-start: var(--louis-space-control-sm);
+}
+
+/* **placeholder 는 라벨이 한다.** 그래서 브라우저 placeholder 는 보이지 않게 둔다 — 제품 일곱
+ * 벌이 전부 그렇게 한다(`placeholder:text-transparent`). 지우는 것이 아니라 **숨기는** 이유는
+ * 아래 `:placeholder-shown` 이 그 속성의 존재로 「값이 비었다」를 판정하기 때문이다. */
+.louis-text-field[data-label-behavior="floating"] .louis-text-field__control::placeholder {
+  color: transparent;
+}
+
+.louis-text-field[data-label-behavior="floating"] .louis-text-field__label {
+  position: absolute;
+  inset-inline-start: var(--louis-space-control-lg);
+  /* 쉼: 박스의 세로 중앙. 이 자리에서 라벨은 placeholder 처럼 읽힌다. */
+  inset-block-start: 50%;
+  translate: 0 -50%;
+  /* 떠오를 때 왼쪽 위를 축으로 줄어든다 — 좌측 정렬이 유지된다. */
+  transform-origin: left top;
+  /* 라벨을 눌러도 캐럿이 들어가야 한다. `<label for>` 의 클릭은 그대로 살아 있다. */
+  pointer-events: none;
+  color: var(--louis-color-fg-secondary);
+  /* **`all` 을 쓰지 않는다.** 전이시킬 프로퍼티를 적어 두지 않으면 나중에 붙는 선언까지
+   * 따라 움직인다. 제품은 `all 180ms ease` 인데 여기서는 이름 있는 모션 토큰을 쓴다 —
+   * 라벨이 자리를 옮기는 것이므로 `layout-change` 다. */
+  transition:
+    inset-block-start var(--louis-motion-layout-change-duration)
+      var(--louis-motion-layout-change-timing-function),
+    translate var(--louis-motion-layout-change-duration)
+      var(--louis-motion-layout-change-timing-function),
+    font-size var(--louis-motion-layout-change-duration)
+      var(--louis-motion-layout-change-timing-function),
+    line-height var(--louis-motion-layout-change-duration)
+      var(--louis-motion-layout-change-timing-function),
+    color var(--louis-motion-control-hover-duration)
+      var(--louis-motion-control-hover-timing-function);
+}
+
+/* 떠오름 — **자바스크립트 없이 CSS 가 판정한다.** 값이 있으면 `:placeholder-shown` 이 풀리고,
+ * 포커스는 `:focus` 가 잡는다. 제품은 이 둘을 React state 로 들고 있는데, 그 state 는 박스
+ * 테두리를 뒤집는 데도 쓰이고 그쪽은 여기서 `:focus-within` 이 이미 공짜로 준다.
+ * CSS 판정이라 자동완성(autofill)과 브라우저 되돌리기에서도 어긋나지 않는다.
+ *
+ * 라벨은 DOM 에서 **input 뒤**에 온다 — `~` 가 앞선 형제를 볼 수 없기 때문이다. 시각 위치는
+ * 절대배치가 정하므로 순서가 화면을 바꾸지 않고, `<label for>` 의 연결도 순서와 무관하다. */
+.louis-text-field[data-label-behavior="floating"]
+  :is(.louis-text-field__control:focus, .louis-text-field__control:not(:placeholder-shown))
+  ~ .louis-text-field__label {
+  inset-block-start: var(--louis-space-control-md);
+  translate: 0 0;
+  font-size: var(--louis-typography-caption-regular-font-size);
+  /* **1 이다 — caption 의 1.5 가 아니다.** 1.5 면 라벨의 행 상자가 18px 이 되어 12 에서
+   * 시작한 라벨이 30 까지 내려오고, 값의 글자(20 + (21−14)/2 = 23.5 부터)를 3px 파고든다.
+   * 행 상자를 글자 높이와 같게 만들어야 위쪽 8 이 라벨 한 줄에 정확히 맞는다 — 제품 일곱 벌이
+   * 같은 이유로 같은 값을 쓴다. 타이포 토큰을 쓰지 않는 유일한 자리이며, 여기서 다투는 것은
+   * 타입 스케일이 아니라 기하다. */
+  line-height: 1;
+}
+
+/* **색은 포커스만 따른다 — 떠오름과 다른 조건이다.** 값이 들어와 라벨이 떠 있어도 포커스가
+ * 없으면 secondary 로 남는다. 제품 일곱 벌이 전부 두 조건을 갈라 두었다
+ * (`focused || value` 가 자리를, `focused` 가 색을 정한다). */
+.louis-text-field[data-label-behavior="floating"]
+  .louis-text-field__control:focus
+  ~ .louis-text-field__label {
+  color: var(--louis-color-fg-primary);
+}
+
+.louis-text-field[data-label-behavior="floating"]:has(.louis-text-field__control:disabled)
+  .louis-text-field__label {
+  color: var(--louis-color-fg-disabled);
+}
+
+/* **컴포넌트 전이는 전역 리셋을 이긴다 — 그래서 여기서 다시 낮춘다.** reset.css 의
+ * reduced-motion 규칙은 `:where(*)` 라 특이도가 0 이고, 위의 `transition` 축약이 duration 을
+ * 함께 선언하므로 특이도로 진다. Tabs · ProjectCard · MenuPopover 가 같은 이유로 각자 블록을
+ * 갖는다 — 자기 전이를 선언한 컴포넌트는 자기 되돌림도 선언해야 한다. */
+@media (prefers-reduced-motion: reduce) {
+  .louis-text-field[data-label-behavior="floating"] .louis-text-field__label {
+    transition-duration: var(--louis-motion-reduced-duration);
+  }
+}
+
 /* Toast — design/components/toast.md
  *
  * viewport는 toast가 없어도 항상 렌더된다. 그래서 **비어 있을 때 포인터를 가로채지 않아야 한다** —

@@ -254,3 +254,149 @@ test("도움말은 alert가 아니다", async () => {
 });
 
 export type _EnsureTsx = JSX.Element;
+
+// ── 플로팅 라벨 (DS-D-0049) ──────────────────────────────────────────────────
+//
+// 이 축은 **계산 스타일로만 보인다.** `data-label-behavior` 속성만 확인하면 「속성은 붙었는데
+// 라벨은 그대로인」 경우를 통과시킨다. Dialog 의 Tone 축이 같은 이유로 참조 비교를 세웠다.
+
+test("floating 의 높이는 여백과 값이 만든다 — 12 + 8 + 21 + 12", async () => {
+  // 선언된 높이가 없다. 네 항이 전부 토큰이고, 그 합이 실제로 53 이 되는지는 브라우저만 안다.
+  // 제품의 같은 구성이 58 인 것은 값 타이포가 body-16(행 24)이기 때문이며 이 축의 어긋남이 아니다.
+  await render(
+    <div style={{ inlineSize: "320px" }}>
+      <TextField label="이메일" labelBehavior="floating" />
+    </div>,
+  );
+  const box = find(".louis-text-field__box");
+  const style = getComputedStyle(box);
+  expect(px(style.paddingBlockStart), "위 여백 = space-control-md").toBe(12);
+  expect(px(style.paddingBlockEnd), "아래 여백 = space-control-md").toBe(12);
+  expect(px(getComputedStyle(find(".louis-text-field__control")).marginBlockStart), "라벨 행 = space-control-sm").toBe(8);
+  expect(round(px(getComputedStyle(find(".louis-text-field__control")).lineHeight)), "값 행 = body-sm 21").toBe(21);
+  expect(box.offsetHeight, "12 + 8 + 21 + 12").toBe(53);
+});
+
+test("floating 이 stacked 의 나머지 값을 하나도 다시 쓰지 않는다", async () => {
+  // 이 축이 여는 것은 라벨의 자리 하나다. 반경·좌우 여백·슬롯 간격·헤어라인이 함께 움직이면
+  // 그것은 축이 아니라 두 번째 컴포넌트다 — DS-D-0049 가 축으로 판정한 근거가 바로 이것이다.
+  await render(
+    <div style={{ inlineSize: "320px" }}>
+      <TextField label="쌓임" />
+      <TextField label="떠오름" labelBehavior="floating" />
+    </div>,
+  );
+  const [stacked, floating] = [...document.querySelectorAll(".louis-text-field__box")] as HTMLElement[];
+  if (stacked === undefined || floating === undefined) throw new Error("두 박스를 찾지 못했습니다");
+  const a = getComputedStyle(stacked);
+  const b = getComputedStyle(floating);
+  expect(b.borderTopLeftRadius, "반경").toBe(a.borderTopLeftRadius);
+  expect(b.paddingInlineStart, "좌우 여백").toBe(a.paddingInlineStart);
+  expect(b.columnGap, "슬롯 간격").toBe(a.columnGap);
+  expect(b.boxShadow, "헤어라인").toBe(a.boxShadow);
+  expect(b.backgroundColor, "면").toBe(a.backgroundColor);
+});
+
+test("라벨이 값과 포커스에 따라 떠오르고, 색은 포커스만 따른다", async () => {
+  // 제품 일곱 벌이 두 조건을 갈라 둔다 — `focused || value` 가 자리를, `focused` 가 색을 정한다.
+  // 한 조건으로 합치면 값이 든 채 포커스를 잃은 필드의 라벨이 계속 밝게 남는다.
+  //
+  // **전이가 끝난 뒤에 잰다.** 클릭 직후의 계산값은 220ms 짜리 전이의 중간값이라 13.99 같은
+  // 수가 나온다 — 실제로 이 테스트의 첫 판이 그 값에 걸렸다. 도착점을 재려면 기다려야 한다.
+  await render(
+    <div style={{ inlineSize: "320px" }}>
+      <TextField label="이메일" labelBehavior="floating" />
+    </div>,
+  );
+  const label = find(".louis-text-field__label");
+  const control = find(".louis-text-field__control") as HTMLInputElement;
+  const box = find(".louis-text-field__box");
+  const secondary = tokenValue("color-fg-secondary", "color");
+  const primary = tokenValue("color-fg-primary", "color");
+
+  const top = (): number => label.getBoundingClientRect().top - box.getBoundingClientRect().top;
+  const fontSize = (): number => px(getComputedStyle(label).fontSize);
+
+  // 쉼 — 세로 중앙, body-sm 14, secondary.
+  const restingTop = top();
+  expect(fontSize(), "쉴 때 14").toBe(14);
+  expect(getComputedStyle(label).color, "쉴 때 secondary").toBe(secondary);
+
+  // 포커스 — 떠오르고 색이 primary 가 된다.
+  await userEvent.click(control);
+  await expect.poll(fontSize, { timeout: 2000 }).toBe(12);
+  expect(top(), "떠오르면 위로 간다").toBeLessThan(restingTop);
+  expect(round(top()), "떠오른 자리 = space-control-md 12").toBe(12);
+  expect(getComputedStyle(label).color, "포커스면 primary").toBe(primary);
+  // 떠오른 라벨의 행 상자는 글자 높이와 같아야 값을 파고들지 않는다.
+  expect(round(px(getComputedStyle(label).lineHeight)), "행 높이 = 글자 높이").toBe(12);
+
+  // 값이 있고 포커스가 없다 — 자리는 떠 있고 색은 secondary 로 돌아온다.
+  await userEvent.type(control, "a@b.co");
+  await userEvent.click(document.body);
+  await expect.poll(() => getComputedStyle(label).color, { timeout: 2000 }).toBe(secondary);
+  expect(fontSize(), "값이 있으면 떠 있다").toBe(12);
+  expect(round(top()), "값이 있으면 떠 있다 — 자리").toBe(12);
+});
+
+test("떠오른 라벨이 값 글자를 파고들지 않는다", async () => {
+  // `line-height: 1` 을 고른 이유가 이 한 줄이다. caption 의 1.5(18px)면 라벨 상자가 12..30 이
+  // 되어 값의 글자를 3px 넘게 덮는다.
+  //
+  // **control 의 사각형과 비교하면 안 된다.** 그 상자는 행 높이 21 이라 글자(14) 위아래로
+  // 3.5px 씩의 반-행간을 품는다 — 상자끼리 재면 글자가 멀쩡한데도 겹쳤다고 나온다. 실제로
+  // 이 테스트의 첫 판이 그렇게 틀렸다(라벨 아래 24 vs 상자 위 20.5). 재야 하는 것은 **글자 띠**다.
+  await render(
+    <div style={{ inlineSize: "320px" }}>
+      <TextField label="이메일" labelBehavior="floating" defaultValue="a@b.co" />
+    </div>,
+  );
+  const label = find(".louis-text-field__label").getBoundingClientRect();
+  const control = find(".louis-text-field__control");
+  const style = getComputedStyle(control);
+  const halfLeading = (px(style.lineHeight) - px(style.fontSize)) / 2;
+  const glyphTop = control.getBoundingClientRect().top + halfLeading;
+  // 제품의 같은 구성은 정확히 맞닿는다(라벨 아래 25 · 글자 위 25). 여기서는 body-sm 의
+  // 반-행간이 3.5 라 0.5px 만 겹친다 — 12 라벨의 하강부 여백 안이고 글자끼리는 닿지 않는다.
+  expect(label.bottom - glyphTop, "글자 띠를 1px 넘게 파고들지 않는다").toBeLessThanOrEqual(1);
+});
+
+test("stacked 에서는 라벨이 박스 밖의 형제로 남는다", async () => {
+  // floating 이 라벨을 박스 안으로 옮기므로, 기본값이 그대로인지가 회귀의 첫 자리다.
+  await render(
+    <div style={{ inlineSize: "320px" }}>
+      <TextField label="이름" />
+    </div>,
+  );
+  const label = find(".louis-text-field__label");
+  expect(label.closest(".louis-text-field__box"), "박스 밖이다").toBeNull();
+  expect(getComputedStyle(label).position, "흐름에 남는다").toBe("static");
+});
+
+test("floating 이 placeholder 를 스스로 채우고 숨긴다", async () => {
+  // `:placeholder-shown` 은 placeholder 속성이 있을 때만 걸린다. 호출부가 주지 않아도 떠오름이
+  // 동작해야 하므로 컴포넌트가 공백 하나를 넣고, 그 공백이 화면에 보이면 안 된다.
+  await render(
+    <div style={{ inlineSize: "320px" }}>
+      <TextField label="이메일" labelBehavior="floating" />
+      <TextField label="이름" />
+    </div>,
+  );
+  const [floating, stacked] = [...document.querySelectorAll(".louis-text-field__control")] as HTMLInputElement[];
+  if (floating === undefined || stacked === undefined) throw new Error("두 control 을 찾지 못했습니다");
+  expect(floating.placeholder, "floating 은 채워진다").toBe(" ");
+  expect(stacked.getAttribute("placeholder"), "stacked 은 손대지 않는다").toBeNull();
+});
+
+test("floating 의 라벨도 htmlFor 로 input 에 이어져 있다", async () => {
+  // 라벨이 input **뒤**로 옮겨 갔다. DOM 순서가 바뀌었으므로 접근성 이름이 살아 있는지 확인한다.
+  await render(
+    <div style={{ inlineSize: "320px" }}>
+      <TextField label="이메일" labelBehavior="floating" />
+    </div>,
+  );
+  const control = find(".louis-text-field__control");
+  const label = find(".louis-text-field__label") as HTMLLabelElement;
+  expect(label.htmlFor, "for 가 control 을 가리킨다").toBe(control.id);
+  expect(label.compareDocumentPosition(control) & Node.DOCUMENT_POSITION_PRECEDING, "input 이 앞선다").toBeTruthy();
+});

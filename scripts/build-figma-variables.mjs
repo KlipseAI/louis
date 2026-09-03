@@ -25,6 +25,21 @@ const delta = process.argv.includes("--delta");
 const known = delta
   ? new Set(Object.keys(JSON.parse(readFileSync(resolve(repoRoot, "figma/snapshot.json"), "utf8")).variables ?? {}))
   : null;
+// `--only id,id` — 이름을 댄 변수만 낸다. **`--delta`가 못 집는 자리가 있어서 필요하다** —
+// delta는 snapshot에 *없는* 변수만 내므로 이미 있는 변수의 **값이 어긋난** 경우를 통과시킨다.
+// `accent-secondary-hover`가 그랬다: 코드가 4%→12%로 올렸는데 Figma는 4%인 채였고, delta는
+// 그 이름을 snapshot에서 찾아 건너뛴다. 컬렉션 조각(64개)을 통째로 미는 것은 대안이 아니다 —
+// 같은 조각에 든 회색 램프 계열 별칭이 라이브에 아직 없는 칸(palette-gray/050)을 가리켜
+// 같이 딸려 나간다. 그래서 **고칠 변수만 집는 길**을 둔다.
+const onlyIndex = process.argv.indexOf("--only");
+const only =
+  onlyIndex === -1
+    ? null
+    : new Set(String(process.argv[onlyIndex + 1] ?? "").split(",").map((s) => s.trim()).filter(Boolean));
+if (onlyIndex !== -1 && (only === null || only.size === 0)) {
+  console.error("[figma-variables] --only 뒤에 변수 id 목록이 필요합니다.");
+  process.exit(1);
+}
 
 const plan = [];
 let skipped = 0;
@@ -82,6 +97,7 @@ for (const [collectionName, collection] of Object.entries(proposal.collections))
     }
     if (Object.keys(vals).length === 0) continue;
     if (delta && known.has(id)) continue;
+    if (only !== null && !only.has(id)) continue;
     vars.push({
       i: id,
       n: v.figmaName,
@@ -98,8 +114,16 @@ const total = plan.reduce((n, c) => n + c.vars.length, 0);
 
 // 별칭 대상을 이름으로 찾을 수 있도록 id → figmaName 표를 함께 싣는다.
 // 컬렉션마다 파일을 나눠도(=따로 실행해도) 별칭이 끊기지 않는다.
+// **plan이 아니라 proposal 전체에서 만든다.** plan은 `--delta`/`--only`로 걸러진 부분집합이라
+// 별칭이 가리키는 primitive가 통째로 빠진다. 그러면 조각의 `NAME`이 비고 runner가 모든 별칭을
+// `missingAlias`로 떨어뜨려 **부분 적용이 조용히 아무것도 하지 않는다** — `--delta` 산출물이
+// 실제로 그 상태였고(`NAME={}`), 그래서 `accent-secondary`가 Figma에 서지 못했다.
 const nameById = {};
-for (const col of plan) for (const v of col.vars) nameById[v.i] = `${col.c}::${v.n}`;
+for (const [collectionName, collection] of Object.entries(proposal.collections)) {
+  for (const [id, v] of Object.entries(collection.variables)) {
+    if (v.figmaName !== undefined) nameById[id] = `${collectionName}::${v.figmaName}`;
+  }
+}
 
 // 조각 크기 — use_figma 한도(50,000자)보다 훨씬 작게 잡는다. 붙여넣기와 검토가 가능해야 한다.
 const CHUNK = 64;
@@ -178,7 +202,16 @@ for (const col of plan) {
 }
 
 const files = chunks.map((ch, i) => ({
-  absolute: resolve(repoRoot, delta ? `figma/apply-variables.delta.${i + 1}.js` : `figma/apply-variables.${i + 1}.js`),
+  // `--only`/`--delta` 산출물은 이름을 나눈다. 전량 파일은 `verify-figma-variables`가
+  // 바이트로 대조하는 생성물이라 부분 산출물이 덮어쓰면 게이트가 거짓 빨강이 된다.
+  absolute: resolve(
+    repoRoot,
+    only !== null
+      ? `figma/apply-variables.only.${i + 1}.js`
+      : delta
+        ? `figma/apply-variables.delta.${i + 1}.js`
+        : `figma/apply-variables.${i + 1}.js`,
+  ),
   expected:
     `// 생성물. scripts/build-figma-variables.mjs가 만든다. 직접 수정하지 않는다.\n` +
     `// use_figma에 그대로 넘긴다. ${i + 1}/${chunks.length} — ${ch.col.c} ${ch.part}/${ch.parts} (변수 ${ch.col.vars.length}개).\n` +
@@ -187,6 +220,11 @@ const files = chunks.map((ch, i) => ({
     `const NAME=${JSON.stringify(ch.names)};\nconst COL=${JSON.stringify(ch.col)};\n` +
     RUNNER,
 }));
+
+if (check && only !== null) {
+  console.error("[figma-variables] --check 는 전량 산출물만 본다. --only 와 함께 쓸 수 없다.");
+  process.exit(1);
+}
 
 if (check) {
   for (const f of files) {

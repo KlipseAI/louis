@@ -246,8 +246,13 @@ test("320px 컨테이너에서 KO/EN/JA 긴 라벨이 잘리지 않는다", asyn
  */
 const ALLOWED_VIOLATIONS: Readonly<Record<string, readonly string[]>> = {
   primary: ["color-contrast"],
-  secondary: ["color-contrast"],
-  ghost: ["color-contrast"],
+  /* secondary — **더 이상 걸리지 않는다.** `5566ecd` 가 secondary 에 잉크 8% 면을 주면서
+   * 라벨 뒤 바탕이 바뀌었고 axe 가 위반을 내지 않는다. 이 목록에 남겨 두면 「기대한 위반이
+   * 없다」로 테스트가 죽는다 — 값이 좋아진 것을 목록이 못 따라간 자리다.
+   * 값을 바꾼 것이 아니라 낡은 기록을 걷은 것이다. */
+  /* ghost — secondary 와 같은 이유로 더 이상 걸리지 않는다. 램프 재조정(origin/main 의
+   * 회색 20여 커밋)이 라벨과 바탕의 관계를 바꿨다. */
+  ghost: [],
   danger: ["color-contrast"],
   /* danger-secondary/color-contrast — 실측 2.82:1 이다(axe: #ff4b59 글자, 12% 면이 흰 바닥에
    * 합성된 #ffe9eb, 14px normal 이라 기준 4.5). **네 variant 가 이미 4.5 에 미달한 그 판정의

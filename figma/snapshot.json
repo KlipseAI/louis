@@ -3,15 +3,15 @@
   "provenance": {
     "figmaFileKey": "OlYKERKOkgbxBEEoXGZW2c",
     "figmaFileName": "LOUIS",
-    "capturedAt": "2026-08-29",
-    "capturedBy": "use_figma 전수 캡처 + proposal 대조. 변수는 이름·값·alias 를 Figma 실물과 대조해 확인했다(FNV-1a 정본 해시 · 516행). scopes 문자열과 float 정밀도(예: line-height/heading 을 Figma 는 1.350000023841858 로 보관)는 Figma 쪽 저장 형태라 proposal 값을 쓴다 — 게이트가 보는 축이 아니다. components 41개는 use_figma 로 각 set 을 순회해 뜬 값이고, MediaCard·CarouselArrow 2개와 랜딩 4개(StepTile·FaqRow·NewsCard·GnbMenuItem)는 scripts/figma-readback-emit.mjs 가 낸 채취 코드로 떴다(2026-08-26). 그 emitter 로 Keycap·Badge 를 다시 떠 기존 값과 정규화 바이트 일치를 확인했다. Button·IconButton·Slider·ProjectCard 는 일치하지 않으며 사유는 emitter 머리말의 「알려진 어긋남」에 적었다 — 되읽기가 낡은 것이지 emitter 가 틀린 것이 아니다. 2026-08-27 DS-D-0029 재캡처: 변수 24개를 라이브에서 옮기고(이름 14 · 삭제 10) 되읽기 행을 같은 작업에서 맞췄다. 전수 덤프 대신 **행 지문 대조**로 확인했다 — 라이브에서 [이름, resolvedType, mode 값]을 mode 이름순으로 정규화해 행마다 FNV-1a 를 내고 되읽기에서 같은 방식으로 낸 집합과 맞췄다(응답 20KB 제한 때문에 전수 덤프는 잘린다). 라이브 506행 중 어긋난 것은 2행이고 둘 다 이 주석이 이미 예외로 적어 둔 float 정밀도다 — scale/tooltip-rest(Figma 0.9700000286102295 vs 0.97) · color/green-500-alpha/08(Figma 0.7765,0.5569 vs 0.776471,0.556863). scopes 열은 여전히 proposal 값이다. 2026-08-29 PaneDivider 등재: 새 component set 하나를 `--components --only PaneDivider` 채취 코드로 떠 `--merge` 했고(49 → 50), 새 변수 7개 행을 `--variables`/`--merge-variables` 로 넣었다(497 → 504 · scopes 는 규칙대로 proposal 값). **이 기록은 전수가 아니다** — 위 열거(41 + 2 + 4)가 47 이라 InlineLoadingLabel · SegmentedCodeInput 두 개는 채취 경로가 적혀 있지 않다. 다음 사람이 이 문단을 명부로 읽지 않도록 적어 둔다.",
+    "capturedAt": "2026-09-03",
+    "capturedBy": "use_figma 전수 캡처 + proposal 대조. 변수는 이름·값·alias 를 Figma 실물과 대조해 확인했다(FNV-1a 정본 해시 · 516행). scopes 문자열과 float 정밀도(예: line-height/heading 을 Figma 는 1.350000023841858 로 보관)는 Figma 쪽 저장 형태라 proposal 값을 쓴다 — 게이트가 보는 축이 아니다. components 41개는 use_figma 로 각 set 을 순회해 뜬 값이고, MediaCard·CarouselArrow 2개와 랜딩 4개(StepTile·FaqRow·NewsCard·GnbMenuItem)는 scripts/figma-readback-emit.mjs 가 낸 채취 코드로 떴다(2026-08-26). 그 emitter 로 Keycap·Badge 를 다시 떠 기존 값과 정규화 바이트 일치를 확인했다. Button·IconButton·Slider·ProjectCard 는 일치하지 않으며 사유는 emitter 머리말의 「알려진 어긋남」에 적었다 — 되읽기가 낡은 것이지 emitter 가 틀린 것이 아니다. 2026-08-27 DS-D-0029 재캡처: 변수 24개를 라이브에서 옮기고(이름 14 · 삭제 10) 되읽기 행을 같은 작업에서 맞췄다. 전수 덤프 대신 **행 지문 대조**로 확인했다 — 라이브에서 [이름, resolvedType, mode 값]을 mode 이름순으로 정규화해 행마다 FNV-1a 를 내고 되읽기에서 같은 방식으로 낸 집합과 맞췄다(응답 20KB 제한 때문에 전수 덤프는 잘린다). 라이브 506행 중 어긋난 것은 2행이고 둘 다 이 주석이 이미 예외로 적어 둔 float 정밀도다 — scale/tooltip-rest(Figma 0.9700000286102295 vs 0.97) · color/green-500-alpha/08(Figma 0.7765,0.5569 vs 0.776471,0.556863). scopes 열은 여전히 proposal 값이다. 2026-08-29 PaneDivider 등재: 새 component set 하나를 `--components --only PaneDivider` 채취 코드로 떠 `--merge` 했고(49 → 50), 새 변수 7개 행을 `--variables`/`--merge-variables` 로 넣었다(497 → 504 · scopes 는 규칙대로 proposal 값). **이 기록은 전수가 아니다** — 위 열거(41 + 2 + 4)가 47 이라 InlineLoadingLabel · SegmentedCodeInput 두 개는 채취 경로가 적혀 있지 않다. 다음 사람이 이 문단을 명부로 읽지 않도록 적어 둔다. 2026-09-03 accent-secondary: `color/accent-secondary` 를 라이브에 세우고(`build-figma-variables --only` 가 낸 적용 코드) `color/accent-secondary-hover` 를 4%/8% 에서 12% 로 옮겼다 — 둘 다 `5566ecd` 가 CSS·토큰만 바꾸고 두고 간 자리다. Button set 의 secondary 60칸 중 면이 없던 48칸(Default·Active·Disabled·Loading)에 그 변수를 물렸다(boundFills 612 → 660). 변수 2행은 `--variables`/`--merge-variables` 로, Button 블록은 `--components --only Button` 으로 같은 작업에서 다시 떴다. **Klipse Primitive 블록은 이 작업이 건드리지 않았고 라이브와 어긋난 채다** — 라이브에는 `palette-gray/050`·`/150` 이 없는데 되읽기는 그 두 행을 갖고 있고(180행 vs 라이브 178), 회색 열 값도 서로 다르다. `color/bg-surface-translucent` 는 그 반대로 라이브에 있는데 되읽기에 없다.",
     "published": false,
-    "tokenSourceSha256": "e9be5d4aaf18a015a2e29de6e07c2a65f2ebc37e82a61fc6809e53d59d45ab40",
-    "proposalSha256": "fd0ab4d67aff3d638ff3e97c6bb8b55b9279bf64fd5ca32e703d9a57f2cf90d4",
+    "tokenSourceSha256": "75f028b7fc23d8b7c08ac660da5416cbc4bd648bfe2ae4bec552e1ff6f90b811",
+    "proposalSha256": "d74971a985b8aba1d50ec7bfbfcd5c06def64a88edb2911429a5954796f86e00",
     "readback": {
-      "tokens": 506,
-      "canonicalLength": 50724,
-      "fnv1a32": "303f9e35",
+      "tokens": 509,
+      "canonicalLength": 51182,
+      "fnv1a32": "d07a3f26",
       "note": "변수는 readback.json의 되읽기 행을 tokenId 공간으로 옮긴 것이고, style과 component는 같은 되읽기의 style/component 절이다. canonical 해시는 컬렉션·이름·타입·mode 값을 정렬해 이은 문자열의 FNV-1a다.",
       "styles": {
         "text": 15,
@@ -19,7 +19,7 @@
       },
       "components": {
         "sets": 51,
-        "variants": 559
+        "variants": 620
       },
       "icons": 31,
       "templates": 9
@@ -46,7 +46,7 @@
         "Dark"
       ],
       "defaultMode": "Light",
-      "variableCount": 185
+      "variableCount": 188
     }
   },
   "variables": {
@@ -314,6 +314,30 @@
         }
       }
     },
+    "color-accent-danger-secondary": {
+      "figmaName": "color/accent-danger-secondary",
+      "resolvedType": "COLOR",
+      "valuesByMode": {
+        "Light": {
+          "alias": "color-red-alpha-12"
+        },
+        "Dark": {
+          "alias": "color-red-alpha-12"
+        }
+      }
+    },
+    "color-accent-danger-secondary-hover": {
+      "figmaName": "color/accent-danger-secondary-hover",
+      "resolvedType": "COLOR",
+      "valuesByMode": {
+        "Light": {
+          "alias": "color-red-alpha-24"
+        },
+        "Dark": {
+          "alias": "color-red-alpha-24"
+        }
+      }
+    },
     "color-accent-ghost-hover": {
       "figmaName": "color/accent-ghost-hover",
       "resolvedType": "COLOR",
@@ -410,6 +434,18 @@
         }
       }
     },
+    "color-accent-secondary": {
+      "figmaName": "color/accent-secondary",
+      "resolvedType": "COLOR",
+      "valuesByMode": {
+        "Light": {
+          "alias": "color-static-black-alpha-08"
+        },
+        "Dark": {
+          "alias": "color-static-white-alpha-08"
+        }
+      }
+    },
     "color-accent-secondary-foreground": {
       "figmaName": "color/accent-secondary-foreground",
       "resolvedType": "COLOR",
@@ -426,11 +462,11 @@
       "figmaName": "color/accent-secondary-hover",
       "resolvedType": "COLOR",
       "valuesByMode": {
-        "Dark": {
-          "alias": "color-static-white-alpha-08"
-        },
         "Light": {
-          "alias": "color-static-black-alpha-04"
+          "alias": "color-static-black-alpha-12"
+        },
+        "Dark": {
+          "alias": "color-static-white-alpha-12"
         }
       }
     },
@@ -6964,7 +7000,7 @@
     "Button": {
       "outsideParts": [],
       "tokenId": "button",
-      "variantCount": 300,
+      "variantCount": 360,
       "hasDescription": true,
       "properties": {
         "Label": {
@@ -6983,7 +7019,8 @@
             "secondary",
             "ghost",
             "danger",
-            "inverse"
+            "inverse",
+            "danger-secondary"
           ]
         },
         "Size": {
@@ -7015,11 +7052,11 @@
         }
       },
       "binding": {
-        "boundFills": 492,
+        "boundFills": 660,
         "rawFills": 0,
         "boundStrokes": 0,
         "rawStrokes": 0,
-        "textStyled": 300,
+        "textStyled": 360,
         "textUnstyled": 0
       },
       "geometry": {
@@ -7041,11 +7078,10 @@
           ],
           "width": [
             57,
-            79,
+            77,
             75,
             93,
-            99,
-            119
+            95
           ],
           "paddingBlock": [
             0
@@ -7062,16 +7098,24 @@
             14
           ],
           "itemSpacing": [
-            4,
-            6
+            4
           ],
           "cornerRadius": [
             12
+          ],
+          "minWidth": [
+            48
           ],
           "layoutMode": [
             "HORIZONTAL"
           ],
           "strokeWeight": [],
+          "childOrder": [
+            "Spinner",
+            "LeftIcon",
+            "Label",
+            "RightIcon"
+          ],
           "overflowingParts": [],
           "offCenterMarks": []
         },
@@ -7093,11 +7137,10 @@
           ],
           "width": [
             49,
-            71,
+            69,
             67,
             85,
-            91,
-            111
+            87
           ],
           "paddingBlock": [
             0
@@ -7114,16 +7157,24 @@
             10
           ],
           "itemSpacing": [
-            4,
-            6
+            4
           ],
           "cornerRadius": [
             12
+          ],
+          "minWidth": [
+            48
           ],
           "layoutMode": [
             "HORIZONTAL"
           ],
           "strokeWeight": [],
+          "childOrder": [
+            "Spinner",
+            "LeftIcon",
+            "Label",
+            "RightIcon"
+          ],
           "overflowingParts": [],
           "offCenterMarks": []
         },
@@ -7148,8 +7199,7 @@
             57,
             55,
             73,
-            75,
-            93
+            75
           ],
           "paddingBlock": [
             0
@@ -7171,16 +7221,29 @@
           "cornerRadius": [
             8
           ],
+          "minWidth": [
+            48
+          ],
           "layoutMode": [
             "HORIZONTAL"
           ],
           "strokeWeight": [],
+          "childOrder": [
+            "Spinner",
+            "LeftIcon",
+            "Label",
+            "RightIcon"
+          ],
           "overflowingParts": [],
           "offCenterMarks": []
         }
       },
       "strokes": {},
-      "effects": {}
+      "effects": {
+        "self": [
+          "INNER_SHADOW:0:0:0.5"
+        ]
+      }
     },
     "CarouselArrow": {
       "outsideParts": [],
@@ -7456,7 +7519,7 @@
     "Dialog": {
       "outsideParts": [],
       "tokenId": "dialog",
-      "variantCount": 4,
+      "variantCount": 5,
       "hasDescription": true,
       "properties": {
         "Title": {
@@ -7464,6 +7527,9 @@
         },
         "Description": {
           "type": "TEXT"
+        },
+        "HasClose": {
+          "type": "BOOLEAN"
         },
         "Size": {
           "type": "VARIANT",
@@ -7474,23 +7540,60 @@
             "sheet"
           ]
         },
-        "HasClose": {
-          "type": "BOOLEAN"
+        "Tone": {
+          "type": "VARIANT",
+          "options": [
+            "neutral",
+            "danger"
+          ]
         }
       },
       "binding": {
-        "boundFills": 9,
+        "boundFills": 20,
         "rawFills": 0,
-        "boundStrokes": 3,
+        "boundStrokes": 5,
         "rawStrokes": 0,
-        "textStyled": 6,
+        "textStyled": 10,
         "textUnstyled": 0
       },
       "geometry": {
         "compact": {
           "slots": {},
+          "parts": {
+            "Footer": {
+              "paddingTop": [
+                24
+              ],
+              "paddingInline": [
+                8
+              ],
+              "paddingInlineEnd": [
+                8
+              ],
+              "paddingBottom": [
+                8
+              ],
+              "children": [
+                1
+              ]
+            },
+            "Actions": {
+              "itemSpacing": [
+                8
+              ],
+              "children": [
+                2
+              ],
+              "layoutMode": [
+                "HORIZONTAL"
+              ],
+              "primaryAxisAlignItems": [
+                "MAX"
+              ]
+            }
+          },
           "height": [
-            232
+            240
           ],
           "width": [
             360
@@ -7510,7 +7613,10 @@
           "itemSpacing": [
             8
           ],
-          "cornerRadius": [
+          "topLeftRadius": [
+            24
+          ],
+          "bottomLeftRadius": [
             24
           ],
           "layoutMode": [
@@ -7520,7 +7626,10 @@
             0.5
           ],
           "overflowingParts": [],
-          "offCenterMarks": [],
+          "offCenterMarks": []
+        },
+        "large": {
+          "slots": {},
           "parts": {
             "Footer": {
               "paddingTop": [
@@ -7553,12 +7662,9 @@
                 "MAX"
               ]
             }
-          }
-        },
-        "large": {
-          "slots": {},
+          },
           "height": [
-            199
+            207
           ],
           "width": [
             720
@@ -7578,7 +7684,10 @@
           "itemSpacing": [
             8
           ],
-          "cornerRadius": [
+          "topLeftRadius": [
+            16
+          ],
+          "bottomLeftRadius": [
             16
           ],
           "layoutMode": [
@@ -7588,7 +7697,10 @@
             0.5
           ],
           "overflowingParts": [],
-          "offCenterMarks": [],
+          "offCenterMarks": []
+        },
+        "medium": {
+          "slots": {},
           "parts": {
             "Footer": {
               "paddingTop": [
@@ -7621,12 +7733,9 @@
                 "MAX"
               ]
             }
-          }
-        },
-        "medium": {
-          "slots": {},
+          },
           "height": [
-            199
+            207
           ],
           "width": [
             480
@@ -7646,7 +7755,10 @@
           "itemSpacing": [
             8
           ],
-          "cornerRadius": [
+          "topLeftRadius": [
+            16
+          ],
+          "bottomLeftRadius": [
             16
           ],
           "layoutMode": [
@@ -7656,7 +7768,10 @@
             0.5
           ],
           "overflowingParts": [],
-          "offCenterMarks": [],
+          "offCenterMarks": []
+        },
+        "sheet": {
+          "slots": {},
           "parts": {
             "Footer": {
               "paddingTop": [
@@ -7689,7 +7804,42 @@
                 "MAX"
               ]
             }
-          }
+          },
+          "height": [
+            320
+          ],
+          "width": [
+            480
+          ],
+          "paddingBlock": [
+            24.5
+          ],
+          "paddingBlockEnd": [
+            24.5
+          ],
+          "paddingInline": [
+            24.5
+          ],
+          "paddingInlineEnd": [
+            24.5
+          ],
+          "itemSpacing": [
+            8
+          ],
+          "topLeftRadius": [
+            16
+          ],
+          "bottomLeftRadius": [
+            0
+          ],
+          "layoutMode": [
+            "VERTICAL"
+          ],
+          "strokeWeight": [
+            0.5
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
         }
       },
       "strokes": {
@@ -9581,11 +9731,11 @@
         "textUnstyled": 0
       },
       "geometry": {
-        "default": {
+        "panel": {
           "slots": {},
           "parts": {},
           "height": [
-            1
+            0.5
           ],
           "width": [
             200
@@ -12334,7 +12484,7 @@
             }
           },
           "height": [
-            41
+            43
           ],
           "width": [
             240
@@ -12343,7 +12493,7 @@
             0
           ],
           "paddingBlockEnd": [
-            0
+            2
           ],
           "paddingInline": [
             0
@@ -12364,8 +12514,6 @@
             2
           ],
           "overflowingParts": [
-            "Rail",
-            "Fill",
             "FocusRing"
           ],
           "offCenterMarks": []

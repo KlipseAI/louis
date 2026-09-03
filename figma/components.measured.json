@@ -111,8 +111,8 @@
         },
         "secondary": {
           "Default": {
-            "background": null,
-            "$background": "투명 배경",
+            "background": "color-accent-secondary",
+            "$background": "잉크 8% 면 (color-accent-secondary). 팔레트 칸이 아니라 알파인 이유는 이 버튼이 카드·패널·바닥 어느 면 위에도 서기 때문이다 — 바탕이 한 칸 움직여도 관계가 그대로 따라온다 (5566ecd `feat(color): secondary 에 8% 잉크 면을 준다`, button.css:174-183)",
             "foreground": "color-accent-secondary-foreground",
             "$foreground": "action secondary foreground 토큰",
             "border": "color-stroke-hairline",
@@ -135,16 +135,16 @@
             "$border": "generic 헤어라인 (color-stroke-hairline, DS-D-0023)"
           },
           "Disabled": {
-            "background": null,
-            "$background": "투명 배경",
+            "background": "color-accent-secondary",
+            "$background": "잉크 8% 면을 그대로 둔다 — disabled/loading 에서 면을 bg-inset 으로 바꾸는 규칙(button.css:290-301)에 secondary 는 들어 있지 않다. 상태는 헤어라인이 아니라 foreground 가 전달한다는 같은 파일 303행의 판정과 한 짝이다",
             "foreground": "color-fg-disabled",
             "$foreground": "disabled 전경 토큰",
             "border": "color-stroke-hairline",
             "$border": "generic 헤어라인 (color-stroke-hairline, DS-D-0023)"
           },
           "Loading": {
-            "background": null,
-            "$background": "투명 배경",
+            "background": "color-accent-secondary",
+            "$background": "잉크 8% 면을 그대로 둔다 — disabled/loading 에서 면을 bg-inset 으로 바꾸는 규칙(button.css:290-301)에 secondary 는 들어 있지 않다. 상태는 헤어라인이 아니라 foreground 가 전달한다는 같은 파일 303행의 판정과 한 짝이다",
             "foreground": "color-fg-disabled",
             "$foreground": "disabled 전경 토큰",
             "border": "color-stroke-hairline",

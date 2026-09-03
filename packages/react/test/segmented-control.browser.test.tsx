@@ -80,12 +80,15 @@ function Fixture({
   );
 }
 
-// 컨트롤 높이 사다리의 세 칸이다 — lg(40) · md(32) · sm(24). `xs` 는 타입에는 있지만
-// `components.measured.json` 에 계약이 없다(사다리가 아니라 인스펙터 전용 지역 예외다) — 즉
-// 시스템이 파는 크기인데 대조되지 않는다. 여기서 `readonly SegmentedControlSize[]` 로 넓게
-// 선언하면 `size` 가 `xs` 를 포함해 measured 색인이 타입 오류를 낸다. 넓힌 타입이 거짓이므로
-// **실제로 대조하는 셋으로 좁힌다.** `xs` 의 계약이 생기면 여기에 더한다.
-const SIZES = ["lg", "md", "sm"] as const satisfies readonly SegmentedControlSize[];
+// 사다리의 세 칸(lg 40 · md 32 · sm 24)과 지역 예외 하나(`settings` 36)다. `xs` 는 타입에는
+// 있지만 `components.measured.json` 에 계약이 없다(인스펙터 전용 지역 예외인데 세 곳이 갈려
+// 있어 계약을 세운 적이 없다) — 즉 시스템이 파는 크기인데 대조되지 않는다. 여기서
+// `readonly SegmentedControlSize[]` 로 넓게 선언하면 `size` 가 `xs` 를 포함해 measured 색인이
+// 타입 오류를 낸다. 넓힌 타입이 거짓이므로 **실제로 대조하는 것만 적는다.**
+//
+// `settings` 는 계약과 함께 섰으므로 처음부터 여기 있다 — 「계약이 생기면 더한다」던 문장이
+// `xs` 에서 아직 안 지켜지고 있고, 새 칸이 같은 자리에 또 쌓이지 않게 한다.
+const SIZES = ["lg", "md", "sm", "settings"] as const satisfies readonly SegmentedControlSize[];
 
 for (const size of SIZES) {
   const spec = measured.components["segmented-control"].sizes[size];
@@ -136,6 +139,25 @@ for (const size of SIZES) {
     );
   });
 }
+
+// **`settings` 의 트랙 높이는 선언이 아니라 파생이다.** 위 루프는 36 이 «나온다»는 것만 보지
+// 어디서 나왔는지는 보지 않는다 — CSS 가 `block-size: 36px` 로 바뀌어도 그 단언은 통과한다.
+// 그러면 세그먼트를 고칠 때 트랙이 따라오지 않고, 제품이 36 을 만드는 방식(높이 선언 없음)과도
+// 갈라진다. 그래서 **선언 자체**를 본다.
+test("settings 트랙은 높이를 선언하지 않고 세그먼트에서 파생한다", async () => {
+  await render(<Fixture size="settings" />);
+  const track = find(".louis-segmented-control");
+  const trackStyle = getComputedStyle(track);
+  const segment = find(".louis-segmented-control__segment");
+
+  const spec = measured.components["segmented-control"].sizes.settings;
+  // 파생식 자체. 제품 `settingsToggleWrap`(padding 4) + `settingsToggleBtn`(height 28) 이다.
+  expect(segment.offsetHeight + px(trackStyle.paddingTop) * 2, "4 + 28 + 4").toBe(spec.trackHeight);
+  // 그리고 그 높이가 «선언되지 않았다». `block-size: auto` 이므로 계산 스타일의 height 는
+  // 내용에서 나온 값이고, 인라인으로 세그먼트를 키우면 트랙이 따라 자라야 한다.
+  segment.style.blockSize = "40px";
+  expect(track.offsetHeight, "세그먼트를 키우면 트랙이 따라 자란다").toBe(48);
+});
 
 test("sm의 세그먼트가 caption 행 높이보다 낮지 않다", async () => {
   // **이것이 sm에서 트랙 padding을 4로 두지 못한 이유다.** 4면 세그먼트가 24 − 8 = 16인데 caption

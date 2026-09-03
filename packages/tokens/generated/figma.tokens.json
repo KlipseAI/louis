@@ -16270,6 +16270,57 @@
             }
           }
         },
+        "color-accent-secondary-selected": {
+          "$type": "color",
+          "fields": [],
+          "figmaName": "color/accent-secondary-selected",
+          "hiddenFromPublishing": false,
+          "losses": [],
+          "nativeVariableType": "COLOR",
+          "representation": "variable",
+          "scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL",
+            "STROKE_COLOR",
+            "TEXT_FILL"
+          ],
+          "valuesByMode": {
+            "Dark": {
+              "$value": "{primitive.color.static-white-alpha.20}",
+              "aliasTarget": {
+                "id": "color-static-white-alpha-20",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 0.2,
+                "colorSpace": "srgb",
+                "components": [
+                  1,
+                  1,
+                  1
+                ]
+              },
+              "sourcePath": "semantic.dark.color.accent-secondary-selected"
+            },
+            "Light": {
+              "$value": "{primitive.color.static.white}",
+              "aliasTarget": {
+                "id": "color-static-white",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 1,
+                "colorSpace": "srgb",
+                "components": [
+                  1,
+                  1,
+                  1
+                ]
+              },
+              "sourcePath": "semantic.light.color.accent-secondary-selected"
+            }
+          }
+        },
         "color-alert-danger-foreground": {
           "$type": "color",
           "fields": [],

@@ -2,23 +2,23 @@
   "artifacts": [
     {
       "path": "packages/tokens/generated/figma.tokens.json",
-      "sha256": "c757de9f6c64fd750dc8f32871846e358aac61b824ed0c995d0197e58fdd50ed"
+      "sha256": "9ad0d40b615e4074a35bbe6e8ebedd33ede8ba25f39901b964db7a3443ee6139"
     },
     {
       "path": "packages/tokens/generated/index.d.ts",
-      "sha256": "f5cc571be12ea85a631470eda961f95f9a5b4e7439885dfe6d3d46789374db4a"
+      "sha256": "92fe6b659463eb12c948a70468e6e34d710ecc541dd266404544138280724289"
     },
     {
       "path": "packages/tokens/generated/index.js",
-      "sha256": "c920ecfc81d95531653abb950f6002c0e6a73fa89a0f16709ed47732c7776d03"
+      "sha256": "6364232feb7b9ca9c03820c869794fa2b8bc3b8400f7eaf783221b8871565c40"
     },
     {
       "path": "packages/tokens/generated/tokens.css",
-      "sha256": "10e9ad92f966ab7813dafad621616fd2a4c73a6851dc20b0791fb4b6043c2c50"
+      "sha256": "d7ed3f5dc05240a41261e2a05761c4c05fb2c9e75e567f57a7cd76a42eb461ff"
     },
     {
       "path": "packages/tokens/generated/tokens.json",
-      "sha256": "d2a0ba907efc5e378a2768da525931cbb3fbe8046ef08d5442e2ae03fab50591"
+      "sha256": "9b2972fa5e839f628326b1cb4335795b1a0fd8c47caecdef489491f922d729ba"
     }
   ],
   "contrastPairs": [
@@ -419,13 +419,13 @@
   },
   "source": {
     "path": "packages/tokens/src/klipse.tokens.json",
-    "sha256": "d534b631a99deea260cd89dffef03281de2651af05adf2b24a751c5e6c5943cc"
+    "sha256": "dab9d46d2754c914e12a4365d4fa7faf5ad2ca94c6e7afc1540aba89cccb2bfb"
   },
   "themes": [
     "light",
     "dark"
   ],
-  "tokenCount": 783,
+  "tokenCount": 785,
   "tokens": [
     {
       "aliasTarget": {
@@ -1728,6 +1728,58 @@
         ]
       },
       "sourcePath": "semantic.dark.color.accent-secondary-hover",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-static-white",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-accent-secondary-selected": "color(srgb 1 1 1 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-accent-secondary-selected",
+      "mode": "light",
+      "rawValue": "{primitive.color.static.white}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          1,
+          1
+        ]
+      },
+      "sourcePath": "semantic.light.color.accent-secondary-selected",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-static-white-alpha-20",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-accent-secondary-selected": "color(srgb 1 1 1 / 0.2)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-accent-secondary-selected",
+      "mode": "dark",
+      "rawValue": "{primitive.color.static-white-alpha.20}",
+      "resolvedValue": {
+        "alpha": 0.2,
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          1,
+          1
+        ]
+      },
+      "sourcePath": "semantic.dark.color.accent-secondary-selected",
       "tier": "semantic",
       "type": "color"
     },

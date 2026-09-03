@@ -33,6 +33,7 @@
   --color-accent-secondary: var(--louis-color-accent-secondary);
   --color-accent-secondary-foreground: var(--louis-color-accent-secondary-foreground);
   --color-accent-secondary-hover: var(--louis-color-accent-secondary-hover);
+  --color-accent-secondary-selected: var(--louis-color-accent-secondary-selected);
   --color-alert-danger-foreground: var(--louis-color-alert-danger-foreground);
   --color-alert-danger-stroke: var(--louis-color-alert-danger-stroke);
   --color-alert-danger-surface: var(--louis-color-alert-danger-surface);

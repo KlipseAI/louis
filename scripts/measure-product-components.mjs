@@ -673,26 +673,20 @@ const PROBES = [
     hostWidth: 960,
     read: ["paddingTop", "columnGap", "right", "bottom", "borderTopLeftRadius"],
   },
-  {
-    id: "carousel-controls-filled",
-    // `controlsHeight` 는 컨트롤 알약에 높이 선언이 **없는** 파생 축이다 — 패딩 위아래 +
-    // 자식 최대 높이(화살표 28)로만 결정된다. 자식이 없는 `carousel-controls` 로는 낼 수 없어
-    // 두 겹을 세운다. 그전에는 이 한 축만 클래스를 손으로 이어 붙인 `html` 이었고 주석이
-    // 스스로 드리프트 위험을 적어 두었는데, `childFrom` 이 생겨 그 위험이 없어졌다.
-    source: "appHomeSceneStyles.ts bannerControls + 자식 bannerArrowButton 하나 — 높이 합",
-    from: ["appHome", "bannerControls"],
-    childFrom: ["appHome", "bannerArrowButton"],
-    childTag: "button",
-    hostWidth: 960,
-    read: ["height"],
-  },
-  {
-    id: "carousel-arrow",
-    source: "appHomeSceneStyles.ts bannerArrowButton (= .louis-banner-carousel__arrow)",
-    from: ["appHome", "bannerArrowButton"],
-    tag: "button",
-    read: ["width", "height", "borderTopLeftRadius"],
-  },
+  // ── 내린 탐침: carousel-controls-filled · carousel-arrow ─────────────────
+  // **제품이 앱 홈 배너에서 화살표를 지웠다.** 2026-09-03 앵커 재고정(`ae8fd627` →
+  // `5a67d692`)에서 `appHomeSceneStyles.ts` 의 `bannerArrowButton` 상수가 사라진 것이 드러났고,
+  // 같은 파일 `bannerControls` 의 주석이 그 사실을 적는다 — 「이 화면은 화살표를 그리지 않으므로
+  // 기본 배치를 그대로 받는다」. 소비처(`AppHomeScene.tsx:950-969`)도 점만 그린다.
+  //
+  // 둘을 남겨 두면 `extractClassList` 가 「상수를 찾지 못했습니다」로 **던져서** 이 측정기가
+  // 통째로 죽는다. 그러면 이 파일이 이미 잡고 있던 축 26건의 어긋남이 그 예외 뒤로 가려진다 —
+  // 이 저장소가 canary 마다 경계하는 「기존 실패에 가려짐」이 측정기 수준에서 일어난다.
+  //
+  // **값을 옮겨 적어 살려 두지 않는다.** `controlsHeight` 는 자식 최대 높이(화살표 28)로만
+  // 결정되는 파생 축이었으므로, 자식이 없어진 지금 그 축은 제품에 **없다.** 화살표 자체는
+  // LOUIS `.louis-banner-carousel__arrow` 가 계속 갖고 있고 banner-carousel 계약이 그것을
+  // 재지만, 그것은 제품 실측이 아니라 DS 실측이다. 제품이 화살표를 다시 그리면 그때 되살린다.
   {
     id: "carousel-dots",
     source: "appHomeSceneStyles.ts bannerDots (= .louis-banner-carousel__dots)",
@@ -1270,8 +1264,16 @@ const PROBES = [
   },
   {
     id: "route-error-cta-product",
-    source: "error.tsx PAGE_CTA — 공용 Button(primary) 위에 얹히는 여백만. 404 의 복제다",
-    from: ["errorBoundary", "PAGE_CTA"],
+    // **2026-09-03 재고정: `PAGE_CTA` → `PAGE_ACTIONS` 로 이름과 내용이 함께 바뀌었다.**
+    // `"mt-6!"` 한 줄이던 것이 `"mt-6! flex items-center gap-2"` 가 됐다 — 오류 화면이 버튼
+    // 하나에서 **버튼 + 링크형 버튼(`LINK_AS_BUTTON`) 두 개짜리 액션 행**으로 자랐다.
+    // 이 탐침이 재는 축(`marginTop`)은 그대로 `mt-6!` 이 소유하므로 이름만 옮긴다.
+    // **아래 「404 와 오류는 바이트까지 같은 복제」라는 위 주석의 전제는 이제 깨졌다** —
+    // `not-found-content.tsx` 는 아직 `PAGE_CTA` 다. 두 벌을 다 재기로 한 결정이 바로 이런
+    // 갈라짐을 잡으려던 것이고, 실제로 잡혔다. 갈라진 축(액션 개수·행 배치)은 아직 아무도 재지
+    // 않는다 — 새 탐침을 세우는 것은 재고정의 몫이 아니다.
+    source: "error.tsx PAGE_ACTIONS — 공용 Button(primary) 위에 얹히는 여백만. 404 의 PAGE_CTA 와 갈라졌다",
+    from: ["errorBoundary", "PAGE_ACTIONS"],
     tag: "button",
     text: "다시 시도",
     read: ["marginTop"],
@@ -1949,7 +1951,10 @@ const EXPECT = [
   // 결정이다 — 네 홈의 카드 그리드를 4 로 통일했다. 기록을 그 결정에 맞춘다.
   ["project-grid", "columnGap", ["project-card", "sizes", "base", "gridGap"], "same"],
   ["carousel-content", "height", ["banner-carousel", "sizes", "boxed", "height"], "same"],
-  ["carousel-arrow", "borderTopLeftRadius", ["banner-carousel", "sizes", "boxed", "arrowRadius"], "same"],
+  // 배너 화살표를 재던 대조 행 여덟(`carousel-arrow` 여섯 · `carousel-controls-filled` 둘)을 함께 내렸다 — 탐침이 없어졌으므로 이 행들은
+  // 「EXPECT가 없는 탐침을 가리킵니다」로 측정기를 죽인다. 제품에 없어진 축이지
+  // DS 에 없어진 축이 아니다: `banner-carousel` 의 arrowSize·arrowRadius·
+  // controlsHeight 는 계약에 그대로 있고 LOUIS 브라우저 테스트가 계속 잰다.
   ["carousel-controls", "borderTopLeftRadius", ["banner-carousel", "sizes", "boxed", "controlsRadius"], "same"],
   ["carousel-dot-active", "borderTopLeftRadius", ["banner-carousel", "sizes", "boxed", "dotRadius"], "same"],
   ["carousel-dot-active", "height", ["banner-carousel", "sizes", "boxed", "dotHeight"], "same"],
@@ -2030,13 +2035,6 @@ const EXPECT = [
   ["carousel-controls", "columnGap", ["banner-carousel", "sizes", "boxed", "controlsGap"], "same"],
   ["carousel-controls", "columnGap", ["banner-carousel", "sizes", "full", "controlsGap"], "same"],
   ["carousel-controls", "borderTopLeftRadius", ["banner-carousel", "sizes", "full", "controlsRadius"], "same"],
-  ["carousel-controls-filled", "height", ["banner-carousel", "sizes", "boxed", "controlsHeight"], "same"],
-  ["carousel-controls-filled", "height", ["banner-carousel", "sizes", "full", "controlsHeight"], "same"],
-  ["carousel-arrow", "width", ["banner-carousel", "sizes", "boxed", "arrowSize"], "same"],
-  ["carousel-arrow", "width", ["banner-carousel", "sizes", "full", "arrowSize"], "same"],
-  ["carousel-arrow", "height", ["banner-carousel", "sizes", "boxed", "arrowSize"], "same"],
-  ["carousel-arrow", "height", ["banner-carousel", "sizes", "full", "arrowSize"], "same"],
-  ["carousel-arrow", "borderTopLeftRadius", ["banner-carousel", "sizes", "full", "arrowRadius"], "same"],
   ["carousel-dots", "columnGap", ["banner-carousel", "sizes", "boxed", "dotsGap"], "same"],
   ["carousel-dots", "columnGap", ["banner-carousel", "sizes", "full", "dotsGap"], "same"],
   ["carousel-dot-active", "width", ["banner-carousel", "sizes", "boxed", "dotActiveWidth"], "same"],

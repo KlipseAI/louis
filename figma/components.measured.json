@@ -1749,7 +1749,10 @@
           "radius": 12,
           "controlGlyphCount": 1,
           "$controlGlyphCount": "1. 화살표/정지 글리프 1개",
-          "dotsGap": 4
+          "dotsGap": 4,
+          "$arrowSize": "28px. **제품 대조가 없다** — 앱 홈 배너가 화살표를 더는 그리지 않는다(제품 `5a67d692`: `appHomeSceneStyles.ts` 에서 `bannerArrowButton` 이 사라졌고 `bannerControls` 주석이 「이 화면은 화살표를 그리지 않는다」고 적는다). 값은 LOUIS `.louis-banner-carousel__arrow` 의 것이고 banner-carousel 브라우저 테스트가 계속 잰다. 제품이 다시 그리면 대조 행을 되살린다.",
+          "$arrowRadius": "999px. 위 `$arrowSize` 와 같은 이유로 제품 대조가 없다.",
+          "$controlsHeight": "28px. 파생 축이다 — 컨트롤 알약에 높이 선언이 없고 패딩 + 자식 최대 높이로 결정된다. 그 자식이 화살표였는데 제품이 지우면서 **제품 쪽에는 이 축 자체가 없어졌다**. 값은 LOUIS 레시피의 것이다."
         },
         "full": {
           "width": 960,
@@ -1772,7 +1775,10 @@
           "$radius": "0. **제품 대조를 잃은 축이다.** bleed 로 갈리는 유일한 값인데, 제품이 6602fd24 에서 CAROUSEL_FULL_BLEED 를 파일과 함께 지운 뒤로 [data-bleed=\"full\"] 을 거는 자리가 한 곳도 없다. 셸에 우리 손으로 그 속성을 걸어 재면 제품 실측이 아니라 LOUIS 를 LOUIS 로 재는 것이라 탐침을 세우지 않았다. 값 자체는 packages/css/src/component/banner-carousel.css 의 [data-bleed=\"full\"] 규칙이 소유한다. 제품에 full-bleed 소비처가 다시 서면 탐침을 붙이고 이 주석을 지운다.",
           "controlGlyphCount": 1,
           "$controlGlyphCount": "1. 화살표/정지 글리프 1개",
-          "dotsGap": 4
+          "dotsGap": 4,
+          "$arrowSize": "28px. **제품 대조가 없다** — 앱 홈 배너가 화살표를 더는 그리지 않는다(제품 `5a67d692`: `appHomeSceneStyles.ts` 에서 `bannerArrowButton` 이 사라졌고 `bannerControls` 주석이 「이 화면은 화살표를 그리지 않는다」고 적는다). 값은 LOUIS `.louis-banner-carousel__arrow` 의 것이고 banner-carousel 브라우저 테스트가 계속 잰다. 제품이 다시 그리면 대조 행을 되살린다.",
+          "$arrowRadius": "999px. 위 `$arrowSize` 와 같은 이유로 제품 대조가 없다.",
+          "$controlsHeight": "28px. 파생 축이다 — 컨트롤 알약에 높이 선언이 없고 패딩 + 자식 최대 높이로 결정된다. 그 자식이 화살표였는데 제품이 지우면서 **제품 쪽에는 이 축 자체가 없어졌다**. 값은 LOUIS 레시피의 것이다."
         }
       },
       "$pause": "정지 버튼이 컨트롤 안에 있다. **제품에는 없다** — 자동으로 움직이는 것은 멈출 수 있어야 하고(WCAG 2.2.2), 이 저장소는 제품의 과거 UI 부채를 공용 규범으로 복사하지 않는다. 그래서 컨트롤 폭이 제품보다 36px 넓다(28 버튼 + 8 간격).",

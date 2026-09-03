@@ -8,8 +8,8 @@
     "간격이 제각각이면 중첩 오토레이아웃으로 묶는다. spacer 프레임은 쓰지 않는다.",
     "음수 마진은 여백을 바깥·안쪽으로 나눠 만든다."
   ],
-  "productRef": "ae8fd6278481a5e86cd324ba86a1d44fe978b788",
-  "productCommit": "ae8fd6278481a5e86cd324ba86a1d44fe978b788",
+  "productRef": "5a67d692f5ca737f06c7b51b98f28ded22d1f7a1",
+  "productCommit": "5a67d692f5ca737f06c7b51b98f28ded22d1f7a1",
   "sections": [
     {
       "kind": "input-form",
@@ -1833,9 +1833,9 @@
             "justify": "center",
             "align": "stretch",
             "bg": [
-              0.192,
-              0.212,
-              0.251,
+              0.165,
+              0.184,
+              0.224,
               0.48
             ],
             "gradient": null,
@@ -1973,9 +1973,9 @@
             "justify": "center",
             "align": "stretch",
             "bg": [
-              0.192,
-              0.212,
-              0.251,
+              0.165,
+              0.184,
+              0.224,
               0.48
             ],
             "gradient": null,
@@ -2050,9 +2050,9 @@
             ],
             "gradient": null,
             "fg": [
-              0.604,
-              0.627,
-              0.671,
+              0.439,
+              0.459,
+              0.502,
               1
             ],
             "radius": 12,
@@ -2112,17 +2112,17 @@
                 ],
                 "gradient": null,
                 "fg": [
-                  0.604,
-                  0.627,
-                  0.671,
+                  0.439,
+                  0.459,
+                  0.502,
                   1
                 ],
                 "radius": 0,
                 "borderWidth": 0,
                 "borderColor": [
-                  0.604,
-                  0.627,
-                  0.671,
+                  0.439,
+                  0.459,
+                  0.502,
                   1
                 ],
                 "shadow": null,
@@ -2185,9 +2185,9 @@
             ],
             "gradient": null,
             "fg": [
-              0.604,
-              0.627,
-              0.671,
+              0.439,
+              0.459,
+              0.502,
               1
             ],
             "radius": 12,
@@ -2247,17 +2247,17 @@
                 ],
                 "gradient": null,
                 "fg": [
-                  0.604,
-                  0.627,
-                  0.671,
+                  0.439,
+                  0.459,
+                  0.502,
                   1
                 ],
                 "radius": 0,
                 "borderWidth": 0,
                 "borderColor": [
-                  0.604,
-                  0.627,
-                  0.671,
+                  0.439,
+                  0.459,
+                  0.502,
                   1
                 ],
                 "shadow": null,
@@ -2320,17 +2320,17 @@
             ],
             "gradient": null,
             "fg": [
-              0.737,
-              0.753,
-              0.788,
+              0.541,
+              0.557,
+              0.588,
               1
             ],
             "radius": 999,
             "borderWidth": 0,
             "borderColor": [
-              0.737,
-              0.753,
-              0.788,
+              0.541,
+              0.557,
+              0.588,
               1
             ],
             "shadow": null,
@@ -2382,17 +2382,17 @@
                 ],
                 "gradient": null,
                 "fg": [
-                  0.737,
-                  0.753,
-                  0.788,
+                  0.541,
+                  0.557,
+                  0.588,
                   1
                 ],
                 "radius": 0,
                 "borderWidth": 0,
                 "borderColor": [
-                  0.737,
-                  0.753,
-                  0.788,
+                  0.541,
+                  0.557,
+                  0.588,
                   1
                 ],
                 "shadow": null,
@@ -2792,17 +2792,17 @@
             ],
             "gradient": null,
             "fg": [
-              0.835,
-              0.843,
-              0.867,
+              0.647,
+              0.659,
+              0.682,
               1
             ],
             "radius": 10,
             "borderWidth": 0,
             "borderColor": [
-              0.835,
-              0.843,
-              0.867,
+              0.647,
+              0.659,
+              0.682,
               1
             ],
             "shadow": null,
@@ -2854,17 +2854,17 @@
                 ],
                 "gradient": null,
                 "fg": [
-                  0.835,
-                  0.843,
-                  0.867,
+                  0.647,
+                  0.659,
+                  0.682,
                   1
                 ],
                 "radius": 0,
                 "borderWidth": 0,
                 "borderColor": [
-                  0.835,
-                  0.843,
-                  0.867,
+                  0.647,
+                  0.659,
+                  0.682,
                   1
                 ],
                 "shadow": null,
@@ -2916,17 +2916,17 @@
                     ],
                     "gradient": null,
                     "fg": [
-                      0.835,
-                      0.843,
-                      0.867,
+                      0.647,
+                      0.659,
+                      0.682,
                       1
                     ],
                     "radius": 0,
                     "borderWidth": 0,
                     "borderColor": [
-                      0.835,
-                      0.843,
-                      0.867,
+                      0.647,
+                      0.659,
+                      0.682,
                       1
                     ],
                     "shadow": null,
@@ -2971,24 +2971,24 @@
                         "justify": "normal",
                         "align": "stretch",
                         "bg": [
-                          0.835,
-                          0.843,
-                          0.867,
+                          0.647,
+                          0.659,
+                          0.682,
                           1
                         ],
                         "gradient": null,
                         "fg": [
-                          0.835,
-                          0.843,
-                          0.867,
+                          0.647,
+                          0.659,
+                          0.682,
                           1
                         ],
                         "radius": 0,
                         "borderWidth": 0,
                         "borderColor": [
-                          0.835,
-                          0.843,
-                          0.867,
+                          0.647,
+                          0.659,
+                          0.682,
                           1
                         ],
                         "shadow": null,
@@ -3042,17 +3042,17 @@
                         ],
                         "gradient": null,
                         "fg": [
-                          0.835,
-                          0.843,
-                          0.867,
+                          0.647,
+                          0.659,
+                          0.682,
                           1
                         ],
                         "radius": 0,
                         "borderWidth": 0,
                         "borderColor": [
-                          0.835,
-                          0.843,
-                          0.867,
+                          0.647,
+                          0.659,
+                          0.682,
                           1
                         ],
                         "shadow": null,
@@ -3105,24 +3105,24 @@
                 "justify": "center",
                 "align": "stretch",
                 "bg": [
-                  0.341,
-                  0.365,
-                  0.408,
+                  0.251,
+                  0.271,
+                  0.31,
                   1
                 ],
                 "gradient": null,
                 "fg": [
-                  0.835,
-                  0.843,
-                  0.867,
+                  0.647,
+                  0.659,
+                  0.682,
                   1
                 ],
                 "radius": 6,
                 "borderWidth": 0,
                 "borderColor": [
-                  0.835,
-                  0.843,
-                  0.867,
+                  0.647,
+                  0.659,
+                  0.682,
                   1
                 ],
                 "shadow": null,
@@ -3185,17 +3185,17 @@
             ],
             "gradient": null,
             "fg": [
-              0.835,
-              0.843,
-              0.867,
+              0.647,
+              0.659,
+              0.682,
               1
             ],
             "radius": 10,
             "borderWidth": 0,
             "borderColor": [
-              0.835,
-              0.843,
-              0.867,
+              0.647,
+              0.659,
+              0.682,
               1
             ],
             "shadow": null,
@@ -3247,17 +3247,17 @@
                 ],
                 "gradient": null,
                 "fg": [
-                  0.835,
-                  0.843,
-                  0.867,
+                  0.647,
+                  0.659,
+                  0.682,
                   1
                 ],
                 "radius": 0,
                 "borderWidth": 0,
                 "borderColor": [
-                  0.835,
-                  0.843,
-                  0.867,
+                  0.647,
+                  0.659,
+                  0.682,
                   1
                 ],
                 "shadow": null,
@@ -3302,24 +3302,24 @@
                     "justify": "normal",
                     "align": "stretch",
                     "bg": [
-                      0.835,
-                      0.843,
-                      0.867,
+                      0.647,
+                      0.659,
+                      0.682,
                       1
                     ],
                     "gradient": null,
                     "fg": [
-                      0.835,
-                      0.843,
-                      0.867,
+                      0.647,
+                      0.659,
+                      0.682,
                       1
                     ],
                     "radius": 0,
                     "borderWidth": 0,
                     "borderColor": [
-                      0.835,
-                      0.843,
-                      0.867,
+                      0.647,
+                      0.659,
+                      0.682,
                       1
                     ],
                     "shadow": null,
@@ -3373,17 +3373,17 @@
                     ],
                     "gradient": null,
                     "fg": [
-                      0.835,
-                      0.843,
-                      0.867,
+                      0.647,
+                      0.659,
+                      0.682,
                       1
                     ],
                     "radius": 0,
                     "borderWidth": 0,
                     "borderColor": [
-                      0.835,
-                      0.843,
-                      0.867,
+                      0.647,
+                      0.659,
+                      0.682,
                       1
                     ],
                     "shadow": null,
@@ -3511,17 +3511,17 @@
                 ],
                 "gradient": null,
                 "fg": [
-                  0.737,
-                  0.753,
-                  0.788,
+                  0.541,
+                  0.557,
+                  0.588,
                   1
                 ],
                 "radius": 999,
                 "borderWidth": 0,
                 "borderColor": [
-                  0.737,
-                  0.753,
-                  0.788,
+                  0.541,
+                  0.557,
+                  0.588,
                   1
                 ],
                 "shadow": null,
@@ -3770,17 +3770,17 @@
                         ],
                         "gradient": null,
                         "fg": [
-                          0.737,
-                          0.753,
-                          0.788,
+                          0.541,
+                          0.557,
+                          0.588,
                           1
                         ],
                         "radius": 0,
                         "borderWidth": 0,
                         "borderColor": [
-                          0.737,
-                          0.753,
-                          0.788,
+                          0.541,
+                          0.557,
+                          0.588,
                           1
                         ],
                         "shadow": null,
@@ -6082,24 +6082,24 @@
             "justify": "center",
             "align": "stretch",
             "bg": [
-              0.341,
-              0.365,
-              0.408,
+              0.251,
+              0.271,
+              0.31,
               1
             ],
             "gradient": null,
             "fg": [
-              0.737,
-              0.753,
-              0.788,
+              0.541,
+              0.557,
+              0.588,
               1
             ],
             "radius": 999,
             "borderWidth": 0,
             "borderColor": [
-              0.737,
-              0.753,
-              0.788,
+              0.541,
+              0.557,
+              0.588,
               1
             ],
             "shadow": null,
@@ -6144,24 +6144,24 @@
                 "justify": "normal",
                 "align": "stretch",
                 "bg": [
-                  0.467,
-                  0.49,
-                  0.537,
+                  0.341,
+                  0.365,
+                  0.404,
                   1
                 ],
                 "gradient": null,
                 "fg": [
-                  0.737,
-                  0.753,
-                  0.788,
+                  0.541,
+                  0.557,
+                  0.588,
                   1
                 ],
                 "radius": 0,
                 "borderWidth": 0,
                 "borderColor": [
-                  0.737,
-                  0.753,
-                  0.788,
+                  0.541,
+                  0.557,
+                  0.588,
                   1
                 ],
                 "shadow": null,
@@ -6224,17 +6224,17 @@
             ],
             "gradient": null,
             "fg": [
-              0.737,
-              0.753,
-              0.788,
+              0.541,
+              0.557,
+              0.588,
               1
             ],
             "radius": 999,
             "borderWidth": 0,
             "borderColor": [
-              0.737,
-              0.753,
-              0.788,
+              0.541,
+              0.557,
+              0.588,
               1
             ],
             "shadow": null,
@@ -6286,17 +6286,17 @@
                 ],
                 "gradient": null,
                 "fg": [
-                  0.737,
-                  0.753,
-                  0.788,
+                  0.541,
+                  0.557,
+                  0.588,
                   1
                 ],
                 "radius": 0,
                 "borderWidth": 0,
                 "borderColor": [
-                  0.737,
-                  0.753,
-                  0.788,
+                  0.541,
+                  0.557,
+                  0.588,
                   1
                 ],
                 "shadow": null,
@@ -6352,24 +6352,24 @@
             "justify": "center",
             "align": "stretch",
             "bg": [
-              0.341,
-              0.365,
-              0.408,
+              0.251,
+              0.271,
+              0.31,
               1
             ],
             "gradient": null,
             "fg": [
-              0.737,
-              0.753,
-              0.788,
+              0.541,
+              0.557,
+              0.588,
               1
             ],
             "radius": 999,
             "borderWidth": 0,
             "borderColor": [
-              0.737,
-              0.753,
-              0.788,
+              0.541,
+              0.557,
+              0.588,
               1
             ],
             "shadow": null,
@@ -6414,24 +6414,24 @@
                 "justify": "normal",
                 "align": "stretch",
                 "bg": [
-                  0.467,
-                  0.49,
-                  0.537,
+                  0.341,
+                  0.365,
+                  0.404,
                   1
                 ],
                 "gradient": null,
                 "fg": [
-                  0.737,
-                  0.753,
-                  0.788,
+                  0.541,
+                  0.557,
+                  0.588,
                   1
                 ],
                 "radius": 0,
                 "borderWidth": 0,
                 "borderColor": [
-                  0.737,
-                  0.753,
-                  0.788,
+                  0.541,
+                  0.557,
+                  0.588,
                   1
                 ],
                 "shadow": null,
@@ -6501,17 +6501,17 @@
             ],
             "gradient": null,
             "fg": [
-              0.835,
-              0.843,
-              0.867,
+              0.647,
+              0.659,
+              0.682,
               1
             ],
             "radius": 999,
             "borderWidth": 0,
             "borderColor": [
-              0.835,
-              0.843,
-              0.867,
+              0.647,
+              0.659,
+              0.682,
               1
             ],
             "shadow": null,
@@ -6571,17 +6571,17 @@
             ],
             "gradient": null,
             "fg": [
-              0.737,
-              0.753,
-              0.788,
+              0.541,
+              0.557,
+              0.588,
               1
             ],
             "radius": 6,
             "borderWidth": 0,
             "borderColor": [
-              0.737,
-              0.753,
-              0.788,
+              0.541,
+              0.557,
+              0.588,
               1
             ],
             "shadow": null,
@@ -7313,17 +7313,17 @@
                 ],
                 "gradient": null,
                 "fg": [
-                  0.737,
-                  0.753,
-                  0.788,
+                  0.541,
+                  0.557,
+                  0.588,
                   0.88
                 ],
                 "radius": 0,
                 "borderWidth": 0,
                 "borderColor": [
-                  0.737,
-                  0.753,
-                  0.788,
+                  0.541,
+                  0.557,
+                  0.588,
                   0.88
                 ],
                 "shadow": null,
@@ -7356,7 +7356,7 @@
             "part": "inspectorEmptyState",
             "slot": false,
             "text": "",
-            "w": 340,
+            "w": 356,
             "h": 200,
             "abs": false,
             "x": 0,
@@ -7421,7 +7421,7 @@
                 "w": 153.64,
                 "h": 21,
                 "abs": false,
-                "x": 93.17,
+                "x": 101.17,
                 "y": 89.5,
                 "pad": [
                   0,
@@ -7448,17 +7448,17 @@
                 ],
                 "gradient": null,
                 "fg": [
-                  0.604,
-                  0.627,
-                  0.671,
+                  0.439,
+                  0.459,
+                  0.502,
                   0.88
                 ],
                 "radius": 0,
                 "borderWidth": 0,
                 "borderColor": [
-                  0.604,
-                  0.627,
-                  0.671,
+                  0.439,
+                  0.459,
+                  0.502,
                   0.88
                 ],
                 "shadow": null,
@@ -7618,13 +7618,13 @@
             "letterSpacing": -0.16,
             "isText": false,
             "textFill": false,
-            "wx": "FIX",
-            "wy": "선언",
+            "wx": "FILL",
+            "wy": "선언(채움)",
             "hy": "내용",
             "hx": "HUG",
-            "minW": 140,
+            "minW": 0,
             "minH": 0,
-            "maxW": 140,
+            "maxW": 0,
             "children": [
               {
                 "part": "inspectorNumInput",
@@ -7724,17 +7724,17 @@
                 ],
                 "gradient": null,
                 "fg": [
-                  0.737,
-                  0.753,
-                  0.788,
+                  0.541,
+                  0.557,
+                  0.588,
                   0.8
                 ],
                 "radius": 0,
                 "borderWidth": 0,
                 "borderColor": [
-                  0.737,
-                  0.753,
-                  0.788,
+                  0.541,
+                  0.557,
+                  0.588,
                   0.8
                 ],
                 "shadow": null,
@@ -7852,17 +7852,17 @@
                 ],
                 "gradient": null,
                 "fg": [
-                  0.737,
-                  0.753,
-                  0.788,
+                  0.541,
+                  0.557,
+                  0.588,
                   0.8
                 ],
                 "radius": 0,
                 "borderWidth": 0,
                 "borderColor": [
-                  0.737,
-                  0.753,
-                  0.788,
+                  0.541,
+                  0.557,
+                  0.588,
                   0.8
                 ],
                 "shadow": null,
@@ -7918,9 +7918,9 @@
             "justify": "normal",
             "align": "stretch",
             "bg": [
-              0.341,
-              0.365,
-              0.408,
+              0.251,
+              0.271,
+              0.31,
               0.56
             ],
             "gradient": null,
@@ -7988,10 +7988,10 @@
             "justify": "normal",
             "align": "stretch",
             "bg": [
-              0.98,
-              0.98,
-              0.98,
-              0.08
+              0.165,
+              0.184,
+              0.224,
+              1
             ],
             "gradient": null,
             "fg": [
@@ -8021,368 +8021,6 @@
             "hx": "FIX",
             "minW": 0,
             "minH": 34,
-            "maxW": 0,
-            "children": []
-          }
-        }
-      ]
-    },
-    {
-      "kind": "toast",
-      "label": "토스트",
-      "count": 4,
-      "specimens": [
-        {
-          "id": "toast/adminError",
-          "label": "관리자 토스트 · 오류 스킨 — TOAST_ERROR 색 상수가 JSX에서 합성된다",
-          "jsx": "AdminClient.tsx:1553-1557",
-          "hosted": true,
-          "hostNone": "",
-          "tree": {
-            "part": "TOAST",
-            "slot": false,
-            "text": "사용자 목록을 불러오지 못했습니다",
-            "w": 372,
-            "h": 45,
-            "abs": false,
-            "x": 0,
-            "y": 0,
-            "pad": [
-              12,
-              20,
-              12,
-              20
-            ],
-            "inset": [
-              0,
-              0,
-              0,
-              0
-            ],
-            "gap": 0,
-            "gaps": [],
-            "dir": "H",
-            "justify": "normal",
-            "align": "stretch",
-            "bg": [
-              0,
-              0,
-              0,
-              0
-            ],
-            "gradient": null,
-            "fg": [
-              0.98,
-              0.98,
-              0.98,
-              1
-            ],
-            "radius": 999,
-            "borderWidth": 0,
-            "borderColor": [
-              0.98,
-              0.98,
-              0.98,
-              1
-            ],
-            "shadow": null,
-            "fontSize": 14,
-            "lineHeightPct": 150,
-            "weight": 500,
-            "letterSpacing": -0.14,
-            "isText": false,
-            "textFill": false,
-            "wx": "FILL",
-            "wy": "교차축",
-            "hy": "내용",
-            "hx": "HUG",
-            "minW": 0,
-            "minH": 0,
-            "maxW": 0,
-            "children": []
-          }
-        },
-        {
-          "id": "toast/adminSuccess",
-          "label": "관리자 토스트 · 성공 스킨 — TOAST_SUCCESS 색 상수가 JSX에서 합성된다",
-          "jsx": "AdminClient.tsx:1443-1451",
-          "hosted": true,
-          "hostNone": "",
-          "tree": {
-            "part": "TOAST",
-            "slot": false,
-            "text": "지급이 완료되었습니다",
-            "w": 372,
-            "h": 45,
-            "abs": false,
-            "x": 0,
-            "y": 0,
-            "pad": [
-              12,
-              20,
-              12,
-              20
-            ],
-            "inset": [
-              0,
-              0,
-              0,
-              0
-            ],
-            "gap": 0,
-            "gaps": [],
-            "dir": "H",
-            "justify": "normal",
-            "align": "stretch",
-            "bg": [
-              0,
-              0,
-              0,
-              0
-            ],
-            "gradient": null,
-            "fg": [
-              0.98,
-              0.98,
-              0.98,
-              1
-            ],
-            "radius": 999,
-            "borderWidth": 0,
-            "borderColor": [
-              0.98,
-              0.98,
-              0.98,
-              1
-            ],
-            "shadow": null,
-            "fontSize": 14,
-            "lineHeightPct": 150,
-            "weight": 500,
-            "letterSpacing": -0.14,
-            "isText": false,
-            "textFill": false,
-            "wx": "FILL",
-            "wy": "교차축",
-            "hy": "내용",
-            "hx": "HUG",
-            "minW": 0,
-            "minH": 0,
-            "maxW": 0,
-            "children": []
-          }
-        },
-        {
-          "id": "toast/appHome",
-          "label": "앱 홈 · 하이라이트 토스트",
-          "jsx": "AppHomeScene.tsx:1418-1428",
-          "hosted": false,
-          "hostNone": "부모가 표본의 레이아웃을 만들지 못한다. 표본 자신이 position:fixed 라서 flex 컨테이너의 자식 항목(flex item)이 아니다 — display:flex·flex-direction:column·align-items:stretch 가 표본 크기 계산에 전혀 관여하지 않는다. 즉 이 부모 문맥을 넣어도 잰 값이 안 바뀐다.",
-          "tree": {
-            "part": "toast",
-            "slot": false,
-            "text": "",
-            "w": 108.34,
-            "h": 48,
-            "abs": false,
-            "x": 0,
-            "y": 0,
-            "pad": [
-              12,
-              20,
-              12,
-              20
-            ],
-            "inset": [
-              0,
-              0,
-              0,
-              0
-            ],
-            "gap": 0,
-            "gaps": [],
-            "dir": "V",
-            "justify": "normal",
-            "align": "stretch",
-            "bg": [
-              0.89,
-              0.894,
-              0.91,
-              0.72
-            ],
-            "gradient": null,
-            "fg": [
-              0.09,
-              0.106,
-              0.133,
-              1
-            ],
-            "radius": 16,
-            "borderWidth": 0,
-            "borderColor": [
-              0.09,
-              0.106,
-              0.133,
-              1
-            ],
-            "shadow": {
-              "color": [
-                0,
-                0,
-                0,
-                0.16
-              ],
-              "x": 0,
-              "y": 8,
-              "blur": 20
-            },
-            "fontSize": 14,
-            "lineHeightPct": 150,
-            "weight": 400,
-            "letterSpacing": -0.14,
-            "isText": false,
-            "textFill": true,
-            "wx": "FILL",
-            "wy": "교차축",
-            "hy": "내용",
-            "hx": "HUG",
-            "minW": 0,
-            "minH": 0,
-            "maxW": 0,
-            "children": [
-              {
-                "part": "toastText",
-                "slot": false,
-                "text": "저장했어요",
-                "w": 68.34,
-                "h": 19,
-                "abs": false,
-                "x": 20,
-                "y": 14,
-                "pad": [
-                  0,
-                  0,
-                  0,
-                  0
-                ],
-                "inset": [
-                  0,
-                  0,
-                  0,
-                  0
-                ],
-                "gap": 0,
-                "gaps": [],
-                "dir": "V",
-                "justify": "normal",
-                "align": "stretch",
-                "bg": [
-                  0,
-                  0,
-                  0,
-                  0
-                ],
-                "gradient": null,
-                "fg": [
-                  0.09,
-                  0.106,
-                  0.133,
-                  1
-                ],
-                "radius": 0,
-                "borderWidth": 0,
-                "borderColor": [
-                  0.09,
-                  0.106,
-                  0.133,
-                  1
-                ],
-                "shadow": null,
-                "fontSize": 16,
-                "lineHeightPct": 150,
-                "weight": 400,
-                "letterSpacing": -0.16,
-                "isText": true,
-                "textFill": false,
-                "wx": "HUG",
-                "wy": "주축",
-                "hy": "내용",
-                "hx": "HUG",
-                "minW": 0,
-                "minH": 0,
-                "maxW": 0,
-                "children": [],
-                "ci": 0
-              }
-            ]
-          }
-        },
-        {
-          "id": "toast/myPage",
-          "label": "마이페이지 토스트 — 글자를 자기가 갖는다",
-          "jsx": "SubscriptionScene.tsx:1322 · SettingsScene.tsx:1959",
-          "hosted": false,
-          "hostNone": "부모가 표본의 레이아웃을 전혀 만들지 못한다. 표본이 position:fixed 인데 부모 page 는 position:relative 뿐이고 transform·filter·backdrop-filter·contain 이 하나도 없어서 fixed 의 containing block 조차 되지 못한다 — containing block 은 뷰포트다. display:flex·flex-direction:column 이 표본에 닿는 경로가",
-          "tree": {
-            "part": "toast",
-            "slot": false,
-            "text": "저장했어요",
-            "w": 118.34,
-            "h": 50,
-            "abs": false,
-            "x": 0,
-            "y": 0,
-            "pad": [
-              12,
-              24,
-              12,
-              24
-            ],
-            "inset": [
-              0,
-              0,
-              0,
-              0
-            ],
-            "gap": 0,
-            "gaps": [],
-            "dir": "V",
-            "justify": "normal",
-            "align": "stretch",
-            "bg": [
-              0.09,
-              0.106,
-              0.133,
-              1
-            ],
-            "gradient": null,
-            "fg": [
-              0.98,
-              0.98,
-              0.98,
-              0.88
-            ],
-            "radius": 999,
-            "borderWidth": 1,
-            "borderColor": [
-              0.98,
-              0.98,
-              0.98,
-              0.08
-            ],
-            "shadow": null,
-            "fontSize": 16,
-            "lineHeightPct": 150,
-            "weight": 400,
-            "letterSpacing": -0.16,
-            "isText": false,
-            "textFill": true,
-            "wx": "FILL",
-            "wy": "교차축",
-            "hy": "내용",
-            "hx": "HUG",
-            "minW": 0,
-            "minH": 0,
             "maxW": 0,
             "children": []
           }
@@ -8427,9 +8065,9 @@
             "justify": "normal",
             "align": "stretch",
             "bg": [
-              0.89,
-              0.894,
-              0.91,
+              0.757,
+              0.761,
+              0.776,
               1
             ],
             "gradient": null,
@@ -8621,9 +8259,9 @@
                     "justify": "normal",
                     "align": "stretch",
                     "bg": [
-                      0.89,
-                      0.894,
-                      0.91,
+                      0.757,
+                      0.761,
+                      0.776,
                       1
                     ],
                     "gradient": null,
@@ -8697,9 +8335,9 @@
             "justify": "normal",
             "align": "stretch",
             "bg": [
-              0.89,
-              0.894,
-              0.91,
+              0.757,
+              0.761,
+              0.776,
               1
             ],
             "gradient": null,
@@ -8737,7 +8375,7 @@
         {
           "id": "tooltip/upgradeTierFeature",
           "label": "업그레이드 요금제 기능 툴팁",
-          "jsx": "page.tsx:605",
+          "jsx": "UpgradePlanPageClient.tsx:639-652",
           "hosted": true,
           "hostNone": "",
           "tree": {
@@ -8767,9 +8405,9 @@
             "justify": "normal",
             "align": "stretch",
             "bg": [
-              0.89,
-              0.894,
-              0.91,
+              0.757,
+              0.761,
+              0.776,
               1
             ],
             "gradient": null,
@@ -8813,8 +8451,8 @@
       "specimens": [
         {
           "id": "banner-carousel/appHome",
-          "label": "앱 홈 배너 캐러셀 — 슬라이드 + 우하단 컨트롤(화살표·점)",
-          "jsx": "AppHomeScene.tsx:857-989",
+          "label": "앱 홈 배너 캐러셀 — 슬라이드 + 하단 가운데 컨트롤(점)",
+          "jsx": "AppHomeScene.tsx:891-970",
           "hosted": true,
           "hostNone": "",
           "tree": {
@@ -8973,40 +8611,7 @@
                       0.133,
                       1
                     ],
-                    "gradient": {
-                      "t": [
-                        [
-                          1,
-                          0,
-                          0
-                        ],
-                        [
-                          0,
-                          1,
-                          0
-                        ]
-                      ],
-                      "s": [
-                        [
-                          0,
-                          [
-                            0,
-                            0,
-                            0,
-                            0.78
-                          ]
-                        ],
-                        [
-                          0.3,
-                          [
-                            0,
-                            0,
-                            0,
-                            0.46
-                          ]
-                        ]
-                      ]
-                    },
+                    "gradient": null,
                     "fg": [
                       0.98,
                       0.98,
@@ -9060,7 +8665,7 @@
                         "gap": 12.14,
                         "gaps": [],
                         "dir": "V",
-                        "justify": "start",
+                        "justify": "center",
                         "align": "stretch",
                         "bg": [
                           0,
@@ -9105,7 +8710,7 @@
                             "w": 301.32,
                             "h": 49.18,
                             "abs": false,
-                            "x": 20.24,
+                            "x": 37.57,
                             "y": 139.36,
                             "pad": [
                               0,
@@ -9160,7 +8765,7 @@
                             "minH": 0,
                             "maxW": 0,
                             "children": [],
-                            "ci": 0.24
+                            "ci": 17.57
                           },
                           {
                             "part": "bannerDescription",
@@ -9169,7 +8774,7 @@
                             "w": 314.19,
                             "h": 24.29,
                             "abs": false,
-                            "x": 20.24,
+                            "x": 31.13,
                             "y": 200.68,
                             "pad": [
                               0,
@@ -9224,7 +8829,7 @@
                             "minH": 0,
                             "maxW": 480,
                             "children": [],
-                            "ci": 0.24
+                            "ci": 11.13
                           }
                         ],
                         "ci": 0
@@ -9238,16 +8843,16 @@
                 "part": "bannerControls",
                 "slot": false,
                 "text": "",
-                "w": 113,
-                "h": 36,
+                "w": 372,
+                "h": 2,
                 "abs": true,
-                "x": 243,
-                "y": 308,
+                "x": 0,
+                "y": 342,
                 "pad": [
-                  4,
-                  4,
-                  4,
-                  4
+                  0,
+                  0,
+                  0,
+                  0
                 ],
                 "inset": [
                   0,
@@ -9255,16 +8860,16 @@
                   0,
                   0
                 ],
-                "gap": 8,
+                "gap": 0,
                 "gaps": [],
                 "dir": "H",
-                "justify": "normal",
+                "justify": "center",
                 "align": "stretch",
                 "bg": [
                   0,
                   0,
                   0,
-                  0.28
+                  0
                 ],
                 "gradient": null,
                 "fg": [
@@ -9273,7 +8878,7 @@
                   0.98,
                   1
                 ],
-                "radius": 999,
+                "radius": 0,
                 "borderWidth": 0,
                 "borderColor": [
                   0.98,
@@ -9297,78 +8902,14 @@
                 "maxW": 0,
                 "children": [
                   {
-                    "part": "bannerArrowButton",
-                    "slot": false,
-                    "text": "",
-                    "w": 28,
-                    "h": 28,
-                    "abs": false,
-                    "x": 4,
-                    "y": 4,
-                    "pad": [
-                      0,
-                      0,
-                      0,
-                      0
-                    ],
-                    "inset": [
-                      0,
-                      0,
-                      0,
-                      0
-                    ],
-                    "gap": 0,
-                    "gaps": [],
-                    "dir": "H",
-                    "justify": "center",
-                    "align": "stretch",
-                    "bg": [
-                      0,
-                      0,
-                      0,
-                      0
-                    ],
-                    "gradient": null,
-                    "fg": [
-                      1,
-                      1,
-                      1,
-                      0.88
-                    ],
-                    "radius": 999,
-                    "borderWidth": 0,
-                    "borderColor": [
-                      1,
-                      1,
-                      1,
-                      0.88
-                    ],
-                    "shadow": null,
-                    "fontSize": 16,
-                    "lineHeightPct": 150,
-                    "weight": 400,
-                    "letterSpacing": 0,
-                    "isText": false,
-                    "textFill": false,
-                    "wx": "FIX",
-                    "wy": "빈칸",
-                    "hy": "부모높이",
-                    "hx": "FILL",
-                    "minW": 0,
-                    "minH": 0,
-                    "maxW": 0,
-                    "children": [],
-                    "ci": 0
-                  },
-                  {
                     "part": "bannerDots",
                     "slot": false,
                     "text": "",
-                    "w": 33,
-                    "h": 7,
+                    "w": 98,
+                    "h": 2,
                     "abs": false,
-                    "x": 40,
-                    "y": 14.5,
+                    "x": 137,
+                    "y": 0,
                     "pad": [
                       0,
                       0,
@@ -9381,7 +8922,7 @@
                       0,
                       0
                     ],
-                    "gap": 6,
+                    "gap": 4,
                     "gaps": [],
                     "dir": "H",
                     "justify": "normal",
@@ -9426,8 +8967,8 @@
                         "part": "bannerDot",
                         "slot": false,
                         "text": "",
-                        "w": 7,
-                        "h": 7,
+                        "w": 30,
+                        "h": 2,
                         "abs": false,
                         "x": 0,
                         "y": 0,
@@ -9452,7 +8993,7 @@
                           1,
                           1,
                           1,
-                          0.48
+                          0.28
                         ],
                         "gradient": null,
                         "fg": [
@@ -9490,10 +9031,10 @@
                         "part": "bannerDot",
                         "slot": false,
                         "text": "",
-                        "w": 7,
-                        "h": 7,
+                        "w": 30,
+                        "h": 2,
                         "abs": false,
-                        "x": 13,
+                        "x": 34,
                         "y": 0,
                         "pad": [
                           0,
@@ -9516,7 +9057,7 @@
                           1,
                           1,
                           1,
-                          0.48
+                          0.28
                         ],
                         "gradient": null,
                         "fg": [
@@ -9554,10 +9095,10 @@
                         "part": "bannerDot",
                         "slot": false,
                         "text": "",
-                        "w": 7,
-                        "h": 7,
+                        "w": 30,
+                        "h": 2,
                         "abs": false,
-                        "x": 26,
+                        "x": 68,
                         "y": 0,
                         "pad": [
                           0,
@@ -9580,7 +9121,7 @@
                           1,
                           1,
                           1,
-                          0.48
+                          0.28
                         ],
                         "gradient": null,
                         "fg": [
@@ -9615,70 +9156,6 @@
                         "ci": 0
                       }
                     ],
-                    "ci": 10.5
-                  },
-                  {
-                    "part": "bannerArrowButton",
-                    "slot": false,
-                    "text": "",
-                    "w": 28,
-                    "h": 28,
-                    "abs": false,
-                    "x": 81,
-                    "y": 4,
-                    "pad": [
-                      0,
-                      0,
-                      0,
-                      0
-                    ],
-                    "inset": [
-                      0,
-                      0,
-                      0,
-                      0
-                    ],
-                    "gap": 0,
-                    "gaps": [],
-                    "dir": "H",
-                    "justify": "center",
-                    "align": "stretch",
-                    "bg": [
-                      0,
-                      0,
-                      0,
-                      0
-                    ],
-                    "gradient": null,
-                    "fg": [
-                      1,
-                      1,
-                      1,
-                      0.88
-                    ],
-                    "radius": 999,
-                    "borderWidth": 0,
-                    "borderColor": [
-                      1,
-                      1,
-                      1,
-                      0.88
-                    ],
-                    "shadow": null,
-                    "fontSize": 16,
-                    "lineHeightPct": 150,
-                    "weight": 400,
-                    "letterSpacing": 0,
-                    "isText": false,
-                    "textFill": false,
-                    "wx": "FIX",
-                    "wy": "빈칸",
-                    "hy": "부모높이",
-                    "hx": "FILL",
-                    "minW": 0,
-                    "minH": 0,
-                    "maxW": 0,
-                    "children": [],
                     "ci": 0
                   }
                 ]
@@ -9688,24 +9165,24 @@
         },
         {
           "id": "banner-carousel/appHomeControls",
-          "label": "앱 홈 배너 컨트롤 — 화살표 둘과 점 셋의 글래스 필",
-          "jsx": "AppHomeScene.tsx:926-988",
+          "label": "앱 홈 배너 컨트롤 — 점 셋. 화살표는 제품이 더는 그리지 않는다",
+          "jsx": "AppHomeScene.tsx:950-969",
           "hosted": true,
           "hostNone": "",
           "tree": {
             "part": "bannerControls",
             "slot": false,
             "text": "",
-            "w": 113,
-            "h": 36,
+            "w": 372,
+            "h": 2,
             "abs": false,
             "x": 0,
             "y": 0,
             "pad": [
-              4,
-              4,
-              4,
-              4
+              0,
+              0,
+              0,
+              0
             ],
             "inset": [
               0,
@@ -9713,16 +9190,16 @@
               0,
               0
             ],
-            "gap": 8,
+            "gap": 0,
             "gaps": [],
             "dir": "H",
-            "justify": "normal",
+            "justify": "center",
             "align": "stretch",
             "bg": [
               0,
               0,
               0,
-              0.28
+              0
             ],
             "gradient": null,
             "fg": [
@@ -9731,7 +9208,7 @@
               0.98,
               1
             ],
-            "radius": 999,
+            "radius": 0,
             "borderWidth": 0,
             "borderColor": [
               0.98,
@@ -9755,78 +9232,14 @@
             "maxW": 0,
             "children": [
               {
-                "part": "bannerArrowButton",
-                "slot": false,
-                "text": "",
-                "w": 28,
-                "h": 28,
-                "abs": false,
-                "x": 4,
-                "y": 4,
-                "pad": [
-                  0,
-                  0,
-                  0,
-                  0
-                ],
-                "inset": [
-                  0,
-                  0,
-                  0,
-                  0
-                ],
-                "gap": 0,
-                "gaps": [],
-                "dir": "H",
-                "justify": "center",
-                "align": "stretch",
-                "bg": [
-                  0,
-                  0,
-                  0,
-                  0
-                ],
-                "gradient": null,
-                "fg": [
-                  1,
-                  1,
-                  1,
-                  0.88
-                ],
-                "radius": 999,
-                "borderWidth": 0,
-                "borderColor": [
-                  1,
-                  1,
-                  1,
-                  0.88
-                ],
-                "shadow": null,
-                "fontSize": 16,
-                "lineHeightPct": 150,
-                "weight": 400,
-                "letterSpacing": 0,
-                "isText": false,
-                "textFill": false,
-                "wx": "FIX",
-                "wy": "빈칸",
-                "hy": "부모높이",
-                "hx": "FILL",
-                "minW": 0,
-                "minH": 0,
-                "maxW": 0,
-                "children": [],
-                "ci": 0
-              },
-              {
                 "part": "bannerDots",
                 "slot": false,
                 "text": "",
-                "w": 33,
-                "h": 7,
+                "w": 98,
+                "h": 2,
                 "abs": false,
-                "x": 40,
-                "y": 14.5,
+                "x": 137,
+                "y": 0,
                 "pad": [
                   0,
                   0,
@@ -9839,7 +9252,7 @@
                   0,
                   0
                 ],
-                "gap": 6,
+                "gap": 4,
                 "gaps": [],
                 "dir": "H",
                 "justify": "normal",
@@ -9884,8 +9297,8 @@
                     "part": "bannerDot",
                     "slot": false,
                     "text": "",
-                    "w": 7,
-                    "h": 7,
+                    "w": 30,
+                    "h": 2,
                     "abs": false,
                     "x": 0,
                     "y": 0,
@@ -9910,7 +9323,7 @@
                       1,
                       1,
                       1,
-                      0.48
+                      0.28
                     ],
                     "gradient": null,
                     "fg": [
@@ -9948,10 +9361,10 @@
                     "part": "bannerDot",
                     "slot": false,
                     "text": "",
-                    "w": 7,
-                    "h": 7,
+                    "w": 30,
+                    "h": 2,
                     "abs": false,
-                    "x": 13,
+                    "x": 34,
                     "y": 0,
                     "pad": [
                       0,
@@ -9974,7 +9387,7 @@
                       1,
                       1,
                       1,
-                      0.48
+                      0.28
                     ],
                     "gradient": null,
                     "fg": [
@@ -10012,10 +9425,10 @@
                     "part": "bannerDot",
                     "slot": false,
                     "text": "",
-                    "w": 7,
-                    "h": 7,
+                    "w": 30,
+                    "h": 2,
                     "abs": false,
-                    "x": 26,
+                    "x": 68,
                     "y": 0,
                     "pad": [
                       0,
@@ -10038,7 +9451,7 @@
                       1,
                       1,
                       1,
-                      0.48
+                      0.28
                     ],
                     "gradient": null,
                     "fg": [
@@ -10073,70 +9486,6 @@
                     "ci": 0
                   }
                 ],
-                "ci": 10.5
-              },
-              {
-                "part": "bannerArrowButton",
-                "slot": false,
-                "text": "",
-                "w": 28,
-                "h": 28,
-                "abs": false,
-                "x": 81,
-                "y": 4,
-                "pad": [
-                  0,
-                  0,
-                  0,
-                  0
-                ],
-                "inset": [
-                  0,
-                  0,
-                  0,
-                  0
-                ],
-                "gap": 0,
-                "gaps": [],
-                "dir": "H",
-                "justify": "center",
-                "align": "stretch",
-                "bg": [
-                  0,
-                  0,
-                  0,
-                  0
-                ],
-                "gradient": null,
-                "fg": [
-                  1,
-                  1,
-                  1,
-                  0.88
-                ],
-                "radius": 999,
-                "borderWidth": 0,
-                "borderColor": [
-                  1,
-                  1,
-                  1,
-                  0.88
-                ],
-                "shadow": null,
-                "fontSize": 16,
-                "lineHeightPct": 150,
-                "weight": 400,
-                "letterSpacing": 0,
-                "isText": false,
-                "textFill": false,
-                "wx": "FIX",
-                "wy": "빈칸",
-                "hy": "부모높이",
-                "hx": "FILL",
-                "minW": 0,
-                "minH": 0,
-                "maxW": 0,
-                "children": [],
                 "ci": 0
               }
             ]
@@ -13396,9 +12745,9 @@
             "justify": "normal",
             "align": "stretch",
             "bg": [
-              0.192,
-              0.212,
-              0.251,
+              0.165,
+              0.184,
+              0.224,
               1
             ],
             "gradient": null,
@@ -13858,9 +13207,9 @@
             "justify": "normal",
             "align": "stretch",
             "bg": [
-              0.192,
-              0.212,
-              0.251,
+              0.165,
+              0.184,
+              0.224,
               1
             ],
             "gradient": null,
@@ -14767,9 +14116,9 @@
             "justify": "normal",
             "align": "stretch",
             "bg": [
-              0.192,
-              0.212,
-              0.251,
+              0.165,
+              0.184,
+              0.224,
               1
             ],
             "gradient": null,
@@ -14962,17 +14311,17 @@
                     ],
                     "gradient": null,
                     "fg": [
-                      0.835,
-                      0.843,
-                      0.867,
+                      0.647,
+                      0.659,
+                      0.682,
                       0.88
                     ],
                     "radius": 999,
                     "borderWidth": 0,
                     "borderColor": [
-                      0.835,
-                      0.843,
-                      0.867,
+                      0.647,
+                      0.659,
+                      0.682,
                       0.88
                     ],
                     "shadow": null,
@@ -15223,9 +14572,9 @@
                             "radius": 6,
                             "borderWidth": 1,
                             "borderColor": [
-                              0.835,
-                              0.843,
-                              0.867,
+                              0.647,
+                              0.659,
+                              0.682,
                               0.16
                             ],
                             "shadow": null,
@@ -15470,17 +14819,17 @@
                                 ],
                                 "gradient": null,
                                 "fg": [
-                                  0.737,
-                                  0.753,
-                                  0.788,
+                                  0.541,
+                                  0.557,
+                                  0.588,
                                   0.88
                                 ],
                                 "radius": 0,
                                 "borderWidth": 0,
                                 "borderColor": [
-                                  0.737,
-                                  0.753,
-                                  0.788,
+                                  0.541,
+                                  0.557,
+                                  0.588,
                                   0.88
                                 ],
                                 "shadow": null,
@@ -15675,9 +15024,9 @@
                             "radius": 6,
                             "borderWidth": 1,
                             "borderColor": [
-                              0.835,
-                              0.843,
-                              0.867,
+                              0.647,
+                              0.659,
+                              0.682,
                               0.16
                             ],
                             "shadow": null,
@@ -15922,17 +15271,17 @@
                                 ],
                                 "gradient": null,
                                 "fg": [
-                                  0.737,
-                                  0.753,
-                                  0.788,
+                                  0.541,
+                                  0.557,
+                                  0.588,
                                   0.88
                                 ],
                                 "radius": 0,
                                 "borderWidth": 0,
                                 "borderColor": [
-                                  0.737,
-                                  0.753,
-                                  0.788,
+                                  0.541,
+                                  0.557,
+                                  0.588,
                                   0.88
                                 ],
                                 "shadow": null,
@@ -16656,24 +16005,24 @@
                     "justify": "center",
                     "align": "stretch",
                     "bg": [
-                      0.341,
-                      0.365,
-                      0.408,
+                      0.251,
+                      0.271,
+                      0.31,
                       1
                     ],
                     "gradient": null,
                     "fg": [
-                      0.737,
-                      0.753,
-                      0.788,
+                      0.541,
+                      0.557,
+                      0.588,
                       1
                     ],
                     "radius": 999,
                     "borderWidth": 0,
                     "borderColor": [
-                      0.737,
-                      0.753,
-                      0.788,
+                      0.541,
+                      0.557,
+                      0.588,
                       1
                     ],
                     "shadow": null,
@@ -16718,24 +16067,24 @@
                         "justify": "normal",
                         "align": "stretch",
                         "bg": [
-                          0.467,
-                          0.49,
-                          0.537,
+                          0.341,
+                          0.365,
+                          0.404,
                           1
                         ],
                         "gradient": null,
                         "fg": [
-                          0.737,
-                          0.753,
-                          0.788,
+                          0.541,
+                          0.557,
+                          0.588,
                           1
                         ],
                         "radius": 0,
                         "borderWidth": 0,
                         "borderColor": [
-                          0.737,
-                          0.753,
-                          0.788,
+                          0.541,
+                          0.557,
+                          0.588,
                           1
                         ],
                         "shadow": null,
@@ -17010,99 +16359,99 @@
                     [
                       0,
                       [
-                        0.192,
-                        0.212,
-                        0.251,
+                        0.165,
+                        0.184,
+                        0.224,
                         0.48
                       ]
                     ],
                     [
                       0.1,
                       [
-                        0.192,
-                        0.212,
-                        0.251,
+                        0.165,
+                        0.184,
+                        0.224,
                         0.48
                       ]
                     ],
                     [
                       0.2,
                       [
-                        0.192,
-                        0.212,
-                        0.251,
+                        0.165,
+                        0.184,
+                        0.224,
                         0.56
                       ]
                     ],
                     [
                       0.3,
                       [
-                        0.192,
-                        0.212,
-                        0.251,
+                        0.165,
+                        0.184,
+                        0.224,
                         0.64
                       ]
                     ],
                     [
                       0.4,
                       [
-                        0.192,
-                        0.212,
-                        0.251,
+                        0.165,
+                        0.184,
+                        0.224,
                         0.64
                       ]
                     ],
                     [
                       0.5,
                       [
-                        0.192,
-                        0.212,
-                        0.251,
+                        0.165,
+                        0.184,
+                        0.224,
                         0.72
                       ]
                     ],
                     [
                       0.6,
                       [
-                        0.192,
-                        0.212,
-                        0.251,
+                        0.165,
+                        0.184,
+                        0.224,
                         0.8
                       ]
                     ],
                     [
                       0.7,
                       [
-                        0.192,
-                        0.212,
-                        0.251,
+                        0.165,
+                        0.184,
+                        0.224,
                         0.88
                       ]
                     ],
                     [
                       0.8,
                       [
-                        0.192,
-                        0.212,
-                        0.251,
+                        0.165,
+                        0.184,
+                        0.224,
                         0.96
                       ]
                     ],
                     [
                       0.9,
                       [
-                        0.192,
-                        0.212,
-                        0.251,
+                        0.165,
+                        0.184,
+                        0.224,
                         0.96
                       ]
                     ],
                     [
                       1,
                       [
-                        0.192,
-                        0.212,
-                        0.251,
+                        0.165,
+                        0.184,
+                        0.224,
                         1
                       ]
                     ]
@@ -17227,24 +16576,24 @@
                     "justify": "center",
                     "align": "stretch",
                     "bg": [
-                      0.341,
-                      0.365,
-                      0.408,
+                      0.251,
+                      0.271,
+                      0.31,
                       1
                     ],
                     "gradient": null,
                     "fg": [
-                      0.737,
-                      0.753,
-                      0.788,
+                      0.541,
+                      0.557,
+                      0.588,
                       1
                     ],
                     "radius": 999,
                     "borderWidth": 0,
                     "borderColor": [
-                      0.737,
-                      0.753,
-                      0.788,
+                      0.541,
+                      0.557,
+                      0.588,
                       1
                     ],
                     "shadow": null,
@@ -17289,24 +16638,24 @@
                         "justify": "normal",
                         "align": "stretch",
                         "bg": [
-                          0.467,
-                          0.49,
-                          0.537,
+                          0.341,
+                          0.365,
+                          0.404,
                           1
                         ],
                         "gradient": null,
                         "fg": [
-                          0.737,
-                          0.753,
-                          0.788,
+                          0.541,
+                          0.557,
+                          0.588,
                           1
                         ],
                         "radius": 0,
                         "borderWidth": 0,
                         "borderColor": [
-                          0.737,
-                          0.753,
-                          0.788,
+                          0.541,
+                          0.557,
+                          0.588,
                           1
                         ],
                         "shadow": null,
@@ -17828,17 +17177,17 @@
                 ],
                 "gradient": null,
                 "fg": [
-                  0.835,
-                  0.843,
-                  0.867,
+                  0.647,
+                  0.659,
+                  0.682,
                   1
                 ],
                 "radius": 0,
                 "borderWidth": 0,
                 "borderColor": [
-                  0.835,
-                  0.843,
-                  0.867,
+                  0.647,
+                  0.659,
+                  0.682,
                   1
                 ],
                 "shadow": null,
@@ -18687,17 +18036,17 @@
                 ],
                 "gradient": null,
                 "fg": [
-                  0.945,
-                  0.945,
-                  0.953,
+                  0.867,
+                  0.871,
+                  0.878,
                   0.8
                 ],
                 "radius": 0,
                 "borderWidth": 0,
                 "borderColor": [
-                  0.945,
-                  0.945,
-                  0.953,
+                  0.867,
+                  0.871,
+                  0.878,
                   0.8
                 ],
                 "shadow": null,
@@ -18829,17 +18178,17 @@
                 ],
                 "gradient": null,
                 "fg": [
-                  0.737,
-                  0.753,
-                  0.788,
+                  0.541,
+                  0.557,
+                  0.588,
                   1
                 ],
                 "radius": 999,
                 "borderWidth": 0,
                 "borderColor": [
-                  0.737,
-                  0.753,
-                  0.788,
+                  0.541,
+                  0.557,
+                  0.588,
                   1
                 ],
                 "shadow": null,
@@ -18964,17 +18313,17 @@
                 ],
                 "gradient": null,
                 "fg": [
-                  0.737,
-                  0.753,
-                  0.788,
+                  0.541,
+                  0.557,
+                  0.588,
                   1
                 ],
                 "radius": 999,
                 "borderWidth": 0,
                 "borderColor": [
-                  0.737,
-                  0.753,
-                  0.788,
+                  0.541,
+                  0.557,
+                  0.588,
                   1
                 ],
                 "shadow": null,
@@ -19014,8 +18363,8 @@
             "part": "archiveCard",
             "slot": false,
             "text": "",
-            "w": 90,
-            "h": 90,
+            "w": 88.5,
+            "h": 88.5,
             "abs": false,
             "x": 0,
             "y": 0,
@@ -19076,8 +18425,8 @@
                 "part": "archivePreview",
                 "slot": false,
                 "text": "",
-                "w": 90,
-                "h": 90,
+                "w": 88.5,
+                "h": 88.5,
                 "abs": false,
                 "x": 0,
                 "y": 0,
@@ -19138,8 +18487,8 @@
                     "part": "archivePreviewClip",
                     "slot": false,
                     "text": "",
-                    "w": 90,
-                    "h": 90,
+                    "w": 88.5,
+                    "h": 88.5,
                     "abs": true,
                     "x": 0,
                     "y": 0,
@@ -19200,8 +18549,8 @@
                         "part": "archivePreviewPlaceholder",
                         "slot": false,
                         "text": "",
-                        "w": 90,
-                        "h": 90,
+                        "w": 88.5,
+                        "h": 88.5,
                         "abs": true,
                         "x": 0,
                         "y": 0,
@@ -19230,17 +18579,17 @@
                         ],
                         "gradient": null,
                         "fg": [
-                          0.737,
-                          0.753,
-                          0.788,
+                          0.541,
+                          0.557,
+                          0.588,
                           1
                         ],
                         "radius": 12,
                         "borderWidth": 0,
                         "borderColor": [
-                          0.737,
-                          0.753,
-                          0.788,
+                          0.541,
+                          0.557,
+                          0.588,
                           1
                         ],
                         "shadow": null,
@@ -19262,8 +18611,8 @@
                             "part": "cardDraftThumbnail",
                             "slot": false,
                             "text": "",
-                            "w": 90,
-                            "h": 90,
+                            "w": 88.5,
+                            "h": 88.5,
                             "abs": true,
                             "x": 0,
                             "y": 0,
@@ -19292,17 +18641,17 @@
                             ],
                             "gradient": null,
                             "fg": [
-                              0.737,
-                              0.753,
-                              0.788,
+                              0.541,
+                              0.557,
+                              0.588,
                               1
                             ],
                             "radius": 0,
                             "borderWidth": 0,
                             "borderColor": [
-                              0.737,
-                              0.753,
-                              0.788,
+                              0.541,
+                              0.557,
+                              0.588,
                               1
                             ],
                             "shadow": null,
@@ -19329,11 +18678,11 @@
                     "part": "archivePreviewTitleOverlay",
                     "slot": false,
                     "text": "",
-                    "w": 90,
+                    "w": 88.5,
                     "h": 32,
                     "abs": true,
                     "x": 0,
-                    "y": 58,
+                    "y": 56.5,
                     "pad": [
                       16,
                       16,
@@ -19391,7 +18740,7 @@
                         "part": "archivePreviewTitleOverlayInner",
                         "slot": false,
                         "text": "",
-                        "w": 58,
+                        "w": 56.5,
                         "h": 60.78,
                         "abs": false,
                         "x": 16,
@@ -19453,7 +18802,7 @@
                             "part": "archivePreviewEyebrow",
                             "slot": false,
                             "text": "노드 캔버스",
-                            "w": 58,
+                            "w": 56.5,
                             "h": 16.8,
                             "abs": false,
                             "x": 0,
@@ -19483,17 +18832,17 @@
                             ],
                             "gradient": null,
                             "fg": [
-                              0.945,
-                              0.945,
-                              0.953,
+                              0.867,
+                              0.871,
+                              0.878,
                               1
                             ],
                             "radius": 0,
                             "borderWidth": 0,
                             "borderColor": [
-                              0.945,
-                              0.945,
-                              0.953,
+                              0.867,
+                              0.871,
+                              0.878,
                               1
                             ],
                             "shadow": null,
@@ -19517,7 +18866,7 @@
                             "part": "archivePreviewTitleOverlayText",
                             "slot": false,
                             "text": "여름 캠페인 키비주얼",
-                            "w": 58,
+                            "w": 56.5,
                             "h": 19.19,
                             "abs": false,
                             "x": 0,
@@ -19547,17 +18896,17 @@
                             ],
                             "gradient": null,
                             "fg": [
-                              0.945,
-                              0.945,
-                              0.953,
+                              0.867,
+                              0.871,
+                              0.878,
                               1
                             ],
                             "radius": 0,
                             "borderWidth": 0,
                             "borderColor": [
-                              0.945,
-                              0.945,
-                              0.953,
+                              0.867,
+                              0.871,
+                              0.878,
                               1
                             ],
                             "shadow": null,
@@ -19581,7 +18930,7 @@
                             "part": "archivePreviewLastEdited",
                             "slot": false,
                             "text": "3일 전 편집",
-                            "w": 58,
+                            "w": 56.5,
                             "h": 16.8,
                             "abs": false,
                             "x": 0,
@@ -19611,17 +18960,17 @@
                             ],
                             "gradient": null,
                             "fg": [
-                              0.945,
-                              0.945,
-                              0.953,
+                              0.867,
+                              0.871,
+                              0.878,
                               1
                             ],
                             "radius": 0,
                             "borderWidth": 0,
                             "borderColor": [
-                              0.945,
-                              0.945,
-                              0.953,
+                              0.867,
+                              0.871,
+                              0.878,
                               1
                             ],
                             "shadow": null,
@@ -19653,7 +19002,7 @@
                     "w": 32,
                     "h": 39,
                     "abs": true,
-                    "x": 50,
+                    "x": 48.5,
                     "y": 8,
                     "pad": [
                       0,
@@ -19735,9 +19084,9 @@
                         "justify": "center",
                         "align": "stretch",
                         "bg": [
-                          0.192,
-                          0.212,
-                          0.251,
+                          0.165,
+                          0.184,
+                          0.224,
                           0.48
                         ],
                         "gradient": null,
@@ -19799,9 +19148,9 @@
                         "justify": "normal",
                         "align": "stretch",
                         "bg": [
-                          0.192,
-                          0.212,
-                          0.251,
+                          0.165,
+                          0.184,
+                          0.224,
                           1
                         ],
                         "gradient": null,
@@ -20046,8 +19395,8 @@
             "part": "ARCHIVE_CARD",
             "slot": false,
             "text": "",
-            "w": 90,
-            "h": 90,
+            "w": 88.5,
+            "h": 88.5,
             "abs": false,
             "x": 0,
             "y": 0,
@@ -20108,8 +19457,8 @@
                 "part": "ARCHIVE_PREVIEW",
                 "slot": false,
                 "text": "",
-                "w": 90,
-                "h": 90,
+                "w": 88.5,
+                "h": 88.5,
                 "abs": false,
                 "x": 0,
                 "y": 0,
@@ -20170,8 +19519,8 @@
                     "part": "ARCHIVE_PREVIEW_CLIP",
                     "slot": false,
                     "text": "",
-                    "w": 90,
-                    "h": 90,
+                    "w": 88.5,
+                    "h": 88.5,
                     "abs": true,
                     "x": 0,
                     "y": 0,
@@ -20232,8 +19581,8 @@
                         "part": "ARCHIVE_PREVIEW_PLACEHOLDER",
                         "slot": false,
                         "text": "",
-                        "w": 90,
-                        "h": 90,
+                        "w": 88.5,
+                        "h": 88.5,
                         "abs": true,
                         "x": 0,
                         "y": 0,
@@ -20262,17 +19611,17 @@
                         ],
                         "gradient": null,
                         "fg": [
-                          0.737,
-                          0.753,
-                          0.788,
+                          0.541,
+                          0.557,
+                          0.588,
                           1
                         ],
                         "radius": 12,
                         "borderWidth": 0,
                         "borderColor": [
-                          0.737,
-                          0.753,
-                          0.788,
+                          0.541,
+                          0.557,
+                          0.588,
                           1
                         ],
                         "shadow": null,
@@ -20294,8 +19643,8 @@
                             "part": "CARD_DRAFT_WORDMARK_CANVAS",
                             "slot": false,
                             "text": "",
-                            "w": 90,
-                            "h": 90,
+                            "w": 88.5,
+                            "h": 88.5,
                             "abs": true,
                             "x": 0,
                             "y": 0,
@@ -20324,17 +19673,17 @@
                             ],
                             "gradient": null,
                             "fg": [
-                              0.737,
-                              0.753,
-                              0.788,
+                              0.541,
+                              0.557,
+                              0.588,
                               1
                             ],
                             "radius": 0,
                             "borderWidth": 0,
                             "borderColor": [
-                              0.737,
-                              0.753,
-                              0.788,
+                              0.541,
+                              0.557,
+                              0.588,
                               1
                             ],
                             "shadow": null,
@@ -20361,11 +19710,11 @@
                     "part": "ARCHIVE_PREVIEW_TITLE_OVERLAY",
                     "slot": false,
                     "text": "",
-                    "w": 90,
+                    "w": 88.5,
                     "h": 32,
                     "abs": true,
                     "x": 0,
-                    "y": 58,
+                    "y": 56.5,
                     "pad": [
                       16,
                       16,
@@ -20423,7 +19772,7 @@
                         "part": "ARCHIVE_PREVIEW_TITLE_OVERLAY_INNER",
                         "slot": false,
                         "text": "",
-                        "w": 58,
+                        "w": 56.5,
                         "h": 39.98,
                         "abs": false,
                         "x": 16,
@@ -20485,7 +19834,7 @@
                             "part": "ARCHIVE_PREVIEW_TITLE_OVERLAY_TEXT",
                             "slot": false,
                             "text": "여름 캠페인 키비주얼",
-                            "w": 58,
+                            "w": 56.5,
                             "h": 19.19,
                             "abs": false,
                             "x": 0,
@@ -20515,17 +19864,17 @@
                             ],
                             "gradient": null,
                             "fg": [
-                              0.945,
-                              0.945,
-                              0.953,
+                              0.867,
+                              0.871,
+                              0.878,
                               1
                             ],
                             "radius": 0,
                             "borderWidth": 0,
                             "borderColor": [
-                              0.945,
-                              0.945,
-                              0.953,
+                              0.867,
+                              0.871,
+                              0.878,
                               1
                             ],
                             "shadow": null,
@@ -20549,7 +19898,7 @@
                             "part": "ARCHIVE_PREVIEW_LAST_EDITED",
                             "slot": false,
                             "text": "3일 전 편집",
-                            "w": 58,
+                            "w": 56.5,
                             "h": 16.8,
                             "abs": false,
                             "x": 0,
@@ -20579,17 +19928,17 @@
                             ],
                             "gradient": null,
                             "fg": [
-                              0.945,
-                              0.945,
-                              0.953,
+                              0.867,
+                              0.871,
+                              0.878,
                               1
                             ],
                             "radius": 0,
                             "borderWidth": 0,
                             "borderColor": [
-                              0.945,
-                              0.945,
-                              0.953,
+                              0.867,
+                              0.871,
+                              0.878,
                               1
                             ],
                             "shadow": null,
@@ -20621,7 +19970,7 @@
                     "w": 32,
                     "h": 39,
                     "abs": true,
-                    "x": 50,
+                    "x": 48.5,
                     "y": 8,
                     "pad": [
                       0,
@@ -20703,9 +20052,9 @@
                         "justify": "center",
                         "align": "stretch",
                         "bg": [
-                          0.192,
-                          0.212,
-                          0.251,
+                          0.165,
+                          0.184,
+                          0.224,
                           0.48
                         ],
                         "gradient": null,
@@ -20767,9 +20116,9 @@
                         "justify": "normal",
                         "align": "stretch",
                         "bg": [
-                          0.192,
-                          0.212,
-                          0.251,
+                          0.165,
+                          0.184,
+                          0.224,
                           1
                         ],
                         "gradient": null,
@@ -21794,30 +21143,30 @@
       ]
     },
     {
-      "kind": "selectable-list-row",
-      "label": "선택 가능한 목록 행",
+      "kind": "toast",
+      "label": "토스트",
       "count": 2,
       "specimens": [
         {
-          "id": "selectable-list-row/creditHistoryEntry",
-          "label": "크레딧 내역 행 — 링크가 있을 때만 눌리는 행",
-          "jsx": "SubscriptionScene.tsx:1071-1153",
-          "hosted": true,
-          "hostNone": "",
+          "id": "toast/appHome",
+          "label": "앱 홈 · 하이라이트 토스트",
+          "jsx": "AppHomeScene.tsx:1418-1428",
+          "hosted": false,
+          "hostNone": "부모가 표본의 레이아웃을 만들지 못한다. 표본 자신이 position:fixed 라서 flex 컨테이너의 자식 항목(flex item)이 아니다 — display:flex·flex-direction:column·align-items:stretch 가 표본 크기 계산에 전혀 관여하지 않는다. 즉 이 부모 문맥을 넣어도 잰 값이 안 바뀐다.",
           "tree": {
-            "part": "creditHistoryListItem",
+            "part": "toast",
             "slot": false,
             "text": "",
-            "w": 352,
+            "w": 108.34,
             "h": 48,
             "abs": false,
             "x": 0,
             "y": 0,
             "pad": [
-              8,
-              4,
-              8,
-              4
+              12,
+              20,
+              12,
+              20
             ],
             "inset": [
               0,
@@ -21825,7 +21174,229 @@
               0,
               0
             ],
-            "gap": -22.5,
+            "gap": 0,
+            "gaps": [],
+            "dir": "V",
+            "justify": "normal",
+            "align": "stretch",
+            "bg": [
+              0.757,
+              0.761,
+              0.776,
+              0.72
+            ],
+            "gradient": null,
+            "fg": [
+              0.09,
+              0.106,
+              0.133,
+              1
+            ],
+            "radius": 16,
+            "borderWidth": 0,
+            "borderColor": [
+              0.09,
+              0.106,
+              0.133,
+              1
+            ],
+            "shadow": {
+              "color": [
+                0,
+                0,
+                0,
+                0.16
+              ],
+              "x": 0,
+              "y": 8,
+              "blur": 20
+            },
+            "fontSize": 14,
+            "lineHeightPct": 150,
+            "weight": 400,
+            "letterSpacing": -0.14,
+            "isText": false,
+            "textFill": true,
+            "wx": "FILL",
+            "wy": "교차축",
+            "hy": "내용",
+            "hx": "HUG",
+            "minW": 0,
+            "minH": 0,
+            "maxW": 0,
+            "children": [
+              {
+                "part": "toastText",
+                "slot": false,
+                "text": "저장했어요",
+                "w": 68.34,
+                "h": 19,
+                "abs": false,
+                "x": 20,
+                "y": 14,
+                "pad": [
+                  0,
+                  0,
+                  0,
+                  0
+                ],
+                "inset": [
+                  0,
+                  0,
+                  0,
+                  0
+                ],
+                "gap": 0,
+                "gaps": [],
+                "dir": "V",
+                "justify": "normal",
+                "align": "stretch",
+                "bg": [
+                  0,
+                  0,
+                  0,
+                  0
+                ],
+                "gradient": null,
+                "fg": [
+                  0.09,
+                  0.106,
+                  0.133,
+                  1
+                ],
+                "radius": 0,
+                "borderWidth": 0,
+                "borderColor": [
+                  0.09,
+                  0.106,
+                  0.133,
+                  1
+                ],
+                "shadow": null,
+                "fontSize": 16,
+                "lineHeightPct": 150,
+                "weight": 400,
+                "letterSpacing": -0.16,
+                "isText": true,
+                "textFill": false,
+                "wx": "HUG",
+                "wy": "주축",
+                "hy": "내용",
+                "hx": "HUG",
+                "minW": 0,
+                "minH": 0,
+                "maxW": 0,
+                "children": [],
+                "ci": 0
+              }
+            ]
+          }
+        },
+        {
+          "id": "toast/myPage",
+          "label": "마이페이지 토스트 — 글자를 자기가 갖는다",
+          "jsx": "SubscriptionScene.tsx:1322 · SettingsScene.tsx:1959",
+          "hosted": false,
+          "hostNone": "부모가 표본의 레이아웃을 전혀 만들지 못한다. 표본이 position:fixed 인데 부모 page 는 position:relative 뿐이고 transform·filter·backdrop-filter·contain 이 하나도 없어서 fixed 의 containing block 조차 되지 못한다 — containing block 은 뷰포트다. display:flex·flex-direction:column 이 표본에 닿는 경로가",
+          "tree": {
+            "part": "toast",
+            "slot": false,
+            "text": "저장했어요",
+            "w": 118.34,
+            "h": 50,
+            "abs": false,
+            "x": 0,
+            "y": 0,
+            "pad": [
+              12,
+              24,
+              12,
+              24
+            ],
+            "inset": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "gap": 0,
+            "gaps": [],
+            "dir": "V",
+            "justify": "normal",
+            "align": "stretch",
+            "bg": [
+              0.09,
+              0.106,
+              0.133,
+              1
+            ],
+            "gradient": null,
+            "fg": [
+              0.98,
+              0.98,
+              0.98,
+              0.88
+            ],
+            "radius": 999,
+            "borderWidth": 1,
+            "borderColor": [
+              0.98,
+              0.98,
+              0.98,
+              0.08
+            ],
+            "shadow": null,
+            "fontSize": 16,
+            "lineHeightPct": 150,
+            "weight": 400,
+            "letterSpacing": -0.16,
+            "isText": false,
+            "textFill": true,
+            "wx": "FILL",
+            "wy": "교차축",
+            "hy": "내용",
+            "hx": "HUG",
+            "minW": 0,
+            "minH": 0,
+            "maxW": 0,
+            "children": []
+          }
+        }
+      ]
+    },
+    {
+      "kind": "admin",
+      "label": "관리자 요소",
+      "count": 1,
+      "specimens": [
+        {
+          "id": "admin/headerSlot",
+          "label": "관리자 콘텐츠 헤더 슬롯 — GNB 상단 크롬 바가 portal 되는 자리, 비어 있으면 숨는다",
+          "jsx": "AdminClient.tsx:1235-1235",
+          "hosted": true,
+          "hostNone": "",
+          "tree": {
+            "part": "HEADER_SLOT",
+            "slot": true,
+            "text": "",
+            "w": 0,
+            "h": 0,
+            "abs": false,
+            "x": 0,
+            "y": 0,
+            "pad": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "inset": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "gap": 0,
             "gaps": [],
             "dir": "V",
             "justify": "normal",
@@ -21838,17 +21409,17 @@
             ],
             "gradient": null,
             "fg": [
-              0.604,
-              0.627,
-              0.671,
+              0.98,
+              0.98,
+              0.98,
               1
             ],
             "radius": 0,
             "borderWidth": 0,
             "borderColor": [
-              0.604,
-              0.627,
-              0.671,
+              0.98,
+              0.98,
+              0.98,
               1
             ],
             "shadow": null,
@@ -21859,22 +21430,109 @@
             "isText": false,
             "textFill": false,
             "wx": "HUG",
+            "wy": "슬롯",
+            "hy": "슬롯",
+            "hx": "HUG",
+            "minW": 0,
+            "minH": 0,
+            "maxW": 0,
+            "children": []
+          }
+        }
+      ]
+    },
+    {
+      "kind": "button",
+      "label": "버튼",
+      "count": 1,
+      "specimens": [
+        {
+          "id": "button/gnbSidebarCta",
+          "label": "GNB 사이드바 CTA 버튼 — 라벨 스팬을 자식으로 갖는 민트 알약",
+          "jsx": "Gnb.tsx:5005-5019",
+          "hosted": true,
+          "hostNone": "",
+          "tree": {
+            "part": "sidebarUpgradeButton",
+            "slot": false,
+            "text": "",
+            "w": 372,
+            "h": 41,
+            "abs": false,
+            "x": 0,
+            "y": 0,
+            "pad": [
+              10,
+              14,
+              10,
+              14
+            ],
+            "inset": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "gap": 0,
+            "gaps": [],
+            "dir": "H",
+            "justify": "center",
+            "align": "stretch",
+            "bg": [
+              0.867,
+              0.871,
+              0.878,
+              1
+            ],
+            "gradient": null,
+            "fg": [
+              0.09,
+              0.106,
+              0.133,
+              1
+            ],
+            "radius": 12,
+            "borderWidth": 0,
+            "borderColor": [
+              0.09,
+              0.106,
+              0.133,
+              1
+            ],
+            "shadow": {
+              "color": [
+                0,
+                0,
+                0,
+                0.12
+              ],
+              "x": 0,
+              "y": 1,
+              "blur": 2
+            },
+            "fontSize": 14,
+            "lineHeightPct": 150,
+            "weight": 500,
+            "letterSpacing": -0.14,
+            "isText": false,
+            "textFill": false,
+            "wx": "HUG",
             "wy": "주축",
             "hy": "선언",
             "hx": "FIX",
             "minW": 0,
-            "minH": 48,
+            "minH": 40,
             "maxW": 0,
             "children": [
               {
-                "part": "creditHistoryListMain",
+                "part": "sidebarUpgradeLabel",
                 "slot": false,
-                "text": "",
-                "w": 161.5,
+                "text": "보관함",
+                "w": 35.89,
                 "h": 21,
                 "abs": false,
-                "x": 4,
-                "y": 13.5,
+                "x": 168.05,
+                "y": 10,
                 "pad": [
                   0,
                   0,
@@ -21887,9 +21545,9 @@
                   0,
                   0
                 ],
-                "gap": 10,
+                "gap": 0,
                 "gaps": [],
-                "dir": "H",
+                "dir": "V",
                 "justify": "normal",
                 "align": "stretch",
                 "bg": [
@@ -21900,17 +21558,159 @@
                 ],
                 "gradient": null,
                 "fg": [
-                  0.604,
-                  0.627,
-                  0.671,
+                  0.09,
+                  0.106,
+                  0.133,
                   1
                 ],
                 "radius": 0,
                 "borderWidth": 0,
                 "borderColor": [
-                  0.604,
-                  0.627,
-                  0.671,
+                  0.09,
+                  0.106,
+                  0.133,
+                  1
+                ],
+                "shadow": null,
+                "fontSize": 14,
+                "lineHeightPct": 150,
+                "weight": 500,
+                "letterSpacing": -0.14,
+                "isText": true,
+                "textFill": true,
+                "wx": "HUG",
+                "wy": "주축",
+                "hy": "내용",
+                "hx": "HUG",
+                "minW": 0,
+                "minH": 0,
+                "maxW": 0,
+                "children": [],
+                "ci": 0
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "kind": "canvas-node",
+      "label": "캔버스 노드",
+      "count": 1,
+      "specimens": [
+        {
+          "id": "canvas-node/bgmShell",
+          "label": "캔버스 노드 셸 (BGM 노드) — 카드 위 헤더 + 카드",
+          "jsx": "BgmNode.tsx:1035-1063",
+          "hosted": false,
+          "hostNone": "부모를 못 찾은 게 아니라 '크기를 바꾸는 부모가 없음'을 확인했다. (1) BgmNode.tsx의 return 루트가 표본 루트다(1035행 `<div className={NODE_CONTAINER} data-node-accent=\"audio\">`) — 컴포넌트 안에 DOM 부모가 없다. (2) 호출부를 따라갔다 — 유일한 소비처는 node-canvas-v2/index.tsx:834 `bgm: memo(BgmNode)`로 NODE_TYPES에 등록되고 index.tsx:10845 `nodeTypes={NODE_TYPES}`로 React Flow(@xyflow/react)에 넘겨지는 것뿐이다. React Flow는 노드를 라이브러리 소유 `.react-flow__node` 래퍼(absolute + translate transform)로 캔버스 팬에 배치하므로 제품 클래스 상수로 된 부모가 존재하지 않는다. (3) 제품 CSS에도 `.react-flow__node`의 크기·레이아웃 선언이 없다 — git grep 결과 globals.css:1267의 `:has([data-meta-dropdown-anchor])` 규칙 하나뿐이고 레이아웃과 무관하다. 래퍼가 absolute라 표본 루트는 어떤 flex/grid 항목도 아니고 shrink-to-fit 문맥에 놓인다 — 폭 선언이 없는 NODE_CONTAINER(flex flex-col items-center)는 고정폭 자식(카드 폭 변수)으로 수축한다.",
+          "tree": {
+            "part": "NODE_CONTAINER",
+            "slot": false,
+            "text": "",
+            "w": 372,
+            "h": 28,
+            "abs": false,
+            "x": 0,
+            "y": 0,
+            "pad": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "inset": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "gap": 4,
+            "gaps": [],
+            "dir": "V",
+            "justify": "normal",
+            "align": "stretch",
+            "bg": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "gradient": null,
+            "fg": [
+              0.98,
+              0.98,
+              0.98,
+              1
+            ],
+            "radius": 0,
+            "borderWidth": 0,
+            "borderColor": [
+              0.98,
+              0.98,
+              0.98,
+              1
+            ],
+            "shadow": null,
+            "fontSize": 16,
+            "lineHeightPct": 150,
+            "weight": 400,
+            "letterSpacing": -0.16,
+            "isText": false,
+            "textFill": false,
+            "wx": "FILL",
+            "wy": "교차축",
+            "hy": "내용",
+            "hx": "HUG",
+            "minW": 0,
+            "minH": 0,
+            "maxW": 0,
+            "children": [
+              {
+                "part": "NODE_HEADER_ABOVE",
+                "slot": false,
+                "text": "",
+                "w": 400,
+                "h": 24,
+                "abs": false,
+                "x": -14,
+                "y": 0,
+                "pad": [
+                  0,
+                  2,
+                  0,
+                  2
+                ],
+                "inset": [
+                  0,
+                  0,
+                  0,
+                  0
+                ],
+                "gap": 8,
+                "gaps": [],
+                "dir": "H",
+                "justify": "space-between",
+                "align": "stretch",
+                "bg": [
+                  0,
+                  0,
+                  0,
+                  0
+                ],
+                "gradient": null,
+                "fg": [
+                  0.98,
+                  0.98,
+                  0.98,
+                  1
+                ],
+                "radius": 0,
+                "borderWidth": 0,
+                "borderColor": [
+                  0.98,
+                  0.98,
+                  0.98,
                   1
                 ],
                 "shadow": null,
@@ -21920,8 +21720,8 @@
                 "letterSpacing": -0.16,
                 "isText": false,
                 "textFill": false,
-                "wx": "HUG",
-                "wy": "주축",
+                "wx": "FIX",
+                "wy": "선언",
                 "hy": "내용",
                 "hx": "HUG",
                 "minW": 0,
@@ -21929,13 +21729,13 @@
                 "maxW": 0,
                 "children": [
                   {
-                    "part": "creditHistoryListTitle",
+                    "part": "NODE_TITLE_WRAP",
                     "slot": false,
-                    "text": "하이라이트 생성",
-                    "w": 87,
-                    "h": 21,
+                    "text": "",
+                    "w": 388,
+                    "h": 24,
                     "abs": false,
-                    "x": 0,
+                    "x": 2,
                     "y": 0,
                     "pad": [
                       0,
@@ -21951,7 +21751,7 @@
                     ],
                     "gap": 0,
                     "gaps": [],
-                    "dir": "V",
+                    "dir": "H",
                     "justify": "normal",
                     "align": "stretch",
                     "bg": [
@@ -21962,45 +21762,239 @@
                     ],
                     "gradient": null,
                     "fg": [
-                      0.98,
-                      0.98,
-                      0.98,
+                      0.439,
+                      0.459,
+                      0.502,
                       1
                     ],
                     "radius": 0,
                     "borderWidth": 0,
                     "borderColor": [
-                      0.98,
-                      0.98,
-                      0.98,
+                      0.439,
+                      0.459,
+                      0.502,
                       1
                     ],
                     "shadow": null,
-                    "fontSize": 14,
+                    "fontSize": 16,
                     "lineHeightPct": 150,
-                    "weight": 500,
-                    "letterSpacing": -0.14,
-                    "isText": true,
-                    "textFill": true,
-                    "wx": "HUG",
-                    "wy": "주축",
+                    "weight": 400,
+                    "letterSpacing": -0.16,
+                    "isText": false,
+                    "textFill": false,
+                    "wx": "FIX",
+                    "wy": "선언",
                     "hy": "내용",
                     "hx": "HUG",
                     "minW": 0,
                     "minH": 0,
                     "maxW": 0,
-                    "children": [],
+                    "children": [
+                      {
+                        "part": "NODE_TITLE_LEFT",
+                        "slot": false,
+                        "text": "",
+                        "w": 388,
+                        "h": 24,
+                        "abs": false,
+                        "x": 0,
+                        "y": 0,
+                        "pad": [
+                          0,
+                          0,
+                          0,
+                          0
+                        ],
+                        "inset": [
+                          0,
+                          0,
+                          0,
+                          0
+                        ],
+                        "gap": 5,
+                        "gaps": [],
+                        "dir": "H",
+                        "justify": "normal",
+                        "align": "stretch",
+                        "bg": [
+                          0,
+                          0,
+                          0,
+                          0
+                        ],
+                        "gradient": null,
+                        "fg": [
+                          0.439,
+                          0.459,
+                          0.502,
+                          1
+                        ],
+                        "radius": 0,
+                        "borderWidth": 0,
+                        "borderColor": [
+                          0.439,
+                          0.459,
+                          0.502,
+                          1
+                        ],
+                        "shadow": null,
+                        "fontSize": 16,
+                        "lineHeightPct": 150,
+                        "weight": 400,
+                        "letterSpacing": -0.16,
+                        "isText": false,
+                        "textFill": false,
+                        "wx": "FIX",
+                        "wy": "선언",
+                        "hy": "선언",
+                        "hx": "FIX",
+                        "minW": 0,
+                        "minH": 0,
+                        "maxW": 0,
+                        "children": [
+                          {
+                            "part": "NODE_TITLE_ICON",
+                            "slot": true,
+                            "text": "",
+                            "w": 0,
+                            "h": 0,
+                            "abs": false,
+                            "x": 0,
+                            "y": 12,
+                            "pad": [
+                              0,
+                              0,
+                              0,
+                              0
+                            ],
+                            "inset": [
+                              0,
+                              0,
+                              0,
+                              0
+                            ],
+                            "gap": 0,
+                            "gaps": [],
+                            "dir": "H",
+                            "justify": "center",
+                            "align": "stretch",
+                            "bg": [
+                              0,
+                              0,
+                              0,
+                              0
+                            ],
+                            "gradient": null,
+                            "fg": [
+                              0.439,
+                              0.459,
+                              0.502,
+                              1
+                            ],
+                            "radius": 0,
+                            "borderWidth": 0,
+                            "borderColor": [
+                              0.439,
+                              0.459,
+                              0.502,
+                              1
+                            ],
+                            "shadow": null,
+                            "fontSize": 16,
+                            "lineHeightPct": 0,
+                            "weight": 400,
+                            "letterSpacing": -0.16,
+                            "isText": false,
+                            "textFill": false,
+                            "wx": "HUG",
+                            "wy": "슬롯",
+                            "hy": "슬롯",
+                            "hx": "HUG",
+                            "minW": 0,
+                            "minH": 0,
+                            "maxW": 0,
+                            "children": [],
+                            "ci": 12
+                          },
+                          {
+                            "part": "NODE_TITLE_LABEL",
+                            "slot": false,
+                            "text": "사운드",
+                            "w": 383,
+                            "h": 14,
+                            "abs": false,
+                            "x": 5,
+                            "y": 5,
+                            "pad": [
+                              0,
+                              0,
+                              0,
+                              0
+                            ],
+                            "inset": [
+                              0,
+                              0,
+                              0,
+                              0
+                            ],
+                            "gap": 0,
+                            "gaps": [],
+                            "dir": "V",
+                            "justify": "normal",
+                            "align": "stretch",
+                            "bg": [
+                              0,
+                              0,
+                              0,
+                              0
+                            ],
+                            "gradient": null,
+                            "fg": [
+                              0.439,
+                              0.459,
+                              0.502,
+                              1
+                            ],
+                            "radius": 0,
+                            "borderWidth": 0,
+                            "borderColor": [
+                              0.439,
+                              0.459,
+                              0.502,
+                              1
+                            ],
+                            "shadow": null,
+                            "fontSize": 14,
+                            "lineHeightPct": 100,
+                            "weight": 500,
+                            "letterSpacing": -0.14,
+                            "isText": true,
+                            "textFill": true,
+                            "wx": "FIX",
+                            "wy": "선언",
+                            "hy": "내용",
+                            "hx": "HUG",
+                            "minW": 0,
+                            "minH": 0,
+                            "maxW": 0,
+                            "children": [],
+                            "ci": 5
+                          }
+                        ],
+                        "ci": 0
+                      }
+                    ],
                     "ci": 0
                   },
                   {
-                    "part": "creditHistoryListMeta",
-                    "slot": false,
-                    "text": "2026. 8. 12.",
-                    "w": 61.2,
-                    "h": 18,
+                    "part": "NODE_HEADER_ABOVE_ACTIONS",
+                    "slot": true,
+                    "text": "",
+                    "w": 0,
+                    "h": 0,
                     "abs": false,
-                    "x": 97,
-                    "y": 1.5,
+                    "x": 398,
+                    "y": 12,
                     "pad": [
                       0,
                       0,
@@ -22015,7 +22009,7 @@
                     ],
                     "gap": 0,
                     "gaps": [],
-                    "dir": "V",
+                    "dir": "H",
                     "justify": "normal",
                     "align": "stretch",
                     "bg": [
@@ -22026,48 +22020,48 @@
                     ],
                     "gradient": null,
                     "fg": [
-                      0.604,
-                      0.627,
-                      0.671,
+                      0.98,
+                      0.98,
+                      0.98,
                       1
                     ],
                     "radius": 0,
                     "borderWidth": 0,
                     "borderColor": [
-                      0.604,
-                      0.627,
-                      0.671,
+                      0.98,
+                      0.98,
+                      0.98,
                       1
                     ],
                     "shadow": null,
-                    "fontSize": 12,
+                    "fontSize": 16,
                     "lineHeightPct": 150,
                     "weight": 400,
-                    "letterSpacing": -0.12,
-                    "isText": true,
-                    "textFill": true,
+                    "letterSpacing": -0.16,
+                    "isText": false,
+                    "textFill": false,
                     "wx": "HUG",
-                    "wy": "주축",
-                    "hy": "내용",
+                    "wy": "슬롯",
+                    "hy": "슬롯",
                     "hx": "HUG",
                     "minW": 0,
                     "minH": 0,
                     "maxW": 0,
                     "children": [],
-                    "ci": 1.5
+                    "ci": 12
                   }
                 ],
                 "ci": 0
               },
               {
-                "part": "creditHistoryListValue",
+                "part": "NODE_MAIN",
                 "slot": false,
                 "text": "",
-                "w": 166.5,
-                "h": 24,
+                "w": 400,
+                "h": 0,
                 "abs": false,
-                "x": 181.5,
-                "y": 12,
+                "x": -14,
+                "y": 28,
                 "pad": [
                   0,
                   0,
@@ -22080,7 +22074,345 @@
                   0,
                   0
                 ],
-                "gap": 10,
+                "gap": 0,
+                "gaps": [],
+                "dir": "V",
+                "justify": "normal",
+                "align": "stretch",
+                "bg": [
+                  0,
+                  0,
+                  0,
+                  0
+                ],
+                "gradient": null,
+                "fg": [
+                  0.98,
+                  0.98,
+                  0.98,
+                  1
+                ],
+                "radius": 0,
+                "borderWidth": 0,
+                "borderColor": [
+                  0.98,
+                  0.98,
+                  0.98,
+                  1
+                ],
+                "shadow": null,
+                "fontSize": 16,
+                "lineHeightPct": 150,
+                "weight": 400,
+                "letterSpacing": -0.16,
+                "isText": false,
+                "textFill": true,
+                "wx": "FIX",
+                "wy": "선언",
+                "hy": "내용",
+                "hx": "HUG",
+                "minW": 0,
+                "minH": 0,
+                "maxW": 0,
+                "children": [
+                  {
+                    "part": "NODE_WRAP",
+                    "slot": true,
+                    "text": "",
+                    "w": 400,
+                    "h": 0,
+                    "abs": false,
+                    "x": 0,
+                    "y": 0,
+                    "pad": [
+                      0,
+                      0,
+                      0,
+                      0
+                    ],
+                    "inset": [
+                      0,
+                      0,
+                      0,
+                      0
+                    ],
+                    "gap": 0,
+                    "gaps": [],
+                    "dir": "V",
+                    "justify": "normal",
+                    "align": "stretch",
+                    "bg": [
+                      0.165,
+                      0.184,
+                      0.224,
+                      1
+                    ],
+                    "gradient": null,
+                    "fg": [
+                      0.98,
+                      0.98,
+                      0.98,
+                      1
+                    ],
+                    "radius": 24,
+                    "borderWidth": 0,
+                    "borderColor": [
+                      0.98,
+                      0.98,
+                      0.98,
+                      1
+                    ],
+                    "shadow": null,
+                    "fontSize": 16,
+                    "lineHeightPct": 150,
+                    "weight": 400,
+                    "letterSpacing": -0.16,
+                    "isText": false,
+                    "textFill": true,
+                    "wx": "FIX",
+                    "wy": "선언",
+                    "hy": "부모높이",
+                    "hx": "FILL",
+                    "minW": 0,
+                    "minH": 0,
+                    "maxW": 0,
+                    "children": [],
+                    "ci": 0
+                  }
+                ],
+                "ci": 0
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "kind": "dialog",
+      "label": "모달",
+      "count": 1,
+      "specimens": [
+        {
+          "id": "dialog/myPage",
+          "label": "마이페이지 확인 모달",
+          "jsx": "SubscriptionScene.tsx:1275-1310",
+          "hosted": true,
+          "hostNone": "",
+          "tree": {
+            "part": "modalCard",
+            "slot": false,
+            "text": "",
+            "w": 360,
+            "h": 169,
+            "abs": false,
+            "x": 0,
+            "y": 0,
+            "pad": [
+              16,
+              8,
+              8,
+              8
+            ],
+            "inset": [
+              0,
+              8,
+              8,
+              8
+            ],
+            "gap": 0,
+            "gaps": [
+              16,
+              40
+            ],
+            "dir": "V",
+            "justify": "normal",
+            "align": "stretch",
+            "bg": [
+              0.165,
+              0.184,
+              0.224,
+              1
+            ],
+            "gradient": null,
+            "fg": [
+              0.98,
+              0.98,
+              0.98,
+              1
+            ],
+            "radius": 24,
+            "borderWidth": 0,
+            "borderColor": [
+              0.98,
+              0.98,
+              0.98,
+              1
+            ],
+            "shadow": null,
+            "fontSize": 16,
+            "lineHeightPct": 150,
+            "weight": 400,
+            "letterSpacing": -0.16,
+            "isText": false,
+            "textFill": false,
+            "wx": "FIX",
+            "wy": "선언",
+            "hy": "내용",
+            "hx": "HUG",
+            "minW": 0,
+            "minH": 0,
+            "maxW": 0,
+            "children": [
+              {
+                "part": "modalTitle",
+                "slot": false,
+                "text": "프로젝트를 삭제할까요?",
+                "w": 328,
+                "h": 24,
+                "abs": false,
+                "x": 16,
+                "y": 16,
+                "pad": [
+                  0,
+                  0,
+                  0,
+                  0
+                ],
+                "inset": [
+                  0,
+                  0,
+                  0,
+                  0
+                ],
+                "gap": 0,
+                "gaps": [],
+                "dir": "V",
+                "justify": "normal",
+                "align": "stretch",
+                "bg": [
+                  0,
+                  0,
+                  0,
+                  0
+                ],
+                "gradient": null,
+                "fg": [
+                  0.98,
+                  0.98,
+                  0.98,
+                  1
+                ],
+                "radius": 0,
+                "borderWidth": 0,
+                "borderColor": [
+                  0.98,
+                  0.98,
+                  0.98,
+                  1
+                ],
+                "shadow": null,
+                "fontSize": 16,
+                "lineHeightPct": 150,
+                "weight": 600,
+                "letterSpacing": -0.16,
+                "isText": true,
+                "textFill": true,
+                "wx": "FILL",
+                "wy": "교차축",
+                "hy": "내용",
+                "hx": "HUG",
+                "minW": 0,
+                "minH": 0,
+                "maxW": 0,
+                "children": [],
+                "ci": 8
+              },
+              {
+                "part": "modalDescription",
+                "slot": false,
+                "text": "삭제하면 되돌릴 수 없습니다.",
+                "w": 328,
+                "h": 21,
+                "abs": false,
+                "x": 16,
+                "y": 56,
+                "pad": [
+                  0,
+                  0,
+                  0,
+                  0
+                ],
+                "inset": [
+                  0,
+                  0,
+                  0,
+                  0
+                ],
+                "gap": 0,
+                "gaps": [],
+                "dir": "V",
+                "justify": "normal",
+                "align": "stretch",
+                "bg": [
+                  0,
+                  0,
+                  0,
+                  0
+                ],
+                "gradient": null,
+                "fg": [
+                  0.98,
+                  0.98,
+                  0.98,
+                  0.56
+                ],
+                "radius": 0,
+                "borderWidth": 0,
+                "borderColor": [
+                  0.98,
+                  0.98,
+                  0.98,
+                  0.56
+                ],
+                "shadow": null,
+                "fontSize": 14,
+                "lineHeightPct": 150,
+                "weight": 400,
+                "letterSpacing": -0.14,
+                "isText": true,
+                "textFill": true,
+                "wx": "FILL",
+                "wy": "교차축",
+                "hy": "내용",
+                "hx": "HUG",
+                "minW": 0,
+                "minH": 0,
+                "maxW": 0,
+                "children": [],
+                "ci": 8
+              },
+              {
+                "part": "modalActions",
+                "slot": false,
+                "text": "",
+                "w": 344,
+                "h": 44,
+                "abs": false,
+                "x": 8,
+                "y": 117,
+                "pad": [
+                  0,
+                  0,
+                  0,
+                  0
+                ],
+                "inset": [
+                  0,
+                  0,
+                  0,
+                  0
+                ],
+                "gap": 8,
                 "gaps": [],
                 "dir": "H",
                 "justify": "normal",
@@ -22093,17 +22425,17 @@
                 ],
                 "gradient": null,
                 "fg": [
-                  0.604,
-                  0.627,
-                  0.671,
+                  0.98,
+                  0.98,
+                  0.98,
                   1
                 ],
                 "radius": 0,
                 "borderWidth": 0,
                 "borderColor": [
-                  0.604,
-                  0.627,
-                  0.671,
+                  0.98,
+                  0.98,
+                  0.98,
                   1
                 ],
                 "shadow": null,
@@ -22113,8 +22445,8 @@
                 "letterSpacing": -0.16,
                 "isText": false,
                 "textFill": false,
-                "wx": "HUG",
-                "wy": "주축",
+                "wx": "FILL",
+                "wy": "교차축",
                 "hy": "내용",
                 "hx": "HUG",
                 "minW": 0,
@@ -22122,14 +22454,14 @@
                 "maxW": 0,
                 "children": [
                   {
-                    "part": "creditHistoryListDelta",
+                    "part": "modalCancel",
                     "slot": false,
-                    "text": "-120",
-                    "w": 32.58,
-                    "h": 21,
+                    "text": "취소",
+                    "w": 168,
+                    "h": 44,
                     "abs": false,
                     "x": 0,
-                    "y": 3,
+                    "y": 0,
                     "pad": [
                       0,
                       0,
@@ -22148,165 +22480,101 @@
                     "justify": "normal",
                     "align": "stretch",
                     "bg": [
-                      0,
-                      0,
-                      0,
-                      0
+                      0.98,
+                      0.98,
+                      0.98,
+                      0.08
                     ],
                     "gradient": null,
                     "fg": [
-                      0.604,
-                      0.627,
-                      0.671,
+                      0.98,
+                      0.98,
+                      0.98,
                       1
                     ],
-                    "radius": 0,
+                    "radius": 16,
                     "borderWidth": 0,
                     "borderColor": [
-                      0.604,
-                      0.627,
-                      0.671,
+                      0.98,
+                      0.98,
+                      0.98,
                       1
                     ],
                     "shadow": null,
                     "fontSize": 14,
                     "lineHeightPct": 150,
-                    "weight": 600,
-                    "letterSpacing": -0.14,
-                    "isText": true,
-                    "textFill": true,
-                    "wx": "HUG",
-                    "wy": "주축",
-                    "hy": "내용",
-                    "hx": "HUG",
-                    "minW": 0,
-                    "minH": 0,
-                    "maxW": 0,
-                    "children": [],
-                    "ci": 3
-                  },
-                  {
-                    "part": "creditHistoryListBalance",
-                    "slot": false,
-                    "text": "잔액 1,880",
-                    "w": 52.09,
-                    "h": 18,
-                    "abs": false,
-                    "x": 42.58,
-                    "y": 6,
-                    "pad": [
-                      0,
-                      0,
-                      0,
-                      0
-                    ],
-                    "inset": [
-                      0,
-                      0,
-                      0,
-                      0
-                    ],
-                    "gap": 0,
-                    "gaps": [],
-                    "dir": "V",
-                    "justify": "normal",
-                    "align": "stretch",
-                    "bg": [
-                      0,
-                      0,
-                      0,
-                      0
-                    ],
-                    "gradient": null,
-                    "fg": [
-                      0.604,
-                      0.627,
-                      0.671,
-                      1
-                    ],
-                    "radius": 0,
-                    "borderWidth": 0,
-                    "borderColor": [
-                      0.604,
-                      0.627,
-                      0.671,
-                      1
-                    ],
-                    "shadow": null,
-                    "fontSize": 12,
-                    "lineHeightPct": 150,
-                    "weight": 400,
-                    "letterSpacing": -0.12,
-                    "isText": true,
-                    "textFill": true,
-                    "wx": "HUG",
-                    "wy": "주축",
-                    "hy": "내용",
-                    "hx": "HUG",
-                    "minW": 0,
-                    "minH": 0,
-                    "maxW": 0,
-                    "children": [],
-                    "ci": 6
-                  },
-                  {
-                    "part": "withdrawalButton",
-                    "slot": false,
-                    "text": "환불 요청",
-                    "w": 61.83,
-                    "h": 24,
-                    "abs": false,
-                    "x": 104.67,
-                    "y": 0,
-                    "pad": [
-                      2,
-                      8,
-                      2,
-                      8
-                    ],
-                    "inset": [
-                      0,
-                      0,
-                      0,
-                      0
-                    ],
-                    "gap": 0,
-                    "gaps": [],
-                    "dir": "V",
-                    "justify": "normal",
-                    "align": "stretch",
-                    "bg": [
-                      0,
-                      0,
-                      0,
-                      0
-                    ],
-                    "gradient": null,
-                    "fg": [
-                      0.737,
-                      0.753,
-                      0.788,
-                      1
-                    ],
-                    "radius": 4,
-                    "borderWidth": 1,
-                    "borderColor": [
-                      0.604,
-                      0.627,
-                      0.671,
-                      1
-                    ],
-                    "shadow": null,
-                    "fontSize": 12,
-                    "lineHeightPct": 150,
                     "weight": 500,
-                    "letterSpacing": -0.12,
+                    "letterSpacing": -0.14,
                     "isText": false,
                     "textFill": true,
-                    "wx": "HUG",
-                    "wy": "주축",
-                    "hy": "내용",
-                    "hx": "HUG",
+                    "wx": "FIX",
+                    "wy": "선언",
+                    "hy": "선언",
+                    "hx": "FIX",
+                    "minW": 0,
+                    "minH": 0,
+                    "maxW": 0,
+                    "children": [],
+                    "ci": 0
+                  },
+                  {
+                    "part": "modalConfirm",
+                    "slot": false,
+                    "text": "삭제",
+                    "w": 168,
+                    "h": 44,
+                    "abs": false,
+                    "x": 176,
+                    "y": 0,
+                    "pad": [
+                      0,
+                      0,
+                      0,
+                      0
+                    ],
+                    "inset": [
+                      0,
+                      0,
+                      0,
+                      0
+                    ],
+                    "gap": 0,
+                    "gaps": [],
+                    "dir": "V",
+                    "justify": "normal",
+                    "align": "stretch",
+                    "bg": [
+                      0.98,
+                      0.98,
+                      0.98,
+                      1
+                    ],
+                    "gradient": null,
+                    "fg": [
+                      0,
+                      0,
+                      0,
+                      1
+                    ],
+                    "radius": 16,
+                    "borderWidth": 0,
+                    "borderColor": [
+                      0,
+                      0,
+                      0,
+                      1
+                    ],
+                    "shadow": null,
+                    "fontSize": 14,
+                    "lineHeightPct": 150,
+                    "weight": 500,
+                    "letterSpacing": -0.14,
+                    "isText": false,
+                    "textFill": true,
+                    "wx": "FILL",
+                    "wy": "선언(채움)",
+                    "hy": "선언",
+                    "hx": "FIX",
                     "minW": 0,
                     "minH": 0,
                     "maxW": 0,
@@ -22314,11 +22582,18 @@
                     "ci": 0
                   }
                 ],
-                "ci": 177.5
+                "ci": 0
               }
             ]
           }
-        },
+        }
+      ]
+    },
+    {
+      "kind": "selectable-list-row",
+      "label": "선택 가능한 목록 행",
+      "count": 1,
+      "specimens": [
         {
           "id": "selectable-list-row/highlightDetailClip",
           "label": "하이라이트 상세 클립 행 — 행 자체가 버튼인 단일 선택 행",
@@ -22676,17 +22951,17 @@
                     ],
                     "gradient": null,
                     "fg": [
-                      0.604,
-                      0.627,
-                      0.671,
+                      0.439,
+                      0.459,
+                      0.502,
                       1
                     ],
                     "radius": 0,
                     "borderWidth": 0,
                     "borderColor": [
-                      0.604,
-                      0.627,
-                      0.671,
+                      0.439,
+                      0.459,
+                      0.502,
                       1
                     ],
                     "shadow": null,
@@ -22708,1231 +22983,6 @@
                   }
                 ],
                 "ci": 6.5
-              }
-            ]
-          }
-        }
-      ]
-    },
-    {
-      "kind": "admin",
-      "label": "관리자 요소",
-      "count": 1,
-      "specimens": [
-        {
-          "id": "admin/headerSlot",
-          "label": "관리자 콘텐츠 헤더 슬롯 — GNB 상단 크롬 바가 portal 되는 자리, 비어 있으면 숨는다",
-          "jsx": "AdminClient.tsx:1235-1235",
-          "hosted": true,
-          "hostNone": "",
-          "tree": {
-            "part": "HEADER_SLOT",
-            "slot": true,
-            "text": "",
-            "w": 0,
-            "h": 0,
-            "abs": false,
-            "x": 0,
-            "y": 0,
-            "pad": [
-              0,
-              0,
-              0,
-              0
-            ],
-            "inset": [
-              0,
-              0,
-              0,
-              0
-            ],
-            "gap": 0,
-            "gaps": [],
-            "dir": "V",
-            "justify": "normal",
-            "align": "stretch",
-            "bg": [
-              0,
-              0,
-              0,
-              0
-            ],
-            "gradient": null,
-            "fg": [
-              0.98,
-              0.98,
-              0.98,
-              1
-            ],
-            "radius": 0,
-            "borderWidth": 0,
-            "borderColor": [
-              0.98,
-              0.98,
-              0.98,
-              1
-            ],
-            "shadow": null,
-            "fontSize": 16,
-            "lineHeightPct": 150,
-            "weight": 400,
-            "letterSpacing": -0.16,
-            "isText": false,
-            "textFill": false,
-            "wx": "HUG",
-            "wy": "슬롯",
-            "hy": "슬롯",
-            "hx": "HUG",
-            "minW": 0,
-            "minH": 0,
-            "maxW": 0,
-            "children": []
-          }
-        }
-      ]
-    },
-    {
-      "kind": "button",
-      "label": "버튼",
-      "count": 1,
-      "specimens": [
-        {
-          "id": "button/gnbSidebarCta",
-          "label": "GNB 사이드바 CTA 버튼 — 라벨 스팬을 자식으로 갖는 민트 알약",
-          "jsx": "Gnb.tsx:5005-5019",
-          "hosted": true,
-          "hostNone": "",
-          "tree": {
-            "part": "sidebarUpgradeButton",
-            "slot": false,
-            "text": "",
-            "w": 372,
-            "h": 41,
-            "abs": false,
-            "x": 0,
-            "y": 0,
-            "pad": [
-              10,
-              14,
-              10,
-              14
-            ],
-            "inset": [
-              0,
-              0,
-              0,
-              0
-            ],
-            "gap": 0,
-            "gaps": [],
-            "dir": "H",
-            "justify": "center",
-            "align": "stretch",
-            "bg": [
-              0.945,
-              0.945,
-              0.953,
-              1
-            ],
-            "gradient": null,
-            "fg": [
-              0.09,
-              0.106,
-              0.133,
-              1
-            ],
-            "radius": 12,
-            "borderWidth": 0,
-            "borderColor": [
-              0.09,
-              0.106,
-              0.133,
-              1
-            ],
-            "shadow": {
-              "color": [
-                0,
-                0,
-                0,
-                0.12
-              ],
-              "x": 0,
-              "y": 1,
-              "blur": 2
-            },
-            "fontSize": 14,
-            "lineHeightPct": 150,
-            "weight": 500,
-            "letterSpacing": -0.14,
-            "isText": false,
-            "textFill": false,
-            "wx": "HUG",
-            "wy": "주축",
-            "hy": "선언",
-            "hx": "FIX",
-            "minW": 0,
-            "minH": 40,
-            "maxW": 0,
-            "children": [
-              {
-                "part": "sidebarUpgradeLabel",
-                "slot": false,
-                "text": "보관함",
-                "w": 35.89,
-                "h": 21,
-                "abs": false,
-                "x": 168.05,
-                "y": 10,
-                "pad": [
-                  0,
-                  0,
-                  0,
-                  0
-                ],
-                "inset": [
-                  0,
-                  0,
-                  0,
-                  0
-                ],
-                "gap": 0,
-                "gaps": [],
-                "dir": "V",
-                "justify": "normal",
-                "align": "stretch",
-                "bg": [
-                  0,
-                  0,
-                  0,
-                  0
-                ],
-                "gradient": null,
-                "fg": [
-                  0.09,
-                  0.106,
-                  0.133,
-                  1
-                ],
-                "radius": 0,
-                "borderWidth": 0,
-                "borderColor": [
-                  0.09,
-                  0.106,
-                  0.133,
-                  1
-                ],
-                "shadow": null,
-                "fontSize": 14,
-                "lineHeightPct": 150,
-                "weight": 500,
-                "letterSpacing": -0.14,
-                "isText": true,
-                "textFill": true,
-                "wx": "HUG",
-                "wy": "주축",
-                "hy": "내용",
-                "hx": "HUG",
-                "minW": 0,
-                "minH": 0,
-                "maxW": 0,
-                "children": [],
-                "ci": 0
-              }
-            ]
-          }
-        }
-      ]
-    },
-    {
-      "kind": "canvas-node",
-      "label": "캔버스 노드",
-      "count": 1,
-      "specimens": [
-        {
-          "id": "canvas-node/bgmShell",
-          "label": "캔버스 노드 셸 (BGM 노드) — 카드 위 헤더 + 카드",
-          "jsx": "BgmNode.tsx:1035-1063",
-          "hosted": false,
-          "hostNone": "부모를 못 찾은 게 아니라 '크기를 바꾸는 부모가 없음'을 확인했다. (1) BgmNode.tsx의 return 루트가 표본 루트다(1035행 `<div className={NODE_CONTAINER} data-node-accent=\"audio\">`) — 컴포넌트 안에 DOM 부모가 없다. (2) 호출부를 따라갔다 — 유일한 소비처는 node-canvas-v2/index.tsx:834 `bgm: memo(BgmNode)`로 NODE_TYPES에 등록되고 index.tsx:10845 `nodeTypes={NODE_TYPES}`로 React Flow(@xyflow/react)에 넘겨지는 것뿐이다. React Flow는 노드를 라이브러리 소유 `.react-flow__node` 래퍼(absolute + translate transform)로 캔버스 팬에 배치하므로 제품 클래스 상수로 된 부모가 존재하지 않는다. (3) 제품 CSS에도 `.react-flow__node`의 크기·레이아웃 선언이 없다 — git grep 결과 globals.css:1267의 `:has([data-meta-dropdown-anchor])` 규칙 하나뿐이고 레이아웃과 무관하다. 래퍼가 absolute라 표본 루트는 어떤 flex/grid 항목도 아니고 shrink-to-fit 문맥에 놓인다 — 폭 선언이 없는 NODE_CONTAINER(flex flex-col items-center)는 고정폭 자식(카드 폭 변수)으로 수축한다.",
-          "tree": {
-            "part": "NODE_CONTAINER",
-            "slot": false,
-            "text": "",
-            "w": 372,
-            "h": 28,
-            "abs": false,
-            "x": 0,
-            "y": 0,
-            "pad": [
-              0,
-              0,
-              0,
-              0
-            ],
-            "inset": [
-              0,
-              0,
-              0,
-              0
-            ],
-            "gap": 4,
-            "gaps": [],
-            "dir": "V",
-            "justify": "normal",
-            "align": "stretch",
-            "bg": [
-              0,
-              0,
-              0,
-              0
-            ],
-            "gradient": null,
-            "fg": [
-              0.98,
-              0.98,
-              0.98,
-              1
-            ],
-            "radius": 0,
-            "borderWidth": 0,
-            "borderColor": [
-              0.98,
-              0.98,
-              0.98,
-              1
-            ],
-            "shadow": null,
-            "fontSize": 16,
-            "lineHeightPct": 150,
-            "weight": 400,
-            "letterSpacing": -0.16,
-            "isText": false,
-            "textFill": false,
-            "wx": "FILL",
-            "wy": "교차축",
-            "hy": "내용",
-            "hx": "HUG",
-            "minW": 0,
-            "minH": 0,
-            "maxW": 0,
-            "children": [
-              {
-                "part": "NODE_HEADER_ABOVE",
-                "slot": false,
-                "text": "",
-                "w": 400,
-                "h": 24,
-                "abs": false,
-                "x": -14,
-                "y": 0,
-                "pad": [
-                  0,
-                  2,
-                  0,
-                  2
-                ],
-                "inset": [
-                  0,
-                  0,
-                  0,
-                  0
-                ],
-                "gap": 8,
-                "gaps": [],
-                "dir": "H",
-                "justify": "space-between",
-                "align": "stretch",
-                "bg": [
-                  0,
-                  0,
-                  0,
-                  0
-                ],
-                "gradient": null,
-                "fg": [
-                  0.98,
-                  0.98,
-                  0.98,
-                  1
-                ],
-                "radius": 0,
-                "borderWidth": 0,
-                "borderColor": [
-                  0.98,
-                  0.98,
-                  0.98,
-                  1
-                ],
-                "shadow": null,
-                "fontSize": 16,
-                "lineHeightPct": 150,
-                "weight": 400,
-                "letterSpacing": -0.16,
-                "isText": false,
-                "textFill": false,
-                "wx": "FIX",
-                "wy": "선언",
-                "hy": "내용",
-                "hx": "HUG",
-                "minW": 0,
-                "minH": 0,
-                "maxW": 0,
-                "children": [
-                  {
-                    "part": "NODE_TITLE_WRAP",
-                    "slot": false,
-                    "text": "",
-                    "w": 388,
-                    "h": 24,
-                    "abs": false,
-                    "x": 2,
-                    "y": 0,
-                    "pad": [
-                      0,
-                      0,
-                      0,
-                      0
-                    ],
-                    "inset": [
-                      0,
-                      0,
-                      0,
-                      0
-                    ],
-                    "gap": 0,
-                    "gaps": [],
-                    "dir": "H",
-                    "justify": "normal",
-                    "align": "stretch",
-                    "bg": [
-                      0,
-                      0,
-                      0,
-                      0
-                    ],
-                    "gradient": null,
-                    "fg": [
-                      0.604,
-                      0.627,
-                      0.671,
-                      1
-                    ],
-                    "radius": 0,
-                    "borderWidth": 0,
-                    "borderColor": [
-                      0.604,
-                      0.627,
-                      0.671,
-                      1
-                    ],
-                    "shadow": null,
-                    "fontSize": 16,
-                    "lineHeightPct": 150,
-                    "weight": 400,
-                    "letterSpacing": -0.16,
-                    "isText": false,
-                    "textFill": false,
-                    "wx": "FIX",
-                    "wy": "선언",
-                    "hy": "내용",
-                    "hx": "HUG",
-                    "minW": 0,
-                    "minH": 0,
-                    "maxW": 0,
-                    "children": [
-                      {
-                        "part": "NODE_TITLE_LEFT",
-                        "slot": false,
-                        "text": "",
-                        "w": 388,
-                        "h": 24,
-                        "abs": false,
-                        "x": 0,
-                        "y": 0,
-                        "pad": [
-                          0,
-                          0,
-                          0,
-                          0
-                        ],
-                        "inset": [
-                          0,
-                          0,
-                          0,
-                          0
-                        ],
-                        "gap": 5,
-                        "gaps": [],
-                        "dir": "H",
-                        "justify": "normal",
-                        "align": "stretch",
-                        "bg": [
-                          0,
-                          0,
-                          0,
-                          0
-                        ],
-                        "gradient": null,
-                        "fg": [
-                          0.604,
-                          0.627,
-                          0.671,
-                          1
-                        ],
-                        "radius": 0,
-                        "borderWidth": 0,
-                        "borderColor": [
-                          0.604,
-                          0.627,
-                          0.671,
-                          1
-                        ],
-                        "shadow": null,
-                        "fontSize": 16,
-                        "lineHeightPct": 150,
-                        "weight": 400,
-                        "letterSpacing": -0.16,
-                        "isText": false,
-                        "textFill": false,
-                        "wx": "FIX",
-                        "wy": "선언",
-                        "hy": "선언",
-                        "hx": "FIX",
-                        "minW": 0,
-                        "minH": 0,
-                        "maxW": 0,
-                        "children": [
-                          {
-                            "part": "NODE_TITLE_ICON",
-                            "slot": true,
-                            "text": "",
-                            "w": 0,
-                            "h": 0,
-                            "abs": false,
-                            "x": 0,
-                            "y": 12,
-                            "pad": [
-                              0,
-                              0,
-                              0,
-                              0
-                            ],
-                            "inset": [
-                              0,
-                              0,
-                              0,
-                              0
-                            ],
-                            "gap": 0,
-                            "gaps": [],
-                            "dir": "H",
-                            "justify": "center",
-                            "align": "stretch",
-                            "bg": [
-                              0,
-                              0,
-                              0,
-                              0
-                            ],
-                            "gradient": null,
-                            "fg": [
-                              0.604,
-                              0.627,
-                              0.671,
-                              1
-                            ],
-                            "radius": 0,
-                            "borderWidth": 0,
-                            "borderColor": [
-                              0.604,
-                              0.627,
-                              0.671,
-                              1
-                            ],
-                            "shadow": null,
-                            "fontSize": 16,
-                            "lineHeightPct": 0,
-                            "weight": 400,
-                            "letterSpacing": -0.16,
-                            "isText": false,
-                            "textFill": false,
-                            "wx": "HUG",
-                            "wy": "슬롯",
-                            "hy": "슬롯",
-                            "hx": "HUG",
-                            "minW": 0,
-                            "minH": 0,
-                            "maxW": 0,
-                            "children": [],
-                            "ci": 12
-                          },
-                          {
-                            "part": "NODE_TITLE_LABEL",
-                            "slot": false,
-                            "text": "사운드",
-                            "w": 383,
-                            "h": 14,
-                            "abs": false,
-                            "x": 5,
-                            "y": 5,
-                            "pad": [
-                              0,
-                              0,
-                              0,
-                              0
-                            ],
-                            "inset": [
-                              0,
-                              0,
-                              0,
-                              0
-                            ],
-                            "gap": 0,
-                            "gaps": [],
-                            "dir": "V",
-                            "justify": "normal",
-                            "align": "stretch",
-                            "bg": [
-                              0,
-                              0,
-                              0,
-                              0
-                            ],
-                            "gradient": null,
-                            "fg": [
-                              0.604,
-                              0.627,
-                              0.671,
-                              1
-                            ],
-                            "radius": 0,
-                            "borderWidth": 0,
-                            "borderColor": [
-                              0.604,
-                              0.627,
-                              0.671,
-                              1
-                            ],
-                            "shadow": null,
-                            "fontSize": 14,
-                            "lineHeightPct": 100,
-                            "weight": 500,
-                            "letterSpacing": -0.14,
-                            "isText": true,
-                            "textFill": true,
-                            "wx": "FIX",
-                            "wy": "선언",
-                            "hy": "내용",
-                            "hx": "HUG",
-                            "minW": 0,
-                            "minH": 0,
-                            "maxW": 0,
-                            "children": [],
-                            "ci": 5
-                          }
-                        ],
-                        "ci": 0
-                      }
-                    ],
-                    "ci": 0
-                  },
-                  {
-                    "part": "NODE_HEADER_ABOVE_ACTIONS",
-                    "slot": true,
-                    "text": "",
-                    "w": 0,
-                    "h": 0,
-                    "abs": false,
-                    "x": 398,
-                    "y": 12,
-                    "pad": [
-                      0,
-                      0,
-                      0,
-                      0
-                    ],
-                    "inset": [
-                      0,
-                      0,
-                      0,
-                      0
-                    ],
-                    "gap": 0,
-                    "gaps": [],
-                    "dir": "H",
-                    "justify": "normal",
-                    "align": "stretch",
-                    "bg": [
-                      0,
-                      0,
-                      0,
-                      0
-                    ],
-                    "gradient": null,
-                    "fg": [
-                      0.98,
-                      0.98,
-                      0.98,
-                      1
-                    ],
-                    "radius": 0,
-                    "borderWidth": 0,
-                    "borderColor": [
-                      0.98,
-                      0.98,
-                      0.98,
-                      1
-                    ],
-                    "shadow": null,
-                    "fontSize": 16,
-                    "lineHeightPct": 150,
-                    "weight": 400,
-                    "letterSpacing": -0.16,
-                    "isText": false,
-                    "textFill": false,
-                    "wx": "HUG",
-                    "wy": "슬롯",
-                    "hy": "슬롯",
-                    "hx": "HUG",
-                    "minW": 0,
-                    "minH": 0,
-                    "maxW": 0,
-                    "children": [],
-                    "ci": 12
-                  }
-                ],
-                "ci": 0
-              },
-              {
-                "part": "NODE_MAIN",
-                "slot": false,
-                "text": "",
-                "w": 400,
-                "h": 0,
-                "abs": false,
-                "x": -14,
-                "y": 28,
-                "pad": [
-                  0,
-                  0,
-                  0,
-                  0
-                ],
-                "inset": [
-                  0,
-                  0,
-                  0,
-                  0
-                ],
-                "gap": 0,
-                "gaps": [],
-                "dir": "V",
-                "justify": "normal",
-                "align": "stretch",
-                "bg": [
-                  0,
-                  0,
-                  0,
-                  0
-                ],
-                "gradient": null,
-                "fg": [
-                  0.98,
-                  0.98,
-                  0.98,
-                  1
-                ],
-                "radius": 0,
-                "borderWidth": 0,
-                "borderColor": [
-                  0.98,
-                  0.98,
-                  0.98,
-                  1
-                ],
-                "shadow": null,
-                "fontSize": 16,
-                "lineHeightPct": 150,
-                "weight": 400,
-                "letterSpacing": -0.16,
-                "isText": false,
-                "textFill": true,
-                "wx": "FIX",
-                "wy": "선언",
-                "hy": "내용",
-                "hx": "HUG",
-                "minW": 0,
-                "minH": 0,
-                "maxW": 0,
-                "children": [
-                  {
-                    "part": "NODE_WRAP",
-                    "slot": true,
-                    "text": "",
-                    "w": 400,
-                    "h": 0,
-                    "abs": false,
-                    "x": 0,
-                    "y": 0,
-                    "pad": [
-                      0,
-                      0,
-                      0,
-                      0
-                    ],
-                    "inset": [
-                      0,
-                      0,
-                      0,
-                      0
-                    ],
-                    "gap": 0,
-                    "gaps": [],
-                    "dir": "V",
-                    "justify": "normal",
-                    "align": "stretch",
-                    "bg": [
-                      0.192,
-                      0.212,
-                      0.251,
-                      1
-                    ],
-                    "gradient": null,
-                    "fg": [
-                      0.98,
-                      0.98,
-                      0.98,
-                      1
-                    ],
-                    "radius": 24,
-                    "borderWidth": 0,
-                    "borderColor": [
-                      0.98,
-                      0.98,
-                      0.98,
-                      1
-                    ],
-                    "shadow": null,
-                    "fontSize": 16,
-                    "lineHeightPct": 150,
-                    "weight": 400,
-                    "letterSpacing": -0.16,
-                    "isText": false,
-                    "textFill": true,
-                    "wx": "FIX",
-                    "wy": "선언",
-                    "hy": "부모높이",
-                    "hx": "FILL",
-                    "minW": 0,
-                    "minH": 0,
-                    "maxW": 0,
-                    "children": [],
-                    "ci": 0
-                  }
-                ],
-                "ci": 0
-              }
-            ]
-          }
-        }
-      ]
-    },
-    {
-      "kind": "dialog",
-      "label": "모달",
-      "count": 1,
-      "specimens": [
-        {
-          "id": "dialog/myPage",
-          "label": "마이페이지 확인 모달",
-          "jsx": "SubscriptionScene.tsx:1275-1310",
-          "hosted": true,
-          "hostNone": "",
-          "tree": {
-            "part": "modalCard",
-            "slot": false,
-            "text": "",
-            "w": 360,
-            "h": 169,
-            "abs": false,
-            "x": 0,
-            "y": 0,
-            "pad": [
-              16,
-              8,
-              8,
-              8
-            ],
-            "inset": [
-              0,
-              8,
-              8,
-              8
-            ],
-            "gap": 0,
-            "gaps": [
-              16,
-              40
-            ],
-            "dir": "V",
-            "justify": "normal",
-            "align": "stretch",
-            "bg": [
-              0.192,
-              0.212,
-              0.251,
-              1
-            ],
-            "gradient": null,
-            "fg": [
-              0.98,
-              0.98,
-              0.98,
-              1
-            ],
-            "radius": 24,
-            "borderWidth": 0,
-            "borderColor": [
-              0.98,
-              0.98,
-              0.98,
-              1
-            ],
-            "shadow": null,
-            "fontSize": 16,
-            "lineHeightPct": 150,
-            "weight": 400,
-            "letterSpacing": -0.16,
-            "isText": false,
-            "textFill": false,
-            "wx": "FIX",
-            "wy": "선언",
-            "hy": "내용",
-            "hx": "HUG",
-            "minW": 0,
-            "minH": 0,
-            "maxW": 0,
-            "children": [
-              {
-                "part": "modalTitle",
-                "slot": false,
-                "text": "프로젝트를 삭제할까요?",
-                "w": 328,
-                "h": 24,
-                "abs": false,
-                "x": 16,
-                "y": 16,
-                "pad": [
-                  0,
-                  0,
-                  0,
-                  0
-                ],
-                "inset": [
-                  0,
-                  0,
-                  0,
-                  0
-                ],
-                "gap": 0,
-                "gaps": [],
-                "dir": "V",
-                "justify": "normal",
-                "align": "stretch",
-                "bg": [
-                  0,
-                  0,
-                  0,
-                  0
-                ],
-                "gradient": null,
-                "fg": [
-                  0.98,
-                  0.98,
-                  0.98,
-                  1
-                ],
-                "radius": 0,
-                "borderWidth": 0,
-                "borderColor": [
-                  0.98,
-                  0.98,
-                  0.98,
-                  1
-                ],
-                "shadow": null,
-                "fontSize": 16,
-                "lineHeightPct": 150,
-                "weight": 600,
-                "letterSpacing": -0.16,
-                "isText": true,
-                "textFill": true,
-                "wx": "FILL",
-                "wy": "교차축",
-                "hy": "내용",
-                "hx": "HUG",
-                "minW": 0,
-                "minH": 0,
-                "maxW": 0,
-                "children": [],
-                "ci": 8
-              },
-              {
-                "part": "modalDescription",
-                "slot": false,
-                "text": "삭제하면 되돌릴 수 없습니다.",
-                "w": 328,
-                "h": 21,
-                "abs": false,
-                "x": 16,
-                "y": 56,
-                "pad": [
-                  0,
-                  0,
-                  0,
-                  0
-                ],
-                "inset": [
-                  0,
-                  0,
-                  0,
-                  0
-                ],
-                "gap": 0,
-                "gaps": [],
-                "dir": "V",
-                "justify": "normal",
-                "align": "stretch",
-                "bg": [
-                  0,
-                  0,
-                  0,
-                  0
-                ],
-                "gradient": null,
-                "fg": [
-                  0.98,
-                  0.98,
-                  0.98,
-                  0.56
-                ],
-                "radius": 0,
-                "borderWidth": 0,
-                "borderColor": [
-                  0.98,
-                  0.98,
-                  0.98,
-                  0.56
-                ],
-                "shadow": null,
-                "fontSize": 14,
-                "lineHeightPct": 150,
-                "weight": 400,
-                "letterSpacing": -0.14,
-                "isText": true,
-                "textFill": true,
-                "wx": "FILL",
-                "wy": "교차축",
-                "hy": "내용",
-                "hx": "HUG",
-                "minW": 0,
-                "minH": 0,
-                "maxW": 0,
-                "children": [],
-                "ci": 8
-              },
-              {
-                "part": "modalActions",
-                "slot": false,
-                "text": "",
-                "w": 344,
-                "h": 44,
-                "abs": false,
-                "x": 8,
-                "y": 117,
-                "pad": [
-                  0,
-                  0,
-                  0,
-                  0
-                ],
-                "inset": [
-                  0,
-                  0,
-                  0,
-                  0
-                ],
-                "gap": 8,
-                "gaps": [],
-                "dir": "H",
-                "justify": "normal",
-                "align": "stretch",
-                "bg": [
-                  0,
-                  0,
-                  0,
-                  0
-                ],
-                "gradient": null,
-                "fg": [
-                  0.98,
-                  0.98,
-                  0.98,
-                  1
-                ],
-                "radius": 0,
-                "borderWidth": 0,
-                "borderColor": [
-                  0.98,
-                  0.98,
-                  0.98,
-                  1
-                ],
-                "shadow": null,
-                "fontSize": 16,
-                "lineHeightPct": 150,
-                "weight": 400,
-                "letterSpacing": -0.16,
-                "isText": false,
-                "textFill": false,
-                "wx": "FILL",
-                "wy": "교차축",
-                "hy": "내용",
-                "hx": "HUG",
-                "minW": 0,
-                "minH": 0,
-                "maxW": 0,
-                "children": [
-                  {
-                    "part": "modalCancel",
-                    "slot": false,
-                    "text": "취소",
-                    "w": 168,
-                    "h": 44,
-                    "abs": false,
-                    "x": 0,
-                    "y": 0,
-                    "pad": [
-                      0,
-                      0,
-                      0,
-                      0
-                    ],
-                    "inset": [
-                      0,
-                      0,
-                      0,
-                      0
-                    ],
-                    "gap": 0,
-                    "gaps": [],
-                    "dir": "V",
-                    "justify": "normal",
-                    "align": "stretch",
-                    "bg": [
-                      0.98,
-                      0.98,
-                      0.98,
-                      0.08
-                    ],
-                    "gradient": null,
-                    "fg": [
-                      0.98,
-                      0.98,
-                      0.98,
-                      1
-                    ],
-                    "radius": 16,
-                    "borderWidth": 0,
-                    "borderColor": [
-                      0.98,
-                      0.98,
-                      0.98,
-                      1
-                    ],
-                    "shadow": null,
-                    "fontSize": 14,
-                    "lineHeightPct": 150,
-                    "weight": 500,
-                    "letterSpacing": -0.14,
-                    "isText": false,
-                    "textFill": true,
-                    "wx": "FIX",
-                    "wy": "선언",
-                    "hy": "선언",
-                    "hx": "FIX",
-                    "minW": 0,
-                    "minH": 0,
-                    "maxW": 0,
-                    "children": [],
-                    "ci": 0
-                  },
-                  {
-                    "part": "modalConfirm",
-                    "slot": false,
-                    "text": "삭제",
-                    "w": 168,
-                    "h": 44,
-                    "abs": false,
-                    "x": 176,
-                    "y": 0,
-                    "pad": [
-                      0,
-                      0,
-                      0,
-                      0
-                    ],
-                    "inset": [
-                      0,
-                      0,
-                      0,
-                      0
-                    ],
-                    "gap": 0,
-                    "gaps": [],
-                    "dir": "V",
-                    "justify": "normal",
-                    "align": "stretch",
-                    "bg": [
-                      0.98,
-                      0.98,
-                      0.98,
-                      1
-                    ],
-                    "gradient": null,
-                    "fg": [
-                      0,
-                      0,
-                      0,
-                      1
-                    ],
-                    "radius": 16,
-                    "borderWidth": 0,
-                    "borderColor": [
-                      0,
-                      0,
-                      0,
-                      1
-                    ],
-                    "shadow": null,
-                    "fontSize": 14,
-                    "lineHeightPct": 150,
-                    "weight": 500,
-                    "letterSpacing": -0.14,
-                    "isText": false,
-                    "textFill": true,
-                    "wx": "FILL",
-                    "wy": "선언(채움)",
-                    "hy": "선언",
-                    "hx": "FIX",
-                    "minW": 0,
-                    "minH": 0,
-                    "maxW": 0,
-                    "children": [],
-                    "ci": 0
-                  }
-                ],
-                "ci": 0
               }
             ]
           }
@@ -24339,27 +23389,27 @@
                         [
                           0.25,
                           [
-                            0.835,
-                            0.843,
-                            0.867,
+                            0.647,
+                            0.659,
+                            0.682,
                             0.56
                           ]
                         ],
                         [
                           0.25,
                           [
-                            0.945,
-                            0.945,
-                            0.953,
+                            0.867,
+                            0.871,
+                            0.878,
                             0.8
                           ]
                         ],
                         [
                           0.5,
                           [
-                            0.945,
-                            0.945,
-                            0.953,
+                            0.867,
+                            0.871,
+                            0.878,
                             0.8
                           ]
                         ]

@@ -195,8 +195,8 @@
     {
       "id": "banner-carousel/appHome",
       "kind": "banner-carousel",
-      "label": "앱 홈 배너 캐러셀 — 슬라이드 + 우하단 컨트롤(화살표·점)",
-      "jsx": "apps/web/components/scenes/AppHomeScene.tsx:857-989",
+      "label": "앱 홈 배너 캐러셀 — 슬라이드 + 하단 가운데 컨트롤(점)",
+      "jsx": "apps/web/components/scenes/AppHomeScene.tsx:891-970",
       "file": "apps/web/components/scenes/appHomeSceneStyles.ts",
       "node": {
         "part": "updateBanner",
@@ -237,10 +237,6 @@
             "tag": "div",
             "children": [
               {
-                "part": "bannerArrowButton",
-                "tag": "button"
-              },
-              {
                 "part": "bannerDots",
                 "tag": "div",
                 "children": [
@@ -257,10 +253,6 @@
                     "tag": "button"
                   }
                 ]
-              },
-              {
-                "part": "bannerArrowButton",
-                "tag": "button"
               }
             ]
           }
@@ -276,17 +268,13 @@
     {
       "id": "banner-carousel/appHomeControls",
       "kind": "banner-carousel",
-      "label": "앱 홈 배너 컨트롤 — 화살표 둘과 점 셋의 글래스 필",
-      "jsx": "apps/web/components/scenes/AppHomeScene.tsx:926-988",
+      "label": "앱 홈 배너 컨트롤 — 점 셋. 화살표는 제품이 더는 그리지 않는다",
+      "jsx": "apps/web/components/scenes/AppHomeScene.tsx:950-969",
       "file": "apps/web/components/scenes/appHomeSceneStyles.ts",
       "node": {
         "part": "bannerControls",
         "tag": "div",
         "children": [
-          {
-            "part": "bannerArrowButton",
-            "tag": "button"
-          },
           {
             "part": "bannerDots",
             "tag": "div",
@@ -304,10 +292,6 @@
                 "tag": "button"
               }
             ]
-          },
-          {
-            "part": "bannerArrowButton",
-            "tag": "button"
           }
         ]
       },
@@ -2002,7 +1986,7 @@
                 ]
               }
             ],
-            "inlineAt": "apps/web/components/scenes/AppHomeScene.tsx:1127"
+            "inlineAt": "apps/web/components/scenes/AppHomeScene.tsx:1091"
           }
         ]
       },
@@ -2103,7 +2087,7 @@
                 ]
               }
             ],
-            "inlineAt": "apps/web/components/scenes/NodeCanvasHomeScene.tsx:1480"
+            "inlineAt": "apps/web/components/scenes/NodeCanvasHomeScene.tsx:1498"
           }
         ]
       },
@@ -2207,68 +2191,6 @@
         {
           "file": "apps/web/components/scenes/YoutubeAnalyticsScene.tsx",
           "part": "DASHBOARD_NAV_BAR_CARD"
-        }
-      ]
-    },
-    {
-      "id": "selectable-list-row/creditHistoryEntry",
-      "kind": "selectable-list-row",
-      "label": "크레딧 내역 행 — 링크가 있을 때만 눌리는 행",
-      "jsx": "apps/web/components/scenes/SubscriptionScene.tsx:1071-1153",
-      "jsxQuote": "                            className={`${styles.creditHistoryListItem} ${",
-      "file": "apps/web/components/scenes/myPageSceneStyles.ts",
-      "node": {
-        "part": "creditHistoryListItem",
-        "tag": "div",
-        "children": [
-          {
-            "part": "creditHistoryListMain",
-            "tag": "div",
-            "children": [
-              {
-                "part": "creditHistoryListTitle",
-                "tag": "span",
-                "typography": "type-body-14-medium",
-                "text": "하이라이트 생성"
-              },
-              {
-                "part": "creditHistoryListMeta",
-                "tag": "span",
-                "typography": "type-caption-12-regular",
-                "text": "2026. 8. 12."
-              }
-            ]
-          },
-          {
-            "part": "creditHistoryListValue",
-            "tag": "div",
-            "children": [
-              {
-                "part": "creditHistoryListDelta",
-                "tag": "span",
-                "typography": "type-body-14-semibold",
-                "text": "-120"
-              },
-              {
-                "part": "creditHistoryListBalance",
-                "tag": "span",
-                "typography": "type-caption-12-regular",
-                "text": "잔액 1,880"
-              },
-              {
-                "part": "withdrawalButton",
-                "tag": "button",
-                "typography": "type-caption-12-medium",
-                "text": "환불 요청"
-              }
-            ]
-          }
-        ]
-      },
-      "host": [
-        {
-          "file": "apps/web/components/scenes/myPageSceneStyles.ts",
-          "part": "creditHistoryEmpty"
         }
       ]
     },
@@ -2692,44 +2614,6 @@
       ]
     },
     {
-      "id": "toast/adminError",
-      "kind": "toast",
-      "label": "관리자 토스트 · 오류 스킨 — TOAST_ERROR 색 상수가 JSX에서 합성된다",
-      "jsx": "apps/web/app/admin/AdminClient.tsx:1553-1557",
-      "file": "apps/web/app/admin/AdminClient.tsx",
-      "node": {
-        "part": "TOAST",
-        "tag": "div",
-        "typography": "type-body-14-medium",
-        "text": "사용자 목록을 불러오지 못했습니다"
-      },
-      "host": [
-        {
-          "file": "apps/web/app/admin/AdminClient.tsx",
-          "part": "CONTENT_PANEL"
-        }
-      ]
-    },
-    {
-      "id": "toast/adminSuccess",
-      "kind": "toast",
-      "label": "관리자 토스트 · 성공 스킨 — TOAST_SUCCESS 색 상수가 JSX에서 합성된다",
-      "jsx": "apps/web/app/admin/AdminClient.tsx:1443-1451",
-      "file": "apps/web/app/admin/AdminClient.tsx",
-      "node": {
-        "part": "TOAST",
-        "tag": "div",
-        "typography": "type-body-14-medium",
-        "text": "지급이 완료되었습니다"
-      },
-      "host": [
-        {
-          "file": "apps/web/app/admin/AdminClient.tsx",
-          "part": "CONTENT_PANEL"
-        }
-      ]
-    },
-    {
       "id": "toast/appHome",
       "kind": "toast",
       "label": "앱 홈 · 하이라이트 토스트",
@@ -2826,9 +2710,9 @@
       "id": "tooltip/upgradeTierFeature",
       "kind": "tooltip",
       "label": "업그레이드 요금제 기능 툴팁",
-      "jsx": "apps/web/app/mypage/upgrade/page.tsx:605",
+      "jsx": "apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx:639-652",
       "jsxQuote": "                            {detail && <span className={`louis-tooltip ${TIER_FEATURE_TIP}`}>{detail}</span>}",
-      "file": "apps/web/app/mypage/upgrade/page.tsx",
+      "file": "apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
       "node": {
         "part": "TIER_FEATURE_TIP",
         "tag": "span",
@@ -2837,7 +2721,7 @@
       },
       "host": [
         {
-          "file": "apps/web/app/mypage/upgrade/page.tsx",
+          "file": "apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
           "part": "TIER_FEATURE_WITH_TIP"
         }
       ]
@@ -3095,7 +2979,22 @@
       "id": "spinner/highlightShorts",
       "retired": "2026-08-30",
       "reason": "위와 같다 — SPINNER 가 없어졌다."
+    },
+    {
+      "id": "selectable-list-row/creditHistoryEntry",
+      "retired": "2026-09-03",
+      "reason": "크레딧 내역이 **리스트에서 표로 바뀌었다.** `creditHistoryList*` 일곱 상수가 통째로 사라지고 `creditHistoryTable`·`creditHistoryTd*`·`creditHistoryTh*` 가 그 자리에 섰다. 행 하나를 재던 이 표본에는 대응이 없다 — 표를 재려면 새 구조를 JSX 에서 다시 읽어 세워야 하고, 그것은 재고정의 몫이 아니다."
+    },
+    {
+      "id": "toast/adminError",
+      "retired": "2026-09-03",
+      "reason": "위와 같다 — `TOAST`·`TOAST_ERROR` 가 `AdminAlert` 로 넘어갔다."
+    },
+    {
+      "id": "toast/adminSuccess",
+      "retired": "2026-09-03",
+      "reason": "어드민 토스트 세 상수(`TOAST`·`TOAST_SUCCESS`·`TOAST_ERROR`)가 `AdminClient.tsx` 에서 사라졌다. 그 자리는 공용 `AdminAlert`(`app/admin/AdminSection.tsx`)가 가져갔고, 그 표면은 앵커 재고정으로 `product.surfaces.json` 에 처음 들어와 판단 대기다. 표본을 남겨 두면 측정기가 「상수가 없습니다」로 죽는다."
     }
   ],
-  "$retiredNote": "표본이 가리키던 제품 상수가 **LOUIS 채택으로 사라진** 자리다. 지운 것이 아니라 옮겨 간 것이며, 같은 자리를 이제 LOUIS 후크 탐침(measure-product-components.mjs)이 잰다. 표본을 남겨 두면 측정기가 「상수가 없습니다」로 죽고, 그 빨강이 환경 탓처럼 보인다 — 실제로 verify-product-variants 가 오래 그 상태였다."
+  "$retiredNote": "표본이 가리키던 제품 상수가 **LOUIS 채택으로 사라진** 자리다. 지운 것이 아니라 옮겨 간 것이며, 같은 자리를 이제 LOUIS 후크 탐침(measure-product-components.mjs)이 잰다. 표본을 남겨 두면 측정기가 「상수가 없습니다」로 죽고, 그 빨강이 환경 탓처럼 보인다 — 실제로 verify-product-variants 가 오래 그 상태였다. 2026-09-03 앵커 재고정(ae8fd627 → 5a67d692)에서 셋이 더 내려갔다. 앞의 열여덟과 성격이 다르다 — 저것들은 **LOUIS 채택**으로 옮겨 간 자리이고, 이 셋은 제품이 그 UI 를 **다시 만든** 자리다(어드민 토스트 → AdminAlert · 크레딧 내역 리스트 → 표). 옮겨 간 것은 LOUIS 후크 탐침이 이어서 재지만, 다시 만든 것은 아무도 재지 않는다 — 새 구조를 JSX 에서 읽어 표본을 다시 세워야 열린다."
 }

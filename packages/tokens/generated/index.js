@@ -15002,26 +15002,26 @@ export const tokens = {
     },
     "color-landing-page-bg": {
       "aliasTarget": {
-        "id": "color-palette-gray-100",
+        "id": "color-palette-gray-050",
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-landing-page-bg": "color(srgb 0.866667 0.870588 0.882353 / 1)"
+        "--louis-color-landing-page-bg": "color(srgb 0.921569 0.92549 0.933333 / 1)"
       },
       "deprecated": null,
       "description": null,
       "id": "color-landing-page-bg",
       "mode": "light",
-      "rawValue": "{primitive.color.palette-gray.100}",
+      "rawValue": "{primitive.color.palette-gray.050}",
       "sourcePath": "semantic.light.color.landing.page-bg",
       "tier": "semantic",
       "type": "color",
       "value": {
         "colorSpace": "srgb",
         "components": [
-          0.866667,
-          0.870588,
-          0.882353
+          0.921569,
+          0.92549,
+          0.933333
         ],
         "alpha": 1
       }

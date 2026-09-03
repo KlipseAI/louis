@@ -20842,18 +20842,18 @@
               "sourcePath": "semantic.dark.color.landing.page-bg"
             },
             "Light": {
-              "$value": "{primitive.color.palette-gray.100}",
+              "$value": "{primitive.color.palette-gray.050}",
               "aliasTarget": {
-                "id": "color-palette-gray-100",
+                "id": "color-palette-gray-050",
                 "mode": "base"
               },
               "resolvedValue": {
                 "alpha": 1,
                 "colorSpace": "srgb",
                 "components": [
-                  0.866667,
-                  0.870588,
-                  0.882353
+                  0.921569,
+                  0.92549,
+                  0.933333
                 ]
               },
               "sourcePath": "semantic.light.color.landing.page-bg"

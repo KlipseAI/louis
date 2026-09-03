@@ -12,10 +12,10 @@
   "filesScanned": 297,
   "counts": {
     "total": 434,
-    "mapped": 19,
-    "scoped": 210,
-    "needed": 158,
-    "unclear": 47,
+    "mapped": 25,
+    "scoped": 225,
+    "needed": 179,
+    "unclear": 5,
     "unclassified": 0
   },
   "surfaces": {
@@ -43,81 +43,81 @@
       "file": "apps/web/app/admin/AdminSection.tsx",
       "binding": "named",
       "louis": [],
-      "verdict": "unclear",
-      "figma": null,
-      "reason": "앵커를 ae8fd627 → 5a67d692 로 옮기며 분모에 들어왔다. 그 파일 자체가 옛 앵커에 없었으므로 이 저장소의 어떤 게이트도 이 자리를 본 적이 없다. 무엇으로 판정할지는 소유자 몫이다 — 열거는 기계가, 분류는 사람이.",
+      "verdict": "figma",
+      "figma": "Alert",
+      "reason": "마크업이 LOUIS `.louis-alert` 정본 하나로 끝난다 — 면·테두리·글자색·타이포를 전부 레시피가 `data-tone` 으로 소유해 호출부에 색 유틸리티가 한 줄도 없다(예전 사본 여섯 벌이 전역 type-* 와 다투느라 달고 있던 ! 선언이 사라진 이유가 그것이다). tone 넷 danger·success·warning·info 가 Figma Alert 의 Tone VARIANT 옵션 넷과 문자 그대로 일치한다. DS-D-0037(마크업이 recipe 를 직접 문다 → 그 컴포넌트 자체)의 근거 그대로다. 남는 간극 하나를 명시한다 — 오른쪽 action 슬롯(`ml-auto shrink-0`)이 LOUIS alert.css 에도(`__icon`·`__content`·`__title` 뿐) Figma Alert 에도(HasIcon·HasTitle 뿐) 없고, 제품에서 딱 한 자리 AdminClient.tsx:1328 의 「다시 시도」가 쓴다. 이는 이미 선 컴포넌트에 BOOLEAN 슬롯 하나를 더하는 정합 과제이지 「세워야 하는데 없는 컴포넌트」가 아니다 — AuthStatusCard 가 figma 판정을 받으면서 계약 범위 한계를 함께 적어 둔 것과 같은 처리다.",
       "weight": null
     },
     "apps/web/app/admin/AdminSection.tsx#AdminBadge": {
       "file": "apps/web/app/admin/AdminSection.tsx",
       "binding": "named",
       "louis": [],
-      "verdict": "unclear",
-      "figma": null,
-      "reason": "앵커를 ae8fd627 → 5a67d692 로 옮기며 분모에 들어왔다. 그 파일 자체가 옛 앵커에 없었으므로 이 저장소의 어떤 게이트도 이 자리를 본 적이 없다. 무엇으로 판정할지는 소유자 몫이다 — 열거는 기계가, 분류는 사람이.",
+      "verdict": "figma",
+      "figma": "Badge",
+      "reason": "마크업이 `.louis-badge` 정본을 직접 물고 톤만 `data-tone` 으로 고른다. tone 유니온 neutral·success·warning·danger·info 가 Figma Badge 의 Tone VARIANT 다섯 옵션과 순서까지 같다. 남는 것은 축이 아니라 값 두 개다 — ① 굵기를 제품 값 12 Medium 으로 올린다(LOUIS 기본은 caption Regular), ② neutral 만 면을 bg-raised 로 덮는다(레시피 기본 bg-inset 은 다크에서 어드민 카드 바닥과 바이트 단위로 같아 배지가 사라진다). 둘 다 「LOUIS 레시피 ≠ 제품 픽셀이면 LOUIS 를 제품 쪽으로 재조율해 채택한다」는 수렴 방향의 대상이지 새 컴포넌트가 아니다. 이 표면이 지운 것 하나가 판정을 뒷받침한다 — 예전 어드민 「활성/발행됨」이 기하 셋·초록 둘로 갈라져 있었고 그중 하나는 이 저장소가 지운 Tailwind 기본 팔레트 rgb(34 197 94) 리터럴이었다.",
       "weight": null
     },
     "apps/web/app/admin/AdminSection.tsx#AdminPanel": {
       "file": "apps/web/app/admin/AdminSection.tsx",
       "binding": "named",
       "louis": [],
-      "verdict": "unclear",
+      "verdict": "scoped",
       "figma": null,
-      "reason": "앵커를 ae8fd627 → 5a67d692 로 옮기며 분모에 들어왔다. 그 파일 자체가 옛 앵커에 없었으므로 이 저장소의 어떤 게이트도 이 자리를 본 적이 없다. 무엇으로 판정할지는 소유자 몫이다 — 열거는 기계가, 분류는 사람이.",
+      "reason": "파일 주석이 「패널은 면을 갖지 않는다」고 명시하고 클래스도 `flex flex-col gap-6 min-w-0` 뿐이다 — 예전 4% 면 세 겹이 겹치던 것을 걷어내고 남은 세로 간격 묶음이다. 제목을 그리는 일은 자식으로 세우는 apps/web/app/admin/AdminSection.tsx#AdminSectionHeader(level=section)가 전부 하고, 이 표면 자신은 아무것도 칠하지 않는다. Figma 에서는 세로 auto-layout 이다.",
       "weight": null
     },
     "apps/web/app/admin/AdminSection.tsx#AdminSectionHeader": {
       "file": "apps/web/app/admin/AdminSection.tsx",
       "binding": "named",
       "louis": [],
-      "verdict": "unclear",
+      "verdict": "needed",
       "figma": null,
-      "reason": "앵커를 ae8fd627 → 5a67d692 로 옮기며 분모에 들어왔다. 그 파일 자체가 옛 앵커에 없었으므로 이 저장소의 어떤 게이트도 이 자리를 본 적이 없다. 무엇으로 판정할지는 소유자 몫이다 — 열거는 기계가, 분류는 사람이.",
-      "weight": null
+      "reason": "제목 사다리를 그리는 실제 시각 표면이다 — page 36 SemiBold / section 20 SemiBold / label 12 Medium 56%, 그 아래 설명 16 Medium(palette-gray-500)과 메타 12 Regular 40%, 오른쪽에 액션 묶음 하나, 719px 이하에서 세로로 접힌다. 51개 컴포넌트에 헤더에 해당하는 것이 없고(Breadcrumb·AppTopBar 는 셸 부품이지 섹션 제목이 아니다) templates 아홉에도 없다. 어드민 10개 파일 16자리가 쓰는 최다 소비 프리미티브다. level 셋은 값만 다른 같은 골격이라 DS-D-0040 ② 로 한 표면의 VARIANT 축이다.",
+      "weight": "high"
     },
     "apps/web/app/admin/AdminSection.tsx#AdminSegmented": {
       "file": "apps/web/app/admin/AdminSection.tsx",
       "binding": "named",
       "louis": [],
-      "verdict": "unclear",
-      "figma": null,
-      "reason": "앵커를 ae8fd627 → 5a67d692 로 옮기며 분모에 들어왔다. 그 파일 자체가 옛 앵커에 없었으므로 이 저장소의 어떤 게이트도 이 자리를 본 적이 없다. 무엇으로 판정할지는 소유자 몫이다 — 열거는 기계가, 분류는 사람이.",
+      "verdict": "figma",
+      "figma": "SegmentedControl",
+      "reason": "마크업이 LOUIS 정본을 직접 문다 — 트랙 `.louis-segmented-control`(+`data-size`), 세그먼트 `.louis-segmented-control__segment`, 라벨 `.louis-segmented-control__label`. IconButton←louis-icon-button, Spinner←louis-spinner 를 이은 DS-D-0037 의 근거와 같은 종류이고, 이 표면은 세그먼티드 컨트롤을 «쓰는» 것이 아니라 그것 «자체»다. size md/sm(32/24px)이 Figma Size md/sm 높이와 일치하고 disabled 도 Figma 의 Disabled VARIANT 와 대응한다. 이 파일이 더하는 것은 그룹 래퍼(aria-label)와 두 가지 리셋 보정뿐이다 — 비선택 세그먼트의 네이티브 버튼 면 제거, <button> 이라 레시피의 :has(input:disabled) 가 안 걸리는 자리를 같은 fg-disabled 토큰으로 세우는 것. 남는 간극 하나: Figma SegmentedControl 은 슬롯이 셋(Segment3 BOOLEAN)이라 2~3칸만 모델링돼 있는데 어드민 소비처는 2~6칸이다(STATS_PERIOD 6 · PERIOD 5 · PROVIDER_FILTER 4 · SETTINGS_TABS 6). 칸 수는 Figma 쪽 모델링 간극이지 다른 컴포넌트가 아니다. 제품에는 SegmentedToggle(이미 figma→SegmentedControl)도 있어 한 Figma 컴포넌트에 제품 구현이 둘인데, SkeletonBlock 두 벌이 모두 Skeleton 을 받은 선례와 같다.",
       "weight": null
     },
     "apps/web/app/admin/AdminSection.tsx#AdminState": {
       "file": "apps/web/app/admin/AdminSection.tsx",
       "binding": "named",
       "louis": [],
-      "verdict": "unclear",
-      "figma": null,
-      "reason": "앵커를 ae8fd627 → 5a67d692 로 옮기며 분모에 들어왔다. 그 파일 자체가 옛 앵커에 없었으므로 이 저장소의 어떤 게이트도 이 자리를 본 적이 없다. 무엇으로 판정할지는 소유자 몫이다 — 열거는 기계가, 분류는 사람이.",
+      "verdict": "figma",
+      "figma": "EmptyState",
+      "reason": "마크업이 LOUIS `.louis-empty-state` 정본을 통째로 문다 — `__graphic` · `__title` · `__description` · `__action`. Figma EmptyState 의 속성이 그 슬롯과 1:1 이다(Glyph INSTANCE_SWAP · Title · Description · HasGraphic · HasDescription · HasAction). kind 셋은 별 표면이 아니라 이 한 표면의 축이다 — loading 은 Glyph 자리에 LoadingSpinner 를 끼우는 INSTANCE_SWAP 이고(docs/design/loading-states.md 가 요구하는 스피너), empty 는 그래픽 없음, error 는 HasAction 으로 재시도 버튼을 켠 것이라 자식의 «종류»가 새로 생기지 않는다. dense 는 padding-block 만 줄이므로 DS-D-0040 ② 다. role=alert/status 차이는 시각이 아니라 보조기술 축이다. 어드민 10개 파일 28자리가 쓰는 최다 소비처이고, 색도 예전 24% 알파를 버리고 레시피의 fg-primary/fg-secondary 로 이미 수렴했다.",
       "weight": null
     },
     "apps/web/app/admin/AdminSection.tsx#AdminStatTile": {
       "file": "apps/web/app/admin/AdminSection.tsx",
       "binding": "named",
       "louis": [],
-      "verdict": "unclear",
+      "verdict": "needed",
       "figma": null,
-      "reason": "앵커를 ae8fd627 → 5a67d692 로 옮기며 분모에 들어왔다. 그 파일 자체가 옛 앵커에 없었으므로 이 저장소의 어떤 게이트도 이 자리를 본 적이 없다. 무엇으로 판정할지는 소유자 몫이다 — 열거는 기계가, 분류는 사람이.",
-      "weight": null
+      "reason": "카드 바닥에서 한 단 올라온 실제 면이다 — ADMIN_SURFACE(bg-raised + louis-hairline-inset) · rounded-card · p-8, 그 안에 라벨 12 Medium 56% / 값 28 또는 20 SemiBold tabular-nums / 힌트 12 Regular 40% / 증감 알약(rounded-pill 12 Medium, up=green 8% · down=red 8% · flat=gray 8%)이 선다. 51개 컴포넌트에 KPI 타일이 없다 — StepTile 은 462px 정사각 미디어 타일이고 MediaCard·NewsCard·ProjectCard 는 전부 이미지 카드라 대응이 아니다. 5개 파일 14자리가 쓴다. size lg/md 와 deltaTone 셋은 값만 다르므로 DS-D-0040 ② 로 이 한 표면의 축이고, 증감 알약은 radius 999·8% 알파라 radius 8 인 louis-badge 와 기하가 달라 이 타일 안의 부품으로 함께 세워야 한다.",
+      "weight": "high"
     },
     "apps/web/app/admin/AdminSection.tsx#AdminTileGrid": {
       "file": "apps/web/app/admin/AdminSection.tsx",
       "binding": "named",
       "louis": [],
-      "verdict": "unclear",
+      "verdict": "scoped",
       "figma": null,
-      "reason": "앵커를 ae8fd627 → 5a67d692 로 옮기며 분모에 들어왔다. 그 파일 자체가 옛 앵커에 없었으므로 이 저장소의 어떤 게이트도 이 자리를 본 적이 없다. 무엇으로 판정할지는 소유자 몫이다 — 열거는 기계가, 분류는 사람이.",
+      "reason": "그리는 시각이 없는 격자 컨테이너다 — fill·stroke·radius·타이포가 하나도 없고 grid-template-columns 와 gap, 그리고 1400/900/600px 중단점만 갖는다. 담기는 타일이 apps/web/app/admin/AdminSection.tsx#AdminStatTile 이고 그것이 면·헤어라인·타입 사다리를 전부 소유한다. kpi(5열)와 status(3열)는 배치만 다르므로 DS-D-0040 ② 에 따라 별 표면이 아니라 한 축이며, Figma 에서는 타일을 감싸는 wrap auto-layout 으로 표현된다.",
       "weight": null
     },
     "apps/web/app/admin/AdminSection.tsx#AdminToolbar": {
       "file": "apps/web/app/admin/AdminSection.tsx",
       "binding": "named",
       "louis": [],
-      "verdict": "unclear",
+      "verdict": "scoped",
       "figma": null,
-      "reason": "앵커를 ae8fd627 → 5a67d692 로 옮기며 분모에 들어왔다. 그 파일 자체가 옛 앵커에 없었으므로 이 저장소의 어떤 게이트도 이 자리를 본 적이 없다. 무엇으로 판정할지는 소유자 몫이다 — 열거는 기계가, 분류는 사람이.",
+      "reason": "면·색·타이포·경계를 하나도 그리지 않는다 — 클래스가 `flex items-center gap-6 flex-wrap min-w-0` 한 줄뿐인 순수 배치 래퍼다. Figma 에서는 컴포넌트가 아니라 부모 프레임의 가로 auto-layout(gap 12 · wrap)으로 표현되고, 그 안에 서는 컨트롤(AdminSegmented · 네이티브 select · TextField)이 각자 자기 표면을 갖는다. 함께 export 되는 ADMIN_TOOLBAR_LABEL 은 컴포넌트가 아닌 상수라 DS-D-0037 의 표면 정의에 들어오지 않는다.",
       "weight": null
     },
     "apps/web/app/admin/BannerManagement.tsx#BannerManagement": {
@@ -163,10 +163,10 @@
       "louis": [
         "louis-hairline-inset"
       ],
-      "verdict": "unclear",
+      "verdict": "needed",
       "figma": null,
-      "reason": "앵커를 ae8fd627 → 5a67d692 로 옮기며 분모에 들어왔다. 파일은 옛 앵커에도 있었으나 이 컴포넌트가 그 시점에는 없었다. 무엇으로 판정할지는 소유자 몫이다 — 열거는 기계가, 분류는 사람이.",
-      "weight": null
+      "reason": "색 입력 복합 컨트롤이다 — 네이티브 <input type=\"color\"> 를 16(=32px)×16 · rounded-8 · border-0 · louis-hairline-inset 칩으로 세우고, 그 오른쪽에 헥스 값을 담는 louis-text-field__box 를 형제로 놓는다. 칩이 박스 «안»의 prefix 가 아니라 «밖»의 형제라 Figma TextField 의 Prefix BOOLEAN 으로는 표현되지 않고, 51개 컴포넌트에 색 스와치·컬러 필드에 해당하는 것이 없다. 자체 면·헤어라인·반경을 가진 독립 컨트롤이고 자막 템플릿 모달 안에서 4자리(레터박스·제목·자막·캡션 색)가 쓴다. 부모 apps/web/app/admin/CaptionTemplateManagement.tsx#CaptionTemplateManagement 는 이미 needed 다. 제품에 이미 갈라진 사본이 하나 더 있다는 점을 함께 적는다 — apps/web/app/highlight/[projectId]/shorts/[shortId]/CaptionColorPanel.tsx 가 같은 뜻을 30px · border 1px palette-gray-600 · radius 6 의 인라인 style 로 그린다. 지금은 한 화면 전용이라 low 로 두되, 그 사본까지 이 컴포넌트로 모으기로 하면 medium 이다.",
+      "weight": "low"
     },
     "apps/web/app/admin/CaptionTemplateManagement.tsx#PreviewTextImg": {
       "file": "apps/web/app/admin/CaptionTemplateManagement.tsx",
@@ -181,10 +181,10 @@
       "file": "apps/web/app/admin/ContentManagement.tsx",
       "binding": "default",
       "louis": [],
-      "verdict": "unclear",
+      "verdict": "needed",
       "figma": null,
-      "reason": "앵커를 ae8fd627 → 5a67d692 로 옮기며 분모에 들어왔다. 그 파일 자체가 옛 앵커에 없었으므로 이 저장소의 어떤 게이트도 이 자리를 본 적이 없다. 무엇으로 판정할지는 소유자 몫이다 — 열거는 기계가, 분류는 사람이.",
-      "weight": null
+      "reason": "49줄짜리 탭 셸이지만 자기 시각이 하나 있다 — 화면 «안»의 서브탭 알약 바(배너·모델·랜딩)를 contentListStyles 의 SUB_TABS/SUB_TAB/SUB_TAB_ACTIVE/SUB_TAB_IDLE 로 인라인으로 그린다. 이 바를 소유한 표면이 원장에 따로 없으므로 DS-D-0040 ③ 에 따라 이 표면이 그 자리의 주인이다(나머지는 자식 셋을 마운트할 뿐이고 셋 다 각자 표면이다). Figma 대응이 없다 — TabItem 은 radius 999 · 테두리 없음 · 16px 라벨 · 높이 28 인데 이 바는 radius 8 · 선택/비선택 모두 1px 테두리(12%/20%) · 14px Medium · px 14 py 6 이고, SegmentedControl 처럼 트랙 위에 얹힌 것도 아니라 gap 8 의 낱개 알약 둘~셋이다. 소유자 판단이 갈릴 수 있는 지점을 적어 둔다 — 이 서브탭을 Figma TabItem 쪽으로 수렴시키기로 하면 판정이 figma 로 내려간다. 어느 쪽이든 지금 상태로 대응물이 없다는 사실은 같아 needed 로 둔다. 한 화면 전용이라 low.",
+      "weight": "low"
     },
     "apps/web/app/admin/CouponManagement.tsx#CouponManagement": {
       "file": "apps/web/app/admin/CouponManagement.tsx",
@@ -238,19 +238,19 @@
       "file": "apps/web/app/admin/LandingManagement.tsx",
       "binding": "default",
       "louis": [],
-      "verdict": "unclear",
+      "verdict": "needed",
       "figma": null,
-      "reason": "앵커를 ae8fd627 → 5a67d692 로 옮기며 분모에 들어왔다. 그 파일 자체가 옛 앵커에 없었으므로 이 저장소의 어떤 게이트도 이 자리를 본 적이 없다. 무엇으로 판정할지는 소유자 몫이다 — 열거는 기계가, 분류는 사람이.",
-      "weight": null
+      "reason": "랜딩 히어로 관리 화면 — 목록이 아니라 슬롯 둘(배경 영상 · 공지 알약)을 그리는 편집 폼이다. 파일 헤더가 「배너·모델과 달리 목록이 아니라 슬롯」이라 명시하고 실제로 드래그 정렬도 활성 토글도 없다. 구성은 파일 업로드 입력(FORM_FILE_INPUT) + 업로드 힌트(FORM_HINT) + 미리보기(video/img, FORM_PREVIEW) + LOUIS text-field 세 벌(한국어·영어 문구·링크) + 오류 줄(FORM_ERROR) + Button 세 종(inverse/ghost)이다. 컨트롤은 LOUIS 정본을 쓰지만 그것들을 담는 어드민 편집 폼 레이아웃 자체가 Figma 에 없다 — 이미 needed 로 잡힌 BlogManagement 가 「어드민 편집 폼 계열의 대표형」이고 이 화면은 그 계열의 슬롯형 사례다. 한 화면 전용이라 low.",
+      "weight": "low"
     },
     "apps/web/app/admin/ModelManagement.tsx#ModelManagement": {
       "file": "apps/web/app/admin/ModelManagement.tsx",
       "binding": "default",
       "louis": [],
-      "verdict": "unclear",
+      "verdict": "needed",
       "figma": null,
-      "reason": "앵커를 ae8fd627 → 5a67d692 로 옮기며 분모에 들어왔다. 그 파일 자체가 옛 앵커에 없었으므로 이 저장소의 어떤 게이트도 이 자리를 본 적이 없다. 무엇으로 판정할지는 소유자 몫이다 — 열거는 기계가, 분류는 사람이.",
-      "weight": null
+      "reason": "「최신 AI 모델」 카드 관리 화면 — 포인터 드래그 재정렬 목록(useDragReorder + DRAG_HANDLE 마스크 아이콘 · DRAG_GHOST · INSERTION_LINE · ITEM_PLACEHOLDER), 썸네일 행, 활성/비활성 배지, 그리고 이름·3개국어 설명·미디어·로고·딱지·재생방식까지 담는 대형 모달 폼(MODAL/MODAL_BODY/MODAL_ACTIONS)이다. 파일 주석이 「목록·폼의 조형과 드래그 순서변경은 배너와 공용」이라 적고 실제로 contentListStyles 스물여섯 개 상수를 BannerManagement 와 같이 문다. 즉 이미 needed 인 BannerManagement · TemplateManagement 와 같은 드래그 재정렬 목록 + 모달 폼 골격의 세 번째 사례이고, 그 골격이 Figma 에 없다. 자기만의 것도 있다 — BADGE_ACTIVE 가 rgb(34 197 94) 리터럴(이 저장소가 지운 Tailwind 기본 팔레트)이라 세우는 일이 곧 토큰 복귀 기준이 된다. 골격이 세 화면에 반복되므로 두 peer 와 같은 medium.",
+      "weight": "medium"
     },
     "apps/web/app/admin/page.tsx#AdminPage": {
       "file": "apps/web/app/admin/page.tsx",
@@ -380,9 +380,9 @@
       "file": "apps/web/app/data-deletion-status/page.tsx",
       "binding": "default",
       "louis": [],
-      "verdict": "unclear",
+      "verdict": "scoped",
       "figma": null,
-      "reason": "판정이 갈린다. 인스타그램 데이터 삭제 처리를 알리는 규제 대응 noindex 고지라 「법무·정적 문서라 디자인 시스템 대상 아님」으로 범위 밖이 될 수 있다. 그런데 이 화면은 사용자가 실제로 여는 화면이고, 토큰을 하나도 쓰지 않은 채 #e0e0e0·#aaa 리터럴과 system-ui 인라인 스타일로만 그려져 **라이트 테마에서 배경과 글자가 함께 무너진다** — global-error 처럼 「토큰을 쓸 수 없는」 화면이 아니라 그냥 토큰을 안 쓴 화면이다. 소유자가 정해 주면 풀린다: 이 페이지를 제품 UI 로 편입해 route-boundary 계열처럼 프레임 하나로 세울 것인가, 아니면 플랫폼 심사 제출물로 두고 영구히 범위 밖으로 못박을 것인가. 라우트 커버리지 등급은 §10.5 level 2 로 「셸까지」라 어느 쪽도 지지하지 않는다.",
+      "reason": "Meta 데이터 삭제 콜백이 열어 주는 확인 고지다 — robots noindex, 영어 고정(i18n 을 타지 않는다), GNB·푸터 없는 <main> 하나에 제목 한 줄·문단 둘·확인 코드 <dl> 뿐이다. privacy/terms 와 LegalDocumentPage·LegalMarkdownBody 가 「법무 문서 본문은 디자인 시스템이 계약할 시각 단위가 아니다」로 이미 scoped 인 것과 같은 벌의 정적 고지 본문이라 그 판례를 따른다. 앞선 사유가 든 반례(#e0e0e0·#aaa 리터럴과 system-ui 인라인 스타일이라 라이트에서 무너진다)는 사실이지만 **커버리지 문제가 아니라 제품 버그**다 — Figma 에 프레임을 세워도 고쳐지지 않고, 토큰으로 바꾸는 한 줄이 고친다. notes 에 남긴다.",
       "weight": null
     },
     "apps/web/app/error.tsx#Error": {
@@ -668,10 +668,10 @@
         "louis-alert",
         "louis-tooltip"
       ],
-      "verdict": "unclear",
+      "verdict": "needed",
       "figma": null,
-      "reason": "앵커를 ae8fd627 → 5a67d692 로 옮기며 분모에 들어왔다. 그 파일 자체가 옛 앵커에 없었으므로 이 저장소의 어떤 게이트도 이 자리를 본 적이 없다. 무엇으로 판정할지는 소유자 몫이다 — 열거는 기계가, 분류는 사람이.",
-      "weight": null
+      "reason": "앵커 5a67d692 에서 이 파일이 요금제 선택 화면의 «본체» 다(783줄). page.tsx 는 getPlanPricing() 만 부르고 initialPlans 를 넘기는 17줄 서버 껍데기이고, 시각은 전부 여기 있다 — Gnb + 앱 메인 카드 셸, 가격 헤더, louis-alert 인라인 오류, **다섯 장짜리 티어 카드 덱**, PlanComparisonTable, FAQ, ConfirmModal 셋. 이 중 Figma 51 컴포넌트에 대응이 없는 것은 티어 카드다. 이름 유사로 기대되던 `Product/Upgrade Plan Card` 는 readback.json components 51 목록에 **없음을 확인했다**(Table·TableCell·TableHeaderCell·Alert·Tooltip·Button 은 있으나 요금제 카드는 없다). 티어 카드 마크업은 `components/landing/sections/PricingSection.tsx` 와 이 파일이 각자 TIER_CARD/TIER_HEAD/TIER_PRICE_ROW/TIER_CREDITS_ROW/TIER_FEATURE_LIST/TIER_FEATURE_ICON 상수 벌을 **따로 들고 두 벌로 복제**하고 있고, 이미 갈렸다 — 랜딩에만 TIER_CARD_LITE_GLOW 가 있고 이 화면에만 inverse CTA·TIER_CARD_CURRENT(primary-200 40% 아웃라인 2px)·PENDING_DOWNGRADE_NOTICE 가 있다. 컴포넌트가 없어 이 드리프트를 어떤 게이트도 못 잡는다. `app-screens.mypage-upgrade.{desktop,mobile}.00.draw.js` 로 «화면 보드»는 이미 있지만 보드는 판정 후보(components 51 · templates 9)가 아니며, 셸은 templates 의 app-shell 을 «쓰는» 것이라 DS-D-0039 상 figma 판정을 줄 수 없다. 세워야 할 정본은 티어 카드 하나 — 축은 current(현 플랜) · pendingDowngrade · trial-cancelled · originalPrice(취소선) · note · featureTip 이다.",
+      "weight": "high"
     },
     "apps/web/app/nodecanvas/NodeCanvasWorkspace.tsx#NodeCanvasWorkspace": {
       "file": "apps/web/app/nodecanvas/NodeCanvasWorkspace.tsx",
@@ -985,18 +985,18 @@
       "file": "apps/web/components/creative-media/CreativeMediaAdminClient.tsx",
       "binding": "local",
       "louis": [],
-      "verdict": "unclear",
+      "verdict": "scoped",
       "figma": null,
-      "reason": "앵커를 ae8fd627 → 5a67d692 로 옮기며 분모에 들어왔다. 파일은 옛 앵커에도 있었으나 이 컴포넌트가 그 시점에는 없었다. 무엇으로 판정할지는 소유자 몫이다 — 열거는 기계가, 분류는 사람이.",
+      "reason": "DeviceMonitor 목록의 한 줄(rounded-12 gray-200 테두리 li 안에 해시 앞 8자·경과 시각·남은 횟수 pill·완료/실패 수·초기화 ghost 버튼 + GenerationThumb 행). 내보내지 않는 로컬 조각이고 부모 표면 …#CreativeMediaAdminClient 가 범위 밖이라 함께 범위 밖이다. pill 은 Figma Badge 의 재구현이지만 이미 ActiveBadge 가 같은 사유로 scoped 로 접혀 있다.",
       "weight": null
     },
     "apps/web/components/creative-media/CreativeMediaAdminClient.tsx#DeviceMonitor": {
       "file": "apps/web/components/creative-media/CreativeMediaAdminClient.tsx",
       "binding": "local",
       "louis": [],
-      "verdict": "unclear",
+      "verdict": "scoped",
       "figma": null,
-      "reason": "앵커를 ae8fd627 → 5a67d692 로 옮기며 분모에 들어왔다. 파일은 옛 앵커에도 있었으나 이 컴포넌트가 그 시점에는 없었다. 무엇으로 판정할지는 소유자 몫이다 — 열거는 기계가, 분류는 사람이.",
+      "reason": "부모 표면 apps/web/components/creative-media/CreativeMediaAdminClient.tsx#CreativeMediaAdminClient 안에서만 쓰이는 내보내지 않는 조각이다(기기별 생성 이력 섹션 — 제목·설명·새로고침 버튼 + Stat 세 개와 검색 입력을 담은 gray-100 요약 줄 + DeviceCard 목록). 부모가 「내부 전용·한국어 고정·2일짜리 현장 운영 콘솔」로 이미 범위 밖이고, 같은 파일의 EventEditor·EventFields·TemplateEditor·TemplateOrderList 가 같은 사유로 이미 scoped 다.",
       "weight": null
     },
     "apps/web/components/creative-media/CreativeMediaAdminClient.tsx#EventEditor": {
@@ -1032,9 +1032,9 @@
       "file": "apps/web/components/creative-media/CreativeMediaAdminClient.tsx",
       "binding": "local",
       "louis": [],
-      "verdict": "unclear",
+      "verdict": "scoped",
       "figma": null,
-      "reason": "앵커를 ae8fd627 → 5a67d692 로 옮기며 분모에 들어왔다. 파일은 옛 앵커에도 있었으나 이 컴포넌트가 그 시점에는 없었다. 무엇으로 판정할지는 소유자 몫이다 — 열거는 기계가, 분류는 사람이.",
+      "reason": "DeviceCard 안의 64px 결과 미리보기 한 장(이미지 또는 실패/진행 중 자리표시 + 템플릿명·시각·실패 사유). 운영자가 원본을 새 탭으로 여는 확인용이라 next/image 도 안 쓰고 eslint 예외까지 달려 있다. 내보내지 않는 로컬 조각이고 부모 표면 …#CreativeMediaAdminClient 가 범위 밖이라 함께 범위 밖이다.",
       "weight": null
     },
     "apps/web/components/creative-media/CreativeMediaAdminClient.tsx#Stat": {
@@ -1099,7 +1099,7 @@
       "louis": [],
       "verdict": "unclear",
       "figma": null,
-      "reason": "판단이 갈린다. 한편으로는 손님이 실제로 쓰는 3단계 모바일 화면(선택/상세/결과)이고 파일이 「레이아웃은 피그마 시안을 따른다」고 적어 Figma 에 보드가 이미 있다. 다른 한편으로 이 화면은 html[data-theme] 를 따르지 않는 고정 다크라 공용 Button 의 secondary/ghost 를 못 쓰고 palette-* 고정 토큰으로 따로 짰으며, 라우트 주석이 행사 2일짜리 임시 기능이라고 못박는다. 소유자가 정해 주면 풀린다 — (1) 보드 시안이 이미 있는 화면을 「대응」으로 칠지, (2) 테마 계약 밖의 고정 다크 스코프를 라이브러리에 둘지, (3) 기간 한정 이벤트 라우트를 분모에 남길지. 이 셋의 답이 아래 부스 조각 8개의 판정도 함께 뒤집는다.",
+      "reason": "앞선 사유가 든 세 질문 중 둘은 판례로 닫힌다. (1) 「보드 시안이 있으면 대응인가」 — 아니다. figma 판정의 후보는 readback 의 components 51 과 templates 9 뿐이고, 화면 보드가 있는 status-result 여덟 라우트도 figma 가 아니라 scoped 로 세어졌다(게다가 이 부스 화면은 figma/ 아래 app-screens 생성물조차 없다). (2) 「부스 조각 8개」 — 이미 전부 scoped 로 접혀 있어 이 판정에 딸려 흔들리지 않는다. 남는 질문 하나가 진짜로 소유자 몫이라 unclear 를 유지한다: **html[data-theme] 를 따르지 않는 고정 다크 스코프를 분모에 남길 것인가.** 이 1140줄 화면은 손님이 실제로 쓰는 3단계 모바일 화면이고 「레이아웃은 피그마 시안을 따른다」고 적혀 있지만, 테마 계약 밖이라 공용 Button 의 secondary/ghost 를 못 써 palette-* 고정 토큰 버튼을 따로 짰다 — 라이브러리에 세워도 테마 변수 모드로 표현할 자리가 없다. 라우트도 noindex·QR 전용·이벤트 활성 스위치로 꺼지는 행사 설치물이고 진입점 page.tsx 와 운영 콘솔은 이미 scoped 다. 소유자가 「테마 계약 밖 고정 다크 화면을 디자인 시스템이 소유하는가」를 한 번 정하면 이 건과 앞으로 나올 같은 성격의 화면이 함께 풀린다. 정하지 않은 채 scoped 로 넘기면 「테마를 안 타서 못 세운다」가 「범위 밖」으로 둔갑한다.",
       "weight": null
     },
     "apps/web/components/creative-media/CreativeMediaClient.tsx#CreativeMediaClosed": {
@@ -1289,9 +1289,9 @@
       "file": "apps/web/components/landing/sections/Hero.tsx",
       "binding": "local",
       "louis": [],
-      "verdict": "unclear",
+      "verdict": "scoped",
       "figma": null,
-      "reason": "앵커를 ae8fd627 → 5a67d692 로 옮기며 분모에 들어왔다. 파일은 옛 앵커에도 있었으나 이 컴포넌트가 그 시점에는 없었다. 무엇으로 판정할지는 소유자 몫이다 — 열거는 기계가, 분류는 사람이.",
+      "reason": "부모 표면 `apps/web/components/landing/sections/Hero.tsx#Hero`(needed) 의 내부 조각이다. 그리는 것은 어드민이 올린 영상 한 편(object-cover, loop, aria-hidden)과 그 위 위·아래 페이드 한 겹뿐이고, 영상 자체는 사용자/운영자 콘텐츠다. 페이드는 히어로 밴드를 Figma 에 세울 때 그 밴드의 파트(상·하 100%→0% 그라디언트)로 함께 정의되며 독립 컴포넌트가 아니다.",
       "weight": null
     },
     "apps/web/components/landing/sections/ModelCarousel.tsx#ModelCarousel": {
@@ -1325,28 +1325,28 @@
       "file": "apps/web/components/landing/sections/NodeMockupCard.dynamic.tsx",
       "binding": "local",
       "louis": [],
-      "verdict": "unclear",
+      "verdict": "scoped",
       "figma": null,
-      "reason": "앵커를 ae8fd627 → 5a67d692 로 옮기며 분모에 들어왔다. 그 파일 자체가 옛 앵커에 없었으므로 이 저장소의 어떤 게이트도 이 자리를 본 적이 없다. 무엇으로 판정할지는 소유자 몫이다 — 열거는 기계가, 분류는 사람이.",
+      "reason": "next/dynamic 의 loading 플레이스홀더로 `background: transparent` + min-height 280 인 빈 박스다. 주석이 「회색 판을 깔면 카드 자신의 페이드와 겹쳐 두 번 깜빡인다」고 일부러 아무것도 안 그리는 이유를 적어 두었다. 그릴 시각이 없으므로 형제 판정 `apps/web/components/landing/demo-snapshots/StaticCreateDemo.dynamic.tsx#StaticCreateDemoSkeleton` 과 같다.",
       "weight": null
     },
     "apps/web/components/landing/sections/NodeMockupCard.tsx#NodeMockupCard": {
       "file": "apps/web/components/landing/sections/NodeMockupCard.tsx",
       "binding": "default",
       "louis": [],
-      "verdict": "unclear",
+      "verdict": "scoped",
       "figma": null,
-      "reason": "앵커를 ae8fd627 → 5a67d692 로 옮기며 분모에 들어왔다. 그 파일 자체가 옛 앵커에 없었으므로 이 저장소의 어떤 게이트도 이 자리를 본 적이 없다. 무엇으로 판정할지는 소유자 몫이다 — 열거는 기계가, 분류는 사람이.",
+      "reason": "부모 표면 `apps/web/components/landing/sections/OverviewSection.tsx#OverviewSection` 의 목업 슬롯이다. 자기 크롬이 없다 — 500/420/280 프레임 높이 계단과 fit 계산(zoom·translate), react-flow 의 background·attribution 을 숨기는 규칙이 전부이고, 안에 실제로 그려지는 것은 제품 노드 캔버스 컴포넌트들(각자 원장에 있다)이다. Figma 에서는 카드 안의 이미지/캔버스 슬롯 한 칸이다.",
       "weight": null
     },
     "apps/web/components/landing/sections/OverviewSection.tsx#OverviewSection": {
       "file": "apps/web/components/landing/sections/OverviewSection.tsx",
       "binding": "default",
       "louis": [],
-      "verdict": "unclear",
+      "verdict": "needed",
       "figma": null,
-      "reason": "앵커를 ae8fd627 → 5a67d692 로 옮기며 분모에 들어왔다. 그 파일 자체가 옛 앵커에 없었으므로 이 저장소의 어떤 게이트도 이 자리를 본 적이 없다. 무엇으로 판정할지는 소유자 몫이다 — 열거는 기계가, 분류는 사람이.",
-      "weight": null
+      "reason": "시안 #overview(791:13232). 조립만 하는 형제 섹션들(ModelCarousel·TemplateGrid)과 달리 이 파일만 소유한 시각이 둘이다 — 좌측 노드 선택 목록의 항목(아이콘 20 + body-14-medium 라벨 · pl4/pr12/py4 · radius 12 · 선택 100% / 비선택 50% 의 불투명도 축)과 우측 카드(radius 8 · p20 · --panel-strong 한 단). 항목은 Figma SidebarNavItem 과 라벨 값만 같고 행 높이 32·반경 10·면이 달라 그대로 못 쓴다(코드 주석이 그 이유를 적어 두었다). 한 화면 전용이라 낮게 잡는다.",
+      "weight": "low"
     },
     "apps/web/components/landing/sections/PricingSection.tsx#PlanComparisonTable": {
       "file": "apps/web/components/landing/sections/PricingSection.tsx",
@@ -1361,10 +1361,10 @@
       "file": "apps/web/components/landing/sections/PricingSection.tsx",
       "binding": "named",
       "louis": [],
-      "verdict": "unclear",
+      "verdict": "needed",
       "figma": null,
-      "reason": "앵커를 ae8fd627 → 5a67d692 로 옮기며 분모에 들어왔다. 파일은 옛 앵커에도 있었으나 이 컴포넌트가 그 시점에는 없었다. 무엇으로 판정할지는 소유자 몫이다 — 열거는 기계가, 분류는 사람이.",
-      "weight": null
+      "reason": "진행 중 이벤트 알약 — 높이 32 · px 12 · radius 12 · louis-glass-surface 유리 + media-scrim-dark 48% 면 + media-foreground-dark 잉크 + 4×4 초록 점(mr 10) + body-14-medium. Figma Badge 는 높이 26 · radius 8 · 12px 라벨에 시맨틱 tone 5종이라 치수도 축도 다르다(이쪽은 테마를 따르지 않는 미디어 축이다). 같은 조형이 세 자리에 있다 — /pricing 섹션, /mypage/upgrade(이 컴포넌트를 그대로 import), 그리고 랜딩 히어로가 인라인으로 복제한 NOTICE/NOTICE_DOT(거기엔 로고 슬롯과 링크·호버 축이 더 붙는다). 정본이 없어 이미 두 벌로 갈라져 있다.",
+      "weight": "high"
     },
     "apps/web/components/landing/sections/PricingSection.tsx#PricingSection": {
       "file": "apps/web/components/landing/sections/PricingSection.tsx",
@@ -1433,9 +1433,9 @@
       "file": "apps/web/components/landing/system/CarouselArrows.tsx",
       "binding": "named",
       "louis": [],
-      "verdict": "unclear",
-      "figma": null,
-      "reason": "앵커를 ae8fd627 → 5a67d692 로 옮기며 분모에 들어왔다. 파일은 옛 앵커에도 있었으나 이 컴포넌트가 그 시점에는 없었다. 무엇으로 판정할지는 소유자 몫이다 — 열거는 기계가, 분류는 사람이.",
+      "verdict": "figma",
+      "figma": "CarouselArrow",
+      "reason": "이 표면이 곧 Figma CarouselArrow 다 — 32×32 · radius 12 · 16px 캐럿 · Direction(prev/next) · disabled 상태까지 1:1 이고, PRODUCT_FILES(landingCarouselArrows)가 이 파일을 그 컴포넌트의 실측 정본으로 고정한다. (원장이 같은 대응을 형제 키 `…#CarouselArrows` 에 달아 두었는데 그쪽은 버튼 «둘을 gap 8 로 놓는 행»이고 Figma 컴포넌트는 «버튼 한 짝»이라, 실제로 그것인 쪽은 이 키다.) 남는 축 하나: tone=page/media 두 벌(페이지 위 --panel-strong + 헤어라인 / 사진 위 media-control-*)이 Figma 변형에 없다 — 컴포넌트 부재가 아니라 축 보강 건이다.",
       "weight": null
     },
     "apps/web/components/landing/system/CarouselArrows.tsx#CarouselArrows": {
@@ -1478,19 +1478,19 @@
       "file": "apps/web/components/landing/system/SectionShell.tsx",
       "binding": "default",
       "louis": [],
-      "verdict": "unclear",
+      "verdict": "needed",
       "figma": null,
-      "reason": "랜딩 모든 섹션의 세로 여백(60/44/30)과 좌우 인셋(10/8/6), 최대폭 1400 을 혼자 세우는 골격이다. 이것을 컴포넌트로 세울 것인지, figma/readback.json 의 templates 축(app-shell·loading 이 이미 그 자리에 있다)에 「landing-section」 규격으로 적을 것인지에 따라 판정이 갈린다. 소유자가 그 축을 정해 주면 풀린다.",
-      "weight": null
+      "reason": "원장이 남긴 갈림(「컴포넌트로 세울까 templates 축에 적을까」)은 판정을 가르지 않는다 — 원장 자신이 `…/landing/navigation/Gnb.tsx#Gnb` 에 `figma: landing-shell` 을 주어 **templates 의 패턴 보드도 대응으로 친다**(DS-D-0039). 그런데 templates 아홉(loading·app-shell·home·project-grid·status-result·route-boundary·auth-two-panel·landing-shell·editor-workspace)에 섹션 리듬 규격이 없다. 즉 형태가 무엇이든 지금 Figma 에 없다. 세워야 하는 값: 세로 여백 120 / 88 / 60 세 계단(≤959·≤640), 좌우 인셋 20 / 16 / 12(≤719·≤355), 콘텐츠 최대폭 1400 중앙 정렬, bleed(트랙이 화면 끝까지 흐르는 캐러셀용) 축. 랜딩 아홉 섹션과 마케팅 라우트 넷이 전부 이것을 밟으므로 값이 갈리면 전 섹션이 갈린다.",
+      "weight": "high"
     },
     "apps/web/components/landing/system/ThemeSelector.tsx#ThemeSelector": {
       "file": "apps/web/components/landing/system/ThemeSelector.tsx",
       "binding": "default",
       "louis": [],
-      "verdict": "unclear",
+      "verdict": "needed",
       "figma": null,
-      "reason": "앵커를 ae8fd627 → 5a67d692 로 옮기며 분모에 들어왔다. 그 파일 자체가 옛 앵커에 없었으므로 이 저장소의 어떤 게이트도 이 자리를 본 적이 없다. 무엇으로 판정할지는 소유자 몫이다 — 열거는 기계가, 분류는 사람이.",
-      "weight": null
+      "reason": "랜딩 GNB 우측의 테마 순환 버튼(system → light → dark). Figma 에 자리가 없다는 것이 되읽기로 확인된다 — landing-shell 패턴의 `actionParts` 가 [\"Button\", \"LanguageSelector\"] 둘뿐이고 compactActionParts 도 [\"Hamburger\", \"LanguageSelector\"] 라 이 버튼이 빠져 있다. 조형은 IconButton 정본(32×32 · glyph 16 · radius 12)과도 어긋난다 — 높이 32에 좌우 8 패딩(폭 36) · 면 투명 · 글리프 20 · stroke 1.5 이고, 기하 정본을 LanguageSelector.tsx 의 TRIGGER/ICON 상수에서 가져온다. 글리프 3종(해·달·모니터)도 Figma 아이콘 31종에 없다. 마케팅 GNB 한 벌에만 서므로 낮게 잡는다.",
+      "weight": "low"
     },
     "apps/web/components/legal/LegalDocumentBackButton.tsx#LegalDocumentBackButton": {
       "file": "apps/web/components/legal/LegalDocumentBackButton.tsx",
@@ -1766,10 +1766,10 @@
       "file": "apps/web/components/scenes/analytics/shared.tsx",
       "binding": "named",
       "louis": [],
-      "verdict": "unclear",
+      "verdict": "needed",
       "figma": null,
-      "reason": "제목 + 본문 두 줄짜리 상태 패널(비었음/오류)이다. Figma EmptyState 로 흡수할 수 있어 보이지만 실제 값이 어긋난다 — EmptyState 는 그래픽·액션을 갖는 세로 중앙 정렬에 80px 상하 여백·투명 배경이고, 이것은 좌측 정렬에 20px 패딩·칩 배경·1px 테두리이며 액션이 없다. 소유자가 「EmptyState 에 면 있는 컴팩트 변형을 추가한다」와 「대시보드 전용 상태 패널을 따로 세운다」 중 하나를 정하면 풀린다. tone=\"error\" 분기는 원본에서도 죽은 선언이라 실제 변형은 1종뿐이라는 점도 함께 정해야 한다.",
-      "weight": null
+      "reason": "대시보드의 비었음/오류 상태 패널(좌측 정렬 세로단, p-10=20px, rounded-12, chip-bg-strong 면 + 1px 테두리, body-16-semibold 제목 + body-14 본문). 소비처가 여섯 파일이다 — Youtube·Instagram 두 씬과 Overview·Performance·Audience·ContentTable 네 탭. Figma EmptyState 는 배경 없는 세로 중앙 정렬에 상하 80px, 제목 20px, Graphic/Action 슬롯을 갖는 다른 조형이라 지금 그대로는 이 룩을 못 낸다. 다만 DS-D-0040 ② 로 보면 정렬·패딩·면색만 다르고 자식은 숨겨지는 것이라 별 표면이 아니므로, LegalDocumentBackButton 판례대로 **새 컴포넌트가 아니라 EmptyState 에 「면 있는 컴팩트」 축을 더해 흡수하는 것이 맞다**. tone=\"error\" 는 원본 CSS 에서도 .dashboardBody .statePanel(0,2,0) 에 져 그려지지 않는 죽은 분기라 실제 변형은 1종뿐이니 축을 열 때 넣지 마라.",
+      "weight": "high"
     },
     "apps/web/components/scenes/analytics/shared.tsx#AreaChart": {
       "file": "apps/web/components/scenes/analytics/shared.tsx",
@@ -2979,27 +2979,27 @@
       "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/AudioClipWaveform.tsx",
       "binding": "named",
       "louis": [],
-      "verdict": "unclear",
+      "verdict": "scoped",
       "figma": null,
-      "reason": "사용자 오디오 파일을 디코드해 캔버스에 min/max 바로 그리는 파형이다. `…#OverlayTextPreviewImg` 처럼 사용자 콘텐츠의 렌더러로 보면 범위 밖이고, 타임라인의 고정된 시각 요소(바 두께·간격·색)로 보면 정본이 필요하다. 소유자가 「데이터에서 파생되는 표현을 Figma 에 세울 것인가」를 정해 주면 이 건과 아래 TimelineClipTiles 가 함께 풀린다.",
+      "reason": "돌려주는 것이 `<canvas className={className}>` 한 장뿐이다 — 면·테두리·크기를 자기가 갖지 않고 부모(`…/nodes/VideoEditModal.tsx#VideoEditModal`)가 준 클래스로만 그려진다. 안에 칠하는 것은 사용자 오디오를 디코드한 min/max 피크라 제품이 정한 조형이 아니다. 형제 판정 `…/videoEditParts/clipFilmstrip.tsx#ClipVideoFrame` 과 `…#OverlayTextPreviewImg` 가 같은 이유로 이미 범위 밖이다. Figma 에서는 오디오 클립 컴포넌트의 파형 슬롯(플레이스홀더 이미지) 한 칸이다. 남는 부채 하나만 적어 둔다 — 바 색이 토큰이 아니라 리터럴 rgba(250,250,250,0.56) 이고 두 테마에서 같은 값이다.",
       "weight": null
     },
     "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/ClipColorControls.tsx#ClipColorControls": {
       "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/ClipColorControls.tsx",
       "binding": "named",
       "louis": [],
-      "verdict": "unclear",
+      "verdict": "needed",
       "figma": null,
-      "reason": "앵커를 ae8fd627 → 5a67d692 로 옮기며 분모에 들어왔다. 그 파일 자체가 옛 앵커에 없었으므로 이 저장소의 어떤 게이트도 이 자리를 본 적이 없다. 무엇으로 판정할지는 소유자 몫이다 — 열거는 기계가, 분류는 사람이.",
-      "weight": null
+      "reason": "`…/nodes/VideoEditModal.tsx#VideoEditModal` 속성 패널의 컬러 조정 블록이고, 형제 인스펙터 넷과 달리 «없던 종류의 자식»을 들여온다(DS-D-0040 ①) — 필터/조절 탭 행, 줄바꿈되는 프리셋 칩 밭(TOGGLE_GROUP_WRAP), 값 링 여섯을 균등 배치한 조절 스트립(고른 것·가리킨 것에만 뜨는 절대배치 이름), 눈금자 슬라이더, 되돌리기 버튼 둘. 51종에 대응이 없고, 세그먼트 토글도 SegmentedControl 정본이 아니라 이 패널의 vemClass 벌을 쓴다. ClipInspector 안에서만 열리지만 그 인스펙터의 한 절이 아니라 별 모듈의 완결된 영역이다.",
+      "weight": "medium"
     },
     "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/ClipColorFilterDefs.tsx#ClipColorFilterDefs": {
       "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/ClipColorFilterDefs.tsx",
       "binding": "named",
       "louis": [],
-      "verdict": "unclear",
+      "verdict": "scoped",
       "figma": null,
-      "reason": "앵커를 ae8fd627 → 5a67d692 로 옮기며 분모에 들어왔다. 그 파일 자체가 옛 앵커에 없었으므로 이 저장소의 어떤 게이트도 이 자리를 본 적이 없다. 무엇으로 판정할지는 소유자 몫이다 — 열거는 기계가, 분류는 사람이.",
+      "reason": "`absolute w-0 h-0` 인 SVG 의 `<defs>` 만 돌려준다 — 주석 그대로 「화면에 아무것도 그리지 않고 filter: url(#id) 가 참조할 정의만 둔다」. feColorMatrix·feComponentTransfer 계수는 ffmpeg 합성과 색을 맞추기 위한 계산이라 디자인 시스템이 정의할 시각이 없다.",
       "weight": null
     },
     "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/ClipCropModal.tsx#ClipCropModal": {
@@ -3033,9 +3033,9 @@
       "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/clipFilmstrip.tsx",
       "binding": "named",
       "louis": [],
-      "verdict": "unclear",
+      "verdict": "scoped",
       "figma": null,
-      "reason": "타임라인 클립 안을 채우는 필름스트립 타일이다. 클립의 면·테두리·선택 상태는 `…/nodes/VideoEditModal.tsx#VideoEditModal` 이 그리고 여기 남는 것은 사용자 영상에서 뽑은 프레임 이미지의 배열 규칙(레인 높이 × 원본 종횡비)뿐이다. 클립을 Figma 컴포넌트로 세울 때 필름스트립을 이미지 슬롯 하나로 둘지 독립 표면으로 둘지 소유자 판단이 필요하다.",
+      "reason": "containerClassName·tileClassName 을 전부 부모(`…/nodes/VideoEditModal.tsx#VideoEditModal`)에게서 받고, 자기가 정하는 것은 배열 산술뿐이다 — 타일 폭 = 레인 높이 × 원본 종횡비, 타일 수 = ceil(클립 폭 / 타일 폭)(상한 96), strip 이 없으면 `<video>` 12장 폴백. 같은 파일의 `…#ClipVideoFrame`·`…#ClipVideoFrameStrip` 이 이미 같은 이유로 범위 밖이다. Figma 에서 클립 컴포넌트를 세울 때 필름스트립은 반복 채움 이미지 슬롯 한 칸이고, 클립의 면·테두리·선택 상태는 모달이 소유한다.",
       "weight": null
     },
     "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/ClipInspector.tsx#ClipInspector": {
@@ -3051,19 +3051,19 @@
       "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/ColorRulerSlider.tsx",
       "binding": "named",
       "louis": [],
-      "verdict": "unclear",
+      "verdict": "needed",
       "figma": null,
-      "reason": "앵커를 ae8fd627 → 5a67d692 로 옮기며 분모에 들어왔다. 그 파일 자체가 옛 앵커에 없었으므로 이 저장소의 어떤 게이트도 이 자리를 본 적이 없다. 무엇으로 판정할지는 소유자 몫이다 — 열거는 기계가, 분류는 사람이.",
-      "weight": null
+      "reason": "눈금자형 슬라이더 — 라벨/값 행(caption-12-medium + body-14-medium tabular-nums) 위에 높이 40 의 자가 놓이고, 지시선(2px accent-yellow-500)이 «가운데 고정»인 채 눈금이 흐른다. 작은 눈금 22% 잉크 1px 반복 · 큰 눈금 34% 1px(5칸마다) · 중립값 6px 흰 점. Figma Slider 정본은 Rail+Fill+Thumb 의 절대 위치 방식이라 이 조형과 다른 물건이다. 컬러 조정(강도·파라미터) 두 자리에서만 쓰이므로 낮게 잡는다.",
+      "weight": "low"
     },
     "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/ColorValueRing.tsx#ColorValueRing": {
       "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/ColorValueRing.tsx",
       "binding": "named",
       "louis": [],
-      "verdict": "unclear",
+      "verdict": "needed",
       "figma": null,
-      "reason": "앵커를 ae8fd627 → 5a67d692 로 옮기며 분모에 들어왔다. 그 파일 자체가 옛 앵커에 없었으므로 이 저장소의 어떤 게이트도 이 자리를 본 적이 없다. 무엇으로 판정할지는 소유자 몫이다 — 열거는 기계가, 분류는 사람이.",
-      "weight": null
+      "reason": "값 링 — 32px 원 안에 글리프를 두고, 바탕 링(1.5px · 잉크 20% / 활성 38%) 위에 12시에서 좌우로 갈라지는 호(2px · 반경 17 · ±150°)를 그려 중립 대비 편차를 보여 준다. 방향을 색으로도 알린다(+ accent-yellow-500 / − gray-000). Figma ProgressRing 은 36px 트랙에 Content 스왑 하나뿐인 단방향 진행 표시라 대응하지 않는다. 인스펙터를 그리려면 이 링의 정본이 먼저 있어야 하는 관계가 `…#InspectorMetric` 과 같다. 조절 스트립 한 자리에서만 쓰여 낮게 잡는다.",
+      "weight": "low"
     },
     "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/CompositionInspector.tsx#CompositionInspector": {
       "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/CompositionInspector.tsx",
@@ -3078,10 +3078,10 @@
       "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/EditorSettingsPanel.tsx",
       "binding": "named",
       "louis": [],
-      "verdict": "unclear",
+      "verdict": "needed",
       "figma": null,
-      "reason": "앵커를 ae8fd627 → 5a67d692 로 옮기며 분모에 들어왔다. 그 파일 자체가 옛 앵커에 없었으므로 이 저장소의 어떤 게이트도 이 자리를 본 적이 없다. 무엇으로 판정할지는 소유자 몫이다 — 열거는 기계가, 분류는 사람이.",
-      "weight": null
+      "reason": "에셋 레일의 「설정」 패널 몸통 — 인스펙터 카드 셋(화면/비율 드롭다운 · 자석 스냅 · 구도 가이드 셋)을 쌓는다. 형제 인스펙터 넷과 «자리»가 다르고(우측 속성 패널이 아니라 좌측 레일의 패널 전환) 자식 종류도 다르다(상단 인스펙터 topbar 가 없고 체크 행이 들어온다) — DS-D-0040 ① 로 별 표면이다. 다만 새 문법이 아니라 인스펙터 카드 문법의 쌍둥이 스코프(VEM_CLASS.settingsPanel)라, 정본을 새로 만들 것이 아니라 인스펙터 패널 정본의 한 프레임으로 세우면 된다. 한 패널 전용이라 낮게 잡는다.",
+      "weight": "low"
     },
     "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/EditorSettingsPanel.tsx#SettingsCheckRow": {
       "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/EditorSettingsPanel.tsx",
@@ -3089,9 +3089,9 @@
       "louis": [
         "louis-checkbox"
       ],
-      "verdict": "unclear",
+      "verdict": "scoped",
       "figma": null,
-      "reason": "앵커를 ae8fd627 → 5a67d692 로 옮기며 분모에 들어왔다. 그 파일 자체가 옛 앵커에 없었으므로 이 저장소의 어떤 게이트도 이 자리를 본 적이 없다. 무엇으로 판정할지는 소유자 몫이다 — 열거는 기계가, 분류는 사람이.",
+      "reason": "행 골격이 `…/videoEditParts/inspectorPrimitives.tsx#InspectorMetric`(needed) 과 같은 값이다 — inspectorField 와 inspectorMetric 이 둘 다 높이 28 · radius 8(control-sm) · 좌우 8 · 면 palette-gray-800 / 라이트 palette-gray-100 · 라벨 좌 / 값 우. 다른 것은 값 자리에 텍스트 대신 LOUIS 정본 체크박스(Figma Checkbox)가 들어간 것뿐이라, 별 표면이 아니라 그 행의 값 슬롯 채우기다(DS-D-0040 ②).",
       "weight": null
     },
     "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/effectsTabRow.tsx#VideoEditEffectsTabRow": {
@@ -3125,19 +3125,19 @@
       "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/inspectorPrimitives.tsx",
       "binding": "named",
       "louis": [],
-      "verdict": "unclear",
-      "figma": null,
-      "reason": "앵커를 ae8fd627 → 5a67d692 로 옮기며 분모에 들어왔다. 파일은 옛 앵커에도 있었으나 이 컴포넌트가 그 시점에는 없었다. 무엇으로 판정할지는 소유자 몫이다 — 열거는 기계가, 분류는 사람이.",
+      "verdict": "figma",
+      "figma": "IconButton",
+      "reason": "절 머리 우측의 아이콘 버튼이고 실측이 Figma IconButton size=sm 과 그대로 맞는다 — 24×24 · 글리프 16 · radius var(--louis-radius-control-sm)=8px(Figma sm cornerRadius 8) · 면 투명 · 호버에 잉크 12% 면. Variant 축도 대응한다: 기본 tone 은 ghost, tone=\"muted\"(accent-red-400 잉크)는 danger 다. aria-pressed/expanded 는 상태 표현이 아니라 접근성 속성이라 축을 늘리지 않는다.",
       "weight": null
     },
     "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/inspectorPrimitives.tsx#InspectorSectionHead": {
       "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/inspectorPrimitives.tsx",
       "binding": "named",
       "louis": [],
-      "verdict": "unclear",
+      "verdict": "needed",
       "figma": null,
-      "reason": "앵커를 ae8fd627 → 5a67d692 로 옮기며 분모에 들어왔다. 파일은 옛 앵커에도 있었으나 이 컴포넌트가 그 시점에는 없었다. 무엇으로 판정할지는 소유자 몫이다 — 열거는 기계가, 분류는 사람이.",
-      "weight": null
+      "reason": "인스펙터 절 머리 정본 — 「라벨 좌 / (값 힌트 · 아이콘 16) 우」 SPACE_BETWEEN 한 형태(caption-12-medium 제목 · tail gap 8 · 행 gap 12). 인스펙터 넷(Overlay·Clip·AudioClip·Composition)과 효과 절, 그리고 에디터 설정 패널이 전부 이 한 벌을 쓴다 — 모으기 전에는 효과 절만 14px 제목에 밑줄이라 혼자 달랐다. 51종에 대응이 없고, 절 머리가 서지 않으면 그 아래 어떤 인스펙터도 못 그린다(`…#InspectorMetric` 과 같은 관계).",
+      "weight": "medium"
     },
     "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/inspectorPrimitives.tsx#ModalTooltip": {
       "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/inspectorPrimitives.tsx",
@@ -3161,9 +3161,9 @@
       "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/inspectorPrimitives.tsx",
       "binding": "named",
       "louis": [],
-      "verdict": "unclear",
+      "verdict": "scoped",
       "figma": null,
-      "reason": "앵커를 ae8fd627 → 5a67d692 로 옮기며 분모에 들어왔다. 파일은 옛 앵커에도 있었으나 이 컴포넌트가 그 시점에는 없었다. 무엇으로 판정할지는 소유자 몫이다 — 열거는 기계가, 분류는 사람이.",
+      "reason": "16px 플러스 글리프 한 장(viewBox 24 · stroke 1.5 · round cap · currentColor)이다. 면·타이포·상태가 없고 부모 표면 `…#InspectorSectionAction` 의 버튼 안에 들어가는 아이콘이며, Figma 는 같은 뜻을 아이콘 축의 `icon/plus` 로 이미 갖고 있다. 형제 판정 `…/landing/system/CarouselArrows.tsx#Caret` 과 volumeIcons 두 건이 같은 부류다.",
       "weight": null
     },
     "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/OverlayInspector.tsx#OverlayInspector": {
@@ -3890,28 +3890,28 @@
       "file": "apps/web/components/theme/ThemeIcons.tsx",
       "binding": "named",
       "louis": [],
-      "verdict": "unclear",
+      "verdict": "needed",
       "figma": null,
-      "reason": "앵커를 ae8fd627 → 5a67d692 로 옮기며 분모에 들어왔다. 그 파일 자체가 옛 앵커에 없었으므로 이 저장소의 어떤 게이트도 이 자리를 본 적이 없다. 무엇으로 판정할지는 소유자 몫이다 — 열거는 기계가, 분류는 사람이.",
-      "weight": null
+      "reason": "초승달 글리프(단일 path, 14 뷰박스). icons 31종에 달이 없다. 위 둘과 같은 테마 토글 세 벌의 마지막 한 장이고 소비처도 같다. 아이콘 축에 icon/sun · icon/moon · icon/monitor 로 함께 올리는 것이 맞다 — 컴포넌트 51 쪽이 아니다.",
+      "weight": "low"
     },
     "apps/web/components/theme/ThemeIcons.tsx#ThemeLightIcon": {
       "file": "apps/web/components/theme/ThemeIcons.tsx",
       "binding": "named",
       "louis": [],
-      "verdict": "unclear",
+      "verdict": "needed",
       "figma": null,
-      "reason": "앵커를 ae8fd627 → 5a67d692 로 옮기며 분모에 들어왔다. 그 파일 자체가 옛 앵커에 없었으므로 이 저장소의 어떤 게이트도 이 자리를 본 적이 없다. 무엇으로 판정할지는 소유자 몫이다 — 열거는 기계가, 분류는 사람이.",
-      "weight": null
+      "reason": "해 글리프(원 + 8방향 광선, 14 뷰박스). icons 31종에 해가 없다. ThemeSystemIcon 과 같은 벌·같은 두 소비처(앱 GNB 프로필 팝오버 · 랜딩 ThemeSelector)이고 크기와 stroke-width 를 호출부가 소유하는 구조라 아이콘 세트에 그대로 들어갈 수 있다. 세 벌을 한 번에 세워야 토글이 완성된다.",
+      "weight": "low"
     },
     "apps/web/components/theme/ThemeIcons.tsx#ThemeSystemIcon": {
       "file": "apps/web/components/theme/ThemeIcons.tsx",
       "binding": "named",
       "louis": [],
-      "verdict": "unclear",
+      "verdict": "needed",
       "figma": null,
-      "reason": "앵커를 ae8fd627 → 5a67d692 로 옮기며 분모에 들어왔다. 그 파일 자체가 옛 앵커에 없었으므로 이 저장소의 어떤 게이트도 이 자리를 본 적이 없다. 무엇으로 판정할지는 소유자 몫이다 — 열거는 기계가, 분류는 사람이.",
-      "weight": null
+      "reason": "모니터 글리프(14 뷰박스, currentColor stroke). 인라인 SVG 라 컴포넌트 축이 아니라 아이콘 축의 대상인데(CloseIcon·PhotoIcon 판례) icons 31종에 모니터가 없다 — icon/monitor-arrow-up 은 업로드 화살표가 붙은 다른 글리프다. 소비처가 앱 GNB 프로필 팝오버와 랜딩 ThemeSelector 둘이고 둘 다 범위 안이라, 부모가 범위 밖이어서 접힌 MenuIcon 과 달리 GlobeIcon 판례(세트에 없으면 needed·low)를 그대로 따른다.",
+      "weight": "low"
     },
     "apps/web/components/theme/ThemeProvider.tsx#ThemeProvider": {
       "file": "apps/web/components/theme/ThemeProvider.tsx",
@@ -4009,10 +4009,10 @@
       "file": "apps/web/components/ui/PageHeader.tsx",
       "binding": "named",
       "louis": [],
-      "verdict": "unclear",
+      "verdict": "needed",
       "figma": null,
-      "reason": "앵커를 ae8fd627 → 5a67d692 로 옮기며 분모에 들어왔다. 그 파일 자체가 옛 앵커에 없었으므로 이 저장소의 어떤 게이트도 이 자리를 본 적이 없다. 무엇으로 판정할지는 소유자 몫이다 — 열거는 기계가, 분류는 사람이.",
-      "weight": null
+      "reason": "앱 허브 화면 맨 위의 제목(heading-36-semibold) + 설명(body-16-medium) 블록에 아래 여백 32px 를 소유한다. 소비처가 넷이다 — HighlightScene · NodeCanvasHomeScene · VideoEditScene · admin/TemplateManagement. 파일 주석은 「정본은 Figma Page 14 의 App/PageHeader」라고 적지만 Page 14 는 제품 시안 보드 페이지이고 계약 집합(readback components 51)에 PageHeader 는 없다 — verify-figma-parity 가 잠그는 닫힌 51 밖이라 「대응이 있다」로 셀 수 없다. AppTopBar(40px 가로 바 + leading/trailing 슬롯)도 Breadcrumb 도 이 블록이 아니다. 제품 정본 자리인 components/ui 아래에서 넷이 공유하는데 라이브러리에 자리가 없다.",
+      "weight": "high"
     },
     "apps/web/components/ui/SegmentedCodeInput.tsx#SegmentedCodeInput": {
       "file": "apps/web/components/ui/SegmentedCodeInput.tsx",

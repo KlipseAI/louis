@@ -1265,6 +1265,15 @@
       "generated": false
     },
     {
+      "id": "decision-dead-token-unit-and-denominator",
+      "path": "design/governance/decisions/DS-D-0047-dead-token-unit-and-denominator.md",
+      "title": "DS-D-0047 죽은 토큰의 단위는 발행된 이름이 아니라 원천 토큰이다 — 그리고 사다리의 빈 칸은 재고가 아니다",
+      "section": "governance",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
+    },
+    {
       "id": "governance-product-confirmations",
       "path": "design/governance/product-confirmations.md",
       "title": "제품 확인 대기 목록",
@@ -1487,6 +1496,7 @@
         "design/governance/decisions/DS-D-0044-coverage-targets-and-denominators.md",
         "design/governance/decisions/DS-D-0045-danger-secondary-variant.md",
         "design/governance/decisions/DS-D-0046-bespoke-is-a-fifth-verdict.md",
+        "design/governance/decisions/DS-D-0047-dead-token-unit-and-denominator.md",
         "design/governance/product-confirmations.md",
         "design/updates/README.md"
       ]

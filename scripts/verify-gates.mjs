@@ -464,14 +464,16 @@ withCanary(
   "죽은 토큰이 1개 늘었습니다",
 );
 
-// ⑥ 죽은 토큰이 줄었는데 잠그지 않았다. `--louis-color-blue-350` 은 앵커에서 LOUIS 도
+// ⑥ 죽은 토큰이 줄었는데 잠그지 않았다. `--louis-color-stroke-strong` 은 앵커에서 LOUIS 도
 //    제품도 `var()` 로 풀지 않는 이름이다 — 누군가 그것을 쓰기 시작하면 이 카나리아가
 //    「예상 진단을 내지 않았습니다」로 시끄럽게 실패한다(조용히 통과하지 않는다).
+//    **여기에 색 계단(`color-blue-350` 등)을 쓰면 안 된다.** DS-D-0047 이후 그 이름들은
+//    `-rgb` 채널이 살아 있어 분모 밖이고, 살려도 수가 움직이지 않아 카나리아가 조용해진다.
 withCanary(
   "migration/louis-token-usage.json",
   (source) => {
     const ledger = JSON.parse(source);
-    ledger.productRefs = [...ledger.productRefs, "--louis-color-blue-350"].sort();
+    ledger.productRefs = [...ledger.productRefs, "--louis-color-stroke-strong"].sort();
     return JSON.stringify(ledger, null, 2) + "\n";
   },
   "coverage targets dead token count fell without locking",

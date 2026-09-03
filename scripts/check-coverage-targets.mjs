@@ -65,6 +65,10 @@ const TOKENS_CSS = "packages/css/generated/tokens.css";
 // 정의를 느슨하게 푸는 것만으로 수가 좋아지는 폭을 읽는 사람이 보게 한다.
 const THEME_CSS = "packages/css/generated/theme.css";
 const AUTHORED_CSS = ["packages/css/src", "packages/react/src"];
+// **단위를 되짚는 곳.** CSS 선언 이름 하나가 토큰 하나가 아니다 — 원천이 `-rgb` 채널과
+// 합성 하위 속성(`-duration`·`-delay`·`-timing-function`, `-font-size` …)을 함께 발행한다.
+// 이름을 이 파일의 `id` 로 되짚어야 「지울 수 있는 것」을 셀 수 있다(DS-D-0047).
+const TOKEN_SOURCE = "packages/tokens/src/klipse.tokens.json";
 
 // ── baseline ──────────────────────────────────────────────────────────────
 // 2026-09-02 실측. **새 위반을 받아들이려고 이 수를 움직이지 마라** — 이 저장소의 규칙이다.
@@ -74,7 +78,7 @@ const UNCLEAR_BASELINE = 9; // 하락만 잠근다(소유자만 줄일 수 있�
 const SCOPED_BASELINE = 211; // 표면 총수가 오른 만큼만 오를 수 있다
 const SURFACE_TOTAL_BASELINE = 400; // 위 천장의 기준점
 const MANIFEST_DONE_FLOOR = 17; // 바닥. 오르면 올려 이득을 잠근다
-const DEAD_TOKEN_BASELINE = 318; // 양방향, 목표 0
+const DEAD_TOKEN_BASELINE = 106; // 양방향, 목표 0. 단위는 **원천 토큰**이다 — DS-D-0047
 
 // 이 게이트가 «빌려 쓰는» 수의 임자들. 하나라도 verify:ci 사슬에서 빠지면 여기 인쇄되는
 // 수가 아무에게도 잠기지 않은 채 대시보드에만 남는다 — 그것이 가장 조용한 실패다.
@@ -177,10 +181,74 @@ while (stack.length > 0) {
 }
 const dead = [...declared.keys()].filter((name) => !live.has(name));
 const dangling = [...productRefs].filter((name) => !declared.has(name) && !localKnobs.has(name));
-// 계열별 집계. 「무엇부터 지우는가」를 정하는 데 쓰는 유일한 실마리다.
+
+// ── 단위와 분모 (DS-D-0047) ───────────────────────────────────────────────
+// 위의 `dead` 는 **CSS 선언 이름**을 센다. 그 수는 지워서 0 이 될 수 없다 — 한 원천 토큰이
+// 여러 이름을 발행하고, 그중 하나만 안 풀리는 경우가 실제로 대부분이기 때문이다. 그래서
+// 이름을 원천 `id` 로 되짚어 **토큰**을 세고, 지워서 0 이 될 수 없는 셋을 분모에서 뺀다.
+// 뺀 것과 남긴 것을 **둘 다 인쇄**하는 것이 이 좁히기가 화장이 아니라는 유일한 증거다.
+const tierById = new Map();
+{
+  const visit = (node) => {
+    if (node === null || typeof node !== "object" || Array.isArray(node)) return;
+    const ext = node.$extensions?.["com.klipse-design"];
+    if (ext?.id) tierById.set(ext.id, ext.tier);
+    for (const [key, value] of Object.entries(node)) if (!key.startsWith("$")) visit(value);
+  };
+  visit(readJson(TOKEN_SOURCE));
+}
+if (tierById.size === 0) {
+  errors.push(TOKEN_SOURCE + " 에서 토큰 id 를 하나도 읽지 못했습니다. 되짚을 사전이 없으면 " +
+    "아래 분류는 전부 「원천에 없음」이 되어 수가 거짓으로 «올라갑니다».");
+}
+// 가장 긴 id 부터 맞춘다 — `color-gray-000` 과 `color-gray-000-alpha-04` 가 둘 다 id 다.
+const idsByLength = [...tierById.keys()].sort((a, z) => z.length - a.length);
+const idOfName = (cssName) => {
+  const base = cssName.replace(/^--louis-/, "");
+  for (const id of idsByLength) if (base === id || base.startsWith(id + "-")) return id;
+  return null; // 원천에 없는 이름. 손으로 넣었거나 생성기가 새는 것이므로 **분모에 넣는다.**
+};
+// id → 그 id 가 발행한 선언 이름 전부. 전부 죽어야 그 토큰이 죽은 것이다.
+const emittedById = new Map();
+for (const name of declared.keys()) {
+  const id = idOfName(name);
+  if (id === null) continue;
+  const bucket = emittedById.get(id) ?? [];
+  bucket.push(name);
+  emittedById.set(id, bucket);
+}
+const deadSet = new Set(dead);
+// 분모에서 빠지는 셋. **규칙이지 목록이 아니다** — 규칙이라야 다음에 늘어난 것이 조용히
+// 빠지지 않는다.
+//  ① 사다리의 빈 칸(프리미티브 팔레트 + semantic 적응형 회색 램프 + 타이포 스케일):
+//     사다리는 완결된 것이 값이다. 쓰는 칸만 남기면 다음에 그 칸이 필요할 때 이름·값이
+//     예전과 같다는 보장이 없다(소유자 판정).
+//  ② Figma 전용 축: `type-line-height-percent/*` 는 DS-D-0029 §1 이 **일부러** 만들었고
+//     CSS 소비 0 이 설계된 상태다. `var()` 만 보는 정의가 구조적으로 잘못 세는 자리다.
+const isLadderRung = (id, tier) =>
+  tier === "primitive" || /^color-gray-\d/.test(id) || /^typography-/.test(id);
+const isFigmaOnlyAxis = (id) => /^type-line-height-percent-/.test(id);
+const deadTokens = []; // 지울 수 있고, 지워야 하는 것
+const excluded = { emittedForm: [], ladderRung: [], figmaOnlyAxis: [] };
+for (const [id, names] of emittedById) {
+  const deadNames = names.filter((name) => deadSet.has(name));
+  if (deadNames.length === 0) continue;
+  // 발행된 이름 일부만 안 풀린다 → **토큰은 살아 있다.** 그 이름만 지울 방법이 없다.
+  if (deadNames.length < names.length) { excluded.emittedForm.push(id); continue; }
+  if (isLadderRung(id, tierById.get(id))) { excluded.ladderRung.push(id); continue; }
+  if (isFigmaOnlyAxis(id)) { excluded.figmaOnlyAxis.push(id); continue; }
+  deadTokens.push(id);
+}
+// 원천에 id 가 없는 죽은 이름은 토큰 하나로 친다 — 되짚을 근거가 없는 것을 조용히 빼면
+// 생성기가 새기 시작해도 수가 그대로다.
+const orphanDeadNames = dead.filter((name) => idOfName(name) === null);
+const deadTokenCount = deadTokens.length + orphanDeadNames.length;
+
+// 계열별 집계. 「무엇부터 지우는가」를 정하는 데 쓰는 유일한 실마리다. **분모에 남은 것만**
+// 센다 — 사다리의 빈 칸을 여기 섞으면 그 표가 다음 사람을 사다리 깎기로 보낸다.
 const familyTally = {};
-for (const name of dead) {
-  const family = name.split("-").slice(0, 4).join("-");
+for (const id of [...deadTokens, ...orphanDeadNames]) {
+  const family = id.replace(/^--louis-/, "").split("-").slice(0, 3).join("-");
   familyTally[family] = (familyTally[family] ?? 0) + 1;
 }
 const deadFamilies = Object.entries(familyTally)
@@ -300,24 +368,24 @@ if (errors.length === 0) {
     );
   }
 
-  if (dead.length > DEAD_TOKEN_BASELINE) {
+  if (deadTokenCount > DEAD_TOKEN_BASELINE) {
     // **어느 이름이 «새로» 죽었는지는 말하지 않는다.** baseline 이 수 하나라 그것을 알 수
     // 없고, 「새로 죽은 자리」라며 죽은 목록의 앞 몇 개를 찍으면 그것은 거짓말이다 —
     // 이 저장소가 낡은 수로 데었던 것과 같은 종류의 거짓이다. 대신 «어디를 보라»를 적는다.
     errors.push(
-      "죽은 토큰이 " + (dead.length - DEAD_TOKEN_BASELINE) + "개 늘었습니다 (" +
-        DEAD_TOKEN_BASELINE + " → " + dead.length + "). 아무도 쓰지 않는 이름을 새로 만들었거나 " +
+      "죽은 토큰이 " + (deadTokenCount - DEAD_TOKEN_BASELINE) + "개 늘었습니다 (" +
+        DEAD_TOKEN_BASELINE + " → " + deadTokenCount + "). 아무도 쓰지 않는 이름을 새로 만들었거나 " +
         "마지막 소비자를 지웠습니다 — DS-D-0029(이름은 참이어야 한다).\n" +
         "      어느 이름인지는 이 게이트가 알지 못한다(baseline 이 수 하나다). " +
-        "직전 커밋과 대조할 곳은 셋이다 — " + TOKENS_CSS + " 의 새 선언 · " +
+        "직전 커밋과 대조할 곳은 셋이다 — " + TOKEN_SOURCE + " 의 새 토큰 · " +
         AUTHORED_CSS.join("·") + " 에서 사라진 `var()` · " + TOKENS_USAGE_HINT + ".\n" +
-        "      지금 죽어 있는 " + dead.length + "개의 계열: " + deadFamilies,
+        "      지금 죽어 있는 " + deadTokenCount + "개의 계열: " + deadFamilies,
     );
-  } else if (dead.length < DEAD_TOKEN_BASELINE) {
+  } else if (deadTokenCount < DEAD_TOKEN_BASELINE) {
     errors.push(
-      "죽은 토큰이 " + (DEAD_TOKEN_BASELINE - dead.length) + "개 줄었습니다 (" +
-        DEAD_TOKEN_BASELINE + " → " + dead.length + "). 이득을 잠그세요 — " +
-        "DEAD_TOKEN_BASELINE 을 " + dead.length + " 로 내립니다.",
+      "죽은 토큰이 " + (DEAD_TOKEN_BASELINE - deadTokenCount) + "개 줄었습니다 (" +
+        DEAD_TOKEN_BASELINE + " → " + deadTokenCount + "). 이득을 잠그세요 — " +
+        "DEAD_TOKEN_BASELINE 을 " + deadTokenCount + " 로 내립니다.",
     );
   }
 
@@ -362,7 +430,8 @@ const rows = [
   ["보드 bespoke (제품이 정본을 안 문다)", String(boardCounts.bespoke), "0", "↓ 하락만 잠금", "check-figma-board-composition"],
   ["manifest 컴포넌트 done", done + "/" + doneTarget, String(doneTarget), "↑ 바닥", "이 게이트 + verify-figma-done"],
   ["manifest 컴포넌트 partial", String(partial), "0", "↓ done 의 나머지", "파생"],
-  ["죽은 토큰", String(dead.length) + "/" + declared.size, "0", "↓ 양방향", "이 게이트"],
+  ["죽은 토큰 (지울 수 있는 것)", String(deadTokenCount) + "/" + emittedById.size, "0", "↓ 양방향", "이 게이트"],
+  ["죽은 선언 이름 (대조군)", String(dead.length) + "/" + declared.size, "— 분모 아님", "파생", "파생"],
 ];
 // 한글은 터미널에서 두 칸을 쓴다. 코드 포인트 수로 채우면 표가 어긋나고, 어긋난 표는
 // 읽히지 않는다 — 이 게이트의 산출물은 «읽히는» 표 하나다.
@@ -381,13 +450,24 @@ console.log("커버리지 목표 (앵커 " + String(anchor).slice(0, 8) + "):");
 for (const row of table) console.log(line(row));
 
 console.log(
-  "  · 죽은 토큰의 정의: `packages/css/generated/tokens.css` 의 선언 " + declared.size +
+  "  · 죽었다의 정의: `packages/css/generated/tokens.css` 의 선언 " + declared.size +
     " 중, LOUIS 저작 CSS(" + louisRefs.size + "종 참조)와 제품 앵커(" + productRefs.size +
     "종 참조) 어느 쪽도 `var()` 로 풀지 않는 것 — 별칭 사슬을 따라간 뒤. " +
     "`theme.css` 는 소비자로 세지 않는다(같은 원천에서 생성돼 토큰이 있다는 이유만으로 " +
-    themeRefs.size + "종을 참조한다 — 세면 죽은 토큰이 " + dead.length + " → " +
+    themeRefs.size + "종을 참조한다 — 세면 죽은 선언 이름이 " + dead.length + " → " +
     deadIfThemeCounted + " 로 «내려간다»). " +
     "제품 쪽 절반은 " + TOKEN_USAGE + " 가 나르고, 나머지는 방금 다시 계산했다.",
+);
+console.log(
+  "  · 위 두 줄이 다른 이유(DS-D-0047): 죽은 «이름» " + dead.length + " 를 원천 토큰으로 되짚으면 " +
+    deadTokenCount + " 다. 뺀 셋을 여기 인쇄한다 — 발행 형태만 안 풀린 것 " +
+    excluded.emittedForm.length + "(토큰은 살아 있다: `-rgb` 채널이 사는 색 계단과 " +
+    "`-delay`/`-duration` 만 안 쓰는 motion 합성. 그 이름만 지울 방법이 없으므로 세면 목표 0 이 " +
+    "정의상 도달 불가가 된다) · 사다리의 빈 칸 " + excluded.ladderRung.length +
+    "(프리미티브 팔레트 + 적응형 회색 램프 + 타이포 스케일 — 완결된 것이 값이다) · " +
+    "Figma 전용 축 " + excluded.figmaOnlyAxis.length + "(`type-line-height-percent/*`, " +
+    "DS-D-0029 §1 이 일부러 만들었고 CSS 소비 0 이 설계된 상태다). " +
+    "원천에 id 가 없는 죽은 이름 " + orphanDeadNames.length + "종은 «빼지 않고» 세었다.",
 );
 console.log(
   "  · 100% 가 의미 없는 자리: 범위 밖 " + surfaceCounts.scoped + "건은 분모 밖이다 — " +

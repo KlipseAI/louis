@@ -11330,6 +11330,27 @@ export const tokens = {
         "unit": "px"
       }
     },
+    "space-underline-gap": {
+      "aliasTarget": {
+        "id": "space-2",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-space-underline-gap": "2px"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "space-underline-gap",
+      "mode": "global",
+      "rawValue": "{primitive.spacing.2}",
+      "sourcePath": "semantic.global.spacing.underline-gap",
+      "tier": "semantic",
+      "type": "dimension",
+      "value": {
+        "value": 2,
+        "unit": "px"
+      }
+    },
     "type-body-14-size": {
       "aliasTarget": {
         "id": "font-size-body-sm",
@@ -16919,6 +16940,32 @@ export const tokens = {
         "alpha": 0.12
       }
     },
+    "color-stroke-underline": {
+      "aliasTarget": {
+        "id": "color-palette-gray-400",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-stroke-underline": "color(srgb 0.545098 0.556863 0.576471 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-stroke-underline",
+      "mode": "light",
+      "rawValue": "{primitive.color.palette-gray.400}",
+      "sourcePath": "semantic.light.color.stroke-underline",
+      "tier": "semantic",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.545098,
+          0.556863,
+          0.576471
+        ],
+        "alpha": 1
+      }
+    },
     "color-switch-off-track": {
       "aliasTarget": {
         "id": "color-static-white-alpha-16",
@@ -21818,6 +21865,32 @@ export const tokens = {
           0
         ],
         "alpha": 0.12
+      }
+    },
+    "color-stroke-underline": {
+      "aliasTarget": {
+        "id": "color-palette-gray-500",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-stroke-underline": "color(srgb 0.447059 0.458824 0.482353 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-stroke-underline",
+      "mode": "dark",
+      "rawValue": "{primitive.color.palette-gray.500}",
+      "sourcePath": "semantic.dark.color.stroke-underline",
+      "tier": "semantic",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.447059,
+          0.458824,
+          0.482353
+        ],
+        "alpha": 1
       }
     },
     "color-switch-off-track": {

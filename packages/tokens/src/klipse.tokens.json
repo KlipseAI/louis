@@ -6141,6 +6141,16 @@
               "mode": "global"
             }
           }
+        },
+        "underline-gap": {
+          "$value": "{primitive.spacing.2}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "space-underline-gap",
+              "tier": "semantic",
+              "mode": "global"
+            }
+          }
         }
       },
       "type": {
@@ -7534,6 +7544,16 @@
           "$extensions": {
             "com.klipse-design": {
               "id": "color-stroke-tooltip",
+              "tier": "semantic",
+              "mode": "light"
+            }
+          }
+        },
+        "stroke-underline": {
+          "$value": "{primitive.color.palette-gray.400}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-stroke-underline",
               "tier": "semantic",
               "mode": "light"
             }
@@ -9414,6 +9434,16 @@
           "$extensions": {
             "com.klipse-design": {
               "id": "color-stroke-tooltip",
+              "tier": "semantic",
+              "mode": "dark"
+            }
+          }
+        },
+        "stroke-underline": {
+          "$value": "{primitive.color.palette-gray.500}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-stroke-underline",
               "tier": "semantic",
               "mode": "dark"
             }

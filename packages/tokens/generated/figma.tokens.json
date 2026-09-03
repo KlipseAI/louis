@@ -14337,6 +14337,35 @@
             }
           }
         },
+        "space-underline-gap": {
+          "$type": "dimension",
+          "fields": [],
+          "figmaName": "spacing/underline-gap",
+          "hiddenFromPublishing": false,
+          "losses": [
+            "Figma FLOAT는 DTCG 단위 의미를 직접 보존하지 않으므로 source metadata를 함께 검토해야 합니다."
+          ],
+          "nativeVariableType": "FLOAT",
+          "representation": "variable",
+          "scopes": [
+            "GAP",
+            "WIDTH_HEIGHT"
+          ],
+          "valuesByMode": {
+            "Global": {
+              "$value": "{primitive.spacing.2}",
+              "aliasTarget": {
+                "id": "space-2",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "unit": "px",
+                "value": 2
+              },
+              "sourcePath": "semantic.global.spacing.underline-gap"
+            }
+          }
+        },
         "type-body-14-size": {
           "$type": "dimension",
           "fields": [],
@@ -24558,6 +24587,57 @@
                 ]
               },
               "sourcePath": "semantic.light.color.stroke-tooltip"
+            }
+          }
+        },
+        "color-stroke-underline": {
+          "$type": "color",
+          "fields": [],
+          "figmaName": "color/stroke-underline",
+          "hiddenFromPublishing": false,
+          "losses": [],
+          "nativeVariableType": "COLOR",
+          "representation": "variable",
+          "scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL",
+            "STROKE_COLOR",
+            "TEXT_FILL"
+          ],
+          "valuesByMode": {
+            "Dark": {
+              "$value": "{primitive.color.palette-gray.500}",
+              "aliasTarget": {
+                "id": "color-palette-gray-500",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 1,
+                "colorSpace": "srgb",
+                "components": [
+                  0.447059,
+                  0.458824,
+                  0.482353
+                ]
+              },
+              "sourcePath": "semantic.dark.color.stroke-underline"
+            },
+            "Light": {
+              "$value": "{primitive.color.palette-gray.400}",
+              "aliasTarget": {
+                "id": "color-palette-gray-400",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 1,
+                "colorSpace": "srgb",
+                "components": [
+                  0.545098,
+                  0.556863,
+                  0.576471
+                ]
+              },
+              "sourcePath": "semantic.light.color.stroke-underline"
             }
           }
         },

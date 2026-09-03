@@ -2,23 +2,23 @@
   "artifacts": [
     {
       "path": "packages/tokens/generated/figma.tokens.json",
-      "sha256": "6d1b37fcf14e9c38d95d84b4290077a8c8894904801cb01f61d2a487de9e5f69"
+      "sha256": "57f38ac395062ee4e3d91952f228a345c480d0428dc9eed2e9b572e229dec527"
     },
     {
       "path": "packages/tokens/generated/index.d.ts",
-      "sha256": "f770abd97690562a29927c853d42a2e4bcf7767f7183d8ac32d99f146d860ba9"
+      "sha256": "4d09103ebd904b88c4430f93985e3d94cdacda3a843d45bf0711b8e68d64b5e7"
     },
     {
       "path": "packages/tokens/generated/index.js",
-      "sha256": "ec88b816cbd1e5b34cd46e9d45cb846a235342ea9d8ffb64ebe8b18b2f37ddc6"
+      "sha256": "d3a4cedf6ba02dc985bd649b6131ce325ab029d9955397176a6a5917d8aeb7dc"
     },
     {
       "path": "packages/tokens/generated/tokens.css",
-      "sha256": "e5ca0630d73d276c90697eb40087bf6bdf161d230efb8c797f92bb3f103eb036"
+      "sha256": "35a49b36c12a0e990a6011022f2a303b62c4dcf7ee5b353afb3ff3206bc5c9a3"
     },
     {
       "path": "packages/tokens/generated/tokens.json",
-      "sha256": "42e806423d85347b18eda619042becfacc4875bde038efc875244e2c165c63ce"
+      "sha256": "04cc34fc49dd92f83439d7224e00a951d71c100bcb28f34216f859da107dd573"
     }
   ],
   "contrastPairs": [
@@ -419,13 +419,13 @@
   },
   "source": {
     "path": "packages/tokens/src/klipse.tokens.json",
-    "sha256": "9165a21f37683ebffb54d6fed1f18373daf631fe46afb5d5f7eaca0751ae6cb2"
+    "sha256": "ea7bf4296a86bd36b536b7752fca93e6f1d75c5bee98fa2f50c00ae3bf8eb16a"
   },
   "themes": [
     "light",
     "dark"
   ],
-  "tokenCount": 770,
+  "tokenCount": 773,
   "tokens": [
     {
       "aliasTarget": {
@@ -13170,6 +13170,58 @@
     },
     {
       "aliasTarget": {
+        "id": "color-palette-gray-400",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-stroke-underline": "color(srgb 0.545098 0.556863 0.576471 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-stroke-underline",
+      "mode": "light",
+      "rawValue": "{primitive.color.palette-gray.400}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0.545098,
+          0.556863,
+          0.576471
+        ]
+      },
+      "sourcePath": "semantic.light.color.stroke-underline",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-palette-gray-500",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-stroke-underline": "color(srgb 0.447059 0.458824 0.482353 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-stroke-underline",
+      "mode": "dark",
+      "rawValue": "{primitive.color.palette-gray.500}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0.447059,
+          0.458824,
+          0.482353
+        ]
+      },
+      "sourcePath": "semantic.dark.color.stroke-underline",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
         "id": "color-static-white-alpha-16",
         "mode": "base"
       },
@@ -19281,6 +19333,27 @@
         "value": 20
       },
       "sourcePath": "semantic.global.spacing.toast-inline",
+      "tier": "semantic",
+      "type": "dimension"
+    },
+    {
+      "aliasTarget": {
+        "id": "space-2",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-space-underline-gap": "2px"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "space-underline-gap",
+      "mode": "global",
+      "rawValue": "{primitive.spacing.2}",
+      "resolvedValue": {
+        "unit": "px",
+        "value": 2
+      },
+      "sourcePath": "semantic.global.spacing.underline-gap",
       "tier": "semantic",
       "type": "dimension"
     },

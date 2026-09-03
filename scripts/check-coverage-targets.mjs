@@ -94,7 +94,7 @@ const TOKEN_SOURCE = "packages/tokens/src/klipse.tokens.json";
 // 않는다. UNCLEAR 를 9 → 47 로 올린 것과 똑같은 이유이고, verify-gates 의 canary
 // (`coverage targets needed fell without locking`)가 그것을 강제한다: 그 canary 는
 // counts.needed 를 1 내리고 실패를 기다리는데, baseline 이 낡으면 canary 자신이 눈이 먼다.
-const NEEDED_BASELINE = 180; // 하락만 잠근다(상승은 발견)
+const NEEDED_BASELINE = 181; // 하락만 잠근다(상승은 발견)
 // 9 → 47 → 5. 47 로 올렸던 것은 미룬 것을 받아들여서가 아니라 래칫이 물게 하려는 것이었다
 // (재고정으로 드러난 38개가 판단 대기로 들어왔다). 2026-09-03 에 그 47 을 네 도메인이
 // 나눠 판정해 43 이 내려갔고 — figma 6 · scoped 15 · needed 22 — 5 만 남았다.
@@ -103,7 +103,7 @@ const NEEDED_BASELINE = 180; // 하락만 잠근다(상승은 발견)
 // 않아 아무도 열어 보지 않은 네 자리(HomePageClient#LandingContent ·
 // nodeToolbarGlyphs#ToolbarIconVideoFrame · node-canvas/primitives#SelectionChrome ·
 // PhotoGrid#ImageStrip). 방향과 목표는 그대로다(↓ · 0).
-const UNCLEAR_BASELINE = 2; // 하락만 잠근다(소유자만 줄일 수 있다)
+const UNCLEAR_BASELINE = 1; // 하락만 잠근다(소유자만 줄일 수 있다)
 // 210 → 225. 표면 총수는 434 그대로이므로 이 상승은 천장이 허락한 것이 아니라 **판정이
 // 만든 것이다** — unclear 15 건이 「그릴 것이 없다」로 내려갔다(부모의 조각 · 순수 배치
 // 래퍼 · defs · 사용자 콘텐츠 슬롯). 그 15 건은 needed 에서 옮겨 온 것이 아니라 판단 대기에서

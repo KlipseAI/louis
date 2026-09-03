@@ -14,8 +14,8 @@
     "total": 434,
     "mapped": 25,
     "scoped": 227,
-    "needed": 180,
-    "unclear": 2,
+    "needed": 181,
+    "unclear": 1,
     "unclassified": 0
   },
   "surfaces": {
@@ -473,10 +473,10 @@
       "file": "apps/web/app/HomePageClient.tsx",
       "binding": "local",
       "louis": [],
-      "verdict": "unclear",
+      "verdict": "needed",
       "figma": null,
-      "reason": "아홉 섹션을 순서대로 나열하는 랜딩 조립이라 그 자체는 범위 밖이 맞다. 그런데 이 파일만 소유한 시각이 하나 있다 — #final-cta 밴드(정지점 5개짜리 세로 그라디언트 page-bg → primary-500 → #bed7fe → #f9b157 → #ff4b59 + heading-36-semibold 제목 + inverse Button). 다른 아홉 섹션은 전부 components/landing 아래 자기 파일을 갖는데 이 띠만 없다. 조립 밖의 그 밴드를 별도 표면으로 뽑아 컴포넌트로 세울지, Figma 「01 · 획득」 화면 보드의 프레임으로 둘지 소유자가 정해 주면 풀린다 — readback.json 은 컴포넌트·패턴만 담아 이 저장소에서는 확인할 길이 없다. (landing 도메인 unclear ↔ routes 도메인 needed/medium 의 유일한 판정 충돌. 갈린 축이 곧 소유자 질문이라 unclear 를 남겼다.)",
-      "weight": null
+      "reason": "소유자 판정(2026-09-03): 세운다. 아홉 섹션을 순서대로 나열하는 조립 자체는 범위 밖이지만 이 파일만 소유한 시각이 하나 있다 — `#final-cta` 밴드의 정지점 다섯짜리 세로 그라디언트(page-bg → primary-500 → #bed7fe → #f9b157 → #ff4b59). 그 밴드는 다른 어느 표면도 갖지 않으므로 조립을 범위 밖으로 두면 함께 사라진다. 세울 것은 라우트 셸이 아니라 그 밴드다 — 랜딩 최종 CTA 한 자리이므로 medium.",
+      "weight": "medium"
     },
     "apps/web/app/HomePageClient.tsx#Page": {
       "file": "apps/web/app/HomePageClient.tsx",

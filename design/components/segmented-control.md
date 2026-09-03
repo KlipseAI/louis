@@ -291,6 +291,24 @@ Figma는 INNER_SHADOW로 대응한다 — 이전 OUTSIDE stroke에서 바뀐 것
   (2026-09-01 정정: 이 항목은 「Figma의 `Size` variant에 `sm`이 없다 … 이 축은 빨갛다」고 적고
   있었는데, 트랙이 그려진 뒤로 두 문장 다 사실이 아니었다.)
 
+- **제품 정본의 트랙은 36 이고 이 컴포넌트에는 그 칸이 없다.** 위 Specification 이 「높이만 control
+  계단을 따른다」로 적은 그 갈림이며, 2026-09-03 에 자리와 값을 실측했다. 제품 A(`SegmentedToggle`)는
+  트랙 높이를 **선언하지 않는다** — 패딩 4(`myPageSceneStyles.ts:1004`)와 세그먼트 28(`:969`)이
+  `4 + 28 + 4 = 36` 을 만든다. 나머지는 `lg` 와 글자 그대로 같다: 트랙 반경 12(`:1005`) · 세그먼트
+  반경 8(`:972`) · 세그먼트 좌우 12(`:970`) · 타이포 14(`SegmentedToggle.tsx:52`). **갈리는 것은
+  세그먼트 높이 하나뿐이다**(제품 28 ↔ LOUIS 32).
+
+  `product.auth-fixture.json` 에서 이 트랙이 서는 자리는 셋이다 — 설정의 언어 · 테마 토글과 구독의
+  크레딧 이력 필터(별칭 route `/mypage` 포함 7 인스턴스). 보드 원장은 그 넷을 `unmatched-d-control-group`
+  으로 세고 있다. **`lg`(40)·`md`(32) 트랙을 무는 제품 자리는 fixture 에 하나도 없다.**
+
+  36 을 칸으로 열지 않는 판정과 그 사유는
+  [DS-D-0048](../governance/decisions/DS-D-0048-thirty-six-is-not-a-control-height.md) 이 갖는다 —
+  요지는 셋이다. 사다리는 다섯 컴포넌트가 함께 따라가는 것인데 36 은 그중 하나의 한 축에만 있고,
+  36 을 받는 것은 `components.measured.json` 의 `$canon` 이 이미 내린 판정을 뒤집는 일이며(제품
+  픽셀의 정본을 정하는 일이라 이 저장소가 고를 수 없다), 지금 얹으면 위 `xs` 의 이름 문제가
+  하나에서 둘로 는다.
+
 ## Acceptance tests
 
 1. lg·md·sm의 트랙 높이·padding·반경·헤어라인 토큰·세그먼트 높이·반경·좌우 여백·슬롯 간격·타이포가

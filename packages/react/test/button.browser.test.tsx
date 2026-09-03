@@ -225,15 +225,19 @@ test("320px 컨테이너에서 KO/EN/JA 긴 라벨이 잘리지 않는다", asyn
  * 비워 두는 것이 기본이다. 여기 이름을 올린다는 것은 그 위반을 알고도 내보낸다는 뜻이므로
  * 사유를 반드시 남긴다. 목록을 쓰지 않고 테스트를 지우면 그 variant의 나머지 검출력까지 사라진다.
  *
- * **네 variant 전부 color-contrast에 걸린다.** owner가 제품의 공용 Button을 정본으로 채택했고,
- * 그 제품 Button이 네 variant 모두 WCAG 2.2 AA(4.5)에 미달하기 때문이다. axe 실측값이다.
+ * **둘이 color-contrast에 걸린다.** owner가 제품의 공용 Button을 정본으로 채택했고,
+ * 그 제품 Button이 WCAG 2.2 AA(4.5)에 미달하기 때문이다. axe 실측값이다.
  *
  * | variant | 전경 | 배경 | 대비 |
  * | --- | --- | --- | --- |
  * | primary | #fafafa | #0088ff | 3.37 |
- * | secondary | #777d89 | 흰 배경 | 4.13 |
- * | ghost | #777d89 | 흰 배경 | 4.13 |
  * | danger | #fafafa | #ff4b59 | 3.14 |
+ *
+ * **secondary·ghost는 목록에서 빠졌다.** 둘 다 흰 배경 위 #777d89 로 4.13 이었는데,
+ * 두 가지가 따로 그 값을 밀어 올렸다 — 회색 램프를 다시 세우며 `accent-secondary-foreground`
+ * 가 #595c63(pg-600)로 내려왔고, secondary 는 거기에 8% 잉크 면까지 생겨 배경이 #ebebeb
+ * 로 내려왔다. 대비 때문에 값을 바꾼 것이 아니라 두 변경의 결과로 따라온 것이다.
+ * axe 가 위반을 내지 않으므로, 이름을 남겨 두면 이 테스트가 **없는 위반을 기다리다** 실패한다.
  *
  * 이 미달은 제품이 이미 갖고 있는 것이고 DS가 그것을 그대로 재현한다. 사유는 token source의
  * contrastPairs note와 design/components/button.md의 Known deviations에도 있다.
@@ -247,11 +251,15 @@ test("320px 컨테이너에서 KO/EN/JA 긴 라벨이 잘리지 않는다", asyn
 const ALLOWED_VIOLATIONS: Readonly<Record<string, readonly string[]>> = {
   primary: ["color-contrast"],
   /* secondary — **더 이상 걸리지 않는다.** `5566ecd` 가 secondary 에 잉크 8% 면을 주면서
-   * 라벨 뒤 바탕이 바뀌었고 axe 가 위반을 내지 않는다. 이 목록에 남겨 두면 「기대한 위반이
-   * 없다」로 테스트가 죽는다 — 값이 좋아진 것을 목록이 못 따라간 자리다.
-   * 값을 바꾼 것이 아니라 낡은 기록을 걷은 것이다. */
+   * 라벨 뒤 바탕이 바뀌었고 axe 가 위반을 내지 않는다. 목록에 남겨 두면 「기대한 위반이 없다」로
+   * 테스트가 죽는다 — 값이 좋아진 것을 목록이 못 따라간 자리다.
+   * 값을 바꾼 것이 아니라 낡은 기록을 걷은 것이다.
+   *
+   * **키를 지우지 않고 빈 배열로 둔다**(origin/main 과 같은 형태). 키가 없으면 다음 사람이
+   * 「빠뜨린 것」인지 「걸리지 않는 것」인지 구별할 수 없다. */
+  secondary: [],
   /* ghost — secondary 와 같은 이유로 더 이상 걸리지 않는다. 램프 재조정(origin/main 의
-   * 회색 20여 커밋)이 라벨과 바탕의 관계를 바꿨다. */
+   * 회색 20여 커밋)이 라벨과 바탕의 관계를 바꿨다. 실측으로 확인했다. */
   ghost: [],
   danger: ["color-contrast"],
   /* danger-secondary/color-contrast — 실측 2.82:1 이다(axe: #ff4b59 글자, 12% 면이 흰 바닥에

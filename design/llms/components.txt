@@ -485,10 +485,23 @@ gap과 아이콘 슬롯도 세 크기가 같은 값이다(`column-gap`은 셋 �
   | variant | 전경 | 배경 | 대비 |
   | --- | --- | --- | --- |
   | `primary` | `#fafafa` | `#0088ff` | **3.37** |
-  | `secondary` | `#777d89` | 흰 배경 | **4.13** |
-  | `ghost` | `#777d89` | 흰 배경 | **4.13** |
   | `danger` | `#fafafa` | `#ff4b59` | **3.14** |
   | `danger-secondary` | `#ff4b59` | red 12% 알파 | **2.54 ~ 3.27** (`bg-raised` 다크에서 **1.93**) |
+
+  **`secondary`·`ghost`는 2026-09-03 에 이 표에서 빠졌다.** 둘 다 흰 배경 위 `#777d89` 로
+  4.13 이었는데, 두 변경이 따로 그 값을 밀어 올렸다.
+
+  1. 회색 램프를 다시 세우며 `accent-secondary-foreground` 가 `#595c63`(pg-600)로 내려왔다.
+  2. `secondary` 에 8% 잉크 면이 생겨 배경이 흰색에서 `#ebebeb` 로 내려왔다.
+
+  | variant | 전경 | 배경 | 대비 |
+  | --- | --- | --- | --- |
+  | `secondary` | `#595c63` | `#ebebeb`(흰 배경 위 8%) ~ `#e6e6e6`(카드 pg-000 위 8%) | **5.62 ~ 5.37** |
+  | `ghost` | `#595c63` | 흰 배경 ~ 카드 `#fafafa` | **6.70 ~ 6.42** |
+
+  **대비 때문에 값을 바꾼 것이 아니라 두 변경의 결과로 따라온 것이다.** axe 가 위반을 내지
+  않으므로 허용 목록에 이름을 남겨 두면 테스트가 없는 위반을 기다리다 실패한다 —
+  `packages/react/test/button.browser.test.tsx` 의 `ALLOWED_VIOLATIONS` 에서 둘을 비웠다.
 
   `danger-secondary`의 미달은 위 셋과 성격이 다르다 — **고를 수 있었는데 고른 것이다.**
   2026-09-01에 `bg-danger`+`fg-danger-on-surface`(라이트 5.32 · 다크 5.31, 통과)로 먼저 세웠고,
@@ -514,16 +527,17 @@ gap과 아이콘 슬롯도 세 크기가 같은 값이다(`column-gap`은 셋 �
   md 20 / sm 16으로 고정하고 글리프를 슬롯에 맞춘다. 컨테이너 크기는 컨트롤이 소유한다는 같은
   문서의 규칙과는 어긋나지 않는다.
 
-- **앞의 대비표는 앱 셸 밖의 값이다.** 사이드바가 있는 화면의 라이트에서 `secondary`·`ghost`의 라벨색은
-  `#777d89`가 아니라 **`#9aa0ab`**다. 제품 Button이 시맨틱을 거치지 않고 `text-palette-gray-600` 원
-  팔레트를 직접 읽고(`Button.tsx@a3ed8e03:104`·`:115`), `gnb-wrapperSidebar`가 `html[data-theme=light] body:has(&)`로
-  그 이름을 `#9aa0ab`로 덮는다(`Gnb.tsx:2041`, rgb 미러 `:2048` = `154 160 171`; 전역 정의는
-  `globals.css:39`). 셀렉터가 `body:has(&)`라 **버튼이 사이드바 안에 있든 밖에 있든 화면 전체에 걸린다.**
-  재매핑 범위는 라벨까지다 — 테두리 `1px solid rgb(23 27 34 / 12%)`와 hover 면은 `--palette-gray-900-rgb`를
-  읽는데 그 이름은 재매핑 대상이 아니라 전역과 같다. 앱 셸 실면 위 계산 대비는 카드 `#f8f8f9` 위 ≈2.5,
-  페이지 바닥 `#eeeef1` 위 ≈2.3으로 **표의 4.13보다 더 낮다.** 앱 셸 화면의 대비를 4.13으로 읽으면 틀린다.
-  램프 자체는 [App Shell Parts](../components/app-shell-parts.md)의 Known deviations가 소유하고, DS는 이 런타임 스코프를
-  토큰 축으로 표현하지 않는다.
+- **앱 셸 램프는 없어졌다(2026-09-03).** 전에는 사이드바가 있는 화면의 라이트에서 `secondary`·`ghost`의
+  라벨색이 `#777d89`가 아니라 `#9aa0ab`였다 — 제품 Button이 시맨틱을 거치지 않고 `text-palette-gray-600`
+  원 팔레트를 직접 읽는데, `gnb-wrapperSidebar`가 `html[data-theme=light] body:has(&)`로 그 이름을 덮었기
+  때문이다. 셀렉터가 `body:has(&)`라 버튼이 사이드바 안에 있든 밖에 있든 화면 전체에 걸렸고, 앱 셸 실면
+  위 계산 대비가 ≈2.3~2.5로 표의 값보다 **더 낮았다.**
+  제품이 그 재매핑을 통째로 걷어내면서 앱 셸 화면도 전역 팔레트를 그대로 따른다 — 이제 앞의 표가
+  앱 셸 안에서도 그대로 성립한다. DS는 처음부터 이 런타임 스코프를 토큰 축으로 표현하지 않았다.
+
+  ⚠ 같은 램프를 아직 현재형으로 적고 있는 문서가 남아 있다 —
+  `design/components/menu-popover.md:283`, `design/components/app-shell-parts.md:397`.
+  `design/updates/README.md`의 언급은 변경 이력이라 그대로 둔다.
 - **제품 `primary`의 글래스 3겹을 재현하지 않는다.** owner 결정이다 — 이 디자인 시스템에 글래스 섀도우
   개념을 두지 않고, 면도 3-stop 그라디언트 대신 flat으로 간다. 제품의 실제 구성은 아래 세 겹이다.
 

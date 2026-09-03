@@ -1166,7 +1166,7 @@ export declare const tokens: Readonly<{
   readonly "color-gray-900": TokenRecord<"color-gray-900", "light", "semantic", { readonly id: "color-palette-gray-100"; readonly mode: "base" }>;
   readonly "color-icon-input-glyph": TokenRecord<"color-icon-input-glyph", "light", "semantic", { readonly id: "color-static-black-alpha-40"; readonly mode: "base" }>;
   readonly "color-landing-line": TokenRecord<"color-landing-line", "light", "semantic", { readonly id: "color-static-black-alpha-12"; readonly mode: "base" }>;
-  readonly "color-landing-page-bg": TokenRecord<"color-landing-page-bg", "light", "semantic", { readonly id: "color-palette-gray-100"; readonly mode: "base" }>;
+  readonly "color-landing-page-bg": TokenRecord<"color-landing-page-bg", "light", "semantic", { readonly id: "color-palette-gray-050"; readonly mode: "base" }>;
   readonly "color-landing-panel": TokenRecord<"color-landing-panel", "light", "semantic", { readonly id: "color-static-black-alpha-04"; readonly mode: "base" }>;
   readonly "color-landing-panel-strong": TokenRecord<"color-landing-panel-strong", "light", "semantic", { readonly id: "color-static-black-alpha-08"; readonly mode: "base" }>;
   readonly "color-landing-text-muted": TokenRecord<"color-landing-text-muted", "light", "semantic", { readonly id: "color-static-black-alpha-64"; readonly mode: "base" }>;

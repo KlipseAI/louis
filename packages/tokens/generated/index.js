@@ -2440,8 +2440,8 @@ export const primitives = {
   "color-static-black-alpha-04": {
     "aliasTarget": null,
     "cssProperties": {
-      "--louis-color-static-black-alpha-04": "color(srgb 0 0 0 / 0.04)",
-      "--louis-color-static-black-alpha-04-rgb": "0 0 0"
+      "--louis-color-static-black-alpha-04": "color(srgb 0.090196 0.105882 0.133333 / 0.04)",
+      "--louis-color-static-black-alpha-04-rgb": "23 27 34"
     },
     "deprecated": null,
     "description": null,
@@ -2450,12 +2450,12 @@ export const primitives = {
     "rawValue": {
       "colorSpace": "srgb",
       "components": [
-        0,
-        0,
-        0
+        0.090196,
+        0.105882,
+        0.133333
       ],
       "alpha": 0.04,
-      "hex": "#000000"
+      "hex": "#171b22"
     },
     "sourcePath": "primitive.color.static-black-alpha.04",
     "tier": "primitive",
@@ -2463,9 +2463,9 @@ export const primitives = {
     "value": {
       "colorSpace": "srgb",
       "components": [
-        0,
-        0,
-        0
+        0.090196,
+        0.105882,
+        0.133333
       ],
       "alpha": 0.04
     }
@@ -2473,8 +2473,8 @@ export const primitives = {
   "color-static-black-alpha-08": {
     "aliasTarget": null,
     "cssProperties": {
-      "--louis-color-static-black-alpha-08": "color(srgb 0 0 0 / 0.08)",
-      "--louis-color-static-black-alpha-08-rgb": "0 0 0"
+      "--louis-color-static-black-alpha-08": "color(srgb 0.090196 0.105882 0.133333 / 0.08)",
+      "--louis-color-static-black-alpha-08-rgb": "23 27 34"
     },
     "deprecated": null,
     "description": null,
@@ -2483,12 +2483,12 @@ export const primitives = {
     "rawValue": {
       "colorSpace": "srgb",
       "components": [
-        0,
-        0,
-        0
+        0.090196,
+        0.105882,
+        0.133333
       ],
       "alpha": 0.08,
-      "hex": "#000000"
+      "hex": "#171b22"
     },
     "sourcePath": "primitive.color.static-black-alpha.08",
     "tier": "primitive",
@@ -2496,9 +2496,9 @@ export const primitives = {
     "value": {
       "colorSpace": "srgb",
       "components": [
-        0,
-        0,
-        0
+        0.090196,
+        0.105882,
+        0.133333
       ],
       "alpha": 0.08
     }
@@ -2506,8 +2506,8 @@ export const primitives = {
   "color-static-black-alpha-12": {
     "aliasTarget": null,
     "cssProperties": {
-      "--louis-color-static-black-alpha-12": "color(srgb 0 0 0 / 0.12)",
-      "--louis-color-static-black-alpha-12-rgb": "0 0 0"
+      "--louis-color-static-black-alpha-12": "color(srgb 0.090196 0.105882 0.133333 / 0.12)",
+      "--louis-color-static-black-alpha-12-rgb": "23 27 34"
     },
     "deprecated": null,
     "description": null,
@@ -2516,12 +2516,12 @@ export const primitives = {
     "rawValue": {
       "colorSpace": "srgb",
       "components": [
-        0,
-        0,
-        0
+        0.090196,
+        0.105882,
+        0.133333
       ],
       "alpha": 0.12,
-      "hex": "#000000"
+      "hex": "#171b22"
     },
     "sourcePath": "primitive.color.static-black-alpha.12",
     "tier": "primitive",
@@ -2529,9 +2529,9 @@ export const primitives = {
     "value": {
       "colorSpace": "srgb",
       "components": [
-        0,
-        0,
-        0
+        0.090196,
+        0.105882,
+        0.133333
       ],
       "alpha": 0.12
     }
@@ -2539,8 +2539,8 @@ export const primitives = {
   "color-static-black-alpha-16": {
     "aliasTarget": null,
     "cssProperties": {
-      "--louis-color-static-black-alpha-16": "color(srgb 0 0 0 / 0.16)",
-      "--louis-color-static-black-alpha-16-rgb": "0 0 0"
+      "--louis-color-static-black-alpha-16": "color(srgb 0.090196 0.105882 0.133333 / 0.16)",
+      "--louis-color-static-black-alpha-16-rgb": "23 27 34"
     },
     "deprecated": null,
     "description": null,
@@ -2549,12 +2549,12 @@ export const primitives = {
     "rawValue": {
       "colorSpace": "srgb",
       "components": [
-        0,
-        0,
-        0
+        0.090196,
+        0.105882,
+        0.133333
       ],
       "alpha": 0.16,
-      "hex": "#000000"
+      "hex": "#171b22"
     },
     "sourcePath": "primitive.color.static-black-alpha.16",
     "tier": "primitive",
@@ -2562,9 +2562,9 @@ export const primitives = {
     "value": {
       "colorSpace": "srgb",
       "components": [
-        0,
-        0,
-        0
+        0.090196,
+        0.105882,
+        0.133333
       ],
       "alpha": 0.16
     }
@@ -2572,8 +2572,8 @@ export const primitives = {
   "color-static-black-alpha-20": {
     "aliasTarget": null,
     "cssProperties": {
-      "--louis-color-static-black-alpha-20": "color(srgb 0 0 0 / 0.2)",
-      "--louis-color-static-black-alpha-20-rgb": "0 0 0"
+      "--louis-color-static-black-alpha-20": "color(srgb 0.090196 0.105882 0.133333 / 0.2)",
+      "--louis-color-static-black-alpha-20-rgb": "23 27 34"
     },
     "deprecated": null,
     "description": null,
@@ -2582,12 +2582,12 @@ export const primitives = {
     "rawValue": {
       "colorSpace": "srgb",
       "components": [
-        0,
-        0,
-        0
+        0.090196,
+        0.105882,
+        0.133333
       ],
       "alpha": 0.2,
-      "hex": "#000000"
+      "hex": "#171b22"
     },
     "sourcePath": "primitive.color.static-black-alpha.20",
     "tier": "primitive",
@@ -2595,9 +2595,9 @@ export const primitives = {
     "value": {
       "colorSpace": "srgb",
       "components": [
-        0,
-        0,
-        0
+        0.090196,
+        0.105882,
+        0.133333
       ],
       "alpha": 0.2
     }
@@ -2605,8 +2605,8 @@ export const primitives = {
   "color-static-black-alpha-24": {
     "aliasTarget": null,
     "cssProperties": {
-      "--louis-color-static-black-alpha-24": "color(srgb 0 0 0 / 0.24)",
-      "--louis-color-static-black-alpha-24-rgb": "0 0 0"
+      "--louis-color-static-black-alpha-24": "color(srgb 0.090196 0.105882 0.133333 / 0.24)",
+      "--louis-color-static-black-alpha-24-rgb": "23 27 34"
     },
     "deprecated": null,
     "description": null,
@@ -2615,12 +2615,12 @@ export const primitives = {
     "rawValue": {
       "colorSpace": "srgb",
       "components": [
-        0,
-        0,
-        0
+        0.090196,
+        0.105882,
+        0.133333
       ],
       "alpha": 0.24,
-      "hex": "#000000"
+      "hex": "#171b22"
     },
     "sourcePath": "primitive.color.static-black-alpha.24",
     "tier": "primitive",
@@ -2628,9 +2628,9 @@ export const primitives = {
     "value": {
       "colorSpace": "srgb",
       "components": [
-        0,
-        0,
-        0
+        0.090196,
+        0.105882,
+        0.133333
       ],
       "alpha": 0.24
     }
@@ -2638,8 +2638,8 @@ export const primitives = {
   "color-static-black-alpha-28": {
     "aliasTarget": null,
     "cssProperties": {
-      "--louis-color-static-black-alpha-28": "color(srgb 0 0 0 / 0.28)",
-      "--louis-color-static-black-alpha-28-rgb": "0 0 0"
+      "--louis-color-static-black-alpha-28": "color(srgb 0.090196 0.105882 0.133333 / 0.28)",
+      "--louis-color-static-black-alpha-28-rgb": "23 27 34"
     },
     "deprecated": null,
     "description": null,
@@ -2648,12 +2648,12 @@ export const primitives = {
     "rawValue": {
       "colorSpace": "srgb",
       "components": [
-        0,
-        0,
-        0
+        0.090196,
+        0.105882,
+        0.133333
       ],
       "alpha": 0.28,
-      "hex": "#000000"
+      "hex": "#171b22"
     },
     "sourcePath": "primitive.color.static-black-alpha.28",
     "tier": "primitive",
@@ -2661,9 +2661,9 @@ export const primitives = {
     "value": {
       "colorSpace": "srgb",
       "components": [
-        0,
-        0,
-        0
+        0.090196,
+        0.105882,
+        0.133333
       ],
       "alpha": 0.28
     }
@@ -2671,8 +2671,8 @@ export const primitives = {
   "color-static-black-alpha-32": {
     "aliasTarget": null,
     "cssProperties": {
-      "--louis-color-static-black-alpha-32": "color(srgb 0 0 0 / 0.32)",
-      "--louis-color-static-black-alpha-32-rgb": "0 0 0"
+      "--louis-color-static-black-alpha-32": "color(srgb 0.090196 0.105882 0.133333 / 0.32)",
+      "--louis-color-static-black-alpha-32-rgb": "23 27 34"
     },
     "deprecated": null,
     "description": null,
@@ -2681,12 +2681,12 @@ export const primitives = {
     "rawValue": {
       "colorSpace": "srgb",
       "components": [
-        0,
-        0,
-        0
+        0.090196,
+        0.105882,
+        0.133333
       ],
       "alpha": 0.32,
-      "hex": "#000000"
+      "hex": "#171b22"
     },
     "sourcePath": "primitive.color.static-black-alpha.32",
     "tier": "primitive",
@@ -2694,9 +2694,9 @@ export const primitives = {
     "value": {
       "colorSpace": "srgb",
       "components": [
-        0,
-        0,
-        0
+        0.090196,
+        0.105882,
+        0.133333
       ],
       "alpha": 0.32
     }
@@ -2704,8 +2704,8 @@ export const primitives = {
   "color-static-black-alpha-40": {
     "aliasTarget": null,
     "cssProperties": {
-      "--louis-color-static-black-alpha-40": "color(srgb 0 0 0 / 0.4)",
-      "--louis-color-static-black-alpha-40-rgb": "0 0 0"
+      "--louis-color-static-black-alpha-40": "color(srgb 0.090196 0.105882 0.133333 / 0.4)",
+      "--louis-color-static-black-alpha-40-rgb": "23 27 34"
     },
     "deprecated": null,
     "description": null,
@@ -2714,12 +2714,12 @@ export const primitives = {
     "rawValue": {
       "colorSpace": "srgb",
       "components": [
-        0,
-        0,
-        0
+        0.090196,
+        0.105882,
+        0.133333
       ],
       "alpha": 0.4,
-      "hex": "#000000"
+      "hex": "#171b22"
     },
     "sourcePath": "primitive.color.static-black-alpha.40",
     "tier": "primitive",
@@ -2727,9 +2727,9 @@ export const primitives = {
     "value": {
       "colorSpace": "srgb",
       "components": [
-        0,
-        0,
-        0
+        0.090196,
+        0.105882,
+        0.133333
       ],
       "alpha": 0.4
     }
@@ -2737,8 +2737,8 @@ export const primitives = {
   "color-static-black-alpha-48": {
     "aliasTarget": null,
     "cssProperties": {
-      "--louis-color-static-black-alpha-48": "color(srgb 0 0 0 / 0.48)",
-      "--louis-color-static-black-alpha-48-rgb": "0 0 0"
+      "--louis-color-static-black-alpha-48": "color(srgb 0.090196 0.105882 0.133333 / 0.48)",
+      "--louis-color-static-black-alpha-48-rgb": "23 27 34"
     },
     "deprecated": null,
     "description": null,
@@ -2747,12 +2747,12 @@ export const primitives = {
     "rawValue": {
       "colorSpace": "srgb",
       "components": [
-        0,
-        0,
-        0
+        0.090196,
+        0.105882,
+        0.133333
       ],
       "alpha": 0.48,
-      "hex": "#000000"
+      "hex": "#171b22"
     },
     "sourcePath": "primitive.color.static-black-alpha.48",
     "tier": "primitive",
@@ -2760,9 +2760,9 @@ export const primitives = {
     "value": {
       "colorSpace": "srgb",
       "components": [
-        0,
-        0,
-        0
+        0.090196,
+        0.105882,
+        0.133333
       ],
       "alpha": 0.48
     }
@@ -2770,8 +2770,8 @@ export const primitives = {
   "color-static-black-alpha-56": {
     "aliasTarget": null,
     "cssProperties": {
-      "--louis-color-static-black-alpha-56": "color(srgb 0 0 0 / 0.56)",
-      "--louis-color-static-black-alpha-56-rgb": "0 0 0"
+      "--louis-color-static-black-alpha-56": "color(srgb 0.090196 0.105882 0.133333 / 0.56)",
+      "--louis-color-static-black-alpha-56-rgb": "23 27 34"
     },
     "deprecated": null,
     "description": null,
@@ -2780,12 +2780,12 @@ export const primitives = {
     "rawValue": {
       "colorSpace": "srgb",
       "components": [
-        0,
-        0,
-        0
+        0.090196,
+        0.105882,
+        0.133333
       ],
       "alpha": 0.56,
-      "hex": "#000000"
+      "hex": "#171b22"
     },
     "sourcePath": "primitive.color.static-black-alpha.56",
     "tier": "primitive",
@@ -2793,9 +2793,9 @@ export const primitives = {
     "value": {
       "colorSpace": "srgb",
       "components": [
-        0,
-        0,
-        0
+        0.090196,
+        0.105882,
+        0.133333
       ],
       "alpha": 0.56
     }
@@ -2803,8 +2803,8 @@ export const primitives = {
   "color-static-black-alpha-64": {
     "aliasTarget": null,
     "cssProperties": {
-      "--louis-color-static-black-alpha-64": "color(srgb 0 0 0 / 0.64)",
-      "--louis-color-static-black-alpha-64-rgb": "0 0 0"
+      "--louis-color-static-black-alpha-64": "color(srgb 0.090196 0.105882 0.133333 / 0.64)",
+      "--louis-color-static-black-alpha-64-rgb": "23 27 34"
     },
     "deprecated": null,
     "description": null,
@@ -2813,12 +2813,12 @@ export const primitives = {
     "rawValue": {
       "colorSpace": "srgb",
       "components": [
-        0,
-        0,
-        0
+        0.090196,
+        0.105882,
+        0.133333
       ],
       "alpha": 0.64,
-      "hex": "#000000"
+      "hex": "#171b22"
     },
     "sourcePath": "primitive.color.static-black-alpha.64",
     "tier": "primitive",
@@ -2826,9 +2826,9 @@ export const primitives = {
     "value": {
       "colorSpace": "srgb",
       "components": [
-        0,
-        0,
-        0
+        0.090196,
+        0.105882,
+        0.133333
       ],
       "alpha": 0.64
     }
@@ -2836,8 +2836,8 @@ export const primitives = {
   "color-static-black-alpha-72": {
     "aliasTarget": null,
     "cssProperties": {
-      "--louis-color-static-black-alpha-72": "color(srgb 0 0 0 / 0.72)",
-      "--louis-color-static-black-alpha-72-rgb": "0 0 0"
+      "--louis-color-static-black-alpha-72": "color(srgb 0.090196 0.105882 0.133333 / 0.72)",
+      "--louis-color-static-black-alpha-72-rgb": "23 27 34"
     },
     "deprecated": null,
     "description": null,
@@ -2846,12 +2846,12 @@ export const primitives = {
     "rawValue": {
       "colorSpace": "srgb",
       "components": [
-        0,
-        0,
-        0
+        0.090196,
+        0.105882,
+        0.133333
       ],
       "alpha": 0.72,
-      "hex": "#000000"
+      "hex": "#171b22"
     },
     "sourcePath": "primitive.color.static-black-alpha.72",
     "tier": "primitive",
@@ -2859,9 +2859,9 @@ export const primitives = {
     "value": {
       "colorSpace": "srgb",
       "components": [
-        0,
-        0,
-        0
+        0.090196,
+        0.105882,
+        0.133333
       ],
       "alpha": 0.72
     }
@@ -2869,8 +2869,8 @@ export const primitives = {
   "color-static-black-alpha-80": {
     "aliasTarget": null,
     "cssProperties": {
-      "--louis-color-static-black-alpha-80": "color(srgb 0 0 0 / 0.8)",
-      "--louis-color-static-black-alpha-80-rgb": "0 0 0"
+      "--louis-color-static-black-alpha-80": "color(srgb 0.090196 0.105882 0.133333 / 0.8)",
+      "--louis-color-static-black-alpha-80-rgb": "23 27 34"
     },
     "deprecated": null,
     "description": null,
@@ -2879,12 +2879,12 @@ export const primitives = {
     "rawValue": {
       "colorSpace": "srgb",
       "components": [
-        0,
-        0,
-        0
+        0.090196,
+        0.105882,
+        0.133333
       ],
       "alpha": 0.8,
-      "hex": "#000000"
+      "hex": "#171b22"
     },
     "sourcePath": "primitive.color.static-black-alpha.80",
     "tier": "primitive",
@@ -2892,9 +2892,9 @@ export const primitives = {
     "value": {
       "colorSpace": "srgb",
       "components": [
-        0,
-        0,
-        0
+        0.090196,
+        0.105882,
+        0.133333
       ],
       "alpha": 0.8
     }
@@ -2902,8 +2902,8 @@ export const primitives = {
   "color-static-black-alpha-88": {
     "aliasTarget": null,
     "cssProperties": {
-      "--louis-color-static-black-alpha-88": "color(srgb 0 0 0 / 0.88)",
-      "--louis-color-static-black-alpha-88-rgb": "0 0 0"
+      "--louis-color-static-black-alpha-88": "color(srgb 0.090196 0.105882 0.133333 / 0.88)",
+      "--louis-color-static-black-alpha-88-rgb": "23 27 34"
     },
     "deprecated": null,
     "description": null,
@@ -2912,12 +2912,12 @@ export const primitives = {
     "rawValue": {
       "colorSpace": "srgb",
       "components": [
-        0,
-        0,
-        0
+        0.090196,
+        0.105882,
+        0.133333
       ],
       "alpha": 0.88,
-      "hex": "#000000"
+      "hex": "#171b22"
     },
     "sourcePath": "primitive.color.static-black-alpha.88",
     "tier": "primitive",
@@ -2925,9 +2925,9 @@ export const primitives = {
     "value": {
       "colorSpace": "srgb",
       "components": [
-        0,
-        0,
-        0
+        0.090196,
+        0.105882,
+        0.133333
       ],
       "alpha": 0.88
     }
@@ -2935,8 +2935,8 @@ export const primitives = {
   "color-static-black-alpha-96": {
     "aliasTarget": null,
     "cssProperties": {
-      "--louis-color-static-black-alpha-96": "color(srgb 0 0 0 / 0.96)",
-      "--louis-color-static-black-alpha-96-rgb": "0 0 0"
+      "--louis-color-static-black-alpha-96": "color(srgb 0.090196 0.105882 0.133333 / 0.96)",
+      "--louis-color-static-black-alpha-96-rgb": "23 27 34"
     },
     "deprecated": null,
     "description": null,
@@ -2945,12 +2945,12 @@ export const primitives = {
     "rawValue": {
       "colorSpace": "srgb",
       "components": [
-        0,
-        0,
-        0
+        0.090196,
+        0.105882,
+        0.133333
       ],
       "alpha": 0.96,
-      "hex": "#000000"
+      "hex": "#171b22"
     },
     "sourcePath": "primitive.color.static-black-alpha.96",
     "tier": "primitive",
@@ -2958,9 +2958,9 @@ export const primitives = {
     "value": {
       "colorSpace": "srgb",
       "components": [
-        0,
-        0,
-        0
+        0.090196,
+        0.105882,
+        0.133333
       ],
       "alpha": 0.96
     }
@@ -3000,8 +3000,8 @@ export const primitives = {
   "color-static-white-alpha-04": {
     "aliasTarget": null,
     "cssProperties": {
-      "--louis-color-static-white-alpha-04": "color(srgb 1 1 1 / 0.04)",
-      "--louis-color-static-white-alpha-04-rgb": "255 255 255"
+      "--louis-color-static-white-alpha-04": "color(srgb 0.980392 0.980392 0.980392 / 0.04)",
+      "--louis-color-static-white-alpha-04-rgb": "250 250 250"
     },
     "deprecated": null,
     "description": null,
@@ -3010,12 +3010,12 @@ export const primitives = {
     "rawValue": {
       "colorSpace": "srgb",
       "components": [
-        1,
-        1,
-        1
+        0.980392,
+        0.980392,
+        0.980392
       ],
       "alpha": 0.04,
-      "hex": "#ffffff"
+      "hex": "#fafafa"
     },
     "sourcePath": "primitive.color.static-white-alpha.04",
     "tier": "primitive",
@@ -3023,9 +3023,9 @@ export const primitives = {
     "value": {
       "colorSpace": "srgb",
       "components": [
-        1,
-        1,
-        1
+        0.980392,
+        0.980392,
+        0.980392
       ],
       "alpha": 0.04
     }
@@ -3033,8 +3033,8 @@ export const primitives = {
   "color-static-white-alpha-08": {
     "aliasTarget": null,
     "cssProperties": {
-      "--louis-color-static-white-alpha-08": "color(srgb 1 1 1 / 0.08)",
-      "--louis-color-static-white-alpha-08-rgb": "255 255 255"
+      "--louis-color-static-white-alpha-08": "color(srgb 0.980392 0.980392 0.980392 / 0.08)",
+      "--louis-color-static-white-alpha-08-rgb": "250 250 250"
     },
     "deprecated": null,
     "description": null,
@@ -3043,12 +3043,12 @@ export const primitives = {
     "rawValue": {
       "colorSpace": "srgb",
       "components": [
-        1,
-        1,
-        1
+        0.980392,
+        0.980392,
+        0.980392
       ],
       "alpha": 0.08,
-      "hex": "#ffffff"
+      "hex": "#fafafa"
     },
     "sourcePath": "primitive.color.static-white-alpha.08",
     "tier": "primitive",
@@ -3056,9 +3056,9 @@ export const primitives = {
     "value": {
       "colorSpace": "srgb",
       "components": [
-        1,
-        1,
-        1
+        0.980392,
+        0.980392,
+        0.980392
       ],
       "alpha": 0.08
     }
@@ -3066,8 +3066,8 @@ export const primitives = {
   "color-static-white-alpha-12": {
     "aliasTarget": null,
     "cssProperties": {
-      "--louis-color-static-white-alpha-12": "color(srgb 1 1 1 / 0.12)",
-      "--louis-color-static-white-alpha-12-rgb": "255 255 255"
+      "--louis-color-static-white-alpha-12": "color(srgb 0.980392 0.980392 0.980392 / 0.12)",
+      "--louis-color-static-white-alpha-12-rgb": "250 250 250"
     },
     "deprecated": null,
     "description": null,
@@ -3076,12 +3076,12 @@ export const primitives = {
     "rawValue": {
       "colorSpace": "srgb",
       "components": [
-        1,
-        1,
-        1
+        0.980392,
+        0.980392,
+        0.980392
       ],
       "alpha": 0.12,
-      "hex": "#ffffff"
+      "hex": "#fafafa"
     },
     "sourcePath": "primitive.color.static-white-alpha.12",
     "tier": "primitive",
@@ -3089,9 +3089,9 @@ export const primitives = {
     "value": {
       "colorSpace": "srgb",
       "components": [
-        1,
-        1,
-        1
+        0.980392,
+        0.980392,
+        0.980392
       ],
       "alpha": 0.12
     }
@@ -3099,8 +3099,8 @@ export const primitives = {
   "color-static-white-alpha-16": {
     "aliasTarget": null,
     "cssProperties": {
-      "--louis-color-static-white-alpha-16": "color(srgb 1 1 1 / 0.16)",
-      "--louis-color-static-white-alpha-16-rgb": "255 255 255"
+      "--louis-color-static-white-alpha-16": "color(srgb 0.980392 0.980392 0.980392 / 0.16)",
+      "--louis-color-static-white-alpha-16-rgb": "250 250 250"
     },
     "deprecated": null,
     "description": null,
@@ -3109,12 +3109,12 @@ export const primitives = {
     "rawValue": {
       "colorSpace": "srgb",
       "components": [
-        1,
-        1,
-        1
+        0.980392,
+        0.980392,
+        0.980392
       ],
       "alpha": 0.16,
-      "hex": "#ffffff"
+      "hex": "#fafafa"
     },
     "sourcePath": "primitive.color.static-white-alpha.16",
     "tier": "primitive",
@@ -3122,9 +3122,9 @@ export const primitives = {
     "value": {
       "colorSpace": "srgb",
       "components": [
-        1,
-        1,
-        1
+        0.980392,
+        0.980392,
+        0.980392
       ],
       "alpha": 0.16
     }
@@ -3132,8 +3132,8 @@ export const primitives = {
   "color-static-white-alpha-20": {
     "aliasTarget": null,
     "cssProperties": {
-      "--louis-color-static-white-alpha-20": "color(srgb 1 1 1 / 0.2)",
-      "--louis-color-static-white-alpha-20-rgb": "255 255 255"
+      "--louis-color-static-white-alpha-20": "color(srgb 0.980392 0.980392 0.980392 / 0.2)",
+      "--louis-color-static-white-alpha-20-rgb": "250 250 250"
     },
     "deprecated": null,
     "description": null,
@@ -3142,12 +3142,12 @@ export const primitives = {
     "rawValue": {
       "colorSpace": "srgb",
       "components": [
-        1,
-        1,
-        1
+        0.980392,
+        0.980392,
+        0.980392
       ],
       "alpha": 0.2,
-      "hex": "#ffffff"
+      "hex": "#fafafa"
     },
     "sourcePath": "primitive.color.static-white-alpha.20",
     "tier": "primitive",
@@ -3155,9 +3155,9 @@ export const primitives = {
     "value": {
       "colorSpace": "srgb",
       "components": [
-        1,
-        1,
-        1
+        0.980392,
+        0.980392,
+        0.980392
       ],
       "alpha": 0.2
     }
@@ -3165,8 +3165,8 @@ export const primitives = {
   "color-static-white-alpha-24": {
     "aliasTarget": null,
     "cssProperties": {
-      "--louis-color-static-white-alpha-24": "color(srgb 1 1 1 / 0.24)",
-      "--louis-color-static-white-alpha-24-rgb": "255 255 255"
+      "--louis-color-static-white-alpha-24": "color(srgb 0.980392 0.980392 0.980392 / 0.24)",
+      "--louis-color-static-white-alpha-24-rgb": "250 250 250"
     },
     "deprecated": null,
     "description": null,
@@ -3175,12 +3175,12 @@ export const primitives = {
     "rawValue": {
       "colorSpace": "srgb",
       "components": [
-        1,
-        1,
-        1
+        0.980392,
+        0.980392,
+        0.980392
       ],
       "alpha": 0.24,
-      "hex": "#ffffff"
+      "hex": "#fafafa"
     },
     "sourcePath": "primitive.color.static-white-alpha.24",
     "tier": "primitive",
@@ -3188,9 +3188,9 @@ export const primitives = {
     "value": {
       "colorSpace": "srgb",
       "components": [
-        1,
-        1,
-        1
+        0.980392,
+        0.980392,
+        0.980392
       ],
       "alpha": 0.24
     }
@@ -3198,8 +3198,8 @@ export const primitives = {
   "color-static-white-alpha-28": {
     "aliasTarget": null,
     "cssProperties": {
-      "--louis-color-static-white-alpha-28": "color(srgb 1 1 1 / 0.28)",
-      "--louis-color-static-white-alpha-28-rgb": "255 255 255"
+      "--louis-color-static-white-alpha-28": "color(srgb 0.980392 0.980392 0.980392 / 0.28)",
+      "--louis-color-static-white-alpha-28-rgb": "250 250 250"
     },
     "deprecated": null,
     "description": null,
@@ -3208,12 +3208,12 @@ export const primitives = {
     "rawValue": {
       "colorSpace": "srgb",
       "components": [
-        1,
-        1,
-        1
+        0.980392,
+        0.980392,
+        0.980392
       ],
       "alpha": 0.28,
-      "hex": "#ffffff"
+      "hex": "#fafafa"
     },
     "sourcePath": "primitive.color.static-white-alpha.28",
     "tier": "primitive",
@@ -3221,9 +3221,9 @@ export const primitives = {
     "value": {
       "colorSpace": "srgb",
       "components": [
-        1,
-        1,
-        1
+        0.980392,
+        0.980392,
+        0.980392
       ],
       "alpha": 0.28
     }
@@ -3231,8 +3231,8 @@ export const primitives = {
   "color-static-white-alpha-32": {
     "aliasTarget": null,
     "cssProperties": {
-      "--louis-color-static-white-alpha-32": "color(srgb 1 1 1 / 0.32)",
-      "--louis-color-static-white-alpha-32-rgb": "255 255 255"
+      "--louis-color-static-white-alpha-32": "color(srgb 0.980392 0.980392 0.980392 / 0.32)",
+      "--louis-color-static-white-alpha-32-rgb": "250 250 250"
     },
     "deprecated": null,
     "description": null,
@@ -3241,12 +3241,12 @@ export const primitives = {
     "rawValue": {
       "colorSpace": "srgb",
       "components": [
-        1,
-        1,
-        1
+        0.980392,
+        0.980392,
+        0.980392
       ],
       "alpha": 0.32,
-      "hex": "#ffffff"
+      "hex": "#fafafa"
     },
     "sourcePath": "primitive.color.static-white-alpha.32",
     "tier": "primitive",
@@ -3254,9 +3254,9 @@ export const primitives = {
     "value": {
       "colorSpace": "srgb",
       "components": [
-        1,
-        1,
-        1
+        0.980392,
+        0.980392,
+        0.980392
       ],
       "alpha": 0.32
     }
@@ -3264,8 +3264,8 @@ export const primitives = {
   "color-static-white-alpha-40": {
     "aliasTarget": null,
     "cssProperties": {
-      "--louis-color-static-white-alpha-40": "color(srgb 1 1 1 / 0.4)",
-      "--louis-color-static-white-alpha-40-rgb": "255 255 255"
+      "--louis-color-static-white-alpha-40": "color(srgb 0.980392 0.980392 0.980392 / 0.4)",
+      "--louis-color-static-white-alpha-40-rgb": "250 250 250"
     },
     "deprecated": null,
     "description": null,
@@ -3274,12 +3274,12 @@ export const primitives = {
     "rawValue": {
       "colorSpace": "srgb",
       "components": [
-        1,
-        1,
-        1
+        0.980392,
+        0.980392,
+        0.980392
       ],
       "alpha": 0.4,
-      "hex": "#ffffff"
+      "hex": "#fafafa"
     },
     "sourcePath": "primitive.color.static-white-alpha.40",
     "tier": "primitive",
@@ -3287,9 +3287,9 @@ export const primitives = {
     "value": {
       "colorSpace": "srgb",
       "components": [
-        1,
-        1,
-        1
+        0.980392,
+        0.980392,
+        0.980392
       ],
       "alpha": 0.4
     }
@@ -3297,8 +3297,8 @@ export const primitives = {
   "color-static-white-alpha-48": {
     "aliasTarget": null,
     "cssProperties": {
-      "--louis-color-static-white-alpha-48": "color(srgb 1 1 1 / 0.48)",
-      "--louis-color-static-white-alpha-48-rgb": "255 255 255"
+      "--louis-color-static-white-alpha-48": "color(srgb 0.980392 0.980392 0.980392 / 0.48)",
+      "--louis-color-static-white-alpha-48-rgb": "250 250 250"
     },
     "deprecated": null,
     "description": null,
@@ -3307,12 +3307,12 @@ export const primitives = {
     "rawValue": {
       "colorSpace": "srgb",
       "components": [
-        1,
-        1,
-        1
+        0.980392,
+        0.980392,
+        0.980392
       ],
       "alpha": 0.48,
-      "hex": "#ffffff"
+      "hex": "#fafafa"
     },
     "sourcePath": "primitive.color.static-white-alpha.48",
     "tier": "primitive",
@@ -3320,9 +3320,9 @@ export const primitives = {
     "value": {
       "colorSpace": "srgb",
       "components": [
-        1,
-        1,
-        1
+        0.980392,
+        0.980392,
+        0.980392
       ],
       "alpha": 0.48
     }
@@ -3330,8 +3330,8 @@ export const primitives = {
   "color-static-white-alpha-56": {
     "aliasTarget": null,
     "cssProperties": {
-      "--louis-color-static-white-alpha-56": "color(srgb 1 1 1 / 0.56)",
-      "--louis-color-static-white-alpha-56-rgb": "255 255 255"
+      "--louis-color-static-white-alpha-56": "color(srgb 0.980392 0.980392 0.980392 / 0.56)",
+      "--louis-color-static-white-alpha-56-rgb": "250 250 250"
     },
     "deprecated": null,
     "description": null,
@@ -3340,12 +3340,12 @@ export const primitives = {
     "rawValue": {
       "colorSpace": "srgb",
       "components": [
-        1,
-        1,
-        1
+        0.980392,
+        0.980392,
+        0.980392
       ],
       "alpha": 0.56,
-      "hex": "#ffffff"
+      "hex": "#fafafa"
     },
     "sourcePath": "primitive.color.static-white-alpha.56",
     "tier": "primitive",
@@ -3353,9 +3353,9 @@ export const primitives = {
     "value": {
       "colorSpace": "srgb",
       "components": [
-        1,
-        1,
-        1
+        0.980392,
+        0.980392,
+        0.980392
       ],
       "alpha": 0.56
     }
@@ -3363,8 +3363,8 @@ export const primitives = {
   "color-static-white-alpha-64": {
     "aliasTarget": null,
     "cssProperties": {
-      "--louis-color-static-white-alpha-64": "color(srgb 1 1 1 / 0.64)",
-      "--louis-color-static-white-alpha-64-rgb": "255 255 255"
+      "--louis-color-static-white-alpha-64": "color(srgb 0.980392 0.980392 0.980392 / 0.64)",
+      "--louis-color-static-white-alpha-64-rgb": "250 250 250"
     },
     "deprecated": null,
     "description": null,
@@ -3373,12 +3373,12 @@ export const primitives = {
     "rawValue": {
       "colorSpace": "srgb",
       "components": [
-        1,
-        1,
-        1
+        0.980392,
+        0.980392,
+        0.980392
       ],
       "alpha": 0.64,
-      "hex": "#ffffff"
+      "hex": "#fafafa"
     },
     "sourcePath": "primitive.color.static-white-alpha.64",
     "tier": "primitive",
@@ -3386,9 +3386,9 @@ export const primitives = {
     "value": {
       "colorSpace": "srgb",
       "components": [
-        1,
-        1,
-        1
+        0.980392,
+        0.980392,
+        0.980392
       ],
       "alpha": 0.64
     }
@@ -3396,8 +3396,8 @@ export const primitives = {
   "color-static-white-alpha-72": {
     "aliasTarget": null,
     "cssProperties": {
-      "--louis-color-static-white-alpha-72": "color(srgb 1 1 1 / 0.72)",
-      "--louis-color-static-white-alpha-72-rgb": "255 255 255"
+      "--louis-color-static-white-alpha-72": "color(srgb 0.980392 0.980392 0.980392 / 0.72)",
+      "--louis-color-static-white-alpha-72-rgb": "250 250 250"
     },
     "deprecated": null,
     "description": null,
@@ -3406,12 +3406,12 @@ export const primitives = {
     "rawValue": {
       "colorSpace": "srgb",
       "components": [
-        1,
-        1,
-        1
+        0.980392,
+        0.980392,
+        0.980392
       ],
       "alpha": 0.72,
-      "hex": "#ffffff"
+      "hex": "#fafafa"
     },
     "sourcePath": "primitive.color.static-white-alpha.72",
     "tier": "primitive",
@@ -3419,9 +3419,9 @@ export const primitives = {
     "value": {
       "colorSpace": "srgb",
       "components": [
-        1,
-        1,
-        1
+        0.980392,
+        0.980392,
+        0.980392
       ],
       "alpha": 0.72
     }
@@ -3429,8 +3429,8 @@ export const primitives = {
   "color-static-white-alpha-80": {
     "aliasTarget": null,
     "cssProperties": {
-      "--louis-color-static-white-alpha-80": "color(srgb 1 1 1 / 0.8)",
-      "--louis-color-static-white-alpha-80-rgb": "255 255 255"
+      "--louis-color-static-white-alpha-80": "color(srgb 0.980392 0.980392 0.980392 / 0.8)",
+      "--louis-color-static-white-alpha-80-rgb": "250 250 250"
     },
     "deprecated": null,
     "description": null,
@@ -3439,12 +3439,12 @@ export const primitives = {
     "rawValue": {
       "colorSpace": "srgb",
       "components": [
-        1,
-        1,
-        1
+        0.980392,
+        0.980392,
+        0.980392
       ],
       "alpha": 0.8,
-      "hex": "#ffffff"
+      "hex": "#fafafa"
     },
     "sourcePath": "primitive.color.static-white-alpha.80",
     "tier": "primitive",
@@ -3452,9 +3452,9 @@ export const primitives = {
     "value": {
       "colorSpace": "srgb",
       "components": [
-        1,
-        1,
-        1
+        0.980392,
+        0.980392,
+        0.980392
       ],
       "alpha": 0.8
     }
@@ -3462,8 +3462,8 @@ export const primitives = {
   "color-static-white-alpha-88": {
     "aliasTarget": null,
     "cssProperties": {
-      "--louis-color-static-white-alpha-88": "color(srgb 1 1 1 / 0.88)",
-      "--louis-color-static-white-alpha-88-rgb": "255 255 255"
+      "--louis-color-static-white-alpha-88": "color(srgb 0.980392 0.980392 0.980392 / 0.88)",
+      "--louis-color-static-white-alpha-88-rgb": "250 250 250"
     },
     "deprecated": null,
     "description": null,
@@ -3472,12 +3472,12 @@ export const primitives = {
     "rawValue": {
       "colorSpace": "srgb",
       "components": [
-        1,
-        1,
-        1
+        0.980392,
+        0.980392,
+        0.980392
       ],
       "alpha": 0.88,
-      "hex": "#ffffff"
+      "hex": "#fafafa"
     },
     "sourcePath": "primitive.color.static-white-alpha.88",
     "tier": "primitive",
@@ -3485,9 +3485,9 @@ export const primitives = {
     "value": {
       "colorSpace": "srgb",
       "components": [
-        1,
-        1,
-        1
+        0.980392,
+        0.980392,
+        0.980392
       ],
       "alpha": 0.88
     }
@@ -3495,8 +3495,8 @@ export const primitives = {
   "color-static-white-alpha-96": {
     "aliasTarget": null,
     "cssProperties": {
-      "--louis-color-static-white-alpha-96": "color(srgb 1 1 1 / 0.96)",
-      "--louis-color-static-white-alpha-96-rgb": "255 255 255"
+      "--louis-color-static-white-alpha-96": "color(srgb 0.980392 0.980392 0.980392 / 0.96)",
+      "--louis-color-static-white-alpha-96-rgb": "250 250 250"
     },
     "deprecated": null,
     "description": null,
@@ -3505,12 +3505,12 @@ export const primitives = {
     "rawValue": {
       "colorSpace": "srgb",
       "components": [
-        1,
-        1,
-        1
+        0.980392,
+        0.980392,
+        0.980392
       ],
       "alpha": 0.96,
-      "hex": "#ffffff"
+      "hex": "#fafafa"
     },
     "sourcePath": "primitive.color.static-white-alpha.96",
     "tier": "primitive",
@@ -3518,9 +3518,9 @@ export const primitives = {
     "value": {
       "colorSpace": "srgb",
       "components": [
-        1,
-        1,
-        1
+        0.980392,
+        0.980392,
+        0.980392
       ],
       "alpha": 0.96
     }
@@ -4902,7 +4902,7 @@ export const primitives = {
             0,
             0
           ],
-          "alpha": 0.04,
+          "alpha": 0.48,
           "hex": "#000000"
         },
         "offsetX": {
@@ -4910,11 +4910,11 @@ export const primitives = {
           "unit": "px"
         },
         "offsetY": {
-          "value": 8,
+          "value": 12,
           "unit": "px"
         },
         "blur": {
-          "value": 15,
+          "value": 32,
           "unit": "px"
         },
         "spread": {
@@ -4935,18 +4935,18 @@ export const primitives = {
             0,
             0
           ],
-          "alpha": 0.04
+          "alpha": 0.48
         },
         "offsetX": {
           "value": 0,
           "unit": "px"
         },
         "offsetY": {
-          "value": 8,
+          "value": 12,
           "unit": "px"
         },
         "blur": {
-          "value": 15,
+          "value": 32,
           "unit": "px"
         },
         "spread": {
@@ -4973,7 +4973,7 @@ export const primitives = {
             0,
             0
           ],
-          "alpha": 0.04,
+          "alpha": 0.24,
           "hex": "#000000"
         },
         "offsetX": {
@@ -4981,11 +4981,11 @@ export const primitives = {
           "unit": "px"
         },
         "offsetY": {
-          "value": 8,
+          "value": 12,
           "unit": "px"
         },
         "blur": {
-          "value": 15,
+          "value": 32,
           "unit": "px"
         },
         "spread": {
@@ -5006,18 +5006,18 @@ export const primitives = {
             0,
             0
           ],
-          "alpha": 0.04
+          "alpha": 0.24
         },
         "offsetX": {
           "value": 0,
           "unit": "px"
         },
         "offsetY": {
-          "value": 8,
+          "value": 12,
           "unit": "px"
         },
         "blur": {
-          "value": 15,
+          "value": 32,
           "unit": "px"
         },
         "spread": {
@@ -9578,22 +9578,22 @@ export const tokens = {
     },
     "layout-project-grid-gap": {
       "aliasTarget": {
-        "id": "space-6",
+        "id": "space-4",
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-layout-project-grid-gap": "6px"
+        "--louis-layout-project-grid-gap": "4px"
       },
       "deprecated": null,
       "description": null,
       "id": "layout-project-grid-gap",
       "mode": "global",
-      "rawValue": "{primitive.spacing.6}",
+      "rawValue": "{primitive.spacing.4}",
       "sourcePath": "semantic.global.layout.project-grid-gap",
       "tier": "semantic",
       "type": "dimension",
       "value": {
-        "value": 6,
+        "value": 4,
         "unit": "px"
       }
     },
@@ -12448,7 +12448,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-accent-ghost-hover": "color(srgb 0 0 0 / 0.08)"
+        "--louis-color-accent-ghost-hover": "color(srgb 0.090196 0.105882 0.133333 / 0.08)"
       },
       "deprecated": null,
       "description": null,
@@ -12461,9 +12461,9 @@ export const tokens = {
       "value": {
         "colorSpace": "srgb",
         "components": [
-          0,
-          0,
-          0
+          0.090196,
+          0.105882,
+          0.133333
         ],
         "alpha": 0.08
       }
@@ -12552,7 +12552,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-accent-menu-item-hover": "color(srgb 0 0 0 / 0.04)"
+        "--louis-color-accent-menu-item-hover": "color(srgb 0.090196 0.105882 0.133333 / 0.04)"
       },
       "deprecated": null,
       "description": null,
@@ -12565,9 +12565,9 @@ export const tokens = {
       "value": {
         "colorSpace": "srgb",
         "components": [
-          0,
-          0,
-          0
+          0.090196,
+          0.105882,
+          0.133333
         ],
         "alpha": 0.04
       }
@@ -12656,7 +12656,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-accent-secondary": "color(srgb 0 0 0 / 0.08)"
+        "--louis-color-accent-secondary": "color(srgb 0.090196 0.105882 0.133333 / 0.08)"
       },
       "deprecated": null,
       "description": null,
@@ -12669,9 +12669,9 @@ export const tokens = {
       "value": {
         "colorSpace": "srgb",
         "components": [
-          0,
-          0,
-          0
+          0.090196,
+          0.105882,
+          0.133333
         ],
         "alpha": 0.08
       }
@@ -12708,7 +12708,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-accent-secondary-hover": "color(srgb 0 0 0 / 0.12)"
+        "--louis-color-accent-secondary-hover": "color(srgb 0.090196 0.105882 0.133333 / 0.12)"
       },
       "deprecated": null,
       "description": null,
@@ -12721,9 +12721,9 @@ export const tokens = {
       "value": {
         "colorSpace": "srgb",
         "components": [
-          0,
-          0,
-          0
+          0.090196,
+          0.105882,
+          0.133333
         ],
         "alpha": 0.12
       }
@@ -13098,7 +13098,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-app-nav-chip-tint": "color(srgb 0 0 0 / 0.04)"
+        "--louis-color-app-nav-chip-tint": "color(srgb 0.090196 0.105882 0.133333 / 0.04)"
       },
       "deprecated": null,
       "description": null,
@@ -13111,9 +13111,9 @@ export const tokens = {
       "value": {
         "colorSpace": "srgb",
         "components": [
-          0,
-          0,
-          0
+          0.090196,
+          0.105882,
+          0.133333
         ],
         "alpha": 0.04
       }
@@ -13202,7 +13202,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-app-tooltip-border": "color(srgb 1 1 1 / 0.12)"
+        "--louis-color-app-tooltip-border": "color(srgb 0.980392 0.980392 0.980392 / 0.12)"
       },
       "deprecated": null,
       "description": null,
@@ -13215,9 +13215,9 @@ export const tokens = {
       "value": {
         "colorSpace": "srgb",
         "components": [
-          1,
-          1,
-          1
+          0.980392,
+          0.980392,
+          0.980392
         ],
         "alpha": 0.12
       }
@@ -13228,7 +13228,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-app-tooltip-kbd-bg": "color(srgb 0 0 0 / 0.08)"
+        "--louis-color-app-tooltip-kbd-bg": "color(srgb 0.090196 0.105882 0.133333 / 0.08)"
       },
       "deprecated": null,
       "description": null,
@@ -13241,9 +13241,9 @@ export const tokens = {
       "value": {
         "colorSpace": "srgb",
         "components": [
-          0,
-          0,
-          0
+          0.090196,
+          0.105882,
+          0.133333
         ],
         "alpha": 0.08
       }
@@ -13280,7 +13280,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-app-tooltip-text-subtle": "color(srgb 1 1 1 / 0.72)"
+        "--louis-color-app-tooltip-text-subtle": "color(srgb 0.980392 0.980392 0.980392 / 0.72)"
       },
       "deprecated": null,
       "description": null,
@@ -13293,9 +13293,9 @@ export const tokens = {
       "value": {
         "colorSpace": "srgb",
         "components": [
-          1,
-          1,
-          1
+          0.980392,
+          0.980392,
+          0.980392
         ],
         "alpha": 0.72
       }
@@ -13436,7 +13436,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-bg-inverse-translucent": "color(srgb 0 0 0 / 0.72)"
+        "--louis-color-bg-inverse-translucent": "color(srgb 0.090196 0.105882 0.133333 / 0.72)"
       },
       "deprecated": null,
       "description": null,
@@ -13449,9 +13449,9 @@ export const tokens = {
       "value": {
         "colorSpace": "srgb",
         "components": [
-          0,
-          0,
-          0
+          0.090196,
+          0.105882,
+          0.133333
         ],
         "alpha": 0.72
       }
@@ -13592,7 +13592,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-bg-surface-translucent": "color(srgb 1 1 1 / 0.72)"
+        "--louis-color-bg-surface-translucent": "color(srgb 0.980392 0.980392 0.980392 / 0.72)"
       },
       "deprecated": null,
       "description": null,
@@ -13605,9 +13605,9 @@ export const tokens = {
       "value": {
         "colorSpace": "srgb",
         "components": [
-          1,
-          1,
-          1
+          0.980392,
+          0.980392,
+          0.980392
         ],
         "alpha": 0.72
       }
@@ -13748,7 +13748,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-dim-modal": "color(srgb 0 0 0 / 0.56)"
+        "--louis-color-dim-modal": "color(srgb 0.090196 0.105882 0.133333 / 0.56)"
       },
       "deprecated": null,
       "description": null,
@@ -13761,9 +13761,9 @@ export const tokens = {
       "value": {
         "colorSpace": "srgb",
         "components": [
-          0,
-          0,
-          0
+          0.090196,
+          0.105882,
+          0.133333
         ],
         "alpha": 0.56
       }
@@ -13904,7 +13904,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-fg-menu-item": "color(srgb 0 0 0 / 0.88)"
+        "--louis-color-fg-menu-item": "color(srgb 0.090196 0.105882 0.133333 / 0.88)"
       },
       "deprecated": null,
       "description": null,
@@ -13917,9 +13917,9 @@ export const tokens = {
       "value": {
         "colorSpace": "srgb",
         "components": [
-          0,
-          0,
-          0
+          0.090196,
+          0.105882,
+          0.133333
         ],
         "alpha": 0.88
       }
@@ -14242,7 +14242,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-gray-000-alpha-04": "color(srgb 0 0 0 / 0.04)"
+        "--louis-color-gray-000-alpha-04": "color(srgb 0.090196 0.105882 0.133333 / 0.04)"
       },
       "deprecated": null,
       "description": null,
@@ -14255,9 +14255,9 @@ export const tokens = {
       "value": {
         "colorSpace": "srgb",
         "components": [
-          0,
-          0,
-          0
+          0.090196,
+          0.105882,
+          0.133333
         ],
         "alpha": 0.04
       }
@@ -14268,7 +14268,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-gray-000-alpha-08": "color(srgb 0 0 0 / 0.08)"
+        "--louis-color-gray-000-alpha-08": "color(srgb 0.090196 0.105882 0.133333 / 0.08)"
       },
       "deprecated": null,
       "description": null,
@@ -14281,9 +14281,9 @@ export const tokens = {
       "value": {
         "colorSpace": "srgb",
         "components": [
-          0,
-          0,
-          0
+          0.090196,
+          0.105882,
+          0.133333
         ],
         "alpha": 0.08
       }
@@ -14294,7 +14294,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-gray-000-alpha-12": "color(srgb 0 0 0 / 0.12)"
+        "--louis-color-gray-000-alpha-12": "color(srgb 0.090196 0.105882 0.133333 / 0.12)"
       },
       "deprecated": null,
       "description": null,
@@ -14307,9 +14307,9 @@ export const tokens = {
       "value": {
         "colorSpace": "srgb",
         "components": [
-          0,
-          0,
-          0
+          0.090196,
+          0.105882,
+          0.133333
         ],
         "alpha": 0.12
       }
@@ -14320,7 +14320,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-gray-000-alpha-16": "color(srgb 0 0 0 / 0.16)"
+        "--louis-color-gray-000-alpha-16": "color(srgb 0.090196 0.105882 0.133333 / 0.16)"
       },
       "deprecated": null,
       "description": null,
@@ -14333,9 +14333,9 @@ export const tokens = {
       "value": {
         "colorSpace": "srgb",
         "components": [
-          0,
-          0,
-          0
+          0.090196,
+          0.105882,
+          0.133333
         ],
         "alpha": 0.16
       }
@@ -14346,7 +14346,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-gray-000-alpha-20": "color(srgb 0 0 0 / 0.2)"
+        "--louis-color-gray-000-alpha-20": "color(srgb 0.090196 0.105882 0.133333 / 0.2)"
       },
       "deprecated": null,
       "description": null,
@@ -14359,9 +14359,9 @@ export const tokens = {
       "value": {
         "colorSpace": "srgb",
         "components": [
-          0,
-          0,
-          0
+          0.090196,
+          0.105882,
+          0.133333
         ],
         "alpha": 0.2
       }
@@ -14372,7 +14372,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-gray-000-alpha-24": "color(srgb 0 0 0 / 0.24)"
+        "--louis-color-gray-000-alpha-24": "color(srgb 0.090196 0.105882 0.133333 / 0.24)"
       },
       "deprecated": null,
       "description": null,
@@ -14385,9 +14385,9 @@ export const tokens = {
       "value": {
         "colorSpace": "srgb",
         "components": [
-          0,
-          0,
-          0
+          0.090196,
+          0.105882,
+          0.133333
         ],
         "alpha": 0.24
       }
@@ -14398,7 +14398,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-gray-000-alpha-28": "color(srgb 0 0 0 / 0.28)"
+        "--louis-color-gray-000-alpha-28": "color(srgb 0.090196 0.105882 0.133333 / 0.28)"
       },
       "deprecated": null,
       "description": null,
@@ -14411,9 +14411,9 @@ export const tokens = {
       "value": {
         "colorSpace": "srgb",
         "components": [
-          0,
-          0,
-          0
+          0.090196,
+          0.105882,
+          0.133333
         ],
         "alpha": 0.28
       }
@@ -14424,7 +14424,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-gray-000-alpha-32": "color(srgb 0 0 0 / 0.32)"
+        "--louis-color-gray-000-alpha-32": "color(srgb 0.090196 0.105882 0.133333 / 0.32)"
       },
       "deprecated": null,
       "description": null,
@@ -14437,9 +14437,9 @@ export const tokens = {
       "value": {
         "colorSpace": "srgb",
         "components": [
-          0,
-          0,
-          0
+          0.090196,
+          0.105882,
+          0.133333
         ],
         "alpha": 0.32
       }
@@ -14450,7 +14450,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-gray-000-alpha-40": "color(srgb 0 0 0 / 0.4)"
+        "--louis-color-gray-000-alpha-40": "color(srgb 0.090196 0.105882 0.133333 / 0.4)"
       },
       "deprecated": null,
       "description": null,
@@ -14463,9 +14463,9 @@ export const tokens = {
       "value": {
         "colorSpace": "srgb",
         "components": [
-          0,
-          0,
-          0
+          0.090196,
+          0.105882,
+          0.133333
         ],
         "alpha": 0.4
       }
@@ -14476,7 +14476,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-gray-000-alpha-48": "color(srgb 0 0 0 / 0.48)"
+        "--louis-color-gray-000-alpha-48": "color(srgb 0.090196 0.105882 0.133333 / 0.48)"
       },
       "deprecated": null,
       "description": null,
@@ -14489,9 +14489,9 @@ export const tokens = {
       "value": {
         "colorSpace": "srgb",
         "components": [
-          0,
-          0,
-          0
+          0.090196,
+          0.105882,
+          0.133333
         ],
         "alpha": 0.48
       }
@@ -14502,7 +14502,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-gray-000-alpha-56": "color(srgb 0 0 0 / 0.56)"
+        "--louis-color-gray-000-alpha-56": "color(srgb 0.090196 0.105882 0.133333 / 0.56)"
       },
       "deprecated": null,
       "description": null,
@@ -14515,9 +14515,9 @@ export const tokens = {
       "value": {
         "colorSpace": "srgb",
         "components": [
-          0,
-          0,
-          0
+          0.090196,
+          0.105882,
+          0.133333
         ],
         "alpha": 0.56
       }
@@ -14528,7 +14528,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-gray-000-alpha-64": "color(srgb 0 0 0 / 0.64)"
+        "--louis-color-gray-000-alpha-64": "color(srgb 0.090196 0.105882 0.133333 / 0.64)"
       },
       "deprecated": null,
       "description": null,
@@ -14541,9 +14541,9 @@ export const tokens = {
       "value": {
         "colorSpace": "srgb",
         "components": [
-          0,
-          0,
-          0
+          0.090196,
+          0.105882,
+          0.133333
         ],
         "alpha": 0.64
       }
@@ -14554,7 +14554,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-gray-000-alpha-72": "color(srgb 0 0 0 / 0.72)"
+        "--louis-color-gray-000-alpha-72": "color(srgb 0.090196 0.105882 0.133333 / 0.72)"
       },
       "deprecated": null,
       "description": null,
@@ -14567,9 +14567,9 @@ export const tokens = {
       "value": {
         "colorSpace": "srgb",
         "components": [
-          0,
-          0,
-          0
+          0.090196,
+          0.105882,
+          0.133333
         ],
         "alpha": 0.72
       }
@@ -14580,7 +14580,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-gray-000-alpha-80": "color(srgb 0 0 0 / 0.8)"
+        "--louis-color-gray-000-alpha-80": "color(srgb 0.090196 0.105882 0.133333 / 0.8)"
       },
       "deprecated": null,
       "description": null,
@@ -14593,9 +14593,9 @@ export const tokens = {
       "value": {
         "colorSpace": "srgb",
         "components": [
-          0,
-          0,
-          0
+          0.090196,
+          0.105882,
+          0.133333
         ],
         "alpha": 0.8
       }
@@ -14606,7 +14606,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-gray-000-alpha-88": "color(srgb 0 0 0 / 0.88)"
+        "--louis-color-gray-000-alpha-88": "color(srgb 0.090196 0.105882 0.133333 / 0.88)"
       },
       "deprecated": null,
       "description": null,
@@ -14619,9 +14619,9 @@ export const tokens = {
       "value": {
         "colorSpace": "srgb",
         "components": [
-          0,
-          0,
-          0
+          0.090196,
+          0.105882,
+          0.133333
         ],
         "alpha": 0.88
       }
@@ -14632,7 +14632,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-gray-000-alpha-96": "color(srgb 0 0 0 / 0.96)"
+        "--louis-color-gray-000-alpha-96": "color(srgb 0.090196 0.105882 0.133333 / 0.96)"
       },
       "deprecated": null,
       "description": null,
@@ -14645,9 +14645,9 @@ export const tokens = {
       "value": {
         "colorSpace": "srgb",
         "components": [
-          0,
-          0,
-          0
+          0.090196,
+          0.105882,
+          0.133333
         ],
         "alpha": 0.96
       }
@@ -14918,7 +14918,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-icon-input-glyph": "color(srgb 0 0 0 / 0.4)"
+        "--louis-color-icon-input-glyph": "color(srgb 0.090196 0.105882 0.133333 / 0.4)"
       },
       "deprecated": null,
       "description": null,
@@ -14931,9 +14931,9 @@ export const tokens = {
       "value": {
         "colorSpace": "srgb",
         "components": [
-          0,
-          0,
-          0
+          0.090196,
+          0.105882,
+          0.133333
         ],
         "alpha": 0.4
       }
@@ -14944,7 +14944,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-landing-line": "color(srgb 0 0 0 / 0.12)"
+        "--louis-color-landing-line": "color(srgb 0.090196 0.105882 0.133333 / 0.12)"
       },
       "deprecated": null,
       "description": null,
@@ -14957,9 +14957,9 @@ export const tokens = {
       "value": {
         "colorSpace": "srgb",
         "components": [
-          0,
-          0,
-          0
+          0.090196,
+          0.105882,
+          0.133333
         ],
         "alpha": 0.12
       }
@@ -14996,7 +14996,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-landing-panel": "color(srgb 0 0 0 / 0.04)"
+        "--louis-color-landing-panel": "color(srgb 0.090196 0.105882 0.133333 / 0.04)"
       },
       "deprecated": null,
       "description": null,
@@ -15009,9 +15009,9 @@ export const tokens = {
       "value": {
         "colorSpace": "srgb",
         "components": [
-          0,
-          0,
-          0
+          0.090196,
+          0.105882,
+          0.133333
         ],
         "alpha": 0.04
       }
@@ -15022,7 +15022,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-landing-panel-strong": "color(srgb 0 0 0 / 0.08)"
+        "--louis-color-landing-panel-strong": "color(srgb 0.090196 0.105882 0.133333 / 0.08)"
       },
       "deprecated": null,
       "description": null,
@@ -15035,9 +15035,9 @@ export const tokens = {
       "value": {
         "colorSpace": "srgb",
         "components": [
-          0,
-          0,
-          0
+          0.090196,
+          0.105882,
+          0.133333
         ],
         "alpha": 0.08
       }
@@ -15048,7 +15048,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-landing-text-muted": "color(srgb 0 0 0 / 0.64)"
+        "--louis-color-landing-text-muted": "color(srgb 0.090196 0.105882 0.133333 / 0.64)"
       },
       "deprecated": null,
       "description": null,
@@ -15061,9 +15061,9 @@ export const tokens = {
       "value": {
         "colorSpace": "srgb",
         "components": [
-          0,
-          0,
-          0
+          0.090196,
+          0.105882,
+          0.133333
         ],
         "alpha": 0.64
       }
@@ -15074,7 +15074,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-landing-text-soft": "color(srgb 0 0 0 / 0.72)"
+        "--louis-color-landing-text-soft": "color(srgb 0.090196 0.105882 0.133333 / 0.72)"
       },
       "deprecated": null,
       "description": null,
@@ -15087,9 +15087,9 @@ export const tokens = {
       "value": {
         "colorSpace": "srgb",
         "components": [
-          0,
-          0,
-          0
+          0.090196,
+          0.105882,
+          0.133333
         ],
         "alpha": 0.72
       }
@@ -15100,7 +15100,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-media-control-foreground": "color(srgb 1 1 1 / 0.88)"
+        "--louis-color-media-control-foreground": "color(srgb 0.980392 0.980392 0.980392 / 0.88)"
       },
       "deprecated": null,
       "description": null,
@@ -15113,9 +15113,9 @@ export const tokens = {
       "value": {
         "colorSpace": "srgb",
         "components": [
-          1,
-          1,
-          1
+          0.980392,
+          0.980392,
+          0.980392
         ],
         "alpha": 0.88
       }
@@ -15126,7 +15126,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-media-control-hover": "color(srgb 1 1 1 / 0.12)"
+        "--louis-color-media-control-hover": "color(srgb 0.980392 0.980392 0.980392 / 0.12)"
       },
       "deprecated": null,
       "description": null,
@@ -15139,9 +15139,9 @@ export const tokens = {
       "value": {
         "colorSpace": "srgb",
         "components": [
-          1,
-          1,
-          1
+          0.980392,
+          0.980392,
+          0.980392
         ],
         "alpha": 0.12
       }
@@ -15152,7 +15152,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-media-control-surface": "color(srgb 0 0 0 / 0.28)"
+        "--louis-color-media-control-surface": "color(srgb 0.090196 0.105882 0.133333 / 0.28)"
       },
       "deprecated": null,
       "description": null,
@@ -15165,9 +15165,9 @@ export const tokens = {
       "value": {
         "colorSpace": "srgb",
         "components": [
-          0,
-          0,
-          0
+          0.090196,
+          0.105882,
+          0.133333
         ],
         "alpha": 0.28
       }
@@ -15256,7 +15256,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-media-indicator-rest": "color(srgb 1 1 1 / 0.28)"
+        "--louis-color-media-indicator-rest": "color(srgb 0.980392 0.980392 0.980392 / 0.28)"
       },
       "deprecated": null,
       "description": null,
@@ -15269,9 +15269,9 @@ export const tokens = {
       "value": {
         "colorSpace": "srgb",
         "components": [
-          1,
-          1,
-          1
+          0.980392,
+          0.980392,
+          0.980392
         ],
         "alpha": 0.28
       }
@@ -15412,7 +15412,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-node-canvas-dot": "color(srgb 0 0 0 / 0.12)"
+        "--louis-color-node-canvas-dot": "color(srgb 0.090196 0.105882 0.133333 / 0.12)"
       },
       "deprecated": null,
       "description": null,
@@ -15425,9 +15425,9 @@ export const tokens = {
       "value": {
         "colorSpace": "srgb",
         "components": [
-          0,
-          0,
-          0
+          0.090196,
+          0.105882,
+          0.133333
         ],
         "alpha": 0.12
       }
@@ -16634,7 +16634,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-progress-ring-track": "color(srgb 0 0 0 / 0.2)"
+        "--louis-color-progress-ring-track": "color(srgb 0.090196 0.105882 0.133333 / 0.2)"
       },
       "deprecated": null,
       "description": null,
@@ -16647,9 +16647,9 @@ export const tokens = {
       "value": {
         "colorSpace": "srgb",
         "components": [
-          0,
-          0,
-          0
+          0.090196,
+          0.105882,
+          0.133333
         ],
         "alpha": 0.2
       }
@@ -16660,7 +16660,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-progress-track": "color(srgb 0 0 0 / 0.08)"
+        "--louis-color-progress-track": "color(srgb 0.090196 0.105882 0.133333 / 0.08)"
       },
       "deprecated": null,
       "description": null,
@@ -16673,9 +16673,9 @@ export const tokens = {
       "value": {
         "colorSpace": "srgb",
         "components": [
-          0,
-          0,
-          0
+          0.090196,
+          0.105882,
+          0.133333
         ],
         "alpha": 0.08
       }
@@ -16686,7 +16686,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-scrollbar-thumb": "color(srgb 0 0 0 / 0.2)"
+        "--louis-color-scrollbar-thumb": "color(srgb 0.090196 0.105882 0.133333 / 0.2)"
       },
       "deprecated": null,
       "description": null,
@@ -16699,9 +16699,9 @@ export const tokens = {
       "value": {
         "colorSpace": "srgb",
         "components": [
-          0,
-          0,
-          0
+          0.090196,
+          0.105882,
+          0.133333
         ],
         "alpha": 0.2
       }
@@ -16712,7 +16712,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-scrollbar-thumb-hover": "color(srgb 0 0 0 / 0.32)"
+        "--louis-color-scrollbar-thumb-hover": "color(srgb 0.090196 0.105882 0.133333 / 0.32)"
       },
       "deprecated": null,
       "description": null,
@@ -16725,9 +16725,9 @@ export const tokens = {
       "value": {
         "colorSpace": "srgb",
         "components": [
-          0,
-          0,
-          0
+          0.090196,
+          0.105882,
+          0.133333
         ],
         "alpha": 0.32
       }
@@ -16738,7 +16738,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-stroke-control": "color(srgb 0 0 0 / 0.12)"
+        "--louis-color-stroke-control": "color(srgb 0.090196 0.105882 0.133333 / 0.12)"
       },
       "deprecated": null,
       "description": null,
@@ -16751,9 +16751,9 @@ export const tokens = {
       "value": {
         "colorSpace": "srgb",
         "components": [
-          0,
-          0,
-          0
+          0.090196,
+          0.105882,
+          0.133333
         ],
         "alpha": 0.12
       }
@@ -16842,7 +16842,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-stroke-hairline": "color(srgb 0 0 0 / 0.08)"
+        "--louis-color-stroke-hairline": "color(srgb 0.090196 0.105882 0.133333 / 0.08)"
       },
       "deprecated": null,
       "description": null,
@@ -16855,9 +16855,9 @@ export const tokens = {
       "value": {
         "colorSpace": "srgb",
         "components": [
-          0,
-          0,
-          0
+          0.090196,
+          0.105882,
+          0.133333
         ],
         "alpha": 0.08
       }
@@ -16920,7 +16920,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-stroke-tooltip": "color(srgb 1 1 1 / 0.12)"
+        "--louis-color-stroke-tooltip": "color(srgb 0.980392 0.980392 0.980392 / 0.12)"
       },
       "deprecated": null,
       "description": null,
@@ -16933,9 +16933,9 @@ export const tokens = {
       "value": {
         "colorSpace": "srgb",
         "components": [
-          1,
-          1,
-          1
+          0.980392,
+          0.980392,
+          0.980392
         ],
         "alpha": 0.12
       }
@@ -16972,7 +16972,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-switch-off-track": "color(srgb 1 1 1 / 0.16)"
+        "--louis-color-switch-off-track": "color(srgb 0.980392 0.980392 0.980392 / 0.16)"
       },
       "deprecated": null,
       "description": null,
@@ -16985,9 +16985,9 @@ export const tokens = {
       "value": {
         "colorSpace": "srgb",
         "components": [
-          1,
-          1,
-          1
+          0.980392,
+          0.980392,
+          0.980392
         ],
         "alpha": 0.16
       }
@@ -17128,7 +17128,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-elevation-menu": "0px 8px 15px 0px color(srgb 0 0 0 / 0.04)"
+        "--louis-elevation-menu": "0px 12px 32px 0px color(srgb 0 0 0 / 0.24)"
       },
       "deprecated": null,
       "description": null,
@@ -17147,18 +17147,18 @@ export const tokens = {
               0,
               0
             ],
-            "alpha": 0.04
+            "alpha": 0.24
           },
           "offsetX": {
             "value": 0,
             "unit": "px"
           },
           "offsetY": {
-            "value": 8,
+            "value": 12,
             "unit": "px"
           },
           "blur": {
-            "value": 15,
+            "value": 32,
             "unit": "px"
           },
           "spread": {
@@ -17375,7 +17375,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-accent-ghost-hover": "color(srgb 1 1 1 / 0.08)"
+        "--louis-color-accent-ghost-hover": "color(srgb 0.980392 0.980392 0.980392 / 0.08)"
       },
       "deprecated": null,
       "description": null,
@@ -17388,9 +17388,9 @@ export const tokens = {
       "value": {
         "colorSpace": "srgb",
         "components": [
-          1,
-          1,
-          1
+          0.980392,
+          0.980392,
+          0.980392
         ],
         "alpha": 0.08
       }
@@ -17479,7 +17479,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-accent-menu-item-hover": "color(srgb 1 1 1 / 0.08)"
+        "--louis-color-accent-menu-item-hover": "color(srgb 0.980392 0.980392 0.980392 / 0.08)"
       },
       "deprecated": null,
       "description": null,
@@ -17492,9 +17492,9 @@ export const tokens = {
       "value": {
         "colorSpace": "srgb",
         "components": [
-          1,
-          1,
-          1
+          0.980392,
+          0.980392,
+          0.980392
         ],
         "alpha": 0.08
       }
@@ -17583,7 +17583,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-accent-secondary": "color(srgb 1 1 1 / 0.08)"
+        "--louis-color-accent-secondary": "color(srgb 0.980392 0.980392 0.980392 / 0.08)"
       },
       "deprecated": null,
       "description": null,
@@ -17596,9 +17596,9 @@ export const tokens = {
       "value": {
         "colorSpace": "srgb",
         "components": [
-          1,
-          1,
-          1
+          0.980392,
+          0.980392,
+          0.980392
         ],
         "alpha": 0.08
       }
@@ -17635,7 +17635,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-accent-secondary-hover": "color(srgb 1 1 1 / 0.12)"
+        "--louis-color-accent-secondary-hover": "color(srgb 0.980392 0.980392 0.980392 / 0.12)"
       },
       "deprecated": null,
       "description": null,
@@ -17648,9 +17648,9 @@ export const tokens = {
       "value": {
         "colorSpace": "srgb",
         "components": [
-          1,
-          1,
-          1
+          0.980392,
+          0.980392,
+          0.980392
         ],
         "alpha": 0.12
       }
@@ -17661,7 +17661,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-accent-secondary-selected": "color(srgb 1 1 1 / 0.2)"
+        "--louis-color-accent-secondary-selected": "color(srgb 0.980392 0.980392 0.980392 / 0.2)"
       },
       "deprecated": null,
       "description": null,
@@ -17674,9 +17674,9 @@ export const tokens = {
       "value": {
         "colorSpace": "srgb",
         "components": [
-          1,
-          1,
-          1
+          0.980392,
+          0.980392,
+          0.980392
         ],
         "alpha": 0.2
       }
@@ -18025,7 +18025,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-app-nav-chip-tint": "color(srgb 1 1 1 / 0.12)"
+        "--louis-color-app-nav-chip-tint": "color(srgb 0.980392 0.980392 0.980392 / 0.12)"
       },
       "deprecated": null,
       "description": null,
@@ -18038,9 +18038,9 @@ export const tokens = {
       "value": {
         "colorSpace": "srgb",
         "components": [
-          1,
-          1,
-          1
+          0.980392,
+          0.980392,
+          0.980392
         ],
         "alpha": 0.12
       }
@@ -18129,7 +18129,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-app-tooltip-border": "color(srgb 0 0 0 / 0.12)"
+        "--louis-color-app-tooltip-border": "color(srgb 0.090196 0.105882 0.133333 / 0.12)"
       },
       "deprecated": null,
       "description": null,
@@ -18142,9 +18142,9 @@ export const tokens = {
       "value": {
         "colorSpace": "srgb",
         "components": [
-          0,
-          0,
-          0
+          0.090196,
+          0.105882,
+          0.133333
         ],
         "alpha": 0.12
       }
@@ -18155,7 +18155,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-app-tooltip-kbd-bg": "color(srgb 0 0 0 / 0.08)"
+        "--louis-color-app-tooltip-kbd-bg": "color(srgb 0.090196 0.105882 0.133333 / 0.08)"
       },
       "deprecated": null,
       "description": null,
@@ -18168,9 +18168,9 @@ export const tokens = {
       "value": {
         "colorSpace": "srgb",
         "components": [
-          0,
-          0,
-          0
+          0.090196,
+          0.105882,
+          0.133333
         ],
         "alpha": 0.08
       }
@@ -18207,7 +18207,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-app-tooltip-text-subtle": "color(srgb 0 0 0 / 0.4)"
+        "--louis-color-app-tooltip-text-subtle": "color(srgb 0.090196 0.105882 0.133333 / 0.4)"
       },
       "deprecated": null,
       "description": null,
@@ -18220,9 +18220,9 @@ export const tokens = {
       "value": {
         "colorSpace": "srgb",
         "components": [
-          0,
-          0,
-          0
+          0.090196,
+          0.105882,
+          0.133333
         ],
         "alpha": 0.4
       }
@@ -18363,7 +18363,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-bg-inverse-translucent": "color(srgb 1 1 1 / 0.72)"
+        "--louis-color-bg-inverse-translucent": "color(srgb 0.980392 0.980392 0.980392 / 0.72)"
       },
       "deprecated": null,
       "description": null,
@@ -18376,9 +18376,9 @@ export const tokens = {
       "value": {
         "colorSpace": "srgb",
         "components": [
-          1,
-          1,
-          1
+          0.980392,
+          0.980392,
+          0.980392
         ],
         "alpha": 0.72
       }
@@ -18519,7 +18519,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-bg-surface-translucent": "color(srgb 0 0 0 / 0.72)"
+        "--louis-color-bg-surface-translucent": "color(srgb 0.090196 0.105882 0.133333 / 0.72)"
       },
       "deprecated": null,
       "description": null,
@@ -18532,9 +18532,9 @@ export const tokens = {
       "value": {
         "colorSpace": "srgb",
         "components": [
-          0,
-          0,
-          0
+          0.090196,
+          0.105882,
+          0.133333
         ],
         "alpha": 0.72
       }
@@ -18675,7 +18675,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-dim-modal": "color(srgb 0 0 0 / 0.72)"
+        "--louis-color-dim-modal": "color(srgb 0.090196 0.105882 0.133333 / 0.72)"
       },
       "deprecated": null,
       "description": null,
@@ -18688,9 +18688,9 @@ export const tokens = {
       "value": {
         "colorSpace": "srgb",
         "components": [
-          0,
-          0,
-          0
+          0.090196,
+          0.105882,
+          0.133333
         ],
         "alpha": 0.72
       }
@@ -18831,7 +18831,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-fg-menu-item": "color(srgb 1 1 1 / 0.88)"
+        "--louis-color-fg-menu-item": "color(srgb 0.980392 0.980392 0.980392 / 0.88)"
       },
       "deprecated": null,
       "description": null,
@@ -18844,9 +18844,9 @@ export const tokens = {
       "value": {
         "colorSpace": "srgb",
         "components": [
-          1,
-          1,
-          1
+          0.980392,
+          0.980392,
+          0.980392
         ],
         "alpha": 0.88
       }
@@ -19169,7 +19169,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-gray-000-alpha-04": "color(srgb 1 1 1 / 0.04)"
+        "--louis-color-gray-000-alpha-04": "color(srgb 0.980392 0.980392 0.980392 / 0.04)"
       },
       "deprecated": null,
       "description": null,
@@ -19182,9 +19182,9 @@ export const tokens = {
       "value": {
         "colorSpace": "srgb",
         "components": [
-          1,
-          1,
-          1
+          0.980392,
+          0.980392,
+          0.980392
         ],
         "alpha": 0.04
       }
@@ -19195,7 +19195,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-gray-000-alpha-08": "color(srgb 1 1 1 / 0.08)"
+        "--louis-color-gray-000-alpha-08": "color(srgb 0.980392 0.980392 0.980392 / 0.08)"
       },
       "deprecated": null,
       "description": null,
@@ -19208,9 +19208,9 @@ export const tokens = {
       "value": {
         "colorSpace": "srgb",
         "components": [
-          1,
-          1,
-          1
+          0.980392,
+          0.980392,
+          0.980392
         ],
         "alpha": 0.08
       }
@@ -19221,7 +19221,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-gray-000-alpha-12": "color(srgb 1 1 1 / 0.12)"
+        "--louis-color-gray-000-alpha-12": "color(srgb 0.980392 0.980392 0.980392 / 0.12)"
       },
       "deprecated": null,
       "description": null,
@@ -19234,9 +19234,9 @@ export const tokens = {
       "value": {
         "colorSpace": "srgb",
         "components": [
-          1,
-          1,
-          1
+          0.980392,
+          0.980392,
+          0.980392
         ],
         "alpha": 0.12
       }
@@ -19247,7 +19247,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-gray-000-alpha-16": "color(srgb 1 1 1 / 0.16)"
+        "--louis-color-gray-000-alpha-16": "color(srgb 0.980392 0.980392 0.980392 / 0.16)"
       },
       "deprecated": null,
       "description": null,
@@ -19260,9 +19260,9 @@ export const tokens = {
       "value": {
         "colorSpace": "srgb",
         "components": [
-          1,
-          1,
-          1
+          0.980392,
+          0.980392,
+          0.980392
         ],
         "alpha": 0.16
       }
@@ -19273,7 +19273,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-gray-000-alpha-20": "color(srgb 1 1 1 / 0.2)"
+        "--louis-color-gray-000-alpha-20": "color(srgb 0.980392 0.980392 0.980392 / 0.2)"
       },
       "deprecated": null,
       "description": null,
@@ -19286,9 +19286,9 @@ export const tokens = {
       "value": {
         "colorSpace": "srgb",
         "components": [
-          1,
-          1,
-          1
+          0.980392,
+          0.980392,
+          0.980392
         ],
         "alpha": 0.2
       }
@@ -19299,7 +19299,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-gray-000-alpha-24": "color(srgb 1 1 1 / 0.24)"
+        "--louis-color-gray-000-alpha-24": "color(srgb 0.980392 0.980392 0.980392 / 0.24)"
       },
       "deprecated": null,
       "description": null,
@@ -19312,9 +19312,9 @@ export const tokens = {
       "value": {
         "colorSpace": "srgb",
         "components": [
-          1,
-          1,
-          1
+          0.980392,
+          0.980392,
+          0.980392
         ],
         "alpha": 0.24
       }
@@ -19325,7 +19325,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-gray-000-alpha-28": "color(srgb 1 1 1 / 0.28)"
+        "--louis-color-gray-000-alpha-28": "color(srgb 0.980392 0.980392 0.980392 / 0.28)"
       },
       "deprecated": null,
       "description": null,
@@ -19338,9 +19338,9 @@ export const tokens = {
       "value": {
         "colorSpace": "srgb",
         "components": [
-          1,
-          1,
-          1
+          0.980392,
+          0.980392,
+          0.980392
         ],
         "alpha": 0.28
       }
@@ -19351,7 +19351,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-gray-000-alpha-32": "color(srgb 1 1 1 / 0.32)"
+        "--louis-color-gray-000-alpha-32": "color(srgb 0.980392 0.980392 0.980392 / 0.32)"
       },
       "deprecated": null,
       "description": null,
@@ -19364,9 +19364,9 @@ export const tokens = {
       "value": {
         "colorSpace": "srgb",
         "components": [
-          1,
-          1,
-          1
+          0.980392,
+          0.980392,
+          0.980392
         ],
         "alpha": 0.32
       }
@@ -19377,7 +19377,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-gray-000-alpha-40": "color(srgb 1 1 1 / 0.4)"
+        "--louis-color-gray-000-alpha-40": "color(srgb 0.980392 0.980392 0.980392 / 0.4)"
       },
       "deprecated": null,
       "description": null,
@@ -19390,9 +19390,9 @@ export const tokens = {
       "value": {
         "colorSpace": "srgb",
         "components": [
-          1,
-          1,
-          1
+          0.980392,
+          0.980392,
+          0.980392
         ],
         "alpha": 0.4
       }
@@ -19403,7 +19403,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-gray-000-alpha-48": "color(srgb 1 1 1 / 0.48)"
+        "--louis-color-gray-000-alpha-48": "color(srgb 0.980392 0.980392 0.980392 / 0.48)"
       },
       "deprecated": null,
       "description": null,
@@ -19416,9 +19416,9 @@ export const tokens = {
       "value": {
         "colorSpace": "srgb",
         "components": [
-          1,
-          1,
-          1
+          0.980392,
+          0.980392,
+          0.980392
         ],
         "alpha": 0.48
       }
@@ -19429,7 +19429,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-gray-000-alpha-56": "color(srgb 1 1 1 / 0.56)"
+        "--louis-color-gray-000-alpha-56": "color(srgb 0.980392 0.980392 0.980392 / 0.56)"
       },
       "deprecated": null,
       "description": null,
@@ -19442,9 +19442,9 @@ export const tokens = {
       "value": {
         "colorSpace": "srgb",
         "components": [
-          1,
-          1,
-          1
+          0.980392,
+          0.980392,
+          0.980392
         ],
         "alpha": 0.56
       }
@@ -19455,7 +19455,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-gray-000-alpha-64": "color(srgb 1 1 1 / 0.64)"
+        "--louis-color-gray-000-alpha-64": "color(srgb 0.980392 0.980392 0.980392 / 0.64)"
       },
       "deprecated": null,
       "description": null,
@@ -19468,9 +19468,9 @@ export const tokens = {
       "value": {
         "colorSpace": "srgb",
         "components": [
-          1,
-          1,
-          1
+          0.980392,
+          0.980392,
+          0.980392
         ],
         "alpha": 0.64
       }
@@ -19481,7 +19481,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-gray-000-alpha-72": "color(srgb 1 1 1 / 0.72)"
+        "--louis-color-gray-000-alpha-72": "color(srgb 0.980392 0.980392 0.980392 / 0.72)"
       },
       "deprecated": null,
       "description": null,
@@ -19494,9 +19494,9 @@ export const tokens = {
       "value": {
         "colorSpace": "srgb",
         "components": [
-          1,
-          1,
-          1
+          0.980392,
+          0.980392,
+          0.980392
         ],
         "alpha": 0.72
       }
@@ -19507,7 +19507,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-gray-000-alpha-80": "color(srgb 1 1 1 / 0.8)"
+        "--louis-color-gray-000-alpha-80": "color(srgb 0.980392 0.980392 0.980392 / 0.8)"
       },
       "deprecated": null,
       "description": null,
@@ -19520,9 +19520,9 @@ export const tokens = {
       "value": {
         "colorSpace": "srgb",
         "components": [
-          1,
-          1,
-          1
+          0.980392,
+          0.980392,
+          0.980392
         ],
         "alpha": 0.8
       }
@@ -19533,7 +19533,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-gray-000-alpha-88": "color(srgb 1 1 1 / 0.88)"
+        "--louis-color-gray-000-alpha-88": "color(srgb 0.980392 0.980392 0.980392 / 0.88)"
       },
       "deprecated": null,
       "description": null,
@@ -19546,9 +19546,9 @@ export const tokens = {
       "value": {
         "colorSpace": "srgb",
         "components": [
-          1,
-          1,
-          1
+          0.980392,
+          0.980392,
+          0.980392
         ],
         "alpha": 0.88
       }
@@ -19559,7 +19559,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-gray-000-alpha-96": "color(srgb 1 1 1 / 0.96)"
+        "--louis-color-gray-000-alpha-96": "color(srgb 0.980392 0.980392 0.980392 / 0.96)"
       },
       "deprecated": null,
       "description": null,
@@ -19572,9 +19572,9 @@ export const tokens = {
       "value": {
         "colorSpace": "srgb",
         "components": [
-          1,
-          1,
-          1
+          0.980392,
+          0.980392,
+          0.980392
         ],
         "alpha": 0.96
       }
@@ -19845,7 +19845,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-icon-input-glyph": "color(srgb 1 1 1 / 0.56)"
+        "--louis-color-icon-input-glyph": "color(srgb 0.980392 0.980392 0.980392 / 0.56)"
       },
       "deprecated": null,
       "description": null,
@@ -19858,9 +19858,9 @@ export const tokens = {
       "value": {
         "colorSpace": "srgb",
         "components": [
-          1,
-          1,
-          1
+          0.980392,
+          0.980392,
+          0.980392
         ],
         "alpha": 0.56
       }
@@ -19871,7 +19871,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-landing-line": "color(srgb 1 1 1 / 0.12)"
+        "--louis-color-landing-line": "color(srgb 0.980392 0.980392 0.980392 / 0.12)"
       },
       "deprecated": null,
       "description": null,
@@ -19884,9 +19884,9 @@ export const tokens = {
       "value": {
         "colorSpace": "srgb",
         "components": [
-          1,
-          1,
-          1
+          0.980392,
+          0.980392,
+          0.980392
         ],
         "alpha": 0.12
       }
@@ -19923,7 +19923,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-landing-panel": "color(srgb 1 1 1 / 0.04)"
+        "--louis-color-landing-panel": "color(srgb 0.980392 0.980392 0.980392 / 0.04)"
       },
       "deprecated": null,
       "description": null,
@@ -19936,9 +19936,9 @@ export const tokens = {
       "value": {
         "colorSpace": "srgb",
         "components": [
-          1,
-          1,
-          1
+          0.980392,
+          0.980392,
+          0.980392
         ],
         "alpha": 0.04
       }
@@ -19949,7 +19949,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-landing-panel-strong": "color(srgb 1 1 1 / 0.08)"
+        "--louis-color-landing-panel-strong": "color(srgb 0.980392 0.980392 0.980392 / 0.08)"
       },
       "deprecated": null,
       "description": null,
@@ -19962,9 +19962,9 @@ export const tokens = {
       "value": {
         "colorSpace": "srgb",
         "components": [
-          1,
-          1,
-          1
+          0.980392,
+          0.980392,
+          0.980392
         ],
         "alpha": 0.08
       }
@@ -19975,7 +19975,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-landing-text-muted": "color(srgb 1 1 1 / 0.64)"
+        "--louis-color-landing-text-muted": "color(srgb 0.980392 0.980392 0.980392 / 0.64)"
       },
       "deprecated": null,
       "description": null,
@@ -19988,9 +19988,9 @@ export const tokens = {
       "value": {
         "colorSpace": "srgb",
         "components": [
-          1,
-          1,
-          1
+          0.980392,
+          0.980392,
+          0.980392
         ],
         "alpha": 0.64
       }
@@ -20001,7 +20001,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-landing-text-soft": "color(srgb 1 1 1 / 0.72)"
+        "--louis-color-landing-text-soft": "color(srgb 0.980392 0.980392 0.980392 / 0.72)"
       },
       "deprecated": null,
       "description": null,
@@ -20014,9 +20014,9 @@ export const tokens = {
       "value": {
         "colorSpace": "srgb",
         "components": [
-          1,
-          1,
-          1
+          0.980392,
+          0.980392,
+          0.980392
         ],
         "alpha": 0.72
       }
@@ -20027,7 +20027,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-media-control-foreground": "color(srgb 1 1 1 / 0.88)"
+        "--louis-color-media-control-foreground": "color(srgb 0.980392 0.980392 0.980392 / 0.88)"
       },
       "deprecated": null,
       "description": null,
@@ -20040,9 +20040,9 @@ export const tokens = {
       "value": {
         "colorSpace": "srgb",
         "components": [
-          1,
-          1,
-          1
+          0.980392,
+          0.980392,
+          0.980392
         ],
         "alpha": 0.88
       }
@@ -20053,7 +20053,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-media-control-hover": "color(srgb 1 1 1 / 0.12)"
+        "--louis-color-media-control-hover": "color(srgb 0.980392 0.980392 0.980392 / 0.12)"
       },
       "deprecated": null,
       "description": null,
@@ -20066,9 +20066,9 @@ export const tokens = {
       "value": {
         "colorSpace": "srgb",
         "components": [
-          1,
-          1,
-          1
+          0.980392,
+          0.980392,
+          0.980392
         ],
         "alpha": 0.12
       }
@@ -20079,7 +20079,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-media-control-surface": "color(srgb 0 0 0 / 0.28)"
+        "--louis-color-media-control-surface": "color(srgb 0.090196 0.105882 0.133333 / 0.28)"
       },
       "deprecated": null,
       "description": null,
@@ -20092,9 +20092,9 @@ export const tokens = {
       "value": {
         "colorSpace": "srgb",
         "components": [
-          0,
-          0,
-          0
+          0.090196,
+          0.105882,
+          0.133333
         ],
         "alpha": 0.28
       }
@@ -20183,7 +20183,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-media-indicator-rest": "color(srgb 1 1 1 / 0.28)"
+        "--louis-color-media-indicator-rest": "color(srgb 0.980392 0.980392 0.980392 / 0.28)"
       },
       "deprecated": null,
       "description": null,
@@ -20196,9 +20196,9 @@ export const tokens = {
       "value": {
         "colorSpace": "srgb",
         "components": [
-          1,
-          1,
-          1
+          0.980392,
+          0.980392,
+          0.980392
         ],
         "alpha": 0.28
       }
@@ -20339,7 +20339,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-node-canvas-dot": "color(srgb 1 1 1 / 0.16)"
+        "--louis-color-node-canvas-dot": "color(srgb 0.980392 0.980392 0.980392 / 0.16)"
       },
       "deprecated": null,
       "description": null,
@@ -20352,9 +20352,9 @@ export const tokens = {
       "value": {
         "colorSpace": "srgb",
         "components": [
-          1,
-          1,
-          1
+          0.980392,
+          0.980392,
+          0.980392
         ],
         "alpha": 0.16
       }
@@ -21561,7 +21561,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-progress-ring-track": "color(srgb 1 1 1 / 0.2)"
+        "--louis-color-progress-ring-track": "color(srgb 0.980392 0.980392 0.980392 / 0.2)"
       },
       "deprecated": null,
       "description": null,
@@ -21574,9 +21574,9 @@ export const tokens = {
       "value": {
         "colorSpace": "srgb",
         "components": [
-          1,
-          1,
-          1
+          0.980392,
+          0.980392,
+          0.980392
         ],
         "alpha": 0.2
       }
@@ -21587,7 +21587,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-progress-track": "color(srgb 1 1 1 / 0.08)"
+        "--louis-color-progress-track": "color(srgb 0.980392 0.980392 0.980392 / 0.08)"
       },
       "deprecated": null,
       "description": null,
@@ -21600,9 +21600,9 @@ export const tokens = {
       "value": {
         "colorSpace": "srgb",
         "components": [
-          1,
-          1,
-          1
+          0.980392,
+          0.980392,
+          0.980392
         ],
         "alpha": 0.08
       }
@@ -21613,7 +21613,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-scrollbar-thumb": "color(srgb 1 1 1 / 0.24)"
+        "--louis-color-scrollbar-thumb": "color(srgb 0.980392 0.980392 0.980392 / 0.24)"
       },
       "deprecated": null,
       "description": null,
@@ -21626,9 +21626,9 @@ export const tokens = {
       "value": {
         "colorSpace": "srgb",
         "components": [
-          1,
-          1,
-          1
+          0.980392,
+          0.980392,
+          0.980392
         ],
         "alpha": 0.24
       }
@@ -21639,7 +21639,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-scrollbar-thumb-hover": "color(srgb 1 1 1 / 0.4)"
+        "--louis-color-scrollbar-thumb-hover": "color(srgb 0.980392 0.980392 0.980392 / 0.4)"
       },
       "deprecated": null,
       "description": null,
@@ -21652,9 +21652,9 @@ export const tokens = {
       "value": {
         "colorSpace": "srgb",
         "components": [
-          1,
-          1,
-          1
+          0.980392,
+          0.980392,
+          0.980392
         ],
         "alpha": 0.4
       }
@@ -21665,7 +21665,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-stroke-control": "color(srgb 1 1 1 / 0.16)"
+        "--louis-color-stroke-control": "color(srgb 0.980392 0.980392 0.980392 / 0.16)"
       },
       "deprecated": null,
       "description": null,
@@ -21678,9 +21678,9 @@ export const tokens = {
       "value": {
         "colorSpace": "srgb",
         "components": [
-          1,
-          1,
-          1
+          0.980392,
+          0.980392,
+          0.980392
         ],
         "alpha": 0.16
       }
@@ -21769,7 +21769,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-stroke-hairline": "color(srgb 1 1 1 / 0.08)"
+        "--louis-color-stroke-hairline": "color(srgb 0.980392 0.980392 0.980392 / 0.08)"
       },
       "deprecated": null,
       "description": null,
@@ -21782,9 +21782,9 @@ export const tokens = {
       "value": {
         "colorSpace": "srgb",
         "components": [
-          1,
-          1,
-          1
+          0.980392,
+          0.980392,
+          0.980392
         ],
         "alpha": 0.08
       }
@@ -21847,7 +21847,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-stroke-tooltip": "color(srgb 0 0 0 / 0.12)"
+        "--louis-color-stroke-tooltip": "color(srgb 0.090196 0.105882 0.133333 / 0.12)"
       },
       "deprecated": null,
       "description": null,
@@ -21860,9 +21860,9 @@ export const tokens = {
       "value": {
         "colorSpace": "srgb",
         "components": [
-          0,
-          0,
-          0
+          0.090196,
+          0.105882,
+          0.133333
         ],
         "alpha": 0.12
       }
@@ -21899,7 +21899,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-switch-off-track": "color(srgb 1 1 1 / 0.16)"
+        "--louis-color-switch-off-track": "color(srgb 0.980392 0.980392 0.980392 / 0.16)"
       },
       "deprecated": null,
       "description": null,
@@ -21912,9 +21912,9 @@ export const tokens = {
       "value": {
         "colorSpace": "srgb",
         "components": [
-          1,
-          1,
-          1
+          0.980392,
+          0.980392,
+          0.980392
         ],
         "alpha": 0.16
       }
@@ -22055,7 +22055,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-elevation-menu": "0px 8px 15px 0px color(srgb 0 0 0 / 0.04)"
+        "--louis-elevation-menu": "0px 12px 32px 0px color(srgb 0 0 0 / 0.48)"
       },
       "deprecated": null,
       "description": null,
@@ -22074,18 +22074,18 @@ export const tokens = {
               0,
               0
             ],
-            "alpha": 0.04
+            "alpha": 0.48
           },
           "offsetX": {
             "value": 0,
             "unit": "px"
           },
           "offsetY": {
-            "value": 8,
+            "value": 12,
             "unit": "px"
           },
           "blur": {
-            "value": 15,
+            "value": 32,
             "unit": "px"
           },
           "spread": {

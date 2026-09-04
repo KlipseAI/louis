@@ -4999,7 +4999,12 @@
    * 이었다. invalid/disabled 상태 축은 아래에서 별도로 다룬다. */
   box-shadow: var(--louis-hairline-inset);
   border-radius: var(--louis-radius-control);
-  background: var(--louis-color-bg-surface);
+  /* 면은 놓이는 자리보다 한 칸 낮다 — 입력은 파고든 자리(well)이지 얹힌 판이 아니다.
+   * `bg-surface` 였을 때는 표준 면 위에 놓인 필드가 바닥과 같은 값이라, 경계가 10%
+   * 헤어라인 하나뿐이었다(라이트 #fafafa on #fafafa · 다크 #2c2f37 on #2c2f37).
+   * 다크에는 surface 와 canvas 사이에 칸이 없어(gray-800 → gray-900) 두 테마 모두에서
+   * 내려가는 역할은 canvas 뿐이다. */
+  background: var(--louis-color-bg-canvas);
   /* 텍스트 커서는 박스 어디를 눌러도 나와야 한다. 클릭은 React가 input으로 넘긴다. */
   cursor: text;
 }

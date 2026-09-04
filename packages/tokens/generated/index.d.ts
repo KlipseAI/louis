@@ -968,7 +968,7 @@ export declare const tokens: Readonly<{
   readonly "layout-progress-bar-height": TokenRecord<"layout-progress-bar-height", "global", "semantic", { readonly id: "space-6"; readonly mode: "base" }>;
   readonly "layout-progress-bar-max-inline-size": TokenRecord<"layout-progress-bar-max-inline-size", "global", "semantic", { readonly id: "space-320"; readonly mode: "base" }>;
   readonly "layout-project-card-minimum": TokenRecord<"layout-project-card-minimum", "global", "semantic", { readonly id: "space-240"; readonly mode: "base" }>;
-  readonly "layout-project-grid-gap": TokenRecord<"layout-project-grid-gap", "global", "semantic", { readonly id: "space-6"; readonly mode: "base" }>;
+  readonly "layout-project-grid-gap": TokenRecord<"layout-project-grid-gap", "global", "semantic", { readonly id: "space-4"; readonly mode: "base" }>;
   readonly "layout-settings-segment-height": TokenRecord<"layout-settings-segment-height", "global", "semantic", { readonly id: "space-28"; readonly mode: "base" }>;
   readonly "layout-tab-height": TokenRecord<"layout-tab-height", "global", "semantic", { readonly id: "space-28"; readonly mode: "base" }>;
   readonly "misc-project-card-overlay-stack-gap": TokenRecord<"misc-project-card-overlay-stack-gap", "global", "semantic", { readonly id: "space-4"; readonly mode: "base" }>;

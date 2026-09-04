@@ -4902,7 +4902,7 @@ export const primitives = {
             0,
             0
           ],
-          "alpha": 0.12,
+          "alpha": 0.24,
           "hex": "#000000"
         },
         "offsetX": {
@@ -4935,7 +4935,7 @@ export const primitives = {
             0,
             0
           ],
-          "alpha": 0.12
+          "alpha": 0.24
         },
         "offsetX": {
           "value": 0,
@@ -4973,7 +4973,7 @@ export const primitives = {
             0,
             0
           ],
-          "alpha": 0.12,
+          "alpha": 0.24,
           "hex": "#000000"
         },
         "offsetX": {
@@ -5006,7 +5006,7 @@ export const primitives = {
             0,
             0
           ],
-          "alpha": 0.12
+          "alpha": 0.24
         },
         "offsetX": {
           "value": 0,
@@ -17268,7 +17268,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-elevation-menu": "0px 12px 24px 0px color(srgb 0 0 0 / 0.12)"
+        "--louis-elevation-menu": "0px 12px 24px 0px color(srgb 0 0 0 / 0.24)"
       },
       "deprecated": null,
       "description": null,
@@ -17287,7 +17287,7 @@ export const tokens = {
               0,
               0
             ],
-            "alpha": 0.12
+            "alpha": 0.24
           },
           "offsetX": {
             "value": 0,
@@ -22377,7 +22377,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-elevation-menu": "0px 12px 24px 0px color(srgb 0 0 0 / 0.12)"
+        "--louis-elevation-menu": "0px 12px 24px 0px color(srgb 0 0 0 / 0.24)"
       },
       "deprecated": null,
       "description": null,
@@ -22396,7 +22396,7 @@ export const tokens = {
               0,
               0
             ],
-            "alpha": 0.12
+            "alpha": 0.24
           },
           "offsetX": {
             "value": 0,

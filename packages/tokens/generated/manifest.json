@@ -2,7 +2,7 @@
   "artifacts": [
     {
       "path": "packages/tokens/generated/figma.tokens.json",
-      "sha256": "10a6fa1b224a1c00d0fef732acb8e55bd917b1a750b581d6280789b90c94578b"
+      "sha256": "f4e198c819dc5ddc101bf8129538c856e6f87fe7042764192b310fcd4ba323f1"
     },
     {
       "path": "packages/tokens/generated/index.d.ts",
@@ -10,15 +10,15 @@
     },
     {
       "path": "packages/tokens/generated/index.js",
-      "sha256": "7747fa8cd5bde1d0fd4e083278907b7ca55f9537fa926b21ec09c16a52de6271"
+      "sha256": "d50f140763b5ba0f87ca7a94dcefd3b885aeb80f3520194009161acedbc2e968"
     },
     {
       "path": "packages/tokens/generated/tokens.css",
-      "sha256": "99ccc36bf93a79ae7ec361cd0ab67c377c8802af1656db3fe0efb7b605fbb48c"
+      "sha256": "a5b366d194d921569168e144b5a2732a6796d3f1764040aa234c4ff593f06a0f"
     },
     {
       "path": "packages/tokens/generated/tokens.json",
-      "sha256": "4c05cf3211b6369d38c0b32c164e45d9b89f5f20f7af6d9baa206e32bc6d1522"
+      "sha256": "e1972fffd995b3ce422465cebd7e8d86de89ae577677bba1c2d2d2031f4075cd"
     }
   ],
   "contrastPairs": [
@@ -419,7 +419,7 @@
   },
   "source": {
     "path": "packages/tokens/src/klipse.tokens.json",
-    "sha256": "26015ed57eb14085e9a0cfbac7877b6fa5ff9428caf4ea694baa17b72ee50074"
+    "sha256": "394f6c2b06093b282bcd97226fb1d963e3b5f7b360dcd28fa8eebd8f81f31dfd"
   },
   "themes": [
     "light",
@@ -14691,7 +14691,7 @@
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-elevation-menu": "0px 12px 24px 0px color(srgb 0 0 0 / 0.12)"
+        "--louis-elevation-menu": "0px 12px 24px 0px color(srgb 0 0 0 / 0.24)"
       },
       "deprecated": null,
       "description": null,
@@ -14705,7 +14705,7 @@
             "value": 24
           },
           "color": {
-            "alpha": 0.12,
+            "alpha": 0.24,
             "colorSpace": "srgb",
             "components": [
               0,
@@ -14738,7 +14738,7 @@
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-elevation-menu": "0px 12px 24px 0px color(srgb 0 0 0 / 0.12)"
+        "--louis-elevation-menu": "0px 12px 24px 0px color(srgb 0 0 0 / 0.24)"
       },
       "deprecated": null,
       "description": null,
@@ -14752,7 +14752,7 @@
             "value": 24
           },
           "color": {
-            "alpha": 0.12,
+            "alpha": 0.24,
             "colorSpace": "srgb",
             "components": [
               0,
@@ -17994,7 +17994,7 @@
             "value": 24
           },
           "color": {
-            "alpha": 0.12,
+            "alpha": 0.24,
             "colorSpace": "srgb",
             "components": [
               0,
@@ -18024,7 +18024,7 @@
             "value": 24
           },
           "color": {
-            "alpha": 0.12,
+            "alpha": 0.24,
             "colorSpace": "srgb",
             "components": [
               0,
@@ -18065,7 +18065,7 @@
             "value": 24
           },
           "color": {
-            "alpha": 0.12,
+            "alpha": 0.24,
             "colorSpace": "srgb",
             "components": [
               0,
@@ -18095,7 +18095,7 @@
             "value": 24
           },
           "color": {
-            "alpha": 0.12,
+            "alpha": 0.24,
             "colorSpace": "srgb",
             "components": [
               0,

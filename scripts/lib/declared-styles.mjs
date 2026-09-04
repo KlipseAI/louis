@@ -147,3 +147,85 @@ export async function captureDeclaredStyles(context, page, rootPredicate, option
     await cdp.detach().catch(() => {});
   }
 }
+
+/**
+ * **측정한 노드 그 자체를 키로 삼아** 선언 스타일을 받아온다.
+ *
+ * ## 왜 경로가 아니라 노드인가
+ *
+ * `mapPathsToNodeIds`는 `루트 + 자식 인덱스` 체인으로 두 패스를 잇는다. 그 키는 **위치**이므로
+ * 두 패스 사이에 노드가 하나라도 mount/unmount 되면 뜻이 달라진다. 그리고 나빠지는 방식이 둘이다.
+ *
+ *   노드가 **사라지면** 뒤 형제가 그 인덱스로 당겨 들어온다 → 남은 경로들이 **엉뚱한 노드**의
+ *   선언을 받는다. 경로가 존재하므로 아무도 실패하지 않는다. **조용히 틀린 데이터**다.
+ *   노드가 **생기면** 뒤 형제가 밀린다 → 같은 일이 반대 방향으로 난다.
+ *   운이 좋을 때만(체인이 짧아져 경로가 아예 없어질 때만) 「선언 스타일이 없는 측정 노드」로
+ *   걸린다. 즉 지금의 하드 실패는 **증상의 일부만** 잡고 있었다.
+ *
+ * 반면 노드 참조는 위치가 아니라 동일성이다. React 의 재렌더는 대부분 같은 DOM 노드를 그대로
+ * 두고 속성·텍스트만 바꾸므로 참조가 살아남고, 진짜 mount/unmount 만이 참조를 끊는다. 그리고
+ * 끊긴 것은 `isConnected === false` 로 **정확히** 드러난다 — 몇 개가, 어느 노드가 빠졌는지까지.
+ *
+ * ## 어떻게 잇는가
+ *
+ * 측정 evaluate 가 잰 노드를 순서대로 페이지 전역 배열에 남긴다. 여기서는
+ *   `Runtime.evaluate`   그 배열의 RemoteObject 를 얻고
+ *   `Runtime.getProperties` 원소마다 objectId 를 **한 번의 호출로** 받고
+ *   `DOM.requestNode`    objectId → nodeId 로 바꾼다
+ * 그래서 왕복은 노드 수 + 2 회이고, 종전(`DOM.getDocument` 한 번 + 노드마다 조회)과 같은 차수다.
+ *
+ * @param {import("playwright").BrowserContext} context
+ * @param {import("playwright").Page} page
+ * @param {string} handleExpression 측정 노드 배열을 내는 페이지 표현식(예: `window.__x`)
+ * @param {{properties?: readonly string[], chunkSize?: number}} [options]
+ * @returns {Promise<{declared: Map<number, Record<string,string>>, resolved: number, total: number}>}
+ *   `declared`는 **배열 인덱스**로 키를 매긴다 — 측정 트리의 순서와 1:1이다.
+ */
+export async function captureDeclaredStylesForHandles(context, page, handleExpression, options = {}) {
+  const cdp = await context.newCDPSession(page);
+  try {
+    await cdp.send("DOM.enable");
+    await cdp.send("CSS.enable");
+    await cdp.send("Runtime.enable");
+    // `DOM.requestNode`는 프런트엔드가 document를 한 번 받아 둔 뒤에만 nodeId를 발급한다.
+    await cdp.send("DOM.getDocument", { depth: -1, pierce: false });
+
+    const handle = await cdp.send("Runtime.evaluate", {
+      expression: handleExpression,
+      returnByValue: false,
+    });
+    const arrayObjectId = handle.result?.objectId;
+    if (!arrayObjectId) {
+      throw new Error("[declared-styles] 측정 노드 배열을 페이지에서 찾지 못했습니다: " + handleExpression);
+    }
+
+    const { result: properties } = await cdp.send("Runtime.getProperties", {
+      objectId: arrayObjectId,
+      ownProperties: true,
+    });
+    // 숫자 키만, 그리고 **숫자로** 정렬한다. 문자열 정렬이면 10이 2보다 앞선다.
+    const handles = properties
+      .filter((entry) => /^\d+$/.test(entry.name) && entry.value?.objectId)
+      .map((entry) => ({ index: Number(entry.name), objectId: entry.value.objectId }))
+      .sort((left, right) => left.index - right.index);
+
+    // 문서에서 떨어져 나간 노드는 nodeId 발급이 실패한다. 어느 쪽이든 **엉뚱한 노드에 붙지는
+    // 않는다** — 그것이 이 조인을 쓰는 이유다. 왕복이 노드 수만큼이므로 아래 선언 조회와 같은
+    // 폭으로 묶어 보낸다.
+    const indexToNodeId = new Map();
+    const requestChunk = options.chunkSize ?? 64;
+    for (let offset = 0; offset < handles.length; offset += requestChunk) {
+      const slice = handles.slice(offset, offset + requestChunk);
+      const nodes = await Promise.all(slice.map(({ objectId }) =>
+        cdp.send("DOM.requestNode", { objectId }).catch(() => null)));
+      nodes.forEach((node, position) => {
+        if (node?.nodeId) indexToNodeId.set(slice[position].index, node.nodeId);
+      });
+    }
+
+    const declared = await collectDeclaredStyles(cdp, indexToNodeId, options);
+    return { declared, resolved: indexToNodeId.size, total: handles.length };
+  } finally {
+    await cdp.detach().catch(() => {});
+  }
+}

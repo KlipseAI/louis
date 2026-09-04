@@ -2,7 +2,7 @@
   "artifacts": [
     {
       "path": "packages/tokens/generated/figma.tokens.json",
-      "sha256": "886cb8c27815f4f19668df2e5aa1d0a8acbcb0038cb4d8664258adc67101d26b"
+      "sha256": "10a6fa1b224a1c00d0fef732acb8e55bd917b1a750b581d6280789b90c94578b"
     },
     {
       "path": "packages/tokens/generated/index.d.ts",
@@ -10,15 +10,15 @@
     },
     {
       "path": "packages/tokens/generated/index.js",
-      "sha256": "92cdef7461addccc8aaa0f05159171af657ceba77ad761fd7ed1d9da1d60e37c"
+      "sha256": "7747fa8cd5bde1d0fd4e083278907b7ca55f9537fa926b21ec09c16a52de6271"
     },
     {
       "path": "packages/tokens/generated/tokens.css",
-      "sha256": "e7f6d4556f1a3118dbe5bf76f723f034ea3106aecdac577ece51e5dc6bde44d9"
+      "sha256": "99ccc36bf93a79ae7ec361cd0ab67c377c8802af1656db3fe0efb7b605fbb48c"
     },
     {
       "path": "packages/tokens/generated/tokens.json",
-      "sha256": "61ebb1c651c39b409b51a75f4560ad70bc4a1076436ebe62a7480ed128d6e9d1"
+      "sha256": "4c05cf3211b6369d38c0b32c164e45d9b89f5f20f7af6d9baa206e32bc6d1522"
     }
   ],
   "contrastPairs": [
@@ -419,7 +419,7 @@
   },
   "source": {
     "path": "packages/tokens/src/klipse.tokens.json",
-    "sha256": "b80dde500f6221db3e53218fe115e1285e2863bca5dd4993a4dde646f6894547"
+    "sha256": "26015ed57eb14085e9a0cfbac7877b6fa5ff9428caf4ea694baa17b72ee50074"
   },
   "themes": [
     "light",
@@ -14691,7 +14691,7 @@
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-elevation-menu": "0px 12px 32px 0px color(srgb 0 0 0 / 0.16)"
+        "--louis-elevation-menu": "0px 12px 24px 0px color(srgb 0 0 0 / 0.12)"
       },
       "deprecated": null,
       "description": null,
@@ -14702,10 +14702,10 @@
         {
           "blur": {
             "unit": "px",
-            "value": 32
+            "value": 24
           },
           "color": {
-            "alpha": 0.16,
+            "alpha": 0.12,
             "colorSpace": "srgb",
             "components": [
               0,
@@ -14738,7 +14738,7 @@
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-elevation-menu": "0px 12px 32px 0px color(srgb 0 0 0 / 0.36)"
+        "--louis-elevation-menu": "0px 12px 24px 0px color(srgb 0 0 0 / 0.12)"
       },
       "deprecated": null,
       "description": null,
@@ -14749,10 +14749,10 @@
         {
           "blur": {
             "unit": "px",
-            "value": 32
+            "value": 24
           },
           "color": {
-            "alpha": 0.36,
+            "alpha": 0.12,
             "colorSpace": "srgb",
             "components": [
               0,
@@ -17991,10 +17991,10 @@
         {
           "blur": {
             "unit": "px",
-            "value": 32
+            "value": 24
           },
           "color": {
-            "alpha": 0.36,
+            "alpha": 0.12,
             "colorSpace": "srgb",
             "components": [
               0,
@@ -18021,10 +18021,10 @@
         {
           "blur": {
             "unit": "px",
-            "value": 32
+            "value": 24
           },
           "color": {
-            "alpha": 0.36,
+            "alpha": 0.12,
             "colorSpace": "srgb",
             "components": [
               0,
@@ -18062,10 +18062,10 @@
         {
           "blur": {
             "unit": "px",
-            "value": 32
+            "value": 24
           },
           "color": {
-            "alpha": 0.16,
+            "alpha": 0.12,
             "colorSpace": "srgb",
             "components": [
               0,
@@ -18092,10 +18092,10 @@
         {
           "blur": {
             "unit": "px",
-            "value": 32
+            "value": 24
           },
           "color": {
-            "alpha": 0.16,
+            "alpha": 0.12,
             "colorSpace": "srgb",
             "components": [
               0,

@@ -4902,7 +4902,7 @@ export const primitives = {
             0,
             0
           ],
-          "alpha": 0.36,
+          "alpha": 0.12,
           "hex": "#000000"
         },
         "offsetX": {
@@ -4914,7 +4914,7 @@ export const primitives = {
           "unit": "px"
         },
         "blur": {
-          "value": 32,
+          "value": 24,
           "unit": "px"
         },
         "spread": {
@@ -4935,7 +4935,7 @@ export const primitives = {
             0,
             0
           ],
-          "alpha": 0.36
+          "alpha": 0.12
         },
         "offsetX": {
           "value": 0,
@@ -4946,7 +4946,7 @@ export const primitives = {
           "unit": "px"
         },
         "blur": {
-          "value": 32,
+          "value": 24,
           "unit": "px"
         },
         "spread": {
@@ -4973,7 +4973,7 @@ export const primitives = {
             0,
             0
           ],
-          "alpha": 0.16,
+          "alpha": 0.12,
           "hex": "#000000"
         },
         "offsetX": {
@@ -4985,7 +4985,7 @@ export const primitives = {
           "unit": "px"
         },
         "blur": {
-          "value": 32,
+          "value": 24,
           "unit": "px"
         },
         "spread": {
@@ -5006,7 +5006,7 @@ export const primitives = {
             0,
             0
           ],
-          "alpha": 0.16
+          "alpha": 0.12
         },
         "offsetX": {
           "value": 0,
@@ -5017,7 +5017,7 @@ export const primitives = {
           "unit": "px"
         },
         "blur": {
-          "value": 32,
+          "value": 24,
           "unit": "px"
         },
         "spread": {
@@ -17268,7 +17268,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-elevation-menu": "0px 12px 32px 0px color(srgb 0 0 0 / 0.16)"
+        "--louis-elevation-menu": "0px 12px 24px 0px color(srgb 0 0 0 / 0.12)"
       },
       "deprecated": null,
       "description": null,
@@ -17287,7 +17287,7 @@ export const tokens = {
               0,
               0
             ],
-            "alpha": 0.16
+            "alpha": 0.12
           },
           "offsetX": {
             "value": 0,
@@ -17298,7 +17298,7 @@ export const tokens = {
             "unit": "px"
           },
           "blur": {
-            "value": 32,
+            "value": 24,
             "unit": "px"
           },
           "spread": {
@@ -22377,7 +22377,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-elevation-menu": "0px 12px 32px 0px color(srgb 0 0 0 / 0.36)"
+        "--louis-elevation-menu": "0px 12px 24px 0px color(srgb 0 0 0 / 0.12)"
       },
       "deprecated": null,
       "description": null,
@@ -22396,7 +22396,7 @@ export const tokens = {
               0,
               0
             ],
-            "alpha": 0.36
+            "alpha": 0.12
           },
           "offsetX": {
             "value": 0,
@@ -22407,7 +22407,7 @@ export const tokens = {
             "unit": "px"
           },
           "blur": {
-            "value": 32,
+            "value": 24,
             "unit": "px"
           },
           "spread": {

@@ -7,7 +7,7 @@ import { delimiter, dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { chromium } from "playwright";
 import { atomicWriteBatch } from "./lib/atomic-output.mjs";
-import { captureDeclaredStyles } from "./lib/declared-styles.mjs";
+import { captureDeclaredStylesForHandles } from "./lib/declared-styles.mjs";
 import { resolveProductRef } from "./lib/product-ref.mjs";
 
 // 이 측정기는 운영 인증을 재현하지 않는다. 제품이 소스에서 명시한 development-only bypass로
@@ -90,6 +90,11 @@ const CONTEXTS = [
 // `/api/highlight/project/fixture-no-such-project 401` 로 그대로 남아, 이 화면들이 실데이터가
 // 아니라는 사실이 읽는 쪽에 드러난다.
 const HIGHLIGHT_FIXTURE_PROJECT_ID = "fixture-no-such-project";
+
+// 두 측정 패스가 같은 DOM 을 볼 때까지 다시 해 보는 횟수. 여기서 걸리는 변화는 상태 전이라
+// 한 번 일어나면 끝이므로 두 번째 시도에서 붙는다. 셋째까지 못 붙으면 화면이 계속 움직이는
+// 것이고, 그때는 조용히 넘기는 대신 실패시켜야 한다.
+const MEASURE_ATTEMPTS = 3;
 
 // **라우트가 아니라 「화면 상태」를 잰다.**
 //
@@ -311,6 +316,51 @@ const startFixtureServer = async () => {
   };
 };
 
+// 화면이 조용해질 때까지 기다린다. 지문은 경로·테마·로캘·높이·root 텍스트·요소 수·dialog 수다.
+// **두 번 쓰인다** — 처음 열었을 때 한 번, 애니메이션을 얼린 뒤 그 여파를 가라앉히려 한 번 더.
+const stabilize = async (page, label) => {
+  let previous = null;
+  let stableCount = 0;
+  for (let attempt = 0; attempt < 80 && stableCount < 6; attempt += 1) {
+    const fingerprint = await page.evaluate(() => {
+      const rootCandidates = [...document.body.children]
+        .filter((node) => node instanceof HTMLElement)
+        .map((node) => {
+          const rect = node.getBoundingClientRect();
+          return {
+            node,
+            score: Math.max(0, rect.width) * Math.max(0, rect.height),
+          };
+        })
+        .sort((left, right) => right.score - left.score);
+      const root = rootCandidates[0]?.node ?? document.body;
+      return JSON.stringify({
+        path: location.pathname,
+        search: location.search,
+        theme: document.documentElement.dataset.theme,
+        locale: document.documentElement.lang,
+        height: document.documentElement.scrollHeight,
+        rootText: root.textContent?.replace(/\s+/g, " ").trim() ?? "",
+        elementCount: root.querySelectorAll("*").length,
+        dialogCount: [...document.querySelectorAll('[role="dialog"]')]
+          .filter((node) => {
+            const rect = node.getBoundingClientRect();
+            return rect.width > 0 && rect.height > 0;
+          }).length,
+      });
+    });
+    if (fingerprint === previous) stableCount += 1;
+    else {
+      previous = fingerprint;
+      stableCount = 0;
+    }
+    await delay(150);
+  }
+  if (stableCount < 6) {
+    throw new Error("[product-auth-fixture] 화면이 안정화되지 않았습니다: " + label);
+  }
+};
+
 const firstDifference = (recorded, measured, path = "$") => {
   if (Object.is(recorded, measured)) return null;
   if (
@@ -397,49 +447,11 @@ try {
           );
         }
         await delay(3_000);
-        let previous = null;
-        let stableCount = 0;
-        for (let attempt = 0; attempt < 80 && stableCount < 6; attempt += 1) {
-          const fingerprint = await page.evaluate(() => {
-            const rootCandidates = [...document.body.children]
-              .filter((node) => node instanceof HTMLElement)
-              .map((node) => {
-                const rect = node.getBoundingClientRect();
-                return {
-                  node,
-                  score: Math.max(0, rect.width) * Math.max(0, rect.height),
-                };
-              })
-              .sort((left, right) => right.score - left.score);
-            const root = rootCandidates[0]?.node ?? document.body;
-            return JSON.stringify({
-              path: location.pathname,
-              search: location.search,
-              theme: document.documentElement.dataset.theme,
-              locale: document.documentElement.lang,
-              height: document.documentElement.scrollHeight,
-              rootText: root.textContent?.replace(/\s+/g, " ").trim() ?? "",
-              elementCount: root.querySelectorAll("*").length,
-              dialogCount: [...document.querySelectorAll('[role="dialog"]')]
-                .filter((node) => {
-                  const rect = node.getBoundingClientRect();
-                  return rect.width > 0 && rect.height > 0;
-                }).length,
-            });
-          });
-          if (fingerprint === previous) stableCount += 1;
-          else {
-            previous = fingerprint;
-            stableCount = 0;
-          }
-          await delay(150);
-        }
-        if (stableCount < 6) {
-          throw new Error("[product-auth-fixture] 화면이 안정화되지 않았습니다: " + spec.id);
-        }
+        await stabilize(page, spec.id);
         await page.evaluate(async () => { await document.fonts.ready; });
 
-        const measured = await page.evaluate(({ styleAxes, pseudoStyleAxes }) => {
+        // 이 패스는 **여러 번 돌 수 있다**(아래 재시도 루프). 그래서 즉시 실행이 아니라 닫힘이다.
+        const runMeasurePass = () => page.evaluate(({ styleAxes, pseudoStyleAxes }) => {
           // **읽기 직전에 애니메이션을 얼린다.** 회전 중인 요소의 `getBoundingClientRect()` 는
           // 잰 순간의 각도를 담는다 — 16×16 스피너는 축 정렬 경계가 16×(|cos|+|sin|) 이라
           // 16 과 22.63 사이를 오간다. 실측: `?__phase=analyzing` 의 스피너가 한 번은
@@ -502,7 +514,10 @@ try {
             if (href) attributes.href = href.replace(location.origin, "");
             return Object.keys(attributes).length > 0 ? attributes : null;
           };
-          const describe = (node, path, parentPath = null) => {
+          // `sink` 에는 트리에 실린 노드가 **트리와 같은 순서로** 쌓인다. `current` 를 만든 뒤
+          // 자식으로 내려가므로 push 순서가 곧 반환 배열의 전위(pre-order) 순서다. 이 배열이
+          // 뒤따르는 CDP 패스의 조인 키가 된다 — 자세한 이유는 아래 CDP 호출 자리에 적었다.
+          const describe = (node, path, parentPath = null, sink = null) => {
             const computed = getComputedStyle(node);
             const rect = node.getBoundingClientRect();
             const intersectsViewport =
@@ -537,8 +552,9 @@ try {
               rect: rectOf(node),
               style: styleOf(node),
             }] : [];
+            if (sink && current.length > 0) sink.push(node);
             const descendants = [...node.children].flatMap((child, index) =>
-              describe(child, path + "." + index, visible ? path : parentPath));
+              describe(child, path + "." + index, visible ? path : parentPath, sink));
             return [...current, ...descendants];
           };
 
@@ -558,7 +574,10 @@ try {
             throw new Error("가시적인 app root를 찾지 못했습니다");
           }
           const rootPath = "body." + rootCandidate.bodyIndex;
-          const rootTree = describe(rootCandidate.node, rootPath);
+          // 잰 노드를 페이지에 남겨 둔다. 다음 CDP 패스가 **이 노드들 자체**를 조인 키로 쓴다.
+          const measuredNodes = [];
+          const rootTree = describe(rootCandidate.node, rootPath, null, measuredNodes);
+          window.__louisAuthFixtureNodes = measuredNodes;
           if (rootTree.length > 2_000) {
             throw new Error("app root 측정 노드가 2,000개를 넘었습니다: " + rootTree.length);
           }
@@ -680,37 +699,108 @@ try {
           };
         }, { styleAxes: STYLE_AXES, pseudoStyleAxes: PSEUDO_STYLE_AXES });
 
-        // **선언된 CSS 원문을 CDP로 덧붙인다.** `getComputedStyle`은 해결된 값을 주므로 `width:100%`와
-        // 고정 px가 구분되지 않는다 — Figma Auto Layout(FILL/HUG/FIXED)을 정하려면 선언 원문이 필요하다.
-        // 트리 루트는 런타임에 정해지므로(viewport와 가장 크게 겹치는 body 자식) `rootPath`의 인덱스를
-        // 그대로 써서 CDP 쪽 루트를 찾는다. 경로 스킴이 같아 path로 그대로 붙는다.
-        const rootBodyIndex = Number(measured.rootPath.slice("body.".length));
-        const { declared } = await captureDeclaredStyles(
-          context,
-          page,
-          (node, attributes, bodyIndex) => bodyIndex === rootBodyIndex,
-          { rootPath: measured.rootPath },
-        );
-        // **개수는 일치하지 않는 것이 정상이다.** 측정기의 `describe()`는 보이지 않는 노드를 트리에서
-        // 빼지만(`if (!visible) return []`) CDP는 DOM 전체를 걷는다(실측: /archive 에서 CDP 127 vs 트리 102).
-        // 그래서 개수가 아니라 **경로 교집합**으로 붙이고, 트리 쪽에 붙지 못한 노드가 있으면 그때 실패시킨다
-        // — 그것은 경로 스킴이 어긋났다는 뜻이라 조용히 넘기면 엉뚱한 노드에 선언이 붙는다.
-        let attached = 0;
-        const missing = [];
-        for (const node of measured.tree) {
-          const entry = declared.get(node.path);
-          if (!entry) { missing.push(node.path); continue; }
-          if (Object.keys(entry).length > 0) { node.declared = entry; attached += 1; }
-        }
-        if (missing.length > 0) {
-          throw new Error(
-            "[product-auth-fixture] 선언 스타일이 없는 측정 노드가 있습니다(경로 스킴 불일치 의심): " +
-              missing.length + "개, 예: " + missing.slice(0, 3).join(", ") + " (" + spec.id + ")",
+        // **두 패스는 서로 다른 시각의 DOM 을 본다.** 그 사이에 mount/unmount 가 일어나면
+        // 조인이 성립하지 않는다. 그래서 한 번 얼려 여파를 끄집어내고, 가라앉히고, 재고,
+        // 어긋나면 처음부터 다시 한다.
+        let measured = null;
+        for (let attempt = 1; attempt <= MEASURE_ATTEMPTS; attempt += 1) {
+          // **애니메이션은 재기 전에, 별도 호출로 한 번 얼린다.**
+          //
+          // `finish()` 는 끝나는 애니메이션을 끝으로 보내면서 `transitionend` · `animationend` 를
+          // 발화시킨다. 제품에는 그 이벤트에서 노드를 내리는 자리가 있다(예:
+          // `AnalyticsAccountMoreMenu.tsx:282` 는 전이가 끝나면 `setMenuMounted(false)`). 그
+          // 이벤트는 현재 task 가 끝난 **뒤에** 배달되므로, 얼리기와 트리 순회가 같은 evaluate 안에
+          // 있으면 여파가 정확히 두 패스 사이에 떨어질 수 있다. 그래서 여기서 먼저 끄집어내고
+          // 가라앉힌 다음에 잰다.
+          //
+          // **다만 이것이 지금 걸리는 실패의 원인은 아니다 — 재서 반증했다.** 실패한 화면
+          // (`/analytics/instagram` mobile)에서 `document.getAnimations()` 는 측정 시점에
+          // **빈 배열**이다(세 화면 · 반복 전부 `finished=0 infinite=0`). 얼리기를 아예 빼고 재도
+          // 결과가 같았다. 그러니 이 순서 바꾸기는 원인 제거가 아니라 **하나의 원인 후보를 미리
+          // 치우는 것**이고, 실제 원인에는 아래 조인 키와 재시도가 대응한다.
+          //
+          // 측정 패스(`runMeasurePass`) 안의 얼리기는 그대로 남는다 — 스타일 재계산이 되돌린 것을
+          // 다시 세우는 역할이고(스피너가 있는 `?__phase=analyzing` 이 그 자리다), 그때는 끝나는
+          // 애니메이션이 이미 끝나 있어 새 이벤트가 나오지 않는다.
+          await page.evaluate(() => {
+            for (const animation of document.getAnimations()) {
+              try { animation.finish(); } catch { animation.currentTime = 0; }
+            }
+          });
+          await stabilize(page, spec.id + " (애니메이션 정지 후)");
+
+          measured = await runMeasurePass();
+
+          // **선언된 CSS 원문을 CDP로 덧붙인다.** `getComputedStyle`은 해결된 값을 주므로 `width:100%`와
+          // 고정 px가 구분되지 않는다 — Figma Auto Layout(FILL/HUG/FIXED)을 정하려면 선언 원문이 필요하다.
+          //
+          // ## 조인 키는 경로가 아니라 **노드 자체**다
+          //
+          // 종전에는 `루트 + 자식 인덱스` 체인으로 이었다. 그 키는 위치이므로 두 패스 사이에
+          // 노드가 하나라도 mount/unmount 되면 뜻이 달라진다 — 사라진 노드의 자리로 뒤 형제가
+          // 당겨 들어와 **엉뚱한 노드의 선언이 조용히 붙는다.** 체인이 짧아져 경로가 아예 없어질
+          // 때만 「선언 스타일이 없는 측정 노드」로 걸렸으니, 그 하드 실패는 증상의 일부만 보던
+          // 것이었다.
+          //
+          // 그리고 이 fixture 는 그 사이에 실제로 움직인다. 실측(앵커 `5a67d692`): mobile
+          // `/analytics/instagram` 에서 트리 31노드 중 **23개**가 붙지 못했고, 살아남은 8개는
+          // `body.1` 부터 `body.1.0.0.1.0.0.0.0` 까지의 조상 사슬뿐이었다 — 잎 하나가 아니라
+          // 그 아래가 통째로 없어졌다. 화면 하나만 새로 열어서는 재현되지 않고(단독 실행은
+          // 99/99 로 깨끗하다) 44화면을 이어 도는 긴 실행의 후반에서만 났다. 안정화 판정이
+          // 6×150ms = 900ms 만 조용하면 통과하는데 제품에는 3초 주기 폴링
+          // (`HighlightProjectScene.tsx:44` `POLL_INTERVAL_MS = 3000`)과 이 화면 자신의
+          // 클라이언트 리다이렉트(`/analytics/instagram` → `/analytics/youtube`)가 있다.
+          //
+          // 그래서 측정 evaluate 가 남긴 노드 배열을 그대로 키로 쓴다. React 의 재렌더는 대개 같은
+          // DOM 노드를 두고 속성만 바꾸므로 참조가 살아남고, 진짜 unmount 만 참조를 끊는다.
+          // 끊긴 것은 `isConnected` 로 **정확히** 드러나고, 살아 있는 노드는 무슨 일이 있어도
+          // 자기 선언만 받는다.
+          const { declared } = await captureDeclaredStylesForHandles(
+            context,
+            page,
+            "window.__louisAuthFixtureNodes",
           );
+          // 두 패스 사이에 트리에서 빠져나간 노드를 **먼저** 센다. 이것이 실패의 진짜 이름이다.
+          const detached = await page.evaluate(() =>
+            (window.__louisAuthFixtureNodes ?? [])
+              .map((node, index) => (node.isConnected ? null : index))
+              .filter((index) => index !== null));
+
+          let attached = 0;
+          const unresolved = [];
+          for (const [index, node] of measured.tree.entries()) {
+            const entry = declared.get(index);
+            if (!entry) { unresolved.push(index); continue; }
+            if (Object.keys(entry).length > 0) { node.declared = entry; attached += 1; }
+          }
+          if (detached.length > 0 || unresolved.length > 0) {
+            const name = (index) => {
+              const node = measured.tree[index];
+              return node ? node.path + "(" + node.tag + ")" : "#" + index;
+            };
+            const report =
+              "트리에서 빠진 노드 " + detached.length + "개" +
+              (detached.length ? " (" + detached.slice(0, 3).map(name).join(", ") + ")" : "") +
+              " · 선언을 못 받은 노드 " + unresolved.length + "개" +
+              (unresolved.length ? " (" + unresolved.slice(0, 3).map(name).join(", ") + ")" : "");
+            // **움직였다는 사실을 삼키지 않는다.** 다시 가라앉히고 다시 잰다 — 여기서 걸리는
+            // 변화는 상태 전이(폴링 실패 누적, 전이 종료 후 unmount)라 한 번 일어나면 끝이다.
+            // 끝내 합의하지 않으면 그것은 **계속 움직이는 화면**이라는 뜻이므로 크게 실패한다.
+            if (attempt === MEASURE_ATTEMPTS) {
+              throw new Error(
+                "[product-auth-fixture] 두 측정 패스 사이에 DOM 이 " + attempt +
+                  "회 내내 움직였습니다: " + report + " (" + spec.id + ")",
+              );
+            }
+            measured = null;
+            continue;
+          }
+          if (attached === 0) {
+            throw new Error("[product-auth-fixture] 선언 스타일이 하나도 붙지 않았습니다 (" + spec.id + ")");
+          }
+          break;
         }
-        if (attached === 0) {
-          throw new Error("[product-auth-fixture] 선언 스타일이 하나도 붙지 않았습니다 (" + spec.id + ")");
-        }
+        if (!measured) throw new Error("[product-auth-fixture] 측정이 성립하지 않았습니다 (" + spec.id + ")");
 
         const uniqueRecords = (records) => [...new Map(records
           .map((entry) => [JSON.stringify(entry), entry])).values()]

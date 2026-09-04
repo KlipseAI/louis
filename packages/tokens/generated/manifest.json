@@ -2,7 +2,7 @@
   "artifacts": [
     {
       "path": "packages/tokens/generated/figma.tokens.json",
-      "sha256": "274c3238c7c6f82344fc6859353b19d2276ea1ef9a0070c68402ac02de0263a8"
+      "sha256": "886cb8c27815f4f19668df2e5aa1d0a8acbcb0038cb4d8664258adc67101d26b"
     },
     {
       "path": "packages/tokens/generated/index.d.ts",
@@ -10,15 +10,15 @@
     },
     {
       "path": "packages/tokens/generated/index.js",
-      "sha256": "b9496e1d7a560e925e5f1fdf684290e7462495dfc527943e48b2ee8e21d372c9"
+      "sha256": "92cdef7461addccc8aaa0f05159171af657ceba77ad761fd7ed1d9da1d60e37c"
     },
     {
       "path": "packages/tokens/generated/tokens.css",
-      "sha256": "0ee1327c647eddd224cc5f3cd0dce1fd21ad38933bbf27a3dde605e7632b5da4"
+      "sha256": "e7f6d4556f1a3118dbe5bf76f723f034ea3106aecdac577ece51e5dc6bde44d9"
     },
     {
       "path": "packages/tokens/generated/tokens.json",
-      "sha256": "17a3c2a2b94e920ef35a07730bccdc77d29e4a7eed38af7bb62ef85f5160e8bf"
+      "sha256": "61ebb1c651c39b409b51a75f4560ad70bc4a1076436ebe62a7480ed128d6e9d1"
     }
   ],
   "contrastPairs": [
@@ -419,7 +419,7 @@
   },
   "source": {
     "path": "packages/tokens/src/klipse.tokens.json",
-    "sha256": "25d632e957e1f32ada256728f345f93292aa65748ff30b16ec12248392555fdb"
+    "sha256": "b80dde500f6221db3e53218fe115e1285e2863bca5dd4993a4dde646f6894547"
   },
   "themes": [
     "light",
@@ -14691,7 +14691,7 @@
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-elevation-menu": "0px 8px 15px 0px color(srgb 0 0 0 / 0.1)"
+        "--louis-elevation-menu": "0px 12px 32px 0px color(srgb 0 0 0 / 0.16)"
       },
       "deprecated": null,
       "description": null,
@@ -14702,54 +14702,7 @@
         {
           "blur": {
             "unit": "px",
-            "value": 15
-          },
-          "color": {
-            "alpha": 0.1,
-            "colorSpace": "srgb",
-            "components": [
-              0,
-              0,
-              0
-            ]
-          },
-          "inset": false,
-          "offsetX": {
-            "unit": "px",
-            "value": 0
-          },
-          "offsetY": {
-            "unit": "px",
-            "value": 8
-          },
-          "spread": {
-            "unit": "px",
-            "value": 0
-          }
-        }
-      ],
-      "sourcePath": "semantic.light.elevation.menu",
-      "tier": "semantic",
-      "type": "shadow"
-    },
-    {
-      "aliasTarget": {
-        "id": "shadow-menu-dark",
-        "mode": "base"
-      },
-      "cssProperties": {
-        "--louis-elevation-menu": "0px 8px 15px 0px color(srgb 0 0 0 / 0.16)"
-      },
-      "deprecated": null,
-      "description": null,
-      "id": "elevation-menu",
-      "mode": "dark",
-      "rawValue": "{primitive.shadow.menu-dark}",
-      "resolvedValue": [
-        {
-          "blur": {
-            "unit": "px",
-            "value": 15
+            "value": 32
           },
           "color": {
             "alpha": 0.16,
@@ -14767,7 +14720,54 @@
           },
           "offsetY": {
             "unit": "px",
-            "value": 8
+            "value": 12
+          },
+          "spread": {
+            "unit": "px",
+            "value": 0
+          }
+        }
+      ],
+      "sourcePath": "semantic.light.elevation.menu",
+      "tier": "semantic",
+      "type": "shadow"
+    },
+    {
+      "aliasTarget": {
+        "id": "shadow-menu-dark",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-elevation-menu": "0px 12px 32px 0px color(srgb 0 0 0 / 0.36)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "elevation-menu",
+      "mode": "dark",
+      "rawValue": "{primitive.shadow.menu-dark}",
+      "resolvedValue": [
+        {
+          "blur": {
+            "unit": "px",
+            "value": 32
+          },
+          "color": {
+            "alpha": 0.36,
+            "colorSpace": "srgb",
+            "components": [
+              0,
+              0,
+              0
+            ]
+          },
+          "inset": false,
+          "offsetX": {
+            "unit": "px",
+            "value": 0
+          },
+          "offsetY": {
+            "unit": "px",
+            "value": 12
           },
           "spread": {
             "unit": "px",
@@ -17991,10 +17991,10 @@
         {
           "blur": {
             "unit": "px",
-            "value": 15
+            "value": 32
           },
           "color": {
-            "alpha": 0.16,
+            "alpha": 0.36,
             "colorSpace": "srgb",
             "components": [
               0,
@@ -18009,7 +18009,7 @@
           },
           "offsetY": {
             "unit": "px",
-            "value": 8
+            "value": 12
           },
           "spread": {
             "unit": "px",
@@ -18021,10 +18021,10 @@
         {
           "blur": {
             "unit": "px",
-            "value": 15
+            "value": 32
           },
           "color": {
-            "alpha": 0.16,
+            "alpha": 0.36,
             "colorSpace": "srgb",
             "components": [
               0,
@@ -18039,7 +18039,7 @@
           },
           "offsetY": {
             "unit": "px",
-            "value": 8
+            "value": 12
           },
           "spread": {
             "unit": "px",
@@ -18062,10 +18062,10 @@
         {
           "blur": {
             "unit": "px",
-            "value": 15
+            "value": 32
           },
           "color": {
-            "alpha": 0.1,
+            "alpha": 0.16,
             "colorSpace": "srgb",
             "components": [
               0,
@@ -18080,7 +18080,7 @@
           },
           "offsetY": {
             "unit": "px",
-            "value": 8
+            "value": 12
           },
           "spread": {
             "unit": "px",
@@ -18092,10 +18092,10 @@
         {
           "blur": {
             "unit": "px",
-            "value": 15
+            "value": 32
           },
           "color": {
-            "alpha": 0.1,
+            "alpha": 0.16,
             "colorSpace": "srgb",
             "components": [
               0,
@@ -18110,7 +18110,7 @@
           },
           "offsetY": {
             "unit": "px",
-            "value": 8
+            "value": 12
           },
           "spread": {
             "unit": "px",

@@ -4902,7 +4902,7 @@ export const primitives = {
             0,
             0
           ],
-          "alpha": 0.16,
+          "alpha": 0.36,
           "hex": "#000000"
         },
         "offsetX": {
@@ -4910,11 +4910,11 @@ export const primitives = {
           "unit": "px"
         },
         "offsetY": {
-          "value": 8,
+          "value": 12,
           "unit": "px"
         },
         "blur": {
-          "value": 15,
+          "value": 32,
           "unit": "px"
         },
         "spread": {
@@ -4935,18 +4935,18 @@ export const primitives = {
             0,
             0
           ],
-          "alpha": 0.16
+          "alpha": 0.36
         },
         "offsetX": {
           "value": 0,
           "unit": "px"
         },
         "offsetY": {
-          "value": 8,
+          "value": 12,
           "unit": "px"
         },
         "blur": {
-          "value": 15,
+          "value": 32,
           "unit": "px"
         },
         "spread": {
@@ -4973,7 +4973,7 @@ export const primitives = {
             0,
             0
           ],
-          "alpha": 0.1,
+          "alpha": 0.16,
           "hex": "#000000"
         },
         "offsetX": {
@@ -4981,11 +4981,11 @@ export const primitives = {
           "unit": "px"
         },
         "offsetY": {
-          "value": 8,
+          "value": 12,
           "unit": "px"
         },
         "blur": {
-          "value": 15,
+          "value": 32,
           "unit": "px"
         },
         "spread": {
@@ -5006,18 +5006,18 @@ export const primitives = {
             0,
             0
           ],
-          "alpha": 0.1
+          "alpha": 0.16
         },
         "offsetX": {
           "value": 0,
           "unit": "px"
         },
         "offsetY": {
-          "value": 8,
+          "value": 12,
           "unit": "px"
         },
         "blur": {
-          "value": 15,
+          "value": 32,
           "unit": "px"
         },
         "spread": {
@@ -17268,7 +17268,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-elevation-menu": "0px 8px 15px 0px color(srgb 0 0 0 / 0.1)"
+        "--louis-elevation-menu": "0px 12px 32px 0px color(srgb 0 0 0 / 0.16)"
       },
       "deprecated": null,
       "description": null,
@@ -17287,18 +17287,18 @@ export const tokens = {
               0,
               0
             ],
-            "alpha": 0.1
+            "alpha": 0.16
           },
           "offsetX": {
             "value": 0,
             "unit": "px"
           },
           "offsetY": {
-            "value": 8,
+            "value": 12,
             "unit": "px"
           },
           "blur": {
-            "value": 15,
+            "value": 32,
             "unit": "px"
           },
           "spread": {
@@ -22377,7 +22377,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-elevation-menu": "0px 8px 15px 0px color(srgb 0 0 0 / 0.16)"
+        "--louis-elevation-menu": "0px 12px 32px 0px color(srgb 0 0 0 / 0.36)"
       },
       "deprecated": null,
       "description": null,
@@ -22396,18 +22396,18 @@ export const tokens = {
               0,
               0
             ],
-            "alpha": 0.16
+            "alpha": 0.36
           },
           "offsetX": {
             "value": 0,
             "unit": "px"
           },
           "offsetY": {
-            "value": 8,
+            "value": 12,
             "unit": "px"
           },
           "blur": {
-            "value": 15,
+            "value": 32,
             "unit": "px"
           },
           "spread": {

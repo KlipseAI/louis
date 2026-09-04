@@ -4914,7 +4914,7 @@ export const primitives = {
           "unit": "px"
         },
         "blur": {
-          "value": 24,
+          "value": 32,
           "unit": "px"
         },
         "spread": {
@@ -4946,7 +4946,7 @@ export const primitives = {
           "unit": "px"
         },
         "blur": {
-          "value": 24,
+          "value": 32,
           "unit": "px"
         },
         "spread": {
@@ -4985,7 +4985,7 @@ export const primitives = {
           "unit": "px"
         },
         "blur": {
-          "value": 24,
+          "value": 32,
           "unit": "px"
         },
         "spread": {
@@ -5017,7 +5017,7 @@ export const primitives = {
           "unit": "px"
         },
         "blur": {
-          "value": 24,
+          "value": 32,
           "unit": "px"
         },
         "spread": {
@@ -17268,7 +17268,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-elevation-menu": "0px 12px 24px 0px color(srgb 0 0 0 / 0.24)"
+        "--louis-elevation-menu": "0px 12px 32px 0px color(srgb 0 0 0 / 0.24)"
       },
       "deprecated": null,
       "description": null,
@@ -17298,7 +17298,7 @@ export const tokens = {
             "unit": "px"
           },
           "blur": {
-            "value": 24,
+            "value": 32,
             "unit": "px"
           },
           "spread": {
@@ -22377,7 +22377,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-elevation-menu": "0px 12px 24px 0px color(srgb 0 0 0 / 0.24)"
+        "--louis-elevation-menu": "0px 12px 32px 0px color(srgb 0 0 0 / 0.24)"
       },
       "deprecated": null,
       "description": null,
@@ -22407,7 +22407,7 @@ export const tokens = {
             "unit": "px"
           },
           "blur": {
-            "value": 24,
+            "value": 32,
             "unit": "px"
           },
           "spread": {

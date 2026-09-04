@@ -2,7 +2,7 @@
   "artifacts": [
     {
       "path": "packages/tokens/generated/figma.tokens.json",
-      "sha256": "f4e198c819dc5ddc101bf8129538c856e6f87fe7042764192b310fcd4ba323f1"
+      "sha256": "befc3fc4b930f5dec514d5232e11813ba69647ae4dbc4cc5b3ad83158471ec6e"
     },
     {
       "path": "packages/tokens/generated/index.d.ts",
@@ -10,15 +10,15 @@
     },
     {
       "path": "packages/tokens/generated/index.js",
-      "sha256": "d50f140763b5ba0f87ca7a94dcefd3b885aeb80f3520194009161acedbc2e968"
+      "sha256": "d6e8f8e468b76c1372ed2add24121c13313146dea1a4353776f7188cfec1f19c"
     },
     {
       "path": "packages/tokens/generated/tokens.css",
-      "sha256": "a5b366d194d921569168e144b5a2732a6796d3f1764040aa234c4ff593f06a0f"
+      "sha256": "627a94295b1dcd967dce40ba831464bd559a344bc9c4aca4bb0f638f29d5d43f"
     },
     {
       "path": "packages/tokens/generated/tokens.json",
-      "sha256": "e1972fffd995b3ce422465cebd7e8d86de89ae577677bba1c2d2d2031f4075cd"
+      "sha256": "a33602b0b689d6d6743cbbc4e66c6243e4779edc8aaf1e4b72ebc3d41cd18e33"
     }
   ],
   "contrastPairs": [
@@ -419,7 +419,7 @@
   },
   "source": {
     "path": "packages/tokens/src/klipse.tokens.json",
-    "sha256": "394f6c2b06093b282bcd97226fb1d963e3b5f7b360dcd28fa8eebd8f81f31dfd"
+    "sha256": "b97b4aa8484caa06fee3334298e5b8ae5ac175bfffa576f520087b343919981e"
   },
   "themes": [
     "light",
@@ -14691,7 +14691,7 @@
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-elevation-menu": "0px 12px 24px 0px color(srgb 0 0 0 / 0.24)"
+        "--louis-elevation-menu": "0px 12px 32px 0px color(srgb 0 0 0 / 0.24)"
       },
       "deprecated": null,
       "description": null,
@@ -14702,7 +14702,7 @@
         {
           "blur": {
             "unit": "px",
-            "value": 24
+            "value": 32
           },
           "color": {
             "alpha": 0.24,
@@ -14738,7 +14738,7 @@
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-elevation-menu": "0px 12px 24px 0px color(srgb 0 0 0 / 0.24)"
+        "--louis-elevation-menu": "0px 12px 32px 0px color(srgb 0 0 0 / 0.24)"
       },
       "deprecated": null,
       "description": null,
@@ -14749,7 +14749,7 @@
         {
           "blur": {
             "unit": "px",
-            "value": 24
+            "value": 32
           },
           "color": {
             "alpha": 0.24,
@@ -17991,7 +17991,7 @@
         {
           "blur": {
             "unit": "px",
-            "value": 24
+            "value": 32
           },
           "color": {
             "alpha": 0.24,
@@ -18021,7 +18021,7 @@
         {
           "blur": {
             "unit": "px",
-            "value": 24
+            "value": 32
           },
           "color": {
             "alpha": 0.24,
@@ -18062,7 +18062,7 @@
         {
           "blur": {
             "unit": "px",
-            "value": 24
+            "value": 32
           },
           "color": {
             "alpha": 0.24,
@@ -18092,7 +18092,7 @@
         {
           "blur": {
             "unit": "px",
-            "value": 24
+            "value": 32
           },
           "color": {
             "alpha": 0.24,

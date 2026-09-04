@@ -2,23 +2,23 @@
   "artifacts": [
     {
       "path": "packages/tokens/generated/figma.tokens.json",
-      "sha256": "04d26d451d876cc303ac217ba2ec10195c570826486622f8f72bb8b08129bcca"
+      "sha256": "4508d7647480cd07dbafcf62fbe8da2681105610472e5b8b1c67bfdcbb8b171e"
     },
     {
       "path": "packages/tokens/generated/index.d.ts",
-      "sha256": "92fe6b659463eb12c948a70468e6e34d710ecc541dd266404544138280724289"
+      "sha256": "468e1e91a8616e1577ba1e96a86ff857040a8cafec9a12fcec1596450d584561"
     },
     {
       "path": "packages/tokens/generated/index.js",
-      "sha256": "b1386a7e2c5c6927624f12d12bfa6c081b66100001c42382eb6eefaa38b285e2"
+      "sha256": "09bb5fa024eadd3244de66f8cea90f3777c717acee279fa5141befa67ee0b745"
     },
     {
       "path": "packages/tokens/generated/tokens.css",
-      "sha256": "f284985895d6cb49d4448b828f7b6567dfb2649282d646c7caf868ba78516134"
+      "sha256": "35267bef71445b2234a633cdbab54fddf280888b70edba8d440d973ec184aa8f"
     },
     {
       "path": "packages/tokens/generated/tokens.json",
-      "sha256": "3a782f38f6b603b30b91d00b14d1e571672e6c09b944c53b008c8cd83f66dd73"
+      "sha256": "a038c69355c9e0a9729d58435cb4a8e816da4e2c06167048a7720146fe86a7ec"
     }
   ],
   "contrastPairs": [
@@ -419,7 +419,7 @@
   },
   "source": {
     "path": "packages/tokens/src/klipse.tokens.json",
-    "sha256": "88f6b5bb9168ed04c1390964d5a63493f1576840e76f68fb28710033d98bacff"
+    "sha256": "3ff3b8aea3cd09428d28da016d27f919184719971ba082cc7be2cb1d8b349a97"
   },
   "themes": [
     "light",
@@ -16236,20 +16236,20 @@
     },
     {
       "aliasTarget": {
-        "id": "space-6",
+        "id": "space-4",
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-layout-project-grid-gap": "6px"
+        "--louis-layout-project-grid-gap": "4px"
       },
       "deprecated": null,
       "description": null,
       "id": "layout-project-grid-gap",
       "mode": "global",
-      "rawValue": "{primitive.spacing.6}",
+      "rawValue": "{primitive.spacing.4}",
       "resolvedValue": {
         "unit": "px",
-        "value": 6
+        "value": 4
       },
       "sourcePath": "semantic.global.layout.project-grid-gap",
       "tier": "semantic",

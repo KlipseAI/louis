@@ -888,7 +888,7 @@
   --louis-color-table-row-hover: color(srgb 0.172549 0.184314 0.215686 / 1);
   --louis-color-table-row-line: color(srgb 0.258824 0.270588 0.298039 / 1);
   --louis-color-vem-properties-label: color(srgb 0.545098 0.556863 0.576471 / 1);
-  --louis-elevation-menu: 0px 12px 32px 0px color(srgb 0 0 0 / 0.24);
+  --louis-elevation-menu: 0px 12px 32px 0px color(srgb 0 0 0 / 0.48);
   --louis-elevation-tooltip: 0px 12px 24px 0px color(srgb 0.090196 0.105882 0.133333 / 0.12);
   --louis-elevation-upgrade: inset 0px 0px 0px 1px color(srgb 0 0 0 / 0.08), 0px 1px 2px 0px color(srgb 0 0 0 / 0.12);
 }

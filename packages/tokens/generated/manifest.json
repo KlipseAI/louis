@@ -2,7 +2,7 @@
   "artifacts": [
     {
       "path": "packages/tokens/generated/figma.tokens.json",
-      "sha256": "befc3fc4b930f5dec514d5232e11813ba69647ae4dbc4cc5b3ad83158471ec6e"
+      "sha256": "32542e52cc5ced037692e1899b809722ff86b150e3810d32cd6d7ed525422710"
     },
     {
       "path": "packages/tokens/generated/index.d.ts",
@@ -10,15 +10,15 @@
     },
     {
       "path": "packages/tokens/generated/index.js",
-      "sha256": "d6e8f8e468b76c1372ed2add24121c13313146dea1a4353776f7188cfec1f19c"
+      "sha256": "8e2d4853f685a9e56d8ef8356ebc8a3c2c744201b7aac364500a81c940e4a732"
     },
     {
       "path": "packages/tokens/generated/tokens.css",
-      "sha256": "627a94295b1dcd967dce40ba831464bd559a344bc9c4aca4bb0f638f29d5d43f"
+      "sha256": "778096d39dc64cf19b670a3286c41e0eb7f525107b3ded4e2e479591bc7dfc55"
     },
     {
       "path": "packages/tokens/generated/tokens.json",
-      "sha256": "a33602b0b689d6d6743cbbc4e66c6243e4779edc8aaf1e4b72ebc3d41cd18e33"
+      "sha256": "6a52f333c4701fcfad9ea41bf4c1e2c62db304ec932e5727cdf0bda66802c659"
     }
   ],
   "contrastPairs": [
@@ -419,7 +419,7 @@
   },
   "source": {
     "path": "packages/tokens/src/klipse.tokens.json",
-    "sha256": "b97b4aa8484caa06fee3334298e5b8ae5ac175bfffa576f520087b343919981e"
+    "sha256": "93e365788a2cfbde5cb33ad44f94ccf794388d638917d5da9c54bf33532ff500"
   },
   "themes": [
     "light",
@@ -14738,7 +14738,7 @@
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-elevation-menu": "0px 12px 32px 0px color(srgb 0 0 0 / 0.24)"
+        "--louis-elevation-menu": "0px 12px 32px 0px color(srgb 0 0 0 / 0.48)"
       },
       "deprecated": null,
       "description": null,
@@ -14752,7 +14752,7 @@
             "value": 32
           },
           "color": {
-            "alpha": 0.24,
+            "alpha": 0.48,
             "colorSpace": "srgb",
             "components": [
               0,
@@ -17994,7 +17994,7 @@
             "value": 32
           },
           "color": {
-            "alpha": 0.24,
+            "alpha": 0.48,
             "colorSpace": "srgb",
             "components": [
               0,
@@ -18024,7 +18024,7 @@
             "value": 32
           },
           "color": {
-            "alpha": 0.24,
+            "alpha": 0.48,
             "colorSpace": "srgb",
             "components": [
               0,

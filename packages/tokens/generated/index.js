@@ -4902,7 +4902,7 @@ export const primitives = {
             0,
             0
           ],
-          "alpha": 0.24,
+          "alpha": 0.48,
           "hex": "#000000"
         },
         "offsetX": {
@@ -4935,7 +4935,7 @@ export const primitives = {
             0,
             0
           ],
-          "alpha": 0.24
+          "alpha": 0.48
         },
         "offsetX": {
           "value": 0,
@@ -22377,7 +22377,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-elevation-menu": "0px 12px 32px 0px color(srgb 0 0 0 / 0.24)"
+        "--louis-elevation-menu": "0px 12px 32px 0px color(srgb 0 0 0 / 0.48)"
       },
       "deprecated": null,
       "description": null,
@@ -22396,7 +22396,7 @@ export const tokens = {
               0,
               0
             ],
-            "alpha": 0.24
+            "alpha": 0.48
           },
           "offsetX": {
             "value": 0,

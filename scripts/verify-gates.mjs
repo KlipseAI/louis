@@ -25,6 +25,7 @@ const skippedCanaries = [];
 const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const errors = [];
 let canaryCount = 0;
+const cleanRuns = new Map();
 const tick = String.fromCharCode(96);
 
 runPass("check catalog", "scripts/build-design-docs.mjs", "--check");
@@ -171,13 +172,45 @@ withCanary(
   "migration/figma-board-composition.json",
   (source) => {
     const ledger = JSON.parse(source);
-    const id = Object.keys(ledger.nodes).find((key) => ledger.nodes[key].verdict === "missing");
-    const node = { ...ledger.nodes[id], verdict: "structural", rule: "surface",
-      reason: "카나리아 — 후보를 구조로 옮겨 분모를 줄여 놓았다." };
-    delete node.candidateClause;
-    ledger.nodes[id] = node;
-    ledger.counts.missing -= 1;
-    ledger.counts.structural += 1;
+    /* **옮기는 개수를 1 로 고정하지 않는다.** 이 그물은 후보 총수가 CANDIDATE_FLOOR «아래로»
+       내려갈 때만 운다. 보드가 늘면 후보도 함께 늘어 바닥과의 사이에 여유가 생기는데(보드
+       원장을 다시 뽑으면 흔히 벌어진다), 그 여유가 있는 동안 한 자리만 옮기면 그물은 울지
+       않는다 — canary 가 자기 대상을 잃고 게이트 전체가 멈춘다. 위 인용·드리프트 canary 가
+       같은 사고를 겪고 같은 처방을 적어 두었다: 재는 값을 canary 에 박지 말고 그때그때 읽어
+       온다. 바닥의 임자는 checker 이므로 그 파일에서 읽어, **바닥을 실제로 넘길 만큼** 옮긴다.
+       (여유 자체를 잠그는 것은 이 canary 가 할 일이 아니다 — 그 판단은 checker 의 래칫이
+       하고, 여기서는 「내려가면 우는가」만 증명한다.) */
+    const checker = readFileSync(
+      resolve(repoRoot, "scripts/check-figma-board-composition.mjs"),
+      "utf8",
+    );
+    const floorMatch = checker.match(/const CANDIDATE_FLOOR = (\d+);/);
+    if (!floorMatch) {
+      errors.push("board composition 후보 바닥 canary가 CANDIDATE_FLOOR 를 읽지 못했습니다.");
+      return source;
+    }
+    const floor = Number(floorMatch[1]);
+    const candidates = ledger.counts.instance + ledger.counts.replaceable + ledger.counts.bespoke
+      + ledger.counts.blocked + ledger.counts.missing;
+    const need = candidates - floor + 1;
+    const ids = Object.keys(ledger.nodes)
+      .filter((key) => ledger.nodes[key].verdict === "missing")
+      .slice(0, Math.max(need, 0));
+    if (need < 1 || ids.length < need) {
+      errors.push(
+        "board composition 후보 바닥 canary가 옮길 미보유 자리를 찾지 못했습니다: 바닥 " + floor +
+          " · 후보 " + candidates + " · 필요 " + need + " · 미보유 " + ledger.counts.missing + ".",
+      );
+      return source;
+    }
+    for (const id of ids) {
+      const node = { ...ledger.nodes[id], verdict: "structural", rule: "surface",
+        reason: "카나리아 — 후보를 구조로 옮겨 분모를 줄여 놓았다." };
+      delete node.candidateClause;
+      ledger.nodes[id] = node;
+    }
+    ledger.counts.missing -= ids.length;
+    ledger.counts.structural += ids.length;
     return JSON.stringify(ledger, null, 2) + "\n";
   },
   "board composition candidate reclassified as structural",
@@ -385,7 +418,28 @@ withCanary(
   "figma/app-screens.plan.json",
   (source) => {
     const plan = JSON.parse(source);
-    plan.productGlyphs = plan.productGlyphs.filter((glyph) => glyph.id !== "chevron-left");
+    /* **글리프 이름을 고정하지 않는다.** 예전에는 `chevron-left` 를 리터럴로 적었는데,
+       보드가 움직여 그 글리프가 어느 보드에도 남지 않자(배너 화살표가 인스턴스가 되면서)
+       조인표에서 그 항목을 지워도 열거기가 그것을 찾지 않았다 — 조인은 **쓰이는 이름**에만
+       걸리므로 쓰이지 않는 항목을 지우는 것은 조용한 교환이고, canary 는 자기 대상을 잃은
+       채 「checker 가 통과시켰습니다」로만 보였다. 위 인용·드리프트 canary 가 같은 사고를
+       겪고 같은 처방을 적어 두었다: 재는 값을 canary 에 박지 말고 그때그때 읽어 온다.
+       원장이 지금 실제로 세고 있는 글리프에서 고른다. */
+    const ledger = JSON.parse(
+      readFileSync(resolve(repoRoot, "migration/figma-board-composition.json"), "utf8"),
+    );
+    const used = new Set(
+      Object.values(ledger.nodes ?? {}).map((node) => node.glyph).filter(Boolean),
+    );
+    const target = plan.productGlyphs.find((glyph) => used.has(glyph.id));
+    if (!target) {
+      errors.push(
+        "board composition glyph join table canary가 보드에 실제로 쓰이는 글리프를 찾지 못했습니다. " +
+          "원장에 아이콘 자리가 하나도 없다면 이 canary 는 잴 것이 없습니다.",
+      );
+      return source;
+    }
+    plan.productGlyphs = plan.productGlyphs.filter((glyph) => glyph.id !== target.id);
     return JSON.stringify(plan, null, 2) + "\n";
   },
   "board composition glyph join table lost an entry",
@@ -1152,6 +1206,32 @@ console.log(
     ", byte-for-byte restoration",
 );
 
+// 진단 한 줄이 오염 «때문에» 달라졌는지 본다. 전체 출력 비교로는 부족하다 — 오염이 엉뚱한
+// 다른 진단을 하나 더 내는 동안 기대하던 진단은 이미 빨갛던 사유에서 나올 수 있고, 그러면
+// 출력은 달라지지만 canary 는 자기 오염을 잰 것이 아니다.
+function diagnosticLines(output, expectedDiagnostic) {
+  return output
+    .split("\n")
+    .filter((line) => line.includes(expectedDiagnostic))
+    .join("\n");
+}
+
+function runClean(script, args) {
+  const key = script + " " + args.join(" ");
+  if (!cleanRuns.has(key)) {
+    let output = "";
+    try {
+      execFileSync(process.execPath, [script, ...args], {
+        cwd: repoRoot, encoding: "utf8", stdio: ["ignore", "pipe", "pipe"],
+      });
+    } catch (error) {
+      output = String(error.stdout ?? "") + String(error.stderr ?? "");
+    }
+    cleanRuns.set(key, output);
+  }
+  return cleanRuns.get(key);
+}
+
 function runPass(label, script, ...args) {
   try {
     execFileSync(process.execPath, [script, ...args], {
@@ -1172,6 +1252,7 @@ function withCanary(path, mutate, label, script, expectedDiagnostic, ...args) {
   }
   const absolute = resolve(repoRoot, path);
   const before = readFileSync(absolute, "utf8");
+  const cleanOutput = runClean(script, args);
   const mutated = mutate(before);
   if (mutated === before) {
     errors.push(label + " canary가 입력을 변경하지 못했습니다: " + path);
@@ -1201,6 +1282,13 @@ function withCanary(path, mutate, label, script, expectedDiagnostic, ...args) {
           expectedDiagnostic +
           "\n" +
           output.trim(),
+      );
+    } else if (diagnosticLines(output, expectedDiagnostic) === diagnosticLines(cleanOutput, expectedDiagnostic)) {
+      errors.push(
+        label + " canary의 진단이 오염과 무관합니다: 오염 «없이» 돌려도 checker 가 그 진단을 " +
+          "글자 그대로 똑같이 냅니다. 이 canary 는 자기 오염이 아니라 이미 빨간 다른 사유를 " +
+          "읽고 통과한 것입니다 — 대상을 잃었거나(원장이 움직였다) 그물에 여유가 생겼습니다.\n" +
+          diagnosticLines(output, expectedDiagnostic).trim(),
       );
     } else {
       canaryCount += 1;

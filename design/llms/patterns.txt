@@ -1830,9 +1830,9 @@ grid-template-columns: repeat(
 없다. 이 recipe의 열 수는 `floor((W + gap) / (최소 + gap))`이다.
 
 **그 환산은 위의 compatibility profile을 재현하지 못한다 — 정본은 profile 쪽이다.** 오늘의
-토큰 값(`layout-project-card-minimum` 240px · `layout-project-grid-gap` 6px,
-`packages/tokens/generated/tokens.css:480-481`)을 넣으면 한 열이 246px씩 들어가므로, 폭 720px에서
-`floor(726 / 246)` = 2열이고 profile은 3열, 폭 1800px에서 `floor(1806 / 246)` = 7열이고 profile은
+토큰 값(`layout-project-card-minimum` 240px · `layout-project-grid-gap` 4px,
+`packages/tokens/generated/tokens.css:478-479`)을 넣으면 한 열이 244px씩 들어가므로, 폭 720px에서
+`floor(724 / 244)` = 2열이고 profile은 3열, 폭 1800px에서 `floor(1804 / 244)` = 7열이고 profile은
 5열이다. 두 축이 맞는 곳은 1200px 구간(4열)뿐이다. 최소 폭을 되튜닝해도 풀리지 않는다 —
 720px에서 3열이 나오려면 `최소 + gap`이 242px 이하여야 하고 1800px에서 5열이 나오려면 302px
 이상이어야 해서, 하나의 최소 폭이 동시에 만족시킬 수 없다.

@@ -1,52 +1,78 @@
 {
   "$comment": "Generated from migration/product.auth-fixture.json. Do not edit by hand.",
   "$evidenceClass": "product-only measured upgrade card inventory plus desktop scene and mobile visible slice; not a normative design-system contract",
-  "$productRegression": {
-    "$comment": "이 계획의 카드 면·글자색은 제품 회귀를 그대로 담고 있다. 시안으로 읽지 마라.",
-    "symptom": "라이트 테마 /mypage/upgrade 에서 Basic·Pro 카드는 면 #FAFAFA 에 제목·가격 글자가 #E3E4E8 (대비 약 1.07:1, 사실상 안 보임), Trial·Max 카드는 면이 순검정으로 뒤집힌다. 직전 실측(a3ed8e03)에서는 네 장 모두 #FAFAFA 면에 #313640 글자였다.",
-    "mechanism": "제품이 LOUIS 핀을 bf62eba7 → 425a9c3d 로 올리면서 LOUIS generated/theme.css 가 `--color-gray-*: var(--louis-color-gray-*)` 를 들고 왔다. 제품은 apps/web/app/tailwind.css:48 의 `@theme inline` 에서 같은 이름을 `var(--gray-*)` 로 정의하는데, LOUIS theme.css 를 같은 theme 레이어의 244줄에서 **나중에** import 하므로 LOUIS 쪽이 이긴다. 실제 빌드 산출물이 `.bg-gray-000{background-color:var(--louis-color-gray-000)}` · `.text-gray-800{color:var(--louis-color-gray-800)}` 로 나온다.",
-    "consequence": "`:root` 값은 두 램프가 같아서 전역 화면은 그대로지만, 제품이 요소 단위로 덮어쓰던 `--gray-*` 가 전부 죽는다. 이 화면에서는 PRICING_DECK 의 라이트 아이덴티티 주입 22줄(apps/web/app/mypage/upgrade/page.tsx:177-198)이 무력화됐다. 같은 이유로 [data-landing-walkthrough-light|dark], [data-page-root] #pricing-faq, BlogShell/TemplateShell/BlogComingSoon 의 `[--gray-000:var(--palette-gray-1000)]!` 도 죽어 있다. `-rgb` 채널을 직접 읽는 임의값(`text-[rgb(var(--gray-500-rgb)/88%)]`)은 영향이 없다 — 그래서 같은 카드 안에서 일부 글자만 살아 있다.",
-    "introducedBefore": "74a7303b (이번 기준선 이동 ae8fd627 이 만든 것이 아니다 — 직전 lock 커밋에서 이미 성립한다)",
-    "verdict": "제품 회귀. 이 생성기는 실측을 왜곡하지 않고 그대로 옮기되, 이 값들을 디자인 의도로 채택하지 않는다."
+  "$productRegressionResolved": {
+    "$comment": "직전 앵커의 카드 면·글자색 회귀는 이 앵커에서 재현되지 않는다. 기록은 남긴다 — 같은 함정이 다시 열릴 수 있다.",
+    "was": "ae8fd627 에서 라이트 /mypage/upgrade 의 Basic·Pro 카드는 면 #FAFAFA 에 제목·가격이 #E3E4E8(대비 약 1.07:1)이었고, Trial·Max 는 면이 순검정으로 뒤집혀 있었다.",
+    "now": "5a67d692 실측 — 다섯 장 **모두** 같은 면 rgb(221,222,224) 에 같은 제목·가격색 rgb(42,47,57) 이다(대비 약 9.3:1). 카드마다 갈리던 면이 사라졌다.",
+    "fixedBy": "4ad47868 fix(web): 가격·업그레이드의 색 역할을 제자리로 돌린다 — 잉크와 종이가 뒤바뀌어 있었다",
+    "mechanism": "그 커밋이 `PRICING_DECK` 의 램프 핀 22줄(`[--gray-000:var(--palette-gray-000)]` … `-rgb` 짝까지)을 통째로 걷어내고 카드 면을 `bg-gray-900` 한 값으로 모았다. 옛 회귀의 원인은 그 핀이 `bg-*`·`text-*` 유틸리티에 닿지 않는다는 것이었다 — `@theme inline` 이 값을 빌드 시점에 접어 넣어 `var(--louis-color-gray-*)` 로 컴파일되므로 제품 별칭 `--gray-*` 를 덮어도 소용이 없고, 임의값으로 직접 적은 자리에만 걸렸다. 그래서 한 카드 안에서 면과 글자가 서로 다른 시스템을 따라갔다.",
+    "verified": "git show 4ad47868 -- apps/web/app/mypage/upgrade/page.tsx 가 그 22줄의 삭제와 `+ \"bg-gray-900\"` 를 함께 보여준다. 커밋은 ae8fd627..5a67d692 구간 안에 있다.",
+    "stillMeasuredNotDesigned": "면 rgb(221,222,224) 는 실측값 그대로 옮긴 것이다. 제품 소스 주석은 이 자리를 「라이트 #f1f1f3」로 적고 있어 값이 어긋나 있는데, 그 차이의 원인은 이 생성기가 확인하지 않았다 — 지어내지 않고 실측만 적는다."
   },
-  "productCommit": "ae8fd6278481a5e86cd324ba86a1d44fe978b788",
+  "productCommit": "5a67d692f5ca737f06c7b51b98f28ded22d1f7a1",
   "currentPlanOutlineSource": {
     "lines": [
       {
-        "command": "git -C /Users/sejunki/klipse-web show ae8fd6278481a5e86cd324ba86a1d44fe978b788:apps/web/app/mypage/upgrade/page.tsx",
-        "path": "apps/web/app/mypage/upgrade/page.tsx",
-        "line": 214,
+        "command": "git -C /Users/sejunki/klipse-web show 5a67d692f5ca737f06c7b51b98f28ded22d1f7a1:apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
+        "path": "apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
+        "line": 219,
         "quote": "  \"[outline:2px_solid_rgb(var(--primary-200-rgb)/40%)]\","
       },
       {
-        "command": "git -C /Users/sejunki/klipse-web show ae8fd6278481a5e86cd324ba86a1d44fe978b788:apps/web/app/mypage/upgrade/page.tsx",
-        "path": "apps/web/app/mypage/upgrade/page.tsx",
-        "line": 215,
+        "command": "git -C /Users/sejunki/klipse-web show 5a67d692f5ca737f06c7b51b98f28ded22d1f7a1:apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
+        "path": "apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
+        "line": 220,
         "quote": "  \"[outline-offset:-2px]\","
       }
     ],
     "figmaMapping": "The measured 2px solid outline with -2px offset is represented losslessly as a 2px INSIDE stroke. No exact local Figma color variable exists, so this remains a measured product-only fixed paint."
   },
   "figmaGlyphMeasurements": {
-    "$measurement": "use_figma temporary TextNode natural bounds; exact per-string typography; measured 2026-08-24 and nodes removed",
+    "$measurement": "use_figma temporary TextNode natural bounds; exact per-string typography; measured 2026-09-05 and nodes removed",
     "desktop": {
-      "200": 37,
-      "Free": 71,
-      "35,900 KRW": 201,
-      "59,900 KRW": 201,
-      "89,900 KRW": 202,
-      "per month": 73,
-      "1,800": 50,
-      "3,000": 54,
-      "4,500": 54,
+      "800": 37,
+      "Free": 72,
+      "5,000": 53,
+      "16,500": 62,
+      "30,000": 66,
+      "48,000": 66,
       "credits": 62
     },
+    "desktopLines": {
+      "12,900 KRW": {
+        "12,900": 113,
+        "KRW": 80
+      },
+      "29,900 KRW": {
+        "29,900": 119,
+        "KRW": 80
+      },
+      "49,900 KRW": {
+        "49,900": 120,
+        "KRW": 80
+      },
+      "74,900 KRW": {
+        "74,900": 116,
+        "KRW": 80
+      },
+      "per month": {
+        "per": 24,
+        "month": 46
+      }
+    },
     "mobile": {
-      "Free": 55,
-      "35,900": 91,
-      "KRW": 61,
-      "per": 21,
-      "month": 40
+      "Free": 56
+    },
+    "mobileLines": {
+      "12,900 KRW": {
+        "12,900": 88,
+        "KRW": 62
+      },
+      "per month": {
+        "per": 21,
+        "month": 40
+      }
     }
   },
   "contexts": [
@@ -117,23 +143,7 @@
         1
       ],
       "radius": 16,
-      "effects": [
-        {
-          "type": "INNER_SHADOW",
-          "color": [
-            0,
-            0,
-            0,
-            0.08
-          ],
-          "offset": {
-            "x": 0,
-            "y": 0
-          },
-          "radius": 0,
-          "spread": 0.5
-        }
-      ],
+      "effects": [],
       "topBar": {
         "x": 0,
         "y": 0,
@@ -144,14 +154,14 @@
         "x": 166,
         "y": 53,
         "width": 1300,
-        "height": 2251.5938
+        "height": 3362.1719
       },
       "headerTitle": {
         "text": "Start free, upgrade or cancel anytime.",
         "rect": {
           "x": 166,
           "y": 93,
-          "width": 820,
+          "width": 796.7344,
           "height": 64.7969
         },
         "fontSize": 48,
@@ -186,23 +196,43 @@
           0.72
         ]
       },
+      "headerNotice": {
+        "text": "All plans on sale to mark the Lite launch (2026.09.01 - 09.30)",
+        "rect": {
+          "x": 1046.5,
+          "y": 93,
+          "width": 419.5,
+          "height": 32
+        },
+        "fontSize": 14,
+        "fontWeight": 500,
+        "lineHeight": 21,
+        "letterSpacing": -0.14,
+        "textAlign": "start",
+        "color": [
+          0.980392,
+          0.980392,
+          0.980392,
+          1
+        ]
+      },
       "compareTitle": {
         "text": "Compare Plans",
         "rect": {
           "x": 166,
-          "y": 875.7969,
+          "y": 923.9844,
           "width": 1300,
-          "height": 64.7969
+          "height": 48.5938
         },
-        "fontSize": 48,
-        "fontWeight": 500,
-        "lineHeight": 64.8,
-        "letterSpacing": -0.96,
+        "fontSize": 36,
+        "fontWeight": 600,
+        "lineHeight": 48.6,
+        "letterSpacing": -0.72,
         "textAlign": "center",
         "color": [
-          0.945098,
-          0.945098,
-          0.952941,
+          0,
+          0,
+          0,
           1
         ]
       }
@@ -211,21 +241,21 @@
       "x": 166,
       "y": 251.7969,
       "width": 1300,
-      "height": 560
+      "height": 608.1875
     },
     "cards": [
       {
         "plan": "Trial",
         "route": "/mypage/upgrade",
         "rect": {
-          "width": 316,
-          "height": 560
+          "width": 256.7969,
+          "height": 608.1875
         },
         "position": {
           "x": 166,
           "y": 251.7969,
-          "width": 316,
-          "height": 560
+          "width": 256.7969,
+          "height": 608.1875
         },
         "padding": {
           "top": 16,
@@ -233,11 +263,11 @@
           "bottom": 16,
           "left": 16
         },
-        "radius": 24,
+        "radius": 12,
         "background": [
-          0,
-          0,
-          0,
+          0.866667,
+          0.870588,
+          0.878431,
           1
         ],
         "effects": [
@@ -275,7 +305,7 @@
             "rect": {
               "x": 16,
               "y": 16,
-              "width": 284,
+              "width": 224.7969,
               "height": 30
             },
             "fontSize": 20,
@@ -284,9 +314,9 @@
             "letterSpacing": -0.2,
             "textAlign": "start",
             "color": [
-              0.890196,
-              0.894118,
-              0.909804,
+              0.164706,
+              0.184314,
+              0.223529,
               1
             ]
           },
@@ -295,28 +325,28 @@
             "rect": {
               "x": 16,
               "y": 56,
-              "width": 69.7969,
+              "width": 70.7969,
               "height": 48.5938
             },
             "fontSize": 36,
-            "fontWeight": 500,
+            "fontWeight": 600,
             "lineHeight": 48.6,
             "letterSpacing": -0.72,
             "textAlign": "start",
             "color": [
-              0.890196,
-              0.894118,
-              0.909804,
+              0.164706,
+              0.184314,
+              0.223529,
               1
             ],
-            "figmaWidth": 71
+            "figmaWidth": 72
           },
           {
-            "text": "200",
+            "text": "800",
             "rect": {
               "x": 16,
               "y": 108.59370000000001,
-              "width": 35.9844,
+              "width": 36.4688,
               "height": 30
             },
             "fontSize": 20,
@@ -325,9 +355,9 @@
             "letterSpacing": -0.2,
             "textAlign": "start",
             "color": [
-              0.835294,
-              0.843137,
-              0.866667,
+              0.25098,
+              0.270588,
+              0.309804,
               1
             ],
             "figmaWidth": 37
@@ -335,7 +365,7 @@
           {
             "text": "credits",
             "rect": {
-              "x": 59.984399999999994,
+              "x": 60.46879999999999,
               "y": 108.59370000000001,
               "width": 61.1406,
               "height": 30
@@ -346,9 +376,9 @@
             "letterSpacing": -0.2,
             "textAlign": "start",
             "color": [
-              0.835294,
-              0.843137,
-              0.866667,
+              0.25098,
+              0.270588,
+              0.309804,
               1
             ],
             "figmaWidth": 62
@@ -358,7 +388,7 @@
             "rect": {
               "x": 16,
               "y": 174.5937,
-              "width": 284,
+              "width": 224.7969,
               "height": 21
             },
             "fontSize": 14,
@@ -367,9 +397,9 @@
             "letterSpacing": -0.14,
             "textAlign": "start",
             "color": [
-              0.603922,
-              0.627451,
-              0.670588,
+              0.25098,
+              0.270588,
+              0.309804,
               1
             ]
           },
@@ -378,18 +408,18 @@
             "rect": {
               "x": 42,
               "y": 203.5937,
-              "width": 258,
-              "height": 24
+              "width": 198.7969,
+              "height": 21
             },
-            "fontSize": 16,
+            "fontSize": 14,
             "fontWeight": 400,
-            "lineHeight": 24,
-            "letterSpacing": -0.16,
+            "lineHeight": 21,
+            "letterSpacing": -0.14,
             "textAlign": "start",
             "color": [
-              0.737255,
-              0.752941,
-              0.788235,
+              0.25098,
+              0.270588,
+              0.309804,
               1
             ]
           },
@@ -397,19 +427,19 @@
             "text": "1 video editor upload, 2 imports",
             "rect": {
               "x": 42,
-              "y": 231.5937,
-              "width": 258,
-              "height": 24
+              "y": 229.5937,
+              "width": 198.7969,
+              "height": 21
             },
-            "fontSize": 16,
+            "fontSize": 14,
             "fontWeight": 400,
-            "lineHeight": 24,
-            "letterSpacing": -0.16,
+            "lineHeight": 21,
+            "letterSpacing": -0.14,
             "textAlign": "start",
             "color": [
-              0.737255,
-              0.752941,
-              0.788235,
+              0.25098,
+              0.270588,
+              0.309804,
               1
             ]
           },
@@ -417,19 +447,19 @@
             "text": "AI video generation trial",
             "rect": {
               "x": 42,
-              "y": 259.59369999999996,
-              "width": 258,
-              "height": 24
+              "y": 255.59369999999996,
+              "width": 198.7969,
+              "height": 21
             },
-            "fontSize": 16,
+            "fontSize": 14,
             "fontWeight": 400,
-            "lineHeight": 24,
-            "letterSpacing": -0.16,
+            "lineHeight": 21,
+            "letterSpacing": -0.14,
             "textAlign": "start",
             "color": [
-              0.737255,
-              0.752941,
-              0.788235,
+              0.25098,
+              0.270588,
+              0.309804,
               1
             ]
           },
@@ -437,19 +467,19 @@
             "text": "Basic video cut editing",
             "rect": {
               "x": 42,
-              "y": 287.59369999999996,
-              "width": 258,
-              "height": 24
+              "y": 281.59369999999996,
+              "width": 198.7969,
+              "height": 21
             },
-            "fontSize": 16,
+            "fontSize": 14,
             "fontWeight": 400,
-            "lineHeight": 24,
-            "letterSpacing": -0.16,
+            "lineHeight": 21,
+            "letterSpacing": -0.14,
             "textAlign": "start",
             "color": [
-              0.737255,
-              0.752941,
-              0.788235,
+              0.25098,
+              0.270588,
+              0.309804,
               1
             ]
           },
@@ -457,19 +487,19 @@
             "text": "Highlight input videos up to 10 min",
             "rect": {
               "x": 42,
-              "y": 315.59369999999996,
-              "width": 258,
-              "height": 24
+              "y": 307.59369999999996,
+              "width": 198.7969,
+              "height": 42
             },
-            "fontSize": 16,
+            "fontSize": 14,
             "fontWeight": 400,
-            "lineHeight": 24,
-            "letterSpacing": -0.16,
+            "lineHeight": 21,
+            "letterSpacing": -0.14,
             "textAlign": "start",
             "color": [
-              0.737255,
-              0.752941,
-              0.788235,
+              0.25098,
+              0.270588,
+              0.309804,
               1
             ]
           },
@@ -477,19 +507,19 @@
             "text": "Watermark included",
             "rect": {
               "x": 42,
-              "y": 343.59369999999996,
-              "width": 258,
-              "height": 24
+              "y": 353.59369999999996,
+              "width": 198.7969,
+              "height": 21
             },
-            "fontSize": 16,
+            "fontSize": 14,
             "fontWeight": 400,
-            "lineHeight": 24,
-            "letterSpacing": -0.16,
+            "lineHeight": 21,
+            "letterSpacing": -0.14,
             "textAlign": "start",
             "color": [
-              0.737255,
-              0.752941,
-              0.788235,
+              0.25098,
+              0.270588,
+              0.309804,
               1
             ]
           }
@@ -513,7 +543,7 @@
           {
             "rect": {
               "x": 16,
-              "y": 235.5937,
+              "y": 233.5937,
               "width": 18,
               "height": 18
             },
@@ -528,7 +558,7 @@
           {
             "rect": {
               "x": 16,
-              "y": 263.59369999999996,
+              "y": 259.59369999999996,
               "width": 18,
               "height": 18
             },
@@ -543,7 +573,7 @@
           {
             "rect": {
               "x": 16,
-              "y": 291.59369999999996,
+              "y": 285.59369999999996,
               "width": 18,
               "height": 18
             },
@@ -558,7 +588,7 @@
           {
             "rect": {
               "x": 16,
-              "y": 319.59369999999996,
+              "y": 311.59369999999996,
               "width": 18,
               "height": 18
             },
@@ -573,7 +603,7 @@
           {
             "rect": {
               "x": 16,
-              "y": 347.59369999999996,
+              "y": 357.59369999999996,
               "width": 18,
               "height": 18
             },
@@ -590,23 +620,23 @@
           "text": "Current plan",
           "rect": {
             "x": 16,
-            "y": 512,
-            "width": 284,
+            "y": 560.1875,
+            "width": 224.7969,
             "height": 32
           },
           "radius": 12,
           "fill": [
-            0.917647,
-            0.921569,
-            0.933333,
+            0.866667,
+            0.870588,
+            0.878431,
             1
           ],
           "opacity": 1,
           "label": {
             "text": "Current plan",
             "rect": {
-              "x": 118.98440000000005,
-              "y": 517.5,
+              "x": 89.375,
+              "y": 565.6875,
               "width": 78.0313,
               "height": 21
             },
@@ -616,26 +646,26 @@
             "letterSpacing": -0.14,
             "textAlign": "center",
             "color": [
-              0.603922,
-              0.627451,
-              0.670588,
+              0.439216,
+              0.458824,
+              0.501961,
               1
             ]
           }
         }
       },
       {
-        "plan": "Basic",
+        "plan": "Lite",
         "route": "/mypage/upgrade",
         "rect": {
-          "width": 316,
-          "height": 560
+          "width": 256.7969,
+          "height": 608.1875
         },
         "position": {
-          "x": 494,
+          "x": 426.79690000000005,
           "y": 251.7969,
-          "width": 316,
-          "height": 560
+          "width": 256.7969,
+          "height": 608.1875
         },
         "padding": {
           "top": 16,
@@ -643,11 +673,11 @@
           "bottom": 16,
           "left": 16
         },
-        "radius": 24,
+        "radius": 12,
         "background": [
-          0.980392,
-          0.980392,
-          0.980392,
+          0.866667,
+          0.870588,
+          0.878431,
           1
         ],
         "effects": [
@@ -670,11 +700,11 @@
         "outline": null,
         "texts": [
           {
-            "text": "Basic",
+            "text": "Lite",
             "rect": {
               "x": 16,
               "y": 16,
-              "width": 284,
+              "width": 224.7969,
               "height": 30
             },
             "fontSize": 20,
@@ -683,40 +713,43 @@
             "letterSpacing": -0.2,
             "textAlign": "start",
             "color": [
-              0.890196,
-              0.894118,
-              0.909804,
+              0.164706,
+              0.184314,
+              0.223529,
               1
             ]
           },
           {
-            "text": "35,900 KRW",
+            "text": "12,900 KRW",
             "rect": {
               "x": 16,
               "y": 56,
-              "width": 200.1719,
-              "height": 48.5938
+              "width": 159,
+              "height": 97.1875
             },
             "fontSize": 36,
-            "fontWeight": 500,
+            "fontWeight": 600,
             "lineHeight": 48.6,
             "letterSpacing": -0.72,
             "textAlign": "start",
             "color": [
-              0.890196,
-              0.894118,
-              0.909804,
+              0.164706,
+              0.184314,
+              0.223529,
               1
             ],
-            "figmaWidth": 201
+            "$lineNaturalWidths": {
+              "12,900": 113,
+              "KRW": 80
+            }
           },
           {
             "text": "per month",
             "rect": {
-              "x": 224.17190000000005,
-              "y": 76.59370000000001,
-              "width": 72.2344,
-              "height": 28
+              "x": 183,
+              "y": 101.1875,
+              "width": 57.7969,
+              "height": 52
             },
             "fontSize": 16,
             "fontWeight": 400,
@@ -724,19 +757,22 @@
             "letterSpacing": -0.16,
             "textAlign": "start",
             "color": [
-              0.7372549019607844,
-              0.7529411764705882,
-              0.788235294117647,
+              0.25098039215686274,
+              0.27058823529411763,
+              0.30980392156862746,
               0.88
             ],
-            "figmaWidth": 73
+            "$lineNaturalWidths": {
+              "per": 24,
+              "month": 46
+            }
           },
           {
-            "text": "1,800",
+            "text": "5,000",
             "rect": {
               "x": 16,
-              "y": 108.59370000000001,
-              "width": 49.1094,
+              "y": 157.1875,
+              "width": 52.5,
               "height": 30
             },
             "fontSize": 20,
@@ -745,18 +781,18 @@
             "letterSpacing": -0.2,
             "textAlign": "start",
             "color": [
-              0.835294,
-              0.843137,
-              0.866667,
+              0.25098,
+              0.270588,
+              0.309804,
               1
             ],
-            "figmaWidth": 50
+            "figmaWidth": 53
           },
           {
             "text": "credits",
             "rect": {
-              "x": 73.10940000000005,
-              "y": 108.59370000000001,
+              "x": 76.5,
+              "y": 157.1875,
               "width": 61.1406,
               "height": 30
             },
@@ -766,9 +802,9 @@
             "letterSpacing": -0.2,
             "textAlign": "start",
             "color": [
-              0.835294,
-              0.843137,
-              0.866667,
+              0.25098,
+              0.270588,
+              0.309804,
               1
             ],
             "figmaWidth": 62
@@ -777,8 +813,8 @@
             "text": "Everything in Trial",
             "rect": {
               "x": 16,
-              "y": 174.5937,
-              "width": 284,
+              "y": 223.1875,
+              "width": 224.7969,
               "height": 21
             },
             "fontSize": 14,
@@ -787,49 +823,49 @@
             "letterSpacing": -0.14,
             "textAlign": "start",
             "color": [
-              0.603922,
-              0.627451,
-              0.670588,
+              0.25098,
+              0.270588,
+              0.309804,
               1
             ]
           },
           {
-            "text": "Up to 12 projects",
+            "text": "Up to 5 projects",
             "rect": {
               "x": 42,
-              "y": 203.5937,
-              "width": 258,
-              "height": 24
+              "y": 252.18750000000006,
+              "width": 198.7969,
+              "height": 21
             },
-            "fontSize": 16,
+            "fontSize": 14,
             "fontWeight": 400,
-            "lineHeight": 24,
-            "letterSpacing": -0.16,
+            "lineHeight": 21,
+            "letterSpacing": -0.14,
             "textAlign": "start",
             "color": [
-              0.737255,
-              0.752941,
-              0.788235,
+              0.25098,
+              0.270588,
+              0.309804,
               1
             ]
           },
           {
-            "text": "5 video editor uploads, 5 imports",
+            "text": "3 video editor uploads, 3 imports",
             "rect": {
               "x": 42,
-              "y": 231.5937,
-              "width": 258,
-              "height": 24
+              "y": 278.18750000000006,
+              "width": 198.7969,
+              "height": 42
             },
-            "fontSize": 16,
+            "fontSize": 14,
             "fontWeight": 400,
-            "lineHeight": 24,
-            "letterSpacing": -0.16,
+            "lineHeight": 21,
+            "letterSpacing": -0.14,
             "textAlign": "start",
             "color": [
-              0.737255,
-              0.752941,
-              0.788235,
+              0.25098,
+              0.270588,
+              0.309804,
               1
             ]
           },
@@ -837,19 +873,19 @@
             "text": "All AI models unlocked",
             "rect": {
               "x": 42,
-              "y": 259.59369999999996,
-              "width": 258,
-              "height": 24
+              "y": 324.18750000000006,
+              "width": 198.7969,
+              "height": 21
             },
-            "fontSize": 16,
+            "fontSize": 14,
             "fontWeight": 400,
-            "lineHeight": 24,
-            "letterSpacing": -0.16,
+            "lineHeight": 21,
+            "letterSpacing": -0.14,
             "textAlign": "start",
             "color": [
-              0.737255,
-              0.752941,
-              0.788235,
+              0.25098,
+              0.270588,
+              0.309804,
               1
             ]
           },
@@ -857,99 +893,79 @@
             "text": "Text/image overlay, TTS",
             "rect": {
               "x": 42,
-              "y": 287.59369999999996,
-              "width": 258,
-              "height": 24
+              "y": 350.18750000000006,
+              "width": 198.7969,
+              "height": 21
             },
-            "fontSize": 16,
+            "fontSize": 14,
             "fontWeight": 400,
-            "lineHeight": 24,
-            "letterSpacing": -0.16,
+            "lineHeight": 21,
+            "letterSpacing": -0.14,
             "textAlign": "start",
             "color": [
-              0.737255,
-              0.752941,
-              0.788235,
+              0.25098,
+              0.270588,
+              0.309804,
               1
             ]
           },
           {
-            "text": "YouTube/Instagram upload, schedule & analytics",
+            "text": "YouTube/Instagram upload",
             "rect": {
               "x": 42,
-              "y": 315.59369999999996,
-              "width": 258,
-              "height": 48
+              "y": 376.18750000000006,
+              "width": 198.7969,
+              "height": 21
             },
-            "fontSize": 16,
+            "fontSize": 14,
             "fontWeight": 400,
-            "lineHeight": 24,
-            "letterSpacing": -0.16,
+            "lineHeight": 21,
+            "letterSpacing": -0.14,
             "textAlign": "start",
             "color": [
-              0.737255,
-              0.752941,
-              0.788235,
+              0.25098,
+              0.270588,
+              0.309804,
               1
             ]
           },
           {
-            "text": "AI prompt & caption assist",
+            "text": "Highlight input videos up to 10 min",
             "rect": {
               "x": 42,
-              "y": 367.59369999999996,
-              "width": 258,
-              "height": 24
+              "y": 402.18750000000006,
+              "width": 198.7969,
+              "height": 42
             },
-            "fontSize": 16,
+            "fontSize": 14,
             "fontWeight": 400,
-            "lineHeight": 24,
-            "letterSpacing": -0.16,
+            "lineHeight": 21,
+            "letterSpacing": -0.14,
             "textAlign": "start",
             "color": [
-              0.737255,
-              0.752941,
-              0.788235,
+              0.25098,
+              0.270588,
+              0.309804,
               1
             ]
           },
           {
-            "text": "Highlight input videos up to 30 min",
+            "text": "Bronze credit top-up",
             "rect": {
               "x": 42,
-              "y": 395.59369999999996,
-              "width": 258,
-              "height": 24
+              "y": 448.18750000000006,
+              "width": 198.7969,
+              "height": 21
             },
-            "fontSize": 16,
+            "fontSize": 14,
             "fontWeight": 400,
-            "lineHeight": 24,
-            "letterSpacing": -0.16,
+            "lineHeight": 21,
+            "letterSpacing": -0.14,
             "textAlign": "start",
             "color": [
-              0.737255,
-              0.752941,
-              0.788235,
-              1
-            ]
-          },
-          {
-            "text": "Credit top-up available",
-            "rect": {
-              "x": 42,
-              "y": 423.59369999999996,
-              "width": 258,
-              "height": 24
-            },
-            "fontSize": 16,
-            "fontWeight": 400,
-            "lineHeight": 24,
-            "letterSpacing": -0.16,
-            "textAlign": "start",
-            "color": [
-              0.737255,
-              0.752941,
-              0.788235,
+              0.25098,
+              0.270588,
+              0.309804,
               1
             ]
           },
@@ -957,19 +973,19 @@
             "text": "No watermark",
             "rect": {
               "x": 42,
-              "y": 451.59369999999996,
-              "width": 258,
-              "height": 24
+              "y": 474.18750000000006,
+              "width": 198.7969,
+              "height": 21
             },
-            "fontSize": 16,
+            "fontSize": 14,
             "fontWeight": 400,
-            "lineHeight": 24,
-            "letterSpacing": -0.16,
+            "lineHeight": 21,
+            "letterSpacing": -0.14,
             "textAlign": "start",
             "color": [
-              0.737255,
-              0.752941,
-              0.788235,
+              0.25098,
+              0.270588,
+              0.309804,
               1
             ]
           }
@@ -978,7 +994,7 @@
           {
             "rect": {
               "x": 16,
-              "y": 207.5937,
+              "y": 256.18750000000006,
               "width": 18,
               "height": 18
             },
@@ -993,7 +1009,7 @@
           {
             "rect": {
               "x": 16,
-              "y": 235.5937,
+              "y": 282.18750000000006,
               "width": 18,
               "height": 18
             },
@@ -1008,7 +1024,7 @@
           {
             "rect": {
               "x": 16,
-              "y": 263.59369999999996,
+              "y": 328.18750000000006,
               "width": 18,
               "height": 18
             },
@@ -1023,7 +1039,7 @@
           {
             "rect": {
               "x": 16,
-              "y": 291.59369999999996,
+              "y": 354.18750000000006,
               "width": 18,
               "height": 18
             },
@@ -1038,7 +1054,7 @@
           {
             "rect": {
               "x": 16,
-              "y": 319.59369999999996,
+              "y": 380.18750000000006,
               "width": 18,
               "height": 18
             },
@@ -1053,7 +1069,7 @@
           {
             "rect": {
               "x": 16,
-              "y": 371.59369999999996,
+              "y": 406.18750000000006,
               "width": 18,
               "height": 18
             },
@@ -1068,7 +1084,7 @@
           {
             "rect": {
               "x": 16,
-              "y": 399.59369999999996,
+              "y": 452.18750000000006,
               "width": 18,
               "height": 18
             },
@@ -1083,22 +1099,7 @@
           {
             "rect": {
               "x": 16,
-              "y": 427.59369999999996,
-              "width": 18,
-              "height": 18
-            },
-            "color": [
-              0,
-              0.7764705882352941,
-              0.5568627450980392,
-              1
-            ],
-            "asset": "/icons/CheckCircle.svg"
-          },
-          {
-            "rect": {
-              "x": 16,
-              "y": 455.59369999999996,
+              "y": 478.18750000000006,
               "width": 18,
               "height": 18
             },
@@ -1112,27 +1113,558 @@
           }
         ],
         "action": {
-          "text": "Choose Basic",
+          "text": "Choose Lite",
           "rect": {
             "x": 16,
-            "y": 512,
-            "width": 284,
+            "y": 560.1875,
+            "width": 224.7969,
             "height": 32
           },
           "radius": 12,
           "fill": [
             0,
-            0.533333,
-            1,
+            0,
+            0,
             1
           ],
           "opacity": 1,
           "label": {
-            "text": "Choose Basic",
+            "text": "Choose Lite",
             "rect": {
-              "x": 115.10940000000005,
-              "y": 517.5,
-              "width": 85.7813,
+              "x": 91.25,
+              "y": 565.6875,
+              "width": 74.2969,
+              "height": 21
+            },
+            "fontSize": 14,
+            "fontWeight": 500,
+            "lineHeight": 21,
+            "letterSpacing": -0.14,
+            "textAlign": "center",
+            "color": [
+              0.980392,
+              0.980392,
+              0.980392,
+              1
+            ]
+          }
+        }
+      },
+      {
+        "plan": "Plus",
+        "route": "/mypage/upgrade",
+        "rect": {
+          "width": 256.7969,
+          "height": 608.1875
+        },
+        "position": {
+          "x": 687.5938,
+          "y": 251.7969,
+          "width": 256.7969,
+          "height": 608.1875
+        },
+        "padding": {
+          "top": 16,
+          "right": 16,
+          "bottom": 16,
+          "left": 16
+        },
+        "radius": 12,
+        "background": [
+          0.866667,
+          0.870588,
+          0.878431,
+          1
+        ],
+        "effects": [
+          {
+            "type": "INNER_SHADOW",
+            "color": [
+              0,
+              0,
+              0,
+              0.08
+            ],
+            "offset": {
+              "x": 0,
+              "y": 0
+            },
+            "radius": 0,
+            "spread": 0.5
+          }
+        ],
+        "outline": null,
+        "texts": [
+          {
+            "text": "Plus",
+            "rect": {
+              "x": 16,
+              "y": 16,
+              "width": 224.7969,
+              "height": 30
+            },
+            "fontSize": 20,
+            "fontWeight": 500,
+            "lineHeight": 30,
+            "letterSpacing": -0.2,
+            "textAlign": "start",
+            "color": [
+              0.164706,
+              0.184314,
+              0.223529,
+              1
+            ]
+          },
+          {
+            "text": "29,900 KRW",
+            "rect": {
+              "x": 16,
+              "y": 56,
+              "width": 160.1094,
+              "height": 97.1875
+            },
+            "fontSize": 36,
+            "fontWeight": 600,
+            "lineHeight": 48.6,
+            "letterSpacing": -0.72,
+            "textAlign": "start",
+            "color": [
+              0.164706,
+              0.184314,
+              0.223529,
+              1
+            ],
+            "$lineNaturalWidths": {
+              "29,900": 119,
+              "KRW": 80
+            }
+          },
+          {
+            "text": "per month",
+            "rect": {
+              "x": 184.10929999999996,
+              "y": 101.1875,
+              "width": 56.6875,
+              "height": 52
+            },
+            "fontSize": 16,
+            "fontWeight": 400,
+            "lineHeight": 24,
+            "letterSpacing": -0.16,
+            "textAlign": "start",
+            "color": [
+              0.25098039215686274,
+              0.27058823529411763,
+              0.30980392156862746,
+              0.88
+            ],
+            "$lineNaturalWidths": {
+              "per": 24,
+              "month": 46
+            }
+          },
+          {
+            "text": "16,500",
+            "rect": {
+              "x": 16,
+              "y": 157.1875,
+              "width": 61.5625,
+              "height": 30
+            },
+            "fontSize": 20,
+            "fontWeight": 500,
+            "lineHeight": 30,
+            "letterSpacing": -0.2,
+            "textAlign": "start",
+            "color": [
+              0.25098,
+              0.270588,
+              0.309804,
+              1
+            ],
+            "figmaWidth": 62
+          },
+          {
+            "text": "credits",
+            "rect": {
+              "x": 85.56250000000011,
+              "y": 157.1875,
+              "width": 61.1406,
+              "height": 30
+            },
+            "fontSize": 20,
+            "fontWeight": 500,
+            "lineHeight": 30,
+            "letterSpacing": -0.2,
+            "textAlign": "start",
+            "color": [
+              0.25098,
+              0.270588,
+              0.309804,
+              1
+            ],
+            "figmaWidth": 62
+          },
+          {
+            "text": "Everything in Lite",
+            "rect": {
+              "x": 16,
+              "y": 223.1875,
+              "width": 224.7969,
+              "height": 21
+            },
+            "fontSize": 14,
+            "fontWeight": 500,
+            "lineHeight": 21,
+            "letterSpacing": -0.14,
+            "textAlign": "start",
+            "color": [
+              0.25098,
+              0.270588,
+              0.309804,
+              1
+            ]
+          },
+          {
+            "text": "Up to 12 projects",
+            "rect": {
+              "x": 42,
+              "y": 252.18750000000006,
+              "width": 198.7969,
+              "height": 21
+            },
+            "fontSize": 14,
+            "fontWeight": 400,
+            "lineHeight": 21,
+            "letterSpacing": -0.14,
+            "textAlign": "start",
+            "color": [
+              0.25098,
+              0.270588,
+              0.309804,
+              1
+            ]
+          },
+          {
+            "text": "5 video editor uploads, 5 imports",
+            "rect": {
+              "x": 42,
+              "y": 278.18750000000006,
+              "width": 198.7969,
+              "height": 42
+            },
+            "fontSize": 14,
+            "fontWeight": 400,
+            "lineHeight": 21,
+            "letterSpacing": -0.14,
+            "textAlign": "start",
+            "color": [
+              0.25098,
+              0.270588,
+              0.309804,
+              1
+            ]
+          },
+          {
+            "text": "All AI models unlocked",
+            "rect": {
+              "x": 42,
+              "y": 324.18750000000006,
+              "width": 198.7969,
+              "height": 21
+            },
+            "fontSize": 14,
+            "fontWeight": 400,
+            "lineHeight": 21,
+            "letterSpacing": -0.14,
+            "textAlign": "start",
+            "color": [
+              0.25098,
+              0.270588,
+              0.309804,
+              1
+            ]
+          },
+          {
+            "text": "Text/image overlay, TTS",
+            "rect": {
+              "x": 42,
+              "y": 350.18750000000006,
+              "width": 198.7969,
+              "height": 21
+            },
+            "fontSize": 14,
+            "fontWeight": 400,
+            "lineHeight": 21,
+            "letterSpacing": -0.14,
+            "textAlign": "start",
+            "color": [
+              0.25098,
+              0.270588,
+              0.309804,
+              1
+            ]
+          },
+          {
+            "text": "YouTube/Instagram upload, schedule & analytics",
+            "rect": {
+              "x": 42,
+              "y": 376.18750000000006,
+              "width": 198.7969,
+              "height": 42
+            },
+            "fontSize": 14,
+            "fontWeight": 400,
+            "lineHeight": 21,
+            "letterSpacing": -0.14,
+            "textAlign": "start",
+            "color": [
+              0.25098,
+              0.270588,
+              0.309804,
+              1
+            ]
+          },
+          {
+            "text": "AI prompt & caption assist",
+            "rect": {
+              "x": 42,
+              "y": 422.18750000000006,
+              "width": 198.7969,
+              "height": 21
+            },
+            "fontSize": 14,
+            "fontWeight": 400,
+            "lineHeight": 21,
+            "letterSpacing": -0.14,
+            "textAlign": "start",
+            "color": [
+              0.25098,
+              0.270588,
+              0.309804,
+              1
+            ]
+          },
+          {
+            "text": "Highlight input videos up to 30 min",
+            "rect": {
+              "x": 42,
+              "y": 448.18750000000006,
+              "width": 198.7969,
+              "height": 42
+            },
+            "fontSize": 14,
+            "fontWeight": 400,
+            "lineHeight": 21,
+            "letterSpacing": -0.14,
+            "textAlign": "start",
+            "color": [
+              0.25098,
+              0.270588,
+              0.309804,
+              1
+            ]
+          },
+          {
+            "text": "Credit top-up available",
+            "rect": {
+              "x": 42,
+              "y": 494.18750000000006,
+              "width": 198.7969,
+              "height": 21
+            },
+            "fontSize": 14,
+            "fontWeight": 400,
+            "lineHeight": 21,
+            "letterSpacing": -0.14,
+            "textAlign": "start",
+            "color": [
+              0.25098,
+              0.270588,
+              0.309804,
+              1
+            ]
+          },
+          {
+            "text": "No watermark",
+            "rect": {
+              "x": 42,
+              "y": 520.1875,
+              "width": 198.7969,
+              "height": 21
+            },
+            "fontSize": 14,
+            "fontWeight": 400,
+            "lineHeight": 21,
+            "letterSpacing": -0.14,
+            "textAlign": "start",
+            "color": [
+              0.25098,
+              0.270588,
+              0.309804,
+              1
+            ]
+          }
+        ],
+        "icons": [
+          {
+            "rect": {
+              "x": 16,
+              "y": 256.18750000000006,
+              "width": 18,
+              "height": 18
+            },
+            "color": [
+              0,
+              0.7764705882352941,
+              0.5568627450980392,
+              1
+            ],
+            "asset": "/icons/CheckCircle.svg"
+          },
+          {
+            "rect": {
+              "x": 16,
+              "y": 282.18750000000006,
+              "width": 18,
+              "height": 18
+            },
+            "color": [
+              0,
+              0.7764705882352941,
+              0.5568627450980392,
+              1
+            ],
+            "asset": "/icons/CheckCircle.svg"
+          },
+          {
+            "rect": {
+              "x": 16,
+              "y": 328.18750000000006,
+              "width": 18,
+              "height": 18
+            },
+            "color": [
+              0,
+              0.7764705882352941,
+              0.5568627450980392,
+              1
+            ],
+            "asset": "/icons/CheckCircle.svg"
+          },
+          {
+            "rect": {
+              "x": 16,
+              "y": 354.18750000000006,
+              "width": 18,
+              "height": 18
+            },
+            "color": [
+              0,
+              0.7764705882352941,
+              0.5568627450980392,
+              1
+            ],
+            "asset": "/icons/CheckCircle.svg"
+          },
+          {
+            "rect": {
+              "x": 16,
+              "y": 380.18750000000006,
+              "width": 18,
+              "height": 18
+            },
+            "color": [
+              0,
+              0.7764705882352941,
+              0.5568627450980392,
+              1
+            ],
+            "asset": "/icons/CheckCircle.svg"
+          },
+          {
+            "rect": {
+              "x": 16,
+              "y": 426.18750000000006,
+              "width": 18,
+              "height": 18
+            },
+            "color": [
+              0,
+              0.7764705882352941,
+              0.5568627450980392,
+              1
+            ],
+            "asset": "/icons/CheckCircle.svg"
+          },
+          {
+            "rect": {
+              "x": 16,
+              "y": 452.18750000000006,
+              "width": 18,
+              "height": 18
+            },
+            "color": [
+              0,
+              0.7764705882352941,
+              0.5568627450980392,
+              1
+            ],
+            "asset": "/icons/CheckCircle.svg"
+          },
+          {
+            "rect": {
+              "x": 16,
+              "y": 498.18750000000006,
+              "width": 18,
+              "height": 18
+            },
+            "color": [
+              0,
+              0.7764705882352941,
+              0.5568627450980392,
+              1
+            ],
+            "asset": "/icons/CheckCircle.svg"
+          },
+          {
+            "rect": {
+              "x": 16,
+              "y": 524.1875,
+              "width": 18,
+              "height": 18
+            },
+            "color": [
+              0,
+              0.7764705882352941,
+              0.5568627450980392,
+              1
+            ],
+            "asset": "/icons/CheckCircle.svg"
+          }
+        ],
+        "action": {
+          "text": "Choose Plus",
+          "rect": {
+            "x": 16,
+            "y": 560.1875,
+            "width": 224.7969,
+            "height": 32
+          },
+          "radius": 12,
+          "fill": [
+            0,
+            0,
+            0,
+            1
+          ],
+          "opacity": 1,
+          "label": {
+            "text": "Choose Plus",
+            "rect": {
+              "x": 89.53120000000001,
+              "y": 565.6875,
+              "width": 77.7344,
               "height": 21
             },
             "fontSize": 14,
@@ -1153,14 +1685,14 @@
         "plan": "Pro",
         "route": "/mypage/upgrade",
         "rect": {
-          "width": 316,
-          "height": 560
+          "width": 256.7969,
+          "height": 608.1875
         },
         "position": {
-          "x": 822,
+          "x": 948.3906,
           "y": 251.7969,
-          "width": 316,
-          "height": 560
+          "width": 256.7969,
+          "height": 608.1875
         },
         "padding": {
           "top": 16,
@@ -1168,11 +1700,11 @@
           "bottom": 16,
           "left": 16
         },
-        "radius": 24,
+        "radius": 12,
         "background": [
-          0.980392,
-          0.980392,
-          0.980392,
+          0.866667,
+          0.870588,
+          0.878431,
           1
         ],
         "effects": [
@@ -1199,7 +1731,7 @@
             "rect": {
               "x": 16,
               "y": 16,
-              "width": 284,
+              "width": 224.7969,
               "height": 30
             },
             "fontSize": 20,
@@ -1208,40 +1740,43 @@
             "letterSpacing": -0.2,
             "textAlign": "start",
             "color": [
-              0.890196,
-              0.894118,
-              0.909804,
+              0.164706,
+              0.184314,
+              0.223529,
               1
             ]
           },
           {
-            "text": "59,900 KRW",
+            "text": "49,900 KRW",
             "rect": {
               "x": 16,
               "y": 56,
-              "width": 200.0781,
-              "height": 48.5938
+              "width": 160.4375,
+              "height": 97.1875
             },
             "fontSize": 36,
-            "fontWeight": 500,
+            "fontWeight": 600,
             "lineHeight": 48.6,
             "letterSpacing": -0.72,
             "textAlign": "start",
             "color": [
-              0.890196,
-              0.894118,
-              0.909804,
+              0.164706,
+              0.184314,
+              0.223529,
               1
             ],
-            "figmaWidth": 201
+            "$lineNaturalWidths": {
+              "49,900": 120,
+              "KRW": 80
+            }
           },
           {
             "text": "per month",
             "rect": {
-              "x": 224.07809999999995,
-              "y": 76.59370000000001,
-              "width": 72.2344,
-              "height": 28
+              "x": 184.4375,
+              "y": 101.1875,
+              "width": 56.3594,
+              "height": 52
             },
             "fontSize": 16,
             "fontWeight": 400,
@@ -1249,19 +1784,22 @@
             "letterSpacing": -0.16,
             "textAlign": "start",
             "color": [
-              0.7372549019607844,
-              0.7529411764705882,
-              0.788235294117647,
+              0.25098039215686274,
+              0.27058823529411763,
+              0.30980392156862746,
               0.88
             ],
-            "figmaWidth": 73
+            "$lineNaturalWidths": {
+              "per": 24,
+              "month": 46
+            }
           },
           {
-            "text": "3,000",
+            "text": "30,000",
             "rect": {
               "x": 16,
-              "y": 108.59370000000001,
-              "width": 52.9219,
+              "y": 157.1875,
+              "width": 64.9844,
               "height": 30
             },
             "fontSize": 20,
@@ -1270,18 +1808,18 @@
             "letterSpacing": -0.2,
             "textAlign": "start",
             "color": [
-              0.835294,
-              0.843137,
-              0.866667,
+              0.25098,
+              0.270588,
+              0.309804,
               1
             ],
-            "figmaWidth": 54
+            "figmaWidth": 66
           },
           {
             "text": "credits",
             "rect": {
-              "x": 76.92190000000005,
-              "y": 108.59370000000001,
+              "x": 88.98440000000005,
+              "y": 157.1875,
               "width": 61.1406,
               "height": 30
             },
@@ -1291,19 +1829,19 @@
             "letterSpacing": -0.2,
             "textAlign": "start",
             "color": [
-              0.835294,
-              0.843137,
-              0.866667,
+              0.25098,
+              0.270588,
+              0.309804,
               1
             ],
             "figmaWidth": 62
           },
           {
-            "text": "Everything in Basic",
+            "text": "Everything in Plus",
             "rect": {
               "x": 16,
-              "y": 174.5937,
-              "width": 284,
+              "y": 223.1875,
+              "width": 224.7969,
               "height": 21
             },
             "fontSize": 14,
@@ -1312,9 +1850,9 @@
             "letterSpacing": -0.14,
             "textAlign": "start",
             "color": [
-              0.603922,
-              0.627451,
-              0.670588,
+              0.25098,
+              0.270588,
+              0.309804,
               1
             ]
           },
@@ -1322,19 +1860,19 @@
             "text": "Up to 24 projects",
             "rect": {
               "x": 42,
-              "y": 203.5937,
-              "width": 258,
-              "height": 24
+              "y": 252.18750000000006,
+              "width": 198.7969,
+              "height": 21
             },
-            "fontSize": 16,
+            "fontSize": 14,
             "fontWeight": 400,
-            "lineHeight": 24,
-            "letterSpacing": -0.16,
+            "lineHeight": 21,
+            "letterSpacing": -0.14,
             "textAlign": "start",
             "color": [
-              0.737255,
-              0.752941,
-              0.788235,
+              0.25098,
+              0.270588,
+              0.309804,
               1
             ]
           },
@@ -1342,19 +1880,19 @@
             "text": "7 video editor uploads, 7 imports",
             "rect": {
               "x": 42,
-              "y": 231.5937,
-              "width": 258,
-              "height": 24
+              "y": 278.18750000000006,
+              "width": 198.7969,
+              "height": 42
             },
-            "fontSize": 16,
+            "fontSize": 14,
             "fontWeight": 400,
-            "lineHeight": 24,
-            "letterSpacing": -0.16,
+            "lineHeight": 21,
+            "letterSpacing": -0.14,
             "textAlign": "start",
             "color": [
-              0.737255,
-              0.752941,
-              0.788235,
+              0.25098,
+              0.270588,
+              0.309804,
               1
             ]
           },
@@ -1362,19 +1900,19 @@
             "text": "Highlight input videos up to 120 min",
             "rect": {
               "x": 42,
-              "y": 259.59369999999996,
-              "width": 258,
-              "height": 24
+              "y": 324.18750000000006,
+              "width": 198.7969,
+              "height": 42
             },
-            "fontSize": 16,
+            "fontSize": 14,
             "fontWeight": 400,
-            "lineHeight": 24,
-            "letterSpacing": -0.16,
+            "lineHeight": 21,
+            "letterSpacing": -0.14,
             "textAlign": "start",
             "color": [
-              0.737255,
-              0.752941,
-              0.788235,
+              0.25098,
+              0.270588,
+              0.309804,
               1
             ]
           },
@@ -1382,19 +1920,19 @@
             "text": "3 concurrent jobs",
             "rect": {
               "x": 42,
-              "y": 287.59369999999996,
-              "width": 258,
-              "height": 24
+              "y": 370.18750000000006,
+              "width": 198.7969,
+              "height": 21
             },
-            "fontSize": 16,
+            "fontSize": 14,
             "fontWeight": 400,
-            "lineHeight": 24,
-            "letterSpacing": -0.16,
+            "lineHeight": 21,
+            "letterSpacing": -0.14,
             "textAlign": "start",
             "color": [
-              0.737255,
-              0.752941,
-              0.788235,
+              0.25098,
+              0.270588,
+              0.309804,
               1
             ]
           },
@@ -1402,19 +1940,19 @@
             "text": "Priority queue processing",
             "rect": {
               "x": 42,
-              "y": 315.59369999999996,
-              "width": 258,
-              "height": 24
+              "y": 396.18750000000006,
+              "width": 198.7969,
+              "height": 21
             },
-            "fontSize": 16,
+            "fontSize": 14,
             "fontWeight": 400,
-            "lineHeight": 24,
-            "letterSpacing": -0.16,
+            "lineHeight": 21,
+            "letterSpacing": -0.14,
             "textAlign": "start",
             "color": [
-              0.737255,
-              0.752941,
-              0.788235,
+              0.25098,
+              0.270588,
+              0.309804,
               1
             ]
           }
@@ -1423,7 +1961,7 @@
           {
             "rect": {
               "x": 16,
-              "y": 207.5937,
+              "y": 256.18750000000006,
               "width": 18,
               "height": 18
             },
@@ -1438,7 +1976,7 @@
           {
             "rect": {
               "x": 16,
-              "y": 235.5937,
+              "y": 282.18750000000006,
               "width": 18,
               "height": 18
             },
@@ -1453,7 +1991,7 @@
           {
             "rect": {
               "x": 16,
-              "y": 263.59369999999996,
+              "y": 328.18750000000006,
               "width": 18,
               "height": 18
             },
@@ -1468,7 +2006,7 @@
           {
             "rect": {
               "x": 16,
-              "y": 291.59369999999996,
+              "y": 374.18750000000006,
               "width": 18,
               "height": 18
             },
@@ -1483,7 +2021,7 @@
           {
             "rect": {
               "x": 16,
-              "y": 319.59369999999996,
+              "y": 400.18750000000006,
               "width": 18,
               "height": 18
             },
@@ -1500,23 +2038,23 @@
           "text": "Choose Pro",
           "rect": {
             "x": 16,
-            "y": 512,
-            "width": 284,
+            "y": 560.1875,
+            "width": 224.7969,
             "height": 32
           },
           "radius": 12,
           "fill": [
             0,
-            0.533333,
-            1,
+            0,
+            0,
             1
           ],
           "opacity": 1,
           "label": {
             "text": "Choose Pro",
             "rect": {
-              "x": 121.76559999999995,
-              "y": 517.5,
+              "x": 92.17190000000005,
+              "y": 565.6875,
               "width": 72.4531,
               "height": 21
             },
@@ -1535,17 +2073,17 @@
         }
       },
       {
-        "plan": "Max",
+        "plan": "Ultra",
         "route": "/mypage/upgrade",
         "rect": {
-          "width": 316,
-          "height": 560
+          "width": 256.7969,
+          "height": 608.1875
         },
         "position": {
-          "x": 1150,
+          "x": 1209.1875,
           "y": 251.7969,
-          "width": 316,
-          "height": 560
+          "width": 256.7969,
+          "height": 608.1875
         },
         "padding": {
           "top": 16,
@@ -1553,11 +2091,11 @@
           "bottom": 16,
           "left": 16
         },
-        "radius": 24,
+        "radius": 12,
         "background": [
-          0,
-          0,
-          0,
+          0.866667,
+          0.870588,
+          0.878431,
           1
         ],
         "effects": [
@@ -1580,11 +2118,11 @@
         "outline": null,
         "texts": [
           {
-            "text": "Max",
+            "text": "Ultra",
             "rect": {
               "x": 16,
               "y": 16,
-              "width": 284,
+              "width": 224.7969,
               "height": 30
             },
             "fontSize": 20,
@@ -1593,40 +2131,43 @@
             "letterSpacing": -0.2,
             "textAlign": "start",
             "color": [
-              0.890196,
-              0.894118,
-              0.909804,
+              0.164706,
+              0.184314,
+              0.223529,
               1
             ]
           },
           {
-            "text": "89,900 KRW",
+            "text": "74,900 KRW",
             "rect": {
               "x": 16,
               "y": 56,
-              "width": 200.5,
-              "height": 48.5938
+              "width": 159.5781,
+              "height": 97.1875
             },
             "fontSize": 36,
-            "fontWeight": 500,
+            "fontWeight": 600,
             "lineHeight": 48.6,
             "letterSpacing": -0.72,
             "textAlign": "start",
             "color": [
-              0.890196,
-              0.894118,
-              0.909804,
+              0.164706,
+              0.184314,
+              0.223529,
               1
             ],
-            "figmaWidth": 202
+            "$lineNaturalWidths": {
+              "74,900": 116,
+              "KRW": 80
+            }
           },
           {
             "text": "per month",
             "rect": {
-              "x": 224.5,
-              "y": 76.59370000000001,
-              "width": 72.2344,
-              "height": 28
+              "x": 183.57809999999995,
+              "y": 101.1875,
+              "width": 57.2188,
+              "height": 52
             },
             "fontSize": 16,
             "fontWeight": 400,
@@ -1634,19 +2175,22 @@
             "letterSpacing": -0.16,
             "textAlign": "start",
             "color": [
-              0.7372549019607844,
-              0.7529411764705882,
-              0.788235294117647,
+              0.25098039215686274,
+              0.27058823529411763,
+              0.30980392156862746,
               0.88
             ],
-            "figmaWidth": 73
+            "$lineNaturalWidths": {
+              "per": 24,
+              "month": 46
+            }
           },
           {
-            "text": "4,500",
+            "text": "48,000",
             "rect": {
               "x": 16,
-              "y": 108.59370000000001,
-              "width": 53.1406,
+              "y": 157.1875,
+              "width": 65.3125,
               "height": 30
             },
             "fontSize": 20,
@@ -1655,18 +2199,18 @@
             "letterSpacing": -0.2,
             "textAlign": "start",
             "color": [
-              0.835294,
-              0.843137,
-              0.866667,
+              0.25098,
+              0.270588,
+              0.309804,
               1
             ],
-            "figmaWidth": 54
+            "figmaWidth": 66
           },
           {
             "text": "credits",
             "rect": {
-              "x": 77.14059999999995,
-              "y": 108.59370000000001,
+              "x": 89.3125,
+              "y": 157.1875,
               "width": 61.1406,
               "height": 30
             },
@@ -1676,9 +2220,9 @@
             "letterSpacing": -0.2,
             "textAlign": "start",
             "color": [
-              0.835294,
-              0.843137,
-              0.866667,
+              0.25098,
+              0.270588,
+              0.309804,
               1
             ],
             "figmaWidth": 62
@@ -1687,8 +2231,8 @@
             "text": "Everything in Pro",
             "rect": {
               "x": 16,
-              "y": 174.5937,
-              "width": 284,
+              "y": 223.1875,
+              "width": 224.7969,
               "height": 21
             },
             "fontSize": 14,
@@ -1697,9 +2241,9 @@
             "letterSpacing": -0.14,
             "textAlign": "start",
             "color": [
-              0.603922,
-              0.627451,
-              0.670588,
+              0.25098,
+              0.270588,
+              0.309804,
               1
             ]
           },
@@ -1707,19 +2251,19 @@
             "text": "Unlimited projects",
             "rect": {
               "x": 42,
-              "y": 203.5937,
-              "width": 258,
-              "height": 24
+              "y": 252.18750000000006,
+              "width": 198.7969,
+              "height": 21
             },
-            "fontSize": 16,
+            "fontSize": 14,
             "fontWeight": 400,
-            "lineHeight": 24,
-            "letterSpacing": -0.16,
+            "lineHeight": 21,
+            "letterSpacing": -0.14,
             "textAlign": "start",
             "color": [
-              0.737255,
-              0.752941,
-              0.788235,
+              0.25098,
+              0.270588,
+              0.309804,
               1
             ]
           },
@@ -1727,19 +2271,19 @@
             "text": "10 video editor uploads, 10 imports",
             "rect": {
               "x": 42,
-              "y": 231.5937,
-              "width": 258,
-              "height": 24
+              "y": 278.18750000000006,
+              "width": 198.7969,
+              "height": 42
             },
-            "fontSize": 16,
+            "fontSize": 14,
             "fontWeight": 400,
-            "lineHeight": 24,
-            "letterSpacing": -0.16,
+            "lineHeight": 21,
+            "letterSpacing": -0.14,
             "textAlign": "start",
             "color": [
-              0.737255,
-              0.752941,
-              0.788235,
+              0.25098,
+              0.270588,
+              0.309804,
               1
             ]
           },
@@ -1747,19 +2291,19 @@
             "text": "10 highlight clip selections",
             "rect": {
               "x": 42,
-              "y": 259.59369999999996,
-              "width": 258,
-              "height": 24
+              "y": 324.18750000000006,
+              "width": 198.7969,
+              "height": 21
             },
-            "fontSize": 16,
+            "fontSize": 14,
             "fontWeight": 400,
-            "lineHeight": 24,
-            "letterSpacing": -0.16,
+            "lineHeight": 21,
+            "letterSpacing": -0.14,
             "textAlign": "start",
             "color": [
-              0.737255,
-              0.752941,
-              0.788235,
+              0.25098,
+              0.270588,
+              0.309804,
               1
             ]
           },
@@ -1767,19 +2311,19 @@
             "text": "Maximum monthly credits",
             "rect": {
               "x": 42,
-              "y": 287.59369999999996,
-              "width": 258,
-              "height": 24
+              "y": 350.18750000000006,
+              "width": 198.7969,
+              "height": 21
             },
-            "fontSize": 16,
+            "fontSize": 14,
             "fontWeight": 400,
-            "lineHeight": 24,
-            "letterSpacing": -0.16,
+            "lineHeight": 21,
+            "letterSpacing": -0.14,
             "textAlign": "start",
             "color": [
-              0.737255,
-              0.752941,
-              0.788235,
+              0.25098,
+              0.270588,
+              0.309804,
               1
             ]
           }
@@ -1788,7 +2332,7 @@
           {
             "rect": {
               "x": 16,
-              "y": 207.5937,
+              "y": 256.18750000000006,
               "width": 18,
               "height": 18
             },
@@ -1803,7 +2347,7 @@
           {
             "rect": {
               "x": 16,
-              "y": 235.5937,
+              "y": 282.18750000000006,
               "width": 18,
               "height": 18
             },
@@ -1818,7 +2362,7 @@
           {
             "rect": {
               "x": 16,
-              "y": 263.59369999999996,
+              "y": 328.18750000000006,
               "width": 18,
               "height": 18
             },
@@ -1833,7 +2377,7 @@
           {
             "rect": {
               "x": 16,
-              "y": 291.59369999999996,
+              "y": 354.18750000000006,
               "width": 18,
               "height": 18
             },
@@ -1847,27 +2391,27 @@
           }
         ],
         "action": {
-          "text": "Choose Max",
+          "text": "Choose Ultra",
           "rect": {
             "x": 16,
-            "y": 512,
-            "width": 284,
+            "y": 560.1875,
+            "width": 224.7969,
             "height": 32
           },
           "radius": 12,
           "fill": [
             0,
-            0.533333,
-            1,
+            0,
+            0,
             1
           ],
           "opacity": 1,
           "label": {
-            "text": "Choose Max",
+            "text": "Choose Ultra",
             "rect": {
-              "x": 118.5938000000001,
-              "y": 517.5,
-              "width": 78.8125,
+              "x": 87.42190000000005,
+              "y": 565.6875,
+              "width": 81.9531,
               "height": 21
             },
             "fontSize": 14,
@@ -1914,23 +2458,7 @@
           1
         ],
         "radius": 16,
-        "effects": [
-          {
-            "type": "INNER_SHADOW",
-            "color": [
-              0,
-              0,
-              0,
-              0.08
-            ],
-            "offset": {
-              "x": 0,
-              "y": 0
-            },
-            "radius": 0,
-            "spread": 0.5
-          }
-        ],
+        "effects": [],
         "topBar": {
           "x": 16,
           "y": 0,
@@ -1941,7 +2469,7 @@
           "x": 16,
           "y": 53,
           "width": 370,
-          "height": 3269.375
+          "height": 5748.9531
         },
         "headerTitle": {
           "text": "Start free, upgrade or cancel anytime.",
@@ -1982,13 +2510,33 @@
             0,
             0.72
           ]
+        },
+        "headerNotice": {
+          "text": "All plans on sale to mark the Lite launch (2026.09.01 - 09.30)",
+          "rect": {
+            "x": 16,
+            "y": 417.3906,
+            "width": 419.5,
+            "height": 32
+          },
+          "fontSize": 14,
+          "fontWeight": 500,
+          "lineHeight": 21,
+          "letterSpacing": -0.14,
+          "textAlign": "start",
+          "color": [
+            0.980392,
+            0.980392,
+            0.980392,
+            1
+          ]
         }
       },
       "cardGrid": {
         "x": 16,
-        "y": 401.3906,
+        "y": 449.3906,
         "width": 370,
-        "height": 1166.1875
+        "height": 1728.7813
       },
       "cards": [
         {
@@ -1996,18 +2544,18 @@
           "route": "/mypage/upgrade",
           "viewport": "MobileVisibleSlice",
           "rect": {
-            "width": 179,
-            "height": 679.5938
+            "width": 183,
+            "height": 592.5938
           },
           "position": {
             "x": 16,
-            "y": 401.3906,
-            "width": 179,
-            "height": 679.5938
+            "y": 449.3906,
+            "width": 183,
+            "height": 592.5938
           },
           "visibleIntersection": {
             "top": 0,
-            "bottom": 472.6094
+            "bottom": 424.6094
           },
           "padding": {
             "top": 12,
@@ -2015,11 +2563,11 @@
             "bottom": 12,
             "left": 12
           },
-          "radius": 16,
+          "radius": 12,
           "background": [
-            0,
-            0,
-            0,
+            0.866667,
+            0.870588,
+            0.878431,
             1
           ],
           "effects": [
@@ -2057,7 +2605,7 @@
               "rect": {
                 "x": 12,
                 "y": 12,
-                "width": 155,
+                "width": 159,
                 "height": 30
               },
               "fontSize": 20,
@@ -2066,9 +2614,9 @@
               "letterSpacing": -0.2,
               "textAlign": "start",
               "color": [
-                0.890196,
-                0.894118,
-                0.909804,
+                0.164706,
+                0.184314,
+                0.223529,
                 1
               ]
             },
@@ -2077,28 +2625,28 @@
               "rect": {
                 "x": 12,
                 "y": 52,
-                "width": 54.2813,
+                "width": 55.0625,
                 "height": 37.7969
               },
               "fontSize": 28,
-              "fontWeight": 500,
+              "fontWeight": 600,
               "lineHeight": 37.8,
               "letterSpacing": -0.56,
               "textAlign": "start",
               "color": [
-                0.890196,
-                0.894118,
-                0.909804,
+                0.164706,
+                0.184314,
+                0.223529,
                 1
               ],
-              "figmaWidth": 55
+              "figmaWidth": 56
             },
             {
-              "text": "200",
+              "text": "800",
               "rect": {
                 "x": 12,
                 "y": 93.7969,
-                "width": 35.9844,
+                "width": 36.4688,
                 "height": 30
               },
               "fontSize": 20,
@@ -2107,9 +2655,9 @@
               "letterSpacing": -0.2,
               "textAlign": "start",
               "color": [
-                0.835294,
-                0.843137,
-                0.866667,
+                0.25098,
+                0.270588,
+                0.309804,
                 1
               ],
               "figmaWidth": 37
@@ -2117,7 +2665,7 @@
             {
               "text": "credits",
               "rect": {
-                "x": 55.984399999999994,
+                "x": 56.4688,
                 "y": 93.7969,
                 "width": 61.1406,
                 "height": 30
@@ -2128,9 +2676,9 @@
               "letterSpacing": -0.2,
               "textAlign": "start",
               "color": [
-                0.835294,
-                0.843137,
-                0.866667,
+                0.25098,
+                0.270588,
+                0.309804,
                 1
               ],
               "figmaWidth": 62
@@ -2140,7 +2688,7 @@
               "rect": {
                 "x": 12,
                 "y": 159.7969,
-                "width": 155,
+                "width": 159,
                 "height": 42
               },
               "fontSize": 14,
@@ -2149,9 +2697,9 @@
               "letterSpacing": -0.14,
               "textAlign": "start",
               "color": [
-                0.603922,
-                0.627451,
-                0.670588,
+                0.25098,
+                0.270588,
+                0.309804,
                 1
               ]
             },
@@ -2160,7 +2708,7 @@
               "rect": {
                 "x": 38,
                 "y": 209.7969,
-                "width": 129,
+                "width": 133,
                 "height": 21
               },
               "fontSize": 14,
@@ -2169,9 +2717,9 @@
               "letterSpacing": -0.14,
               "textAlign": "start",
               "color": [
-                0.737255,
-                0.752941,
-                0.788235,
+                0.25098,
+                0.270588,
+                0.309804,
                 1
               ]
             },
@@ -2180,7 +2728,7 @@
               "rect": {
                 "x": 38,
                 "y": 235.7969,
-                "width": 129,
+                "width": 133,
                 "height": 42
               },
               "fontSize": 14,
@@ -2189,9 +2737,9 @@
               "letterSpacing": -0.14,
               "textAlign": "start",
               "color": [
-                0.737255,
-                0.752941,
-                0.788235,
+                0.25098,
+                0.270588,
+                0.309804,
                 1
               ]
             },
@@ -2200,7 +2748,7 @@
               "rect": {
                 "x": 38,
                 "y": 281.7969,
-                "width": 129,
+                "width": 133,
                 "height": 42
               },
               "fontSize": 14,
@@ -2209,9 +2757,9 @@
               "letterSpacing": -0.14,
               "textAlign": "start",
               "color": [
-                0.737255,
-                0.752941,
-                0.788235,
+                0.25098,
+                0.270588,
+                0.309804,
                 1
               ]
             },
@@ -2220,7 +2768,7 @@
               "rect": {
                 "x": 38,
                 "y": 327.7969,
-                "width": 129,
+                "width": 133,
                 "height": 42
               },
               "fontSize": 14,
@@ -2229,9 +2777,9 @@
               "letterSpacing": -0.14,
               "textAlign": "start",
               "color": [
-                0.737255,
-                0.752941,
-                0.788235,
+                0.25098,
+                0.270588,
+                0.309804,
                 1
               ]
             },
@@ -2240,7 +2788,7 @@
               "rect": {
                 "x": 38,
                 "y": 373.7969,
-                "width": 129,
+                "width": 133,
                 "height": 42
               },
               "fontSize": 14,
@@ -2249,9 +2797,9 @@
               "letterSpacing": -0.14,
               "textAlign": "start",
               "color": [
-                0.737255,
-                0.752941,
-                0.788235,
+                0.25098,
+                0.270588,
+                0.309804,
                 1
               ]
             },
@@ -2260,7 +2808,7 @@
               "rect": {
                 "x": 38,
                 "y": 419.7969,
-                "width": 129,
+                "width": 133,
                 "height": 21
               },
               "fontSize": 14,
@@ -2269,9 +2817,9 @@
               "letterSpacing": -0.14,
               "textAlign": "start",
               "color": [
-                0.737255,
-                0.752941,
-                0.788235,
+                0.25098,
+                0.270588,
+                0.309804,
                 1
               ]
             }
@@ -2371,22 +2919,22 @@
           "actionMeasured": false
         },
         {
-          "plan": "Basic",
+          "plan": "Lite",
           "route": "/mypage/upgrade",
           "viewport": "MobileVisibleSlice",
           "rect": {
-            "width": 179,
-            "height": 679.5938
+            "width": 183,
+            "height": 592.5938
           },
           "position": {
-            "x": 207,
-            "y": 401.3906,
-            "width": 179,
-            "height": 679.5938
+            "x": 203,
+            "y": 449.3906,
+            "width": 183,
+            "height": 592.5938
           },
           "visibleIntersection": {
             "top": 0,
-            "bottom": 472.6094
+            "bottom": 424.6094
           },
           "padding": {
             "top": 12,
@@ -2394,11 +2942,11 @@
             "bottom": 12,
             "left": 12
           },
-          "radius": 16,
+          "radius": 12,
           "background": [
-            0.980392,
-            0.980392,
-            0.980392,
+            0.866667,
+            0.870588,
+            0.878431,
             1
           ],
           "effects": [
@@ -2421,11 +2969,11 @@
           "outline": null,
           "texts": [
             {
-              "text": "Basic",
+              "text": "Lite",
               "rect": {
                 "x": 12,
                 "y": 12,
-                "width": 155,
+                "width": 159,
                 "height": 30
               },
               "fontSize": 20,
@@ -2434,42 +2982,42 @@
               "letterSpacing": -0.2,
               "textAlign": "start",
               "color": [
-                0.890196,
-                0.894118,
-                0.909804,
+                0.164706,
+                0.184314,
+                0.223529,
                 1
               ]
             },
             {
-              "text": "35,900 KRW",
+              "text": "12,900 KRW",
               "rect": {
                 "x": 12,
                 "y": 52,
-                "width": 104.5625,
+                "width": 107.1719,
                 "height": 75.5938
               },
               "fontSize": 28,
-              "fontWeight": 500,
+              "fontWeight": 600,
               "lineHeight": 37.8,
               "letterSpacing": -0.56,
               "textAlign": "start",
               "color": [
-                0.890196,
-                0.894118,
-                0.909804,
+                0.164706,
+                0.184314,
+                0.223529,
                 1
               ],
               "$lineNaturalWidths": {
-                "35,900": 91,
-                "KRW": 61
+                "12,900": 88,
+                "KRW": 62
               }
             },
             {
               "text": "per month",
               "rect": {
-                "x": 124.5625,
-                "y": 81.59379999999999,
-                "width": 42.4375,
+                "x": 127.1719,
+                "y": 81.59380000000004,
+                "width": 43.8281,
                 "height": 46
               },
               "fontSize": 14,
@@ -2478,9 +3026,9 @@
               "letterSpacing": -0.14,
               "textAlign": "start",
               "color": [
-                0.7372549019607844,
-                0.7529411764705882,
-                0.788235294117647,
+                0.25098039215686274,
+                0.27058823529411763,
+                0.30980392156862746,
                 0.88
               ],
               "$lineNaturalWidths": {
@@ -2489,11 +3037,11 @@
               }
             },
             {
-              "text": "1,800",
+              "text": "5,000",
               "rect": {
                 "x": 12,
                 "y": 131.59380000000004,
-                "width": 49.1094,
+                "width": 52.5,
                 "height": 30
               },
               "fontSize": 20,
@@ -2502,17 +3050,17 @@
               "letterSpacing": -0.2,
               "textAlign": "start",
               "color": [
-                0.835294,
-                0.843137,
-                0.866667,
+                0.25098,
+                0.270588,
+                0.309804,
                 1
               ],
-              "figmaWidth": 50
+              "figmaWidth": 53
             },
             {
               "text": "credits",
               "rect": {
-                "x": 69.1094,
+                "x": 72.5,
                 "y": 131.59380000000004,
                 "width": 61.1406,
                 "height": 30
@@ -2523,9 +3071,9 @@
               "letterSpacing": -0.2,
               "textAlign": "start",
               "color": [
-                0.835294,
-                0.843137,
-                0.866667,
+                0.25098,
+                0.270588,
+                0.309804,
                 1
               ],
               "figmaWidth": 62
@@ -2535,7 +3083,7 @@
               "rect": {
                 "x": 12,
                 "y": 197.59380000000004,
-                "width": 155,
+                "width": 159,
                 "height": 21
               },
               "fontSize": 14,
@@ -2544,18 +3092,18 @@
               "letterSpacing": -0.14,
               "textAlign": "start",
               "color": [
-                0.603922,
-                0.627451,
-                0.670588,
+                0.25098,
+                0.270588,
+                0.309804,
                 1
               ]
             },
             {
-              "text": "Up to 12 projects",
+              "text": "Up to 5 projects",
               "rect": {
                 "x": 38,
                 "y": 226.59380000000004,
-                "width": 129,
+                "width": 133,
                 "height": 21
               },
               "fontSize": 14,
@@ -2564,18 +3112,18 @@
               "letterSpacing": -0.14,
               "textAlign": "start",
               "color": [
-                0.737255,
-                0.752941,
-                0.788235,
+                0.25098,
+                0.270588,
+                0.309804,
                 1
               ]
             },
             {
-              "text": "5 video editor uploads, 5 imports",
+              "text": "3 video editor uploads, 3 imports",
               "rect": {
                 "x": 38,
                 "y": 252.59380000000004,
-                "width": 129,
+                "width": 133,
                 "height": 42
               },
               "fontSize": 14,
@@ -2584,9 +3132,9 @@
               "letterSpacing": -0.14,
               "textAlign": "start",
               "color": [
-                0.737255,
-                0.752941,
-                0.788235,
+                0.25098,
+                0.270588,
+                0.309804,
                 1
               ]
             },
@@ -2595,7 +3143,7 @@
               "rect": {
                 "x": 38,
                 "y": 298.59380000000004,
-                "width": 129,
+                "width": 133,
                 "height": 42
               },
               "fontSize": 14,
@@ -2604,9 +3152,9 @@
               "letterSpacing": -0.14,
               "textAlign": "start",
               "color": [
-                0.737255,
-                0.752941,
-                0.788235,
+                0.25098,
+                0.270588,
+                0.309804,
                 1
               ]
             },
@@ -2615,7 +3163,7 @@
               "rect": {
                 "x": 38,
                 "y": 344.59380000000004,
-                "width": 129,
+                "width": 133,
                 "height": 42
               },
               "fontSize": 14,
@@ -2624,38 +3172,18 @@
               "letterSpacing": -0.14,
               "textAlign": "start",
               "color": [
-                0.737255,
-                0.752941,
-                0.788235,
+                0.25098,
+                0.270588,
+                0.309804,
                 1
               ]
             },
             {
-              "text": "YouTube/Instagram upload, schedule & analytics",
+              "text": "YouTube/Instagram upload",
               "rect": {
                 "x": 38,
                 "y": 390.59380000000004,
-                "width": 129,
-                "height": 63
-              },
-              "fontSize": 14,
-              "fontWeight": 400,
-              "lineHeight": 21,
-              "letterSpacing": -0.14,
-              "textAlign": "start",
-              "color": [
-                0.737255,
-                0.752941,
-                0.788235,
-                1
-              ]
-            },
-            {
-              "text": "AI prompt & caption assist",
-              "rect": {
-                "x": 38,
-                "y": 457.59380000000004,
-                "width": 129,
+                "width": 133,
                 "height": 42
               },
               "fontSize": 14,
@@ -2664,9 +3192,9 @@
               "letterSpacing": -0.14,
               "textAlign": "start",
               "color": [
-                0.737255,
-                0.752941,
-                0.788235,
+                0.25098,
+                0.270588,
+                0.309804,
                 1
               ]
             }
@@ -2746,27 +3274,12 @@
                 1
               ],
               "asset": "/icons/CheckCircle.svg"
-            },
-            {
-              "rect": {
-                "x": 12,
-                "y": 461.59380000000004,
-                "width": 18,
-                "height": 18
-              },
-              "color": [
-                0,
-                0.7764705882352941,
-                0.5568627450980392,
-                1
-              ],
-              "asset": "/icons/CheckCircle.svg"
             }
           ],
           "actionMeasured": false
         }
       ],
-      "evidenceBoundary": "Only nodes present in the 402x874 fixture are drawn. Pro, Max, and card actions were outside the measured viewport and are absent."
+      "evidenceBoundary": "Only nodes present in the 402x874 fixture are drawn. Plus, Pro, Ultra, and card actions were outside the measured viewport and are absent."
     },
     "bindings": {
       "paletteCollection": "1 · Palette",
@@ -2838,10 +3351,6 @@
       "radius16": {
         "collection": "Klipse Primitive",
         "name": "radius/16"
-      },
-      "radius24": {
-        "collection": "Klipse Primitive",
-        "name": "radius/24"
       }
     }
   }

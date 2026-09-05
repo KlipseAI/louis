@@ -171,7 +171,7 @@ if (!docs) {
   note.fontName = { family: "Pretendard", style: "Regular" };
   note.fontSize = 14;
   note.lineHeight = { unit: "PERCENT", value: 150 };
-  note.characters = `${PLAN.productCommit.slice(0, 8)} · 4 measured 316×560 desktop cards · checkout without plan redirects to canonical upgrade · product-only`;
+  note.characters = `${PLAN.productCommit.slice(0, 8)} · ${C.cards.length} measured desktop cards · checkout without plan redirects to canonical upgrade · product-only`;
   note.fills = [setPaint(V.gray600)];
   docs.appendChild(note);
   section.appendChild(docs);
@@ -179,12 +179,16 @@ if (!docs) {
 const docTexts = docs.children.filter((entry) => entry.type === "TEXT");
 if (docTexts.length !== 2) throw new Error(`Expected two documentation text nodes, got ${docTexts.length}`);
 docTexts[0].characters = C.cardSetName;
-docTexts[1].characters = `${PLAN.productCommit.slice(0, 8)} · 4 full desktop cards + 2 viewport-observed mobile slices · checkout redirect parity · product-only`;
+docTexts[1].characters = `${PLAN.productCommit.slice(0, 8)} · ${C.cards.length} full desktop cards + ${M.cards.length} viewport-observed mobile slices · checkout redirect parity · product-only`;
 
 let cardSet = section.findOne((entry) => entry.type === "COMPONENT_SET" && entry.name === C.cardSetName);
 if (!cardSet) {
   for (const child of [...section.children]) {
-    if (child.type === "COMPONENT" && /^Plan=(Trial|Basic|Pro|Max), Viewport=Desktop$/.test(child.name)) child.remove();
+    // 옛 티어 이름으로 남은 낱개 컴포넌트를 걷는다. 이름을 하드코딩하면 개명이 있을 때마다
+    // 낡으므로, 「Plan=…, Viewport=Desktop 인데 이번 계획에 없는 것」으로 판정한다.
+    const stale = child.type === "COMPONENT" && /^Plan=.+, Viewport=Desktop$/.test(child.name)
+      && !C.cards.some((spec) => child.name === `Plan=${spec.plan}, Viewport=Desktop`);
+    if (stale) child.remove();
   }
   const cards = [];
   for (const spec of C.cards) {
@@ -192,7 +196,7 @@ if (!cardSet) {
     card.name = `Plan=${spec.plan}, Viewport=Desktop`;
     card.resize(spec.rect.width, spec.rect.height);
     card.cornerRadius = spec.radius;
-    bindCorners(card, V.radius24);
+    bindCorners(card, V.radius12);
     card.fills = [setPaint(V.cardSurface)];
     card.effects = makeEffects(spec.effects);
     applyMeasuredOutline(card, spec);
@@ -228,13 +232,13 @@ if (!cardSet) {
   }
   cardSet = figma.combineAsVariants(cards, section);
   cardSet.name = C.cardSetName;
-  cardSet.description = `Four measured desktop upgrade-plan inventory variants. Content differences are product data, not a normalized DS contract. ${PLAN.productCommit}.`;
+  cardSet.description = `${C.cards.length} measured desktop upgrade-plan inventory variants. Content differences are product data, not a normalized DS contract. ${PLAN.productCommit}.`;
   cardSet.fills = [];
   for (const [index, card] of cardSet.children.entries()) {
     card.x = 40 + index * 356;
     card.y = 40;
   }
-  cardSet.resizeWithoutConstraints(1460, 640);
+  cardSet.resizeWithoutConstraints(1820, 700);
   cardSet.x = 40;
   cardSet.y = 240;
 }
@@ -263,7 +267,7 @@ if (!mobileCardSet) {
     card.name = `Plan=${spec.plan}, Evidence=VisibleSlice`;
     card.resize(spec.rect.width, spec.rect.height);
     card.cornerRadius = spec.radius;
-    bindCorners(card, V.radius16);
+    bindCorners(card, V.radius12);
     card.fills = [setPaint(V.cardSurface)];
     card.effects = makeEffects(spec.effects);
     applyMeasuredOutline(card, spec);
@@ -285,7 +289,7 @@ if (!mobileCardSet) {
   }
   mobileCardSet = figma.combineAsVariants(cards, section);
   mobileCardSet.name = C.mobileVisibleCardSetName;
-  mobileCardSet.description = `Two viewport-observed mobile Upgrade card slices. Only nodes present in the 402×874 fixture are included; this is not a complete mobile card contract. ${PLAN.productCommit}.`;
+  mobileCardSet.description = `${M.cards.length} viewport-observed mobile Upgrade card slices. Only nodes present in the 402×874 fixture are included; this is not a complete mobile card contract. ${PLAN.productCommit}.`;
   mobileCardSet.fills = [];
   for (const [index, card] of mobileCardSet.children.entries()) {
     card.x = 40 + index * 219;
@@ -311,7 +315,10 @@ for (const spec of M.cards) {
 }
 
 let mainComponent = section.findOne((entry) => entry.type === "COMPONENT" && entry.name === C.mainComponentName);
-if (mainComponent && (mainComponent.children.length !== 8 || !mainComponent.description.includes(PLAN.productCommit))) {
+// 상단 바 + 제목 + 본문 + 이벤트 알약 + 카드 n + 비교 제목. 카드 수가 제품을 따라 움직이므로
+// 상수로 박지 않는다 — 넷에서 다섯이 될 때 이 수가 낡아 컴포넌트를 매번 지우고 다시 만든다.
+const mainChildCount = 4 + C.cards.length + 1;
+if (mainComponent && (mainComponent.children.length !== mainChildCount || !mainComponent.description.includes(PLAN.productCommit))) {
   mainComponent.remove();
   mainComponent = null;
 }
@@ -332,6 +339,7 @@ if (!mainComponent) {
   mainComponent.appendChild(topBar);
   mainComponent.appendChild(makeFixedText(C.main.headerTitle, "header/title"));
   mainComponent.appendChild(makeFixedText(C.main.headerBody, "header/body"));
+  mainComponent.appendChild(makeFixedText(C.main.headerNotice, "header/notice"));
   for (const spec of C.cards) {
     const master = cardSet.children.find((entry) => entry.name === `Plan=${spec.plan}, Viewport=Desktop`);
     if (!master) throw new Error(`Missing plan card master ${spec.plan}`);
@@ -378,7 +386,8 @@ if (!sceneComponent) {
 sceneComponent.clipsContent = true;
 
 let mobileMainComponent = section.findOne((entry) => entry.type === "COMPONENT" && entry.name === C.mobileMainComponentName);
-if (mobileMainComponent && (mobileMainComponent.children.length !== 5 || !mobileMainComponent.description.includes(PLAN.productCommit))) {
+const mobileMainChildCount = 4 + M.cards.length;
+if (mobileMainComponent && (mobileMainComponent.children.length !== mobileMainChildCount || !mobileMainComponent.description.includes(PLAN.productCommit))) {
   mobileMainComponent.remove();
   mobileMainComponent = null;
 }
@@ -399,6 +408,7 @@ if (!mobileMainComponent) {
   mobileMainComponent.appendChild(topBar);
   mobileMainComponent.appendChild(makeFixedText(M.main.headerTitle, "header/title"));
   mobileMainComponent.appendChild(makeFixedText(M.main.headerBody, "header/body"));
+  mobileMainComponent.appendChild(makeFixedText(M.main.headerNotice, "header/notice"));
   for (const spec of M.cards) {
     const master = mobileCardSet.children.find((entry) => entry.name === `Plan=${spec.plan}, Evidence=VisibleSlice`);
     if (!master) throw new Error(`Missing mobile visible-slice master ${spec.plan}`);
@@ -431,13 +441,17 @@ if (!mobileSceneComponent) {
   main.x = M.main.rect.x;
   main.y = M.main.rect.y;
   mobileSceneComponent.appendChild(main);
-  mobileSceneComponent.description = `Measured ${M.cards[0].route} 402×874 scene; ${PLAN.redirectContracts[1].requestedRoute} without plan redirects here. Pro, Max, and actions are unobserved and intentionally absent. ${PLAN.productCommit}.`;
+  mobileSceneComponent.description = `Measured ${M.cards[0].route} 402×874 scene; ${PLAN.redirectContracts[1].requestedRoute} without plan redirects here. Plus, Pro, Ultra, and actions are unobserved and intentionally absent. ${PLAN.productCommit}.`;
   section.appendChild(mobileSceneComponent);
   mobileSceneComponent.x = 2100;
   mobileSceneComponent.y = 1500;
 }
 
 const paints = [];
+// 허용 기준을 계획의 실측 아웃라인에서 읽는다. 손으로 박은 값(185/225/247 @0.42)은 제품이
+// `--primary-200` 40% 로 옮긴 뒤로 어떤 획과도 안 맞아, 이 가드는 「모든 획을 거부」가 돼 있었다.
+const CURRENT_PLAN_OUTLINE = C.cards.find((spec) => spec.outline)?.outline;
+if (!CURRENT_PLAN_OUTLINE) throw new Error("No measured current-plan outline in the plan");
 const measuredOutlineNames = new Set([
   "Plan=Trial, Viewport=Desktop",
   "Plan=Trial, Evidence=VisibleSlice",
@@ -458,8 +472,10 @@ for (const root of [cardSet, mainComponent, sceneComponent, mobileCardSet, mobil
           ancestor = ancestor.parent;
         }
         const measuredOutlineFixed =
-          field === "strokes" && measuredOutlineNames.has(node.name) && node.strokeWeight === 2 && node.strokeAlign === "INSIDE" &&
-          near(paint.color.r, 185 / 255) && near(paint.color.g, 225 / 255) && near(paint.color.b, 247 / 255) && near(paint.opacity ?? 1, 0.42);
+          field === "strokes" && measuredOutlineNames.has(node.name) &&
+          node.strokeWeight === CURRENT_PLAN_OUTLINE.width && node.strokeAlign === "INSIDE" &&
+          near(paint.color.r, CURRENT_PLAN_OUTLINE.color[0]) && near(paint.color.g, CURRENT_PLAN_OUTLINE.color[1]) &&
+          near(paint.color.b, CURRENT_PLAN_OUTLINE.color[2]) && near(paint.opacity ?? 1, CURRENT_PLAN_OUTLINE.color[3]);
         paints.push({ node: node.name, field, bound: Boolean(paint.boundVariables?.color), brandFixed, measuredOutlineFixed });
       }
     }

@@ -195,9 +195,23 @@ const candidateContracts = [
   // styleRef(등장 순서 인덱스)가 통째로 밀렸다 — 해시에 그 인덱스가 섞여 있어 내용이 하나도
   // 안 바뀐 후보까지 id 가 전부 다시 계산된다(desktop `subtree-e4077e3527d7` 은 값 차이 0
   // 인데도 id 가 바뀐 증거다). 옛 id 와 새 id 는 roots(route+path) 집합으로 이어 붙였다.
-  ["subtree-117e0ad287ea", 6, 18],
-  ["subtree-44170228fb1c", 15, 4],
-  ["subtree-4f8ad570cbbb", 14, 4],
+  //
+  // 세 번째로 갈렸다 — 이번에는 **제품이 아니라 측정기가 움직였다.** 앵커는 그대로
+  // `5a67d692` 이고(새 fixture 의 `productCommit` 도 같다), 위 문단이 원인으로 지목한
+  // styleRef 자리번호 자체를 걷어냈다: styleRef 를 등장 순서 인덱스에서 **스타일 내용의
+  // 해시**로 바꾸고, `content-visibility: auto` 가 화면 밖 서브트리를 렌더링에서 걷어내던
+  // 래치를 측정 전 스크롤 훑기로 풀었다. 같은 앵커에서 다시 재고 옛 측정과 전수 대조한
+  // 결과 후보 수 desktop 51 → 51 · mobile 16 → 16, 서명(nodeCount·routeCount·
+  // occurrenceCount·score·roots) 다중집합 불일치 **0**, computedStyles 580 → 579 — 구조는
+  // 한 곳도 안 움직였고 id 체계만 한 번 갈렸다. 그 서명으로 옛→새를 1:1 로 이어 붙였다:
+  //   subtree-117e0ad287ea(6/18) → subtree-d0270a3536b1
+  //   subtree-44170228fb1c(15/4) → subtree-58853450d255
+  //   subtree-4f8ad570cbbb(14/4) → subtree-3b91f2c79326
+  // **이것이 마지막 일괄 이동이다.** styleRef 가 더는 자리번호가 아니므로 앞으로 id 는 값이
+  // 실제로 바뀐 자리에서만 움직인다 — 다음에 이 가드가 물면 이름 갈림이 아니라 진짜 변경이다.
+  ["subtree-d0270a3536b1", 6, 18],
+  ["subtree-58853450d255", 15, 4],
+  ["subtree-3b91f2c79326", 14, 4],
 ].map(([id, nodeCount, routeCount]) => {
   const candidate = candidates.find((entry) => entry.id === id);
   if (!candidate || candidate.nodeCount !== nodeCount || candidate.routeCount !== routeCount) {
@@ -327,12 +341,25 @@ const desktopCandidateContracts = [
   // `.louis-avatar` 를 물고 있어 fg-tertiary 이동이 닿았고, `subtree-e4077e3527d7`(5/3)
   // 은 결제 상태 본문이라 값 차이가 **하나도 없는데도** id 가 바뀌었다 — styleRef 재번호가
   // 단독으로 해시를 움직인다는 증거이므로 그대로 남겨 둔다.
-  ["subtree-5e2cc05efd59", 6, 18],
-  ["subtree-e30a85d54de2", 15, 4],
-  ["subtree-b5435a968b22", 14, 4],
-  ["subtree-c19f60450352", 17, 3],
-  ["subtree-21ea71cb874b", 16, 3],
-  ["subtree-e4077e3527d7", 5, 3],
+  //
+  // 세 번째 이동도 모바일과 같은 하나다 — 제품이 아니라 측정기가 움직였다(앵커 `5a67d692`
+  // 그대로, styleRef 를 자리번호에서 내용 해시로 교체 + `content-visibility: auto` 래치를
+  // 스크롤 훑기로 못박음). 서명 전수 대조에서 불일치 0 이라 여섯 다 nodeCount·routeCount 는
+  // 손대지 않고 이름만 옮긴다:
+  //   subtree-5e2cc05efd59(6/18)  → subtree-f61c1155f4b4
+  //   subtree-e30a85d54de2(15/4)  → subtree-9a75e3d066ea
+  //   subtree-b5435a968b22(14/4)  → subtree-0510292f2d82
+  //   subtree-c19f60450352(17/3)  → subtree-548fe53795f0
+  //   subtree-21ea71cb874b(16/3)  → subtree-2fab43c147d6
+  //   subtree-e4077e3527d7(5/3)   → subtree-beece6df8949
+  // 위 문단이 「값 차이가 하나도 없는데도 id 가 바뀐 증거」로 든 5/3 후보는 이번에도 값이
+  // 그대로인 채 이름만 갈렸다 — 그 증거가 한 번 더 재현된 셈이고, 이번이 그 마지막이다.
+  ["subtree-f61c1155f4b4", 6, 18],
+  ["subtree-9a75e3d066ea", 15, 4],
+  ["subtree-0510292f2d82", 14, 4],
+  ["subtree-548fe53795f0", 17, 3],
+  ["subtree-2fab43c147d6", 16, 3],
+  ["subtree-beece6df8949", 5, 3],
 ].map(([id, nodeCount, routeCount]) => {
   const candidate = desktopCandidates.find((entry) => entry.id === id);
   if (!candidate || candidate.nodeCount !== nodeCount || candidate.routeCount !== routeCount) {

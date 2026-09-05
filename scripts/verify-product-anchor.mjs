@@ -132,7 +132,11 @@ const KNOWN_STALE = new Map([
 //   그 둘이 풀리자 그림자도 함께 열렸다 — `app-screens.plan.json`(둘의 커밋이 같아야 열린다)
 //   과 화면 계획 넷, 보드 원장. **11핀 → 1핀.**
 //
-//   남은 하나 `figma/product-upgrade-scene.plan.json` 은 **또 다른 하네스 결함**에 막혀 있다.
+//   남은 하나 `figma/product-upgrade-scene.plan.json` 이 막혀 있던 사정(아래)은 **해소됐다** —
+//   측정기를 고치고 같은 앵커에서 다시 잰 fixture 로 생성기를 다시 만드니 그 핀이 새 앵커로
+//   따라왔다. 그래서 이 표는 **비었고**, 그것을 지키던 canary 도 함께 걷었다(대상이 없다).
+//   표가 비면 fixture 축 면제는 존재하지 않는다 — 그 축에 핀이 다시 생기면 보통 어긋남으로
+//   실패한다. 아래 기록은 다음 사람이 같은 벽을 만났을 때 읽으라고 남긴다.
 //   가드 문구는 「`/mypage/upgrade/checkout` no-query redirect no longer matches」지만
 //   **리다이렉트 행동은 전혀 바뀌지 않았다** — 두 앵커 모두 `finalPath: /mypage/upgrade` ·
 //   `redirected: true` · `finalSearch: ""` 이고 API 트래픽까지 같다. 터진 것은 OR 의 셋째 절인
@@ -158,11 +162,10 @@ const KNOWN_STALE = new Map([
 // **개수가 아니라 값으로 잠근다.** 파일당 개수만 세면 그 안의 핀이 아무 값으로나 바뀌어도
 // 조용하다. 그래서 fixture 커밋을 여기 적고, 그 값과 다른 핀은 개수와 무관하게 실패시킨다.
 const FIXTURE_COMMIT = "ae8fd6278481a5e86cd324ba86a1d44fe978b788";
-const FIXTURE_AXIS = new Map([
-  ["figma/product-upgrade-scene.plan.json", 1],
-]);
-// 한 방향 래칫. fixture 를 새 앵커에 세우면 이 표는 통째로 사라진다.
-const FIXTURE_AXIS_RATCHET = 1;
+// 2026-09-05: 마지막 한 줄(`figma/product-upgrade-scene.plan.json`)이 새 앵커로 따라와 비었다.
+const FIXTURE_AXIS = new Map([]);
+// 한 방향 래칫. fixture 를 새 앵커에 세우면 이 표는 통째로 사라진다 — 그 일이 일어났다.
+const FIXTURE_AXIS_RATCHET = 0;
 
 // 어긋난 핀을 어떻게 되돌리는지. 생성물마다 만드는 명령이 다르므로 진단이 직접 말하게 한다.
 const HOW_TO_REALIGN = new Map([
@@ -280,21 +283,9 @@ const TAMPERS = [
         FIXTURE,
       ).found,
   },
-  {
-    label: "fixture 축 파일의 핀이 다른 커밋으로 바뀐 것 — 이름 면제가 아니라 값 면제여야 한다",
-    run: () =>
-      compare(
-        anchor.commit,
-        pins.map((pin) =>
-          FIXTURE_AXIS.has(pin.file) && samePin(pin.value, FIXTURE_COMMIT)
-            ? { ...pin, value: "d".repeat(40) }
-            : pin,
-        ),
-        DECLARED_HISTORICAL_PINS,
-        KNOWN_STALE,
-        FIXTURE,
-      ).found,
-  },
+  // fixture 축 canary 는 걷었다. FIXTURE_AXIS 가 비어 면제가 하나도 없으므로 변조할 대상이
+  // 없고, 남겨 두면 「canary 가 변조를 잡지 못했습니다」로 영구히 빨개진다. 면제가 다시 생기면
+  // 이 canary 도 함께 되살려야 한다 — 이름 면제가 아니라 값 면제임을 증명하는 것이 그 몫이다.
   {
     label: "면제만 남고 그 핀이 사라진 것 — 죽은 선언이 남는다",
     run: () =>

@@ -225,9 +225,21 @@ const sectionRowStyle = style(rowNodes[5]);
      `425a9c3d → 3ec5966` 은 그 열셋의 **누적**이지 한 커밋의 델타가 아니다 —
      한 커밋으로 적었다가 반증에서 잡혔다.
    - style table 이 586 → 580 항목으로 줄며 자리번호가 밀렸고 색까지 바뀌었으니 해시는 당연히
-     갈린다. 여기서도 **같은 것의 새 이름**을 못박는다. */
+     갈린다. 여기서도 **같은 것의 새 이름**을 못박는다.
+
+   세 번째로 갈렸다(subtree-557568349002→eff38326a288). 이번에는 **제품이 아니라 측정기가
+   움직였다** — 앵커는 그대로 `5a67d692` 이고(새 fixture 의 `productCommit` 도 같다),
+   위 문단들이 원인으로 지목한 자리번호 styleRef 자체를 걷어냈다: styleRef 를 「최초 등장
+   순서」 인덱스에서 **스타일 내용의 해시**로 바꾸고, `content-visibility: auto` 가 화면 밖
+   서브트리를 렌더링에서 걷어내던 래치를 측정 전 스크롤 훑기로 풀었다. 같은 앵커에서 다시
+   재고 옛 측정과 전수 대조한 결과 후보 수 desktop 51 → 51 · mobile 16 → 16, 서명
+   (nodeCount·routeCount·occurrenceCount·score·roots) 다중집합 불일치 **0**,
+   computedStyles 580 → 579 — 구조는 한 곳도 안 움직였고 id 체계만 한 번 갈렸다. 그 서명으로
+   옛→새를 1:1 로 이어 붙였으므로 47/10 은 손대지 않는다.
+   **이것이 마지막 일괄 이동이다.** styleRef 가 더는 자리번호가 아니므로 앞으로 id 는 값이
+   실제로 바뀐 자리에서만 움직인다 — 다음에 이 가드가 물면 이름 갈림이 아니라 진짜 변경이다. */
 const candidate = fixture.componentCandidateAudit.repeatedSubtreesByContext[contextName].find(
-  (entry) => entry.id === "subtree-557568349002",
+  (entry) => entry.id === "subtree-eff38326a288",
 );
 if (!candidate || candidate.nodeCount !== 47 || candidate.routeCount !== 10) {
   fail("measured repeated sidebar candidate changed; inspect before regenerating Figma");
@@ -243,8 +255,13 @@ if (!candidate || candidate.nodeCount !== 47 || candidate.routeCount !== 10) {
    판정 근거는 위 사이드바와 **같은 하나**다: 두 헤더 59노드를 순서대로 견줘 path·tag·ownText·
    rect 차이 0, `roots` 배열도 byte 동일이고, 바뀐 값은 gray-700 잉크
    #575d68 → #40454f 뿐이다(59노드 중 30개, 아이콘 6개는 mask 잉크라 backgroundColor 도 함께).
-   헤더가 사이드바를 자식으로 품으므로 같은 30개다. 출처는 LOUIS 3ec5966, 제품 5a67d692. */
-const headerCandidates = ["subtree-bd975676e6bb", "subtree-23a203251141"].map((id) =>
+   헤더가 사이드바를 자식으로 품으므로 같은 30개다. 출처는 LOUIS 3ec5966, 제품 5a67d692.
+
+   세 번째로 갈렸다(bd975676e6bb→d1dc5adb9fa0, 23a203251141→c3cf629b9e07). 위 사이드바와
+   **같은 하나**다 — 제품이 아니라 측정기가 움직였고(앵커 `5a67d692` 그대로, styleRef 를
+   자리번호에서 내용 해시로 교체 + `content-visibility: auto` 래치를 스크롤 훑기로 못박음),
+   서명 전수 대조에서 불일치 0 이었다. 59/6 · 59/4 는 그대로 둔다. */
+const headerCandidates = ["subtree-d1dc5adb9fa0", "subtree-c3cf629b9e07"].map((id) =>
   fixture.componentCandidateAudit.repeatedSubtreesByContext[contextName].find((entry) => entry.id === id),
 );
 if (
@@ -320,9 +337,14 @@ const upgradeSpec = (route, state) => {
    ae8fd627 → 5a67d692 에서는 브랜드 후보도 이름이 갈렸다(08a5cfbcf527→a8869908a7f3). style
    table 이 586 → 580 으로 **줄어** 맨 앞 6노드의 자리번호까지 밀린 것이다. 이 6노드는 회색 램프
    재조정의 영향을 받지 않는다 — 옛 후보와 견줘 구조도 계산 스타일도 차이 0, routeCount 18 그대로.
-   순수한 이름 갈림이라 이름만 새로 못박는다. */
+   순수한 이름 갈림이라 이름만 새로 못박는다.
+
+   세 번째로 갈렸다(a8869908a7f3→ffebd1510282). 이번엔 자리번호가 밀린 것이 아니라 자리번호
+   **자체를 걷어낸** 것이다 — 측정기의 styleRef 가 등장 순서 인덱스에서 스타일 내용의 해시로
+   바뀌었고(`content-visibility: auto` 래치도 스크롤 훑기로 풀었다), 앵커는 그대로
+   `5a67d692` 다. 서명 전수 대조에서 불일치 0, 6/18 그대로. */
 const brandCandidate = fixture.componentCandidateAudit.repeatedSubtreesByContext[contextName].find(
-  (entry) => entry.id === "subtree-a8869908a7f3",
+  (entry) => entry.id === "subtree-ffebd1510282",
 );
 if (!brandCandidate || brandCandidate.nodeCount !== 6 || brandCandidate.routeCount !== 18) {
   fail("measured Gnb brand candidate changed; inspect before regenerating Figma");
@@ -469,8 +491,13 @@ const repeatedCandidates = fixture.componentCandidateAudit.repeatedSubtreesByCon
    → `color(srgb 0.866667 0.870588 0.878431)`(#dddee0) — LOUIS palette gray-100 이 3ec5966 에서
    #eeeff1 → #dddee0 로 옮겨간 값이고(그 앞 37509da 에서 #f1f1f3 → #eeeff1), 라이트에서
    `--gray-900: var(--palette-gray-100)` 이라 `text-gray-900!` 인 이 CTA 가 그대로 받는다.
-   제품이 받은 커밋은 역시 5a67d692 하나다. */
-const resultCandidateIds = ["subtree-0c0f510a5eea", "subtree-83dc162f593e", "subtree-cd13bafaafe1"];
+   제품이 받은 커밋은 역시 5a67d692 하나다.
+
+   세 번째로 갈렸다(0c0f510a5eea→1c5b53bcf0bf, 83dc162f593e→b9e2626a8aae,
+   cd13bafaafe1→56ee03ac380f). 위 셋과 **같은 하나**다 — 제품이 아니라 측정기가 움직였고
+   (앵커 `5a67d692` 그대로, styleRef 를 자리번호에서 내용 해시로 교체 + `content-visibility:
+   auto` 래치를 스크롤 훑기로 못박음), 서명 전수 대조에서 불일치 0 이었다. 9·9·5 는 그대로. */
+const resultCandidateIds = ["subtree-1c5b53bcf0bf", "subtree-b9e2626a8aae", "subtree-56ee03ac380f"];
 const resultCandidates = resultCandidateIds.map(
   (id) =>
     repeatedCandidates[contextName].find((entry) => entry.id === id) ??

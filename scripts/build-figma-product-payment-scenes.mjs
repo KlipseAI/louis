@@ -82,11 +82,29 @@ const candidates = fixture.componentCandidateAudit.repeatedSubtreesByContext[con
 //   subtree-4066df48bad5(83, body.1, success 짝)     → subtree-d843ea7725e7
 //   subtree-af4ef3c26765(25, body.1.0.0.1, fail)     → subtree-48b751ac1e30
 //   subtree-77de3059c30d(21, body.1.0.0.1, success)  → subtree-6dd1be31e112
+//
+// ── 세 번째 이동: 앵커는 그대로 5a67d692, 움직인 것은 측정기다 ──
+// 제품은 한 걸음도 안 움직였다 — 새 fixture 의 `productCommit` 도 `5a67d692` 다. 고친 것은
+// 측정기 쪽 결함 둘이다. (1) `styleRef` 가 「최초 등장 순서」 **자리번호**였다 — 위 두 번째
+// 이동에서 67개 id 를 통째로 재색인에 휩쓸리게 한 바로 그 원인이다. 그것을 **스타일 내용의
+// 해시**로 바꿨다. (2) `content-visibility: auto` 가 화면 밖 서브트리를 렌더링에서 걷어내
+// 측정을 갉을 때가 있었다 — 측정 전에 페이지를 끝까지 훑어 래치를 풀도록 못박았다.
+// 같은 앵커에서 다시 재고(52분, exit 0) 옛 측정과 전수 대조했다: 후보 수 desktop 51 → 51 ·
+// mobile 16 → 16, 서명(nodeCount·routeCount·occurrenceCount·score·roots) 다중집합 불일치
+// **0**, computedStyles 580 → 579. 즉 구조는 한 곳도 안 움직였고 id 체계만 한 번 갈렸다.
+// 아래 대응은 그 서명으로 옛→새 id 를 1:1 로 이어 붙인 것이다.
+// **이것이 마지막 일괄 이동이다.** styleRef 가 더는 자리번호가 아니므로, 앞으로 id 가 갈리는
+// 자리는 그 서브트리의 값이 **실제로 바뀐 자리**뿐이다 — 다음에 이 가드가 물면 이름 갈림이
+// 아니라 진짜 변경이니 그렇게 읽어라.
+//   subtree-d017e3c29303(87, body.1, fail 짝)        → subtree-708f3483317a
+//   subtree-d843ea7725e7(83, body.1, success 짝)     → subtree-4f5aa4e9cf22
+//   subtree-48b751ac1e30(25, body.1.0.0.1, fail)     → subtree-0f24f9093a95
+//   subtree-6dd1be31e112(21, body.1.0.0.1, success)  → subtree-71e9f8d4cba7
 const candidateContracts = [
-  ["subtree-d017e3c29303", 87, 2],
-  ["subtree-d843ea7725e7", 83, 2],
-  ["subtree-48b751ac1e30", 25, 2],
-  ["subtree-6dd1be31e112", 21, 2],
+  ["subtree-708f3483317a", 87, 2],
+  ["subtree-4f5aa4e9cf22", 83, 2],
+  ["subtree-0f24f9093a95", 25, 2],
+  ["subtree-71e9f8d4cba7", 21, 2],
 ].map(([id, nodeCount, routeCount]) => {
   const candidate = candidates.find((entry) => entry.id === id);
   if (!candidate || candidate.nodeCount !== nodeCount || candidate.routeCount !== routeCount) {
@@ -107,11 +125,17 @@ const mobileCandidates = fixture.componentCandidateAudit.repeatedSubtreesByConte
 //   subtree-9704504060de(27, body.1.0)     → subtree-124ec1ebd803
 //   subtree-ae47ccf88a5d(26, body.1.0.0)   → subtree-25acb8040b2f
 //   subtree-8efeaf2c546f(25, body.1.0.0.1) → subtree-918343b944e5
+// 모바일도 같은 세 번째 이동이다 — 측정기의 styleRef 가 자리번호에서 내용 해시로 바뀌어 id 만
+// 갈렸고, 서명 전수 대조에서 불일치 0 이었다. root path 대응은 그대로다:
+//   subtree-73b90f7c1ccd(28, body.1)       → subtree-3dc02b6b63cf
+//   subtree-124ec1ebd803(27, body.1.0)     → subtree-138bcfafd15b
+//   subtree-25acb8040b2f(26, body.1.0.0)   → subtree-ba57b7970eb9
+//   subtree-918343b944e5(25, body.1.0.0.1) → subtree-43750710c66c
 const mobileCandidateContracts = [
-  ["subtree-73b90f7c1ccd", 28, 2],
-  ["subtree-124ec1ebd803", 27, 2],
-  ["subtree-25acb8040b2f", 26, 2],
-  ["subtree-918343b944e5", 25, 2],
+  ["subtree-3dc02b6b63cf", 28, 2],
+  ["subtree-138bcfafd15b", 27, 2],
+  ["subtree-ba57b7970eb9", 26, 2],
+  ["subtree-43750710c66c", 25, 2],
 ].map(([id, nodeCount, routeCount]) => {
   const candidate = mobileCandidates.find((entry) => entry.id === id);
   if (!candidate || candidate.nodeCount !== nodeCount || candidate.routeCount !== routeCount) {

@@ -15,7 +15,7 @@
     "rejected": 39,
     "voidedByQuoteCheck": 18,
     "productLineCorrected": 161,
-    "dsLineCorrected": 0
+    "dsLineCorrected": 10
   },
   "axes": [
     {
@@ -785,10 +785,10 @@
       "quotedLine": "\"absolute right-8 bottom-8 z-3 inline-flex items-center gap-4 p-2 rounded-full\",",
       "productValue": "36px (p-2 = --spacing 2px × 2 = 4px, 상하 4+4=8; 자식 최대 높이는 ARROW_BUTTON `h-14` = 28px → 8+28 = 36px)",
       "dsFile": "figma/components.measured.json",
-      "dsLine": 1123,
-      "dsQuotedLine": "\"controlsHeight\": 36,",
-      "dsValue": "36 (CSS에는 높이 선언이 없다 — banner-carousel.css:193 `padding: var(--louis-space-control-xs)`=4px ×2 + :200-201 화살표 28px에서 나온다)",
-      "matches": "같음",
+      "dsLine": 1746,
+      "dsQuotedLine": "\"controlsHeight\": 28,",
+      "dsValue": "28 (선언이 없다 — 파생값이다. `.louis-banner-carousel__controls`(banner-carousel.css:217-228)에 높이 선언도 padding 도 없어서, flex 컨테이너 높이가 가장 큰 자식 = `.louis-banner-carousel__arrow` 의 `block-size: 28px`(:249)이 그대로 된다. 막대는 `block-size: 2px`(:301)라 더 작다. 감사 때 36 이던 것은 컨트롤이 늘 알약이라 `padding: var(--louis-space-control-xs)`(4px) ×2 가 얹혔기 때문이고, 그 padding 은 이제 `[data-controls=\"pill\"]` 변형(:237-245)에만 남는다 — 즉 값이 아니라 **어느 변형이 기본인가**가 바뀌었다. 알약을 켜면 DS 도 4+28+4 = 36 이지만, 이 원장이 세는 행은 기본 변형이다.)",
+      "matches": "다름",
       "mapClaimWrong": "",
       "reason": "파생 축이지만 매핑의 근거 두 곳이 실제로 그대로 있고 계산도 맞는다. (2) TabBannerCarousel.tsx:128 CONTROLS가 실재하고 `inline-flex`·`p-2`만 있고 높이 선언이 없다. appHomeSceneStyles.ts:442 bannerControls도 :448 `[display:inline-flex]` / :451 `[padding:4px]`로 높이 선언이 없어 매핑의 주장이 맞다. (3) CONTROLS는 :321 `<div className={CONTROLS}>`로 실제 렌더되고, TabBannerCarousel은 HighlightScene.tsx:1175 / NodeCanvasHomeScene.tsx:1280 / VideoEditScene.tsx:707에서 살아 있다. 이 컴포넌트는 .module.css를 하나도 import하지 않아(:1-7) 「레이어 밖 모듈 CSS가 utilities를 이긴다」 함정에 걸리지 않고, globals.css:971 `@layer base { * { padding: 0 } }`는 base 레이어라 utilities에 진다. 인라인 style은 슬라이드의 `--banner-bg`(:209)와 트랙의 `--banner-active-index`(:307)뿐이라 컨트롤에 얹히는 것이 없다. (4) `--spacing: 2px`(tailwind.css:164)라 p-2=4px. absolute로 blockify돼도 top/bottom 쌍이 없어(right-8·bottom-8만) 높이는 내용 기준이고, flex 컨테이너 높이는 최대 자식 교차 크기 = 화살표 28px(:137 `w-14 h-14`). `* { box-sizing: border-box }`(globals.css:973)라 4+28+4 = 36px. DS 36과 같다.",
       "commands": [
@@ -799,7 +799,8 @@
         "cd /Users/sejunki/klipse-web && git show 7e9c3b6946a71431479aef69d16baac5c53128b2:apps/web/components/scenes/appHomeSceneStyles.ts",
         "cd /Users/sejunki/klipse-web && git show 7e9c3b6946a71431479aef69d16baac5c53128b2:apps/web/app/globals.css",
         "cd /Users/sejunki/klipse-web && git grep -n \"TabBannerCarousel\" 7e9c3b6946a71431479aef69d16baac5c53128b2 -- \"*.tsx\" \"*.ts\""
-      ]
+      ],
+      "$dsDrift": "2026-09-05 DS 변경 반영 — 이 감사는 2026-08-22 에 굳었고 제품 인용은 commit a89fc0d5 에 고정돼 그대로다. DS 쪽 인용만 현재 소스로 갱신했다. **판정이 뒤집혔다: 같음 → 다름.** 3f845c9(2026-08-31 `feat(css): 배너 캐러셀을 가운데 정렬로 되튜닝한다 — 밝기가 상태다 (DS-D-0033)`)가 알약(면·흐림·패딩)을 `data-controls=\"pill\"` 변형으로 내렸다. `git show --name-only 3f845c9` 가 `packages/css/src/component/banner-carousel.css` 와 `figma/components.measured.json` 을 함께 담고, `git log -S '\"controlsHeight\": 36,'` / `-S '\"controlsHeight\": 28,'` 가 이 값을 옮긴 커밋으로 이 하나만 낸다. 제품은 a89fc0d5 에서 CONTROLS 에 `p-2`(4px)를 늘 얹으므로 36 이고, DS 기본 28 ≠ 제품 36 이다. **같은 커밋이 banner-carousel 의 dot 축 셋은 `기각(인용 무효)` 로 내렸는데 이 축은 그 셋과 다르다** — dot 은 제품도 같은 날 함께 움직여(klipse-web design 0dfb144e) a89fc0d5 에 고정된 제품 인용이 비교 자체를 담지 못했지만, controlsHeight 의 제품 인용 (TabBannerCarousel.tsx:128·137)은 a89fc0d5 에서 글자 그대로 열린다. 비교가 성립하므로 확인을 유지하고 판정만 뒤집는다."
     },
     {
       "path": "banner-carousel.sizes.full.arrowRadius",
@@ -966,10 +967,10 @@
       "quotedLine": "\"w-14 h-14 p-0 [border:0] rounded-full inline-flex items-center justify-center\",",
       "productValue": "36px (4 + 28 + 4)",
       "dsFile": "figma/components.measured.json",
-      "dsLine": 1144,
-      "dsQuotedLine": "\"controlsHeight\": 36,",
-      "dsValue": "36 (banner-carousel.css에는 선언이 없다 — :193 padding var(--louis-space-control-xs)=4px ×2 + :201 `block-size: 28px;` 화살표에서 계산되어 나온다)",
-      "matches": "같음",
+      "dsLine": 1771,
+      "dsQuotedLine": "\"controlsHeight\": 28,",
+      "dsValue": "28 (boxed 와 같은 파생값이다. bleed 는 반경만 가르고 컨트롤 기하는 가르지 않는다 — banner-carousel.css 의 `[data-bleed=\"full\"]` 규칙에 컨트롤 선언이 없다. 값은 `.louis-banner-carousel__controls`(:217-228)에 높이·padding 이 없고 자식 최댓값이 `.louis-banner-carousel__arrow` 의 `block-size: 28px`(:249)인 데서 나온다. 감사 때의 36 은 알약 padding 4px ×2 가 얹힌 값이었고 그 padding 은 `[data-controls=\"pill\"]`(:237-245)로 내려갔다.)",
+      "matches": "다름",
       "mapClaimWrong": "매핑의 주장 자체는 맞지만 근거가 불완전하다. 매핑은 `decision: derived`라 productFile/productLine이 아예 없고, reason은 TabBannerCarousel.tsx:128(CONTROLS)과 appHomeSceneStyles.ts:442(bannerControls)만 인용한다 — 둘 다 실재하고 `inline-flex`에 높이 선언이 없다는 점까지 맞다. 그러나 높이 36을 실제로 만드는 하중 선언인 화살표 28px(ARROW_BUTTON, TabBannerCarousel.tsx:137 `w-14 h-14`)을 어디에서도 가리키지 않는다. 즉 '화살표 28'이라는 수치가 매핑 안에서는 근거 없이 떠 있다.",
       "reason": "CONTROLS(128줄)에는 `h-*`/`[height:*]`가 없고 `inline-flex items-center p-2`뿐이라 높이가 가장 큰 자식에서 나온다. 자식은 렌더 JSX 기준(322~354줄) ARROW_BUTTON 버튼 둘과 DOTS div 하나다. ARROW_BUTTON은 137줄 `w-14 h-14 p-0 [border:0]` — tailwind.css:164 `--spacing: 2px;`이므로 h-14 = 28px이고, `p-0`·`[border:0]`이라 preflight를 뺀 이 저장소의 content-box 기본에서도 총 28px 그대로다(tailwind.css 주석이 preflight 제외를 명시하고 globals.css에 `*` box-sizing 리셋이 없어 이 확인이 필요했다). DOTS 안의 점은 h-[7px]라 더 작다. 따라서 컨트롤 높이 = p-2(4px) + 28px + p-2(4px) = 36px. 인라인 style 없음, !important·비레이어 규칙 없음, 테마 변형 없음. DS 기록 36과 같다.",
       "commands": [
@@ -979,7 +980,8 @@
         "git show 7e9c3b6946a71431479aef69d16baac5c53128b2:apps/web/app/tailwind.css | head -20",
         "git show 7e9c3b6946a71431479aef69d16baac5c53128b2:apps/web/app/globals.css | grep -nE \"^\\s*(\\*|button|div|html|body)[^-a-zA-Z]*\\{\"",
         "git show 7e9c3b6946a71431479aef69d16baac5c53128b2:apps/web/components/scenes/appHomeSceneStyles.ts | grep -n \"\" | sed -n '430,500p'"
-      ]
+      ],
+      "$dsDrift": "2026-09-05 DS 변경 반영 — 이 감사는 2026-08-22 에 굳었고 제품 인용은 commit a89fc0d5 에 고정돼 그대로다. DS 쪽 인용만 현재 소스로 갱신했다. **판정이 뒤집혔다: 같음 → 다름.** boxed 와 같은 원인이고 같은 커밋이다 — 3f845c9(2026-08-31, DS-D-0033)가 알약을 `data-controls=\"pill\"` 변형으로 내리면서 기본 컨트롤의 padding 이 없어졌다. 제품 쪽 하중 선언인 ARROW_BUTTON(TabBannerCarousel.tsx:137 `w-14 h-14`)과 CONTROLS 의 `p-2` 는 a89fc0d5 에서 그대로라 제품은 여전히 4+28+4 = 36 이다. DS 기본 28 ≠ 제품 36."
     },
     {
       "path": "banner-carousel.sizes.full.controlsPadding",
@@ -2955,10 +2957,10 @@
       "quotedLine": "--dropdown-radius: 16px;",
       "productValue": "16px. 리터럴 선언이며 html[data-theme=light] 블록(globals.css:592-612)에서 재정의되지 않는다 — 테마 무관 고정이다.",
       "dsFile": "packages/css/src/component/dialog.css",
-      "dsLine": 17,
-      "dsQuotedLine": "--louis-dialog-surface-radius: var(--louis-radius-overlay);",
-      "dsValue": "16px (--louis-radius-overlay: 16px, packages/tokens/generated/tokens.css:177). 83행 border-radius: var(--louis-dialog-surface-radius)로 서피스에 걸린다. compact만 radius-overlay-lg(24px)로 덮고(dialog.css:221) large는 덮지 않는다 — design/components/dialog.md:272의 Specification도 \"compact 24px, large radius-overlay 16px\"로 같다.",
-      "matches": "같음",
+      "dsLine": 23,
+      "dsQuotedLine": "--louis-dialog-surface-radius: calc(",
+      "dsValue": "20px. 선언이 dialog.css:23-25 세 줄에 접혀 있다 — `--louis-dialog-surface-radius: calc(var(--louis-radius-control) + var(--louis-space-control-sm))` 이고, `--louis-radius-control: 12px`(packages/tokens/generated/tokens.css:572) + `--louis-space-control-sm: 8px`(:583) = 20px 이다. 값을 20 으로 적지 않고 두 입력의 합으로 둔 것은 위 주석(:17-22)이 적는 대로 **안쪽 버튼에서 유도하기 때문**이다 — 푸터 액션이 radius-control(12)이고 푸터 여백이 space-control-sm(8)이라 두 모서리가 동심이 되려면 바깥이 20 이어야 한다. :90 `border-radius: var(--louis-dialog-surface-radius);` 로 서피스에 걸리고, large 블록(:266-268)은 `--louis-dialog-inline-size: 720px` 만 덮고 곡률은 건드리지 않는다. 덮는 칸은 fullscreen(:270-273 `--louis-dialog-surface-radius: 0`) 하나뿐이며, 감사 때 24 로 덮던 compact 는 이제 덮지 않는다(:256-264 주석이 그 무름을 적는다). 감사 때는 `var(--louis-radius-overlay)` = 16px 이었다.",
+      "matches": "다름",
       "mapClaimWrong": "본 주장(상수·파일·줄·값·결속 지점)은 전부 맞다. 다만 매핑이 근거로 든 두 리터럴 표본 중 하나가 축 밖이다 — ClipCropModal.tsx:61(rounded-16)의 카드는 720이 아니라 **760 폭**이다(같은 파일 60행 w-[min(94vw,760px)]). 매핑도 '760 폭'이라 적어 두긴 했으나 720 축의 근거로 세울 수는 없다. 그리고 매핑이 세지 않은 720 벌이 하나 더 있다 — ImageCropModal.tsx:31이 rounded-10(=10px, tailwind.css:174)이다. 이를 넣으면 720 벌의 radius 분포는 16(HighlightCreateModal, CropModal) · 24(PricingModal, SignupLegalModal, YoutubeUploadModal) · 10(ImageCropModal)로 셋으로 갈린다.",
       "reason": "토큰 선언과 720 폭 결속을 둘 다 열었다. globals.css:84가 --dropdown-radius: 16px이고, HighlightCreateModal의 MODAL_CARD가 34행 \"rounded-[var(--dropdown-radius)] bg-[var(--dropdown-surface-bg)]\",로 그 토큰을 문다. 그 카드는 33행 w-full max-w-[720px]로 720 폭이며 96-100행이 MODAL_ROOT 안에 role=\"dialog\"로 렌더한다. 함정 점검: (2) MODAL_CARD가 붙는 요소(99행)에 style prop이 없다. (3) 라이트 테마 블록(globals.css:592-612)이 --glass-dropdown-frame·--dropdown-surface-bg는 재정의해도 --dropdown-radius는 재정의하지 않는다 — 두 테마 모두 16px. (4) 이름 확인이 아니라 결속 유틸리티(rounded-[var(--dropdown-radius)])와 렌더 JSX로 확인했다. (5) rounded-N은 이 저장소가 세운 px 스케일이다(tailwind.css:169-180, --radius-16: 16px, --radius-24: 24px) — --spacing과 무관하니 두 배 오독 위험이 없다. DS 16 = 이 표본 16. 다만 제품 720 벌 사이에서 16/24/10으로 갈리므로 (A3)은 어느 벌을 정본으로 삼을지 함께 판정해야 한다.",
       "commands": [
@@ -2969,7 +2971,8 @@
         "git show 7e9c3b6946a71431479aef69d16baac5c53128b2:apps/web/app/globals.css | awk 'NR>=588 && NR<=612 {printf \"%d|%s\\n\", NR, $0}'",
         "git show 7e9c3b6946a71431479aef69d16baac5c53128b2:apps/web/app/globals.css | sed -n '84p'"
       ],
-      "$productLineCorrectedFrom": 84
+      "$productLineCorrectedFrom": 84,
+      "$dsDrift": "2026-09-05 DS 변경 반영 — 이 감사는 2026-08-22 에 굳었고 제품 인용은 commit a89fc0d5 에 고정돼 그대로다. DS 쪽 인용만 현재 소스로 갱신했다. **판정이 뒤집혔다: 같음 → 다름.** facdd3a(2026-09-03 `feat(dialog): 상자 곡률을 안쪽 버튼에서 유도하고 빈 본문을 접는다`)가 `--louis-dialog-surface-radius` 를 `var(--louis-radius-overlay)`(16)에서 `calc(var(--louis-radius-control) + var(--louis-space-control-sm))`(12+8 = 20)으로 바꿨다. `git show --name-only facdd3a` 가 `packages/css/src/component/dialog.css` 와 `figma/components.measured.json` 을 담는다. 제품 `--dropdown-radius` 는 a89fc0d5 의 globals.css:66 에서 `16px` 그대로이므로 DS 20 ≠ 제품 16 이다. 이 20 은 소유자가 「안쪽 버튼에서 유도한다」는 근거로 직접 정한 값이고, 어느 쪽으로 수렴할지는 (A3) 이 판정한다 — 이 원장은 갈렸다는 사실만 적는다. 덧붙여 감사 당시 reason 이 지적한 제품 720 벌의 곡률 분포(16 · 24 · 10)는 손대지 않았다."
     },
     {
       "path": "dialog.sizes.large.width",
@@ -4838,9 +4841,9 @@
       "quotedLine": "\"bg-[rgb(var(--gray-000-rgb)/6%)]\",",
       "productValue": "다크(기본): rgb(250 250 250 / 6%) — globals.css:664·677에서 html[data-theme=dark] --gray-000-rgb = --palette-gray-000-rgb = `250 250 250`(globals.css:40). 즉 #FAFAFA 6% 반투명 오버레이. / 라이트: 같은 상수 116행 `[html[data-theme=light]_&]:bg-gray-900` 이 이김 → --color-gray-900(tailwind.css:54) → --gray-900 → 라이트에서 --palette-gray-100 = #f1f1f3(globals.css:717, 24) 불투명.",
       "dsFile": "packages/css/src/component/text-field.css",
-      "dsLine": 44,
-      "dsQuotedLine": "background: var(--louis-color-bg-surface);",
-      "dsValue": "color-bg-surface — light `color(srgb 0.980392 0.980392 0.980392 / 1)` = #FAFAFA 불투명(packages/tokens/generated/tokens.css:30), dark `color(srgb 0.192157 0.211765 0.25098 / 1)` = #313640 불투명(tokens.css:293)",
+      "dsLine": 51,
+      "dsQuotedLine": "background: var(--louis-color-bg-canvas);",
+      "dsValue": "color-bg-canvas — 라이트 `color(srgb 0.866667 0.870588 0.882353 / 1)` = #dddee1 (별칭 대상 primitive palette-gray.100, packages/tokens/generated/tokens.css:289 · 원색 :60), 다크 `color(srgb 0.090196 0.105882 0.133333 / 1)` = #171b22 (palette-gray.900, :732 · 원색 :78). 둘 다 불투명이다. 이 면은 `.louis-text-field__box`(text-field.css:34-54)가 소유하고 size 축 (md :56-59 · sm :75-86)은 높이·여백·반경만 덮을 뿐 면을 다시 선언하지 않는다. 감사 때는 `var(--louis-color-bg-surface)`(라이트 #fafafa · 다크 #313640)였고, 그 인용 자리였던 :44 는 지금 `box-shadow: var(--louis-hairline-inset);` 이다. 낮춘 이유는 :46-50 주석이 적는다 — 「입력은 파고든 자리(well)이지 얹힌 판이 아니다」, 그리고 다크에는 surface 와 canvas 사이에 칸이 없어 내려가는 역할을 할 수 있는 것이 canvas 뿐이었다.",
       "matches": "다름",
       "mapClaimWrong": "",
       "reason": "(2) 상수 존재 확인 — INPUT_BOX 배열은 112~118행이고 115행이 정확히 `\"bg-[rgb(var(--gray-000-rgb)/6%)]\",`다. (3) 적용 확인 — INPUT_BOX는 423~428행과 491~493행에서 `<input>`을 감싸는 `<div>`에 붙는다. DS도 시각 필드가 `<input>`이 아니라 감싸는 박스(.louis-text-field__box)라고 명시하므로 구조가 정확히 대응한다(DS $note가 지목한 \"인증 9벌\" 계열이 바로 이 로그인 페이지다). 그 div에 인라인 style은 없고, 로그인 라우트에는 page.module.css가 아예 없어(git ls-tree 결과 layout.tsx·page.tsx만 존재) 레이어 밖 모듈 CSS가 이길 여지도 없다. (5) 테마 함정이 실제로 걸린다 — 116행 `[html[data-theme=light]_&]:bg-gray-900`은 선택자 `html[data-theme=light] .bg-gray-900`으로 특이도가 더 높아 라이트에서 115행을 덮는다. 그래서 115행 값은 다크 전용이다. 또 --gray-000-rgb 자체가 테마별로 뒤집힌다(다크 250 250 250 / 라이트 0 0 0). (4) 계산 확인 — 다크 rgb(250 250 250 / 6%), 라이트 #f1f1f3. DS는 두 테마 모두 불투명 단색(#FAFAFA / #313640)인데 제품 다크는 뒤가 비치는 6% 흰색 오버레이라 성격 자체가 다르고, 라이트도 #f1f1f3 vs #FAFAFA로 다르다. 두 테마 모두 다르다. 매핑의 보조 근거도 실측과 맞다: CreateProjectModal.tsx:97 `[background:rgb(var(--gray-000-rgb)/6%)]`, InquiryClient.tsx:317 `[background:rgb(var(--gray-000-rgb)/6%)]`, 작은 계단 10% — myPageSceneStyles.ts:1029·NodeLayersPanel.tsx:182·AdminClient.tsx:298.",
@@ -4861,7 +4864,8 @@
         "cd /Users/sejunki/klipse-web && git show 7e9c3b6946a71431479aef69d16baac5c53128b2:apps/web/app/admin/AdminClient.tsx | sed -n '294,300p'",
         "sed -n '30p;293p' /Users/sejunki/klipse-design-system/packages/tokens/generated/tokens.css",
         "sed -n '44p' /Users/sejunki/klipse-design-system/packages/css/src/component/text-field.css"
-      ]
+      ],
+      "$dsDrift": "2026-09-05 DS 변경 반영 — 이 감사는 2026-08-22 에 굳었고 제품 인용은 commit a89fc0d5 에 고정돼 그대로다. DS 쪽 인용만 현재 소스로 갱신했다. **판정은 다름 그대로지만 갈리는 값이 달라졌다.** c480c92(2026-09-04 `fix(text-field): 입력 면을 놓이는 자리보다 한 칸 낮춘다`)가 `.louis-text-field__box` 의 면을 `bg-surface` 에서 `bg-canvas` 로 내렸다 — `git show --name-only c480c92` 가 `packages/css/src/component/text-field.css` 와 그 생성물 둘만 담는다. 제품(다크 rgb(250 250 250 / 6%) 반투명 · 라이트 #f1f1f3)과는 두 테마 모두 여전히 다르고, **라이트는 오히려 벌어졌다** — 감사 때 DS 라이트가 #fafafa 라 제품 #f1f1f3 과 한 칸 차이였는데 지금은 #dddee1 이다. 다크는 성격 차이(불투명 대 6% 오버레이)가 그대로다."
     },
     {
       "path": "input.states.base.Default.border",
@@ -4939,9 +4943,9 @@
       "quotedLine": "\"[background:rgb(var(--gray-000-rgb)_/_6%)]\",",
       "productValue": "dark rgba(250,250,250,0.06) / light rgba(0,0,0,0.06) — 반투명 틴트. globals.css:677이 다크에서 `--gray-000-rgb: var(--palette-gray-000-rgb)`(globals.css:40 `250 250 250`), globals.css:720이 라이트에서 `--palette-gray-1000-rgb`(globals.css:52 `0 0 0`)로 뒤집는다.",
       "dsFile": "packages/css/src/component/text-field.css",
-      "dsLine": 44,
-      "dsQuotedLine": "background: var(--louis-color-bg-surface);",
-      "dsValue": "color-bg-surface — light color(srgb 0.980392 0.980392 0.980392 / 1) = #fafafa 불투명(generated/tokens.css:30), dark color(srgb 0.192157 0.211765 0.25098 / 1) = #313640 불투명(generated/tokens.css:293). DS는 disabled에 면 재정의를 두지 않는다 — text-field.css:73-76의 `:has(.louis-text-field__control:disabled)` 블록은 border-color와 cursor만 바꾼다.",
+      "dsLine": 51,
+      "dsQuotedLine": "background: var(--louis-color-bg-canvas);",
+      "dsValue": "color-bg-canvas — 라이트 `color(srgb 0.866667 0.870588 0.882353 / 1)` = #dddee1 (primitive palette-gray.100, packages/tokens/generated/tokens.css:289 · 원색 :60), 다크 `color(srgb 0.090196 0.105882 0.133333 / 1)` = #171b22 (palette-gray.900, :732 · 원색 :78). 둘 다 불투명이다. **DS 는 여전히 disabled 에 면 재정의를 두지 않는다** — 그래서 이 축의 값이 Default 와 같은 선언 (text-field.css:51)이다. disabled 를 잡는 유일한 박스 규칙은 :127-131 `.louis-text-field:has(.louis-text-field__control:disabled) .louis-text-field__box` 이고 선언이 `cursor: not-allowed;` 하나뿐이다 — 감사 때 있던 border-color 축마저 DS-D-0023 으로 generic 헤어라인에 통일되며 사라졌다. 상태는 전경색(:161-168 `color-fg-disabled`)이 전달한다. 감사 때 이 자리는 `var(--louis-color-bg-surface)`(라이트 #fafafa · 다크 #313640)였다.",
       "matches": "다름",
       "mapClaimWrong": "",
       "reason": "매핑은 이 축을 `derived`/`DS-내부만`으로 두고 제품 인용을 내지 않았다. 지시대로 제품 선언을 찾아 확인했다. 제품에 실제로 disabled 상태의 입력이 있다 — SettingsScene.tsx:1553 `disabled={deletingAccount}`가 걸린 `<input>`(1537-1554)이고 그 시각 박스는 SettingsScene.tsx:1527의 `styles.modalAuthInputBox`다. 그 박스의 면 선언이 myPageSceneStyles.ts:400 한 줄이며, disabled에서 뒤집는 규칙이 없다: 박스 className(1527-1531)은 `modalAuthInputBox + modalAuthInputBoxSingle + (focused ? Focused : \"\")`뿐이고 `:has(:disabled)` 규칙은 파일 전체에 없다(grep 확인). `[&:disabled]` 두 줄(myPageSceneStyles.ts:390-391 cursor·opacity 0.72)은 `<input>` 자신에만 붙고 그 input은 385줄에서 `[background:transparent]`라 면을 그리지 않는다. 마커 클래스 `tw-mp-039`는 저장소 전체에 이 한 자리뿐이라 이를 노리는 다른 규칙도 없다. 인라인 style 없음. 따라서 제품도 DS와 같이 Default 면을 disabled에서 그대로 쓴다 — 구조는 일치하고 **값이 다르다**: DS는 불투명 surface 토큰, 제품은 잉크색 6% 반투명 틴트다. 라이트·다크 양쪽에서 다르다. (A3) 대상이다. 참고로 제품의 다른 입력 계열은 또 다르다 — InquiryClient.tsx:317이 같은 6% 틴트를 쓰지만 327줄 `\"[[data-inquiry-root]_&]:[background:var(--palette-gray-000)]\",`가 이겨 실제로는 #fafafa 불투명이 된다.",
@@ -4957,7 +4961,8 @@
         "cd /Users/sejunki/klipse-web && git grep -n -- \"--palette-gray-000-rgb:|--palette-gray-1000-rgb:|--gray-000-rgb:\" 7e9c3b6946a71431479aef69d16baac5c53128b2 -- apps/web/app/globals.css",
         "cd /Users/sejunki/klipse-web && git show 7e9c3b6946a71431479aef69d16baac5c53128b2:apps/web/app/inquiry/InquiryClient.tsx | nl -ba | sed -n '305,330p'"
       ],
-      "$productLineCorrectedFrom": 400
+      "$productLineCorrectedFrom": 400,
+      "$dsDrift": "2026-09-05 DS 변경 반영 — 이 감사는 2026-08-22 에 굳었고 제품 인용은 commit a89fc0d5 에 고정돼 그대로다. DS 쪽 인용만 현재 소스로 갱신했다. **판정은 다름 그대로지만 갈리는 값이 달라졌다.** Default 축과 같은 한 줄이고 같은 커밋이다 — c480c92(2026-09-04 `fix(text-field): 입력 면을 놓이는 자리보다 한 칸 낮춘다`). 구조 판정(제품도 DS 도 Default 면을 disabled 에서 그대로 쓴다)은 그대로 성립한다: 제품은 `modalAuthInputBox` 에 disabled 분기가 없고, DS 의 disabled 블록은 이제 `cursor` 만 바꾼다. 값은 제품 잉크 6% 반투명(다크 rgb(250 250 250 / 6%) · 라이트 rgb(0 0 0 / 6%)) 대 DS 불투명 #dddee1 / #171b22 로 두 테마 모두 다르다."
     },
     {
       "path": "input.states.base.Invalid.background",
@@ -6220,9 +6225,9 @@
       "quotedLine": "\"[background:rgb(var(--gray-000-rgb)_/_14%)]\",",
       "productValue": "다크 rgb(250 250 250 / 14%) · 라이트 var(--palette-gray-000) = #fafafa (:1093 \"[html[data-theme=light]_&]:[background:var(--palette-gray-000)]\")",
       "dsFile": "packages/css/src/component/segmented-control.css",
-      "dsLine": 109,
-      "dsQuotedLine": "background: var(--louis-color-bg-raised);",
-      "dsValue": "color-bg-raised — 라이트 color(srgb 0.980392 0.980392 0.980392 / 1) ≈ #fafafa, 다크 color(srgb 0.341176 0.364706 0.407843 / 1) ≈ #575d68",
+      "dsLine": 246,
+      "dsQuotedLine": "background: var(--louis-color-accent-secondary-selected);",
+      "dsValue": "color-accent-secondary-selected — 라이트 `color(srgb 1 1 1 / 1)` = #ffffff 불투명 (별칭 대상 primitive static.white, packages/tokens/generated/tokens.css:267), 다크 `color(srgb 0.980392 0.980392 0.980392 / 0.2)` = rgb(250 250 250 / 20%) 반투명 (static-white-alpha.20, :710). 선언 자리는 `.louis-segmented-control__segment[data-selected=\"true\"]`(segmented-control.css:245-248) 하나이고, 제품 대응물이 사는 `data-size=\"settings\"` 칸(:126-135)은 트랙 높이와 세그먼트 높이만 다루고 이 면을 덮지 않는다. 트랙은 `accent-secondary`(:48)라 선택 면과 **같은 잉크 축**에 있다 — :225-244 주석이 그 짝을 맞춘 이유를 적는다(불투명 썸은 얹히는 호스트에 따라 트랙과의 거리가 무너졌다). 감사 때는 `var(--louis-color-bg-raised)`(라이트 ≈ #fafafa · 다크 불투명)였다.",
       "matches": "다름",
       "mapClaimWrong": "",
       "reason": "(2) 1089줄이 매핑이 적은 자리에 그대로 있다. (3) 구조 주장도 맞다 — 면은 세그먼트가 아니라 별도 요소가 갖는다. SegmentedToggle.tsx:44 가 `<span className={styles.settingsToggleThumb} style={thumbStyle} />` 이고, :33-40 의 useEffect 가 활성 버튼의 offsetWidth / offsetLeft-4 로 thumbStyle 을 만든다. 함정 2 확인 — 그 인라인 style 은 width 와 transform 만 담고 background 는 담지 않으므로(:36-39) 클래스의 배경이 최종값이다. 함정 3 확인 — 라이트에서는 :1093 이 `html[data-theme=light] .[...]`(0,2,1)로 컴파일되어 :1089(0,1,0)를 이기는 것을 실제 컴파일 출력에서 확인했다. 즉 라이트는 14% 검정이 아니라 불투명 #fafafa 다. 함정 5 확인 — 다크/라이트가 서로 다른 선언이다. CSS Module 잔여 없음, globals.css 에 이 요소를 잡는 레이어 밖 규칙 없음. (4) --gray-000-rgb 는 다크에서 250 250 250 이므로 :1089 는 흰색 14% 반투명 오버레이다(트랙 :1104 의 8% 위에 얹힌다). --palette-gray-000 은 globals.css:20 에서 #fafafa 다. (5) 라이트는 DS #fafafa 와 제품 #fafafa 가 정확히 같지만 다크는 DS 불투명 #575d68 대 제품 흰색 14% 반투명이라 다르다 — 두 테마가 함께 같지 않으므로 '다름'으로 낸다.",
@@ -6234,7 +6239,8 @@
         "git -C /Users/sejunki/klipse-web grep -n \"settingsToggle\" 7e9c3b6946a71431479aef69d16baac5c53128b2 -- '*.css'",
         "node /private/tmp/claude-501/-Users-sejunki-klipse-design-system/ade517a7-7c85-4b1b-905c-5d910fdf1390/scratchpad/twtest/run.mjs  (라이트 변형이 html[data-theme=light] 조합 선택자로 컴파일되는 것 확인)"
       ],
-      "$productLineCorrectedFrom": 1089
+      "$productLineCorrectedFrom": 1089,
+      "$dsDrift": "2026-09-05 DS 변경 반영 — 이 감사는 2026-08-22 에 굳었고 제품 인용은 commit a89fc0d5 에 고정돼 그대로다. DS 쪽 인용만 현재 소스로 갱신했다. **판정은 다름 그대로지만 갈리는 내용이 뒤집혔다.** 50d0167(2026-09-03 `fix(segmented-control): 선택 면을 트랙과 같은 잉크 축으로 옮긴다`)이 선택 면을 불투명 `bg-raised` 에서 새 토큰 `accent-secondary-selected` 로 옮겼다 — `git show --name-only 50d0167` 이 `packages/css/src/component/segmented-control.css` 와 `packages/tokens/src/klipse.tokens.json` 을 함께 담는다. **다크는 제품 쪽으로 왔다**: 감사 때는 DS 불투명 대 제품 흰색 14% 반투명이라 축 자체가 달랐는데, 이제 둘 다 흰색 알파이고 남은 차이는 20% 대 14% 다. **라이트는 반대로 벌어졌다**: 감사 때 DS `bg-raised` 가 #fafafa 라 제품 `--palette-gray-000`(#fafafa)와 정확히 같았는데 새 토큰은 #ffffff 다. 두 테마 모두 같지 않으므로 판정은 다름으로 남는다."
     },
     {
       "path": "segmented-control.states.base.Selected.foreground",
@@ -8010,6 +8016,18 @@
       "axes": [
         "input.sizes.sm.height (같음 유지 · text-field.css:50 → :52, control-height-sm → -md)",
         "segmented-control.sizes.sm.segmentHeight (다름 유지 · segmented-control.css:52 → :53, 파생값 24 그대로)"
+      ]
+    },
+    {
+      "date": "2026-09-05",
+      "why": "DS 가 감사 이후 또 바뀌어 dsQuotedLine 6건이 소스에서 사라졌다(verify-refutation-quotes 무효 6). 2026-08-26 · 2026-08-29 선례와 같게 제품 인용(productFile · productLine · quotedLine · productValue)과 판정 근거(reason · commands)는 한 글자도 손대지 않고 DS 쪽 좌표 · 값 · matches 만 현재 사실로 갱신했다. **이번에는 줄만 밀린 것이 아니라 값이 실제로 움직인 자리가 있어 판정이 셋 뒤집혔다**(같음 → 다름). 움직인 커밋은 `git show --name-only` 로 하나씩 열어 파일 목록까지 확인했다 — 3f845c9(배너 알약을 `controls=\"pill\"` 변형으로 내림, DS-D-0033) · facdd3a(대화상자 곡률을 안쪽 버튼에서 유도, 16 → 20) · c480c92(입력 면을 bg-surface → bg-canvas) · 50d0167(세그먼트 선택 면을 트랙과 같은 잉크 알파 축으로). 다름이 된 축을 어느 쪽으로 수렴시킬지는 (A3) 이 판정한다 — 이 원장은 갈렸다는 사실을 적을 뿐 matches 를 유지하려고 값을 맞추지 않는다.",
+      "axes": [
+        "banner-carousel.sizes.boxed.controlsHeight (같음→다름 · figma/components.measured.json:1123 → :1746, 36 → 28)",
+        "banner-carousel.sizes.full.controlsHeight (같음→다름 · figma/components.measured.json:1144 → :1771, 36 → 28)",
+        "dialog.sizes.large.radius (같음→다름 · dialog.css:17 → :23, radius-overlay 16 → calc(radius-control 12 + space-control-sm 8) = 20)",
+        "input.states.base.Default.background (다름 유지 · text-field.css:44 → :51, bg-surface → bg-canvas · 라이트가 오히려 더 벌어졌다)",
+        "input.states.base.Disabled.background (다름 유지 · text-field.css:44 → :51, Default 와 같은 한 줄 · disabled 면 재정의 없음은 그대로)",
+        "segmented-control.states.base.Selected.background (다름 유지 · segmented-control.css:109 → :246, bg-raised → accent-secondary-selected · 다크는 제품 축으로 왔고 라이트가 벌어졌다)"
       ]
     }
   ]

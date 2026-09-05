@@ -531,15 +531,81 @@ const files = readdirSync(figmaDir)
   .sort();
 if (files.length === 0) fail("figma/app-screens.*.draw.js 런너를 하나도 찾지 못했습니다. 셀 것이 없습니다.");
 
+// ── 조각을 다시 붙여 화면 하나를 하나의 보드로 만든다 ──────────────────────
+// **한 파일 = 한 보드가 아니다.** `build-figma-app-screens.mjs` 의 `splitSpec` 은 `use_figma` 의
+// 파서 한계 때문에 큰 화면을 조각으로 나눈다 — 조각 00 이 `head` 를 갖고 떼어낸 자리에
+// `{t,r,s,w:1}` 대기표시를 남기며, 조각 n 은 `path`(자식 인덱스 체인)와 `spec` 으로 그 자리를
+// 채운다. Figma 에서는 조각을 순서대로 돌리면 **화면 하나**가 선다.
+//
+// 그전까지 이 열거기는 파일마다 보드를 하나씩 세웠다. 조각이 실제로 갈라진 화면이 하나도
+// 없었기 때문에(전 화면이 `.00` 하나였다) 그 전제가 틀린 줄 몰랐고, 2026-09-05 에 제품 앵커가
+// 5a67d692 로 올라가며 `/mypage/upgrade` desktop 이 네 조각으로 갈리자 **같은 route@context 의
+// `#root` 가 두 번 기록되어** 「식별자가 중복됐습니다」로 멈췄다. 조각 하나를 보드로 세는 것은
+// 멈추지 않았더라도 틀렸다 — 분모가 파일 수를 따라 늘고, 조각 경계가 어디로 지나가느냐에 따라
+// 같은 화면의 수가 달라진다.
+//
+// 그래서 붙인 뒤에 센다. 조각은 **조상 먼저** 나가도록 생성기가 정렬해 파일 번호를 매기므로
+// (`build-figma-app-screens.mjs` 의 `ordered`), 번호 순서대로 이식하면 깊은 조각이 얕은 조각의
+// 안쪽에 제대로 앉는다.
+const partsByBoard = new Map();
 for (const name of files) {
   const payload = readPayload(name);
-  const root = payload.head ?? payload.spec;
-  if (!root) fail(`런너에 트리가 없습니다: figma/${name}`);
+  const key = `${payload.route}@${payload.context}`;
+  if (!partsByBoard.has(key)) partsByBoard.set(key, []);
+  partsByBoard.get(key).push({ name, payload });
+}
+
+/** 대기표시 자리에 조각의 서브트리를 앉힌다. 자리를 못 찾으면 조용히 넘기지 않는다. */
+const graft = (root, path, spec, name) => {
+  let parent = root;
+  for (const index of path.slice(0, -1)) {
+    parent = childrenOf(parent)[index];
+    if (!parent) fail(`조각이 가리키는 자리가 head 에 없습니다: figma/${name} (${path.join(".")})`);
+  }
+  const last = path.at(-1);
+  const kids = parent.k;
+  if (!Array.isArray(kids) || !kids[last]) {
+    fail(`조각이 가리키는 자리가 head 에 없습니다: figma/${name} (${path.join(".")})`);
+  }
+  if (!kids[last].w) {
+    fail(`조각이 대기표시가 아닌 자리를 덮으려 합니다: figma/${name} (${path.join(".")})`);
+  }
+  kids[last] = spec;
+};
+
+const assembled = [];
+for (const [key, parts] of partsByBoard) {
+  const head = parts.find((part) => part.payload.head);
+  if (!head) fail(`조각 00(head)이 없는 화면입니다: ${key}`);
+  const root = head.payload.head;
+  for (const part of parts) {
+    if (part === head) continue;
+    if (!Array.isArray(part.payload.path) || !part.payload.spec) {
+      fail(`조각에 path·spec 이 없습니다: figma/${part.name}`);
+    }
+    graft(root, part.payload.path, part.payload.spec, part.name);
+  }
+  // 붙이고 나면 대기표시가 하나도 남지 않아야 한다. 남으면 조각 파일이 빠진 것이고,
+  // 그대로 세면 그 서브트리가 통째로 분모에서 사라진다.
+  const waiting = [];
+  const scan = (node, path) => {
+    if (node.w) { waiting.push(path); return; }
+    childrenOf(node).forEach((child, index) => scan(child, path === "" ? String(index) : `${path}.${index}`));
+  };
+  scan(root, "");
+  if (waiting.length > 0) {
+    fail(`조각이 빠져 대기표시가 ${waiting.length} 곳 남았습니다: ${key} (${waiting.slice(0, 3).join(" · ")})`);
+  }
+  assembled.push({ payload: head.payload, root, parts });
+}
+
+for (const { payload, root, parts } of assembled) {
   const board = {
     route: payload.route,
     context: payload.context,
     frameId: payload.frameId,
-    file: `figma/${name}`,
+    file: `figma/${parts[0].name}`,
+    files: parts.map((part) => `figma/${part.name}`),
     counts: { total: 0, instance: 0, replaceable: 0, bespoke: 0, blocked: 0, missing: 0, structural: 0, unclassified: 0 },
   };
 

@@ -196,25 +196,14 @@ for (const [gate, owns] of OWNING_GATES) {
 // 그래서 「전부 같아야 한다」를 「**갈린 것은 이름과 커밋으로 선언돼 있어야 한다**」로 바꾼다.
 // 선언은 줄어들기만 하는 래칫이고(늘리는 것은 소유자 판정), 낙후는 아래 표에 함께 인쇄된다 —
 // 초록이 「원장들이 같은 제품을 잰다」로 읽히면 안 되기 때문이다.
-const DECLARED_LAGGING_LEDGERS = new Map([
-  [
-    BOARD,
-    {
-      commit: "ae8fd6278481a5e86cd324ba86a1d44fe978b788",
-      reason:
-        "보드 원장은 `figma/app-screens.plan.json` 을 읽고, 그 계획은 두 원장의 커밋이 " +
-        "**같을 때만** 만들어진다(build-figma-app-screens.mjs:51) — `product.auth-fixture.json` 과 " +
-        "`product.rendered-components.json`. 2026-09-03 에 fixture 클론을 5a67d692 로 다시 " +
-        "세웠지만 그 둘은 각각 **다른 벽**에 막혀 따라오지 못했다. auth-fixture 는 측정기가 " +
-        "「선언 스타일이 없는 측정 노드」로 하드 실패하고(두 패스 사이 DOM 이 갈리는 하네스 결함 — " +
-        "두 번 돌려 걸린 화면이 서로 달랐고 그 화면만 따로 열면 깨끗이 붙는다), " +
-        "rendered-components 는 fixture 를 아예 쓰지 않고 DS 대조 판정 19·4·28 건이 " +
-        "사람 손을 기다린다. **fixture 를 또 세워도 이 줄은 사라지지 않는다** — " +
-        "자세한 것은 verify-product-anchor.mjs 의 FIXTURE_AXIS 머리말에 갈라 적었다.",
-    },
-  ],
-]);
-const LAGGING_RATCHET = 1;
+// **2026-09-05: 그 선언이 비었다.** 보드 축을 막고 있던 두 벽이 차례로 열렸다 —
+// `product.auth-fixture.json` 은 하네스 결함(두 패스 사이 DOM 이 갈리던 캡처)을 고쳐 5a67d692
+// 에서 다시 섰고, `product.rendered-components.json` 은 기다리던 DS 대조 판정을 끝내고 같은
+// 앵커로 다시 떴다. 두 원장의 커밋이 같아지자 `build-figma-app-screens.mjs:51` 이 계획을 냈고
+// 보드 원장도 5a67d692 를 잰다. 목록이 비었으므로 래칫도 0 으로 내린다 — 1 로 두면 다음 낙후가
+// 사유 없이 한 칸 들어올 자리가 남는다.
+const DECLARED_LAGGING_LEDGERS = new Map([]);
+const LAGGING_RATCHET = 0;
 
 const surfaces = readJson(SURFACES);
 const board = readJson(BOARD);

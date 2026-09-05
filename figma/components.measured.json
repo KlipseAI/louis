@@ -54,6 +54,7 @@
           "height": 24,
           "$height": "DS-D-0032 layout-control-height-sm 24. 디자인 실측 — Figma OlYKERKOkgbxBEEoXGZW2c Page 14 프레임 1087:2383 의 「가져오기」 버튼 1087:2429 가 58x24다",
           "paddingBlock": 0,
+          "$paddingBlock": "0. **사다리가 이 축을 나눈 적이 없다** — button.css 의 세 size 선택자가 전부 `padding-block: 0` 을 적고(58-75, 114), 높이는 `min-block-size` 와 `align-items: center` 가 만든다. lg·md 의 0 은 제품 렌더가 확인한다(button-lg · button-md 탐침의 paddingTop). sm 만 제품 대조가 없는 것은 제품에 아직 `data-size=\"sm\"` 소비처가 없기 때문이며(DS-D-0032 가 편집 표면 도구 줄용으로 연 칸이다), 값이 재보지 않은 새 값이어서가 아니다 — 세 칸이 한 선언을 공유한다. 제품이 sm 을 쓰기 시작하면 탐침을 세우고 이 주석을 대조 행으로 바꾼다.",
           "paddingInline": 8,
           "$paddingInline": "디자인 실측 8 (1087:2429 의 paddingLeft/Right). 사다리 비례(lg 16 → md 12 → sm 8)와도 일치한다 — space-control-sm",
           "gap": 4,
@@ -1953,10 +1954,10 @@
     "news-card": {
       "$doc": "design/components/news-card.md",
       "$source": "제품 apps/web/components/landing/sections/NewsCarousel.tsx 안의 NewsCard",
-      "$why": "제품이 정본이고 LOUIS recipe 가 없다. 값은 scripts/measure-product-components.mjs 가 제품 클래스를 제품 Tailwind 로 컴파일해 실브라우저에서 잰 것이다 — packages/react/test/component-geometry.browser.test.tsx 가 잴 코드가 없는 자리다. 폭·높이는 카드가 아니라 트랙 격자가 정한다(grid-auto-columns 347px · grid-template-rows repeat(2,160px) · gap 4). 탐침이 트랙을 조상으로 세워 격자가 계산하게 둔다 — 698 = 347×2 + 4, 324 = 160×2 + 4.",
+      "$why": "제품이 정본이고 LOUIS recipe 가 없다. 값은 scripts/measure-product-components.mjs 가 제품 클래스를 제품 Tailwind 로 컴파일해 실브라우저에서 잰 것이다 — packages/react/test/component-geometry.browser.test.tsx 가 잴 코드가 없는 자리다. 폭·높이는 카드가 아니라 트랙 격자가 정한다(grid-auto-columns 346px · grid-template-rows repeat(2,160px) · gap 6). 탐침이 트랙을 조상으로 세워 격자가 계산하게 둔다 — 698 = 346×2 + 6, 326 = 160×2 + 6.", "$whyMoved": "제품 5a67d692 가 트랙 간격을 gap-2(4) 에서 gap-3(6) 으로 올리고 열 폭을 347 에서 346 으로 내렸다 — NewsCarousel.tsx 가 사유를 갖는다: 열 폭이 (1400 − gap×3) ÷ 4 에서 나오는데 gap 6 이면 345.5 라 --spacing 2px 격자에 떨어지지 않아 346 으로 올렸다. 두 축이 함께 움직여 피처드 폭 698 만 그대로다(346×2 + 6). 이 카드는 제품이 정본이므로 기록이 제품을 따라간다.",
       "sizes": {
         "false": {
-          "width": 347,
+          "width": 346,
           "height": 160,
           "paddingBlock": 20,
           "paddingInline": 16,
@@ -1968,7 +1969,7 @@
         },
         "true": {
           "width": 698,
-          "height": 324,
+          "height": 326,
           "paddingBlock": 20,
           "paddingInline": 16,
           "radius": 12,

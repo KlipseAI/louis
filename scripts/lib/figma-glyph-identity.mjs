@@ -112,6 +112,24 @@ export const PRODUCT_GLYPHS = Object.freeze([
       "글리프를 그린다. 승격 판정(DS-D-0038)이 나야 열린다.",
   },
   {
+    id: "chevron-down-10",
+    signature: "0 0 10 10|path(d=M2.5 4l2.5 2.5L7.5 4)",
+    louis: "icon/caret-down",
+    verdict: "bespoke",
+    why:
+      "`/subscription` 크레딧 사용 내역의 「Sort」 드롭다운 트리거가 여는 꺾쇠(`aria-label` 이 " +
+      "「Sort」, 라벨이 「Newest first」). **제품 5a67d692 에서 새로 생긴 자리다** — 옛 앵커 " +
+      "ae8fd627 의 같은 `CustomDropdown` 에는 `caretIcon` 이 없어 기본 꺾쇠가 나왔고, 이제 " +
+      "`<ToolbarChevronDown size={10} strokeScreenPx={1.4} />` 를 명시로 넘긴다 " +
+      "(SubscriptionScene.tsx:1118-1123). LOUIS 에 같은 뜻의 `icon/caret-down` 이 서 있지만 " +
+      "**제품이 그것을 물지 않는다** — 정본은 24 상자이고 제품 글리프는 10 상자에 1.4px 획이다. " +
+      "제품 자신이 그 값을 「드롭다운 꺾쇠 두께 정본(HighlightScene 테마 셀렉트)과 같은 " +
+      "10px · 1.4px 스트로크」라고 적어 두었고, 실제로 두 자리가 같은 `d` 를 쓴다 " +
+      "(HighlightScene.tsx:985 · nodeToolbarGlyphs.tsx:66). `chevron-left`·`chevron-right` 와 " +
+      "같은 갈림이라 같은 낱말을 쓴다 — Figma 에서만 정본 아이콘을 심으면 Figma 가 제품보다 더 " +
+      "「정본」이 된다(DS-D-0043·DS-D-0046). 승격 판정(DS-D-0038)이 나야 열린다.",
+  },
+  {
     id: "user-circle-fill",
     signature:
       "0 0 20 20|path(d=M10 0C4.477 0 0 4.477 0 10C0 15.523 4.477 20 10 20C15.523 20 20 15.523 " +

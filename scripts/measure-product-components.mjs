@@ -1771,10 +1771,18 @@ const EXPECT = [
 
   ["dialog-card", "width", ["dialog", "sizes", "compact", "width"], "same"],
   ["dialog-card", "paddingTop", ["dialog", "sizes", "compact", "surfaceInset"], "same"],
-  ["dialog-card", "borderTopLeftRadius", ["dialog", "sizes", "compact", "radius"], "same"],
+  // **제품 모달 카드는 `.louis-dialog` 를 소비하지 않는다.** `appHomeSceneStyles.modalCard` 와
+  // `myPageSceneStyles.modalCard` 는 `[border-radius:var(--louis-radius-overlay-lg)]` 를 직접
+  // 적고, 그 토큰은 제품 핀(3ec5966)에서도 이 저장소 HEAD 에서도 24px 이다. LOUIS 쪽은
+  // `facdd3a`(2026-09-03, 소유자 결정)에서 `.louis-dialog` 의 곡률을 「안쪽 버튼에서 유도」로
+  // 바꿔 `radius-control 12 + space-control-sm 8` = 20 을 내고 계약이 그 20 을 적는다.
+  // 앵커가 움직여서 갈린 것이 아니다 — 옛 앵커 ae8fd627 의 렌더도 24 였다.
+  ["dialog-card", "borderTopLeftRadius", ["dialog", "sizes", "compact", "radius"], "deviates",
+    "제품 24, DS 20. 제품 두 벌이 `.louis-dialog` 레시피가 아니라 `radius-overlay-lg`(24)를 직접 읽는다. LOUIS 는 facdd3a 에서 곡률을 안쪽 버튼에서 유도하도록 바꿔 20 이 됐다. **어느 쪽으로 모을지는 소유자 판정이다** — 제품이 `.louis-dialog` 를 채택하거나, LOUIS 가 24 로 되돌아가거나 둘 중 하나이며 둘 다 제품 픽셀 또는 소유자 결정을 건드린다."],
   ["dialog-card-mypage", "width", ["dialog", "sizes", "compact", "width"], "same"],
   ["dialog-card-mypage", "paddingTop", ["dialog", "sizes", "compact", "surfaceInset"], "same"],
-  ["dialog-card-mypage", "borderTopLeftRadius", ["dialog", "sizes", "compact", "radius"], "same"],
+  ["dialog-card-mypage", "borderTopLeftRadius", ["dialog", "sizes", "compact", "radius"], "deviates",
+    "위 `dialog-card` 와 같다 — 마이페이지 벌도 `radius-overlay-lg`(24)를 직접 읽는다. 두 벌의 기하가 같다는 사실 자체가 이 탐침의 목적이다."],
   ["toast-highlight", "paddingTop", ["toast", "sizes", "base", "paddingBlock"], "same"],
   ["toast-highlight", "paddingLeft", ["toast", "sizes", "base", "paddingInline"], "same"],
   ["toast-highlight", "borderTopLeftRadius", ["toast", "sizes", "base", "radius"], "same"],
@@ -1791,9 +1799,20 @@ const EXPECT = [
   // **계단 개명 후 이 자리는 lg 다.** 제품의 최다 계열인 인증 입력이 좌우 16 을 두는데 그것이
   // 곧 `space-control-lg` 이고, 개명 전에는 그 단이 md 라 불렸다. md(12)와 대조하고 있어서
   // 실패하던 행이다.
-  ["input-box", "paddingLeft", ["input", "sizes", "lg", "paddingInline"], "same"],
-  ["input-box", "borderTopLeftRadius", ["input", "sizes", "lg", "radius"], "same"],
-  ["input-box", "borderTopWidth", ["input", "sizes", "lg", "borderWidth"], "deviates",
+  //
+  // **그리고 `lg` 는 다시 `lg/stacked` 가 됐다.** `fb9b2db`(DS-D-0049)가 TextField 에
+  // LabelBehavior 축을 세우면서 계약의 size 칸이 `<size>/<labelPlacement>` 로 쪼개졌다 —
+  // `lg` 라는 키는 이제 없고 `lg/stacked` 와 `lg/floating` 둘이다. 이 세 행은 개명을 따라가지
+  // 못해 「계약에 없습니다」로 걸렸고, 반대편에서는 `lg/stacked` 의 세 값이 대조도 사유도 없는
+  // 값으로 떠올랐다 — 같은 한 사건의 앞뒷면이다.
+  //
+  // 고르는 칸이 **stacked** 인 것은 재는 자리가 그렇기 때문이다. `input-box` 는 마이페이지
+  // 인증 모달의 `modalAuthInputBox` 이고 라벨이 박스 **밖 위**에 앉는다 — floating(라벨이
+  // 박스 안에서 떠오르는 벌)이 아니다. floating 칸은 높이 53 처럼 라벨 행을 품은 값을 갖는데
+  // 제품의 이 자리에는 그 행이 없다.
+  ["input-box", "paddingLeft", ["input", "sizes", "lg/stacked", "paddingInline"], "same"],
+  ["input-box", "borderTopLeftRadius", ["input", "sizes", "lg/stacked", "radius"], "same"],
+  ["input-box", "borderTopWidth", ["input", "sizes", "lg/stacked", "borderWidth"], "deviates",
     "제품 1px, DS 0.5px. hairline 결정이다."],
 
   ["empty-state", "paddingTop", ["empty-state", "sizes", "base", "paddingBlock"], "same"],
@@ -1897,10 +1916,12 @@ const EXPECT = [
   ["sidebar-cta", "backgroundColor", ["sidebar-cta", "states", "base", "Default", "background"], "same"],
   ["sidebar-cta", "color", ["sidebar-cta", "states", "base", "Default", "foreground"], "same"],
   ["sidebar-cta-light", "backgroundColor", ["sidebar-cta", "states", "base", "Default", "background"], "same"],
-  ["sidebar-cta-light", "color", ["sidebar-cta", "states", "base", "Default", "foreground"], "same"],
+  ["sidebar-cta-light", "color", ["sidebar-cta", "states", "base", "Default", "foreground"], "deviates",
+    "제품 #f8f8f9, DS #fafafa (라이트, 2/255). 원인은 한 줄이다 — 제품의 `wrapperSidebar` 가 라이트에서 `body:has(&)` 로 `--palette-gray-100` 을 **리터럴** `#f8f8f9` 로 재매핑한다(Gnb.tsx:2059). 그 값이 나온 `palette-gray-050` 칸은 제품이 고정한 핀 3ec5966 의 회색 램프에 더 이상 없고, LOUIS 의 `color-fg-upgrade` 는 램프 맨 위 칸 `palette-gray-000`(#fafafa)을 읽는다. 리터럴을 이름으로 되돌리는 것은 **제품 픽셀을 움직이는 일이라 소유자 판정이다.**"],
   ["sidebar-cta-current", "backgroundColor", ["sidebar-cta", "states", "base", "Current", "background"], "same"],
   ["sidebar-cta-current", "color", ["sidebar-cta", "states", "base", "Current", "foreground"], "same"],
-  ["sidebar-cta-current-light", "backgroundColor", ["sidebar-cta", "states", "base", "Current", "background"], "same"],
+  ["sidebar-cta-current-light", "backgroundColor", ["sidebar-cta", "states", "base", "Current", "background"], "deviates",
+    "위 `sidebar-cta-light.color` 와 같은 한 줄이 원인이다 — 라이트 사이드바 램프의 `--palette-gray-100: #f8f8f9`. 현재 위치 상태의 면도 같은 이름을 읽는다."],
   ["sidebar-cta-label-collapsed", "maxWidth", ["sidebar-cta", "sizes", "true", "labelMaxWidth"], "same"],
   ["sidebar-cta-label-collapsed", "fontSize", ["sidebar-cta", "sizes", "true", "labelFontSize"], "same"],
   ["nav-item-inner", "columnGap", ["app-shell-parts", "sizes", "navItem", "gap"], "deviates",
@@ -1948,14 +1969,25 @@ const EXPECT = [
   ["project-card-overlay", "borderTopLeftRadius", ["project-card", "sizes", "base", "overlayTopRadius"], "same"],
   // 탐침이 자기 `[gap:12px]` 을 되읽는 동안 이 행은 12=12 로 초록이었다. 진짜 상수를 재니
   // 제품은 `gap-2`(4px)였고, 그것은 이관 사고가 아니라 `97d33c05`(2026-08-26)의 소유자
-  // 결정이다 — 네 홈의 카드 그리드를 4 로 통일했다. 기록을 그 결정에 맞춘다.
-  ["project-grid", "columnGap", ["project-card", "sizes", "base", "gridGap"], "same"],
+  // 결정이다 — 네 홈의 카드 그리드를 4 로 통일했다. 기록을 그 결정에 맞췄다.
+  //
+  // **그 뒤 두 번 더 움직였고, 지금 갈린 것은 값이 아니라 핀 시차다.** 제품은 앵커 5a67d692 에서
+  // 리터럴 `gap-2` 를 버리고 `gap-layout-project-grid-gap` 으로 **토큰을 이름으로** 읽기
+  // 시작했다(appHomeSceneStyles.archiveGrid). 제품이 고정한 핀 3ec5966 에서 그 토큰은 6px 이고
+  // (`38db4ee` 가 6 으로 되튜닝했다), 이 저장소는 그 뒤 `23d66b6`(2026-09-04)에서 다시 4 로
+  // 좁혀 계약이 4 를 적는다. 이름으로 읽는 쪽이므로 제품이 핀만 올리면 저절로 붙는다.
+  ["project-grid", "columnGap", ["project-card", "sizes", "base", "gridGap"], "deviates",
+    "제품 6, DS 4. 제품이 고정한 LOUIS 핀 3ec5966 이 `layout-project-grid-gap`(6) 시절이고, 이 저장소는 23d66b6 에서 4 로 좁혔다. 제품은 토큰을 이름으로 읽으므로 핀을 그 커밋 뒤로 올리면 저절로 같아진다 — 그때 이 행을 `same` 으로 되돌린다."],
   ["carousel-content", "height", ["banner-carousel", "sizes", "boxed", "height"], "same"],
   // 배너 화살표를 재던 대조 행 여덟(`carousel-arrow` 여섯 · `carousel-controls-filled` 둘)을 함께 내렸다 — 탐침이 없어졌으므로 이 행들은
   // 「EXPECT가 없는 탐침을 가리킵니다」로 측정기를 죽인다. 제품에 없어진 축이지
   // DS 에 없어진 축이 아니다: `banner-carousel` 의 arrowSize·arrowRadius·
   // controlsHeight 는 계약에 그대로 있고 LOUIS 브라우저 테스트가 계속 잰다.
-  ["carousel-controls", "borderTopLeftRadius", ["banner-carousel", "sizes", "boxed", "controlsRadius"], "same"],
+  // **컨트롤 알약의 면·반경·여백을 재던 행 넷을 내린다(DS-D-0033).** `controlsRadius` 와
+  // `controlsPadding` 은 계약에서 사라졌다 — 알약이 `controls="pill"` 변형으로 내려가며 기본
+  // 컨트롤이 면을 잃었고, 제품도 핀 3ec5966 에서 그 판을 그대로 소비한다(`bannerControls` 는
+  // 이제 `.louis-banner-carousel__controls` + z-3 뿐이다). 없어진 키를 가리키던 행이라
+  // 「계약에 없습니다」로 걸려 있었다. 컨트롤 열의 대조는 `controlsGap` 이 계속 갖는다.
   ["carousel-dot-active", "borderTopLeftRadius", ["banner-carousel", "sizes", "boxed", "dotRadius"], "same"],
   ["carousel-dot-active", "height", ["banner-carousel", "sizes", "boxed", "dotHeight"], "same"],
   ["carousel-dot-rest", "borderTopLeftRadius", ["banner-carousel", "sizes", "boxed", "dotRadius"], "same"],
@@ -2030,19 +2062,19 @@ const EXPECT = [
     "boxed 와 같은 사유다 — 셸이 하나뿐이라 두 열이 같은 요소를 가리킨다."],
   ["carousel-content", "paddingLeft", ["banner-carousel", "sizes", "boxed", "contentInlinePadding"], "same"],
   ["carousel-content", "paddingLeft", ["banner-carousel", "sizes", "full", "contentInlinePadding"], "same"],
-  ["carousel-controls", "paddingTop", ["banner-carousel", "sizes", "boxed", "controlsPadding"], "same"],
-  ["carousel-controls", "paddingTop", ["banner-carousel", "sizes", "full", "controlsPadding"], "same"],
   ["carousel-controls", "columnGap", ["banner-carousel", "sizes", "boxed", "controlsGap"], "same"],
   ["carousel-controls", "columnGap", ["banner-carousel", "sizes", "full", "controlsGap"], "same"],
-  ["carousel-controls", "borderTopLeftRadius", ["banner-carousel", "sizes", "full", "controlsRadius"], "same"],
   ["carousel-dots", "columnGap", ["banner-carousel", "sizes", "boxed", "dotsGap"], "same"],
   ["carousel-dots", "columnGap", ["banner-carousel", "sizes", "full", "dotsGap"], "same"],
-  ["carousel-dot-active", "width", ["banner-carousel", "sizes", "boxed", "dotActiveWidth"], "same"],
-  ["carousel-dot-active", "width", ["banner-carousel", "sizes", "full", "dotActiveWidth"], "same"],
+  // **활성/비활성 폭이 한 축으로 접혔다(DS-D-0033).** 상태를 폭이 아니라 밝기가 말하도록
+  // 바뀌면서 계약의 `dotActiveWidth` · `dotRestWidth` 두 키가 `dotWidth` 하나가 됐다. 두 탐침을
+  // 그대로 두고 **같은 키에 대조한다** — 두 상태가 갈라지면 둘 중 하나가 즉시 어긋난다.
+  ["carousel-dot-active", "width", ["banner-carousel", "sizes", "boxed", "dotWidth"], "same"],
+  ["carousel-dot-active", "width", ["banner-carousel", "sizes", "full", "dotWidth"], "same"],
   ["carousel-dot-active", "height", ["banner-carousel", "sizes", "full", "dotHeight"], "same"],
   ["carousel-dot-active", "borderTopLeftRadius", ["banner-carousel", "sizes", "full", "dotRadius"], "same"],
-  ["carousel-dot-rest", "width", ["banner-carousel", "sizes", "boxed", "dotRestWidth"], "same"],
-  ["carousel-dot-rest", "width", ["banner-carousel", "sizes", "full", "dotRestWidth"], "same"],
+  ["carousel-dot-rest", "width", ["banner-carousel", "sizes", "boxed", "dotWidth"], "same"],
+  ["carousel-dot-rest", "width", ["banner-carousel", "sizes", "full", "dotWidth"], "same"],
   ["carousel-dot-rest", "height", ["banner-carousel", "sizes", "boxed", "dotHeight"], "same"],
   ["carousel-dot-rest", "height", ["banner-carousel", "sizes", "full", "dotHeight"], "same"],
 
@@ -2163,7 +2195,8 @@ const EXPECT = [
   ["sidebar-cta-hover", "backgroundColor", ["sidebar-cta", "states", "base", "Hover", "background"], "same"],
   ["sidebar-cta-hover", "color", ["sidebar-cta", "states", "base", "Hover", "foreground"], "same"],
   ["sidebar-cta-hover-light", "backgroundColor", ["sidebar-cta", "states", "base", "Hover", "background"], "same"],
-  ["sidebar-cta-hover-light", "color", ["sidebar-cta", "states", "base", "Hover", "foreground"], "same"],
+  ["sidebar-cta-hover-light", "color", ["sidebar-cta", "states", "base", "Hover", "foreground"], "deviates",
+    "위 `sidebar-cta-light.color` 와 같은 한 줄이 원인이다 — 라이트 사이드바 램프의 `--palette-gray-100: #f8f8f9`. hover 글자색도 같은 이름을 읽는다."],
   // 폭 축은 레일이 서야 재진다 — `wrapperFrom` 이 제품 `wrapperSidebar` 를 조상으로 세운다.
   // 부품은 제품·DS 양쪽에서 폭을 선언하지 않고 100%로 받는다(제품 `[width:100%]`,
   // DS `inline-size: 100%`). 기록의 256/32 는 레일 폭에서 좌우 여백을 뺀 값이다.
@@ -2293,6 +2326,9 @@ let rendered;
 let declaredByProbe;
 let sources;
 let dsPin = "HEAD";
+// 핀 판 tokens.css 의 **내용**을 여기 담는다. 경로를 담으면 안 된다 — 아래 finally 가
+// workspace 를 지우므로 대조 시점에는 그 파일이 이미 없다(2026-09-05 실측).
+let pinnedTokensCss = null;
 try {
   // 제품의 진입 CSS는 ./keyframes.css를 @import한다. 컴파일러가 찾을 수 있게 함께 꺼내 둔다.
   const tailwindEntry = git(["show", commit + ":apps/web/app/tailwind.css"]);
@@ -2300,6 +2336,9 @@ try {
   writeFileSync(join(workspace, "keyframes.css"), git(["show", commit + ":apps/web/app/keyframes.css"]));
 
   dsPin = materializeDsPackage({ workspace, git, commit, tag: "product-components" });
+  // 렌더가 쓰는 바로 그 판을 **지워지기 전에** 읽어 둔다. 아래 색 대조가 이것을 쓴다.
+  const pinnedTokensPath = join(workspace, "@klipse-design", "css", "tokens.css");
+  if (existsSync(pinnedTokensPath)) pinnedTokensCss = readFileSync(pinnedTokensPath, "utf8");
 
   sources = Object.fromEntries(
     Object.entries(FILES).map(([alias, path]) => [alias, git(["show", commit + ":" + path])]),
@@ -2691,11 +2730,15 @@ const measuredFile = JSON.parse(readFileSync(resolve(repoRoot, "figma/components
 // `materializeDsPackage` 가 꺼낸 **제품이 고정한 핀** 판을 쓴다. 지금은 두 판이 바이트 같아
 // 결과가 우연히 맞았지만, 갈리는 순간 조용히 틀린 대조를 한다 — 이 게이트가 잡으라고 만들어진
 // 바로 그 병이다. 핀 판이 있으면 그쪽을, 없으면 워킹트리를 읽는다.
-const pinnedTokensCss = join(workspace, "@klipse-design", "css", "tokens.css");
-const tokensCss = readFileSync(
-  existsSync(pinnedTokensCss) ? pinnedTokensCss : resolve(repoRoot, "packages/css/generated/tokens.css"),
-  "utf8",
-);
+//
+// **그 「핀 판이 있으면」이 한 번도 참이 아니었다(2026-09-05).** 여기서 `existsSync` 로 보던
+// 경로는 workspace 안이고, workspace 는 바로 위 `finally` 에서 `rmSync` 로 지워진다. 그래서
+// 조건은 언제나 거짓이었고 대조표는 **늘 워킹트리 HEAD** 에서 왔다 — 위 주석이 경계하던
+// 「갈리는 순간 조용히 틀린 대조」가 실제로 벌어지고 있었다. 제품 핀이 3ec5966 인데 HEAD 는
+// 그보다 140커밋 앞서 회색 램프가 한 번 더 움직인 판이라, 사이드바 CTA 색 대조 다섯이 제품에
+// 없는 값과 맞춰지고 있었다. 이제 내용을 렌더 직전에 담아 두고 그것을 쓴다.
+const tokensCss =
+  pinnedTokensCss ?? readFileSync(resolve(repoRoot, "packages/css/generated/tokens.css"), "utf8");
 // **`:root` 를 문자열로 찾으면 안 된다.** tokens.css 의 첫 `:root` 블록은 **프리미티브 전용**
 // 이고, 시맨틱 라이트는 그 뒤 `:root,\n[data-theme="light"] {` 블록에 있다. `indexOf(":root")`
 // 는 첫 블록에서 멈추므로 light 맵에 시맨틱 토큰이 **한 개도 들어오지 않았다** — 라이트 탐침의

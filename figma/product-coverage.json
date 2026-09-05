@@ -166,32 +166,12 @@
     "carousel": {
       "max-width": "제품 캐러셀은 상한을 풀고 소비처가 폭을 정한다."
     },
-    "carousel-arrow": {
-      "padding-bottom": "제품이 여백을 두지 않는 자리다. 크기가 고정이라 여백이 들어갈 곳이 없다 — 크기를 EXPECT가 본다.",
-      "padding-left": "제품이 여백을 두지 않는 자리다. 크기가 고정이라 여백이 들어갈 곳이 없다 — 크기를 EXPECT가 본다.",
-      "padding-right": "제품이 여백을 두지 않는 자리다. 크기가 고정이라 여백이 들어갈 곳이 없다 — 크기를 EXPECT가 본다.",
-      "padding-top": "제품이 여백을 두지 않는 자리다. 크기가 고정이라 여백이 들어갈 곳이 없다 — 크기를 EXPECT가 본다.",
-      ":state scale": "`:active` 의 눌림(scale 0.94)이다. 되읽기가 상태별 transform 을 담지 않아 대조할 반대편이 없다 — 모션 규범(DS-D-0019 계열)이 소유한다."
-    },
     "carousel-content": {
+      "margin-inline-start": "`margin-inline: auto` 다 — 값이 아니라 **가운데 정렬**이다. 제품 5a67d692 가 배너 콘텐츠를 좌측 정렬(`justify-*: start`)에서 가운데(Figma page14)로 옮기며 세 줄(`justify-content:center` · `justify-items:center` · `margin-inline:auto`)을 함께 넣었다. 브라우저가 내놓는 210px 은 호스트 폭(960) 빼기 콘텐츠 폭(540)의 절반이라 **호스트가 정하는 파생값**이고, 그 두 폭은 EXPECT 가 `width`(contentInline) 로 이미 본다.",
+      "margin-inline-end": "위와 같다 — 같은 `auto` 한 줄의 반대쪽이다.",
       "row-gap": "flex/grid 축 하나가 실제로 쓰이지 않아 0 으로 계산된 값이다. 간격이 계약인 축은 EXPECT 가 반대 축에서 본다.",
       "column-gap": "flex/grid 축 하나가 실제로 쓰이지 않아 0 으로 계산된 값이다. 간격이 계약인 축은 EXPECT 가 반대 축에서 본다.",
       "align-content": "콘텐츠를 세로 가운데 두는 배치다. Figma 는 auto-layout 정렬로 같은 뜻을 갖고 되읽기가 그것을 담지 않는다."
-    },
-    "carousel-controls": {
-      "backdrop-filter": "위와 같다."
-    },
-    "carousel-controls-filled": {
-      "border-bottom-left-radius": "이 탐침은 높이 합만 세우려고 둔 CONTROLS의 짝이다. 기하는 carousel-controls가 대조한다.",
-      "border-bottom-right-radius": "이 탐침은 높이 합만 세우려고 둔 CONTROLS의 짝이다. 기하는 carousel-controls가 대조한다.",
-      "border-top-left-radius": "이 탐침은 높이 합만 세우려고 둔 CONTROLS의 짝이다. 기하는 carousel-controls가 대조한다.",
-      "border-top-right-radius": "이 탐침은 높이 합만 세우려고 둔 CONTROLS의 짝이다. 기하는 carousel-controls가 대조한다.",
-      "column-gap": "이 탐침은 높이 합만 세우려고 둔 CONTROLS의 짝이다. 기하는 carousel-controls가 대조한다.",
-      "row-gap": "이 탐침은 높이 합만 세우려고 둔 CONTROLS의 짝이다. 기하는 carousel-controls가 대조한다.",
-      "padding-bottom": "이 탐침은 높이 합만 세우려고 둔 CONTROLS의 짝이다. 기하는 carousel-controls가 대조한다.",
-      "padding-left": "이 탐침은 높이 합만 세우려고 둔 CONTROLS의 짝이다. 기하는 carousel-controls가 대조한다.",
-      "padding-right": "이 탐침은 높이 합만 세우려고 둔 CONTROLS의 짝이다. 기하는 carousel-controls가 대조한다.",
-      "padding-top": "이 탐침은 높이 합만 세우려고 둔 CONTROLS의 짝이다. 기하는 carousel-controls가 대조한다."
     },
     "carousel-dot-active": {
       "padding-bottom": "제품이 여백을 두지 않는 자리다. 크기가 고정이라 여백이 들어갈 곳이 없다 — 크기를 EXPECT가 본다.",
@@ -246,6 +226,10 @@
       "padding-top": "제품 입력은 상하 12를 직접 두고 DS는 min-block-size 40에서 높이를 만든다 — 여백이 아니라 높이가 계약이다(input.md)."
     },
     "media-card-info": {
+      "border-bottom-left-radius": "값이 아니라 **연결**이다. 제품 5a67d692 가 정보 바에 `rounded-b-[inherit]` 을, 그 `::before` 에 `before:rounded-[inherit]` 을 새로 걸었다 — `backdrop-filter` 를 가진 층이 합성 레이어로 승격되면서 조상의 `overflow:hidden` + `border-radius` 클립을 무시해 카드 아래 두 모서리가 각져 보이던 것을 고친 것이고, MediaCard.tsx 가 사유를 갖는다. `border-radius` 는 상속 속성이 아니라 체인을 손으로 잇는 것이므로 **곡률 값 자체는 카드가 소유한다** — EXPECT 가 `media-card.sizes.base.radius` 로 그 카드를 본다. 이 탐침에는 카드 조상이 없어 `inherit` 이 0 으로 계산될 뿐이고, 0 은 계약값이 아니다.",
+      "border-bottom-right-radius": "위와 같다.",
+      "border-top-left-radius": "위와 같다 — `::before` 는 바에서 네 모서리를 전부 받으므로 위 둘도 함께 선언된다(바의 위 두 모서리는 0 이라 결과가 0 이다).",
+      "border-top-right-radius": "위와 같다.",
       "inset-inline-start": "정보 바가 카드 좌우 끝까지 붙는다는 뜻이다(`inset-x-0`). 폭은 카드가 정하고 EXPECT 가 그 폭을 본다.",
       "inset-inline-end": "위와 같다.",
       "::before --tw-content": "Tailwind 가 `content-[\"\"]` 를 세우려고 두는 내부 변수다. 값이 빈 문자열이고 기하가 아니다.",
@@ -294,10 +278,10 @@
       "padding-top": "제품이 여백을 두지 않는 자리다. 크기가 고정이라 여백이 들어갈 곳이 없다 — 크기를 EXPECT가 본다."
     },
     "news-card-featured": {
-      "grid-column-start": "피처드가 격자에서 2×2 를 차지한다는 선언이다. 그 결과인 698×324 를 EXPECT 가 대조하므로 span 자체를 따로 보지 않는다.",
-      "grid-column-end": "피처드가 격자에서 2×2 를 차지한다는 선언이다. 그 결과인 698×324 를 EXPECT 가 대조하므로 span 자체를 따로 보지 않는다.",
-      "grid-row-start": "피처드가 격자에서 2×2 를 차지한다는 선언이다. 그 결과인 698×324 를 EXPECT 가 대조하므로 span 자체를 따로 보지 않는다.",
-      "grid-row-end": "피처드가 격자에서 2×2 를 차지한다는 선언이다. 그 결과인 698×324 를 EXPECT 가 대조하므로 span 자체를 따로 보지 않는다."
+      "grid-column-start": "피처드가 격자에서 2×2 를 차지한다는 선언이다. 그 결과인 698×326 를 EXPECT 가 대조하므로 span 자체를 따로 보지 않는다.",
+      "grid-column-end": "피처드가 격자에서 2×2 를 차지한다는 선언이다. 그 결과인 698×326 를 EXPECT 가 대조하므로 span 자체를 따로 보지 않는다.",
+      "grid-row-start": "피처드가 격자에서 2×2 를 차지한다는 선언이다. 그 결과인 698×326 를 EXPECT 가 대조하므로 span 자체를 따로 보지 않는다.",
+      "grid-row-end": "피처드가 격자에서 2×2 를 차지한다는 선언이다. 그 결과인 698×326 를 EXPECT 가 대조하므로 span 자체를 따로 보지 않는다."
     },
     "news-card-headline": {
       "-webkit-line-clamp": "제목을 두 줄에서 자른다. 몇 줄이냐는 계약(Featured 축)이 이미 갖고 있고, 자르는 방식은 Figma 에 대응 개념이 없다.",
@@ -596,6 +580,10 @@
       "row-gap": "오류 화면 콘텐츠 컬럼의 세로 리듬 12px 이다. **404 의 복제 절반이다.** 두 파일이 같은 이름의 상수를 각자 적고 있어(route-boundary.md 「공용 컴포넌트가 아니라 복제다」) 한 벌만 재면 한쪽만 고친 날 게이트가 침묵한다. 두 벌을 함께 재는 것은 「둘이 같다」가 주장이 아니라 실측이 되게 하려는 것이다. **DS 가 이 축을 아직 소유하지 않는다** — figma/components.measured.json 의 31종은 전부 컴포넌트이고 `route-boundary` 기록이 없다. design/patterns/route-boundary.md 는 `experimental` 이라 스스로 「그 전까지 이 문서의 값은 제품 인용이며 DS 계약이 아니다」라고 적고, 승격 조건 셋(복제 통합 · 최후 경계 해결값 · `--background`/`--foreground` 의 LOUIS 이름)이 전부 열려 있다. 대조할 DS 값이 없으므로 탐침이 제품 값을 기록만 하고, 승격되어 기록이 서는 날 EXPECT 행으로 옮긴다.",
       "column-gap": "같은 `gap-6` 이 함께 선언한 가로 축이고 값도 12px 다. 이 컬럼도 `flex-col` 이라 쓰이지 않는다. 대조할 DS 값이 없어 기록만 한다."
     },
+    "route-error-cta-product": {
+      "column-gap": "4. **2026-09-03 에 새로 생긴 축이다.** 오류 화면의 액션이 버튼 하나(`PAGE_CTA` = `\"mt-6!\"`)에서 버튼 + 링크형 버튼 둘짜리 행(`PAGE_ACTIONS` = `\"mt-6! flex items-center gap-2\"`)으로 자랐고, 그 `gap-2` 가 --spacing 2px 에서 4px 이다. 이 탐침이 세워진 목적은 `mt-6!` 의 `marginTop` 하나이고 EXPECT 도 그 축만 본다. **액션 행의 간격을 담을 DS 값이 없다** — figma/components.measured.json 의 31종은 전부 컴포넌트이고 `route-boundary` 기록이 없다. design/patterns/route-boundary.md 는 `experimental` 이라 스스로 「그 전까지 이 문서의 값은 제품 인용이며 DS 계약이 아니다」라고 적는다. 게다가 이 축은 **404 쪽과 갈라진 자리**다 — `not-found-content.tsx` 는 아직 `PAGE_CTA` 라 행 자체가 없다. 승격되어 기록이 서는 날 EXPECT 행으로 옮긴다.",
+      "row-gap": "4. 같은 `gap-2` 단축이 함께 선언한 세로 축이다. 액션 행은 `flex` 한 줄이고 `flex-wrap` 을 켜지 않아 줄이 나뉘지 않으므로 **화면에 나타나는 자리가 없다.** 위 `column-gap` 과 같은 이유로 대조할 DS 값도 없다."
+    },
     "landing-header-blur-product": {
       "height": "120. **DS 가 이 축을 아직 소유하지 않는다** — `figma/components.measured.json` 의 31종은 전부 컴포넌트이고 `landing-shell` 기록이 한 줄도 없다 — 대조할 DS 값이 아예 없다. landing-shell.md 스스로 이 값을 「아직 토큰이 없는 축」 표에 올려 두었고, 「120px 은 고정값이며 헤더 높이에서 유도되지 않는다 — 점유 높이(56)의 배수도 아니고 뷰포트에도 비례하지 않는다」고 적는다. 어디에서도 계산되지 않는 숫자라 지금은 제품 값을 기록만 한다.",
       "mask-image": "감쇠 곡선은 **LOUIS `--louis-progressive-blur-mask-header` 가 이미 소유한다**(2026-08-30, packages/css/src/base.css). 제품은 그 이름을 읽기만 하므로 두 저장소가 갈릴 여지가 없고, 실제로 이 탐침이 잰 값도 그 토큰이 편 2스톱이다. 다만 **그 값을 담은 컴포넌트 기록이 없어** EXPECT 가 가리킬 경로가 없다 — `figma/components.measured.json` 의 31종은 전부 컴포넌트이고 `landing-shell` 기록이 한 줄도 없다 — 대조할 DS 값이 아예 없다. 토큰이 정본인 축이라 여기서는 제품이 그 토큰을 실제로 편 결과를 기록만 한다."
@@ -647,7 +635,7 @@
       "column-gap": "2. pane 열 사이 거터다. 구분자 트랙 4 와 합치면 **pane 가장자리 사이가 2+4+2 = 8px** 이고, 이것이 LOUIS `pane-divider.css` 머리말이 「격자 거터(8px)를 2px 씩 넘어 이웃 패널 위로 올라탄다」로 가리키는 그 8 이다 — 히트영역 12(트랙 4 + 슬롭 4×2)가 8 을 좌우 2 씩 넘는다. 레시피가 소비처의 거터를 가정하고 있는데 그 가정을 제품에서 확인한 자리가 지금까지 없었다. DS 가 이 축을 아직 소유하지 않는다 — `figma/components.measured.json` 의 31종은 전부 컴포넌트이고 `editor-workspace` 패턴 기록도 `pane-divider` 레시피 기록도 한 줄이 없다(2026-08-31 확인). 대조할 DS 값이 없어 기록만 한다.",
       "row-gap": "2. 같은 `column-gap:2px`/`row-gap:2px` 짝의 세로 몫이며 **실제로 쓰이는 축이다** — 격자가 3행(작업행 · 구분자행 · 타임라인행)이라 행 사이 간격이 두 번 나타난다. 가로 구분자의 히트영역이 위아래로 4 씩 넘는 것도 이 2 를 근거로 한다.",
       "grid-template-areas": "\"assets assets-divider preview properties-divider panel\" / \"divider ×5\" / \"timeline ×5\" — `editor-workspace.md` 의 Regular 레시피(assets · divider · preview · divider · properties, 하단 timeline)를 이름으로 적은 것이다. **문서가 산문으로만 적던 배치를 여기서 기계가 읽는 값으로 고정한다.** DS 가 이 축을 아직 소유하지 않는다 — `figma/components.measured.json` 의 31종은 전부 컴포넌트이고 `editor-workspace` 패턴 기록도 `pane-divider` 레시피 기록도 한 줄이 없다(2026-08-31 확인). 대조할 DS 값이 없어 기록만 한다.",
-      "grid-template-rows": "\"0px 4px 400px\" — **첫 트랙 0px 은 계측 장치의 값이다.** 제품 선언은 `minmax(0,1fr) 4px var(--video-edit-timeline-height, 400px)` 이고, 하네스 host 높이가 360 인데 셋째 트랙이 400 고정이라 `1fr` 이 0 으로 눌렸다. 실제 화면에서는 셸이 뷰포트 높이를 가지므로 첫 트랙이 남는 높이를 전부 갖는다. **4px(구분자 트랙)과 400px(타임라인 기본 높이)은 제품 값이다** — 400 은 셸이 인라인으로 주는 `--video-edit-timeline-height` 의 레시피 폴백이고 사용자가 끌지 않은 첫 진입에서 서는 값이다.",
+      "grid-template-rows": "\"20px 4px 332px\" — **첫 트랙은 계측 장치의 값이다.** 제품 선언은 `minmax(0,1fr) 4px var(--video-edit-timeline-height, 332px)` 이고, 첫 트랙에 남는 것은 하네스 host 높이에서 고정 트랙 둘(구분자 4 · 타임라인 332)을 뺀 나머지뿐이다. 실제 화면에서는 셸이 뷰포트 높이를 가지므로 첫 트랙이 남는 높이를 전부 갖는다. **4px(구분자 트랙)과 332px(타임라인 기본 높이)은 제품 값이다** — 332 는 셸이 인라인으로 주는 `--video-edit-timeline-height` 의 레시피 폴백이고 사용자가 끌지 않은 첫 진입에서 서는 값이다. 제품 5a67d692 가 그 폴백을 400 에서 332 로 내렸다(vemClass.ts:1450·1638 — 두 자리가 함께 움직였다).",
       "height": "360. `height:100%` 가 host 를 잰 값이다. 격자의 실제 높이는 조상인 바닥(`modal`)이 정하고, 바닥의 높이는 다시 뷰포트가 정한다 — 위 `editor-workspace-floor-product · height` 와 같은 사슬의 아래쪽 끝이다."
     },
     "editor-assets-panel-product": {
@@ -661,6 +649,7 @@
       "grid-row-end": "`assets`. 넷째 longhand다. 넷이 한 이름으로 같아 대칭처럼 보이지만 `SYMMETRY` 묶음에 grid 계열이 없고 대조된 형제도 없어 각자 분류된다. 값은 셸이 정하는 것이라 이 면의 계약이 아니다."
     },
     "editor-preview-pane-product": {
+      "--hairline-frame-layer": "100. **제품 z-index 사다리의 한 칸이지 기하가 아니다.** 제품 5a67d692 가 편집 패널 넷 중 이 둘에 공용 `hairlineFrame` 을 새로 걸면서 함께 넣은 지역 변수이고, 소비처는 `globals.css:1427` 의 `.hairlineFrame::after { z-index: var(--hairline-frame-layer, 20) }` 하나다. 기본 20 은 앱 셸 기준값이고 패널 안에 sticky 헤더(70)·오버레이(82)가 있는 이 두 자리만 100 으로 올린다 — 제품 자신이 globals.css:1403-1407 에 그 계단을 적어 두었다. **LOUIS 가 이 축을 소유할 수 없다**: 같은 주석이 「겹 이름을 LOUIS 에 맡기지 않는 이유는 `check-louis-literals.mjs` 머리말과 같다 — 제품 z-index 사다리는 LOUIS 의 다섯 칸과 대응이 없다」고 밝힌다. 대조할 DS 값이 있을 수 없어 기록만 한다.",
       "border-top-left-radius": "12. pane 면의 모서리다. 네 pane(assets · preview · properties · timeline)이 **전부 같은 12** 를 리터럴로 적는다 — 바닥의 24(도달하지 않는 값)와도, LOUIS 반경 계단의 overlay-lg 24 와도 다른 층이다. DS 가 이 축을 아직 소유하지 않는다 — `figma/components.measured.json` 의 31종은 전부 컴포넌트이고 `editor-workspace` 패턴 기록도 `pane-divider` 레시피 기록도 한 줄이 없다(2026-08-31 확인). 대조할 DS 값이 없어 기록만 한다.",
       "border-top-right-radius": "12. 같은 `border-radius:12px` 단축이 네 귀를 함께 정한다. pane 은 바닥 위에 떠 있는 판이라 네 귀가 모두 노출되고, 그래서 한 귀만 다른 형태가 이 면에는 없다. 형제 중 대조된 축이 없어 대칭 묶음이 접어 주지 않는다.",
       "border-bottom-left-radius": "12. 아래 두 귀도 같은 12 다. 이 값은 `--louis-radius-*` 계단 어느 이름도 경유하지 않는 **리터럴**이라, 계단이 움직여도 pane 은 따라가지 않는다. 그 어긋남을 지금 판정하지 않고 사실만 남긴다.",
@@ -684,6 +673,7 @@
       "overscroll-behavior-y": "contain. **실제로 쓰이는 축이다** — 속성 패널은 세로로 긴 폼이라 안쪽 `propertiesPanelInner` 가 넘치면 여기서 스크롤이 멈춘다. route(docked) 모드에서는 `.vem-modalShellDocked &` 가 `overscroll-behavior:none` 으로 덮어 셸이 스크롤 사슬을 통째로 끊는다 — 그 분기는 조상이 없는 이 탐침에서 열거되지 않는다."
     },
     "editor-timeline-pane-product": {
+      "--hairline-frame-layer": "100. **제품 z-index 사다리의 한 칸이지 기하가 아니다.** 제품 5a67d692 가 편집 패널 넷 중 이 둘에 공용 `hairlineFrame` 을 새로 걸면서 함께 넣은 지역 변수이고, 소비처는 `globals.css:1427` 의 `.hairlineFrame::after { z-index: var(--hairline-frame-layer, 20) }` 하나다. 기본 20 은 앱 셸 기준값이고 패널 안에 sticky 헤더(70)·오버레이(82)가 있는 이 두 자리만 100 으로 올린다 — 제품 자신이 globals.css:1403-1407 에 그 계단을 적어 두었다. **LOUIS 가 이 축을 소유할 수 없다**: 같은 주석이 「겹 이름을 LOUIS 에 맡기지 않는 이유는 `check-louis-literals.mjs` 머리말과 같다 — 제품 z-index 사다리는 LOUIS 의 다섯 칸과 대응이 없다」고 밝힌다. 대조할 DS 값이 있을 수 없어 기록만 한다.",
       "border-top-left-radius": "12. pane 면의 모서리다. 네 pane(assets · preview · properties · timeline)이 **전부 같은 12** 를 리터럴로 적는다 — 바닥의 24(도달하지 않는 값)와도, LOUIS 반경 계단의 overlay-lg 24 와도 다른 층이다. DS 가 이 축을 아직 소유하지 않는다 — `figma/components.measured.json` 의 31종은 전부 컴포넌트이고 `editor-workspace` 패턴 기록도 `pane-divider` 레시피 기록도 한 줄이 없다(2026-08-31 확인). 대조할 DS 값이 없어 기록만 한다.",
       "border-top-right-radius": "12. 같은 `border-radius:12px` 단축이 네 귀를 함께 정한다. pane 은 바닥 위에 떠 있는 판이라 네 귀가 모두 노출되고, 그래서 한 귀만 다른 형태가 이 면에는 없다. 형제 중 대조된 축이 없어 대칭 묶음이 접어 주지 않는다.",
       "border-bottom-left-radius": "12. 아래 두 귀도 같은 12 다. 이 값은 `--louis-radius-*` 계단 어느 이름도 경유하지 않는 **리터럴**이라, 계단이 움직여도 pane 은 따라가지 않는다. 그 어긋남을 지금 판정하지 않고 사실만 남긴다.",
@@ -692,7 +682,7 @@
       "grid-column-end": "`timeline`. `grid-area` 단축이 펴는 네 longhand 중 둘째다. 이름 하나로 4 방향을 지정했으므로 start 와 end 가 같은 이름이고, 그 이름이 격자의 `grid-template-areas` 에 있는 한 칸을 통째로 가리킨다 — span 계산이 아니라 이름 참조다.",
       "grid-row-start": "`timeline`. 같은 단축의 셋째 longhand다. 타임라인 pane 이 격자에서 **한 칸만 차지**한다는 뜻이며, 행 방향으로 늘어나는 형태(타임라인 행처럼 5열을 덮는 것)와 구분된다.",
       "grid-row-end": "`timeline`. 넷째 longhand다. 넷이 한 이름으로 같아 대칭처럼 보이지만 `SYMMETRY` 묶음에 grid 계열이 없고 대조된 형제도 없어 각자 분류된다. 값은 셸이 정하는 것이라 이 면의 계약이 아니다.",
-      "height": "400. **제품 값이다.** `height: var(--video-edit-timeline-height, 400px)` 의 폴백이며, 셸이 리사이즈 상태에서 계산한 값을 `VideoEditModal.tsx:11037` 에서 인라인으로 주기 전의 기본 높이다 — 사용자가 가로 구분자를 끌지 않은 첫 진입에서 화면에 서는 높이가 이것이다. 위 `grid-template-rows` 의 셋째 트랙 400 과 같은 원천이다. DS 가 이 축을 아직 소유하지 않는다 — `figma/components.measured.json` 의 31종은 전부 컴포넌트이고 `editor-workspace` 패턴 기록도 `pane-divider` 레시피 기록도 한 줄이 없다(2026-08-31 확인). 대조할 DS 값이 없어 기록만 한다."
+      "height": "332. **제품 값이다.** `height: var(--video-edit-timeline-height, 332px)` 의 폴백이며, 셸이 리사이즈 상태에서 계산한 값을 `VideoEditModal.tsx:11037` 에서 인라인으로 주기 전의 기본 높이다 — 사용자가 가로 구분자를 끌지 않은 첫 진입에서 화면에 서는 높이가 이것이다. 위 `grid-template-rows` 의 셋째 트랙 332 와 같은 원천이고, 제품 5a67d692 가 400 에서 332 로 함께 내렸다. DS 가 이 축을 아직 소유하지 않는다 — `figma/components.measured.json` 의 31종은 전부 컴포넌트이고 `editor-workspace` 패턴 기록도 `pane-divider` 레시피 기록도 한 줄이 없다(2026-08-31 확인). 대조할 DS 값이 없어 기록만 한다."
     },
     "editor-pane-divider-vertical-product": {
       "::before border-top-left-radius": "999. 그립(가운데 알약)의 곡률이며 **LOUIS `--louis-radius-pill` 이 정한다**(`packages/css/src/component/pane-divider.css`). 제품 상수는 `louis-pane-divider` 후크만 얹고 이 값을 적지 않는다 — 즉 이 축의 SSOT 는 제품이 아니라 제품이 핀으로 소비하는 LOUIS 판이다. DS 가 이 축을 아직 소유하지 않는다 — `figma/components.measured.json` 의 31종은 전부 컴포넌트이고 `editor-workspace` 패턴 기록도 `pane-divider` 레시피 기록도 한 줄이 없다(2026-08-31 확인). 대조할 DS 값이 없어 기록만 한다.",

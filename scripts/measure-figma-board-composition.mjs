@@ -149,7 +149,7 @@ import { readFileSync, readdirSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { atomicWriteBatch } from "./lib/atomic-output.mjs";
-import { slimRecipeBoxDiff } from "./lib/figma-component-substitution.mjs";
+import { isDisabledButtonFill, slimRecipeBoxDiff } from "./lib/figma-component-substitution.mjs";
 
 const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const figmaDir = resolve(repoRoot, "figma");
@@ -445,6 +445,27 @@ function canonicalVerdict(rule, size, node) {
             `제품 레시피 probe \`${site.probe}\` 의 ${mismatch.axis} 는 ${mismatch.expected} 인데 ` +
             `이 도형은 ${mismatch.actual} 다 — 제품이 그 자리에서 무는 상자가 아니다. ` +
             `축약 트리로 댄 축: ${checked.join("·")}.`,
+        },
+      };
+    }
+    // **disabled 면은 Variant 축을 접는다 — 상자는 맞지만 지금 인스턴스로 놓을 수 없다.**
+    // `button.css` 가 primary·danger·danger-secondary·inverse 넷을 같은 `bg-inset` 면과 같은
+    // `fg-disabled` 글자로 그리므로, 도형의 면만으로는 어느 variant 인지 고를 수 없다. 이것을
+    // `replaceable` 로 세면 「지금 바꿀 수 있다」가 거짓이 되고, `bespoke` 로 세면 「제품이
+    // 정본을 안 문다」가 거짓이 된다(제품은 `.louis-button` 을 그대로 문다). ProgressBar 의
+    // State 축과 같은 자리다 — 고칠 곳은 Figma 가 아니라 측정 쪽이다.
+    if (rule.component === "Button" && isDisabledButtonFill(node.f, recipes.declared ?? {})) {
+      return {
+        verdict: "blocked",
+        entry: {
+          rule: "primitive-variant-folded-by-disabled",
+          probe: "button-disabled",
+          reason:
+            `${rule.component}/${size} 의 상자는 맞고 제품도 정본 자리 \`${site.id}\` 를 무는데, ` +
+            "면이 disabled 면(`bg-inset` + `fg-disabled`, 원장 probe `button-disabled`) 이라 " +
+            "Variant 축을 고를 수 없다 — button.css 가 primary·danger·danger-secondary·inverse " +
+            "넷을 같은 면·같은 글자로 접고, 측정 트리에 `disabled` 칸이 없다. 고칠 곳은 Figma 가 " +
+            "아니라 측정 쪽이다.",
         },
       };
     }

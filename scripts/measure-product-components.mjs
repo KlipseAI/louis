@@ -86,6 +86,47 @@ const PROBES = [
     html: `<button class="louis-button" data-variant="secondary" data-size="md">저장</button>`,
     read: ["borderTopWidth", "borderTopLeftRadius", "height"],
   },
+  // ── inverse 와 disabled — **면 색을 재는 탐침이 없어 생성기가 자리를 포기하고 있었다** ─────
+  //
+  // `figma-component-substitution.mjs` 의 `buttonVariantOf` 는 원장의 면 색으로만 Variant 를
+  // 고른다. 원장에 있던 것은 primary(파랑)와 secondary(투명+inset 헤어라인) 둘뿐이라,
+  // `/mypage/upgrade` 요금제 CTA 다섯(`UpgradePlanPageClient.tsx` 의 `<Button variant="inverse">`)
+  // 이 **어느 쪽도 아니어서** 다섯 자리가 통째로 도형으로 남았다. 그 함수 자신의 주석이
+  // 「그 자리가 나오면 원장에 probe 를 더하는 것이 먼저다」라고 적어 둔 그 자리다.
+  //
+  // **라이트·다크를 둘 다 잰다.** primary 의 파랑은 테마를 따라가지 않아 한 벌로 충분했지만
+  // inverse 는 이름 그대로 페이지와 반전된 면이라 라이트에서 검정, 다크에서 흰 면이다
+  // (button.css:169-172). 한 테마만 재면 다른 테마 화면에서 같은 자리가 조용히 포기된다.
+  {
+    id: "button-inverse",
+    source: 'Button.tsx — variant="inverse" (다크). 요금제·인증 CTA 가 이 면을 쓴다',
+    html: `<button class="louis-button" data-variant="inverse" data-size="md">저장</button>`,
+    read: ["backgroundColor", "color"],
+  },
+  {
+    id: "button-inverse-light",
+    source: 'Button.tsx — variant="inverse" (라이트). inverse 는 면이 테마를 따라간다',
+    html: `<button class="louis-button" data-variant="inverse" data-size="md">저장</button>`,
+    doc: "light",
+    read: ["backgroundColor", "color"],
+  },
+  // disabled 는 **variant 를 접는다** — primary·danger·danger-secondary·inverse 넷이 같은
+  // `bg-inset` 면과 `fg-disabled` 글자가 된다 (button.css:282-297). 그래서 이 값은 「어느
+  // variant 인가」를 **고르는** 데 쓰지 않고 「고를 수 없다」를 근거 있게 말하는 데 쓴다.
+  // 재지 않으면 그 자리는 「측정이 축을 잃었다」가 아니라 「아무도 안 봤다」로 남는다.
+  {
+    id: "button-disabled",
+    source: 'Button.tsx — disabled (다크). 면이 bg-inset 으로 접혀 variant 를 가릴 수 없다',
+    html: `<button class="louis-button" data-variant="inverse" data-size="md" disabled>저장</button>`,
+    read: ["backgroundColor", "color"],
+  },
+  {
+    id: "button-disabled-light",
+    source: 'Button.tsx — disabled (라이트)',
+    html: `<button class="louis-button" data-variant="inverse" data-size="md" disabled>저장</button>`,
+    doc: "light",
+    read: ["backgroundColor", "color"],
+  },
   // ── 프로필 팝오버 — **제품의 유일한 composite popover 인데 한 번도 재지 않았다** ────────
   //
   // 2026-08-30 감사에서 드러났다. LOUIS 의 composite-popover 규격은 세 군데서 왔다 — 표면과 항목

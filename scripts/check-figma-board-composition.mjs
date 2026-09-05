@@ -129,11 +129,43 @@ const PLAN = "figma/app-screens.plan.json";
 // 넷은 여전히 bespoke 다 — 제품 `settingsToggleWrap` 이 `.louis-segmented-control` 을 물지
 // 않으므로 그 자리가 정본을 무는 날 replaceable 로 올라간다.
 //
+// **2026-09-04 — 제품 앵커가 ae8fd627 → 5a67d692 로 옮겨 세 수가 함께 움직였다.**
+// 총수 865 → 984. 두 사건이고, 둘 다 **판정을 푼 것이 아니라 화면이 달라진 것**이다.
+//
+//   ① `/archive` 의 배너 캐러셀이 통째로 사라졌다 — instance −2 · bespoke −4.
+//      `/api/banners` 는 **두 앵커 모두 500** 이다(fixture 에 DB 가 없다). 달라진 것은 제품이다:
+//      ae8fd627 은 슬라이드 3장을 `AppHomeScene.tsx` 에 `as const` 로 박아 두어 API 가 죽어도
+//      캐러셀을 그렸고, 5a67d692 는 `tab_banners` 행이 정본이라 응답이 없으면 아무것도 그리지
+//      않는다. 사라진 것은 데스크톱·모바일 두 벌의 primary Button 1 + 화살표 2 다.
+//      **이 −4 는 이득이 아니다** — 「제품이 정본을 물기 시작했다」가 아니라 「그 자리가 측정
+//      화면에서 없어졌다」이고, 배너가 다시 그려지는 날 그대로 돌아온다.
+//   ② `/mypage/upgrade` 의 요금제가 4장 → 5장이 됐다(제품 5258d9b2, 코드 정본
+//      `trial|lite|plus|pro|ultra`) — instance −4.
+//      `CONTENT_COMPONENTS` 의 `Product/Upgrade Plan Card` 넷은 **텍스트 전부 + rect 1px** 로만
+//      매치하는데, 카드가 316×560 Trial/Basic/Pro/Max 에서 256.8×608.19 다섯 장으로 바뀌어
+//      네 항목이 한꺼번에 죽었다. 카드가 안 물리자 가지치기가 풀려 **그 안의 CTA 다섯이
+//      드러난 것**이 대체가능 0 → 5 였다.
+//   ③ `/subscription` 의 크레딧 이력 「Sort」 캐럿 하나가 새로 생겼다(제품 9a0b6108) —
+//      bespoke +1. 상승은 발견이므로 잠그지 않는다.
+//
+// 그 다섯 CTA 는 `<Button variant="inverse">` 였고(`UpgradePlanPageClient.tsx`), 원장에 inverse
+// 면을 재는 probe 가 없어 생성기가 Variant 축을 못 골라 다섯 자리를 통째로 포기하고 있었다 —
+// `buttonVariantOf` 자신의 주석이 「그 자리가 나오면 원장에 probe 를 더하는 것이 먼저다」라고
+// 적어 둔 그 자리다. probe 넷(`button-inverse`·`button-inverse-light`·`button-disabled`·
+// `button-disabled-light`)을 원장에 더해 **넷이 인스턴스가 되었고**(instance 72 → 76),
+// 첫 카드 하나는 `blocked` 로 갔다(2 → 3): `:disabled` 가 primary·danger·danger-secondary·
+// inverse 넷을 같은 `bg-inset` 면·`fg-disabled` 글자로 접어 Variant 축이 측정에 남지 않는다.
+// ProgressBar 의 State 축과 같은 종류이고, 고칠 곳은 Figma 가 아니라 측정 쪽이다.
+//
+// 그래서 78 → 76 = −2(배너) −4(죽은 플랜 카드) +4(새 Button 인스턴스) 이고,
+// 56 → 53 = −4(배너 화살표) +1(Sort 캐럿) 이다. **둘 다 이득이 아니라 화면의 이동이므로**
+// 잠그되, 배너가 돌아오면 두 수도 함께 돌아와야 한다는 것을 여기 적어 둔다.
+//
 // **새 위반을 받아들이려고 이 수를 올리지 마라** — 이 저장소의 baseline 규칙이다.
 const REPLACEABLE_BASELINE = 0;
-const BESPOKE_BASELINE = 56; // 하락만 잠근다(상승은 발견)
+const BESPOKE_BASELINE = 53; // 하락만 잠근다(상승은 발견)
 const UNCLASSIFIED_BASELINE = 0;
-const INSTANCE_FLOOR = 78;
+const INSTANCE_FLOOR = 76;
 const CANDIDATE_FLOOR = 198;
 const BOARD_FLOOR = 36;
 
@@ -482,7 +514,9 @@ console.log(
 );
 console.log(
   "  미보유 " + recounted.missing + " · 막힘 " + recounted.blocked +
-    "(대응은 있는데 측정이 고를 정보를 잃었다 — 남은 것은 ProgressBar 의 State 축뿐이다. " +
+    "(대응은 있는데 측정이 고를 정보를 잃었다 — 남은 것은 축을 잃은 자리 둘이다: ProgressBar 의 " +
+    "State 축 2, 그리고 `/mypage/upgrade` 의 disabled 요금제 CTA 1(`:disabled` 가 " +
+    "primary·danger·danger-secondary·inverse 넷을 같은 면·같은 글자로 접는다). " +
     "아이콘 정체 여섯은 서명을 이어 닫혔고 bespoke 4 · 미보유 2 로 갈렸다) · " +
     "제품bespoke " + recounted.bespoke + " 는 늘어도 실패하지 않는다 — 발견이지 후퇴가 아니다. " +
     "bespoke 는 «줄 때» 잠근다(BESPOKE_BASELINE).",

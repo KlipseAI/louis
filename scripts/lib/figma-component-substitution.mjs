@@ -394,13 +394,87 @@ const shadowGeometry = (value) => {
 };
 
 /**
- * **Button 의 `Variant` 축.** 제품 레시피 원장이 실제로 잰 두 벌(primary·secondary)에만 답한다.
- * 나머지(ghost·danger·inverse)는 원장에 probe 가 없어 «비교할 값이 없다» — 지어내지 않고
+ * **disabled 면을 재는 probe 두 벌.** inverse 와 달리 이쪽은 테마마다 다른 «값»이 아니라
+ * 테마마다 다른 **같은 토큰**(`bg-inset`)이라 둘 다 있어야 한다.
+ *
+ * 이 이름을 원장에서 읽는 이유는 값을 여기 베끼지 않기 위해서다 — 베끼는 순간 제품이 램프를
+ * 옮긴 날 조용히 낡는다(`slimRecipeBoxDiff` 가 상자를 원장에서 읽는 것과 같은 규칙).
+ */
+const DISABLED_BUTTON_PROBES = Object.freeze(["button-disabled", "button-disabled-light"]);
+const INVERSE_BUTTON_PROBES = Object.freeze(["button-inverse", "button-inverse-light"]);
+
+/** 원장의 면 값 목록을 꺼낸다. 하나라도 비면 **던진다** — 없는 값을 「다르다」로 접으면 판정이 거짓이 된다. */
+function facesOf(declared, probes, property) {
+  return probes.map((probe) => {
+    const value = declared[probe]?.[property];
+    if (!value) {
+      throw new Error(
+        `[figma-app-screens] 제품 레시피 원장에 ${probe} 의 ${property} 가 없습니다. ` +
+        "`pnpm run measure-product-components` 로 원장을 다시 뽑으세요.",
+      );
+    }
+    return value;
+  });
+}
+
+/**
+ * **`:disabled` 는 Variant 축을 접는다.**
+ *
+ * `button.css:288-297` 이 primary·danger·danger-secondary·inverse **넷을 같은 `bg-inset` 면과
+ * 같은 `fg-disabled` 글자로** 그린다. 그래서 disabled 버튼의 계산 스타일에는 어느 variant 인지가
+ * 남아 있지 않다 — 측정 트리에도 `disabled`/`aria-disabled` 칸이 없다.
+ *
+ * 이 함수는 그 사실을 **근거 있게 말하기 위해** 있다. 값을 지어내 아무 variant 나 고르면 화면은
+ * 조용히 시스템과 다른 정체를 주장하게 되고, 그냥 null 로 접으면 「아무도 안 봤다」와 구분되지
+ * 않는다. 면과 글자 **둘 다** 맞을 때만 참이다 — 면만 보면 `bg-inset` 을 쓰는 평범한 회색
+ * 컨트롤이 전부 걸린다.
+ */
+export function isDisabledButtonFace(style, declared) {
+  const faces = facesOf(declared, DISABLED_BUTTON_PROBES, "background-color");
+  const inks = facesOf(declared, DISABLED_BUTTON_PROBES, "color");
+  return faces.some((face, index) => style.backgroundColor === face && style.color === inks[index]);
+}
+
+/**
+ * **축약 노드의 면(`f`)이 disabled 면인가.** 보드 원장은 계산 스타일이 아니라 draw payload 를
+ * 읽으므로 색이 `rrggbb` 16진이다. 변환을 여기 한 곳에 두는 이유는 조인의 임자가 원장 하나여야
+ * 하기 때문이다 — 보드 쪽에 다시 적으면 두 벌이 되고, 두 벌은 반드시 어긋난다.
+ */
+export function isDisabledButtonFill(fill, declared) {
+  const faces = facesOf(declared, DISABLED_BUTTON_PROBES, "background-color").map(cssColorToHex);
+  return typeof fill === "string" && faces.includes(fill.toLowerCase());
+}
+
+/** `color(srgb r g b)` · `rgb(r, g, b)` → `rrggbb`. 해석하지 못하면 null 이다(빈 문자열이 아니다 — 조용히 맞아 버린다). */
+function cssColorToHex(value) {
+  const text = String(value ?? "").trim();
+  const srgb = /^color\(srgb\s+([\d.]+)\s+([\d.]+)\s+([\d.]+)/.exec(text);
+  if (srgb) {
+    return srgb.slice(1, 4)
+      .map((channel) => Math.round(Number.parseFloat(channel) * 255).toString(16).padStart(2, "0"))
+      .join("");
+  }
+  const rgb = /^rgba?\(\s*(\d+)[,\s]+(\d+)[,\s]+(\d+)/.exec(text);
+  if (rgb) {
+    return rgb.slice(1, 4).map((channel) => Number(channel).toString(16).padStart(2, "0")).join("");
+  }
+  return null;
+}
+
+/**
+ * **Button 의 `Variant` 축.** 제품 레시피 원장이 실제로 잰 세 벌(primary·secondary·inverse)에만
+ * 답한다. 나머지(ghost·danger)는 원장에 probe 가 없어 «비교할 값이 없다» — 지어내지 않고
  * null 을 돌려 치환을 포기한다. 그 자리가 나오면 원장에 probe 를 더하는 것이 먼저다.
  *
  * primary 는 면 색을 문자열까지 대조한다(accent 는 테마를 따라가지 않는다). secondary 는 면이
  * 투명이고 헤어라인 inset 그림자를 갖는데, 그 **색은 테마를 따라가므로**(라이트 검정 8% ·
  * 다크 흰색 8%) 기하만 대조한다.
+ *
+ * **inverse 는 면이 테마를 따라간다** — 이름 그대로 페이지와 반전된 면이라 라이트에서 검정,
+ * 다크에서 흰 면이다(`button.css:169-172`). 그래서 한 벌이 아니라 원장이 잰 **두 벌** 중
+ * 어느 쪽과도 같으면 참이다. 화면의 테마를 여기서 다시 추론하지 않는 이유는, 추론할 재료가
+ * 이 함수에 없고(계산 스타일 하나뿐) 두 값이 서로 충돌하지도 않기 때문이다 — 검정 면과 흰 면을
+ * 동시에 갖는 버튼은 없다.
  */
 function buttonVariantOf(style, declared) {
   const primary = declared["button-md"]?.["background-color"];
@@ -408,8 +482,10 @@ function buttonVariantOf(style, declared) {
   if (!primary || !secondaryShadow) {
     throw new Error("[figma-app-screens] 제품 레시피 원장에 button-md/button-secondary 의 면 값이 없습니다.");
   }
+  const inverse = facesOf(declared, INVERSE_BUTTON_PROBES, "background-color");
   if (style.backgroundColor === primary) return "primary";
   if (isTransparent(style.backgroundColor) && shadowGeometry(style.boxShadow) === secondaryShadow) return "secondary";
+  if (inverse.includes(style.backgroundColor)) return "inverse";
   return null;
 }
 
@@ -498,6 +574,18 @@ function matchLouisPrimitive(site, node, style, evidence) {
   if (!geometry) return { skip: `되읽기에 ${site.component}/${site.size} 의 기하가 없습니다.` };
   if (!geometryFits(geometry.height, Math.round(node.rect.height * 100) / 100)) {
     return { skip: `${site.component}/${site.size} 의 되읽기 높이(${geometry.height}) 가 측정 ${round(node.rect.height)} 와 다릅니다.` };
+  }
+  // **disabled 면은 Variant 축을 접는다 — 먼저 걸러 사유를 정확히 남긴다.** 축 루프에 맡기면
+  // 「Variant 를 판정하지 못했다」로 뭉뚱그려지는데, 그 문장은 「원장에 probe 가 없다」와
+  // 구분되지 않는다. 앞의 것은 측정이 축을 잃은 것이고 뒤의 것은 아직 재지 않은 것이라,
+  // 고치러 갈 곳이 서로 다르다.
+  if (site.component === "Button" && isDisabledButtonFace(style, evidence.recipes.declared ?? {})) {
+    return {
+      skip:
+        "Button 이 disabled 면(`bg-inset` + `fg-disabled`)이라 Variant 축을 고를 수 없습니다 — " +
+        "button.css 가 primary·danger·danger-secondary·inverse 넷을 같은 면·같은 글자로 접고, " +
+        "측정 트리에 `disabled` 칸이 없습니다.",
+    };
   }
   // variant 축을 하나씩 채운다. 채우지 못한 축이 하나라도 있으면 치환하지 않는다.
   const decided = {};

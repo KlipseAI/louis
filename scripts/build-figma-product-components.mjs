@@ -185,11 +185,18 @@ const betaStyle = style(betaNode);
 const sectionNode = byText(routes.default.route, "Analytics");
 const sectionStyle = style(sectionNode);
 const sectionRowStyle = style(rowNodes[5]);
-/* 후보 id 는 **내용 주소가 아니다.** `measure-product-auth-fixture.mjs:755` 가 styleRef 를
-   `"s" + computedStyles.length` — 첫 등장 순서의 자리번호 — 로 붙이고, 후보 해시는 그 문자열을
-   그대로 넣는다(`:812`). 그래서 style table 앞쪽에 항목이 하나 늘기만 해도 뒤따르는 번호가
-   밀려 같은 subtree 의 id 가 바뀐다. 사이드바 47노드 중 실제로 번호가 밀린 건 둘(s84→s85,
-   s85→s86)뿐인데 id 는 통째로 갈렸다.
+/* **후보 id 의 스타일 축은 이제 내용 주소다 — 아래 두 판정은 그 전의 기록이다.**
+   («내용 주소»라고만 적었다가 반증에서 잡혀 좁혔다. 해시 재료에는 `path`/`parentPath` 가
+   남아 있고 그것은 **보이지 않는 형제까지 세는** 자식 인덱스 체인이다(`describe` 의
+   `path + "." + index`). 사라진 것은 **화면 사이의 결합** — 무관한 스타일 하나가 늘고 줄어
+   전 후보의 id 가 밀리던 것 — 이고, 한 화면 안의 위치 의존은 그대로다.) 종전에는
+   `measure-product-auth-fixture.mjs` 가 styleRef 를 `"s" + computedStyles.length` — 첫 등장
+   순서의 자리번호 — 로 붙였고 후보 해시가 그 문자열을 그대로 재료로 썼다. 그래서 style table
+   앞쪽에 항목이 하나 늘기만 해도 뒤따르는 번호가 밀려 같은 subtree 의 id 가 바뀌었다. 사이드바
+   47노드 중 실제로 번호가 밀린 건 둘(s84→s85, s85→s86)뿐인데 id 는 통째로 갈렸다. 그 소음을
+   없애려 styleRef 를 값의 sha256 로 바꿨다(같은 파일의 `internStyle`) — 전환에서 모든 id 가
+   한 번 갈리고, 그 뒤로는 값이 바뀐 자리에서만 움직인다. 아래 두 문단은 자리번호 시절의
+   「이름만 갈렸다」 판정이므로 그때의 근거로 읽는다.
 
    a3ed8e03 → ae8fd627 판정(전부 (가) 정상 변화, 제품 소스에서 확인):
    - 이 fixture 는 lock 이 48f05c2a·74a7303b 를 지나는 동안 a3ed8e03 에 머물러 있었다.
@@ -305,7 +312,7 @@ const upgradeSpec = (route, state) => {
   };
 };
 /* 브랜드 후보만 id 가 살아남았다 — 6노드의 styleRef 가 style table 맨 앞이라 번호가 밀리지
-   않았기 때문이다. 대신 routeCount 가 12 → 18 로 늘었다. 늘어난 6개는 제품이 더한 개발 전용
+   않았기 때문이다(자리번호 시절의 이야기다. 위 문단 참고). 대신 routeCount 가 12 → 18 로 늘었다. 늘어난 6개는 제품이 더한 개발 전용
    후크 `?__phase=`(HighlightProjectScene.tsx, 74a7303b..ae8fd627)로 열리는 하이라이트 상세
    6단계이고, 그 화면들도 같은 브랜드 블록을 그대로 그린다. 후보가 넓어진 것이지 바뀐 게
    아니다 — 앞 12개 route 는 순서까지 그대로다.

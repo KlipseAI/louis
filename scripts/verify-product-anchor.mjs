@@ -101,36 +101,47 @@ const KNOWN_STALE = new Map([
 //
 // ── 2026-09-03 (2회차) 정정 — **fixture 는 이제 새 앵커에 서 있다** ──────────
 // `KLIPSE_PRODUCT_FIXTURE_ROOT` 가 가리키는 clean 클론을 `5a67d692` 로 다시 체크아웃하고
-// 의존성을 다시 깔았다(그 커밋 자신이 LOUIS 핀을 올려 lockfile 이 움직인다). 그래서
-// **이 표에 남은 것들의 이유는 더 이상 「fixture 가 낡았다」가 아니다.** 열셋 중 둘은 그
-// fixture 로 실제로 옮겼고(`product.sidebar-states.json` · `product-sidebar-states.plan.json`),
-// 남은 열하나는 서로 **다른 두 벽**에 막혀 있다. 아래 진단이 그 둘을 이름으로 갈라 인쇄한다.
+// 의존성을 다시 깔았다(그 커밋 자신이 LOUIS 핀을 올려 lockfile 이 움직인다). 열셋 중 둘이
+// 그때 옮겨갔다(`product.sidebar-states.json` · `product-sidebar-states.plan.json`).
 //
-//   (가) `product.auth-fixture.json` (2핀) — 측정기가 새 앵커에서 하드 실패한다.
-//        `[product-auth-fixture] 선언 스타일이 없는 측정 노드가 있습니다(경로 스킴 불일치 의심)`.
-//        두 번 돌려 두 번 다 걸렸고 **걸린 화면이 서로 달랐다** — 1회차 `/analytics/instagram`
-//        28노드, 2회차 `/highlight/[projectId]?__phase=upload` 67노드. 그래서 한 화면의 문제가
-//        아니다. 다만 `/analytics/instagram` 만 따로 열어 같은 두 패스를 돌리면 **99/99 로
-//        깨끗이 붙는다**(light/en-US·1920×1080, 원본과 같은 문맥에서 2회). 즉 경로 스킴이
-//        구조적으로 어긋난 것이 아니라, `page.evaluate` 트리 패스와 그 뒤 CDP 선언 패스
-//        **사이에 살아 있는 DOM 이 갈리는** 것이다. 측정 패스가 `animation.finish()` 로
-//        애니메이션을 끝내는 것이 그 자체로 언마운트를 부를 수 있어 유력한 후보다.
-//        **고치는 것은 fixture 가 아니라 이 하네스**이고, 두 패스를 한 스냅샷으로 묶을지
-//        (CDP 를 먼저 뜨고 트리를 거기서 파생시킬지) 는 소유자 판정이다.
-//        이 2핀이 막히면 화면 계획 다섯(app-shell · checkout-status · components ·
-//        payment-scenes · upgrade-scene)이 그대로 막힌다 — 다섯 다 이 원장 하나만 읽는다.
+// ── 2026-09-05 (3회차) — **열하나 중 열이 옮겨갔다. 남은 것은 하나다** ──────────
+// 2회차가 「서로 다른 두 벽」이라 적은 (가)·(나) 를 둘 다 풀었다.
 //
-//   (나) `product.rendered-components.json` (2핀) — **fixture 를 쓰지 않는다.** 측정기는
-//        제품 git 트리에서 클래스를 꺼내 컴파일할 뿐이라 앵커만 있으면 돈다. 실제로 새
-//        앵커에서 돌려 보면 브라우저 측정까지 끝내고 **쓰기 직전에** 멈춘다(:3226) —
-//        DS 기록과 어긋난 축 19 · 사유 없는 새 값 4 · 분류되지 않은 제품 선언 28.
-//        셋 다 `figma/components.measured.json` · `figma/unverified-values.json` ·
-//        `figma/product-coverage.json` 에 **사람이 판정을 적어야** 풀린다. 앵커도 fixture 도
-//        아니다. (이 파일이 이 표에 있는 것은 fixture 때문이 아니라, `app-screens` 가 이것과
-//        auth-fixture 의 커밋이 **같을 때만** 만들어지기 때문이다 — build-figma-app-screens.mjs:51.)
+//   (가) `product.auth-fixture.json` — **하네스 결함이었고 고쳤다.** 2회차가 유력하게
+//        지목한 「측정 패스의 `animation.finish()` 가 언마운트를 부른다」는 **반증됐다** —
+//        걸리던 화면들은 측정 시점에 `document.getAnimations()` 가 **빈 배열**이라
+//        (`finished=0 infinite=0 stillLive=0`, 세 화면 · 전 반복) `finish()` 가 아무 일도
+//        하지 않는다. `no-freeze` 모드와 결과가 완전히 같은 것이 같은 말이다.
+//        진짜 결함은 **두 패스를 잇는 키가 「위치」였다**는 것이다. `body.1.0.0.1.0` 꼴의
+//        자식 인덱스 체인이라, 두 패스 사이에 노드가 하나라도 사라지면 뒤 형제가 그 인덱스로
+//        당겨 들어와 **남은 경로가 엉뚱한 노드의 선언을 받는다.** 경로는 존재하므로 아무도
+//        실패하지 않는다 — **조용히 틀린 데이터**다. 하드 실패로 잡히던 것은 체인이 아예
+//        짧아진 경우뿐, 증상의 일부였다. 그래서 진단문이 「경로 스킴 불일치」를 가리킨 것도
+//        맞고 틀렸다 — 스킴은 맞았고, **스킴을 쓴다는 것 자체가** 문제였다.
+//        키를 `captureDeclaredStylesForHandles()` 로 **노드 동일성**에 옮겼다(측정 evaluate 가
+//        잰 노드를 배열로 남기고 `Runtime.getProperties` → `DOM.requestNode` 로 같은 노드를
+//        집는다). 왕복 차수는 그대로이고, 빠져나간 노드는 `isConnected === false` 로 드러난다.
+//        연속 3회 중 2·3회차가 byte 동일하다(1회차만 fixture 의 webpack 컴파일과 경쟁했다).
 //
-//   그 둘의 그림자: `figma/app-screens.plan.json` 은 (가)와 (나)가 **같은 커밋**이어야 열리고,
-//   `migration/figma-board-composition.json` 은 그 계획을 읽는다.
+//   (나) `product.rendered-components.json` — 사람 판정 51건(DS 어긋남 19 · 사유 없는 새 값 4 ·
+//        미분류 28)을 갈랐다. 그 과정에서 측정기 자신의 결함 둘이 먼저 드러났다 —
+//        색 대조표를 「제품이 고정한 핀 판」에서 읽는다고 주석에 적어 두고 실제로는 **늘
+//        워킹트리 HEAD** 에서 읽고 있었다(조건이 보던 경로가 15줄 위 `finally` 에서 이미
+//        지워지는 workspace 안이라 `existsSync` 가 한 번도 참이 아니었다).
+//
+//   그 둘이 풀리자 그림자도 함께 열렸다 — `app-screens.plan.json`(둘의 커밋이 같아야 열린다)
+//   과 화면 계획 넷, 보드 원장. **11핀 → 1핀.**
+//
+//   남은 하나 `figma/product-upgrade-scene.plan.json` 은 **또 다른 하네스 결함**에 막혀 있다.
+//   가드 문구는 「`/mypage/upgrade/checkout` no-query redirect no longer matches」지만
+//   **리다이렉트 행동은 전혀 바뀌지 않았다** — 두 앵커 모두 `finalPath: /mypage/upgrade` ·
+//   `redirected: true` · `finalSearch: ""` 이고 API 트래픽까지 같다. 터진 것은 OR 의 셋째 절인
+//   **트리 동일성**이고, 원인은 `content-visibility: auto` + `contain-intrinsic-size` 의
+//   **래치**다 — 뷰포트 밖에 있던 노드가 한 번도 레이아웃되지 않으면 추정 높이가 굳어,
+//   같은 화면이 실행 순서에 따라 다른 높이로 기록된다. 측정 직전에 스크롤 컨테이너를 끝까지
+//   훑어 그 노드들을 한 번 레이아웃시킨 뒤 되감아야 값이 실제 그림과 일치한다.
+//   **가드를 옮기면 안 된다** — 제품이 움직인 것이 아니므로 옮기는 것은 측정 오류를 정본으로
+//   굳히는 일이다. 측정기를 고치고 다시 재는 것이 순서다.
 //
 // **KNOWN_STALE 과 섞지 않는 이유.** 저것은 「앵커 재고정으로 0 이 되는」 부채다. 이 열넷은
 // 재고정으로 0 이 되지 않는다 — fixture 를 새 커밋에 다시 세워야 0 이 된다. 고치는 방법이
@@ -148,18 +159,10 @@ const KNOWN_STALE = new Map([
 // 조용하다. 그래서 fixture 커밋을 여기 적고, 그 값과 다른 핀은 개수와 무관하게 실패시킨다.
 const FIXTURE_COMMIT = "ae8fd6278481a5e86cd324ba86a1d44fe978b788";
 const FIXTURE_AXIS = new Map([
-  ["figma/app-screens.plan.json", 1],
-  ["figma/product-app-shell.plan.json", 1],
-  ["figma/product-checkout-status.plan.json", 1],
-  ["figma/product-components.plan.json", 1],
-  ["figma/product-payment-scenes.plan.json", 1],
   ["figma/product-upgrade-scene.plan.json", 1],
-  ["migration/figma-board-composition.json", 1],
-  ["migration/product.auth-fixture.json", 2],
-  ["migration/product.rendered-components.json", 2],
 ]);
 // 한 방향 래칫. fixture 를 새 앵커에 세우면 이 표는 통째로 사라진다.
-const FIXTURE_AXIS_RATCHET = 11;
+const FIXTURE_AXIS_RATCHET = 1;
 
 // 어긋난 핀을 어떻게 되돌리는지. 생성물마다 만드는 명령이 다르므로 진단이 직접 말하게 한다.
 const HOW_TO_REALIGN = new Map([
@@ -332,14 +335,18 @@ if (fixtureTotal > 0) {
     "[product-anchor] fixture 축 " + fixtureTotal + "개가 " + FIXTURE_COMMIT.slice(0, 8) +
       " 에 남아 있습니다(" + primary.onFixtureAxis.map((e) => e.file + " " + e.count).join(" · ") +
       "). **fixture 를 다시 세우는 것으로는 0 이 되지 않습니다** — `KLIPSE_PRODUCT_FIXTURE_ROOT` 는 " +
-      "이미 " + anchor.commit.slice(0, 8) + " 에 clean 으로 서 있고, 그것으로 옮길 수 있는 둘은 " +
-      "2026-09-03 에 옮겼습니다(sidebar-states 원장·계획). 남은 것을 막는 벽은 둘이고 서로 " +
-      "다릅니다 — (가) `measure-product-auth-fixture` 가 새 앵커에서 「선언 스타일이 없는 측정 " +
-      "노드」로 하드 실패합니다(두 번 돌려 걸린 화면이 서로 달랐고, 그 화면만 따로 열면 " +
-      "깨끗이 붙습니다 — 두 측정 패스 사이에 DOM 이 갈리는 하네스 결함입니다). " +
-      "(나) `measure-product-components` 는 fixture 없이도 도는데 쓰기 직전에 멈춥니다 " +
-      "(DS 어긋남 19 · 사유 없는 값 4 · 미분류 28 — 사람이 판정을 적어야 풀립니다). " +
-      "FIXTURE_AXIS 머리말이 어느 파일이 어느 벽인지 갈라 적습니다.",
+      "이미 " + anchor.commit.slice(0, 8) + " 에 clean 으로 서 있습니다. 2026-09-05 에 열이 " +
+      "옮겨갔고(하네스의 조인 키를 위치에서 노드 동일성으로 바꾸고, rendered-components 의 " +
+      "사람 판정 51건을 갈랐습니다) **남은 것은 이 하나뿐입니다.** " +
+      "막는 벽은 앞의 둘 중 어느 것도 아닌 **또 다른 하네스 결함**입니다 — 가드는 " +
+      "「no-query redirect no longer matches」라고 말하지만 **리다이렉트 행동은 바뀌지 " +
+      "않았습니다**(두 앵커 모두 finalPath `/mypage/upgrade` · redirected true · finalSearch 빈 " +
+      "문자열, API 트래픽까지 동일). 터진 것은 OR 의 셋째 절인 트리 동일성이고, 원인은 " +
+      "`content-visibility: auto` + `contain-intrinsic-size` 의 래치입니다 — 뷰포트 밖 노드가 " +
+      "한 번도 레이아웃되지 않으면 추정 높이가 굳어, 같은 화면이 실행 순서에 따라 다른 높이로 " +
+      "기록됩니다. **가드를 옮기지 마세요** — 제품이 움직인 것이 아니므로 옮기면 측정 오류를 " +
+      "정본으로 굳힙니다. `measure-product-auth-fixture` 가 측정 직전에 스크롤 컨테이너를 " +
+      "끝까지 훑어 그 노드들을 한 번 레이아웃시킨 뒤 되감게 고치고, 다시 재는 것이 순서입니다.",
   );
 }
 if (staleTotal > 0) {

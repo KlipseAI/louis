@@ -316,7 +316,8 @@ const startFixtureServer = async () => {
   };
 };
 
-// 화면이 조용해질 때까지 기다린다. 지문은 경로·테마·로캘·높이·root 텍스트·요소 수·dialog 수다.
+// 화면이 조용해질 때까지 기다린다. 지문은 경로·테마·로캘·높이(문서 + 실제 스크롤 컨테이너들)·
+// root 텍스트·요소 수·dialog 수다.
 // **두 번 쓰인다** — 처음 열었을 때 한 번, 애니메이션을 얼린 뒤 그 여파를 가라앉히려 한 번 더.
 const stabilize = async (page, label) => {
   let previous = null;
@@ -334,12 +335,30 @@ const stabilize = async (page, label) => {
         })
         .sort((left, right) => right.score - left.score);
       const root = rootCandidates[0]?.node ?? document.body;
+      // **문서 높이 하나로는 이 셸이 자라는 것을 못 본다.** 앱 셸은 `h-[100dvh] overflow-hidden`
+      // 이라 `document.documentElement.scrollHeight` 가 뷰포트 높이로 못박혀 있고(모바일에서
+      // 874), 실제로 자라는 것은 안쪽 스크롤 컨테이너다. 그래서 문서 높이 하나가 아니라
+      // **실제로 스크롤되는 컨테이너들의 `scrollHeight`** 를 함께 적는다.
+      //
+      // **이 축은 검출이지 제거가 아니다.** `content-visibility: auto` 의 자리표시자 → 자연
+      // 높이 전환은 `contain-intrinsic-size: auto ...` 의 래치라 한 번 일어나면 되돌아오지
+      // 않는다 — 지문을 넓혀도 「기다리면 수렴」하지 않는다. 래치를 못박는 것은
+      // `settleContentVisibility()` 이고, 이 축은 그 보조로만 쓴다: 훑기가 닿지 못한 자리가
+      // 남아 있으면 여기서 안정화가 흔들려 조용히 넘어가지 않는다.
+      const scrollHeights = [];
+      for (const node of document.querySelectorAll("*")) {
+        if (!(node instanceof HTMLElement)) continue;
+        if (node.scrollHeight <= node.clientHeight + 1) continue;
+        const overflowY = getComputedStyle(node).overflowY;
+        if (overflowY !== "auto" && overflowY !== "scroll") continue;
+        scrollHeights.push(node.scrollHeight);
+      }
       return JSON.stringify({
         path: location.pathname,
         search: location.search,
         theme: document.documentElement.dataset.theme,
         locale: document.documentElement.lang,
-        height: document.documentElement.scrollHeight,
+        height: [document.documentElement.scrollHeight, ...scrollHeights],
         rootText: root.textContent?.replace(/\s+/g, " ").trim() ?? "",
         elementCount: root.querySelectorAll("*").length,
         dialogCount: [...document.querySelectorAll('[role="dialog"]')]
@@ -359,6 +378,83 @@ const stabilize = async (page, label) => {
   if (stableCount < 6) {
     throw new Error("[product-auth-fixture] 화면이 안정화되지 않았습니다: " + label);
   }
+};
+
+// **`content-visibility: auto` 를 렌더 이력이 아니라 그림이 정하게 만든다.**
+//
+// `/mypage/upgrade` 의 비교표 래퍼는 `[content-visibility:auto]
+// [contain-intrinsic-size:auto_1200px]` 다(`PricingSection.tsx:336-340`). 화면 밖이면 레이아웃을
+// 건너뛰고 높이가 자리표시자 **1200px** 로 잡힌다. 그런데 `contain-intrinsic-size` 의 `auto`
+// 키워드는 「한 번이라도 레이아웃됐으면 그 크기를 기억한다」는 뜻이라, **한 번 재고 나면 맨 위로
+// 되감아도 자리표시자로 돌아오지 않는다**(실측 확인).
+//
+// 그래서 아무것도 하지 않으면 값이 **「이 문맥에서 몇 번째로 열린 화면이냐」** 에 달린다 — 그림과
+// 무관한 렌더 이력이다. 실측: 같은 화면이 canonical 5748.9531 · redirect 4632.3594 로 갈렸고,
+// 차이 1116.5937 은 비교표의 2316.59 − 1200 과 정확히 같았다.
+//
+// 여기서 **모든 스크롤 컨테이너를 끝까지 훑어** 자리표시자로 접혀 있던 subtree 를 전부 한 번
+// 레이아웃시킨 뒤 맨 위로 되감는다. 래치는 그대로 남으므로 모든 화면이 「전부 렌더된」 상태로
+// **수렴**한다 — 순서에 상관없이 비교표는 항상 자연 높이다.
+//
+// **스크롤러는 `document.scrollingElement` 가 아니다.** 이 셸은 `h-[100dvh] overflow-hidden` 이라
+// 문서는 아예 스크롤하지 않고 안쪽 컨테이너가 스크롤한다. 그래서 경로를 가정하지 않고 실제로
+// 넘치는 요소를 찾아 훑는다.
+//
+// 접혀 있던 subtree 안에 또 스크롤 컨테이너가 있으면 첫 훑기 전에는 `clientHeight` 가 0 이라
+// 보이지 않는다. 그래서 지문(요소 수 + 스크롤러 높이들)이 그대로일 때까지 몇 바퀴 돈다.
+const settleContentVisibility = async (page) => {
+  await page.evaluate(async () => {
+    // 레이아웃 갱신과 content-visibility 관련성 판정은 프레임 경계에서 일어난다. 한 프레임은
+    // 모자랄 수 있어 세 번 넘긴다.
+    const nextFrames = (count) =>
+      new Promise((resolve) => {
+        let left = count;
+        const tick = () => (left -= 1) <= 0 ? resolve() : requestAnimationFrame(tick);
+        requestAnimationFrame(tick);
+      });
+    const scrollersOf = () => {
+      const found = [];
+      for (const node of document.querySelectorAll("*")) {
+        if (!(node instanceof HTMLElement)) continue;
+        if (node.scrollHeight <= node.clientHeight + 1) continue;
+        const overflowY = getComputedStyle(node).overflowY;
+        if (overflowY !== "auto" && overflowY !== "scroll") continue;
+        found.push(node);
+      }
+      const root = document.scrollingElement;
+      // 문서 자신이 스크롤하는 화면도 있다. 위 순회는 `html` 을 포함하지 않으므로 따로 본다.
+      if (root instanceof HTMLElement && root.scrollHeight > root.clientHeight + 1 &&
+        !found.includes(root)) found.push(root);
+      return found;
+    };
+    const signature = () =>
+      document.querySelectorAll("*").length + ":" +
+      scrollersOf().map((node) => node.scrollHeight).join(",");
+
+    const touched = new Set();
+    for (let pass = 0; pass < 4; pass += 1) {
+      const before = signature();
+      for (const scroller of scrollersOf()) {
+        touched.add(scroller);
+        const step = Math.max(1, scroller.clientHeight);
+        // 훑는 동안 자리표시자가 자연 높이로 펴져 `scrollHeight` 가 자란다. 그래서 상한을 미리
+        // 굳히지 않고 매 회 다시 읽는다. 대신 무한 성장에 대비해 걸음 수를 막아 둔다.
+        for (let top = 0, guard = 0; top <= scroller.scrollHeight && guard < 400;
+          top += step, guard += 1) {
+          // `scroll-behavior: smooth` 가 걸린 컨테이너에서 대입은 애니메이션이 된다 —
+          // 프레임 몇 개로는 도착하지 못하므로 명시적으로 즉시 이동시킨다.
+          scroller.scrollTo({ top, left: 0, behavior: "instant" });
+          await nextFrames(3);
+        }
+      }
+      if (signature() === before) break;
+    }
+    // **되감는다.** 래치는 남고 스크롤 위치만 원래대로 — 측정 기하는 항상 맨 위 기준이다.
+    for (const scroller of touched) {
+      scroller.scrollTo({ top: 0, left: 0, behavior: "instant" });
+    }
+    await nextFrames(3);
+  });
 };
 
 const firstDifference = (recorded, measured, path = "$") => {
@@ -448,6 +544,11 @@ try {
         }
         await delay(3_000);
         await stabilize(page, spec.id);
+        // 조용해진 **뒤에** 훑는다 — 훑기는 스크롤을 움직이므로 아직 마운트 중인 화면에서 하면
+        // 엉뚱한 자리를 훑는다. 훑고 나면 접혀 있던 subtree 가 처음 레이아웃되면서 이미지 로드
+        // 같은 여파가 따라오므로 한 번 더 가라앉힌다.
+        await settleContentVisibility(page);
+        await stabilize(page, spec.id + " (content-visibility 확정 후)");
         await page.evaluate(async () => { await document.fonts.ready; });
 
         // 이 패스는 **여러 번 돌 수 있다**(아래 재시도 루프). 그래서 즉시 실행이 아니라 닫힘이다.
@@ -833,16 +934,36 @@ try {
 assertCleanFixture("측정 후");
 
 // 노드마다 같은 computed-style 객체를 반복하면 생성물이 수십 MB로 불어난다. 값은 버리지 않고
-// 최초 등장 순서의 table에 한 번만 넣고 노드는 styleRef로 가리킨다. table과 ref를 합치면 원래
-// 측정값을 byte-for-byte 복원할 수 있는 무손실 정규화다.
+// table에 한 번만 넣고 노드는 styleRef로 가리킨다. table과 ref를 합치면 원래 측정값을
+// byte-for-byte 복원할 수 있는 무손실 정규화다.
+//
+// **이름은 자리번호가 아니라 내용이 정한다.** 종전에는 `"s" + computedStyles.length` — 첫 등장
+// 순서의 자리번호 — 였다. 그 이름은 **자기 값이 그대로여도** 표에 항목이 하나 늘거나 줄면 밀린다.
+// 그리고 componentCandidateAudit 의 후보 id 는 정규화 subtree 의 sha256 인데 그 재료에 `styleRef`
+// 가 들어 있어(아래 `normalized`), 밀림이 그대로 후보 id 까지 갈아 버린다. 실측: 앵커를 옮기며
+// 표가 586 → 580 으로 **줄자** 데스크톱 `subtree-3d697148af7a` 가 값 차이 0 인 채로
+// `subtree-e4077e3527d7` 가 됐다. 대가는 사람이 낸다 — 앵커를 옮길 때마다 후보 67개를 전수
+// 비교해 「무해함」을 증명해야 했고, 실제로 그 작업을 한 번 했다.
+//
+// 내용 해시로 바꾸면 그 소음이 사라진다. **거래는 이렇다: 이 전환에서 한 번은 모든 id 가 바뀐다.**
+// 이름 체계 자체가 바뀌므로 피할 수 없는 일회성 이동이고, 그 뒤로는 **내용이 실제로 바뀐 자리에서만**
+// id 가 움직인다. 한 번의 전수 비교로 앞으로의 전수 비교를 없애는 쪽을 택했다.
 const computedStyles = [];
 const computedStyleIds = new Map();
+const styleSourceById = new Map();
 const internStyle = (entry) => {
   if (!entry.style) return;
   const serialized = JSON.stringify(entry.style);
   let styleRef = computedStyleIds.get(serialized);
   if (styleRef === undefined) {
-    styleRef = "s" + computedStyles.length;
+    styleRef = "s" + createHash("sha256").update(serialized).digest("hex").slice(0, 12);
+    // 48비트만 남긴다. 서로 다른 스타일이 같은 이름을 받으면 표가 값 하나를 삼키고 노드가 남의
+    // 스타일을 가리킨다 — 그건 조용히 틀린 산출물이다. 그래서 충돌은 크게 실패시킨다.
+    const collided = styleSourceById.get(styleRef);
+    if (collided !== undefined && collided !== serialized) {
+      throw new Error("[product-auth-fixture] styleRef 해시가 충돌했습니다: " + styleRef);
+    }
+    styleSourceById.set(styleRef, serialized);
     computedStyleIds.set(serialized, styleRef);
     computedStyles.push({ id: styleRef, value: entry.style });
   }
@@ -859,6 +980,10 @@ for (const contextSpec of CONTEXTS) {
     }
   }
 }
+// **배열 순서도 내용이 정한다.** 이름을 내용 해시로 바꿔도 배열이 첫 등장 순서로 남으면, 화면
+// 하나가 순서를 흔드는 것만으로 생성물의 이 블록이 통째로 재배치돼 diff 가 다시 못 읽게 된다.
+// 해시 사전순으로 못박아 표 자체를 재현 가능하게 만든다.
+computedStyles.sort((left, right) => left.id.localeCompare(right.id));
 
 const screenAliases = CONTEXTS.map((contextSpec) => ({
   context: contextSpec.id,
@@ -946,7 +1071,7 @@ const payload = JSON.stringify({
     "인증 후 페이지 완료 판정",
   ],
   $method:
-    "fixture checkout의 clean HEAD가 productCommit인지 확인하고 NEXT_PUBLIC_DEV_AUTH_BYPASS=1인 Next development server를 임시 localhost 포트에 직접 띄운다. Supabase URL은 연결되지 않는 localhost endpoint로 고정한다. 각 화면은 격리된 light/en-US 브라우저 문맥에서 열고 외부 요청을 차단한다. 측정 단위는 route가 아니라 **화면 상태**다 — 한 route의 여러 상태는 URL 쿼리로 구분해 각각 잰다. `/highlight/[projectId]`의 phase는 제품의 development-only 후크 `?__phase=<이름>`으로 연다(같은 NEXT_PUBLIC_DEV_AUTH_BYPASS 게이트). 데이터가 있어야 본문이 나오는 phase(reviewed·completed)는 fixture에 시드가 없어 빈 화면이 되므로 채택하지 않았다. 3초 이상 기다린 뒤 path·theme·locale·height·root text·element/dialog count가 6회 연속 안정되면 app root와 외부 dialog 중 viewport와 교차하는 노드의 geometry·computed styles·SVG vector 속성, heading·landmark, localhost API status를 기록한다. 동일 computed-style 객체는 무손실 style table로 정규화한다. 이 fixture의 실패·빈 상태는 의도적으로 보존한다.",
+    "fixture checkout의 clean HEAD가 productCommit인지 확인하고 NEXT_PUBLIC_DEV_AUTH_BYPASS=1인 Next development server를 임시 localhost 포트에 직접 띄운다. Supabase URL은 연결되지 않는 localhost endpoint로 고정한다. 각 화면은 격리된 light/en-US 브라우저 문맥에서 열고 외부 요청을 차단한다. 측정 단위는 route가 아니라 **화면 상태**다 — 한 route의 여러 상태는 URL 쿼리로 구분해 각각 잰다. `/highlight/[projectId]`의 phase는 제품의 development-only 후크 `?__phase=<이름>`으로 연다(같은 NEXT_PUBLIC_DEV_AUTH_BYPASS 게이트). 데이터가 있어야 본문이 나오는 phase(reviewed·completed)는 fixture에 시드가 없어 빈 화면이 되므로 채택하지 않았다. 3초 이상 기다린 뒤 path·theme·locale·height·root text·element/dialog count가 6회 연속 안정되면 app root와 외부 dialog 중 viewport와 교차하는 노드의 geometry·computed styles·SVG vector 속성, heading·landmark, localhost API status를 기록한다. 동일 computed-style 객체는 무손실 style table로 정규화하고, 그 id 는 자리번호가 아니라 값의 sha256 앞 12자다(표는 id 사전순). 이 fixture의 실패·빈 상태는 의도적으로 보존한다.",
   productRef,
   productRefSource,
   productCommit: commit,
@@ -966,7 +1091,7 @@ const payload = JSON.stringify({
     $status:
       "측정으로 반복이 확인된 후보일 뿐 Figma component 또는 디자인 시스템 계약 승인 기록이 아니다.",
     $method:
-      "redirect source는 screenAliases로 분리한다. canonical 최종 화면의 가시 tree에서 5노드 이상인 모든 subtree를 뽑고, root 기준 상대 geometry·tag/role/inputType·computed styleRef·DOM 경로가 viewport 안에서 완전히 같은 항목만 묶는다. 서로 다른 route 두 곳 이상에서 반복된 후보를 nodeCount×routeCount로 정렬해 viewport별 상위 60개를 기록한다.",
+      "redirect source는 screenAliases로 분리한다. canonical 최종 화면의 가시 tree에서 5노드 이상인 모든 subtree를 뽑고, root 기준 상대 geometry·tag/role/inputType·computed styleRef·DOM 경로가 viewport 안에서 완전히 같은 항목만 묶는다. 서로 다른 route 두 곳 이상에서 반복된 후보를 nodeCount×routeCount로 정렬해 viewport별 상위 60개를 기록한다. **재는 값에 영향을 주는 두 단계가 트리 수집 앞에 있다.** (가) 측정 직전에 스크롤 컨테이너를 끝까지 훑고 맨 위로 되감는다(settleContentVisibility) — `content-visibility: auto` + `contain-intrinsic-size: auto ...` 노드는 한 번도 레이아웃되지 않으면 자리표시자 높이로 잡히고, `auto` 키워드 때문에 한 번 재면 영구히 기억한다. 훑지 않으면 같은 화면이 진입 경로와 로드 순서에 따라 다른 높이로 기록된다(실측: /mypage/upgrade 비교표 1200 ↔ 2316.59, 컨테이너 높이 차 1116.5937). **이 단계가 기록 기하를 실제로 움직인다** — 잡음 제거가 아니라 값을 바꾸는 단계이므로 여기 적는다. (나) 안정화 지문의 높이는 `document.documentElement.scrollHeight` 가 아니라 실제 스크롤 컨테이너들의 scrollHeight 배열이다 — 이 셸은 `h-[100dvh] overflow-hidden` 이라 문서 높이가 뷰포트 높이로 못박혀 안쪽이 1116px 움직여도 미동이 없었다. (나)는 검출이지 제거가 아니다.",
     screenAliases,
     repeatedSubtreesByContext,
   },

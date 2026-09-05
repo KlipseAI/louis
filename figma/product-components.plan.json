@@ -1,10 +1,10 @@
 {
   "$comment": "Generated from migration/product.auth-fixture.json. Do not edit by hand.",
   "$evidenceClass": "product-only measured Figma candidate; not a normative design-system contract",
-  "productCommit": "ae8fd6278481a5e86cd324ba86a1d44fe978b788",
+  "productCommit": "5a67d692f5ca737f06c7b51b98f28ded22d1f7a1",
   "context": "desktop-1920x1080",
   "sourceCandidate": {
-    "id": "subtree-637e0dc9bf4a",
+    "id": "subtree-557568349002",
     "nodeCount": 47,
     "roots": [
       {
@@ -180,7 +180,7 @@
           1
         ],
         "activeIconOpacity": 1,
-        "$note": "No new visual value: Gnb.tsx:4691-4692 applies the common isSidebarMenuHrefActive result and Gnb.tsx:563/569 supplies the shared inactive/active colours at pinned commit ae8fd6278481a5e86cd324ba86a1d44fe978b788."
+        "$note": "No new visual value: Gnb.tsx:4614-4615 applies the common isSidebarMenuHrefActive result and Gnb.tsx:564/570 supplies the shared inactive/active colours at pinned commit 5a67d692f5ca737f06c7b51b98f28ded22d1f7a1."
       },
       {
         "current": "VideoEditor",
@@ -193,7 +193,7 @@
           1
         ],
         "activeIconOpacity": 1,
-        "$note": "No new visual value: Gnb.tsx:4691-4692 applies the common isSidebarMenuHrefActive result and Gnb.tsx:563/569 supplies the shared inactive/active colours at pinned commit ae8fd6278481a5e86cd324ba86a1d44fe978b788."
+        "$note": "No new visual value: Gnb.tsx:4614-4615 applies the common isSidebarMenuHrefActive result and Gnb.tsx:564/570 supplies the shared inactive/active colours at pinned commit 5a67d692f5ca737f06c7b51b98f28ded22d1f7a1."
       },
       {
         "current": "Highlight",
@@ -206,7 +206,7 @@
           1
         ],
         "activeIconOpacity": 1,
-        "$note": "No new visual value: Gnb.tsx:4691-4692 applies the common isSidebarMenuHrefActive result and Gnb.tsx:563/569 supplies the shared inactive/active colours at pinned commit ae8fd6278481a5e86cd324ba86a1d44fe978b788."
+        "$note": "No new visual value: Gnb.tsx:4614-4615 applies the common isSidebarMenuHrefActive result and Gnb.tsx:564/570 supplies the shared inactive/active colours at pinned commit 5a67d692f5ca737f06c7b51b98f28ded22d1f7a1."
       }
     ],
     "rows": [
@@ -233,9 +233,9 @@
           "lineHeight": 21,
           "letterSpacing": -0.14,
           "color": [
-            0.341176,
-            0.364706,
-            0.407843,
+            0.25098,
+            0.270588,
+            0.309804,
             1
           ]
         },
@@ -248,9 +248,9 @@
           },
           "asset": "/icons/MagnifyingGlass.svg",
           "color": [
-            0.341176,
-            0.364706,
-            0.407843,
+            0.25098,
+            0.270588,
+            0.309804,
             1
           ],
           "opacity": 0.92
@@ -286,9 +286,9 @@
           "lineHeight": 21,
           "letterSpacing": -0.14,
           "color": [
-            0.341176,
-            0.364706,
-            0.407843,
+            0.25098,
+            0.270588,
+            0.309804,
             1
           ]
         },
@@ -301,9 +301,9 @@
           },
           "asset": "/icons/House.svg",
           "color": [
-            0.341176,
-            0.364706,
-            0.407843,
+            0.25098,
+            0.270588,
+            0.309804,
             1
           ],
           "opacity": 0.92
@@ -339,9 +339,9 @@
           "lineHeight": 21,
           "letterSpacing": 0,
           "color": [
-            0.341176,
-            0.364706,
-            0.407843,
+            0.25098,
+            0.270588,
+            0.309804,
             1
           ]
         },
@@ -354,9 +354,9 @@
           },
           "asset": "/icons/Graph.svg",
           "color": [
-            0.341176,
-            0.364706,
-            0.407843,
+            0.25098,
+            0.270588,
+            0.309804,
             1
           ],
           "opacity": 0.92
@@ -413,9 +413,9 @@
           "lineHeight": 21,
           "letterSpacing": 0,
           "color": [
-            0.341176,
-            0.364706,
-            0.407843,
+            0.25098,
+            0.270588,
+            0.309804,
             1
           ]
         },
@@ -428,9 +428,9 @@
           },
           "asset": "/icons/MagicWand.svg",
           "color": [
-            0.341176,
-            0.364706,
-            0.407843,
+            0.25098,
+            0.270588,
+            0.309804,
             1
           ],
           "opacity": 0.92
@@ -487,9 +487,9 @@
           "lineHeight": 21,
           "letterSpacing": -0.14,
           "color": [
-            0.341176,
-            0.364706,
-            0.407843,
+            0.25098,
+            0.270588,
+            0.309804,
             1
           ]
         },
@@ -502,9 +502,9 @@
           },
           "asset": "/highlight_symbol.svg",
           "color": [
-            0.341176,
-            0.364706,
-            0.407843,
+            0.25098,
+            0.270588,
+            0.309804,
             1
           ],
           "opacity": 0.92
@@ -617,9 +617,9 @@
           "lineHeight": 21,
           "letterSpacing": -0.14,
           "color": [
-            0.341176,
-            0.364706,
-            0.407843,
+            0.25098,
+            0.270588,
+            0.309804,
             1
           ]
         },
@@ -632,9 +632,9 @@
           },
           "asset": "/icons/youtube.svg",
           "color": [
-            0.341176,
-            0.364706,
-            0.407843,
+            0.25098,
+            0.270588,
+            0.309804,
             1
           ],
           "opacity": 0.92
@@ -752,21 +752,21 @@
     },
     "darkThemeSource": {
       "inactive": {
-        "command": "git -C /Users/sejunki/klipse-web show ae8fd6278481a5e86cd324ba86a1d44fe978b788:apps/web/components/navigation/Gnb.tsx",
+        "command": "git -C /Users/sejunki/klipse-web show 5a67d692f5ca737f06c7b51b98f28ded22d1f7a1:apps/web/components/navigation/Gnb.tsx",
         "path": "apps/web/components/navigation/Gnb.tsx",
-        "line": 563,
+        "line": 564,
         "quote": "    \"[.gnb-menuSidebar_.gnb-menuLink:not(&)]:[color:var(--gray-300)]\","
       },
       "active": {
-        "command": "git -C /Users/sejunki/klipse-web show ae8fd6278481a5e86cd324ba86a1d44fe978b788:apps/web/components/navigation/Gnb.tsx",
+        "command": "git -C /Users/sejunki/klipse-web show 5a67d692f5ca737f06c7b51b98f28ded22d1f7a1:apps/web/components/navigation/Gnb.tsx",
         "path": "apps/web/components/navigation/Gnb.tsx",
-        "line": 569,
+        "line": 570,
         "quote": "    \"[color:var(--gray-000)]\","
       },
       "activeIndicator": {
-        "command": "git -C /Users/sejunki/klipse-web show ae8fd6278481a5e86cd324ba86a1d44fe978b788:apps/web/components/navigation/Gnb.tsx",
+        "command": "git -C /Users/sejunki/klipse-web show 5a67d692f5ca737f06c7b51b98f28ded22d1f7a1:apps/web/components/navigation/Gnb.tsx",
         "path": "apps/web/components/navigation/Gnb.tsx",
-        "line": 573,
+        "line": 574,
         "quote": "    \"[html[data-theme=dark]_&]:[background-color:var(--palette-gray-800)]\","
       }
     },
@@ -775,7 +775,7 @@
       "componentSetName": "Product/Gnb Upgrade CTA",
       "sourceCandidates": [
         {
-          "id": "subtree-fe34aa819557",
+          "id": "subtree-bd975676e6bb",
           "nodeCount": 59,
           "roots": [
             {
@@ -850,7 +850,7 @@
           "score": 354
         },
         {
-          "id": "subtree-103b6e563038",
+          "id": "subtree-23a203251141",
           "nodeCount": 59,
           "roots": [
             {
@@ -1044,7 +1044,7 @@
       "componentSetName": "Product/Gnb Desktop Shell",
       "sourceCandidates": [
         {
-          "id": "subtree-08a5cfbcf527",
+          "id": "subtree-a8869908a7f3",
           "nodeCount": 6,
           "roots": [
             {
@@ -1251,7 +1251,7 @@
           "score": 108
         },
         {
-          "id": "subtree-fe34aa819557",
+          "id": "subtree-bd975676e6bb",
           "nodeCount": 59,
           "roots": [
             {
@@ -1326,7 +1326,7 @@
           "score": 354
         },
         {
-          "id": "subtree-103b6e563038",
+          "id": "subtree-23a203251141",
           "nodeCount": 59,
           "roots": [
             {
@@ -1420,7 +1420,7 @@
           "asset": "/klipse-light.svg",
           "darkAsset": "/klipse-dark.svg",
           "darkAssetSource": {
-            "command": "git -C /Users/sejunki/klipse-web show ae8fd6278481a5e86cd324ba86a1d44fe978b788:apps/web/components/ui/BrandLogo.tsx",
+            "command": "git -C /Users/sejunki/klipse-web show 5a67d692f5ca737f06c7b51b98f28ded22d1f7a1:apps/web/components/ui/BrandLogo.tsx",
             "path": "apps/web/components/ui/BrandLogo.tsx",
             "line": 97,
             "quote": "        src=\"/klipse-dark.svg\""
@@ -1490,7 +1490,7 @@
       "componentSetName": "Product/Payment Result Content",
       "sourceCandidates": [
         {
-          "id": "subtree-a1f0d8b59b32",
+          "id": "subtree-0c0f510a5eea",
           "nodeCount": 9,
           "roots": [
             {
@@ -1521,7 +1521,7 @@
           "score": 18
         },
         {
-          "id": "subtree-198dbf4bbdd0",
+          "id": "subtree-83dc162f593e",
           "nodeCount": 9,
           "roots": [
             {
@@ -1552,7 +1552,7 @@
           "score": 18
         },
         {
-          "id": "subtree-5a97e6ce252e",
+          "id": "subtree-cd13bafaafe1",
           "nodeCount": 5,
           "roots": [
             {
@@ -1675,9 +1675,9 @@
               "lineHeight": 21,
               "letterSpacing": -0.16,
               "color": [
-                0.945098,
-                0.945098,
-                0.952941,
+                0.866667,
+                0.870588,
+                0.878431,
                 1
               ],
               "textAlign": "start"
@@ -1835,9 +1835,9 @@
               "lineHeight": 21,
               "letterSpacing": -0.14,
               "color": [
-                0.945098,
-                0.945098,
-                0.952941,
+                0.866667,
+                0.870588,
+                0.878431,
                 1
               ],
               "textAlign": "start"
@@ -1995,9 +1995,9 @@
               "lineHeight": 21,
               "letterSpacing": -0.16,
               "color": [
-                0.945098,
-                0.945098,
-                0.952941,
+                0.866667,
+                0.870588,
+                0.878431,
                 1
               ],
               "textAlign": "start"
@@ -2095,9 +2095,9 @@
               "lineHeight": 21,
               "letterSpacing": -0.14,
               "color": [
-                0.945098,
-                0.945098,
-                0.952941,
+                0.866667,
+                0.870588,
+                0.878431,
                 1
               ],
               "textAlign": "start"
@@ -2195,9 +2195,9 @@
               "lineHeight": 21,
               "letterSpacing": -0.16,
               "color": [
-                0.945098,
-                0.945098,
-                0.952941,
+                0.866667,
+                0.870588,
+                0.878431,
                 1
               ],
               "textAlign": "start"
@@ -2295,9 +2295,9 @@
               "lineHeight": 21,
               "letterSpacing": -0.14,
               "color": [
-                0.945098,
-                0.945098,
-                0.952941,
+                0.866667,
+                0.870588,
+                0.878431,
                 1
               ],
               "textAlign": "start"

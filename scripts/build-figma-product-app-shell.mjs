@@ -181,9 +181,23 @@ const candidateContracts = [
   // 들어오면서 같은 상단바를 공유해 routeCount 가 12 → 18 이 됐다. subtree id 는 내용
   // 해시에 styleRef(등장 순서 인덱스)가 섞여 있어, 화면이 늘면 내용이 같아도 전부 다시
   // 계산된다 — 옛 id 와 새 id 는 roots(route+path) 집합으로 이어 붙였다.
-  ["subtree-857f79f6b860", 6, 18],
-  ["subtree-23685ca94502", 15, 4],
-  ["subtree-46530c2862d2", 14, 4],
+  // 5a67d692 에서 셋 다 id 만 다시 움직였다 — nodeCount/routeCount 와 roots(route+path)
+  // 배열은 ae8fd627 과 **바이트까지 같다**. 두 가지가 겹쳤다. (1) 실측값이 실제로 하나
+  // 옮겨졌다: `.louis-avatar` 래퍼 span 의 상속 `color` 가 #777D89 → #575D67
+  // (color(srgb 0.466667 0.490196 0.537255) → color(srgb 0.341176 0.364706 0.403922)).
+  // LOUIS 라이트 `--louis-color-fg-tertiary` 가 회색 램프 재정렬(LOUIS ff6fa89 · 5c1137c ·
+  // 888d1a3 · 3ec5966)에서 옮겨졌고, 제품이 핀 08dc52c4 · 63c63baf · cdab8226 · 5a67d692
+  // 로 그것을 삼켰다. 화면에는 안 보인다 — 그 span 은 border-style:none · border-width:0 ·
+  // outline-style:none · background transparent 라 currentColor 가 칠하는 자리가 없고,
+  // 글리프는 자식 `UserCircleDefaultAvatar` 의 `text-palette-gray-400` 이 rgb(213,215,221)
+  // 로 다시 덮는다(실측 fill 도 두 앵커에서 같다). `assertProfileVisual` 이 그 값을 계속
+  // 물고 있으므로 이 축은 여전히 지켜진다. (2) computedStyles 가 586 → 580 으로 줄면서
+  // styleRef(등장 순서 인덱스)가 통째로 밀렸다 — 해시에 그 인덱스가 섞여 있어 내용이 하나도
+  // 안 바뀐 후보까지 id 가 전부 다시 계산된다(desktop `subtree-e4077e3527d7` 은 값 차이 0
+  // 인데도 id 가 바뀐 증거다). 옛 id 와 새 id 는 roots(route+path) 집합으로 이어 붙였다.
+  ["subtree-117e0ad287ea", 6, 18],
+  ["subtree-44170228fb1c", 15, 4],
+  ["subtree-4f8ad570cbbb", 14, 4],
 ].map(([id, nodeCount, routeCount]) => {
   const candidate = candidates.find((entry) => entry.id === id);
   if (!candidate || candidate.nodeCount !== nodeCount || candidate.routeCount !== routeCount) {
@@ -305,14 +319,20 @@ if (
 const desktopCandidates = fixture.componentCandidateAudit.repeatedSubtreesByContext["desktop-1920x1080"];
 const desktopCandidateContracts = [
   // 모바일과 같은 두 가지 이유로 옮겨졌다. 아바타 래퍼 한 겹(+1 node)과 `?__phase=` 6개
-  // 화면(+6 routes). `subtree-3d697148af7a` 만 5/3 그대로인 것은 그 후보가 프로필 아래가
+  // 화면(+6 routes). 그때의 `subtree-3d697148af7a`(지금 `subtree-e4077e3527d7`) 만 5/3
+  // 그대로인 것은 그 후보가 프로필 아래가
   // 아니라 결제 상태 본문이라 아바타 래퍼가 닿지 않기 때문이다.
-  ["subtree-c20d72818d96", 6, 18],
-  ["subtree-879b4352e58c", 15, 4],
-  ["subtree-5d6846b9186f", 14, 4],
-  ["subtree-d8984197b054", 17, 3],
-  ["subtree-3ff7886200e5", 16, 3],
-  ["subtree-3d697148af7a", 5, 3],
+  // 5a67d692 에서도 모바일과 정확히 같은 두 이유로 여섯 개의 id 만 옮겨졌다 —
+  // nodeCount/routeCount 와 roots 는 여섯 다 그대로다. 다섯은 프로필 아래에
+  // `.louis-avatar` 를 물고 있어 fg-tertiary 이동이 닿았고, `subtree-e4077e3527d7`(5/3)
+  // 은 결제 상태 본문이라 값 차이가 **하나도 없는데도** id 가 바뀌었다 — styleRef 재번호가
+  // 단독으로 해시를 움직인다는 증거이므로 그대로 남겨 둔다.
+  ["subtree-5e2cc05efd59", 6, 18],
+  ["subtree-e30a85d54de2", 15, 4],
+  ["subtree-b5435a968b22", 14, 4],
+  ["subtree-c19f60450352", 17, 3],
+  ["subtree-21ea71cb874b", 16, 3],
+  ["subtree-e4077e3527d7", 5, 3],
 ].map(([id, nodeCount, routeCount]) => {
   const candidate = desktopCandidates.find((entry) => entry.id === id);
   if (!candidate || candidate.nodeCount !== nodeCount || candidate.routeCount !== routeCount) {
@@ -387,13 +407,19 @@ const ringSourcePath = "apps/web/components/navigation/Gnb.tsx";
 const avatarSource = sourceQuote(avatarSourcePath, 22, '  "text-palette-gray-400",');
 // `profileTrigger` 블록이 통째로 82줄 아래로 밀렸다(1358 → 1440). 인용 문자열은 여섯 줄
 // 모두 ae8fd627 에서 글자 하나 안 바뀌었다.
+// 5a67d692 에서 다시 12줄(1440 → 1452). 문자열 여섯 개는 또 한 글자도 안 바뀌었고 줄만
+// 밀렸다 — 제품 52f70bac「면을 … 사다리로 모은다」가 이 블록 위에서 +11(20 insert / 9
+// delete), 41ea8099「GNB … 테마 버튼을 둔다」가 +1 을 냈다. 이 파일에서 두 앵커 사이에
+// Gnb.tsx 를 건드린 커밋은 그 둘과 ff4138a8 · 0524cd49 · 3d604624 뿐이고, 뒤 셋은 이
+// 블록 위 줄 수를 바꾸지 않았다(실측: avatar-size 줄이 커밋별로 1451 → 1451 → 1452 →
+// 1452 → 1452).
 const ringSourceLines = [
-  [1440, '    "[--profile-avatar-size:28px]",'],
-  [1443, '    "[--profile-ring-track:rgb(var(--gray-000-rgb)_/_20%)]",'],
-  [1444, '    "[--profile-ring-gap:2px]",'],
-  [1445, '    "[--profile-ring-width:2px]",'],
-  [1472, '    "[&::after]:[background:conic-gradient(_from_0deg,_var(--profile-ring-fill)_0_var(--profile-ring-progress),_var(--profile-ring-track)_var(--profile-ring-progress)_100%_)]",'],
-  [1474, '    "[&::after]:[mask:radial-gradient(_farthest-side,_transparent_calc(100%_-_var(--profile-ring-width)),_#000_calc(100%_-_var(--profile-ring-width))_)]",'],
+  [1452, '    "[--profile-avatar-size:28px]",'],
+  [1455, '    "[--profile-ring-track:rgb(var(--gray-000-rgb)_/_20%)]",'],
+  [1456, '    "[--profile-ring-gap:2px]",'],
+  [1457, '    "[--profile-ring-width:2px]",'],
+  [1484, '    "[&::after]:[background:conic-gradient(_from_0deg,_var(--profile-ring-fill)_0_var(--profile-ring-progress),_var(--profile-ring-track)_var(--profile-ring-progress)_100%_)]",'],
+  [1486, '    "[&::after]:[mask:radial-gradient(_farthest-side,_transparent_calc(100%_-_var(--profile-ring-width)),_#000_calc(100%_-_var(--profile-ring-width))_)]",'],
 ].map(([line, quote]) => sourceQuote(ringSourcePath, line, quote));
 
 const plan = {
@@ -427,10 +453,12 @@ const plan = {
       surface: { collection: "1 · Palette", name: "palette/gray-800" },
       $darkSurfaceSource: sourceQuote(
         "apps/web/components/navigation/Gnb.tsx",
-        // 430 → 478. 같은 문자열이 파일에 세 번(478 · 1325 · 1981) 나오므로 감싸는 블록으로
-        // 골랐다 — 478 만 `mainChromeTopBarInPanel:` 안에 있고, 나머지 둘은
-        // `profileOnlyContainer` · `sidebarUpgradeButtonActive` 다.
-        478,
+        // 430 → 478 → 479. 같은 문자열이 ae8fd627 에서는 파일에 세 번(478 · 1325 · 1981)
+        // 나왔지만, 5a67d692 에서는 **두 번**(479 · 1993)이다 — 제품 52f70bac 가
+        // `profileOnlyContainer` 쪽 한 줄을 사다리 토큰으로 걷어냈다. 남은 둘 중
+        // 479 만 `mainChromeTopBarInPanel:`(463) 안에 있고, 1993 은
+        // `sidebarUpgradeButtonActive:`(1975) 다. 인용 문자열 자체는 그대로다.
+        479,
         '    "[html[data-theme=dark]_&]:[background:var(--palette-gray-800)]",',
       ),
       divider: { collection: "2 · Semantic", name: "gray/000" },

@@ -199,9 +199,28 @@ const sectionRowStyle = style(rowNodes[5]);
    - 행 끝 슬롯 배경 `rgb(var(--palette-gray-500-rgb) / 14%)` → `/ 12%`(Gnb.tsx:155→158).
    - 색 표기가 `rgb()` → `color(srgb …)` 로 바뀌었다. 위 `rgba` 주석 참고 — 칠은 그대로다.
    구조는 그대로다: 47노드·10route·같은 root path·rect 차이 0. route 집합도 문자 그대로 같다.
-   그래서 이름만 새로 못박는다. 값을 따라가는 게 아니라 **같은 것의 새 이름**을 적는 것이다. */
+   그래서 이름만 새로 못박는다. 값을 따라가는 게 아니라 **같은 것의 새 이름**을 적는 것이다.
+
+   ae8fd627 → 5a67d692 판정((가) 정상 변화, LOUIS 램프에서 값까지 확인):
+   - 구조는 또 그대로다. 옛 후보와 `roots` 배열(route·path·rect)이 byte 동일하고, 47노드·
+     10route·후보 총수 51개까지 같다. 47노드를 순서대로 견줘 path·tag·ownText·rect 차이 0.
+   - 값에서 실제로 움직인 것은 **잉크 한 칸뿐이다**: 행에 상속되는 `color` 가
+     `color(srgb 0.341176 0.364706 0.407843)`(#575d68) → `color(srgb 0.25098 0.270588 0.309804)`
+     (#40454f). 47노드 중 30개가 이 색을 받고(아이콘 6개는 mask 잉크라 `backgroundColor` 로도
+     같이 움직인다), 나머지 17개는 한 바이트도 다르지 않다. 그 외 어떤 속성도 바뀌지 않았다.
+   - 출처는 이 저장소다. `.louis-sidebar-nav-item` 이 `color: var(--louis-color-fg-secondary)`
+     (packages/css/src/component/app-shell.css)이고 fg-secondary 는 palette gray-700 을 받는데,
+     회색 램프를 지각 균일로 다시 잡으면서 700 이 #575d68 → #525761(5c1137c) → #444953(888d1a3)
+     → #40454f(3ec5966) 로 옮겨갔다. 제품 팔레트는 `--palette-gray-700: var(--louis-color-palette
+     -gray-700)`(globals.css)으로 단일 출처라 그대로 따라온다. 제품은 이것을 **한 커밋에 받지 않았다.**
+     `5a67d692` 자신의 핀 델타는 `888d1a3 → 3ec5966` 이고, 두 앵커 사이에 핀 상향이
+     **13번** 있었다(`git log ae8fd627..5a67d692 -G'louis#' -- apps/web/package.json`).
+     `425a9c3d → 3ec5966` 은 그 열셋의 **누적**이지 한 커밋의 델타가 아니다 —
+     한 커밋으로 적었다가 반증에서 잡혔다.
+   - style table 이 586 → 580 항목으로 줄며 자리번호가 밀렸고 색까지 바뀌었으니 해시는 당연히
+     갈린다. 여기서도 **같은 것의 새 이름**을 못박는다. */
 const candidate = fixture.componentCandidateAudit.repeatedSubtreesByContext[contextName].find(
-  (entry) => entry.id === "subtree-637e0dc9bf4a",
+  (entry) => entry.id === "subtree-557568349002",
 );
 if (!candidate || candidate.nodeCount !== 47 || candidate.routeCount !== 10) {
   fail("measured repeated sidebar candidate changed; inspect before regenerating Figma");
@@ -211,8 +230,14 @@ if (!candidate || candidate.nodeCount !== 47 || candidate.routeCount !== 10) {
    fe34aa819557 은 settings·subscription·billing-change-success/fail·topup-success/fail 6개,
    103b6e563038 은 upgrade·billing-success·billing-fail·upgrade-fail 4개.
    제품이 더한 `?__phase=` 6개는 60노드짜리 별도 후보(subtree-19636a6ae1fa)로 따로 묶였고
-   이 생성기는 그것을 쓰지 않는다. 헤더 두 벌은 여전히 각각 59노드다. */
-const headerCandidates = ["subtree-fe34aa819557", "subtree-103b6e563038"].map((id) =>
+   이 생성기는 그것을 쓰지 않는다. 헤더 두 벌은 여전히 각각 59노드다.
+
+   ae8fd627 → 5a67d692 에서 다시 갈렸다(fe34aa819557→bd975676e6bb, 103b6e563038→23a203251141).
+   판정 근거는 위 사이드바와 **같은 하나**다: 두 헤더 59노드를 순서대로 견줘 path·tag·ownText·
+   rect 차이 0, `roots` 배열도 byte 동일이고, 바뀐 값은 gray-700 잉크
+   #575d68 → #40454f 뿐이다(59노드 중 30개, 아이콘 6개는 mask 잉크라 backgroundColor 도 함께).
+   헤더가 사이드바를 자식으로 품으므로 같은 30개다. 출처는 LOUIS 3ec5966, 제품 5a67d692. */
+const headerCandidates = ["subtree-bd975676e6bb", "subtree-23a203251141"].map((id) =>
   fixture.componentCandidateAudit.repeatedSubtreesByContext[contextName].find((entry) => entry.id === id),
 );
 if (
@@ -283,9 +308,14 @@ const upgradeSpec = (route, state) => {
    않았기 때문이다. 대신 routeCount 가 12 → 18 로 늘었다. 늘어난 6개는 제품이 더한 개발 전용
    후크 `?__phase=`(HighlightProjectScene.tsx, 74a7303b..ae8fd627)로 열리는 하이라이트 상세
    6단계이고, 그 화면들도 같은 브랜드 블록을 그대로 그린다. 후보가 넓어진 것이지 바뀐 게
-   아니다 — 앞 12개 route 는 순서까지 그대로다. */
+   아니다 — 앞 12개 route 는 순서까지 그대로다.
+
+   ae8fd627 → 5a67d692 에서는 브랜드 후보도 이름이 갈렸다(08a5cfbcf527→a8869908a7f3). style
+   table 이 586 → 580 으로 **줄어** 맨 앞 6노드의 자리번호까지 밀린 것이다. 이 6노드는 회색 램프
+   재조정의 영향을 받지 않는다 — 옛 후보와 견줘 구조도 계산 스타일도 차이 0, routeCount 18 그대로.
+   순수한 이름 갈림이라 이름만 새로 못박는다. */
 const brandCandidate = fixture.componentCandidateAudit.repeatedSubtreesByContext[contextName].find(
-  (entry) => entry.id === "subtree-08a5cfbcf527",
+  (entry) => entry.id === "subtree-a8869908a7f3",
 );
 if (!brandCandidate || brandCandidate.nodeCount !== 6 || brandCandidate.routeCount !== 18) {
   fail("measured Gnb brand candidate changed; inspect before regenerating Figma");
@@ -422,8 +452,18 @@ const repeatedCandidates = fixture.componentCandidateAudit.repeatedSubtreesByCon
    (globals.css). 즉 **새 값이 제품 소스와 맞고 옛 값이 어긋난다** — 이 재생성이 낡은 값을
    굳히는 게 아니라 되돌리는 쪽이다. 옛 fixture 가 자기가 적은 커밋과 다른 트리에서 측정된
    것으로 보이나(lock 이력의 「락은 움직이는 ref 를 가리킨다」와 같은 계열), fixture 는 이
-   작업자에게 읽기 전용이라 원인까지는 확정하지 못했다. */
-const resultCandidateIds = ["subtree-a1f0d8b59b32", "subtree-198dbf4bbdd0", "subtree-5a97e6ce252e"];
+   작업자에게 읽기 전용이라 원인까지는 확정하지 못했다.
+
+   ae8fd627 → 5a67d692 에서 셋 다 또 이름이 갈렸다(a1f0d8b59b32→0c0f510a5eea,
+   198dbf4bbdd0→83dc162f593e, 5a97e6ce252e→cd13bafaafe1). 이번에는 기하가 움직이지 않았다 —
+   네 subtree(desktop/mobile change-fail 9노드, change-success·topup-success 5노드)를 순서대로
+   견줘 path·tag·ownText·rect 차이 0, `roots` 도 byte 동일이다. 바뀐 값은 CTA 라벨 색 **한 자리**
+   뿐이고, 그것도 위와 같은 램프 재조정이다: `color(srgb 0.945098 0.945098 0.952941)`(#f1f1f3)
+   → `color(srgb 0.866667 0.870588 0.878431)`(#dddee0) — LOUIS palette gray-100 이 3ec5966 에서
+   #eeeff1 → #dddee0 로 옮겨간 값이고(그 앞 37509da 에서 #f1f1f3 → #eeeff1), 라이트에서
+   `--gray-900: var(--palette-gray-100)` 이라 `text-gray-900!` 인 이 CTA 가 그대로 받는다.
+   제품이 받은 커밋은 역시 5a67d692 하나다. */
+const resultCandidateIds = ["subtree-0c0f510a5eea", "subtree-83dc162f593e", "subtree-cd13bafaafe1"];
 const resultCandidates = resultCandidateIds.map(
   (id) =>
     repeatedCandidates[contextName].find((entry) => entry.id === id) ??
@@ -453,6 +493,17 @@ const paymentResult = {
     paymentResultSpec("mobile-402x874", "/mypage/topup/success", "TopupDelayed", "Mobile"),
   ],
 };
+
+/* 줄번호와 커밋이 박혀 있어 앵커가 움직일 때마다 조용히 낡던 문장이다. 커밋은 fixture 에서
+   읽어 **고정 문자열이 아니게** 만든다 — 이 note 가 말하는 「고정 커밋」은 언제나 이 생성물이
+   읽은 fixture 의 커밋이다. 줄번호 4691-4692 → 4614-4615, 563/569 → 564/570 은 실측이다:
+   ae8fd627..5a67d692 에서 인용 대상 세 줄의 **내용은 그대로**고 위치만 옮겼다(위 darkThemeSource
+   주석 참고. 4614-4615 는 `const href = row.href;` / `const isActive = isSidebarMenuHrefActive(href);`
+   로 두 앵커에서 문자 그대로 같다). */
+const sharedActiveColourNote =
+  `No new visual value: Gnb.tsx:4614-4615 applies the common isSidebarMenuHrefActive result ` +
+  `and Gnb.tsx:564/570 supplies the shared inactive/active colours at pinned commit ` +
+  `${fixture.productCommit}.`;
 
 const plan = {
   $comment: "Generated from migration/product.auth-fixture.json. Do not edit by hand.",
@@ -494,7 +545,7 @@ const plan = {
         activeRow: "NodeCanvas",
         activeColor: rgba(style(byText(routes.home.route, "Home")).color),
         activeIconOpacity: iconForText(routes.home.route, "Home").opacity,
-        $note: "No new visual value: Gnb.tsx:4691-4692 applies the common isSidebarMenuHrefActive result and Gnb.tsx:563/569 supplies the shared inactive/active colours at pinned commit ae8fd6278481a5e86cd324ba86a1d44fe978b788.",
+        $note: sharedActiveColourNote,
       },
       {
         current: "VideoEditor",
@@ -502,7 +553,7 @@ const plan = {
         activeRow: "VideoEditor",
         activeColor: rgba(style(byText(routes.home.route, "Home")).color),
         activeIconOpacity: iconForText(routes.home.route, "Home").opacity,
-        $note: "No new visual value: Gnb.tsx:4691-4692 applies the common isSidebarMenuHrefActive result and Gnb.tsx:563/569 supplies the shared inactive/active colours at pinned commit ae8fd6278481a5e86cd324ba86a1d44fe978b788.",
+        $note: sharedActiveColourNote,
       },
       {
         current: "Highlight",
@@ -510,7 +561,7 @@ const plan = {
         activeRow: "Highlight",
         activeColor: rgba(style(byText(routes.home.route, "Home")).color),
         activeIconOpacity: iconForText(routes.home.route, "Home").opacity,
-        $note: "No new visual value: Gnb.tsx:4691-4692 applies the common isSidebarMenuHrefActive result and Gnb.tsx:563/569 supplies the shared inactive/active colours at pinned commit ae8fd6278481a5e86cd324ba86a1d44fe978b788.",
+        $note: sharedActiveColourNote,
       },
     ],
     rows: [
@@ -595,20 +646,25 @@ const plan = {
       "/klipse-dark.svg": "logo/klipse-dark (291×85 · 다크 서피스용 · 워드마크 white)",
       plus: ".glyph/NavPlusGlyph",
     },
+    /* 세 줄 다 인용문은 한 글자도 안 바뀌었고 **줄번호만 +1** 이다(563/569/573 → 564/570/574).
+       ae8fd627..5a67d692 에서 Gnb.tsx 파일 앞쪽에 import 한 줄이 늘었을 뿐이다 —
+       `41ea8099 feat(landing): GNB 언어 버튼 옆에 현재 테마 버튼을 둔다` 가 더한
+       `import { ThemeDarkIcon, … } from "@/components/theme/ThemeIcons";`(28행). 그 위아래로
+       600행까지 다른 차이는 없다. `menuLinkActive` 블록 자체는 그대로이므로 인용을 옮긴다. */
     darkThemeSource: {
       inactive: sourceQuote(
         "apps/web/components/navigation/Gnb.tsx",
-        563,
+        564,
         '    "[.gnb-menuSidebar_.gnb-menuLink:not(&)]:[color:var(--gray-300)]",',
       ),
       active: sourceQuote(
         "apps/web/components/navigation/Gnb.tsx",
-        569,
+        570,
         '    "[color:var(--gray-000)]",',
       ),
       activeIndicator: sourceQuote(
         "apps/web/components/navigation/Gnb.tsx",
-        573,
+        574,
         '    "[html[data-theme=dark]_&]:[background-color:var(--palette-gray-800)]",',
       ),
     },

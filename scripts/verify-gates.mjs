@@ -1183,6 +1183,47 @@ withCanary(
   "--check",
 );
 
+// ── 레시피 ↔ 기록 카나리아 둘 (2026-09-07) ───────────────────────────────
+// `verify-figma-parity` 는 Figma ↔ 기록만 본다 — 기록이 내부적으로 일관되기만 하면 레시피가
+// 어긋나도 초록이다. 그 반대 방향을 `verify-recipe-record` 가 재는데, 그 게이트가 실제로
+// 무는지는 여기서만 증명된다. 두 방향을 각각 연다: **수**가 갈리는 것과 **이름**이 갈리는 것.
+//
+// 대상은 `inline-size: 140px` 한 줄이다. **첫 일치 치환을 쓰지 않는다** — 기록 쪽에는
+// `"height": 28,` 이 열 곳 넘게 있어 그 방향으로 오염하면 다른 컴포넌트를 건드리고 카나리아가
+// 엉뚱한 사유로 초록이 된다. 레시피 파일에서 유일한 문자열을 고른다.
+withCanary(
+  "packages/css/src/component/inspector-row.css",
+  (source) => {
+    const next = source.replace("  inline-size: 140px;\n", "  inline-size: 141px;\n");
+    if (next === source) {
+      errors.push("recipe-record 기하 canary 가 레시피에서 대상 줄을 찾지 못했습니다.");
+    }
+    return next;
+  },
+  "recipe declaration matches the measured record",
+  "scripts/verify-recipe-record.mjs",
+  "레시피와 기록이 다릅니다",
+);
+
+// 면은 값이 아니라 **이름**이 계약인 자리다. 사다리 토큰을 같은 값의 팔레트 칸으로 바꾸면
+// 다크에서는 픽셀이 똑같아 아무 게이트도 빨개지지 않고 라이트에서만 결정이 뒤집힌다.
+withCanary(
+  "packages/css/src/component/inspector-row.css",
+  (source) => {
+    const next = source.replace(
+      "  background: var(--louis-color-bg-inset);\n",
+      "  background: var(--louis-color-palette-gray-800);\n",
+    );
+    if (next === source) {
+      errors.push("recipe-record 면 이름 canary 가 레시피에서 대상 줄을 찾지 못했습니다.");
+    }
+    return next;
+  },
+  "recipe surfaces stay on the semantic ladder",
+  "scripts/verify-recipe-record.mjs",
+  "이름**이 계약입니다",
+);
+
 // **배분 게이트 자신도 실패할 수 있어야 한다.** verify-gate-split 이 지키는 것 중 가장
 // 되돌아가기 쉬운 것은 4번 — 워크플로가 다시 `pnpm verify` 를 부르는 것이다. 2026-08-19의
 // 사고가 정확히 그 상태였다. 워크플로를 그 상태로 되돌려 놓고 게이트가 잡는지 본다.

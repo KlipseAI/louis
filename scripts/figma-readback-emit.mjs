@@ -32,7 +32,10 @@
 // 명세 항목
 //   key         geometry 키 규칙. `{by:["Size"]}` 면 그 variant 축의 값이 키가 되고,
 //               `{by:["Size","Variant"]}` 면 `{size}/{variant}` 복합 키(Slider),
-//               `{name:"base"}` 면 전 variant 를 한 키에 묶는다. **키를 해석하는 코드는 없다** —
+//               `{name:"base"}` 면 전 variant 를 한 키에 묶는다.
+//               `{by:[…], omit:{Join:"none"}}` 이면 그 축이 그 값일 때 키에 칸을 만들지 않는다 —
+//               기본값이 있는 축을 **나중에** 열 때 기존 키를 개명하지 않기 위한 것이다.
+//               **키를 해석하는 코드는 없다** —
 //               되읽기와 `figma/components.measured.json` 이 같은 키를 쓰기만 하면
 //               verify-figma-parity 가 그대로 대조한다.
 //   fields      root 에서 담을 기하 필드와 **그 순서**. 생략하면 DEFAULT_FIELDS.
@@ -113,7 +116,15 @@ const DEFAULT_FIELDS = [
 
 // 컴포넌트당 한 줄로 적는다 — 항목이 늘어도 diff 가 그 줄 하나로 남는다.
 const CAPTURE = {
-  "Alert": {"key":{"by":["Tone"]},"parts":{"Icon":["width","height"],"Content":["width","height"]},"strokes":["self"]},
+  // 키가 Tone 에서 Layout 으로 옮겨졌다(2026-09-06 레이아웃 축). 기하를 가르는 것은 톤이
+  // 아니라 레이아웃이고, 네 톤은 같은 키 안에서 값이 같아야 한다 — 한 톤만 어긋나면 배열이
+  // 길어져 그 사실이 보인다. Icon 은 `width` 만 담는다: 높이는 block 이 21(줄 높이만큼 늘려
+  // 세로 가운데 정렬로 광학 정렬을 얻는다) · inline·banner 가 16 이라 CSS 의 16 정사각과
+  // 갈리고, 그 어긋남은 alert.md Known deviations 10 이 소유한다.
+  // `Content` 는 담지 않는다. 그 폭·높이는 표본에 넣은 문구가 정하는 값이라 계약이 아니고,
+  // 담으면 parity 가 「계약에 없는 자손」으로 문다 — 실제로 그렇게 물렸다. 계약 밖의 값을
+  // 되읽기에 담아 두면 다음 사람이 그것을 계약으로 착각한다.
+  "Alert": {"key":{"by":["Layout"]},"fields":["height","width","paddingBlock","paddingBlockEnd","paddingInline","paddingInlineEnd","itemSpacing","cornerRadius","layoutMode","strokeWeight"],"parts":{"Icon":["width","height"]},"strokes":["self"]},
   "AppTopBar": {"key":{"name":"topBar"},"slots":{"LeadingSlot":"present","TrailingSlot":"present"},"parts":{"Leading":["height"],"Trailing":["height"]}},
   "Avatar": {"key":{"by":["Size"]},"slots":{"Fallback":"size"},"parts":{"Fallback":["width","height"]}},
   "Badge": {"key":{"name":"base"},"slots":{"Icon":"size","Dot":"size"},"parts":{"Label":["fontSize"]}},
@@ -153,8 +164,15 @@ const CAPTURE = {
   // 되읽기에 빈 배열로 남는다 — 2026-09-01 에 실제로 그 상태였다. 좌우는 대칭이므로 왼쪽
   // 두 모서리만 담는다.
   "Dialog": {"key":{"by":["Size"]},"fields":["height","width","paddingBlock","paddingBlockEnd","paddingInline","paddingInlineEnd","itemSpacing","topLeftRadius","bottomLeftRadius","layoutMode","strokeWeight"],"parts":{"Footer":["paddingTop","paddingInline","paddingInlineEnd","paddingBottom","children"],"Actions":["itemSpacing","children","layoutMode","primaryAxisAlignItems"]},"strokes":["self"],"effects":["self"]},
-  "EmptyState": {"key":{"name":"base"},"fields":["width","height","paddingBlock","paddingBlockEnd","paddingInline","paddingInlineEnd","itemSpacing","cornerRadius","layoutMode","strokeWeight"],"parts":{"Graphic":["width","height"],"Title":["width","height","fontSize","lineHeightPercent"],"Description":["width","height","fontSize","lineHeightPercent"],"Action":["width","height","paddingBlock","itemSpacing","layoutMode"]}},
-  "FaqRow": {"key":{"by":["Expanded"]},"parts":{"Question":["width","height","paddingBlock","paddingBlockEnd","paddingInline","paddingInlineEnd","itemSpacing"],"QuestionText":["width","height","fontSize","lineHeightPercent"],"Icon":["width","height"],"Glyph":["fontSize"]}},
+  // `Layout` 축을 열며 키를 `base` 고정에서 variant 값으로 옮겼다(2026-09-06). 세 칸은 기하가
+  // 서로 다르다 — compact 은 면·테두리·반경을 갖고 좌측 정렬이며, canvas 는 여백·간격·제목
+  // 크기가 다르다. `counterAxisAlignItems` 를 담는 이유는 **정렬이 이 축에서 가장 눈에 띄는
+  // 값인데 되읽기에 담는 자리가 없었기 때문**이다 — 담지 않으면 Figma 가 compact 을 가운데
+  // 정렬로 그려도 게이트가 초록이다. `strokes:["self"]` 는 compact 의 1px 테두리를 담는다:
+  // 기하의 `strokeWeight` 는 stroke 가 **있을 때** 두께만 보므로, 테두리가 사라진 경우를
+  // 잡으려면 역할이 계약에 있어야 한다.
+  "EmptyState": {"key":{"by":["Layout"]},"fields":["width","height","paddingBlock","paddingBlockEnd","paddingInline","paddingInlineEnd","itemSpacing","cornerRadius","counterAxisAlignItems","layoutMode","strokeWeight"],"parts":{"Graphic":["width","height"],"Title":["width","height","fontSize","lineHeightPercent"],"Description":["width","height","fontSize","lineHeightPercent"],"Action":["width","height","paddingBlock","itemSpacing","layoutMode"]},"strokes":["self"]},
+  "FaqRow": {"key":{"by":["Expanded","Size"]},"parts":{"Question":["width","height","paddingBlock","paddingBlockEnd","paddingInline","paddingInlineEnd","itemSpacing"],"QuestionText":["width","height","fontSize","lineHeightPercent"],"Icon":["width","height"],"Glyph":["fontSize"]}},
   "FormMessage": {"key":{"by":["Tone"]},"parts":{"Message":["width","height","fontSize"]}},
   // `Glyph.glyph` 를 뺐다(2026-09-01) — Button 과 같은 이유다. 위 Button 주석이 근거를 갖는다.
   "IconButton": {"key":{"by":["Size"]},"slots":{"Glyph":"size"},"strokes":["self"]},
@@ -163,6 +181,7 @@ const CAPTURE = {
   "MediaCard": {"key":{"name":"base"},"slots":{"Glyph":"size"},"parts":{"TopBar":["width","height","paddingBlock","paddingBlockEnd","paddingInline","paddingInlineEnd"],"Badge":["height","paddingBlock","paddingBlockEnd","paddingInline","paddingInlineEnd","cornerRadius"],"BadgeLabel":["fontSize","lineHeightPercent"],"InfoBar":["width","height","paddingBlock","paddingBlockEnd","paddingInline","paddingInlineEnd","itemSpacing","layoutMode"],"NameRow":["height","itemSpacing"],"Title":["fontSize","lineHeightPercent"],"Description":["fontSize","lineHeightPercent"]},"effects":["Badge","InfoBar"]},
   "MediaScrubber": {"key":{"name":"base"},"parts":{"Track":["width","height"],"Thumb":["width","height"]}},
   "Menu": {"key":{"name":"panel"}},
+  "MenuTrigger": {"key":{"name":"trigger"},"parts":{"Glyph":["width","height"]}},
   "MenuPanel": {"key":{"name":"panel"},"fields":["height","width","paddingBlock","paddingBlockEnd","paddingInline","paddingInlineEnd","itemSpacing","cornerRadius","minWidth","layoutMode"],"effects":["self"]},
   // 키가 `panel` 인 것은 **대조 상대의 자리 이름**이다(2026-09-01). 구분선에는 size 축이 없지만
   // 그 실측값은 `components.measured.json` 의 `menu-popover.sizes.panel` 안에
@@ -199,9 +218,13 @@ const CAPTURE = {
   "TableCell": {"key":{"by":["Align"]},"parts":{"Label":["width","height","fontSize"]},"strokes":["self"]},
   "TableHeaderCell": {"key":{"by":["Align"]},"parts":{"Label":["width","height","fontSize"]}},
   "Tabs": {"key":{"name":"base"},"slots":{"TabItem":"size"},"parts":{"TabItem":["width","height"]}},
-  "TextField": {"key":{"by":["Size","LabelBehavior"]},"parts":{"Box":["height","width","paddingBlock","paddingBlockEnd","paddingInline","paddingInlineEnd","itemSpacing","cornerRadius","layoutMode"],"Label":["height","width","fontSize","lineHeightPercent"],"Value":["height","width","fontSize","lineHeightPercent"],"Message":["height","width","fontSize","lineHeightPercent"]},"strokes":["Box"]},
-  "Toast": {"key":{"name":"base"},"effects":["self"]},
-  "Tooltip": {"key":{"name":"base"},"parts":{"Arrow":["width","height"]},"strokes":["self"],"effects":["self"],"outsideParts":["Arrow"]},
+  // **TextField 의 Box 만 `cornerRadius` 대신 모서리 둘을 담는다.** 결합 칸(`Join`)은 맞닿는 변의
+  // 곡률을 펴므로 네 모서리가 갈리고, 그러면 Figma 의 `cornerRadius` 는 `mixed` 가 되어
+  // `undefined` 로 떨어진다 — 그 칸의 곡률이 **아무 값과도 대조되지 않는다.** Dialog 의 sheet 가
+  // 같은 이유로 같은 모양을 쓴다. 좌우는 대칭이라 왼쪽 두 모서리만 건다 (DS-D-0052).
+  "TextField": {"key":{"by":["Size","LabelBehavior","Join"],"omit":{"Join":"none"}},"parts":{"Box":["height","width","paddingBlock","paddingBlockEnd","paddingInline","paddingInlineEnd","itemSpacing","topLeftRadius","bottomLeftRadius","layoutMode"],"Label":["height","width","fontSize","lineHeightPercent"],"Value":["height","width","fontSize","lineHeightPercent"],"Message":["height","width","fontSize","lineHeightPercent"]},"strokes":["Box"]},
+  "Toast": {"key":{"by":["Layout"]},"effects":["self"],"parts":{"Content":["itemSpacing"],"Action":["height","cornerRadius","paddingBlock","paddingBlockEnd","paddingInline","paddingInlineEnd"]}},
+  "Tooltip": {"key":{"by":["Layout"]},"parts":{"Arrow":["width","height"],"Tail":["width","height"],"Stack":["itemSpacing"]},"strokes":["self"],"effects":["self"],"outsideParts":["Arrow","Tail"]},
   "VideoPlayer": {"key":{"name":"base"},"parts":{"Video (placeholder)":["width","height"],"Scrim (opacity 0)":["width","height"],"Center chrome":["width","height"],"Bottom chrome":["width","height"]},"strokes":["Vector"],"effects":["Skip back 10s","Play","Skip forward 10s","Progress pill","Expand"]},
 };
 
@@ -319,6 +342,10 @@ const push = (bag, key, value) => {
 
 const rootField = (node, field) => {
   if (field === "layoutMode") return node.layoutMode;
+  // 교차축 정렬. **기하 숫자가 아니라 열거값이라 num() 을 태우면 undefined 로 떨어진다** —
+  // 담기지 않는 값은 대조되지 않으므로 여기서 문자열 그대로 돌려준다. EmptyState 의 layout
+  // 축이 이 값으로 갈린다(compact 만 MIN).
+  if (field === "counterAxisAlignItems") return node.counterAxisAlignItems;
   // 불투명도가 **계약 그 자체**인 컴포넌트가 있다(GnbMenuItem 은 여덟 변형의 기하가 완전히
   // 같고 잉크 한 색의 불투명도만 바뀐다). Figma FLOAT 는 float32 라 0.65 가
   // 0.6499999761581421 로 돌아오므로 두 자리에서 접는다.
@@ -421,9 +448,18 @@ for (const name of Object.keys(SPEC)) {
   };
 
   for (const variant of variants) {
+    // \`omit\` 이 있으면 그 축의 그 값은 키에 칸을 만들지 않는다. TextField 의 \`Join=none\` 이
+    // 그것이다 — 결합하지 않은 스무 변형의 키를 \`lg/stacked\` 그대로 두고 결합 칸만
+    // \`lg/floating/start\` 로 늘리기 위해서다. 축을 통째로 키에 넣으면 기존 네 키가 전부
+    // 개명되고, 그 개명은 계약·브라우저 테스트·제품 대조 핀까지 따라 움직인다 (DS-D-0052).
+    const omitted = spec.key.omit || {};
     const key = spec.key.name !== undefined
       ? spec.key.name
-      : spec.key.by.map((axis) => variantValues(variant)[axis]).join("/");
+      : spec.key.by
+          .map((axis) => [axis, variantValues(variant)[axis]])
+          .filter((pair) => pair[1] !== omitted[pair[0]])
+          .map((pair) => pair[1])
+          .join("/");
     if (!bags[key]) { bags[key] = { slots: {}, parts: {}, root: {}, weights: [], overflowing: [], childOrder: null }; order.push(key); }
     const bag = bags[key];
 

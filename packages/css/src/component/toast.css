@@ -73,3 +73,113 @@
     animation-duration: var(--louis-motion-reduced-duration);
   }
 }
+
+/* ── Layout = callout ─────────────────────────────────────────────────────────
+ *
+ * **액션 슬롯이 있는 toast.** 제품 정본은 노드 캔버스의 온보딩 힌트 두 벌이다 —
+ * `CanvasOnboardingHints.tsx` 의 `CanvasConnectHint` 와 `CanvasNextStepHint` 가 한 `CALLOUT`
+ * 상수를 공유하고 문구만 다르다(표면 원장이 뒤엣것을 그 사실로 scoped 처리했다).
+ *
+ * base 와 갈리는 것은 **구성**이다: 한 줄 메시지가 아니라 제목/본문 두 줄이고, 그 옆에 닫는
+ * 액션이 선다. 그래서 이 축은 크기 사다리가 아니라 layout 이다 — 같은 표면에 담기는 것이
+ * 달라진다.
+ *
+ * **표면은 base 와 같은 것을 쓴다.** 제품 CALLOUT 은 `palette-gray-900/64%` + `blur(4px)` +
+ * `elevation-menu` 로 그리는데, 셋 다 base toast(`bg-inverse-translucent` 72% ·
+ * `blur-toast` 16 · `elevation-toast`)와 다르다. 그런데 제품 자신의 주석이 그 표면을
+ * 「토스트처럼 반전 테마 — 라이트에선 어둡게, 다크에선 밝게」라고 적어 놓고 **고정 팔레트**를
+ * 쓰고 있다. 코드와 주석이 갈리는 자리이지 DS 가 두 표면을 가질 이유가 아니다. 표면은 하나로
+ * 두고 갈린 값은 절차서가 제품 쪽에 적는다. 여기서 layout 이 바꾸는 것은 기하와 슬롯뿐이다.
+ */
+.louis-toast[data-layout="callout"] {
+  /* **base 는 flex 가 아니다.** 한 줄 텍스트 하나뿐이라 아무도 눈치채지 못했고, 그래서 이 축을
+   * 열자마자 본문 덩어리와 액션이 세로로 쌓였다(실측 높이 91, 계약 65). layout 이 슬롯을
+   * 들이는 순간 배치가 필요해지므로 여기서 선언한다. */
+  display: flex;
+  align-items: center;
+  /* 제품 gap-8 = 16. 본문 덩어리와 액션 사이다. */
+  gap: var(--louis-space-control-lg);
+  /* 제품 max-w-[min(92vw,720px)]. 뷰포트 여유는 overlay primitive 가 잰 값을 쓴다. */
+  max-inline-size: min(720px, var(--louis-overlay-available-width, 100vw));
+  /* **좌우가 다르다.** 제품 pl-8 / pr-6 = 16 / 12. 액션이 자기 padding 을 갖고 있어
+   * 오른쪽을 4 줄여야 시각 여백이 좌우로 같아 보인다 — 광학 보정이지 실수가 아니다. */
+  padding-inline-start: var(--louis-space-control-lg);
+  padding-inline-end: var(--louis-space-control-md);
+  text-align: start;
+}
+
+/* 제목/본문 덩어리. 제품 gap-1 = 2. */
+.louis-toast__content {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  /* **2px 이다.** space 축의 stack 계열은 4 에서 시작하고 2 는 overlay 계열에만 있다.
+   * callout 은 overlay 표면이므로 새 토큰을 세우는 대신 자기 계열의 최소 계단을 쓴다.
+   * 코치마크(tooltip callout 의 짝)도 같은 값을 쓴다 — 제품은 2 와 3 으로 갈려 있었고,
+   * 한 시스템 안에서 같은 자리는 한 값이다. */
+  gap: var(--louis-space-overlay-item-gap);
+  min-inline-size: 0;
+}
+
+.louis-toast__title {
+  margin: 0;
+  font-family: var(--louis-typography-body-sm-medium-font-family);
+  font-size: var(--louis-typography-body-sm-medium-font-size);
+  font-weight: var(--louis-typography-body-sm-medium-font-weight);
+  line-height: var(--louis-typography-body-sm-medium-line-height);
+  letter-spacing: var(--louis-typography-body-sm-medium-letter-spacing);
+}
+
+.louis-toast__body {
+  margin: 0;
+  /* 반전 면 위의 2차 잉크다. 이 저장소에는 `fg-secondary-on-inverse` 가 없고, 잉크 하나의
+   * 불투명도로 층을 나누는 것은 이미 이 시스템의 기법이다(GnbMenuItem 의 여덟 변형이 그것
+   * 하나로 갈린다). 제품 값 72% 를 그대로 쓴다. */
+  opacity: 0.72;
+  font-family: var(--louis-typography-caption-regular-font-family);
+  font-size: var(--louis-typography-caption-regular-font-size);
+  font-weight: var(--louis-typography-caption-regular-font-weight);
+  line-height: var(--louis-typography-caption-regular-line-height);
+  letter-spacing: var(--louis-typography-caption-regular-letter-spacing);
+}
+
+/* 액션 슬롯 — **Button 이 아니다.**
+ *
+ * 제품은 h-14(28)를 리터럴로 박아 두었는데 28 은 컨트롤 사다리(40·32·24, DS-D-0027 ·
+ * DS-D-0032)에 없는 값이고, 이 저장소의 28 셋(`layout-tab-height` ·
+ * `layout-settings-segment-height` · `layout-inspector-control-height`)은 전부 다른 것을
+ * 이름 짓고 있다. 네 번째 28 토큰을 세우면 Figma 변수까지 열어야 하는데 그럴 사유가 없다 —
+ * 그래서 **높이를 선언하지 않고 내용에서 나오게 둔다**: caption 줄높이 18 + control-xs 4+4 = 26.
+ * 제품이 물 때 2px 줄어드는 것이 이 선택의 값이며 절차서가 그것을 적는다. */
+.louis-toast__action {
+  flex: none;
+  padding-block: var(--louis-space-control-xs);
+  padding-inline: var(--louis-space-control-md);
+  border: 0;
+  border-radius: var(--louis-radius-control-sm);
+  /* 반전 면 위의 12% 잉크. 면 토큰(`accent-secondary-hover` 등)은 페이지 극성 기준이라
+   * 반전 표면 위에서 뒤집힌다 — 여기서는 표면의 전경색에서 뽑는다. */
+  background: color-mix(in srgb, var(--louis-color-fg-on-inverse) 12%, transparent);
+  color: inherit;
+  cursor: pointer;
+  transition-property: background-color;
+  transition-duration: var(--louis-motion-control-hover-duration);
+  font-family: var(--louis-typography-caption-medium-font-family);
+  font-size: var(--louis-typography-caption-medium-font-size);
+  font-weight: var(--louis-typography-caption-medium-font-weight);
+  line-height: var(--louis-typography-caption-medium-line-height);
+  letter-spacing: var(--louis-typography-caption-medium-letter-spacing);
+}
+
+/* 제품의 `[&:hover]:` 와 같다 — 원본에 `@media (hover: hover)` 가드가 없다. */
+.louis-toast__action:hover {
+  background: color-mix(in srgb, var(--louis-color-fg-on-inverse) 24%, transparent);
+}
+
+/* forced-colors — 12%/24% 잉크 면은 강제 색에서 사라진다. 액션이 눌리는 것이라는 신호를
+ * 시스템 색 실선으로 되살린다. */
+@media (forced-colors: active) {
+  .louis-toast__action {
+    border: var(--louis-border-width-default) solid currentColor;
+  }
+}

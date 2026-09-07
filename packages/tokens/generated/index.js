@@ -9072,6 +9072,27 @@ export const tokens = {
       "type": "number",
       "value": 100
     },
+    "layout-alert-compact-inset": {
+      "aliasTarget": {
+        "id": "space-10",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-layout-alert-compact-inset": "10px"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "layout-alert-compact-inset",
+      "mode": "global",
+      "rawValue": "{primitive.spacing.10}",
+      "sourcePath": "semantic.global.layout.alert-compact-inset",
+      "tier": "semantic",
+      "type": "dimension",
+      "value": {
+        "value": 10,
+        "unit": "px"
+      }
+    },
     "layout-alert-inset": {
       "aliasTarget": {
         "id": "space-18",

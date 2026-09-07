@@ -124,6 +124,30 @@ Button은 토글이 아니므로 `pressed`(`aria-pressed`)를 갖지 않는다 �
 | Focus-visible | 배경과 테마에 관계없이 2px 이상 명확한 indicator       |
 | Loading       | label 의미 유지, 중복 실행 차단, `aria-busy=true`      |
 
+### 「복사됨」은 상태가 아니다 (2026-09-06 판정)
+
+복사 버튼이 누른 뒤 잠깐 「복사됨」이 되는 것은 이 표에 없다. **`State` 에 `Success` 를 더하지
+않기로 판정했고, 그 근거는 셋이다.**
+
+1. **어휘가 닫혀 있다.** `State` 축은 `Default · Hover · Active · Focus · Disabled` 이고
+   [figma-component-authoring](../governance/figma-component-authoring.md) §2 가 그 칸을
+   **「상호작용 상태만」**이라고 못박는다. 성공은 상호작용이 아니라 **동작의 결과**다 —
+   포인터도 키보드도 그 상태로 들어가지 못하고, 시간이 지나면 저절로 빠져나온다.
+2. **바뀌는 것이 전부 슬롯의 내용이다.** 「복사됨」이 바꾸는 것은 글리프(`icon/copy` →
+   `icon/copy-check`)와 라벨 문구뿐이고, 둘 다 Button 이 이미 가진 `LeftIconGlyph`
+   (INSTANCE_SWAP) · `Label`(TEXT) 슬롯이다. 같은 문서 §3 이 「있고 없고가 아니라 **무엇이
+   들어가는가**는 INSTANCE_SWAP·TEXT 로 낸다」고 정한 그 자리다. 축을 열면 6 × 3 × 4 = 72
+   변형이 늘어나는데 그중 어느 칸도 슬롯이 못 그리는 것을 그리지 않는다.
+3. **색은 공유 어휘가 아니다.** 제품의 `templates/CopyPromptButton` 은 완료에서 글자와
+   테두리를 primary 로 바꾸지만, 같은 저장소의 다른 복사 버튼
+   (`NodePromptInputCopyButton`)은 **색을 하나도 바꾸지 않고 글리프만 교체한다.** 두 자리가
+   공유하는 것은 체크 글리프 하나뿐이고, 공유하지 않는 것을 정본으로 올리면 한 소비처의
+   별벌이 라이브러리의 규칙이 된다.
+
+그래서 두 소비처의 채택 형태는 이렇다 — `variant="secondary"`(또는 `ghost`)에
+`leftIcon={copied ? <CopyCheckIcon /> : <CopyIcon />}` 과 라벨 교체. 완료를 **보조기술에도**
+전하는 것은 색이 아니라 `aria-live` 인데, 그 속성은 호출부가 자기 문맥에 맞게 붙인다.
+
 ### 제품 실측 — hover 면과 active scale
 
 **면이 없는 두 variant는 hover에서 면을 얻고, 그 알파가 서로 다르다**(배포본 실측).

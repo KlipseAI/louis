@@ -586,13 +586,43 @@ withCanary(
   "--check",
 );
 
-// DS-D-0035 의 `figma: done` 조건. `alert` 은 계약에 geometry 가 없어 조건 (c) 가 서지 않는
-// 항목이라, 승격 여부와 무관하게 항상 이 canary 의 재료가 된다.
+// DS-D-0035 의 `figma: done` 조건.
+//
+// **재료를 이름으로 박아 두지 않는다.** 여기에는 `alert` 이 박혀 있었고, 그 근거는 「alert 은
+// 계약에 geometry 가 없어 조건 (c) 가 서지 않는 항목이라 승격 여부와 무관하게 항상 재료가
+// 된다」였다. 그 근거가 2026-09-06 에 사라졌다 — alert 에 레이아웃 축을 열며 계약에 geometry 를
+// 붙였고, 그 순간 이 canary 는 **입력을 바꾸지 못해** 실패했다(`canary가 입력을 변경하지
+// 못했습니다`). 즉 **canary 의 재료가 고쳐지면 canary 자신이 깨진다.**
+//
+// 그래서 재료를 매 실행 고른다: manifest 에서 `figma !== "done"` 이면서 그 이름의 계약에
+// `geometry:` 가 없는 첫 항목. 그런 항목이 하나도 없다면 조건 (c) 가 모든 항목에서 서 있다는
+// 뜻이므로 그때는 이 canary 를 지우는 것이 맞고, 아래 throw 가 그 사실을 알린다.
 withCanary(
   "design/manifest.json",
   (source) => {
     const manifest = JSON.parse(source);
-    manifest.components.find((item) => item.id === "alert").figma = "done";
+    const parity = readFileSync(resolve(repoRoot, "scripts/verify-figma-parity.mjs"), "utf8");
+    const withoutGeometry = (name) => {
+      const at = parity.indexOf(`figmaName: "${name}"`);
+      if (at < 0) return false;
+      const next = parity.indexOf("\n  {", at);
+      const entry = parity.slice(at, next < 0 ? parity.length : next);
+      return !/^ {4}geometry:/m.test(entry);
+    };
+    const target = manifest.components.find(
+      (item) =>
+        item.figma !== "done" &&
+        (item.figmaNames ?? (item.figmaName === undefined ? [] : [item.figmaName])).some(
+          withoutGeometry,
+        ),
+    );
+    if (target === undefined) {
+      throw new Error(
+        "figma done canary 의 재료가 없습니다 — geometry 가 없는 partial 항목이 하나도 " +
+          "남지 않았습니다. 조건 (c) 가 전부 서 있다면 이 canary 를 지우십시오.",
+      );
+    }
+    target.figma = "done";
     return JSON.stringify(manifest, null, 2) + "\n";
   },
   "figma done without two-way evidence",

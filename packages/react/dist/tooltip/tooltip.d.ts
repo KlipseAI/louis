@@ -1,8 +1,24 @@
 import { type JSX, type ReactElement, type ReactNode } from "react";
 import { type OverlayAlign, type OverlaySide } from "../overlay/positioner.js";
+/**
+ * 표면에 담기는 것이 달라지는 축. 크기 사다리가 아니다.
+ *
+ * `base` 는 포인터를 따라다니는 한 줄 설명이고, `coachmark` 는 대상에 붙어 함께 움직이는
+ * 제목/본문 두 줄 안내다. 제품 정본은 노드 캔버스의 `CanvasFirstNodeHint` 로, React Flow 의
+ * `ViewportPortal` 안에서 flow 좌표로 놓여 캔버스와 함께 팬·줌된다.
+ */
+export type TooltipLayout = "base" | "coachmark";
 export interface TooltipProps {
     /** 설명. 상호작용 요소를 넣지 않는다 — tooltip 표면은 포인터를 받지 않는다. */
     readonly content: ReactNode;
+    /** 표면 구성. 기본은 `base` 이며, `title` 을 주면 `coachmark` 가 된다. */
+    readonly layout?: TooltipLayout;
+    /**
+     * coachmark 의 제목. 주면 `content` 가 본문이 된다.
+     *
+     * `base` 에서는 무시한다 — 한 줄 설명에 제목을 얹으면 두 줄이 되고, 그것은 이미 coachmark 다.
+     */
+    readonly title?: ReactNode;
     /** 선호 방향. 공간이 없으면 뒤집힌다. */
     readonly side?: OverlaySide;
     readonly align?: OverlayAlign;
@@ -23,5 +39,5 @@ export interface TooltipProps {
  * trigger를 감싸지 않고 `cloneElement`로 속성만 붙인다. 래퍼를 두면 그 래퍼가 레이아웃에 끼어들어
  * 호출부의 flex/grid 계산이 조용히 달라진다.
  */
-export declare function Tooltip({ content, side, align, openDelay, disabled, children, }: TooltipProps): JSX.Element;
+export declare function Tooltip({ content, layout, title, side, align, openDelay, disabled, children, }: TooltipProps): JSX.Element;
 //# sourceMappingURL=tooltip.d.ts.map

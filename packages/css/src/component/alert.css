@@ -1,4 +1,4 @@
-/* Alert — 화면 안에 머무르는 상태 배너(인라인 알림)
+/* Alert — 화면 안에 머무르는 상태 배너
  *
  * 제품 정본은 결제 체크아웃의 오류 배너(`CHECKOUT_ERROR`)다: 패딩 16/18 · 반경 20 ·
  * red-500 12% 면 + 24% 테두리 · body-14. 그 사양을 톤 축으로 일반화해 채택했다 —
@@ -10,20 +10,36 @@
  * 마크업은 소비처가 `role="alert"`(즉시 알림) 또는 `role="status"`(비긴급)를 붙이는 것을
  * 전제한다 — DS가 role을 대신 정하면 긴급도까지 가져가게 된다. 배너는 면 색만으로 뜻을
  * 전달하지 않는다: 소비처가 아이콘 슬롯이나 제목으로 의미를 함께 준다(WCAG 1.4.1).
+ *
+ * **레이아웃 축(`data-layout`)이 2026-09-06 에 섰다.** 그전에는 축이 `data-tone` 하나뿐이라
+ * 상자 하나만 그릴 수 있었고, 제품의 알림 두 계열이 그 밖에 남아 각자 클래스를 적고 있었다 —
+ * 대시보드의 무테 한 줄 안내(`InsufficientNotice`, 12자리/4파일/2라우트)와 루트 레이아웃에
+ * 얹히는 전폭 띠(`PastDueBanner`, 46라우트). 두 계열은 톤이 아니라 **놓이는 자리**가 다르다.
+ *
+ *   block   기본. 흐름 안의 상자 — 면·테두리·반경 20 을 갖는다. 속성이 없을 때와 같다.
+ *   inline  무테 한 줄 — 면도 테두리도 반경도 없다. 부모 문단의 리듬에 얹힌다.
+ *   banner  전폭 띠 — 반경이 없고 아래 경계만 남으며, 닫기가 오른쪽 끝에 고정된다.
+ *
+ * **`block` 을 선택자로 적어 둔 이유.** 속성이 없을 때와 같은 값이라 규칙 하나면 충분하지만,
+ * 이름을 적지 않으면 계약에 없는 값이 된다 — `data-tone="danger"` 가 정확히 그 상태이고
+ * (문서 Known deviations 3) 호출부가 `layout === "block" ? undefined : layout` 같은 특례를
+ * 쓰게 만든다. 같은 함정을 두 번 파지 않는다.
  */
 
+/* 구조 — 레이아웃과 무관하게 셋이 공유하는 것만 남긴다.
+ * 면·테두리 색은 여기서 danger 를 기본으로 잡고 두께는 0 이다. 두께를 레이아웃이 켠다:
+ * block 은 네 변, banner 는 아래 한 변, inline 은 켜지 않는다. 이렇게 나눠야 톤 규칙이
+ * `border-color` 하나만 바꿔도 세 레이아웃이 전부 옳게 그려진다 — 톤 규칙이 shorthand 로
+ * 두께까지 쥐면 레이아웃이 그것을 다시 되돌려야 한다. */
 .louis-alert {
   box-sizing: border-box;
   display: flex;
-  align-items: flex-start;
-  gap: var(--louis-space-control-sm);
   inline-size: 100%;
   min-inline-size: 0;
   margin: 0;
-  padding-block: var(--louis-space-control-md);
-  padding-inline: var(--louis-layout-alert-inset);
-  border: var(--louis-border-width-default) solid var(--louis-color-alert-danger-stroke);
-  border-radius: var(--louis-radius-alert);
+  border-style: solid;
+  border-width: 0;
+  border-color: var(--louis-color-alert-danger-stroke);
   background: var(--louis-color-alert-danger-surface);
   color: var(--louis-color-alert-danger-foreground);
   font-family: var(--louis-typography-body-sm-regular-font-family);
@@ -34,6 +50,18 @@
   /* 긴 안내문이 줄바꿈될 때 KO 어절은 보존한다. */
   overflow-wrap: break-word;
   word-break: keep-all;
+}
+
+/* 레이아웃 — block(기본). 톤 규칙보다 **앞에** 온다. 특이도가 같으므로(0,2,0) 뒤에 두면
+ * 이 규칙이 톤의 면·테두리·글자를 덮어 톤 축이 통째로 죽는다. */
+.louis-alert:not([data-layout]),
+.louis-alert[data-layout="block"] {
+  align-items: flex-start;
+  gap: var(--louis-space-control-sm);
+  padding-block: var(--louis-space-control-md);
+  padding-inline: var(--louis-layout-alert-inset);
+  border-width: var(--louis-border-width-default);
+  border-radius: var(--louis-radius-alert);
 }
 
 /* 톤 — danger가 기본인 이유는 제품의 인라인 배너가 거의 전부 오류이기 때문이다. */
@@ -53,6 +81,75 @@
   border-color: var(--louis-color-alert-warning-stroke);
   background: var(--louis-color-alert-warning-surface);
   color: var(--louis-color-alert-warning-foreground);
+}
+
+/* 레이아웃 — inline. 무테 한 줄.
+ *
+ * **톤을 갖지 않는다.** 면도 테두리도 없어 남는 신호가 글자 색 하나뿐인데, 그것만으로 뜻을
+ * 전하면 이 컴포넌트가 스스로 세운 계약(면 색만으로 뜻을 전달하지 않는다 · WCAG 1.4.1)이
+ * 무테에서 깨진다. 그래서 인라인의 글자는 언제나 중립이고 뜻은 아이콘과 문장이 전한다 —
+ * 제품의 유일한 담지자(`InsufficientNotice` 12자리)도 정확히 그렇게 그려져 있다:
+ * 회색 글자 + 느낌표 원 글리프 + "데이터가 부족합니다" 문장.
+ *
+ * 세로 10px 은 제품에서 온 값이다(`py-5`, --spacing 2px 기준). LOUIS 간격 계단은 4·8·12·16
+ * 이라 10 이 없어 전용 토큰을 세웠다 — 가로 18(`layout-alert-inset`)과 같은 사정이다.
+ * 12 로 접으면 소비처가 `py-5` 로 되돌려야 하고, 되돌림이 필요한 축은 채택이 아니다. */
+.louis-alert[data-layout="inline"] {
+  align-items: center;
+  gap: var(--louis-space-control-sm);
+  padding-block: var(--louis-layout-alert-compact-inset);
+  padding-inline: 0;
+  border-width: 0;
+  border-radius: 0;
+  background: none;
+  color: var(--louis-color-fg-secondary);
+  font-family: var(--louis-typography-caption-regular-font-family);
+  font-size: var(--louis-typography-caption-regular-font-size);
+  font-weight: var(--louis-typography-caption-regular-font-weight);
+  line-height: var(--louis-typography-caption-regular-line-height);
+  letter-spacing: var(--louis-typography-caption-regular-letter-spacing);
+}
+
+/* 레이아웃 — banner. 루트 레이아웃에 얹히는 전폭 띠.
+ *
+ * **면이 알파 틴트가 아니라 불투명 톤 컨테이너다.** 12% 틴트는 상자 안에서 카드 면 위에
+ * 얹힐 때 성립하는 값이고, 전폭 띠는 페이지 바닥 위에 직접 놓여 그 면이 거의 보이지 않는다.
+ * `color-bg-{tone}` · `color-fg-{tone}` 는 그 자리를 위해 이미 서 있는 토큰이라 새로 만들지
+ * 않았다 — 두 쌍은 token source 의 `contrastPairs` 에도 이미 들어 있어, 알림의 네 레이아웃
+ * 중 **글자 대비를 재는 게이트가 실제로 도는 유일한 자리**가 된다.
+ *
+ * **테두리가 없다.** 상자 알림의 1px 은 카드 면 위에서 알파 틴트의 경계를 세우는 값인데,
+ * 전폭 띠는 불투명 면이라 면 자신이 경계다. 제품의 담지자(`PastDueBanner`)도 테두리를 갖지
+ * 않는다.
+ *
+ * 위치(`position: fixed` · `top` · 쌓임 순서)는 여기 없다. 그것은 띠가 **어디에 붙는가**이지
+ * 어떻게 그려지는가가 아니고, 제품의 담지자가 `zIndex 9999` 로 GNB·모달 위를 덮고 있어
+ * 쌓임 순서를 옮기는 것은 실측이 먼저다. 소비처가 자기 레이아웃에서 준다. */
+.louis-alert[data-layout="banner"] {
+  position: relative;
+  align-items: center;
+  justify-content: center;
+  gap: var(--louis-space-layout-gutter);
+  padding-block: var(--louis-layout-alert-compact-inset);
+  padding-inline: var(--louis-space-layout-gutter);
+  border-radius: 0;
+  background: var(--louis-color-bg-danger);
+  color: var(--louis-color-fg-danger);
+}
+
+.louis-alert[data-layout="banner"][data-tone="info"] {
+  background: var(--louis-color-bg-info);
+  color: var(--louis-color-fg-info);
+}
+
+.louis-alert[data-layout="banner"][data-tone="success"] {
+  background: var(--louis-color-bg-success);
+  color: var(--louis-color-fg-success);
+}
+
+.louis-alert[data-layout="banner"][data-tone="warning"] {
+  background: var(--louis-color-bg-warning);
+  color: var(--louis-color-fg-warning);
 }
 
 /* 아이콘 슬롯 — 색만으로 뜻을 전달하지 않기 위한 자리다. 텍스트 첫 줄에 광학 정렬한다. */
@@ -78,9 +175,21 @@
   color: inherit;
 }
 
+/* 광학 보정은 `align-items: flex-start` 인 block 에서만 뜻이 있다. inline·banner 는 행을
+ * 가운데 정렬하므로 같은 2.5px 이 아이콘을 첫 줄 **아래로** 밀어낸다. */
+.louis-alert[data-layout="inline"] .louis-alert__icon,
+.louis-alert[data-layout="banner"] .louis-alert__icon {
+  margin-block-start: 0;
+}
+
 .louis-alert__content {
   flex: 1 1 auto;
   min-inline-size: 0;
+}
+
+/* banner 에서는 문구가 띠 가운데에 서야 하므로 본문이 남는 폭을 다 먹으면 안 된다. */
+.louis-alert[data-layout="banner"] .louis-alert__content {
+  flex: 0 1 auto;
 }
 
 .louis-alert__title {
@@ -92,10 +201,46 @@
   letter-spacing: var(--louis-typography-body-sm-medium-letter-spacing);
 }
 
+/* 무테에서는 본문이 caption 12 로 내려가는데 제목만 body-sm 14 로 남으면 한 줄 안내 위에
+ * 더 큰 제목이 서는 역전이 생긴다. 제목은 언제나 본문과 같은 크기이고 중량만 오른다 —
+ * 그 계약이 레이아웃마다 다시 성립해야 한다. */
+.louis-alert[data-layout="inline"] .louis-alert__title {
+  font-family: var(--louis-typography-caption-medium-font-family);
+  font-size: var(--louis-typography-caption-medium-font-size);
+  font-weight: var(--louis-typography-caption-medium-font-weight);
+  line-height: var(--louis-typography-caption-medium-line-height);
+  letter-spacing: var(--louis-typography-caption-medium-letter-spacing);
+}
+
+/* 닫기 슬롯 — 버튼을 DS 가 그리지 않고 자리만 준다. 소비처가 `.louis-icon-button` 을 넣는다.
+ * 알림이 자기 안에 버튼을 그리면 크기·톤 축이 둘로 갈리고(IconButton 이 이미 소유한다)
+ * 접근성 라벨까지 DS 가 정하게 된다 — 닫는 대상의 이름은 화면의 사정이다. */
+.louis-alert__dismiss {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  /* 상자·무테에서는 본문 뒤 오른쪽 끝으로 밀린다. */
+  margin-inline-start: auto;
+  color: inherit;
+}
+
+/* banner 에서는 본문이 가운데에 서므로 닫기가 흐름에 남으면 그 가운데를 밀어낸다.
+ * 오른쪽 끝에 고정하고, 세로 위치는 flex 의 static position(=`align-items: center`)이 준다 —
+ * `inset-block` 을 주지 않는 것이 그 정렬을 살리는 방법이다. */
+.louis-alert[data-layout="banner"] .louis-alert__dismiss {
+  position: absolute;
+  inset-inline-end: var(--louis-space-control-md);
+  margin-inline-start: 0;
+}
+
 /* forced-colors — 면 색이 강제 치환되면 톤 구분이 사라진다. 경계는 시스템 색 실선으로 남긴다
- * (아이콘·제목이 의미를 계속 전달한다). */
+ * (아이콘·제목이 의미를 계속 전달한다). **inline·banner 에는 켜진 변이 없어 이 규칙이 아무
+ * 것도 그리지 않는다** — 두 레이아웃은 두께가 0 이고 색만 바뀌기 때문이다. 무테 인라인에서
+ * 뜻을 전하는 것은 아이콘과 문장이고, 띠는 forced-colors 에서 시스템 면 색으로 통째로
+ * 치환되므로 자기 면이 곧 경계다. */
 @media (forced-colors: active) {
   .louis-alert {
-    border: var(--louis-border-width-default) solid currentColor;
+    border-color: currentColor;
   }
 }

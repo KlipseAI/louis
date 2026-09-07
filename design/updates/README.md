@@ -25,6 +25,93 @@ authority: normative
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
 
+## 2026-09-06 (115) — TextField 에 결합(Join) 축을 연다 (none · start · middle · end)
+
+`text-field.md` 의 Known deviations 가 **자기가 못 담는 것을 스스로 지목해 두고 있었다** —
+「결합 입력이 없다 … 이 축은 그것을 담지 않으므로 표면 원장의 다섯은 그대로 `needed` 다.」
+그 줄을 닫는다([DS-D-0052](../governance/decisions/DS-D-0052-joined-fields-are-an-axis.md)).
+
+### Added
+
+- `TextFieldJoin`(`none` · `start` · `middle` · `end`)과 `join` prop. 기본값은 `none` 이고
+  그때는 `data-join` 이 아예 붙지 않는다.
+- Figma `TextField` 에 `Join` 변형 축과 아홉 변형(`lg/floating` × 세 결합 × Default·Focus·Placeholder).
+  20 → 29 변형.
+- 계약 `input.sizes` 에 `lg/floating/start` · `/middle` · `/end` 세 칸.
+
+### Changed
+
+- 계약이 Box 의 곡률을 `cornerRadius` 하나가 아니라 **왼쪽 두 모서리**(`radius`·`radiusBottom`)로
+  본다. 결합 칸은 네 모서리가 갈려 Figma 의 `cornerRadius` 가 `mixed` 로 떨어지고, 그러면 그 칸의
+  곡률이 아무것과도 대조되지 않는다. 기존 네 칸에도 `radiusBottom` 이 생겼다(값은 `radius` 와 같다).
+- 되읽기 채취 명세에 `key.omit` 이 생겼다 — 그 축이 그 값일 때 키에 칸을 만들지 않는다.
+  덕분에 결합하지 않은 네 키(`lg/stacked` 등)가 **개명되지 않았다.**
+
+### Migration
+
+제품은 아직 물지 않는다. 인증 다섯 화면이 각자 들고 있는 결합 상수를 이 축으로 옮기는 절차는
+별도 문서가 갖는다. 옮기기 전에 **소유자가 판정할 것이 하나 있다** — 인증 계열이 정본과 갈리는
+스킨 넷(1px 12% 테두리 · 4% 알파 면 · inset 링 · 값 타이포 16)을 정본으로 수렴시킬지 스킨 축으로
+열지. 결합 축은 그 판정과 무관하게 선다.
+
+### 알아 둘 것 — 겹침은 토큰 값이 아니다
+
+`border-width-hairline` 은 0.5px 인데 겹침은 **1px** 이다. 브라우저가 inset 그림자의 사용값을
+1px 로 올리기 때문이고, 실측으로 0.5px 겹침은 **겹치지 않은 것과 픽셀이 같다.** 이름이 맞아
+보인다고 토큰을 그대로 쓰면 축은 서지만 아무것도 고치지 못한 채 초록이 된다.
+
+## 2026-09-06 (114) — 빈 상태에 layout 축을 연다 (base · compact · canvas)
+
+`EmptyState` 는 **면·테두리·반경이 0** 인 텍스트 블록 하나였다. 그 사양의 근거는 「제품 정의 9벌이
+유일하게 합의한 것」이었고, 계약 `$note` 가 그 문장을 그대로 갖고 있었다. **그 합의는 집계 «안»에서만
+참이다** — 집계 밖에 정의가 둘 더 있고 둘 다 base 로는 그릴 수 없다.
+
+### 축을 연 근거 — 합의 밖의 두 정의
+
+| 자리 | 제품 정의 | base 로 못 그리는 이유 |
+| --- | --- | --- |
+| 대시보드 섹션 | `AnalyticsStatePanel`(`components/scenes/analytics/shared.tsx:123-128`) | 면 + 1px 테두리 + 반경 12 + **좌측 정렬**. 「면을 갖지 않는다」의 유일한 반례다 |
+| 빈 캔버스 | `CanvasEmptyState`(`.../node-canvas-v2/components/CanvasEmptyState.tsx:24-38`) | 그래픽 없이 제목 28 한 줄과 버튼 둘. 여백·간격·제목 계층이 전부 다르다 |
+
+앞의 것은 이 컴포넌트의 **단일 최다 소비처**다 — 앵커 `5a67d692` 전수로 JSX 호출 15곳 / 6파일 /
+2라우트(`/analytics/instagram` · `/analytics/youtube`)다.
+
+### Added
+
+- `EmptyState` 에 `layout?: "base" | "compact" | "canvas"`(기본 `base`)와 공개 타입
+  `EmptyStateLayout`. DOM 에는 `data-layout` 이 **기본값에서도** 붙는다 — 값이 있을 때만 붙이면
+  「기본값이라 없다」와 「prop 을 못 받았다」가 구분되지 않는다.
+- `packages/css/src/component/empty-state.css` 에 `[data-layout="compact"]` · `[data-layout="canvas"]`.
+- 계약 `figma/components.measured.json#empty-state.sizes` 에 `compact` · `canvas` 두 칸. `align` 은
+  세 칸 모두에 새로 생겼다 — 정렬이 이 축에서 가장 눈에 띄는 값인데 어느 게이트도 재지 않고 있었다.
+- Figma `EmptyState` 가 단일 component 에서 **`Layout` 축 3변형의 component set** 이 됐다.
+  되읽기 채취 명세에 `counterAxisAlignItems` 와 `strokes:["self"]` 를 더해 정렬과 compact 의
+  테두리가 게이트에 걸리게 했다.
+
+### Changed
+
+- `sizes` 가 한 칸에서 세 칸이 됐고, 계약이 `sizeKey: "base"` 에서 `sizeKeys: ["base","compact","canvas"]`
+  로 넓어졌다. 좁혀 두면 새 두 칸은 Figma 가 무슨 값을 그리든 초록이다(`verify-figma-done` 의
+  「대조 범위 밖」이 그 상태를 잡는다).
+- Figma padding 은 `CSS padding + borderWidth` 로 계약한다. base·canvas 는 테두리가 0 이라 합이
+  항등이고 compact 만 20 + 1 = 21 이다.
+
+### 옮기지 않은 것
+
+- **`tone="error"`.** 제품의 오류 분기가 더하는 클래스 문자열이 빈 문자열이고(`shared.tsx:130-132`),
+  원본 CSS 의 오류 색은 특이도 싸움에서 져 배포본에서도 그려지지 않는다. 그리지 않는 것을 축으로
+  세우면 시안이 배포본과 어긋난다.
+- **`Graphic`·`Actions` 를 variant 축으로 여는 것.** 자리의 유무는 이미 `HasGraphic`·`HasDescription`·
+  `HasAction` 불리언이 담고 있고, 액션 «개수»는 소비처의 것이라 코드 쪽에 되잴 근거가 없다.
+  한 방향만 걸리는 값은 계약에 넣지 않는다.
+- **캔버스 제목의 잉크.** 제품은 `rgb(gray-000 / 72%)` 이고 LOUIS 는 `color-fg-primary` 다. 알파
+  잉크는 표면 사다리와 같은 이유로 옮기지 않았다 — 대비를 이유로 값을 바꾼 것이 아니다.
+
+### Migration
+
+기존 호출부는 바뀌지 않는다. `layout` 의 기본값이 `base` 이고 그 칸의 값은 한 자리도 움직이지
+않았다. 제품 채택 절차는 [Product Adoption](../governance/migration.md) 을 따른다.
+
 ## 2026-09-03 (113) — 이름변경 상자를 밑줄형으로 통일한다 (DS-D-0051)
 
 바로 앞 항목(112)이 **열어 둔 채로** 닫은 둘을 소유자 판정으로 함께 닫았다. 두 벌을 나란히

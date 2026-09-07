@@ -69,7 +69,7 @@ Klipse 화면을 이루는 재사용 가능한 UI 단위다. 컴포넌트가 코
 <!-- GENERATED:component-progress START -->
 | Component | Maturity | Figma | Web | Docs | Note |
 | --- | --- | --- | --- | --- | --- |
-| [Alert](../components/alert.md) | `experimental` | `partial` | `partial` | `done` | CSS 레시피(.louis-alert)는 있고 React 표면은 없다. Figma component set 4 variant(Tone). 결제·체크아웃 배너가 정본이다. 2026-08-26: 레시피만 있고 문서·Figma 가 없던 다섯 중 하나였다 — 시스템이 정의해 놓고 디자이너가 볼 수 없는 상태였다. 2026-09-01 DS-D-0035 재판정: Figma 는 `partial` 로 남는다 — 계약에 geometry 가 없어 Figma 치수가 코드 실측과 한 번도 만나지 않는다. |
+| [Alert](../components/alert.md) | `experimental` | `done` | `partial` | `done` | CSS 레시피(.louis-alert)는 있고 React 표면은 없다. Figma component set 12 variant(Layout × Tone). 결제·체크아웃 배너가 정본이다. 2026-08-26: 레시피만 있고 문서·Figma 가 없던 다섯 중 하나였다 — 시스템이 정의해 놓고 디자이너가 볼 수 없는 상태였다. 2026-09-01 DS-D-0035 재판정: Figma 는 `partial` 로 남았다 — 계약에 geometry 가 없어 Figma 치수가 코드 실측과 한 번도 만나지 않았다. 2026-09-06 레이아웃 축(block·inline·banner)을 열며 그 구멍을 닫았다: figma/components.measured.json 에 alert 칸이 처음 서고, packages/react/test/alert.browser.test.tsx 가 코드 쪽을 되재며, 계약에 geometry 가 붙어 두 방향이 다 걸린다 — DS-D-0035 (a)(b)(c) 를 만족하므로 figma 를 done 으로 올린다. web 은 여전히 partial 이다: React 표면이 없다. |
 | [Sidebar Nav Item · App Top Bar](../components/app-shell-parts.md) | `experimental` | `partial` | `partial` | `done` | public export 2종, Figma component 둘(SidebarNavItem 6 variant · AppTopBar), parity 게이트가 Icon을 자손으로 대조한다. 실브라우저 acceptance test 10건. 셸의 레이아웃 계약은 app-shell 패턴이 소유하고 여기는 그 안의 부품 둘이다. 제품 실측에서 사이드바 항목에 포커스 표시가 아예 없다는 것을 찾았다 — 전역 리셋이 항목의 링 선언을 특이도와 무관하게 이긴다. 셸 composition과 compact 드로어는 아직 없다 2026-08-19: SidebarNavRow가 서고 AppTopBar에 leading·trailing 슬롯이 생겼다 — 코드 API에는 처음부터 있었는데 Figma에는 제목 하나뿐이라 조립하면 화면이 비어 보였다. 표현하지 못하는 API는 없는 것과 같다. 2026-09-01 DS-D-0035 재판정: Figma 는 `partial` 로 남는다 — geometry 는 붙었으나 SidebarBrand·SidebarCta 의 실측을 코드가 여전히 만드는지 되재는 브라우저 테스트가 없어 evidence 가 한 방향이다. |
 | [Avatar](../components/avatar.md) | `experimental` | `done` | `partial` | `done` | public export와 실브라우저 acceptance test 9건이 두 motion context에서 각각 돈다. 제품에 공용 구현이 **부분만** 있다 — 기본 아바타 SVG 하나만 분리돼 있고 본체는 셸 파일에 인라인이다. 크기 28/24는 제품의 --profile-avatar-size 두 값을 그대로 옮겼고 control 계단을 따르지 않는다(아바타는 컨트롤이 아니라 표식이다). **진행률 링을 소유하지 않는다** — 흡수하면 인계서 (1c)의 미결 판정이 API로 새어 들어온다. 테스트가 테두리·그림자·::after 층이 0인지 확인한다. Figma component set 2 variant(Size)가 섰고 parity 게이트가 Fallback을 자손으로 대조한다 — raw fill 0. **계약이 stroke·effect 0을 요구하므로 링이 새어 들어오면 게이트가 잡는다.** publish는 DS-F-008이다 2026-09-01 DS-D-0035 재판정: Figma `done`. readback 등재 + 계약이 모든 property 를 pin + 기하 evidence 가 두 방향이다(avatar · avatar.browser.test.tsx). |
 | [Badge](../components/badge.md) | `experimental` | `done` | `partial` | `done` | public export, Figma component set 5 variant(Tone), parity 게이트가 Label을 자손으로 대조한다. 실브라우저 acceptance test 7건. 제품에 정의가 65벌이고 공용 구현은 0이다. gap registry의 '톤 4 + 상태 5'는 둘 다 틀렸다 — 네 톤 클래스의 선언이 바이트 단위로 같고, 앱 홈 4변형의 색이 전부 같은 변수를 가리킨다. 새 토큰 없이 기존 토큰에 맞는 기하를 골랐다. 알약(999px) 증감·개수 칩은 별도 컴포넌트이며 아직 없다 2026-09-01 DS-D-0035 재판정: Figma `done`. readback 등재 + 계약이 모든 property 를 pin + 기하 evidence 가 두 방향이다(badge · badge.browser.test.tsx). |
@@ -79,16 +79,16 @@ Klipse 화면을 이루는 재사용 가능한 UI 단위다. 컴포넌트가 코
 | [Carousel Arrow](../components/carousel-arrow.md) | `experimental` | `partial` | `not-ready` | `done` | 랜딩 캐러셀 헤더의 넘김 버튼 쌍. 제품 구현(CarouselArrows.tsx)이 정본이고 소비처가 다섯 자리다 — LOUIS recipe 는 없다. 32×32 · radius 12 · 잉크 8% 면 · 헤어라인은 stroke 가 아니라 inset 그림자다(DS-D-0023 정본). Figma 는 쌍이 아니라 버튼 하나를 set 으로 뽑았다(Direction × State 6) — 상호작용과 프로토타입을 받는 단위가 그것이다. **Direction 축은 figma-component-authoring.md §2 개정으로 축 표에 열렸다** — 값 prev·next 는 트랙의 진행 방향이지 화살표가 가리키는 쪽이 아니다. hover 두 겹의 색 변수가 서로 바뀌어 묶여 있는 것도 미해결이다. 포커스 표시가 코드에도 Figma 에도 없다(SC 2.4.7 결손). 2026-09-01 DS-D-0035 재판정: Figma 는 `partial` 로 남는다 — geometry 는 붙었으나 carousel-arrow 실측을 코드가 여전히 만드는지 되재는 브라우저 테스트가 없어 evidence 가 한 방향이다. LOUIS 레시피가 아직 없으므로 그 되재기는 코드가 서야 열린다. |
 | [Checkbox](../components/checkbox.md) | `experimental` | `done` | `partial` | `done` | public export와 실브라우저 acceptance test 14건이 두 motion context에서 각각 돈다. **제품에 정본이 있는데 21벌 중 2벌만 쓴다** — 그 전역 클래스가 cascade layer 밖이라 소비처가 이길 수 없었다. 크기 20px은 채택하고 accent-color는 채택하지 않았다(면 색 하나만 주고 표시·링·부분선택 막대를 브라우저가 정한다). indeterminate는 DOM 프로퍼티라 ref로 맞추고 aria-checked=mixed를 함께 준다. **선택 안 한 테두리 대비가 SC 1.4.11(3:1)에 미달하며 테두리 토큰 셋 중 어느 것도 라이트에서 넘지 못한다** — 실측을 규범에 적었고 인계서 (2b) 판정의 입력이다. color-stroke-strong의 첫 소비처다. Figma component set 4 variant(State)가 섰고 parity 게이트가 Box·Check·Dash·Label을 자손으로 대조한다 — raw fill·stroke 0. 체크는 CSS와 같은 구조(5×9 사각형의 두 변 + 45° 회전)라 계약값이 그대로 남는다. publish는 DS-F-008이다 2026-09-01 DS-D-0035 재판정: Figma `done`. readback 등재 + 계약이 모든 property 를 pin + 기하 evidence 가 두 방향이다(checkbox · checkbox.browser.test.tsx). |
 | [Dialog / Confirm Modal](../components/dialog.md) | `experimental` | `done` | `partial` | `done` | public export와 실브라우저 acceptance test. Figma component set 3 variant(Size). fullscreen은 표면이 뷰포트라 고정 폭 variant로 그릴 수 없어 제외했다. 제품에 공용 정본이 없다 2026-09-01 DS-D-0035 재판정: Figma `done`. readback 등재 + 계약이 모든 property 를 pin + 기하 evidence 가 두 방향이다(dialog · surface-geometry.browser.test.tsx). |
-| [Empty State](../components/empty-state.md) | `experimental` | `done` | `partial` | `done` | public export와 실브라우저 acceptance test 7건. Figma component 하나이며 parity 게이트가 Graphic·Title·Description·Action을 자손으로 대조한다. 제품에 정의가 9벌 있고 하나는 도달 불가능한 죽은 분기다. 아홉 벌이 합의하는 것은 '자기 배경도 테두리도 반경도 갖지 않는다' 하나뿐이다. 오류 상태는 다루지 않는다 — 제품은 둘을 합쳤지만 사용자가 취할 행동이 다르다 2026-09-01 DS-D-0035 재판정: Figma `done`. readback 등재 + 계약이 모든 property 를 pin + 기하 evidence 가 두 방향이다(empty-state · empty-state.browser.test.tsx). |
+| [Empty State](../components/empty-state.md) | `experimental` | `done` | `partial` | `done` | public export와 실브라우저 acceptance test 11건. Figma 는 `Layout` 축 3변형의 component set 이고 parity 게이트가 base·compact·canvas 세 칸을 전부 대조하며 Graphic·Title·Description·Action 을 자손으로 본다. 제품에 정의가 9벌 있고 하나는 도달 불가능한 죽은 분기다. 아홉 벌이 합의하는 것은 '자기 배경도 테두리도 반경도 갖지 않는다' 하나뿐인데 **그 합의는 집계 안에서만 참이다** — 집계 밖 두 정의(대시보드 AnalyticsStatePanel · 빈 캔버스 CanvasEmptyState)를 2026-09-06 에 compact · canvas 축으로 세웠다. 오류 상태는 다루지 않는다 — 제품은 둘을 합쳤지만 사용자가 취할 행동이 다르고, 제품의 tone="error" 분기는 클래스가 빈 문자열이라 배포본에서도 그려지지 않는다. 2026-09-01 DS-D-0035 재판정: Figma `done`. readback 등재 + 계약이 모든 property 를 pin + 기하 evidence 가 두 방향이다(empty-state · empty-state.browser.test.tsx). |
 | [FAQ Row](../components/faq-row.md) | `experimental` | `partial` | `not-ready` | `done` | 랜딩·가격 두 페이지가 쓰는 아코디언 행. 제품 구현(FAQ.tsx)이 정본이고 LOUIS recipe 는 없다 — 닫힌 행이 통째로 버튼이고 열리면 질문 줄까지다(답변은 버튼 밖의 형제다. 좌우 20 · 위아래 18 · 사이 16, 닫힌 높이 66 = 18+30+18). **면을 gray-900 으로 두면 라이트에서 사라진다** — 그 단이 랜딩 페이지 바닥과 바이트 동일해져 대비가 1:1 이 되므로 잉크 8% 오버레이(landing/panel-strong)를 쓴다. 밑줄 2열 배치를 버리고 면으로 나눈 결과 행 면과 바닥의 대비가 1.2:1 뿐이고 헤어라인도 두르지 않는다 — 다른 랜딩 면과 갈리는 자리다. 그 1.2:1 은 랜딩 바닥 기준이고, 바닥을 고정하는 가격 페이지 다크에서는 1.01:1 이며 방향도 반대다. 전환이 둘로 갈려 있다: 높이·투명도 300ms cubic-bezier(0.4,0,0.2,1)(framer-motion) 과 + 글리프 회전 220ms ease(CSS) 인데 Figma 는 한 전환에 두 시간을 담을 수 없어 하나로 합칠 수밖에 없다 — 그 하나가 얼마인지는 되읽기가 프로토타입 전이를 채취하지 않아 대조되지 않는다. **Expanded 는 figma-component-authoring.md §2 개정으로 조건 축(false·true) 명부에 올랐다** — + 글리프가 계속 보이는 채로 45° 돌고(시험 1) 여닫이에 전이를 걸어야 해서(시험 3) BOOLEAN 이 아니다. + 글리프 대비가 라이트에서 3.73:1 로 AA(4.5) 미만이지만 아이콘성 글리프라 비-텍스트 3:1 로 판정했다. aria-controls 와 제목 요소가 없고 prefers-reduced-motion 계약도 없다. 가격 페이지 스코프가 --gray-000 만 되돌리고 --gray-300 을 빼놓아 다크 테마에서 답변 대비가 1.29:1 로 떨어지는 미해결이 남아 있다. 2026-09-01 DS-D-0035 재판정: Figma 는 `partial` 로 남는다 — geometry 는 붙었으나 faq-row 실측을 코드가 여전히 만드는지 되재는 브라우저 테스트가 없어 evidence 가 한 방향이다. LOUIS 레시피가 아직 없으므로 그 되재기는 코드가 서야 열린다. |
 | [FormMessage](../components/form-message.md) | `experimental` | `partial` | `not-ready` | `partial` | 제품 전수 인벤토리에서 확인. 인증 폼 아래 한 줄 메시지(login/page.tsx:199,537) — caption-12-regular · padding-left 4. error/neutral 두 톤. LOUIS recipe 는 아직 없다. 2026-09-01 DS-D-0035 재판정: Figma 는 `partial` 로 남는다 — 계약에 geometry 가 없어 Figma 치수가 코드 실측과 한 번도 만나지 않는다. |
 | [GNB Menu Item](../components/gnb-menu-item.md) | `experimental` | `partial` | `not-ready` | `done` | 랜딩 상단 내비게이션 가운데 메뉴의 항목 하나. 제품 구현(landing/navigation/Gnb.tsx 의 menuLinkClass)이 정본이고 앵커·라우트·드롭다운 트리거·「공개 예정」 넷이 같은 알약을 쓴다 — LOUIS recipe 는 없다. **상태를 면이 아니라 잉크 불투명도로 만든다**: 여덟 변형의 기하가 완전히 같고(되읽기의 기하 값이 전부 단일값이다 — base 키 자체는 채취 명세의 선언이라 증거가 아니다), 면·테두리·그림자가 전부 없다. **톤은 테마가 아니라 밑에 깔린 면이다** — 라이트 테마 안의 어두운 사진 밴드에서 뒤집히므로 시맨틱 램프가 아니라 고정 palette-gray-* 를 쓴다. **제품이 밝은 면 Default 를 0.50 → 0.65 로 올렸는데 Figma 는 아직 0.50 이다** — 0.50 은 랜딩 바닥과 AA 미달이었고 누를 수 있는 링크라 비활성 면제 대상이 아니다. 되읽기가 opacity 를 담지 않아 어떤 게이트도 이 어긋남을 잡지 못한다. **figma-component-authoring.md §2 개정이 두 축을 판정했다** — Surface 는 축 표에 열렸고(제품이 이 자리를 고정 팔레트로 받으므로 테마 모드로 접히지 않는다), State=Selected 는 접기 시험을 통과해 State 값으로 남는다. 남은 것은 Figma 재작업이다 — Surface 두 변형이 어느 색에 묶여 있는지 확인해야 한다. 포커스 링을 코드도 Figma 도 소유하지 않는다(SC 2.4.7 결손). 2026-09-01 DS-D-0035 재판정: Figma 는 `partial` 로 남는다 — geometry 는 붙었으나 gnb-menu-item 실측을 코드가 여전히 만드는지 되재는 브라우저 테스트가 없어 evidence 가 한 방향이다. LOUIS 레시피가 아직 없으므로 그 되재기는 코드가 서야 열린다. |
 | [Icon Button](../components/icon-button.md) | `experimental` | `done` | `partial` | `done` | public export와 실브라우저 acceptance test 11건. Figma component set 40 variant가 기하 계약(한 변 40/32)으로 묶여 있다. pressed의 hover 면과 loading 상태가 남음 2026-09-01 DS-D-0035 재판정: Figma `done`. readback 등재 + 계약이 모든 property 를 pin + 기하 evidence 가 두 방향이다(icon-button · component-geometry.browser.test.tsx). |
 | [Inline Loading Label](../components/inline-loading-label.md) | `experimental` | `partial` | `not-ready` | `done` | 버튼·행 안의 라벨 한 줄과 그 옆에서 열리고 닫히는 스피너 자리. 제품 구현(InlineLoadingLabel.tsx)이 정본이고 소비처가 13개 파일 · 20개 호출부다 — LOUIS recipe 는 없다. **이 컴포넌트가 로딩 표현 규범의 집행 장치다** — 제품 저장소 docs/design/loading-states.md 가 정한 「말줄임표가 아니라 스피너」를 런타임에 강제한다: 스피너를 붙이고 로딩 문구의 꼬리 ... 와 … 를 앞뒤 공백까지 떼어낸다. 제품 i18n 에는 아직 `가입 중...`·`Saving...`·`保存中...` 처럼 말줄임표가 박힌 자리가 여럿이라 이 방어가 실제로 일하고 있다. **닫힘 → 열림에서 네 프로퍼티가 함께 움직인다** — 폭 0→16(md)·0→12(sm), 왼쪽 여백 0→6·0→4, 불투명도 0→1, scale 0.85→1. 전환이 두 짝으로 갈려 있다(폭·여백 200ms cubic-bezier(0.22,1,0.36,1) · 불투명도·transform 180ms ease). 링은 스스로 그리지 않고 LOUIS .louis-spinner 레시피를 그대로 소비하며 제품 게이트가 그 소비를 클래스 문자열로 고정한다. **Figma 는 닫힌 변형에서 슬롯 레이어를 숨긴다** — 프레임을 0 폭으로 만들 수 없어서이고, 그래서 되읽기의 md/false·sm/false 에 slots 가 비어 있다(제품은 폭 0 + overflow-hidden). 결과적으로 닫힘 폭 0 을 어떤 게이트도 대조하지 않는다. 꼬리 말줄임표 제거는 Figma 에 표현되지 않는다. **축 이름 Loading 을 figma-component-authoring.md §2 의 조건 축 명부에 올렸다** — 프레임이 자기 itemSpacing 을 0 ↔ 6·4 로 다시 쓰고(시험 2) 닫힘과 열림 사이에 Smart Animate 를 걸어야 해(시험 3) BOOLEAN 으로 그릴 수 없다. 명부가 여섯에서 일곱이 됐고, Button 의 Loading 은 여전히 판정 전이다. 타이포를 Figma 가 14/150% 로 고정하는데 제품은 소유하지 않고 감싸는 컨트롤에서 물려받는다. 상태 전달을 이 컴포넌트가 하지 않는다 — 슬롯이 aria-hidden 이고 role·aria-live·aria-busy 가 없으며, aria-busy 를 건 호출부는 20 중 셋뿐이다(Spinner 의 reduce 대체 계약이 나머지 열일곱에서 성립하지 않는다). 기하는 `figma/components.measured.json` 의 `inline-loading-label` 이 md/sm × 닫힘/열림 네 벌로 고정한다 — padding·radius 는 0 이고 열림의 gap 6·4 와 slot 16·12 가 들어 있다(닫힘 두 벌에 slot 키가 없는 것은 위에 적은 Figma 사정 그대로다). 증거 락도 낡지 않았다 — 고정한 blob 이 링을 `.louis-spinner` 로 그리는 현재 판이다. 2026-09-01 DS-D-0035 재판정: Figma 는 `partial` 로 남는다 — geometry 는 붙었으나 inline-loading-label 실측을 코드가 여전히 만드는지 되재는 브라우저 테스트가 없어 evidence 가 한 방향이다. LOUIS 레시피가 아직 없으므로 그 되재기는 코드가 서야 열린다. |
-| [Input / Field](../components/text-field.md) | `experimental` | `done` | `partial` | `done` | public export와 실브라우저 acceptance test 8건. Figma component set 8 variant(Size×State)이며 parity 게이트가 Box·Label·Value·Message를 자손으로 대조한다. **제품에 공용 구현이 없다** — 정의 약 40벌이 다섯 계열로 갈려 값은 DS가 정했다. 시각적 필드는 <input>이 아니라 감싸는 박스다. Textarea는 아직 없다 2026-09-01 DS-D-0035 재판정: Figma `done`. readback 등재 + 계약이 모든 property 를 pin + 기하 evidence 가 두 방향이다(input · text-field.browser.test.tsx). |
+| [Input / Field](../components/text-field.md) | `experimental` | `done` | `partial` | `done` | public export와 실브라우저 acceptance test 22건. Figma component set 29 variant(Size×State×LabelBehavior×Join)이며 parity 게이트가 Box·Label·Value·Message를 자손으로 대조하고 Box 의 곡률은 왼쪽 두 모서리로 본다. 2026-09-06 결합(Join) 축이 섰다(DS-D-0052) — 인증 다섯 화면이 상자 둘을 이어 붙이던 자리이고, 겹침 1px 과 안으로 들어간 포커스 링은 Figma 가 표현하지 못해 브라우저 테스트가 유일한 게이트다. **제품에 공용 구현이 없다** — 정의 약 40벌이 다섯 계열로 갈려 값은 DS가 정했다. 시각적 필드는 <input>이 아니라 감싸는 박스다. Textarea는 아직 없다 2026-09-01 DS-D-0035 재판정: Figma `done`. readback 등재 + 계약이 모든 property 를 pin + 기하 evidence 가 두 방향이다(input · text-field.browser.test.tsx). |
 | [Keycap](../components/keycap.md) | `experimental` | `partial` | `not-ready` | `partial` | 제품 전수 인벤토리에서 확인된 미커버 패턴. CommandPalette.tsx:281-296 의 단축키 칩 — h20 · px5 · r6 · caption-12 · leading 1. LOUIS recipe 는 아직 없다. 2026-09-01 DS-D-0035 재판정: Figma 는 `partial` 로 남는다 — 계약에 geometry 가 없어 Figma 치수가 코드 실측과 한 번도 만나지 않는다. |
 | [Media Card](../components/media-card.md) | `experimental` | `partial` | `not-ready` | `done` | 사진이 배경을 채우고 그 위에 유리 배지와 흐린 정보 바를 얹는 정사각 카드. 제품 구현(MediaCard.tsx)이 정본이고 랜딩 캐러셀 둘과 템플릿 그리드가 같은 카드를 쓴다 — LOUIS recipe 는 없다. 정보 바는 ProjectCard 제목 띠와 **같은 점진 블러**다 — 반경과 마스크 곡선을 base.css 의 --louis-progressive-blur / --louis-progressive-blur-mask 가 한 벌로 소유하고 두 카드가 참조한다(2026-08-27, 소유자 확인). 전에는 균일 흐림 20 이었고 위쪽 padding 40 이 그 장치라고 적혀 있었는데, 그 판단이 소유자 의도와 달랐다. padding 40 은 남되 하는 일이 마스크의 감쇠 구간 확보로 바뀌었다. 높이 111 은 시안 98/94 와 다르다 — 제품 타입 스케일의 줄 높이 150% 를 따른 결과다. **Badge 축은 figma-component-authoring.md §2 개정에서 폐기 판정을 받았다** — 값이 내용이라 시험 4 에 걸린다. Badge BOOLEAN + BadgeLabel TEXT 로 접고 변형 3 → 1 이 되는 Figma 재작업이 남아 있다. 제품의 layout 축(carousel·grid)은 고정 폭으로 그릴 수 없어 Figma 에서 의도적으로 비웠다. 흰색 1% 는 알파 램프에 01 단계가 없어 static-white-alpha/04 로 올렸다. 흐림 반경은 리터럴 20 에서 blur/surface(10) 로 내려와 이름 없는 값이 사라졌고, 남은 차이는 Figma progressive 램프가 직선이라 CSS 의 꺾인 마스크 곡선을 근사한다는 것이다. 2026-09-01 DS-D-0035 재판정: Figma 는 `partial` 로 남는다 — geometry 는 붙었으나 media-card 실측을 코드가 여전히 만드는지 되재는 브라우저 테스트가 없어 evidence 가 한 방향이다. LOUIS 레시피가 아직 없으므로 그 되재기는 코드가 서야 열린다. |
-| [Menu / Popover](../components/menu-popover.md) | `experimental` | `done` | `partial` | `done` | public export와 실브라우저 acceptance test. Figma는 항목 set 5 variant와 패널 component 둘로 나뉜다 — 항목이 조립 단위이고 패널이 그것을 담는다. composite-popover 표면은 별도 component 로 섰다(2026-08-30, inset 8 · gap 8 · 기준폭 240). 면·간격·알파는 채택 당시 제품 공용 정본이던 --dropdown-* 토큰에서 가져왔다 — 그 일곱 이름은 P#1 이후 제품에 없고 지금은 제품이 LOUIS 정본을 직접 소비한다. 서브메뉴와 체크 상태가 남고, .louis-popover__title(heading-sm 28px)은 소비처가 0이라 값 재확인이 남았다 2026-09-01 DS-D-0035 재판정: Figma `done`. readback 등재 + 계약이 모든 property 를 pin + 기하 evidence 가 두 방향이다(menu-popover · surface-geometry.browser.test.tsx). |
+| [Menu / Popover](../components/menu-popover.md) | `experimental` | `done` | `partial` | `done` | public export와 실브라우저 acceptance test. Figma는 항목 set 5 variant와 패널 component 둘로 나뉜다 — 항목이 조립 단위이고 패널이 그것을 담는다. composite-popover 표면은 별도 component 로 섰다(2026-08-30, inset 8 · gap 8 · 기준폭 240). 면·간격·알파는 채택 당시 제품 공용 정본이던 --dropdown-* 토큰에서 가져왔다 — 그 일곱 이름은 P#1 이후 제품에 없고 지금은 제품이 LOUIS 정본을 직접 소비한다. 서브메뉴와 체크 상태가 남고, .louis-popover__title(heading-sm 28px)은 소비처가 0이라 값 재확인이 남았다 2026-09-06: 패널을 여는 트리거가 MenuTrigger 로 섰고(높이 32 하나 · 셰브론 없음), 항목에 값 목록의 선택 상태(aria-selected)가 열렸다 — 제품 정본은 랜딩 LanguageSelector 다. 2026-09-01 DS-D-0035 재판정: Figma `done`. readback 등재 + 계약이 모든 property 를 pin + 기하 evidence 가 두 방향이다(menu-popover · surface-geometry.browser.test.tsx). |
 | [News Card](../components/news-card.md) | `experimental` | `partial` | `not-ready` | `done` | 날짜 한 줄과 제목으로 소식 한 건을 적는 카드. 제품 구현(NewsCarousel.tsx 안의 NewsCard)이 정본인데 **export 되지 않는 파일 내부 함수**라 소비처가 한 자리뿐이다 — MediaCard·CarouselArrow 가 여러 곳에서 이미 쓰이던 것을 뒤늦게 이름 붙인 것과 출발점이 다르다. LOUIS recipe 는 없다. **색이 두 갈래다** — 보통 카드는 테마를 따르는 landing/panel-strong · gray/000 · landing/text-muted, 피처드는 사진 + 스크림 위라 고정 media-foreground-dark · palette-gray/500 이다. 열 폭 347 = (1400 − gap 4×3) ÷ 4 이고 피처드 698×324 는 두 열 두 행 + 간격이다. 카드 면이 시안 #171b22 가 아닌 것은 gray-900 이 라이트에서 랜딩 바닥과 바이트 동일이 되어 카드 경계가 사라지기 때문이다. **Featured 는 figma-component-authoring.md §2 개정으로 조건 축(false·true) 명부에 올랐다** — 프레임 자신의 고정 크기가 347×160 → 698×324 로 다시 쓰여(시험 2) BOOLEAN 으로 접히지 않는다. 스크림은 제품에서 한 겹 3정지점인데 Figma 는 두 겹이다 — 정지점에 변수를 묶으면 알파가 변수값으로 덮이기 때문이며 합성 곡선은 대조되지 않는다. 보통 카드 날짜의 라이트 대비 3.5:1(SC 1.4.3 결손)과 시안이 다섯 장을 같은 #9aa0ab 로 찍은 것을 두 갈래로 가른 것도 미해결이다. 2026-09-01 DS-D-0035 재판정: Figma 는 `partial` 로 남는다 — geometry 는 붙었으나 news-card 실측을 코드가 여전히 만드는지 되재는 브라우저 테스트가 없어 evidence 가 한 방향이다. LOUIS 레시피가 아직 없으므로 그 되재기는 코드가 서야 열린다. |
 | [Node Chip](../components/node-chip.md) | `experimental` | `partial` | `partial` | `done` | CSS 레시피(.louis-node-chip)는 있고 React 표면은 없다. Figma component set 6 variant(Shape × State). 캔버스 노드 크롬의 알약이며 4개 노드가 소비한다. 다크 disabled 대비 1.00:1 버그를 칩 전용 fg 토큰으로 고친 이력이 있다. 2026-09-01 DS-D-0035 재판정: Figma 는 `partial` 로 남는다 — 계약에 geometry 가 없어 Figma 치수가 코드 실측과 한 번도 만나지 않는다. |
 | [Pane Divider](../components/pane-divider.md) | `experimental` | `partial` | `partial` | `done` | CSS 레시피(.louis-pane-divider)는 있고 React 표면은 없다. 창과 창 사이를 잡아 미는 구분자이며 축(Vertical/Horizontal)만 다르고 계약은 하나다. 보이는 트랙 4px 에 히트영역은 ::after 로 12px 까지 넓히고, 그립은 상태를 길이(60→80px)로 말한다. 비디오 에디터 구분자 셋의 실측에서 수렴했고 제품이 그 셋을 이 레시피로 이관했다(핀 b7667d8a). 키보드 조절과 24px 타깃 최소치는 미해결로 문서에 적혀 있다. 2026-09-01 DS-D-0035 재판정: Figma 는 `partial` 로 남는다 — 계약에 geometry 가 없어 Figma 치수가 코드 실측과 한 번도 만나지 않는다. |
@@ -106,8 +106,8 @@ Klipse 화면을 이루는 재사용 가능한 UI 단위다. 컴포넌트가 코
 | [Switch](../components/switch.md) | `experimental` | `partial` | `partial` | `done` | CSS 레시피(.louis-switch)는 있고 React 표면은 없다. Figma component set 4 variant(Checked × Disabled). 44×24 는 제품 실측을 채택한 값이다. 2026-08-26 Figma 등재. 2026-09-01 DS-D-0035 재판정: Figma 는 `partial` 로 남는다 — 계약에 geometry 가 없어 Figma 치수가 코드 실측과 한 번도 만나지 않는다. |
 | [Table](../components/table.md) | `experimental` | `partial` | `partial` | `done` | CSS 레시피(.louis-table)는 있고 React 표면은 없다. Figma 는 셋으로 나뉜다 — TableHeaderCell(Align 3) · TableCell(Align × State 6) · 그 둘을 조립하는 Table. 머리 칸과 몸 칸은 패딩·타이포·글자색·테두리가 모두 달라 한 set 으로 묶으면 절반이 거짓 조합이 된다. 2026-09-01 DS-D-0035 재판정: Figma 는 `partial` 로 남는다 — 계약에 geometry 가 없어 Figma 치수가 코드 실측과 한 번도 만나지 않는다. |
 | [Tabs](../components/tabs.md) | `experimental` | `partial` | `partial` | `done` | CSS 레시피(.louis-tabs)는 있고 React 표면은 없다. Figma 는 둘로 나뉜다 — 상호작용과 프로토타입을 받는 TabItem(State 4) 과 그것을 조립하는 Tabs. 네 상태가 전부 opacity 로만 갈린다. 2026-09-01 DS-D-0035 재판정: Figma 는 `partial` 로 남는다 — 계약에 geometry 가 없어 Figma 치수가 코드 실측과 한 번도 만나지 않는다. |
-| [Toast](../components/toast.md) | `experimental` | `done` | `partial` | `done` | public export와 실브라우저 acceptance test 14건. Figma component set 2 variant(Tone). 제품에 공용 정본이 없어 값은 DS가 정했다. 실행 취소 액션이 남음 2026-09-01 DS-D-0035 재판정: Figma `done`. readback 등재 + 계약이 모든 property 를 pin + 기하 evidence 가 두 방향이다(toast · surface-geometry.browser.test.tsx). |
-| [Tooltip](../components/tooltip.md) | `experimental` | `done` | `partial` | `done` | public export와 실브라우저 acceptance test 12건. Figma component set 4 variant(Side). 표면이 페이지와 반전된다 — 제품 공용 SSOT에서 채택했다. 그룹 지연 건너뛰기와 arrow가 남음 2026-09-01 DS-D-0035 재판정: Figma `done`. readback 등재 + 계약이 모든 property 를 pin + 기하 evidence 가 두 방향이다(tooltip · surface-geometry.browser.test.tsx). |
+| [Toast](../components/toast.md) | `experimental` | `done` | `partial` | `done` | public export와 실브라우저 acceptance test 14건. Figma component set 2 variant(Tone). 제품에 공용 정본이 없어 값은 DS가 정했다. 실행 취소 액션이 남음 2026-09-06: Layout 축(base · callout)이 열렸다 — callout 은 제목/본문 두 줄과 액션 슬롯이고 제품 정본은 노드 캔버스 온보딩 힌트다. 2026-09-01 DS-D-0035 재판정: Figma `done`. readback 등재 + 계약이 모든 property 를 pin + 기하 evidence 가 두 방향이다(toast · surface-geometry.browser.test.tsx). |
+| [Tooltip](../components/tooltip.md) | `experimental` | `done` | `partial` | `done` | public export와 실브라우저 acceptance test 12건. Figma component set 4 variant(Side). 표면이 페이지와 반전된다 — 제품 공용 SSOT에서 채택했다. 그룹 지연 건너뛰기와 arrow가 남음 2026-09-06: Layout 축(base · coachmark)이 열렸다 — coachmark 는 대상에 붙어 함께 팬·줌되는 두 줄 안내이고 꼬리가 45° 정사각형이다. 2026-09-01 DS-D-0035 재판정: Figma `done`. readback 등재 + 계약이 모든 property 를 pin + 기하 evidence 가 두 방향이다(tooltip · surface-geometry.browser.test.tsx). |
 | [Video Player](../components/video-player.md) | `experimental` | `partial` | `not-ready` | `done` | 제품 구현(VideoPlayer.tsx)이 정본이고 소비처가 8곳이다. LOUIS recipe 는 아직 없다 — Figma 가 코드보다 앞서 있는 자리다. **Web 을 `partial` 에서 `not-ready` 로 내렸다**(2026-08-30 재판정): `packages/css/src/component` 에 `video-player.css` 가 없고 `packages/react/src` 에도 표면이 없다. 제품 파일이 LOUIS 에서 받는 것은 `--louis-hairline-inset` 한 줄뿐이다. recipe 없이 Figma 만 선 자리는 이 저장소에서 전부 `not-ready` 이고(carousel-arrow · faq-row · media-card 등 열둘), video-player 만 `partial` 로 어긋나 있었다 — 문서의 근거 칸도 이미 「LOUIS recipe 는 없다」라고 적고 있었다. **스킨 축을 없앴다** — 두 벌 중 하나만 8곳 중 7곳에서 쓰였고 나머지 한 자리도 같은 조형으로 통합했다(제품·Figma 동시 반영). Figma 는 둘로 나뉜다: 포인터 이벤트를 혼자 소유하는 MediaScrubber(2 variant, ON_HOVER 프로토타입)와 그것을 조립하는 VideoPlayer(4 variant, Chrome × Tone). tone=bright 가 유리 틴트가 아니라 잉크만 뒤집는다는 함정을 문서에 적어 두었다. 2026-09-01 DS-D-0035 재판정: Figma 는 `partial` 로 남는다 — 계약에 geometry 가 없어 Figma 치수가 코드 실측과 한 번도 만나지 않는다. |
 <!-- GENERATED:component-progress END -->
 <!-- prettier-ignore-end -->
@@ -261,6 +261,30 @@ Button은 토글이 아니므로 `pressed`(`aria-pressed`)를 갖지 않는다 �
 | Disabled      | 실행되지 않으며 이유가 필요하면 인접 설명 제공         |
 | Focus-visible | 배경과 테마에 관계없이 2px 이상 명확한 indicator       |
 | Loading       | label 의미 유지, 중복 실행 차단, `aria-busy=true`      |
+
+##### 「복사됨」은 상태가 아니다 (2026-09-06 판정)
+
+복사 버튼이 누른 뒤 잠깐 「복사됨」이 되는 것은 이 표에 없다. **`State` 에 `Success` 를 더하지
+않기로 판정했고, 그 근거는 셋이다.**
+
+1. **어휘가 닫혀 있다.** `State` 축은 `Default · Hover · Active · Focus · Disabled` 이고
+   [figma-component-authoring](../governance/figma-component-authoring.md) §2 가 그 칸을
+   **「상호작용 상태만」**이라고 못박는다. 성공은 상호작용이 아니라 **동작의 결과**다 —
+   포인터도 키보드도 그 상태로 들어가지 못하고, 시간이 지나면 저절로 빠져나온다.
+2. **바뀌는 것이 전부 슬롯의 내용이다.** 「복사됨」이 바꾸는 것은 글리프(`icon/copy` →
+   `icon/copy-check`)와 라벨 문구뿐이고, 둘 다 Button 이 이미 가진 `LeftIconGlyph`
+   (INSTANCE_SWAP) · `Label`(TEXT) 슬롯이다. 같은 문서 §3 이 「있고 없고가 아니라 **무엇이
+   들어가는가**는 INSTANCE_SWAP·TEXT 로 낸다」고 정한 그 자리다. 축을 열면 6 × 3 × 4 = 72
+   변형이 늘어나는데 그중 어느 칸도 슬롯이 못 그리는 것을 그리지 않는다.
+3. **색은 공유 어휘가 아니다.** 제품의 `templates/CopyPromptButton` 은 완료에서 글자와
+   테두리를 primary 로 바꾸지만, 같은 저장소의 다른 복사 버튼
+   (`NodePromptInputCopyButton`)은 **색을 하나도 바꾸지 않고 글리프만 교체한다.** 두 자리가
+   공유하는 것은 체크 글리프 하나뿐이고, 공유하지 않는 것을 정본으로 올리면 한 소비처의
+   별벌이 라이브러리의 규칙이 된다.
+
+그래서 두 소비처의 채택 형태는 이렇다 — `variant="secondary"`(또는 `ghost`)에
+`leftIcon={copied ? <CopyCheckIcon /> : <CopyIcon />}` 과 라벨 교체. 완료를 **보조기술에도**
+전하는 것은 색이 아니라 `aria-live` 인데, 그 속성은 호출부가 자기 문맥에 맞게 붙인다.
 
 ##### 제품 실측 — hover 면과 active scale
 
@@ -894,6 +918,29 @@ Icon Button은 `active`(누르는 중)와 `pressed`(토글 켜짐)를 **둘 다*
 프로필처럼 버튼, 링크, 세그먼트, Listbox가 섞인 패널에 `role="menu"`를 붙이지 않는다. 반대로 순수 명령
 목록을 이름만 dialog로 만들고 방향키 탐색을 생략하지 않는다.
 
+##### Trigger (2026-09-06)
+
+세 variant 모두 트리거를 갖지만 **그 트리거를 그리는 자리가 없었다.** `AnchoredTrigger`와
+`CompositePopoverTrigger`는 aria 4종·토글·anchor 등록만 하는 headless 래퍼라 시각 값을 소유하지
+않는다. 그래서 제품 랜딩 `LanguageSelector`가 트리거를 자기 파일에서 다시 그리고 있었고, 옆에
+서는 `ThemeSelector`가 「같은 크기·같은 두께여야 한다」며 그 상수를 import해 간다(소비처 둘).
+
+`MenuTrigger`(`.louis-menu-trigger`)가 그 자리를 갖는다. 글리프 슬롯 하나와 값 하나를 담고,
+누르면 패널을 연다.
+
+**크기 축이 없다.** 높이가 32 하나이고 그것은 이미 컨트롤 사다리의 `md` 칸이다
+([DS-D-0027](../governance/decisions/DS-D-0027-control-size-ladder.md)). 이름이 실물보다 많으면
+고르는 쪽이 손해를 보므로, 갈릴 때 그 자리에서 나눈다.
+
+**셰브론이 없다.** 앵커 커밋의 제품 트리거가 셰브론을 렌더하지 않는다 — 옛 모듈 CSS의 `.chevron`은
+「이 TSX가 참조하지 않는 미사용 클래스라 옮기지 않았다」고 그 파일의 이관 주석이 적고 있다. 없는
+것을 축으로 세우지 않는다. 셰브론이 있는 트리거는 Select 계열의 몫이다.
+
+**hover를 잉크가 아니라 면으로 표현한다.** 제품은 잉크를 100% → 88%로 **낮춰서** hover를 말하는데
+(랜딩 헤더의 잉크 램프), 이 저장소에는 그 램프 토큰이 없고 면 없는 컨트롤의 hover는 ghost 면 8%로
+이미 서 있다. 그리고 **제품의 `outline: none`은 옮기지 않았다** — focus-visible에서 링을 지우고
+색만 바꾸는 것은 채택할 사양이 아니라 결손이다.
+
 #### Anatomy
 
 1. **Trigger** — 이름, `aria-expanded`, 패널과의 관계를 소유한다.
@@ -953,6 +1000,19 @@ Icon Button은 `active`(누르는 중)와 `pressed`(토글 켜짐)를 **둘 다*
 | Closing   | 시각적 exit만 허용; 즉시 `inert`와 pointer 차단      | trigger `aria-expanded="false"`, `aria-controls` 제거; 선택 액션 재실행 불가; 자식 branch도 함께 닫는다 |
 | Disabled  | panel을 열 수 없음                                   | 네이티브 `disabled` 우선                              |
 | Item busy | 해당 액션 중복 실행 차단, spinner와 `aria-busy` 제공 | 전체 메뉴를 불필요하게 닫지 않음                      |
+| Item selected | 면이 hover 위 한 칸(12%)으로 칠해진다             | `aria-selected="true"`(`role="listbox"`의 값 목록)     |
+| Trigger open | 트리거 면이 hover와 같은 ghost 8%로 남는다         | `aria-expanded="true"`                                |
+
+**`aria-selected`와 `aria-checked`는 다른 것을 말한다.** 아래 §Item leading icon slot 위의 규범이
+「선택은 면 강조가 아니라 글리프가 표현한다」고 적는데, 그 문장이 가리키는 것은 **`aria-checked`**다 —
+`role="menuitemradio"`/`menuitemcheckbox`로 **행동 목록** 안에서 켜고 끄는 축이고, 거기서 면을 쓰면
+hover와 같아 보인다.
+
+`aria-selected`는 `role="listbox"`의 **값 목록**에서 「지금 값」이다. 값 목록에는 켜고 끄는 뜻이
+없고 늘 정확히 하나가 선택돼 있으므로, 글리프 칸을 세우면 모든 행이 빈 칸을 하나씩 들고 선다.
+그래서 이쪽은 면이 말한다. 제품 정본(랜딩 `LanguageSelector`)도 면으로 그리며, 다만 제품은 고정
+팔레트(`palette-gray-200` 면 + `palette-gray-1000` 글자)라 다크에서 뒤집히지 않는다 — 잉크 알파는
+뒤집히므로 두 테마에서 같은 세기로 읽힌다.
 
 `opacity: 0`과 `aria-hidden`만으로 닫힌 panel을 유지하지 않는다. 그 안의 링크와 버튼이 Tab 순서에 남기
 때문이다.
@@ -1278,6 +1338,20 @@ LOUIS만 DS-D-0023을 따르고 있었던 셈이다. 기록을 0.5로 고치고 
 | Elevation      | `elevation-menu` — ambient drop shadow만. 헤어라인은 패널이 뒤에 조합하는 inset | overlay hierarchy |
 | Open motion    | opacity + scale, `motion-overlay-enter`; origin=anchor | reduced-motion 대체        |
 | Reduced motion | transform 제거, 짧은 opacity 또는 즉시 전환            | motion preference          |
+| Item selected  | `color-accent-secondary-hover` — 전경 12% (hover 4% 위 한 칸) | hover가 선택을 덮지 않는다 |
+
+##### Trigger
+
+| 항목        | 값                                                   |
+| ----------- | ---------------------------------------------------- |
+| 높이        | `layout-control-height-md` 32 — 크기 축 없음         |
+| padding     | 0 / `space-control-sm` 8                             |
+| gap         | `space-control-xs` 4 (글리프 ↔ 값)                   |
+| radius      | `radius-control` 12                                  |
+| 글리프      | `icon-size-md` 20                                    |
+| 타이포      | `typography-caption-regular` (12/18)                 |
+| 전경        | `color-fg-primary`                                   |
+| 면          | 없음. hover·open에서 `color-accent-ghost-hover` 8%   |
 | Layer          | `layer-popover`, 숫자 리터럴 금지                      | nested overlay stack       |
 
 표 18행 중 **채택 당시** 제품의 공용 토큰이던 `--dropdown-*`에서 온 것은 **다섯 행**이다 —
@@ -1627,6 +1701,11 @@ import { IconTrashSimple } from "@klipse-design/react/icons";
 2. Surface — portal된 설명 표면. `role="tooltip"`
 3. Arrow — 선택. 방향을 가리킨다
 
+`coachmark` layout에서는 2·3이 이렇게 갈린다.
+
+4. Stack — 제목/본문 덩어리(세로, 간격 2)
+5. Tail — 화살표 대신 서는 꼬리. 10 정사각형을 45° 돌린 것이라 base의 삼각형(12×6)과 **다른 도형**이다
+
 #### Properties
 
 | Prop           | 값                                        | 기본값  | 설명                                          |
@@ -1638,10 +1717,23 @@ import { IconTrashSimple } from "@klipse-design/react/icons";
 | `suppress`     | boolean                                   | `false` | 떠 있는 tooltip을 exit 모션 없이 즉시 걷어낸다 |
 
 | `children`     | ReactElement                              | **필수**| 상호작용 가능한 요소 하나                     |
+| `layout`       | `base`, `coachmark`                       | 유추    | 비우면 `title`의 유무가 정한다. Figma의 `Layout` 축과 1:1로 맞추기 위해 명시도 열어 둔다 |
+| `title`        | ReactNode                                 | 없음    | 있으면 `content`가 본문이 되고 layout이 `coachmark`가 된다. `base`에서는 무시한다 |
 
 #### Hierarchy와 variants
 
-variant가 없다. Tooltip은 강조 축을 갖지 않는다 — 위계를 표현해야 하면 그건 tooltip이 아니다.
+강조 축이 없다. Tooltip은 위계를 표현하지 않는다 — 위계를 표현해야 하면 그건 tooltip이 아니다.
+
+**`layout` 축이 있다(2026-09-06).** `base`는 포인터를 따라다니는 한 줄 설명이고, `coachmark`는
+대상에 붙어 **함께 움직이는** 제목/본문 두 줄 안내다. 크기 사다리가 아니라 표면에 담기는 것이
+달라지는 축이다.
+
+제품 정본은 노드 캔버스의 `CanvasFirstNodeHint`로, React Flow의 `ViewportPortal` 안에서 flow
+좌표로 놓여 **캔버스와 함께 팬·줌된다.** 그것이 두 layout이 갈리는 가장 큰 이유다.
+
+`coachmark`에서 갈리는 것 셋: 폭이 320 고정이고, 제목/본문 두 줄이며, 경계가 헤어라인이 아니라
+**강조색 1px 테두리**다. 「여기를 보라」를 말하는 것이 그 테두리이므로 generic 헤어라인으로 바꾸면
+축이 아무것도 바꾸지 않게 된다.
 
 #### States
 
@@ -1708,6 +1800,42 @@ variant가 없다. Tooltip은 강조 축을 갖지 않는다 — 위계를 표�
 
 | 닫힘 모션   | 120ms, `cubic-bezier(0.19, 1, 0.22, 1)`, scale 1 → 0.97 |
 | 확대 기준점 | anchor — `side`를 따라간다. `top` → `bottom center`, `left` → `right center`, `right` → `left center` |
+
+##### `layout = coachmark`
+
+| 항목            | 값                                                      |
+| --------------- | ------------------------------------------------------- |
+| 폭              | **320 고정**(`box-sizing: border-box`)                  |
+| 높이            | 64 (테두리 1+1 + padding 12+12 + 내용 38)               |
+| padding         | `space-control-md` 12 (네 변)                            |
+| radius          | `radius-card` 12                                        |
+| 테두리          | 1px `accent-primary` 56%                                 |
+| 배경            | `color-bg-inverse-translucent`                           |
+| 제목            | `typography-caption-medium` (12/18)                     |
+| 본문            | `typography-caption-regular` (12/18) · 불투명도 72%      |
+| 제목/본문 간격  | `space-overlay-item-gap` 2                              |
+| 꼬리            | 변 10의 정사각형을 45° 돌린 것. 정렬 축 24 · 표면 밖 6   |
+| 그림자          | `elevation-tooltip` — base와 **같다**                    |
+
+**제품과 갈리는 값 넷과 그 사유.**
+
+| 제품 | LOUIS | 왜 |
+| --- | --- | --- |
+| 가로 padding 14 | 12 | 14는 space 축(4·8·12·16)에 없다. 새 계단을 세울 사유가 없다 |
+| 제목/본문 간격 3 | 2 | 같은 자리를 [Toast](../components/toast.md)의 `callout`이 2로 쓴다. 한 시스템 안에서 같은 자리는 한 값이다 |
+| `0 8px 24px` 검정 16% | `elevation-tooltip` | 그 값을 가진 토큰이 없고, layout 축은 자기 그림자를 가질 수 없다(아래) |
+| `backdrop-filter: blur(panel)` | 없음 | 같은 이유 |
+
+**layout 축이 자기 effect를 가질 수 없는 이유.** Figma component set의 effect는 변형이 아니라
+역할(`self`) 하나가 갖는 값이고, parity 계약이 그것을 문자열 하나로 잡는다. layout이 자기
+그림자·흐림을 가지려면 컴포넌트를 둘로 쪼개야 하는데, 둘은 같은 앵커 표면이라 이름을 둘로 늘릴
+자리가 아니다([DS-D-0027](../governance/decisions/DS-D-0027-control-size-ladder.md)의 「이름이
+실물보다 많으면 고르는 쪽이 손해를 본다」).
+
+**꼬리 방향은 `side`를 따라간다.** positioner가 발행하는 `data-side`는 collision으로 뒤집힌 뒤의
+실제 방향이라, 표면이 뒤집히면 꼬리도 함께 옮겨간다. 네 방향 모두 테두리를 갖는 두 변이 다르다 —
+`border-style: solid`를 네 변에 주고 두 변만 폭을 주면 나머지가 initial `medium`(3px)로 그려지므로,
+변마다 폭과 색을 함께 준다.
 
 **「닫힘: 즉시」는 지연이 없다는 뜻이지 전환이 0이라는 뜻이 아니다.** 제품은 exit를 별도 duration·easing으로 돌린다 — enter는 `cubic-bezier(0.23, 1, 0.32, 1)` 140ms로 감속하고, exit는 `cubic-bezier(0.19, 1, 0.22, 1)` 120ms로 가속한다. **비대칭이다.** 열림 곡선을 닫힘에 그대로 재사용하면 tooltip이 끝에서 늘어져 잔상처럼 남는다. 전환 property는 `opacity`와 `transform` 둘뿐이고 열림·닫힘이 같은 두 축을 다툰다. 제품은 이 5종을 `globals.css:336-340`에 tooltip 모션 SSOT로 선언한다 — rest scale·enter duration·exit duration·enter ease·exit ease. **다만 값의 출처는 이제 제품이 아니라 LOUIS다** — 다섯 줄 모두 `var(--louis-motion-tooltip-*)` / `var(--louis-motion-scale-tooltip-rest)` 별칭이고, 숫자는 [tokens.css:526](../../packages/tokens/generated/tokens.css)·`549-553`이 소유한다.
 
@@ -1833,6 +1961,11 @@ function Editor() {
 2. Toast — 메시지 하나
 3. Message — 한 줄 텍스트
 
+`callout` layout에서는 2·3 사이에 두 조각이 더 선다.
+
+4. Content — 제목/본문 덩어리(세로, 간격 2)
+5. Action — 후행 액션 하나. **Button이 아니다**(아래 Specification의 사유)
+
 #### Properties
 
 `useToast().toast(input)`의 입력.
@@ -1842,6 +1975,9 @@ function Editor() {
 | `message`  | string                 | **필수**  | 한 줄. 문자열만 받는다                      |
 | `tone`     | `neutral`, `danger`    | `neutral` | `danger`는 assertive로 알린다               |
 | `duration` | number (ms)            | `4000`    | 자동 소멸까지. `0`이면 자동으로 사라지지 않는다 |
+| `title`    | string                 | 없음      | 있으면 `message`가 본문이 되고 layout이 `callout`이 된다 |
+| `action`   | `{ label, onAction, dismissOnAction? }` | 없음 | 후행 액션 하나. 누르면 기본으로 toast를 닫는다 |
+| `layout`   | `base`, `callout`      | 유추      | 비우면 `title`·`action`의 유무가 정한다. Figma의 `Layout` 축과 1:1로 맞추기 위해 명시도 열어 둔다 |
 
 `message`가 `ReactNode`가 아니라 **string인 이유**: live region은 텍스트를 읽는다. 요소를 넣으면
 보조 기술이 읽는 내용과 화면에 보이는 것이 갈린다. 링크나 버튼이 필요하면 toast가 아니다.
@@ -1850,6 +1986,19 @@ function Editor() {
 
 `tone` 둘뿐이다. `neutral`은 결과 보고이고 `danger`는 실패 보고다. 성공을 따로 두지 않는다 —
 toast가 떴다는 사실 자체가 이미 "그 일이 일어났다"이므로 색으로 한 번 더 말할 필요가 없다.
+
+**`layout` 축이 하나 더 있다(2026-09-06).** `base`는 한 줄 메시지, `callout`은 제목/본문 두 줄과
+액션 슬롯이다. 크기 사다리가 아니라 **표면에 담기는 것**이 달라지는 축이다 — 그래서 이름이
+`size`가 아니라 `layout`이다.
+
+제품 정본은 노드 캔버스의 온보딩 힌트 두 벌이다. `CanvasConnectHint`와 `CanvasNextStepHint`가
+한 `CALLOUT` 상수를 공유하고 문구만 다르며, 표면 원장이 뒤엣것을 그 사실로 `scoped` 처리해 두었다.
+
+**표면·그림자·흐림은 두 layout이 같다.** 세 값 모두 제품과 갈리는데(제품은 고정
+`palette-gray-900` 64% · `blur(4px)` · `elevation-menu`), 제품 자신의 주석이 그 표면을
+「토스트처럼 반전 테마 — 라이트에선 어둡게, 다크에선 밝게」라고 적어 놓고 **고정 팔레트**를 쓰고
+있다. 코드와 주석이 갈리는 자리이지 DS가 두 표면을 가질 이유가 아니다. layout이 바꾸는 것은
+기하와 슬롯뿐이다.
 
 #### States
 
@@ -1913,6 +2062,36 @@ toast가 떴다는 사실 자체가 이미 "그 일이 일어났다"이므로 �
 | 최대 폭     | 420px                                                    |
 | 자동 소멸   | 4000ms                                                   |
 
+##### `layout = callout`
+
+| 항목            | 값                                                      |
+| --------------- | ------------------------------------------------------- |
+| 높이            | 65 (padding 12+12 + 내용 41)                            |
+| padding         | `space-control-md` 12 / **좌 `space-control-lg` 16 · 우 `space-control-md` 12** |
+| gap             | `space-control-lg` 16 (본문 덩어리 ↔ 액션)              |
+| 제목            | `typography-body-sm-medium` (14/21)                     |
+| 본문            | `typography-caption-regular` (12/18) · 불투명도 72%      |
+| 제목/본문 간격  | `space-overlay-item-gap` 2                              |
+| 액션 높이       | 26 (선언하지 않는다 — caption 18 + `space-control-xs` 4+4) |
+| 액션 padding    | 4 / `space-control-md` 12                               |
+| 액션 radius     | `radius-control-sm` 8                                    |
+| 액션 면         | 전경색 12% · hover 24%                                   |
+| 최대 폭         | 720px                                                    |
+
+**좌우 padding이 갈리는 이유.** 액션이 자기 padding을 갖고 있어 오른쪽을 4 줄여야 시각 여백이
+좌우로 같아 보인다. 광학 보정이며 실수가 아니다.
+
+**액션이 `Button`이 아닌 이유.** 제품은 높이 28을 리터럴로 박아 두었는데 28은 컨트롤 사다리
+(40·32·24, [DS-D-0027](../governance/decisions/DS-D-0027-control-size-ladder.md) ·
+[DS-D-0032](../governance/decisions/DS-D-0032-control-size-ladder-sm.md))에 없고, 이 저장소의 28
+셋(`layout-tab-height` · `layout-settings-segment-height` · `layout-inspector-control-height`)은
+전부 다른 것을 이름 짓는다. 네 번째 28 토큰을 세우면 Figma 변수까지 함께 열어야 하는데 그럴
+사유가 없어 **높이를 선언하지 않고 내용에서 나오게 뒀다** — 26이 그 결과다. 제품이 물 때 2px
+줄어드는 것이 이 선택의 값이다.
+
+**`base`는 `display: flex`가 아니었다.** 한 줄 텍스트 하나뿐이라 아무도 눈치채지 못했고, 이 축을
+열자마자 본문과 액션이 세로로 쌓였다(실측 높이 91, 계약 65). 배치는 `callout` 규칙이 소유한다.
+
 `color-bg-inverse`와 `color-fg-on-inverse`는 이 컴포넌트가 첫 소비자다. 기존
 `color-fg-inverse`는 두 모드 모두 `neutral-0`이라 **다크에서 밝아지는 반전 표면 위에서는
 쓸 수 없다** — 그 토큰은 `action-primary` 위 텍스트를 위한 것이다.
@@ -1929,6 +2108,10 @@ Figma에서 이 컴포넌트가 갖는 effect를 종류와 순서까지 고정�
 
 글래스 베벨 inset 2겹은 owner 결정으로 제거했다 — 이 디자인 시스템에 글래스 섀도우 개념을 두지
 않는다.
+
+**`layout` 축은 effect를 바꾸지 않는다.** Figma component set의 effect는 변형이 아니라 역할
+(`self`) 하나가 갖는 값이고, parity 계약이 그것을 문자열 하나로 잡는다. layout이 자기 그림자나
+흐림을 가지려면 컴포넌트를 둘로 쪼개야 하는데 둘은 같은 표면이다.
 
 #### Implementation
 
@@ -2439,7 +2622,7 @@ hover·focus·disabled 상태가 없다. **진행률은 누를 수 없는 것이
 | Surface       | 상태           | 근거                                                        |
 | ------------- | -------------- | ------------------------------------------------------------ |
 | Web           | `partial`      | public export와 실브라우저 acceptance test 8건; visual regression과 제품 소비 증거 없음 |
-| Figma         | `done`      | component set(Size·State·LabelBehavior, 20 variant). 계약이 모든 property 를 pin 하고 Box·Label·Value·Message 를 자손으로 대조한다. 기하는 양방향이다 — `text-field.browser.test.tsx` 가 코드 쪽에서 같은 실측을 되잰다. 게시 없이 판정한다([DS-D-0035](../governance/decisions/DS-D-0035-figma-done-without-publish.md)) |
+| Figma         | `done`      | component set(Size·State·LabelBehavior·Join, 29 variant). 계약이 모든 property 를 pin 하고 Box·Label·Value·Message 를 자손으로 대조한다. 기하는 양방향이다 — `text-field.browser.test.tsx` 가 코드 쪽에서 같은 실측을 되잰다. 게시 없이 판정한다([DS-D-0035](../governance/decisions/DS-D-0035-figma-done-without-publish.md)) |
 | Documentation | `done`         | 이 문서                                                      |
 | Maturity      | `experimental` | 규범과 구현이 같은 변경 단위에서 처음 선다                   |
 
@@ -2493,6 +2676,7 @@ hover·focus·disabled 상태가 없다. **진행률은 누를 수 없는 것이
 | `label` | ReactNode | 없음 | 시각 라벨. 없으면 `aria-label`이 필수다 |
 | `size` | `lg` \| `md` \| `sm` | `lg` | 시각 크기. `lg`·`md`는 글자 크기가 같고 `sm`만 내려간다 |
 | `labelBehavior` | `stacked` \| `floating` | `stacked` | 라벨이 어디 사는가. `floating`은 `lg`에서만 그려진다 ([DS-D-0049](../governance/decisions/DS-D-0049-label-placement-is-an-axis.md)) |
+| `join` | `none` \| `start` \| `middle` \| `end` | `none` | 위/아래 이웃과 이어 붙는 자리 ([DS-D-0052](../governance/decisions/DS-D-0052-joined-fields-are-an-axis.md)) |
 | `description` | ReactNode | 없음 | 필드 아래 한 줄. `invalid`면 오류 문구가 된다 |
 | `invalid` | boolean | `false` | 오류 상태 |
 | `prefix` / `suffix` | ReactNode | 없음 | 박스 안의 슬롯 |
@@ -2505,7 +2689,9 @@ hover·focus·disabled 상태가 없다. **진행률은 누를 수 없는 것이
 **강조 축이 없다.** 필드는 강조 단계를 갖지 않는다 — 한 폼 안에서 어떤 필드가 다른 필드보다
 "주요"하다는 표현은 시각이 아니라 순서와 라벨이 맡는다.
 
-**크기 말고 있는 축은 `LabelBehavior` 하나다**([DS-D-0049](../governance/decisions/DS-D-0049-label-placement-is-an-axis.md)).
+**크기 말고 있는 축은 둘이다 — `LabelBehavior` 와 `Join`.**
+
+첫째는 `LabelBehavior`([DS-D-0049](../governance/decisions/DS-D-0049-label-placement-is-an-axis.md)).
 `stacked`(기본)에서 라벨은 박스 위의 형제이고 움직이지 않는다 — 제품의 `/admin` 여덟 화면이 이
 형태다. `floating`에서 라벨은 박스 안에서 placeholder 노릇을 하다가 값이 들어오거나 포커스가
 오면 떠오른다 — 제품의 인증 일곱 벌이 이 형태다.
@@ -2513,6 +2699,18 @@ hover·focus·disabled 상태가 없다. **진행률은 누를 수 없는 것이
 **「떠 있는가 앉아 있는가」는 축이 아니라 상태다.** 그것을 정하는 것은 값의 유무와 포커스이고
 CSS가 판정한다(`:not(:placeholder-shown)` · `:focus`). Figma에서는 `State`가 그 자리를 갖는다 —
 `Placeholder`가 쉼이고 나머지 넷이 떠오른 상태다.
+
+둘째는 `Join` 이다([DS-D-0052](../governance/decisions/DS-D-0052-joined-fields-are-an-axis.md)).
+`none`(기본)에서 필드는 홀로 서고, `start`·`middle`·`end`에서는 위/아래 이웃과 **한 덩어리로**
+읽힌다 — 제품의 인증 다섯 화면이 상자 둘을 그렇게 이어 붙인다. 이 축이 바꾸는 것은 **맞닿는
+변 하나**다: 그쪽 곡률이 펴지고, 이음매가 두 겹으로 그려지지 않게 1px 겹치며, 포커스 링이
+이웃에 가려지지 않도록 상자 안으로 들어간다. 높이·여백·면·헤어라인·타이포는 하나도 다시 쓰지
+않는다.
+
+**`Join` 은 `lg/floating` 에만 계약이 있다.** CSS 는 세 칸 어디에도 쓸 수 있지만 계약과 Figma 는
+`lg/floating` 만 갖는다 — 제품이 이어 붙이는 자리가 인증 화면뿐이고, 그것이 `lg` 의 floating
+필드이기 때문이다. `md`·`sm` 이나 `stacked` 의 결합은 잰 자리가 없다. 특히 `stacked` 에서는
+칸마다 박스 위에 라벨이 서므로 「이어 붙는다」는 말 자체가 성립하지 않는다.
 
 **`floating`은 `lg`에만 있다.** [DS-D-0027](../governance/decisions/DS-D-0027-control-size-ladder.md)이
 `lg`의 쓰임을 「화면의 주인공이 되는 제출 CTA — 로그인·회원가입」으로 못 박았고 플로팅 라벨이
@@ -2528,6 +2726,11 @@ CSS가 판정한다(`:not(:placeholder-shown)` · `:focus`). Figma에서는 `Sta
 | Focus | 박스가 `:focus-within`으로 공유 링을 받는다 |
 | Invalid | generic 헤어라인 유지 — 색 축 대신 **오류 문구 + `aria-invalid` + `role="alert"`**가 전달한다 |
 | Disabled | generic 헤어라인 유지, 전경 `color-fg-disabled`이 상태를 전달한다 |
+
+**결합한 필드의 Focus 는 링의 «자리»가 다르다.** 링은 밖이 아니라 상자 **안**에 선다 —
+맞닿는 변의 바깥은 이웃의 자리이고, 이웃이 DOM 에서 뒤에 와 나중에 칠해지므로 바깥 링은
+그쪽에서 통째로 덮인다. 두께·색·모양은 그대로다. 사유와 실측은 아래 「결합의 값은 어디서
+왔나」에 있다.
 
 **hover에서 아무것도 바꾸지 않는다.** 필드의 어포던스는 보이는 테두리와 텍스트 커서가 맡는다.
 제품의 필드들도 대부분 hover 상태를 갖지 않는다.
@@ -2628,6 +2831,60 @@ caption의 행간 토큰(1.5 → 18px)을 그대로 쓰고 시작점을 8로 당
 `color-fg-primary`인데 여기서는 `color-fg-secondary`다 — 쉴 때 그 자리가 placeholder의 자리이기
 때문이다. placeholder 자신은 투명이다(라벨이 그 일을 한다).
 
+##### 결합의 값은 어디서 왔나
+
+**여기서도 제품이 정본이다.** 인증 다섯 화면이 상자 둘을 위/아래로 이어 붙인다 —
+`/login` · `/signup` · `/recover` · `/reset-password/new` · `/aws/signup`. 셋은 상수 문자열까지
+같다(`rounded-t-12 mb-[-1px]` / `rounded-b-12`). 나머지 둘은 같은 값을 임의 프로퍼티로 적었다
+(`[border-radius:12px_12px_0_0]`). 여섯 번째 인증 화면 `/reset-password` 는 필드가 하나뿐이라
+결합하지 않는다 — 표면 원장의 다섯 중 하나가 이 축을 **쓰지 않는다**는 사실을 여기 적어 둔다.
+
+| 축 | `start` | `middle` | `end` | 어디서 |
+| --- | ---: | ---: | ---: | --- |
+| 위 반경 | 12 | 0 | 0 | `radius-control` — 제품의 `rounded-t-12` |
+| 아래 반경 | 0 | 0 | 12 | `radius-control` — 제품의 `rounded-b-12` |
+| 겹침 | −1 | −1 | 0 | 아래 「겹침은 0.5가 아니라 1이다」 |
+| 포커스 링 offset | −3 | −3 | −3 | 겹침 1 + `border-width-ring` 2 |
+
+**`middle` 은 제품에 없다 — 그러나 지어낸 값도 없다.** 인증 다섯은 전부 상자 둘이라 가운데 칸이
+생기지 않는다. 이 칸의 네 값은 첫 칸과 끝 칸에서 **자유도 없이** 따라 나온다: 맞닿는 변의
+곡률은 0 이고(둘 다 그렇다), 겹침은 아래 칸이 있으므로 첫 칸과 같으며, 링의 자리는 무리 안에서
+칸마다 달라지면 안 된다. `md`·`sm` 의 floating 을 열지 않은 판정([DS-D-0049](../governance/decisions/DS-D-0049-label-placement-is-an-axis.md))과
+다른 이유가 그것이다 — 거기서는 여백·타이포에 **정할 것이 남아 있었고** 여기서는 남지 않는다.
+
+###### 겹침은 0.5가 아니라 1이다
+
+토큰 `border-width-hairline` 은 0.5px 인데 겹침은 1px 이다. 두 값이 다른 이유는 **그려지는
+두께가 1px 이기 때문**이다 — 브라우저가 inset 그림자의 사용값을 1px 로 올리고, 그 사실은
+`--louis-hairline-inset` 의 머리말이 이미 적고 있다. 겹침은 선언된 두께가 아니라 그려지는
+두께와 같아야 위 상자의 아래 헤어라인이 아래 상자의 면에 온전히 덮인다.
+
+Chromium 실측(DPR 1·2·3, 라이트, 이 컴포넌트의 면·헤어라인 그대로):
+
+| 겹침 | 이음매 | 판정 |
+| ---: | --- | --- |
+| 0 | 홀로 선 모서리의 **두 배** | 두 헤어라인이 나란히 선다 |
+| 0.5px | 0 과 **픽셀이 같다** | 토큰 값을 그대로 쓰면 아무 일도 일어나지 않는다 |
+| 1px | 홀로 선 모서리와 **같다** | 채택 |
+
+제품이 `mb-[-1px]` 로 같은 숫자를 쓰는 것은 우연이 아니다 — 제품의 경계는 1px `border` 라
+두께가 처음부터 1 이었다.
+
+###### 포커스 링이 안으로 들어간 이유
+
+이웃은 DOM 에서 뒤에 오므로 나중에 칠해진다. 밖으로 서는 링(`outline-offset: 2`)은 맞닿는
+변에서 이웃의 면에 덮인다 — 실측으로 **위 상자의 아래쪽 링이 0px 남는다.** 반대로 아래 상자의
+위쪽 링은 온전히 남는다. 같은 축의 두 칸이 서로 다르게 보이는 상태다.
+
+제품은 포커스에서 `z-index` 를 1 → 2 로 올려 이것을 피한다. **이 저장소는 그 길을 쓸 수 없다** —
+숫자 `z-index` 는 저작 게이트가 금지하고(`build-css.mjs`), [Elevation & Layer](../foundations/elevation-layer.md)
+의 사다리에는 로컬 stacking 칸이 없다. 이름 없는 숫자를 하나 들이는 대신 링을 **안으로** 넣으면
+다툼 자체가 사라진다.
+
+값은 겹침(1) + 링 두께(`border-width-ring` 2) = 3 이다. 실측으로 −3 에서 위·아래 상자 모두 2px 이
+전부 남고, −2 에서는 1px 만 남는다. Figma 는 이것을 Box 를 각 변 1px 씩 줄인 사각형 +
+`INSIDE` 2px stroke 으로 그린다.
+
 ##### `sm`의 값은 어디서 왔나
 
 세 칸 중 `sm`만 **높이 말고도 갈리는 축이 둘 있다.** 어느 값이 실측이고 어느 값이 비례인지
@@ -2706,9 +2963,25 @@ caption의 행간 토큰(1.5 → 18px)을 그대로 쓰고 시작점을 8로 당
   (높이·내부 배치 · 1px 12% 테두리 · 4% 알파 면 · inset 링 · 값 타이포 16) **이 축이 담는 것은
   첫째 하나뿐이다.** 나머지 넷은 인증 계열이 정본과 갈리는 기존의 스킨 차이이고, 이 컴포넌트의
   값이 제품을 옮긴 것이 아니라 DS가 정한다는 위 머리말 그대로다.
-- **결합 입력이 없다.** 인증 일곱 벌 중 넷은 상자 둘을 위/아래로 이어 붙인다 — 곡률이 갈리고
-  `margin-bottom: -1px`로 테두리를 겹치며 포커스가 `z-index`를 1 → 2로 올려 이웃의 테두리 위로
-  올라온다. 이 축은 그것을 담지 않으므로 표면 원장의 다섯은 그대로 `needed`다.
+- ~~**결합 입력이 없다.**~~ **해소됐다** — `Join` 축이 2026-09-06에 섰다
+  ([DS-D-0052](../governance/decisions/DS-D-0052-joined-fields-are-an-axis.md)). 곡률과 겹침은
+  제품 다섯 벌 그대로다. **`z-index` 만 따르지 않는다** — 제품은 포커스에서 1 → 2로 올려 이웃의
+  테두리 위로 올라오는데, 이 저장소는 숫자 `z-index`를 금지하고 사다리에 로컬 stacking 칸이
+  없다. 대신 링을 상자 안으로 넣어 같은 결과를 얻는다(위 「포커스 링이 안으로 들어간 이유」).
+  **남는 편차는 링의 자리 하나다** — 두께·색·모양은 같고, 결합하지 않은 필드의 링은 그대로
+  밖에 선다.
+- **결합은 계약을 `lg/floating` 에만 갖는다.** CSS 는 `data-join` 을 세 크기 어디에도 걸 수 있고
+  막지 않는다. 막지 않는 이유는 `floating` 과 같다 — 잰 자리가 없어서 값을 정하지 않았을 뿐이고,
+  타입으로 조합을 제한하면 이 타입을 확장하는 바깥 코드가 깨진다. 계약이 되는 조합은 이 문서와
+  `figma/components.measured.json` 의 세 칸이다.
+- **결합한 필드에 `description` 을 두면 결합이 끊긴다.** 메시지는 박스 아래 stack 에 서므로 두
+  상자 사이에 문구가 끼어든다. 타입이 막지 않으며(둘 다 선택 prop 이다) 무리 전체의 문구는
+  무리 아래 한 자리에 두는 것이 이 축의 전제다. Figma 변형이 Message 를 들고 있는 것은 그 칸이
+  `lg/floating` 의 자손 구성을 그대로 물려받기 때문이지 권장이 아니다.
+- **Figma 는 겹침과 링의 자리를 대조하지 못한다.** 오토레이아웃에 음수 마진이 없고 CSS 의
+  `outline` 에 해당하는 것도 없다. 그래서 되읽기가 무는 것은 곡률 둘뿐이고, 겹침과
+  `outline-offset` 은 `text-field.browser.test.tsx` 가 계약값과 대조한다 — 두 값의 유일한
+  게이트다.
 - **`floating`에서 `label`은 사실상 필수인데 타입이 강제하지 않는다.** 라벨이 placeholder의
   자리를 대신하므로 없으면 필드에 보이는 이름이 하나도 남지 않는다. `TextFieldProps`가
   인터페이스여서 판별 유니온으로 바꾸면 이 타입을 확장하는 바깥 코드가 깨진다 — 계약은 이
@@ -2743,6 +3016,17 @@ caption의 행간 토큰(1.5 → 18px)을 그대로 쓰고 시작점을 8로 당
 16. `floating`의 라벨도 `htmlFor`로 입력에 이어져 있다 — DOM에서 input **뒤**로 옮겨 갔다.
 17. `sm`의 반경이 높이의 절반보다 작다 — 필드가 알약이 되지 않는다. 토큰 이름만 읽으면 둘 다
     「control 반경」이라 계산값을 봐야 보인다.
+18. `start`·`middle`·`end`의 **위/아래 반경을 따로** 잰다. 한쪽만 재면 이어 붙는 변이 반대쪽인
+    회귀를 통과시킨다. 좌우가 대칭인 것도 함께 확인한다 — 계약이 왼쪽 두 모서리만 보는 근거다.
+19. 겹침이 계약값과 같고, **필드 뿌리**가 그것을 갖는다. 박스에 걸면 stack의 간격과 메시지가
+    사이에 남는다.
+20. 결합한 필드의 포커스 링이 상자 **안**에 서고(`outline-offset` = 계약값), 두께와 색은 결합하지
+    않은 필드와 같다. 링 값은 그 상자가 포커스를 쥐고 있는 동안에만 읽는다 — 잃은 상자의
+    `outline-width`는 초기값 `medium`(3px)으로 돌아온다.
+21. 결합이 `lg/floating`의 나머지 값을 **하나도 다시 쓰지 않는다.** 높이·여백·슬롯 간격·헤어라인·
+    면을 나란히 세워 대조한다 — 이 축이 축인 근거가 그것이다.
+22. 결합하지 않은 필드에 `data-join`이 **붙지 않고** 겹치지도 않는다. 기본값이 `none`이라는
+    사실 자체가 계약이다 — 속성이 붙어 버리면 폼 전체가 조용히 1px씩 위로 붙는다.
 
 ## Empty State
 
@@ -2767,12 +3051,18 @@ caption의 행간 토큰(1.5 → 18px)을 그대로 쓰고 시작점을 8로 당
 마지막 줄이 유일한 합의이고, 그것을 그대로 옮겼다. 나머지는 두 홈이 동의한 값을 정본으로 골랐다 —
 근거가 가장 두껍다.
 
+**그 합의는 집계 «안»에서만 참이다.** 집계 밖에 정의가 둘 더 있고 둘 다 위 표로는 그릴 수 없다 —
+대시보드의 `AnalyticsStatePanel` 은 면·1px 테두리·12 반경을 갖고 **왼쪽에서 시작하며**, 빈 캔버스의
+`CanvasEmptyState` 는 그래픽 없이 28px 제목 한 줄과 버튼 둘만 그린다. 「아홉 벌이 합의하는 것은
+하나뿐」이라는 문장은 그래서 **layout 축의 근거**다: 합의 밖의 자리가 실재한다는 사실을 이미 적고
+있었다. 그 둘을 `compact` 과 `canvas` 로 세웠다 — 아래 [Layout](#layout) 을 본다.
+
 #### Availability
 
 | Surface       | 상태           | 근거                                                          |
 | ------------- | -------------- | -------------------------------------------------------------- |
 | Web           | `partial`      | public export와 실브라우저 acceptance test 7건; visual regression과 제품 소비 증거 없음 |
-| Figma         | `done`      | component 하나. 계약이 모든 property 를 pin 하고 Graphic·Title·Description·Action 을 자손으로 대조한다. 기하는 양방향이다 — `empty-state.browser.test.tsx` 가 코드 쪽에서 같은 실측을 되잰다. 게시 없이 판정한다([DS-D-0035](../governance/decisions/DS-D-0035-figma-done-without-publish.md)) |
+| Figma         | `done`      | `Layout` 축 3변형의 component set. 계약이 모든 property 를 pin 하고 세 칸(`base`·`compact`·`canvas`)을 전부 대조하며 Graphic·Title·Description·Action 을 자손으로 본다. 기하는 양방향이다 — `empty-state.browser.test.tsx` 가 코드 쪽에서 같은 실측을 되잰다. 게시 없이 판정한다([DS-D-0035](../governance/decisions/DS-D-0035-figma-done-without-publish.md)) |
 | Documentation | `done`         | 이 문서                                                        |
 | Maturity      | `experimental` | 규범과 구현이 같은 변경 단위에서 처음 선다                     |
 
@@ -2798,15 +3088,45 @@ caption의 행간 토큰(1.5 → 18px)을 그대로 쓰고 시작점을 8로 당
   description="첫 번째 영상을 만들어보세요."
   action={<Button variant="primary" size="sm" leftIcon={<IconPlus />}>만들기</Button>}
 />
+
+{/* 섹션 카드 안 — 면을 갖는 2슬롯 패널 */}
+<EmptyState
+  layout="compact"
+  headingLevel={3}
+  title="아직 데이터가 없습니다"
+  description="영상을 올리면 이 자리에 지표가 쌓입니다."
+/>
+
+{/* 작업 표면 위 — 그림 없이 큰 제목과 할 수 있는 일 둘 */}
+<EmptyState
+  layout="canvas"
+  title="첫 노드를 만들어 시작하세요"
+  action={
+    <>
+      <Button variant="secondary">이미지 생성</Button>
+      <Button variant="secondary">비디오 생성</Button>
+    </>
+  }
+/>
 ```
 
 #### Anatomy
 
-1. **Container** — 세로 가운데 정렬 stack. **면을 갖지 않는다.**
+1. **Container** — 세로 stack. `base`·`canvas` 는 가운데 정렬이고 `compact` 만 왼쪽에서 시작한다.
+   면을 갖는 것도 `compact` 하나뿐이다.
 2. **Graphic** — 64px 슬롯. 선택이다.
 3. **Title** — heading. 무엇이 없는지 말한다.
 4. **Description** — 선택. 다음에 무엇을 하면 되는지 말한다.
 5. **Action** — 선택. 보통 Button 하나다.
+
+자리마다 쓰는 슬롯이 다르다. **컴포넌트가 슬롯을 막지는 않는다** — 막으면 같은 prop 이 layout 마다
+다르게 동작한다 — 대신 계약이 그 자리의 값을 갖지 않으며, Figma 의 그 변형에는 자손 자체가 없다.
+
+| layout | Graphic | Title | Description | Action |
+| --- | :---: | :---: | :---: | :---: |
+| `base` | 선택 | 필수 | 선택 | 선택 |
+| `compact` | — | 필수 | 필수 | — |
+| `canvas` | — | 필수 | — | 필수(둘) |
 
 #### Properties
 
@@ -2817,14 +3137,38 @@ caption의 행간 토큰(1.5 → 18px)을 그대로 쓰고 시작점을 8로 당
 | `graphic` | ReactNode | 없음 | 64px 그래픽 |
 | `action` | ReactNode | 없음 | 행동 유도 |
 | `headingLevel` | `2`–`6` | `2` | 제목의 heading 단계 |
+| `layout` | `base` · `compact` · `canvas` | `base` | 놓이는 자리의 모양 |
 
 `headingLevel`을 컴포넌트가 고정하지 않는 이유는 빈 상태가 놓이는 자리에 따라 문서 구조가 달라지기
 때문이다. 섹션 안이면 `3`, 페이지 본문이면 `2`다.
 
 #### Hierarchy와 variants
 
-variant 축이 없다. 빈 상태의 강조는 시각이 아니라 **행동 유도의 유무**가 만든다 — 사용자가 지금
+**강조 축은 없다.** 빈 상태의 강조는 시각이 아니라 **행동 유도의 유무**가 만든다 — 사용자가 지금
 할 수 있는 것이 있으면 버튼을 주고, 없으면 사실만 말한다.
+
+#### Layout
+
+있는 축은 하나이고 그것은 강조가 아니라 **자리**다. 세 값은 "같은 것을 더/덜 강하게"가 아니라
+서로 다른 곳에 산다.
+
+| `layout` | 자리 | 제품 정본 |
+| --- | --- | --- |
+| `base` | 페이지 본문 | 앱 홈 두 벌(집계 9벌의 합의값) |
+| `compact` | 섹션 카드 **안** | `AnalyticsStatePanel` — `components/scenes/analytics/shared.tsx:123-128` · `561-566` |
+| `canvas` | 작업 표면 **위** | `CanvasEmptyState` — `components/scenes/create/node-canvas-v2/components/CanvasEmptyState.tsx:24-38` |
+
+`compact` 은 이 컴포넌트의 **단일 최다 소비처**다 — 앵커 `5a67d692` 전수로 JSX 호출 15곳 / 6파일 /
+2라우트(`/analytics/instagram` · `/analytics/youtube`)다.
+
+**`compact` 만 면을 갖는다.** 그것이 「9벌 전부 없음」 합의의 유일한 반례이며, 반례가 실재한다는
+사실이 축을 여는 근거다. 면과 테두리는 제품 실측과 **값이 같은** semantic 을 골랐다 — 제품 다크의
+`--dashboard-chip-bg-strong`(gray-700)이 `color-bg-raised` 와, `--dashboard-input-border`(gray-600)가
+`color-stroke-default` 와 같은 색이다. 카드보다 한 단계 **밝은** 면이므로 `bg-inset` 이 아니라
+`bg-raised` 다 — 제품 주석도 그 자리를 "카드보다 한 단계 밝은 표면"이라 부른다.
+
+**`canvas` 는 그림을 그리지 않는다.** 캔버스가 비었다는 사실보다 그림이 먼저 읽히기 때문이고,
+제품도 그렇게 그린다. 대신 액션이 둘이다 — 액션 «개수»는 소비처가 정하므로 축이 아니다.
 
 #### States
 
@@ -2862,21 +3206,30 @@ variant 축이 없다. 빈 상태의 강조는 시각이 아니라 **행동 유�
 
 #### Specification
 
-| 축 | 값 | 토큰 |
-| --- | ---: | --- |
-| 세로 여백 | 80px | — |
-| 좌우 여백 | 16px | `space-layout-gutter` |
-| 블록 간격 | 12px | `space-stack-md` |
-| 액션 추가 간격 | 4px | `space-control-xs` |
-| 그래픽 | 64px | `icon-size-xl` |
-| 제목 | 20/600 | `typography-body-lg-semibold` |
-| 설명 | 16/400 | `typography-body-md-regular` |
-| 설명 최대 폭 | 44ch | — |
-| 배경·테두리·반경 | 없음 | — |
+| 축 | `base` | `compact` | `canvas` | 토큰 |
+| --- | ---: | ---: | ---: | --- |
+| 세로 여백 | 80px | 20px | 24px | — (세 값 다 리터럴) |
+| 좌우 여백 | 16px | 20px | 24px | base 만 `space-layout-gutter` |
+| 블록 간격 | 12px | 6px | 20px | base 만 `space-stack-md` |
+| 액션 추가 간격 | 4px | — | 0 | base 는 `space-control-xs` |
+| 액션 사이 간격 | 12px | — | 12px | `space-stack-md` |
+| 그래픽 | 64px | — | — | `icon-size-xl` |
+| 제목 | 20/600 | 16/600 | 28/500 | `typography-body-lg-semibold` · `-body-md-semibold` · `-heading-sm-medium` |
+| 설명 | 16/400 | 14/400 | — | `typography-body-md-regular` · `-body-sm-regular` |
+| 설명 최대 폭 | 44ch | 제한 없음 | — | — |
+| 배경 | 없음 | `color-bg-raised` | 없음 | — |
+| 테두리 | 0 | 1px `color-stroke-default` | 0 | `border-width-default` |
+| 반경 | 0 | 12px | 0 | `radius-card` |
+| 정렬 | center | flex-start | center | — |
 
-세로 여백 80px에 토큰을 만들지 않은 이유는 **소비처가 여기 하나뿐**이기 때문이다.
+여백과 간격에 토큰을 만들지 않은 이유는 **각 값의 소비처가 여기 한 줄뿐**이기 때문이다.
 [spacing-radius.md](../foundations/spacing-radius.md)가 "두 개 이상의 사용처"를 토큰 승격 조건으로
-두고 있어 리터럴을 한 줄에 격리했다.
+두고 있어 리터럴을 한 줄씩 격리했다. `space-media-inset` 이 20 이고 `space-layout-section` 이 24 지만
+그 이름들은 다른 뜻이다 — 값이 같다고 이름을 빌리면 이름이 거짓이 된다
+([DS-D-0029](../governance/decisions/DS-D-0029-token-names-must-be-true.md)).
+
+`compact` 의 설명 폭 제한을 푼 이유는 base 의 44ch 가 "넓은 화면 가운데"라는 전제에서 나온 값이고
+카드 안에서는 그 전제가 성립하지 않기 때문이다 — 제한을 두면 카드보다 좁은 자리에서 두 번 접힌다.
 
 #### Effects
 
@@ -2897,10 +3250,11 @@ variant 축이 없다. 빈 상태의 강조는 시각이 아니라 **행동 유�
   색을 하드코딩했다(`rgb(251 146 150 / 0.95)`). 그 둘을 가르는 것이 이 컴포넌트의 판단이며, 오류
   표현은 별도 컴포넌트가 소유해야 한다.
 
-- **집계 9벌 밖에 열 번째 정의가 있고, 그것만 면을 갖는다.** 대시보드(분석) 섹션은 빈 상태와 fetch
+- **집계 9벌 밖의 열 번째 정의는 이제 축이다.** 대시보드(분석) 섹션은 빈 상태와 fetch
   실패를 `AnalyticsStatePanel` 한 컴포넌트로 그린다(`components/scenes/analytics/shared.tsx:549-570`).
   이 패널은 **배경·1px 테두리·12px 반경을 갖는다** — 위 「9벌 전부 없음」 합의의 유일한 반례다.
-  집계에서 빠져 있으므로, **대시보드 섹션을 이 컴포넌트의 면 없는 규범대로 그리면 틀린다.** 실측.
+  2026-09-06 에 그 실측을 `layout="compact"` 로 세웠으므로 **더 이상 「이 컴포넌트로 그릴 수 없는
+  자리」가 아니다.** 아래 표가 그 축의 출처다.
 
   | 축 | 값 | 근거 |
   | --- | --- | --- |
@@ -2914,7 +3268,9 @@ variant 축이 없다. 빈 상태의 강조는 시각이 아니라 **행동 유�
   | 그래픽 · 액션 | **없다** | `shared.tsx:554-568` |
 
   자식은 제목 span과 본문 span 둘뿐이다. **Anatomy의 Graphic·Action 슬롯을 대시보드에서 찾으면
-  없다** — 여기서는 Title·Description만 사는 2슬롯 패널이다.
+  없다** — 여기서는 Title·Description만 사는 2슬롯 패널이고, `compact` 계약도 그 두 슬롯의 값만
+  갖는다. 본문 줄높이를 제품이 `--type-body-16-line-height` 로 덮지만 두 계열의 비율이 모두 1.5 라
+  **픽셀은 바뀌지 않는다**(14 x 1.5 = 21) — 덮어쓰기가 있다는 사실과 값이 갈린다는 사실은 다르다.
 
 - **대시보드에서는 `error`와 `neutral`의 픽셀이 완전히 같다.** 오류 분기가 더하는 클래스 문자열이
   **빈 문자열**이다(`shared.tsx:132`). 원본 CSS의 오류 배경·테두리색은 특이도 싸움에서 져
@@ -2922,7 +3278,15 @@ variant 축이 없다. 빈 상태의 강조는 시각이 아니라 **행동 유�
   아이콘도, 재시도 버튼도, 액센트 색도 없다. **두 톤을 색으로 구분해 그리면 배포본과 어긋난다** —
   구분은 문구가 혼자 진다. 이 컴포넌트가 「없음」과 「실패」를 가르기로 한 판단은 채택 목표이고,
   대시보드는 그 목표에 아직 도달하지 않은 반례다.
-- **세로 여백이 리터럴이다.** 80px 소비처가 하나뿐이라 토큰으로 승격하지 않았다.
+- **`canvas` 제목의 잉크가 제품과 다르다.** 제품은 `rgb(var(--gray-000-rgb) / 72%)` 로 흰색을 72%
+  로 눌러 쓰고(`CanvasEmptyState.tsx:33-38`) LOUIS 는 `color-fg-primary` 를 그대로 쓴다. 알파 잉크를
+  옮기지 않은 이유는 표면 사다리와 같다 — 알파는 바닥이 무엇이냐에 따라 다른 색이 되고, LOUIS 의
+  잉크 역할은 바닥과 무관하게 정해진다. **대비를 이유로 값을 바꾼 것이 아니다**: 옮기지 않은
+  것은 색이 아니라 «알파로 색을 만드는 방식»이다.
+- **`Graphic`·`Actions` 를 Figma variant 축으로 열지 않았다.** 자리의 유무는 이미
+  `HasGraphic`·`HasDescription`·`HasAction` 불리언이 담고, 액션 «개수»는 소비처가 정하므로 코드
+  쪽에 되잴 근거가 없다. 한 방향만 걸리는 값은 계약에 넣지 않는다.
+- **세로 여백이 리터럴이다.** 세 칸의 여백·간격이 각각 소비처 하나뿐이라 토큰으로 승격하지 않았다.
 - **Figma는 액션의 추가 간격을 padding으로 만든다.** CSS는 액션에 `margin-block-start: 4px`를
   더해 앞 요소와 16px 떨어지는데, Figma auto-layout에는 자식별 간격이 없어 같은 4px을 Action
   프레임의 위쪽 padding으로 표현한다. 결과는 같고 표현이 다르다.
@@ -2937,6 +3301,12 @@ variant 축이 없다. 빈 상태의 강조는 시각이 아니라 **행동 유�
 5. 그래픽이 `aria-hidden="true"`다.
 6. root에 `aria-live`도 `role`도 없다.
 7. 제목이 `foreground-primary`, 설명이 `foreground-secondary`다.
+8. `layout`이 root의 `data-layout`을 정하고 **기본값에서도 속성이 붙는다.**
+9. `layout="compact"`의 여백·간격·반경·테두리 두께·제목/설명 크기·정렬이
+   `components.measured.json`의 `sizes.compact`와 같다.
+10. `layout="canvas"`의 여백·간격·제목 크기·액션 추가 간격·정렬이 `sizes.canvas`와 같고,
+    **배경도 테두리도 반경도 없다**(base와 같은 자리다).
+11. `compact`만 면을 갖는다 — 배경이 `color-bg-raised`, 테두리 색이 `color-stroke-default`다.
 
 ## Banner Carousel
 
@@ -6178,6 +6548,14 @@ CommandPalette 의 키보드 단축키 칩.
 아니다. 어느 쪽 값을 건드리든 다른 쪽 문서를 함께 본다(2026-08-30 상호 참조 추가 — 그전에는 두
 문서 어디에도 서로를 가리키는 줄이 없어 어느 쪽이 정본인지 문서만으로 알 수 없었다).
 
+**2026-09-06 에 레이아웃 축(`data-layout`)이 섰다.** 그전에는 축이 `data-tone` 하나뿐이라 상자
+하나만 그릴 수 있었고, 제품의 알림 두 계열이 그 밖에 남아 각자 클래스를 적고 있었다 —
+대시보드의 무테 한 줄 안내(`InsufficientNotice`, JSX 12자리 / 4파일 / 2라우트)와 루트 레이아웃에
+얹히는 전폭 띠(`PastDueBanner`, `app/layout.tsx` 한 곳에 붙어 46라우트에 얹힌다). 두 계열은 톤이
+아니라 **놓이는 자리**가 다르다. 같은 작업에서 `figma/components.measured.json` 에 `alert` 칸을
+처음 세웠고(그전에는 측정 31종 밖이었다), Figma 에 `Layout` · `Dismissible` 두 축을 세웠으며,
+`packages/react/test/alert.browser.test.tsx` 가 코드 쪽 값을 되잰다.
+
 **세 가지가 이 컴포넌트의 오늘을 결정한다.**
 
 - 제품 소비처는 **다섯 자리**이고 **전부 기본 톤(danger)** 을 쓴다. `data-tone` 을 쓰는 자리는
@@ -6193,7 +6571,7 @@ CommandPalette 의 키보드 단축키 칩.
 | Surface       | 상태           | 근거                                                                                                 |
 | ------------- | -------------- | ---------------------------------------------------------------------------------------------------- |
 | Web           | `partial`      | CSS 레시피 `.louis-alert` 가 있고 제품 소비처 5자리가 그것을 쓴다. **React 표면은 없다** — `packages/react/src/` 에 `alert` 디렉터리가 없고 public export 도 없다. storybook 스토리 0건, acceptance test 0건 |
-| Figma         | `partial`      | Alert — variant 축 Tone(danger·info·success·warning) 4개. 속성: HasIcon·HasTitle BOOLEAN, Title·Body TEXT, Glyph INSTANCE_SWAP. parity 게이트가 매 실행 대조하는 것은 stroke(1px · `INSIDE`) · effects 없음 · 속성 축(선언되지 않은 property 0) · raw fill·stroke 바인딩 0 넷이다. **기하는 대조하지 않는다** — 계약에 `geometry` 키가 없고 `figma/components.measured.json` 에도 `alert` 항목이 없어 패딩 12/18 · 간격 8 · 반경 20 은 아무도 대조하지 않는다. 실측 항목이 없는 것은 [DS-D-0025](../governance/decisions/DS-D-0025-figma-as-projection.md)가 "선행 라이브러리에도 없고 실측 스펙조차 없다"고 지목한 다섯 중 하나이기 때문이고, 값은 CSS 와 토큰에서 도출했다. 발행 판정은 DS-D-0025 가 소유한다 |
+| Figma         | `done`         | Alert — variant 축 Layout(block·inline·banner) × Tone(danger·info·success·warning) **12 변형**. 속성: HasIcon·HasTitle·Dismissible BOOLEAN, Title·Body TEXT, Glyph INSTANCE_SWAP. parity 게이트가 매 실행 대조하는 것은 stroke(1px · `INSIDE`, block 만) · effects 없음 · 속성 축(선언되지 않은 property 0) · raw fill·stroke 바인딩 0, 그리고 **2026-09-06 부터 기하**다 — 세 레이아웃의 패딩·간격·반경·layoutMode 와 Icon 슬롯 폭이 `figma/components.measured.json` 의 `alert` 칸과 대조된다. 그 칸을 코드가 여전히 만드는지는 `packages/react/test/alert.browser.test.tsx` 가 되잰다. 두 방향이 다 걸리므로 [DS-D-0035](../governance/decisions/DS-D-0035-figma-done-without-publish.md) 의 (a)(b)(c) 가 선다 |
 | Documentation | `done`         | 이 문서                                                                                              |
 | Maturity      | `experimental` | 규범이 구현보다 늦게 섰다 — CSS 가 먼저 있었고 이 문서가 그것을 처음 대조한다                        |
 
@@ -6246,7 +6624,15 @@ CSS 레시피만 있다. 마크업은 소비처가 쓴다.
    `flex: none` 이라 줄어들지 않는다.
 3. **Content** — `.louis-alert__content`. 본문을 담는다.
 4. **Title** — `.louis-alert__title`. 선택. `__content` 안에 온다. 본문과 크기가 같고 중량만
-   500 으로 오른다.
+   500 으로 오른다. **크기는 레이아웃을 따라간다** — `inline` 에서는 본문이 caption 12 로
+   내려가므로 제목도 caption 12(중량 500)로 내려간다. 그러지 않으면 한 줄 안내 위에 더 큰
+   제목이 서는 역전이 생긴다.
+5. **Dismiss** — `.louis-alert__dismiss`. 선택. **버튼을 DS 가 그리지 않고 자리만 준다** —
+   소비처가 `.louis-icon-button` 을 넣는다. 알림이 자기 안에 버튼을 그리면 크기·톤 축이 둘로
+   갈리고(IconButton 이 이미 소유한다) 접근성 라벨까지 DS 가 정하게 되는데, 닫는 대상의 이름은
+   화면의 사정이다. block·inline 에서는 흐름에 남아 오른쪽 끝으로 밀리고(`margin-inline-start:
+   auto`), banner 에서는 절대 위치로 오른쪽 끝 12px 에 고정된다 — 흐름에 남으면 가운데 정렬된
+   문구를 밀어내기 때문이다.
 
 **`__content` 가 선택이 아닌 이유.** 루트가 `display: flex` 의 row 다. 제목과 본문을 슬롯 없이
 루트 바로 아래에 두면 **가로로 나란히 선다.**
@@ -6263,10 +6649,16 @@ CSS 레시피만 있다. 마크업은 소비처가 쓴다.
 
 | 속성 | 값 | 기본 | 뜻 |
 | --- | --- | --- | --- |
+| `data-layout` | `block` \| `inline` \| `banner` | 없음 = block | 놓이는 자리. 기하와 면을 함께 바꾼다 |
 | `data-tone` | `info` \| `success` \| `warning` | 없음 = danger | 의미 축. 루트에 붙는다 |
 | `role` | `alert` \| `status` \| 없음 | **소비처가 정한다** | 긴급도. DS 가 정하지 않는다 |
 
-슬롯은 `__icon` · `__content` · `__title` 셋이고 전부 클래스다.
+슬롯은 `__icon` · `__content` · `__title` · `__dismiss` 넷이고 전부 클래스다.
+
+**`data-layout="block"` 은 CSS 에 실제로 선택자가 있다.** 속성이 없을 때와 같은 값이지만
+`.louis-alert:not([data-layout])` 과 한 규칙을 이룬다 — 이름을 적어 두지 않으면 「써도 되지만
+계약에 없는 값」이 되고, 그것이 아래 `danger` 톤이 빠진 함정이다(Known deviations 3). 같은
+함정을 두 번 파지 않는다.
 
 **기본이 danger 인 이유.** CSS 주석이 "제품의 인라인 배너가 거의 전부 오류이기 때문"이라고 적어
 두었고 실측이 그것을 뒷받침한다 — 소비처 다섯 중 넷이 오류 배너이고 하나만 정보 배너다.
@@ -6283,7 +6675,37 @@ DS 가 소유하는 것은, toast 가 스스로 뜨고 사라져 소비처가 �
 
 #### Hierarchy와 variants
 
-`data-tone` 이 유일한 축이다. 톤은 면·테두리·글자 **세 값을 함께** 바꾼다.
+축이 둘이다 — `data-layout`(놓이는 자리)과 `data-tone`(의미).
+
+##### 레이아웃 축
+
+| layout | 면 | 테두리 | 반경 | 패딩(세로/가로) | 간격 | 본문 | 정렬 |
+| --- | --- | --- | ---: | --- | ---: | --- | --- |
+| `block`(기본) | 톤 알파 틴트 | 1px 톤 색 | 20 | 12 / 18 | 8 | body-sm 14 | `flex-start` |
+| `inline` | 없음 | 없음 | 0 | 10 / 0 | 8 | caption 12 | `center` |
+| `banner` | **불투명 톤 컨테이너** | 없음 | 0 | 10 / 16 | 16 | body-sm 14 | `center` · 가운데 정렬 |
+
+**`inline` 은 톤을 갖지 않는다.** 면도 테두리도 없어 남는 신호가 글자 색 하나뿐인데, 그것만으로
+뜻을 전하면 이 컴포넌트가 스스로 세운 계약(면 색만으로 뜻을 전달하지 않는다 · WCAG 1.4.1)이
+무테에서 깨진다. 그래서 인라인의 글자는 언제나 `color-fg-secondary` 이고 뜻은 아이콘과 문장이
+전한다 — 제품의 유일한 담지자(`InsufficientNotice`)도 정확히 그렇게 그려져 있다: 회색 글자 +
+느낌표 원 글리프 + "데이터가 부족합니다" 문장. 네 톤이 같은 값이라는 사실은 계약의
+`states.inline` 이 네 칸을 접지 않고 다 적어 고정한다.
+
+**`banner` 의 면은 알파 틴트가 아니다.** 12% 틴트는 카드 면 위에 얹히는 상자에서 성립하는
+값이고, 전폭 띠는 페이지 바닥 위에 직접 놓여 그 면이 거의 보이지 않는다. 그래서 `color-bg-{tone}`
+· `color-fg-{tone}` — 톤 컨테이너를 위해 이미 서 있는 토큰 — 을 쓴다. 새 토큰을 만들지 않았고,
+그 두 쌍은 token source 의 `contrastPairs` 에 이미 들어 있어 **네 레이아웃 중 글자 대비를 재는
+게이트가 실제로 도는 유일한 자리**가 된다.
+
+**`banner` 는 위치를 갖지 않는다.** `position: fixed` · `top` · 쌓임 순서는 띠가 **어디에
+붙는가**이지 어떻게 그려지는가가 아니다. 소비처가 자기 레이아웃에서 준다 — 제품 담지자가
+`zIndex: 9999` 로 GNB·모달 위를 덮고 있어, 그 순서를 LOUIS 의 `layer-*` 계단으로 옮기는 것은
+실측이 먼저다(Known deviations 14).
+
+##### 톤 축
+
+톤은 면·테두리·글자 **세 값을 함께** 바꾼다.
 
 | tone | 면 (light) | 테두리 (light) | 글자 (light) | 면 (dark) | 테두리 (dark) | 글자 (dark) | 글자 대비 light / dark |
 | --- | --- | --- | --- | --- | --- | --- | ---: |
@@ -6299,8 +6721,10 @@ DS 가 소유하는 것은, toast 가 스스로 뜨고 사라져 소비처가 �
 **danger 만 알파 면이고 나머지 셋은 불투명하다.** 알파는 제품 정본에서 온 값이고, 나머지 셋은
 DS 가 골랐다. 그래서 danger 배너만 뒤 표면이 비쳐 보인다.
 
-**크기 축이 없다.** 배너는 컨트롤이 아니라 흐름 안의 블록이라 나란히 서는 것과 높이를 맞출
-이유가 없다. 높이는 내용이 정한다.
+**크기 축은 여전히 없다.** 배너는 컨트롤이 아니라 흐름 안의 블록이라 나란히 서는 것과 높이를
+맞출 이유가 없다. 높이는 내용이 정한다. 그래서 계약(`figma/components.measured.json`)의
+`sizes` 키도 크기가 아니라 **레이아웃**이다 — `block`·`inline`·`banner` 셋이고, Figma 되읽기가
+같은 키를 쓴다.
 
 **solid/outline 같은 강조 축도 없다.** 톤이 이미 면과 테두리를 함께 정하고, 한 화면에 배너가
 둘 이상 서는 자리가 제품에 없다.
@@ -6362,23 +6786,38 @@ DS 가 골랐다. 그래서 danger 배너만 뒤 표면이 비쳐 보인다.
 
 #### Specification
 
+**세 레이아웃이 갈리는 축.** 값은 실제 Chromium 실측이고
+`figma/components.measured.json` 의 `alert.sizes` 가 정본이다.
+
+| 축 | `block` | `inline` | `banner` | 토큰 |
+| --- | ---: | ---: | ---: | --- |
+| 세로 패딩 | 12px | 10px | 10px | `space-control-md` / `layout-alert-compact-inset` |
+| 가로 패딩 | 18px | 0 | 16px | `layout-alert-inset` / — / `space-layout-gutter` |
+| 슬롯 간격 | 8px | 8px | 16px | `space-control-sm` / `space-layout-gutter` |
+| 테두리 | 1px | 0 | 0 | `border-width-default` + `color-alert-{tone}-stroke` |
+| 반경 | 20px | 0 | 0 | `radius-alert` |
+| 본문 타이포 | 14/21 · 400 | 12/18 · 400 | 14/21 · 400 | `typography-body-sm-regular` / `typography-caption-regular` |
+| 제목 타이포 | 14/21 · 500 | 12/18 · 500 | 14/21 · 500 | `typography-body-sm-medium` / `typography-caption-medium` |
+| 아이콘 광학 보정 | 2.5px | 0 | 0 | `calc((body-sm-font-size*-line-height − icon-size-sm) / 2)` |
+| 한 줄 높이 | 47px | 38px | 41px | (패딩 두 번) + (테두리 두 번) + 행 높이 |
+| 닫기 위치 | 흐름 끝 | 흐름 끝 | 오른쪽 12px 고정 | `space-control-md` |
+
+**세 레이아웃이 공유하는 축.**
+
 | 축 | 값 | 토큰 |
 | --- | ---: | --- |
-| 세로 패딩 | 12px | `space-control-md` |
-| 가로 패딩 | 18px | `layout-alert-inset` |
-| 슬롯 간격 | 8px | `space-control-sm` |
-| 테두리 | 1px | `border-width-default` + `color-alert-{tone}-stroke` |
-| 반경 | 20px | `radius-alert` |
-| 본문 타이포 | 14/21 · −0.14px · 400 | `typography-body-sm-regular` |
-| 제목 타이포 | 14/21 · −0.14px · 500 | `typography-body-sm-medium` |
-| 글꼴 패밀리 | Pretendard 스택 | `typography-body-sm-regular-font-family` (제목은 `-medium-`) |
+| 글꼴 패밀리 | Pretendard 스택 | `typography-{scale}-font-family` |
 | 아이콘 한 변 | 16px | `icon-size-sm` |
-| 아이콘 광학 보정 | 2.5px | `calc((typography-body-sm-regular-font-size*-line-height − icon-size-sm) / 2)` |
 | 폭 | 100% | 리터럴 `inline-size` |
 | 본문 최소 폭 | 0 | 리터럴 `min-inline-size` |
 | 바깥 여백 | 0 | 리터럴 `margin` |
-| 한 줄 높이 | 47px | (12+12) + (1+1) + 21 |
 | elevation | 없음 | — |
+
+**세로 10px 이 전용 토큰인 이유.** 제품 두 담지자에서 같이 온 값이다 —
+`InsufficientNotice` 의 `py-5` 와 `PastDueBanner` 의 `padding: 10px 16px` 이 둘 다 10 이다.
+LOUIS 간격 계단은 4·8·12·16 이라 10 이 없어 `layout-alert-compact-inset` 을 세웠고, 이는 가로
+18(`layout-alert-inset`)과 같은 사정이다. 12 로 접으면 소비처가 되돌려야 하고, **되돌림이
+필요한 축은 채택이 아니다**(Known deviations 1 의 기준).
 
 **가로 18px 이 전용 토큰인 이유.** 제품 정본에서 온 값인데 기존 계단에 없다 — `space-control-*`
 는 4·8·12·16 이고 18이 없다. 그래서 `layout-alert-inset` 이 이 컴포넌트를 위해 섰다. 같은
@@ -6425,14 +6864,16 @@ Control 이 inset box-shadow 를 택한 이유(세그먼트 높이를 정확히 
 
 - Web source: `packages/css/src/component/alert.css`.
 - Public import: LOUIS 컴포넌트 레이어(`styles.layer.css`). 제품은 이것만 소비한다.
-- **React 표면 없음 · storybook 스토리 없음 · acceptance test 없음.** `packages/react/test/` 의
-  브라우저 테스트 어디에도 `.louis-alert` 가 없다. 아래 Acceptance tests 절은 그래서 **미래의
-  계약**이고 오늘 도는 검증이 아니다.
+- **React 표면 없음 · storybook 스토리 없음.** 그러나 2026-09-06 부터
+  `packages/react/test/alert.browser.test.tsx` 가 돈다 — 클래스 마크업을 실제 Chromium 에
+  렌더해 세 레이아웃의 패딩·간격·테두리·반경·타이포·한 줄 높이·아이콘 슬롯과, 레이아웃 × 톤
+  12조합이 무는 토큰을 계약과 대조한다(32 시험). 아래 Acceptance tests 절의 여러 항목이 그날
+  「미래의 계약」에서 **도는 검증**으로 옮겨 갔다.
 - Figma: component set 이 `figma/snapshot.json` 에 서 있고 `scripts/verify-figma-parity.mjs` 가
-  stroke·effects·속성 축·바인딩을 대조한다. **기하는 대조하지 않는다** — 계약에 `geometry` 키가
-  없어 `compareComponentGeometry()` 가 즉시 빠져나가고, 그 입력이 되는
-  `figma/components.measured.json` 에도 `alert` 항목이 없다. 대조할 `.d.ts` 도 없으므로
-  declaration 은 읽지 않는다 — 정본이 CSS 파일이라는 사실이 계약의 `figmaAhead` 에 적혀 있다.
+  stroke·effects·속성 축·바인딩·**기하**를 대조한다. 기하 계약은 2026-09-06 에 붙었다 — 그전에는
+  `geometry` 키가 없어 `compareComponentGeometry()` 가 즉시 빠져나갔고 패딩 12/18 · 간격 8 ·
+  반경 20 을 아무도 코드와 맞춰 보지 않았다. 대조할 `.d.ts` 는 여전히 없으므로 declaration 은
+  읽지 않는다 — 정본이 CSS 파일이라는 사실이 계약의 `figmaAhead` 에 적혀 있다.
 
 ##### 제품 소비처
 
@@ -6518,8 +6959,13 @@ medium 이다. 제품의 `type-*` 클래스는 base 레이어라 LOUIS 컴포넌
 7. **아이콘·제목 슬롯을 쓰는 소비처가 0이다.** "색만으로 뜻을 전달하지 않는다"는 계약이 슬롯을
    선택으로 두고 문장에 기대는데, 오늘 그 문장이 톤을 말하는지 검증하는 것이 없다.
 
-8. **닫기와 액션 슬롯이 없다.** 배너를 닫거나 그 안에서 조치(재시도·설정 열기)하는 축이 없다.
-   제품에 그 요구가 있는지 **확인되지 않았다** — 오늘 다섯 자리 중 닫기를 가진 것은 없다.
+8. ~~**닫기와 액션 슬롯이 없다.**~~ **절반 해소됨(2026-09-06).** 닫기 슬롯
+   (`.louis-alert__dismiss`)이 섰다 — 제품에 그 요구가 실재한다는 것이 확인됐기 때문이다:
+   `PastDueBanner` 가 `useState` 로 자기를 지우는 X 버튼을 갖는다(46라우트에 얹히는 그 띠다).
+   **액션 슬롯은 여전히 없다.** 같은 띠가 문구 옆에 `/mypage` 로 가는 밑줄 링크를 두는데,
+   그것을 슬롯으로 열려면 링크의 색·중량·밑줄 계약을 알림이 소유해야 하고 그 정본이 아직
+   없다(제품은 `fontWeight: 600` + `textDecoration: underline` 을 인라인 style 로 준다).
+   그 축은 열지 않았고, 소비처가 `__content` 안에 넣는다.
 
 9. **같은 계열인데 덮지 못한 자리가 다섯 벌 더 있다.** 노드 캔버스의 다섯 노드 파일이
    `PROMPT_ERROR_BANNER` 라는 같은 이름의 배너를 **각자 정의**하며 클래스 문자열이 다섯 벌 모두
@@ -6528,20 +6974,27 @@ medium 이다. 제품의 `type-*` 클래스는 base 레이어라 LOUIS 컴포넌
    테두리 대신 `--louis-hairline-inset` · 최소 높이 28이다. 이관하려면 패딩·반경 축을 열고
    테두리 대 헤어라인 판정을 다시 해야 하므로 이 변경 단위 밖이다.
 
-10. **아이콘 슬롯의 크기가 Figma 와 CSS 에서 다르다.** Figma 의 Icon 부품은 네 톤 모두
-    **16×21** 이고 CSS 는 **16×16** 이다. 같은 목표(글리프를 첫 줄 가운데에 세우는 것)를 두
-    표면이 다른 방법으로 노렸다 — Figma 는 아이콘 프레임을 줄 높이만큼 늘려 세로 가운데
-    정렬로 얻었고, CSS 는 16 정사각에 위쪽 여백 2.5px 을 준다. 2번이 해소돼 **글리프가 서는
-    자리는 두 표면이 같아졌지만 부품 크기 자체는 계속 다르다** — Figma 16×21 · CSS 16×16.
+10. **아이콘 슬롯의 크기가 `block` 에서만 Figma 와 CSS 에서 다르다.** Figma 의 Icon 부품은
+    block 네 변형에서 **16×21** 이고 CSS 는 **16×16** 이다. 같은 목표(글리프를 첫 줄 가운데에
+    세우는 것)를 두 표면이 다른 방법으로 노렸다 — Figma 는 아이콘 프레임을 줄 높이만큼 늘려
+    세로 가운데 정렬로 얻었고, CSS 는 16 정사각에 위쪽 여백 2.5px 을 준다. 2번이 해소돼
+    **글리프가 서는 자리는 두 표면이 같지만 부품 크기 자체는 계속 다르다.**
+    **2026-09-06 에 범위가 좁아졌다** — `inline`·`banner` 는 행을 가운데 정렬하므로 두 표면 모두
+    16×16 이고, 어긋나는 것은 block 뿐이다. 그래서 기하 계약은 Icon 의 `width` 만 대조하고
+    `height` 는 대조하지 않는다(그 사실이 `verify-figma-parity.mjs` 의 alert 계약 주석에 있다).
 
 11. **같은 내용에서 Figma 상자가 CSS 보다 2px 낮다.** Figma 의 stroke 는 `INSIDE` 정렬이라
     1px 테두리가 상자 안쪽에 그려지는데, CSS 는 `box-sizing: border-box` 에 높이가 auto 라
-    테두리가 바깥으로 더해진다. 두 줄짜리 배너가 Figma 66px · CSS 68px 이다. parity 계약은 이
-    차이를 잡지 않는데, 이유는 "높이는 안 보고 패딩만 본다"가 아니라 **계약에 `geometry` 키
-    자체가 없어 기하를 하나도 대조하지 않는다**는 것이다(Availability · Implementation 참조).
-    alert 계약이 대조하는 것은 stroke 두께·정렬과 effects·속성 축·바인딩뿐이다.
+    테두리가 바깥으로 더해진다. 두 줄짜리 배너가 Figma 66px · CSS 68px 이다.
+    **「계약에 geometry 키 자체가 없다」는 부분은 2026-09-06 에 해소됐다** — 세 레이아웃의
+    패딩·간격·반경·layoutMode 와 Icon 슬롯 폭이 이제 매 실행 대조된다. 남은 것은 높이다:
+    계약은 **높이와 폭을 여전히 보지 않는다.** Figma 표본은 제목과 본문을 둘 다 켠 두 줄짜리이고
+    계약의 `height` 는 한 줄 높이라 **같은 것을 재지 않는 두 수**이기 때문이고, 폭은 컨테이너가
+    정한다(`inline-size: 100%`). 위의 2px 은 그래서 여전히 아무도 재지 않는다.
 
-12. **문서가 인용하는 소비처 넷이 evidence lock 에 없다.** 업그레이드 페이지 · 결제창 패널 ·
+12. **문서가 인용하는 소비처 넷이 evidence lock 에 없다.** (2026-09-06 에 담지자 둘이 더
+    늘었다 — `analytics/shared.tsx` 의 `InsufficientNotice` 와 `components/PastDueBanner.tsx` 도
+    같은 이유로 락에 없다.) 업그레이드 페이지 · 결제창 패널 ·
     JobMonitor · 템플릿 상세 넷은 `migration/product-evidence.lock.json` 에 없어, 제품이 그
     자리를 바꿔도 게이트가 알려 주지 않는다. 그래서 위 표는 좌표를 `<파일>:<줄>` 인용 형태로
     적지 않았다 — citation 게이트가 락에 없는 파일의 인용을 실패로 만들기 때문이다.
@@ -6554,11 +7007,45 @@ medium 이다. 제품의 `type-*` 클래스는 base 레이어라 LOUIS 컴포넌
     직접 쓰거나, 배너 반경이 카드 반경과 독립으로 움직여야 하는 이유를 적어 두어야 한다. 오늘
     그 이유는 **적혀 있지 않다.**
 
+14. **띠의 쌓임 순서를 LOUIS 가 소유하지 않는다.** 제품 담지자(`PastDueBanner`)는
+    `position: fixed` · `top: 0` · `zIndex: 9999` 를 인라인 style 로 주고, 그 값은 LOUIS 의
+    `layer-*` 계단 밖이다. `banner` 레이아웃은 그리는 법만 갖고 붙는 자리는 갖지 않는다 —
+    그것이 **결손이 아니라 판정**인 이유는 9999 가 GNB·모달·토스트 위를 덮는 순서를 이미 만들고
+    있어서, 그 순서를 계단으로 옮기면 겹침이 바뀔 수 있기 때문이다. **옮기기 전에 쌓임 순서를
+    실측해야 한다.** 오늘 그 실측은 없다.
+
+15. **`inline` 의 부모 문맥 면 세 종 중 하나만 축이 됐다.** 제품 `InsufficientNotice` 는
+    `surface` prop 으로 `plain` · `innerPanel` · `donutCard` 셋을 갖는다. 이 레이아웃이 담은
+    것은 `plain` 뿐이다.
+    · `plain` 의 `border-top` 은 알림의 테두리가 아니라 **위 목록과 가르는 구분선**이라 부모가
+      소유한다 — 그래서 무테로 담았다.
+    · `innerPanel` 과 `donutCard` 는 서로 **패딩 12/14 · 반경 10 · `--louis-hairline-inset` ·
+      안쪽 면이 전부 같고**, 갈리는 것은 `border-top` 의 유무와 `flex: 1` 둘뿐이다. 그 둘은
+      목록·카드 쪽 사정이지 알림의 축이 아니다. 그러므로 **면 셋이 아니라 「면 있는 인라인」
+      한 축**이 후보인데, 그 값(패딩 12/14 · 반경 10 · 헤어라인)은 인사이트 카드의 안쪽 패널이
+      이미 소유하는 값과 같다. **알림이 그것을 다시 소유하면 같은 값을 두 곳이 갖는다.**
+      그래서 카드 쪽 정본이 서기 전에는 열지 않는다. 오늘 제품 12자리 중 이 축이 필요한 것은
+      셋(`PerformanceTab` 둘 · `AudienceTab` 하나)이다.
+
 #### Acceptance tests
 
-오늘 도는 검증이 없다(Implementation 참조). 아래는 구현해야 할 계약이다. 9번은 2026-08-27
-까지 실패하고 있었고(Known deviations 2), 지금은 Chromium 탐침으로 통과를 확인했다 — 다만
-**게이트가 도는 것은 아니다.**
+**2026-09-06 부터 절반이 실제로 돈다.** `packages/react/test/alert.browser.test.tsx` 가 32
+시험으로 아래 1·2·3·8·9·10·(4 의 절반) 과 세 레이아웃의 패딩·간격·테두리·반경·타이포·한 줄
+높이·닫기 위치를 잰다. 나머지(6·7·11·12·13·14·15)는 여전히 **미래의 계약**이다 — 무엇이 돌고
+무엇이 안 도는지를 이 절이 구분해 적는다.
+
+아래 항목은 별도 표시가 없으면 `block` 을 말한다. 세 레이아웃의 값은 Specification 표에 있고,
+그 표의 모든 칸을 위 테스트가 계약(`figma/components.measured.json` 의 `alert.sizes`)과 대조한다.
+
+16. **(도는 검증)** `data-layout` 셋이 각자 계약의 패딩·간격·테두리·반경·글자 크기·행간·한 줄
+    높이·아이콘 한 변·아이콘 광학 보정을 만든다.
+17. **(도는 검증)** 레이아웃 × 톤 12 조합이 계약이 지목한 토큰을 문다 — `block` 은
+    `color-alert-{tone}-*` 셋, `banner` 는 `color-bg-{tone}`·`color-fg-{tone}`, `inline` 은
+    네 톤 모두 면 없음 + `color-fg-secondary`. **네 톤이 같다는 것이 인라인의 계약이므로**
+    한 톤이 조용히 갈리면 이 시험이 잡는다.
+18. **(도는 검증)** `banner` 의 닫기가 절대 위치이고 오른쪽 끝에서 12px 떨어지며, **닫기를
+    넣어도 본문이 같은 자리에 선다** — 흐름에 남으면 가운데 정렬된 문구를 밀어낸다. 두 벌
+    (닫기 있음·없음)을 나란히 렌더해 비교해야만 참·거짓이 갈리는 명제라 그렇게 잰다.
 
 1. 세로 패딩 12 · 가로 패딩 18 · 슬롯 간격 8 · 테두리 1px solid · 반경 20 이 Specification 표와
    같다.
@@ -8931,7 +9418,7 @@ BOOLEAN 명부(`Icon` · `Dot` · `Prefix` · `Suffix` · `LeftIcon` · `RightIc
 | Surface       | 상태           | 근거                                                                                                                                                                    |
 | ------------- | -------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Web           | `not-ready`    | 제품 구현이 정본이고 소비처가 두 자리다. **LOUIS 표면은 0** — CSS 레시피도 React export 도 없고 acceptance test 도 0건이다                                              |
-| Figma         | `partial`      | `FaqRow` 2 variant(`Expanded`) · TEXT 2. parity 게이트가 대조하는 것은 속성 축 · stroke 0 · effect 0 · raw fill·stroke 0 · 스타일 없는 텍스트 0 · set 설명 유무 · 프레임 밖 넘침 0 · 광학 중앙 이탈 0 이다. **기하는 대조하지 않는다** — `figma/components.measured.json` 에 `faq-row` 항목이 없다 |
+| Figma         | `partial`      | `FaqRow` 4 variant(`Expanded` × `Size`) · TEXT 2. parity 게이트가 대조하는 것은 속성 축 · stroke 0 · effect 0 · raw fill·stroke 0 · 스타일 없는 텍스트 0 · set 설명 유무 · 프레임 밖 넘침 0 · 광학 중앙 이탈 0 **과 기하**다 — `figma/components.measured.json` 의 `faq-row` 가 `{Expanded}/{Size}` 네 칸을 갖는다. `lg` 는 브라우저 실측, `md` 는 소스에서 읽은 값이며 칸마다 `$` 사유를 갖는다(Known deviations 8) |
 | Documentation | `done`         | 이 문서                                                                                                                                                                 |
 | Maturity      | `experimental` | 되읽기와 문서가 방금 처음 섰다. LOUIS recipe 가 서고 기하 실측이 붙으면 승격한다                                                                                        |
 
@@ -8985,11 +9472,30 @@ BOOLEAN 명부(`Icon` · `Dot` · `Prefix` · `Suffix` · `LeftIcon` · `RightIc
 
 #### Variants, sizes, and states
 
-크기 축이 없다. 폭은 섹션 껍데기가 정하고(상한 1400) 좁아지면 그대로 줄어든다.
+**크기 축이 있다(2026-09-06).** 폭은 여전히 껍데기가 정하고 좁아지면 그대로 줄어든다 — `Size`
+가 바꾸는 것은 폭이 아니라 **밀도**다.
 
 | 축 | 값 | 무엇이 바뀌나 |
 | --- | --- | --- |
+| `Size` | `lg` · `md` | 반경 12 → 8 · 질문 여백 18/20 → 12/14 · 사이 16 → 12 · 질문 타입 body-20 → body-16 · 답변 타입 body-16 → body-14 · 답변 위 여백 0 → 10. **면의 주인도 바뀐다**(아래) |
 | `Expanded` | `false` · `true` | 답변의 유무와 `+` 의 45° 회전. 면·반경·좌우 여백은 그대로다 |
+
+`lg` 는 랜딩 섹션(`faq` · `pricing-faq`)의 행이고 `md` 는 **가이드 모달**의 행이다
+(`FAQPanel.tsx` — 노드 캔버스 가이드의 FAQ 탭). 두 자리의 차이는 자리 하나뿐이 아니다 —
+랜딩의 행은 페이지의 한 절이라 질문이 제목 급(body-20)이고, 모달의 행은 탭 하나의 목록이라
+한 단 내려간다(body-16). 반경이 12 에서 8 로 함께 내려가는 것도 그 결과다: 48 높이에 12 를
+두면 곡률이 높이의 1/4 이라 알약으로 읽힌다(Button 의 `sm` 이 24 높이에서 같은 판단을 했다).
+
+**값 이름이 쓰임새가 아니라 사다리다.** `landing`·`modal` 로 부르지 않은 이유는
+[figma-component-authoring](../governance/figma-component-authoring.md) 의 「사다리 밖 값은
+쓰임새로 부른다」가 **사다리로 표현되지 않을 때만** 여는 예외이기 때문이다. 여기 두 값은
+순서가 있는 두 밀도(66 > 48)라 사다리가 그대로 표현하고, 이름이 순서를 거짓말하지도 않는다.
+
+**`md` 에서는 면을 행이 아니라 질문 버튼이 갖는다.** 랜딩 행은 알약 전체가 잉크 8% 오버레이
+(`landing/panel-strong`)이고 답변이 그 면 안에 들어가지만, 가이드 모달의 행 클래스
+(`GUIDE_FAQ_ITEM`)는 반경과 `overflow: hidden` 뿐이고 잉크 4% 를 칠하는 것은 질문 버튼
+(`GUIDE_FAQ_QUESTION`)이다. 그래서 `md` 에서 열린 답변은 **면 밖**에 선다. 구조가 갈리는
+유일한 자리이고, Figma 의 네 변형도 그대로 그렇게 서 있다.
 
 **`State` 축이 없다.** hover · active · disabled 선언이 제품 행에 하나도 없고 Figma 에도 그 축이
 없다. 포커스는 컴포넌트가 그리지 않는다(States 참조).
@@ -9090,6 +9596,8 @@ BOOLEAN 명부(`Icon` · `Dot` · `Prefix` · `Suffix` · `LeftIcon` · `RightIc
 
 #### Specification
 
+아래는 `Size=lg` 다. `md` 와 갈리는 열한 값은 그 아래 표가 따로 갖는다.
+
 | Part/state | 값 | 토큰·근거 |
 | --- | --- | --- |
 | Row | 폭 100%(섹션 상한 1400), radius 12 | `radius/12` · `overflow: hidden` |
@@ -9107,6 +9615,28 @@ BOOLEAN 명부(`Icon` · `Dot` · `Prefix` · `Suffix` · `LeftIcon` · `RightIc
 | Answer 글자 | body-16-regular | `color/gray/300` |
 | 펼침 전환 | 300ms `cubic-bezier(0.4, 0, 0.2, 1)` — 높이 · 투명도 | framer-motion |
 | 글리프 전환 | 220ms `ease` — transform | CSS |
+
+##### `Size=md` — 가이드 모달
+
+| Part | `lg` | `md` | 근거 |
+| --- | ---: | ---: | --- |
+| Row radius | 12 | **8** | `GUIDE_FAQ_ITEM` 의 `rounded-8` |
+| Row 면 | 잉크 8% | **없음** | 모달에서는 질문 버튼이 면을 갖는다 |
+| Question 면 | 없음 | **잉크 4%** | `GUIDE_FAQ_QUESTION` 의 `bg-[rgb(var(--gray-100-rgb)/4%)]` |
+| Question 위아래 | 18 | **12** | `py-6` × `--spacing: 2px` |
+| Question 좌우 | 20 | **14** | `px-7`. 모달 본문 단이 1080 − 좌우 24 = 1032 라 행이 좁다 |
+| Question 사이 | 16 | **12** | `gap-6` |
+| Question 정렬 | 위 맞춤 | **가운데** | `items-center`. 모달 질문은 한 줄을 전제한다 |
+| Question 높이 | 66 | **48** | 12 + 24 + 12 |
+| QuestionText | body-20-medium | **body-16-medium** | `type-body-16-medium` (JSX 리터럴) |
+| Glyph | body-20, 줄 상자 30 | **body-16, 줄 상자 24** | `GUIDE_FAQ_CHEVRON` 이 16 을 직접 세우고 행간은 버튼에서 물려받는다 |
+| Answer 위 · 아래 | 0 · 18 | **10 · 14** | `pt-5 pb-7` |
+| Answer 글자 | body-16-regular | **body-14-regular** | `type-body-14-regular` |
+| Answer 줄 길이 | `64ch` | **제한 없음** | 모달 단이 이미 1032 로 좁다 |
+
+**모달의 `+` 는 `−` 로 바뀐다.** 랜딩은 같은 `+` 가 45° 돌아 `×` 가 되지만 가이드 모달은
+글리프 문자 자체를 `+` ↔ `−` 로 갈아 끼운다(`FAQPanel.tsx`). Figma 의 `md` 두 변형은 랜딩과
+같은 회전으로 서 있다 — **이 차이는 아직 Figma 에 그려지지 않았다.**
 
 #### Known deviations
 
@@ -9149,9 +9679,15 @@ BOOLEAN 명부(`Icon` · `Dot` · `Prefix` · `Suffix` · `LeftIcon` · `RightIc
    rgb(242.1 242.1 244.0) 이라 바닥과 **1.01:1** 이고, 방향도 랜딩과 반대다(다크인데 행이 바닥보다
    밝다). 즉 Accessibility 의 「1.2:1」과 「면으로 나눈 결정의 대가」는 랜딩에서만 참이다.
    **토큰값에서 계산한 값이며 브라우저 실측이 아니다** — 확인과 소유자 판정이 필요하다.
-8. **기하가 게이트에 걸려 있지 않다.** `figma/components.measured.json` 에 `faq-row` 항목이 없어
-   66 · 12 · 20 · 18 · 16 을 아무도 대조하지 않는다. 위 값들은 제품 소스에서 읽은 것이고 브라우저
-   실측이 아니다. 실측 probe 를 붙이는 것이 승격 조건이다.
+8. **기하는 걸려 있고, `md` 의 열한 값만 아직 소스 읽기다(해소 진행 중).** `lg` 의
+   66 · 12 · 20 · 18 · 16 은 `scripts/measure-product-components.mjs` 의 탐침
+   (`faq-row` · `faq-row-question` · `faq-row-icon` · `faq-row-question-text`)이 제품 클래스를
+   제품 Tailwind 로 컴파일해 실브라우저에서 재고, `verify-figma-parity` 가 그 값을 Figma
+   되읽기와 대조한다. **`md` 는 아직 탐침이 없다** — 가이드 모달의 세 상수가
+   `scripts/lib/product-files.mjs` 에 없고, 넣는 순간 `verify-product-evidence` 가
+   `FAQPanel.tsx` 의 lock 고정을 요구하는데 그 재고정은 제품 워킹트리가 깨끗할 때 하는
+   별건이다. 그래서 `md` 의 열한 값은 칸마다 `$` 사유를 달아 두었고(빚 명부가 아니라 사유로
+   닫혀 있다), **탐침을 붙이는 것이 이 칸의 승격 조건이다.**
 9. **제품에는 행 컴포넌트가 없다.** 섹션 하나가 목록과 열림 상태를 소유하고 행은 그 안의 map
    결과다. Figma 는 상호작용과 프로토타입을 받는 단위가 행이라 행을 set 으로 뽑았다. 그 결과
    **행 간격 4 를 아무도 소유하지 않는다** — 제품에서는 목록의 `gap` 이고 Figma 에는 없다.

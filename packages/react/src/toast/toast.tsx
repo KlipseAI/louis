@@ -14,12 +14,45 @@ import {
 
 export type ToastTone = "neutral" | "danger";
 
+/**
+ * 표면에 담기는 것이 달라지는 축. 크기 사다리가 아니다.
+ *
+ * `base` 는 한 줄 메시지, `callout` 은 제목/본문 두 줄과 그 옆의 액션이다. 제품 정본은
+ * 노드 캔버스 온보딩 힌트 두 벌(`CanvasConnectHint` · `CanvasNextStepHint`)이며, 표면 원장이
+ * 뒤엣것을 「같은 CALLOUT 표면을 공유하고 문구만 다르다」로 이미 접어 두었다.
+ */
+export type ToastLayout = "base" | "callout";
+
+/** callout 의 액션 슬롯. 라벨 하나와 그것을 누른 결과 하나다. */
+export interface ToastAction {
+  readonly label: string;
+  readonly onAction: () => void;
+  /** 누른 뒤 toast 를 닫는다. 온보딩 힌트의 「알겠어요」가 그렇다. */
+  readonly dismissOnAction?: boolean;
+}
+
 export interface ToastInput {
   /** 한 줄. live region이 읽는 것이므로 문자열만 받는다. */
   readonly message: string;
   readonly tone?: ToastTone;
   /** 자동 소멸까지. 0이면 스스로 사라지지 않는다. */
   readonly duration?: number;
+  /**
+   * callout 의 제목. 있으면 `message` 가 본문이 된다.
+   *
+   * live region 이 읽는 순서가 DOM 순서이므로 제목이 먼저 읽힌다 — 두 줄을 따로 통지하지
+   * 않는다.
+   */
+  readonly title?: string;
+  /** callout 의 액션. */
+  readonly action?: ToastAction;
+  /**
+   * 비우면 **내용에서 정한다** — 제목이나 액션이 있으면 `callout`, 없으면 `base`.
+   *
+   * 축을 명시로도 열어 두는 이유는 Figma 의 `Layout` variant 와 이름이 1:1로 맞아야 하기
+   * 때문이다. 유추만 두면 계약이 대조할 타입이 없다.
+   */
+  readonly layout?: ToastLayout;
 }
 
 export interface ToastHandle {
@@ -38,6 +71,9 @@ interface ToastRecord {
   readonly message: string;
   readonly tone: ToastTone;
   readonly duration: number;
+  readonly layout: ToastLayout;
+  readonly title?: string;
+  readonly action?: ToastAction;
 }
 
 /** 동시에 보이는 최대 개수. 초과분은 자리가 날 때까지 기다린다. */
@@ -88,11 +124,18 @@ export function ToastProvider({
         typeof input === "string" ? { message: input } : input;
       sequence.current += 1;
       const id = `louis-toast-${sequence.current}`;
+      const derived: ToastLayout =
+        normalized.title !== undefined || normalized.action !== undefined
+          ? "callout"
+          : "base";
       const record: ToastRecord = {
         id,
         message: normalized.message,
         tone: normalized.tone ?? "neutral",
         duration: normalized.duration ?? duration,
+        layout: normalized.layout ?? derived,
+        ...(normalized.title === undefined ? {} : { title: normalized.title }),
+        ...(normalized.action === undefined ? {} : { action: normalized.action }),
       };
       // 최신이 뒤에 온다 — 시선이 마지막으로 머문 곳에 가장 새 소식이 온다.
       setItems((current) => [...current, record]);
@@ -181,10 +224,12 @@ function ToastItem({
     };
   }, [onDismiss, paused, record.duration, record.id]);
 
+  const action = record.action;
   return (
     <div
       className="louis-toast"
       data-tone={record.tone}
+      data-layout={record.layout}
       {...(paused ? { "data-louis-paused": "true" } : {})}
       // 읽는 중에 사라지면 알림이 아니다. 포인터와 focus 둘 다 멈춤 신호다.
       onPointerEnter={() => setPaused(true)}
@@ -192,7 +237,32 @@ function ToastItem({
       onFocusCapture={() => setPaused(true)}
       onBlurCapture={() => setPaused(false)}
     >
-      {record.message}
+      {record.layout === "callout" ? (
+        <>
+          <div className="louis-toast__content">
+            {record.title === undefined ? null : (
+              <p className="louis-toast__title">{record.title}</p>
+            )}
+            <p className="louis-toast__body">{record.message}</p>
+          </div>
+          {action === undefined ? null : (
+            <button
+              type="button"
+              className="louis-toast__action"
+              onClick={() => {
+                action.onAction();
+                // 기본은 닫는다. 온보딩 안내의 액션은 「봤다」이고, 누른 뒤에도 남아 있으면
+                // 그 뜻이 전달되지 않는다.
+                if (action.dismissOnAction !== false) onDismiss(record.id);
+              }}
+            >
+              {action.label}
+            </button>
+          )}
+        </>
+      ) : (
+        record.message
+      )}
     </div>
   );
 }

@@ -31,7 +31,7 @@ summary: 질문 한 줄을 눌러 답변을 같은 면 안에서 펼치는 채�
 | Surface       | 상태           | 근거                                                                                                                                                                    |
 | ------------- | -------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Web           | `not-ready`    | 제품 구현이 정본이고 소비처가 두 자리다. **LOUIS 표면은 0** — CSS 레시피도 React export 도 없고 acceptance test 도 0건이다                                              |
-| Figma         | `partial`      | `FaqRow` 2 variant(`Expanded`) · TEXT 2. parity 게이트가 대조하는 것은 속성 축 · stroke 0 · effect 0 · raw fill·stroke 0 · 스타일 없는 텍스트 0 · set 설명 유무 · 프레임 밖 넘침 0 · 광학 중앙 이탈 0 이다. **기하는 대조하지 않는다** — `figma/components.measured.json` 에 `faq-row` 항목이 없다 |
+| Figma         | `partial`      | `FaqRow` 4 variant(`Expanded` × `Size`) · TEXT 2. parity 게이트가 대조하는 것은 속성 축 · stroke 0 · effect 0 · raw fill·stroke 0 · 스타일 없는 텍스트 0 · set 설명 유무 · 프레임 밖 넘침 0 · 광학 중앙 이탈 0 **과 기하**다 — `figma/components.measured.json` 의 `faq-row` 가 `{Expanded}/{Size}` 네 칸을 갖는다. `lg` 는 브라우저 실측, `md` 는 소스에서 읽은 값이며 칸마다 `$` 사유를 갖는다(Known deviations 8) |
 | Documentation | `done`         | 이 문서                                                                                                                                                                 |
 | Maturity      | `experimental` | 되읽기와 문서가 방금 처음 섰다. LOUIS recipe 가 서고 기하 실측이 붙으면 승격한다                                                                                        |
 
@@ -85,11 +85,30 @@ summary: 질문 한 줄을 눌러 답변을 같은 면 안에서 펼치는 채�
 
 ## Variants, sizes, and states
 
-크기 축이 없다. 폭은 섹션 껍데기가 정하고(상한 1400) 좁아지면 그대로 줄어든다.
+**크기 축이 있다(2026-09-06).** 폭은 여전히 껍데기가 정하고 좁아지면 그대로 줄어든다 — `Size`
+가 바꾸는 것은 폭이 아니라 **밀도**다.
 
 | 축 | 값 | 무엇이 바뀌나 |
 | --- | --- | --- |
+| `Size` | `lg` · `md` | 반경 12 → 8 · 질문 여백 18/20 → 12/14 · 사이 16 → 12 · 질문 타입 body-20 → body-16 · 답변 타입 body-16 → body-14 · 답변 위 여백 0 → 10. **면의 주인도 바뀐다**(아래) |
 | `Expanded` | `false` · `true` | 답변의 유무와 `+` 의 45° 회전. 면·반경·좌우 여백은 그대로다 |
+
+`lg` 는 랜딩 섹션(`faq` · `pricing-faq`)의 행이고 `md` 는 **가이드 모달**의 행이다
+(`FAQPanel.tsx` — 노드 캔버스 가이드의 FAQ 탭). 두 자리의 차이는 자리 하나뿐이 아니다 —
+랜딩의 행은 페이지의 한 절이라 질문이 제목 급(body-20)이고, 모달의 행은 탭 하나의 목록이라
+한 단 내려간다(body-16). 반경이 12 에서 8 로 함께 내려가는 것도 그 결과다: 48 높이에 12 를
+두면 곡률이 높이의 1/4 이라 알약으로 읽힌다(Button 의 `sm` 이 24 높이에서 같은 판단을 했다).
+
+**값 이름이 쓰임새가 아니라 사다리다.** `landing`·`modal` 로 부르지 않은 이유는
+[figma-component-authoring](../governance/figma-component-authoring.md) 의 「사다리 밖 값은
+쓰임새로 부른다」가 **사다리로 표현되지 않을 때만** 여는 예외이기 때문이다. 여기 두 값은
+순서가 있는 두 밀도(66 > 48)라 사다리가 그대로 표현하고, 이름이 순서를 거짓말하지도 않는다.
+
+**`md` 에서는 면을 행이 아니라 질문 버튼이 갖는다.** 랜딩 행은 알약 전체가 잉크 8% 오버레이
+(`landing/panel-strong`)이고 답변이 그 면 안에 들어가지만, 가이드 모달의 행 클래스
+(`GUIDE_FAQ_ITEM`)는 반경과 `overflow: hidden` 뿐이고 잉크 4% 를 칠하는 것은 질문 버튼
+(`GUIDE_FAQ_QUESTION`)이다. 그래서 `md` 에서 열린 답변은 **면 밖**에 선다. 구조가 갈리는
+유일한 자리이고, Figma 의 네 변형도 그대로 그렇게 서 있다.
 
 **`State` 축이 없다.** hover · active · disabled 선언이 제품 행에 하나도 없고 Figma 에도 그 축이
 없다. 포커스는 컴포넌트가 그리지 않는다(States 참조).
@@ -190,6 +209,8 @@ summary: 질문 한 줄을 눌러 답변을 같은 면 안에서 펼치는 채�
 
 ## Specification
 
+아래는 `Size=lg` 다. `md` 와 갈리는 열한 값은 그 아래 표가 따로 갖는다.
+
 | Part/state | 값 | 토큰·근거 |
 | --- | --- | --- |
 | Row | 폭 100%(섹션 상한 1400), radius 12 | `radius/12` · `overflow: hidden` |
@@ -207,6 +228,28 @@ summary: 질문 한 줄을 눌러 답변을 같은 면 안에서 펼치는 채�
 | Answer 글자 | body-16-regular | `color/gray/300` |
 | 펼침 전환 | 300ms `cubic-bezier(0.4, 0, 0.2, 1)` — 높이 · 투명도 | framer-motion |
 | 글리프 전환 | 220ms `ease` — transform | CSS |
+
+### `Size=md` — 가이드 모달
+
+| Part | `lg` | `md` | 근거 |
+| --- | ---: | ---: | --- |
+| Row radius | 12 | **8** | `GUIDE_FAQ_ITEM` 의 `rounded-8` |
+| Row 면 | 잉크 8% | **없음** | 모달에서는 질문 버튼이 면을 갖는다 |
+| Question 면 | 없음 | **잉크 4%** | `GUIDE_FAQ_QUESTION` 의 `bg-[rgb(var(--gray-100-rgb)/4%)]` |
+| Question 위아래 | 18 | **12** | `py-6` × `--spacing: 2px` |
+| Question 좌우 | 20 | **14** | `px-7`. 모달 본문 단이 1080 − 좌우 24 = 1032 라 행이 좁다 |
+| Question 사이 | 16 | **12** | `gap-6` |
+| Question 정렬 | 위 맞춤 | **가운데** | `items-center`. 모달 질문은 한 줄을 전제한다 |
+| Question 높이 | 66 | **48** | 12 + 24 + 12 |
+| QuestionText | body-20-medium | **body-16-medium** | `type-body-16-medium` (JSX 리터럴) |
+| Glyph | body-20, 줄 상자 30 | **body-16, 줄 상자 24** | `GUIDE_FAQ_CHEVRON` 이 16 을 직접 세우고 행간은 버튼에서 물려받는다 |
+| Answer 위 · 아래 | 0 · 18 | **10 · 14** | `pt-5 pb-7` |
+| Answer 글자 | body-16-regular | **body-14-regular** | `type-body-14-regular` |
+| Answer 줄 길이 | `64ch` | **제한 없음** | 모달 단이 이미 1032 로 좁다 |
+
+**모달의 `+` 는 `−` 로 바뀐다.** 랜딩은 같은 `+` 가 45° 돌아 `×` 가 되지만 가이드 모달은
+글리프 문자 자체를 `+` ↔ `−` 로 갈아 끼운다(`FAQPanel.tsx`). Figma 의 `md` 두 변형은 랜딩과
+같은 회전으로 서 있다 — **이 차이는 아직 Figma 에 그려지지 않았다.**
 
 ## Known deviations
 
@@ -249,9 +292,15 @@ summary: 질문 한 줄을 눌러 답변을 같은 면 안에서 펼치는 채�
    rgb(242.1 242.1 244.0) 이라 바닥과 **1.01:1** 이고, 방향도 랜딩과 반대다(다크인데 행이 바닥보다
    밝다). 즉 Accessibility 의 「1.2:1」과 「면으로 나눈 결정의 대가」는 랜딩에서만 참이다.
    **토큰값에서 계산한 값이며 브라우저 실측이 아니다** — 확인과 소유자 판정이 필요하다.
-8. **기하가 게이트에 걸려 있지 않다.** `figma/components.measured.json` 에 `faq-row` 항목이 없어
-   66 · 12 · 20 · 18 · 16 을 아무도 대조하지 않는다. 위 값들은 제품 소스에서 읽은 것이고 브라우저
-   실측이 아니다. 실측 probe 를 붙이는 것이 승격 조건이다.
+8. **기하는 걸려 있고, `md` 의 열한 값만 아직 소스 읽기다(해소 진행 중).** `lg` 의
+   66 · 12 · 20 · 18 · 16 은 `scripts/measure-product-components.mjs` 의 탐침
+   (`faq-row` · `faq-row-question` · `faq-row-icon` · `faq-row-question-text`)이 제품 클래스를
+   제품 Tailwind 로 컴파일해 실브라우저에서 재고, `verify-figma-parity` 가 그 값을 Figma
+   되읽기와 대조한다. **`md` 는 아직 탐침이 없다** — 가이드 모달의 세 상수가
+   `scripts/lib/product-files.mjs` 에 없고, 넣는 순간 `verify-product-evidence` 가
+   `FAQPanel.tsx` 의 lock 고정을 요구하는데 그 재고정은 제품 워킹트리가 깨끗할 때 하는
+   별건이다. 그래서 `md` 의 열한 값은 칸마다 `$` 사유를 달아 두었고(빚 명부가 아니라 사유로
+   닫혀 있다), **탐침을 붙이는 것이 이 칸의 승격 조건이다.**
 9. **제품에는 행 컴포넌트가 없다.** 섹션 하나가 목록과 열림 상태를 소유하고 행은 그 안의 map
    결과다. Figma 는 상호작용과 프로토타입을 받는 단위가 행이라 행을 set 으로 뽑았다. 그 결과
    **행 간격 4 를 아무도 소유하지 않는다** — 제품에서는 목록의 `gap` 이고 Figma 에는 없다.

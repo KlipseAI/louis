@@ -22,6 +22,7 @@ export { ToastProvider, useToast, TOAST_VISIBLE_LIMIT } from "./toast/toast.js";
 export { OverlayProvider } from "./anchored/overlay-provider.js";
 export { useOverlayBranch } from "./anchored/context.js";
 export { ActionMenu, ActionMenuContent, ActionMenuTrigger, } from "./menu/action-menu.js";
+export { MenuTrigger } from "./menu/trigger.js";
 export { ActionMenuItem, ActionMenuLinkItem } from "./menu/item.js";
 export { ActionMenuGroup, ActionMenuSeparator } from "./menu/group.js";
 export { ActionMenuSub, ActionMenuSubContent, ActionMenuSubTrigger, } from "./menu/sub.js";

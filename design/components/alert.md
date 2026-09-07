@@ -18,6 +18,14 @@ summary: 화면 안에 남아 사라지지 않는 인라인 상태 배너입니�
 아니다. 어느 쪽 값을 건드리든 다른 쪽 문서를 함께 본다(2026-08-30 상호 참조 추가 — 그전에는 두
 문서 어디에도 서로를 가리키는 줄이 없어 어느 쪽이 정본인지 문서만으로 알 수 없었다).
 
+**2026-09-06 에 레이아웃 축(`data-layout`)이 섰다.** 그전에는 축이 `data-tone` 하나뿐이라 상자
+하나만 그릴 수 있었고, 제품의 알림 두 계열이 그 밖에 남아 각자 클래스를 적고 있었다 —
+대시보드의 무테 한 줄 안내(`InsufficientNotice`, JSX 12자리 / 4파일 / 2라우트)와 루트 레이아웃에
+얹히는 전폭 띠(`PastDueBanner`, `app/layout.tsx` 한 곳에 붙어 46라우트에 얹힌다). 두 계열은 톤이
+아니라 **놓이는 자리**가 다르다. 같은 작업에서 `figma/components.measured.json` 에 `alert` 칸을
+처음 세웠고(그전에는 측정 31종 밖이었다), Figma 에 `Layout` · `Dismissible` 두 축을 세웠으며,
+`packages/react/test/alert.browser.test.tsx` 가 코드 쪽 값을 되잰다.
+
 **세 가지가 이 컴포넌트의 오늘을 결정한다.**
 
 - 제품 소비처는 **다섯 자리**이고 **전부 기본 톤(danger)** 을 쓴다. `data-tone` 을 쓰는 자리는
@@ -33,7 +41,7 @@ summary: 화면 안에 남아 사라지지 않는 인라인 상태 배너입니�
 | Surface       | 상태           | 근거                                                                                                 |
 | ------------- | -------------- | ---------------------------------------------------------------------------------------------------- |
 | Web           | `partial`      | CSS 레시피 `.louis-alert` 가 있고 제품 소비처 5자리가 그것을 쓴다. **React 표면은 없다** — `packages/react/src/` 에 `alert` 디렉터리가 없고 public export 도 없다. storybook 스토리 0건, acceptance test 0건 |
-| Figma         | `partial`      | Alert — variant 축 Tone(danger·info·success·warning) 4개. 속성: HasIcon·HasTitle BOOLEAN, Title·Body TEXT, Glyph INSTANCE_SWAP. parity 게이트가 매 실행 대조하는 것은 stroke(1px · `INSIDE`) · effects 없음 · 속성 축(선언되지 않은 property 0) · raw fill·stroke 바인딩 0 넷이다. **기하는 대조하지 않는다** — 계약에 `geometry` 키가 없고 `figma/components.measured.json` 에도 `alert` 항목이 없어 패딩 12/18 · 간격 8 · 반경 20 은 아무도 대조하지 않는다. 실측 항목이 없는 것은 [DS-D-0025](../governance/decisions/DS-D-0025-figma-as-projection.md)가 "선행 라이브러리에도 없고 실측 스펙조차 없다"고 지목한 다섯 중 하나이기 때문이고, 값은 CSS 와 토큰에서 도출했다. 발행 판정은 DS-D-0025 가 소유한다 |
+| Figma         | `done`         | Alert — variant 축 Layout(block·inline·banner) × Tone(danger·info·success·warning) **12 변형**. 속성: HasIcon·HasTitle·Dismissible BOOLEAN, Title·Body TEXT, Glyph INSTANCE_SWAP. parity 게이트가 매 실행 대조하는 것은 stroke(1px · `INSIDE`, block 만) · effects 없음 · 속성 축(선언되지 않은 property 0) · raw fill·stroke 바인딩 0, 그리고 **2026-09-06 부터 기하**다 — 세 레이아웃의 패딩·간격·반경·layoutMode 와 Icon 슬롯 폭이 `figma/components.measured.json` 의 `alert` 칸과 대조된다. 그 칸을 코드가 여전히 만드는지는 `packages/react/test/alert.browser.test.tsx` 가 되잰다. 두 방향이 다 걸리므로 [DS-D-0035](../governance/decisions/DS-D-0035-figma-done-without-publish.md) 의 (a)(b)(c) 가 선다 |
 | Documentation | `done`         | 이 문서                                                                                              |
 | Maturity      | `experimental` | 규범이 구현보다 늦게 섰다 — CSS 가 먼저 있었고 이 문서가 그것을 처음 대조한다                        |
 
@@ -86,7 +94,15 @@ CSS 레시피만 있다. 마크업은 소비처가 쓴다.
    `flex: none` 이라 줄어들지 않는다.
 3. **Content** — `.louis-alert__content`. 본문을 담는다.
 4. **Title** — `.louis-alert__title`. 선택. `__content` 안에 온다. 본문과 크기가 같고 중량만
-   500 으로 오른다.
+   500 으로 오른다. **크기는 레이아웃을 따라간다** — `inline` 에서는 본문이 caption 12 로
+   내려가므로 제목도 caption 12(중량 500)로 내려간다. 그러지 않으면 한 줄 안내 위에 더 큰
+   제목이 서는 역전이 생긴다.
+5. **Dismiss** — `.louis-alert__dismiss`. 선택. **버튼을 DS 가 그리지 않고 자리만 준다** —
+   소비처가 `.louis-icon-button` 을 넣는다. 알림이 자기 안에 버튼을 그리면 크기·톤 축이 둘로
+   갈리고(IconButton 이 이미 소유한다) 접근성 라벨까지 DS 가 정하게 되는데, 닫는 대상의 이름은
+   화면의 사정이다. block·inline 에서는 흐름에 남아 오른쪽 끝으로 밀리고(`margin-inline-start:
+   auto`), banner 에서는 절대 위치로 오른쪽 끝 12px 에 고정된다 — 흐름에 남으면 가운데 정렬된
+   문구를 밀어내기 때문이다.
 
 **`__content` 가 선택이 아닌 이유.** 루트가 `display: flex` 의 row 다. 제목과 본문을 슬롯 없이
 루트 바로 아래에 두면 **가로로 나란히 선다.**
@@ -103,10 +119,16 @@ CSS 레시피만 있다. 마크업은 소비처가 쓴다.
 
 | 속성 | 값 | 기본 | 뜻 |
 | --- | --- | --- | --- |
+| `data-layout` | `block` \| `inline` \| `banner` | 없음 = block | 놓이는 자리. 기하와 면을 함께 바꾼다 |
 | `data-tone` | `info` \| `success` \| `warning` | 없음 = danger | 의미 축. 루트에 붙는다 |
 | `role` | `alert` \| `status` \| 없음 | **소비처가 정한다** | 긴급도. DS 가 정하지 않는다 |
 
-슬롯은 `__icon` · `__content` · `__title` 셋이고 전부 클래스다.
+슬롯은 `__icon` · `__content` · `__title` · `__dismiss` 넷이고 전부 클래스다.
+
+**`data-layout="block"` 은 CSS 에 실제로 선택자가 있다.** 속성이 없을 때와 같은 값이지만
+`.louis-alert:not([data-layout])` 과 한 규칙을 이룬다 — 이름을 적어 두지 않으면 「써도 되지만
+계약에 없는 값」이 되고, 그것이 아래 `danger` 톤이 빠진 함정이다(Known deviations 3). 같은
+함정을 두 번 파지 않는다.
 
 **기본이 danger 인 이유.** CSS 주석이 "제품의 인라인 배너가 거의 전부 오류이기 때문"이라고 적어
 두었고 실측이 그것을 뒷받침한다 — 소비처 다섯 중 넷이 오류 배너이고 하나만 정보 배너다.
@@ -123,7 +145,37 @@ DS 가 소유하는 것은, toast 가 스스로 뜨고 사라져 소비처가 �
 
 ## Hierarchy와 variants
 
-`data-tone` 이 유일한 축이다. 톤은 면·테두리·글자 **세 값을 함께** 바꾼다.
+축이 둘이다 — `data-layout`(놓이는 자리)과 `data-tone`(의미).
+
+### 레이아웃 축
+
+| layout | 면 | 테두리 | 반경 | 패딩(세로/가로) | 간격 | 본문 | 정렬 |
+| --- | --- | --- | ---: | --- | ---: | --- | --- |
+| `block`(기본) | 톤 알파 틴트 | 1px 톤 색 | 20 | 12 / 18 | 8 | body-sm 14 | `flex-start` |
+| `inline` | 없음 | 없음 | 0 | 10 / 0 | 8 | caption 12 | `center` |
+| `banner` | **불투명 톤 컨테이너** | 없음 | 0 | 10 / 16 | 16 | body-sm 14 | `center` · 가운데 정렬 |
+
+**`inline` 은 톤을 갖지 않는다.** 면도 테두리도 없어 남는 신호가 글자 색 하나뿐인데, 그것만으로
+뜻을 전하면 이 컴포넌트가 스스로 세운 계약(면 색만으로 뜻을 전달하지 않는다 · WCAG 1.4.1)이
+무테에서 깨진다. 그래서 인라인의 글자는 언제나 `color-fg-secondary` 이고 뜻은 아이콘과 문장이
+전한다 — 제품의 유일한 담지자(`InsufficientNotice`)도 정확히 그렇게 그려져 있다: 회색 글자 +
+느낌표 원 글리프 + "데이터가 부족합니다" 문장. 네 톤이 같은 값이라는 사실은 계약의
+`states.inline` 이 네 칸을 접지 않고 다 적어 고정한다.
+
+**`banner` 의 면은 알파 틴트가 아니다.** 12% 틴트는 카드 면 위에 얹히는 상자에서 성립하는
+값이고, 전폭 띠는 페이지 바닥 위에 직접 놓여 그 면이 거의 보이지 않는다. 그래서 `color-bg-{tone}`
+· `color-fg-{tone}` — 톤 컨테이너를 위해 이미 서 있는 토큰 — 을 쓴다. 새 토큰을 만들지 않았고,
+그 두 쌍은 token source 의 `contrastPairs` 에 이미 들어 있어 **네 레이아웃 중 글자 대비를 재는
+게이트가 실제로 도는 유일한 자리**가 된다.
+
+**`banner` 는 위치를 갖지 않는다.** `position: fixed` · `top` · 쌓임 순서는 띠가 **어디에
+붙는가**이지 어떻게 그려지는가가 아니다. 소비처가 자기 레이아웃에서 준다 — 제품 담지자가
+`zIndex: 9999` 로 GNB·모달 위를 덮고 있어, 그 순서를 LOUIS 의 `layer-*` 계단으로 옮기는 것은
+실측이 먼저다(Known deviations 14).
+
+### 톤 축
+
+톤은 면·테두리·글자 **세 값을 함께** 바꾼다.
 
 | tone | 면 (light) | 테두리 (light) | 글자 (light) | 면 (dark) | 테두리 (dark) | 글자 (dark) | 글자 대비 light / dark |
 | --- | --- | --- | --- | --- | --- | --- | ---: |
@@ -139,8 +191,10 @@ DS 가 소유하는 것은, toast 가 스스로 뜨고 사라져 소비처가 �
 **danger 만 알파 면이고 나머지 셋은 불투명하다.** 알파는 제품 정본에서 온 값이고, 나머지 셋은
 DS 가 골랐다. 그래서 danger 배너만 뒤 표면이 비쳐 보인다.
 
-**크기 축이 없다.** 배너는 컨트롤이 아니라 흐름 안의 블록이라 나란히 서는 것과 높이를 맞출
-이유가 없다. 높이는 내용이 정한다.
+**크기 축은 여전히 없다.** 배너는 컨트롤이 아니라 흐름 안의 블록이라 나란히 서는 것과 높이를
+맞출 이유가 없다. 높이는 내용이 정한다. 그래서 계약(`figma/components.measured.json`)의
+`sizes` 키도 크기가 아니라 **레이아웃**이다 — `block`·`inline`·`banner` 셋이고, Figma 되읽기가
+같은 키를 쓴다.
 
 **solid/outline 같은 강조 축도 없다.** 톤이 이미 면과 테두리를 함께 정하고, 한 화면에 배너가
 둘 이상 서는 자리가 제품에 없다.
@@ -202,23 +256,38 @@ DS 가 골랐다. 그래서 danger 배너만 뒤 표면이 비쳐 보인다.
 
 ## Specification
 
+**세 레이아웃이 갈리는 축.** 값은 실제 Chromium 실측이고
+`figma/components.measured.json` 의 `alert.sizes` 가 정본이다.
+
+| 축 | `block` | `inline` | `banner` | 토큰 |
+| --- | ---: | ---: | ---: | --- |
+| 세로 패딩 | 12px | 10px | 10px | `space-control-md` / `layout-alert-compact-inset` |
+| 가로 패딩 | 18px | 0 | 16px | `layout-alert-inset` / — / `space-layout-gutter` |
+| 슬롯 간격 | 8px | 8px | 16px | `space-control-sm` / `space-layout-gutter` |
+| 테두리 | 1px | 0 | 0 | `border-width-default` + `color-alert-{tone}-stroke` |
+| 반경 | 20px | 0 | 0 | `radius-alert` |
+| 본문 타이포 | 14/21 · 400 | 12/18 · 400 | 14/21 · 400 | `typography-body-sm-regular` / `typography-caption-regular` |
+| 제목 타이포 | 14/21 · 500 | 12/18 · 500 | 14/21 · 500 | `typography-body-sm-medium` / `typography-caption-medium` |
+| 아이콘 광학 보정 | 2.5px | 0 | 0 | `calc((body-sm-font-size*-line-height − icon-size-sm) / 2)` |
+| 한 줄 높이 | 47px | 38px | 41px | (패딩 두 번) + (테두리 두 번) + 행 높이 |
+| 닫기 위치 | 흐름 끝 | 흐름 끝 | 오른쪽 12px 고정 | `space-control-md` |
+
+**세 레이아웃이 공유하는 축.**
+
 | 축 | 값 | 토큰 |
 | --- | ---: | --- |
-| 세로 패딩 | 12px | `space-control-md` |
-| 가로 패딩 | 18px | `layout-alert-inset` |
-| 슬롯 간격 | 8px | `space-control-sm` |
-| 테두리 | 1px | `border-width-default` + `color-alert-{tone}-stroke` |
-| 반경 | 20px | `radius-alert` |
-| 본문 타이포 | 14/21 · −0.14px · 400 | `typography-body-sm-regular` |
-| 제목 타이포 | 14/21 · −0.14px · 500 | `typography-body-sm-medium` |
-| 글꼴 패밀리 | Pretendard 스택 | `typography-body-sm-regular-font-family` (제목은 `-medium-`) |
+| 글꼴 패밀리 | Pretendard 스택 | `typography-{scale}-font-family` |
 | 아이콘 한 변 | 16px | `icon-size-sm` |
-| 아이콘 광학 보정 | 2.5px | `calc((typography-body-sm-regular-font-size*-line-height − icon-size-sm) / 2)` |
 | 폭 | 100% | 리터럴 `inline-size` |
 | 본문 최소 폭 | 0 | 리터럴 `min-inline-size` |
 | 바깥 여백 | 0 | 리터럴 `margin` |
-| 한 줄 높이 | 47px | (12+12) + (1+1) + 21 |
 | elevation | 없음 | — |
+
+**세로 10px 이 전용 토큰인 이유.** 제품 두 담지자에서 같이 온 값이다 —
+`InsufficientNotice` 의 `py-5` 와 `PastDueBanner` 의 `padding: 10px 16px` 이 둘 다 10 이다.
+LOUIS 간격 계단은 4·8·12·16 이라 10 이 없어 `layout-alert-compact-inset` 을 세웠고, 이는 가로
+18(`layout-alert-inset`)과 같은 사정이다. 12 로 접으면 소비처가 되돌려야 하고, **되돌림이
+필요한 축은 채택이 아니다**(Known deviations 1 의 기준).
 
 **가로 18px 이 전용 토큰인 이유.** 제품 정본에서 온 값인데 기존 계단에 없다 — `space-control-*`
 는 4·8·12·16 이고 18이 없다. 그래서 `layout-alert-inset` 이 이 컴포넌트를 위해 섰다. 같은
@@ -265,14 +334,16 @@ Control 이 inset box-shadow 를 택한 이유(세그먼트 높이를 정확히 
 
 - Web source: `packages/css/src/component/alert.css`.
 - Public import: LOUIS 컴포넌트 레이어(`styles.layer.css`). 제품은 이것만 소비한다.
-- **React 표면 없음 · storybook 스토리 없음 · acceptance test 없음.** `packages/react/test/` 의
-  브라우저 테스트 어디에도 `.louis-alert` 가 없다. 아래 Acceptance tests 절은 그래서 **미래의
-  계약**이고 오늘 도는 검증이 아니다.
+- **React 표면 없음 · storybook 스토리 없음.** 그러나 2026-09-06 부터
+  `packages/react/test/alert.browser.test.tsx` 가 돈다 — 클래스 마크업을 실제 Chromium 에
+  렌더해 세 레이아웃의 패딩·간격·테두리·반경·타이포·한 줄 높이·아이콘 슬롯과, 레이아웃 × 톤
+  12조합이 무는 토큰을 계약과 대조한다(32 시험). 아래 Acceptance tests 절의 여러 항목이 그날
+  「미래의 계약」에서 **도는 검증**으로 옮겨 갔다.
 - Figma: component set 이 `figma/snapshot.json` 에 서 있고 `scripts/verify-figma-parity.mjs` 가
-  stroke·effects·속성 축·바인딩을 대조한다. **기하는 대조하지 않는다** — 계약에 `geometry` 키가
-  없어 `compareComponentGeometry()` 가 즉시 빠져나가고, 그 입력이 되는
-  `figma/components.measured.json` 에도 `alert` 항목이 없다. 대조할 `.d.ts` 도 없으므로
-  declaration 은 읽지 않는다 — 정본이 CSS 파일이라는 사실이 계약의 `figmaAhead` 에 적혀 있다.
+  stroke·effects·속성 축·바인딩·**기하**를 대조한다. 기하 계약은 2026-09-06 에 붙었다 — 그전에는
+  `geometry` 키가 없어 `compareComponentGeometry()` 가 즉시 빠져나갔고 패딩 12/18 · 간격 8 ·
+  반경 20 을 아무도 코드와 맞춰 보지 않았다. 대조할 `.d.ts` 는 여전히 없으므로 declaration 은
+  읽지 않는다 — 정본이 CSS 파일이라는 사실이 계약의 `figmaAhead` 에 적혀 있다.
 
 ### 제품 소비처
 
@@ -358,8 +429,13 @@ medium 이다. 제품의 `type-*` 클래스는 base 레이어라 LOUIS 컴포넌
 7. **아이콘·제목 슬롯을 쓰는 소비처가 0이다.** "색만으로 뜻을 전달하지 않는다"는 계약이 슬롯을
    선택으로 두고 문장에 기대는데, 오늘 그 문장이 톤을 말하는지 검증하는 것이 없다.
 
-8. **닫기와 액션 슬롯이 없다.** 배너를 닫거나 그 안에서 조치(재시도·설정 열기)하는 축이 없다.
-   제품에 그 요구가 있는지 **확인되지 않았다** — 오늘 다섯 자리 중 닫기를 가진 것은 없다.
+8. ~~**닫기와 액션 슬롯이 없다.**~~ **절반 해소됨(2026-09-06).** 닫기 슬롯
+   (`.louis-alert__dismiss`)이 섰다 — 제품에 그 요구가 실재한다는 것이 확인됐기 때문이다:
+   `PastDueBanner` 가 `useState` 로 자기를 지우는 X 버튼을 갖는다(46라우트에 얹히는 그 띠다).
+   **액션 슬롯은 여전히 없다.** 같은 띠가 문구 옆에 `/mypage` 로 가는 밑줄 링크를 두는데,
+   그것을 슬롯으로 열려면 링크의 색·중량·밑줄 계약을 알림이 소유해야 하고 그 정본이 아직
+   없다(제품은 `fontWeight: 600` + `textDecoration: underline` 을 인라인 style 로 준다).
+   그 축은 열지 않았고, 소비처가 `__content` 안에 넣는다.
 
 9. **같은 계열인데 덮지 못한 자리가 다섯 벌 더 있다.** 노드 캔버스의 다섯 노드 파일이
    `PROMPT_ERROR_BANNER` 라는 같은 이름의 배너를 **각자 정의**하며 클래스 문자열이 다섯 벌 모두
@@ -368,20 +444,27 @@ medium 이다. 제품의 `type-*` 클래스는 base 레이어라 LOUIS 컴포넌
    테두리 대신 `--louis-hairline-inset` · 최소 높이 28이다. 이관하려면 패딩·반경 축을 열고
    테두리 대 헤어라인 판정을 다시 해야 하므로 이 변경 단위 밖이다.
 
-10. **아이콘 슬롯의 크기가 Figma 와 CSS 에서 다르다.** Figma 의 Icon 부품은 네 톤 모두
-    **16×21** 이고 CSS 는 **16×16** 이다. 같은 목표(글리프를 첫 줄 가운데에 세우는 것)를 두
-    표면이 다른 방법으로 노렸다 — Figma 는 아이콘 프레임을 줄 높이만큼 늘려 세로 가운데
-    정렬로 얻었고, CSS 는 16 정사각에 위쪽 여백 2.5px 을 준다. 2번이 해소돼 **글리프가 서는
-    자리는 두 표면이 같아졌지만 부품 크기 자체는 계속 다르다** — Figma 16×21 · CSS 16×16.
+10. **아이콘 슬롯의 크기가 `block` 에서만 Figma 와 CSS 에서 다르다.** Figma 의 Icon 부품은
+    block 네 변형에서 **16×21** 이고 CSS 는 **16×16** 이다. 같은 목표(글리프를 첫 줄 가운데에
+    세우는 것)를 두 표면이 다른 방법으로 노렸다 — Figma 는 아이콘 프레임을 줄 높이만큼 늘려
+    세로 가운데 정렬로 얻었고, CSS 는 16 정사각에 위쪽 여백 2.5px 을 준다. 2번이 해소돼
+    **글리프가 서는 자리는 두 표면이 같지만 부품 크기 자체는 계속 다르다.**
+    **2026-09-06 에 범위가 좁아졌다** — `inline`·`banner` 는 행을 가운데 정렬하므로 두 표면 모두
+    16×16 이고, 어긋나는 것은 block 뿐이다. 그래서 기하 계약은 Icon 의 `width` 만 대조하고
+    `height` 는 대조하지 않는다(그 사실이 `verify-figma-parity.mjs` 의 alert 계약 주석에 있다).
 
 11. **같은 내용에서 Figma 상자가 CSS 보다 2px 낮다.** Figma 의 stroke 는 `INSIDE` 정렬이라
     1px 테두리가 상자 안쪽에 그려지는데, CSS 는 `box-sizing: border-box` 에 높이가 auto 라
-    테두리가 바깥으로 더해진다. 두 줄짜리 배너가 Figma 66px · CSS 68px 이다. parity 계약은 이
-    차이를 잡지 않는데, 이유는 "높이는 안 보고 패딩만 본다"가 아니라 **계약에 `geometry` 키
-    자체가 없어 기하를 하나도 대조하지 않는다**는 것이다(Availability · Implementation 참조).
-    alert 계약이 대조하는 것은 stroke 두께·정렬과 effects·속성 축·바인딩뿐이다.
+    테두리가 바깥으로 더해진다. 두 줄짜리 배너가 Figma 66px · CSS 68px 이다.
+    **「계약에 geometry 키 자체가 없다」는 부분은 2026-09-06 에 해소됐다** — 세 레이아웃의
+    패딩·간격·반경·layoutMode 와 Icon 슬롯 폭이 이제 매 실행 대조된다. 남은 것은 높이다:
+    계약은 **높이와 폭을 여전히 보지 않는다.** Figma 표본은 제목과 본문을 둘 다 켠 두 줄짜리이고
+    계약의 `height` 는 한 줄 높이라 **같은 것을 재지 않는 두 수**이기 때문이고, 폭은 컨테이너가
+    정한다(`inline-size: 100%`). 위의 2px 은 그래서 여전히 아무도 재지 않는다.
 
-12. **문서가 인용하는 소비처 넷이 evidence lock 에 없다.** 업그레이드 페이지 · 결제창 패널 ·
+12. **문서가 인용하는 소비처 넷이 evidence lock 에 없다.** (2026-09-06 에 담지자 둘이 더
+    늘었다 — `analytics/shared.tsx` 의 `InsufficientNotice` 와 `components/PastDueBanner.tsx` 도
+    같은 이유로 락에 없다.) 업그레이드 페이지 · 결제창 패널 ·
     JobMonitor · 템플릿 상세 넷은 `migration/product-evidence.lock.json` 에 없어, 제품이 그
     자리를 바꿔도 게이트가 알려 주지 않는다. 그래서 위 표는 좌표를 `<파일>:<줄>` 인용 형태로
     적지 않았다 — citation 게이트가 락에 없는 파일의 인용을 실패로 만들기 때문이다.
@@ -394,11 +477,45 @@ medium 이다. 제품의 `type-*` 클래스는 base 레이어라 LOUIS 컴포넌
     직접 쓰거나, 배너 반경이 카드 반경과 독립으로 움직여야 하는 이유를 적어 두어야 한다. 오늘
     그 이유는 **적혀 있지 않다.**
 
+14. **띠의 쌓임 순서를 LOUIS 가 소유하지 않는다.** 제품 담지자(`PastDueBanner`)는
+    `position: fixed` · `top: 0` · `zIndex: 9999` 를 인라인 style 로 주고, 그 값은 LOUIS 의
+    `layer-*` 계단 밖이다. `banner` 레이아웃은 그리는 법만 갖고 붙는 자리는 갖지 않는다 —
+    그것이 **결손이 아니라 판정**인 이유는 9999 가 GNB·모달·토스트 위를 덮는 순서를 이미 만들고
+    있어서, 그 순서를 계단으로 옮기면 겹침이 바뀔 수 있기 때문이다. **옮기기 전에 쌓임 순서를
+    실측해야 한다.** 오늘 그 실측은 없다.
+
+15. **`inline` 의 부모 문맥 면 세 종 중 하나만 축이 됐다.** 제품 `InsufficientNotice` 는
+    `surface` prop 으로 `plain` · `innerPanel` · `donutCard` 셋을 갖는다. 이 레이아웃이 담은
+    것은 `plain` 뿐이다.
+    · `plain` 의 `border-top` 은 알림의 테두리가 아니라 **위 목록과 가르는 구분선**이라 부모가
+      소유한다 — 그래서 무테로 담았다.
+    · `innerPanel` 과 `donutCard` 는 서로 **패딩 12/14 · 반경 10 · `--louis-hairline-inset` ·
+      안쪽 면이 전부 같고**, 갈리는 것은 `border-top` 의 유무와 `flex: 1` 둘뿐이다. 그 둘은
+      목록·카드 쪽 사정이지 알림의 축이 아니다. 그러므로 **면 셋이 아니라 「면 있는 인라인」
+      한 축**이 후보인데, 그 값(패딩 12/14 · 반경 10 · 헤어라인)은 인사이트 카드의 안쪽 패널이
+      이미 소유하는 값과 같다. **알림이 그것을 다시 소유하면 같은 값을 두 곳이 갖는다.**
+      그래서 카드 쪽 정본이 서기 전에는 열지 않는다. 오늘 제품 12자리 중 이 축이 필요한 것은
+      셋(`PerformanceTab` 둘 · `AudienceTab` 하나)이다.
+
 ## Acceptance tests
 
-오늘 도는 검증이 없다(Implementation 참조). 아래는 구현해야 할 계약이다. 9번은 2026-08-27
-까지 실패하고 있었고(Known deviations 2), 지금은 Chromium 탐침으로 통과를 확인했다 — 다만
-**게이트가 도는 것은 아니다.**
+**2026-09-06 부터 절반이 실제로 돈다.** `packages/react/test/alert.browser.test.tsx` 가 32
+시험으로 아래 1·2·3·8·9·10·(4 의 절반) 과 세 레이아웃의 패딩·간격·테두리·반경·타이포·한 줄
+높이·닫기 위치를 잰다. 나머지(6·7·11·12·13·14·15)는 여전히 **미래의 계약**이다 — 무엇이 돌고
+무엇이 안 도는지를 이 절이 구분해 적는다.
+
+아래 항목은 별도 표시가 없으면 `block` 을 말한다. 세 레이아웃의 값은 Specification 표에 있고,
+그 표의 모든 칸을 위 테스트가 계약(`figma/components.measured.json` 의 `alert.sizes`)과 대조한다.
+
+16. **(도는 검증)** `data-layout` 셋이 각자 계약의 패딩·간격·테두리·반경·글자 크기·행간·한 줄
+    높이·아이콘 한 변·아이콘 광학 보정을 만든다.
+17. **(도는 검증)** 레이아웃 × 톤 12 조합이 계약이 지목한 토큰을 문다 — `block` 은
+    `color-alert-{tone}-*` 셋, `banner` 는 `color-bg-{tone}`·`color-fg-{tone}`, `inline` 은
+    네 톤 모두 면 없음 + `color-fg-secondary`. **네 톤이 같다는 것이 인라인의 계약이므로**
+    한 톤이 조용히 갈리면 이 시험이 잡는다.
+18. **(도는 검증)** `banner` 의 닫기가 절대 위치이고 오른쪽 끝에서 12px 떨어지며, **닫기를
+    넣어도 본문이 같은 자리에 선다** — 흐름에 남으면 가운데 정렬된 문구를 밀어낸다. 두 벌
+    (닫기 있음·없음)을 나란히 렌더해 비교해야만 참·거짓이 갈리는 명제라 그렇게 잰다.
 
 1. 세로 패딩 12 · 가로 패딩 18 · 슬롯 간격 8 · 테두리 1px solid · 반경 20 이 Specification 표와
    같다.

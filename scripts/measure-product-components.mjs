@@ -2164,7 +2164,12 @@ const EXPECT = [
   // FaqRow · NewsCard · GnbMenuItem · InlineLoadingLabel · SegmentedCodeInput 은 되읽기 키가
   // 여럿이라 기록도 키마다 한 벌이다. 같은 값을 손으로 여러 번 적지 않고 한 벌을 펼친다 —
   // 옮겨 적는 자리를 만들지 않는 것이 이 파일의 규범이다.
-  ...["false", "true"].flatMap((expanded) => [
+  // **`lg` 키만 돈다.** 2026-09-06 에 `Size` 축이 열려 키가 `{Expanded}/{Size}` 복합이 됐는데,
+  // 브라우저 탐침이 잴 수 있는 것은 랜딩 상수(`landingFaq`)뿐이다 — 가이드 모달의 세 상수는
+  // `scripts/lib/product-files.mjs` 에 없고, 넣으면 `verify-product-evidence` 가 lock 갱신을
+  // 요구한다(재고정은 제품 워킹트리가 깨끗할 때 하는 별건이다). 그래서 `md` 네 값은 대조가
+  // 아니라 `$` 사유로 닫혀 있고, 탐침을 붙이는 것이 그 칸의 승격 조건이다.
+  ...["false/lg", "true/lg"].flatMap((expanded) => [
     ["faq-row", "borderTopLeftRadius", ["faq-row", "sizes", expanded, "radius"], "same"],
     ["faq-row", "paddingTop", ["faq-row", "sizes", expanded, "paddingBlock"], "same"],
     ["faq-row", "paddingLeft", ["faq-row", "sizes", expanded, "paddingInline"], "same"],

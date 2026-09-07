@@ -1,5 +1,5 @@
 "use client";
-import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
+import { jsx as _jsx, Fragment as _Fragment, jsxs as _jsxs } from "react/jsx-runtime";
 import { cloneElement, useCallback, useEffect, useId, useRef, useState, } from "react";
 import { OverlayPortal } from "../overlay/overlay-portal.js";
 import { useOverlayContext } from "../overlay/overlay-provider.js";
@@ -14,7 +14,7 @@ import { OverlayAnchor, OverlayPositioned, OverlayPositioner, } from "../overlay
  * trigger를 감싸지 않고 `cloneElement`로 속성만 붙인다. 래퍼를 두면 그 래퍼가 레이아웃에 끼어들어
  * 호출부의 flex/grid 계산이 조용히 달라진다.
  */
-export function Tooltip({ content, side = "top", align = "center", openDelay = 300, disabled = false, children, }) {
+export function Tooltip({ content, layout, title, side = "top", align = "center", openDelay = 300, disabled = false, children, }) {
     // offset과 collision padding은 overlay 표면 CSS가 소유하고 Provider가 1회 측정한다.
     // 여기서 숫자를 다시 쓰면 Menu·Dialog와 tooltip이 서로 다른 간격을 갖게 된다.
     const { metrics } = useOverlayContext();
@@ -67,6 +67,9 @@ export function Tooltip({ content, side = "top", align = "center", openDelay = 3
             document.removeEventListener("scroll", onScroll, { capture: true });
         };
     }, [close, open]);
+    // 제목이 있으면 두 줄이고, 두 줄이면 coachmark 다. 명시 prop 이 그것을 이긴다 —
+    // Figma 의 `Layout` variant 와 이름이 1:1로 맞아야 계약이 대조할 타입이 생긴다.
+    const resolvedLayout = layout ?? (title === undefined ? "base" : "coachmark");
     const describedBy = open ? surfaceId : undefined;
     const trigger = cloneElement(children, {
         ...(describedBy === undefined ? {} : { "aria-describedby": describedBy }),
@@ -95,6 +98,6 @@ export function Tooltip({ content, side = "top", align = "center", openDelay = 3
             close();
         },
     });
-    return (_jsxs(OverlayPositioner, { children: [_jsx(OverlayAnchor, { asChild: true, children: trigger }), open ? (_jsx(OverlayPortal, { kind: "non-modal", children: _jsx(OverlayPositioned, { side: side, align: align, sideOffset: metrics.offset, collisionPadding: metrics.collisionPadding, className: "louis-tooltip-positioner", children: _jsx("div", { id: surfaceId, role: "tooltip", className: "louis-tooltip", children: content }) }) })) : null] }));
+    return (_jsxs(OverlayPositioner, { children: [_jsx(OverlayAnchor, { asChild: true, children: trigger }), open ? (_jsx(OverlayPortal, { kind: "non-modal", children: _jsx(OverlayPositioned, { side: side, align: align, sideOffset: metrics.offset, collisionPadding: metrics.collisionPadding, className: "louis-tooltip-positioner", children: _jsx("div", { id: surfaceId, role: "tooltip", className: "louis-tooltip", "data-layout": resolvedLayout, children: resolvedLayout === "coachmark" ? (_jsxs(_Fragment, { children: [title === undefined ? null : (_jsx("p", { className: "louis-tooltip__title", children: title })), _jsx("p", { className: "louis-tooltip__body", children: content })] })) : (content) }) }) })) : null] }));
 }
 //# sourceMappingURL=tooltip.js.map

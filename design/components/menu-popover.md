@@ -46,6 +46,29 @@ summary: 트리거 옆에서 액션 목록이나 설정을 펼쳐 보여 줍니�
 프로필처럼 버튼, 링크, 세그먼트, Listbox가 섞인 패널에 `role="menu"`를 붙이지 않는다. 반대로 순수 명령
 목록을 이름만 dialog로 만들고 방향키 탐색을 생략하지 않는다.
 
+### Trigger (2026-09-06)
+
+세 variant 모두 트리거를 갖지만 **그 트리거를 그리는 자리가 없었다.** `AnchoredTrigger`와
+`CompositePopoverTrigger`는 aria 4종·토글·anchor 등록만 하는 headless 래퍼라 시각 값을 소유하지
+않는다. 그래서 제품 랜딩 `LanguageSelector`가 트리거를 자기 파일에서 다시 그리고 있었고, 옆에
+서는 `ThemeSelector`가 「같은 크기·같은 두께여야 한다」며 그 상수를 import해 간다(소비처 둘).
+
+`MenuTrigger`(`.louis-menu-trigger`)가 그 자리를 갖는다. 글리프 슬롯 하나와 값 하나를 담고,
+누르면 패널을 연다.
+
+**크기 축이 없다.** 높이가 32 하나이고 그것은 이미 컨트롤 사다리의 `md` 칸이다
+([DS-D-0027](../governance/decisions/DS-D-0027-control-size-ladder.md)). 이름이 실물보다 많으면
+고르는 쪽이 손해를 보므로, 갈릴 때 그 자리에서 나눈다.
+
+**셰브론이 없다.** 앵커 커밋의 제품 트리거가 셰브론을 렌더하지 않는다 — 옛 모듈 CSS의 `.chevron`은
+「이 TSX가 참조하지 않는 미사용 클래스라 옮기지 않았다」고 그 파일의 이관 주석이 적고 있다. 없는
+것을 축으로 세우지 않는다. 셰브론이 있는 트리거는 Select 계열의 몫이다.
+
+**hover를 잉크가 아니라 면으로 표현한다.** 제품은 잉크를 100% → 88%로 **낮춰서** hover를 말하는데
+(랜딩 헤더의 잉크 램프), 이 저장소에는 그 램프 토큰이 없고 면 없는 컨트롤의 hover는 ghost 면 8%로
+이미 서 있다. 그리고 **제품의 `outline: none`은 옮기지 않았다** — focus-visible에서 링을 지우고
+색만 바꾸는 것은 채택할 사양이 아니라 결손이다.
+
 ## Anatomy
 
 1. **Trigger** — 이름, `aria-expanded`, 패널과의 관계를 소유한다.
@@ -105,6 +128,19 @@ summary: 트리거 옆에서 액션 목록이나 설정을 펼쳐 보여 줍니�
 | Closing   | 시각적 exit만 허용; 즉시 `inert`와 pointer 차단      | trigger `aria-expanded="false"`, `aria-controls` 제거; 선택 액션 재실행 불가; 자식 branch도 함께 닫는다 |
 | Disabled  | panel을 열 수 없음                                   | 네이티브 `disabled` 우선                              |
 | Item busy | 해당 액션 중복 실행 차단, spinner와 `aria-busy` 제공 | 전체 메뉴를 불필요하게 닫지 않음                      |
+| Item selected | 면이 hover 위 한 칸(12%)으로 칠해진다             | `aria-selected="true"`(`role="listbox"`의 값 목록)     |
+| Trigger open | 트리거 면이 hover와 같은 ghost 8%로 남는다         | `aria-expanded="true"`                                |
+
+**`aria-selected`와 `aria-checked`는 다른 것을 말한다.** 아래 §Item leading icon slot 위의 규범이
+「선택은 면 강조가 아니라 글리프가 표현한다」고 적는데, 그 문장이 가리키는 것은 **`aria-checked`**다 —
+`role="menuitemradio"`/`menuitemcheckbox`로 **행동 목록** 안에서 켜고 끄는 축이고, 거기서 면을 쓰면
+hover와 같아 보인다.
+
+`aria-selected`는 `role="listbox"`의 **값 목록**에서 「지금 값」이다. 값 목록에는 켜고 끄는 뜻이
+없고 늘 정확히 하나가 선택돼 있으므로, 글리프 칸을 세우면 모든 행이 빈 칸을 하나씩 들고 선다.
+그래서 이쪽은 면이 말한다. 제품 정본(랜딩 `LanguageSelector`)도 면으로 그리며, 다만 제품은 고정
+팔레트(`palette-gray-200` 면 + `palette-gray-1000` 글자)라 다크에서 뒤집히지 않는다 — 잉크 알파는
+뒤집히므로 두 테마에서 같은 세기로 읽힌다.
 
 `opacity: 0`과 `aria-hidden`만으로 닫힌 panel을 유지하지 않는다. 그 안의 링크와 버튼이 Tab 순서에 남기
 때문이다.
@@ -430,6 +466,20 @@ LOUIS만 DS-D-0023을 따르고 있었던 셈이다. 기록을 0.5로 고치고 
 | Elevation      | `elevation-menu` — ambient drop shadow만. 헤어라인은 패널이 뒤에 조합하는 inset | overlay hierarchy |
 | Open motion    | opacity + scale, `motion-overlay-enter`; origin=anchor | reduced-motion 대체        |
 | Reduced motion | transform 제거, 짧은 opacity 또는 즉시 전환            | motion preference          |
+| Item selected  | `color-accent-secondary-hover` — 전경 12% (hover 4% 위 한 칸) | hover가 선택을 덮지 않는다 |
+
+### Trigger
+
+| 항목        | 값                                                   |
+| ----------- | ---------------------------------------------------- |
+| 높이        | `layout-control-height-md` 32 — 크기 축 없음         |
+| padding     | 0 / `space-control-sm` 8                             |
+| gap         | `space-control-xs` 4 (글리프 ↔ 값)                   |
+| radius      | `radius-control` 12                                  |
+| 글리프      | `icon-size-md` 20                                    |
+| 타이포      | `typography-caption-regular` (12/18)                 |
+| 전경        | `color-fg-primary`                                   |
+| 면          | 없음. hover·open에서 `color-accent-ghost-hover` 8%   |
 | Layer          | `layer-popover`, 숫자 리터럴 금지                      | nested overlay stack       |
 
 표 18행 중 **채택 당시** 제품의 공용 토큰이던 `--dropdown-*`에서 온 것은 **다섯 행**이다 —

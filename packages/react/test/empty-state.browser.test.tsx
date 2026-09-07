@@ -136,4 +136,112 @@ test("제목과 설명의 위계가 토큰에서 온다", async () => {
   );
 });
 
+// ── layout 축 ──────────────────────────────────────────────────────────────────
+// 「면을 갖지 않는다」는 집계 9벌의 합의이고 **집계 안에서만** 참이다. 아래 셋은 그 밖의 두
+// 자리가 계약대로 서 있는지를 잰다 — 이 파일이 없으면 계약과 Figma 는 서로 맞은 채 코드만
+// 다른 상태가 조용히 생긴다(design/governance/decisions/DS-D-0035).
+
+test("layout이 data-layout을 정하고 기본값에서도 붙는다", async () => {
+  // 값이 있을 때만 붙이면 "기본값이라 없다"와 "prop을 못 받았다"가 DOM에서 구분되지 않는다.
+  await render(
+    <div>
+      <EmptyState title="기본" />
+      <EmptyState title="컴팩트" layout="compact" />
+      <EmptyState title="캔버스" layout="canvas" />
+    </div>,
+  );
+  expect(
+    [...document.querySelectorAll(".louis-empty-state")].map((n) => n.getAttribute("data-layout")),
+  ).toEqual(["base", "compact", "canvas"]);
+});
+
+test("compact의 구조값이 components.measured.json과 같다", async () => {
+  const spec = measured.components["empty-state"].sizes.compact;
+  await render(
+    <div style={{ inlineSize: "480px" }}>
+      <EmptyState
+        layout="compact"
+        title="아직 데이터가 없습니다"
+        description="영상을 올리면 지표가 쌓입니다."
+      />
+    </div>,
+  );
+
+  const root = find(".louis-empty-state");
+  const style = getComputedStyle(root);
+  expect(px(style.paddingBlockStart), "paddingBlock").toBe(spec.paddingBlock);
+  expect(px(style.paddingInlineStart), "paddingInline").toBe(spec.paddingInline);
+  expect(px(style.rowGap), "gap").toBe(spec.gap);
+  expect(px(style.borderTopWidth), "borderWidth").toBe(spec.borderWidth);
+  expect(px(style.borderTopLeftRadius), "radius").toBe(spec.radius);
+  expect(style.alignItems, "align").toBe(spec.align);
+
+  const titleStyle = getComputedStyle(find(".louis-empty-state__title"));
+  expect(px(titleStyle.fontSize), "titleFontSize").toBe(spec.titleFontSize);
+  expect(round(px(titleStyle.lineHeight)), "titleLineHeight").toBe(spec.titleLineHeight);
+
+  const descriptionStyle = getComputedStyle(find(".louis-empty-state__description"));
+  expect(px(descriptionStyle.fontSize), "descriptionFontSize").toBe(spec.descriptionFontSize);
+  expect(round(px(descriptionStyle.lineHeight)), "descriptionLineHeight").toBe(
+    spec.descriptionLineHeight,
+  );
+  // base의 44ch 제한은 "넓은 화면 가운데"라는 전제에서 나온 값이다. 카드 안에서는 그 전제가
+  // 성립하지 않아 제한을 푼다 — 두면 카드보다 좁은 자리에서 두 번 접힌다.
+  expect(descriptionStyle.maxInlineSize, "설명 폭 제한 없음").toBe("none");
+});
+
+test("compact만 면을 갖는다", async () => {
+  // 제품 9벌이 합의한 "상자가 아니다"의 **유일한 반례**이고, 반례가 실재한다는 사실이 축의
+  // 근거다. 면은 카드보다 한 단계 밝은 표면이라 bg-inset이 아니라 bg-raised다.
+  await render(
+    <div>
+      <EmptyState layout="compact" title="컴팩트" description="설명" />
+    </div>,
+  );
+  const style = getComputedStyle(find(".louis-empty-state"));
+  expect(style.backgroundColor, "면").toBe(tokenValue("color-bg-raised"));
+  expect(style.borderTopColor, "테두리 색").toBe(tokenValue("color-stroke-default"));
+});
+
+test("canvas의 구조값이 components.measured.json과 같고 면은 없다", async () => {
+  const spec = measured.components["empty-state"].sizes.canvas;
+  await render(
+    <div style={{ inlineSize: "640px" }}>
+      <EmptyState
+        layout="canvas"
+        title="첫 노드를 만들어 시작하세요"
+        action={
+          <>
+            <Button variant="secondary" size="md">
+              이미지 생성
+            </Button>
+            <Button variant="secondary" size="md">
+              비디오 생성
+            </Button>
+          </>
+        }
+      />
+    </div>,
+  );
+
+  const root = find(".louis-empty-state");
+  const style = getComputedStyle(root);
+  expect(px(style.paddingBlockStart), "paddingBlock").toBe(spec.paddingBlock);
+  expect(px(style.paddingInlineStart), "paddingInline").toBe(spec.paddingInline);
+  expect(px(style.rowGap), "gap").toBe(spec.gap);
+  expect(style.alignItems, "align").toBe(spec.align);
+  // 캔버스 위에 뜬 오버레이라 상자를 그리면 노드가 하나 더 있는 것처럼 보인다.
+  expect(style.backgroundColor, "면 없음").toBe(TRANSPARENT);
+  expect(px(style.borderTopWidth), "borderWidth").toBe(spec.borderWidth);
+  expect(px(style.borderTopLeftRadius), "radius").toBe(spec.radius);
+
+  const titleStyle = getComputedStyle(find(".louis-empty-state__title"));
+  expect(px(titleStyle.fontSize), "titleFontSize").toBe(spec.titleFontSize);
+  expect(round(px(titleStyle.lineHeight)), "titleLineHeight").toBe(spec.titleLineHeight);
+
+  const action = getComputedStyle(find(".louis-empty-state__action"));
+  expect(px(action.marginBlockStart), "actionMarginBlockStart").toBe(spec.actionMarginBlockStart);
+  expect(px(action.columnGap), "actionGap").toBe(spec.actionGap);
+});
+
 export type _EnsureTsx = JSX.Element;

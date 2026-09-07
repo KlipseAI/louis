@@ -23,6 +23,23 @@ export type TextFieldSize = "lg" | "md" | "sm";
  */
 export type TextFieldLabelBehavior = "stacked" | "floating";
 
+/**
+ * 위/아래 이웃과 이어 붙는가 (DS-D-0052). **크기·라벨 자리와 직교하는 별개의 축이다.**
+ *
+ * - `none` — 홀로 선 필드. 기본값이고, 네 모서리가 모두 둥글며 포커스 링이 밖에 선다.
+ * - `start` · `middle` · `end` — 한 덩어리로 읽히는 필드 무리의 첫 칸 · 가운데 칸 · 끝 칸.
+ *   맞닿는 쪽의 곡률이 펴지고, 이음매가 두 겹으로 그려지지 않게 겹치며, 포커스 링이 이웃에
+ *   가려지지 않도록 상자 **안**으로 들어간다.
+ *
+ * 제품의 인증 다섯 화면이 상자 둘을 이렇게 이어 붙인다. 가운데 칸은 그 다섯에 없다 —
+ * 첫·끝의 두 값에서 자유도 없이 따라 나오는 칸이며(곡률 0 · 같은 겹침) 그 사실을
+ * design/components/text-field.md 가 적는다.
+ *
+ * **결합한 필드는 `description` 을 갖지 않는 것이 전제다.** 메시지가 두 상자 사이에 서면
+ * 결합이 끊긴다 — 무리 전체의 문구는 무리 아래 한 자리에 둔다.
+ */
+export type TextFieldJoin = "none" | "start" | "middle" | "end";
+
 export interface TextFieldProps
   // `prefix`는 HTML 전역 속성(RDFa)이라 이름이 겹친다. 필드 슬롯 쪽 뜻으로 덮어쓴다.
   extends Omit<InputHTMLAttributes<HTMLInputElement>, "size" | "type" | "prefix"> {
@@ -54,6 +71,14 @@ export interface TextFieldProps
    * 깨지기 때문이고, 그 계약은 design/components/text-field.md 와 브라우저 테스트가 갖는다.
    */
   readonly labelBehavior?: TextFieldLabelBehavior;
+  /**
+   * 이웃과 이어 붙는 자리. 기본값 `none`.
+   *
+   * **호출부가 무리 전체를 안다.** 필드는 자기가 몇 번째인지 알 수 없으므로 첫·가운데·끝을
+   * 호출부가 정한다 — 제품의 인증 화면도 상수 둘(`INPUT_BOX_TOP` · `INPUT_BOX_BOTTOM`)을
+   * 호출 지점에서 고른다.
+   */
+  readonly join?: TextFieldJoin;
   /** 필드 아래 한 줄. `invalid`일 때는 오류 문구가 되고 `aria-describedby`로 연결된다. */
   readonly description?: ReactNode;
   /** 오류 상태. **색만으로 알리지 않는다** — 이 값이 참이면 description이 오류 문구가 된다. */
@@ -67,7 +92,9 @@ export interface TextFieldProps
   readonly ref?: Ref<HTMLInputElement>;
 }
 
-function join(...values: readonly (string | undefined)[]): string {
+// **`join` 이라는 이름을 쓰지 않는다.** 결합 축이 같은 이름의 prop 을 갖고, 함수 몸통 안에서
+// 그 prop 이 이 헬퍼를 가린다(TS2349). 이름을 바꿔 그 그림자를 없앤다.
+function joinTokens(...values: readonly (string | undefined)[]): string {
   return values.filter(Boolean).join(" ");
 }
 
@@ -83,6 +110,7 @@ export function TextField({
   label,
   size = "lg",
   labelBehavior = "stacked",
+  join = "none",
   description,
   invalid = false,
   prefix,
@@ -100,7 +128,7 @@ export function TextField({
   const describedBy =
     description === undefined
       ? rest["aria-describedby"]
-      : join(rest["aria-describedby"], messageId);
+      : joinTokens(rest["aria-describedby"], messageId);
 
   const floating = labelBehavior === "floating";
 
@@ -119,9 +147,12 @@ export function TextField({
 
   return (
     <div
-      className={join("louis-text-field", className)}
+      className={joinTokens("louis-text-field", className)}
       data-size={size}
       data-label-behavior={labelBehavior}
+      // `none` 은 속성을 아예 달지 않는다 — CSS 가 `[data-join]` 의 존재로 결합 여부를
+      // 판정하고, 겹침 변수도 그 선택자가 소유한다.
+      data-join={join === "none" ? undefined : join}
       data-invalid={invalid ? "true" : undefined}
     >
       {floating ? null : labelNode}

@@ -23,12 +23,18 @@ summary: 보여 줄 것이 없을 때 그 사실과 다음 행동을 안내합�
 마지막 줄이 유일한 합의이고, 그것을 그대로 옮겼다. 나머지는 두 홈이 동의한 값을 정본으로 골랐다 —
 근거가 가장 두껍다.
 
+**그 합의는 집계 «안»에서만 참이다.** 집계 밖에 정의가 둘 더 있고 둘 다 위 표로는 그릴 수 없다 —
+대시보드의 `AnalyticsStatePanel` 은 면·1px 테두리·12 반경을 갖고 **왼쪽에서 시작하며**, 빈 캔버스의
+`CanvasEmptyState` 는 그래픽 없이 28px 제목 한 줄과 버튼 둘만 그린다. 「아홉 벌이 합의하는 것은
+하나뿐」이라는 문장은 그래서 **layout 축의 근거**다: 합의 밖의 자리가 실재한다는 사실을 이미 적고
+있었다. 그 둘을 `compact` 과 `canvas` 로 세웠다 — 아래 [Layout](#layout) 을 본다.
+
 ## Availability
 
 | Surface       | 상태           | 근거                                                          |
 | ------------- | -------------- | -------------------------------------------------------------- |
 | Web           | `partial`      | public export와 실브라우저 acceptance test 7건; visual regression과 제품 소비 증거 없음 |
-| Figma         | `done`      | component 하나. 계약이 모든 property 를 pin 하고 Graphic·Title·Description·Action 을 자손으로 대조한다. 기하는 양방향이다 — `empty-state.browser.test.tsx` 가 코드 쪽에서 같은 실측을 되잰다. 게시 없이 판정한다([DS-D-0035](../governance/decisions/DS-D-0035-figma-done-without-publish.md)) |
+| Figma         | `done`      | `Layout` 축 3변형의 component set. 계약이 모든 property 를 pin 하고 세 칸(`base`·`compact`·`canvas`)을 전부 대조하며 Graphic·Title·Description·Action 을 자손으로 본다. 기하는 양방향이다 — `empty-state.browser.test.tsx` 가 코드 쪽에서 같은 실측을 되잰다. 게시 없이 판정한다([DS-D-0035](../governance/decisions/DS-D-0035-figma-done-without-publish.md)) |
 | Documentation | `done`         | 이 문서                                                        |
 | Maturity      | `experimental` | 규범과 구현이 같은 변경 단위에서 처음 선다                     |
 
@@ -54,15 +60,45 @@ summary: 보여 줄 것이 없을 때 그 사실과 다음 행동을 안내합�
   description="첫 번째 영상을 만들어보세요."
   action={<Button variant="primary" size="sm" leftIcon={<IconPlus />}>만들기</Button>}
 />
+
+{/* 섹션 카드 안 — 면을 갖는 2슬롯 패널 */}
+<EmptyState
+  layout="compact"
+  headingLevel={3}
+  title="아직 데이터가 없습니다"
+  description="영상을 올리면 이 자리에 지표가 쌓입니다."
+/>
+
+{/* 작업 표면 위 — 그림 없이 큰 제목과 할 수 있는 일 둘 */}
+<EmptyState
+  layout="canvas"
+  title="첫 노드를 만들어 시작하세요"
+  action={
+    <>
+      <Button variant="secondary">이미지 생성</Button>
+      <Button variant="secondary">비디오 생성</Button>
+    </>
+  }
+/>
 ```
 
 ## Anatomy
 
-1. **Container** — 세로 가운데 정렬 stack. **면을 갖지 않는다.**
+1. **Container** — 세로 stack. `base`·`canvas` 는 가운데 정렬이고 `compact` 만 왼쪽에서 시작한다.
+   면을 갖는 것도 `compact` 하나뿐이다.
 2. **Graphic** — 64px 슬롯. 선택이다.
 3. **Title** — heading. 무엇이 없는지 말한다.
 4. **Description** — 선택. 다음에 무엇을 하면 되는지 말한다.
 5. **Action** — 선택. 보통 Button 하나다.
+
+자리마다 쓰는 슬롯이 다르다. **컴포넌트가 슬롯을 막지는 않는다** — 막으면 같은 prop 이 layout 마다
+다르게 동작한다 — 대신 계약이 그 자리의 값을 갖지 않으며, Figma 의 그 변형에는 자손 자체가 없다.
+
+| layout | Graphic | Title | Description | Action |
+| --- | :---: | :---: | :---: | :---: |
+| `base` | 선택 | 필수 | 선택 | 선택 |
+| `compact` | — | 필수 | 필수 | — |
+| `canvas` | — | 필수 | — | 필수(둘) |
 
 ## Properties
 
@@ -73,14 +109,38 @@ summary: 보여 줄 것이 없을 때 그 사실과 다음 행동을 안내합�
 | `graphic` | ReactNode | 없음 | 64px 그래픽 |
 | `action` | ReactNode | 없음 | 행동 유도 |
 | `headingLevel` | `2`–`6` | `2` | 제목의 heading 단계 |
+| `layout` | `base` · `compact` · `canvas` | `base` | 놓이는 자리의 모양 |
 
 `headingLevel`을 컴포넌트가 고정하지 않는 이유는 빈 상태가 놓이는 자리에 따라 문서 구조가 달라지기
 때문이다. 섹션 안이면 `3`, 페이지 본문이면 `2`다.
 
 ## Hierarchy와 variants
 
-variant 축이 없다. 빈 상태의 강조는 시각이 아니라 **행동 유도의 유무**가 만든다 — 사용자가 지금
+**강조 축은 없다.** 빈 상태의 강조는 시각이 아니라 **행동 유도의 유무**가 만든다 — 사용자가 지금
 할 수 있는 것이 있으면 버튼을 주고, 없으면 사실만 말한다.
+
+## Layout
+
+있는 축은 하나이고 그것은 강조가 아니라 **자리**다. 세 값은 "같은 것을 더/덜 강하게"가 아니라
+서로 다른 곳에 산다.
+
+| `layout` | 자리 | 제품 정본 |
+| --- | --- | --- |
+| `base` | 페이지 본문 | 앱 홈 두 벌(집계 9벌의 합의값) |
+| `compact` | 섹션 카드 **안** | `AnalyticsStatePanel` — `components/scenes/analytics/shared.tsx:123-128` · `561-566` |
+| `canvas` | 작업 표면 **위** | `CanvasEmptyState` — `components/scenes/create/node-canvas-v2/components/CanvasEmptyState.tsx:24-38` |
+
+`compact` 은 이 컴포넌트의 **단일 최다 소비처**다 — 앵커 `5a67d692` 전수로 JSX 호출 15곳 / 6파일 /
+2라우트(`/analytics/instagram` · `/analytics/youtube`)다.
+
+**`compact` 만 면을 갖는다.** 그것이 「9벌 전부 없음」 합의의 유일한 반례이며, 반례가 실재한다는
+사실이 축을 여는 근거다. 면과 테두리는 제품 실측과 **값이 같은** semantic 을 골랐다 — 제품 다크의
+`--dashboard-chip-bg-strong`(gray-700)이 `color-bg-raised` 와, `--dashboard-input-border`(gray-600)가
+`color-stroke-default` 와 같은 색이다. 카드보다 한 단계 **밝은** 면이므로 `bg-inset` 이 아니라
+`bg-raised` 다 — 제품 주석도 그 자리를 "카드보다 한 단계 밝은 표면"이라 부른다.
+
+**`canvas` 는 그림을 그리지 않는다.** 캔버스가 비었다는 사실보다 그림이 먼저 읽히기 때문이고,
+제품도 그렇게 그린다. 대신 액션이 둘이다 — 액션 «개수»는 소비처가 정하므로 축이 아니다.
 
 ## States
 
@@ -118,21 +178,30 @@ variant 축이 없다. 빈 상태의 강조는 시각이 아니라 **행동 유�
 
 ## Specification
 
-| 축 | 값 | 토큰 |
-| --- | ---: | --- |
-| 세로 여백 | 80px | — |
-| 좌우 여백 | 16px | `space-layout-gutter` |
-| 블록 간격 | 12px | `space-stack-md` |
-| 액션 추가 간격 | 4px | `space-control-xs` |
-| 그래픽 | 64px | `icon-size-xl` |
-| 제목 | 20/600 | `typography-body-lg-semibold` |
-| 설명 | 16/400 | `typography-body-md-regular` |
-| 설명 최대 폭 | 44ch | — |
-| 배경·테두리·반경 | 없음 | — |
+| 축 | `base` | `compact` | `canvas` | 토큰 |
+| --- | ---: | ---: | ---: | --- |
+| 세로 여백 | 80px | 20px | 24px | — (세 값 다 리터럴) |
+| 좌우 여백 | 16px | 20px | 24px | base 만 `space-layout-gutter` |
+| 블록 간격 | 12px | 6px | 20px | base 만 `space-stack-md` |
+| 액션 추가 간격 | 4px | — | 0 | base 는 `space-control-xs` |
+| 액션 사이 간격 | 12px | — | 12px | `space-stack-md` |
+| 그래픽 | 64px | — | — | `icon-size-xl` |
+| 제목 | 20/600 | 16/600 | 28/500 | `typography-body-lg-semibold` · `-body-md-semibold` · `-heading-sm-medium` |
+| 설명 | 16/400 | 14/400 | — | `typography-body-md-regular` · `-body-sm-regular` |
+| 설명 최대 폭 | 44ch | 제한 없음 | — | — |
+| 배경 | 없음 | `color-bg-raised` | 없음 | — |
+| 테두리 | 0 | 1px `color-stroke-default` | 0 | `border-width-default` |
+| 반경 | 0 | 12px | 0 | `radius-card` |
+| 정렬 | center | flex-start | center | — |
 
-세로 여백 80px에 토큰을 만들지 않은 이유는 **소비처가 여기 하나뿐**이기 때문이다.
+여백과 간격에 토큰을 만들지 않은 이유는 **각 값의 소비처가 여기 한 줄뿐**이기 때문이다.
 [spacing-radius.md](../foundations/spacing-radius.md)가 "두 개 이상의 사용처"를 토큰 승격 조건으로
-두고 있어 리터럴을 한 줄에 격리했다.
+두고 있어 리터럴을 한 줄씩 격리했다. `space-media-inset` 이 20 이고 `space-layout-section` 이 24 지만
+그 이름들은 다른 뜻이다 — 값이 같다고 이름을 빌리면 이름이 거짓이 된다
+([DS-D-0029](../governance/decisions/DS-D-0029-token-names-must-be-true.md)).
+
+`compact` 의 설명 폭 제한을 푼 이유는 base 의 44ch 가 "넓은 화면 가운데"라는 전제에서 나온 값이고
+카드 안에서는 그 전제가 성립하지 않기 때문이다 — 제한을 두면 카드보다 좁은 자리에서 두 번 접힌다.
 
 ## Effects
 
@@ -153,10 +222,11 @@ variant 축이 없다. 빈 상태의 강조는 시각이 아니라 **행동 유�
   색을 하드코딩했다(`rgb(251 146 150 / 0.95)`). 그 둘을 가르는 것이 이 컴포넌트의 판단이며, 오류
   표현은 별도 컴포넌트가 소유해야 한다.
 
-- **집계 9벌 밖에 열 번째 정의가 있고, 그것만 면을 갖는다.** 대시보드(분석) 섹션은 빈 상태와 fetch
+- **집계 9벌 밖의 열 번째 정의는 이제 축이다.** 대시보드(분석) 섹션은 빈 상태와 fetch
   실패를 `AnalyticsStatePanel` 한 컴포넌트로 그린다(`components/scenes/analytics/shared.tsx:549-570`).
   이 패널은 **배경·1px 테두리·12px 반경을 갖는다** — 위 「9벌 전부 없음」 합의의 유일한 반례다.
-  집계에서 빠져 있으므로, **대시보드 섹션을 이 컴포넌트의 면 없는 규범대로 그리면 틀린다.** 실측.
+  2026-09-06 에 그 실측을 `layout="compact"` 로 세웠으므로 **더 이상 「이 컴포넌트로 그릴 수 없는
+  자리」가 아니다.** 아래 표가 그 축의 출처다.
 
   | 축 | 값 | 근거 |
   | --- | --- | --- |
@@ -170,7 +240,9 @@ variant 축이 없다. 빈 상태의 강조는 시각이 아니라 **행동 유�
   | 그래픽 · 액션 | **없다** | `shared.tsx:554-568` |
 
   자식은 제목 span과 본문 span 둘뿐이다. **Anatomy의 Graphic·Action 슬롯을 대시보드에서 찾으면
-  없다** — 여기서는 Title·Description만 사는 2슬롯 패널이다.
+  없다** — 여기서는 Title·Description만 사는 2슬롯 패널이고, `compact` 계약도 그 두 슬롯의 값만
+  갖는다. 본문 줄높이를 제품이 `--type-body-16-line-height` 로 덮지만 두 계열의 비율이 모두 1.5 라
+  **픽셀은 바뀌지 않는다**(14 x 1.5 = 21) — 덮어쓰기가 있다는 사실과 값이 갈린다는 사실은 다르다.
 
 - **대시보드에서는 `error`와 `neutral`의 픽셀이 완전히 같다.** 오류 분기가 더하는 클래스 문자열이
   **빈 문자열**이다(`shared.tsx:132`). 원본 CSS의 오류 배경·테두리색은 특이도 싸움에서 져
@@ -178,7 +250,15 @@ variant 축이 없다. 빈 상태의 강조는 시각이 아니라 **행동 유�
   아이콘도, 재시도 버튼도, 액센트 색도 없다. **두 톤을 색으로 구분해 그리면 배포본과 어긋난다** —
   구분은 문구가 혼자 진다. 이 컴포넌트가 「없음」과 「실패」를 가르기로 한 판단은 채택 목표이고,
   대시보드는 그 목표에 아직 도달하지 않은 반례다.
-- **세로 여백이 리터럴이다.** 80px 소비처가 하나뿐이라 토큰으로 승격하지 않았다.
+- **`canvas` 제목의 잉크가 제품과 다르다.** 제품은 `rgb(var(--gray-000-rgb) / 72%)` 로 흰색을 72%
+  로 눌러 쓰고(`CanvasEmptyState.tsx:33-38`) LOUIS 는 `color-fg-primary` 를 그대로 쓴다. 알파 잉크를
+  옮기지 않은 이유는 표면 사다리와 같다 — 알파는 바닥이 무엇이냐에 따라 다른 색이 되고, LOUIS 의
+  잉크 역할은 바닥과 무관하게 정해진다. **대비를 이유로 값을 바꾼 것이 아니다**: 옮기지 않은
+  것은 색이 아니라 «알파로 색을 만드는 방식»이다.
+- **`Graphic`·`Actions` 를 Figma variant 축으로 열지 않았다.** 자리의 유무는 이미
+  `HasGraphic`·`HasDescription`·`HasAction` 불리언이 담고, 액션 «개수»는 소비처가 정하므로 코드
+  쪽에 되잴 근거가 없다. 한 방향만 걸리는 값은 계약에 넣지 않는다.
+- **세로 여백이 리터럴이다.** 세 칸의 여백·간격이 각각 소비처 하나뿐이라 토큰으로 승격하지 않았다.
 - **Figma는 액션의 추가 간격을 padding으로 만든다.** CSS는 액션에 `margin-block-start: 4px`를
   더해 앞 요소와 16px 떨어지는데, Figma auto-layout에는 자식별 간격이 없어 같은 4px을 Action
   프레임의 위쪽 padding으로 표현한다. 결과는 같고 표현이 다르다.
@@ -193,3 +273,9 @@ variant 축이 없다. 빈 상태의 강조는 시각이 아니라 **행동 유�
 5. 그래픽이 `aria-hidden="true"`다.
 6. root에 `aria-live`도 `role`도 없다.
 7. 제목이 `foreground-primary`, 설명이 `foreground-secondary`다.
+8. `layout`이 root의 `data-layout`을 정하고 **기본값에서도 속성이 붙는다.**
+9. `layout="compact"`의 여백·간격·반경·테두리 두께·제목/설명 크기·정렬이
+   `components.measured.json`의 `sizes.compact`와 같다.
+10. `layout="canvas"`의 여백·간격·제목 크기·액션 추가 간격·정렬이 `sizes.canvas`와 같고,
+    **배경도 테두리도 반경도 없다**(base와 같은 자리다).
+11. `compact`만 면을 갖는다 — 배경이 `color-bg-raised`, 테두리 색이 `color-stroke-default`다.

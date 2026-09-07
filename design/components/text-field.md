@@ -20,7 +20,7 @@ summary: 한 줄 텍스트를 입력받습니다.
 | Surface       | 상태           | 근거                                                        |
 | ------------- | -------------- | ------------------------------------------------------------ |
 | Web           | `partial`      | public export와 실브라우저 acceptance test 8건; visual regression과 제품 소비 증거 없음 |
-| Figma         | `done`      | component set(Size·State·LabelBehavior, 20 variant). 계약이 모든 property 를 pin 하고 Box·Label·Value·Message 를 자손으로 대조한다. 기하는 양방향이다 — `text-field.browser.test.tsx` 가 코드 쪽에서 같은 실측을 되잰다. 게시 없이 판정한다([DS-D-0035](../governance/decisions/DS-D-0035-figma-done-without-publish.md)) |
+| Figma         | `done`      | component set(Size·State·LabelBehavior·Join, 29 variant). 계약이 모든 property 를 pin 하고 Box·Label·Value·Message 를 자손으로 대조한다. 기하는 양방향이다 — `text-field.browser.test.tsx` 가 코드 쪽에서 같은 실측을 되잰다. 게시 없이 판정한다([DS-D-0035](../governance/decisions/DS-D-0035-figma-done-without-publish.md)) |
 | Documentation | `done`         | 이 문서                                                      |
 | Maturity      | `experimental` | 규범과 구현이 같은 변경 단위에서 처음 선다                   |
 
@@ -74,6 +74,7 @@ summary: 한 줄 텍스트를 입력받습니다.
 | `label` | ReactNode | 없음 | 시각 라벨. 없으면 `aria-label`이 필수다 |
 | `size` | `lg` \| `md` \| `sm` | `lg` | 시각 크기. `lg`·`md`는 글자 크기가 같고 `sm`만 내려간다 |
 | `labelBehavior` | `stacked` \| `floating` | `stacked` | 라벨이 어디 사는가. `floating`은 `lg`에서만 그려진다 ([DS-D-0049](../governance/decisions/DS-D-0049-label-placement-is-an-axis.md)) |
+| `join` | `none` \| `start` \| `middle` \| `end` | `none` | 위/아래 이웃과 이어 붙는 자리 ([DS-D-0052](../governance/decisions/DS-D-0052-joined-fields-are-an-axis.md)) |
 | `description` | ReactNode | 없음 | 필드 아래 한 줄. `invalid`면 오류 문구가 된다 |
 | `invalid` | boolean | `false` | 오류 상태 |
 | `prefix` / `suffix` | ReactNode | 없음 | 박스 안의 슬롯 |
@@ -86,7 +87,9 @@ summary: 한 줄 텍스트를 입력받습니다.
 **강조 축이 없다.** 필드는 강조 단계를 갖지 않는다 — 한 폼 안에서 어떤 필드가 다른 필드보다
 "주요"하다는 표현은 시각이 아니라 순서와 라벨이 맡는다.
 
-**크기 말고 있는 축은 `LabelBehavior` 하나다**([DS-D-0049](../governance/decisions/DS-D-0049-label-placement-is-an-axis.md)).
+**크기 말고 있는 축은 둘이다 — `LabelBehavior` 와 `Join`.**
+
+첫째는 `LabelBehavior`([DS-D-0049](../governance/decisions/DS-D-0049-label-placement-is-an-axis.md)).
 `stacked`(기본)에서 라벨은 박스 위의 형제이고 움직이지 않는다 — 제품의 `/admin` 여덟 화면이 이
 형태다. `floating`에서 라벨은 박스 안에서 placeholder 노릇을 하다가 값이 들어오거나 포커스가
 오면 떠오른다 — 제품의 인증 일곱 벌이 이 형태다.
@@ -94,6 +97,18 @@ summary: 한 줄 텍스트를 입력받습니다.
 **「떠 있는가 앉아 있는가」는 축이 아니라 상태다.** 그것을 정하는 것은 값의 유무와 포커스이고
 CSS가 판정한다(`:not(:placeholder-shown)` · `:focus`). Figma에서는 `State`가 그 자리를 갖는다 —
 `Placeholder`가 쉼이고 나머지 넷이 떠오른 상태다.
+
+둘째는 `Join` 이다([DS-D-0052](../governance/decisions/DS-D-0052-joined-fields-are-an-axis.md)).
+`none`(기본)에서 필드는 홀로 서고, `start`·`middle`·`end`에서는 위/아래 이웃과 **한 덩어리로**
+읽힌다 — 제품의 인증 다섯 화면이 상자 둘을 그렇게 이어 붙인다. 이 축이 바꾸는 것은 **맞닿는
+변 하나**다: 그쪽 곡률이 펴지고, 이음매가 두 겹으로 그려지지 않게 1px 겹치며, 포커스 링이
+이웃에 가려지지 않도록 상자 안으로 들어간다. 높이·여백·면·헤어라인·타이포는 하나도 다시 쓰지
+않는다.
+
+**`Join` 은 `lg/floating` 에만 계약이 있다.** CSS 는 세 칸 어디에도 쓸 수 있지만 계약과 Figma 는
+`lg/floating` 만 갖는다 — 제품이 이어 붙이는 자리가 인증 화면뿐이고, 그것이 `lg` 의 floating
+필드이기 때문이다. `md`·`sm` 이나 `stacked` 의 결합은 잰 자리가 없다. 특히 `stacked` 에서는
+칸마다 박스 위에 라벨이 서므로 「이어 붙는다」는 말 자체가 성립하지 않는다.
 
 **`floating`은 `lg`에만 있다.** [DS-D-0027](../governance/decisions/DS-D-0027-control-size-ladder.md)이
 `lg`의 쓰임을 「화면의 주인공이 되는 제출 CTA — 로그인·회원가입」으로 못 박았고 플로팅 라벨이
@@ -109,6 +124,11 @@ CSS가 판정한다(`:not(:placeholder-shown)` · `:focus`). Figma에서는 `Sta
 | Focus | 박스가 `:focus-within`으로 공유 링을 받는다 |
 | Invalid | generic 헤어라인 유지 — 색 축 대신 **오류 문구 + `aria-invalid` + `role="alert"`**가 전달한다 |
 | Disabled | generic 헤어라인 유지, 전경 `color-fg-disabled`이 상태를 전달한다 |
+
+**결합한 필드의 Focus 는 링의 «자리»가 다르다.** 링은 밖이 아니라 상자 **안**에 선다 —
+맞닿는 변의 바깥은 이웃의 자리이고, 이웃이 DOM 에서 뒤에 와 나중에 칠해지므로 바깥 링은
+그쪽에서 통째로 덮인다. 두께·색·모양은 그대로다. 사유와 실측은 아래 「결합의 값은 어디서
+왔나」에 있다.
 
 **hover에서 아무것도 바꾸지 않는다.** 필드의 어포던스는 보이는 테두리와 텍스트 커서가 맡는다.
 제품의 필드들도 대부분 hover 상태를 갖지 않는다.
@@ -209,6 +229,60 @@ caption의 행간 토큰(1.5 → 18px)을 그대로 쓰고 시작점을 8로 당
 `color-fg-primary`인데 여기서는 `color-fg-secondary`다 — 쉴 때 그 자리가 placeholder의 자리이기
 때문이다. placeholder 자신은 투명이다(라벨이 그 일을 한다).
 
+### 결합의 값은 어디서 왔나
+
+**여기서도 제품이 정본이다.** 인증 다섯 화면이 상자 둘을 위/아래로 이어 붙인다 —
+`/login` · `/signup` · `/recover` · `/reset-password/new` · `/aws/signup`. 셋은 상수 문자열까지
+같다(`rounded-t-12 mb-[-1px]` / `rounded-b-12`). 나머지 둘은 같은 값을 임의 프로퍼티로 적었다
+(`[border-radius:12px_12px_0_0]`). 여섯 번째 인증 화면 `/reset-password` 는 필드가 하나뿐이라
+결합하지 않는다 — 표면 원장의 다섯 중 하나가 이 축을 **쓰지 않는다**는 사실을 여기 적어 둔다.
+
+| 축 | `start` | `middle` | `end` | 어디서 |
+| --- | ---: | ---: | ---: | --- |
+| 위 반경 | 12 | 0 | 0 | `radius-control` — 제품의 `rounded-t-12` |
+| 아래 반경 | 0 | 0 | 12 | `radius-control` — 제품의 `rounded-b-12` |
+| 겹침 | −1 | −1 | 0 | 아래 「겹침은 0.5가 아니라 1이다」 |
+| 포커스 링 offset | −3 | −3 | −3 | 겹침 1 + `border-width-ring` 2 |
+
+**`middle` 은 제품에 없다 — 그러나 지어낸 값도 없다.** 인증 다섯은 전부 상자 둘이라 가운데 칸이
+생기지 않는다. 이 칸의 네 값은 첫 칸과 끝 칸에서 **자유도 없이** 따라 나온다: 맞닿는 변의
+곡률은 0 이고(둘 다 그렇다), 겹침은 아래 칸이 있으므로 첫 칸과 같으며, 링의 자리는 무리 안에서
+칸마다 달라지면 안 된다. `md`·`sm` 의 floating 을 열지 않은 판정([DS-D-0049](../governance/decisions/DS-D-0049-label-placement-is-an-axis.md))과
+다른 이유가 그것이다 — 거기서는 여백·타이포에 **정할 것이 남아 있었고** 여기서는 남지 않는다.
+
+#### 겹침은 0.5가 아니라 1이다
+
+토큰 `border-width-hairline` 은 0.5px 인데 겹침은 1px 이다. 두 값이 다른 이유는 **그려지는
+두께가 1px 이기 때문**이다 — 브라우저가 inset 그림자의 사용값을 1px 로 올리고, 그 사실은
+`--louis-hairline-inset` 의 머리말이 이미 적고 있다. 겹침은 선언된 두께가 아니라 그려지는
+두께와 같아야 위 상자의 아래 헤어라인이 아래 상자의 면에 온전히 덮인다.
+
+Chromium 실측(DPR 1·2·3, 라이트, 이 컴포넌트의 면·헤어라인 그대로):
+
+| 겹침 | 이음매 | 판정 |
+| ---: | --- | --- |
+| 0 | 홀로 선 모서리의 **두 배** | 두 헤어라인이 나란히 선다 |
+| 0.5px | 0 과 **픽셀이 같다** | 토큰 값을 그대로 쓰면 아무 일도 일어나지 않는다 |
+| 1px | 홀로 선 모서리와 **같다** | 채택 |
+
+제품이 `mb-[-1px]` 로 같은 숫자를 쓰는 것은 우연이 아니다 — 제품의 경계는 1px `border` 라
+두께가 처음부터 1 이었다.
+
+#### 포커스 링이 안으로 들어간 이유
+
+이웃은 DOM 에서 뒤에 오므로 나중에 칠해진다. 밖으로 서는 링(`outline-offset: 2`)은 맞닿는
+변에서 이웃의 면에 덮인다 — 실측으로 **위 상자의 아래쪽 링이 0px 남는다.** 반대로 아래 상자의
+위쪽 링은 온전히 남는다. 같은 축의 두 칸이 서로 다르게 보이는 상태다.
+
+제품은 포커스에서 `z-index` 를 1 → 2 로 올려 이것을 피한다. **이 저장소는 그 길을 쓸 수 없다** —
+숫자 `z-index` 는 저작 게이트가 금지하고(`build-css.mjs`), [Elevation & Layer](../foundations/elevation-layer.md)
+의 사다리에는 로컬 stacking 칸이 없다. 이름 없는 숫자를 하나 들이는 대신 링을 **안으로** 넣으면
+다툼 자체가 사라진다.
+
+값은 겹침(1) + 링 두께(`border-width-ring` 2) = 3 이다. 실측으로 −3 에서 위·아래 상자 모두 2px 이
+전부 남고, −2 에서는 1px 만 남는다. Figma 는 이것을 Box 를 각 변 1px 씩 줄인 사각형 +
+`INSIDE` 2px stroke 으로 그린다.
+
 ### `sm`의 값은 어디서 왔나
 
 세 칸 중 `sm`만 **높이 말고도 갈리는 축이 둘 있다.** 어느 값이 실측이고 어느 값이 비례인지
@@ -287,9 +361,25 @@ caption의 행간 토큰(1.5 → 18px)을 그대로 쓰고 시작점을 8로 당
   (높이·내부 배치 · 1px 12% 테두리 · 4% 알파 면 · inset 링 · 값 타이포 16) **이 축이 담는 것은
   첫째 하나뿐이다.** 나머지 넷은 인증 계열이 정본과 갈리는 기존의 스킨 차이이고, 이 컴포넌트의
   값이 제품을 옮긴 것이 아니라 DS가 정한다는 위 머리말 그대로다.
-- **결합 입력이 없다.** 인증 일곱 벌 중 넷은 상자 둘을 위/아래로 이어 붙인다 — 곡률이 갈리고
-  `margin-bottom: -1px`로 테두리를 겹치며 포커스가 `z-index`를 1 → 2로 올려 이웃의 테두리 위로
-  올라온다. 이 축은 그것을 담지 않으므로 표면 원장의 다섯은 그대로 `needed`다.
+- ~~**결합 입력이 없다.**~~ **해소됐다** — `Join` 축이 2026-09-06에 섰다
+  ([DS-D-0052](../governance/decisions/DS-D-0052-joined-fields-are-an-axis.md)). 곡률과 겹침은
+  제품 다섯 벌 그대로다. **`z-index` 만 따르지 않는다** — 제품은 포커스에서 1 → 2로 올려 이웃의
+  테두리 위로 올라오는데, 이 저장소는 숫자 `z-index`를 금지하고 사다리에 로컬 stacking 칸이
+  없다. 대신 링을 상자 안으로 넣어 같은 결과를 얻는다(위 「포커스 링이 안으로 들어간 이유」).
+  **남는 편차는 링의 자리 하나다** — 두께·색·모양은 같고, 결합하지 않은 필드의 링은 그대로
+  밖에 선다.
+- **결합은 계약을 `lg/floating` 에만 갖는다.** CSS 는 `data-join` 을 세 크기 어디에도 걸 수 있고
+  막지 않는다. 막지 않는 이유는 `floating` 과 같다 — 잰 자리가 없어서 값을 정하지 않았을 뿐이고,
+  타입으로 조합을 제한하면 이 타입을 확장하는 바깥 코드가 깨진다. 계약이 되는 조합은 이 문서와
+  `figma/components.measured.json` 의 세 칸이다.
+- **결합한 필드에 `description` 을 두면 결합이 끊긴다.** 메시지는 박스 아래 stack 에 서므로 두
+  상자 사이에 문구가 끼어든다. 타입이 막지 않으며(둘 다 선택 prop 이다) 무리 전체의 문구는
+  무리 아래 한 자리에 두는 것이 이 축의 전제다. Figma 변형이 Message 를 들고 있는 것은 그 칸이
+  `lg/floating` 의 자손 구성을 그대로 물려받기 때문이지 권장이 아니다.
+- **Figma 는 겹침과 링의 자리를 대조하지 못한다.** 오토레이아웃에 음수 마진이 없고 CSS 의
+  `outline` 에 해당하는 것도 없다. 그래서 되읽기가 무는 것은 곡률 둘뿐이고, 겹침과
+  `outline-offset` 은 `text-field.browser.test.tsx` 가 계약값과 대조한다 — 두 값의 유일한
+  게이트다.
 - **`floating`에서 `label`은 사실상 필수인데 타입이 강제하지 않는다.** 라벨이 placeholder의
   자리를 대신하므로 없으면 필드에 보이는 이름이 하나도 남지 않는다. `TextFieldProps`가
   인터페이스여서 판별 유니온으로 바꾸면 이 타입을 확장하는 바깥 코드가 깨진다 — 계약은 이
@@ -324,3 +414,14 @@ caption의 행간 토큰(1.5 → 18px)을 그대로 쓰고 시작점을 8로 당
 16. `floating`의 라벨도 `htmlFor`로 입력에 이어져 있다 — DOM에서 input **뒤**로 옮겨 갔다.
 17. `sm`의 반경이 높이의 절반보다 작다 — 필드가 알약이 되지 않는다. 토큰 이름만 읽으면 둘 다
     「control 반경」이라 계산값을 봐야 보인다.
+18. `start`·`middle`·`end`의 **위/아래 반경을 따로** 잰다. 한쪽만 재면 이어 붙는 변이 반대쪽인
+    회귀를 통과시킨다. 좌우가 대칭인 것도 함께 확인한다 — 계약이 왼쪽 두 모서리만 보는 근거다.
+19. 겹침이 계약값과 같고, **필드 뿌리**가 그것을 갖는다. 박스에 걸면 stack의 간격과 메시지가
+    사이에 남는다.
+20. 결합한 필드의 포커스 링이 상자 **안**에 서고(`outline-offset` = 계약값), 두께와 색은 결합하지
+    않은 필드와 같다. 링 값은 그 상자가 포커스를 쥐고 있는 동안에만 읽는다 — 잃은 상자의
+    `outline-width`는 초기값 `medium`(3px)으로 돌아온다.
+21. 결합이 `lg/floating`의 나머지 값을 **하나도 다시 쓰지 않는다.** 높이·여백·슬롯 간격·헤어라인·
+    면을 나란히 세워 대조한다 — 이 축이 축인 근거가 그것이다.
+22. 결합하지 않은 필드에 `data-join`이 **붙지 않고** 겹치지도 않는다. 기본값이 `none`이라는
+    사실 자체가 계약이다 — 속성이 붙어 버리면 폼 전체가 조용히 1px씩 위로 붙는다.

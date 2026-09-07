@@ -73,3 +73,144 @@
     border: var(--louis-border-width-default) solid currentColor;
   }
 }
+
+/* ── Layout = coachmark ───────────────────────────────────────────────────────
+ *
+ * **꼬리가 달린 안내 카드.** 제품 정본은 `CanvasOnboardingHints.tsx` 의 `CanvasFirstNodeHint`
+ * 로, 첫 노드 위에 떠서 그 노드를 가리킨다. React Flow 의 `ViewportPortal` 안에서 flow 좌표로
+ * 놓이므로 **캔버스와 함께 팬·줌된다** — 그것이 이 layout 이 base tooltip 과 갈리는 가장 큰
+ * 이유다. base 는 포인터를 따라다니는 설명이고, 이쪽은 대상에 붙어 함께 움직이는 안내다.
+ *
+ * base 와 갈리는 것: 폭이 고정(320)이고, 제목/본문 두 줄이며, 경계가 헤어라인이 아니라
+ * **강조색 테두리**다. 「여기를 보라」를 말하는 것이 그 테두리이므로 generic 헤어라인으로
+ * 바꾸면 축이 아무것도 바꾸지 않게 된다.
+ *
+ * 표면·전경은 base 와 같은 반전 토큰을 쓴다 — 제품도 `--gray-900`/`--gray-000` 이라 테마를
+ * 따라 뒤집힌다(같은 파일의 CALLOUT 이 고정 팔레트인 것과 다르다. 원본이 그렇게 갈려 있다).
+ *
+ * **떠 있는 값(그림자·흐림)은 base 와 같은 것을 쓴다.** 제품은 `0 8px 24px 16%` 그림자와
+ * `blur(panel)` 을 얹는데, 이 축은 그것을 담을 수 없다 — Figma component set 의 effect 는
+ * 변형이 아니라 **역할(`self`) 하나**가 갖는 값이고 이 저장소의 parity 계약이 그것을 문자열
+ * 하나로 잡는다(`verify-figma-parity.mjs` 의 compareComponentEffects). layout 축이 자기 그림자를
+ * 가지려면 컴포넌트를 둘로 쪼개야 하는데, 둘은 같은 앵커 표면이라 이름을 둘로 늘릴 자리가
+ * 아니다(DS-D-0027 — 이름이 실물보다 많으면 고르는 쪽이 손해를 본다). 제품이 물 때 흐림이
+ * 사라지는 것이 이 선택의 값이며 절차서가 그것을 적는다.
+ *
+ * `hairline-inset` 은 뺀다 — 여기에는 진짜 테두리가 있어 두 겹 프레임이 된다.
+ */
+.louis-tooltip[data-layout="coachmark"] {
+  /* **border-box 를 여기서 선언한다.** base 는 테두리도 고정 폭도 없어 필요가 없었지만,
+   * 320 은 「화면에서 보이는 폭」이라 padding·border 를 포함해야 한다. 없으면 320 + 24 + 2 =
+   * 346 이 그려진다(실측으로 걸렸다). */
+  box-sizing: border-box;
+  /* 제품 w-160 = 320. base 의 max-inline-size 와 달리 **고정 폭**이다 — 두 줄 안내는
+   * 줄바꿈 자리가 문장마다 달라지면 안 된다. */
+  inline-size: min(320px, var(--louis-overlay-available-width, 100vw));
+  max-inline-size: min(320px, var(--louis-overlay-available-width, 100vw));
+  /* 제품은 세로 12 · 가로 14 다. 14 는 이 저장소의 space 축(4·8·12·16)에 없고 새 계단을
+   * 세울 사유가 없어 12 로 닫는다. 절차서가 그 2px 을 제품 쪽에 적는다. */
+  padding-block: var(--louis-space-control-md);
+  padding-inline: var(--louis-space-control-md);
+  border: var(--louis-border-width-default) solid
+    color-mix(in srgb, var(--louis-color-accent-primary) 56%, transparent);
+  border-radius: var(--louis-radius-card);
+  background: var(--louis-color-bg-inverse-translucent);
+  box-shadow: var(--louis-elevation-tooltip);
+  text-align: start;
+}
+
+.louis-tooltip__title {
+  /* 꼬리는 표면 배경만 갖고 내용보다 뒤에 있어야 한다. 내용에 stacking 자리를 준다. */
+  position: relative;
+  margin: 0;
+  font-family: var(--louis-typography-caption-medium-font-family);
+  font-size: var(--louis-typography-caption-medium-font-size);
+  font-weight: var(--louis-typography-caption-medium-font-weight);
+  line-height: var(--louis-typography-caption-medium-line-height);
+  letter-spacing: var(--louis-typography-caption-medium-letter-spacing);
+}
+
+.louis-tooltip__body {
+  position: relative;
+  /* 제품은 3px 이다. callout 의 제목/본문 간격과 같은 자리이므로 한 값으로 모은다 —
+   * 제품 두 벌이 2 와 3 으로 갈려 있었고, 한 시스템 안에서 같은 자리는 한 값이다. */
+  margin: var(--louis-space-overlay-item-gap) 0 0;
+  opacity: 0.72;
+  font-family: var(--louis-typography-caption-regular-font-family);
+  font-size: var(--louis-typography-caption-regular-font-size);
+  font-weight: var(--louis-typography-caption-regular-font-weight);
+  line-height: var(--louis-typography-caption-regular-line-height);
+  letter-spacing: var(--louis-typography-caption-regular-letter-spacing);
+}
+
+/* 꼬리 — 45° 돌린 정사각형의 **두 변만** 테두리를 갖는다.
+ *
+ * `border-t`/`border-l` 처럼 변을 따로 적는 이유는 제품 주석이 적어 둔 함정 때문이다:
+ * `border-style: solid` 를 네 변에 주면 폭을 안 준 두 변이 initial `medium`(3px)로 그려진다.
+ * 여기서는 폭과 색을 두 변에만 준다.
+ *
+ * 기본 규칙은 **위 변**이다(패널이 대상 아래에 설 때). 나머지 세 방향은 아래에서 덮는다.
+ * 방향은 positioner 가 발행하는 `data-side` 를 읽는다 — 그 값은 collision 으로 뒤집힌 뒤의
+ * 실제 방향이라, 뒤집히면 꼬리도 함께 옮겨간다. */
+.louis-tooltip[data-layout="coachmark"]::before {
+  content: "";
+  position: absolute;
+  /* 대각선이 아니라 변의 길이다. 10 을 45° 돌리면 폭 14.1 로 보인다 — 제품과 같다. */
+  inline-size: 10px;
+  block-size: 10px;
+  /* 정렬 축에서의 자리. 제품은 flow 좌표에 left 24 로 놓는다. */
+  inset-inline-start: var(--louis-space-layout-section);
+  inset-block-start: calc(0px - var(--louis-space-overlay-inset));
+  border-block-start: var(--louis-border-width-default) solid
+    color-mix(in srgb, var(--louis-color-accent-primary) 56%, transparent);
+  border-inline-start: var(--louis-border-width-default) solid
+    color-mix(in srgb, var(--louis-color-accent-primary) 56%, transparent);
+  background: var(--louis-color-bg-inverse-translucent);
+  rotate: 45deg;
+}
+
+/* 패널이 대상 **위**에 서면 꼬리는 아래 변이고, 테두리를 갖는 두 변도 반대쪽이다. */
+.louis-tooltip-positioner[data-side="top"] .louis-tooltip[data-layout="coachmark"]::before {
+  inset-block-start: auto;
+  inset-block-end: calc(0px - var(--louis-space-overlay-inset));
+  border-block-start: 0;
+  border-inline-start: 0;
+  border-block-end: var(--louis-border-width-default) solid
+    color-mix(in srgb, var(--louis-color-accent-primary) 56%, transparent);
+  border-inline-end: var(--louis-border-width-default) solid
+    color-mix(in srgb, var(--louis-color-accent-primary) 56%, transparent);
+}
+
+/* 패널이 대상 **오른쪽**에 서면 꼬리는 왼 변이다. */
+.louis-tooltip-positioner[data-side="right"] .louis-tooltip[data-layout="coachmark"]::before {
+  inset-inline-start: calc(0px - var(--louis-space-overlay-inset));
+  inset-block-start: var(--louis-space-layout-section);
+  border-block-start: 0;
+  border-inline-end: 0;
+  border-block-end: var(--louis-border-width-default) solid
+    color-mix(in srgb, var(--louis-color-accent-primary) 56%, transparent);
+  border-inline-start: var(--louis-border-width-default) solid
+    color-mix(in srgb, var(--louis-color-accent-primary) 56%, transparent);
+}
+
+/* 패널이 대상 **왼쪽**에 서면 꼬리는 오른 변이다. */
+.louis-tooltip-positioner[data-side="left"] .louis-tooltip[data-layout="coachmark"]::before {
+  inset-inline-start: auto;
+  inset-inline-end: calc(0px - var(--louis-space-overlay-inset));
+  inset-block-start: var(--louis-space-layout-section);
+  border-inline-start: 0;
+  border-block-end: 0;
+  border-block-start: var(--louis-border-width-default) solid
+    color-mix(in srgb, var(--louis-color-accent-primary) 56%, transparent);
+  border-inline-end: var(--louis-border-width-default) solid
+    color-mix(in srgb, var(--louis-color-accent-primary) 56%, transparent);
+}
+
+/* forced-colors — 강조색 테두리와 반투명 면이 함께 치환되면 꼬리가 면과 구분되지 않는다.
+ * 패널과 꼬리 모두 시스템 색 실선으로 되살린다(base 의 같은 블록과 짝이다). */
+@media (forced-colors: active) {
+  .louis-tooltip[data-layout="coachmark"],
+  .louis-tooltip[data-layout="coachmark"]::before {
+    border-color: currentColor;
+  }
+}

@@ -72,3 +72,84 @@
   gap: var(--louis-space-stack-md);
   margin-block-start: var(--louis-space-control-xs);
 }
+
+/* ── Layout 축 ───────────────────────────────────────────────────────────────
+ *
+ * 위 사양의 「면을 갖지 않는다」는 **집계 안에서만** 참이다. 집계 9벌 밖에 정의가 둘 더 있고
+ * 둘 다 base 로는 그릴 수 없다 — 그 사실은 계약 `$note` 가 이미 적고 있었다(「아홉 벌이
+ * 합의하는 것은 하나뿐」). 여기서 그 문장을 **축을 여는 근거로** 잇는다.
+ *
+ *   compact  대시보드의 `AnalyticsStatePanel` — 면 + 1px 테두리 + 12 반경 + 좌측 정렬.
+ *            제품 `components/scenes/analytics/shared.tsx:123-128` (`p-10 rounded-12 gap-3`).
+ *            호출 15곳 / 6파일 / 2라우트로 이 컴포넌트의 단일 최다 소비처다.
+ *   canvas   빈 캔버스의 `CanvasEmptyState` — 그래픽 없이 heading 28 한 줄과 버튼 둘.
+ *            제품 `.../node-canvas-v2/components/CanvasEmptyState.tsx:24-38`
+ *            (`gap-10 p-12` · `text-heading-28 font-medium` · 액션 `gap-6`).
+ *
+ * **`tone="error"` 는 옮기지 않는다.** 제품의 오류 분기가 더하는 클래스 문자열이 빈 문자열이고
+ * (`shared.tsx:130-132`), 원본 CSS 의 오류 색은 특이도 싸움에서 져 배포본에서도 그려지지 않는다.
+ * 그리지 않는 것을 축으로 세우면 시안이 배포본과 어긋난다.
+ */
+
+/* compact — 부모 표면 위에 «올라앉는» 패널이다. base 와 달리 상자가 맞다.
+ * 면과 테두리는 제품 실측과 값이 같은 semantic 을 골랐다 — 제품 다크의
+ * `--dashboard-chip-bg-strong`(gray-700)이 `color-bg-raised`, `--dashboard-input-border`(gray-600)가
+ * `color-stroke-default` 와 같은 색이다. 카드보다 한 단계 «밝은» 면이라 inset 이 아니라 raised 다. */
+.louis-empty-state[data-layout="compact"] {
+  align-items: flex-start;
+  /* 6px. `space-stack-*` 계단에 6 이 없고(4 다음이 12) 소비처가 이 한 줄뿐이라 이름을 만들지
+   * 않는다 — base 의 80px 과 같은 규칙이다(spacing-radius.md 의 「두 개 이상의 사용처」). */
+  gap: 6px;
+  /* 20px. 같은 이유로 리터럴이다. `space-media-inset` 이 20 이지만 그것은 미디어 안쪽 여백의
+   * 이름이고 여기 뜻이 아니다 — 값이 같다고 이름을 빌리면 이름이 거짓이 된다(DS-D-0029). */
+  padding-block: 20px;
+  padding-inline: 20px;
+  border: var(--louis-border-width-default) solid var(--louis-color-stroke-default);
+  border-radius: var(--louis-radius-card);
+  background: var(--louis-color-bg-raised);
+  text-align: start;
+}
+
+/* 제목이 한 단계 내려간다 — 패널이 페이지가 아니라 섹션 안에 앉기 때문이다. */
+.louis-empty-state[data-layout="compact"] .louis-empty-state__title {
+  font-family: var(--louis-typography-body-md-semibold-font-family);
+  font-size: var(--louis-typography-body-md-semibold-font-size);
+  font-weight: var(--louis-typography-body-md-semibold-font-weight);
+  line-height: var(--louis-typography-body-md-semibold-line-height);
+  letter-spacing: var(--louis-typography-body-md-semibold-letter-spacing);
+}
+
+.louis-empty-state[data-layout="compact"] .louis-empty-state__description {
+  /* 44ch 제한을 푼다. base 의 제한은 「넓은 화면 가운데」라는 전제에서 나온 것이고, compact 은
+   * 폭이 제한된 카드 안에 앉으므로 그 전제가 성립하지 않는다 — 제한을 두면 카드보다 좁은
+   * 자리에서 두 번 접힌다. */
+  max-inline-size: none;
+  font-family: var(--louis-typography-body-sm-regular-font-family);
+  font-size: var(--louis-typography-body-sm-regular-font-size);
+  font-weight: var(--louis-typography-body-sm-regular-font-weight);
+  line-height: var(--louis-typography-body-sm-regular-line-height);
+  letter-spacing: var(--louis-typography-body-sm-regular-letter-spacing);
+}
+
+/* canvas — 그림 대신 «할 수 있는 일 둘»이 화면을 채운다. 면은 base 와 같이 없다: 캔버스 위에
+ * 떠 있는 오버레이라 상자를 그리면 노드가 하나 더 있는 것처럼 보인다. */
+.louis-empty-state[data-layout="canvas"] {
+  /* 20px · 24px. 리터럴인 이유는 compact 과 같다. */
+  gap: 20px;
+  padding-block: 24px;
+  padding-inline: 24px;
+}
+
+.louis-empty-state[data-layout="canvas"] .louis-empty-state__title {
+  font-family: var(--louis-typography-heading-sm-medium-font-family);
+  font-size: var(--louis-typography-heading-sm-medium-font-size);
+  font-weight: var(--louis-typography-heading-sm-medium-font-weight);
+  line-height: var(--louis-typography-heading-sm-medium-line-height);
+  letter-spacing: var(--louis-typography-heading-sm-medium-letter-spacing);
+}
+
+/* base 는 액션을 한 단계 더 떨어뜨리지만(4px) canvas 는 그러지 않는다 — 제품이 제목과 버튼을
+ * 같은 20px 로 두고, 여기서는 버튼이 「읽고 나서 누르는 것」이 아니라 화면의 본문이다. */
+.louis-empty-state[data-layout="canvas"] .louis-empty-state__action {
+  margin-block-start: 0;
+}

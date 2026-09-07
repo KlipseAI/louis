@@ -1310,6 +1310,15 @@
       "generated": false
     },
     {
+      "id": "decision-joined-fields-are-an-axis",
+      "path": "design/governance/decisions/DS-D-0052-joined-fields-are-an-axis.md",
+      "title": "DS-D-0052 이어 붙는 필드는 TextField 의 축이다 — 결합 입력을 따로 세우지 않는다",
+      "section": "governance",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
+    },
+    {
       "id": "governance-product-confirmations",
       "path": "design/governance/product-confirmations.md",
       "title": "제품 확인 대기 목록",
@@ -1537,6 +1546,7 @@
         "design/governance/decisions/DS-D-0049-label-placement-is-an-axis.md",
         "design/governance/decisions/DS-D-0050-renaming-is-a-card-state.md",
         "design/governance/decisions/DS-D-0051-rename-underline-is-canonical.md",
+        "design/governance/decisions/DS-D-0052-joined-fields-are-an-axis.md",
         "design/governance/product-confirmations.md",
         "design/updates/README.md"
       ]
@@ -1547,10 +1557,10 @@
       "id": "alert",
       "name": "Alert",
       "maturity": "experimental",
-      "figma": "partial",
+      "figma": "done",
       "web": "partial",
       "docs": "done",
-      "note": "CSS 레시피(.louis-alert)는 있고 React 표면은 없다. Figma component set 4 variant(Tone). 결제·체크아웃 배너가 정본이다. 2026-08-26: 레시피만 있고 문서·Figma 가 없던 다섯 중 하나였다 — 시스템이 정의해 놓고 디자이너가 볼 수 없는 상태였다. 2026-09-01 DS-D-0035 재판정: Figma 는 `partial` 로 남는다 — 계약에 geometry 가 없어 Figma 치수가 코드 실측과 한 번도 만나지 않는다.",
+      "note": "CSS 레시피(.louis-alert)는 있고 React 표면은 없다. Figma component set 12 variant(Layout × Tone). 결제·체크아웃 배너가 정본이다. 2026-08-26: 레시피만 있고 문서·Figma 가 없던 다섯 중 하나였다 — 시스템이 정의해 놓고 디자이너가 볼 수 없는 상태였다. 2026-09-01 DS-D-0035 재판정: Figma 는 `partial` 로 남았다 — 계약에 geometry 가 없어 Figma 치수가 코드 실측과 한 번도 만나지 않았다. 2026-09-06 레이아웃 축(block·inline·banner)을 열며 그 구멍을 닫았다: figma/components.measured.json 에 alert 칸이 처음 서고, packages/react/test/alert.browser.test.tsx 가 코드 쪽을 되재며, 계약에 geometry 가 붙어 두 방향이 다 걸린다 — DS-D-0035 (a)(b)(c) 를 만족하므로 figma 를 done 으로 올린다. web 은 여전히 partial 이다: React 표면이 없다.",
       "doc": "design/components/alert.md",
       "figmaNames": [
         "Alert"
@@ -1668,7 +1678,7 @@
       "figma": "done",
       "web": "partial",
       "docs": "done",
-      "note": "public export와 실브라우저 acceptance test 7건. Figma component 하나이며 parity 게이트가 Graphic·Title·Description·Action을 자손으로 대조한다. 제품에 정의가 9벌 있고 하나는 도달 불가능한 죽은 분기다. 아홉 벌이 합의하는 것은 '자기 배경도 테두리도 반경도 갖지 않는다' 하나뿐이다. 오류 상태는 다루지 않는다 — 제품은 둘을 합쳤지만 사용자가 취할 행동이 다르다 2026-09-01 DS-D-0035 재판정: Figma `done`. readback 등재 + 계약이 모든 property 를 pin + 기하 evidence 가 두 방향이다(empty-state · empty-state.browser.test.tsx).",
+      "note": "public export와 실브라우저 acceptance test 11건. Figma 는 `Layout` 축 3변형의 component set 이고 parity 게이트가 base·compact·canvas 세 칸을 전부 대조하며 Graphic·Title·Description·Action 을 자손으로 본다. 제품에 정의가 9벌 있고 하나는 도달 불가능한 죽은 분기다. 아홉 벌이 합의하는 것은 '자기 배경도 테두리도 반경도 갖지 않는다' 하나뿐인데 **그 합의는 집계 안에서만 참이다** — 집계 밖 두 정의(대시보드 AnalyticsStatePanel · 빈 캔버스 CanvasEmptyState)를 2026-09-06 에 compact · canvas 축으로 세웠다. 오류 상태는 다루지 않는다 — 제품은 둘을 합쳤지만 사용자가 취할 행동이 다르고, 제품의 tone=\"error\" 분기는 클래스가 빈 문자열이라 배포본에서도 그려지지 않는다. 2026-09-01 DS-D-0035 재판정: Figma `done`. readback 등재 + 계약이 모든 property 를 pin + 기하 evidence 가 두 방향이다(empty-state · empty-state.browser.test.tsx).",
       "figmaName": "EmptyState",
       "doc": "design/components/empty-state.md"
     },
@@ -1743,7 +1753,7 @@
       "figma": "done",
       "web": "partial",
       "docs": "done",
-      "note": "public export와 실브라우저 acceptance test 8건. Figma component set 8 variant(Size×State)이며 parity 게이트가 Box·Label·Value·Message를 자손으로 대조한다. **제품에 공용 구현이 없다** — 정의 약 40벌이 다섯 계열로 갈려 값은 DS가 정했다. 시각적 필드는 <input>이 아니라 감싸는 박스다. Textarea는 아직 없다 2026-09-01 DS-D-0035 재판정: Figma `done`. readback 등재 + 계약이 모든 property 를 pin + 기하 evidence 가 두 방향이다(input · text-field.browser.test.tsx).",
+      "note": "public export와 실브라우저 acceptance test 22건. Figma component set 29 variant(Size×State×LabelBehavior×Join)이며 parity 게이트가 Box·Label·Value·Message를 자손으로 대조하고 Box 의 곡률은 왼쪽 두 모서리로 본다. 2026-09-06 결합(Join) 축이 섰다(DS-D-0052) — 인증 다섯 화면이 상자 둘을 이어 붙이던 자리이고, 겹침 1px 과 안으로 들어간 포커스 링은 Figma 가 표현하지 못해 브라우저 테스트가 유일한 게이트다. **제품에 공용 구현이 없다** — 정의 약 40벌이 다섯 계열로 갈려 값은 DS가 정했다. 시각적 필드는 <input>이 아니라 감싸는 박스다. Textarea는 아직 없다 2026-09-01 DS-D-0035 재판정: Figma `done`. readback 등재 + 계약이 모든 property 를 pin + 기하 evidence 가 두 방향이다(input · text-field.browser.test.tsx).",
       "figmaName": "TextField",
       "doc": "design/components/text-field.md"
     },
@@ -1776,14 +1786,15 @@
       "figma": "done",
       "web": "partial",
       "docs": "done",
-      "note": "public export와 실브라우저 acceptance test. Figma는 항목 set 5 variant와 패널 component 둘로 나뉜다 — 항목이 조립 단위이고 패널이 그것을 담는다. composite-popover 표면은 별도 component 로 섰다(2026-08-30, inset 8 · gap 8 · 기준폭 240). 면·간격·알파는 채택 당시 제품 공용 정본이던 --dropdown-* 토큰에서 가져왔다 — 그 일곱 이름은 P#1 이후 제품에 없고 지금은 제품이 LOUIS 정본을 직접 소비한다. 서브메뉴와 체크 상태가 남고, .louis-popover__title(heading-sm 28px)은 소비처가 0이라 값 재확인이 남았다 2026-09-01 DS-D-0035 재판정: Figma `done`. readback 등재 + 계약이 모든 property 를 pin + 기하 evidence 가 두 방향이다(menu-popover · surface-geometry.browser.test.tsx).",
+      "note": "public export와 실브라우저 acceptance test. Figma는 항목 set 5 variant와 패널 component 둘로 나뉜다 — 항목이 조립 단위이고 패널이 그것을 담는다. composite-popover 표면은 별도 component 로 섰다(2026-08-30, inset 8 · gap 8 · 기준폭 240). 면·간격·알파는 채택 당시 제품 공용 정본이던 --dropdown-* 토큰에서 가져왔다 — 그 일곱 이름은 P#1 이후 제품에 없고 지금은 제품이 LOUIS 정본을 직접 소비한다. 서브메뉴와 체크 상태가 남고, .louis-popover__title(heading-sm 28px)은 소비처가 0이라 값 재확인이 남았다 2026-09-06: 패널을 여는 트리거가 MenuTrigger 로 섰고(높이 32 하나 · 셰브론 없음), 항목에 값 목록의 선택 상태(aria-selected)가 열렸다 — 제품 정본은 랜딩 LanguageSelector 다. 2026-09-01 DS-D-0035 재판정: Figma `done`. readback 등재 + 계약이 모든 property 를 pin + 기하 evidence 가 두 방향이다(menu-popover · surface-geometry.browser.test.tsx).",
       "doc": "design/components/menu-popover.md",
       "figmaName": "Menu",
       "figmaNames": [
         "Menu",
         "MenuPanel",
         "MenuSeparator",
-        "CompositePopover"
+        "CompositePopover",
+        "MenuTrigger"
       ]
     },
     {
@@ -2003,7 +2014,7 @@
       "figma": "done",
       "web": "partial",
       "docs": "done",
-      "note": "public export와 실브라우저 acceptance test 14건. Figma component set 2 variant(Tone). 제품에 공용 정본이 없어 값은 DS가 정했다. 실행 취소 액션이 남음 2026-09-01 DS-D-0035 재판정: Figma `done`. readback 등재 + 계약이 모든 property 를 pin + 기하 evidence 가 두 방향이다(toast · surface-geometry.browser.test.tsx).",
+      "note": "public export와 실브라우저 acceptance test 14건. Figma component set 2 variant(Tone). 제품에 공용 정본이 없어 값은 DS가 정했다. 실행 취소 액션이 남음 2026-09-06: Layout 축(base · callout)이 열렸다 — callout 은 제목/본문 두 줄과 액션 슬롯이고 제품 정본은 노드 캔버스 온보딩 힌트다. 2026-09-01 DS-D-0035 재판정: Figma `done`. readback 등재 + 계약이 모든 property 를 pin + 기하 evidence 가 두 방향이다(toast · surface-geometry.browser.test.tsx).",
       "doc": "design/components/toast.md",
       "figmaName": "Toast"
     },
@@ -2014,7 +2025,7 @@
       "figma": "done",
       "web": "partial",
       "docs": "done",
-      "note": "public export와 실브라우저 acceptance test 12건. Figma component set 4 variant(Side). 표면이 페이지와 반전된다 — 제품 공용 SSOT에서 채택했다. 그룹 지연 건너뛰기와 arrow가 남음 2026-09-01 DS-D-0035 재판정: Figma `done`. readback 등재 + 계약이 모든 property 를 pin + 기하 evidence 가 두 방향이다(tooltip · surface-geometry.browser.test.tsx).",
+      "note": "public export와 실브라우저 acceptance test 12건. Figma component set 4 variant(Side). 표면이 페이지와 반전된다 — 제품 공용 SSOT에서 채택했다. 그룹 지연 건너뛰기와 arrow가 남음 2026-09-06: Layout 축(base · coachmark)이 열렸다 — coachmark 는 대상에 붙어 함께 팬·줌되는 두 줄 안내이고 꼬리가 45° 정사각형이다. 2026-09-01 DS-D-0035 재판정: Figma `done`. readback 등재 + 계약이 모든 property 를 pin + 기하 evidence 가 두 방향이다(tooltip · surface-geometry.browser.test.tsx).",
       "doc": "design/components/tooltip.md",
       "figmaName": "Tooltip"
     },

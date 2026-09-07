@@ -59,6 +59,11 @@ function Editor() {
 2. Toast — 메시지 하나
 3. Message — 한 줄 텍스트
 
+`callout` layout에서는 2·3 사이에 두 조각이 더 선다.
+
+4. Content — 제목/본문 덩어리(세로, 간격 2)
+5. Action — 후행 액션 하나. **Button이 아니다**(아래 Specification의 사유)
+
 ## Properties
 
 `useToast().toast(input)`의 입력.
@@ -68,6 +73,9 @@ function Editor() {
 | `message`  | string                 | **필수**  | 한 줄. 문자열만 받는다                      |
 | `tone`     | `neutral`, `danger`    | `neutral` | `danger`는 assertive로 알린다               |
 | `duration` | number (ms)            | `4000`    | 자동 소멸까지. `0`이면 자동으로 사라지지 않는다 |
+| `title`    | string                 | 없음      | 있으면 `message`가 본문이 되고 layout이 `callout`이 된다 |
+| `action`   | `{ label, onAction, dismissOnAction? }` | 없음 | 후행 액션 하나. 누르면 기본으로 toast를 닫는다 |
+| `layout`   | `base`, `callout`      | 유추      | 비우면 `title`·`action`의 유무가 정한다. Figma의 `Layout` 축과 1:1로 맞추기 위해 명시도 열어 둔다 |
 
 `message`가 `ReactNode`가 아니라 **string인 이유**: live region은 텍스트를 읽는다. 요소를 넣으면
 보조 기술이 읽는 내용과 화면에 보이는 것이 갈린다. 링크나 버튼이 필요하면 toast가 아니다.
@@ -76,6 +84,19 @@ function Editor() {
 
 `tone` 둘뿐이다. `neutral`은 결과 보고이고 `danger`는 실패 보고다. 성공을 따로 두지 않는다 —
 toast가 떴다는 사실 자체가 이미 "그 일이 일어났다"이므로 색으로 한 번 더 말할 필요가 없다.
+
+**`layout` 축이 하나 더 있다(2026-09-06).** `base`는 한 줄 메시지, `callout`은 제목/본문 두 줄과
+액션 슬롯이다. 크기 사다리가 아니라 **표면에 담기는 것**이 달라지는 축이다 — 그래서 이름이
+`size`가 아니라 `layout`이다.
+
+제품 정본은 노드 캔버스의 온보딩 힌트 두 벌이다. `CanvasConnectHint`와 `CanvasNextStepHint`가
+한 `CALLOUT` 상수를 공유하고 문구만 다르며, 표면 원장이 뒤엣것을 그 사실로 `scoped` 처리해 두었다.
+
+**표면·그림자·흐림은 두 layout이 같다.** 세 값 모두 제품과 갈리는데(제품은 고정
+`palette-gray-900` 64% · `blur(4px)` · `elevation-menu`), 제품 자신의 주석이 그 표면을
+「토스트처럼 반전 테마 — 라이트에선 어둡게, 다크에선 밝게」라고 적어 놓고 **고정 팔레트**를 쓰고
+있다. 코드와 주석이 갈리는 자리이지 DS가 두 표면을 가질 이유가 아니다. layout이 바꾸는 것은
+기하와 슬롯뿐이다.
 
 ## States
 
@@ -139,6 +160,36 @@ toast가 떴다는 사실 자체가 이미 "그 일이 일어났다"이므로 �
 | 최대 폭     | 420px                                                    |
 | 자동 소멸   | 4000ms                                                   |
 
+### `layout = callout`
+
+| 항목            | 값                                                      |
+| --------------- | ------------------------------------------------------- |
+| 높이            | 65 (padding 12+12 + 내용 41)                            |
+| padding         | `space-control-md` 12 / **좌 `space-control-lg` 16 · 우 `space-control-md` 12** |
+| gap             | `space-control-lg` 16 (본문 덩어리 ↔ 액션)              |
+| 제목            | `typography-body-sm-medium` (14/21)                     |
+| 본문            | `typography-caption-regular` (12/18) · 불투명도 72%      |
+| 제목/본문 간격  | `space-overlay-item-gap` 2                              |
+| 액션 높이       | 26 (선언하지 않는다 — caption 18 + `space-control-xs` 4+4) |
+| 액션 padding    | 4 / `space-control-md` 12                               |
+| 액션 radius     | `radius-control-sm` 8                                    |
+| 액션 면         | 전경색 12% · hover 24%                                   |
+| 최대 폭         | 720px                                                    |
+
+**좌우 padding이 갈리는 이유.** 액션이 자기 padding을 갖고 있어 오른쪽을 4 줄여야 시각 여백이
+좌우로 같아 보인다. 광학 보정이며 실수가 아니다.
+
+**액션이 `Button`이 아닌 이유.** 제품은 높이 28을 리터럴로 박아 두었는데 28은 컨트롤 사다리
+(40·32·24, [DS-D-0027](../governance/decisions/DS-D-0027-control-size-ladder.md) ·
+[DS-D-0032](../governance/decisions/DS-D-0032-control-size-ladder-sm.md))에 없고, 이 저장소의 28
+셋(`layout-tab-height` · `layout-settings-segment-height` · `layout-inspector-control-height`)은
+전부 다른 것을 이름 짓는다. 네 번째 28 토큰을 세우면 Figma 변수까지 함께 열어야 하는데 그럴
+사유가 없어 **높이를 선언하지 않고 내용에서 나오게 뒀다** — 26이 그 결과다. 제품이 물 때 2px
+줄어드는 것이 이 선택의 값이다.
+
+**`base`는 `display: flex`가 아니었다.** 한 줄 텍스트 하나뿐이라 아무도 눈치채지 못했고, 이 축을
+열자마자 본문과 액션이 세로로 쌓였다(실측 높이 91, 계약 65). 배치는 `callout` 규칙이 소유한다.
+
 `color-bg-inverse`와 `color-fg-on-inverse`는 이 컴포넌트가 첫 소비자다. 기존
 `color-fg-inverse`는 두 모드 모두 `neutral-0`이라 **다크에서 밝아지는 반전 표면 위에서는
 쓸 수 없다** — 그 토큰은 `action-primary` 위 텍스트를 위한 것이다.
@@ -155,6 +206,10 @@ Figma에서 이 컴포넌트가 갖는 effect를 종류와 순서까지 고정�
 
 글래스 베벨 inset 2겹은 owner 결정으로 제거했다 — 이 디자인 시스템에 글래스 섀도우 개념을 두지
 않는다.
+
+**`layout` 축은 effect를 바꾸지 않는다.** Figma component set의 effect는 변형이 아니라 역할
+(`self`) 하나가 갖는 값이고, parity 계약이 그것을 문자열 하나로 잡는다. layout이 자기 그림자나
+흐림을 가지려면 컴포넌트를 둘로 쪼개야 하는데 둘은 같은 표면이다.
 
 ## Implementation
 

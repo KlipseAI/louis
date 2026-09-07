@@ -154,6 +154,11 @@ test("Menu 항목의 states 표가 코드와 같다", async () => {
           <ActionMenuItem data-testid="disabled" disabled>
             잠김
           </ActionMenuItem>
+          {/* 값 목록의 「지금 값」. role=listbox 의 aria-selected 이며, 행동 목록의
+              aria-checked(글리프)와 다른 축이다 — 여기서는 면이 그것을 말한다. */}
+          <ActionMenuItem data-testid="selected" aria-selected="true">
+            한국어
+          </ActionMenuItem>
         </ActionMenuContent>
       </ActionMenu>
     </OverlayProvider>,
@@ -181,6 +186,9 @@ test("Menu 항목의 states 표가 코드와 같다", async () => {
   await userEvent.hover(plain);
   assertPaint(plain, stateOf(spec, "Hover"), "menu/Hover");
   await userEvent.unhover(plain);
+
+  const selected = find('[data-testid="selected"]');
+  assertPaint(selected, stateOf(spec, "Selected"), "menu/Selected");
 
   await userEvent.hover(danger);
   assertPaint(danger, stateOf(spec, "DangerHover"), "menu/DangerHover");
@@ -237,6 +245,7 @@ test("states 표를 코드가 빠짐없이 읽는다", () => {
   // 새 컴포넌트가 states를 추가하고 테스트를 잊으면 여기서 걸린다 — 실제로 다섯이 그렇게 덮이지
   // 않은 채 있었고, TextField를 추가했을 때도 이 가드가 먼저 걸렸다.
   const covered = new Set([
+    "alert", //           alert.browser.test.tsx — 레이아웃 × 톤 12조합
     "button", //          component-states.browser.test.tsx
     "icon-button", //     component-states.browser.test.tsx
     "app-shell-parts", // app-shell-parts.browser.test.tsx

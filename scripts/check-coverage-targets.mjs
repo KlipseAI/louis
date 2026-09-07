@@ -94,7 +94,15 @@ const TOKEN_SOURCE = "packages/tokens/src/klipse.tokens.json";
 // 않는다. UNCLEAR 를 9 → 47 로 올린 것과 똑같은 이유이고, verify-gates 의 canary
 // (`coverage targets needed fell without locking`)가 그것을 강제한다: 그 canary 는
 // counts.needed 를 1 내리고 실패를 기다리는데, baseline 이 낡으면 canary 자신이 눈이 먼다.
-const NEEDED_BASELINE = 181; // 하락만 잠근다(상승은 발견)
+// 181 → 179 (2026-09-06). 둘 다 **Figma 에 세웠다** — Button 흡수 둘이다.
+//   legal/LegalDocumentBackButton  → Button(ghost · Icon=left · LeftIconGlyph=icon/caret-left)
+//   templates/CopyPromptButton     → Button(Label + LeftIconGlyph 슬롯 교체. 성공은 축이 아니다)
+// 어느 것도 새 축을 열지 않았다. 두 자리 다 이미 서 있던 Figma 칸을 **처음 알아본** 것이고,
+// 그 판정의 근거는 원장의 두 `reason` 이 갖는다.
+// 2026-09-06: 179 → 176. 셋 다 **Figma 에 세웠다** — `CanvasConnectHint` 는 Toast 의
+// `Layout=callout`, `CanvasFirstNodeHint` 는 Tooltip 의 `Layout=coachmark`,
+// `LanguageSelector` 는 새 `MenuTrigger` 다. 판단 대기로 미룬 것도, 범위 밖으로 옮긴 것도 없다.
+const NEEDED_BASELINE = 176; // 하락만 잠근다(상승은 발견)
 // 9 → 47 → 5. 47 로 올렸던 것은 미룬 것을 받아들여서가 아니라 래칫이 물게 하려는 것이었다
 // (재고정으로 드러난 38개가 판단 대기로 들어왔다). 2026-09-03 에 그 47 을 네 도메인이
 // 나눠 판정해 43 이 내려갔고 — figma 6 · scoped 15 · needed 22 — 5 만 남았다.
@@ -117,7 +125,11 @@ const UNCLEAR_BASELINE = 1; // 하락만 잠근다(소유자만 줄일 수 있�
 // 속하지 않아 부모의 상태 축으로는 놓을 자리가 없기 때문이고, 그래서 NEEDED_BASELINE 이 +1 이다.
 const SCOPED_BASELINE = 227; // 표면 총수가 오른 만큼만 오를 수 있다
 const SURFACE_TOTAL_BASELINE = 434; // 위 천장의 기준점
-const MANIFEST_DONE_FLOOR = 17; // 바닥. 오르면 올려 이득을 잠근다
+// 17 → 18 (2026-09-06): `alert` 가 partial 에서 done 으로 올라갔다. 레이아웃 축(block·inline·
+// banner)을 열며 계약에 `alert` 칸을 처음 세우고 geometry 를 붙였고,
+// packages/react/test/alert.browser.test.tsx 가 코드 쪽을 되재므로 DS-D-0035 의 (a)(b)(c) 가
+// 전부 선다 — verify-figma-done 이 「조건은 서는데 partial 로 남은 항목: alert」로 먼저 지목했다.
+const MANIFEST_DONE_FLOOR = 18; // 바닥. 오르면 올려 이득을 잠근다
 const DEAD_TOKEN_BASELINE = 95; // 양방향, 목표 0. 단위는 **원천 토큰**이다 — DS-D-0047
 
 // ── 앵커가 못 보는 소비자 ─────────────────────────────────────────────────

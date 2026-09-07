@@ -54,6 +54,11 @@ import { IconTrashSimple } from "@klipse-design/react/icons";
 2. Surface — portal된 설명 표면. `role="tooltip"`
 3. Arrow — 선택. 방향을 가리킨다
 
+`coachmark` layout에서는 2·3이 이렇게 갈린다.
+
+4. Stack — 제목/본문 덩어리(세로, 간격 2)
+5. Tail — 화살표 대신 서는 꼬리. 10 정사각형을 45° 돌린 것이라 base의 삼각형(12×6)과 **다른 도형**이다
+
 ## Properties
 
 | Prop           | 값                                        | 기본값  | 설명                                          |
@@ -65,10 +70,23 @@ import { IconTrashSimple } from "@klipse-design/react/icons";
 | `suppress`     | boolean                                   | `false` | 떠 있는 tooltip을 exit 모션 없이 즉시 걷어낸다 |
 
 | `children`     | ReactElement                              | **필수**| 상호작용 가능한 요소 하나                     |
+| `layout`       | `base`, `coachmark`                       | 유추    | 비우면 `title`의 유무가 정한다. Figma의 `Layout` 축과 1:1로 맞추기 위해 명시도 열어 둔다 |
+| `title`        | ReactNode                                 | 없음    | 있으면 `content`가 본문이 되고 layout이 `coachmark`가 된다. `base`에서는 무시한다 |
 
 ## Hierarchy와 variants
 
-variant가 없다. Tooltip은 강조 축을 갖지 않는다 — 위계를 표현해야 하면 그건 tooltip이 아니다.
+강조 축이 없다. Tooltip은 위계를 표현하지 않는다 — 위계를 표현해야 하면 그건 tooltip이 아니다.
+
+**`layout` 축이 있다(2026-09-06).** `base`는 포인터를 따라다니는 한 줄 설명이고, `coachmark`는
+대상에 붙어 **함께 움직이는** 제목/본문 두 줄 안내다. 크기 사다리가 아니라 표면에 담기는 것이
+달라지는 축이다.
+
+제품 정본은 노드 캔버스의 `CanvasFirstNodeHint`로, React Flow의 `ViewportPortal` 안에서 flow
+좌표로 놓여 **캔버스와 함께 팬·줌된다.** 그것이 두 layout이 갈리는 가장 큰 이유다.
+
+`coachmark`에서 갈리는 것 셋: 폭이 320 고정이고, 제목/본문 두 줄이며, 경계가 헤어라인이 아니라
+**강조색 1px 테두리**다. 「여기를 보라」를 말하는 것이 그 테두리이므로 generic 헤어라인으로 바꾸면
+축이 아무것도 바꾸지 않게 된다.
 
 ## States
 
@@ -135,6 +153,42 @@ variant가 없다. Tooltip은 강조 축을 갖지 않는다 — 위계를 표�
 
 | 닫힘 모션   | 120ms, `cubic-bezier(0.19, 1, 0.22, 1)`, scale 1 → 0.97 |
 | 확대 기준점 | anchor — `side`를 따라간다. `top` → `bottom center`, `left` → `right center`, `right` → `left center` |
+
+### `layout = coachmark`
+
+| 항목            | 값                                                      |
+| --------------- | ------------------------------------------------------- |
+| 폭              | **320 고정**(`box-sizing: border-box`)                  |
+| 높이            | 64 (테두리 1+1 + padding 12+12 + 내용 38)               |
+| padding         | `space-control-md` 12 (네 변)                            |
+| radius          | `radius-card` 12                                        |
+| 테두리          | 1px `accent-primary` 56%                                 |
+| 배경            | `color-bg-inverse-translucent`                           |
+| 제목            | `typography-caption-medium` (12/18)                     |
+| 본문            | `typography-caption-regular` (12/18) · 불투명도 72%      |
+| 제목/본문 간격  | `space-overlay-item-gap` 2                              |
+| 꼬리            | 변 10의 정사각형을 45° 돌린 것. 정렬 축 24 · 표면 밖 6   |
+| 그림자          | `elevation-tooltip` — base와 **같다**                    |
+
+**제품과 갈리는 값 넷과 그 사유.**
+
+| 제품 | LOUIS | 왜 |
+| --- | --- | --- |
+| 가로 padding 14 | 12 | 14는 space 축(4·8·12·16)에 없다. 새 계단을 세울 사유가 없다 |
+| 제목/본문 간격 3 | 2 | 같은 자리를 [Toast](toast.md)의 `callout`이 2로 쓴다. 한 시스템 안에서 같은 자리는 한 값이다 |
+| `0 8px 24px` 검정 16% | `elevation-tooltip` | 그 값을 가진 토큰이 없고, layout 축은 자기 그림자를 가질 수 없다(아래) |
+| `backdrop-filter: blur(panel)` | 없음 | 같은 이유 |
+
+**layout 축이 자기 effect를 가질 수 없는 이유.** Figma component set의 effect는 변형이 아니라
+역할(`self`) 하나가 갖는 값이고, parity 계약이 그것을 문자열 하나로 잡는다. layout이 자기
+그림자·흐림을 가지려면 컴포넌트를 둘로 쪼개야 하는데, 둘은 같은 앵커 표면이라 이름을 둘로 늘릴
+자리가 아니다([DS-D-0027](../governance/decisions/DS-D-0027-control-size-ladder.md)의 「이름이
+실물보다 많으면 고르는 쪽이 손해를 본다」).
+
+**꼬리 방향은 `side`를 따라간다.** positioner가 발행하는 `data-side`는 collision으로 뒤집힌 뒤의
+실제 방향이라, 표면이 뒤집히면 꼬리도 함께 옮겨간다. 네 방향 모두 테두리를 갖는 두 변이 다르다 —
+`border-style: solid`를 네 변에 주고 두 변만 폭을 주면 나머지가 initial `medium`(3px)로 그려지므로,
+변마다 폭과 색을 함께 준다.
 
 **「닫힘: 즉시」는 지연이 없다는 뜻이지 전환이 0이라는 뜻이 아니다.** 제품은 exit를 별도 duration·easing으로 돌린다 — enter는 `cubic-bezier(0.23, 1, 0.32, 1)` 140ms로 감속하고, exit는 `cubic-bezier(0.19, 1, 0.22, 1)` 120ms로 가속한다. **비대칭이다.** 열림 곡선을 닫힘에 그대로 재사용하면 tooltip이 끝에서 늘어져 잔상처럼 남는다. 전환 property는 `opacity`와 `transform` 둘뿐이고 열림·닫힘이 같은 두 축을 다툰다. 제품은 이 5종을 `globals.css:336-340`에 tooltip 모션 SSOT로 선언한다 — rest scale·enter duration·exit duration·enter ease·exit ease. **다만 값의 출처는 이제 제품이 아니라 LOUIS다** — 다섯 줄 모두 `var(--louis-motion-tooltip-*)` / `var(--louis-motion-scale-tooltip-rest)` 별칭이고, 숫자는 [tokens.css:526](../../packages/tokens/generated/tokens.css)·`549-553`이 소유한다.
 

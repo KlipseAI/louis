@@ -5213,6 +5213,16 @@
       },
       "layout": {
         "$type": "dimension",
+        "alert-compact-inset": {
+          "$value": "{primitive.spacing.10}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "layout-alert-compact-inset",
+              "tier": "semantic",
+              "mode": "global"
+            }
+          }
+        },
         "alert-inset": {
           "$value": "{primitive.spacing.18}",
           "$extensions": {

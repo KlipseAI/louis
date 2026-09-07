@@ -231,7 +231,23 @@ const COMPONENT_CONTRACTS = [
   },
   {
     id: "tooltip",
-    strokes: { self: { weight: "borderWidth", align: "INSIDE" } },
+    // **한 역할이 두 두께를 갖는 것이 계약이다.** base 의 경계는 generic 헤어라인 0.5(DS-D-0023)이고
+    // coachmark 의 경계는 강조색 1px 테두리다 — 「여기를 보라」를 말하는 것이 그 테두리라 헤어라인으로
+    // 바꾸면 layout 축이 아무것도 바꾸지 않게 된다. 두 값은 각각 measured 의 base.borderWidth 와
+    // coachmark.borderWidth 이며, 그 둘을 여기에 목록으로 적는다.
+    strokes: {
+      self: {
+        weight: [0.5, 1],
+        align: "INSIDE",
+        reason:
+          "base 는 헤어라인 0.5(components.measured.json 의 tooltip.sizes.base.borderWidth), coachmark 는 강조색 테두리 1(같은 파일 tooltip.sizes.coachmark.borderWidth)이다. layout 축이 경계의 뜻을 바꾸므로 두께가 하나일 수 없다.",
+      },
+    },
+    // **두 layout 이 같은 effect 를 쓴다.** component set 의 effect 는 변형이 아니라 역할(`self`)
+    // 하나가 갖는 값이고 이 게이트가 그것을 문자열 하나로 잡는다(compareComponentEffects) — layout
+    // 축이 자기 그림자를 가지려면 컴포넌트를 둘로 쪼개야 하는데 둘은 같은 앵커 표면이다.
+    // 제품 coachmark 의 `0 8px 24px 16%` + `blur(panel)` 은 그래서 채택되지 않았고, 그 편차는
+    // tooltip.css 의 coachmark 블록 주석과 제품 절차서가 갖는다.
     effects: { self: "DROP_SHADOW:12:24:0" },
     figmaName: "Tooltip",
     propProperties: { Content: "content" },
@@ -241,24 +257,44 @@ const COMPONENT_CONTRACTS = [
       // 그래서 화살표 없이 네 variant가 전부 같은 그림이었고, 축이 아무것도 바꾸지 않으면
       // 그 축은 거짓말이다(2026-08-18).
       Side: { type: "OverlaySide", declaration: "packages/react/dist/overlay/positioner.d.ts" },
+      // Layout 은 표면에 **담기는 것**을 바꾼다. 크기 사다리가 아니다 — base 는 한 줄 설명,
+      // coachmark 는 대상에 붙어 함께 팬·줌되는 제목/본문 두 줄이다.
+      Layout: "TooltipLayout",
+    },
+    figmaOnlyProperties: {
+      Title: {
+        type: "TEXT",
+        reason:
+          "코드에서 `title`은 ReactNode prop 이라 타입 선언에 문자열 항목으로 나타나지 않는다(React 가 준다). coachmark 변형에서만 자리를 갖는다.",
+      },
     },
     geometry: {
       measuredId: "tooltip",
-      sizeKey: "base",
+      sizeKeys: ["base", "coachmark"],
       fields: {
         height: "height",
         paddingBlock: ["paddingBlock", "borderWidth"],
         paddingBlockEnd: ["paddingBlock", "borderWidth"],
         paddingInline: ["paddingInline", "borderWidth"],
         paddingInlineEnd: ["paddingInline", "borderWidth"],
+        itemSpacing: "gap",
         cornerRadius: "radius",
         layoutMode: { literal: "HORIZONTAL" },
       },
       slots: {},
       extraStrokeWeights: [],
+      // **폭은 보지 않는다.** coachmark 는 320 고정이지만 base 의 폭은 라벨 렌더링이 정하는
+      // 값이라 measured 에 근거가 없다. 한 계약의 fields 는 모든 size 키에 함께 걸리므로
+      // 여기에 width 를 넣으면 base 에 「근거 값이 없습니다」가 난다. coachmark 320 은
+      // surface-geometry.browser.test.tsx 가 코드 쪽에서 잰다.
       parts: {
         // Side 축이 바꾸는 유일한 것. 없으면 네 variant가 같은 그림이 된다.
-        Arrow: { fields: { width: "arrowWidth", height: "arrowHeight" } },
+        Arrow: { fields: { width: "arrowWidth", height: "arrowHeight" }, optional: true },
+        // coachmark 의 꼬리 — 45° 돌린 정사각형이라 base 의 삼각형과 다른 도형이다.
+        Tail: { fields: { width: "tailSize", height: "tailSize" }, optional: true },
+        // 제목/본문 덩어리. Figma 에는 자식별 간격이 없어 이 프레임의 itemSpacing 이
+        // CSS 의 본문 margin-block-start 와 같은 값을 낸다.
+        Stack: { fields: { itemSpacing: "contentGap" }, optional: true },
       },
     },
   },
@@ -269,23 +305,57 @@ const COMPONENT_CONTRACTS = [
       self: "DROP_SHADOW:8:20:0 + BACKGROUND_BLUR:NORMAL:var(blur/toast)",
     },
     figmaName: "Toast",
-    propProperties: { Message: "message" },
+    propProperties: { Message: "message", Title: "title" },
     declaration: "packages/react/dist/toast/toast.d.ts",
-    variantProperties: { Tone: "ToastTone" },
+    variantProperties: {
+      Tone: "ToastTone",
+      // Layout 은 표면에 **담기는 것**을 바꾼다 — base 는 한 줄 메시지, callout 은 제목/본문
+      // 두 줄과 액션 슬롯이다. 표면·그림자·흐림은 두 layout 이 같다.
+      Layout: "ToastLayout",
+    },
+    figmaOnlyProperties: {
+      ActionLabel: {
+        type: "TEXT",
+        reason:
+          "코드에서 액션은 `action: { label, onAction }` 객체라 라벨이 최상위 prop 이 아니다. Figma 에는 함수를 담을 자리가 없으므로 그릴 수 있는 것(라벨)만 property 로 세운다.",
+      },
+    },
     geometry: {
       measuredId: "toast",
-      sizeKey: "base",
+      sizeKeys: ["base", "callout"],
       fields: {
         height: "height",
         paddingBlock: "paddingBlock",
         paddingBlockEnd: "paddingBlock",
         paddingInline: "paddingInline",
-        paddingInlineEnd: "paddingInline",
+        // **끝 변을 따로 잰다.** callout 의 좌우가 16/12 로 갈린다 — 액션이 자기 padding 을
+        // 갖고 있어 오른쪽을 4 줄여야 시각 여백이 좌우로 같아 보인다(광학 보정).
+        paddingInlineEnd: "paddingInlineEnd",
+        itemSpacing: "gap",
         cornerRadius: "radius",
         layoutMode: { literal: "HORIZONTAL" },
       },
       slots: {},
       extraStrokeWeights: [],
+      parts: {
+        // 제목/본문 덩어리. Figma 에는 자식별 간격이 없어 이 프레임의 itemSpacing 이
+        // CSS 의 `.louis-toast__content` gap 과 같은 값을 낸다.
+        Content: { fields: { itemSpacing: "contentGap" }, optional: true },
+        // 액션 슬롯. **높이를 선언하지 않고 내용에서 나오게 둔 값이라** 여기서 재는 26 은
+        // 「caption 18 + padding 4+4」의 결과다 — 제품의 리터럴 28 이 아니다(측정 파일의
+        // $actionHeight 가 사유를 갖는다).
+        Action: {
+          fields: {
+            height: "actionHeight",
+            cornerRadius: "actionRadius",
+            paddingBlock: "actionPaddingBlock",
+            paddingBlockEnd: "actionPaddingBlock",
+            paddingInline: "actionPaddingInline",
+            paddingInlineEnd: "actionPaddingInline",
+          },
+          optional: true,
+        },
+      },
     },
   },
   {
@@ -302,9 +372,9 @@ const COMPONENT_CONTRACTS = [
       HasTrailing: { type: "BOOLEAN", reason: "후행 자리(단축키·화살표)의 유무." },
       Checked: { type: "BOOLEAN", reason: "선택 표시. 코드에서는 role=menuitemradio/checkbox의 aria-checked다 — tone·상태와 직교하므로 State 축에 접지 않는다." },
       State: {
-        options: ["Default", "Hover", "Danger", "DangerHover", "Disabled", "Busy"],
+        options: ["Default", "Hover", "Danger", "DangerHover", "Disabled", "Busy", "Selected"],
         reason:
-          "Default/Hover는 CSS 상태이고 Danger는 tone prop, Disabled는 disabled prop이다. Figma에는 CSS 상태가 없어 한 축에 합친다. DangerHover가 따로 있는 이유는 danger 항목의 hover 면이 일반 항목과 다른 토큰을 쓰기 때문이다. Busy는 항목이 스스로 작업을 도는 동안이다 — 후행 자리에 스피너가 서고 항목이 비활성처럼 보이지만 disabled와 달리 취소가 열려 있다.",
+          "Default/Hover는 CSS 상태이고 Danger는 tone prop, Disabled는 disabled prop이다. Figma에는 CSS 상태가 없어 한 축에 합친다. DangerHover가 따로 있는 이유는 danger 항목의 hover 면이 일반 항목과 다른 토큰을 쓰기 때문이다. Busy는 항목이 스스로 작업을 도는 동안이다 — 후행 자리에 스피너가 서고 항목이 비활성처럼 보이지만 disabled와 달리 취소가 열려 있다. Selected는 role=listbox의 값 목록에서 「지금 값」이다(aria-selected) — 면이 hover(4%) 위 한 칸인 12%이고, Checked(aria-checked)와 다른 것을 말한다: 저쪽은 행동 목록에서 켜고 끄는 축이라 글리프가 표현하고, 이쪽은 값 목록이라 늘 하나가 선택돼 있어 글리프 칸을 세우면 모든 행이 빈 칸을 들고 선다.",
       },
     },
     geometry: {
@@ -438,21 +508,58 @@ const COMPONENT_CONTRACTS = [
     figmaAhead: "React 표면 없음 — packages/css/src/component/alert.css 가 정본이다.",
     variantProperties: {},
     figmaOnlyProperties: {
+      Layout: {
+        options: ["block", "inline", "banner"],
+        reason:
+          "**놓이는 자리가 기하를 통째로 바꾼다.** CSS 에서 `data-layout` 이고 속성이 없을 때가 block 이다 — block 을 이름으로 적어 두는 것이 계약이라, `danger` 처럼 「써도 되지만 계약에 없는 값」을 만들지 않는다(alert.md Known deviations 3 이 그 함정을 소유한다). inline 은 면·테두리·반경이 전부 0 이고 글자가 caption 12 로 내려가며 톤을 갖지 않는다(무테에서 색이 유일한 신호가 되면 WCAG 1.4.1 을 스스로 깬다). banner 는 전폭 띠라 반경이 0 이고 면이 알파 틴트가 아니라 불투명 톤 컨테이너(`color/bg-{tone}`)다. **값이 소문자인 것은 CSS 속성값과 같은 철자를 쓰기 위해서다** — `Tone=danger` 와 같은 규칙이다.",
+      },
       Tone: {
         options: ["danger", "info", "success", "warning"],
         reason:
-          "tone 하나가 면·테두리·글자 셋을 함께 바꾼다. CSS 에서 data-tone 속성 선택자이고 기본값이 danger 다 — 제품에서 실제로 가장 많이 쓰는 자리가 결제 실패 배너다.",
+          "tone 하나가 면·테두리·글자 셋을 함께 바꾼다. CSS 에서 data-tone 속성 선택자이고 기본값이 danger 다 — 제품에서 실제로 가장 많이 쓰는 자리가 결제 실패 배너다. **inline 에서는 네 톤이 같은 값이다** — 그것이 결손이 아니라 계약이며 `components.measured.json` 의 `states.inline` 이 네 칸을 접지 않고 다 적어 그 사실을 고정한다.",
       },
       HasIcon: { type: "BOOLEAN", reason: "아이콘 없는 경고가 있다. CSS 에서는 __icon 자식의 유무다." },
       HasTitle: { type: "BOOLEAN", reason: "제목 없이 한 줄만 있는 경고가 있다. CSS 에서는 __title 자식의 유무다." },
+      Dismissible: {
+        type: "BOOLEAN",
+        reason:
+          "닫기 슬롯(`.louis-alert__dismiss`)의 유무. **기본이 꺼짐이다** — 오늘 제품에서 닫을 수 있는 알림은 루트 배너 하나뿐이고 나머지 다섯 자리는 조건부 렌더링으로 사라진다. 슬롯 안은 IconButton 이고 알림이 버튼을 그리지 않는다: 크기·톤 축을 둘로 가르지 않기 위해서다.",
+      },
       Title: { type: "TEXT", reason: "제목 문구. 코드에서는 자식 요소라 prop 이 아니다." },
       Body: { type: "TEXT", reason: "본문 문구. 코드에서는 __content 안의 텍스트다." },
       Glyph: { type: "INSTANCE_SWAP", reason: "tone 마다 어울리는 글리프가 달라 고를 수 있어야 한다." },
     },
     // 경고는 헤어라인이 아니라 **보이는 테두리**를 갖는다 — 면과 글자가 tone 색이라
     // 표면 위에서 경계가 필요하고, border-width-default(1) 를 쓴다.
+    // **테두리를 갖는 것은 block 뿐이다.** inline 은 무테가 정의이고 banner 는 불투명 면
+    // 자신이 경계라 stroke 가 없다 — 그래서 이 역할은 block 네 변형에서만 걸린다.
     strokes: { self: { weight: 1, align: "INSIDE" } },
     effects: {},
+    // **2026-09-06 에 처음 붙은 기하 계약이다.** 그전에는 `geometry` 키가 없어
+    // compareComponentGeometry() 가 즉시 빠져나갔고, Figma 의 패딩 12/18 · 간격 8 · 반경 20 을
+    // 아무도 코드와 맞춰 보지 않았다(alert.md Known deviations 11).
+    geometry: {
+      measuredId: "alert",
+      fields: {
+        paddingBlock: "paddingBlock",
+        paddingBlockEnd: "paddingBlock",
+        paddingInline: "paddingInline",
+        paddingInlineEnd: "paddingInline",
+        itemSpacing: "gap",
+        cornerRadius: "radius",
+        layoutMode: { literal: "HORIZONTAL" },
+      },
+      // **높이와 폭은 보지 않는다.** Figma 표본은 제목과 본문을 둘 다 켠 두 줄짜리이고 계약의
+      // `height` 는 한 줄 높이다 — 같은 것을 재지 않는 두 수를 대조하면 게이트를 끄게 된다.
+      // 폭은 컨테이너가 정한다(`inline-size: 100%`).
+      //
+      // Icon 은 `width` 만 대조한다. 높이는 block 이 21, inline·banner 가 16 인데 CSS 는 셋 다
+      // 16 정사각이다 — 같은 목표(글리프를 첫 줄 가운데에 세우기)를 두 표면이 다른 방법으로
+      // 얻은 자리이고, 그 어긋남은 alert.md Known deviations 10 이 소유한다.
+      parts: {
+        Icon: { fields: { width: "icon" } },
+      },
+    },
   },
   {
     id: "switch",
@@ -895,6 +1002,11 @@ const COMPONENT_CONTRACTS = [
     // INSTANCE_SWAP 슬롯이 없고 iconSlots 도 없다. 열림에서 45° 도는 것도 아이콘 교체가 아니라
     // 같은 글리프의 transform 이다.
     figmaOnlyProperties: {
+      Size: {
+        options: ["lg", "md"],
+        reason:
+          "같은 아코디언 행이 두 밀도로 선다 — 랜딩 섹션(폭 1400 · 질문 66 · body-20)과 가이드 모달 탭(폭 1032 · 질문 48 · body-16)이다. LOUIS recipe 가 없어 대조할 코드 union 이 없으므로 Figma 전용이다. **쓰임새 이름(`landing`·`modal`)이 아니라 사다리 어휘를 쓴다** — figma-component-authoring.md 의 「사다리 밖 값은 쓰임새로 부른다」는 사다리로 표현되지 않을 때만 여는 예외이고, 여기 두 값은 순서 있는 두 밀도라 사다리가 그대로 표현한다. 반경도 12 → 8 로 함께 내려가는데, 48 높이에 12 를 두면 곡률이 높이의 1/4 이라 알약으로 읽히기 때문이다(Button 의 sm 이 같은 판단을 했다).",
+      },
       Expanded: {
         options: ["false", "true"],
         reason:
@@ -1413,6 +1525,51 @@ const COMPONENT_CONTRACTS = [
     },
   },
   {
+    id: "menu-popover",
+    figmaName: "MenuTrigger",
+    declaration: "packages/react/dist/menu/trigger.d.ts",
+    // **패널을 여는 컨트롤의 시각 정본.** 이 저장소에는 표면(MenuPanel·CompositePopover)과
+    // 항목(Menu)만 있고 그것을 여는 자리가 없었다 — `AnchoredTrigger` 는 aria 배선만 하는
+    // headless 래퍼라 그릴 것이 없다. 제품 랜딩 `LanguageSelector` 가 그 빈자리를 자기 파일에서
+    // 다시 그리고 있었고 옆의 `ThemeSelector` 가 그 상수를 import 해 간다(소비처 둘).
+    //
+    // **크기 축이 없다.** 높이가 32 하나이고 그것은 이미 컨트롤 사다리의 md 칸이다(DS-D-0027).
+    // **셰브론도 없다** — 앵커(제품 5a67d692)의 트리거가 그리지 않는다. 옛 모듈 CSS 의
+    // `.chevron` 은 「이 TSX 가 참조하지 않는 미사용 클래스」라고 그 파일의 이관 주석이 적는다.
+    variantProperties: {},
+    propProperties: { Value: "value" },
+    figmaOnlyProperties: {
+      State: {
+        options: ["Default", "Hover", "Open"],
+        reason:
+          "Hover 는 코드에서 CSS 상태이고 Open 은 `aria-expanded=\"true\"` 가 만드는 지속 상태다(prop 이 아니라 패널이 열려 있다는 사실이다). Figma 에는 둘 다 없으므로 한 축으로 둔다. 면은 둘 다 ghost 8% 로 같고 뜻이 다르다 — 열려 있는 동안 면을 유지하지 않으면 포인터가 패널로 넘어간 순간 「무엇이 열려 있는지」가 화면에서 사라진다.",
+      },
+    },
+    strokes: {},
+    effects: {},
+    geometry: {
+      measuredId: "menu-popover",
+      sizeKey: "trigger",
+      fields: {
+        height: "height",
+        paddingBlock: "paddingBlock",
+        paddingBlockEnd: "paddingBlock",
+        paddingInline: "paddingInline",
+        paddingInlineEnd: "paddingInline",
+        itemSpacing: "gap",
+        cornerRadius: "radius",
+        layoutMode: { literal: "HORIZONTAL" },
+      },
+      slots: {},
+      extraStrokeWeights: [],
+      parts: {
+        // 글리프 자리. Menu 항목의 `Icon` 과 같은 기법이다 — 빈 프레임이 슬롯이고 원시 fill 이
+        // 없다. 제품 compact 트리거의 20px 이 그 크기다.
+        Glyph: { fields: { width: "iconSize", height: "iconSize" } },
+      },
+    },
+  },
+  {
     id: "input",
     figmaName: "TextField",
     propProperties: {
@@ -1424,7 +1581,15 @@ const COMPONENT_CONTRACTS = [
     // 유니온이 실재하므로 게이트가 옵션 집합을 글자 그대로 대조할 수 있고, figmaOnly 로 빼는 것은
     // 「코드에 대응이 없는 축」의 자리라 사실을 왜곡한다 — DS-D-0041 이 Dialog 의 Tone 에서 같은
     // 판정을 내렸다 (DS-D-0049).
-    variantProperties: { Size: "TextFieldSize", LabelBehavior: "TextFieldLabelBehavior" },
+    // `Join` 도 같은 자리다 — 코드에 `TextFieldJoin` 유니온이 실재하므로 옵션 집합을 글자
+    // 그대로 대조한다. `none` 이 유니온에 있는 이유는 그것이 **기본값이라는 사실 자체가
+    // 계약**이기 때문이다 — 없으면 Figma 의 「결합하지 않음」 칸이 코드에 대응 없는 축이 된다
+    // (DS-D-0052).
+    variantProperties: {
+      Size: "TextFieldSize",
+      LabelBehavior: "TextFieldLabelBehavior",
+      Join: "TextFieldJoin",
+    },
     figmaOnlyProperties: {
       HasLabel: { type: "BOOLEAN", reason: "라벨 없는 필드가 실재한다 — 검색창이 그것이다." },
       HasMessage: { type: "BOOLEAN", reason: "도움말·오류 문구의 유무. 있고 없고에 따라 아래 여백이 달라진다." },
@@ -1444,6 +1609,12 @@ const COMPONENT_CONTRACTS = [
       // 복합이고(`lg/stacked` · `md/stacked` · `sm/stacked` · `lg/floating`), 되읽기도 같은
       // 축으로 담는다(figma-readback-emit.mjs 의 key.by). floating 이 lg 에만 있으므로 격자는
       // 넷이다 — 조합을 전수로 채우지 않는다 (DS-D-0049).
+      //
+      // **결합 축은 키에 칸을 하나 더 붙인다 — `Join=none` 일 때만 빼고.**
+      // `lg/floating/start` · `/middle` · `/end` 셋이 그것이고, 결합하지 않은 네 키는 글자
+      // 그대로 그대로다. 축을 통째로 키에 넣었다면 네 키가 전부 개명돼 계약·브라우저
+      // 테스트·제품 대조 핀(measure-product-components.mjs)까지 따라 움직였을 것이다.
+      // 되읽기 쪽의 같은 규칙은 `key.omit` 이다 (DS-D-0052).
       fields: {
         // **프레임 폭이 계약에 들어온다.** measured 가 328 을 `$frameWidth` 사유(focus 링 4px이
         // 잘리지 않게 프레임을 넓힌다)와 함께 갖고 있었는데 **어느 게이트도 재지 않았다** —
@@ -1472,7 +1643,12 @@ const COMPONENT_CONTRACTS = [
             paddingInline: "paddingInline",
             paddingInlineEnd: "paddingInline",
             itemSpacing: "gap",
-            cornerRadius: "radius",
+            // **모서리를 둘로 나눠 본다.** 결합 칸은 맞닿는 변의 곡률을 펴므로 네 모서리가
+            // 갈리고, 그러면 Figma 의 `cornerRadius` 가 `mixed` 가 되어 되읽기에 빈 값으로
+            // 떨어진다 — 그 칸의 곡률이 아무것과도 대조되지 않는다. Dialog 가 sheet 때문에
+            // 같은 모양을 먼저 세웠다. 좌우는 대칭이므로 왼쪽 두 모서리만 건다 (DS-D-0052).
+            topLeftRadius: "radius",
+            bottomLeftRadius: "radiusBottom",
             layoutMode: { literal: "HORIZONTAL" },
           },
         },
@@ -2054,33 +2230,55 @@ const COMPONENT_CONTRACTS = [
     iconSlots: ["Glyph"],
     propProperties: { Glyph: "graphic", Title: "title", Description: "description" },
     declaration: "packages/react/dist/empty-state/empty-state.d.ts",
-    // variant 축이 없다. 강조는 시각이 아니라 행동 유도의 유무가 만든다.
-    variantProperties: {},
-    // **면을 갖지 않는 것이 계약이다.** 제품 9벌이 유일하게 합의한 축이고, stroke를 하나라도
-    // 선언하면 여기서 걸린다.
-    strokes: {},
+    // **layout 축이 열렸다(2026-09-06).** 강조 축은 여전히 없다 — 세 값은 "더/덜 강한 것"이
+    // 아니라 **서로 다른 자리**다(페이지 본문 · 카드 안 · 작업 표면 위). 근거는 계약의
+    // `$note`가 이미 갖고 있던 문장이다: 아홉 벌이 합의하는 것은 "면을 갖지 않는다" 하나뿐이고,
+    // 그 합의는 **집계 안에서만** 참이다. 집계 밖 두 정의(AnalyticsStatePanel · CanvasEmptyState)는
+    // base로 그릴 수 없다.
+    variantProperties: { Layout: "EmptyStateLayout" },
+    // **면은 compact에서만 생긴다.** base는 제품 9벌이 합의한 대로 stroke가 없고 canvas도 없다 —
+    // 되읽기가 stroke를 담는 자리에 compact 한 칸만 나타나는 것이 계약이다. 두께를 measured
+    // 키가 아니라 숫자로 적는 이유는 compareComponentStrokes가 기호 참조를 **첫 size**
+    // (여기서는 base, borderWidth 0)로만 푸는데 그 값은 이 역할의 근거가 아니기 때문이다.
+    // 값 1의 정본은 `sizes.compact.borderWidth`이고, 그 칸이 바뀌면 아래 geometry의
+    // allowedWeights가 Figma의 1을 거부해 게이트가 문다.
+    strokes: { self: { weight: 1, align: "INSIDE" } },
     effects: {},
     geometry: {
       measuredId: "empty-state",
-      sizeKey: "base",
+      // 세 칸을 전부 건다. `sizeKey` 하나로 두면 새로 연 두 칸은 Figma가 무슨 값을 그리든
+      // 초록이고, verify-figma-done의 "대조 범위 밖" 검사가 그 상태를 잡는다.
+      sizeKeys: ["base", "compact", "canvas"],
       fields: {
-        paddingBlock: "paddingBlock",
-        paddingBlockEnd: "paddingBlock",
-        paddingInline: "paddingInline",
-        paddingInlineEnd: "paddingInline",
+        // Figma padding = CSS padding + borderWidth (이 파일 `$borderWidthNote`). base·canvas는
+        // 테두리가 0이라 합이 항등이고, compact만 20 + 1 = 21이 된다.
+        paddingBlock: ["paddingBlock", "borderWidth"],
+        paddingBlockEnd: ["paddingBlock", "borderWidth"],
+        paddingInline: ["paddingInline", "borderWidth"],
+        paddingInlineEnd: ["paddingInline", "borderWidth"],
         itemSpacing: "gap",
         cornerRadius: "radius",
+        // 정렬이 이 축에서 가장 눈에 띄는 값이다 — compact만 왼쪽에서 시작한다.
+        counterAxisAlignItems: {
+          enum: "align",
+          table: { center: "CENTER", "flex-start": "MIN" },
+        },
         layoutMode: { literal: "VERTICAL" },
       },
       slots: {},
       extraStrokeWeights: [],
       parts: {
-        Graphic: { fields: { width: "graphic", height: "graphic" } },
+        // **자손 셋이 layout마다 사라진다.** compact은 제목·본문 2슬롯이고(제품의 그 자리에
+        // 그림도 버튼도 없다) canvas는 설명이 없다. `optional`은 **근거 값이 함께 없을 때만**
+        // 통과하므로, 값을 남겨 둔 채 Figma에서 자손만 지우는 길은 없다.
+        Graphic: { optional: true, fields: { width: "graphic", height: "graphic" } },
         Title: { fields: { fontSize: "titleFontSize" } },
-        Description: { fields: { fontSize: "descriptionFontSize" } },
+        Description: { optional: true, fields: { fontSize: "descriptionFontSize" } },
         // CSS는 액션에 `margin-block-start: 4px`를 더해 앞 요소와 16px 떨어진다. Figma
         // auto-layout에는 자식별 간격이 없어 같은 4px을 이 프레임의 위쪽 padding으로 만든다.
+        // canvas는 그 추가 간격이 0이다 — 제품이 제목과 버튼을 같은 gap으로 둔다.
         Action: {
+          optional: true,
           fields: {
             paddingBlock: "actionMarginBlockStart",
             itemSpacing: "actionGap",
@@ -2883,6 +3081,14 @@ function compareComponentGeometry(contract, got) {
         expected[field] = spec[rule];
       } else if (Array.isArray(rule)) {
         expected[field] = rule.reduce((total, key) => total + spec[key], 0);
+      } else if (typeof rule?.enum === "string") {
+        // **같은 사실을 두 매체가 다른 어휘로 적는 축.** 정렬이 그렇다 — CSS 는 `align-items`
+        // 로 `center`/`flex-start` 라 쓰고 Figma 는 `counterAxisAlignItems` 로 `CENTER`/`MIN`
+        // 이라 쓴다. measured 에는 **코드 값**만 둔다(이 파일 `$states` 규약: "여기에 Figma
+        // 이름을 적으면 정본이 둘이 된다"). 그래서 매체 간 변환은 계약이 진다. 표에 없는
+        // 코드 값은 undefined 가 되어 아래 "근거 값이 없습니다" 로 걸린다 — 조용히 통과하는
+        // 길이 없다.
+        expected[field] = rule.table[spec[rule.enum]];
       } else if (Array.isArray(rule?.set)) {
         // 한 축이 이 필드를 바꾸는 것이 계약인 경우. 대조는 **집합 상등**이다 — 선언한 값이
         // 전부 나타나야 하고 그 밖의 값은 없어야 한다. **어느 칸이 어느 값을 갖는지는 보지

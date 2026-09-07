@@ -11430,6 +11430,34 @@
             }
           }
         },
+        "layout-alert-compact-inset": {
+          "$type": "dimension",
+          "fields": [],
+          "figmaName": "layout/alert-compact-inset",
+          "hiddenFromPublishing": false,
+          "losses": [
+            "Figma FLOAT는 DTCG 단위 의미를 직접 보존하지 않으므로 source metadata를 함께 검토해야 합니다."
+          ],
+          "nativeVariableType": "FLOAT",
+          "representation": "variable",
+          "scopes": [
+            "WIDTH_HEIGHT"
+          ],
+          "valuesByMode": {
+            "Global": {
+              "$value": "{primitive.spacing.10}",
+              "aliasTarget": {
+                "id": "space-10",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "unit": "px",
+                "value": 10
+              },
+              "sourcePath": "semantic.global.layout.alert-compact-inset"
+            }
+          }
+        },
         "layout-alert-inset": {
           "$type": "dimension",
           "fields": [],

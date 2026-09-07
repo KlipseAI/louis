@@ -1,5 +1,5 @@
 "use client";
-import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
+import { jsx as _jsx, jsxs as _jsxs, Fragment as _Fragment } from "react/jsx-runtime";
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState, } from "react";
 /** 동시에 보이는 최대 개수. 초과분은 자리가 날 때까지 기다린다. */
 export const TOAST_VISIBLE_LIMIT = 3;
@@ -31,11 +31,17 @@ export function ToastProvider({ children, duration = DEFAULT_DURATION, }) {
         const normalized = typeof input === "string" ? { message: input } : input;
         sequence.current += 1;
         const id = `louis-toast-${sequence.current}`;
+        const derived = normalized.title !== undefined || normalized.action !== undefined
+            ? "callout"
+            : "base";
         const record = {
             id,
             message: normalized.message,
             tone: normalized.tone ?? "neutral",
             duration: normalized.duration ?? duration,
+            layout: normalized.layout ?? derived,
+            ...(normalized.title === undefined ? {} : { title: normalized.title }),
+            ...(normalized.action === undefined ? {} : { action: normalized.action }),
         };
         // 최신이 뒤에 온다 — 시선이 마지막으로 머문 곳에 가장 새 소식이 온다.
         setItems((current) => [...current, record]);
@@ -80,8 +86,15 @@ function ToastItem({ record, onDismiss, }) {
             }
         };
     }, [onDismiss, paused, record.duration, record.id]);
-    return (_jsx("div", { className: "louis-toast", "data-tone": record.tone, ...(paused ? { "data-louis-paused": "true" } : {}), 
+    const action = record.action;
+    return (_jsx("div", { className: "louis-toast", "data-tone": record.tone, "data-layout": record.layout, ...(paused ? { "data-louis-paused": "true" } : {}), 
         // 읽는 중에 사라지면 알림이 아니다. 포인터와 focus 둘 다 멈춤 신호다.
-        onPointerEnter: () => setPaused(true), onPointerLeave: () => setPaused(false), onFocusCapture: () => setPaused(true), onBlurCapture: () => setPaused(false), children: record.message }));
+        onPointerEnter: () => setPaused(true), onPointerLeave: () => setPaused(false), onFocusCapture: () => setPaused(true), onBlurCapture: () => setPaused(false), children: record.layout === "callout" ? (_jsxs(_Fragment, { children: [_jsxs("div", { className: "louis-toast__content", children: [record.title === undefined ? null : (_jsx("p", { className: "louis-toast__title", children: record.title })), _jsx("p", { className: "louis-toast__body", children: record.message })] }), action === undefined ? null : (_jsx("button", { type: "button", className: "louis-toast__action", onClick: () => {
+                        action.onAction();
+                        // 기본은 닫는다. 온보딩 안내의 액션은 「봤다」이고, 누른 뒤에도 남아 있으면
+                        // 그 뜻이 전달되지 않는다.
+                        if (action.dismissOnAction !== false)
+                            onDismiss(record.id);
+                    }, children: action.label }))] })) : (record.message) }));
 }
 //# sourceMappingURL=toast.js.map

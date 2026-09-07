@@ -2,23 +2,23 @@
   "artifacts": [
     {
       "path": "packages/tokens/generated/figma.tokens.json",
-      "sha256": "a9774ebbd4b4eb8982d4a03e90b543d09f64076558053ae5d7fa60385d59177a"
+      "sha256": "a1ce4dbdc2a52619bc20984487f57901f0aef75cba87568103fc1d127aec023b"
     },
     {
       "path": "packages/tokens/generated/index.d.ts",
-      "sha256": "0e88fdef3f30862f21bb6913fdc92934fe3a2c34ad193e8547935fa3e627fd76"
+      "sha256": "ec99387344f11039f737c75b32e7562495b5eee87b09bc47542e551f3de20bf4"
     },
     {
       "path": "packages/tokens/generated/index.js",
-      "sha256": "846870b3ccb3286b329165b262dbc23353b9213fa4cdac1d9b959aba6021fc74"
+      "sha256": "2dffa8f5f58d7f3e7c81e9ced56a6ef8d1dc107400d231a05f378aacfe375418"
     },
     {
       "path": "packages/tokens/generated/tokens.css",
-      "sha256": "fc3548a609e5cc045aa5f512050da5409dd0f215f14f566def356ed765473762"
+      "sha256": "d279c054ae41ffc20afa330ccca39748bf216b83646d874d67522e2ca8c072b1"
     },
     {
       "path": "packages/tokens/generated/tokens.json",
-      "sha256": "20a3c0c9c7b90301a7ebe7964812b01a0d379cfa29c01f566f6f81760e7b912b"
+      "sha256": "d1c065e86ca5a7f38203bb081b7ff5e64c8cfb2bad6ea023fa1b5da579ca7f5b"
     }
   ],
   "contrastPairs": [
@@ -419,13 +419,13 @@
   },
   "source": {
     "path": "packages/tokens/src/klipse.tokens.json",
-    "sha256": "670c17611208b6c129f8429a8c2ed28ed2f173cd9ca110f1c5002a4228571c14"
+    "sha256": "53cf98a7f6e158675768ffa90a1ced63b2adbce8a14863a05edfa1ac5ac1bcea"
   },
   "themes": [
     "light",
     "dark"
   ],
-  "tokenCount": 773,
+  "tokenCount": 774,
   "tokens": [
     {
       "aliasTarget": {
@@ -15365,6 +15365,27 @@
       "sourcePath": "semantic.global.layer.sticky",
       "tier": "semantic",
       "type": "number"
+    },
+    {
+      "aliasTarget": {
+        "id": "space-10",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-layout-alert-compact-inset": "10px"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "layout-alert-compact-inset",
+      "mode": "global",
+      "rawValue": "{primitive.spacing.10}",
+      "resolvedValue": {
+        "unit": "px",
+        "value": 10
+      },
+      "sourcePath": "semantic.global.layout.alert-compact-inset",
+      "tier": "semantic",
+      "type": "dimension"
     },
     {
       "aliasTarget": {

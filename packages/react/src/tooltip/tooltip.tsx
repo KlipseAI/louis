@@ -21,9 +21,26 @@ import {
   type OverlaySide,
 } from "../overlay/positioner.js";
 
+/**
+ * 표면에 담기는 것이 달라지는 축. 크기 사다리가 아니다.
+ *
+ * `base` 는 포인터를 따라다니는 한 줄 설명이고, `coachmark` 는 대상에 붙어 함께 움직이는
+ * 제목/본문 두 줄 안내다. 제품 정본은 노드 캔버스의 `CanvasFirstNodeHint` 로, React Flow 의
+ * `ViewportPortal` 안에서 flow 좌표로 놓여 캔버스와 함께 팬·줌된다.
+ */
+export type TooltipLayout = "base" | "coachmark";
+
 export interface TooltipProps {
   /** 설명. 상호작용 요소를 넣지 않는다 — tooltip 표면은 포인터를 받지 않는다. */
   readonly content: ReactNode;
+  /** 표면 구성. 기본은 `base` 이며, `title` 을 주면 `coachmark` 가 된다. */
+  readonly layout?: TooltipLayout;
+  /**
+   * coachmark 의 제목. 주면 `content` 가 본문이 된다.
+   *
+   * `base` 에서는 무시한다 — 한 줄 설명에 제목을 얹으면 두 줄이 되고, 그것은 이미 coachmark 다.
+   */
+  readonly title?: ReactNode;
   /** 선호 방향. 공간이 없으면 뒤집힌다. */
   readonly side?: OverlaySide;
   readonly align?: OverlayAlign;
@@ -47,6 +64,8 @@ export interface TooltipProps {
  */
 export function Tooltip({
   content,
+  layout,
+  title,
   side = "top",
   align = "center",
   openDelay = 300,
@@ -108,6 +127,11 @@ export function Tooltip({
     };
   }, [close, open]);
 
+  // 제목이 있으면 두 줄이고, 두 줄이면 coachmark 다. 명시 prop 이 그것을 이긴다 —
+  // Figma 의 `Layout` variant 와 이름이 1:1로 맞아야 계약이 대조할 타입이 생긴다.
+  const resolvedLayout: TooltipLayout =
+    layout ?? (title === undefined ? "base" : "coachmark");
+
   const describedBy = open ? surfaceId : undefined;
   const trigger = cloneElement(children, {
     ...(describedBy === undefined ? {} : { "aria-describedby": describedBy }),
@@ -148,8 +172,22 @@ export function Tooltip({
             collisionPadding={metrics.collisionPadding}
             className="louis-tooltip-positioner"
           >
-            <div id={surfaceId} role="tooltip" className="louis-tooltip">
-              {content}
+            <div
+              id={surfaceId}
+              role="tooltip"
+              className="louis-tooltip"
+              data-layout={resolvedLayout}
+            >
+              {resolvedLayout === "coachmark" ? (
+                <>
+                  {title === undefined ? null : (
+                    <p className="louis-tooltip__title">{title}</p>
+                  )}
+                  <p className="louis-tooltip__body">{content}</p>
+                </>
+              ) : (
+                content
+              )}
             </div>
           </OverlayPositioned>
         </OverlayPortal>

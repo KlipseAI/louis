@@ -409,3 +409,112 @@ test("floating 의 라벨도 htmlFor 로 input 에 이어져 있다", async () =
   expect(label.htmlFor, "for 가 control 을 가리킨다").toBe(control.id);
   expect(label.compareDocumentPosition(control) & Node.DOCUMENT_POSITION_PRECEDING, "input 이 앞선다").toBeTruthy();
 });
+
+// ── 결합 (DS-D-0052) ─────────────────────────────────────────────────────────
+//
+// 이 축의 값 셋 중 **둘은 Figma 가 대조하지 못한다.** Figma 에는 음수 마진이 없고 CSS 의
+// outline 도 없다 — 곡률만 되읽기가 문다. 그래서 겹침(`overlap`)과 링의 자리(`ringOffset`)는
+// 여기가 유일한 게이트다. 여기서 재지 않으면 그 두 값은 계약에 «세워지지 않은» 것이다.
+
+const JOINS = ["start", "middle", "end"] as const;
+
+for (const join of JOINS) {
+  test(`결합 ${join} 의 곡률·겹침이 components.measured.json 과 같다`, async () => {
+    const spec = measured.components.input.sizes[`lg/floating/${join}`];
+    await render(
+      <div style={{ inlineSize: "320px" }}>
+        <TextField label="이메일" labelBehavior="floating" join={join} />
+      </div>,
+    );
+    const field = find(".louis-text-field");
+    const box = find(".louis-text-field__box");
+    const style = getComputedStyle(box);
+    // 위/아래를 따로 잰다. 한쪽만 재면 「이어 붙는 변이 반대쪽」인 회귀를 통과시킨다.
+    expect(px(style.borderStartStartRadius), "위 반경").toBe(spec.radius);
+    expect(px(style.borderEndStartRadius), "아래 반경").toBe(spec.radiusBottom);
+    // 좌우 대칭은 계약이 왼쪽 두 모서리만 보는 근거다 — 그 근거 자체를 여기서 확인한다.
+    expect(px(style.borderStartEndRadius), "위 오른쪽도 같다").toBe(spec.radius);
+    expect(px(style.borderEndEndRadius), "아래 오른쪽도 같다").toBe(spec.radiusBottom);
+    // **겹침은 필드 뿌리가 갖는다.** 상자에 걸면 stack 의 gap 과 메시지가 사이에 남는다.
+    expect(px(getComputedStyle(field).marginBlockEnd), "겹침").toBe(0 - spec.overlap);
+  });
+}
+
+test("결합의 포커스 링은 상자 안으로 들어간다 — 이웃이 덮을 수 없는 자리다", async () => {
+  // 이웃은 DOM 에서 뒤에 와 나중에 칠해진다. 바깥 링(offset 2)은 맞닿는 변에서 통째로 덮인다 —
+  // Chromium 픽셀 실측으로 위 상자의 아래쪽 링이 0px 남았다. 제품은 z-index 를 1 → 2 로 올려
+  // 피하는데 이 저장소는 숫자 z-index 를 금지한다(build-css.mjs · elevation-layer.md).
+  await render(
+    <div style={{ inlineSize: "320px" }}>
+      <TextField label="비밀번호" labelBehavior="floating" join="start" />
+      <TextField label="비밀번호 확인" labelBehavior="floating" join="end" />
+      <TextField label="홀로" labelBehavior="floating" />
+    </div>,
+  );
+  const [first, second, solo] = [
+    ...document.querySelectorAll(".louis-text-field__box"),
+  ] as HTMLElement[];
+  if (first === undefined || second === undefined || solo === undefined) {
+    throw new Error("세 박스를 찾지 못했습니다");
+  }
+  const startSpec = measured.components.input.sizes["lg/floating/start"];
+  const endSpec = measured.components.input.sizes["lg/floating/end"];
+  // **포커스는 한 번에 하나다.** 링 값은 그 상자가 포커스를 쥐고 있는 동안에만 읽어야 한다 —
+  // 포커스를 잃은 상자의 `outlineWidth` 는 초기값 `medium`(3px)으로 돌아온다. 이 테스트의 첫
+  // 판이 그 3px 에 걸렸다.
+  const ringOf = (box: HTMLElement): { offset: number; width: string; color: string } => {
+    (box.querySelector(".louis-text-field__control") as HTMLInputElement).focus();
+    const style = getComputedStyle(box);
+    return { offset: px(style.outlineOffset), width: style.outlineWidth, color: style.outlineColor };
+  };
+  const firstRing = ringOf(first);
+  const secondRing = ringOf(second);
+  const soloRing = ringOf(solo);
+  expect(firstRing.offset, "첫 칸의 링은 안으로").toBe(startSpec.ringOffset);
+  expect(secondRing.offset, "끝 칸도 같은 자리").toBe(endSpec.ringOffset);
+  // **결합하지 않은 필드는 바뀌지 않는다.** 이 축이 링을 옮기는 것은 이웃이 있을 때뿐이다.
+  expect(soloRing.offset, "홀로 선 필드는 밖으로").toBe(2);
+  // 두께와 색은 그대로다 — 자리만 바뀐다.
+  expect(firstRing.width, "두께는 그대로").toBe(soloRing.width);
+  expect(firstRing.color, "색은 그대로").toBe(soloRing.color);
+  expect(secondRing.width, "끝 칸의 두께도 그대로").toBe(soloRing.width);
+});
+
+test("결합이 lg/floating 의 나머지 값을 하나도 다시 쓰지 않는다", async () => {
+  // 이 축이 여는 것은 «맞닿는 변» 하나다. 높이·여백·슬롯 간격·헤어라인·면이 함께 움직이면
+  // 그것은 축이 아니라 두 번째 컴포넌트다 — DS-D-0049 가 floating 을 축으로 판정한 시험과 같다.
+  await render(
+    <div style={{ inlineSize: "320px" }}>
+      <TextField label="홀로" labelBehavior="floating" />
+      <TextField label="가운데" labelBehavior="floating" join="middle" />
+    </div>,
+  );
+  const [solo, middle] = [...document.querySelectorAll(".louis-text-field__box")] as HTMLElement[];
+  if (solo === undefined || middle === undefined) throw new Error("두 박스를 찾지 못했습니다");
+  const a = getComputedStyle(solo);
+  const b = getComputedStyle(middle);
+  expect(middle.offsetHeight, "높이").toBe(solo.offsetHeight);
+  expect(b.paddingBlockStart, "위 여백").toBe(a.paddingBlockStart);
+  expect(b.paddingBlockEnd, "아래 여백").toBe(a.paddingBlockEnd);
+  expect(b.paddingInlineStart, "좌우 여백").toBe(a.paddingInlineStart);
+  expect(b.columnGap, "슬롯 간격").toBe(a.columnGap);
+  expect(b.boxShadow, "헤어라인").toBe(a.boxShadow);
+  expect(b.backgroundColor, "면").toBe(a.backgroundColor);
+});
+
+test("결합하지 않은 필드는 겹치지 않고 네 모서리가 모두 둥글다", async () => {
+  // 기본값이 `none` 이라는 사실 자체가 계약이다. 속성이 붙어 버리면 결합하지 않은 필드가
+  // 조용히 1px 씩 위로 붙는다 — 폼 전체의 세로 리듬이 어긋나고 아무 게이트도 잡지 못한다.
+  await render(
+    <div style={{ inlineSize: "320px" }}>
+      <TextField label="홀로" labelBehavior="floating" />
+    </div>,
+  );
+  const field = find(".louis-text-field");
+  const box = find(".louis-text-field__box");
+  const spec = measured.components.input.sizes["lg/floating"];
+  expect(field.getAttribute("data-join"), "속성이 붙지 않는다").toBeNull();
+  expect(px(getComputedStyle(field).marginBlockEnd), "겹치지 않는다").toBe(0);
+  expect(px(getComputedStyle(box).borderStartStartRadius), "위 반경").toBe(spec.radius);
+  expect(px(getComputedStyle(box).borderEndStartRadius), "아래 반경").toBe(spec.radiusBottom);
+});

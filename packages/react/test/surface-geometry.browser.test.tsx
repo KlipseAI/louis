@@ -26,6 +26,7 @@ import {
   DialogHeader,
   DialogSurface,
   DialogTitle,
+  MenuTrigger,
   OverlayProvider,
   ProjectCard,
   ProjectCardAction,
@@ -522,3 +523,146 @@ test("누름 전환이 실제로 걸린다 — scale은 transform과 별개 prop
 });
 
 export type _EnsureTsx = JSX.Element;
+
+/**
+ * Toast 의 `callout` layout — 액션 슬롯이 있는 구성 축.
+ *
+ * base 와 갈리는 것이 **기하와 담기는 것**이라, root 만 재면 축이 열렸는지 알 수 없다.
+ * 제목/본문 덩어리의 간격과 액션의 치수까지 함께 잰다.
+ */
+test("Toast callout의 구조값이 components.measured.json과 같다", async () => {
+  const spec = measured.components.toast.sizes.callout;
+  function Emitter(): JSX.Element {
+    const { toast } = useToast();
+    return (
+      <Button
+        onClick={() =>
+          toast({
+            title: "연결해 보세요",
+            message: "노드를 이어 보세요",
+            action: { label: "알겠어요", onAction: () => {} },
+            duration: 0,
+          })
+        }
+      >
+        띄우기
+      </Button>
+    );
+  }
+  // **넓은 뷰포트에서 잰다.** 좁으면 본문이 접혀 높이가 줄 수로 갈린다 — 계약값 65 는
+  // 「제목 21 + 2 + 본문 18」한 줄씩일 때의 값이다.
+  await page.viewport(1280, 900);
+  await render(
+    <ToastProvider>
+      <Emitter />
+    </ToastProvider>,
+  );
+  await userEvent.click(find("button.louis-button"));
+  await expect.poll(() => document.querySelector('.louis-toast[data-layout="callout"]')).not.toBeNull();
+
+  const toastNode = find('.louis-toast[data-layout="callout"]');
+  const style = getComputedStyle(toastNode);
+  expect(toastNode.offsetHeight, "height").toBe(spec.height);
+  expect(px(style.paddingBlockStart), "paddingBlock").toBe(spec.paddingBlock);
+  expect(px(style.paddingInlineStart), "paddingInline").toBe(spec.paddingInline);
+  expect(px(style.paddingInlineEnd), "paddingInlineEnd").toBe(spec.paddingInlineEnd);
+  expect(px(style.columnGap), "gap").toBe(spec.gap);
+  expect(px(style.borderTopLeftRadius), "radius").toBe(spec.radius);
+
+  const content = find(".louis-toast__content");
+  expect(px(getComputedStyle(content).rowGap), "contentGap").toBe(spec.contentGap);
+  const title = find(".louis-toast__title");
+  expect(px(getComputedStyle(title).fontSize), "titleFontSize").toBe(spec.titleFontSize);
+  expect(round(px(getComputedStyle(title).lineHeight)), "titleLineHeight").toBe(spec.titleLineHeight);
+  const body = find(".louis-toast__body");
+  expect(px(getComputedStyle(body).fontSize), "fontSize").toBe(spec.fontSize);
+  expect(round(px(getComputedStyle(body).lineHeight)), "lineHeight").toBe(spec.lineHeight);
+
+  // **액션은 높이를 선언하지 않는다.** 26 은 caption 18 + padding 4+4 의 결과이고,
+  // 제품의 리터럴 28 이 아니다 — 그 사유는 measured 의 $actionHeight 가 갖는다.
+  const action = find(".louis-toast__action");
+  const actionStyle = getComputedStyle(action);
+  expect(action.offsetHeight, "actionHeight").toBe(spec.actionHeight);
+  expect(px(actionStyle.paddingBlockStart), "actionPaddingBlock").toBe(spec.actionPaddingBlock);
+  expect(px(actionStyle.paddingInlineStart), "actionPaddingInline").toBe(spec.actionPaddingInline);
+  expect(px(actionStyle.borderTopLeftRadius), "actionRadius").toBe(spec.actionRadius);
+});
+
+/**
+ * Tooltip 의 `coachmark` layout — 꼬리가 달린 두 줄 안내.
+ *
+ * 폭이 **고정 320**인 것이 base 와 가장 크게 갈리는 값인데, Figma 쪽 계약은 그것을 재지
+ * 않는다(base 의 폭은 라벨 렌더링이 정하는 값이라 measured 에 근거가 없다). 그래서 이 방향이
+ * 320 을 재는 유일한 자리다.
+ */
+test("Tooltip coachmark의 구조값이 components.measured.json과 같다", async () => {
+  const spec = measured.components.tooltip.sizes.coachmark;
+  await render(
+    <OverlayProvider>
+      <Tooltip title="프롬프트를 적어 보세요" content="한 줄이면 됩니다" openDelay={0}>
+        <Button>대상</Button>
+      </Tooltip>
+    </OverlayProvider>,
+  );
+  await userEvent.hover(find("button.louis-button"));
+  await expect.poll(() => document.querySelector('.louis-tooltip[data-layout="coachmark"]')).not.toBeNull();
+
+  const panel = find('.louis-tooltip[data-layout="coachmark"]');
+  const style = getComputedStyle(panel);
+  expect(panel.offsetHeight, "height").toBe(spec.height);
+  expect(panel.offsetWidth, "width").toBe(spec.width);
+  expect(px(style.paddingBlockStart), "paddingBlock").toBe(spec.paddingBlock);
+  expect(px(style.paddingInlineStart), "paddingInline").toBe(spec.paddingInline);
+  expect(px(style.borderTopLeftRadius), "radius").toBe(spec.radius);
+  // base 와 달리 **진짜 테두리다.** 헤어라인 inset 그림자가 아니라 강조색 1px 이다.
+  expect(px(style.borderTopWidth), "borderWidth").toBe(spec.borderWidth);
+
+  const title = find(".louis-tooltip__title");
+  expect(px(getComputedStyle(title).fontSize), "titleFontSize").toBe(spec.titleFontSize);
+  const body = find(".louis-tooltip__body");
+  expect(px(getComputedStyle(body).fontSize), "fontSize").toBe(spec.fontSize);
+  expect(px(getComputedStyle(body).marginBlockStart), "contentGap").toBe(spec.contentGap);
+
+  // 꼬리는 ::before 다. 변의 길이가 10 이고 45° 돌면 폭 14.1 로 보인다.
+  const tail = getComputedStyle(panel, "::before");
+  expect(px(tail.width), "tailSize").toBe(spec.tailSize);
+  expect(px(tail.height), "tailSize").toBe(spec.tailSize);
+
+  await userEvent.unhover(find("button.louis-button"));
+});
+
+/**
+ * MenuTrigger — 패널을 여는 컨트롤.
+ *
+ * 크기 축이 없다는 것이 계약이므로 높이 32 를 여기서 잡는다. 32 는 컨트롤 사다리의 md 칸이고,
+ * 그 값이 흔들리면 옆에 서는 컨트롤과 줄이 어긋난다.
+ */
+test("MenuTrigger의 구조값이 components.measured.json과 같다", async () => {
+  const spec = measured.components["menu-popover"].sizes.trigger;
+  await render(
+    <OverlayProvider>
+      <ActionMenu panelLabel="언어">
+        <MenuTrigger
+          aria-label="언어: 한국어"
+          icon={<svg viewBox="0 0 20 20" aria-hidden="true" />}
+          value="한국어"
+        />
+        <ActionMenuContent>
+          <ActionMenuItem>한국어</ActionMenuItem>
+        </ActionMenuContent>
+      </ActionMenu>
+    </OverlayProvider>,
+  );
+  const trigger = find("button.louis-menu-trigger");
+  const style = getComputedStyle(trigger);
+  expect(trigger.offsetHeight, "height").toBe(spec.height);
+  expect(px(style.paddingBlockStart), "paddingBlock").toBe(spec.paddingBlock);
+  expect(px(style.paddingInlineStart), "paddingInline").toBe(spec.paddingInline);
+  expect(px(style.columnGap), "gap").toBe(spec.gap);
+  expect(px(style.borderTopLeftRadius), "radius").toBe(spec.radius);
+  expect(px(style.borderTopWidth), "borderWidth").toBe(spec.borderWidth);
+  expect(px(style.fontSize), "fontSize").toBe(spec.fontSize);
+
+  const glyph = find(".louis-menu-trigger__icon");
+  expect(px(getComputedStyle(glyph).inlineSize), "iconSize").toBe(spec.iconSize);
+});

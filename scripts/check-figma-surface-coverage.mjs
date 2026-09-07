@@ -103,10 +103,12 @@ const UNCLASSIFIED_BASELINE = 0;
 // `#CarouselArrowButton`(버튼 «한 짝», Figma 컴포넌트가 실제로 그것인 쪽)이다. 이 게이트는
 // 이름의 유일성을 요구하지 않는다 — 세는 단위가 제품 표면이지 Figma 이름이 아니기 때문이다.
 // 둘 중 어느 키가 정본 대응인지는 소유자 판정 대기 목록에 올렸다.
-const MAPPED_BASELINE = 25;
+// 2026-09-06 겹침 계열 두 벌로 셋이 더 붙었다 — `CanvasConnectHint`→Toast(Layout=callout),
+// `CanvasFirstNodeHint`→Tooltip(Layout=coachmark), `LanguageSelector`→MenuTrigger.
+const MAPPED_BASELINE = 30;
 // **합계와 따로 잠근다.** 컴포넌트 대응을 패턴 대응으로 바꿔치기하면 합계는 그대로인데
 // 재사용할 인스턴스가 사라진다 — 이 수가 그 후퇴를 잡는 유일한 그물이다.
-const MAPPED_COMPONENT_BASELINE = 22;
+const MAPPED_COMPONENT_BASELINE = 27;
 const TOTAL_FLOOR = 400;
 
 // 판정 어휘. 여기 없는 낱말은 판정이 아니라 오타이고, 오타는 조용히 `unclassified` 밖으로

@@ -12,9 +12,9 @@
   "filesScanned": 297,
   "counts": {
     "total": 434,
-    "mapped": 25,
+    "mapped": 30,
     "scoped": 227,
-    "needed": 181,
+    "needed": 176,
     "unclear": 1,
     "unclassified": 0
   },
@@ -1460,10 +1460,10 @@
       "file": "apps/web/components/landing/system/LanguageSelector.tsx",
       "binding": "default",
       "louis": [],
-      "verdict": "needed",
-      "figma": null,
-      "reason": "지구본 아이콘 + 현재 언어 트리거(기본/compact 두 벌)와 포털 팝오버 언어 목록(선택 상태 강조)의 조합이다. 패널 면은 louis-popover, 항목은 louis-menu__item 을 이미 물지만 트리거와 선택 상태 조합은 Figma 에 없다 — Menu/MenuPanel 을 쓰는 셀렉트 트리거 변형으로 세우면 된다.",
-      "weight": "medium"
+      "verdict": "figma",
+      "figma": "MenuTrigger",
+      "reason": "2026-09-06 에 둘 다 섰다 — 트리거는 `MenuTrigger`(높이 32 하나 · 글리프 20 · 값 슬롯), 선택 상태는 `Menu` 의 `State=Selected`(aria-selected, 면 12%)다. 「기본/compact 두 벌」 중 연 것은 compact 하나뿐이다: 제품이 쓰는 높이가 32 하나이고 그것은 이미 컨트롤 사다리의 md 칸이라 크기 축을 열지 않는다(DS-D-0027). 계획서가 적은 셰브론은 **앵커 소스에 없다** — 옛 모듈 CSS 의 `.chevron` 은 미사용 클래스였고 TSX 가 렌더하지 않는다. hover 는 잉크 램프(100%→88%)가 아니라 ghost 면 8% 이고, 제품의 `outline: none` 은 옮기지 않았다(결손). 근거는 design/components/menu-popover.md 의 Trigger 절.",
+      "weight": null
     },
     "apps/web/components/landing/system/MediaCard.tsx#MediaCard": {
       "file": "apps/web/components/landing/system/MediaCard.tsx",
@@ -1496,10 +1496,9 @@
       "file": "apps/web/components/legal/LegalDocumentBackButton.tsx",
       "binding": "default",
       "louis": [],
-      "verdict": "needed",
-      "figma": null,
-      "reason": "캐럿 + 라벨의 뒤로가기 버튼인데 Button 정본을 쓰지 않고 자기 면·hover·active·focus 링을 직접 적는 별벌이다. 새 컴포넌트를 세우기보다 Figma Button(ghost + LeftIconGlyph=icon/caret-left)으로 흡수하고 제품을 그쪽으로 수렴시키는 편이 맞다.",
-      "weight": "low"
+      "verdict": "figma",
+      "figma": "Button",
+      "reason": "캐럿 + 라벨의 뒤로가기 버튼. **2026-09-06 판정: Figma Button 이 이미 이 표면이다** — `Variant=ghost` · `Size=md` · `Icon=left` · `LeftIconGlyph=icon/caret-left` 네 칸이 전부 서 있고, `icon/caret-left`(key 8637ea7f)는 LeftIconGlyph 의 preferredValues 31개에 들어 있다. 새로 세울 축이 없다. 제품이 자기 면·hover·active·focus 링을 직접 적는 별벌인 것은 남은 사실이고, 그것은 Figma 결손이 아니라 채택 대기다 — 반경 10 → 12, 잉크 72%/88% → accent-secondary-foreground 로 수렴한다."
     },
     "apps/web/components/legal/LegalDocumentPage.tsx#LegalDocumentPage": {
       "file": "apps/web/components/legal/LegalDocumentPage.tsx",
@@ -1933,7 +1932,7 @@
       "louis": [],
       "verdict": "needed",
       "figma": null,
-      "reason": "가이드 모달의 FAQ 아코디언 섹션. Figma FaqRow 는 랜딩용(폭 1400 · 질문 66px · fontSize 20)이고 여기 행은 가이드 모달 표면(py 12/px 14 · rounded-8 · 알파 4%/12% hover · +/− 글리프)이라 치수와 면이 다르다. 아코디언 행의 가이드 변형과 그것을 담는 섹션 골격이 필요하다.",
+      "reason": "가이드 모달의 FAQ 아코디언 섹션. **행 절반은 2026-09-06 에 닫혔다** — Figma FaqRow 에 `Size = lg | md` 축이 서고 `md` 가 이 모달의 치수(반경 8 · 질문 12/14 · 사이 12 · body-16 · 면을 행이 아니라 질문 버튼이 가짐)를 갖는다. **그래도 verdict 는 아직 `needed` 다.** 이 표면은 행이 아니라 섹션이고(제목 body-20-medium + gap 24 + 행 간격 2), faq-row.md 가 「목록의 행 간격과 제목↔목록 간격은 이 컴포넌트에 없다」고 스스로 적어 그 껍데기를 소유하지 않는다. 남은 것은 섹션 골격 하나이며, 그것이 서면 이 칸이 닫힌다. +/− 글리프 교체(랜딩은 같은 + 가 45° 돈다)도 아직 Figma 에 없다.",
       "weight": "medium"
     },
     "apps/web/components/scenes/create/guide/GettingStartedPanel.tsx#GettingStartedPanel": {
@@ -2048,19 +2047,19 @@
       "file": "apps/web/components/scenes/create/node-canvas-v2/components/CanvasOnboardingHints.tsx",
       "binding": "named",
       "louis": [],
-      "verdict": "needed",
-      "figma": null,
-      "reason": "첫 사용자 안내 콜아웃 — 반전 테마 알약(gray-900/64% + blur 4 + hairline-inset)에 본문과 액션 버튼이 들어간다. Toast 와 표면 문법이 닮았지만 캔버스 하단에 고정되고 액션을 품는 별개 물건이며, 같은 표면을 NextStepHint 가 함께 쓴다. `CanvasCallout` 으로 세울 후보.",
-      "weight": "medium"
+      "verdict": "figma",
+      "figma": "Toast",
+      "reason": "2026-09-06 에 Toast 의 `Layout` 축(base · callout)으로 섰다. callout 이 제목/본문 두 줄과 액션 슬롯을 담는다 — 별개 컴포넌트가 아니라 같은 표면에 담기는 것이 달라지는 축이다. 갈리는 값 셋(고정 팔레트 64% · blur 4 · elevation-menu)은 채택하지 않았다: 제품 자신의 주석이 그 표면을 「토스트처럼 반전 테마」라고 적어 놓고 고정 팔레트를 쓰고 있어 코드와 주석이 갈리는 자리이고, layout 축은 Figma 에서 자기 effect 를 가질 수 없다. 액션 높이는 28 → 26(caption 18 + control-xs 4+4)으로 2px 줄어든다. 근거는 design/components/toast.md 의 `layout = callout` 절.",
+      "weight": null
     },
     "apps/web/components/scenes/create/node-canvas-v2/components/CanvasOnboardingHints.tsx#CanvasFirstNodeHint": {
       "file": "apps/web/components/scenes/create/node-canvas-v2/components/CanvasOnboardingHints.tsx",
       "binding": "named",
       "louis": [],
-      "verdict": "needed",
-      "figma": null,
-      "reason": "첫 노드 위에 뜨는 꼬리 달린 힌트 카드 — primary/56% 테두리 + 45° 회전 꼬리 + panel blur. Tooltip 정본(반경 8·화살표 12×6·본문 1줄)과 치수·구성이 다른 별개 표면이고 ViewportPortal 안에서 노드와 함께 팬·줌된다. 온보딩 축에서 재사용될 형태.",
-      "weight": "medium"
+      "verdict": "figma",
+      "figma": "Tooltip",
+      "reason": "2026-09-06 에 Tooltip 의 `Layout` 축(base · coachmark)으로 섰다. 「치수·구성이 다르니 별개 표면」이라는 앞선 판정을 뒤집는다 — 갈리는 것은 표면의 종류가 아니라 담기는 것이고(한 줄 설명 ↔ 두 줄 안내), 둘 다 대상에 앵커되어 꼬리로 그 대상을 가리키는 같은 물건이다. 꼬리는 45° 정사각형이라 base 의 삼각형과 다른 도형이므로 별도 part 로 계약했다. 채택하지 않은 값 넷(가로 padding 14 · 제목/본문 간격 3 · `0 8px 24px 16%` 그림자 · blur(panel))의 사유는 design/components/tooltip.md 의 `layout = coachmark` 절에 표로 있다.",
+      "weight": null
     },
     "apps/web/components/scenes/create/node-canvas-v2/components/CanvasOnboardingHints.tsx#CanvasNextStepHint": {
       "file": "apps/web/components/scenes/create/node-canvas-v2/components/CanvasOnboardingHints.tsx",
@@ -2068,7 +2067,7 @@
       "louis": [],
       "verdict": "scoped",
       "figma": null,
-      "reason": "`…/components/CanvasOnboardingHints.tsx#CanvasConnectHint` 와 완전히 같은 CALLOUT 표면·본문 구조·액션 버튼을 공유하고 문구만 다르다. 그 표면을 Figma 컴포넌트로 세우면 텍스트 변형으로 흡수되므로 별도 컴포넌트가 아니다.",
+      "reason": "`…/components/CanvasOnboardingHints.tsx#CanvasConnectHint` 와 완전히 같은 CALLOUT 표면·본문 구조·액션 버튼을 공유하고 문구만 다르다. 그 표면을 Figma 컴포넌트로 세우면 텍스트 변형으로 흡수되므로 별도 컴포넌트가 아니다. 2026-09-06 에 실제로 그렇게 섰다 — Toast 의 `Layout=callout` 이 `Title`·`Message`·`ActionLabel` 세 TEXT property 를 갖는다.",
       "weight": null
     },
     "apps/web/components/scenes/create/node-canvas-v2/components/CanvasZoomControl.tsx#CanvasZoomControl": {
@@ -3863,10 +3862,9 @@
       "file": "apps/web/components/templates/CopyPromptButton.tsx",
       "binding": "default",
       "louis": [],
-      "verdict": "needed",
-      "figma": null,
-      "reason": "프롬프트 복사 버튼으로 idle/copied 두 상태(테두리·글자색이 primary 로 바뀜)를 갖는데 Button 정본을 쓰지 않는 별벌이다. Figma 는 icon/copy·icon/copy-check 를 이미 갖고 있으므로 Button 의 아이콘+성공 상태 변형으로 흡수하는 쪽이 맞다.",
-      "weight": "low"
+      "verdict": "figma",
+      "figma": "Button",
+      "reason": "프롬프트 복사 버튼. **2026-09-06 판정: 성공은 축이 아니라 슬롯 두 개의 내용이다** — 「복사됨」이 바꾸는 것은 글리프(icon/copy → icon/copy-check)와 라벨이고, 둘 다 Figma Button 이 이미 가진 `LeftIconGlyph`(INSTANCE_SWAP) · `Label`(TEXT) 슬롯이다. 두 아이콘 모두 preferredValues 31개에 있다. `State` 축에 `Success` 를 더하지 않은 이유는 그 축이 규범상 **상호작용 상태 전용**이고(figma-component-authoring §2) 성공은 상호작용이 아니라 동작의 결과이기 때문이다. 제품이 완료에서 글자·테두리를 primary 로 바꾸는 것은 이 자리의 별벌이며 공유 어휘가 아니다 — 같은 저장소의 다른 복사 버튼(NodePromptInputCopyButton)은 색을 바꾸지 않고 글리프만 교체한다. 남은 것은 채택(secondary + 아이콘 슬롯)이다."
     },
     "apps/web/components/templates/TemplateResultCarousel.tsx#TemplateResultCarousel": {
       "file": "apps/web/components/templates/TemplateResultCarousel.tsx",

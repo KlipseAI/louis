@@ -13,9 +13,9 @@ function join(...values) {
  * 다른 요소의 일이다. 여기에 live region을 두면 화면을 옮길 때마다 다시 읽힌다. 대신 제목이
  * heading이라 랜드마크 탐색으로 닿는다.
  */
-export function EmptyState({ title, description, graphic, action, headingLevel = 2, className, ...rest }) {
+export function EmptyState({ title, description, graphic, action, headingLevel = 2, layout = "base", className, ...rest }) {
     const Heading = `h${headingLevel}`;
-    return (_jsxs("div", { ...rest, className: join("louis-empty-state", className), children: [graphic === undefined ? null : (
+    return (_jsxs("div", { ...rest, "data-layout": layout, className: join("louis-empty-state", className), children: [graphic === undefined ? null : (
             // 그래픽은 제목이 말하는 것을 반복할 뿐이라 보조기술에서 숨긴다.
             _jsx("div", { className: "louis-empty-state__graphic", "aria-hidden": "true", children: graphic })), _jsx(Heading, { className: "louis-empty-state__title", children: title }), description === undefined ? null : (_jsx("p", { className: "louis-empty-state__description", children: description })), action === undefined ? null : _jsx("div", { className: "louis-empty-state__action", children: action })] }));
 }

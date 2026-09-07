@@ -1,6 +1,8 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { useId } from "react";
-function join(...values) {
+// **`join` 이라는 이름을 쓰지 않는다.** 결합 축이 같은 이름의 prop 을 갖고, 함수 몸통 안에서
+// 그 prop 이 이 헬퍼를 가린다(TS2349). 이름을 바꿔 그 그림자를 없앤다.
+function joinTokens(...values) {
     return values.filter(Boolean).join(" ");
 }
 /**
@@ -11,13 +13,13 @@ function join(...values) {
  *
  * id는 컴포넌트가 발급한다. 호출부가 만들면 같은 화면에 필드가 여럿일 때 겹친다.
  */
-export function TextField({ label, size = "lg", labelBehavior = "stacked", description, invalid = false, prefix, suffix, type = "text", className, id, disabled, placeholder, ...rest }) {
+export function TextField({ label, size = "lg", labelBehavior = "stacked", join = "none", description, invalid = false, prefix, suffix, type = "text", className, id, disabled, placeholder, ...rest }) {
     const generated = useId();
     const controlId = id ?? generated;
     const messageId = `${controlId}-message`;
     const describedBy = description === undefined
         ? rest["aria-describedby"]
-        : join(rest["aria-describedby"], messageId);
+        : joinTokens(rest["aria-describedby"], messageId);
     const floating = labelBehavior === "floating";
     const labelNode = label === undefined ? null : (_jsx("label", { className: "louis-text-field__label", htmlFor: controlId, children: label }));
     // **floating 은 `:placeholder-shown` 으로 「값이 비었다」를 판정한다.** 그 의사 클래스는
@@ -25,7 +27,7 @@ export function TextField({ label, size = "lg", labelBehavior = "stacked", descr
     // 화면에는 보이지 않는다 — CSS 가 floating 에서 placeholder 를 투명으로 두기 때문이고,
     // 보이는 이름은 라벨이 갖는다. `stacked` 에서는 손대지 않는다.
     const resolvedPlaceholder = floating && placeholder === undefined ? " " : placeholder;
-    return (_jsxs("div", { className: join("louis-text-field", className), "data-size": size, "data-label-behavior": labelBehavior, "data-invalid": invalid ? "true" : undefined, children: [floating ? null : labelNode, _jsxs("div", { className: "louis-text-field__box", children: [prefix === undefined ? null : (_jsx("span", { className: "louis-text-field__adornment", children: prefix })), _jsx("input", { ...rest, id: controlId, type: type, disabled: disabled, placeholder: resolvedPlaceholder, className: "louis-text-field__control", "aria-invalid": invalid ? "true" : undefined, "aria-describedby": describedBy }), floating ? labelNode : null, suffix === undefined ? null : (_jsx("span", { className: "louis-text-field__adornment", children: suffix }))] }), description === undefined ? null : (_jsx("p", { id: messageId, className: "louis-text-field__message", 
+    return (_jsxs("div", { className: joinTokens("louis-text-field", className), "data-size": size, "data-label-behavior": labelBehavior, "data-join": join === "none" ? undefined : join, "data-invalid": invalid ? "true" : undefined, children: [floating ? null : labelNode, _jsxs("div", { className: "louis-text-field__box", children: [prefix === undefined ? null : (_jsx("span", { className: "louis-text-field__adornment", children: prefix })), _jsx("input", { ...rest, id: controlId, type: type, disabled: disabled, placeholder: resolvedPlaceholder, className: "louis-text-field__control", "aria-invalid": invalid ? "true" : undefined, "aria-describedby": describedBy }), floating ? labelNode : null, suffix === undefined ? null : (_jsx("span", { className: "louis-text-field__adornment", children: suffix }))] }), description === undefined ? null : (_jsx("p", { id: messageId, className: "louis-text-field__message", 
                 // 오류는 뜨는 즉시 읽혀야 한다. 도움말은 그렇지 않다 — 포커스할 때 함께 읽힌다.
                 role: invalid ? "alert" : undefined, children: description }))] }));
 }

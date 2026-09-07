@@ -561,6 +561,74 @@ const COMPONENT_CONTRACTS = [
       },
     },
   },
+  // **Select 는 트리거 하나만 세운다.** 패널(`MenuPanel`)·항목(`Menu`)·「지금 값」 표시
+  // (`Menu` 의 `State=Selected`)가 이미 서 있고, 값 목록의 패널은 명령 메뉴의 패널과 같은
+  // 표면이다. 검색이 붙는 목록의 검색 필드도 이미 있다 — `TextField` 의 `HasLabel` 축 사유가
+  // 「라벨 없는 필드가 실재한다 — 검색창이 그것이다」다. 같은 표면을 두 번 그리지 않는다.
+  //
+  // `MenuTrigger` 와 갈리는 것은 셋이고, 그 셋이 이 set 이 서는 이유다.
+  //   (1) 면이 있다 — 저쪽은 투명이다. 값 목록은 「지금 무엇이 골라져 있는가」를 늘 보여야
+  //       하므로 눌러야 나타나는 컨트롤이 아니다.
+  //   (2) 캐럿이 있다 — `menu-popover.css` 의 트리거 블록이 「셰브론이 있는 트리거는
+  //       Select 계열의 몫이며 그것은 다른 벌이다」라고 자기 몫이 아님을 적어 두었다.
+  //   (3) 크기 축이 둘이다 — 저쪽은 32 하나뿐이라 축을 열지 않았다.
+  {
+    id: "select",
+    figmaName: "SelectTrigger",
+    figmaAhead: "React 표면 없음 — packages/css/src/component/select.css 가 정본이다.",
+    variantProperties: {},
+    figmaOnlyProperties: {
+      Size: {
+        options: ["md", "sm"],
+        reason:
+          "CSS 에서 `data-size` 이고 **속성이 없을 때가 md 다** — Alert 의 `Layout=block` 과 같은 규칙이라 md 를 이름으로 적어 두는 것이 계약이다. 두 칸 다 DS-D-0027 의 컨트롤 사다리 칸이고 각각 제품 실측 자리를 갖는다(md 32 = Gnb 프로필 언어·ComposerBar 모델, sm 24 = VideoEditModal 프리뷰 줌 칩). 갈리는 것은 높이만이 아니다 — 곡률(12 ↔ 8) · 좌우 여백(12·12 ↔ 8·6) · 간격(6 ↔ 4) · 글리프(20 ↔ 16)가 함께 움직인다. 사다리 밖의 28 을 세 번째 칸으로 열지 않은 이유는 `components.measured.json` 의 select `$note` 가 갖는다.",
+      },
+      State: {
+        options: ["Default", "Hover", "Open", "Disabled"],
+        reason:
+          "Hover 는 코드에서 CSS 상태이고 Open 은 `aria-expanded=\"true\"` 가 만드는 지속 상태다(prop 이 아니라 패널이 열려 있다는 사실이다). Disabled 는 `disabled` 속성이고 실재한다 — 제품 OverlayInspector 가 글꼴 적용 중과 획이 하나뿐인 패밀리에서 이 트리거를 끈다. **Hover 와 Open 의 면은 같고 뜻이 다르다**: 포인터가 패널로 넘어가면 트리거가 hover 를 잃는데 그때 면이 돌아가면 「무엇이 열려 있는지」가 화면에서 사라진다. 둘을 가르는 것은 면이 아니라 캐럿 회전이다. 접기 시험(figma-component-authoring.md)을 통과한다 — Disabled 위에서 Hover·Open 이 서지 않으므로 곱할 것이 없다.",
+      },
+      Value: {
+        type: "TEXT",
+        reason: "지금 골라져 있는 값. 코드에서는 트리거의 자식 텍스트라 prop 이 아니다 — MenuTrigger 의 같은 슬롯과 같은 처리다.",
+      },
+    },
+    // **보이는 테두리가 없다.** 경계는 border 가 아니라 inset 헤어라인이고(DS-D-0023),
+    // 그것은 stroke 가 아니라 INNER_SHADOW 로 그린다 — Button secondary·MenuPanel 과 같은
+    // 레시피이며 여덟 변형이 전부 갖는다.
+    strokes: {},
+    effects: { self: "INNER_SHADOW:0:0:0.5" },
+    geometry: {
+      measuredId: "select",
+      // sizeKey 를 두지 않는다 — 되읽기 키(`md`·`sm`)와 실측 키가 같은 축이라 둘을 다 돈다.
+      fields: {
+        height: "height",
+        paddingBlock: "paddingBlock",
+        paddingBlockEnd: "paddingBlock",
+        paddingInline: "paddingInline",
+        paddingInlineEnd: "paddingInlineEnd",
+        itemSpacing: "gap",
+        cornerRadius: "radius",
+        layoutMode: { literal: "HORIZONTAL" },
+      },
+      // **폭은 보지 않는다.** 트리거의 폭은 호출부가 정한다 — 제품에서 Gnb 는 88, 인스펙터는
+      // 140 이고 ComposerBar 는 남는 폭을 먹는다. Figma 표본이 그중 하나를 고정폭으로 그린
+      // 것은 표본이지 계약이 아니다(MenuTrigger 도 같은 이유로 width 를 대조하지 않는다).
+      //
+      // **좌우 여백은 시작과 끝을 따로 본다.** sm 에서 갈리기 때문이다(8 · 6) — 한 칸으로
+      // 접으면 그 비대칭이 어느 쪽으로 무너져도 초록이다.
+      parts: {
+        // 선행 글리프 슬롯. MenuTrigger 의 `Glyph` 와 같은 기법이다 — 빈 프레임이 슬롯이고
+        // 원시 fill 이 없다.
+        Glyph: { fields: { width: "iconSize", height: "iconSize" } },
+        // 캐럿. 12 정사각 안에 icon/caret-down 인스턴스가 앉는다. 획 두께는 여기서 재지
+        // 않는다 — 채취가 INSTANCE 에서 멈추고, 글리프 획의 정본은 아이콘 manifest 이며
+        // compareIcons 가 아이콘 component 에서 직접 잰다.
+        Caret: { fields: { width: "caretSize", height: "caretSize" } },
+      },
+      extraStrokeWeights: [],
+    },
+  },
   {
     id: "switch",
     figmaName: "Switch",
@@ -2411,6 +2479,817 @@ const COMPONENT_CONTRACTS = [
       childOrder: ["Media", "Action", "Adornment"],
     },
   },
+  {
+    id: "canvas-edge",
+    figmaName: "CanvasEdge",
+    figmaAhead:
+      "LOUIS recipe 없음 — 제품 apps/web/components/scenes/create/node-canvas-v2/edges/V2EdgeLayers.tsx 가 정본이고, 톤 어휘의 실행 가능한 SSOT 는 같은 폴더의 lib/edgeTone.ts 다. 손으로 복제된 사본이 일곱 벌이라 정본을 세우는 것이 이 컴포넌트의 내용이다.",
+    variantProperties: {},
+    // **엣지의 획은 테두리가 아니라 그림이다.** 그래서 되읽기의 strokeWeight 집합은 비어 있고
+    // (채취 규칙 3 이 VECTOR 를 뺀다) 두께는 역할로만 담긴다. align 이 CENTER 인 것도 같은
+    // 이유다 — SVG stroke 는 경로 위에 가운데 정렬되며 CarouselArrow 의 캐럿과 같은 자리다.
+    strokes: { Line: { weight: "strokeWidth", align: "CENTER" } },
+    // **glow 를 담지 않는다.** 제품은 쉬머에 톤별로 다른 반경의 drop-shadow 를 건다
+    // (components.measured.json 의 canvas-edge.$glowNote). 되읽기의 effect 역할은 자손 이름
+    // 하나에 값 하나이고 변형마다 다른 값을 담을 자리가 없어, 한 값으로 적으면 일곱 톤 중
+    // 여섯을 거짓으로 고정한다. 그래서 Figma 에 glow 를 두지 않았고 계약도 비운다.
+    effects: {},
+    figmaOnlyProperties: {
+      Tone: {
+        options: ["default", "image", "text", "youtube", "instagram", "edit", "audio"],
+        reason:
+          "코드에서 V2EdgeTone 문자열 union 이지만 그 선언이 LOUIS 가 아니라 제품에 있어 variantProperties 로 대조할 수 없다. 톤은 그 핸들에 꽂히는 **엣지의 채널**이지 노드 타입이 아니다 — 그래서 video 칸이 없다(비디오는 매체이고, edit 입력에 도착하면 edit 채널, publish 노드로 나가면 youtube/instagram 채널이다). instagram 은 지금 youtube 와 같은 색으로 끝나지만 채널 토큰이 둘이라 칸을 접지 않는다.",
+      },
+      State: {
+        options: ["Default", "Hover"],
+        reason:
+          "Hover 는 코드에서 CSS 상태가 아니라 DeletableEdge 의 hovered state 이고 Figma 에 상태가 없어 축으로 둔다. **일곱 톤 중 넷만 색이 바뀐다** — default·image·text 는 제품이 hover 에 획 색을 바꾸지 않아 두 칸의 값이 같고, 그것이 결손이 아니라 실측이라는 것을 components.measured.json 의 states 가 null 로 적어 고정한다(Alert 의 inline 네 톤과 같은 문법).",
+      },
+    },
+    // **기하 계약이 시편 치수인 것은 이 컴포넌트의 성질이다.** 엣지의 좌표는 두 핸들이 정하는
+    // 데이터라 계약이 될 수 없고, 계약이 되는 것은 획 두께와 톤 어휘다. 시편 치수를 그래도
+    // 대조하는 이유는 프레임이 흔들리면 Line 이 프레임 밖으로 새고(overflowingParts) 인스턴스가
+    // 잘려 보이기 때문이다 — 좌우 8 여백이 그 방지선이다.
+    geometry: {
+      measuredId: "canvas-edge",
+      sizeKey: "base",
+      fields: {
+        width: "specimenWidth",
+        height: "specimenHeight",
+        layoutMode: { literal: "NONE" },
+      },
+      slots: {},
+      extraStrokeWeights: [],
+      parts: {
+        Line: { fields: { width: "specimenSpanX", height: "specimenSpanY" } },
+      },
+    },
+  },
+  // ── 인스펙터 «행 문법» 두 벌 (계획서 8위) ────────────────────────────────
+  //
+  // **다섯을 따로 세우지 않았다.** 제품이 절 머리 · 라벨-값 행 · 알약 · 숫자 칸 · 색 값 다섯을
+  // 갖고 있지만 그중 «자기 기하를 소유하는 것»은 절 머리와 행 둘뿐이고, 나머지 셋은 행의 값
+  // 자리에 서는 형태다. 그래서 component set 도 둘이고 값 형태는 `Value` 축으로 접힌다.
+  // 다섯을 따로 세우면 문법이 아니라 부품 다섯이 된다.
+  {
+    id: "inspector-row",
+    figmaName: "InspectorRow",
+    figmaAhead:
+      "React 표면 없음 — packages/css/src/component/inspector-row.css 가 정본이다. 제품 쪽 구현은 videoEditParts/inspectorPrimitives.tsx 의 InspectorMetric·InspectorPill·NumberInput 셋으로 흩어져 있고 export 되는 공용 타입이 없어 대조할 .d.ts 가 없다.",
+    variantProperties: {},
+    // 알약의 테두리만 stroke 다. **이 시스템에서 진짜 border 를 쓰는 둘째 자리이며**
+    // (첫째는 SegmentedCodeInput), DS-D-0023 이 정한 0.5 inset 헤어라인이 아니다. 알약의 면은
+    // 패널 바닥과 같은 값이라 경계가 사라지면 알약이 사라지고, 기법을 바꾸면 20 높이 박스의
+    // 바깥 치수도 함께 움직인다 — 앵커 값을 그대로 두고 기법 통일은 소유자 판정으로 남겼다.
+    strokes: { Pill: { weight: 1, align: "INSIDE" } },
+    // 그림자가 없다. 행도 숫자 칸도 면과 반경으로만 서고 제품 선언에 box-shadow 가 없다
+    // (`[box-shadow:none]` 을 명시적으로 끈다).
+    effects: {},
+    figmaOnlyProperties: {
+      Value: {
+        options: ["Text", "Number", "Color", "Pill"],
+        reason:
+          "값 자리의 **구조**가 갈리는 축이다. 불리언 넷으로 그릴 수 없다 — Figma 의 불리언은 가시성만 바꾸는데 네 형태는 서로 다른 노드를 갖고(글자 하나 / 140 폭 컨트롤 / 8 점+글자 / 1px 테두리 알약) 한 변형에서 슬롯을 숨기면 set 전체에서 사라진다. 코드에서는 이것이 한 축이 아니라 세 컴포넌트(InspectorMetric 의 value·colorDot, InspectorPill, NumberInput)로 흩어져 있어 대조할 union 타입이 없다. **Text 와 Color 의 차이는 점 하나뿐**이지만 그 점이 노드라서 구조 축에 든다.",
+      },
+      Label: {
+        type: "TEXT",
+        reason:
+          "행의 라벨. 코드에서는 InspectorMetric 의 label prop 이며 string 이다. 폭은 이 컴포넌트가 정하지 않는다 — 라벨이 남는 자리를 먹고 값이 오른쪽 끝에 붙는다.",
+      },
+      ValueText: {
+        type: "TEXT",
+        reason:
+          "값 글자. 코드에서는 value prop 이고 타입이 ReactNode 라 문자열 슬롯으로 완전히 대응하지 않는다 — 소비처가 숫자·단위를 붙인 조각을 넘기는 자리가 있다. Number 변형에서는 이 자리가 숫자 칸 안의 글자이며 같은 프로퍼티가 그 텍스트를 준다(TEXT prop 은 set 단위라 변형마다 다른 이름을 줄 수 없다).",
+      },
+    },
+    geometry: {
+      measuredId: "inspector-row",
+      // 실측에 키가 둘(row · head)이고 이 set 은 row 만 그린다. sizeKey 를 두지 않으면
+      // head 까지 이 set 의 기하로 요구해 거짓 실패가 난다.
+      sizeKey: "row",
+      fields: {
+        height: "height",
+        paddingBlock: { literal: 0 },
+        paddingBlockEnd: { literal: 0 },
+        paddingInline: "paddingInline",
+        paddingInlineEnd: "paddingInline",
+        itemSpacing: "gap",
+        cornerRadius: "radius",
+        layoutMode: { literal: "HORIZONTAL" },
+      },
+      slots: {},
+      // 알약의 1px. root 의 borderWidth 는 0 이라 허용 집합에 이 값을 따로 연다.
+      extraStrokeWeights: [1],
+      parts: {
+        Label: { fields: { fontSize: "labelFontSize" } },
+        Value: { fields: { itemSpacing: "valueGap" } },
+        ValueText: { fields: { fontSize: "valueFontSize" } },
+        // 점·알약·숫자 칸은 각각 한 변형에만 있다. 되읽기가 키 하나에 전 변형을 모으므로
+        // 배열에 값이 하나씩 담긴다 — `optional` 이 아니라 **있는 것**이다.
+        Dot: { fields: { width: "dotSize", height: "dotSize" } },
+        Pill: {
+          fields: {
+            height: "pillHeight",
+            cornerRadius: "pillRadius",
+            itemSpacing: "pillGap",
+            paddingInline: "pillPaddingInline",
+            paddingInlineEnd: "pillPaddingInline",
+            paddingBlock: { literal: 0 },
+            paddingBlockEnd: { literal: 0 },
+          },
+        },
+        Number: {
+          fields: {
+            width: "numberWidth",
+            height: "numberHeight",
+            cornerRadius: "numberRadius",
+            paddingInline: "numberPaddingInline",
+            paddingInlineEnd: "numberPaddingInline",
+            paddingBlock: { literal: 0 },
+            paddingBlockEnd: { literal: 0 },
+          },
+        },
+      },
+    },
+  },
+  {
+    id: "inspector-section-head",
+    figmaName: "InspectorSectionHead",
+    figmaAhead:
+      "React 표면 없음 — packages/css/src/component/inspector-row.css 의 .louis-inspector-section-head 가 정본이다. 제품 쪽 구현(videoEditParts/inspectorPrimitives.tsx 의 InspectorSectionHead)은 export 되지만 타입이 인라인이라 대조할 union alias 가 없다.",
+    variantProperties: {},
+    strokes: {},
+    // **밑줄이 없는 것이 계약이다.** 제품 주석이 통합 근거로 「효과 절만 14px 제목에 밑줄이라
+    // 혼자 달라 보였다」를 적고 있고, 한 벌로 모으며 그 밑줄을 없앴다. stroke 도 effect 도 0 인
+    // 상태가 그 결정의 증거이며, 누가 밑줄을 되살리면 「계약에 없는 것」으로 잡힌다.
+    effects: {},
+    figmaOnlyProperties: {
+      Action: {
+        options: ["None", "Icon"],
+        reason:
+          "오른쪽 조작 아이콘의 유무. **불리언이 아니라 축인 이유는 노드가 있고 없고이기 때문이다** — 불리언으로 두면 가시성만 꺼져 24 폭이 그대로 남고, Figma 의 불리언은 set 단위라 한 변형에서 끄면 다른 변형에서도 사라진다. 코드에서는 action prop 이 ReactNode 이고 있으면 그린다.",
+      },
+      Title: {
+        type: "TEXT",
+        reason:
+          "절 제목. 코드에서는 title prop 이며 타입이 ReactNode 다 — 소비처가 「효과 (3)」처럼 개수를 붙인 조각을 넘기는 자리가 있어 문자열 슬롯과 완전히 대응하지 않는다.",
+      },
+      Meta: {
+        type: "TEXT",
+        reason:
+          "제목 오른쪽의 값 힌트. 코드에서는 meta prop 이고 없을 수 있는데 **Figma 에서 그 없음을 그리지 않았다** — 없음을 축으로 열면 Action 과 곱해져 넷이 되고, 힌트가 빠진 머리는 오른쪽 묶음의 기하를 바꾸지 않는다(묶음이 HUG 라 폭만 줄어든다). 그 폭은 이 게이트가 대조하지 않는다.",
+      },
+      ActionGlyph: {
+        type: "INSTANCE_SWAP",
+        reason:
+          "조작 아이콘의 글리프. 절마다 다른 글리프가 온다(눈 · 스피커 · 더하기) — 박아 두면 소비처가 바꿔 끼울 수 없고 화면을 조립할 때 전부 같은 글리프가 된다.",
+      },
+    },
+    iconSlots: ["ActionGlyph"],
+    geometry: {
+      measuredId: "inspector-row",
+      sizeKey: "head",
+      fields: {
+        paddingBlock: { literal: 0 },
+        paddingBlockEnd: "paddingBlockEnd",
+        paddingInline: { literal: 0 },
+        paddingInlineEnd: { literal: 0 },
+        itemSpacing: "rowGap",
+        cornerRadius: { literal: 0 },
+        // 머리는 가로 한 줄이다. 제품이 감싸는 세로 묶음을 두지만 자식이 언제나 하나라
+        // 그 묶음의 사이 간격은 아무 것도 벌리지 않는다 — 그리지 않는 값은 계약에 없다.
+        layoutMode: { literal: "HORIZONTAL" },
+      },
+      slots: {},
+      extraStrokeWeights: [],
+      parts: {
+        Title: { fields: { fontSize: "titleFontSize" } },
+        Tail: { fields: { itemSpacing: "tailGap" } },
+        Meta: { fields: { fontSize: "metaFontSize" } },
+        // Action 은 Action=Icon 한 변형에만 있다. 없는 변형에서는 노드를 지웠고(가시성이
+        // 아니다) 되읽기가 그 변형을 건너뛴다 — 배열에 값이 하나 담긴다.
+        Action: {
+          fields: {
+            width: "actionSize",
+            height: "actionSize",
+            cornerRadius: "actionRadius",
+          },
+        },
+        ActionGlyph: { fields: { width: "glyphSize", height: "glyphSize" } },
+      },
+    },
+  },
+  {
+    id: "section-header",
+    figmaName: "SectionHeader",
+    // React 표면이 없다 — 정본은 CSS 파일이고, 그 실측 출처는 제품 `app/admin/AdminSection.tsx`
+    // 의 `AdminSectionHeader` 다(어드민 11 파일 17 자리). alert · switch · tabs 와 같은 형태다.
+    figmaAhead:
+      "React 표면 없음 — packages/css/src/component/section-header.css 가 정본이고, 실측 출처는 제품 app/admin/AdminSection.tsx 의 AdminSectionHeader(11 파일 17 자리)와 components/ui/PageHeader(앱 허브 4곳)다.",
+    // 코드 타입 alias 에서 읽는 축이 없다 — React 표면이 없으므로 union 을 뜰 declaration 이
+    // 없다. `Level` 은 아래 figmaOnlyProperties 가 값까지 고정한다.
+    variantProperties: {},
+    figmaOnlyProperties: {
+      Level: {
+        options: ["page", "section", "label"],
+        reason:
+          "제목 사다리 세 단. **`Size` 가 아니라 `Level` 이다** — 값이 밀도가 아니라 문서 위계다. page 는 화면 제목(36 SemiBold), section 은 카드 안 묶음의 제목(20 SemiBold), label 은 패널 아이브로우(12 Medium)이고, 셋은 「같은 것을 더/덜 크게」가 아니라 서로 다른 자리에 산다 — 아래 여백을 page 만 지는 것이 그 증거다. 값이 사다리 어휘(sm·md·lg)가 아닌 이유도 같다: 사다리 어휘를 빌리면 순서를 주장하게 되는데 이 셋의 관계는 순서가 아니라 포함이다. 값은 제품 prop 의 값 그대로다(AdminSectionLevel = page | section | label). 축 이름은 figma-component-authoring.md §2 의 표에 2026-09-07 에 열렸다. **BOOLEAN 이 아닌 이유**: 계속 보이는 제목의 타이포와 잉크가 달라지고(시험 1) 프레임이 자기 아래 padding 을 다시 쓴다(시험 2).",
+      },
+      Title: {
+        type: "TEXT",
+        reason:
+          "제목 문구. 코드에서는 `title: ReactNode` 이고 세 level 이 모두 갖는 유일한 슬롯이다.",
+      },
+      Description: {
+        type: "TEXT",
+        reason:
+          "제목 아래 한 줄 설명(16 Medium). 제품 17 자리 중 둘이 넘긴다(AdminClient.tsx:1077 일괄 지급 · JobMonitor.tsx:307). page 변형에만 노드가 있다.",
+      },
+      Meta: {
+        type: "TEXT",
+        reason:
+          "개수·기간처럼 짧은 보조 정보(12 Regular · tabular-nums). 제품 17 자리 중 여덟이 넘긴다. page·section 두 변형에 노드가 있다.",
+      },
+      HasDescription: {
+        type: "BOOLEAN",
+        reason:
+          "설명 없는 화면 머리가 실재한다 — 제품 page 열한 자리 중 아홉이 설명을 넘기지 않는다. 켜고 끌 때 바뀌는 것이 그 줄의 가시성뿐이라 §2 의 네 시험을 모두 통과한다.",
+      },
+      HasMeta: {
+        type: "BOOLEAN",
+        reason:
+          "메타 없는 머리가 실재한다(CouponManagement.tsx:591 · UsageByModelDashboard.tsx:215 등). 같은 이유로 BOOLEAN 이다.",
+      },
+      HasActions: {
+        type: "BOOLEAN",
+        reason:
+          "액션 없는 머리가 실재한다 — 제품 17 자리 중 일곱이 액션을 넘기지 않는다. 액션 **개수**는 소비처가 정하므로 축이 아니다(제품은 0·1·2 를 쓴다). label 변형에는 노드 자체가 없다.",
+      },
+    },
+    // **선이 한 줄도 없다.** 제품 HEADER_ROW 에 border·box-shadow 선언이 하나도 없다 — 머리는
+    // 상자가 아니라 부모 표면 위에 얹히는 텍스트 줄이다. 빈 칸을 비워 두는 것이 아니라 없다는
+    // 사실을 적는 것이고, 나중에 누가 Figma 에서 테두리를 두르면 게이트가 잡는다.
+    strokes: {},
+    effects: {},
+    geometry: {
+      measuredId: "section-header",
+      // 세 칸을 전부 건다. 하나로 좁히면 나머지 둘은 Figma 가 무슨 값을 그리든 초록이고,
+      // verify-figma-done 의 「대조 범위 밖」 검사가 그 상태를 잡는다.
+      sizeKeys: ["page", "section", "label"],
+      fields: {
+        itemSpacing: "rowGap",
+        // CSS 의 `margin-block-end` 를 Figma 의 아래 padding 으로 그린다 — Figma auto-layout 에
+        // 자식 바깥 여백이 없어서다. empty-state 의 Action 이 쓰는 것과 같은 대치이고,
+        // 결과(다음 블록과의 거리)는 같고 표현이 다르다.
+        paddingBlockEnd: "marginBlockEnd",
+        // 나머지 세 방향은 0 이다. **계약 값이 아니라 literal 인 이유**: 제품 헤더에 padding
+        // 선언 자체가 없고(페이지 컨테이너가 인셋을 이미 준다) 0 은 잴 값이 아니라 없다는
+        // 사실이다. measured 에 0 을 세 칸 적으면 사유 셋이 같은 말을 반복한다.
+        paddingBlock: { literal: 0 },
+        paddingInline: { literal: 0 },
+        paddingInlineEnd: { literal: 0 },
+        // 면이 없으니 곡률도 없다. 위 strokes 와 짝이다.
+        cornerRadius: { literal: 0 },
+        // 정렬이 이 컴포넌트에서 가장 눈에 띄는 값이다 — 제목 36 옆에 버튼 32 가 설 때
+        // 가운데 정렬이면 버튼이 제목 위로 떠오른다. `stretch` 는 719px 아래의 값인데
+        // Figma 에 그 변형이 없으므로 표에만 있고 지금은 어느 칸도 쓰지 않는다
+        // (contract 의 `$foldRule` 이 그 사실을 소유한다).
+        counterAxisAlignItems: {
+          enum: "align",
+          table: { "flex-end": "MAX", stretch: "STRETCH" },
+        },
+        layoutMode: { literal: "HORIZONTAL" },
+      },
+      slots: {},
+      extraStrokeWeights: [],
+      parts: {
+        // 제목 블록. 자식이 하나뿐인 label 에서도 gap 은 선언돼 있다 — 보이지 않는 값이지
+        // 그리지 않는 값이 아니다. 그래서 `optional` 이 아니다.
+        Text: { fields: { itemSpacing: "textGap", layoutMode: { literal: "VERTICAL" } } },
+        Title: { fields: { fontSize: "titleFontSize" } },
+        // **자손 셋이 level 마다 사라진다.** section 에는 설명이 없고 label 에는 셋 다 없다.
+        // `optional` 은 **근거 값이 함께 없을 때만** 통과하므로, 값을 남겨 둔 채 Figma 에서
+        // 자손만 지우는 길은 없다.
+        Description: { optional: true, fields: { fontSize: "descriptionFontSize" } },
+        Meta: { optional: true, fields: { fontSize: "metaFontSize" } },
+        Actions: {
+          optional: true,
+          fields: { itemSpacing: "actionsGap", layoutMode: { literal: "HORIZONTAL" } },
+        },
+      },
+    },
+  },
+  // ── 캔버스 노드 크롬 셋 ────────────────────────────────────────────────────
+  // 계획서 6위(노드 셸 + 크롬)에서 올라온 셋이다. **코드가 아직 없다** — Keycap 계열과 같은
+  // `figmaAhead` 상태이고, 값의 정본은 제품 앵커 `5a67d692` 의 소스다.
+  {
+    id: "node-chrome-button",
+    figmaName: "NodeChromeButton",
+    figmaAhead:
+      "LOUIS recipe 없음 — 제품 `NodeHeaderActions.tsx` 의 BUTTON/BUTTON_NEUTRAL/BUTTON_DANGER 가 정본이고 노드 9종이 그 쌍을 쓴다.",
+    variantProperties: {},
+    // **테두리가 없는 것이 계약이다.** `border-0` 이고 면은 투명이며 호버에서만 틴트가 뜬다.
+    // 빈 객체로 두면 역방향 검사(`계약에 없는 stroke`)는 그대로 돌아 stroke 가 생기면 잡힌다.
+    strokes: {},
+    iconSlots: ["Glyph"],
+    figmaOnlyProperties: {
+      Glyph: {
+        type: "INSTANCE_SWAP",
+        reason:
+          "코드에서 글리프는 호출부가 넘기는 자식이다(다운로드는 ToolbarIconDownload, 삭제는 ToolbarIconTrashSimple). 버튼 자신은 어떤 글리프인지 모르므로 축이 아니라 슬롯이다.",
+      },
+      Tone: {
+        options: ["neutral", "danger"],
+        reason:
+          "호버 틴트가 갈린다 — 중립은 잉크 색을 그대로 두고 면만 얹지만 삭제는 잉크까지 붉게 간다. 코드에서는 클래스 두 벌(BUTTON_NEUTRAL·BUTTON_DANGER)이고 prop 이 아니라 호출부가 어느 쪽을 붙일지 고른다.",
+      },
+      State: {
+        options: ["Default", "Hover", "Disabled"],
+        reason:
+          "Hover 는 CSS 상태이고 Disabled 는 DOM 속성이다. Figma 에는 CSS 상태가 없어 variant 로 둔다. Active(`transform: scale(0.94)`)와 Success(복사→체크)는 열지 않았고 사유는 measured 의 `$whyNoActive`·`$whyNoSuccess` 가 갖는다.",
+      },
+    },
+    // 비활성이 **면이 아니라 불투명도로만** 갈린다. 되읽기에 opacity 가 있으므로 여섯 칸을
+    // 전부 선언해야 한다 — 하나라도 빠지면 「되읽기에 불투명도가 있는데 계약에 없습니다」다.
+    opacity: {
+      "neutral/Default": 1,
+      "neutral/Hover": 1,
+      "neutral/Disabled": 0.35,
+      "danger/Default": 1,
+      "danger/Hover": 1,
+      "danger/Disabled": 0.35,
+    },
+    geometry: {
+      measuredId: "node-chrome-button",
+      fields: {
+        height: "height",
+        width: "width",
+        cornerRadius: "radius",
+        paddingBlock: "paddingBlock",
+        paddingBlockEnd: "paddingBlock",
+        paddingInline: "paddingInline",
+        paddingInlineEnd: "paddingInline",
+        itemSpacing: "gap",
+      },
+      slots: { Glyph: "glyphSize" },
+      parts: { Glyph: { fields: { width: "glyphSize", height: "glyphSize" } } },
+    },
+  },
+  {
+    id: "node-shell",
+    figmaName: "NodeShell",
+    figmaAhead:
+      "LOUIS recipe 없음 — 제품 `nodes/*Node.tsx` 아홉과 `node-canvas-v2/index.tsx` 의 CANVAS_SHELL_BASE 가 정본이다.",
+    variantProperties: {},
+    // 카드의 2px 테두리는 **실제 stroke** 다. Button·IconButton 의 헤어라인과 달리 레이아웃을
+    // 접는 inset 그림자가 아니라 제품이 `border: 2px solid` 로 그리는 선이므로 stroke 로 옮긴다.
+    strokes: { Card: { weight: "borderWidth", align: "INSIDE" } },
+    iconSlots: ["TypeGlyph"],
+    figmaOnlyProperties: {
+      TypeGlyph: {
+        type: "INSTANCE_SWAP",
+        reason:
+          "타입 글리프는 노드마다 다른 컴포넌트이고 셸은 그것을 모른다. **아홉 중 넷(video-camera·youtube·instagram·magic-wand)이 아직 아이콘 세트에 없어** 변형별 기본값을 채우면 넷이 거짓 글리프를 갖게 된다 — 그래서 기본값 하나(`icon/image`)만 두고 갈아 끼우게 한다.",
+      },
+      Label: {
+        type: "TEXT",
+        reason:
+          "노드 이름이다. 코드에서 사용자가 고쳐 쓰는 값이거나(NodeTitleEditableLabel) i18n 문자열이라 타입 선언의 항목으로 나타나지 않는다.",
+      },
+      Accent: {
+        options: ["video", "image", "text", "youtube", "instagram", "audio", "edit"],
+        reason:
+          "제품 `globals.css` 가 `[data-node-accent]` 로 선언하는 일곱 값 그대로다. 선택 테두리 색만 바꾸므로 기하는 일곱이 같고, youtube 와 instagram 은 같은 red-500 을 가리켜 색까지 같다 — 제품의 어휘를 옮기려고 두 칸을 남겼다는 사실을 measured 의 `$whyAccentNotType` 가 갖는다.",
+      },
+      Selected: {
+        options: ["false", "true"],
+        reason:
+          "선택 테두리 색이 바뀐다(시험 1). `figma-component-authoring.md` §2 의 조건 축 일곱 중 `Selected` 가 이미 열려 있고, 캔버스 노드도 「선택 가능한 항목」이라 같은 이름을 쓴다.",
+      },
+    },
+    geometry: {
+      measuredId: "node-shell",
+      fields: {
+        width: "cardWidth",
+        // 바깥 프레임은 헤더와 카드를 세로로 담는다. 높이는 그 셋의 합이고, 합으로 적어야
+        // 어느 조각이 움직였는지가 실패 메시지에 남는다.
+        height: ["headerHeight", "headerToCardGap", "cardHeight"],
+        itemSpacing: "headerToCardGap",
+        paddingBlock: "paddingBlock",
+        paddingBlockEnd: "paddingBlock",
+        paddingInline: "paddingInline",
+        paddingInlineEnd: "paddingInline",
+        cornerRadius: "rootRadius",
+      },
+      slots: { TypeGlyph: "glyphSize" },
+      parts: {
+        HeaderRow: {
+          fields: {
+            width: "cardWidth",
+            height: "headerHeight",
+            paddingInline: "headerPaddingInline",
+            paddingInlineEnd: "headerPaddingInline",
+            itemSpacing: "headerGap",
+          },
+        },
+        // 제목 묶음의 **폭은 담지 않는다** — 라벨 폭은 글꼴 렌더링이 정하고 이 파일의
+        // `$whyNotTextWidth` 가 그것을 이미 계약 밖으로 두었다. 높이는 글리프가 정한다.
+        Title: { fields: { height: "glyphSize", itemSpacing: "titleGap" } },
+        TypeGlyph: { fields: { width: "glyphSize", height: "glyphSize" } },
+        Label: {
+          fields: {
+            height: "labelHeight",
+            fontSize: "labelFontSize",
+            lineHeightPercent: "labelLineHeightPercent",
+          },
+        },
+        // 액션 묶음은 폭·자식 수까지 담는다. 「둘이 붙어 있다」가 계약이라 간격 0 과 자식 2 가
+        // 함께 있어야 한 쪽만 바뀌는 것을 잡는다.
+        Actions: {
+          fields: {
+            width: "actionsWidth",
+            height: "headerHeight",
+            itemSpacing: "actionsGap",
+            children: "actionsCount",
+          },
+        },
+        Card: { fields: { width: "cardWidth", height: "cardHeight", cornerRadius: "cardRadius" } },
+        Body: { fields: { width: "cardWidth", height: "cardHeight" } },
+      },
+    },
+  },
+  {
+    id: "node-side-handle",
+    figmaName: "NodeSideHandle",
+    figmaAhead:
+      "LOUIS recipe 없음 — 제품 `NodeSideButtons.tsx` 의 TargetButton 이 정본이고 노드 9종이 그 버튼을 쓴다.",
+    variantProperties: {},
+    // 셸에도 디스크에도 테두리가 없다(`[border:none]`). 경계는 곡률과 면이 만든다.
+    strokes: {},
+    // 디스크 안쪽의 광. 제품은 `::before` 에 `inset 0 0 8px` 흰 그림자를 `mix-blend-mode:
+    // overlay` 로 얹는다 — Figma 는 INNER_SHADOW 의 blendMode 로 같은 것을 그린다.
+    effects: { Facet: "INNER_SHADOW:0:8:0" },
+    iconSlots: ["Glyph"],
+    figmaOnlyProperties: {
+      Glyph: {
+        type: "INSTANCE_SWAP",
+        reason:
+          "채널 글리프는 호출부가 넘기는 자식이다(`icon={<ImageIcon …/>}`). 같은 채널 안에서도 자리마다 다르다 — image 채널이 시작 프레임에서는 align-left, 끝 프레임에서는 align-right 를 쓴다.",
+      },
+      Channel: {
+        options: ["image", "text", "edit"],
+        reason:
+          "제품 `NodeSideButtons.tsx:518` 의 `type SideTone = \"image\" | \"text\" | \"edit\"` 이 정본이다. `Tone` 을 쓰지 않은 이유는 그 어휘가 의미 톤(neutral·info·success·warning·danger)만 담기 때문이고, 이 셋은 의미가 아니라 **이음새로 흐르는 것의 종류**다 — globals.css 가 같은 것을 「채널」이라 부른다.",
+      },
+    },
+    geometry: {
+      measuredId: "node-side-handle",
+      fields: {
+        height: "height",
+        width: "width",
+        cornerRadius: "radius",
+        paddingBlock: "paddingBlock",
+        paddingBlockEnd: "paddingBlock",
+        paddingInline: "paddingInline",
+        paddingInlineEnd: "paddingInline",
+        itemSpacing: "gap",
+      },
+      slots: { Glyph: "glyphSize" },
+      parts: {
+        Facet: { fields: { width: "facetSize", height: "facetSize", cornerRadius: "facetRadius" } },
+        Glyph: { fields: { width: "glyphSize", height: "glyphSize" } },
+      },
+    },
+  },
+  {
+    id: "floating-shell",
+    figmaName: "FloatingShell",
+    figmaAhead:
+      "LOUIS recipe 없음 — 제품 `node-canvas-v2/components/Toolbar.tsx` 와 `node-canvas-v2/index.tsx` 의 TOOLBAR_WRAP 이 정본이고 캔버스·홈·영상편집·커맨드팔레트가 같은 재료를 쓴다.",
+    variantProperties: {},
+    // **테두리가 없는 것이 계약이다.** `[border:none]` 이고 경계는 안쪽 헤어라인 그림자 한 겹이
+    // 만든다. 빈 객체라 역방향 검사는 그대로 돌아 stroke 가 생기면 잡힌다.
+    strokes: {},
+    // 유리 두 겹 — 헤어라인 inset(0.5 spread)과 배경 흐림 4. 흐림 반경이 `var(...)` 가 아닌
+    // 것은 LOUIS 흐림 사다리(10·12·16)에 4 가 없기 때문이고, 그 사실은 measured 의
+    // `$blurRadius` 가 갖는다.
+    effects: { self: "INNER_SHADOW:0:0:0.5 + BACKGROUND_BLUR:NORMAL:4" },
+    // 변형 축이 하나도 없다(MenuPanel·MenuSeparator 와 같은 단일 COMPONENT). 계획서가 제안한
+    // Orientation·Divider 두 축을 열지 않은 사유는 measured 의 `$whyNoOrientationAxis`·
+    // `$whyNoDividerAxis` 가 갖는다.
+    figmaOnlyProperties: {},
+    geometry: {
+      measuredId: "floating-shell",
+      // **폭은 담지 않는다.** 안에 몇 조각이 서느냐가 정하는 값이라 셸의 선언이 아니다 —
+      // 이 파일의 `$whyNotTextWidth` 가 라벨 폭을 계약 밖에 둔 것과 같은 종류다.
+      fields: {
+        height: "height",
+        paddingBlock: "paddingBlock",
+        paddingBlockEnd: "paddingBlock",
+        paddingInline: "paddingInline",
+        paddingInlineEnd: "paddingInline",
+        itemSpacing: "gap",
+        cornerRadius: "radius",
+      },
+      slots: { "Item 1": "itemSize", "Item 2": "itemSize", "Item 3": "itemSize" },
+      // 조각의 곡률까지 담는다 — 32 정사각에 반경 12 가 한 쌍이고, 한쪽만 바뀌면 셸 안의
+      // 리듬이 깨진다.
+      parts: {
+        "Item 1": { fields: { cornerRadius: "itemRadius" } },
+        "Item 2": { fields: { cornerRadius: "itemRadius" } },
+        "Item 3": { fields: { cornerRadius: "itemRadius" } },
+      },
+    },
+  },
+  {
+    // **id 가 `floating-shell` 이다.** 카탈로그 항목이 하나이기 때문이다 — FloatingShell 과
+    // PillTrigger 는 같은 재료의 두 조각이라 manifest 의 한 항목(`figmaNames` 둘)과 한 규범
+    // 문서를 쓴다(Progress·VideoPlayer 와 같은 형태). `verify-figma-done` 의 (b) 가 계약 id 를
+    // manifest 항목 id 와 대조하므로 여기서 갈리면 승격 조건이 서지 않는다. `measuredId` 는
+    // 실측 칸의 키라서 `pill-trigger` 그대로다 — 두 조각의 기하는 따로 잰다.
+    id: "floating-shell",
+    figmaName: "PillTrigger",
+    figmaAhead:
+      "LOUIS recipe 없음 — 제품 `node-canvas-v2/components/CanvasZoomControl.tsx` 의 ZOOM_LABEL_BUTTON 이 정본이다. 셸과 같은 재료를 트리거 하나에 입힌 것이다.",
+    variantProperties: {},
+    strokes: {},
+    effects: { self: "INNER_SHADOW:0:0:0.5 + BACKGROUND_BLUR:NORMAL:4" },
+    // **`iconSlots` 를 선언하지 않는다.** 캐럿은 소비처가 바꿔 끼우는 글리프가 아니라 「메뉴가
+    // 어느 쪽으로 열리는가」를 말하는 고정 크롬이다 — MenuTrigger 가 같은 이유로 슬롯을 두지
+    // 않았다(위 그 계약의 주석).
+    figmaOnlyProperties: {
+      Label: {
+        type: "TEXT",
+        reason:
+          "배율 문구다. 코드에서 `${Math.round(zoom * 100)}%` 로 계산돼 들어오는 값이라 prop 도 축도 아니다 — 축으로 열면 라이브러리가 카피를 소유하게 된다(저작 규범 §2 의 「문구가 값인 축은 TEXT 로 내린다」).",
+      },
+      State: {
+        options: ["Default", "Hover", "Open"],
+        reason:
+          "Hover 는 CSS 상태이고 Open 은 `aria-expanded=\"true\"` 다. Figma 에는 둘 다 없어 variant 로 둔다. Open 은 2026-09-07 에 축 어휘 표에 오른 값이고 MenuTrigger·SelectTrigger 가 이미 쓴다. Disabled 는 제품에 선언이 없어 열지 않았다 — 사유는 measured 의 `$whyNoDisabled` 가 갖는다.",
+      },
+    },
+    geometry: {
+      measuredId: "pill-trigger",
+      // 세 칸의 기하가 같다. 폭은 담지 않는다 — 배율 문구가 정하는 값이다.
+      fields: {
+        height: "height",
+        paddingBlock: "paddingBlock",
+        paddingBlockEnd: "paddingBlock",
+        paddingInline: "paddingInline",
+        paddingInlineEnd: "paddingInline",
+        itemSpacing: "gap",
+        cornerRadius: "radius",
+      },
+      parts: {
+        // 라벨은 `fontSize` 만 담는다. 폭은 문구가, 높이는 leading-1 텍스트 스타일이 정하고
+        // 알약 높이는 고정 36 이라 라벨이 기하를 만들지 않는다.
+        Label: { fields: { fontSize: "labelFontSize" } },
+        Caret: {
+          fields: { width: "caretSize", height: "caretSize", opacity: "caretOpacity" },
+        },
+      },
+    },
+  },
+  {
+    id: "stat-tile",
+    figmaName: "StatTile",
+    figmaAhead:
+      "LOUIS recipe 는 있고 React 표면이 없다 — packages/css/src/component/stat-tile.css 가 정본이고 제품 app/admin/AdminSection.tsx 의 AdminStatTile 이 그 값의 출처다. 대조할 .d.ts 가 없으므로 declaration 을 읽지 않는다(Alert 와 같은 상태).",
+    variantProperties: {},
+    // **테두리가 없다.** 경계는 generic 10% inset 헤어라인 하나다(DS-D-0023). 빈 객체가 그
+    // 사실을 계약으로 고정한다 — 나중에 Figma 에 stroke 가 생기면 「계약에 없는 stroke」로 잡힌다.
+    strokes: {},
+    effects: { self: "INNER_SHADOW:0:0:0.5" },
+    figmaOnlyProperties: {
+      Size: {
+        options: ["lg", "md"],
+        reason:
+          "값의 글자 크기와 행간만 바꾼다(28/135 ↔ 20/150). 여백·간격·반경은 두 칸이 같다 — 두 종류의 타일이 한 격자에 섞여 서므로 액자가 갈리면 행이 어긋난다. **값이 소문자인 것은 CSS 속성값과 같은 철자를 쓰기 위해서다**(Alert 의 Layout 과 같은 규칙). 코드에서는 `data-size` 이고 기본이 md 다 — 보조 타일이 주요 지표보다 많다.",
+      },
+      Delta: {
+        options: ["up", "down", "flat", "none"],
+        reason:
+          "증감 알약의 톤이고 `none` 은 알약 자체가 없는 칸이다. **불리언으로 열 수 없다** — BOOLEAN 은 가시성만 바꾸는데 이 축은 면과 잉크 두 겹을 함께 갈아 끼우고, `none` 은 노드를 지우는 구조 축이다(가시성으로 숨기면 component set 단위로 합쳐져 다른 변형의 알약까지 사라진다). 코드에서는 알약의 `data-tone` 과 알약을 그리는지 여부 둘이 한 축으로 접힌 것이다.",
+      },
+      Label: { type: "TEXT", reason: "지표 이름. 코드에서는 소비처가 넘기는 문구이고 컴포넌트 prop 이 아니다." },
+      Value: { type: "TEXT", reason: "서식이 끝난 수치 문자열. 축약·통화·단위는 소비처가 정한다." },
+      Hint: {
+        type: "BOOLEAN",
+        reason:
+          "분모·기간 한 줄의 유무. 정본이 `hint` 를 받지 않으면 그 span 자체를 그리지 않는다 — 빈 것을 남기면 간격만 붙는다. 여덟 변형 전부에 이 자손이 있으므로 set 단위로 합쳐져도 사실이 어긋나지 않는다.",
+      },
+      HintLabel: {
+        type: "TEXT",
+        reason:
+          "힌트 문구. Hint(BOOLEAN) 과 짝으로 낸다 — 이 BOOLEAN + {Name}Label TEXT 형태의 근거는 figma-component-authoring.md §2 개정표의 MediaCard 선례(Badge + BadgeLabel)다.",
+      },
+      DeltaLabel: { type: "TEXT", reason: "알약 문구. 부호를 포함한다 — 색으로만 방향을 말하면 WCAG 1.4.1 을 스스로 깬다." },
+    },
+    geometry: {
+      measuredId: "stat-tile",
+      fields: {
+        paddingBlock: "paddingBlock",
+        paddingBlockEnd: "paddingBlock",
+        paddingInline: "paddingInline",
+        paddingInlineEnd: "paddingInline",
+        itemSpacing: "gap",
+        cornerRadius: "radius",
+        layoutMode: { literal: "VERTICAL" },
+      },
+      slots: {},
+      extraStrokeWeights: [],
+      parts: {
+        Label: { fields: { fontSize: "labelFontSize", lineHeightPercent: { literal: 150 } } },
+        // **행간이 크기 축에서 갈리는 유일한 자손이다** — heading 계열은 1.35, body 계열은 1.5 다.
+        // 리터럴로 적으면 그 사실이 계약에서 사라진다.
+        Value: { fields: { fontSize: "valueFontSize", lineHeightPercent: "valueLineHeightPercent" } },
+        Hint: { fields: { fontSize: "hintFontSize", lineHeightPercent: { literal: 150 } } },
+        Delta: {
+          fields: {
+            paddingBlock: "deltaPaddingBlock",
+            paddingBlockEnd: "deltaPaddingBlock",
+            paddingInline: "deltaPaddingInline",
+            paddingInlineEnd: "deltaPaddingInline",
+            cornerRadius: "deltaRadius",
+          },
+        },
+        DeltaLabel: { fields: { fontSize: "deltaFontSize" } },
+      },
+    },
+  },
+  {
+    id: "chart-card",
+    figmaName: "ChartCard",
+    figmaAhead:
+      "LOUIS recipe 는 있고 React 표면이 없다 — packages/css/src/component/chart-card.css 가 액자와 슬롯을 소유하고 곡선 자체는 소비처의 SVG 다. 값의 출처는 제품 analytics/OverviewTab.tsx · InstagramAnalyticsScene.tsx 다.",
+    variantProperties: {},
+    strokes: {},
+    // 면이 둘이라 헤어라인도 둘이다. **안쪽 면까지 계약에 적는다** — 이 카드에서 두 겹이라는
+    // 사실 자체가 정보이고, 안쪽 헤어라인이 사라지면 카드가 한 겹으로 읽힌다.
+    effects: { self: "INNER_SHADOW:0:0:0.5", Panel: "INNER_SHADOW:0:0:0.5" },
+    figmaOnlyProperties: {
+      Chart: {
+        options: ["area", "spark"],
+        reason:
+          "차트가 붙는 자리다. area 는 수치 아래 전폭, spark 는 수치 옆 미니 곡선이고 그 축이 안쪽 면의 방향(세로·가로) · 여백(12/14 · 14/16) · 최소 높이(0 · 92) · 헤더 간격(10 · 0)을 통째로 가른다. 크기 축이 아니라 배치 축이라는 점에서 Alert 의 Layout 과 같다. 코드에서는 `data-chart` 이고 기본이 area 다.",
+      },
+      State: {
+        options: ["default", "insufficient", "loading"],
+        reason:
+          "슬롯에 무엇이 들어가는가. **액자의 값은 하나도 바꾸지 않아서 기하 키에 넣지 않았다** — 넣으면 같은 값이 세 번 담기고 한 칸만 어긋나도 그 사실이 배열 길이가 아니라 키 이름에 숨는다. 여섯 칸 전부 제품에 그림이 있다: insufficient 의 spark 는 곡선을 아예 그리지 않고(정본이 `hasSpark ? … : null`), loading 은 ReportKpiRowSkeleton 과 ChartSkeleton 이다. 계획서가 적은 3×3 중 셋은 제품에 그림이 없어 만들지 않았다 — 없는 칸을 그리면 그 칸이 규범이 된다.",
+      },
+      Label: { type: "TEXT", reason: "지표 이름. 코드에서는 소비처가 넘기는 문구다." },
+      Meta: {
+        type: "TEXT",
+        reason:
+          "기간 표기. **area 변형에만 노드가 있다** — spark 카드의 헤더에는 제목 하나뿐이고, 불리언으로 숨기면 component set 단위로 합쳐져 area 의 기간까지 사라진다. 그래서 가시성이 아니라 구조로 갈랐다.",
+      },
+      Value: { type: "TEXT", reason: "서식이 끝난 수치 문자열." },
+      DeltaLabel: { type: "TEXT", reason: "증감 알약 문구. 알약 자체는 stat-tile 이 소유하는 조형이고 두 세트가 같은 기하를 각각 그린다 — 별도 component 로 올리면 계약과 채취 명세가 하나 더 느는데 그 값은 이미 두 세트의 Delta 자손으로 대조된다." },
+    },
+    geometry: {
+      measuredId: "chart-card",
+      fields: {
+        paddingBlock: "paddingBlock",
+        paddingBlockEnd: "paddingBlock",
+        paddingInline: "paddingInline",
+        paddingInlineEnd: "paddingInline",
+        itemSpacing: "gap",
+        cornerRadius: "radius",
+        layoutMode: { literal: "VERTICAL" },
+      },
+      slots: {},
+      extraStrokeWeights: [],
+      parts: {
+        Header: {
+          fields: {
+            paddingBlock: "headerPaddingBlock",
+            paddingBlockEnd: "headerPaddingBlockEnd",
+            paddingInline: "headerPaddingInline",
+            paddingInlineEnd: "headerPaddingInline",
+            itemSpacing: "headerGap",
+          },
+        },
+        Label: { fields: { fontSize: "labelFontSize" } },
+        // 기간은 area 에만 있다. `optional` 은 **근거 값이 함께 없을 때만** 통과하므로
+        // spark 의 기록에 metaFontSize 를 남겨 둔 채 Figma 에서 노드만 지우는 길은 없다.
+        Meta: { optional: true, fields: { fontSize: "metaFontSize" } },
+        Panel: {
+          fields: {
+            paddingBlock: "panelPaddingBlock",
+            paddingBlockEnd: "panelPaddingBlock",
+            paddingInline: "panelPaddingInline",
+            paddingInlineEnd: "panelPaddingInline",
+            itemSpacing: "panelGap",
+            cornerRadius: "panelRadius",
+            // 같은 사실을 두 매체가 다른 어휘로 적는 축이다 — CSS 는 flex-direction 으로
+            // column/row 라 쓰고 Figma 는 layoutMode 로 VERTICAL/HORIZONTAL 이라 쓴다.
+            // 기록에는 코드 값만 두고 변환은 계약이 진다.
+            layoutMode: { enum: "panelLayout", table: { column: "VERTICAL", row: "HORIZONTAL" } },
+            // **최소 높이는 계약 밖이다.** Figma 는 minHeight 에 0 을 넣지 못하고(플러그인 API 가
+            // 거부한다) null 로 두면 되읽기에서 통째로 빠진다. 그래서 area 쪽에 「하한 없음」을
+            // 적을 자리가 없고, spark 의 92 만 걸면 area 는 아무 값이나 가져도 통과한다.
+            // 한 방향만 재느니 축을 통째로 빼고 코드 쪽에서 두 칸을 다 잰다
+            // (chart-card.browser.test.tsx). 기록의 spark.panelMinHeight 가 그 사실을 소유한다.
+          },
+        },
+        Value: { fields: { fontSize: "valueFontSize" } },
+        Delta: {
+          fields: {
+            paddingBlock: "deltaPaddingBlock",
+            paddingBlockEnd: "deltaPaddingBlock",
+            paddingInline: "deltaPaddingInline",
+            paddingInlineEnd: "deltaPaddingInline",
+            cornerRadius: "deltaRadius",
+          },
+        },
+        // 넓은 곡선 슬롯. area 의 default 변형에만 있고, 담는 값은 **비율이 만드는 높이의
+        // 하한**이다 — 비율(4:1)은 Figma 가 표현하지 못한다.
+        Chart: { optional: true, fields: { height: "chartMinHeight" } },
+        Spark: { optional: true, fields: { height: "sparkHeight", width: "sparkWidth" } },
+      },
+    },
+  },
+  // ── 변형 프레임 — 크롭 창과 선택 상자가 한 벌이다 ─────────────────────────
+  // 제품에 같은 조형이 **넷** 있고 셋이 서로 다른 규범이었다(DS-D-0060). 값의 출처와 어느
+  // 실측을 왜 버렸는지는 `figma/components.measured.json` 의 transform-frame 이 칸마다 적는다.
+  {
+    id: "transform-frame",
+    figmaName: "TransformFrame",
+    figmaAhead:
+      "React 표면 없음 — packages/css/src/component/transform-frame.css 가 정본이다.",
+    variantProperties: {},
+    figmaOnlyProperties: {
+      Handles: {
+        options: ["corners", "corners-and-edges"],
+        reason:
+          "**내놓는 손잡이 벌이 갈린다.** 여덟 자리(nw·n·ne·e·se·s·sw·w)는 축이 아니라 이름표이고, 갈리는 것은 변 넷을 함께 내놓느냐 하나뿐이다. 비율이 잠기면 변 손잡이가 사라진다 — 변을 혼자 끌면 비율을 지키느라 반대 축도 움직여 「한쪽만 줄인 게 아니다」가 되기 때문이고, 제품 두 구현이 이미 그 규칙을 갖고 있다. 그래서 Ratio 를 따로 열지 않는다: 두 축을 다 열면 실현되지 않는 칸이 둘 생긴다. **값이 소문자에 하이픈인 것은 CSS 속성값과 같은 철자를 쓰기 위해서다** — Alert 의 `Layout=block` 과 같은 규칙이다.",
+      },
+      Grid: {
+        type: "BOOLEAN",
+        reason:
+          "삼분할 안내선의 유무. 크롭 창은 그것을 늘 그리고(ClipCropModal) 선택 상자는 그리지 않는다(PreviewOverlayLayer) — 같은 프레임의 슬롯이지 기하를 바꾸는 축이 아니라 §3 대로 BOOLEAN 이다. **두 변형 모두에 노드가 있고 마스터에서 켜져 있다**: 한 변형에서만 숨기면 불리언이 세트 단위라 다른 변형의 그 슬롯까지 사라진다.",
+      },
+    },
+    // 프레임과 손잡이가 **같은 두께**를 쓰는 것이 계약이다. 그래서 실측에 두께 키가 하나뿐이고
+    // 네 역할이 같은 키를 가리킨다 — 손잡이만 굵어지면 여덟 자리가 창보다 무거워진다.
+    strokes: {
+      self: { weight: "borderWidth", align: "INSIDE" },
+      HandleCorner: { weight: "borderWidth", align: "INSIDE" },
+      HandleEdgeH: { weight: "borderWidth", align: "INSIDE" },
+      HandleEdgeV: { weight: "borderWidth", align: "INSIDE" },
+    },
+    // 그림자도 흐림도 없다. 창 안쪽은 매체가 그대로 보여야 하고, 손잡이는 자기 면과 링만으로
+    // 어떤 사진 위에서도 선다 — 그림자로 대비를 벌면 그 사실이 흐려진다.
+    effects: {},
+    geometry: {
+      measuredId: "transform-frame",
+      // **폭과 높이를 보지 않는다.** 이 프레임의 크기는 사용자가 끄는 크롭 창의 크기다.
+      // 표본의 240×160 을 계약에 넣으면 다음 사람이 그것을 규격으로 읽는다.
+      fields: {
+        cornerRadius: "radius",
+        // 손잡이가 변의 바깥으로 절반 나가므로 흐름 배치가 성립하지 않는다.
+        layoutMode: { literal: "NONE" },
+      },
+      slots: {},
+      extraStrokeWeights: [],
+      parts: {
+        // 안내선 묶음은 값을 비운다 — 크기가 곧 창의 크기라 계약이 아니다. 자손 자체는
+        // 선언해야 「계약에 없는 자손」으로 걸리지 않는다(StepTile 의 Caption 과 같다).
+        Grid: { fields: {} },
+        GridLineV: { fields: { width: "gridLineWidth" } },
+        GridLineH: { fields: { height: "gridLineWidth" } },
+        HandleCorner: {
+          fields: {
+            width: "handleSize",
+            height: "handleSize",
+            cornerRadius: "handleRadius",
+          },
+        },
+        // **필드 순서가 계약이다.** `optional` 은 `Object.values(fields)[0]` 이 가리키는 실측
+        // 키가 그 size 에 없을 때만 자손의 부재를 통과시킨다. `handleSize` 를 앞에 두면 그
+        // 키는 corners 에도 있어서 「없어야 하는데 값이 남았다」와 구분되지 않는다 — 두
+        // 항목 모두 `edgeHandleLength` 를 첫 칸에 둔다.
+        HandleEdgeH: {
+          optional: true,
+          fields: {
+            width: "edgeHandleLength",
+            height: "handleSize",
+            cornerRadius: "handleRadius",
+          },
+        },
+        HandleEdgeV: {
+          optional: true,
+          fields: {
+            height: "edgeHandleLength",
+            width: "handleSize",
+            cornerRadius: "handleRadius",
+          },
+        },
+      },
+    },
+  },
 ];
 
 // 아이콘 계약 (DS-D-0008). component set이 아니라 개별 component이므로 COMPONENT_CONTRACTS와
@@ -3194,7 +4073,15 @@ function compareComponentGeometry(contract, got) {
         let want;
         if (typeof rule === "string") want = spec[rule];
         else if (Array.isArray(rule)) want = rule.reduce((total, key) => total + spec[key], 0);
-        else if (Array.isArray(rule?.set)) {
+        else if (typeof rule?.enum === "string") {
+          // **root 의 같은 `enum` 규칙.** 위 주석이 「규칙은 root 의 fields 와 같다」고 적는데
+          // 실제로는 여기에 `enum` 이 없었다 — root 에만 있었고 이 자리는 따라오지 않았다.
+          // 그래서 「자손의 방향이 축에서 갈린다」를 계약으로 적을 수 없었고, 적으면
+          // "근거 값이 없습니다" 로 떨어졌다. `set` 이 DS-D-0049 에서 같은 이유로 따라온
+          // 선례가 있다. 표에 없는 코드 값은 undefined 가 되어 아래에서 걸린다 —
+          // 조용히 통과하는 길이 없다.
+          want = rule.table[spec[rule.enum]];
+        } else if (Array.isArray(rule?.set)) {
           // **root와 같은 `set` 규칙.** 위 주석이 「규칙은 root의 fields와 같다」고 적는데
           // 실제로는 여기에 `set`이 없었다 — root에만 나중에 붙었고 이 자리는 따라오지
           // 않았다. 그래서 「한 축이 이 자손의 필드를 바꾼다」를 계약으로 적을 수 없었고,
@@ -3840,6 +4727,17 @@ function tamperComponentHeight(document) {
     const geometry = document.components?.[contract.figmaName]?.geometry;
     const size = Object.keys(geometry ?? {})[0];
     if (size === undefined) continue;
+    // **높이를 담지 않는 컴포넌트가 있다.** TransformFrame 의 프레임 크기는 사용자가 끄는
+    // 영역의 크기라 계약이 아니고, 그래서 되읽기가 height 를 담지 않는다. 그 항목이 배열
+    // 앞쪽에 오면 이 카나리아가 `undefined[0]` 으로 **터졌다** — 게이트가 실패가 아니라
+    // 크래시를 낸다. 담는 첫 컴포넌트로 넘어간다: 검출력은 그대로다(어느 하나만 잡으면 된다).
+    if (!Array.isArray(geometry[size].height) || geometry[size].height.length === 0) continue;
+    // **높이를 담지 않는 계약이 있다.** 채취 명세가 `fields` 를 좁혀 `height` 를 빼면 이 자리의
+    // 배열이 undefined 라 `[0]` 이 던진다 — 2026-09-07 에 목록 맨 앞의 계약이 그래서 게이트가
+    // 진단 대신 스택트레이스를 냈다. 그런 계약은 **건너뛰고 다음 것을 변조한다.** 검출력을
+    // 낮추는 것이 아니다: 이 canary 가 증명하려는 것은 「높이가 어긋나면 잡힌다」이고, 높이를
+    // 재지 않는 계약에서는 증명할 것 자체가 없다.
+    if (!Array.isArray(geometry[size].height) || geometry[size].height.length === 0) continue;
     // border 두께의 두 배를 뺀다 — 실제로 났던 사고를 그대로 재현한다.
     geometry[size].height = [geometry[size].height[0] - 2];
     return `component 프레임 높이 변조 ${contract.figmaName}.${size}`;
@@ -3946,6 +4844,8 @@ function tamperComponentPadding(document) {
     const geometry = document.components?.[contract.figmaName]?.geometry;
     const size = Object.keys(geometry ?? {})[0];
     if (size === undefined) continue;
+    // 위 tamperComponentHeight 와 같은 이유다 — 좌우 여백을 담지 않는 계약은 건너뛴다.
+    if (!Array.isArray(geometry[size].paddingInline) || geometry[size].paddingInline.length === 0) continue;
     geometry[size].paddingInline = [geometry[size].paddingInline[0] + 4];
     return `component padding 변조 ${contract.figmaName}.${size}`;
   }
@@ -4011,7 +4911,12 @@ function tamperComponentStrokeWeight(document) {
     const strokes = document.components?.[contract.figmaName]?.strokes;
     const role = Object.keys(contract.strokes ?? {}).find((key) => Array.isArray(strokes?.[key]));
     if (role === undefined) continue;
-    strokes[role] = ["2|INSIDE"];
+    // **고정값 `"2|INSIDE"` 를 쓰면 안 된다.** 계약의 테두리가 마침 2 인 컴포넌트가 목록 앞에
+    // 오면 변조가 no-op 이 되어 canary 가 「잡지 못했다」로 스스로 실패한다 — 2026-09-07 에
+    // 목록 맨 앞의 계약이 그랬다. 실제 값에서 **2 를 더해** 언제나 달라지게 만든다.
+    strokes[role] = strokes[role].map((value) =>
+      value.replace(/^[\d.]+/, (weight) => String(Number(weight) + 2)),
+    );
     return `component stroke 두께 변조 ${contract.figmaName}.${role}`;
   }
   return null;

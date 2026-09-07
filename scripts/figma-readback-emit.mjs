@@ -150,7 +150,23 @@ const CAPTURE = {
   // 나머지는 DEFAULT_FIELDS 와 같은 목록·같은 순서이고, `minWidth` 는 MenuPanel 이 이미 쓰는
   // 자리(cornerRadius 다음)에 넣는다.
   "Button": {"key":{"by":["Size"]},"fields":["height","width","paddingBlock","paddingBlockEnd","paddingInline","paddingInlineEnd","itemSpacing","cornerRadius","minWidth","layoutMode","strokeWeight"],"slots":{"LeftIcon":"size","RightIcon":"size","Spinner":"size"},"strokes":["Spinner","self"],"effects":["self"],"childOrder":true},
+  // 캔버스 연결선(엣지). **기하 필드가 셋뿐인 것은 빠뜨린 것이 아니다** — 엣지의 좌표는 두
+  // 핸들이 정하는 데이터이고 Figma 변형은 그것을 그려 보이는 시편이다. 계약이 되는 것은 획
+  // 두께와 톤 어휘뿐이라 `strokes:["Line"]` 이 그 둘을 담는다.
+  // `strokeWeight` 를 fields 에 넣지 않는다 — 채취 규칙 3 이 VECTOR 의 두께를 두께 집합에서
+  // 빼기 때문이고(엣지는 테두리가 아니라 그림이다), 그래서 그 축은 역할로만 담긴다.
+  "CanvasEdge": {"key":{"name":"base"},"fields":["width","height","layoutMode"],"parts":{"Line":["width","height"]},"strokes":["Line"]},
   "CarouselArrow": {"key":{"name":"base"},"parts":{"Caret":["width","height"],"glyph":["width","height"]},"strokes":["glyph"],"effects":["self"]},
+  // **차트 부류의 첫 항목이다.** 51종에 차트가 하나도 없어서 이 명세에는 선례가 없다.
+  // 키가 크기가 아니라 **차트가 붙는 자리**(`Chart`)인 것은 그 축이 안쪽 면의 방향·여백·
+  // 최소 높이와 헤더 간격을 통째로 가르기 때문이다 — Alert 의 `Layout` 과 같은 판단이다.
+  // `State`(default·insufficient·loading)는 키에 넣지 않는다. 세 상태는 **슬롯에 무엇이
+  // 들어가는가**이지 액자의 값이 아니라서, 키에 넣으면 같은 값이 세 번 담기고 한 칸만
+  // 어긋나도 그 사실이 배열 길이가 아니라 키 이름에 숨는다.
+  // `Panel.minHeight` 는 **담지 않는다.** Figma 는 minHeight 에 0 을 넣지 못하고 null 로 두면
+  // 되읽기에서 통째로 빠지므로 area 의 「하한 없음」을 적을 자리가 없다. 한 칸만 담으면
+  // area 가 아무 값이나 가져도 통과하므로 축을 통째로 뺐다 — 코드 쪽은 브라우저 시험이 잰다.
+  "ChartCard": {"key":{"by":["Chart"]},"fields":["paddingBlock","paddingBlockEnd","paddingInline","paddingInlineEnd","itemSpacing","cornerRadius","layoutMode","strokeWeight"],"parts":{"Header":["paddingBlock","paddingBlockEnd","paddingInline","paddingInlineEnd","itemSpacing"],"Label":["fontSize"],"Meta":["fontSize"],"Panel":["paddingBlock","paddingBlockEnd","paddingInline","paddingInlineEnd","itemSpacing","cornerRadius","layoutMode"],"Value":["fontSize"],"Delta":["paddingBlock","paddingBlockEnd","paddingInline","paddingInlineEnd","cornerRadius"],"Chart":["height"],"Spark":["width","height"]},"effects":["self","Panel"]},
   "Checkbox": {"key":{"name":"base"},"parts":{"Box":["width","height","cornerRadius"],"Check":["width","height"],"Dash":["width","height","cornerRadius"],"Label":["width","height","fontSize"]},"strokes":["Box","Check"]},
   // CompositePopover 는 MenuPanel 과 같은 표면인데 **minWidth 를 담지 않는다.** Figma 의
   // minWidth 가 `null` 이라(실측 2026-08-30) 채취하면 빈 배열이 되고, parity 는 빈 배열을
@@ -174,8 +190,19 @@ const CAPTURE = {
   "EmptyState": {"key":{"by":["Layout"]},"fields":["width","height","paddingBlock","paddingBlockEnd","paddingInline","paddingInlineEnd","itemSpacing","cornerRadius","counterAxisAlignItems","layoutMode","strokeWeight"],"parts":{"Graphic":["width","height"],"Title":["width","height","fontSize","lineHeightPercent"],"Description":["width","height","fontSize","lineHeightPercent"],"Action":["width","height","paddingBlock","itemSpacing","layoutMode"]},"strokes":["self"]},
   "FaqRow": {"key":{"by":["Expanded","Size"]},"parts":{"Question":["width","height","paddingBlock","paddingBlockEnd","paddingInline","paddingInlineEnd","itemSpacing"],"QuestionText":["width","height","fontSize","lineHeightPercent"],"Icon":["width","height"],"Glyph":["fontSize"]}},
   "FormMessage": {"key":{"by":["Tone"]},"parts":{"Message":["width","height","fontSize"]}},
+  // 떠 있는 알약 셸 — 변형이 없다(단일 COMPONENT). 폭은 담지 않는다: 안에 몇 조각이 서느냐가
+  // 정하는 값이라 셸의 선언이 아니다. `Item 1~3` 은 INSTANCE 라 훑기가 그 안으로 들어가지
+  // 않고 겉 크기와 곡률만 담긴다 — 그 자리에 무엇이 오는지는 호출부가 정한다.
+  "FloatingShell": {"key":{"name":"shell"},"fields":["height","paddingBlock","paddingBlockEnd","paddingInline","paddingInlineEnd","itemSpacing","cornerRadius","layoutMode","strokeWeight"],"slots":{"Item 1":"size","Item 2":"size","Item 3":"size"},"parts":{"Item 1":["cornerRadius"],"Item 2":["cornerRadius"],"Item 3":["cornerRadius"]},"effects":["self"]},
   // `Glyph.glyph` 를 뺐다(2026-09-01) — Button 과 같은 이유다. 위 Button 주석이 근거를 갖는다.
   "IconButton": {"key":{"by":["Size"]},"slots":{"Glyph":"size"},"strokes":["self"]},
+  // 인스펙터 «행 문법» 두 벌. 값 형태 넷은 한 키(row)에 모은다 — 행의 기하는 형태와 무관하게
+  // 같아야 하고, 배열이 길어지면 그 사실이 깨졌다는 뜻이 된다. 값 자리의 자손(Dot·Pill·Number)은
+  // 각각 한 변형에만 있어 배열에 값이 하나씩 담긴다 — 없는 것이 아니라 그 형태에만 있는 것이다.
+  "InspectorRow": {"key":{"name":"row"},"fields":["height","width","paddingBlock","paddingBlockEnd","paddingInline","paddingInlineEnd","itemSpacing","cornerRadius","layoutMode","strokeWeight"],"parts":{"Label":["fontSize"],"Value":["itemSpacing"],"ValueText":["fontSize"],"Dot":["width","height"],"Pill":["height","cornerRadius","itemSpacing","paddingInline","paddingInlineEnd","paddingBlock","paddingBlockEnd"],"Number":["width","height","cornerRadius","paddingInline","paddingInlineEnd","paddingBlock","paddingBlockEnd"]},"strokes":["Pill"]},
+  // 절 머리는 폭·높이를 담지 않는다 — 둘 다 제목 문구와 오른쪽 묶음이 만드는 값이지 이
+  // 컴포넌트의 선언이 아니다. 담으면 로케일이 바뀔 때마다 게이트가 깨진다.
+  "InspectorSectionHead": {"key":{"name":"head"},"fields":["paddingBlock","paddingBlockEnd","paddingInline","paddingInlineEnd","itemSpacing","cornerRadius","layoutMode","strokeWeight"],"parts":{"Title":["fontSize"],"Tail":["itemSpacing"],"Meta":["fontSize"],"Action":["width","height","cornerRadius"],"ActionGlyph":["width","height"]}},
   "InlineLoadingLabel": {"key":{"by":["Size","Loading"]},"slots":{"Slot":"size"},"parts":{"Label":["width","height","fontSize","lineHeightPercent"],"Slot":["width","height"]}},
   "Keycap": {"key":{"by":["Kind"]},"parts":{"Label":["width","height","fontSize"]},"effects":["self"]},
   "MediaCard": {"key":{"name":"base"},"slots":{"Glyph":"size"},"parts":{"TopBar":["width","height","paddingBlock","paddingBlockEnd","paddingInline","paddingInlineEnd"],"Badge":["height","paddingBlock","paddingBlockEnd","paddingInline","paddingInlineEnd","cornerRadius"],"BadgeLabel":["fontSize","lineHeightPercent"],"InfoBar":["width","height","paddingBlock","paddingBlockEnd","paddingInline","paddingInlineEnd","itemSpacing","layoutMode"],"NameRow":["height","itemSpacing"],"Title":["fontSize","lineHeightPercent"],"Description":["fontSize","lineHeightPercent"]},"effects":["Badge","InfoBar"]},
@@ -191,8 +218,22 @@ const CAPTURE = {
   "MenuSeparator": {"key":{"name":"panel"}},
   "GnbMenuItem": {"key":{"by":["Surface","State"]},"fields":["height","width","paddingBlock","paddingBlockEnd","paddingInline","paddingInlineEnd","itemSpacing","cornerRadius","layoutMode","strokeWeight","opacity"],"parts":{"Label":["width","height","fontSize","lineHeightPercent"]}},
   "NodeChip": {"key":{"by":["Shape"]},"slots":{"Glyph":"size"},"parts":{"Glyph":["width","height"],"Label":["width","height","fontSize"]},"effects":["self"]},
+  // 노드 크롬 버튼 — 면이 상태로 갈리고 Disabled 는 **불투명도**로만 갈린다. 그래서 기본 필드에
+  // 없는 `opacity` 를 명시로 넣는다(GnbMenuItem 과 같은 이유).
+  "NodeChromeButton": {"key":{"by":["Tone","State"]},"fields":["height","width","paddingBlock","paddingBlockEnd","paddingInline","paddingInlineEnd","itemSpacing","cornerRadius","layoutMode","strokeWeight","opacity"],"slots":{"Glyph":"size"},"parts":{"Glyph":["width","height"]}},
+  // 노드 셸 — 채색이 갈리는 것은 카드 stroke 하나뿐이라 stroke 역할은 `Card` 다(`self` 아님).
+  // 헤더는 카드 **바깥**에 있고 컨테이너 gap 이 그 사이를 정한다.
+  "NodeShell": {"key":{"by":["Accent","Selected"]},"fields":["height","width","paddingBlock","paddingBlockEnd","paddingInline","paddingInlineEnd","itemSpacing","cornerRadius","layoutMode","strokeWeight"],"slots":{"TypeGlyph":"size"},"parts":{"HeaderRow":["width","height","paddingInline","paddingInlineEnd","itemSpacing","layoutMode","primaryAxisAlignItems"],"Title":["width","height","itemSpacing","layoutMode"],"TypeGlyph":["width","height"],"Label":["height","fontSize","lineHeightPercent"],"Actions":["width","height","itemSpacing","children"],"Card":["width","height","cornerRadius","layoutMode"],"Body":["width","height"]},"strokes":["Card"]},
+  // 사이드 핸들 — 셸은 투명하고 채색은 Facet 이 갖는다. 이너 섀도(overlay 블렌드)도 Facet 이다.
+  "NodeSideHandle": {"key":{"by":["Channel"]},"slots":{"Glyph":"size"},"parts":{"Facet":["width","height","cornerRadius"],"Glyph":["width","height"]},"effects":["Facet"]},
   "NewsCard": {"key":{"by":["Featured"]},"parts":{"Body":["width","height","paddingBlock","paddingBlockEnd","paddingInline","paddingInlineEnd","itemSpacing"],"Date":["width","height","fontSize"],"Headline":["width","height","fontSize","lineHeightPercent"]}},
   "PaneDivider": {"key":{"by":["Orientation","State"]},"parts":{"Grip":["width","height","cornerRadius","opacity"]}},
+  // 알약 트리거 — 세 상태의 기하가 **전부 같다.** 갈리는 것은 면의 알파(72 → 88)와 캐럿의
+  // 향뿐이고 둘 다 되읽기의 필드가 담지 않는다(NodeChromeButton 의 Default/Hover 와 같은 자리).
+  // 폭은 담지 않는다 — 배율 문구가 정하는 값이라 이 파일의 `$whyNotTextWidth` 가 이미 계약 밖에
+  // 둔 종류다. 라벨은 `fontSize` 만 담는다: 높이는 leading-1 텍스트 스타일이 정하고 알약 높이는
+  // 고정 36 이라 라벨이 기하를 만들지 않는다.
+  "PillTrigger": {"key":{"by":["State"]},"fields":["height","paddingBlock","paddingBlockEnd","paddingInline","paddingInlineEnd","itemSpacing","cornerRadius","layoutMode","strokeWeight"],"parts":{"Label":["fontSize"],"Caret":["width","height","opacity"]},"effects":["self"]},
   "ProgressBar": {"key":{"name":"base"},"parts":{"Fill":["width","height","cornerRadius","layoutMode"]}},
   "ProgressRing": {"key":{"name":"base"},"parts":{"Track":["width","height"],"Content":["width","height"]}},
   // `Rename` 은 **반경 하나만** 담는다(2026-09-03, DS-D-0050). 이름 변경 상자는 크롬이 없어
@@ -203,7 +244,20 @@ const CAPTURE = {
   "SegmentedControl": {"key":{"by":["Size"]},"slots":{"Item 1":"size","Item 2":"size","Item 3":"size"},"parts":{"Item 1":["width","height"],"Item 2":["width","height"],"Item 3":["width","height"]},"effects":["self"]},
   "SegmentedControlItem": {"key":{"by":["Size"]},"parts":{"Label":["width","height","fontSize"],"FocusRing":["width","height"]},"strokes":["FocusRing"],"outsideParts":["FocusRing"]},
   "SegmentedCodeInput": {"key":{"by":["State"]},"parts":{"Cell 1":["width","height","cornerRadius"],"Separator":["width","height"],"Dash":["fontSize"],"Char":["height","fontSize"]},"strokes":["Cell 1"]},
+  // **폭·높이를 담지 않는다.** 이 컴포넌트의 프레임 치수는 데모 문구의 길이가 정하므로,
+  // 담으면 시안의 예시 글을 한 글자 고칠 때마다 되읽기가 흔들리는데 대조하는 계약은 없다.
+  // 담을 값은 자손의 타이포와 세 간격이고, 그 셋이 이 머리가 소유하는 전부다.
+  // `counterAxisAlignItems` 를 담는 이유는 EmptyState 와 같다 — 정렬이 가장 눈에 띄는 값인데
+  // 담는 자리가 없으면 Figma 가 가운데 정렬로 그려도 게이트가 초록이다.
+  "SectionHeader": {"key":{"by":["Level"]},"fields":["paddingBlock","paddingBlockEnd","paddingInline","paddingInlineEnd","itemSpacing","cornerRadius","counterAxisAlignItems","layoutMode"],"parts":{"Text":["itemSpacing","layoutMode"],"Title":["fontSize","lineHeightPercent"],"Description":["fontSize","lineHeightPercent"],"Meta":["fontSize","lineHeightPercent"],"Actions":["itemSpacing","layoutMode"]}},
   "SelectableListRow": {"key":{"name":"base"},"parts":{"Marker":["width","height","cornerRadius"],"Media":["width","height","cornerRadius"],"Text":["width","height","itemSpacing","cornerRadius"],"Title":["width","height","fontSize"],"Meta":["width","height","fontSize"],"Trailing":["width","height","fontSize"]}},
+  // Size 축이 키다. 두 칸(sm 24 · md 32)이 모두 제품 실측 자리를 갖는다 — 계약의 select.sizes 와
+  // 같은 축이다. `Glyph` 는 MenuTrigger 와 같은 빈 슬롯이고 `Caret` 은 icon/caret-down 인스턴스를
+  // 담은 12 정사각이다. 규칙 1 대로 INSTANCE 안으로는 들어가지 않으므로 캐럿 획은 여기 담기지
+  // 않는다 — 그 정본은 아이콘 manifest 이고 compareIcons 가 따로 잰다.
+  // `effects:["self"]` 는 헤어라인을 담는다. 규범이 stroke 가 아니라 INNER_SHADOW 로 그리라고
+  // 정했고(figma-component-authoring.md, DS-D-0023) 여덟 변형이 전부 그것을 갖는다.
+  "SelectTrigger": {"key":{"by":["Size"]},"parts":{"Glyph":["width","height"],"Caret":["width","height"]},"effects":["self"]},
   "SidebarBrand": {"key":{"by":["Collapsed"]},"fields":["strokeWeight","width","height","cornerRadius","layoutMode","paddingInline","paddingInlineEnd","paddingBlock","paddingBlockEnd","itemSpacing"],"parts":{"Mark":["width","height"],"Wordmark":["width","height"]}},
   "SidebarCta": {"key":{"by":["Collapsed"]},"parts":{"Label":["width"]},"effects":["self"]},
   "SidebarNavItem": {"key":{"name":"navItem"},"parts":{"Icon":["width","height"]}},
@@ -211,6 +265,11 @@ const CAPTURE = {
   "Skeleton": {"key":{"by":["Shape"]}},
   "Slider": {"key":{"by":["Size","Variant"]},"parts":{"Label":["width","height","fontSize","lineHeightPercent"],"Control":["width","height"],"Rail":["width","height"],"Fill":["width","height"],"Thumb":["width","height"]},"strokes":["Thumb"],"outsideParts":["FocusRing"]},
   "Spinner": {"key":{"by":["Size"]},"fields":["width","height","strokeWeight"],"parts":{"Track":["width","height"],"Arc":["width","height"]}},
+  // 높이·폭을 담지 않는다. 폭은 격자 트랙이 정하고(StepTile 과 같은 판정) 높이는 힌트와
+  // 알약의 유무가 정하므로, 담으면 `Delta=none` 변형 때문에 배열이 길어져 「변형마다 다르다」로
+  // 거짓 실패한다. 크기 축이 실제로 가르는 것은 값의 글자 크기와 행간 둘뿐이고 그 둘은
+  // `Value` 자손이 나른다.
+  "StatTile": {"key":{"by":["Size"]},"fields":["paddingBlock","paddingBlockEnd","paddingInline","paddingInlineEnd","itemSpacing","cornerRadius","layoutMode","strokeWeight"],"parts":{"Label":["fontSize","lineHeightPercent"],"Value":["fontSize","lineHeightPercent"],"Hint":["fontSize","lineHeightPercent"],"Delta":["paddingBlock","paddingBlockEnd","paddingInline","paddingInlineEnd","cornerRadius"],"DeltaLabel":["fontSize"]},"effects":["self"]},
   "StepTile": {"key":{"name":"base"},"slots":{"Description":"present"},"parts":{"Tile":["width","height","cornerRadius"],"Caption":["width","height","itemSpacing","layoutMode"],"Label":["width","height","fontSize","lineHeightPercent"],"Description":["width","height","fontSize","lineHeightPercent"]}},
   "Switch": {"key":{"by":["Checked"]},"parts":{"Thumb":["width","height"]},"effects":["Thumb"]},
   "TabItem": {"key":{"by":["State"]},"parts":{"Label":["width","height","fontSize"]}},
@@ -225,6 +284,18 @@ const CAPTURE = {
   "TextField": {"key":{"by":["Size","LabelBehavior","Join"],"omit":{"Join":"none"}},"parts":{"Box":["height","width","paddingBlock","paddingBlockEnd","paddingInline","paddingInlineEnd","itemSpacing","topLeftRadius","bottomLeftRadius","layoutMode"],"Label":["height","width","fontSize","lineHeightPercent"],"Value":["height","width","fontSize","lineHeightPercent"],"Message":["height","width","fontSize","lineHeightPercent"]},"strokes":["Box"]},
   "Toast": {"key":{"by":["Layout"]},"effects":["self"],"parts":{"Content":["itemSpacing"],"Action":["height","cornerRadius","paddingBlock","paddingBlockEnd","paddingInline","paddingInlineEnd"]}},
   "Tooltip": {"key":{"by":["Layout"]},"parts":{"Arrow":["width","height"],"Tail":["width","height"],"Stack":["itemSpacing"]},"strokes":["self"],"effects":["self"],"outsideParts":["Arrow","Tail"]},
+  // **손잡이 여덟 자리는 축이 아니라 슬롯이고, 축은 «어느 벌을 내놓는가» 하나다**(DS-D-0060).
+  // 그래서 키가 `Handles` 다. 네 모서리는 이름이 하나(`HandleCorner`)로 겹치는데, 채취가 같은
+  // 이름의 값을 한 자루에 모아 중복을 접으므로 넷이 어긋나면 배열이 길어져 그 사실이 보인다 —
+  // 이름을 넷으로 가르면 같은 값이 네 번 계약된다.
+  //
+  // `fields` 를 손으로 적는다. **폭·높이를 담지 않기 위해서다** — 이 프레임의 크기는 사용자가
+  // 끄는 크롭 창의 크기이지 계약이 아니고, 표본의 240×160 을 담으면 다음 사람이 그것을 규격으로
+  // 읽는다. `strokeWeight` 는 목록에 있어야 자루의 두께 배열이 나온다(채취 코드의 특례).
+  //
+  // 손잡이는 **일부러** 변의 바깥으로 절반 나간다 — 잡는 곳이 창 안쪽에 있으면 창의 마지막
+  // 몇 px 을 손가락이 덮는다. 그래서 셋 다 `outsideParts` 다.
+  "TransformFrame": {"key":{"by":["Handles"]},"fields":["cornerRadius","layoutMode","strokeWeight"],"parts":{"Grid":["width","height"],"GridLineV":["width"],"GridLineH":["height"],"HandleCorner":["width","height","cornerRadius"],"HandleEdgeH":["width","height","cornerRadius"],"HandleEdgeV":["width","height","cornerRadius"]},"strokes":["self","HandleCorner","HandleEdgeH","HandleEdgeV"],"outsideParts":["HandleCorner","HandleEdgeH","HandleEdgeV"]},
   "VideoPlayer": {"key":{"name":"base"},"parts":{"Video (placeholder)":["width","height"],"Scrim (opacity 0)":["width","height"],"Center chrome":["width","height"],"Bottom chrome":["width","height"]},"strokes":["Vector"],"effects":["Skip back 10s","Play","Skip forward 10s","Progress pill","Expand"]},
 };
 

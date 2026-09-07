@@ -1,0 +1,231 @@
+---
+id: select
+status: experimental
+authority: normative
+summary: 목록에서 값 하나를 골라 지금 값을 스스로 보여 줍니다.
+---
+
+# Select
+
+값 하나를 고르는 컨트롤이다. 트리거가 지금 골라져 있는 값을 스스로 말하고, 누르면 값 목록을
+연다. 이 문서는 과거 구현의 평균이 아니라 이 저장소가 유지할 **목표 계약**이다.
+
+이 컴포넌트는 2026-08-18 에 `not-planned` 로 닫혀 있었고
+[DS-D-0053](../governance/decisions/DS-D-0053-select-is-not-a-menu.md)이 그 판정을 뒤집었다.
+무엇이 맞았고 무엇이 틀렸는지는 그 결정이 갖는다.
+
+## Availability
+
+| Surface       | 상태           | 근거                                                                 |
+| ------------- | -------------- | -------------------------------------------------------------------- |
+| Web           | `partial`      | CSS 레시피만 있고 React 표면은 없다. 정본은 select.css 의 `.louis-select-trigger` |
+| Figma         | `done`         | `SelectTrigger` component set 8 variant(Size × State). 계약이 모든 property 를 pin 하고 기하가 붙었다. 기하는 양방향이다 — 브라우저 테스트가 코드 쪽에서 같은 실측을 되잰다. 게시 없이 판정한다([DS-D-0035](../governance/decisions/DS-D-0035-figma-done-without-publish.md)) |
+| Documentation | `done`         | 이 문서                                                              |
+| Maturity      | `experimental` | 시각 회귀와 수동 screen-reader 검토가 아직 없음                      |
+
+## 이 컴포넌트가 소유하지 않는 것
+
+**표면은 [Menu / Popover](menu-popover.md)가 소유한다.** 값 목록의 패널은 명령 메뉴의 패널과
+같은 표면이고, 항목도 같은 행이며, 「지금 값」 표시(`aria-selected`)는 2026-09-06 에 그 파일이
+이미 세웠다. 검색이 붙는 목록의 검색 필드는 [TextField](text-field.md)다 — 그 컴포넌트의
+`HasLabel` 축이 존재하는 이유가 「라벨 없는 필드가 실재한다 — 검색창이 그것이다」다.
+
+그래서 **여기서 새로 서는 것은 트리거 하나**이고, Figma 에도 component set 이 하나뿐이다.
+같은 표면을 두 번 그리지 않는다.
+
+## When to use
+
+- 값 하나를 고르는 자리. 패널이 `role="listbox"` 이고 항목이 `role="option"` 이다.
+- 옵션 수가 많아 검색이 필요한 자리(설치 글꼴 등). 검색줄은 스크롤 밖 고정 헤더다.
+
+다음에는 사용하지 않는다.
+
+- 서로 독립적인 **명령**을 여는 자리는 [Menu / Popover](menu-popover.md)의 `MenuTrigger` 다.
+  `menu` 역할로 값 선택을 흉내 내지 않고, 반대로 값 목록을 `listbox` 아닌 것으로 만들지 않는다.
+- 값이 둘뿐이면 [Switch](switch.md) 또는 [SegmentedControl](segmented-control.md)이다. 두 값을
+  고르려고 목록을 여는 것은 손이 한 번 더 간다.
+- 값이 서넛이고 늘 보여야 하면 SegmentedControl 이다.
+
+## Anatomy
+
+1. **Trigger** — 이름, `aria-expanded`, `aria-haspopup="listbox"`, 패널과의 관계를 소유한다.
+   1. **Glyph** — 선행 글리프 슬롯. 고정 치수이고 행이 좁아져도 줄지 않는다.
+   2. **Value** — 지금 골라져 있는 값. 남는 폭을 먹고 넘치면 말줄임한다.
+   3. **Caret** — 열림에서 180° 돈다. 아이콘 슬롯이 아니라 컨트롤 안의 장식이다.
+2. **Panel** — `MenuPanel` 이다. 표면·충돌 보정·스크롤 경계를 그쪽이 소유한다.
+3. **Search** — 옵션이 많은 목록에만 있는 고정 헤더. 안에 `TextField` 가 앉는다.
+4. **List** — 구르는 옵션 목록. 검색줄이 있을 때만 별도 스크롤포트가 된다.
+5. **Option** — `.louis-menu__item` 이다. 지금 값은 `aria-selected="true"` 가 면으로 표현한다.
+6. **Empty** — 검색 결과가 없을 때의 한 줄. 항목이 아니므로 `role` 을 주지 않는다.
+
+## Properties
+
+**React 표면이 없다.** 공개 계약은 prop 표가 아니라 **클래스와 속성**이고, 소비처가 그것을
+직접 문다 — Alert · Switch 와 같은 형태다. 아래가 그 전부이며, 여기 없는 것은 이 컴포넌트의
+계약이 아니다.
+
+| 계약 | 어디에 | 값 | 뜻 |
+| --- | --- | --- | --- |
+| `.louis-select-trigger` | 트리거 요소 | — | 면·경계·기하를 갖는다. `<button>` 이다 |
+| `data-size` | 트리거 | `sm` · (없음) | **없을 때가 `md`(32)** 이고 `sm` 은 24 다. Alert 의 `Layout=block` 과 같은 규칙 |
+| `aria-expanded` | 트리거 | `true` · `false` | 열림. 면을 hover 값으로 유지하고 캐럿을 180° 돌린다 |
+| `aria-haspopup` | 트리거 | `listbox` | 여는 것이 명령 메뉴가 아니라 값 목록임을 말한다 |
+| `disabled` · `aria-disabled` | 트리거 | — | 잉크만 내리고 면은 그대로 둔다. 커서가 `not-allowed` 가 된다 |
+| `.louis-select-trigger__icon` | 트리거 자식 | — | 선행 글리프 슬롯. 고정 치수라 행이 좁아져도 줄지 않는다 |
+| `.louis-select-trigger__value` | 트리거 자식 | — | 지금 값. 남는 폭을 먹고 넘치면 말줄임한다 |
+| `.louis-select-trigger__caret` | 트리거 자식 | — | 캐럿. `aria-hidden` 이고 크기 축을 따르지 않는다(두 칸 다 12) |
+| `.louis-select-search` | 패널 자식 | — | 스크롤 밖 고정 헤더. 안에 `TextField` 가 앉는다 |
+| `.louis-select-list` | 패널 자식 | — | 구르는 항목 목록. 패널 안쪽 여백을 되먹어 스크롤바가 곡률 안쪽까지 닿는다 |
+| `data-searchable` | `.louis-popover` | `true` | 검색줄이 있을 때 **패널 자신의 스크롤을 끈다** — 구르는 것은 목록이다. `:has()` 로 추론하지 않는 이유는 그러면 마크업의 우연이 이 규칙을 뒤집기 때문이다 |
+| `.louis-select-empty` | 목록 자리 | — | 결과 없음 한 줄. 항목이 아니므로 `role` 을 주지 않는다 |
+
+패널 · 항목 · 「지금 값」(`aria-selected="true"`)의 계약은 여기 없다. [Menu / Popover](menu-popover.md)가
+소유하고, 이 문서는 그것을 다시 적지 않는다.
+
+## Variants, sizes, and states
+
+`Size` 는 `md`(32) · `sm`(24) 둘이다. **속성이 없을 때가 `md`** 이고, 그 사실 자체가 계약이다 —
+Alert 의 `Layout=block` 과 같은 규칙이다.
+
+| 축 | 값 | 무엇이 갈리나 |
+| --- | --- | --- |
+| `Size` | `md` · `sm` | 높이 32 ↔ 24 · 곡률 12 ↔ 8 · 좌우 여백 12·12 ↔ 8·6 · 간격 6 ↔ 4 · 글리프 20 ↔ 16. 캐럿은 12 로 **갈리지 않는다** |
+| `State` | `Default` · `Hover` · `Open` · `Disabled` | 면과 잉크, 그리고 캐럿의 회전 |
+
+`Hover` 와 `Open` 의 **면은 같고 뜻이 다르다.** 포인터가 패널로 넘어가면 트리거가 hover 를
+잃는데, 그때 면이 돌아가면 「무엇이 열려 있는지」가 화면에서 사라진다. 둘을 가르는 것은 캐럿의
+회전이다.
+
+`Disabled` 에서 **면은 그대로 두고 잉크만 내린다.** 값 목록은 꺼져 있어도 「지금 값」을 계속
+읽혀야 하므로 상자가 사라지면 안 된다.
+
+`Disabled` 와 `Hover`·`Open` 은 곱하지 않는다 — 꺼진 트리거 위에서 그 둘이 서지 않으므로
+한 축으로 접었다(figma-component-authoring.md 의 접기 시험).
+
+## States
+
+네 칸이고 **면과 잉크 두 겹만 움직인다.** 기하는 네 칸에서 같다 — 상태가 크기를 바꾸면 트리거가
+격자에서 흔들린다.
+
+| 상태 | 면 | 잉크 | 그 밖에 |
+| --- | --- | --- | --- |
+| `Default` | `color-bg-inset` | `color-fg-primary` | 트리거가 **쉼 상태에서도 면을 갖는다.** `MenuTrigger` 와 갈리는 자리이고, 값 목록은 「지금 무엇이 골라져 있는가」를 늘 보여야 하기 때문이다 |
+| `Hover` | `color-accent-secondary-hover` | 그대로 | 면 위 한 칸. ghost 8% 가 아닌 이유는 이미 면이 있어 8% 가 거의 움직이지 않아서다 |
+| `Open` | **`Hover` 와 같다** | 그대로 | 캐럿이 180° 돈다. 포인터가 패널로 넘어가면 트리거는 hover 를 잃는데, 그때 면이 돌아가면 「무엇이 열려 있는지」가 화면에서 사라진다 |
+| `Disabled` | **`Default` 와 같다** | `color-fg-disabled` | 커서 `not-allowed`. 꺼져 있어도 「지금 값」은 읽혀야 하므로 상자가 사라지면 안 된다 |
+
+**두 쌍이 면을 공유한다.** `Hover`·`Open` 은 같은 면이고 캐럿의 회전이 가르며, `Default`·
+`Disabled` 는 같은 면이고 잉크가 가른다. 그래서 이 네 칸은 「면 두 값 × 잉크 두 값」이 아니라
+서로 다른 두 축이 한 줄로 접힌 것이다 — `Disabled` 와 `Hover`·`Open` 을 곱하지 않는 이유가
+이것이다(꺼진 트리거 위에서 그 둘은 서지 않는다).
+
+`forced-colors: active` 에서 헤어라인(box-shadow)이 사라지므로 `currentColor` 실선 하나를
+되살리고, 꺼진 트리거의 잉크를 `GrayText` 로 옮긴다. 저작 색은 강제로 치환되므로 **사라지는
+것만** 되살린다.
+
+면에는 전이가 걸려 있다. 상태를 재는 시험이 hover 직후의 계산값을 그대로 읽으면 목표색이
+아니라 보간 중인 색을 잡는다 — 아래 Acceptance tests 4 가 그 함정을 안고 쓰였다.
+
+## Interaction and responsive behavior
+
+- 트리거는 `aria-haspopup="listbox"` · `aria-expanded` 를 갖는다. 패널은 `role="listbox"`,
+  항목은 `role="option"` + `aria-selected` 다.
+- 열림·닫힘·충돌 보정·바깥 클릭·Escape 는 [Menu / Popover](menu-popover.md)의 overlay 계약을
+  그대로 따른다. Select 가 자기 규칙을 따로 갖지 않는다.
+- 검색이 켜지면 열릴 때 포커스가 검색 필드로 간다. 닫히면 검색어를 버린다.
+- 폭은 호출부가 정한다. 값이 남는 폭을 먹으므로 좁아지면 값이 먼저 말줄임되고 캐럿은 줄지 않는다.
+
+## Content
+
+- 값 라벨은 **명사**다. 「선택하세요」 같은 안내문을 값 자리에 넣지 않는다 — 값이 없는 상태가
+  필요하면 placeholder 를 별도로 정의한다(현재 계약에 없다).
+- 검색 결과 없음 문구는 **무엇을 찾지 못했는지**를 말한다. KO 「검색 결과가 없습니다」 /
+  EN “No results”.
+
+## Accessibility
+
+- 트리거의 accessible name 은 호출부가 준다. 값만으로는 「무엇의 값인지」가 서지 않는다.
+- 캐럿은 `aria-hidden` 이다. 열림·닫힘은 `aria-expanded` 가 말한다.
+- **포커스 링을 지우지 않는다.** 제품의 여러 자리가 `outline: none` 을 쓰는데 그것은 채택할
+  사양이 아니라 결손이라, `base.css` 의 링이 그대로 산다.
+- `sm`(24)은 WCAG 2.2 AA 의 24×24 를 만족하고 AAA(44)에는 미달한다 — `TextField` 의 sm 과 같은
+  알려진 편차이며, 편집 표면의 도구 줄에서만 쓴다.
+- 캐럿 회전은 `prefers-reduced-motion` 에서 지속시간을 줄인다. 회전 자체는 남는다 — 그것이
+  상태를 말하는 유일한 시각 신호이기 때문이다.
+
+## Specification
+
+값의 정본은 `figma/components.measured.json` 의 `select` 칸이고, 각 값의 사유를 `$` 주석이 갖는다.
+
+| Part/state | Token or recipe | 구현 근거 |
+| ---------- | --------------- | --------- |
+| 트리거 높이 md | `layout-control-height-md` | 32. Gnb 프로필 언어 · ComposerBar 모델 |
+| 트리거 높이 sm | `layout-control-height-sm` | 24. VideoEditModal 프리뷰 줌 칩 |
+| 곡률 md · sm | `radius-control` · `radius-control-sm` | 12 · 8 |
+| 좌우 여백 md | `space-control-md` | 12 · 12 (대칭) |
+| 좌우 여백 sm | `space-control-sm` · `space-overlay-inset` | 8 · 6 (비대칭) |
+| 간격 md · sm | `space-overlay-item-content-gap` · `space-control-xs` | 6 · 4 |
+| 글리프 md · sm | `icon-size-md` · `icon-size-sm` | 20 · 16 |
+| 캐럿 | `--louis-select-caret-size` | 12. 아이콘 사다리 밖이라 지역 변수가 이름을 갖는다 |
+| 경계 | `hairline-inset` | 0.5 inset. border 가 아니다 ([DS-D-0023](../governance/decisions/DS-D-0023-hairline-inset.md)) |
+| Default 면 · 잉크 | `color-bg-inset` · `color-fg-primary` | 면 사다리의 inset 칸 |
+| Hover · Open 면 | `color-accent-secondary-hover` | 12%. Button secondary 와 같은 토큰 |
+| Disabled 잉크 | `color-fg-disabled` | 면은 움직이지 않는다 |
+| 검색줄 아래 여백 | `space-control-xs` | 4. 패널의 항목 간격(2)보다 넓어야 헤더로 읽힌다 |
+| 결과 없음 행 | 항목 행과 같은 여백·곡률 + `color-fg-secondary` | 새 값이 없다 |
+
+## Acceptance tests
+
+값의 정본은 `figma/components.measured.json` 의 `select` 이고 두 방향이 그것을 되잰다 —
+Figma 쪽은 `verify-figma-parity`, 코드 쪽은 `packages/react/test/select.browser.test.tsx`
+가 실브라우저 계산값으로 잰다. 시험은 값을 자기 파일에 적지 않고 그 기록에서 읽어 대조한다.
+`surface-states.browser.test.tsx` 의 「states 표를 코드가 빠짐없이 읽는다」 래칫이 이 파일을
+`select` 의 담당으로 셈하므로, 네 상태를 하나도 빠뜨릴 수 없다.
+
+두 칸(`md` · `sm`) 각각에서.
+
+1. 높이 · 위아래 여백 · 간격 · 테두리 두께 · 반경 · 글자 크기 · 행간이 계약과 같다.
+2. **시작 여백과 끝 여백을 따로 잰다.** `sm` 이 시작 8 · 끝 6 으로 갈리므로 한 칸으로 접으면
+   그 비대칭이 어느 쪽으로 무너져도 초록이다.
+3. 글리프가 계약의 치수(`md` 20 · `sm` 16)이고, **캐럿은 두 칸 모두 12** 다 — 크기 축을 따라
+   줄지 않는 것이 계약이라 두 번 잰다.
+
+전체에서.
+
+4. 네 상태가 각각 계약이 **지목한 토큰의 값**을 문다. `Hover` 는 면에 전이가 걸려 있어
+   계산값을 폴링해 목표색에 도달하는지 본다 — 즉시 읽으면 보간 중인 `oklab(...)` 이 잡힌다.
+   `Open` 은 **hover 없이** 열어 잰다. 포인터가 패널로 넘어간 상황이 그것이기 때문이다.
+5. `Disabled` 가 면을 `Default` 와 같게 두고 잉크만 내리며 커서가 `not-allowed` 다.
+6. **값이 남는 폭을 먹고 캐럿은 끝에 남는다.** 캐럿 오른끝이 트리거 오른끝에서 끝 쪽 여백만큼
+   안쪽에 서는지 잰다 — 값이 오므라들면 캐럿이 값 옆에 붙어 상자 가운데에 떠 버리고, 그것이
+   폭 고정된 자리에서 실제로 일어나는 사고다.
+7. 열린 트리거의 캐럿 `transform` 이 `matrix(-1, 0, 0, -1, 0, 0)` 이다 — 문자열이 아니라
+   행렬로 보는 이유는 브라우저가 `rotate()` 를 그렇게 계산해 돌려주기 때문이다.
+
+Figma 쪽에서는 `rawFills` · `rawStrokes` 가 0 이고 `textUnstyled` 가 0 이다 — 여덟 변형의 면 ·
+잉크 · 헤어라인 · 글자가 전부 변수와 텍스트 스타일에 물려 있다.
+
+## Known deviations
+
+1. **제품 아홉 자리가 서로 갈려 있다.** 높이 다섯 종(24 · 28 · 32 · 36 · 내용) · 곡률 넷
+   (8 · 10 · 12 · 알약)이 한 컴포넌트에서 나온다. 계약은 사다리 위의 두 칸만 열었고, 나머지는
+   채택 회차가 그 두 칸으로 모은다. 표는 DS-D-0053 이 갖는다.
+2. **`sm` 의 글리프 16 은 실측이 아니라 사다리 유도값이다.** 앵커의 sm 자리에는 선행 글리프가
+   없어 잴 것이 없었다. 실측이 생기면 고친다.
+3. **`app/aws/signup` 의 36×36 은 Select 트리거가 아니다.** 캐럿이 없고 값 라벨을 `hidden` 으로
+   숨긴 정사각이라, 그 자리는 IconButton 이 여는 목록이다. 채택 절차서가 그렇게 적는다.
+4. **결과 없음 행은 Figma 에 없다.** 새로 고정할 치수가 하나도 없기 때문이다 — 항목 행과 같은
+   여백·같은 곡률을 쓰고 잉크만 보조색으로 내린다. 그 값들은 `menu-popover` 의 `panel` 칸이
+   이미 pin 하고 있고, 여기에 set 을 하나 더 세우면 같은 수를 두 곳이 갖게 된다.
+5. **placeholder 상태가 없다.** 제품 아홉 자리 전부 값이 항상 있다(`options[0]` 로 떨어진다).
+   없는 상태를 축으로 세우지 않는다.
+6. **트리거에 `justify-content: space-between` 을 두지 않는다.** 값이 남는 폭을 먹는 이상 그
+   선언은 한 번도 적용되지 않는 죽은 값이고, Figma 에는 그릴 자리가 없어 두 곳이 어긋나 보인다.
+
+## Implementation
+
+- Web source: `packages/css/src/component/select.css`
+- Public import: 없음 — React 표면이 아직 없다. 마크업은 `.louis-select-trigger` 를 직접 문다.
+- Figma component: `SelectTrigger` (`DS · Components`)
+- Tests/visual evidence: `packages/react/test/select.browser.test.tsx`
+- Record: `figma/components.measured.json` 의 `select`

@@ -7,37 +7,66 @@ import type { IconProps } from "../types.js";
 export type { IconComponent, IconProps, IconSize } from "../types.js";
 
 export type IconName =
+  | "arrow-elbow-down-left"
+  | "arrow-right"
   | "arrow-up"
   | "arrows-left-right"
   | "caret-down"
   | "caret-left"
   | "caret-right"
   | "check-circle"
+  | "cloud-arrow-up"
+  | "cloud-check"
+  | "cloud-warning"
   | "copy"
   | "copy-check"
+  | "desktop"
   | "dots-three-vertical"
   | "download-simple"
   | "eye"
   | "eye-slash"
   | "file-zip"
   | "folder"
+  | "globe"
   | "graph"
   | "hand"
   | "house"
   | "image"
   | "info"
   | "magnifying-glass"
+  | "minus"
   | "monitor-arrow-up"
+  | "moon"
   | "music-notes-simple"
   | "pause"
   | "play"
   | "plus"
+  | "sun"
   | "text"
   | "trash-simple"
   | "user-sound"
+  | "video-stack"
   | "waveform"
   | "x"
   | "x-circle";
+
+export function IconArrowElbowDownLeft(props: IconProps): JSX.Element {
+  return (
+    <IconRoot {...props} name="arrow-elbow-down-left">
+      <polyline points="9 12 4.5 16.5 9 21" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+      <polyline points="18 3 18 16.5 4.5 16.5" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+    </IconRoot>
+  );
+}
+
+export function IconArrowRight(props: IconProps): JSX.Element {
+  return (
+    <IconRoot {...props} name="arrow-right">
+      <line x1="3.75" y1="12" x2="20.25" y2="12" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+      <polyline points="13.5 5.25 20.25 12 13.5 18.75" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+    </IconRoot>
+  );
+}
 
 export function IconArrowUp(props: IconProps): JSX.Element {
   return (
@@ -92,6 +121,36 @@ export function IconCheckCircle(props: IconProps): JSX.Element {
   );
 }
 
+export function IconCloudArrowUp(props: IconProps): JSX.Element {
+  return (
+    <IconRoot {...props} name="cloud-arrow-up">
+      <path d="M10.5 19.5H6.75A5.25 5.25 0 1 1 8.055 9.163125" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+      <polyline points="11.25 15 14.25 12 17.25 15" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+      <line x1="14.25" y1="19.5" x2="14.25" y2="12" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M7.5 12a7.5 7.5 0 1 1 10.5 6.875625" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+    </IconRoot>
+  );
+}
+
+export function IconCloudCheck(props: IconProps): JSX.Element {
+  return (
+    <IconRoot {...props} name="cloud-check">
+      <path d="M7.5 12a7.5 7.5 0 1 1 7.5 7.5H6.75A5.25 5.25 0 1 1 8.055 9.163125" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+      <polyline points="11.25 12.75 13.5 15 18 10.5" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+    </IconRoot>
+  );
+}
+
+export function IconCloudWarning(props: IconProps): JSX.Element {
+  return (
+    <IconRoot {...props} name="cloud-warning">
+      <path d="M7.5 12a7.5 7.5 0 1 1 7.5 7.5H6.75A5.25 5.25 0 1 1 8.055 9.163125" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+      <line x1="15" y1="12" x2="15" y2="8.25" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+      <circle cx="15" cy="15.375" r="1.125" fill="currentColor" />
+    </IconRoot>
+  );
+}
+
 export function IconCopy(props: IconProps): JSX.Element {
   return (
     <IconRoot {...props} name="copy">
@@ -107,6 +166,17 @@ export function IconCopyCheck(props: IconProps): JSX.Element {
       <path d="m12 15 2 2 4-4" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
       <rect rx="2" ry="2" x="8" y="8" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
       <path d="M4 16c-1.1 0-2-0.9-2-2V4c0-1.1 0.9-2 2-2h10c1.1 0 2 0.9 2 2" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+    </IconRoot>
+  );
+}
+
+export function IconDesktop(props: IconProps): JSX.Element {
+  return (
+    <IconRoot {...props} name="desktop">
+      <rect rx="1.5" x="3" y="4.5" width="18" height="13.5" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+      <line x1="15" y1="21" x2="9" y2="21" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+      <line x1="3" y1="14.25" x2="21" y2="14.25" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+      <line x1="12" y1="18" x2="12" y2="21" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
     </IconRoot>
   );
 }
@@ -168,6 +238,16 @@ export function IconFolder(props: IconProps): JSX.Element {
     <IconRoot {...props} name="folder">
       <path d="M20.3334375 19.5H3.691875A0.69375 0.69375 0 0 1 3 18.808125V7.5H20.25a0.75 0.75 0 0 1 0.75 0.75V18.8334375A0.6665625 0.6665625 0 0 1 20.3334375 19.5Z" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
       <path d="M3 7.5V5.25a0.75 0.75 0 0 1 0.75-0.75H8.6896875a0.75 0.75 0 0 1 0.5296875 0.219375L12 7.5" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+    </IconRoot>
+  );
+}
+
+export function IconGlobe(props: IconProps): JSX.Element {
+  return (
+    <IconRoot {...props} name="globe">
+      <circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+      <line x1="3" y1="12" x2="21" y2="12" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+      <ellipse cx="12" cy="12" rx="3.5" ry="9" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
     </IconRoot>
   );
 }
@@ -234,6 +314,14 @@ export function IconMagnifyingGlass(props: IconProps): JSX.Element {
   );
 }
 
+export function IconMinus(props: IconProps): JSX.Element {
+  return (
+    <IconRoot {...props} name="minus">
+      <line x1="3.75" y1="12" x2="20.25" y2="12" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+    </IconRoot>
+  );
+}
+
 export function IconMonitorArrowUp(props: IconProps): JSX.Element {
   return (
     <IconRoot {...props} name="monitor-arrow-up">
@@ -241,6 +329,14 @@ export function IconMonitorArrowUp(props: IconProps): JSX.Element {
       <line x1="15" y1="21" x2="9" y2="21" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
       <polyline points="9.75 10.5 12 8.25 14.25 10.5" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
       <line x1="12" y1="8.25" x2="12" y2="14.25" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+    </IconRoot>
+  );
+}
+
+export function IconMoon(props: IconProps): JSX.Element {
+  return (
+    <IconRoot {...props} name="moon">
+      <path d="M10.1353125 2.6353125A9.0084375 9.0084375 0 0 0 21.3646875 13.8646875 9 9 0 1 1 10.1353125 2.6353125Z" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
     </IconRoot>
   );
 }
@@ -281,6 +377,22 @@ export function IconPlus(props: IconProps): JSX.Element {
   );
 }
 
+export function IconSun(props: IconProps): JSX.Element {
+  return (
+    <IconRoot {...props} name="sun">
+      <line x1="12" y1="3.75" x2="12" y2="1.5" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+      <circle cx="12" cy="12" r="5.25" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+      <line x1="6" y1="6" x2="4.5" y2="4.5" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+      <line x1="6" y1="18" x2="4.5" y2="19.5" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+      <line x1="18" y1="6" x2="19.5" y2="4.5" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+      <line x1="18" y1="18" x2="19.5" y2="19.5" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+      <line x1="3.75" y1="12" x2="1.5" y2="12" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+      <line x1="12" y1="20.25" x2="12" y2="22.5" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+      <line x1="20.25" y1="12" x2="22.5" y2="12" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+    </IconRoot>
+  );
+}
+
 export function IconText(props: IconProps): JSX.Element {
   return (
     <IconRoot {...props} name="text">
@@ -308,6 +420,17 @@ export function IconUserSound(props: IconProps): JSX.Element {
       <path d="M2.25 19.5c1.9265625-2.2921875 4.64625-3.75 7.875-3.75s5.9484375 1.4578125 7.875 3.75" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
       <path d="M18.75 6.444375a9.4059375 9.4059375 0 0 1 0 7.36125" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
       <path d="M21.5025 5.25a12.4115625 12.4115625 0 0 1 0 9.75" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+    </IconRoot>
+  );
+}
+
+export function IconVideoStack(props: IconProps): JSX.Element {
+  return (
+    <IconRoot {...props} name="video-stack">
+      <line x1="6.75" y1="4.5" x2="17.25" y2="4.5" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+      <rect rx="1.875" x="4.5" y="6.75" width="15" height="10.5" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+      <polygon points="10.5 10.125 10.5 13.875 13.875 12" fill="currentColor" />
+      <line x1="8.25" y1="19.5" x2="15.75" y2="19.5" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
     </IconRoot>
   );
 }

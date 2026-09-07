@@ -335,6 +335,10 @@
   --text-heading-md-medium--line-height: var(--louis-typography-heading-md-medium-line-height);
   --text-heading-md-medium--letter-spacing: var(--louis-typography-heading-md-medium-letter-spacing);
   --text-heading-md-medium--font-weight: var(--louis-typography-heading-md-medium-font-weight);
+  --text-heading-md-semibold: var(--louis-typography-heading-md-semibold-font-size);
+  --text-heading-md-semibold--line-height: var(--louis-typography-heading-md-semibold-line-height);
+  --text-heading-md-semibold--letter-spacing: var(--louis-typography-heading-md-semibold-letter-spacing);
+  --text-heading-md-semibold--font-weight: var(--louis-typography-heading-md-semibold-font-weight);
   --text-heading-sm-medium: var(--louis-typography-heading-sm-medium-font-size);
   --text-heading-sm-medium--line-height: var(--louis-typography-heading-sm-medium-line-height);
   --text-heading-sm-medium--letter-spacing: var(--louis-typography-heading-sm-medium-letter-spacing);

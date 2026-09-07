@@ -255,6 +255,7 @@ test("states 표를 코드가 빠짐없이 읽는다", () => {
     "input", //           text-field.browser.test.tsx
     "avatar", //          avatar.browser.test.tsx
     "checkbox", //        checkbox.browser.test.tsx
+    "select", //           select.browser.test.tsx — Default·Hover·Open·Disabled 넷
     "selectable-list-row", // selectable-list-row.browser.test.tsx
     "segmented-control", // segmented-control.browser.test.tsx
     "tooltip",
@@ -265,6 +266,12 @@ test("states 표를 코드가 빠짐없이 읽는다", () => {
     "sidebar-cta", //     sidebar-parts.browser.test.tsx
     "progress-bar", //    progress.browser.test.tsx
     "progress-ring", //   progress.browser.test.tsx
+    // 아래 셋은 LOUIS recipe 가 없다(figmaAhead). 그려 볼 코드가 없어 「표가 부르는 이름이
+    // 토큰층에 실재하는가 · 표가 스스로 선언한 규칙이 실브라우저에서 참인가」를 잰다.
+    // 각 파일 머리말이 그 경계를 적는다 — 재는 범위를 넓혀 적으면 없는 것을 지키는 척하게 된다.
+    "canvas-edge", //     canvas-edge.browser.test.tsx
+    "floating-shell", //  floating-shell.browser.test.tsx
+    "pill-trigger", //    floating-shell.browser.test.tsx — 문서가 하나라 파일도 하나다
   ]);
   const declared = Object.entries(measured.components)
     .filter(([, value]) => (value as { states?: unknown }).states !== undefined)

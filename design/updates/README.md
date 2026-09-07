@@ -25,6 +25,384 @@ authority: normative
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
 
+## 2026-09-07 (123) — 캔버스 위에 뜨는 크롬의 재료를 세운다 (FloatingShell · PillTrigger)
+
+캔버스·홈·영상편집·커맨드팔레트 네 화면이 같은 유리를 쓰는데 정본이 없었다. 면 72% · 배경 흐림
+4 · `--louis-hairline-inset` · 반경 16 이 한 묶음이고, 앵커에서 그 넷이 한 요소에 함께 걸린
+자리는 네 곳이다 — `Toolbar.tsx` 와 `node-canvas-v2/index.tsx` 의 `TOOLBAR_WRAP`(뒤엣것은 앞엣것을
+파일 안에 다시 적은 사본이고 툴바와 도움말 알약 두 곳에 걸린다), 그리고 `CanvasZoomControl.tsx` 의
+`ZOOM_LABEL_BUTTON`.
+
+**계획서의 「6 파일」은 문자열이 센 수였다.** `gray-800/72%` 로 훑으면 `NodeCanvasHomeScene` 과
+`VideoEditScene` 이 함께 걸리는데 그 둘은 이 셸이 아니라 **이미 `.louis-toast` 를 무는 토스트**다.
+`CommandPalette` 의 패널도 같은 재료를 쓰지만 560px 모달이고 `--louis-elevation-menu` 를 한 겹 더
+얹는다 — 알약이 아니라 Dialog 쪽 문법이라 세트에 담지 않았다. **「같은 값을 쓴다」와 「같은
+부품이다」는 다르다.**
+
+**새 색을 하나도 세우지 않았다.** 면의 라이트/다크 쌍이 `color-bg-menu`(라이트 palette-gray 050 ·
+다크 palette-gray 800)와 바이트로 같다. 다만 그 일치는 **앵커가 아니라 지금 제품과의 일치**다 —
+앵커 `5a67d692` 의 라이트 값은 palette-gray 100 이고, 앵커 뒤 커밋 `54150126`(「라이트 캔버스를
+pg-100, 노드 카드를 pg-050, 알약을 pg-050 으로」)이 그것을 050 으로 옮기면서 이 사다리에
+올라탔다. Figma 는 현재 값에 물렸다 — 앵커 값에 물리면 세운 그 날 이미 낡는다. 알파는 토큰이
+아니라 paint opacity 다(Toast 와 같은 형태): 72 와 88 을 담을 면 변수를 새로 만들지 않기 위해서다.
+
+**계획서가 제안한 네 축을 하나도 열지 않았고, 넷 다 실측이 막았다.** `Orientation` — 이 재료로 선
+셸이 앵커 전수에서 전부 가로다(DS-D-0030). `Divider` — 구분선은 실재하지만 면이 다섯 정지점
+그라디언트이고 양 끝 정지점의 알파가 0 이라 담을 색 변수가 없다. 지금 그리면 되읽기가 `rawFills`
+로 세고 저작 규범 §1 의 「원시값 0 — 타협 없음」이 깨진다. `Caret` — 캐럿 없는 자리가 없다.
+`Badge` — 점 배지는 셸 **안의** 32 툴바 버튼에 붙지 트리거에 붙지 않는다.
+
+**36 에 `Size` 축을 열지 않았다.** [DS-D-0048](../governance/decisions/DS-D-0048-thirty-six-is-not-a-control-height.md)
+이 36 을 컨트롤 높이 사다리에 들이지 않기로 판정한 그 값이다. 같은 결정이 「사다리 밖 값은
+쓰임새로 부른다」를 함께 정했지만 그 규칙은 칸이 둘 이상일 때의 것이고, 여기는 칸이 하나다 —
+칸이 하나뿐인 축은 축이 아니다.
+
+**Figma 가 담지 못하는 것 둘을 적어 두었다.** 흐림 4 는 LOUIS 흐림 사다리(10 · 12 · 16)에 없어
+변수에 묶이지 못하고 값으로 앉는다. `transform: translateZ(0)` 는 세 자리 모두에 함께 적혀 있는데
+정지 화면에 나타나지 않는 값이라 변형이 담을 축이 아니다 — 합성 레이어로 올려 배경 흐림이
+안정적으로 걸리게 하고 iOS 중첩 스크롤에서 글자가 흐려지는 결함을 막는 선언이므로, 제품이 이
+레시피를 물 때 **반드시 함께** 가야 한다.
+
+LOUIS CSS recipe 는 아직 없다 — 두 컴포넌트 다 `figmaAhead` 이고 제품이 정본이다.
+
+## 2026-09-07 (122) — 대시보드 카드를 두 벌로 세운다 (StatTile · ChartCard)
+
+지표 타일과 지표 차트 카드에 DS 이름이 하나도 없었다. **Figma 52종에 차트 축이 전무했고**,
+제품에는 같은 그림이 네 벌(`OverviewTab` 인라인 2 · `PerformanceTab` 1 ·
+`YoutubeVideoAnalyticsView` 1) 있다.
+
+**계획서의 「두 구현 중 정본을 정하라」는 실측에서 「둘은 다른 조형이다」가 됐다.** 어드민
+`AdminStatTile` 은 면 하나 위에 네 줄이고 애널리틱스 KPI 카드는 바깥 프레임 + 안쪽 면이다.
+한 컴포넌트의 두 크기가 아니라 액자가 있고 없고가 조형을 가르므로 둘로 세웠다. 실제로 다투던
+값은 **증감 알약의 좌우 여백 하나뿐**이고(어드민 8 · 애널리틱스 6) 6 이 정본이다 — 알약이
+그려지는 자리가 애널리틱스 9곳·4파일·2라우트, 어드민은 한 파일이다(DS-D-0043).
+
+**액자가 두 겹인 이유가 반경 산술이었다.** `radius-overlay` 16 − `space-overlay-inset` 6 =
+`radius-overlay-item` 10. 제품 정본이 그 동심 정렬을 주석으로 적어 두었고 값 셋이 오버레이
+계단과 정확히 같아 **새 토큰을 하나도 세우지 않았다.** 면 두 칸도 마찬가지다 —
+`--dashboard-card-bg` · `--dashboard-inner-panel-bg` 가 `color-bg-canvas` · `color-bg-overlay` 와
+바이트 단위로 같다.
+
+**`/admin` 에 눈이 하나 생긴다.** `AdminStatTile` 의 소비처 14 자리가 전부 `/admin` 이고 제품의
+대비·타이포·표면 게이트는 그 경로를 하나도 재지 않는다. 이 조형의 값은 지금까지 어떤 기계도
+본 적이 없었고, 이제 브라우저 시험과 parity 두 방향이 잰다. **다만 그 눈은 아직 LOUIS 쪽만
+본다** — 제품이 이 클래스를 물기 전까지 `/admin` 화면 자체는 여전히 재지 않는다.
+
+**없는 칸을 그리지 않았다.** 계획서가 요구한 `StatTile` 의 `State=Loading` 은 만들지 않았다 —
+어드민은 로딩을 타일이 아니라 블록 하나로 그린다. `ChartCard` 도 3×3 아홉 칸 중 제품에 그림이
+있는 여섯 칸만 세웠다(`spark`/`insufficient` 는 곡선을 아예 그리지 않는 것이 정본이다).
+데이터 부족 안내는 새로 그리지 않고 `Alert / Layout=inline` 인스턴스를 슬롯에 놓았다 —
+그 조형은 다른 벌의 칸이다.
+
+**게이트 한 곳을 고쳤다(복구다).** `verify-figma-parity` 의 자손 필드 규칙에 `enum` 이 없어
+「자손의 방향이 축에서 갈린다」를 계약으로 적을 수 없었다. 같은 파일 주석이
+「규칙은 root 의 fields 와 같다」고 적고 있었고, `set` 이 DS-D-0049 에서 정확히 같은 이유로
+따라온 선례가 있다.
+
+남는 빚 넷은 문서 Known deviations 가 소유한다 — 합성 ramp 에 semibold heading 칸이 없고,
+8% 붉은 면과 success 강조 잉크에 semantic 이름이 없으며, 라벨·힌트의 잉크 두 단이 한 단으로
+접혔고, 안쪽 면 여백이 두 축에서 갈린다(제품 정본이 갈려 있다).
+
+## 2026-09-07 (121) — 캔버스 노드의 겉을 세 벌로 세운다 (NodeShell · NodeChromeButton · NodeSideHandle)
+
+노드 캔버스는 제품에서 가장 크게 되풀이되는 시각 단위인데 DS 에 이름이 하나도 없었다. 아홉
+노드 파일이 `NODE_WRAP` · `NODE_HEADER_ABOVE` · `NODE_TITLE_WRAP` 이라는 **같은 이름의 상수**로
+같은 값을 각자 선언하고, 공유되는 것은 클래스가 아니라 토큰과 이름뿐이다. 카드 테두리만
+캔버스 셸이 후손 선택자 하나로 아홉을 한꺼번에 칠한다 — 그 한 줄이 「셸이 있어야 한다」를
+제품 스스로 인정한 자리다.
+
+**계획서의 「타입 축 9」는 실측에서 일곱이 됐다.** 제품이 선언하는 축은 타입이 아니라
+액센트(`data-node-accent`)이고 값이 일곱이다. `tts` 와 `bgm` 은 둘 다 `audio` 를 쓰고,
+`youtube` 와 `instagram` 은 같은 red-500 을 가리켜 선택 테두리까지 같다. 아홉 번째인 `section`
+은 카드가 아니라 프레임이라(반경 16 · 카드 면 없음 · 제목 바가 프레임 바깥) 셸의 계약이 한 줄도
+참이 아니어서 세트에 넣지 않았다. **미선택 일곱의 값이 전부 같다는 것도 실측이다** — 카드
+자신은 타입을 드러내지 않는다.
+
+**원장의 문장 하나가 틀렸다는 것도 드러났다.** 사이드 채널 버튼을 「채널 톤 여섯」이라 적었는데
+소스의 `type SideTone` 은 `image` · `text` · `edit` 셋이다.
+
+### Added
+
+- **NodeShell** — 카드 위 헤더 한 줄과 400px 카드. Accent(7) × Selected(2) = 14 variant.
+  본문과 사이드 레일은 슬롯이라 담지 않는다.
+- **NodeChromeButton** — 헤더의 32px 아이콘 버튼 쌍. Tone(2) × State(3) = 6 variant.
+- **NodeSideHandle** — 좌우 레일의 28px 채널 버튼. Channel(3) = 3 variant.
+
+셋 다 Figma·계약·규범 문서가 같은 작업에서 섰고 되읽기를 다시 떠 스냅샷과 parity 를 통과시켰다.
+바인딩은 세 벌 모두 `rawFills 0 · rawStrokes 0 · textUnstyled 0` 이다.
+
+### 담지 못한 것과 그 이유
+
+**전부 「아직 안 했다」가 아니라 「지금은 담을 수 없다」이다.** 공통 원인이 하나다 — 제품이
+라이트와 다크에서 **서로 다른 토큰**을 쓰는데 Figma 변수는 모드 쌍이 하나뿐이라서, 새 세만틱
+변수 없이는 그 값을 담을 자리가 없다.
+
+- 노드 카드의 면·테두리·제목 잉크 셋이 라이트에서 갈린다. 사다리 토큰(`color/bg-surface` ·
+  `color/stroke-default` · `color/fg-secondary`)에 물리고 라이트 값을 결손으로 적었다.
+  그 과정에서 사실 하나가 드러났다 — **제품 라이트에서 카드 바닥이 캔버스 바닥과 같은 값이라
+  카드를 만드는 것은 면이 아니라 흰 테두리다.** 사다리에 그 조형이 없다.
+- 사이드 버튼의 비활성은 다크가 채널 900, 라이트가 활성 토큰에 밝기 필터다. 한 변수에 담기지
+  않아 State 축을 열지 않았다. 호버·프레스도 색이 아니라 `filter` 라 같은 이유로 열지 않았고,
+  메뉴 열림은 소스가 `filter: none` 만 더해 **기본과 시각이 같다**.
+- 헤더 버튼의 호버 틴트는 라이트가 정확히 맞고 다크만 4%p 얕다(제품 12% · LOUIS 8%).
+- **타입 글리프 넷이 아이콘 세트에 없다** — `video-camera` · `youtube` · `instagram` ·
+  `magic-wand`. 변형별 기본값을 채우면 넷이 거짓 글리프를 갖게 되므로 슬롯 기본값을 하나만
+  두었다.
+
+### Changed
+
+- `verify-figma-parity.mjs` 의 변조 canary 셋을 굳혔다. 높이·좌우 여백을 담지 않는 계약이 목록
+  맨 앞에 오면 canary 가 진단 대신 스택트레이스를 냈고, stroke canary 는 고정값 `2` 를 쓰는
+  바람에 테두리가 마침 2 인 계약에서 변조가 no-op 이 됐다. 앞의 둘은 건너뛰게 하고 뒤는 실제
+  값에서 2 를 더하게 했다 — **검출력을 낮춘 것이 아니라 셋 다 올렸다.**
+
+## 2026-09-07 (120) — 섹션 헤더 정본을 세운다 (SectionHeader)
+
+어드민 11 화면의 머리는 `app/admin/AdminSection.tsx` 의 `AdminSectionHeader` 하나가 소유하고
+**11 파일 17 자리**가 그것을 쓴다(page 11 · section 5 · label 1). 같은 조형이 어드민 밖에도
+있다 — `components/ui/PageHeader` 가 앱 허브 넷에서 같은 제목 36 SemiBold + 설명 16 Medium 을
+그린다. 되풀이가 `/admin` 안에 갇혀 있지 않다는 것이 이 벌을 여는 근거다.
+
+**`/admin` 은 제품의 대비·타이포·표면 게이트가 하나도 재지 않는 영역이다.** 이 컴포넌트가
+서면서 그 자리에 처음 기계 눈이 생긴다 — 다만 제품이 물게 한 뒤에도 **회귀는 사람이 봐야
+한다**. 초록이 근거가 되지 않는 유일한 영역이라는 사실은 문서와 계약이 함께 적는다.
+
+### Added
+
+- `packages/css/src/component/section-header.css` — `.louis-section-header`
+  (`data-level = page | section | label`) + `__text` · `__title` · `__description` · `__meta` ·
+  `__actions`. React 표면은 없다(alert · switch · tabs 와 같다).
+- Figma component set `SectionHeader` — `Level` 3변형. `Title` · `Description` · `Meta` TEXT 와
+  `HasDescription` · `HasMeta` · `HasActions` BOOLEAN.
+- `figma/components.measured.json#section-header` — `page` · `section` · `label` 세 칸.
+- `packages/react/test/section-header.browser.test.tsx` — 실브라우저 acceptance 16건.
+- `design/components/section-header.md`.
+
+### Changed
+
+- **`typography-heading-md-semibold` 토큰이 열렸다.** LOUIS heading 계열에는 `medium` 세
+  칸(28·36·48)만 있었고 semibold 가 하나도 없어 화면 제목 36/600 을 그릴 역할이 없었다.
+  제품 스케일에는 `type-heading-36-semibold` 가 실재하므로 **새 역할을 지어낸 것이 아니라
+  빠져 있던 칸을 채운 것**이다. 컴포넌트가 size 와 weight 를 따로 조합하지 않은 이유는
+  [typography.md](../foundations/typography.md) 가 그것을 금지하기 때문이다.
+  Figma text style `typography/heading-md-semibold` 도 같은 작업에서 세웠다
+  (`font-size/heading-md` · `font-weight/semibold` 변수에 묶인다).
+- **축 어휘에 `Level` 이 열렸다**([figma-component-authoring.md](../governance/figma-component-authoring.md) §2).
+  `Size` 가 아닌 이유를 함께 적었다 — 값이 밀도가 아니고 셋의 관계가 순서가 아니라 포함이며,
+  아래 여백을 `page` 만 지고 `label` 에는 설명·메타·액션 자리가 아예 없다.
+
+### 옮기지 않은 것
+
+- **719px 접힘을 Figma 에 그리지 않았다.** media query 가 없어 접힌 모습은 변형이 되어야
+  하는데, 셋을 여섯으로 늘리면 그중 셋이 방향 말고 같은 값을 반복한다. 접힘은 값이 아니라
+  규칙으로 계약의 `$foldRule` 이 갖고, 브라우저 시험이 719px iframe 에서 되잰다 —
+  **한쪽만 있는 근거라서 그 시험이 유일한 눈이다.**
+- **다크의 알파 잉크(`gray-000/56%` · `/40%`)를 옮기지 않았다.** `empty-state` 의 `canvas`
+  제목과 같은 판단이다. 옮기지 않은 것은 색이 아니라 «알파로 색을 만드는 방식»이고,
+  대비를 이유로 값을 바꾼 것이 아니다.
+
+### 실측으로 갈린 것 하나
+
+`components/ui/PageHeader` 주석이 자기 값을 「`page` 와 같다」고 주장한다. 대조했더니 제목·설명·
+간격은 두 벌이 바이트 단위로 같고 **아래 여백만 갈렸다** — PageHeader 32, 어드민 page 12.
+어긋난 것이 아니라 분담이 다르다: 어드민 쪽은 감싸는 스택의 `gap-10`(20)이 나머지를 내
+20 + 12 = 32 이고, 제품이 그 셈을 `BlogManagement.tsx:50-52` 와
+`TemplateManagement.tsx:1009-1012` 에 각각 적어 두었다. 레시피는 어드민 쪽(12)을 골랐다.
+
+### 제품
+
+이 회차는 제품을 건드리지 않았다(소유자가 그 트리에서 작업 중이다). 물게 하는 diff 는
+회차 산출물에 있다.
+
+## 2026-09-07 (119) — 인스펙터의 «행 문법» 을 한 벌로 세운다 (InspectorRow · InspectorSectionHead)
+
+영상 편집기 우측 속성 패널의 인스펙터 다섯 보드(`ClipInspector` · `OverlayInspector` ·
+`AudioClipInspector` · `CompositionInspector` · `EditorSettingsPanel`)는 **부품의 배치일 뿐**이고
+실제로 값을 갖는 것은 절 머리와 라벨-값 행 둘이다. 그 둘을 세우고, 알약 · 숫자 칸 · 색 점은
+독립 부품이 아니라 값 자리의 형태라서 행의 `Value` 축으로 접었다. **다섯을 따로 세우면 문법이
+아니라 부품 다섯이 된다.**
+
+### Added
+
+- `packages/css/src/component/inspector-row.css` — `.louis-inspector-row`(값 형태 넷) ·
+  `.louis-inspector-section-head`(제목 · 값 힌트 · 조작). React 표면은 없다.
+- Figma component set 둘 — `InspectorRow`(4 variant) · `InspectorSectionHead`(2 variant).
+- 규범 [Inspector Row](../components/inspector-row.md) ·
+  [Inspector Section Head](../components/inspector-section-head.md).
+- `figma/components.measured.json` 의 `inspector-row`(키 `row` · `head`). 모든 값이 앵커의 줄을
+  `$` 사유로 인용한다.
+- `scripts/verify-recipe-record.mjs` (`pnpm run verify-recipe-record`, `verify:ci` 단계) —
+  **기록이 자기 자신의 근거가 되지 않게** 레시피 선언 → 토큰 → 기록의 반대 방향을 잰다.
+  재는 것은 표(`RECIPES`)가 소유하며 지금 열려 있는 것은 `inspector-row` 한 벌이다.
+
+### Changed
+
+- **행이 곧 박스인 쪽만 채택했다.** 정본은 한때 행을 투명하게 두고 값에만 140 박스를 씌웠고,
+  스스로 그 배치를 정정하며 박스를 행으로 옮겼다. 옛 배치의 라벨 38% 고정폭은 채택하지 않았다.
+- **면을 팔레트 칸이 아니라 사다리로 옮겼다.** 다크는 `color-bg-inset` · `color-bg-raised` ·
+  `color-bg-canvas` 와 정확히 같고 라이트만 갈린다. 레시피는 **관계**를 고정한다 — 행은 한 칸
+  들어가고 그 안의 컨트롤은 한 칸 나오며 알약은 바닥까지 내려간다.
+- 절 머리의 조작이 `layout-control-height-sm` 을 읽는다. 정본이 그 칸이 없던 때 로컬로 세웠다고
+  적어 두었고 DS-D-0032 가 그 칸을 열었다.
+
+### 열지 않은 축과 그 사유
+
+- **숫자 칸의 상태 축.** 시각 선언을 갖는 것은 hover 하나뿐이다. 드래그는 문서 전체의 커서를
+  바꿀 뿐이고, 편집(`:focus`)의 링이 패널 안에서 살아남는지는 **소스로 판정할 수 없다** —
+  같은 특이도의 두 선언이 경쟁해 승자가 유틸리티 정렬 순서에 달렸다. 값이 같은 변형을 나열하면
+  죽은 축이 된다.
+- **알약의 tone 축.** 정본에 넷이 선언돼 있으나 셋의 선언이 글자까지 같아 죽어 있다.
+- **감싸는 세로 묶음.** 정본이 절 머리를 사이 간격 8 의 세로 묶음에 넣지만 자식이 언제나 하나라
+  그 8 이 아무 것도 벌리지 않는다.
+
+### 소유자 판정으로 남긴 것
+
+1. 라이트 면 — 정본의 라이트가 사다리 위에 없다. 움직여야 할 쪽이 정본인지 결정해야 한다.
+2. 알약의 진짜 1px 테두리 — DS-D-0023 의 0.5 inset 헤어라인과 어긋난다.
+   `SegmentedCodeInput` 과 한 묶음으로 판정한다.
+3. 알약을 `Badge` 로 흡수할지 — 죽은 tone 축, `Badge` 의 `borderWidth: 0` 규칙, 이미 배포된
+   set 의 격자가 두 배가 되는 것 셋이 걸린다.
+4. 자막 색 패널의 행 — 라벨이 컨트롤 위에 쌓이고 컨트롤이 30 색 견본이라 28 한 줄이 표현하지
+   못한다. 세로 행 형태와 `Value=Swatch` 칸을 함께 열어야 한다.
+
+### Migration
+
+새 레시피이고 제품은 아직 물지 않는다. 소비처가 클래스를 바꿔 무는 것은 별도 변경이다.
+
+## 2026-09-07 (118) — 값 목록을 여는 트리거를 세운다 (SelectTrigger)
+
+`select` 는 2026-08-18 에 **`not-planned`** 였다 — 「고르기는 Menu 가 소유한다」. 그 판정은
+네이티브 `<select>` 엘리먼트를 셌고(14벌 / 5파일 · 전부 `/admin` 계열), 배포 화면에는 0벌이라
+결론지었다. 앵커(`5a67d692`)에서 다시 세니 제품이 값을 고르는 방식은 그것이 아니었다 —
+`components/scenes/create/CustomDropdown.tsx` 가 **JSX 아홉 자리 / 여덟 파일**에 서 있고
+`Gnb` 가 물기 때문에 사실상 전 라우트에 뜬다. 아홉 자리의 높이는 다섯 종(24 · 28 · 32 · 36 ·
+내용), 곡률은 넷(8 · 10 · 12 · 알약)이었다.
+
+[DS-D-0053](../governance/decisions/DS-D-0053-select-is-not-a-menu.md)이 그 판정을 뒤집는다.
+
+### Added
+
+- Figma `SelectTrigger` component set 8 variant(`Size` = `md`·`sm` × `State` =
+  `Default`·`Hover`·`Open`·`Disabled`) + `Value` TEXT. `DS · Components` 페이지.
+- LOUIS 레시피 `.louis-select-trigger` — 면 있는 상자 · 선행 글리프 슬롯 · 남는 폭을 먹는 값 ·
+  열림에서 180° 도는 캐럿. 같은 파일에 패널 안 배치 셋(`.louis-select-search` ·
+  `.louis-select-list` · `.louis-select-empty`)을 함께 둔다. React 표면은 없다(Alert · Switch 와
+  같은 형태).
+- 계약 `figma/components.measured.json` 의 `select`, `verify-figma-parity` 의 계약,
+  `figma-readback-emit` 의 채취 명세, 그리고 실측을 코드가 여전히 만드는지 재는 브라우저 테스트.
+- 결정 `DS-D-0053` 과 컴포넌트 문서.
+- 축 어휘 표에 `State = Open`. `MenuTrigger` 가 2026-09-06 부터 이미 쓰고 있었는데 표에 없었다 —
+  이번에 그 빚을 함께 갚는다.
+
+### Changed
+
+- **크기 축을 둘만 연다.** 24 와 32 는 [DS-D-0027](../governance/decisions/DS-D-0027-control-size-ladder.md)
+  의 사다리 칸이고 각각 제품 실측 자리를 갖는다. 28 은 사다리 밖이고 그 값의 주인이 따로 있다
+  (인스펙터 **행**의 높이와 `SubscriptionScene` 의 `min-height`).
+- **sm 의 좌우 여백이 비대칭이다**(8 · 6). 제품 프리뷰 줌 칩의 실측이고, 끝 쪽에 서는 캐럿이
+  글자보다 광학적으로 가벼워 같은 여백이면 오른쪽이 넓어 보인다. md 는 제품 두 자리가 대칭이라
+  대칭이다 — 비례로 끌어오지 않았다.
+- **캐럿은 크기 축을 따라 줄지 않는다**(둘 다 12). 아이콘 사다리(16 · 20 · 24)에 없는 값이라
+  그 사다리를 쓰지 않고 `--louis-select-caret-size` 가 이름을 갖는다.
+- **트리거가 면을 갖는다.** `MenuTrigger` 는 투명인데 여기는 `bg-inset` + 헤어라인이다 —
+  값 목록은 「지금 무엇이 골라져 있는가」를 늘 보여야 하므로 눌러야 나타나는 컨트롤이 아니다.
+  hover 도 그래서 ghost 8% 가 아니라 secondary 12% 다.
+
+### Not done — 그리고 왜
+
+- **패널 · 항목 · 선택 표시 · 검색 필드를 새로 세우지 않았다.** 네 자리 모두 이미 서 있다 —
+  패널은 `MenuPanel`, 항목과 `aria-selected` 는 `Menu`, 검색 필드는 `TextField`(그 컴포넌트의
+  `HasLabel` 축 사유가 「라벨 없는 필드가 실재한다 — 검색창이 그것이다」다). 앵커의
+  `CustomDropdown` 도 이미 `louis-popover` 와 `louis-menu__item` 을 물고 있다.
+- **결과 없음 행은 Figma 에 없다.** 새로 고정할 치수가 하나도 없다 — 항목 행과 같은 여백·
+  같은 곡률에 잉크만 보조색이라, set 을 세우면 같은 수를 두 곳이 갖게 된다.
+- **제품 채택은 하지 않았다.** 원장의 `CustomDropdown` 항은 `needed` 로 남는다 — 그 판정은
+  「제품이 무엇을 무는가」이고 제품은 아직 이 트리거를 물지 않았다. 커버리지가 오르는 것은
+  채택하는 회차다.
+- **placeholder 상태를 열지 않았다.** 제품 아홉 자리 전부 값이 항상 있다(`options[0]` 로
+  떨어진다). 없는 상태를 축으로 세우지 않는다.
+
+## 2026-09-07 (117) — 크롭 창과 선택 상자를 한 벌로 세운다 (TransformFrame)
+
+제품에 같은 조형이 **넷** 있었고 셋이 서로 다른 규범이었다(앵커 `5a67d692`). 노드 캔버스
+크롭 모달과 이미지 크롭 모달은 `react-image-crop` 의 기본 크롬(12px 정사각 손잡이 · 행진하는
+개미 테두리)을 그대로 쓰고, 비디오 편집기의 클립 크롭은 1.5px 테두리에 24px ㄱ자 브래킷과
+알약 손잡이를, 프리뷰 오버레이의 선택 상자는 2px 링에 10px 정사각을 쓴다. Figma 51종에
+**변형 핸들이라는 부류 자체가 없었다.** 다섯째가 생기기 전에 하나로 모은다.
+
+### Added
+
+- Figma `TransformFrame` component set. 축은 `Handles` 하나(`corners` ·
+  `corners-and-edges`)이고 삼분할 안내선은 `Grid` BOOLEAN 이다. `DS · Components` 페이지.
+- LOUIS 레시피 `.louis-transform-frame` — 프레임 · 삼분할 안내선 · 여덟 자리 손잡이.
+  React 표면은 없다(Alert · Switch 와 같은 형태).
+- 계약 `figma/components.measured.json` 의 `transform-frame`, `verify-figma-parity` 의 계약,
+  `figma-readback-emit` 의 채취 명세, 그리고 실측을 코드가 여전히 만드는지 재는 브라우저 테스트.
+- 결정 `DS-D-0060` 과 컴포넌트 문서.
+
+### Changed
+
+- **손잡이 위치를 축으로 열지 않았다.** 여덟 자리는 좌표이고 넷 또는 여덟이 동시에 선다.
+  갈리는 것은 「어느 벌을 내놓는가」 하나다.
+- **비율 잠금을 별도 축으로 열지 않았다.** 제품 두 구현이 이미 「잠기면 변 손잡이를 없앤다」를
+  갖고 있어 두 축을 다 열면 실현되지 않는 칸이 둘 생긴다.
+- **삼분할 안내선 색이 한 단 진해졌다** — 흰색 24% 에서 `color-media-indicator-rest`(28%)로.
+  24% 짜리 매체 위 표식 토큰이 없고, 만들면 배너 인디케이터가 쓰는 값 옆에 두 번째 같은
+  뜻의 값이 생긴다. 대비를 이유로 한 변경이 아니다.
+
+### Not done — 그리고 왜
+
+- **제품 채택은 하지 않았다.** 원장의 네 표면은 `needed` 로 남는다 — 값의 출처는 제품이지만
+  대응은 제품이 클래스를 바꿔 물 때 선다.
+- **모서리 ㄱ자 브래킷은 버렸다.** Figma 에서 변마다 다른 두께를 주면 되읽기가 두께를 아무
+  값도 담지 못하고(계약 밖의 값이 된다), 브래킷은 뒤에 매체가 있을 때만 읽혀 선택 상자에서
+  성립하지 않는다.
+- **작업 영역이 있는 모달(Dialog `workbench` size)은 서지 않았다.** 세 크롭 모달의 폭이
+  720 · 760 · 720, 곡률이 16 · 16 · 10, 높이 상한이 900 · 560 · 60vh 로 수렴하지 않는다.
+  하나를 고르면 그것은 실측이 아니라 지어낸 값이다. 이 프레임은 모달 없이도 선다.
+- **바깥을 덮는 스크림은 컴포넌트에 넣지 않았다.** 무한히 번지는 층이라 Figma 프레임 안에
+  담을 도형이 없고, 선택 상자에는 그 층이 아예 없다. 소비처가 켜는 선언 하나로만 준다.
+
+## 2026-09-07 (116) — 캔버스 연결선의 채널 톤을 Figma 에 세운다 (CanvasEdge)
+
+노드 캔버스의 연결선은 손으로 **일곱 벌** 복제돼 있었고, 그중 워크스루 오버레이 네 벌은 이미
+정본과 세 자리에서 갈려 있었다 — 쉬머 주기(1.85초 대 1.45초), 번짐 색(톤과 무관하게 노랑 하나),
+image 하이라이트(또 다른 리터럴). 「V2EdgeLayers 와 동일」이라 적은 주석이 동일함을 지켜 주지
+않는다는 증거다. 정본을 세운다.
+
+### Added
+
+- Figma `CanvasEdge` component set. `Tone` 일곱(`default` + 채널 여섯) × `State` 둘
+  (`Default` · `Hover`) = 14 변형. `DS · Components` 페이지.
+- 계약 `figma/components.measured.json` 의 `canvas-edge` — 획 두께 · 히트 영역 · hover 잉크 ·
+  쉬머 주기와 불투명도 · 시편 치수, 그리고 톤 일곱의 실선·쉬머 토큰.
+- `verify-figma-parity` 의 `canvas-edge` 계약과 `figma-readback-emit` 의 채취 명세.
+- 문서 `design/components/canvas-edge.md`.
+
+### Changed
+
+- 실선 색의 **정본을 채널 토큰으로 정했다.** 제품 `V2EdgeLayers` 는 accent 램프를 직접 읽고 같은
+  채널의 핸들 원반은 채널 토큰을 읽는다 — 두 곳이 지금은 같은 값으로 끝나지만 참조가 갈려 있어
+  한쪽만 움직이면 조용히 어긋난다. `edgeTone.ts` 가 지키려는 불변식(원반 색 = 전선 색)을 토큰이
+  대신 지키게 한다.
+- 쉬머 하이라이트의 **정본을 채널 램프의 200 칸으로 정했다.** 여섯 톤 중 edit·audio 두 톤은 제품
+  리터럴이 이미 그 칸과 바이트로 같고 셋만 램프 밖이다. 규칙이 이미 두 번 맞은 자리라 새 색을
+  셋 만들지 않는다.
+
+### Not done — 그리고 왜
+
+- **흐르는 쉬머와 번짐은 Figma 에 없다.** 쉬머는 무한 반복 애니메이션이라 그리지 못하고
+  (Skeleton 스윕과 같은 한계), 번짐은 반경이 톤마다 달라 되읽기의 effect 역할(자손 이름 하나에
+  값 하나)이 담을 자리가 없다 — 한 값으로 적으면 일곱 톤 중 여섯을 거짓으로 고정한다.
+- **바닥의 점 격자는 컴포넌트가 아니다.** 간격 24 · 점 2 이고 색은 `color-node-canvas-dot` 이
+  이미 갖는다. 패턴 채움이라 component set 으로 세우지 않는다. 다만 **그 변수의 라이트 값이 제품과
+  다르다** — 변수는 검정 잉크를 쓰고 제품은 회색 잉크를 쓴다. 다크 값은 일치한다. 어느 쪽이
+  옳은지는 소유자 판정이라 이 회차가 정하지 않았다.
+- **정렬 스냅 가이드는 이름이 없다.** 제품이 램프 밖 리터럴 하나로 그리고 자체 glow 필터를 건다.
+  이름을 세우려면 새 프리미티브가 필요하고 그것은 토큰 파이프라인과 Figma 변수 컬렉션을 함께
+  움직이는 별건이다. 이 회차는 그 사실만 적는다.
+- **엣지 삭제 버튼**은 흡수할지 별 부품으로 세울지 아직 판정하지 않았다.
+
 ## 2026-09-06 (115) — TextField 에 결합(Join) 축을 연다 (none · start · middle · end)
 
 `text-field.md` 의 Known deviations 가 **자기가 못 담는 것을 스스로 지목해 두고 있었다** —

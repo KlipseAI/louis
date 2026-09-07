@@ -92,9 +92,15 @@ SOFTWARE.
 
 ## Phosphor Icons — MIT
 
+- Source: https://raw.githubusercontent.com/phosphor-icons/core/main/raw/regular/arrow-elbow-down-left.svg
+- Source: https://raw.githubusercontent.com/phosphor-icons/core/main/raw/regular/arrow-right.svg
 - Source: https://raw.githubusercontent.com/phosphor-icons/core/main/raw/regular/arrow-up.svg
 - Source: https://raw.githubusercontent.com/phosphor-icons/core/main/raw/regular/arrows-left-right.svg
 - Source: https://raw.githubusercontent.com/phosphor-icons/core/main/raw/regular/check-circle.svg
+- Source: https://raw.githubusercontent.com/phosphor-icons/core/main/raw/regular/cloud-arrow-up.svg
+- Source: https://raw.githubusercontent.com/phosphor-icons/core/main/raw/regular/cloud-check.svg
+- Source: https://raw.githubusercontent.com/phosphor-icons/core/main/raw/regular/cloud-warning.svg
+- Source: https://raw.githubusercontent.com/phosphor-icons/core/main/raw/regular/desktop.svg
 - Source: https://raw.githubusercontent.com/phosphor-icons/core/main/raw/regular/dots-three-vertical.svg
 - Source: https://raw.githubusercontent.com/phosphor-icons/core/main/raw/regular/download-simple.svg
 - Source: https://raw.githubusercontent.com/phosphor-icons/core/main/raw/regular/file-zip.svg
@@ -104,15 +110,18 @@ SOFTWARE.
 - Source: https://raw.githubusercontent.com/phosphor-icons/core/main/raw/regular/house.svg
 - Source: https://raw.githubusercontent.com/phosphor-icons/core/main/raw/regular/info.svg
 - Source: https://raw.githubusercontent.com/phosphor-icons/core/main/raw/regular/magnifying-glass.svg
+- Source: https://raw.githubusercontent.com/phosphor-icons/core/main/raw/regular/minus.svg
 - Source: https://raw.githubusercontent.com/phosphor-icons/core/main/raw/regular/monitor-arrow-up.svg
+- Source: https://raw.githubusercontent.com/phosphor-icons/core/main/raw/regular/moon.svg
 - Source: https://raw.githubusercontent.com/phosphor-icons/core/main/raw/regular/music-notes-simple.svg
 - Source: https://raw.githubusercontent.com/phosphor-icons/core/main/raw/regular/plus.svg
+- Source: https://raw.githubusercontent.com/phosphor-icons/core/main/raw/regular/sun.svg
 - Source: https://raw.githubusercontent.com/phosphor-icons/core/main/raw/regular/trash-simple.svg
 - Source: https://raw.githubusercontent.com/phosphor-icons/core/main/raw/regular/user-sound.svg
 - Source: https://raw.githubusercontent.com/phosphor-icons/core/main/raw/regular/waveform.svg
 - Source: https://raw.githubusercontent.com/phosphor-icons/core/main/raw/regular/x-circle.svg
 - Source: https://raw.githubusercontent.com/phosphor-icons/core/main/raw/regular/x.svg
-- Icons: arrow-up (upstream: arrow-up (regular)), arrows-left-right (upstream: arrows-left-right (regular)), check-circle (upstream: check-circle (regular)), dots-three-vertical (upstream: dots-three-vertical (regular)), download-simple (upstream: download-simple (regular)), file-zip (upstream: file-zip (regular)), folder (upstream: folder (regular)), graph (upstream: graph (regular)), hand (upstream: hand (regular)), house (upstream: house (regular)), info (upstream: info (regular)), magnifying-glass (upstream: magnifying-glass (regular)), monitor-arrow-up (upstream: monitor-arrow-up (regular)), music-notes-simple (upstream: music-notes-simple (regular)), plus (upstream: plus (regular)), trash-simple (upstream: trash-simple (regular)), user-sound (upstream: user-sound (regular)), waveform (upstream: waveform (regular)), x (upstream: x (regular)), x-circle (upstream: x-circle (regular))
+- Icons: arrow-elbow-down-left (upstream: arrow-elbow-down-left (regular)), arrow-right (upstream: arrow-right (regular)), arrow-up (upstream: arrow-up (regular)), arrows-left-right (upstream: arrows-left-right (regular)), check-circle (upstream: check-circle (regular)), cloud-arrow-up (upstream: cloud-arrow-up (regular)), cloud-check (upstream: cloud-check (regular)), cloud-warning (upstream: cloud-warning (regular)), desktop (upstream: desktop (regular)), dots-three-vertical (upstream: dots-three-vertical (regular)), download-simple (upstream: download-simple (regular)), file-zip (upstream: file-zip (regular)), folder (upstream: folder (regular)), graph (upstream: graph (regular)), hand (upstream: hand (regular)), house (upstream: house (regular)), info (upstream: info (regular)), magnifying-glass (upstream: magnifying-glass (regular)), minus (upstream: minus (regular)), monitor-arrow-up (upstream: monitor-arrow-up (regular)), moon (upstream: moon (regular)), music-notes-simple (upstream: music-notes-simple (regular)), plus (upstream: plus (regular)), sun (upstream: sun (regular)), trash-simple (upstream: trash-simple (regular)), user-sound (upstream: user-sound (regular)), waveform (upstream: waveform (regular)), x (upstream: x (regular)), x-circle (upstream: x-circle (regular))
 
 ```text
 MIT License

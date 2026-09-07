@@ -81,8 +81,12 @@ variant 축은 **값이 2개 이상일 때만** 만든다. Klipse 아이콘은 �
 그리게 되면 그때 `Weight` 축으로 묶는다.
 
 낱개여도 활용성이 떨어지지 않는 이유는 **소비 방식이 instance swap이기 때문**이다. Button의
-`LeftIconGlyph`, IconButton의 `Glyph`가 INSTANCE_SWAP property이므로 컴포넌트 안에서 26개 중
+`LeftIconGlyph`, IconButton의 `Glyph`가 INSTANCE_SWAP property이므로 컴포넌트 안에서 세트 전체 중
 아무거나 고를 수 있다. asset 패널은 `icon/` 접두사로 이미 한 폴더로 묶는다.
+
+여기에 개수를 적지 않는 이유는 바로 위 문단이 정한 규칙 그대로다 — 수는 `figma/snapshot.json` 의
+`icons` 가 낸다. 이 자리에는 「26개」가 박혀 있었고 세트가 31이 된 뒤에도, 42가 된 뒤에도 그대로
+남아 있었다. 산 숫자를 산문에 적으면 반드시 낡는다.
 
 ## Color contract
 

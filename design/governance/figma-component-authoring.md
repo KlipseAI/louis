@@ -42,13 +42,37 @@ Figma 컴포넌트를 만들거나 고칠 때 지키는 규칙. 기준선은 이
 | `Size` | `sm` · `md` · `lg` · (지역 예외는 **쓰임새 이름**) | 밀도. **`compact`/`medium`/`large`는 폐기** — 같은 뜻을 두 어휘로 부르면 두 벌이 된다. 사다리에 없는 한 컴포넌트의 값은 아래 「사다리 밖 값은 쓰임새로 부른다」 |
 | `Variant` | `primary` · `secondary` · `ghost` · `danger` · `inverse` | **강조 단계만.** 부품 이름을 넣지 않는다 |
 | `Tone` | `neutral` · `info` · `success` · `warning` · `danger` | **의미 톤만.** 밝기(`bright`/`dark`)는 톤이 아니다 — 테마면 모드로(§4), 한 테마 안에서 자리마다 갈리면 `Surface` 로 뺀다 |
-| `State` | `Default` · `Hover` · `Active` · `Focus` · `Disabled` | **상호작용 상태만.** `Active` 는 `:active`(누르는 중)다 — `Pressed`(aria-pressed)와 다르며 Button 에는 후자가 없다. 이 뜻은 `design/foundations/interaction-states.md` 가 소유한다 |
+| `State` | `Default` · `Hover` · `Active` · `Focus` · `Open` · `Disabled` | **상호작용 상태만.** `Active` 는 `:active`(누르는 중)다 — `Pressed`(aria-pressed)와 다르며 Button 에는 후자가 없다. 이 뜻은 `design/foundations/interaction-states.md` 가 소유한다. `Open` 은 아래 「`Open` 은 2026-09-07 에 표에 올랐다」를 본다 |
 | `Mode` | `determinate` · `indeterminate` | **작동 방식.** 같은 컴포넌트가 서로 다른 원리로 도는 것. 진행률을 아는 막대와 모르는 막대는 상태가 아니라 다른 기계다 |
 | `Direction` | `prev` · `next` | **방향.** 기하는 그대로고 글리프의 향만 바뀐다. 값은 **트랙의 진행 방향**이지 화살표가 가리키는 쪽(`left`/`right`)이 아니다 — 세로 트랙이 생겨도 이름이 산다 |
 | `Surface` | `light` · `dark` | **아래 깔린 면의 밝기.** 테마가 아니다 — 경계는 「`Surface` 는 테마가 아니다」가 정한다. 값은 잉크가 아니라 **면**을 가리킨다: `light` = 밝은 면 위 = 어두운 잉크 |
 | `LabelBehavior` | `stacked` · `floating` | **라벨이 어디 사는가.** `stacked` 은 라벨이 컨트롤 **위**의 형제이고 움직이지 않는다. `floating` 은 라벨이 컨트롤 **안**에서 placeholder 노릇을 하다가 값이나 포커스가 오면 떠오른다. 조건 축이 아니다 — 「지금 떠 있는가」는 `State` 가 담고(`Placeholder` 가 쉼), 이 축은 **디자이너가 고르는** 것이라 `Size` 와 같은 종류다 |
+| `Level` | `page` · `section` · `label` | **문서 위계.** 그 부품이 «무엇의» 머리인가 — 화면 · 카드 안 묶음 · 패널. `Size` 가 아니다: 값이 밀도가 아니고, 셋의 관계가 순서가 아니라 **포함**이다(화면이 묶음을 품고 묶음이 패널을 품는다). 그 차이가 크기 밖으로 새는 자리가 있다 — SectionHeader 는 아래 여백을 `page` 만 지고 `label` 에는 설명·메타·액션 자리가 아예 없다 |
 | `Orientation` | `vertical` · `horizontal` | **긴 축이 어디로 놓이나.** `Direction` 과 다르다 — `Direction` 은 기하가 그대로고 향만 바뀌지만 여기서는 **기하가 90° 전치된다**(4×60 ↔ 60×4). 축이 바뀌면 커서와 전환 프로퍼티도 함께 바뀐다 |
 | 조건 축 (`Expanded` 등) | `false` · `true` | BOOLEAN 으로 그릴 수 없는 조건 하나. 축 이름은 아래 명부에 있는 것만 쓴다 |
+
+### `Open` 은 2026-09-07 에 표에 올랐다
+
+`MenuTrigger` 가 2026-09-06 에 `State = Default|Hover|Open` 으로 섰는데 **이 표에 `Open` 이
+없었다.** 축 어휘가 닫혀 있으므로 그것은 규칙 위반이었고, 아무 게이트도 잡지 못했다 —
+`verify-figma-parity` 는 축의 옵션 집합이 계약과 같은지만 보고 그 이름이 이 표에 있는지는
+보지 않는다. `SelectTrigger` 가 같은 값을 필요로 하면서 그 빚이 드러났다
+([DS-D-0053](decisions/DS-D-0053-select-is-not-a-menu.md)).
+
+**왜 상호작용 상태인가.** `Open` 은 「지금 이 트리거가 패널을 열어 두고 있다」이고 코드에서
+`aria-expanded="true"` 다. prop 이 아니고 조건 축도 아니다 — 조건 축의 값들
+(`Checked`·`Selected`·`Expanded`·`Loading`)은 **디자이너나 호출부가 고르는 것**이거나 데이터의
+성질인데, 열림은 방금 그 컨트롤을 눌러서 생긴 상태다. `Hover`·`Focus` 와 같은 종류이고 같은
+축에 산다.
+
+**`Expanded` 로 접지 않은 이유를 적어 둔다.** 이름이 둘 다 「열려 있다」라 합치려 들 자리다.
+`Expanded` 는 FaqRow 가 쓰는 여닫이 축이고 **그 컴포넌트 자신이 자란다** — 66 → 132. `Open` 은
+트리거의 기하가 그대로이고 **다른 곳(패널)이 뜬다.** 같은 이름에 두 뜻을 담으면 어느 쪽이든
+설명이 틀린다.
+
+**접기 시험을 통과한다.** `Open` 인 채로 `Disabled` 가 서지 않는다(꺼진 트리거는 열리지 않는다).
+`Hover` 와는 면이 같고 뜻만 다르므로 곱해도 새 그림이 나오지 않는다 — 그래서 독립 축이 아니라
+`State` 의 값이다.
 
 ### 사다리 밖 값은 쓰임새로 부른다
 
@@ -227,6 +251,25 @@ Slider 의 `thumb`/`track` 이 `Variant` 축에 들어가 있다. 부품은 vari
 | NewsCard `Featured` (`false`·`true`) | **프레임 자신의 고정 크기**가 347 × 160 → 698 × 324 다(시험 2). 제품에서는 `image` 가 있으면 피처드다(`NewsCarousel.tsx`) — 슬롯 하나의 유무가 컨테이너 기하를 바꾸는, Button 의 `Icon` 과 같은 사례다 | **조건 축.** 헤드라인 줄 수(2줄 → 1줄)도 같이 갈린다 |
 | GnbMenuItem `Surface` (`light`·`dark`) | 밝기라서 `Tone` 이 아니고, 테마라서 모드인 것도 아니다 — 제품이 이 자리에 **고정 팔레트**를 쓴다 | **`Surface` 축을 연다.** 값은 면을 가리킨다(위 「`Surface` 는 테마가 아니다」) |
 | GnbMenuItem `State=Selected` | 불투명도 0.70 / 0.65 → **1.00** 이다(시험 1). BOOLEAN 으로는 못 그린다. 접기 시험: 제품에서 활성 링크는 hover 로 아무것도 바뀌지 않고(hover 투명도는 비활성 쪽에만 있다), 갈 곳 없는 항목과 활성은 같이 서지 않는다 — 곱할 것이 없다 | **`State` 의 값으로 그대로 둔다.** 고칠 것은 변형이 아니라 「BOOLEAN 으로 빼라」던 지시 쪽이었다 |
+
+**`Level` 은 2026-09-07 에 열렸다.** 근거는 제품 `app/admin/AdminSection.tsx` 의
+`AdminSectionHeader` 실측이다 — 어드민 11 파일 17 자리가 `level="page" | "section" | "label"`
+세 값을 쓰고, 같은 조형이 `components/ui/PageHeader` 로 어드민 밖 앱 허브 넷에도 있다.
+
+**`Size` 로 접지 않은 이유를 함께 적는다.** 사다리 어휘는 순서를 주장하는데 이 셋은 순서가
+아니라 포함 관계다. 그리고 «크기만 다른 것»이 아니라는 증거가 실측에 있다 — 아래 여백 12px 을
+`page` 만 지고(`HEADER_ROW_PAGE`), `label` 에는 설명·메타·액션 슬롯 자체가 없다(제품 17 자리
+전수에서 그 level 은 제목만 넘긴다). 크기 사다리로 부르면 그 둘이 이름 밖으로 새고, 다음
+사람이 「`sm` 에도 액션을 넣으면 되겠지」라고 읽는다.
+
+**BOOLEAN 도 아니다.** 계속 보이는 제목의 타이포와 잉크가 달라지고(시험 1) 프레임이 자기
+아래 padding 을 다시 쓴다(시험 2). 조건 축(`false`·`true`)도 아니다 — 값이 셋이고 「그 순간
+참인지」가 아니라 **고르는 것**이라 `LabelBehavior` 와 같은 종류다.
+
+값이 `page`·`section`·`label` 인 이유는 제품 prop 의 값 그대로이기 때문이다
+(`AdminSectionLevel`). 제품이 물게 하는 일이 클래스 교체 하나로 끝나고 어휘가 둘로 갈리지
+않는다. 사다리 밖 값을 쓰임새로 부르는 규칙과 같은 근거이고, 여기서는 **축 전체**가 사다리
+밖이다.
 
 **같은 결함이 기존 컴포넌트에도 있다.** 여섯은 그것을 드러낸 것이지 새로 만든 것이 아니다.
 

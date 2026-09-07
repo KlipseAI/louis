@@ -1,0 +1,162 @@
+/* Section Header — design/components/section-header.md
+ *
+ * 화면·묶음·패널의 머리. 제목 한 줄과 그 아래 설명·메타, 오른쪽 끝의 액션 묶음이 한 줄에 선다.
+ *
+ * **정본은 제품 `app/admin/AdminSection.tsx` 의 `AdminSectionHeader` 다**(앵커 `5a67d692`).
+ * 어드민 11 화면이 헤더·툴바·타일·상태·배너·배지를 각자 private `const` 로 다시 만들던 것을
+ * 그 파일 하나가 걷어냈고, 이 레시피는 그중 머리 하나를 LOUIS 로 올린 것이다. 호출 지점은
+ * **11 파일 17 자리**다 — page 11 · section 5 · label 1.
+ *
+ * **같은 조형이 어드민 밖에도 있다.** `components/ui/PageHeader` 가 앱 허브 넷
+ * (HighlightScene · NodeCanvasHomeScene · VideoEditScene · admin/TemplateManagement)에서
+ * 같은 제목 36 SemiBold + 설명 16 Medium 을 그린다. **그 「같다」를 실측으로 대조했고 갈리는
+ * 자리가 하나였다** — 아래 여백이다(아래 `margin-block-end` 주석). 나머지 축(제목·설명의 크기·
+ * 굵기·색, 둘 사이 4px)은 두 벌이 바이트 단위로 같다.
+ *
+ * **`/admin` 은 이 저장소의 게이트 사각지대다.** 제품의 대비·타이포·표면 게이트가 그 경로를
+ * 하나도 재지 않는다(제품 CLAUDE.md 「What the Gates Do Not Catch」와 이 저장소의 메모
+ * `admin-gates-are-blind`). 그래서 이 레시피가 서는 것 자체가 그 영역에 처음 생기는 눈이다 —
+ * 여기 값이 틀리면 `verify-figma-parity` 와 `section-header.browser.test.tsx` 가 잡는다.
+ *
+ * 색은 전부 잉크 역할(fg-*)로 받는다. 제품은 다크에서 알파 잉크(`gray-000/56%` · `/40%`)를
+ * 쓰지만 그 방식은 옮기지 않았다 — empty-state 의 canvas 제목과 같은 판단이다. 알파는 바닥이
+ * 무엇이냐에 따라 다른 색이 되고, LOUIS 의 잉크 역할은 바닥과 무관하게 정해진다.
+ * **대비를 이유로 값을 바꾼 것이 아니다**: 옮기지 않은 것은 색이 아니라 «알파로 색을 만드는
+ * 방식»이다.
+ */
+
+.louis-section-header {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  /* 아래쪽 정렬. 제목 블록의 마지막 줄과 액션 묶음이 같은 바닥선에 선다 — 제목 36 옆에
+   * 버튼 32 가 설 때 가운데 정렬이면 버튼이 제목 위로 떠오른다. 제품 `items-end`. */
+  align-items: flex-end;
+  gap: var(--louis-space-stack-md);
+  /* 좁은 화면에서 액션이 다음 줄로 내려가도 제목이 찌그러지지 않게 한다. 제품 `flex-wrap`. */
+  flex-wrap: wrap;
+  /* 긴 제목이 부모를 밀어내지 않게 한다. flex 자식의 기본 min-width 는 auto 다. */
+  min-inline-size: 0;
+  inline-size: 100%;
+}
+
+/**
+ * **flex 자식이 정확히 둘임을 구조가 보장한다** — 제목 블록과 액션 묶음 하나.
+ * `justify-between` 을 「양 끝에 붙인다」는 뜻으로 쓰다가 자식이 셋이 되면 가운데 하나가
+ * 화면 한복판에 고립되는데, 제품 성과 지표의 「새로고침」이 정확히 그 사고였다. 액션을 몇 개
+ * 넘기든 `__actions` 한 겹이 싸므로 다시 생기지 않는다.
+ *
+ * `flex: 1 1 auto` 라서 남는 폭을 제목 블록이 전부 먹는다 — 제품이 `justify-between` 을 함께
+ * 걸고 있으나 이 선언 때문에 남는 공간이 0 이라 그 값은 아무것도 하지 않는다. Figma 쪽도
+ * 같은 사실을 `Text` 자손의 FILL 로 적는다.
+ */
+.louis-section-header__text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--louis-space-stack-xs);
+  min-inline-size: 0;
+  flex: 1 1 auto;
+}
+
+/* 제목 사다리 세 단. 어드민에 없던 것이 이 위계였다 — 예전에는 화면 제목도 묶음 제목도
+ * 메타데이터도 전부 12px 캡션이라, 화면에서 가장 큰 글자가 KPI 숫자이고 가장 작은 글자가
+ * 화면 이름이었다. 기본값은 `section` 이고 나머지 둘은 `data-level` 이 연다. */
+.louis-section-header__title {
+  margin: 0;
+  color: var(--louis-color-fg-primary);
+  font-family: var(--louis-typography-body-lg-semibold-font-family);
+  font-size: var(--louis-typography-body-lg-semibold-font-size);
+  font-weight: var(--louis-typography-body-lg-semibold-font-weight);
+  line-height: var(--louis-typography-body-lg-semibold-line-height);
+  letter-spacing: var(--louis-typography-body-lg-semibold-letter-spacing);
+}
+
+/* 화면 제목. 36 SemiBold 는 제품 `type-heading-36-semibold` 와 같은 값이고, 그 자리를 담을
+ * `typography-heading-md-semibold` 는 이 컴포넌트가 서면서 함께 열렸다 — LOUIS 의 heading
+ * 계열에는 medium 세 칸만 있었다(design/components/section-header.md 「Known deviations」). */
+.louis-section-header[data-level="page"] .louis-section-header__title {
+  font-family: var(--louis-typography-heading-md-semibold-font-family);
+  font-size: var(--louis-typography-heading-md-semibold-font-size);
+  font-weight: var(--louis-typography-heading-md-semibold-font-weight);
+  line-height: var(--louis-typography-heading-md-semibold-line-height);
+  letter-spacing: var(--louis-typography-heading-md-semibold-letter-spacing);
+}
+
+/* 패널 아이브로우. 제목이 아니라 «무엇의 묶음인가»를 말하는 한 줄이라 잉크도 한 단 내린다. */
+.louis-section-header[data-level="label"] .louis-section-header__title {
+  color: var(--louis-color-fg-tertiary);
+  font-family: var(--louis-typography-caption-medium-font-family);
+  font-size: var(--louis-typography-caption-medium-font-size);
+  font-weight: var(--louis-typography-caption-medium-font-weight);
+  line-height: var(--louis-typography-caption-medium-line-height);
+  letter-spacing: var(--louis-typography-caption-medium-letter-spacing);
+}
+
+/* 아래 여백은 `page` 만 진다.
+ *
+ * **12 의 유도는 제품이 두 곳에서 같은 식으로 적어 두었다.** 화면 제목 아래는 32 여야 하고
+ * (`components/ui/PageHeader` 의 유도: 부모 auto-layout 20 + 헤더 자신의 padding-bottom 12),
+ * 그중 20 은 감싸는 스택의 `gap-10` 이 이미 낸다 — 남는 12 만 헤더가 진다.
+ * `app/admin/BlogManagement.tsx:50-52` 와 `app/admin/TemplateManagement.tsx:1009-1012` 가
+ * 그 셈을 각각 자기 말로 적고 있다(20 + 12 = 32).
+ *
+ * **그래서 `PageHeader` 의 `mb-16`(32)과 여기 12 는 어긋난 것이 아니라 분담이 다른 것이다** —
+ * `PageHeader` 의 소비처는 다음 블록의 위 여백을 0 으로 지우고 헤더가 32 를 통째로 지며,
+ * 어드민의 소비처는 스택 gap 이 20 을 이미 내고 있다. 합은 두 곳 다 32 다. */
+.louis-section-header[data-level="page"] {
+  margin-block-end: var(--louis-space-stack-md);
+}
+
+/* 제목 아래 한 줄 설명. */
+.louis-section-header__description {
+  margin: 0;
+  color: var(--louis-color-fg-secondary);
+  font-family: var(--louis-typography-body-md-medium-font-family);
+  font-size: var(--louis-typography-body-md-medium-font-size);
+  font-weight: var(--louis-typography-body-md-medium-font-weight);
+  line-height: var(--louis-typography-body-md-medium-line-height);
+  letter-spacing: var(--louis-typography-body-md-medium-letter-spacing);
+}
+
+/* 개수·기간처럼 짧은 보조 정보. `tabular-nums` 는 제품 값 그대로다 — 수가 갱신될 때 자릿수가
+ * 흔들리면 같은 자리의 글자가 좌우로 튄다. */
+.louis-section-header__meta {
+  margin: 0;
+  color: var(--louis-color-fg-tertiary);
+  font-variant-numeric: tabular-nums;
+  font-family: var(--louis-typography-caption-regular-font-family);
+  font-size: var(--louis-typography-caption-regular-font-size);
+  font-weight: var(--louis-typography-caption-regular-font-weight);
+  line-height: var(--louis-typography-caption-regular-line-height);
+  letter-spacing: var(--louis-typography-caption-regular-letter-spacing);
+}
+
+/* 액션 묶음. 버튼이 몇 개든 이 한 겹이 싼다(위 `__text` 주석). 줄지 않는다 —
+ * 제목이 길어졌다고 버튼이 찌그러지면 누를 것이 사라진다. */
+.louis-section-header__actions {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: var(--louis-space-control-sm);
+  flex-shrink: 0;
+  flex-wrap: wrap;
+}
+
+/* ── 719px 접힘 ──────────────────────────────────────────────────────────────
+ *
+ * 719/720 은 이 저장소가 이미 «행동 경계»로 인정한 폭이다
+ * (design/foundations/responsive-layout.md §4 와 그 표). 여기서 바뀌는 행동은 둘 —
+ * 가로가 세로로 접히고, 액션이 폭을 채운다. 접히기만 하고 `align-items: flex-end` 를 그대로
+ * 두면 버튼이 오른쪽 끝에 매달려 제목과 어긋난 열을 만든다.
+ *
+ * **Figma 에는 이 규칙을 그릴 자리가 없다.** media query 가 없으므로 접힌 모습은 변형이
+ * 되어야 하는데, 그러면 셋이 여섯이 되고 그중 셋은 방향 말고 같은 값을 반복한다. 축 어휘도
+ * 닫혀 있어(design/governance/figma-component-authoring.md §2) `Breakpoint` 를 여는 판정이
+ * 따로 필요하다. 그래서 이 접힘은 **값이 아니라 규칙**으로 남기고 계약의 `$foldRule` 이
+ * 소유한다 — 그리지 않는 것을 변형으로 세우면 시안이 배포본보다 많은 것을 주장하게 된다. */
+@media (max-width: 719px) {
+  .louis-section-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}

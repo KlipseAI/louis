@@ -1904,6 +1904,183 @@
   }
 }
 
+/* Chart Card — design/components/chart-card.md
+ *
+ * 지표 하나를 「바깥 프레임 + 안쪽 면」 두 겹으로 싣는 카드. 안쪽 면에 수치와 증감 알약이
+ * 서고 그 옆(또는 아래)에 차트가 붙는다. 애널리틱스 대시보드의 KPI 행과 주요 지표 블록이
+ * 같은 조형이며 **차트가 붙는 자리**만 다르다 — 그것이 `data-chart` 축이다.
+ *
+ * ## 두 겹인 이유가 반경에 적혀 있다
+ *
+ * 바깥 반경 16(`radius-overlay`) − 바깥 여백 6(`space-overlay-inset`) = 안쪽 반경
+ * 10(`radius-overlay-item`). 동심 정렬이라 세 값이 서로를 참조한다. 하나를 바꾸면 안쪽 면의
+ * 곡률이 바깥 곡률과 어긋나 모서리에 초승달이 생긴다. 정본(`OverviewTab.tsx`)이 그 산술을
+ * 주석으로 적어 두었고, 값 셋이 오버레이 계단과 정확히 같아서 새 토큰을 세우지 않았다.
+ *
+ * ## 면 두 칸은 `bg-canvas` · `bg-overlay` 다
+ *
+ * 이름은 캔버스와 오버레이지만 **값이 정본과 바이트 단위로 같다** — 라이트에서
+ * palette-gray-100 / palette-gray-000, 다크에서 palette-gray-900 / palette-gray-800 이고
+ * 제품 애널리틱스 셸이 `--dashboard-card-bg` · `--dashboard-inner-panel-bg` 로 공급하는 값과
+ * 같다. 같은 값에 이름을 하나 더 붙이는 것은 이 시스템이 이미 갖고 있는 중복
+ * (`radius-alert` 와 `radius-card-lg` 가 둘 다 20)을 한 벌 더 만드는 일이라 하지 않았다.
+ */
+
+.louis-chart-card {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  inline-size: 100%;
+  min-inline-size: 0;
+  gap: var(--louis-space-control-sm);
+  padding: var(--louis-space-overlay-inset);
+  border-radius: var(--louis-radius-overlay);
+  background: var(--louis-color-bg-canvas);
+  box-shadow: var(--louis-hairline-inset);
+}
+
+/* 지표 이름과 기간. 바깥 프레임에는 면이 없는 자리라 헤더는 여백만 갖는다.
+ *
+ * 아래 여백이 2 로 얕은 것은 헤더가 안쪽 면에 **거의 붙어야** 하기 때문이다 — 카드의
+ * 세로 간격은 프레임의 `gap` 8 이 이미 내고 있어서, 헤더가 자기 아래 여백을 또 내면
+ * 제목이 자기 데이터에서 떨어져 다른 카드의 것처럼 읽힌다. */
+.louis-chart-card__header {
+  box-sizing: border-box;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  /* 10px — 제목과 기간이 한 줄에 설 때의 최소 간격이고 정본(`gap-5`)에서 온 값이다.
+   * 간격 계단(space-control-sm 8 · space-control-md 12)에 없어 리터럴로 진다. */
+  gap: 10px;
+  padding-block-start: var(--louis-space-overlay-inset);
+  padding-block-end: var(--louis-space-overlay-item-gap);
+  padding-inline: var(--louis-space-overlay-inset);
+}
+
+/* spark 카드의 헤더에는 제목 하나뿐이라 간격이 무엇도 가르지 않는다. 0 으로 적어 두는 것이
+ * 계약이다 — 비워 두면 「아직 안 정했다」와 구분되지 않는다. */
+.louis-chart-card[data-chart="spark"] .louis-chart-card__header {
+  align-items: center;
+  gap: 0;
+}
+
+.louis-chart-card__label {
+  font-size: var(--louis-typography-body-sm-medium-font-size);
+  line-height: var(--louis-typography-body-sm-medium-line-height);
+  font-weight: var(--louis-typography-body-sm-medium-font-weight);
+  color: var(--louis-color-fg-secondary);
+}
+
+.louis-chart-card__meta {
+  font-size: var(--louis-typography-caption-regular-font-size);
+  line-height: var(--louis-typography-caption-regular-line-height);
+  font-weight: var(--louis-typography-caption-regular-font-weight);
+  font-variant-numeric: tabular-nums;
+  color: var(--louis-color-fg-tertiary);
+}
+
+/* 안쪽 면. **여기가 데이터가 사는 자리**이고 바깥 프레임은 그것을 싣는 액자다.
+ *
+ * `flex: 1` 인 이유는 격자다 — 여러 카드가 한 행에 서면 행 높이가 가장 큰 카드로 맞춰지는데,
+ * 안쪽 면이 늘어나지 않으면 알약이 있는 카드와 없는 카드의 **아래 여백**이 달라진다. */
+.louis-chart-card__panel {
+  box-sizing: border-box;
+  display: flex;
+  flex: 1;
+  min-inline-size: 0;
+  flex-direction: column;
+  /* **하한을 0 으로 못 박는다.** 세로 flex 항목의 기본 `min-block-size: auto` 는 면이 내용보다
+   * 작아지기를 거부하게 만든다 — 좁은 폭에서 곡선 슬롯이 줄어들 자리를 잃고 카드가 넘친다.
+   * spark 쪽은 이 하한을 92 로 올려 KPI 행의 실질 행 높이를 만든다. */
+  min-block-size: 0;
+  gap: 10px;
+  padding-block: var(--louis-space-control-md);
+  /* 14px — 좌우가 위아래보다 2 넓다. 정본(`px-7`)에서 온 값이고 간격 계단에 없다. */
+  padding-inline: 14px;
+  border-radius: var(--louis-radius-overlay-item);
+  background: var(--louis-color-bg-overlay);
+  box-shadow: var(--louis-hairline-inset);
+}
+
+/* spark 카드의 안쪽 면은 **가로**다 — 수치 묶음이 왼쪽, 미니 차트가 오른쪽에 선다.
+ * 최소 높이 92 는 알약이 없는 카드가 주저앉지 않게 하는 하한이고, 이 값이 KPI 행의
+ * 실질 행 높이를 정한다. */
+.louis-chart-card[data-chart="spark"] .louis-chart-card__panel {
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--louis-space-control-md);
+  /* 14px / 16px — spark 면은 area 면보다 위아래 2 · 좌우 2 넓다. 두 값이 갈리는 것은
+   * 제품 정본이 갈려 있기 때문이고(KPI `py-7 px-8` · 주요 지표 `py-6 px-7`), 이 회차는
+   * 그 사실을 지우지 않고 축으로 적는다. */
+  padding-block: 14px;
+  padding-inline: var(--louis-space-control-lg);
+  min-block-size: 92px;
+}
+
+/* 수치와 알약. area 는 한 줄(값 옆에 알약), spark 는 두 줄(값 아래 알약)이다. */
+.louis-chart-card__metric {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  min-inline-size: 0;
+  column-gap: 6px;
+  /* 5px — 줄이 접혔을 때의 세로 간격. 정본(`gap-y-[5px]`)에서 온 값이고 2px 격자 밖이다. */
+  row-gap: 5px;
+}
+
+.louis-chart-card[data-chart="spark"] .louis-chart-card__metric {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+}
+
+.louis-chart-card__value {
+  margin: 0;
+  font-size: var(--louis-typography-heading-md-medium-font-size);
+  line-height: var(--louis-typography-heading-md-medium-line-height);
+  font-weight: var(--louis-typography-heading-md-medium-font-weight);
+  font-variant-numeric: tabular-nums;
+  color: var(--louis-color-fg-primary);
+}
+
+/* 넓은 차트가 서는 자리. **높이를 비율로 정한다** — 카드가 격자에서 어떤 폭을 받든 곡선의
+ * 기울기가 같아야 읽는 사람이 두 카드를 비교할 수 있다. `min-block-size` 는 좁은 화면에서
+ * 비율이 만드는 높이가 곡선을 못 읽을 만큼 납작해지는 것을 막는 하한이다. */
+.louis-chart-card__chart {
+  /* **`aspect-ratio` 는 box-sizing 이 가리키는 상자에 적용된다.** border-box 로 못 박지 않으면
+   * 여백 24 가 비율 밖으로 새어 나가 같은 폭에서 높이가 두 값을 갖는다. */
+  box-sizing: border-box;
+  position: relative;
+  inline-size: 100%;
+  aspect-ratio: 4 / 1;
+  min-block-size: 140px;
+  padding-block: var(--louis-space-control-md);
+}
+
+/* 미니 차트. 축도 툴팁도 없이 곡선 하나만 그린다.
+ * 폭이 44% 인 것은 수치가 길어질수록 차트가 양보해야 하기 때문이고, 상한 130 은 넓은
+ * 카드에서 차트가 수치보다 커지지 않게 하는 뚜껑이다. */
+.louis-chart-card__spark {
+  box-sizing: border-box;
+  flex: 0 0 auto;
+  inline-size: 44%;
+  max-inline-size: 130px;
+  block-size: 46px;
+  align-self: flex-end;
+}
+
+@media (forced-colors: active) {
+  /* 두 면 다 헤어라인이 사라지므로 경계를 시스템 색 실선으로 되살린다 (DS-D-0023).
+   * 안쪽 면까지 되살리는 이유는 이 카드에서 **두 겹이라는 사실 자체가 정보**이기 때문이다. */
+  .louis-chart-card,
+  .louis-chart-card__panel {
+    box-shadow: none;
+    border: var(--louis-border-width-default) solid currentColor;
+  }
+}
+
 /* Checkbox — design/components/checkbox.md
  *
  * 제품에 공용 정본이 있다 — `globals.css:990`의 `.app-native-checkbox`(20×20 · accent-color).
@@ -2734,6 +2911,315 @@
 .louis-icon[data-size="lg"] {
   inline-size: var(--louis-icon-size-lg);
   block-size: var(--louis-icon-size-lg);
+}
+
+/* Inspector row — 속성 패널의 «행 문법» 한 벌 (절 머리 · 라벨-값 행 · 값 칸 넷)
+ *
+ * **부품 다섯이 아니라 문법 하나다.** 제품의 영상 편집기 우측 속성 패널은 인스펙터 다섯 보드
+ * (ClipInspector · OverlayInspector · AudioClipInspector · CompositionInspector ·
+ * EditorSettingsPanel)를 갖는데, 그 다섯은 **부품의 배치일 뿐**이고 실제로 값을 갖는 것은
+ * 「절 머리」와 「한 줄짜리 라벨-값 행」 둘이다. 그래서 여기서는 그 둘만 세우고, 값 칸의 네 형태
+ * (글자 · 숫자 · 색 점 · 알약)를 행의 한 축으로 접는다. 다섯을 따로 세우면 문법이 아니라
+ * 부품 다섯이 된다.
+ *
+ * 정본과 실측 — 제품 앵커 `5a67d692`:
+ *   apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts
+ *   apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/inspectorPrimitives.tsx
+ * 값의 출처는 `figma/components.measured.json` 의 `inspector-row` 가 `$` 사유로 하나씩 인용한다.
+ *
+ * **행은 곧 박스다.** 제품 주석이 그 이관을 적고 있다(vemClass.ts:996-1002) — 디자인의 행은
+ * 224×28 에 반경 8, 안쪽 여백 0 8 인 «박스»이고 라벨이 왼쪽 · 값이 오른쪽이다. 제품은 한때
+ * 행을 투명하게 두고 **값에만** 140 박스를 씌우고 있었는데 치수는 같아도 읽히는 구성이 달랐고,
+ * 박스를 행으로 옮기는 것이 그 정정이었다. 여기서는 정정된 쪽만 채택한다 — 옛 배치는 제품이
+ * 떠나온 형태라 레시피가 그것을 다시 들고 있을 이유가 없다.
+ *
+ * **면은 사다리로 옮겼다.** 제품은 팔레트 칸을 테마마다 직접 골랐다(행 다크 gray-800 /
+ * 라이트 gray-100, 값 컨트롤 다크 gray-700 / 라이트 gray-300). 다크는 LOUIS 의 semantic 사다리와
+ * 정확히 같고(bg-inset = gray-800 · bg-raised = gray-700 · bg-canvas = gray-900), 라이트만 갈린다.
+ * 갈리는 이유는 이 패널이 다크를 먼저 그리고 라이트를 팔레트 칸으로 «번역»한 화면이기 때문이다.
+ * 레시피는 **관계**를 고정한다 — 행은 패널보다 한 칸 들어가고(bg-inset), 그 안의 컨트롤은 한 칸
+ * 나오며(bg-raised), 알약은 바닥까지 내려간다(bg-canvas). 두 테마에서 같은 관계가 성립하는 것이
+ * 팔레트 칸을 두 번 고르는 것보다 낫다. 어긋나는 칸은 문서 Known deviations 가 소유한다.
+ */
+
+.louis-inspector-row {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  /* 라벨과 값 사이 10. **간격 계단(4·8·12·16) 위에 없는 값이다.** 제품이 두 자리에서 같은 10 을
+   * 쓰고(vemClass.ts:984 · inspectorPrimitives.tsx:29) 그 둘이 같은 행의 두 구현이었으므로 값이
+   * 하나로 합쳐진다. 12 로 올리면 224 폭에서 140 값 칸과 라벨이 부딪힌다 — 224 − 8×2 − 140 − 12
+   * = 56 이 라벨에 남고, 10 이면 58 이다. AppShell 이 같은 이유로 같은 계단 밖 값을 로컬로 갖는다
+   * (app-shell.css:296). 토큰으로 올리려면 Figma 변수까지 함께 열어야 해서 이 회차에서는 리터럴로
+   * 두고 사유를 여기 남긴다. */
+  gap: 10px;
+  min-inline-size: 0;
+  /* 행 높이는 사다리(24·32·40)가 아니라 인스펙터 전용 28 이다 — SegmentedControl 의 `xs`가
+   * 이미 같은 토큰을 읽는다(DS-D-0032 가 그 예외를 명시했다). `min-` 으로 두는 것은 긴 값이나
+   * 200% 확대에서 행이 자라야 하기 때문이다. */
+  min-block-size: var(--louis-layout-inspector-control-height);
+  padding-block: 0;
+  padding-inline: var(--louis-space-control-sm);
+  border: 0;
+  border-radius: var(--louis-radius-control-sm);
+  background: var(--louis-color-bg-inset);
+  color: var(--louis-color-fg-primary);
+}
+
+/* 손가락으로 만지는 폭에서는 행이 44 로 자란다 — 제품이 같은 경계(719px)에서 같은 값을 쓴다
+ * (vemClass.ts:995). 44 는 `layout-control-hit-target-minimum` 과 같은 수이며 그 규범의 값이다. */
+@media (max-width: 719px) {
+  .louis-inspector-row {
+    min-block-size: var(--louis-layout-control-hit-target-minimum);
+  }
+}
+
+/* 라벨은 내용폭으로 왼쪽에 붙고 남는 자리를 먹어 값을 오른쪽 끝으로 민다.
+ * **38% 고정폭이 아니다** — 그 값은 행이 투명하던 옛 배치의 것이고, 박스가 된 행에서는 라벨과
+ * 값이 합쳐 넘친다(제품 주석이 그 사실을 적고 정정했다, inspectorPrimitives.tsx:55-56). */
+.louis-inspector-row__label {
+  flex: 1 1 auto;
+  min-inline-size: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  color: var(--louis-color-fg-secondary);
+  font-family: var(--louis-typography-caption-medium-font-family);
+  font-size: var(--louis-typography-caption-medium-font-size);
+  font-weight: var(--louis-typography-caption-medium-font-weight);
+  line-height: var(--louis-typography-caption-medium-line-height);
+  letter-spacing: var(--louis-typography-caption-medium-letter-spacing);
+}
+
+/* 값 자리. 네 형태(글자 · 숫자 · 색 · 알약)가 전부 이 안에 선다 — 형태가 바뀌어도 행의 오른쪽
+ * 끝에 붙는 규칙은 하나다. 62% 상한은 라벨이 완전히 밀려나지 않게 하는 제품 값이다. */
+.louis-inspector-row__value {
+  display: flex;
+  flex: 0 1 auto;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--louis-space-control-sm);
+  min-inline-size: 0;
+  max-inline-size: 62%;
+}
+
+/* 글자 값. 표의 숫자가 자리를 지키도록 tabular-nums 를 켠다 — 스크럽으로 값이 흐를 때 자릿수가
+ * 바뀌며 행이 덜컹거리는 것을 막는다. */
+.louis-inspector-row__text {
+  min-inline-size: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  text-align: right;
+  color: var(--louis-color-fg-primary);
+  font-variant-numeric: tabular-nums;
+  font-family: var(--louis-typography-caption-regular-font-family);
+  font-size: var(--louis-typography-caption-regular-font-size);
+  font-weight: var(--louis-typography-caption-regular-font-weight);
+  line-height: var(--louis-typography-caption-regular-line-height);
+  letter-spacing: var(--louis-typography-caption-regular-letter-spacing);
+}
+
+/* 색 값의 점. 색 자체가 값이므로 색은 소비처가 인라인으로 준다 — 그것이 이 레시피에서 색을
+ * 토큰으로 두지 않는 **유일한** 자리다. 지름 8 은 캡션 12 의 줄 높이 18 안에서 광학적으로
+ * 가운데 서는 크기이고 제품 실측이다(inspectorPrimitives.tsx:44-45). */
+.louis-inspector-row__dot {
+  flex: none;
+  inline-size: 8px;
+  block-size: 8px;
+  border-radius: var(--louis-radius-pill);
+}
+
+/* 알약 값 — 「자동 · 없음」처럼 값이 상태 어휘일 때 쓴다.
+ *
+ * **Badge 로 흡수하지 않았다.** 셋이 걸린다. ① 제품의 tone 축 넷(default·accent·danger·neutral)이
+ * **선언이 서로 글자까지 같아 죽어 있다**(inspectorPrimitives.tsx:117-152) — 흡수하면 죽은 축을
+ * 들여오는 것이 된다. ② Badge 의 계약은 `borderWidth: 0` 이 규칙이고 「면과 글자로만 tone 을
+ * 전달한다」인데 이 알약은 1px 테두리가 경계의 전부다. ③ Badge 에 size 축을 열면 5 tone × 2 =
+ * 10 변형이 되어 이미 배포된 set 의 격자가 두 배가 된다. 셋 다 소유자 판정이라 이 회차에서는
+ * 행의 값 형태로 남긴다.
+ *
+ * **테두리가 0.5 inset 헤어라인이 아니라 진짜 1px 이다.** DS-D-0023 이후 이 저장소의 기본은
+ * inset 그림자인데 여기와 SegmentedCodeInput 둘만 border 를 쓴다. 알약의 면(bg-canvas)은 패널
+ * 바닥과 같은 값이라 **경계가 사라지면 알약이 사라진다** — 기법을 바꾸면 20 높이 박스의 바깥
+ * 치수도 함께 움직이므로 앵커 값을 그대로 둔다. 기법 통일은 SegmentedCodeInput 과 같은 묶음의
+ * 소유자 판정으로 남긴다. */
+.louis-inspector-row__pill {
+  box-sizing: border-box;
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  /* 6 은 간격 계단에도 반경 계단에도 없다. 알약의 세 값(사이 간격 · 좌우 여백 · 반경)이 전부
+   * 6 인 것이 앵커의 선언이고(inspectorPrimitives.tsx:119·122·123), 세 값이 같아야 20 높이에서
+   * 글자와 경계 사이가 사방으로 같은 두께로 남는다. 계단 값 4 로 내리면 여백이 사라지고 8 로
+   * 올리면 반경이 행(8)과 같아져 알약이 행과 같은 모양이 된다. */
+  gap: 6px;
+  min-block-size: 20px;
+  padding-block: 0;
+  padding-inline: 6px;
+  border: var(--louis-border-width-default) solid var(--louis-color-stroke-subtle);
+  border-radius: 6px;
+  background: var(--louis-color-bg-canvas);
+  color: var(--louis-color-fg-primary);
+  white-space: nowrap;
+  font-family: var(--louis-typography-caption-medium-font-family);
+  font-size: var(--louis-typography-caption-medium-font-size);
+  font-weight: var(--louis-typography-caption-medium-font-weight);
+  line-height: var(--louis-typography-caption-medium-line-height);
+  letter-spacing: var(--louis-typography-caption-medium-letter-spacing);
+}
+
+/* 숫자 값 칸. 좌우 드래그 스크럽 · `50+10` 산술식 · ↑↓ 증감은 **동작이지 값이 아니라서** 여기에
+ * 적을 것이 없다 — 그 계약은 문서가 소유하고 구현은 소비처가 진다. 이 레시피가 고정하는 것은
+ * 140×28 · 안쪽 여백 0 10 · 반경 8 · 한 칸 나온 면뿐이다.
+ *
+ * **폭이 140 으로 고정인 것이 계약이다.** 같은 행에 서는 다른 값 컨트롤(세그먼티드 토글 등)이
+ * 같은 폭을 쓰고, 그래야 절 안의 값 열이 한 줄로 선다. */
+.louis-inspector-row__number {
+  box-sizing: border-box;
+  flex: none;
+  inline-size: 140px;
+  block-size: var(--louis-layout-inspector-control-height);
+  padding-block: 0;
+  padding-inline: 10px;
+  border: 0;
+  border-radius: var(--louis-radius-control-sm);
+  background: var(--louis-color-bg-raised);
+  color: var(--louis-color-fg-primary);
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  font-family: var(--louis-typography-caption-regular-font-family);
+  font-size: var(--louis-typography-caption-regular-font-size);
+  font-weight: var(--louis-typography-caption-regular-font-weight);
+  line-height: var(--louis-typography-caption-regular-line-height);
+  letter-spacing: var(--louis-typography-caption-regular-letter-spacing);
+}
+
+/* 스크럽은 좌우 드래그이므로 커서가 그 축을 말한다. 제품은 이것을 `document.body.style.cursor`
+ * 로 걸어 드래그 중 온 화면에 적용하는데, 그것은 이 컴포넌트의 스타일이 아니라 드래그 세션의
+ * 전역 상태다 — 레시피는 쉬고 있을 때의 힌트만 갖는다. */
+.louis-inspector-row__number:where(:not(:disabled)) {
+  cursor: ew-resize;
+}
+
+/* ── 절 머리 ─────────────────────────────────────────────────────────────────
+ *
+ * 네 인스펙터와 효과 절이 각자 머리를 적고 있었고 **효과 절만 제목이 14px 에 밑줄이라 혼자
+ * 달라 보였다** — 제품이 그 다섯을 한 벌로 모은 근거를 파일 주석에 적어 두었다
+ * (inspectorPrimitives.tsx). 선택 대상이 바뀌어도 절 머리가 같아야 한다는 것이 이 부품의 존재
+ * 이유다.
+ *
+ * 머리는 두 덩어리다 — 제목이 왼쪽, 값 힌트와 조작 아이콘이 오른쪽. 오른쪽 묶음은 **그 절에
+ * 실제로 있는 조작만** 받는다: 디자인에 그려졌다는 이유로 없는 기능을 만들지 않는다. */
+.louis-inspector-section-head {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--louis-space-control-md);
+  min-inline-size: 0;
+  /* 카드 자신의 사이 간격 4 와 합쳐 절 제목에서 첫 행까지 8 이 된다. */
+  padding-block-end: var(--louis-space-control-xs);
+}
+
+/* **감싸는 세로 묶음을 두지 않았다.** 제품은 `inspectorCardHeader`(세로 · 사이 간격 8) 안에
+ * `inspectorSectionHeader`(가로) 하나만 넣는다 — 자식이 언제나 하나라 그 8 은 아무 것도 벌리지
+ * 않는 죽은 값이다. 그리지 않는 값을 레시피와 Figma 에 옮기면 다음 사람이 그것을 계약으로
+ * 착각한다. 힌트 문단은 절 머리가 아니라 카드가 갖는다(`inspectorSectionMeta` 가 카드 직계일
+ * 때만 위 여백 4 를 받는 것이 그 증거다). */
+
+.louis-inspector-section-head__title {
+  margin: 0;
+  min-inline-size: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  color: var(--louis-color-fg-primary);
+  font-family: var(--louis-typography-caption-medium-font-family);
+  font-size: var(--louis-typography-caption-medium-font-size);
+  font-weight: var(--louis-typography-caption-medium-font-weight);
+  line-height: var(--louis-typography-caption-medium-line-height);
+  letter-spacing: var(--louis-typography-caption-medium-letter-spacing);
+}
+
+.louis-inspector-section-head__tail {
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: var(--louis-space-control-sm);
+}
+
+.louis-inspector-section-head__meta {
+  color: var(--louis-color-fg-tertiary);
+  font-variant-numeric: tabular-nums;
+  font-family: var(--louis-typography-caption-regular-font-family);
+  font-size: var(--louis-typography-caption-regular-font-size);
+  font-weight: var(--louis-typography-caption-regular-font-weight);
+  line-height: var(--louis-typography-caption-regular-line-height);
+  letter-spacing: var(--louis-typography-caption-regular-letter-spacing);
+}
+
+/* 절 머리의 조작 — 글리프는 16 이고 누르는 면은 24 다. **디자인의 16 은 글리프 크기이지 히트
+ * 영역이 아니다**(제품 주석이 그 구분을 적고 있다, vemClass.ts:1131-1134). 24 는 컨트롤 사다리의
+ * `sm` 이며 DS-D-0032 가 연 칸이다 — 제품이 로컬로 세운 이유(핀이 그 칸 이전이었다)는 이제
+ * 없어졌으므로 여기서는 토큰을 읽는다. */
+.louis-inspector-section-head__action {
+  box-sizing: border-box;
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  inline-size: var(--louis-layout-control-height-sm);
+  block-size: var(--louis-layout-control-height-sm);
+  padding: 0;
+  border: 0;
+  border-radius: var(--louis-radius-control-sm);
+  background: transparent;
+  color: var(--louis-color-fg-primary);
+  cursor: pointer;
+  transition-property: background, color;
+  transition-duration: var(--louis-motion-control-hover-duration);
+  transition-timing-function: var(--louis-motion-control-hover-timing-function);
+}
+
+.louis-inspector-section-head__action:where(:not(:disabled)):hover {
+  background: var(--louis-color-accent-ghost-hover);
+}
+
+.louis-inspector-section-head__action:disabled,
+.louis-inspector-section-head__action[aria-disabled="true"] {
+  cursor: not-allowed;
+  color: var(--louis-color-fg-disabled);
+}
+
+.louis-inspector-section-head__glyph {
+  display: block;
+  flex: none;
+  inline-size: var(--louis-icon-size-sm);
+  block-size: var(--louis-icon-size-sm);
+  color: inherit;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .louis-inspector-section-head__action {
+    transition-duration: var(--louis-motion-reduced-duration);
+  }
+}
+
+/* forced-colors — 행과 알약의 면이 강제 치환되면 경계가 사라진다. 시스템 색 실선으로 되살린다.
+ * 숫자 칸은 행 «안»의 컨트롤이라 행과 구분되지 않으면 어디를 누르는지 알 수 없다. */
+@media (forced-colors: active) {
+  .louis-inspector-row,
+  .louis-inspector-row__number,
+  .louis-inspector-row__pill {
+    border: var(--louis-border-width-default) solid currentColor;
+  }
+
+  .louis-inspector-section-head__action:disabled,
+  .louis-inspector-section-head__action[aria-disabled="true"] {
+    color: GrayText;
+  }
 }
 
 /* Menu / Popover — design/components/menu-popover.md
@@ -4068,6 +4554,169 @@
   }
 }
 
+/* Section Header — design/components/section-header.md
+ *
+ * 화면·묶음·패널의 머리. 제목 한 줄과 그 아래 설명·메타, 오른쪽 끝의 액션 묶음이 한 줄에 선다.
+ *
+ * **정본은 제품 `app/admin/AdminSection.tsx` 의 `AdminSectionHeader` 다**(앵커 `5a67d692`).
+ * 어드민 11 화면이 헤더·툴바·타일·상태·배너·배지를 각자 private `const` 로 다시 만들던 것을
+ * 그 파일 하나가 걷어냈고, 이 레시피는 그중 머리 하나를 LOUIS 로 올린 것이다. 호출 지점은
+ * **11 파일 17 자리**다 — page 11 · section 5 · label 1.
+ *
+ * **같은 조형이 어드민 밖에도 있다.** `components/ui/PageHeader` 가 앱 허브 넷
+ * (HighlightScene · NodeCanvasHomeScene · VideoEditScene · admin/TemplateManagement)에서
+ * 같은 제목 36 SemiBold + 설명 16 Medium 을 그린다. **그 「같다」를 실측으로 대조했고 갈리는
+ * 자리가 하나였다** — 아래 여백이다(아래 `margin-block-end` 주석). 나머지 축(제목·설명의 크기·
+ * 굵기·색, 둘 사이 4px)은 두 벌이 바이트 단위로 같다.
+ *
+ * **`/admin` 은 이 저장소의 게이트 사각지대다.** 제품의 대비·타이포·표면 게이트가 그 경로를
+ * 하나도 재지 않는다(제품 CLAUDE.md 「What the Gates Do Not Catch」와 이 저장소의 메모
+ * `admin-gates-are-blind`). 그래서 이 레시피가 서는 것 자체가 그 영역에 처음 생기는 눈이다 —
+ * 여기 값이 틀리면 `verify-figma-parity` 와 `section-header.browser.test.tsx` 가 잡는다.
+ *
+ * 색은 전부 잉크 역할(fg-*)로 받는다. 제품은 다크에서 알파 잉크(`gray-000/56%` · `/40%`)를
+ * 쓰지만 그 방식은 옮기지 않았다 — empty-state 의 canvas 제목과 같은 판단이다. 알파는 바닥이
+ * 무엇이냐에 따라 다른 색이 되고, LOUIS 의 잉크 역할은 바닥과 무관하게 정해진다.
+ * **대비를 이유로 값을 바꾼 것이 아니다**: 옮기지 않은 것은 색이 아니라 «알파로 색을 만드는
+ * 방식»이다.
+ */
+
+.louis-section-header {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  /* 아래쪽 정렬. 제목 블록의 마지막 줄과 액션 묶음이 같은 바닥선에 선다 — 제목 36 옆에
+   * 버튼 32 가 설 때 가운데 정렬이면 버튼이 제목 위로 떠오른다. 제품 `items-end`. */
+  align-items: flex-end;
+  gap: var(--louis-space-stack-md);
+  /* 좁은 화면에서 액션이 다음 줄로 내려가도 제목이 찌그러지지 않게 한다. 제품 `flex-wrap`. */
+  flex-wrap: wrap;
+  /* 긴 제목이 부모를 밀어내지 않게 한다. flex 자식의 기본 min-width 는 auto 다. */
+  min-inline-size: 0;
+  inline-size: 100%;
+}
+
+/**
+ * **flex 자식이 정확히 둘임을 구조가 보장한다** — 제목 블록과 액션 묶음 하나.
+ * `justify-between` 을 「양 끝에 붙인다」는 뜻으로 쓰다가 자식이 셋이 되면 가운데 하나가
+ * 화면 한복판에 고립되는데, 제품 성과 지표의 「새로고침」이 정확히 그 사고였다. 액션을 몇 개
+ * 넘기든 `__actions` 한 겹이 싸므로 다시 생기지 않는다.
+ *
+ * `flex: 1 1 auto` 라서 남는 폭을 제목 블록이 전부 먹는다 — 제품이 `justify-between` 을 함께
+ * 걸고 있으나 이 선언 때문에 남는 공간이 0 이라 그 값은 아무것도 하지 않는다. Figma 쪽도
+ * 같은 사실을 `Text` 자손의 FILL 로 적는다.
+ */
+.louis-section-header__text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--louis-space-stack-xs);
+  min-inline-size: 0;
+  flex: 1 1 auto;
+}
+
+/* 제목 사다리 세 단. 어드민에 없던 것이 이 위계였다 — 예전에는 화면 제목도 묶음 제목도
+ * 메타데이터도 전부 12px 캡션이라, 화면에서 가장 큰 글자가 KPI 숫자이고 가장 작은 글자가
+ * 화면 이름이었다. 기본값은 `section` 이고 나머지 둘은 `data-level` 이 연다. */
+.louis-section-header__title {
+  margin: 0;
+  color: var(--louis-color-fg-primary);
+  font-family: var(--louis-typography-body-lg-semibold-font-family);
+  font-size: var(--louis-typography-body-lg-semibold-font-size);
+  font-weight: var(--louis-typography-body-lg-semibold-font-weight);
+  line-height: var(--louis-typography-body-lg-semibold-line-height);
+  letter-spacing: var(--louis-typography-body-lg-semibold-letter-spacing);
+}
+
+/* 화면 제목. 36 SemiBold 는 제품 `type-heading-36-semibold` 와 같은 값이고, 그 자리를 담을
+ * `typography-heading-md-semibold` 는 이 컴포넌트가 서면서 함께 열렸다 — LOUIS 의 heading
+ * 계열에는 medium 세 칸만 있었다(design/components/section-header.md 「Known deviations」). */
+.louis-section-header[data-level="page"] .louis-section-header__title {
+  font-family: var(--louis-typography-heading-md-semibold-font-family);
+  font-size: var(--louis-typography-heading-md-semibold-font-size);
+  font-weight: var(--louis-typography-heading-md-semibold-font-weight);
+  line-height: var(--louis-typography-heading-md-semibold-line-height);
+  letter-spacing: var(--louis-typography-heading-md-semibold-letter-spacing);
+}
+
+/* 패널 아이브로우. 제목이 아니라 «무엇의 묶음인가»를 말하는 한 줄이라 잉크도 한 단 내린다. */
+.louis-section-header[data-level="label"] .louis-section-header__title {
+  color: var(--louis-color-fg-tertiary);
+  font-family: var(--louis-typography-caption-medium-font-family);
+  font-size: var(--louis-typography-caption-medium-font-size);
+  font-weight: var(--louis-typography-caption-medium-font-weight);
+  line-height: var(--louis-typography-caption-medium-line-height);
+  letter-spacing: var(--louis-typography-caption-medium-letter-spacing);
+}
+
+/* 아래 여백은 `page` 만 진다.
+ *
+ * **12 의 유도는 제품이 두 곳에서 같은 식으로 적어 두었다.** 화면 제목 아래는 32 여야 하고
+ * (`components/ui/PageHeader` 의 유도: 부모 auto-layout 20 + 헤더 자신의 padding-bottom 12),
+ * 그중 20 은 감싸는 스택의 `gap-10` 이 이미 낸다 — 남는 12 만 헤더가 진다.
+ * `app/admin/BlogManagement.tsx:50-52` 와 `app/admin/TemplateManagement.tsx:1009-1012` 가
+ * 그 셈을 각각 자기 말로 적고 있다(20 + 12 = 32).
+ *
+ * **그래서 `PageHeader` 의 `mb-16`(32)과 여기 12 는 어긋난 것이 아니라 분담이 다른 것이다** —
+ * `PageHeader` 의 소비처는 다음 블록의 위 여백을 0 으로 지우고 헤더가 32 를 통째로 지며,
+ * 어드민의 소비처는 스택 gap 이 20 을 이미 내고 있다. 합은 두 곳 다 32 다. */
+.louis-section-header[data-level="page"] {
+  margin-block-end: var(--louis-space-stack-md);
+}
+
+/* 제목 아래 한 줄 설명. */
+.louis-section-header__description {
+  margin: 0;
+  color: var(--louis-color-fg-secondary);
+  font-family: var(--louis-typography-body-md-medium-font-family);
+  font-size: var(--louis-typography-body-md-medium-font-size);
+  font-weight: var(--louis-typography-body-md-medium-font-weight);
+  line-height: var(--louis-typography-body-md-medium-line-height);
+  letter-spacing: var(--louis-typography-body-md-medium-letter-spacing);
+}
+
+/* 개수·기간처럼 짧은 보조 정보. `tabular-nums` 는 제품 값 그대로다 — 수가 갱신될 때 자릿수가
+ * 흔들리면 같은 자리의 글자가 좌우로 튄다. */
+.louis-section-header__meta {
+  margin: 0;
+  color: var(--louis-color-fg-tertiary);
+  font-variant-numeric: tabular-nums;
+  font-family: var(--louis-typography-caption-regular-font-family);
+  font-size: var(--louis-typography-caption-regular-font-size);
+  font-weight: var(--louis-typography-caption-regular-font-weight);
+  line-height: var(--louis-typography-caption-regular-line-height);
+  letter-spacing: var(--louis-typography-caption-regular-letter-spacing);
+}
+
+/* 액션 묶음. 버튼이 몇 개든 이 한 겹이 싼다(위 `__text` 주석). 줄지 않는다 —
+ * 제목이 길어졌다고 버튼이 찌그러지면 누를 것이 사라진다. */
+.louis-section-header__actions {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: var(--louis-space-control-sm);
+  flex-shrink: 0;
+  flex-wrap: wrap;
+}
+
+/* ── 719px 접힘 ──────────────────────────────────────────────────────────────
+ *
+ * 719/720 은 이 저장소가 이미 «행동 경계»로 인정한 폭이다
+ * (design/foundations/responsive-layout.md §4 와 그 표). 여기서 바뀌는 행동은 둘 —
+ * 가로가 세로로 접히고, 액션이 폭을 채운다. 접히기만 하고 `align-items: flex-end` 를 그대로
+ * 두면 버튼이 오른쪽 끝에 매달려 제목과 어긋난 열을 만든다.
+ *
+ * **Figma 에는 이 규칙을 그릴 자리가 없다.** media query 가 없으므로 접힌 모습은 변형이
+ * 되어야 하는데, 그러면 셋이 여섯이 되고 그중 셋은 방향 말고 같은 값을 반복한다. 축 어휘도
+ * 닫혀 있어(design/governance/figma-component-authoring.md §2) `Breakpoint` 를 여는 판정이
+ * 따로 필요하다. 그래서 이 접힘은 **값이 아니라 규칙**으로 남기고 계약의 `$foldRule` 이
+ * 소유한다 — 그리지 않는 것을 변형으로 세우면 시안이 배포본보다 많은 것을 주장하게 된다. */
+@media (max-width: 719px) {
+  .louis-section-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+
 /* Segmented Control — design/components/segmented-control.md
  *
  * 제품에 **공용 구현이 둘 있는데 서로 아무것도 공유하지 않는다.** `SegmentedToggle` 컴포넌트
@@ -4355,6 +5004,265 @@
  * 유일한 네이티브 경로다. */
 .louis-segmented-control__legend {
   padding: 0;
+}
+
+/* Select — design/components/select.md
+ *
+ * **값 하나를 고르는 컨트롤.** 이 저장소에는 오래도록 표면(`.louis-popover`)과 항목
+ * (`.louis-menu__item`)만 있고 「값을 고르는 자리」가 없었다. `menu-popover.css` 의 트리거
+ * 블록이 그 사실을 적어 두고 자기 몫이 아님을 명시한다 — 「셰브론이 있는 트리거는
+ * `CustomDropdown`(Select 계열)의 몫이며 그것은 다른 벌이다」.
+ *
+ * ## 이 파일이 소유하지 않는 것
+ *
+ * 패널·항목·선택 표시는 **여기 없다.** 제품의 `CustomDropdown` 이 이미 `.louis-popover` 와
+ * `.louis-menu__item` 을 물고 있고(앵커 `5a67d692` 의 `MENU_BASE`·`OPTION` 상수가 그 두 클래스
+ * 뿐이다), 값 목록의 「지금 값」은 `menu-popover.css` 의 `[aria-selected="true"]` 블록이
+ * 2026-09-06 에 이미 섰다. 같은 표면을 두 번 그리지 않는다.
+ *
+ * 검색 필드도 여기 없다. `TextField` 가 그 자리를 이미 갖는다 — Figma `TextField` 의
+ * `HasLabel` 축 사유가 글자 그대로 「라벨 없는 필드가 실재한다 — 검색창이 그것이다」다.
+ * 이 파일은 그 필드가 **패널 안에서 어디에 앉는지**(스크롤 밖 고정 헤더)만 소유한다.
+ *
+ * ## 그래서 새로 서는 것은 트리거 하나다
+ *
+ * 캐럿(열림 180°) · 값이 남는 폭을 먹는 배치 · 크기 축 둘. 이 셋이 `.louis-menu-trigger` 와
+ * 갈리는 전부이고, 그중 어느 것도 그 클래스에 없다.
+ */
+
+/* 트리거.
+ *
+ * **면이 있다.** `.louis-menu-trigger` 는 투명인데 여기는 면을 갖는다 — 제품 앵커의 여섯
+ * 자리 중 넷이 채워진 상자를 그린다(Gnb 프로필 언어 · 비디오 에디터 프리뷰 줌 · 인스펙터
+ * 비율/폰트/굵기 · ComposerBar 모델). 값 목록은 「지금 무엇이 골라져 있는가」를 늘 보여야
+ * 하므로 눌러야 나타나는 컨트롤이 아니고, 그래서 쉼 상태에서 상자가 보인다.
+ *
+ * 면은 사다리의 `inset` 칸이다. 제품 Gnb 트리거가 같은 판정을 먼저 내렸고 그 파일 주석이
+ * 이유를 적는다 — 「같은 역할의 면을 두 체계로 칠하면 나란히 선 컨트롤끼리 톤이 맞지
+ * 않는다」(라이트만 팔레트, 다크만 알파로 갈라져 있던 것을 한 토큰으로 접었다).
+ * 헤어라인이 함께 필요한 이유도 거기 있다 — **다크에서 `bg-inset` 은 `bg-menu` 와 같은 값**
+ * 이라, 패널 안에 놓인 트리거는 면만으로는 보이지 않는다. */
+.louis-select-trigger {
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  /* 제품 Gnb 6 · SubscriptionScene 6. 항목 안 글리프-라벨 간격과 같은 토큰이다. */
+  gap: var(--louis-space-overlay-item-content-gap);
+  block-size: var(--louis-layout-control-height-md);
+  padding-block: 0;
+  /* 제품 Gnb `0 12` · ComposerBar 왼쪽 12. 사다리의 md 칸. */
+  padding-inline: var(--louis-space-control-md);
+  border: 0;
+  border-radius: var(--louis-radius-control);
+  background: var(--louis-color-bg-inset);
+  box-shadow: var(--louis-hairline-inset);
+  color: var(--louis-color-fg-primary);
+  text-align: start;
+  cursor: pointer;
+  transition-property: background-color;
+  transition-duration: var(--louis-motion-control-hover-duration);
+  font-family: var(--louis-typography-caption-regular-font-family);
+  font-size: var(--louis-typography-caption-regular-font-size);
+  font-weight: var(--louis-typography-caption-regular-font-weight);
+  line-height: var(--louis-typography-caption-regular-line-height);
+  letter-spacing: var(--louis-typography-caption-regular-letter-spacing);
+}
+
+/* sm — h-24. 편집 표면의 도구 줄에서 쓴다. `TextField` 의 sm 이 같은 자리를 같은 말로
+ * 설명하고(「편집 표면의 도구 줄에서만」) 값도 같은 사다리 칸이다.
+ *
+ * **속성이 없을 때가 md 다.** `Alert` 의 `Layout=block` 과 같은 규칙이라, 계약의 `md` 는
+ * 「기본이라는 사실 자체가 계약」인 칸이다.
+ *
+ * 여백이 좌우로 갈린다 — 제품 프리뷰 줌 칩이 `padding: 0 6px 0 8px` 다. 시작 쪽은 글자가,
+ * 끝 쪽은 캐럿이 서는데 캐럿은 글자보다 광학적으로 가벼워 같은 여백이면 오른쪽이 넓어
+ * 보인다. md 에서 좌우가 같은 것은 제품 두 자리(Gnb 12·12, 인스펙터 14·14)가 그렇기
+ * 때문이며, 그 사실을 비례로 뭉개지 않는다. */
+.louis-select-trigger[data-size="sm"] {
+  gap: var(--louis-space-control-xs);
+  block-size: var(--louis-layout-control-height-sm);
+  padding-inline-start: var(--louis-space-control-sm);
+  padding-inline-end: var(--louis-space-overlay-inset);
+  border-radius: var(--louis-radius-control-sm);
+}
+
+/* hover 는 면 한 칸 위다. **`.louis-menu-trigger` 의 ghost 8% 가 아니라 secondary 12%** 인
+ * 이유는 이 트리거가 이미 면을 갖고 있기 때문이다 — 투명 위의 8% 는 「면이 생겼다」로 읽히지만
+ * inset 면 위의 8% 는 거의 움직이지 않는다. 제품 Gnb 가 같은 자리에서 같은 토큰을 읽고,
+ * 그 파일 주석이 「LOUIS Button secondary 와 **같은 토큰**을 읽어, 메뉴 안팎의 같은 성격
+ * 버튼이 같은 값으로 눌린다」고 적는다. */
+.louis-select-trigger:where(:not(:disabled):not([aria-disabled="true"])):hover {
+  background: var(--louis-color-accent-secondary-hover);
+}
+
+/* 열려 있는 동안 hover 와 같은 면을 유지한다. 포인터가 패널로 넘어가면 트리거가 hover 를
+ * 잃는데, 그때 면이 돌아가면 「무엇이 열려 있는지」가 화면에서 사라진다 —
+ * `.louis-menu-trigger[aria-expanded="true"]` 가 같은 이유로 같은 일을 한다. */
+.louis-select-trigger[aria-expanded="true"] {
+  background: var(--louis-color-accent-secondary-hover);
+}
+
+/* disabled 는 실재한다 — 제품 `OverlayInspector` 가 글꼴 적용 중(`fontApplying`)과 획이
+ * 하나뿐인 패밀리(`weightDisabled`)에서 이 트리거를 끈다. 면은 그대로 두고 잉크만 내린다:
+ * 값 목록은 꺼져 있어도 「지금 값」을 계속 읽혀야 하므로 상자가 사라지면 안 된다. */
+.louis-select-trigger:disabled,
+.louis-select-trigger[aria-disabled="true"] {
+  cursor: not-allowed;
+  color: var(--louis-color-fg-disabled);
+}
+
+/* 선행 글리프. `.louis-menu-trigger__icon` 과 같은 슬롯이고 같은 크기다 — 제품이 여기 넣는
+ * 것도 같은 종류다(aws 가입 글로브 · 인스펙터 비율 미니 프레임). */
+.louis-select-trigger__icon {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  inline-size: var(--louis-icon-size-md);
+  block-size: var(--louis-icon-size-md);
+}
+
+/* sm 의 글리프는 한 칸 내린다. **이 값은 실측이 아니라 사다리 유도값이다** — 앵커의 sm 자리
+ * (프리뷰 줌 칩)에는 선행 글리프가 없어 잴 것이 없었다. 24 높이에 20 을 넣으면 위아래로
+ * 2px 만 남아 글리프가 상자를 꽉 채운다. 실측이 생기면 그때 고친다. */
+.louis-select-trigger[data-size="sm"] .louis-select-trigger__icon {
+  inline-size: var(--louis-icon-size-sm);
+  block-size: var(--louis-icon-size-sm);
+}
+
+.louis-select-trigger__icon svg {
+  inline-size: 100%;
+  block-size: 100%;
+}
+
+/* 값. **남는 폭을 먹는다** — `.louis-menu-trigger__value` 는 `flex` 를 건드리지 않아 내용
+ * 폭에 머문다. 폭이 고정된 자리(제품 Gnb 88px · 인스펙터 140px)에서 그러면 캐럿이 값 바로 옆에
+ * 붙어 상자 가운데에 떠 있다.
+ *
+ * 그래서 트리거에 `justify-content: space-between` 을 두지 않는다 — 값이 남는 폭을 먹는 이상
+ * 그 선언은 한 번도 적용되지 않는 죽은 값이고, Figma 는 죽은 값을 그릴 자리가 없어 두 곳이
+ * 어긋나 보인다. 배치를 정하는 것은 gap 하나다. */
+.louis-select-trigger__value {
+  flex: 1 1 auto;
+  min-inline-size: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+/* 캐럿. **아이콘 슬롯이 아니라 컨트롤 안의 장식이라 아이콘 사다리(16·20·24)를 쓰지 않는다.**
+ * 제품 실측도 그 사다리에 없다 — 프리뷰 줌 12(lucide chevron) · ComposerBar 12(▼ 글자 크기)
+ * · SubscriptionScene 10 · Gnb 6(테두리로 그린 정사각). 두 번 나오는 유일한 값이 12 이고
+ * 그것을 두 크기 칸 모두에서 쓴다: 캐럿이 크기 축을 따라 줄면 sm 에서 10 이하가 되어
+ * 스트로크가 화면 격자에 걸린다.
+ *
+ * **아이콘 사다리에 12 칸을 열지 않는다.** 여는 순간 아이콘 자산 전체가 그 칸을 그려야
+ * 하는데(icon manifest 는 크기별 최적화 획을 요구한다) 이 자리는 자산이 아니라 컨트롤 안의
+ * 획 두 개다. `--louis-popover-preferred-inline-size: 160px` 와 같은 형태로 지역 변수에
+ * 이름을 붙여 값을 한 자리에 둔다. */
+.louis-select-trigger__caret {
+  --louis-select-caret-size: 12px;
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  inline-size: var(--louis-select-caret-size);
+  block-size: var(--louis-select-caret-size);
+  /* 회전은 컨트롤 자신의 상태 변화라 hover 와 같은 시간축을 쓴다. 제품의 220ms 는 토큰이
+   * 아니고 세 자리가 서로 다른 값을 쓴다(140·180·220). */
+  transition-property: transform;
+  transition-duration: var(--louis-motion-control-hover-duration);
+}
+
+.louis-select-trigger__caret svg {
+  inline-size: 100%;
+  block-size: 100%;
+}
+
+/* 열리면 뒤집힌다. 제품 아홉 자리 중 캐럿을 그리는 여덟이 전부 이 회전을 갖는다 —
+ * `CustomDropdown` 의 `CARET_OPEN` 또는 전역 `[aria-expanded="true"] [data-chevron-flip]`. */
+.louis-select-trigger[aria-expanded="true"] .louis-select-trigger__caret {
+  transform: rotate(180deg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .louis-select-trigger__caret {
+    transition-duration: var(--louis-motion-reduced-duration);
+  }
+}
+
+/* ── 패널 안의 배치 ────────────────────────────────────────────────────────────
+ *
+ * 검색이 있는 목록은 **검색줄이 스크롤 밖에 고정되고 항목만 안에서 구른다.** 패널 자신이
+ * 스크롤 컨테이너(`overlay.css` 의 `overflow: auto`)이므로, 그대로 두면 지나가는 항목이
+ * 검색 필드 위로 지나간다. 제품이 같은 이유로 같은 구조를 쓴다.
+ *
+ * 표면·반경·그림자·패딩은 여기 없다 — `.louis-popover` 가 소유한다. */
+.louis-select-search {
+  flex: none;
+  /* 항목 목록과의 사이. 패널의 항목 간격(2)보다 넓어야 헤더로 읽힌다. */
+  padding-block-end: var(--louis-space-control-xs);
+}
+
+/* 구르는 항목 목록. 음수 마진으로 패널 안쪽 여백을 되먹어, 스크롤바와 마지막 항목이 패널
+ * 곡률 안쪽까지 닿는다(그러지 않으면 스크롤바가 여백 위에 떠 보인다). 제품이 같은 기법을
+ * 쓰고 같은 값을 되먹는다. */
+.louis-select-list {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--louis-space-overlay-item-gap);
+  min-block-size: 0;
+  /* 음수는 곱셈이 아니라 뺄셈으로 적는다 — 저작 게이트의 전역 선택자 패턴이 공백으로
+     둘러싼 `*` 를 선택자로 오인한다(menu-popover.css 가 같은 자리에서 같은 우회를 쓴다). */
+  margin-inline: calc(0px - var(--louis-space-overlay-inset));
+  margin-block-end: calc(0px - var(--louis-space-overlay-inset));
+  padding-inline: var(--louis-space-overlay-inset);
+  padding-block-end: var(--louis-space-overlay-inset);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+/* 검색줄을 켜면 패널 자신은 더 이상 구르지 않는다 — 구르는 것은 목록이다.
+ *
+ * `:has()` 로 추론하지 않고 속성으로 적는다. 추론하면 이 규칙이 언제 켜지는지가 마크업의
+ * 우연에 달리고(헤더를 감싸는 div 하나가 끼면 조용히 꺼진다), 패널의 `overflow` 는
+ * `overlay.css` 가 소유하는 값이라 조용히 뒤집히면 안 된다. */
+.louis-popover[data-searchable="true"] {
+  overflow: hidden;
+}
+
+/* 결과 없음.
+ *
+ * **새 값이 하나도 없다.** 항목 행과 같은 여백·같은 곡률을 쓰고 잉크만 보조색으로 내린다 —
+ * 그래서 Figma 에 세울 새 치수가 없고, 이 행이 어긋날 수 있는 유일한 자리는 항목 행의 계약이
+ * 이미 고정한 값들이다. 항목이 아니므로 `role` 을 주지 않고, 누를 수 없으므로 커서도
+ * 바꾸지 않는다(`[aria-disabled]` 의 not-allowed 는 「막힌 조작」이라 뜻이 다르다). */
+.louis-select-empty {
+  padding-block: var(--louis-space-control-sm);
+  padding-inline: var(--louis-space-control-md);
+  border-radius: var(--louis-radius-overlay-item);
+  color: var(--louis-color-fg-secondary);
+  font-family: var(--louis-typography-body-sm-regular-font-family);
+  font-size: var(--louis-typography-body-sm-regular-font-size);
+  font-weight: var(--louis-typography-body-sm-regular-font-weight);
+  line-height: var(--louis-typography-body-sm-regular-line-height);
+  letter-spacing: var(--louis-typography-body-sm-regular-letter-spacing);
+}
+
+/* forced-colors — 저작 색은 강제로 치환되므로 **사라지는 것만** 되살린다. 헤어라인은
+ * box-shadow 라 강제 모드에서 사라진다: 면이 없어진 상자는 경계도 없어 값이 허공에 뜬다.
+ * `.louis-menu-trigger` 가 같은 자리에서 같은 일을 한다. */
+@media (forced-colors: active) {
+  .louis-select-trigger {
+    box-shadow: none;
+    border: var(--louis-border-width-default) solid currentColor;
+  }
+
+  .louis-select-trigger:disabled,
+  .louis-select-trigger[aria-disabled="true"] {
+    color: GrayText;
+  }
 }
 
 /* Selectable List Row — design/components/selectable-list-row.md
@@ -5019,6 +5927,172 @@
   .louis-spinner__ring {
     animation-duration: var(--louis-motion-reduced-duration);
     animation-iteration-count: 1;
+  }
+}
+
+/* Stat Tile — design/components/stat-tile.md
+ *
+ * 「라벨 · 수치 · 보조 설명 · 증감 알약」 네 줄짜리 지표 타일 하나. 격자에 여럿 깔려
+ * 대시보드의 첫 행이 된다.
+ *
+ * ## 정본은 제품 어드민 타일이다
+ *
+ * 제품에 같은 조형이 **두 벌** 있다 — `app/admin/AdminSection.tsx` 의 `AdminStatTile`(면 하나
+ * 위에 네 줄)과 애널리틱스의 KPI 카드(바깥 프레임 + 안쪽 면 + 스파크라인). 둘은 같은 것의
+ * 두 판이 아니라 **서로 다른 조형**이라 한 컴포넌트로 접지 않았다: 이 파일이 앞의 것이고,
+ * 뒤의 것은 `chart-card.css` 다. 둘이 실제로 다투는 값은 증감 알약의 좌우 여백 하나뿐이며
+ * (어드민 8 · 애널리틱스 6) 그 판정은 아래 `.louis-delta-pill` 주석이 갖는다.
+ *
+ * ## 이 타일이 서면 게이트에 눈이 하나 생긴다
+ *
+ * `AdminStatTile` 의 소비처 14 자리는 전부 `/admin` 이고, 제품의 대비·타이포·표면 게이트는
+ * 그 경로를 **하나도 재지 않는다.** 그래서 이 조형은 지금까지 어떤 기계도 본 적이 없다.
+ * 여기 정본이 서면 `figma/components.measured.json` 의 실측과 브라우저 시험이 그 값을
+ * 처음으로 잰다.
+ */
+
+.louis-stat-tile {
+  /* 소비자의 reset 에 기대지 않는다. */
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  /* 격자 트랙이 폭을 정한다. 내용에 맞춰 줄면 긴 수치 하나가 열 폭을 밀어낸다. */
+  inline-size: 100%;
+  min-inline-size: 0;
+  /* 6px — 라벨·값·힌트 세 줄을 한 덩어리로 읽히게 하는 간격이고 정본(`gap-3`)에서 온 값이다.
+   * 간격 계단(space-control-xs 4 · space-control-sm 8)에 없어서 리터럴로 진다.
+   * `space-overlay-item-content-gap` 도 같은 6 이지만 그 이름은 오버레이 **항목**의 것이라
+   * 여기서 쓰면 한 값이 두 뜻을 나르고, 한쪽을 고치면 다른 쪽이 따라 움직인다. */
+  gap: 6px;
+  padding: var(--louis-space-control-lg);
+  border-radius: var(--louis-radius-card);
+  /* 카드 바닥에서 한 단 올라온 유일한 면이다. 정본 파일이 그 판정을 이미 적어 두었다 —
+   * 다크에서 `bg-inset` 과 `bg-surface` 는 어드민 카드 바닥과 바이트 단위로 같은 색이라
+   * 그 위에 올린 면이 사라진다. 바닥보다 확실히 밝은 단은 `bg-raised` 하나뿐이다. */
+  background: var(--louis-color-bg-raised);
+  /* 경계는 border 가 아니라 generic 10% inset 헤어라인이다 (DS-D-0023). */
+  box-shadow: var(--louis-hairline-inset);
+}
+
+/* 아이브로우. 화면에서 가장 작은 글자이고, 값보다 **먼저** 읽혀야 해서 위에 선다. */
+.louis-stat-tile__label {
+  font-size: var(--louis-typography-caption-medium-font-size);
+  line-height: var(--louis-typography-caption-medium-line-height);
+  font-weight: var(--louis-typography-caption-medium-font-weight);
+  color: var(--louis-color-fg-tertiary);
+}
+
+/* 값. 타일에서 가장 큰 글자다.
+ *
+ * `tabular-nums` 는 장식이 아니다 — 여러 타일이 한 행에 서고 값이 실시간으로 갱신되므로,
+ * 비례폭 숫자면 같은 자릿수인데도 글자가 좌우로 떨린다.
+ * 줄바꿈을 막는 것도 같은 이유다: 긴 수치가 두 줄이 되면 그 타일만 키가 커져 행이 어긋난다. */
+.louis-stat-tile__value {
+  /* 기본은 `md` 다. 보조 타일이 주요 지표보다 많다. */
+  font-size: var(--louis-typography-body-lg-semibold-font-size);
+  line-height: var(--louis-typography-body-lg-semibold-line-height);
+  font-weight: var(--louis-typography-body-lg-semibold-font-weight);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  color: var(--louis-color-fg-primary);
+}
+
+.louis-stat-tile[data-size="lg"] .louis-stat-tile__value {
+  /* **합성 ramp 에 semibold heading 이 없다.** `typography-heading-sm-*` 은 medium 한 칸뿐이라
+   * 크기·행간만 거기서 받고 중량은 따로 받는다. 정본이 28 SemiBold 이므로 medium 으로
+   * 내리지 않는다 — ramp 에 semibold heading 칸을 여는 것이 이 결함의 해소다. */
+  font-size: var(--louis-typography-heading-sm-medium-font-size);
+  line-height: var(--louis-typography-heading-sm-medium-line-height);
+  font-weight: var(--louis-typography-body-lg-semibold-font-weight);
+}
+
+/* 분모·기간처럼 값을 읽는 데 필요한 한 줄. 값보다 약하게 서야 한다. */
+.louis-stat-tile__hint {
+  font-size: var(--louis-typography-caption-regular-font-size);
+  line-height: var(--louis-typography-caption-regular-line-height);
+  font-weight: var(--louis-typography-caption-regular-font-weight);
+  font-variant-numeric: tabular-nums;
+  color: var(--louis-color-fg-tertiary);
+}
+
+/* 증감 알약 — **이 파일이 소유하고 `chart-card` 가 같은 클래스를 쓴다.**
+ *
+ * `badge` 와 기하가 다르다. Badge 는 `radius-control-sm` 8 짜리 모난 표식이고 이것은
+ * `radius-pill` 999 짜리 알약이다. 둘을 한 컴포넌트로 접으면 반경이 축이 되는데, 그 축은
+ * 「무엇인가」가 아니라 「어디에 붙는가」로 갈려 이름을 붙일 수 없다.
+ *
+ * ## 좌우 여백 6 — 두 구현이 다투던 유일한 값
+ *
+ * 어드민은 8(`px-4`), 애널리틱스는 6(`px-3`)이다. 6 을 정본으로 삼는다: 알약이 실제로
+ * 그려지는 자리가 애널리틱스 9 곳 · 4 파일 · 2 라우트이고 어드민은 한 파일이다
+ * (DS-D-0043 — 정본은 제품이 무는 것이 정한다). 위아래 2 는 두 구현이 이미 같다.
+ */
+.louis-delta-pill {
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: fit-content;
+  padding-block: var(--louis-space-overlay-item-gap);
+  /* 6px — 위 「좌우 여백 6」 절이 근거다. 간격 계단에 없는 값이라 리터럴로 진다. */
+  padding-inline: 6px;
+  border-radius: var(--louis-radius-pill);
+  font-size: var(--louis-typography-caption-medium-font-size);
+  line-height: var(--louis-typography-caption-medium-line-height);
+  font-weight: var(--louis-typography-caption-medium-font-weight);
+  font-variant-numeric: tabular-nums;
+  /* 톤은 **면과 잉크 두 겹**이다. 소비처가 자기 팔레트를 넣어야 할 때 덮는 자리를 두 개로
+   * 좁혀 둔다 — 지금 제품이 쓰는 붉은 면 8% 는 LOUIS 에 semantic 이름이 없다(아래 down 참고). */
+  background: var(--louis-delta-pill-surface);
+  color: var(--louis-delta-pill-ink);
+  --louis-delta-pill-surface: var(--louis-color-bg-inset);
+  --louis-delta-pill-ink: var(--louis-color-fg-tertiary);
+}
+
+/* 오름. 면은 정본과 바이트 단위로 같은 8% 민트다.
+ * 잉크는 `alert-success-stroke` 를 쓴다 — 이름은 선이지만 값이 success 강조색 정본이고
+ * 두 테마에서 같다. `fg-success` 는 라이트에서 짙은 초록이라 정본 픽셀이 아니다.
+ * 잉크로 쓸 semantic 이름이 아직 없다는 것이 이 자리의 결함이고 문서가 그것을 소유한다. */
+.louis-delta-pill[data-tone="up"] {
+  --louis-delta-pill-surface: var(--louis-color-accent-green-500-alpha-08);
+  --louis-delta-pill-ink: var(--louis-color-alert-success-stroke);
+}
+
+/* 내림. 잉크는 `accent-danger` 가 정본 붉은색과 정확히 같다.
+ * 면은 **정본이 8% 인데 LOUIS 의 가장 가까운 semantic 이 12% 다**(`accent-danger-secondary`,
+ * Button 의 연한 danger 가 세운 값). 초록만 8% 칸이 있고 붉은쪽은 없다 — 두 톤의 알파가
+ * 갈리는 것은 결함이며 해소는 소유자 판정이다. 그때까지 소비처는
+ * `--louis-delta-pill-surface` 하나를 덮어 8% 를 유지할 수 있다. */
+.louis-delta-pill[data-tone="down"] {
+  --louis-delta-pill-surface: var(--louis-color-accent-danger-secondary);
+  --louis-delta-pill-ink: var(--louis-color-accent-danger);
+}
+
+/* 변화 없음. 기본값과 같은 중립 면이라 선언을 비우지 않고 **적어 둔다** —
+ * 세 톤이 한 표로 읽혀야 하고, 나중에 기본값이 움직여도 flat 은 따라가지 않는다. */
+.louis-delta-pill[data-tone="flat"] {
+  --louis-delta-pill-surface: var(--louis-color-bg-inset);
+  --louis-delta-pill-ink: var(--louis-color-fg-tertiary);
+}
+
+/* 알약은 타일 **바닥**에 붙는다. 격자가 행 높이를 맞추므로 힌트가 없는 타일에서 알약이
+ * 값 바로 밑에 뜨면 한 행 안에서 알약 줄이 들쭉날쭉해진다. */
+.louis-stat-tile > .louis-delta-pill {
+  margin-block-start: auto;
+}
+
+@media (forced-colors: active) {
+  /* box-shadow 헤어라인은 강제 색에서 사라지므로 경계를 시스템 색 실선으로 되살린다
+   * (DS-D-0023). */
+  .louis-stat-tile {
+    box-shadow: none;
+    border: var(--louis-border-width-default) solid currentColor;
+  }
+
+  /* 톤이 색으로만 구별되는 유일한 자리다. 강제 색에서는 그 색이 전부 사라지므로
+   * 테두리를 둘러 알약이 「값의 일부」로 뭉개지지 않게 한다. */
+  .louis-delta-pill {
+    border: var(--louis-border-width-default) solid currentColor;
   }
 }
 
@@ -6100,6 +7174,216 @@
   .louis-tooltip[data-layout="coachmark"]::before {
     border-color: currentColor;
   }
+}
+
+/* Transform frame — 자를 곳과 고른 것을 같은 한 벌로 그린다
+ *
+ * 매체 위에 사각형 하나를 세우고 그 변과 모서리에 잡을 곳을 붙인다. 크롭 창(무엇을 남길
+ * 것인가)과 선택 상자(무엇을 고쳤는가)는 같은 조형이고, 이 레시피가 그 하나를 소유한다.
+ *
+ * **제품에 이 조형이 넷 있었고 셋이 서로 다른 규범이었다**(앵커 5a67d692, DS-D-0060).
+ *   · 노드 캔버스 크롭 모달과 이미지 크롭 모달은 react-image-crop 의 기본 크롬을 그대로 쓴다 —
+ *     12px 정사각 손잡이, 행진하는 개미(1px 점선) 테두리. 우리가 고른 적이 없는 남의 기본값이다.
+ *   · 비디오 편집기의 클립 크롭은 1.5px 테두리에 24px 브래킷 모서리와 알약 변 손잡이.
+ *   · 프리뷰 오버레이의 선택 상자는 2px 링에 10px 정사각 손잡이.
+ * 넷째가 생기기 전에 하나로 모은 것이 이 파일이다. 어느 실측을 왜 버렸는지는
+ * figma/components.measured.json 의 transform-frame 이 칸마다 적는다.
+ *
+ * **손잡이의 생김새가 어느 축을 움직이는지 말한다.** 모서리는 두 축을 함께 움직이므로 회전
+ * 대칭인 원이고, 변은 한 축만 움직이므로 «움직이지 않는 축» 방향으로 길다. 그래서 위·아래
+ * 손잡이는 가로로, 좌·우 손잡이는 세로로 눕는다.
+ *
+ * **어느 벌을 내놓는지는 마크업이 정한다.** 비율이 잠기면 변 손잡이가 없어야 하는데 — 변을
+ * 혼자 끌면 비율을 지키느라 반대 축도 움직여 「한쪽만 줄인 게 아니다」가 된다 — 그것을 숨김
+ * 으로 표현하지 않고 **그리지 않는다.** 소비처가 내놓을 자리만 그리고, Figma 도 같은 규칙으로
+ * 변형마다 노드를 지운다. 숨겨 두면 잡히지 않는 손잡이가 접근성 트리에 남는다.
+ *
+ * 소비처가 소유하는 것: 자리(프레임의 좌표와 크기)와 포인터 수학(끌기·클램프·비율 유지),
+ * 그리고 무대. 이 레시피는 **모양만** 소유한다 — pane-divider 가 grid-area 를 소비처에 남긴
+ * 것과 같다.
+ *
+ * Usage(계약 마크업 — 브라우저 테스트가 이 모양을 잰다):
+ *   <div class="louis-transform-frame">
+ *     <div class="louis-transform-frame__grid">
+ *       <i class="louis-transform-frame__grid-line" data-axis="vertical" data-third="1|2"></i>
+ *       <i class="louis-transform-frame__grid-line" data-axis="horizontal" data-third="1|2"></i>
+ *     </div>
+ *     <span class="louis-transform-frame__handle" data-position="nw"></span>    (…8개까지)
+ *   </div>
+ */
+
+.louis-transform-frame {
+  /* 잡을 곳의 크기. 세 제품 구현 중 둘이 이 수다 — react-image-crop 의
+     `--rc-drag-handle-size` 와 클립 크롭의 변 손잡이 짧은 변이 둘 다 12 다. */
+  --louis-transform-frame-handle: 12px;
+  /* 변 손잡이의 긴 변. 짧은 변의 세 배라 옆의 모서리 원과 한눈에 구별된다. */
+  --louis-transform-frame-handle-length: 36px;
+  /* 무대가 확대되어 있을 때 잡을 곳까지 함께 커지면 손끝보다 커진다. 소비처가 무대의 배율을
+     여기에 넣으면 손잡이와 선이 화면 위에서 같은 크기로 남는다. */
+  --louis-transform-frame-scale: 1;
+  /* 프레임이 그리는 선의 두께. 아래 손잡이 좌표가 이 값을 되빼야 한다 — 절대 배치의
+     기준은 테두리 **안쪽**(padding box)이라, 그대로 두면 손잡이가 선의 두께만큼 안으로
+     들어가 Figma 마스터와 어긋난다. 실제로 그 어긋남을 브라우저 테스트가 먼저 잡았다. */
+  --louis-transform-frame-line: calc(
+    var(--louis-border-width-ring) / var(--louis-transform-frame-scale)
+  );
+  /* 시작 변과 끝 변의 자리. 가운데(50%)는 보정이 필요 없다 — padding box 가 양쪽으로 같은
+     만큼 줄어들어 가운데는 그대로다. */
+  --louis-transform-frame-edge-start: calc(0px - var(--louis-transform-frame-line));
+  --louis-transform-frame-edge-end: calc(100% + var(--louis-transform-frame-line));
+  /* 창 바깥을 덮는 스크림의 번짐. 무대의 크기를 레시피가 모르므로 뷰포트보다 확실히 큰
+     상수 하나로 덮는다 — 제품 클립 크롭 모달이 같은 방식을 쓴다. */
+  --louis-transform-frame-scrim-spread: 9999px;
+
+  position: absolute;
+  box-sizing: border-box;
+  /* 직각인 것이 계약이다. 곡률이 있으면 잘려 나갈 픽셀의 경계를 프레임이 거짓말한다 —
+     실제 잘림선은 모서리에서도 직각이기 때문이다. */
+  border-radius: 0;
+  border: var(--louis-transform-frame-line) solid var(--louis-color-accent-primary);
+  /* 창 안쪽은 매체가 그대로 보여야 한다. */
+  background: transparent;
+  touch-action: none;
+}
+
+/* 버려질 바깥을 어둡게 덮는다. **켜는 것은 소비처다** — 선택 상자에는 이 층이 없고,
+   있는 자리에서도 이것은 프레임의 값이 아니라 프레임이 놓인 무대의 값이다. */
+.louis-transform-frame[data-louis-scrim] {
+  box-shadow: 0 0 0 var(--louis-transform-frame-scrim-spread) var(--louis-color-dim-modal);
+}
+
+/* ── 삼분할 안내선 ────────────────────────────────────────────────── */
+
+.louis-transform-frame__grid {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+/* 색이 테마를 따르지 않는 것이 계약이다. 이 선이 놓이는 바닥은 페이지가 아니라 매체이고,
+   매체는 라이트·다크를 모른다 — 배너 인디케이터가 같은 이유로 같은 계열을 쓴다. */
+.louis-transform-frame__grid-line {
+  position: absolute;
+  display: block;
+  background: var(--louis-color-media-indicator-rest);
+}
+
+.louis-transform-frame__grid-line[data-axis="vertical"] {
+  inset-block: 0;
+  inline-size: calc(var(--louis-border-width-default) / var(--louis-transform-frame-scale));
+  /* 선을 삼분점 «위에» 걸친다. 걸치지 않으면 선이 항상 한쪽 칸에만 속해 두 칸의 폭이 다르다. */
+  margin-inline-start: calc(
+    var(--louis-border-width-default) / var(--louis-transform-frame-scale) / -2
+  );
+}
+
+.louis-transform-frame__grid-line[data-axis="horizontal"] {
+  inset-inline: 0;
+  block-size: calc(var(--louis-border-width-default) / var(--louis-transform-frame-scale));
+  margin-block-start: calc(
+    var(--louis-border-width-default) / var(--louis-transform-frame-scale) / -2
+  );
+}
+
+/* 삼분점은 «몇 번째 선인가»로 고른다. 형제 순서(:nth-of-type)로 고르면 마크업을 재정렬하는
+   순간 선이 조용히 자리를 옮긴다 — 그 종류의 결함은 화면을 봐야만 보인다. */
+.louis-transform-frame__grid-line[data-axis="vertical"][data-third="1"] {
+  inset-inline-start: 33.3333%;
+}
+
+.louis-transform-frame__grid-line[data-axis="vertical"][data-third="2"] {
+  inset-inline-start: 66.6667%;
+}
+
+.louis-transform-frame__grid-line[data-axis="horizontal"][data-third="1"] {
+  inset-block-start: 33.3333%;
+}
+
+.louis-transform-frame__grid-line[data-axis="horizontal"][data-third="2"] {
+  inset-block-start: 66.6667%;
+}
+
+/* ── 잡을 곳 ──────────────────────────────────────────────────────── */
+
+/* 변의 **바깥으로 절반** 나간다. 잡는 곳이 창 안쪽에만 있으면 창의 마지막 몇 px 을 손가락이
+   덮어 자를 곳을 보면서 자를 수 없다. 그래서 프레임은 자식을 자르지 않는다(clip 없음). */
+.louis-transform-frame__handle {
+  position: absolute;
+  display: block;
+  box-sizing: border-box;
+  inline-size: calc(var(--louis-transform-frame-handle) / var(--louis-transform-frame-scale));
+  block-size: calc(var(--louis-transform-frame-handle) / var(--louis-transform-frame-scale));
+  border: var(--louis-transform-frame-line) solid var(--louis-color-accent-primary);
+  border-radius: var(--louis-radius-pill);
+  /* 면과 링만으로 어떤 사진 위에서도 선다. 그림자로 대비를 벌지 않는 이유는 그 순간
+     「손잡이가 스스로 보인다」가 아니라 「그림자가 보이게 해 준다」가 되기 때문이다. */
+  background: var(--louis-color-media-indicator-active);
+  transform: translate(-50%, -50%);
+  touch-action: none;
+}
+
+/* 변 손잡이는 «움직이지 않는 축» 방향으로 눕는다. */
+.louis-transform-frame__handle[data-position="n"],
+.louis-transform-frame__handle[data-position="s"] {
+  inline-size: calc(
+    var(--louis-transform-frame-handle-length) / var(--louis-transform-frame-scale)
+  );
+}
+
+.louis-transform-frame__handle[data-position="e"],
+.louis-transform-frame__handle[data-position="w"] {
+  block-size: calc(
+    var(--louis-transform-frame-handle-length) / var(--louis-transform-frame-scale)
+  );
+}
+
+/* 여덟 자리. 값은 좌표일 뿐이고 축이 아니다 — 어느 벌을 내놓는지는 마크업이 정한다. */
+.louis-transform-frame__handle[data-position="nw"] {
+  inset-inline-start: var(--louis-transform-frame-edge-start);
+  inset-block-start: var(--louis-transform-frame-edge-start);
+  cursor: nwse-resize;
+}
+
+.louis-transform-frame__handle[data-position="n"] {
+  inset-inline-start: 50%;
+  inset-block-start: var(--louis-transform-frame-edge-start);
+  cursor: ns-resize;
+}
+
+.louis-transform-frame__handle[data-position="ne"] {
+  inset-inline-start: var(--louis-transform-frame-edge-end);
+  inset-block-start: var(--louis-transform-frame-edge-start);
+  cursor: nesw-resize;
+}
+
+.louis-transform-frame__handle[data-position="e"] {
+  inset-inline-start: var(--louis-transform-frame-edge-end);
+  inset-block-start: 50%;
+  cursor: ew-resize;
+}
+
+.louis-transform-frame__handle[data-position="se"] {
+  inset-inline-start: var(--louis-transform-frame-edge-end);
+  inset-block-start: var(--louis-transform-frame-edge-end);
+  cursor: nwse-resize;
+}
+
+.louis-transform-frame__handle[data-position="s"] {
+  inset-inline-start: 50%;
+  inset-block-start: var(--louis-transform-frame-edge-end);
+  cursor: ns-resize;
+}
+
+.louis-transform-frame__handle[data-position="sw"] {
+  inset-inline-start: var(--louis-transform-frame-edge-start);
+  inset-block-start: var(--louis-transform-frame-edge-end);
+  cursor: nesw-resize;
+}
+
+.louis-transform-frame__handle[data-position="w"] {
+  inset-inline-start: var(--louis-transform-frame-edge-start);
+  inset-block-start: 50%;
+  cursor: ew-resize;
 }
 
 /* Project Grid — design/patterns/project-grid.md

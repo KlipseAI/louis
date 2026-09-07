@@ -95,6 +95,24 @@
   ],
   "documents": [
     {
+      "id": "decision-transform-frame-is-one-set",
+      "path": "design/governance/decisions/DS-D-0060-transform-frame-is-one-set.md",
+      "title": "DS-D-0060 크롭 창과 선택 상자는 한 벌이다 — 손잡이 위치는 축이 아니다",
+      "section": "governance",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
+    },
+    {
+      "id": "transform-frame",
+      "path": "design/components/transform-frame.md",
+      "title": "TransformFrame",
+      "section": "components",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
+    },
+    {
       "id": "manifest-catalog",
       "path": "design/manifest.json",
       "title": "Design Catalog",
@@ -374,6 +392,15 @@
       "generated": false
     },
     {
+      "id": "component-section-header",
+      "path": "design/components/section-header.md",
+      "title": "Section Header",
+      "section": "components",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
+    },
+    {
       "id": "component-segmented-control",
       "path": "design/components/segmented-control.md",
       "title": "Segmented Control",
@@ -530,6 +557,15 @@
       "id": "carousel-arrow",
       "path": "design/components/carousel-arrow.md",
       "title": "Carousel Arrow",
+      "section": "components",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
+    },
+    {
+      "id": "canvas-edge",
+      "path": "design/components/canvas-edge.md",
+      "title": "Canvas Edge",
       "section": "components",
       "authority": "normative",
       "maturity": "experimental",
@@ -1319,6 +1355,15 @@
       "generated": false
     },
     {
+      "id": "decision-select-is-not-a-menu",
+      "path": "design/governance/decisions/DS-D-0053-select-is-not-a-menu.md",
+      "title": "DS-D-0053 값 목록은 명령 메뉴가 아니다 — Select 트리거를 연다",
+      "section": "governance",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
+    },
+    {
       "id": "governance-product-confirmations",
       "path": "design/governance/product-confirmations.md",
       "title": "제품 확인 대기 목록",
@@ -1400,6 +1445,7 @@
       "sourceCoverage": "exhaustive",
       "sources": [
         "design/manifest.json",
+        "design/components/transform-frame.md",
         "design/components/README.md",
         "design/components/button.md",
         "design/components/icon-button.md",
@@ -1416,6 +1462,7 @@
         "design/components/avatar.md",
         "design/components/checkbox.md",
         "design/components/selectable-list-row.md",
+        "design/components/section-header.md",
         "design/components/segmented-control.md",
         "design/components/skeleton.md",
         "design/components/slider.md",
@@ -1433,6 +1480,7 @@
         "design/components/table.md",
         "design/components/video-player.md",
         "design/components/carousel-arrow.md",
+        "design/components/canvas-edge.md",
         "design/components/media-card.md",
         "design/components/step-tile.md",
         "design/components/faq-row.md",
@@ -1440,7 +1488,16 @@
         "design/components/gnb-menu-item.md",
         "design/components/inline-loading-label.md",
         "design/components/segmented-code-input.md",
-        "design/components/pane-divider.md"
+        "design/components/pane-divider.md",
+        "design/components/inspector-row.md",
+        "design/components/inspector-section-head.md",
+        "design/components/node-chrome-button.md",
+        "design/components/node-shell.md",
+        "design/components/node-side-handle.md",
+        "design/components/floating-shell.md",
+        "design/components/chart-card.md",
+        "design/components/select.md",
+        "design/components/stat-tile.md"
       ]
     },
     {
@@ -1483,6 +1540,7 @@
         "design/README.md",
         "design/develop/README.md",
         "design/content/README.md",
+        "design/governance/decisions/DS-D-0060-transform-frame-is-one-set.md",
         "design/governance/contributing.md",
         "design/governance/operating-model.md",
         "design/governance/figma-sync.md",
@@ -1547,12 +1605,108 @@
         "design/governance/decisions/DS-D-0050-renaming-is-a-card-state.md",
         "design/governance/decisions/DS-D-0051-rename-underline-is-canonical.md",
         "design/governance/decisions/DS-D-0052-joined-fields-are-an-axis.md",
+        "design/governance/decisions/DS-D-0053-select-is-not-a-menu.md",
         "design/governance/product-confirmations.md",
         "design/updates/README.md"
       ]
+    },
+    {
+      "id": "inspector-row",
+      "path": "design/components/inspector-row.md",
+      "title": "Inspector Row",
+      "section": "components",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
+    },
+    {
+      "id": "inspector-section-head",
+      "path": "design/components/inspector-section-head.md",
+      "title": "Inspector Section Head",
+      "section": "components",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
+    },
+    {
+      "id": "node-chrome-button",
+      "path": "design/components/node-chrome-button.md",
+      "title": "Node Chrome Button",
+      "section": "components",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
+    },
+    {
+      "id": "node-shell",
+      "path": "design/components/node-shell.md",
+      "title": "Node Shell",
+      "section": "components",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
+    },
+    {
+      "id": "node-side-handle",
+      "path": "design/components/node-side-handle.md",
+      "title": "Node Side Handle",
+      "section": "components",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
+    },
+    {
+      "id": "floating-shell",
+      "path": "design/components/floating-shell.md",
+      "title": "Floating Shell · Pill Trigger",
+      "section": "components",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
+    },
+    {
+      "id": "chart-card",
+      "path": "design/components/chart-card.md",
+      "title": "Chart Card",
+      "section": "components",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
+    },
+    {
+      "id": "select",
+      "path": "design/components/select.md",
+      "title": "Select",
+      "section": "components",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
+    },
+    {
+      "id": "stat-tile",
+      "path": "design/components/stat-tile.md",
+      "title": "Stat Tile",
+      "section": "components",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
     }
   ],
   "components": [
+    {
+      "id": "transform-frame",
+      "name": "Transform Frame",
+      "maturity": "experimental",
+      "figma": "done",
+      "web": "partial",
+      "docs": "done",
+      "note": "크롭 창과 선택 상자를 한 벌로 세운 것이다. CSS 레시피(.louis-transform-frame)는 있고 React 표면은 없다 — alert · switch · tabs 와 같은 형태다. Figma component set 2 variant(Handles) + Grid BOOLEAN. 제품 앵커 5a67d692 에 같은 조형이 넷 있고 셋이 서로 다른 규범이었다: 노드 캔버스 크롭 모달과 이미지 크롭 모달은 react-image-crop 의 기본 크롬(12px 정사각 · 행진하는 개미 테두리)을 그대로 쓰고, 비디오 편집기의 클립 크롭은 1.5px 테두리에 24px 브래킷과 알약 손잡이를, 프리뷰 오버레이의 선택 상자는 2px 링에 10px 정사각을 쓴다. DS-D-0060 이 수렴 판정을 소유한다. **제품은 아직 이 레시피를 물지 않는다** — 원장의 네 표면은 needed 로 남아 있고, 제품이 클래스를 바꿔 물 때 figma 로 옮긴다. DS-D-0035 (a)(b)(c): 되읽기에 등재됐고, verify-figma-parity 에 계약이 있고, 계약의 geometry 가 figma/components.measured.json 의 transform-frame 을 가리키며 packages/react/test/transform-frame.browser.test.tsx 가 코드 쪽을 되잰다.",
+      "doc": "design/components/transform-frame.md",
+      "figmaName": "TransformFrame",
+      "figmaNames": [
+        "TransformFrame"
+      ]
+    },
     {
       "id": "alert",
       "name": "Alert",
@@ -1648,6 +1802,17 @@
       "figma": "partial",
       "web": "not-ready",
       "docs": "done"
+    },
+    {
+      "id": "chart-card",
+      "name": "Chart Card",
+      "maturity": "experimental",
+      "figma": "done",
+      "web": "partial",
+      "docs": "done",
+      "note": "CSS 레시피(.louis-chart-card)만 있고 React 표면은 없다 — 곡선은 소비처의 SVG 다. Figma component set 6 variant(Chart × State). 애널리틱스 대시보드의 KPI 행과 주요 지표 블록이 같은 조형이고 차트가 붙는 자리만 다르다. **Figma 51종에 차트 축이 하나도 없었다** — 그래서 제품에도 같은 그림이 네 벌 있다. 두 겹인 이유가 반경에 적혀 있다: 16(radius-overlay) − 6(space-overlay-inset) = 10(radius-overlay-item) 동심 정렬. 면 두 칸은 bg-canvas·bg-overlay 이고 값이 정본과 바이트 단위로 같다(이름이 뜻과 어긋나는 것은 Known deviations 2). 계획서가 적은 3×3 아홉 칸 중 셋은 제품에 그림이 없어 여섯 칸만 세웠다. DS-D-0035 (a)(b)(c) 를 만족한다 — readback 등재 + 계약이 모든 property 를 pin + 기하 evidence 가 두 방향이다(chart-card · chart-card.browser.test.tsx).",
+      "doc": "design/components/chart-card.md",
+      "figmaName": "ChartCard"
     },
     {
       "id": "checkbox",
@@ -1900,12 +2065,16 @@
     },
     {
       "id": "select",
-      "name": "Select / Dropdown",
+      "name": "Select",
       "maturity": "experimental",
-      "figma": "not-planned",
-      "web": "not-planned",
-      "docs": "not-planned",
-      "note": "**고르기는 Menu가 소유한다**(2026-08-18 판정). 제품 실측에서 네이티브 <select> 는 **14벌 / 5파일**이고(2026-08-30 에 제품 74a7303b 에서 다시 셌다 — /admin 의 4파일 13벌 + /creative-media-admin 의 1파일 1벌. 앞서 적은 「12벌이 전부 /admin」은 수도 범위도 틀렸다. `<select` 문자열은 18건이지만 그중 넷은 이 판정을 인용한 주석이다), 배포 화면(Home·Highlight·Editor)에는 0벌이다 — 제품은 트리거 + 메뉴 패널로 고르며 그 파일이 11개다. DS에는 이미 ActionMenu와 CompositePopover가 있어 그 자리를 덮는다. gap registry 우선순위 1~15 어디에도 들지 않은 이유도 같다. 관리자 도구는 이 저장소의 소비 surface가 아니다. 수요가 생기면 Decision으로 이 판정을 뒤집고 다시 연다"
+      "figma": "done",
+      "web": "partial",
+      "docs": "done",
+      "note": "2026-08-18 에 not-planned 였다 — 「고르기는 Menu 가 소유한다」. DS-D-0053 이 그 판정을 뒤집었다: 그 판정은 네이티브 <select> 엘리먼트를 셌는데(14벌 / 5파일 · 전부 admin 계열) 제품이 값을 고르는 방식은 그것이 아니다. 앵커 5a67d692 에서 components/scenes/create/CustomDropdown.tsx 가 JSX 아홉 자리 / 여덟 파일에 서 있고 Gnb 가 물기 때문에 사실상 전 라우트에 뜬다. **여는 것은 트리거 하나다** — 패널은 MenuPanel, 항목과 「지금 값」 표시는 Menu, 검색 필드는 TextField(HasLabel=false) 가 이미 소유한다. CSS 레시피(.louis-select-trigger)는 있고 React 표면은 없다. Figma component set 8 variant(Size × State) 이고 계약에 geometry 가 붙어 양방향이다 — select.browser.test.tsx 가 코드 쪽에서 같은 실측을 되잰다. 제품 원장의 CustomDropdown 항은 이 회차에 움직이지 않는다: 제품이 아직 이 트리거를 물지 않았고, 커버리지가 오르는 것은 채택하는 회차다.",
+      "doc": "design/components/select.md",
+      "figmaNames": [
+        "SelectTrigger"
+      ]
     },
     {
       "id": "selectable-list-row",
@@ -1917,6 +2086,17 @@
       "note": "public export와 실브라우저 acceptance test 12건이 두 motion context에서 각각 돈다. master-detail의 좌측 열이며 제품 3벌 중 2벌(행의 면이 선택을 갖는 쪽)을 덮는다 — 나머지 1벌은 선택을 체크박스가 가지므로 Checkbox + 행 레이아웃이다. 선택은 aria-current가 소유하고 **면 하나에 기대지 않는다**: 다크에서 background-inset이 surface와 같은 색이라 표면 위 목록에서 선택 면이 사라지므로 3px 선행 표식을 함께 그린다. 같은 위험이 SidebarNavItem에 남아 있다(사이드바가 캔버스 위라서 성립). listbox가 아니며 Tab이 목록을 훑는다. Figma component set 3 variant(State)가 섰고 parity 게이트가 Marker·Text·Title·Meta·Media·Trailing을 자손으로 대조한다 — raw fill 0. Marker의 폭이 계약이라 선택 표식이 사라지면 게이트가 잡는다. publish는 DS-F-008이다 2026-09-01 DS-D-0035 재판정: Figma `done`. readback 등재 + 계약이 모든 property 를 pin + 기하 evidence 가 두 방향이다(selectable-list-row · selectable-list-row.browser.test.tsx).",
       "doc": "design/components/selectable-list-row.md",
       "figmaName": "SelectableListRow"
+    },
+    {
+      "id": "section-header",
+      "name": "Section Header",
+      "maturity": "experimental",
+      "figma": "done",
+      "web": "partial",
+      "docs": "done",
+      "note": "화면·묶음·패널의 머리. 정본은 제품 app/admin/AdminSection.tsx 의 AdminSectionHeader 이고 호출 지점이 11 파일 17 자리다(page 11 · section 5 · label 1). 같은 조형이 어드민 밖에도 있다 — components/ui/PageHeader 가 앱 허브 넷에서 같은 제목 36 SemiBold + 설명 16 Medium 을 그린다. **그 「같다」를 실측으로 대조했고 갈리는 자리는 아래 여백 하나였다**: PageHeader 는 32 를 통째로 지고 page 는 12 만 지며, 어드민 쪽은 감싸는 스택의 gap-10(20)이 나머지를 내 합이 두 곳 다 32 다(제품이 BlogManagement.tsx:50-52 · TemplateManagement.tsx:1009-1012 에 그 셈을 적어 두었다). Level 축은 밀도가 아니라 문서 위계라 Size 가 아니고, 그 축 이름이 2026-09-07 에 figma-component-authoring.md §2 표에 열렸다. React 표면이 없어 정본이 CSS 레시피이고 브라우저 테스트가 클래스 마크업을 렌더한다(alert 와 같다). 719px 접힘은 Figma 에 그릴 자리가 없어 계약의 $foldRule 이 규칙으로 갖고 브라우저 테스트만 되잰다 — 한쪽만 있는 근거다. typography-heading-md-semibold 토큰이 이 컴포넌트와 함께 열렸다: LOUIS heading 계열에 semibold 가 하나도 없었고 제품 스케일에는 실재하는 칸이라 지어낸 역할이 아니라 빠져 있던 칸을 채운 것이다. **/admin 은 제품의 대비·타이포·표면 게이트가 하나도 재지 않는 영역이라** 제품이 문 뒤에도 회귀는 사람이 봐야 한다. DS-D-0035 판정: Figma done — readback 등재 + 계약이 모든 property 를 pin + 기하 evidence 가 두 방향이다(section-header · section-header.browser.test.tsx).",
+      "figmaName": "SectionHeader",
+      "doc": "design/components/section-header.md"
     },
     {
       "id": "skeleton",
@@ -1950,6 +2130,17 @@
       "note": "public export, Figma component set 2 variant(Size), parity 게이트가 Track·Arc를 자손으로 대조한다. 실브라우저 acceptance test 8건이 두 motion context에서 각각 돈다. 제품의 로딩 표현은 약 62벌이지만 공용 LoadingSpinner가 정본이고 그 recipe(700ms · linear)가 motion-loop와 정확히 같다. 회전 keyframe은 base.css의 공용 louis-spin 하나이며 Button·Menu도 그것을 가리킨다. determinate 진행률·스켈레톤·텍스트 쉬머는 별도 컴포넌트이며 아직 없다 2026-09-01 DS-D-0035 재판정: Figma `done`. readback 등재 + 계약이 모든 property 를 pin + 기하 evidence 가 두 방향이다(spinner · spinner.browser.test.tsx).",
       "doc": "design/components/spinner.md",
       "figmaName": "Spinner"
+    },
+    {
+      "id": "stat-tile",
+      "name": "Stat Tile",
+      "maturity": "experimental",
+      "figma": "done",
+      "web": "partial",
+      "docs": "done",
+      "note": "CSS 레시피(.louis-stat-tile · .louis-delta-pill)만 있고 React 표면은 없다. Figma component set 8 variant(Size × Delta). **이 조형은 어떤 기계도 본 적이 없었다** — 정본 AdminStatTile 의 소비처 14 자리가 전부 /admin 이고 제품의 대비·타이포·표면 게이트가 그 경로를 하나도 재지 않는다. 증감 알약은 이 컴포넌트가 소유하고 chart-card 가 같은 클래스를 쓴다 — badge.md 가 이미 「증감률과 개수는 알약(999px)이고 상태 어휘를 갖지 않는다」로 경계를 적어 둔 자리다. 두 구현이 다투던 값은 알약 좌우 여백 하나(어드민 8 · 애널리틱스 6)이고 6 을 정본으로 삼았다(DS-D-0043). 상태 축은 만들지 않았다 — 어드민은 로딩을 타일이 아니라 블록으로 그린다. DS-D-0035 (a)(b)(c) 를 만족한다 — readback 등재 + 계약이 모든 property 를 pin + 기하 evidence 가 두 방향이다(stat-tile · stat-tile.browser.test.tsx).",
+      "doc": "design/components/stat-tile.md",
+      "figmaName": "StatTile"
     },
     {
       "id": "step-tile",
@@ -2042,6 +2233,92 @@
         "MediaScrubber",
         "VideoPlayer"
       ]
+    },
+    {
+      "id": "canvas-edge",
+      "name": "Canvas Edge",
+      "figmaName": "CanvasEdge",
+      "doc": "design/components/canvas-edge.md",
+      "note": "노드 캔버스의 연결선. 제품 V2EdgeLayers.tsx 가 정본이고 톤 어휘의 실행 가능한 SSOT 는 lib/edgeTone.ts 다 — LOUIS recipe 는 없다. 앵커에서 이 조형은 손으로 일곱 벌 복제돼 있고 그중 워크스루 오버레이 네 벌은 이미 주기(1.85초 대 1.45초)·번짐 색·image 하이라이트에서 정본과 갈려 있다. Figma 는 CanvasEdge 14 variant(Tone 7 × State 2)로 섰고 **실선만** 그린다: 흐르는 쉬머는 애니메이션이라 담기지 않고(Skeleton 스윕과 같은 한계), 번짐은 톤마다 반경이 달라 되읽기의 effect 역할(자손 이름 하나에 값 하나)이 담을 자리가 없다 — 한 값으로 적으면 일곱 중 여섯을 거짓으로 고정한다. 이 회차의 판정 둘: 실선 색의 정본을 accent 램프가 아니라 채널 토큰(node-handle-icon-*)으로 두고, 쉬머 하이라이트를 채널 램프의 200 칸으로 정했다(여섯 톤 중 edit·audio 는 제품 리터럴이 이미 그 칸과 같고 셋만 램프 밖이다). hover 가 일곱 톤 중 넷에서만 색을 바꾸는 것은 접지 않고 기록에 null 로 적어 고정했다. `partial` 인 이유는 쉬머·번짐·삭제 버튼이 Figma 에 없고 LOUIS recipe 가 아직 없어 evidence 가 한 방향이기 때문이다.",
+      "maturity": "experimental",
+      "figma": "partial",
+      "web": "not-ready",
+      "docs": "done"
+    },
+    {
+      "id": "inspector-row",
+      "name": "Inspector Row",
+      "figmaName": "InspectorRow",
+      "figmaNames": [
+        "InspectorRow"
+      ],
+      "doc": "design/components/inspector-row.md",
+      "note": "속성 패널의 라벨-값 한 줄. **부품 다섯이 아니라 문법 하나로 세웠다** — 편집기 인스펙터 다섯 보드는 이 행과 Inspector Section Head 의 배치일 뿐이고, 알약·숫자 칸·색 점은 독립 부품이 아니라 값 자리의 형태여서 Value 축(Text · Number · Color · Pill)으로 접혔다. 행이 곧 박스다(224×28 · 반경 8 · 안쪽 여백 0 8 · 사이 간격 10) — 정본이 한때 행을 투명하게 두고 값에만 140 박스를 씌웠고 그 배치를 스스로 정정하며 박스를 행으로 옮겼다. 옛 배치의 라벨 38% 고정폭은 그래서 채택하지 않았다. CSS 레시피만 있고 React 표면은 없다. **라이트 면이 정본과 갈린다** — 다크는 color-bg-inset · color-bg-raised 와 정확히 같고 라이트만 어긋나며, 레시피는 팔레트 칸이 아니라 관계(행은 한 칸 들어가고 컨트롤은 한 칸 나온다)를 고정한다. 소유자 확인 대상 셋을 문서가 갖는다: 라이트 면, 알약의 1px 진짜 테두리(SegmentedCodeInput 과 같은 묶음), 알약 tone 축의 Badge 흡수 여부(정본의 tone 넷 중 셋이 선언까지 같아 죽어 있다). 숫자 칸의 상태 축은 열지 않았다 — hover 만이 시각 선언을 갖고 드래그·편집은 앵커에 선언이 없으며, 편집의 포커스 링은 같은 특이도의 두 선언이 경쟁해 소스로 판정할 수 없다. Figma 는 partial 이다: 기하 계약이 붙었으나 그 값을 코드가 여전히 만드는지 되재는 브라우저 테스트가 없어 evidence 가 한 방향이다.",
+      "maturity": "experimental",
+      "figma": "partial",
+      "web": "partial",
+      "docs": "done"
+    },
+    {
+      "id": "inspector-section-head",
+      "name": "Inspector Section Head",
+      "figmaName": "InspectorSectionHead",
+      "figmaNames": [
+        "InspectorSectionHead"
+      ],
+      "doc": "design/components/inspector-section-head.md",
+      "note": "인스펙터 절의 머리 한 줄. 제목이 왼쪽, 값 힌트와 조작 아이콘이 오른쪽 묶음에 선다. **존재 이유가 통일이다** — 정본에서 인스펙터 넷과 효과 절이 각자 머리를 적고 있었고 효과 절만 제목이 한 단계 크고 밑줄이 있어 혼자 달라 보였다. 그래서 stroke 도 effect 도 0 인 것이 계약이고 누가 밑줄을 되살리면 게이트가 「계약에 없는 것」으로 잡는다. Action 축은 불리언이 아니라 구조다 — 불리언은 가시성만 꺼서 24 폭이 남고 Figma 의 불리언은 set 단위라 한 변형에서 끄면 다른 변형에서도 사라진다. **감싸는 세로 묶음을 옮기지 않았다**: 정본이 머리를 사이 간격 8 의 세로 묶음에 넣지만 자식이 언제나 하나라 그 8 이 아무 것도 벌리지 않는다 — 그리지 않는 값을 계약에 적으면 다음 사람이 그것을 계약으로 착각한다. 글리프 16 · 누르는 면 24 이며 정본 주석이 「디자인의 16 은 글리프 크기이지 히트 영역이 아니다」를 적고 로컬로 세웠다고 남겼는데, DS-D-0032 가 그 칸을 열었으므로 레시피는 layout-control-height-sm 을 읽는다. CSS 레시피만 있고 React 표면은 없다. Figma 는 partial 이다 — 조작 아이콘의 hover·disabled 두 칸을 세우지 않았고(Action 축과 곱해지고 정지 화면에서 읽을 것이 없다) 브라우저 되재기도 없다.",
+      "maturity": "experimental",
+      "figma": "partial",
+      "web": "partial",
+      "docs": "done"
+    },
+    {
+      "id": "node-chrome-button",
+      "name": "Node Chrome Button",
+      "figmaName": "NodeChromeButton",
+      "doc": "design/components/node-chrome-button.md",
+      "note": "노드 카드 헤더의 32px 아이콘 버튼 쌍(다운로드·삭제). 제품 NodeHeaderActions.tsx 가 정본이고 LOUIS recipe 는 없다 — 치수만 노드 크롬 토큰에서 받고 면은 투명, 호버에서만 틴트가 뜬다. Figma 는 NodeChromeButton 6 variant(Tone 2 × State 3)로 섰다. Active(scale 0.94)와 Success(복사→체크)는 열지 않았고 사유를 문서가 갖는다. partial 인 이유는 코드 표면이 없고 호버 틴트 알파가 다크에서 4%p 갈리기 때문이다(라이트/다크 쌍을 담을 변수가 없다).",
+      "maturity": "experimental",
+      "figma": "partial",
+      "web": "not-ready",
+      "docs": "done"
+    },
+    {
+      "id": "node-shell",
+      "name": "Node Shell",
+      "figmaName": "NodeShell",
+      "doc": "design/components/node-shell.md",
+      "note": "캔버스 노드의 겉 — 카드 위 헤더 한 줄과 400px 카드. 제품 nodes/*Node.tsx 아홉이 같은 상수 이름으로 값을 복제하고 있고 LOUIS recipe 는 없다. Figma 는 NodeShell 14 variant(Accent 7 × Selected 2)로 섰다. 계획서의 「타입 축 9」는 실측에서 일곱이 됐다 — tts·bgm 이 같은 audio 액센트를 쓰고 youtube·instagram 은 같은 red-500 을 가리키며 section 은 카드가 아니라 프레임이라 세트 밖이다. partial 인 이유는 라이트 모드의 카드 면·테두리·제목 잉크 셋이 제품과 갈리기 때문이다 — 그 라이트/다크 쌍을 가진 변수가 파일에 없다.",
+      "maturity": "experimental",
+      "figma": "partial",
+      "web": "not-ready",
+      "docs": "done"
+    },
+    {
+      "id": "node-side-handle",
+      "name": "Node Side Handle",
+      "figmaName": "NodeSideHandle",
+      "doc": "design/components/node-side-handle.md",
+      "note": "노드 카드 좌우 레일의 28px 채널 버튼. 제품 NodeSideButtons.tsx 의 TargetButton 이 정본이고 LOUIS recipe 는 없다. 표면 원장이 적은 채널 여섯은 틀렸다 — SideTone 타입이 image·text·edit 셋이다. Figma 는 NodeSideHandle 3 variant(Channel)로 섰고 상태 축은 열지 않았다: 비활성 면이 라이트/다크에서 서로 다른 토큰을 쓰고, 호버·프레스는 색이 아니라 filter 이며, 메뉴 열림은 기본과 시각이 같다.",
+      "maturity": "experimental",
+      "figma": "partial",
+      "web": "not-ready",
+      "docs": "done"
+    },
+    {
+      "id": "floating-shell",
+      "name": "Floating Shell · Pill Trigger",
+      "figmaNames": [
+        "FloatingShell",
+        "PillTrigger"
+      ],
+      "doc": "design/components/floating-shell.md",
+      "note": "캔버스 위에 뜨는 크롬의 재료 한 벌과 그 재료로 선 알약 트리거. Figma 에서는 둘로 선다 — FloatingShell(단일 · 축 없음)과 PillTrigger 3 variant(State = Default·Hover·Open, 라벨은 TEXT 슬롯) — 이지만 카탈로그 항목과 규범 문서는 하나다. 재료가 하나이기 때문이다: 면 72%(color-bg-menu) · 배경 흐림 4 · hairline-inset · 반경 16 이 한 묶음이고, 그 넷이 갈리면 캔버스 위에서 두 조각이 서로 다른 유리로 보인다. 두 항목으로 두면 그 불변식을 적을 자리가 없고 한 문서가 두 항목에 걸린다 — Progress(ProgressBar·ProgressRing)와 Video Player(VideoPlayer·MediaScrubber)가 이미 쓰는 형태로 접었다. 앵커에서 네 자리가 이 재료를 손으로 복제한다 — Toolbar.tsx 와 index.tsx 의 TOOLBAR_WRAP(툴바·도움말 알약 두 곳), CanvasZoomControl.tsx 의 ZOOM_LABEL_BUTTON. LOUIS recipe 는 없다. 계획서가 제안한 Orientation·Divider·Caret·Badge 네 축과 트리거의 Size 축은 열지 않았고 사유를 문서와 계약이 갖는다 — 가로 아닌 자리가 없고, 그라디언트 구분선의 알파 0 정지점을 담을 색 변수가 없으며, 캐럿 없는 자리가 없고, 점 배지는 셸 안의 32 툴바 버튼에 붙지 이 트리거에 붙지 않으며, 높이 36 은 컨트롤 사다리의 값이 아니라 이 한 조형의 값이다(DS-D-0048). partial 인 이유는 코드 표면이 없고 흐림 4 가 LOUIS 흐림 사다리에 없어 변수에 묶이지 못하기 때문이다.",
+      "maturity": "experimental",
+      "figma": "partial",
+      "web": "not-ready",
+      "docs": "done"
     }
   ],
   "patterns": [

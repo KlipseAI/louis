@@ -1,0 +1,113 @@
+---
+id: node-side-handle
+status: experimental
+authority: normative
+summary: 노드 카드 좌우 레일에 서는 28px 채널 연결 버튼.
+---
+
+# Node Side Handle
+
+노드 카드의 **좌우 레일**에 서서 「여기에 무엇이 연결되는가」를 색으로 말하는 28px 버튼이다.
+누르면 그 채널의 메뉴가 열리고, 선을 끌어 연결하는 대상이기도 하다.
+
+**셸과 디스크가 나뉜다.** 바깥 버튼은 투명하고 포인터만 받으며, 색과 곡률은 안쪽 디스크
+(`Facet`)가 갖는다. 제품이 그렇게 나눈 이유는 호버·프레스가 디스크만 키우고 줄이기 때문이다 —
+셸이 채색을 가지면 스케일이 클릭 영역까지 흔든다.
+
+## 채널이 여섯이 아니라 셋이다
+
+표면 원장은 이 버튼을 「채널 톤(image/text/youtube/instagram/edit/audio)별 면」이라 적었다.
+**소스는 셋이다.** `NodeSideButtons.tsx` 의 `type SideTone = "image" | "text" | "edit"` 이 정본이고
+`sideFacetClass` 가 그 셋만 분기한다. 나머지 셋(`youtube` · `instagram` · `audio`)은 사이드
+버튼이 아니라 [Node Shell](node-shell.md)의 액센트 축에서만 쓰인다. 원장의 그 문장은 틀렸고,
+고치는 것은 원장을 소유한 회차의 몫이라 여기에 사실만 남긴다.
+
+## Availability
+
+| Surface       | 상태           | 근거 |
+| ------------- | -------------- | ---- |
+| Web           | `not-ready`    | LOUIS recipe 가 없다. 제품 `NodeSideButtons.tsx` 의 TargetButton 이 정본이다 |
+| Figma         | `partial`      | NodeSideHandle — Channel(image·text·edit) = 3 variant. 슬롯: Glyph(INSTANCE_SWAP). 상태 축은 열지 않았다(아래) |
+| Documentation | `done`         | 이 문서 |
+| Maturity      | `experimental` | 상태 축 셋이 담기지 않았고 그 이유가 전부 「담을 수 없다」이다 |
+
+## Anatomy
+
+- 셸 28×28, 반경 8. 값은 `--node-side-handle-size` · `--node-side-handle-radius` 가 갖는다.
+- 디스크가 셸을 꽉 채운다(`w-full h-full` · `rounded-[inherit]`).
+- 글리프 20. 헤더 액션의 16보다 크다 — 이 버튼은 라벨 없이 글리프만으로 채널을 말한다.
+- 디스크 안쪽에 흰 광이 있다. 제품은 `::before` 에 `inset 0 0 8px` 흰 그림자를
+  `mix-blend-mode: overlay` 로 얹고, Figma 는 INNER_SHADOW 의 blendMode 로 같은 것을 그린다.
+- 레일 좌표는 이 컴포넌트가 갖지 않는다. 카드 패딩 박스에서 바깥으로 `--node-side-gap`,
+  버튼끼리 세로 간격은 `--node-side-stack-gap` 이며 둘 다 캔버스가 소유한다.
+
+## 상태 축을 열지 않은 이유 셋
+
+1. **Disabled 를 담을 변수가 없다.** 비활성 면이 라이트와 다크에서 **서로 다른 토큰**을 쓴다 —
+   다크는 `--node-handle-bg-disabled-{channel}`(채널 900), 라이트는 활성 토큰
+   `--node-handle-bg-{channel}`(채널 200)에 `brightness(0.78) saturate(0.95)` 를 건다. Figma
+   변수는 라이트/다크 쌍 하나라 그 둘을 담을 수 없고, 라이트 쪽은 필터라 값 자체가 없다.
+2. **Hover·Active 는 색이 아니라 필터다.** 호버는 `brightness(1.1)`, 프레스는 `brightness(0.94)`
+   에 디스크 스케일 1.08/0.94다. 옮길 변수가 없고, 같은 면으로 그리면 「호버가 기본과 같다」는
+   거짓을 파일에 새긴다.
+3. **메뉴가 열린 상태는 기본과 시각이 같다.** 소스에서 `.buttonActive` 가 더하는 선언은
+   `filter: none` 하나뿐이고 면과 잉크는 기본 톤 그대로다. 축을 여는 것이 오히려 거짓이다.
+
+셋 다 「아직 안 했다」가 아니라 **「지금은 담을 수 없다」**이다. 1번은 새 세만틱 변수 여섯이
+서면 풀린다.
+
+## Properties
+
+| 이름 | 종류 | 뜻 |
+| --- | --- | --- |
+| `Glyph` | 슬롯 (INSTANCE_SWAP) | 20px 글리프. 같은 채널 안에서도 자리마다 다르다 |
+| `Channel` | 축 (3) | `image` · `text` · `edit`. 디스크의 면 색을 가른다 |
+
+레일 좌표·개수·순서는 이 컴포넌트가 갖지 않는다. 어느 채널 버튼이 몇 개 서는지는 노드 타입이
+정하고, 그 배치는 캔버스가 토큰으로 갖는다.
+
+## States
+
+| 상태 | 무엇이 바뀌나 | Figma |
+| --- | --- | --- |
+| 기본 | 채널 500 면 · 흰 글리프 · 안쪽 광 | 있다 |
+| 호버 | `brightness(1.1)` + 디스크 `scale(1.08)` | 없다 — 색이 아니라 필터다 |
+| 프레스 | `brightness(0.94)` + 디스크 `scale(0.94)` | 없다 — 같은 이유 |
+| 메뉴 열림 | `filter: none` 만 더한다 = **기본과 같다** | 축을 열지 않는 것이 옳다 |
+| 비활성 | 다크는 채널 900 면 · 700 잉크, 라이트는 활성 토큰에 `brightness(0.78) saturate(0.95)` | 없다 — 라이트/다크가 다른 토큰이라 변수 하나에 담기지 않는다 |
+
+## Content
+
+글자가 없다. 채널의 뜻은 **색과 글리프**가 나르고, 이름은 툴팁과 `aria-label` 이 나른다.
+비활성일 때 툴팁이 「왜 연결할 수 없는가」로 바뀌는 것도 이 버튼의 계약이다 — 색만으로는
+「지금 못 쓴다」와 「원래 그 색이다」를 가릴 수 없다.
+
+## Accessibility
+
+- 28×28 은 포인터 타깃 최소치 24를 넘는다. 세로로 쌓일 때 간격 8이 붙어 있어 이웃과 섞이지
+  않는다.
+- **색이 유일한 신호다.** 채널 셋이 글리프로도 갈리지만(image·text·edit), 비활성은 색과
+  밝기로만 표시된다. 그래서 툴팁의 문구가 접근성 계약의 일부이고, 위 Content 절이 그것을 적는다.
+- React Flow 의 연결 핸들로도 쓰이므로 `aria-expanded` 와 `aria-disabled` 를 함께 갖는다.
+  버튼이면서 연결 대상이라는 이중 역할이 이 표면의 어려운 부분이다.
+
+## Acceptance tests
+
+아직 없다. LOUIS recipe 가 없어 붙일 코드가 없고, 값은 `figma/components.measured.json` 의
+`node-side-handle` 이 앵커 소스 인용으로 지킨다. 상태 축 셋이 담기지 않은 사유도 같은 기록의
+`$whyNoDisabledVariant` · `$whyNoHoverVariant` 가 갖는다.
+
+## Known deviations
+
+1. **글리프 기본값이 채널을 주장하지 않는다.** 같은 채널 안에서도 자리마다 글리프가 다르다 —
+   image 채널이 시작 프레임에서는 align-left, 끝 프레임에서는 align-right 를 쓴다. 그래서
+   글리프는 축이 아니라 슬롯이고, 기본값 하나만 둔다. edit 채널이 실제로 쓰는 video-camera 는
+   아이콘 세트에 아직 없다.
+2. **툴팁과 연결 핸들을 담지 않는다.** 제품은 이 버튼을 React Flow 의 `Handle` 로 만들거나
+   일반 버튼으로 만들고 둘 다 `ChromeTooltip` 으로 감싼다. 연결 가능 여부는 데이터가 정하는
+   것이라 Figma 변형이 담을 축이 아니다.
+
+## Related
+
+- [Node Shell](node-shell.md) — 이 버튼이 붙는 카드
+- [Node Chip](node-chip.md) — 카드 안 메타 툴바의 알약

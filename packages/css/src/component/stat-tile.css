@@ -1,0 +1,165 @@
+/* Stat Tile — design/components/stat-tile.md
+ *
+ * 「라벨 · 수치 · 보조 설명 · 증감 알약」 네 줄짜리 지표 타일 하나. 격자에 여럿 깔려
+ * 대시보드의 첫 행이 된다.
+ *
+ * ## 정본은 제품 어드민 타일이다
+ *
+ * 제품에 같은 조형이 **두 벌** 있다 — `app/admin/AdminSection.tsx` 의 `AdminStatTile`(면 하나
+ * 위에 네 줄)과 애널리틱스의 KPI 카드(바깥 프레임 + 안쪽 면 + 스파크라인). 둘은 같은 것의
+ * 두 판이 아니라 **서로 다른 조형**이라 한 컴포넌트로 접지 않았다: 이 파일이 앞의 것이고,
+ * 뒤의 것은 `chart-card.css` 다. 둘이 실제로 다투는 값은 증감 알약의 좌우 여백 하나뿐이며
+ * (어드민 8 · 애널리틱스 6) 그 판정은 아래 `.louis-delta-pill` 주석이 갖는다.
+ *
+ * ## 이 타일이 서면 게이트에 눈이 하나 생긴다
+ *
+ * `AdminStatTile` 의 소비처 14 자리는 전부 `/admin` 이고, 제품의 대비·타이포·표면 게이트는
+ * 그 경로를 **하나도 재지 않는다.** 그래서 이 조형은 지금까지 어떤 기계도 본 적이 없다.
+ * 여기 정본이 서면 `figma/components.measured.json` 의 실측과 브라우저 시험이 그 값을
+ * 처음으로 잰다.
+ */
+
+.louis-stat-tile {
+  /* 소비자의 reset 에 기대지 않는다. */
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  /* 격자 트랙이 폭을 정한다. 내용에 맞춰 줄면 긴 수치 하나가 열 폭을 밀어낸다. */
+  inline-size: 100%;
+  min-inline-size: 0;
+  /* 6px — 라벨·값·힌트 세 줄을 한 덩어리로 읽히게 하는 간격이고 정본(`gap-3`)에서 온 값이다.
+   * 간격 계단(space-control-xs 4 · space-control-sm 8)에 없어서 리터럴로 진다.
+   * `space-overlay-item-content-gap` 도 같은 6 이지만 그 이름은 오버레이 **항목**의 것이라
+   * 여기서 쓰면 한 값이 두 뜻을 나르고, 한쪽을 고치면 다른 쪽이 따라 움직인다. */
+  gap: 6px;
+  padding: var(--louis-space-control-lg);
+  border-radius: var(--louis-radius-card);
+  /* 카드 바닥에서 한 단 올라온 유일한 면이다. 정본 파일이 그 판정을 이미 적어 두었다 —
+   * 다크에서 `bg-inset` 과 `bg-surface` 는 어드민 카드 바닥과 바이트 단위로 같은 색이라
+   * 그 위에 올린 면이 사라진다. 바닥보다 확실히 밝은 단은 `bg-raised` 하나뿐이다. */
+  background: var(--louis-color-bg-raised);
+  /* 경계는 border 가 아니라 generic 10% inset 헤어라인이다 (DS-D-0023). */
+  box-shadow: var(--louis-hairline-inset);
+}
+
+/* 아이브로우. 화면에서 가장 작은 글자이고, 값보다 **먼저** 읽혀야 해서 위에 선다. */
+.louis-stat-tile__label {
+  font-size: var(--louis-typography-caption-medium-font-size);
+  line-height: var(--louis-typography-caption-medium-line-height);
+  font-weight: var(--louis-typography-caption-medium-font-weight);
+  color: var(--louis-color-fg-tertiary);
+}
+
+/* 값. 타일에서 가장 큰 글자다.
+ *
+ * `tabular-nums` 는 장식이 아니다 — 여러 타일이 한 행에 서고 값이 실시간으로 갱신되므로,
+ * 비례폭 숫자면 같은 자릿수인데도 글자가 좌우로 떨린다.
+ * 줄바꿈을 막는 것도 같은 이유다: 긴 수치가 두 줄이 되면 그 타일만 키가 커져 행이 어긋난다. */
+.louis-stat-tile__value {
+  /* 기본은 `md` 다. 보조 타일이 주요 지표보다 많다. */
+  font-size: var(--louis-typography-body-lg-semibold-font-size);
+  line-height: var(--louis-typography-body-lg-semibold-line-height);
+  font-weight: var(--louis-typography-body-lg-semibold-font-weight);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  color: var(--louis-color-fg-primary);
+}
+
+.louis-stat-tile[data-size="lg"] .louis-stat-tile__value {
+  /* **합성 ramp 에 semibold heading 이 없다.** `typography-heading-sm-*` 은 medium 한 칸뿐이라
+   * 크기·행간만 거기서 받고 중량은 따로 받는다. 정본이 28 SemiBold 이므로 medium 으로
+   * 내리지 않는다 — ramp 에 semibold heading 칸을 여는 것이 이 결함의 해소다. */
+  font-size: var(--louis-typography-heading-sm-medium-font-size);
+  line-height: var(--louis-typography-heading-sm-medium-line-height);
+  font-weight: var(--louis-typography-body-lg-semibold-font-weight);
+}
+
+/* 분모·기간처럼 값을 읽는 데 필요한 한 줄. 값보다 약하게 서야 한다. */
+.louis-stat-tile__hint {
+  font-size: var(--louis-typography-caption-regular-font-size);
+  line-height: var(--louis-typography-caption-regular-line-height);
+  font-weight: var(--louis-typography-caption-regular-font-weight);
+  font-variant-numeric: tabular-nums;
+  color: var(--louis-color-fg-tertiary);
+}
+
+/* 증감 알약 — **이 파일이 소유하고 `chart-card` 가 같은 클래스를 쓴다.**
+ *
+ * `badge` 와 기하가 다르다. Badge 는 `radius-control-sm` 8 짜리 모난 표식이고 이것은
+ * `radius-pill` 999 짜리 알약이다. 둘을 한 컴포넌트로 접으면 반경이 축이 되는데, 그 축은
+ * 「무엇인가」가 아니라 「어디에 붙는가」로 갈려 이름을 붙일 수 없다.
+ *
+ * ## 좌우 여백 6 — 두 구현이 다투던 유일한 값
+ *
+ * 어드민은 8(`px-4`), 애널리틱스는 6(`px-3`)이다. 6 을 정본으로 삼는다: 알약이 실제로
+ * 그려지는 자리가 애널리틱스 9 곳 · 4 파일 · 2 라우트이고 어드민은 한 파일이다
+ * (DS-D-0043 — 정본은 제품이 무는 것이 정한다). 위아래 2 는 두 구현이 이미 같다.
+ */
+.louis-delta-pill {
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: fit-content;
+  padding-block: var(--louis-space-overlay-item-gap);
+  /* 6px — 위 「좌우 여백 6」 절이 근거다. 간격 계단에 없는 값이라 리터럴로 진다. */
+  padding-inline: 6px;
+  border-radius: var(--louis-radius-pill);
+  font-size: var(--louis-typography-caption-medium-font-size);
+  line-height: var(--louis-typography-caption-medium-line-height);
+  font-weight: var(--louis-typography-caption-medium-font-weight);
+  font-variant-numeric: tabular-nums;
+  /* 톤은 **면과 잉크 두 겹**이다. 소비처가 자기 팔레트를 넣어야 할 때 덮는 자리를 두 개로
+   * 좁혀 둔다 — 지금 제품이 쓰는 붉은 면 8% 는 LOUIS 에 semantic 이름이 없다(아래 down 참고). */
+  background: var(--louis-delta-pill-surface);
+  color: var(--louis-delta-pill-ink);
+  --louis-delta-pill-surface: var(--louis-color-bg-inset);
+  --louis-delta-pill-ink: var(--louis-color-fg-tertiary);
+}
+
+/* 오름. 면은 정본과 바이트 단위로 같은 8% 민트다.
+ * 잉크는 `alert-success-stroke` 를 쓴다 — 이름은 선이지만 값이 success 강조색 정본이고
+ * 두 테마에서 같다. `fg-success` 는 라이트에서 짙은 초록이라 정본 픽셀이 아니다.
+ * 잉크로 쓸 semantic 이름이 아직 없다는 것이 이 자리의 결함이고 문서가 그것을 소유한다. */
+.louis-delta-pill[data-tone="up"] {
+  --louis-delta-pill-surface: var(--louis-color-accent-green-500-alpha-08);
+  --louis-delta-pill-ink: var(--louis-color-alert-success-stroke);
+}
+
+/* 내림. 잉크는 `accent-danger` 가 정본 붉은색과 정확히 같다.
+ * 면은 **정본이 8% 인데 LOUIS 의 가장 가까운 semantic 이 12% 다**(`accent-danger-secondary`,
+ * Button 의 연한 danger 가 세운 값). 초록만 8% 칸이 있고 붉은쪽은 없다 — 두 톤의 알파가
+ * 갈리는 것은 결함이며 해소는 소유자 판정이다. 그때까지 소비처는
+ * `--louis-delta-pill-surface` 하나를 덮어 8% 를 유지할 수 있다. */
+.louis-delta-pill[data-tone="down"] {
+  --louis-delta-pill-surface: var(--louis-color-accent-danger-secondary);
+  --louis-delta-pill-ink: var(--louis-color-accent-danger);
+}
+
+/* 변화 없음. 기본값과 같은 중립 면이라 선언을 비우지 않고 **적어 둔다** —
+ * 세 톤이 한 표로 읽혀야 하고, 나중에 기본값이 움직여도 flat 은 따라가지 않는다. */
+.louis-delta-pill[data-tone="flat"] {
+  --louis-delta-pill-surface: var(--louis-color-bg-inset);
+  --louis-delta-pill-ink: var(--louis-color-fg-tertiary);
+}
+
+/* 알약은 타일 **바닥**에 붙는다. 격자가 행 높이를 맞추므로 힌트가 없는 타일에서 알약이
+ * 값 바로 밑에 뜨면 한 행 안에서 알약 줄이 들쭉날쭉해진다. */
+.louis-stat-tile > .louis-delta-pill {
+  margin-block-start: auto;
+}
+
+@media (forced-colors: active) {
+  /* box-shadow 헤어라인은 강제 색에서 사라지므로 경계를 시스템 색 실선으로 되살린다
+   * (DS-D-0023). */
+  .louis-stat-tile {
+    box-shadow: none;
+    border: var(--louis-border-width-default) solid currentColor;
+  }
+
+  /* 톤이 색으로만 구별되는 유일한 자리다. 강제 색에서는 그 색이 전부 사라지므로
+   * 테두리를 둘러 알약이 「값의 일부」로 뭉개지지 않게 한다. */
+  .louis-delta-pill {
+    border: var(--louis-border-width-default) solid currentColor;
+  }
+}

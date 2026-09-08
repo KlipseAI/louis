@@ -751,6 +751,23 @@
           ]
         ],
         [
+          "color/palette-gray/850",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL,STROKE_COLOR,TEXT_FILL",
+          [
+            [
+              "Base",
+              null,
+              [
+                0.133333,
+                0.145098,
+                0.176471,
+                1
+              ]
+            ]
+          ]
+        ],
+        [
           "color/palette-gray/900",
           "COLOR",
           "FRAME_FILL,SHAPE_FILL,STROKE_COLOR,TEXT_FILL",
@@ -5196,7 +5213,7 @@
             ],
             [
               "Dark",
-              "Klipse Primitive::color/palette-gray/800",
+              "Klipse Primitive::color/palette-gray/850",
               null
             ]
           ]

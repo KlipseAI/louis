@@ -1064,6 +1064,23 @@
             }
           }
         },
+        "850": {
+          "$value": {
+            "colorSpace": "srgb",
+            "components": [
+              0.133333,
+              0.145098,
+              0.176471
+            ],
+            "hex": "#22252d"
+          },
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-palette-gray-850",
+              "tier": "primitive"
+            }
+          }
+        },
         "900": {
           "$value": {
             "colorSpace": "srgb",
@@ -8766,7 +8783,7 @@
           }
         },
         "bg-inset": {
-          "$value": "{primitive.color.palette-gray.800}",
+          "$value": "{primitive.color.palette-gray.850}",
           "$extensions": {
             "com.klipse-design": {
               "id": "color-bg-inset",

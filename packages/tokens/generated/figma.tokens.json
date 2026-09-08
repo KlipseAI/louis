@@ -2070,6 +2070,45 @@
             }
           }
         },
+        "color-palette-gray-850": {
+          "$type": "color",
+          "fields": [],
+          "figmaName": "color/palette-gray/850",
+          "hiddenFromPublishing": true,
+          "losses": [],
+          "nativeVariableType": "COLOR",
+          "representation": "variable",
+          "scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL",
+            "STROKE_COLOR",
+            "TEXT_FILL"
+          ],
+          "valuesByMode": {
+            "Base": {
+              "$value": {
+                "colorSpace": "srgb",
+                "components": [
+                  0.133333,
+                  0.145098,
+                  0.176471
+                ],
+                "hex": "#22252d"
+              },
+              "aliasTarget": null,
+              "resolvedValue": {
+                "alpha": 1,
+                "colorSpace": "srgb",
+                "components": [
+                  0.133333,
+                  0.145098,
+                  0.176471
+                ]
+              },
+              "sourcePath": "primitive.color.palette-gray.850"
+            }
+          }
+        },
         "color-palette-gray-900": {
           "$type": "color",
           "fields": [],
@@ -17801,18 +17840,18 @@
           ],
           "valuesByMode": {
             "Dark": {
-              "$value": "{primitive.color.palette-gray.800}",
+              "$value": "{primitive.color.palette-gray.850}",
               "aliasTarget": {
-                "id": "color-palette-gray-800",
+                "id": "color-palette-gray-850",
                 "mode": "base"
               },
               "resolvedValue": {
                 "alpha": 1,
                 "colorSpace": "srgb",
                 "components": [
-                  0.172549,
-                  0.184314,
-                  0.215686
+                  0.133333,
+                  0.145098,
+                  0.176471
                 ]
               },
               "sourcePath": "semantic.dark.color.bg-inset"

@@ -77,6 +77,8 @@
   --louis-color-palette-gray-700-rgb: 66 69 76;
   --louis-color-palette-gray-800: color(srgb 0.172549 0.184314 0.215686 / 1);
   --louis-color-palette-gray-800-rgb: 44 47 55;
+  --louis-color-palette-gray-850: color(srgb 0.133333 0.145098 0.176471 / 1);
+  --louis-color-palette-gray-850-rgb: 34 37 45;
   --louis-color-palette-gray-900: color(srgb 0.090196 0.105882 0.133333 / 1);
   --louis-color-palette-gray-900-rgb: 23 27 34;
   --louis-color-pink-100: color(srgb 1 0.898039 0.929412 / 1);
@@ -740,7 +742,7 @@
   --louis-color-bg-canvas: color(srgb 0.090196 0.105882 0.133333 / 1);
   --louis-color-bg-danger: color(srgb 0.329412 0.066667 0.098039 / 1);
   --louis-color-bg-info: color(srgb 0 0.203922 0.380392 / 1);
-  --louis-color-bg-inset: color(srgb 0.172549 0.184314 0.215686 / 1);
+  --louis-color-bg-inset: color(srgb 0.133333 0.145098 0.176471 / 1);
   --louis-color-bg-inverse: color(srgb 0.756863 0.764706 0.776471 / 1);
   --louis-color-bg-inverse-translucent: color(srgb 0.980392 0.980392 0.980392 / 0.72);
   --louis-color-bg-menu: color(srgb 0.172549 0.184314 0.215686 / 1);

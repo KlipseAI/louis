@@ -3,7 +3,7 @@
 // **번호 순서대로 실행한다.** 별칭이 대상 변수를 이름으로 찾으므로 대상이 먼저 있어야 한다.
 // idempotent — 있으면 값만 맞추고 없으면 만든다. 이름으로 찾으므로 변수 ID가 유지된다.
 const NAME={};
-const COL={"c":"Klipse Primitive","m":["Base"],"d":"Base","vars":[{"i":"color-palette-gray-025","n":"color/palette-gray/025","t":"COLOR","h":true,"sc":["FRAME_FILL","SHAPE_FILL","STROKE_COLOR","TEXT_FILL"],"v":{"Base":{"c":[0.94902,0.952941,0.960784,1]}}}]};
+const COL={"c":"Klipse Primitive","m":["Base"],"d":"Base","vars":[{"i":"color-palette-gray-850","n":"color/palette-gray/850","t":"COLOR","h":true,"sc":["FRAME_FILL","SHAPE_FILL","STROKE_COLOR","TEXT_FILL"],"v":{"Base":{"c":[0.133333,0.145098,0.176471,1]}}}]};
 
 const report={created:[],updated:[],unchanged:0,modesAdded:[],collectionsCreated:[],missingAlias:[]};
 const near=(a,b)=>Math.abs((a??1)-(b??1))<1e-5;

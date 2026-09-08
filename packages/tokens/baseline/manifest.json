@@ -2,23 +2,23 @@
   "artifacts": [
     {
       "path": "packages/tokens/generated/figma.tokens.json",
-      "sha256": "a9774ebbd4b4eb8982d4a03e90b543d09f64076558053ae5d7fa60385d59177a"
+      "sha256": "809ccad2641af0eef560d3dc62a8f52103a8a1ff6b7679c5044a1fd04652e7e6"
     },
     {
       "path": "packages/tokens/generated/index.d.ts",
-      "sha256": "0e88fdef3f30862f21bb6913fdc92934fe3a2c34ad193e8547935fa3e627fd76"
+      "sha256": "fbbd92705d09f42bf38dbeb705be48fa7e8de257f2927d003d41c7bb58ae540b"
     },
     {
       "path": "packages/tokens/generated/index.js",
-      "sha256": "846870b3ccb3286b329165b262dbc23353b9213fa4cdac1d9b959aba6021fc74"
+      "sha256": "d42716b7496d389fc4a4794525e11b2e34ca4ab9647e37a3bacfe9dcdb0b41df"
     },
     {
       "path": "packages/tokens/generated/tokens.css",
-      "sha256": "fc3548a609e5cc045aa5f512050da5409dd0f215f14f566def356ed765473762"
+      "sha256": "7bd937f8e3c99bd05ac559b30cfe8e93ec3654f8786c76478ce79e96395d57f2"
     },
     {
       "path": "packages/tokens/generated/tokens.json",
-      "sha256": "20a3c0c9c7b90301a7ebe7964812b01a0d379cfa29c01f566f6f81760e7b912b"
+      "sha256": "9db13241c6e3dae745aed726caecfe0f88667c70ca9b858409e9b58b0083cf01"
     }
   ],
   "contrastPairs": [
@@ -419,13 +419,13 @@
   },
   "source": {
     "path": "packages/tokens/src/klipse.tokens.json",
-    "sha256": "670c17611208b6c129f8429a8c2ed28ed2f173cd9ca110f1c5002a4228571c14"
+    "sha256": "95bcb62e212ba2369ace2e4e34b334f2a61f4dd67425f65089540718860ae6b1"
   },
   "themes": [
     "light",
     "dark"
   ],
-  "tokenCount": 773,
+  "tokenCount": 777,
   "tokens": [
     {
       "aliasTarget": {
@@ -2877,24 +2877,24 @@
     },
     {
       "aliasTarget": {
-        "id": "color-palette-gray-100",
+        "id": "color-palette-gray-050",
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-bg-canvas": "color(srgb 0.866667 0.870588 0.882353 / 1)"
+        "--louis-color-bg-canvas": "color(srgb 0.921569 0.92549 0.933333 / 1)"
       },
       "deprecated": null,
       "description": null,
       "id": "color-bg-canvas",
       "mode": "light",
-      "rawValue": "{primitive.color.palette-gray.100}",
+      "rawValue": "{primitive.color.palette-gray.050}",
       "resolvedValue": {
         "alpha": 1,
         "colorSpace": "srgb",
         "components": [
-          0.866667,
-          0.870588,
-          0.882353
+          0.921569,
+          0.92549,
+          0.933333
         ]
       },
       "sourcePath": "semantic.light.color.bg-canvas",
@@ -3033,24 +3033,24 @@
     },
     {
       "aliasTarget": {
-        "id": "color-palette-gray-150",
+        "id": "color-palette-gray-025",
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-bg-inset": "color(srgb 0.811765 0.815686 0.831373 / 1)"
+        "--louis-color-bg-inset": "color(srgb 0.94902 0.952941 0.960784 / 1)"
       },
       "deprecated": null,
       "description": null,
       "id": "color-bg-inset",
       "mode": "light",
-      "rawValue": "{primitive.color.palette-gray.150}",
+      "rawValue": "{primitive.color.palette-gray.025}",
       "resolvedValue": {
         "alpha": 1,
         "colorSpace": "srgb",
         "components": [
-          0.811765,
-          0.815686,
-          0.831373
+          0.94902,
+          0.952941,
+          0.960784
         ]
       },
       "sourcePath": "semantic.light.color.bg-inset",
@@ -10296,6 +10296,38 @@
     {
       "aliasTarget": null,
       "cssProperties": {
+        "--louis-color-palette-gray-025": "color(srgb 0.94902 0.952941 0.960784 / 1)",
+        "--louis-color-palette-gray-025-rgb": "242 243 245"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-palette-gray-025",
+      "mode": "base",
+      "rawValue": {
+        "colorSpace": "srgb",
+        "components": [
+          0.94902,
+          0.952941,
+          0.960784
+        ],
+        "hex": "#f2f3f5"
+      },
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0.94902,
+          0.952941,
+          0.960784
+        ]
+      },
+      "sourcePath": "primitive.color.palette-gray.025",
+      "tier": "primitive",
+      "type": "color"
+    },
+    {
+      "aliasTarget": null,
+      "cssProperties": {
         "--louis-color-palette-gray-050": "color(srgb 0.921569 0.92549 0.933333 / 1)",
         "--louis-color-palette-gray-050-rgb": "235 236 238"
       },
@@ -15365,6 +15397,27 @@
       "sourcePath": "semantic.global.layer.sticky",
       "tier": "semantic",
       "type": "number"
+    },
+    {
+      "aliasTarget": {
+        "id": "space-10",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-layout-alert-compact-inset": "10px"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "layout-alert-compact-inset",
+      "mode": "global",
+      "rawValue": "{primitive.spacing.10}",
+      "resolvedValue": {
+        "unit": "px",
+        "value": 10
+      },
+      "sourcePath": "semantic.global.layout.alert-compact-inset",
+      "tier": "semantic",
+      "type": "dimension"
     },
     {
       "aliasTarget": {
@@ -21488,6 +21541,59 @@
       "cssProperties": {},
       "deprecated": null,
       "description": null,
+      "id": "type-style-heading-md-semibold",
+      "mode": "base",
+      "rawValue": {
+        "fontFamily": [
+          "Pretendard Variable",
+          "Pretendard",
+          "Inter",
+          "Noto Sans KR",
+          "Noto Sans JP",
+          "system-ui",
+          "sans-serif"
+        ],
+        "fontSize": {
+          "unit": "px",
+          "value": 36
+        },
+        "fontWeight": 600,
+        "letterSpacing": {
+          "unit": "px",
+          "value": -0.72
+        },
+        "lineHeight": 1.35
+      },
+      "resolvedValue": {
+        "fontFamily": [
+          "Pretendard Variable",
+          "Pretendard",
+          "Inter",
+          "Noto Sans KR",
+          "Noto Sans JP",
+          "system-ui",
+          "sans-serif"
+        ],
+        "fontSize": {
+          "unit": "px",
+          "value": 36
+        },
+        "fontWeight": 600,
+        "letterSpacing": {
+          "unit": "px",
+          "value": -0.72
+        },
+        "lineHeight": 1.35
+      },
+      "sourcePath": "primitive.typography.heading-md-semibold",
+      "tier": "primitive",
+      "type": "typography"
+    },
+    {
+      "aliasTarget": null,
+      "cssProperties": {},
+      "deprecated": null,
+      "description": null,
       "id": "type-style-heading-sm-medium",
       "mode": "base",
       "rawValue": {
@@ -22193,6 +22299,48 @@
         "lineHeight": 1.35
       },
       "sourcePath": "semantic.global.typography.heading-md-medium",
+      "tier": "semantic",
+      "type": "typography"
+    },
+    {
+      "aliasTarget": {
+        "id": "type-style-heading-md-semibold",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-typography-heading-md-semibold-font-family": "\"Pretendard Variable\", \"Pretendard\", \"Inter\", \"Noto Sans KR\", \"Noto Sans JP\", system-ui, sans-serif",
+        "--louis-typography-heading-md-semibold-font-size": "36px",
+        "--louis-typography-heading-md-semibold-font-weight": "600",
+        "--louis-typography-heading-md-semibold-letter-spacing": "-0.72px",
+        "--louis-typography-heading-md-semibold-line-height": "1.35"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "typography-heading-md-semibold",
+      "mode": "global",
+      "rawValue": "{primitive.typography.heading-md-semibold}",
+      "resolvedValue": {
+        "fontFamily": [
+          "Pretendard Variable",
+          "Pretendard",
+          "Inter",
+          "Noto Sans KR",
+          "Noto Sans JP",
+          "system-ui",
+          "sans-serif"
+        ],
+        "fontSize": {
+          "unit": "px",
+          "value": 36
+        },
+        "fontWeight": 600,
+        "letterSpacing": {
+          "unit": "px",
+          "value": -0.72
+        },
+        "lineHeight": 1.35
+      },
+      "sourcePath": "semantic.global.typography.heading-md-semibold",
       "tier": "semantic",
       "type": "typography"
     },

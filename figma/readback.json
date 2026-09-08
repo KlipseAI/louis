@@ -564,6 +564,23 @@
           ]
         ],
         [
+          "color/palette-gray/025",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL,STROKE_COLOR,TEXT_FILL",
+          [
+            [
+              "Base",
+              null,
+              [
+                0.94902,
+                0.952941,
+                0.960784,
+                1
+              ]
+            ]
+          ]
+        ],
+        [
           "color/palette-gray/050",
           "COLOR",
           "FRAME_FILL,SHAPE_FILL,STROKE_COLOR,TEXT_FILL",
@@ -5128,7 +5145,7 @@
             ],
             [
               "Light",
-              "Klipse Primitive::color/palette-gray/100",
+              "Klipse Primitive::color/palette-gray/050",
               null
             ]
           ]
@@ -5174,7 +5191,7 @@
           [
             [
               "Light",
-              "Klipse Primitive::color/palette-gray/150",
+              "Klipse Primitive::color/palette-gray/025",
               null
             ],
             [

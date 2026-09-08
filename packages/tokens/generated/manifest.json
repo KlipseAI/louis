@@ -2,23 +2,23 @@
   "artifacts": [
     {
       "path": "packages/tokens/generated/figma.tokens.json",
-      "sha256": "bff4910a755f6deca743e93de1f26e9a8987d7f4d23b783ce45214c2cc4ffdee"
+      "sha256": "809ccad2641af0eef560d3dc62a8f52103a8a1ff6b7679c5044a1fd04652e7e6"
     },
     {
       "path": "packages/tokens/generated/index.d.ts",
-      "sha256": "c58bf975b9e3dcffc98e6a8d929f14dbb6b3907a59cd0b2e16a195a51edbf7ea"
+      "sha256": "fbbd92705d09f42bf38dbeb705be48fa7e8de257f2927d003d41c7bb58ae540b"
     },
     {
       "path": "packages/tokens/generated/index.js",
-      "sha256": "fce48adc1e149f633d1c2b199f2b188369a956f994dad262cc1fdc65662b5260"
+      "sha256": "d42716b7496d389fc4a4794525e11b2e34ca4ab9647e37a3bacfe9dcdb0b41df"
     },
     {
       "path": "packages/tokens/generated/tokens.css",
-      "sha256": "7ca6a961dd44695959210d3c79500b3c0c55ec156f86d688c3c6ccb235745d7e"
+      "sha256": "7bd937f8e3c99bd05ac559b30cfe8e93ec3654f8786c76478ce79e96395d57f2"
     },
     {
       "path": "packages/tokens/generated/tokens.json",
-      "sha256": "183c6a016b36949f0720c974f1e00be6c80ed46c15e0bbaeb09ec66029ae9805"
+      "sha256": "9db13241c6e3dae745aed726caecfe0f88667c70ca9b858409e9b58b0083cf01"
     }
   ],
   "contrastPairs": [
@@ -419,13 +419,13 @@
   },
   "source": {
     "path": "packages/tokens/src/klipse.tokens.json",
-    "sha256": "1faf16f666eca09e4b4c30887f16020dfc080c0ed4c527e50d45737d410dce43"
+    "sha256": "95bcb62e212ba2369ace2e4e34b334f2a61f4dd67425f65089540718860ae6b1"
   },
   "themes": [
     "light",
     "dark"
   ],
-  "tokenCount": 776,
+  "tokenCount": 777,
   "tokens": [
     {
       "aliasTarget": {
@@ -2877,24 +2877,24 @@
     },
     {
       "aliasTarget": {
-        "id": "color-palette-gray-100",
+        "id": "color-palette-gray-050",
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-bg-canvas": "color(srgb 0.866667 0.870588 0.882353 / 1)"
+        "--louis-color-bg-canvas": "color(srgb 0.921569 0.92549 0.933333 / 1)"
       },
       "deprecated": null,
       "description": null,
       "id": "color-bg-canvas",
       "mode": "light",
-      "rawValue": "{primitive.color.palette-gray.100}",
+      "rawValue": "{primitive.color.palette-gray.050}",
       "resolvedValue": {
         "alpha": 1,
         "colorSpace": "srgb",
         "components": [
-          0.866667,
-          0.870588,
-          0.882353
+          0.921569,
+          0.92549,
+          0.933333
         ]
       },
       "sourcePath": "semantic.light.color.bg-canvas",
@@ -3033,24 +3033,24 @@
     },
     {
       "aliasTarget": {
-        "id": "color-palette-gray-150",
+        "id": "color-palette-gray-025",
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-bg-inset": "color(srgb 0.811765 0.815686 0.831373 / 1)"
+        "--louis-color-bg-inset": "color(srgb 0.94902 0.952941 0.960784 / 1)"
       },
       "deprecated": null,
       "description": null,
       "id": "color-bg-inset",
       "mode": "light",
-      "rawValue": "{primitive.color.palette-gray.150}",
+      "rawValue": "{primitive.color.palette-gray.025}",
       "resolvedValue": {
         "alpha": 1,
         "colorSpace": "srgb",
         "components": [
-          0.811765,
-          0.815686,
-          0.831373
+          0.94902,
+          0.952941,
+          0.960784
         ]
       },
       "sourcePath": "semantic.light.color.bg-inset",
@@ -10290,6 +10290,38 @@
         ]
       },
       "sourcePath": "primitive.color.palette-gray.000",
+      "tier": "primitive",
+      "type": "color"
+    },
+    {
+      "aliasTarget": null,
+      "cssProperties": {
+        "--louis-color-palette-gray-025": "color(srgb 0.94902 0.952941 0.960784 / 1)",
+        "--louis-color-palette-gray-025-rgb": "242 243 245"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-palette-gray-025",
+      "mode": "base",
+      "rawValue": {
+        "colorSpace": "srgb",
+        "components": [
+          0.94902,
+          0.952941,
+          0.960784
+        ],
+        "hex": "#f2f3f5"
+      },
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0.94902,
+          0.952941,
+          0.960784
+        ]
+      },
+      "sourcePath": "primitive.color.palette-gray.025",
       "tier": "primitive",
       "type": "color"
     },

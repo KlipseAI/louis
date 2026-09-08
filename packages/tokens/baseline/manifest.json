@@ -2,23 +2,23 @@
   "artifacts": [
     {
       "path": "packages/tokens/generated/figma.tokens.json",
-      "sha256": "301a157919bed2a65ebadd41a23b7d213da60a12efb27025d72b49e33908b42c"
+      "sha256": "8e884920b3807676298c4ebb91b13bc3e7ba9ca350268556d53443adcd0974ee"
     },
     {
       "path": "packages/tokens/generated/index.d.ts",
-      "sha256": "0042cb2b4aa6fa4a991300310a8ce82e024c30331fcc1b84bffd5b6cfd904b3c"
+      "sha256": "96e733186c114081f69640bfeb7139a629d25588797ac06dbb24d19cea577d48"
     },
     {
       "path": "packages/tokens/generated/index.js",
-      "sha256": "dd0ce053be2840f26227226ffaf332963a44ddfcdf1783f5620e3e0a29d469f0"
+      "sha256": "db13cd54a2d5c0491455dedb3a66a3e651816f6517c878ecb2331143599d2c06"
     },
     {
       "path": "packages/tokens/generated/tokens.css",
-      "sha256": "8f1be19528748efd3c5d3e1f6ee108d44a5b912299772381102e0b2af8bc7c21"
+      "sha256": "6e48c57aeb47ee491cad623969d12661580d08976048ade701bbd87589eb6079"
     },
     {
       "path": "packages/tokens/generated/tokens.json",
-      "sha256": "6a328ca7979ac9c2509ac9a9a6eb45c31083a654342068e1f8c1ca7685ae0e89"
+      "sha256": "572da1465dc849b1bf95bea9903195fcc46ddd1d5393d75e9e447ec1517bb184"
     }
   ],
   "contrastPairs": [
@@ -419,7 +419,7 @@
   },
   "source": {
     "path": "packages/tokens/src/klipse.tokens.json",
-    "sha256": "84ec3f6501efa4e90ca529129de1116bb101a148ae3c2dbe8d08543f3149520c"
+    "sha256": "8e7779ae8f81f25e61aa97c7ae17cd5a65ed63d1dfb98d2809aca6fec267bff9"
   },
   "themes": [
     "light",
@@ -3293,24 +3293,24 @@
     },
     {
       "aliasTarget": {
-        "id": "color-palette-gray-000",
+        "id": "color-static-white",
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-bg-raised": "color(srgb 0.980392 0.980392 0.980392 / 1)"
+        "--louis-color-bg-raised": "color(srgb 1 1 1 / 1)"
       },
       "deprecated": null,
       "description": null,
       "id": "color-bg-raised",
       "mode": "light",
-      "rawValue": "{primitive.color.palette-gray.000}",
+      "rawValue": "{primitive.color.static.white}",
       "resolvedValue": {
         "alpha": 1,
         "colorSpace": "srgb",
         "components": [
-          0.980392,
-          0.980392,
-          0.980392
+          1,
+          1,
+          1
         ]
       },
       "sourcePath": "semantic.light.color.bg-raised",

@@ -1127,7 +1127,7 @@ export declare const tokens: Readonly<{
   readonly "color-bg-inverse-translucent": TokenRecord<"color-bg-inverse-translucent", "light", "semantic", { readonly id: "color-static-black-alpha-72"; readonly mode: "base" }>;
   readonly "color-bg-menu": TokenRecord<"color-bg-menu", "light", "semantic", { readonly id: "color-palette-gray-050"; readonly mode: "base" }>;
   readonly "color-bg-overlay": TokenRecord<"color-bg-overlay", "light", "semantic", { readonly id: "color-palette-gray-000"; readonly mode: "base" }>;
-  readonly "color-bg-raised": TokenRecord<"color-bg-raised", "light", "semantic", { readonly id: "color-palette-gray-000"; readonly mode: "base" }>;
+  readonly "color-bg-raised": TokenRecord<"color-bg-raised", "light", "semantic", { readonly id: "color-static-white"; readonly mode: "base" }>;
   readonly "color-bg-success": TokenRecord<"color-bg-success", "light", "semantic", { readonly id: "color-green-100"; readonly mode: "base" }>;
   readonly "color-bg-surface": TokenRecord<"color-bg-surface", "light", "semantic", { readonly id: "color-palette-gray-000"; readonly mode: "base" }>;
   readonly "color-bg-surface-translucent": TokenRecord<"color-bg-surface-translucent", "light", "semantic", { readonly id: "color-static-white-alpha-72"; readonly mode: "base" }>;

@@ -18112,18 +18112,18 @@
               "sourcePath": "semantic.dark.color.bg-raised"
             },
             "Light": {
-              "$value": "{primitive.color.palette-gray.000}",
+              "$value": "{primitive.color.static.white}",
               "aliasTarget": {
-                "id": "color-palette-gray-000",
+                "id": "color-static-white",
                 "mode": "base"
               },
               "resolvedValue": {
                 "alpha": 1,
                 "colorSpace": "srgb",
                 "components": [
-                  0.980392,
-                  0.980392,
-                  0.980392
+                  1,
+                  1,
+                  1
                 ]
               },
               "sourcePath": "semantic.light.color.bg-raised"

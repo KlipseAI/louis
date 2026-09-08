@@ -6943,7 +6943,7 @@
           }
         },
         "bg-raised": {
-          "$value": "{primitive.color.palette-gray.000}",
+          "$value": "{primitive.color.static.white}",
           "$extensions": {
             "com.klipse-design": {
               "id": "color-bg-raised",

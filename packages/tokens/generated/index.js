@@ -13690,26 +13690,26 @@ export const tokens = {
     },
     "color-bg-raised": {
       "aliasTarget": {
-        "id": "color-palette-gray-000",
+        "id": "color-static-white",
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-bg-raised": "color(srgb 0.980392 0.980392 0.980392 / 1)"
+        "--louis-color-bg-raised": "color(srgb 1 1 1 / 1)"
       },
       "deprecated": null,
       "description": null,
       "id": "color-bg-raised",
       "mode": "light",
-      "rawValue": "{primitive.color.palette-gray.000}",
+      "rawValue": "{primitive.color.static.white}",
       "sourcePath": "semantic.light.color.bg-raised",
       "tier": "semantic",
       "type": "color",
       "value": {
         "colorSpace": "srgb",
         "components": [
-          0.980392,
-          0.980392,
-          0.980392
+          1,
+          1,
+          1
         ],
         "alpha": 1
       }

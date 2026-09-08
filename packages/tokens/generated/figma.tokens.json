@@ -17687,35 +17687,35 @@
           ],
           "valuesByMode": {
             "Dark": {
-              "$value": "{primitive.color.palette-gray.900}",
+              "$value": "{primitive.color.palette-gray.850}",
               "aliasTarget": {
-                "id": "color-palette-gray-900",
+                "id": "color-palette-gray-850",
                 "mode": "base"
               },
               "resolvedValue": {
                 "alpha": 1,
                 "colorSpace": "srgb",
                 "components": [
-                  0.090196,
-                  0.105882,
-                  0.133333
+                  0.133333,
+                  0.145098,
+                  0.176471
                 ]
               },
               "sourcePath": "semantic.dark.color.bg-canvas"
             },
             "Light": {
-              "$value": "{primitive.color.palette-gray.050}",
+              "$value": "{primitive.color.palette-gray.025}",
               "aliasTarget": {
-                "id": "color-palette-gray-050",
+                "id": "color-palette-gray-025",
                 "mode": "base"
               },
               "resolvedValue": {
                 "alpha": 1,
                 "colorSpace": "srgb",
                 "components": [
-                  0.921569,
-                  0.92549,
-                  0.933333
+                  0.94902,
+                  0.952941,
+                  0.960784
                 ]
               },
               "sourcePath": "semantic.light.color.bg-canvas"

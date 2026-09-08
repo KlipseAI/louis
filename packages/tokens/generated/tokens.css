@@ -290,7 +290,7 @@
   --louis-color-app-tooltip-kbd-bg: color(srgb 0.090196 0.105882 0.133333 / 0.08);
   --louis-color-app-tooltip-text: color(srgb 0.980392 0.980392 0.980392 / 1);
   --louis-color-app-tooltip-text-subtle: color(srgb 0.980392 0.980392 0.980392 / 0.72);
-  --louis-color-bg-canvas: color(srgb 0.921569 0.92549 0.933333 / 1);
+  --louis-color-bg-canvas: color(srgb 0.94902 0.952941 0.960784 / 1);
   --louis-color-bg-danger: color(srgb 1 0.898039 0.909804 / 1);
   --louis-color-bg-info: color(srgb 0.941176 0.968627 1 / 1);
   --louis-color-bg-inset: color(srgb 0.94902 0.952941 0.960784 / 1);
@@ -739,7 +739,7 @@
   --louis-color-app-tooltip-kbd-bg: color(srgb 0.090196 0.105882 0.133333 / 0.08);
   --louis-color-app-tooltip-text: color(srgb 0.090196 0.105882 0.133333 / 1);
   --louis-color-app-tooltip-text-subtle: color(srgb 0.090196 0.105882 0.133333 / 0.4);
-  --louis-color-bg-canvas: color(srgb 0.090196 0.105882 0.133333 / 1);
+  --louis-color-bg-canvas: color(srgb 0.133333 0.145098 0.176471 / 1);
   --louis-color-bg-danger: color(srgb 0.329412 0.066667 0.098039 / 1);
   --louis-color-bg-info: color(srgb 0 0.203922 0.380392 / 1);
   --louis-color-bg-inset: color(srgb 0.133333 0.145098 0.176471 / 1);

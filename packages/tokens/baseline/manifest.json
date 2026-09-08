@@ -2,23 +2,23 @@
   "artifacts": [
     {
       "path": "packages/tokens/generated/figma.tokens.json",
-      "sha256": "c84a21f552685a0dc79bea78396d3483d3eba711cafd02b36dbc9c2934ec7a73"
+      "sha256": "301a157919bed2a65ebadd41a23b7d213da60a12efb27025d72b49e33908b42c"
     },
     {
       "path": "packages/tokens/generated/index.d.ts",
-      "sha256": "2ace1d3bf5dc5253e6cdf8a9de50cca506be7b6ab769774ad5cd9180292933e8"
+      "sha256": "0042cb2b4aa6fa4a991300310a8ce82e024c30331fcc1b84bffd5b6cfd904b3c"
     },
     {
       "path": "packages/tokens/generated/index.js",
-      "sha256": "31a01c17b29dfc6797d2e57e8023d6cef6939e397243baa62434c6e94075c911"
+      "sha256": "dd0ce053be2840f26227226ffaf332963a44ddfcdf1783f5620e3e0a29d469f0"
     },
     {
       "path": "packages/tokens/generated/tokens.css",
-      "sha256": "080452fb8f75ea1b5fc40466d83e69c4e720c0e00b2d4f215f7dcc6f8813333e"
+      "sha256": "8f1be19528748efd3c5d3e1f6ee108d44a5b912299772381102e0b2af8bc7c21"
     },
     {
       "path": "packages/tokens/generated/tokens.json",
-      "sha256": "0a15861060c1f225296fc7167ada86a6e30b5aa37edfe2e95ba6d9558839ead2"
+      "sha256": "6a328ca7979ac9c2509ac9a9a6eb45c31083a654342068e1f8c1ca7685ae0e89"
     }
   ],
   "contrastPairs": [
@@ -419,7 +419,7 @@
   },
   "source": {
     "path": "packages/tokens/src/klipse.tokens.json",
-    "sha256": "8109d768b087d1138b1f7d634ca908c8863f0bec38a510370df11ea02d74f470"
+    "sha256": "84ec3f6501efa4e90ca529129de1116bb101a148ae3c2dbe8d08543f3149520c"
   },
   "themes": [
     "light",
@@ -2877,24 +2877,24 @@
     },
     {
       "aliasTarget": {
-        "id": "color-palette-gray-050",
+        "id": "color-palette-gray-025",
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-bg-canvas": "color(srgb 0.921569 0.92549 0.933333 / 1)"
+        "--louis-color-bg-canvas": "color(srgb 0.94902 0.952941 0.960784 / 1)"
       },
       "deprecated": null,
       "description": null,
       "id": "color-bg-canvas",
       "mode": "light",
-      "rawValue": "{primitive.color.palette-gray.050}",
+      "rawValue": "{primitive.color.palette-gray.025}",
       "resolvedValue": {
         "alpha": 1,
         "colorSpace": "srgb",
         "components": [
-          0.921569,
-          0.92549,
-          0.933333
+          0.94902,
+          0.952941,
+          0.960784
         ]
       },
       "sourcePath": "semantic.light.color.bg-canvas",
@@ -2903,24 +2903,24 @@
     },
     {
       "aliasTarget": {
-        "id": "color-palette-gray-900",
+        "id": "color-palette-gray-850",
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-bg-canvas": "color(srgb 0.090196 0.105882 0.133333 / 1)"
+        "--louis-color-bg-canvas": "color(srgb 0.133333 0.145098 0.176471 / 1)"
       },
       "deprecated": null,
       "description": null,
       "id": "color-bg-canvas",
       "mode": "dark",
-      "rawValue": "{primitive.color.palette-gray.900}",
+      "rawValue": "{primitive.color.palette-gray.850}",
       "resolvedValue": {
         "alpha": 1,
         "colorSpace": "srgb",
         "components": [
-          0.090196,
-          0.105882,
-          0.133333
+          0.133333,
+          0.145098,
+          0.176471
         ]
       },
       "sourcePath": "semantic.dark.color.bg-canvas",

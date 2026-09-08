@@ -13482,26 +13482,26 @@ export const tokens = {
     },
     "color-bg-canvas": {
       "aliasTarget": {
-        "id": "color-palette-gray-050",
+        "id": "color-palette-gray-025",
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-bg-canvas": "color(srgb 0.921569 0.92549 0.933333 / 1)"
+        "--louis-color-bg-canvas": "color(srgb 0.94902 0.952941 0.960784 / 1)"
       },
       "deprecated": null,
       "description": null,
       "id": "color-bg-canvas",
       "mode": "light",
-      "rawValue": "{primitive.color.palette-gray.050}",
+      "rawValue": "{primitive.color.palette-gray.025}",
       "sourcePath": "semantic.light.color.bg-canvas",
       "tier": "semantic",
       "type": "color",
       "value": {
         "colorSpace": "srgb",
         "components": [
-          0.921569,
-          0.92549,
-          0.933333
+          0.94902,
+          0.952941,
+          0.960784
         ],
         "alpha": 1
       }
@@ -18409,26 +18409,26 @@ export const tokens = {
     },
     "color-bg-canvas": {
       "aliasTarget": {
-        "id": "color-palette-gray-900",
+        "id": "color-palette-gray-850",
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-bg-canvas": "color(srgb 0.090196 0.105882 0.133333 / 1)"
+        "--louis-color-bg-canvas": "color(srgb 0.133333 0.145098 0.176471 / 1)"
       },
       "deprecated": null,
       "description": null,
       "id": "color-bg-canvas",
       "mode": "dark",
-      "rawValue": "{primitive.color.palette-gray.900}",
+      "rawValue": "{primitive.color.palette-gray.850}",
       "sourcePath": "semantic.dark.color.bg-canvas",
       "tier": "semantic",
       "type": "color",
       "value": {
         "colorSpace": "srgb",
         "components": [
-          0.090196,
-          0.105882,
-          0.133333
+          0.133333,
+          0.145098,
+          0.176471
         ],
         "alpha": 1
       }

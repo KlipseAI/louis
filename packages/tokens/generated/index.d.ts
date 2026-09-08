@@ -1119,7 +1119,7 @@ export declare const tokens: Readonly<{
   readonly "color-app-tooltip-kbd-bg": TokenRecord<"color-app-tooltip-kbd-bg", "light", "semantic", { readonly id: "color-static-black-alpha-08"; readonly mode: "base" }>;
   readonly "color-app-tooltip-text": TokenRecord<"color-app-tooltip-text", "light", "semantic", { readonly id: "color-palette-gray-000"; readonly mode: "base" }>;
   readonly "color-app-tooltip-text-subtle": TokenRecord<"color-app-tooltip-text-subtle", "light", "semantic", { readonly id: "color-static-white-alpha-72"; readonly mode: "base" }>;
-  readonly "color-bg-canvas": TokenRecord<"color-bg-canvas", "light", "semantic", { readonly id: "color-palette-gray-050"; readonly mode: "base" }>;
+  readonly "color-bg-canvas": TokenRecord<"color-bg-canvas", "light", "semantic", { readonly id: "color-palette-gray-025"; readonly mode: "base" }>;
   readonly "color-bg-danger": TokenRecord<"color-bg-danger", "light", "semantic", { readonly id: "color-red-100"; readonly mode: "base" }>;
   readonly "color-bg-info": TokenRecord<"color-bg-info", "light", "semantic", { readonly id: "color-blue-050"; readonly mode: "base" }>;
   readonly "color-bg-inset": TokenRecord<"color-bg-inset", "light", "semantic", { readonly id: "color-palette-gray-025"; readonly mode: "base" }>;
@@ -1307,7 +1307,7 @@ export declare const tokens: Readonly<{
   readonly "color-app-tooltip-kbd-bg": TokenRecord<"color-app-tooltip-kbd-bg", "dark", "semantic", { readonly id: "color-static-black-alpha-08"; readonly mode: "base" }>;
   readonly "color-app-tooltip-text": TokenRecord<"color-app-tooltip-text", "dark", "semantic", { readonly id: "color-palette-gray-900"; readonly mode: "base" }>;
   readonly "color-app-tooltip-text-subtle": TokenRecord<"color-app-tooltip-text-subtle", "dark", "semantic", { readonly id: "color-static-black-alpha-40"; readonly mode: "base" }>;
-  readonly "color-bg-canvas": TokenRecord<"color-bg-canvas", "dark", "semantic", { readonly id: "color-palette-gray-900"; readonly mode: "base" }>;
+  readonly "color-bg-canvas": TokenRecord<"color-bg-canvas", "dark", "semantic", { readonly id: "color-palette-gray-850"; readonly mode: "base" }>;
   readonly "color-bg-danger": TokenRecord<"color-bg-danger", "dark", "semantic", { readonly id: "color-red-900"; readonly mode: "base" }>;
   readonly "color-bg-info": TokenRecord<"color-bg-info", "dark", "semantic", { readonly id: "color-blue-900"; readonly mode: "base" }>;
   readonly "color-bg-inset": TokenRecord<"color-bg-inset", "dark", "semantic", { readonly id: "color-palette-gray-850"; readonly mode: "base" }>;
